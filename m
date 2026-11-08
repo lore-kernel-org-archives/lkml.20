@@ -1,115 +1,115 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794147783;
-	b=guJfPNK5lM1DilG+W2YRrFnfjWulJdQUhFBnmHc27mVZcr1TsU/zEr9U6Uc1L3RqR1hb
-	 xIeqCCPmuLi1hajGfFDijduQEpsjS0Vynoz2SqT+XTdS23gw1wNIIH4V8bN+FWWBX9+4k
-	 j4uZKdkobfxKnL5OZsv1ZHSonn0ftkivWSsy0L4VWGYBmYRvwC5XJkqe9uGzqUTknilpE
-	 TQm+c2yG1PZxE4Wl6nVnPivABy3XCpLvpAFyEpXDylHtNeQuSkeacNi2WqnQYYgyPrDx2
-	 i8N0QSmTuRLG4/JlvicGplEe00JJCw5hQfseHfM6Tood5G7/odYCdJIQPPEOe6fA2WQ==
+	t=1794147786;
+	b=Wi905kNTSheh5QmNuhvxOFgoBocH4/HyFnCIPsN3Emqt3fBzml1FANyGUVB79dByHmAx
+	 U0EupwJf/YtAlym2XKPB8rOSIw6/XcmaTLxXDl3oqjFDEQdSNgqSWoEuZmbORLtrg2vJ8
+	 cbwGOSKyLbwy9XxTMaV9PpbLnTfW9/lcTZ+JXkNAVMNbg64sRNFHX1ntxQhPS6fogowZb
+	 iM6EgNW0jjWwML7LT7rhkYYU4uOVYg1lsjZkIoCqgOFuydAUQZRX04ih1ijkyY/gjvL3R
+	 u6whdrr/N81avogd+eOhO6mw0JBTTRPB8PYssu0WVWOrRm0owDjEsPSRyMF7iWUq3hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794147783;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794147786;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=aI72RnemPfgqAGvAnqPYoxeIqdUZbHxOjDefy4jubv0=;
-	b=CuNr+mqXyyZf6OVdVEx9onkAS8FokSPCfRD7xqyO8zaThBaWiRfSIMcE1I5e9/NmQi7M
-	 +KKWOZSSK4WPhTRW/epCvdMi4resM7QLUt6NQIRNbJBpycIXJwhNPijTKSk9B24bbD7Fj
-	 Vzk8HnvTuraI0kVTdx2ep3d70nFZ+pPkAFmHF3CntOPYPDj+7YiIFvnyrt7vVbNuN9rT5
-	 Xf6+JS19rHyKaLpQv+nAjVZKMcavIvmkfrJiUDZwCqROtYpWlM+Y32whjc4/lQUIjJeJp
-	 FdJtO6DjY6Yt0kJh6Ni+yj+UQlEnjaaQ45cz1YYAEQZs5lD5uUn424xEbbFUMw4RGjw==
+	bh=sy3GGXbiim14+3emT4jupITc5ljZwoqUwy2yBUcnLsE=;
+	b=eYbrZzklyr+14DeaeOe9DPdfQDxQ10gJYOwdJm//+kU/JaDsSgAbG7eCPpyGEiFLBMJL
+	 C/y07y6C0Ma+FXVTs+3wiHgsDz+ZYoiBcuqXZBz+qfUV2YywC50PLMp3Vrgbp5uqq7+bo
+	 VX96T1qzjCxtaM10Az2vrR6+WqpHjH7p6OaFHCcogj5rj1qnZsaYr8SdIpABsNFGvZgCy
+	 b3+DApamQDIi2y9yovRRP2j+r2QaEMySbWIcSqRNMbyO1sIKH3nB3TDkbP6kNqnAiKRae
+	 oMPfsxFFX9QpuLVFX89QAoBnzFldNdT2Kbz95qgSgOfpoXxXb+uRCtJ1MQTP1uCQDBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=jannau.net;
 	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=JZ1scAon;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=TVnBRbOf;
+	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=P7wBufqO;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=D8ON+GoZ;
 	arc=none smtp.remote-ip=103.168.172.153
 Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E2F606EE8A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:23:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35E2F606EE8A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2815C606EEAB
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:23:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2815C606EEAB
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=JZ1scAon;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=TVnBRbOf
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id A0F301400094
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:23:02 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-12.internal (MEProxy); Sun, 08 Nov 2026 09:23:02 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=P7wBufqO;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=D8ON+GoZ
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 90D251400134
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:23:04 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Sun, 08 Nov 2026 09:23:04 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1794147782;
-	 x=1794234182; bh=aI72RnemPfgqAGvAnqPYoxeIqdUZbHxOjDefy4jubv0=; b=
-	JZ1scAonkokh3SB6QqYoJbNE/YYlg0gyOPD9kh2Ka2IX6HL3V3XL6zgOm+Iwff4t
-	oVcUv+eOgGyGQmZu2FnWE501Wp7XBh6R9RFelb3/8dQMUFwe1kPOSyTPdDrdJUHX
-	dlbbOM0BCiZ9CEOw4xyLpwLcA+V4V0CTlxnflhTlB8mMZHCfGY2MMiZo3rsJVbJv
-	+cAUwGdT13aGkEER9Gn4oRToxmok89vptHacqEptM0a5zhl9pWTVEdrfMM9hXCDt
-	8oBL5zjeVLeDrxYR6bn5uif99B9qJPYnZusWHfY+a17AgfuSc6acmPP+aXaxLeyX
-	MQxpCR0ruXEWjW0pI8+E0g==
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1794147784;
+	 x=1794234184; bh=sy3GGXbiim14+3emT4jupITc5ljZwoqUwy2yBUcnLsE=; b=
+	P7wBufqOpBUk6Ke08YvlIrIlH5udt6hHqIDgASBRkcZKQ/mdy+h9r1be4LlJUiyj
+	OHHQdqOzJWSWn6TTCLPO/7jfZO0LWnWMeiAlfoi5YdTYItjc9jwEpEdlQAM5FxeS
+	MBYly9iPmwJxX4mAiXSnVx4upqQW/Dd3edeNP6YJU3oHFvRBmx3F2WOgsEaenAn/
+	u3AH4YpYoPBoH275ifwTxzwBNWQuXred2b03K+cLDg4Cc0ccImpPxdxlPui5DwrY
+	KYaZk6d2EwXGQGLMiPlzZcmyGhnIfq0/c+udiagsZe/g7ghHk5YcFRtItPYB150l
+	fxDKIORkegpOaznysOctUA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794147782; x=
-	1794234182; bh=aI72RnemPfgqAGvAnqPYoxeIqdUZbHxOjDefy4jubv0=; b=T
-	VnBRbOfmfY5x6jwJ0tB/DGpPpcU/IiHHFNbgfk0+GSqirvZ2k4BYFcgzJ0Lua/K5
-	n2xAJ3zqVKKB8Y58yOadDaNZAnwFW7r7lhTuvx4yq0HH3HZI/VFWplY6t5R2VprA
-	byeBm0+ScjcfFLvXWpewWAaDVaEWZnpSrx1tuEQIrmhSOR7Lrqw1iRx8yH7IMPWS
-	1JIN/HX5J/8wjDb0xS9m0uM5f/KXppg1eUpETWb6ojkQnndRfQIXL5Wr4V4Iz3MY
-	7x2pzBCgZY9opV0/cLPjTBDMRXkQEKeqhj1SBUeLm/qtDIHOheOkLizThC8FB68H
-	MvaNInyX3gxApmx9sFkTg==
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794147784; x=
+	1794234184; bh=sy3GGXbiim14+3emT4jupITc5ljZwoqUwy2yBUcnLsE=; b=D
+	8ON+GoZi+Je8djjLbi2eVHPbiXV6DhfOOn3KexTn2Y2W0rkgp247Z2K7AacmIr2a
+	7JTng6BidpURIeJw5UktOGOZBsYj5L31TJMyFtjLNLgwNZQp5wXzOo0s49dbxeH2
+	rig5BxCO1VUXx53Ez0selqFx2bYtS5ZXWvxIcs0TDc/zPZcE5Fl5ZRJE2ZNKXKTw
+	RPNtHoYK3CRw1wgdAPw6+ly3lwQ2XJM62KiClSMv4PTBlyukiPka3XxHmUbyXJC5
+	w5V8LwqeBzL68T0/7rTuER+S0uQKWvV7bJs+gSVuGLFSnb5Fmq208qYq5+RfcsTU
+	CE3ghBcZ30FYqyUFAudyw==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794147782; d=jannau.net;
+DKIM2-Signature: i=1; m=1; t=1794147784; d=jannau.net;
 	mf=PGpAamFubmF1Lm5ldD4=;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:AOqYvWee8CvcxTF6R0D+T8GMAYAqXQM53T622EMo+szLP+b
-	2/ovUBg+JC8RSqdzbFJ2HHM6xd033/BhokNtOe75l1lUjvbcuFSRvE5j4xeGeW7q
-	0fCNvDILFsyOtOe6Uqg3xnA5GTbmxHTTqeJzP096/DRWe5glMkwrySESeP7Kq1aB
-	48ld2ZFUhKNIsy88VCg6aSK8oOwFHeD8N56LXf5nzAyNGeYm3hykA87UlaxpHqKz
-	DxpQ7pnc69G4Re5HyENiuKQgzu9zaBCSJNUYKyzSa2U/3v+hPlWPK1scQOV2WIOf
-	j8NV/BT8+Tf0zerwbixZQlG0pGx6pjx3OM0C5Rw==;
+	s=fm1:rsa-sha256:Iz6cHz2JA3ecppZHYDXlKJ98kkgCqODX+NbfW//lgO4Fmf4
+	J/WeO/lfy55SnZAxgU61hX8DyTk1kZE5yC/P7RPZvIFZT2A4mfYfTEkLY9nld+GN
+	k+amtbU0HnsEc6WCQUahO8pWMxxna769Untesr4aejx6PGNHMqHxXh4OG3cg9dLk
+	1RiNkdswJRPrQK0D8W755gLE/09WpopuuRWVO26l4EMjO5odsAXGs5tK19ihdPX8
+	fWJFETtbVHgmm+KUmMK7/CHh5WC815vgqa/BulJU3VfKj70cYuGWO8AHUMCyuUGv
+	cC2uwUSHYKr+wLEMUqKONc+EvwnAd56mG/VrdAA==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=mi-m=1; hc=12;
 	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
 	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:7VU4eQGgYYPPvcgfjzyscnmx8tobKf1dArdkuzn9Yw4=:A79coCvVOs+xrKvBa3dJDJwY4bxLrS2yHlD+ojtPLBU=;
-X-ME-Sender: <xms:xoXwal7rW2LNO6b4X9Jn8RKEDMtm1Y237RLO6YRfLi7YxltIepE60A>
-    <xme:xoXwaiLj9xlv4eCjcoFR0fPr2MQJlWuWbkWfK5bZw0-Su7u00LbQV3KMkYj7aKQ2H
-    ktS8lDRZKC1--XefFWPSeCDNAbr7ZS2askx5RdtZMa5ICR9UAED4KCp>
-X-ME-Received: <xmr:xoXwavQ1U758X6kHP7rhEEkLP8PnO9iSEPEABm1MHvBoXJqPoGYgHBl9Rb7W_fbS34oIaJgYqow80jDrjWhZzDjKkePHCutcBMo>
-X-ME-Proxy-Cause: dmFkZTGr97Ugm4Lw1uWXHAbm6vRQHHSmAZqg2KlP2XDjPoWUO2WE9ZVqibkqMDFgtrtYNT
-    kOKLbnHGHpAeLNXsjow4Ek8AjW6sOl6K5SWu7rEUwrJH+TTVpXNtNnbLtAHULtMfHNJM9z
-    UQkgKEDeRjM8mqPhmdAZGHoglPfNAkXvvBaR5O6MNaA2F1VW8O5csGZOQLgHWVq0XXisTM
-    xRvjAdA+Y6CWc7X4i8dqhChIWSKlUSUab2PioslGdN07uWERgEvY2tSy1LGUtzlrS2r3nP
-    D2AdjHjPjw7Hipx/uwNmqZEdKCqoahm64FXcFjIxhqlQcFTlLJsrlw4OTpChRBR1+SPNpo
-    HtftMjYQbV2Ff9bRnbyRXipvtMInWDyW+eU2JlMKndiw+/HLkj8/7FFlDvXWFYrcKSkEwn
-    OEEhsgfTll8a8zqDD1/QgUeOAWZF1cPFoSG933VTEmjkUckVbF9xwiFtnBACQLsh6ixTY7
-    AROR2G/rOgli/ZtEoTb3LLWP/Z0btahoHfPxgSfV1qKpFb7zhIkCxBxwXv4xVKH9IVHb++
-    sRRtloQP6Bfwu4WJTmqqB9eVS8y7TGqSZMyuzlysj7yRujrb4006F63xQZQ8eTHsR3qLs0
-    NIR3UxVFB1awNTaIg3LfvcrwuQ1QOKlJW1pZ4AMA/RfaJfvFtyAtciqwj0mg
-X-ME-Proxy: <xmx:xoXwaloIqZ0XcKST9Btpxy0nOYtXxa0KlUaweGLPhuLC-nZpaqtTdw>
-    <xmx:xoXwatayvfC9TGH0e3052sHp14jxGRjGk7Dfs-S1XZ0VGtkY5lVU2Q>
-    <xmx:xoXwagS4vDxICkeJsxjGQGO8t7PUIbDwVkXQy3rB7FS7achP6F8kOw>
-    <xmx:xoXwarfYcY5pJQFBqjt5MOcpDIkFPpYqRbtCL0BD0cqImyWzcFv1zw>
-    <xmx:xoXwait-EyrY92Jt88K4SnrGe1be7ExpA7WMTnqM5iNWr75JKwxgHP1u>
+Message-Instance: m=1; h=sha256:6u3X/x9kbVPujw5Uk7rK/S3zUmt16smiZtaWQWH6PqQ=:r0rG/WrZOCC1QYcD/cUXrP1oUDkkSB0W4xjAYgXMERo=;
+X-ME-Sender: <xms:yIXwaubI3ZDWo9En0esClhJd9dqiiLyeozoqNnmF2vfsy9vLUjSv5w>
+    <xme:yIXwalXtqzSTQTHnA7Ar0VCLT3RNmcMrGXKbganSriVKZ-Ig4BdlfvrcC9itJPab1
+    DpOMHpoQmjDtbLqppWh1QUgQDbLLDgQrqQcqzwN0ReZEYIE9eu4pTc>
+X-ME-Received: <xmr:yIXwatghwWiThFUlP3zvWBQMPsVyFIJZpqt_f1UsYEAR4A138q0BekkvRGOaxR4lCbjd7H29VG3E_uynt0DtXhHLSt2NZ7j7Ge4>
+X-ME-Proxy-Cause: dmFkZTGo3CfmNkGVcoCqQm+2xF5BgQTQHLEob89QGgMg/fmpPsx9Ba22YEWDsCMCAsJVht
+    iPMwYglQfWngG0EQiTCIk1j//mHbmcbWVDR0k5U/uGGvuPWIdI5VF0QmVDi2K9omMvQXse
+    1SsImkgs2/+NnGnQwBHgKzDKk3rdaZCpy9lOm/CBgsoPRaB2SL90jN/DpplvLkjqri7DRF
+    34GZFZT6mx2KG6dtb3J1oKeeuxv77VarACJ5K9flwFuG4XW+zRuJ4up6S+R6m6RCgUFeXK
+    suuZS7ohMrlLQBXad0P686p3sxTyrb8JLChbCEM521ZgNKvK+lIcmDaAFt7tO6sNGMYcC3
+    RZLn9/XYtFZgJSS0cPJ8yXmfha/G7VDOQF6DaezHzwGKzHYhuyM+8kOQkA59AWxNETtVKe
+    EzbkCFzPYmMtyTz8XVn88G+NBbXiJyo96YxVbXtHLsmn2mCwpkvp5ZKuYpGql0Uiab8yUK
+    FwPwRRN2sszuhmkzumWh2BQGVSKfNezPvSOac6x1MAv40rF1/sCj2ogFdYMZk4o3wl3imn
+    dCkCqWDS5szo6gYA8WBJkMz2BZ1CkxwC/oYMjE12245xeVpUW0uu/cl78wHNqCC+GylPsn
+    dfRfY9Arfa9i0r4cQiFNBYdrWUE6oeOSJMB9GsojDrIdsMH2Q7ftPzwElqJA
+X-ME-Proxy: <xmx:yIXwaomCabdsDFw_dvndzQNxUREypcXZKNjlaxeCGnMOMBk_73AS-w>
+    <xmx:yIXwauwHYxxWTdF80Exqto7jAedSU1bFewXRFvGc-HyFN4daOllMlA>
+    <xmx:yIXwaru5x7Y1E5g7In6aujeNh4mHlO_wQm-0kNkPjHl0YZOcYY2_xA>
+    <xmx:yIXwartOAsslzalXbZZQkc8i6qoEA_SHL89AEPB8vB3Nopv03Yl5Hw>
+    <xmx:yIXwal0K1jHP1jEhSGDEl_mcjm_AJDRdpXu7i2skWeZRxUsox7BuevAf>
 Feedback-ID: i47b949f6:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 09:23:01 -0500 (EST)
+ 8 Nov 2026 09:23:03 -0500 (EST)
 From: Janne Grunau <j@jannau.net>
-Date: Sun, 08 Nov 2026 15:22:40 +0100
-Subject: [PATCH v2 6/7] arm64: dts: apple: t603x-j514-j516: Add PCIe device
+Date: Sun, 08 Nov 2026 15:22:41 +0100
+Subject: [PATCH v2 7/7] arm64: dts: apple: t6032-j575d: Add PCIe device
  nodes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -122,7 +122,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-apple-m3-pcie-v2-6-0e5ffec71da4@jannau.net>
+Message-Id: <20261108-apple-m3-pcie-v2-7-0e5ffec71da4@jannau.net>
 References: <20261108-apple-m3-pcie-v2-0-0e5ffec71da4@jannau.net>
 In-Reply-To: <20261108-apple-m3-pcie-v2-0-0e5ffec71da4@jannau.net>
 To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
@@ -136,26 +136,22 @@ To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>,
  Michael Reeves <michael.reeves077@gmail.com>
 Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
  linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>, 
- Yureka Lilian <yureka@cyberchaos.dev>
+ linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5268; i=j@jannau.net;
- h=from:subject:message-id; bh=zkIhhD2NmqoYf8eX5nIre2dd31NDDPBOJDfauDzHwj8=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqwPrdsS/imx7i/K19d87brEs9/a/OEvZ3Yl/en52g2sg
- arae493TGRhEONisBRTZEnSftnBsLpGMab2QRjMHFYmkCHSIg0MQMDCwJebmFdqpGOkZ6ptqGdo
- pGOsY8TAxSkAU51VxvCHj8dj6wTf8BfblH133zbeIfqr/af+99+9Hhr2M//nlOt3MvyvlV1TERY
- +79+iOTxTlwUuZQ6bNdWsMSJiR39NPsMu87uMAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2481; i=j@jannau.net;
+ h=from:subject:message-id; bh=r0rG/WrZOCC1QYcD/cUXrP1oUDkkSB0W4xjAYgXMERo=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqwPrdt6lOorT5Xvydos/KRg2sp5L29rFe2LyNr4fdpzM
+ fcvliX6HRNZGMS4GCzFFFmStF92MKyuUYypfRAGM4eVCWSItEgDAxCwMPDlJuaVGukY6ZlqG+oZ
+ GukY6xgxcHEKwFR/PcbIMOWWyBK9gLlbeJoOT7k/cbrWvmcHXFenf324vu+Iza6jOxwY/gqF7wm
+ QrpZW5JcUFb/HKnjg2FnhGULTviz/Iv2zMZYhhgcA
 X-Developer-Key: i=j@jannau.net; a=openpgp;
  fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-From: Yureka Lilian <yureka@cyberchaos.dev>
-
-Add WiFi, Bluetooth and SD-Card reader device nodes to all M3 Pro and
-Max Macbook Pros.
+Add WiFi, Bluetooth, SD-Card reader, ethernet NIC and USB xHCI device
+nodes for M3 Ultra Mac Studio.
 The bootloader will fill MAC addresses for the network devices, add
 Wifi and Bluetooth calibration data and set "apple,antenna-sku".
 
-Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 Signed-off-by: Janne Grunau <j@jannau.net>
 
 ---
@@ -163,127 +159,26 @@ Changes in v2:
 - fix copy'n'pated error in WiFi/Bluetooth PCI device compatibles,
   adjust to BCM4388 used on this devices
 ---
- arch/arm64/boot/dts/apple/t6030-j514s.dts      |  8 +++++
- arch/arm64/boot/dts/apple/t6030-j516s.dts      |  8 +++++
- arch/arm64/boot/dts/apple/t6031-j514c.dts      |  8 +++++
- arch/arm64/boot/dts/apple/t6031-j516c.dts      |  8 +++++
- arch/arm64/boot/dts/apple/t6034-j514m.dts      |  8 +++++
- arch/arm64/boot/dts/apple/t6034-j516m.dts      |  8 +++++
- arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi | 41 ++++++++++++++++++++++++++
- 7 files changed, 89 insertions(+)
+ arch/arm64/boot/dts/apple/t6032-j575d.dts | 72 +++++++++++++++++++++++++++++++
+ 1 file changed, 72 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/apple/t6030-j514s.dts b/arch/arm64/boot/dts/apple/t6030-j514s.dts
-index 3ba2c9ca4347..f7c1307e76bd 100644
---- a/arch/arm64/boot/dts/apple/t6030-j514s.dts
-+++ b/arch/arm64/boot/dts/apple/t6030-j514s.dts
-@@ -20,3 +20,11 @@ / {
- &framebuffer0 {
- 	power-domains = <&ps_disp_cpu>;
- };
-+
-+&wifi0 {
-+	brcm,board-type = "apple,texa";
-+};
-+
-+&bluetooth0 {
-+	brcm,board-type = "apple,texa";
-+};
-diff --git a/arch/arm64/boot/dts/apple/t6030-j516s.dts b/arch/arm64/boot/dts/apple/t6030-j516s.dts
-index ab07bf7939ab..9f9609575ed0 100644
---- a/arch/arm64/boot/dts/apple/t6030-j516s.dts
-+++ b/arch/arm64/boot/dts/apple/t6030-j516s.dts
-@@ -20,3 +20,11 @@ / {
- &framebuffer0 {
- 	power-domains = <&ps_disp_cpu>;
- };
-+
-+&wifi0 {
-+	brcm,board-type = "apple,jura";
-+};
-+
-+&bluetooth0 {
-+	brcm,board-type = "apple,jura";
-+};
-diff --git a/arch/arm64/boot/dts/apple/t6031-j514c.dts b/arch/arm64/boot/dts/apple/t6031-j514c.dts
-index c1507158325e..8cc2224ee0fd 100644
---- a/arch/arm64/boot/dts/apple/t6031-j514c.dts
-+++ b/arch/arm64/boot/dts/apple/t6031-j514c.dts
-@@ -16,3 +16,11 @@ / {
- 	compatible = "apple,j514c", "apple,t6031", "apple,arm-platform";
- 	model = "Apple MacBook Pro (14-inch, M3 Max, 16 CPU cores, Nov 2023)";
- };
-+
-+&wifi0 {
-+	brcm,board-type = "apple,texa";
-+};
-+
-+&bluetooth0 {
-+	brcm,board-type = "apple,texa";
-+};
-diff --git a/arch/arm64/boot/dts/apple/t6031-j516c.dts b/arch/arm64/boot/dts/apple/t6031-j516c.dts
-index 841b2bb10b06..5dfe886d47a9 100644
---- a/arch/arm64/boot/dts/apple/t6031-j516c.dts
-+++ b/arch/arm64/boot/dts/apple/t6031-j516c.dts
-@@ -16,3 +16,11 @@ / {
- 	compatible = "apple,j516c", "apple,t6031", "apple,arm-platform";
- 	model = "Apple MacBook Pro (16-inch, M3 Max, 16 CPU cores, Nov 2023)";
- };
-+
-+&wifi0 {
-+	brcm,board-type = "apple,jura";
-+};
-+
-+&bluetooth0 {
-+	brcm,board-type = "apple,jura";
-+};
-diff --git a/arch/arm64/boot/dts/apple/t6034-j514m.dts b/arch/arm64/boot/dts/apple/t6034-j514m.dts
-index e31bd0bc0592..dfae771ec626 100644
---- a/arch/arm64/boot/dts/apple/t6034-j514m.dts
-+++ b/arch/arm64/boot/dts/apple/t6034-j514m.dts
-@@ -16,3 +16,11 @@ / {
- 	compatible = "apple,j514m", "apple,t6034", "apple,arm-platform";
- 	model = "Apple MacBook Pro (14-inch, M3 Max, 14 CPU cores, Nov 2023)";
- };
-+
-+&wifi0 {
-+	brcm,board-type = "apple,texa";
-+};
-+
-+&bluetooth0 {
-+	brcm,board-type = "apple,texa";
-+};
-diff --git a/arch/arm64/boot/dts/apple/t6034-j516m.dts b/arch/arm64/boot/dts/apple/t6034-j516m.dts
-index 4d6513558597..dc5c202a787b 100644
---- a/arch/arm64/boot/dts/apple/t6034-j516m.dts
-+++ b/arch/arm64/boot/dts/apple/t6034-j516m.dts
-@@ -16,3 +16,11 @@ / {
- 	compatible = "apple,j516m", "apple,t6034", "apple,arm-platform";
- 	model = "Apple MacBook Pro (16-inch, M3 Max, 14 CPU cores, Nov 2023)";
- };
-+
-+&wifi0 {
-+	brcm,board-type = "apple,jura";
-+};
-+
-+&bluetooth0 {
-+	brcm,board-type = "apple,jura";
-+};
-diff --git a/arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi b/arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi
-index bbee373044f9..a3e4e5d734c6 100644
---- a/arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi
-+++ b/arch/arm64/boot/dts/apple/t603x-j514-j516.dtsi
-@@ -21,7 +21,9 @@ / {
- 	chassis-type = "laptop";
+diff --git a/arch/arm64/boot/dts/apple/t6032-j575d.dts b/arch/arm64/boot/dts/apple/t6032-j575d.dts
+index 12991546d4bb..902fd90c25a5 100644
+--- a/arch/arm64/boot/dts/apple/t6032-j575d.dts
++++ b/arch/arm64/boot/dts/apple/t6032-j575d.dts
+@@ -16,7 +16,10 @@ / {
+ 	model = "Apple Mac Studio (M3 Ultra, 2025)";
  
  	aliases {
 +		bluetooth0 = &bluetooth0;
++		ethernet0 = &ethernet0;
  		serial0 = &serial0;
 +		wifi0 = &wifi0;
  	};
  
  	chosen {
-@@ -67,3 +69,42 @@ &serial0 {
- &fpwm0 {
+@@ -46,3 +49,72 @@ memory@10000000000 {
+ &serial0 {
  	status = "okay";
  };
 +
@@ -304,6 +199,7 @@ index bbee373044f9..a3e4e5d734c6 100644
 +		/* To be filled by the loader */
 +		local-mac-address = [00 10 18 00 00 10];
 +		apple,antenna-sku = "XX";
++		brcm,board-type = "apple,aruba";
 +	};
 +
 +	bluetooth0: bluetooth@0,1 {
@@ -311,6 +207,7 @@ index bbee373044f9..a3e4e5d734c6 100644
 +		reg = <0x10100 0x0 0x0 0x0 0x0>;
 +		/* To be filled by the loader */
 +		local-bd-address = [00 00 00 00 00 00];
++		brcm,board-type = "apple,aruba";
 +	};
 +};
 +
@@ -324,6 +221,34 @@ index bbee373044f9..a3e4e5d734c6 100644
 +		cd-inverted;
 +		wp-inverted;
 +	};
++};
++
++&port02 {
++	/* AQC113 10 Gbit Ethernet */
++	bus-range = <3 3>;
++	status = "okay";
++
++	ethernet0: ethernet@0,0 {
++		compatible = "pci1d6a,04c0";
++		reg = <0x30000 0x0 0x0 0x0 0x0>;
++		/* To be filled by the loader */
++		local-mac-address = [00 10 18 00 00 00];
++	};
++};
++
++&port03 {
++	/* USB xHCI */
++	bus-range = <4 4>;
++	status = "okay";
++};
++
++
++&pcie0_dart_2 {
++	status = "okay";
++};
++
++&pcie0_dart_3 {
++	status = "okay";
 +};
 
 -- 
