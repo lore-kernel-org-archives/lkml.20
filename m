@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794171776;
-	b=E/UNJgRNuXUF1pdN02qOLnr71TWQmzWqkm2Hq75bjZkof37Z3MHyuSBkpxcUFta0l1Gt
-	 ppVmTSScdw5Z2IBdx6XT3kf1/EPpoj4lD8noTiAvwTkXnH52SPakeWcr7DPRGnDyxq5Po
-	 QyFc3o2Jcx5pYc5dceubQhwtdmUkSBGqWK9YxjR5hhPPFAYChoarTgM/1DnFJIsSiGLhr
-	 xsNUjCYBJ4ejw/wfeGPCcbBFpSiYXZqeM/B1luweEo3s7ZHb7jxDjo42EmiUQ9OgQRSQo
-	 wHDvrwCuty/S9HHoAlr70d/1blocqej3miISNwATxjrygPIBw0w2evvtm40f3aFIq0A==
+	t=1794171827;
+	b=B99dcwUmJm/WWVAhM57zk3TrK4VgwfZV0XIk2ZjeMCN0aGB1hVY/37pxuvZpYAJ+Sy36
+	 vvL3n/4pkOo5VEqwUGSInw2fhxU+viSSWK8NOAoHgHqHTkoUfnnASKSUUT1WoHWnnVlqh
+	 EwTtt3J5gcdQuuF+PmlGP4eE28HztLoxUcfcDoLeKjm9K5f2dwd4FegkpG1IlUEN3PIT3
+	 PeEUi07M21d6GSe4CF/zDla0qTpVIW3Cbb1RoW87zbbtOC64OfwXHDFvvO7261rpuw0X/
+	 D0ivqvYhXmbyA6zWeNTYruJiNeQooYwLbPmWlTP9xhzu8Xyv6tQ8Dv7MT/8s3YA1nag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794171776;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=q8zW/K4+b8g+EM2Au1TXaVj5J8tdshFQGsiHay3KgPc=;
-	b=NyIlq7iycdHbTyDCKVp0QckLHe7i1azUOhK8vxJRKsHaooxCZVtOOcLCjCUpU7QLqf9f
-	 fbqhVQiOS9EPmLHIi4v3w2b5ttapgIhKS3u8XwJKJObMEXcWxcobeSApiWKN2UqhFSoAq
-	 zlGBgK3e4CARufP0VuXe3ZpNuMXy5Cerp6SKrQg2VVmJofEMgEh6R+Pq2jSruPhldlqb2
-	 cBlqlMkrP5YRaC4ESLko0QxhVIGHHKBCHYfx5pCiPYrVFjN/X++UVwjvQvSoChc7YlonR
-	 orO4FtfvJxW3qlHjVfOAyTx2RgClw7iyA25SoFXapud9gBDt3rKkIiso2hVB4W9TSmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794171827;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=VG7FJklnYY8Ntrv9Q5qO3p/y7Os4f+kwFZMDsanOcFM=;
+	b=lqmh00tye0h/MylCKzQxpDQMOPmNQ11iQp99FUHu9OeS3FdDE763QZCh7HWSvGYVD2bN
+	 xWVQAz545v1kUC3RF7ElJRld9ceQ3VDNxo64gv33RMlGwOGUoV2gjSJYZgQ2LdsMkhriP
+	 qvdNchD41klTIw+FJhslDK0D1parYEhEGsXhs0tajuvCJY4YcPD8jBLbtuWtichBMdkJR
+	 RDVBk3yVZkacUyyl8DZC/8bOy4sxA/XfUXetyNkxPEcVHpyCmIMiCTRCkc3nVCQDPSTcK
+	 NTgIQb8YfmK0W5+2rTGkRbgcl3ug/VFZnNpp8CTWSvXdW9XtgfXZ10pnrJnayEIYuDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XO4ol36T;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=CHBvJhWt;
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC44606A323
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:02:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2F9606A320;
+	Sun,  8 Nov 2026 21:03:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD2F9606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XO4ol36T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 423361F0089F;
-	Sun,  8 Nov 2026 21:02:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794171775;
-	bh=q8zW/K4+b8g+EM2Au1TXaVj5J8tdshFQGsiHay3KgPc=;
-	h=From:To:Cc:Subject:Date;
-	b=XO4ol36TNfmsMufDETtNz9krKOgq6bvGmJBez8ZIkraqZQ0s/7mR1IshOC8PDSafC
-	 q+0quX07HDsy0Mtam+L8u6pqcAncdejMykDyG/iNU8j+xuBov3Ketsd+5jtRcS8N8e
-	 dOEO7ng4fwDrah31a6HbUzgmwulZljPNq+V606DA/Fk8JNKOVzIPO3lVrXmxSK8UIm
-	 RQmxNNjtvlq/AstZ99xKxw4TX1mK5eGmNZ05LAVt1cTsZQZk++wIUvzu7nmNB1HXbH
-	 RbVIOltRGZzp5oL8LnB1/waTrqXkNU05799sdsWZtiBG8vhgYXrqg0a5M2fhcA2bmy
-	 D5DilxYMYDc0g==
-From: Thorsten Blum <blum@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Jarkko Sakkinen <jarkko.sakkinen@intel.com>
-Cc: Thorsten Blum <blum@kernel.org>,
-	"H. Peter Anvin" <hpa@linux.intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND] x86/realmode: Pad the embedded real-mode blob to a page boundary
-Date: Sun,  8 Nov 2026 22:02:15 +0100
-Message-ID: <20261108210215.407893-3-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=CHBvJhWt
+Received: from [IPV6:2a00:23c8:f560:e601:e685:a756:6ef6:d03b] (unknown [IPv6:2a00:23c8:f560:e601:e685:a756:6ef6:d03b])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 95ADF5340C9B;
+	Sun, 08 Nov 2026 22:03:40 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1794171821;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=VG7FJklnYY8Ntrv9Q5qO3p/y7Os4f+kwFZMDsanOcFM=;
+	b=CHBvJhWt1uTBQHoTN4q+4ujE3z9u4FP7HuR8JVLboa0J37YDUTsXhr18E3oV1NTIMf41oe
+	Is4ExUe6Zxc0XK/W+stUGTmmPl0OK1P2unzES3set8enHhViKY4XcX7gGiHm+JhkmZFc4n
+	AfFw+pIFPHkqtkpYpqNQLdRxs6EJXVs=
+Message-ID: <67c44ce0-8dcf-48f1-abf3-f1dd81175a2f@ixit.cz>
+Date: Sun, 8 Nov 2026 21:03:39 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,35 +60,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1053; i=blum@kernel.org; h=from:subject; bh=99tegXxauqcohULYARvyj+cl5EV6NsTtjXj9WQTLs2Y=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkfHofbp3QeUYqXNH77if2rw5+j6TKul433Ll6qIfyyh 3dXgdS7jlIWBjEuBlkxRZYHs37M8C2tqdxkErETZg4rE8gQBi5OAZhI72VGhieL7q2eN2Ov6bUG 2fccPe2cyzOPnm+InTxngoaBYOHufi6G/xmvvthcmS6ytl+0a4FR8V/7rLP2PxP45zsJnfRLnis nxwQA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v4 1/3] dt-bindings: arm: qcom: Document OnePlus 8T
+To: Frieder Hannenheim <mail@fhannenheim.net>,
+ Frieder Hannenheim <git@fhannenheim.net>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: Robert Oscilowski <drgitx@gmail.com>,
+ =?UTF-8?Q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
+ phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261105-kebab_dts-v4-0-c6bbe6ded92e@fhannenheim.net>
+ <20261105-kebab_dts-v4-1-c6bbe6ded92e@fhannenheim.net>
+ <70454ca2-3540-4cff-a051-758625be3278@ixit.cz>
+ <040883dd-47a2-4401-9eeb-45478cbd05a0@fhannenheim.net>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <040883dd-47a2-4401-9eeb-45478cbd05a0@fhannenheim.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-setup_real_mode() copies the page-aligned size of the embedded real-mode
-blob into low memory. However, real_mode_blob ends immediately before
-real_mode_relocs, so the copy includes relocation data and potentially
-other .init.data contents when the size of realmode.bin is not
-page-aligned.
+On 08/11/2026 20:58, Frieder Hannenheim wrote:
+> On 08.11.26 21:52, David Heidelberg wrote:
+>> On 05/11/2026 20:20, Frieder Hannenheim wrote:
+>>> Add compatible for OnePlus 8T
+>>>
+>>> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+>>> ---
+>>>   Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>>>   1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/ 
+>>> Documentation/devicetree/bindings/arm/qcom.yaml
+>>> index 50cc18a6ec5e..c21ef16e9ac8 100644
+>>> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
+>>> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+>>> @@ -1067,6 +1067,7 @@ properties:
+>>>         - items:
+>>>             - enum:
+>>> +              - oneplus,kebab
+>>
+>> How about oneplus,8t? We can use the non-so-much-confusing product name.
+>> Looking at existing device-trees it seems customary to use the code name 
+> of the product for phones. Examples include:
+> - xiaomi,lavender
+> - google,sargo
+> - oneplus,cheeseburger
 
-Pad real_mode_blob to a page boundary so the copy contains only the
-real-mode binary and its padding.
+Yup, we had discussion with Krzysztof [1], that it could make more sense made 
+actual production name as a codename. My guess is Android codenames are used 
+before the product is released and the marketing name isn't known. Since we know 
+marketing names, which people use to identify the phones, we can use them to 
+make more clear which device is which.
 
-Fixes: 084ee1c641a0 ("x86, realmode: Relocator for realmode code")
-Acked-by: H. Peter Anvin <hpa@zytor.com>
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- arch/x86/realmode/rmpiggy.S | 1 +
- 1 file changed, 1 insertion(+)
+David
 
-diff --git a/arch/x86/realmode/rmpiggy.S b/arch/x86/realmode/rmpiggy.S
-index c8fef76743f6..ce5350241238 100644
---- a/arch/x86/realmode/rmpiggy.S
-+++ b/arch/x86/realmode/rmpiggy.S
-@@ -12,6 +12,7 @@
- 
- SYM_DATA_START(real_mode_blob)
- 	.incbin	"arch/x86/realmode/rm/realmode.bin"
-+	.balign PAGE_SIZE
- SYM_DATA_END_LABEL(real_mode_blob, SYM_L_GLOBAL, real_mode_blob_end)
- 
- SYM_DATA_START(real_mode_relocs)
+[1] https://lore.kernel.org/all/0fd3e0a5-33f7-4bc6-9146-dcaf035c3ef5@kernel.org/
