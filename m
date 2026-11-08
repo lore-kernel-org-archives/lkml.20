@@ -1,79 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794175374;
-	b=FTnlFsVyf1vj9Gs9Km7jQ4rx5/f15OPTrXJ1XfltMuW3QFEnZ1rY84DEJZZlwEToN12Q
-	 0WjIYq0Ec8g0u0ScJ0U2UtBNf1Ai1o5Fsc1v2qykCE0ckR7jUqFTLCbOoJQu1lzhicXcY
-	 Bbhg0RB1ju6C+896ELk9fESPtbBESrtUrhnOQXPsVeEVzKzXGQjzU3utkv1UHE/9fYSsO
-	 z4zGLcn0q7uFNPRcSKaadnp9N/OmYssvTYGq8Q05U6wYBKEdD5ijDFRxObXS86V7qQAdS
-	 5hvywCZdFoYYd43frE0voP64n3i6JyHR9N7GCSL/74mc/4MMmPhJfJeB5ADeEMpLf6w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794175374;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=mimUxCXmRdRWf680HpItYRr1bGkMxj6FEoMyisnpVbg=;
-	b=J+tEjgBp9SNyG92jDucGaJPqbFmYIHNNFid0b9cP40uiW22+qkYWnlMsVwXN9/hDms3x
-	 /tZH7Pdx2qULTPRgMgsEeHKEkD0ejaRHvnefdFZ7rCgL6xq2zDChMCO2Axb2oiNkZBl02
-	 05o9h/MswIeYxbaOTdfExhJhJRwp9961NcpKkQ9okq8RDmc7WePq5K9h0D0GNO3OM/RWl
-	 t5KP+l/HH16MhZDhC47Do9skDixc1oRMz+vftTnvbMmS02mFh+JeopmSeB+kuy3qAtBYZ
-	 f+uDj1ShhW9fLdRLeOw3+ziNtubYDeyrkpmR0PdggPAaz80+CyBJ0lFqW4pnPz3VfxQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi7Vrb+1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F90E606A320;
-	Sun,  8 Nov 2026 22:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi7Vrb+1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794175374;
-	b=JttGF4kCf7/WOWCO1HBkZ9uEkoRnspOXug9VRSkqYNfzp01LUhGNsy8t///7k9A+Awe7
-	 YO/5ETHkoZRTp4HrqHUo3SLtWOdXmO9uWFyT3R7r8JQXYtIrbOJmNfhBSnDivR+3XLhgt
-	 xr3wTG0AUhij4f9vmRla6fs47ok8UDsHPbgVltEQYYjCGVEGRIuF/dxm9Sm73jILF8RXa
-	 spaNoUkLSvu8ZG3kbC7MPYuZVzxPI9Wz5bJ8aSNiWEaH3bm8BnKX5b+RIheviGZBdKEqK
-	 GAZNv00GCinkPnfWS7C3e3dUKdw48e+AyCIinPfjeuUjwHHz20tiPvYMaSYD9PVCL9w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794175374;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=mimUxCXmRdRWf680HpItYRr1bGkMxj6FEoMyisnpVbg=;
-	b=fRErTDQxK6nhZMCXx4PAu9q2pJa+2o3+FUmLvWxQ0sNWq1VRXpS19ZevgLD4qh0v9X4O
-	 bik+Qwng+bUv33qOC5b236VQ/50xyOniAn0GFbUnd7Rp1+W59OkluPxB8KFM0cXkF0wdk
-	 iZA+um+SAZ9g7yN5Afbd/rDf3nL8DSXf37F/JPqYRxHeLvJ4eFmCraAMGmnoybAzGx6k0
-	 ahX0dTEhj5bok655xmh5l9Wp9cALUHworfxA655z7QkXscJ+zUrbDn6HhmAWltQCgJXcF
-	 g3JBi8FsF0absxvd67CffGA0hu/RAkDZd4+15MCkiN8KZgPbo1p23ZrKaVNaVt4H3Pw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794175499;
+	b=fGFI2l070vBhn5wa0Pf6fJ8/6kDCqgG81T4ji3JCaww3Lxtrogny4lLzCWt/f6JFa9aW
+	 0Ylb32ipwzZI3s6TqACvB5DvHqeDXwmHc7CpyxLQ7xbl78+mtuxNJJnYYmf2jc+V1SKxU
+	 oZJWx3LvGnCT0/ewTUIwmEA/lViE9krpl0FSmtLURRjsbFVAEYcworVNRUL1niSNOFbI3
+	 hfysyWwpNunDvEE1lZXkkva1kSuz5lIoJ9/ZQ7ea3xJ1UvucAqvGzZ6rNF/mNzL0tRNFZ
+	 D13dqhzZAPaBIZEUObNxCbDDwH6uE01LvYqdhUg4Ulm3apQIHDQCaFNv4FJE8uHTrHA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794175499;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=H/CcamKTQfMjaSJiajoERENx/3ROWxMLBiv4UmCbwv0=;
+	b=aLvyfSKkfju9/IONeWbBKtj5zqp5NWRUveMVPR3cUqEsBbl0gN3cnAVkuJTVwu4jIMt/
+	 aMkUO5jThcg8XzvZ5XQBl7Xu3BotvsZt3EML6l0NGsltPQjMTb4tZCmhgnT6bt9IJznrJ
+	 enNpYaDTHsF+C2Y/pyFsER6xevFL+GKsSgPGjzx5IMhUuODnNzgUPP+ss2yGJtALA00l3
+	 pFaZIgylyphYWKO4eSvYxvuNOSyvEy1CQot02AnunoI9/Bn63dB1ph2Ywz5px35wMsrN3
+	 yG/wDHiqCBeOrEaIU+3TCT8WGnVBfrsU8I9Cdh91X+k2Lt8d2ImZGucyplx3rhR1cvg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 899801F0089F;
-	Sun,  8 Nov 2026 22:02:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794175374;
-	bh=mimUxCXmRdRWf680HpItYRr1bGkMxj6FEoMyisnpVbg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Pi7Vrb+1SmxCIbk2rv2+FLdua3Nu5/LTFXW7ezqn+iijXO31sccfK3LMugf0pDarO
-	 H0H0UnciBbL/v0iWs2X94XO+mr86V0pbTUxHBP6wAX1ZRMnzbzHbPj/FUN5kMLnNJ1
-	 I2Y3A1Xjiojxngd1LH+5K1clw7GkGyjMVX1UmwljyPYcc5iDpG3rOnmrmAYMPWZCNr
-	 fiEdoZGe+i2iJ/bnYd03NASi9NvO0JL4r7ZsmfWFwUf+CkkxyuObPaTuMzUYjW3KpG
-	 rmKRIHzY1a9YCg6DQsPoM23Q4GAwpqKpUVngewBpezwNb3hE6FFPb8vIdWs4lLU6+d
-	 9upV1/plj0Csg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1539948120;
-	Sun,  8 Nov 2026 22:02:53 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Sun, 08 Nov 2026 22:02:51 +0000
-Subject: [PATCH] arm64: dts: rockchip: Enable all CPU OPPs on Kobol
- Helios64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657B9606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:04:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 657B9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso114259a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:04:59 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794175499; x=1794780299;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=H/CcamKTQfMjaSJiajoERENx/3ROWxMLBiv4UmCbwv0=;
+        b=gajMmNKJ8h/k5GQSnKME31elikrqv0sdnl0eUEsYBo2/f1+8zAwUIcRUaAdzJ2C5GK
+         ZcFQHZ6CNzCk4cUky3BBEH0odRzab5kL/UJ55ywRPNxI1d6Le0UWuQpGCaIFwZL+Ce9d
+         vuZr/TvsVrm2E8RFUMsi9rwF7mKFa3Et8dBXW2wlgZQn7lVpVfSCJDO+l5GGmLGI41ID
+         9gtutGtJh6Lwaqpbkgz0UHL2XB9Ni43/sla5Kl3oE10oS7nmzJ64Sc8vNXVsN24PQqRr
+         IPGSWmho6TxZU/CJ3sobaxmhUKQOM1g7gbJEi/hoW7nD41xmXwgcj9Ku+7QI7msvicBl
+         JP1Q==
+X-Forwarded-Encrypted: i=1; AL+hErElMzgU7H0GWe66dI3YJ1cig240UdtR8Q3vsjBi8IYRDp01nkPbhKsA2/aAlATGbM5yq4X8ZYxnDBDwSn8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+f3VqHgDWECA08Z51uCUHbvG3s/ANC2WjcOQ+9nvO4pTbLLDWs
+	lec+GnhK+nBNSfy/Or4h4EGUAiNeVc7znU8fUI/505GMZveI0jE6kBhSTXkrKEBb
+X-Gm-Gg: AYBFou3o7eRSTBy+/pj5U727H2mEusBnMfGLSvGfjag6cgo86L4/QpMlQEmCGCWVlU8
+	70ORo1QcCKJd/C8304CcNgxIS7vpDjVaVzkvjAU/YfYyrD3ECR1AN+AsmEsqXEwKLyZ2pn8cvZ+
+	etV/lXiAMoYxI2eUfPU2fRP+6ueVC0RWgZS06llgkJdRyeUpLpj8MtK8xpqbNa/6a9uyqbOoiFV
+	376OAxGhyqVYONoSyTKyIfKm/BUXkKS1E5mk0Jyifz1mPkAwrcw1P0WkKyPi/Yma5itnKm96AEs
+	rquuyT+IvA6gC8VnbwplDA0y73Ecw+oCs/bXU4p8UQcUZ7AHiojbT0OEsqHkNmO/PTG69XsWuzE
+	L0WfZiIX1KXxaBkf752Cu4cLDcNFI/zWa/lGWWBuVJxm7w8J0HpOeT1O7wuc9Zh0QL2qLzJAbGp
+	LIm04VWBIlrRmKjCOmWzL5Ts+19oXk57aVISSrSe8Bpl9cyv2T/bmTjQNs7h84OhsS1bRFXSzRL
+	CZg8Kgzv7w4NQrURfuxP5PGYO2OiSxLXnjPw6ceBXZRv0PO3w8B4Tbr7f1vBVqc6B17Oewr5FjK
+	MJqxdkfaEjZw+tz3zUe6D5M6awg7sTGgUyBfYC9/2iiWd/JnDwBaYTUHMDRhqLyFvgb+ztkZO0x
+	2tmAjlT2ixode7sBcweVb+tebzKrIekqH0/fSm7q9UURmpAcxxBb9myXV2llDlKhT
+X-Received: by 2002:a17:90b:3dcd:b0:3b0:b35e:b373 with SMTP id 98e67ed59e1d1-3b12d0e71famr2132578a91.4.1794175498713;
+        Sun, 08 Nov 2026 14:04:58 -0800 (PST)
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com. [74.125.82.169])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0fc4dc537sm5174461a91.1.2026.11.08.14.04.57
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 08 Nov 2026 14:04:58 -0800 (PST)
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3720addb068so441594eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:04:57 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFO0mHmt9Prb9qoq3MOqaIm7yynZK6xRdZg177Gi6wFxZtiT/d1H5/Smo1SUZ81BLy1hHioKN4Mj4iHIkY=@vger.kernel.org
+X-Received: by 2002:a05:7301:9f03:b0:370:cc56:b61a with SMTP id
+ 5a478bee46e88-37258c2acefmr5845036eec.39.1794175497365; Sun, 08 Nov 2026
+ 14:04:57 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,114 +81,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-helios64-cpu-opps-v1-1-31aa4afb7eb8@iav.lv>
-X-B4-Tracking: v=1; b=H4sIAIrx8GoC/x3MMQqAMAxA0atIZgONSBGvIg5aUxsQWxoUQXp3i
- +Mb/n9BOQsrjM0LmW9RiWcFtQ24sJw7o2zV0JnOEpkBAx8S1fbo0oUxJcVhWTfr2ZI3BLVLmb0
- 8/3OaS/kA9iWdAWMAAAA=
-To: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2693; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=edWxjml98aK3nfS7bKrBTOBhCYbn9/aBY4i4ZQTEi+w=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFkfPvbcO3oyY5n4PY38eIPUy4H8X5MyS+d79cz2eHWCP
- 17kCeOMjlIWBjEuBlkxRZYJhzRuZSy5+tffw/wBzBxWJpAhDFycAjCR4ixGhsaSmH//uleGmGUJ
- yaTNFvHkY1ad/Orxue5HHBKbHlU/TGT4X7nt5sT5M9OYOcROTH2ybdsZu3uB3Pb/jjlpVM2ZczD
- wKRsA
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
+References: <20261104-sf19a2890-sysm-v1-0-a4fac07df823@telaak.dev>
+ <20261104-sf19a2890-sysm-v1-4-a4fac07df823@telaak.dev> <au4Hc7LAXH-ujDPj@monoceros>
+In-Reply-To: <au4Hc7LAXH-ujDPj@monoceros>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Sun, 8 Nov 2026 17:04:45 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ6PzrCkNuHEib8WrYoYw3eeUuK6rCeBYPQg+iPzbVEECQ@mail.gmail.com>
+X-Gm-Features: AclHuK94cu5PMN_CR3MHF5B50stfHn_PtAIMtZ8wHEf1hN8qZJlhM6zrg1Ysdd0
+Message-ID: <CAPY4CJ6PzrCkNuHEib8WrYoYw3eeUuK6rCeBYPQg+iPzbVEECQ@mail.gmail.com>
+Subject: Re: [PATCH 4/4] clk: siflower: Add SF19A2890 peripheral clock and
+ reset manager driver
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Chuanhong Guo <gch981213@gmail.com>, Yao Zi <me@ziyao.cc>, 
+	linux-mips@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Igor Velkov <iav@iav.lv>
+> Please don't use <linux/mod_devicetable.h>. <linux/platform_device.h> is
+> good enough to provide of_device_id already. If you insist on full iwyu,
+> please use <linux/device-id/of.h> instead.
 
-The Helios64 device tree deletes the lower OPPs of both CPU clusters
-because the board was not stable with cpufreq.
+v2 includes <linux/device-id/of.h> instead.
 
-With all OPPs and regulator-ramp-delay = <1000> on vdd_cpu_b, the board
-hung about 9.5 s into boot both times we tried. With 40000 it ran 40
-boots and three one-hour DVFS runs under load without errors. We did not
-find out why the slower ramp hangs.
+> Please drop the trailing , after the list terminator.
 
-40000 selects the slew rate we read from the regulator in U-Boot after a
-cold start, 64 mV/us; 1000 slows it down.
+Will do in v2, and in the gpio driver, which has the same.
 
-Restore the OPPs and raise the ramp delay.
-
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-Tested on Linux 7.3 and its device tree, with the U-Boot and the .config
-of Armbian. The PCIe host driver was not loaded: on this board it takes
-an external abort at probe on some boots, with or without this change
-(about 5% of boots with it, 1 of 4 without). One boot with it loaded
-brought the link up, without DVFS load.
-
-Besides the boots and runs above: one hour each of schedutil under
-bursty load and of switching only one cluster.
-
-Ramp delay scan with all OPPs: 2000 hung twice in 5 boots (once at boot,
-once on reboot after an hour under load), 8000 passed 13 of 13 boots,
-32000 passed 3 of 3.
----
- .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 24 +---------------------
- 1 file changed, 1 insertion(+), 23 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-index f13ea2df7a30..f2f900f576a0 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-@@ -354,28 +354,6 @@ vdd_log: regulator-vdd-log {
- 	};
- };
- 
--/*
-- * The system doesn't run stable with cpu freq enabled, so disallow the lower
-- * frequencies until this problem is properly understood and resolved.
-- */
--&cluster0_opp {
--	/delete-node/ opp00;
--	/delete-node/ opp01;
--	/delete-node/ opp02;
--	/delete-node/ opp03;
--	/delete-node/ opp04;
--};
--
--&cluster1_opp {
--	/delete-node/ opp00;
--	/delete-node/ opp01;
--	/delete-node/ opp02;
--	/delete-node/ opp03;
--	/delete-node/ opp04;
--	/delete-node/ opp05;
--	/delete-node/ opp06;
--};
--
- &cpu_b0 {
- 	cpu-supply = <&vdd_cpu_b>;
- };
-@@ -542,7 +520,7 @@ vdd_cpu_b: regulator@40 {
- 		regulator-boot-on;
- 		regulator-min-microvolt = <712500>;
- 		regulator-max-microvolt = <1500000>;
--		regulator-ramp-delay = <1000>;
-+		regulator-ramp-delay = <40000>;
- 		vin-supply = <&vcc5v0_sys>;
- 
- 		regulator-state-mem {
-
----
-base-commit: c3baae5f1a15645cddadcb2b9abddef5df291f59
-change-id: 20261108-helios64-cpu-opps-8abd6fe61f01
-
-Best regards,
--- 
-Igor Velkov <iav@iav.lv>
-
-
+Thanks for the review.
