@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.201
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794141324;
-	b=jOfnblsWbw9A5JNpLMsgdQVWdPq4WaZulHLHyLtocqSmQj+Bz3haAI5fQnW9g/EHQBbZ
-	 IK8kJVEf8pSVVP5o/fKw6DQKKiko8WIl8hDXVCiNheSP2cO4eITGjgMk27m4KqtA1DtGI
-	 RKEfEzTBHKLVjEscLC4YWcRyli/VaITr68017arp6N1Xxn1qhNHBE8urMgG++RWkyfmYu
-	 H7mlaHSyHcGo5beecSjFbG37WwB1/9TTzsryvgmWk2NdwCoVNN/XaT4IoujGAFL+vOie3
-	 pjvIuLEG8454aDVAXIKxQ1vwK/UxfM77GbAYgn0+GJy3+2D1XbKTA3Gpquc2oBvrKFw==
+	t=1794141478;
+	b=t8YME26hIA2wIMwf1XY/ach2C1LUC5lkMoooD0wmo8SrDKZigfUNH1TCyyN7wOFp7e7B
+	 yg/b5cFvVOH9zA5PKogVzKfaw2yCKeK87kxoGdp7WZTdabC3hgZjWpr4UosEMXeG8jIm9
+	 LGM/HBJ0nXwwxV7MgAkYzRHqQYNBdddc56ZKcRMKMXwXG/KVLjn9cTO5HCJLEZykAX8AQ
+	 4B21j61OJ+uda4t9QuFzYKe2lclL0Owo0ofjM+e0w1hvs++Cmqg8+1RvXiKc+mX2tyjGl
+	 a1yu7JLY+OSo8gDnmjkHnyqjRpWOOxvR1DBOuC/8HDEu4t5hn0FV2nyiHbe8HNuHB9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794141324;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=stqGfFWqTftCRldqKv9OwVPeqOI+CMlJANU2hWPYzjU=;
-	b=Gzqndbqc7DUg08pIOJxDq5RfwSZEqUhqDinYaNTBL/xhTSLzeD/Zl+d6sZMuePgUPQPX
-	 tgBaa84clIikuGyPPC19OEShD9H50JTClT/+Y42E1JW6/CbiUmahmqPezBHa/v2yw/ylN
-	 HgKtxb1gCTVvfcuOA/VNXlTk9JyYCYq1byQncRAn4QR4HwpJ64cA5RiTW5FLn883LZU/3
-	 aDFDFu8Q4ETfyXF7SnwgHmoVXwvqj67pMk8d6i0MT9Lb4JzilssX0FaSnE+0zK+T6XPrt
-	 SmZ3XL6AQ58DjJPPyOKVf8pXT58z3oNFoN4GNa4PQQ6OA8BHiCpeqpYH2+VlePyFapw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794141478;
+	h=Received:DKIM-Signature:Content-Type:Date:Message-Id:Cc:To:From:
+	 Subject:Mime-Version:Content-Transfer-Encoding:X-Mailer:X-TUID;
+	bh=LPWZeKvMF5glukvyoics8CK0yautXj7LLLbv0OwV4ug=;
+	b=lmZLiSuuwfNJhrkoTfH9vUvGf5pLL3ELejpXWJibC/VowGmk3ceAMBSuea9x+5G3T91r
+	 aU3cVX67WiDLLAo6piMjcgOsEwcbemEmzLnswnoEiK/+m+h1npGHh2F9oq2rXPJ7wIHIS
+	 Jzesm8RHQ5pgn8DX99FbZHYgh6XTFOCND1XxO/IQYDUNTFVDdzeRy8+qk8Pyw5YXb2D22
+	 kUclVw0zIw4BT/s0TYx/XYLmshy8kNnfp/YSC6+SxVS4WnYz6q7nWeqW73MQnXE/qvH0i
+	 yk8lWORbYcgFBDDnW+V/T/Ztw5l5CTWSBVh2Ra5KwGdhlw1ycwCwfq9akg9xL89/d9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Yn+KdNkc;
-	arc=none smtp.remote-ip=91.218.175.201
-Received: from mta0.migadu.com (out-201.mta0.migadu.com [91.218.175.201])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+U7Uq8w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 538F8606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:35:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 538F8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D53606A320;
+	Sun,  8 Nov 2026 12:37:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Yn+KdNkc
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+punhtJ68XsWPdnlp+NVbyrhnoMeql+7vD6IIgQcDVk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794141321; v=1; x=1794746121;
- b=Yn+KdNkcOJXbDrrzSuZABJ+9SV8tb3M5mI0UMLEbIkZ52JKqHSYWQddNg7x6FhV63V5+42d2
- jxAActguR6fTTorV3Mc5q359rqxr0+vC7jikyguhIbT596d2PVfRxO6yAhWuYsn4nrjXqV9Plpr
- aavAFsK5JJ2tqd9hEs++7Ma0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b5122c3ac40c4b46;
-	Sun, 08 Nov 2026 12:35:21 +0000
-X-Mizu-Trace-ID: b5122c3ac40c4b46
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org,
-	Ridong Chen <chenridong@xiaomi.com>,
-	Ridong Chen <ridong.chen@linux.dev>
-Subject: [PATCH] mailmap: add entries for Ridong Chen
-Date: Sun,  8 Nov 2026 20:35:09 +0800
-Message-Id: <20261108123509.214127-1-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N+U7Uq8w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E30F1F0089F;
+	Sun,  8 Nov 2026 12:37:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794141478;
+	bh=LPWZeKvMF5glukvyoics8CK0yautXj7LLLbv0OwV4ug=;
+	h=Date:Cc:To:From:Subject;
+	b=N+U7Uq8wqn4Uu+pD0bIwk20e2FkpEbAoDEtC77FtenFQ7Z9KnL2wMGGwKx1i/ogig
+	 Q3MkpsGHvtfkw27NpbyBCZ6Kna9gu3GfTYW2EgyB/7zYp+mQberQ9PrrRDZNtLRu3G
+	 gn9uXPIO2IbqdkyuKoQJg9fzZMgl6xWIofG6nP4hk/UncAe6ZAmsvWzUN48L01STcV
+	 lnqvcuyRvCptkAbJkMzKFy87jtkkIBrC/B13RpmdBw0+alOzUikjf7WKw82p7JejT1
+	 +XrIefeLrQO49lMW77ma78nKWurp6V5NWjG0TvGY+bJ6n4IVoeGK+eXpqbrSDGC4vi
+	 xvC7hhq4dEJrg==
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 08 Nov 2026 13:37:45 +0100
+Message-Id: <DMPU2INZSMAU.3H6O1U564A48B@kernel.org>
+Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, "Johan Hovold" <johan@kernel.org>, "Saravana Kannan"
+ <saravanak@kernel.org>, "Andrew Morton" <akpm@linux-foundation.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Linus Torvalds" <torvalds@linux-foundation.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: [GIT PULL] Driver core fixes for 7.4-rc2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,33 +58,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+X-TUID: hFHoBW9FpV45
 
-From: Ridong Chen <chenridong@xiaomi.com>
+Hi Linus,
 
-Map my former Huawei address and my current Xiaomi address to my
-personal address, so that all my contributions are attributed to a
-single identity.
+Please pull these driver-core fixes.
 
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- .mailmap | 2 ++
- 1 file changed, 2 insertions(+)
+Thanks,
+Danilo
 
-diff --git a/.mailmap b/.mailmap
-index 3a7380b805ce..66541bc57254 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -810,6 +810,8 @@ Richard Genoud <richard.genoud@bootlin.com> <richard.genoud@gmail.com>
- Richard Leitner <richard.leitner@linux.dev> <dev@g0hl1n.net>
- Richard Leitner <richard.leitner@linux.dev> <me@g0hl1n.net>
- Richard Leitner <richard.leitner@linux.dev> <richard.leitner@skidata.com>
-+Ridong Chen <ridong.chen@linux.dev> <chenridong@huawei.com>
-+Ridong Chen <ridong.chen@linux.dev> <chenridong@xiaomi.com>
- Rob Clark <robin.clark@oss.qualcomm.com> <robdclark@chromium.org>
- Rob Clark <robin.clark@oss.qualcomm.com> <robdclark@gmail.com>
- Robert Foss <rfoss@kernel.org> <robert.foss@linaro.org>
--- 
-2.34.1
+The following changes since commit 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4=
+:
 
+  Linux 7.4-rc1 (2026-11-01 13:26:31 -0800)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git=
+ tags/driver-core-7.4-rc2
+
+for you to fetch changes up to a42ae51fe3c36cef82dc687ea594ca232a785fd4:
+
+  MAINTAINERS: update auxiliary bus entry (2026-11-02 16:42:24 +0100)
+
+----------------------------------------------------------------
+Driver core fixes for v7.4-rc2
+
+- Fix an unused-function warning in the Rust I/O code that breaks builds
+  with CONFIG_PCI disabled and CONFIG_WERROR enabled
+
+- Fix kernfs sparse warnings on SMP Alpha when inheriting a parent
+  node's group ID
+
+- Add Johan Hovold as an auxiliary bus maintainer
+
+----------------------------------------------------------------
+Eliot Courtney (1):
+      rust: io: fix unused Flags::from_raw warning without CONFIG_PCI
+
+Johan Hovold (1):
+      MAINTAINERS: update auxiliary bus entry
+
+Shakeel Butt (1):
+      kernfs: avoid READ_ONCE() on a kgid_t in kernfs_new_node()
+
+ MAINTAINERS                | 1 +
+ fs/kernfs/dir.c            | 2 +-
+ rust/kernel/io/resource.rs | 2 +-
+ 3 files changed, 3 insertions(+), 2 deletions(-)
