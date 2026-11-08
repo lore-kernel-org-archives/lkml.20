@@ -1,55 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794153201;
-	b=Q4f98b9PeWzj3NrlkNGSRIe7Eqry946ywaK0hO69byqYMpb/WFnTrj2xkmY7IxCrl57E
-	 4mVi5FY8U1X/fpIvRKQKhsSIwTr4fpAnY28VF9L3FbQM/FKptMspWIN4sJ9jVfFCrXRnG
-	 o7Jiz5ufw0L9dngCHR3ckK35eRRdOLkr/dP8++CtPJSMHszpXLJxJaXTRv4tJQXJE2Ft5
-	 U8ni2UgxldQT20e/6FUrL4cgT/xtzEQ/QM2doKJ7A4wiHlsKoHxhSg+4nAQDj9blY2SGq
-	 1jJjiBlbp28AzhP3N9ulUtWUE8nyxX7ug2Z/J5EkNTFQNZ4KO5fpXPDNr1aUVXnQjtw==
+	t=1794153251;
+	b=MYvHLjQWu1FZSYRZuRgNAzGZEopr8GX2QzGx64w84lWyVPVTADtv0xs33eAbXH3VaHk6
+	 V0U/Zz6uh5wQ7+WBa8vlsnLE4GS/YSeKJkNB099a7GeHuVGQUOeDV6xR52EzpfV8h1ewM
+	 5ErIcybCgYjE0WXbpuINDvWvcTJCY8xph/h/iiqB5gvT/wCzQkrA+21cqrQ7EAHPycFBr
+	 HPmIpTwRMRKSZ8PmunAiEm1ch3+w/nXcrkJ93LwZcBz8xKxMpS/GKTpx0EPdA9pplQql1
+	 pgyTOGj9Fn6se6KvzRxJ7PL1WlzngENpdzlhhaI1ap86P60DK1l8XVbejiG0In3717Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794153201;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=/S9XJ5Sf+ha4mJ4om/24R0+J7GuBzOrBmWjf2t5Bxd8=;
-	b=PFmsamyaBB151Joyo32E53aSXYXAmqN98Yx4TVh5togJp4oixhnnAkwMAgmEsF2TjiMl
-	 fDzXFhXpPh8DZojITK5vIB07ktc5ukSXlPHGF+YtQH59BaISHqlP6/kGIYHEjMb2uBbDM
-	 qnvzsAv9QkrKQL+ojii+aoypdkjJvLvDFlzANUrjEt9jaF035tGbYhTXeZL+9B2u8pUYP
-	 WcomXNk663oWGk2SlpGCU0aBM6y4b7kHB/E6QxRdr7TaJ2U2qSDlCrAIlk7LdNIvgErVf
-	 donlRs6np8kmildCThgKjG8btTCqMAVQxSClH92C8vNr4qVvC8BMrkDPrV1tNmtmhDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794153251;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=ZQmMTx5RluJtf0A+XJrvCuHZR5Iy8QjIVd3VWCArd1I=;
+	b=JghL1AT8cL9Am6WnszSypZ/BWv73u+I6gVdOHu3+ERzoK1AhfCDu9fdzNHs5pHZKswYl
+	 VoiLaS9QvwErvkrbWfnUzhSBSG3WPuOmvz53LPuTSYzdJ61AdbGlm/e+bVJ6vvJowNc8/
+	 PaRir75nmIw3GdKaAdTHpyOExBpIELRTG9bcOWLvhXchVpwFlNMd4BO0Bz4vZVMUR1B+x
+	 HUgZKfaumjTzotAsMjO0V22ilUvzZJkCrS/OrekNHZgVmHm6xBMoZy7WnpoROvwMD43xC
+	 qMHjwdkxYfHyCay/chmMFMvLAzJgSrqafDUNo5tyayoLLuBuQjy0esR6QJ0T+zVlD2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFJVzurq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="CKaGdLl/";
+	arc=none smtp.remote-ip=35.89.44.39
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C663606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:53:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3086606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:54:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3086606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cFJVzurq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30DB41F008A6
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 15:53:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794153200;
-	bh=/S9XJ5Sf+ha4mJ4om/24R0+J7GuBzOrBmWjf2t5Bxd8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cFJVzurq9HbKbqEWGxr01b1RQqds6QMtBC1E7K90XsZMRtQnK9HSjS+nFUW7T7IsP
-	 1XCemhABaTppK7yZQGG/tAkmTDOtTiq0yPwAV66Cc5PQxt/PxinItvHkqIDsSgKzGb
-	 NaIHxPjkAoglzLoYp9V7yVVDLWYfRHZtS3BpRQUhwXHoRB0Q0ZEZFIZx6wiIPQ49uJ
-	 aaLuW0CDkXvmDBYbhqDT46xbhfycfXg6rGn2sOBzT1r+m4tTApb26Q2Hrnx20etEdl
-	 9PdohjnYg224/l+HXjePyqzQvx+azdRrtWzz77DZrjauVgsRBfdLndiQkNy6f2rJwG
-	 /nPBWtWszVooQ==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5bfbc25a76aso216114e87.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 07:53:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFHEcVLexVEcSfL7rHdQ0i6oPlH1YbRM9rMtF7s2GJooIn+XDpVsjjhxywDq8rLw9PmBvugpQfdmgjPpGQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8znAIjjWVgqEwjZTntlRloRm7CaxsBpoyA3Ml2rs9MpWJGL/fD
-	t8LVJa+ctd529deROYjvSTmUE9BTZ443xwNIfJ+DeRTmQni/PmrD9oiM1779tNWaOpY0h7nFq4H
-	tFwV9YjthHxhOkxUnlRdrfHFjhEKML0g=
-X-Received: by 2002:a05:6512:250d:b0:5c1:4f4a:68f4 with SMTP id
- 2adb3069b0e04-5c14f4a6a11mr46761e87.32.1794153198892; Sun, 08 Nov 2026
- 07:53:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=CKaGdLl/
+Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
+	by cmsmtp with ESMTPS
+	id Pma2x6BZHyb4YQ5DXxek8N; Sun, 08 Nov 2026 15:54:04 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id Q5DXx2EjtSgq1Q5DXxwxSN; Sun, 08 Nov 2026 15:54:03 +0000
+X-Authority-Analysis: v=2.4 cv=c8KrQQ9l c=1 sm=1 tr=0 ts=6af09b1b
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
+ a=4c8sCpXBnLrgCEX_27wA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=ZQmMTx5RluJtf0A+XJrvCuHZR5Iy8QjIVd3VWCArd1I=; b=CKaGdLl/xMyv+YLa2gl3/DOWEK
+	VahdtMogY3I5UygecVfUvZ27un+T923nODQ2RMjvoqL2G0YSIEPrNC1QMexwnGervHZXMSNeGByQs
+	ZoT7lqUxY48NuMpy4cvsSRFe+IZWc1KcnN/jLJgfzXUMhFvEM865GAzO0ieV4CUX/9Q910AZP6AjW
+	Tqvy658G9NLUsT4lk3O9HxIi16gDVl5wG/PyXuWQNEyGayb9wRS52MhDU6W/Fy2Ww2UuWkH0W7Keb
+	Wbg8HsAPkUUkCJ3hlwOaRHHVjOfkzXHLMHvG+LYiLOZdRjx80HEs/QeqWWH46GkF8MDASqXvEi0UX
+	/jchPB3A==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:39188 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQ5DX-00000000ra4-02bA;
+	Sun, 08 Nov 2026 21:24:03 +0530
+Date: Sun, 8 Nov 2026 07:54:01 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Cc: Nurettin Bolucu <Nurettin.Bolucu@analog.com>,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] hwmon: (max31760) Leave standby mode at probe
+Message-ID: <0007b6f9-db5c-4203-a044-0c99e8564283@roeck-us.net>
+References: <20261108-max31760-fixes-v1-0-a61450463059@gmail.com>
+ <20261108-max31760-fixes-v1-2-a61450463059@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,44 +82,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260928063824.1386524-1-morbo@google.com>
-In-Reply-To: <20260928063824.1386524-1-morbo@google.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 8 Nov 2026 16:53:06 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkm-S_0oDt9K1xn5kOVp7f6KwG7y7nCNE2asD5K69M=PQ@mail.gmail.com>
-X-Gm-Features: AclHuK9CiXVomc9vdDMRXSjLJTZjnIEg_krpNQUFLmn-Tbw0yt_ODEgP0qy0xbA
-Message-ID: <CAD++jLkm-S_0oDt9K1xn5kOVp7f6KwG7y7nCNE2asD5K69M=PQ@mail.gmail.com>
-Subject: Re: [PATCH] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
-To: Bill Wendling <morbo@google.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108-max31760-fixes-v1-2-a61450463059@gmail.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQ5DX-00000000ra4-02bA
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:39188
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 5
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfNoS+xt6OGNwPTTVT2LXoF7h5VaxOkPjY8nCSS4awt/tOsz/V+oA2wwjrukrjK7RjbwW+Xvu3fxXF1gF3TqeRGggcwkLP8suLGwLLip6JWPHTFwSfv6J
+ ZGHj+5nhkIhtFNWNl1PjwVZBfP1LWpUcrfBobUw+UfP7PaqTPf2RcX1HfNQSxu8u1mMsYDx5A4JJPden8WLpYe1rV9EeveloCX4rRR0bxMzWHMZFfMU9Ej2w
 
-On Mon, Sep 28, 2026 at 8:38=E2=80=AFAM Bill Wendling <morbo@google.com> wr=
-ote:
+On Sun, Nov 08, 2026 at 03:59:54AM +0000, Stanislav Aleksandrov wrote:
+> The driver never clears the standby bit (CR2_STBY) during probe.
+> While max31760_resume() clears this bit on resume, probe only
+> configured CR2_ALERTS.
+> 
+> If the chip was left in standby (for example, by boot firmware or a
+> previously running OS before a warm reboot), it remains in standby:
+> temperature sensing, fan speed counting, and PWM output are halted.
+> This occurs on the Samsung Galaxy XR, where the bootloader places the
+> chip in standby during boot.
+> 
+> Clear CR2_STBY alongside setting CR2_ALERTS in probe.
+> 
+> Fixes: 38b04ad02d0d ("drivers: hwmon: Add max31760 fan speed controller driver")
+> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
 
-> The 'data' pointer field in 'struct acpi_gpio_mapping' is associated
-> with the 'size' field, which represents the number of elements of
-> type 'struct acpi_gpio_params' allocated for 'data'.
->
-> To improve bounds checking via CONFIG_UBSAN_BOUNDS and
-> CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted_by_ptr
-> attribute.
->
-> Analysis of allocation, assignment, and access points shows that the
-> pointer is never accessed before the count is set, which guarantees that
-> this annotation is safe and will not cause runtime panics or
-> false-positive bounds checks.
->
-> Cc: codemender-patching+linux@google.com
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
+Applied.
 
-Prerequisites handled in EFI so:
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Thanks,
+Guenter
 
-Yours,
-Linus Walleij
+> ---
+>  drivers/hwmon/max31760.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/hwmon/max31760.c b/drivers/hwmon/max31760.c
+> index e3d86dc4257e..e967555a21af 100644
+> --- a/drivers/hwmon/max31760.c
+> +++ b/drivers/hwmon/max31760.c
+> @@ -533,8 +533,9 @@ static int max31760_probe(struct i2c_client *client)
+>  
+>  	dev_set_drvdata(dev, state);
+>  
+> -	/* Set alert output to comparator mode */
+> -	ret = regmap_set_bits(state->regmap, REG_CR2, CR2_ALERTS);
+> +	/* Leave standby mode, set alert output to comparator mode */
+> +	ret = regmap_update_bits(state->regmap, REG_CR2, CR2_STBY | CR2_ALERTS,
+> +				 CR2_ALERTS);
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "cannot write register\n");
+>  
