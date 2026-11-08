@@ -1,71 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794161304;
-	b=IK1g4bsQ84pmRB+K3yw55PAOYdvY8ZMNSRhRlNX8TpLpxAiXr8+a7M+8FDGGEDRvFFb+
-	 E+iM3X9KoUFJ3em5CGvSFJP82jFuA3LupSMccQxYYUxQwEKN18hw2ziXdij8BE0BQa3h5
-	 Gq4TVzkpjbTLcR9FDbTVECanMK0e/5S6Oi3aB7pen72jb1mqIpPRqinBe8f/MBEBt7KN9
-	 WJGWisYgB6S2/YTUo1Sn+Vl8xCtFyHawSJJ1Ta8IUiby7aDo5wsT4z/Thb2wiXIaVZcUd
-	 yH4ydQRtTSHgCnTbF23xQ7dm+oMr5QrJyH3YdvhjICRxlezskBXxwekgzVQ+FkQRQuQ==
+	t=1794161344;
+	b=jMB7g1uauJQOkeGBnVrfUfY0weYEGhvcJQzT3ZwVyNDc2UsczzVKG4Gt4a55YEGVzznb
+	 zWaaVoV3z70M0zkFcBbW1RTcSAr+oh1qPkvd4F2euVHF7S5n8yW8BiKgdhkR7Exbp4CNc
+	 Wda33CZup61mwbuR/5ezOyWXzvFLJHyaaMfKOYtrzsk91cnX4fqPTKiuFL+3Kw7SS6AQM
+	 fpe2/QA5vCsS7ZxpgexCmxa+qWtg/Q5H1HjSFh0aonattj7C1alZj1jJip2QSwThc9QtB
+	 SUX0i9w/YBMeaEPFEKMJsNdd/7I7ZTXajuau47D6M0+KiACDXAW6sBky/IdgCwgyKBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794161304;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=hluAb+u4MAIUnFzQo43pqKEMj8/Sw2PVJm6MzV5xKxg=;
-	b=xCeP6OqlosIFct/MXVWAPPAlQsJoYeAttoElezyes2itYZcLrhUHY2jCyYg93LxtEVoT
-	 jiE25aohz+Vle4QU8D9IBEed8tGNOEpXVQAw34G+RPzlmNtTEFnJJEw5cv93XQVNzcTXT
-	 wHplmxB40HfjdD/6z0RzhQYzVTVvivc/dHQGXNhBBLqJoqPIOVgHTMxzEWP/y+t8pdbC0
-	 rfPfT5dhbTn3eBvnIZnp8BYkRcZrZVKCGLFvAWx+ACt2MauutrvyK9URLwdgLtkWqCQnF
-	 4Qehn2+5H2nmGS8RNOTH5fKvgUdazhaDsEh7m1EOYJRVKTgamkXhoSIaUSBhFN+QHcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794161344;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=r4LeeaZF52pnSpC0XV+xdG30IIgq/XdFRCqAisuv3+0=;
+	b=IicUfJajo73BEapGwN10HBwFo/0WCebuhhVx1Hyp3Sy6rL4JWTwTj8iI5YGeRNDo+87A
+	 GwVCk3IiKsqbx2jnsAtGzAnpI+mEPXfi7XuATX8xjItLKVprlpEGV8u/UsA555sdw6Of+
+	 1+/KApzT4/dt30s8dntfAmi3ko07NkAELuVrOnq2LELcnGe4ARCh7jeewxznA99RG+NPR
+	 o8Q6KdF+WSkOBVq8HjSHHuVflFYvXF1FWghdoAcNQ0mn2sPfYR9iSnqo58aY3+2vyt3Kg
+	 ymWuaDW2BGdb0PekwBgpiM0Z/rMpATVnsC59GcJQzusWghEfDZ0ngOowiOmL2O0G5Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ssg7XHl+;
-	arc=none smtp.remote-ip=35.89.44.35
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aabXtMRq;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B458606A322
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:08:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B458606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34115606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:09:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34115606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=ssg7XHl+
-Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
-	by cmsmtp with ESMTPS
-	id Q4ZfxknW4RiNxQ7JSxDhV3; Sun, 08 Nov 2026 18:08:18 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Q7JRxD9YE3nNNQ7JRxP7Nf; Sun, 08 Nov 2026 18:08:17 +0000
-X-Authority-Analysis: v=2.4 cv=TuLmhCXh c=1 sm=1 tr=0 ts=6af0ba91
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=IK6l0-zAR1a87pk_dmcA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=hluAb+u4MAIUnFzQo43pqKEMj8/Sw2PVJm6MzV5xKxg=; b=ssg7XHl+J0PC
-	7LhjN5cw5Ugq38qTNzf1pWZ8iZzS5YWBXo9umHWQhbgdHNnW8FLQZBIsyreXLPFA/SOeATKV5eRnd
-	TRZa5ljOnx2Ql/66LqH0XJkjLw6epfe5KGJZCI2qjeIlDOQPOugypgsTI6I/v1TXzEfeKiHdUSoEO
-	STs3aL44Gibl7qDuj3qHBAynJaiMLG8iMl84Jw0wAN1wLzNNSJbB7auCKfa4c+mE+PF7ELziV/Wf6
-	vK9KwPKNtCFZQo8dtL73XoYiWdQDDEWxzbaXrrgfjSsAW/QNy2KaMUStoohLUMhWw1QcenH71d+eB
-	SbpeYBbG7FKBl7lL18hWGQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:33184)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQ7JR-00000002J2h-1E60;
-	Sun, 08 Nov 2026 23:38:17 +0530
-Message-ID: <7ad9c540-ef80-4dc5-9a36-ddc9de07f957@roeck-us.net>
-Date: Sun, 8 Nov 2026 10:08:16 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=aabXtMRq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794161342;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=r4LeeaZF52pnSpC0XV+xdG30IIgq/XdFRCqAisuv3+0=;
+	b=aabXtMRqUIUweLgerc73sTP1CiUseSiEc6x9IoTBjGK5ixFS12m3jPqqWpI5m/C1FfwV7s
+	vzAfy5awDmhAc0+56rKu+EERNRT5szrQUl1u9UWpTPwyI1BG+xmjkEI85CaCxTdryTaUOU
+	/Bb8BvoXKTOMR5Gzp+biSbcCdjvggPU=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-17-O1p3BgwjOnyh42ow3OmLVg-1; Sun,
+ 08 Nov 2026 13:08:59 -0500
+X-MC-Unique: O1p3BgwjOnyh42ow3OmLVg-1
+X-Mimecast-MFC-AGG-ID: O1p3BgwjOnyh42ow3OmLVg_1794161338
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0FBF71800371;
+	Sun,  8 Nov 2026 18:08:58 +0000 (UTC)
+Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 92D811956041;
+	Sun,  8 Nov 2026 18:08:56 +0000 (UTC)
+From: Waiman Long <longman@redhat.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Frederic Weisbecker <frederic@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH] cpu: Fix online housekeeping CPU check in _cpu_down()
+Date: Sun,  8 Nov 2026 13:08:49 -0500
+Message-ID: <20261108180849.1268263-1-longman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,132 +76,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hwmon: (pmbus/core) Add a vout_command debugfs entry
-To: vjardin@free.fr
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261108-for-upstream-pmbus-vout-command-debugfs-v1-v1-1-c7a063efb91c@free.fr>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20261108-for-upstream-pmbus-vout-command-debugfs-v1-v1-1-c7a063efb91c@free.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQ7JR-00000002J2h-1E60
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:33184
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfK0CIhDsh9/NUj4humrNhLQtGR969eE5MFOow5PImxlPZ5D3zMgRtjYszI+9fBBIGPdSpJp4aoqvT2SFoq5/K4qFgxInR9TfU49DhPxkCxwKb1kSS0cL
- fQMEea736KWhueMRGSsZ/34RLirfT4ICk6Ibfxu4sDYB33mi6t1QgWix24hIWiBub+KK+y4wWAR9mVdjJ9Rylmj6xRkQkavsBAWhxMbGHDHX1bwUQmWNcKj8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On 11/8/26 09:32, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
-> 
-> The vout hwmon attributes and the regulator get_voltage() callback
-> both report READ_VOUT.
-> 
-> On a regulator whose configuration applies a load line (droop),
-> READ_VOUT sits below the setpoint under load by design, so user space
-> cannot see what the regulator was actually set to.
-> 
-> max20730 already exposes a driver-specific vout_command entry. Add
-> vout<page>_command to the PMBus core debugfs, for every page with VOUT
-> and a readable VOUT_COMMAND, in millivolts like the in*_input attributes.
-> 
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
-> ---
->   drivers/hwmon/pmbus/pmbus_core.c | 42 ++++++++++++++++++++++++++++++++++++++--
->   1 file changed, 40 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
-> index 37b650b85d1c..1ad5523a9624 100644
-> --- a/drivers/hwmon/pmbus/pmbus_core.c
-> +++ b/drivers/hwmon/pmbus/pmbus_core.c
-> @@ -3833,6 +3833,33 @@ static int pmbus_debugfs_get_status(void *data, u64 *val)
->   DEFINE_DEBUGFS_ATTRIBUTE(pmbus_debugfs_ops_status, pmbus_debugfs_get_status,
->   			 NULL, "0x%04llx\n");
->   
-> +static int pmbus_debugfs_get_vout_command(void *data, u64 *val)
-> +{
-> +	struct pmbus_debugfs_entry *entry = data;
-> +	struct i2c_client *client = entry->client;
-> +	struct pmbus_data *pdata = i2c_get_clientdata(client);
-> +	struct pmbus_sensor s = {
-> +		.page = entry->page,
-> +		.reg = entry->reg,
-> +		.class = PSC_VOLTAGE_OUT,
-> +		.convert = true,
-> +	};
-> +	int rc;
-> +
-> +	guard(pmbus_lock)(client);
-> +
-> +	rc = _pmbus_read_word_data(client, entry->page, 0xff, entry->reg);
-> +	if (rc < 0)
-> +		return rc;
-> +
-> +	s.data = rc;
-> +	*val = pmbus_reg2data(pdata, &s);
-> +
+There is currently a check in _cpu_down() to make sure that there is
+at least one online housekeeping (HK) CPU left after the shutdown of
+the given @cpu parameter. However the cpu_online_mask used for the
+check may include the current @cpu to be shut down. So the fact that
+there is at least one online housekeeping CPU at the moment does not
+guarantee that there will be any online housekeeping CPU left for the
+sched domain after the shutdown.
 
-Why not use the already existing pmbus_vout_command_mv() ?
+Fix that by making sure that there are at least 2 online housekeeping
+CPUs available if @cpu is currently a housekeeping CPU.
 
-Thanks,
-Guenter
+Fixes: de715325cc47 ("cpu: Revert "cpu/hotplug: Prevent self deadlock on CPU hot-unplug"")
+Signed-off-by: Waiman Long <longman@redhat.com>
+---
+ kernel/cpu.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/cpu.c b/kernel/cpu.c
+index b3c8553d7bd6..ed641ee6b37c 100644
+--- a/kernel/cpu.c
++++ b/kernel/cpu.c
+@@ -1415,11 +1415,14 @@ static int __ref _cpu_down(unsigned int cpu, int tasks_frozen,
+ 	cpus_write_lock();
+ 
+ 	/*
+-	 * Keep at least one housekeeping cpu onlined to avoid generating
+-	 * an empty sched_domain span.
++	 * Keep at least one housekeeping cpu online to avoid generating an
++	 * empty sched_domain span. As cpu_online_mask includes the @cpu to be
++	 * shut down, there should be at least 2 online HK CPUs at the moment
++	 * if @cpu is currently a HK CPU.
+ 	 */
+-	if (cpumask_any_and(cpu_online_mask,
+-			    housekeeping_cpumask(HK_TYPE_DOMAIN)) >= nr_cpu_ids) {
++	if (cpumask_test_cpu(cpu, housekeeping_cpumask(HK_TYPE_DOMAIN)) &&
++	   (cpumask_weight_and(cpu_online_mask,
++			       housekeeping_cpumask(HK_TYPE_DOMAIN)) < 2)) {
+ 		ret = -EBUSY;
+ 		goto out;
+ 	}
+-- 
+2.56.0
 
