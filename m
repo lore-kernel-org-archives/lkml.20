@@ -1,105 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794126736;
-	b=5PSA3rxKZ7m9yeQQNsFmFB2gPEv4CH08l0jUgWZ09telZh2Ox5VAbgbsTp4HyZQ4vPXJ
-	 r5onaKSUB+WYN1GCsPEsZkjvkuuPNPqid0XLOjOF4unjJ6ODc1+nEAgjYhGvlLhSVvEGx
-	 4+5NDkryl/j5hDN75pEcV3kSAS8HrlA5qNJpspbueEtc1xBHZG6fy0907GkhRxvKjx6Zt
-	 yCHRF6cIrnO1lVdXBxV9B+L7NpZRtVqBIb1DeV73CO/kkqYfdLMTaHKMaohPHOx2Z4Mss
-	 xOOwUHF/RgVa4BUTQb7kDMAdpGsDOzqwC8q2ux7+/K1CB1zSTz4dufWaMfFAbV0zSvw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794126736;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=N8zgWG/m1wk1ElvtKBvqbB6y6J69miXFE8MYrY3hlgw=;
-	b=vdpr0MtI0LeProIptZgIBS0EFZhyesrNEliybgqKqjm5Uwd/CR3+OUtj9bT4apYC0Qce
-	 fGkrU4wZ0AcnX3sAt79fLVjV5oEtV8xpBSykNZ627lNvRzmwdLesx0a2dMGU+LwPKDnbv
-	 COVRGOaqOM+1qR3IoMm1N8q/FJjLVjaCg5Cgh/R3YR9POPivIyLqVQZzZmasBkqPQJdgR
-	 YgMI48c60rS72ZKVTsctoCywBOiok3MQ7yroAFIoMG2cdvuQwd+mMiXsoIzhbY78Od1t3
-	 xJK9VdM7YoBPaG1Ny591uz1+ieCeNy+rIcnS7ewqWnWEBI/8lvWSSU/aXQYueTXyvBw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=XimmvAM6;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794126837;
+	b=gDlmUu3UvPAltrYPob29TTcweqYFHICdxi+8rYnofBpAtTHfDDUMRVdUvFpq6cX9pL3+
+	 WrXmQ3fR5PmaQJA6dwQmVZ5sLDGQ1G7OdeKuryS8UaxkVr27rr5JjdcEstVhC9J70yxqr
+	 2U8ugWhjCfcmafXAgFmVoCwpEsBs/Gey4kD/wyDiVJm7XK7RkP3hEsU6ycyMIEh45r9I2
+	 YJV5ka8D9iPlUYrDIWcNmtpkc0aQICGl3LTgLMSznrVq/WiKEc/4HLMYqZlZ7xMkrlF45
+	 n3P37pifUuQqHlkuXnqPfVLrBScj1PTcwZ53Lz58DAFQMWrD9txIBya6B4pImRn6vTw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794126837;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=gaWhNV/2UAiD8U4pTKgcpgVjav+zOayQzMlMgcXFifU=;
+	b=Qy2EXyTqLxKuq/ZPglT+Cu9S+dPlsegQ5URmJ3o7GaVcasbCw8ImKehPsUHNRxzRiEcK
+	 xOv5+Vgs29AdgThwyUDzEBeC171XLqBbWreSnMzWQAQrxos/BZkzUFAf7dhhk2CEkvSrL
+	 TQkCOtrP1/Yd0hCT3kHrU9dgnLhKg9wSg4MSVunNTGB1csLSjk/U49xu9yhNzveaqyB90
+	 2tKmoFgiudC1f/nITGSaPIkZdU3OeLwC3Z3xB9l2TTSUCoK5aG1hO3sNbfp4hnrT7kJBw
+	 qCPrcf2gmlITJiZQetBbIGrkqoDtgLqEDPd8oHDFIJ21UDPpb7+wbtPTBqdfek4Okhg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DeMYiPez;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A24D606A322;
+	Sun,  8 Nov 2026 08:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DeMYiPez
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794126837;
+	b=Yf7LcBrbXvlo/DZi5K1OJ+YDoNlT4fm/Yri8ifkStL+xJiCflDBaYNWE77gxoLbxnBmi
+	 LchtQHwMd3UYLOxdyJQDQA5wkrkRio3CCi8pCsENtcWPp82YdaX0/3w4QyYicCW8mIACm
+	 6jSewnOqujSYLCsC2MVZvXzP01ap+zguzoL4IdexBwLB0GcAo8Xd+1ueywqhuGo//ojQZ
+	 n8j6g8yyBSwFcRD381MiJ4FazMs6CzMpu6GnIgVAGsC9NtYUOjs70Do+uZmvteVrynggH
+	 BfJDCLndUTjAplP93p0qVx2YS/be8zfEeK3OGNGEXB+GQnsCNuwH+vZmd876HY1Oigw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794126837;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=gaWhNV/2UAiD8U4pTKgcpgVjav+zOayQzMlMgcXFifU=;
+	b=HAwlGs/PwPCrcfY7tfrx+Mayc6OWE/w6wb4XOda/89iGkp19hK3eK0+UK0odvneU1lFl
+	 u0o06WpBvbLKNFFvMRdtmxyTI0JS0NFgmw67Gynh3mmjZk9FFJRtgcaV5RctyoxCntg+I
+	 BxWGAasX0PfH6L4wNOP66+WlbDrUPK4A/3wDSCT6xkxv16fiXj3W8VJJ1fZ62CFM4VKzS
+	 vU7UuasY4Oib4DrQcVR/1nIdIwukZsfBJ6t04n/SPFUHnevrbg6ukpF/84jQ1mvc+9vIG
+	 bwSl7CVgIvi7LWWpmqLCkBxbIu8PUUFjA9qh9QKI8Iv0OacZFAIOALwhFjDN0Oh5S7Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653DA606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:32:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 653DA606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=XimmvAM6
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso2194725e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 00:32:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794126734; x=1794731534; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=N8zgWG/m1wk1ElvtKBvqbB6y6J69miXFE8MYrY3hlgw=;
-        b=XimmvAM6MvuLGCxnPvd32X6MVNSf++ePdgANOfTnjNwg/vHm1rC5BlB8GLL0vpJbAF
-         spJn4cP8UxrRT2X6K8PZdZgxt4jBSdvSvxZk315N4UU3h9uEUOuOCHd+QrBm93O87i2r
-         y9P+xZFRJpT0qsSdB+NaHn34HVsdRzZihT7viVUJwP634lOahSySjkyC52n8vSQjOhme
-         87JjzIsDJ2LUSfuO5WWIOCXfCen3plmzrzWR3tbLsKGDcq2iRBIHGvn4OC9tpathkqoe
-         DQ4HGLirSrUNK4JKcQoj0qoDKnPENY8122iBmWiQxY2C7Norxfd3NAZ9TUEXNmbo7vXb
-         lcCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794126734; x=1794731534;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=N8zgWG/m1wk1ElvtKBvqbB6y6J69miXFE8MYrY3hlgw=;
-        b=d2tIUIOIYZjxtGy4h3R4MBjbxpZQaHoGwb9LtIGb6YDqbnqiZXIOR5PFzr4seZQWD2
-         2y7Vvpzd4R5yRTMeym2FLnQIOQOYgUm5KbexwXiM2RPMUnWjeukyi2MCX0qZkg3XLeqG
-         WXlt66kM0mUZ1CuCJWE5AJv2tEkgNrEISESdl6bENjf3VNx6KE1kmdNcb6a9HTyX0wRx
-         cJo3dQulvNCTc5NkQAZRSn8tp88e/fYB/1QQH2gPhe7U01S9NQtg2zTr8mVxKAAsfQAn
-         sgJjzP1ggrqEEneF+W5FS36ZeVWxjLuJ3cTTET4NVLeiwKQVrX32Fmo46kcnVH+KgNvF
-         rkog==
-X-Forwarded-Encrypted: i=1; AL+hErF1ZAM538WETXS4Vh8VH3SZBb6I+OBm0EBXrKian0GdKOXEjtYA/GoTgddaSHAjFG0n35AkDVEmovVJc2o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9n6UHP5PZw1Rb91VZOvIL4dda5eeGL0YF0Hxai7zLXgAmF6i1X
-	rUFNqbgcNUifANomCP/wMkqyzxGEUqfXcDS5KSkqMdfZn2w8Rm2t+gZTWAfLI/4U8bE=
-X-Gm-Gg: AYBFou2RvtAat5W5dwy4hb8SbW8mMpxSb6XiasCUL3VNjfVWcfL9xsOKOsHj68WG242
-	JKTII3wwZAXG5acjXl2g9+0e3rWuYOj8j9RI5LPjw4zeUOB0qSQsVVrNgiP2siAWVsDDg61HBzC
-	fVTk4OYAuck+HKg5u3UKtdCahiaJ39/ZYryLIW6+FQV716ozlNimv663pNOHoRL9QXCF4Ra5Ocz
-	FV2hYXYRqzJnVvPhwHFXqGs6tjeene5VE6x88K1PXzAo/TccFrdaKa+hGA79QwS9XPRuYB+fMo5
-	P2oYkSlmXLrCjQR4TQxU20Int1QlQu1PwxC+BUwG4OfJHwyqUzNQW5oKJs9/q48fNsJfhK+qgfQ
-	8F0IMEze2tCf5yHkqpvsTbbp0xKUYGStJh8CSJpCxHXl5P2H2yr31Qj84W4RtHjtlOTF45iKy2d
-	AUbMOdvLnEuW9zL9+weXwr+k953pwbraUosZ0zYpt/AbYOQIinansvbpTS1f0Fshl6rR9lapGax
-	zjugHmFsqWJYxJsvF2nozYuaKPW837gH/FRNZ+tp3D84uP95Ymr/oHOPtOWZQ11+92+EmKHJ5V7
-	zW9yYU75YGYLL9zNBlQoaj3a5gfKcHC8JOsn9YNJY4cFZzzW4TG8+K8=
-X-Received: by 2002:a05:600c:8b86:b0:4b7:6942:39bd with SMTP id 5b1f17b1804b1-4b963c6e58dmr16840235e9.26.1794126733390;
-        Sun, 08 Nov 2026 00:32:13 -0800 (PST)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4b76cb76697sm83632255e9.0.2026.11.08.00.32.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 00:32:12 -0800 (PST)
-Date: Sun, 8 Nov 2026 09:32:10 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matti Vaittinen <mazziesaccount@gmail.com>, Rodolfo Giometti <giometti@enneenne.com>, 
-	Marcelo Schmitt <marcelo.schmitt@analog.com>, Antoniu Miclaus <antoniu.miclaus@analog.com>, 
-	Angelo Dureghello <adureghello@baylibre.com>, Tobias Sperling <tobias.sperling@softing.com>, 
-	Eason Yang <j2anfernee@gmail.com>, Marilene Andrade Garcia <marilene.agarcia@gmail.com>, 
-	Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, duje@dujemihanovic.xyz, herve.codina@bootlin.com, 
-	thomas.petazzoni@bootlin.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: adc: add driver for Texas Instruments
- TLA2528 adc
-Message-ID: <avAy6cemm3MRHSQO@monoceros>
-References: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
- <20261030164705.297354-3-maxime.chevallier@bootlin.com>
- <auyjgDddFs3OvnC3@monoceros>
- <20261108013218.0fe627e7@jic23-hlaptop>
+	by smtp.kernel.org (Postfix) with ESMTPS id 66D6C1F008A3;
+	Sun,  8 Nov 2026 08:33:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794126837;
+	bh=gaWhNV/2UAiD8U4pTKgcpgVjav+zOayQzMlMgcXFifU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=DeMYiPezFK8Q55B6mxRAi9++zUbwp6MXVH1AIUx3pPKUmpS4mJmYGNSk+TzVm1N7v
+	 himhfAua+ct4DgaNaAU2MDUFxgqtwP8QiG20oESWXlXyks4XMfyDuRPJHksLcehzQP
+	 YSjH52taNBKVZ/WmlReJ5VYZL26mwgBgYBso5QAMLHnkdx4mFZa3b2C8L/taxgmhm3
+	 V6QpvlBCdt9u0GbbQlN44ho43ICtWtc8j2cqR1Vh9Yr2akLKyOOFmN7lRT8C4988W4
+	 YBYyKbfaSQ7Um6oENQBP2puU7ahbhzRCEgOxcUu3rDGwyhDrsNqSGX5FBc14JBgYGt
+	 Z98dhWhroz1/A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E151647E94;
+	Sun,  8 Nov 2026 08:33:55 +0000 (UTC)
+From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
+Date: Sun, 08 Nov 2026 09:33:55 +0100
+Subject: [PATCH 3/5] dt-bindings: input: samsung,s6sy761: Add ST FTS1BA90A
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,64 +82,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nzwaajfdqqb5x5jv"
-Content-Disposition: inline
-In-Reply-To: <20261108013218.0fe627e7@jic23-hlaptop>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261108-b4-s6sy761-fts1ba90a-v1-3-999b3cfaf82d@dxdmail.cc>
+References: <20261108-b4-s6sy761-fts1ba90a-v1-0-999b3cfaf82d@dxdmail.cc>
+In-Reply-To: <20261108-b4-s6sy761-fts1ba90a-v1-0-999b3cfaf82d@dxdmail.cc>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Henrik Rydberg <rydberg@bitmath.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
+ Nizat Mikayilli <nacht@dxdmail.cc>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794126835; l=1350;
+ i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
+ bh=Flhr418PQSRALX306tCmpNhdbdYHNpQZPYQ/lvdWiZk=;
+ b=449RXd/PIhn0/o9lzW3zF9HBXchOZUIIIoH6vVPIsTM6PIDM/KlRN/4uCLczLKWpD4d7Q8kwQ
+ h/s71c2adWGASBV+ss9hX4h4ahY24Z6BU3COhqciYyzp3lSxKeBsNAQ
+X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
+ pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
+X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
+ auth_id=1111
+X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
+Reply-To: nacht@dxdmail.cc
+Content-Transfer-Encoding: 7bit
+
+From: Nizat Mikayilli <nacht@dxdmail.cc>
+
+The ST FTS1BA90A in the Samsung Galaxy Tab S9 Wi-Fi runs firmware that
+speaks the S6SY761 protocol rather than the ones of st,stmfts and
+st,stmfts5, and it has the same supplies as the S6SY761. Its event size
+and some commands differ, so there is no fallback compatible.
+
+Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
+---
+ .../devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml      | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+index 1ffd17af3c53..92d071852d71 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/input/touchscreen/samsung,s6sy761.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Samsung S6SY761 touchscreen controller
++title: Samsung S6SY761 and ST FTS1BA90A touchscreen controllers
+ 
+ maintainers:
+   - Andi Shyti <andi.shyti@kernel.org>
+@@ -14,7 +14,9 @@ allOf:
+ 
+ properties:
+   compatible:
+-    const: samsung,s6sy761
++    enum:
++      - samsung,s6sy761
++      - st,fts1ba90a
+ 
+   reg:
+     maxItems: 1
+
+-- 
+2.56.0
 
 
---nzwaajfdqqb5x5jv
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 2/2] iio: adc: add driver for Texas Instruments
- TLA2528 adc
-MIME-Version: 1.0
-
-On Sun, Nov 08, 2026 at 01:32:18AM +0000, Jonathan Cameron wrote:
-> On Thu, 5 Nov 2026 16:42:42 +0100
-> Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com> wrote:
->=20
-> > On Fri, Oct 30, 2026 at 05:47:04PM +0100, Maxime Chevallier wrote:
-> > > +#include <linux/i2c.h>
-> > > +#include <linux/mod_devicetable.h> =20
-> >=20
-> > Please don't include <linux/mod_devicetable.h>. <linux/i2c.h> already
-> > provides i2c_device_id and of_device_id. <linux/mod_devicetable.h>
-> > provides many more *_device_id and thus introduces a big list of
-> > unnecessary dependencies.
-> >=20
-> > I recommend to just drop <linux/mod_devicetable.h> here. If you insist
-> > on full iwyu, there is <linux/device-id/i2c.h> and
-> > <linux/device-id/of.h>.
->=20
-> IWYU is always a bit of a 'roughly' case in the kernel.
-> There are standards assumed sets of this header will always
-> include this other one. I've just started assuming that is
-> always the case for these ones.=20
-
-Not sure I understand you correctly, but I think it's safe to assume
-that including <linux/i2c.h> will always enough to get a definition of
-the structs i2c_device_id and of_device_id. My preference is also to not
-add includes for <linux/device-id/*.h> in drivers, but opinions differ
-and so I typically point out this possibility.
-
-Best regards
-Uwe
-
---nzwaajfdqqb5x5jv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrwM4cACgkQj4D7WH0S
-/k7nfQf/dmSfUoe2s/ZZJPtCi+WOplpfP4laRiw1uBUXG0x4haFv7821WViD/bhF
-dvg4X3D486E8LLkSsWGz4mKh8N7M6EsL1Vddr0iCBrz0pbsjdVIkEFS8ymBvBOud
-gBHytbfcmR1LBJH/wNhfLqoPeEpJYhuL3511QmrCiBBwbtgSWL2Suj8GNF54a3pc
-BipU7Kk/io8HXiR6H3D6i3zmjoKT0adjlt2eiCw4egBAx+/vTIMqXF+/6/6MMMvi
-hrU3TjFMWokLNEdekI/XHecdT3dCdmHuRnJzriW8rw+zVxMMpheFcqb8fVjkPUA+
-2ozYOslTZ9RtLyy0OB9+omPbgKcEQw==
-=zcoz
------END PGP SIGNATURE-----
-
---nzwaajfdqqb5x5jv--
