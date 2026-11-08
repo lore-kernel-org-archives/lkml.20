@@ -1,50 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794154011;
-	b=bKJJtiYTLAvS4qib99HXpocX6j0z6+PnW0asnge0CLT8s7ibLW1WNwbCvh8ZezbzCFjQ
-	 LXw1E/hLr6kyyTFtViBJQoOIgstJM8SjfGBgfF9bbEMaNGLOezBLUnRU3oce00To5/+kw
-	 E4BVUpYyTmgLs0TX8beZyunH9EjOskMTGl+SJDynycUoUvcp4a37xFVuAiXTXuxtCIM4A
-	 Y9RuTV+noj/HxOZCLDxgDhgxbnIBfarK0Tps1mtxOQo/p69U5I4g8BB/xruaqF/aYKMT5
-	 csQhmfwrxRARH9dWuoSi8A2QsPvF5PROk/EDko/M6gpLJnaGl++HaQJdHw2PVnQXHlA==
+	t=1794154223;
+	b=D9eXe8vhoUJiiw2coUYy3qHTrUAD5eWhbhFJMwZhnBMmczgb485PjUlNxk4IaY1OFqKr
+	 VuQwvFsfkDY+0oJWLfOganF2/V6wQmoxdKShptUr6gEXpyQ8lrLPMzpEwfCiVadIkIJ7D
+	 mclasSzvhIBMIxrXO6kGW888Ls/IFGG5WcTtI/inZmIo5DB0D1PrtUchgZrsFigdJNS15
+	 HC6LyemtWn57ei1vgCMopEy20PCjQMdy0Kq6v/ZRmZfK5fnt5uocY8nXNiP3yc/ljEc5H
+	 CXs2s3enkK7Wv+GsrVUqmJpkSYOQ9/sZMS0FB7043AXkv93HVjnrBTAMQsmKqpc0R3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794154011;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=YNj0crrPME+eTibyxcxvGkAnT+MIth/jffpvZHujZCI=;
-	b=wf3nqrsbM99i5dwtvNjj5UfE5k3DmS0SYrCckURael882gG402UdeDPBBnBRC41Tdpba
-	 J2uC3O3tfhHn7498KkKM4kqP7wJIZ9AXQPJi43LsTLfSgMkemx2/UsTd2WAQl5TLmIPTu
-	 MkQ/ABazHJnuc/n9CfZmtpgeifTqqjCwyR9iAB/fSR2rYwwGNAb5HjlI//IPdXqW10jV/
-	 Za2l5yY66MOTU9gA8gM/23YfNtEHrRN+qira1VARvA0XAcZX4umaIi/XSu3uvMocodo9f
-	 EW1Lw9la5YVbQl71YyXX0w2Mp2+dP645ZEhKTnaCCmOj0eLmLNqgreAsofCOTwllS9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794154223;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fm7/aHIW/1P599V7mhSZ2sKud5lmZUMj6TxkPF73djU=;
+	b=yhULMdGoN5BGhx1IEfTrTp/jTNo5xMNi6lDbipGy1nQimROhU0hLD5U+bGuWJ5Pw0wwR
+	 R2GroUDgsEwz8nucGX2TOtrStqkdE4nQMbuIVlUqhS7lQTDgKwbjydMoz+SJXEITm1/4i
+	 He9tn1iD0REL2uz1zKSAhIvxKsiVP8dhKUMjePWTEaQqZBZye8lINOXad8N+cVO4UIoGM
+	 DGvw0Zad9aKLdbvKsWBE+TPXbZo0LFgYRFVd3vOChMzS3IjG5de8E6grw678WJmX+b45g
+	 MZfvgysFbaL3JEVxakDW+TFQcNAs2KB7KOM3LFUWRaPPU/gtNcriP/7ywj5XLdpoTDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=13.75.44.102
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3F958606A322;
-	Sun,  8 Nov 2026 16:06:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F958606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.52])
-	by app2 (Coremail) with UTF8SMTP id IQEQrMDG7cUOnvBqxgAJAA--.8843S2;
-	Mon, 09 Nov 2026 00:06:38 +0800 (CST)
-Received: from hust.edu.cn (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wCXYh4LnvBql4QOAA--.19133S2;
-	Mon, 09 Nov 2026 00:06:37 +0800 (CST)
-From: Dongliang Mu <dzm91@hust.edu.cn>
-To: Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/4] docs/zh_CN: translate AI-related process guides
-Date: Mon,  9 Nov 2026 00:06:29 +0800
-Message-ID: <cover.1794153793.git.dzm91@hust.edu.cn>
-X-Mailer: git-send-email 2.51.0
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=naiTJOaq;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230ED606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:10:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 230ED606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=naiTJOaq
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1931ff67a29so445292c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 08:10:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794154222; x=1794759022; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fm7/aHIW/1P599V7mhSZ2sKud5lmZUMj6TxkPF73djU=;
+        b=naiTJOaqxO1BV5PApiTZjmeYwylCJ00DvaFqQ0bMvB5t7NEKJoRMBOpHWYFXpCh2vv
+         HBPgALcXVWVvO//YWAQ3lTU0IeC9IiCU6ke+s0R4Q3ny+C5fGqUSHZyWdfrbX1gXPXLD
+         JX5ToWRinl5n3d2lE1S5fwjOFPAyhAyOLUXJJlSSwO7eBP1Abz45D9el8154F2huogDa
+         F6Zhter8A1q1S4WUJ6PwTvnJ4auh9WHKhepobPuybfl5xMxA1RiRtFePxqaRDS2adSjD
+         T/IXWK/Qy9xmAnGWVZGQ3Ezsu9CNn7Cm+SnUdueAW0KHFeZqMDzB8DmLizrWbx4bRx0H
+         KTjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794154222; x=1794759022;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fm7/aHIW/1P599V7mhSZ2sKud5lmZUMj6TxkPF73djU=;
+        b=iWnnw0AdS6aqotcwiWaNIdlkEBhgoigAiOey1AOzML6F5yf94ui8LY/tfJU5UrO7PI
+         awr8cmZVjK6ykexOtvoyg2iq/QQOvF2nSj3vr1eTiquObStA5Iz95qSUCGacYgVgiupN
+         yDY/fGz27j0BLqxSR/eZhCxJKBDR33KXD+ySqtFmJ+x6K4BuNLjW/rd3MuUs9parVuCK
+         rKiIa4iZFSt2s4z1JhO75u2LaAirp8nWgyUoqMRTUb0KxGN7f/X8DGEKpJCLfXjAQt3T
+         xrTdlGjlzSlOuxkDBBy9uFIiDejvvVTy50BUXHGyBeZ8+l/1myEgmKWvTxw7tNCtzSB9
+         DhQw==
+X-Gm-Message-State: APuU4Z/KF0CohWwz6Xqvkou+OSHUqLB7dCDTal7Vn88m0XczpLad7Y17
+	TCNNqUdcT7RS5xfWr0RbjQPQ03auW4OXmVEiwBQM+d2IXg+ji6O+N9XK
+X-Gm-Gg: AYBFou0nHDmZojj7ibaus3tQS3lcEMuP1JLgCdq5VMlpBgcGK3fBA+5LdmQvx/o4Zhn
+	/kfrdeKMLc8WqMOJ5R0xJzfJNBESvcxQOgVPzv+6asdZSB0CE+XVm6g6IWi8oWqwIqkX6uJo662
+	MiLC5Kv0Z7P/g2aPuvcXM246CdGTgtLLaVQfOHxvikS3KVYRvBjDTdvft+nMrq18GCGs6CU+mXb
+	W9LDgQxfmTc4kUs8lll7hw51H0zmoGN8lyWHpLf3G2SrIxlIgz0TWQ44UjgisTrmi7RkE+848qX
+	DYZRmKmMirwM15uNb9h2Oc2n+iEjWeIxk6IZ9Nr4syus/jYlAQ6aQCangu5R0wrts09E1CSS4wV
+	bTb50sOuC+w5DkDnRa2TRE9eGUt05T1ZAefkksXaAwaHPrrJrIwyaArAiDTriHk1hmkLYywDysv
+	22aluW0mamnw5dlnWgM3w0pIeRWDB2ykZZ1dOXsoHhavi0wgBMJZg9z0ie/uiAw7MAt6rUgZgLR
+	ADh4jUVvIg5/eZAXb2dPKX6RFl1ebIJgY8xaGZFgzLRCWmb/vT9uCET8CndirI8SV8OtuQP2mwI
+	v5wItC8c+bxFT5eBzjNTGhZQcEiBJRODkqRNyxPl3gaOe1mTsU+WYIUlAT8JyAmHDr4xqnpD
+X-Received: by 2002:a05:701b:2816:b0:1b3:a012:2e40 with SMTP id a92af1059eb24-1b3a0123932mr2505396c88.42.1794154222149;
+        Sun, 08 Nov 2026 08:10:22 -0800 (PST)
+Received: from localhost.localdomain ([103.177.253.80])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b372ed839fsm6950278c88.0.2026.11.08.08.10.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 08:10:21 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: sreekuttan2156239@gmail.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	tiwai@suse.de
+Subject: [PATCH v2] ALSA: control: Validate element info in compat ioctl
+Date: Sun,  8 Nov 2026 16:09:25 +0000
+Message-ID: <20261108160925.8774-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261108141219.7655-1-sreekuttan2156239@gmail.com>
+References: <20261108141219.7655-1-sreekuttan2156239@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,45 +100,68 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IQEQrMDG7cUOnvBqxgAJAA--.8843S2
-Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvdXoWrZrWrZF15ArWkZrW7Zr48Xrb_yoWfuFb_Ar
-	4kAFWjkrs2yF1kGFW09r45ZrWIkF4F9rykXFn8tayDK397tFW5XryDXas5uFyrAF4Fkry5
-	G3ykWw1rtF17ujkaLaAFLSUrUUUUnb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbHkYjsxI4VWxJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI
-	8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E
-	87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2kKe7AKxVWUAV
-	WUtwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AI
-	YIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VACjcxG62k0Y48FwI0_Gr
-	1j6F4UJwAv7VCjz48v1sIEY20_GFW3Jr1UJwAv7VCY1x0262k0Y48FwI0_Cr0_Gr1UMcvj
-	eVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCY02
-	Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr0_Jr
-	4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
-	rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8Jw
-	CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
-	z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUVWSoDUUUU
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-Add Chinese translations of the process guides for coding assistants,
-generated content, and the kernel threat model. The final patch updates
-the coding-assistants guide to link to the new translations.
+The compat ioctl code calls the control's info callback directly
+in get_ctl_type() to obtain the element type and count.
 
-Dongliang Mu (4):
-  docs/zh_CN: translate coding-assistants.rst
-  docs/zh_CN: translate generated-content.rst
-  docs/zh_CN: translate threat-model.rst
-  docs/zh_CN: link AI guide to translated documents
+Unlike the normal control info path, this code does not validate
+the information returned by the callback.
 
- .../zh_CN/process/coding-assistants.rst       |  74 ++++++++
- .../zh_CN/process/generated-content.rst       |  97 ++++++++++
- .../zh_CN/process/threat-model.rst            | 168 ++++++++++++++++++
- 3 files changed, 339 insertions(+)
- create mode 100644 Documentation/translations/zh_CN/process/coding-assistants.rst
- create mode 100644 Documentation/translations/zh_CN/process/generated-content.rst
- create mode 100644 Documentation/translations/zh_CN/process/threat-model.rst
+The compat read and write handlers use the returned type and
+count to access fixed-size value buffers and calculate copy
+sizes. Invalid metadata could cause these handlers to access
+memory outside the expected buffer boundaries.
 
+Rebuild the element ID and obtain the control's access flags
+before validating the returned information. Respect the
+skip-validation flag to preserve the existing behaviour for
+controls that request it.
+
+Call snd_ctl_check_elem_info() when validation is enabled to
+ensure that invalid element metadata is not used by the compat
+ioctl handlers.
+
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+v2:
+ - Rebuild the element ID before validation.
+ - Set the control access flags and respect
+   SNDRV_CTL_ELEM_ACCESS_SKIP_CHECK.
+
+ sound/core/control_compat.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/sound/core/control_compat.c b/sound/core/control_compat.c
+index 87f7ad5ab739..0c1b80c856f2 100644
+--- a/sound/core/control_compat.c
++++ b/sound/core/control_compat.c
+@@ -169,6 +169,8 @@ static int get_ctl_type(struct snd_card *card, struct snd_ctl_elem_id *id,
+ 			int *countp)
+ {
+ 	struct snd_kcontrol *kctl;
++	struct snd_kcontrol_volatile *vd;
++	unsigned int index_offset;
+ 	int err;
+ 
+ 	guard(rwsem_read)(&card->controls_rwsem);
+@@ -183,6 +185,17 @@ static int get_ctl_type(struct snd_card *card, struct snd_ctl_elem_id *id,
+ 	info->id = *id;
+ 	err = kctl->info(kctl, info);
+ 	if (err >= 0) {
++		index_offset = snd_ctl_get_ioff(kctl, &info->id);
++		vd = &kctl->vd[index_offset];
++		snd_ctl_build_ioff(&info->id, kctl, index_offset);
++		info->access = vd->access;
++
++		if (!snd_ctl_skip_validation(info)) {
++			err = snd_ctl_check_elem_info(card, info);
++			if (err < 0)
++				return err;
++		}
++
+ 		err = info->type;
+ 		*countp = info->count;
+ 	}
 -- 
-2.51.0
+2.55.0
 
