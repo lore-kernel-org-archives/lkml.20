@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794117621;
-	b=bECu2XRFLpSNtHbe5btnB4NE5Mvy+3FbpyXr65GcT57huB+Q9miRNIaP6WZRc+ByeGt0
-	 bqvftN1WI3MUb1iZhAyF6dkQgL9IwKJorYvcr41fbpmrSJ9LGBcEeFOqYxnh10LH8Ydzo
-	 3BGlfczYVKsnNK+Bjl/qQO5TDFk2UOjLuFnlqVhvsgSKrf88MYqhGdAUXQ58VhbX3LiAQ
-	 MCERuPcZ5Yoza2Oh+a4AvhLSrh1zdv1zmRxXwm8q2MLAylLvYpdyJ0teHc4biZN+Iy2IF
-	 dUiCV9TTdh8n1vfZoZgqQNmZ7TTx5lKqWIBc85coV2dPX5hhJQyxdQOVLR8sv0sUVOg==
+	t=1794117622;
+	b=TNOMqFpICqrgk82ensrv3ahQrhSqGLKwB9X5rDuFyXhba2P+5B6GsvNeGlTVnDJPvYKN
+	 ZwLC+9VxYKZq3Ttem/pvZ45Bf79zCDXB31xswQ2n9X7vPd+fmEhTmDuM+auWxmeiU/WqM
+	 xKgCpdNqVhL0qq08Tfdpx2QMdGfUesj6QFMyTOwPN7KgNwgtjI5gRmbGYtmOefHt4S+VK
+	 /rxHgUX7GO3IdvKfH+x0eR9f4sy6a3Zq46QOnynv6x1/gpy/q7CccZP0EhxGPI/boWgUf
+	 Xl5dp+KnZt8FbqnrWZq8wySG/Tk1MX8I5a+i3BGTNyVT3U9B2ptBTgF/aczxmEfYouw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794117621;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794117622;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=zMjClMAhSRqoCMrDS5bvxCNb79WE0UiAP81MU3z8MjY=;
-	b=d0qRtTTU1l2rpRMq0yBso4dj2nP6hfCdDgrpxmGlmSW6QtXDzMwRTEA/LeE1bAsqz/1B
-	 N6fMeT6H3IiR3Uh8s+yBGuXmT7WGL9iwcGUXjeSJIc77sK0kgGN5C6NLXwY5BqTHxvCJ8
-	 nT3MXkeKVXpkQIT/Efri3OIEdj+01Mm8AVS3X1X3y/Ah4xf3mTq46e9q2iGIkVfjlGp12
-	 WUMqgGe62auiopvH7SWfrc8Diw+g9bwU7zukMavdrQJ4zLSq2PfqkDo4aSsqz2m4yMgQZ
-	 TLsdfKbksOPbwvDVlvy+6VXUwsgu7XPt7QWv8qlzFyk5biiLmYW5w7idvXy7gvEs6Fg==
+	bh=gFMZKE8rB1qHEs9YGj4+e/8ZQgkxp9yc4uMWlT943Dk=;
+	b=KcmCT4HjjYj1GiqNZw7z3E6By4wM07Vtd5v/nrgER2rKObP+7Jcw0qeXXew/EIz+syVe
+	 tx5S79KbhG0LMeuzZXgJZNULoShj1Y6JaHDrhD3MeoUNMGuE1xVZQfhq5oPAGQF2zSxT+
+	 fPMFKwHROBzfec+mE7ghnzZzdTfG9as9kDCHfbtua7UCE6Tv2nfHQBFXhBuvW1YkEJIWE
+	 A7uohPq45tp3XPLaHliN7d9EUbYbG6dFM9UkzTOzr1T+Rcz3kIaDtPyru0YRf0Q5jZ8Jj
+	 Mo8IBoh9+ZmX+LzLUAO+z/TX/8SsJTm1j4tsCBr9JBh+W+/vqspxketYnk+A0Hgv+VA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TnqDHwwM;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NpT9AOZ5;
+	arc=none smtp.remote-ip=74.125.82.69
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B89606A33C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 06:00:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03B89606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38642606D813
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 06:00:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38642606D813
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TnqDHwwM
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3724667bc16so345110eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 22:00:20 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NpT9AOZ5
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b238436265so61511c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 22:00:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794117620; x=1794722420; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794117621; x=1794722421; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zMjClMAhSRqoCMrDS5bvxCNb79WE0UiAP81MU3z8MjY=;
-        b=TnqDHwwMSK+tPQ5qYFDqk5GOBsX3DDveSyitIqlHVwFOzg0GSDM6brxvetK1Q64kC8
-         TdTBC/GEcAm3+uu8Hlp1lAGGRpypCpl3Dd0u0FJ9C0RD4ez34Luxzo7U5U0JHM3Mtqva
-         VxqBJPbk/Fy3N0m2jxijJj/YNGbJY7rye+nCB4zr4NNXM373GK3A3gbqpHeB9hWPXBIR
-         pf0GW7LTIJMgdjqs6I9U1qZ0CbjN7HO5Wgiudov45eITLSSLchjoUAb1FLqAtc90EMGp
-         Ai8S0VyYaRrhkDAb5H4b55jwcHDFxBHK4WmrZQPtaMoF9AQTxUqoY9s4TZOC/3WklAZm
-         bPAA==
+        bh=gFMZKE8rB1qHEs9YGj4+e/8ZQgkxp9yc4uMWlT943Dk=;
+        b=NpT9AOZ5Md2YhJthgKisZgdg2A4MZVYGgCZ8bh9fcc+f2x20rDpG89VKosLx6fGq77
+         WT6EFTF2b2ciBsGXUnYEEbAa72fGUAEY3yq6P0ibYXhxVhTjMcTphKcPp6asKIZIKvip
+         daj9yrctnzyUz7t5z2HVffndtBgF1S+9Ro2obX98CPEcmQNVJDYlkFA/oKqq2pqbf3te
+         QJQ1lQ4UWdvz12HYNS/t14EIRIqOmj93uAINlpNFQPua9/8Q/do1FI4tye+NGV6ilZdn
+         olC2C+esw3M4R+/pu/yJo4KNX6GbwpGtNz8bxNvbKXSA9EchEp/zeiqpytaO+UKs4PmQ
+         0WSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794117620; x=1794722420;
+        d=1e100.net; s=20260707; t=1794117621; x=1794722421;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zMjClMAhSRqoCMrDS5bvxCNb79WE0UiAP81MU3z8MjY=;
-        b=Ogcak0g3RpT4V5YPmnyVyvX06rvj1rULPi2votB7guofM1ksRdLabYHhXsrdgCggYl
-         gmG7EQo4ZTVgbvEvDeLtXgLlaUFrN6MA+cHS3Y3M53j8Oryx58fubEhRLxgn3bL0kJrH
-         ugH2X27JvfwdQLs0/bVAEkM/ejJLfug3pilf4YSaWWixd149M+34YKxgaOXbov5zYJwI
-         qBGR5zSIg/0dWkIEUcqWw8LTHUznQzz66fxDkn88rzvFhm1ZPPbSlWQ2SQKZW1f4Ymjo
-         fFjG3Bf+lAZjxNAFEtzsYSSYwuHZXo3NBmcEgWKNanjhI5LSRJfmHP2hNsqKyKbt85cy
-         5KtQ==
-X-Forwarded-Encrypted: i=1; AL+hErEf9cIIKJQ+3OKBOY2LokDHsYwwmDL2PBrfnsbvPHTev7M5y452yMotVfGCz9a58wm8Yc37lNwIjLFmfXM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+PtEyP8KhX855/PIZU2WQawwme5qDz5V0BQIpYw8hiFJiitD0a
-	8aOnFcCG9h3WM1gqFApl3n2jSs33pmnaxp3hxEpLv9FSECLfZAOcdpv6wpvf7xd9Bw9eMS7Tcya
-	QYJlF5mjcu+yWqgHWCl6nRuEHIA==
-X-Received: from dycc22.prod.google.com ([2002:a05:693c:60d6:b0:36c:9a9b:3677])
+        bh=gFMZKE8rB1qHEs9YGj4+e/8ZQgkxp9yc4uMWlT943Dk=;
+        b=2FrRnKtMulC4hoGKyluL8btPKKpuqzTkbR1+Uf1Ft/27WtZX8xplaz5FdogZhj4RPh
+         UsGvAVCbQmdrrV7BgHMO+cpKQN9+DPuCQk9DGtGFoygz2pGNHxd2kmVdzBnulX0GrlJ+
+         /qzxfa1QZxGL/SeFhhjcfyZ20yxIvubXAwqA0fd+YovyD9BgfvpsQLyfvm7hFAITLWZO
+         yvBllndYuBgUJWkWsMRDjpfKuXaBJBeDA0kfsgfAlUmeOZ0xas2Ao/x/wvEZN2zqU7VA
+         xf/Ey2w3WmQMlbKZ88WOO78MuTobTv1RR91HCK6zJpjhXtx9ytQY7actO09BxyBSOBxr
+         qOEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzBWGcA6bqKf2iOP2tmPBGXfa4tFLYqzafD2EOTTnxsG9fVa7av55mZCAqIk7Oc1HscvbmGtQqMzgpVza4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9d87A84916TfgA/HnjPHkOeCzb5xG8I//8MytXD1DB5gTMa3+c
+	Xjr/0UDB0zT3AM+G8xgdcpQAicv3UqaEl+ePrSo8/VjL4MwM8DV+0a4jHhYqfO18zAXlIgkcO8I
+	CtfSODBzsWvZKakC5ovEmdPLoKQ==
+X-Received: from dlev11.prod.google.com ([2002:a05:701b:464b:b0:189:931c:18ef])
  (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:20c8:10b0:36a:2473:9b2f with SMTP id 5a478bee46e88-370f7f80e04mr5298946eec.23.1794117619069;
- Sat, 07 Nov 2026 22:00:19 -0800 (PST)
-Date: Sun,  8 Nov 2026 06:00:12 +0000
+ 2002:a05:7022:e02:b0:191:3c:aae7 with SMTP id a92af1059eb24-1b39feec174mr1478394c88.26.1794117620448;
+ Sat, 07 Nov 2026 22:00:20 -0800 (PST)
+Date: Sun,  8 Nov 2026 06:00:13 +0000
 In-Reply-To: <20261108060016.2131509-1-almasrymina@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261108060016.2131509-1-almasrymina@google.com>
 X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
-Message-ID: <20261108060016.2131509-2-almasrymina@google.com>
-Subject: [PATCH net-next v2 1/5] net: skbuff: skip managed zerocopy frags in skb_frag_ref()
+Message-ID: <20261108060016.2131509-3-almasrymina@google.com>
+Subject: [PATCH net-next v2 2/5] net: skbuff: refcount spliced page_pool frags
+ via skb_pipe_buf_ops
 From: Mina Almasry <almasrymina@google.com>
 To: netdev@vger.kernel.org
 Cc: Mina Almasry <almasrymina@google.com>, Jesper Dangaard Brouer <hawk@kernel.org>, 
@@ -151,84 +152,121 @@ Cc: Mina Almasry <almasrymina@google.com>, Jesper Dangaard Brouer <hawk@kernel.o
 	linux-omap@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-skb_frag_unref() and skb_release_data() skip releasing references on
-managed zerocopy fragments (SKBFL_MANAGED_FRAG_REFS), whereas
-skb_frag_ref() acquires a reference unconditionally. If skb_frag_ref()
-is called on a managed zerocopy SKB, the acquired reference is never
-released by skb_frag_unref() or skb_release_data().
+Update skb_splice_bits() (spd_fill_page(), sock_spd_release(), and
+skb_pipe_buf_ops) and skb_append_pagefrags() to acquire and release
+references via netmem_inc_ref(), netmem_dec_ref(), and skb_frag_ref()
+so page_pool RX fragments spliced into a pipe remain pinned in the pool
+while in the pipe and pair with skb_append_pagefrags() and
+skb_release_data() when spliced into a TX socket once netmem_inc_ref()
+and netmem_dec_ref() handle page_pool netmems.
 
-Skip acquiring a reference in skb_frag_ref() when skb_zcopy_managed(skb)
-is true so skb_frag_ref() matches skb_frag_unref() and
-skb_release_data(), and disable share_ok in iptfs_output_queued() when
-skb_zcopy_managed(skb) is true so iptfs_consume_frags() does not append
-unreferenced fragments into a managed zerocopy outer SKB.
+In tls_push_data(), fall back to copying when MSG_SPLICE_PAGES
+encounters a page_pool page because kTLS device offload record->frags[]
+tracks pages via raw struct page references rather than pp_ref_count
+before handing them to tls_push_sg().
+
+Caveats:
+- Because pipe buffers created by skb_splice_bits() hold pp_ref_count
+  until released (including across tee()), user pipes holding
+  unconsumed spliced data keep those page_pool pages in-flight and
+  DMA-mapped in the pool (bounded by pipe capacity and RLIMIT_NOFILE
+  rather than sk_rcvbuf) until the pipe buffers are consumed or closed,
+  with page_pool_destroy() deferring pool release via its periodic
+  workqueue and page_pool_scrub() unmapping DMA.
 
 Signed-off-by: Mina Almasry <almasrymina@google.com>
 ---
- include/linux/skbuff_ref.h | 10 +++++++---
- net/core/net_test.c        | 10 ++++++++++
- net/xfrm/xfrm_iptfs.c      |  3 ++-
- 3 files changed, 19 insertions(+), 4 deletions(-)
+ net/core/skbuff.c    | 31 +++++++++++++++++++++++++++----
+ net/tls/tls_device.c |  6 ++++++
+ 2 files changed, 33 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/skbuff_ref.h b/include/linux/skbuff_ref.h
-index b6f6da556ee90..e94c599ce83d2 100644
---- a/include/linux/skbuff_ref.h
-+++ b/include/linux/skbuff_ref.h
-@@ -36,12 +36,16 @@ static __always_inline void skb_netmem_ref(netmem_ref netmem, bool recycle)
-  *
-  * Acquires a reference on the @f'th fragment of @skb via skb_netmem_ref()
-  * (pp_ref_count if skb->pp_recycle and page_pool-backed, else non-pp
-- * backing refcount). Counterpart to skb_frag_unref().
-+ * backing refcount), skipping managed zerocopy fragments. Counterpart to
-+ * skb_frag_unref().
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 48f6764117243..19d4ce347c41b 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -3114,9 +3114,32 @@ EXPORT_SYMBOL(skb_copy_bits);
   */
- static __always_inline void skb_frag_ref(struct sk_buff *skb, int f)
+ static void sock_spd_release(struct splice_pipe_desc *spd, unsigned int i)
  {
--	skb_netmem_ref(skb_frag_netmem(&skb_shinfo(skb)->frags[f]),
--		       skb->pp_recycle);
-+	struct skb_shared_info *shinfo = skb_shinfo(skb);
-+
-+	if (!skb_zcopy_managed(skb))
-+		skb_netmem_ref(skb_frag_netmem(&shinfo->frags[f]),
-+			       skb->pp_recycle);
+-	put_page(spd->pages[i]);
++	netmem_dec_ref(page_to_netmem(spd->pages[i]));
  }
  
- bool napi_pp_put_page(netmem_ref netmem);
-diff --git a/net/core/net_test.c b/net/core/net_test.c
-index 2b5080c226636..e20059a00003c 100644
---- a/net/core/net_test.c
-+++ b/net/core/net_test.c
-@@ -571,6 +571,16 @@ static void netmem_ref_test_page(struct kunit *test)
- 	skb_frag_unref(skb, 0);
- 	KUNIT_EXPECT_EQ(test, page_ref_count(page), base_ref);
- 
-+	/* SKBFL_MANAGED_FRAG_REFS skips both skb_frag_ref and skb_frag_unref */
-+	skb_shinfo(skb)->flags |= SKBFL_ZEROCOPY_ENABLE |
-+				  SKBFL_MANAGED_FRAG_REFS;
-+	skb_frag_ref(skb, 0);
-+	KUNIT_EXPECT_EQ(test, page_ref_count(page), base_ref);
-+	skb_frag_unref(skb, 0);
-+	KUNIT_EXPECT_EQ(test, page_ref_count(page), base_ref);
-+	skb_shinfo(skb)->flags &= ~(SKBFL_ZEROCOPY_ENABLE |
-+				    SKBFL_MANAGED_FRAG_REFS);
++static void skb_pipe_buf_release(struct pipe_inode_info *pipe,
++				 struct pipe_buffer *buf)
++{
++	netmem_dec_ref(page_to_netmem(buf->page));
++}
 +
- 	skb_shinfo(skb)->nr_frags = 0;
- 	consume_skb(skb);
- 	__free_page(page);
-diff --git a/net/xfrm/xfrm_iptfs.c b/net/xfrm/xfrm_iptfs.c
-index 103cf7c5dbfb9..04ef833074fc8 100644
---- a/net/xfrm/xfrm_iptfs.c
-+++ b/net/xfrm/xfrm_iptfs.c
-@@ -2258,7 +2258,8 @@ static void iptfs_output_queued(struct xfrm_state *x, struct sk_buff_head *list)
- 				nextp = &(*nextp)->next;
- 		}
++static bool skb_pipe_buf_get(struct pipe_inode_info *pipe,
++			     struct pipe_buffer *buf)
++{
++	struct page *page = compound_head(buf->page);
++
++	if (WARN_ON_ONCE(page_ref_count(page) <= 0))
++		return false;
++
++	netmem_inc_ref(page_to_netmem(page));
++	return true;
++}
++
++static const struct pipe_buf_operations skb_pipe_buf_ops = {
++	.release	= skb_pipe_buf_release,
++	.get		= skb_pipe_buf_get,
++};
++
+ static struct page *linear_to_page(struct page *page, unsigned int *len,
+ 				   unsigned int *offset,
+ 				   struct sock *sk)
+@@ -3165,7 +3188,7 @@ static bool spd_fill_page(struct splice_pipe_desc *spd, struct page *page,
+ 		spd->partial[spd->nr_pages - 1].len += *len;
+ 		return false;
+ 	}
+-	get_page(page);
++	netmem_inc_ref(page_to_netmem(page));
+ 	spd->pages[spd->nr_pages] = page;
+ 	spd->partial[spd->nr_pages].len = *len;
+ 	spd->partial[spd->nr_pages].offset = offset;
+@@ -3281,7 +3304,7 @@ int skb_splice_bits(struct sk_buff *skb, struct sock *sk, unsigned int offset,
+ 		.pages = pages,
+ 		.partial = partial,
+ 		.nr_pages_max = MAX_SKB_FRAGS,
+-		.ops = &nosteal_pipe_buf_ops,
++		.ops = &skb_pipe_buf_ops,
+ 		.spd_release = sock_spd_release,
+ 	};
+ 	int ret = 0;
+@@ -4692,8 +4715,8 @@ int skb_append_pagefrags(struct sk_buff *skb, struct page *page,
+ 		skb_frag_size_add(&skb_shinfo(skb)->frags[i - 1], size);
+ 	} else if (i < max_frags) {
+ 		skb_zcopy_downgrade_managed(skb);
+-		get_page(page);
+ 		skb_fill_page_desc_noacc(skb, i, page, offset, size);
++		skb_frag_ref(skb, i);
+ 	} else {
+ 		return -EMSGSIZE;
+ 	}
+diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+index 4cdfbb57ecff0..05abf8e23f78a 100644
+--- a/net/tls/tls_device.c
++++ b/net/tls/tls_device.c
+@@ -513,10 +513,16 @@ static int tls_push_data(struct sock *sk,
+ 				goto handle_error;
+ 			}
  
--		if (shi->frag_list || skb_cloned(skb) || skb_shared(skb))
-+		if (shi->frag_list || skb_cloned(skb) || skb_shared(skb) ||
-+		    skb_zcopy_managed(skb))
- 			share_ok = false;
++			if (page_pool_page_is_pp(compound_head(*pages))) {
++				iov_iter_revert(iter, copy);
++				goto copy_data;
++			}
++
+ 			zc_pfrag.offset = off;
+ 			zc_pfrag.size = copy;
+ 			tls_append_frag(record, &zc_pfrag, copy);
+ 		} else if (copy) {
++copy_data:
+ 			copy = min_t(size_t, copy, pfrag->size - pfrag->offset);
  
- 		/* See if we have enough space to simply append.
+ 			rc = tls_device_copy_data(page_address(pfrag->page) +
 -- 
 2.56.0.455.g6c5a503b38-goog
 
