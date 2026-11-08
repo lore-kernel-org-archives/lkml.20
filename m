@@ -1,95 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794142145;
-	b=AVI6d9gZO5rHzNfSaPYED1fns7Tk7IhpzQr6ei7IhEocp+j5ghQC0SMhXJQJqhFOQcgF
-	 NnHnL2Ay00f0+F8fv2UeuEmxAFfxUYgwO0dnCpUAMEGGALb8wsBUPXHJOo2uoKW08VcTw
-	 0f2eEjY/EUlq+MoVSzNoxTTpLZznSP4iyUrJ6FE+yxm1BSAXlp2m6S2eXrvbV2V86KNWl
-	 OuTXBucoGyG0GcZsauSXduxyQq8I75Gonv04tLWu36nBCIJYeQ9T0kw6bwxWKvpY+Ludm
-	 AKolamSxw9kzfFKNk8Vi8i4I2FsFb3MG7iAaTrV6NgNHrtZwR6mXDJfJXyw3QMAb0mA==
+	t=1794142182;
+	b=fPjlJ9qb1R/mlhU3S69b98uIyvbDyELl8xfm+1n44vwp3ktE+hxg6xJfD/qmeASVGSCj
+	 YRKXSoDmspWpXfRhh+2eRc+qAS58fB1iTLCuLY57fa1sqVHc9OPvOp7zao9Zj3z++oC1R
+	 E5RjoOUUwJ3FsqBJDc+3WA1KB6dCbbDgy9RQBA6oV72q9ayJsCIBpPZYmeQCstV5PXiNU
+	 U+OQtqy+cZk3N5QHN2cQvnZHwt4dnR1I9/rdfiH64IpzBUd0epq8TPuGPJaTPGio2EFP6
+	 VOjbxhclf63juX+ZVbt81nzDX7oHqDu7IaySf9UpG66kg4nPW/cxMyMunsP8hmNHTZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794142145;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794142182;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=ioBEFZ6/oMNc/+Y5CF8uSo5P0NOlgMHe/Zvyk/MQsso=;
-	b=uJhAHSLADdftxXTsMathZOP6x0zlQTVplNVQFgCDYru4xDyNtdcv1SP7+H9XQ4aFcubW
-	 wQdApbpE2z5PzB8mWbbgPk+VIZVOB2XrF8RjoZIg/uUlkpiSgJwnGN0KiLHkMsfJOMdFi
-	 Q7zhNQj3ABMuEhKrf/Xr5tVVHEkwLAD5PcYi9JDSmqatrcGirjfHZ2Wm8fW+UcwBK7smc
-	 Iqs522edlhYrObII9nwprtWFL6S15+Z7oQhsBza+oUxiXV9RJ96nPS80dPZYmijZ0PEHw
-	 Xot1bE7C7s+3GZo+Zf79PsYWaLGEP9b/qDam2y88tOtTko6jbpBi8xi5enNeoQJIeuw==
+	bh=2lK9pHrkcqJPTuUbe/F2Tx6U2WAl5/AGTU3cpzcdSo4=;
+	b=wvk3y4PUKvyrsqG4i/iBSF/7AJ7Ws3agl/C/TyKn4pC5+KHEA/fAhe9gM1M6oBj/tc/e
+	 z8LLLI36FFX1fnKq5GQd+Jtgl8WjnUjTMico4KJJz87SNslubvtrU/glpQlrvbYRNh4f8
+	 XarkVvv5gZQWdbJ24c8rQ6NE/u9R8iWh7dxK2sGWoPvRly9KVm6YtqGGeGCMmIGV06EgD
+	 25L+JxXXIxzFsR7sxTK/p60EiQnSSDNVskliwVtVyO0GJQJwc6YcvFXgycJZe+A/4b8UI
+	 kWh4sVqkHls+aLXFir9d0thiycdz2NWsagxPbgpBtTctm7SWUq4MgtV7BCteHjPp1ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="F/GnyyAp";
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YR63dAao;
+	arc=none smtp.remote-ip=91.218.175.8
+Received: from mta0.migadu.com (out-8.mta0.migadu.com [91.218.175.8])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC99606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:49:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDC99606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D513606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:49:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D513606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F/GnyyAp
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36a315ed211so39780eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 04:49:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794142144; x=1794746944; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ioBEFZ6/oMNc/+Y5CF8uSo5P0NOlgMHe/Zvyk/MQsso=;
-        b=F/GnyyApRoO10GDbYSp2nCwlsjiU42Ry7MGZ6FP6d3OCb+QemBT8q7Mns7xk3h0/WF
-         n16lmhb84ECKt+cqa2lrpTo4xPBuxtEGOG6fBQTaGuMGSaRXxA4Mz8H49kr45Tsy/YBT
-         kEovkWomHHnNSAGRPGW58/W7VH61cUw2xGhHwLbUu4bgJpsIIQ1vzOsOVdCCxjo0loIc
-         4K4DR/XKtCI98o4i2ZseI4m/Q5v0wwbe3H2WmbYn1bI7g8wl5+BZkYnIaxYCyxS3daJA
-         1FUowjkuZlFjCB6A41HS8rSObJZy4ElP0Ks51XFiA41JVBpZzh0hVnJmibsUekvELwZR
-         qSmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794142144; x=1794746944;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ioBEFZ6/oMNc/+Y5CF8uSo5P0NOlgMHe/Zvyk/MQsso=;
-        b=H+EIJ7X1TbTBHUJf1rKApBy/G3bjVn2sUyqr0uQKjExsYp+Zz+h1GD+gYEgXw75g7a
-         kI9KdwH0c++lwK0NVZcbZ2CXDL+e1IJjnSU9TperOkaQYU1+DRAx1JVTSZ2LN/OPZvVt
-         M6ULCrEAPoNJz2TvyDwCWYNTYFBkTvk3Om6vNI9jwBPPsJw9j46OO2vJQamr7S7ZiLY5
-         PIQH95Td2MA/n+nSvbsSCtPgTmytCJVFRft8/KgFrw2cIebn4g1MQtE4Pk3z6fAeiGtT
-         xsf+DZk+eOOwqU13cgR4oaK7f1Efaf78xT6ySC2tgeOkPCWgS7qoAvpONjUYEDpyBGW7
-         Q7yw==
-X-Gm-Message-State: APuU4Z+niCx6J1nfCoqTVBVI57cE0wNpal0HuwVt8LVl0oEGZo3wRZlC
-	iXtjzpAQnuNyBy2Dc9DKFbplp1wwLMxTMR0ep5O7IOLI8aLLAsebB68+
-X-Gm-Gg: AYBFou3G0hrhuK4oBcyuSzrdfvXM1MYhy3hl1XnrysSlf2rQBbMQEDTLefNuSmu1328
-	iB4/meRgELDfbEyq7zBhIf1JiiNgaVTRV7EudJIDkR3Vhimxdd+rbe0SRGyL7MGignWw1uTXbTs
-	hG3ISCN5w1BzwuP4M4HagKZ6T/E+VBE/3/buiHkauQEErjr5zvI556h+dguyZO7TL1KZMeDVX6a
-	e5rLzOWVlQDJcx1ZNMjpm3wzThmlHGI7kpVESjjedJh1cU0Gt6pHJkNbWeOmyhsfQ7Bzn1Sl7QI
-	PwbY958JWWlXUTD6CLXxtU0WDu44rpWHEf3uNJ5lBDwLjOoiY1081nKSk7IIX9jafJLpPaentjF
-	bmZ1pMboBFSE7+CcaYgxa/D70XvGcaWMJf4rYuIcSKlHnVNbsOJ6d8a+IW+zcw33pokluXQDXAa
-	9VFxOwCenYo382n8j5lxIWxRFHsd41KVQmG6iXxTTPJcQxDuEGEuAeRDeZW/iEp+IcuHYg+i0Rs
-	tYKLFDv7ODOBTDfzvs/m+wEHXXHi6WyswINHGuNcjLS20kDhbeSRhk1HC+ZSy30fwqLhgqlA0VC
-	uwBTnhiNtixh/7Bf2q59I1ZGaWqkAd8ZhelJ4IajhlJJsZhUXtQEx+P/yFx9hfxXvrFEkEcl
-X-Received: by 2002:a05:7300:51f4:b0:36a:37:1404 with SMTP id 5a478bee46e88-37256decec0mr2836795eec.13.1794142143927;
-        Sun, 08 Nov 2026 04:49:03 -0800 (PST)
-Received: from localhost.localdomain ([103.177.253.80])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372631df629sm5431728eec.1.2026.11.08.04.49.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 04:49:03 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: tiwai@suse.de
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	sreekuttan2156239@gmail.com,
-	tiwai@suse.com
-Subject: [PATCH v3] ALSA: control: Fix parsing of numeric fields
-Date: Sun,  8 Nov 2026 12:48:32 +0000
-Message-ID: <20261108124832.3058-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87zevjwmrf.wl-tiwai@suse.de>
-References: <87zevjwmrf.wl-tiwai@suse.de>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=YR63dAao
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PNfl9BuOnFonm6NGFSqEPPijub+CPM8DqK2sRwQhsVM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794142177; v=1; x=1794746977;
+ b=YR63dAao0TX7lAVI8UCmQdazdxE0paNduCorTiHudV98fFq6+xeTi4Z+InjsKESA4NJF0JpQ
+ nfW/BJDrJcdUGy5DEmzGwzGuSKBV1XKJyxxMpLt7lfn9YaTOcMdnVV8AbdEl0ajKkza7Z9GpnoM
+ 5DZnvSPwbRxkocJ1NLG4/2vg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 55ae0acc5f595fe2;
+	Sun, 08 Nov 2026 12:49:37 +0000
+X-Mizu-Trace-ID: 55ae0acc5f595fe2
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bcd19107-b398-4811-ae73-e1e87a551bcb@linux.dev>
+Date: Sun, 8 Nov 2026 20:49:23 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,67 +58,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 3/3] mm/mglru: move lrugen atomic stats off the
+ read-mostly lines
+To: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kairui Song <kasong@tencent.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Joanne Koong <joannelkoong@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>
+References: <20261105132220.2233677-1-ridong.chen@linux.dev>
+ <20261105132220.2233677-4-ridong.chen@linux.dev>
+ <CAGsJ_4zLN1gXtDhhe1cvmerjOS=SAm1v2nnQm8u9ha9JADN+1A@mail.gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <CAGsJ_4zLN1gXtDhhe1cvmerjOS=SAm1v2nnQm8u9ha9JADN+1A@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-parse_uint() passes the remaining input string to kstrtoull().
 
-When the input contains comma-separated fields, the string
-contains both the numeric value and the following fields.
 
-For example, with:
+On 11/8/2026 5:14 PM, Barry Song wrote:
+> On Thu, Nov 5, 2026 at 9:23 PM Ridong Chen <ridong.chen@linux.dev> wrote:
+>>
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> lru_gen_eviction() and lru_gen_refault() update lrugen->evicted[] and
+>> lrugen->refaulted[] locklessly with atomic_long_add(). The arrays sit at
+>> the tail of struct lru_gen_folio, right before enabled/gen/seg/list:
+>> with LRU_GEN_STATS=n the file type counters share a cacheline with them.
+> 
 
-device=1,subdevice=0,name=Master
+Hi Barry,
 
-kstrtoull() receives "1,subdevice=0,name=Master" and fails
-to parse the numeric value.
+Thanks for the review. Note that the sizes in the changelog were
+measured with lockdep enabled.
 
-Stop parsing at the next comma and pass only the numeric
-field to kstrtouint().
+Offsets below are from pahole on x86_64, LRU_GEN_STATS=n, counted
+from the start of struct mem_cgroup_per_node (cacheline aligned), so
+line N = bytes N*64 .. N*64+63.
 
-This allows numeric fields to be parsed correctly in
-comma-separated input.
+The nesting is:
+     mem_cgroup_per_node
+       lruvec                at 128
+         lrugen              at 128 + 176 = 304  (before the patch)
+                             at 128 + 192 = 320  (after the patch)
 
-Fixes: a135dfb5de15 ("ALSA: led control - add sysfs kcontrol LED marking layer")
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
-v3:
- - No code changes. Retain the v2 implementation after
-   comparing the alternative approaches.
-v2:
- - Add the Fixes trailer.
+> So basically, this is causing false sharing, right?
+> 
 
- sound/core/control_led.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+Yes. Before the patch:
 
-diff --git a/sound/core/control_led.c b/sound/core/control_led.c
-index 501387287ae6..3f54af2cb505 100644
---- a/sound/core/control_led.c
-+++ b/sound/core/control_led.c
-@@ -458,11 +458,19 @@ static char *find_eos(char *s)
- 
- static char *parse_uint(char *s, unsigned int *val)
- {
--	unsigned long long res;
--	if (kstrtoull(s, 10, &res))
--		res = 0;
--	*val = res;
--	return find_eos(s);
-+	char *end = s;
-+	char delimiter;
-+
-+	while (*end && *end != ',')
-+		end++;
-+
-+	delimiter = *end;
-+	*end = '\0';
-+	if (kstrtouint(s, 10, val))
-+		*val = 0;
-+	*end = delimiter;
-+
-+	return delimiter ? end + 1 : end;
- }
- 
- static char *parse_string(char *s, char *val, size_t val_size)
+field                    offset       line
+refaulted[0][file][*]    1608-1639    25    atomic, no lru_lock
+enabled/gen/seg          1640-1642    25    read on every LRU add
+list                     1648-1663    25    read by shrink_many()
+
+line 25 (1600-1663)
++------------------------+-----------------+------+------------+
+| refaulted[0][file][*]  | enabled,gen,seg | pad  | list       |
+| 1608-1639              | 1640-1642       |      | 1648-1663  |
++------------------------+-----------------+------+------------+
+
+CPU A (file refault)		CPU B (LRU add)
+atomic_long_add(&refaulted[..])
+				read lrugen->enabled -> miss
+atomic_long_add(&refaulted[..])
+				read lrugen->enabled -> miss
+
+CPU B doesn't need refaulted[], but it keeps missing on line 25.
+
+After the patch:
+
+field                    offset       line
+max_seq/min_seq/ts       320-375      5
+enabled/gen/seg          376-378      5     read-mostly
+list                     384-399      6
+nr_pages[]               1040-1359    16-21 under lru_lock
+evicted[]                1600-1663    25    own line
+refaulted[]              1664-1727    26    own line
+
+> I'd prefer a text diagram showing how the false sharing
+> occurs, specifically how freq read and freq write end up
+> in the same cacheline.
+> 
+> This will help clarify why rearranging the struct is the
+> right approach and how to rearrange it properly.
+> 
+>>
+>> Those fields are read far more often than they are written:
+>> lru_gen_add_folio() reads ->enabled on every LRU add, and shrink_many()
+>> walks ->list and reads ->gen/->seg under RCU. With frequent file refaults
+>> from several CPUs, every refault invalidates that line on the CPUs doing
+>> LRU adds.
+>>
+>> Move enabled/gen/seg/list next to max_seq/min_seq/timestamps, which are
+>> also mostly read, and put evicted[]/refaulted[] in their own cacheline
+>> group at the end of the struct. This grows struct lru_gen_folio from
+>> 1360 to 1408 bytes and struct mem_cgroup_per_node from 2176 to 2240
+> 
+> Why is the difference exactly 2240 - 2176 = 64 bytes,
+> which is one cacheline? I was expecting a value smaller
+> than one cacheline :-)
+> 
+
+The aligned group makes lru_gen_folio cacheline aligned, and the
+padding adds up on the way out:
+
+lru_gen_folio         1360 -> 1408  (+48, hole before evicted[])
+lruvec                1624 -> 1728  (+104, lrugen moves from offset
+				     176 to 192, plus tail padding to 64)
+mem_cgroup_per_node   2048 -> 2112  (+64)
+
+mem_cgroup_per_node is cacheline aligned, so its size only changes
+in whole lines. It had 40 bytes of padding after lruvec, which
+absorbs part of the 104 bytes, and the rest takes one more line.
+
+
+> What I'm not convinced about is that nr_pages should be
+> updated even more frequently than evicted and refaulted.
+> Why aren't they causing a false sharing?
+> 
+
+nr_pages[] (lines 16-21) is read and written only under lru_lock.
+Its lines move between CPUs only when the lock does, and the new
+lock holder needs the updated values anyway, so that is true
+sharing. refaulted[] is written by CPUs that don't hold the lock,
+so it can steal the line from the lock holder at any time, and the
+lock holder doesn't even need it.
+
+> long nr_pages[MAX_NR_GENS][ANON_AND_FILE][MAX_NR_ZONES];
+> 
+> It would be better to have a text diagram showing the
+> potential false sharing, so we can consider the issue
+> more comprehensively.
+> 
+>> bytes on x86_64 (one more cacheline per memcg per node).
+>>
+>> Tested on an i7-13700HX (24 threads) with turbo disabled and the
+>> performance governor. 24 files of 128MiB on ext4 on brd, read with
+>> fio (psync, randread, bs=4k, fadvise_hint=random, buffered), all jobs
+>> in one memcg with memory.max=1G, so nearly every read refaults.
+>> IOPS, median of 5 runs:
+>>
+>>    jobs      base   patched
+>>       1    270537    274303   +1.4%  (sd 3.7%)
+>>       8   1461025   1466293   +0.4%
+>>      16   2455629   2508001   +2.1%
+>>      24   2707720   2823776   +4.3%
+>>
+>> A custom random pread() test of the same setup, with this patch alone
+>> against base over two boots of each kernel, shows +2.4% at 16 threads
+>> and +5.9% at 24 threads, and no change at 8 threads or fewer. With
+>> anonymous memory on zram, the refaults mostly hit the tier 0 counters
+>> on a different line, and there is no measurable change.
+>>
+>> The gain grows with the number of CPUs refaulting into the same lruvec
+>> and needs a fast backing store; with real IO it is likely to be lost in
+>> the noise. The patch is mostly meant to keep the lockless counters away
+>> from the read-mostly fields regardless of where they end up.
+>>
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>> ---
+>>   include/linux/mmzone.h | 18 ++++++++++--------
+>>   1 file changed, 10 insertions(+), 8 deletions(-)
+>>
+> 
+> Thanks,
+> Barry
+
 -- 
-2.55.0
+Best regards
+Ridong
 
