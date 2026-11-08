@@ -1,96 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.12.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794168627;
-	b=KR1x4/XT0NlLoYtbB9sJumecM9JttXObSjVXldAOGNQKL7Jy8TveeKow1AZubJpEjkEz
-	 6TryxKEUG6g5LzfBsajrDKA2TN9wdJ1aDukQFXsZEnzNWFfq+PFjcmSzhZawdsyNqdpTq
-	 9luoF2r20vYZPegS+bnLFEyG80BbLQ4Wjb0MGCNWxBqBLSBDjGY1jNJBCJ9pkSPeVGI+n
-	 HwZzXpH70cMLmARTOuSSFO9nVwVgNyHN9OZlJ9sjb0C/cKF8+UuPRdPKCsbhwDD1kpe6v
-	 xctv/rJoPoUmtDL0NJhl5H2EbWUN6kT2WwSIGPnGr2P2wulvUbuN2bMAtvDxib3fFqA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794168627;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
-	 X-Microsoft-Original-Message-ID:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=hPS/4farMvKEr/7pCUxGB5KIbG2h5mv2iwpsug4sSX4=;
-	b=fe+wwqoBReTUYGqozDkiB5OKnHs48qySz8CHGBMiJuSPv+yn4LrsYL52L+ZiIbFeNT5V
-	 Uz0nsS0bhBVMlUJQFpKcpddWW2dluSyxzASBb3VInmThCV//4CpX57gwtADd7h7usDpvb
-	 3PIx+ZwsoukDLPciBDnavwbWVLx4JMyaCU07rIaJpeTHKw2F6iLTvyn8ZGoD2MovCj1Or
-	 1e009B8uqYp0jGTfrnARcxPE8OZGCNqpXPWT7A6bC1qRV5m0MKrq/9kKXsAHmLLFxhDW6
-	 XZBYZiL1HT/4KhHIci/Y5g1QTMh1G3THpgnq8Z7/QOJILF+Tb1O7J9dvLScEZ9HTLXg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outlook.com;
-	spf=pass smtp.mailfrom=outlook.com;
-	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=GZVj4hjq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.12.7
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azolkn19010007.outbound.protection.outlook.com [52.103.12.7])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794168656;
+	b=40k5vmXD9CF2K1Dc0i7IjR+nU0ojw3orkfUCEqSRguFK28saqDP69BhmF8dbiQ+kUE9m
+	 hvVh/zU22m0Q8RZ01Kvpzhe5P1kUXzvyQvPIL4CjLK8Y8EithedEBG9f5aaGxbNicf+Zg
+	 6zafuYbscC+Hfm7aD8KMyQFWjifbYX9g/nFb46+4+MrgPO9HlcWZAq5seq+tbMGfTOzmK
+	 CDXahMvcHiwC3kKi5jmJDV6Kx2gKi5IkJ71/GKsNPPo9SxpI18pyQCEs6HIS6xjY/CJOR
+	 aNk5P1FRHifSG8n3vflY7r8O2Z7qAYf9UQ3AW02+uaVoi/QvCFyu6QXSWbrNcgjlxCA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794168656;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
+	 References:MIME-Version:Content-Type;
+	bh=F3etujamXLM+JK5u10HNwuJrSi6r/c5zK5W8rx8FsA4=;
+	b=SEN4INUpvFJl8mG4FwSNOe4VznIco2P/aSuC06tPjT84FaWax0jyWzHgFJSIlVhHtI7w
+	 8JBAevLRZtm6VUvH+/damkWER1o6BD27Leznd8f+1gGcsVyADuWTlvoWTUHqz3gshwNR5
+	 Ft2fUr1D3LDDUMrRMjFXY3YMvTxHW24UFunmOByuwVIEs0hI8yOAwvLYahcRdTdVvLRDp
+	 CnFrZJPzfwJ/lTNHSZzo+SRE+x4PmaE3HLj7GEuY1ApFX38RtKx5aorpsV6I7mYqQQahT
+	 nXecuERxD8AAIjig/gxjOimn5DJd+9akqcLYDepKrHFJNv/FbFusAXF5O1MMBPtzukQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=inria.fr;
+	spf=pass smtp.mailfrom=inria.fr;
+	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=TZGe8302;
+	arc=none smtp.remote-ip=192.134.164.83
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F3B606A31C;
-	Sun,  8 Nov 2026 20:10:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1F3B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B876606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:10:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B876606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=GZVj4hjq
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HpxfI9WDF5i3XbORn6spR8124rf8uMQQR+Ezps5AM8gQo1T/KSGeTkyG9d5V/bfeNh0B5BdCGDQMkJ2Ivy1Y2Y4lbPRkxcHPXG8kMJFBuKQwUFwwAKCrmMEDlHY9fh761XI2o1O25QO44gtM0kYk8ejlHBumIsKve6zHxUe+MsiZ9cAY1KwJTL7FeQWVVv+WrMHGz8DBSzjRbkzAkCzpWLlV4K/GnAa6/zwgGhNpP7V1oC0qfNDOQ7MDqE+VTSvJDzDIrlyFKID7aqwqBcBHGz2WSsS6zLPLJjShTEtrBVxWdJmw5RWXN1pT0B3VZbkh74lVFfG1eY/d+F5pBTaoYQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hPS/4farMvKEr/7pCUxGB5KIbG2h5mv2iwpsug4sSX4=;
- b=yXVz3w5NZY16VA24YbxmWLG6uK4Tv6wePW8kkwnQ1Wpx6gOgIT7/cEJ3qlw28HHn0w4H5gR2MWZPF/rbzy85srFoVgVU0ukwz/0KryRV3gqx5sPXBKIPExv0GlWbS1bjVNbQylLda9pDmDir1s3Y7fVgSHiNF5NNbsxLGK47XfidsdI/abfvnpS5WmYBoIDOfvl8qxHCfD+Lgf4KK8EZD6k546FRuQX8ZK3EjnNnYSZUNFYyOceIdIAWb0gpNr5tkVRa0P76BWpcaAmCShRVh5FNMPL16+kPw+8yJEw+eWUYCtbbjSmN1L1EaZew5LlpmUt6mpcn26gjP2YBZQv9mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hPS/4farMvKEr/7pCUxGB5KIbG2h5mv2iwpsug4sSX4=;
- b=GZVj4hjq54tGVhXVIw4THk4c47XxWJvszuwANHrWvbEnpF4EE0V1iYE6lT1nQzZKAuXCQv1dCl7TGNp8wb7LLvdQclo6973rvlQEYRTfg0ejIfnnWGXGNsJH3RO4va+WLWLM+DYDvIMY5bRTLI2hF/OcAaWOGzpq/OBvLHqoD9AaTBc6MMVa2+er5y4hsXJC0C2ZehMytffewsme+jhY58SAL0xeHhlERL/ZFHzfdbc+Jg87eLBpK3pTZ++nZ+k0MNWITcB5gIXRGzWv++6Wgo1Lg1hS7qcc4hVjCD2RfFUudECSLmwJXKcFSbTsfN5jcwEAwvKR8dDCj9c5zfg50w==
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
- by PH8PR12MB7159.namprd12.prod.outlook.com (2603:10b6:510:229::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Sun, 8 Nov
- 2026 20:10:23 +0000
-Received: from SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
- ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0592.009; Sun, 8 Nov 2026
- 20:10:23 +0000
-From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-To: chernyakin.victor.j@outlook.com
-Cc: andy@kernel.org,
-	dlechner@baylibre.com,
-	jic23@kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com
-Subject: Re: [PATCH v6 4/4] iio: cdc: add Texas Instruments FDC1004 driver
-Date: Sun,  8 Nov 2026 14:10:16 -0600
-Message-ID:
- <SN1PR12MB2528B09DB6EFB6E464FD5557A5742@SN1PR12MB2528.namprd12.prod.outlook.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <SN1PR12MB25285A6B0032A8A9CF3E9D63A5742@SN1PR12MB2528.namprd12.prod.outlook.com>
-References: <SN1PR12MB25285A6B0032A8A9CF3E9D63A5742@SN1PR12MB2528.namprd12.prod.outlook.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CH2PR14CA0008.namprd14.prod.outlook.com
- (2603:10b6:610:60::18) To SN1PR12MB2528.namprd12.prod.outlook.com
- (2603:10b6:802:28::33)
-X-Microsoft-Original-Message-ID:
- <20261108201016.982509-1-chernyakin.victor.j@outlook.com>
+	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=TZGe8302
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=F3etujamXLM+JK5u10HNwuJrSi6r/c5zK5W8rx8FsA4=;
+  b=TZGe8302vsQiv2F8shkc5NRECHM4Ke5MeJf3wBElR13lTdZi1m6WciWR
+   yOxmFcM8O4OQzywgmT+LAAiGl5J6KLL2xDbVTQJv6BeP9sCivrXXkjj0Y
+   kXEHc4ZDAtHWMM3QT/obt2OE7Bfk5JsUoBHqjKH7UV6dllYKXY/WanDpR
+   k=;
+X-CSE-ConnectionGUID: TCStX5SfRXSUR1SP29vOCg==
+X-CSE-MsgGUID: 5SqyVe4rS7aazcmnjwQLsw==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,202,1787004000"; 
+   d="scan'208";a="304431582"
+Received: from 88-188-149-159.subs.proxad.net (HELO hadrien.home) ([88.188.149.159])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 21:10:45 +0100
+Date: Sun, 8 Nov 2026 21:10:45 +0100 (CET)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: Chad Aldreda <ca@modelmiser.com>
+cc: Julia Lawall <Julia.Lawall@inria.fr>, 
+    Nicolas Palix <nicolas.palix@imag.fr>, cocci@inria.fr, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] coccinelle: api: add a checker for device nodes in devm_
+ memory
+In-Reply-To: <20261106193517.3267013-2-ca@modelmiser.com>
+Message-ID: <18f23c2b-d76a-8b94-bc4d-f298354c8f8b@inria.fr>
+References: <20261106193517.3267013-2-ca@modelmiser.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,71 +68,247 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|PH8PR12MB7159:EE_
-X-MS-Office365-Filtering-Correlation-Id: 210fc4fc-438e-4316-1f36-08df3dd4520e
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|5072599009|15080799012|24021099003|704163111799003|2604032031799003|22091999003|24121999003|23021999003|8060799015|19110799012|16051099003|25010399006|260925184616899003|4140399003|3412199025|440099028|26121999007|40105399003|53005399003|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?Ke/1+CwC0qfCj3fN2Y8CMdsFRS2C0rt9zJaVXcgtShPPXuAcUF4Un2SBBoxm?=
- =?us-ascii?Q?B3SAAbt8m37ofhZcDzdQiVKFgDV8rDgiPfkxkm+zEoDNAcUlqWJ8SM8r75dg?=
- =?us-ascii?Q?vLYs+KnLTrrglB7mfluxHJQoNaJ/78Xti7GlOyuqIkvOG0QN7SeEHraI+tw+?=
- =?us-ascii?Q?ZGp5xPMyeOjEpRtbNf5s5uJ6wzmioh/jizAEm033LsR34ED0j3KeONk/XHe9?=
- =?us-ascii?Q?eNfNWQcYm7hGOB3dS1OSz2VH5VLFxmvihOMXkshr8XXB4ayV6PtB9t46cqwX?=
- =?us-ascii?Q?+WCkD8OIe27r7TWwpkruP+0qKQVcZr5y7762LBsjsE0EARIbn4GjjFI7g1kW?=
- =?us-ascii?Q?Oxc40wubxpGQDf46TJYOycnnwwYwUufffPTeMXdj8PRuO/3j2FSP+Qq+XpyH?=
- =?us-ascii?Q?JJoSsWhFCyGou6R02pp5IAOb9Xb0HqrlZtffvxF5Kl9q/F5LevSjAqVnPNUx?=
- =?us-ascii?Q?C/Wf95gm9l+JVX75S7u7e1IL7MoFATEuQAC9Pd8TTFzvgmqrNlQpgMT4wky0?=
- =?us-ascii?Q?bPx5GkCytrivWY15BWyYZHedD+0NtIstYgs8XTAMHd2O8LvVjpOVAhrKVQFZ?=
- =?us-ascii?Q?WYW8+5THAGHptrbQFZf1zkLKQJDqI27hpG/M3mcN8l/bXed2qFSTHRFn129o?=
- =?us-ascii?Q?kYfsmfsGGQ+lfeLl2ioX5n9+oyk7/hZjF276yCzLOPGku3VAd8aQjbvHAYbJ?=
- =?us-ascii?Q?Li1SlbfTY67pm8AJggQjYe/Mg1Q9ilI7IrJaibD+VrVwNrfPR5ebb+GAlk6d?=
- =?us-ascii?Q?W2q21f+MPV3UMxO5/LtHtiUvLqdBZf2dVwLW5qTyfBPyRrap7UUGFBrpRrS+?=
- =?us-ascii?Q?ULydvQ4MGGae+1YiCzlrvM6XpB7Jx7Z8taDBYrPQWDQhQSmkGHedF8vzT11S?=
- =?us-ascii?Q?vqQm8vo0dbJC6oLYJXYC6jsjZH+E4l4hLNnHjfmifx+KE8rP17c2ehRpHLyy?=
- =?us-ascii?Q?nL4k2Q5H7hCm7HqhcuMGhpjVtQ8+rlMmX/ubT4Pw47Srqdk62ouek2LLVOBr?=
- =?us-ascii?Q?TnoOUuXjNoRoiXH+bAFiy2xWBLJ03fqUsO7ilTj+vzw/rtElSnSRWPQzNviS?=
- =?us-ascii?Q?mrsduWmB09t6o2VBE4SB5pIdkq7iLHmXlu7EaaA+OcLqEx8LL4wcQIxtwfo4?=
- =?us-ascii?Q?YuO1F/nsTUG49MAMK+JD0EsB/Vmq3ZQ0BV8tvTTqGTFQ8zDEoIv8QJTN+FeO?=
- =?us-ascii?Q?zLePSEoiWJkSAtin?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?wV701P0I/p/blbtIOhrKVM6/RJAsCBjElEu5UnNMa+4YAFMd2DrPI6W7Cf4s?=
- =?us-ascii?Q?+jNSIfSZtQB/M9oU3rYfBMvjea9l7yfIKTgAiB1ITTXu1Ww1/FpC95RM8ilY?=
- =?us-ascii?Q?lA6PYXBgWiGspO7dV08gr6ZHInWTGbgp7j/khVHpCaI3Ge3zJAiMzhwBrVW3?=
- =?us-ascii?Q?S7wdMVKE1t8U5rgXQlOfCpCrBeNEOb7WOzRDwgjYWnPQeq1qmZrwGJ9GRoAs?=
- =?us-ascii?Q?aoD4abfzZl5tiBhWOgq+enHZru9amlgdX5Vn95Ih8pWo+sstlP5SEV2z89Vt?=
- =?us-ascii?Q?nfDCsLujbajj1cpmLgFEf+Ym0QPJQhDHjEphmUBhdzT/M6dc9BTc5uWE8vZJ?=
- =?us-ascii?Q?Fm3RnpECXDBz4vcvglPmKtu5qUjKPQnNDH8VRRux7T4V1eTNTsevZXsN+FNf?=
- =?us-ascii?Q?yUsBsCZNuhh58wRR/4ErQVHFOElze03i0+yz4svt+5PvKAPR5nLrPewpAqYl?=
- =?us-ascii?Q?tsTCNnDE+28R6hbMe0NEGI8ySzUDUdOfl4QiDN6Bty/gIi7wWMaFnLRcuTSu?=
- =?us-ascii?Q?9VgUwE7RE0HtGeWdE6aNQFg2E+dZuZLTPBSGkhWgGRXzgHOM0V3Wx1qqe2g6?=
- =?us-ascii?Q?/bTtW8/Ng9aBWjhYjKTsNZuoceBmMA4bmHTdOtEua+tVrRWAzDax7hCQuKjL?=
- =?us-ascii?Q?v9jtk8GgowMSVBa76LcZ/SoMzpkfb6iKzBtPuocuTitWsraTb5YDbWld2+hD?=
- =?us-ascii?Q?YabUBI4fmJ3NolXXHblhY5Us9KEZo28THf/OTf64S4ma0pQToC6FyzjPLzDH?=
- =?us-ascii?Q?RWoy/JcM31fLFUqsXfwil9vgD/4Qe7Pzs7x+OVmu5UyOQ1fpSJPFU4dCLolJ?=
- =?us-ascii?Q?Td98QU9N9+y2FJlnVLjRkGyXfdLmOtSXlN4x8PNPZr6dF4Oi49+VoXEovHJ7?=
- =?us-ascii?Q?XIYemlQECE6vPscMqrf9iYeUEZLtpfz8Klf3FN/q+T9PKbp36pBiy3jVKJLJ?=
- =?us-ascii?Q?CuPqL3baKQbDpnm2cDEh5pOYIUnM0fb9VbfZV29jm+jKSS5JqM71ZnWCPe3k?=
- =?us-ascii?Q?zA/H3xnqgMnh7498px+XRvXsRyFlMZuO9j0Q8YmFLacagBLTlmN1qM1gQOXT?=
- =?us-ascii?Q?93cXeWToL5JKTlChosNm4jVBC77QLU1BdiVtjyK7hU+BQYMPyLLhsRwKrbQB?=
- =?us-ascii?Q?ixq3yPjsW0CiHvT6ensVueJzNET753QDJwoXJxY5KIzkl9TJM3ZVmBandUCP?=
- =?us-ascii?Q?kQmuSR+oKBfa1zwszWJuTrXv+EL4XX+OPYxkmWa6MUOKwxKP6m9at5YgeP/V?=
- =?us-ascii?Q?g+63TtJFQY8fCmET1SkwFurHQYPqXnM3QnkibSAVOAaRxTMJQDGJLCg8hmLv?=
- =?us-ascii?Q?/Ta0g9QAs8bczIREdGuU2qtsVrIm7OoL6ieF2LoCt9uKC2o+tevhbaY5RnKb?=
- =?us-ascii?Q?qDw77ST+eZXYOFcUPpWRfwDj9bPmv+f3BUekh7Zd7MDfyugm4Q=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 210fc4fc-438e-4316-1f36-08df3dd4520e
-X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 20:10:23.1355
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7159
+Content-Type: text/plain; charset=US-ASCII
 
-I just realized I set use_single_write instead of use_single_read.
-Fixed in v7. Sorry for the noise.
+
+
+On Fri, 6 Nov 2026, Chad Aldreda wrote:
+
+> A struct cdev, struct miscdevice, struct video_device or struct
+> v4l2_device embedded in memory from devm_kzalloc() and friends is freed
+> when the driver unbinds, but a file that user space holds open on the
+> node outlives the unbind. Its later file operations are a use-after-free
+> when they use that memory, and for a cdev or video_device so is its
+> close(), where the core touches the object and the v4l2_device the
+> video_device points to.
+>
+> Add a script that reports such allocations: by two rules when the
+> allocation, as an assignment or a declaration initializer, and a
+> registration of it or of an address taken inside it are written directly
+> in one function, and by a third, type-based rule when the struct is
+> defined in the same .c file and the node is a direct member of it. A
+> registration in a helper function on a struct defined in a header is not
+> seen, so cx231xx is reported only through its v4l2_device.
+>
+> On 7.4-rc1 it reports 101 sites under drivers/, 50 of which are found
+> only through a v4l2_device. Not all are actionable: some drivers cannot
+> be unbound, and some miscdevice drivers never use the allocation after
+> open(); the header lists the false-positive classes and the misses.
+>
+> Tested with spatch 1.1.1, with make coccicheck MODE=report and MODE=org,
+> and on small test files for each allocation form, a struct in a header,
+> a registration in a helper, a node in an array member, a registered
+> pointer to separate memory, a v4l2_device, an embedded node that is
+> never registered and a kzalloc() control.
+>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+> ---
+> The type rule uses --include-headers-for-types, which reports the same
+> 101 sites on every run. With --include-headers it also sees structs
+> defined in headers: run on one file at a time, that adds 22 sites on
+> 7.4-rc1 (xilinx-vipp and ultrasoc-smb among them). Under --dir, as make
+> coccicheck runs it, some are lost. spatch --include-headers --dir
+> drivers/media/pci/intel/ipu6 reports nothing, even as a single process,
+
+I get the same result for
+
+spatch --dir drivers/media/pci/intel/ipu6 scripts/coccinelle/api/devm_file_reachable.cocci -D report --very-quiet
+spatch drivers/media/pci/intel/ipu6/ipu6-isys.c scripts/coccinelle/api/devm_file_reachable.cocci -D report --very-quiet
+
+Both report the line 990 issue.
+
+What version of Coccinelle do you have?
+
+The output can vary due to some parsing issues.  Some patches from Kees
+Cook should help make things more deterministic.
+
+julia
+
+
+> while the same command on drivers/media/pci/intel/ipu6/ipu6-isys.c alone
+> reports line 990. With six jobs the rest vary as well: five runs over
+> drivers/ found 15 to 17 of the 22, a different set each time.
+>
+> So I kept the deterministic option. Is the --dir difference expected,
+> and is there a better way to give the type rule header-defined structs?
+>
+>  .../coccinelle/api/devm_file_reachable.cocci  | 164 ++++++++++++++++++
+>  1 file changed, 164 insertions(+)
+>  create mode 100644 scripts/coccinelle/api/devm_file_reachable.cocci
+>
+> diff --git a/scripts/coccinelle/api/devm_file_reachable.cocci b/scripts/coccinelle/api/devm_file_reachable.cocci
+> new file mode 100644
+> index 0000000000..3847710798
+> --- /dev/null
+> +++ b/scripts/coccinelle/api/devm_file_reachable.cocci
+> @@ -0,0 +1,164 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/// Find a struct cdev, struct miscdevice, struct video_device or struct
+> +/// v4l2_device embedded in memory from the devm_ allocators.  The memory
+> +/// is freed when the driver unbinds, but a file that is open on the node
+> +/// outlives the unbind: for a cdev or a video_device the core touches the
+> +/// object, and the v4l2_device the video_device points to, on every
+> +/// close, and for a miscdevice the driver's file operations usually reach
+> +/// it through file->private_data.  Allocate such state with kzalloc() and
+> +/// free it on the last reference; see
+> +/// Documentation/driver-api/driver-model/devres.rst.
+> +///
+> +/// The first rules need the allocation and a registration of it, or of an
+> +/// address taken inside it, written directly in one function; an
+> +/// allocation inside a condition or behind a cast or a wrapper function
+> +/// is not seen by them. The type rule catches the rest, but with the
+> +/// options below it sees only a struct defined in the .c file itself, not
+> +/// in a header, and only a node that is a direct, non-array member of it,
+> +/// not one nested in another member. So a registration in a helper
+> +/// function, or through any alias of x such as vfd = &x->vdev, is missed
+> +/// when the struct is in a header or the node is not such a member. Not
+> +/// checked: a struct media_device in devm_ memory, which v4l2_release()
+> +/// also reaches; a struct v4l2_subdev with a device node, whose close
+> +/// reaches it; a static node whose file operations reach devm_ state
+> +/// through a global or drvdata pointer; memory freed by devm_add_action()
+> +/// rather than allocated by devm_k*(); a typedef'd struct; and a file or
+> +/// function spatch cannot parse.
+> +/// False positives: a driver that cannot be unbound (suppress_bind_attrs,
+> +/// platform_driver_probe()) on a device that is never removed, a driver
+> +/// whose remove() waits for the last close, a miscdevice driver whose file
+> +/// operations do not use the allocation after open(), a registration of
+> +/// an address that only uses the allocation to reach separate memory
+> +/// (&x->ptr->misc, &table[x->idx]), a v4l2_device that no video_device
+> +/// points to, and, for the type rule, a struct whose embedded node is not
+> +/// registered from this allocation.  When an allocation has several
+> +/// registrations, the report names the first one found.
+> +///
+> +// Confidence: Moderate
+> +// Options: --include-headers-for-types
+> +
+> +virtual org
+> +virtual report
+> +
+> +@initialize:python@
+> +@@
+> +seen = set()
+> +
+> +@alloc depends on org || report exists@
+> +expression x, e, e2;
+> +identifier fn =~ "^devm_k[mzcr]";
+> +position p, q;
+> +@@
+> +
+> +x = fn@p(...);
+> +... when != x = e
+> +(
+> +misc_register@q(\(x\|&<+... x ...+>\))
+> +|
+> +cdev_add@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +cdev_device_add@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +video_register_device@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +video_register_device_no_warn@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +__video_register_device@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +v4l2_device_register@q(e2, \(x\|&<+... x ...+>\))
+> +)
+> +
+> +@allocdecl depends on org || report exists@
+> +identifier x;
+> +type T;
+> +expression e, e2;
+> +identifier fn =~ "^devm_k[mzcr]";
+> +position p, q;
+> +@@
+> +
+> +T *x = fn@p(...);
+> +... when != x = e
+> +(
+> +misc_register@q(\(x\|&<+... x ...+>\))
+> +|
+> +cdev_add@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +cdev_device_add@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +video_register_device@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +video_register_device_no_warn@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +__video_register_device@q(\(x\|&<+... x ...+>\), ...)
+> +|
+> +v4l2_device_register@q(e2, \(x\|&<+... x ...+>\))
+> +)
+> +
+> +@embeds depends on org || report@
+> +identifier S, f;
+> +type T = {struct cdev, struct miscdevice, struct video_device,
+> +          struct v4l2_device};
+> +@@
+> +
+> +struct S {
+> +  ...
+> +  T f;
+> +  ...
+> +};
+> +
+> +@bytype depends on org || report@
+> +identifier embeds.S;
+> +struct S *x;
+> +identifier fn =~ "^devm_k[mzcr]";
+> +position p;
+> +@@
+> +
+> +x = fn@p(...)
+> +
+> +@script:python depends on org@
+> +p << alloc.p;
+> +q << alloc.q;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+> +    coccilib.org.print_todo(p[0], "WARNING: devm_ memory registered at line %s as a device node or a v4l2_device; an open file outlives unbind" % q[0].line)
+> +
+> +@script:python depends on report@
+> +p << alloc.p;
+> +q << alloc.q;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+> +    coccilib.report.print_report(p[0], "WARNING: devm_ memory registered at line %s as a device node or a v4l2_device; an open file outlives unbind" % q[0].line)
+> +
+> +@script:python depends on org@
+> +p << allocdecl.p;
+> +q << allocdecl.q;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+> +    coccilib.org.print_todo(p[0], "WARNING: devm_ memory registered at line %s as a device node or a v4l2_device; an open file outlives unbind" % q[0].line)
+> +
+> +@script:python depends on report@
+> +p << allocdecl.p;
+> +q << allocdecl.q;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+> +    coccilib.report.print_report(p[0], "WARNING: devm_ memory registered at line %s as a device node or a v4l2_device; an open file outlives unbind" % q[0].line)
+> +
+> +@script:python depends on org@
+> +p << bytype.p;
+> +S << embeds.S;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+> +    coccilib.org.print_todo(p[0], "WARNING: devm_ allocation of struct %s, which embeds a cdev, miscdevice, video_device or v4l2_device" % S)
+> +
+> +@script:python depends on report@
+> +p << bytype.p;
+> +S << embeds.S;
+> +@@
+> +if (p[0].file, p[0].line, p[0].column) not in seen:
+> +    seen.add((p[0].file, p[0].line, p[0].column))
+> +    coccilib.report.print_report(p[0], "WARNING: devm_ allocation of struct %s, which embeds a cdev, miscdevice, video_device or v4l2_device" % S)
+> --
+> 2.43.0
+>
+>
+>
