@@ -1,95 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794131464;
-	b=YZcsKjFsFBNfIWXslmuX2qsBLzOSKWjhycw/YBAtjKzde5RXKwROs7XV2TEnMd1k6wI3
-	 CDRjmxzhEizs8x/rtUywIFPds0tWWyrqAIALRU85uBhQo+5uaONQ6E5PYWA7HIcMihQoX
-	 lmZE/0odrl5Omxg9SwDvxAAlW8OBWsZ29EHj30iqWGp2MRaVlC2IMLegBtj5n4cdg1Pv/
-	 m2QUIOO6YBleZvNr0D1wwgR5pxCthYjtFnJaJEBkaA1NdaA/kqgnzOFPQLQ+zt3Shm1yt
-	 V3bKeDPBZpn3qrjBLl5fCa431HnOXWSb9tFmqbkzStsAuRMRiIxb211MYWDywATaEqw==
+	t=1794131554;
+	b=hQRpeprAww83jAvOXlRP0f1TXxfytwiTJXYANkSMIkmW7KbI5xx4R4lrp1uMtQIOtCYP
+	 3Jsn/h25Wup+RmXHMTn5hyYb4DTXweqntkvHtAaI/17OiHhTN308jFyAcxcCnLtwsucnY
+	 NWfDtbaLje6NNnC4bpBsgEzw8jEWWPpWCPzy8btJXHy9sU1WiRQkBPJDlbjqQ5QeaxD+y
+	 rr5dv7YJo0w8j+igTtCJEzAj7rGxlTXdGEr3qFO6wmFCzofQcSe/H0KqU6SJVxjT1BEhF
+	 5m1i3XW+EarYBJh0445lhdQtlageJAXI7sfIf/YxD+hhpzGs0gXyFfm3kj0P3+otdvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794131464;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=UJGPA+72p7Wv7RqTYja7FID1pyjvxUvI2bULs8oG6rw=;
-	b=K50AL/RyE3gFKSSW4s5zPR5JBqZSZEdsqTQj0c4iAYJrL/mbNahGqSq1wGxc59uAsjPb
-	 c0BpUrlXwP0DMC5v0IA+CrCIr1A2nZVlFtz915VAa6Hld5qlqkDAL0frZ5b6evHRLI1lE
-	 AgUbO/aAnGYOLRGO++POUtOp8tHhTiCayrQW4LiLeN5JHM1jjCiscLGDDPs8mV5Zsnnji
-	 6QK3yt4p/95Px8k+NlIksge3bjMhBt7kcECAK0vtvl/v3q70hUcyyk2HvqQNo8tAMcoLV
-	 xf5BdllI8fIdXgrrMiht1UgpGmOcN/ah/xx2bj0RwX5lyNxfI7wTj8rL+qfb4dmHEPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794131554;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=ETZrdZOhArsLJy6lMGfpmdf9xjZhQqXb8yfOpDMN3NA=;
+	b=sM8WlUgUld+SmmUixMFMog1Hui1JLCyyqQcC2/hKU+1P3cgBzTJWn2rnUec8Dy6p+WcQ
+	 OXfvn0ZKFdpigcHNLbs9sfLh0id9XX9xFgXa8C76cSQeopWkkcoLOFx4WNIcACrUlgSF7
+	 uSh32sL8KUJptIlTt1YwSXIXQJ7xOczTFvq4fPUk9hvtf+9mtEKJXYaCtB0HuHILfoKLj
+	 MEAiiQumgD0viR9MhQG8LfYWf4+9RhRQrB35CUXlWQJ0Ofiq0MwFnRiElgZu9SE6eKo+/
+	 44gpR3kVERzCtx0Wla52rKf1l+e/oRDi4ff2xWENZYV7M3kGCeXYUQmROM83xGzPPiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z9MbatcP;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=GlxO93ck;
+	arc=none smtp.remote-ip=203.205.221.210
+Received: from out203-205-221-210.mail.qq.com (out203-205-221-210.mail.qq.com [203.205.221.210])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE49606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:51:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FE49606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78B0606A31C;
+	Sun,  8 Nov 2026 09:52:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E78B0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=z9MbatcP
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-14fc585291cso8127c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 01:51:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794131463; x=1794736263; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UJGPA+72p7Wv7RqTYja7FID1pyjvxUvI2bULs8oG6rw=;
-        b=z9MbatcPEUcQAq0qGZ3/s/lLzdadDxz0rHSeJTJAirBCt4/efSuPpRDBKz64qjvgy6
-         hg9nAhwx9kXVEaKTEyafH6oAt5VAlQg9p7+j5r702RJXagJOxR9Ond2oSnqQpBgQ/J+/
-         jfoF04bCfOhY0OfLmZ2a2leXB+oRcGrwGJYAw17hP9qvysOeyGDZIa8kba4mLbDkcXzp
-         XVRBXQW0DBmY01Q9lnJrYgTg/tgybZ1WWtScTQ4CUtR/3h+74tixBOZzKGca3KkZcsD5
-         c9k9p8X2ZY5kR35o72CCSjH142ql/yvekLGvmNzXvvtcSvc1wjdte15utVMB05GoDo4H
-         fxtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794131463; x=1794736263;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UJGPA+72p7Wv7RqTYja7FID1pyjvxUvI2bULs8oG6rw=;
-        b=1udQRk76QqXRqMhVwVPNnEsNXDgQsy4/Ay19FtgFzRNrFxz8jEnyIcRVfPuah1WSVs
-         luaBrNMMgnn7AMA7D1KIRE22px4+mXuq+q6+k4PuTQjOHJcZkSK3XqZapWWVgwhuCQXe
-         gkG43Botw3VxdOdfGlvgbCy0GcIwg3XJh5BgkhYB2djoAkMTF1UZj+fNLJTNwuXhWtxd
-         QYNZd3WPEtwCmH7spR/CWP3N914s0QdAU+J6W7fgZJfyHDZ7hnwMI5kffwQoEa3G3OF7
-         IPf56aB41vL34P4Ex8v+gZ8xAO1dXVGDwBPoyxwJB7m0QFBUHnKcc+0lJE1qvqgBvOyL
-         FStQ==
-X-Gm-Message-State: APuU4Z/hr7hDWto6wY0j1KgqlsOTJB7tx10H6k8E9kz26x8pD/cM1gMc
-	LasdrKdRl5CtauEQVfU5gT1HnZf0OFOSocL2+KjSU5cP4qzGp0v9eUIi
-X-Gm-Gg: AYBFou0IX1d4Lu+R82+eO8X7h7xc07roN2yRP8lfHUxo3YxUTkfGc7oE74SkG/OjZp8
-	MYyYgx7NMSHAROMfn+gdxyJb/CiH0QEcqGl56xr9y+X1ycUxduYmdZ5DuetgTrnwbSvzTy8xjtS
-	uVCVZVVgw2LgA8tQhcilNNqsE4FETVZPphMijhzgOx511MJysa8UT3qmEDM72DUtzvcpNGQYjRk
-	975TnaF4bMIb1vWwkb9MpJBrO21BHVbJArOvYku8lKSg39AUFi3CkYcYhfr6b3B8UIkg1rIVSqw
-	81xGlm6CcRQbvK5lNq6mCt75VAr/C3t47xWyrQgALAnNWG6+J5KVQ0BKZ7lxm06V0jyzR0DUEDO
-	2JnvpJhx5yIDFU7/9DQkNShafu7pbQi1vVshMmRObd2LRus1J8eC7xfDzEJd8g5NQXtvG9qmk28
-	l89xDPoZcPmsy5LxNUqfppEBld/1Ypr6VhzqyoT9i4pDJyq22fVnHlXs9BI8MLy8CjLbwtpXV6Y
-	Is5ZUrGS8n5tYzNhA+edAlmMRmn9+8VOW3idrQeIRqBLRP6xYOg+3hYvdSOtF4l0lkrZ8pLRetu
-	74kVfLFBXh3G+3WYuXMUTnv52ZkNRNjMasM3aBWB21VpWxJ04exttJ3NbkQhbkVEddvNp81B
-X-Received: by 2002:a05:701b:2092:10b0:1a8:7b58:6f1b with SMTP id a92af1059eb24-1b39fea1ad2mr1810961c88.19.1794131463482;
-        Sun, 08 Nov 2026 01:51:03 -0800 (PST)
-Received: from localhost.localdomain ([103.177.253.80])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755e8911sm5076842c88.5.2026.11.08.01.51.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 01:51:03 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: tiwai@suse.de
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	sreekuttan2156239@gmail.com,
-	tiwai@suse.com
-Subject: Re: [PATCH v2] ALSA: control: Synchronize LED mode accesses
-Date: Sun,  8 Nov 2026 09:50:36 +0000
-Message-ID: <20261108095036.3241-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <87mrrkyc7i.wl-tiwai@suse.de>
-References: <87mrrkyc7i.wl-tiwai@suse.de>
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=GlxO93ck
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1794131543;
+	bh=ETZrdZOhArsLJy6lMGfpmdf9xjZhQqXb8yfOpDMN3NA=;
+	h=From:To:Cc:Subject:Date;
+	b=GlxO93ckU55VsTseTvtWcSrnEqEGqAHLogbTVKYOG/vABViwhLDnsQWrcTaXbvwa+
+	 7LEp8yN7QWROR3/KQgOeKEebKtVbFQMeylJKN9Bs955j3NzecZs2tRnhtGlgM4JTjv
+	 JbYXsJELHxRLDG2hipbuL6fP1MKupsJrwq79V8gk=
+Received: from nixos.tail04abde.ts.net ([153.37.85.101])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id D048084E; Sun, 08 Nov 2026 17:52:04 +0800
+X-QQ-mid: xmsmtpt1794131524tc8ruwjyr
+Message-ID: <tencent_9286255027243E5338FE93692C54FEC21D09@qq.com>
+X-QQ-XMAILINFO: NeHZ50d3l/WZZDI+hYRr+tDmWArJfUVTHPa+8sr5iM9Efq5jqswzS2oyHLVcmD
+	 LOwnbIEC57Iksl93J96/icqxhEX6PtMGLXeoyHb26adkHXE51RtYamXxm59UqW/4Fh5s7bNY9R/o
+	 rTCL4DwZoDoendL2bqwUqto1hhI1nmbdCpqK8tnsKzT4RPsLhTlKuOuhyr14lDYAlIug42qHP//F
+	 iWivMFdmTwIMyJtY3LuTArh0pzPYyE3k7sAyOmWEc9QrfwGHTvAgl0X0OnGz0U2vQRqSoebrmitI
+	 wf11aaB2HJix3yLi2pAkHZRGh8Tr20+6C0YdYXx4DPE378VkS7nq4s+6nsSbU6bYmNomgl8lNUup
+	 M5BtWh2VvzkkSBlaqaH1d+1DRZfaGLQzkZRKR7zxQEHEwlf7QrOjS164uSJi28k+I0qBT/v/yfBL
+	 MGskVnvfrfq2W/t6WTAjhi2jkV4W2fNfNfwsfb6Hgr8aoVh7vRFshsS8To7zpmhn15w/IhokLsx6
+	 /B96N+ghe523MRrDW0m2jyCXMjKdlJJX4l/uQyzmJ8fW+vbhHjVxOXsoXJWEe4Q4ec0YJThAWPOs
+	 Rc5KgbJKGeFMy4LZZbrIjqEGEoeiKMO4ba4w4+eWy7dFls9//jnCqQ1n1dSEXGqN4NE2rQAtvRKS
+	 TPHCkoMs5nNwKe6FxIH5Ant9bxhLpUP0ZIYDRBqpaQHXah0C/j9WcU2PQLdWVhZr5Hv+mKQL/tdR
+	 5o8sLNLPALrmdzaqUAYlSdk3In+KNZI2jHJAwiDWjGQKGIoeFAQs4wB2Vn9lacrDuKChAuVdSreu
+	 PMiTyTwjsJzheBb6rZIXbGm5xZFodx6I0jEesL7jbnhgBCm5TWpHpWotgtzPymdkDXTiyDUKmCnh
+	 QVlIAdjFFHU+TM1ZIRi45UxqNu+2fC3x+nKrnGqIodQmbMVqgX5dGwA9eAHma7YYxkNy/Tp7QwK4
+	 bn6hTTEBHKoiIwPcNMrx84BAozfFvdF1uYKert47QhLUuGRrJC6f/0WRDT2akHSH0vYuWWbNTZcY
+	 Al174WrhN4NvzXb5HFg3lBeOTryhAmB0QKQ7phG8LkmQlGvrq46XGrZwgQgJvpVe1dFg5oAzLHqH
+	 OqI0+p
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+From: Jiajun Wang <ryan1202@foxmail.com>
+To: tony.luck@intel.com,
+	bp@alien8.de
+Cc: xiyou.wangcong@gmail.com,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] RAS/CEC: Fix decay work delay calculation
+Date: Sun,  8 Nov 2026 17:52:01 +0800
+X-OQ-MSGID: <20261108095201.2393382-1-ryan1202@foxmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,13 +82,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Takashi,
+The conversion from a timer to delayed work left two issues in the
+decay work scheduling.
 
-I looked into using simple_strtoul(), but noticed that it is deprecated. 
-kstrtoul() does not provide an end pointer either.
+The initial delay is passed to schedule_delayed_work() in seconds,
+although the function expects jiffies. This schedules the first decay
+after 86400 jiffies rather than 24 hours, or approximately 86 seconds
+with CONFIG_HZ=1000. Use secs_to_jiffies() to convert the delay.
 
-Would it be reasonable to retain the delimiter-first approach with 
-kstrtouint(), as in v2?
+When rearming the work, cec_mod_work() passes the relative delay to
+round_jiffies(), which expects an absolute expiration time. Use
+round_jiffies_relative() to round the delay instead.
 
-Thanks,
-Sreeraj
+Fixes: 0ade0b6240c4 ("RAS/CEC: Convert the timer callback to a workqueue")
+
+Signed-off-by: Jiajun Wang <ryan1202@foxmail.com>
+---
+Build-tested on x86_64 with CONFIG_RAS_CEC=y.
+Not runtime-tested.
+
+ drivers/ras/cec.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/ras/cec.c b/drivers/ras/cec.c
+index 15f7f043c8efd..3c61c2aa78f2e 100644
+--- a/drivers/ras/cec.c
++++ b/drivers/ras/cec.c
+@@ -166,7 +166,7 @@ static void cec_mod_work(unsigned long interval)
+ 	unsigned long iv;
+ 
+ 	iv = interval * HZ;
+-	mod_delayed_work(system_percpu_wq, &cec_work, round_jiffies(iv));
++	mod_delayed_work(system_percpu_wq, &cec_work, round_jiffies_relative(iv));
+ }
+ 
+ static void cec_work_fn(struct work_struct *work)
+@@ -582,7 +582,7 @@ static int __init cec_init(void)
+ 	}
+ 
+ 	INIT_DELAYED_WORK(&cec_work, cec_work_fn);
+-	schedule_delayed_work(&cec_work, CEC_DECAY_DEFAULT_INTERVAL);
++	schedule_delayed_work(&cec_work, secs_to_jiffies(CEC_DECAY_DEFAULT_INTERVAL));
+ 
+ 	mce_register_decode_chain(&cec_nb);
+ 
+-- 
+2.56.0
+
