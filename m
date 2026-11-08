@@ -1,97 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794103666;
-	b=E91KAHTyqyQBfzYTNs7XQQsOAwM8EW4WmzZ0CFMhHPsMA6gpbY+0sbM5evb8K84mseC+
-	 oPDcgaS4fWP2Q/z/MIVCBV1gJJ3laCEYxqqOCuXdgZCqgU/c8i9VtsZQq5AQt5RBa3mSe
-	 lf21Pkz13MDPikWuMhHsUxRy3YkNafPDP/tnsYF3e5geNw/5rZ5heDt+Hhzm8ErjagDgB
-	 gfo8xbLnddrbiuM05QwA6Qktk8RDeUQzJ4CX1ibGUUwYpDMivOj3WFoSVjxPwz8MrfAYN
-	 A47lh9fQCDjWcCIXbH42d3HQ10VvRl8ameX91bGztbjYviM7GX/VFpjF71Ih2SuTkVA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794103666;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=nAUid8jDWzly69ovFD3scbJRnE8PsLmVF0z4XZSSRog=;
-	b=lxHRTcoDYczEcROiCMLMQFfFloxlbiTOzDZ9HnJjAssGizc4wp5mJJVWbxExIMJHsYsW
-	 Sw8mORlcsEODZVO0qS+j837WyZjoAYG8bzhiEDGJRvYDwIcwKx0wKvOK31tH8STldLWVd
-	 9g/K2/4LVM4IE2r2sacqLL2PhWlKsGHrt9aacIhr1PNGM2LrXACjAGle6hQVHcduXXiNJ
-	 K9GN+VByA3BnWk0znLg79TIzqps97X1sG9evlqVBOzUnE1g2kQB6/6w+CGaX5tJpGwCRj
-	 HYsM45RsrQnFtYsD/NK6d6o6GiYBn8BtMFhRp1AclnyIv1XvL4nNI5MuDGTmKZeQmYQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arista.com;
-	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=IhKUbDQj;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794103679;
+	b=LBrn3vNzj56q0nQZc9yxokrkMQwf2CkksioL+Txi57zIxeqDyN04bGAuanBioELN5J9h
+	 sbNJ/AKY7OsiCrQ77M1afRYb+yrLUHMqvVMEG4yjFWgzHPXdqaWB73VjEG7X0x8kjhKwC
+	 9H7mLW5lULzO5LyprJ+/JX5q4ifMBFXlufKZ35aIRsnQfIgNmsrfHIhxwdDURXTKgHcne
+	 rYcIHLnuHZZkOKIXYlZZCJ7qa8OzOGOEAZeMAh9MuI2hO/ziUiOojdeE0bvt9G5oVIPEB
+	 qnkTDWPLwrFGwfClR7xS+tjDhITYSpCieuCglTOUSkXNyn87H10jJS+F2Nk2pZPrYCA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794103679;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=7rEbBmnrDSPRKg4CdtX+9qsizNsk+ESguTdy29rXj/A=;
+	b=wX04h+cP7JYVXFQZRpe7XYPjkmfkoHW1k6V12RRFW8ybEsYtQHnXI3P4vMcs7Pz6NOcV
+	 YH6FU7vl5fJnTWqBbIwJS1moxv0aj4ZgXo5d7VcBZLaXgMv0gPO0WJZJkwQgsJ8CgkiNA
+	 vpsfZAYYuU2qf4p4wHOP75oeas6457rIcHwsM5G5CyKPClyUpvyTjqwO33L1VbgJw1w3q
+	 HnWd3PpSEEP0BDIB/P7qSM60gu2fQx/Rk0kEb3Sk0qtmZfPKv3ocTFbrELMdm16BexNOr
+	 SqcxBYh2heoWgjd7ZYpltcXXUXHbw+d7hFTxSxiur4xKNwzbyUxmiDz5wsP/TOqq4vQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b8NiJNno;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FE7606A31E;
+	Sun,  8 Nov 2026 02:07:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b8NiJNno
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794103678;
+	b=d3TBcRhkRxPnjB4a2lk7p2QOI7xTtPClsSqIU1Ny6QDyAd0HHjQi1+Zduaw17M3QV4TF
+	 UBWHOyLoNQIbDgLa0ZC8XFwaPzz7k8cuucdGuAT5LZy9Lm6MTrugUfap81ifuaHFQHFhZ
+	 PnXpX5k1CTiXxMn7Hn1xB72NDDQ8W1hnFKV3FriRRapJlGGW9KcFRiLzRSowRte8C3pzK
+	 fXwKYMdY5HueJdKHRqGSJGRLbHMUQd3aE+eMBk9ZZXp5BFoZ29u2M1+6Iz/8EDyRlD+Ul
+	 0CAbuVm8l5ldhZNXNo6IOvoPSzI4lesnGUup+8tDO3hqehx+81gsLjNIGVlf7NXU1Aw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794103678;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=7rEbBmnrDSPRKg4CdtX+9qsizNsk+ESguTdy29rXj/A=;
+	b=jbqkLbDGC2HpUIVn678RtqlAeNJyejdXpkhy1dld53HKUG7qNiybIUCmhhzL34+q6ylK
+	 VMd2jGUR0bb4IGuNrh4HiglJgVvQb/6j/c4EyOrchWcvfmPcW6lOFaP+zva0AbzBLGML0
+	 Y/7aydjFksXzfsOlqmifx2+73Rihe6ITkDO4hB7uaFcQsUAwrqPhDSsmk5ufIS1XmlCQn
+	 RR6LtGsiW6t5QLujwa8vuDnS7wcgvLJkVqRLfIp9GIS7Zg/sP1wXlw+R4WTfgjqb57j1o
+	 ABVeq+jXOYATAPm5jNHQY7PZqhtHTAyo+aiW/yQTfINrnxs9mo+UE4BNA/5T8VS9JyA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE4D606A31A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 02:07:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE4D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=IhKUbDQj
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-37198ed3727so663487eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 18:07:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1794103664; x=1794708464; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nAUid8jDWzly69ovFD3scbJRnE8PsLmVF0z4XZSSRog=;
-        b=IhKUbDQjcYwTGbkZe+oDjkxeTzfQ9brHcWJG8mz//DTeK96at5NbhgVoUSsGkrROa/
-         6vaZPnWPziU01Vrla4WrTIAT8eUgFic7dlYAamPszk6Vp2k30wWxNSIt4TT2QE6YqaP/
-         sZ8MHHCQclybKt2FpVZEgZvkT2NIpn2iz5gBvfj6wyOSe+ZFgpenJkNCCKcwcyYTwG8w
-         k7Uy23KBK40TOng7YPsY6Co+zZxCeRjUHQx2Ig7pgPhr9kv2zN9TnFHM9rzMtmfnCxeh
-         GQn+zzvj1jgR50EmhbNgftjX9wvkFdiCg5FnfH0r8Ik3AUwnfJfvEgP/Vn+Yi7JZOHwh
-         IfPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794103664; x=1794708464;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nAUid8jDWzly69ovFD3scbJRnE8PsLmVF0z4XZSSRog=;
-        b=b05cwUUzoX8BEWCKX6l28NH8bFiECQOoVDFxTeBmYhIjP6mMzLnRQq3xiMsGkPutRF
-         edqnZI6xmuWFiaehTkTgvbopioATibjAV7f8egfa5iV8+t7bdkb7KzmYFXnPEOrBAlNv
-         I0uup+9zUJrXUl8uabtdjDc9A0OHHE9Fh3I+56xGiPpFWfNwKsPAGxr0jHfxkIAisnZB
-         P1IGeJ7rGxpjyRH/1+QjabY2kL3obXrFkxedWKKAWZF5/m7kMVtyvNsMf7JQDuM1NnMe
-         VPfNPJZ1Q/I1RKfQqR7tUrcLQcBkZNzkBlgxf2W3mdR/FCgLMdO73HZb2GoUsG2ieKaW
-         0i3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzxKnN81/OFsvxc6wpr/NYZupKmmU852gUlN9QnBC5jx6gxaOdVRHrPGAn9bo2GH+IdOtWcV4Odjbfsys8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9JgLcUreFiPg3m927TgyeEM9Qaf7qsNACyBLcAeMsm9e3tKYqI
-	YgSK20KNpRgW5KIt3jE84wW7plAvZKEcWuswRnE2scqqk648uZ7xpwAMfiDlrwaPEw==
-X-Gm-Gg: AYBFou0ADVNGLkL10m4CBFQxMPDgcRdYq9mjxXTWhb8xy0nRJPtb6wvzAk4+f2OnUTn
-	a+HI0dvC4y/m+UKcfUXbOBK3sNLIno6uO3UWCNsHD+U8+svFPlU3SKYFEAtcPqVd12t6DIBTtCg
-	zaeKGy31fzzAMOgsbyiVy5TDbUW1plsRO+qgSUiQqUT7g8X75Q5O4L2kPLoQDNMJGttV76YAMfn
-	1KwJXXl0bmdPqh7zN+PvjOZwMpBWx1s+F5JY6pO1DGDedUsjSPOFhQ7rACRkKF09D+jt599hj71
-	TN/6UjKU8Uktxddt+Crly64IkRbqCw+xNwKQn442yMAr8cIaBIiPtvnGbflU0UD5aQJp3j7C9lw
-	HkD2Q3QeYbBu08hlVhwfEFG665YVQIrNeyrwJiCTc/TrLHjDCTVGwnykANccbKPKKE8fS6sfcPk
-	jTGYYy7TE8aoDX9+8Pk7dBuEBgV09+vzISCvSCyI3U5ihkI9Nv+B8cvHjdyizyhyIfCvt1qRj6Z
-	04L9DlqEGFh03ambvx4FXP5Xen567J0T+G0xGj3pZKD+DaH5d1XTYN/HDikpl2+bGRFbEvAf3Op
-	wqQ/zTCU+iSqsnQidj6ykFWY9T6UoDTjEN6g6L4ps1NFZh55BhiPA7r4kjvTTmsk
-X-Received: by 2002:a05:7022:170d:b0:1ae:d447:6c84 with SMTP id a92af1059eb24-1b269b21bf7mr4108916c88.19.1794103663378;
-        Sat, 07 Nov 2026 18:07:43 -0800 (PST)
-Received: from mparker-home-xcrbr.sjc.aristanetworks.com ([74.123.28.17])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b37561ccabsm2133832c88.12.2026.11.07.18.07.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 18:07:42 -0800 (PST)
-From: Matthew Parker <mparker@arista.com>
-To: pratyush@kernel.org,
-	mwalle@kernel.org,
-	miquel.raynal@bootlin.com,
-	richard@nod.at,
-	vigneshr@ti.com
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Matthew Parker <mparker@arista.com>,
-	Adam Calabrigo <adamc@arista.com>
-Subject: [PATCH v2] mtd: spi-nor: issi: Add support for ISSI IS25LP512MG
-Date: Sun,  8 Nov 2026 02:07:12 +0000
-Message-ID: <20261108020712.897714-1-mparker@arista.com>
-X-Mailer: git-send-email 2.51.0
+	by smtp.kernel.org (Postfix) with ESMTPS id EB7371F008A3;
+	Sun,  8 Nov 2026 02:07:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794103678;
+	bh=7rEbBmnrDSPRKg4CdtX+9qsizNsk+ESguTdy29rXj/A=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=b8NiJNnopuPtFWQPxbxQgrYiP+gdl920zSDlS6spWvXPs1bgeCYQymPrjLdfARC6N
+	 NDVd9TKl8a9flFqwNm/PAf9rB4pxsbgAQ7Ae0qID+wFtCLcL2mqt31kws4n3K77CPF
+	 l06AYJqppHo9KoVKW7e3WdfHRpKxrM8qsQp1zYfj938on5N1XP2sTcVb8s2pRUu3cT
+	 LGGQtkbDB+G6ELAeizXk+aMBaoOZLTc/2kM76AesNTrNIMfFNZQQ9iS9CrcqlcA0QI
+	 8ukiTF2D1Ve3+03hGqKz0aqKmrAXWYfEG07jrYqAdpfzvS+Uv3aGe7TYMvfUtW+Pfb
+	 wG6cwOnaeYnTQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 76D8347DA5;
+	Sun,  8 Nov 2026 02:07:57 +0000 (UTC)
+From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
+Date: Sat, 07 Nov 2026 20:07:57 -0600
+Subject: [PATCH 3/4] staging: octeon: fix race condition and log macro in
+ ethernet-rgmii.c
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,42 +83,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261107-octeon-phy-series-v2-v1-3-d7ab0b4b3f17@gmail.com>
+References: <20261107-octeon-phy-series-v2-v1-0-d7ab0b4b3f17@gmail.com>
+In-Reply-To: <20261107-octeon-phy-series-v2-v1-0-d7ab0b4b3f17@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794103676; l=2398;
+ i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=c7IDkn8SsaMFf7JTubke6cF4FA0eUXNFWJMVYKLJlz0=;
+ b=ejVMpeDFts9z8ypXvJWKWYaHqkpq0YIfv9Q8umP+IaHJxqu4hUOEtrazb1kEeFyz+ApFr1osg
+ J3t7W19oEB9DaUS22iRxqcRrK3GyDtTuLs4/JzZcabMvUMd+/esigxA
+X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
+ pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
+X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
+ auth_id=1410
+X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+Reply-To: aleszlucero@gmail.com
 Content-Transfer-Encoding: 8bit
 
-Add support for the ISSI IS25LP512MG 512Mbit (64 MiB) SPI NOR flash.
+From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 
-The device provides JESD216B SFDP tables which accurately describe
-geometry, erase types, and read-write opcodes. Flash read, write, and
-erase operations across the full 64 MiB array have been verified on
-hardware.
+Fix a race condition in cvm_oct_check_preamble_errors() by moving the
+read assignment of priv->link_info inside the global_register_lock
+protected critical section. This prevents unsynchronized read-accesses
+concurring with status mutations from concurrent polling contexts.
 
-Cc: stable@vger.kernel.org # v6.1+
-Co-developed-by: Adam Calabrigo <adamc@arista.com>
-Signed-off-by: Adam Calabrigo <adamc@arista.com>
-Signed-off-by: Matthew Parker <mparker@arista.com>
+Additionally, modernize the message output by replacing the obsolete
+printk_ratelimited() call with netdev_notice_ratelimited().
+
+Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 ---
-v2:
- - Drop .name, .size, and .parse_sfdp per modern SFDP discovery
-   conventions.
- - Rely solely on JESD216B SFDP parsing with SPI_NOR_QUAD_PP.
+ drivers/staging/octeon/ethernet-rgmii.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
- drivers/mtd/spi-nor/issi.c | 3 +++
- 1 file changed, 3 insertions(+)
+diff --git a/drivers/staging/octeon/ethernet-rgmii.c b/drivers/staging/octeon/ethernet-rgmii.c
+index 0c4fac31540a..a9a245b5580a 100644
+--- a/drivers/staging/octeon/ethernet-rgmii.c
++++ b/drivers/staging/octeon/ethernet-rgmii.c
+@@ -9,8 +9,6 @@
+ #include <linux/netdevice.h>
+ #include <linux/interrupt.h>
+ #include <linux/phy.h>
+-#include <linux/ratelimit.h>
+-#include <net/dst.h>
+ 
+ #include "octeon-ethernet.h"
+ #include "ethernet-defines.h"
+@@ -56,14 +54,14 @@ static void cvm_oct_check_preamble_errors(struct net_device *dev)
+ 	union cvmx_helper_link_info link_info;
+ 	unsigned long flags;
+ 
+-	link_info.u64 = priv->link_info;
+-
+ 	/*
+ 	 * Take the global register lock since we are going to
+ 	 * touch registers that affect more than one port.
+ 	 */
+ 	spin_lock_irqsave(&global_register_lock, flags);
+ 
++	link_info.u64 = priv->link_info;
++
+ 	if (link_info.s.speed == 10 && priv->last_speed == 10) {
+ 		/*
+ 		 * Read the GMXX_RXX_INT_REG[PCTERR] bit and see if we are
+@@ -74,7 +72,7 @@ static void cvm_oct_check_preamble_errors(struct net_device *dev)
+ 		union cvmx_gmxx_rxx_int_reg gmxx_rxx_int_reg;
+ 
+ 		gmxx_rxx_int_reg.u64 = cvmx_read_csr(CVMX_GMXX_RXX_INT_REG
+-							(index, interface));
++		(index, interface));
+ 		if (gmxx_rxx_int_reg.s.pcterr) {
+ 			/*
+ 			 * We are getting preamble errors at 10Mbps. Most
+@@ -83,8 +81,8 @@ static void cvm_oct_check_preamble_errors(struct net_device *dev)
+ 			 * disable preamble checking and do it in software.
+ 			 */
+ 			cvm_oct_set_hw_preamble(priv, false);
+-			printk_ratelimited("%s: Using 10Mbps with software preamble removal\n",
+-					   dev->name);
++			net_notice_ratelimited("%s: Using 10Mbps with software preamble removal\n",
++					       dev->name);
+ 		}
+ 	} else {
+ 		/*
 
-diff --git a/drivers/mtd/spi-nor/issi.c b/drivers/mtd/spi-nor/issi.c
-index 2f057d731df2..d2b812050550 100644
---- a/drivers/mtd/spi-nor/issi.c
-+++ b/drivers/mtd/spi-nor/issi.c
-@@ -101,6 +101,9 @@ static const struct flash_info issi_nor_parts[] = {
- 	}, {
- 		.id = SNOR_ID(0x9d, 0x60, 0x19),
- 		.name = "is25lp256",
-+	}, {
-+		.id = SNOR_ID(0x9d, 0x60, 0x20),
-+		.flags = SPI_NOR_QUAD_PP,
- 	}, {
- 		.id = SNOR_ID(0x9d, 0x70, 0x16),
- 		.name = "is25wp032",
 -- 
-2.51.0
+2.56.0
+
 
