@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794171870;
-	b=XUV4UWeSf3cED3S2XUd13Jz3TYtwZ/Jx79BsbaOOuAb/3fDtsQcx6iQ5njE0HjUHw4ek
-	 FxdfH1H4jiii6dQ9mzgSlV/G4tBT0jp6vI7xSzjmYwtF8/gPx9NntirlRC6AuVxzA8o+n
-	 kxqw8JKXGCjhI1tLm8lQ6N3/crIstEWYWAcHtKpc6ayUPdFWmGLO7pSKLvWGU9MCqaIk/
-	 rpBcH8jAWGnyoOHOH02a/k3NTYA8BH9FN6CRbHv/yPdylb1169bem7zTSeGt5VOvq2GoD
-	 38UjXO5+RmZdb6c4FqtB8DlC3wRtshDkCuLK66iz5zzB4BFpJvirFBo3zzJsVa9eHqg==
+	t=1794171900;
+	b=3soj/k02tEHtj64HD+km+YKLhDarLf9/pSm5S3TDj8sTYuCEKtZD2yBz6Gvm0xx7HqIM
+	 oY7U9s6+3H+YdIkMi1HDQd2O2yezZZ6nnKCRoqeixUrp5EkBIsv0afmGd2pcjL0gZS5dR
+	 W/82oNhmBr6v8OBF0aj+Ftl+L5NbXHM1GOioUDkVKdop7VIUnl9ZQ690k+c+MGHKuYX18
+	 Qtf1HXAGwYD3sg2PyH9AahAmotAmpg7NkU7QXoagia76tUgeCUQnwRlphlxWtRf4LftDG
+	 h9p830+F9xPJgSUepBSpD2kRlBhLkJvBMvPE7P+JgKcvgqJRYlVLySBlP0cZKvxuK1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794171870;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dA8BlSr4nW8M2tmghZ/qmNUjL9Vz8LO1wLh57I7CYw8=;
-	b=wSvjwQXaTHaQn3T1/D9/yLwiyQLY7tGFq9fyMmzx/GEdUdQndKPLncm0yak0U3jqDBMj
-	 7qu0vlZzv+1/ePNJSF940hwc1DLgyebEyJw+WVSq9fRLUsIcG3e1WGdJpw3oBMbulw0wu
-	 ayuE9R+b2pW0nNB6MgAMWSxGL1dHgp4JMyy9/0vyXTq+3Tne0f3wv59te2WjAt0PmdA8O
-	 LwX52h+H7KdabX9cApY2Xada+L1WzwogKnwhn9jT/3nFwfQnbh79lt91Hd0DWeuaenWUL
-	 qJtAAXFZXLuQwzk8KysPw3O0L45EhXDv8estYlLxfBBXOLgYT7++8M6I+cjrcEd+a8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794171900;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=krgZwyjxrCIUZLlQLcUb/n73QFlmrRfeqYeUKVXIUJ0=;
+	b=d3fU984AVof+pqr8G2JYghZh7vIYgHJN/RNzTd04qR0XuGCEs+AqdcUHDvZFLciAWt1U
+	 I28kiyv++FMaUON6qn/Fu/Uf73AL++z2W41HsjCCt5mK1FYOe/4z4CyGlDZUhH1LHqVvS
+	 N4BCSxYKRoaiDepbTiDXYFXviLR+Ud6wcrI8Lyle41EUd5k/gIXkG1VPSoyhrIK3JqPr9
+	 yLECDZC4KKrFrUK3nnymhqcw4oDwFDFY3OYFe/Gg1pmiZjgLsc8IHQNehqw4AOQBoWz/E
+	 867kGdMikzJ5uy5l85T6z9zW+9LBE4RNM1CabJX2mrUwJZpYV+l3UyVimpxhqcFqfWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gm0vMsur;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OmMyhEg1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A80606D818
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:04:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFCCC606A31C;
+	Sun,  8 Nov 2026 21:04:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gm0vMsur
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8FB01F0092B
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:04:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OmMyhEg1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFE161F0089F;
+	Sun,  8 Nov 2026 21:04:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794171869;
-	bh=dA8BlSr4nW8M2tmghZ/qmNUjL9Vz8LO1wLh57I7CYw8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Gm0vMsur6Zp+NDkvE5MIcJ+lRVCZkjKGPWerSg0Ixxfn9AEbpAu/RLNKOqwe/ZTdo
-	 qPph1jA31UrzXqTs+vyoemnUgI2gqnqO/vugay5bIG4wQdwTss9sreUHZHeUpgXCew
-	 xT57TF/AzNCIVb5ptdoraysWsiWP9qiz+GAmeYe2ZaABkPz3HHL/YoH5zndZBhaInK
-	 l1ZfJq9jygp4h8kT5Gh1IRgMOKCswVib34YlOmDx7ZDzDx5NL5V9adTpX+A20v/nD1
-	 BvGjiE7CAPVWDb1+95/Ev5HtSHiPIok/91M5Lqq/9Iz2IAxMN30nyu4NE4pqAouu5k
-	 JZwc0uwTnuukw==
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-9441591aa5cso38926985a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:04:29 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHgY1xu4XHCtWnh287UuHT7sQyOazowgGZ1s74usFETIdcSAJgRcwelfcbRyxFkVeQ1w4lkYSyPcsomda8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8VJYQ+Z40L6Ly45t9PJAOv2BAZXTD8dhmnsEDQ5M6PFmBk6KhJ
-	JutPgJYlQDqpqxnYcRY7Sf03JisxX9XtddrWYyMZ5z+R3ihB7bEdh8S6Fsn7F/5+ZFz5aN5cMtI
-	8iCuWtMnLZeXWLLdZHBObdpcvBPURaEU=
-X-Received: by 2002:a05:620a:4147:b0:945:d2f9:5c2e with SMTP id
- af79cd13be357-94784201be3mr321265885a.18.1794171868934; Sun, 08 Nov 2026
- 13:04:28 -0800 (PST)
+	s=k20260515; t=1794171899;
+	bh=krgZwyjxrCIUZLlQLcUb/n73QFlmrRfeqYeUKVXIUJ0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OmMyhEg1BPjcNDIitkZuD3rqShKRhucsH5bhcXilZgQjIORW1QFJBeohga/z5mlEZ
+	 b/NUUbV7/srSV/4k/tX/wW9y1DYYGHM/OB8MBnZxzpwlQDwRxObXciStJ0DUVXsmX0
+	 T66mrwHrWoUW8nWO5juqjCY6FmDmNJII8n/LWMNqUrfjjCzW6v1VGeDl1naFrF9IcZ
+	 mwB9LVFcK9MjruDckre2HSK6DO69CkEH5Ctge6Ys2WnFsZaulf+xcVg9s6RghJDjxM
+	 vEhL9IZniXaFZBvX8C/yh39ykW5pFzPf2d1A78c6REM16e0r4tCCF8ST5a3eM4NW/h
+	 1kSwXac2b59TQ==
+Subject: Re: [PATCH net v2] net: mii: Accept link settings read back while the
+ link is down
+From: netdev-bot+sashiko@kernel.org
+To: anthony.pighin@nokia.com
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ zhangxiangqian@kylinos.cn, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Sun, 08 Nov 2026 21:04:58 +0000
+Message-ID: <179417189843.994134.10373591226348070230@kernel.org>
+In-Reply-To: <20261107210236.721901-1-anthony.pighin@nokia.com>
+References: <20261107210236.721901-1-anthony.pighin@nokia.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,97 +64,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com> <20261016-mglru-fg-v4-7-2106750c0bfa@tencent.com>
-In-Reply-To: <20261016-mglru-fg-v4-7-2106750c0bfa@tencent.com>
-From: Barry Song <baohua@kernel.org>
-Date: Mon, 9 Nov 2026 05:04:17 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wSDOgCC9AmLS-z670W-nkF3DXB_cNvNFnptX5F95fGMA@mail.gmail.com>
-X-Gm-Features: AclHuK88cVk2cTHlbMRpEce2sAMWIV7FVPbAiXOdIHIxIsSaZ46UdtpCmeHh5_Y
-Message-ID: <CAGsJ_4wSDOgCC9AmLS-z670W-nkF3DXB_cNvNFnptX5F95fGMA@mail.gmail.com>
-Subject: Re: [PATCH v4 07/17] mm/mglru, gup: mark folios referenced via a fast helper
-To: kasong@tencent.com
-Cc: linux-mm@kvack.org, "Liam R. Howlett" <liam@infradead.org>, SJ Park <sj@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Chris Li <chrisl@kernel.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Nico Pache <nico.pache@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
-	Gregory Price <gourry@gourry.net>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>, Hugh Dickins <hughd@google.com>, 
-	David Rientjes <rientjes@google.com>, Yu Zhao <yuzhao@google.com>, 
-	Vernon Yang <vernon2gm@gmail.com>, Zicheng Wang <wangzicheng@honor.com>, 
-	Chen Ridong <chenridong@xiaomi.com>, Tal Zussman <tz2294@columbia.edu>, 
-	Kairui Song <ryncsn@gmail.com>, Xiang Liu <liuxiang.277@bytedance.com>, 
-	Ehab Ababneh <ehab.ababneh@intel.com>, zhaozhengzhuo <zhaozhengzhuo@uniontech.com>, 
-	Lian Wang <lianux.mm@gmail.com>, Kunwu Chan <kunwu.chan@gmail.com>, linux-kernel@vger.kernel.org, 
-	cgroups@vger.kernel.org, damon@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 16, 2026 at 2:15=E2=80=AFAM Kairui Song via B4 Relay
-<devnull+kasong.tencent.com@kernel.org> wrote:
->
-> From: Kairui Song <kasong@tencent.com>
->
-> Introduce folio_inc_lru_refs_fast(): raise refs from 0 to
-> LRU_REFS_REFERENCED via cmpxchg, or just set PG_referenced for the
-> classical LRU as before. No counter update, promotion, and guarteens
-> no other complex operations in following commits.
->
-> Convert the gup fast-path sites. No behavior change for classical LRU.
->
-> Tested-by: zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> ---
->  include/linux/mm_inline.h | 25 +++++++++++++++++++++++++
->  mm/gup.c                  |  6 +++---
->  2 files changed, 28 insertions(+), 3 deletions(-)
->
-> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-> index 65415eeac802..effa13c63632 100644
-> --- a/include/linux/mm_inline.h
-> +++ b/include/linux/mm_inline.h
-> @@ -454,6 +454,31 @@ static inline bool lru_gen_del_folio(struct lruvec *=
-lruvec, struct folio *folio,
->  }
->  #endif /* CONFIG_LRU_GEN */
->
-> +/**
-> + * folio_inc_lru_refs_fast - Bump folio refs count without promotion.
-> + * @folio: the folio
-> + *
-> + * Raise refs from 0 to LRU_REFS_REFERENCED and leave hotter folios
-> + * untouched. For the classical LRU, a plain PG_referenced set.
-> + */
-> +static __always_inline void folio_inc_lru_refs_fast(struct folio *folio)
-> +{
-> +       unsigned long new_flags, old_flags;
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] On ksz884x, `ethtool -s ethX autoneg on` while the link is
+  down now succeeds but writes a half-duplex-only advertisement to the…
+
+--
+
+net: mii: Accept link settings read back while the link is down
+
+This patch changes mii_ethtool_get_link_ksettings() so that it reports
+SPEED_UNKNOWN only when autoneg is enabled and the link is down. It also
+makes mii_ethtool_set_link_ksettings() accept SPEED_UNKNOWN when autoneg
+is enabled. With both changes, ethtool's read-modify-write of link
+settings succeeds while the link is down.
+
+> diff --git a/drivers/net/mii.c b/drivers/net/mii.c
+> index 37bc3131d31a8..225488f2438b2 100644
+> --- a/drivers/net/mii.c
+> +++ b/drivers/net/mii.c
+> @@ -199,6 +199,9 @@ void mii_ethtool_get_link_ksettings(struct mii_if_info *mii,
+>  			cmd->base.speed = SPEED_10;
+>  			cmd->base.duplex = !!(nego & ADVERTISED_10baseT_Full);
+>  		}
 > +
-> +       if (!lru_gen_enabled()) {
-> +               folio_set_referenced(folio);
-> +               return;
-> +       }
-> +
-> +       old_flags =3D READ_ONCE(*folio_flags(folio, 0));
-> +       do {
-> +               if (lru_get_refs_flags(old_flags))
-> +                       break;
-> +               new_flags =3D old_flags;
-> +               lru_set_refs_flags(&new_flags, LRU_REFS_REFERENCED);
-> +       } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flag=
-s));
-> +}
+> +		if (!(bmsr & BMSR_LSTATUS))
+> +			cmd->base.speed = SPEED_UNKNOWN;
+>  	} else {
+>  		cmd->base.autoneg = AUTONEG_DISABLE;
 
-What is the actual purpose of this patch? Is it to skip
-cmpxchg() when the folio already has non-zero refs for
-better performance?
+[ ... ]
 
-Thanks,
-Barry
+> @@ -333,9 +333,11 @@ int mii_ethtool_set_link_ksettings(struct mii_if_info *mii,
+>  	struct net_device *dev = mii->dev;
+>  	u32 speed = cmd->base.speed;
+>  
+> +	/* Autoneg ignores speed, which is SPEED_UNKNOWN while the link is down */
+>  	if (speed != SPEED_10 &&
+>  	    speed != SPEED_100 &&
+> -	    speed != SPEED_1000)
+> +	    speed != SPEED_1000 &&
+> +	    !(cmd->base.autoneg == AUTONEG_ENABLE && speed == SPEED_UNKNOWN))
+>  		return -EINVAL;
+>  	if (cmd->base.duplex != DUPLEX_HALF && cmd->base.duplex != DUPLEX_FULL)
+>  		return -EINVAL;
+
+[Severity: Medium]
+Can this make ksz884x write a half-duplex-only advertisement to the PHY
+when "ethtool -s ethX autoneg on" is run while the link is down?
+
+With autoneg on and the link down, lp_advertising is 0 in
+mii_ethtool_get_link_ksettings(). That makes nego 0, so the read-back
+is:
+
+    cmd->base.speed  = SPEED_UNKNOWN
+    cmd->base.duplex = !!(nego & ADVERTISED_10baseT_Full);  /* DUPLEX_HALF */
+
+The commit message cites genphy_read_status(), but unlike that function
+this code does not report the duplex as DUPLEX_UNKNOWN here.
+
+The ksz884x caller, netdev_set_link_ksettings() in
+drivers/net/ethernet/micrel/ksz884x.c, treats the read-back speed and
+duplex as user intent when autoneg is set and the advertising mask
+matches priv->advertising:
+
+    if (cmd->base.autoneg && priv->advertising == advertising) {
+        advertising |= ADVERTISED_ALL;
+        ...
+        if (0 == cmd->base.duplex)
+            advertising &=
+                ~(ADVERTISED_100baseT_Full |
+                ADVERTISED_10baseT_Full);
+        ...
+    }
+    ...
+    } else {
+        port->duplex = cmd->base.duplex + 1;
+        if (1000 != speed)
+            port->speed = speed;
+        ...
+    }
+
+As a result:
+
+- the full-duplex modes are dropped from the advertising mask
+- port->duplex becomes 1 (half)
+- SPEED_UNKNOWN is truncated to 0xff in the u8 speed field of struct
+  ksz_port
+
+Before this patch, mii_ethtool_set_link_ksettings() returned -EINVAL for
+SPEED_UNKNOWN and never touched MII_ADVERTISE. Now it continues: it
+writes ADVERTISE_10HALF | ADVERTISE_100HALF through the driver's
+mdio_write() and restarts autoneg. Once a cable is connected, the PHY
+negotiates half duplex.
+
+The legacy ethtool path reaches this directly. "ethtool -s ethX autoneg
+on" sets advertising to the current non-mode bits plus all supported
+modes. When the PHY already advertises all four 10/100 modes, that
+matches priv->advertising. Speed and duplex are passed through
+unchanged from the read-back.
+
+port_set_link_speed() also reads port->duplex == 1 as a manual
+half-duplex request, and strips the FD bits again on later
+reconfiguration:
+
+    if (1 == port->duplex)
+        data &= ~(PORT_AUTO_NEG_100BTX_FD |
+            PORT_AUTO_NEG_10BT_FD);
+
+The old code already wrote the port fields before mii_ethtool_set_link_ksettings()
+returned -EINVAL. What is new is that the PHY now gets reprogrammed right
+away.
+
+Could the get and set paths be made consistent here? One option is to
+report DUPLEX_UNKNOWN for autoneg with the link down, as genphy does,
+and accept it under autoneg in the set path. Another is to make sure
+callers like ksz884x do not treat speed and duplex from a link-down
+read-back as user intent.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107210236.721901-1-anthony.pighin%40nokia.com
