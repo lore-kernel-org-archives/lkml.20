@@ -1,105 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794121953;
-	b=EwlQ0CJZpWn8c04jHCBwFJAvyx8jZ7SuTSUQtD/L3N9ZEohdbnVGGdZigzee+qUjFqmd
-	 t6jyrqg0SiPEkq8KZuYMkPl4vCHN2TwTbwLCunXkOHaWxKuxwUzp88WeeLli8k7BsW0ax
-	 6H2L0365Wkt4Jl8oBrfbasR71N115pBxgID3vbyA6pao0gwo9GEr80+1KVuQeqoLkW262
-	 xWl0jFbx+mS/epbIf6KS31zsNjYtNcCguxHO0OvbmuJGv3vEOUsjmjJ8qASdYaaaQcPlX
-	 pRsZJ6NIHVM2k50FqdAhGmzCaLaOpnktvuy4oFOpiX9hgRxJ02gfHAVtvVGClc+9E8Q==
+	t=1794122119;
+	b=uPl0lQ3stGvqVdYYsnd3IPyTthaayMCuCQPQDZtF9AxmawoL02JjSQRPTUeG3GL7EDD+
+	 npFIXfe19LQxjeiUV6WEGB33qGBBJjqbvM7+lBfi78nVrNFo3x8jEPMAG8jidtfrMillR
+	 w86zZeaNEkrgyrlleS7wZ1VIaAPXqqyTA9v2qGWtBC2f8ruT1clfsIbmytFizssGuH8xs
+	 b1NTb7+F3QobjRZzCtEHqv4OS91wFcKoqkhVshs/jktoqXz4G4Zw4xuiKK0E86evb0Scl
+	 J4fZ3w991dGJ6OjFIcErUYrWlgFVfu3K/ZwjbHRswbgNC/qbKF+CS0IEdrYaCCqvAIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794121953;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QaX11FKlbrrxel5yt5lItqhWglhL95q0Q/UWvFGwSEM=;
-	b=S/YccUq+7+73QgJsp2xBpzPEQdPdIw/zloOhAk2+O/WcyYK6RjM7QBUMrQvGKVpUeF2H
-	 oQgBw4DzhTTY7CZF4kfPwa/kKpsfja7Q45Au3Zkdy/bjTQjymV5h1ZVSY7rJidQzlUkjX
-	 vSQ0H0gB4KgqXuV8XWp/UeFlWhrpTjR07foU7ap7flFKwkPv/yh+Mf8wmwWoFyyCh/WFH
-	 gvMkX6CAJJwLPnuNtQfZ9xQKIhJrBPpD4Nz/Ca1DryOlVetmCKiA9T6LYHNctTjXEwuHR
-	 l2X6dOaletuwsJy0VewYoVk1NmcKXmYmNquI0y/ivxBOw/z0y7VGY3vkixC7nstlDig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794122119;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=5cxGZedX/NjJ4QTNJLPpwF04lBluCSG8LxM8JDapM/0=;
+	b=j92wd+UHtzcPIlYhzTfYo+8AS+LVZL/zvz41MlEjDC1CnURFB0jF8lUAJsqkCynDBqN7
+	 TDyIxaU/4Hm8QP9PnR9uwc8BD7iR8Aq4/UvBdUrvSEFTQTVEpMu1Ct9oU252q/mqXMTem
+	 Y3jn21FBhgUC8p950bJp8u4chLCtJNUlT6c96+j7PkvcjVDD6NmOgrv70dUqcEIAWtq4B
+	 jxPquix4ELPiuCKvdruid2iutrX/vkIzJGnp0QOGPLmhG6bWHHtMkNkzJCp6gvwMwgkUZ
+	 NZfphEo2fHhIrKddHfe6cwSlFSD9cCG1wKIL3fSKc/Xyk8kHCVUzzptoTj4zAt4z9Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UhNZ3HwP;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Rskmnxn/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4386606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:12:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4386606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0284D606A31C;
+	Sun,  8 Nov 2026 07:15:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UhNZ3HwP
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-491aaed7565so99145f8f.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:12:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794121951; x=1794726751; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QaX11FKlbrrxel5yt5lItqhWglhL95q0Q/UWvFGwSEM=;
-        b=UhNZ3HwPUWb+xsU+LrB9nBdbR1CFNHYoIhf8bYXVRaVpgKnz85xHpaEmfk/PNrPQz2
-         mkMtHK2+IOess921ezEeH1kaRuBfb1gRfzVjCmdCWR9LH7w2KHZGG68DeZhrcceB2OU1
-         nLjzBlJ96rhGWGjufIbJWTcZUd36JkJIaSs/tRDfWq1Spntglf+D+fYA+1Bt1w+Ques8
-         VW75Ng9OJxgQQ7+E7v/TaEC3oUbpdnkI0pKBR5Swp4G9Q6ql8S3Gwo+ouc8SlzXxCVki
-         17aStwfzlHx+IEg63Da0M4w1/j//VSshjYL7I284x4JTIumEQokRrMouIruXdmvbSUOH
-         jtfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794121951; x=1794726751;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QaX11FKlbrrxel5yt5lItqhWglhL95q0Q/UWvFGwSEM=;
-        b=JYCvnKi+kans2eJPJEo7Dl+YT5SEphHrRi/SAefL993gP2qy6Qw+7Gil+0WAGRYFmT
-         93IPRYS6bp8RStx17TJQPlbM5Zf3S6s5MTFXwWlOTxnVjyvPEebMQTVe+v1IYZw/3RUC
-         +5ypvcBjbJpMQOXgslpASUo2k0xDZ9vEk4NKV3Wdi6DISN1cgHWU0WSh5yNsM3Tl8cMI
-         1ioIje1ZeSRJ1pi1YaXZPjJRl7INJTuiLE18YmFbiDWrUZxJnM1S1TNhR2+jCyOLGywq
-         WpeKJpZPoHrnorSOwKpT78CwLghbqCyUNWQkn0dA+M/Wd4Z31I2NrxhszLCgPQ5GrNX3
-         H9sQ==
-X-Forwarded-Encrypted: i=1; AL+hErEj00qHgdw6TywtCifFcqDo2KHc8qS/Sha2mOARUxY6QkI0LKJrLaQkNxUvUX9rN6z4nYA3zn3rHer1zy0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Si5QE0cByhwQN/RzaGIlq9RAMe7fw3vg2+PiPriUu/zEagqIE
-	bU0DU4OLlOv2OZlIvNr2HRzTGS5J8Ojdy9UAYXCfpIb+69k6Xo3oeMYK
-X-Gm-Gg: AYBFou0tgXI/+jf7+GAQuF50AvNTg1dNcox6dEX0wHNmBFEQJyZhWMxZrIRaTJAsaG7
-	Be3OEtggs1BQCfl5ENt8VUlo3fdRWxnRgHIyCJbQFACk+Pi9uBD6lqhWYH3uiEsZ/KFs09q1ZiO
-	pVUkt4/XTyVnJaQ7eeMKUQY9Jac7LBuReC3zoS94lJiXX+EjZBOiyzP4jGM0vn6GRChElXKzf18
-	iGnUIW0PYhoCiuY3jMDbX/8VkYdCALS+aVaubBlYXzLkkqHOPsz1VyXXg5Uwy2ZEi/TqSpmnI4x
-	Eh4qB5Fy14pXNz3/57c++MTlj3Xx+KJYypXjzR4M3Td4K4/gYNTtIn/lvQ9xUzFnaxouG4ZL4nR
-	EdD6oTofOF4O0jFAjYvflsH8VfUb70KbNoNXx8cjrsiLdam9xts0NoaGtfFYjorhdlUhnpkels1
-	lisoHDe1USPZmSg6G5eTX2Vav/z5hL+1A/AoG1kYPW3NufBZ0BAffG1/hxO1GRgN1/vGhj6NiNl
-	KeXDMImQS8g4zl2ifTLpCzzGZHOBB3DqbgP9X7IOUGpx7iKRN7WIeGKox3xdpnODGWlbXVozTf6
-	/K8Wpr7T+T6jhGBQ2Td9kSRwHIf5eFXyB1gvWWF3uy8gGznYsMckRCBAfVM9E5Dgs7+ZjHzcTRT
-	8JtDLjsP2WE05fxwWzw==
-X-Received: by 2002:adf:e193:0:b0:491:e28b:1e1e with SMTP id ffacd0b85a97d-4958335a7efmr1603970f8f.28.1794121950867;
-        Sat, 07 Nov 2026 23:12:30 -0800 (PST)
-Received: from localhost.localdomain (bba-217-164-30-115.alshamil.net.ae. [217.164.30.115])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-495b90701c7sm2609204f8f.10.2026.11.07.23.12.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 07 Nov 2026 23:12:30 -0800 (PST)
-From: Ximing Zhang <xzhangjr@gmail.com>
-To: Hugo Sales <hugo@hsal.es>
-Cc: Ximing Zhang <xzhangjr@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Len Brown <lenb@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Ashton A." <me@ashtonantila.com>,
-	linux-pm@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 2/4] cpufreq: intel_pstate: Send CPUFREQ_UPDATE_CPUINFO on max_freq changes
-Date: Sun,  8 Nov 2026 11:12:25 +0400
-Message-ID: <20261108071225.54656-1-xzhangjr@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261101185807.112449-3-hugo@hsal.es>
-References: <20261101185807.112449-1-hugo@hsal.es> <20261101185807.112449-3-hugo@hsal.es>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rskmnxn/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05F121F0089F;
+	Sun,  8 Nov 2026 07:15:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794122118;
+	bh=5cxGZedX/NjJ4QTNJLPpwF04lBluCSG8LxM8JDapM/0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Rskmnxn/5T4CuFiXDZmW6CZHHvU6cGPawZZP9BTdzw2toEdjOEzk8LmqB2tZ3pdQf
+	 8Ws6rqEU8rjL8oRGsmqrRtp31GFT0LlrFw1cQIq3Z8i3W2SVmuN7Gijrf2x3+fitaG
+	 vGOWaFl+cjCzuydvKuOZo1aFhlcY/0dW3Q8PHXhW9vHKQaIO02dpot3Hhqsl3YFB1U
+	 5cDbMhIjngjo0525sUfFQGLnS5aimpCsNLO+Q1w3sZ3J+1bRRYhuhMRpHoPXuU5rF9
+	 vbI2sOqI89KQk3eQ/sb3/Vsi8GYTyO8XhGqV8S/YEFJJtNZ//Uc8msFFP2ORFX3yUr
+	 8p9REx11Xvf5Q==
+Subject:
+ Re: [PATCH net] net: phy: micrel: Fix potential shared PHC use-after-free
+From: netdev-bot+sashiko@kernel.org
+To: liguangshuo@mail.sdu.edu.cn
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 08 Nov 2026 07:15:17 +0000
+Message-ID: <179412211753.994134.17784194438511923338@kernel.org>
+In-Reply-To: <20261107-0d0c29e10a-net-micrel-lan8814-1@mail.sdu.edu.cn>
+References: <20261107-0d0c29e10a-net-micrel-lan8814-1@mail.sdu.edu.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,58 +63,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Hugo,
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-I tested the four patches unchanged on an Intel Core i7-10510U using
-intel_pstate in active/HWP mode, on the stated base commit
-5854d2ce4b0b9ccb37b154319d8283bad889a694.
+Critical: 0 · High: 1 (1) · Medium: 2 · Low: 0
 
-Cooling states 0 through 3 followed Turbo changes in both directions.
-I also ran 100 CPU 7 offline/online cycles concurrently with Turbo and
-cooling-state writes, followed by the same sequential checks, and a
-suspend/resume via rtcwake -m mem -s 15. Turbo was disabled before suspend
-and enabled afterward. Those checks passed with lockdep enabled and no
-new warnings. The test kernel was already tainted by unsigned modules;
-that taint did not change during the tests.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-There is one remaining Intel hotplug case: changing Turbo while CPU 7
-is offline leaves that policy's cpuinfo.max_freq stale when it returns.
-I reproduced the same stale CPU information on the stock
-7.2.5-1-cachyos kernel, so this behavior predates the RFC.
+- [High] lan8814_ts_info() now calls mutex_lock(&shared->shared_lock),
+  which can sleep, but the ethtool core always calls this callback…
+- [Medium] After a member leaves, the shared PHC stays registered as a
+  device-model child of the first PHY's mdio.dev.
+- [Medium] lan8814_ptp_leave() uses shared->clock_stopping as a gate for
+  a code region.
 
-On the patched kernel, starting with all CPUs online, Turbo enabled and
-cooling state 0, I ran the following as root:
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the same
+  driver's LAN8841 PHC has exactly the use-after-free this commit…
 
-    cpu=/sys/devices/system/cpu
-    cdev=/sys/class/thermal/cooling_device0
-    echo 1 > $cpu/intel_pstate/no_turbo
-    echo 1 > $cdev/cur_state
-    echo 0 > $cpu/cpu7/online
-    echo 0 > $cpu/intel_pstate/no_turbo
-    echo 1 > $cpu/cpu7/online
-    cat $cpu/cpufreq/policy7/cpuinfo_max_freq
-    cat $cpu/cpufreq/policy7/scaling_max_freq
+--
 
-These report 1800000 and 1440000 kHz. The policies for the other CPUs
-report 4900000 and 3920000 kHz. With the Turbo transition reversed,
-CPU 7 returns with a cpuinfo maximum of 4900000 instead of 1800000,
-and an effective cap of 1800000 instead of 1440000 kHz.
+net: phy: micrel: Fix potential shared PHC use-after-free
 
-I restored the starting state with all CPUs online:
+The patch moves the LAN8814/LAN8842 shared PHC pin array out of devm and
+into package scope, and tracks which package members are bound. When a
+member leaves, register access moves to a remaining PHY. The clock is
+unregistered when the last member leaves, and shared_lock now also guards
+ts_info and the GPIO interrupt path.
 
-    echo 1 > $cpu/intel_pstate/no_turbo
-    echo 0 > $cpu/intel_pstate/no_turbo
-    echo 0 > $cdev/cur_state
+> diff --git a/drivers/net/phy/micrel.c b/drivers/net/phy/micrel.c
+> index d0b1ad21667b6..8c48d00b0ccf6 100644
+> --- a/drivers/net/phy/micrel.c
+> +++ b/drivers/net/phy/micrel.c
 
-intel_pstate_update_max_freq() uses cpufreq_cpu_get(), whose raw lookup
-rejects an offline CPU. The reused policy then takes
-intel_pstate_cpu_online(), which does not refresh cpuinfo.max_freq.
-This appears to prevent the new notification from covering that case.
+[ ... ]
 
-Is this case intended to be covered by this series, or would a separate
-intel_pstate follow-up be more appropriate?
+> @@ -3257,7 +3261,13 @@ static int lan8814_ts_info(struct mii_timestamper *mii_ts, struct kernel_ethtool
+>  				SOF_TIMESTAMPING_RX_HARDWARE |
+>  				SOF_TIMESTAMPING_RAW_HARDWARE;
+>  
+> +	mutex_lock(&shared->shared_lock);
+> +	if (!shared->ptp_clock || shared->clock_stopping) {
+> +		mutex_unlock(&shared->shared_lock);
+> +		return -ENODEV;
+> +	}
+>  	info->phc_index = ptp_clock_index(shared->ptp_clock);
+> +	mutex_unlock(&shared->shared_lock);
 
-Thanks,
-Ximing
+[Severity: High]
+Can this mutex_lock() sleep inside an RCU read-side critical section? The
+ethtool core calls the ts_info callback with rcu_read_lock() held:
+
+net/ethtool/common.c:__ethtool_get_ts_info() {
+	rcu_read_lock();
+	hwprov = rcu_dereference(dev->hwprov);
+	...
+		if (phy_is_default_hwtstamp(phydev) &&
+		    phy_has_tsinfo(phydev)) {
+			err = phy_ts_info(phydev, info);
+	...
+	err = ethtool_get_ts_info_by_phc(dev, info, &hwprov->desc);
+	rcu_read_unlock();
+	return err;
+}
+
+phy_ts_info() calls phydev->mii_ts->ts_info() directly. For LAN8814 and
+LAN8842 that callback is lan8814_ts_info().
+
+shared_lock is also held across slow MDIO accesses by gettime64, adjfine,
+adjtime and the GPIO interrupt thread. While ptp4l or phc2sys is running,
+this path can block for real.
+
+Any user can reach it with ethtool -T, ETHTOOL_MSG_TSINFO_GET, the
+ETHTOOL_GET_TS_INFO ioctl, or SO_TIMESTAMPING with
+SOF_TIMESTAMPING_BIND_PHC. With CONFIG_DEBUG_ATOMIC_SLEEP or PROVE_RCU,
+won't each call print a "sleeping function called from invalid context"
+splat? On non-preemptible RCU kernels, won't it hit "scheduling while
+atomic"?
+
+[ ... ]
+
+> @@ -4636,12 +4649,90 @@ static int __lan8814_ptp_probe_once(struct phy_device *phydev, char *pin_name,
+>  	return 0;
+>  }
+>  
+> -static int lan8814_ptp_probe_once(struct phy_device *phydev)
+> +static void lan8814_ptp_leave(void *data)
+> +{
+> +	struct phy_device *phydev = data;
+> +	struct lan8814_shared_priv *shared = phy_package_get_priv(phydev);
+> +	struct phy_device *next = NULL;
+> +	unsigned int i;
+> +
+> +	phy_package_lock(phydev);
+> +	mutex_lock(&shared->shared_lock);
+> +	shared->members[phydev->mdio.addr] = NULL;
+> +	for (i = 0; i < ARRAY_SIZE(shared->members); i++) {
+> +		if (shared->members[i]) {
+> +			next = shared->members[i];
+> +			break;
+> +		}
+> +	}
+> +	if (next) {
+> +		shared->phydev = next;
+> +		mutex_unlock(&shared->shared_lock);
+> +		phy_package_unlock(phydev);
+> +		return;
+> +	}
+
+[Severity: Medium]
+This handoff only switches shared->phydev. The PHC device is still a child
+of the PHY that registered it, because lan8814_ptp_register() does:
+
+	shared->ptp_clock = ptp_clock_register(&shared->ptp_clock_info,
+					       &phydev->mdio.dev);
+
+and ptp_clock_register() sets ptp->dev.parent once, at registration time.
+
+mdiobus_unregister() removes PHYs in ascending address order. For the
+registering PHY, phy_device_remove()->device_del(&phydev->mdio.dev) first
+runs lan8814_ptp_leave() and takes this handoff path. It then deletes the
+device and its sysfs subtree, including the ptpN directory with its pins
+and n_vclocks attributes, while /dev/ptpN is still live.
+
+The last member then calls ptp_clock_unregister()->device_del() on a child
+whose parent has already been deleted.
+
+Is this parent-before-child removal order intended? After a sysfs unbind
+of the first PHY, the PHC also stays parented under a PHY with no driver
+bound, so the ptpN to device link userspace sees is wrong.
+
+I don't see a crash from this. sysfs_remove_group() only pr_debug()s, and
+the child still holds a reference on the parent kobject. But isn't the
+PHC's device-model lifetime still tied to the first member, even though
+the commit is meant to fix PHC lifetime across package members?
+
+> +
+> +	shared->clock_stopping = true;
+> +	mutex_unlock(&shared->shared_lock);
+> +	/* Unregister calls enable() to disable events, using the last PHY. */
+> +	ptp_clock_unregister(shared->ptp_clock);
+> +	mutex_lock(&shared->shared_lock);
+> +	shared->ptp_clock = NULL;
+> +	shared->phydev = NULL;
+> +	kfree(shared->pin_config);
+> +	shared->pin_config = NULL;
+> +	shared->clock_stopping = false;
+> +	mutex_unlock(&shared->shared_lock);
+> +	phy_package_unlock(phydev);
+> +}
+
+[Severity: Medium]
+Is shared->clock_stopping acting as an ad-hoc lock here? It is set before
+the unlocked ptp_clock_unregister() call and cleared after it.
+lan8814_ts_info() and lan8814_handle_gpio_interrupt() check it to avoid
+shared->ptp_clock during that window. Lockdep can't see this gate.
+
+The flag seems to exist because shared_lock can't be held across
+ptp_clock_unregister(): ptp_disable_all_events() calls info->enable() ->
+lan8814_ptp_extts(), which takes shared_lock.
+
+One side effect: an EXTTS capture interrupt can arrive in this window,
+before ptp_disable_all_events() clears PTP_COMMON_INT_ENA_GPIO_CAP_EN.
+lan8814_handle_gpio_interrupt() then skips the capture:
+
+	if (shared->ptp_clock && !shared->clock_stopping)
+		ret = lan8814_gpio_process_cap(shared);
+	else
+		ret = -ENODEV;
+
+PTP_GPIO_CAP_STS is never read, and lan8814_handle_interrupt() and
+lan8842_handle_interrupt() treat the -ENODEV as not handled.
+lan8814_ts_info() also returns -ENODEV during the window.
+
+Could this teardown use a real lock or RCU instead of a flag?
+
+[ ... ]
+
+> @@ -7006,6 +7106,7 @@ static struct phy_driver ksphy_driver[] = {
+>  	.flags		= PHY_POLL_CABLE_TEST,
+>  	.driver_data	= &lan8814_type,
+>  	.probe		= lan8842_probe,
+> +	.remove		= lan8814_remove,
+>  	.config_init	= lan8842_config_init,
+>  	.config_intr	= lan8842_config_intr,
+>  	.inband_caps	= lan8842_inband_caps,
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the LAN8841 PHC in the same
+driver seems to have the same use-after-free this commit describes, and it
+is left unfixed.
+
+lan8841_probe() allocates ptp_priv->pin_config with
+devm_kcalloc(&phydev->mdio.dev, ...). ptp_priv->ptp_clock_info is embedded
+in the devm-allocated kszphy_priv. The clock is registered with:
+
+	ptp_priv->ptp_clock = ptp_clock_register(&ptp_priv->ptp_clock_info,
+						 &phydev->mdio.dev);
+
+The LAN8841 phy_driver entry has no .remove, and no devm action is added.
+After this patch, the only ptp_clock_unregister() in micrel.c is the one
+in lan8814_ptp_leave().
+
+When a LAN8841 PHY is unbound (sysfs unbind, or MAC/MDIO bus removal),
+devres frees priv and pin_config. /dev/ptpN stays registered with
+ptp->info pointing into the freed memory.
+
+Wouldn't a later PTP_CLOCK_GETCAPS, a clock_gettime() through
+info->gettime64, or a pin sysfs access then use freed memory? A ptp4l that
+still holds the fd open would hit this.
+
+Should LAN8841 get the same treatment, either in this patch or in a
+follow-up?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107-0d0c29e10a-net-micrel-lan8814-1%40mail.sdu.edu.cn
