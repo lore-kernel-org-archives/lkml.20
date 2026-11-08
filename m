@@ -1,61 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169310;
-	b=mCJfBEkGLpQIwooA2daqcHTkrWHftGeagoIsVPTy73wbSgpYwga0c/1xTqZOSL8v9Wdm
-	 CvHW+SN1olmrfngPHcIh38B4daMbpB8C/0nF5wkEnxOt1oeFkZl66kAG7AsvXEDxOyBCi
-	 moXiyDpvl1F92KbicqoOwTDhMl/snIRaTK+AGMZAnRuJFUSSx0WY1azp6xO87cu1gAD72
-	 iFCVdqoGFses+U4p6YzRKvVhwOwvId38M74SXqLVvc5nH+K8JMyLUROQcQ6qG9jonw/n+
-	 oYMcQ16IuUFUWJCrFTq7pCRb4abvKUy4ZomJ0/QHD5y7e87cS3vfBkqJx3DvL5+57Nw==
+	t=1794169319;
+	b=du6e+jzoXGYMoP2TbQAWt+AXrda+Vcu7oHkXifbWbPZsiDZHyKbGC5Mc3dTd13fDRl6W
+	 rrDq9kRo8/V9zzieqH0adoZmcAZPjQlBqWoA3/9VYpzmijubyxQ46CmdtsDo1O6Oi0nEO
+	 uWeP4+40J8GBm3J+PUBSor+CnVgb17+ENGeUYfkyUxIJ2bKMtJVgQ4Y148zQt6yvzzEbD
+	 N6U2Onwoxz7h/gc+OdC2JgzGJBBe6QFyRHWn5EkH5Z7EaqhIGKmv79uANz27LZ6cZOVnZ
+	 7Wgs9AxlRDrHWT4p6WihcnukrS3tDO7Df0GoGrIaoXbcORToAQzDcv85f85HbHCpw4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169310;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169319;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=iqvym+57jpgX8gbfSEMbuRp3x0B5iZpgj522H80AASo=;
-	b=DXxpXlO5wsK9mMhzSJ6S6fsvWNrZwHiUg1I0GZKSXxyqzLmDIVnn4ubfEpum0dwSp97j
-	 6W1SpxxQLc/lCmBT4+bryAh1rEX7sU2+DTcE70SHVGY0fAxG8EoI8gDRCcmC78S/93vu0
-	 Omc4R4J/pow2fGJ5hwTKEE0dQlF6dXJfqU3/6BDOAWdXSk4avbU4rH7SsZpt2KXg7qt3x
-	 h1d3ha3o80N34PWIvRX424AtCVLzXyA8yb9BiCBwdycZccan2rak+Ta+O1oaiVrKHeEMc
-	 cmD92PAw294Vwo/DYx5RmxRSzmu4HoEIsgD/4JeL5aIZTQLcShYQa3kdltwPz+s7CJw==
+	bh=drp5MuIHZpgXaRWUy+nFQgGDIxOMoiE8kLZT6iuwaNw=;
+	b=YKIN9jagrXPFV11m7XfarMUgtwnL8qb5Y0JW84Vjhjj4O8jzVT+VTwqPA3g1PoblnIg9
+	 lSl8+/sF29JDFwhlMPwnGl14e/1ie7s4O7XzDInA2L8CMxnhzVlDUn/lxy9mmVE7w3qXu
+	 XaR1tWDZhQN43Bw4Mn4PfFRCuNvdKpxhw5mMDPabHFAD8sGPgSBNskZWUKeXf2jZneWTQ
+	 rBUCLibAmzr8e2ydHl+zECg2IzayoOhuocDzU43K+zdn5LNnhNRVerXPz2R8UKhktjTHN
+	 +Ce8mVf5dhpeTaLfPHOym2TNg6dwiVoDDVpjvKGC4k/zkeesyngxH9l4hydNUNpLrpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lJIMZ2Lo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REpq5aiu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01EC0606A326;
-	Sun,  8 Nov 2026 20:21:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC215606A320;
+	Sun,  8 Nov 2026 20:21:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lJIMZ2Lo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B52D61F008A1;
-	Sun,  8 Nov 2026 20:21:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=REpq5aiu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 252EC1F008A4;
+	Sun,  8 Nov 2026 20:21:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169309;
-	bh=iqvym+57jpgX8gbfSEMbuRp3x0B5iZpgj522H80AASo=;
+	s=k20260515; t=1794169318;
+	bh=drp5MuIHZpgXaRWUy+nFQgGDIxOMoiE8kLZT6iuwaNw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lJIMZ2LokefPEoYK94EltTwGXOarSs5K0DQUuPTI/apkYCzy/zwMe4YlBdg0zIfq+
-	 gqiZjJYCjVsC3YrcPHTVM2X0oezi8Zr1Ic0aDtcXXeu5V5xUa8LMxQGiK9Usihk0uL
-	 88QDTHWAGBijjv/ug5jqOh+pZD+qP/SdfImsGVRL5SNaNa2NpRxD0GNKZfVrDTQiT4
-	 hXsnoslQeTKLB2VJ1FbOWN3FbH4ebOh3ZAO2OOPz5l2T9m58C2OOZYxINuBRasES3I
-	 Cv5lxY9rJModE3WVBw9sGIJtUUT0YNBouj2VR/hyiONrJkSMmPhLUXqRWy5ow+1a6J
-	 s5sy+QpHfR2eA==
+	b=REpq5aiuHy2YQdvlIjNp9HxLW3w++Y1dKgWlpztrCx47nlSSGMbn9rN5GGU0XvF0u
+	 No37nFFbwHETtwIq7djiJgScuTkcWeoZPpt0T41dNhLc3kBzH4Jj65QUqjX7dlwQ+g
+	 UqwwUqPZTK8eTaNIb/Brtqd4ccgq0nlYqd5SeRXHzC9tQrtoFU8oAa8/yqvXWox9gJ
+	 P4b1IbumKpqPbPDI/hgcOOF9Ku0w7kIcj426FoIuGu6E6uHljM52Akujl/wdsAf38T
+	 nGlwaiaVOI/4coFw4wq+HIfDPMyX1Yn4SaJvuwmMt+zup2gO1VOrkZup0OIQ4DG34q
+	 hbTORHUrZ1BMQ==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
+	=?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
 Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: glymur-asus-zenbook: Drop the CMA region
-Date: Sun,  8 Nov 2026 14:19:09 -0600
-Message-ID: <179416929382.628393.14612035309086757082.b4-ty@b4>
+	linux-kernel@vger.kernel.org,
+	Arnaud Ferraris <aferraris@debian.org>,
+	phone-devel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: sdm670-google-common: set chassis-type property
+Date: Sun,  8 Nov 2026 14:19:16 -0600
+Message-ID: <179416929528.628393.737482504530891704.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014-dts-qcom-glymur-asus-drop-cma-v1-1-46f745d5b2d9@oss.qualcomm.com>
-References: <20261014-dts-qcom-glymur-asus-drop-cma-v1-1-46f745d5b2d9@oss.qualcomm.com>
+In-Reply-To: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
+References: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,24 +71,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 14 Oct 2026 16:55:44 +0300, Abel Vesa wrote:
-> The linux,cma reserved-memory region was carried over from the X1E80100
-> boards, where it is needed because the PCIe SMMU is reserved (owned by
-> the hypervisor) and PCIe devices such as the WCN7850 WLAN end up doing
-> DMA to physically contiguous memory.
-> 
-> On Glymur the PCIe SMMU is owned by Linux and the devices behind it are
-> attached to translated IOMMU domains, so there is no need for a large
-> contiguous DMA pool. Describing a CMA size in the DT is also more of a
-> use-case policy than a hardware description. None of the other Glymur
-> boards reserve one, so drop it from the two ASUS Zenbooks as well.
-> 
-> [...]
+On Fri, 30 Oct 2026 22:27:38 +0100, Guido Günther wrote:
+> The Pixel 3a/3a XL are mobile phones, we should ensure userspace can be
+> aware of that by setting the `chassis-type` property.
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: glymur-asus-zenbook: Drop the CMA region
-      commit: b7306b1cea3861163dab35fe16b1dca73f745a78
+[1/1] arm64: dts: sdm670-google-common: set chassis-type property
+      commit: 7018a35af1e64a346e91f928e3e1bda1729bdbe0
 
 Best regards,
 -- 
