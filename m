@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794167174;
-	b=I6Z+xCI8Iwy/aZFSV9+oFjLJ2TkGYKknXMQHqdjHV2uf6ZCUDZTGKyF/7joKvI9iswqb
-	 5ffHOWdfEptoFUd/0Kqx7p8oSUxSRLf2UgTSoXNVlbXOSHHvBJRqK9wwoEUlVUKe4kqJh
-	 ZVMHJBVmZ2+uDqQC3H5wZMqAv8cJmrGKsvrFr6iO1B3GkHhsPzvEf8IjHLKW8OxUoF+YE
-	 mt+FzuUCYBjSLc1xuo3Nxqn4pnzktR2owsdkGMfKrlj8BTVwSrczMV94ZAeFExy3R0AkQ
-	 4szrxz0QAq4HFKo1jzp0zAiLIqRUrYz6Oymuv0lr/i4/D5myNrwvQ2/pu/qhr4r/sfQ==
+	t=1794167179;
+	b=DeluHlXqkmOJqAvyHk4zYNW6xaI1vhfvpMFIXzfQTHcYSDPvuzh3pETpKOZ+0RgJfY6q
+	 dvpLRyeNObR6REq7Hx8y8eh53F/k/nYmNrWTofsO86hHxLGYDLu/BBC8nQDvnK2Z7tfGZ
+	 IcLCcOkvRrIPJfAwNDr0ReDRlVeXcrrgCLBqzDoWKZRJNHPbtEx3UpRSc2ebwNsmkDibx
+	 IwyGSs+AR5RQvLJmPmwfm5VyfmV2sbC3iZJDsijpr1uob1eit6eKUp7G7kkAHZTgk72Jk
+	 I3xTlKZvHfDhfn/X56z+lFLE2FnC8phauAoihfUVHjIV3Jq7kVi0eKH9L8B6iKjKHFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794167174;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794167179;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=1hnksh8KNsnKdS0AAby74MB2t6RjsfF/lcwn9ERBYwM=;
-	b=LiPWuSonqomehQNaQpbraIH+mA9m8jsHvczRzIHgE5z0GStInqZTriIKc/zk4C+mrhtj
-	 zf0DjM0fHovEDo9s+7UBgkLKQh40nzLjSfvIMCCJFuNChpUno47CHgnsr5NnvBL09ROVS
-	 ynC9NlQ4YIgqz0Ezg09JSXWj9of6N8HSvoWQBBbZb+cxL6Wa9EytNGzAuf/6V1psXUQ/P
-	 JQQicCc3q+sdr9dykA7669pKo2WwJkMo3fKH6cxPMPrdfXzD/PNHS2dDdPCh3aQMT55WQ
-	 CzFiZEI4lP1AS0eciu2WW9iDMCgGYqdQGwJIOrK557STxciA/1gvcTkDhWiKsC8lLWw==
+	bh=X8wnEtHmu52Od5WjNWhGnAoMf2Z1uw6uH+cidA0yraA=;
+	b=1tEth05oySPhAb2UxsJvTbNUk6h83Xb2gM7jdVwGs2doNBdk4OqMKhEqk0tkd2HO4lLG
+	 EnnpV3PhiWDKTTP+wCe6kjJ2qag8ilOTOujj7PTo3GMrT2z0hlzGurPNOriR7WPQXFDvm
+	 J3VmwIGA9EmkEI4pQoW5Dy0A9cTnhLqz4+p0eUB4uvJtX4D/etwziBbWCoKOaWjlCZ3hq
+	 xhLzp4EaZALhjH81m5wrx0YtPxQ9Z9Z+/UBu9oPp4awKuP2pD6632C3bpkF73d4ygRGuy
+	 ALmJM5YiHHIRArLCdv7fbJzvRss5NPEuFKqmsEgczmWxfRueQ+ZSSpndVoicgxkyCXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a/aHcn7p";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3B50dI3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FECC606A31C;
-	Sun,  8 Nov 2026 19:46:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423E5606A322
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:46:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a/aHcn7p
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BFC91F0089F;
-	Sun,  8 Nov 2026 19:46:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A3B50dI3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E195E1F008A2;
+	Sun,  8 Nov 2026 19:46:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794167174;
-	bh=1hnksh8KNsnKdS0AAby74MB2t6RjsfF/lcwn9ERBYwM=;
+	s=k20260515; t=1794167178;
+	bh=X8wnEtHmu52Od5WjNWhGnAoMf2Z1uw6uH+cidA0yraA=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=a/aHcn7pTjMJkkDLR/wqBiqOVGg+yA/ahiMsrlAf2YE1GaQRiPSp2ttgOwXd/HjMT
-	 TWj7j8OmpaPAaN05m3755UBPO4rl95uBM4mqqk2JIlMJ17umKCdYEF9QPVJCrGXcbC
-	 Mj0OqzoeKhK8DgR1mj1IZuvGp6YiZesOB+L1A9FNZaGLvgrkJ5dUm+BJ7D7cp7aY16
-	 FlgBDS+LXnewP03K/f03XfD1VAw7jvZjtJLVvTp9Nls2AXMwynWhTca6Ybdhx5LYhz
-	 XiwlbPABRZtzdK/ugtLqYNT+vDMfRcAZBpJEjrI5lUPvMuqSA7kjTZThbJHUKGw6ms
-	 buxgHFT8ApSsQ==
+	b=A3B50dI30QAtKla2qta8lLvWb4mL+4JTaBIHwarpRqlDKch5o/ZinHyg9PjuAzvN1
+	 Zn3lGslA8WNxH1SrzpUqiRfIQU9zQ54bGzIRktF3/2F4c5ex0buOYWMqB3IuTEa3uy
+	 egryx436hl9zuRphFx9I1zx6SbZSZcTLeGFQdHy1KBbRCOBeYjVu9eouI8WdacBAWy
+	 H+5vS937lLTae5gnoEjHhsMwWLwz3tZzxvjBLPi1RAuEPb3nFLmcOt8thIFNrXW8my
+	 p728o30vX5EB83J4bVSxiuB3TGp9m1e+KgLa95lZQJiV9WeShtxN1Q+AZLzYGXXw90
+	 tJRz6XGBqw7gQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 2129E380821F;
-	Sun,  8 Nov 2026 19:46:14 +0000 (UTC)
-Subject: Re: [GIT PULL] MIPS fixes for v7.4
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D820E380821F;
+	Sun,  8 Nov 2026 19:46:18 +0000 (UTC)
+Subject: Re: [GIT PULL] locking fixes
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <au-enPQhQVCrdXWw@alpha.franken.de>
-References: <au-enPQhQVCrdXWw@alpha.franken.de>
+In-Reply-To: <avA64Rq3KFJw2g5L@gmail.com>
+References: <avA64Rq3KFJw2g5L@gmail.com>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <au-enPQhQVCrdXWw@alpha.franken.de>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/mips/linux.git/ tags/mips-fixes_7.4_1
-X-PR-Tracked-Commit-Id: 456c965ca46c59a4a241c755e6565fd883a522f4
+X-PR-Tracked-Message-Id: <avA64Rq3KFJw2g5L@gmail.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git locking-urgent-2026-11-08
+X-PR-Tracked-Commit-Id: 408b129aac48b574c0c9d11137a89eefba825d5d
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 2651f6deb3326129a052897df193052dc28ea94f
-Message-Id: <179416717262.1685596.28576652826816937.pr-tracker-bot@kernel.org>
-Date: Sun, 08 Nov 2026 19:46:12 +0000
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: torvalds@linux-foundation.org, linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
+X-PR-Merge-Commit-Id: d1829ebf4ad888f1b73afee0f1d6e41734ca328a
+Message-Id: <179416717736.1685596.17895632705008477606.pr-tracker-bot@kernel.org>
+Date: Sun, 08 Nov 2026 19:46:17 +0000
+To: Ingo Molnar <mingo@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@linutronix.de>, Will Deacon <will@kernel.org>, Waiman Long <longman@redhat.com>, Boqun Feng <boqun.feng@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Sat, 7 Nov 2026 22:56:44 +0100:
+The pull request you sent on Sun, 8 Nov 2026 10:03:29 +0100:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/mips/linux.git/ tags/mips-fixes_7.4_1
+> git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git locking-urgent-2026-11-08
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/2651f6deb3326129a052897df193052dc28ea94f
+https://git.kernel.org/torvalds/c/d1829ebf4ad888f1b73afee0f1d6e41734ca328a
 
 Thank you!
 
