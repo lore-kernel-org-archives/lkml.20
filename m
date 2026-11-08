@@ -1,72 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.231.106.230
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.81.229.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794152590;
-	b=283tv7MgEj56bDsr342rux/hn4yJrN14A+n9FfLKMUeg1X3KzZu2GLLCIXwpLCdpWO+N
-	 Dt9OOQYYwq3K0Z8rhKc/x3QydAtCfExiKmdu7nhA0dIUEtw3r/K5qFP0tLi/Mo6inF2v0
-	 z40ErUCSYWeZksJzuXDTDDcwSO+i8Ulmh4pMZd7TjoQxr9M5hKpQjwOEkeniX8XVN2MQ0
-	 dM0bq/UbQLHL3YjWGA89w4YviFPKPAxzHHzswVWIbdq/xZPzCNXjrYUzRX5W2INCf6MNg
-	 M2VGjijK9s3pRZDBpaGWeZRvRbj6cEm6vIy5iycN3j2ipXQShcGBrRwK9wyR2wxqp5w==
+	t=1794152639;
+	b=xKrR+zF7NvO8d7QTMxetsv1+vzf7ONuTFQUgrIl5OKT3f3RmrJUP72L4kRuW0JRThLHc
+	 7wLxwiSEZ+Eu4FKSgW83gcWtlR+F+ZN4TI7+Py0x3lQv3EJW1crRPKytHjAbwCfb708Jd
+	 +N4+tvsRSABICW7D5LQrqYzi0PSTCpRRyWHfVYvtMKuNM1c0NAJCpqzo0/Bxgfbi3sxtD
+	 k2o112XuKDAZ0iW7VfFyerNpE64aQK75OL6sIAblPGyLuWB1lzVudKs12ZoyFvviiTnAZ
+	 72gm6UUlJ/wl6biQnQ5NaUDT0YV6G8p8ZmR3w4/owMDbpT1KImOFuZCHq6FGPTh8lpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794152590;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qwszvgHpOfXi46yRHASuN9wf92CL3A849MtifabD2JQ=;
-	b=omrhLEs6e2WmMQKKU54cO//fPEsXO6/pVTZE5g2oGA0mIiLBH7Knok7k6k0nRiEJ7DPH
-	 8j0mCYF9X68JCpgV3gWsLevziOngQkcBlZVhBL2c604zrhT1smNxqFD5MjgHnSIiXK6sa
-	 mkWEmgHBCJuF79WUl2S1RU3DPkBJunSZ+XSEGHqOdXK/o08Hbue/diMeIowLSP8nbtj2Y
-	 NYno8twE1W+exOH+hAIndgrGhQ2y9pMefAT7YeWfxNt6dz3Rzx5QAddLt2inpg2qfGYBG
-	 CU9agyJjlKZE+9/lE8evHU0Xay0uyTe1FqL8gn/4lx+gOczCc46MLRhoLDESrJtXeJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794152639;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key;
+	bh=BbD1zRVt830j/6FEa37AOCaw0v+voPN0QhLYn1eKXlw=;
+	b=ggnpd7wh2g5ISWgo13pEewLdfj8aQdquHvMAOcEHu5XB71IV/jYhP3Cl0zC+gJanYulL
+	 EQHGN/TuHBNEwQCg1uR49zwL2eyxmvfRdn3CeujIG9MimvS9+f4NFR0pIZ3OJrFkhq4zq
+	 EFcdmAtrP99WRB3c79SpF3fbY60O0PBuyCaZJvLOV36izpMYdSBlW3qfRh1XoKC8Am/SF
+	 mrJwclKumZ60Td/z+LeGe0jvZ/jWQKBTKBI8XnUNhdtx44vd/gw/4bfGPGGhwe3JhQIDt
+	 c+9pSsJnHaXga1xDfhrPobg0WBa7JCemNYZ5GO7DVlAgGu7VkjDkNm8WpEHCS401WeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=klattorp.se;
-	spf=pass smtp.mailfrom=klattorp.se;
-	dkim=pass header.d=klattorp.se header.i=@klattorp.se header.a=rsa-sha256 header.s=simplycom2 header.b=I2QUtJve;
-	arc=none smtp.remote-ip=94.231.106.230
-Received: from smtp-out2.simply.com (smtp-out2.simply.com [94.231.106.230])
+	dmarc=pass header.from=chaosmail.tech;
+	spf=pass smtp.mailfrom=chaosmail.tech;
+	dkim=pass header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=huDZ8nUu;
+	arc=none smtp.remote-ip=77.81.229.115
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C7F606A322;
-	Sun,  8 Nov 2026 15:43:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63C7F606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=klattorp.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=klattorp.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C695606A321;
+	Sun,  8 Nov 2026 15:43:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C695606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=klattorp.se header.i=@klattorp.se header.a=rsa-sha256 header.s=simplycom2 header.b=I2QUtJve
-Received: from localhost.localdomain (81-228-203-110-no2102.tbcn.telia.com [81.228.203.110])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.simply.com (Simply.com) with ESMTPSA id 4jMxyM3xpmz1DQrd;
-	Sun,  8 Nov 2026 16:43:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=klattorp.se; s=simplycom2;
-	t=1794152587;
+	dkim=pass (1024-bit key, unprotected) header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=huDZ8nUu
+Received: by chaosmail.tech (Postfix) id C78E41C9690;
+	Sun, 08 Nov 2026 15:43:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1794152636;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=qwszvgHpOfXi46yRHASuN9wf92CL3A849MtifabD2JQ=;
-	b=I2QUtJveS+rtgIO1KbwVq0x0l3kCgwNu1DpVJ1mzeoDZdC7u19mxP+tCtPy+Zg7WaAk/Xg
-	aoTDr5m6PoygfWT4Hp134H6aFbiYjRxHbiuEVgC0p1Z9cw+3BvPbheY1oppK/K0UaGat6b
-	K8asoRkb+Uvi81vqAhsWQVtn9Mf2CnSOrxothXzxhuknLntcFu9S+bHC9Mc+rz7+qO6TzE
-	m9xVAi3xZaXPLI/TgTozcBfRA0GR/QO2NuQywwhXJJd0XArFow0H9oLsldmArb3Xz8rJ7B
-	SmogL+W0R4gFLGCs3/+CfGxhE+OrqsBXiJRt3CtcncSlxl4+JBjejOmScDT4OA==
-From: Hugo Karlsson <huggek@klattorp.se>
-To: sre@kernel.org
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	matheus@castello.eng.br,
-	me@iskren.info,
-	krzk@kernel.org,
-	m.szyprowski@samsung.com,
-	clamor95@gmail.com,
-	Hugo Karlsson <huggek@klattorp.se>
-Subject: [RESEND PATCH 3/3] power: supply: max17040: clamp the reported capacity to 100 %
-Date: Sun,  8 Nov 2026 16:42:40 +0100
-Message-ID: <20261108154241.198160-4-huggek@klattorp.se>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261108154241.198160-1-huggek@klattorp.se>
-References: <20261108154241.198160-1-huggek@klattorp.se>
+	bh=BbD1zRVt830j/6FEa37AOCaw0v+voPN0QhLYn1eKXlw=;
+	b=huDZ8nUuPuZlPb6rGLkG1O4TRZLhCNdhU3ucOKG6n0lWUUx2S5JsWS5CJngKz9jYDsQKNI
+	RTBqGyiSCAm/z+ocJdazN8jIFEQ5VF/sql5oCbWyBWbCPU+zTq8EHnRJOQbzVTF8LPG+sg
+	ajjFyLbumfQ+fc622LVdi19Pj2amQks=
+From: Sasha Finkelstein <k@chaosmail.tech>
+Date: Sun, 08 Nov 2026 16:43:41 +0100
+Subject: [PATCH 2/4] soc: apple: tunable: Allow passing NULL to
+ tunable_apply
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,44 +58,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261108-t8122-phy-v1-2-c2783b2a53a8@chaosmail.tech>
+References: <20261108-t8122-phy-v1-0-c2783b2a53a8@chaosmail.tech>
+In-Reply-To: <20261108-t8122-phy-v1-0-c2783b2a53a8@chaosmail.tech>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Neal Gompa <neal@gompa.dev>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794152633; l=646;
+ i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
+ bh=tJNNb61/4tJlpWC0322q+2yhiEktKqEr06Kk4Nb8njs=;
+ b=Q8GuumKxSRJxH3/hIEU8kY4tFaiOjpFlNYj/mZ2ub8pRKuOc3ltoadcpa/bQmxdShKxgw3ZBX
+ /LrSZ2tyatlDpIPr0JELHxr0HnoY+DCdWyp7P+Phi1JlHndc2XMp4nG
+X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
+ pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-The SOC register can read above 100 % when the cell is fully charged,
-and max17040_get_soc() passes the raw value through, so
-POWER_SUPPLY_PROP_CAPACITY reports values above 100. The ABI defines
-capacity as a percentage, and userspace that rejects values above 100
-then shows a full battery as empty.
+Make it easier to have optional tunables by tolerating NULL entries and
+doing nothing when one is passed
 
-Clamp the value to 100.
-
-Assisted-by: Claude:claude-opus-5-5 [Claude Code]
-Signed-off-by: Hugo Karlsson <huggek@klattorp.se>
+Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
 ---
- drivers/power/supply/max17040_battery.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/soc/apple/tunable.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/power/supply/max17040_battery.c b/drivers/power/supply/max17040_battery.c
-index d93c3daebb..98574dcfb5 100644
---- a/drivers/power/supply/max17040_battery.c
-+++ b/drivers/power/supply/max17040_battery.c
-@@ -14,6 +14,7 @@
- #include <linux/i2c.h>
- #include <linux/delay.h>
- #include <linux/interrupt.h>
-+#include <linux/minmax.h>
- #include <linux/power_supply.h>
- #include <linux/of.h>
- #include <linux/regmap.h>
-@@ -210,7 +211,8 @@ static int max17040_get_soc(struct max17040_chip *chip)
- 	if (ret)
- 		return ret;
+diff --git a/drivers/soc/apple/tunable.c b/drivers/soc/apple/tunable.c
+index 659323839171..e89e8f9bb455 100644
+--- a/drivers/soc/apple/tunable.c
++++ b/drivers/soc/apple/tunable.c
+@@ -63,6 +63,8 @@ void apple_tunable_apply(void __iomem *regs, struct apple_tunable *tunable)
+ {
+ 	size_t i;
  
--	return soc >> (chip->quirk_double_soc ? 9 : 8);
-+	/* the register overshoots 100 % when the cell is full */
-+	return min(soc >> (chip->quirk_double_soc ? 9 : 8), 100U);
- }
++	if (!tunable)
++		return;
+ 	for (i = 0; i < tunable->sz; ++i) {
+ 		u32 val, old_val;
  
- static int max17040_get_version(struct max17040_chip *chip)
+
 -- 
-2.55.0.windows.5
+2.56.0
 
