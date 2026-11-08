@@ -1,48 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794151096;
-	b=O/985EevcqfUDif2wf+cn811S9/N2mQ6ERdlK4BVpEQehfN1dwjrFeklZ0hDJ14WP6DH
-	 VSOFqcvOo2Rf01g8D/mNSKk6accCEXzL6uvd+1M+2GPbX/q6wh3AhASCzTNOJw7BwuPeU
-	 qn/7iAm/qFjyjpC923qY4Z1i88cxbbLK4Ftb8+aDrXmWa7VXkc0GU8vDaz4TjPPAmUheM
-	 1THPCVpBeUPoApJPI5OSgyvqEgUV/3QiQ5fmtJhdHR7aJE8E4PGqduF90ewYApZKI5cUP
-	 90LjJVjTY+x/LvdZnoqhfqZ2a0NOL5Cj18CIwVrf7weY70Qrz24TDPw5tZIsKFZPokQ==
+	t=1794151108;
+	b=3HbJbAWjRln2VCcCukGSnYidWExzfTYewGb7ID/kLmp8CBJgd9XSunXJgJHN7hftTn+3
+	 gwIO2KwgmtppnuLRWnAIO5Wr6eZLJwM0iMRQSy6j4CScheZOGvXVp8aZvjoW0pLZgOXk1
+	 2sT0Dj8I53IRU4dgvj7StQNw6JL8jQ+EtMOPBUn2jnjWCVc8ATxjcI2QIWHwrGmKYhX4m
+	 rLf2YuCi3WzXikPbHm1Dgj/uqmIPQZ7FeMscwrmN2IbA8j9djRw02xayI9+OXvtHkPEux
+	 xI2PZ852ITlDgCj/Gb5ahbDZpXrorJ/tHGKxoRuVme+DuV4KdmEb679fqNcE4iFJb0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794151096;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=p8GDyyVt+Sq4mGVsXFtFYfgdYn2hgnSQOtYzD9assbs=;
-	b=ViuuUsIFvA9a/Z+hqWUDzQiXecjPD/oe7KUhtKdg6PueijDDqLe3SJE93mW7bh1Tw/A9
-	 oqPAtoTKSSABIpXNyt39OIxMy+V9IUc14R8qgsioz3p8i106tsUDlqQ6ipLjMRLJaliez
-	 RuqutdS/EDVVYgeWWQzuIhMAL55riRZl9uHdAk+s+YflZt4UnXWNlrpOZ8dopfPhroNpC
-	 WcvkVuBusiJ6zDwEaIzdJX9qDXEDGrXPURjV5MCdP/eQQL1L1erK4ZZaqq/x6g/kBo0CF
-	 TxEOuufwTFTv/LZJmZK3+15wsF/u9q6dDImAWFgwSRDzEa4Gw5gY2YWO/cv/5n+uoIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794151108;
+	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
+	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=e7STtpysw9I8m/43IhFTvhpryd3E0G+N/LKjSLSoWOk=;
+	b=ZhWStFCxeZsHGZjMe3x2ud47jxMZrnkOPivJi1rH5kq0vswxRJ251sWr9rbOuzkp0sg8
+	 MSxjVTGNpRIUgOqkyFUKKCSL7r2StdU6GgwRE6GRoaTSYsfaJu+wXer6YOWde+cA+rBBj
+	 z5y9hU/5zG821dblNOHT73b3RSqpmLAKOV59V9o8RAqwI+YqM+4MsqXaMUPeD1nXaOner
+	 AZjZZTS1FOhn1Gfk4PsZ0OppLbEtTbmKwi5rgEDYyJpqHOMxawfd9yv5RIrs5MM7/VFRR
+	 +N/YL3o2i1qIZEsirwxoIuFo3yz0MljXSS9BZMGYZDq7Pm90edr8pgdQrx/BNjXI4Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MFXVr5vV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=gHjciZYY;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7466606A31C;
-	Sun,  8 Nov 2026 15:18:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CB4606A31C;
+	Sun,  8 Nov 2026 15:18:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3CB4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MFXVr5vV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4296A1F0089F;
-	Sun,  8 Nov 2026 15:18:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794151095;
-	bh=p8GDyyVt+Sq4mGVsXFtFYfgdYn2hgnSQOtYzD9assbs=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=MFXVr5vVHnzbN5472BnBdKg/D/bN9BKzknypQXcMueX3Rhdkv82YvxUt/vIJym8ZL
-	 TTAtaZIplb/uW6f1Uuex78g0TCKYa2mb+bduTJ7BMtA7WEkKl9KqcKH4SQXItaWT4g
-	 R78VB5AE3x8GAIwhYebk6l6FWyRpOF7GcbNRUa8CqE8I9QEu2OcAH8pqAGEJE0XAUy
-	 zgFvuzrW2J4cebqLoj6py87Xdf3YnF8SnCr0hNvZ6e98C898tfKFv25L64CUPj//jb
-	 EChO/UUPL4RJ3rxLHZANxfNNCH9jozO9iWhz5ChqgZCcUXvOarkLXvS0/N3zAc34WY
-	 3w+h/Rv1ZV3qw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id EECD82CEE620;
-	Sun, 08 Nov 2026 15:18:12 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=gHjciZYY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=e7STtpysw9I8m/43IhFTvhpryd3E0G+N/LKjSLSoWOk=; b=gHjciZYY88TzSIVnH7/U8ozKZb
+	tNoKg7B4PsX5YJV/qD/c3yGeY8w2+WDXCvn7pxw4qkCi7/YMmLIWmau9hcQT966g/JzocOnUruapb
+	k4E74qQsnHmxAlroG6ZrA9VN1+OgsMrySrBgwL31qVPSLTkGNimhbKZvqQWiINFU+DdoPFz09d/9j
+	+/DlUH7duNWsyS6dKpRJ2wneT/eQzxLWFJjbx5U4L2YkG3ix1dIqfpPzkwGwQxD/5+iJcCg5CX7iT
+	4JiH8HL5TQJoFLWrVrHAc+JJUYZve9fOFyLA4sFTtjAXTnHrJoP/ZQl4zI4uSZMQwfeqFMlP4ZOFn
+	tXK11NQw==;
+Received: from [::1] (port=45926 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xQ4f3-00000009ldL-3ofz;
+	Sun, 08 Nov 2026 16:18:25 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,45 +60,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 0/6] spi: qcom-geni: Add QSPI support over GPI DMA
-From: Mark Brown <broonie@kernel.org>
-To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-Cc: Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
-References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
-Date: Sun, 08 Nov 2026 15:18:10 +0000
-Message-Id: <179415109036.3711751.6859082995940422062.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=421; i=broonie@kernel.org;
- h=from:subject:message-id; bh=LaAlc+ErhOxT3MacrK1VduFBzN3l5WzRUYavGhSGNbQ=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+TNoSWxXFeOn3pVlM6cEhtkutux78Xpf7zpb/rb3vc
- UuneR9nd5SyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAib2cxMvwrnjPBW9J+pbi0
- bX3WjaMV7Q5NEz5N9bD+PU3E29T0NTsjw2UndTOvxesfpeRn3twbn7KhdWUZS2b1vBMxV58pvp0
- exg4A
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Date: Sun, 08 Nov 2026 16:18:25 +0100
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Simon Horman <horms@kernel.org>
+Cc: netdev-bot+sinfo@kernel.org, Subash Abhinov Kasiviswanathan
+ <subash.a.kasiviswanathan@oss.qualcomm.com>, Sean Tranchetti
+ <sean.tranchetti@oss.qualcomm.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net] net: qualcomm: rmnet: fix TX aggregation teardown
+ race
+In-Reply-To: <20261108150339.GC18859@horms.kernel.org>
+References: <20261101233427.2050688-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <179357635158.3286.10001576876397197758@kernel.org>
+ <20261108150339.GC18859@horms.kernel.org>
+User-Agent: Roundcube Webmail/1.6.20
+Message-ID: <05a24913bdea1ce4482cace6d9772564@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-> This series adds QSPI support to the Qualcomm GENI SPI driver using
-> GPI DMA. It supports single, dual and quad SDR transfers in controller
-> mode.
+On 2026-11-08 16:03, Simon Horman wrote:
+> On Sun, Nov 01, 2026 at 11:39:11PM +0000, netdev-bot+sinfo@kernel.org 
+> wrote:
+>> Hi!
+>> 
+>> This is an automated message. This series looks like a fix, but its
+>> commit messages seem to be missing some information:
+>> 
+>>  - How the issue was discovered, e.g. hit in production, hit during
+>>    development, syzbot report, manual code inspection, LLM or static
+>>    analysis tool scan.
+>> 
+>>  - Whether the issue was actually triggered, or is only theoretical
+>>    (e.g. found by code inspection). If it was triggered please include
+>>    the symptoms, like the stack trace or error messages.
+>> 
+>>  - What hardware the change was tested on. For driver fixes please
+>>    mention the device (and if relevant firmware version) used for
+>>    testing, or say that the change was not tested on real hardware.
+>> 
+>> Please do not repost the series just to address the above. Instead,
+>> reply to this email with the missing information, so that reviewers
+>> can take it into account. If the series needs another revision for
+>> other reasons, please include the information in the commit messages
+>> then.
+>> 
+>> The evaluation is done by an LLM so it may be wrong, if you think
+>> that is the case please reply and explain.
+> 
+> Hi Jérémy,
+> 
+> As per similar requests for other patches, I would appreciate it if you
+> could take a moment to respond to the questions posed by the bot above.
 
-This doesn't apply against current code, please check and resend.
-
-> ---
-> base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-> change-id: 20261021-qspi_upstream_series-850249e432f5
-
-That's a random -next commit...
-
--- 
-Mark Brown <broonie@kernel.org>
+* The bug was found by LLM-assisted code review.
+* The bug was triggered by a software reproducer with a KASAN enabled
+   kernel under QEMU VM.
+* It has not been tested on real hardware.
