@@ -1,103 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794182171;
-	b=fL7pfRacDXB4E7VdmJiiYI2f61aK8Fxd3mQ7xYvLHnGPut/WdNWzdBPksxDXBfSTw8SQ
-	 yHyjuHlEhlpqaGjoak0VAqK69DWwBlcGGrcZFSwF4tMaCVoV9tKAFT0ZmHO2MHHPHIgje
-	 l+PySgw5i2RmuV3HLKiKtZcvrZmoCqxEw0DJRk/pwRV6jwc79V2igMZd8OY+ozWAJZVFH
-	 qxTBuoRxGLPFkaawJxuwJuXQH6bFFXmCgfTi4Wli5bZvwIog+62lPb+wU6D73EMGgppL2
-	 zrYJv0o6KiliLY2XVxbNaFgkOCaYYGbcFENcT+6R6c+7JOigKHwwtAq+/6mnjDGmRFQ==
+	b=uNmesd+UBoaufr2L8LXScrDuSK7BounNLlgPGRIvUXKQcmjED9zB1lWHJW8kUjPU85Ts
+	 ToXAUJVDGKyXEi/+k/DuQqpcNbGLCxT3kGh6KsAIlOCRg7DHrOHKuzzyzowY7sN9/imB7
+	 handBHOgUP7AqpdrZ6bsYVhW0p6pw5dj78mMWXloxQFVjaUhvy0rRIcXzsOhSMDn54I9P
+	 lRBQpU6snvHLtKeWz0ED3KPhlJmwRTjc4CG/7OpdIYgQigsGd4skip7olrhOeff1VA5OS
+	 BbUdZoHqhd57IR3DPrtLFh6NyW/lgFpfrrG7ze5ksjCSiL7jPtC46+k4ZjbMj/bRRUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794182171;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yx9qdA7I7keZZm8UafgJgTm1z4N4QlAmh4J6h6T4bZg=;
-	b=Xd0sE+HY6O3MUltqcTdrkbOWPp1Zsb5dSzzmrNhPa1SgFy6s5IAmkwNZMiouSIC9+kPA
-	 cuc/bl1HX7fzLH5VKOg72Pk95ok4sN0BKQQHrjJ2AnBJTaVF6gw1ZKKHvoMuQqY61wfJh
-	 XnnExbvqRjZICkx1WrD/VaDN8dx4DLyVpqpWCCbwUZYAPWPl0cbSBbM40VJArgIRPW1/V
-	 weUlHXRcNpykIb88R76cIdPhubGeycdHx1a9vruhpJ+DtWqj4m8lohgk4J1jOf7dnNbHJ
-	 kcluMNXvoxTKW3qgn2erA+aez2NhSNXuF4XCDmQS+DroMQAs6G+GDOsAMZgpZZ/0k1A==
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Qt1zeuxdUDup0vjiAGJocYp3FrinfLcYS5z3WSk9EAE=;
+	b=WSfdOvQ6hpeNLEzvCz41uVR+DWL3rWB/qKp3crXtAcMe7P6e8myyAYcINbg3bDNBkJ6z
+	 87LiX1RrhheWJeCn5m9774a2hrJFBGWmsSyT/LIYQZ3X6mdKbiNgsiLVJadca3x7Izme6
+	 pPXEFcszFyIDCSzK2AIa0yPZMm2ydS2+SM8JHcy9nJh4BOfXGkrShpq4r6FH/uPkXeaNC
+	 nkDQkRKPLsZ+OVVk/qGOeVzTYX5fkmGRRDbfhi1vROsIAR3wTS9o/N4yMxEXAz3q0UHJh
+	 5IPCfhO5R3gfN9W0KxMoud96vstAaBL1NQNfOc0VOMcJoFZjMqONFeyPI2uG0vmYYlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZMkHdWEu;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b="j+Vg/9VZ";
+	arc=none smtp.remote-ip=109.224.244.16
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A45606A32A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:56:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9A45606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213C5606A322
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:56:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 213C5606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZMkHdWEu
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ea7987517aso1697355ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 15:56:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794182170; x=1794786970; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yx9qdA7I7keZZm8UafgJgTm1z4N4QlAmh4J6h6T4bZg=;
-        b=ZMkHdWEuaOVff3lB/WiPWnY9Rl/jGA3RO8cUj9WLl/Bix+oSHdqLM6mzP4OMh+1JGl
-         janLnElRIlHsvTtY573kfxrbUhz/IN5/3+1Ph77bV10kKfkQXWGWBuxnoOsWxkIv95gy
-         3eol1f/Z3YMqFOeXPhbKdGUdjj8y7EeNKLeRT17mgyPLT6cPBVidhnM83oU7W+XWMid3
-         vQJmsr3+JV1DKHgz//mScLY8yPmLVdOtmu7iMlz63GT8lqR+iT6dPFFT2yUiQyrwYSlH
-         Rd0oyMxs11yC7g8QprNxbemiyk9OLHl45cxKrGAkH034GzD5rYRERFWT0zcWmWmf1JwR
-         LNmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794182170; x=1794786970;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yx9qdA7I7keZZm8UafgJgTm1z4N4QlAmh4J6h6T4bZg=;
-        b=P/xE8pHVXASPebl5au193H6nPpmeJHFMcLyPBns9oBlJsiV8EdmjWWfxGkuNRnf8GN
-         0MCCHtj99ygbo5GUWnivQJwsd15QMu0aUK/g/JwPlcPG+Ar44L3RHyTqU8BiCEkgh69Y
-         9V0REUKMtbsPeH2cOXy4kzRD3TuD7YSNwbLODYVSK6MsUKwMWwkiVwQf14C98CMRkDpR
-         Nk3eqSN14b7JemkHFwtIVEWB925LWj5V0gDVnlY/IAc8aQtb5QZ8UrodElNC/vmSLt1+
-         cM2Y7m3CAd/afs6dLdPEnp6qrR7OFaD37sx6d6yKIH6cxRUcPjQQpEYRZpIa5tw439Ky
-         AZrQ==
-X-Forwarded-Encrypted: i=1; AL+hErGDZhBtQS/7nOmeKF+E/Zf5lkt0jw59eNs+vaGpAzeSTbMxVybvOJrwO/HXrpX+4ZkEnYPXy/VuxsNJLMc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/6cYGguJNxL4tmA8WeNO2vXsbypArBhzYFLOSLPiX2tftVdN7A
-	fY6Be+Vgmpfg9xOJsDUtd3xxZLD6KIuq51VdJ/X7pkz9hRdofsDBoCh8
-X-Gm-Gg: AYBFou0yW4+qYYnc0AlgUj+a96yYI/E2XJqQK9OLIVmnUP1nsKcfWoACWVXiDIlyOwi
-	9F5IZFFvODWA2xqHoiXYDJwcF+ysEZLcGsoYI3Ih6qax0ZfzNHntEQndEP8WI70XsNt/oVl1XNd
-	BO33k+FND1/RkbV3RuqyFDS4Sz/EPOhyBSagu8uLh1zr75TwW4RIhrxj9t8efWC0CEw/BMXdV0V
-	Al3gKYSUviRsEMoBOcS2qeEMqvIzaJdzN8KnJPxXlSAHQDL5r3JZkbqx5zFCwTeGr562S7/6O6J
-	fdmj5zB46joV9RmfPciaLPqicKODe/FKjmHuvRoI9ai/VR51t+gURuYEt6Gpan6paTrA1eX4npM
-	rTcrMX7dk7X3XbStxGyZAzgIPgziUgZLpxSm+1kmjjcwnGGw+tklklymDqLyMzCQrG0x5uVCKtv
-	CO2xhw7yQrVk9vCLtCvTATN1zgPoTwtvWd0HTDYvjSZB4KpMBiPVDT5NVup9//8a+8BgZzD7Tim
-	W768ymcUCwFTouKxf7emYjxWrW7x7TTx/Vgt3PHur38ZsipgnLX5lmSJO1/7Ksc9iP31NFleWvr
-	GGs+QkY0dJDgHZPP9D+zvNfq+J+MyPiwS7AgmG8XU0+oOe9QbLqie2sOz2rJgsPts4q8XgwVpbN
-	Lj3tn1kt6ebIH/JGMwAR5gSWJuq2yU8lgs0KtReCF7xUYNTDn
-X-Received: by 2002:a17:903:3810:b0:2ed:123b:97e4 with SMTP id d9443c01a7336-2ed8375be01mr25102705ad.15.1794182170303;
-        Sun, 08 Nov 2026 15:56:10 -0800 (PST)
-Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81722edesm6095215ad.55.2026.11.08.15.56.05
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 08 Nov 2026 15:56:08 -0800 (PST)
-From: Joonho Lee <mynameisjune111@gmail.com>
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	anton.yakovlev@opensynergy.com,
-	mst@redhat.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v21 12/12] docs: describe virtio-sound capture options
-Date: Mon,  9 Nov 2026 08:54:57 +0900
-Message-ID: <20261108235457.12688-13-mynameisjune111@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261108235457.12688-1-mynameisjune111@gmail.com>
-References: <20261108235457.12688-1-mynameisjune111@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=j+Vg/9VZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1794182168; x=1794441368;
+	bh=Qt1zeuxdUDup0vjiAGJocYp3FrinfLcYS5z3WSk9EAE=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=j+Vg/9VZE9AI520kUOFx5S6Tf8jcC1WSgzkW2lfYLKsjSvDvI1621GqWLoAjOL96G
+	 ROOjyp1BhYf18IIY4Yv1bv8JP6XdZWB+C+ks2tcKLSjI/53qr9pTriYgcdgOymuzoW
+	 DeETN3Mg7QLu/JmaG4vFVKduky2w9+Za930q8I3kLlvH7tq3qPJ2EoBKZBVE4ZtjGG
+	 6urqYxd6Q4UIvKjPPDIZ8Z76Z3NqHjep9egT0GgCs45a65WSrhqubE9yaeHRGFFUpw
+	 Iehu9wD0AUJbqcqZtKxu85MZMCWwzGMcHMhVpVGazLsTAf45ld8ou2j2QqOZBdpRZr
+	 G7kLB+0ngUTvw==
+Date: Sun, 08 Nov 2026 23:56:02 +0000
+To: "lyude@redhat.com" <lyude@redhat.com>, "dakr@kernel.org" <dakr@kernel.org>
+From: Noah Weinberger <NoahWeinberger2003@proton.me>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [PATCH] drm/nouveau/bios: fix u32 overflow in nvbios_addr() bounds check
+Message-ID: <F1RMJglEKbUzY1tsFmGLfELM-ZZe2K4V_4LwFEOfnZRs3wVOtsvAagfSueZK675dqsKQ_1ib4eChkv4ruONXnhk6tG-tGo0MyfMrPE9S4g0=@proton.me>
+Feedback-ID: 186545857:user:proton
+X-Pm-Message-ID: a887073bdea8cec9393d61020284cfe2a962dcf0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,54 +61,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Document the five opt-in virtio_snd capture module parameters. State
-that capture_allow_empty, capture_allow_short, capture_packed_status and
-capture_pause_restart require capture_staging, and use the ALSA kernel
-parameter restriction tag for each entry.
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+Hello,
+
+The central nvbios bounds check overflows in u32:
+
+    if (unlikely(*addr + size > bios->size))
+        return false;
+
+*addr can legitimately approach 2^32 after the image0/imaged
+remapping earlier in the function (which adds bios->imaged_addr to
+the caller's address), so *addr + size can wrap and pass the check;
+&bios->data[addr] is then a wild pointer about 4 GB past the mapping.
+Every VBIOS table access (nvbios_rd08/16/32, nvbios_pointer) goes
+through this helper. The patch rewrites the check in the
+overflow-free form.
+
+Affected version/commit: mainline 8a65162514fbad21a2c58ffed65f42b27e92b163 =
+(v7.4-rc2 window, 2026-11-08), drivers/gpu/drm/nouveau/nvkm/subdev/bios/bas=
+e.c:36-46 (nvbios_addr: if (unlikely(*addr + size > bios->size)) with u32 *=
+addr and u32 size), :52-78 (nvbios_pointer/nvbios_rd08/16/32 route every ta=
+ble access through it), consumers e.g. perf.c:38, vmap.c:36
+Longstanding check.
+
+This was found during an assisted (AI-supported) static source review of
+mainline 8a65162514fbad21a2c58ffed65f42b27e92b163 (v7.4-rc2 window, 2026-11=
+-08). The patch below has NOT been compiled and has
+NOT been runtime tested, and no reproducer was produced - the triggering
+conditions are described above instead. Please treat this as a report for
+verification rather than a battle-tested fix.
 
 ---
-Documentation/admin-guide/kernel-parameters.txt |   29 +++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/base.c b/drivers/gpu/=
+drm/nouveau/nvkm/subdev/bios/base.c
+index fd3192df45..20735fba4a 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/base.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/base.c
+@@ -38,7 +38,7 @@ nvbios_addr(struct nvkm_bios *bios, u32 *addr, u8 size)
+ =09=09*addr +=3D bios->imaged_addr;
+ =09}
+=20
+-=09if (unlikely(*addr + size > bios->size)) {
++=09if (unlikely(size > bios->size || *addr > bios->size - size)) {
+ =09=09nvkm_error(&bios->subdev, "OOB %d %08x %08x\n", size, p, *addr);
+ =09=09return false;
+ =09}
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -8344,6 +8344,35 @@
- 
- 			Can be used multiple times for multiple devices.
- 
-+	virtio_snd.capture_allow_empty= [HW,ALSA]
-+			Retry a bounded number of empty startup capture replies
-+			when virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_allow_short= [HW,ALSA]
-+			Accept non-empty, frame-aligned short capture replies
-+			when virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_packed_status= [HW,ALSA]
-+			Read status immediately after the returned capture data
-+			when virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_pause_restart= [HW,ALSA]
-+			Release and reprepare capture streams across pause when
-+			virtio_snd.capture_staging=1.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
-+	virtio_snd.capture_staging= [HW,ALSA]
-+			Enable staged capture using request-owned buffers.
-+			Format: <bool>
-+			Default: false. Validate with the target device.
-+
- 	vga=		[BOOT,X86-32] Select a particular video mode
- 			See Documentation/arch/x86/boot.rst and
- 			Documentation/admin-guide/svga.rst.
