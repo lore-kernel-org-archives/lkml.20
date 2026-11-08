@@ -1,123 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794132321;
-	b=fo004RgQQ305Cw3TJAaMWnvD4xG4dQImbUs7Ss05RLjIf00uzu3gUgLtF2nwKPH8GZYR
-	 zPHsCyyT4EW1l/q0MOxB2jIFJjkSj8/eNFo05l/Urvs3kfyIbMxL52ugyhsclz6FKPT1C
-	 f16isc3C7yj+Q/9AO6PfOagtXX76I5X66TiiJ3EEZdE0G1oNk3ASKqE5gVSvV+BH73FS8
-	 6bIsiO6ytn7Ih08Nj0IICXtg3R3MNH7gpwXDyQY4ia9lqxkauqi34RgFM15BhTuKwAMZX
-	 9w/g8p3GhRQWUF4ZDrRV0lSFyCZKVsBaq2IYAunk7z4fUKg/LGwXsADLsIr/itQWWsw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794132321;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=lI2bMSw3JcTh5t2gsFtQ1Aa7uR3op4ozHoeuaAFPwP4=;
-	b=rbffYy3+mck5hHxogJjEn0RJUuXeQ4eudCN8wTkM++uyI1icUaAfpO/bX/Jb7+KY0b7D
-	 q3HKEYDmWtX//iwnK3Irc/Y96styATD/33Q+ubScapuu6xKhcqZOjUhrzgW1hytO+xL/q
-	 4NFBJu6JEdtWL5/cyTd+Q+3W2JB4dd3NCDnmBzwiKOm0IXplcYKNLxOPzBXM7E6uKyClX
-	 LleRZVhXp0ua8BZa2xnlp0Keh9BSIZllVKv3P7LeXIFVlNJpoAjUkm3TOwsWXJKnw15IG
-	 WWyLujvk/qCZV0K2pZmm9t9BmZFyTGq7rpAevv629waVDr8PoQ0oIsyACa2rQ/CnGFA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=G+bU4NIF;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jNmGW2nx;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794132415;
+	b=Ey5KnC+BEDR1pS1j0C1XlROAz/OMaiLuKs6RoUav/+SCb8NOtlW9owVpwDbdchuBL6Ow
+	 X80zPOyqJXgJUJPwUVM5zF3plRFuOh1WR5M12zoqKM944GtkZNIGQ961fcxC8V3UrRO1f
+	 swbsddcOW8apj1TBb6fPiyVA7J0oDysnTAwQh4YkP7QWmjcd1Nj0u/zXgNTwvcR3VXFM4
+	 DUA4hklJtdGAeW1rZjIAQC3u6kRJpyogdkjDRX0dZnneGl8sO6R15bCBQY/8B5281Z1Cr
+	 S9jzuZ9Aj9xEE8szbiU9J5hXOdQSLFwYVf7OS1kfil5kDOf0hYTtkHTG2QdJXFJrQYw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794132415;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=B79sLRlTLVfMTb4Uz9uXGrVdkkZX4oeV2WvlkP8+u3s=;
+	b=LYEi62Vx/HOx7p1BmRLRFNLtMqO9S/MGu7g7AhZXXdS0+xmnhrg9DpJC4lxOUyE5zbzO
+	 tqwi1E3UKgDg1PN4PH5XjxsCiDSIuWunD7ebNASSM7TzebFyqIiYk3D5IyWxUE/8SN1To
+	 G/I8WHjX0hYnWMXt1V568LVxksaPNH65L7G4hEC7tkMeq0NweBbH3BILUx4//c9q80SpG
+	 ENn5hMrWICaOkB/hPBoUcFNSxM3j76yjVBnXslq/VVuyplGBUYSW5bpn6S0OLgVa2OLpb
+	 G3rj6yVHFPJQSs1CmrUE822nz52npiJwE72nKng1ET1F6Q1b/aSV6d+d+NEbWof9ZoA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MjjFArJf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D295A606A320;
+	Sun,  8 Nov 2026 10:06:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MjjFArJf
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794132414;
+	b=V6x9cMzKdds0+MQ62hJSbG4EYBkZY90AkiEawxjr2uyKBdnwAOkx3yVh0E4q1msrUyMC
+	 MutAgee6biEITP0lV6u724YKZMwpnz1QktPgsjCcrUmjrI2jWacmlthgjEIAEstOjO98q
+	 TfpK75kcnX8t7xEw4Iv4ljuixaYO/sGdAQC/9bs95aZ/75EHy3YAXdpOjdxtMhHM/N6Uc
+	 KxaHq/wSlslrdSl+Ix/03TDqpgZbcTOwyOkY7q+9ke+jirOOVQeGfDkUPQH89apVIfqB5
+	 zfGczJrGHJlnDt8D2h8PTOow9lZpzE8PdSOLosRRO0Ve13wZMezQj/VOL9+l8Yrh+Jg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794132414;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=B79sLRlTLVfMTb4Uz9uXGrVdkkZX4oeV2WvlkP8+u3s=;
+	b=NqXzTZpDNw9xhgrXn6HjJ8xoMe1mDxDWFRpvLq9+19sqUDMQhJhsFvlHESEkZ3yzf8GW
+	 DpBUjZaq1HzV4eL7F3lLMjCxTTabUWuHgGj/qvQXIBU/FKd/IKai4ESI++UH8aS3ieFqE
+	 Zu8yoUOc2BZoVyRCiEco1UxjcQ589JlQqSrHEc0NJMmzQjtFCxP6hzbzGujsdrLsEKhNh
+	 rsu4LhCZn6XMTioAPKSowtq/Qq5vE6Mv462d46Mv1Igm5Kq47b7xzOnveR5iIguPIXEYo
+	 hWSE5SD9g4RAfjClp/A5kJmecuZlRBq/YWLa+obHqe/9uMjaZExBCbQ+7zVqTXqLPMA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA829606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 10:05:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA829606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=G+bU4NIF;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jNmGW2nx
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A87eD3d3459406
-	for <linux-kernel@vger.kernel.org>; Sun, 8 Nov 2026 10:05:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lI2bMSw3JcTh5t2gsFtQ1Aa7uR3op4ozHoeuaAFPwP4=; b=G+bU4NIFUyi4VeRw
-	l1JKeJEaokuq16H6Dz3DilBsqmWTfBkYpiD1RvS1Iw7Kw1CbnvE8ZRkvVDeKGXRl
-	1c1F949sXoczIFeHU8IdVWog3tsrZ3oi3JipxewtltWw5bJSaj7WlOBKAHME5E1x
-	tlYv/WYQf5hQtsYhZ8aqr00Y+WB0c1QDTiOfOMwOkdj69F40CeQPxbaA5J7Amm9H
-	3TkpTHvaxevQrZuSHbcB4oI9XDQCapR1K5hkMdeGyYzBV2Vj7cSFhj0dUlsmXVmb
-	nb98ai8RK3qJ7pYZzdEtjcJfStRfPWU+pM4hAD82XDXJGr1morsi360ftdxDesXT
-	hqNcsA==
-Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com [74.125.224.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsw5k2htn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 10:05:19 +0000 (GMT)
-Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-67c041acd09so546484d50.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 02:05:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794132319; x=1794737119; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lI2bMSw3JcTh5t2gsFtQ1Aa7uR3op4ozHoeuaAFPwP4=;
-        b=jNmGW2nxo8o+Mpx+8e38vc+eMiVXywWsouklnzS1NLpxoKLLA2+fZ+Y7U+lyvuvo2y
-         AxEHESmFKmZmH91O9Wjhc4g/fYIeptMNWRuWCH/XBj6tOwqU/pgcSYB8cyUkr42IkDS2
-         9emHBuPSKeh/F8aZwIfpb7TDc+uLMGAYUwXyjFmMAtoxM/7rhVPHJvzm7lmNm+f4syij
-         8uTEWdNNg8+RGrJRW0++qBgcdsb1Nd+axABuZOEb481FKXIghfdSpVHyv03as3PWTd5I
-         LYNZ+r2BxNHSfUX81NCzHKHVbpileGSQ7p57lDxkn1P9VvXwhRGQq+eGBn1WwKhEVFBg
-         gkNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794132319; x=1794737119;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lI2bMSw3JcTh5t2gsFtQ1Aa7uR3op4ozHoeuaAFPwP4=;
-        b=Om4ObpKiHc+cLIcSoKeCTpsEj0VMP+fATv5wItV7f+rZjtNDvoqjzczdQOCuFYmIKq
-         khndG27qY8Xe9cFuWVfyjWrivyDUBVFer76Q0nvs8OA2+4iodKAUuCfSSl9LjY6mcM3C
-         amyN9Pq2mKsXJdIQBykQfXxrqJbF3MlhQhSHLgnwXSTf9yJ4bSIjJozW11WATOyxT/iC
-         aui5eScmdUIDuauNkQ/Ya6okyKNrgQszyHTPFHP6zOm1WC6qMtm0C5EggYoHv4e2EMhX
-         OcCBOUy2k7aDIPCTR3EpuNzVahUCuAvEu93TmtdAKYj9EMw4U7Q9RAPNOLRiTNfNZsrQ
-         TZMw==
-X-Forwarded-Encrypted: i=1; AL+hErHys14TvrdkZ45pePnldcWZ8gMua8A8SJxtX1uVauL4Ai4dAXUPng1cCroURntOWAt1P8Sk+35CSICKy2Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8In43I2hmC7g5zX+f3P5fWko8Jq7FgSNGra/UCRwIp22Lg1FR4
-	upPF7vHdF/GiVAfCynr3sJONLTpX8UviuGVHL0nA0jVSejX2QVamGWPPo+ePW+zC/O+ru7mqcyo
-	yjBAxDLAUyYAGDGS/i/OQ7T2swY5h7Ze3yPtICwxAtM+txjvf3eyqCgSZnCIgD1cRBOk=
-X-Gm-Gg: AYBFou3/A4sR3lNyCk2x32dZq/OsELtlodFUkGTR1LfX/f9F6qbyTNgv6t6auBoL7I5
-	Eno0hvESORLFQfG+lSqmswZCr6h6pRx7Z60nHexCNz0LdoAhucabIoAmzM/VZK3dsLKgVvmvxQ3
-	V6Ucmy9CVX40mnugf3pdBAI7HYgfFoep5aNZRrASQRNN/dof9ZdCRwTRotzr/hdxOsB021HTAev
-	RURkUfSXfHKsBdcELy7IV1Rki+XoswLT+sMPMyqazeYc70Sc7Z+Qy7KmhhgbO0UkwYyGRqvP8dn
-	/8A0Vj/RlSwZ+8rP7n1gO1qlTz8YMZdp4lw+HDlNQYZhV0BHi+oGmvwfkaF8gBvympVcY9lbBgw
-	ghiDnAYjagENqleXSmONO8JEdrvfWSH+LST1U2AsDgQ2SMHyi9iNDy5kbPqpbS/EMC5c4GL0d70
-	Op04O3fr0H
-X-Received: by 2002:a53:ba4e:0:b0:677:b670:bc2 with SMTP id 956f58d0204a3-67c3da757a5mr413288d50.131.1794132318620;
-        Sun, 08 Nov 2026 02:05:18 -0800 (PST)
-X-Received: by 2002:a53:ba4e:0:b0:677:b670:bc2 with SMTP id 956f58d0204a3-67c3da757a5mr413280d50.131.1794132318040;
-        Sun, 08 Nov 2026 02:05:18 -0800 (PST)
-Received: from localhost ([120.244.9.94])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b36bc2c768sm11777827b3.30.2026.11.08.02.05.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 02:05:17 -0800 (PST)
-Date: Sun, 8 Nov 2026 05:05:11 -0500
-From: Guodong Xu <guodong.xu@oss.qualcomm.com>
-To: Radim =?utf-8?B?S3LEjW3DocWZ?= <radim.krcmar@oss.qualcomm.com>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Alexandre Ghiti <alex@ghiti.fr>,
-        Samuel Holland <samuel.holland@sifive.com>,
-        Andy Chiu <andybnac@gmail.com>, Guodong Xu <guodong@riscstar.com>,
-        Zong Li <zong.li@sifive.com>,
-        Charlie Jenkins <thecharlesjenkins@gmail.com>
-Subject: Re: [PATCH 3/6] riscv: hwprobe: Report Zicfilp and Zicfiss only when
- available
-Message-ID: <w7pia2wy5enxvv74erxbx7qcghh4acf5ljfzdoqo5jy6gxwm2n@p2eh5rtlta7q>
-References: <20261006075303.205216-1-radim.krcmar@oss.qualcomm.com>
- <20261006075303.205216-4-radim.krcmar@oss.qualcomm.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 871171F008A1;
+	Sun,  8 Nov 2026 10:06:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794132414;
+	bh=B79sLRlTLVfMTb4Uz9uXGrVdkkZX4oeV2WvlkP8+u3s=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=MjjFArJfr4vvpcpYlg0LY8gat3cvLNY7yY2oxiubSpJl5NhhDDUcR8FQJu6MWIG4y
+	 gBiyaW8e8VYyagD08fpqwKu4E9AHnk9CB8h2+B/FPvG0dP95suZBcyigPjOXHA5XFN
+	 d554DiiYXTiomWn9L0ohBA6GQOH1MH1/DrN76whmG4HGQok4uSlpIiARVk552gKOQc
+	 SsFprY1LhyvWqSOq03dfyql+yHQYNZutEJVfNv7hj3Y2/mSYAXo9JuyhO4cH+kI7BG
+	 5O3gJwHcBzdQ3cwRw8a1zq/F4tdFCl/Vi0jizp7us1qn2vMNowP8h2NiMyeKzI1h4g
+	 iCCKgPhACYLZw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DC5C747ECB;
+	Sun,  8 Nov 2026 10:06:52 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Subject: [PATCH v3 0/5] lx2160a: change the pad muxes through the RCW
+ override
+Date: Sun, 08 Nov 2026 11:06:48 +0100
+Message-Id: <20261108-for-upstream-lx2160a-rcw-pinmux-v1-v3-0-5a0063f1da9e@free.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,64 +84,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261006075303.205216-4-radim.krcmar@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA4MDA0MCBTYWx0ZWRfX3YTbAYk1XXvd
- 4qGrYVyWAdCspqHmtiiEww40YkAoXtvvZdHGYsjyRiZPqLM2coF1CKNQcorLh6/bJzNO06rxMcV
- Dr72Yx3N6qUoxYh9T0w1xwVhm2VplHZej/qOHb+y5vBH289LLyBYYe70g3N7CaPMJpNIqTvmsK/
- Ihl4qCqbJDjjAa7pnzva33eieLpK09Kiw4eScQ69nt6HUTOUg/VhjSFTsYulsUK7yniOUq0htPm
- Jr6BD9X3TZxsE0X8OMHgprXyDd7mSuUl+TG9tlXzN6GvT1to+GoE56wHPUDA/HIcVJPNxUh0HUc
- OlSN9/V8YWg7GH4F7FyaZTWtnV7a3I7X+zO2e9GPGRpLpkHx78b+ZZE9xV2MEGZyUaqwssFLv7W
- EwfPCtl9H1N3bBx3/sLNr8XES/QX+erhtOzeP7aJgeMKLGndw3DVg3s2S9jGZrzJKANhOn436Vt
- GHN+195yvmPBf4LGM0Q==
-X-Proofpoint-ORIG-GUID: gmy4u5GX0qqucvTcEMiPDOlHRhKnKkv0
-X-Proofpoint-GUID: gmy4u5GX0qqucvTcEMiPDOlHRhKnKkv0
-X-Authority-Analysis: v=2.4 cv=G/aJgNk5 c=1 sm=1 tr=0 ts=6af0495f cx=c_pps
- a=S/uc88zpIJVNbziUnJ6G4Q==:117 a=ZvHX9x23NDWH3CQeJ2oX1w==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=yKTjZOk7vXKTgSIRYZQA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=nd2WpGr1bMy9NW-iytEl:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA4MDA0MCBTYWx0ZWRfX20K5mq+ljdYp
- 9mSMWqyByzWODf0rZaDWrMZ7JcoVLdWS2tHPZNTaCN25HDIcPPUI8xgSPFpl0MJBi2GKhXKXJwX
- bCZvzXzFcvAT8dvQQM0VLz0aUOQtD8M=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-08_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 phishscore=0 clxscore=1015
- bulkscore=0 adultscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611080040
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALhJ8GoC/5XNyw6CMBCF4VcxXTumF1JaV76HcTHSVprIJVNAD
+ OHdLazckszmn8V3FpY8RZ/Y9bQw8lNMsWtzqPOJVTW2Lw/R5WaSSy0EVxA6grFPA3ls4D1LoTk
+ CVR/oY9uMM0wClAgWnS1dZTTLUE8+xHkfuT9y1zENHX33zUls30N8Pg4ctUBrVFkWxS2Q95dAb
+ MMneRyUGVSIjhvNn9b8geu6/gDLm28EIwEAAA==
+To: Dong Aisheng <aisheng.dong@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
+ Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ NXP S32 Linux Team <s32@nxp.com>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>
+Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794132412; l=4355;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=8qOvvLzHr2YInpyd/1vxj2b1Dv0S6oVIXe4mSCnnlG0=;
+ b=Z6eeEU/IRNtio9zH+RBAjzG+uELIzoQb4b3cn+EU2qY7cBXUySKMbL04CTZMTdU8CZbQ2rQT9
+ 52Z7tVqd7h6Ay5NUrLoj719O3Zj/jE60Yt1RhzHPmfCq2yG1lQKb50d
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-Hi Radim,
+The LX2160A muxes its IIC, XSPI, SDHC, UART, IRQ and EVT pads from
+fields of the RCW. They are read-only in RCWSR12..14 of DCFG, and are
+changed at runtime through the override registers in the DCSR view of
+DCFG, which read 0 until written.
 
-On 2026-10-06 09:53, Radim Krčmář wrote:
->User-mode use of Zicfilp and Zicfiss requires senvcfg.LPE and
->senvcfg.SSE, respectively, which we set only when is_user_lpad_enabled()
->and is_user_shstk_enabled() (CONFIG_RISCV_USER_CFI, the extension on all
->harts, and not disabled by riscv_nousercfi).  hwprobe reports the
->extensions from the per-hart ISA bitmaps alone, so it can advertise
->extensions that are always disabled in user-mode.
->
->Report correct environment to user-mode.
->
->The changes to arch/riscv/include/asm/usercfi.h avoid
->IS_ENABLED(CONFIG_RISCV_USER_CFI) guards in the conditions.
->
->Fixes: 30c3099036a9 ("riscv/hwprobe: add zicfilp / zicfiss enumeration in hwprobe")
->Signed-off-by: Radim Krčmář <radim.krcmar@oss.qualcomm.com>
+Since commit 8a1365c7bbc1 ("arm64: dts: lx2160a: add pinmux and i2c
+gpio to support bus recovery"), fsl-lx216x.dtsi drives the override
+registers with pinctrl-single for the I2C bus recovery. Its first pin
+state clears every other field of the word: a board whose RCW programs
+a non-zero pad mux loses those pads at the first I2C probe.
 
-Reviewed-by: Guodong Xu <guodong.xu@oss.qualcomm.com>
+This series reads the fields in effect from RCWSR and writes RCWCR, as
+fsl_guts_rcw_rmw() already does for the SerDes protocols:
 
-For the record, while looking at the riscv_nousercfi part of this I
-found that the option is parsed too late for the ISA validators. I sent
-a fix separately [1]. Run-time checking as done here is still correct and
-that fix doesn't change anything in this patch.
+- patches 1 and 2 describe the pad mux as a child of the DCFG node,
+  which gains its DCSR view
+- patch 3 exports the RCW override of fsl-guts for any RCWSR
+- patch 4 adds the pinctrl driver: one group per RCW field, one
+  function per encoding
+- patch 5 moves the pad muxes of fsl-lx216x.dtsi under DCFG. Labels
+  and pin node names stay, so no board file changes, and the
+  pinctrl-single node goes
 
-[1] https://lore.kernel.org/lkml/20261108-nousercfi-early-param-v1-1-ea22d3a60683@oss.qualcomm.com/
+Patch 4 uses the exports of patch 3, so it cannot be applied alone:
+patches 1 to 4 could be for the the pinctrl tree with an Ack of
+the soc/fsl maintainer on patch 3,
+and patch 5 through the i.MX tree once the driver is in,
+since the I2C pin states of fsl-lx216x.dtsi then belong to it.
 
-BR,
-Guodong Xu
+DTBs built before patch 5 keep their pinctrl-single node and behave as
+before. There is no Fixes: tag, since patch 5 depends on a new driver.
+I did not believe it should be backported then.
+
+Tested on a Nodebox v3 (LX2160A) whose RCW muxes XSPI1_A_DATA[7:4],
+SDHC1 and IIC5 are not set with the defaults, so I could confirm:
+ - with pinctrl-single the first I2C probe cleared those fields
+ - with this series RCWSR12..14 read after boot exactly what the RCW and
+   the board's pin states select
+ - all I2C controllers come up with their recovery states and a
+   forced bus recovery on IIC1 (multi-master enabled for the test)
+   changes only that field
+
+Thanks to Vladimir Oltean for pointing at fsl_guts_rcw_rmw() when I
+tried to prime the override registers from the RCW instead:
+https://github.com/nxp-qoriq/rcw/pull/8
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+Changes in v3:
+- dt-bindings, dts: the pad-mux child is bus-addressed like the
+  clock-controller child of the LS1028A dcfg: its reg is the RCWSR12
+  to RCWSR14 window, under #address-cells, #size-cells and ranges on
+  the dcfg node, the override registers stay the DCSR view of the
+  parent (Krzysztof Kozlowski)
+- cover letter: patch 4 cannot be applied without patch 3 (Linus Walleij)
+- Patches 3 and 4 are unchanged
+- Link to v2: https://lore.kernel.org/r/20261103-for-upstream-lx2160a-rcw-pinmux-v1-v2-0-3aad0860b984@free.fr
+
+Changes in v2:
+- dt-bindings: list, for each function, the groups, so the
+  schema refuses the associations the driver refuses (Frank Li)
+- Patches 2 to 5 are unchanged
+- Link to v1: https://lore.kernel.org/r/20261103-for-upstream-lx2160a-rcw-pinmux-v1-v1-0-0a61a9837744@free.fr
+
+---
+Vincent Jardin (5):
+      dt-bindings: pinctrl: add the NXP LX2160A RCW pad mux
+      dt-bindings: soc: fsl: layerscape-dcfg: add the LX2160A pad-mux child
+      soc: fsl: guts: add the RCW override of any RCWSR
+      pinctrl: freescale: add the LX2160A RCW pad-mux driver
+      arm64: dts: lx2160a: describe the pad muxes as the DCFG RCW override
+
+ .../bindings/pinctrl/fsl,lx2160a-rcw-pinmux.yaml   | 264 +++++++++++++++
+ .../bindings/soc/fsl/fsl,layerscape-dcfg.yaml      |  18 +
+ MAINTAINERS                                        |   7 +
+ arch/arm64/boot/dts/freescale/fsl-lx216x.dtsi      | 377 +++++++++++----------
+ drivers/pinctrl/freescale/Kconfig                  |  15 +
+ drivers/pinctrl/freescale/Makefile                 |   1 +
+ drivers/pinctrl/freescale/pinctrl-lx2160a.c        | 355 +++++++++++++++++++
+ drivers/soc/fsl/guts.c                             |  73 ++++
+ include/linux/fsl/guts.h                           |   3 +
+ 9 files changed, 938 insertions(+), 175 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261103-for-upstream-lx2160a-rcw-pinmux-v1-31f9ad97dc86
+
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
+
+
