@@ -1,62 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794108758;
-	b=HLt3POnVF6swl4YY6lWQjAKI6xfa29pRFy3JB3UAa7+YAlvWra1fxHjsIa/JMvT/JUMW
-	 SCUhNV9hJvwSIHGk6hUXUbWXkaAFqAbhU8uNF1AdSsY4OojuE/Qa93QOTVj8YtlrNS6CH
-	 +dal7XU53G7u8JPrtp4QuT+B6N0gJ3oxtANqBMu7KtAhqVuMxbCAeCwWrdCg3VoZ+Z5Oc
-	 MFIgzVd3hJKA/qnVFgMzQzs0Xqma0z2p7N5YTytKDYbzAkZ1E19Cnp0M9VHMqBgkkBrYc
-	 bDzSdVq5MpCV2EI37P9Fzz8wlBavrTn5wu1K74v1ODTNZnoy+D54qcjsEhoZmueGFyg==
+	t=1794109134;
+	b=Bk7okmbzyRmF41R+hA0qLUdC9j/fNiqdRXxfA4/7Z0lIKlDPlInHeCFSJR4mZtu72ZLY
+	 jdk+PxpZB9DMfnbxn+Zp2eqZl/OQoNd4ouZIakY58+uBBJGWbv4gjZlN7dSF0MV2dzBIk
+	 RaJxeUslk/AIMnT99q06KzaRGhu7MOp2gdL//yl7lJdhfuOcIwvZk6urmCifWm2lsAI2a
+	 537EqtBkH3uZ/++nNVO2LiDzzc1ck0OhSb7QevLeffwyyozsZPSvT/0MG2T6u2WVmmsPU
+	 n/ZFj1X662rhchqY89gry2ncy82DllEMCPXpQ/b4a+/1T8SE3PH9JlQUd+e0Y9/a0aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794108758;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=1KkunFVOR9hKpVunSG6R4MQyB90H0pMgHHtcvlxeDzU=;
-	b=2G6utFwh1RJYah+TPlRR+NJL5I7wdUT28sWTfiKcsJl6KDCxNXKjl/t+Z+XfJwrbWHiE
-	 eWj9S+gdNeWgt5aMr0RfS1RH+ytaYDKuJucocb52xUGgiZ7H13LwcplrL3jyJdfhVOIjo
-	 XjY0i1mai5TEri9cTUzLjaJHV/p2OmIyHd0B722L4j9qwxLnpvoDViqls3/JuhPW7ytSm
-	 M9SiYBvtLUo8qITsIcypyhj3ayLahXTOtzMqdTix/PfP4lgO+7QJTpL9zPSa6V2HrK69a
-	 EUmSp8wsuPavdyFgWgFWsW7Vt7vSMUyhmBSjPvT3hroR7enSH6axHstMvlLbbUobEpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794109134;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=aqIBkvYtPDzucqzURlNJHvsSFZfARn8ZXT0xMDf3Rh8=;
+	b=3DwSCGUI7AAkBEK4MNWbmae/4RV0cIebK2L+JP1vUr/3KUTJ8z4ojaaxaoxlx0pjv9re
+	 PB1hz7uKheITc/J/+mP53Cjg6TKw7tW8+tNDhCD83awavf5BNLElGEmGAaVfU4BkaaZhs
+	 ucavBCKUbQ+Gn0rOoXU7rWRLzhuQ5H3dZUy8r+fEa2P1jNtOQuFI/FJ0FK6A7sYZ0/OeA
+	 KtP8+SjqqSzeM3bYj4nA+ZH48WON0NDso7u8A5bvK4v4oVCbz/T9jZARBu138m0ZkNAr8
+	 jz+tqzh+AaTsRam9hSbfBdUNyXZRYpN1RPHWlnzX0rCOjYhLLhYsZeuSGI0FmbAkF9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B5YzOJuM;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=afLoJzB1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D48D606A31C;
-	Sun,  8 Nov 2026 03:32:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2689606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 03:38:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B5YzOJuM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A7791F0089F;
-	Sun,  8 Nov 2026 03:32:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794108758;
-	bh=1KkunFVOR9hKpVunSG6R4MQyB90H0pMgHHtcvlxeDzU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=B5YzOJuMa07gUCuZW7PeLZxy6As0ZWPv4JoeGCp58HmvMvpliq8tU/M/6DrPbmCIa
-	 5xGE2Kcj+KqL+apcZbC4UDovB5qfgSHe8PXrcZfwYzpUEBYgJa/ylHhrf+JYY6tffN
-	 l3kEGi/OP472mI8F9x1ARmKbzCEGWNlnIWec+hUfvJ8unrZmwbIWaqnVUFY8Wl+lUC
-	 VFLHvhG6k+Kb9EWYsA15XgPj7fkUiRjz11XFfjkB8GfY5Fh98k8ozktjf57rPbs1RF
-	 UPJYQZJMaEO1ZV/K/YbPF1wZNWZMt3sIXQhmYOznybh/33vuYZ60TRcVR8HEqJqIF9
-	 N6BvOaKjzWObQ==
-Subject:
- Re: [PATCH v2 1/2] lib/net_utils: allow mac_pton() to take a custom delimiter
-From: netdev-bot+sashiko@kernel.org
-To: liuc63@xiaopeng.com
-Cc: gregkh@linuxfoundation.org, akpm@linux-foundation.org,
- andriy.shevchenko@intel.com, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, khtsai@google.com,
- fangxy@xiaopeng.com, rdunlap@infradead.org, dbrownell@users.sourceforge.net,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org
-Date: Sun, 08 Nov 2026 03:32:36 +0000
-Message-ID: <179410875676.994134.16092814735554237701@kernel.org>
-In-Reply-To: <20261104025058.2650911-2-liuc63@xiaopeng.com>
-References: <20261104025058.2650911-2-liuc63@xiaopeng.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=afLoJzB1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6D9D1F0089F;
+	Sun,  8 Nov 2026 03:38:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794109133;
+	bh=aqIBkvYtPDzucqzURlNJHvsSFZfARn8ZXT0xMDf3Rh8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=afLoJzB1WJd62ZVIdjlUhcM4M+pnhm1CygxJ49d0Dh8W1jKx+sCyLJh9NKPaNiO4M
+	 0jaeBPIufSpBUfQZeuzGXCgpF0Jznn4ssk1SD4r5xejfYLoNWxt0sA1g477AkjlHqv
+	 ZKUfkDSwJe6juqWXaGr0YlcQ5oMdoMR8D0XIJfKQ=
+Date: Sat, 7 Nov 2026 19:38:52 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+ Breno Leitao <leitao@debian.org>, David Gow <david@davidgow.net>, Tejun Heo
+ <tj@kernel.org>, Ryota Sakamoto <sakamo.ryota@gmail.com>, Karl Mehltretter
+ <kmehltretter@gmail.com>, Marco Elver <elver@google.com>, Pasha Tatashin
+ <pasha.tatashin@soleen.com>, Kir Chou <note351@hotmail.com>, Lorenzo
+ Stoakes <ljs@kernel.org>, Borislav Petkov <bp@alien8.de>, Kuan-Wei Chiu
+ <visitorckw@gmail.com>, Petr Mladek <pmladek@suse.com>, Eric Biggers
+ <ebiggers@kernel.org>, Guan-Chun Wu <409411716@gms.tku.edu.tw>, Andy
+ Shevchenko <andriy.shevchenko@intel.com>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, Dmitry Antipov <dmantipov@yandex.ru>, Thomas
+ Maarseveen <maarseveent@gmail.com>, Nickolai Zeldovich
+ <nickolai@csail.mit.edu>, Thomas Gleixner <tglx@kernel.org>, Adam
+ Harshbarger <handyhandyman.adam@gmail.com>
+Subject: Re: [PATCH v3] lib/tests: add KUnit tests for the priority sorted
+ list (plist)
+Message-Id: <20261107193852.8320bdbf82cf6899c3153171@linux-foundation.org>
+In-Reply-To: <20261108-plist-v3-tags-2-yuehongwu@cmss.chinamobile.com>
+References: <20261107-plist-kunit-v3-1-yuehongwu@cmss.chinamobile.com>
+	<20261106230658.69acd5b571d1ee361cc2c849@linux-foundation.org>
+	<20261108-plist-v3-tags-2-yuehongwu@cmss.chinamobile.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,85 +69,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On Sun, 08 Nov 2026 11:37:00 +0800 Yuehong Wu <wuyuehong@cmss.chinamobile.com> wrote:
 
-Low priority / nit picks for your consideration:
+> Hi Andrew,
+> 
+> Geert pointed out that the Reported-by/Closes/Suggested-by tags in the
+> plist KUnit patch do not belong there, and I agree - they describe the
+> history of earlier revisions rather than an upstream bug.  I am dropping
+> them.
+> 
+> The copy in mm-nonmm-unstable currently carries them: do you prefer a v4
+> with the tags removed, or would you rather edit the patch in place?  There
+> is no code change either way.
 
-- [Low] The new kernel-doc for parse_mac_pton() in lib/net_utils.c says
-  "@s must be MAC_ADDR_STR_LEN characters long", which reads as an…
+np, I edited in place.
 
---
+> For the record on the TRIM_UNUSED_KSYMS question: I measured both
+> configurations on next-20261027 and saw exactly what Eric described - with
+> the test as a module the three exports stay in Module.symvers and
+> __ksymtab_plist_* is present in vmlinux; built into the kernel they are
+> trimmed, which is harmless.
 
-lib/net_utils: allow mac_pton() to take a custom delimiter
+Yeah it's a pain and I see no general fix.  
 
-This commit moves the body of mac_pton() into a new exported function,
-parse_mac_pton(), which takes a string of accepted delimiter characters.
-mac_pton() becomes a static inline wrapper that passes ":", so existing
-callers behave as before.
+# CONFIG_TRIM_UNUSED_KSYMS is not set
 
-Link: https://lore.kernel.org/all/20261023110113.2969708-1-liuc63@xiaopeng.com/
-
-> diff --git a/lib/net_utils.c b/lib/net_utils.c
-> index 215cda672fee1..011857cc978b4 100644
-> --- a/lib/net_utils.c
-> +++ b/lib/net_utils.c
-> @@ -5,7 +5,18 @@
->  #include <linux/export.h>
->  #include <linux/hex.h>
->  
-> -bool mac_pton(const char *s, u8 *mac)
-> +/**
-> + * parse_mac_pton - convert a MAC address string using a custom delimiter
-> + * @s: string to be parsed
-> + * @mac: buffer to store the result, left untouched if @s is malformed
-> + * @delim: characters accepted as a separator between the byte pairs
-> + *
-> + * @s must be MAC_ADDR_STR_LEN characters long and use a character from
-> + * @delim at every separator position, e.g. "aa.bb:cc.dd:ee.ff" with ".:".
-> + *
-> + * Return: true on success, false if @s is malformed.
-> + */
-
-[Severity: Low]
-Does this kernel-doc match what parse_mac_pton() actually checks? The text
-"@s must be MAC_ADDR_STR_LEN characters long" reads as an exact length, but
-the code only checks for a minimum length:
-
-lib/net_utils.c:parse_mac_pton() {
-    ...
-	if (strnlen(s, MAC_ADDR_STR_LEN) < MAC_ADDR_STR_LEN)
-		return false;
-    ...
-}
-
-strnlen() is capped at MAC_ADDR_STR_LEN (17), and the validation loop only
-reads s[0] to s[16]. Nothing after the 17th character is looked at. So
-inputs like "aa:bb:cc:dd:ee:ff:00", "aa:bb:cc:dd:ee:ffXYZ" or
-"aa:bb:cc:dd:ee:ff\n" return true and fill @mac.
-
-The Return: line says false means "@s is malformed". A caller could read
-that as saying true means the whole string was a well-formed MAC address.
-
-The old mac_pton() parsed only the prefix in the same way, and existing
-callers depend on it. Sysfs and configfs input usually ends in a newline,
-and some callers parse a MAC address embedded in a longer string. So the
-code looks right and the comment is what is off.
-
-Since this is a newly exported general-purpose API, could the comment say
-something like "@s must contain at least MAC_ADDR_STR_LEN characters; only
-the first MAC_ADDR_STR_LEN are parsed and any trailing characters are
-ignored"? Enforcing an exact length would break existing mac_pton() users.
-
-> +bool parse_mac_pton(const char *s, u8 *mac, const char *delim)
->  {
->  	int i;
->  
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104025058.2650911-1-liuc63%40xiaopeng.com
+there.
