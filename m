@@ -1,84 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794156302;
-	b=WrHGDbsW5mRtcyUQZxjEiZk5qPouLrI6724+aNc2dsAYRIvEdXzHQ1Ol56RQx6bC39dV
-	 b4QyjAjXEOYSnzjCfEiAyBYE2h3FalesN46gKQMBxlZCJhMf4yUol01oqylR0L6l1TCJX
-	 0g3V66rup5wJBSiFapbGfcZ+SQbAFPFPX1OM29+v8E8POwwGW8Y1aCy0Y0jPtXMrPr6Gy
-	 86UrVYpIEBkxdvfvWjntJIwkW5DJvyK7E5lCfTjmFJKNg/3zLDLqKiJSOpN95E//aO3EK
-	 XvY9nRd+oV0OIdVjK/eGetF/EvbwPPpPMMoGXmfgvhN3In2qus4YH3SvkId8RResyTw==
+	t=1794156371;
+	b=TsoYcMqquvfgtbRNtcSyVqSHOgLr+fIwFQKVpVPYm3bxWZ7q3kyrA1A5nsPnSwikGw4e
+	 kRTPXy1jEqkVZ1Ksg8JZhQYoEqd4U4Y2mMV04ssF51/JurdUEnnE98A4PyQX3kzgEknxj
+	 lOlKE5BLK2s49Bz+xEMKgW3Cv7LRXRCXfalixvk7qkrYYd1OdFd9hjDg2ckIL+OVSoQkA
+	 cUVfgHYG1TBxZ7B2pVcO/2vS7DhVi9hqKUs6rIuNYVL74RtweoTYJ8CkaC3EPskVSgTS3
+	 I4usy8AxkpBMHWp1sd3rYHhBmYqJLCx6YBIpNHT+qWxXxSGnKwj30PSLj0WMBK1D9Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794156302;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Wcu90oheJug2lj3BwNXj66grQCAs2tghFU90gkm7ka0=;
-	b=aPeP9dP/ZHROhvT461R66i/NGKlpI35gGfPaBNd3LBWtn6fED8L3sZyr1Jr0UVIXLast
-	 F69mj+i28NbMWbUKxdXWUmNce+BSe1MpmXs+vmGBCOsbk+wyHYaIhrZCBWHhugvd6ZM1y
-	 TsflbzxX0BK/+4HNRvCSORHr6yewi2iU/peVyzmWZoG2+Ch5khGAYaVLRLvSUx8E4yUHA
-	 tRera5ezBxZwl0S8PCheEmtufOtU6T2VXH8SbHK4GBVWqdVX/Oag17ilkaQqZF1kFShNE
-	 HZJT9YaKzcL7Ky52VxYjwmuWAvesWC7Pbwo7unzEwfG9tAJCEvza722Q8Wjd3YqZPLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794156371;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KTpoKtd3vzCAsB1dOMCmLm3Zvf15E1/w6LHbWorVquo=;
+	b=Cwox7FAi52O0SJliMVXCGZx9TIfrq3y9kko3YfUL6U8maCqqsWxXwlPMwYaxZ9Blxt/S
+	 SsP9mOG+P+7czQKGZ7N1o6eqeEZBPYtVh7o1UWgQvGhq+Cwmz+zaoULO6zGps67F5pi5L
+	 sDV2IstavJlkcjkYgCJGroJSrVEsJxsatBlnX6bNQhEsr6Mi36VWXUqTAYbSs6hr61gcz
+	 RvEfVlAfBLo3m37DpbG54vJy0GH0i00/QaQLvigoIpwpSoDvQxgJKSUPkbIPp6DV+VAyb
+	 rDde19KVp2efMax2L7YqKKvjir3IoEEA5sT3vMutHNndhwapfQmIh/kyL8KTZyzWsxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LMb/InY+";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWhYI2ps;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D762606A336;
-	Sun,  8 Nov 2026 16:45:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CCF3606A320;
+	Sun,  8 Nov 2026 16:46:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMb/InY+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27BE51F00902;
-	Sun,  8 Nov 2026 16:44:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWhYI2ps
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B93871F0089F;
+	Sun,  8 Nov 2026 16:46:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794156302;
-	bh=Wcu90oheJug2lj3BwNXj66grQCAs2tghFU90gkm7ka0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LMb/InY+MrS+2WjBowO5gDwe56iBMWk/+U/pzjTzyOOFrLyOHXBEC/PBZpPs1JEfK
-	 roNSf4KUdqs9jicBTSdhr9dh+Njykr/hxCvyzqnkdUki+5p7TlXsLWHwl1oGSxZW8f
-	 Da0/AYbLWksl6uG1bS2aLlgIbBQe8w2qnKu2zI1t6LWTKZksg7D97M3lzu+JgJYIlI
-	 xBmIte+oCiLQmJ8yd4emZrbU1Px2M9e2eWNJUzo8lR8dnyaDnt592jrzCLYEbfyBVa
-	 bhBOtZbOCEghMO5efF11uQ9sZwGfSfeabbSkaLHPOzfuNOpACkKmuKe28yRCnbkBYW
-	 U6W6sJf3lb9AQ==
-From: Sasha Levin <sashal@kernel.org>
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Carlos Maiolino <cem@kernel.org>,
-	linux-xfs@vger.kernel.org,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	loongarch@lists.linux.dev,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-um@lists.infradead.org
-Subject: Re: [PATCH 6.18 000/869] 6.18.63-rc1 review
-Date: Sun,  8 Nov 2026 11:44:49 -0500
-Message-ID: <20261108-rc-reply-03-xfs-6.18.63-rc1@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261108155416.119775-1-ojeda@kernel.org>
-References: <20261107134852.069646174@linuxfoundation.org> <20261108155416.119775-1-ojeda@kernel.org>
+	s=k20260515; t=1794156371;
+	bh=KTpoKtd3vzCAsB1dOMCmLm3Zvf15E1/w6LHbWorVquo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NWhYI2psVTCKqIZTsbwQtjzBFvbmwGZuvVNRCMiWmXne3KAdYAP6TMQ8kVVCDDw0z
+	 1BFzQamYFbWzlaysWhiE0ke7fEJHwlGU4cLDrxRLS2uI1cwmzFKHFclV7SN2tDte9v
+	 4V681jLFcelMdVrdEQdNM3qTOlAbiQo3Bh3xEp6jJhmwQ1PofLERefIkIHBBxkeH6S
+	 XWbVnImzTDxTQhPLYaTjvh8D6LyMRlf52GUaA0swMFUPU9VNb45DrePqNaIz7Aw07S
+	 uu/7N+XzRel7BwdEmU9Dl2vQBVN7yoQXd1VdzTtM58ojog/chB7vEi4X0th8O13kqf
+	 NAJAHZCPx1TZw==
+Date: Sun, 8 Nov 2026 16:46:09 +0000
+From: Harry Yoo <harry@kernel.org>
+To: Chris Down <chris@chrisdown.name>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, 
+	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
+	Andrew Morton <akpm@linux-foundation.org>, Lance Yang <lance.yang@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org, linux-cxl@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH] x86/mm: Tear down the direct map when memory hot add
+ fails
+Message-ID: <avCnM5AwhuvToFwP@minisforum>
+References: <au_l5MRyDbYfsUVe@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,13 +63,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <au_l5MRyDbYfsUVe@chrisdown.name>
 
-> In loongarch64, I am seeing again the XFS issue:
+On Sat, Nov 07, 2026 at 07:00:52PM -0800, Chris Down wrote:
+> arch_add_memory() sets up the direct map before calling add_pages().
+> If add_pages() fails, the range stays mapped and any page tables
+> allocated for it are leaked. A later hot add can reuse the stale
+> mapping.
+> 
+> Remove the direct mapping on failure.
+> 
+> Fixes: 45e0b78b0532 ("[PATCH] hot-add-mem x86_64: use CONFIG_MEMORY_HOTPLUG_RESERVE")
+> Signed-off-by: Chris Down <chris@chrisdown.name>
+> ---
 
-Thanks for the report. The xfs patch ("xfs: cross-reference the primary
-superblock") is dropped again from 7.3, 6.18 and 6.12.
+Looks good to me,
+Acked-by: Harry Yoo (Meta) <harry@kernel.org>
+
+>  arch/x86/mm/init_64.c | 10 +++++++++-
+>  1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/mm/init_64.c b/arch/x86/mm/init_64.c
+> index 8b6d86fb5a42..846cb34b38dd 100644
+> --- a/arch/x86/mm/init_64.c
+> +++ b/arch/x86/mm/init_64.c
+> @@ -989,15 +989,23 @@ int add_pages(int nid, unsigned long start_pfn, unsigned long nr_pages,
+>  	return ret;
+>  }
+>  
+> +static void __meminit kernel_physical_mapping_remove(unsigned long start,
+> +						     unsigned long end);
+> +
+>  int arch_add_memory(int nid, u64 start, u64 size,
+>  		    struct mhp_params *params)
+>  {
+>  	unsigned long start_pfn = start >> PAGE_SHIFT;
+>  	unsigned long nr_pages = size >> PAGE_SHIFT;
+> +	int ret;
+>  
+>  	init_memory_mapping(start, start + size, params->pgprot);
+>  
+> -	return add_pages(nid, start_pfn, nr_pages, params);
+> +	ret = add_pages(nid, start_pfn, nr_pages, params);
+> +	if (ret)
+> +		kernel_physical_mapping_remove(start, start + size);
+> +
+> +	return ret;
+>  }
+>  
+>  static void __meminit free_pagetable(struct page *page)
+> 
+> base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
 
 -- 
-Thanks,
-Sasha
+Cheers,
+Harry / Hyeonggon
