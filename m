@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794178132;
-	b=r/hrYMf+NObABDhKwyVAdeCsuaXwodH99Cyw/FkPXnc17CEx7Bum8u8gkOClEoyzt9Qq
-	 nIwEvYowpa/CA9GoBnkM2nsYibM1ygu4mY2Suh9HvRF7TH1+GV31K4vQhriNR0RThund3
-	 /hOAafRCPxYnf38s10HEmIw5ln/t1tbBTg6/OGB0Xpc335UUqVjirebpwJBEk3fIBYxeg
-	 pPGqNN2iJaDqKOP/kcdYFxaCW1qT9DafyZp6eXuvlTuD+mExD/6Qg0eBVDp2BUyeqHGxH
-	 2HWc0rNEDIVlzhcXzwM0TJZqZxq4RHJlyVXR06oj6ZoIc3dT0tM01Dpn6NVaWHOnXRQ==
+	t=1794178591;
+	b=z83KN6WlsYgWDJrF9CoM7EcR+tOQpkace1PSoeLTX4MaUUaTbVC+Bp51dmNvLpJhRl/r
+	 IWEsKUf2rV1pFwMx5CWrTN495Urq+fcZJI3x797R/s5WhLYIYDPn2YKkRwoQmrXsvBunM
+	 4QISAhYTn4XOuGPyddymRMUmp5/uOslTvelWZaUtN8uavDWnukH7tHgfHzgV8GUgX8tjF
+	 laOZt3UUvcqCz0VoVdz3VzrPJaSP6hycQXt1oC+n1F3xOtd8ApgKCWs3A1hl55vWpYk7S
+	 App/ZbuFfy27FEAy7luEITPLpELhm54VvtiTkMpzQdjmyZyjPGYqq9nc9JQTgOrjLnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794178132;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794178591;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=3bI4CTK0ibSK5GiKKc2cJRvX2UBB1MrQ+kYcnJge6oY=;
-	b=zLrOkFsgvZw6JEmo/szqbySbCjzQEhl2c2BGxUSJHGjPnQKbtcvGnnmdslrUd7PQ2C6d
-	 uWgrxYi0JUfEnF0fmZ8TU0nyGG0U8ydl2qG05IIx7bOtGZy2BCIUptjLdfYb22pvttzMq
-	 cXwAnwNl4Kc0MXdtTkJiEAFIxuaeSg8JNLZyPPE9kgc8J4SUrnoZmU7D9tGYTx8A3R9jY
-	 J7vTXo1U81HC3hm80azDwUAszvebU8KhHaCk5pzQj1NzLreosVAv1+6V/TQvqO3u8ckYR
-	 dfwbX9GTkiUgB7yTdfgwvKds1+izj2tVOREAu0oTPi4ey2U+FPVglXULEbrlqe4cCQA==
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Ong8M8NnsMoNWNiK2IwB98XwGEmnJ9d7Cx6T8KGpqG4=;
+	b=HjBtI0Zx39ll+aZ9Jzq4jmuYGg/oxX/ZxYrli2OWQRZyx2nNYwqhUalIxbm2oEdugasT
+	 41mOYd14WrKJW0rZBo/YPgs5jOwpWyH7o0B+W0NXQau5ZVOgxsghilYNsXo3H0TWJKbB3
+	 6wiTfXY5J5GJvjkWNR6hlNPUFGAOgFttCvpw+6RGSEPp+iabEXiZ3c4xrfBxluwBXRdPx
+	 Iim42zLFkgmJhLYZFOxYF7B5REwaa72HtGFxfEM0vsqgmp1/XARUGc4VOuXPVlgIg2VIA
+	 7zsz1Vt3UEkLjEtWom0t+gmFXu4HAactSIiphfSzUSK8He+M9e9GtcSUUHXBg5iRm1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xQZxFtP5;
-	arc=none smtp.remote-ip=209.85.167.177
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="oTIm5aO/";
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9D0606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:48:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C9D0606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B005606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:56:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B005606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xQZxFtP5
-Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-4f48d91ba7dso143278b6e.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:48:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oTIm5aO/
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b32bbd39d5so1711767b3.3
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:56:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794178131; x=1794782931; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794178590; x=1794783390; darn=vger.kernel.org;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=3bI4CTK0ibSK5GiKKc2cJRvX2UBB1MrQ+kYcnJge6oY=;
-        b=xQZxFtP5SDxqO3Ghrn8sQ6P2ZLxpry8nrmAlesZdNno0KD0xsv+L5HXRftB3Op7ao0
-         rGEyfEMmhPP8SAgv03VaxGGIAoLVnbvOpn3wFZfvptQWjY9655gCzhZpKKhbD3X0BYvZ
-         wsdz7MFb4xHsIciqZgpiJgXh+indiuMermFk0ikOEHzc7xuHbuNz/aHqtvRDepiIhnAR
-         2ZOJtFQ82zZ1Z/wc9qNZh8DKnZlaBebTpc2WuJXvbRhYEFdIpnnvOb3S+hX40odJTQiQ
-         iUtCtfkwsPM7sV1pEtzyb/PFb0ygVZmQpHBv4LXBGJHYqWCSezXx0YRBWuQQ7eSK11og
-         s04A==
+        bh=Ong8M8NnsMoNWNiK2IwB98XwGEmnJ9d7Cx6T8KGpqG4=;
+        b=oTIm5aO/zi5YcfOC6auPAsCQAocZYKj2aWt9GAeuuh5RcAFgrDzNETk6vzkRSzxuSQ
+         +sz1j2M1fgmBXHqcnQa2tt01gzYQDAHRcSDVIznDW43MwetiRLNrGMrFxN5tuynNVrro
+         BHESRr1qkclxcWS1vGyr4puumC39kywqq7YNawpFoqOpctspnIWmRIwHtPPSTctOAYQQ
+         WpFxWpUAfbXrowcxTVSJZxcKGNipPCtcnxMDfX8P4i4q4Fn4ihOpVUuh8nVWwWHCPbvD
+         nCs7eSSXzMX5oHYX6IgfT9cxTb/LOZ7Ja0hB1DVq965T4HwW/IfjcwrOxna/xJw8KUsk
+         LNDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794178131; x=1794782931;
+        d=1e100.net; s=20260707; t=1794178590; x=1794783390;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=3bI4CTK0ibSK5GiKKc2cJRvX2UBB1MrQ+kYcnJge6oY=;
-        b=xPyIU+MiSALfjwaDoT2bqvrDzxoS8vhn11mAvdQiJIJ+dSNSNVDK4x1Ni05xr/12I1
-         PSQ85vZMLKiISLrIUzlbEtRB47Nvxv8SHXI7zsX9u6p5z8C+IkrDsFWHKbvjb/JrPLyv
-         XojieNCFtjcbBqGfCU8a9xWVS3gqrQ+xlRanaHtKXBtkYATnD/gWiXOPSKfUDmffoTnO
-         25TtqgmV5FcZ7iBGfIGc3ejDJNTctcIvqtXqAoN5ZvcGDuozH2oyF5VZOOmzmqcm89/l
-         3J2LYiS8eBJtsz2t7RGqFJGz5wfhBhlXg5figo6ePdbvjDTcpdB7UycT0IU9PCp9Nm5t
-         B+YA==
-X-Forwarded-Encrypted: i=1; AL+hErHmFupko5jJm/2LpvZ7HtTqcqH71ZH+Ed1dYnE1INobspfLiFW3zENUG1/+DmoSCdFDiQyRwQyBSm3CKdw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/fzVhTFXXqaOL/vOcpx+orrsTLXEjhYmm/8gmmSnJv06U5lRmC
-	kAq/eS4xsJT+igR4QBSLypejnahM9SYIw5/+A6pyEMpch7nL/x0ZLw5g
-X-Gm-Gg: AYBFou2vRRv2SSyDEd10zZGgAH3eKly4Q3uUXTxeZELOgNvvqd723girhGpbI+UPVHN
-	o6msNNa+fRjsFBTu/CnR8YjOGh3IL4FP6qG7++KmG3qqrvJlAG3jPNsbw5W0DpEIeMauaCzXlCJ
-	Umbd74zzLE58X63Bkukfu3V6Ug4GY3VV9yjwzIAX/QtdTDQ+XfdCqwCUK380vTzVbVWMiiaUv4e
-	kCX6M+K5wveE77Pr4GYkb4x8JOyHEDF2FIgIGR+qPrfkNZjB41ZRDQ6lWjx/hJQfWB62Ak4FLhx
-	pZaTreTJJHFT8yhOXaraGgZnaET7/8oL2dGONDAJonNwSfGnleKpuuQwEJ2ocUWzuo5ANtlVsxd
-	YvbyuSiFZ71l/BKsUKl3wagXTDkfy/gIwdHhyRB01H8miDycNs7CHb40lOKKCbsgSTotoW88C0t
-	mBI8q6z7gUtpdqcveWkYCJ5AFI/xHd8rITKHhqMOSV+EHdl9/xrb2ynvcsV1UgvlEeAtlMkyeYK
-	UKDBJqoQ50Fg8trxiCULIGZ7StdmHw0c62126tQp7EIRuEOBx0TQFNr0ONr6N0X0iijiH5Xa50d
-	ya+qVxhxjN4pcGtCdoW5x1TQ3ToCnP2JuPpO2JFPKJsmtW+p0IMVk3wZROJqc6VRFwZKJMegNFz
-	omOUW/+3dpwVl4co5PmsDyitG5d9NoDdBZ31FtnxfbUbPRs5LPFXjkGzIrwBNftx3NMV15cCRiU
-	iSX33UcI3qhcDHAJ91TYpewDyfjtIGBIxvxhzFsQSi9FtTJ4QBeV0=
-X-Received: by 2002:a05:6808:c1c8:b0:53b:11c7:2da0 with SMTP id 5614622812f47-568146ed248mr1427843b6e.21.1794178131013;
-        Sun, 08 Nov 2026 14:48:51 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813c71b08sm2885540b6e.3.2026.11.08.14.48.49
+        bh=Ong8M8NnsMoNWNiK2IwB98XwGEmnJ9d7Cx6T8KGpqG4=;
+        b=Dxv0+DrMdwDPcEny2et55OGcy5qskxrE9qniVAm0z+Ilfzwf50XV6BzHTXu2Q7NJQq
+         lekWts22KLIhnqg88819smESzBCHX+DXcOnLtkoisWk6QeFv3hgT+k0uNvFpKuCVdL61
+         0gxyh2E1E8sWxUtfg2ilUOBHvcxCJr1buABEJ3O/9RnGV0riG6B5ELpk+FeYyKfgDKdN
+         vGoPJlHkWazPQPZhm1/tjSu+e/wL8ShCtvyU1JLEAuFcKa9lSAHeLN0HtureC2YLtix5
+         KNkS78sVh28ptuRt/SyH+bGMAwOie5CIombg+1Egi3IwKxv7omJn1fotGiLZ+dkaKcR2
+         WLnQ==
+X-Forwarded-Encrypted: i=1; AL+hErH+6uCnCdmxHYdbXPflpfU9Wy1l82tWKGrNzghaWE4D1lI/lPRN/ySt7CLQQmDVuesej7gcGiPaZxjikR8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9VYCv60ZwZoJC11Ao+FdtjgO5w4oQddokn8GaRshpW2xBPfELx
+	5YjmWvC2mqMUKOzRYMCp+OmBhuTmW7PreZdYhd35H/DHPkkgbzbNVmZJ
+X-Gm-Gg: AYBFou2y8nEcGryCNQdwl5iU3eRkzp5Ud0vobLKFVpu3ZIh/WwdezS7YOaIheyDi9KB
+	vYY+ZR0TA3VDQ8SoUnM4ScZ0Hq056FpJp6c83hOBWzt30RhUmKxZxNXLjyNRjdhTspMBR0ofByQ
+	8606FKTjaO9s5uxKIlAyCZ1j687hIcPp9Hk9DI/G6ZA1GfeXFB2LSexJ7qbAruawVTp+8BN+jFj
+	ju++bllb9gWaZ4W0452dX/Bv0emyi2x3nDrB8vLC1jwPYrNftdgLJqhZYY0+ixh0lGtHyvFnfCO
+	gNDeXj8KN+uN1JeRYsjjTelAx6KfWgqVkCp5PlcttB0igMhizKKJbFJKmY0irgnoZJWN+t8j1Ki
+	J9ar0//Ezt9SPH1cl0q+FMgf3IKBZ0V8MVZr4cAPGq3iLzy024rl3we7IZYLoj26/RTB5peKxDa
+	tq5VI7uIgiJV+GH3Vf2vcLEanIL/3a68OLk2mfSj+NI8NYdY/dPCg5ZxNiBbcMT/v2FPe0dY0/e
+	iYSaKyHAaMsw38h1SUO9FsSu/AAKVkriB7hdO/+oWTIEaZ872+cvJwAiGeeQR89H9xTaCWu8vEh
+	/cVTYrgFp+5sW+VsQErb3fYoj+xp
+X-Received: by 2002:a05:690c:660d:b0:8b2:bb94:8cb2 with SMTP id 00721157ae682-8b36cb31f80mr15270887b3.35.1794178590140;
+        Sun, 08 Nov 2026 14:56:30 -0800 (PST)
+Received: from [192.168.100.70] ([2800:40:44:f1f5:f400:4c49:91c1:9905])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b36be7d88dsm22485597b3.39.2026.11.08.14.56.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:48:50 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 15:48:48 -0700
-Subject: [PATCH v2] mtd: leave the device type unset when naming fails
+        Sun, 08 Nov 2026 14:56:29 -0800 (PST)
+From: Kurt Borja <kuurtb@gmail.com>
+Date: Sun, 08 Nov 2026 19:55:51 -0300
+Subject: [PATCH] iio: adc: ti-ads1262: use umin() for excitation array
+ lengths
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,71 +94,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-mtd-devname-retry-v1-v2-1-09f576bcc51f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OTQ7CIBCFr2JYO1pA28aV9zBd8DNtMUINILFpe
- nehvYDJzOK9mfflLSSgNxjI7bAQj8kEM7ks2PFA1CjcgGB01oRVrKa0aiF8pDURbNSgMTlhETx
- GP0OiwPtGSYa6rVpOMuHtsTffjf7odp3jT1SxIMuHFAFBeuHUWKxMPZfdU/k+mhAnP2/1Ei2c/
- 5rkoSDqpuecqetF6/tghXmd1GRJt67rD5XGa4j4AAAA
-X-Change-ID: 20261108-submit-mtd-devname-retry-v1-3f7cb2ed8083
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Jens Axboe <axboe@kernel.dk>, Jan Kara <jack@suse.cz>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
- Edward Adam Davis <eadavis@qq.com>
+Message-Id: <20261108-ti-ads1262-excitation-umin-v1-1-65929a66394d@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZORtoiivqq4iH2KUawSpNNwZj7
+ 746j9/h/xcwKSoGl26BIpOafnIDHTqIT84PQR2awTsfiNwJqyIPRj54lDlq5doKHN+akft05kC
+ ud8cEbfAtknTe59fb3zbeXxLr7wjrugEADYzlfgAAAA==
+X-Change-ID: 20261108-ti-ads1262-excitation-umin-a5f9a610504f
+To: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>
+Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>, 
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel test robot <lkp@intel.com>, Kurt Borja <kuurtb@gmail.com>
 X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1861; i=kuurtb@gmail.com;
+ h=from:subject:message-id; bh=EO3cEjfaSpMTJmz44W6v6HuhGs+DvNb3D0mEU0wKIOM=;
+ b=owGbwMvMwCUmluBs8WX+lTTG02pJDFkf/v7OXJ996Ldf+/m5rC12UzyKbxtoB61htvtu+2pnw
+ UO/pKLmjlIWBjEuBlkxRZb2hEXfHkXlvfU7EHofZg4rE8gQBi5OAZjI8wWMDHsqP8k2RDf9MO7U
+ /D9R3OqzjutORcH5dxXTH204+dvRcSojw/ULc5bYKMxLvL1WRUZuovzBHe/uHJoWpqjsk/b0y93
+ Ad6wA
+X-Developer-Key: i=kuurtb@gmail.com; a=openpgp;
+ fpr=54D3BE170AEF777983C3C63B57E3B6585920A69A
 
-add_mtd_device() uses dev.type to reject a second registration of the
-same MTD. It sets that field before dev_set_name(), but the failure path
-for the name allocation leaves it set even though no device was
-registered. Retrying registration then warns and fails with -EEXIST.
+min() rejects mixing the signed count with the unsigned ARRAY_SIZE()
+unless the compiler can prove count is non-negative, which fails on
+some configs and breaks the build. count is already checked to be
+non-negative, so use umin().
 
-Set the type only after naming succeeds. The later registration error
-paths already clear it before releasing the device.
-
-Fixes: 6697dae1e2da ("mtd: capture device name setting failure when adding mtd")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610241549.J9R32Wf7-lkp@intel.com/
+Closes: https://lore.kernel.org/oe-kbuild-all/202611080814.7RmHoQ6e-lkp@intel.com/
+Fixes: b0b43a26dfc9 ("iio: adc: ti-ads1262: support excitation currents")
+Signed-off-by: Kurt Borja <kuurtb@gmail.com>
 ---
-Changes in v2:
-- Correct the Fixes tag to identify the commit that added the
-  device-name allocation error path.
-- Link to v1: https://patch.msgid.link/20261108-submit-mtd-devname-retry-v1-v1-1-a67f332c54dd@gmail.com
+ drivers/iio/adc/ti-ads1262.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Richard Weinberger <richard@nod.at>
-To: Vignesh Raghavendra <vigneshr@ti.com>
-To: Edward Adam Davis <eadavis@qq.com>
-Cc: linux-mtd@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/mtd/mtdcore.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
-index 491a27d0315f..4f62a13dc481 100644
---- a/drivers/mtd/mtdcore.c
-+++ b/drivers/mtd/mtdcore.c
-@@ -798,12 +798,12 @@ int add_mtd_device(struct mtd_info *mtd)
- 	/* Caller should have set dev.parent to match the
- 	 * physical device, if appropriate.
- 	 */
--	mtd->dev.type = &mtd_devtype;
- 	mtd->dev.class = &mtd_class;
- 	mtd->dev.devt = MTD_DEVT(i);
- 	error = dev_set_name(&mtd->dev, "mtd%d", i);
- 	if (error)
- 		goto fail_devname;
-+	mtd->dev.type = &mtd_devtype;
- 	dev_set_drvdata(&mtd->dev, mtd);
- 	mtd_check_of_node(mtd);
- 	of_node_get(mtd_get_of_node(mtd));
+diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
+index 66a7fedfefde..58a8eacc6ef5 100644
+--- a/drivers/iio/adc/ti-ads1262.c
++++ b/drivers/iio/adc/ti-ads1262.c
+@@ -1807,7 +1807,7 @@ static int ads1262_parse_channel_node(struct ads1262 *st,
+ 		pins[0] = ADS1262_IDACMUX_NO_CONN;
+ 		pins[1] = ADS1262_IDACMUX_NO_CONN;
+ 		ret = fwnode_property_read_u32_array(node, "excitation-channels",
+-						     pins, min(count, ARRAY_SIZE(pins)));
++						     pins, umin(count, ARRAY_SIZE(pins)));
+ 		if (ret)
+ 			return dev_err_probe(dev, ret,
+ 					     "%pfwP: failed to read excitation-channels\n", node);
+@@ -1820,7 +1820,7 @@ static int ads1262_parse_channel_node(struct ads1262 *st,
+ 		mags[0] = 0;
+ 		mags[1] = 0;
+ 		ret = fwnode_property_read_u32_array(node, "excitation-current-nanoamp",
+-						     mags, min(count, ARRAY_SIZE(mags)));
++						     mags, umin(count, ARRAY_SIZE(mags)));
+ 		if (ret)
+ 			return dev_err_probe(dev, ret,
+ 					     "%pfwP: failed to read excitation-current-nanoamp\n",
 
 ---
-base-commit: 1c1a342aceec79528b3ba51f376eca2be5928fe7
-change-id: 20261108-submit-mtd-devname-retry-v1-3f7cb2ed8083
+base-commit: b70566610b48ba49dec636019da4d696db64b085
+change-id: 20261108-ti-ads1262-excitation-umin-a5f9a610504f
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+-- 
+Thanks, 
+ ~ Kurt
 
