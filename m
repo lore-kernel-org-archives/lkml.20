@@ -1,116 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794141806;
-	b=RdxBn3bMyIq7VmkprSHUzskeoJ0zlI+SA9kr4RDJcOpENKCLhiy5R6S/UThKU6O9FPl2
-	 RVHHw/vZR2a7OL3K1jFGQ1ricN0UdUcF8nZDq3xQf+aUAkLjuwn1lZF0/oq6SOsZtCbqX
-	 aG+0fcj8PWJMa/6l+RwwF45wmUr6QbxB4vde1XKqUTL/UTSsy0FASkPeEZuMnKWBoTAyR
-	 yULwpGj5k/kHzyDm8kSxhL3ycWtY+8ZntvY7tsLdoRr++yzcbj0EJSV7KULwIsB5qutEU
-	 l03iMUl4fp3+8entzxFvMKY2cuwZGwUENaJ+U9tnVhXk/ug3Lnyp0neh2+fqUbg3MFA==
+	t=1794142084;
+	b=YmgV2TjgYAtCd6s4ApSGcng3mhGnh3+aw7644M7aVWy1N1t6OWc4rGY1hwV12LvEI0D6
+	 W+EcrKSWVjF5sZhXJT0rYNXZPfqkXZl4xow/zu8b+x1GdtApVkj1eGw0CllRQTn/FyK6M
+	 U/XQx3mvHRSonIiSvrkMGwZtxsI3lYrVMT+2H3aLz4khUPiJJvGhaSsmwYRQ9I5LiyYVC
+	 2WFs+A4kgxsDd9gMqahBYtVmvZzCjmvLb6jflYFWPUkkzWwrCKpc2EF9iU1DjErUkO/vO
+	 50XZ3tbjj8dq++PRzexPyKQMCrhWNrAfxOYwiccWwAuN3c68P/1JKqVCF1B1zoe9cFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794141806;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=s9QIa8+7f9x5TzsO+OL6plhe3L6scFovhOu5A4lig90=;
-	b=r1ch/ECD3DVhFYrI+gEH+yuXq77Dj7FGHRx2VwJiCMVPXaUR2CrTyF82Kpuces0WdCud
-	 zMHIcyJtwGy3eMKtz77N/WV1xlhKv5pqNFktWz5pd9EfFuHoVnWBhLrIoPy0awSScoOgd
-	 05sW3j2Dh8TO2iEGF//Fg8joQw1DqclsHSYrjwRgctE6DhZ5JojXUwsByH9I9DcaaQROv
-	 OC441RXtOj5/V9uj45phmp6puXhiYNc7GQJxMkpH7pQoWdZCFMSGD99weMZPqDCR4omF/
-	 tGfXow6XwovcREI+v0aw/IgObAvdVH4HYqgZclL8hJ6Csw0W4P8N0FYkN3tcIeDLtFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794142084;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2D/poUrhJr51I0Y86mgG4w0NUbMq+16qzUMFR1+iY44=;
+	b=DHCR+u29l6C96tJPu4SkzcuehrRcuFpV63kSMVgs514ry4w1AA+nmn8r9wIdyDCFYAdB
+	 +pr1tnCqBrq2gh0FBvNXcEh0NuBhs8H5kXSX3Co6BezKAU1/CXJA+Uexuft92yDklgVBf
+	 NOsUPsieH/xB6yWLpZ79NiL25d1UVE+1jFajj9CU7/ATcNWCX3FOhyiI0avJnUqx2aHob
+	 eGg5P5J9GWbKowiZow9Fak2/lzUZ/eMnzx8AtlAOtnIUQU1DwEJrO1pR0e9wqlKa0Tpwe
+	 WQ6MiS1j4PczzgwGlnMRk/Zff0JkmpN1X/BioTfazUv0BOdWg/xbTqDHisgGNHhvoCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jannau.net;
-	spf=pass smtp.mailfrom=jannau.net;
-	dkim=pass header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=ozBbpMkA;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=UYmpYOKn;
-	arc=none smtp.remote-ip=103.168.172.152
-Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QVrtRzOj;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F6C7606D820
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:43:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F6C7606D820
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B86606A333
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:48:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B86606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jannau.net header.i=@jannau.net header.a=rsa-sha256 header.s=fm1 header.b=ozBbpMkA;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=UYmpYOKn
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 830FB14000A9
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:43:25 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Sun, 08 Nov 2026 07:43:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1794141805;
-	 x=1794228205; bh=s9QIa8+7f9x5TzsO+OL6plhe3L6scFovhOu5A4lig90=; b=
-	ozBbpMkAzeF1FJJMig6rNU7METT9tfyI1KIg5bWqvXvGptpU6+WIpsIrj2a77XBB
-	5aK0Ulclj0RO31xoghusM73MCjsODOWrtPNLUIfORi5tPQHdHcnZMyI1dANDr6dI
-	IkCe8PAFdoidTf8q5PonO7INPvMmTWiEthAuSYsyGg9rdc80PO5E7RF1npww//TS
-	YBbHEK1ig2wHOmSl/5fOVQCnZ6uESNF7BIskbhwDh2QnAsi3A50WMpR4twF7ljRh
-	gT80mDLSJonjxh1lHfkIXtjws6SsrZl+cyiHSx9O51rJViv0dMT+Abj17iz36boE
-	wNP8spRMPciUWVCUCmGJhA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794141805; x=
-	1794228205; bh=s9QIa8+7f9x5TzsO+OL6plhe3L6scFovhOu5A4lig90=; b=U
-	YmpYOKnCXvmtzIw9JcypbP2UcV3XwZTLUHiROPu5VqZQGz/QU55Zb7iQnRcxoM9N
-	+QBywmConYnF5xzlrzUHG+c0QPDcMLzJwPrnpaOT9PHviXYWwC3bD7in8XekG0/o
-	YvMEkWK+n7nX+upY3o4HyrPMaOremgbn9vzCzvxgG2eZq68SX8xVusNVXFXMWESg
-	fQSGrW8ObMtRfTVYNLBpiUJD6OPDVuefBB+k5lybgTiEYwAZnAHSC0e91wLE72JQ
-	3TfDvZvrEDCxJDtKbVYXfDNAC+ygQtpr+0mmlLlFUC5hEmAN1j1NJklvNIxBS0bz
-	aMvrvPso9G3GRiDaa3b3A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=jannau.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794141805; d=jannau.net;
-	mf=PGpAamFubmF1Lm5ldD4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:lhP5hdmx37gopOl7EjMm/GAvJ/Ry3lLy1cYyPPYyLdIQSxg
-	IhSaqkDWezVOSRCtOVU93YEizecaIOF3xr40+FvAKXlkKHPY6it6jl9TQAg3pNZD
-	v87JuZ13G/No2B+fxpJQqPVUukrJMe8kts+Z7HDX1g1EM84zYF2c+502S7xFtq9o
-	c7oXT5uLaPIY9ei5snfJbQEL7c2bvcMlAlIlTqW6GSLIkpIbo88J9wa+baVI9caT
-	4fT32JyIvJLvBtCTvKQJCRpCjYEk59rzOwLVL5JQDZr2y+JvFQQT3Lii6rkiqFud
-	/TzgLP4Zu0RLr+7711tPnyAM9KQRUsjVo54S8pw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:kk1UASHmQuIheuacUzNh0kjfvNA6LVLIglo1aVI6dY4=:zjxwKrwgoQ1CDaw6s5gNTvt7+O4eaXf6uL9MVFCJTAc=;
-X-ME-Sender: <xms:bW7wauSKaPt3VJ-NIFFUwmuT9MFmAwmWkpAhuIOXZlxwDnI-ikMuFw>
-    <xme:bW7wapxyfpMjpHeluokIPgcveT66hlXAnTKIpf6d65jYSP07MWLBJe7uefMpCRMEQ
-    DDMPiH5ckIeVB8kg0aIaFhyCiHFZuKtqIQEqYC04wYOv4eW9KLLX9QP8g>
-X-ME-Received: <xmr:bW7wampdX-t62TydngDlUw4GB8HzZOpCQdAXl3Pm1cTEDspjodGCnD7dS2k6yxeU8Jw8ZLHKD7-xh5vPTiQatsYMST_jHclqQAUeIQ>
-X-ME-Proxy-Cause: dmFkZTFvpcRF2U5Eqq2oGivzePSyI52xcgAkdznKLWpxb3H76ey6ZgBIPA4VdqYaDnscX5
-    rw/WiyxacwJRwb4wAJziiEoDZPJqF7VpDXRzryvYOE97JvMlI6gHJJwukuX5E3aGQfUrhP
-    zcspf6iBJbC2JfcDbk0W2z6dMhWrS9LB/KyyX0W304P6wlYIn2Gs96QFYrkqheZA3EJsQH
-    HruypYwUGAt7hJLh+hZo8jHU9U40FuNrAvm1F/O5S6gO11QtROXNs/qiYLSb0VNyhdWq3Y
-    ldj+KznwwpIPuZF4KvrXrj5qmTsj0TUMEsb+cZ+X7RL6ZwAeAY1//VENmnWPj8YQY02Ihq
-    TvsITiC7QGebRNCbF9yrcpR2FRJ40iLArz8VyKbybSgFQ2B9TzGUopOzBptPwvnOtiaRvg
-    e2aWEw487LRp0pu81WQ7ts7TMRIQEu/c2zVLigCNK5MDWaJD468DHFaxQYy2LoxwHIkMkd
-    S5SDxcSxls7+rIMNV4F0MT/nYa8kWfqYal8Gdbw1W+CMS024oG+/xVYRXKUVmHs2gA/n37
-    rJf8AR9v4pI7ZwJ0f45i26iUcz8hR5KoxHDX0rCvbGn/KBpl6JmQC+LK9Q4x2r25utr6qI
-    kgfUPEhPRsry/jY8Q6Dia1Dh31pZun3J5sbBky98iVCP8PyOjdOMxWn2O0nQ
-X-ME-Proxy: <xmx:bW7was0SsrEYOJGnnbnOxQ_E9bABuoQ6yrueiBPOdYrs7MQImYw-Kg>
-    <xmx:bW7wamzxLEpmyQoZoN80Z4Xiqy3yMmF9TpTmuexJPrKlAicU3x1RQw>
-    <xmx:bW7waghZEpDNa0LGcfPsQek6AEej1r6_v-EATZNp8gUUIYXkvjhVQw>
-    <xmx:bW7wahpce85y6VJoRco2dB_JHxGQXyUGZ-CZ3ea7WpnSyJtIbGWNqQ>
-    <xmx:bW7wakORrmniPEli4o-0kwvIVSdrteIFwTSP5o1D6KEn8FPgbxnOP4A3>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 8 Nov 2026 07:43:25 -0500 (EST)
-From: Janne Grunau <j@jannau.net>
-Date: Sun, 08 Nov 2026 13:42:55 +0100
-Subject: [PATCH v2 2/2] net: atlantic: AQC113: Limit multicast filters to
- available slots
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QVrtRzOj
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1b2513decc3so75426c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 04:48:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794142083; x=1794746883; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2D/poUrhJr51I0Y86mgG4w0NUbMq+16qzUMFR1+iY44=;
+        b=QVrtRzOjy6SWobypTM9M+7x7u/LaX3HJiRLNHSgDGN+OREP6jtrG3aaK2j8QZOL6Vw
+         MNCcDELrNEIKaCyK117SdD//ebYBQYlpPP4C59gqDthYBzx8n0kraRkMpbXZtnzVtjXh
+         +ISvNrkcads5XEDSQit+/SawUYFO5KX7lMqKuWJp4A/QVoYlfqGNPc1P7GV/l1d/oRd+
+         HMSfebTSnJBr7G9lS0gWcY6a5QaDNBb5Dj3uNru/KscZQTWBMyw5w7Mp9j7GDu/40itu
+         bkVnMqQ4cjCRG60YBbdWqHP67x7jW49VD/dNnpqeLeXObg6XilSKZkeTntL4mKuUQ9y2
+         K0Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794142083; x=1794746883;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2D/poUrhJr51I0Y86mgG4w0NUbMq+16qzUMFR1+iY44=;
+        b=WVH+IYXSWEC7xljdpJB/8xLKqITEIC+bh7iKELgeXRD2JLb2Q6xTZ1Ds4OcPmfyhdh
+         PqHuPyZmwiMaSxHGpcXCeh4Z1t+DeJfLQfk5QX9Ig32YDnPABlyxbGA2l2pcdvzJ+ktT
+         0zQgnWi4jUuRFDwUhyCB6Bne86Rg2lAjwMhUE2NsA+zsPlPF8rAo8vhxEt95M1yr/CGU
+         x25VO0TVUdbusraRULGUqCCyMGNGHVo9EOKRtnRmG/II6j6k6gDpoQyjYtaB5I63vyUx
+         QoeLLIOHyNQg1l5LdRkFPJaFko58VxtX3CYRR3to9SmVxANkbtOjNZVZxOsowgq8fytd
+         U2BQ==
+X-Gm-Message-State: APuU4Z+BGBYsRSGfjxaD6ZfscE1cnYEae/uIlc5ik3IaOqpPAjJTbsUQ
+	PZjhsmbE+5Chli8YvTToR9Ty7aAtgM8f6iP9csmTt6w5S2YfxWXQWx6L
+X-Gm-Gg: AYBFou1+CcJuPum87LiK7ZakxOxd1OJdj0mcN84M3p89PUrXNZ9qIlTSX2afc5FWiyk
+	N+ZFmOmLviV9DV6RgpK6wsm4v/B05/O/UNmCajqp8zwokqZsLmLRx3aSxDhSqRHyNf21ZfAH85/
+	sXjSUiWOXZeLT38V1VMAERwWS0lOajLAc83h2xdBZlpLZtf7zv+q00qDkt3+6DeM207BREj9F/O
+	MTdCoaYvDl8SIbnoX1C1EHhV4UCm1Dqm2bZQZuVUK1cF4XWDDaESuX4MzOa2MfkRysQS0Mj4LFZ
+	QrSVy0UW5PzxUOOP+GU8YGr3uWmFxmwGlkIUCvhv6V78jATCmDS0EiAEiLgCHK1hBQ+70xtbl7U
+	H4sXfR6vnB1/RPGvjtQXdA3onbPT85bcAkiXScVTOvrwtCayFNUSDPn0LPCM9wJ6VXim0Lc22Nz
+	hccWfNmT1xRIZ+wKLHGdybYZciVQHqa35LEXF9i/6qv62Gekjewqw2uIFv7Z6ICOzbwyQvQE0iV
+	3fCa0xzyH3VBMQQAz/Xv0hpfGp8idhNHdLtR85IV1KwEALbqvHJVFIVes4MQlqQg3HAOd05qXdg
+	iBuLHgOkrd3sSjU60DcVh+NmuwEOVyaVb5nwIfAejLNFYg0yPtQ=
+X-Received: by 2002:a05:7022:b045:20b0:1ac:9da7:e881 with SMTP id a92af1059eb24-1b39ff16e06mr2303900c88.36.1794142083215;
+        Sun, 08 Nov 2026 04:48:03 -0800 (PST)
+Received: from localhost.localdomain ([103.177.253.80])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3757214cbsm5202424c88.13.2026.11.08.04.48.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 04:48:02 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: tiwai@suse.de
+Cc: linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	sreekuttan2156239@gmail.com,
+	tiwai@suse.com
+Subject: Re: [PATCH v2] ALSA: control: Fix parsing of numeric fields
+Date: Sun,  8 Nov 2026 12:47:40 +0000
+Message-ID: <20261108124740.3032-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <87zevjwmrf.wl-tiwai@suse.de>
+References: <87zevjwmrf.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,185 +99,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-net-atlantic-aq113-apple-l2-filter-slots-v2-2-0b988d031c78@jannau.net>
-References: <20261108-net-atlantic-aq113-apple-l2-filter-slots-v2-0-0b988d031c78@jannau.net>
-In-Reply-To: <20261108-net-atlantic-aq113-apple-l2-filter-slots-v2-0-0b988d031c78@jannau.net>
-To: Sukhdeep Singh <sukhdeeps@marvell.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Janne Grunau <j@jannau.net>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6933; i=j@jannau.net;
- s=yk2025; h=from:subject:message-id;
- bh=zjxwKrwgoQ1CDaw6s5gNTvt7+O4eaXf6uL9MVFCJTAc=;
- b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqwPeWm7lQQF7v5P18tLX3ZVcNKjBVfOLbmv+8u4XngX4
- xkPPlmmjlIWBjEuBlkxRZYk7ZcdDKtrFGNqH4TBzGFlAhnCwMUpABMxaWVk6FAtSBObGNacOynt
- 3ku5mF631mttTLbL8ueKcAU5mCb5M/wz2ekhO+WYfCVfwTfeLsuVPjaXD+Ryb+h++7vv4on7m4X
- 5AA==
-X-Developer-Key: i=j@jannau.net; a=openpgp;
- fpr=8B336A6BE4E5695E89B8532B81E806F586338419
+Content-Transfer-Encoding: 8bit
 
-Since commit 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART,
-L2 filter slot, MAC address") hw_atl2_hw_multicast_list_set() uses L2
-filter slot above the firmware-assigned L2 filter slot for the MAC
-address.
-On Apple silicon systems with AQC113 the firmware returns
-`l2_filters_base_index = 9` and `l2_filter_count = 29` which is
-unfortunately less than AQ_HW_MULTICAST_ADDRESS_MAX (32).
-Add a new `struct aq_hw_ops` function pointer
-hw_get_num_multicast_addresses() so that atl2 variants can report the
-lower number of available L2 filter slots. Use this potentially smaller
-number in aq_nic_set_multicast_list() to decide when to switch to
-promiscuous mode.
+Hi Takashi,
 
-Fixes: 6c1ca112a6e4 ("net: atlantic: fix AQC113 HW init: ART, L2 filter slot, MAC address")
-Cc: stable@vger.kernel.org
-Signed-off-by: Janne Grunau <j@jannau.net>
----
- drivers/net/ethernet/aquantia/atlantic/aq_hw.h            |  2 ++
- drivers/net/ethernet/aquantia/atlantic/aq_nic.c           |  7 ++++---
- drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_a0.c |  7 +++++++
- drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c |  7 +++++++
- drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c  | 11 ++++++++++-
- 5 files changed, 30 insertions(+), 4 deletions(-)
+Thanks. I'll resubmit v2.
 
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_hw.h b/drivers/net/ethernet/aquantia/atlantic/aq_hw.h
-index 338c956ad1f7..3a4465c11768 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_hw.h
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_hw.h
-@@ -374,6 +374,8 @@ struct aq_hw_ops {
- 
- 	int (*hw_read_module_eeprom)(struct aq_hw_s *self, u8 dev_addr,
- 				     u8 reg_start_addr, int len, u8 *data);
-+
-+	int (*hw_get_num_multicast_addresses)(struct aq_hw_s *self);
- };
- 
- struct aq_fw_ops {
-diff --git a/drivers/net/ethernet/aquantia/atlantic/aq_nic.c b/drivers/net/ethernet/aquantia/atlantic/aq_nic.c
-index 01792f7abf96..a05e12e8661b 100644
---- a/drivers/net/ethernet/aquantia/atlantic/aq_nic.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/aq_nic.c
-@@ -973,6 +973,7 @@ int aq_nic_set_packet_filter(struct aq_nic_s *self, unsigned int flags)
- int aq_nic_set_multicast_list(struct aq_nic_s *self, struct net_device *ndev)
- {
- 	const struct aq_hw_ops *hw_ops = self->aq_hw_ops;
-+	int num_multicast_addresses = hw_ops->hw_get_num_multicast_addresses(self->aq_hw);
- 	struct aq_nic_cfg_s *cfg = &self->aq_nic_cfg;
- 	unsigned int packet_filter = ndev->flags;
- 	struct netdev_hw_addr *ha = NULL;
-@@ -980,7 +981,7 @@ int aq_nic_set_multicast_list(struct aq_nic_s *self, struct net_device *ndev)
- 	int err = 0;
- 
- 	self->mc_list.count = 0;
--	if (netdev_uc_count(ndev) > AQ_HW_MULTICAST_ADDRESS_MAX) {
-+	if (netdev_uc_count(ndev) > num_multicast_addresses) {
- 		packet_filter |= IFF_PROMISC;
- 	} else {
- 		netdev_for_each_uc_addr(ha, ndev) {
-@@ -990,7 +991,7 @@ int aq_nic_set_multicast_list(struct aq_nic_s *self, struct net_device *ndev)
- 
- 	cfg->is_mc_list_enabled = !!(packet_filter & IFF_MULTICAST);
- 	if (cfg->is_mc_list_enabled) {
--		if (i + netdev_mc_count(ndev) > AQ_HW_MULTICAST_ADDRESS_MAX) {
-+		if (i + netdev_mc_count(ndev) > num_multicast_addresses) {
- 			packet_filter |= IFF_ALLMULTI;
- 		} else {
- 			netdev_for_each_mc_addr(ha, ndev) {
-@@ -1000,7 +1001,7 @@ int aq_nic_set_multicast_list(struct aq_nic_s *self, struct net_device *ndev)
- 		}
- 	}
- 
--	if (i > 0 && i <= AQ_HW_MULTICAST_ADDRESS_MAX) {
-+	if (i > 0 && i <= num_multicast_addresses) {
- 		self->mc_list.count = i;
- 		err = hw_ops->hw_multicast_list_set(self->aq_hw,
- 						    self->mc_list.ar,
-diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_a0.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_a0.c
-index 8de2cdd09213..1d69710c6be7 100644
---- a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_a0.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_a0.c
-@@ -944,6 +944,11 @@ static int hw_atl_a0_hw_fl3l4_set(struct aq_hw_s *self,
- 	return aq_hw_err_from_flags(self);
- }
- 
-+static int hw_atl_a0_get_num_multicast_addresses(struct aq_hw_s *self)
-+{
-+	return AQ_HW_MULTICAST_ADDRESS_MAX;
-+}
-+
- const struct aq_hw_ops hw_atl_ops_a0 = {
- 	.hw_soft_reset        = hw_atl_utils_soft_reset,
- 	.hw_prepare           = hw_atl_utils_initfw,
-@@ -978,4 +983,6 @@ const struct aq_hw_ops hw_atl_ops_a0 = {
- 	.hw_get_regs                 = hw_atl_utils_hw_get_regs,
- 	.hw_get_hw_stats             = hw_atl_utils_get_hw_stats,
- 	.hw_get_fw_version           = hw_atl_utils_get_fw_version,
-+
-+	.hw_get_num_multicast_addresses = hw_atl_a0_get_num_multicast_addresses,
- };
-diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c
-index 6c25ad264b19..252455cfd106 100644
---- a/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c
-@@ -1777,6 +1777,11 @@ static int hw_atl_b0_read_module_eeprom(struct aq_hw_s *self, u8 dev_addr,
- 	return err;
- }
- 
-+static int hw_atl_b0_get_num_multicast_addresses(struct aq_hw_s *self)
-+{
-+	return AQ_HW_MULTICAST_ADDRESS_MAX;
-+}
-+
- const struct aq_hw_ops hw_atl_ops_b0 = {
- 	.hw_soft_reset        = hw_atl_utils_soft_reset,
- 	.hw_prepare           = hw_atl_utils_initfw,
-@@ -1836,4 +1841,6 @@ const struct aq_hw_ops hw_atl_ops_b0 = {
- 
- 	.hw_get_mac_temp         = hw_atl_b0_get_mac_temp,
- 	.hw_read_module_eeprom   = hw_atl_b0_read_module_eeprom,
-+
-+	.hw_get_num_multicast_addresses = hw_atl_b0_get_num_multicast_addresses,
- };
-diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-index 8d7a489aa5de..d0dc72bd098f 100644
---- a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-+++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-@@ -810,7 +810,7 @@ static int hw_atl2_hw_multicast_list_set(struct aq_hw_s *self,
- 	struct aq_nic_cfg_s *cfg = self->aq_nic_cfg;
- 	int err = 0;
- 
--	if (count > (HW_ATL2_MAC_MAX - HW_ATL2_MAC_MIN)) {
-+	if (count > (priv->l2_filter_count - 1)) {
- 		err = -EBADRQC;
- 		goto err_exit;
- 	}
-@@ -1635,6 +1635,13 @@ static int hw_atl2_hw_vlan_ctrl(struct aq_hw_s *self, bool enable)
- 	return aq_hw_err_from_flags(self);
- }
- 
-+static int hw_atl2_get_num_multicast_addresses(struct aq_hw_s *self)
-+{
-+	struct hw_atl2_priv *priv = self->priv;
-+
-+	return min_t(int, priv->l2_filter_count - 1, AQ_HW_MULTICAST_ADDRESS_MAX);
-+}
-+
- const struct aq_hw_ops hw_atl2_ops = {
- 	.hw_soft_reset        = hw_atl2_utils_soft_reset,
- 	.hw_prepare           = hw_atl2_utils_initfw,
-@@ -1694,4 +1701,6 @@ const struct aq_hw_ops hw_atl2_ops = {
- 	.hw_get_clk_sel          = hw_atl2_hw_get_clk_sel,
- 	.extract_hwts            = NULL,
- 	.hw_extts_gpio_enable    = NULL,
-+
-+	.hw_get_num_multicast_addresses = hw_atl2_get_num_multicast_addresses,
- };
-
--- 
-2.56.0
-
+Thanks, Sreeraj
