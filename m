@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794174586;
-	b=gBMZb4hwz56PR34XELykniA2sPcjelIyjee7z5I+XhQfYojJF2OwU7g2PPbBQV3iQZfz
-	 fN47kIe9X9CXU/L+ohXTJ2QNyITpYtVg9FsPHGxB1GJMVRmI7Vry/wC89gnyBFdRUyEGY
-	 Jj6JBh5heX+RH7sslTe3eIYQg9VvpliHPA1ipkyYJG2D7U967N0u2aWFIcYfTsadM241+
-	 6QKL8ho5UdHjFdJYG0rFnU3gjIAkLEqqQMRL0jcq86AzWti5QuSf+DbR+CmrI+HWlf0bb
-	 m2leyPLTSfNLygCVcFq3Fw83t3u+NfH1BUo6LXadnWnjih+DLllSS/fvzOetMyW84VA==
+	t=1794174587;
+	b=aQx1KzokpilzyKjU5M0kXXB4hF9U7W4JyTmBfk8YnPHGkftTUsb8Dw36Q6MvrO7xWGjU
+	 6sLSJmtVBAdF9XZEAjc3OYQOq9Mp730L2uLwwwKfld11ZiFjD59/U1NxG0wpN1PSHJvk2
+	 1FwKclJzfloJ7IwJm5na4pCly+yj/i83Cj24D3bRphex/bc/3T5jdTEUAJcHTlTyg1j7W
+	 ay2lYEvaEgKQ5HoMRkAFeXXqQzVF1MUMLjlXWmkA35BHJdHn6757cMukiGOuXNqC6FmH8
+	 3bh/0+ES4KBlM21N5R2Vtgv7jJ3H8iXi+HAWZjO/2C60YWfaVJdwy1Vut3JeHT9z4+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794174586;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794174587;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=yNM8MMX4EwR/xvir8JTuxVDdsKXGEHA78sJHhjPmsHA=;
-	b=lxJEnJ/kdYyUGIUzJO8td85dwMwrwS8ZPS566D+cwj9O/cV272vGb+NSXX68mBPlCv+m
-	 z0SWfbJFx7mH/CvxC+fzclxyQ3OUWb5csXRp1Oe3U08JU2WLL2aZw9yJw9x80c7fcOpHi
-	 G46XWji/mdFZweey7/5rgBU9nihVwzVL2NuvIeVCovOoW5sqREjMB0z8VYa0AK3QSENjQ
-	 JhBOszbHJB3ttVKcfSSzIf1XS0/PSaV0XZXSRnsa+EURSPHYq4NZ6a2BHdvwMSpKOBKFM
-	 8ZTwZ2XyzCO66zZGTlOaGsngrq6LKUHVHgcKvDPRVzmevGoTELbevzfL/oHrFno+oOA==
+	bh=Ds1vGYi06IDtrERMc8egowDuQYn1y7mXhqlbOZvkhvM=;
+	b=R36tGviOTb38Go9S4fMI5zXM/J/FQRPH4LhECzS7jW+XG81OR/M12Zv7XseJ2ZXAfGoD
+	 ojZm4I+pDhGoY3EFPFQxDM4Mz/yJKQqZlqoo2rspE6pwieV/M0xkIO3WAwWS9A1e6o9V9
+	 bcrVX0FB5SO8QFMqmhbEsFaoqTd35zHvlDsiO/FR1PhqSmf8KhzQl6Eidal9ub/uQaxnq
+	 cIShMXV2UbGgHW4RKN9Hd8s+Id88kKK8Im3QAVV8c5pk4WTkTWBoayFOjWw8c4NELa0qq
+	 uN/ERCTElFBRIOEo2HEUx+QtjVNOdbvv33HWii6t9f4Z0vqk/oyrJGgc27m1gnoYfVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=3Q7f68oF;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="yuXB1/Z4";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=n6ipgnkr;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CSCNo8Mf;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 305C1606D801;
-	Sun,  8 Nov 2026 21:49:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 305C1606D801
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295A3606D80E;
+	Sun,  8 Nov 2026 21:49:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 295A3606D80E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=3Q7f68oF;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=yuXB1/Z4
-Date: Sun, 08 Nov 2026 21:49:43 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=n6ipgnkr;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=CSCNo8Mf
+Date: Sun, 08 Nov 2026 21:49:35 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794174584;
+	s=2020; t=1794174577;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=yNM8MMX4EwR/xvir8JTuxVDdsKXGEHA78sJHhjPmsHA=;
-	b=3Q7f68oFuhOA1JhHC6j9rzyCmJLWBWbE32fmJlV1O/Uj5moCXS8Pjld2KjNou/fOknVXNd
-	RGSvmtV17xw3LNpiuar1tggyvVzppPvciBKszMi1J53NFZm6JOd0n/vZPnVov4EFiXnx0d
-	yLRxNUF2XoOr861FSc7Edv7bjI138AOHpiD1XS2K/o8Njep14JRQ52rhUZuK1wDfnvsty+
-	JWwGy0bFjgFoNUjekC/F7jA+Ms1Vgi7GiqWvi/PeapoxRZuphOYRp4w6sqgO6TB8v58Bcq
-	xy8uxUvOS4FbdIpOlO/WolgAAkF2mgPLP4zW94al0zPRYfAwQiW4Tg8FPYjPpA==
+	bh=Ds1vGYi06IDtrERMc8egowDuQYn1y7mXhqlbOZvkhvM=;
+	b=n6ipgnkrk5qBOlnp03/HfZUzswsPs7reM6y1VL1qy3mp4LaFo/j3/Jvkw9EZ9ovdpLhfOU
+	cUpJQvrA6H9Z+TFx5ho1eUok4Vqwyn9Mw1sNd3n837qndVppYbAJaosG5UYUi2Uf66XBO8
+	iks2b/GAdli83gGWSSkNPemL+KgdQXiR6TmXhQtuqnqbJI3co9t6pMxtV44ccUKzTxcuBI
+	8BzbqvtS60Y/BhIUB4JMvJtJ+NL1TWM8oWOuxd4hJWVstgkJ9eMaDcBNeOzQb3F9yNHOnt
+	X2yHp+Og9WnzGJetOTjjiEhFmbC+etZI748Y+Gc/bi0kYxdxADWLl+CMttFflw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794174584;
+	s=2020e; t=1794174577;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=yNM8MMX4EwR/xvir8JTuxVDdsKXGEHA78sJHhjPmsHA=;
-	b=yuXB1/Z4zmCTtqBxSTyzEkERYlchhGDuKFvY4CimMLwk4eaeMAN6BSYhN8CBHEgnZIfpib
-	XpqU/dJOsadVYUCg==
-From: "tip-bot2 for Peng Fan" <tip-bot2@linutronix.de>
+	bh=Ds1vGYi06IDtrERMc8egowDuQYn1y7mXhqlbOZvkhvM=;
+	b=CSCNo8MfDZRnDW+pQc3oexVZkBuJ2AXjFObXZlZO6O8jVUXyz+LZOLV0djgMoIcaf0Eihm
+	LCB/+GP/3teI86Bg==
+From: "tip-bot2 for Zhipeng Wang" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
 Subject:
- [tip: irq/drivers] genirq/chip: Add guard_chained_irq() cleanup helper
-Cc: Peng Fan <peng.fan@nxp.com>, Thomas Gleixner <tglx@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261013-guard_chain_irq-v1-1-cdbf490510e5@nxp.com>
-References: <20261013-guard_chain_irq-v1-1-cdbf490510e5@nxp.com>
+ [tip: irq/drivers] irqchip/imx-irqsteer: Mask all interrupts in probe()
+Cc: Zhipeng Wang <zhipeng.wang_1@nxp.com>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261104073759.386777-6-Zhipeng.wang_1@oss.nxp.com>
+References: <20261104073759.386777-6-Zhipeng.wang_1@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,7 +78,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179417458323.2093942.14330197609841896598.tip-bot2@tip-bot2>
+Message-ID: <179417457566.2093942.10211601329840267009.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -88,96 +88,62 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the irq/drivers branch of tip:
 
-Commit-ID:     6cf0d999a18e799965cf2cf4a0157e257c805946
-Gitweb:        https://git.kernel.org/tip/6cf0d999a18e799965cf2cf4a0157e257c8=
-05946
-Author:        Peng Fan <peng.fan@nxp.com>
-AuthorDate:    Tue, 13 Oct 2026 10:08:45 +08:00
+Commit-ID:     f98835ded6dcbb9df327023320d1947fecdfbff5
+Gitweb:        https://git.kernel.org/tip/f98835ded6dcbb9df327023320d1947fecd=
+fbff5
+Author:        Zhipeng Wang <zhipeng.wang_1@nxp.com>
+AuthorDate:    Wed, 04 Nov 2026 16:37:53 +09:00
 Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Sun, 08 Nov 2026 22:43:43 +01:00
+CommitterDate: Sun, 08 Nov 2026 22:43:44 +01:00
 
-genirq/chip: Add guard_chained_irq() cleanup helper
+irqchip/imx-irqsteer: Mask all interrupts in probe()
 
-Chained interrupt handlers bracket their work with a
-chained_irq_enter() / chained_irq_exit() pair. Because the exit call
-has to be repeated on every return path of the handler, it is easy to
-forget one when a new early-return is added, leaving the parent chip
-masked or un-EOIed.
+probe() sets up the chained handlers without first masking the input
+interrupts. For a built-in driver this happened to be harmless because
+CHANMASK resets to all-masked, but once the driver can be unloaded and
+reloaded a child interrupt left unmasked at unload time survives in
+hardware. On the next probe() the parent interrupts are re-mapped and
+unmasked before the new domain is ready, so a still-asserted line
+immediately storms the parent with no handler to service it.
 
-Provide a scope-based cleanup helper built on the DEFINE_CLASS()
-infrastructure:
+Mask all interrupts in probe() before wiring up the chained handlers.
+CHANMASK uses inverted polarity (a set bit enables the interrupt), so
+masking means writing zero. This mirrors the sibling NXP chained mux
+irq-imx-intmux.c, which masks all sources at probe() time.
 
-  guard_chained_irq(chip, desc);
+Masking is only done in probe(), not in remove(): the next probe()
+quiesces the hardware before it re-maps and unmasks the parent
+interrupts, which is the only window in which a stale line could storm.
+Masking in remove() would also mean touching CHANMASK while the device
+may already be runtime-suspended with the clock gated.
 
-invokes chained_irq_enter() immediately and arranges for the matching
-chained_irq_exit() to run automatically when the enclosing function
-(or compound statement) scope ends, no matter which return path is
-taken. This removes the need to spell out the exit call by hand.
-
-The chained_irq_enter() call and the context struct are built directly
-in the DEFINE_CLASS() constructor expression, so no separate helper
-function is required.
-
-Signed-off-by: Peng Fan <peng.fan@nxp.com>
+Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20261013-guard_chain_irq-v1-1-cdbf490510e5@nxp=
+Reviewed-by: Radu Rendec <radu@rendec.net>
+Link: https://patch.msgid.link/20261104073759.386777-6-Zhipeng.wang_1@oss.nxp=
 .com
 ---
- include/linux/irqchip/chained_irq.h | 36 ++++++++++++++++++++++++++++-
- 1 file changed, 36 insertions(+)
+ drivers/irqchip/irq-imx-irqsteer.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/include/linux/irqchip/chained_irq.h b/include/linux/irqchip/chai=
-ned_irq.h
-index dd8b3c4..6a1a8e8 100644
---- a/include/linux/irqchip/chained_irq.h
-+++ b/include/linux/irqchip/chained_irq.h
-@@ -7,6 +7,7 @@
- #ifndef __IRQCHIP_CHAINED_IRQ_H
- #define __IRQCHIP_CHAINED_IRQ_H
+diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-imx-irq=
+steer.c
+index 9bf739a..7451c15 100644
+--- a/drivers/irqchip/irq-imx-irqsteer.c
++++ b/drivers/irqchip/irq-imx-irqsteer.c
+@@ -239,6 +239,14 @@ static int imx_irqsteer_probe(struct platform_device *pd=
+ev)
+ 	if (irqsteer_has_chanctrl(data->devtype_data))
+ 		writel_relaxed(BIT(data->channel), data->regs + CHANCTRL);
 =20
-+#include <linux/cleanup.h>
- #include <linux/irq.h>
++	/*
++	 * Mask all interrupts before wiring up the chained handlers. CHANMASK
++	 * has inverted polarity (a set bit enables the interrupt), so writing
++	 * zero masks the source.
++	 */
++	for (i =3D 0; i < data->reg_num; i++)
++		writel_relaxed(0, data->regs + CHANMASK(i, data->reg_num));
++
+ 	platform_set_drvdata(pdev, data);
 =20
- /*
-@@ -38,4 +39,39 @@ static inline void chained_irq_exit(struct irq_chip *chip,
- 		chip->irq_unmask(&desc->irq_data);
- }
-=20
-+/*
-+ * Scope-based variant of the chained_irq_enter()/chained_irq_exit() pair.
-+ *
-+ * guard_chained_irq() invokes chained_irq_enter() immediately and arranges
-+ * for the matching chained_irq_exit() to run automatically when the
-+ * enclosing function (or compound statement) scope ends, no matter which
-+ * return path is taken. This removes the need to spell out chained_irq_exit=
-()
-+ * on every exit path of a chained handler.
-+ *
-+ * Usage:
-+ *
-+ *	static void foo_irq_handler(struct irq_desc *desc)
-+ *	{
-+ *		struct irq_chip *chip =3D irq_desc_get_chip(desc);
-+ *
-+ *		guard_chained_irq(chip, desc);
-+ *		... handle the interrupt, return freely ...
-+ *	}
-+ */
-+
-+/* Internal context for guard_chained_irq(); not for driver use. */
-+struct __chained_irq_guard_ctx {
-+	struct irq_chip *chip;
-+	struct irq_desc *desc;
-+};
-+
-+DEFINE_CLASS(chained_irq, struct __chained_irq_guard_ctx,
-+	     chained_irq_exit(_T.chip, _T.desc),
-+	     ({ struct __chained_irq_guard_ctx _T =3D { .chip =3D chip, .desc =3D d=
-esc };
-+		chained_irq_enter(_T.chip, _T.desc); _T; }),
-+	     struct irq_chip *chip, struct irq_desc *desc)
-+
-+#define guard_chained_irq(chip, desc) \
-+	guard(chained_irq)(chip, desc)
-+
- #endif /* __IRQCHIP_CHAINED_IRQ_H */
+ 	ret =3D devm_pm_runtime_set_active_enabled(&pdev->dev);
