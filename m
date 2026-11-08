@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794141574;
-	b=3j69UWwG6fTw77/RDl9CxDEmpx4vrNtIcTyQHQB3YQ7xI/ivqqOo8fIPlXAomCiAKGGi
-	 IFafbvVcQ1jSN9NTGAxkCGdrJsb5fFnftDRaQsLE2D+rdv5UJedBuKpt3pmGItMIAptJ+
-	 oqUOjV3/aUVcYsyA1I9DL/Q+weKW0p/lj67E/5FEW1PW7NKutroS3oa9jLFfkPchPiJH7
-	 N/6KHE0qHtOv0tvrquNMWyqpkkzcyB3GlDhLtqW7gRu+2AB5XuElj7lZH6QtXB4jPSogB
-	 y5dgza4DIF9uz1ccqVjgKe991WFiILuiVGeBkwF6YJf0Ihg/r4tFDo9I8/PqrZ/c3iA==
+	t=1794141578;
+	b=YK4lOdiF5VETZwppI8/dHTTuwGqwYKGeObCaGOwey+2H4teTZ7T8d4KLdicA7QX2VuFM
+	 +P5AmPaWaukJ2XuNuYyhFK1yPEygN18DVvc0jTlsZEoa8ND8cFS8cx1hgUhwavirj8sG9
+	 Q+A2IPVCmZlGlZiZZBRhRPgALoakjgdw4RUPPtFITKsHWIy9wLSc4kgQATv4IV5XbLtJN
+	 vLMcfP3di3vIIJO2pQnsk2qP+ICxaMjivRt5Yxd1KCsIg9Ulajan/VA0WGx37k9ZpHAZL
+	 2X7ocIDZk4Vbc8sKw45de7kykqDj41kTCWa3gWS9yFpdBzLNLbHilEhTyLNJePoyMhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794141574;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794141578;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=2CtE1xbQJnYr2V8UN6I3X9KLuyotoxUeIkthClIT48g=;
-	b=YhaAz+9CUoKPNmvXtPoTUl2cta7NsSORiktpWyo8U4nBpUCmK5pnkwxBKqADndFIYM0B
-	 EqHB35Pr9OAtaoyaPw/4eAlFnbA+z2DOMnlLH0tL87RICZ8fWvfjO8HpnTSFmFZ6F9pLI
-	 AyWYyPAp5GpsexbvKdnLeblvDejG5PSYXInpb7QxmSdjcs6pnVH4bmSAhnZT6jYaIZM++
-	 gESLCVHjnMD+saFp/ttyJbKOBuC6fL/brQ/yEiQkUjVJ0EWEPlo8VWvuCpAMqHVyGQ2+f
-	 0lQD0p4YrybwtyKsPX9t6mxSFOcX9ufGh8gnHdfrUj7Pb1wF6AmeJlt0nt2TGON20CA==
+	bh=I1s1PhM2oicK32SyeX3T0R0ctGmp+T+Ox2QSkZMKbMk=;
+	b=ED+XTCeSbyHqlKGb+AdnwhpGvOeRceZZhU1SxJkvhCrjL308FsGihbQBovaPackByrm0
+	 ZfoDx2MQF9q60kkMjLsfocbZTLRxxgg0IVeGJ8ZpaDSA4RL3S2crFB/3aRUbuPsB9T9Rk
+	 6iWQ6u5VOWpV4b8K/z+KDavE6MhHCMTpGIVt9I6QCaqwWjx/Utxg5GPLK84gVbqvvmjm+
+	 VvAwT2lYQ+y4bBack0yCYoYx+yOyhDrtAUHxitxc2Ocl+F0rOlikVtzj/mQbh4ZoiB4cp
+	 ly4z14hD2vUG8D26UUL7a6ZeI8cYJa/NSSPVREUkovfrjL6nZwCWqWyQbT05e2aNbVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XYKTYjq6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CHYeVXAD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834A3606A336;
-	Sun,  8 Nov 2026 12:39:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC75606D80F;
+	Sun,  8 Nov 2026 12:39:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XYKTYjq6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D00431F008A3;
-	Sun,  8 Nov 2026 12:39:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CHYeVXAD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2170E1F0089F;
+	Sun,  8 Nov 2026 12:39:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794141574;
-	bh=2CtE1xbQJnYr2V8UN6I3X9KLuyotoxUeIkthClIT48g=;
+	s=k20260515; t=1794141577;
+	bh=I1s1PhM2oicK32SyeX3T0R0ctGmp+T+Ox2QSkZMKbMk=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XYKTYjq62Sgrqc4SHsDp1Bt4gv5bDqBfEJTkNKWdJCg5oI06rN18+d7WCfGSS5U53
-	 PgOLsX+Fkx/PlV+VofsYO2tBd8t7zcj6XnHx+hpo7HZlOQ1gkcJd8y1fFvJf6DxxSD
-	 0R9CY2jAUHY2gorHkBWdWqyT+8dCo76pBj1szF0vpvtueM+BbF5ps+yllE4q5u2Xg6
-	 4KCuueylm6vPZVA587SJNIi5Mm8SRmxt5xYNSSVDh/XjDGEeRRn+Nwm0dLsKgWchfW
-	 dzf9FPdj1TijrgFg14XZgsZnPZW540BqzBf7tZg/ePmPeDFL0qnIdavEbSnAmAe9im
-	 zx8ZCeCYq/9jw==
-Subject: Re: [PATCH net-next v4 3/8] net: dsa: motorcomm: Reset port flags on
- bridge leaving
+	b=CHYeVXADcKihAaf7y2j65gRy1WboUKilskExqrfWnU3vQMaLTMZXIB0jueARsOwBx
+	 IU7PaTECMIQvb5xVJi9SOsW+YnWLOE8+73EebCg3N3+tvaJYn89Koq3RxE9SZbEV+x
+	 gKg1WtFvgO1hWrQ89ynFbQtfmUCgCd62mHbgYAavqSSdzeJn9qkunw31A9prbNya/U
+	 c2UDyHfXCRzdlkW2pEuR1DFe6jc/MD3tDrAUALtMV5Ocvnwx9iqGRu6Z23N+6/WU1B
+	 VHKE60RpW8d2KRBBEDF8Xcj+w1RVc4Q3ViTqf3tP+jxNrw1EVUXql7pBwAv+iVT8ty
+	 AGOtkhN0IBnvA==
+Subject: Re: [PATCH net-next v4 6/8] net: dsa: motorcomm: Rely on port
+ isolation for conduit port
 From: netdev-bot+sashiko@kernel.org
 To: mmyangfl@gmail.com
 Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
  davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  linux-kernel@vger.kernel.org
-Date: Sun, 08 Nov 2026 12:39:33 +0000
-Message-ID: <179414157335.994134.3474239739070494244@kernel.org>
-In-Reply-To: <20261107121631.1040612-4-mmyangfl@gmail.com>
-References: <20261107121631.1040612-4-mmyangfl@gmail.com>
+Date: Sun, 08 Nov 2026 12:39:36 +0000
+Message-ID: <179414157668.994134.463682835559182056@kernel.org>
+In-Reply-To: <20261107121631.1040612-7-mmyangfl@gmail.com>
+References: <20261107121631.1040612-7-mmyangfl@gmail.com>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -67,7 +67,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 2
+Critical: 0 · High: 2 · Medium: 0 · Low: 1
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -75,147 +75,191 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] This patch resets pp->isolated and pp->hairpin in
-  yt921x_userport_standalone() when a port leaves a bridge, but nothing…
-- [Low] The patch fixes a user-visible forwarding bug: a port that
-  rejoins a bridge is programmed with stale hairpin/isolation state in…
-- [Low] The new comment in the shared helper yt921x_userport_standalone()
-  says "The return value got ignored by DSA core".
+- [High] This patch inverts the isolation logic in
+  yt921x_userport_standalone()…
+- [High] This patch makes the CPU port's PORTn_ISOLATION register the
+  only hardware guard against untagged conduit traffic.
+- [Low] yt921x_isolate() (drivers/net/dsa/motorcomm/chip.c:1225-1227)
+  skips with `if (dsa_is_cpu_port(&priv->ds, port) || i == port)…
 
 --
 
-net: dsa: motorcomm: Reset port flags on bridge leaving
+net: dsa: motorcomm: Rely on port isolation for conduit port
 
-This patch clears the cached pp->hairpin and pp->isolated flags in
-yt921x_userport_standalone() when a port leaves a bridge. The goal is to
-keep stale BR_HAIRPIN_MODE and BR_ISOLATED state from being programmed
-on the next bridge join.
-
-> DSA does not clear BR_HAIRPIN_MODE and BR_ISOLATED when a port leaves
-> a bridge, so the cached flags survive into the next bridge join and
-> program stale hairpin and port isolation state.
->
-> Reset them when leaving the bridge.
->
-> Signed-off-by: David Yang <mmyangfl@gmail.com>
-
-[Severity: Low]
-Should this have a Fixes: tag? The caching of pp->hairpin and
-pp->isolated in yt921x_bridge_flags(), with no reset on leave, comes
-from the original driver commit:
-
-Fixes: 186623f4aa72 ("net: dsa: yt921x: Add support for Motorcomm YT921x")
+This patch takes the ~0 isolation that yt921x_chip_reset() writes to the
+conduit port and makes it the only drop mechanism for untagged traffic
+sent on the conduit. To do that it removes the explicit CPU port
+isolation rewrite from yt921x_port_setup(), drops the ACT_UNK drop action
+for CPU ports, and takes CPU ports out of FILTER_UNK_UCAST/MCAST.
 
 > diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index 47f06945b8c4e..c51491ef4dae5 100644
+> index 32701f9e687fa..1b05ac29ecd76 100644
 > --- a/drivers/net/dsa/motorcomm/chip.c
 > +++ b/drivers/net/dsa/motorcomm/chip.c
-> @@ -1158,10 +1158,17 @@ yt921x_dsa_port_vlan_add(struct dsa_switch *ds, int port,
->
->  static int yt921x_userport_standalone(struct yt921x_priv *priv, int port)
->  {
-> +	struct yt921x_port *pp = &priv->ports[port];
->  	u32 mask;
->  	u32 ctrl;
->  	int res;
->
-> +	/* The return value got ignored by DSA core, reset flags before touching
-> +	 * the hardware.
+
+[ ... ]
+
+> @@ -1170,10 +1170,17 @@ static int yt921x_userport_standalone(struct yt921x_priv *priv, int port)
+>  	pp->hairpin = false;
+>  	pp->isolated = false;
+>  
+> -	ctrl = ~dsa_cpu_ports(ds);
+> -	res = yt921x_reg_write(priv, YT921X_PORTn_ISOLATION(port), ctrl);
+> -	if (res)
+> -		return res;
+> +	/* Conduit ports should by controlled by tagging completely, skip
+> +	 * setting isolation to preserve the one-way isolation installed
+> +	 * by yt921x_chip_reset().
 > +	 */
-
-[Severity: Low]
-This isn't a bug, but is this comment accurate for both callers of
-yt921x_userport_standalone()?
-
-It holds for yt921x_bridge_leave(), which is reached from the void
-.port_bridge_leave op. yt921x_port_setup() also calls this helper and
-returns its error:
-
-yt921x_port_setup() {
-    ...
-	res = yt921x_userport_standalone(priv, port);
-	if (res)
-		return res;
-    ...
-}
-
-That error goes back through .port_setup, and dsa_port_devlink_setup()
-in net/dsa/devlink.c propagates it:
-
-	if (ds->ops->port_setup) {
-		err = ds->ops->port_setup(ds, dp->index);
-		if (err)
-			return err;
-
-Could the reset and this comment go into yt921x_bridge_leave() instead?
-
-> +	pp->hairpin = false;
-> +	pp->isolated = false;
+> +	if (dsa_is_cpu_port(ds, port)) {
+> +		ctrl = ~dsa_cpu_ports(ds);
+> +		res = yt921x_reg_write(priv, YT921X_PORTn_ISOLATION(port),
+> +				       ctrl);
+> +		if (res)
+> +			return res;
+> +	}
 
 [Severity: High]
-Now that the cached flags are cleared on leave, does anything restore
-them on the next join?
+Is this condition inverted? The comment says conduit ports are skipped so
+they keep the isolation from yt921x_chip_reset(). With
+if (dsa_is_cpu_port(ds, port)), though, only CPU ports get written with
+~dsa_cpu_ports(ds), and every user port is skipped.
 
-dsa_port_inherit_brport_flags() in net/dsa/port.c only replays this
-set:
+At probe, yt921x_chip_reset() writes ~0 to every PORTn_ISOLATION register.
+yt921x_port_setup()->yt921x_userport_standalone() then runs for each port:
 
-	const unsigned long mask = BR_LEARNING | BR_FLOOD | BR_MCAST_FLOOD |
-				   BR_BCAST_FLOOD | BR_PORT_LOCKED;
+  - CPU ports are overwritten with ~dsa_cpu_ports(). That clears their
+    block bits toward themselves and toward other CPU ports. This patch
+    also removes the ~0 rewrite from yt921x_port_setup(), so nothing
+    restores the one-way isolation.
 
-So BR_ISOLATED and BR_HAIRPIN_MODE on the bridge port never reach the
-driver on join. The bridge doesn't replay brport flags either.
-nbp_switchdev_sync_objs() only replays VLAN, MDB and FDB objects.
+  - User ports are never written and stay at ~0. That also blocks them
+    toward the CPU port.
 
-This driver implements .port_lag_join. Take a bond that is a bridge
-port and already has "bridge link set dev bond0 isolated on" (or
-"hairpin on") applied, so yt921x_bridge_flags() has cached the flag on
-each yt921x member.
+Unknown unicast and multicast are still trapped. However, the driver notes
+in yt921x_bridge_flags() that broadcast can be filtered but not trapped,
+and isolation is applied after the FDB lookup. Would broadcast frames
+received on standalone user ports, such as ARP requests or DHCP, be
+dropped before they reach the host?
 
-Then a member leaves the bond and rejoins, or a new member is added:
+This patch also removes the ACT_UNK drop action and the FILTER_UNK
+coverage for CPU ports in yt921x_chip_setup_dsa(). The CPU port isolation
+is now the only guard for untagged conduit traffic, and it is no longer
+~0. In multi-CPU setups, could untagged frames from one conduit be
+forwarded to another CPU port, or hairpinned back?
 
-dsa_port_lag_leave()
-  dsa_port_bridge_leave()
-    yt921x_dsa_port_bridge_leave()
-      yt921x_bridge_leave()
-        yt921x_userport_standalone()
-          pp->hairpin = false;
-          pp->isolated = false;
+yt921x_bridge_leave() also relies on this function to reset the
+isolation register of the leaving port:
 
-dsa_port_lag_join()
-  dsa_port_bridge_join()
-    yt921x_dsa_port_bridge_join()
-      yt921x_bridge_join()
-        yt921x_bridge()
+yt921x_bridge_leave()
+    yt921x_userport_standalone(priv, port);
+    yt921x_isolate(priv, port);
 
-yt921x_bridge() builds YT921X_PORTn_ISOLATION(port) only from the
-cache:
+That reset no longer happens for user ports. This is masked for now
+because yt921x_bridge() never programs user port registers (see below).
+Once that is fixed, wouldn't a port leaving a bridge keep its bridge-time
+value? It could then still forward to its former peers, because
+yt921x_isolate() only blocks the peer->port direction.
 
-		ctrl = ~ports_mask;
-		if (pp->isolated)
-			ctrl |= isolated_mask;
-		if (!pp->hairpin)
-			ctrl |= BIT(port);
+The condition is unchanged at the end of the series, in "net: dsa:
+motorcomm: Support BR_FLOOD and BR_MCAST_FLOOD offloading". Was the
+intended test if (!dsa_is_cpu_port(ds, port))?
 
-Wouldn't this leave the port without isolation and hairpin in hardware?
-It would also be dropped from isolated_mask for the other isolated
-ports. Meanwhile "bridge link show" still reports bond0 as isolated, and
-the hardware stays wrong until the user toggles the flag again.
+>  
+>  	/* Turn off FDB learning to prevent FDB pollution */
+>  	mask = YT921X_PORT_LEARN_DIS;
 
-Before this patch, the stale cache happened to keep a rejoining member
-correct, so the rejoin case looks like a regression. The commit message
-says the aim is correct hairpin and isolation state on the next bridge
-join, and this LAG path still doesn't get there.
+[ ... ]
 
-Would it be better to sync these flags on join? One way is to add
-BR_HAIRPIN_MODE | BR_ISOLATED to the inherit and clear masks in
-net/dsa/port.c, which would make the driver-local reset unnecessary.
-Another is to read br_port_flag_is_set() on the bridge port in the
-driver's bridge join path.
-
-> +
->  	ctrl = ~priv->cpu_ports_mask;
->  	res = yt921x_reg_write(priv, YT921X_PORTn_ISOLATION(port), ctrl);
+> @@ -2302,7 +2285,7 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
 >  	if (res)
+>  		return res;
+>  
+> -	ctrl = GENMASK(10, 0);
+> +	ctrl = GENMASK(10, 0) & ~cpu_ports_mask;
+>  	res = yt921x_reg_write(priv, YT921X_FILTER_UNK_UCAST, ctrl);
+>  	if (res)
+>  		return res;
+> @@ -2325,13 +2308,6 @@ static int yt921x_chip_setup_dsa(struct yt921x_priv *priv)
+>  	ctrl = 0;
+>  	for (int i = 0; i < YT921X_PORT_NUM; i++)
+>  		ctrl |= YT921X_ACT_UNK_ACTn_TRAP(i);
+> -	/* Except for CPU ports, if any packets are sent via CPU ports without
+> -	 * tag, they should be dropped.
+> -	 */
+> -	for_each_set_bit(port, &cpu_ports_mask, YT921X_PORT_NUM) {
+> -		ctrl &= ~YT921X_ACT_UNK_ACTn_M(port);
+> -		ctrl |= YT921X_ACT_UNK_ACTn_DROP(port);
+> -	}
+
+[Severity: High]
+This removes the drop action for CPU ports, and the hunk above takes CPU
+ports out of FILTER_UNK_UCAST/MCAST. Both changes assume the conduit keeps
+the ~0 isolation from yt921x_chip_reset(). Does that still hold after a
+bridge join?
+
+yt921x_bridge() has:
+
+static int yt921x_bridge(struct yt921x_priv *priv, u16 ports_mask)
+{
+	unsigned long targets_mask = ports_mask & dsa_cpu_ports(&priv->ds);
+	...
+	/* Block from non-cpu bridge ports ... */
+	for_each_set_bit(port, &targets_mask, YT921X_PORT_NUM) {
+		...
+		/* to non-bridge ports */
+		ctrl = ~ports_mask;
+		...
+		res = yt921x_reg_write(priv, YT921X_PORTn_ISOLATION(port),
+				       ctrl);
+
+In the baseline this mask was ports_mask & ~priv->cpu_ports_mask, which
+matches the "Block from non-cpu bridge ports" comment. The ~ was lost in
+the earlier "net: dsa: motorcomm: Remove local cpu_ports_mask" commit in
+this series.
+
+Both yt921x_dsa_port_bridge_join() and yt921x_bridge_flags() (on
+BR_HAIRPIN_MODE or BR_ISOLATED changes) OR dsa_cpu_ports() into
+ports_mask. The loop therefore rewrites only the CPU port register, with
+~ports_mask | BIT(cpu), which unblocks the conduit toward every bridge
+member.
+
+With the drop action and FILTER_UNK coverage gone, can untagged
+broadcast and unknown unicast/multicast sent on the conduit now reach the
+bridged user ports without going through the DSA tag? IPv6 link-local
+NDP/MLD/RS that the host sends on the conduit netdev would be one source
+of such frames.
+
+The isolation registers of the bridged user ports themselves are never
+programmed, so they stay at ~0. Would learned unicast between bridge
+members then be dropped by isolation after the FDB lookup? And would
+broadcast from bridged ports be unable to reach the CPU?
+
+This mask is also unchanged at the end of the series, in "net: dsa:
+motorcomm: Support BR_FLOOD and BR_MCAST_FLOOD offloading".
+
+[Severity: Low]
+On the same subject of CPU port isolation registers, yt921x_isolate() has:
+
+	for (int i = 0; i < YT921X_PORT_NUM; i++) {
+		if (dsa_is_cpu_port(&priv->ds, port) || i == port)
+			continue;
+
+Should this test i instead of port? The baseline was
+(BIT(i) & priv->cpu_ports_mask) || i == port.
+
+yt921x_dsa_port_bridge_leave() returns early for CPU ports, so port is
+always a user port here. As a result the CPU port registers are no longer
+skipped, and BIT(port) gets set in them. Those are the registers this
+patch says should stay as yt921x_chip_reset() left them. The extra bit
+moves the conduit toward ~0, so there is no visible forwarding regression.
+
+The wrong variable came in with "net: dsa: motorcomm: Remove local
+cpu_ports_mask" and is still there at the end of the series.
+
+>  	res = yt921x_reg_write(priv, YT921X_ACT_UNK_UCAST, ctrl);
+>  	if (res)
+>  		return res;
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107121631.1040612-1-mmyangfl%40gmail.com
