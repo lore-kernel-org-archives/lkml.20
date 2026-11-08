@@ -1,77 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794150184;
-	b=REQc2nCAZSiPPuvJ910xq4u1ZON0bAKuy6Tr+nc5iFtFDbG/TH0zfTfJunj57lqcT7/k
-	 eIwkFGehjpyDHMpGVcEvZBYyUuYQsZKOiQht8yNs/zQJhCNf0X39RinKkaVx08K8Erz3s
-	 BARGg3TP3Y/b/8y/27tz4Uprgq/M4iIY5Oyv3BD0LeT1eojOc5/FG+yVycjxjGQEmRFmN
-	 3UFN+jAM2N78dPgMi7A7U40B94EHACd61/1ufhFrkaapg1pOqalokAghi7H/qC9bPLgpo
-	 8/vF8cSh7m1z95l5zkqdfR75iz9dZQp6pxs0JvzL4RRd2tRY9xEzM6eUjUGfi6b/eHg==
+	t=1794150223;
+	b=tw35ckS4tk0gH3p7DBgbiMOdUUDvtzjFDIuICq46n4c+4y35U5hzlJTLVzsBLxLENcxO
+	 sFEZnn2J/9okRb7DjdrCu852JUUAI1kmjiTYCFwI2RgF8o53jLZJf7vlnPwhQZumiBEY3
+	 WZ3Cfi/0yjV4zmHr6/OIGg/8khaOZ8UoqLCBfDhXtMlo0unqwbM2vZTzQZhdCOWJ3sbHi
+	 5RoNy4qQCqMtxKdJ3O5447RtD1DcXMylF65JyNokgFTOZP/6S+8y5prYVpgf2OIemiAzN
+	 yqaoSN1YC2zgThS/eVYJU8Y+u/S6yX4yjlDO2a3HgJncvkbYG+rgTOZ3WenyozlF+Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794150184;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=bZMDDSEbstrrBxqro/V4y0hp97EWTM7ZBohHqqfsHp4=;
-	b=WY+IfhfIvl9JRJkEBCZKh8UoF24HF5LGda9+/ooQ+Gruk3DV2+ou8Rxo88d4fDexB11k
-	 iJeGJeMgk4RTZZblpPtcSZuZzfufqCdu0N4bXXvgwHDcvt1wnfN6X5F2N/d1LHGPWTEKV
-	 WEP7yBBbcZna1uxd8nxOlr6TkWZ9x07Q4Kiw58uDtXJfxo1Q4L34cPedI5HNUkZPL+duO
-	 7cN0awmoQ4gf9nnw7+w7T5RBFVC69nEtQNqEvFHMtzV3ZSq1i19zLeWcXFYI49klWjT9M
-	 uHO3LeSHQkscq+NE0PxFHAfCZ1AqZVXXcbf8JK/L7ivR214fboVu0WDP2B7r9kX9zTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794150223;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=QbYiVhTzlQpnBAy6zKPAAIvl7xIK7BIFFyDILWvOq84=;
+	b=W8cGnrWEDW22zttCC/cptDysr8vqE0Mg3Z8FblOI/wG8q9JA3sYfQiHzmMeFD5mtk2rP
+	 QGEdZtjUBA87rPB3ED756LWqppBfrS5F11Ygtps3DjGWuyDqkq0YR/MeEn7fQVGVptDZL
+	 NJz8+rfFuWEziTvpyEa5J+pDamEIDfXNJcpE/nWI+6oMbwrQ3QRSFo33DDEYPdLRRLZ0k
+	 r0iCMG3ggiWh2bQARixngC5980wVW8a9VdJdA6z9UECYXx013M4RZ7gleAELYRQwVKtO/
+	 vUTHIUBFPZHIwsSOhBlY7S/EQ1CoFeKlEf9vtnXbWZp3FmFfbiQ+4J58Ftj52GyI07A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.parknet.co.jp;
-	spf=pass smtp.mailfrom=parknet.co.jp;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b="HL7zu/AH";
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=Qo1vOSPm;
-	arc=none smtp.remote-ip=210.171.160.6
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCsa70S1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045CC606A31C;
-	Sun,  8 Nov 2026 15:03:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 045CC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394C5606A31C;
+	Sun,  8 Nov 2026 15:03:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=HL7zu/AH;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=Qo1vOSPm
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 4A03320BD289;
-	Mon,  9 Nov 2026 00:03:01 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1794150181;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bZMDDSEbstrrBxqro/V4y0hp97EWTM7ZBohHqqfsHp4=;
-	b=HL7zu/AHW2aD8+DnmDe1Fdquyt3x44oI+n93C8etOO3SojOm3S6b7xABPNMK5Vgt2Hrerz
-	Y56eyo0U44Hd1td/X72LxOyeT8Rmaq7lEHqz6juziNlKhowEpgKYYgWDWzAmklJvno1xW/
-	gjHd13/icumay+zlHPqjEWcCmPyYKFu0VzOvpsGkW/b1YCNfKOga2Y/B5hwgd+Cxke1Gq0
-	AUVy/JsylG+QzBJk2CbJtqVyPCiE5FCHsu974y9Whm4JLYSMV33BUa7eGWiHi4qoBgtUMy
-	x06q25r/E9iOzaRa718Oy9Wrywi773Xr3ePgb/eKO/0+zM5aVxhcFDy9TT1ceA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1794150181;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bZMDDSEbstrrBxqro/V4y0hp97EWTM7ZBohHqqfsHp4=;
-	b=Qo1vOSPmVSOdSF4SJHPf5ZLb0+Mf+uxHy0TNYX4vv4FOEeLlPYaw8e1XWnqovvOgWrt1AK
-	2SAzp68ieCit2sCA==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id CB45AE001A6;
-	Mon, 09 Nov 2026 00:03:00 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id B8B7622001DF; Mon, 09 Nov 2026 00:03:00 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Cc: linux-fsdevel@vger.kernel.org,  brauner@kernel.org,  djwong@kernel.org,
-  hch@lst.de,  linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 6/8] fat: add iomap buffered I/O support
-In-Reply-To: <20261031164326.278125-7-matheus.aalmeida@inf.ufrgs.br>
-References: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
-	<20261031164326.278125-7-matheus.aalmeida@inf.ufrgs.br>
-Date: Mon, 09 Nov 2026 00:03:00 +0900
-Message-ID: <87a4njtlgb.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCsa70S1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E0751F0089F;
+	Sun,  8 Nov 2026 15:03:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794150222;
+	bh=QbYiVhTzlQpnBAy6zKPAAIvl7xIK7BIFFyDILWvOq84=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HCsa70S1BZqJdmjyXob9EUXbfT32P5XkVIMtxLhAJLUpjKsjQUrUY5k1ASCZC+gzf
+	 j1bWcrKR2PZqf1vL40czsp2nwov2rDgxpO2To8dhaD8dn73l/A7FAkrbttcKy9d2yB
+	 SpUzbMVmIpO+uRrBm7g9XvoCfbjwxpqrF06FURysNnnKGSya4CSI8Q/qW9wYqrzVA8
+	 lCNlLFIvUYwlYGYdrAJ+SV1MsBFjIZn1fR759BfQ99VS3RrDAA55GCU5wTEeQ4zZRx
+	 WVgHtqCFQIgK//ZJdwA+nsC1PxiwlE3XOUCFqGj0X73nwDATogJd4ImRxywEwTsXZI
+	 kiM/wCADE2/5Q==
+Date: Sun, 8 Nov 2026 15:03:39 +0000
+From: Simon Horman <horms@kernel.org>
+To: netdev-bot+sinfo@kernel.org
+Cc: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>,
+	Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
+	Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net: qualcomm: rmnet: fix TX aggregation teardown
+ race
+Message-ID: <20261108150339.GC18859@horms.kernel.org>
+References: <20261101233427.2050688-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <179357635158.3286.10001576876397197758@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,82 +62,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <179357635158.3286.10001576876397197758@kernel.org>
 
-Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+On Sun, Nov 01, 2026 at 11:39:11PM +0000, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+> 
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
+> 
+>  - What hardware the change was tested on. For driver fixes please
+>    mention the device (and if relevant firmware version) used for
+>    testing, or say that the change was not tested on real hardware.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+> 
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-> Use iomap for buffered I/O, replacing buffer_heads. Remove
-> fat_get_block(), fat_write_begin(), fat_write_failed() as the iomap path
-> makes them unnecessary.
->
-> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-> ---
->  fs/fat/fat.h   |   4 +-
->  fs/fat/file.c  |  72 +++++++++++++++++++----
->  fs/fat/inode.c | 157 +++++--------------------------------------------
->  fs/fat/iomap.c |  84 ++++++++++++++++++++++++++
->  4 files changed, 164 insertions(+), 153 deletions(-)
->
+Hi Jérémy,
 
-[...]
-
-> diff --git a/fs/fat/file.c b/fs/fat/file.c
-> index 8689cbbdad13..723b671d5b4b 100644
-> --- a/fs/fat/file.c
-> +++ b/fs/fat/file.c
-
-[...]
-
-> +static int fat_cont_expand(struct inode *inode, loff_t new_size);
-> +
-> +static ssize_t fat_file_write_iter_buffered(struct kiocb *iocb,
-> +					    struct iov_iter *iter)
-> +{
-> +	struct inode *inode = file_inode(iocb->ki_filp);
-> +	struct msdos_sb_info *sbi = MSDOS_SB(inode->i_sb);
-> +	loff_t offset, old_size, old_alloc, keep_alloc;
-> +	ssize_t ret;
-> +
-> +	inode_lock(inode);
-> +	ret = generic_write_checks(iocb, iter);
-> +	if (ret <= 0)
-> +		goto out;
-> +
-> +	ret = file_modified(iocb->ki_filp);
-> +	if (ret)
-> +		goto out;
-> +
-> +	offset = iocb->ki_pos;
-> +	old_size = i_size_read(inode);
-> +	if (offset > old_size) {
-> +		/* We need to fill this hole */
-> +		ret = fat_cont_expand(inode, offset);
-> +		if (ret)
-> +			goto out;
-> +	}
-> +
-> +	inode_dio_wait(inode);
-> +	old_alloc = inode_get_bytes(inode);
-> +	ret = iomap_file_buffered_write(iocb, iter, &fat_iomap_write_ops,
-> +					NULL, NULL);
-> +	keep_alloc = max(old_alloc, round_up(i_size_read(inode),
-> +					     sbi->cluster_size));
-> +	if (inode_get_bytes(inode) > keep_alloc)
-> +		fat_truncate_blocks(inode, keep_alloc);
-
-What is doing by this fat_truncate_blocks?
-
-> +	if (ret > 0)
-> +		ret = generic_write_sync(iocb, ret);
-
-Maybe we want to do this outside inode_unlock()?
-
-> +out:
-> +	inode_unlock(inode);
-> +	return ret;
-> +}
-> +
-
-Thanks.
--- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+As per similar requests for other patches, I would appreciate it if you
+could take a moment to respond to the questions posed by the bot above.
