@@ -1,53 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794116078;
-	b=tgFSgTlpSMQKYx7ggl7S2zN7cxXiuF0JNgS38u8OxQjOL+uFn6BsO7GUH9JdkuJFqF6R
-	 Kc7rt0SjDO/rHeSE/bH+x+4lcTWX4362FkfNrHMbgyu9N7/9Z1WCFAwLEyASzYLcMv3Fw
-	 IBfVkeOcEC1BoHc9xGsLriDDcw0feEOVCteYfMuoKdJ0XVG0YM8WQAe49ObRdfWfDojH/
-	 UNR1ij9XIsqbzg+UEqwmHuNpfujKcUO4Z95Adb8URhjThvsAdAErw0y0A/DCHo0BK7pzS
-	 J6bkO6yJ9tDR8frdl9vXtPWnrZvwKC9s8PSA8vBIGAQsrphk3bm9G211u65zcAe08rA==
+	t=1794116095;
+	b=hR0pR3FGIPCkUv7Qfa2MiSpVbDeSuy6fR6L0fAsSlRN5pMKp6vLGvZ5vFBq/Me3hItvN
+	 DSRshUsomcDtH3sIj5VF7zNyUXjEEYzHatxsZvsv3HCSwoIlCw/Mk4Fb59tC6CTMye7hc
+	 7Ot+zdDBEy1V0NtlyszNHouTvrMc+Z0KRjpFQDbt/Cmt3nNIVMZn1FdbaXNgP42Gf7r0O
+	 OFIdMVfzgqYp5IErBE12xfyJhIxrpMGAU9/kszMZ2heRxb2VosnsxHA+/SbAq6tyat0yT
+	 uCr0h487jJhFHBZZXfMXvESYcAZvJiCWIP3DyFOhGzIk011hpusdvRDxncdHGmHQ9gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794116078;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=j4pNxTToGDL12GNjvn16GWkBSsKG7Fmeufu8AS4sAds=;
-	b=GfEl/GI7HJ2s3YDUKzIuV/KCkqhNcoDhVHLpoWPsxVJ/za6nMdlY+yUcSfGwj5EWOeOA
-	 Vm7dWjtAR3qhSsndKcK11IWN+hVGsob/Rn+U4jykcD+ofb1JyYcnGPZI09SGOGyqQo5a+
-	 uj7NE7puuDqstkRMEFCYLOzCQ4J42PTXqvEwnpnRtt+1NcALr2gwWtjilBM+4AHDBIUWj
-	 O0uyJlzT+gmntRx0Yb1bT2/yKFljOZ+YOJaD2fpWNunr1w/NojMl9y9EObPQZi4FZYz99
-	 okSYocB6MzHPlQdHYY9txbB1ObCioiPLRKsOmK3YXIpOHxTMdQKxG9FCM/XVrZtPWog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794116095;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=z1M3/CpqdOMOX/NEW9qWjkfjYumx66+9OISoDjarBhs=;
+	b=G/EQjg8PtTkZrzVWilJlQ+kBCMd30wh1aQs6PRuKmBOocgpL8ZTahXpAhbMVtnCfYSbK
+	 L6PHNiQXUF8bIHW7sl4rcsNJExCqVRiZoWXgzqpx2YPmg4owMgLJeAqqP1p7u1DvlcT9w
+	 oembX7kSo86sX3Ax2TKXfilg6DJJRplArAU9V9wQin00T11CUG/Y1DNtu7GWV2PztR2TC
+	 RwKaqEvyOX7fjmG4TJaKARyE7Qm7tpXh+yTRi/WIPvqCOjeb5TQaHJK0U1ZAp00wh/aw3
+	 iiVL8uKbwnuph5rFmoxrOKvAXC+X6MZxN+IYlnlaUqnhpyKSy2cjnyxgaFB+uO7Bxmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kpZXWfJh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE66606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:34:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDE66606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e9eso283150b6e.3
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 21:34:37 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794116077; x=1794720877;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j4pNxTToGDL12GNjvn16GWkBSsKG7Fmeufu8AS4sAds=;
-        b=Y2wb+hQkDMseCqnIqpZ/3/OBy2zFTMT4nTiynHJkeDGlqnFRGoBY0nnEcXnfHPSkdh
-         HTgJ7VbJjHdJp/TlBwc5yJE6fbUSLQxO+XOYDZQxM8gpK3uAH5ujrwKALHecNfhdLi4w
-         50P+VFXhCE68ZbIcas/tUovAtSMiMybg1yqfSh/nTTWQ0U4mKQCFvP6qVxb8XdFzeFS+
-         IhfMf8SPnJmxlvGeHQ5d699Bu0S3bHg/bZI+tnGHkKG/QSuumzXyGz9k2boLLFZOvLR9
-         zsLxMOukn0KzMI04BWPOzbDSpPxt1bbFc1wZPVWwYG3h0c4P5JawuPuDDHUqsCgEimPe
-         SRkA==
-X-Gm-Message-State: APuU4Z/JANiLkiMjt/CN4RPdt2vw64b5Q9V1sTkCDZjJTFMUePERtDyd
-	EyQX8/2zXyQd6oQMz6SQGbnpwODQcwfvUnuYdST3qFlL78ucwgQGN2Zx670mdGHYDB2Hf2A27oA
-	Zw0ZeJGzBRoL8LSpDB2EVwwnbdh/Wor4FVMwLXEyOudmT0DuL+APQdbIwDFY=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA741606A31A;
+	Sun,  8 Nov 2026 05:34:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kpZXWfJh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C93D1F0089F;
+	Sun,  8 Nov 2026 05:34:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794116094;
+	bh=z1M3/CpqdOMOX/NEW9qWjkfjYumx66+9OISoDjarBhs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=kpZXWfJhCs0GpIw5akqX3nEtzBqQIrwxCZ4kbN8jUqq5tdYuxyX09OP1fYOHSCpEl
+	 R144Lrs+jLtAE33LHjjRzrEvfUNqNKmO8qkDP3Lgm1ctapeXwZ+61Ak5Nx3XpCcQKZ
+	 RPdEpHc6SxHqo1NEU/tfzw25ykVUkQwEypeH7epecKmzglRWzPy1NZkfegONAI6KPR
+	 IuyDsY0FAgfkRURFicIL1Kyp22GfP6Nf77VAkrVgQh7Zt5je4Ys1i6RqigKZgz8T1s
+	 TNilh1chtSAJVCSUkdqf+QF4QfdrGHCFT70K3AbrZnB/My6dwOYdRH5mWoYn+K8wiO
+	 DrCWV0ePtuddA==
+Subject: Re: [PATCH net] net/ncsi: disable the ncsi work before freeing
+ channels and packages
+From: netdev-bot+sashiko@kernel.org
+To: hj351016@gmail.com
+Cc: sam@mendozajonas.com, fercerpav@gmail.com, netdev@vger.kernel.org,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sun, 08 Nov 2026 05:34:53 +0000
+Message-ID: <179411609314.994134.4851699764532288566@kernel.org>
+In-Reply-To: <20261107051825.3313019-1-hj351016@gmail.com>
+References: <20261107051825.3313019-1-hj351016@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,120 +63,252 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3096:b0:4bb:ac05:9ebf with SMTP id
- 5614622812f47-5681431e1dfmr543308b6e.14.1794116077059; Sat, 07 Nov 2026
- 21:34:37 -0800 (PST)
-Date: Sat, 07 Nov 2026 21:34:37 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af009ed.4dd4714a.f8d02.000d.GAE@google.com>
-Subject: [syzbot] [trace?] WARNING in ring_buffer_nr_dirty_pages (2)
-From: syzbot <syzbot+008851bf625629489e75@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	mathieu.desnoyers@efficios.com, mhiramat@kernel.org, rostedt@goodmis.org, 
-	syzkaller-bugs@googlegroups.com, vdonnefort@google.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-syzbot found the following issue on:
+Critical: 0 · High: 1 (2) · Medium: 0 · Low: 1
 
-HEAD commit:    d48723711bae Merge tag 'arm64-fixes' of git://git.kernel.o..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1075efdd580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d16c0eae9c338e3c
-dashboard link: https://syzkaller.appspot.com/bug?extid=008851bf625629489e75
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Unfortunately, I don't have any reproducer for this issue yet.
+- [High] The patch only quiesces the workqueue entry point of the NC-SI
+  state machine.
+- [Low] The comment added in ncsi_unregister_dev() mostly narrates
+  history ('Commit a0ffa68c70b3 added this disable only ahead of…
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/db075c0aa29d/disk-d4872371.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/68dc5cfbbb35/vmlinux-d4872371.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/044cdc896523/bzImage-d4872371.xz
+Pre-existing issues:
+- [High] ncsi_unregister_dev() never cancels the per-request timers
+  ndp->requests[i].timer, and never releases in-flight requests, before…
+- [High] Packages, channels and ndp are freed with a bare kfree() right
+  after list_del_rcu().
 
-AI-generated root cause summary:
-ring_buffer_subbuf_order_set() updates the sub-buffer order by allocating new
-pages, freeing all old pages, and pointing head_page, tail_page, commit_page,
-and reader_page to the newly allocated pages. However, it fails to reset the
-per-CPU buffer accounting counters (pages_read, pages_touched, pages_lost, etc.)
-or invoke rb_reset_cpu(). When pages had previously been read from the buffer,
-pages_read remains positive; subsequent event reads on the newly allocated
-buffer further increment pages_read while pages_touched remains 0 (since writes
-have not yet filled and advanced the tail page). This violates the ring buffer
-invariant that pages_read cannot exceed (pages_touched - pages_lost) + 1,
-triggering the WARN_ON_ONCE(read > cnt + 1) warning in
-ring_buffer_nr_dirty_pages().
+--
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=008851bf625629489e75
+net/ncsi: disable the ncsi work before freeing channels and packages
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+008851bf625629489e75@syzkaller.appspotmail.com
+This patch moves disable_work_sync(&ndp->work) in ncsi_unregister_dev()
+ahead of the ncsi_remove_package() loop. The state-machine work is then
+quiesced before channels and packages are freed. It changes the ordering
+added by commit a0ffa68c70b3, which disabled the work only right before
+kfree(ndp).
 
-------------[ cut here ]------------
-read > cnt + 1
-WARNING: kernel/trace/ring_buffer.c:866 at ring_buffer_nr_dirty_pages+0x1c6/0x1d0 kernel/trace/ring_buffer.c:866, CPU#1: syz.9.1552/10668
-Modules linked in:
-CPU: 1 UID: 0 PID: 10668 Comm: syz.9.1552 Tainted: G             L      syzkaller #0 PREEMPT_{RT,(full)} 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
-RIP: 0010:ring_buffer_nr_dirty_pages+0x1c6/0x1d0 kernel/trace/ring_buffer.c:866
-Code: 02 fe ff 4c 89 f8 5b 41 5c 41 5d 41 5e 41 5f 5d c3 cc cc cc cc cc e8 19 02 fe ff 90 0f 0b 90 45 31 ff eb df e8 0b 02 fe ff 90 <0f> 0b 90 45 31 ff eb d1 66 90 90 90 90 90 90 90 90 90 90 90 90 90
-RSP: 0018:ffffc90005caf880 EFLAGS: 00010087
-RAX: ffffffff81c9d795 RBX: 0000000000000002 RCX: 0000000000080000
-RDX: ffffc9001e6fa000 RSI: 00000000000000ef RDI: 00000000000000f0
-RBP: 1ffff11027fc7a14 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: ffffed1027fc8423 R12: 0000000000000000
-R13: dffffc0000000000 R14: 0000000000000001 R15: fffffffffffffffe
-FS:  00007fbb96ae66c0(0000) GS:ffff888124811000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f5b66f85ff8 CR3: 0000000036bc0000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- full_hit kernel/trace/ring_buffer.c:888 [inline]
- rb_watermark_hit+0x1e3/0x2d0 kernel/trace/ring_buffer.c:984
- ring_buffer_poll_wait+0x254/0x2f0 kernel/trace/ring_buffer.c:1141
- vfs_poll include/linux/poll.h:82 [inline]
- __io_arm_poll_handler+0x395/0xbb0 io_uring/poll.c:612
- io_poll_add+0x1a0/0x2c0 io_uring/poll.c:987
- __io_issue_sqe+0x180/0x450 io_uring/io_uring.c:1514
- io_issue_sqe+0x177/0x12a0 io_uring/io_uring.c:1537
- io_queue_sqe io_uring/io_uring.c:1794 [inline]
- io_submit_sqe io_uring/io_uring.c:2089 [inline]
- io_submit_sqes+0xea7/0x2500 io_uring/io_uring.c:2212
- __do_sys_io_uring_enter io_uring/io_uring.c:2903 [inline]
- __se_sys_io_uring_enter+0x364/0x1bb0 io_uring/io_uring.c:2852
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fbb9888fb19
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fbb96ae6028 EFLAGS: 00000246 ORIG_RAX: 00000000000001aa
-RAX: ffffffffffffffda RBX: 00007fbb98b15fa0 RCX: 00007fbb9888fb19
-RDX: 00000000fffffffd RSI: 0000000000000b38 RDI: 0000000000000004
-RBP: 00007fbb98927b70 R08: 0000000000000000 R09: 0000000000000000
-R10: 000000000000004b R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fbb98b16038 R14: 00007fbb98b15fa0 R15: 00007ffd91292ae8
- </TASK>
+> diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+> index 1d63958c4429b..1c2dadfc0a2ad 100644
+> --- a/net/ncsi/ncsi-manage.c
+> +++ b/net/ncsi/ncsi-manage.c
+> @@ -1960,6 +1960,15 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
+>  
+>  	dev_remove_pack(&ndp->ptype);
+>  
+> +	/*
+> +	 * Quiesce the state-machine work before freeing any channel or
+> +	 * package it may still be dereferencing (via the channel_queue /
+> +	 * package lists).  Commit a0ffa68c70b3 added this disable only
+> +	 * ahead of kfree(ndp), i.e. after the channels and packages had
+> +	 * already been freed below, leaving that use-after-free window.
+> +	 */
 
+[Severity: Low]
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+This isn't a bug, but most of this comment is history ("Commit
+a0ffa68c70b3 added this disable only ahead of kfree(ndp) ..."). The
+changelog and the Fixes: tag already cover that. Could the comment
+describe the current invariant instead?
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Also, "before freeing any channel or package it may still be
+dereferencing" claims more than disable_work_sync() covers. See the
+question below about ncsi_channel_monitor().
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+> +	disable_work_sync(&ndp->work);
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+[Severity: High]
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+Does disabling ndp->work here stop the whole state machine?
 
-If you want to undo deduplication, reply with:
-#syz undup
+ncsi_channel_monitor() also runs the state machine, directly from timer
+context. The monitor timers of channels the removal loop hasn't reached
+yet are still armed.
+
+ftgmac100_remove() calls ncsi_unregister_dev() before unregister_netdev(),
+so ncsi_stop_dev() has not run:
+
+drivers/net/ethernet/faraday/ftgmac100.c:ftgmac100_remove() {
+    ...
+	if (priv->ndev)
+		ncsi_unregister_dev(priv->ndev);
+	unregister_netdev(netdev);
+    ...
+}
+
+After dev_remove_pack(), no GLS responses can arrive. The monitors
+therefore move toward the timeout branch:
+
+net/ncsi/ncsi-manage.c:ncsi_channel_monitor() {
+    ...
+	default:
+		...
+		ncsi_report_link(ndp, true);
+		...
+		spin_lock_irqsave(&ndp->lock, flags);
+		nc->state = NCSI_CHANNEL_ACTIVE;
+		list_add_tail_rcu(&nc->link, &ndp->channel_queue);
+		spin_unlock_irqrestore(&ndp->lock, flags);
+		ncsi_process_next_channel(ndp);
+		return;
+    ...
+}
+
+ncsi_report_link() walks the package and channel lists.
+ncsi_process_next_channel() then does the following with the first
+channel on channel_queue:
+
+  - pops it with list_first_or_null_rcu() and list_del_init()
+  - takes nc->lock and writes nc->state
+  - reads nc->package
+  - calls ncsi_configure_channel() or ncsi_suspend_channel()
+
+ncsi_remove_channel() unlinks only nc->node. It never removes nc->link
+from ndp->channel_queue.
+
+In multi-package or multi-channel mode, ncsi_choose_active_channel() can
+queue several channels, and the work normally drains that queue. If the
+work is disabled in the middle of configuration, can freed channels stay
+on channel_queue?
+
+If so, a later monitor timeout could write into a freed nc->link through
+list_add_tail_rcu(). ncsi_process_next_channel() would then dereference
+the freed channel.
+
+There is a related race on the channel being removed. The timeout branch
+clears nc->monitor.enabled under nc->lock and keeps using nc after that.
+ncsi_stop_channel_monitor() skips timer_delete_sync() when enabled is
+already false:
+
+net/ncsi/ncsi-manage.c:ncsi_stop_channel_monitor() {
+	spin_lock_irqsave(&nc->lock, flags);
+	if (!nc->monitor.enabled) {
+		spin_unlock_irqrestore(&nc->lock, flags);
+		return;
+	}
+    ...
+}
+
+Could ncsi_remove_channel() then kfree(nc) while that channel's own
+monitor callback is still running on another CPU?
+
+A possible fix is to stop every monitor timer unconditionally, using
+timer_shutdown_sync() without the enabled early return. Then drain or
+unlink ndp->channel_queue under ndp->lock before freeing any channel.
+
+> +
+>  	list_for_each_entry_safe(np, tmp, &ndp->packages, node)
+>  		ncsi_remove_package(np);
+
+[Severity: High]
+
+This isn't a bug introduced by this patch, but the commit message names
+the bare kfree() right after list_del_rcu() in ncsi_remove_channel() and
+ncsi_remove_package() as part of the problem, and that part is not
+fixed. Can the generic netlink handlers still read freed packages and
+channels here?
+
+ndp stays on ncsi_dev_list until this loop has freed every package and
+channel. ndp itself is then freed with no grace period after
+list_del_rcu(&ndp->node).
+
+The netlink side looks up ndp without taking a reference or the RCU read
+lock:
+
+net/ncsi/ncsi-netlink.c:ndp_from_ifindex() {
+    ...
+	nd = ncsi_find_dev(dev);
+	ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
+
+	dev_put(dev);
+	return ndp;
+}
+
+ncsi_write_package_info() then walks NCSI_FOR_EACH_PACKAGE() and
+NCSI_FOR_EACH_CHANNEL() without rcu_read_lock().
+
+ftgmac100_remove() calls ncsi_unregister_dev() before unregister_netdev(),
+so the ifindex still resolves during teardown.
+
+NCSI_CMD_PKG_INFO is registered with .flags = 0, so an unprivileged
+caller can race a driver unbind. Could ncsi_pkg_info_nl() or
+ncsi_pkg_info_all_nl() copy freed memory into the netlink reply? Examples
+are nc->version.fw_name, nc->modes and nc->vlan_filter.vids, which
+ncsi_remove_channel() frees even earlier.
+
+The admin-only commands could also write through the same freed
+pointers: set_interface, set_package_mask, set_channel_mask and
+send_cmd.
+
+>  
+> @@ -1967,8 +1976,6 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
+>  	list_del_rcu(&ndp->node);
+>  	spin_unlock_irqrestore(&ncsi_dev_lock, flags);
+>  
+> -	disable_work_sync(&ndp->work);
+> -
+>  	kfree(ndp);
+
+[Severity: High]
+
+This is a pre-existing issue, but what happens here to in-flight
+requests in ndp->requests[]?
+
+ncsi_xmit_cmd() arms a one second timer for each request:
+
+net/ncsi/ncsi-cmd.c:ncsi_xmit_cmd() {
+    ...
+	nr->enabled = true;
+	mod_timer(&nr->timer, jiffies + 1 * HZ);
+    ...
+}
+
+ncsi_free_request() is the only place that deletes this timer, on a
+response or a timeout. After dev_remove_pack() no response can arrive,
+so an outstanding request can only finish through
+ncsi_request_timeout().
+
+Requests can be outstanding when ncsi_unregister_dev() is called. New
+ones can also be sent during the removal loop:
+
+  - by the monitors of channels not yet removed (GLS in START/RETRY)
+  - by netlink, since ndp is still on ncsi_dev_list
+
+Suppose the timer fires during the loop for a request flagged
+NCSI_REQ_FLAG_NETLINK_DRIVEN. ncsi_request_timeout() then calls
+ncsi_find_package_and_channel() on lists that are being freed.
+
+If it fires after kfree(ndp), it reads nr->ndp and takes ndp->lock from
+freed memory:
+
+net/ncsi/ncsi-manage.c:ncsi_request_timeout() {
+    ...
+	spin_lock_irqsave(&ndp->lock, flags);
+	nr->enabled = false;
+	if (nr->rsp || !nr->cmd) {
+    ...
+}
+
+Is the timer_list in requests[] also left queued on the timer wheel
+while it sits in freed slab memory? If the timers never fire, the
+nr->cmd and nr->rsp skbs would leak.
+
+Also, with the work disabled, the schedule_work() call in
+ncsi_free_request() now silently does nothing on this path.
+
+Should the unregister path call timer_shutdown_sync() on each request
+timer and release the in-flight requests before freeing ndp?
+
+>  }
+>  EXPORT_SYMBOL_GPL(ncsi_unregister_dev);
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107051825.3313019-1-hj351016%40gmail.com
