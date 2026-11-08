@@ -1,87 +1,88 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794138468;
-	b=zPrNwKffEWqa03dwvr9mDPd8HYLx5F8NZINWS/C3Fg5BRqt+sr4c78vO7LYsLLlnC4n4
-	 DZdb73eQQsUE661PnEtcRLOd5FtXlLIYsz/GxiQbCyyZiqXqqRpypfYWfZKTF1Nz1DBYG
-	 tR4EW6eAWbfrxVh9GusZLHKjRqtj8GKwdjCEEYM6Yfeg1YaF7fEXpTxfa7AMoaD6xGIzE
-	 KfGJBZT7/h1aS0ZpvqsF7kSlXa8hLW7GUOal1FhKxphkTHMHgNsIsAkqfqTdDEWgJyXRx
-	 UwDAv5oxd4YRlQ2+Z9wT/nmIKpSRMsL3uxjrKUm/+IpQ9oxGf3cjJXpxKT6FCuykvmA==
+	t=1794138469;
+	b=fSOE3+3X3QESTF+2dq9Cujgru5EGUp279HpWZ/N+l+mGD8WKyznNrzN29Y7Da5U4QO1u
+	 JE37eVxkaieRcmKpnN4SQX9L+Y7KC51gLrujxgg7FKR2e1zLIDklqJbuyktv6W1KgJDYW
+	 FdBgWGS/9P/IbwRBoLsPpzW/IQ0M++paUREd8WBdPJMNwZ4VPMYqjq+p6PWnZyxwdfnx9
+	 O8zVA+PrVxeAGMIV14E2Tz8H0LFvh3/NiokdelxKYZwpEaaCsOISaubgPVtxbAycOpftQ
+	 Fot0nD9d93K94Kq6RuEJx5CPZm17r9fIXUgVh9gQfywaDTSJkFAe5n/aukoBK/Q0jCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794138468;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794138469;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=dH6h1kBUvb/ripshwEjaT3O4DrKwOfPQAnnj8h0Dg4w=;
-	b=zjNlOGNJKNrIc47kFRFyGIDOuyn+WLgqK3K0FmrvTZObuhwWyYJX7yiMgIANUJfiE13j
-	 EcdWG2y2i9YJV2xc0bY1y3cxRtN4Tcp/n81l4KP8PETdHdXW4shgB3bSxgbW//mVdOqVL
-	 nb+kigT3qB/KWD0IixlMSYvEVZQ2L6/AfLCDeuY3pPzoSezvfSDSiBO8DTYzakK7OLaCs
-	 8oYHd8NUIIhY7MX1uf93wdhU99ToB9e2Ep7CLSgDgW3NA5AeY+FttnLQmJIb2s45dMqQE
-	 aiOhkH3XOHyc0UZiRNwHz+MhWBcWbsvysGekXLZ8Gh8UFFuYFzeWS4Vzrczq2Okxknw==
+	bh=j5HSt05fL/4yBExZjOaP02A8KU6P3r+1mP1SAucS31o=;
+	b=X2T5AevwLPwmiV3/Vw3r5Yvw2J9nlCgQsgXkbomyl9OEzjMwxvA0YFdb5Gw7TgQ4Zqh5
+	 V4BN/5HJqg2acKaD7Sc0SQC5DK4BuoDq+evB7iGcFrp4EOVfV2yVHWW8az0ktHBCfcbJP
+	 mcNoi1mBINw3i/sgvTkcLc6bGviI2CTXYQRhb6+sD7rxJjUcdhvt7roNBfpP5mMqx92iO
+	 ePjjVKVGpVMg6fXlwHaGYccuuulS1nhl39ELz2flRIoNWfGFcbT48v+WXUo7C0F8r+x2I
+	 4C/MukTvmN/2B5fxVtVqWIUm639nU6DFmJImprZQ863oMl762I17N1pb5uUQsFvoyzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bairaktaris.de;
 	spf=pass smtp.mailfrom=bairaktaris.de;
-	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=TNZIiP2m;
+	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=efT2ubql;
 	arc=none smtp.remote-ip=209.85.218.52
 Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8CC606D803
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:47:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB8CC606D803
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445D9606A337
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:47:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 445D9606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=TNZIiP2m
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c434376dbebso1817666b.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:47:43 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=efT2ubql
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c411e139259so4104866b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:47:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1794138462; x=1794743262; darn=vger.kernel.org;
+        d=bairaktaris.de; s=google; t=1794138464; x=1794743264; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dH6h1kBUvb/ripshwEjaT3O4DrKwOfPQAnnj8h0Dg4w=;
-        b=TNZIiP2mx/Dm+kFpt/r1t/gzDe0z+B+AK7jZUUJVHZpQaqckKljPzg+WE/0kBtU+LU
-         odAmcgVPrwsYZ1LD074BZUd5uktTD309486lqhSxLZDOwmdkAVejFdzQQvmgxxr8rsIy
-         S4zkq41lg4u/Gr9jLBMqaDftfK8631vgHka5rqjiQDQNZjkgJEX748C4OTUa3OkFTMXt
-         lF12ALvJkxrWLdyNixF73d8KRL7gYbfOL6cl3/b1b3acDicR5gsAyDE6R1vm/aTx8KVs
-         rysc7GMPhbWTd+ihXr7DxMSjDjYPD0U+MwEqdrq1OlvCwWFHqceYaKulD93/xsJNMEOx
-         Fs2g==
+        bh=j5HSt05fL/4yBExZjOaP02A8KU6P3r+1mP1SAucS31o=;
+        b=efT2ubqlja0XxO/Em3E+kXD0/D0HEcJucdlAdSpR7OX8FUXvVR5wE7ncHvg+5rUZ+S
+         JhtWb6OAHvzz2GDO8f0f2Idz6qFPo5BV98785hXrFsPZGzzV+R+VrDlmtClDJHIsGW4e
+         4nORQjeKFQPUMCrN7Hz5pCnhwp1G4BbY5KqhPnnZx8YoUXfmp6o2Vxbzan134QaaFWkA
+         R+yXwEqWlv/sdPBOQud39jaVJ447Nw4F3ZN9vGffDt8lZqSZKcSrU5jgoFECHpY1t7Vx
+         RlRIb/VrwN2zybiNGohTXcsxMbKFIfk+4W9nVGtUy5e4haTMbU6jwAOw6NQjKBGb2vfi
+         TiFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794138462; x=1794743262;
+        d=1e100.net; s=20260707; t=1794138464; x=1794743264;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dH6h1kBUvb/ripshwEjaT3O4DrKwOfPQAnnj8h0Dg4w=;
-        b=DefEQpOPiZq0TKimwIN6bxgBAfOzPAEnhce02N/8hYFNmZz1spUv2EIV8ALw5DEoTy
-         SifCrhlgc1EnKu5qV3tO8bXV+X+gv5km9eWdaxeCyP5Uraix6cBcVpYujtU/6VoXUHJR
-         m1IhBlnqZ5H4o9KLvUNPzd3YS57YcUNBgv4I6nvRlPeU4Z8grUvMqlzR2BDutJAJDOhm
-         W0IR6hTGMvg9P3DKBh6rq9/hznnMAYlmLOAB5JHWvX0oOhQa6vvNz+4lucADHt3NpRjq
-         Zg3/WVv9HPUgfj0g+hGkqZ5RVdGNZTmPnzTTIXHgiV6F/R0tp2iH0CR8u8Q8SBYszK2D
-         c2WA==
-X-Forwarded-Encrypted: i=1; AL+hErGiNhxDVbqZivWK4WD5xBO/TgoXnVamF0pJlcJ/zxAloqeSPHPIylGtZkmBWdWQRUYzbikyktV3K8d9z2o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8j/Y43ZR5IoCu1MJJk3pPfSoHnbd0bZhJVOA6+Q3L6ffPPrg/F
-	kjgCUHcn3RAUU/XbxRBNBIiRyMryEDVNTPfjBR/75uK9qMyHIaoWLZ9PptdcMgEpjg==
-X-Gm-Gg: AYBFou1y5EEc9qrXL8XCx8CXKGx3lUvgWpuSuwfKLMiwwJON/O/F4eSy5v69epkrlFB
-	S1uLRXu5elEv7SP57lBLYqmnCXCUsANLJ99GTX7m5V949J8xqI8f/99jmYfSbTNoA1GZ4co/dMy
-	XR1J0qmUBf9AmkMdNTtBzvYGciqbrzyDO0F0n8z80PLjkflejkDjp8BHrEqJ3iFk5VzqsD10FZR
-	3ffC8vurSZ6aCOD716HG41mBsaVTeRe8qKgkYAyR8JZqcHD9EjgXv9tqLc2Z2ElAcSukgsUfviv
-	m5ODrWfdRDZy7qYXEDgy+FhOY0fwYRkFb+5LaefJp5aUkTH+Bbv6wekP85qA/jSv8FXZ/boNKsN
-	KC7YZ6y4XW1DremcGEe8hu+yfi3TZof2XoGM0sH0z042Y4qn+EY5PJm0Y/xl++AnXWt+8eHUJnH
-	AZp5Ewp2vGBxspGYCc5MOCPrdOMjpiACC1aSzC2t3e7gtSeUmDTctbhxpGhrtqFFOOKcvT/UcCg
-	fbeRVMUKqvSBUeRZBKFtEEdm3GI2dkT3x2WGYLb/in0im8HV3qLnCorLSO1eMN3ATgGBUmt8X77
-	nkX76DafeRcFMYHr6FO4XHSBzzvTcQoHschC3nKt4wVcCy7gX7JdGt13Cft8swF6iq4CAmo8/1P
-	FHb+MqGmY+hE5rFjiP6t2iUnYbgSSxxaMzjcWGH1VE4rpDB56LKP+L6QIeJ5fKqYShhS7VCF52/
-	a92zlpQdyoKg8Rf7VmLkIMMHA8ZFOf0cNlpzliqs3Ito2cmuq0hkXUxAIMazhk4+Vt56sbtMLSh
-	5gWE1OtRnyPnRVP/vNy5FHVUUJ+Jrmgy2My99SWnkCPkeKKVHWQhgvydlug1Eae2JdbGOCq/Nbb
-	aM9AEP0hl/dFrc4sAIo=
-X-Received: by 2002:a17:907:6ea4:b0:c46:8b87:c212 with SMTP id a640c23a62f3a-c4d6db7c9b2mr101123266b.20.1794138462143;
-        Sun, 08 Nov 2026 03:47:42 -0800 (PST)
+        bh=j5HSt05fL/4yBExZjOaP02A8KU6P3r+1mP1SAucS31o=;
+        b=QcPz6t2Rcmq8BE6hyVmc7b+Wrz85sGX2e4RrZ5chBFajzmqzntcXJ3B22QojjWM2G3
+         931Be9L/TrvHj8hS8xDpBV3+0Yg+uDZVX4Y/ugYbhBqZsJJ2xkXCEESZe9obAiCkUcN5
+         jFDz0do92XziQTcu1uUcnoW26INS9vz5idxtSh+GhKqu9yLw/fXesiiBjOzBAvuPcGqI
+         Mi6it7h8tswljRVRnjIysUlFu4onlXkalxWlDA8UN0NSLPmjRh6T21sHnHnpAuGbsKLk
+         zWwik0Gh9Syg68vhqTm3RGu3xq13ibRPakGqX2wOHyjwH2yylE9OKtXwfJZd4ehExNW1
+         /e6A==
+X-Forwarded-Encrypted: i=1; AL+hErEN5Ufa5VuRFJVsB6Dn5eVYn1zZ3F4mxoQR0PLMR35Q+h57fUQetZBQFdl8dpB3sMG3yszSvZkvEhqVwvc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9invC2L/q9MVXY/RnyNOfhmvYjHCIjjVtqRjOvI0jyi5jecht+
+	24YbIRZiqnN1/oGyoKM7Ys800J8lr6/lNLVt8kIxII4NAq+a0LNTxkHmu1WZyqw4lPPAz+xF3B+
+	JX1t9MFfs
+X-Gm-Gg: AYBFou1Lv6d1yGhsKFBIqqnodayTzKTH5h63nQzTaUVA1DCL5nFLDWUahEpua1L0s+T
+	GRqSxuXpk/LsAdmcWXNL8ASCs+4EQFG5WPgueIrafaCI3T3KWWO+2DwyS6s5mQetUgNfSlLyRWz
+	d0rEIdosQtgIrvGkDvvnjJjRRm+JUKTu2VX/KafW+2ChnhEtlYMaucEADBCYPP1Lz6c0dX02e3r
+	VDl1qsruVnTcZ+/ayGjUlb7H9yJ9CQz9LVdAxOM2yM/Axz8nVI7f2IyLNBGOKwjyd3Wsm3lgj0e
+	wMSW+VyEqdQOwIGAijcXKA5G3U3yinZCQBUTsWfYUrz8RkQYEbRTk2meWE2prQB2WEVfxE9wUNg
+	0LAdIB4lnRchajYICrwKXm9zDSqPgatTudm8uZZGqczrmzXVDwLqIU2uK9ps7YJo0Frdhckp+tM
+	7IayBr4QBnm3NSNebPNy4WigICYuskeLQfmhood7U9EpNHuig9acwb2H7joUZ6O7EAUJMzewEry
+	BRJj+l/I2kuDgNaaJNYrDmQImr6832tZYtWyYrGWOHYAfvXz6m5MrI5sBw3pkb8zD8SLrlwDFV0
+	efRpnzRxvfCD2VOVvTLUYEy14w+yuhaVL1qUDG6GImVaxKXApn22rwlxo+Ze4+aG39bFlmUAZv5
+	5T2VQ/5m13WlA0x5oV0KQPitlbEnre74MNIrpt4xGX5cuIottJwriGluQ4c1BrhFtx1HR9hjAaK
+	gM6mYseK9udxi8JSSWvqYyR08M2Omj/2X5kDtyWw1zWXlo/XjlOoLTpr7zUQa85m6syTEVJo5Tw
+	zgWj43xPLDc7ADZdzzIZEFMdMo3/qfinUMrCF41KsKZtMp4tmuGdf8Y5AbCBxGGE1n6wP0yFQBl
+	g1XDuVbuKbhfD1WTSg==
+X-Received: by 2002:a17:907:ea8a:b0:c45:d8aa:6ae5 with SMTP id a640c23a62f3a-c4d6d7ecd22mr95115566b.42.1794138463689;
+        Sun, 08 Nov 2026 03:47:43 -0800 (PST)
 Received: from Desktop (p54afff19.dip0.t-ipconnect.de. [84.175.255.25])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a999b01sm56346666b.77.2026.11.08.03.47.40
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a4751desm55022466b.43.2026.11.08.03.47.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 03:47:41 -0800 (PST)
+        Sun, 08 Nov 2026 03:47:43 -0800 (PST)
 From: Julius Bairaktaris <julius@bairaktaris.de>
 To: robimarko@gmail.com
 Cc: andersson@kernel.org,
@@ -103,12 +104,12 @@ Cc: andersson@kernel.org,
 	linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] clk: qcom: gcc-ipq8074: Align CMN PLL inputs with binding
-Date: Sun,  8 Nov 2026 12:47:41 +0100
-Message-ID: <20261108114741.125238-1-julius@bairaktaris.de>
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: ipq8074: Add CMN PLL
+Date: Sun,  8 Nov 2026 12:47:44 +0100
+Message-ID: <20261108114744.125675-1-julius@bairaktaris.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261026120920.1667982-3-robimarko@gmail.com>
-References: <20261026120920.1667982-1-robimarko@gmail.com> <20261026120920.1667982-3-robimarko@gmail.com>
+In-Reply-To: <20261026120920.1667982-4-robimarko@gmail.com>
+References: <20261026120920.1667982-1-robimarko@gmail.com> <20261026120920.1667982-4-robimarko@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,9 +124,8 @@ Content-Transfer-Encoding: 8bit
 (Resent with the lists on Cc; the first copy went to the To:
 address only.)
 
-On Mon, Oct 26, 2026 at 13:08:14 +0100, Robert Marko wrote:
-> Keep the existing .name values as fallbacks for older device trees
-> without these optional inputs.
+On Mon, Oct 26, 2026 at 13:08:15 +0100, Robert Marko wrote:
+> CMN PLL provides bias_pll_cc and bias_pll_nss_noc to GCC.
 >
 > Signed-off-by: Robert Marko <robimarko@gmail.com>
 
