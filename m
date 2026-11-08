@@ -1,63 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169398;
-	b=eAOxobsVg9ulA9fX1bHRKSPf4mSjTLN563TedWuWVAdYF525SSZnmkTYLee8tLgXCIhB
-	 L9/KfUDWSXwr5y4Bxukco5SBl3AxwYQ8ikAOHtMkEHhxcg0vEO3Ps/zTq2cf4RnBa735b
-	 jxoUp4PqyijFqAEcijO/3eWo9c1622JAeva9jB9xStUk2DaQXwmvow1V3ntJNPr3mqdM1
-	 mD23ssSVplDV8fC+dI1K+XtoBOJAiAiU2YlKulq3fs5dKll4hH73N7UgDjqPXMoQ0TmO5
-	 xzRpmPnEZogz9oJuO8moCl6Bm//mXnUNErC4EpDKeCy9nNzIq6o4zT/CEf5t9T8YmGg==
+	t=1794169391;
+	b=c3ql4L9PuekgYMzwyerihgyW/4L1bWjQIVrlAGEGhWF3VN7LnDOVy6VN5MqHkYkpg3sA
+	 s19/f3t0RSdACT5RVfc27nleqE65GNpzFBtPYhgvxFlY1bPwFGC6R2zVlEXE5LUuJ0jno
+	 cCAJRU+OEWJoo12+hLuPqnlYUN5WGyW4xkXjKOPK/twx80HahwnlKGaFk5Yqf0NMMCaW+
+	 x2nvd38s2LBrTS+pc0RWH+WUOd6cDVn4s3eHlpThQrCM/fN4rMfSS6sIBn/59YrWsCBif
+	 GQD78C2Fuo/bSVlLwVfT1Lu/wZIFscquNn3+YTM+E7TFB8x10jtoWBxR5SuagBwNofg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169398;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169391;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=trLoVpa1IJp6gbRN3PMqct+Cbkr/MlbXtMdCic/eb94=;
-	b=h/5GDzbSVX7VO1JzXoDQ0qHZhId5KFmnP0oVEQyo2CxP2CDTYhoQkvn0be5HnqxDw1Fn
-	 snH7nh9A+ZYIDAStx5ctsok7lJPmgcrACjiBI4Pq1nc31A2ZMDsEbIVmnpWCxhxFdgkH7
-	 C1RUUCIS9xJmK53HVBjw+qoYJ2uUfUBHbU2dzgtUpA6kPW0PybP5nP6GHIPDLR5o4D5nS
-	 APTjtlIOigahswD7Asq9KCFk76UA4uwDBcQQkenODGYJHneD0baNptX8PguiYSkhK+d9W
-	 tAKCmt2RJ85HpiVsW1/pRIXq+Ewv8dLqb5cNNM/5PRQLjnMZuCIdzu7kPtdnHQHkQ0A==
+	bh=1niYB4/2ehrsrZgjTei4qsNtyyz2W1DlXFO7D7AcvtA=;
+	b=suRxqew91t8+cnHBCZlUsddOSDvTFB2EpiqI8aA9qyGZlqP5OZrjgg+fVk4aCnIe464I
+	 6S8bVl5kmoH4y2JnozFyimgn+BlV68iPgKEsFi52jX0OuQAffKhSpOyo7kVsFMJ5vbEje
+	 m4uRHirBRnAz19dBxNs905PxqpFqZ5qN9jActmJSwRFHRu+92hlvS/Kd0m1wIy2JXfl89
+	 wc85L6+VtrrzOiAPCdIWTM6S0fvsl6uJ1ntB5v3cIB/bd7KE9EpCoDnQa91vnhZgohZ3G
+	 Fkq+bjh6X4KCrQRaaB58FhDGtZfkvmKoe4jfk2q9j9lMdBV7Nv7XfNCCvPuFSF14S1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mj1B++OS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUxn+aZn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2076070285;
-	Sun,  8 Nov 2026 20:23:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9346606E51D;
+	Sun,  8 Nov 2026 20:23:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mj1B++OS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F2C81F008BF;
-	Sun,  8 Nov 2026 20:23:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUxn+aZn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 942CF1F00922;
+	Sun,  8 Nov 2026 20:23:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169398;
-	bh=trLoVpa1IJp6gbRN3PMqct+Cbkr/MlbXtMdCic/eb94=;
+	s=k20260515; t=1794169390;
+	bh=1niYB4/2ehrsrZgjTei4qsNtyyz2W1DlXFO7D7AcvtA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mj1B++OSuOLyV6qcz91uo5LR8HDrWCZUl3ob+GZvLLA/3bcn3+u28vMoOpPR/7qg+
-	 KLfUymu6N5VI9KXBpWsy+xSVHjDRa6F1WoK9YH4jAFOkvP/971y+gGFJIHrNLQQ2JH
-	 3GZ7VXlGIR60JDMsh2167lzpB5P0VAtwzfnU/wnqvFPXjjldPQNJVUqBb/4xS3c4QZ
-	 DEYcrjToZQlNERlb8sZHokkWRlPK12zmrZ3opd9dNwa9UAn3wFMBT2+8OIoqYCh0sG
-	 TL1QLgA4S0Ks1D3oOs3xO0LzYbCJ/aYbHNnqiln7BIAydP3H0CxzQh63bTrEEYyxW9
-	 0L2Z5ZQFNiH/A==
+	b=SUxn+aZnwHL3kSmrBw3rH1SK/QJlUBYSraUs0i7rPd2qM3ysb/8lAj2o48MxBIh+6
+	 ahmC8itFtHjSWyi/ztK7/yzkjfmbwrQ4xF3JZCuAZso0iE725BvsENBIFvZ1XwAyG2
+	 mYQMIlQK15qWzdq5wrPy4a2E2gC/RYPbcdvQHOAZPvRor6HtZNQF9dTR1ZT9Og7gjc
+	 Z+Pax+6dBHyz+fQgibXoDTtxK3+ExG5A8K0ywKuyfL3ziDWe5ah59Rffg75lEb7WZ7
+	 B2nULiZ02gzNY90C072ikEbm4uA7hCrl3fl1jUnfki55xeGEx7XLe+kFzYxmDxu4e1
+	 JRi1+hoHEopXA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
+To: Abel Vesa <abelvesa@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-	Jie Gan <jie.gan@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Jagadeesh Kona <quic_jkona@quicinc.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+	Imran Shaik <imran.shaik@oss.qualcomm.com>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
 	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: shikra: Mark tpdm_dcc device as failed
-Date: Sun,  8 Nov 2026 14:20:05 -0600
-Message-ID: <179416929334.628393.15121064053629630718.b4-ty@b4>
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 2/4] dt-bindings: clock: qcom: Add AV1E clock controller on Glymur SoC
+Date: Sun,  8 Nov 2026 14:19:59 -0600
+Message-ID: <179416929559.628393.15113236846453035838.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261008-remove_tpdm_dcc_device-v1-1-48574c6ae6c2@oss.qualcomm.com>
-References: <20261008-remove_tpdm_dcc_device-v1-1-48574c6ae6c2@oss.qualcomm.com>
+In-Reply-To: <20261104-glymur-av1ecc-v2-2-7c25a73fe811@oss.qualcomm.com>
+References: <20261104-glymur-av1ecc-v2-2-7c25a73fe811@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,15 +80,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Thu, 08 Oct 2026 14:08:05 +0800, Jie Gan wrote:
-> The tpdm_dcc device cannot work properly on secure devices because its
-> required clock cannot be enabled due to a hardware issue. Mark the
-> node with status = "fail" to reflect this.
+On Wed, 04 Nov 2026 10:37:34 +0530, Jagadeesh Kona wrote:
+> Add compatible string for video AV1 encoder clock controller (AV1ECC)
+> and the corresponding bindings for Qualcomm Glymur SoC.
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: shikra: Mark tpdm_dcc device as failed
-      commit: 7ec63c6b88a88076a2faf59713d0126b542a9f0d
+[2/4] dt-bindings: clock: qcom: Add AV1E clock controller on Glymur SoC
+      commit: b7da3a5bced40996bfe2bee44ecdde4424ccd037
 
 Best regards,
 -- 
