@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794096936;
-	b=P5b367JYoeKSuYibQyRqDVv87MSw/XCVWQbC+C7HinJyZazgKUYfK0k4c2clMJVpgQic
-	 E1IGrjVFFSDkDZXZl8zSKFbnubZM9khHfBzeC48to5lalvrT9OvjBjuZ1vusGN89blvAd
-	 Yhgfdk5byczZ9dVM24B6N7QAdvUXliWWY9xeGlWkrIawSJNjJ+f6z8tfM6ACdmi6pTOY4
-	 tvs4Qjh+YOsSIqPR9fRlUYVTUnkTNyXlSdSwkIpORm7r29q+GOvx9THZytaEwy4ts+dXH
-	 2Q+W05hb5iTJBy6F3At4+ytrz8s3OjK/YcQmvss+42vdA8KVFnwJisksWD9Ws+tAB/w==
+	t=1794096947;
+	b=UEe7xKDuaVnywhh6k4tpR7u9/0KRQxOUEUJgSNYztNjSiS3R4TzaSh5MItDoQzRWFoqU
+	 DCG3Dkptz4avDUU+8LubX7NY7qxQl/eLGqSSbhd40n25T670piITrgtklMeA4mZz/kHDf
+	 vbYn5/0Lry10+O3bahcm1PTXyYKjSmVqCONQPFTt5pBYRVozDJrSTTd3j5m8AqS18NdQJ
+	 PDbUGbnjp5t5T0v/5/a4nWygumswxYO0ShKT9LS+Qh8W7uKLvDQAq8XVUFV25FC2P6/ff
+	 3g2NTT06hsJLIZ5PIwJvYYCYw06YPsDneebAMVbPzXfCFyE30kgGT0lhwuwfMzUGaag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794096936;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794096947;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=4NMN6NoxEVSmnHn/VpajSP2d2A03cJPGmCzL5Lr5yV4=;
-	b=Jp+nYhXU6pB1SEtKN/tXOvw6WnEIA+Xt6XvuW+6DEfly8Qf7pNCgTkSmH7+Xry8GBMyh
-	 oSOZFLl5+CQ0Zq1vRtZkQNM8yg6WG4jz3OfPzthKdw148vAgLoKJ0xoM+L0oN76p1IJII
-	 ySweNY1sweJD2ePSgYYWJEoVj2KWQYJ1YWQaiIIH10GhEi9rg8NctS0tCr9EXKQSEeV8V
-	 +M5XqjmbqW7P5VJrt6DBaFeYYNBHdairPA5wn6Q/KuwHZMVDo6LmMQ8+UE0WXql17zKMm
-	 nNlEv91e+ezx437VnqhJQoHOAiQggnQ4c5gi5wAYTxSCqgQDrIhW0b9e2QsdQPAUFzQ==
+	bh=2blDjoZm7fSGSwtlnh9END5OcqULp72mUsNTGTxsSYc=;
+	b=kAhOv0ITw0Qx60K8qHwyazK7AQabdkvZPxZspYqKfeqEjwRLLdrY4UimPTy1mZXrlwwp
+	 lfb7B/oVHPuNLZeYK6/O+M6cgpFCl4khsmmS8zt2Y6pQgQpOkqywWqvtHT1nyjeplBSpV
+	 +yY54ZEAx8BpXHt9s3iRVAFMngJDKG3TPOqucwEO2cKEfOkPwG9upRi/kc/iURgt80GHZ
+	 fRxq4leoxIeUYRyWb6e2mbiIhO73iLVmsY8ooDahmFRJj1bLfmzJ/Prz4mudqJj2HCTMM
+	 ecRchVkyY1mtLmRuSsYRXmnsMLTt5aIJ1Y3Lc9HhMP7IIOecOBvNttknsrwHuVsALcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1Z2+BNM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rl99Fi5q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDFB606A326;
-	Sun,  8 Nov 2026 00:15:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5959E606D839;
+	Sun,  8 Nov 2026 00:15:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1Z2+BNM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB7B01F0089F;
-	Sun,  8 Nov 2026 00:15:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rl99Fi5q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAE561F008A4;
+	Sun,  8 Nov 2026 00:15:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794096935;
-	bh=4NMN6NoxEVSmnHn/VpajSP2d2A03cJPGmCzL5Lr5yV4=;
+	s=k20260515; t=1794096947;
+	bh=2blDjoZm7fSGSwtlnh9END5OcqULp72mUsNTGTxsSYc=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=S1Z2+BNMlxcWX4a3aEFcg0bTCorgyq35+1BKuD+f/w483idSXAHs5uHU48/deYBTw
-	 Q2JFoQKjMtydGlVavpAulFMAoTXZnHNZ739OoXcWhCTPROt/qJITJG2s1fdNpi9wug
-	 CNV06mNbe4JZIYhplLa/Gu0EyO+HuCdcg/UdvXSLiV4vmDaI5Z5abi/qbaNVxiBZWr
-	 4W2kWwpKs8B0DUGXdZDU1/ccc7VVbzof/3pTbxRZlx2joDiSTUzeGGRIKKP8brNLsn
-	 olfbQQAeruwcGtN2awoNjFBgKexbSuiBK9On/FVAXeIsStmcAFdLdZTys2/XdIo2mw
-	 p32LJBF6p2prQ==
-Subject: Re: [PATCH net-next v10 02/11] Documentation: networking: Add
- timestamp related APIs to OA TC6 framework
+	b=Rl99Fi5qSeKmZyvO/2mP+PnuI1aNNFc852g6eEHtnwZVGoNV4nlPKPwQfVELKoWZL
+	 CoXcGi4bc695L+TGCamxq9HaIXP7wJr0OkwYs/2jYolZDZCN1qeBnXzHH0nvPBwOnR
+	 4pqytsrikvII+57om1daoF495qnfAZh0MtjezKuX33QPyUk6s6sv1sstpRz2aIbn1m
+	 VEE6vGcio20F6Mn4pleGqlbpU82TjlDU49F+qwZDjnIWlZ9QRaCHHWG/UiJ7mq4nxa
+	 svn7/3xgIl3nl+UDdZEHCvcP9qGP3x1JIDbsSiVA78TypW/DRu44uIm/+hVBF5nQrt
+	 +mNo4qgFN28pA==
+Subject:
+ Re: [PATCH net-next v10 11/11] net: phy: ncn26000: Support for loopback
 From: netdev-bot+sashiko@kernel.org
 To: Selvamani.Rajagopal@onsemi.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
@@ -52,11 +52,11 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
  edumazet@kernel.org, piergiorgio.beruto@gmail.com, netdev@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-doc@vger.kernel.org, jerry.ray@microchip.com, ciprian.regus@analog.com
-Date: Sun, 08 Nov 2026 00:15:33 +0000
-Message-ID: <179409693331.994134.1742861805588596363@kernel.org>
-In-Reply-To: <20261106-s2500-mac-phy-support-v10-2-31b5a69b85b7@onsemi.com>
-References: <20261106-s2500-mac-phy-support-v10-2-31b5a69b85b7@onsemi.com>
-X-sashiko-severity: Low
+Date: Sun, 08 Nov 2026 00:15:45 +0000
+Message-ID: <179409694533.994134.4523797133943252048@kernel.org>
+In-Reply-To: <20261106-s2500-mac-phy-support-v10-11-31b5a69b85b7@onsemi.com>
+References: <20261106-s2500-mac-phy-support-v10-11-31b5a69b85b7@onsemi.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -69,69 +69,151 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
-- [Low] The new framework duty bullet in Documentation/networking/oa-
-  tc6-framework.rst (lines 156-158) gets the timestamp mechanism wrong.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] After this patch, the S2500 enters loopback by setting only
+  the BMCR_LOOPBACK bit (genphy_loopback_no_speed() in…
+- [Low] The subject line "net: phy: ncn26000: Support for loopback" and
+  the body describe an onsemi S2500 change.
+- [Low] The kernel-doc for genphy_loopback_no_speed() in
+  drivers/net/phy/phy_device.c says `@speed: Speed setting.
 
 --
 
-Documentation: networking: Add timestamp related APIs to OA TC6 framework
+net: phy: ncn26000: Support for loopback
 
-This commit documents the new hardware timestamp APIs in the OA TC6
-framework: PTP clock register/unregister, ts_info, hwtstamp get/set and
-timestamp stats. It also documents the MMS based register read/write
-helpers, and adds a framework bullet on how hardware timestamps are
-updated in the skb.
+This commit adds a new exported phylib helper, genphy_loopback_no_speed().
+It changes only the BMCR_LOOPBACK bit and returns an error if a non-zero
+speed is passed when enabling. The helper is used as the set_loopback
+callback for the onsemi S2500 PHY, and dp83867 is converted to it in place
+of its identical private dp83867_loopback().
 
-> diff --git a/Documentation/networking/oa-tc6-framework.rst b/Documentation/networking/oa-tc6-framework.rst
-> index 2545ef694016f..23856c4bfd691 100644
-> --- a/Documentation/networking/oa-tc6-framework.rst
-> +++ b/Documentation/networking/oa-tc6-framework.rst
-> @@ -153,6 +153,10 @@ OPEN Alliance TC6 Framework
->  - Forwards the received Ethernet frame from 10Base-T1x MAC-PHY to n/w
->    subsystem.
->  
-> +- If supported by the hardware and enabled, updates hardware timestamp
-> +  in skb, when indicated by one of the three timestamp capture registers
-> +  through TSC fields of the header.
-> +
+> net: phy: ncn26000: Support for loopback
+>
+> Adding loopback support for S2500 internal PHY to help running
+> loopback test through ethtool.
+>
+> This instance requires only manipulating the loopback bit in
+> the PHY, without setting the speed. So, added a generic helper
+> function to modify loopback bit of the PHY only. This will
+> help the PHY drivers, like 10Base-T1S or any other PHYs that
+> want to handle loopback bit only.
 
 [Severity: Low]
-Is this description accurate for both directions? The bullet comes right
-after the receive forwarding bullet, so it reads like it is about the
-receive path. The capture register / TSC mechanism only applies to
-transmit, though.
+This isn't a bug, but the subject and body only describe an ncn26000/S2500
+change. The patch also adds a new exported phylib core API,
+genphy_loopback_no_speed(), in phy_device.c and phy.h. It also converts the
+TI dp83867 driver: dp83867_loopback() is deleted and
+dp83867_driver[].set_loopback now points to the new helper.
 
-In the implementation later in the series, in
-drivers/net/ethernet/oa_tc6/oa_tc6_main.c, only the transmit data header
-sets TSC:
+The dp83867 conversion behaves the same as the removed code. However,
+dp83867 is not mentioned anywhere in the commit message. The v8 changelog
+says two patches were merged into one.
 
-    FIELD_PREP(OA_TC6_DATA_HEADER_TSC_OFFSET, tsc) |
+Could the commit message mention the dp83867 conversion? Alternatively, the
+core helper and the dp83867 conversion could go back into a separate patch,
+so that the subject prefix matches what each patch touches.
 
-The captured value is then read back from the TTSCA/B/C registers after
-STATUS0 signals that it is ready.
+> diff --git a/drivers/net/phy/ncn26000.c b/drivers/net/phy/ncn26000.c
+> index 0006e157917df..c115af6eda33d 100644
+> --- a/drivers/net/phy/ncn26000.c
+> +++ b/drivers/net/phy/ncn26000.c
+> @@ -176,6 +176,7 @@ static struct phy_driver ncn26000_driver[] = {
+>  		.config_init           = ncn26000_config_init,
+>  		.config_aneg           = ncn26000_config_aneg,
+>  		.read_status           = ncn26000_read_status,
+> +		.set_loopback          = genphy_loopback_no_speed,
 
-The receive side works differently. The RTSA bit in the receive data
-footer marks a timestamp carried in-band:
+[Severity: Medium]
+Can the S2500's own config_aneg callback silently clear the loopback bit
+that this sets? genphy_loopback_no_speed() does a read-modify-write of
+BMCR_LOOPBACK only. ncn26000_config_aneg() overwrites the whole register:
 
-    ski->rtsa = FIELD_GET(OA_TC6_DATA_FOOTER_RTSA_VALID, footer);
+drivers/net/phy/ncn26000.c:ncn26000_config_aneg() {
+    ...
+	// bring up the link
+	return phy_write(phydev, MII_BMCR, NCN26000_BCMR_LINK_CTRL_BIT);
+}
 
-The framework then writes that in-band value straight into the skb:
+NCN26000_BCMR_LINK_CTRL_BIT is BMCR_ANENABLE, so this write clears
+BMCR_LOOPBACK. If config_aneg runs while loopback is enabled, the PHY
+leaves loopback but phydev->loopback_enabled stays at 1. Frames the caller
+expects to loop back then go out on the shared 10BASE-T1S segment.
 
-    hw_ts = skb_hwtstamps(skb);
-    memset(hw_ts, 0, sizeof(*hw_ts));
-    hw_ts->hwtstamp = ktime_set(ts[0], ts[1]);
+One path that reaches config_aneg while loopback is active:
 
-This path uses no capture register or TSC field.
+phy_ethtool_ksettings_set()
+  phydev->state = PHY_UP
+  phy_state_machine()
+    _phy_start_aneg()
+      phy_config_aneg()
+        ncn26000_config_aneg()
 
-Could this bullet be split into separate TX and RX descriptions? The later
-"net: ethernet: oa_tc6: Support for hardware timestamp" patch leaves this
-text unchanged, so it stays this way at the end of the series.
+The same PHY_UP branch runs if phy_loopback() takes phydev->lock just after
+phy_start(). BMCR writes through phy_mii_ioctl(), which call
+phy_start_aneg(), also reach it.
+
+genphy_setup_forced() avoids this by keeping the loopback bit out of the
+mask:
+
+	return phy_modify(phydev, MII_BMCR,
+			  ~(BMCR_LOOPBACK | BMCR_ISOLATE | BMCR_PDOWN), ctl);
+
+Should ncn26000_config_aneg() use phy_modify() with a similar mask so that
+BMCR_LOOPBACK is kept?
+
+>  		.set_plca_cfg          = ncn26000_c45_plca_set_cfg,
+>  		.get_plca_cfg          = genphy_c45_plca_get_cfg,
+>  		.get_plca_status       = genphy_c45_plca_get_status,
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 06c5a8c8cc2a2..ffb6845d5b03b 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -2923,6 +2923,28 @@ int genphy_resume(struct phy_device *phydev)
+>  }
+>  EXPORT_SYMBOL(genphy_resume);
+>
+> +/**
+> + * genphy_loopback_no_speed - Helper to modify the PHY loopback mode
+> + * without setting speed. Some PHYs, like 10Base-T1S, don't support
+> + * auto-negotiation and therefore setting the speed isn't supported.
+> + *
+> + * @phydev: The phy_device struct
+> + * @enable: Flag to enable or disable the PHY level loopback.
+> + * @speed: Speed setting. Not expected to be set. Error if it is set.
+
+[Severity: Low]
+This isn't a bug, but the doc for @speed doesn't match the code below:
+
+	if (enable && speed)
+		return -EOPNOTSUPP;
+
+A disable request with a non-zero speed succeeds and clears BMCR_LOOPBACK.
+Could the comment say that an error is returned only when enabling with a
+non-zero speed?
+
+> + *
+> + * Returns: 0 if successful, negative error code on failure.
+> + */
+> +int genphy_loopback_no_speed(struct phy_device *phydev, bool enable,
+> +			     int speed)
+> +{
+> +	if (enable && speed)
+> +		return -EOPNOTSUPP;
+> +
+> +	return phy_modify(phydev, MII_BMCR, BMCR_LOOPBACK,
+> +			  enable ? BMCR_LOOPBACK : 0);
+> +}
+> +EXPORT_SYMBOL(genphy_loopback_no_speed);
 
 [ ... ]
 
