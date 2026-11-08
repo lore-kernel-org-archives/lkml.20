@@ -1,116 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794168330;
-	b=cuCX9HVUasJ1/iFh95RW8sbbMTWlLa/vK8Z0YyDbSyEgVa2R7+0tkfDyiP6u781ipg3e
-	 /klkd31eE4QgPLp8YhHozGNtvxP4DIgjbTNZj6O3MpG6i/fhIEMIfVQdiBfH+67qQYmeB
-	 ySteALdCgBYE81kYVxflgDQVrSTPq0zNL1XhiznjUxT/Kc3AZXitlH7L8CB9IH6VBzm4Q
-	 RIyTCRYedgJrB/YbDhj97J7SruP9QTp3CTK3FlYvKyYWH7BnVeMwoJKh2FNLce7d06NfR
-	 FzEJXgrnjnHd2vG7oN/yG1XcOhEd9iJS67im1JmslngXZgPa3JReSdiLYWzzsfG7Ohw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794168330;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=NsI7ZZLkYjCZutUVEg7TJNtNpCk2xGDMbVs7o+8cm3Y=;
-	b=kNDZwHyrV/M9Z6ByTgcBv846S/QhvrcILkLVn5p+NBAt6B4cmdbYhPmXS5YwCgQAYJpR
-	 6K0NgxNMJvVXkqkMt9/2X+Z64DRAkraMEXv/Coke0/+uSYBxizQS7CWqeh9MxM45FuaVZ
-	 xMH1Yo3qVhwDobZI19FCb2BHFSTYTLWtwNcfQ2hAfIsbVJ06uP7g/hvfMUdMO8qGnlPxS
-	 7BVPHMTXy+PtVWwtazcmWc6vM3ckA8g2o2NcqQajldnVTH5hj1itucX0B/3A6HkzZFVnI
-	 dLyHXuLF/f65R8Vod2HLIqh6YeygpUipXtktGVQtmSMAYcuJx0Jpv2Tevr5B8VzhKvQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ib7c6P66;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794168334;
+	b=qA0waHF/PXFmIjwwRQ9srQnMW2XYhJNziWR38zqXxLn+IzY1fnQ4rz63SeOS/6uWnYx4
+	 Hf1L6l9BBqSc2f8IJXauew4YjaZUd5YpeOWJKiGAlUt+tcSwC2zPRLK7C9Bj9NZdD6lEW
+	 Hau9cmHwXJpHPhMOzUFFN7oEoJeiPvxagmu6WQyYBh/Q1Ch1vxJNkJ7xY3pK7hWjpgwRr
+	 aRaJboWajEBBa7jqztvJP7TsUkqdn+w/+2UKbl4m1Kw8nZDW5OZ7mB4860n562jCMz79b
+	 foS6hAginbl+r/Ze7mD78ONRiXvBLOwo36WvLaSfcIebghtcsKFfvufByhvLalUbR9A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794168334;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/b+EcMdz3JBQYeBrlY3qE8serskLcpaM65tBwPNWFyc=;
+	b=HNeR1M6LZYPsbOmYvECyh/NA1MU43aBeFu8GMoQU3cvaCp/qwwhqjxFZh0QeIrB7FeRL
+	 L+xlpG3HivS28m2UeCFYyrA2B+/AQABpWQVdqH8TbDxP94YeJP0sDhwqhq1luDd6OQiIF
+	 v7fmIUcYgqcKdMy2nCBkoB3l2pwO9LCbYq4H1n/Zj62LbP22jbQBAFyBfU0di0wBwmy36
+	 Rr/m31afDUaQjse0ipGsM2nHp1mxYjmlTHJ1OqjDKj+8sbHUBHnuI4MhVAi7LxKqv+DNc
+	 YjAuk7YL8iZvcwBtqXN7XlV7OboLbDBzFiPm4As91qZpCwFIoCryDgyoVq1ch4KyedA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0c8kjAh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E5E606A330;
+	Sun,  8 Nov 2026 20:05:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e0c8kjAh
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794168334;
+	b=LpuFxBe7PNoQrR9FqPjOXk5HjFWfHAKRpWuy3/0Abf2BsDKbNCQmJ7KXf5N6Jk0WNBIP
+	 hNGeqk8O+XJVH7z3ulQbtbDWV6LyR2Zz62I89sbeMxAGybtyHPJKkg1/pRjATADJnQya7
+	 OB+VYLZtPKc4QF/qRsAbrug/EuQtEFsVgAPER2erW8UkpzXZk8rMXHvPGUzBdYhg4A7g8
+	 i9fXrE105svQTaEKRvQ5ddbGWILnGZ1f/RE2ubv1NPCq75jeaXnIKw0PqjALgD403rLlF
+	 YprWir4qlE3p7UQnS7yud9EjMxnSqrvE0njelVwvOU2guKNJ73bYvV48P3ucRv+DF+A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794168334;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/b+EcMdz3JBQYeBrlY3qE8serskLcpaM65tBwPNWFyc=;
+	b=bR+cslNfQFeIdi01pQ98Pojq1IsjKnRX+ceC0wAeI8OHf6igfinyG3W0LZR/p5nam/qI
+	 oyFZJl09HLg7awBWu67j+C2ypjTNVWRMK5jKuciTl4ZQzLhRYCfQMLfl9wyvHG2iXYBcr
+	 Fw95mgYrnsYp2lZQ5LhtvPT3yBHKLw0Ae7TarrGy9694Bj353mHy4LA/yTR6bK4Uzu+n1
+	 PA+Q/o37HK1+cPKeXUszQ3iuzssfP+sTzxYpgXpUXl6fIzQ/Maa73gh+DiYTPfop9kvBv
+	 8EOtUQbJcWrpveqrn6FtM8qNm5bUhv7fWHsp12FZmq1CJkquT+Zi9xTxJfCPEonu2Pg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55547606A330
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:05:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55547606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ib7c6P66
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso1318905e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 12:05:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794168329; x=1794773129; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NsI7ZZLkYjCZutUVEg7TJNtNpCk2xGDMbVs7o+8cm3Y=;
-        b=ib7c6P66JcABRQVIYvbAfEuMzOdspSzPtZfn7p5hZaB2Rr9aWYVjAA8lHghOcTHkfP
-         W1IBKWn61CtXgoJPbCEozcqCpgRPGxULcN94D7ITtmHErVGmr3isoGCQ02nfNqhbH+4n
-         lUM22s4MKp/l6fyffg7/TutUQVALjesHSFnC4w+1WVPSvW0J5rknAYGDJAl4xvCRXDT5
-         fBdxAtmJXU6SiF6lguNdvRiiwtq6Km8nyFGsRU6Tq+7fwVjsnnI/ZpxcJdUfsPAfNVOr
-         BXFpKVyK/3a7Qj/Qjq4EwXbAdcjWWztzIsYea9a0P/MiY6n2EtEGPByGhhhA0f0X0qYJ
-         P5GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794168329; x=1794773129;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NsI7ZZLkYjCZutUVEg7TJNtNpCk2xGDMbVs7o+8cm3Y=;
-        b=jWL3ifJax2fnk8daueFsrnc1qcJWQNACCF+iVuNDBq/NKxkQKpBtxhHapuVB1ufAXw
-         9+99vvTJmeKwufcC9Ku5aPQgNKKHMNO+lNN0d+oH/rTw0lUGlR88yFG9t3r3+oGDcG3q
-         D/C4IkozGk+6wY3kpaTmmA3smLMiHEYgzAx0DqHSTf/k+EW96G7SH1vjLLzmWRKvGllB
-         Vih5M3faawGy7gl0tAIIKX8VOMeLeQGvllh/vYTJx7/iS8U+LQx4zGowpL/2JR37iz/z
-         o6VayI2FltwwfSzQrV/x8k2N44QcPilHMPK6JsrQojaqAkrtZ3TpmQ4R6aDTxBp7urIC
-         FIpw==
-X-Forwarded-Encrypted: i=1; AL+hErFQu8s9kjX+A8YpCNeLAiMcjwqSx8ARFXiLqqY7vVL8vTc4+/E6wmAqpLmg6ehjlJyn3v+/g6TVgr89fa8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Hk1MGqnfWn9BiEl8ZJXtuzVGPPNhzxfiDLnpMTJ1vDQCCPZZn
-	S5C0WbwBf3CuXRxetNDsknTGFlQmh8H5SwfWmyk+uhCS2o59yXGJU7b9
-X-Gm-Gg: AYBFou1G3kMqvnhyNSrU5KwZgyhTpq4r5rk3cwSkMbCTgPst25QeawHNmzAM4mNdSXo
-	yA5iQGTrFdSgAbY9urvX81qvsEUkkAJ9HUCa3+BZtZUpBXZNKjCbb6YWu2ywOK+ta1agLWDUVvn
-	lToH7ADH0QKOZat7uRYOQAThLurNlF987ia58xzqolVNqs8u0KzMjcB5OpczA6yvViQ4QfSRhuG
-	4IAUppRCP1tCzXl9zJGcoRKtFdI7Rb2r/ZXTMHT2rarfX8a5Mzr/zXR9TquuAm4n1CV9h/xGkqR
-	FQ17kknpGCwB6HwdWofDRuLn6xY0CvqFK4Yg0lFpA6ib0k1wSElAoHy81h4ynlHH7MnQhPHv96Y
-	3aS0mo7FCMof4N9rHL+y8CPkBpVHCzfySZokVmacRxREkkoVUbX3lw0+IfVeCJQGRuT0+tRm+VC
-	wcmudhyHL6uBkUljSSBH0vXf3VD8DEmkC4zQTRKyL6Cid1+abN0RM9JZbmJUUE5LHweBIQCOfRf
-	3KIY6R7ip5K5RmA6KxER+COW6Mo/a8JdGytDIAjZmkLd99ktUqZEeA3/TndvdMPonHFJJYYvf3G
-	bgY8MFoDJSvwEBtKBESpXruHTx5+OIpqH5eTnHaerccigU81CKJ2Wg2tzhFM3n17LYU4PjMYofm
-	JbrG4D0/59w==
-X-Received: by 2002:a05:600c:1c0c:b0:49f:ce78:3562 with SMTP id 5b1f17b1804b1-4b963c69d23mr43591205e9.19.1794168328561;
-        Sun, 08 Nov 2026 12:05:28 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597186ec5sm5768522f8f.33.2026.11.08.12.05.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 12:05:28 -0800 (PST)
-Date: Sun, 8 Nov 2026 20:05:26 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Hannes Reinecke <hare@suse.de>, Jarkko Sakkinen <jarkko@kernel.org>,
- David Howells <dhowells@redhat.com>, bpf@vger.kernel.org,
- dm-devel@lists.linux.dev, fsverity@lists.linux.dev,
- keyrings@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-security-module@vger.kernel.org, Alasdair Kergon <agk@redhat.com>,
- Alexei Starovoitov <ast@kernel.org>, Alex Shi <alexs@kernel.org>, Andrew
- Morton <akpm@linux-foundation.org>, Andrii Nakryiko <andrii@kernel.org>,
- Benjamin Marzinski <bmarzins@redhat.com>, Daniel Borkmann
- <daniel@iogearbox.net>, Dongliang Mu <dzm91@hust.edu.cn>, Eduard Zingerman
- <eddyz87@gmail.com>, Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai
- <ihor.solodrai@linux.dev>, James Morris <jmorris@namei.org>, Jiri Olsa
- <jolsa@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Kumar Kartikeya
- Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Mike
- Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, Paul
- Moore <paul@paul-moore.com>, Randy Dunlap <rdunlap@infradead.org>, "Serge
- E. Hallyn" <serge@hallyn.com>, Shuah Khan <skhan@linuxfoundation.org>, Song
- Liu <song@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>, Yanteng Si
- <si.yanteng@linux.dev>, Yonghong Song <yonghong.song@linux.dev>, Linus
- Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [PATCH v5 2/3] KEYS: Replace assoc_array with rhashtable
-Message-ID: <20261108200526.43579e2a@pumpkin>
-In-Reply-To: <20261106090516.GA1973@sol>
-References: <20261105031401.956609-1-jarkko@kernel.org>
-	<20261105031401.956609-3-jarkko@kernel.org>
-	<27015846-0161-4700-b810-4643e1f7b63a@suse.de>
-	<20261106090516.GA1973@sol>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8E1711F008A3;
+	Sun,  8 Nov 2026 20:05:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794168334;
+	bh=/b+EcMdz3JBQYeBrlY3qE8serskLcpaM65tBwPNWFyc=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=e0c8kjAh35KI85lZ1Qjj5mCQ1CROC8CU8n+z5efDzz9DKMOYv8LoceJOlNxEpFEnc
+	 5QBQlyQpA6BWOsK/A4s7SJ70pv5M8jFQWGM/xC45jgKA/RYJBVBI2Fbm8KpnBFAUGd
+	 /CJTTJ5lPNT4ExbvFAT/Oz3PUYls9pe+NAU6J+aWf23KcvPnu+tEZ33U2KiaPC4ZKG
+	 8WcCci6nP6P6d1zn2gosC29qmbot+1DOg4UHK68/RsYrBu4gLVwDtDf0QcZUHTEPE0
+	 Bb85NILWrVpDxr75L7de4D4AVhbCaGJ2o5oIlI90T3QuRNLv/hPKS4pFFniiman/QD
+	 siMnQyHDCxABA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E80BE480B2;
+	Sun,  8 Nov 2026 20:05:32 +0000 (UTC)
+From: Alban Munari via B4 Relay <devnull+alban.kernel.gmail.com@kernel.org>
+Date: Sun, 08 Nov 2026 20:05:12 +0000
+Subject: [PATCH v2] tpm: Remove enum tpm2_session_types
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,23 +82,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261108-tpm-se-trial-v2-1-92c2090351d7@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0Jm7RimQQVX3MOwKDCFMZSSthIN4
+ e4Crl2+5P33FwjshQPckwU8zxLEjRuoUwJNr8eOUdqNQaXqSpTmGCeLgTF60QNe8rRmU9SZoRt
+ sk8mzkfeRe1Q/Dq/6yU3cG7vRS4jOf46/mXbvT3omJMwKpSg3RcsZlZ3VMpwbZ6Fa1/UL9ajHA
+ LoAAAA=
+X-Change-ID: 20261108-tpm-se-trial-580bef9b4f17
+To: Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ James Bottomley <James.Bottomley@HansenPartnership.com>, 
+ Ard Biesheuvel <ardb@kernel.org>
+Cc: linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Alban Munari <alban.kernel@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794168332; l=2277;
+ i=alban.kernel@gmail.com; s=hephaestus; h=from:subject:message-id;
+ bh=FiL44ygx4KhhpPRDazZwhl0/A0dCZenHQ3H9IagOC6Q=;
+ b=X0eopT0lIsvtKricO5oVDqirkfAmYyAILXvY63PUg5+af7w6HbF4DfZC2LAiqWKAcIppx2ncj
+ jcPliS4jvUJACDva0p4Vc8DnyhDSbCu2Qx/PKA7/vbc9mbs9GB6eD3V
+X-Developer-Key: i=alban.kernel@gmail.com; a=ed25519;
+ pk=E4gTLxHRk8yuKicoDcjhUfRHnlctgbnlV9dmOwM5338=
+X-Endpoint-Received: by B4 Relay for alban.kernel@gmail.com/hephaestus with
+ auth_id=1455
+X-Original-From: Alban Munari <alban.kernel@gmail.com>
+Reply-To: alban.kernel@gmail.com
 Content-Transfer-Encoding: 7bit
 
-On Fri, 6 Nov 2026 01:05:16 -0800
-Eric Biggers <ebiggers@kernel.org> wrote:
+From: Alban Munari <alban.kernel@gmail.com>
 
-> Side note: fips=1 actually has little do with security, and in some
-> cases it actually decreases security.  See for example
-> https://lore.kernel.org/linux-crypto/20261026183332.11402-1-ebiggers@kernel.org/
-> where I'm fixing a vulnerability caused by fips=1.
+TPM2_SE_TRIAL is defined as 0x02, while the TPM 2.0 Library
+specification, Part 2: Structures, revision 01.83, section 6.11, Table
+21, defines TPM_SE_TRIAL as 0x03.
 
-Then there is the 'fips compliant' server we used for routing 911 calls between
-TDM and VoIP.
-Any kind of PCIe error gets routed out the the motherboard management module
-which then proceeds to inform the kernel with an NMI.
-At which point Linux crashes.
-The NMI is too late to stop the kernel having to handle the ~0 from a read.
-And even happens when there is no driver using that device.
+The only user of enum tpm2_session_types is tpm2_start_auth_session(),
+which starts an HMAC session. Remove the enum and pass the session type
+there as a literal, rather than fix a constant that nothing uses.
 
-David
+Suggested-by: Jarkko Sakkinen <jarkko@kernel.org>
+Signed-off-by: Alban Munari <alban.kernel@gmail.com>
+---
+Changes in v2:
+- Remove the enum instead of fixing TPM2_SE_TRIAL (Jarkko).
+- Refer to the section of the TCG specification.
+- Drop the Fixes tag: no code used the wrong value.
+- Link to v1: https://patch.msgid.link/20261108-tpm-se-trial-v1-1-492218f9de41@gmail.com
+
+To: Peter Huewe <peterhuewe@gmx.de>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-integrity@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/char/tpm/tpm2-sessions.c | 2 +-
+ include/linux/tpm_command.h      | 6 ------
+ 2 files changed, 1 insertion(+), 7 deletions(-)
+
+diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
+index ca1e2bf424e1..63e1dd596bc5 100644
+--- a/drivers/char/tpm/tpm2-sessions.c
++++ b/drivers/char/tpm/tpm2-sessions.c
+@@ -1043,7 +1043,7 @@ int tpm2_start_auth_session(struct tpm_chip *chip)
+ 		return rc;
+ 	}
+ 	/* session type (HMAC, audit or policy) */
+-	tpm_buf_append_u8(buf, TPM2_SE_HMAC);
++	tpm_buf_append_u8(buf, 0x00 /* HMAC */);
+ 
+ 	/* symmetric encryption parameters */
+ 	/* symmetric algorithm */
+diff --git a/include/linux/tpm_command.h b/include/linux/tpm_command.h
+index fc446a1282e2..c9988fcff916 100644
+--- a/include/linux/tpm_command.h
++++ b/include/linux/tpm_command.h
+@@ -168,12 +168,6 @@ struct tpm1_get_random_out {
+ /* TPM2 specific constants. */
+ #define TPM2_SPACE_BUFFER_SIZE		16384 /* 16 kB */
+ 
+-enum tpm2_session_types {
+-	TPM2_SE_HMAC	= 0x00,
+-	TPM2_SE_POLICY	= 0x01,
+-	TPM2_SE_TRIAL	= 0x02,
+-};
+-
+ enum tpm2_timeouts {
+ 	TPM2_TIMEOUT_A		= 750,
+ 	TPM2_TIMEOUT_B		= 4000,
+
+---
+base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+change-id: 20261108-tpm-se-trial-580bef9b4f17
+
+Best regards,
+--  
+Alban Munari <alban.kernel@gmail.com>
+
+
