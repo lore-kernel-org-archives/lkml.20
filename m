@@ -1,56 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.253
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794167089;
-	b=WWei0CCFEoFi4BtocI0EjxwP6xjCgqBuTMAGyYLF+YIlWNwLRpz+1iQG1pC/F7syA2EG
-	 0spBewoLOlF1Ip0ejqayw6c/gjMrivIkcY8cTV49Dj0GVzgGcx6aPb8GbNQVRWrtkT7Lu
-	 uqWji9nRLK1ZY0BV7SUvfPwkLZgJY6LOwmz0xkHrz7XSzMsNHF5K9iQTaiXtnNPfyYVdJ
-	 xayxhy/a2uBPzwheQYem7BoG+dL/UHWEto1kVLHxwc/B7u8kyo9rhgouxGrQni5AglvcW
-	 s+8epL2VrFWvATzTpu1iW6CAyWm197YMlHBRBYElb66pjmY4dXN1ljc2imT6p7EFpXg==
+	t=1794167174;
+	b=I6Z+xCI8Iwy/aZFSV9+oFjLJ2TkGYKknXMQHqdjHV2uf6ZCUDZTGKyF/7joKvI9iswqb
+	 5ffHOWdfEptoFUd/0Kqx7p8oSUxSRLf2UgTSoXNVlbXOSHHvBJRqK9wwoEUlVUKe4kqJh
+	 ZVMHJBVmZ2+uDqQC3H5wZMqAv8cJmrGKsvrFr6iO1B3GkHhsPzvEf8IjHLKW8OxUoF+YE
+	 mt+FzuUCYBjSLc1xuo3Nxqn4pnzktR2owsdkGMfKrlj8BTVwSrczMV94ZAeFExy3R0AkQ
+	 4szrxz0QAq4HFKo1jzp0zAiLIqRUrYz6Oymuv0lr/i4/D5myNrwvQ2/pu/qhr4r/sfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794167089;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bK/w0JY0qsvel/2C3Ak4Hi+ciU/jEBjPjTp1td+7pv0=;
-	b=SPHhD4qXtaJNlgI3Q8pcekFhnDwWb8fh57w8aBdRhybDkbiAU19J7ovKHmPRNq8s9877
-	 gRFS9HBsjeA9CE6edUUHNSI8Ps30Y3D2YF05wSiXyNzYLJF3TjvZIYPgjGuMPVGFQ0+0f
-	 y/REEBYOhvsarqFYn7oWdsEhemoYo7jp1Bzhr9gIZDYKaROQ8sPBo/deBm0HOI0XBqjU/
-	 pxnKVlui82GMZhf+bac2VYogh2QsEGiAvwIAmy5nwbd+0FVkIbYQkUE3V+c25q8Zj6JyS
-	 0R7e7+3NYpP7mlN1E0F16Rj7OIsPP/euFsuiBBfYjWaEYui5DQ0xvagHyf97AaYqmfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794167174;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=1hnksh8KNsnKdS0AAby74MB2t6RjsfF/lcwn9ERBYwM=;
+	b=LiPWuSonqomehQNaQpbraIH+mA9m8jsHvczRzIHgE5z0GStInqZTriIKc/zk4C+mrhtj
+	 zf0DjM0fHovEDo9s+7UBgkLKQh40nzLjSfvIMCCJFuNChpUno47CHgnsr5NnvBL09ROVS
+	 ynC9NlQ4YIgqz0Ezg09JSXWj9of6N8HSvoWQBBbZb+cxL6Wa9EytNGzAuf/6V1psXUQ/P
+	 JQQicCc3q+sdr9dykA7669pKo2WwJkMo3fKH6cxPMPrdfXzD/PNHS2dDdPCh3aQMT55WQ
+	 CzFiZEI4lP1AS0eciu2WW9iDMCgGYqdQGwJIOrK557STxciA/1gvcTkDhWiKsC8lLWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=postmarketos.org;
-	spf=pass smtp.mailfrom=postmarketos.org;
-	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=YOLYPyDJ;
-	arc=none smtp.remote-ip=95.215.58.253
-Received: from mta1.migadu.com (out-253.mta1.migadu.com [95.215.58.253])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a/aHcn7p";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847E9606A322
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:44:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 847E9606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FECC606A31C;
+	Sun,  8 Nov 2026 19:46:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=YOLYPyDJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+ceEzAMQMvwUP9EY3u46PKK9C3QjKCi+ClAiSsq36c4=;
- c=simple/simple; d=postmarketos.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794167081; v=1; x=1794771881;
- b=YOLYPyDJ5TrEuBjbkSQ95fn1ZYo2KwuU1lq7GFgen8TTH6u60yMKaSozr3ldYPZuVk7EOdWI
- TQ98p4/oOSC9ajxW2pIWwgYLw3f/9Ye7fRxFUUpD2v1JKZB7fMhSb44EhsgBz6a36v/EVOCVfK4
- HgxI3aC+1/CFcJTcHjUulwTq6C8MVFoolvSmWjxk7U6PB+EUDC4+z0uKe77372CyKJ2W1zJeLum
- KW03KFc06t8oz17lYqx7InY6CFj35e5HKYumTo9cbUHJYnznwW62kFX6Vqw2TF+9CsX6bvoHzLP
- lJBITxDilGJflgy4jUct6WbL7hZZfnTDOu667KLyDV9ZQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d627279e59766dfb;
-	Sun, 08 Nov 2026 19:44:41 +0000
-X-Mizu-Trace-ID: d627279e59766dfb
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <73c1c139-e0ec-4179-b911-174e4f01a0c7@postmarketos.org>
-Date: Sun, 8 Nov 2026 12:44:38 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a/aHcn7p
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BFC91F0089F;
+	Sun,  8 Nov 2026 19:46:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794167174;
+	bh=1hnksh8KNsnKdS0AAby74MB2t6RjsfF/lcwn9ERBYwM=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=a/aHcn7pTjMJkkDLR/wqBiqOVGg+yA/ahiMsrlAf2YE1GaQRiPSp2ttgOwXd/HjMT
+	 TWj7j8OmpaPAaN05m3755UBPO4rl95uBM4mqqk2JIlMJ17umKCdYEF9QPVJCrGXcbC
+	 Mj0OqzoeKhK8DgR1mj1IZuvGp6YiZesOB+L1A9FNZaGLvgrkJ5dUm+BJ7D7cp7aY16
+	 FlgBDS+LXnewP03K/f03XfD1VAw7jvZjtJLVvTp9Nls2AXMwynWhTca6Ybdhx5LYhz
+	 XiwlbPABRZtzdK/ugtLqYNT+vDMfRcAZBpJEjrI5lUPvMuqSA7kjTZThbJHUKGw6ms
+	 buxgHFT8ApSsQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 2129E380821F;
+	Sun,  8 Nov 2026 19:46:14 +0000 (UTC)
+Subject: Re: [GIT PULL] MIPS fixes for v7.4
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <au-enPQhQVCrdXWw@alpha.franken.de>
+References: <au-enPQhQVCrdXWw@alpha.franken.de>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <au-enPQhQVCrdXWw@alpha.franken.de>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/mips/linux.git/ tags/mips-fixes_7.4_1
+X-PR-Tracked-Commit-Id: 456c965ca46c59a4a241c755e6565fd883a522f4
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 2651f6deb3326129a052897df193052dc28ea94f
+Message-Id: <179416717262.1685596.28576652826816937.pr-tracker-bot@kernel.org>
+Date: Sun, 08 Nov 2026 19:46:12 +0000
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: torvalds@linux-foundation.org, linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,43 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] leds: aw2013: Add AW2027 support
-To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>,
- Alexey Min <alexeymin@minlexx.ru>, Nikita Travkin <nikita@trvn.ru>,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
- <20261012-aw2013-aw20xx-rename-v3-2-cab1fdd050b6@postmarketos.org>
- <179198402838.839288.17911568760182808689@kernel.org>
-Content-Language: en-US
-From: Paul Sajna <sajattack@postmarketos.org>
-Autocrypt: addr=sajattack@postmarketos.org; keydata=
- xjMEaVNevhYJKwYBBAHaRw8BAQdAjvGGprvrSn/CmlA1Bpjc4S5zJBNSz/6q0AESlS2JbdjN
- J1BhdWwgU2FqbmEgPHNhamF0dGFja0Bwb3N0bWFya2V0b3Mub3JnPsKZBBMWCgBBFiEEv1E8
- AP7J5F2dJQd4hycszAKyDbsFAmmt6twCGwMFCQlmAYAFCwkIBwICIgIGFQoJCAsCBBYCAwEC
- HgcCF4AACgkQhycszAKyDbv25QD9EdvXYqdH6vGQvB5HrUnMOsd37AZkKKgK87kMOXL/5tcA
- /jM3VLcq9mol+GstmBm1itIVAblXcm+H8g/wKoPXq/4LzjgEaVNevhIKKwYBBAGXVQEFAQEH
- QEgCn8S+S7t/3QvXt4dK4572qd+iTl7h4JX1FEV5XUs6AwEIB8J+BBgWCgAmFiEEv1E8AP7J
- 5F2dJQd4hycszAKyDbsFAmlTXr4CGwwFCQlmAYAACgkQhycszAKyDbueJAD+IMjk8ztbONXz
- H7fieZc5LoR+6mHnddccacmQyPcGAvsA/0+5SkHEgIBuKwkzwrmKgDqcLhVuEs2f1H2GxKUX jqQI
-In-Reply-To: <179198402838.839288.17911568760182808689@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 2026-10-20 3:16 a.m., Lee Jones wrote:
-> Also, the for() loops are identical and are the last pieces of both
-> branches, so why are they duplicated?
+The pull request you sent on Sat, 7 Nov 2026 22:56:44 +0100:
 
-The for loops were not meant to be identical, that was a separate 
-mistake that sashiko caught, the one it mentioned about writing a 4-bit 
-value to a 2-bit mask. I'll address that before resend.
+> git://git.kernel.org/pub/scm/linux/kernel/git/mips/linux.git/ tags/mips-fixes_7.4_1
+
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/2651f6deb3326129a052897df193052dc28ea94f
+
+Thank you!
 
 -- 
-Hal: They're going for the kernel!
-Margo: Colonel Who?
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
