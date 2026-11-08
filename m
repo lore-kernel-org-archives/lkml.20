@@ -1,70 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794137724;
-	b=TmQOPaDZGhVnlsyuWQ6a50xbrdnSbI7xJI39948v6JsGvUFYEcIAHw2JT8eR7g1szh2W
-	 q9mbAv5drHKYBzIlpOP2st+G711nubEHtuxnd598uGzlwPHS1sdX4wvhA5qM9ToDYjm3C
-	 stQZfjnmTnLvPk+QEyCSz7DBRR+fppEQ64XJzgrMA8GAWhSgoRkIScoB5QqmMWzzr8bK2
-	 tMJSb0SdTHtn3D+HV64KSD1XwzJvArnGWHUy8MFnHK3O3xyICY1z0COWTCpSzB1DFoj+w
-	 ZBc7AAb+dnekuLyGKPGydAU/67bXZTXouKy11EODoClHS39KoiQ4c96+F065s9BdAwQ==
+	t=1794137811;
+	b=nloFh+Pc/cx09/MAlUvn+ihhzkF/JFE7XRwsMkf7atsaZO21RVkRK69KodLkiZvfdf3h
+	 Y1prL8tmO+sxTO2V6hHsatFCppkHc9eq5M92g6sEb9SMSdHyNG5DV2veIS5HrUWp6EmYx
+	 7pvb8T1DvF8pihJUGfNtSngbI8SOJrF1cxO7unAVK9KchpQavX9WZiRp8Cby0wSWZBznY
+	 QSCMxrdkZjQiAEjL39yWhavrgUmsorqmK/mHJ/vAXUYDG+bhnkycT6wJUp9OmTzEgnwU7
+	 mZCzid8H/McwYjscLEnG4wkJKsmVVsQ1o+NAZtipMuv2Pb7F6ImTL5OKbYBFjm9sRUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794137724;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lwdAgCvtvRUcPybnp/UQAFDNlNUPBjMogcTxCraafKI=;
-	b=tJsNyrYUJwwfLrg6iscHn7OIdRB9+QsdkUjtM0nY1yPhkqkGWORQKWGTmD0U8GwtF4dx
-	 t2uXrCrNHUQkp0dLEoDRKzDnYFSbwHA5IY+b57euOAy3J0xcbPl3Jraw/RbfZY2GJgscX
-	 Iik5BGn0rpu9IeeYheAEEsS6Je+3eWW8dnqah8+6fW1lOSHismhxHKr+YZguG4mrk1pAJ
-	 2PJPR9LHAQpCWUVGzP5xa9PTT//lkjTvcTUcyjD0cNFuJhRrZz0uLVOcyL1GP2jd4WhPT
-	 S9fVGNiIlXEKLiH6newT0VtAB+8XgWcVDQVHkJJ21n4g3Emggk0eJ07hoPJN97mIK9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794137811;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=lmjN69Vv8biZ5SGMcgF5cRLTFcd7u9RIX4XoIvN+/6Q=;
+	b=unNxDGO4+TnnIHx2NnYI1jVzS4YqMEO8kiCJZxfBmTVbCRAc4TUNmveofIkILcaDkTjx
+	 1xGf2y8CBkTATo5+9kBC7JTrFighPB/6TZxC/T86w2+ecn1C1Qod93erehLGXQGlQemqe
+	 D99W0tuzCiJzVE8W1TJsctqZgq2bSRJdxOF4FAxcOc/6qzpiUxG6XG6D1kLYrCyhG3dMS
+	 1EIrKwlZ2+7IG8lEzjYeitYmhScxiokYBC6ZFOA2aKQzwi+7JuFMpHsOyXb07IEUbBy8f
+	 J8b8pq9BLsoQHLFJn4oOdsTR+JEvTxC3oHprSD7zACpomUvK+eSnC85Icw7RGA+Akow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=SMJ8h3Vj;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 67F86606D808;
-	Sun,  8 Nov 2026 11:35:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67F86606D808
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GuDWRHRj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 39A14606A31C;
+	Sun,  8 Nov 2026 11:36:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=SMJ8h3Vj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=SMJ8h3VjycMU6b0a2OQw+Tud5XV5tepWOrndsjJutGvSp4zwkXsQw98nH7/7h485gbSHIsf9CO0Vm
-	 gXzQ1dSxXpjlv9j/YAznLQcw6JEsjUuualB04NXLtngxNbYq0nekAni1lI0GpgEA/NVhELEgVeO4HA
-	 GbaCOcWTHLMyC7n8=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56af05e68a11-b8e8a;
-	Sun, 08 Nov 2026 19:35:18 +0800 (CST)
-X-RM-TRANSID:2ee56af05e68a11-b8e8a
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from openEuler-24.03.03 (unknown[74.82.203.40])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af05e6933f-66b79;
-	Sun, 08 Nov 2026 19:35:18 +0800 (CST)
-X-RM-TRANSID:2ee96af05e6933f-66b79
-From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	William Tu <witu@nvidia.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3] erspan: drop packets with an unknown ERSPAN version
-Date: Mon,  9 Nov 2026 04:35:04 +0900
-Message-ID: <20261108193504.73393-1-yanhaishuang@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GuDWRHRj
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 259E91F0089F;
+	Sun,  8 Nov 2026 11:36:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794137811;
+	bh=lmjN69Vv8biZ5SGMcgF5cRLTFcd7u9RIX4XoIvN+/6Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GuDWRHRjYWZADZIG9/LWzJDKUxs/mek7Nsu97BwOm03sEFivJo5U3UQ0xIH7GpRG7
+	 rGbbx4T87DX9YEn8l53BX4Ugkj7lRUxyvSqy7aM/nmXFOSAxmYe5ydVmSaJyi3MmQc
+	 JJTr7N4/tgcWfte8qJuaRBXrDAn9MUg5O3bIplSwIDMlbiMpBD2gDjdg9DJfzEUd8n
+	 vWeqDbUkO3TV6iu8cKevoxcNmdHsWzGaPf6iu17AwRGPYe+slM6RdYEeDYGbmeSagF
+	 P/+DPJJN4bW73+wdv7lEMI3LBskqyxaKDnYMJg2c01HtDlu2N6YDUJ243+o43Agpwm
+	 gHMBL+t5P6o+Q==
+Date: Sun, 8 Nov 2026 12:36:48 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: ben717@andestech.com
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-pwm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 2/3] pwm: add Andes PWM driver support
+Message-ID: <avBbSsojNV9UIZGT@monoceros>
+References: <20260812-andes-pwm-v7-0-a806da8185d1@andestech.com>
+ <20260812-andes-pwm-v7-2-a806da8185d1@andestech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,118 +58,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-The ERSPAN type II and III receive paths take the length of the ERSPAN
-header from the version field of the packet, with erspan_hdr_len(), but
-never check that the version is one they know: 1 for type II or 2 for
-type III.
-
-For any other version, erspan_hdr_len() returns 0 or the type III
-length. With version 0, the ERSPAN header is not pulled, so it is
-passed up as the start of the inner Ethernet frame, and in collect_md
-mode the metadata is filled from the wrong part of the header. The
-ETH_HLEN pull in __iptunnel_pull_header() still covers the bytes that
-are copied, so nothing is read past the pulled data.
-
-Reject such packets, as a packet with a truncated ERSPAN header already
-is.
-
-On IPv4, a packet with a 4-byte GRE header is taken as type I without
-looking at the protocol. gre_parse_header() treats an ETH_P_ERSPAN2
-packet as carrying an ERSPAN header whatever the GRE header length,
-but erspan_rcv() then skips that header's version and passes it up as
-the inner frame. Type I only uses ETH_P_ERSPAN, so check the protocol
-too. Such a packet now goes through the type III path and its version
-check.
-
-Signed-off-by: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
----
-Tested on net-next fa5196392691 (x86_64 KVM guest), with hand-built
-GRE/ERSPAN packets sent over a veth into erspan and ip6erspan devices,
-in plain and collect_md mode: version 0 packets and ERSPAN2 packets
-with a 4-byte GRE header and version 0 or 3 are now dropped, version 1
-and 2 packets are unchanged, and erspan v1/v2 ping over IPv4 and IPv6
-still works.
-
-v3:
-- Also check the protocol when classifying a packet as type I, so that
-  an ETH_P_ERSPAN2 packet with a 4-byte GRE header gets the version
-  check too (Sashiko).
-v2: https://lore.kernel.org/netdev/20261107130030.35220-1-yanhaishuang@cmss.chinamobile.com/
-- Drop the Fixes tags and correct the commit message: the ETH_HLEN pull
-  of __iptunnel_pull_header() covers the metadata copy, so there is no
-  out of bounds read (Ido, Sashiko).
-- Drop the patch that skipped the type III sub-header, as no device is
-  known to send it (Ido).
-v1: https://lore.kernel.org/netdev/20261018090236.2487997-1-yanhaishuang@cmss.chinamobile.com/
-
- net/ipv4/ip_gre.c  | 12 +++++++-----
- net/ipv6/ip6_gre.c |  3 +++
- 2 files changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
-index 5485586fa0e6..f8a7c4353502 100644
---- a/net/ipv4/ip_gre.c
-+++ b/net/ipv4/ip_gre.c
-@@ -255,13 +255,13 @@ static void gre_err(struct sk_buff *skb, u32 info)
- 	ipgre_err(skb, info, &tpi);
- }
- 
--static bool is_erspan_type1(int gre_hdr_len)
-+static bool is_erspan_type1(const struct tnl_ptk_info *tpi, int gre_hdr_len)
- {
- 	/* Both ERSPAN type I (version 0) and type II (version 1) use
- 	 * protocol 0x88BE, but the type I has only 4-byte GRE header,
- 	 * while type II has 8-byte.
- 	 */
--	return gre_hdr_len == 4;
-+	return tpi->proto == htons(ETH_P_ERSPAN) && gre_hdr_len == 4;
- }
- 
- static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
-@@ -282,7 +282,7 @@ static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 
- 	itn = net_generic(net, erspan_net_id);
- 	iph = ip_hdr(skb);
--	if (is_erspan_type1(gre_hdr_len)) {
-+	if (is_erspan_type1(tpi, gre_hdr_len)) {
- 		ver = 0;
- 		__set_bit(IP_TUNNEL_NO_KEY_BIT, flags);
- 		tunnel = ip_tunnel_lookup(itn, skb->dev->ifindex, flags,
-@@ -301,10 +301,12 @@ static int erspan_rcv(struct sk_buff *skb, struct tnl_ptk_info *tpi,
- 	}
- 
- 	if (tunnel) {
--		if (is_erspan_type1(gre_hdr_len))
-+		if (is_erspan_type1(tpi, gre_hdr_len))
- 			len = gre_hdr_len;
--		else
-+		else if (ver == ERSPAN_VERSION || ver == ERSPAN_VERSION2)
- 			len = gre_hdr_len + erspan_hdr_len(ver);
-+		else
-+			return PACKET_REJECT;
- 
- 		if (unlikely(!pskb_may_pull(skb, len)))
- 			return PACKET_REJECT;
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index b5d6ed8f0c36..46fac89a0743 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -507,6 +507,9 @@ static int ip6erspan_rcv(struct sk_buff *skb,
- 	if (tunnel) {
- 		int len = erspan_hdr_len(ver);
- 
-+		if (unlikely(ver != ERSPAN_VERSION && ver != ERSPAN_VERSION2))
-+			return PACKET_REJECT;
-+
- 		if (unlikely(!pskb_may_pull(skb, len)))
- 			return PACKET_REJECT;
- 
-
-base-commit: fa5196392691051963726787944db872420dfa75
--- 
-2.43.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fsrqznbb3afk5cgn"
+Content-Disposition: inline
+In-Reply-To: <20260812-andes-pwm-v7-2-a806da8185d1@andestech.com>
 
 
+--fsrqznbb3afk5cgn
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v7 2/3] pwm: add Andes PWM driver support
+MIME-Version: 1.0
 
+Hello,
+
+On Wed, Aug 12, 2026 at 11:24:05AM +0800, Ben Zong-You Xie via B4 Relay wrote:
+> +static int andes_pwm_config(struct pwm_chip *chip, unsigned int channel,
+> +			    const struct pwm_state *state)
+> +{
+> +	struct andes_pwm *ap = andes_pwm_from_chip(chip);
+> +	unsigned int clk_rate = ap->extclk_rate;
+> +	unsigned int ctrl = ANDES_PWM_CH_CTRL_MODE_PWM;
+> +	bool use_pclk = false;
+> +	u64 high_cycles;
+> +	u64 low_cycles;
+> +	u64 period_cycles;
+> +	u64 duty_cycles;
+> +	u32 reload;
+> +
+> +	/*
+> +	 * Reload register for PWM mode:
+> +	 *
+> +	 *		31 : 16    15 : 0
+> +	 *		PWM16_Hi | PWM16_Lo
+> +	 *
+> +	 * The high duration is (PWM16_Hi + 1) cycles and the low duration is
+> +	 * (PWM16_Lo + 1) cycles, so each phase spans ANDES_PWM_CYCLE_MIN to
+> +	 * ANDES_PWM_CYCLE_MAX cycles. The hardware period (their sum) can reach
+> +	 * 2 * ANDES_PWM_CYCLE_MAX cycles, but the PWM core requires the period
+> +	 * to be chosen from the requested period alone, independent of the duty
+> +	 * cycle. That holds only while both phases stay within
+> +	 * ANDES_PWM_CYCLE_MAX for every duty split, so the usable period is
+> +	 * capped at ANDES_PWM_CYCLE_MAX + ANDES_PWM_CYCLE_MIN cycles.
+> +	 *
+> +	 * The controller has two clock sources, the APB clock and an external
+> +	 * clock. Since the external clock frequency must be slower than the APB
+> +	 * clock, it is tried first for its wider period range; the APB clock is
+> +	 * used only when the external clock resolves fewer than two cycles (or
+> +	 * is absent) and is itself usable.
+> +	 */
+> +	period_cycles = mul_u64_u64_div_u64(clk_rate, state->period,
+> +					    NSEC_PER_SEC);
+> +	if (period_cycles < 2 * ANDES_PWM_CYCLE_MIN && ap->pclk_rate) {
+> +		use_pclk = true;
+> +		clk_rate = ap->pclk_rate;
+> +		period_cycles = mul_u64_u64_div_u64(clk_rate, state->period,
+> +						    NSEC_PER_SEC);
+
+This only helps if ap->pclk_rate > clk_rate. So maybe check that instead
+of ap->pclk_rate != 0?
+
+There is still room for improvement: Consider
+
+	ap->extclk_rate = 10000
+	ap->pclk_rate = 20000
+
+	state->period = 3100000
+	state->duty_cycle = 1550000
+
+Then your algo picks extclk as period_cycles = 31 with it and then
+result in duty_cyles = 1500000 while with pclk you could achieve an
+exact match. But I think the way the parameters are picked is consistent
+and so it's fine to keep it as is.
+
+> +	}
+> +
+> +	/*
+> +	 * A single cycle is still usable: the duty cycle can then only be zero
+> +	 * or one cycle, and both are emitted by parking the channel below.
+> +	 */
+> +	if (!period_cycles)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * Round the period down to the largest value representable for every
+> +	 * duty cycle, so the chosen period depends on the requested period
+> +	 * alone. With both phases capped at ANDES_PWM_CYCLE_MAX, that bound is
+> +	 * ANDES_PWM_CYCLE_MAX + ANDES_PWM_CYCLE_MIN cycles.
+> +	 */
+> +	period_cycles = min_t(u64, period_cycles,
+> +			      ANDES_PWM_CYCLE_MAX + ANDES_PWM_CYCLE_MIN);
+> +
+> +	/* The duty cycle cannot exceed the (possibly clamped) period. */
+> +	duty_cycles = mul_u64_u64_div_u64(clk_rate, state->duty_cycle,
+> +					  NSEC_PER_SEC);
+> +	duty_cycles = min_t(u64, duty_cycles, period_cycles);
+> +
+> +	if (state->polarity == PWM_POLARITY_INVERSED) {
+> +		low_cycles = duty_cycles;
+> +		high_cycles = period_cycles - low_cycles;
+> +	} else {
+> +		high_cycles = duty_cycles;
+> +		low_cycles = period_cycles - high_cycles;
+> +	}
+> +
+> +	/*
+> +	 * A zero-length phase means a 0% or 100% relative duty cycle, which the
+> +	 * hardware cannot run. Emit the matching constant level by parking the
+> +	 * channel: high_cycles == 0 stays low, low_cycles == 0 stays high.
+> +	 */
+> +	if (!high_cycles)
+> +		return andes_pwm_park(chip, channel, false);
+> +	if (!low_cycles)
+> +		return andes_pwm_park(chip, channel, true);
+> +
+> +	/*
+> +	 * A change of clock source takes effect immediately, modifying the
+> +	 * current output. Otherwise there is no glitch as the currently running
+> +	 * period is completed before the new settings take effect.
+> +	 */
+> +	ctrl |= use_pclk ? ANDES_PWM_CH_CTRL_CLK : 0;
+> +	ctrl |= (state->polarity == PWM_POLARITY_INVERSED) ?
+> +		ANDES_PWM_CH_CTRL_PARK : 0;
+
+So with the PARK bit set the ANDES_PWM_CH_RELOAD_HIGH bitmap actually
+configures the time (in ticks) the signal is low? If that isn't the
+case, don't claim to support inversed polarity.
+
+> +	regmap_update_bits(ap->regmap, ANDES_PWM_CH_CTRL(channel),
+> +			   ANDES_PWM_CH_CTRL_MASK, ctrl);
+> +	reload = FIELD_PREP(ANDES_PWM_CH_RELOAD_HIGH, high_cycles - 1) |
+> +		 FIELD_PREP(ANDES_PWM_CH_RELOAD_LOW, low_cycles - 1);
+> +	regmap_write(ap->regmap, ANDES_PWM_CH_RELOAD(channel), reload);
+> +
+> +	return andes_pwm_enable(chip, channel, true);
+> +}
+
+Best regards
+Uwe
+
+--fsrqznbb3afk5cgn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrwXs0ACgkQj4D7WH0S
+/k58mAgAnabuczjQcPJoWXObCa6DD2mxMkp7HgfCo7KGQffXrm4DSK7pHDB5tT4q
+rYqbxDgr2ckjBjSzZ65tDsZt0SjxQvy87j1lYoDxt/ojKdhIAMnK/GXep9w1wcL4
+xAHD62JiE5Kl9FUud4pHD9lN1lutYwhg8bKVRQQqz3JD0aQmIAhUOXjhGlzk2oGD
+nKj0ya0ZFDI1GNkTf9gTPgyBEnJU2dYRkE++ApnsDztwKptl8F3wKheo+WW1/Nmf
+i1Ao2/dfLYqdmWqXgNlwGoR5ROODfiYLn69wdtJZOXndUOvwyxN1xb4AW7057XGu
+oId5Uya57I6D+uuGCHRNQp7yeaWeYg==
+=D5fF
+-----END PGP SIGNATURE-----
+
+--fsrqznbb3afk5cgn--
