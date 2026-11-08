@@ -1,76 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794124875;
-	b=FvTem8na3C7lNd+ugzBsqAh3ORTpuVAc2hyy4QVso0dXkOz8zAE2OE9VlFDkF5akgcOa
-	 6LbYKp3pWwfToQjR8IPRgG/p0d+CmRfG+qG3ZfjCrHystJ5Jc5wYcv7mBw6sozIvqeoSY
-	 tGxMR5S7Lnd3omHPXeZPQqEFcNk+DuS31EjfcnjGjv1k6AkKjwIjZ5JQ0ePfl5LXrkSId
-	 dgyzAsGKRo13Ga07TwGI1JS+6X5u/6O7ek3ve519IbQkLtWH/OfPE00dzR9BkUwx7ULQ1
-	 kaokMVWG+yi7d+NrEIAVRdopCGyd8DWEOxaXrubxlEPV1hvWSujBzrV7Y+j5OH7OIsQ==
+	t=1794124934;
+	b=K5qhJpz7a6nM87dI6grFPrexlbo6mI8Jz/6czfv7A+55nv6UcsYPEi1UcDHwyTIgECv2
+	 seDb2bBjy+eLY1VF1uK/9Mgggy0onVA3qVhDWqETnl+cNBGh9Y8J+RhDz46BBV607MHZO
+	 eVGlpYByIRM6AkH4D8BFYeYkrB8j0daRIW2F6Jn3zSBkVxne5CW4vc8IsOFttQEoH9+/q
+	 t0nukNqbdy7nZRfRwShQvYUCyoHRwYEQWdweNnyNLn2s1N59GxAUZcUZIBu5mMLH6PH2D
+	 CKnQrOFbpueDjtrRIi6ZLt4jykn9yL+D5JEtnagkQS70kxO9m94/i0sRdBIeT/1n0xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794124875;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=OToWvZXTkI8yCBRekwg8WTjPaP9TAsMtaLsxrAlnWOM=;
-	b=eSF7MWxR3f7WCwj8ZSFRztH9iLoafvnoBYxu9WXCpL3eTxSyJ9XjTDOQK2Pka/5ya/o9
-	 W1NQ/kREb5qWHJ3Ong/xRCDynUjNwFybPWM4lqS3qbivs7MeNml9HTEQvjifJV7DXlzsD
-	 x+zrZvWrLAl7zC8y3xQT2FyBcltKeevxbwkKbS/3FjcQkI4d9vF9qt5vyWOp49daTqeN4
-	 quh1ugbmdTHgIRVWdArgDB++1ChiRpFrNU64lBy/92F4v2WipkU6sUAFLCAYWtBZ0WB7v
-	 WB86dOJ2+VR9zJ0EpN3QC3trcxAUeaNdFClzuY900XPmdyO8Aj88TfaoZmZGQOmCzug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794124934;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
+	b=G7e3FuZq4/8OF93a4/so+xdeuoYvTeqm5XcXxChO7GVJqUgMgfXTSd2QAZ1OLB9aDa24
+	 zP2WpfjH+PU1P/HZigqXeGMbmaqYrKUzmS9uU2NhNCE6e7FKP+++xPW1ubsUuMquZ6Z6W
+	 90B8/rmJ0Jp4uGoIGYq6FzWG2d2Nf/PR3qk1FZ0TGwurLUlMI7PCEFnzeDcD4xu1imKQN
+	 PRQNPI/oU8XKfhh++zntggzdbuV02YTVPcM0PztQeF8iJ6u9ALqYCGpyQJx98mdOLUxCc
+	 Tc8Vpf0Y98w1KPSAoh6UT8acmanRbc7lqQo4yy+Vm0Fyni9FgLJHw5p/NEicIVQWGFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RFFN4dd8;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=olXIfxts;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0FB606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:01:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E0FB606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0676606A31C;
+	Sun,  8 Nov 2026 08:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RFFN4dd8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794124873; x=1825660873;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=OAbDCZBxNG+SwfuY+DrR5QnL0/jt29FFINE4f0zF4A8=;
-  b=RFFN4dd8v8WBXEfGMBD0Rn7lEbIgz0QUH8y9EMbzAmcoP2HBSyO7E+Rw
-   5ORh/wJfOjBfO5wHt/nPT6qvMLhiyPPeTZ47GCpbbz1hgh1LsaqyQMxJt
-   Yha78BPD0y7ZIOXButkNbm3ae540XIfpbzG5Nzt0WWuaVG0LWlX7qYw7k
-   oIFA3zxx7jyxLdOInK1bhodxFrufadIdP+55ztezHDUUO2ztBBC1zwjGH
-   JXRgjcAHkwVmOTzOG6fEgoUKsl+VRkJeVzdvIwyzRdonqkdRqXpkA1cSr
-   Ro2AdQQhI8HwGlQcgpZGDboO5Okg9qUP8DJoIwdEKidyfgL3/syYy6xnO
-   w==;
-X-CSE-ConnectionGUID: mHNPqnpyTASD33XoVpwwHA==
-X-CSE-MsgGUID: aUlAmv5bSdyzdjSO6OWb/g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11959"; a="2774137"
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="2774137"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 00:01:13 -0800
-X-CSE-ConnectionGUID: Yv51+sO7SHmM5h8hENEHgg==
-X-CSE-MsgGUID: aO5BipszQECso+sY2FOlMA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,200,1787036400"; 
-   d="scan'208";a="7762616"
-Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
-  by orviesa009.jf.intel.com with ESMTP; 08 Nov 2026 00:01:12 -0800
-Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xPxpt-00000000BC1-1Anc;
-	Sun, 08 Nov 2026 08:01:09 +0000
-Date: Sun, 08 Nov 2026 09:00:21 +0100
-From: kernel test robot <lkp@intel.com>
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- "Ilpo =?utf-8?Q?J=C3=A4rvinen"?= <ilpo.jarvinen@linux.intel.com>
-Subject: base.c:undefined reference to `wmi_has_guid'
-Message-ID: <202611080829.SRhOjp4G-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=olXIfxts
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10A1D1F0089F;
+	Sun,  8 Nov 2026 08:02:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794124933;
+	bh=R4WIaVmgxMJzlsaERAlBqwLuDwVcuzfSzsQMDWtKV3E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=olXIfxtsIpIypzyzwMEazQmlvB8+AbHfBTMjtZG7U+7U6ihcqU3gJCFSwBgCMFMQO
+	 am0blj/EkRDSSrp5VgsB8ON6UjseoLpR3t0q/jCXDdpojIUStZcut0ic6QqqHwKiln
+	 VfN9RybSgT8liglCmjOf2DL9wkNdoW+qr+oJWzfLBcjkEJ0zxqTLQc5Y+BsTZbvyr9
+	 5ykiJdHgU9LJKRt94BErapr5asijdV7xw8rh887PLtQwjBQhYNE/FM6eV3z9DvNfkH
+	 S5l/oMtAlaOelJPzJdtAkGlFh55HAEFnOEWqB0nvO0u1xyfz/qfKc1cik6+yIFSq7K
+	 4SQ2UxcBuMkXA==
+From: netdev-bot+sinfo@kernel.org
+To: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>
+Cc: sean.tranchetti@oss.qualcomm.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4] net: qualcomm: rmnet: Update MTU handling during
+ format changes
+Date: Sun, 08 Nov 2026 08:02:12 +0000
+Message-ID: <179412493254.488859.5909018726402609409@kernel.org>
+In-Reply-To:
+ <20261108075727.2031331-1-subash.a.kasiviswanathan@oss.qualcomm.com>
+References:
+ <20261108075727.2031331-1-subash.a.kasiviswanathan@oss.qualcomm.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,30 +65,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   fa4ad798f6f681031775266044ba1b0cf3c670bd
-commit: 884d53763d304af64a9b795161f9fc3b83a5e3d8 platform/wmi: Remove dependency on CONFIG_X86
-date:   4 weeks ago
-config: loongarch-randconfig-r2105-20261108 (https://download.01.org/0day-ci/archive/20261108/202611080829.SRhOjp4G-lkp@intel.com/config)
-compiler: loongarch64-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261108/202611080829.SRhOjp4G-lkp@intel.com/reproduce)
+Hi!
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 884d53763d30 ("platform/wmi: Remove dependency on CONFIG_X86")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611080829.SRhOjp4G-lkp@intel.com/
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-All errors (new ones prefixed by >>):
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-   loongarch64-linux-ld: drivers/gpu/drm/nouveau/nvkm/subdev/mxm/base.o: in function `wmi_wmmx_mxmi':
-   base.c:(.text+0x68): undefined reference to `wmi_evaluate_method'
-   loongarch64-linux-ld: drivers/gpu/drm/nouveau/nvkm/subdev/mxm/base.o: in function `mxm_shadow_wmi':
->> base.c:(.text+0x1d0): undefined reference to `wmi_has_guid'
->> loongarch64-linux-ld: base.c:(.text+0x264): undefined reference to `wmi_evaluate_method'
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
