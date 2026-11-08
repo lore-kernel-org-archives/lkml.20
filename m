@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794182110;
-	b=Ej1xOA5H/pNSjzSRoE549vfyTlbqiqyK+bw4hzWsCOjwblH78FY59ZnXjbx1RS2wm8wf
-	 GP8YIsjGvjER4bH4ovjNay/ZSmk9/hKV+hQQCWsmS15Tq7ptDfYu1h5228Gd0fw+PaWB0
-	 geb8JWlTkqcZgZZpV4c/r/ZKorbG3VHdHvl4RYesmyb145Y5rB+QetVdOsiEPFFoHe+zG
-	 pbg+alObLITkUqheQ4/nUWwjhScpccuc4ROl6hN4peM/Snndeqabq5y6qqoVPQ0AwXst8
-	 XnweHrBVy5bL5kMhpW8E9xyi2c5yIBbZz39zqTR2LpmLlWgkodt4sH7IF76kZmDGGdA==
+	t=1794182105;
+	b=3+Juj9EDheerBxhmPRFjCcnjcl+2kNfFdr1O0g81TVTFnKabYULnYeGRxIMV/lDXdWUc
+	 AXLlNIMn6TPe15bN3ho7P/WqKuetK5LkBulfNXZ3AKHgee/WfswkzHtCyF4DJSasZIoHb
+	 E0uDhI6K6PwhFiKVkIMSV/NM0lqHUe71wl6hXsXpfX5VbSC5H96zcqw0wyWiaF7ULjcHi
+	 eEB0pcmLAMCyIpIHJgItmHNcrTamWbYXXe4ksaIi8XgAy0YSON+C77lB5m9uNGoOR/zFR
+	 VymW/dJ5VABUs1Q7oJ9ghU+oiPiUHd2Kug31i6m8VVDuwY8sny/Wm0/JQh85u8m8N3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794182110;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794182105;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=V6dd8UEmYGL47gppjCwakrDSGeCZVV1ZnI+Je+e+Uck=;
-	b=f1pYv9rQTBnP5SLtSfpb4XbbXPIoYIMgK74L3TmCwovB7jXU2uVvn4aHdI2un1YW1LUY
-	 CPFXDD7dAyn5H1Ia785GsmgNmhimETCkjxmEs1MdggGYDNdMYZBHlh1PPDEtJaksiS07L
-	 hBkkXGUXPeL7bf1KeJ1CRAjzjdunSpHaX7nItKVrdiir1Re21OBZSnXjX2Y/WDabOB4Gf
-	 tGnkhWziKS5ZrqHSojuLlnKl5SiiqSLzuffQ7usxnVBcmfMWCVvtWdFuzaZrtFxhzFjrL
-	 i74FLaOXOoZqyDczceyFZRGLCEEioD63j3UyNnSfjSfNHReY+jxFBGVZ1ZTUjpr+p2Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kE0ZWbTzn+IpvDi4kY2FVWWgcmx6tW3ivlKQ8gzZvhg=;
+	b=eseOdCHluIVOaDFaCJgx6iiZNZzC5frKeKp35I0DzhK06YrGUiLKjYsGYzwcPtm8Y0hQ
+	 iAWPSXcPpfT8H2YOFCTWC5IUJXlmz39elhi8E6DUWymNntmf1b7o571f5SEStXPHfU0g8
+	 pCoYVAW2fO51X+usl1Q/dwUc6LeaB1EuOpc1XoYdXFeIbb082t9acRDKWFRKtgh6MSvu3
+	 bHVB5MqRnyBYFEXD6Sx8chzNwDnAqiMt1+yZKOtHGkAAdt6YwayklwB0YDCd0STPaQnhq
+	 AxpvQJmNPY4LIP0niNkDN8JTKbspNEIhkd7l3SbpMgBaNu7JAljYKJ+M5ovK0l/GHhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kcUIo68R;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sFHIbKjE;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1284F606A332
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:55:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1284F606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9FE606A322
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:55:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D9FE606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kcUIo68R
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2ed39646f04so854835ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 15:55:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sFHIbKjE
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso1553025ad.3
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 15:55:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794182109; x=1794786909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V6dd8UEmYGL47gppjCwakrDSGeCZVV1ZnI+Je+e+Uck=;
-        b=kcUIo68RUScRY0ZqUggpTUfqo+8eYwH1EDLHD9KKqiPbN2cs8Vl0f8o9MgEKge2UQP
-         k5NuTFWfBjUDq+qkDH1a30+Ct+MxtIV8trUWsPC1VvHuhfbuFEFmDaCPV0K2glNaIh9B
-         2oFmhi0KqgIBTkWOCc6wcSHxn+ICs4yi4ZNJ8BM6089J/KlGzfo7d4dTekkUmL2IWmRz
-         XFVlhbrFWn8XKL01NYr8Yg+w+4w8DE3XUG48+O749rwxK5zR7UPPjlTL+rDmJ/mboZZ9
-         g5uHw0fgfFtvn/sebL9kb9WrTAd8eClTeZ0Cjwxzrk0PhGdAthj0h4QGlmHb0scgfs9G
-         eatw==
+        d=gmail.com; s=20260707; t=1794182105; x=1794786905; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kE0ZWbTzn+IpvDi4kY2FVWWgcmx6tW3ivlKQ8gzZvhg=;
+        b=sFHIbKjEJRaY4JsTqNuS3RtpuMM5gvvAOlg0e4OnoEsdETN0c1AReW99EapQ7+EaF2
+         wla1gubVvVOPIJdmnRBIEn9bVD4kyFrBzteyiXL5PCVr9n8ZBVbFOzh+lKsHBr4Knoca
+         Kc/qM/oNlN2xFza2aMAFL3EFKKZBLgSxF9nZ+qEUq23dJOiHYl+LbpuOTPPLp05w9sGN
+         rwUOhbSNKWGM4lz8pgEkF4pw+UuoPGqpnVlDopQRJsAt5keblN4eLxdLOBiiTKqD7txc
+         5i+02yuWu7U9/bUp+kax41mtdr8DFaAWu+62YUK8MY7jSeETdpKh3YO6xSgRsJ/DuiPc
+         yPug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794182109; x=1794786909;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V6dd8UEmYGL47gppjCwakrDSGeCZVV1ZnI+Je+e+Uck=;
-        b=fB1HUJHUmbL9Q3n71+eV21UQy9J8/ryTuYr6+RPeBobd5+U9idLzs9bnsIDQ74AiN9
-         bDAW7jYajM/hZbF5pC5BVVgfIXbqnptVPJsegbWVjbbSYhuWqNWG/tnP0pwr1sbdjqLQ
-         bUmfpGjhp0Sd16qviqJlDWyXL1egS1GrJlHtn/7mDD/MiO4f7HFmiTE9VH4MmlLg+46Q
-         jLbQE9fUR79vnwpzhhWgOGitEwJhNndEZw0Bx6GY4/ruq7WwQYH7AAKIvAho9KDM9QaC
-         ScR/AEE6LX06M2ZqGQeC6M8kaabqeMlZLVZhykBQJiSIVHIb8WAul1OHr1d7igDuQmtn
-         ITpQ==
-X-Forwarded-Encrypted: i=1; AL+hErHDybpqcwSSLVE/BrI5JGPMEw2+DajmPhq2WaRV3gna54kYPxkPXynvJ7sKjH9DxTo+FxhmvSPMXrKnDXU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9m4eSdcYfkhnxLTpNDIHU693ITQArJrk78HEz7NdkU4vXI7Z+3
-	a6fcZESwI7GgR/fs6FfWS8hLEqUNuXQ7F6hzdfm/LG38IUvU44HjrZMj
-X-Gm-Gg: AYBFou1DR7p7H+2Hxwn72RvemfqSvazTGNT2mZ1MhBQcUYXPTLIbGNFMxoD9FMTyQ0J
-	dp4ClKwtEun3zIausuIgBaPRjffHq6KkOGYp92IR+tuendxbNRLMbdSXDtF/7YuZP/3io0VUzMB
-	6fYcZFUnEpBJhsaDttDdNz70uc+6jfuwWJE/tI5r//1934rulcZ7NUEFXNzocTMpkS6nUeCPLJ3
-	r0adIBZEqkP/no+B8pPKlnB3uq8DHJgv5teVhIBrjIv3I+aviUMNqBc/sVjnZ7GTG5I0VLIBVGP
-	OKI4O2RQrETEaLdr54bAQ70RhXjkkYtw7PkQyQ/GoGHso9h9Ytt/m58WEf5WxJsfUtfeN1gyNvQ
-	HJjQ3x8a1uqm89WbWG7r5G3dVkQTFaNgH1gUd+J2tkVCOzcfI5krc0UkvzkZVnl0Lir4wXPH/d9
-	5pxxo45sevi5l6EDf1vTqyWkpXme0N2P8d2BFDjj6to8n++SKHHrlW27nYF7kQld/XXjQzeDqst
-	d+t7KgMOk/dTIDQslan3PML+iD/qyaFKUgErdd6OHCLBFObuQ8P+VuQ0HPBU4dvnkYELRuHoVzx
-	YTOctVC3H/Wb9KjsvoWJSLASVJFVKRzm6WY/D/SNv9ieceENKHpKwB6KwjpFmKoPFi39RqBpwmj
-	/IpLSFcRVrRA5CWOxWOJoLto/8qLTJCHpF//aUN8eVOe9KxuOp24p2vFLM1Ew8B4yRdjN
-X-Received: by 2002:a17:903:2289:b0:2dd:c100:4b76 with SMTP id d9443c01a7336-2ed8378477amr25176185ad.45.1794182109426;
-        Sun, 08 Nov 2026 15:55:09 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794182105; x=1794786905;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kE0ZWbTzn+IpvDi4kY2FVWWgcmx6tW3ivlKQ8gzZvhg=;
+        b=NiCliURcxRy4a5LNCnWOoceXFHrHgDM520TpI31zGb+oAaFmScgDcX3J+dSzetHovA
+         6qM3zzwwLBapa6bez16JwGh/Id2MzkNH1MjGKjxwc4VIQ5fG1ZJzZSRf4S7Yt8fC4bGl
+         YsiODTAq1EUBMsf0F7xkFr8aYQiTm67PQzEWG89iD3GRpe7InYMRovSXz0Puf5DfXP3j
+         BSll5NpHzXP35TdEZ5ST7SrPQfMVvC/5nUF01W+x9JubBUCFTLCJPDhNTVCIUXnRBLTo
+         gP6WLH5i0Z1DCiQuQ8FqidY7XN8DPyBFvVgReaMC9JdL7+WrvKZF0aN/GLGMJWqgnn74
+         yTXg==
+X-Forwarded-Encrypted: i=1; AL+hErFZN1gkctQ6OaTNawMyQOWsdY8tFq59Y9d4fgpCzqijC++4lLq6SRYM2vsYN5p9ou36dbZlm0gk0jwHERg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+AfH3qG3TFIijZepmIW99Pe4Zgia74CtNRCnkOffpaxu8ckJxd
+	iU6xQhuCH+KuPlBIp5XMzdHklcLtX20hEk/jlDSdyVjTFBU2UVT3OyEo
+X-Gm-Gg: AYBFou2zyDfLNbePD91S/xn+wexDD7O05Z8yTMCDDef9cbpj3if/pdINmUWYgIn60KP
+	k+R+QRUsUpcvWgEG0dr3HnHY+RBEfLm6B5L6S/mIyRtJ3QyFVxQuDYNtBCFoyJSJs2gk6Lh3lgB
+	X6aKNMgpgKsiMz1QZcwGDIBM+lam4FVhEoMoc+vINHyvVHbmLhpq82rjRkKDzY42tJSt8DjrPJ6
+	lfzsLm8TDvASOq1evCSg1nNXg0CRncvieHnZynOVlIeGT9Wa6eX+Lt2bWRilT70GrhfAm7d9KLg
+	JxDZX/Uq4aB57c+JyCxH1hsJpjyRVGbQZvB9I6bzfB/sPrZqbqKFz+4ZpzpxNSOZqwm+6WH2Jlm
+	SgvogKa53JvxeUswdW768p4GvVvHQv1Ot2HaGN4X2oqkmj5xDqd/YsGykwnN4oyClVG7U0hVguC
+	6U8cdKk3hcKpZ2jj9L87tlxf8/+B7+iK3oiA8JvZgZQrlIK31J1DrudRQcGljzLX/oyJ+QNoBc8
+	gP5SSvciE9j2jdUaV7PiId9MFwLOLyJCSBqgweSR5qgjpmvN4tTkb2jozoozAPpoIOfP8sZhLGK
+	hKvR2FTLsLWIwiIPhPKOM8DrFEx+PJHnUbEKsYta63oTrEXirlUTYk7Gr6UnsSvlXw+oPuJuI2M
+	ts3sbjUX3xuag/mayxQ2WqmrxI/5SOPvu5y5j4ySHord75aE=
+X-Received: by 2002:a17:903:3846:b0:2e9:7719:4104 with SMTP id d9443c01a7336-2ed833c45c7mr24963405ad.8.1794182104822;
+        Sun, 08 Nov 2026 15:55:04 -0800 (PST)
 Received: from localhost.localdomain ([183.96.175.225])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81722edesm6095215ad.55.2026.11.08.15.55.05
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81722edesm6095215ad.55.2026.11.08.15.54.59
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 08 Nov 2026 15:55:08 -0800 (PST)
+        Sun, 08 Nov 2026 15:55:03 -0800 (PST)
 From: Joonho Lee <mynameisjune111@gmail.com>
 To: linux-sound@vger.kernel.org
 Cc: tiwai@suse.com,
@@ -90,14 +90,11 @@ Cc: tiwai@suse.com,
 	corbet@lwn.net,
 	skhan@linuxfoundation.org,
 	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	Joonho Lee <mynameisjune111@gmail.com>
-Subject: [PATCH v21 01/12] ALSA: pcm: mark stop-threshold accesses for capture policy sampling
-Date: Mon,  9 Nov 2026 08:54:46 +0900
-Message-ID: <20261108235457.12688-2-mynameisjune111@gmail.com>
+	linux-doc@vger.kernel.org
+Subject: [PATCH v21 00/12] ALSA: virtio: fix capture accounting
+Date: Mon,  9 Nov 2026 08:54:45 +0900
+Message-ID: <20261108235457.12688-1-mynameisjune111@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261108235457.12688-1-mynameisjune111@gmail.com>
-References: <20261108235457.12688-1-mynameisjune111@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,71 +104,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The staged virtio-snd capture path needs to sample stop_threshold from
-completion context to distinguish free-running capture from bounded
-capture. Software parameters can update this field while capture runs.
+Hi Takashi,
 
-Mark the runtime stop-threshold assignments with WRITE_ONCE and the proc
-status read with READ_ONCE. This pairs the assignments with the driver's
-READ_ONCE policy sampling in patch 9.
+This cumulative resend keeps the twelve-patch series on the same base,
+a4311e9447bbb219044db38897f95be112f46a8a. Relative to v20, the source delta
+is in patch 10. It gates START and PAUSE_RELEASE while PCM prepare is active,
+before deferred XRUN handling, and repeats the admission check in the native
+queue and pause/restart helpers. It also retains the stop_operating teardown
+marker for a stopped stream after pause/restart RELEASE has drained device
+ownership.
 
-These annotations do not provide a transaction for the entire sw_params
-update. The driver serializes its cached policy and accounting with its
-own substream lock.
-Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
+Validation:
 
----
-sound/core/oss/pcm_oss.c |    2 +-
- sound/core/pcm.c         |    3 ++-
- sound/core/pcm_native.c  |    5 +++--
- 3 files changed, 6 insertions(+), 4 deletions(-)
+- ARM64 W=1 incremental module builds passed for cumulative stages 10–12
+  with KASAN, PROVE_LOCKING, and LOCKDEP. The stage-chain build used an
+  isolated copy of the frozen v20 build cache.
+- A separate candidate-only hook build passed five bounded lifecycle
+  assertions for prepare-time admission and paused teardown-marker retention.
+- A clean no-hook QEMU capture-only run passed RW and MMAP pause/resume,
+  DROP/PREPARE/restart, and close/reopen flows.
+- Ordinary and staged capture passed RW and MMAP reset/reopen runs. The
+  14-capture oracle matched the QEMU sample sequence.
 
-diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
---- a/sound/core/oss/pcm_oss.c
-+++ b/sound/core/oss/pcm_oss.c
-@@ -2958,7 +2958,7 @@
- 	       runtime->oss.mmap_bytes);
- #endif
- 	/* In mmap mode we never stop */
--	runtime->stop_threshold = runtime->boundary;
-+	WRITE_ONCE(runtime->stop_threshold, runtime->boundary);
- 
- 	return 0;
- }
-diff --git a/sound/core/pcm.c b/sound/core/pcm.c
---- a/sound/core/pcm.c
-+++ b/sound/core/pcm.c
-@@ -422,7 +422,8 @@
- 	snd_iprintf(buffer, "period_step: %u\n", runtime->period_step);
- 	snd_iprintf(buffer, "avail_min: %lu\n", runtime->control->avail_min);
- 	snd_iprintf(buffer, "start_threshold: %lu\n", runtime->start_threshold);
--	snd_iprintf(buffer, "stop_threshold: %lu\n", runtime->stop_threshold);
-+	snd_iprintf(buffer, "stop_threshold: %lu\n",
-+		    READ_ONCE(runtime->stop_threshold));
- 	snd_iprintf(buffer, "silence_threshold: %lu\n", runtime->silence_threshold);
- 	snd_iprintf(buffer, "silence_size: %lu\n", runtime->silence_size);
- 	snd_iprintf(buffer, "boundary: %lu\n", runtime->boundary);
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -871,7 +871,7 @@
- 	runtime->period_step = 1;
- 	runtime->control->avail_min = runtime->period_size;
- 	runtime->start_threshold = 1;
--	runtime->stop_threshold = runtime->buffer_size;
-+	WRITE_ONCE(runtime->stop_threshold, runtime->buffer_size);
- 	runtime->silence_threshold = 0;
- 	runtime->silence_size = 0;
- 	runtime->boundary = runtime->buffer_size;
-@@ -1062,7 +1062,8 @@
- 		runtime->period_step = params->period_step;
- 		runtime->control->avail_min = params->avail_min;
- 		runtime->start_threshold = params->start_threshold;
--		runtime->stop_threshold = params->stop_threshold;
-+		/* Drivers may sample the stop policy from completion context. */
-+		WRITE_ONCE(runtime->stop_threshold, params->stop_threshold);
- 		runtime->silence_threshold = params->silence_threshold;
- 		runtime->silence_size = params->silence_size;
- 		params->boundary = runtime->boundary;
+Lifecycle attribution is static against the immutable v20 source; no
+vulnerable-baseline race reproduction was performed. The combined lifecycle
+and playback healthy fixture exited 1 because its playback probe failed at
+raw HWSYNC with -EINVAL before attempting pause; that run is excluded from the
+PASS claims. No physical-device validation or KCSAN run was performed.
+
+Previous version:
+https://lore.kernel.org/r/20261107143422.29319-1-mynameisjune111@gmail.com/
+
+AI assistance was used for analysis, implementation, and test preparation.
+Assisted-by: LLM
+
+Thanks,
+Joonho
+
+base-commit: a4311e9447bbb219044db38897f95be112f46a8a
