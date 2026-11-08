@@ -1,57 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794168481;
-	b=S38WZhT1kGlounmcSPenzGyB5BD3kUNyh4p7bPwBz4I6cP5W3AFw2wM8rXejlUig49fQ
-	 Yer02KRVBa4CaDe/UbRzDIQ66enian5dioXrU/hFnQjt2KMu19K/CHXxYuGq0Chvf9vyE
-	 dSNu33Y7SUiYUAT7KFzm/39yl34FOYlduMAUYQRnnbSejLKQKIGQYIeHmpQNqd4KVzksz
-	 9NmBc5Sax5pzAVBNFhPzhXwYdsXa8g5tlLpgqwbUqS9Ap8dXxvyYxWgjuHRDncGSArvXU
-	 g0Oww9CQjjMtBdS2xK09atoBY3ONCj9UCcMf7W0nXcjmtTvLfJdlXjdP/Kha1RYX/YQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794168481;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ShjZWSXlkH+y2ozjDqdd1hUWXOLO8siRY81x9SqGvKI=;
-	b=LWwPuXbWcgWeof1dWM+bRo5NWWQ5SyA9chGFrCG2pGaz4aHr0xg+BjXy/axONqcR4oCm
-	 +95Nr6qLC0r2hlHuUhuR2Tla1+fCoyCKKfn4Priq24F9uDCYn9IoVAl77ppKYIxMPrgQZ
-	 4X2+Bv5NNTjG0j3HpErtaVRc3vBMGeuS2uwrEuOzB36uitOLW3NN9NSrH6f+2d6YdKHch
-	 Y7wNWFTmnQUARZX0NlJpf11cIJB3bZ/qLS8KZw4moSsB6/zpmWrDqTTzfkZn+NrvkQEMC
-	 mMgV5UwuHo7g3y94WPW9sFPxJAJM1IlUazkXRUshky/3ucq4pKykOzIfSprqEcdNtoQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WbzvbtjI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.2.1
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794168533;
+	b=xkca6JuMy+7FTH7VOB0zlzqiv4gaTwWmwBhuUJfsmN+HWeXIoCcxAVb1sY+f/mfXgnTx
+	 9QejZWngAz6grNKd6/HjwJqtsEjY/B4WXNOtdYmq8+2rngllCvmnzraSR0Fio/37O7nhI
+	 K8rXHD+YSe/LJmpk+25yVpLCCmlnwFJfew+0CsA2Xsx2L1TcIxFGdYcfVGJ08SMLxAKDz
+	 IDJBYwmBkiE7QsMhshaC4cKLb1vQ/Scxu4Mm9Sv6GOIbdbJq134pVg1fd7mZaDh7W9+fA
+	 g++Woc19s1HQOG/rrPa3oTu/FFl8HD5S2vQBYv3oRlQMKpvVqNnlnNC9lE84BXQFkXA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794168533;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
+	 X-Microsoft-Original-Message-ID:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Dn5e4Ech3d6klTQ9EJpYJxMHSOHb0r/AlrwBsKAm4MU=;
+	b=UWVZk8aTPwP/KA0z3ZaAL+NEcXNZUHYq7ct3YRnVhjWSTz491aRH2MXJAPk0RwJOC8uJ
+	 rTm177NUAocdHebJWHNpdB1GC5DnIxNaznQ4B/nB5+FY2iXZzvpiMp6Hqfd61YYQTBeQi
+	 ZpF4SZesIjPlEmVoVmlt3jzGv2h76sl7555oigPIX+jjO0GWT8S4jMH7tXuOCFvidr3+x
+	 kCvGKKYWu3Jbz+CgskMVeLdf/Qe7yP87N54YKhFuh8YNbcBWYRynLzqu7Jwnrawxy92pN
+	 V0etW4hCGZhSc8nydqJdJ71OlfFcKfMd7Rz5CLQhsiZsbJlwgjxFWaGDEppQYaaYmiQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b="EuC/9zcL";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.2.1
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazolkn19010001.outbound.protection.outlook.com [52.103.2.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255F5606A320;
-	Sun,  8 Nov 2026 20:08:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9317B606A320;
+	Sun,  8 Nov 2026 20:08:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9317B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WbzvbtjI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AB5E1F0089F;
-	Sun,  8 Nov 2026 20:08:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794168480;
-	bh=ShjZWSXlkH+y2ozjDqdd1hUWXOLO8siRY81x9SqGvKI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=WbzvbtjIzWQ7c02Bl5Fib9ZFDZ1XzfqzA6ircgqAtLzIDkRx6QcWk0L0RuI4rgXvk
-	 OL5lxQa5NM66WuPGI0oxkxKVSmaLYQRXCteIyZuj7GEAfTGKyND6sz45AKlMuheSUW
-	 4v5K/229Xrs4ZsyiXLfMGoc2Mb9UOUrTAPYKLaV1o+xH0iy+UUXfouHEcOv+Av4MLA
-	 rVyN6xdHJBu69LD9G81PGh02S0d608F2expFmj3wfogR4DuWSQ9A4MhFgWWKlYzhBL
-	 GPx4/JA9m48hoyROOCw8B9LVhTQGdRklUUKasS3GFAWV6ik/7xvhu4tV2Dq2ldSV4F
-	 8ZEXZ8qNrK47Q==
-Subject: Re: [PATCH] net/sched: sch_qfq: revalidate aggregate after peek
-From: netdev-bot+sashiko@kernel.org
-To: Jeremy.Jean@oss.cyber.gouv.fr
-Cc: jhs@mojatatu.com, jiri@resnulli.us, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
-Date: Sun, 08 Nov 2026 20:07:59 +0000
-Message-ID: <179416847962.994134.4238466491131411640@kernel.org>
-In-Reply-To: <20261106200236.716641-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261106200236.716641-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=EuC/9zcL
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Sw0iwv8NhqSeYnQXZOZJ/KWGycCyrYLieOxpw5+WQlV5GWUYsf0Rzuq1omlawwL5SQiYNjm146GDUMaZvkXf3iaPAm5mW7VKESQB3EQ8XJKbhtqH8K3uquT8U9+b3Ha9j0WeytG6wnfYm55qZdmdTaNdwy5lPVojFsRlfVINqcqNnPnne2XTMsQIYt8EiAKYnYXvYGoWQtM7QUhVvI5zxwKx+q1Vy5IdnCCiNTk18qhWndgwjPynZc4hUaAN/EU93Em1nkrR4ahLUG9N+vL5p1yvwx30K5/S5lnnYFZvZTMKmJ74tIWMrkQY7hqHb0dtQPh3Z5O9Mf5fuD9UuLMnMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Dn5e4Ech3d6klTQ9EJpYJxMHSOHb0r/AlrwBsKAm4MU=;
+ b=HI/UZgL5i7SFhccp721qiJCeyWO1Ab9xNBnQeXXaAgNE9HWn9Spv4PrJFFh8SleVCgcjO5YfkEDvXR9168YjTHLfqOg1k5GsF0ruQibz3kty+EkGbD1kJj0Td+YZMCdPyS07b157hgw476n2AixsLfXwpK6ulwGDpBix78cc5m2IDJyFY9xGVAHclNZ1GggOeUecYbPF7MQDBrALQHvIyfgG52omuLla1+5SFkA1HgO+lg4Pla1slx6XPmdGhjbid9o7No4yLYI0fnxf7UdUrwv4tQzmFy9+5xfRomoBOofVhPODXJi8DVii/TxpSmcj8oYnSjsaqYAxaxfjIyi2dQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Dn5e4Ech3d6klTQ9EJpYJxMHSOHb0r/AlrwBsKAm4MU=;
+ b=EuC/9zcLTq7z7r1AHIwBEiJsl8S7O2sTGC5kaREj23eJmddPfNNWLzhP1Pc/VQiZQeF1V0kTVFJaLcwR88KQv3AlZiAqNamyfAPvzrr8+j627vm9Pk9TlEM4fdH/htUYdGcLo8FGptNQwszWP+t/BxCw/aDG3IqeXqPldLESV95U65xkpoHNbSnIIhDGnD9AH3VRotLMvIDNVZZNH8k6CLzDExMwi3L4540hKPUPR9cYrRbg4CS2pU+88wBKkHpA0w0snNpEF/IYTHtPyAqGdcuVAf7pwcOd87JcxIvwjJfF3w4PjnIJC84UpiFo9Gdu1k+QTMp9JCWGoRJ2nV1afw==
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com (2603:10b6:802:28::33)
+ by CH9PR12MB721654.namprd12.prod.outlook.com (2603:10b6:610:339::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Sun, 8 Nov
+ 2026 20:08:49 +0000
+Received: from SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a]) by SN1PR12MB2528.namprd12.prod.outlook.com
+ ([fe80::9875:58c0:928e:cf0a%6]) with mapi id 15.21.0592.009; Sun, 8 Nov 2026
+ 20:08:49 +0000
+From: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Victor Chernyakin <chernyakin.victor.j@outlook.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v7 3/4] dt-bindings: iio: cdc: add Texas Instruments FDC1004
+Date: Sun,  8 Nov 2026 14:08:28 -0600
+Message-ID:
+ <SN1PR12MB2528CE04A19E0C1EB96EC569A5742@SN1PR12MB2528.namprd12.prod.outlook.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <SN1PR12MB252841150D2280C7C1294A11A5742@SN1PR12MB2528.namprd12.prod.outlook.com>
+References: <SN1PR12MB252841150D2280C7C1294A11A5742@SN1PR12MB2528.namprd12.prod.outlook.com>
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CH0PR03CA0054.namprd03.prod.outlook.com
+ (2603:10b6:610:b3::29) To SN1PR12MB2528.namprd12.prod.outlook.com
+ (2603:10b6:802:28::33)
+X-Microsoft-Original-Message-ID:
+ <20261108200835.981970-4-chernyakin.victor.j@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,184 +105,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2528:EE_|CH9PR12MB721654:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1669aa25-82a0-4c33-b8f9-08df3dd418be
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|24021099003|23021999003|22091999003|24121999003|260925184616899003|25010399006|4140399003|5072599009|16041099003|16051099003|41001999006|8060799015|15080799012|19110799012|10035399007|40105399003|53005399003|26121999007|440099028|3412199025|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?07WuDVVzB9qJU+sNbt7A8mD7+/sKvYT3fz+LQOpdtfaJ49uicQlzkoloLS6I?=
+ =?us-ascii?Q?64sltZQBxQcAB97CjjS5ViVM76vue/y84CS3X3/7dg40UBQhl9H/BNKDt9dm?=
+ =?us-ascii?Q?Fh6ipJUkkW3oqUJ3SstzYKpM4TEoncqpQBN9L4KQDKr9o8zZMmO3DdAwLTuC?=
+ =?us-ascii?Q?31CpMW26r1qnzG5JUEgNuTUWzBoDuTMbViumqvIdjQ6uQqOz4orsccQ29Q05?=
+ =?us-ascii?Q?krA/XAPqQpXEM378PpThu1n6DUeO+IV0ZZa1QQeQgmicuNjd5WbVG9m2PcW3?=
+ =?us-ascii?Q?+uGOKEgP1TLxkuJmgLFSGRQAfC3ImURgMiCfbcOQA08ppoyj5gDKul4ebrzY?=
+ =?us-ascii?Q?mRMdZg2Ua2m0rwE5ImjUrslb+nNUmbV0tguVjtiKwNbLmVULPUoJ/sh5HEYI?=
+ =?us-ascii?Q?g8P0hCTNMjALk5MJvfZQ0/BTOA8RQF5+1uhvfXuOzqOUwiHszNhWBukOTrz7?=
+ =?us-ascii?Q?0QtV9ZrOd9RXFB7QXbc35eY04MrLecnxWyVeEXqmNJZomtcfGj13zPENtWzA?=
+ =?us-ascii?Q?WXdWPOfZKwh7JVP3P4ychlqfSAnBpAPXxr79fcD0Y+yamHhGQYiOczSR9Zjb?=
+ =?us-ascii?Q?NdwSzUKTfiItsfqJ9/1oLaQfm9pXvsN7DLH+ybKITJiy87zA2dn2Dm4Hzx+h?=
+ =?us-ascii?Q?s/v75yAouwcsmANKzCr1if/vDVCfLrLk1dGg6XKHI+R/7ri7ReFZJ3cFALNA?=
+ =?us-ascii?Q?hVKnI/FM9MZVbKLHFAOIHUpvBQaRm3JDTz6K+jrxxWM8EeaszoqOS9Xoxk/G?=
+ =?us-ascii?Q?tt2QlTEUkvDfa29c9EyLt6pIAXMQu1jUXWNaWc6zH0QNO0xtDx6vsjyrdHy/?=
+ =?us-ascii?Q?iYrMHWh2mopbWdWew1NCB3lalDTVMEz6Ap71ilkTJwLXPMrTklLVGYOt4Qcj?=
+ =?us-ascii?Q?0+KKEPcD5OhLJ6JR0juZVfDHpG3IhB8xTLO5GS5VyKUGZfj65uYZkeUVgE66?=
+ =?us-ascii?Q?GITWBPxLqG27qDnu7Rq4+dsiEcwjz7QePy6Nwwrc2pOt0DRrBKzihm4UVuNY?=
+ =?us-ascii?Q?9Sr8l7dkDDTbnlmjQtFUK4rJkltl8x/DOr0/rnObUdKoe0qFu/TeIuWPrwIV?=
+ =?us-ascii?Q?udk9t7qIw+IDFAe9FTfiDQcwTVhF+4wCjgWJsxwudHGUCIrXM40aViQmNsVH?=
+ =?us-ascii?Q?lAndwEoVbo1Vxq7t3Dyco2M2tMOdt53lbg=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?cWpv58HGEHZn+ZshAxNd+Uwqq1Cb2dJo8DHOPxh+zQzOhBipagAOzL1TjP/G?=
+ =?us-ascii?Q?eA+4zQPE4mwkiis9ivAS/rCgcudguC2qf6LwHeoEbpvqRxWe+JG+yn5tRPO/?=
+ =?us-ascii?Q?n1CKS4WiVTnG8HUQ0yH+T1OEDdX792lAY3C6a+QBtLgQnPsSeMS/GiDJvlcI?=
+ =?us-ascii?Q?7ypTRFzNWimSPI5XHrA3H3FPe5ibGM9fD6eKwT4x3uFJFyjKeJY/vnX51mk2?=
+ =?us-ascii?Q?WI2lWRmBQa2q/wj6hzs0naVb6c/Lc4i6Iwv5wr9m/fWX7hLJUqfW8tLr+m96?=
+ =?us-ascii?Q?WjxpobUlfzc+a61N5yWSNtl4fH98io6VCWQt2NSQFajh4GBqNx1kBfvqgqaG?=
+ =?us-ascii?Q?8D7OjXG/9E/ev3fMIMHsHzB0RtmvUGlSATr4RQ8SK3tX8Xaag8DN40SPt+EV?=
+ =?us-ascii?Q?F0HmJxpIO8hf6TWDSlOwl+KxIlUSg6WigcXRz2688pX8SqkrGJRmp/FNN+ty?=
+ =?us-ascii?Q?uuD1QOxwYUg2iE5HXSnhe/lnpYBZn2BDGqWIbS/QD6MgRu1ZiCX9BTzrvcHl?=
+ =?us-ascii?Q?7f4Lk0VriPSZNFfX97SMCpAFIh3HzgLyGk7H6qrtDcDfd4+Y+pIouZHvmuN8?=
+ =?us-ascii?Q?PH1lqgU5FmjGyhQd2R4nLfi4Jbo8r9NJ45s1oYMkWhYNCjPorAdK2tv0OSem?=
+ =?us-ascii?Q?O4AlqeTT3LmG8AU7WJHbBIKws+A7aRVTMeGC32/EzZiADkreHblLnBlV1zxX?=
+ =?us-ascii?Q?kPTpr/ok83nI8jbzmPIYnKWad9qHFrcFk4mchfPLCekJxWLPEv55rdaFiwDT?=
+ =?us-ascii?Q?Plek58UFxz8UvYHyOt8RXyprodUcTODGIm6661E8N4jpZ8E3t8rm1yGVWtH7?=
+ =?us-ascii?Q?Qvph3lhTKjt0wvGczfAEqMh8GRSHzafRaYaBAFTF9OTNudlFg69WDZ86h1Fe?=
+ =?us-ascii?Q?b2+7xBRZanro6zWJDSpvjUGkHjNfPKdcKtsjPkFvEO1sqvKUZQ/Tg5dQ3m/W?=
+ =?us-ascii?Q?oEdGhPdsO4I/2M/OryhxxwiHHtX+S16J34Gp8D4KTlfYDgqWTTQb41WOXPYD?=
+ =?us-ascii?Q?DprEsIxtiWosxxt3dNpEgn5xmGOOH4W5ms/usTnW5IPHnllWgwJyl7lTVokO?=
+ =?us-ascii?Q?C5b9muf+MsOx5VnneSNz4zhjNGHkVR3paHzImEfVbkfenXXJU29VF1flQJZf?=
+ =?us-ascii?Q?zCUBbuQNZU6DNhPXy/lDEn9Jf3rktkNo2CpyvQYas/cMXYkmkGy0LERkUWFl?=
+ =?us-ascii?Q?FyrVlT3ZuMUvCDV+AeTOeaTup9EUE4ro2o2UrPDtpBYoQFsZr+iACRNy+TsN?=
+ =?us-ascii?Q?Z/QK80IwldaBV9e8eCJdDGEAnpbWQlDWwjJEBZB7NwBwp0QUDhKg8z9W16G3?=
+ =?us-ascii?Q?lPWnjoYy6azuyZLaLCtpIiQvA6TBqxmtbBcUnyZyKNGLjiGhPd0Nm0wv42DI?=
+ =?us-ascii?Q?gQ68HCTWDpojd5uZ4SNZjZaPrVL/0Rhe62JxhjpY4xTwLh+DHg=3D=3D?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1669aa25-82a0-4c33-b8f9-08df3dd418be
+X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2528.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 20:08:46.9707
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR12MB721654
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Add device tree bindings for the Texas Instruments FDC1004
+capacitive sensor.
 
-Critical: 0 · High: 2 · Medium: 0 · Low: 1
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+---
+ .../bindings/iio/cdc/ti,fdc1004.yaml          | 46 +++++++++++++++++++
+ MAINTAINERS                                   |  5 ++
+ 2 files changed, 51 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/cdc/ti,fdc1004.yaml
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix is incomplete.
-- [High] The new `goto restart` in qfq_dequeue() can loop forever.
-- [Low] The commit message omits the trigger mechanism and one
-  behavioural change.
-
---
-
-net/sched: sch_qfq: revalidate aggregate after peek
-
-This patch makes qfq_dequeue() reload q->in_serv_agg after each
-qfq_peek_skb() call. It restarts if q->in_serv_agg or cl->agg changed,
-because a child peek can re-enter QFQ and free the in-service aggregate.
-It also makes qfq_enqueue() recheck cl_is_active() and use cl->agg after
-the child peek.
-
-> diff --git a/net/sched/sch_qfq.c b/net/sched/sch_qfq.c
-> index e900890e9c544..517e9083b403e 100644
-> --- a/net/sched/sch_qfq.c
-> +++ b/net/sched/sch_qfq.c
-> @@ -1103,17 +1103,24 @@ static void qfq_schedule_agg(struct qfq_sched *q, struct qfq_aggregate *agg);
->  static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
->  {
-
-[ ... ]
-
-> +restart:
-> +	in_serv_agg = q->in_serv_agg;
-> +	skb = NULL;
-> +	len = 0;
->  	if (in_serv_agg == NULL)
->  		return NULL;
->  
-> -	if (!list_empty(&in_serv_agg->active))
-> +	if (!list_empty(&in_serv_agg->active)) {
->  		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
-> +		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
-> +			goto restart;
-> +	}
-
-[Severity: High]
-Can this goto restart spin forever when cl is linked on
-in_serv_agg->active but cl->agg points to a different aggregate?
-
-That state looks reachable through the child peek in agg_dequeue(), which
-this patch leaves unguarded (see below). Take a netem child that feeds a
-duplicating netem. The nested rootq->enqueue() lands in qfq_enqueue(). If
-cl->agg->lmax < len, qfq_change_agg() moves cl from the in-service
-aggregate A to aggregate C. A survives because it has other classes:
-
-qfq_dequeue()
-  agg_dequeue(A, cl, len)
-    qdisc_peek_len(cl->qdisc)
-      netem_dequeue() -> netem_enqueue(dup) -> rootq->enqueue()
-        qfq_enqueue()
-          qfq_change_agg()
-            qfq_deactivate_class()   /* cl removed from A->active */
-            qfq_add_to_agg()         /* cl->agg = C, cl on C->active */
-    cl->deficit += agg->lmax;
-    list_move_tail(&cl->alist, &agg->active);   /* agg is still A */
-
-Now cl is on A->active with cl->agg == C. Once cl reaches the head of A,
-qfq_peek_skb(A) returns cl and the cl->agg != in_serv_agg check is true.
-The restart then reloads the same in_serv_agg and peeks the same head
-class again.
-
-For a qdisc_peek_dequeued() child, the peek just returns the cached
-gso_skb, so nothing changes between iterations. Would qfq_dequeue() then
-loop forever while holding the root qdisc lock?
-
-C may also stay scheduled with an empty active list. A later
-qfq_choose_next_agg() followed by qfq_peek_skb() could then call
-list_first_entry() on an empty list.
-
-> @@ -1151,6 +1158,8 @@ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
->  		 */
->  		in_serv_agg = q->in_serv_agg = qfq_choose_next_agg(q);
->  		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
-> +		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
-> +			goto restart;
->  	}
->  	if (!skb)
->  		return NULL;
-
-[Severity: High]
-Is the fix complete? Right after this, qfq_dequeue() calls
-agg_dequeue(in_serv_agg, cl, len). That does another child peek through
-qdisc_peek_len() and then uses the cached aggregate without revalidating
-it:
-
-net/sched/sch_qfq.c:agg_dequeue() {
-    ...
-	else if (cl->deficit < qdisc_peek_len(cl->qdisc)) {
-		cl->deficit += agg->lmax;
-		list_move_tail(&cl->alist, &agg->active);
-	}
-    ...
-}
-
-qdisc_peek_len() calls sch->ops->peek(sch) directly. That is the same
-re-entry point this patch guards after qfq_peek_skb().
-
-Take a QFQ class whose child is netem N1, where N1's child is a
-duplicating netem N2. The free looks reachable:
-
-qfq_dequeue()
-  agg_dequeue()
-    qdisc_peek_len(N1)
-      qdisc_peek_dequeued() -> netem_dequeue(N1)
-        qdisc_enqueue(skb, N2) -> netem_enqueue(N2)
-          rootq->enqueue(skb2, rootq, to_free)
-            qfq_enqueue()
-              qfq_change_agg()       /* cl->agg->lmax < len */
-                qfq_rm_from_agg()
-                  qfq_destroy_agg()  /* num_classes == 1, kfree(agg) */
-
-The cl->agg->lmax < len condition can hold if lmax is lowered through
-qfq_change_class() while packets are queued in netem.
-
-After that, reading agg->lmax reads freed memory, and list_move_tail()
-links cl into the freed agg->active. When agg_dequeue() returns,
-qfq_dequeue() still updates the same aggregate without a check:
-
-	if (unlikely(in_serv_agg->budget < len))
-		in_serv_agg->budget = 0;
-	else
-		in_serv_agg->budget -= len;
-
-This is the budget field from the KASAN report in the commit message.
-
-The commit message says "After each child peek, restart qfq_dequeue() if
-either q->in_serv_agg or cl->agg changed". Does the qdisc_peek_len() call
-in agg_dequeue() need the same treatment?
-
-A codel or fq_codel child that is emptied during the peek doesn't seem to
-hit this. In that case qdisc_peek_len() returns 0, cl->deficit < 0u is
-always false, and list_move_tail() is never reached. The netem path above
-is enough to trigger it.
-
-> @@ -1274,9 +1283,10 @@ static int qfq_enqueue(struct sk_buff *skb, struct Qdisc *sch,
->  	/* if the class is active, then done here */
->  	if (cl_is_active(cl)) {
->  		if (unlikely(skb == cl->qdisc->ops->peek(cl->qdisc)) &&
-> -		    list_first_entry(&agg->active, struct qfq_class, alist)
-> +		    cl_is_active(cl) &&
-> +		    list_first_entry(&cl->agg->active, struct qfq_class, alist)
->  		    == cl && cl->deficit < len)
-> -			list_move_tail(&cl->alist, &agg->active);
-> +			list_move_tail(&cl->alist, &cl->agg->active);
-
-[Severity: Low]
-This isn't a bug, but could the commit message say more about the trigger
-and about this behaviour change?
-
-It only says "a child peek can re-enter QFQ and free it". It doesn't
-describe the topology: a netem child whose qdisc_peek_dequeued() runs
-netem_dequeue(), feeding a duplicating netem that calls rootq->enqueue().
-It also doesn't give the free path (qfq_enqueue() -> qfq_change_agg() ->
-qfq_rm_from_agg() -> qfq_destroy_agg()) or a reproducer.
-
-The added cl_is_active(cl) recheck also skips the DRR requeue when the
-nested path has deactivated the class. The commit message only says "Also
-use cl->agg after the child peek in qfq_enqueue()".
-
-Describing the mechanism would make it easier to check that every child
-peek or dequeue site that can re-enter QFQ is covered. One example is the
-qdisc_peek_len() call in agg_dequeue() mentioned above.
-
+diff --git a/Documentation/devicetree/bindings/iio/cdc/ti,fdc1004.yaml b/Documentation/devicetree/bindings/iio/cdc/ti,fdc1004.yaml
+new file mode 100644
+index 000000000000..8366afd025a6
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/cdc/ti,fdc1004.yaml
+@@ -0,0 +1,46 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/cdc/ti,fdc1004.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments FDC1004 capacitive sensor
++
++maintainers:
++  - Victor Chernyakin <chernyakin.victor.j@outlook.com>
++
++description: |
++  The FDC1004 is a high-resolution 4-channel capacitance to digital converter
++  that works over I2C.
++
++  https://www.ti.com/product/FDC1004
++
++properties:
++  compatible:
++    const: ti,fdc1004
++
++  reg:
++    maxItems: 1
++
++  vdd-supply: true
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        cdc@50 {
++            compatible = "ti,fdc1004";
++            reg = <0x50>;
++            vdd-supply = <&vdd_3v3>;
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 360977678f70..69c23ae21016 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27388,6 +27388,11 @@ S:	Maintained
+ F:	drivers/net/ethernet/ti/cpsw*
+ F:	drivers/net/ethernet/ti/davinci*
+ 
++TI FDC1004 DRIVER
++M:	Victor Chernyakin <chernyakin.victor.j@outlook.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/iio/cdc/ti,fdc1004.yaml
++
+ TI FLASH MEDIA MEMORYSTICK/MMC DRIVERS
+ M:	Alex Dubov <oakad@yahoo.com>
+ S:	Maintained
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261106200236.716641-2-Jeremy.Jean%40oss.cyber.gouv.fr
+2.53.0
+
