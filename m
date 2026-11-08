@@ -1,77 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794169332;
-	b=St4+oUdQP5zqqv5bEfFhUip3ZTK70T2g9tR4GP/YWDxfsxOaMiFfm6/dZj1deRYkpmeW
-	 2L0Tgi+3pUQjlvR215SAapgqP3XT5rTzxuUCsfPWd7gM8xkEi/ISDObHwV65hMARD6gRG
-	 8Zj3oumjYpfwUweKGGHoUM7nUn0qqccJIrNDNJeSRwvXFVW6OgUSDrzld/1idudQupCUX
-	 V0ssLUxRUacsMtahKGShuxc70Em6ekRyimAXPKOqsv/kyRDVP30j1GvJL/6U4BSOilVsq
-	 hmeUgx3XGzVzlim3x7/l1atlqWoAKfT/UlCBABGwhbFBSPsE5nl0S5bUbKkbJeHdBiA==
+	b=LzC8GjJjB9dytpkr9CKe1U/pHy2ZGepRzK2QZIcV6GgoUcmXq5L4F3SOS42j3IagO7M6
+	 tMxOmJfGPQFujefF/+NKqTw2t0pLQ2ZVS2hBIW7YGTwmQs24WYhSDcQqr+IFT5q5PL9+t
+	 XbINkkQDLB+2X7vVG9oPGbJ0fTLzoFFthjUfmbwIlW8RXzhgNBYNUObEh1R5+/qucWgWk
+	 9pNcmxrerRMCrMjexwdqWetO/NHW9jzZguxU78hdaLHNbPj7berElrqXWk0g9YInGY3uG
+	 OSQOBOyczZfbpiD5+G3WB+O2xiigKYXzreXIXLf7xM3Fz9iv2QTo5zTgKbRSEg1EMLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794169332;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=9wWfl7qFXktxy6CwpQ9crdCxWT/JDIqEgzRZ9xiVYpU=;
-	b=gwlufHkHQI88qXyRD54cVKCBc3VxHjd3NYTMcOysWF3AcoHCQmWWkfPR84z+X74eGJKh
-	 pbxyiNHBZSN4R0Hl6QnD3GiqG0GzDIcz1JLJbv3pH85wC5D68QH9vLuEXFn9IcQJ818Hc
-	 F7cjzW8Zp4uPcWnjFUz3DNxV4+S1Gjdc4Nvo9aClxE6aEzVyEyX13S6OLFnmKs93mdyHQ
-	 O7I6VfW7Yc+WfJm0TnejVcbjUlvwNETdbdbsBG9htUmt6YuxkB65Qt2LvgSsxm0XVsSr+
-	 1wt/ci8omOGAIuhLYhy1UgH99DaV9rTOZoNl+GzOhAG8Z1K7UNh/kPLyIIl7802UOfA==
+	bh=L3w4au/37QkmmcftRY36B6aQT1BjPfswYVXDde6xbtg=;
+	b=ay+RfyTqM/l3UphBbsfO7dPoVtXgJXQtcDOYkJ37JD4IyYdGA4gvF+YJPQTudi76CTnf
+	 3OQJzdmrr3TB/8/+P6m9ARDyWoG2ZrNGtAiQFeKqyLabmH7OvgWt8kNYstmwdfXQ+mrPX
+	 Iw/AK5MrZq5Ons16gCE4lDBSaLwlacJVJ1GkCa0HR17KNrQOjftcFVwNda1aAKM1fJCzq
+	 mcuO/UDXg2aiISty7ObF9niwOtD874klCNYjLANGvZ3BcffEIUY4DoIU1+hPWoD9DxcIr
+	 Ycp2IcI94g05I6wM/HZwdMWBk+do9hMXfQPDZAAhxgBZwyl/V0YRhEu9hU4VPeaAWww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oWm6nHXV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NvkXwAnO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AF5D606EE81;
-	Sun,  8 Nov 2026 20:22:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26DF606D805;
+	Sun,  8 Nov 2026 20:22:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oWm6nHXV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7E2E1F008A4;
-	Sun,  8 Nov 2026 20:21:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NvkXwAnO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1624E1F008BF;
+	Sun,  8 Nov 2026 20:22:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169322;
-	bh=9wWfl7qFXktxy6CwpQ9crdCxWT/JDIqEgzRZ9xiVYpU=;
+	s=k20260515; t=1794169331;
+	bh=L3w4au/37QkmmcftRY36B6aQT1BjPfswYVXDde6xbtg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oWm6nHXVL6JiyIJakBPNDCG6+CYzRsw7y0IsjKcoRWvyvmdcxcVC911gwYblQRGWk
-	 IfXpjZJy4DOmdvgFC0FYhxrRwukSZRmb+q8oPKAiv2FTl2yKhjmg2rp0t7nDj+tkR3
-	 7fQuSl9jyQk6MG9+Fdt1dPxbrn4235i2e/fMTDgRCTERbBLC28ajGvDP45CDgKxW5F
-	 pg3W2NycLDCKPbdLgaDSUD/CLBz7f2/SF3mbLJQ7z6ps1oauESFZQ4i6jzAQRIExa7
-	 7PgK/aOJN6VJXNL0jrfirm9v6R2h/xkVIpyeOExEg8NntzOBGkdQ7zuwINhnRt9LCf
-	 zbvjnU6dELbbg==
+	b=NvkXwAnOb+L6SQNuMNZgqDojpLQ7igtOzHn7SMoSi7wyt49KEVie5GWM3ekYQ+fk/
+	 0so07lkTV/+0MsFV9vc+C1DJ1hnqvRNSWDuzW+n/q7gbcjwsy2ncNBKrTa9smcOYR1
+	 /rNqB4tLP+/c0kBUmSxq92GEfn2ysk1/goMSb2L58HCi+T/99uHBSPiWufO9/08zTH
+	 In2Hy6Kd5ZUV6iFORBGki+2PgpizMXIWjVq+s3NI2hmY1X7rb0hgyyj8x2SwBYGIba
+	 WJgCVjWFLqRQmmdR2v2hgGnlnqbzEpBag1T6grrhfVU27+miCqARCWLo3ismTd+NHf
+	 tXf7pB5M8Ir7w==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+To: Ajit Singh <blfizzyy@gmail.com>
+Cc: konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
 	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Jie Zhang <jie.zhang@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH 0/5] drm/msm: Mahua GPU support
-Date: Sun,  8 Nov 2026 14:19:18 -0600
-Message-ID: <179416929263.628393.17995664438358337927.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH v2 0/2] arm64: dts: qcom: Add Vicharak Axon Pro
+Date: Sun,  8 Nov 2026 14:19:26 -0600
+Message-ID: <179416929524.628393.316030413397057050.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com>
-References: <20260925-mahua-gpu-v1-0-0fa0bfd8d315@oss.qualcomm.com>
+In-Reply-To: <20261030074404.33517-1-blfizzyy@gmail.com>
+References: <20261030074404.33517-1-blfizzyy@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,24 +68,26 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 25 Sep 2026 02:44:31 +0530, Akhil P Oommen wrote:
-> This series adds support for the Adreno X2-85 GPU present in the Mahua SoC.
-> It is a smaller variant of the Glymur GPU, with fewer slices and smaller
-> internal memories, but it shares the same register layout. As a result,
-> only minor changes are required to enable support for it.
+On Fri, 30 Oct 2026 13:14:02 +0530, Ajit Singh wrote:
+> Add initial devicetree support for the Vicharak Axon Pro SBC, based on
+> the Qualcomm QCS9075 platform.
 > 
-> The first couple of patches fix an error I introduced in the earlier
-> Glymur series. I incorrectly assumed the X2-85 was the GPU used in
-> Glymur and used it in the compatible string. I believe it is reasonable
-> to correct this now, considering that the Glymur DT patches were only
-> picked up recently.
+> The board description includes the debug UART, UFS, USB 2.0 host with
+> an onboard hub, PCIe1 (NVMe), GPIO LEDs, GPU and DSPs.
+> 
+> Changes in v2:
+> - Use the "lemans" subject prefix and name the SoC as QCS9075.
+> - Drop the PMIC gpio-line-names, which did not match this board.
+> - Drop Ethernet and audio to keep this to initial support. They will be
+>   sent separately.
+> - Link to v1: https://lore.kernel.org/linux-arm-msm/20261029133654.6585-1-blfizzyy@gmail.com/
 > 
 > [...]
 
 Applied, thanks!
 
-[5/5] arm64: dts: qcom: mahua: Support GPU and GMU
-      commit: dbd5d59091f2f633b46f38afe825b5795b011c2b
+[1/2] dt-bindings: arm: qcom: Add Vicharak Axon Pro
+      commit: a917cf9dc0e9d9f8aa40f4aef5ce5fc008acbf11
 
 Best regards,
 -- 
