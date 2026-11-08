@@ -1,59 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794102559;
-	b=XyKmnQi3TXnSkJSLqSM9mRvE1mSw9DryAFVVnlcka8HRx0DRkc+836GLw4bi1TVqjFkQ
-	 aol51vlNVUMV0EB8isz92dO0SbANhz1tjDIZFWu026RR0CliMhQ8FY2NouFTj8hOGNCdC
-	 nIt6+3bTcLZD9j49I/kxnmxb7jFcZG442EevFXOAPFbhauCA8mAXmDEcnCkAuKH1O6fHt
-	 WGYLcrsn6YFau5w5vkWNb/shht4FZ8HPnK6lCWbxp6cdHzuyS5nIXZ0Hg2HFFe9BbKb2k
-	 8Q33bnIESMnR2WXmIRPVDSo1FDK9lTZjr0h3WZryuUHkVVU9kL8vYGHqndVUvdw3VQQ==
+	t=1794102703;
+	b=Vk8HBjGVebDqKtBJb3ynlbQ8ysBYTwrH7rxgg8aI/98x2wPm+NvsRYAh5hVmXJIrXb/l
+	 hJvmEcQSzLMu7zR2ZwOgm7oXtQEOgFkK6osmdeBIs5EMzpeJrXVq2zTEiFbF7UaWOqbjo
+	 H89osnxQyiecE/oxaVl0MIpHEReiBwbI1DoKe0d8U+qtgip0fpjeoBeEeZEYK3yy0R4CU
+	 e+wiM48MsM89kjBUfv6gMXp2DpLpBYt2+CA5hO+hj6eOuEb01WalFLpzkknBw9I68kS+F
+	 ZtLQQanhCc3aP830rX/7OllOcmJSXrc6/FFg/WcCknGvXzgMGZArZ8LNal06n2h9JjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794102559;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=QlFn/ogZnBwnGXypaqw1Bx3HTl2v+r0AMb9Jwl2RJhE=;
-	b=lkMpSXzMBgmL0q4EBKI8k29pKi4FQc6V0QxcedMV5Z/YRluhl3at5M4hp9xN0UO8zLGV
-	 wI6xapbhthkywMT4CCeaLaB8VjBhKrsw/JJYVxGvI0JBBZ4xGWMdp7+g3CZt/1oKreJl1
-	 zGqwRHH7azaxI804+gtn38z40KcuQjhltsDFvKF6B3N7a9F0VXfocuGgrQ76BRh8HO14S
-	 vAiLaTDopeDGOsihgzyAyaDuOpWWhUd+LDCcN9Up7oCXktb4588oVlAFXOKmbxbV0S8+V
-	 YWhsJOV2sntIYnzJSlLR6jfrN0hQvZvutWuSJV3Vvc80Q0Si2LF5haJG26M3wJXcupg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794102703;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=1xV/fJ4AuRrR5u3NqFuBRHGOdyiZjuQaysbexctAYug=;
+	b=3rCs7D7ZAXB7BWSjSQh7uGKTrjBg4UgHQtJRS/8MZHpvvR8sErJ1T4mSDwJMJNaL/sy5
+	 mVPqQwmbbKD9xrrUOnD87Mgf/oT/y6nT89VX7QOC7UFG5HtxUkzkVy2U2CH9oL1D6Lw6+
+	 5+1ZAw9StqCAJ1WHPrfh5bET/aFiD1cIjb0wQo3qJeCn8++ilCe6IK8SK86nkohMsNmn1
+	 ZuUWhHZciGsuwc3JmlBEnqQaso3aQoOOx1GkTTw3/CKOQo/a8s96zbYZ2Fh3MCnV7ADtE
+	 C7cvfSe2BE4/iFigk0q8ijBjuDEIrdeHlx5Cb8WZx8SPBWw9oL9b313+FGqaMuU09CQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Cu+/WexB";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=calobrisi.com;
+	spf=pass smtp.mailfrom=calobrisi.com;
+	dkim=pass header.d=calobrisi-com.20260707.gappssmtp.com header.i=@calobrisi-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=RVpGsrRk;
+	arc=none smtp.remote-ip=209.85.222.182
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38661606A31A;
-	Sun,  8 Nov 2026 01:49:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EBB1606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 01:51:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EBB1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=calobrisi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=calobrisi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cu+/WexB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39C8D1F0089F;
-	Sun,  8 Nov 2026 01:49:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794102558;
-	bh=QlFn/ogZnBwnGXypaqw1Bx3HTl2v+r0AMb9Jwl2RJhE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Cu+/WexBi0lEOhEn4R93nkwKirlhVJq0PSZIO7L2Xz2eGRqXSuzc2Uv49dNXhD3LX
-	 NbjqzoNeiSbMd16WsTRPgQfA3PEOvo4dXP4R63Dbuid+L+aGOPm05bVH4zmXtX+bQv
-	 zaQ/GqWyOW3VhAdcQB4lrPo+Hf5+uPTh5rlwH2Bj6Yq1x1EoLblgxJ2aTskmNONZ7A
-	 VbvAaFl56dzuVgnGmbEldIZ2BHMRSUdsu2JB+XJx0a50+P8YoQVchLikQkJJhJMiKv
-	 8wJ3wsbve9O624caX3kcrxVGmnKSfcF9wPryfb2SYVhqJHBxGcJh5nY6+a+AgmcAPb
-	 qCoReXdaNxr/Q==
-Subject: Re: [PATCH net v3] net: atl1c: free the RX buffer when the descriptor
- reports an error
-From: netdev-bot+sashiko@kernel.org
-To: federico@rimpianto.com
-Cc: chris.snook@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 08 Nov 2026 01:49:17 +0000
-Message-ID: <179410255769.994134.16589271793081668306@kernel.org>
-In-Reply-To: <20261103225218.19206-1-federico@rimpianto.com>
-References: <20261103225218.19206-1-federico@rimpianto.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=calobrisi-com.20260707.gappssmtp.com header.i=@calobrisi-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=RVpGsrRk
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93f36c18b75so3905485a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 17:51:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=calobrisi-com.20260707.gappssmtp.com; s=20260707; t=1794102688; x=1794707488; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1xV/fJ4AuRrR5u3NqFuBRHGOdyiZjuQaysbexctAYug=;
+        b=RVpGsrRkBKsl5ZRaGa9drVPBv+Zj0NBO5KR8r03cH6buOy8xfchv7XxTD86SRSpt5K
+         ngj56EQu8nsvCRcw/50yqSNXxZApGYGvdlr5LoIFCfuCkCdaZkYPpWdLBcErEjy70caG
+         watxhJsBBFpNSeGRmRWZz+w9d/eXpxfwLWmSBjqoP/9CuXhic0rxZtAJRTh0ypAoI7YE
+         svU6dhVKI3XSPKgPt+GxIoDuXbfmwKkFEbfzRIUu6oYKfIspYl+HnADRlKp42CQzI7EW
+         Z53kdaCpPPya/CH5DkmneTbwpqDgTFLAlNyfXejpFNrVYnYZJ6UHiAsKYMmBgtve77cN
+         aj9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794102688; x=1794707488;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1xV/fJ4AuRrR5u3NqFuBRHGOdyiZjuQaysbexctAYug=;
+        b=upQ/0NDeg53c2+6sekokpbeZKF55Y+Cn0EI3LsabgKanAj9/yqwi79F/Sf62beK6Xu
+         Cy22Uah+tB4Z6Bq/XBFQ6Q1MgbDJ51rsz0q4dxrPPEssEGXGneyUBlalvtU16PmHW7dD
+         L5Ev5ZODq8pLNi7UB14XwgLvnPYjgPxqNUJT336kxoTRW1N/WQMfZGvKqoJ4wGWcgGQh
+         5/vs5ZuNIe2ONQAKZ4ar3isvGGFogI5kOnlB/f8Q3X33bwcKBPxJwMzB2jLF4GOe1mYi
+         qRcGCXElEpB0iKHLlq/02hmE37Eo03Bs5iqa2q2JxrsLzrNZjThX6i7wetrAJ91OroWC
+         s0aA==
+X-Forwarded-Encrypted: i=1; AKwUvBwzy4I6/T1JsVdW91N/WrNQ7h8Czm/cGdLKBORCrgTGp4PNxjmsJ31pONJVaEViotVszhL9ui9NfQMd8Yg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+kEF372IghgQCSClMYmsnfAzi6IDf8iKBs1Vp4DqQyMSbXTk5K
+	qwYrvyivg/PrjHmFGt6sbKP1/VqK3+G2JxJu5n23Kb2UfRFS6HJiNypc9qKh/bkdexo=
+X-Gm-Gg: AYBFou2x5/pzfA0Cn7JUvnHlxlklJxwwyqCl6QTuvqpBXu2vUwGssvV+rEtdX09Sb7L
+	xG1s9jwbS0Vo4UYOHVklLD4mI+P3hk5IgehSRD3uvdw4SJu2ltO7rUbpAjd03TXKAbKMUMAWKQK
+	ujqJNxG5oDUzYDwQhlZAEVZ0PX9Wps44aRCEYwGWeFMPVebUsis90BMK7yIf+10/cSGN7mMSOFR
+	tjfz94X1yifsHo+qj04uim2aIIKS/k1hPrb2s0/njREBBNzezp/XBby8Jq8ElUfmfpMQlFC0Ey5
+	jRhOeCsJ+Dx76aERd6Wq/SVnF2N3Y4RGvk5EbEqLftyc0oJWFVqScwIx7Iu58y2cXEWVeCJEKDp
+	LkPvIo1PB7SBogu+LGjEwwvZL58/ez9WaIFmT+BJMlHnWnZP3YO2SA1Sz6Rh7rv9sc0RZeewNbr
+	ZbMGFudfhGl3A6CKM5ACodBwQjC4vsEWsuhRKZhnRdZCVuRqWCw5XcZF+uVlRm6taNgipgCruSB
+	JhvYPEqPp+pbG3ZSW1Td5XdPYYoIYB7m5n/2sjC2WpZ/KEAr/jS9kGdPZdMgvpi8FWR8FgEm8WU
+	21hGNNOR8CMZflImMti3En5VoHp9s6tdY0lhk7pH4sMCbWrJ7+c5CpaZAelSyWN+ymQ83eoIsg5
+	V1Ib3qCSJGV2BdEz/+8ERGsLTGzcPUQ9d2mYTYQ==
+X-Received: by 2002:a05:620a:1d0b:b0:93e:c12c:fbcd with SMTP id af79cd13be357-947842b51e9mr47600785a.73.1794102687950;
+        Sat, 07 Nov 2026 17:51:27 -0800 (PST)
+Received: from localhost.localdomain (c-76-99-126-200.hsd1.pa.comcast.net. [76.99.126.200])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94782ccaea3sm78072585a.4.2026.11.07.17.51.26
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 07 Nov 2026 17:51:27 -0800 (PST)
+From: Doug Calobrisi <doug@calobrisi.com>
+To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nikolas Joshua Britton <nbritton@exabit.io>,
+	Maciej Grochowski <Maciej.Grochowski@sony.com>,
+	Mesih Kilinc <Mesih.Kilinc@sony.com>,
+	Geramy Loveless <gloveless@jqluv.com>,
+	Eric Auger <eauger@redhat.com>,
+	Alexey Fomenko <alexey.fomenko@intel.com>,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>
+Subject: Re: [PATCH v5 00/14] PCI: Resource placement algorithm fixes
+Date: Sat,  7 Nov 2026 20:51:07 -0500
+Message-ID: <20261108015109.65207-1-doug@calobrisi.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
+References: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,231 +109,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Fri, 6 Nov 2026, Ilpo Järvinen wrote:
+> There have been major changes so any retesting is appreciated
 
-Critical: 0 · High: 0 (1) · Medium: 1 (2) · Low: 0 (1)
+I tested v5 on v7.4-rc1 with four AMD Radeon AI PRO R9700s behind a
+PEX88096 switch on an X570 board. Each GPU's window holds a 32G BAR0
+and a 2M BAR2, so it's 0x800200000 in size and its BAR0 needs 32G
+alignment.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+With firmware ReBAR on, the board doesn't POST once two RTX 3090s
+are also on the switch. So with ReBAR off I set the four BAR0s to
+32G from Linux, then remove and rescan root port 00:03.1 so the
+kernel sizes the windows again.
 
-- [Medium] The new errored-frame branch in atl1c_clean_rx()
-  (drivers/net/ethernet/atheros/atl1c/atl1c_main.c:1926-1943) unmaps and…
+On unpatched v7.4-rc1 the switch window is sized as the plain sum of
+its child windows, one R9700 loses its 32G BAR0 and both 3090s lose
+their 64-bit BARs.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch
-  widens it: the link-change worker resets and reposts the RX rings…
-- [Medium] In atl1c_clean_rx(), a valid RRD with an error bit set and
-  RRS_RX_RFD_CNT == 0 is never consumed.
-- [Medium] atl1c_clean_rx() checks RRS_RXD_IS_VALID(rrs->word3) (line
-  1909) and then reads rrs->word0 (line 1910) with no dma_rmb() between…
-- [Low] struct atl1c_recv_ret_status (atl1c.h) declares word0 and word3
-  both as __le32.
+With v5 everything is assigned:
 
---
+  pci 0000:0b:04.0: bridge window [mem 0x2800000000-0x67ffffffff 64bit pref]: assigned
+  pci 0000:11:00.0: bridge window [mem 0x2800000000-0x30001fffff 64bit pref]: assigned
+  pci 0000:11:08.0: bridge window [mem 0x5fffe00000-0x67ffffffff 64bit pref]: assigned
+  pci 0000:11:10.0: bridge window [mem 0x37ffe00000-0x3fffffffff 64bit pref]: assigned
+  pci 0000:11:18.0: bridge window [mem 0x4000000000-0x48001fffff 64bit pref]: assigned
 
-net: atl1c: free the RX buffer when the descriptor reports an error
+amdgpu then binds all four and P2P between them works. Logs and the
+test script are available if useful.
 
-This patch changes how atl1c_clean_rx() handles an RRD that reports
-RRS_RX_ERR_SUM or RRS_802_3_LEN_ERR. It now unmaps and frees the skb of
-every RFD slot the RRD references, where before it only marked those slots
-free. It also decodes word0 once with le32_to_cpu(), counts errored
-descriptors as work so the RX refill runs, and clears the RRD ring in
-atl1c_clean_rx_ring().
+Tested-by: Doug Calobrisi <doug@calobrisi.com>
 
-> diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-> index eddd8406867f7..0d7d8426ce99b 100644
-> --- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-> +++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-> @@ -912,8 +912,9 @@ static void atl1c_clean_rx_ring(struct atl1c_adapter *adapter, u32 queue)
->  		buffer_info = &rfd_ring->buffer_info[j];
->  		atl1c_clean_buffer(pdev, buffer_info, 0);
->  	}
-> -	/* zero out the descriptor ring */
-> +	/* zero out the descriptor rings */
->  	memset(rfd_ring->desc, 0, rfd_ring->size);
-> +	memset(rrd_ring->desc, 0, rrd_ring->size);
-
-[Severity: High]
-
-This is a pre-existing issue, but does the RRD memset fully prevent what
-the commit message describes?
-
-  "Clear the RRD ring on reset, preventing a stale error descriptor from
-  causing a freshly reposted RX buffer to be unmapped and freed while the
-  device still owns it."
-
-The link-change worker gets here without stopping NAPI:
-
-atl1c_common_task()
-  atl1c_irq_disable()
-  atl1c_check_link_status()      /* link down branch */
-    netif_carrier_off()
-    atl1c_reset_mac()
-    atl1c_reset_dma_ring()
-      atl1c_clean_rx_ring()
-        atl1c_clean_buffer()     /* unmap + napi_consume_skb() each RFD */
-        memset(rrd_ring->desc, 0, rrd_ring->size);
-    atl1c_configure()
-      atl1c_alloc_rx_buffer()    /* repost fresh buffers from index 0 */
-
-atl1c_irq_disable() masks the interrupt and calls synchronize_irq(). There
-is no napi_disable(), and atl1c_clean_rx() checks netif_carrier_ok() only
-on entry.
-
-Suppose a poll on another CPU is already inside its loop and has decoded
-rfd_index. Can the new error branch then see buffer_info->skb as non-NULL
-and call dma_unmap_single() and kfree_skb_reason() on it? That would
-either double unmap and free a buffer that atl1c_clean_buffer() also
-frees, or unmap and free a buffer the worker just reposted to the device.
-
-The good receive path has the same race. The notes below the --- line say
-the link-reset/NAPI races are left to separate patches. Still, this patch
-adds another free site inside that window.
-
-[ ... ]
-
-> @@ -1894,8 +1907,11 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
->  			break;
->  		rrs = ATL1C_RRD_DESC(rrd_ring, rrd_ring->next_to_clean);
->  		if (likely(RRS_RXD_IS_VALID(rrs->word3))) {
-> -			rfd_num = (rrs->word0 >> RRS_RX_RFD_CNT_SHIFT) &
-> +			rrs_word0 = le32_to_cpu(rrs->word0);
-> +			rfd_num = (rrs_word0 >> RRS_RX_RFD_CNT_SHIFT) &
->  				RRS_RX_RFD_CNT_MASK;
-> +			rfd_index = (rrs_word0 >> RRS_RX_RFD_INDEX_SHIFT) &
-> +				RRS_RX_RFD_INDEX_MASK;
-
-[Severity: Medium]
-
-This isn't a bug introduced by this patch, but should there be a dma_rmb()
-between the RRS_RXD_IS_VALID(rrs->word3) check and the load of rrs->word0?
-Without one, a weakly ordered CPU can pair a stale word0 with a fresh
-word3.
-
-The practical effect looks limited. The RRD and RFD rings advance
-one-for-one, as the comment in atl1c_clean_rrd() says ("the relationship
-between rrd and rfd is one map one"), so a stale rfd_index at RRD slot i
-normally still names RFD slot i. After the new memset, a stale word0 also
-gives rfd_num == 0.
-
-The good path has the same missing barrier, and the notes defer the
-memory-ordering issues to a separate patch.
-
-> @@ -1908,11 +1924,22 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
->  rrs_checked:
->  		atl1c_clean_rrd(rrd_ring, rrs, rfd_num);
->  		if (rrs->word3 & (RRS_RX_ERR_SUM | RRS_802_3_LEN_ERR)) {
-
-[Severity: Low]
-
-This is a pre-existing issue, but struct atl1c_recv_ret_status declares
-word3 as __le32 too. Now that word0 goes through le32_to_cpu(), should
-word3 be converted as well?
-
-These accesses all apply CPU-order masks to the raw little-endian value,
-so they test the wrong bits on big-endian hosts:
-
-  RRS_RXD_IS_VALID(rrs->word3)
-  this error test
-  the RRS_PKT_SIZE extraction
-  rrs->word3 &= ~RRS_RXD_UPDATED in atl1c_clean_rrd()
-
-The driver was already broken on big-endian before this patch.
-
-> -			atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
-> +			/* atl1c_clean_rfd() drops the only pointer to each skb. */
-> +			for (i = 0; i < rfd_num; i++) {
-> +				buffer_info = atl1c_unmap_rx_buffer(pdev, rfd_ring,
-> +								    rfd_index);
-> +				if (buffer_info->skb)
-> +					kfree_skb_reason(buffer_info->skb,
-> +							 SKB_DROP_REASON_NOT_SPECIFIED);
-> +				atl1c_clean_rfd(rfd_ring, rfd_index, 1);
-> +				if (++rfd_index == rfd_ring->count)
-> +					rfd_index = 0;
-> +			}
-
-[Severity: Medium]
-
-Can this loop unmap and free a buffer the NIC still owns? rfd_num and
-rfd_index come straight from the device-written RRD:
-
-#define RRS_RX_RFD_CNT_MASK	0x000F
-#define RRS_RX_RFD_INDEX_MASK	0x0FFF
-
-So rfd_index can be as large as 4095 against a 512-entry RFD ring, and
-rfd_num can be as large as 15.
-
-Before any slot is freed, nothing checks that:
-
-  - rfd_index < rfd_ring->count
-  - rfd_index is the slot software expects (rfd_ring->next_to_clean is
-    written but never read)
-  - the slot is ATL1C_BUFFER_BUSY
-
-atl1c_unmap_rx_buffer() only checks buffer_info->skb.
-
-Before this patch, a wrong index or count here leaked the buffer but left
-the mapping valid. Now the buffer is unmapped and freed, and the device
-can then DMA into freed memory or a released swiotlb slot.
-
-The wrap test is ++rfd_index == rfd_ring->count, so a starting index at or
-above count never wraps. Could the loop then walk into another queue's
-buffer_info entries, or past the end of the single allocation that
-atl1c_setup_ring_resources() shares between the TPD and RFD buffer_info
-arrays, and pass whatever it finds to kfree_skb_reason()?
-
-For comparison, alx_clean_rx_irq() uses the same RRD layout. It unmaps by
-its software index and schedules a reset on a mismatch:
-
-	if (ALX_GET_FIELD(le32_to_cpu(rrd->word0),
-			  RRD_SI) != rxq->read_idx ||
-	    ALX_GET_FIELD(le32_to_cpu(rrd->word0),
-			  RRD_NOR) != 1) {
-		alx_schedule_reset(alx);
-		return work;
-	}
-
-Would a similar sanity check, or using the software index, make sense
-here?
-
-Multi-RFD freeing is also added only on the error path. The good path
-still treats rfd_num != 1 as unsupported.
-
-The patch notes say it hasn't been tested on hardware, so it isn't known
-how atl1c fills these fields for errored frames.
-
->  			if (netif_msg_rx_err(adapter))
->  				dev_warn(&pdev->dev,
->  					 "wrong packet! rrs word3 is %x\n",
->  					 rrs->word3);
-> +			work_done++;
->  			continue;
-
-[Severity: Medium]
-
-This isn't a bug introduced by this patch, but what happens with a valid
-errored RRD whose RFD count is 0?
-
-atl1c_clean_rrd(rrd_ring, rrs, 0) neither clears RRS_RXD_UPDATED nor
-advances next_to_clean. The free loop runs zero times, and continue
-re-reads the same descriptor.
-
-Before this patch, that looped forever inside a single poll. With the new
-work_done++, the poll returns budget and NAPI repolls the same RRD. That
-is an improvement, but RX on that queue still makes no progress.
-
-Should rfd_num == 0 be rejected, or the RRD consumed, explicitly? It's not
-known whether the hardware ever produces such a descriptor.
-
->  		}
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261103225218.19206-1-federico%40rimpianto.com
+Thanks,
+Doug
