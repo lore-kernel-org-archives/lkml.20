@@ -1,67 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.248.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794132575;
-	b=fT8VErhqsOjQXXXQ+dTyK303phsw8qMSofBcz7cOdDT3IC9uxMX87nAQD/PcEI+EzcGp
-	 PYr5M/SERVxYtZfagjgPHlfdog+fE8ci2DZhe+6rvPnQ6dU/TolmquAvrTPR7yDNyZ8z7
-	 zwKD7GGdjCDcAgj/epyDJTXHM5C8pH7qk5ODQkm/GL6N9gDM1Am6VFamrv9VlatVNryST
-	 q0Qmjnr+Asln992qtrFXRLhKGKuRnDGnfuiPgW/Qe4TJ5C+bOV5lIClu3YBW7S8N6T1Un
-	 o3ntCJgDgyPOm4YDs9Ta4CRr74OUy3CWM8TCyQX11eR0KFt6HSKh73vneRlwOVRuMZQ==
+	t=1794132624;
+	b=YIvixojc9902cZ5oerCWzFQJdtSajR7xe+Rxtqv7D8iyBLHhewWTFj16L7AN+cbREL2i
+	 yQbjw26r6i7p1EtF6F2hYcqARqZ+pVRHQW1H3IhYmMPZ4++awE7844PEqPxnGaRGKdeAF
+	 0L/VfgO2NxquflKNXO6QNmFu+qNrpmM3fbTW1LQENTh7GLW4q4hrv6S1nKLVdWQo9rTRA
+	 Ld3Pi+YxRQrJFjk9H7GVkfNmqfmGrv2dUzCHUFwpwq3G6RQ4O6Cb19uz31cLUVDKMJtGX
+	 xT3IffKCi13cmz3uMsqVibDEtd+DH19HLuvTpvjnwwjakbfz1P4Y0tQv6mAo0HzJVhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794132575;
-	h=DMARC-Filter:From:X-Lima-ML-UUID:DKIM-Signature:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=1uwiNKMbvhBAXcecmGoFjqOAK5Qba8ZnTWBcEvlHDAs=;
-	b=hre51RktPjYQQm2QuY+lAmQpgiWoZvhrXSdcIkmLnD9jkbYApdWLmzTRcfpmTRo3F87F
-	 2ENTRSHPcJATnMnNjutNVUQ1B9gGeboSHuWl93HXBhByt7Xf9dMHSUwkAEmEIZAAWfhlT
-	 kn62i6RsuGByQNNHH7+de8KKdHHi6Z0Uxnt5NeiZh290j6pPk85BfsIbIJpPEmu6QMGpw
-	 iCtroR3tjznp0P/IflQ6+YxFt4agLKaEEeyNIOJK7l+Gu/CWHTxmHPlXNPr/Erdi3tNih
-	 YuMaBd1vjBD6gbgHoQ5Q4iQ8O51yWolHRJwJQqWA4KWsDqmucw7nlbZh6mLsmYc6PYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794132624;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DQncBadONHRj2q+zZnkg8jvkUCgEUHfc66wdEXV5FgQ=;
+	b=qDxfcwTN3yiyaErwXzHY8j4Aw+gG3bgYerGtoj2P0uIpPQz1Tav4QYn6i/Zoc9to8I3N
+	 CRVHbdCa3S0Vd5f8BVtZODo+bDUYLmc0Hxru86J3GGbcsOapUStvqRxaEam0Dg/OVm6xQ
+	 j+3Xp31eNA7jtw9yg8jRh97/a+vzg2ffuxFB+be1hs1fUc+pnzX5xhE8b2P6cNU24F0nu
+	 +tXBBFjOJnSBBhikA9V8uCwAeS46Ubt+SUieFKH/eg+FeH8Ohv3tMtrYn0GxYxjltOKT0
+	 X2ulCWHbcb/8XVLhZQ1MUqiBpVVmxHt6L94xz9eDXLRLDnMG6JVMzMZCcR1csDtjhdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=deq.rocks;
-	spf=none smtp.mailfrom=deq.rocks;
-	dkim=pass header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=IGdFcVa0;
-	arc=none smtp.remote-ip=91.216.248.207
-Received: from mx5.mail-out.lima-city.de (mx5.mail-out.lima-city.de [91.216.248.207])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CDCA606A31C;
-	Sun,  8 Nov 2026 10:09:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CDCA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=deq.rocks
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=deq.rocks
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=a3hZCX5r;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 38BD0606A31C;
+	Sun,  8 Nov 2026 10:10:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38BD0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=deq.rocks header.i=@deq.rocks header.a=rsa-sha256 header.s=securedbylima-20251205 header.b=IGdFcVa0
-From: Andre Eikmeyer <dev@deq.rocks>
-X-Lima-ML-UUID: 0cb6624c-966a-4a95-a126-0519d608ab05
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
-	s=securedbylima-20251205; t=1794132570;
-	bh=S6Y/LwG+wCmImnTNaesKgeOzR3fz30WpQYzLROThjVQ=;
-	h=From:To:Cc:Subject:Date:From;
-	b=IGdFcVa0bidLQ3V6WX5gz1QLex4rCqOuR9A/6rS4Mi5BcStBYv7sEXYtNC+u17+ck
-	 4Y2GdUVRw/GmC7SkGlLWLZh9k3q4LbQUZWc/m5/QzC/hmCx7/Tln68oUBv/GkqdMMd
-	 Wn5PdWnZLBCVT4SutpfwE2sM7CRIzY++Dar86UWTONIj4ZlNldiBzsCGZ9e5Bcy3yG
-	 0U1Lcu5IGK/AGZ1jghZciN8xbJAAvqtPYH3ZutsiDOQOUE0GBcZhlN2owqiF9677hn
-	 W2fMkh8yPpLwR/7EBZPI1U7nv0sd/RBtZEuxmE3aUGJw+bxMlD68GhTgyr1sGhM5Hc
-	 9AoFEUZS/IHPw==
-To: Jani Nikula <jani.nikula@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Andre Eikmeyer <dev@deq.rocks>
-Subject: [PATCH] drm/i915/backlight: restore the gmux brightness on dual GPU T2 MacBook Pros
-Date: Sun,  8 Nov 2026 11:09:26 +0100
-Message-ID: <20261108100926.28950-1-dev@deq.rocks>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=a3hZCX5r
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=a3hZCX5rmUh8bxvM7pAyA66UB0eCn0CKw6YP219RkxyJ2IElibeoNNOY1XmljQWMNiNtDTDIX48v9
+	 zYWu8TxfemsPIsCT9KCP1AsY/IE1jsNAg3vHGA1gbkeLq0eYwdP9wj9LQoC6v8EqNAcvlM9grXOy9R
+	 HkzmHsfBPh5Ckjyc=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af04a84cfc-872f5;
+	Sun, 08 Nov 2026 18:10:14 +0800 (CST)
+X-RM-TRANSID:2ee36af04a84cfc-872f5
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from openEuler-24.03.03 (unknown[74.82.203.40])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af04a79f5c-64787;
+	Sun, 08 Nov 2026 18:10:14 +0800 (CST)
+X-RM-TRANSID:2eea6af04a79f5c-64787
+From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
+To: Narcisa Vasile <narcisav.kernel@gmail.com>
+Cc: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>,
+	netdev@vger.kernel.org,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	willemb@google.com,
+	mst@redhat.com,
+	jasowangio@gmail.com,
+	eperezma@redhat.com,
+	willemdebruijn.kernel@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 1/2] net: do not run out of frags in alloc_skb_with_frags()
+Date: Mon,  9 Nov 2026 03:09:44 +0900
+Message-ID: <20261108180953.67715-1-yanhaishuang@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <avAwu/1w6+2TJoE6@gmail.com>
+References: <20261108100617.23840-1-yanhaishuang@cmss.chinamobile.com> <20261108100617.23840-2-yanhaishuang@cmss.chinamobile.com> <avAwu/1w6+2TJoE6@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,149 +82,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When i915 drives the panel of a dual GPU T2 MacBook Pro, the panel comes
-back at 80% brightness after every screen lock, login and resume, while
-the gmux backlight device still reports the level userspace set.
+On Sun, Nov 08, 2026 at 12:20:11AM -0800, Narcisa Vasile wrote:
+> I think we should decouple the two parts you've pointed out:
+[...]
+> Should we also return -EMSGSIZE when header_len
+> is above the kmalloc limit, like it already does for an oversized
+> data_len? I'm not sure whether the errno change is acceptable?.
 
-gmux resets its brightness register to 0xcccc of 0xffff when i915 powers
-the panel off and applies that value when the panel comes back on.
+Thanks for the review.
 
-This cannot be handled in apple-gmux. gmux raises no interrupt when the
-panel is powered off or on. Only the GPU driver knows when the panel is
-back.
+Agreed, these are two separate problems. I'll keep this patch to the
+frag accounting, and reword the changelog in v2 so it doesn't suggest
+that it fixes the vhost spin in general.
 
-amdgpu needs no such restore. When it drives the panel, the gmux
-brightness register and the panel's DPCD brightness stay unchanged across
-a screen lock.
+Right, for larger frames tun_alloc_skb() moves everything above
+MAX_SKB_FRAGS << PAGE_ALLOC_COSTLY_ORDER into the linear part, so once
+that is above the kmalloc limit alloc_skb() can never succeed. I'll
+look at that one separately in tun.
 
-Add a DMI quirk for these models and write the cached level back through
-the gmux backlight device after enabling the backlight. The device is
-looked up by name so i915 does not depend on apple-gmux.
+> nit, feel free to ignore, this might read more simply as:
+>
+>  /* If splitting the rest into smaller pages would need
+>   * more frags than we have left, use one larger page.
+>   */
 
-Tested on the MacBookPro15,1 and MacBookPro16,1.
+Will take it in v2, thanks.
 
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
----
- .../gpu/drm/i915/display/intel_backlight.c    | 31 ++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.c   | 37 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
- 3 files changed, 69 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index b128896cb..fddd2292e 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -793,6 +793,35 @@ static void __intel_backlight_enable(const struct intel_crtc_state *crtc_state,
- 		panel->backlight.device->props.power = BACKLIGHT_POWER_ON;
- }
- 
-+#if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
-+/*
-+ * The gmux of dual GPU T2 MacBook Pros falls back to its default brightness
-+ * whenever the panel is powered off and raises no interrupt for it. Its
-+ * backlight device still holds the level userspace set, so apply that level
-+ * again once the panel is back on.
-+ */
-+static void intel_backlight_restore_gmux(struct intel_display *display)
-+{
-+	struct backlight_device *bd;
-+
-+	if (!intel_has_quirk(display, QUIRK_GMUX_RESETS_BRIGHTNESS))
-+		return;
-+
-+	bd = backlight_device_get_by_name("gmux_backlight");
-+	if (!bd)
-+		return;
-+
-+	drm_dbg_kms(display->drm, "restoring gmux brightness %d\n",
-+		    bd->props.brightness);
-+	backlight_update_status(bd);
-+	put_device(&bd->dev);
-+}
-+#else
-+static void intel_backlight_restore_gmux(struct intel_display *display)
-+{
-+}
-+#endif
-+
- void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
- 			    const struct drm_connector_state *conn_state)
- {
-@@ -811,6 +840,8 @@ void intel_backlight_enable(const struct intel_crtc_state *crtc_state,
- 	__intel_backlight_enable(crtc_state, conn_state);
- 
- 	mutex_unlock(&display->backlight.lock);
-+
-+	intel_backlight_restore_gmux(display);
- }
- 
- #if IS_ENABLED(CONFIG_BACKLIGHT_CLASS_DEVICE)
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 96eb9a40d..739e030cf 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -100,6 +100,13 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+/* The gmux of dual GPU T2 MacBook Pros resets the brightness on panel power off */
-+static void quirk_gmux_resets_brightness(struct intel_display *display)
-+{
-+	intel_set_quirk(display, QUIRK_GMUX_RESETS_BRIGHTNESS);
-+	drm_info(display->drm, "Applying gmux brightness restore quirk\n");
-+}
-+
- static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp)
- {
- 	struct intel_display *display = to_intel_display(intel_dp);
-@@ -196,6 +203,36 @@ static const struct intel_dmi_quirk intel_dmi_quirks[] = {
- 		},
- 		.hook = quirk_no_pps_backlight_power_hook,
- 	},
-+	{
-+		.dmi_id_list = &(const struct dmi_system_id[]) {
-+			{
-+				.ident = "MacBookPro15,1",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,1"),
-+				},
-+			},
-+			{
-+				.ident = "MacBookPro15,3",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro15,3"),
-+				},
-+			},
-+			{
-+				.ident = "MacBookPro16,1",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,1"),
-+				},
-+			},
-+			{
-+				.ident = "MacBookPro16,4",
-+				.matches = {DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Apple Inc."),
-+					    DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "MacBookPro16,4"),
-+				},
-+			},
-+			{ }
-+		},
-+		.hook = quirk_gmux_resets_brightness,
-+	},
- };
- 
- static struct intel_quirk intel_quirks[] = {
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 4996419ae..7498583c1 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -24,6 +24,7 @@ enum intel_quirk_id {
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
- 	QUIRK_ENABLE_DPCD_BACKLIGHT,
-+	QUIRK_GMUX_RESETS_BRIGHTNESS,
- };
- 
- void intel_init_quirks(struct intel_display *display);
-
-base-commit: 7b42cc130bec053d6989b849785c553f27b752ce
