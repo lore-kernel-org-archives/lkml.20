@@ -1,53 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794132094;
-	b=hlTdoEhY/JiNdpwByR9UD32ktrwoSdOpIKqYy9iXZ0EHucMWD3ZHUF73AL+p+nDh0Hzq
-	 67BqtXa4Yzq491D4cqxc1GKWkOYGkEY6lSGwJc0QPMTCDnew+LCQE/yFRfwcGBbJnPkOS
-	 Yg9qr/OplrKHawvz/WbSYdgc0F3A9rYwf4iNZWT9hTJJAzbVdANZGc6sbvvG10YNhkV4U
-	 1Ejptxw4NLxXDXpaWp8IlaWzER4PFvl5qBUGwuYi/0V2FUj8kNaqFqRkwab55oWsOnEZM
-	 mdYHc6bqMU+R+zbBYiNPFcbTljU4eZcc3ddD1vJeXBloTdVjgcFvFVLtUQeJ7lLnmxw==
+	t=1794132112;
+	b=2BDkBvk20IQff8EMJ+dlKYnKJqnzPOh3jLjwfU7+MXnKE+tvRXtj8/A3nWqShWce/YYb
+	 Y31weVoAQK1NQvpwh8IdiXpPPYUaBQ0hn8WlFoD4KQGOSEVxJaU6EiwVL4ovN2Zuhwu2f
+	 tBDDyXSEsZA3JKN/OLaocRoGZS6+3wZ+LMPnqTLZBNKj1Xvn+JYQdN9t+ECubFk+On+A1
+	 ssS+OBrej5vSE3Y1Yu3vJCWr7lxsgZf6JnaplZVBVgtwx3v8Mhp6jAKts9zGwIOnkFGho
+	 MBLVXCZ6hAsluJe6Shpxi/3yutuwGo2BaXHheswQb5szj3xVbORKvZFzzMFAgWV1gIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794132094;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=WX7F30P2T7ZLISOO6/GkVmLyVQn6lngZWVK5uXaxz30=;
-	b=dDaRLfoIZurhn6x9zEtpSfwks2P2zPdw1xeHXwW4xi3flTOZJG38mlH1dzArISKUK7QG
-	 U/KO1/yALsY5mZNCBDCADmVk/C6+EThhIm86+kgda7EyCzUHsIXa0hkMWb4QHaMA5g1/s
-	 BD5wZZ+2/BXafjk4XZklcM3h60sg0wDzDhjkhBkPTmDx6mDJ4biri4N3mJxtQ+tCBDZhF
-	 HDzHn7sAW4Mu2HTnPr6xIBMBWwfon9pf6+Asc7M93/RDG7Hsx7owWhFuxFsCxacUzQg11
-	 J2gjTgDRUbK3h85eTNFzZOJiQ4VmZWNmAp9Vn8+ZKU9OfPswavjr1/c00RDYS9j3O9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794132112;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=MOmLyDgIbQO7M8uzopRbwQ0bFLjFrWThanlQ5mPH0IA=;
+	b=lHqu35nw7Y3kR3s091mlqtXnlpsDyWauOvLVldB9MDeX02ytWDR/k4Kw+DPA19pPVdPr
+	 +9534cglmfseHY69a7g1N3BfmCDXE7sP9BP8HF7EQCpSyYvHDuWe9PmJfCMpChRcjOLAN
+	 G8Eor77A3u6EUKPERLfwocA4HFsngK7eNxqaTjZ2pTmybmImKC+IVyRXyj5j2cBwDd8Xx
+	 KOdYCr7zWZKQ7iMFIBtoVVuSlijCbNmQxAUomiQOgVd8+VH+6bqbqKkUB8AaH7jSRnfPI
+	 7dN+7vGGa+bDpc9WvWPiAvJ80+QWNi+mcqKIhqIGto3zdJ8stWVGsVAB9VfKcNFFD8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C17606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 10:01:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23C17606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ea2c058e67so377451b6e.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 02:01:33 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794132093; x=1794736893;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WX7F30P2T7ZLISOO6/GkVmLyVQn6lngZWVK5uXaxz30=;
-        b=rrnDYNTaPdCxGF5/eMaV0trtEYXVLOotU+rY6NiRSyeR8D8WJ4JQEzFK3OS1Gf6tfJ
-         HPY+LmOe/dd3NJNUIYPkUITWrM5grIuC2Td/zzTI9Q3iCORGeZiuGl/aX/2KD4IT+83j
-         0BOdVYKo8ssRLygF7zIpOxv+YsU/sud1HXmd2Sz5k3laF+jpa1yCP9obPBaH9UhSyFuf
-         +WHkBH4ItF2WmI8Fhf0iowIZaEEXmf7vpHWU4j59GiCSvIuf/fk4ALnvhENRpSn2kf5I
-         eFMJ/PqngyAlC4EXmUff3H0eyqtqz3ljVq/EY+SLxoEiprXuJr6K6dJ+x+Z5nLqPhcbV
-         ymQA==
-X-Gm-Message-State: APuU4Z+E7Z9ZdGS4vxk39g7evJ4bnV4Xxze3peMPXXDn8IGOEApSfUMi
-	bKrSl7ZVtu1CofzNGky8+Xeuo2J+m4FuXiHukEAkoPZSjeAJsYhQjIlIPbyaBYDv5gAAU/KAXaL
-	Y64NjlcvbeI2bZ7H8uW83yJdftFQ/noFB8QIO2209Kq8NYzlj0dbdw5H/oF4=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9814606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 10:01:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9814606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADngbeJSPBqEhaZAA--.37845S2;
+	Sun, 08 Nov 2026 18:01:45 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Cc: cengku@gmail.com,
+ dm-devel@lists.linux.dev,
+ dongsheng.yang@linux.dev,
+ Jianyun Gao <jianyungao89@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ vulab@iscas.ac.cn
+Subject: Re: [PATCH] dm-pcache: Fix use-after-free in kset_replay()
+Date: Sun, 08 Nov 2026 10:01:45 +0000
+Message-ID: <20261108100145.3182096-1-vulab@iscas.ac.cn>
+In-Reply-To: <ab890e71-8075-76f8-a91b-0beb78a0d3b7@redhat.com>
+References: <20260917094133.2145340-1-vulab@iscas.ac.cn>
+ <ab890e71-8075-76f8-a91b-0beb78a0d3b7@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,293 +56,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f10:b0:4e9:7d56:846f with SMTP id
- 5614622812f47-568145ef2eamr602758b6e.41.1794132093245; Sun, 08 Nov 2026
- 02:01:33 -0800 (PST)
-Date: Sun, 08 Nov 2026 02:01:33 -0800
-In-Reply-To: <6a830720.dbb3a75c.20434b.005b.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af0487d.4dd4714a.f8d02.0010.GAE@google.com>
-Subject: Forwarded: u_serial v3 series - test request
-From: syzbot <syzbot+39a2135de1558208d3b3@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:zQCowADngbeJSPBqEhaZAA--.37845S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF4UGr4rtrW3Zr13CryUWrg_yoW8GFy7pF
+	WrK3WYqrsrKrykAayIva1Iqa4xurZ3Ja98Wry7GrWkA3W5GFyxKrWfCw47ua17Ars3Xr42
+	qF45t3Z3WayqyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvS1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+	IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2
+	jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c
+	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_
+	Jw1lYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
+	1lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAK
+	I48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2
+	IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v2
+	6r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2
+	IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv
+	67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43
+	ZEXa7VU1K9aJUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEFA2rv4qifOQAAsi
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+Hi Mikulas,
 
-***
+Sorry for the very late reply.
 
-Subject: u_serial v3 series - test request
-Author: varun.singh10011@gmail.com
+Thank you for the pointer to c2e894eac398. I checked the latest tree
+(7.4-rc1), and the bug is already gone there. In kset_replay() the
+generation check now reads
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+		if (key->seg_gen < key->cache_pos.cache_seg->gen) {
+			cache_key_put(key);
+			continue;
+		}
 
-diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-index cdd1dfc666c4..aca15b429f29 100644
---- a/drivers/usb/gadget/function/u_serial.c
-+++ b/drivers/usb/gadget/function/u_serial.c
-@@ -125,7 +125,6 @@ struct gs_port {
- 	struct kfifo		port_write_buf;
- 	wait_queue_head_t	drain_wait;	/* wait while writes drain */
- 	bool                    write_busy;
--	wait_queue_head_t	close_wait;
- 	bool			suspended;	/* port suspended */
- 	bool			start_delayed;	/* delay start when suspended */
- 	struct async_icount	icount;
-@@ -615,8 +614,13 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 	int		status = 0;
- 
- 	mutex_lock(&ports[port_num].lock);
-+	/*
-+	 * Reject the open if the line has been freed, or freed and
-+	 * reallocated, since gs_install() took its reference: a reopened
-+	 * tty keeps the old port in tty->driver_data.
-+	 */
- 	port = ports[port_num].port;
--	if (!port) {
-+	if (!port || port != tty->driver_data) {
- 		status = -ENODEV;
- 		goto out;
- 	}
-@@ -648,7 +652,6 @@ static int gs_open(struct tty_struct *tty, struct file *file)
- 	if (port->port.count++)
- 		goto exit_unlock_port;
- 
--	tty->driver_data = port;
- 	port->port.tty = tty;
- 
- 	/* if connected, start the I/O stream */
-@@ -693,15 +696,18 @@ static int gs_close_flush_done(struct gs_port *p)
- static void gs_close(struct tty_struct *tty, struct file *file)
- {
- 	struct gs_port *port = tty->driver_data;
--	struct gserial	*gser;
-+	struct gserial *gser;
- 
- 	spin_lock_irq(&port->port_lock);
- 
- 	if (port->port.count != 1) {
- raced_with_open:
--		if (port->port.count == 0)
--			WARN_ON(1);
--		else
-+		/*
-+		 * A count of zero is reached when gs_open() failed after
-+		 * gs_install() had already stored the port in
-+		 * tty->driver_data; tty_release() still calls ->close().
-+		 */
-+		if (port->port.count)
- 			--port->port.count;
- 		goto exit;
- 	}
-@@ -744,7 +750,6 @@ static void gs_close(struct tty_struct *tty, struct file *file)
- 	pr_debug("gs_close: ttyGS%d (%p,%p) done!\n",
- 			port->port_num, tty, file);
- 
--	wake_up(&port->close_wait);
- exit:
- 	spin_unlock_irq(&port->port_lock);
- }
-@@ -908,7 +913,40 @@ static int gs_get_icount(struct tty_struct *tty,
- 	return 0;
- }
- 
-+static int gs_install(struct tty_driver *driver, struct tty_struct *tty)
-+{
-+	int port_num = tty->index;
-+	struct gs_port *port;
-+	int status;
-+
-+	mutex_lock(&ports[port_num].lock);
-+	port = ports[port_num].port;
-+	if (!port) {
-+		mutex_unlock(&ports[port_num].lock);
-+		return -ENODEV;
-+	}
-+	tty_port_get(&port->port);
-+	mutex_unlock(&ports[port_num].lock);
-+
-+	status = tty_port_install(&port->port, driver, tty);
-+	if (status) {
-+		tty_port_put(&port->port);
-+		return status;
-+	}
-+
-+	tty->driver_data = port;
-+
-+	return 0;
-+}
-+
-+static void gs_cleanup(struct tty_struct *tty)
-+{
-+	tty_port_put(tty->port);
-+}
-+
- static const struct tty_operations gs_tty_ops = {
-+	.install =		gs_install,
-+	.cleanup =		gs_cleanup,
- 	.open =			gs_open,
- 	.close =		gs_close,
- 	.write =		gs_write,
-@@ -1203,28 +1241,32 @@ static void gs_console_exit(struct gs_port *port)
- 
- #endif
- 
-+static void gs_destruct_port(struct tty_port *port)
-+{
-+	kfree(container_of(port, struct gs_port, port));
-+}
-+
-+static const struct tty_port_operations gs_port_ops = {
-+	.destruct = gs_destruct_port,
-+};
-+
-+/* Caller must hold ports[port_num].lock. */
- static int
- gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- {
- 	struct gs_port	*port;
--	int		ret = 0;
- 
--	mutex_lock(&ports[port_num].lock);
--	if (ports[port_num].port) {
--		ret = -EBUSY;
--		goto out;
--	}
-+	if (ports[port_num].port)
-+		return -EBUSY;
- 
- 	port = kzalloc_obj(struct gs_port);
--	if (port == NULL) {
--		ret = -ENOMEM;
--		goto out;
--	}
-+	if (!port)
-+		return -ENOMEM;
- 
- 	tty_port_init(&port->port);
-+	port->port.ops = &gs_port_ops;
- 	spin_lock_init(&port->port_lock);
- 	init_waitqueue_head(&port->drain_wait);
--	init_waitqueue_head(&port->close_wait);
- 
- 	INIT_DELAYED_WORK(&port->push, gs_rx_push);
- 
-@@ -1236,30 +1278,15 @@ gs_port_alloc(unsigned port_num, struct usb_cdc_line_coding *coding)
- 	port->port_line_coding = *coding;
- 
- 	ports[port_num].port = port;
--out:
--	mutex_unlock(&ports[port_num].lock);
--	return ret;
--}
- 
--static int gs_closed(struct gs_port *port)
--{
--	int cond;
--
--	spin_lock_irq(&port->port_lock);
--	cond = port->port.count == 0;
--	spin_unlock_irq(&port->port_lock);
--
--	return cond;
-+	return 0;
- }
- 
- static void gserial_free_port(struct gs_port *port)
- {
- 	cancel_delayed_work_sync(&port->push);
--	/* wait for old opens to finish */
--	wait_event(port->close_wait, gs_closed(port));
- 	WARN_ON(port->port_usb != NULL);
--	tty_port_destroy(&port->port);
--	kfree(port);
-+	tty_port_put(&port->port);
- }
- 
- void gserial_free_line(unsigned char port_num)
-@@ -1267,17 +1294,34 @@ void gserial_free_line(unsigned char port_num)
- 	struct gs_port	*port;
- 
- 	mutex_lock(&ports[port_num].lock);
--	if (!ports[port_num].port) {
-+	port = ports[port_num].port;
-+	if (!port) {
- 		mutex_unlock(&ports[port_num].lock);
- 		return;
- 	}
--	port = ports[port_num].port;
- 	gs_console_exit(port);
- 	ports[port_num].port = NULL;
-+
-+	/*
-+	 * Unregister while still holding the lock, so the device cannot
-+	 * outlive the slot it belongs to. Dropping the lock first lets a
-+	 * concurrent gserial_alloc_line() claim this line and register its
-+	 * own device, which this unregister would then tear down, leaving
-+	 * the new line without a device node.
-+	 */
-+	tty_unregister_device(gs_tty_driver, port_num);
- 	mutex_unlock(&ports[port_num].lock);
- 
-+	/*
-+	 * Hang up any tty still open on this line so it stops being usable
-+	 * and is released, rather than lingering in gs_tty_driver->ttys[]
-+	 * where a reopen could pick it up after the line is reallocated.
-+	 * This needs ports[port_num].lock dropped: it takes tty_lock, which
-+	 * gs_install() already holds when it takes that mutex.
-+	 */
-+	tty_port_tty_vhangup(&port->port);
-+
- 	gserial_free_port(port);
--	tty_unregister_device(gs_tty_driver, port_num);
- }
- EXPORT_SYMBOL_GPL(gserial_free_line);
- 
-@@ -1294,13 +1338,19 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 	coding.bParityType = USB_CDC_NO_PARITY;
- 	coding.bDataBits = USB_CDC_1_STOP_BITS;
- 
-+	/*
-+	 * Claim a free line and register its device with the line's lock
-+	 * held throughout, so the slot and the device appear together and a
-+	 * concurrent gserial_free_line() sees either both or neither.
-+	 */
- 	for (port_num = 0; port_num < MAX_U_SERIAL_PORTS; port_num++) {
-+		mutex_lock(&ports[port_num].lock);
- 		ret = gs_port_alloc(port_num, &coding);
--		if (ret == -EBUSY)
--			continue;
--		if (ret)
-+		if (!ret)
-+			break;
-+		mutex_unlock(&ports[port_num].lock);
-+		if (ret != -EBUSY)
- 			return ret;
--		break;
- 	}
- 	if (ret)
- 		return ret;
-@@ -1315,15 +1365,16 @@ int gserial_alloc_line_no_console(unsigned char *line_num)
- 				__func__, port_num, PTR_ERR(tty_dev));
- 
- 		ret = PTR_ERR(tty_dev);
--		mutex_lock(&ports[port_num].lock);
- 		ports[port_num].port = NULL;
- 		mutex_unlock(&ports[port_num].lock);
- 		gserial_free_port(port);
--		goto err;
-+		return ret;
- 	}
-+	mutex_unlock(&ports[port_num].lock);
-+
- 	*line_num = port_num;
--err:
--	return ret;
-+
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(gserial_alloc_line_no_console);
- 
+so the stale key is dropped and never touched again, and __set_bit() and
+cache_seg_get() only run for valid keys. The fix has been there since
+v7.3-rc1, so no current tree is affected. I also see that the commit
+already carries a Cc: stable tag, so nothing is missing there either.
+
+There is nothing left to fix, so please disregard my patch and feel free
+to mark the patchwork entry as superseded. I should add that the approach
+in it was wrong as well: pinning the segment before the generation check
+takes a reference on the segment of a stale key, and since that key is
+freed and never inserted into the tree, the reference would never be
+dropped.
+
+The patch was generated against an older tree and I did not recheck the
+current one before sending it, which is what I got wrong here. For
+transparency about how it was produced: the candidate came from our
+static analysis tooling, and DeepSeek and GPT-6.1 Sol were used to audit
+it and help write the change. I reviewed it and I am responsible for it.
+
+I am going through the rest of the outstanding feedback by hand and
+answering it one thread at a time.
+
+Thanks,
+Wentao
+
