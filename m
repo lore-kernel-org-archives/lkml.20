@@ -1,44 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.242
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794107724;
-	b=X60KVirWz/FUDR4DV462JTHBT6gylY1khz3IM08R5odtx3dqu0Dj6/mPnNZk0JMJneQL
-	 uGaL9G2Wxl5LNeH6IrW/a6VmgpJwBXqxYmE6dYhENYCEAzSv3c7cNQk+c4WflE+0GszDZ
-	 0NB/ENHlP9tZov95gRHyXsadlMsxRidWItDp5aCTdiSDx8hHuPoMvPFKUTVxo3irK7kvx
-	 wI/AkEnig2Xdjvm8plRRYYYyatEughap8qQ5K6/YaWE+oMVUSYCqDxLbBq98Ern2RArtx
-	 dsZupPZHXA2xyuAZtznTNLaZnk/jTDR+qewk+LzilThjJkqZU65y8Jized3KyGDR1oQ==
+	t=1794107732;
+	b=aHpFhY1xifpWEFiOkGX7h4LJt8DAuqmuPVvLKAoAMLH7tXoIs7A3zI+H2QRQbliheZt9
+	 6TpCgimKRtO67cldfbIb7kMXXzOgVQ17dw/JnZN2mIno7FXI4A3TF0YEPGHtcLXW61Bym
+	 BtjThyuXaZBcIS23jB10do5bKpv/11oqvS7TG8WPsCJllvi5NSzFZ0mgvi63rpiKP13GB
+	 +GnG7yw3j9IyTXnULvMN+n3iQd6BciS7dISJKtdVGjn8Abj79MM5+opCIOouoLWoXyHPI
+	 ApKHIAQeDJUzhPjucscGe5DvjDUWxM2NRAf4zlNgbkmfW76n1tRIi6xdwa5Rk9RZZFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794107724;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=lM3R06lN5RqvDRl/k2tH4ahMeiHYdM12iCHEJrgC6wk=;
-	b=UDbzZer9dx4KUvDckxL0I0+KA71tW758VW8JF47fxAMObRBjJPdNEa7rdqcvJoaznQ+N
-	 spLK/RhfRVgCCbGqO5rHO81YqzTnfxYGEhAk2XFM5Pc4apSxXvLwOSYlfjCJJFRxfwKkB
-	 PrgWLFtjndLt7PaBMDyPXQW2PGuODJJ8tCEVxMDizxtdhdCuEmOQrU1U2wRNt89sVTFk6
-	 IK+f157KuV00xmJbWRqnJ65qXlXDJ037euKM7fHOMpZKgi0FniL3GAeyplxa+gnpCHf8C
-	 26U7t2PthEDn1TwD/JW12GQaFs0CZKdMV5H7ITxJybMv+pZu6qBLFgA8FHC39vpUiTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794107732;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=a/bZ5iXP4DDa9C3rE1j+9R8AKF/7AKe9/pell36SluI=;
+	b=q4ZcdxCmA6ZEwE8MhR2IoXkd50qzYvz0hyLCJVBaPwgf7Cr1846iikW/A2ttJG+Y4vTr
+	 8IWGd1lFK5sIZZGPUlKKdvDjBs1ZJS7N0UsTMrKg2L/q63syIq27WgTkXFBXv5C1B10nY
+	 aW3rXynh949/2i+Vc76haWAhOI8O09ZnUlNQeT8X/If9kRYF8OOEwcxPONSTowRQvT9i2
+	 1JE20uJbL5AHe7+3o7TVHhy8Z4oUPu69HfkqYqIIyiEG/ziM/+7Huu7fgvSvcZNtprJZO
+	 UCgWIJ9d+7Bu1KTh43Ra2/9vNW1yu5U9zZvu1WmWqtuJKfx68ZQyKPTluJ79Pbrb0jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=P8WiBGr9;
-	arc=none smtp.remote-ip=103.209.128.242
-Received: from mail-m128242.netease.com (mail-m128242.netease.com [103.209.128.242])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gQRE8BJc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7177E606A31A;
-	Sun,  8 Nov 2026 03:15:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7177E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96236606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 03:15:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=P8WiBGr9
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 53e05798d;
-	Sun, 8 Nov 2026 11:15:11 +0800 (GMT+08:00)
-Message-ID: <f066ac3f-1720-479b-a2e9-198a96d03dd6@rock-chips.com>
-Date: Sun, 8 Nov 2026 11:15:09 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gQRE8BJc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 788341F008A3;
+	Sun,  8 Nov 2026 03:15:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794107732;
+	bh=a/bZ5iXP4DDa9C3rE1j+9R8AKF/7AKe9/pell36SluI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gQRE8BJcf8LvyLbU47fcRumukgkMk2dqVAt4858j0hUiHCefBAFkrZdi+AsmTUQpM
+	 REhZREwjELCnrvmjsck9IssG56NK7j45N6PlBZwUQI4HE8GD8GThzFGrJwatPFYveQ
+	 WUYJQ3kzP0NS3TlardL7VE0gJhHe+YXtLVveZ54B096kZV2NYo+n9PrdQ/Io8BHiRY
+	 pwzdVWv9Dmbnmp8idhvLp37xFaPETNxvefnR5wlk+o0Pr7NiNKkKinqIL3LPiavF2l
+	 kNmbqZshDFTAKlrtFQHiGT1UsyjKasBC/viuUerMhAO+8RxwoOyQyGpxQJ4H6S+SXT
+	 c4/hVjEF/2okQ==
+Date: Sun, 8 Nov 2026 10:55:19 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Andrew Waterman <andrew@sifive.com>,
+	linux-riscv@lists.infradead.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] riscv: mm: Skip the icache flush for special PTEs
+Message-ID: <au_klz4_971bxJ_c@xhacker>
+References: <20261017013634.792220-1-nickolai@csail.mit.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,194 +59,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] arm64: dts: rockchip: Add DSI panel to RK3588 EVB1
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- kernel@collabora.com
-References: <20261106-rk3588-evb1-dt-updates-v1-0-bdbe16223589@collabora.com>
- <20261106-rk3588-evb1-dt-updates-v1-4-bdbe16223589@collabora.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261106-rk3588-evb1-dt-updates-v1-4-bdbe16223589@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa1b9271f9d03a7kunm71851a523ae3dc
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCS0kYVh9OTxlIH0sYQh9PQ1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=P8WiBGr9wnTcvHB2H8l9sl8SKmN0k54UNOfHgSTjHwSZ13FvJWN3ot57OepT4gft0OATr3R288gLEOJE989yutl2wuvTLvA/8KHdc8pKGoQAx1kCBPrutFigfI0NXpdxjVjHQ9W/6CAj1AxtbWZIuYDnRia5x6m/+/Ghp15zQxk=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=lM3R06lN5RqvDRl/k2tH4ahMeiHYdM12iCHEJrgC6wk=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261017013634.792220-1-nickolai@csail.mit.edu>
 
-Hi Sebastian,
-
-On 11/7/2026 5:57 AM, Sebastian Reichel wrote:
-> The RK3588 EVB1 comes with a W552793DBA-V10 Touchscreen/Display
-> combination. It contains a Wanchanglong W552793BAA panel and a
-> Goodix GT1158 touchscreen. This adds the DT description of it.
+On Fri, Oct 16, 2026 at 09:36:34PM -0400, Nickolai Zeldovich wrote:
+> Mapping device memory executable crashes the kernel: an mmap() with
+> PROT_EXEC of a physical range outside RAM, from /dev/mem, from a PCI
+> BAR's sysfs resource file, from a frame buffer or from any driver whose
+> mmap() uses remap_pfn_range(), io_remap_pfn_range() or vmf_insert_pfn(),
+> oopses in flush_icache_pte() with the page table lock held; the task
+> never completes its exit and its parent's wait() hangs. On QEMU virt
+> with the riscv64 defconfig of v7.3-rc7, mapping the PCIe ECAM window
+> from /dev/mem:
 > 
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> mmap(/dev/mem, phys 0x30000000, PROT_READ|PROT_EXEC, MAP_SHARED)
+> Unable to handle kernel paging request at virtual address ff1c000000c00008
+> Oops [#1]
+> epc : flush_icache_pte+0x74/0xa0
+>  ra : do_remap_pfn_range+0x2b2/0x3ee
+> ...
+> note: test[52] exited with preempt_count 2
+> 
+> With CONFIG_FLATMEM (32-bit, or a 64-bit configuration without
+> SPARSEMEM) nothing faults: pte_page() of a pfn outside RAM is a pointer
+> outside mem_map, and flush_icache_pte() tests and sets a bit of whatever
+> memory it lands on. The privilege needed is that of the device file
+> (root for /dev/mem and the PCI resource files). Present since the port
+> was merged (v4.15).
+> 
+> __set_pte_at() calls flush_icache_pte() for every present executable
+> PTE. flush_icache_pte() does the flush once per folio: it takes
+> page_folio(pte_page(pte)) and tests and sets PG_dcache_clean. A special
+> PTE (pte_mkspecial(), what remap_pfn_range() and vmf_insert_pfn() write
+> into a VM_PFNMAP mapping) maps a frame the kernel does not manage as a
+> page: there is no struct page behind it, so pte_page() returns a vmemmap
+> address with no memory section, or with FLATMEM a pointer outside the
+> array.
+> 
+> Skip the flush for special PTEs, as arm64 does since
+> commit 71fdb6bf61bf ("arm64: Do not synchronise I and D caches for
+> special ptes"). These mappings are device memory or buffers the kernel
+> never wrote code into on the user's behalf; a user that writes code
+> into one and executes it has to flush with the cache flush system
+> call, as for any memory it writes itself.
+> 
+> Found while formally verifying remap_pte_range() against the kernel
+> binary.
+> 
+> Fixes: 08f051eda33b ("RISC-V: Flush I$ when making a dirty page executable")
+> Assisted-by: LLM
+> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+
+this patch looks good to me, but the comment needs updating, see below
+With that,
+Reviewed-by: Jisheng Zhang <jszhang@kernel.org>
+
 > ---
->  arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts | 90 ++++++++++++++++++++++++
->  1 file changed, 90 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-> index 6a95a8bb6fb8..327ca13b60f0 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-evb1-v10.dts
-> @@ -204,6 +204,15 @@ vcc12v_dcin: regulator-vcc12v-dcin {
->  		regulator-max-microvolt = <12000000>;
->  	};
->  
-
-I seem unable to apply the patch to the latest linux-next tree.
-
-So I tried to resolve the conflict manually, but the actual
-test screen did not display. I will look into this further.
-
-
-> +	vcc3v3_lcd_mipi: regulator-vcc3v3-lcd-mipi {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "vcc3v3_lcd_mipi";
-> +		regulator-boot-on;
-> +		enable-active-high;
-> +		gpio = <&gpio1 RK_PC4 GPIO_ACTIVE_HIGH>;
-> +		vin-supply = <&vcc_3v3_s0>;
-> +	};
-> +
->  	vcc3v3_pcie30: regulator-vcc3v3-pcie30 {
->  		compatible = "regulator-fixed";
->  		regulator-name = "vcc3v3_pcie30";
-> @@ -338,6 +347,43 @@ &cpu_l3 {
->  	cpu-supply = <&vdd_cpu_lit_s0>;
->  };
->  
-> +&dsi0 {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	status = "okay";
-> +
-> +	panel@0 {
-> +		compatible = "wanchanglong,w552793baa", "raydium,rm67200";
-> +		reg = <0>;
-> +		backlight = <&backlight>;
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&lcd_rst_gpio>;
-> +		vdd-supply = <&vcc3v3_lcd_mipi>;
-> +		iovcc-supply = <&vcc3v3_lcd_mipi>;
-> +		vsp-supply = <&vcc5v0_sys>;
-> +		vsn-supply = <&vcc5v0_sys>;
-> +		reset-gpios = <&gpio2 RK_PB4 GPIO_ACTIVE_LOW>;
-> +
-> +		port {
-> +			mipi_panel_in: endpoint {
-> +				remote-endpoint = <&dsi0_out_panel>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&dsi0_in {
-> +	dsi0_in_vp3: endpoint {
-> +		remote-endpoint = <&vp3_out_dsi0>;
-> +	};
-> +};
-> +
-> +&dsi0_out {
-> +	dsi0_out_panel: endpoint {
-> +		remote-endpoint = <&mipi_panel_in>;
-> +	};
-> +};
-> +
->  &gmac0 {
->  	clock_in_out = "output";
->  	phy-handle = <&rgmii_phy>;
-> @@ -495,6 +541,22 @@ hym8563: rtc@51 {
->  	};
->  };
->  
-> +&i2c6 {
-> +	status = "okay";
-> +
-> +	gt1x: touchscreen@14 {
-> +		compatible = "goodix,gt1158";
-> +		reg = <0x14>;
-> +		interrupt-parent = <&gpio0>;
-> +		interrupts = <RK_PD3 IRQ_TYPE_LEVEL_LOW>;
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&touchscreen_pins>;
-> +		reset-gpios = <&gpio0 RK_PD2 GPIO_ACTIVE_HIGH>;
-> +		AVDD28-supply = <&vcc3v3_lcd_mipi>;
-> +		VDDIO-supply = <&vcc3v3_lcd_mipi>;
-> +	};
-> +};
-> +
->  &i2c7 {
->  	status = "okay";
->  
-> @@ -543,6 +605,10 @@ rgmii_phy: ethernet-phy@1 {
->  	};
->  };
->  
-> +&mipidcphy0 {
-> +	status = "okay";
-> +};
-> +
->  &pcie2x1l0 {
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&pcie2_0_rst>, <&pcie2_0_wake>, <&pcie2_0_clkreq>, <&wifi_host_wake_irq>;
-> @@ -664,6 +730,12 @@ hym8563_int: hym8563-int {
->  		};
->  	};
->  
-> +	mipi_dsi {
-> +		lcd_rst_gpio: lcd-rst {
-> +			rockchip,pins = <2 RK_PB4 RK_FUNC_GPIO &pcfg_pull_up>;
-> +		};
-> +	};
-> +
->  	pcie2 {
->  		pcie2_0_rst: pcie2-0-rst {
->  			rockchip,pins = <4 RK_PA5 RK_FUNC_GPIO &pcfg_pull_none>;
-> @@ -692,6 +764,14 @@ vcc3v3_pcie30_en: vcc3v3-pcie30-en {
->  		};
->  	};
->  
-> +	touchscreen {
-> +		touchscreen_pins: touchscreen-pins {
-> +			rockchip,pins =
-> +				<0 RK_PD2 RK_FUNC_GPIO &pcfg_pull_up>,
-> +				<0 RK_PD3 RK_FUNC_GPIO &pcfg_pull_up>;
-> +		};
-> +	};
-> +
->  	usb {
->  		vcc5v0_host_en: vcc5v0-host-en {
->  			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-> @@ -1534,3 +1614,13 @@ vp1_out_hdmi1: endpoint@ROCKCHIP_VOP2_EP_HDMI1 {
->  		remote-endpoint = <&hdmi1_in_vp1>;
->  	};
->  };
-> +
-> +&vp3 {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	vp3_out_dsi0: endpoint@ROCKCHIP_VOP2_EP_MIPI0 {
-> +		reg = <ROCKCHIP_VOP2_EP_MIPI0>;
-> +		remote-endpoint = <&dsi0_in_vp3>;
-> +	};
-> +};
+> Notes:
+>     Every pte_special() PTE goes through this path: remap_pfn_range() and
+>     io_remap_pfn_range() (remap_pte_range() writes pte_mkspecial(pfn_pte())),
+>     vmf_insert_pfn() (insert_pfn()), and the huge variants through
+>     set_pmd_at()/set_pud_at(), which also land in __set_pte_at(). The
+>     pte_special() bit is _PAGE_SPECIAL (RSW bit 8) on every riscv
+>     configuration; ARCH_HAS_PTE_SPECIAL is selected unconditionally.
+>     
+>     Non-special PTEs are unchanged: anonymous, page cache and
+>     vm_insert_page() mappings keep the per-folio flush. A RAM-backed
+>     VM_PFNMAP mapping (dma_mmap_coherent() of an allocated buffer, /dev/mem
+>     over RAM) loses the flush it used to get; nothing in the kernel writes
+>     instructions into such a buffer for userspace to execute, and the
+>     PG_dcache_clean state of those pages was never maintained for that use.
+>     
+>     Reproducer (QEMU virt, riscv64 defconfig, as /init with /dev/mem c 1 1
+>     in the initramfs; the PCIe ECAM window is at 0x30000000, any non-RAM
+>     range does):
+>     
+>       riscv64-linux-gnu-gcc -O2 -static -o test exec_mmio_mmap.c
+>       qemu-system-riscv64 -M virt -cpu max -smp 2 -m 1G -nographic \
+>           -bios /usr/share/qemu/opensbi-riscv64-generic-fw_dynamic.bin \
+>           -kernel Image -initrd initramfs.cpio -append "console=ttyS0 rdinit=/init"
+>     
+>       unpatched: Unable to handle kernel paging request at virtual address
+>                  ff1c000000c00008, epc : flush_icache_pte+0x74/0xa0,
+>                  ra : do_remap_pfn_range+0x2b2/0x3ee; the task never exits
+>       patched:   mapped at 0x7fffab55d000, first word 0x00081b36
+>                  (the host bridge's vendor and device ID)
+>     
+>       #include <fcntl.h>
+>       #include <stdint.h>
+>       #include <stdio.h>
+>       #include <stdlib.h>
+>       #include <sys/mman.h>
+>       #include <unistd.h>
+>     
+>       int main(int argc, char **argv)
+>       {
+>       	unsigned long phys = argc > 1 ? strtoul(argv[1], NULL, 0) : 0x30000000UL;
+>       	volatile uint32_t *p;
+>       	int fd;
+>     
+>       	fd = open("/dev/mem", O_RDONLY | O_SYNC);
+>       	if (fd < 0) {
+>       		perror("open /dev/mem");
+>       		return 2;
+>       	}
+>       	printf("mmap(/dev/mem, phys 0x%lx, PROT_READ|PROT_EXEC, MAP_SHARED)\n", phys);
+>       	fflush(stdout);
+>       	p = mmap(NULL, 4096, PROT_READ | PROT_EXEC, MAP_SHARED, fd, phys);
+>       	if (p == MAP_FAILED) {
+>       		perror("mmap");
+>       		return 2;
+>       	}
+>       	printf("mapped at %p, first word 0x%08x\n", p, p[0]);
+>       	return 0;
+>       }
 > 
+>  arch/riscv/include/asm/pgtable.h | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/riscv/include/asm/pgtable.h b/arch/riscv/include/asm/pgtable.h
+> index 40b1ed4f3ea8..7a4d60ccabb0 100644
+> --- a/arch/riscv/include/asm/pgtable.h
+> +++ b/arch/riscv/include/asm/pgtable.h
+> @@ -628,7 +628,8 @@ void flush_icache_pte(struct mm_struct *mm, pte_t pte);
+>  
+>  static inline void __set_pte_at(struct mm_struct *mm, pte_t *ptep, pte_t pteval)
+>  {
+> -	if (pte_present(pteval) && pte_exec(pteval))
+> +	/* A special PTE has no struct page for flush_icache_pte() to track. */
 
--- 
-Best, 
-Chaoyi
+what about "Special PTE mappings are not intended to be executable and
+may not even have an associated struct page"?
 
+> +	if (pte_present(pteval) && pte_exec(pteval) && !pte_special(pteval))
+>  		flush_icache_pte(mm, pteval);
+>  
+>  	set_pte(ptep, pteval);
+> 
+> base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
+> -- 
+> 2.53.0
+> 
+> 
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
