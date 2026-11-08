@@ -1,53 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794138635;
-	b=QNlC0FL2P1WLMSiL8/LurlLFZNQKdO/d3ZnnQtyagFO3T6xNxnSJi8a6+H/G/Qo6F731
-	 g25vCTvmf/Fg/OueOc73XsYwrIy6id1OIcjZQM53z4Jb2x4ge79y5becM0whUmTerLWHX
-	 BV+SODBAwUqbgRfeJQAlja6L7Weis07DmCW2APXPWcv2NWRWL9ReWryGI04TZOgm+X5IJ
-	 1atmGA4aN79TAvt4/YLLjMZ8DvVlcsR27YN1xPiEWWD/4ulPeX7wLpjAnhqx+UPv+/X4P
-	 nF+XcoTqJmgSStYGpyDoxcGHAe8pnuvDD+PrYSVdfez0QlgAhLL35ITgRzeUlLKfYBA==
+	t=1794138644;
+	b=yEWkxl7J0+/ubcgnSyrL+ukKQHNUcYWav2zZZICyYUC0LtlVzh8hB/FUZS+xgDhbq2Rv
+	 MqojvWccghZS8SVnj6dvjBDp/kVmc613Zhc/S33mfss0bzJLsbOGdkpW95UQYSRqJHk50
+	 8OMLHx1Hw+G2fKJlIItn+/tXs1qf88hX8FEMPgMMYqpdBlW79ZXNaVA1wApjCpfAUi1BM
+	 NFtSAuCvPI4XJXgsMU4Ay4A3NP4W0QlUxfbBVtV6yEVlls7nTIHHDp3rOQPNCKBUKRe1F
+	 Y4ayOPrqG1bbWKyxOr11RMuIye66qqk6B6djTypGZtwOQ6lqCW3CyrkifwU3JLrbUEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794138635;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=QsX4cEgL0vM5IeJjL19Wcy4cA6JEToF59I6Tpp0Rya4=;
-	b=E/9K0DHgcUMgp+lx0UHGvEOwksq30vzWbIxQzalEFx9c2a9HUDjKh4TrZaFSHyGGSof+
-	 LeUspjAV3HGr+pN85mpalBsC/jVbYHyvNrz8mZINjLToEpVSrc0SKuDqQJsX9SdRxGqJU
-	 zQrerCtVx4tPCXmM4L7OnsClFV5/iQgL5XU00qdqj5e93sYKaWzu6cce08YAULcHA1nF0
-	 OeSg+M6WK6dtsLm+fcIT/jG8smWzhcvOKzjzkqfeZhCfjyHgejYcsvTS8zcJXb95m45J1
-	 YjnsINBjh4xZJ/370X9pQKsvHp+EU8zz+KxKiHqn0GX7LaWidaqg6xuGeL6sCdgQVZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794138644;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=iFs5od5bXdQ2LegEpfRcPnj5K0IUuQOJdja1+2xaK9M=;
+	b=okOF2vKgjZCIlqiq5es0rBDoRy/uT7WmTkFSUcKmL4q+/sIXbqB+6piB0vAf4/ejt2gl
+	 yIP7IXbkESOPEeiOq3qjvRFFq09f9rtfe7oBa0T9mcOTGbtlrVpgYdSx3J/jwypUD1nYY
+	 4HDKXBBYdvPqcdCe17vFJwKpxUTjs58eGuWlYuxVC9K1oU2TmdD1omEVOWwMY2xRILWFK
+	 2aiePhgJMAbPM9S8vMP4J+hI0XcLw4k6vNRmQzcxa++oU20zQHruIOin2DWNUNJOF63jI
+	 dKK1NF/vZ1eBwKbtJvZyVQQ2uc2wbctgYU2OBsoX2ZtLi2WNrz+q3TeIuEL4Xd2Xgiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EX+JTdfk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FCF606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:50:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49FCF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4c734afb8deso28463b6e.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:50:35 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794138634; x=1794743434;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=QsX4cEgL0vM5IeJjL19Wcy4cA6JEToF59I6Tpp0Rya4=;
-        b=iwQqj87fQLkZ5+aO0e1MPVVNyMQK2Te3XglxPiI69FrY/fYpkrSzFTYyq++uagwt1M
-         F1Pvf2n6+Kf7EdYhEQddlZWeNdWRCXye8f6T6bFX0SCPBHfaQRfmPKjYLp7AU2kk6DM/
-         MPDNM7WUFprMZP/acvq8Q+AWM2lhMwmU19yM26BreW6lGLu4+0xJjpH198H8VHzX1OTa
-         OQK/TGFhKZfowB+GDdvxKuFJDhHsGmlJOzNvrEPM0/l6I/RTpuoEj15f55ekxGvpt3nJ
-         BvnSE5PXVHWvX5Ihvvk4m4bjVsuhevsMguvXGAXY1SnvAZbaDnfODUvNVPvxi1xeKKTo
-         NsOA==
-X-Gm-Message-State: APuU4Z8Dj9QA9zsy0Juj/jbuaF7XiJvIsfhDJevS64tj1sp7QoI1Q3Q6
-	12poyTV5QfwLLnrstTVE5KV+EjEgoK8Yd6z4yZqZCqmiBkl7p3N+uzbo0BKYAmSM2hdxPL9lJvQ
-	eZb7gLPY1EaHFx5zLyyLBmKA1cx8l8+qIWPbj/pXbeiuuDGKb19fPvHndQH4=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A388606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EX+JTdfk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D633D1F008A3
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 11:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794138643;
+	bh=iFs5od5bXdQ2LegEpfRcPnj5K0IUuQOJdja1+2xaK9M=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EX+JTdfkulIwbmfRHO3BEyl0Mu/jQohxptPSymEDIoS7NCbGzJiGpt00ug2c6rpbo
+	 nr2vnWFTrHuuIrYLxBOpkdjUvgnfmx9L/ba9Kf6o8AN1kE71tmQDOGldfr6wFYHUSj
+	 1O8yfbtpEgK8TbHGdk30hfMnAa9KodMpxpqTOwZZgsqb5nRyViGomK7vsskZBAMdBQ
+	 /P68vjTboM8dbp4jPtnFcpQR454+GA6TYHGcPs/2ugGAZQutcQeMad5I+l9zoz/VA4
+	 WVEiUotakbacQLqNf1dOFYzpF1yV15k7BUrmtGvBsdCYsPf3AFbhOxZe/2buEJkbrU
+	 dzzF1a0Znwr2Q==
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c4cdc606b47so8113866b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 03:50:43 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBziqkemkHeARVRgJPY5WTwUUknPg1jWoBzIIpLl6ZbO+7jK1cbre8gALHPulg58YKBtE79CyFQmaodVzY0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9n7kQQWRrTxJHcBpB0ZuYudk3sfHjakODDRqbZx9R+dDRl6XhE
+	x6kW1zaN/BvmZQuC/XXf6tk1E0m0QTpA3MkzsGpwpRJcS5v/hLuKdiq0SL9w0rYBkwQxiJ98zlK
+	LlrI8jH+zk5aS76dDzhTiopoevs6nqMs=
+X-Received: by 2002:a17:907:2d8d:b0:c4d:4be1:4197 with SMTP id
+ a640c23a62f3a-c4d6db2179bmr97283866b.41.1794138642533; Sun, 08 Nov 2026
+ 03:50:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,27 +59,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4fe6:b0:4d5:295c:a82f with SMTP id
- 5614622812f47-5681441d236mr921614b6e.60.1794138634288; Sun, 08 Nov 2026
- 03:50:34 -0800 (PST)
-Date: Sun, 08 Nov 2026 03:50:34 -0800
-In-Reply-To: <6a8c5208.dbb3a75c.7844.0005.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af0620a.4dd4714a.f8d02.0014.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [usb?] [input?] INFO: task hung in usb_set_configuration
-From: syzbot <syzbot+c22bb42560ec86726aba@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+References: <20261031-fixes-loongarch-v1-1-e0e33e3c008e@kernel.org>
+ <avAr894n6lNGD9C8@kernel.org> <CAAhV-H5kDgiaDF3t9BakAeD31JxET+27jcVvNU=ZQDZv_vSBcA@mail.gmail.com>
+ <avBV048xzXRp-cnC@kernel.org>
+In-Reply-To: <avBV048xzXRp-cnC@kernel.org>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Sun, 8 Nov 2026 19:50:31 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H6Paunrio+OX6JchQr3JOfLJW=1D_GGVzCjyAn53291Qw@mail.gmail.com>
+X-Gm-Features: AclHuK_oerMpFdYcgrwKmLKMjsGFuCdSpGwy5J6w8hQgR6esaNKhIPEaZQlT5sI
+Message-ID: <CAAhV-H6Paunrio+OX6JchQr3JOfLJW=1D_GGVzCjyAn53291Qw@mail.gmail.com>
+Subject: Re: [PATCH] LoongArch: restore KFENCE pages through DMW on resume
+To: Mike Rapoport <rppt@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>, linux-kernel@vger.kernel.org, 
+	loongarch@lists.linux.dev, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Sun, Nov 8, 2026 at 6:58=E2=80=AFPM Mike Rapoport <rppt@kernel.org> wrot=
+e:
+>
+> On Sun, Nov 08, 2026 at 04:17:02PM +0800, Huacai Chen wrote:
+> > On Sun, Nov 8, 2026 at 3:59=E2=80=AFPM Mike Rapoport <rppt@kernel.org> =
+wrote:
+> > >
+> > > Gentle ping :)
+> > Sorry for the late response, would you mind if I modify it to use
+> > #ifdef? Usually it should be avoided, but I want to signal users that
+> > KFENCE is not a usually enabled feature.
+>
+> Up to you :)
+>
+> Do you want me to resend or you can update while applying?
+I will update while applying.
 
-***
+Huacai
 
-Subject: Re: [syzbot] [usb?] [input?] INFO: task hung in usb_set_configuration
-Author: gbughunter8@gmail.com
-
-#syz test:
-https://storage.googleapis.com/vrp-syzbot-rce-842629920185-1108/bare-repo-9d03a38
-main
+>
+> > Huacai
+> >
+> > >
+> > > On Sat, Oct 31, 2026 at 03:21:46PM +0200, Mike Rapoport (Microsoft) w=
+rote:
+> > > > With KFENCE enabled, resume from hibernation triggers KFENCE report=
+s while
+> > > > swsusp_asm_resume() copies the image pages, for example:
+> > > >
+> > > >   BUG: KFENCE: use-after-free write in swsusp_asm_resume+0x20/0x94
+> > > >
+> > > >   Use-after-free write at 0x00000000a57ee925 (in kfence-#254):
+> > > >    swsusp_asm_resume+0x20/0x94
+> > > >    hibernation_restore+0x128/0x1a0
+> > > >    load_image_and_restore+0x6c/0xc8
+> > > >    software_resume+0x240/0x260
+> > > >    do_one_initcall+0x68/0x200
+> > > >    kernel_init_freeable+0x26c/0x304
+> > > >    kernel_init+0x20/0x134
+> > > >    ret_from_kernel_thread+0x24/0x1d0
+> > > >    ret_from_kernel_thread_asm+0xc/0x98
+> > > >
+> > > > During resume from hibernation, the image pages that occupy physica=
+l pages
+> > > > used by the restore kernel are first loaded into free pages and the=
+n, as
+> > > > the very last step, swsusp_asm_resume() copies them to their final =
+location
+> > > > pointed to by pbe->orig_address, which the hibernation core sets to
+> > > > page_address() of the page in the restore kernel.
+> > > >
+> > > > The early KFENCE pool is allocated from memblock and normally occup=
+ies the
+> > > > same physical pages in the restore kernel and in the image kernel, =
+so these
+> > > > pages are usually copied by swsusp_asm_resume().
+> > > >
+> > > > The KFENCE pool is remapped into the KFENCE area above vm_map_base =
+and
+> > > > set_page_address() adjusts page->virtual so that page_address() ret=
+urns
+> > > > the page-table mapped alias rather than the DMW address of the pool=
+ pages.
+> > > >
+> > > > Hence, pbe->orig_address of KFENCE pages points to that alias and
+> > > > swsusp_asm_resume() writes them through the page tables. But:
+> > > >
+> > > > * the copy loop overwrites the kernel page tables, so a TLB refill =
+for the
+> > > >   KFENCE alias may use a partially restored page table
+> > > > * the KFENCE pool pages that are protected in the restore kernel fa=
+ult in
+> > > >   the middle of the copy
+> > > >
+> > > > Convert pbe->orig_address to DMW addresses before starting the copy=
+.
+> > > >
+> > > > Fixes: 0ca84aeaee15 ("LoongArch: Make {virt, phys, page, pfn} trans=
+lation work with KFENCE")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > > > ---
+> > > > Reproduced with hibernation in QEMU, the KFENCE reports are gone wi=
+th
+> > > > this patch.
+> > > > ---
+> > > >  arch/loongarch/power/hibernate.c | 12 ++++++++++++
+> > > >  1 file changed, 12 insertions(+)
+> > > >
+> > > > diff --git a/arch/loongarch/power/hibernate.c b/arch/loongarch/powe=
+r/hibernate.c
+> > > > index 817270410ef98..ff571ab4e8df9 100644
+> > > > --- a/arch/loongarch/power/hibernate.c
+> > > > +++ b/arch/loongarch/power/hibernate.c
+> > > > @@ -59,6 +59,18 @@ extern int swsusp_asm_resume(void);
+> > > >
+> > > >  int swsusp_arch_resume(void)
+> > > >  {
+> > > > +     struct pbe *pbe;
+> > > > +
+> > > > +     /*
+> > > > +      * page_address() of KFENCE pages is mapped by page tables th=
+at are
+> > > > +      * overwritten during restore and may be protected by KFENCE,=
+ copy
+> > > > +      * through DMW instead.
+> > > > +      */
+> > > > +     if (IS_ENABLED(CONFIG_KFENCE)) {
+> > > > +             for (pbe =3D restore_pblist; pbe; pbe =3D pbe->next)
+> > > > +                     pbe->orig_address =3D __va(virt_to_phys(pbe->=
+orig_address));
+> > > > +     }
+> > > > +
+> > > >       /* Avoid TLB mismatch during and after kernel resume */
+> > > >       local_flush_tlb_all();
+> > > >       return swsusp_asm_resume();
+> > > >
+> > > > ---
+> > > > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> > > > change-id: 20261027-fixes-loongarch-fd3755f33919
+> > > >
+> > > > --
+> > > > Sincerely yours,
+> > > > Mike.
+> > > >
+> > >
+> > > --
+> > > Sincerely yours,
+> > > Mike.
+>
+> --
+> Sincerely yours,
+> Mike.
