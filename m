@@ -1,88 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794177597;
-	b=KZS52N30DY4wQNEZOFSfAbF7CMFwoapFIwZgfZ2CoWIpLParRhqL8UpYUR7NOMJuv0m9
-	 llxsWJ1V0/Y9dcSdDSu9hMglhtXaeviTCcw0OtCfSukn3le5Wi9FEAMCEnu6Cxy91L5Dq
-	 m83h6dpnigtT/huPHv46AMjDw29XQiUODql/5S+dUcuZcJukdXxT1rVoWMO6Bkl4Xmoe/
-	 1Qg24mKIXn5WHI3k3TAXMYES4IGhnF9fmTLZR4a4snVbyBun2PK5OIzMfanC+Gtxg4lmk
-	 rF7ExaENK8HKtF4fyKE7eM6Z5zXTMaLWuHhpt/JVA+k7Hjt31xlnlTZcdPGN/1Do/5g==
+	t=1794177592;
+	b=WjzRWppnfW4mBWBpYu/3HZV/icRzIkvL4VkZRNk6mOyQKvl3uWGQtUFCEPUC00DXj8x1
+	 am0KxEEebqiAL/exgKZ4gV9QWAOM/t1isjR1xBwTtYOKIP8tp3LzYpq24zQt6yL8sS5Tk
+	 mhyVrox2PeJ18dTAELfx4S4ZeVPLyb0GcDo0J2nnHxE63f8TiYNO3PSrcMYsJ5wP1k+cV
+	 j+BV2uhMRM92fBSSCAdhJ6q3tj9By57/u2Map8mN/g7VrSMAtWym37QsYedJNPRWERYa1
+	 DoZ8uI0/AU2XRHaUJC2mB08+m3nzlk0JZBlay4LueGywVZkPdIXVuyATnxbcz3kcXCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794177597;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794177592;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=B8yjlxqiZsnHs1InT2MGi8hOJCH6xDuUcZ/rw+mTA3g=;
-	b=c0ro0gCoQNE390InPD9Jr42tYDrUlKQK8Yddi7QsvQZDv/Sc7KTumnS6FLinCCW3/0sV
-	 hAyq8rQhJX6lT6EI6jfO//QbSTKXdM2+dlMCMmhW8OYJVF1AHEUPQtwg26usMZIThL23k
-	 T+NQbHAgDcR7ilf865R9/e6mAXCzsc+pbr+nfgUHVwuSZk1G1w4YVVgbtuaaQqkTs9jQx
-	 vmeIOrRXlrZkrUPt6LTUXNpiWSTMtaCY6LUkUVpC8HfNvmqc/4A90k/zvofqtIDEDV9DD
-	 do1nPGE5W70ZBueV4Ic3N2TU59fIJCHOx9SPQXeXhAAk1BVCDDdfnDF+ySxq8t7TFGg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=m1jLuLVTWvALNpXpZUUQEWDLYzqr+bz7MlMjOt9nJBI=;
+	b=oO4AuEyKeY28xz70wlHJnTAGVo0wZPiJ4v2wo90f0rdGuMmBC6eav6qml/MN6kVhnbhz
+	 ClkZwKmZ4Dt0l1rZe2v02TH1gV1qdJTzzc0bm8GfGyZZXUqP3Eum/8ZOru0rZq1J1uplz
+	 dcwnu8FCAPtJwloMxprkNgWUY198pKPU3ATKn4AujnXD6Mi78bS6v7R8a0U4zA6J3zstA
+	 1xtA0x5s1WjywbfuEQjNNhDPZEbrmn/BMZHTi/n7CMTuNaQjB4JttY53CrpL4McvYFCEn
+	 xRmlkDb/Zhjqmls9of05j1VIsj+356lzJNJH6AooNj7IYymYFx1rG6l2VzqoQtMzZxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AIcDVyCM;
-	arc=none smtp.remote-ip=209.85.161.45
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QTpEqm2m;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B743B606D80A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:39:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B743B606D80A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1631606EEB6
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:39:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1631606EEB6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AIcDVyCM
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6dd7070699eso180530eaf.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:39:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QTpEqm2m
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36d69ab3c2bso464101eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:39:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794177596; x=1794782396; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=B8yjlxqiZsnHs1InT2MGi8hOJCH6xDuUcZ/rw+mTA3g=;
-        b=AIcDVyCMD4CMxZQaALEvvx7PHNLdDnl+kXVVYfmq/I2jnUrb2mMfudBA3TBcN7PymD
-         xbhmNc49SQSDHiokqZpi4iN/TdzinttT3dCdu2GG3aku/hLxXW/86Fm72uI6kee7WYzA
-         Omio9YsTtGfikq5cLF2BxQw3kkQMIqZsHC2hPdstNvE4dlnA1Uj3ww5EsD7phhmnd/Rx
-         W+A2Fp0vgpbXutWhNh/jytiRRnx+S5YrQ3ypfirDhpoBXtTRq/2jdNZWJvmyiZ/uexuQ
-         ZPzIjiLX/xF9dqRU37AeBXS5y59tRXu25jSTDU9Nsd04r0ytnPXcXQxpAdzTu2/jUAOf
-         K+7Q==
+        d=google.com; s=20260707; t=1794177591; x=1794782391; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m1jLuLVTWvALNpXpZUUQEWDLYzqr+bz7MlMjOt9nJBI=;
+        b=QTpEqm2mKR2cwNIGunOQXFX3iTOSw7HgjLW7M7pgOo0MwQwnBu5Vg724wVHWZ2PKRX
+         KCo/bkFyceEZ04qIezmFdvexz51dq7OenhiDszTBvLZxR647hn4frrBB5Wfu0oC5IIdW
+         HpqimFQAGvhz42pBsnFhJXYLxwL6uXINCbF6xKcQthJF3ClHIK4+wt/9aHcGcgovFvp2
+         MqQXar4RqpPPDhL3n8td4WyJ3x9k5NIK0VQ8jOWuKAbwnGamEdAguHhTMVo4dVU/R+8T
+         YAMFt3F8VCnX7OcyXDAZek+r+Q/B/CxU2uAVYfT7H+1h1EudU+o1ZnYTyHb7n81YhqzP
+         Bjvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794177596; x=1794782396;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=B8yjlxqiZsnHs1InT2MGi8hOJCH6xDuUcZ/rw+mTA3g=;
-        b=hFLoRqDa/PLwqrwencjNgJSI6Wtv4mvHaX9orBnEdvWHDWbX0q/ueJ8NtXl3LVEdVv
-         Kil9fYCOpD1T7iDnvCtaklclPWMWsQMbvCGA6N/8cQum27R39MFhut5NU7YMruXce/b8
-         TsGV2wqmLgVYNpL4YjsYM2wf02F8tf9ENUqE1S9jGu2VZ+e8Gx4iAG/TAu073uCIg9oO
-         j7iIBUyevC/ZPnQBvPxzfatka3p9oRkkGRe1w/m8ubjsgQ6iHJBj1pvjBVkTivqNRCUL
-         vkPJXEmbY2ZzqOqv7F1XFP+BrA380Jfx6xuxM992iUyHgADPKy0lmvsYqwGLtEWjxT0R
-         LXdw==
-X-Forwarded-Encrypted: i=1; AL+hErGPW222Z45as4dUCLUHD8TXuV7o5EYju5bh2BqpiFJpiHG5duVEuzjnjoaeWIFJ98+jYoi8E18ln3/B7mo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8PwDbWhAnvZjdtzodEryePPVtIvjAfl4bTzu+hgSxxwfVEaHb5
-	SkTRnPui4p5//EfZeM6oW6tNUmY4kLF+28F5/uGlHLNZuJtD8D7v+7eO
-X-Gm-Gg: AYBFou2EbHK8XQi24Klq9tmDYKrBMhSARAAnWJu2UbEiyyILcipoAyNnMVV/kHt7S9x
-	Xjcs32Fz5kckBEIXn58kzy8tU0c9wvcj9MM/vGCkx0PcCe6PoIkmuj/UZ/mAHPI92yboyPGRjby
-	I18tg79RU8P1kwgBMhzgX93b9clDPyX9sigZbi+wfsbtPGZ9vEp72vjjflKwfiIiUfnv+iZAHG8
-	wQvZG7wW6LmeL7P07Dn2+tZ0qe12HU3j0YQWKtYd3O4pTDfIq8vHHNCuNgrUIh/cnJ3i1CCu7aQ
-	/IEul6zIm8cDOJwV0cY8N4bNCcZhHRAIqAb/o0ktkP2byYU8ayM/qhMpoh83wZ0Ev7bELeiyjzf
-	waIBwi/PaxKavEgTzpI7CeP6MfuDUcgJUD/tkvI64K1S2MnkhipPBl69VPgp7zH76sJWCb3sv+u
-	xk3pzb+wqKXKsxMwN38Esm6Ml9YtSk2qvFngVD46mVWN2e5cjqDMPxY0RkUTUmsXG8Hmgmn/yBq
-	fcrVhRBcPmuUnEfErjn08XcU1M0dcGhHBX25SWQHBiXRA1RzUl60Bg3CjcdT9h0HH/Jag1i7vHL
-	26HgwT1CZslRLMuGal4H4RbqhQl/WooRxsSo1ORGbSIAUMHxX0YQsygQw/EUqQaF7g2AP7dS7yI
-	Mz/T5MYrzIRvThETti8DHtTJvc97Go+c/y8lF2lLfWuUErqX+KBbNokUEFxZUZZWEOUCmTQOZW/
-	T/R1sk8aYKTt3BPg/eJzthBVXRkZoLI8tsbPCg5ygm6nqNQlM71iSu
-X-Received: by 2002:a05:6820:811:b0:716:f300:648e with SMTP id 006d021491bc7-7170f1be2bemr1233736eaf.5.1794177595688;
-        Sun, 08 Nov 2026 14:39:55 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7170f8cbcb9sm2087214eaf.6.2026.11.08.14.39.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:39:55 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 15:39:52 -0700
-Subject: [PATCH] mtd: rawnand: nandsim: reject unrepresentable page counts
+        d=1e100.net; s=20260707; t=1794177591; x=1794782391;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m1jLuLVTWvALNpXpZUUQEWDLYzqr+bz7MlMjOt9nJBI=;
+        b=OrzavxAkbWhsBdIuQhGUlgmcASBtYTdtYS1Hck04m6ymxBvYdxBFbYvaPADlmopKR8
+         W4PoGPJueDE3wXGkFv2mJqDa14R3wxbxZkZWWnA5iWacE0Aw6/v/1a7m2Nr2FE2LtWXs
+         ihqgLWfhm/Mv0aV12CjLLF/n4WU9zYvvaRoI/sxWBvFjZJvJ89wEPxP8H+iNQQqvVqu2
+         NzlmU5Z5hRMZiKDIXmGXjKkFhbTCVSGcWqSTmsbjRa88TCecc7ZVZMyY24xa2d8MjH11
+         yVir8UkOEA7LEaZLJY9/+ADpwajANLminbs+YvWmfoKEFjO45jPedLKDAHI48uiAkTJA
+         D5kQ==
+X-Forwarded-Encrypted: i=1; AL+hErFq6WLAxEY+7SaKomPHY34Jc1cMzqXlgUqdARnn3xPw7/Q1ZI/SvqqGWlF07W7LUcKDrvRNWJ9/GUmgEJc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SaRvKu1dT8hUKfNOzjH/H+fjBHZd2cAZVolsj7HNm97a2EGDO
+	WGyWiKkxte7nCh6dvuaBBaJNfhZj00twUqUMVTRHv4Bkbs9hitCqbjm8DJ9SR51Gk4/Gwd3WMRN
+	UEtceOqN8Rw==
+X-Received: from dycmv11.prod.google.com ([2002:a05:693c:280b:b0:36b:c499:531f])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:2806:b0:36b:f09f:924a
+ with SMTP id 5a478bee46e88-37256bef587mr4546874eec.14.1794177590507; Sun, 08
+ Nov 2026 14:39:50 -0800 (PST)
+Date: Sun,  8 Nov 2026 14:39:09 -0800
+In-Reply-To: <20261108223913.3624571-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,70 +78,166 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-nandsim-page-count-v1-v1-1-63e961cc1dcf@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMywqDMBBFf0Vm3cHERbD9ldJFHmOdQkZJogjiv
- zdpl+dy7jkhU2LK8OhOSLRz5kUq6FsHfrbyJuRQGQY1GK3ViHlzkQuKlZA54mqr4pdNCu4a7za
- M2qjJeeOhJtZEEx+//PP15/r/kC+t2QxnM6FLVvzcplhC39K90FHgur4GIcqpoAAAAA==
-X-Change-ID: 20261108-submit-nandsim-page-count-v1-9ad8160fbc6c
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- David Woodhouse <dwmw2@infradead.org>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Mime-Version: 1.0
+References: <20261108223913.3624571-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+Message-ID: <20261108223913.3624571-6-irogers@google.com>
+Subject: [PATCH v3 5/9] dlm: Free dlm_ls in kobject release callback
+From: Ian Rogers <irogers@google.com>
+To: Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
+	Srish Srinivasan <ssrish@linux.ibm.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, Alexander Aring <aahringo@redhat.com>, 
+	Felix Kuehling <felix.kuehling@amd.com>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Zhihao Cheng <chengzhihao1@huawei.com>, 
+	Sumanth Korikkar <sumanthk@linux.ibm.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev, llvm@lists.linux.dev, 
+	linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-sh@vger.kernel.org, linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+	xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Ian Rogers <irogers@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The simulator stores its total page count in an unsigned int and uses
-signed int indices to initialize and free the page array. A device size
-accepted by overridesize can exceed both limits even when the eraseblock
-count is representable. In particular, a power-of-two page count above
-UINT_MAX truncates to zero and reaches a zero-sized allocation.
+struct dlm_ls embeds a struct kobject (ls_kobj), but dlm_ktype lacked a
+.release callback and dlm freed the lockspace structure directly via
+kfree(ls). With CONFIG_DEBUG_KOBJECT_RELEASE=y, freeing ls before the
+delayed kobject release runs causes a use-after-free, and unloading the
+module while the delayed release is pending results in an instruction
+page fault.
 
-Reject page counts above INT_MAX before allocating wear counters or page
-storage. This preserves the full page count and keeps the page-array
-indices representable, while reporting invalid geometry as -EINVAL.
+Add a completion ls_kobj_done and dlm_ls_release() to complete it when
+the last kobject reference is dropped, waiting for it in free_lockspace()
+before kfree(ls) and in the new_lockspace() error path before module_put().
+Also delete the kobject via kobject_del() before stopping dlm_recoverd
+to close the window where concurrent sysfs writes could wake the stopped
+recovery task.
 
-Fixes: 6eda7a55f786 ("[MTD] [NAND] nandsim: allow for 64-bit size")
-Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/r/sashiko-outbox-204066@kernel.org/
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Fixes: 3514faca19a6 ("kobject: remove struct kobj_type from struct kset")
+Acked-by: Alexander Aring <aahringo@redhat.com>
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- drivers/mtd/nand/raw/nandsim.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/dlm/dlm_internal.h |  1 +
+ fs/dlm/lockspace.c    | 26 ++++++++++++++++++++------
+ 2 files changed, 21 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/nandsim.c b/drivers/mtd/nand/raw/nandsim.c
-index fe968037f75a..802493e01ed9 100644
---- a/drivers/mtd/nand/raw/nandsim.c
-+++ b/drivers/mtd/nand/raw/nandsim.c
-@@ -13,6 +13,7 @@
- #define pr_fmt(fmt)  "[nandsim]" fmt
+diff --git a/fs/dlm/dlm_internal.h b/fs/dlm/dlm_internal.h
+index 74c2e77d1b55..95b3bff0cb57 100644
+--- a/fs/dlm/dlm_internal.h
++++ b/fs/dlm/dlm_internal.h
+@@ -576,6 +576,7 @@ struct dlm_ls {
+ 	int			ls_create_count; /* create/release refcount */
+ 	unsigned long		ls_flags;	/* LSFL_ */
+ 	struct kobject		ls_kobj;
++	struct completion	ls_kobj_done;
  
- #include <linux/init.h>
-+#include <linux/limits.h>
- #include <linux/types.h>
- #include <linux/module.h>
- #include <linux/moduleparam.h>
-@@ -2361,6 +2362,12 @@ static int __init ns_init_module(void)
- 		chip->pagemask = (targetsize >> chip->page_shift) - 1;
- 	}
+ 	struct xarray		ls_lkbxa;
+ 	rwlock_t		ls_lkbxa_lock;
+diff --git a/fs/dlm/lockspace.c b/fs/dlm/lockspace.c
+index a9c98b4f378f..2dccd080a10f 100644
+--- a/fs/dlm/lockspace.c
++++ b/fs/dlm/lockspace.c
+@@ -179,7 +179,15 @@ static const struct sysfs_ops dlm_attr_ops = {
+ 	.store = dlm_attr_store,
+ };
  
-+	if (div_u64(nsmtd->size, nsmtd->writesize) > INT_MAX) {
-+		NS_ERR("too many pages for the simulator\n");
-+		ret = -EINVAL;
-+		goto cleanup_nand;
-+	}
++static void dlm_ls_release(struct kobject *kobj)
++{
++	struct dlm_ls *ls = container_of(kobj, struct dlm_ls, ls_kobj);
 +
- 	ret = ns_setup_wear_reporting(nsmtd);
- 	if (ret)
- 		goto cleanup_nand;
-
----
-base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261108-submit-nandsim-page-count-v1-9ad8160fbc6c
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
++	complete(&ls->ls_kobj_done);
++}
++
+ static struct kobj_type dlm_ktype = {
++	.release        = dlm_ls_release,
+ 	.default_groups = dlm_groups,
+ 	.sysfs_ops     = &dlm_attr_ops,
+ };
+@@ -355,6 +363,8 @@ static void free_lockspace(struct work_struct *work)
+ 	 */
+ 	rhashtable_free_and_destroy(&ls->ls_rsbtbl, rhash_free_rsb, NULL);
+ 
++	kobject_put(&ls->ls_kobj);
++	wait_for_completion(&ls->ls_kobj_done);
+ 	kfree(ls);
+ }
+ 
+@@ -435,7 +445,10 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	ls->ls_lvblen = lvblen;
+ 	atomic_set(&ls->ls_count, 0);
+ 	init_waitqueue_head(&ls->ls_count_wait);
++	init_completion(&ls->ls_kobj_done);
+ 	ls->ls_flags = 0;
++	ls->ls_kobj.kset = dlm_kset;
++	kobject_init(&ls->ls_kobj, &dlm_ktype);
+ 
+ 	if (ops && dlm_config.ci_recover_callbacks) {
+ 		ls->ls_ops = ops;
+@@ -567,9 +580,7 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	wait_event(ls->ls_recover_lock_wait,
+ 		   test_bit(LSFL_RECOVER_LOCK, &ls->ls_flags));
+ 
+-	ls->ls_kobj.kset = dlm_kset;
+-	error = kobject_init_and_add(&ls->ls_kobj, &dlm_ktype, NULL,
+-				     "%s", ls->ls_name);
++	error = kobject_add(&ls->ls_kobj, NULL, "%s", ls->ls_name);
+ 	if (error)
+ 		goto out_recoverd;
+ 	kobject_uevent(&ls->ls_kobj, KOBJ_ADD);
+@@ -582,7 +593,7 @@ static int new_lockspace(const char *name, const char *cluster,
+ 
+ 	error = do_uevent(ls, 1, 0);
+ 	if (error < 0)
+-		goto out_recoverd;
++		goto out_kobj;
+ 
+ 	/* wait until recovery is successful or failed */
+ 	wait_for_completion(&ls->ls_recovery_done);
+@@ -600,6 +611,8 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	do_uevent(ls, 0, 0);
+ 	dlm_clear_members(ls);
+ 	kfree(ls->ls_node_array);
++ out_kobj:
++	kobject_del(&ls->ls_kobj);
+  out_recoverd:
+ 	dlm_recoverd_stop(ls);
+  out_callback:
+@@ -615,6 +628,7 @@ static int new_lockspace(const char *name, const char *cluster,
+ 	rhashtable_destroy(&ls->ls_rsbtbl);
+  out_lsfree:
+ 	kobject_put(&ls->ls_kobj);
++	wait_for_completion(&ls->ls_kobj_done);
+ 	kfree(ls);
+  out:
+ 	module_put(THIS_MODULE);
+@@ -740,6 +754,8 @@ static int release_lockspace(struct dlm_ls *ls, unsigned int release_option)
+ 	    dlm_user_daemon_available())
+ 		do_uevent(ls, 0, (release_option == DLM_RELEASE_RECOVER));
+ 
++	kobject_del(&ls->ls_kobj);
++
+ 	dlm_recoverd_stop(ls);
+ 
+ 	/* clear the LSFL_RUNNING flag to fast up
+@@ -759,8 +775,6 @@ static int release_lockspace(struct dlm_ls *ls, unsigned int release_option)
+ 
+ 	dlm_delete_debug_file(ls);
+ 
+-	kobject_put(&ls->ls_kobj);
+-
+ 	xa_destroy(&ls->ls_recover_xa);
+ 	kfree(ls->ls_recover_buf);
+ 
+-- 
+2.56.0.455.g6c5a503b38-goog
 
