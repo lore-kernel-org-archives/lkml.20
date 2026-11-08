@@ -1,76 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794167584;
-	b=DeMLT9jZVf/xtoacRGnehswD11Mb2wQNQmO8bcQIEvCEI6fZkBYMl/Kaotq04IZdrfoD
-	 RwtILe2v6zvBRvslwB1AvQ4WCBK8hBVzSxldtVDZ/ogAg6xPWThk4nf2/c5dv8udpsEq6
-	 +bjSCBn5YYZpvsaeNilMq65wuZP3C6PzwEMLLpHQJm3FaY/9jQFI5PgcrcU1oLMx8AmW8
-	 QQ2V/63C3gh1yNIIg154RunV2FVtS9EePSl4LCleWykYxuBp37/uynS8XHNMlBN5+Cn2f
-	 xI2ZP4Zp8Xz9Z/Dymz9am5/IZiRTO1+7omkJ9SgiukZft7K//QgQMP+1Z+sL3UB7Rmw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794167584;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=PNy5N26gTE9UE9usUWkfVdoKoSHNGEPWqi39EMfAdbk=;
-	b=A4Z4pYYjJRE7J7UhpJxrZLF1yRgvipvTZUDLB1BljEHCKC4mdLx4D5JIXsbM5GChgM/e
-	 vcp0c/A8LwX1WWFtvJw1jBGocin+zKAw1MjRd0XW29kh7GfAdFUDc4YZRATaCPemUdIqG
-	 ZbdeFq0Lb39ctAkGc7EQhkTWf3l4BQBYNyyUyB4J1DY5IhhRfnpu2nmlkgDLgsi2If/8s
-	 k/z8oyOkIFhf1tBe6BQAy2avotETQs2pOqq1xI8h9YdUJsAPch5Iz0ycsRakoc6mWsBzA
-	 KRuvj9+/C3CvyzcghLHaSnKMnYwrAdPEWj0tBC7i4z9GrzxxgrK/NGGb5D0zfhZxfHA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XwdgTnuv;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794167800;
+	b=gn9QL1iKoR+VrkuQIbowT613TEwOLRAlokLbcQ05qE7Mo012giREKjV+1C73VQYBrbFd
+	 P5ESz1pdZD6Ssm2iGK5ZAkNn++BlfDbqAPI0AwM0r+i8Z6j+yduc/ieCvpxNfwUvAMhFb
+	 //r4zovGgXq7aq2MQBr0PJ0R0FKXhyDiUJeX8ouEzJiUr2tgW0MHaUgpsG2Qw+E+ZTZDe
+	 x3Mfs6be0PPuIJlxp+kThr9/PJ29IUkRU4SRXO53Xq9Wb+aT60dDnbYWw5JZKjzocYvgr
+	 iJgMWvBzrlyCjATdie83BVAAONIhw7D/32q/PN70WEg/JWCdFQxgqoUvbuiEXxQXIKQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794167800;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XvnuaveuPNnKsJJ40AHHyBiKH4X322TVM9gBKsEt5lo=;
+	b=zQ19gs/dr/BAoPUjSqy3QfAuRBJWyXE25KLr+DfbuevuUwoIGTKYbZGjRMvbtvemXXpy
+	 zambddFVOVxlBausWh8EfNJjbgobdaBSN5wpSYNORfTn8a7yGIa/VOshIS9Ju9JRJMWgM
+	 e6aVIBoupd14siEAbRrxdYyYO6sazfl9lmS4IVv0He1yC0P/E3wWz1Lv9AbJTKSXLraNp
+	 4lp+EYJeSME0hCCWmPtmWkzitHA19KmM1RycQrahj6v06R4sq8zi/+XyMAC/kYGxTjL6l
+	 g9pHcLuss+TAWd85onDvxqy0H8mWcZlqPPxkOW45gYvHy3i41JrkejkwnMH1AeNUTsg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DrN6eXhW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 725EE606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 19:53:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 725EE606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD392606A31C;
+	Sun,  8 Nov 2026 19:56:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XwdgTnuv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794167581; x=1825703581;
-  h=date:from:to:cc:subject:message-id;
-  bh=9w5e+o9zu6b3P3C2gug7P1pENX9r9se19ECuOtZtXTw=;
-  b=XwdgTnuvlziPFqExs1psV+leMAuriQ+hfaD6vSAJjEZM+aPBful9JNUw
-   1dl00YlDmggXrKB+18Q/TZF5/7zcRyeuKz0c46U6iDB9SVbdhQdgiw06O
-   OyL4AOCvjiOrS468Wih7bK2CucC8FBnkoW9DmTgbFxH2/X2cKM6Zd5FFC
-   +yZzNQJGZr71iQczzGTZfRXo2AHPkLijLF4pLBvmoPUjKgz28cTVzNrjb
-   G65fDQ+DQRKcVEA4F6r56BhTk4vw091DRiDJHnOx7oI6uaMDbRtlF/sVD
-   Go6nAhewL0Uwsc/Upw6hU5mxMBj+94gxHNNHqgtF324jEgbfOdNDBtm4k
-   w==;
-X-CSE-ConnectionGUID: Qq9FGYzZQBqTAuEU9IAOPw==
-X-CSE-MsgGUID: NAtqm15hTeG7jMop9FlrRg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2780663"
-X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
-   d="scan'208";a="2780663"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 11:53:01 -0800
-X-CSE-ConnectionGUID: 3KwyqiEKRF+HpJW60vJMDQ==
-X-CSE-MsgGUID: fnZrtcZdSv+Rq9Dnk+KdFA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
-   d="scan'208";a="7744480"
-Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
-  by orviesa002.jf.intel.com with ESMTP; 08 Nov 2026 11:52:58 -0800
-Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQ8wi-00000000BgS-1POm;
-	Sun, 08 Nov 2026 19:52:56 +0000
-Date: Sun, 08 Nov 2026 20:52:06 +0100
-From: kernel test robot <lkp@intel.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: drivers/usb/gadget/udc/pxa25x_udc.c:232:2: error: "Can't
- configure both IXP and PXA"
-Message-ID: <202611082010.e3nJgvr4-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DrN6eXhW
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794167799;
+	b=T6DYIPvOmY/p5I8nkG7CO9Z12jK38V9W8OIQqJhGvV/U9wWbyoyR4iAgX63CAOR342F5
+	 Oi9n8TogpHA4puVk240U6OB0dn0rrCkbqUqQBxaw6Ayl+IrRG4FgIJM+j6TwLX/LhyTIk
+	 lv/IOYDjbA81Kuz+m6koJ3dbT/y2ksjUO51pU6jGfvRLWoH3bRU6R4AGwPJjSGHMpNSTB
+	 14riyjFXt1yOfXbvauwm1h+MTzab/gR2xddRsIg2cvEI4n2wiRms/VF/kQuXkOMl8Kv70
+	 I8rAdjiac3O1Rs9dSuXiOEziZVtyvX50/s+QMuSleBtwBNDjN747eC92BLo9NjsnaGQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794167799;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=XvnuaveuPNnKsJJ40AHHyBiKH4X322TVM9gBKsEt5lo=;
+	b=B+2s5e4EsuFT5Gqq6wUITFZNc2LurQ6sprs6k3NJqKcNb2dloxhoPzOopNPo2EvgF/LD
+	 fAQcnWA2LhBoWQDJUO8rh74WHTg7P7of/Z0eBr4OrBDisi6ilt7H5OR/JmLDG5D/MpQAD
+	 UZUiBg138+hTQPJISK9fIV8gVKAAf8LLVIdMCXDx0V3AIi6Z3yRu15Y1U9CVPf0PAIUm0
+	 UPSMVqmECzgmdTCiM5YpjByGKBaQ4toqPVMwjorG4Vlh31AxL52TCal2ZVMydvBYYr2ga
+	 C+c70BmS7lJ7lZ+6FVJK/XUkzuELU2M8Ro2LaokAoQZ8qpUqlIprh49g5tD7UWCecsg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 38C431F008A2;
+	Sun,  8 Nov 2026 19:56:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794167799;
+	bh=XvnuaveuPNnKsJJ40AHHyBiKH4X322TVM9gBKsEt5lo=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=DrN6eXhWKbBo+EJvszknTv6lsBRZH5WT7YXBi34HhNTTCjkdJyUfgOazarN2M6gi/
+	 on+LbR+1kueRyVIYNRvXF3npL+L667Cyrwp5JEXs0LLwRltFjFlj1FSHCvVQyMRr3G
+	 oFGGyzvWRE9JAhb0GdvxIQzww/BANPm17pUiTWyKVDjSqX12VoboqNO8hZDqUC6grf
+	 JCrVmUe2hpF9NCTyeyrmDILNJDHDJYdSaBJ/01CUdlmQEZfxiTn+4MrSdbOVZepLuD
+	 S0gBZs5BYuKpsDrKxvjN1UYpA+nhXWQ4ta9gyy0ow26af0L1OyXCOKn+ciO+/XzLPv
+	 +QZWHgITDy59g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9154048096;
+	Sun,  8 Nov 2026 19:56:38 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Sun, 08 Nov 2026 20:56:36 +0100
+Subject: [PATCH v2] hwmon: (pmbus/core) Add a vout_command debugfs entry
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,143 +81,126 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261108-for-upstream-pmbus-vout-command-debugfs-v1-v2-1-b19d6cd18aae@free.fr>
+X-B4-Tracking: v=1; b=H4sIAPPT8GoC/52NQQ6CMBBFr0Jm7RimJKCuvIdh0ZYpdFFKppRoC
+ He3cgSTv3lv8d8OicVzgke1g/Dmk49zAXWpwE56Hhn9UBhUrVqi+oYuCuYlrcI64BJMTrjFvKK
+ NIeh5wIFNHl2RhK3jhq1qOkMayuEi7Pz7jL36wpNPa5TP2d7oZ//KlBHaTtdtw87cyT6dMF+dQ
+ H8cxxeBJwe54gAAAA==
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794167798; l=3361;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=l2avR4NF3IpRrlXXb0U+qVa1eSKDj4CQ+L1XJurs3Eo=;
+ b=eeN1x5TdQ+68WCPSGVGXgMj0rrMOCEq4uf81HD/9CPbNDeS4NLrmnjE5z2ItRrWBBknC8v5ZE
+ tuImvQ2sl+dDF1rb6x5I3olYbuf8PaYAiO6CY7FtIrDsF1dXxAzn7Cb
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 7bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   fa4ad798f6f681031775266044ba1b0cf3c670bd
-commit: 2262f02ac2aa545560a7f182c8e6b5c98e72763c ARM: ixp4xx: Relax endianness
-date:   4 months ago
-config: arm-randconfig-r2302-20261108 (https://download.01.org/0day-ci/archive/20261108/202611082010.e3nJgvr4-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-sparse: v0.6.5-rc1-21-g84ec0658
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261108/202611082010.e3nJgvr4-lkp@intel.com/reproduce)
+From: Vincent Jardin <vjardin@free.fr>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 2262f02ac2aa ("ARM: ixp4xx: Relax endianness")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611082010.e3nJgvr4-lkp@intel.com/
+The vout hwmon attributes and the regulator get_voltage() callback
+both report READ_VOUT.
 
-All error/warnings (new ones prefixed by >>):
+On a regulator whose configuration applies a load line (droop),
+READ_VOUT sits below the setpoint under load by design, so user space
+cannot see what the regulator was actually set to.
 
->> drivers/usb/gadget/udc/pxa25x_udc.c:144:9: warning: 'UDCCS_IO_ROF' macro redefined [-Wmacro-redefined]
-     144 | #define UDCCS_IO_ROF    (1 << 2)        /* Receive overflow */
-         |         ^
-   drivers/usb/gadget/udc/pxa25x_udc.c:141:9: note: previous definition is here
-     141 | #define UDCCS_IO_ROF    (1 << 3)        /* Receive overflow */
-         |         ^
->> drivers/usb/gadget/udc/pxa25x_udc.c:232:2: error: "Can't configure both IXP and PXA"
-     232 | #error "Can't configure both IXP and PXA"
-         |  ^
-   1 warning and 1 error generated.
+max20730 already exposes a driver-specific vout_command entry. Add
+vout<page>_command to the PMBus core debugfs, for every page with VOUT
+and a readable VOUT_COMMAND, in millivolts like the in*_input attributes.
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+Changes in v2:
+- Use pmbus_vout_command_mv(), simpler (Guenter Roeck).
+- Link to v1: https://lore.kernel.org/r/20261108-for-upstream-pmbus-vout-command-debugfs-v1-v1-1-c7a063efb91c@free.fr
+---
+ drivers/hwmon/pmbus/pmbus_core.c | 39 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 37 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+index 37b650b85d1c..6fb91dc1c627 100644
+--- a/drivers/hwmon/pmbus/pmbus_core.c
++++ b/drivers/hwmon/pmbus/pmbus_core.c
+@@ -3833,6 +3833,30 @@ static int pmbus_debugfs_get_status(void *data, u64 *val)
+ DEFINE_DEBUGFS_ATTRIBUTE(pmbus_debugfs_ops_status, pmbus_debugfs_get_status,
+ 			 NULL, "0x%04llx\n");
+ 
++static int pmbus_debugfs_get_vout_command(void *data, u64 *val)
++{
++	struct pmbus_debugfs_entry *entry = data;
++	struct i2c_client *client = entry->client;
++	struct pmbus_data *pdata = i2c_get_clientdata(client);
++	int rc;
++
++	guard(pmbus_lock)(client);
++
++	rc = _pmbus_read_word_data(client, entry->page, 0xff, entry->reg);
++	if (rc < 0)
++		return rc;
++
++	rc = pmbus_vout_command_mv(pdata, entry->page, rc);
++	if (rc < 0)
++		return rc;
++
++	*val = rc;
++
++	return 0;
++}
++DEFINE_DEBUGFS_ATTRIBUTE(pmbus_debugfs_ops_vout_command,
++			 pmbus_debugfs_get_vout_command, NULL, "%llu\n");
++
+ static ssize_t pmbus_debugfs_block_read(struct file *file, char __user *buf,
+ 					size_t count, loff_t *ppos)
+ {
+@@ -3940,11 +3964,11 @@ static void pmbus_init_debugfs(struct i2c_client *client,
+ 	 * device specific:
+ 	 *	ARRAY_SIZE(pmbus_debugfs_block_data) + 2
+ 	 * page specific:
+-	 *	ARRAY_SIZE(pmbus_debugfs_status_data) + 1
++	 *	ARRAY_SIZE(pmbus_debugfs_status_data) + 2
+ 	 */
+ 	entries = devm_kcalloc(data->dev,
+ 			       ARRAY_SIZE(pmbus_debugfs_block_data) + 2 +
+-			       data->info->pages * (ARRAY_SIZE(pmbus_debugfs_status_data) + 1),
++			       data->info->pages * (ARRAY_SIZE(pmbus_debugfs_status_data) + 2),
+ 			       sizeof(*entries), GFP_KERNEL);
+ 	if (!entries)
+ 		return;
+@@ -4013,6 +4037,17 @@ static void pmbus_init_debugfs(struct i2c_client *client,
+ 						    &pmbus_debugfs_ops);
+ 			}
+ 		}
++
++		if ((data->info->func[page] & PMBUS_HAVE_VOUT) &&
++		    pmbus_check_word_register(client, page, PMBUS_VOUT_COMMAND)) {
++			entries[idx].client = client;
++			entries[idx].page = page;
++			entries[idx].reg = PMBUS_VOUT_COMMAND;
++			scnprintf(name, PMBUS_NAME_SIZE, "vout%d_command", page);
++			debugfs_create_file(name, 0444, debugfs,
++					    &entries[idx++],
++					    &pmbus_debugfs_ops_vout_command);
++		}
+ 	}
+ }
+ 
+
+---
+base-commit: d4193d2a0ffa407478bce4a094e1ae085ceb38ec
+change-id: 20261108-for-upstream-pmbus-vout-command-debugfs-v1-6fe3ec237b1a
+
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
 
 
-vim +232 drivers/usb/gadget/udc/pxa25x_udc.c
-
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  137  
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  138  #define UDCCS_IO_RFS	(1 << 0)	/* Receive FIFO service */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  139  #define UDCCS_IO_RPC	(1 << 1)	/* Receive packet complete */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  140  #ifdef CONFIG_ARCH_IXP4XX /* FIXME: is this right?, datasheed says '2' */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  141  #define UDCCS_IO_ROF	(1 << 3)	/* Receive overflow */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  142  #endif
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  143  #ifdef CONFIG_ARCH_PXA
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28 @144  #define UDCCS_IO_ROF	(1 << 2)	/* Receive overflow */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  145  #endif
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  146  #define UDCCS_IO_DME	(1 << 3)	/* DMA enable */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  147  #define UDCCS_IO_RNE	(1 << 6)	/* Receive FIFO not empty */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  148  #define UDCCS_IO_RSP	(1 << 7)	/* Receive short packet */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  149  
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  150  #define UDCCS_INT_TFS	(1 << 0)	/* Transmit FIFO service */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  151  #define UDCCS_INT_TPC	(1 << 1)	/* Transmit packet complete */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  152  #define UDCCS_INT_FTF	(1 << 2)	/* Flush Tx FIFO */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  153  #define UDCCS_INT_TUR	(1 << 3)	/* Transmit FIFO underrun */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  154  #define UDCCS_INT_SST	(1 << 4)	/* Sent stall */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  155  #define UDCCS_INT_FST	(1 << 5)	/* Force stall */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  156  #define UDCCS_INT_TSP	(1 << 7)	/* Transmit short packet */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  157  
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  158  #define UICR0_IM0	(1 << 0)	/* Interrupt mask ep 0 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  159  #define UICR0_IM1	(1 << 1)	/* Interrupt mask ep 1 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  160  #define UICR0_IM2	(1 << 2)	/* Interrupt mask ep 2 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  161  #define UICR0_IM3	(1 << 3)	/* Interrupt mask ep 3 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  162  #define UICR0_IM4	(1 << 4)	/* Interrupt mask ep 4 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  163  #define UICR0_IM5	(1 << 5)	/* Interrupt mask ep 5 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  164  #define UICR0_IM6	(1 << 6)	/* Interrupt mask ep 6 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  165  #define UICR0_IM7	(1 << 7)	/* Interrupt mask ep 7 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  166  
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  167  #define UICR1_IM8	(1 << 0)	/* Interrupt mask ep 8 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  168  #define UICR1_IM9	(1 << 1)	/* Interrupt mask ep 9 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  169  #define UICR1_IM10	(1 << 2)	/* Interrupt mask ep 10 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  170  #define UICR1_IM11	(1 << 3)	/* Interrupt mask ep 11 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  171  #define UICR1_IM12	(1 << 4)	/* Interrupt mask ep 12 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  172  #define UICR1_IM13	(1 << 5)	/* Interrupt mask ep 13 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  173  #define UICR1_IM14	(1 << 6)	/* Interrupt mask ep 14 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  174  #define UICR1_IM15	(1 << 7)	/* Interrupt mask ep 15 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  175  
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  176  #define USIR0_IR0	(1 << 0)	/* Interrupt request ep 0 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  177  #define USIR0_IR1	(1 << 1)	/* Interrupt request ep 1 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  178  #define USIR0_IR2	(1 << 2)	/* Interrupt request ep 2 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  179  #define USIR0_IR3	(1 << 3)	/* Interrupt request ep 3 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  180  #define USIR0_IR4	(1 << 4)	/* Interrupt request ep 4 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  181  #define USIR0_IR5	(1 << 5)	/* Interrupt request ep 5 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  182  #define USIR0_IR6	(1 << 6)	/* Interrupt request ep 6 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  183  #define USIR0_IR7	(1 << 7)	/* Interrupt request ep 7 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  184  
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  185  #define USIR1_IR8	(1 << 0)	/* Interrupt request ep 8 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  186  #define USIR1_IR9	(1 << 1)	/* Interrupt request ep 9 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  187  #define USIR1_IR10	(1 << 2)	/* Interrupt request ep 10 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  188  #define USIR1_IR11	(1 << 3)	/* Interrupt request ep 11 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  189  #define USIR1_IR12	(1 << 4)	/* Interrupt request ep 12 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  190  #define USIR1_IR13	(1 << 5)	/* Interrupt request ep 13 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  191  #define USIR1_IR14	(1 << 6)	/* Interrupt request ep 14 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  192  #define USIR1_IR15	(1 << 7)	/* Interrupt request ep 15 */
-c5418a0b98c1ff7 drivers/usb/gadget/udc/pxa25x_udc.c Arnd Bergmann  2016-01-28  193  
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  194  /*
-9198769363d4dc1 drivers/usb/gadget/pxa2xx_udc.c     David Brownell 2005-05-07  195   * This driver handles the USB Device Controller (UDC) in Intel's PXA 25x
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  196   * series processors.  The UDC for the IXP 4xx series is very similar.
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  197   * There are fifteen endpoints, in addition to ep0.
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  198   *
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  199   * Such controller drivers work with a gadget driver.  The gadget driver
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  200   * returns descriptors, implements configuration and data protocols used
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  201   * by the host to interact with this device, and allocates endpoints to
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  202   * the different protocol interfaces.  The controller driver virtualizes
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  203   * usb hardware so that the gadget drivers will be more portable.
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  204   *
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  205   * This UDC hardware wants to implement a bit too much USB protocol, so
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  206   * it constrains the sorts of USB configuration change events that work.
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  207   * The errata for these chips are misleading; some "fixed" bugs from
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  208   * pxa250 a0/a1 b0/b1/b2 sure act like they're still there.
-ad8c623f4f48085 drivers/usb/gadget/pxa2xx_udc.c     David Brownell 2007-06-30  209   *
-ad8c623f4f48085 drivers/usb/gadget/pxa2xx_udc.c     David Brownell 2007-06-30  210   * Note that the UDC hardware supports DMA (except on IXP) but that's
-ad8c623f4f48085 drivers/usb/gadget/pxa2xx_udc.c     David Brownell 2007-06-30  211   * not used here.  IN-DMA (to host) is simple enough, when the data is
-ad8c623f4f48085 drivers/usb/gadget/pxa2xx_udc.c     David Brownell 2007-06-30  212   * suitably aligned (16 bytes) ... the network stack doesn't do that,
-ad8c623f4f48085 drivers/usb/gadget/pxa2xx_udc.c     David Brownell 2007-06-30  213   * other software can.  OUT-DMA is buggy in most chip versions, as well
-ad8c623f4f48085 drivers/usb/gadget/pxa2xx_udc.c     David Brownell 2007-06-30  214   * as poorly designed (data toggle not automatic).  So this driver won't
-ad8c623f4f48085 drivers/usb/gadget/pxa2xx_udc.c     David Brownell 2007-06-30  215   * bother using DMA.  (Mostly-working IN-DMA support was available in
-ad8c623f4f48085 drivers/usb/gadget/pxa2xx_udc.c     David Brownell 2007-06-30  216   * kernels before 2.6.23, but was never enabled or well tested.)
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  217   */
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  218  
-ad8c623f4f48085 drivers/usb/gadget/pxa2xx_udc.c     David Brownell 2007-06-30  219  #define	DRIVER_VERSION	"30-June-2007"
-9198769363d4dc1 drivers/usb/gadget/pxa2xx_udc.c     David Brownell 2005-05-07  220  #define	DRIVER_DESC	"PXA 25x USB Device Controller driver"
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  221  
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  222  
-7a8576204333d13 drivers/usb/gadget/pxa25x_udc.c     Philipp Zabel  2008-06-22  223  static const char driver_name [] = "pxa25x_udc";
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  224  
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  225  static const char ep0name [] = "ep0";
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  226  
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  227  
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  228  #ifdef CONFIG_ARCH_IXP4XX
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  229  
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  230  /* cpu-specific register addresses are compiled in to this code */
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  231  #ifdef CONFIG_ARCH_PXA
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16 @232  #error "Can't configure both IXP and PXA"
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  233  #endif
-^1da177e4c3f415 drivers/usb/gadget/pxa2xx_udc.c     Linus Torvalds 2005-04-16  234  
-
-:::::: The code at line 232 was first introduced by commit
-:::::: 1da177e4c3f41524e886b7f1b8a0c1fc7321cac2 Linux-2.6.12-rc2
-
-:::::: TO: Linus Torvalds <torvalds@ppc970.osdl.org>
-:::::: CC: Linus Torvalds <torvalds@ppc970.osdl.org>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
