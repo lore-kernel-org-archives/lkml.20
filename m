@@ -1,64 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169458;
-	b=Apl35qP1GH825CUYD3+/37k8pwZRBVv45bFldQao/s78JhK65hF5lBzknBA/jz1w0ZPl
-	 FUUkVhEGl+6Xq9wU+5Fxx/0LQMPzm+TbhrpDT5xBKuindJWmCbppmnwCBByxPM+v9b7RU
-	 0CD6FLIfjo9J32LwNo5QFXc4s4A28Ryxxzg0kmL9qt/0fy41H5TpRXaC5ZEOE8D6x0BoA
-	 LIYNmkQJ0EzTGtqzMeVd22AcJ5ZtAPnIBcGyAnaakk92EO0mW+Fdc0DJCixUFQEguWnPX
-	 LNBkLZtDSnm+FEF8oAKOHBPsJ/D0gDG8aJTLIy4AlpH9dOJW+EZedQM8NCtebUYsHiA==
+	t=1794169485;
+	b=kPaAYVV8PBh0Myu6jP60WU/aGMkVM+/cU92fRJL4WxRmNg1io7/u+abYs3o4LAXIbGQA
+	 uTNrD21W14WvW4uh87fv5m/x26KG3tYWSHDnXBbY/q4ggJpdtKqXhYEC8iG7QVXnRu4wp
+	 D7tEoFZ3FcadF1b5D7/8Ho96uwaFwjnpAYk6zmBZ9miuTkXhBJ4NYe+/gHrtkZ2WoH0Ds
+	 UJqtPpImAR1j/8gRCTN/AF5ulajgj5x6N6ly10TsWFmMeFTVqGVhqyprgFLhc9mTGQhb9
+	 4dshMBpORo+YmsPymBT9bMB357pTyw8w09YP3QtZ072EXbuGmTQaQf2ADxX7qDovhMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169458;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169485;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=knsOuQxv7z99zN/nJ0HIhzuTCBqbTWFDFKW1SjAZuZs=;
-	b=kaeAmqSeD/EiWpHJD27f+vfulYoCdUJDbzNie8+nXEokWbZ8UD0o6t8iA6XvgNfXMS/W
-	 53hj2p8Y8MW2XHTE/MNI7K6joZ2sN98HQGYFTmbSY9iD157BxbCo04S7QHNuL1Z63KIYy
-	 D2Bv5fHX4aeHXw+TEHbEfm4zrQNEykZHUfDjxL9SpADgIJB2P7A6o4gWZOIUjvZuaNpxo
-	 0kFWCSwMIFuswner7177GTO4MDao6A8bOIK7cOczpaqcJ+jgz/5ovqiRGi9tmTwYRKpKU
-	 i/XmpUICIf9U932F/HfcBDtGaZj4c1GV/ViacRKwsXDzUsfBxKr6yESt5Nn2dCwBLKg==
+	bh=fe0HUxH8whcIIIhEpcHMkLPN0zHNZ9HhlgjK+xZ8x8U=;
+	b=2tUZ8T0DJtEiEDN1PZ0WSYhVoDlHWQU5ccggnr8/pdKgbPwQQSp7MQjb0O0TYH69BIru
+	 pcyq6HCItue5/51lRpwHfRQt2Owp2GADOKQJxoYPURaQLwLnPTzH3xuoy+OLyWI7ww378
+	 y04q2udLJf3loaZDk0S0QBUvlhQSbIkS0V2hSeUxU6AUF/KwvrJXaby6kRZiZsLR23ZE0
+	 8jS+/mlEB3wYSgtyRCjRsIk94FcORUb79/kt8Kh5HZWyIw+ibr0zxDtfWYrucbIe8mVrD
+	 alcCJRGAYe+PnJDlZdiRJ9lzpRsYU2/6A6pwhcv+bZzQCECt9615sx9s2uYZ7ePmx5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cy862oaQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JtUoteun;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4FD6078AAC;
-	Sun,  8 Nov 2026 20:24:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD720607ED5F;
+	Sun,  8 Nov 2026 20:24:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cy862oaQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77DB91F008A7;
-	Sun,  8 Nov 2026 20:24:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JtUoteun
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B4211F008A3;
+	Sun,  8 Nov 2026 20:24:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169457;
-	bh=knsOuQxv7z99zN/nJ0HIhzuTCBqbTWFDFKW1SjAZuZs=;
+	s=k20260515; t=1794169484;
+	bh=fe0HUxH8whcIIIhEpcHMkLPN0zHNZ9HhlgjK+xZ8x8U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cy862oaQh2lmv155w7/OG65SVVO5XDSgAgwLsZxx7z7dAVSED2hpZcdiaYvMNDvmu
-	 YvM91WN43UmRzjZWe9WkeBW+ojd/uG3jyn/iDMhNrHU1LThjcE2HW7pib5/7rVxx++
-	 TitZ7dKS4Y3eBpRWxX8Ms7p0UET+vMfSn//tXAjouPsxZLgKzuVm8rYL6OfFbY0ueO
-	 RaaZygHKOuZHu7QJZnRLnpXuhzFQyPnFnvkytm0mbnyj3aKhQCk5BuBDwfUB5DCbFf
-	 leFjH+0NXOF2vQ2BGwF1rOBbsqR8nlijtyBvRCBgcSHJCeelptGH7JC5Clo5DSeZ3o
-	 w/3swHXE1Fj9w==
+	b=JtUoteunW2dv5hKKht+swyT6/KXsx9SFJiccgQbczAgfop0/cFxl7rN2hU1yzigpW
+	 hEA8y+1ik1rUs2kEu5+i1pZ3cIUaCF1EfoE2tsKv8QL3+APceJFpMxi3f4lnOIrpgz
+	 5DcGtCWhL1ZeMhkcsZ9ceO8oYZ8y6Vh9le5S8FzQGHubEjJta2X39M7gIMYW9+jezc
+	 GiSSp0oVTGkmfayd0FWpoGSx2pAGC4AAEVCLQRZsO/gx5ETf1L6O2ucOkUmaRoM86S
+	 mzPOUSKQtsgHBqmLlr98hnReyJP1NC7wl6CNeFLoZBp6ENeAlUSQMg567d+5JbI3ip
+	 Q0D4SaicxM0QA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: Arpit Saini <arpit.saini@oss.qualcomm.com>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v5 0/4] arm64: qcom: dts: Add display support for Qualcomm Shikra
-Date: Sun,  8 Nov 2026 14:20:53 -0600
-Message-ID: <179416929287.628393.5571647288691112633.b4-ty@b4>
+Subject: Re: [PATCH v3] arm64: dts: qcom: nord: Add adreno SMMU nodes
+Date: Sun,  8 Nov 2026 14:21:13 -0600
+Message-ID: <179416929356.628393.12258823662750870745.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260930-shikra-dt-changes-v5-0-8eaf658a0e38@oss.qualcomm.com>
-References: <20260930-shikra-dt-changes-v5-0-8eaf658a0e38@oss.qualcomm.com>
+In-Reply-To: <20261010072823.3952417-1-shengchao.guo@oss.qualcomm.com>
+References: <20261010072823.3952417-1-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,22 +74,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 30 Sep 2026 16:45:10 +0530, Nabige Aala wrote:
-> This series adds display support for the Qualcomm Shikra platform.
+On Sat, 10 Oct 2026 15:28:22 +0800, Shawn Guo wrote:
+> Add the Adreno GPU SMMMUs (MMU-500) for both GPU instances.
 > 
-> It introduces the Qualcomm Shikra MDSS display subsystem support
-> at the SoC level, and enables display on the Qualcomm Shikra CQS
-> EVK and CQM EVK boards with the required DSI panel nodes.
-> 
-> Dependencies:
-> https://lore.kernel.org/all/20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com/
-> 
-> [...]
+> Wire up the gpucc clock and power domain on both adreno SMMU nodes in
+> nord-embedded.dtsi for embedded Nord variants where gpucc is available.
 
 Applied, thanks!
 
-[4/4] arm64: defconfig: Enable ILI7807S DSI panel driver
-      commit: 2aac58ae1dcb80a0eac632c268f1b3462f150fe7
+[1/1] arm64: dts: qcom: nord: Add adreno SMMU nodes
+      commit: 037c673c0cfc1873574a5cd7cc7f8bcd2ac15046
 
 Best regards,
 -- 
