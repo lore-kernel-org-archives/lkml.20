@@ -1,81 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794149456;
-	b=AZ4a50csnm3rNoGPfVERgq01gLjqbkuC0pECrnf3Cmuk+ZppySsMIU3kqGCnV3I9an5Z
-	 YzsHhzFGIXOu8TrZDesZ5pDMGqd9D5CVc37ymte0Y9hxsSXPVF9mQUsUnqADCOgO+oczv
-	 kS/8DKMOfG1f3Q1a+aYZ3Cz375UNij9sDUaGIbmwBf5ZMtlyqnr1chU91pmGYiPFHctL/
-	 Py1FcDLLrY7NLURvxW8lICRbT1D17ngFspgwKDgmPcPtfkzV4jk0CPPtbJEorr1zO1PUl
-	 L3xRZtK7S8wcVvtlgNQJhK+Y3xzIbZE6pYixQxns4dbczKDS4gfMeYWgmviOGBZnHiA==
+	t=1794149518;
+	b=aW04BasyD6K/5fH2caOD38VaT8pHLjpqnPJMF3QTuULZEC1KqVJ0tcDnNZrCfaOsMKvL
+	 l/01V8UD4ATLQPD7ZCCdWOo/VJceRYHHoe7zbGwbt9nam9VDdVa3fmYh0KRqrlbzRN/bh
+	 YQEIWBlSO5UtL3FWY93sjKo+3HPJGYgkLP27Qcby5W7g1UHVinXYLjk3cy+2bQIvSWsvS
+	 25Xmy+RmiVp31ovwo7sFdj0vVIlgwpPN8Yujml8CeSwfedzyT0Gm7Px25wx0EnFDHKU3v
+	 Ppz+HBKaY/JIk0YAfDoVSnexV/dz9P3hlgWi/DqFBe5vYyybc8HlHknI2i+4X1DUl/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794149456;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=ZFlWh8q1FXbeFZVs9nVlhIoGr1Dnquy6NqDJrKTW2P0=;
-	b=xHTyhZNdONbqCBPQa5h756II5mpt7heeMDiOJwB7uhGcnXJKEZ6BONoNFMRCMAxrcTlL
-	 mN4FDfDkAB1BTR/oB8/J6jRBoFWKpgnQBxDZKr2x1yvQnlzoaQVDWvuFEp4tGW1Y1i/N1
-	 FfIh44sZvfLu0GFrrG+g9Pe3RDv/7AIPNWVpvz3q9ig1vuCe7uC3ru6oC0XaIyXFoyNYM
-	 t7HH/ps+tfip3DPuE2cqTZtDvtXraebxgbh9TW17+zBOpElaVlgjqI6vqF8d+Bbb7CC03
-	 0I27CAlYMvQnQINRc3sB+J685iM4DHTK774rrAQaz1f1I4y6WrD8iOkKSs5tsDMuwrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794149518;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=WONswms66s3HZCvWD+0Jqvaby7J3ztSziSaEhqsuQBA=;
+	b=a4lWJPWYGl3bqdPN3J5R63g8MkKE/pN9g6eTiMdtYT3Il8KwBJX1tLVD8jXtet0l7CpI
+	 8JFzKv4cQ7VqkfNgv538n1f+2gX98jT6QyjmYj8583SBYKtdc+/DtvXzji+hEZjXmD7+D
+	 BEuHeehuQSPw6ybB3BnMhx2Ob5DZbmOC2qLt7O/RvBgaAVuxPCR1l6Btu2IhzIGM+4mF2
+	 NVjnj6dMx2TThE0jizPaUjUP7nHSygq1LoErfWrFXknn64P/PAdbgd6RvszPqrKrhDO1l
+	 Wq20/idMeG4jaeQ2R46Uu/BoX/rzJUkb7/sJM5IqtwR8tBvsl6Pllj6vY8+IhJIzbag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=lMWWvh03;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	dmarc=pass header.from=mail.parknet.co.jp;
+	spf=pass smtp.mailfrom=parknet.co.jp;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=NAZp4rXC;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=3St+wpOf;
+	arc=none smtp.remote-ip=210.171.160.6
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B18606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:50:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83B18606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8782606A31C;
+	Sun,  8 Nov 2026 14:51:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8782606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=lMWWvh03
-Received: from eig-obgw-6005b.ext.cloudfilter.net ([10.0.30.162])
-	by cmsmtp with ESMTPS
-	id PyjIxJzBZAR1iQ4EMxOpII; Sun, 08 Nov 2026 14:50:50 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id Q4ELxQDe10288Q4EMx5rKl; Sun, 08 Nov 2026 14:50:50 +0000
-X-Authority-Analysis: v=2.4 cv=a5Iw9VSF c=1 sm=1 tr=0 ts=6af08c4a
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=UZ1dQ18DKJ-JX__J:21 a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=pGLkceISAAAA:8 a=EJN59OTSmWfVsbul1mkA:9 a=CjuIK1q_8ugA:10
- a=9ZlKDEqW8j0_VKCLas2V:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=ZFlWh8q1FXbeFZVs9nVlhIoGr1Dnquy6NqDJrKTW2P0=; b=lMWWvh0319TJg2EOT8Uh5zgoOe
-	qLfnJ9Ww64cVeAnksSVjO8ICdWIEs5HxLsZGSuxZiX6R/FG7NTZNi8MuLF6l+jrEnv15JzNePIdiZ
-	w01qPdFjOlCDvAv9/Y0ePR0iEcYVLSAH4xpUNmw7jpoXlh4DbBkX3QrbMSgxcbPAp6V2Zn/xsOfLZ
-	DjxDzc42HJdiB1Kslgtv1vr8WOn/q1ym0YQQ8athBKgCmeh3GT3899MmWtPdg/hA0nb8L/DhZxK+w
-	aL5wLcToRj5jeNuBXQJWAVok3DQvkwMUQH+N08xVBUuP1aPkeqgdlte83Y43iPDw0tluv9uA3t4wD
-	904QG7MA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:60202 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQ4EL-000000004pa-2saW;
-	Sun, 08 Nov 2026 20:20:49 +0530
-Date: Sun, 8 Nov 2026 06:50:49 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Pablo Mazzini <pmazzini@gmail.com>
-Cc: Alistair Francis <alistair@alistair23.me>,
-	Andreas Kemnade <andreas@kemnade.info>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/5] hwmon: sy7636a: read the temperature only while
- the rails are on
-Message-ID: <d9035966-07f3-4758-9074-7fb94375c40b@roeck-us.net>
-References: <20261108093602.329554-1-pmazzini@gmail.com>
- <20261108093602.329554-5-pmazzini@gmail.com>
+	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=NAZp4rXC;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=3St+wpOf
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id 50B5C20BD288;
+	Sun,  8 Nov 2026 23:51:54 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1794149514;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WONswms66s3HZCvWD+0Jqvaby7J3ztSziSaEhqsuQBA=;
+	b=NAZp4rXChn3kGJ3reAMs1SbdcogH4hjSlx39nNf0OSMBEFbPrplXkOHgOVPWzBNNF3JFl3
+	HfnUJdx7vcPdEMMmjGtKHo0zRKxtJCKKs2/CSC/Ev/gZsIYHINrLFImETu4Cmkse8lBaXd
+	8eXhk3xTWfhT1B0PmfFfDysFLhHuAJUOFbaBI3CWfQvXB4VH0QJxJXyi8138NqOsdsc3Ce
+	sJPRno0hj1d0VDDagmJK/rJldJ8DJ8a/rES4Ku+Rq/P71eTlq0BqR/BCI5sLFnQmy9sBaW
+	MTjno3UUwA8GiHFmOMzNkzTljtxrO5XcpOCnGYRcbNyA4YIqtQVSJK3FWpICEA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1794149514;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WONswms66s3HZCvWD+0Jqvaby7J3ztSziSaEhqsuQBA=;
+	b=3St+wpOfDwhq+j2ebLpNLQkRwKYemtd2rrBWAzMi4oDmOUsiyRy60V4LkOpVmIWkOlyiMu
+	A00+Ppf2jKqJ2tCQ==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id CAC50E00042;
+	Sun, 08 Nov 2026 23:51:53 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id B61FD22001DF; Sun, 08 Nov 2026 23:51:53 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Cc: linux-fsdevel@vger.kernel.org,  brauner@kernel.org,  djwong@kernel.org,
+  hch@lst.de,  linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 1/8] fat: support FIEMAP
+In-Reply-To: <20261031164326.278125-2-matheus.aalmeida@inf.ufrgs.br>
+References: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
+	<20261031164326.278125-2-matheus.aalmeida@inf.ufrgs.br>
+Date: Sun, 08 Nov 2026 23:51:53 +0900
+Message-ID: <87tslrtlyu.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,115 +81,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108093602.329554-5-pmazzini@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQ4EL-000000004pa-2saW
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:60202
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 1
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfHGSJvvpydwZ2fEnMZFLnq9D+0EGY+s3twuEMvIabiC98rW2WPHrchzsNLqStv7Rt5sD/p+TJCTphN8RfqSGSvxKwF9edkxmE7zOkyHCdj8Q5efNifOS
- CGiG4O2d/b4JM7mnbY2Dqio8zJUc+CLKEG1SxYR/Kmndl2lDRT5G1IDhoyfrYk9yh4uZIfkVdBS4Z1GJ1zMUi0WkynyhIMpWA59JkOj3TI7Qb0yzpF2uVchA
+Content-Type: text/plain
 
-On Sun, Nov 08, 2026 at 09:36:01AM +0000, Pablo Mazzini wrote:
-> The driver enables VCOM at probe, which keeps the panel's high voltage
-> rails on for good. Read the temperature only while the rails are on, when
-> the chip samples it, and return -ENODATA otherwise. Read power good with
-> it in one transfer, so the value can not be from before the first sample
-> or after the rails went off. Register it under the chip name, as the
-> TPS65185 and FP9931 drivers do.
-> 
-> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br> writes:
+
+> Implement support for ->fiemap() using iomap_fiemap(). Add a read-only
+> fat_iomap_begin() and a fat_get_cont_clusters() helper for finding
+> contiguous clusters.
+
+Not fully reviewed and I'm not understanding iomap fully though.
+
+> Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 > ---
->  drivers/hwmon/sy7636a-hwmon.c | 37 +++++++++++++++++++++++------------
->  1 file changed, 25 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/hwmon/sy7636a-hwmon.c b/drivers/hwmon/sy7636a-hwmon.c
-> index a6b47452e29e..0c0601d47b87 100644
-> --- a/drivers/hwmon/sy7636a-hwmon.c
-> +++ b/drivers/hwmon/sy7636a-hwmon.c
-> @@ -9,26 +9,43 @@
->   */
->  
->  #include <linux/auxiliary_bus.h>
-> +#include <linux/bits.h>
->  #include <linux/err.h>
->  #include <linux/hwmon.h>
->  #include <linux/module.h>
->  #include <linux/regmap.h>
-> -#include <linux/regulator/machine.h>
->  
-> -#define SY7636A_REG_TERMISTOR_READOUT	0x08
-> +#define SY7636A_REG_FAULT_FLAG		0x07
-> +#define SY7636A_FAULT_FLAG_PG		BIT(0)
->  
->  static int sy7636a_read(struct device *dev, enum hwmon_sensor_types type,
->  			u32 attr, int channel, long *temp)
+>  fs/fat/Kconfig  |  1 +
+>  fs/fat/Makefile |  2 +-
+>  fs/fat/cache.c  | 80 ++++++++++++++++++++++++++++++++++++++-----------
+>  fs/fat/fat.h    |  5 ++++
+>  fs/fat/file.c   | 12 ++++++++
+>  fs/fat/iomap.c  | 71 +++++++++++++++++++++++++++++++++++++++++++
+>  6 files changed, 152 insertions(+), 19 deletions(-)
+>  create mode 100644 fs/fat/iomap.c
+>
+
+[...]
+
+> diff --git a/fs/fat/cache.c b/fs/fat/cache.c
+> index 1b87354e24ba..f545e1db1d47 100644
+> --- a/fs/fat/cache.c
+> +++ b/fs/fat/cache.c
+> @@ -76,7 +76,7 @@ static int fat_cache_lookup(struct inode *inode, int fclus,
+>  			    struct fat_cache_id *cid,
+>  			    int *cached_fclus, int *cached_dclus)
 >  {
->  	struct regmap *regmap = dev_get_drvdata(dev);
-> -	int ret, reg_val;
-> -
-> -	ret = regmap_read(regmap,
-> -			  SY7636A_REG_TERMISTOR_READOUT, &reg_val);
-> +	u8 buf[2];
-> +	int ret;
-> +
-> +	/*
-> +	 * The thermistor is sampled while ON_OFF is set, but the first sample
-> +	 * is only ready after the ADC sampling and conversion time (ADC_SPL +
-> +	 * ADC_DEL in the datasheet); until then it holds its reset value, 0.
-> +	 * PG is only set once all rails are up, after the first sample, so
-> +	 * read it in the same transfer and report the temperature only while
-> +	 * it is set.
-> +	 *
-> +	 * With ON_OFF set but PG low (rails still ramping up, or a fault), no
-> +	 * temperature is reported even if one may be available. That is
-> +	 * accepted: the display driver reads the temperature only while it
-> +	 * holds the rails on, after power good.
-> +	 */
-> +	ret = regmap_bulk_read(regmap, SY7636A_REG_FAULT_FLAG, buf, sizeof(buf));
->  	if (ret)
->  		return ret;
->  
-> -	*temp = (s8)reg_val * 1000;
-> +	if (!(buf[0] & SY7636A_FAULT_FLAG_PG))
-> +		return -ENODATA;
-> +
-> +	*temp = (s8)buf[1] * 1000;
->  
->  	return 0;
+> -	static struct fat_cache nohit = { .fcluster = 0, };
+> +	static struct fat_cache nohit = { .fcluster = -1, };
+
+Maybe this change is pointless?
+
+>  	struct fat_cache *hit = &nohit, *p;
+>  	int offset = -1;
+> @@ -217,14 +217,16 @@ static inline void cache_init(struct fat_cache_id *cid, int fclus, int dclus)
+>  	cid->nr_contig = 0;
 >  }
-> @@ -72,12 +89,8 @@ static int sy7636a_sensor_probe(struct auxiliary_device *adev,
->  	if (!regmap)
->  		return -ENODEV;
 >  
-> -	err = devm_regulator_get_enable(&adev->dev, "vcom");
-> -	if (err)
-> -		return err;
-> -
->  	hwmon_dev = devm_hwmon_device_register_with_info(&adev->dev,
-> -							 "sy7636a_temperature", regmap,
-> +							 "sy7636a", regmap,
+> -int fat_get_cluster(struct inode *inode, int cluster, int *fclus, int *dclus)
+> +static int __fat_get_cluster(struct inode *inode, int cluster, int *fclus,
+> +			     int *dclus, int *nr_cont)
+>  {
+>  	struct super_block *sb = inode->i_sb;
+>  	struct msdos_sb_info *sbi = MSDOS_SB(sb);
+>  	const int limit = sb->s_maxbytes >> sbi->cluster_bits;
+>  	struct fat_entry fatent;
+>  	struct fat_cache_id cid;
 
-This change is neither related to this patch nor necessary. Other drivers (unnecessarily)
-doing the same is not an argument.
+[...]
 
-Guenter
-
->  							 &sy7636a_chip_info, NULL);
 >  
->  	if (IS_ERR(hwmon_dev)) {
+>  	if (fat_cache_lookup(inode, cluster, &cid, fclus, dclus) < 0) {
+> -		/*
+> -		 * dummy, always not contiguous
+> -		 * This is reinitialized by cache_init(), later.
+> -		 */
+> -		cache_init(&cid, -1, -1);
+> +		/* Cache the contiguous prefix from the known first cluster. */
+> +		cache_init(&cid, 0, *dclus);
+
+Doesn't this add a needless cache? 0 is cached in the inode itself,
+isn't it? (and can be waste small fatent cache slots?)
+
+>  	}
+>  
+> +	fcluster = *fclus;
+> +	dcluster = *dclus;
+>  	fatent_init(&fatent);
+> -	while (*fclus < cluster) {
+> +	while (fcluster < last) {
+> +		if (nr_cont && fcluster == cluster && cid.fcluster != -1) {
+
+cid.fcluster == -1 is possible with this patch?
+
+> +			fcluster = min(last, cid.fcluster + cid.nr_contig);
+> +			dcluster = cid.dcluster + fcluster - cid.fcluster;
+> +			if (fcluster == last)
+> +				break;
+> +		}
+> +
+
+Thanks.
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
