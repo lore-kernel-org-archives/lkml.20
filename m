@@ -1,101 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794174228;
-	b=U+buozF8p7i8v7hNLVDXFVr/zQZtXfXRwGZd755PFCsyKpvBYaqF6AATfghPnTH2MxV6
-	 cf2i4MKNF0YujaBXSbrB5jI9PTnTlM3CrWPSX7Iu80ZlZtjEinoAQ051UY4zccZB8S034
-	 Ber9/cWySOHjrFyfPCTspzu1NSPZHoakgVz7eWvZ3jrZnuZMjeSGLttgqJcYz+UgNxTse
-	 9eILHh80z5oa/OZuDmVfW+8RzsXGSVzmbvdrQxohB9BC0cakxMf6Bi/s7GI8tRp90tuoj
-	 EFfSm/uIj10lEY6kxzPzPR248GtCnOzzKffUAc/1Asj7ct2AX/zC5BXyoG6Xb9IjzkQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794174228;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794174309;
+	b=JOl3fF+Mm3XqsA22Uy+A/XhBmifnnATzFVco4s9umYIi1mnNTwxgbhKidU00LCOo0LCk
+	 fw3ImeiyF0LYHYMJF+6cZBjFAFvbJtMfjMZua1xXYvIF4oUcEGA0QIMu2PTh28gGkvEe/
+	 C2aqzWOiyHpDQAZG+EnH9rJ3L96VxXZIdDJyqmXt/9NH05yPeeer8+J2xVTkrorJxs5bg
+	 2ydsFI1d0/ErCRbGrvkNP+jD/C+a7h5vfykZVedl9DvPrwiKIIo9qRPgvShqFgf/1LrDA
+	 CALTcTyvenqxVNIOyDck3f7CQ5ZKiBvfA1E+tA7vu6E8fHY4TgvyDmVj68ovChz7OHg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794174309;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=yF5DlePqIQ89+6+ZQRbgYQTljhQluORNLYxIsg7wESg=;
-	b=nyHfTsThn2U78PNN56NEkx0NIJxtyI2T6sCnV6h1e1JTbZ1V9JYsQ6i3HnZvqAMecBw3
-	 m2nTRCDa8NSHu/tziL/PB7MRcGQt90ixgxXAygt30W7wp6TURcFYQzR0You9j24fiMHnv
-	 bH4dQnFKW7kezQHychn6vF9ituJ0Gt0e4RYglHjezrSroSzj9IXjkTZD/Cln2L/TH2Pwg
-	 v7CQYpchFT4sHUVv6t3PT7F8aT3vGWFZ+HPlSWAmzzW6G0PNzpcMMAPwg/GmvyvL6sGGq
-	 qiO1Q4wwwU/681gcEZuYWMQkCnnkDNGDc5eJVokOf/BVW97KvBeIftKkB6m5zJw+8IQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=bV6rF11efYV9YrKCAFoIXwnaGS419MER7+z7uQlw/1Y=;
+	b=Qm2ng5SQyOZx216eb+X4+b7BC9+7pR8CEB+uD+GQXY9SLGJ1xu6P6EHcTTw6JnuO0Qk2
+	 qQkaFPGRXzVB7KtOzSmTXbkvkX3+pySh0YnCl8Xe7VVPbQ5urnyO2FmuZmEjjPf5Sggwq
+	 47DlpJmXQaQT61sZVT17tiMrr+YlT/OTOlDMcmCfQzJJOECPxnjbzmv2rojvPLP1eQxlr
+	 rm1NVi1UatYtIKVe2/yRHMC/j0xBlwmTWadn8MzaZ/Kciv4w0EyG96n3yXayb/aAaiD2L
+	 hpyoYQAqnJp+PQ/+bCPTQQAj3oZUyEnEvb7wgOZRUUdlsCvfP6syxKyhUGrZDQZKr5A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lVbVExxJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PpHEkBPy;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB10606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:43:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDB10606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C84606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:45:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69C84606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lVbVExxJ
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b581b6b0e9so284133a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:43:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794174226; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nUGHk94b/vkgUvXX9lXfUvyQaoAUsLy2dPg/BbldCM91AR6clYxlENjrtaUrHq4vi2
-         TVrXJYJ1kfFL+UbFi37XQ7GAeTFg4Cs1KAaEB4c7SaEJxdcsb+vPY+JZSx2Pv0S1sLEa
-         6vNF8XiTn6MxAMaU+YV7/gOh1vMOa9uRZCTCwXdKpJu/MBuxvda5XL4IIZy3nKEZ3yb7
-         c8tcwMNJ8WLOrp2XpDsTFRoq3WLXnjJH9jn1m7HbiJsWo5BYoBkrz85tKgQU/mU9CUkz
-         rXUh2ZPKEnxlx0F4lwV1pfdo1bG2huO120agrkjnCxhgDveJFoqLqTM1FHnfX9rn6yfu
-         Z7ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yF5DlePqIQ89+6+ZQRbgYQTljhQluORNLYxIsg7wESg=;
-        fh=1pd93Pbfvw9XMYOGDrsoHU3HEKSzWC0RnJIpqQhcJBI=;
-        b=NURZoSA7ocNA5wQkOGRt5Tn9XsEcpG8ZmHj9DSCFdbKMxjKPgL2VyuubxgZ166kJ0q
-         kYPtXEKVWBNhDNjPtgbu83Fgs0jFNlWXJXBIrFj/OZAtZpVOapRBR2VMUH97cAA7vqp3
-         x7r4F1HOGJO/YwePQJ9ugDRN0jY87Cd8dZWPQWR4spc2PQmYoymjvQJZqxYbZmBV43wA
-         VqHYuVbJMsFFo+cBnK83C59UK1WL3+zO56XtSBCMPpVLWIaX5Dpg+HsG/VfI+IvnpZDL
-         Q4THYawN3elIPEd9T/07Ba1dGTttm6yQpzIEFcJIIDeyuku3GWUofdJxbb+4ClNlOs+F
-         4fBg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PpHEkBPy
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b0d09df973so203624a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:45:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794174226; x=1794779026; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yF5DlePqIQ89+6+ZQRbgYQTljhQluORNLYxIsg7wESg=;
-        b=lVbVExxJPle9fN9czzDRc2qwUN0TbTIx/fvGQhJpEu1AQKv8K5Nk899e7aDyco7WDI
-         GjyhkSTIxFtHLYx67q8X6jUzYFfFJ5Hew2IRb2hs7H3IRQXAOezGg+5kyOp5/q8tlvCJ
-         /LPbQf1pnbId+2g0TlomKEkpz9ZTHA9aRcXuXzMkCgW4e+yg7mnV76Uube/eo0P0Fj5h
-         I9Tn9EunR1ZPreIlMmgJdMgZFCDReZSuXOLB80S/ejgeELC/C9jCh3/GqVd4L3kMHyhO
-         NL5ICTd2EqQrQlTPUR3PerZrRHafY0QPGMKfQsIosrvwsUp7QIaFmbzlSsGbxSK/gyEu
-         AmEA==
+        d=gmail.com; s=20260707; t=1794174309; x=1794779109; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bV6rF11efYV9YrKCAFoIXwnaGS419MER7+z7uQlw/1Y=;
+        b=PpHEkBPyQp97hgnQ4C+qJhtOcjJmFtTDiVbYcmzg1chGPrwZqekj2visWsB2VPcOiq
+         fxRJJeX+XnlEKJWE6Sic6KG9BkOzNqq3Fm/uSTE38nDGp3TpmjkVc/mu4Pl2B0vjsG4k
+         sLTRxkH96WJhAWVegLSIuP3iicQzTEh+tBcBj/oa9VVjRZ0q4m1evSpZBvh1KFBVgzJL
+         L6xOxTG570r00CurfRi2NmFpq/b++5Okcqj81ZX1QfPAoALxuI6tkYh6oueVRhkh6PH2
+         pfVhGaWqrykM3NYzRojeaHqhhYAnNbGRgY/kjufyedLCdkgwnSUZDeJpu7lyugpwVeeS
+         m97A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794174226; x=1794779026;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yF5DlePqIQ89+6+ZQRbgYQTljhQluORNLYxIsg7wESg=;
-        b=RElytf6gpBOeXk/SHQdwLayCd98Vfayj4Hbu9jLc2z0C45uhQ/BFIQ8brPZ5dUKXlV
-         BbG0Wr69VkRaxegRi5aVt+K2fs7B8IxPU1qMATj/eSrDTMTksDW7Skl9CDbY3XTJ3M8N
-         C5qBe1X2rgLtiQA5O+qCYb+s9V6V/O6UozeMlmLCTy8w2g0MahLqOfsgWnbohAXfbhwI
-         L6Nxp7I93wk5zH/Bqjoz2zzPjpXkNeYFRAKMQcdaQMn0pHp8OtbEo6YGJSBsqp0MnCTc
-         MYip96OJNkxsZosUq+c4z6tg0ysqHDLbH72mCrWQ/oSkGoz7qSIaPZ27BEjVjmyMFy0u
-         iJkw==
-X-Gm-Message-State: APuU4Z/T71Lel/4QWX2fp8gBtmChsr5tVRYigsWVJ8MFNEt2l0ivMuor
-	2172xEycwPloNvAHSA4zaqwIAWiZA//UeCyEh68MrAsD4CwFuIols+sQ+mxwtRqIx5p5Ipzgdem
-	Rk76AT6U8UFn0ij6zpHCLm8/uAYPaLxk=
-X-Gm-Gg: AYBFou21nhIlu9WqCiq7u/N2d2lmnVvU01kDK9K5L/KnzHi/Q0JcWSJaoO/1pEw9T8u
-	b1nbMqJhVvvpDwClSwgFlpXcJ0MK15jPgyhOVEHteiYKldZ1/S0UVm9hR3zk8Qg43r0XkJZzdbo
-	YQYINPjcZT2EIx7fixcId92RWdObd8KBEtk1/0NzIy8LDlALnieaJeOMgjxb/K1XtPrve46qXTM
-	AIN0mLFNilQwJ+QwGxtD9Md09/c8cD9cB5gaLhwyPcpgNhrj41XPQaX7Yws0zdvNKJFK92J/NqR
-	VAVnUUZmhQD0W2CpFTwNy8sxyffUIb4QvzHZHi5hxLsupfnf6def6kPaXB0lM5Dt4+cE8qAQikM
-	btDQBoDmwn50Tqg3YcD1W2PzqlSREVQgClTaYvBcw7jQmzEH9RT7uXzkMFOAmciUlW4u8SOMZgC
-	ugJjZAyZRMattEx2wvL3tCyYege+E9hMhexYwsDdoLR+JwUQOw5zxCvyDT0grJH62BgpJmXKrMA
-	ZjVuwwsDZHqVaYvGFJC2Uo1Ym5bTxJdeSRLda4/fcN6yttcWw==
-X-Received: by 2002:a05:6402:540c:b0:6b5:8579:5404 with SMTP id
- 4fb4d7f45d1cf-6b7223ff1aemr1460739a12.9.1794174226025; Sun, 08 Nov 2026
- 13:43:46 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794174309; x=1794779109;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bV6rF11efYV9YrKCAFoIXwnaGS419MER7+z7uQlw/1Y=;
+        b=aVsjOMBVUo4zCqH9MJDSvGXQZLXeHYP0/xAz2baZigca3IgT6OWQ/gD+mwXYbxHm+P
+         iOlJ/U2HPvgbJzCFeAFB9Gv5Knyknn5Cz7QSXMh0jYf16Cf7YQuGX02qO5Ha+KP/ihpz
+         +I9vLQ8KHrAUxObQhirOpUvzPX6lj8M+lNoUIngYEjA688R8ABFgsEBVen4/HWe9dOMv
+         6PusvN255ZeqCBy3K0GD9sWujZKgJzftI/8QwpxCMS/Im7ZMt0phNlpu3jV2HFURz8lc
+         3as1q9EBBoNH7mqVu6W92g7AsxHPxGDyoDAM2eHss5zIHkA9sPOCPqy1Tow3L7b8w4O8
+         5lPQ==
+X-Forwarded-Encrypted: i=1; AL+hErG8gH3stvJ8zQeOLtdXKX3yNMA9+sEkpbP+7880fvdRoD+8FTEsD6h94LTdLlWqeWVutD9do601JmO1S2k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9VSuA+35nKxhMqhT3yLJzfhnGFk05KUNTCAGJryJZIzAQ1rpTR
+	bm8wi+qNcy1rrjxRrtJVqkh+CLRQ5WwbgOu0wX6k4Gcaxr8qv75SW/mV
+X-Gm-Gg: AYBFou1znL+kW6Ca0vlAB6UmDpwsB98uTckWi93ApXb8gIzmIUGgfkje/esXHFIoHjO
+	AyXfpet0u2nyJfzIrdJ2uW8oNexD0tvqvlwpf6kHs6w7lMq6zfZJbpFz90MN19rjGPTDlatM4t0
+	ctb8SjF0m/AGHZagk/q6T5W8iLnvKMwDpmqXJA5mW8KLPg0G5Jb2X9jV2b1Wuv7Bdwk5uVD4vrr
+	5QGYQaveB+AD+BKzXCzEO6koWDF0CVu+DwCt3X+MOwGG2QiOBZhD4ApNQoAshlj0E+SIb8gW3uj
+	i8XtYyb6UGH+3rXNeEKvDqMwnn7fMfTEyhdcROzUJKsaGXZPYKQkFYqiGLgR4OprkO9ev9aHm93
+	+MqlcW/Z5hw9qQYv1GTyYWxRjIY70uGasrb8tegRd665m2hSHjTAjRlFRloumPJ0GLhPao3Syyb
+	KrBUSCPXKORg+b9YZSWwOLAcUhxEl8bDD6qlbJS0Zh4Dfv0qxWwruimheqAakzC8oRpe/Od8DR7
+	coxjzbwjSvlH+LwUwLpt3v70Ev05nb5femSWQL70+THF0KHxNcP1VezSS/1hBmlvL0LQQ2GtwZQ
+	cuSDnMfU9UrnjqRRRkPJel03ofGqhxJynnhGyMbsZTreCJdNF3QLcg==
+X-Received: by 2002:a17:90b:3d8b:b0:3a4:f8da:2478 with SMTP id 98e67ed59e1d1-3b12d3556e8mr1972627a91.29.1794174308555;
+        Sun, 08 Nov 2026 13:45:08 -0800 (PST)
+Received: from d.home.yangfl.dn42 ([2a09:bac1:76a0:28::1d2:30])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1034718f8sm4619463a91.4.2026.11.08.13.45.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 13:45:08 -0800 (PST)
+From: David Yang <mmyangfl@gmail.com>
+To: netdev@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v5 0/7] net: dsa: motorcomm: Add BR_FLOOD and BR_MCAST_FLOOD support
+Date: Mon,  9 Nov 2026 05:44:40 +0800
+Message-ID: <20261108214450.1662362-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,111 +100,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106221201.15054-1-rosenp@gmail.com> <874idrvywk.ffs@fw13>
-In-Reply-To: <874idrvywk.ffs@fw13>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Sun, 8 Nov 2026 13:43:34 -0800
-X-Gm-Features: AclHuK-q9mIprFpGs2w9IFL_gHJvsOACYe0dBvp3Yc9PUXEJrDYNlOx2P333gQs
-Message-ID: <CAKxU2N_BbnyY3ZPsaOPRdMQU7S7FjFxb6Y9E-rcF6OezZVRA2w@mail.gmail.com>
-Subject: Re: [PATCH] irqchip/ath79-cpu: Flush every write buffer of a shared interrupt
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 8, 2026 at 12:41=E2=80=AFPM Thomas Gleixner <tglx@kernel.org> w=
-rote:
->
-> On Fri, Nov 06 2026 at 14:12, Rosen Penev wrote:
-> >
-> > -static unsigned irq_wb_chan[8] =3D {
-> > -     -1, -1, -1, -1, -1, -1, -1, -1,
-> > -};
-> > +static u32 irq_wb_chans[8];
-> >
-> >  asmlinkage void plat_irq_dispatch(void)
-> >  {
-> > -     unsigned long pending;
-> > -     int irq;
-> > +     unsigned long pending, chans;
-> > +     int irq, chan;
-> >
-> >       pending =3D read_c0_status() & read_c0_cause() & ST0_IM;
-> >
-> > @@ -46,8 +47,11 @@ asmlinkage void plat_irq_dispatch(void)
-> >       pending >>=3D CAUSEB_IP;
-> >       while (pending) {
-> >               irq =3D fls(pending) - 1;
-> > -             if (irq < ARRAY_SIZE(irq_wb_chan) && irq_wb_chan[irq] !=
-=3D -1)
-> > -                     ath79_ddr_wb_flush(irq_wb_chan[irq]);
-> > +             if (irq < ARRAY_SIZE(irq_wb_chans)) {
-> > +                     chans =3D irq_wb_chans[irq];
-> > +                     for_each_set_bit(chan, &chans, 32)
-> > +                             ath79_ddr_wb_flush(chan);
->
-> So the CPU provides 8 interrupts and 32 sources, where each source has
-> its own specific flush register. There is some distribution mechanism
-> (firmware configured or fixed in hardware) which maps a interrupt source
-> to a CPU interrupt. When two sources are mapped to the same CPU
-> interrupt then they share the interrupt line, i.e. the handlers are
-> requested with IRQF_SHARED, _and_ both flush registers have to be
-> written to so that the interrupt handler can observe the data and figure
-> out whether it should handle it or not. Correct?
-Almost. The 32 is only the width of the mask. The flush registers
-belong to the DMA masters, not to interrupt sources: each master (GE0,
-GE1, USB, PCIe, WMAC) writes to DDR through its own write buffer in the
-DDR controller, and each buffer has its own flush register. AR934x has
-five of them.
+Offload BR_FLOOD / BR_MCAST_FLOOD to the hardware for bridges when
+feasible.
 
-The wiring of the devices to IP2-IP6 is fixed in hardware; the DT only
-describes it. IP0/IP1 are the software interrupts and IP7 is the timer.
+v5:
+  - drop patch 3 of preexisting issue
+  - fix issues found by sashiko
+  - program RMA registers
+v4: https://lore.kernel.org/r/20261107121631.1040612-1-mmyangfl@gmail.com
+  - fix VID 0 handling
+  - reset port flags on bridge leaving
+  - remove local cpu_ports_mask
+  - translate FDB VID for VLAN-unaware bridges
+  - limit offloading to exactly one bridge
+v3: https://lore.kernel.org/r/20261103140109.874443-1-mmyangfl@gmail.com
+  - refactor port isolation and filter action for standalone ports
+  - recompute flags when a port leaves bridge
+  - honor BR_HAIRPIN
+v2: https://lore.kernel.org/r/20261011030228.2761810-1-mmyangfl@gmail.com
+  - fix build error
+v1: https://lore.kernel.org/r/20261009005542.72860-1-mmyangfl@gmail.com
 
-The flush is done in plat_irq_dispatch() before do_IRQ(), not by the
-handlers. So for the shared IP2 on AR934x, both the WMAC and the PCIe
-buffers are flushed, then ath9k and the PCIe controller driver (both
-IRQF_SHARED) each check their own status and return IRQ_NONE if it was
-not theirs. Otherwise, yes, that's it.
+David Yang (7):
+  net: dsa: motorcomm: Fix VLAN SVL and learn limit definitions
+  net: dsa: motorcomm: Drop VID 0 VLAN table programming
+  net: dsa: motorcomm: Remove local cpu_ports_mask
+  net: dsa: motorcomm: Isolate all ports during chip setup
+  net: dsa: motorcomm: Translate FDB VID for VLAN-unaware bridges
+  net: dsa: motorcomm: Report inconsistency on bridge join failure
+  net: dsa: motorcomm: Support BR_FLOOD and BR_MCAST_FLOOD offloading
 
->
-> I kinda decoded this from your change log and tried to map it to the
-> code. It looks correct, but for heavens sake this needs a bit fat
-> comment explaining the magic behind all of this. Even for your own sake
-> as you will have forgotten the gory details three month down the road.
-Will add.
->
-> Btw, as this is the interrupt hotpath, this for_each_set_bit() loop is
-> pretty inefficient when there is more than one interrupt source
-> associated with a CPU interrupt.
->
-> What you want (as a patch on top) is:
->
-> ath79_ddr_wb_flush_many(unsigned long sources)
-> {
->         __ath79_ddr_wb_flush_many(sources);
->         // Document WHY this needs to be done twice
->         // The existing comment is useless...
->         __ath79_ddr_wb_flush_many(sources);
-> }
->
-> static __ath79_ddr_wb_flush_many(unsigned long sources)
-> {
->         u32 __iomem *base =3D ath79_ddr_wb_flush_base;
->
->         for_each_set_bit(idx, &sources, 32)
->                 __raw_writel(0x1, base + idx)
->
->         for_each_set_bit(idx, &sources, 32) {
->                 while (__raw_readl(base + idx) & 0x1)
->                         ;
->         }
-> }
->
-> or something like that. For a single interrupt it's exactly the same
-> outcome, but for multiple interrupts mapped to one CPU interrupt there
-> is an obvious speedup potential, no?
-This gets hairy now. arch/ code gets involved. I'll sent as a series.
->
-> Thanks,
->
->         tglx
+ drivers/net/dsa/motorcomm/chip.c | 242 +++++++++++++++++++++++++------
+ drivers/net/dsa/motorcomm/chip.h |  21 ++-
+ 2 files changed, 213 insertions(+), 50 deletions(-)
+
+-- 
+2.53.0
+
