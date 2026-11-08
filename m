@@ -1,62 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169437;
-	b=alURRHXFotSpLS4XQO49efJtiUHDbjwTtsgRIeASbiksE8oVyAYnYtDgipTn1ltDVVDJ
-	 aIL8epBfQYNq8eaofzu3W+hq2yDAGkzgrOQb7TmG/7Q8OQNMV0lvnk/ul7NuFFEeqD7eH
-	 CLdawOH8A8Rr9xz+e+/NqF20uKn+WrHd75NWGAI7ZTLqaKuC591lEvHdAiDCnxt6iSytn
-	 wmJ9u0A0KaUIEKx7tXb5k7aenEsIdRpG8t0+PMx/O6/CTz+YB0LgeKKM0vN3BF1hs52Qz
-	 smOLG4EEHeQeK3A3Kggr2HqZTk9ze8Mgz5nFEyxXmQRVMX7qzk9nYWNE3QXqeDkDktA==
+	t=1794169443;
+	b=EsXZ5EXsaqqXpHQMzQYf1Xf8ALjiB2tApue0nfCp0iIsgmKgbg2UMRCxNOrmzOrdkcmD
+	 sUxHcZQqDi0aO19B27Yy4RhKtbrBs9dcpgJn4iSUEMDLeeGKXhpsOO2vWdPCun6MB+jHf
+	 XfcV2Jchh5l4PwuzWmY6iR/aP+yFrRn65rKrvoYFKiUhULDFPz6p6kvDx5QGYa+7MkYtX
+	 GyJ7a6LP+woN1VvkHMZMCg3y/YHbgYVAxeNFHDQEsk8/hyxYZvjrfMuKUSXADyyP/ki1e
+	 5iXwNG8Fg7bBjGvuLgRa5ceZplSbNLLlUWq6+AnNXYX6CeVIYnqq3CFHaWYZph4wqKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169437;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169443;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=EOuvkZGjoqdAJ+SsqA9nlZOgNgVUmg8j/+ZfM27XG3I=;
-	b=Foq7kKeHFmSwd4F/Fm3oRBDi8WtSWDYzGSeslz3+TQHsAd1QU3O0TwzwwLIlUcJddHyu
-	 jYXaVPQsJp/Ifst0Bzq+8sGSbwxSLzqoctic/f4JeQvRDlCnFB2BCh7i8K4DcGfK4beOI
-	 dhuS9ZRadnPeqYOZb515qQ4ri/0xFQ2O4HYQQ52SGIL7801Jj8xGsEolqxa/D76i2olpG
-	 aloz0IOoxxejvdZY95THre6RJmlUgazSIw7WCGCLLT0kR2kZD3bHWWUtj5MwaUjVpRxoE
-	 OPAF2IxdNGuOdlsP9YwoTHKJ+uVVj+iNha3npZ3P3PMRXXnGnatEurVS3HJpQhxrB3g==
+	bh=PIDH+MAdQFsQS+wGtZgwtO/Ik9s/WC9VAQt3yx3P/nY=;
+	b=DBS1DE2wBT7AjOoxknyaK+om8mms6xShRG8IsQ64bJ0veo/V6QyyuwVj/ujYzk/ZmnDC
+	 yx8vyzNyuno4uWQEhEcAVGdE7goo1qfE0ZYK35ff8SpXe2GJomMExM+4YtzspHjXU8PSS
+	 mr12K8v/hLHXdblHhl4AnS6u8vq42xsFkIZxbGP4QUB+OFV8zuEV+nCUYodxvqiTN2H8w
+	 xdmBF2Ptp2WtH2yIQLnlu2h7EINET0BnOd2+WMG3JEFNIItcC03dnSw/EcyFAE/u4QDbZ
+	 zl0n7cNvLR3LrUOKgJ/vu8pqeQw6qjEUeWOuEKLQuxMAKe+ou1cjQFdDDKXLqEUvJ0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdYGZXky;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RKVaHM5t;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BE660759A1;
-	Sun,  8 Nov 2026 20:23:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BB36076C00;
+	Sun,  8 Nov 2026 20:24:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdYGZXky
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403C51F008A3;
-	Sun,  8 Nov 2026 20:23:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RKVaHM5t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E31491F008BC;
+	Sun,  8 Nov 2026 20:24:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169437;
-	bh=EOuvkZGjoqdAJ+SsqA9nlZOgNgVUmg8j/+ZfM27XG3I=;
+	s=k20260515; t=1794169443;
+	bh=PIDH+MAdQFsQS+wGtZgwtO/Ik9s/WC9VAQt3yx3P/nY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kdYGZXkytXaYNYIpYTNsRR585ps0M6wyXQshAGBRQdNqL6/gZO6zZGoUEnO3SAzzj
-	 +/Intdv6QDH2l8SofaLWkZlfGwkk/5k+cBRpdo+134EZ2cNOCfZtHUcoDXU3DCJm0M
-	 VZ+VsPh1t16tGABQvA/z7uMwoiaVXnkTVkET/JyYQ24i8ED9yJ2vStHq8kCcTOibvB
-	 tn6kL2P6RWSJiX16yn02N323e5RzVI/3Z/8FrhL3eouAbQ1Pf+WEl/Jd94WUfn1Wa8
-	 47ycgCkOdBvlvkdI5F5Zt/uubyV6u0xFTNosc58FxEbLZfo9i6/rs43snKOpc/s0Us
-	 UAKf+6iYckNiQ==
+	b=RKVaHM5tB5dS4XPW+1tN2IRgMisQguCkVRVvYKTcEwK23hsftiLRGwxBxwTrYcLlJ
+	 RO1moyXzzdQErKJJiXa27Qxnndsdu4XGmztLVbMSbImPQGw2XQjzN2lgiUY19nfRNV
+	 yW3+7gUnSy/ZQRrglu8lGx5/neQG5iZKxHQhrkggWaxS2SMujTtAxwpDKgwznCgCPQ
+	 EJy+tIgwNaQNoMzPk9H3Gf7rCwSDY5euCq0fZtpZOA+hmkJ+c87KMB9FMdsnJM1Qqc
+	 DqtJfun6uuYdp6XU+/7qVVGsnnzUWoDa0gLZZaC+rmVKgq8pSUM8HbQNyGk5GzyLMB
+	 Blbams+yL4pFg==
 From: Bjorn Andersson <andersson@kernel.org>
-To: konradybcio@kernel.org,
-	Luke Macken <luke@phorex.org>
-Cc: abelvesa@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	srinivas.kandagatla@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
+To: Abel Vesa <abelvesa@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Andrei-Alexandru Bleortu <me@andrei-z.com>
+Cc: ath11k@lists.infradead.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Add Elan touchpad at 0x15
-Date: Sun,  8 Nov 2026 14:20:36 -0600
-Message-ID: <179416929384.628393.4815391569642209330.b4-ty@b4>
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-wireless@vger.kernel.org
+Subject: Re: (subset) [PATCH v3 0/4] arm64: dts: qcom: ipq5018: add Ubiquiti UniFi U6 Enterprise
+Date: Sun,  8 Nov 2026 14:20:41 -0600
+Message-ID: <179416929470.628393.6109143972218065313.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261014234949.1730808-1-luke@phorex.org>
-References: <20261014234949.1730808-1-luke@phorex.org>
+In-Reply-To: <cover.1792761470.git.me@andrei-z.com>
+References: <cover.1792761470.git.me@andrei-z.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,24 +73,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 14 Oct 2026 17:49:49 -0600, Luke Macken wrote:
-> Like the T14s Gen 6, the Gen 7 ships with either a Synaptics touchpad at
-> I2C address 0x2c or an Elan one at 0x15. The dts only describes the
-> Synaptics part, so on Elan units (e.g. 22A7000VUS) the touchpad@2c probe
-> fails silently (nothing answers at that address) and there is no
-> touchpad, while an I2C scan finds the device at 0x15.
+On Fri, 23 Oct 2026 16:36:56 +0300, Andrei-Alexandru Bleortu wrote:
+> Add the Ubiquiti UniFi U6 Enterprise, an IPQ5018 access point with two
+> QCN9074 radios on PCIe (5 GHz and 6 GHz). The first patch documents the
+> QCN9074's PCI ID in the ath11k PCI binding, so the radios' nodes can
+> carry the calibration variants their board data is looked up by.
 > 
-> Describe both, as x1e78100-lenovo-thinkpad-t14s.dtsi does; the absent one
-> fails probe harmlessly. Both share the interrupt GPIO, so move the
-> tpad_default pinctrl state from the Synaptics node to the i2c0 bus node
-> rather than have two nodes claim the same pin.
+> The Ethernet port (GMAC1 with a QCA8081 PHY) and the IPQ5018's own
+> 2.4 GHz radio are left out until the GMAC and the WCSS remoteproc have
+> bindings.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Add Elan touchpad at 0x15
-      commit: 06b7a31608876dca5a99a9ea528281f2c8dc18e1
+[2/4] dt-bindings: arm: qcom: add Ubiquiti UniFi U6 Enterprise
+      commit: c8ad14fa57232bf4a167b0fe2bd1e856e587cf48
 
 Best regards,
 -- 
