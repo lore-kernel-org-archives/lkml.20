@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794181846;
-	b=Hn7YeTi5O7FTswYJrurOIJf5EOBkYOy5HUsZOIuWMAD+b0bp5Yj9oxEQAniO1h2CbIb8
-	 eXTsm62ALQeajVI0YCtGOMo33hvYwSalryyM5MLH/lX/LaYM6kAvQwxDfOwG3qWV0Y3wp
-	 6B0qjm4fT+wm1bpEvsgyf45fP/fpmcc4S5o2AImRhsZ4PQ/tXpLB6IlPnkSGgcD0sCwf+
-	 Ku8iAbAcVrkZg5a6DwkNYxNDhQkL6TtNO86naQzqbceepatFE6VrLO1Cks+RUXSsiYx6M
-	 i/uqOBmFaskUQzrGEXT5KXszO4G/F2joALkrV5CD97ZINg83K+p959PiLpKSdP0R9OQ==
+	t=1794181883;
+	b=plGw7KHrhtv4dtYTOv5lS0+tpZwQ5tM+VpUKra3IXdmws4ZesR1zqXnJ5oCLO3wVR4cE
+	 /sT6h2L8LpKevZ1XZjC1gnExYSwLVw0UutlZvICNiMwtUeoz3sYXY0rqLl88BzPsn4HsP
+	 k7ckyKID6FnMxpxr3gKjxQrUWo6+tcR7Xxs5YaRg7osCj+36ZGxrPxZf9UTlKgZkjTJc8
+	 LAX1aFCl3qAIpg9+dcftMwykGk1BP8pV4pu+29Iv9Y3OS7w2tqISQeitC0Q/STqDqyLMs
+	 IZOiWO7GgGMHWvmwiX9m5fBa/3UkCO348AwtcOkMCbI6FW5qd5izhNy1JjsMpnmiiig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794181846;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794181883;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=R/j8tCNpPpADFlgeEjVhmngVNj9+ECjprKtZgv/nZnM=;
-	b=xZYmRNZUNxSmuX0JIr/GqPdgcW2+yxFHeZ+4tGDVGCIJeQnjWXPiIC+gOW1aEJOUXr5X
-	 0aCR79U+jmNapGY9dxnRqBIM3gfgxKBrr6R82JkHLMAIs/OSJaWSgD3TbIjBdx+rxR09p
-	 md/WNg4ltMiOi15ZYJ1KuIEsFI/oa6BtBrJ0pwQ5pjIt83OQR7ES4bDv7NmlYDA8u5cCw
-	 OaeYPEa8j6iGtCm/aWfCrIF/bdkb05It9VyBEWGnFn5pNjmkVCqxhiBY9Fo11rHEcvsn2
-	 H6RGGGlNZcI2ulTFEiIr15d9+WhZXrpq1UtXOL6IPiqtw5kbCZG9SWi6rEkqj8jGf9A==
+	bh=RxoX97usnlKPjzqSx1gqdHyErPFxwiy+zxZuWDx1DPg=;
+	b=pG7EpXUTnV8FsJJnPGhx6vNL+oab07XhNM6+vOWDo0A64qkn57/deK3oIP8cOhSD8A3M
+	 x3ExxS2C0j6lO26WYsx1n0UyaGPLFAx9vTF9YuOX1onqdVNuSI2+Tp9Oob6D7PV0Lw7ir
+	 zbZFCObCnfPvL47lO3j1rO+YKVm5wi4EXZsNTuWgA87WGXVPfPrO9JLdlrwWcipDUzP4h
+	 UiHKBA63wXTB4l2ETDXmU4+15BW5mBgEhmFBWWefMqgp2J9wiLEWnrlR2X1wBqJajaDk7
+	 HxkRglotMHpF6xwiPycacmSG301VBLBuE6WVijK3Y80KtDjiz9hq/74xWKmUdo7ya1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=MpLEpnUd;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=pb6qjxebdndqlntqepcpjgijvq.protonmail2 header.b="Qz1/OduT";
 	arc=none smtp.remote-ip=109.224.244.16
 Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2A1606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:50:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC2A1606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95EC8606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:51:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95EC8606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=MpLEpnUd
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=pb6qjxebdndqlntqepcpjgijvq.protonmail2 header.b=Qz1/OduT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794181842; x=1794441042;
-	bh=R/j8tCNpPpADFlgeEjVhmngVNj9+ECjprKtZgv/nZnM=;
+	s=pb6qjxebdndqlntqepcpjgijvq.protonmail2; t=1794181880;
+	x=1794441080; bh=RxoX97usnlKPjzqSx1gqdHyErPFxwiy+zxZuWDx1DPg=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=MpLEpnUddGcdOFcCqyyDoI4YiXLoyG+mBWxjAHZt36FzFSZYIlb5i/EvhoECGCFki
-	 sPj0Hx8e+iqs73KeAZDwDMIIB8ynZ5cK8ZsgNhL2XySRFvOSnIamVBm3wjFJURFhnQ
-	 yWuO6YwaKsXDLQXLaTfTdRkI+HVO+tMZ+DDIw0IKyfM0oLg77olxjOoHgPHVVr5fqE
-	 +ITB35Aaxdpw3FmlxMJzY1bdK7sx6lV5Z6SwBuABKXa6kKsd4mkfRuirIUJLfQsB4j
-	 V8oqmtWkkJGIrSXoQ5eTeN7NhMCuMsvkI8wxW+rnsJ25yL0hjXqSLLFAfLQ+f4c0mo
-	 HV0N3MaNLYtdA==
-Date: Sun, 08 Nov 2026 23:50:38 +0000
-To: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
+	b=Qz1/OduT1AlQn4CLyCcsu4Tr12MG2DE3XwWthOA+q/nTwSljFJCs2dc4RXB28TPA2
+	 l5WgcasQDtRdPpK14a3/B1fP40Uc04SbI4QpVb7X/fLYPy9JaQESQMdQTAIRFEMOvG
+	 k8jx1m0aYs+CnmEoFV6P1/0I5N9Qh5cog/Emmb8Sxo8mYE/wm7AFFH5GbZAOPlrp7l
+	 BA96qIRxXxVX+TpCQ/TyWNxvgcSnrVO6fh9c1Ut3cVc6mixRxX3Y3GMUci0UPKdhRl
+	 JtHjpUYx1m66sdF/gerOCHFsfN8pl9pwFIeJW+/7se2wjpMVKAlBxMOXDxnbmW6IYW
+	 cY68yQaFC+0mA==
+Date: Sun, 08 Nov 2026 23:51:15 +0000
+To: "jhs@mojatatu.com" <jhs@mojatatu.com>, "jiri@resnulli.us" <jiri@resnulli.us>, "davem@davemloft.net" <davem@davemloft.net>, "edumazet@kernel.org" <edumazet@kernel.org>, "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>
 From: Noah Weinberger <NoahWeinberger2003@proton.me>
 Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] staging: octeon: check preamble strip lengths in cvm_oct_check_rcv_error()
-Message-ID: <kuEkzsTutkDJaeT0z-PKW6_KdvgCr7XLwuBWbL9Wl4cD7t97cPIZiVMPUloKfLWUdsZeJBF5x_vuXl0OfwWnjEA6BMbcnYjjXkptwDtQhBg=@proton.me>
+Subject: [PATCH] net/sched: cls_u32: drop ht_down ref on hardware knode failure
+Message-ID: <se_YnKsUIDyPpX0CSaIOaKht61bpYFwFGdmOcphFkus7Rk6NW3JnQsqMNGmDOjF1R4yTPaR_yeEK8clojDnh5Orl93J0kiHNJT7R3PkCxWQ=@proton.me>
 Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: aef59b36fd6a360be780c9316587c030e918c395
+X-Pm-Message-ID: cbb6d2813dc525c521adab5c04a2b5b1794da474
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,48 +66,41 @@ Content-Transfer-Encoding: quoted-printable
 
 Hello,
 
-cvm_oct_check_rcv_error() strips a non-standard preamble from
-received error frames by counting leading 0x55 bytes and subtracting
-that count (plus the SFD/preamble bytes) from the 16-bit
-work->word1.len field, without any lower bound:
+u32_set_parms() takes a reference on the TCA_U32_LINK hash table
+(refcount_inc at the end of the link block), but two of the three
+paths that can fail after that point never drop it:
 
-    while (i < work->word1.len - 1) { ... }
-    if (*ptr =3D=3D 0xd5) {
-        work->packet_ptr.s.addr +=3D i + 1;
-        work->word1.len -=3D i + 5;      /* can be -4 */
-    } else if ((*ptr & 0xf) =3D=3D 0xd) {
-        work->packet_ptr.s.addr +=3D i;
-        work->word1.len -=3D i + 4;      /* can be -3 */
-        for (i =3D 0; i < work->word1.len; i++) { ... }
-    }
+1. Fresh knode (u32_change): when u32_replace_hw_knode() fails, the
+   errunbind path unbinds the filter and then frees the node with
+   plain kfree(); n->ht_down keeps its reference forever.
 
-The walk allows i =3D len - 1, so the subtraction can underflow to
-0xFFFC / 0xFFFD in the 16-bit field, and nothing revalidates the
-length after the helper returns 0. An attacker on the segment can
-force this by sending a frame that is almost entirely 0x55 preamble
-ending in 0xd5 (or any byte with low nibble 0xd) with a bad FCS or
-alignment error, on a port running with PRE_CHK off. The zero-copy
-receive path then sets skb->len =3D 65532 over a small pool buffer
-(skb_set_tail_pointer past skb->end), and the 0xd variant also runs
-its nibble-shift loop for ~64K iterations past the buffer end - an
-out-of-bounds read and write walk.
+2. Replace path: u32_set_parms() has already re-pointed new->ht_down
+to the newly linked table B and dropped the old table A, but the
+failure block then takes an extra refcount_inc() on A (the old
+node's ht_down) as if __u32_destroy_key(new) would drop A - it drops
+B instead. The extra reference on A is never released, and since the
+old node survives this error path holding its original reference,
+A's refcount is permanently one too high.
 
-word1.len =3D=3D 0 additionally makes the walk condition
-work->word1.len - 1 wrap in the u64 bitfield container, so the 0x55
-scan itself runs away.
+Each failed attempt (a TC_SETUP_CLSU32-capable driver rejecting the
+rule) therefore leaks one reference; the linked table can never be
+deleted afterwards (u32_delete returns -EBUSY while refcount > 1) and
+is never freed with its hash array.
 
-The patch drops the work entry when the subtraction would
-underflow or the frame is too short to contain a preamble plus SFD,
-following the existing drop convention in the same function.
+The patch drops n->ht_down on the fresh-node error path and removes
+the bogus compensating increment on the replace path, leaving
+__u32_destroy_key(new) as the single place that drops what the node
+holds - which is correct for both the LINK and no-LINK cases.
 
 Affected version/commit: mainline 8a65162514fbad21a2c58ffed65f42b27e92b163 =
-(v7.4-rc2 window, 2026-11-08), drivers/staging/octeon/ethernet-rx.c:99 (whi=
-le (i < work->word1.len - 1) - len is u64:16, so len =3D=3D 0 wraps to ~64K=
-), :106-110 (word1.len -=3D i + 5 with i up to len-1: underflow to 0xFFFC),=
- :113-122 (word1.len -=3D i + 4 then a nibble-shift loop over the underflow=
-ed len: ~64K OOB read/write walk), :286-287 (skb->len =3D work->word1.len; =
-skb_set_tail_pointer past skb->end), :294, :317
-Longstanding code (OCTEON SDK heritage), unchanged in the reviewed window.
+(v7.4-rc2 window, 2026-11-08), net/sched/cls_u32.c:794 (refcount_inc in u32=
+_set_parms), :958-965 (replace path: compensating refcount_inc targets the =
+old node's table while __u32_destroy_key drops new->ht_down, leaking one re=
+ference), :1191-1202 (fresh path: u32_set_parms then u32_replace_hw_knode),=
+ :1222-1238 (errunbind path frees n with plain kfree() and never drops n->h=
+t_down), :406-414 (__u32_destroy_key drops n->ht_down)
+Longstanding error-path bug (the compensating-inc pattern predates the revi=
+ewed window).
 
 This was found during an assisted (AI-supported) static source review of
 mainline 8a65162514fbad21a2c58ffed65f42b27e92b163 (v7.4-rc2 window, 2026-11=
@@ -117,51 +110,37 @@ conditions are described above instead. Please treat this as a report for
 verification rather than a battle-tested fix.
 
 ---
-diff --git a/drivers/staging/octeon/ethernet-rx.c b/drivers/staging/octeon/=
-ethernet-rx.c
-index 5be43bbf6a..bb02bcbfbe 100644
---- a/drivers/staging/octeon/ethernet-rx.c
-+++ b/drivers/staging/octeon/ethernet-rx.c
-@@ -96,6 +96,12 @@ static inline int cvm_oct_check_rcv_error(struct cvmx_wq=
-e *work)
- =09=09=09    cvmx_phys_to_ptr(work->packet_ptr.s.addr);
- =09=09=09int i =3D 0;
+diff --git a/net/sched/cls_u32.c b/net/sched/cls_u32.c
+index 91f4e64587..82b15ce312 100644
+--- a/net/sched/cls_u32.c
++++ b/net/sched/cls_u32.c
+@@ -955,13 +955,6 @@ static int u32_change(struct net *net, struct sk_buff =
+*in_skb,
+ =09=09if (err) {
+ =09=09=09u32_unbind_filter(tp, new, tb);
 =20
-+=09=09=09if (work->word1.len < 2) {
-+=09=09=09=09printk_ratelimited("Port %d short frame, dropped\n",
-+=09=09=09=09=09   port);
-+=09=09=09=09cvm_oct_free_work(work);
-+=09=09=09=09return 1;
-+=09=09=09}
- =09=09=09while (i < work->word1.len - 1) {
- =09=09=09=09if (*ptr !=3D 0x55)
- =09=09=09=09=09break;
-@@ -105,6 +111,12 @@ static inline int cvm_oct_check_rcv_error(struct cvmx_=
-wqe *work)
+-=09=09=09if (tb[TCA_U32_LINK]) {
+-=09=09=09=09struct tc_u_hnode *ht_old;
+-
+-=09=09=09=09ht_old =3D rtnl_dereference(n->ht_down);
+-=09=09=09=09if (ht_old)
+-=09=09=09=09=09refcount_inc(&ht_old->refcnt);
+-=09=09=09}
+ =09=09=09__u32_destroy_key(new);
+ =09=09=09return err;
+ =09=09}
+@@ -1221,6 +1214,12 @@ static int u32_change(struct net *net, struct sk_buf=
+f *in_skb,
 =20
- =09=09=09if (*ptr =3D=3D 0xd5) {
- =09=09=09=09/* Port received 0xd5 preamble */
-+=09=09=09=09if (work->word1.len < i + 5) {
-+=09=09=09=09=09printk_ratelimited("Port %d malformed preamble, dropped\n",
-+=09=09=09=09=09=09   port);
-+=09=09=09=09=09cvm_oct_free_work(work);
-+=09=09=09=09=09return 1;
-+=09=09=09=09}
- =09=09=09=09work->packet_ptr.s.addr +=3D i + 1;
- =09=09=09=09work->word1.len -=3D i + 5;
- =09=09=09=09return 0;
-@@ -112,6 +124,12 @@ static inline int cvm_oct_check_rcv_error(struct cvmx_=
-wqe *work)
+ errunbind:
+ =09u32_unbind_filter(tp, n, tb);
++=09if (tb[TCA_U32_LINK]) {
++=09=09struct tc_u_hnode *ht =3D rtnl_dereference(n->ht_down);
++
++=09=09if (ht)
++=09=09=09refcount_dec(&ht->refcnt);
++=09}
 =20
- =09=09=09if ((*ptr & 0xf) =3D=3D 0xd) {
- =09=09=09=09/* Port received 0xd preamble */
-+=09=09=09=09if (work->word1.len < i + 4) {
-+=09=09=09=09=09printk_ratelimited("Port %d malformed preamble, dropped\n",
-+=09=09=09=09=09=09   port);
-+=09=09=09=09=09cvm_oct_free_work(work);
-+=09=09=09=09=09return 1;
-+=09=09=09=09}
- =09=09=09=09work->packet_ptr.s.addr +=3D i;
- =09=09=09=09work->word1.len -=3D i + 4;
- =09=09=09=09for (i =3D 0; i < work->word1.len; i++) {
+ #ifdef CONFIG_CLS_U32_MARK
+ =09free_percpu(n->pcpu_success);
 
