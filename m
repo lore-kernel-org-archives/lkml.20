@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794154756;
-	b=f8KhaMsHtUmtj2ZkxN061cLVBbtkCnVUSn69lz9rTcTuY0Qv6/zGwkcbCDNop88Kecdp
-	 zRvqWJI3Ru4eSvj8Ry/VpTrlVuMaOuX4w32RQnJ0EFo3Z8IgJTcgNoLVwAGUPdBrcdK58
-	 i4UKndTDluuVkG3ozAVLXeZINwNAyNSwNZof5RLiVFXEVZycPIONwQiMLQlqDI6P7NxI/
-	 pp5lSusyMmdcFxgQumYDAtfQUBRgFinlbwjYhUzgWfn+qUrZvZJJ/1gp/8/na7QmEYiBA
-	 vUNledPLjlmzkkRu0YcpimaF7kBNoUvICP8BKK3WfAASSgADJEZS62Xt7jvDld/3D5g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794154756;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794154919;
+	b=ZZ9aCkqusTcQjzhW5yK+Uo9ekLdWmLB3KU09RXBuaLBuRMeVAdWUWN2sRziSg/HbMnrm
+	 cG+1lwNJlH+j+rIm0e7wUYOhq/wdLWLuuFgGLcYrXb+DHYGQZ231a05L60ALsATP3meA+
+	 NDY2IL+VCFcaK+wgh8PLJV64mEBkHj9rsaBy2i6LJ4mKoNg08xofRy25EYpWbEN3DI3BE
+	 ynwlV6z5dYsb0iAo9sl4YDACuJKMHRMiawlWNTHAx8o42KcBUW5pLS+fwyyIrum3uptD5
+	 KyUjg2dZHWnpS34trghAHSpx57lCoOoUsyc7zGiumF/CiB6N1B/aCDc9X/+AREYrPCA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794154919;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=et3swsdOfldP0ujJDRmFWaImEh1vX8VO0MRX9DcXPOI=;
-	b=TwIo0eHSuC1LKbjAk1GxBmCWQso6th/EwTaTVrudLnzuzv8GQ+7qO8KW7fCkNGLxgr7R
-	 rDQT00ZDjA9n1B5sgWPWJCXUrHycRgp+pOm6zzUU0dJ91Hwfyv2SspVRiEDkGpiZNTLWH
-	 ar/z16Usoh49WPWV2QkA69RUnGj8jQeMqvbc6e2oOuardSQvxkscw3Ntl5fgxevzmXSj0
-	 Jway7bM8g2lBDrk2dtfvYPinuZPuyRAoODM2+LKVLEB1fqJpg7WpfxcRv8TgyMV6JjmMN
-	 glGbCW7IKZd4akvji2ThDis2ZoL7Sl0TZfu7vDolr7UBFBznFmpTZEI7PDx3z5etCnA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arista.com;
-	spf=pass smtp.mailfrom=arista.com;
-	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=UnHJPzGX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=NqiEvNJc2p38Ujj7TawQCPTCe9qdBp/ccFJptwABHsY=;
+	b=lt2wKiIW4k4+djKVyqBOQ3nxgxjoelU0oTKGXF2/0ttGXIu4p1yaJJrxse+Rjdit2/f4
+	 EOUYmACv3BY6WXLezCzjgfaqouXcehNg38OEPSAipYpi+JPEi67ysN6CnVz4IEkWbPRF1
+	 WG8bVo1yjLz11x7pvcUhGBotVLCY7kl8IP0D3W3OEx7wP9rCiKS6Vrwrew7vzwyrrAYv0
+	 +EkEJvrvrxqdaVayowM2N7XQXxz1IcGqrYrE/gnjF1KEIP/IFPErWpQ0Fzra3Ss6+LBrn
+	 BHKnE7j4hHSkVAx/FkatdvVvwr57YLPgN+Cz23z5Eqji0WIsP+yhbODm35LZ9fj9kEw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ByZKqEY2;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48010606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:19:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48010606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF5F606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:21:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBF5F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=UnHJPzGX
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c247f6687dcso24319166b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 08:19:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794154754; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WrhnOJg51ubHSwswNu8ASt9e/YWA12FIUkds2MI5nhfW9kA/TVLb93vJ7B5ie5CO9j
-         xXL1TOzjpDQVIIw4YhaUvSQfEQK2ko+m5RiI2Ui6DwzMl/cAnp5rvu4MsoQ7iSML+0c/
-         SEx2dIr/r6nn3qkUQjnqYvpUGO4mOyCoOuDzfTZghJZLcT2ulbF8ZdO51gFhPFWFjX2P
-         PFHNzsBeSb/JZ0EI6ROVoO9waPZdkOZysJh+rqsUf0y40US6pBtANMtkD8+nmq1d1ikf
-         us7q1kFt9TfVXtk2lb076rrGFv6jXnlSk6gQeaItQqA8XBDB2mtNGTJ1W0tv9rgE7tkZ
-         6WmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=et3swsdOfldP0ujJDRmFWaImEh1vX8VO0MRX9DcXPOI=;
-        fh=6IUFXvMt0/o+iL2XL/1LqmyKShKh5u0DFzK03EpFRU8=;
-        b=OReinCKUcLHXWQ+r1R+33auHPS3oMciOwCpRc6CmTHnN37YMDO6g9/AtYb+qippJqU
-         AKx/Gz9oOENnhzoAXK95g+uJqsyDX+Z0rryRBuf1K5vQ5/hrHVedctwa6Rfs3ToBScfw
-         A2A6ZrCeoSo7/E03veYJfzbBJ73ujlvJqXCIfg0gtLJJzFx/406WzktzkA896u0QmqXM
-         U8w3axv9ZnVxn29Zfye+XtWKbfpOjuxC2duTE3VB2ZTvVSDhhSTsKdxs7H8zmTS+b9uL
-         TTiw7a4rt4p74kOxZDtZUmpQ2ofRHxCPc67zuir+RpzDmlvS6h7hTj19djXK4ALrKjsM
-         2yDg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ByZKqEY2
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso785435e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 08:21:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=arista.com; s=google; t=1794154754; x=1794759554; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=et3swsdOfldP0ujJDRmFWaImEh1vX8VO0MRX9DcXPOI=;
-        b=UnHJPzGXqtf5M6DSoZKrR6UHFBMfoWqYMQ1Rv17g7fWWT+sUOEqe3QB3lY70652EHs
-         R4u9V0gcMFrFvvSx2428DKOdXjulw15zG2Gy+Qfh3Tw2JxCfbPsye6YS1qby+4Vh/LcO
-         Xzdrbu808uhG44B8h5piODGDrpJo9JOx93iFfrb/IqbcGKOeWlNJGCJ0hA5eBs0PBuPf
-         gCPhGndoxAT6kRnicgZ706hl6Gnyq556H8teishi0UUNNcmQmMprjdC/vEt+ztlS80Ks
-         vDgdeb3d6MYYHH7yqg4ylxT4o6vYu9P0xtrKBd0wphb4zuKRPhhIaLnZx88GNjKCbx1+
-         M+PA==
+        d=gmail.com; s=20260707; t=1794154917; x=1794759717; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NqiEvNJc2p38Ujj7TawQCPTCe9qdBp/ccFJptwABHsY=;
+        b=ByZKqEY2fqDhKWoL3BQKBZjth+x/iOlR20ruT+hrURNxCRwqYtsum7eZaEhd63rm50
+         +GHBf5keyZIJ8BcMAlMHs7ZqsCdBnHF5w6cKrAqTxfqgHcqd5LZUhSdc/J/1gf4lqQaX
+         5UsxhwT0VO/ynoe2i+sWqm9U+7By9WCmpaY0Lox+wkZPKASr25srJMuEjQHsG6shkRoX
+         zhsnz6GCHInxjthTYMvu7UTKBmUrrtFOAyIO9PXkdTuZBmhEsZGDOJ3mKNTIsAygQd5g
+         Tjq/dCJww5DtLMaK56lq+wtOcBNcgqgy63lXfEQXZnFZTlaw3naDMUuP1VQzT8d77Qf2
+         yBQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794154754; x=1794759554;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=et3swsdOfldP0ujJDRmFWaImEh1vX8VO0MRX9DcXPOI=;
-        b=JV86KO7+wsoLJxXod2sm/L3AHer0FBFQX8V90T/DSEB6IPcxOPuZLH3ujTfAS86ybI
-         1BKBtcljYNTACXmrtWSWwOKnGSU/et6hj/M9P/s3BRtVdEF6ZwZ41HZtd9oBlsxOcfdS
-         owo5mpWwpcNPM8LyWY3nkg+rsxXjWEBJmbVKHwZwBBLD1+eKn2rp9mQiVLyqGch/Y1G6
-         M8nhK62Rq4Ve/BS45StACWiREC/7m0ewH7wvwrH/6FzcQq3vdI9+vsIvRiM6MuRxegJ6
-         nlJbRAnueQ9hAzIR98k19gqnJL/T3D8m4cFrf3gvDQvMBTaiyqEM47ktDfc8NY6yDD4S
-         afPQ==
-X-Forwarded-Encrypted: i=1; AL+hErFMTMSA3NH5WM92u+coDOo1S2cTR+svgVpQk1ernrV2BYAKr6k9hySFY72wNgwAzFUZwOsHw4GJh0DTl0s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1pH92PfmW/d9Dttz8BWpJzmDTgx8SZnMEG3Wcd+rywiDuEBwT
-	cy+YaqWsOTNFAjbot8nqvAsMron27SE0/enlBmTw1K9DPnQ3MBdvGneMXm4bmKO44fngagZ8uQe
-	F0/ZkD/RdUDluDMMcZYCI2UvX95S39h/MoIM0Z8+H
-X-Gm-Gg: AYBFou2rdTjp2z6CuDdY8YXQ4kkMn/pvnxnQuU1j0NZL+StBT6931ignKj5xfxGYK3k
-	q1swknO9HeydKNT+uBPXwKUq4Jd+4Sy4/RKMgrE2XAACW4wbtTZdLZQRMkg4DanMe063ixg+26A
-	JQOKDPTDshb2uZIzYWS+tcgXAXEA7CQazR8UEetj9nTZTXLtIxKD+LoXiwIvBhzBh0klC6dEl0A
-	3e7JPG6NUk/nGsVeuYKgqo4M5sTNvbZX71ZNJtbYf63fC205fLlSyTShiwLD1QG0CULHsK1j+0g
-	4JMzszTq4gpuLOFcCB/UZwSJmNqh7TZ9TzM+m7MiAEPQFb9PRoFsMkcG7QoJKj4A+GHRCAWUwbg
-	K2WicUNIG+FOMBVN/tRB66W8LMF3TtyomOrV/BNmGLhf4rsxLp29CMm8phLBVYIPFNNIjrBvSo8
-	RBkdItnPwox1IUI+tvIQ==
-X-Received: by 2002:a17:907:3f8f:b0:c46:7ec3:fdfb with SMTP id
- a640c23a62f3a-c4d6d1af6fbmr112340366b.7.1794154753715; Sun, 08 Nov 2026
- 08:19:13 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794154917; x=1794759717;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NqiEvNJc2p38Ujj7TawQCPTCe9qdBp/ccFJptwABHsY=;
+        b=b/ymI3GwJ4ersW+oe0nOuF3QvVqHBweWjR+iZWXm/R/VR6XZ4WNh+T0t1gq6aW9MQx
+         7xDIh2lWklwXO9m4V1Qida5L4qXSLcMfBrCbaG0Wgwba2RPOmGJ2Cqb4+xuScnNl0Pmd
+         r0lCdcOUJAzw7T4y0qgJWrBw9341cAjm8gPFVyuM4dJNMqi/1oFjGlBNBdWG0ia3PSUx
+         kDTA6OaqDilYFpQpc4RRBJBrZA1srALv+E8lFhHRbnxvy999Yw/M1RWe2ynhv1IVtjl6
+         Szu4XvR9PTd3Fspn8gKpy3pCXcRA1YaEYGuShAUKvKsWPM7+cDssXt8W902haZT1iNA0
+         diqw==
+X-Forwarded-Encrypted: i=1; AL+hErEMOyF7Y+Q8afL4zdE3H1CcS7bMOVKowK4Kf7BBE2Mnm6d/kh+WIueGLdikvAm4e/05n4jlqn/n71rvB9o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9S+aHPb5qeCrxOreBiF05JwgqlSuLpD47w5mjZjhVWJmwv0ure
+	hvgarFmrn7KhOAs7q6Cnciq/v/QZcNyMOP3vpyCxJW4F2qRU3WbrUWus
+X-Gm-Gg: AYBFou1bb6Vxo2YAUMyWp6OM1ZPVWEBkChE5keG6LELPSERuLVO5vh17T6okE6BHg3W
+	EwwtPFVegc5itJu30QcOYWXbmfVBkBK8Oy4KNSBpS3y7QMbIXZXURo+6wpGN/KMHq+L/EUc4p7n
+	pTKau4G3qqSGDH+K2trTAUSidtpMdII6uMTkHI0KAiY0005DO+/MbyObt2eP0mZzFkBFE0jFUrf
+	LzJ4udEwj0fPHGNqfteNfRWGHWgK7lpQ1RBcZUapG9y61qcdP2+X5iN0pVtFV+pKWdD8jZYcspO
+	Cqt0jNzN6sm+/YMp9O5z3LiD8ycE2/IXWtdBiTcR1MASjlXyCWub4lFQf0/+YIU/EK6Q8fJXx/z
+	L6SNj/7ildYxjMACsqtc6NMfRgCXH8xJFO3R+RleMSYbX0ceN3nmw+WXn0Ac1SxqpU6clFM+gUL
+	XbpI/epvowJP4M+xsflu7UPumabfJQL/eaYjFFpFq0FBVgDJw9A8eeAJQvDPFi71qcmkravvSTq
+	EsGEcHs5DmEtfHg8TJk59rlaVGlOPWdUNBJOET7tn/cENcm72wG9w+LxYMARhCqSmsHE9Ux28yT
+	4JX4ySfOfdim65x3uixDkYAkvJTMMLo51hs0FrVXxCHaM+SmHYli
+X-Received: by 2002:a05:600c:3f16:b0:4a1:fb01:13 with SMTP id 5b1f17b1804b1-4b9633cee64mr34051605e9.18.1794154917053;
+        Sun, 08 Nov 2026 08:21:57 -0800 (PST)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7d54d6f93sm272669515e9.0.2026.11.08.08.21.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 08:21:56 -0800 (PST)
+Date: Sun, 8 Nov 2026 17:21:51 +0100
+From: =?iso-8859-1?Q?G=FCnther?= Noack <gnoack3000@gmail.com>
+To: Shi Lecun <shilc2025@mail.sustech.edu.cn>
+Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
+	gnoack@google.com, Fengwei Zhang <zhangfw@sustech.edu.cn>,
+	Bryam Vargas <hexlabsecurity@proton.me>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: landlock: clarify F_SETOWN signal scoping
+Message-ID: <20261108.5b4268b47da6@gnoack.org>
+References: <20261107.2f1fa9977739@gnoack.org>
+ <4C69C1457B12AD80+20261108055048.3745750-1-shilc2025@mail.sustech.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,61 +104,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261107224733.1104094-2-Jeremy.Jean@oss.cyber.gouv.fr>
-In-Reply-To: <20261107224733.1104094-2-Jeremy.Jean@oss.cyber.gouv.fr>
-From: Dmitry Safonov <dima@arista.com>
-Date: Sun, 8 Nov 2026 16:19:00 +0000
-X-Gm-Features: AclHuK-RlKB8cK6nkN9idStz4fDt7ECu6dP4yCWsCwUDnlTQSNjJu1k9KvIrby8
-Message-ID: <CAGrbwDQFY8gBtEKi2RaSMUSEvLLVADspgoLLppwNt5XQgd-hxw@mail.gmail.com>
-Subject: Re: [PATCH net v2] tcp: fix authentication bypass via unsupported TCP
- auth options
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Salam Noureddine <noureddine@arista.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4C69C1457B12AD80+20261108055048.3745750-1-shilc2025@mail.sustech.edu.cn>
 
-On Sat, Nov 7, 2026 at 10:49=E2=80=AFPM J=C3=A9r=C3=A9my Jean
-<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
->
-> tcp_inbound_hash() parses both TCP-MD5 and TCP-AO options when at
-> least one of the two features is enabled. With TCP_MD5SIG=3Dy and
-> TCP_AO=3Dn, a packet carrying an AO option reaches the disabled
-> tcp_inbound_ao_hash() stub. That stub returns success, so sockets
-> configured to require MD5 authentication end up accepting
-> unauthenticated data. A forged AO option skips the unsigned fast
-> path, which is the only place where tcp_inbound_hash() can return
-> SKB_DROP_REASON_TCP_MD5NOTFOUND.
->
-> The inverse configuration with TCP_MD5SIG=3Dn and TCP_AO=3Dy has the same
-> problem for an MD5 option on AO sockets.
->
-> Note that TCP-AO depends on 64BIT: therefore, every 32-bit kernel with
-> TCP_MD5SIG=3Dy is in the vulnerable configuration.
->
-> Make the disabled stubs reject options for the unsupported
-> authentication scheme. This matches the real helpers' behavior for
-> sockets without keys. It also means that kernels with TCP_MD5SIG=3Dn and
-> TCP_AO=3Dy now drop segments carrying an MD5 option on unkeyed sockets,
-> as kernels configured with TCP_MD5SIG=3Dy already do.
->
-> Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+On Sun, Nov 08, 2026 at 01:50:48PM +0800, Shi Lecun wrote:
+> The signal scope check for asynchronous I/O notifications uses the
+> Landlock domain saved when fcntl(F_SETOWN) configures the recipient.
+> Adding LANDLOCK_SCOPE_SIGNAL later therefore does not retroactively
+> restrict these pre-existing registrations.
+> 
+> Document this boundary in the IPC scoping section and link to the fcntl
+> documentation for I/O availability signaling.
+> 
+> Link: https://lore.kernel.org/linux-security-module/20261107.2f1fa9977739@gnoack.org/
+> Suggested-by: Günther Noack <gnoack3000@gmail.com>
+> Signed-off-by: Shi Lecun <shilc2025@mail.sustech.edu.cn>
+> ---
+>  Documentation/userspace-api/landlock.rst | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
+> index 3d45b956b640..cc9c5b102b8d 100644
+> --- a/Documentation/userspace-api/landlock.rst
+> +++ b/Documentation/userspace-api/landlock.rst
+> @@ -499,6 +499,10 @@ The operations which can be scoped are:
+>      This limits the sending of signals to target processes which run within the
+>      same or a nested Landlock domain.
+>  
+> +    For signaling of I/O availability (:manpage:`F_GETSIG(2const)`), Landlock
+> +    checks are done with respect to the Landlock domain at the time of
+> +    ``fcntl(F_SETOWN)``.
+> +
+>  ``LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET``
+>      This limits the set of abstract :manpage:`unix(7)` sockets to which we can
+>      :manpage:`connect(2)` to socket addresses which were created by a process in
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> -- 
+> 2.56.0
+> 
 
+Reviewed-by: Günther Noack <gnoack3000@gmail.com>
 
-Acked-by: Dmitry Safonov <dima@arista.com>
+Thanks, looks good!
 
-Thanks! Nice find.
-
-I think TCP-AO patches tried to preserve accepting MD5-signed segments
-on !CONFIG_TCP_MD5SIG kernels and AO segments on !CONFIG_TCP_AO ones.
-That's why the default stub was to accept the segments.
-
-And I prefer we don't add prematurely ifdeffery to tcp_inbound_hash()
-as long as no-one complains on this changed behaviour under kernels
-with disabled auth options.
-
-Thanks,
-           Dmitry
+–Günther
