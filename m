@@ -1,98 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794122402;
-	b=TU/60uW6q2DsK5prA+yxFGOMdAfmMr9r4mdC/U8l7BUfEtTfqz0TbfXZX4lFzTx889wi
-	 6h3fIsdIFtOGrQQEP95mPPpwV+FcJuZ5mIxaOe0Lwv7HRCMto3+P5Vk/m+DR3CHjPZpys
-	 GiuPl6dbrGxKClEfMYKVwf2hxLZPAs05/GkWcWeelv7Tp1Z0hlbdqvbry5bI2ZXBAy4LK
-	 +DVtedmjZMDjkjbEnJmoBCM17rpSQOd7G/leEDq0v0n+p2lZBe9LbXg0AAtVRAMN4qltR
-	 G3HJH5pIuD+W3VadJzvI1yAiWFzfgaaXsQHGvY1X9bviPQuYMA+bNvRIxY2sKjkRFfg==
+	t=1794122420;
+	b=H01yhTarZTb8CO04cAaL19rM5Bb2iK3/TUxpBIkbLlwEWOvZ/d5kSFHnRWYgPgxMVJlk
+	 5gWej5AMWQeAwAi7rvxDl5Pc4cSnEDchYfcNaP0ySikvh5YPQFssuczVoZJdo5hbzy67p
+	 cdLwb6VHsKDM9VETko4RydgvChN2WvTDgBjaJQdcCNdwAkP2N9oNacdWb5JB4afI+pmrB
+	 RxZO5LYgPx0/3lU3EgQ+eD136R0xOPfSVw2ooz+nhjPRg/RDQiz2xeCrhilH5FVB24k9H
+	 agfQ/XRZNTDzMNeyLFn6iIdhkP6Ejp+m0+rXYPMNHS6954FUJPShQM5Te5qMRdbKJTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794122402;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+BAEkxNvBHvI4oVXleZQzH89SgumnMLG6pLMtheddDc=;
-	b=WBWAX2Cx4N+6WBtnOsQtjUB4E8tq9Mh7yTVZH1bzAJF8hhtqT6DENRW+ql972yeOLdzl
-	 9vO0oxW8KqW/k/+7owAkKOTuv3TFyt/DvWduPWgxzrkypRQaWZDgMKndy8u1gsfjv25dD
-	 yVGAPYtaTE2Emn9ZH599gbpCvO54Q8aah+x8jsG2FMlux+v/H8UO539bWkKXbgOZO83XF
-	 EdNq7F6fnCQL7tM3dlX3iiYwqHQubrIXXsyoH+Rq3oX9F3dYnmC38/011bqaeEOWI9c5B
-	 zRa7SOJJRyigRsJgzex0oTQEqfIFCqDfQg+GazpIqne5OlvNepwH3BNeSZaCT0qkXNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794122420;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:Subject:From:To:Cc:X-Mailer:References:
+	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=oK11WFoEYcxKkv5gOP1n+/n0b5JmGN4huhLMKQpylEw=;
+	b=FCD7vqPXgSOO/RaZQOyU9Fzi1qifOw8TRShJXhj9613ZYRs3HmGDVeDtjmx4tVqLeXbz
+	 R7RAGCFWG+1cMUK3R9UPA7Cf6q0YKb6YdyosaxAVmLrmSiYX805lrBfVumA+KQvs6dXD/
+	 ZAhbuWm9UuI5t686mJoIhHglD0bDzaIbmvv1+9HFncxoAgORPB7l+SvZH8438LvW313Te
+	 2WH/IMUp0fh9zoTXpTmKPnoFGmvKft8HJU3G0zCx/uLYlNsNg50a9rMuoyjnqtZjF3XiR
+	 xz/+Fnk6TdvnvxcpV/+ZgeBBd8YSzm9L0mLHA0VgL4eM/oGnDa+UtF1IAXv4hlRrFSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sfktjfN3;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=VFDZBFhx;
+	arc=none smtp.remote-ip=54.254.200.92
+Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9FB606A323
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:20:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C9FB606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E26606A31C;
+	Sun,  8 Nov 2026 07:20:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39E26606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sfktjfN3
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36e99cf7bb3so473454eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:20:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794122400; x=1794727200; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+BAEkxNvBHvI4oVXleZQzH89SgumnMLG6pLMtheddDc=;
-        b=sfktjfN3V37CCy+hrbdEGwDMcQIioSmKt9TB+5jZ2nAWD43mk6QhkJKsqYQAAfMCON
-         r/juE6uGaHSB4UZB2luTxhKhlk1zTpl4K01yrIjnCMKvJT9agskrvkF6NtftyMGeiled
-         xhjzvplkwq63f8B8TRDysndylgpKERvoJbwQ3ZISBIjRkX9EGsWUg7bw0XoBgFeDuSyI
-         MZSLZJ9C95YlE6mrS1oiuD1BIZw928vu7kXTqrjDWiGfD+XBecjtmoqp5g9pWQZBPbp+
-         eehUHqKLQAEFoOojc4JULc/UC8i+5M/5EfQnj3SAkcCBnktMK2By/KE8rAO56m97T/fO
-         zmWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794122400; x=1794727200;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+BAEkxNvBHvI4oVXleZQzH89SgumnMLG6pLMtheddDc=;
-        b=YyzJJjOm5oJi2L4eeOqkdtNuj4Idgm4wiRlFFgw1cVafz0wiaWpeN11o7h9AxLD6lH
-         0uhc1wd+/up1Rdw6O+cAqLCQwI26grTY39gVz2iYobCMFkOekXeDvsBekyhJJGEJUhAF
-         331VIQo5Gn4Pq+ODgZY3Jx6zjslP6S6+wO/Ve+VKsh9Fk8Wdq1/qgcfXdt6wtVqAlnHE
-         VE9rnSuizYWklGOynPzAa0yHEkdxguKav+Ith5U1Ohl5/kKkCB9RVhEyOZkR0rl8+Ot2
-         l4kFRtBkm0+zG6izjXVKhpw64mQch71oW/ob6KwPHc+8rkZhZCI4deIpG2Xf2if9mOvX
-         oV0w==
-X-Forwarded-Encrypted: i=1; AL+hErGcSMfkNjd/uoBCiL1/XMXWHZG1ZRp2be+DorSVHzGvJ83+q5XyIzH8M/iMc6zdHMtvoyQmKCrguOF+j6A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/r7xLs36QZ8D9EFQNzBlbKJRMnHMGBQr36ljHfuupe9caflS94
-	XbUkt58VahMXkIm8pvwuEBibhglnbW2LZn6t2yNzozuUTgcozUEbXyQU
-X-Gm-Gg: AYBFou0lPZtE4N1GACyX2ry4wHpkEN1Q3k/lpqzdFelm2IAHV35MU/xUoB/oSfuQqTx
-	GtA+Dr5RcE4qYaJn9PZtjwu4Dbny5YGcTI+tLCW7xY3yMOMj5+QgTaiSPWMDNNMh8TjNKxNRHw0
-	FtU8gqj5C1N5Jj00XP27WwDEyztbXll1zQ8pSHpS41fjbP0/2i/0VnvI+q1/axz7uHNRyBw5rcP
-	M5moFxu7R83m0CVCzckRzM9H2kYQMEHuvRgwRloCoaxXXZ5zGNq/L8WHP9haxY/VMWeoFZiLIYO
-	fPydN5dN/r9X03B3GoTbThI/SxP4I3fBOrZhfU7jHua++WQGY3pVZuAEfaFgH1cYxIBAL+DLSRp
-	JH3NLdsKV0lYxy9sBfT1ui7TLSgnYsU0nzhBlfq7/FgWFFPqcm8wVD0Ist7b2YLJgbjl0bHdFdj
-	Xt5ZeIusnVzUleqBmH0mbJPHA1DHEC4HDt/AYAAiuDLLrK27P3QQ4/ibsFmIFSIAGX7LIaYV+c6
-	PA6w8hBBupkh6XJxGSkWtqzkwho7GIZLxjNm9eWxB9vdS/wuH1wUf+1D8ODLak8dGMdHzpsAwXx
-	cxovBOW60FwgjHcXaFqvaWxl10dLzTQ2ZLryqfH10WJOlageTy37JcWIoyOlrGw14mw=
-X-Received: by 2002:a05:7022:7e8e:b0:188:e51:e86a with SMTP id a92af1059eb24-1b39fe307e4mr1220936c88.2.1794122400254;
-        Sat, 07 Nov 2026 23:20:00 -0800 (PST)
-Received: from cachyos-x8664.nitc.ac.in ([61.1.180.57])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755e8911sm4207262c88.5.2026.11.07.23.19.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 23:19:59 -0800 (PST)
-From: John Robin <johnrobin044@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: kuba@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	John Robin <johnrobin044@gmail.com>
-Subject: [PATCH v2 4/4] wifi: mt7601u: optimize management frame routing and queues
-Date: Sun,  8 Nov 2026 12:47:46 +0530
-Message-ID: <20261108071820.35303-5-johnrobin044@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261108071820.35303-1-johnrobin044@gmail.com>
-References: <7ededd2f-98d0-41ac-91b4-2977963c4637@gmail.com>
- <20261108071820.35303-1-johnrobin044@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=VFDZBFhx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794122369;
+	bh=oK11WFoEYcxKkv5gOP1n+/n0b5JmGN4huhLMKQpylEw=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=VFDZBFhxBpsg4a8fgdFMmvshrrlVoQAcFWvoM4UJ0p+D0GaPsEAQ93TE9XBOEk3Lb
+	 gnnQ90p9Ga3WWHEBbs+CvWJh5UjTEcxe2UosH218ChliKGWWOMmpNsR24LIg/5T1Uz
+	 rDIGG5iSq1yKuUIFDeyUsr4RUf3nVnV3+9RA83OM=
+X-QQ-mid: esmtpgz15t1794122363t4cfaa196
+X-QQ-Originating-IP: 70UR/8/Qz3+J8nvl4pXEMghTUj9NoHrmNfQe2/YfDAM=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sun, 08 Nov 2026 15:19:20 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 17965104858753304052
+EX-QQ-RecipientCnt: 20
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,84 +58,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=a02f21ac2a7151b86497f96503bce060f3b96109e2e2f1aeb6516b655868;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Sun, 08 Nov 2026 07:19:19 +0000
+Message-Id: <DMPNAPNEGQ5I.XYUIB7Y8HDCA@linux.spacemit.com>
+Subject: Re: [PATCH net] net: spacemit: Hold RTNL lock in emac_resume() and
+ emac_suspend()
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Andrew Lunn" <andrew@lunn.ch>, "Ali Tariq" <alitariq45892@gmail.com>
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Vadim Fedorenko"
+ <vadim.fedorenko@linux.dev>, <netdev@vger.kernel.org>, "Andrew Lunn"
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, "Yixun Lan" <dlan@kernel.org>, "Vivian Wang"
+ <wangruikang@iscas.ac.cn>, "Chukun Pan" <amadeus@jmu.edu.cn>, "Siddharth
+ Vadapalli" <s-vadapalli@ti.com>, "Tomas Hlavacek" <tmshlvck@gmail.com>,
+ "Muhammad Bilal" <meatuni001@gmail.com>, "Maxime Chevallier"
+ <maxime.chevallier@bootlin.com>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-reader-ipc4
+References: <20261105123441.2524171-1-alitariq45892@gmail.com>
+ <DMO13SWAGZAN.NYISGLGI7Y5A@linux.spacemit.com>
+ <c55c5878-d9c1-4863-bc55-99d334ba2ede@gmail.com>
+ <12a95b3a-9c8b-4a2d-9b81-12b3839e64a9@lunn.ch>
+In-Reply-To: <12a95b3a-9c8b-4a2d-9b81-12b3839e64a9@lunn.ch>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MME7GB1W8aIneB/PcnuM8U0HR8lqg7GEcSYyh9QnR9iBnl8iEvUaLDs4
+	6y0C5UuGxSfDnqzxzpUILr176+VdxBTwR1CSnzMDOC+Qh64bELgxp/Hkyp8noy9Of25x46I
+	/FnKlE/K/Rv97xcdgLt8WOdpfz7R+SNdoWYkSobFnDgYXdBpBp9BuSteBFDD84LanRBk5yh
+	Ci7jACHXSjtxnv/aS2WA8zuGNRSseo75nNLqeuTuZmg5qBuFSR/Dx9aJrngEuMf8thqPwXc
+	EgbGXUUQ4uvkfglsErxUet2fT06GQMb0gkzzQLJWyYxuXZwMQy9Ikms3sCuoeOkhyvd5LJ3
+	vJrmCD7t6MTpycaEGJDh7ENFsLoa8SLK/+P2VbNLLLzGqOLsiUnfnExMVuJ0XQHBACXY0DO
+	r09q5vimGa+iWbPEWeS5/IFEkzkYJl6ZnFHo0VP32ZXEuQJaiksiu1ZpaZwOuk/lDQfmGBj
+	tMdKZMa9oASYqrd9h3QEe64zXx1qJndo9TQlD571lEdVKeEzFjKvoXbOaWf32t+FFVy1SBJ
+	6jvmOJQjuiFj1UvEZZXvIROxmSK1LikxQNMXJYE3lpnuEMAU5WlRAB3dWS5VvHgXU1P5D9a
+	nNmC/JfvFz+lEVgcCtZLOJvwyAgudId9Gkr4W1W/HfwHtVxPQhk4zOsI6AJZcz5TMleTwTn
+	i/X4E+fdA0J9T6YDttqRhOgcTHZJk9MTBR7+dAwegXF/fV1t12vT0XNYbnLNuMYGkvxawVO
+	4+GY4W2pdZ3X+fcMLzZ4C/W/ls/OqICi4t3fMBjSrbxgqeYBxrKusKgaPqwPO8odPZvsdiz
+	NdS02qsMFbCHKtfvsGXdMV/QuOYtbfn8iCJ5xx6eaIR9Jzd4xGm7iFSZQBtubStlAmRiyC7
+	3jEF4G6meoq1M9Y4lsS1FQKT2dBOG9SdMUgWxkLLVesRTELpbHSb9Mrj3o3MZOW1+ybznnj
+	d0HpuSi8tJRU/67lqDuHmXQ345vrxITw/t40GAc3+NEYV7j2WO7TqZUOr1wZ4KRYsKXoijm
+	pr0ietjlLZP164/EV3cCLyj/S3IGn8RRTqcvHSb+rR8LNhkvQ5n79PzcuxYL6i/kZeisyKb
+	uG6rS3XrpBy+4PN+1E6IfDjNXH2tz3XnTyxTTTfRjHu
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-Route management and injected frames specifically to the Voice (VO)
-hardware queue. This bypasses potential firmware queue suspension
-issues. Furthermore, avoid requesting ACKs for multicast frames and
-skip the standard data rate fallback logic for management frames to
-ensure stable transmission.
+--a02f21ac2a7151b86497f96503bce060f3b96109e2e2f1aeb6516b655868
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Signed-off-by: John Robin <johnrobin044@gmail.com>
----
- drivers/net/wireless/mediatek/mt7601u/tx.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
+On Sat Nov 7, 2026 at 5:32 PM GMT, Andrew Lunn wrote:
+> On Fri, Nov 06, 2026 at 03:44:50PM +0500, Ali Tariq wrote:
+>>=20
+>>=20
+>> On 11/6/26 2:43 PM, Troy Mitchell wrote:
+>> > On Thu,  5 Nov 2026 17:34:37 +0500, Ali Tariq wrote:
+>> > > @@ -2056,7 +2059,9 @@ static int emac_suspend(struct device *dev)
+>> > >   		return 0;
+>> > >   	}
+>> > > +	rtnl_lock();
+>> > >   	emac_stop(ndev);
+>> > > +	rtnl_unlock();
+>> > >   	clk_disable_unprepare(priv->bus_clk);
+>> > >   	netif_device_detach(ndev);
+>> > This can deadlock. emac_stop() -> emac_down() calls
+>> > cancel_work_sync(&priv->tx_timeout_task) with RTNL now held, while
+>> > emac_tx_timeout_task() starts with rtnl_lock().
+>> >=20
+>>=20
+>> Thanks Troy, that makes sense.
+>>=20
+>> For the deadlock, I think the correct function to call is rtnl_trylock()
+>> inside the emac_tx_timeout_task(), which would return if the lock is alr=
+eady
+>> held and will hold the lock if it is not.
+>
+> rtnl_trylock() is generally a workaround needed for badly written
+> code. Please try to avoid it.
+Agreed. If the reset is done in place, the work does not need RTNL at all,
+so .ndo_stop can keep cancel_work_sync() as is.
 
-diff --git a/drivers/net/wireless/mediatek/mt7601u/tx.c b/drivers/net/wireless/mediatek/mt7601u/tx.c
-index 5aeeac0dd9fe7..47c78c4ff5144 100644
---- a/drivers/net/wireless/mediatek/mt7601u/tx.c
-+++ b/drivers/net/wireless/mediatek/mt7601u/tx.c
-@@ -27,6 +27,14 @@ static u8 q2hwq(u8 q)
- static u8 skb2q(struct sk_buff *skb)
- {
- 	int qid = skb_get_queue_mapping(skb);
-+	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(skb);
-+	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)skb->data;
-+
-+	if (ieee80211_is_mgmt(hdr->frame_control) ||
-+	    (info->flags & IEEE80211_TX_CTL_INJECTED)) {
-+		skb_set_queue_mapping(skb, MT_TXQ_VO);
-+		return q2hwq(MT_TXQ_VO);
-+	}
- 
- 	if (WARN_ON(qid >= MT_TXQ_PSD)) {
- 		qid = MT_TXQ_BE;
-@@ -134,6 +142,9 @@ mt7601u_push_txwi(struct mt7601u_dev *dev, struct sk_buff *skb,
- 	struct ieee80211_tx_info *info = IEEE80211_SKB_CB(skb);
- 	struct ieee80211_tx_rate *rate = &info->control.rates[0];
- 	struct mt76_txwi *txwi;
-+	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)skb->data;
-+	bool is_mgmt = ieee80211_is_mgmt(hdr->frame_control);
-+	bool is_mcast = is_multicast_ether_addr(hdr->addr1);
- 	unsigned long flags;
- 	bool is_probe;
- 	u32 pkt_id;
-@@ -148,14 +159,14 @@ mt7601u_push_txwi(struct mt7601u_dev *dev, struct sk_buff *skb,
- 				       info->control.rates, 1);
- 
- 	spin_lock_irqsave(&dev->lock, flags);
--	if (rate->idx < 0 || !rate->count)
-+	if (!is_mgmt && (rate->idx < 0 || !rate->count))
- 		rate_ctl = wcid->tx_rate;
- 	else
- 		rate_ctl = mt76_mac_tx_rate_val(dev, rate, &nss);
- 	spin_unlock_irqrestore(&dev->lock, flags);
- 	txwi->rate_ctl = cpu_to_le16(rate_ctl);
- 
--	if (!(info->flags & IEEE80211_TX_CTL_NO_ACK))
-+	if (!(info->flags & IEEE80211_TX_CTL_NO_ACK) && sta && !is_mcast)
- 		txwi->ack_ctl |= MT_TXWI_ACK_CTL_REQ;
- 	if (info->flags & IEEE80211_TX_CTL_ASSIGN_SEQ)
- 		txwi->ack_ctl |= MT_TXWI_ACK_CTL_NSEQ;
-@@ -197,6 +208,8 @@ void mt7601u_tx(struct ieee80211_hw *hw, struct ieee80211_tx_control *control,
- 	struct mt76_sta *msta = NULL;
- 	struct mt76_wcid *wcid = dev->mon_wcid;
- 	struct mt76_txwi *txwi;
-+	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)skb->data;
-+	bool is_mcast = is_multicast_ether_addr(hdr->addr1);
- 	int pkt_len = skb->len;
- 	int hw_q = skb2q(skb);
- 
-@@ -211,7 +224,7 @@ void mt7601u_tx(struct ieee80211_hw *hw, struct ieee80211_tx_control *control,
- 	if (sta) {
- 		msta = (struct mt76_sta *) sta->drv_priv;
- 		wcid = &msta->wcid;
--	} else if (vif) {
-+	} else if (vif && is_mcast) {
- 		struct mt76_vif *mvif = (struct mt76_vif *)vif->drv_priv;
- 
- 		wcid = &mvif->group_wcid;
--- 
-2.56.0
 
+--=20
+Troy Mitchell
+
+
+--a02f21ac2a7151b86497f96503bce060f3b96109e2e2f1aeb6516b655868
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavAidyEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC9B0gEA1znr4tPpsYVC
+nAv98ga0dRZipfyxeRX03GPDfyO2H9kA/0MZoMdmj9AE80+OsoJRT6mWefpeM6Si
+aoXyFnKOqZsD
+=cK0u
+-----END PGP SIGNATURE-----
+
+--a02f21ac2a7151b86497f96503bce060f3b96109e2e2f1aeb6516b655868--
