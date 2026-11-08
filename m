@@ -1,100 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794122901;
-	b=L4Ah0yjiG96fkNZ1UjzvYiALqsn2C9P+iOfpomzLcR2OTbeqP5ktErZKQGP3Y0xZa4Bn
-	 ecGaZ9u+Yul2XVvkSfdE4Rev9av+tPfOHlHo5zgXeDFSbbHdRkPDfOv+7QtvW9Ae17GbZ
-	 vgy4rbJWcQ2thBFeztC3pW+YzkG9pV4QH+CQS74zEBYYemEBwnLYvXKCKJ+qGS8OdhKdt
-	 q0Ntyrxwx1UMkC+Utgb8bOCH5X14r6dDjZc99Ja1hid7gqymfO3yeLYpge+NCGkN+w1YT
-	 WmWOrXh/gmUxXHg4CMOdvGJWnqFrKSSmWWy+AXQ5woJXbjk9Myiu0BXXNiQYk26f4ng==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794122901;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3GPdPWtz5u4EzHahKBPeD/s+natUps7WDXeM/yF/8SA=;
-	b=SmhlpMRECyBTvPHfk+kRyjvi4Xidm8j8JPQyIQTQutnk8FZBCU9v8rcZFeqxhDIa6/z8
-	 j3phuk+f9wXcaN/mChUvgRhbL700aasfRYGWA4lXlvdh5MO7OHMSqRbnXp4FKzqGLonqE
-	 Ql3yHC+7ugv/vcSAKTB9vMiSKTcoHrNIfG8JeNKM/yac9ul+ZNYqob182SVsiDv8EC3x2
-	 i9dheF/B37fbKI9G7nRKcfBR3sqqCweNFRMcoxS2SYy7pm4nMVGwqovX7j0b0hE034s9C
-	 xf6C4BKGRf1bXzt8Z+ARD3crqyLWemwuUchqUeUNpr6ye7TcNv3Pd+y0EY1YRXWdiKQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=WeH7TKdG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.48
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794123133;
+	b=pVfQQFn9LjiijjCmej/l9XHgC7BuwSN1AjOk6wWYv9dfk1uAMKnCkv9ggU7Z67hM06pQ
+	 zeFW5TQMcCQMh8PNkY229llUSp7d1amTpddmLzyQsVfJdRBc/oIuYhQoBqaMv+zjHWe9D
+	 2oD+zN39i/sgueCxDVQY382WqRAuuS/7joCVKc5/620wLFTxUIMW89FJyAo+mCB9LTG21
+	 +4AeRevUmuit2vSMdTRndP7fu5ONi80N6PwJOC1SJ6/HrnGWJWVrXs0jusKbvHGx471CX
+	 QCGs2puLyFpk0llQlG8FMTKHkrydKNKdwRQkUJUG79rsQZocWr8FjfnM3XcbENQrEFw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794123133;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 References:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:Thread-Index:
+	 Content-Language:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=gxiJBm5NHRze1wOQWiUuvxPhaR3l7aCkihnUvorIFDY=;
+	b=Z/JwJ8a15/c6sjc7gwrf+HCYs5qEtDhv5ml1/rqET5qpgidXEGIbbNT6O0lxlduD55IQ
+	 dgBS7evTbbh993fv3AAORmV8ohzYdTRjPxCTaad57uLLXSD9IJ4bAN/8cUXg2xZ5OrpMz
+	 vTqwvvhckiz6QYp9mmh08M1VEJ914rouNXJ7kq2OyHrXii9BchTlkc3fP+V6cNr/bvAW6
+	 TOHHPpjGWwET+qc0B2SOw7WM+hM/xxYicKwNLt1c7+5n0znaUgCr8BbhF9A1icz0OvVhq
+	 xwC9w1cnAlBYNK0J20EQnztItAkgWNAf4pQp43N5BWSqaspKkXFMyWy5r5TG2UOt3Yg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ifk4dFYD;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CSRqLQly;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 661B0606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:28:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 661B0606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0CAA606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 07:32:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0CAA606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=WeH7TKdG
-Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7f84a55e31aso106076a34.2
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:28:20 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794122899; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UJOwei4V49uDdcuvVZ3Nfcz7/l1hrTDtNnzRMmSZynMxMIongKkoIFfSs1rVRhjhee
-         MVqYmll6uMjLKt7reBoIfcii0/M/lzErjqiwy82zxCrs7Cbjs9uRkBW5GH8ttQqCqpWT
-         N/as5M6HXSpg7xBhQiIoWF+H7RbgulymkfDQMG2n8Qfjyb8LYqhdtPzve4UD1ZLMcYbH
-         YSqQcG//+JkwBKqzy/OWnGAbW3ivG4HMCRMVTi3+JPqv85ib/SYIOcvgB0rY/f9TGZkW
-         I0Pi7hW4F+CiKUeJbDO5QLJE+E6HoBdyodB1O/0dS8LH4sYfTljrao1d57RKZWf0bwBS
-         flFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3GPdPWtz5u4EzHahKBPeD/s+natUps7WDXeM/yF/8SA=;
-        fh=QgfCHECHm4JioyCH5doCeNokov111UAc08YqNbaC6pI=;
-        b=dBwdZj67VSez+uf9Ett2zR+kC36nbmNP1nwtuUQdXT/zwPaotzfz+2/orVQbtmwdlE
-         GPEAdVBu+SRM5fZoq7HRmnhSVthlBAv1Ats6NT4+aQhYdD07HqHhbjiL7AaTWB+gOLwp
-         Rz6I/DvEbUXZO/PSDKWoCn0eHt6wtuzktPEiGaoPD245TMRnAaLK05KZgj0AviXV0Iz7
-         TFvMLbvPaq2p78Utpaph86qZrysIF2A54I3leL2PPIxOJvRFbM3ZdiHbMaqS/gpjVVtx
-         Dq93Ge18ld1JMWVM6J6iQirTCQvYITp1y0j9weX2Fv9w5fwOGwzsQr4PPQnlCC5bfvQk
-         DABQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ifk4dFYD;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CSRqLQly
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A84KJDY4143054
+	for <linux-kernel@vger.kernel.org>; Sun, 8 Nov 2026 07:32:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gxiJBm5NHRze1wOQWiUuvxPhaR3l7aCkihnUvorIFDY=; b=ifk4dFYDnT58wjpf
+	MjXdboe71nqyIWFSqu9O76oUSUvdkmhwLM7mBv6O0dk4XSZcQukL20T4CwKNOAks
+	CbYdZAarm+vggNFd6vzmSUkus+1IuWgH9O+U/pEXED/cDZuNEsKZ0UD53oIcqubR
+	qsIvBSvwycrVXoCyOyqnG9miA+3f/F4+9OwH8pGlHyLbljMgKR85f+asA+QX4B72
+	6Cy5dd2wWsLfQd6fsiQLuYAXsaUdjkg22aPf4/RhGaemKw5nWgIc5meSPnd7MHKl
+	8EKN/Lyfd7aTz0TtpB9d/zNZTeJzLghc89xPTAaZHZDxcXKwZY80tAeBPqMgPkUZ
+	XZshyA==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsvretd61-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 07:32:11 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36f26e6abe9so526706eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 23:32:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1794122899; x=1794727699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3GPdPWtz5u4EzHahKBPeD/s+natUps7WDXeM/yF/8SA=;
-        b=WeH7TKdGrs1Ow7zPTAoMdzv7JOc+fO38Bp+uhlxQz+1jUwMv0Isy44tFCD65yx5Bsd
-         5cHd8kTpl/6RZi05CCw5Hwgu4TT5S+XDyLtNGdlESLuAlhPvE6LTLWEsyZMPvVgZAakc
-         trhdTwVwo24cmPNCOr31y834JITed9ucDNoOcMzMbqit7fCRK+lc1fKHEu1c7854QTJp
-         kvmA8Rp7FpfIze9KXcP8Yjroflt6PIjZhNR77MdMLkxFZpO7YFcsDQYrIprjAMZG2Yth
-         x5XFlOvq8e53VNfPOH0nc1/YtGY250Am5JPJmPy9uj7qPcM5ryhgyNbWN/+AhqfJj2NB
-         LDxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794122899; x=1794727699;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1794123131; x=1794727931; darn=vger.kernel.org;
+        h=content-language:thread-index:content-transfer-encoding
+         :content-type:mime-version:message-id:date:subject:in-reply-to
+         :references:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3GPdPWtz5u4EzHahKBPeD/s+natUps7WDXeM/yF/8SA=;
-        b=oz8FnXHHUur+QkeXj5nykFmy932vPuiPDWk6DV76Tt/QCZhjRWffeFDGB+kcyq4Jo8
-         xrwM0uuKWilPFtqKiSnmsf4H0OtMbqHumal5x1TuvEimQ9lk8xrSFXsEtB+xHqRE6K8o
-         1TG8hiZUnRe+sbEWqdP+wkwinr8aiTO4VpXpKp9cejSVRx1wE+tEcVcAgriD5M5z6Nd0
-         ZNnMbbLgKkE65Vi6W/+ZUXPnZyYWdxiVQsjdRQ6sOirhmzaSU6V+GyMwEnUPLmhyALhq
-         zEltA8VN5YO9VHuiz1TIj4FzAQr8vlfbB9OqPGCr6uh2ZceAT/b2BStO8o45cR+PAcvn
-         WmRw==
-X-Forwarded-Encrypted: i=1; AKwUvBzcI2I1quO+hJ8vqIAO8Cfvxi2zneORoPssWiLoZy6aWxz/+z+8XuCfpMn81GLEQQVbgcNMqk/NGxz8MGs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z96yfebabUYxR/b2249Yt2qcyct0gSBcqMK+FpvGhhDQfzI7C+F
-	eToRueazOfbBy0sWbJKcH0C+Jzv3eGzsNO6WUPHMf2F+0u5eoGfeiiaucZccfffHvoMvz+f3Br+
-	wCRwpV+LmLLSSX3Ym+TQIRQ9BSA/rpnZwYPEoY43+/g==
-X-Gm-Gg: AYBFou0x+HNjr0JRFGZp0lok47GSYlWDxHw497WKeRlKrjKS2mbYUzVnXnUTdxBu4wG
-	GLKRQ/233i3V/b+fwC8AwsWjYsswIWrJrhbCqL/Nd1PXNdimsgm6coaj/RY3RJ/0JjDU/nmIqtK
-	P8SacNdG62syEm0uh0j7M9Hih5TgjrbW6V0h5HSNGY2sL2Je/2eMGCUeUO+L4DLK8FIsiu3Y14l
-	CLUbogKbX47foLh4YyHQ+2eieUHMcn9Rgwys0Xk5/NoMjjMNyHaAxTQM44nT5j0DLKQEC/OlnxB
-	yASQmqE+hOMSxXY2T/qqd0zGPNWzvcY7syR+Oe6B66ioYJ7hXrMqk5xXzGAcxmGajq5/WAoz+R/
-	3WkUij2VP1eiIkAjvqgrlN92rytexA0JjSPwD0BdAaj4=
-X-Received: by 2002:a05:6830:4492:b0:816:a9dc:6d05 with SMTP id
- 46e09a7af769-85f50450ebemr666748a34.4.1794122899111; Sat, 07 Nov 2026
- 23:28:19 -0800 (PST)
+        bh=gxiJBm5NHRze1wOQWiUuvxPhaR3l7aCkihnUvorIFDY=;
+        b=CSRqLQlyNrDLgFtO8o+8nqfxlpIdVEPDf5vpOdkUR2t+f/9YTEATyckCIyjmyQ1NQe
+         JdL4QQCvkXefGZ7rRXXfgosJvnJ94LPO9DwR2+qfy9s39I0Z1yS6Sybgpj6k1+SD2hi9
+         M8isAxXxM4Rjay9wOJjmwOj2/4ggxsOOi/hWpJqB0dT5PAdThR1/OIkAm//ZTpPWNrzS
+         AZZNgSY13f8KX+peSS63g78pNKqMvFPnvmzK9t1CsqfsUNn6iezoxsulN6yvnqU+y3/Q
+         1/T6MenuKcan8hmjTf3qgQNuHH/k/M8eIbwIFAAMopgAvPboUY5vbrxmpl1CIocSgzla
+         Fmqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794123131; x=1794727931;
+        h=content-language:thread-index:content-transfer-encoding
+         :content-type:mime-version:message-id:date:subject:in-reply-to
+         :references:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gxiJBm5NHRze1wOQWiUuvxPhaR3l7aCkihnUvorIFDY=;
+        b=bUgtt00M2o4S0reBXvZKJDrXMl+NemzC7hpQjNgJTwaQT4ZKcCmQ3CwISgqXkLiVkv
+         uzHjGxKjGRVDmxjVItNA2NH/2v3TxxEsTRklTofAv0O1ZBp7E+PZz7+lHzap3YQuhfU9
+         USuHGGc/IpmwfPHbFHPxexZ0yGPB4B9q8v1+88OUKdhrTpEan/XKGKULwDd+3cjbMQe4
+         m0UQ2S8T98jPqWD9fbwoIFYmYlahckH7LDw3lMk4WUH43RpPcts8iqPeRZdZWgso56NK
+         M+1LJJljI432wEcWC50hcFbXgrUJGTUDXlGiwEeHH9nGkzW2PmMK8d1QWtBGASHrwiOa
+         9wHQ==
+X-Forwarded-Encrypted: i=1; AL+hErFiytlFUKbF4m8dQVG1FzlF7PkCHbbm5J2xkswjyxMQ26T6Cs4AHrGvnCn7kcgpaNk0wbFMRUw9BKlRmSM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/PRuzreD+3HvTOOV3SXwmJCgkKt6Le4Q4xRRhz9lI/VVqUhVjD
+	m93K9zv5C+NASWDKu1h4Nb+4I40KZDokCaMfUrM/om50Ccfrrf+GqiUltPGhyTfAjYMUPdIIRFz
+	kj47hJEOs2GNcmqKgxAh67IpPlUYZCjCgud1MhCX+Jk7WEHFKdtccE9V/YZyPFUi+cwc=
+X-Gm-Gg: AYBFou30U9E5VIUvHfUSd5u4Xl0tMIsSdKNMzoTvq4/OKtABb9i6j+UlSvVXUstzqkt
+	8dekCiCMVZOJxQf3mR4y0UlchRiwT0rd7U1BkDvSxe+bJSuvkM5puhVqFkHHmC+dS3uJ+4BLnVJ
+	v8Z8h5iETrLw0c1aD8MzwFq5CDJqhE8RhGjmTFSAfMi/Oen/KIYVAH/YlLOXgMPZozo0IVlqlgb
+	UI0Vi4kZazsPwUtZfJiFa8AdwdGReNGXaVIiLFoxpx2fjgacMwGm9XKximPu7lQ/iEMWOQaY02o
+	1zQe1cVLgVizO8OLDXejwmuoA0OsiRmSxocNKIc7xVgmVdCNt5rAozaHdwAmDza7vB8RwZ+9aLs
+	Nx7SbkKxW6nSmoKKuR06UPDBwqBS26XwgfqPbwYMAzeFJpZP5MVSa1IToxViY1QlqOgC35S1J6s
+	WVNQH/HNESmP+17i7lU5qShKfL7XEtbmPrYE+4MuebuhuehaEmZjInDqPp
+X-Received: by 2002:a05:693c:26c6:b0:36a:12c4:8bd6 with SMTP id 5a478bee46e88-3725807c441mr2104201eec.22.1794123131055;
+        Sat, 07 Nov 2026 23:32:11 -0800 (PST)
+X-Received: by 2002:a05:693c:26c6:b0:36a:12c4:8bd6 with SMTP id 5a478bee46e88-3725807c441mr2104172eec.22.1794123130329;
+        Sat, 07 Nov 2026 23:32:10 -0800 (PST)
+Received: from QCOMk1gASIiYhG (66-33-8-210.colorado.intrepidfiber.us. [66.33.8.210])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372667d6088sm3933263eec.25.2026.11.07.23.32.09
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 07 Nov 2026 23:32:09 -0800 (PST)
+From: <subash.a.kasiviswanathan@oss.qualcomm.com>
+To: =?utf-8?Q?'J=C3=A9r=C3=A9my_Jean'?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+        "'Sean Tranchetti'" <sean.tranchetti@oss.qualcomm.com>
+Cc: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+References: <20261101233427.2050688-2-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20261101233427.2050688-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: RE: [PATCH net] net: qualcomm: rmnet: fix TX aggregation teardown race
+Date: Sun, 8 Nov 2026 00:32:09 -0700
+Message-ID: <000101dd6f53$43952740$cabf75c0$@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,221 +124,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260703122832.15984-1-cuiyunhui@bytedance.com>
- <20260703122832.15984-3-cuiyunhui@bytedance.com> <20260826010748.zphu3wh2hlm4t4o2@offworld>
-In-Reply-To: <20260826010748.zphu3wh2hlm4t4o2@offworld>
-From: yunhui cui <cuiyunhui@bytedance.com>
-Date: Sun, 8 Nov 2026 15:28:07 +0800
-X-Gm-Features: AclHuK_SNtR7Na4NEO8eC4WpcHN1PCPzaC_4JypevS8z-dbzdNtdoctuDfoYllw
-Message-ID: <CAEEQ3wn2+coQyDz1+cvGRDsFZu8u0d--HTyxqSz2sxq1obZFHA@mail.gmail.com>
-Subject: Re: [External] Re: [PATCH v8 2/3] riscv: introduce percpu.h into include/asm
-To: Davidlohr Bueso <dave@stgolabs.net>
-Cc: pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	dennis@kernel.org, tj@kernel.org, cl@gentwo.org, ast@kernel.org, 
-	daniel@iogearbox.net, andrii@kernel.org, martin.lau@linux.dev, 
-	eddyz87@gmail.com, memxor@gmail.com, song@kernel.org, yonghong.song@linux.dev, 
-	jolsa@kernel.org, bjorn@kernel.org, pulehui@huawei.com, puranjay@kernel.org, 
-	thuth@redhat.com, ajones@ventanamicro.com, ben.dooks@codethink.co.uk, 
-	rkrcmar@ventanamicro.com, samuel.holland@sifive.com, zong.li@sifive.com, 
-	conor.dooley@microchip.com, tglx@kernel.org, debug@rivosinc.com, 
-	seanwascoding@gmail.com, andybnac@gmail.com, menglong8.dong@gmail.com, 
-	cyrilbur@tenstorrent.com, wangruikang@iscas.ac.cn, atishp@rivosinc.com, 
-	apatel@ventanamicro.com, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, bpf@vger.kernel.org, 
-	arnd@arndb.de, nathan@kernel.org, nick.desaulniers+lkml@gmail.com, 
-	morbo@google.com, justinstitt@google.com, qingfang.deng@siflower.com.cn, 
-	linux-arch@vger.kernel.org, llvm@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+	charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQGbpdxbh/nRSzqnN/vaM8uyj5zlKLenWosw
+Content-Language: en-us
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA4MDAyOSBTYWx0ZWRfXwGKoGlFfWOdg
+ /3/i2f+xhkMQgCCzNtwwAb06CNXd16SkY06GA/ebGtefNzux7nCoXLYXVM5lIN/cF/41d2D0CxY
+ +DT6hbj4Yd7l26ibvTekULsQgtPyafU=
+X-Proofpoint-GUID: lyDneIBDBADlxjNs52-d-XLcQJW2zcd7
+X-Authority-Analysis: v=2.4 cv=FrKQbGrq c=1 sm=1 tr=0 ts=6af0257b cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=OltkOWFNRHEXGe+8VJKHzA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=gUkXs5wQAgBOA1n-_pMA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: lyDneIBDBADlxjNs52-d-XLcQJW2zcd7
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA4MDAyOSBTYWx0ZWRfX/cZCTR3UVFFu
+ aV4J6XHvDhYDDIUu5D4ebePGuklWHyoOio9sJUpFsilDkeso3/Dmt2yoa3WgIyBKDkakbZgefBG
+ 7hpe8dUSD8IzfprHNfP8q1jDE5BsvoiWD+x2rcN7Sau8srdrejBnUsBGifpNAaJD2IIVUDsUWdL
+ /E89anXBlyiXmpkIqSk1fB4HfMDj/g21h9p4TwTXL6Kzq3eFYOA4hgGlq02ZwMwfCz0Etv/vwyo
+ XgVJf70zh7c6ThAHWqfhhiuU1vde26CQVYrR6sizFEJXQSKa3f4w/od2y/DRCMaehsNRv5aqB0X
+ Wbr8gmmQ6NyVkpSdNRB3YdCG+sU3HRw484RC9dr8E9aBjGqzZhlpIdACi36XH5UxFW15gU1tOaF
+ OKwM7S35sy9jjvIx8f4wESP0sUyg0iGM2Y0gjzOYlKYRMhHcS80pEiWAMG1128OYxR0S7vn7IZU
+ mQulHiiQkvBhI8aDsbg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-08_02,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 spamscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611080029
 
-Hi Davidlohr,
+> -----Original Message-----
+> From: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> Sent: Sunday, November 1, 2026 4:34 PM
+> To: Subash Abhinov Kasiviswanathan
+> <subash.a.kasiviswanathan@oss.qualcomm.com>; Sean Tranchetti
+> <sean.tranchetti@oss.qualcomm.com>
+> Cc: netdev@vger.kernel.org; linux-kernel@vger.kernel.org; =
+J=C3=A9r=C3=A9my Jean
+> <Jeremy.Jean@oss.cyber.gouv.fr>; stable@vger.kernel.org
+> Subject: [PATCH net] net: qualcomm: rmnet: fix TX aggregation teardown =
+race
+>=20
+> There is a race in rmnet_unregister_real_device() because it cancels =
+TX
+> aggregation before unregistering the rx handler. A transmit that =
+already
+> obtained the port through rmnet_get_port_rcu() can wait on =
+port->agg_lock,
+> then create a new aggregate and rearm the timer after
+> rmnet_map_tx_aggregate_exit() has drained it. The timer can later =
+queue work
+> on the freed port.
+>=20
+> Unregister the rx handler first so that no reader can rearm =
+aggregation after
+> rmnet_map_tx_aggregate_exit() drains it.
+>=20
+> Fixes: 64b5d1f8f2d1 ("net: qualcomm: rmnet: add tx packets =
+aggregation")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> ---
+>  drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+> b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+> index 61b04c6c0390..2ff4b9519139 100644
+> --- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+> +++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+> @@ -40,10 +40,10 @@ static int rmnet_unregister_real_device(struct
+> net_device *real_dev)
+>  	if (port->nr_rmnet_devs)
+>  		return -EINVAL;
+>=20
+> -	rmnet_map_tx_aggregate_exit(port);
+> -
+>  	netdev_rx_handler_unregister(real_dev);
+>=20
+> +	rmnet_map_tx_aggregate_exit(port);
+> +
+>  	kfree(port);
+>=20
+>  	netdev_dbg(real_dev, "Removed from rmnet\n");
+> --
+> 2.47.3
 
-On Wed, Aug 26, 2026 at 9:08=E2=80=AFAM Davidlohr Bueso <dave@stgolabs.net>=
- wrote:
->
-> On Fri, 03 Jul 2026, Yunhui Cui wrote:
->
-> >Add RISC-V specific this_cpu helpers so common percpu operations can use
-> >short architecture sequences instead of the generic implementation.
-> >Native-width operations use AMOs, while 8/16-bit operations use Zabha wh=
-en
-> >available and a local 32-bit LR/SC fallback otherwise.
->
-> The subject and changelog could use some improvement. How about:
->
-> riscv: implement this_cpu operations
+Reviewed-by: Subash Abhinov Kasiviswanathan =
+<subash.a.kasiviswanathan@oss.qualcomm.com>
 
-Agreed.
-
->
-> riscv has no asm/percpu.h, so every this_cpu_*() read-modify-write
-> takes the generic fallback, which disables local irqs.
->
-> A single AMO is atomic with respect to interrupts on the local hart,
-> so this can be replaced by one relaxed AMO under preemption disabled.
-> Native-width operations use AMOs, while 8/16-bit operations use Zabha whe=
-n
-> available, or a local LR/SC sequence otherwise.
->
-> Some comments below, but I ran this on my sifive p550, feel free to add m=
-y:
->
-> Tested-by: Davidlohr Bueso <dave@stgolabs.net>
-
-Thanks for testing. I will add your Tested-by.
-
->
-> >
-> >Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
-> >---
-> > arch/riscv/include/asm/percpu.h | 296 ++++++++++++++++++++++++++++++++
-> > 1 file changed, 296 insertions(+)
-> > create mode 100644 arch/riscv/include/asm/percpu.h
-> >
-> >diff --git a/arch/riscv/include/asm/percpu.h b/arch/riscv/include/asm/pe=
-rcpu.h
-> >new file mode 100644
-> >index 0000000000000..76b1b8c1fb953
-> >--- /dev/null
-> >+++ b/arch/riscv/include/asm/percpu.h
-> >@@ -0,0 +1,296 @@
-> >+/* SPDX-License-Identifier: GPL-2.0-or-later */
-> >+
-> >+#ifndef __ASM_PERCPU_H
-> >+#define __ASM_PERCPU_H
-> >+
-> >+#include <linux/bits.h>
-> >+#include <linux/preempt.h>
-> >+
-> >+#include <asm/alternative-macros.h>
-> >+#include <asm/cmpxchg.h>
-> >+#include <asm/cpufeature-macros.h>
-> >+#include <asm/hwcap.h>
-> >+
-> >+#define PERCPU_RW_OPS(sz)                                             \
-> >+static inline unsigned long __percpu_read_##sz(void *ptr)             \
-> >+{                                                                     \
-> >+      return READ_ONCE(*(u##sz *)ptr);                                \
-> >+}                                                                     \
-> >+                                                                      \
-> >+static inline void __percpu_write_##sz(void *ptr, unsigned long val)  \
-> >+{                                                                     \
-> >+      WRITE_ONCE(*(u##sz *)ptr, (u##sz)val);                          \
-> >+}
-> >+
-> >+PERCPU_RW_OPS(8)
-> >+PERCPU_RW_OPS(16)
-> >+PERCPU_RW_OPS(32)
-> >+
-> >+#ifdef CONFIG_64BIT
-> >+PERCPU_RW_OPS(64)
-> >+#endif
-> >+
-> >+#define __PERCPU_AMO_OP_CASE(sfx, name, sz, amo_insn)                 \
-> >+static inline void                                                    \
-> >+__percpu_##name##_amo_case_##sz(void *ptr, unsigned long val)         \
-> >+{                                                                     \
-> >+      asm volatile (                                                  \
-> >+              "amo" #amo_insn #sfx " zero, %[val], %[ptr]"            \
->
-> So afaict that rd=3Dzero could steer the AMO away from the hart, no? From=
- the
-> Zaamo chapter, it notes that complex implementations "might also implemen=
-t
-> AMOs at memory controllers, and can optimize away fetching the original v=
-alue
-> when the destination is x0". Similar for the others (PERCPU_8_16_OP).
->
-> Maybe use a tmp register instead and force the old value from L1 ("near")=
-:
-
-Agreed.
-
->
->         u##sz tmp;
->         asm volatile (
->                 "amo" #amo_insn #sfx " %[tmp], %[val], %[ptr]"
->                 : [ptr] "+A" (*(u##sz *)ptr), [tmp] "=3Dr" (tmp)
->                 : [val] "r" ((u##sz)(val)));
->
->
-> ... which arm64 now does for its pcpu ops:
->
->         /*
->          * Use value-returning atomics for CPU-local ops as they are
->          * more likely to execute "near" to the CPU (e.g. in L1$).
->          *
->          * https://lore.kernel.org/r/e7d539ed-ced0-4b96-8ecd-048a5b803b85=
-@paulmck-laptop
->          */
->
-> >+              : [ptr] "+A" (*(u##sz *)ptr)                            \
-> >+              : [val] "r" ((u##sz)(val))                              \
-> >+              : "memory");                                            \
->
-> Should not need this clobber either - these don't imply barriers (but you=
- also get
-> them with the preemption disable/enable).
->
-
-Agreed.
-
-> >+}
-> >+
->
-> ...
->
-> >+#define this_cpu_cmpxchg_1(pcp, o, n) _pcp_protect_return(cmpxchg_relax=
-ed, pcp, o, n)
->
-> This triggers that cmpxchg variable shadowing issue you mentioned in patc=
-h 1 with
-> that __cpu_fallback_try_cmpxchg also using '__old'.
->
-
-Agreed. I will put arch_cmpxchg_relaxed() behind a typed __always_inline he=
-lper.
-
-> >+#define this_cpu_cmpxchg_2(pcp, o, n) _pcp_protect_return(cmpxchg_relax=
-ed, pcp, o, n)
-> >+#define this_cpu_cmpxchg_4(pcp, o, n) _pcp_protect_return(cmpxchg_relax=
-ed, pcp, o, n)
-> >+
-> >+#ifdef CONFIG_64BIT
-> >+#define this_cpu_cmpxchg_8(pcp, o, n) _pcp_protect_return(cmpxchg_relax=
-ed, pcp, o, n)
-> >+
-> >+#define this_cpu_cmpxchg64(pcp, o, n) this_cpu_cmpxchg_8(pcp, o, n)
-> >+#endif
-> >+
-> >+#ifdef system_has_cmpxchg128
-> >+#define this_cpu_cmpxchg128(pcp, o, n)                                 =
-       \
-> >+({                                                                    \
-> >+      u128 ret__;                                                     \
-> >+      typeof(pcp) *ptr__;                                             \
-> >+                                                                      \
-> >+      preempt_disable_notrace();                                      \
-> >+      ptr__ =3D raw_cpu_ptr(&(pcp));                                   =
- \
-> >+      if (system_has_cmpxchg128())                                    \
-> >+              ret__ =3D cmpxchg128_local(ptr__, (o), (n));             =
- \
-> >+      else                                                            \
-> >+              ret__ =3D this_cpu_generic_cmpxchg(pcp, (o), (n));       =
- \
-> >+      preempt_enable_notrace();                                       \
-> >+      ret__;                                                          \
-> >+})
->
-> With those above this_cpu_cmpxchg() you could now enable HAVE_CMPXCHG_LOC=
-AL.
->
-
-Yes, I will select it in a separate patch.
-
-> Thanks,
-> Davidlohr
-
-Thanks,
-Yunhui
