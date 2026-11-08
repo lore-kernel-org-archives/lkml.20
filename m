@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794143151;
-	b=udGAPNDrOA0QzUvQ9YFUdXc3AtNJXPpEAXYq6rhzmxh9X4tUl4XkUYDohYvoWQieIn/v
-	 nfghAlcpPeOtMXHnnX+g9A/2foTToR9saQLfaqDK+rGCMAVMQoeiux6sCYIV/HWOPOUf/
-	 0f9XRk2pRqnkP8CpLXcGc0LcYUZgX1CazDAxtwEDUBMzXHx1hgC1s3XXbHHWuB3f9pDGr
-	 8O6FhWuXO6GFPUvMCULix2e0Z/uv50wF5lR13LimlOABFY3HDC1G6hR5G9pFLr05KDeq4
-	 ynMkqF/VJqlEz8SKKS/9l6+C2dmZBLIIAUXb3ajrJD+hsVFc2VnX3NNuDL+9S8HWKlg==
+	t=1794143666;
+	b=rj7yPpBkgct21pGmKZ+k/RxwdDEuCNFHf2FY0lFK8vTxtOwdOjUFA7hjxlmeT+xlYRe9
+	 b6JohXswLttXXnlcm40dkLvSgR21AjV7JQ4/MKsNxu9tD27SacwvyZU52eNDmeX5uRTOi
+	 JWQr53YxEjxB07pkKGpXU2SOBCILRLn0UE4hNtH5PoN06tbm1nP+tfBhyeXAos2441UpO
+	 tq57hhJwj8DBvqsHGWubwGoNgogp3QquVHkE0KbJTu/94oCC5kQlXEBn/T/QL0oq9is5r
+	 3r7MoA077oup/MtnmRn7cObcvkNMbXI4rWc67DWwvthcDId27GjVDHyNQrFH/Ex/VaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794143151;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type;
-	bh=/ju0UIjdCG6ZiMr1SA/N7Lj70Ti90KDSIS/K4qvyQxQ=;
-	b=uejM8/yDrsYZlXUDy89vTOklOrTFGPtX5OQPU/0P0f7cGCE7RyR7TWDVhkzSsOHJR14z
-	 JlE3W/f8jK0UqFZ2W7eJgJ8cw+RGJe1LmPl1tmSww1jSBV25hq8302ly8tS/uTmNP+zds
-	 9rHxA8q1qOLHaP4BAF+MfUZO97WQXV4vM9NxS8Zi0rvDlxUtGxFtNHHAXMkQwumvFXlDB
-	 c0b2INaOooXBHwSxzFj76prnQD0YBHHPL3OF/iWuLsyec1Yi6tobiOFLlD3a9CMdDobZc
-	 SgjoKnIGeoWxGQp7tO+kmaorhk9wUERKjyEcrP+Y5GoL6gnzmRdPZfnjDEcQSe6EZcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794143666;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UPIbJgLYlLtieg0sQ/hF4HXStngZuJMWeYBhIiIHzok=;
+	b=CFyK7z18judKUsUDniM9mGp5/fmKHq+rkrq5VonqVPgC0fAlKzPzlq94q3bnJhb/Rl0h
+	 t0/YK0CxXHjy+vstpWJILZ+64VJ1w+hdnGlxfTk1LygwzrYN5LBXVB7hvL6sii5jnDJWI
+	 ye3ukHUK3t9tbmes0k+yQKaBUZ61CBlkJmWynfJDUOMGH/YrxSXimx9Mxps5VkSrRu72w
+	 wG1GbF5Pz6kROnXNIzFz73gy5wRMubTZdAgLd3VLRA8S9+Y3GO572g1NX8HyAGprp+q6B
+	 2G9yUa4GzmHSG2ovWagHy85Ut10jr7++9OGvcdBM6muWwLoqY7A4mD8L+o5/FDHL5/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=o3rqLGjq;
-	arc=none smtp.remote-ip=185.70.43.16
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AcOojZA0;
+	arc=none smtp.remote-ip=209.85.215.182
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE063606A31C;
-	Sun,  8 Nov 2026 13:05:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE063606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05BF606A32A
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 13:14:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F05BF606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=o3rqLGjq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1794143147; x=1794402347;
-	bh=/ju0UIjdCG6ZiMr1SA/N7Lj70Ti90KDSIS/K4qvyQxQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=o3rqLGjqvzp7+G6cz6+cQdskBARZy19bhv3arsNAaM6Mu/7MygMNlfAwf+DNDE7ua
-	 3BsuSmuFRODGta6hmfkPAtpNHnzQu8mR/xNqlG2dox3mywQ6xZ0VmRdtm8MWRkYott
-	 7RQfvnlaXH8pC9lI/PGHedSDHN4QkIsjxb57/ujWxglp2Pld05WgSoJIKY3UL9vFz/
-	 fsetGO2+6SxFXHWFbaVOukQfAYznq/l0+6Ep/PtD5PXNYHW7dc3Q7l4mckg1fwOjAr
-	 /EjIxp59cp5lSb+5u+r/dq+q2gZae8buhSk8ZCpCKnCgRVyDpSIWGtSQtwvg+nzk9Q
-	 Npc/SuJsDVEpw==
-Date: Sun, 08 Nov 2026 13:05:39 +0000
-To: linux-wpan@vger.kernel.org, netdev@vger.kernel.org
-From: Ryan Prinz <rc4d5a@protonmail.com>
-Cc: Alexander Aring <alex.aring@gmail.com>, Stefan Schmidt <stefan@datenfreihafen.org>, Miquel Raynal <miquel.raynal@bootlin.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org, Ryan Prinz <rc4d5a@protonmail.com>
-Subject: [PATCH RESEND] ieee802154: 6lowpan: validate fragment offset against datagram size
-Message-ID: <20261108130206.754001-1-rc4d5a@protonmail.com>
-In-Reply-To: <20261107223217.718177-1-rc4d5a@protonmail.com>
-References: <20261107223217.718177-1-rc4d5a@protonmail.com>
-Feedback-ID: 190731814:user:proton
-X-Pm-Message-ID: 3198adb360e38418fb809f75944811b80fa1d874
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AcOojZA0
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdb2893531bso27689a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 05:14:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794143665; x=1794748465; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UPIbJgLYlLtieg0sQ/hF4HXStngZuJMWeYBhIiIHzok=;
+        b=AcOojZA0psLrwqIyKqUEvAvtS27i5/E649iK0TXinUu9RgKY69ROlUSPS865058+aB
+         0rpzug/5Ybn/lybCz7iq6adkhQrZmysZ+D++bQw/AQUAz4UcQn7ZROLxV3g2QXUN+Ne+
+         q9eNoBq0s4jdV4+5IC4CStws5Hb5HEsozC670lHmHGjpmn+zZ/wDrrxWXmUzhXVqsGkp
+         bO9QUyoF8Q3k6ibE9MQ3GydNWaIPo6Fr5UBYq4Muz3okRHzGfZtz/Lt5LfDNAGsuihYP
+         hI/fV2woFeQBJSn015Dr8ehtHPLJTavI2i18FDpU0RcTtA4xNeZl0Smu8i16Ad2VGA3I
+         eq7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794143665; x=1794748465;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UPIbJgLYlLtieg0sQ/hF4HXStngZuJMWeYBhIiIHzok=;
+        b=e1HcXwh2pqTKuOxyMUEeXovyCYhFOX2T2m2Xoxr0yzKQFz9KMlMeo5yk5vh9nLSgSN
+         thydJU7jwUFLVjMkD/Fx1tejP7I2McAgNA3b/QDe1EgvhiVQJ9+iTOE4jk1wg+Yf7twB
+         82I9d09qOzlRCi+BvFbgwk53kQHLL6rxrhWf2mRt+ztui0VFQDjfcHJPlqaxYjIdFfdo
+         5v0P12L1ewc/gorz9gk+M+F30dbF3MRbu4J0ECXRmGFxOxYO1XcT+Ap7x/K2hbBhwA9d
+         L06AB1ZrdgYI9AKiO6VIA8UFy5Px+AdOhM3Uy934eSUQDXnlI7foBLBAdiDJjbMMDmXu
+         ScDg==
+X-Forwarded-Encrypted: i=1; AL+hErHi3qLgRKb65ra5T3Cq66yMt8RNUujtRTIInSTjJAxK/g/bOV791y9L5oWo88062n3qk5oqyyMw4CECxJk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87pAvCZ26jcujE1Kb/syDyitNT6KZiz6ByoLVCdd24PSDgRQI6
+	HYDBrq2qLkApB+14p5Nbbz5DyCPjQwuhE0cZL/Po+109KkMaVDk2HTwlN8dIDg73
+X-Gm-Gg: AYBFou1hoNTFYJt7kofW8kKzl4zKoEWoQ8+CwfwCG7+csk2LN4IDCFjwYjlu1qJTU9L
+	NkepnrqOZmILTZcUGlPlZH58bYcmNdF7hwRITDKEyxMex43+ZV0ZsCqSw+u+sHS1WB4nSA40+yZ
+	C4qAqfNL6wn8wAS6Jz87+7CwVW9j1t5QGVLK7S0jO9vyGz4UrQLY/9sHaYnYcWnxKBu5vbbQetz
+	V5hqXVTjJYcvJgIiS/iowmeUXWF0ASZJ6wnTjXfZEb/idGCPY1urTB84x6a4ICX45PmbthgcMI+
+	H7kAlLueQ0zGhuQ/aR7degkfT8dj2+YvTc2frpzrtsDN96ZpKtQxSoL6oQGA5apfxmbNW+ekLXD
+	gg5DV4P+gyDLpLlwy3BKIQBM0pEQrz4N4yEKnA9QmrRGpc1bYsUfrW9G39X7sASeHeI2Tsv2maG
+	OdHOEUTCGQ8IWNgqpoCswOqeXmqX8TbiyL+yxHjYI2X/X9pFSFg9EbCHtaWSS/1gslSoKvejKH1
+	31dKerP6M1Lb8xfshyWqN+IVUjupyrN7450KGWzp531PUsCSNVYDD8uuxIwO9Z/3uc9zizqva9j
+	sM7trpwgBegOFP1Dh1iZs6EpU7Po3FrL2e9Y4Shu3p1EXL/E
+X-Received: by 2002:a05:6a20:9d97:b0:3e2:2021:89c with SMTP id adf61e73a8af0-3eed0a6e354mr1399476637.5.1794143664923;
+        Sun, 08 Nov 2026 05:14:24 -0800 (PST)
+Received: from ubuntu24.vpn.host.chaitin.net ([124.77.124.144])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb9696c959sm693211a12.28.2026.11.08.05.14.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 05:14:24 -0800 (PST)
+From: Yuansheng Yang <0xbeac@gmail.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v5] KEYS: Protect pkey method checks against type removal
+Date: Sun,  8 Nov 2026 21:14:17 +0800
+Message-ID: <20261108131417.77287-1-0xbeac@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <au3fT5HMq7IF-M3e@kernel.org>
+References: <au3fT5HMq7IF-M3e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,155 +103,229 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------2c03c29bb9b1c09a28d4879c764dda018846c6e22f456204e9f38544bf3c6b32"; charset=utf-8
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------2c03c29bb9b1c09a28d4879c764dda018846c6e22f456204e9f38544bf3c6b32
-Content-Type: multipart/mixed;
- boundary=1ea5e3d545f9d130cb916a3b988a47f35340a498e3004eb4c98226cb82f1
-From: Ryan Prinz <rc4d5a@protonmail.com>
-To: linux-wpan@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: Alexander Aring <alex.aring@gmail.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Ryan Prinz <rc4d5a@protonmail.com>
-Subject: [PATCH RESEND] ieee802154: 6lowpan: validate fragment offset against datagram size
-Date: Sun,  8 Nov 2026 14:01:17 +0100
-Message-ID: <20261108130206.754001-1-rc4d5a@protonmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261107223217.718177-1-rc4d5a@protonmail.com>
-References: <20261107223217.718177-1-rc4d5a@protonmail.com>
-MIME-Version: 1.0
-
---1ea5e3d545f9d130cb916a3b988a47f35340a498e3004eb4c98226cb82f1
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-A 6LoWPAN fragment announces the total size of the datagram it belongs
-to (d_size) and its own offset within that datagram. The reassembly
-code never checks that the offset actually fits inside d_size, so a
-fragment claiming to start far past the end of the datagram is
-accepted the same as a legitimate one, allowing an attacker to forge
-data of another sender.
+keyctl_pkey_query(), keyctl_pkey_e_d_s() and keyctl_pkey_verify() check
+that key->type has the ->asym_*() method they need and call it later,
+without holding key->sem.  A reference keeps the key alive, but does not
+pin the module that provides its type.
 
-lowpan_frag_queue() considers a datagram complete by counting bytes
-received (fq->q.meat) against the declared size (fq->q.len), not by
-verifying the bytes form a contiguous range. A fragment with an
-out-of-range offset still has its length counted toward that total, so
-a legitimate fragment exchange plus an attacker fragment can sum to
-d_size, marking the datagram complete while a gap in the data was
-never filled, and appending the out-of-range fragment's bytes to the
-end of the reassembled buffer as if they were part of the message.
+When that module is unloaded, unregister_key_type() waits for the key GC
+to process every remaining key of the type.  For each such key, the GC
+takes key->sem for writing, switches key->type to key_type_dead, whose
+->asym_*() methods are NULL, and destroys the payload.  If this happens
+between the check and the call, the keyctl calls a NULL method:
 
-IPv6's reassembly (net/ipv6/reassembly.c, ip6_frag_queue()) computes
-end = of
-fset + payload length for every fragment and checks end
-against IPV6_MAXPLEN, which bounds offset by construction. 6LoWPAN's
-d_offset and d_size are independent wire fields with no such coupling,
-and no separate bounds check was added for it.
+  KEYCTL_PKEY_SIGN task              Module unload and key GC
+  ------------------------           ------------------------
+  keyctl_pkey_e_d_s()
+    if (!key->type->asym_eds_op)     unregister_key_type()
+                                       GC: down_write(&key->sem)
+                                       GC: retype to key_type_dead
+                                       GC: up_write(&key->sem)
+                                     free_module()
+    in = memdup_user(...)
+    key->type->asym_eds_op(...)      -> NULL call
 
-The same class of bug was assigned CVE-2019-8359 (CVSS 9.8) in
-Contiki-NG's 6LoWPAN stack before a 2019 fix; RIOT-OS's implementation
-(gnrc_sixlowpan_frag_rb_add) rejects a fragment once offset + size
-exceeds the reassembly buffer's datagram_size. Linux's 6LoWPAN
-reassembly is the only one of these implementations without an
-equivalent check.
+If it happens while the method is running, the method is left running in
+freed module text.  In-tree, turris-signing-key provides ->asym_query()
+and ->asym_eds_op() and can be built as a module.
 
-Fix by rejecting any fragment whose offset, or offset plus length,
-falls outside [0, d_size).
+Take key->sem for reading around each ->asym_*() call, and check the
+method again under it, right before the call.  While key->sem is held,
+the GC cannot switch the key to key_type_dead, so unregister_key_type(),
+and with it the module unload, cannot complete: the type, its module and
+the payload stay in place until the method returns.  If the type is
+already gone when key->sem is taken, the check finds key_type_dead and
+the keyctl fails with -EOPNOTSUPP, as it does for any key type without
+the method.
 
-Reproduced two ways: with a local kernel module calling
-lowpan_frag_rcv() directly, and over mac802154_hwsim with three
-independent processes standing in for sender, receiver and attacker.
-An attacker in radio range who observes one fragment of an
-in-progress transmission reads d_tag, d_size and
- the addressing in the
-clear, then sends a single out-of-range fragment of its own. The
-receiver's reassembly completes with the attacker's bytes appended to
-the legitimate data. Both reproducers were re-run against this fix to
-confirm the out-of-range fragment is now rejected and the datagram no
-longer completes with it included.
+Otherwise, behaviour is unchanged:
 
-AI Disclosure: An AI assistant (Claude) was used to assist with the
-analysis and testing. I have verified the vulnerability, the fix, and
-the test results myself and take responsibility for this contribution,
-per Documentation/process/coding-assistants.rst.
+ - The existing checks in keyctl_pkey_params_get(), keyctl_pkey_e_d_s()
+   and keyctl_pkey_verify() are kept, so key types without the method
+   still fail at the same point with the same error.  No call relies on
+   them any more.
 
-Fixes: 7240cdec60b1 ("6lowpan: handling 6lowpan fragmentation via inet_frag api")
-Signed-off-by: Ryan Prinz <rc4d5a@protonmail.com>
+ - memdup_user() and copy_to_user() stay outside key->sem, as in
+   keyctl_read_key(), so no page fault is taken with key->sem held.
+
+ - key->sem is only taken for reading, so pkey operations and KEYCTL_READ
+   on the same key still run concurrently.  Writers such as KEYCTL_UPDATE,
+   KEYCTL_REVOKE and KEYCTL_SETPERM now wait for a pkey operation in
+   progress, as they already wait for ->read().  The in-tree ->asym_*()
+   methods do not take key->sem themselves.
+
+Nothing else in the kernel calls these three methods, so the four call
+sites below are the full coverage:
+
+ - keyctl_pkey_query(): ->asym_query() for KEYCTL_PKEY_QUERY
+ - keyctl_pkey_params_get_2(): ->asym_query() to check the buffer sizes
+   for KEYCTL_PKEY_ENCRYPT, _DECRYPT, _SIGN and _VERIFY
+ - keyctl_pkey_e_d_s(): ->asym_eds_op() for KEYCTL_PKEY_ENCRYPT,
+   _DECRYPT and _SIGN
+ - keyctl_pkey_verify(): ->asym_verify_signature() for
+   KEYCTL_PKEY_VERIFY
+
+This problem was recently fixed for keyctl_read_key() by 925c84e3cc21
+("keys: Protect the read method check against type removal") and for
+key_update() by aef3a8a4f988 ("KEYS: Protect the update method check
+against type removal").
+
+LLM assistants, OpenAI Codex (gpt-6.1-sol) and Anthropic Claude
+(claude-opus-5-5), found this while looking for other cases of the
+KEYCTL_READ problem, and drafted this patch and this description.
+
+Fixes: 00d60fd3b932 ("KEYS: Provide keyctls to drive the new key type ops for asymmetric keys [ver #2]")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuansheng Yang <0xbeac@gmail.com>
 ---
-Resending to fix a diff formatting issue in my previous mail.
+Changes in v5:
+- Keep the asym_query check in keyctl_pkey_params_get() (Jarkko), and
+  for the same reason keep the asym_eds_op and asym_verify_signature
+  checks that keyctl_pkey_e_d_s() and keyctl_pkey_verify() do before
+  copying the input.  All four call sites now get the same change and
+  nothing else moves.  This also restores the error for
+  KEYCTL_PKEY_VERIFY with a bad input pointer on a key type without
+  ->asym_verify_signature, such as turris-signing-key: v4 returned
+  -EFAULT there instead of -EOPNOTSUPP.
+- Rewrite the commit message around that change: what it does, why it
+  is safe, and why the four call sites are all of them.
+- Say in the changelog that LLM assistants found this bug and drafted
+  the patch and its description.  They also wrote the tests below.
 
- net/ieee802154/6lowpan/reassembly.c | 3 +++
- 1 file changed, 3 insertions(+)
+Tested on x86_64 under QEMU/KVM, with KASAN and lockdep, on 7.4-rc1
+with and without this patch.  A test-only key type module (not for
+merging) is unloaded while KEYCTL_PKEY_SIGN or KEYCTL_PKEY_VERIFY waits
+in memdup_user() on a userfaultfd page, after the early check:
 
-diff --git a/net/ieee802154/6lowpan/reassembly.c b/net/ieee802154/6lowpan/reassembly.c
-index ddb6a5817d09..9
-05ba5f86844 100644
---- a/net/ieee802154/6lowpan/reassembly.c
-+++ b/net/ieee802154/6lowpan/reassembly.c
-@@ -103,6 +103,9 @@ static int lowpan_frag_queue(struct lowpan_frag_queue *fq,
- 	offset = lowpan_802154_cb(skb)->d_offset << 3;
- 	end = lowpan_802154_cb(skb)->d_size;
+  without the patch: NULL call from keyctl_pkey_e_d_s() and
+                     keyctl_pkey_verify()
+  with the patch:    both return -EOPNOTSUPP
+
+When the module's ->asym_eds_op() is sleeping as the unload starts, the
+unpatched kernel faults on the freed module text; with the patch,
+delete_module() returns only after the method has returned.
+KEYCTL_PKEY_QUERY, _ENCRYPT, _DECRYPT, _SIGN and _VERIFY on an RSA-2048
+asymmetric key give the same results with and without the patch.
+
+In the two forced races lockdep also reports "bad unlock balance" for
+key->sem.  Its lock class is the type's lock_class, which lockdep drops
+when the module is freed, so any key->sem user that took its key
+reference before the unload can hit this, e.g. keyctl_read_key().
+Not tested on Turris hardware.
+
+v4: https://lore.kernel.org/all/20261105193632.34363-1-0xbeac@gmail.com/
+v3: https://lore.kernel.org/all/9d47e202bd11857b3555e6b95694b3c3a4f2460b.1793852399.git.0xbeac@gmail.com/
+v2: https://lore.kernel.org/all/20261104021414.50696-1-0xbeac@gmail.com/
+v1: https://lore.kernel.org/all/20261103032940.51826-1-0xbeac@gmail.com/
+
+ security/keys/keyctl_pkey.c | 49 ++++++++++++++++++++++++++++++++-----
+ 1 file changed, 43 insertions(+), 6 deletions(-)
+
+diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
+index 15b6bf6399..0ea6f2790e 100644
+--- a/security/keys/keyctl_pkey.c
++++ b/security/keys/keyctl_pkey.c
+@@ -129,7 +129,16 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
+ 	if (ret < 0)
+ 		return ret;
  
-+	if (offset > end || skb->len > end - offset)
-+		goto err;
++	down_read(&params->key->sem);
++	if (!params->key->type->asym_query) {
++		ret = -EOPNOTSUPP;
++		goto out_up_key_sem;
++	}
 +
- 	/* Is this the final fragment? */
- 	if (offset + skb->len == end) {
- 		/* If we already have some bits beyond end
+ 	ret = params->key->type->asym_query(params, &info);
++
++out_up_key_sem:
++	up_read(&params->key->sem);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -185,7 +194,16 @@ long keyctl_pkey_query(key_serial_t id,
+ 	if (ret < 0)
+ 		goto error;
+ 
++	down_read(&params.key->sem);
++	if (!params.key->type->asym_query) {
++		ret = -EOPNOTSUPP;
++		goto out_up_key_sem;
++	}
++
+ 	ret = params.key->type->asym_query(&params, &res);
++
++out_up_key_sem:
++	up_read(&params.key->sem);
+ 	if (ret < 0)
+ 		goto error;
+ 
+@@ -260,7 +278,16 @@ long keyctl_pkey_e_d_s(int op,
+ 	if (!out)
+ 		goto error_in;
+ 
++	down_read(&params.key->sem);
++	if (!params.key->type->asym_eds_op) {
++		ret = -EOPNOTSUPP;
++		goto out_up_key_sem;
++	}
++
+ 	ret = params.key->type->asym_eds_op(&params, in, out);
++
++out_up_key_sem:
++	up_read(&params.key->sem);
+ 	if (ret < 0)
+ 		goto error_out;
+ 
+@@ -305,31 +332,41 @@ long keyctl_pkey_verify(const struct keyctl_pkey_params __user *_params,
+ 	ret = keyctl_pkey_params_get_2(_params, _info, KEYCTL_PKEY_VERIFY,
+ 				       &params);
+ 	if (ret < 0)
+-		goto error_params;
++		goto out_free_params;
+ 
+ 	ret = -EOPNOTSUPP;
+ 	if (!params.key->type->asym_verify_signature)
+-		goto error_params;
++		goto out_free_params;
+ 
+ 	in = memdup_user(_in, params.in_len);
+ 	if (IS_ERR(in)) {
+ 		ret = PTR_ERR(in);
+-		goto error_params;
++		goto out_free_params;
+ 	}
+ 
+ 	in2 = memdup_user(_in2, params.in2_len);
+ 	if (IS_ERR(in2)) {
+ 		ret = PTR_ERR(in2);
+-		goto error_in;
++		goto out_free_in;
+ 	}
+ 
+ 	params.op = kernel_pkey_verify;
++	down_read(&params.key->sem);
++	if (!params.key->type->asym_verify_signature) {
++		ret = -EOPNOTSUPP;
++		goto out_up_key_sem;
++	}
++
+ 	ret = params.key->type->asym_verify_signature(&params, in, in2);
+ 
++out_up_key_sem:
++	up_read(&params.key->sem);
+ 	kfree(in2);
+-error_in:
++
++out_free_in:
+ 	kfree(in);
+-error_params:
++
++out_free_params:
+ 	keyctl_pkey_params_free(&params);
+ 	return ret;
+ }
 -- 
-2.51.2
-
---1ea5e3d545f9d130cb916a3b988a47f35340a498e3004eb4c98226cb82f1
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="publickey - rc4d5a@protonmail.com
- - 0xE775BF83.asc"; name="publickey - rc4d5a@protonmail.com -
- 0xE775BF83.asc"
-Content-Type: application/pgp-keys; filename="publickey -
- rc4d5a@protonmail.com - 0xE775BF83.asc"; name="publickey -
- rc4d5a@protonmail.com - 0xE775BF83.asc"
-
-LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
-ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuMTAuMAoKeGpNRWFkRFpyUllKS3dZQkJBSGFS
-dzhCQVFkQTFpeGV6cng0ZTBFNWJGcjV6UU8xMitlb20vdWZnUVFTS05jQwpHU1ZjUzlqTkxYSmpO
-R1ExWVVCd2NtOTBiMjV0WVdsc0xtTnZiU0E4Y21NMFpEVmhRSEJ5YjNSdmJtMWhhV3d1ClkyOXRQ
-c0xBRVFRVEZnb0Fnd1dDYWREWnJRTUxDUWNKRUFVYktZOW5tekdRUlJRQUFBQUFBQndBSUhOaGJI
-UkEKYm05MFlYUnBiMjV6TG05d1pXNXdaM0JxY3k1dmNtY21EdVNNSm1tcTJWVDN2aFkzY0JzRDFS
-YUVsZGE2dDdpTwo1S21uZXZwYXhRTVZDZ2dFRmdBQ0FRSVpBUUtiQXdJZUFSWWhCT2QxdjRPUWRH
-ZGFobnFvR0FVYktZOW5tekdRCkFBQmFDUUVBdWxVaElDbmFPSU9DT1d4T3pldUNUZ0dUVGkxM1k4
-WjdVL3pYaER1bmFpa0EvaUJRRVBZOEx5NisKU2RZUnZzekQwcHBsS0M0elB2WkhqRDZaMEo4U2Ir
-RUh6amdFYWREWnJSSUtLd1lCQkFHWFZRRUZBUUVIUUNwbApBSFVLZXNpb25QaGlBVnBvL3dDUFdt
-MnR3SGtpL0tmaUpHQVdlckIxQXdFSUI4SytCQmdXQ2dCd0JZSnAwTm10CkNSQUZHeW1QWjVzeGtF
-VVVBQUFBQUFBY0FDQnpZV3gwUUc1dmRHRjBhVzl1Y3k1dmNHVnVjR2R3YW5NdWIzSm4KNlJuS0R5
-WjJlV1BjOSs3NEJIR3VPM1E1VGVuWFZ6bWRrRjQ3L1lYQUxFOENtd3dXSVFUbmRiK0RrSFJuV29a
-NgpxQmdGR3ltUFo1c3hrQUFBN1RzQS8zRy9hUE9NeGE2MDZxdlh2U3lUOURDNTJCa294ZmlNMk5N
-SFpHK0QwSnVGCkFQMFhXbGRlbEVvTFY1bWNRbXFIVThqMVp2ZzRtT1hWL2owYytPWmRheVhUQnc9
-PQo9VnZDNAotLS0tLUVORCBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0t
---1ea5e3d545f9d130cb916a3b988a47f35340a498e3004eb4c98226cb82f1--
-
---------2c03c29bb9b1c09a28d4879c764dda018846c6e22f456204e9f38544bf3c6b32
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wqsEARYIAF0Fgmrwc6EJEAUbKY9nmzGQNRQAAAAAABwAEHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmdVS9eo+zjAiYA0l4KVgkLaFiEE53W/g5B0Z1qG
-eqgYBRspj2ebMZAAANfIAQCtF6Zd8rhwswy4nrHGfMF/jswh0TUkx7Q0ez0N
-CPr3kQD/TdaeisSlJm3LvLvmVkYKWlG9UEYjzyPsg74qGFYZ4wY=
-=X2QL
------END PGP SIGNATURE-----
-
-
---------2c03c29bb9b1c09a28d4879c764dda018846c6e22f456204e9f38544bf3c6b32--
+2.43.0
 
