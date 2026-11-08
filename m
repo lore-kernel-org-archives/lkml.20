@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794110413;
-	b=U5hJnZShoki8Mtkad9dmQTx3il3g4VV/ZemaAQrod8Mk9nJMp9mT+yvr/QF5WEjac08t
-	 UHN19WxP11KKcmhsjcHTIyFsOa76UE/tBH06y9fTxOuSrdKfWrB3djLEBr6CflGhVmJSt
-	 32ZVgIeReUWI0vsiGXLCKPI2W4RiRr3jrzIq0onwbHaCSsgalEuz8DAQWainMLtyIue59
-	 HpZeiGDkSXz086NYMWLIMRNyS3Ep7JHROBpY5s6Tq9PhIEwEurcJg8fFbToe8tvtAmCnG
-	 t4zzConb4rM6/gGbIlMVJ3OTBIodRVjye9Y3T+b1tClwRG+PgMyMWNmwFgq6r/j9giA==
+	t=1794110420;
+	b=IJYg+Gr3G3JckUPCklTq1c0rHjPgMOkB5mc2KKRz3Ns9Tz1IyJ148JdYCCBqTKE67/xO
+	 UZTKTA0SiFXpQGGyCK6mPy6+DTFXT+/t1C6LXiTiDlGkB+824aGYnzoFef77//GzE0sh/
+	 PKv0NujO2/wFHBdufrdGKCMCjUBG483fLD0UOxNT3G+DOa6oChBQhkedTit9/+BhbFLqB
+	 EsJ5KcVUYnTA0C03W4IDBj02cUQFZV5+Eb/EPpjyvzTJsxjc1t5awsZjW85ss3oAC0O3a
+	 8eiovQ5XbXMzzu1Vx3GC+asRb8fLETxXGkZ58XG/T8i3ge7zLqMY1Vqe3gWBQuvSAbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794110413;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794110420;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=Fm7dk54aTQ+ve82k3n7UjfY8j5o5QSbD2ilJ3czYZ9s=;
-	b=fiwHYpTxsaLJMlYrP0EtHv8/QibXEx+Yee7OVFlzbKFXn/AKSaRWZzPL4ddBc9WiPxXV
-	 L1JKggeboqHYGZ+oqaqHmFlea1+2375gFK8fm9Ct1HVwiFdYkxjFgAQ60E3wBgvqfQQ1d
-	 Ya8oRJ4cKbzSLuH2KOmj8AWuaQvng8wuyKmq3C+Eam1DmIsnOztEChGGmSnwfCquGuhHj
-	 1kAOMhO3JRNOkv9eb9Gqp5R/gZNBirHg9XNYQ37A3G0X31IHG0QNJg1+HqYTprhJUB2KD
-	 Pvj6yi0KhV+RXTJbIRpgEjdEPqODgBt9MEK9UqLTj44OwTTAyhUuVMGA3dh0+Tfsslg==
+	bh=UrC4HyOn/bvPcrrowKsvl5Z1rHtFYFEQwp1knoNMF4Y=;
+	b=EfrEkKYyck0Duq0EaKGoZ0CCA+X5qh8XLPCaUY+ecuOgGsP2BiNCX5qfzqz6I8oRHlFI
+	 RzgPTCUQKOzvlRNV/1mjZUNoWyXpigyenudYsF42KqW+j4IWln5Cm6obSqE1tWVci8/O2
+	 ml38csKa+E5VWGDDsDSgPWFJacG2ndBbtECC5w1joFgj0jO0neVl3SWfMw06+ZxBDPL+B
+	 W74t+mmE8vOb+/9u7k3W73IK+P8cq65RZRN67Flri1zsV7DDRuNiRQBymWsRww0gQnnpO
+	 dE8ppdZ57Ucefq/+sJ9nZhkEGBtMCz9IeIcMqw42eRi+nBmMgHiFKPWjNrSwn4aZFww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="cevSR/Vk";
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jbci8Mdy;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C2C606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 04:00:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60C2C606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B64606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 04:00:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71B64606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cevSR/Vk
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e47347279so74136f8f.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 20:00:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jbci8Mdy
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so1833705e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 20:00:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794110411; x=1794715211; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794110419; x=1794715219; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Fm7dk54aTQ+ve82k3n7UjfY8j5o5QSbD2ilJ3czYZ9s=;
-        b=cevSR/VkliMogtQRW+YzMZulGqDey7G2dUNthfEZ/ilfXISo6heT0vscTZ3fsrQBpv
-         xafQDz318vWiH6imAHOIPe9Io3MwLKNxBR5OudAKaNYqIeDzm6mwHDGaZWcbM5qRzbWd
-         ma10rQMPPkaiF1GQIl+HU+y4C1z399JcjDJQ4AocXvSdy0193lbnKW5DHlkJh20/vAHw
-         kNkcisbJ19StBODPcQ8ybEP8SsOT4upSJ0KzIO24Y/xHcHUVIKXJt4pMlDx5xlNih0P4
-         OgpnaqvquuLJ67dLT7BBwErsRGctAOQoJK2N+wAWs3q3139fkz7A2SIW2aFHfEEiZFSq
-         epaw==
+        bh=UrC4HyOn/bvPcrrowKsvl5Z1rHtFYFEQwp1knoNMF4Y=;
+        b=Jbci8MdyDs7lvP0iWjUnTWleyq227tvKbfMkxpoFnHFQtYGZdk/g+ayOvqRwkKuEmU
+         XUWVyBexBNKiir6fQT+eEDXF4wJVGEigCcr3PwfW6zGhyTrhqmy4dcwPKMLVqXdEZw8J
+         beRgT4GvQzD9aEMdkTOuXelzaeHrZYgqEwxkWt8gVyX2qrKP6TbbweLXttYQLAQm+fVT
+         LpQ/mTO63hqbCbb8cTGfMovVxJXSem3VnFPL4VmGlZ3EAO0ML9385pWXkAzxBom8a7qu
+         UIHV9Bu1o8ixAEnGOpi48G1e2wPm27j63oGa7ouylS8URrEWlGFIfcG4YsqrR1H6eeGg
+         ZZkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794110411; x=1794715211;
+        d=1e100.net; s=20260707; t=1794110419; x=1794715219;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Fm7dk54aTQ+ve82k3n7UjfY8j5o5QSbD2ilJ3czYZ9s=;
-        b=c45LedE2YAKOiAEi5GND27h7WMfTgMIaGjNcJVg658UK7yTUQZn5l/w6YOf6KfUbVI
-         /G/lcK2GANTH5/W3qUqOwkD8FkBi5JUQcTK/wj8a8XGhW/wJDe16M+6mpQnKq9VNanrs
-         JWtSdj6QnksWaYhQ0+fDURiSv4SiJNKljhGgoh6zFMxqNpgm27bhS8jmtlaVbMHEEoKb
-         TpAcD2mQn36ffQ6zhSewcG8/d3UYhNoFRWpzGS5peidvrtMTx+MYOmLrkTLNLWlqVnPn
-         bUhQMm7h9lKIUkk5D39ZArbpieA2bmtjs5VgfYSx9656uMIFPSS5RWT/TyVEPeKkaqIJ
-         E4JA==
-X-Forwarded-Encrypted: i=1; AL+hErFdKdqUDe3BWI8/7b0gzPPdZ3Tgsan083nsrGRILnSwXmHCUTfFFv4ELx20DXENz/KDQr3VPtWCetmMBuk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/j9paK1GK09dPrYPiwtpC/X//v5xU7YBENNcxbUc8N1UA2b3rs
-	zQX2t5KunjPRoktB9vmmpdbG2twbTtjATLGEl1CplqZdxsR2NUq4L44y
-X-Gm-Gg: AYBFou1oaoDEtMNpa5/ejxXyROy3mKulUFEGrBPMpn6pCgbFwuqtBn/wFaAPNliFjkd
-	OrwojajiZARSGxNirsH3NLtoyE4DPOByDkSHfIt4RsnlVf41f/JVWVZKRhedP8xV7o94JFFlatd
-	LdJo5JpZj7bCwdym9FYhVbAdMVRwLZCbE7toPjRgIZLXQrWDfF9aehtobcAmgK5g2lwg27X3UO1
-	2IMt4efMGFxJ4aAAdF/EbP8DPrtklSyr9jOBSMjD6Ijow8YZbdEIttYOB3iODjHEP7eMom9lsFb
-	EhUKDCGM0OGjci+C8mwwOQYZ/yNM0QFEsf3t1Q+/F7s1sHgMGnqVU6y7Hun2a1BNeb1L/uQMU6z
-	uKlJAYPXf1Qmepgv8CE+Qpho5WwNGTYf01jSf9gHKcZwWtJgOIMVNch6Lqf81/jxL2+EcSzCZit
-	ARtbZJT9Ishi5/GnUboBe6frL2Sq2j01rqN3IGwdxR1FNl/EAhTVCH0gMA5teuHFngDTVPJT9oq
-	l16spvYe8++5RidkwSvG6nt85Q+xsScM7mZe2xzl/TQ/IAjVxdcxLGRDTiSHI2oW8uhoXqrn0o4
-	3FXiVJvEUtVRCEKXANXbo3CXyCbG3DR0IXupTRwM
-X-Received: by 2002:a05:6000:310e:b0:48e:68d5:81a6 with SMTP id ffacd0b85a97d-4958502c858mr1324688f8f.34.1794110411323;
-        Sat, 07 Nov 2026 20:00:11 -0800 (PST)
+        bh=UrC4HyOn/bvPcrrowKsvl5Z1rHtFYFEQwp1knoNMF4Y=;
+        b=RyyRB556OCurrBJbEAECttlLcBe9AmHqi0iYUL98Rxqcvx3vjiRhDsmbBqktQczarn
+         S8kKfvC6ZHPvNxXGM2gIH3Ws8+YJRyWfX5KRCGF+xVB1iiZBHKV/n20e6LWsbPWwVN+m
+         BaKVw49tvm357VC5Pef59x/+02e4NTs2OROoe4wVeZyBX2Hk/UyAEPeHqcNzcLoo5jJk
+         o4aMv+I0ebMGdqY5C9t1TUabTIiS3/P8In8iYk+iD8wVkaQWrggTbh1ZNfgVZp2FIhbK
+         wz6HL6/XH8jGoqW9fGQhGJA2rw0Q2nxYGQO0KGMU6HfVhTyy1O/OLdngNWImGidfB3Q7
+         HRoQ==
+X-Forwarded-Encrypted: i=1; AL+hErFD/ddKHrV+ziQ/8J7Jw86crcNtiARUyWjqV9MSynBnrvv2wdLsUdSnBcT+RvWukzxbkW2JJ2+xVm0IKc4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87aGFtE759bdcTNafKeFcEdlaG4fZ5jjU/7jfobEAuW4J42tkQ
+	qiyeg3LLUnGOrlBIerd8TEKdFbSSaSGzXc4F5UF+6ujvAGuOlAdVGIgS
+X-Gm-Gg: AYBFou0u/pbfvqGF2cBcZSSW1dJlbgLvKbaYCjJtvOOD/QOYy0q9uFxawyvRSnYQo8j
+	4k0/yecEj6oPq++mePz5MfWkwvvM+iQiWZPiT3w2h4G3LzlYF71X2m5w3yEptDW2FOx71iM666g
+	YKb0a8vt4XWMyIFGbEsDXbPN4X9rECPjz4xlMvFsAevZseewjjIZ+zORcZFQEYAa6rrxCysFfly
+	RmByVCzWgypC11eJNDoDdYNfxZvbhzldWwxUL3hGXNZLloVULIt1xGSYKzmQFJGjBSu1q0qziX3
+	KBlBN3+jqOvDmRZEltL9/O7x9o9mArXrCkLuD5DXGDWSjoNGJxb16otkksfa4McTXYrFV+fztpb
+	+lLsS62jG1GcGRgX9jR5QCaM/kCudosoz377Zx4pcbSDMWxWNYfLoSj76zfG9VY5I0bUXovz0oJ
+	1F8sfIRsrWqTOF5NSm1GuJ8tVr49iabNM2HOz9U+W2kYubuimXSGV0mHC/pmVLxX2hjOSK2TNRQ
+	PgwgG+VgarQKDyFpkzX5k+ggZWUJJ2i2YGbv0my/TgWm0iXr0TyA6hSfGAAfb3hfYtjEMVZgihv
+	IDIPxPe96bVRKA6kHUEm/6H91M21y2eM+OLqS4mlymbwNT/TRQ7D4YuDb1ScvA==
+X-Received: by 2002:a5d:64e3:0:b0:48d:f02e:f7cc with SMTP id ffacd0b85a97d-4958a7c6923mr1114269f8f.24.1794110418848;
+        Sat, 07 Nov 2026 20:00:18 -0800 (PST)
 Received: from [192.168.10.105] ([212.58.121.92])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-495966f3163sm1736310f8f.11.2026.11.07.20.00.08
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-495966f3163sm1736310f8f.11.2026.11.07.20.00.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 20:00:09 -0800 (PST)
+        Sat, 07 Nov 2026 20:00:17 -0800 (PST)
 From: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-Date: Sun, 08 Nov 2026 03:59:53 +0000
-Subject: [PATCH 1/3] hwmon: (max31760) Fix the local temperature limit
- registers
+Date: Sun, 08 Nov 2026 03:59:55 +0000
+Subject: [PATCH 3/3] hwmon: (max31760) Report 0 RPM before the first fan
+ speed measurement
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-max31760-fixes-v1-1-a61450463059@gmail.com>
+Message-Id: <20261108-max31760-fixes-v1-3-a61450463059@gmail.com>
 References: <20261108-max31760-fixes-v1-0-a61450463059@gmail.com>
 In-Reply-To: <20261108-max31760-fixes-v1-0-a61450463059@gmail.com>
 To: Guenter Roeck <linux@roeck-us.net>
@@ -103,42 +103,42 @@ Cc: Nurettin Bolucu <Nurettin.Bolucu@analog.com>,
  linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Stanislav Aleksandrov <lightofmysoul@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794110404; l=1123;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794110404; l=976;
  i=lightofmysoul@gmail.com; s=20261108; h=from:subject:message-id;
- bh=WJExlUq5ujG6qQKDWF6XzEtTjL9CmUxpEncKbMZrTaQ=;
- b=7PBaY1x6zXFhU5famM+RU8tFWnND0XETbo0Ofb4N2FB/6ncUthuj+NWDSuVaNebMUeRee6+rC
- ueGNH53YyAXCjx3cJO7lmgktuK4aAVqPfTzk1LLTawkDVZEPXYyvXIc
+ bh=FxbsRDhsAQeAHLIgbcYP9LMu4jEFLcLLaEvT3bHxu9Y=;
+ b=wERcTEyMpU2gPovn1JsT0bI0NE5XWiD3a7OxYeL/AYkHtOSIaWXEhy1+V3BnrtT8iQxUQv3nl
+ 2QSLWq023ovDB2M9l5j7nqaWTYZxYQkEYIc8Y0FRvIl4XHkJcCmWvYx
 X-Developer-Key: i=lightofmysoul@gmail.com; a=ed25519;
  pk=jeRUlfmkhE53CJPoeIIXgu7rTE0ybDRH0HQrEwbydzg=
 
-temp2_max and temp2_crit use each other's registers, so reading them
-shows the local limits swapped and writing temp2_max changes the
-overtemperature (SHDN) threshold.
+The tachometer count registers initialize to 0 until the first
+measurement cycle completes after power-on. To prevent division by
+zero, tach_to_rpm() clamped tach == 0 to 1, causing it to compute
+and report 3,000,000 RPM (60 * 100000 / 1 / 2).
 
-Use the high limit (0x0C) for temp2_max and the overtemperature limit
-(0x08) for temp2_crit.
+Return 0 RPM when tach == 0 instead.
 
 Fixes: 38b04ad02d0d ("drivers: hwmon: Add max31760 fan speed controller driver")
 Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
 ---
- drivers/hwmon/max31760.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/hwmon/max31760.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/hwmon/max31760.c b/drivers/hwmon/max31760.c
-index 8d3be064b025..e3d86dc4257e 100644
+index e967555a21af..896bd0326b8c 100644
 --- a/drivers/hwmon/max31760.c
 +++ b/drivers/hwmon/max31760.c
-@@ -27,8 +27,8 @@
+@@ -68,8 +68,9 @@ static const int max31760_pwm_freq[] = {33, 150, 1500, 25000};
  
- #define REG_TACH(ch)		(0x52 + (ch) * 2)
- #define REG_TEMP_INPUT(ch)	(0x56 + (ch) * 2)
--#define REG_TEMP_MAX(ch)	(0x06 + (ch) * 2)
--#define REG_TEMP_CRIT(ch)	(0x0A + (ch) * 2)
-+#define REG_TEMP_MAX(ch)	((ch) ? 0x0C : 0x06)
-+#define REG_TEMP_CRIT(ch)	((ch) ? 0x08 : 0x0A)
+ static int tach_to_rpm(u16 tach)
+ {
++	/* The count is 0 until the first measurement */
+ 	if (tach == 0)
+-		tach = 1;
++		return 0;
  
- #define TEMP11_FROM_REG(reg)	((reg) / 32 * 125)
- #define TEMP11_TO_REG(val)	(DIV_ROUND_CLOSEST(clamp_val((val), -128000, \
+ 	return 60 * 100000 / tach / 2;
+ }
 
 -- 
 2.55.0
