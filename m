@@ -1,98 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.67
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794132782;
-	b=QckGKukM9f7c9Nh7zUgoDXIMw89/QN/zyJN9roy1KeEuP0pHyyaSY0hEwMv6B4FqzqFN
-	 wI/YgUZd3CdgrJZTFYRbvtvKrPxRmJ7dp9nA3v0V7wBvqypfLbSxljQmGaKjZ6nMsLxMx
-	 vUq8rl0EV5/FgAyLQ8od0XRg0GmMR96IsMbkQ9d0bI5QK3a6zXGuy1o256MkAm2ErnDC+
-	 8AATiv1BYSxV4YSc1wlNO0t8yYThxa/99T5Jrl1yGJ+Qw1XEWwEZJqbfOwMbfh2plxSbl
-	 Pkh/qqpiV9mHwrbSYiCWOuul55XFwt1xLgJ6m6gmNNj7HzCQW0vPgzoWltIbL/LrSkA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794132782;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8ksh18XjN31xXg5vP3s8jmBcfw7favlG3iLeKTZVOx4=;
-	b=h7YyUhxNURYpwiUpCvALTjuaeJqdTIj+QpQrpNrxb/rRvbOFlP+mlnHEm2OMnd4Tm3ii
-	 NJgYfdroVEJziLBGFQMey4qgWKdSr6F4kUiYtEiHa3wDYsBXNFbe3hImLlKJHbKcCwQqU
-	 VYlSrPKAkyeNFEbXp6mKwEBtbYJ4ASicXmuRVCUJWHFG6ADikYEU5nWyDc7N5pAWmPqkL
-	 BzdlnBXZ5vzXi2Ez840VmeSPx0FohBopC8qYAtmUT/zfNLlspPnF2bLsYlvPH48PGxt6n
-	 IssSzYmgDqPQ8adGBCZKsy4aMhAgWp3FJjj9+eLljM5EhK7mnpDzH7zdl1een56GqYA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mE6YxGNw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.67
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013067.outbound.protection.outlook.com [40.93.201.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD79E606A31C;
-	Sun,  8 Nov 2026 10:13:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD79E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=mE6YxGNw
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hmHG1DtytYWwkTBhoS/2DSxFC02hndS/APqwHcZheaVdMpsGM45uq3H8mQyX+X77K34XJCCKLyd9guhh1s+8VMmOK/qYlsVT5aonLpkmTp8WS+5/YcamR5qLYpHx6PEmsARVKuxD9vTG5YGF+JevRiejC648otxgdWqe2dZ8qQyuN+50nQDP1Au683w7riiEsiG2Dnct6/dZC95bJc10hrhXqOd5/PJ4JYd1118ZDSQJUb4Xg36+wysovHMwIc30DDw81VPR0Y6D06oVU8lMLHB+vLwhYbXeHez4FeXk4aGRWQq81rr1Mwa4p4ZYrKpmei5mh+5I6IlBFp3Twrd75A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8ksh18XjN31xXg5vP3s8jmBcfw7favlG3iLeKTZVOx4=;
- b=mImohuX8aUvMo25N5HEuEskoOb7uRj7aMudgYW1YQCWKoGDiWR3gKQwBzBX0prlUqTrh4WeU6dKCyQ5qkMhNEX+0X2//RtlwTDg6Lto+4+XkehmIcv7dGnwqiFdVdRCV4U92WS7jkfD2eavLCL7CiuEUX7WGAMllKSWa0lg0a5CcnJZFHKiGf/etzSulg2QAlmRTdfj682XFX9J9Ac7MUeCPgdO1zYAeMtMFboW+oZ0qJN4Y+3SUVdwOKXknxH6Eyu8mZP+XMzemNn+2BFGKpqAU82LnsAmlz0pVcWAJyDKiG2+R2zTsM3bXmfrC56oEEtv62Jvbwl2wnm0H1VPP3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8ksh18XjN31xXg5vP3s8jmBcfw7favlG3iLeKTZVOx4=;
- b=mE6YxGNw9B3oZ5JZZxxTOLrLZ1zoXJneP368IOL2i8KYhoVULZ13FtoRAaI/NRdk83VqtOFw6h+9eUvF4XgGN9ZLLhBQWUKjbwP+FgmgLgTR9fl8/xLiaZ1BEWe+ylquOvut4rlTPQ9qq77BKzwVjMrbmp23P05yypc1EV4K0QQ0Mb+uzbxZvg+GecPkdMYf31eHP7JCa3HkKHSy206arDdGpUncNVrC6EXdjBFImhHYiVACO3Z02svJ1aXFxaQpF0dRratVQoDepVC16UuwkAGMwaY9sY/Z+ttl3+I+OUnoCWwi48SfXC0Xin1b0ZF72AHDVFJjnlmNMeU2R9TNaQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA4PR12MB932075.namprd12.prod.outlook.com
- (2603:10b6:207:12d::15) by DS5PPFE52C859EE.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::666) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Sun, 8 Nov
- 2026 10:12:57 +0000
-Received: from IA4PR12MB932075.namprd12.prod.outlook.com
- ([fe80::5a6f:1f74:6ccb:cf2f]) by IA4PR12MB932075.namprd12.prod.outlook.com
- ([fe80::5a6f:1f74:6ccb:cf2f%5]) with mapi id 15.21.0592.010; Sun, 8 Nov 2026
- 10:12:57 +0000
-Message-ID: <04665957-efb5-4632-878a-6a45fa1553f5@nvidia.com>
-Date: Sun, 8 Nov 2026 12:12:55 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] net/mlx5e: TC, fix internal port leak when a flow is
- reoffloaded
-To: Wentao Liang <vulab@iscas.ac.cn>, Saeed Mahameed <saeedm@nvidia.com>,
- Tariq Toukan <tariqt@nvidia.com>, Mark Bloch <mbloch@nvidia.com>,
- Leon Romanovsky <leon@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261103102855.1340650-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: Tariq Toukan <tariqt@nvidia.com>
-In-Reply-To: <20261103102855.1340650-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MR1P264CA0047.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:3e::19) To IA4PR12MB932075.namprd12.prod.outlook.com
- (2603:10b6:207:12d::15)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794132844;
+	b=26rNXBbIkr3oMQR4H7gWMb/Zz3a9htzPCxpMTH1K0KDVA6WJa0MF+Ze03eGH+lvw/i+L
+	 VbJlHcuOg66BthQQJ2bArZurqoiRUBJtuLEZfaMoQrpuRyLe8Zfswc8Y8yf5NcvbJ/NNd
+	 V6bzNksaw2AkhikZD5KcEyT22w/qwrbtUEIZ8i2JfL0mOQk8qHPK68ySv4QL5XKa0UKUN
+	 HB6FirDz3qVAYnAH/A38WVAp0lEfrmgL5aGMk0dfoClsyiUbz2TS2xmwZJfQpwnaq/fYB
+	 VBPEumbmACUV6NUyV0SKGJfByHvU8aqONcii0tCHRoEQAzSSIzoV6kz7Q2yMKMhVQTw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794132844;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:From:To:Cc:References:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=vuq9GH5gRApVBk9dTBvyem1k6yaVp9YAvagEyAzC9wo=;
+	b=B/oyKMPrC11Kur/8ypvnZIU7RzO5jtlmMTTStMI6Wb00jzXyC2i1zWRtFnMizcrXBMz6
+	 2YnZD9gwzJKLRocM29NGw+YgEIfrEf8g9hFFWEa4HkeSd8PjRYzJfbQr3J0t+yy2Whgse
+	 CuzBZHEFgVedXmK4LrTtYimb74eb1Qi2/IKZaR+a11h66buAepPv7jsarRVbzP/c2GyOR
+	 T3DDy20CIA4jiIVRWn2Z/m5AvYey8h8vGkP9QAjizaftKTeLJ+LcTgYBpNlchyVK8bijv
+	 A9XKDrJInb6B9oCKpJvDFQup5LDsAkDBKD+STCVQmYg9+M26By+Dt9d2ZXc0Y5lsHhA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7976A606A31C;
+	Sun,  8 Nov 2026 10:13:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7976A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.52])
+	by app2 (Coremail) with UTF8SMTP id IQEQrMCGrcVfS_BqYZEIAA--.8011S2;
+	Sun, 08 Nov 2026 18:13:51 +0800 (CST)
+Received: from [100.81.40.43] (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wBHMR9aS_Bq8oENAA--.18075S2;
+	Sun, 08 Nov 2026 18:13:49 +0800 (CST)
+Message-ID: <bab86e6c-bbda-4ad0-bd88-5ace76946eb0@hust.edu.cn>
+Date: Sun, 8 Nov 2026 18:13:46 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,137 +45,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA4PR12MB932075:EE_|DS5PPFE52C859EE:EE_
-X-MS-Office365-Filtering-Correlation-Id: 590df0c7-0a71-4ab0-eb2c-08df3d80dc0c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|921020|11063799006|56012099006|261021123027099003|261021121427099003|261022105027099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	tQsBJVOkwgE3b/vqJJdn+X7fCeW0OJpQ23qJ+OViPVn7GPm52HiYgu34FsRPNMslRPmKOmmNJPe8Y6pbps1Moe5vIeeBzyeoGYWu+GUWOD8WfAEUxpukYVGDbEjPMDGZdYpgjNdMCwWKRUMDHvvUrviR9sS0JuNSnkseLwTD/MHPZo3pkvDhwLCZrNj+LoX19H094+i702qh2iiTcKl7XF7P/fcNCaeSoiBaHxwEAMdrIWWX90LCuyH4s8Z9bP0BSqWcfloOSr+eFAhPV0o1jAXTm3HD8SzVz1vYLC+UP0p+d3n2YSWbgog6fAosnq9xJ5LzMuSUuAtMRWyA7nzEKaxhOV5Wq82BPJt2H0iY4fyqV5xCdwAvbBeUbQQMD7//fMLoA3ckKtKisz2ga/86clSieTQQML4SPXi+ZAHtp5ald0vipQ4jtOQ1SK8ZdcEYAn0u22FBvNfE0u/8PcgB6BVj0YpOo7PqcDYU1OQHfXn9ih/kBmFBdzSY1rQcySXiDUp17+Fe7VBtiJZOTpc5zEt38xwn2T/0dy/soIjDnGA+RTs8chkDcNzX48GOMdD8DemIE3u2FZnddC38ufJMfdSTC4qQ/YcLZ2mAUkWWsSvrANJkAG7etIQ6JCPdRr+7rvYfeL97VxH3wa+0kLC5VsP7h2xiS5x0cGe9rVKtdNjveW21sIC+Fw0jWc6L1lEg/egKxk8K1JKQ4hUSu8t63g==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA4PR12MB932075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(921020)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SnFLdHBzWm5BZTJXa0pJeUtYTS9HOXhZOWsxOU5mYzRJb1ZDWkJVRXN6VFBF?=
- =?utf-8?B?aml2YWF4VjFRWk1jT25kY0tWM1poaVJYZzRmWTNROWdRNU5lbE50dExDbGJq?=
- =?utf-8?B?Y3F6SklmcDZxZGpoSkYzMytYQUhUSnVEc3d2K3FHVTFPdmltM2lMaXkwL0RK?=
- =?utf-8?B?RFNGeHlUMEJiRmJYU1hkV2dXM0VLZmlFT3FLOFV0WjFueW9QbzUxVXA0Ykk4?=
- =?utf-8?B?bkJhTSs3NW15dHpvZ1JUU1FERHFPc0NFSlI0SGxIZjA3TXByVyt4QXlTdFlE?=
- =?utf-8?B?SEo0T1kwS05JaXA4OVEwbFkyRlhyTEcyMWRqODdpY2NwcUVrSm1xYWRqNHRy?=
- =?utf-8?B?Nmp2VWg5NkhhZ3lmSmY1d3FBWmFBcmFQd1JsSDdLU3lwZGZERys4TWZld1pJ?=
- =?utf-8?B?ZlRvNlVBa05OeTRYUldmOWNadGlrZUQ4dXg3eUxwbTZUVnZTbjdxejhOU2c2?=
- =?utf-8?B?SVFOR2dvaUh0eHBadWVFazRpWnhyWDhLWEs0a0lIcFpmTWtMN2swdzU3R0VU?=
- =?utf-8?B?QXU2RTBYZ3hxbGxHSC9ZMHFnZnM2YnVhdTF6VWlpVlRYSHhkVE9SOCtTRHJQ?=
- =?utf-8?B?TkNKZzZFUXR0Yk12ajBKcUp2VzFRMHJNejVhWmJ4TEhrK2N5TEdQbHIzd3I0?=
- =?utf-8?B?MFdXQytNTE44T0FFLzFXZUlOMGtodUhNYjkxZzczL3dubkUydEhGb1BSL1E4?=
- =?utf-8?B?Zk54TGtZdUFCMFJkVkkray9RbVF4RnBzNldrTExDaS9oWUVRVjBhalJTV3p4?=
- =?utf-8?B?THViUmp4ZE9zU3p6NEJvQ2RmN1BKemh6c014TXlhN2RMeVdpVTZOS0FWVWRS?=
- =?utf-8?B?RmVncSt0T1dJMUprVU95VWxTOXJFb0YrblBDRHNuWHJQRXFMUUgwTHUvUy9Z?=
- =?utf-8?B?dWFjQXdkeG1yVzFkbnNOSDBVb3pNbEZURUpVVmJNd1g0M2F4S2loQTk0bVcw?=
- =?utf-8?B?U3V2Wk9NcVBlQ3FyYnVFc2poSTIwb1o3UkV3bkxzdUk2SlZLNFlkd1lQMWYx?=
- =?utf-8?B?dHhDNm05RldpckVKZHBaUENrWlQwZ2J0OU5UQmVsVXEzL3A2UXZSM0ZUakRC?=
- =?utf-8?B?dTZhQ0hDNVVmcUJzaDJ3dUd6Vm93STlkbUZvMGVwS1g5cmV2Wkx5NFQrMHN3?=
- =?utf-8?B?OHJvbWhaai9mUVdnaTUxY3ZOMmRHNVo1RUJLTm1EUVBhRXRaY0lkWXY4bm1G?=
- =?utf-8?B?c3JuMFhUcEMybUFrZGlkeG10WXIwbzhVeitOVjR3N3JBUXFlK2laN0hzeUtS?=
- =?utf-8?B?UUt6ZlY1OGFyZE9QNExYMVRvREh2eWd4Q04rZGRDYlF2Y1kyYlFLRUZzTC9G?=
- =?utf-8?B?ZVFhKysvR2NxUUNyR2hiTHlYN2lRelV6S2VCRzZjdkdLdjZZdSt2QmoxOGxH?=
- =?utf-8?B?Z2U5bU54T1VySklLYk0wZUl6K3l1ZHlJaGE5U2J2TmczbWVKV1lhSyszUEdu?=
- =?utf-8?B?YmdMTUhFbC8ydzZGV09ZOXJkaEtvQ0RUVmFFbkdxUXJ6REhCNFpKOG5rK2hE?=
- =?utf-8?B?ck8xaUNiZXRBZU45K3BCSWFXMmU1VE5UOFJyOTgxbWoxM0hsZ1VBVFZjVXVm?=
- =?utf-8?B?V1YzN1VKQlNCblBPTnlKeVdBbXhPSTNtL0JEM29CNVlYUmpIUkhPb0FaYVQ4?=
- =?utf-8?B?Nmg0eG5pVUdhRGtNRmFxLzczdjBGS01wbWZEcGJxM2dzc1E0bjdlcVFoZ0JV?=
- =?utf-8?B?ZHBub3FZYjVDWFhQaE5YYWRPSjB3ckxSNkR2SHRmanVLWE1hUnVZeDJiYkkx?=
- =?utf-8?B?RUR4U1Bid09vQkxmbUM3UW1YdEdCZkNDUkEydzJ2ZnJwRlQvNWk1S3d0TEJJ?=
- =?utf-8?B?Z2M4VHVsM29sT1hoQXhMOFNCYjBENkE2c1FWNVZ1QUhrSzRmYkgycHg3NytH?=
- =?utf-8?B?eXQzemgvcFkwRC9kNWMxN08xaFJtdjlOTmc3UjYvZ3BUbXRRUlUzcGNDSGN4?=
- =?utf-8?B?U2FuQjJPWENvUkp3a1dCbjZQYUk4Y2ZZSWhYN1JzLzV6dS9pa01JMWtBYjVV?=
- =?utf-8?B?Wk1oZEFYM0VwZ0ROS3VIYUtlYW1sQnhnN3AwcldpNUJuMXVYbkFmWjgrUmlS?=
- =?utf-8?B?bUk4WnN5U29BYUJEWjhMSDFSMDBxRElKWjZTazU1Tlk0MHk2VHB6WStTYmFa?=
- =?utf-8?B?dlZGajNPaXFhS2I5bEs3T1RuS2FEUGhTdEFWZjdtc3NYZmZLTW0rTkxrTUhB?=
- =?utf-8?B?ZlZrTDgvSk1ER0ZSVVZWdHRYQ2x4YnNRZ3BqU0tmUXN4c3dsUzN1aVZWdVlB?=
- =?utf-8?B?bDlsVzhKcUhHb1YzQ3NOVGthSUx1T1doK2xHNlVLVFJzZzRsWnowWU5BSFJC?=
- =?utf-8?B?YVc3dGt0T2ZyZTMwU3hrWGdvVjJEQkx4cHF3Mm5iekdLbklIQUd3Zz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 590df0c7-0a71-4ab0-eb2c-08df3d80dc0c
-X-MS-Exchange-CrossTenant-AuthSource: IA4PR12MB932075.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2026 10:12:56.8475
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7l6DjHQLQF6a/Z20IitBO2uLQPEXArjJ4HsAWbrmb/0bWmCyUE9XCmUAISuycomTi87EfJCdb/kIeos5rcdkCg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFE52C859EE
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/13] docs/zh_TW: process: add translations of 13
+ documents
+From: Dongliang Mu <dzm91@hust.edu.cn>
+To: Weijie Yuan <wy@wyuan.org>, Chen-Yu Yeh <chenyou910331@gmail.com>,
+ Yanteng Si <si.yanteng@linux.dev>, Alex Shi <alexs@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261106113545.708896-1-chenyou910331@gmail.com>
+ <3bbce43f-476c-4a21-8da3-2be98a696e9c@hust.edu.cn>
+In-Reply-To: <3bbce43f-476c-4a21-8da3-2be98a696e9c@hust.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IQEQrMCGrcVfS_BqYZEIAA--.8011S2
+Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvJXoW3Jw4UJrWkGr48ArWrKrWxWFg_yoW7WF13pF
+	1xGFyfG3Z3Gw1SyrWxKr4xXryrJFyxCw43KF12qwn3t395try0vr4fKr9Fga9xWrW0va1j
+	qw15tr48uw42vF7anT9S1TB71UUUUjUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUQCb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
+	v20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vE
+	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_Jr
+	v_JF1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF
+	0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r
+	4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
+	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkIec
+	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGw
+	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48J
+	MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
+	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
+	87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU32-eDUUUU
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
 
+On 11/7/26 8:44 PM, Dongliang Mu wrote:
+>
+> On 11/6/26 7:35 PM, Chen-Yu Yeh wrote:
+>> I previously promised Jon that if no contributors stepped forward
+>> within two months, the maintainers would have to produce some results
+>> ourselves.
+>>
+>> This series adds zh_TW translations for 13 process/ documents that had
+>> no Traditional Chinese version, and moves each one from the TODOList
+>> into the toctree of process/index.rst.
 
-On 03/11/2026 12:28, Wentao Liang wrote:
-> For a flow originating from an OVS internal port,
-> mlx5e_tc_add_fdb_flow() takes a reference on the internal port and stores
-> it in the flow's esw attribute.
-> 
-> If the flow cannot be offloaded because the encap route is not available
-> (-ENETUNREACH) on a multipath LAG setup, __mlx5e_add_fdb_flow() keeps the
-> flow on the unready list instead of freeing it. When
-> mlx5e_tc_reoffload_flows_work() retries, mlx5e_tc_add_fdb_flow() takes
-> another reference and overwrites the stored pointer, so the previous
-> reference is never dropped.
-> 
-> Only look up the internal port if the flow does not hold a reference
-> already; the reference is released together with the flow attributes.
-> 
-> Fixes: 166f431ec6be ("net/mlx5e: Add indirect tc offload of ovs internal port")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->   .../net/ethernet/mellanox/mlx5/core/en_tc.c   | 22 ++++++++++---------
->   1 file changed, 12 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-> index 17bd92529a44..8246378b089f 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tc.c
-> @@ -2005,17 +2005,19 @@ mlx5e_tc_add_fdb_flow(struct mlx5e_priv *priv,
->   			goto err_out;
->   		}
->   
-> -		int_port = mlx5e_tc_int_port_get(mlx5e_get_int_port_priv(priv),
-> -						 parse_attr->filter_dev->ifindex,
-> -						 flow_flag_test(flow, EGRESS) ?
-> -						 MLX5E_TC_INT_PORT_EGRESS :
-> -						 MLX5E_TC_INT_PORT_INGRESS);
-> -		if (IS_ERR(int_port)) {
-> -			err = PTR_ERR(int_port);
-> -			goto err_out;
-> -		}
-> +		if (!esw_attr->int_port) {
-> +			int_port = mlx5e_tc_int_port_get(mlx5e_get_int_port_priv(priv),
-> +							 parse_attr->filter_dev->ifindex,
-> +							 flow_flag_test(flow, EGRESS) ?
-> +							 MLX5E_TC_INT_PORT_EGRESS :
-> +							 MLX5E_TC_INT_PORT_INGRESS);
-> +			if (IS_ERR(int_port)) {
-> +				err = PTR_ERR(int_port);
-> +				goto err_out;
-> +			}
+Hi Weijie and Chen-Yu,
 
-Avoid re-indenting the lookup and pushing it over 80 columns, the check 
-can go into the outer condition:
+I’m also working on updating the zh_CN translations. My plan is to first 
+resolve all references using |:ref:| tags or direct document paths.
 
-           if (netif_is_ovs_master(parse_attr->filter_dev) &&
-               !esw_attr->int_port) {
+I’ll proceed as follows:
 
-Please also answer the NetDev bot's questions on how this was found and 
-tested.
+ 1. Update references directly for content already translated and merged
+    into the tree.
+ 2. Add missing translations where referenced content has none, then
+    update the corresponding references.
 
->   
-> -		esw_attr->int_port = int_port;
-> +			esw_attr->int_port = int_port;
-> +		}
->   	}
->   
->   	err = post_process_attr(flow, attr, extack);
+After the current translation are self-referenced, I will continue to 
+add more translation. In the current stage, it would be more important 
+to fix all severe issues in the translation other than adding more 
+translation. To be honest, it is easier to leverage LLM to add more 
+translation.
+
+This is just my approach for enriching the zh_CN translation work — I’m 
+not suggesting you need to follow it.
+
+Dongliang Mu
+
+>>
+>> It is independent of the "resync translations with the English
+>> originals" series sent alongside it, and applies on its own.
+>>
+>> Terminology follows the decisions in that series; whole-file
+>> terminology unification and the glossary.rst update will follow
+>> separately.
+>>
+>> The series is based on the docs-next branch of
+>> https://github.com/kernel-zh/linux-zh_TW.
+>
+> This patchset looks good to me except the newly-introduced top-level 
+> labels, which have no references.
+>
+> tw_researcher_guidelines
+> tw_applying_patches
+> tw_pgpguide
+> tw_changes
+> tw_deprecated
+> tw_kernel_docs
+> tw_maintainers
+>
+> Dongliang Mu
+>
+>>
+>> Chen-Yu Yeh (13):
+>>    docs/zh_TW: process: add researcher-guidelines.rst translation
+>>    docs/zh_TW: process: add cve.rst translation
+>>    docs/zh_TW: process: add applying-patches.rst translation
+>>    docs/zh_TW: process: add maintainer-pgp-guide.rst translation
+>>    docs/zh_TW: process: add changes.rst translation
+>>    docs/zh_TW: process: add handling-regressions.rst translation
+>>    docs/zh_TW: process: add deprecated.rst translation
+>>    docs/zh_TW: process: add kernel-docs.rst translation
+>>    docs/zh_TW: process: add maintainer-handbooks.rst translation
+>>    docs/zh_TW: process: add contribution-maturity-model.rst translation
+>>    docs/zh_TW: process: add conclave.rst translation
+>>    docs/zh_TW: process: add threat-model.rst translation
+>>    docs/zh_TW: process: add maintainers.rst translation
+>>
+>>   .../zh_TW/process/applying-patches.rst        | 392 +++++++
+>>   .../translations/zh_TW/process/changes.rst    | 532 ++++++++++
+>>   .../translations/zh_TW/process/conclave.rst   |  35 +
+>>   .../process/contribution-maturity-model.rst   |  83 ++
+>>   .../translations/zh_TW/process/cve.rst        |  90 ++
+>>   .../translations/zh_TW/process/deprecated.rst | 363 +++++++
+>>   .../zh_TW/process/handling-regressions.rst    | 969 ++++++++++++++++++
+>>   .../translations/zh_TW/process/index.rst      |  35 +-
+>>   .../zh_TW/process/kernel-docs.rst             | 355 +++++++
+>>   .../zh_TW/process/maintainer-handbooks.rst    |  20 +
+>>   .../zh_TW/process/maintainer-pgp-guide.rst    | 795 ++++++++++++++
+>>   .../zh_TW/process/maintainers.rst             | 127 +++
+>>   .../zh_TW/process/researcher-guidelines.rst   | 136 +++
+>>   .../zh_TW/process/threat-model.rst            | 187 ++++
+>>   14 files changed, 4101 insertions(+), 18 deletions(-)
+>>   create mode 100644 
+>> Documentation/translations/zh_TW/process/applying-patches.rst
+>>   create mode 100644 
+>> Documentation/translations/zh_TW/process/changes.rst
+>>   create mode 100644 
+>> Documentation/translations/zh_TW/process/conclave.rst
+>>   create mode 100644 
+>> Documentation/translations/zh_TW/process/contribution-maturity-model.rst
+>>   create mode 100644 Documentation/translations/zh_TW/process/cve.rst
+>>   create mode 100644 
+>> Documentation/translations/zh_TW/process/deprecated.rst
+>>   create mode 100644 
+>> Documentation/translations/zh_TW/process/handling-regressions.rst
+>>   create mode 100644 
+>> Documentation/translations/zh_TW/process/kernel-docs.rst
+>>   create mode 100644 
+>> Documentation/translations/zh_TW/process/maintainer-handbooks.rst
+>>   create mode 100644 
+>> Documentation/translations/zh_TW/process/maintainer-pgp-guide.rst
+>>   create mode 100644 
+>> Documentation/translations/zh_TW/process/maintainers.rst
+>>   create mode 100644 
+>> Documentation/translations/zh_TW/process/researcher-guidelines.rst
+>>   create mode 100644 
+>> Documentation/translations/zh_TW/process/threat-model.rst
+>>
 
