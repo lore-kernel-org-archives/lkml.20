@@ -1,89 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794179631;
-	b=jUyUAmbHdd3PYDRuk867G0vnikGrxDGTLRpSGJd+OHZ2n5HDj4TnbpiGnUdfDSKmn6ba
-	 rienA11WagrNzuC5AVIDIwtsyWDcLUtorr8gpAZzRQNJLdP5SQIR+uoVMG+vYD4UuNN0f
-	 CJc0XNf7iLplNbA2731wlEVU8VOp3rbYJU9m08euYpar9qmknUe3ORmbtU1XktQjaJMYd
-	 WNunrnzxL6a4eixfSupw76DghmNjaz7oKHCmtZ2omkxHARHAeCSIVv5xYPyO1MiB/P2Uq
-	 1EbuVlkaSH+QZc3xNP+OOk813Yti5pCiLMmqm8csoyaPt2sDnxfXk4iYBWljlao5Uug==
+	t=1794179668;
+	b=4ApXv3dJ93R/Cq1mL6KNt+VVQzu4WwvhCUzUfhjkHGbHVKpGBr2xXkSJj5BjR1fDM5zb
+	 cmJi93kuiSIPqYuPFfby1Ty4GU0pgp99Wd+JcQZoL/E4nuxBw8fVbdEtcGtztrQuumon2
+	 KUB+nRJNgM4Kw1ptGq/Pf05wUdUU21dVUB3K+tunLnd5wRkvGd1gFWtlOJ+R+ERf7vslI
+	 RPMbqzeIVV4xGyTKLWBO6M8CN2RsoLiyNk20Pz9g0I5Vlyp5u6p89LkG0G6rggxnEr8Gh
+	 Flhv03vLtCa3j+22SKT8N4datq36Vks0uYm35L0wpN4wcY1+v2wHvyi64zqHNoTkt2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794179631;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=zMgYc/LH+39KF5WFc6nQc4tMwI5XGyz5B8atapOp6WM=;
-	b=skPddb0vA+NP6+td6KpvJCjRSTA6LhbIg7H+wnLUhsS98kjU+Tfr5J9iswBBvMVo0Eqs
-	 Um/aXmtoW03aO3k+MB5kM0fe7nS55M9oJX6TNoluIsVZS+Hs0tu8coE3WPcQdaKvaseGm
-	 Z1vhTwxuu8pIebtamRZKb8AHP6j70n+qgBUteAEVnZFEDAvr7REeZhjgNx7z2BlWztTKo
-	 TCHZJRxAvUrf1irQ/PBm7YJAcoVTOMdUwsWUAgPfKP7MZIxDmcZk28SIox3dZZrpTh3aG
-	 SOwjRm/LZVWJxKYOTEU512hHpYn0l5S40ROjrCgOzNLMkIH39dV6zzX8Bd/SJe11k2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794179668;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=aNB/opGGS4qMBZv8n499yIWWeHjKzqKUsbpAFqdeC60=;
+	b=aCM+cQ3872vb9qnJ9cTZSG0WmvDBkreLi8ktdOTeXwrJ38Pq0ojS/NOVzCVR5BBz+dpo
+	 GGVn1TGuebfST0J7H1ye7+gGCYDw0MpesxR9JIndBKNtNiWN8zRQz+iTrRMXRaRM7hStX
+	 gjyszhbxXd61vzi3VNv6xD39H8D0APTkaTGxWnE+NEik2JR8QNCULTFGM1lRbG6i65sEE
+	 1LqsCS0VgdDpV8jlXPSVKaQY4qS6R75yV5z+7+608MWJPgj3TKgSIAHYkXDHaIxJ7GNHQ
+	 QzEgkgr8VxR1FKBJNGNPZAGvDVtgxRx/hRp8j5ki4B9aEcvdCF7TaJfxUPGqrZpNWcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0YnTJ+NG;
-	arc=none smtp.remote-ip=209.85.160.52
-Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b="KwuWbxw/";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=X2P1bdvb;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED724606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:13:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED724606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA557606A321
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:14:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA557606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0YnTJ+NG
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4a77dcc4ca0so190321fac.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 15:13:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794179629; x=1794784429; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zMgYc/LH+39KF5WFc6nQc4tMwI5XGyz5B8atapOp6WM=;
-        b=0YnTJ+NGoYYfwqwHCU/2Fo53n/qkTo+8HCto1hz2LUHsWf5p24who7ozVUXgOIF7V6
-         yj6LM0854P/R92H5MCv7OupWp5O1cY1xBVoUOwc4znGbZP9Fg4h1pi+k5uI87TOSC1Sw
-         2aSeZezpsz3+wZFIZopxZsVkWX6pR8a8SgYHcoduBEJTK4ofZkgx5AvtCtQY/UYkReWX
-         ZQEs76G/1jAbfZHS/YiLC/Qq8XqntfsYmmJVzheadPsK9n4b9qxrlMWqFgnHqrzoecGc
-         rJuittxi2QlZzG+PadHm2nuxB9TpAecNYXthLcGwwRIIOiU9i8Ue3DaXTT5euHE99xv1
-         tkpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794179629; x=1794784429;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=zMgYc/LH+39KF5WFc6nQc4tMwI5XGyz5B8atapOp6WM=;
-        b=zOyRxJK7L1SlvfuKsE99fqTVexV10ftGz+8YKMIWGXo5BoNeJmFGN26MRO8KJwXLaL
-         6xTSb09guacxQV/9V514nY2YQz/9VDCMAYe95byFq1uuXD+VNPIAbgF+LfBAPnQEzfrU
-         U0jnmX+w8ibF+nhyzex8AlOGKSeSyHEvZbcIMfW9R3dhn97hpeSKfu8DWAn0kiJD50a2
-         weMJG2eCiwSTkbV5V2hn0zvp+dFYT1Ne0qAs/Bn4ns1yaUtSe1Lt7z3rlQSFNOZUZiKP
-         FazedvcORZuQjGGVo4B9ohjNSE0l/gPm2X9ZjaRFmMMxnFjr75C5N/d57GBiylLGxSl1
-         bkMg==
-X-Forwarded-Encrypted: i=1; AL+hErE8vRxeZpGg9vXBSA8Mz9hYiqkjynRm1NkJusR37MJs1F9RgLOa90PNWXvBl/Apyz8hvwunxAuXg4EBrOU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Itfc/0ikQ/H2RjRR0Ax1AvrcIJl46eaTZXbIsthsBknTKlZRA
-	lHgteZKSMW10OzchntC05vxFNQAQd7IcJvnF5f7nI0+XlHoSQUpw80tD
-X-Gm-Gg: AYBFou3iow0P47GyO6eiVsJQ0Bw95js6QmQ0wkdQ5W8RuZBI6b5LtB8at3M6d9MuyrR
-	V6eko1xFSCwHxeBhAYd2mxExpALebOOg3ht66rRrTEoIAovY/MgMXKAiMFKLTpHEfJ2CDhlHgrl
-	EwXbiGBQ/oBsh92CT32tWQCw1MzdFKGasqroZqzn0JcT4deompg7tABMYKBuRWJKRjXFTBhVEoa
-	wvaUIIVryl2AikgC5hFNcwT3/75FlqvJXdJwhFo1U8ov3i4PO19cvfjBHc9AqyTJgOy4H4wu3A9
-	V3KASlA2v18Li6P6rX4SZndWhSynMpwxOdGZxa4cXSu54vLTPfPbB3yGFSy8iEHr0xeN+koJ25n
-	xMeKeclNxxx4IJTzHLtTrAjXDUQ5lPTJP3C7idRlP3GxJB1Y8/36ytHR+KCwuQnHafqyUJDYnZU
-	+eqgPaEAWZHs0SaCl2rxd1ijT3LRCcIGJPCrKeM4LwMD9NEc6QCF48emtAigWgy10+9rk8q5qnc
-	QPBmcALudqlONInzG88PwTYA1cU9p4JvToYaj+EJAC9f5m/3OCh2WXQ5bhgygMmF24aa0QH+MPZ
-	50lbODDvEEZTKDcsKsDYcZH7schubb+3N9h1jsnMyz+EKjsSWOc1wv9azG/Prqjnw5M4/tVmR33
-	pBMMrZyXKHQbfGiah2pH2TlO7extXOrLEjN7QRS/GzugZ0hWiSIZBKKduyrqu+d2W/alc0fJoKB
-	oH2Zjyvfguz0VqAM1xuI8MRCyvIRyYRsdDkOqhgjoyU59x1izDduvLnYC/Qa0FPrZAhRss5ZPg
-X-Received: by 2002:a05:6870:c26d:b0:4a6:f6e2:690 with SMTP id 586e51a60fabf-4adec9a3f30mr1367311fac.22.1794179628828;
-        Sun, 08 Nov 2026 15:13:48 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4ade647f24esm3362985fac.1.2026.11.08.15.13.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 15:13:48 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 16:13:40 -0700
-Subject: [PATCH] mtd: rawnand: r852: serialize DMA timeout cleanup with
- interrupts
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=KwuWbxw/;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=X2P1bdvb
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id 67AA31D000D8
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:14:27 -0500 (EST)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-01.internal (MEProxy); Sun, 08 Nov 2026 18:14:27 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794179666;
+	 x=1794266066; bh=aNB/opGGS4qMBZv8n499yIWWeHjKzqKUsbpAFqdeC60=; b=
+	KwuWbxw/zo5TLrD2TcYvheNN/qkTpIVJx+2rHWLGVioQsfRkj685yibqOrrvSz0m
+	40v9gg+I055zObbUdZTVm+XGeqqvDi6VxzpEPn5wNt17cxvL+tZLCWVomN2YuVYw
+	9rGghAxaN0H82ZOmlyWdmma5ulGYhsKzG9wlZO7gPUQkulL3No5h1ar0f6QrQ0Z3
+	kavXLZ+CILHL4N9cAEEhKlresJsgiY9VIOCt8UfqJ/hP1yXySr14AGZclPwhQJq1
+	PZKsfUag+SHY37cJ1b9FWyt38Bwf8UNnY6MTW7AhWLVc7gUSLDZ15zvyDV27S0Cd
+	tmFrX8i5EliZia0g0bzHiA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794179666; x=
+	1794266066; bh=aNB/opGGS4qMBZv8n499yIWWeHjKzqKUsbpAFqdeC60=; b=X
+	2P1bdvbQyaENQwR4FX2wXrWhFGKkE785tadR6ZvnFQ6mNGlS2obqXaoU1J8+HR18
+	K9t/5GWY5xM7QRabjotWO3EK5r1O2dDVXAG4kwZJslBKRCu5SJCPDxI7ySvlTn9N
+	f4EfR/rCZM8iriHUBmX+NllE+7bdYHq9pNfrMyFOqCIt16dZlupEhYfF7afJ1Ede
+	X+afkJpHFxQOOH2rQUZforbo5COOBvVqtWo03XvL+arNitQX3MRrgHnlZW4j/aXw
+	WAIawD5IidM5qpQSJxT2vMJheQNMovOS/1xkmmtPlW5Bf8sW4pJHmo9BOJT0jNTO
+	PZGBMPNKRkgz5yE9dccog==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794179666; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:JKtc+y4mDbFLNB7loK3IRZFKm9nuc6kQ9y0hMumcY/VKsFV
+	bB6ltUrPJfhx1hg6g3RU6x4HDozJ5ka25Ycl9zCUybXbe7TbGyctjqehlv1KxLxF
+	kD2grPJlUPKC4ThLNVqKxq4WW1U6PcVfjHsUrloJpNcfgG+rtZu5MyugPCOzrABU
+	+ZXn+LjhWws02meqifG41VAQ9/jM61gQ/h+hSP3VfNV96ebUBCp0CP6lJ8zF92vv
+	mJVytRa3dRaVCMYGIMA+1F2WOdJX8uhg8vegMvH9LJXQUeYE3eb60oqIrEmXRTo7
+	ykAO7lrtXMqeD4UchC9giQ4K5XQiv9cv3dMtEKQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:wy5u7/1MaRfs0p+iCHyBGgZdTfbVRHkS3B4qkZoX5fs=:22a1v4R3sAKcl4JqYTnxduwYEnj56hUDUbWWFqEiG6s=;
+X-ME-Sender: <xms:UQLxav3t0VLfuUkX_KpEq_uLQQq1ul4Cbz6InmOBeXBqXTQ-Py5MYA>
+    <xme:UQLxaudWfnQ98waFXqnuZkV-XVCB045yUlQ-y3qKH06NEs5vuLkruqCh5px_jhZtp
+    znt5AuRz6lJq04UFDbGiInSteypauxwEIne4al-b0L-N1CM02irt2Q>
+X-ME-Received: <xmr:UQLxahCYjAnaYot7SSkLPTeeGfZxFtsdiziAwL6M2ELzmauHEDX0Rh3200ebwJ5CZVH4U2QKdIlRF3U9swFPNUjvV91gkOi_>
+X-ME-Proxy-Cause: dmFkZTEobYK1tOekNqVcRoyz46yFPQttzPtHZOkE5HGQvatBgJILl7eANID4IzPTfJdUdp
+    7lRTRVKafPfvdv2C2D5iL3BBGJcBS2ZS9uCCBIgy9W7bM3v+yU4vqBYLYdJFvxwCDN+hU2
+    UhPeo40p9ycN04kyVW5Cpyt3vxYIyhVYaqhlMIh3b4ygMgrQ8LV9IehnFj1IEOROX9FO2b
+    OID9LPD1Gejnf5U+TwOyql+xAwBj2z4gyJhN4Ua1RlkckZ1sIPOTFSuBufrXInWv2BFzTg
+    5b+cf2SuERpEOoJAQ/4hTyus7FQtCAFqs1iffrupU5mMDAZ+mv1RF8IEh6TcNQWgSzMDp2
+    t9PotslwPd6QXg/A09izOaJWVmRn8jN+bUcpb2RTgtynov5bm8yDf9kodr2bpaGmsciVtx
+    clmCao4BHHzufX1ag0DS761SCVkXKWgy7Nm2+POjvCe4wFrJHbo20i5ysaxnj8lCRGuKbi
+    VC0przaQ6NSu1O3a/RXvmMgjkAH9AsiT+0PPn/9Vtx0opGG8QekkJIytxz3QwJi09cdZO3
+    gOoPcUF0HC2dCPPaVIU01M7t5nGdqnGwgwFAJwhZU5B49bk5OL4S+Et0ffH17aOiS69/9/
+    QG9eGYQflUXIgURzyJQdjKvT9hXtspQ25iz+LqpvcJsMBWDI0t3ubyytNLIg
+X-ME-Proxy: <xmx:UQLxag3QDA6k2_AhbXaFVBocCMQjZ8TLwXluL4IoWAhm7OZdRQ-CPA>
+    <xmx:UQLxahNIiytpZaIIoR_mxe_D_17AZzx1QCgxOZ-czerH0js2AMnV7Q>
+    <xmx:UQLxaudpTkMc6ZUc72KgfUBlsTOUe5WSkZ5V1dc7-vwIqu7X5Ay29w>
+    <xmx:UQLxatM-olQK6wwhliSmIFTe83H65vJBMhhBQQOZ_5djk0pnQeSQog>
+    <xmx:UgLxav-7w-Iu-d_gyjeD1lCT_SD5iLDvqMtwo8yztICtDV13zMwVtqKu>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 8 Nov 2026 18:14:23 -0500 (EST)
+Message-ID: <e9380707-ba1a-4728-8abb-7b1e0335f3db@pobox.com>
+Date: Sun, 8 Nov 2026 15:14:22 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,164 +119,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 0000/1257] 7.3.4-rc1 review
+To: Sasha Levin <sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+ patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261107134939.434104957@linuxfoundation.org>
+ <f65916c7-470b-4f64-84d1-da8cf4c8e7e8@pobox.com>
+ <f6e0e225-a80e-49ee-9555-be300f169503@pobox.com>
+ <20261108-rc-reply-02-xfs-sched-ext-7.3.4-rc1@kernel.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261108-rc-reply-02-xfs-sched-ext-7.3.4-rc1@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-r852-dma-timeout-race-v1-v1-1-6b24c6368de6@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNwQqDMBBEf0X23KUmoNj+Sulhk2zrFhJLEkUQ/
- 921vQy8YXizQeEsXODebJB5kSJTUjCXBvxI6c0oQRlsa3tj2gHL7KJUzENnMUTCKpGnWQvyjIv
- Bm7NdH3QePINavplfsv4eHs8/q+LDvp7ac+GoMLpMyY9nFWu4JkoavFbY9wPzHP/uowAAAA==
-X-Change-ID: 20261108-submit-r852-dma-timeout-race-v1-9b256d202dce
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Maxim Levitsky <maximlevitsky@gmail.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
 
-r852_do_dma() calls r852_dma_done() without irqlock when its completion
-wait times out. A completion interrupt can finish the same transfer and
-unmap its buffer before, or concurrently with, the timeout cleanup. The
-second cleanup then unmaps the buffer again and overwrites the result.
+On 11/8/26 8:44 AM, Sasha Levin wrote:
+>>> 7.3.4-rc1, 6.18.63-rc1, and 6.12.117-rc1 are all giving me the same build
+>>> error with clang that I previously had with 7.3.2-rc1 and 6.18.61-rc1,
+>>> due to the same xfs patch as before ("xfs: cross-reference the primary
+>>> superblock"):
+> 
+>> I took 7.3.4-rc1, reverted "sched_ext: Fix the stall watchdog testing
+>> and blaming the wrong sched under bypass", and added the fix to
+>> initialize error to 0 in xchk_superblock() in fs/xfs/scrub/agheader.c
+>> (quoted above).
+> 
+> Thanks for testing. Both problems are now dropped: the sched_ext patch from
+> 7.3, and "xfs: cross-reference the primary superblock" from 7.3, 6.18 and 6.12
+> (it had come back after the earlier drop).
 
-Take irqlock after the wait and abort only if the DMA stage is still
-active. If the interrupt completed first, retain its result and copy
-successful bounced reads back to the caller even when the wait expired.
+I took 7.3.3 and applied stable-queue as of commit
+39e32a361d2fca269cec12e8669e2bd3b84844d9 ("drop 24 patches based on RC
+review feedback"), and retested on 2 of my amd64 systems and my arm64
+virtual machine.
 
-Publish the active transfer state under the same lock after preparing
-its buffer, and clear pending DMA status before starting it. Ignore
-interrupts for an idle transfer, including error interrupts, so they
-cannot release an already completed mapping or signal a new completion.
+It's now building successfully and working well, with no regressions
+observed.
 
-Use the active stage to determine mapping ownership and clear the saved
-address after teardown. A streaming mapping at DMA address zero must
-also be unmapped; only the persistent coherent bounce buffer is exempt.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Fixes: 67e054e91924 ("mtd: nand: Add driver for Ricoh xD/SmartMedia reader")
-Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/r/sashiko-outbox-204135@kernel.org/
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/mtd/nand/raw/r852.c | 43 +++++++++++++++++++++----------------------
- 1 file changed, 21 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/mtd/nand/raw/r852.c b/drivers/mtd/nand/raw/r852.c
-index 92c47d351c27..12877dd14683 100644
---- a/drivers/mtd/nand/raw/r852.c
-+++ b/drivers/mtd/nand/raw/r852.c
-@@ -12,6 +12,7 @@
- #include <linux/jiffies.h>
- #include <linux/workqueue.h>
- #include <linux/interrupt.h>
-+#include <linux/lockdep.h>
- #include <linux/pci.h>
- #include <linux/pci_ids.h>
- #include <linux/delay.h>
-@@ -124,11 +125,11 @@ static void r852_dma_enable(struct r852_device *dev)
- }
- 
- /*
-- * Disable dma, called from the interrupt handler, which specifies
-- * success of the operation via 'error' argument
-+ * Disable DMA under irqlock and record the result of the active transfer.
-  */
- static void r852_dma_done(struct r852_device *dev, int error)
- {
-+	lockdep_assert_held(&dev->irqlock);
- 	WARN_ON(dev->dma_stage == 0);
- 
- 	r852_write_reg_dword(dev, R852_DMA_IRQ_STA,
-@@ -145,10 +146,11 @@ static void r852_dma_done(struct r852_device *dev, int error)
- 	dev->dma_error = error;
- 	dev->dma_stage = 0;
- 
--	if (dev->phys_dma_addr && dev->phys_dma_addr != dev->phys_bounce_buffer)
-+	if (dev->phys_dma_addr != dev->phys_bounce_buffer)
- 		dma_unmap_single(&dev->pci_dev->dev, dev->phys_dma_addr,
- 			R852_DMA_LEN,
- 			dev->dma_dir ? DMA_FROM_DEVICE : DMA_TO_DEVICE);
-+	dev->phys_dma_addr = 0;
- }
- 
- /*
-@@ -175,19 +177,8 @@ static void r852_do_dma(struct r852_device *dev, uint8_t *buf, int do_read)
- 	unsigned long flags;
- 	int error;
- 
--	dev->dma_error = 0;
--
--	/* Set dma direction */
--	dev->dma_dir = do_read;
--	dev->dma_stage = 1;
--	reinit_completion(&dev->dma_done);
--
- 	dbg_verbose("doing dma %s ", do_read ? "read" : "write");
- 
--	/* Set initial dma state: for reading first fill on board buffer,
--	  from device, for writes first fill the buffer  from memory*/
--	dev->dma_state = do_read ? DMA_INTERNAL : DMA_MEMORY;
--
- 	/* if incoming buffer is not page aligned, we should do bounce */
- 	if ((unsigned long)buf & (R852_DMA_LEN-1))
- 		bounce = 1;
-@@ -209,16 +200,26 @@ static void r852_do_dma(struct r852_device *dev, uint8_t *buf, int do_read)
- 
- 	/* Enable DMA */
- 	spin_lock_irqsave(&dev->irqlock, flags);
-+	r852_write_reg_dword(dev, R852_DMA_IRQ_STA, R852_DMA_IRQ_MASK);
-+	dev->dma_error = 0;
-+	dev->dma_dir = do_read;
-+	dev->dma_stage = 1;
-+	dev->dma_state = do_read ? DMA_INTERNAL : DMA_MEMORY;
-+	reinit_completion(&dev->dma_done);
- 	r852_dma_enable(dev);
- 	spin_unlock_irqrestore(&dev->irqlock, flags);
- 
- 	/* Wait till complete */
- 	error = r852_dma_wait(dev);
- 
--	if (error) {
-+	spin_lock_irqsave(&dev->irqlock, flags);
-+	if (error && dev->dma_stage)
- 		r852_dma_done(dev, error);
-+	error = dev->dma_error;
-+	spin_unlock_irqrestore(&dev->irqlock, flags);
-+
-+	if (error)
- 		return;
--	}
- 
- 	if (do_read && bounce)
- 		memcpy((void *)buf, dev->bounce_buffer, R852_DMA_LEN);
-@@ -766,6 +767,10 @@ static irqreturn_t r852_irq(int irq, void *data)
- 
- 		ret = IRQ_HANDLED;
- 
-+		/* Ignore late interrupts after a timeout. */
-+		if (dev->dma_stage == 0)
-+			goto out;
-+
- 		if (dma_status & R852_DMA_IRQ_ERROR) {
- 			dbg("received dma error IRQ");
- 			r852_dma_done(dev, -EIO);
-@@ -773,12 +778,6 @@ static irqreturn_t r852_irq(int irq, void *data)
- 			goto out;
- 		}
- 
--		/* received DMA interrupt out of nowhere? */
--		WARN_ON_ONCE(dev->dma_stage == 0);
--
--		if (dev->dma_stage == 0)
--			goto out;
--
- 		/* done device access */
- 		if (dev->dma_state == DMA_INTERNAL &&
- 				(dma_status & R852_DMA_IRQ_INTERNAL)) {
-
----
-base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261108-submit-r852-dma-timeout-race-v1-9b256d202dce
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
-
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
