@@ -1,86 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.27.248.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794148150;
-	b=qy1xQ+eeoSP1Xk3zSxQGr/Va38oD7Cn8uRty+D+RZydaGjdekVlBr44I+HX5fkXRFKx7
-	 CeGV+8KjfxAMKkr5uIKKd0WyiGDgIzVcEg/2Nou9I10yZWM07tp+g4XGyQP97tNqcmbxs
-	 PQ/ZMGehm+QIazk8DojtOEb1A9tPzMURX+8uaTTX2hOeDi34oRfiFEHISbdOC1ZKJR7j4
-	 kS5IQjoINMm39AZrYUcRW+3Kyd4La0Gejd3PTENLCe1ktDKcRe1jCwl7OCR2ecANTWobb
-	 L6gqm2hHOChKVRQ9UFAYqTHsEf4kIrjygDNn8cboQ6IzQW92WHGokH2IgjVioWH+S1w==
+	t=1794148253;
+	b=n7giVgS6NT7aBFisQfFkRO8p6FuLmg3+ViPWBRYlQVH/L/vXcrfhLhycmZh6JXPeUvkS
+	 PEplQQxkx71MY3RdKpmjX9k6iCMoon122IAnXVTUFAkqEkUBdC85C/gPQebu8ZQyKeMWn
+	 zshVpFvnR7XTwKQDcRxlvbZnVDvhxjZKVOoBdBRHYFhEvxdk7ubyOEkGxIidtkJIebNZf
+	 CtGBRO05lqcgErS3+46gZ7dpN27zLDUy2LBPR5skFb49zC7Ywc/zmfo+9h7TOMmbKq89e
+	 xX8UQihbYYeE/Tvw9COWml9y8kPzVGp0/ikI0hElD6wM74VTHaCQ1n3nN1dgKBpvIoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794148150;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=nsEN2ewwq/SO7JFjgqolGnWnhAJtT+s3jJv0A19D4kM=;
-	b=0dSQhwFZKj+PrsPS6Ykfa4e5u9YyX1f45i2HUHPeOnPbC5ixQZDs8k++AUkUCi/nzfIZ
-	 yc1cBotcjNZ+S+M/XSQbSayhITj+vil4m8kZpv5VKnfL6rlqBuRIDBPrr6YbjR1S3m5l5
-	 qBYJ4w7l798c9RF0p8Z2krcSuysp0oYE0UhIjhwV5u8tM9TMQeiuzB7cKT/xasqWFS7HV
-	 DHlfSpgEzBtqQvApU0wy5SOxUn8SaqZi07XU+4iF+WHN33k0ac1sfIKyX6Fub/K8wU+k6
-	 Iz77MLDPr9/kDgRNtZ1vUKeLj/MUCvphrPGGWPZrlWimybfut6njaFK6ag3eQSO4CTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794148253;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
+	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:X-PPP-Message-ID:X-PPP-Vhost:X-Virus-Scanned:
+	 X-Virus-Status;
+	bh=CY/McYpu+0ebDojIJRHMZeui4dASH1SC50Q2/rCUGZo=;
+	b=2tiTzdLF1ag4X0Kf9909Yn9/CbVjDL6ZxyaeoTZR2NVUUw9H2AL9L6r76LLKuf2l+1wr
+	 eXtCIfwHE/TYByvDjyNfvNtkXntv4HmjVdonPH8CYBu1q1h8I4ycxsL6LzAbo2W7emn84
+	 ZyezWG3KsEHFgmRY3RdD+9FsR6lAztIJjrnK0hJUv2abUfm07IyewKI3L2mLoEEcPisbY
+	 YNMPsVFXaObce/osXLBzqAk8tXhlHLKJODXqbaMfdHOQwza7zlHtiKG3977edI6YwuYhk
+	 3Qnp4Y4XZi32AGv6SsfuF1FTBGsjpma6aathXr0t+HC1hySTnGnq14q9wI60WZr0hkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=VKdzGa8h;
-	arc=none smtp.remote-ip=209.85.221.169
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=antheas.dev;
+	spf=pass smtp.mailfrom=antheas.dev;
+	dkim=pass header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=erw3Q4pc;
+	arc=none smtp.remote-ip=37.27.248.198
+Received: from relay10.grserver.gr (relay10.grserver.gr [37.27.248.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B844606A331
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:29:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B844606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC98606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:30:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AC98606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=VKdzGa8h
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5ec3561b07dso46700e0c.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 06:29:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1794148149; x=1794752949; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nsEN2ewwq/SO7JFjgqolGnWnhAJtT+s3jJv0A19D4kM=;
-        b=VKdzGa8hJSVKQuHBop/JKxvSVhL95Fu5YtEcOyariJtZ6xuSznEOqXueHclAOYNWiO
-         RnVdSCweiLDkhvB0VdRvusw8KHT6aIQsIY00y3kPLcrVUhg5J8w9u4sGiWnsRW/cDk30
-         hWrq+IvNMAoT//ux36cNNlo0E1cCussP4f/ZzOtLTWNkeSjoqbeDiCsz6PBWVOeznmKs
-         6tPxbxmhmeX8NKDQPgmO7UezeKo8cIGGFc5XPa3FrGASSn3lpG9lsJX8OXeIXHQHi06s
-         Vq7uhgfo31OoSrIgRLeKzuaUl7bn2NTFIKRrTb7DXuadym10NnpURlOJbVGS5/1vxKWV
-         TorQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794148149; x=1794752949;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nsEN2ewwq/SO7JFjgqolGnWnhAJtT+s3jJv0A19D4kM=;
-        b=NAcunyNaJWRWls04ouisvBF1maQVGWiW4MHGZ6fL7DI/HhvjLp6AR0D4bv5dW1jgSd
-         H7BgSZ6tBWfoGIt4sK0pyEisL0Fz9vYLY76iIczF1EfBIy0sFyEUYsissnHOJhQQ4clL
-         g5x5I1SKMHwKxbPvj1+5X9oaQzKP8JdHmKPfUwDryCb71Gu7uXED0BqFO+kn8gT64L/d
-         gDX7NdEDs4PhoyYs012XNIFHk9m8Zd7cDmZ1dlN/1qi9EWYaI6KQSN/++iWMKXXgcLHC
-         P4g2PIgXKaTAKVY5P7lEILhYjwJEq+JANgs6XNEV94hgrYngbca1BKPzvLic+dJcsCZl
-         CqAw==
-X-Forwarded-Encrypted: i=1; AL+hErFHhRRod8db5hkYbeUuU+ZwiZ6p+zh4AO9i9Zp8sXUNbCT0KQn2k9tINtWWskKNgvWfJDPUsZpgqdYlkgU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9m4kPEDBPsNDkE1xMbJB5cSX9Qgukj3Jh/3LfG4ldEJBJlWMvE
-	wmm6VseY2XmDMRWH+mYhRttOFCt+nlq9SEO/aSvHPIuWMkRANlR6gQivLdzfIX7SJy8=
-X-Gm-Gg: AYBFou04qIKK/P8xm/bjx32T6nm76ma3CIPwRN9+5cziXpv8YHbwyVKSfcADtCJNHW5
-	8HfyYwpD+BrysFJN3TVQ0Vj5MIlOEI9oSyR/yWkHmvNpa1G75Cc5sAreoTc62iphBK/Ijk33B/T
-	4J6xVwcBFXWcsCp5BmN9RUhbYFwsREC8khaFe25wCiaHz5ekq3p/2ePgMXWwhD1LkeNVx6ssxUp
-	0AtTzQKhBTLiwLRoGr117KpMpIvQKgtdBk8WY4fHwnCSNMrX5Hf/l9NmQPyaag9TpXduVDAIsid
-	jPD3RPVJL0BL6276B93ZAmEOYK6K5+7m4sL3qPctRXqlKUMLv5zhFLpB+4rD79HMenFaK/HKOQL
-	+pI05vZYsGakO88BiW0I0ITV1WxN00W2YzHnll0S2mU4YPeFu5YfDAJ0Ga7R5sn5lT0/S6Br9GP
-	xRj+AVlTGCWVaTAgS+vr5ffL/vBguF9kqDhRAdzLsVWcfd+UpSeJiQkvLWcbsbQ6D7CtqLI1qnn
-	lu4ICatV0HGhiWqM6qovkCpd//fJcgzAOh6q3bsYvTKJXXxiWLCJVoJa21TFNhGWtL8PTyPUFA6
-	ZJAI8YgOEU6SsVuUVBVxpeOIfQYbfXK69AKzmdIOlDFb1i23Kn40Ly1G/qY5L8AYZ91+RnTthyK
-	7qsVs1d6JYR5zg4jV1IWvI9/LlfGZW5MtQn/1vgKYp9R5Ni5w
-X-Received: by 2002:a05:6122:e00a:10b0:5ea:bf30:851d with SMTP id 71dfb90a1353d-5ecd1fda430mr689131e0c.16.1794148148877;
-        Sun, 08 Nov 2026 06:29:08 -0800 (PST)
-Received: from soleen.c.googlers.com (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ece6418de3sm1961786e0c.13.2026.11.08.06.29.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 06:29:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=erw3Q4pc
+Received: from relay10 (localhost.localdomain [127.0.0.1])
+	by relay10.grserver.gr (Proxmox) with ESMTP id 0E38142F69
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:30:51 +0200 (EET)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay10.grserver.gr (Proxmox) with ESMTPS id 6B0EF42F9F
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:30:50 +0200 (EET)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id 8B3EC1FF251
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:30:49 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1794148249;
+	bh=CY/McYpu+0ebDojIJRHMZeui4dASH1SC50Q2/rCUGZo=;
+	h=Received:From:Subject:To;
+	b=erw3Q4pcR4kAOLdWHXfF+fgsLaeHJdjSPB/fXV7TSxw9KPAFR4Q44g7hvPpyo3vBV
+	 9q7/TCh/xeI3Uyp9X1LbZlLdqYk/LFMJYecmOnSXpr7V5X81PsTnWJFjgI73dwpK+H
+	 wVIyRnS8bTvjPMTnFEw6bCKw8OIFRXBG6UdAsovpfP3U070UaTQAsfuIaWzXDRed7P
+	 ZdPLCPlcOdCX4OCf9y38/lLmcb9G7nFwGxJiLjPIcp0eVTE742dOG6tcbj+eSUB46m
+	 dU/A2U1VxYu8FGh+mEAChIQDTzI5QbGKqrKSm/RiLbS1920p+Qnv6EPxSbA4NWvEzZ
+	 UZHN6U6O8lxOA==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 209.85.214.170) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pl1-f170.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-2e95bd1c14cso957265ad.2
+        for <linux-kernel@vger.kernel.org>;
+ Sun, 08 Nov 2026 06:30:49 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErE9LZnDkIX5YS8fb+xqDhb1VgInzQh6PY0Zq6FlNB3F/LBfK/ZiiP2NrffzB4pJh8zewyYhFpBibIJj89k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9eIomABWyJHCJEDdsM5Rn/c/rn1xPC0D82WHPesrNKvUu/F54
+	qgzs0PAUOjy4CoDFEB63y1UlQGkUE2txJ8Gzg5o1wPaB+PpHXCyxlSKtk0tTsXKow3rNTLGGA5C
+	PyzLmCmj6uOd2gSTHyGXomqCKqKi3SBU=
+X-Received: by 2002:a17:903:110e:b0:2ed:3be3:c63d with SMTP id
+ d9443c01a7336-2ed837afe76mr13741695ad.23.1794148248256; Sun, 08 Nov 2026
+ 06:30:48 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,52 +82,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] kho: Don't release incoming bootmem areas when
- kho_init() fails
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: Chris Down <chris@chrisdown.name>
-Cc: rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org, 
- graf@amazon.com, kexec@lists.infradead.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, kernel-team@meta.com
-In-Reply-To: <au_vQhHAcJbkryXN@chrisdown.name>
-References: <au_vQhHAcJbkryXN@chrisdown.name>
-Date: Sun, 08 Nov 2026 09:29:04 -0500
-Message-Id: <179414814499.358073.17024430367999674004.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=531;
- i=pasha.tatashin@soleen.com; h=from:subject:message-id;
- bh=pKVjfmlu0iTkn3Mne7zQTiboAlXNWpArbsEY/CDfG+0=;
- b=owEBbQKS/ZANAwAKAbt3KEzbc3reAcsmYgBq8IczShqWPTsPqxG2k3B2z7SD/Zt27GlTcRXCS
- al4yUzZYCmJAjMEAAEKAB0WIQRBMaqT7LRvGvB/NmK7dyhM23N63gUCavCHMwAKCRC7dyhM23N6
- 3rxgD/9MCj+nbRihezlRzunNe1wcq2hnBD3k0gmKVmGDeS3zwRvPDyi5f8qbhin54yxiC6zIGKS
- Yn2jL0+MWh3D673KAwTIKuLgSkLRa31KeqkgDY2NIUeUn8n1dy93a3R6SacrpULUNSSqQBOq/dy
- /MZNEyK82xSwsl+Sx/Hje/21XHQyJPsyH3sCLOoTpyN387Iob3sGAwvPfDCeyFdHkqYceUhuch0
- bVhl0fHheQIkA36lWuVETbYeXTbgULYcBy33lRmBEeXn4u1NFBXg3A4w3PPodi4WkP+kKCD+4k5
- ZhRLfJUfdpzs4vr1D8w6sACIbQtKUKocah2JuyI6+ovgxsIoqDKFrqH8oJVhAuuFSGLvYQ2wPsA
- OEU/OWtcEFLUvTn0Dw997Hdp5qpkq2ai2GgWLBicMwMDvSjNA6uGaOSfBTtyYsxNUn5LFK66m6z
- q6zKYQ4nFeit2N7SB12qa2j0n8ZK8c3LdNBHVNLh34aTCT2hEPO5W0YAYztVYpgdTBMlwTZLcaE
- QGfb5dHSyxjwyB4SKOLGd7zxItpAUtrJ3Jtmo84WFI+WJg1jYppRzuGJye0uO2/HM4o/8lYJkX4
- YiEO/nkmS4FHId5uUw6VSGMYxSw5N9dAPVcFqHmFIw4V3Mj/3VCQp10bH6t1qgUNmxYq1F3Yeny
- y962hGozq0S6EJw==
-X-Developer-Key: i=pasha.tatashin@soleen.com; a=openpgp;
- fpr=CAAAB722DD22A081F0D49F35633A6A993D43B569
+References: 
+ <CAGwozwEKXJGBY5oZtdrrzfK-aOyYu5GaiOqkejSqbCPdeq0UJg@mail.gmail.com>
+ <20261108135505.67330-1-hijae99@gmail.com>
+ <CAGwozwHoTDCw63MoP2S6Qd1dk9Ym-=_E1e3oXOXkoWNfJxmUVQ@mail.gmail.com>
+ <CAGwozwFv9x_d5WprytNTdgAFqepeqxgT6TTKeXLD8-G1Z9T3yg@mail.gmail.com>
+In-Reply-To: 
+ <CAGwozwFv9x_d5WprytNTdgAFqepeqxgT6TTKeXLD8-G1Z9T3yg@mail.gmail.com>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Sun, 8 Nov 2026 15:30:34 +0100
+X-Gmail-Original-Message-ID: 
+ <CAGwozwE2vN9Za2eYNwaKHN-NjE6zRfC43-dSr2ug5-2OS2z_kw@mail.gmail.com>
+X-Gm-Features: AclHuK_HzHti2lUaHGe0yFtShcc0XhjDDjFmALYvAZ1Wrf5mnv5HvKejfealJrA
+Message-ID: 
+ <CAGwozwE2vN9Za2eYNwaKHN-NjE6zRfC43-dSr2ug5-2OS2z_kw@mail.gmail.com>
+Subject: Re: [PATCH] HID: ayaneo-flip-kb: Add driver for keyboard backlight
+To: Hijae Song <hijae99@gmail.com>
+Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: 
+ <179414824989.1264538.10234623492139348994@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-On Sat, 07 Nov 2026 19:40:50 -0800, Chris Down <chris@chrisdown.name> wrote:
-> kho_populate() adds the incoming bootmem areas without reserving
-> them. memblock_free_all() then hands the remainder to the buddy
-> allocator.
-> 
-> Unfortunately however, if kho_init() fails, err_free_bootmem
-> currently frees every area with free_reserved_area(). This can free
-> pages still backing early allocations or free buddy pages a second
-> time.
-> 
-> [...]
+On Sun, 8 Nov 2026 at 15:28, Antheas Kapenekakis <lkml@antheas.dev> wrote:
+>
+> On Sun, 8 Nov 2026 at 15:26, Antheas Kapenekakis <lkml@antheas.dev> wrote:
+> >
+> > On Sun, 8 Nov 2026 at 14:55, Hijae Song <hijae99@gmail.com> wrote:
+> > >
+> > > Hi Antheas,
+> > >
+> > > Thanks for the feedback.
+> > >
+> > > > If this is an actual keyboard product on the market and Ayaneo is
+> > > > sourcing the part for their device, look-up similar devices and kernel
+> > > > drivers.
+> > >
+> > > I checked. hid-sigmamicro only fixes the 0x0059 report descriptor, and
+> > > I found no SiGma Micro backlight driver on lore.
+> > >
+> > > > The name of the driver cannot be -flip-kb. You need to make sure it is
+> > > > generic enough to match most Ayaneo devices.
+> > >
+> > > 1c4f:007c also appears on the AYANEO Slide in hhd-dev/hwinfo, with the
+> > > same vendor interface (report ID 0x41, 7-byte feature report). I only
+> > > have a Flip KB, so I can only test the byte layout there.
+> > >
+> > > Matias's hid-ayaneo already claims 1c4f:0002 behind a DMI check for
+> > > AYANEO 3. Would you prefer that I add 007c backlight support to
+> > > hid-ayaneo once it is merged, or keep a separate driver named after
+> > > the chip? I lean towards hid-ayaneo, since the Slide may work the same
+> > > way, but I would like your view first.
+> >
+> > Mmmm so Ayaneo does not have a vid and may trample the pid of another
+> > device. That is not good. There is no guarantee this led profile is
+> > used by a different vendor.
+> >
+> > There are two options:
+> >  - Adding the keyboard to the hid-ayaneo driver
+> >      - This would happen after it merges
+> >      - There is 0 common logic between the rgb device and the keyboard device
+> >      - Driver registers a different led sysfs ABI and has convoluted
+> > dmi handling
+> >      - The driver would devolve
+> >  - Adding a scoped driver for the keyboard
+> >      - You can start now
+> >      - Can tightly scope to keyboard device
+> >      - name can be hid-ayaneo-kbd unless other vendor is found
+> >
+> > I would tend towards the latter. hid-ayaneo has plenty of work to
+> > merge. The controller firmware is quite unstable. Even my
+> > implementation in userspace is buggy. But that's fine... Windows is
+> > buggy too.
+> >
+> > I have two comments for your current version:
+> >   - remove all flip kbd references, name AYANEO_KBD
+> >   - use brightness values of 0 and 1, no scaling. DEs know how to
+> > handle these values by toggling.
+> >      - another option is 0-3, which looks nicer, but let's not get too
+> > deep into this
+> >   - use devm to register the led structure, drop remove entry point.
+> > Use devm prior to starting the device so that register code stays with
+> > initialization
+> >   - check if led subsystem is appropriate. I am not sure of the
+> > correct place. If not, current location is fine
+> >   - initialize host values to ff ff ff so on first write we get a nice
+> > white color
+> >   - if there is only one effect, brightness 0 is off. Do not add an
+> > effect handler
+>
+> Ah yes, if the device supports Fn+Space, for this driver to merge you
+> need to send the correct hw notify and have at least KDE report the
+> cycling correctly. You will also need to read the values currently in
+> the device instead of hardcoding them. If it is a feature report, a
+> get_report should return current values
+>
+> I am not sure what your current comment means about sending 0 breaking
+> the toggle.
 
-Reviewed-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+Ok got it. Make intensity take values of 0 and 1, and use those for
+the mode byte. Do not scale intensities. Always send what is
+programmed currently. Implement the readback correctly and see if the
+device notifies you when brightness changes. If it does, use hw notify
+(as other drivers do) to notify userspace and have them read the new
+value.
 
--- 
-Pasha
+Antheas
+
+> Best,
+> Antheas
+>
+> > With 2-3 revisions this should be good to go. While at it, try to find
+> > a Slide user
+> >
+> > Best,
+> > Antheas
+> >
+> > > I will also fix the two sashiko comments in v2.
+> > >
+> > > Thanks,
+> > > Hijae
+> > >
 
