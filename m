@@ -1,49 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794140296;
-	b=w/lYR6uCUBFqT9jTR2Za8qU+JHzCyNII0SzC/MFVTvHv73c+QRo/U7nVfYpP1fAACK2A
-	 203kymAB0GBtMxVl6yj14sDC5CxbRNL1vXda6zlTCQaT1luFWhCDIwYM6LpjLRdFXixtR
-	 3hVlblsCTJKrJ5WdME8F1cPu3QivGwe+5Tsla/IRA1kyULO0sjjsQK2q16Bf1xAzBGbmY
-	 oelySyFknzP9heDVO5td1EtbEqYjDHnSjDzKKMITLcpQoRMUM/vzJDKNoYBa0C4oQrbCm
-	 VDOATuNa5Sl8yAXJGdZuohASIvD9fTbe8223OIqtLvEZvFz0k9ZYq/xgH7OK9uMb8uw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794140296;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=SckiUnu1S01rYyVBaocWKaUFwyjWG4UsjJW3tv/+z/0=;
-	b=pqHl8CYbluvRouRSB/ElDyxZj4ep2wRHx4EDspLFWJbTYf8jBGLWQmYHT5PU24vPz+uX
-	 MsGJXXk0VMYcEmopwv6/+mguplvsjDoXMy2VnPXwX66nzDK6DgeIPdatw/27neiuKpIL8
-	 q6HppLl8NLeUIXEATkH0Kk5dwq6ihgLz+6t4oaAHtdoT5lOkkoLoqS92D/eliPgw7w5Xa
-	 kVU3RqV/q7LotRFKioDNVSOs90jOqzu5sli+VYUDNfr/GV4IQ15E4XVHxD0zf7L35Ac6X
-	 ULcMEEW0eBcIzrafSTBGc9a/dqXWH7QEOw+QiiHOWYsvzE7jO8/wdPjZQNSF6cUNtMg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K2doajhm;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794140397;
+	b=b0KdMQ+mQZQk+fDnkr7h0Y8GcY7XzaNrMKF4qOp2oJzj39yrggzISPgWQICMARFscE1v
+	 pJRBQgEGkdIU9OpMT2AOu4Bn/wxt1ov3wdeEpMdoYuozm0QJzKWhJiY9ZH619YwZZ9bBB
+	 nMtM2L4YsNurSJ0uqHjnBZ/hmubo6RAY6OT0YXJcQc+OMADZW0Vl4G6hzUZNVMZgJXZNX
+	 +iHwNl5y0tBRtP0MPq9B+9S/4WPPgeDYRbs/G77LSqaZptFV3fZUDFccrPsGl1LgnB27v
+	 tM42CzmBy7LKsI2frZKdG4jcPEqExonx+ji+PT7+18feHBB2Odea+M5RD9Drqzr3VRw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794140397;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=VF6/f+a/k5P3djgI48XHAygTX/6/Cg1IAOEXeg2LGtg=;
+	b=RH1Y3ZSIv/r2HLX7cygfjL3bXZQquzZFUxxqlFhjbOar35VXU61jLvMrNRUtY5q0Qnak
+	 bP88EhGQDhxPKeTanzDDuB/xxgu6xWPDeDMYJarl+C4xMvo292dDb/4AYSL1FyomhnT0z
+	 QZllWlddcSho7FDw/DCFNDzXb+NqOhszHY/nXgDa3JzHNTIJjxmR6GAmGX5V35Ya8wS0K
+	 IG2Xhw2sxLCIc4IBZwYu/mRbz86Amh0IDDF7XWApRqqd+OZ81hZsx9H70wN3LyqoI1yCL
+	 mdScIfrarpEiFvxWoTw5vQc0m+UWd2PkFckmMu817pL4TBz6Qm9k4A5pwddPCejKH9w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2ecUj2v;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DA1606A31C;
-	Sun,  8 Nov 2026 12:18:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6AFC606A321;
+	Sun,  8 Nov 2026 12:19:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K2doajhm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68E961F008A2;
-	Sun,  8 Nov 2026 12:18:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2ecUj2v
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794140396;
+	b=ZitpRdd76yUZtqprC0m20VwIsb1n2LrmwQVfHvwyDSj3k1eEUCktPpmL2jR39CbCKFGM
+	 RauVoMebSIhb9XsbHbpuf4e9NwZ0pmzQchD13HYYe9S1o5ygVSu4sCyV1O21bluNlk1Cf
+	 cmENRH/O/dIsoOc6gu0bntYNl1dPzfEIb623hH/lW4xME5rTdVV2XAkcH2rrvCDqBRiff
+	 /CS+vNbSO+y6872yjoeUREePJW7ws3WMXCqzN2mznd3RjQUqmLnP/EU9uTPsVwDWShjk3
+	 espOd7qoje4/3RPcGBA1UJtz/MEFwXEYg6xcmiih+DH4c2epLwsrBvxAo52fHE1JkqA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794140396;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=VF6/f+a/k5P3djgI48XHAygTX/6/Cg1IAOEXeg2LGtg=;
+	b=nfJqfPI5BLtt5WpyD/E6Oky57uS5r7qaF89IohuTZO9kCMS0wDER5b5I15nNSUbthbNF
+	 dPjVl4CBajIE9UAmxZ5+SA4EQSmVjA3l8d90Lc7pT8DbvAcWDjTuKkEceQle7XaMkBHa5
+	 +rxUGUqjz5+pq4PgKNReogQOg6MVAAsZT/Mv0gwCydTwJJtDvi7DIvPNrzTdhWiMKexlH
+	 qTwejkLfWgJAhTVYSEZhPUCSfpKXvyez6xVXyaQqLFgk6kmKXzT6yR9G3UUpy6Dtz4raK
+	 0w18cllIrEFTVVefHJ2+WlY1XraJgXurctq+311UkN4CAWp4kJsK3iRV+hknGvDVKZA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 269C71F008A1;
+	Sun,  8 Nov 2026 12:19:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794140295;
-	bh=SckiUnu1S01rYyVBaocWKaUFwyjWG4UsjJW3tv/+z/0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=K2doajhm7XDLnukMsitOSySzn74EXWrVk4AXgpXZxA6pD34xRObyuefxmA16/VM/i
-	 BHrQR9ZTvyOoTEEjxx9/9vGjgWcOwUnU9l+EzLE0/wejLqSP+qABrqkDwWjdbFwqDc
-	 QisspIbLRPc/TvxHUugJnZhl4UyDwynLIVr5j6A890uG8v3X+ria/xKcd/AQ5FExL3
-	 gRIsYuZbutKaiV3MF7ytEZHgbfhQ4idm6CC4uDNNIFdmyXd4BuYGw1OfgWNwjZulOs
-	 dTQaU0VsOa147go8rEZ9wHGiCns6N58J4bw6tvCeuq0XEElAkom0AnHx7bQ3cSvR2N
-	 +1Jy5qukSzC2g==
-From: Joshua Crofts <crofts@kernel.org>
-Date: Sun, 08 Nov 2026 13:16:58 +0100
-Subject: [PATCH 11/11] spi: tegra210-quad: remove redundant
- pm_runtime_dont_use_autosuspend() calls
+	s=k20260515; t=1794140396;
+	bh=VF6/f+a/k5P3djgI48XHAygTX/6/Cg1IAOEXeg2LGtg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=P2ecUj2v94K4g9tYyVkjornt8J3WLsvI3NmVhXJRQ+7OMY9Zls+5LP52UoFrUoKKU
+	 HlQ3uiCBoxVU+ErkOztlGP4JcL/+CtwQlKAkSI8v/L+EOK52Af+CzrrvYcfrYUsl0F
+	 7w8AhlG2DxcysTNtfrI+ltDrclF0v2lSIw71KHs8Ptu3XRrc8n59jF+P7J9IzO4BZk
+	 PuCXb6oCQZLmaQNekmE5m85nexRu0kAVcH/VD/hEqw/wkxqPxhyUnc43bPDHS7Pu2r
+	 S3ukt54O0nO8bLvjqi6js8LCv14ZvyBlHJZsglBU0THKgfdLODi3iCkJmIR3qkVhQ9
+	 Olywrgi15BQgQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 95E8247F43;
+	Sun,  8 Nov 2026 12:19:55 +0000 (UTC)
+From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero_via_B4_Relay?= <devnull+aleszlucero.gmail.com@kernel.org>
+Date: Sun, 08 Nov 2026 06:19:54 -0600
+Subject: [PATCH] staging: octeon: remove unnecessary parentheses
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,71 +83,98 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-spi-dont-use-autosuspend-v1-11-3587b0183cbe@kernel.org>
-References: <20261108-spi-dont-use-autosuspend-v1-0-3587b0183cbe@kernel.org>
-In-Reply-To: <20261108-spi-dont-use-autosuspend-v1-0-3587b0183cbe@kernel.org>
-To: Vladimir Moravcevic <vmoravcevic@axiado.com>, 
- Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>, 
- Prasad Bolisetty <pbolisetty@axiado.com>, Mark Brown <broonie@kernel.org>, 
- Karthikeyan Mitran <kmitran@axiado.com>, 
- Alain Volmat <alain.volmat@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Michal Simek <michal.simek@amd.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Heiko Stuebner <heiko@sntech.de>, Jyan Chou <jyanchou@realtek.com>, 
- Yu-Chun Lin <eleanor.lin@realtek.com>, 
- Laxman Dewangan <ldewangan@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>
-Cc: linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-tegra@vger.kernel.org, Joshua Crofts <crofts@kernel.org>
+Message-Id: <20261108-octeon-parentheses-cleanup-v1-v1-1-5cb0e33e408b@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBAF0KvIrDvgGFtKr1K6COlXB8okZKwI4
+ t0bunybd5CjKpwe3UEVm7pma5BLR2mJNoP13UxDP9xE+jvntCIbl1hh6wKHc/og2rfwJpxkCiF
+ c4ygCakepmHT//8/Xef4AbAZM8G8AAAA=
+X-Change-ID: 20261108-octeon-parentheses-cleanup-v1-c1f3335a411e
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794140215; l=1182;
- i=crofts@kernel.org; s=20261015; h=from:subject:message-id;
- bh=8JBQ4IcPEGwBD1QITLActHWZFpnabtrNZR/DykpAoss=;
- b=DwG+Igz5rwcKr2H2vQkzimZS8cgXmgDiMkHh4/f5yqxsMm/phmaTniGQH06bGPP7QMM/kq/WT
- BJKXCJ8NUw7DH0kns8hsHuGZwDqFvU0GN7mU+1NSSDUJ/14/p33mCf1
-X-Developer-Key: i=crofts@kernel.org; a=ed25519;
- pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794140395; l=2579;
+ i=aleszlucero@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=45TA3tH14jQOLZIxqvC60w5pZsW++bfpzW50OY9RC5Q=;
+ b=SVzMOdmrV9F9P1MobY4hqTP0n3zxuwDxmgvSwtFQe55wZOpDKdnzqjd0TgqUayMxGn5KGoi4g
+ K2S4HrzjC4xCfypSWcacGUaABQlbyQoQhHAm/4HtgakmFQWzv+ocaU9
+X-Developer-Key: i=aleszlucero@gmail.com; a=ed25519;
+ pk=zRzEBMID7l1FXqr2CjfnlIn++3m3N05FuNYb5zPA3cw=
+X-Endpoint-Received: by B4 Relay for aleszlucero@gmail.com/20261104 with
+ auth_id=1410
+X-Original-From: =?utf-8?q?Oscar_Alejandro_S=C3=A1nchez_Lucero?= <aleszlucero@gmail.com>
+Reply-To: aleszlucero@gmail.com
+Content-Transfer-Encoding: 8bit
 
-Since commit d1706f9da9f4 ("PM: runtime: call pm_runtime_dont_use_autosuspend() on reinit()"),
-driver core is now responsible for undoing any
-pm_runtime_use_autosuspend() calls on driver exit.
+From: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 
-Remove the redundant function calls.
+Remove unnecessary parentheses around conditional expressions in
+ethernet.c to satisfy checkpatch.pl --strict warnings.
 
-Signed-off-by: Joshua Crofts <crofts@kernel.org>
+Signed-off-by: Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
 ---
- drivers/spi/spi-tegra210-quad.c | 2 --
- 1 file changed, 2 deletions(-)
+This single patch cleans up minor checkpatch.pl styling warnings within the core 
+ethernet logic of the Cavium Octeon staging driver.
 
-diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-quad.c
-index d8cca3aa276b..5178cf7eca68 100644
---- a/drivers/spi/spi-tegra210-quad.c
-+++ b/drivers/spi/spi-tegra210-quad.c
-@@ -2185,7 +2185,6 @@ static int tegra_qspi_probe(struct platform_device *pdev)
- exit_destroy_wq:
- 	destroy_workqueue(tqspi->wq);
- exit_pm_disable:
--	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	pm_runtime_force_suspend(&pdev->dev);
- 	tegra_qspi_deinit_dma(tqspi);
- 	return ret;
-@@ -2205,7 +2204,6 @@ static void tegra_qspi_remove(struct platform_device *pdev)
- 	spi_unregister_controller(host);
- 	free_irq(tqspi->irq, tqspi);
- 	destroy_workqueue(tqspi->wq);
--	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	pm_runtime_force_suspend(&pdev->dev);
- 	tegra_qspi_deinit_dma(tqspi);
- }
+1. Remove redundant parentheses around conditional checks inside 
+   cvm_oct_common_change_mtu, cvm_oct_common_set_multicast_list, and 
+   cvm_oct_set_mac_filter.
 
+Oscar Alejandro Sánchez Lucero (1):
+  staging: octeon: remove unnecessary parentheses
+---
+ drivers/staging/octeon/ethernet.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/staging/octeon/ethernet.c b/drivers/staging/octeon/ethernet.c
+index 42ec4b8324a8..f374fdf8f7a9 100644
+--- a/drivers/staging/octeon/ethernet.c
++++ b/drivers/staging/octeon/ethernet.c
+@@ -262,9 +262,9 @@ static int cvm_oct_common_change_mtu(struct net_device *dev, int new_mtu)
+ 
+ 	dev->mtu = new_mtu;
+ 
+-	if ((interface < 2) &&
+-	    (cvmx_helper_interface_get_mode(interface) !=
+-		CVMX_HELPER_INTERFACE_MODE_SPI)) {
++	if (interface < 2 &&
++	    cvmx_helper_interface_get_mode(interface) !=
++		CVMX_HELPER_INTERFACE_MODE_SPI) {
+ 		int index = INDEX(priv->port);
+ 		/* Add ethernet header and FCS, and VLAN if configured. */
+ 		int max_packet = new_mtu + mtu_overhead;
+@@ -308,9 +308,9 @@ static void cvm_oct_common_set_multicast_list(struct net_device *dev)
+ 	struct octeon_ethernet *priv = netdev_priv(dev);
+ 	int interface = INTERFACE(priv->port);
+ 
+-	if ((interface < 2) &&
+-	    (cvmx_helper_interface_get_mode(interface) !=
+-		CVMX_HELPER_INTERFACE_MODE_SPI)) {
++	if (interface < 2 &&
++	    cvmx_helper_interface_get_mode(interface) !=
++		CVMX_HELPER_INTERFACE_MODE_SPI) {
+ 		union cvmx_gmxx_rxx_adr_ctl control;
+ 		int index = INDEX(priv->port);
+ 
+@@ -360,9 +360,9 @@ static int cvm_oct_set_mac_filter(struct net_device *dev)
+ 	union cvmx_gmxx_prtx_cfg gmx_cfg;
+ 	int interface = INTERFACE(priv->port);
+ 
+-	if ((interface < 2) &&
+-	    (cvmx_helper_interface_get_mode(interface) !=
+-		CVMX_HELPER_INTERFACE_MODE_SPI)) {
++	if (interface < 2 &&
++	    cvmx_helper_interface_get_mode(interface) !=
++		CVMX_HELPER_INTERFACE_MODE_SPI) {
+ 		int i;
+ 		const u8 *ptr = dev->dev_addr;
+ 		u64 mac = 0;
+
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261108-octeon-parentheses-cleanup-v1-c1f3335a411e
+
+Best regards,
 -- 
-2.56.0
+Oscar Alejandro Sánchez Lucero <aleszlucero@gmail.com>
+
 
