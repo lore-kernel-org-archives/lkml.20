@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794161135;
-	b=l3mRE0GmPtTFwzBte0b6ZAMXhiyt+NuVxyguHXOx3pCGKw7/fsH0vxCZZIXe6b4eilGs
-	 ksDe56S9StM/x4S3Sl0+43ApqtPKGYmdFsB4PMRg1bQeELOZ4mGOMkH8nd4J+ALDOY3d7
-	 0MkT39hRwGTjUjm/RICVNNXr+kHrl+tfbq3ipGl5sq7JU3YDQtKCN/Sslj02+M8hRAnvT
-	 CONLII7kr0swD7NriD/k6L5ZVBjIgE1mt9UPdfGIvhCPyxNJQUmWdgvNi4129dYqxitvD
-	 DcthfyJ2mwIbJB7aWgzO6A/PT62cV2tFQmxO1sWyWKKuq+cvJtxLLE+bPzp+615S+Qg==
+	t=1794161234;
+	b=AaM7LhepWmQIozoD0PAlMFgwBvcQkC4dnoA2N93D9f4T4PDwk1U83HGxrR321glyAVFe
+	 5NacnFdFFnnMNYVhoxo2fupcL+XZuN4oPC4J7R9aFIvG5SE29Iop7fvaSKIGNKIp54Zrv
+	 gyxKpFyfdj3dewkdpyfr2OpfAxMAl8cUqD+EYpjU/XAeHMTJkueQwkM+vO/T0H32y3jub
+	 pRot2VZQrTjlh1JRBtIPFhay8207vMe+ywM6WvXQ0gVClG0oRnsHUg6TvOF+mlZ9WRjQ9
+	 BoHjbTkQlM+1WVcqVGC+UnZU+CBFFLZyz3ctQwKfZSn9PKdBChl43Rm0yKP6qe4JbBQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794161135;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794161234;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ncjT9/9RrAC0tk5sletn5MFkxrROZxZqsmTLlhF1YTs=;
-	b=ntBEOUvGaTfEW4FeXrknEgD8EymDYk0fjErWLEWkposbdCwKLTsCKDnZlRXbGpDi6vdX
-	 pvfmeHDGTyxL2kIa8bmRqsnwHz808HWj0d+UL3axv9wKbayFlp1/QRXuyUO50RZ2qhgKh
-	 QzjpHQ2Mcsb6T65PCbc3XVOgQsA+6APLmDcJCe3P2PjJOuqslSA60NbP0AUbbKrMrrj/j
-	 RIQIDATAjVHmZJgs+CiLV56U6/QofYHKw1sz/J1n0dnSNRtoxT9F3gwIg48Rcet6sBZjo
-	 De4T5d82A6X24UdrNu975g6fgQyBVmV7NJHLEbTijd09oJaDM+hs4uuHcwggCLziurw==
+	bh=/E1qGkb7D73O0wE0pWP+ZQBO+IxoF3NSuWzWriHpuwQ=;
+	b=hba4W87fapphHIQZJHBntYbkThNdbDUKjyfgZS6HS3/E/r1sE2DtBr0Vuf6c38rWHQZj
+	 tGQk8p9uDSuSImSVmdv6ZuJ4vXt5JsgnBM5q+ig9EZBH3CHtvL6BoWsOr6zvdXBwSG93S
+	 jR53L6Tm0Om50ZKVKe7Z3vljPZ+lveBKm/YhtjlTzmY2A5Qv8xZ9EwQAmr5whlS5QZIMl
+	 aLfoylEcOSnLVpI9l1nbdsu+3Nxf+qQYEPAYI3FTK4PKhYVlDpo0bsXjryyYugFIWsBBH
+	 tyD7TpfhlSLzV4otwxPkfugrR3wBrlt/rvazR5qp+uEiw4hbHslw5kCR3h0568Dgyzg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ls4LMEFx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PTv+842g;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4684606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:05:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FFB5606A332
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:07:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ls4LMEFx
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PTv+842g
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794161134;
-	b=WWs8y36O2GMtVrLTIRpiVySoYlgJOg/wbuUm0TP3BqObMUj3wvz/Xfixc6QNK8Z9Lu3S
-	 AmghgpMeJDDkecPkvF2aZU2EGHpgLcrT7oqN/Jp2s/sdfGhpAGFLxPpBC3R6wJ3N5jq3Q
-	 ZTNFlsAG4bqvfCaJmAEHXdQoEUCPgjqh+0lZ85YL62SbXpuq1wysciaelkFJ//lniJYY5
-	 8A25r6EpvAY8iWSxsc3m0/oBjFWGqvB7Qt+0pAvtNGsao9e2dHg0EyLd3bvLTybfdHFIg
-	 M6Wwfcz+KMJqIPFZLAikqOMMrdL9a63w7R+gqZ3tsBjtQO7QHJKWJ9zTr9u0lyzu2Og==
+	t=1794161233;
+	b=yO1iTbi/OlvQhvq02a5UGG25Ftp5iYaPAwYJDI1qF6EF4klBL4PwoS3fPIbGB/fEGs1I
+	 F2F7xuNHPT7sckZI1KoAIj9zhzcG0SCjJClH4d6nuSHZ+vNmRyTghl+H6k46MA76WFoJk
+	 /PlRpcGpe+xrpZC9LGNYEyvqTtiKV+Ut4uVYpJvMzIiCp9L71mA8Shrt+xNpjrBvcEjcd
+	 qrU05dEW0x8qz+6GgBJ3Iz/kZGoC9Y0oCC8wn9Zw9SIEjL19gseqMQc2caQcp38itEHPH
+	 mMYnLOV89kY/0FEN5QH7IfDs99IVVYz4EXv4zXt6Pc1BRCv3x8LwR76a4h5F5TiCrGg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794161134;
+	c=relaxed/relaxed; t=1794161233;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=ncjT9/9RrAC0tk5sletn5MFkxrROZxZqsmTLlhF1YTs=;
-	b=jZd3QAQZEY8JuZUwCZJEZ00NxIIgWuy7fRn3SSBK7jvXRX2tHv0R22W+OekcPl2b2y3G
-	 zUTl4DVay957qgSg/x+o5FmhV06YADHPlX1hginFkmdfowkgmUhx9wbyUZKaY/9rh5aBb
-	 o3xkn8R3BSYmuVJDAfkxZjACs/qCp8Nf8Pu9wMXK4oXjo3fcoyeN3UzsZ2wlht2QUfMLh
-	 NQ7jLQTnTD9+FJzrj9JIGULY/nLciRL8wNGKydGaiIbDUa7r36avIG1flDtnO6NDwxoM/
-	 oQj8B8HpBkjhHFjGEFxPBv84DV3RL4sIhBEvQCKWMPaG+lUckV5kEQEqPMa5R5SdX6w==
+	bh=/E1qGkb7D73O0wE0pWP+ZQBO+IxoF3NSuWzWriHpuwQ=;
+	b=CihzxUPKO50jKVgCPcCJ933HPcNZ7akzESr509ASnH89nv1y68z923ZlCCHuf6RK6W4n
+	 bN19NGk4oMXqy4Ke/rbDB2XoNq1GQPp4zRqg7yTXwW1lxJmZanQJgJhDIA14jVJYndsKY
+	 GZrFheeUKQp1LiF7fvQFFuvn0wspr1egQXKilux30caCqK/n3BWrvdSrSRK71N1TWRS85
+	 Ov4lPjtKQZcCzdhFhkznJkrjLuAqoNAioGL4NnW2paBFxdr4I9rEFGU24QE+DBtRaqGfr
+	 56KD73wCK4bFYvy+3ia5u8h/M9/jkBFtjsN/cg2fMe9Hbxw/eIIu0LTlQY2/pPKOF9Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BE5811F0089F;
-	Sun,  8 Nov 2026 18:05:33 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 4217B1F008A2;
+	Sun,  8 Nov 2026 18:07:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794161134;
-	bh=ncjT9/9RrAC0tk5sletn5MFkxrROZxZqsmTLlhF1YTs=;
+	s=k20260515; t=1794161233;
+	bh=/E1qGkb7D73O0wE0pWP+ZQBO+IxoF3NSuWzWriHpuwQ=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Ls4LMEFxgYm0e+eADbZWx0eu2iUpv9XYfx45feDYyLSjwPU0BsDqjiuEiL27R+AlY
-	 jYGB0twbEIsSvwoNnaobjQPKzEgJekSOcEBJtTxJsVxxJ4JaYb40IEL7sqy4iD1t+b
-	 ZYkpwTBkUy9qvW1K8jqa8WF10/8SWcfokxUCDMvvL4i6ekgSQi8P9Ku2i/PL1tr4Ji
-	 gV85wdnvnwyaHYy+98Mik5mLNciEVHDc/acvU8rOpBo1bGzcw1M3hZnVkqq/goOJQh
-	 rkTDwt4Wf4WKtGTvewM0LHvfasmZZ90vvxZah3HltJ1nTd4t/S2KXO9EAO2ttNO4nU
-	 /dV/U3a+GS08g==
+	b=PTv+842gDu05sSEhXwJ7jnXu7Y2Ma1NcK9tYX0RlMXYaJ65wQZFXrThsjpjUnj8uJ
+	 UV3kCGfw+G0v0kXeQg5q2zgjTuW6YOwPfJXakgNd96klNMCzgKNzgpU61+gh/lX2i1
+	 WDdql4dByNOLrbY4FDbsybW4bDirIP2/7C0/J5EVGKBjJ61i4AokbYjDB4noKDByGy
+	 mamcbD+R7IY0kUYVEImqjVpgFFYsT8StDKDG/SvMXyHA3igakC+V8egQmAZsCBo7F4
+	 ZM3xy93OsdBTP7ZtAjb7jSlLGDCb5USIiQKshZTFK+HerDh8XXPMDFx/iQE1PPAAYB
+	 W1JH54vhyy4YQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4CE474800A;
-	Sun,  8 Nov 2026 18:05:33 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id C840F4800A;
+	Sun,  8 Nov 2026 18:07:12 +0000 (UTC)
 From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Sun, 08 Nov 2026 18:05:33 +0000
-Subject: [PATCH] ntfs3: fix bitmap corruption in attr_allocate_clusters()
- error path
+Date: Sun, 08 Nov 2026 18:07:13 +0000
+Subject: [PATCH] ntfs3: reject on-disk c_unit values that cause shift
+ overflow
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,19 +84,19 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-ntfs3-alloc-undo-fix-v1-1-280fc5d06af6@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAOy58GoC/x2MWwqAIBAArxL73YL2EOkq0YfWWguhoRVBePekz
- xmYeSFRZEowVC9Eujlx8AVkXcG8Gb8S8lIYGtEoKYVGf7rUotn3MOPll4COHyTVWW2F02R6KOk
- Rqeh/O045f2yVh/NmAAAA
-To: joasantonio108@gmail.com, 
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Message-Id: <20261108-ntfs3-cunit-fix-v1-1-fb8d02b3f8a2@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAFC68GoC/x2MQQqAIBAAvxJ7bsFVyugr0aFsrb1YaEUg/T3pO
+ AMzGRJH4QR9lSHyLUn2UIDqCtw2hZVRlsKglW6JVIfh9Mmgu4Kc6OVBT460VWRm20CpjshF/8d
+ hfN8PcvXE2mEAAAA=
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
+ joasantonio108@gmail.com
 Cc: linux-kernel@vger.kernel.org
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794161132; l=1878;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794161232; l=1984;
  i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=2dxHVeInvQx1GDisuSMbfr3SxQuAoN46Qasuyi4MfXo=;
- b=cJGwzp38Pd/KvngKhHz5vO1+8c9AsKo8kNE8OgpzWQupgBpZmepvkR+NQ5gFotXwsa+TB8tNG
- mX6k24MOFjKDadEbaVUEKDbP1XlADk8SEybDH05AdmK5hyukwQ5Y+r0
+ bh=+VpBC7rJJPtIcs1JV3jkHoT7tsNpQiBY1oYu00e37pw=;
+ b=PVQJisUuA6eNNZUFtQw8suvtGByi8YYwcknEc984ulPxb9QyosF23DXcoVImT09ALmkDNyS1w
+ XG0orKvnbuvCpJWxdbqEDblXdIEHE/1zcEnkEcbSSSY1LKsLhCQmuq9
 X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
  pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
 X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
@@ -107,49 +107,56 @@ Content-Transfer-Encoding: 7bit
 
 From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-The undo_alloc error path in attr_allocate_clusters() calls
-mark_as_free_ex() with len (remaining clusters to allocate) instead
-of flen (clusters actually allocated in the last iteration).
+The c_unit field of non-resident NTFS attributes controls frame size
+via shift expressions like 1u << c_unit throughout attrib.c. This
+field is read directly from the on-disk MFT record without bounds
+validation for extended (compressed/sparse) attributes.
 
-After the first loop iteration, len is decremented by flen, so on
-subsequent iterations len represents only the remaining request size.
-When run_add_entry() or run_remove_range() fails, the undo frees len
-clusters starting at lcn, but only flen clusters at that position
-were actually allocated. The excess clusters may belong to other files,
-corrupting the allocation bitmap and causing silent data loss.
+When c_unit >= 32, the expression 1u << c_unit is undefined behavior
+for 32-bit integers. On x86, the shift count is masked to 5 bits,
+producing wrong frame alignment (e.g., c_unit=32 yields 1u << 0 = 1
+instead of 2^32). On strict-alignment architectures this may trap.
 
-For example: a 100-cluster request where the first iteration allocates
-60 (len becomes 40), and the second allocates 20 at a new lcn. If
-run_add_entry() fails, undo frees 40 clusters at lcn when only 20 were
-allocated there, marking 20 clusters of other files as free.
+The affected expressions in attrib.c include:
+  - 1u << attr_b->nres.c_unit (lines 1168, 1732)
+  - align <<= attr_b->nres.c_unit (line 501)
+  - sbi->cluster_size << attr_b->nres.c_unit (lines 2089, 2401, 2617)
 
-Fix by passing flen instead of len to mark_as_free_ex().
+Add a bounds check in mi_enum_attr() to reject attributes with
+c_unit > 31, which covers all downstream users. The existing
+validation in frecord.c (checking c_unit == NTFS_LZNT_CUNIT) only
+covers explicit compression read/write paths, not the attrib.c
+block mapping, truncate, fallocate, and punch_hole paths.
+
+A crafted NTFS image with c_unit=32 triggers the UB on mount when
+any compressed file is accessed.
 
 Found by LLM-assisted manual code review.
 
 Fixes: be71b5cba2e6 ("fs/ntfs3: Add attrib operations")
 Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 ---
- fs/ntfs3/attrib.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/ntfs3/record.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
-index 805acc3ed..2a75ee162 100644
---- a/fs/ntfs3/attrib.c
-+++ b/fs/ntfs3/attrib.c
-@@ -207,7 +207,7 @@ int attr_allocate_clusters(struct ntfs_sb_info *sbi, struct runs_tree *run,
- 		if (!run_add_entry(run, vcn, lcn, flen, opt & ALLOCATE_MFT)) {
- undo_alloc:
- 			/* Undo last 'ntfs_look_for_free_space' */
--			mark_as_free_ex(sbi, lcn, len, false);
-+			mark_as_free_ex(sbi, lcn, flen, false);
- 			err = -ENOMEM;
+diff --git a/fs/ntfs3/record.c b/fs/ntfs3/record.c
+index d7785f9e8..5344958ef 100644
+--- a/fs/ntfs3/record.c
++++ b/fs/ntfs3/record.c
+@@ -366,6 +366,9 @@ struct ATTRIB *mi_enum_attr(struct ntfs_inode *ni, struct mft_inode *mi,
+ 
+ 		if (tot_size > alloc_size)
  			goto out;
- 		}
++
++		if (attr->nres.c_unit > 31)
++			goto out;
+ 	} else {
+ 		if (attr->nres.c_unit)
+ 			goto out;
 
 ---
 base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
-change-id: 20261108-ntfs3-alloc-undo-fix-e64b8b0f8ea5
+change-id: 20261108-ntfs3-cunit-fix-f1c127013b75
 
 Best regards,
 -- 
