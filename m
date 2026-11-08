@@ -1,97 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794116459;
-	b=LVPcgScOECVn9QnrW2vdeMT60h+KE5CDSL0TTOrSOdExMprIgf+RZG9WV9VkLcdrzMuP
-	 3pa8fF0yYuueezvEjOxHR389d26LpvHB9lIWwCp9ipJ2i0hFxVxBXxBp2QVzciEKTk9mH
-	 MyqQO4EUOdAYL1tqoWnRhyhIc1Frz/MEKogMG32/N/fIKXF0gFR7ArUGTvvmtXos+FR8h
-	 GZujl4vT95s4RIMQd3olwYKsR2qdzZB6k2iNiJ1nm+P47dC9fbrFsttGi5vg06FWv9vKA
-	 5+8egc/wOuYAXc8fs8A3QimgK940R5YWUlvZ9fuiui+03rIMU2ODw/WZ3fJ/XIepPbg==
+	t=1794116477;
+	b=oZzlycrTYv2JXBtRIM2mT9+PRzWK0NvLlT61IA+rPQyUyBLvLy6bPBgTeysLhrZK63Sr
+	 vrFE2VOOvROBbWoA1VVDIITR+2ft1eSZys6+H1I0cquqasBapg1nzz9m5WRm2BO2W21rY
+	 PFHvTz5M9Wy91sEkUHiW1zk9XEJeb80DMAbgrXIhfTv6WUYVxzm9F46Xuy2fRYI70DWBC
+	 QEsv62BL/PR5fcdsMppikTXmMulFoiEB3vkCFeK1bJzMuuV7o6oVst/1tqneFmKiKsDlA
+	 n/IowHrOKkCvyQAlYrpUZe3MX8o1mS5TDEx+E6CZSSYFRwjgJ2SuDggnjmNtQZpBkYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794116459;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:User-Agent;
-	bh=I3WRrinu/jT9Jg9NAfoNC4MFsm/rU54sJV2l8lqiR7g=;
-	b=ZBvHxRQU/FOT+kxf8cMU9hdMU420DuC0kFWXj3K14BA0MfYmwpUqlVmJRcGP0xaYDEyV
-	 jDtDrCi6xq4sbQi3fo3auPU11ACeQJddIlMneZLh5Jv0W2tDRUmDv3xLwa7LCcEyILfH+
-	 RrX8xd3oV/579Rb32VioHN/edjsY5AuBERjeOIVJpoxhwkvUxg7iJHLYffiU6dVouQ0Dx
-	 Q1hDFMSpXu1DjuS7lv5rk1jDPSAnkJ2Yt4Hureffod4qcndP03Tqy5/OCPbydjsQMKFit
-	 3r8QoJGxS5hhd9+rHDUrCFy4KDQvby42e+qyJKJNHlqbud/WS6c+aiqT3smfC8yLz4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794116477;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Y4BnRauqxdriNjwPu4pmz4HUBHW9FKJ4IoblZFFndPo=;
+	b=Kf57+TTyAlDbsT0KDXxygCherh7mcGuFgda0hjLZyVnoL5CwFJpGMvXNJn1TLmx0FjfD
+	 yz/oKg2CXyuGQtGTvuuFVXdSKsAX7wUOHfZoJOUVr9oqw/aBsy+aA9WZEjQP+7piJQLTn
+	 9EqID1cnqBLib2UeD+knXakUebNIm6i7ZZrvYPddWAYcUGmOCzJ3q0zguhuTCeix9v4+X
+	 Da5sASLwSiU+tpAoo912O30c1APEWu2LyQhuJcXdbZAcaIbKjA09xDlgoV5FTfRpT99VD
+	 +pUs5H57Ds4AvKYdl59R3/QqA3H72zpWEBkNi0g6HPeFdNHFKBz+75FlSXf05GZ9BRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=N8mJQtvW;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="f9z7/u1+";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB77606A31A
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 05:40:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EB77606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B38F606A31A;
+	Sun,  8 Nov 2026 05:41:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=N8mJQtvW
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3b09c07b3d2so119985a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 21:40:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1794116459; x=1794721259; darn=vger.kernel.org;
-        h=user-agent:content-disposition:content-type:mime-version:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I3WRrinu/jT9Jg9NAfoNC4MFsm/rU54sJV2l8lqiR7g=;
-        b=N8mJQtvWxnysTtHwSJZoeu2dpC/Z2EeY/G+qYBoLA0KHgqQHR8NyBcaNBl8Dwpq62D
-         LR9kmIKdTOdfKV0UXe8w4rlPK8EadFNs5EkvSr0t0puvu85DD/6PLCfW59XcCeLXDSga
-         rwYpM39+SldIYZsmteLsb+Vyah3NBzFS3PHY0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794116459; x=1794721259;
-        h=user-agent:content-disposition:content-type:mime-version:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=I3WRrinu/jT9Jg9NAfoNC4MFsm/rU54sJV2l8lqiR7g=;
-        b=bJZj39rethlz9xOWuZ+6xTuATu7yIkhz1ud/QNMqmstWJHOAGaMuGquLe35RCPeo0I
-         IHPD+Bxry8mqqCtOwMSMom6ytWHYlWOVpMcGe8aJGOAsrNaDJfAHtaY9+nJ6TeQleirP
-         90a2hTbSZJlPvCyRxZdQytU/JFIxwqWtKXOVGCBzE2yV9dG7oUF++PWgkt0mtGPdXZq6
-         eubMr81MK4XuPotdLbk6lCesNr19iUC9EMzTaHDhOX1HygOJqxEMTNGBQvgwgxQsS3sg
-         KKkT8ESETeD4OfSDN6CBJsbl0WHjY9hjOsi1lDoxYNqiMYxoXMPIkwJ6sj++YLg3qgQJ
-         cTRg==
-X-Forwarded-Encrypted: i=1; AL+hErHynmpkYuQ5p5AeaSJJ3nZJGukbKPOrRsiquQhUTdkojj7JaAOj0vw/s6SJKUXbs872VSKyWJ2ibzMakOo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+p4x/YMdD5T3/oPQDLcTZC8dJicnTFNmX5QkadHm7yGWY1n7cb
-	U7BG74IL7EkzyiGqw1H+Kmm0+liwDFnkAnU2b77nEyuH8cZvXNQMjLzi9cCtSdLRTPw=
-X-Gm-Gg: AYBFou1N8R9JwJCEr8OrCUirO4miggYpCzamA/UL6+Rgy7gx7F/t2ZHwf9FVhbNITMZ
-	13t0IkwW3htmHr+N8FpKK4c81RmWyU2BqNGFt8AmEQmlffsUYxcqz+8vNCHuqZDw+sM2k6M4htl
-	YWlaYx/lQtdLzBQ4A/UO3PwfMHgaHmLschLa2Pfx8pPOB99aUJSM9yn6eMiT9khSjSl2kFYTPQu
-	d4fK39vgcZhQpLR3xOIcmNVxuySVFWUIM/9BbVh4rq+55kdDdIDvyo/LL4QBCU8zsFC8DuiIf8C
-	SJqrh2Tcpow/4nuKEkICZOHPm6IekyjuHeSmNP+1z6dLAkpSOhKd8+9XfStVsxgY54l8A0/OGrG
-	TvYg6e7sUoKsc8wNZP2u9Rn9P4XGPbZ8TFYi8RyvbjpsQQ65uRXRkVRXi7MhXD+mAy1+9KjzvFX
-	zb/MxFK0pHAQekPV5pQiKHbiSRO+BnOKyU/aTee7b4CTtVW1GBFCuav0mNIjhhskwMcTfQGujUf
-	4lDcupD0l9BHB5rcmCjKco20FCOCdn8/9HpT+aYfBXL91+cGhRz8RwCIapNWo+tJ4R/jQWEg+uM
-	w/1B9c/fKmQrVPyYCGNq3TZYF4Ty0qXB2vUxRoDlpXkCPdxaiJNi0/gnsJDAGlqga44uT7YTu5y
-	3Y+ike39C8GQu288vk8Z1kgnYjkbWjQNEMBCgCPQeDJlgRrTGcC4pWyGMZj7u/2FdmozHWp0lHU
-	U5M8Wu/X8oUxgKke77w0GOVBivn4JL1vEBfOadZIPln+VGi0Yt9TIdNSnE+YF+072t6ej200m42
-	A==
-X-Received: by 2002:a17:90b:3b4c:b0:3a4:e735:b39d with SMTP id 98e67ed59e1d1-3b12d57457cmr400027a91.64.1794116458854;
-        Sat, 07 Nov 2026 21:40:58 -0800 (PST)
-Received: from localhost ([50.175.87.158])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1278918e8sm1796511a91.5.2026.11.07.21.40.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 21:40:58 -0800 (PST)
-Date: Sat, 7 Nov 2026 21:40:56 -0800
-From: Chris Down <chris@chrisdown.name>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Zhan Xusheng <zhanxusheng1024@gmail.com>, cgroups@vger.kernel.org,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH] mm: memcontrol: don't lose track of exiting OOM victims
-Message-ID: <avALaDR1_epaAfOp@chrisdown.name>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9z7/u1+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 188A51F0089F;
+	Sun,  8 Nov 2026 05:41:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794116477;
+	bh=Y4BnRauqxdriNjwPu4pmz4HUBHW9FKJ4IoblZFFndPo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=f9z7/u1+Z4WkFL1MGxY8DDM31eyxR8d5T1CUogoA30rKuuwWB3yX6ZP7reeJjpqJk
+	 jHBFwQgPg+1Ug1GvFFOKnOYckttmv5rrSZB+C5ev0qIF2z0+UngPrndZ7K9d64Ipjt
+	 Y4cYz0TYtAusxC4ly+ddp4B1xXZ5jhg+4RY1Pq0Qh939hpTGBDx2BgKkjzpZu1izBg
+	 MgsJqOppvP6iUhrg3ojnXkDpSKPL+WlpKezmCaNbgJUbmfrwtB7ri9qr5vZDGP23L9
+	 DzX2GzYiMX1x11YwhVnlt+3/Sp29p+rXDRxIvTCbHp7s4W+HsOCOWwJpnUNDk2POqy
+	 l4Gb+mFw4U6Rw==
+Subject: Re: [PATCH net 1/2] virtio_net: Don't DMA map the kernel image for
+ the AF_XDP TX header
+From: netdev-bot+sashiko@kernel.org
+To: yanhaishuang@cmss.chinamobile.com
+Cc: mst@redhat.com, jasowangio@gmail.com, xuanzhuo@linux.alibaba.com,
+ eperezma@redhat.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, ast@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
+ sdf@fomichev.me, netdev@vger.kernel.org, virtualization@lists.linux.dev,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Sun, 08 Nov 2026 05:41:15 +0000
+Message-ID: <179411647562.994134.8636776015987575971@kernel.org>
+In-Reply-To: <20261107125723.33547-2-yanhaishuang@cmss.chinamobile.com>
+References: <20261107125723.33547-2-yanhaishuang@cmss.chinamobile.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,69 +66,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-When oom_evaluate_task() comes across a victim we've already killed, it
-backs off until the victim's mm has MMF_OOM_SKIP. This gives the victim
-a chance to free some memory before we kill anything else. However,
-since commit a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup"),
-css_task_iter skips exiting tasks once signal->live reaches zero. That
-happens before exit_mm(), so a single-threaded victim can disappear
-from the memcg scan while it still has all its memory.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-In tests I used a 64 MiB memcg with swap disabled, and found that the
-OOM killer could kill both processes if the first was still waiting for
-AIO. The first process faults in 44 MiB of anon and submits a direct AIO
-read to null_blk with a 10 second completion delay. The second then
-tries to fault in 40 MiB. The first OOM kills the larger process, which
-gets stuck in exit_aio() waiting for the read. About 5 ms later we kill
-the second process too, even though the reaper gets to the first one
-about two seconds later. memory.events showed oom_kill 2 in all three
-runs.
+Low priority / nit picks for your consideration:
 
-The cgroup iterator hides these tasks so that cgroup.procs doesn't
-show processes that waitpid() may already have reaped. That's fine for
-cgroup.procs, but the OOM scan needs to see a victim even after its last
-thread has started exiting. We already have CSS_TASK_ITER_WITH_DEAD
-for sched_ext, so use it for mem_cgroup_scan_tasks() as well.
+- [Low] The commit message's second reason for the change does not match
+  what the patch does.
 
-With this applied, the second process finishes faulting in its memory
-and memory.events shows oom_kill 1 in all three runs.
+--
 
-Fixes: a72f73c4dd9b ("cgroup: Don't expose dead tasks in cgroup")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Chris Down <chris@chrisdown.name>
----
+virtio_net: Don't DMA map the kernel image for the AF_XDP TX header
 
-Zhan's patch for migrating a process whose leader has exited also
-changes this iterator call. This patch deals with the case where the
-last thread is already exiting, which came up in review of that patch.
+This patch removes the static xsk_hdr that lives in the kernel image. In
+its place, virtnet_xsk_pool_enable() now kzalloc's a header for each send
+queue, and virtnet_xsk_pool_disable() frees it. The point is to stop
+virtqueue_map_single_attrs() from rejecting the mapping on arm64, where
+the kernel image sits in the vmalloc area.
 
-https://lore.kernel.org/linux-mm/20261027144016.2582880-1-zhanxusheng1024@gmail.com/
+> and binding an AF_XDP zero-copy socket fails with -ENOMEM. Even where
+> the mapping succeeds, the header shares cache lines with unrelated data.
 
- mm/memcontrol.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+[Severity: Low]
+Does the second sentence here match what the patch does? It reads as
+though the patch also gives the header its own cache line.
 
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 84f4a8fd4d16..cb7cfae9ce5a 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -1451,7 +1451,13 @@ void mem_cgroup_scan_tasks(struct mem_cgroup *memcg,
- 		struct css_task_iter it;
- 		struct task_struct *task;
- 
--		css_task_iter_start(&iter->css, CSS_TASK_ITER_PROCS, &it);
-+		/*
-+		 * An OOM victim can start exiting well before its mm is
-+		 * torn down. Keep it visible so oom_evaluate_task() can
-+		 * back off while there's still memory to free.
-+		 */
-+		css_task_iter_start(&iter->css, CSS_TASK_ITER_PROCS |
-+				    CSS_TASK_ITER_WITH_DEAD, &it);
- 		while (!ret && (task = css_task_iter_next(&it))) {
- 			ret = fn(task, arg);
- 			/* Avoid potential softlockup warning */
+virtnet_xsk_pool_enable() now uses a plain allocation:
 
-base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
+    sq->xsk_hdr = kzalloc_obj(*sq->xsk_hdr);
+
+This is a small object of about 24 bytes, the size of struct
+virtio_net_hdr_v1_hash_tunnel. It has no cache-line alignment or padding.
+
+__kmalloc_minalign() in mm/slab_common.c can also lower the kmalloc
+minimum alignment:
+
+    if (IS_ENABLED(CONFIG_DMA_BOUNCE_UNALIGNED_KMALLOC) &&
+        is_swiotlb_allocated())
+            minalign = ARCH_KMALLOC_MINALIGN;
+
+So the new header can still share cache lines with other slab objects.
+
+The header is also mapped DMA_TO_DEVICE only. That means sharing a cache
+line would not cause a correctness problem for this mapping in the first
+place.
+
+Could this sentence be dropped, or reworded so it doesn't suggest the
+patch provides cache-line isolation? The main reason given, the vmalloc
+rejection on arm64, looks correct.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107125723.33547-1-yanhaishuang%40cmss.chinamobile.com
