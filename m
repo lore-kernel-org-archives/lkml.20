@@ -1,102 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794175069;
-	b=wIOBqvm9KlDuyqhdzn+SPd12O527qnwxBPk7KHMkILuFRHa+KkDZeVETpRzdX5ak/1O9
-	 tly+qabzYws7shcNedb9o43MlLCC4/rLlLDqMhSUZh79GjKLmJ9bfV8KULOkplvKZoymV
-	 nAPbLh+5RxLEkWaI7WPmfqkrywz6pp5LINOLcgVxfUte9mZkOuErRdSq5ozH3S6CHISg5
-	 rQGFnSNMfh56CsF18HO5i7KItHWEEX2BaRcZN7jZtRMkWJN5v/JcfkPuX1I/pA9lkB869
-	 wfBqpMvc62U3gzvSytWoN4WzykfkguGZdlRlHAe1xlakZ/b1pem0LTMA8Babjp2P9EA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794175069;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AyS5UId07S/P0XVdwD+qagOLSX4Ppdf3Pa4ETDTv2/Y=;
-	b=XlWrHynaGDtIxSyxrMjx7eZan9IXl6HyTU/NHQ1HuwNc5QAAw2JvR21hvmeHA68x2ev4
-	 fCr00FOlY6s8XcAelm6RArkLHNYkSgoUUvolCfJsFDt/P6hS1YoIb3EN/qRJ0U+rGSc50
-	 /WjNVtmUjlSidbHSB/IgO/EkB8JamjNeQYhcvId0hdg8loKDu2GTrL9E7pGPM8Xmnr19C
-	 Aiiz3b2Cl6VZ5n/ZxXp5Qu7UBBHPkpwW/AHguLQU5NsF1m73/yDi7G0Q30phxGdL3wSXu
-	 goKgQRqxEIwe2fyYxy9KtGMksyq24X49QbKn3O/r5Y+MhOINPR4rtfvBNpkp+JralvA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l+4hqDev;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794175374;
+	b=FTnlFsVyf1vj9Gs9Km7jQ4rx5/f15OPTrXJ1XfltMuW3QFEnZ1rY84DEJZZlwEToN12Q
+	 0WjIYq0Ec8g0u0ScJ0U2UtBNf1Ai1o5Fsc1v2qykCE0ckR7jUqFTLCbOoJQu1lzhicXcY
+	 Bbhg0RB1ju6C+896ELk9fESPtbBESrtUrhnOQXPsVeEVzKzXGQjzU3utkv1UHE/9fYSsO
+	 z4zGLcn0q7uFNPRcSKaadnp9N/OmYssvTYGq8Q05U6wYBKEdD5ijDFRxObXS86V7qQAdS
+	 5hvywCZdFoYYd43frE0voP64n3i6JyHR9N7GCSL/74mc/4MMmPhJfJeB5ADeEMpLf6w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794175374;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=mimUxCXmRdRWf680HpItYRr1bGkMxj6FEoMyisnpVbg=;
+	b=J+tEjgBp9SNyG92jDucGaJPqbFmYIHNNFid0b9cP40uiW22+qkYWnlMsVwXN9/hDms3x
+	 /tZH7Pdx2qULTPRgMgsEeHKEkD0ejaRHvnefdFZ7rCgL6xq2zDChMCO2Axb2oiNkZBl02
+	 05o9h/MswIeYxbaOTdfExhJhJRwp9961NcpKkQ9okq8RDmc7WePq5K9h0D0GNO3OM/RWl
+	 t5KP+l/HH16MhZDhC47Do9skDixc1oRMz+vftTnvbMmS02mFh+JeopmSeB+kuy3qAtBYZ
+	 f+uDj1ShhW9fLdRLeOw3+ziNtubYDeyrkpmR0PdggPAaz80+CyBJ0lFqW4pnPz3VfxQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi7Vrb+1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F90E606A320;
+	Sun,  8 Nov 2026 22:02:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi7Vrb+1
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794175374;
+	b=JttGF4kCf7/WOWCO1HBkZ9uEkoRnspOXug9VRSkqYNfzp01LUhGNsy8t///7k9A+Awe7
+	 YO/5ETHkoZRTp4HrqHUo3SLtWOdXmO9uWFyT3R7r8JQXYtIrbOJmNfhBSnDivR+3XLhgt
+	 xr3wTG0AUhij4f9vmRla6fs47ok8UDsHPbgVltEQYYjCGVEGRIuF/dxm9Sm73jILF8RXa
+	 spaNoUkLSvu8ZG3kbC7MPYuZVzxPI9Wz5bJ8aSNiWEaH3bm8BnKX5b+RIheviGZBdKEqK
+	 GAZNv00GCinkPnfWS7C3e3dUKdw48e+AyCIinPfjeuUjwHHz20tiPvYMaSYD9PVCL9w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794175374;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=mimUxCXmRdRWf680HpItYRr1bGkMxj6FEoMyisnpVbg=;
+	b=fRErTDQxK6nhZMCXx4PAu9q2pJa+2o3+FUmLvWxQ0sNWq1VRXpS19ZevgLD4qh0v9X4O
+	 bik+Qwng+bUv33qOC5b236VQ/50xyOniAn0GFbUnd7Rp1+W59OkluPxB8KFM0cXkF0wdk
+	 iZA+um+SAZ9g7yN5Afbd/rDf3nL8DSXf37F/JPqYRxHeLvJ4eFmCraAMGmnoybAzGx6k0
+	 ahX0dTEhj5bok655xmh5l9Wp9cALUHworfxA655z7QkXscJ+zUrbDn6HhmAWltQCgJXcF
+	 g3JBi8FsF0absxvd67CffGA0hu/RAkDZd4+15MCkiN8KZgPbo1p23ZrKaVNaVt4H3Pw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38AB1606A323
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 21:57:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38AB1606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l+4hqDev
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b0d09df973so206984a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 13:57:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794175068; x=1794779868; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AyS5UId07S/P0XVdwD+qagOLSX4Ppdf3Pa4ETDTv2/Y=;
-        b=l+4hqDevVqPDmyPVmJXMFgwoBBedr+Pp7izQJcKTkuT39n4zCq6+mRX1ImEs2AOP2T
-         oWTKx86o3IAS07Ip4U5tc6jYEwAHWPG/EO8wzpg+PNxh/mDPZCZRRqNcntxJ/xr9ZwsG
-         p0b4MumJjGCyEpcb/xTNEeaseSPMyP/DhwlrYxdMijLAKrLFYtAnj9qMuWvOTsTBq/dG
-         bkyJmPjGVHFNW4dPMZDlRKGwdakOCx3GfmsFVIr8LyyDzsFJKXbhhbDi9DDq1scsV9ZM
-         aFmvnp0xAFEkBuuE33Ad5TJCbu/1Calqgp3gvCaXOVmZEAbOraQzmTkuORshr2wxPYmC
-         wSCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794175068; x=1794779868;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AyS5UId07S/P0XVdwD+qagOLSX4Ppdf3Pa4ETDTv2/Y=;
-        b=xajubjKD6yKJulrc9xr2jkoElQcPIS7IhbteZBY45yg5wk4KGuDnmCl164A8kom8AD
-         1O1SSsZHqLF4F0Pqjz9C3lLmZcXIDbluPR0yV1SjhriGsdaDNVR1Szc8s3fCGChfhX5K
-         Go3OuFuBewippHYd+drlhFDPLMrB0ZOTktnIwFKxDuXzOEW4Ot0wcsCSl8hXS2/6dYLf
-         qKb+Y/Ald5+L6W9XjEfBLXXqWewF2+uEjfdsrGAVOAFSJMZRpauPscJ4MyKHMb/9bc75
-         3eQgOEWB9ITh3y6IPXRqX7ivorWUDRVoayMRmlMZscnSgTcRp7DO89b+4f7E2chaaPTp
-         nEFQ==
-X-Forwarded-Encrypted: i=1; AL+hErFRpIQ9MrimfbUthAkZXdfoLfAsAKEqE5YsxGTphPg/zrGieI1HgGp/nf+RUdIB0DG1KKQ88VNFH7Fse/8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2Sc0zlThbAH+auaLULDZjkE0yL2T4PHzV3OR0D2+cUhH3KqrT
-	2WJJqpjDa0TWkN+9KS8f+q2Wnv1ZGM1MsyoHx4gyvL+BgmfQU0gQQaOq
-X-Gm-Gg: AYBFou2ZHA+aWwQ4qWA91w+HZFZ/2H7vjRSHMnii36oogLgTjfOxwNRayGzTmXMuHlO
-	Dt8Vi1+1kANUXkXIWOQA58J8U93eWd66pFAH3SkT/HZgKWJpqzeuQGy+wZma8C6LY2L0PecQfFB
-	0aYageDhgp3V8zdgQUxr0S1LpfA124xjLXlR9yNgVe3lI+ERAISQJs7uKjAMxo1g5H7RT3RXMnM
-	yry9m6KN9nccQE/02EJkr7Dc77DyIDuQsLd3cPLmMnt3qN40wPKI5TQFE2nkw7u3IBL9HZAqGHm
-	O2LiHF/kD5ZIK/15xJTxfEiktFbBPf9i2O/i8XvlyXpXJwdYLekPXt3ZPvlhS6V/XS9pV29tNFu
-	La8zI7u68Ib0eQ765I2n2z2acDaRYOXz3wuCBqp354dFBinjdDJyUWj1cFNmwraBU2hgk/tTmgN
-	KcnaB/uzhQ3/AhPmdrF7lRLzZf4XYBdWOXp0X3SOeWjKsXKub3mW1kWHwnEgS+yAx3VHutiCeO1
-	psytGD2cd2bJgfBCZwADtmqE2UVkquHetGJmhFswQWZrPBlvMrynXpZQcrpczCuy1UdENiqpH0/
-	1EiyLsTzjlYw1z3ptSTEFVeGAbSzPNqSIhsddyN7vuS5VQrcZewp9dYeLTb4KWJ8yMFrg2T8FiX
-	FxiQUQX3TOj/ZEo5AJF03yZ2syn/z0ZMFeV50hTwiN2uwwvi2TEJPqkyswXuwiPxfCyfeV/QMPp
-	QmMQ==
-X-Received: by 2002:a17:90a:ae0e:b0:3b1:3598:f881 with SMTP id 98e67ed59e1d1-3b13598f942mr1243857a91.53.1794175068525;
-        Sun, 08 Nov 2026 13:57:48 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1152fa888sm5692976a91.9.2026.11.08.13.57.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 13:57:47 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Alban Bedel <albeu@free.fr>
-Cc: Radu Rendec <radu@rendec.net>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mips@vger.kernel.org
-Subject: [PATCH v2 1/3] dt-bindings: interrupt-controller: qca,ar7100-cpu-intc: allow shared write buffer interrupts
-Date: Sun,  8 Nov 2026 13:57:36 -0800
-Message-ID: <20261108215738.113582-2-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261108215738.113582-1-rosenp@gmail.com>
-References: <20261108215738.113582-1-rosenp@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 899801F0089F;
+	Sun,  8 Nov 2026 22:02:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794175374;
+	bh=mimUxCXmRdRWf680HpItYRr1bGkMxj6FEoMyisnpVbg=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Pi7Vrb+1SmxCIbk2rv2+FLdua3Nu5/LTFXW7ezqn+iijXO31sccfK3LMugf0pDarO
+	 H0H0UnciBbL/v0iWs2X94XO+mr86V0pbTUxHBP6wAX1ZRMnzbzHbPj/FUN5kMLnNJ1
+	 I2Y3A1Xjiojxngd1LH+5K1clw7GkGyjMVX1UmwljyPYcc5iDpG3rOnmrmAYMPWZCNr
+	 fiEdoZGe+i2iJ/bnYd03NASi9NvO0JL4r7ZsmfWFwUf+CkkxyuObPaTuMzUYjW3KpG
+	 rmKRIHzY1a9YCg6DQsPoM23Q4GAwpqKpUVngewBpezwNb3hE6FFPb8vIdWs4lLU6+d
+	 9upV1/plj0Csg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1539948120;
+	Sun,  8 Nov 2026 22:02:53 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Sun, 08 Nov 2026 22:02:51 +0000
+Subject: [PATCH] arm64: dts: rockchip: Enable all CPU OPPs on Kobol
+ Helios64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,34 +83,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261108-helios64-cpu-opps-v1-1-31aa4afb7eb8@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAIrx8GoC/x3MMQqAMAxA0atIZgONSBGvIg5aUxsQWxoUQXp3i
+ +Mb/n9BOQsrjM0LmW9RiWcFtQ24sJw7o2zV0JnOEpkBAx8S1fbo0oUxJcVhWTfr2ZI3BLVLmb0
+ 8/3OaS/kA9iWdAWMAAAA=
+To: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2693; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=edWxjml98aK3nfS7bKrBTOBhCYbn9/aBY4i4ZQTEi+w=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFkfPvbcO3oyY5n4PY38eIPUy4H8X5MyS+d79cz2eHWCP
+ 17kCeOMjlIWBjEuBlkxRZYJhzRuZSy5+tffw/wBzBxWJpAhDFycAjCR4ixGhsaSmH//uleGmGUJ
+ yaTNFvHkY1ad/Orxue5HHBKbHlU/TGT4X7nt5sT5M9OYOcROTH2ybdsZu3uB3Pb/jjlpVM2ZczD
+ wKRsA
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-On AR934x and QCA953x, the WMAC and the PCIe root complex share CPU
-interrupt 2, but write to DDR through different write buffers. Document
-that such an interrupt is listed once for each write buffer, and that
-all of them are flushed.
+From: Igor Velkov <iav@iav.lv>
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+The Helios64 device tree deletes the lower OPPs of both CPU clusters
+because the board was not stable with cpufreq.
+
+With all OPPs and regulator-ramp-delay = <1000> on vdd_cpu_b, the board
+hung about 9.5 s into boot both times we tried. With 40000 it ran 40
+boots and three one-hour DVFS runs under load without errors. We did not
+find out why the slower ramp hangs.
+
+40000 selects the slew rate we read from the regulator in U-Boot after a
+cold start, 64 mV/us; 1000 slows it down.
+
+Restore the OPPs and raise the ramp delay.
+
+Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
- .../bindings/interrupt-controller/qca,ar7100-cpu-intc.yaml   | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Tested on Linux 7.3 and its device tree, with the U-Boot and the .config
+of Armbian. The PCIe host driver was not loaded: on this board it takes
+an external abort at probe on some boots, with or without this change
+(about 5% of boots with it, 1 of 4 without). One boot with it loaded
+brought the link up, without DVFS load.
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/qca,ar7100-cpu-intc.yaml b/Documentation/devicetree/bindings/interrupt-controller/qca,ar7100-cpu-intc.yaml
-index ab32a91af4c4..becec88061d7 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/qca,ar7100-cpu-intc.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/qca,ar7100-cpu-intc.yaml
-@@ -29,7 +29,10 @@ properties:
-     const: 1
+Besides the boots and runs above: one hour each of schedutil under
+bursty load and of switching only one cluster.
+
+Ramp delay scan with all OPPs: 2000 hung twice in 5 boots (once at boot,
+once on reboot after an hour under load), 8000 passed 13 of 13 boots,
+32000 passed 3 of 3.
+---
+ .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 24 +---------------------
+ 1 file changed, 1 insertion(+), 23 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+index f13ea2df7a30..f2f900f576a0 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+@@ -354,28 +354,6 @@ vdd_log: regulator-vdd-log {
+ 	};
+ };
  
-   qca,ddr-wb-channel-interrupts:
--    description: List of interrupts needing a write buffer flush
-+    description:
-+      List of interrupts needing a write buffer flush. An interrupt shared by
-+      several devices that use different write buffers is listed once for
-+      each of them, and all of their write buffers are flushed.
-     $ref: /schemas/types.yaml#/definitions/uint32-array
+-/*
+- * The system doesn't run stable with cpu freq enabled, so disallow the lower
+- * frequencies until this problem is properly understood and resolved.
+- */
+-&cluster0_opp {
+-	/delete-node/ opp00;
+-	/delete-node/ opp01;
+-	/delete-node/ opp02;
+-	/delete-node/ opp03;
+-	/delete-node/ opp04;
+-};
+-
+-&cluster1_opp {
+-	/delete-node/ opp00;
+-	/delete-node/ opp01;
+-	/delete-node/ opp02;
+-	/delete-node/ opp03;
+-	/delete-node/ opp04;
+-	/delete-node/ opp05;
+-	/delete-node/ opp06;
+-};
+-
+ &cpu_b0 {
+ 	cpu-supply = <&vdd_cpu_b>;
+ };
+@@ -542,7 +520,7 @@ vdd_cpu_b: regulator@40 {
+ 		regulator-boot-on;
+ 		regulator-min-microvolt = <712500>;
+ 		regulator-max-microvolt = <1500000>;
+-		regulator-ramp-delay = <1000>;
++		regulator-ramp-delay = <40000>;
+ 		vin-supply = <&vcc5v0_sys>;
  
-   qca,ddr-wb-channels:
+ 		regulator-state-mem {
+
+---
+base-commit: c3baae5f1a15645cddadcb2b9abddef5df291f59
+change-id: 20261108-helios64-cpu-opps-8abd6fe61f01
+
+Best regards,
 -- 
-2.56.0
+Igor Velkov <iav@iav.lv>
+
 
