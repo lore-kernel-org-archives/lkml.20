@@ -1,106 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794100046;
-	b=AILmyyDKSVJ0i20bkWrE2TFVvqtJkorA7C+oZ5I0SxIr0LgMkt1oY/Afplx5qVJ8lh99
-	 /jvDcSSnyndJW5V+SUq6wuzpvQBdRfcB8IsKWMZ0W+wkzw3w6NtxE0ji5H5hG6mPh/+q/
-	 wK7sSQ9D91LhO6/dnP+bNb9U6jSGFF2GusSI6p+BJmgqRsT5VUl/vEt7cIset4G1oBwk8
-	 ah15leBkXWqdc1Tepk9hUhB6o8KJP86hyhXXLuR45IqQh2SDbmbyaWP7s61y88n8PLGEh
-	 gHhf2AJiZjdU2ftHP6+HplZoKMRp1Wr6h0A0Qoe+zpaje57csXF3H1EmOJVvVTZYxjA==
+	t=1794100131;
+	b=fVn9D7w7q4/6LX6oO4XOvdViKUtV3z2ZHCgdmY8/N2DAC1CUjPImYM8vhlALm0+YhPOq
+	 zFVF0ZR2w024WMJ5bQDPrKOmSmQZiltjtQkHDzLzySgiBJQjU77ymjNOOwhiKt92Uv4L2
+	 /gOOcq3L1pG7l0fATWrz8jS6eSfjWYtKyLQ9qlDJlxax0PG+ctpEYyGod6VfKHIUoi+Cd
+	 sPOM64Rs50N2M9rWuwXUUirn9cxSy6jCzF0TehrJ3pGGFWwyNWGjcsvXQVP8eZ0baryjt
+	 bSnxe+62v+cs4ozcycPXIsRWOQCDOeo2ObhV1ocrVAVIeESa3KmUab64dVBjONQIMbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794100046;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=B6NBC44oLa95X1aY0aLFRnK9SzAu0klmdILnt2Ypptw=;
-	b=UHuyjefXx8X0LSgADd0nYi2JO5YgAAG1lpBX16aOAuXkWlkOziy3ypV6qxEKHcoJp0u5
-	 sMnkrPV0CIyr+NqY697nLIY2UKo81BOF6ynu1kg2ybYpqqGCkCzO0pc0ZpurzBlOmwKWE
-	 ZaUN1Ky8gOlVZWNhL0ttdy3pl73CEN5EmRF3MLRFHcjpNnNZU+xx6gaApMW1rU7537z10
-	 lxy5cecQoFR8fVpErKi0LPZCFjwFZjj3o9zysbO/S16FTSlLyFa0buZDrdeekV1ny9xn5
-	 52Mv6ZYuoJNkSUBrqYd3nT6BLEIprucpozTspE9fOVRzXIrY00TcMP6OAr7q5ZwjpNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794100131;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dX2zHeR5d9CMhKQ6rCUIn3F7g835XMuk8GBF9JMR+cg=;
+	b=hgE62VwBnaU9W9Qidey1kUnXPPlQFbm/nAHNAbIcl16ixvyX26IxIbwUA4zqIKZp15V5
+	 IzRUfe6UIH0mh/jCmYaFD/uFhHPN+M0CmoWtUkZrISHq/zb7+mDib0YmlU7NklDn5pME0
+	 ZI2B+ZBuDtWqolVw4U8DjkeFNN9go/QPQNN4I6B3CgqRhiJrG5M4crBMVzb3O51Xc9dPo
+	 Hn2A1vNL42UOD9bsT42vnOuc1QgNlA16shk5JZ1QuOvLzL1yCWlnTaX/gS8yUJm5PsXwG
+	 k1uUEm3S9fWJTKlVGoewRP2Xmvjpx5yzqv8hxuDZ9oR756k0GRHiR7QJ+pQqvj0Qqzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OMyFd78H;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6OCgzQr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB116606A330
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 01:07:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB116606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E62606A326;
+	Sun,  8 Nov 2026 01:08:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OMyFd78H
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36f8cdd30beso347829eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 07 Nov 2026 17:07:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794100045; x=1794704845; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=B6NBC44oLa95X1aY0aLFRnK9SzAu0klmdILnt2Ypptw=;
-        b=OMyFd78HssTFnnWLrccRVrdwBR8jp6gLh6pdtlOeFZ6yq/ZkZeRx166C+lgsTROppv
-         dw8j1QFZpOtIJ7tTiztU4F88QAXFwfPcw1YDRv+dTTeQ2JsojR0L3quIW5G4LuTPWvzl
-         IxeB1czx3AOOvax/+4BJo12uj9DiI3fuQ8KOAql9Mlp4j9l9focGESsEDbNDoC4prz7z
-         twWHRtj2VkvFDmCEawkLhwe8wekupFyLFzkTJ0QNXgLhPDEeoaxgCOO+ar447ntmygaS
-         SPzyjm9HQB5Lp4nsGbfeCKC+no2Snf0wgV2m9u9SbiX8fiGQkuHS3J7SjVlHR55DnmmS
-         OMCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794100045; x=1794704845;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=B6NBC44oLa95X1aY0aLFRnK9SzAu0klmdILnt2Ypptw=;
-        b=oBSyg+s8A+pBU7UdI89av95/ogQmQk7iL1dq4B4nWE3IorTvPjVlIee6X3D/DrBBpf
-         msNPbNL74XMn0vFdHjRESg6TnANQ0CvT8LjnVT0q5AX5hquWcgJdHHJjN/f9ZyRrO6u9
-         km8duaMTMtNPSeIWm3aQQ3hb7Te+zGQiBaKMcevtHRBhos1V7RRXWqToi7qSByKTNrjZ
-         M/RM5ieA4I2DHdjVrOLxRPEHN2MxxRqtAkCESRzE7sCZLLGL1Fd7IJBDukeCS1JsWDer
-         U7tUXjgVk7S4aaejVu89GM2M141U2713UjJ4XWD9ru9h9tphTuEO5CrfDXe6jGmVGBXf
-         k8HA==
-X-Forwarded-Encrypted: i=1; AL+hErE4dA719DjtdHheK6iy03W9CIMocHUkpXlxlo1DwencnEPZfwsvoRjI+Z9Bis8xhC7HByFcQ8Ax5AhrRkY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/rTaTRm2qjFvR7jycgBAfJXjrLBV/bc++7SlkxG2J447yHjmmw
-	oKrTfBp/NVTB/m6N4aFzfs4myzQV4f3rqCIoOve80JHKy1gsGEigkg8f
-X-Gm-Gg: AYBFou057czA8GmbmWB7aHPZn0fW+4AQT87b+8tUp0u339RpsLwbcIyBKhrHbmi0r4z
-	wGUnqNYYNAaf/E33icYBlv0kpOsI+fzBhjIIdj9CmnhhEiCxzv4bgzgu5gCIapuDghdGiCihoRm
-	CpLRLF13cw/7EmByE9++lqk/4VxcsynD7V8xIbkII5PRN19ZHEPY+EApn1xc+TO4u7xac3ZnU5p
-	kLfI10/lMSNLl4S5CjT62xXkxsLScvmWafT7nl1JB4Tyd6iIvNkn6hVWXCM/+s1OdaqE+F9zYnU
-	X/N6XahIvbdSrnEGXJwIiX+vKWAf0fH76YVj6x949Uxh9Q3dZRyHn5JPPe9kFw04F0d4QJcKMNM
-	VlA/Lx/5lj/7Q71cyAIDWT39s/4RtNkAk5ABgDmCWli0EmUqnGtk7T6G+kvR45GbQX49rsONmzJ
-	AOJ45u/bB0OcfzCPu29wN/uuSlFglOWMkGR0BFR+lStR7fwzoH8Fy/mIKqSxBgmCE8nVhVyQADv
-	EtFnszUaLy5f7RhiezFZgACvoVNBwG+Eg56RdwCPxDljkphDI67UhynE/40n+H0eqaCCFGT1Xtd
-	eQosh8kbuFbC1B4mpJvtwppZxWctltjHgB1AcL/w2yUO
-X-Received: by 2002:a05:7300:e920:b0:36d:25e:1961 with SMTP id 5a478bee46e88-3725e240abfmr839498eec.22.1794100044508;
-        Sat, 07 Nov 2026 17:07:24 -0800 (PST)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265c06c61sm1344623eec.14.2026.11.07.17.07.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 07 Nov 2026 17:07:24 -0800 (PST)
-From: Joonhoe Kim <26rote@gmail.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: sashiko-reviews@lists.linux.dev,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 32/35] drm/msm/dp: mark the SST connector disconnected when MST is enabled
-Date: Sun,  8 Nov 2026 10:07:24 +0900
-Message-ID: <20261108010724.4061-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20260929045429.A51801F00893@smtp.kernel.org>
-References: <20260929-msm-dp-mst-v7-0-4b81473185e7@oss.qualcomm.com> <20260929-msm-dp-mst-v7-32-4b81473185e7@oss.qualcomm.com> <20260929045429.A51801F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f6OCgzQr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6BBE1F0089F;
+	Sun,  8 Nov 2026 01:08:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794100130;
+	bh=dX2zHeR5d9CMhKQ6rCUIn3F7g835XMuk8GBF9JMR+cg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=f6OCgzQrM2EjdKw/HL5UxbEH/Vj/Nfm5Gb1un7DWFiqZs02cFMIndOeTTt3TYbmfE
+	 6YEu7iD1CHZwIKWfQmvbUiER6I9sHYmFBLJ9rJVhDHcM/NobFZj21HMR5TcKJzcaFy
+	 jfi4CdGpA23J3tGEv6ZZek8c9Sy6ehgQdPeGyojNsDLlZk12hho1GDiytFP2uyoIJJ
+	 QRdbwVYeT6wcVemSjIyw2VCBn9FrMFUvjZVIMp/TzWrtPEzmBsX/9x7tS9orDc/Xlr
+	 F+8uci5NNmWOL229b8QLg0QufLdGvBtk3nFyc6gscCZo6md/Q7FHbgEdHQNPoQ7gK3
+	 cCdaWiFsZTA2w==
+Date: Sun, 8 Nov 2026 01:08:42 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Arka Mondal <arka@arkamondal.net>
+Cc: Linus Walleij <linusw@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Peter Meerwald <pmeerw@pmeerw.net>, Matt
+ Ranostay <mranostay@gmail.com>, Robert Eshleman <bobbyeshleman@gmail.com>,
+ Leonard Crestez <cdleonard@gmail.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/6] iio: light: max44009: Report the integration time
+ via read_avail()
+Message-ID: <20261108010842.13470b16@jic23-hlaptop>
+In-Reply-To: <20261102074700.63075-4-arka@arkamondal.net>
+References: <20261102074700.63075-1-arka@arkamondal.net>
+	<20261102074700.63075-4-arka@arkamondal.net>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,57 +65,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, 29 Sep 2026 04:54:29 +0000, sashiko-bot@kernel.org wrote:
-> Does this introduce an AB-BA deadlock between mode_config.mutex and
-> plugged_lock?
+On Mon,  2 Nov 2026 16:46:57 +0900
+Arka Mondal <arka@arkamondal.net> wrote:
 
-Yes, I hit it on the Lenovo Y700 Gen 5 (TB323FU, Kaanapali) when
-booting with an MST monitor on the USB-C port (Linux v7.3 with Dmitry's
-"drm: handle IRQ_HPD events correctly" v8 [1] and this series). The
-lock order is the same in v7 as posted; nothing in my tree changes it.
-The HPD worker holds plugged_lock and waits for mode_config.mutex
-(msm_dp_display_mst_enable() is inlined into
-msm_dp_display_process_hpd_high()), and the compositor's GETCONNECTOR
-holds mode_config.mutex and waits for plugged_lock:
+> The light channel has IIO_CHAN_INFO_INT_TIME in info_mask_separate,
+> so userspace reads the integration time from
+> in_illuminance_integration_time. The values it accepts are listed by
+> a custom attribute called illuminance_integration_time_available.
+> That name lacks the in_ prefix the core puts on the attribute it
+> describes, so it is registered at the device level, and userspace
+> looking for in_illuminance_integration_time_available finds nothing.
+> 
+> Report the list through read_avail() and drop the custom attribute
+> along with the string it printed. read_avail() wants the values as
+> IIO_VAL_INT_PLUS_NANO pairs, while max44009_write_int_time() rounds a
+> request to the nearest supported value with find_closest_descending()
+> over a flat table, so the two forms stay as separate tables.
+> 
+> The eight values do not change. The core prints them with nine
+> decimals, so the attribute now reads 0.800000000 down to 0.006250000
+> instead of 0.8 down to 0.00625.
+> 
+> Fixes: 6aef699a7d7e ("iio: light: add driver for MAX44009")
+> Signed-off-by: Arka Mondal <arka@arkamondal.net>
+> ---
+> 
+> Notes:
+>     Compile tested only; no relevant hardware available.
+> 
+>  drivers/iio/light/max44009.c | 48 ++++++++++++++++++++----------------
+>  1 file changed, 27 insertions(+), 21 deletions(-)
+> 
+> diff --git a/drivers/iio/light/max44009.c b/drivers/iio/light/max44009.c
+> index 82b8a806c5fa..c27f0f9ecc44 100644
+> --- a/drivers/iio/light/max44009.c
+> +++ b/drivers/iio/light/max44009.c
+> @@ -66,15 +66,16 @@ static const u32 max44009_int_time_ns_array[] = {
+>  	6250000,  /* Manual mode only */
+>  };
+>  
+> -static const char max44009_int_time_str[] =
+> -	"0.8 "
+> -	"0.4 "
+> -	"0.2 "
+> -	"0.1 "
+> -	"0.05 "
+> -	"0.025 "
+> -	"0.0125 "
+> -	"0.00625";
+> +static const int max44009_int_time_avail[] = {
+> +	0, 800000000,
+> +	0, 400000000,
+> +	0, 200000000,
+> +	0, 100000000,
+> +	0, 50000000,
+> +	0, 25000000,
+> +	0, 12500000,
+> +	0, 6250000,
+Lot of zeros...
 
- INFO: task kworker/0:0:9 is blocked on a mutex likely owned by task <compositor>:2439.
- INFO: task <compositor>:2439 is blocked on a mutex likely owned by task kworker/0:0:9.
+> +};
+>  
+>  struct max44009_data {
+>  	struct i2c_client *client;
+> @@ -101,6 +102,7 @@ static const struct iio_chan_spec max44009_channels[] = {
+>  		.type = IIO_LIGHT,
+>  		.info_mask_separate = BIT(IIO_CHAN_INFO_PROCESSED) |
+>  				      BIT(IIO_CHAN_INFO_INT_TIME),
+> +		.info_mask_separate_available = BIT(IIO_CHAN_INFO_INT_TIME),
+>  		.event_spec = max44009_event_spec,
+>  		.num_event_specs = ARRAY_SIZE(max44009_event_spec),
+>  	},
+> @@ -284,17 +286,21 @@ static int max44009_read_raw(struct iio_dev *indio_dev,
+>  	}
+>  }
+>  
+> -static IIO_CONST_ATTR(illuminance_integration_time_available,
+> -		      max44009_int_time_str);
+> -
+> -static struct attribute *max44009_attributes[] = {
+> -	&iio_const_attr_illuminance_integration_time_available.dev_attr.attr,
+> -	NULL,
+> -};
+> -
+> -static const struct attribute_group max44009_attribute_group = {
+> -	.attrs = max44009_attributes,
+> -};
+> +static int max44009_read_avail(struct iio_dev *indio_dev,
+> +			       struct iio_chan_spec const *chan,
+> +			       const int **vals, int *type, int *length,
+> +			       long mask)
+> +{
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_INT_TIME:
+> +		*vals = max44009_int_time_avail;
+> +		*type = IIO_VAL_INT_PLUS_NANO;
 
- Workqueue: events_freezable pmic_glink_altmode_worker
-  mutex_lock+0x30/0x70
-  msm_dp_display_process_hpd_high+0x23c/0x2c8
-  msm_dp_hpd_plug_handle+0xf4/0x208
-  msm_dp_bridge_hpd_notify+0x118/0x290
-  drm_bridge_connector_hpd_notify+0x7c/0xf0
-  drm_bridge_connector_handle_hpd+0x5c/0xc0
-  drm_bridge_connector_hpd_cb+0x1c/0x30
-  drm_bridge_hpd_notify_extra+0x4c/0x70
-  drm_aux_hpd_bridge_notify_extra+0x4c/0x70
-  pmic_glink_altmode_worker+0x274/0x520
+And the reason for the extra zeros is this.  Why not use PLUS_MICRO
+and drop 3 of them.
 
- <compositor>:
-  mutex_lock+0x30/0x70
-  msm_dp_bridge_detect+0x54/0x338
-  drm_bridge_connector_detect+0x40/0xc8
-  drm_helper_probe_single_connector_modes+0x158/0x608
-  drm_mode_getconnector+0x19c/0x448
+> +		*length = ARRAY_SIZE(max44009_int_time_avail);
+> +		return IIO_AVAIL_LIST;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+>  
+>  static int max44009_threshold_byte_from_fraction(int integral, int fractional)
+>  {
+> @@ -464,7 +470,7 @@ static const struct iio_info max44009_info = {
+>  	.read_event_config = max44009_read_event_config,
+>  	.write_event_value = max44009_write_event_value,
+>  	.write_event_config = max44009_write_event_config,
+> -	.attrs = &max44009_attribute_group,
+> +	.read_avail = max44009_read_avail,
+>  };
+>  
+>  static irqreturn_t max44009_threaded_irq_handler(int irq, void *p)
 
-32/35 is there to avoid a transient connected -> disconnected change
-seen by polling. With 25/35, drm_bridge_connector_handle_hpd() stores
-the result of detect() in connector->status right after hpd_notify()
-returns, and detect() returns disconnected once mst_active is set
-(29/35), so I wonder whether the write is still needed. If it is, it
-could be done without holding plugged_lock.
-
-To get past the deadlock I dropped 32/35 locally. Since then, booting
-with the monitor attached has not hung (4 boots), and over 3 plugs of
-the monitor with drm.debug=0x4 the SST connector never showed a status
-change in the probe helper; it stays disconnected while MST is active.
-
-[1] https://lore.kernel.org/all/20261024-hpd-irq-events-v8-0-6ee949e7a384@oss.qualcomm.com/
-
-Thanks,
-Joonhoe Kim
