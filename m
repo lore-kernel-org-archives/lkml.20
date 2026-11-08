@@ -1,62 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794148446;
-	b=tFeUz9mef3YqpGM+XTR4tl5yVltJQoItGJmX0rVvHU/+uaRfL0hCEaG0J69cqqIAoY9p
-	 kf0ba35NP2RbcHZrY63mL9ulJpzMN3juL2bn7w3kUOh7hptmSaEKF2xW9pbXZ9Eg0vJ6d
-	 6bEqWyxxuiVjDxdN6IIFeec1lXWx75HKB9P2ZYqu8zTLkxRVnA/paSFmF40Ywql9k9Uvu
-	 83L4TPDoNZ19xz5k96w6gPS/KvYK+bRPKgMNu5pWwbfBh6rLCSz5Z6e3CK2QGV9DxeLlY
-	 bEVC+lBbOz/kuZcElyg/6I93Rj8ZXjIwG9bfLltsQ1Z0VCf22VYC7sShxWaWWBJjEJQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794148446;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=1//uqtjICj44uy7P8QVwmNqhHAj9tnbXTw/EVuTChBo=;
-	b=ZOGeoiGj33lISIBY+lf7VxQZ7+0IeMVPtBqNPY+B00XzujF7wVB/JLj+boud7IzuGJwQ
-	 yHvhwiO0ebX/0mEcH0AfL90afJYlS1BJcLKw2yzfoJW3SSoyzK5iu9krEVdL54qRbb455
-	 yynpscAwC3wz/WrcpXiITF2+FqvfSAOJLsavhoBgr6I7y9CMPq3F4xxs35peTlNNTOu9t
-	 Q8OZz07vUOfKTtf567jvt604R9xMkyWYG5cK0IdIL/uWQVG3nuDL0uwfuS0H3Of3p529m
-	 elgQ2IGQb09fHLOJUngPwH+MOCXzt/mr+9a0k1zQdDyeLpgEgOUeLjz7mxq7CsJVKKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPdw6PTY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794148448;
+	b=NeRTO8cjIFUVm/kso/Jv+VfzhXL5cYQqRbBp8BJweUSAiG6VUD/Uo6nokNB0l4sXc4et
+	 G+GM7XGbRYmYzjnNqcVp6V58jzfOk2Wi2Fa3ac8/1uJ7WezLuTLiyOJEWFqle7uLgFRI2
+	 AyBbPrwHw3zETPKEJKIt6GQc62bafFxLTN6UpFs/HEzhpjaDhOVx7uGpfJeOE47rArITd
+	 UEYLTp0TkLW2oGeGXd0iSLWt/oZ1vEh1D54VPCcneieXCgzC74ynvDQb43gQJMQjiniYd
+	 NOh9aHc9lnrs1+h9JFHtOx3lGqzvwMlNwzKuMpvh0zn0MjNpY+GInbjtb15wenUVFSw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794148448;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=bZ6795oK8wTcMWcOgiycQWPJ2nyh3zzKiM/vphOQm/M=;
+	b=ImM9zjVW4OJjt17+pQxmwHVKEUMut21SMQ7frrYCPh7LhqGmwWPLKJqtiLp94o3t4MCf
+	 JF1eMOppF2EBZXNXvcUx/zNntxq1BytbKj99tSxA+Umu3IFiR/7ACI8u1fZhoIo9gGAVj
+	 Hcd5xX48N+8NQjoOz/QKVl7LwmV+znTWCIXj7mLqFAd4VRBW7y3ANyT9/ePLwQrxyWMVh
+	 Rg7dRvGVH3/ySmqqwvJWaZr1y5S8XxbD8NHOgCjBhOUzvZygmVQvVwoRYrLvK28SgDPcG
+	 ZVvtlX+v7+FjY/IBYOUX+QguwMTwAvEok0V49YtWWj4rWalTb9vpu/1CAo4MCs7Tllg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OZ26sBFr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7B8606A31C;
-	Sun,  8 Nov 2026 14:34:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D94F606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 14:34:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D94F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPdw6PTY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6071F0089F;
-	Sun,  8 Nov 2026 14:34:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794148446;
-	bh=1//uqtjICj44uy7P8QVwmNqhHAj9tnbXTw/EVuTChBo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=OPdw6PTYjC/vej+V217u0ttIjMDcXqYAAyN/xnSVNFbGrzUKrAohfmnHQTHIaFnYW
-	 A81rXqrkwk+USIwXhm6DSxFNzEXSJ+nnsgQ4WWb7LbLUnWh+R8brP9MwJhXZr/VoiL
-	 E85dehNN/2m+sDjFygwRPFi2RzzUit8fHqRVlRi0ohNIT15fdFqZAB64OopONYDIFq
-	 GafPiNsCQvJBVJRwPeiATmj/AcROevTJ3yBlOIZpOJ3vW/+e1+fQsw5YGdcaOQw0wq
-	 gCw7ZmmXb+sBSe8XWE/YkAYPUldJD304Xf3BeRiacxT9MDV5QDWR7SWr4vOW2xrT6l
-	 DAn6IGdx4CM+w==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id E1B462C89DD1;
-	Sun, 08 Nov 2026 14:34:03 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>, 
- Robert Jarzmik <robert.jarzmik@free.fr>, linux-spi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Frank.Li@oss.nxp.com
-Cc: imx@lists.linux.dev, vkoul@kernel.org, Frank Li <Frank.Li@nxp.com>
-In-Reply-To: <20261103215824.1823272-1-Frank.Li@oss.nxp.com>
-References: <20261103215824.1823272-1-Frank.Li@oss.nxp.com>
-Subject: Re: [PATCH 1/1] spi: replace chan->device->dev with
- dmaengine_get_provider_device()
-Message-Id: <179414106233.3630016.17157846219971798429.b4-ty@b4>
-Date: Sun, 08 Nov 2026 12:31:02 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OZ26sBFr
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4d5b2db4bbso14984666b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 06:34:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794148447; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ER0nxnOnivHqdqMswiQs0qlZBVR0D+Vr5MTbn/mTnCMKe1evuWXdE15KapndOUN/NO
+         UQmIEVXeq3/VdUbRC6H/E5jXrx/WFr57yDh2K+A+iCqvD2Cp6rRT6wd3WOAuj4PpdNPL
+         YDKqyDBtAxk/63pSr025ADT0IKn+Z5GucoXClXjz5xqXIVePeSHxhiLiYx+IbfIEjWu5
+         MAhbZIRXG1iqn6L4iFW4Dfh/TR78vDeUg4SyDANyiy6Oocyt/nI7Y7/cr8JVfMtn4Vil
+         hq/WSXD5tPYOwq294DSo58OVA3LAscF3RwtRcwfeejRuVbLDr6G9cUCMX7oz2E2n/5Im
+         H1Ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bZ6795oK8wTcMWcOgiycQWPJ2nyh3zzKiM/vphOQm/M=;
+        fh=yvR3L2gmDj4GQATRnzk+mwvqsxKXxsSJcRZXFSHJbLk=;
+        b=o7NkxBpWXJcZS1FQ1sSvMVfSOf78+dF/v4ecjLmGdMKEJ1RQnbiunXyTHX7vkF9QmU
+         +B+0onDptExwJrC0qCNX2hVNJLNc3tn0Gp+DlQcPwQNuga071zK/3PcHEr8q2Ndr76kx
+         2an03CpoNo2VfYjd0iSq5j0rUYLvzDXQRsaPk8GGvYYtNXZTvOPaWM5q6AKjGdAiiE7K
+         FfowqIj/6vKxrCz566xLlZPO//bE5/UEMGyBRmhauXh4lzie5YS9qExjB5JFzrLHQZ/i
+         v7JVwsDuQ8EKls6BM9PjTsh9TGameMfQvMkqlxCD0c3CqUjHrvgZhXPmZgHRkwpYT9Ck
+         f8Mg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794148447; x=1794753247; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bZ6795oK8wTcMWcOgiycQWPJ2nyh3zzKiM/vphOQm/M=;
+        b=OZ26sBFrSVqZ3xMp8JAeHhqwdmFBhIT/2ytJVoysCE/YYcfjFv9IdAmvugyPhTOG6A
+         bBVhmyu59Fyex66WGNzGwMh34DQuQOWR+OruDqjxBdEUe3OLCshhu0hlxLh8scfKcMah
+         TbtTC8dmUDwCq4SqNjKETd4zjgKQHtaEmjN17v+egZbMkH+2Xg3LWL8UnpSYnBfhCVor
+         niK9B0T4VfOiuMVuJg9gFtyxAhhIlp/23hWF/Bwfr9PvNxOGbjHqulcYOQcWT1VqPG0c
+         qFOJ1NvnbVdbTsQpJec6alZD3D0PD4vjZToWskMScqx3qn6oetIcvAYLIxnYxTJdEE7e
+         +LmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794148447; x=1794753247;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bZ6795oK8wTcMWcOgiycQWPJ2nyh3zzKiM/vphOQm/M=;
+        b=QldM1Q52HbC4ba7uxuZbHLwxJmeJRVxL9rv+MzjBGDlS5Kt9gCCukAsZZ8kePferfJ
+         d9K5aJrdY73SzWvx80cxuzOUzCZ/xYvL8/pXzO2A9n4aqHPMxqrXNsjx1o5LgMAZ/Z+4
+         vSfejhoSZcD7oU97Nbw61qZz2diKuHETMq+C7fc0di9iBWydLmg5ZtyFqLnwiU59fpkb
+         cRKqtKCBo0gcgGdSxzW8NzZt81LbBxOXQ2x0InoHUy+1V1aNqgAQw+XFgbR3mmhZW0hG
+         vOkct42u2/xs78du9dWrJbJA3Nn6baHVDP6w4j9hQCn6F82fqQUg0GfK/6eBNe8qw+8i
+         98Xw==
+X-Forwarded-Encrypted: i=1; AL+hErFKnk3r3nkNypSBdcWm8x2CSdwOeSC7GjavwzZqlRS2rnfgc7seAWPDkuu31/qvIIfmHY1INYT1vE+TiiE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z91DHRwl4aeeD+jzE63+fcWWnwi+YAjyG8O3Fy7faGtEYX6CYdx
+	dcZi0gwqmUWlpNx0/zaR51xREbir8LqJ2XSji/3PTBWrL+/XSXIWbUZ+EXahbg1nueOAv35bQBS
+	bEltxNvBerH0zO10aNCgcdqHOHHqfjh3ai4cO
+X-Gm-Gg: AYBFou2/rX5QZ3hRphyo+Ntdmmps3KHwCacMJY8QUHZd/D3I84xCwakl0iDYpShQOkQ
+	ijvxf6b/Kxa7GAoYRu3G5Ee5gLZsY9+sWHLC7H0g+v/LvuGCZKh50906f006BlxYm4Sa2KLm3n2
+	+e78FMdnTWsYSUdLaxgG4HkNORtI8B5AnWj6/ZU2hWgTzdZaoH3IPXmdG0aGZrrLbtHo2U6885w
+	2WeoQZ0A4j8azuGPoLdPe9s/+dDhFRPP/RitMnVEFIXWJ4SSML6cYGcT80XKPxd5iJjZmeviNH7
+	K6WaAVUGyNnmssbmbzfrssUk18+puMpbNbTVI51N9hZ2GGhBXnoldFycAZSsfoTIu3yqc8sg59d
+	QwDdI07wJqjtIlUUUe2nUzDHfUdiPrBfGJi2Bc/0=
+X-Received: by 2002:a17:907:86a1:b0:c2e:902e:5208 with SMTP id
+ a640c23a62f3a-c4d6dad8db6mr119774866b.5.1794148446720; Sun, 08 Nov 2026
+ 06:34:06 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,46 +104,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1156; i=broonie@kernel.org;
- h=from:subject:message-id; bh=TN/StEkvmSxlu5HCIHF37V2V9EC9a6Yj6ifjtAqTSRk=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+dEQXNs1TObq3ademz713JpT0sTT2uEbtvKaw9ko5P
- yNPdoBcRykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACZi/Zfhv9MzjiAD//4DtY2P
- cie9PlpsJOPzKlb3uv3Snjz78KwXbxkZpv1xEdmzmTPFxpaD577Stk12B4I/ZvflLVx2yM08/n0
- iFwA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+References: <20261107-octeon-phy-series-v2-v1-0-d7ab0b4b3f17@gmail.com> <2026110822-unbeaten-unraveled-698e@gregkh>
+In-Reply-To: <2026110822-unbeaten-unraveled-698e@gregkh>
+From: Alejandro Lucero <aleszlucero@gmail.com>
+Date: Sun, 8 Nov 2026 08:33:54 -0600
+X-Gm-Features: AclHuK85Cj4IQbHtpoDWOX_0elZu-ELS6tCw4SzCaef8dKcau7FRuk8kknnHO1M
+Message-ID: <CAHDi9tpvCP2qJfCfU2TFsY4JJVk2Yy-8_Z8uPigN5yWfpMs6bQ@mail.gmail.com>
+Subject: Re: [PATCH 0/4] Subject: [PATCH v2 0/4] staging: octeon: Clean up PHY
+ interfaces and fix race conditions
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 03 Nov 2026 16:58:23 -0500, Frank.Li@oss.nxp.com wrote:
-> spi: replace chan->device->dev with dmaengine_get_provider_device()
+Hi Greg,
 
-Applied to
+You are completely right, my bad, srry T-T
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
+The code changes are in a big part my own manual work, i've was there
+for a while time reading the octeon code in staging, searching a lot
+of errors whit the tools I mentioned in another commit but since I was
+really nervous about introducing bugs or messing up the logic or
+explain bad, I used an AI to double-check the code and write the
+descriptions before and after the check (im not really good at
+english, im learning it :'c).
 
-Thanks!
+I get the gym policy completely now. I will step back, rewrite all the
+descriptions by myself if you agree, and re-submit the series later, i
+really want to apport.
 
-[1/1] spi: replace chan->device->dev with dmaengine_get_provider_device()
-      https://git.kernel.org/broonie/spi/c/12acfe305495
+Thanks for the heads up!
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Best regards,
+Alejandro Lucero
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+El dom, 8 nov 2026 a la(s) 7:55=E2=80=AFa.m., Greg Kroah-Hartman
+(gregkh@linuxfoundation.org) escribi=C3=B3:
+>
+> On Sat, Nov 07, 2026 at 08:07:54PM -0600, Oscar Alejandro S=C3=A1nchez Lu=
+cero via B4 Relay wrote:
+> > This series provides a comprehensive clean-up, documentation alignment,=
+ and
+> > critical bug fixes for the Cavium Octeon staging ethernet PHY interface=
+s
+> > (SGMII, MDIO, RGMII, and SPI).
+> >
+> > - v2: Consolidated the individual floating patches into a single
+> >   well-ordered patch series as requested by the maintainer.
+>
+> Nope, you did not do that at all.
+>
+> > - Investigation: Patches were identified through manual code analysis o=
+f the
+> >   staging driver directory, inspecting resource lifetimes on initializa=
+tion
+> >   routines, checking error rollback pathways, and reviewing compliance =
+with
+> >   kernel-doc scripting definitions.
+> > - Testing: All patches in this series were successfully verified and bu=
+ilt
+> >   via cross-compilation for the MIPS architecture using the mips64-linu=
+x-gnu-
+> >   toolchain with explicit W=3D1 compilation flags, ensuring zero compil=
+ation
+> >   warnings or errors. Style formatting was audited via scripts/checkpat=
+ch.pl --strict.
+>
+> Sorry, I can't take any of these patches from you for these obvious
+> reasons.  Please go read:
+>         https://lore.kernel.org/r/2026080354-skater-urgent-31b2@gregkh
+>
