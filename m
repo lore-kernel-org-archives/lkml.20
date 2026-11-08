@@ -1,62 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794156576;
-	b=kQ6QO4J7ILHqk/EH+tRqbKXpf5SNvbT/1z5Qitbah3y/Cqhf49ulzXsNxOdqMHOcsGox
-	 unBKzTfsTKod51Uon5tvb0hQz0m5+69ISyVG7GfFTpg7oke1FcQkCRhcCTJMmlxa36vg2
-	 RrGYYloPpRXqaNmW5NjGNWZSUOqMUAJSiWIMRV1XxQc/cDX9UIGmcibAYJSkfHHj1hRyG
-	 npe/l1k1JeYQjWO7vY1GDNcQGoWaVqV403F7gbck23rIuU85UTNetifFVZKKPZiZaGmpK
-	 nyGrdaVUtFAvt2r24drfH5NEH17lFJTNQRdfgI8eUHpJbuvFTEBnWzP6orUy69zueSw==
+	t=1794156591;
+	b=KMu67x6/AxptYn3sLCgtAXFam0nOInYByeZM6j5JAx737/xA0Ci4YEMZ9SIge/NYhl+X
+	 y+RGDYxQU/+Lu6uvbQMbdD1eOpZDasGAy5e1WgE5VqARiQUXs5YuObupqWT3PPwvmIHw3
+	 jwHoIzX7DfkrdBL+tYIsPVJBvQ28JdX8SuiO5p4QBMSobBxB5Vw1ZE8aAbepPcW+VWm8t
+	 QgSh2bNJamGThS2RGS1lo1nA4jWjOQZVFoRzVdNN9IfvI9np5yjRBRmphI2z3dARgb6tJ
+	 ZHSx75lvKil4FAIwZwsew3c9iXh5euCLcwzmAdRMUJVK772imIvSVyPL36AfZjSCUwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794156576;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=wTb/47UcyVRYUioaA5KlxtEKIzWmzjTjIZZpMNujhtE=;
-	b=5e+APlDbtMbY1Io82mtoIcNg1m4hdiGw68GejK1dXPx9zEOMlBsQx1aKthifOnzoNGmn
-	 aXDDcl1HeF0BTgqjua0sBMM/hEFEVd6s4L677Eq7709qjDgT6bwJGCB5rtSBvuzwOeoFa
-	 5a+B4Rx1bucZzAs07rDaKZFakQZOb4EtK7Wk1LTfXY3QSVwurquVvqKaO1mK+oJ4UDiSE
-	 bz3Gm5b1G30CTa3zFniyxqbLitsLWEU1kQ6ENDIEg/9rNaRPs9wFKmm9pnA6DyiQXvOfs
-	 0ziQnHXFE1UWOFxeM2W4z9+fK9+d2xonqCo7OzOGTX4yTYBN5VQ/e0VihYSL0FxfHPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794156591;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=/byyvojME8WhjdnFtCA8t5mtomtXOv8PSjbcqAbQ/y0=;
+	b=AA8G1Wr6F8Qk0kBcHCHDZRwGRx2e6U5JRYqBeYcjHZEisZWtdvdewk/a9k23HzmalRiE
+	 C7tMQEG8McUrmsVCYCY0QJqpKjJ/qQExikSk+Gjb9p0TBKqrhr0IKw7t7c9KUUMF69+JF
+	 JDyYER8llz5KiDx/q3xqdLtfsR6/2QRkcNXA3l1Ck7doNA0g4Oryka/cbIBpuYLVwrfcr
+	 ZDB5joB+Vvm1Pj6kEH6wb+U5o7yS/mteAOfPhl0X9CMab+vvVLZ4f1FdnTaxEnk9tQWqX
+	 oIAuFq0cq4bSqyDlVN185kPrUGp73Ixw/EH7TEmj/5fhVTUTmgzFjOnMo/xSjBeZMiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYmne0fR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mlbPpUAd;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BCB606A31C;
-	Sun,  8 Nov 2026 16:49:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAEA8606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 16:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAEA8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYmne0fR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B02C51F0089F;
-	Sun,  8 Nov 2026 16:49:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794156575;
-	bh=wTb/47UcyVRYUioaA5KlxtEKIzWmzjTjIZZpMNujhtE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UYmne0fRrzpbw9ka2R/OPaMJhUJCf1NMVPojgiKMkPcpbZje79AQb1SGFpLCXxhkb
-	 wwW2B2lHgHSUxdcxkrj4aJpNE7tlB/5YZRmvm20ggB4wXVVe08RwR8UXVb1xbT/gXr
-	 Hp2n0E+zNHsukXpWGFuV2k3pBR47khWDScvD2fHn1+c8iuYtpw0hV8xbYzy4Z/w5ta
-	 117yOG06CPUazpWj0ajXFeUCNquEox5v2qFxlGNZ+cqym17k4MdO0sPYS1K9wNLNMJ
-	 VragFA13dcXo+wtQ1a1QVugnDT4IFmtCD8S+XBNJCxQz3wHpZZ4aa33FWsOF9GTe05
-	 bVxY+itjoEtBA==
-Subject: Re: [PATCH net v3] tun: disallow setting IEEE 802.15.4 and 6LoWPAN
- link types via TUNSETLINK
-From: netdev-bot+sashiko@kernel.org
-To: skalpesh942@gmail.com
-Cc: willemdebruijn.kernel@gmail.com, jasowangio@gmail.com,
- alex.aring@gmail.com, stefan@datenfreihafen.org, miquel.raynal@bootlin.com,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- andrew+netdev@lunn.ch, linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
-Date: Sun, 08 Nov 2026 16:49:34 +0000
-Message-ID: <179415657425.994134.6934756504631104238@kernel.org>
-In-Reply-To: <20261107162649.282982-1-skalpesh942@gmail.com>
-References: <20261107162649.282982-1-skalpesh942@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mlbPpUAd
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1b2513decc3so171713c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 08:49:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794156589; x=1794761389; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/byyvojME8WhjdnFtCA8t5mtomtXOv8PSjbcqAbQ/y0=;
+        b=mlbPpUAdrivnQa2+qUwhCNT3Y2L4zFi64gixErfvjoBXIy4Q3L2OvC8rgk/Li0CpXJ
+         3LsCKJwusaufoKn+sWivRepP0OLaSiGzw2UwMZeqjDX6jKM7CWyI0nNjJa6Q0sPRsLf8
+         LHjJWcoG58w/e5z8hz/NEkeD3tq7fEWlHnMNL31NE9VJTw6ZybNfyFETpxmobH6lJwTU
+         23jblaO797vh719imOHmcVyATeceAMTcLRAjytlTk4gI7CHHWTWZGr8jIsDD3vxfbg+J
+         PnRNwwT44ANnSfQGlVWJE6VJEWdvy7uxJ6AxGJ4MhujWl2r0wjNRhlnKCo1U0bhwPFXe
+         W5KA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794156589; x=1794761389;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/byyvojME8WhjdnFtCA8t5mtomtXOv8PSjbcqAbQ/y0=;
+        b=IIvrUjqq1pP2/YIMRahFgdxoO800RR9PPb5FejHMOX5TJ/sdHMK381hMy/AfTIp6Ul
+         vpniJ0+6y9VY7vcqGLcKcho8p7blNf4KEiRmp1R2KeeYxTAxW5LkQDqge7LpeoD4B0MV
+         fsSQMe1F4OgsaMlLlVNtkeqahhYs537h038lTOpg5Q02kHScF93S5iudnnyUavW6MlyV
+         6h7wqk4uKMNpVZUQLLVCaflFVZZgR9Ii1TLVqgFv4SIOkV5Lnt/A4up9qqy3Us0NsiJH
+         KJL7EqjMkYxcHzESRW5yAITjMytmJJ+p580HRAySuJwBK4Qa6LuVTj32A1GbjsiTt09R
+         7eUg==
+X-Forwarded-Encrypted: i=1; AL+hErGO9Pbbyi8dKszrY5vteN3JY+3DsM/aAglXRx5Ken9ymm8SAirYFDbtlx9IKbsmYXsdbqvj3TKfnckpguA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/e4TwhOCAdIJ5q/7IcEnTTvpiF4kd03RnMaNmQEm9VT5TCHOgt
+	rqNCdLT1lLuddHB8m5Q1wQ2DzPzSoPzH5h0lz3vIjkk81ot0gcdeUE4=
+X-Gm-Gg: AYBFou08/4ZLTE6fAWk5D+bq6qGtv/20SRC+FGTSULmqgK22wAfvYL36coSusXO+Z7s
+	2Qr+3xcCoux8TFcHIAARwrw2wxuUeiqSpvZzqZm8LQoLzmN222Ii+nUfwUhUtFRcD3Ks+Lz92hY
+	NFIXCRUMKS2fYfW0EI34EKqBViYZbMu0v3kGqE3IlfAoi+usebBz+QPc9v17NvCtrG0G55VooVZ
+	BcxcVXNHvgjgkqo+7KefrvRK7j6C9HopONqJ9dXIYaMW1xKGKLLG5x+TuybXJuJv7WHSbJUjuUf
+	I93t+438s1fyADwFpa8DLD4eg7FIANeNDdWhF2pa8PourN5CCTL4JlALNmU3jqbZa8yuWCID/eA
+	4nuTnvLeucDu8DTtnWy7sXv25/t5zygIzewS8IdDE5GP4HtkXwZj0KSdYiw8KLL5l3Jk5oLavKu
+	/t7hJnmkVmU+P++E0CUT/yZvpOq5D1V+OrtvYltYrL0z2lprRaeUS56EKx+bwIXV6gL10asQTAl
+	kp8FDiLQHpium9XECJjtfHzeylEEt4UBNvowQ7Fhpy5QBE+Zgmpb8grqEmTdE9J3wcqdV1/f14d
+	8Av4bVVkRPBaNcsrUuMDF7PiC5Oryq75Qs1/M+lultFOxK+4yo0A4ICphllv
+X-Received: by 2002:a05:701b:2618:b0:189:ff2b:b194 with SMTP id a92af1059eb24-1b39fec8a89mr2321841c88.16.1794156589378;
+        Sun, 08 Nov 2026 08:49:49 -0800 (PST)
+Received: from smtpclient.apple ([2406:3003:2002:639c:14eb:b848:c9ff:188a])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b37560d95dsm6037878c88.11.2026.11.08.08.49.47
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 08 Nov 2026 08:49:49 -0800 (PST)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,117 +89,59 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH v2] regulator: as3722: use the platform OF node setter
+From: Yige Jiang <yigejiang86@gmail.com>
+In-Reply-To: <179406780591.3424803.16395424488807885604.b4-review@b4>
+Date: Mon, 9 Nov 2026 00:49:35 +0800
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ WenTao Liang <vulab@iscas.ac.cn>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <4C416D7B-2D4C-402D-9C60-97069D0DC8BB@gmail.com>
+References: <rc-review-20261103-19-ee1e37733b2e@gmail.com>
+ <brzyrqnyrayxdpnyginamtdewj6cp3odhndlstjp6kupnr4q3e@rt73ebxxvbms>
+ <20261105100342.34730-1-yigejiang86@gmail.com>
+ <179406780591.3424803.16395424488807885604.b4-review@b4>
+To: Mark Brown <broonie@kernel.org>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hi Mark,
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+You're right, sorry. I overlooked the fw_devlink implications here.
+I reproduced a probe retry/rebind failure in a controlled QEMU test
+with the actual driver.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Please drop v2. I have a draft of an alternative fix that I believe
+would address the reference leak without changing the platform
+device's node during probe. I'd be happy to post it separately as
+v3 if that would be helpful.
 
-- [High] The new TUNSETLINK denylist in __tun_chr_ioctl()
-  (drivers/net/tun.c:3365-3368) can be bypassed by setting high bits in…
-- [Low] The commit message gets the root cause wrong.
+I also noticed the same probe-time assignment in the applied CPCAP
+patch and will follow up on that separately.
 
---
+Thanks,
+Yige
+> On Nov 8, 2026, at 12:10=E2=80=AFAM, Mark Brown <broonie@kernel.org> =
+wrote:
+>=20
+>> Use platform_device_set_of_node() to synchronize both fields and
+>> give the device its own reference. Use __free(device_node) to release
+>=20
+>> static int as3722_get_regulator_dt_data(struct platform_device *pdev,
+>> 		struct as3722_regulators *as3722_regs)
+>> {
+>=20
+>> -	pdev->dev.of_node =3D np;
+>> +	platform_device_set_of_node(pdev, np);
+>=20
+> Are you sure this is safe to use during probe(), which must of =
+necessity
+> happen after platform_device_add()?  In particular with the =
+interactions
+> with fw_devlink.
+>=20
+> --=20
+> Mark Brown <broonie@kernel.org>
 
-tun: disallow setting IEEE 802.15.4 and 6LoWPAN link types via TUNSETLINK
-
-This patch makes TUNSETLINK return -EINVAL when the requested link type is
-ARPHRD_IEEE802154, ARPHRD_IEEE802154_MONITOR or ARPHRD_6LOWPAN. The goal is
-to keep code that expects 802.15.4 or 6LoWPAN private data from treating
-TUN devices as those device types.
-
-Closes: https://syzkaller.appspot.com/bug?extid=9ea34da5ca6100593c90
-
-> A userspace application can set the link type of a TUN/TAP interface
-> to ARPHRD_IEEE802154, ARPHRD_IEEE802154_MONITOR, or ARPHRD_6LOWPAN
-> via ioctl(fd, TUNSETLINK, arg) because tun_get_addr_len() explicitly
-> recognized these types.
-
-[Severity: Low]
-Is this the actual root cause?
-
-tun_get_addr_len() only maps a type to an address length. Its default case
-returns 0 for any type it doesn't list, so it never accepts or rejects a
-type.
-
-The TUNSETLINK branch in __tun_chr_ioctl() stores whatever value userspace
-passes:
-
-    tun->dev->type = (int) arg;
-
-That means these types could be set the same way before cca8ea3b05c9.
-Would it be more accurate to say that TUNSETLINK accepts arbitrary type
-values?
-
-> diff --git a/drivers/net/tun.c b/drivers/net/tun.c
-> index dcec7311e6011..05eb28578b8b0 100644
-> --- a/drivers/net/tun.c
-> +++ b/drivers/net/tun.c
-> @@ -3362,6 +3362,10 @@ static long __tun_chr_ioctl(struct file *file, unsigned int cmd,
->  			netif_info(tun, drv, tun->dev,
->  				   "Linktype set failed because interface is up\n");
->  			ret = -EBUSY;
-> +		} else if (arg == ARPHRD_IEEE802154 ||
-> +			   arg == ARPHRD_IEEE802154_MONITOR ||
-> +			   arg == ARPHRD_6LOWPAN) {
-> +			ret = -EINVAL;
-
-[Severity: High]
-Can this check be bypassed by setting bits above the low 16 bits of arg?
-
-Here arg is an unsigned long. On the compat path it is a 32-bit value,
-because tun_chr_compat_ioctl() only does arg = (compat_ulong_t)arg. But
-net_device::type is an unsigned short:
-
-include/linux/netdevice.h:
-    unsigned short		type;
-
-Later in the same branch, __tun_chr_ioctl() stores the value like this:
-
-    tun->dev->type = (int) arg;
-    tun->dev->addr_len = tun_get_addr_len(tun->dev->type);
-
-With arg = 0x10324, the comparison against ARPHRD_IEEE802154 (0x324) is
-false, so the else branch runs. dev->type then ends up as 0x324, which is
-ARPHRD_IEEE802154, and tun_get_addr_len() returns the 802.15.4 extended
-address length.
-
-0x10325 and 0x10339 work the same way for ARPHRD_IEEE802154_MONITOR and
-ARPHRD_6LOWPAN. This also works from 32-bit userspace through the compat
-path.
-
-The code named in the commit message only checks the 16-bit dev->type.
-Here is ieee802154_llsec_dump_table():
-
-    if (idx < first_dev || dev->type != ARPHRD_IEEE802154)
-        goto skip;
-
-    data.ops = ieee802154_mlme_ops(dev);
-
-And here is lowpan_event() handling NETDEV_DOWN:
-
-    if (dev->type != ARPHRD_6LOWPAN)
-        return NOTIFY_DONE;
-    ...
-    clear_bit(LOWPAN_IPHC_CTX_FLAG_ACTIVE,
-              &lowpan_dev(dev)->ctx.table[i].flags);
-
-So it looks like an unprivileged user in a user+net namespace can still
-trigger both the syzbot NULL dereference and the write into tun_struct
-through lowpan_dev().
-
-v2 had an arg > USHRT_MAX check that covered this case, and v3 dropped it
-as unrelated. Should the comparison use (u16)arg, or should values above
-USHRT_MAX be rejected?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261107162649.282982-1-skalpesh942%40gmail.com
