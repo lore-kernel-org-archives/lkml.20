@@ -1,98 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794125007;
-	b=elUVTmv8CHHd0Mvnjj1Zcuz7FjwCvGKfn+QgACozE6hGXswxNhkqJsQ1HSvZcOXKdN3B
-	 dNPYOlWiEIw0vEuftYGBOZwOwAJZG6GayAl9u0gQzNpiY7slvDxpAVEL+RqtgizhA6cVC
-	 pfZ4HeQWXfbqOohcBCnvJaOkNsEXMdzmfQbn8kdTp+apkQWxUAE8e3Jbkka8qHT99zwdM
-	 ZfXtOJ99n6zayJwedqMl2sz1AfYLGHuZ0be1chG08e6baHSc/8sbAFchdeb8KJrTY+yFP
-	 sIT/3MQCYKZyAwoLg042u3L7GGT01f2+AHEiMT2MDA+W77igeiJXa1C2FGTslSzGYnQ==
+	t=1794125030;
+	b=lFvMnMVWAbbxV/SxGIHqpC6paSQO57cyKC6imvjw1TI6w2T96TdLp5ykTdPY9ZNMr9Ws
+	 gG7uKZ3VYTI0mNhD8yIiyia3Uygpb5oDVZ++gkjKcTB5orne+D1yQ62/1V8o5wlH4Xgkf
+	 FttddhZq2AQbl57Ciydn6ryE3skSFGfjNgY3bXwC+GDC6aOwfFd6LXivrWBgIa6e1j43H
+	 UR0H2GSwtNOgM4aBYON3jn4ZfiriKDPr+k8J5j4cmY/qeULJbbTPgLD67Yb1/i5Q15Kxr
+	 Ck3ZUFNBv7d/tK8XA86L3by/xfGrbXossEQbgTHMbX8cJpLsCUFtkgSTO1Lxw7ZXHyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794125007;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794125030;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=fAj+PQF4DhPbJju2nUJ6sKmnMGHnLxMygMvekucBWDU=;
-	b=zkyXNSDVjGBcM14OIFQf/PTBvMISi3iKN+dQUMaiUTd1PEb9HNJRipMIPK8UcXLzzMQz
-	 wOucjEQr5ePXaI80z+oGbNUM4p2i4IdOaohI1nqjuvsosKO8YwX6zX7exI7fO0yMYftMw
-	 hx46pOnmAPnM+bLSqn1lktRqoozvtORsGhX70az7kHvFChj35uZMI2FGlRQHwouiaQkRG
-	 u1vqLFj2La530ll+HxHPx6SQsTCW9/pNzEarWrCD3+BI44+gwmVNPZ18YKZ+0TvyJ2QRh
-	 Ogc3GQy9URwahQBWdXx1d6R89IVkIJPXk6LoxTa6/FeqR+63Wd8cC4JPOOGfL783BiQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=JOX77fus2x/eG1WoZO3OzTindRAi1WdAyfHFy3V4a8g=;
+	b=z7X0takXg36qKrSqG0OFyA6oX2Cn/AOncGDXswQ2PE1gYWW/f2hJ1btxSQcB25e5eMxc
+	 xAtQhSFKSy2EMhNhCw5jqA+fYccSZLxh5X4yBfcZg/vICDIqlBo34FOHrv6vl2VS+wiBn
+	 P11wLWgB5EouW0p+f8zk1ezqOfkg54657oBOElhXmDOUB8q7LGoe8sPc3NdAF613613bd
+	 wAsPepqmNuKNes0VNhW05iOZjvRTiem8CnJ8v8C3j2nY03X/gd6ME/hOuGSCnRGxZxgAh
+	 rO/bNsZZwAsVp5Pf+188lQElTBDOkyph/pjvOtDrYBkUlUUOkZZha+PMIpiZ3w9Lerg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QoJBR1qm;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BF3Aubl4;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A66606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:03:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57A66606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591FE606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 08:03:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 591FE606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QoJBR1qm
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-490a0e72588so89951f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 00:03:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BF3Aubl4
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1931ff67a29so614506c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 00:03:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794125005; x=1794729805; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fAj+PQF4DhPbJju2nUJ6sKmnMGHnLxMygMvekucBWDU=;
-        b=QoJBR1qmsTIXxmUvFfSgDo/VGHz66Y7zMDG4SH/unkeBlqtj7QK2SpMo155KfrclQ1
-         O18rX8xaz61cwZKiscvVT5PqZJTfAZ4ENVmcEiMXq5SUC3SFmIbbGjha50mtveZUAZ25
-         YDc2uMmjNIzvhpnoULYHe0LlCHM75DEgQuu3zdgWuMcKVyqU6dwVNfOW7qzVxq6iys8D
-         gIWDhTlXdAfTFAavmrhSwDLgyajZ/hMuvzIHX63WCsFXmJrf9WHv3HaRWAaUYP2BAIE9
-         ukKFigrE1eusPO6+o/m+i2Dradr3AZzOesu8Yq1WHG8ylKfrdD1nrTrmC8GBS6O9TXuM
-         8qkw==
+        d=gmail.com; s=20260707; t=1794125029; x=1794729829; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JOX77fus2x/eG1WoZO3OzTindRAi1WdAyfHFy3V4a8g=;
+        b=BF3Aubl4v0ZUvg1OJvLO75TxuEO95rmneinKKX5J0RbJfN/Ff9dGx1miWCPrHpSLgn
+         Nxtrf1xvhvtasGyQmYvJ+4K1HFeJVakAcsaf2YphGOKEdmIxyT1VjbJbAzXVPaNPPL4h
+         izlqO/KA3+V3XZG+sZNMeH7eov/APDXg9Fyaol9YtOXtGqCQ4zR3fqtNgpXl3ScM/eJX
+         q2JkcfPL1k3dRFxsk1x/EmrXaDA2tYLwqC3uhpbM79WUT4nZ2oe8mVZ3GZvCATD4Bv98
+         Wcv5Aey9v/qAmtSdUtTaS5Ot2vLAw+Hf80sIccRHbcKQYuGVfhiueEAyuE8KkJRmj7D6
+         27YQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794125005; x=1794729805;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fAj+PQF4DhPbJju2nUJ6sKmnMGHnLxMygMvekucBWDU=;
-        b=mMGTmT/c0ohgDskuiVS14o8fx7d0RNN2SU3TaRldbxgoqpc3mG4GxjIWo75qk2prWO
-         q0L9YuzPJe6dhKhhd6hg9oHLgAiMr9nYI/CCpFMy8aeoR9Ae7pIl2kx7QRalX7PnSBuh
-         RRhO8tRRjzJNC/+33u/5+bOCgJz3Yi2/35Wlnl0p54egrjwNaoTmJSFWoO+lBQoquQEb
-         gseejy2UYeFyNNeIuxvrF3B6/C26NXOpNwpB7X59DHuS+5PgjZ1SMg7RCcio3BdNQmY5
-         jlmJKi6c/zqwHqHrreFdxvfUek39mJVjSgIFBiDMidKybyXGLTwJ+vPIvBsSn2VfNcm1
-         tA3A==
-X-Forwarded-Encrypted: i=1; AL+hErEtEO1qOIH/NVVdxNPsxy3+Nja0x47odMhjU5IrYa+G+nvjXHVmms/RaXLIPkJWIMrb8YQT/QwKVkLcrEQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Lz441/MNMcj19yChPZTxTHdEzaYvgjRPpbm9HPQrLwJop4ua4
-	J0lFNknrQYOgRGPEcXB3BE5wfWzekzarea9c2O3jW5BaTn8S35TfVz5c
-X-Gm-Gg: AYBFou2UO4motqPrOvtWTe7gVkVeZ22iYpl+5lO2VjQtZKvaPggPoTtYiAEkCv3+46B
-	5XqecBR88wpxbHhh+isyYFEVuROd1RLTUAND1Ee7UYp5zIyGOSFiQ4I/0ObxfF2SSCuShkLziPa
-	sJ50+HnI47bugIu8S2hZkcEuTl4MmNzmXj2zFoiIejgZia8z1CfrxfGQk0MPAOKZkXXNB+eJUjl
-	X/E6Vn52ukLP1s4d6l2OT6h1I4vIPhF7/o7XdXXx0X8vohfw2E7EGnd5d372TC51GWiymqEcELw
-	hdKZmwzM12mRfi03mneg6Aks+RWGaYu5aSVAVYwNQCDshNfQO1w4p/NHeowYBcO9j2XpTW+JoPI
-	4UR60J3Xo69N0VkOIIExwkoYpIMEjq0vtGNd1vkBMISet02jJ0MqNrbXWvc2dhAEFzJ4BeDS/kc
-	PZ+dVg66lX5Hx+seWTT8PwJAHen8IEfQdvuPpQf3gn9QNnxxRdLr5gEwEEm8WoP5W+srPVbVXaa
-	m9EHlexTrZNyBxOGFjzG4zbGJZ6D/ElxjfmOuLmNFnoVBApmXJk3aIx8hn1BDmFTvgtnsIUItLX
-	21PD3AWUVYA5ukbDDqV0LKSy0rG4/NeqZ7Cf1/W/7RJKOmCXjYtVls9WkB6fl1BaKCXqm/g9/H+
-	ylfdoKA==
-X-Received: by 2002:adf:e199:0:b0:48e:84e8:88c3 with SMTP id ffacd0b85a97d-49580830930mr1444729f8f.5.1794125004381;
-        Sun, 08 Nov 2026 00:03:24 -0800 (PST)
-Received: from localhost (brnt-04-b2-v4wan-170138-cust2432.vm7.cable.virginm.net. [94.175.9.129])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597e00d75sm2560903f8f.58.2026.11.08.00.03.23
+        d=1e100.net; s=20260707; t=1794125029; x=1794729829;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JOX77fus2x/eG1WoZO3OzTindRAi1WdAyfHFy3V4a8g=;
+        b=b3t8tZz6rwhXbuhrXi4ltPg5s3+ptZv/T8CUr+QhAbYJtxxsXeOoIivIxecOCgG+xd
+         bsnIlctPBiHWSrHRnYWRNHDI5j+mTM2sEdYWwZHeVRqHghYc/4wRI9FizWtr+wmUfYEH
+         NDzV5NpTBY6V8KwOyz9J//fxK1UXWc+wlOgAbcihXcBIBwjZ3uJknK0UoMCAahsLQzQk
+         tgoYAf9xIXckkGOwQ9rVkA6CCh/RtF7Mk2ffb8kifUmS7BMPWWhYbb5DH/LtYfI2vvim
+         xtDjw6olaXhE4b2ugq51nXWydasuwsl0jznfkxjkl3zviGo7GsYFX7pTZRIVGNYfWXRR
+         ppAw==
+X-Forwarded-Encrypted: i=1; AL+hErFIAF3j/6jvRyPzeVfjdQssQDqv5KTMDC6g4lxagQlduTQn+l5/biyo6fxs+IHM76TRo6zal3I7rnJBqpU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+yPNiiwPodfZdRQW8PxqFfEcYUI2mj9B7VuRM853zu4xHXaikj
+	yqhZ268+niLoVvN86QflI5JA/nIOXf2puo9DaOaO+mL7iLx8oB8Ogori
+X-Gm-Gg: AYBFou1pYYbZUzkxG0ItFCYyrC4Nj3FD1oOdxG1t0A1OLxrAOPdpguZoMSdb2u2e4rL
+	iAD+A/xduFTVp3OFhAlO73RmwyWvM4Mg6pxU1bvKWBRWshQBz3Qh9YH/VIpeT5V6nBJgkXM6T3A
+	AnfahAefmLwueSyV8GPwfNenRN+h0b806H2CAvh3fbpPG35eo33V16+yVmCR8yAjVmdpPiyMHD/
+	u4ALVR+/7iO7cHBTevpNnx4/OIY/4/5bNVKLU+x3RV8Jwicwjv1hG6KFM6+F3zRwuDMP+/VX83d
+	Ldv0+qvCfBjJfTXAmrPBcQe3Aa+RcSaZELA4Xu8/B0goV354QJBQqdy+yvTEFyFM/H1fTrlaRHe
+	tvfDbrEFZo11H3bV+0o4ChilHxmTdEzQj2o7GSpAgCtJq2V1XD+lxJuwNuFRIiuDmSwBZJ8Jtm/
+	e8tX8G1gTw9c5rXoXwNDx4q5f9CARzlFQZS/tbH7/a/RXQktpVF+Q/lao5UzlMOOHODeHcF1zWm
+	Z7nikAs74GsaoA1w/nThdCwIGjZBOB1mAaiEVTWMcHw/TB6X6liWmM4nSxes2yqfSHZn2gFb7Ur
+	KhXLYw1lLctW6262R5ApygQ0odV7dOC9eHkE5y4KeOwPV2SdWIgaRqAnmD/SU2G8gw==
+X-Received: by 2002:a05:701b:2616:b0:149:50cb:2175 with SMTP id a92af1059eb24-1b39fef4a85mr1364346c88.33.1794125029163;
+        Sun, 08 Nov 2026 00:03:49 -0800 (PST)
+Received: from anon-laptop ([103.187.196.132])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375604109sm4681740c88.10.2026.11.08.00.03.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 00:03:23 -0800 (PST)
-Date: Sun, 8 Nov 2026 08:03:23 +0000
-From: Stafford Horne <shorne@gmail.com>
-To: Sahil Siddiq <sahilcdq0@gmail.com>
-Cc: jonas@southpole.se, stefan.kristiansson@saunalahti.fi,
-	naveen@kernel.org, davem@davemloft.net, mhiramat@kernel.org,
-	pjw@kernel.org, wangruikang@iscas.ac.cn, namcao@linutronix.de,
-	kees@kernel.org, linux-openrisc@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/4] openrisc: Add unit tests for KProbes on branch
- instructions
-Message-ID: <avAsy43KVO-7Nm9z@antec>
-References: <20260930202744.50489-1-sahilcdq0@gmail.com>
- <20261026201240.107462-4-sahilcdq0@gmail.com>
+        Sun, 08 Nov 2026 00:03:48 -0800 (PST)
+From: Wahid Khan <wahidzk0091@gmail.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>,
+	ntfs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wahid Khan <wahidzk0091@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4] ntfs: convert a named $DATA stream safely when making room in a record
+Date: Sun,  8 Nov 2026 13:33:23 +0530
+Message-ID: <20261108080323.468892-1-wahidzk0091@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
+References: <CAKYAXd-68oCuAU=x0TV6BMsNJZkmBcdVZTtOQXh3iEm6BptJSg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,363 +101,208 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026201240.107462-4-sahilcdq0@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 01:42:39AM +0530, Sahil Siddiq wrote:
-> Tests already exist lib/tests to verify the generic functionality of
-> KProbes. Add unit tests to verify that KProbes work on instructions
-> that require simulation in the OpenRISC ISA, and that the corresponding
-> delay slots are handled correctly.
-> 
-> Signed-off-by: Sahil Siddiq <sahilcdq0@gmail.com>
-> ---
-> Changes v2 -> v3:
-> - arch/openrisc/kernel/tests/test_kprobes_asm.S:
->   - (test_kprobes_*): Set value in r11 register to 0 prior to running tests
->   - (test_kprobes_adrp):
->     Place function at page-aligned address
->     Use PAGE_SIZE macro instead of magic number
->     Move value in r13 to r11 before exiting
-> 
-> Changes v1 -> v2: New commit
-> 
->  arch/openrisc/Kconfig.debug                   |  30 +++-
->  arch/openrisc/kernel/Makefile                 |   1 +
->  arch/openrisc/kernel/tests/Makefile           |   3 +
->  arch/openrisc/kernel/tests/test_kprobes.c     |  59 +++++++
->  arch/openrisc/kernel/tests/test_kprobes.h     |  24 +++
->  arch/openrisc/kernel/tests/test_kprobes_asm.S | 157 ++++++++++++++++++
->  6 files changed, 273 insertions(+), 1 deletion(-)
->  create mode 100644 arch/openrisc/kernel/tests/Makefile
->  create mode 100644 arch/openrisc/kernel/tests/test_kprobes.c
->  create mode 100644 arch/openrisc/kernel/tests/test_kprobes.h
->  create mode 100644 arch/openrisc/kernel/tests/test_kprobes_asm.S
-> 
-> diff --git a/arch/openrisc/Kconfig.debug b/arch/openrisc/Kconfig.debug
-> index 295942fe3fd5..54110f3a111f 100644
-> --- a/arch/openrisc/Kconfig.debug
-> +++ b/arch/openrisc/Kconfig.debug
-> @@ -1,2 +1,30 @@
->  # SPDX-License-Identifier: GPL-2.0-only
-> -# dummy file, do not delete
-> +menu "openrisc Testing"
-> +
-> +menuconfig RUNTIME_KERNEL_TESTING_MENU
-> +    bool "openrisc kernel runtime testing"
-> +    default y
-> +    help
-> +      Enable openrisc kernel runtime testing. With this option, one can
-> +      build and run tests to verify the correctness of relevant components
-> +      in the kernel at runtime.
-> +
-> +if RUNTIME_KERNEL_TESTING_MENU
-> +
-> +config OR_KPROBES_KUNIT
-> +    tristate "KUnit test for kprobes on openrisc"
-> +    depends on KUNIT
-> +    depends on KPROBES
-> +    default KUNIT_ALL_TESTS
-> +    help
-> +      Enable testing of KProbes in OpenRISC for instructions that
-> +      require simulation. When further changes related to probes or
-> +      tracing are added to OpenRISC's port, these tests can help
-> +      verify that instruction simulation and processing of delay slots
-> +      continue to work as expected.
-> +
-> +      If unsure, say N
-> +
-> +endif # RUNTIME_KERNEL_TESTING_MENU
-> +
-> +endmenu # "openrisc Testing"
-> diff --git a/arch/openrisc/kernel/Makefile b/arch/openrisc/kernel/Makefile
-> index 2ac824867963..0c1cade09e0c 100644
-> --- a/arch/openrisc/kernel/Makefile
-> +++ b/arch/openrisc/kernel/Makefile
-> @@ -15,6 +15,7 @@ obj-$(CONFIG_STACKTRACE)	+= stacktrace.o
->  obj-$(CONFIG_MODULES)		+= module.o
->  obj-$(CONFIG_OF)		+= prom.o
->  obj-$(CONFIG_KPROBES)		+= kprobes.o
-> +obj-$(CONFIG_OR_KPROBES_KUNIT)	+= tests/
->  obj-y	+= patching.o
->  
->  clean:
-> diff --git a/arch/openrisc/kernel/tests/Makefile b/arch/openrisc/kernel/tests/Makefile
-> new file mode 100644
-> index 000000000000..9e9693fd3550
-> --- /dev/null
-> +++ b/arch/openrisc/kernel/tests/Makefile
-> @@ -0,0 +1,3 @@
-> +obj-$(CONFIG_OR_KPROBES_KUNIT)	+= openrisc_test_kprobes.o
-> +
-> +openrisc_test_kprobes-objs := test_kprobes.o test_kprobes_asm.o
-> diff --git a/arch/openrisc/kernel/tests/test_kprobes.c b/arch/openrisc/kernel/tests/test_kprobes.c
-> new file mode 100644
-> index 000000000000..a41bdec662e1
-> --- /dev/null
-> +++ b/arch/openrisc/kernel/tests/test_kprobes.c
-> @@ -0,0 +1,59 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * KProbe unit tests for OpenRISC
-> + *
-> + * Unit tests borrowed liberally from similar work of RISC-V. All
-> + * original copyrights apply as per the original source declaration.
-> + */
-> +
-> +// #include <linux/kernel.h>
-> +#include <linux/kprobes.h>
-> +#include <kunit/test.h>
-> +#include "test_kprobes.h"
-> +
-> +static void test_kprobe_openrisc(struct kunit *test)
-> +{
-> +	unsigned int num_kprobe = 0;
-> +	unsigned long (*func)(void);
-> +	struct kprobe *kp;
-> +	int i;
-> +
-> +	while (test_kprobes_addresses[num_kprobe])
-> +		num_kprobe++;
-> +
-> +	kp = kcalloc(num_kprobe, sizeof(struct kprobe), GFP_KERNEL);
-> +	KUNIT_EXPECT_TRUE(test, kp);
-> +	if (!kp)
-> +		return;
-> +
-> +	for (i = 0; i < num_kprobe; ++i) {
-> +		kp[i].addr = test_kprobes_addresses[i];
-> +		KUNIT_EXPECT_EQ(test, 0, register_kprobe(&kp[i]));
-> +	}
-> +
-> +	for (i = 0;; ++i) {
-> +		func = test_kprobes_functions[i];
-> +		if (!func)
-> +			break;
-> +		KUNIT_EXPECT_EQ_MSG(test, KPROBE_TEST_MAGIC, func(), "function %d broken", i);
-> +	}
-> +
-> +	for (i = 0; i < num_kprobe; ++i)
-> +		unregister_kprobe(&kp[i]);
-> +	kfree(kp);
-> +}
-> +
-> +static struct kunit_case kprobes_testcases[] = {
-> +	KUNIT_CASE(test_kprobe_openrisc),
-> +	{}
-> +};
-> +
-> +static struct kunit_suite kprobes_test_suite = {
-> +	.name = "kprobes_openrisc",
-> +	.test_cases = kprobes_testcases,
-> +};
-> +
-> +kunit_test_suites(&kprobes_test_suite);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_DESCRIPTION("KUnit test for OpenRISC KProbes");
-> diff --git a/arch/openrisc/kernel/tests/test_kprobes.h b/arch/openrisc/kernel/tests/test_kprobes.h
-> new file mode 100644
-> index 000000000000..26c26920d430
-> --- /dev/null
-> +++ b/arch/openrisc/kernel/tests/test_kprobes.h
-> @@ -0,0 +1,24 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Unit tests borrowed liberally from similar work of RISC-V. All
-> + * original copyrights apply as per the original source declaration.
-> + */
-> +
-> +#ifndef TEST_KPROBES_H
-> +#define TEST_KPROBES_H
-> +
-> +#define KPROBE_TEST_MAGIC          0xDEADC0DE
-> +#define KPROBE_TEST_MAGIC_LOWER    0x0000C0DE
-> +#define KPROBE_TEST_MAGIC_UPPER    0x0000DEAD
-> +
-> +#ifndef __ASSEMBLER__
-> +
-> +/* array of addresses to install kprobes */
-> +extern void *test_kprobes_addresses[];
-> +
-> +/* array of functions that return KPROBE_TEST_MAGIC */
-> +extern unsigned long (*test_kprobes_functions[])(void);
-> +
-> +#endif /* __ASSEMBLER__ */
-> +
-> +#endif /* TEST_KPROBES_H */
-> diff --git a/arch/openrisc/kernel/tests/test_kprobes_asm.S b/arch/openrisc/kernel/tests/test_kprobes_asm.S
-> new file mode 100644
-> index 000000000000..bc87a5fb00d5
-> --- /dev/null
-> +++ b/arch/openrisc/kernel/tests/test_kprobes_asm.S
-> @@ -0,0 +1,157 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * KProbes unit tests for OpenRISC
-> + *
-> + * Unit tests borrowed liberally from similar work of RISC-V. All
-> + * original copyrights apply as per the original source declaration.
-> + */
-> +
-> +#include <linux/linkage.h>
-> +#include <asm/asm.h>
-> +#include <asm/page.h>
-> +
-> +#include "test_kprobes.h"
-> +
-> +SYM_FUNC_START(test_kprobes_j)
-> +test_kprobes_j_addr1:
-> +	l.addi	r11,r0,0
-> +	l.j	2f
-> +	l.nop
+When an attribute has to grow and the mft record is full,
+ntfs_resident_attr_resize() walks the other resident attributes and
+converts them to non-resident ones. For $DATA it always opens the
+unnamed data inode of the base inode, even if the attribute found is a
+named stream:
 
-Just a tiny comment here about indenting the delay slots.
+  tvi = ntfs_iget(sb, base_ni->mft_no);
+  ntfs_attr_make_non_resident(NTFS_I(tvi), value_len);
 
-You could also use the delayslots here, for example:
+value_len is the length of the stream, so it does not match the
+attribute that ntfs_attr_make_non_resident() looks up for the unnamed
+inode, and the WARN_ON() on entry fires:
 
-	l.j	2f
-	 l.addi	r11,r0,0
+  WARNING: fs/ntfs/attrib.c:2115 at ntfs_attr_make_non_resident
+   ntfs_resident_attr_resize
+   ntfs_attr_expand_locked
+   ntfs_expand_for_write
+   ntfs_file_write_iter
+   vfs_write
 
-> +1:	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
-> +	l.addi	r11,r13,0
-> +	l.jr	r9
-> +	l.nop
-> +2:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
-> +test_kprobes_j_addr2:
-> +	l.j	1b
-> +	l.nop
-> +SYM_FUNC_END(test_kprobes_j)
-> +
-> +SYM_FUNC_START(test_kprobes_jal)
-> +	l.addi	r11,r0,0
-> +	l.addi	r15,r9,0
-> +test_kprobes_jal_addr1:
-> +	l.jal	2f
-> +	l.nop
-> +1:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
-> +	l.jr	r9
-> +	l.nop
-> +test_kprobes_jal_addr2:
-> +2:	l.jal	1b
-> +	l.nop
-> +	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
-> +	l.addi	r11,r13,0
-> +	l.addi	r9,r15,0
-> +	l.jr	r9
-> +	l.nop
-> +SYM_FUNC_END(test_kprobes_jal)
-> +
-> +SYM_FUNC_START(test_kprobes_jr)
-> +	l.addi	r11,r0,0
-> +	l.movhi	r15,hi(2f)
-> +	l.ori	r15,r15,lo(2f)
-> +test_kprobes_jr_addr1:
-> +	l.jr	r15
-> +	l.nop
-> +1:	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
-> +	l.addi	r11,r13,0
-> +	l.jr	r9
-> +	l.nop
-> +2:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
-> +	l.movhi	r15,hi(1b)
-> +	l.ori	r15,r15,lo(1b)
-> +test_kprobes_jr_addr2:
-> +	l.jr	r15
-> +	l.nop
-> +SYM_FUNC_END(test_kprobes_jr)
-> +
-> +SYM_FUNC_START(test_kprobes_jalr)
-> +	l.addi	r11,r0,0
-> +	l.addi	r15,r9,0
-> +	l.movhi	r17,hi(2f)
-> +	l.ori	r17,r17,lo(2f)
-> +test_kprobes_jalr_addr1:
-> +	l.jalr	r17
-> +	l.nop
-> +1:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
-> +	l.jr	r9
-> +	l.nop
-> +2:	l.movhi	r17,hi(1b)
-> +	l.ori	r17,r17,lo(1b)
-> +test_kprobes_jalr_addr2:
-> +	l.jalr	r17
-> +	l.nop
-> +	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
-> +	l.addi	r11,r13,0
-> +	l.addi	r9,r15,0
-> +	l.jr	r9
-> +	l.nop
-> +SYM_FUNC_END(test_kprobes_jalr)
-> +
-> +SYM_FUNC_START(test_kprobes_branch)
-> +	l.addi	r11,r0,0
-> +	l.addi	r15,r0,1
-> +	l.addi	r17,r0,0
-> +	l.sfgts	r15,r17
-> +test_kprobes_branch_addr1:
-> +	l.bf	2f
-> +	l.nop
-> +1:	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
-> +	l.addi	r11,r13,0
-> +	l.jr	r9
-> +	l.nop
-> +2:	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
-> +	l.sfeq	r15,r17
-> +test_kprobes_branch_addr2:
-> +	l.bnf	1b
-> +	l.nop
-> +SYM_FUNC_END(test_kprobes_branch)
-> +
-> +	.align	PAGE_SIZE
-> +SYM_FUNC_START(test_kprobes_adrp)
-> +	l.addi	r11,r0,0
-> +	l.addi	r13,r0,0
-> +	l.addi	r15,r9,0
-> +	l.addi	r17,r0,-PAGE_SIZE
-> +	l.jal	1f
-> +	l.nop
-> +1:	l.and	r19,r9,r17
-> +test_kprobes_adrp_addr:
-> +	l.adrp	r21,0
-> +	l.sfeq	r21,r19
-> +	l.bnf	2f
-> +	l.nop
-> +	l.movhi	r13,KPROBE_TEST_MAGIC_UPPER
-> +	l.ori	r13,r13,KPROBE_TEST_MAGIC_LOWER
-> +	l.addi	r11,r13,0
-> +2:	l.addi	r9,r15,0
-> +	l.jr	r9
-> +	l.nop
-> +SYM_FUNC_END(test_kprobes_adrp)
-> +
-> +    .section .rodata
-> +SYM_DATA_START(test_kprobes_addresses)
-> +	.word test_kprobes_j_addr1
-> +	.word test_kprobes_j_addr2
-> +	.word test_kprobes_jal_addr1
-> +	.word test_kprobes_jal_addr2
-> +	.word test_kprobes_jr_addr1
-> +	.word test_kprobes_jr_addr2
-> +	.word test_kprobes_jalr_addr1
-> +	.word test_kprobes_jalr_addr2
-> +	.word test_kprobes_branch_addr1
-> +	.word test_kprobes_branch_addr2
-> +	.word test_kprobes_adrp_addr
-> +	.word 0
-> +SYM_DATA_END(test_kprobes_addresses)
-> +
-> +    .section .rodata
-> +SYM_DATA_START(test_kprobes_functions)
-> +	.word test_kprobes_j
-> +	.word test_kprobes_jal
-> +	.word test_kprobes_jr
-> +	.word test_kprobes_jalr
-> +	.word test_kprobes_branch
-> +	.word test_kprobes_adrp
-> +	.word 0
-> +SYM_DATA_END(test_kprobes_functions)
-> -- 
-> 2.55.0
-> 
+It does not need a damaged volume. A file with an alternate data stream
+whose record has no room left is enough.
+
+Open a named stream by name with ntfs_attr_iget(), as is done for the
+other attribute types in this loop, and keep ntfs_iget() for the
+unnamed one. The loop runs with the mft record lock held and takes no
+lock of the stream inode, so converting a stream from here needs more
+care than the plain lookup gives:
+
+- A reader of the stream holds the folio lock and then takes the mft
+  record lock in ntfs_read_iomap_begin_resident(), the conversion takes
+  them the other way round and waits for folio 0. Take the folio with
+  FGP_NOWAIT in this loop and skip the attribute if it is busy. The loop
+  only tries to free space.
+
+- A stream that is in the inode cache can be open, being written, being
+  removed or already unlinked. A write that passed its residency check
+  before the conversion carries on with a non-resident attribute, and
+  a stream in the middle of ntfs_stream_finish_remove() is converted
+  under its feet. Convert only a stream that is not cached, and none of
+  a file that is being deleted or has no links left.
+
+- The lookup of a stream ignores case, so a stream whose name differs
+  only in case from an earlier one resolves to that one and the length
+  does not match again. Compare the names exactly.
+
+Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+Cc: stable@vger.kernel.org # v7.1+
+Signed-off-by: Wahid Khan <wahidzk0091@gmail.com>
+---
+v4: v3 (convert a named stream via ntfs_attr_iget()) can deadlock against
+    a reader of the stream and has other races with an open or removed
+    stream. Each is reproduced with a forced make-room pass and a debug
+    delay, fails on v3 and passes here: reader/converter deadlock
+    (hung task), write continuing on a converted attribute (iomap_iter
+    WARNINGs, recursive locking), unlinked file with an open stream (mft
+    record reported corrupt), stream converted during its own removal,
+    and a stream pair that differs only in case (WARN in
+    ntfs_attr_make_non_resident).
+v3: use ntfs_attr_iget() for a named stream instead of skipping it (v2).
+
+ fs/ntfs/attrib.c | 57 +++++++++++++++++++++++++++++++++++++++++-------
+ fs/ntfs/inode.c  | 19 ++++++++++++++++
+ fs/ntfs/inode.h  |  2 ++
+ 3 files changed, 70 insertions(+), 8 deletions(-)
+
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index ce7c1b524180..c824bd3ea9fa 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -1975,7 +1975,21 @@ int ntfs_resident_attr_value_resize(struct mft_record *m, struct attr_record *a,
+  * inode i_size is that this is not necessarily uptodate.  This happens when
+  * ntfs_attr_make_non_resident() is called in the ->truncate call path(s).
+  */
++static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size,
++		bool nowait);
++
+ int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size)
++{
++	return __ntfs_attr_make_non_resident(ni, data_size, false);
++}
++
++/*
++ * With @nowait the folio lock is only tried: a caller that holds mrec_lock
++ * must not wait for a folio lock, the read path takes them the other way
++ * round. Fails with -EAGAIN if the folio is locked.
++ */
++static int __ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size,
++		bool nowait)
+ {
+ 	s64 new_size;
+ 	struct inode *vi = VFS_I(ni);
+@@ -2056,10 +2070,11 @@ int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size)
+ 		 * outside all ntfs locks, we need to get the folio now.
+ 		 */
+ 		folio = __filemap_get_folio(vi->i_mapping, 0,
+-					    FGP_CREAT | FGP_LOCK,
++					    FGP_CREAT | FGP_LOCK |
++					    (nowait ? FGP_NOWAIT : 0),
+ 					    mapping_gfp_mask(vi->i_mapping));
+ 		if (IS_ERR(folio)) {
+-			err = -ENOMEM;
++			err = nowait ? -EAGAIN : -ENOMEM;
+ 			goto err_out;
+ 		}
+ 
+@@ -4933,18 +4948,44 @@ static int ntfs_resident_attr_resize(struct ntfs_inode *attr_ni, const s64 newsi
+ 		if (a->type == AT_DATA && !value_len)
+ 			continue;
+ 
+-		if (a->type == AT_DATA)
++		if (a->type == AT_DATA && !a->name_length) {
+ 			tvi = ntfs_iget(sb, base_ni->mft_no);
+-		else
+-			tvi = ntfs_attr_iget(VFS_I(base_ni), a->type,
+-				(__le16 *)((u8 *)a + le16_to_cpu(a->name_offset)),
+-				a->name_length);
++		} else {
++			__le16 *name = (__le16 *)((u8 *)a +
++					le16_to_cpu(a->name_offset));
++
++			/*
++			 * A named $DATA stream is converted only if nobody has
++			 * it open: an open one can be unlinked, being removed
++			 * or in use. Its file must not be going away either.
++			 */
++			if (a->type == AT_DATA) {
++				if (NInoBeingDeleted(base_ni) ||
++				    !VFS_I(base_ni)->i_nlink)
++					continue;
++				tvi = ntfs_attr_ilookup(VFS_I(base_ni), a->type,
++						name, a->name_length);
++				if (tvi) {
++					iput(tvi);
++					continue;
++				}
++			}
++			tvi = ntfs_attr_iget(VFS_I(base_ni), a->type, name,
++					a->name_length);
++			/* the lookup ignores case for streams, ours does not */
++			if (!IS_ERR(tvi) && a->type == AT_DATA &&
++			    memcmp(NTFS_I(tvi)->name, name,
++				   a->name_length * sizeof(__le16))) {
++				iput(tvi);
++				continue;
++			}
++		}
+ 		if (IS_ERR(tvi)) {
+ 			ntfs_error(sb, "Couldn't open attribute");
+ 			continue;
+ 		}
+ 
+-		if (ntfs_attr_make_non_resident(NTFS_I(tvi), value_len)) {
++		if (__ntfs_attr_make_non_resident(NTFS_I(tvi), value_len, true)) {
+ 			iput(tvi);
+ 			continue;
+ 		}
+diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+index 62dd5bd5bb81..ec9c7b219192 100644
+--- a/fs/ntfs/inode.c
++++ b/fs/ntfs/inode.c
+@@ -287,6 +287,25 @@ struct inode *ntfs_attr_iget(struct inode *base_vi, __le32 type,
+ 	return vi;
+ }
+ 
++/*
++ * ntfs_attr_ilookup - find an attribute inode that is already in the cache
++ *
++ * Like ntfs_attr_iget() but never reads anything. Returns the inode with an
++ * increased reference count, or NULL if it is not cached.
++ */
++struct inode *ntfs_attr_ilookup(struct inode *base_vi, __le32 type,
++		__le16 *name, u32 name_len)
++{
++	struct ntfs_attr na = {
++		.mft_no = base_vi->i_ino,
++		.type = type,
++		.name = name,
++		.name_len = name_len,
++	};
++
++	return ilookup5(base_vi->i_sb, na.mft_no, ntfs_test_inode, &na);
++}
++
+ /*
+  * ntfs_index_iget - obtain a struct inode corresponding to an index
+  * @base_vi:	vfs base inode containing the index related attributes
+diff --git a/fs/ntfs/inode.h b/fs/ntfs/inode.h
+index a18cbcf1c631..7ea52c59c04b 100644
+--- a/fs/ntfs/inode.h
++++ b/fs/ntfs/inode.h
+@@ -326,6 +326,8 @@ struct ntfs_attr {
+ int ntfs_test_inode(struct inode *vi, void *data);
+ int ntfs_test_inode_rcu(struct inode *vi, void *data);
+ struct inode *ntfs_iget(struct super_block *sb, u64 mft_no);
++struct inode *ntfs_attr_ilookup(struct inode *base_vi, __le32 type,
++		__le16 *name, u32 name_len);
+ struct inode *ntfs_attr_iget(struct inode *base_vi, __le32 type,
+ 		__le16 *name, u32 name_len);
+ struct inode *ntfs_index_iget(struct inode *base_vi, __le16 *name,
+-- 
+2.56.0
+
