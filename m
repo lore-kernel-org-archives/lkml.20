@@ -1,96 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794170504;
-	b=zdiMCAJX3dpJnXuABSYHsCPWp42jPJszka9aFaA8Kg+vrqPMXGMJREw2jt1OMW6QijDn
-	 CvJzoQB6VCviTmVP4p3He21goGp6wmMNwIQt6sQfBq0g2xnA1IEOhQmAzUVNaDtRS2SH0
-	 eSr0p3NjaMbNDm4diFIzt6QLsJvwfFBqxL+uCerfPg817t//SjHcmqERxSmt8jCMBHqOG
-	 dC7HzOVVMQJsK3Lg6//2amSwOaApupO+fJKq1Pa9a93qFe09FEfHxmqpu+V0S1BfMz0tx
-	 5XvUeUGqED4Gu/fDlR050O83I9H/RKq1Vbq+CEr7wKfwcVGDFgU9voslq0VV9q+nlig==
+	t=1794170512;
+	b=qHs031KpvX9/TxSjNcSbivbcsXyQrIGUVGO/Qptp41AvMdaMHaQm0lju0Ka0w8rpzgej
+	 lJUflKBx0bmRaKoFfmtV+5W12O8sYgwbvxLPsIAMCbsEL/2E5UvnFaQK1iVtut0arG/EK
+	 7urFtuRhCmjxjxGVHKJfrDFGZmDye1bNVbu0+mwi/p2lbw5fHLyuhk2PBZg49yXhXMpNn
+	 l4MS1YEM+oY2jgjAIWBVpca3srHtA8ksIf7cg/FECunWpdWubwu4ldeBthxsjhhHMPBfC
+	 9OMhbG7IffHqCaEfePFYpL0zKfBh4sIXQ4wd8vvbJz4ElpX06ep7MYwJqT3qut4ShzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794170504;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Subject:
-	 Message-ID:In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=K13VqWWLANb+jPNCnSt91FUtEo2SHmNlcvUhSyb9ULQ=;
-	b=Dy5x2GKL7wZow29zDRC7tT7tMaB7rb4JR/l2gUl6qxGYIJ7hfTwIsmZj27pxm9o4F2se
-	 3WRTXVWw2sGVvZGWJa81dLrwayKYUeoUI6Vem2KFblPM7NkmmKdg4Vg2DNkmriWXik8AR
-	 KCsIeOJorloU6oPiwL7DLilpMui1qXETUwd64rpWgdtJjadgPxRAJOZWKADmea6QXXG4h
-	 dwXirEt/6qR67HfP2yaoSt8OFwop9NKlZdFz3LJzwNSE3rhdGeCXnEjIDFu526Cca6N2k
-	 JicRP9IgM2/mSU0lkEmzWJgXzZS975hGlp2WHkTCcyJcL/x4WEeF7s8d9UtaKbdfuHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794170512;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=R26dJdkZH8TRIIct3eE1kDQoBO795NGFDunxp3krIBs=;
+	b=e7Rs9FhoylLwUgRtIJ84FDzujxMB/2+4xV7IHa6ceaCU2Gq/4723iQf8IJcrGA6Gb7y5
+	 QhQTCy073WSga311Mig3wa57axYMJQ4W+mlIoG1r+JMfQYOQs6qRQ67iSuwhDQxW9W+7J
+	 ZXt7ZO+7ZpA87ETaD8HNS9lwwnrfm4FA/jsCA9c4oizxSmMlzMsp+kcYnQzZTFzxf1g4M
+	 P1IOtLmBpM/H+1zKxRGvUoVHzGJAx451tbvakx2r0nDWeHYJjru4EdFDKvRHO3c7RntTa
+	 IDtpjRKGRy2MAU86emW66p+DcG5kHiHBM+b4BaqU8eSh8PF1Uc0fUhxEoadWSY7Eidw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dyv9iOjh;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WajNyqCH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52741606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:41:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52741606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1650606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 20:41:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dyv9iOjh
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so1478435e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 12:41:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794170503; x=1794775303; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K13VqWWLANb+jPNCnSt91FUtEo2SHmNlcvUhSyb9ULQ=;
-        b=dyv9iOjhr3KGPyS4s8lOh+Hl0ohpT49BSEprx+bZAsHY48gYllYa3Etc1vHFblObLv
-         UApm9sRajodVdYUa5Mjqu9vls0xQzdwyxUIR1aFgvWm8+dPPq2tKkmZx/gyWmvez1yR/
-         zRh4VAZhiVlBPBCV4M1XJWbw6O2XWIw4rbln9TWtFUPcPvM0LFZM/OiX4LIOk6aAycHJ
-         bfvnYG0T1D5XY7ujRRbHm5WgmnZUDou0O1K8smex8Bz53hj0R9isb3hGIJQFDh48FuMf
-         bql88viIj/LxnDoJ1sHyV8rujrTWpGJPgnv3iLiRWDtaVq7k80wgshEEABmNxS2LuejI
-         o92g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794170503; x=1794775303;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K13VqWWLANb+jPNCnSt91FUtEo2SHmNlcvUhSyb9ULQ=;
-        b=FpBeNyIsSpZdyCCFMEClSmTYzDAnJZbpcq80cdVTNBcuyOFDUTQ0rP0WlgtHZIsh6W
-         M/gyqzv78tZhTqu7iFFDQVdxf4qRHHBW9GLBGOuoN/L+93EFysnpK6wn1jrK70m45zd6
-         HydLJ9BroT0cCWsyv3+j+mqMjqTMqxSGUH8jijN65t5yQeAYDa1FXm9+JxhN1MGIczvT
-         5+8sma5zSgtmwgPHLbeB00bhmg0Qlm23yjkvVi6tQi5WhU6vEtTLuNop1xucl8jFVV1e
-         YfGasAAVTQdd3HwrjZOVzfjBz03PTSAyQ+0MvRHgKkXk6+RfaDIDhCSorFoSkz+BAMtB
-         qrCQ==
-X-Gm-Message-State: APuU4Z+Kn/8l6BvDm3bBKqO98D2l2ZhaTYMKaLzkdHqdwJaEA3YT59ff
-	0Ka/ligb+C+qO+rzwluXq3Q4ckwRqQHmEMs7fXNPIaz0My3PSj/crRIFfg5D0PIa
-X-Gm-Gg: AYBFou3g6/NBoEW2hzXA4bXXeu9BwxmG2uIMk5WV8BCH765YYSt/jVhUsZhm5zpp6t6
-	5yyI6XYpFuZH2DetZ6HgUUm9z3niJ2V0ls8EEGToJ5gjTojakgk8kLxZE7nNKdeZ1cES4oPTmVP
-	+F3FeIS2vFWVyVmr+a4WJBobqaL4nqYLCjoJMmVL2XOzbY71RyZDEB7Z0Y+Tf3vuUCLREbBQYKO
-	Dvp3qEHEuOzNPfoOc6sxX6eGy6KHvEwjyMlPnY6wq62Nv6wIxi+ShabP2wpRcoJASy+soTJgmFr
-	6gCWiTUrbpvitHOWOCeAFL158zmpm50a0cLzG+EF/xO/w2fEXAkqAq9YB/jQNZMeCoT5/hDAkGu
-	qFig3UKixFK0sOvVtYh9ttzxPbReB5lsShSk23y0kgdQNv0h1CueiLTiaVzLWdiu2AZZZ6GeClH
-	taR24J+ndbBs035RKxSjBFWuqMUI/2stWEqXGrCxfJqkndSKEqP4aZ06YnnfRSKUrBIOU0Ev8Um
-	nImwuDif6koN4rz6AN/S7VycFaXkBRtsHjS8VJ1h18WXvdadiusytYJ2KUUqaey7BV6+1j+gUFE
-	zg/1DoZF7+OwQ+JZOgK8eZ9Ia7HJMTki2M6S8YWUWdcDk9NYLP0bw1zC7nIeDmPYI7+cUoVbIKx
-	eUMEpvpVeJA==
-X-Received: by 2002:a05:600c:474a:b0:4b5:2c72:651c with SMTP id 5b1f17b1804b1-4b963c6cac0mr47339615e9.5.1794170502718;
-        Sun, 08 Nov 2026 12:41:42 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90f119b96sm89447915e9.15.2026.11.08.12.41.42
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 12:41:42 -0800 (PST)
-Date: Sun, 8 Nov 2026 20:41:41 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] Add offsetofp() and offsetofendp() for pointer
- arithmetic
-Message-ID: <20261108204141.6112599a@pumpkin>
-In-Reply-To: <00152592-fd72-4413-88cd-c78a3722829a@arm.com>
-References: <20261105-offsetof-v1-0-4153f5c10edc@arm.com>
-	<au2J-lMcEn4p4KGR@infradead.org>
-	<00152592-fd72-4413-88cd-c78a3722829a@arm.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WajNyqCH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67BF1F0089F;
+	Sun,  8 Nov 2026 20:41:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794170511;
+	bh=R26dJdkZH8TRIIct3eE1kDQoBO795NGFDunxp3krIBs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=WajNyqCHUgapwJqBmikLkfTuDn5xJWaP8H2ac9Nfj4A2HV9jJEtp4+yH1KGz9b1w6
+	 0WtGFjSIMqlsbzKpioFisImukMI9hiON8l8wx0289DEAFOrrRoIPsWaZezMGU4moVT
+	 B0hg2JkzPXgWie9fDrlKJOJ8tCJtGTwkHQHpRdPo6upWxGFlA6hBnc200oPPmGWDhi
+	 0Z/qnTLcAuYfsvFMmd6pkQ9XI307IHCxxkXXmi2yASEg5ct1foLKaS5W29lIddEhpl
+	 vOk1JCrpvArMv+4s6WO4yzUbT2uhzWe74uNQivzEd49sN1rUYIQE/nVX0zkLyqENCx
+	 9iddjrZaHFcCA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>, linux-kernel@vger.kernel.org
+Cc: Radu Rendec <radu@rendec.net>
+Subject: Re: [PATCH] irqchip/ath79-cpu: Flush every write buffer of a shared
+ interrupt
+In-Reply-To: <20261106221201.15054-1-rosenp@gmail.com>
+References: <20261106221201.15054-1-rosenp@gmail.com>
+Date: Sun, 08 Nov 2026 21:41:47 +0100
+Message-ID: <874idrvywk.ffs@fw13>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,19 +57,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Fri, 6 Nov 2026 09:29:24 +0100
-Bence Cs=C3=B3k=C3=A1s <bence.csokas@arm.com> wrote:
+On Fri, Nov 06 2026 at 14:12, Rosen Penev wrote:
+>  
+> -static unsigned irq_wb_chan[8] = {
+> -	-1, -1, -1, -1, -1, -1, -1, -1,
+> -};
+> +static u32 irq_wb_chans[8];
+>  
+>  asmlinkage void plat_irq_dispatch(void)
+>  {
+> -	unsigned long pending;
+> -	int irq;
+> +	unsigned long pending, chans;
+> +	int irq, chan;
+>  
+>  	pending = read_c0_status() & read_c0_cause() & ST0_IM;
+>  
+> @@ -46,8 +47,11 @@ asmlinkage void plat_irq_dispatch(void)
+>  	pending >>= CAUSEB_IP;
+>  	while (pending) {
+>  		irq = fls(pending) - 1;
+> -		if (irq < ARRAY_SIZE(irq_wb_chan) && irq_wb_chan[irq] != -1)
+> -			ath79_ddr_wb_flush(irq_wb_chan[irq]);
+> +		if (irq < ARRAY_SIZE(irq_wb_chans)) {
+> +			chans = irq_wb_chans[irq];
+> +			for_each_set_bit(chan, &chans, 32)
+> +				ath79_ddr_wb_flush(chan);
 
-Not cc'ing everyone because there are too many addresses.
+So the CPU provides 8 interrupts and 32 sources, where each source has
+its own specific flush register. There is some distribution mechanism
+(firmware configured or fixed in hardware) which maps a interrupt source
+to a CPU interrupt. When two sources are mapped to the same CPU
+interrupt then they share the interrupt line, i.e. the handlers are
+requested with IRQF_SHARED, _and_ both flush registers have to be
+written to so that the interrupt handler can observe the data and figure
+out whether it should handle it or not. Correct?
 
-> However, as Sashiko pointed out (don't know why it didn't write this=20
-> earlier), struct_offset() already exists, so we should just use that=20
-> one, and probably add a struct_offset_end() variant.
+I kinda decoded this from your change log and tried to map it to the
+code. It looks correct, but for heavens sake this needs a bit fat
+comment explaining the magic behind all of this. Even for your own sake
+as you will have forgotten the gory details three month down the road.
 
-Even that is 'another define that you might have to look up'.
-A lot of these 'helpers' don't really help.
+Btw, as this is the interrupt hotpath, this for_each_set_bit() loop is
+pretty inefficient when there is more than one interrupt source
+associated with a CPU interrupt.
 
-David
+What you want (as a patch on top) is:
+
+ath79_ddr_wb_flush_many(unsigned long sources)
+{
+	__ath79_ddr_wb_flush_many(sources);
+        // Document WHY this needs to be done twice
+        // The existing comment is useless...
+	__ath79_ddr_wb_flush_many(sources);
+}
+
+static __ath79_ddr_wb_flush_many(unsigned long sources)
+{
+	u32 __iomem *base = ath79_ddr_wb_flush_base;
+
+	for_each_set_bit(idx, &sources, 32)
+        	__raw_writel(0x1, base + idx)
+
+	for_each_set_bit(idx, &sources, 32) {
+        	while (__raw_readl(base + idx) & 0x1)
+                	;
+	}
+}
+
+or something like that. For a single interrupt it's exactly the same
+outcome, but for multiple interrupts mapped to one CPU interrupt there
+is an obvious speedup potential, no?
+
+Thanks,
+
+        tglx
