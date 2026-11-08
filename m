@@ -1,77 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.235
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794133355;
-	b=meWn/gZnry/oZr3J3GTvBNlFwsTeR0rWvQ9ySGKe/RYqnJUPv1J6vr8x4RGMY/ArESi4
-	 N+DoWDk9Vjaf8x9DUp5tTZ7YbL5wRRxhfot8VSxfLPQFkulLf/O4VC/d7WcIguJZGz+/S
-	 P0+wn7NcqQApG8kagiCK6jPWU6Nn1ynHRHJnOnWmGUE6MnOOpOz+Q5FXoOezDqMkZxpBh
-	 2UH6IZUDtqji3XOsHs2sppLln9IyqdBjl1V2HKmIgO/Mm968RSQyY0CXLQ5o6QPTkDrAO
-	 zShTU+e1h12tzqqbRBcQ2jLl5uSlVGzYUv3eMiw72DcuuztfuJahhmYr40mADZjakNw==
+	t=1794133380;
+	b=s//JQ4S5gMc4E3klUs3Nz4MF/A/QprkufUPmwyOJ0rTM+ztWSzpFBSRojjcEJRsT/JS4
+	 eYKWx9cmzkuR2DBllL8CFJn9iw/hbOJE5gKsFs9NyovCFk76xrdM9+Fb1nWhlZjuOBOZK
+	 bQM4Ak3mztqR4vvta5AVFDC2oyC32t/Kf9eriFTy+zL/33NLYPgMkURtD2ygVSNn4/fby
+	 HqglAQUyWt90cckOCiSDIg8nWRVN/foPcxrwb03RKrJVCsGukt79La8HmVYBLMqEkzR2A
+	 Xl1cpL/YhPT1yF3PBuSVzS137PkaWOkpBi/U3VnoXnTLVThrueuaqcPxkXDjFtu01gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794133355;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:In-Reply-To:
-	 References:Date:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=/I1zO9HH0V2GpmeOKiJWpPneEtLjajeHktpf8ycjH5M=;
-	b=ptyLdT4NO0p7KvGin3PDs7x/5jtnNTTc76vBRRY5PQ/lCFfW8ymLAwKgIpfyV6Vxf6hv
-	 /9D4NdT63OvWz1Yb3sEIMzUspeeMy3Cc9dbOAwhT4cOeVh5VVCdGHJuHU7swWn4GSRwsS
-	 HQ/I1Td8MikEnSMkcRtnZg2RyjAFknUoUB3PyVA/f0nB8oKYbvWJcbng2uW1DztN09JZ+
-	 NkOfKCkk42P8aA2sLdQcTyJGgV9xkbLh8j3hEWSI0OpMTHfdJPwfeYaMxWo8vQXH8RzTe
-	 8Whrka9IYAuoYhAb0naX+6icjLQnnPNUlknjzclJA7pbV2gERQ+0lFgn//4rq3CGvDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794133380;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NTRlnQ6aw/9U35t6NClVMTXH5guuqvWv4jZ/7tnzMkY=;
+	b=jP52Yg6UpZvl7adHHMz5FRlKOr+1+QvzitWoH/CpKtCXLZNrdZbgDfBlEW6v+fXm9MSp
+	 HhZFasmI0LO44M7+3uZgzn6MAM8X0a9oWv9vV4dnXIUPITmTj5POeKfHzOj0cSMa/Lvix
+	 dyNFpQ/L58IhW47/RWnMjsbiZyxpUR40TesEhdPHB3N3A24hMrwcj/3ZYipvsg3zfK0PR
+	 JB8d4ehiDCdjIy2GXVwA1pCx3Odh06DQmcxVh5QQTFLJuNJ104EH+InnM54kGC6/9oWEJ
+	 I0QHNzJyHnrQXyCxM7+1ZN1YbbfUKZ1vwzkyBeCbCf2o5RMbcPPspKy8/w+fwGOC/xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=EoG41wrj;
-	arc=none smtp.remote-ip=203.205.221.235
-Received: from out203-205-221-235.mail.qq.com (out203-205-221-235.mail.qq.com [203.205.221.235])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y2hs+fuQ;
+	arc=none smtp.remote-ip=209.85.217.54
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E000E606A31C;
-	Sun,  8 Nov 2026 10:22:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E000E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 871E3606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 10:23:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 871E3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=EoG41wrj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794133350; bh=/I1zO9HH0V2GpmeOKiJWpPneEtLjajeHktpf8ycjH5M=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=EoG41wrjebhnRjxnzITvFkfxYkI6uXSMH9wr1Ft9XJ6FQjCNyaFntRAYJ2KJKPloS
-	 /3hz1lqrbkRFYnWnLM0Bq0G4zF7MIbk9LB0iQ2r7j+shuPoz74PR0MrRW3/FG6VFju
-	 M69Bf2s3JkhHEzvwRfJZmwglgiYUZ04cB9+Zj+X0=
-Received: from [172.18.4.77] ([202.113.185.209])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 59CAB045; Sun, 08 Nov 2026 18:22:28 +0800
-X-QQ-mid: xmsmtpt1794133348txrfclu4n
-Message-ID: <tencent_9EC4DD29C8D43B8AC647292A2C35EF3B7E05@qq.com>
-X-QQ-XMAILINFO: NT7uTz3cNku2uzsPeZXeEuU1yxJo6KNWXctQQy9zQEvjRTvx0nbGXPyCrgwDmF
-	 LRgTyozLZCI7YPKXKKqThIa0NOCHIErsO8Uy7e7xOTuVAsFCB3+Z9tCoSLvPuL24Jz4b+3zgUAJM
-	 s0T5ozsP+rbgvf4bicYiIw/ESVbPtSUYFk+HTgccriXjjx+j9ieAJaYZ9BWaBKMqH9Quh2yKYiFD
-	 NozYKRF+s+HHqlFuDHap2S2qiJMi2iqL5IfJnNrM99M4M9aK38j5VdbSyd6sPrjDTPwfNvACApJH
-	 yqUaPvSDX9m/QTexvzFc94iQ2/8Bfp1+9UENnq+VfpB/Q/saYPTtEza7/7OyZHIxQWRzut/rcrjp
-	 kwWyXCzVZsg8MiT8fE+vtTptLbLDUX5ZtWpIaEGpnn5OZSIecKpx6rFL/ikHMoE3e65h4pYc2ioH
-	 EvXxDBD5/vmBmw1IaUr3i67N1tj3sLsIEZl2SjtHrj9d+fuSDZNv+owTYsWRjXv0cJN36OKbzcvX
-	 HYy4skzqy86Hw4VmrXlsFRZUGWcqP1021BVc3N0bCBhLnKKb0rqPDfUfx09X+PZB111QDuKM1QpM
-	 kQmySocTeKiobKoloPuz8dWkNcKOA5hXlN9GYy+euYIUopvKCUGlf+LzIvz8JL/RbX7m4f3XG4pY
-	 L6k7/KUa4h41U3MYXZ3wR7z3BFUD2C+HLLPiu0nqje2YkF4WiDCumGkL8RsRr2AHbb7W+DAwFKck
-	 6qAfHJvEUsrRXIYVtSkZrCI2oHIeck3c23cOH46oJ18fTLzU6WsRQJ8Jgm8F/UrEFG6cncbgWiGi
-	 wWgEMSEokp3wSbPEEDgcILahBlBOdvXFGdHB2RvsaWg0Pd6qgS4dV9kGOT6G2wRj5t7IibjtTjto
-	 PO1G3A9UwWFeuE2ZiSXldbXpQID8fufeXD4SNAPIU+MOAW3Rs3WHKGfNa7WrwZyXVgUM/wrLGP+/
-	 NJ3R4aHw0N5zE603U8CVTyr1KIelq6UJp0TAMmEItfg9TQnfQVTMbEoSwiEbSzrNvH5ofQf8GNph
-	 fn4vl6RwYV+469IGuEoB+SwBWXm/CkbOwnyFSmM9kRmLkucLusL/84BzyOb3Y=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: "Darrick J. Wong" <djwong@kernel.org>, linux-xfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: xfs: XLOG_WAS_CONT_TRANS on a transaction with no buffered
- regions reads ri_buf[-1] - null deref Oops during mount log recovery
-X-OQ-MSGID: <c34-xfs-ilf-len-oob-20261108@qq.com>
-In-Reply-To: <c30-xfs-wascont-rideref-20261107@qq.com>
-References: <c30-xfs-wascont-rideref-20261107@qq.com>
- <c31-xfs-logged-sb-geometry-20261107@qq.com>
-Date: Sun, 08 Nov 2026 12:00:00 +0800
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Y2hs+fuQ
+Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7d2bf046d7fso6145137.3
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 02:23:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794133379; x=1794738179; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NTRlnQ6aw/9U35t6NClVMTXH5guuqvWv4jZ/7tnzMkY=;
+        b=Y2hs+fuQmoGA4HTnAhRO91RDE0wv9eQPsDc6ghq0PmO8PV1/RVRHgQVHFuMG062WcA
+         mfxOyrsitX8v4RtYCzrzfG6vRVaG4J6NCtTWyBdtL0M5a1ESmDS7gsh9DqnMMUbIYQgc
+         Qzf45yTR498m/DnGzfqF7P9wmNhQkpw7Me8OuTkdA8CB881YLGY6JaUxrWnJ6pbG3q6w
+         0JVEwQ9mBhBxzsNwlMSH/oGpjQLB8vlDR/rPAAKN+G9pBavKLo4DtjmDxf/jnE7SiQ4l
+         oJPgjZ7YWCXHVeeri6mxDB2IpKt1f9GBhzbr0Mwl5s1Vbo9L5DwTqD+2cMYv2mIuwsix
+         2XGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794133379; x=1794738179;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NTRlnQ6aw/9U35t6NClVMTXH5guuqvWv4jZ/7tnzMkY=;
+        b=q+RuvXvMJRrNl45Vkq2WEORE3HFuQleuUs+IKAwLZ+YP6pUCrccQvf5DGeKxY7I1N4
+         sdIaFHChevbKyL1AjRn8Z1ohb4FhFscpl6LA366NbiHc4PWuFtoSgv/nZvYJdIYLv6Jf
+         ZxUpBVClSFqXJ8Ae7BWB2Up/129xqV6Ok/vICRlnPV7ATYuKleb/tkmI3KQuy7FfnKUT
+         7VOdcMb4mkF5q5qoui/M8GApiCNRoaCVUpVc29/DN9YELwRJ0TQcqEFB5PjkEzwtW7cL
+         R8M8NiwPb6Xft5eQ6O+0dNGRJC54FP9m/8yiskneNp1rJEZz9gqKgeir7cp1aarRCVfb
+         MjmA==
+X-Forwarded-Encrypted: i=1; AL+hErHDoVGgdlxD/ziNx/05+kNQ1GhUZeIdVKXUaOo0tftb7ZqOmW+pZTYtmfIwn5NSpKcEsBDQ/QJX38S2l+M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8WA1oLeE7tAijxMm2zxFDmdbs4V7y1+EMpsF9x25VP2dpZ4uH6
+	yIKL6uKnsRL5suJluZH0NdSLSE5MM2LEMtYM2HW7N3dv+ELETCxaHV3K
+X-Gm-Gg: AYBFou0PnXyvAIEbTApFmFvTqosetQfN6NYn0vLu9VXwiJTZfLTpOzuw7lo5RkAhz1i
+	sS3hKEiB24TK0CTfiF5TEa5wa3OIhEUIH5lehmnYi3xSSCi1+41kXOjw+yYiSYgcCLVfcuMm/FT
+	e/L4TFvhfpNz32z8diG5+1SxvjQG3hn/0yHECXYw+21bNyu+5vQ+Li5qqikErb0B3pxQASwo7/E
+	Dy60vpCoAYck83NZGgFDUlKEYkn4rrPWekJ4y3fS7Udj/08FC2C+nOs83xYRPgNVAXFYbHx4/mI
+	OmbXe6UtYav0KvklzE36IDfwlr0YsV5tc+7mVJN9e5YP2qX4wWzQnD6zBd+NIJ9SrvDiBoG1xOH
+	sNEExwz+50ZuZxnocZkw/WyFxXYr/gp1viENpahivaYJEiC5Wi2d5UlQf+LXmzMMDx0u/T6oUky
+	+2/pdd0V4YbVFAJI8quhbXa7FdM9/Mwph69MlvTs0P7X2h0B8ZpuW+5WfhEUSbHaRAWIpPBajSs
+	qMJg4w3oTAT3kXBvV8FutI9/1TknvNNRcn0cysRP3Yf4AGkhaPSLlo+7TWh6lsVav4R2wRwf/JD
+	5Qx7ixTSXbDgBXaKcvf5R6wscC2QC4O6gKe5H0Ua4944fwWVYN/jZHuUfrbT1SM4CQJ3ANInnI2
+	pnHCBs9yc02/xfdPGEKnnEQZ2t/DM9A==
+X-Received: by 2002:a05:6102:84d2:b0:7cc:24e1:77b with SMTP id ada2fe7eead31-7d2daab7329mr227009137.4.1794133379366;
+        Sun, 08 Nov 2026 02:22:59 -0800 (PST)
+Received: from fedora ([187.120.157.132])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c02a4da96sm1405537241.9.2026.11.08.02.22.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 02:22:58 -0800 (PST)
+From: Guilherme Giacomo Simoes <trintaeoitogc@gmail.com>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org,
+	liam@infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	ljs@kernel.org,
+	mhocko@suse.com,
+	rppt@kernel.org,
+	surenb@google.com,
+	trintaeoitogc@gmail.com,
+	vbabka@kernel.org
+Subject: Re: [PATCH] mm: clear pmd in pmdp_invalidate()
+Date: Sun,  8 Nov 2026 07:22:46 -0300
+Message-ID: <20261108102246.178548-1-trintaeoitogc@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <bf5c4e81-2c9c-4f4a-ae7c-9edf6a524d1a@kernel.org>
+References: <bf5c4e81-2c9c-4f4a-ae7c-9edf6a524d1a@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,76 +106,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+"David Hildenbrand (Arm)" <david@kernel.org> wrote:
+> I remember that Zi is currently also fixing some pmd_mkinvalid() implementations.
+> 
+> Is there anything to fix from your side, or does the above fix already resolve
+> your problem?
 
-One more from the same recovery path - this time in the inode item
-handling, a different asymmetry from the two reported above.
-
-## 6. ilf_len is used as the buffer read length without requiring
-   whole filesystem blocks
-
-xlog_recover_inode_commit_pass2() passes the logged ilf_len (a basic
-block count) straight to xfs_buf_read()
-(fs/xfs/xfs_inode_item_recover.c:351):
-
-  error = xfs_buf_read(mp->m_ddev_targp, in_f->ilf_blkno, in_f->ilf_len,
-                 0, &bp, &xfs_inode_buf_ops);
-
-Nothing requires ilf_len to cover whole filesystem blocks. The
-verifier, however, computes the number of inodes from the buffer
-length rounded up (fs/xfs/libxfs/xfs_inode_buf.c):
-
-  ni = XFS_BB_TO_FSB(mp, bp->b_length) * mp->m_sb.sb_inopblock;
-  for (i = 0; i < ni; i++) {
-          dip = xfs_buf_offset(bp, (i << mp->m_sb.sb_inodelog));
-          unlinked_ino = be32_to_cpu(dip->di_next_unlinked);
-          ...
-
-With a 512-byte block size on the log and a 4k filesystem block,
-ilf_len = 1 reads a single 512-byte buffer (kmalloc-512), the rounding
-produces 1 FSB * 8 inodes, and the loop walks 4096 bytes - reading
-past the slab from the second inode on:
-
-  BUG: KASAN: slab-out-of-bounds in xfs_inode_buf_verify+...
-  Read of size 2 ...
-   xfs_inode_buf_verify -> xfs_buf_read -> xlog_recover_inode_commit_pass2
-  Allocated by: kmalloc-512 (the buffer from xfs_buf_read)
-
-The readahead path passes ilf_len through unbounded as well
-(fs/xfs/xfs_inode_item_recover.c:36,41).
-
-9232301894 ("xfs: bound inode fork length against the fork size during
-log recovery") added bounds for the logged fork regions in this same
-function, but the buffer read length itself is still unchecked - the
-same log record carries both fields, one is now bounded and the other
-is not.
-
-## Reproducer
-
-The dirty-log image from a normal crash is modified in five bytes:
-ilf_len in the inode log item from 32 to 1, plus the four CRC bytes of
-the log record. ilf_blkno and ilf_boffset keep their original values.
-The unmodified image recovers and mounts cleanly; the modified one
-hits the KASAN report above at mount(2), 3/3.
-
-## Suggested fix
-
-The verifier is the defence layer for every caller, so bounding the
-walk by what the buffer actually holds seems most robust:
-
-  ni = XFS_BB_TO_FSB(mp, bp->b_length) * mp->m_sb.sb_inopblock;
-  becomes something like
-  ni = XFS_BB_TO_FSB(mp, min(bp->b_length, XFS_FSB_TO_BB(mp, 1))) * ...
-
-or equivalently computing ni from the buffer length divided by the
-inode size instead of rounding up to a filesystem block. Rejecting
-non-block-aligned ilf_len before xfs_buf_read() would also work but
-leaves the verifier as-is for other callers.
-
-The reproducer (log scanner, image builder, ready-made image, serial
-log) is available on request.
-
-Thanks,
-Guikun Yang
-
+Yes I updated my kernel repository, tested, and this work and resolve my
+problem.
