@@ -1,79 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794168976;
-	b=y9H2Ulm9boYlaY67Lmi73d56VSFLWTGf3Ktk6Zj9Wch3wetgFgj5RVfqYXW1xhBBKP9K
-	 OyL/VRvbrE06aeIUmyetYSAFzUA7CfU/Oy99FiOFdi5JNFIt1iVgTkvMPjADvkNOyROQ7
-	 1eIIMdJJp5oIJk8q+JxGtaLgsKLkr2zBd9lcVru6ofE4C3A6bouv4RoxeMe4Ov5RxZqaM
-	 CpwyGNIHhQKgcvlYjdRRWW9ObI+Emr23R0dt+Eitgw92cRgwRERgFvTjF1Zsm6aTQrVjb
-	 P2qpRh6BUarYWd8cndRAs04Ion7UvQdFrEIaApWvc1bcnqyAtaVJkPYFv9LpNje+6Iw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794168976;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=AvZj58LAAGduk/xpJ0dCyMoDVD5BG4cJyWLaCL3My4k=;
-	b=FJMjoegw60Af/Pk8ah0XVSXYDv3ReFfpZViBAPpL8ZnFl9T+bdcu6dX05L6fCWsw8yuC
-	 jx+vcsNGkbr53WFwiyRYfKWUybRw+SBdDZTYuEX9GP9EXjysODiJE7YVWgA7xx1Cw0oir
-	 xhT11yfLcZUvwA2/pY3Iy4pjyElEQHbrXHp8wfE42mbPNLRjire/DIoiIMN5N0ujMKYra
-	 5tUUyDPE6RqObL5SpEl8T4zD6PlsNqGE6Z6MOIQEgv7Atz029HbY5t6hP0r9qIwKnaCRv
-	 SjgheorO8uyknTcX4pqVLki6cD6480T8Ix8w07o0PzRBFpg1pvLWCGhvP0nUeXA2ceg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=egUwvLR0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D11606A31C;
-	Sun,  8 Nov 2026 20:16:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=egUwvLR0
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794168975;
-	b=S8o0V70BSVhWwf3RjwPjg5W1SzTQQ4IOib5m0gWzbknEMGg3fZAr9gjpYzTOBuCTylQU
-	 JYWyh669aT0dQcP+/hxtkM35JHd6mUggbyAUO7ehd639l2QVNqspaFqdtSYirUgT8Nq4G
-	 LNU2K6dFV4IWyFt+LKkPUQRlbGdgni31FKDQzrIXEtxpEPdZmu1X+EE/ibHVvpUHhvsQe
-	 n+glMRCras460U9PsdNQKacicXPphD9vzW3pKk54KPsWc6IU27bG/5y4yC+qCPyAWINwl
-	 rFSHben80ExkJJQZ//nnyN90+sksNO1H2eP1d7sJUUPWBVejT0SfP8XYSNWcAcZTK/g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794168975;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=AvZj58LAAGduk/xpJ0dCyMoDVD5BG4cJyWLaCL3My4k=;
-	b=ktjKANZqnH0hLdrDgk12LvynW+l4lAfvQJcob7EHuPkyVNZzXeS+wn9cVW2u5weRT5UX
-	 IT/P14PxHZGcXqrjPwUoSLsnEIpUhqJYr9ZqYjAgu9PPqlpKQn452vN5GXKz9f5KuN0fA
-	 YTA+BVDQXEJ7aLwlyPqFWMCPPyOt7G+BP80nnu+JZQJWFGybCtpz9DxBWrpzjlmZK0oiW
-	 7/hVpUpPugomXewUoP3vwNZ6UiNWBJWH8i7G2jD0O20XVsX9paZ5zRlig7Q5BUduYgcNB
-	 YbNDHIhf78nLhiVgoLIdPoxXwd8g6ZjhDDSx0spYNoXKMT0t3SK/svcKX5SFhvXgdGw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794169177;
+	b=KB9TeepCEWHFas4OnN6zrS+yTgeq3bk8ad7Oj0TZfgmdBhiGeZG/y/v8P9k+H3Tx9Ot4
+	 uj+5Ljcw1qoANxMZUUdKw2sJtn08F1GPDuECng2EjwFu7umzeWYB3pwW6faqt3OiZ/PRE
+	 AHOVKxB8RBO1StUFl01Vs8+gJLtr24TRX/r/R4y/9QUNWuDzS+AuRSIsSB/Ugjg/E+Spi
+	 wV9R1s0zfbekHbOlltIJ9bGpSAD47elXqaXsPjtiZ9a7RlbKiSmbSNNwCcbpsWj/aofeU
+	 T+Y6CMmFU03Mmwgi6MQSiP88IOl7RjVCWJ9VC72iJ4DJh1VGIb5dU98C8AC/+Ii0+iQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169177;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=WGxGumD/dXf5ILl4zFLVZxTHP87XH1xpUeKbtBCw9cU=;
+	b=eV3TUh1Qayn6fezW9n3ufOlLxAiwHzMjWxvlzxOeMSSvkYplE8ou7ty/YbDEGcpI5RqB
+	 vqOT9u0AJFo5lkba8I3pwEusPceYN/+P5Y1cqEpasJX1tXM9bYD7mXi4i7nkmhPtS0Tq4
+	 32ovbPQ/umbEUdD+vakOrAcJfLgE0r74xf/S92aTpAKBtyLFWyUEiHu7NhmJ4NI9i/5+m
+	 ZaZRCaeEvLDrbItJf8EJdzMsbSuRtTfUvrViNG0ikDy+k0SZbVhRcsWSBt6eX/i7OlFDc
+	 V/1eaCmCQ8VDIo93UlMKiYJzDrqn7rzovTZzR71AUIOU10eGzw1iZd5x4HzzCFKQQOQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Wvq+Hgh3;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4C3481F0089F;
-	Sun,  8 Nov 2026 20:16:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794168975;
-	bh=AvZj58LAAGduk/xpJ0dCyMoDVD5BG4cJyWLaCL3My4k=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=egUwvLR0BitOqZdYNB3E5j0lG4nA+bRb3ERPTrdXlqZtgSRbkMyTrixc500DoTykf
-	 nMYkD9wM6928PsvzmnDmjyWKvvvymiW9ORw22+3ZaO5mEkSjiWPLVxzJHR3xVYJtRU
-	 k8zo4LLxzGb5WQHRwI/15MKB+c77Rsoi/7HdeHLsr7v/8NWwPKHlJdvEB4OTZT/94e
-	 hry2Xq+XL1FazcQYX6XMxfJtkJxxhxqrCLpkSipfLNKeD+rE7TuXj5s/iXQfflbHP6
-	 Ru/RpRsx2AuaQfbdMXB3pxmI454lvhJ9JtsVo5alVo9PJLq0FZ5iINmLpwOU1/XYFl
-	 5Njla/YHBrtZg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BEEBD480B2;
-	Sun,  8 Nov 2026 20:16:14 +0000 (UTC)
-From: Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
-Date: Sun, 08 Nov 2026 20:16:13 +0000
-Subject: [PATCH] iio: light: adux1020: use guard() to simplify lock
- handling
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2285606A31C;
+	Sun,  8 Nov 2026 20:19:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2285606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Wvq+Hgh3
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=WGxGumD/dXf5ILl4zFLVZxTHP87XH1xpUeKbtBCw9cU=; b=Wvq+Hgh3gBOx6FBFdLGWcTsKDN
+	j2FoufL5rGTFehNxlQeP5S2O40c42C/qg+PnOsRUwSfgDwNnvnwna6t8p9kF+7zi/upRFJC1pdsna
+	RPKiBgqWOZoenScoIfNp8QLuxHERkwXP9QrAG7fJN+xeZrMiV+9Yt67uMoIs3MpWYgVBmv6mN2aHp
+	zLtF7nKnVBohJEm0SdESVEJ4u+WKNW2yIes7qxKobrC9LJOG0EOl/id0GWql+XgB1rFg8QINblISB
+	wU7gCx1GdDkBlu/KajTxw8UrNe4+64SabATWVacfu6nS0lKLWda+9eq4JhXN5u3REXJBqsEtiOTYm
+	7PNjcAew==;
+Received: from [151.115.150.205] (port=47338 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xQ9MT-0000000191p-3J8o;
+	Sun, 08 Nov 2026 21:19:33 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: tytso@mit.edu
+Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	"Ritesh Harjani" <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@kernel.org
+Subject: [PATCH v2] ext4: validate extent root during fast commit replay
+Date: Sun,  8 Nov 2026 20:19:06 +0000
+Message-ID: <20261108201906.1417129-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,296 +77,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261108-adux1020-guard-v1-1-db9c582f1eea@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ7CIBBA4as0sy7J8BPFXqVxgTDiuMAGimlCu
- Luoy2/xXoNCmanAMjXI9ObCrzQg5wn8w6VIgsMwKFQnKdEKF+ohUaGI1eUgtFXo6Xwx1mgY0Zb
- pzsdvuF7/LvX2JL9/L9D7B8SmqstyAAAA
-X-Change-ID: 20261108-adux1020-guard-3820ce794843
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux@analog.com, linux-iio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794168974; l=6978;
- i=raffaele.tranfaglia@gmail.com; s=20261011; h=from:subject:message-id;
- bh=55DgnX1l0P6Wx7Y7PSWErzxISKBLMVyhkL//RtenSVw=;
- b=x3obLC4cZbut96blzDpJjPH6a2VtoPWL4w5PhctkC17cNEMyYBQ10YX1bzOLC3VbljvLQyLYU
- NkhkLMIVm9xANai0c+R/QV84E50MuWQtdN2fCQTDtH4PKoqvw6tR10M
-X-Developer-Key: i=raffaele.tranfaglia@gmail.com; a=ed25519;
- pk=mweuSGNM6vguCTdqa+aiHwMXdgk70suj2wolzCp6XGM=
-X-Endpoint-Received: by B4 Relay for raffaele.tranfaglia@gmail.com/20261011
- with auth_id=1160
-X-Original-From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-Reply-To: raffaele.tranfaglia@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+Fast commit replay skips extent tree validation in ext4_iget(). The
+replay code then reads and updates the extent root stored in i_data
+without validating its header.
 
-Use guard(mutex) in adux1020_read_raw(), adux1020_write_raw() and
-adux1020_write_event_config() so the lock is released automatically on
-return. This allows returning directly instead of jumping to a common
-unlock label, and lets adux1020_write_raw() drop its ret variable.
+The root has space for four extents. A corrupt header with eh_entries
+set to 4 and eh_max set to 5 lets replay insert a fifth extent past
+the end of i_data, which overwrites other fields in struct
+ext4_inode_info.
 
-No functional change intended.
+Check the root in ext4_find_extent() during fast commit replay. Apply
+the check even when EXT4_INODE_EXTENTS is clear, because replay can
+call this function for an inode without that flag.
 
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
-Link: https://lore.kernel.org/all/20261107222957.5332237b@jic23-hlaptop/
-Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
+Cc: stable@kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
-This follows Jonathan's suggestion, made when applying the sampling
-frequency hardening patch. It applies on top of iio/testing.
 
-Tested on arm64 QEMU with i2c-stub and lockdep enabled: reading and
-writing the sampling frequency (valid and invalid values), reading the
-LED current, reading in_proximity_raw (error path) and enabling the
-threshold event. No lockdep warnings and no hangs after the error
-paths.
+Changes in v2:
+- Validate replay roots regardless of EXT4_INODE_EXTENTS.
+- Rebase on fa4ad798f6f6.
 
-I prepared this patch with the help of an AI coding assistant, and
-reviewed and tested it myself.
----
- drivers/iio/light/adux1020.c | 104 ++++++++++++++++---------------------------
- 1 file changed, 39 insertions(+), 65 deletions(-)
+v1: https://lore.kernel.org/all/20260821100559.3612643-2-Jeremy.Jean@oss.cyber.gouv.fr/
+Sashiko: https://sashiko.dev/#/patchset/20260821100559.3612643-2-Jeremy.Jean@oss.cyber.gouv.fr
+    
+ fs/ext4/extents.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/iio/light/adux1020.c b/drivers/iio/light/adux1020.c
-index d4281b9754c3..3e8f53e5a1a0 100644
---- a/drivers/iio/light/adux1020.c
-+++ b/drivers/iio/light/adux1020.c
-@@ -9,6 +9,7 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/i2c.h>
-@@ -362,10 +363,10 @@ static int adux1020_read_raw(struct iio_dev *indio_dev,
- {
- 	struct adux1020_data *data = iio_priv(indio_dev);
- 	u16 buf[3];
--	int ret = -EINVAL;
-+	int ret;
- 	unsigned int regval;
- 
--	mutex_lock(&data->lock);
-+	guard(mutex)(&data->lock);
- 
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW:
-@@ -373,69 +374,56 @@ static int adux1020_read_raw(struct iio_dev *indio_dev,
- 		case IIO_PROXIMITY:
- 			ret = adux1020_set_mode(data, ADUX1020_MODE_PROX_I);
- 			if (ret < 0)
--				goto fail;
-+				return ret;
- 
- 			ret = adux1020_measure(data, ADUX1020_MODE_PROX_I, buf);
- 			if (ret < 0)
--				goto fail;
-+				return ret;
- 
- 			*val = buf[0];
--			ret = IIO_VAL_INT;
--			break;
-+			return IIO_VAL_INT;
- 		default:
--			break;
-+			return -EINVAL;
- 		}
--		break;
- 	case IIO_CHAN_INFO_PROCESSED:
- 		switch (chan->type) {
- 		case IIO_CURRENT:
- 			ret = regmap_read(data->regmap,
- 					  ADUX1020_REG_LED_CURRENT, &regval);
- 			if (ret < 0)
--				goto fail;
-+				return ret;
- 
- 			regval = regval & ADUX1020_LED_CURRENT_MASK;
- 
- 			*val = adux1020_led_currents[regval][0];
- 			*val2 = adux1020_led_currents[regval][1];
- 
--			ret = IIO_VAL_INT_PLUS_MICRO;
--			break;
-+			return IIO_VAL_INT_PLUS_MICRO;
- 		default:
--			break;
-+			return -EINVAL;
- 		}
--		break;
- 	case IIO_CHAN_INFO_SAMP_FREQ:
- 		switch (chan->type) {
- 		case IIO_PROXIMITY:
- 			ret = regmap_read(data->regmap, ADUX1020_REG_FREQUENCY,
- 					  &regval);
- 			if (ret < 0)
--				goto fail;
-+				return ret;
- 
- 			regval = FIELD_GET(ADUX1020_PROX_FREQ_MASK, regval);
--			if (regval >= ARRAY_SIZE(adux1020_rates)) {
--				ret = -EINVAL;
--				goto fail;
--			}
-+			if (regval >= ARRAY_SIZE(adux1020_rates))
-+				return -EINVAL;
- 
- 			*val = adux1020_rates[regval][0];
- 			*val2 = adux1020_rates[regval][1];
- 
--			ret = IIO_VAL_INT_PLUS_MICRO;
--			break;
-+			return IIO_VAL_INT_PLUS_MICRO;
- 		default:
--			break;
-+			return -EINVAL;
- 		}
--		break;
- 	default:
--		break;
-+		return -EINVAL;
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index ad0d80e33f609..04268ed26711f 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -905,6 +905,12 @@ ext4_find_extent(struct inode *inode, ext4_lblk_t block,
+ 		ret = -EFSCORRUPTED;
+ 		goto err;
  	}
--
--fail:
--	mutex_unlock(&data->lock);
--
--	return ret;
- };
++	/* ext4_iget() skips extent validation during fast commit replay. */
++	if (unlikely(EXT4_SB(inode->i_sb)->s_mount_state & EXT4_FC_REPLAY)) {
++		ret = ext4_ext_check(inode, eh, depth, 0);
++		if (ret)
++			goto err;
++	}
  
- static inline int adux1020_find_index(const int array[][2], int count, int val,
-@@ -455,9 +443,9 @@ static int adux1020_write_raw(struct iio_dev *indio_dev,
- 			      int val, int val2, long mask)
- {
- 	struct adux1020_data *data = iio_priv(indio_dev);
--	int i, ret = -EINVAL;
-+	int i;
- 
--	mutex_lock(&data->lock);
-+	guard(mutex)(&data->lock);
- 
- 	switch (mask) {
- 	case IIO_CHAN_INFO_SAMP_FREQ:
-@@ -465,15 +453,13 @@ static int adux1020_write_raw(struct iio_dev *indio_dev,
- 			i = adux1020_find_index(adux1020_rates,
- 						ARRAY_SIZE(adux1020_rates),
- 						val, val2);
--			if (i < 0) {
--				ret = i;
--				goto fail;
--			}
--
--			ret = regmap_update_bits(data->regmap,
--						 ADUX1020_REG_FREQUENCY,
--						 ADUX1020_PROX_FREQ_MASK,
--						 ADUX1020_PROX_FREQ(i));
-+			if (i < 0)
-+				return i;
-+
-+			return regmap_update_bits(data->regmap,
-+						  ADUX1020_REG_FREQUENCY,
-+						  ADUX1020_PROX_FREQ_MASK,
-+						  ADUX1020_PROX_FREQ(i));
- 		}
- 		break;
- 	case IIO_CHAN_INFO_PROCESSED:
-@@ -481,24 +467,19 @@ static int adux1020_write_raw(struct iio_dev *indio_dev,
- 			i = adux1020_find_index(adux1020_led_currents,
- 					ARRAY_SIZE(adux1020_led_currents),
- 					val, val2);
--			if (i < 0) {
--				ret = i;
--				goto fail;
--			}
--
--			ret = regmap_update_bits(data->regmap,
--						 ADUX1020_REG_LED_CURRENT,
--						 ADUX1020_LED_CURRENT_MASK, i);
-+			if (i < 0)
-+				return i;
-+
-+			return regmap_update_bits(data->regmap,
-+						  ADUX1020_REG_LED_CURRENT,
-+						  ADUX1020_LED_CURRENT_MASK, i);
- 		}
- 		break;
- 	default:
- 		break;
- 	}
- 
--fail:
--	mutex_unlock(&data->lock);
--
--	return ret;
-+	return -EINVAL;
- }
- 
- static int adux1020_write_event_config(struct iio_dev *indio_dev,
-@@ -510,16 +491,16 @@ static int adux1020_write_event_config(struct iio_dev *indio_dev,
- 	struct adux1020_data *data = iio_priv(indio_dev);
- 	int ret, mask;
- 
--	mutex_lock(&data->lock);
-+	guard(mutex)(&data->lock);
- 
- 	ret = regmap_write(data->regmap, ADUX1020_REG_INT_ENABLE,
- 			   ADUX1020_INT_ENABLE);
- 	if (ret < 0)
--		goto fail;
-+		return ret;
- 
- 	ret = regmap_write(data->regmap, ADUX1020_REG_INT_POLARITY, 0);
- 	if (ret < 0)
--		goto fail;
-+		return ret;
- 
- 	switch (chan->type) {
- 	case IIO_PROXIMITY:
-@@ -535,7 +516,7 @@ static int adux1020_write_event_config(struct iio_dev *indio_dev,
- 			ret = regmap_set_bits(data->regmap,
- 					      ADUX1020_REG_INT_MASK, mask);
- 		if (ret < 0)
--			goto fail;
-+			return ret;
- 
- 		/*
- 		 * Trigger proximity interrupt when the intensity is above
-@@ -544,20 +525,13 @@ static int adux1020_write_event_config(struct iio_dev *indio_dev,
- 		ret = regmap_set_bits(data->regmap, ADUX1020_REG_PROX_TYPE,
- 				      ADUX1020_PROX_TYPE);
- 		if (ret < 0)
--			goto fail;
-+			return ret;
- 
- 		/* Set proximity mode */
--		ret = adux1020_set_mode(data, ADUX1020_MODE_PROX_I);
--		break;
-+		return adux1020_set_mode(data, ADUX1020_MODE_PROX_I);
- 	default:
--		ret = -EINVAL;
--		break;
-+		return -EINVAL;
- 	}
--
--fail:
--	mutex_unlock(&data->lock);
--
--	return ret;
- }
- 
- static int adux1020_read_event_config(struct iio_dev *indio_dev,
-
----
-base-commit: ee79148f1586fb0a6d6918995cfc84da6feb35da
-change-id: 20261108-adux1020-guard-3820ce794843
-
-Best regards,
---  
-Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
-
+ 	if (path) {
+ 		ext4_ext_drop_refs(path);
+-- 
+2.47.3
 
