@@ -1,47 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794098009;
-	b=fpBDJa7Z5fvC024zFzL0fjCSaeLnyK0NAD3MCTQE2VGk8otJihXgu5R7DFtJ6vRWUo0m
-	 22VgjP3a3H9eoRVpJROPUdQCO2ZiFTPT3Xb0GMxz+egcMFWj2FQER9bw+jNdR1jkiF9rv
-	 HHDsDhxggjK6dc0QU/pJDqzHLNBS4WD5DxiGoU8qKUc2esAz3U+8AgCEIPtAqp8/beX75
-	 QlxocLHY/wQtJWF02lN+yZB7foXw3ytRwuZ/maVptGKNwSIWZL3+jlGz4yu5IjL+zJ8aK
-	 QP9PiFlKqUR7l9uKr/xJNQrA5WNCA3fkja8tej+wL/uavisRLhJzrX48n+Tf+5eP+IQ==
+	t=1794098117;
+	b=b9Kvu9M92i2iYx7tdt0jOKwklGE0S3D54bb3dXymgXhbYMzsc1azvAvBdcMn1pkgQOWZ
+	 Ij8n0H3wXW4//+pZ7TWcAMi29pVmmJHybPoamRLCkJs4VHmaK4pC2rNfUUMjVXOABqFXL
+	 cb5s7KxJ6EXzIJeInii7Tci86FOsREBuPc7OwV/ULw2G5vuNCn7sf+hAfyabTb4NwBB6p
+	 kX6DDh2stcNHChdO0gWJZZv7+LC9jAqB3AO0/QBQif/vgzayWFwbjl3ETXJNDamY2v2KL
+	 HE6L3lO5CmCBLZCoF+KHFDa7OZxBk2DEuTgqzdAi3Mh/DUckxAxmdPm4OWq8Y5mY/TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794098009;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=kmST5SxyWdqoxgmZ7dpias+E9CODkl5gXOtzoBLQgkw=;
-	b=i4hrYdXaFdato+cPUX2ssX4CMFuMZj+xDXLCFYnxEs41Y9NZApt9mxOnKOMwY/zJBiAt
-	 GJopXeYVZ3w8qeI+OMQVpN2YNdOfbMKtY48nOdDJkoVBdBKHX0fe025N5CNOLM3fUz80S
-	 Y5IgW90bI77ARM/88WnEiOEKLfPkKog5ZQZs0AOTd0+H7TAh+UrfutrL31T+Y8/+XEfar
-	 f4x1JPF/ryVzf5jfi/bWuSEmkuFVMAV4j77EbQPwvUXrqu24c6rkGynmoP4OSYiNoRgde
-	 tKZZaVe5+9vUzVcDccVTdm7nsJCXWaVp24lSDHyofMhREqMmMUd3cLJvM74GSyEnnyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794098117;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=VBkJrsvrksWgv31mI5SC2s8D6+fR7B83FPJCXwL1VlA=;
+	b=MCISI4Dn+3TxIYq9I/yehelfBzdQan2+louv3Xl4A2uS6GFJx2J2J0uo4EsFZcyhtlDF
+	 +AGuYP/4f9btoJ9uEWW1DxTVjxz2duskNw7fJxXAEVgp8OVBvnaInxay6MPe980z07X/Q
+	 4ACw3L6kp1SqC46dDPC0yleE8wc8z0HNhH34L5D05mr8YT7xXdGJg/N88PsoFVtT5D0q5
+	 dByRWZ3SzsSbK409i6US0WCcB+AYLSKUavHKra+upiammen8kE/8xjbPTPUGHesjE/CAi
+	 P2q93/YuQSOnmEeUxCwUcz74UhZBI81LHT8AIXiM0h8NjTrTJaf4dizwcaDX1WH/gOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TQO0pEYl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=keL71BYF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB70606A32E
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 00:33:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF0B606A326;
+	Sun,  8 Nov 2026 00:35:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TQO0pEYl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C21E71F0089F;
-	Sun,  8 Nov 2026 00:33:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=keL71BYF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 292831F0089F;
+	Sun,  8 Nov 2026 00:35:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794098008;
-	bh=kmST5SxyWdqoxgmZ7dpias+E9CODkl5gXOtzoBLQgkw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=TQO0pEYlhrtdqW/6QHSjfE/PgxdsldEp5fR5mm7aqvafRrNpd1P3jWEpUmDsh58Pp
-	 p0Jkb7birrCeBNsRSGi9HURorB1RPvuFkDmUGEYJpI42kamXurrdQb6PYmhYh5KXKv
-	 OVLLSdddGQwKn7/aLiSRGWLmdu+v75X6dBHQRa1YxSkXMFuLo1UjSIwhybxHynw46J
-	 gGxzIAHbkmZkMfMHmNAi4Dslb0nfOoxIA66Z4BD9Go230DRtXbrL/7kQ/FuISE/shd
-	 EzRPz6ptsk4269S3paJkx3Z7r9WGPe4ec4CEzh3oLBOnihYGWuyZHcjXagIVPODf5b
-	 JAXdlPgvnUlCQ==
-Message-ID: <a309cd65-afff-4c7e-8560-8b43f4f77fd5@kernel.org>
-Date: Sat, 7 Nov 2026 16:33:26 -0800
+	s=k20260515; t=1794098116;
+	bh=VBkJrsvrksWgv31mI5SC2s8D6+fR7B83FPJCXwL1VlA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=keL71BYFSqN8hd5dUXZsdQN80/2FmoonW141qffJ/boEaxIaigJPj4uWnZEvapQSD
+	 thQ5RCNot5ePz0nnjpLoGxUCbp3XVXJG9gsEREvFg5lMttgh91rZBV+fy7oSeweZyO
+	 b0k2aG5hWh99zVNwl/HPPNMydjYuVoeAUQZ9geD+yFNLJak5MhnZ+ZhcU9Kj2N06ba
+	 V4e1noYz1j2zTympos6G42OZ4fzRGTqUWnw6l9l9b5I8G9l23FG4Hve8KUXKLF0dwx
+	 HVl+n1D4C4kKqCp2JptOOhBT5APMae8W50tYwLQbBgaEvfE4qWgJbUdZmqwPJGFcCW
+	 PsGGSmgSeVYTA==
+Date: Sun, 8 Nov 2026 00:35:10 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
+Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
+ Hennerich <Michael.Hennerich@analog.com>, Nuno Sa <nuno.sa@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux@analog.com
+Subject: Re: [PATCH v5 5/8] iio: imu: Add driver for the ADI ADIS16607
+Message-ID: <20261108003510.5b48a969@jic23-hlaptop>
+In-Reply-To: <20261102-adis16607-v5-5-4f98b0d271ac@analog.com>
+References: <20261102-adis16607-v5-0-4f98b0d271ac@analog.com>
+	<20261102-adis16607-v5-5-4f98b0d271ac@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,62 +65,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] lib: extract 32bit mul/div helpers from nios2 into
- GENERIC_LIB
-To: Simon Schuster <schuster.simon@siemens-energy.com>,
- Vineet Gupta <vgupta@kernel.org>
-Cc: Dinh Nguyen <dinguyen@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>,
- Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
- David Laight <david.laight.linux@gmail.com>
-References: <20261103-nios2-remove-usage-of-libgcc-v2-0-5fabbedc49ec@siemens-energy.com>
- <20261103-nios2-remove-usage-of-libgcc-v2-1-5fabbedc49ec@siemens-energy.com>
- <bba7f6da-82ee-46cc-bd8f-b0e3e027f5e2@kernel.org>
- <20261106130738.avum4t2nhdnmenyu@dev-vm-schuster>
-From: Vineet Gupta <vgupta@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20261106130738.avum4t2nhdnmenyu@dev-vm-schuster>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 02 Nov 2026 11:25:41 +0200
+Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+
+> From: Radu Sabau <radu.sabau@analog.com>
+>=20
+> The ADIS16607 is a Precision MEMS IMU from Analog Devices with
+> triaxial gyroscope and accelerometer, delta angle/velocity, and
+> temperature channels, communicating over a custom SPI Half-Duplex
+> protocol. ADIS16607-2 has a =C2=B1450=C2=B0/s gyroscope range, ADIS16607-3
+> =C2=B12000=C2=B0/s; both share a =C2=B140g accelerometer range and an 8 k=
+Hz internal
+> clock.
+>=20
+> This is the base driver: probe, raw channel reads, sampling-frequency
+> control, startup/self-test via adislib, and debugfs identity entries.
+> No buffered capture, external clock sync, or calibration bias yet -
+> those follow in later patches.
+>=20
+> Self-test leaves the device's SELF_TEST register cleared on every exit
+> path, not just on success, so a read failure or a failed delta check
+> doesn't leave the sensor stuck in its self-test/force state until the
+> next reset.
+>=20
+> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
+
+Trivial stuff if doing a v6 for other reasons.
+
+> diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+> new file mode 100644
+> index 000000000000..5e2c999e68ac
+> --- /dev/null
+> +++ b/drivers/iio/imu/adis16607.c
+
+> +
+> +enum {
+> +	ADIS16607_SCAN_ACCEL_X,
+> +	ADIS16607_SCAN_ACCEL_Y,
+> +	ADIS16607_SCAN_ACCEL_Z,
+> +	ADIS16607_SCAN_GYRO_X,
+> +	ADIS16607_SCAN_GYRO_Y,
+> +	ADIS16607_SCAN_GYRO_Z,
+> +	ADIS16607_SCAN_DELTVEL_X,
+> +	ADIS16607_SCAN_DELTVEL_Y,
+> +	ADIS16607_SCAN_DELTVEL_Z,
+> +	ADIS16607_SCAN_DELTANG_X,
+> +	ADIS16607_SCAN_DELTANG_Y,
+> +	ADIS16607_SCAN_DELTANG_Z,
+> +	ADIS16607_SCAN_TEMP,
+> +	ADIS16607_SCAN_MAX,
+
+That looks like a terminating entry so no comma to make it
+clear nothing should ever go after it.
+
+> +};
 
 
 
-On 11/6/26 05:07, Simon Schuster wrote:
-> Hello Vineet,
->
-> On Tue, Nov 03, 2026 at 08:23:23PM -0800, Vineet Gupta wrote:
->>> +/*
->>> + * Software 32-bit multiply for cores built without the hardware multiplier.
->>> + */
->>> +s32 notrace __mulsi3(s32 a, s32 b);
->>> +s32 notrace __divsi3(s32 a, s32 b);
->>> +s32 notrace __udivsi3(s32 a, s32 b);
->>> +s32 notrace __modsi3(s32 a, s32 b);
->>> +s32 notrace __umodsi3(s32 a, s32 b);
->> Shouldn't the 'u' prefixed functions have unsigned int args, result.
->> It seems libgcc/?divmod.c doesn't but ARC does have nint_t for those which
->> is unsigned.
->> Nios it seems was removed from gcc?
-> As David has correctly pointed out, nios2 was dropped from gcc with
-> release line 14.y being the last one to contain it.
-> So at least for nios2, it seems like it has always been the case that
-> __udivsi3/__umodsi3 were declared as taking and returning SItypes:
->
-> https://github.com/gcc-mirror/gcc/blob/releases/gcc-14/libgcc/config/nios2/lib2-divmod.c#L106
->
-> Given that both implementations continue to pass it through to a very
-> similarly looking udivmodsi4 as u32, I would assume that this has partly
-> relied on 'why should the compiler do any strange upcasts here, it will
-> just pass through the registers and be done with it and this is
-> implementation-defined-good-enough', so I would not mind rolling a v3
-> with u32s for __umodsi3 and __udivsi3. Are these the only two symbols
-> you are concerned about, and would these signatures work for you?
->
-> u32 notrace __udivsi3(u32 a, u32 b);
-> u32 notrace __umodsi3(u32 a, u32 b);
+> +/*
+> + * No external clock sync support yet: always run on the internal clock.
+> + * Default dec=3D0 after reset, so period =3D 1 / clk_freq_mHz.
+> + */
+> +static int adis16607_config_clk(struct adis16607 *st)
+> +{
+> +	u64 period_ns =3D NSEC_PER_SEC;
+> +
+> +	st->clk_freq_mHz =3D st->info->int_clk_Hz * MILLIHZ_PER_HZ;
+> +
+> +	/* clk_freq_mHz is in millihertz: scale to get the period in ns */
+> +	period_ns *=3D MILLIHZ_PER_HZ;
+> +	st->sample_period_ns =3D DIV_ROUND_CLOSEST_ULL(period_ns,
+> +						     st->clk_freq_mHz);
 
-Yep that's what I had in my local version.
+If respinning for other reasons, just make the above one line.
 
-Thx,
--Vineet
+> +	return 0;
+> +}
+
+
+
