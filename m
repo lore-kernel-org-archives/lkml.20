@@ -1,94 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794142082;
-	b=KW0OXDnR3eab2qVgMhnIkIkGxJdsQzytp8swQF72FF0AdUHepxhtb81r1mdYYiF7kQbv
-	 CZ0mpUu3r3S+KDmxhnc7NjsZqQRHsVCgnj6JxNq3PPRT1TYgmsAvz9oFlYRhwa1h5EFal
-	 ElR9DkmI5w/+/nUsmDBboEFwOcuoID3YZiG+0OWLWinzWFfI0oqH6ra9RVIzFDEojfLiV
-	 iElQyTO9RJCoyUl0HaNRlgzahNNMmq3f/KUC0ni8NpYO1PErUgASmmzd96JHTNN63HJWr
-	 Bbf1/okxLNbNGhrRa2mbUpuxsbABH8rlFZG9FuWV0tsdUuy+VpBkdJfx/m4HTlY9VrQ==
+	t=1794142106;
+	b=oGAAUOMjnOpER8wH8RPqUPmmNNp+utRFTPA7HTT1YFCuY8AOpyiEqv53E5NHnBpGlLgc
+	 Sr3eyNt9kqhHPuvpp+TSDf9f+/9OIzTzAg4jSwDT1oDtNtZUoBaxYcJkShjrHWEN8oLEM
+	 YnchYe57UjqsVVJHiEFWWdq5kHubRco5npPmXH5PtVCT0uCd1kpqmI6D3iVse1RHddhZu
+	 BFl0b9REenqksCKYhdBmmXKHdFTX/sH/j367H8RO7LlCcUrET5GHmmNVgS9G7pyWiwuzn
+	 3s9ln5mdQR2fwMGoBZoDEaCBMMEF3RSpK6Aey+5vENAj70ijkLzVNhUFKhS0dVFkzxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794142082;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HALBGx9+QGwJF3ZwdYwT3GIkAgbteVKYnULFptYFeu0=;
-	b=JjTOI9DaRVmiGXEhhAaF+RPn/y1as0bwFYq2YMwtSUahD00ioHSc/RAUGXU4i4L00oH1
-	 4wG4feH3+R2bRQUtEcA2/Z7trcoFtbc1dlhtwbeo5WCg/IjT4DXwjz8zaj7xi0luvSyHQ
-	 GRGaQfGGnuBoyjgCYU1Vy7DmCzYKLI28JvpTQVS8d+vR5amKI7rtuioWt9QZu0K9R1liw
-	 AYXwciLkLQ5tY7+SAP5Wxx21Y9ElJc5W4i8PGmbO0j/ScF++RKtjHegp4QtULIlmy1pnK
-	 wfvKWcTQ5m+KOPJa6W739MDLBzIOz3+OuEKVxhoNUv9bZCOfscDqBfqHkAGNWxU5gXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794142106;
+	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Autocrypt:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=i3fScoYq2tKuXGNDb7x7fROa8Y1+Tfxv6jIYPhqmQ+0=;
+	b=YL5TFIP4k2EqUHQi8EImbNC6QcA6auTQLhxDSEHCQH+qESNOnyz9YyhFHJ5WoYJ+sXEf
+	 kGY6PEo3WINVFzP0IMGRMjE2QNwU905s6k+ca2vkbEXjyNye5L0y6oSYTPVILMZLqlXSt
+	 yEf1PenbGuKYFX+VJDIOBIZ0fqXiRxP89QPDckx4+BRmop7T5WBIKveQpErZ0pSL4y86u
+	 QeblA73ni4ls42CX/1XNfmqgfK9YEa/Grmep/5LsCAZ7RFYEAnrFTMJ0TbUC/s6EFlcaZ
+	 tKzb8GM0k6bnPpMy1GKo5XHyF/ApMAXKV8RyaCx3aZ4k9KSkAMgfezs07YNtNLG6+1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FspUKeLM;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UGvGK91m;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8717E606A320
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 12:48:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8717E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD19606A320;
+	Sun,  8 Nov 2026 12:48:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FspUKeLM
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36dbde64409so140436eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 04:48:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794142081; x=1794746881; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HALBGx9+QGwJF3ZwdYwT3GIkAgbteVKYnULFptYFeu0=;
-        b=FspUKeLMakU+lwNFCrjm0VS3yCkD+doTRUQPyoLA3SDIDH5gErjoYFpK3HR4sSdZ3s
-         shpwdH6K39Z2KVV3at+msv4dcgv+ku85JXDyjwl6lFDS/Cnpjw/6zDJlpiKa07KaNuUI
-         w1gJ+fBKnyDtctO1pR9kKBQd5p67qPefABdSEDY/DkNXMHAIUqBAUKenPlVtjxZ3E1ha
-         Il0tWWSsyOIcN0HjcBNWJNxMXgN/aDFGihBBpcDue1IDtHxhrVRGQjJs3cNLVtU6JKPh
-         8+2Njt3Ez+Y4s66ZMvERmx67jkptfZAccf50+uvMu0EWbgojE4xr9W8UAEaRKqsPkfyo
-         /GDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794142081; x=1794746881;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HALBGx9+QGwJF3ZwdYwT3GIkAgbteVKYnULFptYFeu0=;
-        b=0Su9aKDCUKAK41zlNdAOtdiLO8RWvNPl1rZK4kER8MK4ATeGNIjNBTfDqvzQ0zGP0H
-         mqhdOzZAbzZH4xBZ57cgkUgG0enAo+/qZ8lYtGvAYRd6LxEyNKQTo7q9NHJzzjJYPg9W
-         dgpCa0Mw9vApHnX7FI89KYhFJugPgtOKtDTJX/VFyFcD9r6Ta0n0QgVb01MBc8vnSOT3
-         DlGzSAzsx5DFSIZc11GwHVWX20em8LN4qx29KPRS54uABZ/Silvf6AVfcqRSFczmmih3
-         DWkgO2Azm1ZZ2lIVsx9dtLKonqdAuRZ8UQJQlU0KfihBmdkirA/nkRZKopMg/atBkOPX
-         1pYw==
-X-Forwarded-Encrypted: i=1; AL+hErHlS+BM7eCJ5hlWK1dW+ijfqVkzxQUD7xfqsHaYAwfwRBBer6IhmAfkJcv8FLNmew7bg3oX8n6jW/QFLO8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8NzEtyQvqMsW2nipLMppMJk0/PWLekSDPTox+b416Ik5Ujjxoo
-	81uZe9VrZxT0MQUBgZn5bBXc+34aSSKmyV2OLxiZYriFXozY4IXcYu1X
-X-Gm-Gg: AYBFou36+ZA99ACZKWxHZ871FwE2a0tjD4pgnHU3VY94O2qIOilAUqcmTXtxhsmryhz
-	aMs4N6B167EHffZ3bWRu6wZZq8roKjlPvF/aJYDK1n1Ee/+Bdm2yk/YHrYSlyWSW+Auh55FcvTP
-	IUNkBT5tWMz/8CIBxcP33YeD8Pi6sW9QTrlowdJluhT+nd8PF0zqM1dr9s6YQrBHjwDCIwkz//E
-	z65UUYFVilL/p9bHYTFS0dnLazG9JpRgMVMRbhC1ZA8qrA31WZKnVD5Ap82pBcM8WTnUx37TlLs
-	JSAkmHrCt5wmtqZV8yC3mrBfNXUuZld17tZ6ot1aD11R+5MLc41Lp5InWhRdkyc3qpHmwnxhayn
-	HWMyqSepCetgZoFwIZavUFXcNNLKvsbV7wZgQRnfU2Q8RUL3ECpm6O9XESNOqEt8FUnHt8+t7xf
-	LfzUVxp9d456AVEQAmrteBTMpYGVvUjcMov7cAy4c2PuwRcOv+OvkA96MtXRWbKlOceA8V87hny
-	uVzif6D+StNwG9lsZNHUuqWG6tnl0FNChE8Fui/xIZa73lUR2hZLsnzD81P1NzYrQ9sSexIgC0h
-	pu2rfJMzY50KnBxvGXnOnD1ePCY+fahD0g3UltgZ5797SNTLCN4EMOUwV56jet1JCxg7LW8TBp4
-	pPqimgvVaqPL/LliZ5KqkVLQTsf7OB9ou/Pn2Lt9+
-X-Received: by 2002:a05:693c:69d4:b0:36c:9fa4:dc5b with SMTP id 5a478bee46e88-3725807c474mr3078721eec.23.1794142079510;
-        Sun, 08 Nov 2026 04:47:59 -0800 (PST)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265619774sm5623975eec.8.2026.11.08.04.47.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 04:47:58 -0800 (PST)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Alyandra Zahran Nadhir <alyandra5b@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH 0/4] ALSA: ump: Fix RPN/NRPN handling at MIDI 1.0 CC conversion
-Date: Sun,  8 Nov 2026 21:47:47 +0900
-Message-ID: <cover.1794141913.git.sammiee5311@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UGvGK91m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BCA81F0089F;
+	Sun,  8 Nov 2026 12:48:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794142105;
+	bh=i3fScoYq2tKuXGNDb7x7fROa8Y1+Tfxv6jIYPhqmQ+0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UGvGK91myv0p6lFzbthO3S2lztPS4T5btsP3aPuiCnuMEkd1PjY2/b7lqoE99iLXF
+	 z1qL9ud0RHHzhiu0f27bYRgKhw3PdiYw7kxRepBsdLS/YYA7Diq+xlPYka8ZJhTyAq
+	 OVQVwN5hMpnY7fR0hWCx/CVorTKqVWsUTAYB+tgmZCkXN/NAr4BeOQUpFQW7xgBTb1
+	 XycLdcKRvvvYBaqGc/5PnLv4CsMdpoKHOgCvAVRt4bWkpI/IVLd4/3e1jT00N4Ng+W
+	 HkeBH9hXK82vvhVYyCM2kJMMsx1FtA0kFFfCAAqG6gZxFfUOtUOOEDf3yMVn9KEVrg
+	 pyxfnk0A4AjAw==
+Message-ID: <c44435291fe8c2116fd84795f2ebb3045d18559e.camel@kernel.org>
+Subject: Re: [PATCH] sunrpc: Remove unused rpc_socket_reset_connection
+ tracepoint
+From: Jeff Layton <jlayton@kernel.org>
+To: Maria Sheikh <mariasheikh812@gmail.com>, cel@kernel.org,
+ neil@brown.name, 	okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com,
+ rostedt@goodmis.org, 	mhiramat@kernel.org, mathieu.desnoyers@efficios.com, 
+	trond.myklebust@primarydata.com, linux-nfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Cc: outreachy@lists.linux.dev, julianbraha@gmail.com
+Date: Sun, 08 Nov 2026 07:48:13 -0500
+In-Reply-To: <20261108024943.8130-2-mariasheikh812@gmail.com>
+References: <20261108024943.8130-2-mariasheikh812@gmail.com>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,70 +139,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hello Takashi,
+On Sun, 2026-11-08 at 07:49 +0500, Maria Sheikh wrote:
+> Tracepoint definitions consume kernel memory even when they are not
+> used. The rpc_socket_reset_connection tracepoint has had no callers
+> since commit 4efdd92c9211 ("SUNRPC: Remove TCP client connection reset
+> hack") removed the code that used it, but its definition was left
+> behind.
+> Remove unused definition. This reduces the size of sunrpc.ko by 628
+> bytes.
+>=20
+> Fixes: 4efdd92c9211 ("SUNRPC: Remove TCP client connection reset hack")
+> Signed-off-by: Maria Sheikh <mariasheikh812@gmail.com>
+> ---
+>  include/trace/events/sunrpc.h | 1 -
+>  1 file changed, 1 deletion(-)
+>=20
+> diff --git a/include/trace/events/sunrpc.h b/include/trace/events/sunrpc.=
+h
+> index ff855197880d..a0d02d735a7c 100644
+> --- a/include/trace/events/sunrpc.h
+> +++ b/include/trace/events/sunrpc.h
+> @@ -950,7 +950,6 @@ DECLARE_EVENT_CLASS(xs_socket_event_done,
+>  DEFINE_RPC_SOCKET_EVENT(rpc_socket_state_change);
+>  DEFINE_RPC_SOCKET_EVENT_DONE(rpc_socket_connect);
+>  DEFINE_RPC_SOCKET_EVENT_DONE(rpc_socket_error);
+> -DEFINE_RPC_SOCKET_EVENT_DONE(rpc_socket_reset_connection);
+>  DEFINE_RPC_SOCKET_EVENT(rpc_socket_close);
+>  DEFINE_RPC_SOCKET_EVENT(rpc_socket_shutdown);
+> =20
 
-As you asked in [1], this puts Alyandra's selector fix and my fixes for
-the other RPN/NRPN cases into one series, for both the UMP core
-converter and the sequencer.
-
-Patches 1 and 2 are Alyandra's [2], without the KUnit test. Selecting
-an RPN now clears the NRPN selection and vice versa. Patches 3 and 4
-keep the selection after a send and clear only the data, drop data when
-nothing is selected, and handle a Null NRPN like a Null RPN.
-
-What a MIDI 2.0 receiver gets, before and after the series:
-
-  Input                                    Before             After
-  Null RPN, Data Entry, select RPN 0/1     RPN 0/0 = 0x40     nothing
-  Data Entry, select RPN 0/1               RPN 0/0 = 0x40     nothing
-  RPN 0/2 + data, data again, RPN 0/1      0/2, then 0/0      0/2, 0/2
-  Null RPN, Data Entry, select NRPN 0/5    NRPN 0/0 = 0x40    nothing
-  select RPN 0/0, NRPN 1/2 + data          RPN 0/0            NRPN 1/2
-  Null NRPN, Data Entry                    NRPN 127/127       nothing
-  select RPN 0/127, Null RPN, data         RPN 0/127          nothing
-  RPN 0/1 + data, CC 38, select RPN 0/2    0/1, then 0/0      0/1, 0/1
-  RPN 1/1 + data, RPN LSB 2, data          1/1, then 0/2      1/1, 1/2
-  Null RPN, RPN MSB 5, data                RPN 5/0            RPN 5/127
-  RPN 0/1 + data (unchanged)               RPN 0/1            RPN 0/1
-
-The 0/127 row and the last two changes come from holding the RPN/NRPN
-numbers, as a MIDI 1.0 receiver does.
-
-I checked the core converter with a local KUnit test over 35 input
-sequences. The 17 that changed are all of the kinds above, and the
-others give the same packets as before. The sequencer side was run
-with a legacy client sending CC and CONTROL14 events to a MIDI 2.0
-client on a patched kernel under qemu. That test will become the
-selftest, with Alyandra's cases added, as a separate patch.
-
-Two cases are left as they were. A CC 6 alone waits for a CC 38 or
-the next CC 98 to 101, so a second CC 6 replaces the first instead of
-sending it. A CC 38 alone after a send waits the same way, and when
-the next CC 98 to 101 flushes it, it still goes out with MSB 0, now
-under the kept selection. Changing those would be a separate patch.
-
-[1] https://lore.kernel.org/all/878q33y4z4.wl-tiwai@suse.de/
-[2] https://lore.kernel.org/all/20261107111056.667-1-alyandra5b@gmail.com/
-
-Prepared with Claude Code (Claude Opus 5.5). Tested on x86_64.
-
-Best regards,
-HyeongJun An
-
-Alyandra Zahran Nadhir (2):
-  ALSA: ump: Clear stale RPN selector on NRPN change
-  ALSA: seq: ump: Clear stale selectors in sequencer conversion
-
-HyeongJun An (2):
-  ALSA: ump: Fix RPN/NRPN state handling at MIDI 1.0 CC conversion
-  ALSA: seq: ump: Fix RPN/NRPN state handling at MIDI 1.0 CC conversion
-
- sound/core/seq/seq_ump_convert.c | 32 ++++++++++++++++++++++++++++----
- sound/core/ump_convert.c         | 28 ++++++++++++++++++++++++----
- 2 files changed, 52 insertions(+), 8 deletions(-)
-
--- 
-2.43.0
-
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
