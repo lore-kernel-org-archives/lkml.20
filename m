@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794182038;
-	b=bHxHOdjUnjxB1CVOQFpKSX41y6ouzTf6XeUG8rTPwjvb01Re9NtE32a1KvVYQcI/TKiR
-	 etD8sfQvw7vt77RfydFKOAgsobF0UmNSOfr/L7lB8pLgEXtjri5OA19rRXbYw+5GBKz6u
-	 RSD6Q7McfX4CCdcBUK4SXownPurcxRE2UaHgR2eKmC3luOn062aYUwJ3yxySrMAAa3Qzd
-	 fS0QqUxJQ81pNN/E/s+afkZVc7L3fsD6OWChFaMMBBaxxnu1AfXAJGpiYkkymLM3GIG19
-	 miAWBYqeZqzeG4/LZiRrI2a2ci5lROCd7zS1JEHRwFkAY7AgU1V7b9YQ8zpIKhSqIFQ==
+	t=1794182067;
+	b=zmKWgZYzAoQw9SFFchIoHXSe9yGTNSYOmeyJFcRnfpuxdb2MhZTWKq2yRvXjtFxn6CKH
+	 9Ts9Ivy0XAcuniTaly/ih8StGngUNHRec0pdGNkcvDpzDeMUlxx95zHFxXLkTUYMNF4OX
+	 UkiPFrMyKbg0YKTejExleJgkNlS68ej3UJDgu1xqDHw0V+QppY38YfmMpftXHFrhll8wL
+	 2tkLh4aSsJFC8kDxNu+mfjr1v3ua8MlUXhIpvy03blj3WTc3Y47G3fp/yQYz3b9DE5t0F
+	 KAlUFV0RmOV3euqnHAgEMos1OwM/rLehsa5RuAME5G1Lv9k4z7NsycT9smgezgPqDhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794182038;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794182067;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=evz169vZnZOkt+DBEIxf1iWH+BScdmBgNvk08n0btTY=;
-	b=iRpDWIH/d6RBB/hkUP4RFjSVpUVQZwEZ5I+pjGq6dDZs0WydO2QGPAyoM2Juf0wgryQB
-	 D4JYLmcVcAGoYGH+00Y4VEKQEiSSXeR4JNy/Ihub9bzLDWMXQnJRVj8Y7x5Tk07iHTlFF
-	 RBSzDkRr7LtjSRZ2mLXRUdQvYR1hef75BO0YkVuNcOHYe7hg/JFDKNYho5ST9TFokHy16
-	 EpWZSiISgNPwJnIAxWPxEZkoxvR5LcPud6p9P36M6Vdctf3a6iwt0SCS7EfWZdUsyJb+4
-	 8J5af0kjlVyQQtLn/f3EFi7rCq9hxruKUB7vKb2652xduw2ZhpA3UQ+Z4lRtaG9Xmpw==
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=AK4oUkv0Gh66vc4SvN/H9zgEwQlvIyoNNPAFtPmNMZI=;
+	b=SezHLasXxMXtaqm73H9Zd5OPN0KCDlY93lve7/PNzH3wC1e7dNjvLovRRFEmccGmFStl
+	 dMEzGncoEGn2viZLiVg6kTLWZiDe9z/n5ztiezqFF13ZDCgbPSv4CGqSucKRX4/AYdgnU
+	 IaOeUb7dz6egBrqTRJeQWhk/PThkV8UIXRbCPwpqxbXhpBR/gjSY7pIYiqHHrnaDpUvz8
+	 wjarhCFCPX/91+EFDX89FSqekiBVZy/akiUReNsllZNZYZ46Uizdyu/C5RX6uXlo6uWV8
+	 yWjUO/lCbFYDxjPK+VdQGFu/byDvI2HMqmzuQ8ZDa37xAUK61P/ffv/wD6MIt5gYVRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=Tmdc+mqt;
-	arc=none smtp.remote-ip=185.70.43.100
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=Gz3ueRG3;
+	arc=none smtp.remote-ip=109.224.244.123
+Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CF7606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:53:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25CF7606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407B1606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 23:54:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 407B1606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=Tmdc+mqt
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=Gz3ueRG3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794182036; x=1794441236;
-	bh=evz169vZnZOkt+DBEIxf1iWH+BScdmBgNvk08n0btTY=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Tmdc+mqtjd2tSNfnHdGuDCePcxxej4dYy9uIt1N/t3dpnYednPl/jh97u3vU24jFU
-	 YV1YkjDS3QVJ56oKrLltpgnmh9rqqAp4PsE0HEHnNvftHvZeto0u2YJ1QBa7Cqaer7
-	 YVB7aavCdej7UdmXY7QiBrv/o7Y/t7UhqqEncljxsWCdrPdLyuW/Xd5rAxXGLpbyK1
-	 3tppiJqijBnS3Jp0Wo+oL09RoyV3+LXILyvptdE6/9cABYZsfRzwr1nCNRgvR2q4wi
-	 ZKcCSgbuxMiYUj2YVLDE6STtMJTeHvwKk9h3Qb0mEFvi2lUyhg309B4xtF1HUcTB2s
-	 QOEIU8dwuRY0g==
-Date: Sun, 08 Nov 2026 23:53:52 +0000
-To: "michael.chan@broadcom.com" <michael.chan@broadcom.com>, "pavan.chebbi@broadcom.com" <pavan.chebbi@broadcom.com>
+	s=protonmail2; t=1794182064; x=1794441264;
+	bh=AK4oUkv0Gh66vc4SvN/H9zgEwQlvIyoNNPAFtPmNMZI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Gz3ueRG3WsJS++uB2IiHLqoK0scGqkWTBYK8FSqr3uSUu9KKw+FsrTK7I7E8KsQ2F
+	 Uo0B9e+BA2Ztp9IokxjZC2UkB5qSV3F8aWVai2imTf4HTXzELeBwo1MLIXuBNcyD0L
+	 fKU3rJgWiOFpZMxr0t4qGc4fCZw+DuX3AYJ767OphDyUL0JPSc5xOI7D7IHsIx37zS
+	 Gg7xGyjHiaVJcQ6seVRHmfvGq2LjoZA0whmuj18hwgmQuGpk45HylORUzhctlyWR2b
+	 bBTLpVJdZzDALfiUbU8tpcqIU/zAw0XnV9s4BzE+F0TtQBBT0a36M7y5DQEt9GrJrY
+	 84COjVeGVfMgg==
+Date: Sun, 08 Nov 2026 23:54:19 +0000
+To: Ian Bridges <icb@fastmail.org>
 From: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [PATCH] net: bnxt: validate HWRM response length
-Message-ID: <TIlHjNE2soPd4hqQEaUjl54m4NFcW_adHswMv3pH_yaDdgd7LS0NoMFDR0Db1Uh39Ijcz3vUPreYR6OQTCFavkEKMuOCGYe1oMuyODuMo9o=@proton.me>
+Cc: linkinjeon@kernel.org, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ksmbd: read request header for compounded CANCEL
+Message-ID: <Wu9V4zPWbwJA62vw5GO0eLPkvQbBdN1rL2HpPNmsCywShlx9nYnQXmt2Ya98ZF6JF3G1dytQtcd_ZfR0qcmsr9F34IchL5FwPIeh7S7TByY=@proton.me>
+In-Reply-To: <20261108234653.1918767-1-icb@fastmail.org>
+References: <0cRgD2yOWbwKBhBZfP0O2ejMhJmcsRk-SQgKJhFyowKBsLZmKYKUb_iKGC1VTDPMUlJrnX1Qpa-CsfMFLwt8hxFqjGhvOLwzEGkO-0JgtvQ=@proton.me> <20261108234653.1918767-1-icb@fastmail.org>
 Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: abfb112a27ecdf29805ea6638ebafef4992d8587
+X-Pm-Message-ID: 49979387b24f3a9ad107fb4af754b07f4c583c43
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,72 +67,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hello,
+Hi Ian,
 
-Both HWRM completion paths compute the address of the valid bit
-from the firmware-provided response length without bounding it to the
-response area:
+Thanks for testing this and catching the overstatement. The failure is narr=
+ower than I described: using the response header loses SMB2_FLAGS_ASYNC_COM=
+MAND and selects MessageId lookup, which can still succeed when the CANCEL =
+reuses the pending request's MessageId. Your MessageId 0 case demonstrates =
+the missed cancellation.
 
-    len =3D le16_to_cpu(READ_ONCE(ctx->resp->resp_len));
-    valid =3D ((u8 *)ctx->resp) + len - 1;
-    ...
-    if (*valid)   /* poll */
-    ...
-    *valid =3D 0;   /* zero for compatibility */
+I don't have a supporting MS-SMB2 citation for the claim that CANCEL cannot=
+ be compounded. Please disregard that statement and the resulting =E2=80=
+=9Conly non-conforming clients=E2=80=9D qualification. Section 3.3.5.16 des=
+cribes AsyncId lookup for async CANCEL, and Appendix A's note for 3.2.4.24 =
+documents Windows clients setting MessageId to 0 in that case.
 
-The response area is the last PAGE_SIZE of the 2*PAGE_SIZE DMA
-allocation (BNXT_HWRM_RESP_RESERVED). Firmware that reports a
-resp_len above PAGE_SIZE (the field is u16, so up to 65535) makes the
-poll read and the *valid =3D 0 write land up to ~61 KB past the
-allocation, on every command. Lengths below the response header size
-are also accepted today.
+Thanks for confirming that reading the request header fixes both forms.
 
-The patch rejects both cases before the pointer arithmetic, on the
-interrupt path and the polling path.
-
-Affected version/commit: mainline 8a65162514fbad21a2c58ffed65f42b27e92b163 =
-(v7.4-rc2 window, 2026-11-08), drivers/net/ethernet/broadcom/bnxt/bnxt_hwrm=
-.c:589-590 and :609 and :648-649 (len =3D le16_to_cpu(ctx->resp->resp_len);=
- valid =3D ((u8 *)ctx->resp) + len - 1), :650-662 (poll loop reads *valid),=
- :672-676 (*valid =3D 0), bnxt_hwrm.h:68-73 (response area =3D last PAGE_SI=
-ZE of a 2*PAGE_SIZE DMA allocation, BNXT_HWRM_RESP_RESERVED =3D PAGE_SIZE)
-Longstanding pattern; the context-based HWRM rework kept it.
-
-This was found during an assisted (AI-supported) static source review of
-mainline 8a65162514fbad21a2c58ffed65f42b27e92b163 (v7.4-rc2 window, 2026-11=
--08). The patch below has NOT been compiled and has
-NOT been runtime tested, and no reproducer was produced - the triggering
-conditions are described above instead. Please treat this as a report for
-verification rather than a battle-tested fix.
-
----
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_hwrm.c b/drivers/net/e=
-thernet/broadcom/bnxt/bnxt_hwrm.c
-index 5bfabdca7d..3425c180d1 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_hwrm.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_hwrm.c
-@@ -587,6 +587,10 @@ static int __hwrm_send(struct bnxt *bp, struct bnxt_hw=
-rm_ctx *ctx)
- =09=09=09goto exit;
- =09=09}
- =09=09len =3D le16_to_cpu(READ_ONCE(ctx->resp->resp_len));
-+=09=09if (len < sizeof(*ctx->resp) || len > BNXT_HWRM_RESP_RESERVED) {
-+=09=09=09hwrm_err(bp, ctx, "Invalid resp len: %u\n", len);
-+=09=09=09goto exit;
-+=09=09}
- =09=09valid =3D ((u8 *)ctx->resp) + len - 1;
- =09} else {
- =09=09__le16 seen_out_of_seq =3D ctx->req->seq_id; /* will never see */
-@@ -646,6 +650,10 @@ static int __hwrm_send(struct bnxt *bp, struct bnxt_hw=
-rm_ctx *ctx)
- =09=09}
-=20
- =09=09/* Last byte of resp contains valid bit */
-+=09=09if (len < sizeof(*ctx->resp) || len > BNXT_HWRM_RESP_RESERVED) {
-+=09=09=09hwrm_err(bp, ctx, "Invalid resp len: %u\n", len);
-+=09=09=09goto exit;
-+=09=09}
- =09=09valid =3D ((u8 *)ctx->resp) + len - 1;
- =09=09for (j =3D 0; j < HWRM_VALID_BIT_DELAY_USEC; ) {
- =09=09=09/* make sure we read from updated DMA memory */
-
+Noah
