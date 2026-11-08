@@ -1,55 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794135512;
-	b=O/Bw1Y80WTqnzOkxh6PhNcX1MryDajV8SrmW1dCBi0x2o/I+jr+5senzVEuil33cF9Du
-	 jIf5N/xbgliQOzKNT0zqN2pomfuzS6v7OXfLKW9h7vbbDFSI9HAR0Hj+ItHawT85l2KhL
-	 WObkArqPOHqO/8dp+qJGVDz0l1xFoZ7Dek+ZE6n6iYR4CaPEPqrbD2bmmwjmP3MEwrob2
-	 KhWKkkUVr8SpTnxXJOrPRmzheyR+0Lvdd5iRfrvT6M9/5lR3VEqHITIql1evGSgQz6MqM
-	 we6bC2WVX21qq/+cjxVSfspakpX99Lvr3lXNc4BFF6V2Yawz4X2fcPCexhVsoIiU6Dg==
+	t=1794135634;
+	b=G78ssHcStBqocfrhZAtND/wWKGUZKTaxBQ35w9hd0W7CZ302ZCUbXv/87iciABUTHUna
+	 zd5Ezp/7nOjDf66YbVY9e4CDYrivzW7QcO212MlEc+DX6TeDLlV0LjwaRHpKJ3/BQ2ddZ
+	 uYV6FjR6NM/lJYbxcM2t4aHv/lHZcnIhe/blyAK0BcxubM3MoACH8uBLmGo20hwJdWuto
+	 7cgbn4DSCRVts12U9ueamoGRDDZWXagXNeaOeWVq9i/WMgq/Tw0zfTNANAH/nm+LuMVgf
+	 Duo2y6Qldz7wPkcDw67tSVPGgfbGaeUJbxWYehCbrkn+luF9Tl8bGqtSOGY76ra8SCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794135512;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=xZpTSZLjpiXRLgQz+yKgZHrReimr9BjYFib1X4thl4Q=;
-	b=Jr51QnZcfGFpofpM/w6LenRXibTNYCZ5nE356iAZMQSJfWQJUYjLfEDP4RJmlfr8bCVO
-	 Dkd9oCNMwzt4cqzFGrfANsLhAl+lvqYCSiGmSC7DngUqKIS+xQBm3mcCIeQg2YR4j0Cl0
-	 j3HTMaURNb85qBx221d97Pn1SH3J32RKC+1WZRiEDJuRJLqQ4xMUIbjyYuPDNwX/cXNBJ
-	 FAr9U+Ax6DmOz30JiQnby4MYpjofGQzf3pQZnzMXoFS9N5HarfmZR4TGuscn+PxAADWyj
-	 w8oWReWubtBL3pRQ4ebmY4K0JyiEw4MqCGBkVjiFar2vMTW9qB+eUWK3dviuMyabBiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794135634;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=/kOHEMt6o3SH+fIujtD4HWZmb2OSZImsZF0uq5e7/vU=;
+	b=5KPfO64qNnrA9t4RA6u2Dt4GPwQw7Zf/DN/U1oXro8LlVC34TiOVZUgoZvf9v15w6Dd2
+	 5/6K95CNDqZnPE4+95hshYpKeFlU1Qt5HCpqnwRCNusq/C8UqSpWovipa8wvtCKKSbY34
+	 Dl7Cw9FE5UO2uxBBDmqciV46lIPYOoriepwSP/yYQldDwRclQ+6fGTQg3MMUllG4u5Lh2
+	 Hmo5ysz1CBkP9tJU79NEZTmBcCvI9bmf/0j2Pp4q1P5TXNZ1RaaxqzTRepdeNJSIS3gan
+	 nBzxG51rZ2k1LQvPsupFvCXJfNDbEvwLdEgZ4gZ3X34tPEo7l473HLppVcUbIaNxfLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXNiNxgM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52948606A31C;
-	Sun,  8 Nov 2026 10:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXNiNxgM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DB911F0089F;
-	Sun,  8 Nov 2026 10:58:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794135511;
-	bh=xZpTSZLjpiXRLgQz+yKgZHrReimr9BjYFib1X4thl4Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cXNiNxgMl+fncHz5npPyFiFoO3qsK1M/5wj4XkAyv/9pmjUgjLTCzb3xH2NrYgk2M
-	 e9IO4PN3DtpdqPZLm7ps39m/edZLXv64LsV47kBRTV1t0Ho4CcSrnUPgtU+CwYpSpG
-	 DRyeQlAdLSvfcHlqoev4xuoxb5fOlx2r6VlmXAM+511X/uq5WhPaTbN9jQKpCjycrd
-	 JmCsg/g12HHxX+pzceICghVbWCeDhkcnpVdxKrXH/YjRksQREeJMrXRpD5evTdkmTx
-	 nvFpWlxzurTZYslUV95Czjnd7IQUMgFNSi3isQNX6RR7cUQnSfawu3lNm5B30+4G9L
-	 AH+Y071Nq3jJA==
-Date: Sun, 8 Nov 2026 12:58:27 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] LoongArch: restore KFENCE pages through DMW on resume
-Message-ID: <avBV048xzXRp-cnC@kernel.org>
-References: <20261031-fixes-loongarch-v1-1-e0e33e3c008e@kernel.org>
- <avAr894n6lNGD9C8@kernel.org>
- <CAAhV-H5kDgiaDF3t9BakAeD31JxET+27jcVvNU=ZQDZv_vSBcA@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFE6606A31C;
+	Sun,  8 Nov 2026 11:00:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EFE6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [172.100.0.8] (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAD3j7VFVvBqX_OZAA--.21534S2;
+	Sun, 08 Nov 2026 19:00:22 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Simon Horman <horms@kernel.org>
+Cc: UNGLinuxDriver@microchip.com, vladimir.oltean@nxp.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, vulab@iscas.ac.cn
+Subject: Re: [PATCH] net: mscc: ocelot: Fix mirror reference leak on VCAP aux
+ resource error
+Date: Sun, 08 Nov 2026 11:01:12 +0000
+Message-ID: <20261108110112.315001-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260921104624.GI13925@horms.kernel.org>
+References: <20260917113444.2149183-1-vulab@iscas.ac.cn>
+ <20260921104624.GI13925@horms.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,114 +57,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAhV-H5kDgiaDF3t9BakAeD31JxET+27jcVvNU=ZQDZv_vSBcA@mail.gmail.com>
+X-CM-TRANSID:zQCowAD3j7VFVvBqX_OZAA--.21534S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYX7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kI
+	c2xKxwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxAqzxv26x
+	kF7I0En4kS14v26r1q6r43MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIx
+	AIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JjUgAwUUUUU
+	=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIFA2rv4kizowAAsi
 
-On Sun, Nov 08, 2026 at 04:17:02PM +0800, Huacai Chen wrote:
-> On Sun, Nov 8, 2026 at 3:59 PM Mike Rapoport <rppt@kernel.org> wrote:
-> >
-> > Gentle ping :)
-> Sorry for the late response, would you mind if I modify it to use
-> #ifdef? Usually it should be avoided, but I want to signal users that
-> KFENCE is not a usually enabled feature.
+Hi Simon,
 
-Up to you :)
+Sorry for the very late reply.
 
-Do you want me to resend or you can update while applying?
- 
-> Huacai
-> 
-> >
-> > On Sat, Oct 31, 2026 at 03:21:46PM +0200, Mike Rapoport (Microsoft) wrote:
-> > > With KFENCE enabled, resume from hibernation triggers KFENCE reports while
-> > > swsusp_asm_resume() copies the image pages, for example:
-> > >
-> > >   BUG: KFENCE: use-after-free write in swsusp_asm_resume+0x20/0x94
-> > >
-> > >   Use-after-free write at 0x00000000a57ee925 (in kfence-#254):
-> > >    swsusp_asm_resume+0x20/0x94
-> > >    hibernation_restore+0x128/0x1a0
-> > >    load_image_and_restore+0x6c/0xc8
-> > >    software_resume+0x240/0x260
-> > >    do_one_initcall+0x68/0x200
-> > >    kernel_init_freeable+0x26c/0x304
-> > >    kernel_init+0x20/0x134
-> > >    ret_from_kernel_thread+0x24/0x1d0
-> > >    ret_from_kernel_thread_asm+0xc/0x98
-> > >
-> > > During resume from hibernation, the image pages that occupy physical pages
-> > > used by the restore kernel are first loaded into free pages and then, as
-> > > the very last step, swsusp_asm_resume() copies them to their final location
-> > > pointed to by pbe->orig_address, which the hibernation core sets to
-> > > page_address() of the page in the restore kernel.
-> > >
-> > > The early KFENCE pool is allocated from memblock and normally occupies the
-> > > same physical pages in the restore kernel and in the image kernel, so these
-> > > pages are usually copied by swsusp_asm_resume().
-> > >
-> > > The KFENCE pool is remapped into the KFENCE area above vm_map_base and
-> > > set_page_address() adjusts page->virtual so that page_address() returns
-> > > the page-table mapped alias rather than the DMW address of the pool pages.
-> > >
-> > > Hence, pbe->orig_address of KFENCE pages points to that alias and
-> > > swsusp_asm_resume() writes them through the page tables. But:
-> > >
-> > > * the copy loop overwrites the kernel page tables, so a TLB refill for the
-> > >   KFENCE alias may use a partially restored page table
-> > > * the KFENCE pool pages that are protected in the restore kernel fault in
-> > >   the middle of the copy
-> > >
-> > > Convert pbe->orig_address to DMW addresses before starting the copy.
-> > >
-> > > Fixes: 0ca84aeaee15 ("LoongArch: Make {virt, phys, page, pfn} translation work with KFENCE")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > > ---
-> > > Reproduced with hibernation in QEMU, the KFENCE reports are gone with
-> > > this patch.
-> > > ---
-> > >  arch/loongarch/power/hibernate.c | 12 ++++++++++++
-> > >  1 file changed, 12 insertions(+)
-> > >
-> > > diff --git a/arch/loongarch/power/hibernate.c b/arch/loongarch/power/hibernate.c
-> > > index 817270410ef98..ff571ab4e8df9 100644
-> > > --- a/arch/loongarch/power/hibernate.c
-> > > +++ b/arch/loongarch/power/hibernate.c
-> > > @@ -59,6 +59,18 @@ extern int swsusp_asm_resume(void);
-> > >
-> > >  int swsusp_arch_resume(void)
-> > >  {
-> > > +     struct pbe *pbe;
-> > > +
-> > > +     /*
-> > > +      * page_address() of KFENCE pages is mapped by page tables that are
-> > > +      * overwritten during restore and may be protected by KFENCE, copy
-> > > +      * through DMW instead.
-> > > +      */
-> > > +     if (IS_ENABLED(CONFIG_KFENCE)) {
-> > > +             for (pbe = restore_pblist; pbe; pbe = pbe->next)
-> > > +                     pbe->orig_address = __va(virt_to_phys(pbe->orig_address));
-> > > +     }
-> > > +
-> > >       /* Avoid TLB mismatch during and after kernel resume */
-> > >       local_flush_tlb_all();
-> > >       return swsusp_asm_resume();
-> > >
-> > > ---
-> > > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> > > change-id: 20261027-fixes-loongarch-fd3755f33919
-> > >
-> > > --
-> > > Sincerely yours,
-> > > Mike.
-> > >
-> >
-> > --
-> > Sincerely yours,
-> > Mike.
+You are right that a goto-driven unwind ladder is more robust here: it
+keeps the release of resources taken earlier in the function next to
+the failure paths, so that a failure added later cannot silently skip
+it. I have reworked the patch along those lines, and a v2 follows in a
+separate mail. The v2 also records how the issue was found and how it
+was tested.
 
--- 
-Sincerely yours,
-Mike.
+I am going through all the remaining review comments one by one now,
+and I will not send patches in bulk again, so that I do not get ahead
+of my ability to follow up.
+
+Thanks,
+Wentao
+
