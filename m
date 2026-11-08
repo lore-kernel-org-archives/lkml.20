@@ -1,64 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169481;
-	b=2D6XL8UG0fAk8gb71cCjXxb0hYpm6BOsqHHC/o04PJjbKovTiRZqdIbIXG2Lz7X5XMSB
-	 tVxqiIIDvmhZ0cSml4PyWzj9+sBuBCur5N5nc6nCYn2AC4yfeBg0ztOF/YfkoSbZlSVGe
-	 zgWSandHhgWWm5Xe97QBrtw3vcYK0/Yl7y9mXL9SBytFexGqeJE4YTihcBYHhHwFzU3qK
-	 fTtr8e2q59DDsMZ/wwGRBdUTJbKkhDeAxD9V/MwJ/QMG+XhokixWaFuVwXYjAntAfI1DL
-	 doIQEHt00EtpUaDxXINzLqIvbIjUm0xBhIqziXPAKSOxX5+Y77nX8SRwc18VHiYBjdw==
+	t=1794169461;
+	b=psTnr3VLfR4yLZo6/rZRjmCYRMh+kXqALyZKmmHvpwzdFFVAnZj/kd5h71MqV5XkOsdI
+	 45oAV+DL7JaYrhrwzHw9wH4Ti++Ou5ooIyzzFbUJC9n6fdxni1ZaNmGFlyJNKRASrUIEt
+	 vIQIttBWBhKZjctuWyghdDahEXbQ8clcMJEwqj9nSwXFGyzc6WACDe6gqWirrdOJbSk5J
+	 KrBSS2CjvApD53p1E4aLW9S2vd2vMk04iaRVJHIMIxNqqSEeoik6yAcQtGSD51A8CKxE6
+	 NLXOFTS6x/5ZP3GZqL2tIBJkbjiiapaOGf8PMqdRKftsOMT/A46zO5g9eu9BUaGs+CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169481;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169461;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=O7hlAbfoXMWo8ls0Hzjqu9/SqcS/k+aHJqi0nIPwCF4=;
-	b=3nsUaOqLt6SHpQBDxI0RrtwUIyN3AXNmmFFgmpRPxlvLvLvuj7248onMfD1Cxt0g/hR2
-	 LIhOQ07rufG5BzTp873MasNURbfDAIS/tivtjUnSdTqRy5NE1VhkhaSFSzKa3KzRDO8Z1
-	 hSc4Ps9Vx3GcGm5AN0Yc4rJt6rBxDlJ1V6jhPlJS/LogqEZ3RbsQb5+2BJGxWxja1OkP8
-	 vLESLHL6eCE3Vp4qr6cU5bSg7nj7urMN6rc3pPHTuvKu89gY6dLNXWvAsEe1LaSjISHfF
-	 DeA0O5i4R762ZAuEn8RYFh/bZtXI8+lO+zNuGi9iY9cVIXtB0bc5xbKoXIU4nU8uuWw==
+	bh=TOYGxs/bQ9Tq7NOUir9oenKz66BF+F0Bxw2RyNMcyVE=;
+	b=359JQIlUF+uRZ/pQxefXMhNg4jYYjD0kY9pNoCWIJbgCmk58l4ErdPgg09QV7+Se4cY6
+	 YZ2LQw+68n787bT/xG1v35E59fEvyj7uDKl6RS/N58huB5bPhS3Vy2vo5anl9EW4IUK9l
+	 bRGZWntGP6x2RdydMDHG8Bcv/W8qKkH1WoEvi8EcXc44gNYTF5RkkyMwrB6YSR07nAe9b
+	 GnMvoWu/f7XKSycPELIdtKbNmvwKAV6ip1AFh0qAMKzVfDeebm4Tj8zhzte7lxO/O5nN+
+	 xH+SPuags7HBbhjorAR6fWhq/kadw8cbNOmWQ9GlBFwV1IMpdlRP+I2ql7EgiZB8FRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elHQVnEm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DnrSE2cR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53E8607E49C;
-	Sun,  8 Nov 2026 20:24:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7E46079439;
+	Sun,  8 Nov 2026 20:24:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elHQVnEm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58EE11F008A1;
-	Sun,  8 Nov 2026 20:24:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DnrSE2cR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86BB71F008A7;
+	Sun,  8 Nov 2026 20:24:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169481;
-	bh=O7hlAbfoXMWo8ls0Hzjqu9/SqcS/k+aHJqi0nIPwCF4=;
+	s=k20260515; t=1794169461;
+	bh=TOYGxs/bQ9Tq7NOUir9oenKz66BF+F0Bxw2RyNMcyVE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=elHQVnEmPD/DaaExD+FliiO6OyYW7cBbS0UGyDBxy997EYWb9R+B43QEslsxIKTiP
-	 OLzgB9qXNLE45eU4Q/nAhYj6qpaYbbVImcoxljoJcfY8VuMnmdIzcdkXJYuvDoE5ZM
-	 iSKr/9RO1K71gW4SM65KnePjbt6gqc5WVM1zbtLSok8SIsdk/2AiUrlbGYSA8NeqFs
-	 rRmGtqqktk8AUh0OpB677+6WyxV1VZjjHiTH4OLLqIZMQifcJFMk539YYZCoTPlHVQ
-	 8SMwpOXL2l8UPTe9Q5bce6UtZamChWRdLJuwZuqwGJ/MzRgh138NJxTjmgIXEh3LYH
-	 7P9+Oi+cuPYRA==
+	b=DnrSE2cRdhygAOyfJG8FnVQNGYdHibwEau8YyxhQ7IhtogI0UC3VuR/+y2K7aWhlV
+	 mQuailQan3kKieIwGCWVqVieNgCFHlD6p3D8+BbWfWJ/xBMETglH1Y+WMvfYVL613V
+	 46aNRYMVssodf5TkOy0EAfsDdQpl/7VeqSSaHftX1dCX0NtEJNB6XQTCFDYcZvLZ6s
+	 KNcxMjMcmQuphmqypwUFBDYM7Z7LhO+kvl78BBnTM4icJrqwbZgFsznPPwmSoCA7Hh
+	 SEgdbzZ7dvYO3r/6XjLlagwI8PFvoFAQI5Vr/DwSieZ2AXdQz08nI6VmpTP17VBlrS
+	 vpI5mRhbIv/zA==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>,
+To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-	Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
+	Navya Malempati <navya.malempati@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v3 0/6] arm64: dts: qcom: Introduce SA8255P as Lemans family SoC
-Date: Sun,  8 Nov 2026 14:21:11 -0600
-Message-ID: <179416929532.628393.8073843162038778455.b4-ty@b4>
+Subject: Re: [PATCH] arm64: dts: qcom: eliza: Add RPMh sleep stats
+Date: Sun,  8 Nov 2026 14:20:56 -0600
+Message-ID: <179416929548.628393.9194330704381395356.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
-References: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20261103-stats-v1-1-3dc062db66b3@oss.qualcomm.com>
+References: <20261103-stats-v1-1-3dc062db66b3@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,22 +69,14 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sat, 31 Oct 2026 21:10:36 +0800, Shawn Guo wrote:
-> While the patchset [1] supports SA8255P as a standalone SoC, this series
-> offers an alternative by introducing SA8255P as a Lemans family SoC.
-> 
-> Lemans family has two variants: Embedded variant (IQ9/SA8775P) where
-> platform resources like clocks, regulators, interconnects etc. are
-> managed by HLOS, and GearVM variant (SA8255P) where they are managed by
-> a VM acting as SCMI server.  All Lemans family SoCs actually share the
-> same hardware configurations like memory maps, interrupts, DMAs, etc.
-> 
-> [...]
+On Tue, 03 Nov 2026 18:21:44 +0530, Navya Malempati wrote:
+> Add RPMh stats to read low power statistics for various subsystem
+> and SoC sleep modes.
 
 Applied, thanks!
 
-[5/6] dt-bindings: arm: qcom: add SA8255p Ride board
-      commit: 8f1791c25b66388a2ddd2dc0b84aae08fe77dce6
+[1/1] arm64: dts: qcom: eliza: Add RPMh sleep stats
+      commit: edba09592c123cbc19ccb844e5c9d320a09185e8
 
 Best regards,
 -- 
