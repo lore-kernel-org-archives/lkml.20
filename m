@@ -1,104 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794128983;
-	b=jsZY23vQzKDv1MIdOzZ+faeX/oILZtb+FuhTt36J65vmRl58ATeZO3fhK/jZAQPZ38pH
-	 38K5dDffE9LG0gGwRkI9YzjztFSN+psi9S4CIUh0zO5yct4QeRW0jQMP73r0xtdafzYWf
-	 Z4Lu8CF7wUeIbEyZbk39D/HsNdrUKncg1Ngw0BDMnrLH9ecJAtu7RsYrhtdMurt8hJBfl
-	 sG0lPstiMHDpYQkjzmm8krllAwa+PCK2iL1krtBflMy5rXCprhtnlUR3FIggOG05w6vFo
-	 5vFKy5n+m5eDazoa/yzzEPC5w5MAb/xRXACcinEXkQ8EOU7l8MpioBSnc9l+DBBZbqg==
+	t=1794129263;
+	b=UEtAkr6x0Spch3OvPtOXtt1iNzgKs/cWXhGSU34TMusBkmv0tyogN3Le+yq9qUkQPFZQ
+	 oNZVVAbwbs3J4U0314fcPqKSJMBtczPOCqDrXm59ff4E+nFvk8N2N7FCvRo/+BtL2ShKA
+	 9LD6n4DrlcI5Dva4Rmv56Zc7N/IfscoKJ60wEee+fKCTiLjenQ+NVpk6cNP3TXnb2aXtp
+	 9cTQcNWpoCHLyf0EFwtwBNHIIPlbHYSNvhyraansIQnd5U9sg/OpIE7Ox2d4jvYJOVTeP
+	 xsIa37iDkBjFw9OGjA7jFwpTHSL8a22I4jA0jVLQ2QWHw7USjIpWGE37UjgJkySkGJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794128983;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-	b=AvXoHRu6S6SbuQgZI6hSA7a4Wc6TkeCIX8/asHsPK8/KUK1PZIevz2cTi+CvJ1MqdZmv
-	 K2sawmNmgTCxflsauFb7GO5JcOyc+tWQ5wvurDCpsbjegkghCVy78dLHHL1qekO/hqZhC
-	 6yg4FHOAWDNwaGnaB2AQ53WKyT/jxuS4FksscnwlnEYlQnESzC5mK60T9kuQQG5jluXQj
-	 dDk5/FxEfg8mJKQhGmSXsRysDsIeFLDZTF7as3kICc0NHpMGMiwYdcSSEulka5YB2UTxn
-	 iqTr8LO41JO2mUrLaAJLD5R1/95YAK85Erd/kFcs/VYzOm94YQLGQd2W6M1Y0eGKskA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794129263;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=IgFGlLI9XrfXd9NEiuo4qQJWxm/PrXGBBLH3JpgpHmo=;
+	b=TeQ9KcrQKlxpULCoIT9DWOwyZ9f/hQBrsunTBBMnFI0PHBtRQ34brZe4L26vbuTlHLIZ
+	 gzJd26FR/KPJNh7vmIoT62z7gSQ70EB14t+wWSoJh9QitNBMJXgv9C6m+JRV6XgABQBNK
+	 Qxf82073AXIUcLPQnAxHUuKIkBVuQZsb27Uu2CLTPTjXW0IBKXWhgSSWWzneGn46HKYpR
+	 jxYTZY4WHHEPQFwgUwvs3ywBsIYxS2pRF0hHA23Icvcrk5pjATGNUtvRuGYqJZR/DJjXn
+	 liJRlqsUV04yA3hW+p17o+fOJ8cu4r9i3Eauu7MJ7t5b36fMPuGVSj8r2evOHM/nUqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FafqC6Zc;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6gGrwvm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58250606A321
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:09:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58250606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134FD606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 09:14:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FafqC6Zc
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36e795af1d4so39882eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 01:09:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794128982; x=1794733782; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=FafqC6ZctJCGMqrFCgytWOB2XTSjS2PSJrOGAtvyeB9QwIltvYXb2IvVOabhBTmN/V
-         n5sh5YSpWZLzBJczayPp/8qMEoc4orIoOFcWHVNBG9tU5KJUeqsHMITiJgzWNV7BkTRn
-         MKZdPyDFcey5KuVxg98Quod/wHgcvWHHon6xcv4p0WFiojUoHlkV6BPnN9srt6GXmd4L
-         YphzYWyrHBSSwJfdKUNjslngo0CJVPBTE8a/4F1eWoFCTNnRsFqGBudWwprLgAaKIK6B
-         rRbqDVqb0h6g8ZoVB0Uzt8DD1YGESTKuWV6plNUlgK96zQFPBAr9I8nzXPDo3QzV2eQH
-         AyqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794128982; x=1794733782;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yKYud9p8+aP8cT7V12zkUbmCop1ErkdHEczU+hWaU/k=;
-        b=ngjPsyiKl+zp7ncPhXEizBMnYjBfWnKaaldcrmlYl8w4XuOVwlOP2sjYQEgHK8lFFJ
-         QQFCk9YcUyoKxO0FmpQwVSCcl/lTYshQi1mEjZ2cz0IJW/5A609/b75cf16knPOL6oAM
-         ++gCpRGJxhP/EVqSBYvt0LgP7Hylt55Id+QVTHzVGIO3XjrKeTkeiZbhI+veT2L8Tq7g
-         0LBa1d5cAuaaJ4uWoFI42npkxbHN3wwfFd/z0l34hO1g7VJFW35ZxZ1YuPQsN3URigPI
-         KJ1r/G39K5aLaqrD2XCdwzt7u6ZNVqDhgLrX3wszjg81t4twxDREneTz52Xw0JmPA4j9
-         6jqw==
-X-Forwarded-Encrypted: i=1; AL+hErHBPPcOn6lHEk/bSaTzmyPGLcM/1A4pGV/FTpasK4qN2FPbB/fHCwMhOzZeQFuUhjv7chNg44YmKLeE1nI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+86hJJJ3DRYPpPRW3eedEAzsbHCcUbG1j/F8W7YaTMI3AzfPoW
-	t+T51tZEsLI1aQ86OolaWrPt4/Uq0m3rM6odFUY9aKybSGa0ypp0pbRY
-X-Gm-Gg: AYBFou1w8RalgdhqWSxUWMf8vv3h5f4qca59nqop2QBEzb/hvRZyC12iDXWTHCTmH3C
-	bT0+CfmQMyGFbbzOndREXys8Bl7lNVPYiz6T+oRVglxkMWnxPVcEZJ9LrxJXiSGUXvVpoZ/KTFT
-	mvCqrxbNIRECt8H3P186fiSkiG/ZkYB+GtaeiJ2a3pd8bA/YM89RuMD1OUcv52haxsaVa0H0hlW
-	WaZSo1BLcy/P+a2WNYfxfyl1lGO8U6Y9YxrkLBMYqgbuAOrD1VtXaLsWHMAswZ/lUwJpt2o5vpN
-	yZDMPasCrS8C/3u/NFpF2UAKTZl0F0SkeRZ8be0qoXpZ49EE7sSffHc/E9sxSbs6EH6Mpx8MIFX
-	Y6LcXAfiZgl3Tllfyc+/dJ4ieUW8bN/8PaBQJ4e5LyZRsrn1eT8d9JMmWb5rAJmuRku6VthVvTG
-	+Y3sQxYIwJdhObbz2uOjA2cGMuVwV8A88RQyKFOvtmmCtSFpbLLNkrtGbPPhbVOlcyzqIB/2kCs
-	2cCZKJneZzyYMfYSV3pqbaLV/9x7k/ptD5atcTGzCr9A/0LtjEN1pSya2/ppoEmkDdRwd7Dn4Mz
-	2hO+a3WuLkwaikUs+Lrf7dpyM5v7IXcickoIxlQMJfrxCeoAzE8=
-X-Received: by 2002:a05:693c:881c:20b0:36c:a2cb:6ad0 with SMTP id 5a478bee46e88-370f620bf5cmr5775018eec.8.1794128982350;
-        Sun, 08 Nov 2026 01:09:42 -0800 (PST)
-Received: from localhost.localdomain ([103.177.253.80])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3726561852csm3725259eec.9.2026.11.08.01.09.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 01:09:41 -0800 (PST)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: mani@kernel.org
-Cc: angelogioacchino.delregno@collabora.com,
-	bhelgaas@google.com,
-	kwilczynski@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-pci@vger.kernel.org,
-	lpieralisi@kernel.org,
-	matthias.bgg@gmail.com,
-	p.zabel@pengutronix.de,
-	robh@kernel.org,
-	sergio.paracuellos@gmail.com,
-	sreekuttan2156239@gmail.com
-Subject: Re: [PATCH] PCI: mt7621: Fix reset control leak on PHY initialization failure
-Date: Sun,  8 Nov 2026 09:09:04 +0000
-Message-ID: <20261108090904.2409-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <179407116392.87368.9250979022176600686.b4-ty@b4>
-References: <179407116392.87368.9250979022176600686.b4-ty@b4>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S6gGrwvm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A98AD1F0089F;
+	Sun,  8 Nov 2026 09:14:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794129262;
+	bh=IgFGlLI9XrfXd9NEiuo4qQJWxm/PrXGBBLH3JpgpHmo=;
+	h=Date:From:To:Cc:Subject;
+	b=S6gGrwvm6szvdelO0tQpIm1NWp70aIbtN/BrzejkXo3VurSUF94OMbuGV+jQRdUj/
+	 kC7sXk5FsEFCmY1F1v0nthBv/F1mpSTGqUmzEUJtdwJaN1XK7ZPJCN2RzMcXF3TSvX
+	 D2twtsma/fcXFmAt5K0ZQIo0U9hKpjYUMeyjQwkYyYuhNwd2OKy4qYRSa6ZvFkkHou
+	 ePXe0YhtRK322l9o31pTxLPh94yjSfQxDW5u5HPRYBidIp5dTAHElBOCA5JR1+i9ts
+	 kojAShwxAUQbPdJsfDZXEkyJzAcrD0BcWXQQkx2B50vhMsz7th9Tmfw8HzZgo9gbYq
+	 kJE5OOxKUrY0Q==
+Date: Sun, 8 Nov 2026 10:14:16 +0100
+From: Ingo Molnar <mingo@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>, Mel Gorman <mgorman@suse.de>,
+	Tejun Heo <tj@kernel.org>, Valentin Schneider <vschneid@redhat.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>
+Subject: [GIT PULL] scheduler fixes
+Message-ID: <avA9aDPBDzVlUqcF@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,11 +61,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi,
+Linus,
 
-Thanks for applying the patch!
+Please pull the latest sched/urgent Git tree from:
 
-Best regards,
-Sreeraj
+   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git sched-urgent-2026-11-08
+
+for you to fetch changes up to 006991aa89974378ee579416dba87adc22cd60fd:
+
+Scheduler fixes:
+
+ - Fix this_bw on class change of a dying SCHED_DEADLINE task
+   (Nickolai Zeldovich)
+
+ - Account I/O waits independently of delayed dequeue
+   (Christian Loehle)
+
+ - Clear throttle state when leaving the fair class (Daehyeon Ko)
+
+ - Fix u32 truncation of the PELT period count (Hui Su)
+
+ - Fix imbalanced cluster static-key updates that can mistakenly
+   disable cluster-aware scheduling (Hui Su)
+
+ - Fix active load balancing logic to ignore non-fair current
+   in alb_break_llc() (Kayra Cizmeci)
+
+ Thanks,
+
+	Ingo
+
+------------------>
+Christian Loehle (1):
+      sched/core: Account I/O waits independently of delayed dequeue
+
+Daehyeon Ko (1):
+      sched/fair: Clear throttle state when leaving the fair class
+
+Hui Su (2):
+      sched/pelt: Fix u32 truncation of the PELT period count
+      sched/topology: Balance cluster static-key updates
+
+Kayra Cizmeci (1):
+      sched/cache: Ignore non-fair current in alb_break_llc()
+
+Nickolai Zeldovich (1):
+      sched/deadline: Fix this_bw on class change of a dying task
+
+
+ include/linux/sched.h   |  2 ++
+ kernel/sched/core.c     | 33 ++++++++++++++++++++-------------
+ kernel/sched/deadline.c |  2 +-
+ kernel/sched/fair.c     | 13 ++++++++++---
+ kernel/sched/pelt.c     |  2 +-
+ kernel/sched/sched.h    |  5 -----
+ kernel/sched/topology.c | 16 ++++++++++++++--
+ 7 files changed, 48 insertions(+), 25 deletions(-)
