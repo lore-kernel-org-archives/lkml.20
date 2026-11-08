@@ -1,61 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169473;
-	b=wCAJkHq7jnf7bFsBtvuy9K6AAsbOunKugKL3PtlJQF4Cvo/2Xfp+o3MUdAmwlJ6FjUu0
-	 vIyCZBGr53QYJdfQu5rdnId8z5+i/VJTG+8P2Cqczayq6+q1emEJEU01Q/chicGewwL3U
-	 fLYIaJPzw9SBqMxa7ii15K2xrAxAs93KLtEvKE+y15W3U/p0vPNtfwC9uTBxst/XC9Not
-	 zbt9r5XtK0vRjWfzbwysaYudJFhrgXkugJGoTqAZAyl2uv3TJ4pk5PIAuZUI8Vt0XyaCn
-	 KitDiX8P6coCOIk8V0o9gNkhU56SyBuBIf/v8NX2JBKq5OGr/DMnplECvEb3dr5trtA==
+	t=1794169455;
+	b=g90Lw2FZ+CljQrR5ieHZ0M/gjqOf05KveGu3cWm6z1wgXdxDY2gcxc2C456KndMGrWDU
+	 mMWUbhku6IMxzhirxhKyXv4K2egAWRGu99d+aAIVjV4oyHIooJjNYQsJylHY7KsGvJKS5
+	 Z/oy3TY++3ynitlvlXeZIHtDsh4P6cPBPV5bVMfIw2G1rnhfs8m2cyiZ8PJqYef3cAkw6
+	 r5zI8MnHPEEwRCCbodXjW2HEXlQCsl4lWXEqK7ZP0IaFq/sta/7n7d2d2BhAhjX0NevdY
+	 sK220qNpvBC2/Ny/rqzxG3Iz3aoPPnZmXlwoHNJHAz7WhrTMT0FfT5zWbAdwiVvouxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169473;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169455;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=uygfYEpKnkwmVZhADVlp9pkKSqQqdNPc+V8s7eo3P88=;
-	b=jN7bZPe0HypwYA4tIZ+USUyRAKBSYZWzfi6oN+0AiEsfEY1kDggYPtST1CUFswkyE503
-	 jGrSFY+C9ceiYnVfzigwvoKbsb2eYc+nuy1/3jb7ojh2NIhEeVUDSxdz6LBx0gCJWueDS
-	 IylbkNivR0CaxP0d0tD4fZYUy0ZT8Umwo+F2bNqbFjWxqQ0P8FjT7KG8ZXgtGEVSPQ1f/
-	 VfgkKJ4YFPv7W1YEWqShypGrbx0FQBKgOE45pEm1Mlf3MVHPNI5SUIhQzVImhyTg89U1X
-	 3F8poC0rutzLRxpMVzZaCZGM5qYd5GBUTtbyhhbSe+FrcVwt+avjn2u9eEAZDfSfmhw==
+	bh=nGMLpiWvH9sKNGbpE6506yen0eFWFmvv9vK9HigzotQ=;
+	b=H0Gy+uJtnfaUn4x0Ew/33rKqu8G1x/PgJ0HUNB8/wu2/41zJi3kByK3t8eIvSJnzD/F/
+	 AeZOxr4gny/LghIq+OeZyZTChZTmXn7p5mqsYQuhcpFsn892Y6bgkh1XX0bbJSlRVcoQL
+	 qVlYkJoF2sq3eRLWSM1Qjx57tH5LjIzcwJD/gfik7GQ4achmBhQKsULN7cHw+KQS55X0w
+	 FOLVspfBFQNjp61ga7zJj8a+kA7tjdvToNLZV7+NLZ3WQoigaDQZhAcUPzBJSQ9yMscGx
+	 6OUAMWNe0iwDVgz5+7Sj7j7Bc4WFTGfgahW3V8Y0eYFeiU94DIXtU4uMElpYw86/ubw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ew4hhQfz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cmg+OBd4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693A7607C5DF;
-	Sun,  8 Nov 2026 20:24:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DEC96078A85;
+	Sun,  8 Nov 2026 20:24:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ew4hhQfz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58B051F00900;
-	Sun,  8 Nov 2026 20:24:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cmg+OBd4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7761F0089F;
+	Sun,  8 Nov 2026 20:24:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169473;
-	bh=uygfYEpKnkwmVZhADVlp9pkKSqQqdNPc+V8s7eo3P88=;
+	s=k20260515; t=1794169455;
+	bh=nGMLpiWvH9sKNGbpE6506yen0eFWFmvv9vK9HigzotQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ew4hhQfzq8Xg40yF1lsmE2H05SLQwTEuKiRwBj2Zz6M9pkcYuJSNubROOtxFZx9v1
-	 0ZJ0fDCnxz5EDfb4xbo3uqJfNhhGWDFrA3/qP8nFnNwW7jD5SazCf7ygSXUkiMnHQV
-	 weWqKRWt+KJXQipGqmEEooYQeYSP4KGSyjWNz1aJ7ZWZD4XAepIR/dtS9DPsQlE7eI
-	 G8IUxqJ1flub/MmdetNam2Jd9c/rPbQ9JXEbzlAvlw0RUomJazZcoDFSHdQ2f4qLGr
-	 S1j9WfY0mijM0beZGZBaM4u3V9WBrRZtwNKNC50W2STTixr7gUuPpT9GabYdSJfh41
-	 gtgPPn1+V8ItA==
+	b=Cmg+OBd4qnK7CsNmvyUIIqmU6aX15hA4RR3x5YDwr6YU7WcSkmDGQGWK7Ob1fkxp+
+	 wM+80iErSERT1C/NYpK2+k2k1sGdd9nfUY4o0GJvk3dMXcmaReyPGtpvjQN2oUve8U
+	 v+NcViM3JrigeERZZ7ANLw1NDS/WvbZ8cySkMCufdFoOIAJonNpwJ0Eg9hIjym6vte
+	 XswG1sE/7Iai5D/T3iimY83if24wenET1a0lmk3m6ur4CFJzJ4Y8KTQPyeEuazAMwp
+	 2Qa/CL1fUWnhBfpjLdNXyRLdoZESMIhVxufOzCRTpF6t2QPTO+qulF7F3xRplqzloP
+	 Sly8Ol8QMG42g==
 From: Bjorn Andersson <andersson@kernel.org>
-To: Srinivas Kandagatla <srini@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: Re: (subset) [PATCH v1 0/3] ASoC: qcom: split out self-contained Hawi/Maili audio changes
-Date: Sun,  8 Nov 2026 14:21:05 -0600
-Message-ID: <179416929329.628393.8263808018546375822.b4-ty@b4>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v5] arm64: dts: qcom: sm8650: Add minidump SRAM config to SCM node
+Date: Sun,  8 Nov 2026 14:20:51 -0600
+Message-ID: <179416929219.628393.8049194985355344602.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261006053717.3455143-1-prasad.kumpatla@oss.qualcomm.com>
-References: <20261006053717.3455143-1-prasad.kumpatla@oss.qualcomm.com>
+In-Reply-To: <20260805134436.2817251-1-mukesh.ojha@oss.qualcomm.com>
+References: <20260805134436.2817251-1-mukesh.ojha@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,24 +69,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 06 Oct 2026 11:07:14 +0530, Prasad Kumpatla wrote:
-> This series extracts a small set of self-contained patches from the earlier
-> Hawi/Maili LPASS audio submission to simplify review and reduce dependencies.
-> 
-> Link:
-> https://lore.kernel.org/all/20260923084627.748920-1-prasad.kumpatla@oss.qualcomm.com/
-> 
-> The original submission included changes that depend on LPASS macro codec and
-> platform updates still progressing through their respective trees. This series
-> contains only patches that are independent of those changes and apply cleanly
-> on current linux-next.
-> 
-> [...]
+On Wed, 05 Aug 2026 19:14:36 +0530, Mukesh Ojha wrote:
+> Point the SCM node at the minidump config slot in the always-on SRAM.
+> Boot firmware reads this word before DDR is initialised on a warm reset
+> to decide where to deliver the minidump.
 
 Applied, thanks!
 
-[3/3] arm64: defconfig: Enable Hawi LPASS LPI pinctrl driver
-      commit: cf446442a4929416742719913a55eda92a8801e8
+[1/1] arm64: dts: qcom: sm8650: Add minidump SRAM config to SCM node
+      commit: 95c893fe67a963a4f1085145c57da561d1f39f25
 
 Best regards,
 -- 
