@@ -1,96 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794176791;
-	b=uj094hKbJVcvdjpQ+VW9UHGIPQvt7/+xN8fUjBB6LDqw8MlJuWQ/YN9ZfQZjAXffYzHE
-	 eCeVNBscO19TFDz0iIqDWCvP7LDQMTk43LWa6YUBX4NfeOquQUDQds7u9vt3rsjQw+qdO
-	 miqnZFKtEtA5uAP1dwcx7/DBMMNk53GDAGsVTJ6nujllgiVu1Lf6osbGjf/EoD5bNx5Qj
-	 2ucJtPO6QuB1ZNw1hpmGn2mIuqeYe8hZVvMPBErnd9IAMuZgFjrdygrHrwveIO+Y564cN
-	 GQva/iAirbITOvdcUHuCR/bhwbdk5dOc7rpRo78pV5GFvkk2hb/YnHePbdwjXRKlxJQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794176791;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794176801;
+	b=mMMbow7l2FCDszEz95xuf+Z+NfiVKB/j0DL3ZRtvfZb0DNMdV8DJqqbknRN7M8uMm87u
+	 ZTVT+9vjA/pKZmldYn8b/pSO4rAU2R0irbojPJV71woyWU4lLG7NXx8FA7QS+0ljOxFc4
+	 1IJoPKwaCE+oeHz3Jx43/XJWc9j5Is0KxsLv2xfgsIy3ps0zClPVYa7yRBB0oIbMQ/C7B
+	 m2hYzo5Fm3e4yaUsOwhmJci9HhWKUdsbBsVeLxq95BoYi2W4nKFsC9d842IEw+47RfCNf
+	 jplMbh2Jr5yuOzej1DqKd9zCdcBnTLs9cYNNEzPElTQdgq50o/9B7mlPeUOcLb3/AKA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794176801;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ydXLmoDHBFq+HgtCA/7QgfiFzFmmcrvDfsID5w4Xmdw=;
-	b=NZO5Mib3tlDyweEj5aK4XXIlAm2ABzIKP55kYnHU8sZuppNedPmkRaeZ2H0Zp3nV3T/H
-	 rSj9BpzQEsodNU5qLY0LQ6wXvUA5KwN3OTymJndv4Hv5gd2dMvHvVnzIIB7fae4oQpJra
-	 Gu0h6Fkg8TnsVoU5pfFiToOIkiLuqjoE7SgC9usQDX4PdTcStCPAnc6Sqf9I1bq/7P4TK
-	 3lAT7d51PeQRtfuHbBldiPzGNVc2sEzrjbrMGyGLNfJqBGKft94dARtoziluKNED1e83C
-	 vcrIKSjJKwzLiwT7sWCS3rWJM9j+gUH+0t8i+dBpKxunA9r9Nhrlh8yMOJwzBctVMuA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GpmIKvgh;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=VE+63/5S1dGMKKpaNJJmZOgCWbbEa3XkXO0EUSmDMwQ=;
+	b=JXZtKT39XWaamZd91Q6HMPwhnhJWCKgN7CWDOh9qBlmtA0lpD7jIzp+qGjWHzbTUyjOh
+	 59kC6PXHBDKU6Sk2vFKBvE/gcw+rxCi6Y6N5gS8KLCIIMGbbaeKQbrLzX9zXIrwapHmJQ
+	 T7JBWCTRnY++asA04wFikHU1ayXHQwxxphpYhh/7dBsvYk4/J9T//Lx4dl+nuJniUckVp
+	 kUN21o2CNbaOyL9HnfIDJS2MNsLP19snkjtN8QARISEhtL1HfMPbic2agOSIfErG41Ys5
+	 xv9lhYUomMkNqKn48/TnzwS14bMKfJ3dpbLykdeMpRtOVRhAW/NadzCClFSHcsaYh0w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m2sxuaQy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D6A606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:26:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58D6A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99EC8606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:26:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99EC8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GpmIKvgh
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a73fdd2966so210565e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:26:31 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=m2sxuaQy
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36dbde64409so531000eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:26:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794176800; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HpDKlfvNp7NUE+0P4tp9yIL1ArD9zLhS9DlEACJrg5Pzx5Vf2pMBbzIlzM9TeNBJB5
+         hNlPq2BwMT5X0nidUUXG9pExmw63JqUBD6l8y1l3ggMgMG37L3U6s1ifOPWO0sy1KyNn
+         Cv8q/XGbIPxLNhL0qoi9GUWMcg42gWNQM1BZPHzYsUmR44gY2a1eYSnoYzWBlvoY1OMK
+         3rYAtH91z6Yl1bMZhBBpfplFvVi6u+6sDXcPAR+hW07q9PBtDhkA9eKzh1sF251VuJun
+         yvWAHVhIDvEYgXfpOweSaIsGw7JRIpWYZOCzX2Cb11CZI5TTx89/vUwL4XI64jprd7zt
+         XZyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VE+63/5S1dGMKKpaNJJmZOgCWbbEa3XkXO0EUSmDMwQ=;
+        fh=pQ0QfjdkyZAIW28HRzGQry3kW6Osq07B9rGvio4+VvI=;
+        b=EZ/4NGDFOFV5Fc9cw7+NzmCmdpuebdavTXEZWKQcNsOL29RmYNKWRjBLrHXiBcfMhi
+         FiTfYqIo74JMKF8AkdfzZfDOXZzkm55LZPGg/3/h1fDPIz/CS9cxRVPX9PRq0+oSsp2q
+         iOqGke2nuqd7TiF8z0/JrDA/r2zpB8q0zG7DfTT4PCeraRohN0qt8FzSjz9niNnLl6QG
+         U1//VhEVNFHHX9NPYLimSfYPq0XVLCNU/lMMHlvI/qz6Oow8CU3mLGyg5hTydcZ7tBwl
+         IHlCDCCLzBNMQ9OhwM0bdBzqpGKsbtI7so8LDHUJr+idytlD/HpIH4nl/51uz1o6cHIY
+         dg2w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794176790; x=1794781590; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20260707; t=1794176800; x=1794781600; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ydXLmoDHBFq+HgtCA/7QgfiFzFmmcrvDfsID5w4Xmdw=;
-        b=GpmIKvgh7g0XOYVV8DkCOhvAgCpzf/GPzUkoyilGwC+kZI51WY92o4YMGFs7lAsQk4
-         BNRAFx5NSURG/HJ7HYZXbvXoXxVeR2+VdvcMywt4li29nkA5TjWLV8fcPYKUj8yJcxLr
-         cdJ0npV6ergFmSHJJ7igxOUmpBSls5TOjLWHq0wtul7cBE7rbYkS9a0CAkNrt7ZHz3ab
-         eJpwWCSnyNg8yPYRbRRAAOV24pqIMl2d3cgY5zsveAu0Noi6AALbs+JdWfo3V8tVm5US
-         u0rostx4mc1WTiflg0+6cLhq/30Mq9YjTrwFwR3XaqEnzaZ/paVjfuAfIf/YGk6SxTWS
-         bfig==
+        bh=VE+63/5S1dGMKKpaNJJmZOgCWbbEa3XkXO0EUSmDMwQ=;
+        b=m2sxuaQybH6P44YJ4ev4tpnAwA4jHFbnX9oMNj5668OgWBc3gGAq1vzri4q7p2Xj4Q
+         ecQNwxmEj+hrSUoceI/4kchQ2LBNBUl4kNO91z9H5WGQN7cvyNWyA9JoTzNXj5x+6fXd
+         e34jIBsW6Oab2k2elVh5SaUtdCiCPXaDbGld3M9wcni34a9cLEac7vbil4djAFm1MfdG
+         yZUAJkE2IKgmVlSv7G70VtL6QdkP+yuw2Qom2ShCS67qmdBcwQEBLt81cbqCgkMcz18J
+         KdhUZ8RC6jurbCj2fSFKYBlLL8cEycFokR1r3IsU4iYevYkBXpN5FrgPcF+u4EoluDj1
+         EwOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794176790; x=1794781590;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794176800; x=1794781600;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ydXLmoDHBFq+HgtCA/7QgfiFzFmmcrvDfsID5w4Xmdw=;
-        b=gUPrF+JbCNmrvUFPYBDFA18BAWOoxOCqYalMdh3COS7Du15zVY9IhXVJ0gRvzCZAO3
-         7BHXlLd/sukudJp7EPagF/in9aNSXH1ZNwcro5pUfWmC4l637pFBsplqyXqKzb3diVQ7
-         7aVrEiV3f0QVlq6OOEVPNejKBFeAdDJTdsZBuEc8wVUAoEQ+JNGOX0/XXS166Gci/DmT
-         z9AEKBMpbLg9SshqpqkF08xbkjB9fyd7fmsokGsqFdnmrRjS0zd3ALfgPCMz4z0Colxl
-         VyahZDxlxB3UHiqva1+Y/JImyy+hPtY6VHQDOrar9ntT9dXOIC5OVAOALNrOy9EJNJZU
-         kO3g==
-X-Forwarded-Encrypted: i=1; AL+hErHFOeGOI+m9TwKhoD1EjpWIYmwLoMlUXY5K75oALUE4JgWc/zoV11LUK8P7fF/TSakRcXXj4Vsp9vh6tNg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9rDuvzs1WZJ6a2bdojcbVepQvETD0bYPcQ4QLXJ9JGaUoeL06O
-	LnFcO0c7Mo49nwxtA29JdVYpsPR/NyLIW2XKFDXbLqutKWgbiKv1TL0o
-X-Gm-Gg: AYBFou2c/CEsVn83ddEy1KRf596+6OXQvfoVpBC7MlBYeDCNFwyBOdcflkld8wFklUy
-	HyO2h92lDLSrD3y97bu3zCnrnqd6sitxRBdao/N0FYTSra1vf3X8da4JWh+MTt62ZryKWBwWBId
-	t1J7Z4IpBFEghdz857NmthXfoujZsVXsdPbkOr78xvlfFICyE6LNnw+tYSDG+UJvKei+A+n/uG+
-	Xpqoy1+IyA9SVZUsfx9EXqObIrm/1vicLEQkuZpekuq4K3Tpqjy8zW+nSNCZzOPHgRnFqt2JKLD
-	BiBurp+ieDNzd7E//PmdwTommVAEb7WEzX/GRiLPXhbAO6dmmK7rrMs1IEPMfMWHa741wVOC6wO
-	rCiMnH2oeF3d7vDnWXNerruKEde6calXCOcTuyNQEESK82ieFiR0htmc1tqi+3SKtNGiyl1j5Ra
-	H1lGYK2ghIAd4naEIGxMLjCCLYT7ohkWN//ntFPyW/ekxOkfdK5WXKFNBn0SNNV0ApuOmIMX1l3
-	LCfbRW36eYFb2be00SfwsaXhZU1euwviODpcEHcaH3ec8gMnbb/ujgIR3VHn1qwEmUcKq/2n6f/
-	yIeUY9I2vNeSI7szhVRH20qouxUNapsiskrB08Vh+lwHCl9fh5CbESQ=
-X-Received: by 2002:a5d:5e03:0:b0:491:1653:8242 with SMTP id ffacd0b85a97d-49585e90454mr4883106f8f.6.1794176789454;
-        Sun, 08 Nov 2026 14:26:29 -0800 (PST)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49592f398afsm5925024f8f.5.2026.11.08.14.26.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 14:26:28 -0800 (PST)
-Date: Mon, 9 Nov 2026 01:26:24 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@kernel.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
-	tj@kernel.org, ziqianlu@bytedance.com
-Subject: Re: [PATCH v2 05/12] sched/core: Abstract/fix
- rq_clock_start_loop_update()
-Message-ID: <avBDWS-AY6QQtCuH@scheduler.schedules>
-References: <20261107115913.261163891@infradead.org>
- <20261107120207.242460109@infradead.org>
+        bh=VE+63/5S1dGMKKpaNJJmZOgCWbbEa3XkXO0EUSmDMwQ=;
+        b=YGT7dmittoApwbYOcj7S9i5w8plvYhrYPpbLYtXd7ULSIA5B29xYeN7KRhbnBlxaur
+         E7zwmjGgVo+xFmlhsiNZ4hSE6ezWaGvWwAyxkDNp43OKOVbP94w7riO6pKTZ8SePQaTp
+         Q0P+gKh29XdESPx0grdERA2RCbeJt2ftZfduYZHyiN2sUAYhKXJboDFrIm73pNgXMza1
+         eSnifCA5NJNErNIlogi/A1VV9dl5a+Jx100Bb7aaRrpkQass4zCrRE8iHjvzHOWyHgAc
+         GW7nrp9qeIcyH1bZVEePpFadTwEZLltPdE3W3zwodvwgIteXuIKlm7dazPHfx8PApRun
+         OM+Q==
+X-Forwarded-Encrypted: i=1; AL+hErG2PU08VZHTwiAt4agMNcMCKNCkhfntg8VY7usRN34M5QLj/GIZ+0a4ZJ5tYVgQ2FjCuaI1SD+Plu/PflI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8pa/dVLVts+2arE5ofLIAkRheVbRxPkxdvdcwBQ5wPUaAWrnAr
+	w7jEs1hPVjuLgtiznmieIzZhkZ64Hqy2QKj6GD5GgKJ582CMIWxlwvlolFmVucgoPCvpZ0YCmdj
+	+TItPoQIOE9Y/GMPL3gjzPXAr421YZDRfPfYTlmxJ
+X-Gm-Gg: AYBFou2Ef1NKZnDHbGKXRYgcdzJJUKl1OKMfol4YHRi9D/jxjPMygiTWw+J45sCDOQh
+	xWEzUrHCmk95IQnLaboZfvaw/GzR4LOegL9hjHwuqeWmqFqerB22BW4ehK7lisd7rMThrGVOkAQ
+	B07zuNWpEqzCDRxbxjr84VGbP6TkBqjeomT92aYjwH7Hz2oArdWh54yIjdsi5dVdDcEDHpV8TUn
+	WBF0nmxGJRtFVZDZHTpDtjV1Ea2KkbOXaXJHph0y8M5y6p3r1qe82GS7AgYrwVF8Tj/cFrPyy3u
+	vX4Q6w1jrDyAZrHOvfAEwErbHWt9v8ZW4SQ2cDtAdaassWmzE+7NiPt7LD0BWrpjrC4dcZOSx7G
+	XzgfjrOsz+HD0nguDbpvisLQK3sMcvkcvvVxeQMljvb1+ZnIwG88Uf/cB+re5LGzhjzv/urLoGf
+	aR7qGVTwSufoCAC10l
+X-Received: by 2002:a05:693c:87d5:10b0:36e:a9ce:f1a with SMTP id
+ 5a478bee46e88-372542bec14mr4545729eec.4.1794176798825; Sun, 08 Nov 2026
+ 14:26:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,387 +105,260 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261107120207.242460109@infradead.org>
+References: <20261104045534.79783-1-bcochrane@google.com> <179411441563.994134.1253063049402486704@kernel.org>
+In-Reply-To: <179411441563.994134.1253063049402486704@kernel.org>
+From: Bryan Cochrane <bcochrane@google.com>
+Date: Sun, 8 Nov 2026 14:26:27 -0800
+X-Gm-Features: AclHuK_yThPQKjLu1cOv83kTvnqvD4g9kOuUo9qLmgKEyzNSc34jvrTH9xVW-DY
+Message-ID: <CALuKKxH-q4hb-Orc4MwwKE+bf5AcjOzW8k0JRpjLTPYOzjVA8A@mail.gmail.com>
+Subject: Re: [PATCH net v3] bnxt_en: Take RTNL before netif_close() when
+ aborting FW reset
+To: netdev-bot+sashiko@kernel.org
+Cc: michael.chan@broadcom.com, pavan.chebbi@broadcom.com, 
+	netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, sdf@fomichev.me, 
+	joe@dama.to, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Subject: Re: [PATCH net v3] bnxt_en: Take RTNL before netif_close()
+when aborting FW reset
 
-Hi Peter!
+On Sun, Nov 8, 2026 at 5:06 AM <netdev-bot+sashiko@kernel.org> wrote:
+> - [High] Permanent hang while holding RTNL and the netdev instance lock.
+> - [Medium] The patch defers the bnxt_get_registered_vfs() failure in
+>   bnxt_fw_reset() to bnxt_fw_reset_task().
+> - [Medium] The patch turns a synchronous abort into an asynchronous
+>   request carried only in bp->fw_reset_state.
 
-I drank too much tea, I'm going to throw up. Bleah..
+Thanks, all three findings are valid consequences of deferring the
+bnxt_get_registered_vfs() failure in bnxt_fw_reset() to
+bnxt_fw_reset_task() in v3:
 
-BTW this patch was *really* fun to review. But now it's 1 AM in the
-night and I can't even type this sentence good.
+1. [High] When bnxt_fw_reset() is entered from devlink process context
+   via bnxt_fw_recover(), bnxt_unlock_sp() still sets
+   BNXT_STATE_IN_SP_TASK with no sp_task running to clear it, so the
+   deferred netif_close() in bnxt_fw_reset_task() hangs in
+   __bnxt_close_nic() waiting on bnxt_drv_busy().
 
-On Sat, Nov 07, 2026 at 12:59:18PM +0100, Peter Zijlstra wrote:
-> The existing rq_clock_start_loop_update() / rq_lock_stop_loop_update() almost
-> do what we need rq_drop_lock() / rq_repin_lock() to do. They freeze time by
-> setting ACT_SKIP.
-> 
-> Rename them rq_clock_freeze() / rq_clock_thaw() and have them operate on a new
-> bit RQCF_FREEZE. This is such that schedule() can safely nest inside
-> rq_clock_freeze() as is required for rq_drop_lock().
-> 
-> Sanitize the rq->clock_update_flags handling while adding the new bit --
-> notably do away with the full shift left which makes a mess of things.
-> 
-> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> ---
->  kernel/sched/core.c  |    4 +--
->  kernel/sched/fair.c  |   15 +++++++-----
->  kernel/sched/sched.h |   63 +++++++++++++++++++++++++++++----------------------
->  3 files changed, 48 insertions(+), 34 deletions(-)
+2. [Medium] Deferring the close via bp->fw_reset_state =3D
+   BNXT_FW_RESET_STATE_ABORT lets a concurrent bnxt_close() ->
+   bnxt_hwrm_if_change() zero bp->fw_reset_state before
+   bnxt_fw_reset_task() runs, leaving BNXT_STATE_IN_FW_RESET stuck set.
 
+3. [Medium] Routing that pre-reset func_qcfg failure through
+   bnxt_fw_reset_abort() with fw_reset_state !=3D BNXT_FW_RESET_STATE_POLL_=
+VF
+   unintentionally marks the firmware reporter SEVERITY_FATAL via
+   bnxt_dl_health_fw_status_update(bp, false).
 
->  #define RQCF_REQ_SKIP		0x01
->  #define RQCF_ACT_SKIP		0x02
-> -#define RQCF_UPDATED		0x04
-> +#define RQCF_FREEZE		0x04
-> +#define RQCF_UPDATED		0x08
->  
-> -#define RQCF_NOP_MASK		(RQCF_ACT_SKIP | RQCF_UPDATED)
-> +#define RQCF_NOP_MASK		(RQCF_ACT_SKIP | RQCF_FREEZE | RQCF_UPDATED)
->  
->  static inline void assert_clock_updated(struct rq *rq)
->  {
-> @@ -1815,7 +1824,7 @@ static inline void assert_clock_updated(
->  	 * The only reason for not seeing a clock update since the
->  	 * last rq_pin_lock() is if we're currently skipping updates.
->  	 */
-> -	WARN_ON_ONCE(rq->clock_update_flags < RQCF_ACT_SKIP);
-> +	WARN_ON_ONCE(!(rq->clock_update_flags & RQCF_UPDATED));
->  }
->  
->  static inline u64 rq_clock(struct rq *rq)
-> @@ -1851,25 +1860,27 @@ static inline void rq_clock_cancel_skipu
->  }
->  
->  /*
-> - * During cpu offlining and rq wide unthrottling, we can trigger
-> - * an update_rq_clock() for several cfs and rt runqueues (Typically
-> - * when using list_for_each_entry_*)
-> - * rq_clock_start_loop_update() can be called after updating the clock
-> - * once and before iterating over the list to prevent multiple update.
-> - * After the iterative traversal, we need to call rq_clock_stop_loop_update()
-> - * to clear RQCF_ACT_SKIP of rq->clock_update_flags.
-> + * FREEZE rq_clock. This is used in a number of places to
-> + * ensure things appears to happen at the same time.
-> + *
-> + * Eg. during cpu offlining and rq wide unthrottling, we can trigger an
-> + * update_rq_clock() for several cfs and rt runqueues (Typically when using
-> + * list_for_each_entry_*)
->   */
-> -static inline void rq_clock_start_loop_update(struct rq *rq)
-> +static inline unsigned int rq_clock_freeze(struct rq *rq)
->  {
-> +	unsigned int flags = rq->clock_update_flags;
->  	lockdep_assert_rq_held(rq);
-> -	WARN_ON_ONCE(rq->clock_update_flags & RQCF_ACT_SKIP);
-> -	rq->clock_update_flags |= RQCF_ACT_SKIP;
-> +	assert_clock_updated(rq);
-> +	rq->clock_update_flags |= RQCF_FREEZE;
-> +	return flags;
->  }
->  
-> -static inline void rq_clock_stop_loop_update(struct rq *rq)
-> +static inline void rq_clock_thaw(struct rq *rq, bool flags)
->  {
->  	lockdep_assert_rq_held(rq);
-> -	rq->clock_update_flags &= ~RQCF_ACT_SKIP;
-> +	rq->clock_update_flags &= ~RQCF_FREEZE;
-> +	rq->clock_update_flags |= RQCF_UPDATED | (flags & RQCF_FREEZE);
->  }
->  
+For v4 I will go back to the synchronous close in bnxt_fw_reset() from
+v2 (using netdev_unlock() + bnxt_rtnl_lock_sp() as Michael suggested on
+v2), which avoids both Medium issues, and guard the
+BNXT_STATE_IN_SP_TASK bit operations in bnxt_[rtnl_]lock_sp() and
+bnxt_[rtnl_]unlock_sp() with current_work() =3D=3D &bp->sp_task so non-sp_t=
+ask
+callers (bnxt_fw_recover()) do not touch BNXT_STATE_IN_SP_TASK.
 
+pw-bot: cr
 
-So, these are getting called from rq_drop_lock() and rq_repin_lock():
-
- static inline void rq_drop_lock(struct rq *rq, struct rq_flags *rf)
- {
- 	 rf->clock_update_flags = rq_clock_freeze(rq);
- 	 scx_rq_clock_invalidate(rq);
- 	 lockdep_unpin_lock(__rq_lockp(rq), rf->cookie);
- }
-
-Here, rq_clock_freeze() returns unsigned int. While rq_clock_thaw()
-converts it to bool.
-
-So below,
-
- static inline void rq_clock_thaw(struct rq *rq, bool flags)
- {
- 	 lockdep_assert_rq_held(rq);
- 	 rq->clock_update_flags &= ~RQCF_FREEZE;
- 	 rq->clock_update_flags |= RQCF_UPDATED | (flags & RQCF_FREEZE);
- }
-
-flags could be only 1 or 0. both 1 & 4 and 0 & 4 is false. So this flags
-& RQCF_FREEZE thing always returns false.
-
-Shouldn't this needs to be unsigned int :-)?
-
-
-Also look here:
-
- /*
-  * In double_lock_balance()/double_rq_lock(), we use raw_spin_rq_lock() to
-  * acquire rq lock instead of rq_lock(). So at the end of these two functions
-  * we need to call double_rq_clock_clear_update() to clear RQCF_UPDATED of
-  * rq->clock_update_flags to avoid the WARN_DOUBLE_CLOCK warning.
-  */
- static inline void double_rq_clock_clear_update(struct rq *rq1, struct rq *rq2)
- {
- 	 rq1->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
- 	 rq2->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
- }
-
-Right now this clears RQCF_FREEZE too. On every call. It's called
-from double_rq_lock() and that gets called from _double_lock_balance()
-and that gets called from double_lock_balance() and that gets called
-from alots of places but for example:
-
-* pull_dl_task() gets called from balance_dl(), we first call
-rq_drop_lock() it calls rq_clock_freeze() and we set RQCF_FREEZE.
-
-* Then we call pull_dl_task(), it calls double_lock_balance() and
-RQCF_FREEZE gets cleared.
-
-
-So to the period of double_lock_balance() call to rq_repin_lock()
-RQCF_FREEZE remains unsetted.
-
-
-So to fix both of these I would suggest something like so, not tested:
-
-
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 339a77864ec8..a91d12640f37 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1911,7 +1911,7 @@ static inline unsigned int rq_clock_freeze(struct rq *rq)
- 	return flags;
- }
- 
--static inline void rq_clock_thaw(struct rq *rq, bool flags)
-+static inline void rq_clock_thaw(struct rq *rq, unsigned int flags)
- {
- 	lockdep_assert_rq_held(rq);
- 	rq->clock_update_flags &= ~RQCF_FREEZE;
-@@ -3357,8 +3357,8 @@ unsigned long arch_scale_freq_capacity(int cpu)
-  */
- static inline void double_rq_clock_clear_update(struct rq *rq1, struct rq *rq2)
- {
--	rq1->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
--	rq2->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
-+	rq1->clock_update_flags &= ~RQCF_UPDATED;
-+	rq2->clock_update_flags &= ~RQCF_UPDATED;
- }
- 
- #define DEFINE_LOCK_GUARD_2(name, type, _lock, _unlock, ...)				\
-
-
-
-
-In a case like this:
-
-CPU1 calls rq_drop_lock(), saves FREEZE = 0, and changes FREEZE to 1,
-and drops the lock.
-
-CPU2 gets the lock, saves FREEZE = 1 and changes FREEZE to 1, and then
-drops the lock.
-
-In this period CPU1 gets the lock again, makes FREEZE 0.
-
-And later CPU2 comes and makes it FREEZE 1.
-
-
-Not sure above could happen tho. Could it happen? I tried to fix this
-assuming it could happen.
-
-I'm not really happy with below diff, but I couldn't find a better way
-neither, so please tell me that this case can't happen or there
-is a better way to fix it :-(. This is on top of the current code BTW.
-Only compile tested.
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 104c5333689a..9b3f92c03fea 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -5385,7 +5385,6 @@ static inline void clear_tg_load_avg(struct cfs_rq *cfs_rq)
- static void __maybe_unused clear_tg_offline_cfs_rqs(struct rq *rq)
- {
- 	struct task_group *tg;
--	unsigned int cuf;
- 
- 	lockdep_assert_rq_held(rq);
- 
-@@ -5394,7 +5393,7 @@ static void __maybe_unused clear_tg_offline_cfs_rqs(struct rq *rq)
- 	 * set_rq_offline(), so we should skip updating
- 	 * the rq clock again in unthrottle_cfs_rq().
- 	 */
--	cuf = rq_clock_freeze(rq);
-+	rq_clock_freeze(rq);
- 
- 	guard(rcu)();
- 
-@@ -5404,7 +5403,7 @@ static void __maybe_unused clear_tg_offline_cfs_rqs(struct rq *rq)
- 		clear_tg_load_avg(cfs_rq);
- 	}
- 
--	rq_clock_thaw(rq, cuf);
-+	rq_clock_thaw(rq);
- }
- 
- /*
-@@ -7280,7 +7279,6 @@ static void __cfsb_csd_unthrottle(void *arg)
- {
- 	struct cfs_rq *cursor, *tmp;
- 	struct rq *rq = arg;
--	unsigned int cuf;
- 
- 	guard(rq_lock)(rq);
- 
-@@ -7290,7 +7288,7 @@ static void __cfsb_csd_unthrottle(void *arg)
- 	 * Do it once and skip the potential next ones.
- 	 */
- 	update_rq_clock(rq);
--	cuf = rq_clock_freeze(rq);
-+	rq_clock_freeze(rq);
- 
- 	/*
- 	 * Since we hold rq lock we're safe from concurrent manipulation of
-@@ -7309,7 +7307,7 @@ static void __cfsb_csd_unthrottle(void *arg)
- 			unthrottle_cfs_rq(cursor);
- 	}
- 
--	rq_clock_thaw(rq, cuf);
-+	rq_clock_thaw(rq);
- }
- 
- static inline void __unthrottle_cfs_rq_async(struct cfs_rq *cfs_rq)
-@@ -7815,7 +7813,6 @@ static void __maybe_unused update_runtime_enabled(struct rq *rq)
- static void __maybe_unused unthrottle_offline_cfs_rqs(struct rq *rq)
- {
- 	struct task_group *tg;
--	unsigned int cuf;
- 
- 	lockdep_assert_rq_held(rq);
- 
-@@ -7828,7 +7825,7 @@ static void __maybe_unused unthrottle_offline_cfs_rqs(struct rq *rq)
- 	 * set_rq_offline(), so we should skip updating
- 	 * the rq clock again in unthrottle_cfs_rq().
- 	 */
--	cuf = rq_clock_freeze(rq);
-+	rq_clock_freeze(rq);
- 
- 	guard(rcu)();
- 
-@@ -7855,7 +7852,7 @@ static void __maybe_unused unthrottle_offline_cfs_rqs(struct rq *rq)
- 		unthrottle_cfs_rq(cfs_rq);
- 	}
- 
--	rq_clock_thaw(rq, cuf);
-+	rq_clock_thaw(rq);
- }
- 
- bool cfs_task_bw_constrained(struct task_struct *p)
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 339a77864ec8..d8f1784d0640 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -1281,6 +1281,7 @@ struct rq {
- 	u64			clock;
- 	unsigned long		lost_idle_time;
- 	unsigned int		clock_update_flags;
-+	unsigned int		clock_update_depth;
- 	u64			clock_pelt_idle;
- 	u64			clock_idle;
- 
-@@ -1902,31 +1903,28 @@ static inline void rq_clock_cancel_skipupdate(struct rq *rq)
-  * update_rq_clock() for several cfs and rt runqueues (Typically when using
-  * list_for_each_entry_*)
-  */
--static inline unsigned int rq_clock_freeze(struct rq *rq)
-+static inline void rq_clock_freeze(struct rq *rq)
- {
--	unsigned int flags = rq->clock_update_flags;
- 	lockdep_assert_rq_held(rq);
- 	assert_clock_updated(rq);
-+	rq->clock_update_depth++;
- 	rq->clock_update_flags |= RQCF_FREEZE;
--	return flags;
- }
- 
--static inline void rq_clock_thaw(struct rq *rq, bool flags)
-+static inline void rq_clock_thaw(struct rq *rq)
- {
- 	lockdep_assert_rq_held(rq);
-+	WARN_ON_ONCE(!rq->clock_update_depth);
-+	rq->clock_update_flags |= RQCF_UPDATED;
-+	rq->clock_update_depth--;
-+	if (rq->clock_update_depth)
-+		return;
- 	rq->clock_update_flags &= ~RQCF_FREEZE;
--	rq->clock_update_flags |= RQCF_UPDATED | (flags & RQCF_FREEZE);
- }
- 
- struct rq_flags {
- 	unsigned long flags;
- 	struct pin_cookie cookie;
--	/*
--	 * A copy of (rq::clock_update_flags & RQCF_UPDATED) for the
--	 * current pin context is stashed here in case it needs to be
--	 * restored in rq_repin_lock().
--	 */
--	unsigned int clock_update_flags;
- };
- 
- extern struct balance_callback balance_push_callback;
-@@ -2030,7 +2028,6 @@ static inline void rq_pin_lock(struct rq *rq, struct rq_flags *rf)
- 	rf->cookie = lockdep_pin_lock(__rq_lockp(rq));
- 
- 	__rq_clock_clear(rq);
--	rf->clock_update_flags = 0;
- 	assert_balance_callbacks_empty(rq);
- }
- 
-@@ -2043,7 +2040,7 @@ static inline void rq_unpin_lock(struct rq *rq, struct rq_flags *rf)
- 
- static inline void rq_drop_lock(struct rq *rq, struct rq_flags *rf)
- {
--	rf->clock_update_flags = rq_clock_freeze(rq);
-+	rq_clock_freeze(rq);
- 	scx_rq_clock_invalidate(rq);
- 	lockdep_unpin_lock(__rq_lockp(rq), rf->cookie);
- }
-@@ -2051,7 +2048,7 @@ static inline void rq_drop_lock(struct rq *rq, struct rq_flags *rf)
- static inline void rq_repin_lock(struct rq *rq, struct rq_flags *rf)
- {
- 	lockdep_repin_lock(__rq_lockp(rq), rf->cookie);
--	rq_clock_thaw(rq, rf->clock_update_flags);
-+	rq_clock_thaw(rq);
- }
- 
- #define __task_rq_lock(...) __acquire_ret(___task_rq_lock(__VA_ARGS__), __rq_lockp(__ret))
-
-
-
->  struct rq_flags {
-> @@ -1938,14 +1949,14 @@ static inline void rq_pin_lock(struct rq
->  {
->  	rf->cookie = lockdep_pin_lock(__rq_lockp(rq));
->  
-> -	rq->clock_update_flags &= (RQCF_REQ_SKIP|RQCF_ACT_SKIP);
-> +	rq->clock_update_flags &= ~RQCF_UPDATED;
->  	rf->clock_update_flags = 0;
->  	assert_balance_callbacks_empty(rq);
->  }
-
-Ah you changed it here. So I guess you forgot to change it in
-double_rq_clock_clear_update(), no? :-).
-
-I'm gonna sleep now. Woo...
-
-Cheers,
-
-Kayra
+On Sat, 7 Nov 2026 at 21:06, <netdev-bot+sashiko@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 2 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] Permanent hang while holding RTNL and the netdev instance lock.
+> - [Medium] The patch defers the bnxt_get_registered_vfs() failure in
+>   bnxt_fw_reset() to bnxt_fw_reset_task().
+> - [Medium] The patch turns a synchronous abort into an asynchronous
+>   request carried only in bp->fw_reset_state.
+>
+> --
+>
+> bnxt_en: Take RTNL before netif_close() when aborting FW reset
+>
+> This patch takes RTNL around bnxt_fw_reset_abort() in bnxt_fw_reset_task(=
+)
+> and sends the POLL_VF ABORT_ERR case through that same path. It also
+> changes the bnxt_get_registered_vfs() failure path in bnxt_fw_reset(): th=
+at
+> path now sets fw_reset_state to BNXT_FW_RESET_STATE_ABORT and leaves the
+> netif_close() to bnxt_fw_reset_task().
+>
+> > diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/et=
+hernet/broadcom/bnxt/bnxt.c
+> > index 33c4cacc8ffe3..f48e67670ccfb 100644
+> > --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> > +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> > @@ -14860,8 +14860,8 @@ void bnxt_fw_reset(struct bnxt *bp)
+> >               if (n < 0) {
+> >                       netdev_err(bp->dev, "Firmware reset aborted, rc =
+=3D %d\n",
+> >                                  n);
+> > -                     clear_bit(BNXT_STATE_IN_FW_RESET, &bp->state);
+> > -                     netif_close(bp->dev);
+> > +                     bp->fw_reset_state =3D BNXT_FW_RESET_STATE_ABORT;
+> > +                     bnxt_queue_fw_reset_work(bp, 0);
+> >                       goto fw_reset_exit;
+>
+> [Severity: High]
+> Can this hang forever, holding rtnl_mutex and the instance lock, when
+> bnxt_fw_reset() is entered from devlink health recover?
+>
+> bnxt_fw_recover() runs in devlink netlink process context, not from
+> bnxt_sp_task(). With BNXT_STATE_FW_NON_FATAL_COND set, the path is:
+>
+> bnxt_fw_recover()
+>   __bnxt_fw_recover()
+>     bnxt_fw_reset()
+>       bnxt_lock_sp()              /* clears BNXT_STATE_IN_SP_TASK */
+>       bnxt_get_registered_vfs()   /* returns < 0 */
+>       bnxt_queue_fw_reset_work(bp, 0)
+>       bnxt_unlock_sp()            /* set_bit(BNXT_STATE_IN_SP_TASK) */
+>
+> No sp_task is running, so nothing clears BNXT_STATE_IN_SP_TASK after this=
+.
+>
+> fw_reset_task then runs on bnxt_pf_wq:
+>
+> bnxt_fw_reset_task()
+>   rtnl_lock(); netdev_lock(bp->dev);
+>   bnxt_fw_reset_abort()
+>     netif_close()
+>       bnxt_close()
+>         bnxt_close_nic()
+>           __bnxt_close_nic()
+>             while (bnxt_drv_busy(bp))
+>                 msleep(20);
+>
+> bnxt_drv_busy() checks BNXT_STATE_IN_SP_TASK, and this loop has no
+> timeout. For a PF, bnxt_sp_task() goes on the same ordered bnxt_pf_wq, so
+> it can't run behind the blocked fw_reset_task and clear the bit.
+>
+> A second devlink health recover can't break the loop either.
+> bnxt_fw_reset_abort() has already set SEVERITY_FATAL before calling
+> netif_close(), so bnxt_fw_recover() returns -ENODEV.
+>
+> Before this patch, the same branch called netif_close() inline. At that
+> point bnxt_lock_sp() had cleared BNXT_STATE_IN_SP_TASK, so the busy loop
+> exited.
+>
+> The commit message says that dropping the lock would let "a concurrent
+> devlink health recover enter bnxt_fw_reset() and set BNXT_STATE_IN_SP_TAS=
+K
+> through bnxt_unlock_sp(), which the subsequent close would then wait on
+> forever".
+>
+> Can the same hang still happen when the devlink health recover caller is
+> itself the bnxt_fw_reset() call that defers the close?
+>
+> [Severity: Medium]
+> Is the deferred abort safe against a concurrent bnxt_close()?
+>
+> After this change, bnxt_fw_reset() drops the instance lock while the
+> netdev is still open and BNXT_STATE_IN_FW_RESET is set. The pending abort
+> is recorded only in bp->fw_reset_state.
+>
+> bnxt_hwrm_if_change(), called from bnxt_close(), always reads and resets
+> that state:
+>
+> bnxt_hwrm_if_change() {
+>     ...
+>         fw_reset =3D (bp->fw_reset_state =3D=3D BNXT_FW_RESET_STATE_ABORT=
+);
+>         bp->fw_reset_state =3D 0;
+>     ...
+> }
+>
+> A user close (ip link set down) can run before fw_reset_task reads
+> fw_reset_state. For example, work for other PFs may be queued ahead of it
+> on the single-threaded bnxt_pf_wq. The close path then sets
+> BNXT_STATE_ABORT_ERR and resets fw_reset_state to 0.
+>
+> When bnxt_fw_reset_task() runs, it sees BNXT_STATE_IN_FW_RESET set and
+> fw_reset_state =3D=3D 0. No case in the switch matches, and there is no
+> default, so it returns. bnxt_fw_reset_abort() never runs, and
+> BNXT_STATE_IN_FW_RESET is never cleared.
+>
+> After that, bnxt_open() -> bnxt_reinit_after_abort() fails with:
+>
+>         if (test_bit(BNXT_STATE_IN_FW_RESET, &bp->state))
+>                 return -EBUSY;
+>
+> As a result, the port can't be opened, and later firmware resets and
+> health checks skip it. The stopped ULP is also never restarted, until the
+> driver is reloaded.
+>
+> The other in-progress reset states such as POLL_VF have a similar
+> exposure. This path, however, used to be fully synchronous.
+>
+> >               } else if (n > 0) {
+>
+> [ ... ]
+>
+> > @@ -15524,6 +15524,8 @@ static void bnxt_fw_reset_task(struct work_stru=
+ct *work)
+> >       }
+> >
+> >       switch (bp->fw_reset_state) {
+> > +     case BNXT_FW_RESET_STATE_ABORT:
+> > +             goto fw_reset_abort;
+>
+> [Severity: Medium]
+> With bnxt_fw_reset() now setting fw_reset_state to
+> BNXT_FW_RESET_STATE_ABORT before this runs, will bnxt_fw_reset_abort()
+> report a fatal firmware error for a func_qcfg failure?
+>
+> bnxt_fw_reset_abort() {
+>         clear_bit(BNXT_STATE_IN_FW_RESET, &bp->state);
+>         if (bp->fw_reset_state !=3D BNXT_FW_RESET_STATE_POLL_VF)
+>                 bnxt_dl_health_fw_status_update(bp, false);
+>     ...
+> }
+>
+> The POLL_VF exemption no longer applies on this path. As a result,
+> bnxt_dl_health_fw_status_update(bp, false) sets SEVERITY_FATAL and
+> REMEDY_POWER_CYCLE_DEVICE, and moves the devlink fw reporter to
+> DEVLINK_HEALTH_REPORTER_STATE_ERROR.
+>
+> This is the same kind of failure as the POLL_VF n < 0 abort in
+> bnxt_fw_reset_task(): a bnxt_hwrm_func_qcfg() failure before any reset
+> step has run. That path skips the health update, and so did the old
+> inline abort in bnxt_fw_reset().
+>
+> Once severity is SEVERITY_FATAL, bnxt_fw_recover() refuses manual
+> recovery until a new firmware event resets the severity:
+>
+>         if (bp->fw_health->severity =3D=3D SEVERITY_FATAL)
+>                 return -ENODEV;
+>
+> There is also a secondary effect. bnxt_dl_health_fw_status_update() calls
+> devlink_health_reporter_state_update(fw_health->fw_reporter, state)
+> without checking fw_reporter for NULL.
+>
+> __bnxt_dl_reporter_create() can leave fw_reporter NULL, and
+> __bnxt_fw_recover() can still reach bnxt_fw_reset() in that case. The
+> other abort paths already carry this NULL dereference risk, and this
+> patch adds another way to reach it.
+>
+> The commit message doesn't mention this behavior change. Was it intended?
+>
+> >       case BNXT_FW_RESET_STATE_POLL_VF: {
+> >               int n =3D bnxt_get_registered_vfs(bp);
+> >               int tmo;
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261104045534.79783-1-bcochrane%40google.com
