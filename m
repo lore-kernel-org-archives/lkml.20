@@ -1,61 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794169416;
-	b=ftzxd40udlCYPaq0pASK31UyFSXOGZlN0z3uVtHlTsA8HYVfDKt3E6pIk6G9L5S8u7+j
-	 Uqk2IrhnKqZM7D18PivI3M/fOvQC0LcZKI+Xer3JDljwNLWr5J828tQazgKyPyElKNt5o
-	 O+FT+jifx7XVNE1kE44Fs/qQ4s0VmGAoTo8qPB3zJZcP/LO12zINpKILklLqb/RMa2Zh3
-	 iMIskjDsmXWs9/GNdJJRavklXM9auU5zeFCcC8/0D12R7XzAZb7XlFkozbMA6aYl+Fj2w
-	 70+bIDV5MNhV0hHeftXOXXo+qtBoaZwNWLHeo6G66+qIbDZ4XKyhcxFLrvK/IRM+eOA==
+	t=1794169407;
+	b=2AkOnN2ZmS+/GX0DRUdugQK6jSMxEFq8j0VkY2kgQHE7cZA8hx8qGS3E3VogiEKu/QtX
+	 OuWZziDO9YSl52lBxBMNoSeJK5b3GssfoKc/86r9vqZIBI2KCKfVcta0Wv7q/O/zia91V
+	 BAzmlfVT+ARhfUWmR+xoPVvqGGTd/F0opp4cFgfyMzhIUEKUC8K+JzDNBIFIpPQ8azfIb
+	 RkeTKK0oZNQLGj9GhaGWKYp1ZnvUf801TtnrxW5V1YiJr1my7+eL5Da8usoROjLFDyduk
+	 HrRIpb574Hs2B5R61TrQ7+wfCgNb03K0DYpt3Pn6Y3E/wpcj+8kFtV1Cs7Holj/5eHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794169416;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794169407;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=lfQc8iXIa3Ze3No286j125Gsum0OmdmIGicz87DnSqg=;
-	b=0s1ox8gq5FAQC55DNIdq/6nyCilCeHXemUHjCZ+KB6XR6jEnL6+5MSnWvpbyGMIrsvnL
-	 zXXYZPmzHdeb9UW5v7ObKTEAfoHqDoPMKTYC06DndwZe6gqApcXQOmc4y6A8iYvntTdVa
-	 BdelZW/tgn2j6EFBC598UQj7UjU0E5c9oXeVOjPUSA6W9gPZ+V4l7rLysc7XZ7KpSPBcg
-	 H1w5ZtiMVimg9lqs7m4ARF9JiFNY5AXl1Ay4I9J/NgdG3SAF/DwT5rcMwX5FbfjIuKXO1
-	 wMVOSqNRPmEaMG+P+IR5HcQju2UVNfv0JazATN1NWmQlNh/c+Hwf+Vmjy4yZkuQwrGA==
+	bh=9U8itW8G8MyY18hmtwcYxgLlUaxupiYuU5C8Kd+PdNc=;
+	b=xUNaQ4MlT56GYYFRyce0xaRZuDqdcdGaiZUHDwgPjaWI+nvlPbcY9sH6jrn7jyaK81xC
+	 WN51eV4e4VKvDpkfGcoD0PeNBiPmwjIM7yCZCKkPx+ekzn7wB1x/QswZ9+jDl/Ozet8+o
+	 h5ylgaM8OPZTUC6e8MVuFwOfZenwTbJrqBbCOjpTI1PwIKVt7dck0KhQWyQOm4DEo8++A
+	 3Bwn0KOOSB2w8s2kLXzHk6romBWAFjzZ06H4vVZ3cRtfhkFih6zBtvndontUO9sBA9Q/9
+	 EkB8qjg+Q/7DW59AOZis3D21xwlgab0TAu18l1xWLukYknhmBrNe5KfwyJdt6y5Hjvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9+FzKPZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQ9B8ZYO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A247607298E;
-	Sun,  8 Nov 2026 20:23:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECEEB608363B;
+	Sun,  8 Nov 2026 20:23:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U9+FzKPZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A85D1F008A4;
-	Sun,  8 Nov 2026 20:23:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQ9B8ZYO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4171F1F008A5;
+	Sun,  8 Nov 2026 20:23:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794169416;
-	bh=lfQc8iXIa3Ze3No286j125Gsum0OmdmIGicz87DnSqg=;
+	s=k20260515; t=1794169406;
+	bh=9U8itW8G8MyY18hmtwcYxgLlUaxupiYuU5C8Kd+PdNc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U9+FzKPZ6TBQ8NazibwJOXhJGZKUF67A16k9j4TOdCis92iyRVxdbUs3wZaEujBw0
-	 BoI9oRCTl8K153zxua1133lEcfIvd2Yr3pD7rYbOsZA8ofysy4g59RN6/MppBqRwIM
-	 xAdcaz35TUmEg8MjdgsM0QrrltnPydY0xGhm7Z3iSVS+z5SNFTJY62vnTrg69MwIU+
-	 C7MavKHVncICtpwYheK01AgM5OoVa5V2zKFGCFnME2BZ7V7EsodX15zEz/qlz/UZ4L
-	 0xcRJXV8A9ko6B8Vq8Z3JUAipxEmdvlYZ5c3lrqu2x3/ofZM6Ku7AGClvl/2xiigv6
-	 HKvUQ4jLG7n6A==
+	b=JQ9B8ZYOIyw2l381vi4WyN4cUaLJNdsdj2C47w0GIibi8hMOKwZScck9H98GKXr7B
+	 Ze1WtmB1SkdOK0sNvaiqm5H9NWORan3uYQw2ne+Vxw8MllNn/SpfLi/bbVhZ3Ylnuf
+	 huFVai4tafKAAqvC2K1iNUVg5TE50N6jQX3UF3XJQUG9mDh5/yLDzV8aaqotddv6w+
+	 z+fO4LQ33qkcdMspqJlREoD6ni51568vrSARXz4x3ASKv3hRQPHmGJIEkwEaDqcg6z
+	 W/b4wyH3p8h4B8AxjdwlsKATQBKLDEd6KnGTI71xpSCu3aSH9UX6WYwU3WAOKX2c/u
+	 gecEccssiuizA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
 	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/6] Mark USB controllers as dma-coherent
-Date: Sun,  8 Nov 2026 14:20:20 -0600
-Message-ID: <179416929518.628393.10940217407625956966.b4-ty@b4>
+Subject: Re: [PATCH 0/2] Miscellaneous updates to the Qualcomm LLCC driver
+Date: Sun,  8 Nov 2026 14:20:12 -0600
+Message-ID: <179416929450.628393.17660771300866759141.b4-ty@b4>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261030-usb-dma-coherent-v1-0-3147b8f7aa64@oss.qualcomm.com>
-References: <20261030-usb-dma-coherent-v1-0-3147b8f7aa64@oss.qualcomm.com>
+In-Reply-To: <20261020-lower_case_hex-v1-0-bfac89824646@oss.qualcomm.com>
+References: <20261020-lower_case_hex-v1-0-bfac89824646@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,26 +65,18 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 30 Oct 2026 00:03:37 +0530, Krishna Kurapati wrote:
-> The USB controllers on some platforms are DMA coherent but that property
-> is not marked in DT. Fix it up.
+On Tue, 20 Oct 2026 22:24:49 +0530, Kathiravan Thirumoorthy wrote:
+> - Use lowercase hex values in Glymur and IPQ5424 configurations.
+> - Fix whitespace and brace placement in the slice configuration arrays.
 > 
-> This series has only been compile tested.
+> No functional changes. Compile-tested for ARM64 only.
 
 Applied, thanks!
 
-[1/6] arm64: dts: qcom: sdx75: Mark USB controller as DMA coherent
-      commit: 8c777d79260a946b9a7ebbea865d40e49f59b7c0
-[2/6] arm64: dts: qcom: lemans: Mark USB controllers as DMA coherent
-      commit: cab6abc29dcdf59c244050bda3d66aaa2b249292
-[3/6] arm64: dts: qcom: sm8450: Mark USB controller as DMA coherent
-      commit: 81e5244cb994a6d34038fc7aadcace59bfaae455
-[4/6] arm64: dts: qcom: qdu1000: Mark USB controller as DMA coherent
-      commit: cd5348659104430cc8372e7bf42127a88d5e69d0
-[5/6] arm64: dts: qcom: kodiak: Mark USB controllers as DMA coherent
-      commit: 2e0340fe0d5cb3bb55cae62c3571320aaaec8e68
-[6/6] arm64: dts: qcom: sm8350: Mark USB controllers as DMA coherent
-      commit: ceab259867f89a97f12b247a00ed1c306a175575
+[1/2] soc: qcom: llcc-qcom: Use lowercase hex consistently
+      commit: 94cd86f18eacca86dacdaa7babd7ca461ef46600
+[2/2] soc: qcom: llcc-qcom: Fix whitespace in slice config arrays
+      commit: c346eb84a1ce7bc2fd17afb8062d4e5d8c0bdef2
 
 Best regards,
 -- 
