@@ -1,77 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794175677;
-	b=sqrovOMHiHEqPz+Nnzt5YcjqzCZQjpzX1Vhc5vHL4dXwSxoOVkI+I1dRTlDw9Egbp+i4
-	 1eAQfGY8z1TN8tt4E2oak35WSzx6nf8ShfZ8k67d7Qe6MNdtgf09vAoSUd8LGIfNs2gR5
-	 jXitnZbfe+MoinURVIW1echkLBFKWax2uD10563qU5HYMAjK45q29xBu61azMpBVCRVtR
-	 v6/MT+KFoFkCOY2maQzEwXg7XCzK+6CqftAFA2DyA7NjTEqvaFjdGSYWqaGnOwPFidMVQ
-	 c5mh2Mo7qJI1nc+BLsNsQAKNtZKeHjTlw52/nmFFneseasAXtwlnXzqBpC5jpf8DscQ==
+	t=1794175703;
+	b=CUvGJF6SeJ+nwcBNsip3T4NDd8IyKASKyGrAy0YL6v3kCiqygyHHBqo4dlmcACFnMc+J
+	 hb+PkshxTw9xyHg5yFVoRwgmyDK2aFwTdotriHAe1ep3QUQkMZRju9jUCmrUSSpEEp5iX
+	 4zHbsmL6uO4ZlRIpAE9JhTk1SC5n7AUnBSgYVhb/TFGIJLQx2Li6gYBNplKY0IbgEqIKP
+	 7cEwmWawYkbqLPjfLoJ3pJgIebxfA+/Y7wCUMfOq695JVN1FU8ndb+rW8FkM39VQCjfHW
+	 Vr/ftyexk17kfs2jE1DUPBH9CUoEqOqJIiCQgzdgkazBigKFgRqhnw+1v14ydzApzRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794175677;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=v0eejaiBFkeUZP6gkE2+qDOnCeE0Ygw6Yg4Ofv8gSs0=;
-	b=fKxSkBBPWkOqdZ7wBta0Ra9W8U5ZCKJzLMjDdY1VcxIO3vPScE+Cto96zRn+9wwcXo3M
-	 uqUVnTC/vf+Q1Oy/iVKVB5FPgQVLcARNEIYZuwzZlE9ouK1nZUTu+7S3XquaRrhEPR02Y
-	 tBl4/MWiWXTpOnnyxmKBTbWDE1+yQLzYEs0r1wyzfCre/5GpZ1xVSQ/oODETnU6BsmF3l
-	 emB5Kceg5XIT+T9wo9QhvHhRF/K09XCQaRzEy1LxntMHwYwWGASUDYey7R7KYgaTIQz2z
-	 6W61DpercU/5H+tLSKbTWt495nDryzmxOfUmTeB9l4IFYkUtef89eMJn1cRuJcVzICA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794175703;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mP+RLv7YA3xoEcSdhiubfekWgYbf7a4Mqt1EnFS2l2E=;
+	b=tQTiyWeABEwmaJA/RjnLyNRqYyMd1OICUX3BKR7IRxygenF1TKub0B9k2mzf0tliFaKA
+	 KqNREEgKD8YsqslisM9QKsmsTBvMUDF+dLjP1FLOE1nZRPQ2cw8jQ44qAgzwtMEBenXwC
+	 AU07v77niH/WtF7c75sZxmcKXpxG17yko0m/DkYsDEF615Ly4kTwh0J6laVf+FFxxSXhl
+	 OM0lYpT9xJndVnlhCUqWWQI1OBaiSxYw5O6DWerIm2eI/AIuu/PLo7Qb/Wp8DEln1CKNc
+	 gxpPBjGGOsm+W2iOrhAmS/GpPa26jjVnfKPBVbpJtT3pWsuUsZDLEs22lGt4yD64asQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	dmarc=pass header.from=postmarketos.org;
+	spf=pass smtp.mailfrom=postmarketos.org;
+	dkim=pass header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=I59MaAEe;
+	arc=none smtp.remote-ip=95.215.58.130
+Received: from mta1.migadu.com (out-130.mta1.migadu.com [95.215.58.130])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92ED606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:07:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D92ED606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cdb9f760337so115755a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:07:56 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794175676; x=1794780476;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=v0eejaiBFkeUZP6gkE2+qDOnCeE0Ygw6Yg4Ofv8gSs0=;
-        b=VSjgXyKbueOpBUqzNV30FOZ4jz89wpUvJWfPQY048zJahN3aaUzmTq3V3krNIiQjEJ
-         iQaTYvXT5xuYuDS3r8cpDXoVdiQcop3ZwzuJo2NHBhLX/kSyt1ARrqkBmrzRLzJKBPfl
-         3PykSnFxFG88v7r4E19z5wg3q1isbsmWPXvungBEdBt3X/z6QJ43Bj8Hgu6cldnPIIJM
-         4Hra0mzxvMVFBGVBFDJ6yU4j1Kyf/al/roAOlWvYrCV+sxvkZ4WtrRvBQJmYomLES3+O
-         /uRXKv46ezKGxvAB80yJk01L+EIOQ7DrpyOgUwGSiZCXPc9kDemofu95WOa0eqwmnhF5
-         OUVg==
-X-Forwarded-Encrypted: i=1; AL+hErEYgosOB0nMFKd7lJdy1zIM3Y/y+KqRI/Wte0DBZEqExR+pmMK+nvcOk3Dh1NxrDaEWAfKxMAg5Cq+m9i4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+MWBQuT20QnqX+pVtLG8WixlDORvBs82x/pkriZrEAApZzNR5w
-	AP0ud8R3AnOUjmeE2gfO9YPwJnEADuZzRrJEgYSG1xhNJ45nH6sWFApfjCfZkcLF
-X-Gm-Gg: AYBFou1cijFw2v5OnxwAgEyy/BWeFGF6tfmynJ12LhJwB32LIOhN/87Y9JcRYmf1pyk
-	0MHzaNVsTwOygQBSwjeSpyC2KvPcAQTa1qcuc3ugGIiNTRl7KlN6GdwY4X78LW7YVfwAf1ftQlW
-	4ojTMQ2N3Hsa9nZ+5sycBzUp5IqRHKtablZTFnGlcodAK5F20BeXFysySDTrOT0Ka9DECZjbZIQ
-	3cjaJ4IMr/QoWmUnXxuT63D0iLvl/bNsMMR4Ix77EtTqAzcbF8LK729oagXQwPElq/NJyOaE3xD
-	CfZcaOjwJXCCdWYzAT9OOrjJedKcHT3rc1tNTxK09I4r01EwVScH1X+Se18wyDK4794tmMvFCJO
-	SEZubhjXPQbUfjZ3UwqbPVx4kNiHt183aJ0Hsv9OW5z1Om3Gt2s6jH5tANqQqK3U4BoAnLtlZJF
-	knf59MzjYOUSz6RC+3zM4LtWWJBNv/WvwlSc5F/yNKN2jAvuzoaaojCP7WA20LnCXNeZf7SR0l2
-	Q3PJ2AbP0R9VXSsff54hftscZng8726/X/ZrSvj1isLnYucLs/ZzAQ0VEA8tQ9e7NHYX7kO6Dui
-	jNn7fD6xXzcPQaSP0mUhb1bpvWn3yxyUIGZp41Fh4bczEpjdNcNZBCxKsPPMdwKJVIp/yvuDl5L
-	aybbvB+CUlRQFncLlgm550AQsrIG0iegIpOOPaA6YaSI=
-X-Received: by 2002:a17:90b:4b12:b0:3a0:d82b:237b with SMTP id 98e67ed59e1d1-3b12d4ddfbamr1508692a91.25.1794175676153;
-        Sun, 08 Nov 2026 14:07:56 -0800 (PST)
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com. [74.125.82.177])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b0fc487e05sm5008781a91.1.2026.11.08.14.07.55
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Nov 2026 14:07:55 -0800 (PST)
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-37198ed3727so473050eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 14:07:55 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErG0EpHD2ckdbrU6IDC7L3CaEKKTmJl42lNWBYNrbzu3tQjFGFZP8bc7uvCyuaUmt/dh7RLsooyg8UxGWPY=@vger.kernel.org
-X-Received: by 2002:a05:7301:1630:b0:36c:a1bc:6102 with SMTP id
- 5a478bee46e88-37250ee43c8mr3901672eec.0.1794175675139; Sun, 08 Nov 2026
- 14:07:55 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435CD606A320
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 22:08:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 435CD606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=postmarketos.org header.i=@postmarketos.org header.a=rsa-sha256 header.s=key1 header.b=I59MaAEe
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=E9GlFD/nkAV+QrkBwclW4eEowvk8rBIRknJho/hf9L8=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794175700; v=1; x=1794780500;
+ b=I59MaAEeCdaKCfMuUTHPbIyVzbfz3Pm73y6uowmDLnatoZBgMnAoNKXERlrLKeNuoF6PAiaa
+ gOWLTe5to8441RYieziKGyelF0YQZom3ZvDGCv+pkIdn8Nb15XvmMENYaWnWYTyesATF97ejHwH
+ iXXLkBh/ErBvRteDdtryUUWVITO3GowgFIKGpEN7DtgdW10I5ZeY8+HwDFt3cV5vX4ol2kZ8iZ/
+ /4gCPoSX3mKUghd2jKKcwZgViMqDFf37cg3amH63iwaTbP0/XL9EElS6bbVqrFuJTvhHkxDhzQW
+ WSCvT1EVtMvY1Mm7Ur/iqO2PvZQ10BO741gMI0kbQTgXA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7b8502a391023e8f;
+	Sun, 08 Nov 2026 22:08:20 +0000
+X-Mizu-Trace-ID: 7b8502a391023e8f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ea9edcdb-cecb-4fe8-97d5-1dead1ea8fd1@postmarketos.org>
+Date: Sun, 8 Nov 2026 15:08:16 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,26 +60,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104-sf19a2890-pinctrl-v1-0-4bb83afdbacf@telaak.dev>
- <20261104-sf19a2890-pinctrl-v1-2-4bb83afdbacf@telaak.dev> <au4HsW2aMYKyMspF@monoceros>
-In-Reply-To: <au4HsW2aMYKyMspF@monoceros>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Sun, 8 Nov 2026 17:07:43 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ4O=_44w52Ci94wjmbgZfFKp15U1o3t5rodC2C6YB7CnA@mail.gmail.com>
-X-Gm-Features: AclHuK-O2KZKYumWb4i3a2AuPWKubDs7etlgwM1RvUJeTI6jva3RbnRyGORGlNc
-Message-ID: <CAPY4CJ4O=_44w52Ci94wjmbgZfFKp15U1o3t5rodC2C6YB7CnA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] pinctrl: Add Siflower SF19A2890 pin controller driver
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Chuanhong Guo <gch981213@gmail.com>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/4] leds: aw2013: Add AW2027 support
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>,
+ Alexey Min <alexeymin@minlexx.ru>, David Heidelberg <david@ixit.cz>,
+ Griffin Kroah-Hartman <griffin@kroah.com>
+Cc: Nikita Travkin <nikita@trvn.ru>, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
+Content-Language: en-US
+From: Paul Sajna <sajattack@postmarketos.org>
+Autocrypt: addr=sajattack@postmarketos.org; keydata=
+ xjMEaVNevhYJKwYBBAHaRw8BAQdAjvGGprvrSn/CmlA1Bpjc4S5zJBNSz/6q0AESlS2JbdjN
+ J1BhdWwgU2FqbmEgPHNhamF0dGFja0Bwb3N0bWFya2V0b3Mub3JnPsKZBBMWCgBBFiEEv1E8
+ AP7J5F2dJQd4hycszAKyDbsFAmmt6twCGwMFCQlmAYAFCwkIBwICIgIGFQoJCAsCBBYCAwEC
+ HgcCF4AACgkQhycszAKyDbv25QD9EdvXYqdH6vGQvB5HrUnMOsd37AZkKKgK87kMOXL/5tcA
+ /jM3VLcq9mol+GstmBm1itIVAblXcm+H8g/wKoPXq/4LzjgEaVNevhIKKwYBBAGXVQEFAQEH
+ QEgCn8S+S7t/3QvXt4dK4572qd+iTl7h4JX1FEV5XUs6AwEIB8J+BBgWCgAmFiEEv1E8AP7J
+ 5F2dJQd4hycszAKyDbsFAmlTXr4CGwwFCQlmAYAACgkQhycszAKyDbueJAD+IMjk8ztbONXz
+ H7fieZc5LoR+6mHnddccacmQyPcGAvsA/0+5SkHEgIBuKwkzwrmKgDqcLhVuEs2f1H2GxKUX jqQI
+In-Reply-To: <20261108-aw2013-aw20xx-rename-v4-0-826529beeb52@postmarketos.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> Please don't use <linux/mod_devicetable.h>. <linux/platform_device.h> is
-> good enough to provide of_device_id already. If you insist on full iwyu,
-> please use <linux/device-id/of.h> instead.
+On 2026-11-08 2:49 p.m., Paul Sajna wrote:
+> I'll do my best to address all of Sashiko's comments, but it might take
+> me some time to circle back, don't bother reviewing until I've done
+> this.
 
-v2 will include <linux/device-id/of.h> instead.
+Hello Lee, I believe I have addressed all the robot's comments, and this 
+is now ready for a proper review.
 
-Thanks for the review.
+-- 
+Hal: They're going for the kernel!
+Margo: Colonel Who?
