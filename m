@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794164385;
-	b=bAfiUlT68tw+PLX8SamkSPUciYoFoZOfj5zWE/XdksAjwnNX4PRSUKl6a9WHa16TPAH2
-	 EtIWv1Q72TUxQhBeYJnZChw3J0qCRqhtS17jFF3NvptSiUxdmZ2DHK+2UeI1/DPd1/VBb
-	 b84aO1Vy9NgvsMZeeQQV3CdO+Ty1QyIlTvQRvViNR8aQf96uKzhh8IvlnLhaCvCmGyn2i
-	 qkxJKy7EOgencxXci3OHhmTIuCGWFF/DQW4y6fDg/cUzHZGgeJfVyIRcbJ3Qt0drRNomI
-	 wLQUPjsx33Un+p/S+WENKib90u2C5yn4buu+OlhOT1LSEtGLDpEgmiR3nM5E6d4D11A==
+	t=1794164389;
+	b=19hUR+tq6TVZss0WSNeFG0rVKjjj/wzlOCAV3N+09M641Q8C57TdtoKSCvsX2/8Uha6x
+	 Tc1EG7v7O9EaFnxZyW6XLAbME+mYYQpOWQtW1acnWM7/efjUczXNtuyIvNm4WVHWzQugg
+	 nKVI4SlvtBorRXzS+fXfw4WBbEq0yTISO+gcnK5/RDoMqmE/71WN370Lsg6yxq4z3rfTQ
+	 uN3D8SUu4VfoKOuRv/kPPR7jCsp/HvwNBAdWLkM8R7vgfxXvUmLhg604IYKeSaAKIqdJX
+	 KVlphYEJKtxdPSJjyZnVF6Yoj1MmuOAtvxzX7M61cNAO9vCt4HIOV3DGAQSdTGMocxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794164385;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794164389;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:
-	 References:Content-Language:In-Reply-To:Content-Type;
-	bh=y63byGnQBDqvrsbSDi7RU9ZtkQTeXrhNmd2jcGqenW0=;
-	b=fDAIz8uV4558+vkuPXh3WNRf385ASOTNFwRRnVQno3Z6lzkULrzD4Zz/Mk/wPb+078Rb
-	 kGXAHNzto+2vkDV4JB3xPXtzglOM58pV42eITfrl4tr8BYSJZYjfDLNdfdVUT7LlCa/Bn
-	 lKQ3WHd9BgXc1GuWK+lPz+gH/gdGMMG5+XrxgNHuCqpUuteEOUAJncOopnkM1s49pLEnX
-	 8A9RPDGoSlfKFHf5tafb4w9U9UI56bTfG6caVI0Oaq0/VnQBSAwsy4sRwNIDBpKRw6fiW
-	 XTkgDNKY9PsG/ELCc+geMYxT9EYkwJ1f8kwiRZdySsWgaFKIqfUMJrr3s1ce4M8SohA==
+	 Sender:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type;
+	bh=GpAFUlt0XxBY6dBpUlo0gkGGdcjqwC3S9cjFDt6ElxU=;
+	b=Or3WDF6M/bVi7R1YdfZtum09pjyo2TpptzNDoZnDmONE0FbTojbb/jOf2DUqH3H2YYbr
+	 kZor7SZDRhOjjbxV10MXV+2zydSNgSaQKXL/2evZ5EZ0HbsE/O7x5kLYnYu14CAZoEEq8
+	 UJyXwdFBQdrnvky3/kopMg7J3WmoY3+X9R1Vwb4XFrdgQD5iawV/EjOOpWWgIY2w25ywX
+	 f1m8JGTpavMQcDyJiDzR7guEuCEmQ9HoQn4NTvIv1dLt8bpY3zjRgZ0VZYKfbGDdw/KMz
+	 LHs5mk01frdiBe6Sb3PcWyY9lUmuWib/7Vr9o0A6iPI4V8GWzW5HnRQC4P+bYJChxUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V9twU3XS;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J5dWnNiF;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CF9606A323
-	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:59:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37CF9606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A55606A322
+	for <linux-kernel@vger.kernel.org>; Sun,  8 Nov 2026 18:59:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7A55606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V9twU3XS
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso2041955e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 10:59:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J5dWnNiF
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so1457035e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 10:59:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794164383; x=1794769183; darn=vger.kernel.org;
-        h=content-type:in-reply-to:content-language:references:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:sender:from:to:cc
+        d=gmail.com; s=20260707; t=1794164387; x=1794769187; darn=vger.kernel.org;
+        h=content-type:in-reply-to:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=y63byGnQBDqvrsbSDi7RU9ZtkQTeXrhNmd2jcGqenW0=;
-        b=V9twU3XSCvvfnwaNC7aMVNibhquHL0k+8QawwvYYW+KA7/JVl9WHNMRiFs0O8Fsq+Z
-         8Hvld7gN+we/NiFGSqjlpu2e5EYfcJROTSBjQc4CSjxUoiJWbTURhyH/vPGznKi+XkCo
-         F5VxbDzyiqf3N6fhRWvUqDFtZ5ZOjaYxDAvCz1VjT+UH2lJl6c85cYlwhKq0iexQbZE/
-         iGH2Aen1322yQNYFD8BV04ruJF98hSSW2miGTcIAGfDuADNNjtqs2EKQdH+1sEpxHv2v
-         PGpwkZ6cTGnllH77HL6vqTYtUmuS/iha3QgbEOUHjYdJ84owt4hpALfWl7YIcHAQaQTo
-         MxEw==
+        bh=GpAFUlt0XxBY6dBpUlo0gkGGdcjqwC3S9cjFDt6ElxU=;
+        b=J5dWnNiFRKZj0dtJfdFFjQLklNQbzPYUrEh25hgk7Motlge51LERu4P4P/TQlOUbgq
+         iBlijpaSV/UfK5kMduDdxTVwVINj3JbvY6soIiXQQvfEdCOsmSjKq1rviZWtK1iaoaXF
+         6IDxeEL6xY8eT5LA1UYCJ4UkJOO3eL6uOspPn8HF0IGUihihkerf/MBFkAioF5nInmZM
+         drHx4xFDCHd8+Ek7/nkf3Gwg4H1KSB7v4XnA4oKWTzmwfb6d8+4EEuQdYnQxbST1abWl
+         DbUlOOu86QNHAzYgk6o/bC3OfsXOkpfa1ZYNjle/htFyJ21zhRyCYbtO8MCxvowUMQhZ
+         sKiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794164383; x=1794769183;
-        h=content-type:in-reply-to:content-language:references:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:sender:x-gm-gg
+        d=1e100.net; s=20260707; t=1794164387; x=1794769187;
+        h=content-type:in-reply-to:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=y63byGnQBDqvrsbSDi7RU9ZtkQTeXrhNmd2jcGqenW0=;
-        b=tN11gA+7EjCI9mEJ5An1s/xXuidVaJLNFdth6MYcQ0BfVXVPnHG7L3krAg9M1XNBQX
-         PteaqRzemBG7zVczqrhLSffdiTePajPAAhmCUcV5iP0T0nMmSRwppdJeWmKLjnqyo2GP
-         I4WpCGOW6NG152EUJ1+1ixjJCKOEWzB+4wn4nG6U/VFiaxpdWJdHLAI5RKayf7PIJ24R
-         y6G+a5esuRXPALH0TKUw3VgzGoqOolyDfUvhiR/AJrtp/Rh7QjGDU1WYhN6x5iPd6CMa
-         7SV7maKBmeNQqDLuj0rNL76U3RQ/QZ28PbiVbleatUwK1xfrirCi065/6ARsG7wCTdz/
-         CIZQ==
-X-Forwarded-Encrypted: i=1; AL+hErHWXuiKcfG4FcXSr5d5yVFwnG8g0A0UzvOtkNWxnWcBtTwReeIhZknifrpyM54wrWo7caPhiCLr58JyXDs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+EJATJkjugbdjoTnV4T3gFtSptl2spVMFx+McuwYNsImx3YrN4
-	FnIAtbjLp5GRUSSgT60ycGZLGLrRtFxrmIBMlOaf3SSKVL3dlUKB5bPI
-X-Gm-Gg: AYBFou2gMkll5/LJubv9wfm5bZx1LFxuLj4N8tx8/rSIUw4WxgOPoDsEZ57y1QEIrZ6
-	+IQYhf145/Hmz2/3JgMajcK85QF7vLmUuOUzfPEZ/b9vxCVG8Axigg1WkfGGbRKrhiAA6xKuZNs
-	HfeLkVyu5dWgve/447xpOHJxoOfL2428JHnUj+Z1mE4n2pAq8RnQYODkipG7fH6eUwDt0DxvOpQ
-	y8qDq4T9EdeVVeoWoCBaIPJJBBkdGua/lhpqTvmjpQT7V6Um8U65ddZNEX2fYYjczDdPGlIXDU0
-	HUg+H55Dt7Ok1U3HcPMI1ekp8q6BemPQKCjbQCOEJXWTr7kKREt3HhS8XDwUCVMpKIs7/j5sxlq
-	uwjXP91/efXngaDDfH9L9ukw8E0p0OdciSVacKDylOXcsV7j+6YQJDB4I+j9LG3akeMRbhkUPcX
-	7f+jVIp4A8VEaF7DQjbnSdepDE1HugeH8UP31VN2tPZE2yF2yqq0Ytg6YefyRD3SK0Oxt8jf61Z
-	onGa3KT9mSYPvOUuL7txLXwS4aOpy9VSRBhHtoIROKhJ3KRSmcNSn7NY/K0MAGkxPmn/aN+ur4D
-	X631BFowejhGqAzoTAUv8z/zZZD85u987LAL4Zjj8X7KoJLogHdjVyAMCiz/lMhg2sQADXXnXQg
-	a0RU2xo/flvBcr1ToGueZ
-X-Received: by 2002:a05:600c:6990:b0:4a1:7c7d:8881 with SMTP id 5b1f17b1804b1-4b963c7e550mr38189275e9.13.1794164383440;
-        Sun, 08 Nov 2026 10:59:43 -0800 (PST)
+        bh=GpAFUlt0XxBY6dBpUlo0gkGGdcjqwC3S9cjFDt6ElxU=;
+        b=1b4g2+PIpA5tB6fYzecRfLURSbx0S/Uu9dvecsY48U6aAu691UfttOi9ix4mthd84c
+         /Ezu0D7FEyMooWNc0TsNpbiUJz3ngLWG6RRAQNhAhnZWH28ZfhSkUgwUaR/SSFCu1r27
+         jiTnyeBbE0mxzUuatpZauJAVnbEPjn31jrXMWDlBIINdMvr0TJig3024sjYsHra/rixa
+         w6//SQI2JpN6AOILF83NRgXzLDAKHXyd79Y7Qa8IaIuDFrrXJZe+tVT60g4FSv+wZrxz
+         Zxql9SpB499JFe1Fzm117aQNG18eTNM//W90LBDqwus2T2koUCX4ULfSfU7KteitWLoB
+         IULQ==
+X-Forwarded-Encrypted: i=1; AL+hErHr9HTdciklAqLtAaxEe4uf0909TQVbJsIPVruST93BsT99ZywTyktbo50KlgAjw2JNx3craJwcKkEN0Ak=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9yDgrZWbFrK0GB+FtNH/lFj4NkDcRkcrqfFB1xMYVs8IcQA6t
+	TrLVMx8NVIAO/kEpdtC7A0WMSHTRtrc0zIcqxGKxjRFepiKWqEIYqAvS
+X-Gm-Gg: AYBFou1GWFrn+tGjOMXf30fdf5/j0WGUjI1smSSQnJ4ffywHJXDZCpsxTVKSR+ho/h6
+	BCFCVDLhOmAGyEQnnDYHGu8F783DpWBFqK9dVUVtn2Xnvr1xon1VJWikjBSxue6BnlHtjpb2nfl
+	mgikYZgE5fBumqWvFGfpXC9t3mryI0qccT6LtgHwY3WVvYJEy7R1HRLGmJp/ARchdsDZ2Em0ss/
+	wDuvaGmn/m8N4f5YYxo+evMYjQ1JHKZbVqRj7cFV7BqvxydDMdz4qlUiQJinYi59Mnt2mlgMei/
+	XEZq4c/G60yjndy7uu5yym+6sZYX1cOk3HdIXsRlVInNrl/g4Ur5P+6to10vyWior6J6k1XH3Tw
+	W/7fhNdt0fEQHzJxclmu9AnTyKHUwr85lIwbYsSueaYSL6uYtepmpCdXKwNZ6LA6ccK2lgzrA1b
+	jIPdgK4CFsfan6eFSGbrCTP8wq+XYSeIVuLMIgwiIRIxlZXGqcNDV25CFDkZH7VgcFZJiTHvnpP
+	yjYttpch0+3uVh4TjjigQmqEFEOl9dJj/4cEuQL/nDacgGGtF3b6XKK7EFjfkoer6xTXRCRindK
+	szIaRL144IzawplOrzknzfTnYIJApqcY3w3VHQFR48xVu2mTBnblH0Fz7OtHIYKT9FrZkVkYW3q
+	nw3vK3/I44p4usP1Vdp3MDk8+tKzhrDi6i7VA9RyyTw==
+X-Received: by 2002:a05:600c:3ba4:b0:4b2:61e5:b2f4 with SMTP id 5b1f17b1804b1-4b963c65a88mr49152645e9.11.1794164387223;
+        Sun, 08 Nov 2026 10:59:47 -0800 (PST)
 Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90f11172esm80401145e9.12.2026.11.08.10.59.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90f11172esm80401145e9.12.2026.11.08.10.59.45
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Nov 2026 10:59:42 -0800 (PST)
+        Sun, 08 Nov 2026 10:59:46 -0800 (PST)
 Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <9729a4c6-22f9-4102-b62f-c76a75488240@gmail.com>
-Date: Sun, 8 Nov 2026 18:59:41 +0000
+Message-ID: <3dd2bb0d-8486-4630-b496-e92e4ac37c29@gmail.com>
+Date: Sun, 8 Nov 2026 18:59:45 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,9 +93,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Julian Braha <julianbraha@gmail.com>
-Subject: Re: [PATCH v1 03/10] kconfig-checker: Add the configuration checker
- code
+Subject: Re: [PATCH v1 04/10] kconfig: Introduce checkconfig target
 To: "Ahmed S. Darwish" <darwi@linutronix.de>,
  Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
  Ingo Molnar <mingo@redhat.com>, Nathan Chancellor <nathan@kernel.org>,
@@ -109,26 +107,25 @@ Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  Daan De Meyer <daan.j.demeyer@gmail.com>,
  Luca Boccassi <luca.boccassi@gmail.com>, linux-rt-devel@lists.linux.dev,
  debian-kernel@lists.debian.org, linux-kbuild@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, arighi@nvidia.com
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20261106091922.7560-1-darwi@linutronix.de>
- <20261106091922.7560-4-darwi@linutronix.de>
+ <20261106091922.7560-5-darwi@linutronix.de>
 Content-Language: en-US
-In-Reply-To: <20261106091922.7560-4-darwi@linutronix.de>
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20261106091922.7560-5-darwi@linutronix.de>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------wygbcu0eB30HJ7r218T0kJHN"
+ boundary="------------3ScbaGCYTbGeYkRt0jz5kpka"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------wygbcu0eB30HJ7r218T0kJHN
-Content-Type: multipart/mixed; boundary="------------XEeck90arMImjdiitW9iXW07";
+--------------3ScbaGCYTbGeYkRt0jz5kpka
+Content-Type: multipart/mixed; boundary="------------NII28W9PtdHxoeuGqG7HRNpZ";
  protected-headers="v1"; hp="clear"
-Message-ID: <9729a4c6-22f9-4102-b62f-c76a75488240@gmail.com>
-Date: Sun, 8 Nov 2026 18:59:41 +0000
+Message-ID: <3dd2bb0d-8486-4630-b496-e92e4ac37c29@gmail.com>
+Date: Sun, 8 Nov 2026 18:59:45 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Julian Braha <julianbraha@gmail.com>
-Subject: Re: [PATCH v1 03/10] kconfig-checker: Add the configuration checker
- code
+Subject: Re: [PATCH v1 04/10] kconfig: Introduce checkconfig target
 To: "Ahmed S. Darwish" <darwi@linutronix.de>,
  Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
  Ingo Molnar <mingo@redhat.com>, Nathan Chancellor <nathan@kernel.org>,
@@ -142,173 +139,105 @@ Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  Daan De Meyer <daan.j.demeyer@gmail.com>,
  Luca Boccassi <luca.boccassi@gmail.com>, linux-rt-devel@lists.linux.dev,
  debian-kernel@lists.debian.org, linux-kbuild@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, arighi@nvidia.com
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20261106091922.7560-1-darwi@linutronix.de>
- <20261106091922.7560-4-darwi@linutronix.de>
+ <20261106091922.7560-5-darwi@linutronix.de>
 Content-Language: en-US
-In-Reply-To: <20261106091922.7560-4-darwi@linutronix.de>
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20261106091922.7560-5-darwi@linutronix.de>
 
---------------XEeck90arMImjdiitW9iXW07
+--------------NII28W9PtdHxoeuGqG7HRNpZ
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
 On 11/6/26 09:19, Ahmed S. Darwish wrote:
-> Introduce a kernel configuration checker.
+> Add a checkconfig target to validate the current kernel .config against=
+ a
+> set of rules.  Select the rules using a mandatory RULES=3D make variabl=
+e.
 >=20
-> Validate the passed kernel .config against a YAML rules file and report=
-
-> problematic configuration issues by severity.
+> Example usage:
 >=20
-> For correctness, readability, and long-term maintainability, type-annot=
-ate
-> all the Python code and split the tool's logic into a clean set of clas=
-ses.
+>    make RULES=3Dpreempt_rt checkconfig
 >=20
-> Create a proper Python objects data model for the kconfig checker to wo=
-rk
-> with.  Confine all direct YAML dictionary access to YAML files loading,=
-
-> validation, and data model construction.
+> Use the kconfig-checker to perform all sanity checks.
 >=20
-> Document the tool's development rules on top.
+> Document the new target at the 'make help' text.
 >=20
 > Signed-off-by: Ahmed S. Darwish <darwi@linutronix.de>
 > ---
->  tools/kconfig-checker/check.py | 558 +++++++++++++++++++++++++++++++++=
-
->  1 file changed, 558 insertions(+)
->  create mode 100755 tools/kconfig-checker/check.py
+>  scripts/kconfig/Makefile | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
 >=20
-> diff --git a/tools/kconfig-checker/check.py b/tools/kconfig-checker/che=
-ck.py
-> new file mode 100755
-> index 000000000000..476cd13e59eb
-> --- /dev/null
-> +++ b/tools/kconfig-checker/check.py
-> @@ -0,0 +1,558 @@
-> +#!/usr/bin/env python3
-> +#
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +#
-> +# Kernel .config checker
-> +#
-> +# Main usage:
-> +#
-> +#     $ check.py list-rules
-> +#     $ check.py check -c path/to/linux/.config -r preempt_rt
-> +#
-> +# Notes:
-> +#
-> +# - All code is to be fully type-annotated. Before introducing changes=
-,
-> +#   please verify type-safety using:
-> +#
-> +#     $ mypy --strict --no-warn-return-any check.py
-> +#
-> +# - The minimum required Python version must not be newer than what is=
+> diff --git a/scripts/kconfig/Makefile b/scripts/kconfig/Makefile
+> index 5baf1c44ffa2..d67a23730259 100644
+> --- a/scripts/kconfig/Makefile
+> +++ b/scripts/kconfig/Makefile
+> @@ -125,6 +125,26 @@ testconfig: $(obj)/conf
+>  	$(if $(findstring 1,$(KBUILD_VERBOSE)),--capture=3Dno)
+>  clean-files +=3D tests/.cache
+> =20
+> +checkconfig :=3D $(PYTHON3) -B $(srctree)/tools/kconfig-checker/check.=
+py
+> +list_checkconfig_rules =3D						\
+> +	echo -n >&2 "Available RULES: ";				\
+> +	$(checkconfig) list-rules >&2;					\
+> +	echo >&2
+> +
+> +PHONY +=3D checkconfig
+> +checkconfig:
+> +	$(Q)if [ -z "$(RULES)" ]; then					\
+> +		echo >&2 "Usage: make RULES=3D<profile> checkconfig";	\
+> +		$(list_checkconfig_rules);				\
+> +		exit 2;							\
+> +	fi
+> +	$(Q)if ! $(checkconfig) list-rules | grep -qw "$(RULES)"; then	\
+> +		echo >&2 "Unknown RULES profile =3D $(RULES)";		\
+> +		$(list_checkconfig_rules);				\
+> +		exit 2;							\
+> +	fi
+> +	$(Q)$(checkconfig) check -r "$(RULES)" -c "$(KCONFIG_CONFIG)"
+> +
+>  # Help text used by make help
+>  help:
+>  	@echo  'Configuration targets:'
+> @@ -154,6 +174,9 @@ help:
+>  	@echo  '                    default value without prompting'
+>  	@echo  '  tinyconfig	  - Configure the tiniest possible kernel'
+>  	@echo  '  testconfig	  - Run Kconfig unit tests (requires python3 and=
+ pytest)'
+> +	@echo  '  checkconfig	  - Check current config against sanity rules s=
+pecified by RULES'
+> +	@echo  '                    Example usage: "make RULES=3Dpreempt_rt c=
+heckconfig"'
+> +	@echo  '                    (requires python3, PyYAML, and jsonschema=
+)'
+>  	@echo  ''
+>  	@echo  'Configuration topic targets:'
+>  	@$(foreach f, $(all-config-fragments), \
+> -- 2.56.0
+>=20
 
-> +#   required by the kernel build at Documentation/process/changes.rst.=
+I think this tool may belong in scripts/ due to the kbuild integration,
+as was mentioned in the past on another tool review:
 
-> +#
-> +# - The tool must not depend on being run inside the kernel source tre=
-e.
-> +#   This simplifies invocation, testing and possible future packaging.=
-
-> +#
-> +# - The YAML rule files are only treated as a serialization format.  A=
-fter
-> +#   loading and schema validation, such rules are parsed into an inter=
-nal
-> +#   data model: Severity, Rule, SymbolRule, PatternRule, Rules, and ot=
-her
-> +#   related python objects.
-> +#
-> +#   All checker logic must operate on that typed model, and not on the=
- raw
-> +#   YAML dictionaries.
-> +#
-> +# - Minimize external dependencies: this tool is also intended to be r=
-un
-> +#   from distribution kernel-package scripts in the future.
-> +#
-> +# Script exit codes:
-> +#
-> +#   os.EX_CONFIG          passed kernel .config does not match rules
-> +#   os.EX_NOINPUT         input file(s) could not be opened
-> +#   os.EX_DATAERR         YAML/schema/rule data is malformed
-> +#   os.EX_UNAVAILABLE     Python version or dependency is unavailable
-> +#
-> +
-> +from __future__ import annotations
-> +
-> +import argparse
-> +import os
-> +import re
-> +import sys
-> +import textwrap
-> +
-> +from dataclasses import dataclass
-> +from enum import Enum, auto
-> +from pathlib import Path
-> +from typing import Any, NoReturn, Optional
-> +
-> +#
-> +# Initial sanity checks:
-> +#
-> +
-> +def error(message: str, code: int) -> NoReturn:
-> +    print(f'Error: {message}', file=3Dsys.stderr)
-> +    sys.exit(code)
-> +
-> +if sys.version_info < (3, 9):
-> +    error('Python 3.9 or later is required', os.EX_UNAVAILABLE)
-> +
-> +try:
-> +    import jsonschema               # type: ignore
-> +    import yaml as yaml_m           # type: ignore
-> +except ModuleNotFoundError as e:
-> +    error(f'Missing Python module: {e.name}', os.EX_UNAVAILABLE)
-> +
-> +#
-> +# Actual script:
-> +#
-> +
-> +class KernelConfig:
-> +    """.config file parser"""
-> +
-> +    def __init__(self, file: Path):
-> +        try:
-> +            self.lines =3D file.read_text().splitlines()
-> +        except OSError as e:
-> +            error(f'Could not open {file}: {e.strerror}', os.EX_NOINPU=
-T)
-> +
-> +        self.symbols =3D self._parse_symbols()
-> +
-> +    def _parse_symbols(self) -> dict[str, str]:
-> +        """Extract CONFIG_* symbol assignments from .config"""
-> +        symbol_set =3D re.compile(r'^(CONFIG_[A-Za-z0-9_]+)=3D([ym])$'=
-)
-> +        symbol_unset =3D re.compile(r'^# (CONFIG_[A-Za-z0-9_]+) is not=
- set$')
-
-What does this do for Kconfig's int, hex, and string options?
+https://lore.kernel.org/linux-kbuild/20260428183101.GA3304253@ax162/
 
 - Julian Braha
 
---------------XEeck90arMImjdiitW9iXW07--
+--------------NII28W9PtdHxoeuGqG7HRNpZ--
 
---------------wygbcu0eB30HJ7r218T0kJHN
+--------------3ScbaGCYTbGeYkRt0jz5kpka
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wnsEABYIACMWIQT6qjll++tIFxF8TUPElYPCBXNxIAUCavDGnQUDAAAAAAAKCRDElYPCBXNxILlL
-AQChbcKlonSXUa3TJuKdVVP0T/VTxOqGsEjOelartYR2RgEAyBM2bZtsfxLzLDLge3f2Jazt2mRu
-u+hzj/qSZNHDuQ0=
-=BT3m
+wnsEABYIACMWIQT6qjll++tIFxF8TUPElYPCBXNxIAUCavDGoQUDAAAAAAAKCRDElYPCBXNxICr8
+AP9ab7lj4yj0R79XczFEOb9wo5VIMZGC3vGZY5oFqemP3wEA3AwrJodpubXiVsw04hceTbqM6l8E
+RZBUQogdrKCHxwU=
+=wQlh
 -----END PGP SIGNATURE-----
 
---------------wygbcu0eB30HJ7r218T0kJHN--
+--------------3ScbaGCYTbGeYkRt0jz5kpka--
