@@ -1,57 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230551;
-	b=3P3EBtg1X8B6F1oryHtgov2eQoeUNAmbkrgLAOhJQBVBWWF10FrQwulbVV3xq7srkSbS
-	 0NyMLUv0TOfzF4ibYKvX3JVExaaZ48KJBEz00BbjO2UfEbO+OAoAuynp/+QzYyY1YU0Gz
-	 YdLc+1sVS/T72VxQM1zPnMo1JflUpQ7JSytx9LoBftXmasuNUbjtYiAxAqIDytpnNfhI4
-	 yz0rLmB6akqZiOPOq/JKEK7MRxX92hU8CPdGV+JtIZiNWH1g4kVqqGDhoBUI6eNbo7o5V
-	 G3iW59nGtifBOhRBxGwBcO764DbKfydmJ/EqVpMdASZ+T3NwssgOw7O0mP+3/Xm1nlQ==
+	t=1794230691;
+	b=MRISfF0alKwTXeBaaf0bmOR/jqvdxdn32b5ZhlQuIBFRxUt/RHeT7H+TVTN+DUc7enAI
+	 0e55EAVvjkMdEO77adwr8GLdeoLjDMzkYnyUQKqc2x7uJxC4qKeCtSRWuMxnCUyJscNCs
+	 Dq5oYfPatCC1ij8Ul6aUYIpBwJJBGcslMrI9lP6jgP+Vt9pfSz/VooYPu/rhbMZcEe+Rm
+	 0s0+8zLBXEY6o2wGalsCp4ovqKm7Ha8i1pKCdkDp8cvyUlNNpkp1M0hVMm5bejme4fHV9
+	 oqTLEy5F28x35W5TTO6NC/NMzQCg3yhi8PcDpyuBX776X42hcnEoJxVRcl1r03FNtZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230551;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=kA2godbZnBHxyz71XZOEW+H2DRSk3CIDmt0/jBvvJU4=;
-	b=biHvQbrH6zmfB2bxSzGfqVpzyqGIuQVhY5Oah81yFJbufjHEKXCNabfeJNLVJ4bRyLz0
-	 H4ecEiITXBFxVYguBDz+mhVV+FicWC/NN8kt/oVBeV+UPpVTTcEy4Kysn3+eWBAQLJ046
-	 uoo5nJIjno2lG/8RXTAxdUUxIwmrKIWRlr8SP8f9BCVYjtgZya0LcDoptrBVMFLg1043O
-	 vxkZlnO72JPWotfT3c90ZHc6S6+/Sli1wMxbOJMRHX4ryX/a6AerwtpQCKAnQXd+gZweQ
-	 7Wm+dmWJ7+DAYB9S57LEmSFPb66vNh4cGAHxjrleI3+uhdTxX5Nfiqcf+1Y78IUF6pQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230691;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=GAhGvR2eLM43D67mkW4MLIlB8OtmJdVrtLFaXc1IelI=;
+	b=gow4BrvUE67gmSf9sgUscZHeLPCrt9EDLi+ZVH4TonDhzalbERAZtSMh8eFfCIg6Lv72
+	 qA+EoxRQffAu3czBBk9AMLlDZlRcLcxW3+ebUGysH9ZK2LV0CnnOs/CEWfu94AmMu1ibx
+	 KjAMHATnXIextAck7hN1BgTgptMUI6gd3gj3Hug/pb5AfdzB2yVjg3/4bkpf475JZtOsz
+	 Sv68h+sJtlTv5P6A4aDWrFhQc1LPbVHsd3lHoY/Zbx6XwCrrr/ZzN7Yjg6RSfka7fvJyv
+	 QPTlqwODPIHTfRlFoZSBteqqBmIMB8UGMEay85X4g/G9Yb/r+O5VOPCc1hpOCXZPnuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4rTHREd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Sc3XWC0o;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F60606A321;
-	Mon,  9 Nov 2026 13:22:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AC8606A31C;
+	Mon,  9 Nov 2026 13:24:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42AC8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4rTHREd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2249F1F008BF;
-	Mon,  9 Nov 2026 13:22:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794230551;
-	bh=kA2godbZnBHxyz71XZOEW+H2DRSk3CIDmt0/jBvvJU4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G4rTHREdwR0I+nKNYEBwCJqYr/+YU/uakCfflvjUoZ1IKVaSmgE7HBHoTQqEHoT1i
-	 Bmh0WdnTR9YXJYcHVoN7FeTFFAe/A6b66Dw+q8lTZ93B/Z/S7NExNQO79DHLPWzcr4
-	 DbXy2i2Y+87zuahqSSK/9Fe0AqZXj//KA8DtwkMH0Dpf8qXCgHwrYR0CzItm6aFdG1
-	 M9BEGONmuLdcUUJclzb1oh1FnL7EG7RkvKrSdktfIEGYLAamcKqNdeTOSI+O4KrY18
-	 3FUqKafFOMIlGCU3bXECa9PRaqXQDwbSM6+QlQa0DivutJfwD+tX6EeK/7NLo+rRBe
-	 lxIR02ANX54wA==
-Date: Mon, 9 Nov 2026 13:22:26 +0000
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: vulab@iscas.ac.cn, idosch@nvidia.com, petrm@nvidia.com,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mlxsw: spectrum_ptp: release parsing depth on MTPPPC
- write failure
-Message-ID: <20261109132226.GL18859@horms.kernel.org>
-References: <20261103102851.1340480-1-vulab@iscas.ac.cn>
- <179405323723.994134.11947248661617076904@kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Sc3XWC0o
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=GAhGvR2eLM43D67mkW4MLIlB8OtmJdVrtLFaXc1IelI=; b=Sc3XWC0o9YL+V/AmfeKnHsFyJ0
+	vVfKA4JHN882lL+MOYBFLDIGLN+oDrl2vp2bTf5n99pUEMdSkRUXAKkkAtQql77wjLw9ebcP0waST
+	awreAzSJ4xneNLxoPThu5vc/wtRCtFJwtkRtiCUigrFwjhDILyDPWTwnDMcXZnnPgaXM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xQPMP-00FG0A-3G; Mon, 09 Nov 2026 14:24:33 +0100
+Date: Mon, 9 Nov 2026 14:24:33 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: =?utf-8?B?5p2O5bm/56GV?= <liguangshuo@mail.sdu.edu.cn>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: Re: [PATCH net] net: phy: micrel: Fix potential shared PHC
+ use-after-free
+Message-ID: <198e6702-0663-4183-9aaf-0fa4082dbf79@lunn.ch>
+References: <20261107-0d0c29e10a-net-micrel-lan8814-1@mail.sdu.edu.cn>
+ <71089325-dfab-45f7-9ebd-1feb65013863@lunn.ch>
+ <AHAASAAGLPGJfVjn9skPJKoS.3.1794229559658.Hmail.202321181@mail.sdu.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,41 +68,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179405323723.994134.11947248661617076904@kernel.org>
+In-Reply-To: <AHAASAAGLPGJfVjn9skPJKoS.3.1794229559658.Hmail.202321181@mail.sdu.edu.cn>
 
-On Sat, Nov 07, 2026 at 12:07:17PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
+> >.probe() and .remove() should be opposites of each other. What happens
+> >if you do that?
+> >
+> >    Andrew
+> >
+> >---
+> >pw-bot: cr
+> >
 > 
-> Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0 (1)
+> On LAN8814, one PHY registers the shared PHC and owns its pin array.
+> If that PHY unregisters the clock in .remove(), the clock goes away
+> before the pins are freed. If another port is still bound, it loses
+> access to the PHC. I added the handoff in v1 to keep the clock
+> available in that case.
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] The patch fixes the enable-path leak but adds the same leak on
->   the port-removal path.
+> I'll rework this around the PHY that registered the clock. I'll check
+> how the remaining ports report the PHC after that PHY unbinds, and
+> what happens if it binds again while another port is still up.
 
-I believe the issue flagged here is pre-existing. While it does affect this
-patch, the patch is still an improvement in its own right. I would
-therefore ask for follow-up on the concurrency concern raised here, but I
-do not think it should block progress of this patch.
+That is not what i asked for:
 
-And while the separate bot email, requesting information on how
-the problem was found, should be answered, overall this looks good to me.
+.probe() and .remove() should be opposites of each other.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Take the probe function and reverse the order of the lines.
 
-> 
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but
->   mlxsw_sp1_ptp_mtpppc_update() has no serialization between its two…
-> - [Low] The new rollback in mlxsw_sp1_ptp_mtpppc_update()
->   (spectrum_ptp.c:1223-1226) calls mlxsw_sp_parsing_depth_dec().
+Then reverse what each function does.
 
-...
+	Andrew
