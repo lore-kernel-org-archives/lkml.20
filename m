@@ -1,75 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794200611;
-	b=FAkwNUZ4Tms6vSvOnRH0BkMjtbogUu/XoNfYyB3R+Inp5lsAUWuxscYc0ysubMNv8+2i
-	 joaOptultq0749q1+aKJFosKuHXrt+ZqhLBfZDBLLH7H6tcPW19foCty/zBgYukVqgXIJ
-	 Lj8ZdPuAlDDzUyfEyrATfLP2xTebJmJAFfNFd0pJr6rWzQ6w78KNNHbGs647KkoSPs676
-	 V69id72bWpM39a8kH4SBuoVVVd7oSPiiwESGOqS9Y0p5Hq9toTpRi9cp/F6TT794ry17D
-	 bo+Lm0DR7oeS8TmegogO7tVEX+gS+OnnGKUPCgYEbXCR0xPvn75rJnp6fPhpq81tuGA==
+	t=1794200718;
+	b=uvZ8V9+Zlb5wsGDpN42IZCAc9gTxWWCb4sxFAodZL4T+iVKrar8xvamhJnZCGl93h/FY
+	 qOdKdJUYNSYBPh7NillVQb/7SxRjQnZKFVtsd0m3fltdjkafVKaTFjrCCq0MYZ0sJSSs0
+	 n7uU82wsA9q8fuOsbCxadziuR78k8E1aRtas6MhaNa+NARV5SLpB+RLM7JxPByFN3x6eS
+	 zlNxcxoTxiweEDBio8mgrChmNU9DYBNCVHyXORxGibwMMOqSRD6FGy1nlSp7ITp9IVY6P
+	 QFYLyUqwvUnzZWYw3zsTw9YmzgCEnDHsQmTQ1o1fL5lXmAaT7anOMML8cFEDuJfc5UA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794200611;
-	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=WKDYdtIPpXv/RzXHp6m0fnJtTmWjQH/piwGs13om7po=;
-	b=i6DTyae+ZCpmfGzCGchOR5MeqPb2cTjv6nsF+B75NSOMyWIw7Rb2OF6OLJaUq01CCaN6
-	 zo+tQ65KCjVKL1jJ+RAH9sCVmdK8wRRiZ4olfsVW4YwA7wyi0VnKVup6tCqtDmP6mxRzy
-	 PQMwIIiF3jTx+W8b1wWk9w41j26X0sG4XsJkD12tZdlDcVTuEpUvzF5ykYNpHDxmPG/3u
-	 7D14x4uaQH+6EV7ohgmmrbbpxLQSKvZg+WlDraODRmq+6fKWpsQciVRh/vlw6ONGRmSvM
-	 tKV8SME2Qdx7PNeR0h4Fcfatu7D7mTrZgDWlvIfFciR5ois6bc+jAjsHuKWgOaNFAiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794200718;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=YhDYB9VCD0yrPWZ2fcw1r0wfo4j7xSr05dSXAefrmpI=;
+	b=Q47Eb5JMlv3/yvUw363mYR2EozTYAfinbfnvQYox63VenQpRNTTkFnQgXdn7RCqC067x
+	 l6ai559wXQDPG9lCkv2oIQfRpYJ1qIxkqytIz6zpBs9yedHyyDsgQOuYulo7WAYil9ACF
+	 wfWe2I6tJt047GUzCowDOlvnu+ByyQ9h6KQBFdIGzSI9bParLs7mLS5P/c8yLxp07Ju5v
+	 pJQslg4s3DWjWxFs7in3e20GFwk4Vs4i9fSl5OxzHkgA64yR/YYx0PzbU/2sHOhwVMLA1
+	 sXKqAqdQyd/ZkYY7T2L3uCW7wfyQ01u4C/HfKM8DNmZx1CKyAuHWZZmGEqEIvUBTKAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GD03ukNX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RT0uoa9D;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 762EC606A31C;
-	Mon,  9 Nov 2026 05:03:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD5D606A31C;
+	Mon,  9 Nov 2026 05:05:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GD03ukNX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4746B1F0089F;
-	Mon,  9 Nov 2026 05:03:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RT0uoa9D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78401F0089F;
+	Mon,  9 Nov 2026 05:05:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794200611;
-	bh=WKDYdtIPpXv/RzXHp6m0fnJtTmWjQH/piwGs13om7po=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=GD03ukNX3qpJy/ulw8mljNcuZ+ffE/s+zMEiPrDEJKEQ+cye+2q2ws/q05r9C/MwA
-	 8lK5saBohFqhyS1SyDBT7NAkEwD8aM3vrlD9P4LPvGRgDSSGrGefVUdGFsWkIN+fho
-	 KpZxXNBbAQhXwg6sB5B8D8Vm59TczWTrD2qm7awrv0ZfpqU3B5VLjxjl7H1AjqQp4S
-	 i75YS8Qrd7Vyem4PeyW90tc16A0bzx+XMbNpRh3pm5DhqNFrGg/rEHLk/84mg3sQqd
-	 qGoOtS7woGspYXn7FCWWhnpfaGDKLNbR/J6K7jjxa7wcob9PfNJ6OsgEBIyHaJT/Ms
-	 gyMazdqf0pplA==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Christian Brauner <brauner@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Fred Griffoul <fgriffo@amazon.co.uk>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jianxiong Gao <jxgao@google.com>,
-	John Starks <John.Starks@microsoft.com>,
-	Michael Roth <michael.roth@amd.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Tarun Sahu <tarunsahu@google.com>,
-	Vishal Annapurve <vannapurve@google.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>
-Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-mm@kvack.org,
-	Ackerley Tng <ackerleytng@google.com>
-Subject: Re: [PATCH RFC v3 64/88] vfio: Add vfio_device_gmem_revoke helper
- for guest_memfd
-In-Reply-To: <20261106-gmem-alternative-providers-v3-64-8484dde66a7e@google.com>
-References: <20261106-gmem-alternative-providers-v3-0-8484dde66a7e@google.com>
- <20261106-gmem-alternative-providers-v3-64-8484dde66a7e@google.com>
-Date: Mon, 09 Nov 2026 10:33:20 +0530
-Message-ID: <yq5av766tx47.fsf@kernel.org>
+	s=k20260515; t=1794200717;
+	bh=YhDYB9VCD0yrPWZ2fcw1r0wfo4j7xSr05dSXAefrmpI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RT0uoa9Dmej4PB7jnw7+6GHBmV2aqp8rxLzZhCFTSlPlfvfdPDiHGIEslZ17OZREG
+	 hL1FF+CPSSwwWWTYAE56jq+ewwJN7Ud1U/tOmFeTWXN8xEkGqTwFlM2BNuhiJv4h4S
+	 +48eRoTtr7bgOl4RvDB0Z1Os00GK6z6qo+GflBLwJ99Ab+1gjrAAmlXUdHE0YiAhWn
+	 AsV3E7XJOaAxQ4jU/8k84EtCXndx6hqBYY+GC68HS64vPE6esEScmPpMuDzT2389Nq
+	 EzEAxiIRQIfGsLIjj4lyhT9eWN4Jj7KIr+uXrTeoRFkyBHiXtJ7FIKCgnAsQvFobJi
+	 poDZv/d6ltbYw==
+Date: Sun, 8 Nov 2026 21:05:15 -0800
+From: Namhyung Kim <namhyung@kernel.org>
+To: lirongqing <lirongqing@baidu.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Alexander Antonov <alexander.antonov@linux.intel.com>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] perf iostat: Release the port list if command allocation
+ fails
+Message-ID: <avFUi_R0dzVEaT2X@z2>
+References: <20261106021840.2186-1-lirongqing@baidu.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,23 +64,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261106021840.2186-1-lirongqing@baidu.com>
 
-Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-writes:
+Hello,
 
-> From: Ackerley Tng <ackerleytng@google.com>
->
-> When physical device regions backing guest_memfd memory must be revoked
-> due to hardware reset, power state transitions, or memory decode state
-> changes, the bus driver must revoke and reclaim the memory ranges from
-> guest_memfd before modifying hardware state.
->
+On Fri, Nov 06, 2026 at 10:18:40AM +0800, lirongqing wrote:
+> From: Li RongQing <lirongqing@baidu.com>
+> 
+> The event-group builder takes ownership of the root port list and frees
+> it on its normal and parsing-error paths. If allocation of the event
+> command fails, however, it returns directly without releasing the list,
+> its pointer array or its ports.
+> 
+> Use the existing cleanup path for this allocation failure too, before
+> any port has been transferred to an event.
+> 
+> Found while testing the iostat fixes with allocation fault injection.
+> 
+> Fixes: f9ed693e8bc0 ("perf stat: Enable iostat mode for x86 platforms")
+> Signed-off-by: Li RongQing <lirongqing@baidu.com>
 
-Should we prevent such operations while the VFIO fd is attached to
-guest_memfd? Some of these operations can transition the device to the
-TDISP error state, and we should avoid host operations that can result
-in vfio_pci_zap_bars().
+This patch doesn't apply.  Can you please rebase onto the current
+perf-tools-next?
 
--aneesh
+Thanks,
+Namhyung
 
+> ---
+>  tools/perf/arch/x86/util/iostat.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/tools/perf/arch/x86/util/iostat.c b/tools/perf/arch/x86/util/iostat.c
+> index 2dc5ac6..f8b4939 100644
+> --- a/tools/perf/arch/x86/util/iostat.c
+> +++ b/tools/perf/arch/x86/util/iostat.c
+> @@ -342,8 +342,10 @@ static int iostat_event_group(struct evlist *evl,
+>  	struct perf_cpu cpu;
+>  	unsigned int cpu_map_idx;
+>  
+> -	if (!iostat_cmd)
+> -		return -ENOMEM;
+> +	if (!iostat_cmd) {
+> +		ret = -ENOMEM;
+> +		goto err;
+> +	}
+>  
+>  	for (idx = 0; idx < list->nr_entries; idx++) {
+>  		sprintf(iostat_cmd, iostat_cmd_template,
+> -- 
+> 2.9.4
+> 
