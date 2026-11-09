@@ -1,60 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794262781;
-	b=zAriGQJjAXMpzBL9YWgmw6uOlScceSyJS97KS74WQ4g8X3CVBB19zfCVhq9xNqhBl4/G
-	 0lhs7GI/N/MeMJkzcTxOWE8HeQSELlJqUL5MQ1JmI4skrAUgKx82dQYs7wJ6kw7/olckG
-	 /HxWdMEVdUw0jgu6+sIadOynEkj8KHHLdq5vX7foGdz5CCpu72mlO3fc7670AlLU3ZvnL
-	 yPQxdSNlBF6wBYEgTyPtdS+4qWkD+XDusar+rYe4CyU2NzCCF9lgYeKOJpGV2YusPmlWk
-	 eblTqNlIVX+KOQQGzWXwMsmNCTnMfsQBaLD/YWZJbXiIULugxamx0qtiHEis3l0Yfuw==
+	t=1794262796;
+	b=frcczNE+rPS/7tjwB4StAubmoJXA4oCTyBJTsorECJ8LpqpizMftAe8EW1ZB2PKS2MF3
+	 dOe16IizzXNlYCzHScQh/vzjiKDV5Wvngfp4dI/TAG2e9lXN3I8ScfDUj8AXaTyXfqpSe
+	 YTOIUMNrRaEksg+aPCldVgVZLAab+Qi3xEBNQoY4tdrvmZvpU/5eeiJBbhZ+YMa3fOvV6
+	 JR1KOVP8AfBuhst+jODFiQYQXm8DofoG6T8XDsoOqu3CMbat7QjsF48DVfbBhbvg5XBUJ
+	 k9tHyFxuMQgvG0zPvd5EOnI3lDvWxKaseuBzOlptBzpIbUfWzS25PI4p/l2QRsyQpuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794262781;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ieIwxx7aww9l648mtXdPCLcHQjOhw/DTkMOJRAxpEdU=;
-	b=KQtPl7mNjNEMl8jq0iw3ru08Ykh8U5EZzAxqK5nAAeySuCL9kj4rGweak6NDw3bxGMBB
-	 5YaY2WxCRis8SicsHJl30BQGFsEqCv3wv4YXukSB0EATltpQmZPafYqnVovglLXci7eoT
-	 YbGJt74nhaU54wS/MqxnRPnx794FwoiVu7z/BqRt1XpoQUjOkNJVos79pLkcM6pOb4pxw
-	 Dlau+fKZxjhvixyL1TY4DdF/0znCqiy77M2SOHxRe4E9vCKl30PHCtRLdsPquskv8HPJ1
-	 twyN6BldBgIZIoLiy6Ba38hfAtanaDOpFBm+fPWphgk8PEbsZKyP/fJ/fjWISf0xXdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794262796;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=mh9nxcR7Zr7PjDB2zP6X1jj+dDf2TtwXNgUmCiBrw3g=;
+	b=aZrBLsC+f/itUULqnUHblYErTzua54Lr4bXIgSdBa8uQQYGavopu2QHfngwf3xgQmghd
+	 mJZdV5YMP5asvkzatNso8DcJfHE5vsaxP5sRToPov4Ze8Tpzs+z7UuZUCfufSp/5SmwXj
+	 7Q7QDpjd8j7lu4hf5qCYp1CXi+LvpO08zCH8YINcigxrd+3VbZw2As7kAoTMj5CsPcbTf
+	 mAkRCOI4FuLi531QKwc1V/bUrJDveD94mXu0Rpmer2J2MeEx2WQZOYBfiS+esweTKoSpL
+	 ObjSRAJAMHQsrP2QUfqK5Vfqts4CxHlnRx+uf6ihbIJE3EwjG+v4Q2ergCfVUCQSgjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+bYfXyg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EEmDxAoh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66039606A333;
-	Mon,  9 Nov 2026 22:19:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6766606A33B;
+	Mon,  9 Nov 2026 22:19:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+bYfXyg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E27E1F008BD;
-	Mon,  9 Nov 2026 22:19:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EEmDxAoh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B3AE1F0089F;
+	Mon,  9 Nov 2026 22:19:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794262781;
-	bh=ieIwxx7aww9l648mtXdPCLcHQjOhw/DTkMOJRAxpEdU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y+bYfXygzrAg1w+bc2WSLfp4zREsjCyng7vmt0NA15o8TNEWFwv06x4Ox603qRNfP
-	 ghiMeBVqkt8B0GEuod5EtISRjJoZYUDbYjqRb0Jx91kXVKNiHJ0gL7+jLRZdh9jp6X
-	 YKs4Nduweee/eznd/Y1T6hZwkf8F2PWIfxkHsQx5870F+KJHtIQgFcoRd90DUzJecU
-	 fdoYbExtHVqD3AVGMAIXYphQCZdaqUMwlJQwOCoiwARI1m6YWwvTlKQkkHF2HEc2GG
-	 UsICsVgkT3QHstXV4v9UHt88LmwKMrIp6s4EKrr7qL/I9/qg7gZNcw44fzK8Do6dXH
-	 bTe9xF7vPHGvg==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id B3FA2CE0F2E; Mon,  9 Nov 2026 14:19:40 -0800 (PST)
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: rcu@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	rostedt@goodmis.org,
-	Kunwu Chan <kunwu.chan@gmail.com>,
-	"Paul E . McKenney" <paulmck@kernel.org>
-Subject: [PATCH 4/8] Documentation/litmus-tests: Add SRCU fastpath scan-before-anchor test
-Date: Mon,  9 Nov 2026 14:19:35 -0800
-Message-Id: <20261109221939.2070171-4-paulmck@kernel.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <db8c185c-5523-48e5-abee-020503b4875f@paulmck-laptop>
-References: <db8c185c-5523-48e5-abee-020503b4875f@paulmck-laptop>
+	s=k20260515; t=1794262795;
+	bh=mh9nxcR7Zr7PjDB2zP6X1jj+dDf2TtwXNgUmCiBrw3g=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=EEmDxAoh61ZU2/SzdFii62fvjMhKDBql+O6A/RaJRzSM6nfKIZzyKZSDXkevBtc/j
+	 725LrBhrE6BMbCedcK71xP3XV0F2YnhDqxM0nLRege7K62JrJSapGikDOWIPOnqrnM
+	 yNYh9DcWnDdva7Y6hVZ3eG3T67PFBryeB1MRUz4b09f1/Za9C419GfMOD8r+mYDEjo
+	 JuDqyOztivMUDSuw+TGLe0mFVUh52c/YKCPRiQsXbKZtE8mu4wBtW2IAlkcxSQ8j+N
+	 CIEsiBQ/6qFBhuQyM9+AMhl/dZywzNZnHGhzmluxEAIsrmHvIRYToSJpYT4HTmnjS2
+	 HExGd3x54pvTg==
+Subject:
+ Re: [PATCH net-next v3 1/2] net: ethernet: mtk_eth_soc: skip page_pool
+From: netdev-bot+sashiko@kernel.org
+To: sandeeph@loljews.com
+Cc: netdev@vger.kernel.org, nbd@nbd.name, lorenzo@kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, linux@armlinux.org.uk,
+ mason-cw.chang@mediatek.com, frank-w@public-files.de,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Date: Mon, 09 Nov 2026 22:19:54 +0000
+Message-ID: <179426279414.994134.13678817461648195791@kernel.org>
+In-Reply-To: <patch-e9b81d2fdf3b2d4b11048e6a642bcfcc@loljews.com>
+References: <patch-e9b81d2fdf3b2d4b11048e6a642bcfcc@loljews.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,123 +67,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Kunwu Chan <kunwu.chan@gmail.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-If the synchronize_srcu_atomic() fastpath instead places its lock scan
-before the grace-period anchor, the scan can miss a reader whose
-increment was already visible before the anchor.  That reader already
-existed when the grace period started, so completing the grace period
-without waiting for it would violate the SRCU grace-period guarantee.
+Critical: 0 (1) · High: 0 · Medium: 1 · Low: 2
 
-This litmus test models the reversed ordering, with the lock scan placed
-before the grace-period anchor.  "seq" models the grace-period anchor in
-->srcu_gp_seq and "ctr" models the per-CPU ->srcu_ctrs[].srcu_locks
-counter.  P0 scans the lock counter before writing the anchor, with an
-smp_mb() between them.  P1 models the reader-side counter increment.
-P2 models an observer that sees the reader's increment before seeing
-the anchor.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-The same outcome is allowed with this ordering, and herd7 reports
-"Sometimes".  The litmus-tests README is also updated to describe both
-SRCU fastpath tests.
+- [Medium] The new gate in mtk_rx_alloc() (`mtk_page_pool_enabled(eth) &&
+  ring->buf_size <= MTK_PP_MAX_BUF_SIZE`) means a netsys v2+ ring can…
+- [Low] The commit message does not match the code.
+- [Low] The new comment in mtk_rx_alloc() describes changelog history
+  rather than the code.
 
-Tested with herd7 7.58 using linux-kernel.cfg.
+Pre-existing issues:
+- [Critical] This problem wasn't introduced by this patch, but in
+  mtk_poll_rx() the release_desc path rebuilds the descriptor's high DMA…
 
-Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
----
- Documentation/litmus-tests/README             | 19 +++++++
- .../SRCU-fastpath-scan-before-anchor.litmus   | 52 +++++++++++++++++++
- 2 files changed, 71 insertions(+)
- create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
+--
 
-diff --git a/Documentation/litmus-tests/README b/Documentation/litmus-tests/README
-index 6c666f3422ea3..4d4ec9c6f2cc7 100644
---- a/Documentation/litmus-tests/README
-+++ b/Documentation/litmus-tests/README
-@@ -78,3 +78,22 @@ RCU+sync+read.litmus
- RCU+sync+free.litmus
-     Both the above litmus tests demonstrate the RCU grace period guarantee
-     that an RCU read-side critical section can never span a grace period.
-+
-+SRCU (/srcu directory)
-+----------------------
-+
-+SRCU-fastpath-anchor-before-scan.litmus
-+    This models the synchronize_srcu_atomic() fastpath with the
-+    grace-period anchor ordered before the lock-counter scan.  This
-+    ordering prevents readers that existed before the grace period
-+    from being missed by the scan.  See
-+    SRCU-fastpath-scan-before-anchor.litmus for the reversed
-+    ordering.
-+
-+SRCU-fastpath-scan-before-anchor.litmus
-+    This models the synchronize_srcu_atomic() fastpath with the
-+    lock-counter scan ordered before the grace-period anchor.  This
-+    permits the scan to miss readers that existed before the grace
-+    period, violating the SRCU grace-period guarantee.  See
-+    SRCU-fastpath-anchor-before-scan.litmus for the opposite
-+    ordering.
-diff --git a/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus b/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
-new file mode 100644
-index 0000000000000..7df0641b5470f
---- /dev/null
-+++ b/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
-@@ -0,0 +1,52 @@
-+C SRCU-fastpath-scan-before-anchor
-+
-+(*
-+ * Result: Sometimes
-+ *
-+ * If the synchronize_srcu_atomic() fastpath instead places its lock
-+ * scan before the grace-period anchor, the scan can miss a reader whose
-+ * increment was already visible before the anchor.  That reader already
-+ * existed when the grace period started, so completing the grace period
-+ * without waiting for it would violate the SRCU grace-period guarantee.
-+ *
-+ * This litmus test models the reversed ordering, with the lock scan
-+ * placed before the grace-period anchor.  "seq" models the grace-period
-+ * anchor in ->srcu_gp_seq and "ctr" models the per-CPU
-+ * ->srcu_ctrs[].srcu_locks counter.  P0 scans the lock counter before
-+ * writing the anchor, with an smp_mb() between them.  P1 models the
-+ * reader-side counter increment.  P2 models an observer that sees the
-+ * reader's increment before seeing the anchor.
-+ *
-+ * The same outcome is allowed with this ordering, and herd7 reports
-+ * "Sometimes".  See SRCU-fastpath-anchor-before-scan.litmus for the
-+ * opposite ordering, which forbids this outcome.
-+ *)
-+
-+{}
-+
-+P0(int *seq, int *ctr)
-+{
-+	int r2;
-+
-+	r2 = READ_ONCE(*ctr);
-+	smp_mb();
-+	WRITE_ONCE(*seq, 1);
-+}
-+
-+P1(int *ctr)
-+{
-+	WRITE_ONCE(*ctr, 1);
-+}
-+
-+P2(int *seq, int *ctr)
-+{
-+	int r3;
-+	int r4;
-+
-+	r3 = READ_ONCE(*ctr);
-+	smp_mb();
-+	r4 = READ_ONCE(*seq);
-+}
-+
-+filter (0:r2 = 0)
-+exists (2:r3 = 1 /\ 2:r4 = 0)
+net: ethernet: mtk_eth_soc: skip page_pool
+
+This commit adds a ring->buf_size <= MTK_PP_MAX_BUF_SIZE condition to the
+page_pool creation in mtk_rx_alloc(). Rings whose descriptor length is
+larger than the pool can back fall back to netdev_alloc_frag() or
+mtk_max_lro_buf_alloc(). It is described as preparation for 9K jumbo
+support in the next patch, with no functional change at this commit.
+
+Link: https://github.com/mediatek/mtk-openwrt-feeds
+
+> net: ethernet: mtk_eth_soc: skip page_pool
+
+[Severity: Low]
+This isn't a bug, but the subject line looks cut off. It doesn't say when
+the page_pool is skipped.
+
+> Gate the pool on ring->buf_size instead of ring->frag_size: frag_size is
+> computed with the netdev_alloc_frag() layout, whose headroom and
+> skb_shared_info footprint differ from the pool's, so a ring can pass a
+> frag_size <= PAGE_SIZE test while its descriptor length is already larger
+> than the pool can map.
+
+Is "instead of ring->frag_size" accurate? Before this patch, the only
+gate on the pool was:
+
+	if (mtk_page_pool_enabled(eth)) {
+
+The ring->frag_size <= PAGE_SIZE test exists only in the non-page_pool
+branch. There it chooses between netdev_alloc_frag() and
+mtk_max_lro_buf_alloc().
+
+So this patch adds a new size condition rather than replacing a frag_size
+one. The frag_size vs. buf_size reasoning and the no-functional-change
+claim both look correct. Could the wording avoid implying that a
+frag_size gate existed before?
+
+> diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+> index ad0fdc4133fb6..f2b2fb1130ff9 100644
+> --- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+> +++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+> @@ -2819,7 +2819,15 @@ static int mtk_rx_alloc(struct mtk_eth *eth, int ring_no, int rx_flag)
+>  	if (!ring->data)
+>  		return -ENOMEM;
+>  
+> -	if (mtk_page_pool_enabled(eth)) {
+> +	/* page_pool hands out order-0 pages and caps the DMA mapping at
+> +	 * MTK_PP_MAX_BUF_SIZE, so it can only back a ring whose descriptor
+> +	 * length fits that.  Today every ring does; this is the preparation
+> +	 * for the 9K support in the next patch, where the normal ring grows
+> +	 * past the pool's limit and takes the netdev_alloc_frag()/
+> +	 * mtk_max_lro_buf_alloc() path below instead.
+> +	 */
+
+[Severity: Low]
+This isn't a bug, but this comment describes the series history rather
+than the code. The follow-up "net: ethernet: mtk_eth_soc: add 9K jumbo"
+leaves it unchanged. After that patch:
+
+  - "Today every ring does" is no longer true. A 9K ring has buf_size
+    9216 and no pool.
+  - "the next patch" no longer refers to anything.
+  - mtk_max_lro_buf_alloc() has been renamed to mtk_max_buf_alloc().
+
+Also, does page_pool really cap the DMA mapping at MTK_PP_MAX_BUF_SIZE?
+mtk_create_page_pool() uses:
+
+	.flags = PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV,
+	...
+	.offset = MTK_PP_HEADROOM,
+	.max_len = MTK_PP_MAX_BUF_SIZE,
+
+PP_FLAG_DMA_MAP maps the whole order-0 page. max_len only limits the
+sync-for-device length. The real constraint seems to be that
+RX_DMA_PREP_PLEN0(ring->buf_size) must not exceed offset + max_len.
+
+> +	if (mtk_page_pool_enabled(eth) &&
+> +	    ring->buf_size <= MTK_PP_MAX_BUF_SIZE) {
+
+[Severity: Medium]
+With this condition, a netsys v2+ ring can now have
+ring->page_pool == NULL. In mtk_poll_rx(), XDP only runs in the
+page_pool branch:
+
+	if (ring->page_pool) {
+		...
+		ret = mtk_xdp_run(eth, ring, &xdp, netdev);
+		...
+	} else {
+		if (ring->frag_size <= PAGE_SIZE)
+			new_data = napi_alloc_frag(ring->frag_size);
+
+If an XDP program is accepted while the ring has no pool, the program
+silently never runs.
+
+This can't happen at this commit, because buf_size is always 2048. With
+the follow-up "net: ethernet: mtk_eth_soc: add 9K jumbo" applied,
+mtk_xdp_setup() checks the rx_buf_len recomputed from the current MTUs:
+
+	if (dev->mtu > MTK_PP_MAX_BUF_SIZE ||
+	    mtk_rx_buf_len(eth) > MTK_PP_MAX_BUF_SIZE) {
+
+It does not check eth->rx_buf_len, which the live rings were allocated
+with, or ring->page_pool itself.
+
+Can this sequence on MT7988 with two GMACs attach an XDP program that
+never runs?
+
+1. With both interfaces down, set eth1 MTU to 9000. mtk_change_mtu()
+   takes the !running branch and sets eth->rx_buf_len = 9216.
+
+2. Bring eth0 and eth1 up. buf_size is 9216, so no page_pool is created.
+
+3. While running, set eth1 MTU back to 1500. mtk_change_mtu() allows it:
+
+	running = refcount_read(&eth->dma_refcnt);
+	if (running && rx_buf_len > eth->rx_buf_len)
+		return -EBUSY;
+
+   eth->rx_buf_len stays at 9216.
+
+4. Attach XDP to eth0. mtk_xdp_setup() sees dev->mtu 1500 and
+   mtk_rx_buf_len(eth) 2048, and accepts the program. Its mtk_stop() and
+   mtk_open() calls only move dma_refcnt 2->1->2, because eth1 is still
+   up:
+
+	if (!refcount_dec_and_test(&eth->dma_refcnt))
+		return 0;
+
+   So the rings are not reallocated.
+
+The attach returns success, but all RX traffic bypasses the program.
+xdp_features is also still advertised based on mtk_page_pool_enabled()
+alone.
+
+Could mtk_xdp_setup() check eth->rx_buf_len, or whether the rings have a
+page_pool, instead?
+
+>  		struct page_pool *pp;
+>  
+>  		pp = mtk_create_page_pool(eth, &ring->xdp_q, ring_no,
+
+[Severity: Critical]
+This is a pre-existing issue and wasn't introduced by this patch. While
+looking at the fallback path that this series moves MT7988 jumbo rings
+onto, it looks like mtk_poll_rx() can hand a descriptor back to the
+hardware with a mixed DMA address.
+
+dma_addr is set once, outside the loop:
+
+	dma_addr_t dma_addr = DMA_MAPPING_ERROR;
+
+The release_desc path rebuilds the high address bits from it:
+
+skip_rx:
+		ring->data[idx] = new_data;
+		rxd->rxd1 = (unsigned int)dma_addr;
+release_desc:
+		if (MTK_HAS_CAPS(eth->soc->caps, MTK_36BIT_DMA)) {
+			if (unlikely(dma_addr == DMA_MAPPING_ERROR))
+				addr64 = FIELD_GET(RX_DMA_ADDR64_MASK,
+						   rxd->rxd2);
+			else
+				addr64 = RX_DMA_PREP_ADDR64(dma_addr);
+		}
+
+Suppose iteration N refills its slot with buffer X, which leaves
+dma_addr set to X. Iteration N+1 can then jump straight to release_desc
+in three cases:
+
+  - there is no netdev for the source port
+  - MTK_RESETTING is set
+  - a GFP_ATOMIC allocation fails in mtk_page_pool_get_buff() or
+    napi_alloc_frag()
+
+mtk_page_pool_get_buff() only writes *dma_addr on success. In that case
+rxd1 still holds lo(Y) for the buffer Y the slot owns, but rxd2 gets
+hi(X).
+
+On MTK_36BIT_DMA SoCs with DRAM above 4 GiB, can the NIC then DMA the
+next frame to hi(X)|lo(Y), which is neither buffer? The driver would
+later call dma_unmap_single() on that address and pass the stale
+contents of Y up the stack.
+
+Should dma_addr be reset to DMA_MAPPING_ERROR at the start of each loop
+iteration?
+
 -- 
-2.40.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/patch-aad4cfa8d9522d1f7dbc9893ea12e813%40loljews.com
