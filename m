@@ -1,68 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.199.235.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794246948;
-	b=BD7/f0A7cp+GVUY9/8Io5y5reyDlNYz4HkLuJ0DmZh3CyRFsOPZc7L983xMoRUYmCI/4
-	 Rr0nYNUYJpV5Pzvug6hgjwrO4DlBB0m0+5szTFv9gSGT+ORcyZw6zMy//l5YJzPWK4QA4
-	 4VgxY9JSuEfc/pvrB6yEmycOOprWoAruSKZ/TOc0aFIVaKWqJ37CAJBFWLTmhKHMGcAvv
-	 pKXwazb1BOLarvWTZ8KCe6sH/C4jNK+HlXhk+tu+Y6Bukf2DwOBzfwgK1au3gTpEeQ/Vj
-	 vxvrA7vQsllSFYivXWqJSzQCnpoYbdss5Mea7rG6FNiTyhMbsg9exj0LP7ZepovDgrw==
+	t=1794246975;
+	b=pnNph+WdQIACQDKWKYl2K8NEzdDDXEVubYOYG/XX7NQT6iHU2qdRKw+B8Fbclf8knhB3
+	 E+zVQGemYgMvdkxl36UAztjU6IsfmX2DA7hEGg6pgpN7VZuOKSg+Y5Ey0SvA75pjIb2QF
+	 gs2oGp3Fk1x0TcZAwRFOtbWMbJQ0YKCuy9MdAJvMJo0Nshoj+7nNyCUoApx31vNLosxW4
+	 NFAYeJG4vNqk5uGlc9Wy7S6hdQtoZ/u1ZOdn1mhCqN2iPBYRpupKPrKNOWMeGR+7AbW5f
+	 F6sSErKygcRci+GOBRqepT0oNHStcvahkK438LFfkB8Zr1a08AtOt/gRvMp1POcpvcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246948;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=6bKX3aMMhixRTUNzDdHxk7FZKlQ3NYr1JIqZdM+Irpc=;
-	b=pGgfE41FxKk/WMcmRhfcEBz2I9ooerf1DL+ow3NVwqK+pIb8TM7Oeb9NGFDpgf7IWTlC
-	 AzUmWvXECXgzRMwrg1jN/8LHVvtiYW7Zn4Qz2lK3DCBVsews1DtEwiLY8JwuU+++h57g6
-	 JsvQN8/hkU2g1TDMY4BMp4qk/G1rwAr/1pL+IUzd9YIp7uF72qcA9Ly/NeUptB7aRcJvP
-	 JdwyxTO01OTU/rS7jGYnakL0U8iK3Q3ig0JmfDnXCX1m0xxACvWRVgt1veENwDvlCndOS
-	 cLh1AR+i4OfEFcizAoAFrL3Y2pXrIwX4Yx4ncpg3/HJK3Z7HB5DELlWFpCHFK1i63Zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246975;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:
+	 X-Virus-Scanned:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=if0cEUuJl6s7o+37uuaoQnPEf1nh2eR1DDff4vzhVvw=;
+	b=UuNsZBCuJHaXm3kCF350oQBkyzViRPQHuN9UEHZ1OKvuF0DlRucHWKMqenDYv5lVUgOZ
+	 VqoVTHZr+SMMrqvlBokvLTZ1dbO6cvSpQ5daPL75ysKaFSi2LWCDrv15ZJIT2UD/RwgOt
+	 voJUTtKRqD9LNvL4XDLaB4E6wXJG2ud7j0/TirqHnZGLEHgAgWFR9ev8SH8yCl9SLuZZc
+	 0eZ5dz+dPu72lkvZK6x8eLXALxZrvY10b5gqXGMua/y1IzTPaF3FS5wPK2qKx/p5uR1B8
+	 4PCL7Y9/a7k+3deK/f5hax/4KS8w7+fthk/CdFY5XN3rScTaPzm4DBIzFld63L366KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kN1nFyIr;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=cirad.fr;
+	spf=pass smtp.mailfrom=cirad.fr;
+	dkim=pass header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=oYDVBy24;
+	arc=none smtp.remote-ip=194.199.235.221
+Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE26606A31C;
-	Mon,  9 Nov 2026 17:55:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AE26606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C9D4606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:56:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C9D4606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cirad.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cirad.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kN1nFyIr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794246948; x=1825782948;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=8rkFS1gDTEYHVkLMdZ+zlX60pR3SDfNCsmHMqLuoh18=;
-  b=kN1nFyIrtI1E/j8/vTXFRKhdZDxpgSn+SHthu3ibxjqqudzyMhRM0rbL
-   rKEixvHWjI2x63X+FMKiHjzoUjke9FgZoJMO0sSMgb7HbtLRxVRtJyyR9
-   u8GS4E/giqIRHptl16zTj36HOY4T0bmYdAdseddKS8+Jgoy1b64afRSR8
-   tdGp6CGZmJR2pgu2utZRM1V/jnXyb7wqCZ7uZZxNLyR6oeOTzMWFJnyfu
-   R9Hlok+E83eCwMPUo5w5r777TSyt7rsZkU508sSOQXHWYQxBeDB3n/6Sc
-   kxzjnD1mzKYUJkjK+cYGdziP2GVVMXllXTNjAovf1CevEEpsdK4M15tej
-   Q==;
-X-CSE-ConnectionGUID: wfgVPIWvQriCtXbK8emzCw==
-X-CSE-MsgGUID: caWi0VCHR/2EQDgGktzmfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2878648"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2878648"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:55:44 -0800
-X-CSE-ConnectionGUID: U8vhVYsyR7euGllKRrqZTA==
-X-CSE-MsgGUID: o2O6LOgOTKS6H7TLgCe9Jg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8248962"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:55:41 -0800
-Message-ID: <e977b107-7762-46d3-ba31-832eb9ae609c@intel.com>
-Date: Mon, 9 Nov 2026 11:55:39 -0600
+	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=oYDVBy24
+Received: from retz.cirad.fr (localhost [127.0.0.1])
+	by retz.cirad.fr (Postfix) with ESMTPS id E539B20D174F;
+	Mon,  9 Nov 2026 18:56:11 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by retz.cirad.fr (Postfix) with ESMTP id CA90220D1763;
+	Mon,  9 Nov 2026 18:56:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr CA90220D1763
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
+	s=573E3878-7916-11F1-BF4B-F68474317960; t=1794246971;
+	bh=if0cEUuJl6s7o+37uuaoQnPEf1nh2eR1DDff4vzhVvw=;
+	h=From:To:Date:Message-ID:MIME-Version;
+	b=oYDVBy24embrLcOhPvc9Soom3Wb65A7jOH7HnOfsg25PrEG3kA9kjALksaYLGTVFN
+	 tXhemg5Ep+rY8ADfNrM5Af6yYCG6kO0qgQ1t0CdApljhd2Zfsb4ghSQERIis1mTttn
+	 dqkBnOIqcruJvOnGG4VsTKUSOd0o59qwY1phmkGT9YAwdDSGe99EGCf/LIS/sqeMpQ
+	 9HJIRj2n/2l8txgZBH9PxyNgn17Aebx83JMa2cY9xmCqh5STI47qlb/NhQwwzzHBH0
+	 L8j66/G2oFEG/YmQ6l/Xx5tupok6+anikzA/UGQzmLM7C5DZKjhNab8PQhJRNASYYn
+	 O2HozvcdvJwwA==
+X-Virus-Scanned: amavis at retz.cirad.fr
+Received: from retz.cirad.fr ([127.0.0.1])
+ by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id Gr6o4wC3rV3i; Mon,  9 Nov 2026 18:56:11 +0100 (CET)
+Received: from localhost.localdomain (78-196-243-100.subs.proxad.net [78.196.243.100])
+	by retz.cirad.fr (Postfix) with ESMTPSA id 5236220D174F;
+	Mon,  9 Nov 2026 18:56:11 +0100 (CET)
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>
+Cc: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] riscv: defconfig: enable onboard USB hub support
+Date: Mon,  9 Nov 2026 18:55:49 +0100
+Message-ID: <20261109175555.323067-1-frederic.mahe@cirad.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,135 +80,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/18] KVM: x86/pmu: Add PMC bitmap accessor helpers
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20261106013927.166209-1-zide.chen@intel.com>
- <20261106013927.166209-5-zide.chen@intel.com> <au4kyULjUYdqbfIq@google.com>
- <531bd088-dc5e-4b2e-953a-6d9d6f14b61e@intel.com>
- <CAO9r8zMs+aBPN-w7L3nZxwVV-Dr2f0tBYBjicDsdYVp_Mc2AWg@mail.gmail.com>
-Content-Language: en-US
-From: "Chen, Zide" <zide.chen@intel.com>
-In-Reply-To: <CAO9r8zMs+aBPN-w7L3nZxwVV-Dr2f0tBYBjicDsdYVp_Mc2AWg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
+The Banana Pi BPI-F3 (SpacemiT K1) has a VL817 USB 3.0 hub behind its
+DWC3 controller. The hub's power and reset come from the
+"usb2109,2817" and "usb2109,817" nodes in the device tree, which need
+the onboard_usb_dev driver. Without it, the hub regulator (USB30_HUB)
+stays off and the board's four USB-A ports are dead.
 
+Enable USB_ONBOARD_DEV as a module, as arm64 defconfig does.
 
-On 11/6/2026 4:35 PM, Yosry Ahmed wrote:
-> On Fri, Nov 6, 2026 at 2:19 PM Chen, Zide <zide.chen@intel.com> wrote:
->>
->>
->>
->> On 11/6/2026 1:09 PM, Yosry Ahmed wrote:
->>>> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
->>>> index b8875ed5502c..4f192429ed93 100644
->>>> --- a/arch/x86/include/asm/kvm_host.h
->>>> +++ b/arch/x86/include/asm/kvm_host.h
->>>> @@ -595,7 +595,10 @@ struct kvm_pmu {
->>>>              DECLARE_BITMAP(reprogram_pmi, X86_PMC_IDX_MAX);
->>>>              atomic64_t __reprogram_pmi;
->>>>      };
->>>> -    DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
->>>> +    union {
->>>> +            DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
->>>> +            u64 pmc_exists64;
->>>
->>> __pmc_exists would be more consistent with __reprogam_pmi above.
->>
->> I used the *64 suffix and without '__' to match the cntr_mask/cntr_mask64
->> and fixed_cntr_mask/fixed_cntr_mask64 pattern in struct x86_pmu_capability
->> (patch 7), whereas __reprogram_pmi used '__' because it is an atomic64_t
->> rather than a scalar mask.
-> 
-> I don't follow why the '__' prefix is specific to atomics, but anyway,
-> I will leave this up to you and Sean.
-> 
->>
->> Also, arch/x86/events/perf_event.h has similar names:
->>
->>         union {
->>                         u64             cntr_mask64;
->>                         unsigned long
->> cntr_mask[BITS_TO_LONGS(X86_PMC_IDX_MAX)];
->>         };
->>         union {
->>                         u64             fixed_cntr_mask64;
->>                         unsigned long
->> fixed_cntr_mask[BITS_TO_LONGS(X86_PMC_IDX_MAX)];
->>         };
->>
->> Seems either way won't be absolutely unifie
->>
->>>> @@ -120,6 +144,17 @@ static inline struct kvm_pmc *kvm_pmc_idx_to_pmc(struct kvm_pmu *pmu, int idx)
->>>>                      continue;                               \
->>>>              else                                            \
->>>>
->>>> +/*
->>>> + * @mask is expected to be a scalar unsigned long derived from pmu->pmc_exists,
->>>> + * which is already constrained by KVM_MAX_NR_{AMD,INTEL}_{GP,FIXED}_COUNTERS,
->>>> + * so iteration up to KVM's maximum counter count is safe.
->>>> + */
->>>> +#define kvm_for_each_gp_counter(i, mask)    \
->>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_GP_COUNTERS)
->>>> +
->>>> +#define kvm_for_each_fixed_counter(i, mask) \
->>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_FIXED_COUNTERS)
->>>
->>> These are not used in this patch, are they?
->>>
->>> They should probably be introduced when they are used. Also, do we
->>> always end up passing kvm_gp_pmc_mask() and kvm_fixed_pmc_mask()? If
->>> yes, maybe we should pass in the pmu here instead?
->>
->> The intent was to group all bitmap accessor helpers together in this
->> patch for easier review so that the big patch 5/18 could be kept to
->> mostly mechanical replacements.
->>
->> But if you prefer introducing them on first use, I'll move their
->> definitions to patch 5.
-> 
-> Yeah I think it's clearer to see what their definitions are with their usage.
+Tested on a Banana Pi BPI-F3 with v7.4-rc1 (dwc3 enabled as a module):
+the module autoloads, the hub comes up on both buses and a USB mouse
+on a USB-A port works. Without it, only the root hubs are seen.
 
-OK, then I can move these two macros to the next patch.
->>
->> Regarding passing 'pmu' directly, I initially implemented it in this
->> way, but I can't recall why I discarded it. I will take another look.
-> 
-> Thanks.
+This patch was prepared with the help of an AI assistant (Claude),
+which also ran the build and boot tests.
 
-How about these? With them, we can remove the {gp,fixed}_mask variables
-that you pointed out in your review of 5/18. The APIs are more
-complicated, but the caller code is much cleaner.
+Signed-off-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
+---
+ arch/riscv/configs/defconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-static inline unsigned int __kvm_find_next_counter(struct kvm_pmu *pmu,
-                                             unsigned int base,
-                                             unsigned int max,
-                                             unsigned int prev)
-{
-        return find_next_bit(pmu->pmc_exists, base + max, base + prev) -
-base;
-}
+diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
+index 04ae305..8fb6d7f 100644
+--- a/arch/riscv/configs/defconfig
++++ b/arch/riscv/configs/defconfig
+@@ -222,6 +222,7 @@ CONFIG_USB_CDNS3_HOST=3Dy
+ CONFIG_USB_CDNS3_STARFIVE=3Dm
+ CONFIG_USB_MUSB_HDRC=3Dm
+ CONFIG_USB_MUSB_SUNXI=3Dm
++CONFIG_USB_ONBOARD_DEV=3Dm
+ CONFIG_NOP_USB_XCEIV=3Dm
+ CONFIG_USB_GADGET=3Dy
+ CONFIG_USB_CONFIGFS=3Dm
 
-#define __kvm_for_each_counter(i, pmu, base, max)                       \
-        for ((i) = __kvm_find_next_counter((pmu), (base), (max), 0);
-     \
-             (i) < (max);                                               \
-             (i) = __kvm_find_next_counter((pmu), (base), (max), (i) + 1))
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+--=20
+2.53.0
 
-/*
- * Iterate over all general-purpose or fixed counters supported by @pmu.
- */
-#define kvm_for_each_gp_counter(i, pmu) \
-        __kvm_for_each_counter(i, pmu, 0, KVM_MAX_NR_GP_COUNTERS)
-
-#define kvm_for_each_fixed_counter(i, pmu) \
-        __kvm_for_each_counter(i, pmu, KVM_FIXED_PMC_BASE_IDX,
-KVM_MAX_NR_FIXED_COUNTERS)
