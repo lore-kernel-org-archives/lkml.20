@@ -1,104 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.132
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794233435;
-	b=cuHZPHdftRIN7KhDUMBfvC4RcVnwOr/aVRUKxTx3e1d6jLOWbdrLyG5/+cDukfwAxGzz
-	 zIC9C9cD359XALq1lyxiYPdsWUAF6rB4RbMyKVXupjQ7xaUpONHVJJiX4z1Kufupd+gKT
-	 GrxACR4DS6fs0zBmq4Md70liyVWTaSm1P/zuUNNEaNt/s3OIjzKRWo8jYIKLsYkI1B90A
-	 LsgeW4UZwg+cDt6rwi5cOFLHjZEJORB9voLi4WcGvC34Yp8bduwdBiDLmBX1ycHcjx3+g
-	 7+/KBeocbJQH6BrsErpiM/TRe/SqueGr/NeSl9aqjW9Rq3GH4U2CYzLrbwpvI3iE/1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794233435;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=VaQv37q8ZitDUAB2W/RaW0tezbqXrVqD8mz8Gad3tho=;
-	b=ZJDoJIrItqHIetNd0mu9PmhqwJMfH3yqU2i2WsCpDZYYjU9XE6vVMBTHm1A+9q8GYW1e
-	 jA9pzzONcuHDfx2zMyBn/CvMOUNzruLWay9Tc+fJWsyKM40NIKB8AY3bv98HNmh4Ce/Lg
-	 CU0mdeok/53TVWz8/CRONBeBTEg0RoKLQ/GLpZNWoaO3mvBIQAxsikk3+/nBetbLI/8Bg
-	 891blIGlCF6pZ+LnjQG9VO/QXavoqVdjW9y0tuyAv/xb0BHvDrW1UmuwuQzH621SqhavP
-	 oMJvG5xCznxLgGgDlLE5G2yVz7/muq4b02AnrGQ+mIVFhdmkn7BOJ6qCQWKNfWXPCEQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=b5YwDDal;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.132
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021132.outbound.protection.outlook.com [52.101.100.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794233460;
+	b=UmL4kyfs+b8OcwkSlHxXG2sYKpXLjbspEyeRI5L3kmus1j1EHsgZuyftp1xvNQPtNLIm
+	 Rms2WUsWsk5RAT3+oRqh7ZhKLXA7z8X+OnOIi4kF3z+q6PKK1ncG5CX9w+cWVXxHrzxPB
+	 TczeQ7qyX8PYDSZLF56gOB06WwohHZPeWaCNPwbeTiyqnZZXUH/p+BE+umFAzAHhVVLTu
+	 Tbthpi/1caf8ehHMicUD02xj6LiDeX8t89/gc5/rHrGyJ71fQGCwOGgbbMWToldwCz7dD
+	 SGlOAAFbqNv2/aSmA+At8LloXd36u0wpN9rJs745qJYTa1S4NlBgst6BJH0xLgZHHhw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794233460;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=Tz1cDpa5AepSCwsliEOBWV2ZbIXpdMUmAVTrHLbgBBk=;
+	b=0YvLjoF2MnvsDV936dPX2AxRhYvOCLINW4T3GrHDpj0HaTcB7/xON2gnb3nce7kPOvho
+	 MVH0rENGP66PxAb4Z0ejWTmgVeGW1jidgiFZNCsypSwwOa4NRlDoS/SdZ3NHMbB5nacm9
+	 65K1j3Ae3LrnXSEPmplbQSca38ZRWx4pJt1h5PM9c7oyw0sMByt2VQV+7y/AAfhzjIq2d
+	 TxX00ANIV8/bjKATJibZFDb24dDgUf9O/GXK9osxrCDRClEWox8GVRgmx5U9oOw+auiat
+	 JMbs5bIKhgWOgRUyUXrr2JIDGpPQ1cEYkE/4B3qO85V6Rln+9rV7TUYbxE/y2u01DtA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AA63606EEB7;
-	Mon,  9 Nov 2026 14:10:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AA63606EEB7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=b5YwDDal
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bs9B3tTDlt8lB6DutUhbUP55BoH+w25gVXk6e4vG3w/xm1zj9ml6nKJrHitpwgPJRke1bO/x5EDX8v2U+DhnII6FFBRU6fmQ8W+sZ1oN1dUOSJCmmQi6YcL8r1WYTMKn+S3Oi3O7ccc/7cQY9OxplBcwCfIEXZCCsoDYiMokBLWY6vZGXQ6ZlCIFpbLRtxPYSELxoc9mVwbzq92DfuDjxXWbiuAjQcy0LVuhHN2z5nRZ/VpiMzJlGc5thT4VxlGAptoq2jF5PDGuJUxGI//acGd0Q3NHDXoTBmA2+VEshfcWvlsFuo66XHEwEcf2L/meQQEHf+1D1rMHmUAsoIBx+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VaQv37q8ZitDUAB2W/RaW0tezbqXrVqD8mz8Gad3tho=;
- b=IoHRYWrnIVI0CiPxBSx7XL9xX9XVA468IlYogIXI0tWomBCjIPKdRwzlNO59X+qseNqhDxM3gifWJqeKCFHUINDcPURDEYpSrUcG/f86SVLi54EnFDep1WvtIZGqtKo+dTbtleAZIDUzxO1pIT25OZfCT7sQDCykppBsDeG5lRAS2fFObyMOQGaDCZK/Z2pwTM7XkLKwQ/erzenQiYITqLnfdL3hXHHnnCOB0uami/jNZ8wIie7SqzLDFj0Ug+8ti4K+CzwGzcs1NCVUTtSY526A8jaAe+rGTvrDyT6lNZdRAAxz2DXfoNwwcaS/CUukz4kInxw0NINnPWFbT9TeYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VaQv37q8ZitDUAB2W/RaW0tezbqXrVqD8mz8Gad3tho=;
- b=b5YwDDalDppvqI/n0eU3emGiHs43EXjO7cUFRD8SPKNbzV1GMvWWVI1NzgE4fkfi8uwCrNwgyckhlWt7z1/PzdRoTG7R8tcU1+HvYuKrBEmV4eM55Y7rI29CzPiUJhZVdOfzIvWiT+RUM1wydyTosvS9v2sUh3dY++QYR+6q520=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by LODP265MB340279.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4dc::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 14:10:32 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
- 14:10:32 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 09 Nov 2026 14:10:31 +0000
-Message-Id: <DMQQO3EAIUDO.MAU4UO7UCLTU@garyguo.net>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Andreas Hindborg"
- <a.hindborg@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Burak Emir" <burak.emir@gmail.com>, "Rae Moar"
- <raemoar63@gmail.com>, "Tamir Duberstein" <tamird@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Yury Norov" <yury.norov@gmail.com>,
- <kunit-dev@googlegroups.com>, <linux-kernel@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 2/3] rust: kunit: allow same test name with different
- #[cfg(...)]
-From: "Gary Guo" <gary@garyguo.net>
-To: <nico.antinori.7@gmail.com>, "Alice Ryhl" <aliceryhl@google.com>, "Benno
- Lossin" <lossin@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Brendan
- Higgins" <brendan.higgins@linux.dev>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Danilo Krummrich" <dakr@kernel.org>,
- "David Gow" <david@davidgow.net>, "Gary Guo" <gary@garyguo.net>, "Miguel
- Ojeda" <ojeda@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-X-Mailer: aerc 0.22.0
-References: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com>
- <20261029-rust_kunit_v6_send-v2-2-5ce551efc48e@gmail.com>
-In-Reply-To: <20261029-rust_kunit_v6_send-v2-2-5ce551efc48e@gmail.com>
-X-ClientProxiedBy: LO4P265CA0116.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c3::16) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3366D606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:11:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3366D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c40f29667e6so134805766b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:10:59 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794233458; x=1794838258;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Tz1cDpa5AepSCwsliEOBWV2ZbIXpdMUmAVTrHLbgBBk=;
+        b=BuP/tfrKRmO28Ubf2DGABAcbPpCZXJqJfGYAdzx/yNb4e1ek3fHmjRcHsEWADg99w1
+         7aprr7POAiZNvqJbxHe252i9/j5yT8BBfSJyZlfmmV8PvabRRyQtB5xFKXg/5P5oZiYd
+         Ec/C6NIyGLtQJSVzVYZTZ2VFZR3Wd2l1nUYyijLoWiPmxbZmB6e6Hi6NddKDipPmOFx7
+         zYORlzROB1thXRP6ejH5mJLg0D9qiefb2BZF9Yh/CEFW3lDRAUvgF079higD8dpY2Rcr
+         4110vEA9riOm53EGFV8oEVduq2kGqjPv0hdpn9c/eiwnQWjqKUHbYHzxt620xuHNMWZg
+         MJXQ==
+X-Forwarded-Encrypted: i=1; AL+hErEiLc5snFLFui598kbNENnn86GWzBUf1JDGLJ91MLr8JZRk8H6+65P7+boXESplDyohyP0RYkyAYKtv1PQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Ewxdab/UkrbjVb1pDyzZoezsqazmK6iq2TYi3mJKag5XhiRcG
+	4uSsRGa4rDN3i0ZpsTRbUNdvnyhE/6swn9bivqg4HuRArZ0JMNjycd92SNir1KcrWL8=
+X-Gm-Gg: AYBFou13RyHdnHcnfUT53PiMw3A32/1KVFL9ucxpXQPQHV55bRU3ycIZvPqPatNdtew
+	VkNNYWbe2vy4A/cy3tSU8EHV0O09jHxF7cpBO/PrHsCcc1Pj8DTOZtlStRtYi1Vfvk+7ZfJpIJG
+	bye8AUWpJpR0xNwXNo0y4si/FXNXx8SWjsQKvKhXW+oaSgpDvpM+Ts2hkXV/CBEVAYqckSyK8eW
+	9IIu4Q1BW391vDUv2U72rA0GzchJ0BYEVT8wv2yT4cI5XqiXPcx+3k8z0wa/jN0Y+hnAlKImDb/
+	f02jimq7FYjW4Sqjv6f0DeS5CKNi1j2a/0tqCikRGJ6kpWo8TUWzAcwMC8tnz3PvmhKS4iCc0Kv
+	yOwx5ZPW+hBRS5LE0/yY3gx1XsECEowqjImsT3gzDbvjuT8RtIPDVlU2xChDDoVOkIM/UpaT4Xi
+	4s+6zh7y2dkkGvc498iJMjHAYq4f6S3h4l9Y3tQjoY7fuPhMLI+37F6ftfIUyQrSv0VBMumUGu1
+	2uFhw52FHr0UusHO6vEZmd4KT7mvPQpGOf3CX25ZsIzteV/SIPtwNIVfksH/KEtnUgGeIbQPDzR
+	IgraZ3QLB3jX4Z5238MEUxsGRPwgiEgTaLekYvKjtpr6vlua2f6A0Vvf+rtVrFZSGw==
+X-Received: by 2002:a17:907:3f8f:b0:c46:7ec3:fdfb with SMTP id a640c23a62f3a-c4d6d1af6fbmr270384166b.7.1794233458423;
+        Mon, 09 Nov 2026 06:10:58 -0800 (PST)
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com. [209.85.208.42])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a998a75sm173559266b.73.2026.11.09.06.10.54
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 06:10:55 -0800 (PST)
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b167ffd132so1541583a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:10:54 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHod9O7PglqvtAzN0AOFq4LBkdgIeBfsL1UH3ROYd9Sv4ZGp3KrJSPfHmsce/tjLZd+w/SCo705Gp/ppZg=@vger.kernel.org
+X-Received: by 2002:a05:6402:51d0:b0:6af:9a96:5324 with SMTP id
+ 4fb4d7f45d1cf-6b722473406mr2715103a12.33.1794233454340; Mon, 09 Nov 2026
+ 06:10:54 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,89 +80,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LODP265MB340279:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d797b23-f379-4583-a653-08df3e6b376d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|10070799003|23010399003|921020|4143699003|56012099006|261021123027099003|261021135927099003|261021121427099003|261022075727099003|261022105027099003|261009223027099003|261026140227099003|261028144727099003|261102123227099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	Cv9hyuh8EZtNU8z5qbkTVmheFXyqgDp1Jt5Tz4s1CpKJpiP/uNb+Akw/TFKsdqD7lhhZVUBNACP4BKiij0ijuainwl2oblqgsNrwGZe7heNVCay53BPlhkIUyJxqSOxuli3G8b+DJDdwCjT3K05X5j1y7026W0nRUELPi1uWF1/TdDux009Ut+uzQfLDr4kEOijs9xIF6LVtCfS12PtCNCmjUu+jP7E6q8lO6+NWX5HhrdX75HD0iR9CxK/puVXz88HkVR+65mgRHCJ6G19cm+yp3t3/WiJsVR9K/YKpuwug2F7fsquRxZ43OltuNlaeMSaPuWBtdJKeHJoDy06/soMCoxE0QWLA9f4HPVbd43jAVYVosYmoKfMu3Q+lLYNg0nKowaNcgT300zhzTsTaLPgEElLzVaUd6rAuvzlh6i2YhYcaEC4AuVS/8Nh+a2pvmPVPDdymvLFVITBM99JTgvqLAqJftjIUqIFanR2dAAP0rw420lfigJWAWtdi06nkKzduUw1ApLnuGw57g4qN6RFyBQ+Qbi2Ex1A9nLTvCkiDv9yLga0T/fpcIrc9A4Mifi5kljxR6VBDtKmsmzQ3yMg2N+XBqK0yTHti/HUz1YYscsL1mpM2TMlx5FEqdmeyjsBy4QtwwCEub5VeSfUXV2+vc96PNXJeZGwmxYCKPgorDknv2hqEbYO4bhx487zZLRnRX0KpSQFECB3y7Jm9/A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(10070799003)(23010399003)(921020)(4143699003)(56012099006)(261021123027099003)(261021135927099003)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003)(261026140227099003)(261028144727099003)(261102123227099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZVh4amgxWUxHRFVaZVZIYmxVMFBrdldNL09kR01zeGJYbFpsNmFkejFtV3lY?=
- =?utf-8?B?SFBrVnNyQ0Z4L1NpWDJkei9haGpRL1JIMTVSR0poOHY2T1V1ODRocmRhWVAw?=
- =?utf-8?B?Zkh5ZExlMkNnR2IvMUhoVU9rbW0wNlRTQ3FoQXl4SkRBd2JXOUx2OUNNWnRU?=
- =?utf-8?B?dEpRODcwaDFEOXRtNzBDbHZtN2tabHZLWG9CV29tQldJeTl6b0hmQ1Q5cVJM?=
- =?utf-8?B?WXBlRS9MU05iYjlMbzlTV2ovS1MreU1SaHJFeUFGQkh5ZDhWaVh6aUIraUtJ?=
- =?utf-8?B?V21KNldrUjBlcDk4VlN4d2tCWG5teXNrTytTOFh2elBmVW5xZ1lOaG9uYlNr?=
- =?utf-8?B?WEZTeW1rZXd6QllUdHo5TERmUGNZc0NaOTFaUWRuZmpQUHFnN3ZqMXBZd1Ny?=
- =?utf-8?B?M2NPUGJ4Q2FzUS8yV1JaQU9NQjY3RkR3REE3RGpPRGxyMURPU0pMVWRRaTVs?=
- =?utf-8?B?cmNzTUo4aTVNOWV2a25mVnh3NUwwdXNxcnhxQjFudHg4YUdvVWQ1UDJwMURM?=
- =?utf-8?B?bGJlYlk1Y0c4MmJGSkhGQmhPOUJtak93U2dpRlNCd1lDZEpVR09BVHVNdXd6?=
- =?utf-8?B?KzJyNEROY1NTOGFaSDNweXZMMTdOYnovSVo5aWxBMHErSlpxb213UnkrZmUv?=
- =?utf-8?B?dGtKZnRuUUR4MlB4dzJrSkM3N1RKbWY0ZXF6ZnVFcVFQT0ZtOVVYaE1EQTNH?=
- =?utf-8?B?OWdrNUY0TEdSSU0xQ3VZS1FCMEU2K3B4REpDTVJINnN5VWNqMGlEa2NMbzl2?=
- =?utf-8?B?SC9aMDBLbjFKdTZ6ZGlzYVZVWXA2eUFNejk2RTZxOGd3WFpTUHlOT2lJeFhh?=
- =?utf-8?B?MHFHOUQyTDkyWmg5TkFVK0QrWHRGTUZwanZvQ2xFclNuZzZWalJjNjUwNnU1?=
- =?utf-8?B?M2FiUUV0VW9iaWZmMXFoZjhwVk9iYkExQ1Vja2FyYWR5V1FuY1Ivbjl3MDRi?=
- =?utf-8?B?WjI3ZzhVSGtNY3dGZFNYY0dpb0ZSU0hmSE1Id2wxMzNGYXlKYWZjcHFya2JV?=
- =?utf-8?B?S0ZxZkxTeHl6b2V3Ykw1WXN6bHdXR1NyR0kySUxJMzdaRnpCeWVOZ2tzRkF2?=
- =?utf-8?B?ZnpncWhteTRrR0VqdmlrOVFhZGlpbHA3MzlVZWxwdlNuWE16d2pxenZFYUxy?=
- =?utf-8?B?TkV3UkNFbm5zeVVERmcvQ1FkZjIxbXlkTFZVeTI2QkN6UEVwYWNqY2dmY0JL?=
- =?utf-8?B?VERIRUFVRWd5SXFsTnZSM0wvemp5RlNiczVTRFlIUUhKVERGTFkzNzFRelMx?=
- =?utf-8?B?MWt0QmUxTEF2TTMxSGZLNHdlQVdUaGtRdFVsQmQwbk1SU2RoVVc5R2M2K3dx?=
- =?utf-8?B?MXZqT0JKMTVtTWtBUllCa1hza2lBejZ6Yno1SUdoS2Q1Nko4VnZRRkhpTk9W?=
- =?utf-8?B?WXNaMnNtbGJtbm4yMnh5UVdIeitTSjdGSVVJQjhRZHFlRkN6M3JoRnY5bWVk?=
- =?utf-8?B?MlJ3UHRVSEp4bTFpWHJhQ0V6YVpmMGFpK3dhVkFiM1VQRGxFRzNyNGgvTktB?=
- =?utf-8?B?WWxuTm95K0J3eUhJZjdPeVZielRlYldlNUF1UUdDSnlOdHNXM3JFb01CbFd4?=
- =?utf-8?B?MmU1WitnSGZiN1lTY0xwS2x2SEhlditlSjhxQ3ZaaVhCN3VoS0lucUllWXNP?=
- =?utf-8?B?dE9lL1hVRENnbGRWMGo3VVN4am9vTjJUR2huNWNkbUhTVzlYNzBXOXMwV1J1?=
- =?utf-8?B?WldrQldOeURxZTFsUnF4Ym41dzVqRFRISlVVdlJJN3VOTFdrQ3Q2WGdmNE9V?=
- =?utf-8?B?WTUrR0xUUlVFTzhJMEYwRVFaOU1KdjZMUk0yOG51TkQ4QjVONjBLY2hlVi95?=
- =?utf-8?B?UFlNUDdPUDgxa3ZBNUlPM2h6S21uN0hiN0pJc1oxZjY0ME5uMHJmM1I5U2hk?=
- =?utf-8?B?VFVoUHVlc2NpRnl4aFVtV09UNTNtK2JQRTBXdTNkOHNVbTlXaHBzbmc0cUdQ?=
- =?utf-8?B?YkJxaFprWHFKZkpOSDR0SmhiYjJGQmdLQ3ExbEVVZHlPS2FGdW4vVTQvejZV?=
- =?utf-8?B?anJiNVVaVDd4RTUxUXpXV2dWK29jVzdIWFdrUXFXTkxVdG4yWkxETFpKSzlH?=
- =?utf-8?B?cHlRck5XRHovOGwzSUlCNGMyYk5TRi85UmVMNDdXZXk1QjN0WElFTkZoeEln?=
- =?utf-8?B?QmJac1RKTUhGL2NxL1ZJazQ3U0lPRHRDb1dFbjZrVHl6T0VmVWp5UUhKVjVz?=
- =?utf-8?B?UThsTy9XTmpMQ3pReXlhdFdVWFNCU3NUOHIzTEVMQ0JENm1LVEhDSkpBakhT?=
- =?utf-8?B?T1BtaW1xRGpsckljeXdLTERndlVvRDZ2TzBRSG5KZW0xYWR1ZTlqTHhDMkRa?=
- =?utf-8?B?VGp0bmxkR1JYOHNiMm5sZzIzckpyMStLZEMrQnFSTVlma1RJVUpTUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d797b23-f379-4583-a653-08df3e6b376d
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 14:10:32.3948
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 14xOqt0RFTG5a/Y/wDiumdcvnVRI1aIN3ztDz7FEdvQTyx+Tf27BIGORb7NGs2cEBG9EXA2a05Udg0QYn2lCFg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LODP265MB340279
+References: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-0-1b2072e8c37e@ideasonboard.com>
+ <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-13-1b2072e8c37e@ideasonboard.com>
+In-Reply-To: <20261109-epaul-v7-3-rc1-x5h-vsp-fcp-v4-13-1b2072e8c37e@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 9 Nov 2026 15:10:41 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdVh2RiRhBHmuYupK5H81njgaqNCuFWVUiHjTN17+8a+dQ@mail.gmail.com>
+X-Gm-Features: AclHuK_UOMGJNMSt7XpVPImhuSlb374iqFlByrKa5-w4LBZZoP4MvZOgp7Ag9nE
+Message-ID: <CAMuHMdVh2RiRhBHmuYupK5H81njgaqNCuFWVUiHjTN17+8a+dQ@mail.gmail.com>
+Subject: Re: [PATCH DNI v4 13/13] media: rcar-fcp: Check device revision at
+ probe time
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-media@vger.kernel.org, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu Oct 29, 2026 at 4:59 PM GMT, Nicol=C3=A1s Antinori via B4 Relay wrot=
-e:
-> From: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
->=20
-> Sometimes it is necessary to test the same code paths under different
-> configurations. The `#[cfg(...)]` macro can be used to check if specific
-> configurations are enabled and run tests accordingly.
->=20
-> Currently, defining multiple tests with the same name under different
-> `#[cfg(...)]` attributes results in a compilation error. This patch
-> removes that restriction, allowing identical test names across different
-> configurations.
->=20
-> Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
+Hi Paul,
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+On Mon, 9 Nov 2026 at 14:36, Paul Elder
+<paul.elder+renesas@ideasonboard.com> wrote:
+> From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+>
+> Verify that the device revision register reports a valid value,
+> otherwise reject the device.
+>
+> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+
+Thanks for the update!
 
 > ---
->  rust/kernel/kunit.rs | 22 ++++++++++++++++++++++
->  rust/macros/kunit.rs | 36 ++++++++++++++++++++----------------
->  2 files changed, 42 insertions(+), 16 deletions(-)
+> Changes since v2:
 
+You missed the changes since v3...
+
+> --- a/drivers/media/platform/renesas/rcar-fcp.c
+> +++ b/drivers/media/platform/renesas/rcar-fcp.c
+> @@ -14,28 +14,80 @@
+
+>
+> -#define RCAR_FCP_REG_RST               0x0010
+> -#define RCAR_FCP_REG_RST_SOFTRST       BIT(0)
+> -#define RCAR_FCP_REG_STA               0x0018
+> -#define RCAR_FCP_REG_STA_ACT           BIT(0)
+> +#define RCAR_FCP_REG_VCR                       0x0000
+> +#define RCAR_FCP_REG_VCR_CATEGORY              (1 << 8)
+> +#define RCAR_FCP_REG_VCR_REVISION_H3_ES1       (1 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_M3W          (2 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_V3M          (3 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_H3           (4 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_D3           (5 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_M3N          (6 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_V3H          (7 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_E3           (8 << 0)
+
+For R-Car V3U, the revision number is 9 (according to the documentation,
+I haven't boot-verified this), which is missing.
+
+> +#define RCAR_FCP_REG_VCR_REVISION_V4H          (10 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_V4M          (11 << 0)
+> +#define RCAR_FCP_REG_VCR_REVISION_X5H_V1       (12 << 0)
+
+"git grep -l renesas,fcp -- arch/arm64/boot/dts/renesas/*dtsi"
+shows a few more SoCs having FCP blocks.
+
+Interestingly, the documentation for all of the recent RZ parts (G2UL,
+G2L, V2L, G3L, G3E, V2N, V2H, T2H, N2H) claims they use 9, just like
+R-Car V3U.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
