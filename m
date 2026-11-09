@@ -1,83 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794217256;
-	b=xrhFypg67Gs8MO6DDNZpY2+VS1JZv0oZ9hKLv8iot3xC5V8VNPs9ka2chyBW3enqFOdm
-	 u7bnI9tuUEsJNMYeME/ufjcfrwncdAk/cdMq63lrEhWICMQJHkEC33klLanAHd8qF76Eu
-	 /JSybbr5swOXdn7bMF+vnWiYZHHaLLPu9qlewdsDof84e0U21tL3P2kQSOwyLbYXB5hfB
-	 Zu+pm5YPp6GajR9cEdMxAVphPTgptkLiK5XSA1UKo9VcDEHWXYqFWnIIrhQj2MAljxfO/
-	 bU9IupN0pdHw88mm0xTjTQdxsrli+CMNqpR22+qpe5Qca4ggg8Ac6XPSHEUlmMt82jw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217256;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794217275;
+	b=BaD2A96rtFNwNOlXRWo7XH+oKUkmv5tY4UhyEG7Feh19UoKOelNJq0fiSvK5F6enIuHv
+	 GHc53HQCBxGJQd9m+y9fJ/J7dkS9YtkYZufE5rGehMxlYdXDbq9nPyxa8legT1bBh8j45
+	 PEhiSCQi8qLCqJmgE0bekj8JCVvfIrNCub7jTzE37GUZPMc6TzQ78l5O4HJmPokPrwVHr
+	 EnESI8w9kkVvolcPYTHsHuSSGM0tPUlklUngQIveR+vKNiuvPHKgYGCyjfd4GDE2gBO6K
+	 f66Ww0ZCWsJOQHyAaJu9rrNEgwaLYRHSMcWSwlNiI68Mujhp82BP9U5tmZnXl/IZHsA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217275;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aooD9EtVh9aNPZIrpb0NCRR5WbBdA2wFitbA+i9l4lg=;
-	b=PbOfCrWR0o/fDOfpAq0M2k+l6fRO1k1JZcffeiUClIJuWYCmIdnhc4R1ZqqFDwfKHHUl
-	 mIeqJtvP0ziiKl9727/7eTEW3+/9cwKxJ1Juv7KHh3fg8KHP/RLI3uitNnxTqidK4bG3v
-	 Vph8+lyCyTEAcJO1idMuxNiM18Ge6Fl9Fn2cqDwxfnV+lL4nDEZHfIfwNritIJ+oy1oCp
-	 /XQPU08OVOv+jhzPzqBPyM+1co0gcBxTlB80JgpgRNGdLlvz2a9yj9EboVpd0l1yuD2OY
-	 YE2zYpxxpFOziA8xYz/l7bczRHzYZNkz56V2h1WEQSu/X/ycEi2CMRZExEld5ExjzNw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tdg8eiHv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=2Bm1+eUEK+FHSD+EcDQEDqDRX6+druzmbz7a8/C2NzM=;
+	b=Zo6nG/nHFSOfxfu9coySkGtiYc7K5rl1x5L3gTzTb7A/vVdlBPPF+hC9KKZ1Gj5UdcZo
+	 Yn7JeESq0t2CfWNbeROfq9ULzXK9FmMmNrdC01aS9rqIwubTk3YRy9Bwqaq9Mt8JgXAU0
+	 QTvKCLc/g1l9WcDv7h/CcoozBbue8CeNFdnSysdyHDKEge0MhE31Z1x5qsKCgTwiQ1Dw+
+	 fd+9RgF9wBOVb5sA2tWkQHTeZrWGj3jNuFHs15GWvOdd+FgKP1hxzMy4vrXYlIslTgfca
+	 LZkh6TRONLxmVUBl0qMfhAteoTItp+lxDqTdiSc4EGQbd+KCvvGEywGXk9chU77okuA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P/4uSXe3";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9DD4606A326;
-	Mon,  9 Nov 2026 09:40:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E284606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:41:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tdg8eiHv
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794217255;
-	b=f9vF6nbjnqT6KXqXYcTJVTXhW9/ehuq6OHNDgZEeZj0I0IEx6r8oGqib+F6X4EXwAdKt
-	 kOTcMD+OaMZwGbrCUZh0ddGX0e39WkCM8zbP9NZwHCPgi0jexSOunaUvRkUAR4vujiRfx
-	 5tJNCA+WatS6VyTB1VaRWvTzJWpT/XBhkjW6n2hA46RsYwAIhSZp3JivxLKJQe4t971f9
-	 NKfwwitwpbR3OyNBYDBdZ/B0RF9JthoM926c/9OSA0zyuNzt6PaSzilx3DVUJXMJjPg5X
-	 VjjD85sIhS4O0TUBrDgMZicZmUwoOQAbQGO7Yp546a5nwaxDS02Wizq9Pj+IG4+opGg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794217255;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=aooD9EtVh9aNPZIrpb0NCRR5WbBdA2wFitbA+i9l4lg=;
-	b=ZQv1MLkqBgaafn7j5LuKdEJ8XbLTCwBlNMODfIt8v2m0mG8yRQe++I7vucmhyE1hx8db
-	 V58QvccoMJRTyMwF0J0jTo02cqgrETl7ALk30wQd4cqap6/1fq86X1XxIJOMg+ESQFoDF
-	 rIOZOa3WymJkgcZoPHloxwjfuIV2wfIPB8tYhOFJvELWydnTLgJlPJLT0sNqXw7QjzJ/z
-	 lGqfiOSDoo6QydMq711t5g+r8WsyGDOqbjcu3lC0ZqSUCeNEXcm/DVOVMT9mJJGKm9qzT
-	 3XpNYmntRK/+L3E86NFl490n7+wB0SELbJ1z/VSt4ZWqC0TgNk+75O1CMJfImUHcNVw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id CA9581F008A6;
-	Mon,  9 Nov 2026 09:40:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P/4uSXe3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECE4B1F008A1;
+	Mon,  9 Nov 2026 09:41:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794217255;
-	bh=aooD9EtVh9aNPZIrpb0NCRR5WbBdA2wFitbA+i9l4lg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Tdg8eiHvOk+B4Qy6w+/1/ejwJTUlaN2E85GsmSxQ5Ga5UrB+Id20rjOnIx6plWPr/
-	 6t2uSvfq3g+8kQ+Dt3FHlJOgvn0DiIo41bUedmLvorpcnuYUjkKqTiRtXaSPNixs91
-	 2oXQo+FFb+kArcEwUTmKanUD7ZM8eHAjD9GbFIbt9UTy4TGT9iA/Bot6RK/69wSsIH
-	 WbI64ZpN8X0PlyeIWoEP68ZlomPH9b2lH0DlC36x/sqgpgOHclUVgywpvSgIpib7fv
-	 fNOBORsS6SDaIIDthlg8GDxQcD8snTPCTicb4TdaWD7rZAgNmE6ca7GXoB+KEpHMgR
-	 8GXEqehdHtwtg==
-Date: Mon, 9 Nov 2026 10:40:47 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Adi =?UTF-8?Q?Kadu=C5=A1i=C4=87?= <kadusicadi1@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Nuno =?ISO-8859-1?Q?S=E1?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- linux@analog.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: adc: ad_sigma_delta: use __free(kfree) for
- temporary buffers
-Message-ID: <20261109104047.00003753@kernel.org>
-In-Reply-To: <20261108201522.249539-1-kadusicadi1@gmail.com>
-References: <20261108201522.249539-1-kadusicadi1@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	s=k20260515; t=1794217274;
+	bh=2Bm1+eUEK+FHSD+EcDQEDqDRX6+druzmbz7a8/C2NzM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P/4uSXe3euy2p0f/uGxCs0nP5wZK8Wjy988o6H9jf6+IHycHdQkyMlZBCI+OemLGh
+	 HdnxgiG7WBtzVaM7RJfaACyZ1LkbSys/EEAc1pKixLmyxgk4clYaEa1yI/ibME/cmR
+	 73sIhcFe628fL24tNi1nmyQG6/y2XsUkES662ZExlcV2P3WLAyHLbhx1Js8nlF+PI7
+	 Wpo9SX2fJsRxUx4xoPrEAv0pYnjvnVCMAc61PwBzl/uy9uNCLfJZAGfdL3Fb8yTsSm
+	 bflhB89PTYiDbNVBwE7kWZo375vuHS8Ab6pBAUPt900QcWpxfG80hK5jDCuzPzD6fv
+	 N66HTRB1UqEHA==
+Date: Mon, 9 Nov 2026 11:41:08 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Li Zhe <lizhe.67@bytedance.com>
+Cc: Balbir Singh <balbirs@nvidia.com>, muchun.song@linux.dev,
+	osalvador@suse.de, david@kernel.org, akpm@linux-foundation.org,
+	apopple@nvidia.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] mm/hugetlb: optimize bootmem hugepage tail vmemmap
+ init
+Message-ID: <avGVNISvj-v8IN3g@kernel.org>
+References: <20261105120615.16817-1-lizhe.67@bytedance.com>
+ <20261105120615.16817-3-lizhe.67@bytedance.com>
+ <au2qhlsxQt3SRwIu@parvat>
+ <ca38db3a-a8fe-47c3-8813-5c3b0ac4b7ac@bytedance.com>
+ <3e5a9f27-ea35-4557-95d1-70ce359e4c92@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,20 +64,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3e5a9f27-ea35-4557-95d1-70ce359e4c92@bytedance.com>
 
-On Sun,  8 Nov 2026 21:15:22 +0100
-Adi Kadu=C5=A1i=C4=87 <kadusicadi1@gmail.com> wrote:
+Hi,
 
-> Replace manual kfree() calls with the __free(kfree) cleanup attribute.
-> No functional change.
+On Mon, Nov 09, 2026 at 05:22:24PM +0800, Li Zhe wrote:
+> On 11/9/26 11:01 AM, Li Zhe wrote:
+> >
+> > On 11/6/26 6:23 PM, Balbir Singh wrote:
+> >> On Thu, Nov 05, 2026 at 08:06:15PM +0800, Li Zhe wrote:
+> >>> Boot-time HugeTLB allocation has to initialize tail struct pages itself
+> >>> when HugeTLB vmemmap optimization (HVO) is unavailable or fails.  For
+> >>> gigantic pages, this can cover a large number of tail pages. Most state
+> >>> installed by __init_single_page() and prep_compound_tail() is identical
+> >>> for every tail page in the same huge page; only PFN-dependent fields
+> >>> need refreshing.
+> >>>
+> >>> Initialize the first tail page normally, copy it into a local template,
+> >>> then initialize the remaining tails from that template with
+> >>> memmap_init_page_from_template().  This avoids repeatedly doing the 
+> >>> full
+> >>> __init_single_page() and prep_compound_tail() sequence for state 
+> >>> that is
+> >>> identical across tail pages in the same huge page.
+> >>>
+> >>> On an arm64 QEMU/KVM guest using 4K pages and 64 boot-time 1G hugepages
+> >>> (HVO unavailable on arm64 in v7.4-rc1), the measured fallback tail
+> >>> initialization time improved by 36.43%, measured with a temporary
+> >>> jiffies-based printk modeled after the existing timing in
+> >>> memmap_init_zone_device():
+> >>>
+> >>>    base:             318.4 ms
+> >>>    with this patch:  202.4 ms
+> >>>
+> >>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+> >>> ---
+> >>>   mm/hugetlb.c | 23 ++++++++++++++++++-----
+> >>>   1 file changed, 18 insertions(+), 5 deletions(-)
+> >>>
+> >>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> >>> index da5d04edf7c1..987f16a5ea27 100644
+> >>> --- a/mm/hugetlb.c
+> >>> +++ b/mm/hugetlb.c
+> >>> @@ -3219,19 +3219,32 @@ static void __init 
+> >>> hugetlb_folio_init_tail_vmemmap(struct folio *folio,
+> >>>       enum zone_type zone = folio_zonenum(folio);
+> >>>       int nid = folio_nid(folio);
+> >>>       struct page *page = folio_page(folio, start_page_number);
+> >>> +    struct page template;
+> >>>       unsigned long head_pfn = folio_pfn(folio);
+> >>>       unsigned long pfn, end_pfn = head_pfn + end_page_number;
+> >>>       unsigned int order = huge_page_order(h);
+> >>>   +    if (start_page_number >= end_page_number)
+> >>> +        return;
+> >>> +
+> >> Can this actually happen?
+> >
+> >
+> > No, current callers always pass a non-empty range. I kept this to
+> > preserve the old for-loop no-op semantics for an empty range, but it is
+> > not needed here. I will remove it in v2.
+> 
+> 
+> I need to correct this. A local Sashiko run pointed out that the bootmem
+> fallback caller can pass an empty range on SuperH.
+> 
+> SuperH supports a 64M HugeTLB page size, and with 64K base pages
+> pages_per_huge_page(h) is 1024. HUGETLB_VMEMMAP_RESERVE_PAGES is
+> PAGE_SIZE / sizeof(struct page), which can also be 1024 or larger on a
+> 32-bit SuperH configuration.
 
-I think that this is a functional change :)
-This can be dropped while applying though.
+If the only difference is unnecessary initialization of the template on SuperH,
+we don't care and you can drop that if.
+ 
+> In that case the old for loop is a no-op. So I will keep the empty-range
+> check in v2, before creating the seed template.
+> 
+> Thanks,
+> Zhe
 
-Reviewed-by: Joshua Crofts <crofts@kernel.org>
-
---=20
-Kind regards,
-Joshua Crofts
+-- 
+Sincerely yours,
+Mike.
