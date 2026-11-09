@@ -1,72 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.199.235.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794247338;
-	b=5UUJkkCuSKEpW9rtR2zfgC41GLhZ3JIXS1ygwwOd74iiCTZvXzBq1xMKkpLjgwGvF06G
-	 ZE9k9i03eev+BKdqkNs9oBt/ak0Z9jQqg3NrTwScM+VmjDsr8eIAVxYX0orLWCYXUky/7
-	 bhffwqjK4SoE6kWkIGyW2xEIrSk6dNLo2xDdCjmnP53NAQj/4o//9KgwDGPItFm38vkeS
-	 +HN8557gHsl/67or3ON4Vew2QGJ5V1qsdXgeQGDpcSQVNrPZMx87qM2kno3L2/sVIJGI1
-	 C9nGrHUMlcJqYbwsXB8ZCQlfwYWadN7uW3sZQ3qT8FHZ9ceVkMWlhbI3DLSsCNVaufw==
+	t=1794247348;
+	b=AnKAjrP392rHJjzrpF3jpv5dBkREkzLQeDVnk8yh6TaFaeI/fzrDwjgN8Iaa0uFy8KcH
+	 JU0j/n5WhBldWtiAgOWzjoSskfj/gczOnUoUKoI9zBFP/jFoXmOyogk9KAZLJ6GCiFjuO
+	 TcB1FHqoSrCg/eOK+1ixvxhS5AmsMhkRxAR5LY5eVxCEtzUbjOKKmpxaYiU1EYuRjWpfw
+	 O9oKWy6ZujgkZlfIev6mqa8Rmv+yh9Ztgdzvf0dfCDxjNTAE4WXSveKsS4OSRQe2mgldQ
+	 DCyviUncxYzL1rfOXLqmymWv89u+YRU2qYBWtdD16mmrb5lHIardwq75cxHW43vrH2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247338;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yefN13qKn7cHBxXTB3+WOf8D0NdfFELlnIRgX37ptCs=;
-	b=Y6K7aqaNGSN3wVfpjjiunaFEPhyZPj4N97BZbZ6YpfieyV0OiCdxdAF3VtF/lVovD57k
-	 bRR6vyBfKzpBeRRTVQcNuCw4yiIR7ZDTq/qA6stNoN55chKr22AgIZq8kM2z1m89+ffy1
-	 kxDGKpPYejPxtS/buPY7RjVxpcle+RNLPEaNeDs8J+Q3hDH3/NMFppRDXgaEAOBolVbxE
-	 olyZX/wAoLhADIxpTTBDlXKYZl4TNifmQAe79k/Zkol0Jhbp5UkPU2LCwAInNh3Am/n7I
-	 x7M1eaUAGfSWSsJ2HLPkewMPhEhguJSQJiajI61RWCjC+N/ceF3ckqQVr6aLUsevziw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794247348;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:
+	 X-Virus-Scanned:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rq/gVRzc6NYvKxcKfEXgG66peSZidPjTyfqE5LKg8gE=;
+	b=rm4+8lH8oMZR8cpaP3EJ8kCl/wnBYOPqk2OxTZBt6DuAcVTyvlriqwLmIsRzIXyy1GwA
+	 NgXAeTvaTHuMaZkANjFVJV6fP1uFhSwyyi5rO3bT6YEQue9sd96ZjKhFSEQ/vDyZgmTyR
+	 V8K7/Nwsq7PT6o2o+6YTXpZysJesulH6++DsjcMIYbn6gASUSPzlTFfJg3xau9ify2sex
+	 Rmnf2S0T+rvtYTOnrEWJIyt2zSrFpiZJhFZ2fZdERUDlx5tcwe74D35RC0FBahFFIdyNv
+	 rTQ9GPpwCpgQlaxii+bfvg/NbkbhO/zi4JP2jHL9Fv+/hdD+e3beh+Ls1BY4L6KaNAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ewxSO0/U";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=cirad.fr;
+	spf=pass smtp.mailfrom=cirad.fr;
+	dkim=pass header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=HrKUftKN;
+	arc=none smtp.remote-ip=194.199.235.221
+Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB37606A31C;
-	Mon,  9 Nov 2026 18:02:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD00A606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:02:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD00A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cirad.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cirad.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ewxSO0/U
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5C891F008A3;
-	Mon,  9 Nov 2026 18:02:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794247337;
-	bh=yefN13qKn7cHBxXTB3+WOf8D0NdfFELlnIRgX37ptCs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ewxSO0/Ub17VE2yrembD890C4Ax1TshJMw+iVLp0MXH1MsgyR/XOtoOspnuHYew5R
-	 UIdszN785+zKpqMQR/OiOOhwCES/XwloG/u5vOnw3mm06RoCEVjPz4YV45BAgGxSTn
-	 WOjr7ggUVl8ovA9q8/BAVja+cBJwhB5x4iVIofv7aZxsoW0JnK0COhZcbzBy+37nO1
-	 aJWJsyD2RJ0q18HFn4fwXxH8wYR6Pi4RzBk+eCjkITo6LNxOFEf1CQWxfSQmmtAX7t
-	 RFoakL1igUW2Og2ob+8eEyffGUO1+WMfW6y6p5gE1u0VH4jGIhoKr+WHv/FQYP4Shn
-	 0LDDAF57WmAxw==
-From: Sasha Levin <sashal@kernel.org>
-To: Pavel Machek <pavel@nabladev.com>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Jon Hunter <jonathanh@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 0000/1536] 6.12.117-rc1 review
-Date: Mon,  9 Nov 2026 13:02:12 -0500
-Message-ID: <20261109130001.imx-cfi-612-drop@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avGXNkyWQfNqN46v@duo.ucw.cz>
-References: <20261107134957.653319350@linuxfoundation.org> <avGXNkyWQfNqN46v@duo.ucw.cz>
+	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=HrKUftKN
+Received: from retz.cirad.fr (localhost [127.0.0.1])
+	by retz.cirad.fr (Postfix) with ESMTPS id BEE3820DB5DB;
+	Mon,  9 Nov 2026 19:02:25 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by retz.cirad.fr (Postfix) with ESMTP id A100920D7CEE;
+	Mon,  9 Nov 2026 19:02:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr A100920D7CEE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
+	s=573E3878-7916-11F1-BF4B-F68474317960; t=1794247345;
+	bh=rq/gVRzc6NYvKxcKfEXgG66peSZidPjTyfqE5LKg8gE=;
+	h=From:To:Date:Message-ID:MIME-Version;
+	b=HrKUftKNuljCyYVA6RIMTgWRhey5UTmylQbgazqyHFKGR7bKLES8B5c5p1nAxu8JL
+	 fAZMCOmIy5exdfkuWQDQM5SPU1tK+ll5G4+PfvQ/jnzSrgb+2oErzQkmfYQ6OyE6Pr
+	 19NsW3aJWorciwF4CpZcHP3LAse/d1P0SMBBpW2RAvmpVDkr66oD8f0MFfuu6CRTJ+
+	 oxdgYFzAfxBtSjObN7/cd4UZgxA08AsG/eTfI0qRKBKK5UgTrNf81RB2K/gB7GgU/p
+	 yrwxB8/0NSzClzGE/fTVINvXFh3ZK6TdIjPPBT48yObfOUWZeaj/SWAXVC/0XRy1Pn
+	 eBLUJYdExP15w==
+X-Virus-Scanned: amavis at retz.cirad.fr
+Received: from retz.cirad.fr ([127.0.0.1])
+ by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id 6P_hqUnXJV0x; Mon,  9 Nov 2026 19:02:25 +0100 (CET)
+Received: from localhost.localdomain (78-196-243-100.subs.proxad.net [78.196.243.100])
+	by retz.cirad.fr (Postfix) with ESMTPSA id B881320DB5DB;
+	Mon,  9 Nov 2026 19:02:24 +0100 (CET)
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
+To: Bruno Banelli <bbanelli@gmail.com>
+Cc: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>,
+	Conor Dooley <conor@kernel.org>,
+	Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Alex Elder <elder@riscstar.com>,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] riscv: defconfig: enable dwc3 and the SpacemiT K1 thermal sensor
+Date: Mon,  9 Nov 2026 19:02:05 +0100
+Message-ID: <20261109180206.323394-1-frederic.mahe@cirad.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109111155.293849-1-frederic.mahe@cirad.fr>
+References: <20260825052233.66850-1-bbanelli@gmail.com> <20260825224905-GKD631715@kernel.org> <20260826-ought-tableware-73678af4dd1f@spud> <20261109111155.293849-1-frederic.mahe@cirad.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,20 +87,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 09, 2026 at 10:49:42AM +0100, Pavel Machek wrote:
-> I see build problems in -cip testing:
-> 
-> arch/arm/mach-imx/pm-imx6.c: In function 'imx6q_suspend_init':
-> arch/arm/mach-imx/pm-imx6.c:589:17: error: implicit declaration of function 'cfi_get_func_hash' [-Wimplicit-function-declaration]
+Note for the USB-A ports of the BPI-F3: dwc3 alone is not enough, the
+VL817 hub also needs USB_ONBOARD_DEV, which I sent separately:
 
-"ARM: imx: Fix suspend/resume crash with Clang CFI" (upstream 242757d109bd) was
-already dropped from the 6.12 queue on 11-08 (stable-queue commit 39e32a361d),
-after 6.12.117-rc1 had been generated, so it will not be in the 6.12 release.
-
-Thanks for the report.
-
--- 
-Thanks,
-Sasha
+https://lore.kernel.org/r/20261109175555.323067-1-frederic.mahe@cirad.fr
