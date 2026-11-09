@@ -1,65 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794196545;
-	b=U88gKhhkgpAOP7GY22HViR4QN4DuJTkiQFOqth7Sha/jHuPqVIJ+QN1lG/zMJVA+6Hiq
-	 iRGIJtpEtFwFbm4du8WSFEeEMgsFjY7/pG3j10jkgOonM+V9F3Ud87SzooNpUS68S9qZB
-	 8SKc4HV7QLskHW5WaGVV3tFXmaCpc37MMYVxvbrf3TyFD31HWy9iiz7HQewexXN7CLPiB
-	 1e75yGV6mb4j28AwMGBm9TDGFiL5GUEn7uixcZ5uAyUNpd928qWJuU+ZU/HCgK3qcR6U5
-	 Fxw3h7Hh1/FzonZZM3/6WpbiKZXuUYPYguWWFUG4AoPd3DMDpiwto+CSH6JFTH8pV/Q==
+	t=1794196544;
+	b=Xylpv1F/0YoC89ZE1F9xc5Ul0Gk9GkROcpGXLXbcN1XvyGmuxKERtNTn3xMaVnchm8jH
+	 vZLkBeIF+oWx1DcElIayZDojVOn0ZoPc9dPrey2u1+GW6A5GEPvDrbCjP8ch+8FaaclbS
+	 jgJETsWz3dEVfaGW6w/kkclADnxLg91j+y2aZeMNlHGrZaFYUMD9C98U6mibqufG+9hOx
+	 OzQgrhGdZ5KxQLSXeiMbi4zVUsJym9QdvbI82nGpSK5qKbDmwjQc//mIJQfALhr51l5Pm
+	 uqjOSttaLmDnemOY0yPSYhVHK8PrH3iM2+7wTSLABGG0MscBKKrNEzKVMfPkuw2Erqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794196545;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LETuMPa26i6sdaOmtniE0RZ4Ar7sk6ZdHV8owkJvnbo=;
-	b=gyvOSz9qNXOddKLcFyNM8YN/7sawqdWaAR1VtuHGZWzb78JHp5fcpUhpA8VyfIrxCNn6
-	 53SNoxydrrd3h1Zc8daUeRAO0oLjEeBR1ltHgxFHM3twlmL6wF4VNbwQQq5Y/oY4jDRZy
-	 FoHntBcYFxfG3/7984+ERO9PT/JAN04l2fF6ePwPCt7o8gHj4u47Hz8qZ51rpjyKF8w0J
-	 w8L9zGQheA3GbpXIgAAFJWhavI/gzyBGuDxWVeKnRBZz4u6yQ1VPD7fCqVQDImvAjf32A
-	 H/vIb/4vrOfTKCO+CR18hUF7Nya7AldIR8kPOqD/lz3lo4ujoTkKtFQqrVnaTvT8hKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794196544;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=2Zljenr6taHTWjL3leu6PLVLHJqdixh9zJXxP5wHrfA=;
+	b=SowaYbU+KUH9JBtfWjkHjuAtwDj6trihD4AJ1XdUB2+YI4ZnEeBnHYc+N/ifPT/5cbgK
+	 LVwCe4TFdNN78WQnYS9YndQ9HvH8ODgGoGyfu97xGki7N+XtAmxq1PCel5V5QpQsS9KXa
+	 6CC44eymS00grAyqfC5UzfzA+7U3vRjrKBR7MRZkdJ7Z04ZoY+lhX0HFXbYJ35C5SOA61
+	 tnb8ZlYNIZCI0/0tceVT0/+jN6Q8J63lBdOSQr5zEQiW1/D+Ukp3lcEaoF73GUbKAoFKk
+	 R5oN/KV+TfljDQiaPTtCaol3j5Zc1Jc20YGkW8Kk+EUgvjE3oSu1+sofJ5gd/THWjeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lIpsnzIf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=T87VTSAe;
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D5F606D830;
-	Mon,  9 Nov 2026 03:55:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lIpsnzIf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90ACB1F008A1;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B86606D821;
 	Mon,  9 Nov 2026 03:55:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794196544;
-	bh=LETuMPa26i6sdaOmtniE0RZ4Ar7sk6ZdHV8owkJvnbo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lIpsnzIfOp7wexlLwrA9UvJRObTQzlCFQmOCbN5czrcfCoJQN4He0tp2NZOVif1Lk
-	 mURKppX8X8mDGOsMgLvPywMPI+i9Svi9hAbFFJFpEmKEboRBmU6EdyQ7Pz+i1838Tb
-	 E0EYVlCc/eFOuFqaDyqcPXtEbkuOgkyXmdXz1pd1sHNbFs1tR/rwdjCwUSJt2JXaK3
-	 FQVwXHkx0Kz9WdDzdIvUGNGxcYO9EiRR2Og/QTPhxynJpXbyYQ9ZPKb7EH+ClG7sdm
-	 57s8gebd2AjKEXLaZi3g2LQtw3rDevTXgu1Hc4QIukvS0r+pR72DbadwYDAFS4NEhN
-	 BHhdNpv1q6VMg==
-From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	alim.akhtar@samsung.com,
-	jejb@linux.ibm.com,
-	bvanassche@acm.org,
-	kwangwon.min@samsung.com,
-	hy50.seo@samsung.com,
-	cpgs@samsung.com,
-	h10.kim@samsung.com,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Kiwoong Kim <kwmad.kim@samsung.com>
-Cc: stable@vger.kernel.org,
-	stanleyjhu@google.com
-Subject: Re: [PATCH v7 0/2] scsi: ufs: fix the abort path of device management commands in MCQ mode
-Date: Sun,  8 Nov 2026 22:55:25 -0500
-Message-ID: <179419615231.1941224.10886487867480018133.b4-ty@b4>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1793938245.git.kwmad.kim@samsung.com>
-References: <cover.1793938245.git.kwmad.kim@samsung.com>
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7B86606D821
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=T87VTSAe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1794196541;
+	bh=2Zljenr6taHTWjL3leu6PLVLHJqdixh9zJXxP5wHrfA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=T87VTSAeudzRs51DvBAQruzVQKZXmY8ZpKF3M/14j73a5aiVQfAEQ7wg0E5YpDMHb
+	 ImakN3xRymJhM0fJR2pfk92Pmtt0nQsc/ZZvPSx1E3YVpSpXPJoSAhkxkKE1DRPa9R
+	 XzbirKrhOOdm+oM2sLGirfrKd5Kd1Q/8m2bySi48Ncp3hIRZPn8H/Bf7Br8T4pmgYJ
+	 7QRpok1X6yyIhr0lj+H3SOagXNZYZf5ZkEm11NgGxgiMR2tyJ2XjfzK6dbB0UBJjf5
+	 CzJe5Dcy747AZg6sz9jX7C8pinZoxjHOwjnLgFNDHgay3dglGKhzTfJmgGyweue8s+
+	 IDky3LfgB+H3Q==
+Received: from [192.168.68.117] (unknown [180.150.112.139])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id A8E8A64952;
+	Mon,  9 Nov 2026 11:55:40 +0800 (AWST)
+Message-ID: <bb201e889665f2b5c9ac356674091b183de06aba.camel@codeconstruct.com.au>
+Subject: Re: [PATCH 2/5] gpio: aspeed-sgpio: propagate IRQ setup error in
+ probe
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: shao.mingyin@zte.com.cn, linusw@kernel.org, brgl@kernel.org, 
+	linux-gpio@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, geert+renesas@glider.be, wbg@kernel.org, 
+	opendmb@gmail.com, florian.fainelli@broadcom.com, 
+	bcm-kernel-feedback-list@broadcom.com, jelonek.jonas@gmail.com
+Date: Mon, 09 Nov 2026 14:25:39 +1030
+In-Reply-To: <20261107161254042rp3ZKRkQGz2jfH-FBrmtg@zte.com.cn>
+References: 
+	202611071612471583hApcIRmqJX9mMWQtxmcN@zte.com.cn <20261107161254042rp3ZKRkQGz2jfH-FBrmtg@zte.com.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,29 +71,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
-On Fri, 06 Nov 2026 13:12:45 +0900, Kiwoong Kim wrote:
+On Sat, 2026-11-07 at 16:12 +0800, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+>=20
+> aspeed_sgpio_probe() ignores the return value of
+> aspeed_sgpio_setup_irqs().=C2=A0 That function returns the result of
+> platform_get_irq(), so on failure - in particular -EPROBE_DEFER while
+> the parent interrupt controller is still probing - the driver carries on
+> and registers the gpiochip with no interrupt support, and the deferred
+> probe is never retried, leaving GPIO interrupts permanently broken.
+>=20
+> The "interrupts" property is mandatory for this device, so propagate the
+> error from probe.
+>=20
+> Fixes: 7db47faae79b ("gpio: aspeed: Add SGPIO driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-> This series fixes how a timed-out device management command (query, NOP)
-> is aborted in MCQ mode.
-> 
-> Patch 1 makes ufshcd_try_to_abort_task() skip the task management path
-> for device management commands and clear them with ufshcd_clear_cmd()
-> directly. ufshcd_mcq_abort() sends these commands to
-> the QUERY TASK / ABORT TASK path, which is meant for SCSI I/O commands.
-> With this change, the SDB path in ufshcd_abort() no longer needs
-> its own branch for reserved requests, so that branch is removed.
-> 
-> [...]
-
-Applied to 7.4/scsi-fixes, thanks!
-
-[1/2] scsi: ufs: core: skip ABORT TASK for device management commands
-      https://git.kernel.org/mkp/scsi/c/30bdadc9aa3a
-[2/2] scsi: ufs: mcq: poll OCS after sq cleanup for device management commands
-      https://git.kernel.org/mkp/scsi/c/e510b597d8af
-
--- 
-Martin K. Petersen
+Reviewed-by: Andrew Jeffery <andrew@codeconstruct.com.au>
