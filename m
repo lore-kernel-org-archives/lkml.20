@@ -1,69 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794232518;
-	b=xmJx61hh8Qe6AbxiKxoYQKn82+p91geG/+/U3e/N1a764LmIxA+19UJW0yx+UAnbxiQX
-	 g1ySFr8QCnxUz9wNburOJfqp9XPM9HS4mU07c9Q5ow2/JjpoMMP9i91TCltPCnl/aDNdf
-	 xIiNgnDPPAF/usK3fIcT50N15LBkFQ6xiOdwHgsttZ+1jL0Jng8JWJ2xjiqF0J9i7CAv1
-	 w+Z43d2BnSC8v8M6xwLwHZtEZq/qpO+kjsf3NT0+93tzH/5ZnthCEvZH/F73WTaM+C3hF
-	 g/V/yvm9trwT7FaK2u8be8UcNDxwn7mnwaLIFOZpwTapJaZBhraODznSu7/QPU5EBNw==
+	t=1794232529;
+	b=X9M3XYWvTnVrtw2Fr3imFItYmszhYOD1vmqzY0x1oA/l/g2L9G5qwPD+w02aQl82Phvr
+	 PIivufpVLoXBleUuXyxdKEE5gBXbLinzBXPxdUJkv6RM1Yj1S9eQDggY4JVMXj/BZz3rM
+	 daSS7rSsgcyI1F6C8hR/MenMVJxS9+tOfmcWkG2WJZkYV4jAH3Fti5tQ5M0SM1uXy+Obe
+	 Uv0z6d/fygAwlJfbs6bzXou1G7zlvIiOHmMfcDsT3m7efAiZiCpcVsnf1Qp4MNiWrOqY9
+	 wJIeqUQr/+DcjT9yMTmvtE4rLxMDrwG+azuD7GnEcPIUPzxv67Xb6a6ixHRzC86ak7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794232518;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=qyBKwFksJNX/3zANmADcweL35ZbCo7zw0f36je+aSa0=;
-	b=gG8JUcmjKyoIzNeWUGqK0n99w5AvAya6Ti1sVHZYLmtFlQaMLKssLAsQvFbHazwAxBPp
-	 URuLEBkCr1Dg43P4nRdhJvrmggiTKNxaFzLMquWre1LGw51dSTkuG0l/do64kmqqbpxFU
-	 zyY+CMEFqpVlQAIPBBsgf4MU8TGDrdTHTn2UsOuL+lDb/kh58CKqZszv6S8prAVQTb7Do
-	 VF5j+jB7TMoBZ3eEy9ckgPlXs0SBNshh00eEcLL5gi0+QBfcFBe7TaluzwlOWa2mJl8Ku
-	 mhzqENmCeYyOPdYx0dng/mbKNI5XTGzXs/8mkpVLLvvPEIjxJpexxhEmDXVBpaU+6bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794232529;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=Urhk3pQv0WWCXFwDQnJzg2CReRgBNAAQkqsxBvtLHgU=;
+	b=p1RARMAhc4hcKMMZNGh2/tIqlMLV0Nc4rgPp8fapIQJJVXo8U9rhlSZfk8UPdR9+z5gz
+	 vctXoqHOeK1gpybkpScEEJIzPEkqtiuLJ+Nyqqa+vpS8koa3VndPDBvycy8R0xV6FChYB
+	 jackV2MVRdkDWLXHLI01q4MAD+rsd+SoOOASrA7r14jS6V4lSyDr5UvxHRQaX5bgAeBpb
+	 SpILuzRkzNKKLmDGC2Z6UiF/PD3vE5DeN3h0CFEWHWMfc/rkkuGkpDyMnHePCml2aG0GC
+	 MngTbARThx/DaHRPelKe3ZIiJKDiFfqSx/3SMfsc9pPmBJMUgQra9qKiPtdGvnH6Gvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=b8Usqek3;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 67295606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:55:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67295606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Gz4Mdcek;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054E6606A321;
+	Mon,  9 Nov 2026 13:55:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 054E6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=b8Usqek3
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9CF7114BF;
-	Mon,  9 Nov 2026 05:55:13 -0800 (PST)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6C3F13F632;
-	Mon,  9 Nov 2026 05:55:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794232516; bh=KJJLhpniQZUmQ77hpm1zsDXOiW1CCXxKt62dmhbtma8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=b8Usqek3kaVUOB1RB0xwIA04Lp+O+RMitLE1+TFQAq4X64T9fjtId114taMH3frRl
-	 uKaZaRYI3VzAPYg9BkjXhmSjl9Z9fCVabsIalNzEHG3yDozSmuQbmFGDj9pvCUCHl0
-	 RU9u7X30AsjjJzRT1Z8wrFgLwHe0DDdE1gdE9jI4=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND v4 2/3] KVM: arm64: Introduce KVM_PGTABLE_WALK_SKIP_LEVEL* walk flags
-Date: Mon,  9 Nov 2026 13:55:05 +0000
-Message-ID: <avHQubuK6r3k9anX@LeoBrasDK>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <60fe23f4-4fca-41b6-8489-a28ab7b281f9@arm.com>
-References: <20261106161240.1345126-1-leo.bras@arm.com> <20261106161240.1345126-3-leo.bras@arm.com> <60fe23f4-4fca-41b6-8489-a28ab7b281f9@arm.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Gz4Mdcek
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:Message-Id:Date:Subject:From:Reply-To:Content-ID:
+	Content-Description:In-Reply-To:References;
+	bh=Urhk3pQv0WWCXFwDQnJzg2CReRgBNAAQkqsxBvtLHgU=; b=Gz4MdcekBFxwVXqzy4QnM4TA0/
+	scgCEkTPwboRTPW55j9E4U0HS6JZnACpt1miiYtkV2rBmj4LRCv5ZNlY5dHoyn26yKupbP5DzGWfF
+	bwz+v2Jb1hNdOYLadaBmCaaO2AOtUT5sFvaCTMQKvMsMN4JpLo1LMPx1IhF8sOVNhSl7chluDhJBL
+	UbDaeryB3nwHLUAzABSUPRMYctu+vd3KGX7FPt4XWNB8nTA1YIHLKBmz0CnhuOxvTesJulbtlMiky
+	UC2cPgaUlBWF2AToPpemoq5IX8GFkX6u6gtIHXtKThcWfSMx7vf+khNYWlUU5lH35x7xdkQ9+ogme
+	870AelUw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xQPqF-00BfYq-0p;
+	Mon, 09 Nov 2026 13:55:24 +0000
+From: Breno Leitao <leitao@debian.org>
+Subject: [PATCH RESEND v2 0/2] nfc: llcp: Move to .getsockopt_iter
+Date: Mon, 09 Nov 2026 05:50:36 -0800
+Message-Id: <20261109-getsockopt_phase3-v2-0-d0f74c6e0f37@debian.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,167 +63,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALHP8WoC/22NvQ6CMBgAX6X5ZmpKy59MDrI66GiIoeUrVBNK2
+ ko0hHc3oKPr5XI3g0dn0ENJZnA4GW/sACXhEQHVN0OH1LRQEuCMZyxnGe0weKsedgy3sW88Cio
+ SncsUpUAmISIwOtTmtTWvcK4u1ekI9Zf7p7yjCmtwNXvjg3XvbT7Fm//7FH8+U0wZbQuxTzTXK
+ k2TQ4vSNMPOug7qZVk+c0jzL80AAAA=
+X-Change-ID: 20260706-getsockopt_phase3-34f7b5eb3e0b
+To: David Heidelberg <david@ixit.cz>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Eric Dumazet <edumazet@kernel.org>, Eric Dumazet <edumazet@kernel.org>
+Cc: oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, sdf.kernel@gmail.com, 
+ Breno Leitao <leitao@debian.org>, kernel-team@meta.com
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3600; i=leitao@debian.org;
+ h=from:subject:message-id; bh=KmyCNgAppzjlVUyp/45pHqKJwpLKu26CS4a6FV1ckhs=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq8dDHO+Q2sGoQcflZ//uFSV9vBWhzELFnwHRLh
+ JK9cskBc1uJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCavHQxwAKCRA1o5Of/Hh3
+ bX+7EACeij6JKi300dvJKWegDxJmJAN2CoUgMdhLX02HkHL1iQzCSq6C8qS6lyaZi34TUv6TznM
+ VN8IswsqY6y0VxHzsIsVk4MIJUrA6an1vlxvFMd/MLho5jyCCh2CttlwlmHnjAX9n4CxWEzozR8
+ KFVUCLs3ZJ6XLbDXYB/nXs8K8PCU+ILqbiY1SQ27PZlpGeYKYtenXIb08iLLyX5fBsmrvRWCsA6
+ cKjcdPVVt8A1bz0Ng0KSohqxmyajKCERi9NbPKkAbBWgikNrA8uhRnTndgM9Kf8iP5RK/uFu2yr
+ oTpYJziWHQw9LmC/8LA7K+gy/heLelM6E0W2V3ZGRQehV9sfbjAgK5OFme+CVIDX+L1ZNYGAckM
+ hfokDfbx6r3ZYzZHSYGnp6U+H4mSrKvJ2yIRBh5tn+BOrNwK2vM5ZEo2YJylvCpG+cg2E/TC97p
+ h9s0dnenkwqTkTkR1cNSWplfur4GsLvfVfef+8k5+R6bWrRH8lcHraWubCho4FtFKe8pogbrRde
+ jMJR0+M8t2/2mLB+cHNxdaaUBcfIOlkZU/Dp7AcaMbQ2d46BMpjmh19JU669bA6yQorso9Xp5/8
+ jVoWhKZxi/+kgX45sJvi8n8pP7T5hJ1KjVM/31nO0J9ELOmuupGqJElerRN/5VhOGoz22Jm/1Sl
+ Db4QbnX7Ppw9dCQ==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-On Fri, Nov 06, 2026 at 05:02:31PM +0000, Suzuki K Poulose wrote:
-> On 06/11/2026 16:12, Leonardo Bras wrote:
-> > Add new walking flags KVM_PGTABLE_WALK_SKIP_LEVEL{0-3}.
-> > When used, they make the kvm_pgtable_walk() skip the given level, as well
-> > as levels higher than that.
-> > 
-> > Being able to skip levels substancially decreases the runtime of a
-> 
-> minor nit: substantially
+Continue to convert the protocols to getsockopt_iter callback.
 
-fixed!
+Proto llcp is one of the last to be converted, and it was waiting for
+the following fixes to land first, avoiding merge conflicts.
 
-> 
-> > pagetable walk when the callback function does nothing on that level.
-> > 
-> > Signed-off-by: Leonardo Bras <leo.bras@arm.com>
-> > ---
-> >   arch/arm64/include/asm/kvm_pgtable.h | 14 ++++++++++++++
-> >   arch/arm64/kvm/hyp/pgtable.c         | 16 +++++++++++++---
-> >   2 files changed, 27 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
-> > index 41a8687938eb..5f37ceef8d63 100644
-> > --- a/arch/arm64/include/asm/kvm_pgtable.h
-> > +++ b/arch/arm64/include/asm/kvm_pgtable.h
-> > @@ -311,31 +311,45 @@ typedef bool (*kvm_pgtable_force_pte_cb_t)(u64 addr, u64 end,
-> >    * @KVM_PGTABLE_WALK_SHARED:		Indicates the page-tables may be shared
-> >    *					with other software walkers.
-> >    * @KVM_PGTABLE_WALK_IGNORE_EAGAIN:	Don't terminate the walk early if
-> >    *					the walker returns -EAGAIN.
-> >    * @KVM_PGTABLE_WALK_SKIP_BBM_TLBI:	Visit and update table entries
-> >    *					without Break-before-make's
-> >    *					TLB invalidation.
-> >    * @KVM_PGTABLE_WALK_SKIP_CMO:		Visit and update table entries
-> >    *					without Cache maintenance
-> >    *					operations required.
-> > + * @KVM_PGTABLE_WALK_SKIP_LEVEL0:	Skip visiting level 0+ entries
-> > + * @KVM_PGTABLE_WALK_SKIP_LEVEL1:	Skip visiting level 1+ entries
-> > + * @KVM_PGTABLE_WALK_SKIP_LEVEL2:	Skip visiting level 2+ entries
-> > + * @KVM_PGTABLE_WALK_SKIP_LEVEL3:	Skip visiting level 3 entries
-> >    */
-> >   enum kvm_pgtable_walk_flags {
-> >   	KVM_PGTABLE_WALK_LEAF			= BIT(0),
-> >   	KVM_PGTABLE_WALK_TABLE_PRE		= BIT(1),
-> >   	KVM_PGTABLE_WALK_TABLE_POST		= BIT(2),
-> >   	KVM_PGTABLE_WALK_SHARED			= BIT(3),
-> >   	KVM_PGTABLE_WALK_IGNORE_EAGAIN		= BIT(4),
-> >   	KVM_PGTABLE_WALK_SKIP_BBM_TLBI		= BIT(5),
-> >   	KVM_PGTABLE_WALK_SKIP_CMO		= BIT(6),
-> > +	/* SKIP_LEVEL* flags should not be split nor reordered */
-> > +	KVM_PGTABLE_WALK_SKIP_LEVEL0		= BIT(7),
-> > +	KVM_PGTABLE_WALK_SKIP_LEVEL1		= BIT(8),
-> > +	KVM_PGTABLE_WALK_SKIP_LEVEL2		= BIT(9),
-> > +	KVM_PGTABLE_WALK_SKIP_LEVEL3		= BIT(10),
-> >   };
-> > +#define KVM_PGTABLE_WALK_SKIP_LEVELS 	(KVM_PGTABLE_WALK_SKIP_LEVEL0 | \
-> > +					 KVM_PGTABLE_WALK_SKIP_LEVEL1 | \
-> > +					 KVM_PGTABLE_WALK_SKIP_LEVEL2 | \
-> > +					 KVM_PGTABLE_WALK_SKIP_LEVEL3 )
-> > +
-> >   struct kvm_pgtable_visit_ctx {
-> >   	kvm_pte_t				*ptep;
-> >   	kvm_pte_t				old;
-> >   	void					*arg;
-> >   	struct kvm_pgtable_mm_ops		*mm_ops;
-> >   	u64					start;
-> >   	u64					addr;
-> >   	u64					end;
-> >   	s8					level;
-> >   	enum kvm_pgtable_walk_flags		flags;
-> > diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-> > index 7a51f78b6446..80744478c810 100644
-> > --- a/arch/arm64/kvm/hyp/pgtable.c
-> > +++ b/arch/arm64/kvm/hyp/pgtable.c
-> > @@ -137,20 +137,27 @@ static bool kvm_pgtable_walk_continue(const struct kvm_pgtable_walker *walker,
-> >   	 * Ignore the return code altogether for walkers outside a fault handler
-> >   	 * (e.g. write protecting a range of memory) and chug along with the
-> >   	 * page table walk.
-> >   	 */
-> >   	if (r == -EAGAIN)
-> >   		return walker->flags & KVM_PGTABLE_WALK_IGNORE_EAGAIN;
-> >   	return !r;
-> >   }
-> > +static bool kvm_pgtable_skip_level(s8 level, enum kvm_pgtable_walk_flags flags)
-> > +{
-> > +	u32 skip = FIELD_GET(KVM_PGTABLE_WALK_SKIP_LEVELS, flags);
-> > +
-> > +	return unlikely(skip && level >= ffs(skip) - 1);
-> > +}
-> > +
-> >   static int __kvm_pgtable_walk(struct kvm_pgtable_walk_data *data,
-> >   			      struct kvm_pgtable_mm_ops *mm_ops, kvm_pteref_t pgtable, s8 level);
-> >   static inline int __kvm_pgtable_visit(struct kvm_pgtable_walk_data *data,
-> >   				      struct kvm_pgtable_mm_ops *mm_ops,
-> >   				      kvm_pteref_t pteref, s8 level)
-> >   {
-> >   	enum kvm_pgtable_walk_flags flags = data->walker->flags;
-> >   	kvm_pte_t *ptep = kvm_dereference_pteref(data->walker, pteref);
-> >   	struct kvm_pgtable_visit_ctx ctx = {
-> > @@ -185,35 +192,35 @@ static inline int __kvm_pgtable_visit(struct kvm_pgtable_walk_data *data,
-> >   	 * into a newly installed or replaced table.
-> >   	 */
-> >   	if (reload) {
-> >   		ctx.old = READ_ONCE(*ptep);
-> >   		table = kvm_pte_table(ctx.old, level);
-> >   	}
-> >   	if (!kvm_pgtable_walk_continue(data->walker, ret))
-> >   		return ret;
-> > -	if (!table) {
-> > +	if (!table || kvm_pgtable_skip_level(level + 1, ctx.flags)) {
-> >   		data->addr = ALIGN_DOWN(data->addr, kvm_granule_size(level));
-> >   		data->addr += kvm_granule_size(level);
-> >   		goto out;
-> >   	}
-> >   	childp = (kvm_pteref_t)kvm_pte_follow(ctx.old, mm_ops);
-> >   	ret = __kvm_pgtable_walk(data, mm_ops, childp, level + 1);
-> >   	if (!kvm_pgtable_walk_continue(data->walker, ret))
-> >   		return ret;
-> > -	if (ctx.flags & KVM_PGTABLE_WALK_TABLE_POST)
-> > +out:
-> > +	if (table && ctx.flags & KVM_PGTABLE_WALK_TABLE_POST)
-> >   		ret = kvm_pgtable_visitor_cb(data, &ctx, KVM_PGTABLE_WALK_TABLE_POST);
-> > -out:
-> >   	if (kvm_pgtable_walk_continue(data->walker, ret))
-> >   		return 0;
-> >   	return ret;
-> >   }
-> >   static int __kvm_pgtable_walk(struct kvm_pgtable_walk_data *data,
-> >   			      struct kvm_pgtable_mm_ops *mm_ops, kvm_pteref_t pgtable, s8 level)
-> >   {
-> >   	u32 idx;
-> > @@ -242,20 +249,23 @@ static int _kvm_pgtable_walk(struct kvm_pgtable *pgt, struct kvm_pgtable_walk_da
-> >   	u32 idx;
-> >   	int ret = 0;
-> >   	u64 limit = BIT(pgt->ia_bits);
-> >   	if (data->addr > limit || data->end > limit)
-> >   		return -ERANGE;
-> >   	if (!pgt->pgd)
-> >   		return -EINVAL;
-> > +	if (kvm_pgtable_skip_level(pgt->start_level, data->walker->flags))
-> > +		return 0;
-> > +
-> 
-> Should we rather return an error here ? A walk skipping the start level,
-> is that any meaningful ?
-> 
+ * commit 36812527052c ("nfc: llcp: read llcp_sock->local under the
+   socket lock in getsockopt")
+ * commit 99985bfa8336 ("nfc: llcp: avoid userspace overflow on invalid
+   optlen")
 
-My rationale on not returning error is that it may be ok for some routine 
-to call a walker on a pagetable range just to be sure, even if it actually 
-does nothing.
+Now that they have landed, let's move llcp to .getsockopt_iter callback
 
-I take that this happens based on the split walker being called on
-kvm_arch_mmu_enable_log_dirty_pt_masked() multiple times in the same range, 
-even though it's already split, for instance.
+Regarding the whole project migration, this is where we are:
 
-But I am fine on changing it to return an error here if it's important in 
-some scenario.
+Missing proto_ops migration (as of net-next)
 
-Thanks!
-Leo 
+net/can/isotp.c:2064                          isotp_ops                  (.getsockopt = isotp_getsockopt)  [1]
+net/can/j1939/socket.c:1375                   j1939_ops                  (.getsockopt = j1939_sk_getsockopt) [1]
+net/ieee802154/socket.c:411                   ieee802154_raw_ops         (.getsockopt = sock_common_getsockopt)
+net/ieee802154/socket.c:987                   ieee802154_dgram_ops       (.getsockopt = sock_common_getsockopt)
+net/ipv4/af_inet.c:1058                       inet_stream_ops            (.getsockopt = sock_common_getsockopt)
+net/ipv4/af_inet.c:1094                       inet_dgram_ops             (.getsockopt = sock_common_getsockopt)
+net/ipv4/af_inet.c:1126                       inet_sockraw_ops           (.getsockopt = sock_common_getsockopt)
+net/ipv6/af_inet6.c:656                       inet6_stream_ops           (.getsockopt = sock_common_getsockopt)
+net/ipv6/af_inet6.c:692                       inet6_dgram_ops            (.getsockopt = sock_common_getsockopt)
+net/ipv6/raw.c:1290                           inet6_sockraw_ops          (.getsockopt = sock_common_getsockopt)
+net/l2tp/l2tp_ip.c:628                        l2tp_ip_ops                (.getsockopt = sock_common_getsockopt)
+net/l2tp/l2tp_ip6.c:757                       l2tp_ip6_ops               (.getsockopt = sock_common_getsockopt)
+net/mptcp/protocol.c:4753                     mptcp_stream_ops           (.getsockopt = sock_common_getsockopt)
+net/mptcp/protocol.c:4862                     mptcp_v6_stream_ops        (.getsockopt = sock_common_getsockopt)
+net/phonet/socket.c:451                       phonet_stream_ops          (.getsockopt = sock_common_getsockopt)
+net/sctp/ipv6.c:1047                          inet6_seqpacket_ops        (.getsockopt = sock_common_getsockopt)
+net/sctp/protocol.c:1106                      inet_seqpacket_ops         (.getsockopt = sock_common_getsockopt)
+net/smc/af_smc.c:3345                         smc_sock_ops               (.getsockopt = smc_getsockopt)
+net/smc/smc_inet.c:36                         smc_inet_stream_ops        (.getsockopt = smc_getsockopt)
+net/smc/smc_inet.c:84                         smc_inet6_stream_ops       (.getsockopt = smc_getsockopt)
+
+Link: https://lore.kernel.org/all/20260507-getsock_two_can-v1-0-3c2ae9edfadc@debian.org/ [1]
+
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+Changes in v2:
+- Rebase on net-next, no code change
+- Link to v1: https://patch.msgid.link/20260708-getsockopt_phase3-v1-0-d8394f2fc554@debian.org
+
+---
+Breno Leitao (2):
+      nfc: llcp: widen getsockopt value locals to u32
+      nfc: llcp: convert to getsockopt_iter
+
+ net/nfc/llcp_sock.c | 25 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
+---
+base-commit: fa5196392691051963726787944db872420dfa75
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git main
+change-id: 20260706-getsockopt_phase3-34f7b5eb3e0b
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
+
