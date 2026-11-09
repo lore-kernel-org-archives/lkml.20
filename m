@@ -1,84 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794265624;
-	b=rGmqvqI/OvA9pPSScHFw/PXSsNjojLCqwiEP37UJxmCrAhfHDSMRMYfSkI11dsIPpr0z
-	 z1XeQiTbsTq9Vs2P5JGwyoH8zRmPtyT8pogQNpEoOGeEWfGvYlzeUsgpKDsau0NOmEH/4
-	 8GTrKQR3DGruz6WxCBDmG0ypG/elJusDsNm+YGu861sCZ2FQKBEqsTgqHm/whKgG9Gp76
-	 jtwVxXBXfE7179wLNFS411ktqbRRRAAHVxXgCmKktIWz169K9dbt+qDbz85p6rbIQ7/lY
-	 DOVFIm0WPMXNqD1xR7bYvbyJAyUvFX5C/frxLBu9pi/cEyXLUoSq/3Vo0MtU5yJ1N2A==
+	t=1794265690;
+	b=QGTt+utCUqw2eSlC1GLxEQ1Y7I33zGGDOm1yFalp92BLi5NpixA2ERrPpdjG/qVRrs2c
+	 0pe/P8xPWwHOW2go3EAcSPhjM1AYY9IBqoqgD/PtgwDHM8pF61/MPEBy15B2LrQ6CToZs
+	 g/dgb+3PHmKfxOYIT8ACXEJbB3lWQMBUpcH69aGpr7XDxvFqI1+me9EYvXWL/y8SSWPNP
+	 X3crUwGaCGUVBubg/TgeOmrXzwiJ2CHPmTIGhCeyA53K4Z+BrKlp205LLRhrimiHXFrrM
+	 k1BL7x2Zdm6Zl03EFWGFmgQiCc3fD2+gmUgCjHEOSbrQ1AkrljQ2oVnopqrg5c07aQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794265624;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=cce/9RXAeZ7GCno3/183y+2YRTDy6KkvbogDyDUbNIA=;
-	b=bosLGSnYeQwQS9HO7js1b+lynNAc3HiP81Vj9LH+qbhhtkEXkoOcwtqLkb5HNd77BnJw
-	 5U9ovRLOPObCpauXlOdibQBRrh8mcAgg1pX63jT03RHsADyvfOtMWgwgA9fasSHnfq5yz
-	 2T1deiCwf5lfohFjjoCrUPemn+8efE7ER5uy0yGSvowq88YCt7ZXg6VO58+oZDI+/BryZ
-	 EBfniBy7yhHhh3nLgL66/KGkYftsMcs5S9sjYQhLxuSxWsE07t/Y3ZWIjl18xQ/0xhZ9q
-	 TQ0wVqaOLqh+5SVmMWqw+j9oh6IiIHw1GSKRKd9+cFdZu9b+gOff4SFIfNIr1IJLJyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794265690;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=E7jFmIFrIh+Py/sNWf0CgvwEQngMIkHAiYLSPl55KfM=;
+	b=jcgSQuaSlqBIheYDZq9klzGulPvvq/UPu1KPJGUucodlU99fhO9F9XJd5snBWMG2hu/1
+	 0JVQVl1e2XHMM9C/4YHRM5B4VT9kBLaozRQkJqvgt9Cmmfv5tMgWMpuwwy5okgQ+9KDMw
+	 8UaP6Z8y1eLqkeh6hRA1i1qKFpfbao80eKE/z5L6dNicsF2up9IsBGO36eGe94OkmkCRw
+	 VWDMbwCG1ze+X5dqglFv5GgFJDIb5SnhYsWwotLm06E9IZfmrDtVJaTUVrcOWuKx1qdwj
+	 lGd59kpLIHuZf/yYBzgTx2lB+mNRtFBlYbRk3YiEMxVbiKvNZYz4T/SFrLvrf1IXOdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Q/llW0h2";
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jAHDYrW6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7D4606A321;
-	Mon,  9 Nov 2026 23:07:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA7D4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA846606A31C;
+	Mon,  9 Nov 2026 23:08:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q/llW0h2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794265623; x=1825801623;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=7pmup5JwHroklabp2D5twn2dbPMnGh/ztW33CBS2YQw=;
-  b=Q/llW0h2hdc+2u+rt77U2KyqPtvEz9EX9nmwtMthTtQUBQTBVZmaTElU
-   hECzRTHKHKOkgAEOwfMPQ41TIQ96wjJGrfzeTrq1rCMYQaJHTS299hqPS
-   KH+/u2BfIKYD51IsMhZ7bq5ydDWAPQXJnYQcW/hpmbAULm4cxXUsdHc9V
-   odPZSdvefu6bvenoIruqkslKqMSdTOhicSgArk3TouDAXRpLAWvSNlH5a
-   am6o/yJ3dopaVexuobtX+eYVZ5KVXXQP2jBPscPa3OF6BRT7CpRvhlPxy
-   YWvkh2weX1eAX/6UqkPIYByoqIhrf7JXqMyIaZ1wA0lR0slcaOwQEknWP
-   A==;
-X-CSE-ConnectionGUID: SSC4ZHgKQRSi+dStAsGEAQ==
-X-CSE-MsgGUID: ORion4UzSaCPfYUZYABvpA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2998119"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2998119"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:07:02 -0800
-X-CSE-ConnectionGUID: YE0vm8kqRGqbaS24Yp0OKw==
-X-CSE-MsgGUID: +wxkWmm0Q3CUyhw4YfOevQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8424973"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:06:59 -0800
-Date: Tue, 10 Nov 2026 01:06:57 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH v8 01/11] serial: 8250_dw: allow port setup to report
- errors
-Message-ID: <avJSEbiZx7cU3ONt@ashevche-desk.local>
-References: <20261105-submit-h616-uart-fifo-v1-v8-0-14024d2b184b@gmail.com>
- <20261105-submit-h616-uart-fifo-v1-v8-1-14024d2b184b@gmail.com>
- <avJRsij5P7Ch3tqE@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jAHDYrW6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13F4C1F0089F;
+	Mon,  9 Nov 2026 23:08:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794265689;
+	bh=E7jFmIFrIh+Py/sNWf0CgvwEQngMIkHAiYLSPl55KfM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=jAHDYrW6bHdLXGJGnHOyvjD31+RRG2f7OYs0aN7KpZIwod08JJbnyFk2EPMghXIlR
+	 XqG6VH/XpkWpWPKS39I29/V0tPPelqXYJZa0J6e0a3MzxY4qe7Eu+ydzi93HwFJhUe
+	 joBU5qbAYsZvCbnfPcFyPT+EtULY8XS95Wg4JleVfh3Qp3zxxXp9JRW8n95h7eZKJK
+	 Apjo5Av9bEdi14kN6Wgb4cCXMvWmD3O70eC2U6wZ2JB0H5Cev2mFVXFvje8WFWg5oI
+	 Ik0ZRHjKBc7bOj+J0x1BWZuYItY9JQ/fB4BD/IayuDIUm+954jokwRxlQggfcyAvey
+	 ghoEBAc4UwXfA==
+Date: Mon, 9 Nov 2026 15:08:08 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-kernel@vger.kernel.org, outbounddisclosures@openai.com
+Subject: Re: [PATCH] mpls: reject headroom that overflows skb header offsets
+Message-ID: <20261109150808.32b625f3@kernel.org>
+In-Reply-To: <20261030042246.74144-1-kylebot@openai.com>
+References: <20261030042246.74144-1-kylebot@openai.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,47 +59,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avJRsij5P7Ch3tqE@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 10, 2026 at 01:05:28AM +0200, Andy Shevchenko wrote:
-> On Thu, Nov 05, 2026 at 01:52:02PM -0700, James Hilliard wrote:
-> > Return a status from dw8250_setup_port() and propagate failures through
-> > the DW and LPSS probe paths before registering the UART. Use the existing
-> > LPSS cleanup path to release board resources and IRQ vectors on failure.
-> > 
-> > Keep the current setup behavior by returning zero on both successful
-> > paths. This separates error propagation from the configuration validation
-> > that will use it.
-> 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> after addressing below piece.
+On Thu, 29 Oct 2026 21:22:46 -0700 Kyle Zeng wrote:
+> For example, a netkit device with needed_headroom 65488 gives an initial
+> network offset of 65504.
 
-...
-
-> > -	if (!data->skip_autocfg)
-> > -		dw8250_setup_port(p);
-> > +	if (!data->skip_autocfg) {
-> > +		err = dw8250_setup_port(p);
-> > +		if (err)
-> > +			return err;
-> > +	}
-> 
-> No, don't change it here, the return value will be simply ignored until the
-> change that will make use of it.
-
-Alternatively to minimize the churn do it like
-
-	if (!data->skip_autocfg)
-		err = dw8250_setup_port(p);
-	if (err)
-		return err;
-
+We should probably cap the needed_headroom at something reasonable,
+then? Also AI review suggests the fix is incomplete. 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+pw-bot: cr
