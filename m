@@ -1,62 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794188550;
-	b=y9GevLwJqdwuuI5NEasdpYz3GC+IAC2d1CyeWIopyco/4dmWaIXHw3Xmis4DGdTWW/DY
-	 Om2oQ5fwZtEay42cnhvjbOPvUvOpBLXdZKxKCd4zIV5Cb5lDFXKgwZtJKsXWMtKLVxbQi
-	 CDv7kgWTQt9oj1t3fyYmfHY7/AUwHBtGWqqffSsGwM7aF/b0XVXLYvtEjxea5G28XwAEi
-	 YiUEnZscTNejFohPou5/sLmZGyBpMnea+aYXAUK3vxio8dDuaxsPbkVpP8rSw023cRs1t
-	 sMRokjPKK+h2UJNBqTWOjK2tulN1YihZlamJzi81GMpIaKoGy8bIutW1SU1cJUnoyRQ==
+	t=1794188575;
+	b=cDOrvTfn0umpY90Ll/mIiY69ebygNo1djCNzxWgtA2+44LCn66JelkDf79zEk9c+50sN
+	 LPV4OuQMOIPQPiR3/1xQsHrFCHxgW17t95ve6qnmaxSmamOAy4YTmt35wSCuawnygvKpr
+	 hINSECWZGp7dAE31JeSVoS2re98W20FWuVd01ENqdclpSVtHQFoTavVzM4/uprTUzEmuo
+	 QfhYrNP5xpfEhfIt9K3aIjoawiIu+wUUpEYRTYPTlpXyaeVWadN/GRBAk+lFOF3eaKrnn
+	 0xr7NHuU+f3UWRuHDMjL75ZG2a/0ffLORjQiX+LH8vczzZbEJ7mWF/wsA9BwE2VFSsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794188550;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5MDqAcZY9aksFeH5q+wRTzlQ8j65v5wPJh73bJ/o470=;
-	b=GKYVepYUMaE+2GAhO7h3xI0XQHwWlcDSlXHfUnxo8vQsGCbc5AljcqoLhqw0cB47pfa0
-	 gLrgDwmFhrBwLlcmIB8jfU7FO0V+eF5MsIxLOkWh6elI39JtjqDnGNQ94SXVw86SsQtOb
-	 95AFcsLWS9CfX8xhc5652RV97K20UZ8HmDTkruR/s+bvh09Sqb3QlMcB4Y/Iipa81uKJY
-	 f+HjYOJmvWDM3b0Qp0SzmXUwnJnRXDsx5Elu6UWxqZOKb4WgOrNAxb44GZ0ZosD2hTgtW
-	 1omnwV3T6StafZaZCg9OA36x5UHyGEdrnkB+WW9QkuCVpT79tPVUvbuFqknfY+2y/QA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794188575;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=t0E833MpVG61FRxYwlYCLOnS/nHsLvc7hjk+1MaYUEc=;
+	b=y9fDMVoClBZ6hLNN34miVZ4fq6QpQOeqmCCT2+GA2IdRPPyRGoi/R+5EzDmXoB3Xwxi1
+	 pGIHwoTudYDAC67oTYDjVAqibpgrhXdIldKGrcmfrdw0VuI2bzuL/leweJXOQCK3tQH9V
+	 GQS/2+ZmU9F7KomjttTsXmPb4+sWsZQeh275v/AhSOZzvBlyexrCwyZI2oDlWTvHObQgU
+	 FVIq+7YnvFE5t0bekTjzNX8N4L1t4Vdvb3l47lTDGb+o3K1Su6HAC7WQh/UHUWJv03Jps
+	 ZMbuQdNSu2BaCsc7dGzuBbp6MfUqDsHDlbv3qdLyI/xLdb0Q9lvfeRDL9yOp/ykM0GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mc0eoXnW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D0E606A31C;
-	Mon,  9 Nov 2026 01:42:29 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=HSLp2GbT;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AAE0A606A31C;
+	Mon,  9 Nov 2026 01:42:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAE0A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mc0eoXnW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C2201F0089F;
-	Mon,  9 Nov 2026 01:42:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794188549;
-	bh=5MDqAcZY9aksFeH5q+wRTzlQ8j65v5wPJh73bJ/o470=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mc0eoXnWhQ2Iv5xiM4kAz7BaBUY6zJUaUwv7V6CCp9CuPKdKRk+tYGvFd6I1py/Rc
-	 JPrpWcjHltb78ijqJdY74zQWP1NrGwaWwOGLJBq4oJ9z5Qu+gD6e0dXWtnOto/YFuC
-	 Q5utkMe6QiY9KQUgHm/wIcFMpwEAbnHapuKD1myJNtyI8q5+M+Vr260dLClG6vS1b4
-	 wmQeGsihzWl6MCdRaKmWuOAnK+gU7joCSIFr9s61EA61+NO6YOpg5fvlBK+kY2TBMa
-	 JjwWiJxilnHrjHyJBqwosNWH1r7w/m6Dcg9Uw77xd5CP7bdr34c9Wr/h1TS+rM+cHd
-	 59MrC7443LXww==
-Date: Mon, 9 Nov 2026 01:42:25 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Satyam Gupta <sgsatyam@google.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Benson Leung <bleung@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	Enric Balletbo i Serra <eballetbo@kernel.org>,
-	linux-iio@vger.kernel.org, chrome-platform@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] iio: cros_ec: Use platform sensor_num to unregister
- FIFO callback
-Message-ID: <avElARDvNGQWodN8@google.com>
-References: <au1FF5K9EALuqnNR@google.com>
- <20261106071904.142937-1-sgsatyam@google.com>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=HSLp2GbT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=HSLp2GbTZNWZnonXS8yOEyA7X6p24AiPwd4PaWbl4Uw1AImnRPFInK6/KaiUVMirnpef1VUN4HdqO
+	 Zoq/Ui/2Zj3EEWLffVIazGQn9pRLrqinSXNl1ZJE1dbcMLd0hX+NJ/FLqY4ZLtEbOLB49q1yvK8QAH
+	 nRBbDwsFthgT3jxY=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af1250dddc-bf5f0;
+	Mon, 09 Nov 2026 09:42:38 +0800 (CST)
+X-RM-TRANSID:2ee76af1250dddc-bf5f0
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from [25.255.2.225] (unknown[10.55.1.70])
+	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af124cc24d-7bf5a;
+	Mon, 09 Nov 2026 09:41:34 +0800 (CST)
+X-RM-TRANSID:2ee56af124cc24d-7bf5a
+From: xujiahao <xujiahao@cmss.chinamobile.com>
+To: Jan Kara <jack@suse.com>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	xujiahao <xujiahao@cmss.chinamobile.com>,
+	syzbot+db6df8c0f578bc11e50e@syzkaller.appspotmail.com
+Subject: [PATCH] udf: reject extents past EOF when extending a file
+Date: Mon,  9 Nov 2026 09:39:52 +0800
+Message-ID: <20261109013952.449019-1-xujiahao@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,31 +69,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106071904.142937-1-sgsatyam@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 07:19:04AM +0000, Satyam Gupta wrote:
-> cros_ec_sensors_core_register() registers the FIFO callback for the
-> sensor number found in the platform data. The matching cleanup action,
-> cros_ec_sensors_core_clean(), reads the number back from
-> st->param.info.sensor_num instead.
-> 
-> st->param is the EC host command buffer. Drivers fill it in under
-> cmd_lock before each command, while the cleanup action reads it without
-> that lock. It is also set only for physical sensors. If the field holds
-> another value when the device is unbound, the cleanup clears the wrong
-> slot and leaves the callback in place, still pointing to the iio_dev
-> that is about to be freed.
-> 
-> Use the platform data in the cleanup action too, and pass the struct
-> device pointer directly to devm_add_action_or_reset(), so it always
-> unregisters the slot that cros_ec_sensors_core_register() registered.
-> 
-> Fixes: aa984f1ba4a4 ("iio: cros_ec: Register to cros_ec_sensorhub when EC supports FIFO")
-> Signed-off-by: Satyam Gupta <sgsatyam@google.com>
+udf_extend_file() warns when inode_bmap() reports the last extent as
+longer than the block the file is being extended in:
 
-Other than the fact that it wasn't sent independently, the patch itself
-looks good to me.
+	WARN_ON_ONCE(within_last_ext &&
+		     elen > ((loff_t)offset + 1) << inode->i_blkbits);
 
-Reviewed-by: Tzung-Bi Shih <tzungbi@kernel.org>
+A corrupted image can trigger this, as syzbot reports for
+udf_setsize():
+
+  WARNING: CPU: 1 PID: 6098 at fs/udf/inode.c:684 udf_extend_file fs/udf/inode.c:683 [inline]
+  WARNING: CPU: 1 PID: 6098 at fs/udf/inode.c:684 udf_setsize+0xd5a/0x1010 fs/udf/inode.c:1300
+
+The extent really is invalid, so there is nothing to warn about: report
+it with udf_err() and fail the truncate with -EFSCORRUPTED instead of
+tainting the kernel.
+
+Reported-by: syzbot+db6df8c0f578bc11e50e@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=db6df8c0f578bc11e50e
+Fixes: 16d055656814 ("udf: Discard preallocation before extending file with a hole")
+Signed-off-by: xujiahao <xujiahao@cmss.chinamobile.com>
+---
+ fs/udf/inode.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/fs/udf/inode.c b/fs/udf/inode.c
+index bacf2a861..b68aee826 100644
+--- a/fs/udf/inode.c
++++ b/fs/udf/inode.c
+@@ -687,9 +687,14 @@ static int udf_extend_file(struct inode *inode, loff_t newsize)
+ 	if (err < 0)
+ 		goto out;
+ 	within_last_ext = (err == 1);
+-	/* We don't expect extents past EOF... */
+-	WARN_ON_ONCE(within_last_ext &&
+-		     elen > ((loff_t)offset + 1) << inode->i_blkbits);
++	if (within_last_ext &&
++	    elen > ((loff_t)offset + 1) << inode->i_blkbits) {
++		udf_err(sb, "extent past EOF: length %u, expected at most %lld\n",
++			elen,
++			(long long)(((loff_t)offset + 1) << inode->i_blkbits));
++		err = -EFSCORRUPTED;
++		goto out;
++	}
+ 
+ 	if ((!epos.bh && epos.offset == udf_file_entry_alloc_offset(inode)) ||
+ 	    (epos.bh && epos.offset == sizeof(struct allocExtDesc))) {
+-- 
+2.43.0
+
+
+
