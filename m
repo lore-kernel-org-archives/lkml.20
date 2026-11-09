@@ -1,159 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.151.120
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794244230;
-	b=Wqu7XWEz+fnf8fC1+n8H8KEHSnkUwX5IzvVaKuk5IKjUSsMAJXj2X7smCmkIXTHA76TU
-	 upQ+t4g/DPYkhFjk5NMe1BAQ9TGDxitxpfPKG+MovUZZg9MXKEJiPqKrFtSL4bbOhUb3l
-	 1RaDj5zuToDAtY/SJygdb9TmQHRNNcrJwhJMVgzBFpIIijHKZSCzXPIlYetCnioJT3Wwh
-	 mDgBlaQNTakj7r3BYRslf71NRkqxUQD+Ok2BP628PbrHXmps67mzYjAxsfIm2DyQycDY8
-	 ZiWT9abs/ONtwWucz4K7AX/r4o+7jRAJL0jNNN9Xrg8/7hiiAArKWBUB7pLO+MipcSA==
+	t=1794244283;
+	b=O2priupefXvz0B53EiiWM/v50HeD5w+EvKvE3hvGdMiV0+8hRct/IEpt0PxCzn9QcYkh
+	 JnRv1W2xAowadoOy6KjBiJLGX/yxjt7G76bf62dU1HGU2OERjx3LRVFXyk0PEjD1SWR3y
+	 6pttkWbHqjnacLBY+6cONCQqHiVkWIqZ4IlkNGgWRHuLtvb5AQzuwg9S/JIks2QHEIR+k
+	 b+HcwV89lAz2ZFHK3hc67JM8010iTF8Fq6mnBd67X5tapafkEnujhnv2MDlAtSOFXvetZ
+	 QCzsk/TbxJ6oSuvUkyimUnPM8rmCx+QM1M2hzeJplZ4g+XLkpcZoiw1jQLToHGVoPAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794244230;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:
-	 Content-Language:Content-Type:Content-Transfer-Encoding;
-	bh=K2XDDt7kZKlclY8QgGb9Uc9zIkGVZnhfW2L9b2HpxRc=;
-	b=raPJx8pNBdV/RV2cBjYebCmJtSz4bVpQLrnUfh09MgoyEkxRi8QYakyA4pIyq5M3iBhB
-	 C8hXBgPZTe+x16VC8z4Wp6oImf+0Cl3C1fMa8I6gpK0/W1NwDtBidg8GKEHG1s69xW4ny
-	 W6VHJYwkjWaQpxWPTcIxwHS3qURav9PdUGbhFl2tqKJrdr+3JzqfVj5WF7AGz27hfhQm4
-	 8uwROpIT6fswSLllZc3tobDtmszLlWcPtsDLEf1jwsBUwY+KrxCsoECofaooOioqbfxt+
-	 sHJG+yr5VtyzOhpIpQYewjelnUSb7wIO6cysQCHGZMfFe6K+9yii+nS7EY45ARIwYBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794244283;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=Gs6QBIGalAs9lEG41sgY64X7mlEyPCFXyN0vk0XfcLQ=;
+	b=qgg/klmWlA1gPFkjxrLvNAAyGsxWQovYxzsiOKBSJbYMd/nVeIQARSHwNn0bzqTKMPsU
+	 CXf4IVzItecrhYWBnVEwI4L7j1jlBrbH7VXWrcw4wq8P+kOgf+JHbDvFaeI17i/wSCCRL
+	 6nvbq5RAiiADoGASTNrdxYhfO36D7MOoqT3cpprC1H4gpHSvOiRr4AcQEzemqZDeY1pXs
+	 85lKeDqYzJ0Ac90jYHo8YAhBrbD5/G3pBDFvNuQ2mO6ZoJtf8b4mTMj7eM9aKc2pREI93
+	 2dxU8W9Htn+grOZAlb/MWihMA0HmvCczImdQJasBB0KLLukFix8lOAR0ac7cog9V1Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=onsemi.com;
-	spf=pass smtp.mailfrom=onsemi.com;
-	dkim=pass header.d=onsemi.com header.i=@onsemi.com header.a=rsa-sha256 header.s=mimecast20250127 header.b=Hy2Li1SY;
-	arc=none smtp.remote-ip=170.10.151.120
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=SsY3NZY5;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Gfs5si5n;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=1+XxaE5u;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="//9sHfMv";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C74D606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:10:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C74D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E234E606A31C;
+	Mon,  9 Nov 2026 17:11:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E234E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.a=rsa-sha256 header.s=mimecast20250127 header.b=Hy2Li1SY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1794244228;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=SsY3NZY5;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Gfs5si5n;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=1+XxaE5u;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=//9sHfMv
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E62F41FB53;
+	Mon,  9 Nov 2026 17:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794244281; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=K2XDDt7kZKlclY8QgGb9Uc9zIkGVZnhfW2L9b2HpxRc=;
-	b=Hy2Li1SY/LeGxaGHcxRo3kPcnxO9X2RX9HwuRbkFW5lZKVpbwue34L1XtbZKCUuiRV1j/x
-	9DWH4aE5pukmlHjy/CsTpL5IRR9WlPMuMlmfOexsLMjoGGhycM2F0fUH14biWNC4e3SdF3
-	jjoTMFtYo7Qu/93yDLbxHmTGZwlx1dQnT9QokG2tMEacMRDkklXR39wfwI25Ua790mmUgp
-	z/4poWlfusweuL296aom7Djcoo79yGQ7WvNepQZDNuBKWTs68eXGMsNqEv9ivBM1v6SKF8
-	PtI8JZKJhsU6JGyl7nOHtBv466JTDRJjbidflfCWg1p/tFQX9sjS8pFD7vHkZA==
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011015.outbound.protection.outlook.com [52.101.62.15])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id usb-mta-45-YM-c8T2TM6mZteFslYmagw-1; Mon,
- 09 Nov 2026 09:10:26 -0800
-X-MC-Unique: YM-c8T2TM6mZteFslYmagw-1
-X-Mimecast-MFC-AGG-ID: YM-c8T2TM6mZteFslYmagw_1794244224
-Received: from CH0PR02MB7867.namprd02.prod.outlook.com (2603:10b6:610:110::22)
- by BL1PR02MB247416.namprd02.prod.outlook.com (2603:10b6:208:28e::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 17:10:20 +0000
-Received: from CH0PR02MB7867.namprd02.prod.outlook.com
- ([fe80::d722:d686:a9cb:6c2e]) by CH0PR02MB7867.namprd02.prod.outlook.com
- ([fe80::d722:d686:a9cb:6c2e%6]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 17:10:19 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: Iustin Stolniceanu <iustin.stolniceanu@analog.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Parthiban
- Veerasooran <parthiban.veerasooran@microchip.com>, Heiner Kallweit
-	<hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, Marcelo Schmitt
-	<marcelo.schmitt@analog.com>
-CC: =?utf-8?B?QWx2aW4gxaBpcHJhZ2E=?= <alvin.sipraga@analog.com>, Ciprian Regus
-	<ciprian.regus@analog.com>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH net-next v2 2/7] net: ethernet: oa_tc6: Allow custom reset
- settle time values
-Thread-Topic: [PATCH net-next v2 2/7] net: ethernet: oa_tc6: Allow custom
- reset settle time values
-Thread-Index: AQHdcCojBCiEkTu9dkq8z7U7yKQig7cl+Raw
-Date: Mon, 9 Nov 2026 17:10:19 +0000
-Message-ID: <CH0PR02MB78672CADFFBEFD294D82366883732@CH0PR02MB7867.namprd02.prod.outlook.com>
-References: <20261109085952.105331-1-iustin.stolniceanu@analog.com>
- <20261109085952.105331-3-iustin.stolniceanu@analog.com>
-In-Reply-To: <20261109085952.105331-3-iustin.stolniceanu@analog.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR02MB7867:EE_|BL1PR02MB247416:EE_
-x-ms-office365-filtering-correlation-id: faa76508-aa44-4f4d-7927-08df3e845533
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|921020|38070700021|4143699003|11063799006|56012099006|261021135927099003|261009223027099003|10067099003|18002099003|22082099003|3023799007
-x-microsoft-antispam-message-info: yMIXKsZzC+3V9ca5KH/SfYwqW4w0HVVVf5m02b5XSrF1jlsF1hWqIsN3lg2ZrIwlyjITx7eeui6Clw/2Cu++DctWXWNWr2kebDyBkKpX1eNoBLtLHC2mUqXmD6j52rcb0fdSnhjf0Hl8ompIeydYgoHqUwgZXaoW6XgE7pw2OFbdPxPmHV3QbjUqarEYrv0C98+Ms91TiEClzt8uKlv9r4aP71qoh8C6XA73qTxVKk4hPUDqzYFMNm0b/oOW+Gpz5Y1Feea9ZZCGdUJzpmiPNIO2zvU0grpHXHYoGrBuT5o1KYICsXh617apAXrgwpXA664v94gnj/zkYq/+DI85O9IpfTpx8lC5Dklqr+3AAhFwNXXh74SWqrlVEaWOEQOX3+OoGTtsXj9vMS/5Eh1H1pn6ZOzhcU1liy27DfdQEVgGq9fZ6sbzudTTMof8aVS7VPFWqa2REEZ/zccgqWWUeXyNVnCIyZpPbBc0ehCecqnHXFsVxBhvVGh+sTH/Ebp+nG3M+5xkiUbkj5njn59BX/SkHVaJLioFHIF3hAitQ2M+6dFLl/NvVSD0ac9Ut155VLVRkTKIQVmIljjf5oHclIVgjhgzLQqZoEFr8bksn3i6mQNvV4IMl1VcrmwTL19oOFMH52OGiKAdkM+AIt9StgDsLc5Ue3Q0sZPe+lWAz+0A5rzOlBQnwKwrR3VPPeAWtSzVaH3cjGaIgARqEfrFn3OT3MhOe0hAABV/SSPTTpuM3J5AiA4v98Fs+/2biy1Z
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR02MB7867.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(921020)(38070700021)(4143699003)(11063799006)(56012099006)(261021135927099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?d05JTGFvZzNxdXNUOUIzR3FjMGs4UGYrUmpNVVdmSzFYbDcwakx5dWRZTmpn?=
- =?utf-8?B?TDcxUGtxcVc0WkJhM1pYNWxsWWRzWllJb3pUM2VGMjRITnBFRHk4NkJ1TWVD?=
- =?utf-8?B?ckRKV2FNanBwUzFsMUpmR2NVY3NFMFZ5MExLRDZaMWZnQVB5cGE0eHduVzdi?=
- =?utf-8?B?RTlqWEtBck5VNWhRMnNaenh3U1FKbHNpa0gzK2hjellERU9VaWM0WG1Ld0RL?=
- =?utf-8?B?anNxUEc1YkdFcXlydnlYUTVUWFJwN1hYYWZFZi9iTk5FNnFoR3BqQTFSOXNv?=
- =?utf-8?B?djdza1U5aDBxVmVXcjZ4bllqOUViRHh1a2NKUmpvRTZUUHpyaTFnWnd1eVIx?=
- =?utf-8?B?TTNrUUdCQzk1bDRZdkR6NHNGSGcvNTRId3hybUdHaFRybHA3U0dPZlFid08z?=
- =?utf-8?B?cWRUVWVseHBXWkNrVXZPQTNnVCtCNlJtLzdtWGlSMFZhSjVLNjQ2ME5rZ0NK?=
- =?utf-8?B?NkxMUTBiSCt4YTN3QStQeHlnKytWYXVwQ04xeXhkVmRVOE9sdDh1WlZYYjNP?=
- =?utf-8?B?dkdrdDIrZ2txYytlNCtGQ1diZjI4SS9IcHRXUm1VUWw3VXJIaHZUc1FkZ0xk?=
- =?utf-8?B?cmQ1WnNpcWFQL1VJY3RyU0VjZnF4R3BNaTRPQUtzUkF4ZVdrRXJ0YnhKbHFT?=
- =?utf-8?B?MjBXTnJMKzMwbld0c29PaFVnZzRPNTlTUWd0ZVZrREJ3NEJaQVdSYmViTEdB?=
- =?utf-8?B?VjVLemdQM1NKUTdmTzFDNVB3TVRldDNMYjVieUROTEtCUDNOUTEvdnpoZDJF?=
- =?utf-8?B?eXBERkJKa2VXY0QxLzFDd3FLaVExSnkyMlRBRDhsUlVTbjN5dFE4bVd2RytN?=
- =?utf-8?B?b3RROEd0a2w5emROZzFZY1lIYUh4dTZEY20yOHA2UTJodWgrMEVpUTVERWJw?=
- =?utf-8?B?YitZNlIydllhalk1SnRldjBXanp1NlgvU3RNVTN4d1p4WVNhaFhaRHNlaWdU?=
- =?utf-8?B?bHcyc1hwN3BuS2crTDh5VkFWOXlhTy9KSHlEVDAwcFZpNGxjaENROXZ2Y3NH?=
- =?utf-8?B?alBhWkhGMWdORHkrUWdwRG5JOEoxUTFOeUNlaHNseWM2KzAvSUFZcmdzZ0pM?=
- =?utf-8?B?TENoV3NjbTZmbk9YaktkNDJNUUV6NWJtL3c3Q2tFL1ZES3ZqVUlhNmdHY1l3?=
- =?utf-8?B?amJPZk9Jb2t6OHAzWlp2VENXK2Q3QjI4M01YMnFLQ01PUHFINzR1TFdIcjlR?=
- =?utf-8?B?cndJVG9tYy9UeVhGNEZXZ215a0ZwZFZ1V2ZQK1d4SUVEZDdheXYxZFdHTlVU?=
- =?utf-8?B?R2ttUktlUDlNUU5MYUZFUmJMRzZhSS85S1J0QzdacHlnNThNTUdiK3I0V2hU?=
- =?utf-8?B?b01EbjA0dEVqMHNyQ3JPZmF5TmVTdEZjaGQ2cThxYUlITnZnWmFyYlN6T21a?=
- =?utf-8?B?NjNBbnNMUWdLUVZWNGkzcHQvcy9COEp0dENOeE5naldRQ2tkWFZUYWl6ZW9m?=
- =?utf-8?B?ajlvTEtMV3lScm50OUxZeEJjalQvQUxXdk90YXI1eitJK1gyRU1ReHpuQStM?=
- =?utf-8?B?c2ZTL3FoQzFjbGpRVDNHTGhKZnRmQjkrcGJCVGkyTnJOVVIyRThxTHphM2tj?=
- =?utf-8?B?SHpkMTNuT1RyWnpOWEtKcjludGdiZWEvMXVmNVBueDM4SVZVRFBseUNsMXk4?=
- =?utf-8?B?aUpiRVgzZmdoR2VYRnczVzlMbEhLaXVQZDhNd3hrR3hERUo0a2VvOGIxVUx3?=
- =?utf-8?B?OVpMMU5OL2ZkdW5nWHlybFNCTXJEWTN4RnFHODhkNCtwZHdPT3FtSlkyb1Y0?=
- =?utf-8?B?U0c0aHRnZFUvdjJ1U05tK0tleXpvNUJaenNQVkRyb0NrSWpvR3FwV3ZMbWtG?=
- =?utf-8?B?MmRPSUhXRm9YRHR4aEFnc1NGWDJsNVU4UVVyazY5d1VEQU0zd0NLUU9laW84?=
- =?utf-8?B?QWxNVkxRbzhwdzhjYWM5TlVvQ2Zpd2kzSWZWSDJCSzdMZU9tTm5RL1F6b05L?=
- =?utf-8?B?VDlvOUJrQXlTWElzQ3hBemV0N0VFV3d3aVgxeVhRUGlMeGtoMW4rZ2ZucGho?=
- =?utf-8?B?U280RHNUemdFbHJVTjVmRUpGdjN6SlJDcitkMjVjY3h6WnFOMXZ3elF6NlJL?=
- =?utf-8?B?UmdHREJTOTZIeVE3K1IvT0ZPY1VBeGxYT1BSb0JhNG9TN1F2cDlvVitzUWUy?=
- =?utf-8?B?RkxpM1Q3NjVncWQ5b0crWXgwVUlUdjMxNzJGK2UvbWV2aFkybi9ubkF6bU9l?=
- =?utf-8?B?aVVMbngvYkYrTUNrQUw3aUZ6OUFUU0I3amFnUm1tZGNrb0pUQ1JIcGF4dGFm?=
- =?utf-8?B?V0YrZUlXK1lZSXA1UnA2UXM3dTBZSUpLZjNuVXNvbXdIYkVMYXJqZUxKOEJP?=
- =?utf-8?B?WkhvMjBybFlUUEtNZksrRkluNnh0VXRMZW4xcGF0dVV1SDVBa2xSMHo1OU5v?=
- =?utf-8?Q?ttuBo2k4dHM3jhwg=3D?=
+	bh=Gs6QBIGalAs9lEG41sgY64X7mlEyPCFXyN0vk0XfcLQ=;
+	b=SsY3NZY5sMQeTbtV7S8+yP3pq+ks38fZoFZm9Ebpm0CPO8jjwrVg7A5iHmX+4ahVUVYmPB
+	NqRcMBF5DCWpTf9drN2Y/vjh0NRxXclb1UOJvEQzuZWxVT9ccQIorovXRHIDiketABtJMF
+	S4PkgaVisKb5v9+OSS0MvXRJrlQp0Q4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794244281;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gs6QBIGalAs9lEG41sgY64X7mlEyPCFXyN0vk0XfcLQ=;
+	b=Gfs5si5n9TEWpaR1fl2aMvru04EM9s6SJUkkHkAFcEK24xgXICLVSH6sce2/7k6TFzp5iR
+	8fwTLliGP0eUZTDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794244279; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gs6QBIGalAs9lEG41sgY64X7mlEyPCFXyN0vk0XfcLQ=;
+	b=1+XxaE5uo8TfQfC3A9/88to8Y9OLGLVLHci8k626/NbcbB6UC677xEhkEfF7ZHx4b4HfvE
+	xEB7IRobo3dqbXNYqpj4dLut9FDMIB1hx3z7EhYpbXWIFP9IWXLkX3hVMeGB+mL3uOg0BD
+	QoGIiDXJeXCcqvS8xjBzirpTGVxIELA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794244279;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gs6QBIGalAs9lEG41sgY64X7mlEyPCFXyN0vk0XfcLQ=;
+	b=//9sHfMvBMOGxyFoizeJphQPIUv4nhiiueyDnbLr2//cxHGwfRkp1peTplCdyLnt3T3U3c
+	zUprmjIIQovyzMCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E43B913302;
+	Mon,  9 Nov 2026 17:11:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id py5/L7b+8WpAFQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 09 Nov 2026 17:11:18 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 150B622368; Mon, 09 Nov 2026 18:11:14 +0100 (CET)
+Date: Mon, 9 Nov 2026 18:11:14 +0100
+From: Jan Kara <jack@suse.cz>
+To: alireza.haddadi@it.uu.se
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
+	Vishal Moola <vishal.moola@gmail.com>, fujunjie <fujunjie1@qq.com>, linux-fsdevel@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Roman Gushchin <roman.gushchin@linux.dev>
+Subject: Re: [PATCH] mm/filemap: let sequential faults restart mmap readahead
+Message-ID: <gewwqi2kcu4nsitueyw2nd6g6eqjb3wqh4mks5lqcbkc6re4sn@eaqpgn2hxls5>
+References: <20261109-mmap-miss-v1-1-8b44b33f3358@it.uu.se>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -163,41 +112,218 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: EklzSDwdA001uyNn3fxvxfnqqdNpOY9qR66TfH0SaxxyETuKamwkp0QT0YBdYmJnsd+HHvt+PUw0LJgEuRkDeIIqv3d0uYDhD6jEAs0GLXdEj3hnma1D5gr0GcpJL9N9s6nf9g9MMpspKVbyZ+ICGkE5DAVsrkPoNHdxC3cB2oqjIqSNzX4ByDEZenVSDKukHfDFQV4NjhR+SJmgT6Xmuw4rvZ++gFXqGVH1YwuEDJ9jzsblncRIa8b1Z0pi54505RILAmxqDgcgDqq5Qv63yfACxpb2q3i0K7SE9GiWFIPVWZsr19KBtJTJ232iLWtKpzRzyConypOeZKyvwNTpCQ==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR02MB7867.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: faa76508-aa44-4f4d-7927-08df3e845533
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Nov 2026 17:10:19.5652
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: o3agVJ+BO+ymEky7u7Pci8UkwPJNUo6PxWwe5wEJrYvW0vMEAEdMo6G4/DBypMOjxqrVD/ZcYOXfgP+JUGSwwg4b5rUMJwmT5GWLT/hRYC4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR02MB247416
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: tWTKsoF_98mWYsa5G3Q94x3VCcXTPE_uvpPrwhegc5c_1794244224
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-mmap-miss-v1-1-8b44b33f3358@it.uu.se>
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,qq.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[infradead.org,suse.cz,linux-foundation.org,gmail.com,qq.com,vger.kernel.org,kvack.org,linux.dev];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[uu.se:email,imap1.dmz-prg2.suse.org:helo,qq.com:email,suse.com:email,linux.dev:email,infradead.org:email,suse.cz:email]
+X-Spam-Score: -11.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEl1c3RpbiBTdG9sbmljZWFu
-dSA8aXVzdGluLnN0b2xuaWNlYW51QGFuYWxvZy5jb20+DQo+IFN1YmplY3Q6IFtQQVRDSCBuZXQt
-bmV4dCB2MiAyLzddIG5ldDogZXRoZXJuZXQ6IG9hX3RjNjogQWxsb3cgY3VzdG9tIHJlc2V0IHNl
-dHRsZSB0aW1lDQo+IHZhbHVlcw0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVy
-bmV0L29hX3RjNi5jIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvb2FfdGM2LmMNCj4gaW5kZXggMzY0
-MDI3YzM5ZmE0Li41NDk5OTdiYTM2M2EgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvbmV0L2V0aGVy
-bmV0L29hX3RjNi5jDQo+ICsrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L29hX3RjNi5jDQo+IEBA
-IC04OSw2ICs4OSw4IEBAIHN0cnVjdCBvYV90YzYgew0KPiBib29sIGludF9mbGFnOw0KPiBib29s
-IGRpc2FibGVfdHJhZmZpYzsNCj4gYm9vbCBwcm90X2N0cmw7DQo+ICsgdTMyIGh3cmVzZXRfc2V0
-dGxlX3VzOw0KPiArIHUzMiBzb2Z0cmVzZXRfc2V0dGxlX3VzOw0KDQoNClNob3VsZCB3ZSBhZGQg
-dGhlIHN0cnVjdHVyZSAic3RydWN0IG9hX3RjNl9xdWlya3MiIGhlcmUsIGluc3RlYWQgb2YgYWRk
-aW5nIHRocmVlIHBhcmFtZXRlcnMNCmZyb20gdGhhdCBzdHJ1Y3R1cmUsIHdoaWNoIHdvdWxkIDEp
-IG1ha2UgY29weWluZyBlYXNpZXIuIDIpIEF2b2lkIGZ1dHVyZSBjaGFuZ2VzIHRvIHRoZSBvYV90
-YzYNCnN0cnVjdHVyZSwgaW4gY2FzZSBtb3JlIGVsZW1lbnRzIGdldHMgYWRkZWQgaW4gb2FfdGM2
-X3F1aXJrcyBzdHJ1Y3R1cmUuDQoNCg0KPiBlbnVtIG9hX3RjNl9xdWlya19mbGFnIHF1aXJrX2Zs
-YWdzOw0KPiBzdHJ1Y3QgZ3Bpb19kZXNjICpyZXNldF9ncGlvOw0KPiB9Ow0KPiANCj4gc3RydWN0
-IG9hX3RjNiAqb2FfdGM2X2luaXQoc3RydWN0IHNwaV9kZXZpY2UgKnNwaSwgc3RydWN0IG5ldF9k
-ZXZpY2UgKm5ldGRldiwNCj4gLS0NCj4gMi40My4wDQoNCg==
+On Mon 09-11-26 15:23:24, Alireza Haddadi via B4 Relay wrote:
+> From: Alireza Haddadi <alireza.haddadi@it.uu.se>
+> 
+> After commit 0b9c0aeba938 ("mm/filemap: count only the faulting address
+> as a mmap hit"), once a file's mmap_miss goes over MMAP_LOTSAMISS it can
+> stay there until the file is closed.
+> 
+> With mmap_miss over the limit, do_sync_mmap_readahead() reads only the
+> page that faulted. Since nothing gets read ahead, no later fault can
+> land on a page that readahead brought in. In turn filemap_map_pages()
+> never counts a hit, and the counter never comes back down. From then
+> on every fault on the file reads only a single page, even when the
+> access has become sequential.
+> 
+> I ran into this on v7.3 with llama.cpp, where a model larger than its
+> memory limit sometimes ended up being read 4 KiB at a time, but other
+> programs hit it as well. Anything that does some random reads and then
+> reads the same open file in order faces the same problem. I tested the
+> following:
+> 
+>  - SQLite with mmap_size set, 300 random lookups followed by a full scan
+>    of a 1.8 GiB table. The scan took 9.3-14.2 s instead of 2.1 s in 8 of
+>    10 runs.
+> 
+>  - numpy.memmap, 1000 random rows sampled from the first 75% of a 4 GiB
+>    array and then the last 25% read sequentially, as a training and
+>    evaluation loop would do. The sequential part took 3.3 s instead of
+>    0.3 s in 5 of 5 runs.
+> 
+> Give a sequential reader a way back. When readahead is off and the page
+> before the faulting one is in the page cache, read the next page too
+> and mark it with PG_readahead. A sequential reader faults on that page
+> next, which starts async readahead. That path is not gated by mmap_miss,
+> and the pages it brings in count as hits again, so the counter drops
+> and readahead resumes. A random reader, however, rarely has the previous
+> page cached, so it keeps reading one page per fault, or at most two.
+> Forced THP readahead is left as it is.
+> 
+> This reproducer takes 100 random faults on a file of at least 4 GiB
+> and then reads 1 GiB of it in order:
+> 
+> 	#define _GNU_SOURCE
+> 	#include <fcntl.h>
+> 	#include <stdio.h>
+> 	#include <stdlib.h>
+> 	#include <unistd.h>
+> 	#include <sys/mman.h>
+> 	#include <sys/resource.h>
+> 
+> 	/* ./a.out FILE N: N random faults, then read 1 GiB in order */
+> 	int main(int argc, char **argv)
+> 	{
+> 		long G = 1L << 30, i, flt, size;
+> 		struct rusage ru;
+> 		volatile char *p;
+> 		int fd;
+> 
+> 		if (argc != 3 || (fd = open(argv[1], O_RDONLY)) < 0)
+> 			return 2;
+> 		size = lseek(fd, 0, SEEK_END);
+> 		posix_fadvise(fd, 0, 0, POSIX_FADV_DONTNEED);
+> 		p = mmap(NULL, size, PROT_READ, MAP_SHARED, fd, 0);
+> 
+> 		/* N random faults beyond 3 GiB */
+> 		for (i = 0; i < atol(argv[2]); i++)
+> 			p[3 * G + random() % (size - 3 * G) / 4096 * 4096];
+> 
+> 		/* then read [2 GiB, 3 GiB) in order */
+> 		getrusage(RUSAGE_SELF, &ru);
+> 		flt = ru.ru_majflt;
+> 		for (i = 2 * G; i < 3 * G; i += 4096)
+> 			p[i];
+> 		getrusage(RUSAGE_SELF, &ru);
+> 		printf("%ld major faults for %ld pages\n",
+> 		       ru.ru_majflt - flt, G / 4096);
+> 		return 0;
+> 	}
+> 
+> 	$ ./a.out FILE 100
+> 	before: 262144 major faults for 262144 pages
+> 	after:       2 major faults for 262144 pages
+> 
+> I also ran the access patterns from that commit's changelog (random,
+> strides of 1021, 1024, 2053, and 4099 pages, and sequential, on a
+> 20 GiB and a 4 GiB file in an 8 GiB guest). With this change, bytes
+> read stay within 0.1% and times within 3% in all cases, so its gains
+> are kept.
+> 
+> Fixes: 0b9c0aeba938 ("mm/filemap: count only the faulting address as a mmap hit")
+> Signed-off-by: Alireza Haddadi <alireza.haddadi@it.uu.se>
+> Cc: fujunjie <fujunjie1@qq.com>
+> Cc: Jan Kara <jack@suse.cz>
+> Cc: Vishal Moola <vishal.moola@gmail.com>
+> Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+> Cc: Roman Gushchin <roman.gushchin@linux.dev>
 
+Hum, this looks like an ellegant way around the problem so I'm willing to
+give this a try :). Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+> Tested on mm-new (x86-64):
+> 
+>  - With the patch, no run gets stuck: the SQLite scan (10 runs) and
+>    the numpy pass (5 runs) take as long as their controls.
+>  - mm selftests: no new failures. droppable fails about once in 20
+>    runs, with and without this patch.
+>  - A KVM guest with KASAN, lockdep and DEBUG_VM ran the reproducer
+>    above, strided and interleaved access, and a 4-thread test: after
+>    200 random faults, 4 threads read the same file in order through
+>    one mapping, so they all take the new path at once; the file is
+>    twice the guest's memory, so this runs under reclaim. No reports,
+>    with or without the patch.
+>  - W=1 and sparse are clean, also with THP or LRU_GEN disabled.
+> 
+> The cost for random readers, once readahead is off: when every third
+> page is cached and each access lands just after a cached page, 1.77
+> pages are read per access instead of 0.89. Strided access reads the
+> same as before.
+> 
+> Forced THP readahead has a similar problem with mmap_miss. I left it
+> out to keep this change small and will look at it separately.
+> 
+> I can share the benchmark scripts (SQLite, numpy, the access patterns
+> of 0b9c0aeba938) if that helps.
+> ---
+>  mm/filemap.c | 27 ++++++++++++++++++++++++++-
+>  1 file changed, 26 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index 93db8fc60ae0..0930aacee9fe 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -3403,8 +3403,33 @@ static struct file *do_sync_mmap_readahead(struct vm_fault *vmf)
+>  		 * Do we miss much more than hit in this file? If so,
+>  		 * stop bothering with read-ahead. It will only hurt.
+>  		 */
+> -		if (mmap_miss > MMAP_LOTSAMISS)
+> +		if (mmap_miss > MMAP_LOTSAMISS) {
+> +			struct folio *prev = NULL;
+> +
+> +			/*
+> +			 * Nothing is read ahead now, so mmap_miss stays high
+> +			 * forever.  If the previous page is cached, this may be
+> +			 * a sequential read: read the next page as well and
+> +			 * mark it, so that async readahead, which does not
+> +			 * check mmap_miss, restarts when the mark is hit.  The
+> +			 * pages it reads then count as hits and lower
+> +			 * mmap_miss.  A random reader rarely has the previous
+> +			 * page cached and keeps reading one page per fault.
+> +			 */
+> +			if (!force_thp_readahead && vmf->pgoff)
+> +				prev = xa_load(&mapping->i_pages,
+> +					       vmf->pgoff - 1);
+> +			if (prev && !xa_is_value(prev)) {
+> +				fpin = maybe_unlock_mmap_for_io(vmf, fpin);
+> +				ra->start = vmf->pgoff;
+> +				ra->size = 2;
+> +				ra->async_size = 1;
+> +				ra->order = 0;
+> +				ractl._index = ra->start;
+> +				page_cache_ra_order(&ractl, ra);
+> +			}
+>  			return fpin;
+> +		}
+>  	}
+>  
+>  	if (force_thp_readahead) {
+> 
+> ---
+> base-commit: b95f8bb86713c860ce8536d22a988b949b884d5f
+> change-id: 20261108-mmap-miss-bf5a501088eb
+> 
+> Best regards,
+> --  
+> Alireza Haddadi <alireza.haddadi@it.uu.se>
+> 
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
