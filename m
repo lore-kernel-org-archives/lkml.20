@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242192;
-	b=C2Dek0dLZggxWIHScA/8v08nSiooECl/kIwEJj3VtisJsfWjhrkydd4/+HbdPHiqWyxe
-	 dh5pvJ3eF0nW5YX9Rpb7TNA2+bq+s2a3a/JL6MVTkdtmKTwdm0bvPNSR+wyRiPhOdW/cW
-	 GC8ng27iuwJt3762Y7oKqCeLSKrWdlo7JpQvWzD4F7PnAJo9gCbb4Mgv/Py3pI9KBUiuy
-	 LQOUGYTgD2hoa1qHx6Xlh9vyfHxuGLwrCZ3woe2B26UYL1ym9P5n8HM3/ARFihZYdlxVg
-	 x7PrLKiOriU5B1wmKlvcFJmoGj24Vzt5SvS87P++SLTd4xc394nUQTeG7XrQGgFPt+Q==
+	t=1794242184;
+	b=hveLuosEGVP1uXXnl0zDa9Wjz9AqOma4xWip/DGjd74ebZl4pg6vMq7wQTiXM40GHVFS
+	 to6/MyaT+Mf4R1BeCCh1MSuTR53CA8wNIPHUrdkbLvY5wdy1O+9AmM+UGxKGEcN4V2Vr7
+	 F5FQWa/HES8bwvSresHsk1uLnpIiGnCEQfBaEABdFg1LPcgDW2fcgRUu/WJRM+MmeISVR
+	 JrFlc0wSzTgo//daGFm9v4mV4I9AhO1AE8h7cCiDJzTgQxdD8Yo7XocOUNBpDLvUTbYb6
+	 iCNvMiBpq4vW8/Y/KusjXAl6SGfOXKa5ZoTrAfG689411zSD/tMY0C/+2kLcAJFLOBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242192;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242184;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=HEJ+QQBd0iC35enWpK8vBgPoOeYQfDGSCF+rovxxelY=;
-	b=TB4kusXHhKuK4bOYgbUG6WIY+a2Szw4JexoeM60bkhk6lVvP078pEHn4itvwAGkWNM6Y
-	 9tIEfjKQkKLzlfQMh/1obcckcdD+FKnFZQCbbERUHUxc5wirqzIJGHj9usXsH9VzRtgr7
-	 x9ML47HoCr57hkUTj7HNRpXyo424guk9JgTEVSjRPWWDlXau7tW2uZscFg4sTDqToa6C3
-	 gHwi4m+hLsyVToIOo7RGlG1SPnJDTvXDoA7RCHYxOXIrzWAx1WMrV4QaG20VO4EcA486b
-	 cC9V0kH2c/XyybZL9j+z0GSW7vhtpVdid/dG3UrxTEzzW/9dqIJHoTUG2/QfO7MUWXw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Qz+/NdehmNeFJJoho165gVMOPQyvQojo+qmN1pIP/lc=;
+	b=sM7Yxzg+VJx6HM4jZMJQJT+S08ceJ7s0iFg0QIUfR/6ap5anetFC0yO1b82jz9pFwgt8
+	 yscTnaeyIh7DFfOGFZVPGssAUWUB1lOGdHyRMClFussm7S0pi4ddvKFCIXPlWq9mdOL4H
+	 khxuVXNhWIMQJgENsjlvlTo0k9sZxii8tf/qO2lmOVQvZ873d7omNRGjiEk90LwHxLPBv
+	 2duQaGPJGjpvNZOfj6BSCFIYI3RF70s3xNr0uU6xu9LQJbpmqjZBFirmWqb1gXnT4Iq63
+	 M1e9BrPn+kVT7lA5tgFEzSqOwQ9Z/bMmAKCJhkFd4jUNYWyf/pzEWspVMF1KX+sv98g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ce4dzgt4;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BOKOvnFR;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DD7606EEB9
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62DD7606EEB9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3BA3606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3BA3606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ce4dzgt4
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso9074535e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BOKOvnFR
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so9433825e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242191; x=1794846991; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HEJ+QQBd0iC35enWpK8vBgPoOeYQfDGSCF+rovxxelY=;
-        b=ce4dzgt47bGoaG62rHmRirIRztmdq3J5c2phQMU8RqoYCy5Dxwn/y+0E0aaHCZXJDe
-         B4szupjUZK+qd1H8dwkHk1CiGAUgmnwiLkgNeIQwtENslHs3gTKzOFGdY4puqJmu7k4U
-         fQqJhvnx+r6lr+gNNCVL3yVL+xudCZDxmsNqHRMQUfT2yOEYd6v9vB0qWDA2M6sRAKcJ
-         VYCwaLA4KMlTC8UQlQ8wWxx0v2tMVIRC8BTIo45gLvJcvszelyhUybRwxiO5nzFhFOyv
-         MYbtlh8vEpluKfiX0hHVssS7h8fF0NS5diwe65fZgoUqSfqyANNZc6wdnLT0d58j55OA
-         JWlw==
+        d=gmail.com; s=20260707; t=1794242181; x=1794846981; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qz+/NdehmNeFJJoho165gVMOPQyvQojo+qmN1pIP/lc=;
+        b=BOKOvnFRxKLvE3Odmne31oU3GxefygTJNqZ4Q3lX+sYg7wNj6PVo0P3ozoEG/8ilcz
+         DB7yFBy7pi4xDQSdOHpUNM8O8ysow/UMBXWCGlNdmWYONrwW7Mccl/GUdKXy0VARPX8L
+         Jn+bb1okYhxBRWH7AB6YhQz/EmdIFQcgVP5uWE0goT4I+Aw7mklbTpZCvdezkTuMmLnu
+         6yOMjUMiqBnbktIXUA2Dfm6npJN7Zn7Sip8BoQYyUTtUMQ66+3DgcPdE+51unRMRpxAj
+         cVpQ3F56/RT+64t+D+R/DMedw7uM6iLhZ1yCymZrawPOT3IPeM8PXC31AlEnJ7PccH97
+         x6kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242191; x=1794846991;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HEJ+QQBd0iC35enWpK8vBgPoOeYQfDGSCF+rovxxelY=;
-        b=vcpW49VU8DHH9YYz4pDK5wLA3qUC6Dp/UgddJEVTuvAZqojlCdetycaifSKPU9N60Q
-         0xp3rBUZQ9WK72xcUZQPn0yYTGN8mRhehgoVKsSZGQh6ToryNXcaMzdVJkSIx0taQBan
-         U/0kIZHoRbPZ0cMV9V52TUnV0uYikThFOulYC84tDSUD/Sg8CG3DSuorVVdDtfiUc40Y
-         Oq4CSXCO5Uk1U1YCPE379b6dnRW2mgYLC27Q6o4N2U/1oQrAHpgaRjoFnzAc7/ID9215
-         Ti4joEFdSo8BpjzLSKfHM7P0dNYi4zPNlQyWUbbQ8PzQiUaCNSzM3rGycZZR5RXSvD8+
-         RCYA==
-X-Forwarded-Encrypted: i=1; AL+hErEmxru+JWASMBxjSSWBZY8GHpFn+EE2vdVsJm4OKXdsykjDZtgESxVeLGFrYUV/04OrYnYHab4YNQj/TsM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+drej9xd49vZxivR81griaAhiNAvQl/y9ysT+s+U325RACJYuf
-	qCxXrEFOtZJ8aUqnOv1Twh8j7eOCWpQ1ty5TWWlSKMkrTz6w9BBQbWQ7mYDVpA==
-X-Gm-Gg: AYBFou0xNN6xTixuJsCPS0WB4NkcvWy4LYBzRQ7s7EBRMKCG4ibqJLRXoLjhWO6vD9p
-	ZqjLHkGjYtSsEactZPTSHoILWc+9eOFQEtSOE1gu7lBp1UUINdnrdPEw32fF06NYX2EcRlayCE5
-	sBbQOMAWnfs1nsGRf8tp/ETs0lt3nF1VRFL5ceEd5m1ofOo3O6ZH8XvL6bUIN0KuLHniCOMpn/T
-	x3Lol0SSqeTr3HI+JlAv9j+pnITFdW0fA3/joPY2YBpCyxnuxZfKhm1TC04Kz4kpTgaRmkwjGHW
-	FQjGw8VfOBrkGmk2I5ueHwRcEZTjSW/lpo3a/l4TpdY71zK/2wNek9PupFAJXagrGu1+whYYnGv
-	KcSc1KvtdaskM32nplajbBg+K0FrCI8w/JQXaNh+sfSqT9wUhJH1eEaT6bSGiuqLkWRnRy9iTv4
-	m+F6bgu4NLY+4PXC+DV7T2ds1yBKOQ9+4kg94nb8LXuWZ3PY+NUpbUZFgFwftYkhzzVqo+xXSeK
-	3IA7ONec0YKN6J0XZnXYcRxv1Omi6lyCbRpHPE3bt1+tm3FHL26MhmrhaD3OqN3CgY+84pjiZh3
-	rEfl/n75R3Km/rQ5+IDN5feYMYQ=
-X-Received: by 2002:a05:600c:46cf:b0:4ac:aae6:6401 with SMTP id 5b1f17b1804b1-4b963c6a9d4mr87006605e9.12.1794242190658;
-        Mon, 09 Nov 2026 08:36:30 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794242181; x=1794846981;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qz+/NdehmNeFJJoho165gVMOPQyvQojo+qmN1pIP/lc=;
+        b=A6ytL5MuZGGNtqwaiEf/NH20litGnDE3zNjjM/dl7kh3ZaFIyA1c9zp0cd7XtnwuiB
+         nwNw3C2Y4HQe++13VLZu5ae8u/WuMaep/0Tr9/7XffO7iQEQIfCl62C2IpkeTHxSVxvg
+         ARs9TlL6HfeJXngJT2mjOvOj4kjskVsOdScdVaT9ifNZ3emehJn8gN8ggdPv+LO9dc3P
+         Z8JorYsEz+5bTdV5ff2CfaXQtZsO5sSujr9rx/7g1qHjlsIRU/oqgbIteF5q5nUq3KzJ
+         Rg1unAsEs9OGVW3oQLSgA5awmKJSTVT7FBujP6OpxadIGu5hdqNWv3KhsQw+5Sa/LVwn
+         nhtQ==
+X-Forwarded-Encrypted: i=1; AL+hErFnokx0lIZKptEf+EfsSi0hKphlgTSqatEe569vtm5SwLqTbKrxm+vzuj++prBLt9gs8LNrkoLDNXD5aZ8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+r4tC6DKuRFMPr0Pi1B7aGEwfHOIUWsGz+qrDPyaiLKA0hUxed
+	REcQXVU2dK/hz0fOkW/Rq005zPyT5kbs+PyuTYC8JO6WKGVhVYtBrPRg
+X-Gm-Gg: AYBFou1QpYnmQiyLZwsfhhZTBEp176LO0XbZE47EZ38GJ/z6GzG7fzoETBKHfupeW8r
+	rblDn1cb6BK6x9IvAUPcDv5pUARNC32fwUZmjlwbL2ekS/L+6VycDlH9oHFN+cbCEVx6AD79ces
+	d/PUrIrWenA+YUkYfts5wSNowXC0541rrqW0zfCemSV9PQlYlv7PcrXlLED+2b976GSsRjKYvCX
+	pWJHwhVB5UdswvWHgSko+C++J0Zt/zqjSzBJvOAdHR0Abu1S2FBnLgsqDm/A7DcY/9Ta5JdItC1
+	vnrp/V4uFGG8ikUQZQtsDDIrG8J9I+33qLgdPfYSFBGCFw6lqXjiKzqqTUbj99R0dV3mwrv2Ind
+	zz2jjBh6cl+6EAK3KO+85kGNyim0gvO2aQlNgVPMAK6zLfSimqmstTPwIGiUiG5wkboyCz2OhLu
+	NWa3hEgRXwLN0tXpIL72xVpxf4xlp9O9eFMZ2dreRHtQpEbgYwx6AKfk9WVcfKS2WfcNLMwzZ4g
+	nKo65XyP8lL+Pn2pBxkis2+haGS/C56nvaOj2CHjN5DcS+QJDG3tyGmTYrUpiPRMmS6Y18vQx0b
+	VD7AfvOtqpD8e6E9qJw9f/tfdzM=
+X-Received: by 2002:a05:600c:c16b:b0:4a2:167a:c946 with SMTP id 5b1f17b1804b1-4b963c6754fmr82171325e9.13.1794242181011;
+        Mon, 09 Nov 2026 08:36:21 -0800 (PST)
 Received: from victus-lab ([193.205.81.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.27
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:36:28 -0800 (PST)
+        Mon, 09 Nov 2026 08:36:18 -0800 (PST)
 From: Yuri Andriaccio <yurand2000@gmail.com>
 To: Ingo Molnar <mingo@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -96,12 +95,10 @@ Cc: cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Luca Abeni <luca.abeni@santannapisa.it>,
 	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: [RFC PATCH v7 05/29] sched/rt: Move functions from rt.c to sched.h
-Date: Mon,  9 Nov 2026 17:35:51 +0100
-Message-ID: <20261109163616.195264-6-yurand2000@gmail.com>
+Subject: [RFC PATCH v7 00/29] Hierarchical Constant Bandwidth Server
+Date: Mon,  9 Nov 2026 17:35:46 +0100
+Message-ID: <20261109163616.195264-1-yurand2000@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109163616.195264-1-yurand2000@gmail.com>
-References: <20261109163616.195264-1-yurand2000@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,170 +110,276 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: luca abeni <luca.abeni@santannapisa.it>
+Hello,
 
-Make the following functions/macros be non-static and move them in
-sched.h, so that they can be also used in other source files:
+This is the seventh RFC for Hierarchical Constant Bandwidth Server, aiming at
+replacing the current RT_GROUP_SCHED mechanism with something more robust and
+theoretically sound. The patchset has been presented at OSPM25 and OSPM26
+(https://retis.sssup.it/ospm-summit/), and a summary of its inner workings can
+be found at https://lwn.net/Articles/1021332/ and the latest updates and
+discussions at https://lwn.net/Articles/1078696/. You can find the previous
+versions of this patchset at the bottom of the page, in particular version 1
+which talks in more detail what this patchset is all about and how it is
+implemented.
 
-- rt_entity_is_task()
-- rt_task_of()
-- rq_of_rt_rq()
-- rt_rq_of_se()
-- rq_of_rt_se()
+Version v7 introduces a lot of changes since v6. First off there have been a
+lot of bug fixes from the comments by the reviewers and the automated AI tool
+Sashiko, which surprisingly caught a lot of issues. Later, we've finally had
+time to add features which were planned a long time ago. The following are the
+most meaningful updates since v6 (the complete changelog can be found on the
+github readme):
+- Rebase to kernel version 7.4-rc1.
+- Address (most of) bugs as reported in the v6 reviews.
+- Introduce dl_freq_invariant flag for dl_servers.
+    + Force fair/ext servers to be frequency/capacity invariant, while allow
+      HCBS servers to scale their consumed runtime.
+    + This enables capacity-aware bandwidth reservation also for HCBS.
+- Rework cgroup-v2 interface:
+    + Rename cpu.rt.internal to cpu.rt.effective.local
+    + Fix internal runtime rounding errors.
+- Update cgroup balance callbacks to allow balancing operation of multiple
+  cgroups at the same time.
+- Allow unprivileged FIFO/RR tasks inside cgroups.
+- Allow HRTICK_DL for HCBS servers.
+- Integrate `cpu` and `cpuset` controllers.
+- Integrate HCBS with hotplug/hotunplug operations.
+- Introduce dl_server overrides (previously known as multi-runtime/multi-CPU).
 
-There are no functional changes, apart from the use of container_of_const()
-instead of container_of() where applicable. This is needed by future patches.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Unprivileged FIFO/RR tasks in cgroups:
+Version v7 adds a simple patch to the sched_setattr syscall which allows
+non-root processes to execute FIFO/RR tasks in already configured HCBS cgroups.
+The reasoning follows from the fact that only the administrator is capable of
+creating and managing the real-time bandwidth, and, given the isolation
+properties of SCHED_DEADLINE, regular users, tied in that specific bandwidth,
+cannot cause starvation or steal time to other processes/users.
+A non-root user cannot migrate its FIFO/RR task anywhere else in the cgroup
+hierarchy due to permissions, thus it is also impossible to move a user-created
+HCBS-FIFO task in the root cgroup and steal more bandwidth than the admin
+allowed.
 
-Signed-off-by: luca abeni <luca.abeni@santannapisa.it>
-Signed-off-by: Yuri Andriaccio <yurand2000@gmail.com>
----
- kernel/sched/rt.c    | 56 ------------------------------------------
- kernel/sched/sched.h | 58 ++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 58 insertions(+), 56 deletions(-)
+`cpu` and `cpuset` controllers integration:
+It has been requested by the maintainers to integrate HCBS with the `cpuset`
+cgroup controller, and it made a lot of sense since this enables easier
+integration with the rest of the scheduler classes in the class-switch code
+paths. The integration forces the rt-cgroup to have as active the same CPUs as
+those that `cpuset.effective.local` allows, while all the other dl_servers are
+by construction never activated. To simplify the code, the administrator must
+first setup the `cpuset` cpus and later setup the HCBS bandwidth. The current
+integration disallows changing allowed cpus while the HCBS bandwidth is
+reserved (thus the admin must first remove the HCBS reservation, change the
+cpuset, and re-request real-time bandwidth).
 
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index 2b1c3ab5d6a4..0862ee8b088d 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -166,36 +166,6 @@ static void destroy_rt_bandwidth(struct rt_bandwidth *rt_b)
- 	hrtimer_cancel(&rt_b->rt_period_timer);
- }
- 
--#define rt_entity_is_task(rt_se) (!(rt_se)->my_q)
--
--static inline struct task_struct *rt_task_of(struct sched_rt_entity *rt_se)
--{
--	WARN_ON_ONCE(!rt_entity_is_task(rt_se));
--
--	return container_of(rt_se, struct task_struct, rt);
--}
--
--static inline struct rq *rq_of_rt_rq(struct rt_rq *rt_rq)
--{
--	/* Cannot fold with non-CONFIG_RT_GROUP_SCHED version, layout */
--	WARN_ON(!rt_group_sched_enabled() && rt_rq->tg != &root_task_group);
--	return rt_rq->rq;
--}
--
--static inline struct rt_rq *rt_rq_of_se(struct sched_rt_entity *rt_se)
--{
--	WARN_ON(!rt_group_sched_enabled() && rt_se->rt_rq->tg != &root_task_group);
--	return rt_se->rt_rq;
--}
--
--static inline struct rq *rq_of_rt_se(struct sched_rt_entity *rt_se)
--{
--	struct rt_rq *rt_rq = rt_se->rt_rq;
--
--	WARN_ON(!rt_group_sched_enabled() && rt_rq->tg != &root_task_group);
--	return rt_rq->rq;
--}
--
- void unregister_rt_sched_group(struct task_group *tg)
- {
- 	if (!rt_group_sched_enabled())
-@@ -294,32 +264,6 @@ int alloc_rt_sched_group(struct task_group *tg, struct task_group *parent)
- 
- #else /* !CONFIG_RT_GROUP_SCHED: */
- 
--#define rt_entity_is_task(rt_se) (1)
--
--static inline struct task_struct *rt_task_of(struct sched_rt_entity *rt_se)
--{
--	return container_of(rt_se, struct task_struct, rt);
--}
--
--static inline struct rq *rq_of_rt_rq(struct rt_rq *rt_rq)
--{
--	return container_of(rt_rq, struct rq, rt);
--}
--
--static inline struct rq *rq_of_rt_se(struct sched_rt_entity *rt_se)
--{
--	struct task_struct *p = rt_task_of(rt_se);
--
--	return task_rq(p);
--}
--
--static inline struct rt_rq *rt_rq_of_se(struct sched_rt_entity *rt_se)
--{
--	struct rq *rq = rq_of_rt_se(rt_se);
--
--	return &rq->rt;
--}
--
- void unregister_rt_sched_group(struct task_group *tg) { }
- 
- void free_rt_sched_group(struct task_group *tg) { }
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 1b04b4c40ae9..e7e4da78340c 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -3495,6 +3495,64 @@ extern void set_rq_offline(struct rq *rq);
- 
- extern bool sched_smp_initialized;
- 
-+#ifdef CONFIG_RT_GROUP_SCHED
-+#define rt_entity_is_task(rt_se) (!(rt_se)->my_q)
-+
-+static inline struct task_struct *rt_task_of(struct sched_rt_entity *rt_se)
-+{
-+	WARN_ON_ONCE(!rt_entity_is_task(rt_se));
-+
-+	return container_of(rt_se, struct task_struct, rt);
-+}
-+
-+static inline struct rq *rq_of_rt_rq(struct rt_rq *rt_rq)
-+{
-+	/* Cannot fold with non-CONFIG_RT_GROUP_SCHED version, layout */
-+	WARN_ON(!rt_group_sched_enabled() && rt_rq->tg != &root_task_group);
-+	return rt_rq->rq;
-+}
-+
-+static inline struct rt_rq *rt_rq_of_se(struct sched_rt_entity *rt_se)
-+{
-+	WARN_ON(!rt_group_sched_enabled() && rt_se->rt_rq->tg != &root_task_group);
-+	return rt_se->rt_rq;
-+}
-+
-+static inline struct rq *rq_of_rt_se(struct sched_rt_entity *rt_se)
-+{
-+	struct rt_rq *rt_rq = rt_se->rt_rq;
-+
-+	WARN_ON(!rt_group_sched_enabled() && rt_rq->tg != &root_task_group);
-+	return rt_rq->rq;
-+}
-+#else
-+#define rt_entity_is_task(rt_se) (1)
-+
-+static inline struct task_struct *rt_task_of(struct sched_rt_entity *rt_se)
-+{
-+	return container_of(rt_se, struct task_struct, rt);
-+}
-+
-+static inline struct rq *rq_of_rt_rq(struct rt_rq *rt_rq)
-+{
-+	return container_of(rt_rq, struct rq, rt);
-+}
-+
-+static inline struct rq *rq_of_rt_se(struct sched_rt_entity *rt_se)
-+{
-+	struct task_struct *p = rt_task_of(rt_se);
-+
-+	return task_rq(p);
-+}
-+
-+static inline struct rt_rq *rt_rq_of_se(struct sched_rt_entity *rt_se)
-+{
-+	struct rq *rq = rq_of_rt_se(rt_se);
-+
-+	return &rq->rt;
-+}
-+#endif
-+
- DEFINE_LOCK_GUARD_2(double_rq_lock, struct rq,
- 		    double_rq_lock(_T->lock, _T->lock2),
- 		    double_rq_unlock(_T->lock, _T->lock2))
--- 
+dl_server override feature:
+Following the `cpuset` integration, we integrated the multi-runtime/multi-CPU
+feature: the admin can request the override of the default runtime/period pair
+for a specific set of CPUs. The user interface works still by writing onto the
+`cpu.rt.max` file with a new format, which follows the nested-keyed standard.
+The original `<runtime>|max <period>` format is still supported, while the new
+nested-keyed format is `default runtime=<value_us> period=<value_us>` or
+`default runtime=max` for the default config values as in the original,
+`<cpuset> runtime=<value_us> period=<value_us>` to set a specific override and
+`<cpuset> default` to reset it. Note that the cpusets must be subsets of the
+allowed cpus in `cpuset.effective.local`, and that overrides with runtime zero
+are disallowed. These strict rules enforce that the active CPUs are exactly
+those allowed by the `cpuset` controller, no more no less. The only exception
+is a cgroup with zero runtime, which allows execution only if all CPUs are
+overridden, i.e. the same restriction as above (zero runtime cgroups simplifies
+setup in some cases).
+A final note is about `max` cgroups, which are disallowed to have overrides,
+i.e. a cgroup is either delegating its FIFO/RR to its nearest active parent or
+it is managing these itself, but cannot have a mixed behaviour.
+
+hotplug/hotunplug:
+We've also fixed the hotplug/hotunplug failures. Hotunplug is allowed only if
+there are no active HCBS cgroups on the specific core that is going offline.
+Hotplug does not cause issues but HCBS reservations will need to be updated to
+make use of the newly enabled core (the cgroups' HCBS specific cpumask is only
+updated when setting the cgroups' bandwidth).
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Summary of the patches:
+     1) Introduce dl_freq_invariant flag.
+   2-7) Preparation patches, so that the RT classes' code can be used both
+        for normal and cgroup scheduling.
+  8-18) Implementation of HCBS, no migration.
+        The old RT_GROUP_SCHED code is removed.
+        15) Remove support for cgroup-v1.
+        16) Implement cgroup-v2 cpu.rt.max interface.
+ 19-23) Add support for tasks migration.
+    24) Allow unprivileged FIFO/RR in rt-cgroups.
+    25) Enable HRTICK_DL for HCBS.
+    26) Documentation for HCBS (no `cpuset` integration yet).
+    27) Integrate `cpuset` and `cpu` controllers.
+    28) Fix CPU hotplug/hotunplug operations for rt-cgroups.
+    29) Introduce multi-cpu (dl_server override) support.
+
+Updates from v6:
+- Update to kernel version 7.1.
+- Refactorings and general cleanups.
+- Removal of substantial duplicated code.
+- Express more locking constraints in code.
+- New cpu.rt.max interface.
+- Refactoring of migration code to reduce code duplication.
+
+Updates from v5:
+- Rebase to latest master.
+- General rebasing/cleanup.
+- More locking contraints expressed in code.
+- New cpu.rt.max interface.
+- Refactoring of migration code.
+
+Updates from v4:
+- Rebase to latest tip/master.
+- General rebasing/cleanup.
+- Update default sysctl_sched_rt_runtime to 1s, same as the period.
+- Fix non-deferred deadline server replenishment logic.
+- Add missing RCU read sections.
+- Account HCBS servers along with their tasks when the servers are active.
+- Release bandwidth resources early in unregister_rt_sched_group.
+- Drop server_try_pull_task as it is now redundant.
+- Remove dl_server_stop call in dequeue_task_rt.
+- Update to reuse __checkparam_dl for deadline servers.
+
+Updates from v3:
+- Rebase to latest tip/master.
+- General rebasing/cleanup.
+- Add Documentation.
+- Define **live** and **active** groups.
+- Introduce server_try_pull_task in place of the removed server_has_task.
+- Introduce RELEASE_LOCK helper macro for guard-based locking.
+- Update inc/dec_dl_tasks to account for served runqueues regardless of the
+  server type.
+- Fix computing of new bandwidth values in dl_init_tg.
+- Fix check in dl_check_tg to use capacity scaling.
+- Fix wakeup_preempt_rt to check if curr is a DEADLINE task.
+
+Updates from v2:
+- Rebase to latest tip/master.
+- Remove fair-servers' bw reclaiming.
+- Fix a check which prevented execution of wakeup_preempt code.
+- Fix a priority check in group_pull_rt_task between tasks of different groups.
+- Rework allocation/deallocation code for rt-cgroups.
+- Update signatures for some group related migration functions.
+- Add documentation for wakeup_preempt preemption rules.
+
+Updates from v1:
+- Rebase to latest tip/master.
+- Add migration code.
+- Split big patches for more readability.
+- Refactor code to use guarded locks where applicable.
+- Remove unnecessary patches from v1 which have been addressed differently by
+  mainline updates.
+- Remove unnecessary checks and general code cleanup.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Testing v7:
+
+The patchset has been tested with a suite of tests tailored to stress all the
+implemented functionalities.
+The tests are available at https://github.com/Yurand2000/HCBS-Test-Suite .
+Refer to the README of the repository for more details.
+
+Follow these steps to test HCBS v7:
+- Get the HCBS patch up and running. Any kernel/disto should work effortlessly.
+- Get, compile and _install_ the tests.
+- Run the `go_rt.sh` script to set the frequency of the CPUs to a fixed value
+  and disable hyperthreading and power saving features.
+- Run the `run_tests.sh full` script, to run the whole test suite.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Future Work:
+
+This latest RFC, along with all the new features, is stable on our limited
+hardware. The patchset is nonetheless potentially lacking testing of some
+specific code paths and features.
+
+We surely expect comments on the `cpuset` integration and the dl_server
+override feature, in the hope to find a better solution for the current
+limitations.
+
+There is still some pending issues to solve and work to do:
+- PI-boosting will cause starvation if cgroups have zero (internal) runtime.
+  There are many solutions, such as bandwidth inheritance or forcing cgroups to
+  not have zero runtime, but this has yet to be investigated. We are open for
+  advice on the matter.
+- As Tejun Heo pointed out, it maybe be possible to remove the forceful global
+  reservation of cgroup bandwidth in the root cgroup, while still being
+  compliant with real-time schedulability theory and related SCHED_DEADLINE
+  admission tests.
+- There are some potential performance improvements in the migration code that
+  are yet to be implemented (rto_masks).
+- Integration with the old v1 cgroup? Maybe disallow HCBS/RT_GROUP_SCHED in
+  cgroups-v1 entirely? There has also been ongoing discussion at
+  https://lore.kernel.org/all/20261105164724.yxONBd03@linutronix.de/
+
+Have a nice day,
+Yuri
+
+v1: https://lore.kernel.org/all/20250605071412.139240-1-yurand2000@gmail.com/
+v2: https://lore.kernel.org/all/20250731105543.40832-1-yurand2000@gmail.com/
+v3: https://lore.kernel.org/all/20250929092221.10947-1-yurand2000@gmail.com/
+v4: https://lore.kernel.org/all/20251201124205.11169-1-yurand2000@gmail.com/
+v5: https://lore.kernel.org/all/20260430213835.62217-1-yurand2000@gmail.com/
+v6: https://lore.kernel.org/all/20260608121546.69910-1-yurand2000@gmail.com/
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Yuri Andriaccio (18):
+  sched/deadline: Introduce dl_freq_invariant flag for fair/ext servers
+  sched/rt: Disable RT_GROUP_SCHED
+  sched/rt: Remove unnecessary runqueue pointer in struct rt_rq
+  sched/rt: Add {alloc/unregister/free}_rt_sched_group
+  sched/rt: Implement dl-server operations for rt-cgroups.
+  sched/rt: Update task event callbacks for HCBS scheduling
+  sched/rt: Remove support for cgroups-v1
+  sched/rt: Update task's RT runqueue when switching scheduling class
+  sched/rt: Add HCBS migration code to related functions
+  sched/rt: Hook HCBS migration functions
+  sched/rt: Try pull task on empty server pick.
+  sched/core: Execute enqueued balance callbacks after
+    migrate_disable_switch
+  sched/syscalls: Allow unpriviledged tasks to set RT priority inside
+    cgroups.
+  sched/rt: Enable HRTICK_DL for HCBS servers.
+  Documentation: Update documentation for real-time cgroups
+  sched/rt: Integrate cpuset and cpu controllers
+  sched/rt: Prevent CPU offline operation on active rt-cgroups.
+  sched/rt: Introduce multi-cpu support
+
+luca abeni (11):
+  sched/deadline: Do not access dl_se->rq directly
+  sched/deadline: Distinguish between dl_rq and my_q
+  sched/rt: Pass an rt_rq instead of an rq where needed
+  sched/rt: Move functions from rt.c to sched.h
+  sched/rt: Introduce HCBS specific structs in task_group
+  sched/core: Initialize HCBS specific structures.
+  sched/deadline: Add dl_init_tg
+  sched/deadline: Account rt-cgroups bandwidth in deadline tasks
+    schedulability tests.
+  sched/rt: Update rt-cgroup schedulability checks
+  sched/rt: Remove old RT_GROUP_SCHED data structures
+  sched/core: Execute enqueued balance callbacks when changing allowed
+    CPUs
+
+ Documentation/scheduler/sched-rt-group.rst |  471 +++-
+ include/linux/cpuset.h                     |    2 +
+ include/linux/rcupdate.h                   |    1 +
+ include/linux/sched.h                      |   16 +-
+ kernel/cgroup/cpuset.c                     |   31 +
+ kernel/sched/autogroup.c                   |    4 +-
+ kernel/sched/core.c                        |  239 +-
+ kernel/sched/deadline.c                    |  324 ++-
+ kernel/sched/debug.c                       |    6 -
+ kernel/sched/ext/ext.c                     |    4 +-
+ kernel/sched/fair.c                        |    4 +-
+ kernel/sched/rt.c                          | 2725 +++++++++++---------
+ kernel/sched/sched.h                       |  225 +-
+ kernel/sched/syscalls.c                    |   37 +-
+ 14 files changed, 2540 insertions(+), 1549 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+--
 2.56.0
 
