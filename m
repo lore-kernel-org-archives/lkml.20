@@ -1,47 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231907;
-	b=H6pJCI7jNlcEpnZ1vPWzyAFaa7gkOBtkTaKLIdE15oTahuB8jmem6NCtrH5iEemCjQb/
-	 AJkPi9PwzDoCc6/uNSDvDmBMrnVAqsEDz5lmHjRMpsNHSYbsMa0oyfBxebA3tM8hSnmHU
-	 L7WxjEg7xrABwFpQWpmZcUButm+7/HD4CxWPNGEFBmrT5B2476yIEf8vGivYnX39++Msi
-	 mTM+P4bomee38acOslTUVRbuCVKIaQLslML4UtAoBAWCXOsKlV9h0paa0D7EwL6Tbm+I8
-	 jYQs0tXwQQd8n6vgU1w6rQ6b9QERamUb7S0b/rT27X5wKl9Ovr4IaohkYjJ0AQBOdUg==
+	t=1794231928;
+	b=o8HjyI42AtV75vnDOnVJg0Oiya5frvVRdu5nLud0K0uUbLtgitgLEw+dQAEsEfyJdF0/
+	 P0JHIYnDqsMnU1H2P0tIo8rj9n6sVbjg7pvEv4UtEpF5dXXhdagBI+Ej7iu+RDk5rZqYZ
+	 FNIpHInfQjEeOirfWS7j5WpTPiQcHnxjxOrhQR+VLyGMBSx1kdwg3/n4Xod0SsSMDL1p0
+	 7CfoVXRvXOEPv5n1f2lzo/B+00sUwjsWt4k/KVNkMWA4T5pgfkfaS5yJH4DId8PLxRdPM
+	 ISlE0YgP7XP1IA5klsfdUozqLlsECTKa9Vz7tA2wlxjQso0xMzZuel3GlEXNLUTwxhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231907;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=SjhNGKAFa/LGrtAPePCfHjw2jptgU6AWjXk819xv4y0=;
-	b=fySqSUz65Zfm5mMH+ltjqvVlk+MgNo+Q6rOKqs/ttBoxsF4inkiMXsF5Inay3B8oT81N
-	 9RdegqnCzsd4nRd2mfDBafP4i+AvnV0J/zpawKeajXb3rhdbaT1W2TT9w/qE6lQ7BrL5n
-	 0TayA4OuutGE4c1yS6VQhnO5Nn7zPXYQYbwLK8z1TR4FX7XfTpJ+gkyh/YEOcTrEOteMg
-	 xIjbsqENJiuLBKkXRjYpWKMRUBHMz1e+L8qyMvBGYSnh+R3zGI5rUQUPiXJ4Bu5FNMd5v
-	 zFA2ceQrpwoKBXHa77ml+SPL+QJ0hybhf9Ml2sghRaoFDgUDX36R+MCFCZjxMXV1Q+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231928;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7ROzI5pFKC1DlvyH7PwbH3PaOSQ+SHEt5iuezD/Lo1w=;
+	b=RZLuwU6KYp9qC0al6cPOL28Usy8GKWJEGAwKrYXZFDK5+3TOaiGdGwDHoeGftgEUNChO
+	 RJGjKbaRI9guIG2XfslFFN1Q6KODmDddUIu3Wercl1bCqCYR6DUscta7HYB7bW9DqBbss
+	 3jTUkpLMjhX70jQAlle+U7blYtISFUP4Vy4R1V58GeGB5VkosrP+Ow9X35O7A4Ll078Y1
+	 5QRYxcMeHTvjJRHHLjLmaN/8PLDxKyh9GeCnLUfIAu6O95EpnNgGWFfnBDEeABAuhgoQS
+	 d0CdhPOctacu8TXwT0737getMsc6h0f53kaRenUG27VRC8rquqfynSPa4I2JvUikzPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gz5j+IRt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lntKLG1W;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656FC606A337;
-	Mon,  9 Nov 2026 13:45:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA10606D81E
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:45:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDA10606D81E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gz5j+IRt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71F641F008A1;
-	Mon,  9 Nov 2026 13:44:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794231906;
-	bh=SjhNGKAFa/LGrtAPePCfHjw2jptgU6AWjXk819xv4y0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gz5j+IRt16UMA6Uf8i7EiWjJIBV4vUN9Xy0DKD3/t3wCmxXemR+4mZb4wvMKa+MmX
-	 f5HAwCJPOHi3ECi2nnYFk4cj5S/zAPOZ2LN9cK/+ZjkYO2qsnmOqFygzSsugJjLhqm
-	 XGRy5hq8F0U4PLasq04Uo0A8njicFtwJd+tVw9S5/oDT+gwbYpzSWYp9+YFgcFxTSP
-	 lY7NQStpmvJvsKMIHeFroSHfXp3NwGG0it00SCNdbhEez/eZikwWMazkfHuz+638K3
-	 clgUGputwUFM5yxXtCj0F3eWtXusMjSAYPVemwnv/PNJjY3t4VgVd157Fgzi20jQkR
-	 WpW6XsNlxhqFw==
-Message-ID: <ac29cf71-a1af-4ce7-96c3-aea5a771979a@kernel.org>
-Date: Mon, 9 Nov 2026 14:44:40 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lntKLG1W
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso4858525ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:45:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794231927; x=1794836727; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7ROzI5pFKC1DlvyH7PwbH3PaOSQ+SHEt5iuezD/Lo1w=;
+        b=lntKLG1Wz33t5Qj17jC/tC3S0IIMyWb4WPH64F0oOzWRxmWkzGRPHy5SJSuJIMKfZm
+         Xjw3giTGvEKF97qFw8CSiRId0IdtdkLIZ1BB2z97PVXdqcWDR7PighHDGpUmoZ7fqG2X
+         MDlenkCrXSjTl6R63MZKr06JUwHvyraCtHLF8Dzo4qe+PwPlRzSlrod39B5S69V8TyL9
+         xxmXcgvQxUIYgVr0f17mPipJ1Y3RblEwuqLsQGbFJU+nV+S3s5B12GiH49bAeh9n/3mD
+         SRl8FJpdCdg8flaAN8vVgmuYKh2yljVGLClNOD4BhBgZQBwbALYG1wnbubo7kOXGhyQE
+         ofPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794231927; x=1794836727;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7ROzI5pFKC1DlvyH7PwbH3PaOSQ+SHEt5iuezD/Lo1w=;
+        b=Ebm2mC+ZZAXRU0b5Kcr2TkyrUIdz9Y+lu//XougIhlxqBzjk2it0+87HqCtlhvui5D
+         fa7zjnVFSkTeEq6PugGaoaJZIULLNWu+1HdIDUPRxw0zSxAUh5RYTogbixQ3HTRPbc4s
+         2eMsQjCSc9/SZub/2OQ/YVvaRKAEiZbKpxT09R19SZD2zUMalZQ0Ll+FclVGRN6/d5st
+         r5SanLmthdQ/EJ0Rpl2mDsNxFbyMi5q+AoyLWN/yMd3/k0geJH563AK4YxnDCGMaE3A8
+         cm29HbM/Zh7gYUws/7Z3wqH0UfhHolLmOzcfMq2Mxf6uCfqW1fZ68rcRyRS8WANHl755
+         pfWQ==
+X-Forwarded-Encrypted: i=1; AL+hErHUiaIGK3GSKuU9WpK6FkyO6dXGozbt/8uZJvtc3L9++CoOma7NT6G8u9cJMWJO6zM2dfDd1WteGTQzibQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89olM1mQW+2+WcEPtuXo4+ODNA1MIe7ZHPaIZRgm96fZCbDXzp
+	9uZmBkFeHJObdCcGKSDXoh6wLuYL12Iu/KzswrKelXph1a3n2tPIrp4K
+X-Gm-Gg: AYBFou2Zglae1o7F2ZkbHCs0EisHiA/wWD/VR7sDZfxzF71O3OPld2RE5wY+PNfT23l
+	Dxu4Q/BDAfzN3s7xFrKK8Kx4rHXuSTwaZrVvHyS6/HbPi7lP/9W5hZeMVgRPyhKh5u0z25ooMEx
+	OOvMBX0Hich5ARbmHI85r90tA8VkIJKHiB4fjbRzhOxdApb0QVpbyeWWB13REEXzwWwvXqB6RBL
+	rT3xaO/Sw7p3z5lJpc06fml1qGHNfHB89IzFfoF4kit5b6JrNHOKAa8xLFFzf7mvQBiNGqq1K6x
+	GETHTWQAtraHTkiNhu5ccIFpkkj86ueSnLHMfQVFt7/IRUYDKXPw0XFcD6Di8hqBndaIsZ9yjl8
+	Sd/Uolssg40T1WdvpEEGiyAYeDUfRSPIdiQ24/4j5eEFYNRYQm3x3Q4k0m99jxH5gvW/OJSKm2A
+	xLqSjRbtPSYAPUh7J8zZUT65dpd3s7iv2B0WkUU4jsMdYDoDZT/NesIi7KJr4I4t3vp5GYeSnmZ
+	GHTti4B7o47jxehKTbroagHHZWLU+bBQVesSoU+dnKZHqmP1ZncXX9nswq1kod9kK9yMfmdBNxk
+	QRDij0pB6/X8bx/+krkQwhihlYi8
+X-Received: by 2002:a17:903:3890:b0:2ea:1b9b:b938 with SMTP id d9443c01a7336-2ed83791011mr36027055ad.55.1794231927034;
+        Mon, 09 Nov 2026 05:45:27 -0800 (PST)
+Received: from server227.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed81727f9bsm11014285ad.57.2026.11.09.05.45.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 05:45:26 -0800 (PST)
+From: Zxyan Zhu <zxyan0222@gmail.com>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	maxime.chevallier@bootlin.com
+Cc: mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com,
+	richardcochran@gmail.com,
+	muhammad.nazim.amirul.nazle.asmade@altera.com,
+	rohan.g.thomas@altera.com,
+	rmk+kernel@armlinux.org.uk,
+	o.rempel@pengutronix.de,
+	wojciech.drewek@intel.com,
+	netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Zxyan Zhu <zxyan0222@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net-next v10 1/3] net: stmmac: dwmac-socfpga: complete cross-timestamp on ATSNS
+Date: Mon,  9 Nov 2026 21:45:04 +0800
+Message-Id: <20261109134506.2794160-2-zxyan0222@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261109134506.2794160-1-zxyan0222@gmail.com>
+References: <20261109134506.2794160-1-zxyan0222@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,336 +114,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/13] mm/madvise: convert madvise_vma_behavior() to use
- vma_flags_t
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Rik van Riel <riel@surriel.com>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
- Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>,
- Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Leon Romanovsky <leon@kernel.org>,
- SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>,
- David Rientjes <rientjes@google.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Peter Zijlstra
- <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, Masami Hiramatsu <mhiramat@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, John Johansen
- <john.johansen@canonical.com>, Georgia Garcia
- <georgia.garcia@canonical.com>, Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- kvm@vger.kernel.org, damon@lists.linux.dev,
- linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- linux-integrity@vger.kernel.org, selinux@vger.kernel.org
-References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
- <20261105-late-2026-vma-flags-v1-7-0d3cd15ab75f@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261105-late-2026-vma-flags-v1-7-0d3cd15ab75f@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/5/26 22:30, Lorenzo Stoakes (ARM) wrote:
-> Replace use of the legacy vm_flags_t flags with vma_flags_t values
-> throughout the madvise logic.
-> 
-> In order to do so, update ksm_madvise() and hugepage_madvise() to take a
-> vma_flags_t pointer, and update their other callers in mremap and the
-> powerpc KVM ultravisor code accordingly.
-> 
-> In the latter case we replace vm_flags_reset() with vma_overwrite_flags().
-> The VMA is write locked at this point, so the atomic flags preserved by
-> vma_overwrite_flags() cannot differ from those copied, and the behaviour
-> is unchanged.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  arch/powerpc/kvm/book3s_hv_uvmem.c | 10 ++++----
->  include/linux/huge_mm.h            |  4 ++--
->  include/linux/ksm.h                |  4 ++--
->  mm/khugepaged.c                    | 10 ++++----
->  mm/ksm.c                           | 11 +++++----
->  mm/madvise.c                       | 47 ++++++++++++++++++++------------------
->  mm/mremap.c                        |  2 +-
->  7 files changed, 46 insertions(+), 42 deletions(-)
-> 
-> diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
-> index 463aef870c4e..0fa50bee2ffc 100644
-> --- a/arch/powerpc/kvm/book3s_hv_uvmem.c
-> +++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
-> @@ -393,7 +393,7 @@ static int kvmppc_memslot_page_merge(struct kvm *kvm,
->  {
->  	unsigned long gfn = memslot->base_gfn;
->  	unsigned long end, start = gfn_to_hva(kvm, gfn);
-> -	vm_flags_t vm_flags;
-> +	vma_flags_t vma_flags;
->  	int ret = 0;
->  	struct vm_area_struct *vma;
->  	int merge_flag = (merge) ? MADV_MERGEABLE : MADV_UNMERGEABLE;
-> @@ -411,15 +411,15 @@ static int kvmppc_memslot_page_merge(struct kvm *kvm,
->  			break;
->  		}
->  		vma_start_write(vma);
-> -		/* Copy vm_flags to avoid partial modifications in ksm_madvise */
-> -		vm_flags = vma->vm_flags;
-> +		/* Copy flags to avoid partial modifications in ksm_madvise */
-> +		vma_flags = vma->flags;
->  		ret = ksm_madvise(vma, vma->vm_start, vma->vm_end,
-> -			  merge_flag, &vm_flags);
-> +			  merge_flag, &vma_flags);
+The Agilex5 smtg_crosststamp() handler polls XGMAC_INT_STATUS for TSIS
+to learn that the auxiliary snapshot is latched.  TSIS is a transient,
+read-to-clear status bit, so the poll is racy in two ways: a stale TSIS
+from an unrelated event satisfies it before the snapshot is latched,
+leaving *device unwritten while the call reports success, and a
+concurrent reader of XGMAC_TIMESTAMP_STATUS can clear it and make the
+poll time out.
 
-Unusual indentation (before your change).
+The FIFO level is also reported by the ATSNS count in
+XGMAC_TIMESTAMP_STATUS, which reading the register does not disturb.
+Poll ATSNS instead of TSIS, after waiting for the PTP_ACR_ATSFC FIFO
+clear, so a stale ATSNS cannot satisfy the poll before the new snapshot
+is latched.
 
->  		if (ret) {
->  			ret = H_STATE;
->  			break;
->  		}
-> -		vm_flags_reset(vma, vm_flags);
-> +		vma_overwrite_flags(vma, vma_flags);
->  		start = vma->vm_end;
->  	} while (end > vma->vm_end);
->  
-> diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
-> index c745f7ad2298..8b6f4101eabf 100644
-> --- a/include/linux/huge_mm.h
-> +++ b/include/linux/huge_mm.h
-> @@ -508,7 +508,7 @@ change_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
->  			__split_huge_pud(__vma, __pud, __address);	\
->  	}  while (0)
->  
-> -int hugepage_madvise(struct vm_area_struct *vma, vm_flags_t *vm_flags,
-> +int hugepage_madvise(struct vm_area_struct *vma, vma_flags_t *vma_flags,
->  		     int advice);
->  int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
->  		     unsigned long end, bool *lock_dropped);
-> @@ -710,7 +710,7 @@ static inline bool unmap_huge_pmd_locked(struct vm_area_struct *vma,
->  	do { } while (0)
->  
->  static inline int hugepage_madvise(struct vm_area_struct *vma,
-> -				   vm_flags_t *vm_flags, int advice)
-> +				   vma_flags_t *vma_flags, int advice)
+Hold aux_ts_lock across the whole sequence, and refuse the request
+with -EBUSY while a channel is enabled, so the PTP_ACR mask
+programming cannot disarm it and a concurrent request cannot flush the
+FIFO between the poll and the drain loop.  The lock is held across the
+SMTG register reads as well, so a concurrent PTP_SYS_OFFSET_PRECISE
+cannot retrigger GPO0 while they run.  The internal snapshot trigger
+is disarmed on the way out, including the error paths, so it does not
+stay armed in PTP_ACR after the cross-timestamp.
 
-Could do two tabs while at it.
+Fixes: fd8c4f645496 ("net: stmmac: socfpga: Add hardware supported cross-timestamp")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zxyan Zhu <zxyan0222@gmail.com>
+---
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 52 +++++++++++++++----
+ 1 file changed, 41 insertions(+), 11 deletions(-)
 
->  {
->  	return -EINVAL;
->  }
-> diff --git a/include/linux/ksm.h b/include/linux/ksm.h
-> index d39d0d5483a2..1ffc69a72a1a 100644
-> --- a/include/linux/ksm.h
-> +++ b/include/linux/ksm.h
-> @@ -16,7 +16,7 @@
->  
->  #ifdef CONFIG_KSM
->  int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
-> -		unsigned long end, int advice, vm_flags_t *vm_flags);
-> +		unsigned long end, int advice, vma_flags_t *vma_flags);
->  vma_flags_t ksm_vma_flags(struct mm_struct *mm, const struct file *file,
->  			  vma_flags_t vma_flags);
->  int ksm_enable_merge_any(struct mm_struct *mm);
-> @@ -139,7 +139,7 @@ static inline void collect_procs_ksm(const struct folio *folio,
->  
->  #ifdef CONFIG_MMU
->  static inline int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
-> -		unsigned long end, int advice, vm_flags_t *vm_flags)
-> +		unsigned long end, int advice, vma_flags_t *vma_flags)
->  {
->  	return 0;
->  }
-> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> index a2c7c6a0768d..be1f779c8da5 100644
-> --- a/mm/khugepaged.c
-> +++ b/mm/khugepaged.c
-> @@ -363,16 +363,16 @@ static unsigned int collapse_max_ptes_swap(struct collapse_control *cc,
->  }
->  
->  int hugepage_madvise(struct vm_area_struct *vma,
-> -		     vm_flags_t *vm_flags, int advice)
-> +		     vma_flags_t *vma_flags, int advice)
->  {
->  	switch (advice) {
->  	case MADV_HUGEPAGE:
-> -		*vm_flags &= ~VM_NOHUGEPAGE;
-> -		*vm_flags |= VM_HUGEPAGE;
-> +		vma_flags_clear(vma_flags, VMA_NOHUGEPAGE_BIT);
-> +		vma_flags_set(vma_flags, VMA_HUGEPAGE_BIT);
->  		break;
->  	case MADV_NOHUGEPAGE:
-> -		*vm_flags &= ~VM_HUGEPAGE;
-> -		*vm_flags |= VM_NOHUGEPAGE;
-> +		vma_flags_clear(vma_flags, VMA_HUGEPAGE_BIT);
-> +		vma_flags_set(vma_flags, VMA_NOHUGEPAGE_BIT);
->  		/*
->  		 * Setting VM_NOHUGEPAGE will prevent khugepaged from scanning
->  		 * this vma even if we leave the mm registered in khugepaged if
-> diff --git a/mm/ksm.c b/mm/ksm.c
-> index 61b772bba229..3eb9c1ec2f87 100644
-> --- a/mm/ksm.c
-> +++ b/mm/ksm.c
-> @@ -779,7 +779,8 @@ static struct vm_area_struct *find_mergeable_vma(struct mm_struct *mm,
->  	if (ksm_test_exit(mm))
->  		return NULL;
->  	vma = vma_lookup(mm, addr);
-> -	if (!vma || !vma_test(vma, VMA_MERGEABLE_BIT) || !vma_has_anon_rmap(vma))
-> +	if (!vma || !vma_test(vma, VMA_MERGEABLE_BIT) ||
-> +	    !vma_has_anon_rmap(vma))
->  		return NULL;
->  	return vma;
->  }
-> @@ -3021,7 +3022,7 @@ int ksm_disable(struct mm_struct *mm)
->  }
->  
->  int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
-> -		unsigned long end, int advice, vm_flags_t *vm_flags)
-> +		unsigned long end, int advice, vma_flags_t *vma_flags)
->  {
->  	struct mm_struct *mm = vma->vm_mm;
->  	int err;
-> @@ -3039,11 +3040,11 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
->  				return err;
->  		}
->  
-> -		*vm_flags |= VM_MERGEABLE;
-> +		vma_flags_set(vma_flags, VMA_MERGEABLE_BIT);
->  		break;
->  
->  	case MADV_UNMERGEABLE:
-> -		if (!(*vm_flags & VM_MERGEABLE))
-> +		if (!vma_flags_test(vma_flags, VMA_MERGEABLE_BIT))
->  			return 0;		/* just ignore the advice */
->  
->  		if (vma_has_anon_rmap(vma)) {
-> @@ -3052,7 +3053,7 @@ int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
->  				return err;
->  		}
->  
-> -		*vm_flags &= ~VM_MERGEABLE;
-> +		vma_flags_clear(vma_flags, VMA_MERGEABLE_BIT);
->  		break;
->  	}
->  
-> diff --git a/mm/madvise.c b/mm/madvise.c
-> index e9fa4f71efea..1b539e67b00d 100644
-> --- a/mm/madvise.c
-> +++ b/mm/madvise.c
-> @@ -148,11 +148,10 @@ static int replace_anon_vma_name(struct vm_area_struct *vma,
->   * Update the vm_flags or anon_name on region of a vma, splitting it or merging
->   * it as necessary. Must be called with mmap_lock held for writing.
->   */
-> -static int madvise_update_vma(vm_flags_t new_flags,
-> +static int madvise_update_vma(vma_flags_t new_vma_flags,
->  		struct madvise_behavior *madv_behavior)
->  {
->  	struct vm_area_struct *vma = madv_behavior->vma;
-> -	vma_flags_t new_vma_flags = legacy_to_vma_flags(new_flags);
->  	struct madvise_behavior_range *range = &madv_behavior->range;
->  	struct anon_vma_name *anon_name = madv_behavior->anon_name;
->  	bool set_new_anon_name = madv_behavior->behavior == __MADV_SET_ANON_VMA_NAME;
-> @@ -601,7 +600,8 @@ static void madvise_cold_page_range(struct mmu_gather *tlb,
->  
->  static inline bool can_madv_lru_vma(struct vm_area_struct *vma)
->  {
-> -	return !(vma->vm_flags & (VM_LOCKED|VM_PFNMAP|VM_HUGETLB));
-> +	return !vma_test_any(vma, VMA_LOCKED_BIT, VMA_PFNMAP_BIT,
-> +			     VMA_HUGETLB_BIT);
->  }
->  
->  static long madvise_cold(struct madvise_behavior *madv_behavior)
-> @@ -650,7 +650,7 @@ static long madvise_pageout(struct madvise_behavior *madv_behavior)
->  	 * further to pageout dirty anon pages.
->  	 */
->  	if (!vma_is_anonymous(vma) && (!can_do_file_pageout(vma) &&
-> -				(vma->vm_flags & VM_MAYSHARE)))
-> +				vma_test(vma, VMA_MAYSHARE_BIT)))
-
-Another weird indentation. Likely because the spare set of () that are not
-necessary?
-
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+index 6d4bc1fe8f75..2d3c6702e203 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+@@ -304,13 +304,15 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
+ 	int i, ret;
+ 	u32 v;
+ 
++	mutex_lock(&priv->aux_ts_lock);
+ 	/* Both internal crosstimestamping and external triggered event
+-	 * timestamping cannot be run concurrently.
++	 * timestamping cannot be run concurrently: the PTP_ACR mask
++	 * programming below would disarm an external channel.
+ 	 */
+-	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN)
++	if (priv->plat->flags & STMMAC_FLAG_EXT_SNAPSHOT_EN) {
++		mutex_unlock(&priv->aux_ts_lock);
+ 		return -EBUSY;
+-
+-	mutex_lock(&priv->aux_ts_lock);
++	}
+ 	/* Enable Internal snapshot trigger */
+ 	acr_value = readl(ptpaddr + PTP_ACR);
+ 	acr_value &= ~PTP_ACR_MASK;
+@@ -337,8 +339,21 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
+ 	acr_value = readl(ptpaddr + PTP_ACR);
+ 	acr_value |= PTP_ACR_ATSFC;
+ 	writel(acr_value, ptpaddr + PTP_ACR);
+-	/* Release the mutex */
+-	mutex_unlock(&priv->aux_ts_lock);
++
++	/* Wait for the FIFO clear, so the poll only sees snapshots from
++	 * this trigger.
++	 */
++	ret = readl_poll_timeout(ptpaddr + PTP_ACR, acr_value,
++				 !(acr_value & PTP_ACR_ATSFC), 10, 10000);
++	if (ret) {
++		acr_value = readl(ptpaddr + PTP_ACR);
++		acr_value &= ~PTP_ACR_MASK;
++		writel(acr_value, ptpaddr + PTP_ACR);
++		mutex_unlock(&priv->aux_ts_lock);
++		netdev_err(priv->dev, "%s: Failed to clear snapshot FIFO\n",
++			   __func__);
++		return ret;
++	}
+ 
+ 	/* Trigger Internal snapshot signal. Create a rising edge by just toggle
+ 	 * the GPO0 to low and back to high.
+@@ -349,10 +364,17 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
+ 	gpio_value |= XGMAC_GPIO_GPO0;
+ 	writel(gpio_value, ioaddr + XGMAC_GPIO_STATUS);
+ 
+-	/* Poll for time sync operation done */
+-	ret = readl_poll_timeout(priv->ioaddr + XGMAC_INT_STATUS, v,
+-				 (v & XGMAC_INT_TSIS), 100, 10000);
++	/* Poll ATSNS instead of the transient TSIS: the ATSNS count is
++	 * the FIFO level and is not cleared by reading the register.
++	 */
++	ret = readl_poll_timeout(ioaddr + XGMAC_TIMESTAMP_STATUS, v,
++				 FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, v),
++				 100, 10000);
+ 	if (ret) {
++		acr_value = readl(ptpaddr + PTP_ACR);
++		acr_value &= ~PTP_ACR_MASK;
++		writel(acr_value, ptpaddr + PTP_ACR);
++		mutex_unlock(&priv->aux_ts_lock);
+ 		netdev_err(priv->dev, "%s: Wait for time sync operation timeout\n",
+ 			   __func__);
+ 		return ret;
+@@ -364,8 +386,7 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
+ 		.use_nsecs = false,
+ 	};
+ 
+-	num_snapshot = FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK,
+-				 readl(ioaddr + XGMAC_TIMESTAMP_STATUS));
++	num_snapshot = FIELD_GET(XGMAC_TIMESTAMP_ATSNS_MASK, v);
+ 
+ 	/* Repeat until the timestamps are from the FIFO last segment */
+ 	for (i = 0; i < num_snapshot; i++) {
+@@ -375,9 +396,18 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
+ 		read_unlock_irqrestore(&priv->ptp_lock, flags);
+ 	}
+ 
++	/* Disarm the internal snapshot trigger, so the PTP_ACR mask does
++	 * not stay armed behind the software state.
++	 */
++	acr_value = readl(ptpaddr + PTP_ACR);
++	acr_value &= ~PTP_ACR_MASK;
++	writel(acr_value, ptpaddr + PTP_ACR);
++
+ 	get_smtgtime(priv->mii, SMTG_MDIO_ADDR, &smtg_time);
+ 	system->cycles = smtg_time;
+ 
++	mutex_unlock(&priv->aux_ts_lock);
++
+ 	return 0;
+ }
+ 
 -- 
-Cheers,
+2.34.1
 
-David
