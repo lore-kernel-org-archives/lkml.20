@@ -1,58 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794189756;
-	b=i9ALgPu0Nrv5L8qC12X9Lkxs5+VVNJAt13Yqz32t3wzfQRXkc3Bf2cTV8sXidUFS+5+N
-	 n0AaB8GCyTfD7uZzZ4dHy+leOygSL0r92mZLYztmTB7sQGz+L5/K1qXayUiNT0DTlAVtr
-	 EsV+Qp1L2cUqElRhlxYNsE4Ede2II0vo9gbGm3w83lj5ZdqaZw/kxy/JpDVtks7xxrUka
-	 FzI8oT2PJAX6ounSAOPHMoAqpn4KWNGSchT0n2kP7psj8uTTbutIReVqTkZpPL1qfImKM
-	 mWGv9fFOXPBl+kikBWHTEaAUU42usCyZcumqcndRtPVqsHQRVoa/JcieOJdqESevTEw==
+	t=1794189765;
+	b=Yc2sClndbYUqvOH36c6yEGuhj5Eqx2MOo5NP/FnpRxtkp9uBx3LZI4/RZyWMKLjgR5HM
+	 AbjVKqb6jCzSXmhOCrE8R6Uz4Pk/CeN25Rs8O7nkJFp5yIuonysj2fPUGJpCyYVFPwIV+
+	 qARhsANXi3PbXjcia/wkd1Oi6ijYnFY/wji4lvVEM4nTy5Q7BQQZr00KadxacjTZ+E/Oy
+	 OQ/qznccKi5d+3VV1007VQC2BeJBpgDMkJBHBtboMLuCw2ncmnhiT8rFhJ8F5M6cAAAXQ
+	 LDUp7ExijO+GPyY4f0fG/on48Mek60nLsii8LmwI+d1zLKr7Ct7tNLa/VW3CtvPndNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794189756;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=FCY5yPy879EivQeygPsO+icoEH2zfLSwy7J7X4i8ETA=;
-	b=gjYPtbgjijL23a6zTsfzdicOOKO0Y1X/5zJ57cZcsThwBsVet49YVNN6qMkkCT12Qqbt
-	 F9JFPPtjIr0yM8yYhcwyFjUy2lrigHDggtIVOogWcyq3ISPsgdgDBfjs7vIisUbhP2GXf
-	 50vMEdJHMqURJsKBrKscsX9lCldJOWY7Fo9T56WaIpB0NRjXixJMRHwG1Z3/kTGUdOdHH
-	 pX4IkWQQvAfmYEPE5yYYHyHgswEvwp/vB6rGYNaFGF15WHUfxNkJ/L1QAQKyHGFS1Bkzc
-	 4EpBOyLFkTuo3k62u6uwKrQSwfX8jXnXczH0GImBSwB0yoIQQ52cy1SV8io4cPV5JWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794189765;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
+	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=jo27+2crNHkSXh+DTTxPnRRpOyLKpscA6V2A5Jb1i2g=;
+	b=kt2QVcXdk5GQjKi1F/BEFmMLpnPXy0YM+ILQMMnwpsdESq/rLRz2ClreF6zC/xii4kyh
+	 MSi7DZursx7IycNZYeCKOWXhlETW3MSJw9z3Zh1BCDxDS4kdIN+W1JNNuPxzw4HEkA8Bf
+	 Wzl1DDe4Cvxjdai5W8++mQNcyY2rB5pFTDFwkDYKvkuJIIWTPisNr8gCezCbjWlNEpcpn
+	 mrZ8UHt+5u382OSnQsOIgloXEaznF1A/bu8QMj03DYcXkV6caEtZW33HWT2Gs1u2fpdL7
+	 s2TlCLYo/XYCb3e6j01a1oLE/irs91P7lz9vFlKFaEzWlC+DDHnHezGAtHRaiPv8WPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=95.215.58.116
-Received: from mta1.migadu.com (out-116.mta1.migadu.com [95.215.58.116])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=ngoJmNOr;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E00606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:02:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72E00606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GfGHTZ8GhZ/dheS3M4yY8zDNF5VgOSFkCOtjDoC13jo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794189752; v=1; x=1794794552;
- b=n35zYBd2zT5DCe4XqZgcKuz+bYL9BqLGHFI/uKBZqD5H+Mqqz2Vzf1MJ2EKZSYAEhJO8HJ6P
- H9XpVYO+KGZMQJucqGiYgvYx2FgS1el23vaG5fifbXeIQxhIRhNUD59lnfLEljw0eCXiTSr+r6x
- QDvEkKZ8Rk0vOg0WsKhVAY1k=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 2413584100e8a086;
-	Mon, 09 Nov 2026 02:02:32 +0000
-X-Mizu-Trace-ID: 2413584100e8a086
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 9 Nov 2026 10:02:25 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Yingjie Wang <1075151112@qq.com>
-Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, linux-kernel@vger.kernel.org,
-	ast@kernel.org
-Subject: Re: [PATCH net v2] ipv6: reject routes without an inet6_dev
-Message-ID: <avEpsZOaaT4qU5q5@fedora>
-References: <tencent_3049FF6D9F23419F56589E244420973D2708@qq.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B0F606A332;
+	Mon,  9 Nov 2026 02:02:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2B0F606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=ngoJmNOr
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A922eH823896237, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794189760; bh=jo27+2crNHkSXh+DTTxPnRRpOyLKpscA6V2A5Jb1i2g=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=ngoJmNOrlfBO0BjjQLKRroDU/36fmO2DgZQdW8NCjP5x5vNl9faqrDAaeLF+NArQZ
+	 mfk6tVddx1lqrEyIPcAUfYkwx0tHZ8fy1hcGxDW6d9SWQpGj9bnYz5CbPD0aTa3ixq
+	 EjqAbYUTOdfMmb3zB4yUoadMME27awgjZy03qemjm0dZIyJuaSba8fW1PgyeYI2R/7
+	 dOhvmB7vi0JCwzFXAcqD2uxcPgz8w+Ehj4Os54e8DYYiwue2bTzS/jl/mInS6T/qaY
+	 3ppVQFHAHmHJOal561X5M7Bk/dtQXf14fjpUwclTBB2oYezuPkuP9JE80k5HTwDWYY
+	 369Het/2DtT3A==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A922eH823896237
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 9 Nov 2026 10:02:40 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 10:02:40 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 10:02:40 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Mon, 9 Nov 2026 10:02:40 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Jie Feng <hjf3108@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next 4/5] wifi: rtlwifi: rtl8192du: enable USB RX
+ aggregation
+Thread-Topic: [PATCH rtw-next 4/5] wifi: rtlwifi: rtl8192du: enable USB RX
+ aggregation
+Thread-Index: AQHda3lL9w2T8fKlSE2DNNuQSInmgLck79mg//+NXYCAAIdxsA==
+Date: Mon, 9 Nov 2026 02:02:40 +0000
+Message-ID: <5563ba9cef7c4c378cca73724c164041@realtek.com>
+References: <20261103095256.949327-1-hjf3108@gmail.com>
+ <20261103095256.949327-5-hjf3108@gmail.com>
+ <e826d25ce74e4d839f2719509494c129@realtek.com>
+ <CABOQOSXX=3ZPfGmXBLfHPcGK11dqMRZ8vAC05OtstQtWS7Un6A@mail.gmail.com>
+In-Reply-To: <CABOQOSXX=3ZPfGmXBLfHPcGK11dqMRZ8vAC05OtstQtWS7Un6A@mail.gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,106 +90,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_3049FF6D9F23419F56589E244420973D2708@qq.com>
 
-On Sun, Nov 08, 2026 at 03:09:36PM +0800, Yingjie Wang wrote:
-> ip6_route_output() and ip6_route_lookup() can return an error-free route
-> whose rt6i_idev is NULL.  Lowering an external nexthop device's MTU below
-> IPV6_MIN_MTU tears down its inet6_dev, while fib6_ifdown() leaves routes
-> using nexthop objects in the FIB.
-> 
-> An unprivileged user with CAP_NET_ADMIN in a private user and network
-> namespace can construct this state.  Consumers which treat a route without
-> an error as usable can then dereference the NULL rt6i_idev.  This was
-> reproduced as a KASAN NULL pointer dereference in ip6_tnl_xmit().
-> 
-> A similar missing inet6_dev check was fixed in commit 1b9b5323725e
-> ("netfilter: ip6t_rpfilter: reject routes without inet6_dev").  However,
-> the route construction path still marks routes without an inet6_dev as
-> successful, leaving every consumer responsible for the same check.
-> 
-> Acquire the inet6_dev reference before initializing the destination.  If a
-> non-reject route has no inet6_dev, initialize it as RTN_UNREACHABLE instead
-> of a successful route.  Explicit reject routes keep their original type and
-> error.  This establishes that ordinary error-free IPv6 routes have an
-> inet6_dev while retaining the existing defensive checks at callers.
-> 
-> The modified route object builds cleanly with W=1.  A full x86_64 KASAN
-> bzImage build completes; it reports two pre-existing kernel-doc warnings
-> outside this change.
-> 
-> Tests:
->   - `make W=1 net/ipv6/route.o`
->   - full x86_64 KASAN `bzImage` build with `W=1`
->   - KASAN QEMU with an unprivileged user and network namespace: after
->     lowering the MTU, the stale route returned `No route to host`, a normal
->     route still resolved, and the collect_md trigger completed without
->     KASAN, oops, or panic
->   - `tools/testing/selftests/net/ip6_tunnel.sh` in the same KASAN QEMU
-> 
-> Fixes: 5b98324ebe29 ("ipv6: Allow routes to use nexthop objects")
-> Closes: https://lore.kernel.org/netdev/tencent_CB9E1044AC97882719FF3A9F5B410A562408@qq.com/
-> Link: https://lore.kernel.org/netdev/DMP4WRIOGMBX.3VW2KNLBGDZ0K@gmail.com/
-
-I think it should be
-
-Closes: https://lore.kernel.org/netdev/DMP4WRIOGMBX.3VW2KNLBGDZ0K@gmail.com/
-
-The Link tag usually added by the bot when maintainer apply your patch.
-
-> Suggested-by: Alexei Starovoitov <ast@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <1075151112@qq.com>
-> ---
-> Changes since v1:
->   - Move the invariant into IPv6 route construction following Alexei
->     Starovoitov's review.
->   - Acquire `rt6i_idev` before destination initialization and preserve the
->     existing handling of explicit reject routes.
->   - Update `Fixes:` to the nexthop-object route support commit.
-> 
-> v1: https://lore.kernel.org/netdev/tencent_CB9E1044AC97882719FF3A9F5B410A562408@qq.com/
-> 
->  net/ipv6/route.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-> index 2eb884558c24..a4c792fc55e3 100644
-> --- a/net/ipv6/route.c
-> +++ b/net/ipv6/route.c
-> @@ -1165,6 +1165,12 @@ static void ip6_rt_init_dst(struct rt6_info *rt, const struct fib6_result *res)
->  		return;
->  	}
->  
-> +	/* addrconf_ifdown() removed inet6_dev. The device can't do IPv6. */
-> +	if (!rt->rt6i_idev) {
-> +		ip6_rt_init_dst_reject(rt, RTN_UNREACHABLE);
-> +		return;
-> +	}
-> +
->  	rt->dst.error = 0;
->  	rt->dst.output = ip6_output;
->  
-> @@ -1200,10 +1206,10 @@ static void ip6_rt_copy_init(struct rt6_info *rt, const struct fib6_result *res)
->  	const struct net_device *dev = nh->fib_nh_dev;
->  	struct fib6_info *f6i = res->f6i;
->  
-> +	rt->rt6i_idev = dev ? in6_dev_get(dev) : NULL;
->  	ip6_rt_init_dst(rt, res);
->  
->  	rt->rt6i_dst = f6i->fib6_dst;
-> -	rt->rt6i_idev = dev ? in6_dev_get(dev) : NULL;
->  	rt->rt6i_flags = res->fib6_flags;
->  	if (nh->fib_nh_gw_family) {
->  		rt->rt6i_gateway = nh->fib_nh_gw6;
-> 
-> base-commit: 30c71476d842b094651bd7712f6c8ee8716147d0
-> -- 
-> 2.43.0
-> 
-
-The change looks good to me.
-
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+SmllIEZlbmcgPGhqZjMxMDhAZ21haWwuY29tPiB3cm90ZToNCj4gT24gTW9uLCA5IE5vdiAyMDI2
+IGF0IDA4OjQ0LCBQaW5nLUtlIFNoaWggPHBrc2hpaEByZWFsdGVrLmNvbT4gd3JvdGU6DQo+ID4N
+Cj4gPiBIbyBKaWUgRmVuZyA8aGpmMzEwOEBnbWFpbC5jb20+IHdyb3RlOg0KPiA+ID4gQWxsb3cg
+UlggYWdncmVnYXRpb24gb2YgdXAgdG8gNDggcGFnZXMgb2YgMTI4IGJ5dGVzIG9yIDI0IHdpdGgg
+dHdvIE1BQ3MuDQo+ID4NCj4gPiBZb3UgY2FuIGRlc2NyaWJlIGEgbGl0dGxlIGJpdCBob3cgeW91
+IGJ1aWxkIHNlcGFyYXRlIHNrYiwgZXNwZWNpYWxseQ0KPiA+IHRoZSBsYXN0IG9uZS4NCj4gPg0K
+PiA+ID4NCj4gPiA+IFRlc3QgcmVzdWx0cyAoMi40IEdIeik6DQo+ID4gPiAgICBiZWZvcmUgYWZ0
+ZXINCj4gPiA+IFRYIDUuMiAgICA2LjQNCj4gPiA+IFJYIDI3LjEgICAzMi4wDQo+ID4gPg0KPiA+
+ID4gU2lnbmVkLW9mZi1ieTogSG8gSmllIEZlbmcgPGhqZjMxMDhAZ21haWwuY29tPg0KPiA+DQo+
+ID4gQWNrZWQtYnkgaXMgZ2l2ZW4sIGJ1dCBzb21lIG1pbm9yIGNvbW1lbnRzLg0KPiA+DQo+ID4g
+QWNrZWQtYnk6IFBpbmctS2UgU2hpaCA8cGtzaGloQHJlYWx0ZWsuY29tPg0KPiA+DQo+ID4gPiAr
+dm9pZCBydGw5MmR1X3J4X3NlZ3JlZ2F0ZV9oZGwoc3RydWN0IGllZWU4MDIxMV9odyAqaHcsIHN0
+cnVjdCBza19idWZmICpza2IsDQo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICBz
+dHJ1Y3Qgc2tfYnVmZl9oZWFkICpxdWV1ZSkNCj4gPiA+ICt7DQo+ID4gPiArICAgICAgIHN0cnVj
+dCBydGxfcHJpdiAqcnRscHJpdiA9IHJ0bF9wcml2KGh3KTsNCj4gPiA+ICsgICAgICAgdW5zaWdu
+ZWQgaW50IG9mZnNldCA9IDAsIHBrdF9zaXplOw0KPiA+ID4gKyAgICAgICBzdHJ1Y3Qgc2tfYnVm
+ZiAqbmV3X3NrYjsNCj4gPiA+ICsgICAgICAgX19sZTMyICpyeGRlc2M7DQo+ID4gPiArDQo+ID4g
+PiArICAgICAgIHdoaWxlIChza2ItPmxlbiAtIG9mZnNldCA+PSBSVExfUlhfREVTQ19TSVpFKSB7
+DQo+ID4gPiArICAgICAgICAgICAgICAgcnhkZXNjID0gKF9fbGUzMiAqKShza2ItPmRhdGEgKyBv
+ZmZzZXQpOw0KPiA+ID4gKyAgICAgICAgICAgICAgIHBrdF9zaXplID0gUlRMX1JYX0RFU0NfU0la
+RSArDQo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICBnZXRfcnhfZGVzY19kcnZfaW5m
+b19zaXplKHJ4ZGVzYykgKg0KPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgUlhfRFJW
+X0lORk9fU0laRV9VTklUICsNCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgIGdldF9y
+eF9kZXNjX3NoaWZ0KHJ4ZGVzYykgKw0KPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+Z2V0X3J4X2Rlc2NfcGt0X2xlbihyeGRlc2MpOw0KPiA+ID4gKw0KPiA+ID4gKyAgICAgICAgICAg
+ICAgIGlmIChnZXRfcnhfZGVzY19wa3RfbGVuKHJ4ZGVzYykgPT0gMCB8fA0KPiA+ID4gKyAgICAg
+ICAgICAgICAgICAgICBwa3Rfc2l6ZSA+IHNrYi0+bGVuIC0gb2Zmc2V0KSB7DQo+ID4gPiArICAg
+ICAgICAgICAgICAgICAgICAgICBydGxfZGJnKHJ0bHByaXYsIENPTVBfUkVDViwgREJHX1dBUk5J
+TkcsDQo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJiYWQgZnJhbWUgYXQg
+JXUgb2YgJXUsIHNpemUgJXVcbiIsDQo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIG9mZnNldCwgc2tiLT5sZW4sIHBrdF9zaXplKTsNCj4gPiA+ICsgICAgICAgICAgICAgICAg
+ICAgICAgIGJyZWFrOw0KPiA+ID4gKyAgICAgICAgICAgICAgIH0NCj4gPiA+ICsNCj4gPiA+ICsg
+ICAgICAgICAgICAgICAvKiBUaGUgbGFzdCBmcmFtZSBrZWVwcyB0aGUgb3JpZ2luYWwgc2tiLiAq
+Lw0KPiA+ID4gKyAgICAgICAgICAgICAgIGlmIChBTElHTihwa3Rfc2l6ZSwgUlRMOTJEVV9SWF9B
+R0dfQUxJR04pID49IHNrYi0+bGVuIC0gb2Zmc2V0KSB7DQo+ID4gPiArICAgICAgICAgICAgICAg
+ICAgICAgICBza2JfcHVsbChza2IsIG9mZnNldCk7DQo+ID4gPiArICAgICAgICAgICAgICAgICAg
+ICAgICBza2JfdHJpbShza2IsIHBrdF9zaXplKTsNCj4gPiA+ICsgICAgICAgICAgICAgICAgICAg
+ICAgIF9fc2tiX3F1ZXVlX3RhaWwocXVldWUsIHNrYik7DQo+ID4gPiArICAgICAgICAgICAgICAg
+ICAgICAgICByZXR1cm47DQo+ID4gPiArICAgICAgICAgICAgICAgfQ0KPiA+ID4gKw0KPiA+ID4g
+KyAgICAgICAgICAgICAgIG5ld19za2IgPSBkZXZfYWxsb2Nfc2tiKHBrdF9zaXplICsgUlRMOTJE
+VV9SWF9IRUFEUk9PTSk7DQo+ID4NCj4gPiBXaGF0IGlzIHRoZSBwdXJwb3NlIG9mIFJUTDkyRFVf
+UlhfSEVBRFJPT00gPw0KPiBUaGlzIGlzIGZvciB0aGUgcmFkaW90YXAgaGVhZGVyLCBsaWtlIGlu
+IHVzYi5jLg0KPiANCj4gSSBjb3VsZCBkcm9wIGl0LCBvciBhZGQgY29tbWVudHMgb3IgYSBjb21t
+aXQgZGVzY3JpcHRpb24gdG8gZGVzY3JpYmUgaXQ/DQoNCldoeSBub3QganVzdCBuYW1pbmcgUkFE
+SU9UQVAgbGlrZSB1c2IuYyA/DQoNCj4gDQo+IGh0dHBzOi8vZ2l0aHViLmNvbS9wa3NoaWgvcnR3
+L2Jsb2IvcnR3LW5leHQvZHJpdmVycy9uZXQvd2lyZWxlc3MvcmVhbHRlay9ydGx3aWZpL3VzYi5j
+I0w1ODINCg0KSSBkb24ndCByZW1lbWJlciBJIGhhdmUgdHJpZWQgbW9uaXRvciBtb2RlIHdpdGgg
+cnRsd2lmaS4gQ2FuIHlvdSBnaXZlIGl0IGEgdHJ5PyANCg0KDQo=
