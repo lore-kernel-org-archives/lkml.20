@@ -1,77 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794239873;
-	b=TZrQYlvmzZHIRJABqfxCMOWj/JQEQHwxpi/KNgufpwjqvp5PpEKHyJJj/HoyFoiCUPei
-	 hH4Rc+juJDXjvMBSd1RnUag4lCF1xfT3LyaV5ZYKvrhARlLkF4WapankBclPSh+1a1jE/
-	 Y4tkbHeWNHd1EK5zVEUCdlMnmCoFjHUVDyN4n1tj2c0cObXI4tFeSsFidwt8sKi7BvoXz
-	 B37YeiMZYOy1KfqSAeeeke7A4grNxpUIUmUpFiV9+GmRvFesHtolnDXX8Ce4aMVPByZPJ
-	 JBhXWoRHvDIphUIzTJKMvNcEvvpDISj73rbyhw/9ixmDbNjk6+oEdQY2CxotzAcsqBg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239873;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Organization:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-ZohoMailClient;
-	bh=9W5U9MRLdiGXEzabQcr7VS1i+v+HHL0WqrvbrIzGW3Q=;
-	b=5CE9BuCRc9vNl5mu5b4pLhznlOGEI/iamklGuGqZy6OdTDqwFODVjh4/YJK03OExDLGK
-	 1FvPhheY5alR4Xsf+nAhMs/G6Z1Mrjw3DqLUWBpdcJmCJkdyB+75cAyDb+0olojjXLEnp
-	 6uV8Tp9Ps/xwzvC9g4z1WFB9JR2nAO6dGFF5by5tzhf/FyNrV45abZ1uB//QxgIgolYAi
-	 8vyCa1QdD8Ms7XK78xF1Jh33wnh1BsQpVLqp/Mc2xF49ngAZ7YcUHwTrdxErRJ/f1Yo4d
-	 XlkznkN5O3Hgm8gFdgaCL4Dyl7ggr4MEcPYAB0p6cbT/yUNqE2+jI84/HVDFYtWvBzg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icenowy.me;
-	spf=pass smtp.mailfrom=icenowy.me;
-	dkim=pass header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b="Zqa/eYBR";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794239882;
+	b=qzFwizXkGMWk7dSs5UTF2oxSvm6svSRDTGTJzPjLtuCS9ODwztCejS16sbecZBISr1bx
+	 MZicrUF3h6VaPYmfVCP6lTwupMRaxhADomL82b56W/3eIMN+i5BeDCgArBbz4DxQQpySI
+	 8zRimoG50KbdZzM1o9WBWA5j3TaZWLMy28KfUBTdMDuuUfKBNT4NdpPGH/3nKC71skS5h
+	 hq1C/Sj+L6Ojm0ImxMyK7ULzY/4/ik5rWBHv5w6Zr9pjPesBFBCZDv4JVK1NxfpRge+a9
+	 I0NVOen5ck6hFn6/ZYxbUV7PC3Gb7DpfLpX1nt7EQCTBi5zpkaYj+MDDCu1CYpSQWAw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239882;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=YcUWxm4+i8v6MB/f3qiLFhXyjp5WzDz6iCDXkVjGzug=;
+	b=IHwJf0l0vITRikMndF7s6y0MIv+ejqADbyDWxcb0+Q93PmmONK6pel0vw7cllSPw5WVW
+	 njToYC1E86flxgMMkHYTCO7f4v90vwgh9zqk6ljr0VDLxiYtowqvLVoPzlpFAVw5dPKuN
+	 idNNoftPd81HKh+WEn7sJ2U0Lt5hsb5PJ5/fyQc0A0DmMC3i6heKxhmbSUxemvyptNIym
+	 Dqly2cxdaqPsnB97qU/tTEcqQV3+oXqWCjIcvZN50mMHcrqvk4zHpLCsCcgJuGa67LiBE
+	 2KjnX7PnaunBdrx/xBBWu6MLrsylAPOB1ZVRCPDLKroIKpOtqqOP7P+y79UjtG0s8HQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VDSiRMKj;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC87606A321;
-	Mon,  9 Nov 2026 15:57:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBC87606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C9E606EE8C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:58:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07C9E606EE8C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icenowy.me header.i=@icenowy.me header.a=rsa-sha256 header.s=zmail2 header.b=Zqa/eYBR
-ARC-Seal: i=1; a=rsa-sha256; t=1794239816; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=OXNxm9K6TpVwKvnwPPPl3jqRoaY4ES0QKb2PPRjqXrNvo/HatRUvt4qGmFpc5pttihTZCVaFXzM5pGVjDONouhTDi5d/pWcX9RNfVrct0fShJ1r6uW/5odNwKbBZUwN6YuJKX4A1J9j1kBxXrEeJk+a/uEBAYlDLBlStE3ne4/A=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794239816; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=9W5U9MRLdiGXEzabQcr7VS1i+v+HHL0WqrvbrIzGW3Q=; 
-	b=nnU3Az4/Y5XbPU0/MQjLSGBAmL1EhfPAp7cZ5niPHmOGRYMEB8GO2BSnUu8zEmpE4LrLmW5F+8ov9h3jmGKYPAXOL3B4qjcjtMSRj325WMZA5nQp8OIgLN1kRaCLgqF6GFjq2bJvn1HWTVvWt+YSaaXN3GaapTbqvfJN5DNlQI4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: a=rsa-sha256; b=Zqa/eYBRCDEfDOpFZ8B1SiZUoIS3Zl/4EULbz297rAQxidxQ2K97RoraPZkLwgt4tNZNbE33NQzosO16k++uFvpB/syXvt5Z0G2GN39ByiIhCKv7DWoQrshTsvbEMDNDGjIeEM6WpalH/dZhiLiJyTUtZW0TRVFE+Xtjd5BnZRVSh2Bfpc3EOXGHsFV9Jh1xk5beAANh0ahnZlj4q8UyZ1JsYPOdZ5ihf6BvUDCmtMXYuN02nI0KqX1ga/8Ii6k9iEkBuLdbJlYy87VukmEtGzhSGRZgIy3HmBfBSlgU9xyx6lEZLvB9JO4iI8Cz7n5OyTmqD7nKwjRgl3dt14V2ww==; c=relaxed/relaxed; s=zmail2; d=icenowy.me; v=1; bh=9W5U9MRLdiGXEzabQcr7VS1i+v+HHL0WqrvbrIzGW3Q=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179423981483454.124000191802565;
-	Mon, 9 Nov 2026 07:56:54 -0800 (PST)
-Message-ID: <ce886c3a5bf5af34df5c1ac3fefbd86a8f0567ff.camel@icenowy.me>
-Subject: Re: [PATCH v9 1/4] riscv: cpufeature: Introduce ISA bases bitmap
- and rva23u64 detection
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Guodong Xu <guodong.xu@oss.qualcomm.com>, Jonathan Corbet
- <corbet@lwn.net>,  Shuah Khan <skhan@linuxfoundation.org>, Paul Walmsley
- <pjw@kernel.org>, Palmer Dabbelt	 <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti	 <alex@ghiti.fr>, Randy Dunlap
- <rdunlap@infradead.org>, Radim Krcmar	 <rkrcmar@qti.qualcomm.com>
-Cc: linux-doc@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>,
- Conor Dooley <conor@kernel.org>, linux-kselftest@vger.kernel.org, Andy Chiu
- <tchiu@tenstorrent.com>,  Florian Weimer <fweimer@redhat.com>, Peter
- Bergner <bergner@oss.tenstorrent.com>, Zihong Yao	
- <zihong.plct@isrc.iscas.ac.cn>, Mark Harris <mark.hsj@gmail.com>, Aurelien
- Jarno <aurelien@aurel32.net>, Andrew Jones <andrew.jones@linux.dev>
-Date: Mon, 09 Nov 2026 23:56:47 +0800
-In-Reply-To: <20261109-rva23u64-hwprobe-v2-v9-1-ae846c5c7178@oss.qualcomm.com>
-References: 
-	<20261109-rva23u64-hwprobe-v2-v9-0-ae846c5c7178@oss.qualcomm.com>
-	 <20261109-rva23u64-hwprobe-v2-v9-1-ae846c5c7178@oss.qualcomm.com>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VDSiRMKj
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1b3b4bcbfc9so328378c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:58:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794239880; x=1794844680; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YcUWxm4+i8v6MB/f3qiLFhXyjp5WzDz6iCDXkVjGzug=;
+        b=VDSiRMKjEGqA+Huh1eSJ+Iljd1OCpz5o7eBgiaTbwTb2Zep/bPUdabILMwlFJ5hjh4
+         jnJ1jp5agFksp/pEmgIgSTRmy5i00bNGXHqL2H+cVaKKWlpa/yBvsnUeaQyGB8wzRQHY
+         801mypsaNsTasXj7bqHLPxcJr0ClxmDNEEiK1bNMKH5ZLsxcSaZ/xRWDarfMBeCxTnQs
+         MkPGfdJQtbSfTvVYno4fxIE8WJsKGKQ42ejXGOMcYooQviSX8C9lWEXdp5rquN/f/0YT
+         WD8HLM28SnetqieNFkhkQFmNf5Q2VVQ52IbP171squD6P/MLZH8Aw08tN9qRwPtKHHSs
+         tesA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794239880; x=1794844680;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YcUWxm4+i8v6MB/f3qiLFhXyjp5WzDz6iCDXkVjGzug=;
+        b=TsDPo8/kS0hWmiPBtKAkLKl8yjgfEI+tKUOz7zgDlbXzV71cDkNoTQCYRkGXG0WTYH
+         EsMV9L7qikQjbhshPtXgt9WQtCBBIVOoV3FsEqC1ZVwdi/4EII4C9yj1JQ6nMkjQ9RBT
+         y6CdbjcFuZBSa6L38BY2MOMAdc8mcW8sIDkEkGbFRjqfJLw8SOyyDTHQPO+Oi5ZOpu8i
+         utp6pDosxEf6Ger53aVcItrYsyAffGglYfCwZsZ71EROL3IEMz1A9eJiIIls3saLGPtZ
+         /m+V8m6y9yHsyjlENRHdnMkS2aLQhOoqLK1r+NGBqKSBWhRMwxo+xk07NGYldT0xW4Ep
+         gPLA==
+X-Forwarded-Encrypted: i=1; AL+hErGegQJ0RoQse8ls19qzZdp0YT0/ls6YrGavrQL7RfnVdmn5OxCqPdJ+k+n1Ugt/RJYZ3eAWjGEqZYjkS6k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9N8nRQHBtdg1yGqmJ/TitaeUkpO/qi3vjuGfrdewSQrr8lMeMe
+	wrd8lfqEEM21z3zIrZe5uX9gKeSvoa2XtEpYt1VhhRCYXGqFSGXa/EtI
+X-Gm-Gg: AYBFou0N/xdkZktoqIW76OnOKRwKsHrC8unUrosPP2XvQ6eukVrlShS7IGHWecoTXN1
+	6tpN2yIRQxK90xGXp8FDUe+mDvHuLl13z2bhFkQOv9wzmySRVa7ZnOS4WpdDE3wyI0CK58xheGY
+	zjDH9RyjaKNKabN4e5PFckREtmgJHlj13tZ7dAZHc5dXgnA8HCyBto+lPz2D0B5rAHDSO+9MMvZ
+	TN+5z1mRmLbxyyzQ8tKDvRLaoxRidIloVCOlZd8hs5toCJgcQ6XmronR9dngPp5y8oCRwKcKbid
+	ecL6V9v4tHtzCuiC71Gq777GWvS00kHVE3LWuJX+NFlvzxI9YgymU0t+AvFIejs2mfbpweiuKb2
+	EHhludPPSWhC+pVUeoFx5l1d6t0LRn6fYhNC4lQxaoRDKB1b4ac8JAFD6eleIB9WOgNR5KmjytI
+	yNvCmCtlt5LJM0C3dvxBsrsYxC+eo3esYF7XQ80RJ4ZrVD96RRIb1mE8hBuJzA07qTbqbwY11AK
+	cqv/sEIvufQ5IHQr6T9CHZTLJ+t3axvUzFzqSNN7V2jLqB1j9/G3Z6TkTs/z2aqfvzPzNNDqg9X
+	qjOD7Fz2D9PDAQl04eAwXEWpMa20lWiIteWI5FwQwN0y/1HIQjwv79TIzGgWrb1sJx4f+qrck/3
+	wHcDjNdW/0pR9hwns
+X-Received: by 2002:a05:701b:2611:b0:19b:39f4:88c9 with SMTP id a92af1059eb24-1b39fec9030mr6035678c88.10.1794239879928;
+        Mon, 09 Nov 2026 07:57:59 -0800 (PST)
+Received: from localhost.localdomain ([125.166.179.225])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3757214cbsm13020828c88.13.2026.11.09.07.57.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 07:57:59 -0800 (PST)
+From: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Igor Korotin <igor.korotin@linux.dev>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Mark Brown <broonie@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Shuai Liu <847807867@qq.com>,
+	linux-iio@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v7 2/4] i2c: rust: implement SMBus access via IoBackend
+Date: Mon,  9 Nov 2026 22:57:41 +0700
+Message-ID: <20261109155743.83740-3-muchamadcoirulanwar@gmail.com>
+X-Mailer: git-send-email 2.50.0
+In-Reply-To: <20261109155743.83740-1-muchamadcoirulanwar@gmail.com>
+References: <20261109155743.83740-1-muchamadcoirulanwar@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,259 +111,283 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-=E5=9C=A8 2026-11-09=E4=B8=80=E7=9A=84 07:47 -0500=EF=BC=8CGuodong Xu=E5=86=
-=99=E9=81=93=EF=BC=9A
-> Introduce a per-hart and host-wide bitmap of conformant ISA "bases"
-> (named profile-class sets such as IMA and RVA23U64), computed at init
-> time by riscv_init_isa_bases().
->=20
-> The IMA base is set unconditionally: it is behavior the kernel always
-> provides, and is intentionally not derived from the I, M and A
-> extensions.
->=20
-> Register riscv_init_isa_bases() as an arch_initcall. That is late
-> enough that core_initcall(tagged_addr_init) has probed senvcfg.PMM
-> and
-> populated have_user_pmlen_*; without that ordering,
-> riscv_have_user_pmlen(7) would still return its default false and the
-> RVA23U64 detection path would always bail. It is also early enough
-> that
-> arch_initcall_sync(init_hwprobe_vdso_data) finds the bases populated
-> when it snapshots the hwprobe values into the vDSO data page.
->=20
-> Consider this as the cache that subsequent consumers (hwprobe's
-> RVA23U64 base behavior bit, /proc/cpuinfo's "isa bases" lines, etc.)
-> can read without recomputing, which keeps them consistent with
-> each other.
->=20
-> Co-developed-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
-> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
-> Signed-off-by: Guodong Xu <guodong.xu@oss.qualcomm.com>
-> ---
-> v9: Set the IMA base unconditionally; do not derive it from I, M and
-> A.
-> v8: Add Co-developed-by for Andrew Jones (Conor).
-> v7:
-> - Register riscv_init_isa_bases() at arch_initcall, ahead of the vDSO
-> =C2=A0 hwprobe snapshot at arch_initcall_sync; v6 returned 0 for
-> =C2=A0 RISCV_HWPROBE_KEY_BASE_BEHAVIOR through the vDSO.
-> - Keep riscv_isa_bases static; add riscv_isa_base_available().
-> v6: No change.
-> v5: No change.
-> v4:
-> - In riscv_set_isa_base(), reorder those __setbit(RISCV_ISA_EXT_X,m)
-> =C2=A0 lines to make them conform to the order they appear in the RVA23
-> 1.0
-> =C2=A0 Profile.
-> v3:
-> - Add a blank line before the subsys_initcall() registration
-> (Andrew).
-> - Set the local ext_mask with __set_bit() and test the mandate set
-> with
-> =C2=A0 !bitmap_subset() (Sashiko).
-> - Require the Zic64b ISA extension in the RVA23U64 mask,
-> =C2=A0 instead of open-coded cache block-size check. (New, thoughts from
-> Andrew)
-> v2:
-> - Implement riscv_init_isa_bases() that runs at system init time,
-> =C2=A0 after tagged_addr_init() populates have_user_pmlen_*.
-> - Split RVA23S64 placeholder into a future patch.
-> ---
-> =C2=A0arch/riscv/include/asm/cpufeature.h |=C2=A0 13 +++++
-> =C2=A0arch/riscv/kernel/cpufeature.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 109
-> ++++++++++++++++++++++++++++++++++++
-> =C2=A02 files changed, 122 insertions(+)
->=20
-> diff --git a/arch/riscv/include/asm/cpufeature.h
-> b/arch/riscv/include/asm/cpufeature.h
-> index 99799cc6c198..2ce1a1e212c9 100644
-> --- a/arch/riscv/include/asm/cpufeature.h
-> +++ b/arch/riscv/include/asm/cpufeature.h
-> @@ -25,8 +25,20 @@ struct riscv_cpuinfo {
-> =C2=A0	unsigned long mimpid;
-> =C2=A0};
-> =C2=A0
-> +enum {
-> +	RISCV_ISA_BASE_IMA,
+Implement fallible SMBus byte and word access for bound I2C clients
+using the generic I/O backend infrastructure.
 
-I may have missed something, but would it be worth to add a GC tier?
+I2C transactions may fail due to NACK, arbitration loss, or timeout, so
+use FallibleIoCapable rather than the infallible IoCapable interface.
+Propagate errors returned by the I2C core to callers.
 
-I think many Linux distros have GC defined as their baseline.
+Provide smbus_io() for byte-addressed register access and standalone
+word helpers for layouts not represented by the Region-based view.
+Also provide smbus_read_word_swapped() for devices that transmit the
+high byte of a multi-byte value first.
 
-Thanks,
-Icenowy
+Restrict these operations to I2cClient<Bound> so bus I/O is only available
+while the client remains bound.
 
-> +	RISCV_ISA_BASE_RVA23U64,
-> +	RISCV_NR_ISA_BASES,
-> +};
-> +
-> +/**
-> + * struct riscv_isainfo - per-hart ISA state
-> + * @isa: bitmap of ISA extensions this hart implements
-> + * @isa_bases: bitmap of profile bases this hart conforms to
-> + */
-> =C2=A0struct riscv_isainfo {
-> =C2=A0	DECLARE_BITMAP(isa, RISCV_ISA_EXT_MAX);
-> +	DECLARE_BITMAP(isa_bases, RISCV_NR_ISA_BASES);
-> =C2=A0};
-> =C2=A0
-> =C2=A0DECLARE_PER_CPU(struct riscv_cpuinfo, riscv_cpuinfo);
-> @@ -134,6 +146,7 @@ extern const size_t riscv_isa_ext_count;
-> =C2=A0extern bool riscv_isa_fallback;
-> =C2=A0
-> =C2=A0unsigned long riscv_isa_extension_base(const unsigned long
-> *isa_bitmap);
-> +bool riscv_isa_base_available(const unsigned long *isa_bases,
-> unsigned int base);
-> =C2=A0static __always_inline bool riscv_cpu_has_extension_likely(int cpu,
-> const unsigned long ext)
-> =C2=A0{
-> =C2=A0	compiletime_assert(ext < RISCV_ISA_EXT_MAX, "ext must be <
-> RISCV_ISA_EXT_MAX");
-> diff --git a/arch/riscv/kernel/cpufeature.c
-> b/arch/riscv/kernel/cpufeature.c
-> index 72bce616491f..0377fc148785 100644
-> --- a/arch/riscv/kernel/cpufeature.c
-> +++ b/arch/riscv/kernel/cpufeature.c
-> @@ -41,6 +41,9 @@ unsigned long elf_hwcap __read_mostly;
-> =C2=A0/* Host ISA bitmap */
-> =C2=A0DECLARE_BITMAP(riscv_isa, RISCV_ISA_EXT_MAX) __read_mostly;
-> =C2=A0
-> +/* Host ISA bases bitmap */
-> +static DECLARE_BITMAP(riscv_isa_bases, RISCV_NR_ISA_BASES)
-> __read_mostly;
-> +
-> =C2=A0/* Per-cpu ISA extensions. */
-> =C2=A0struct riscv_isainfo hart_isa[NR_CPUS];
-> =C2=A0
-> @@ -81,6 +84,26 @@ bool __riscv_isa_extension_available(const
-> unsigned long *isa_bitmap, unsigned i
-> =C2=A0}
-> =C2=A0EXPORT_SYMBOL_GPL(__riscv_isa_extension_available);
-> =C2=A0
-> +/**
-> + * riscv_isa_base_available() - Check whether a given ISA base is
-> + * available or not
-> + *
-> + * @isa_bases: ISA bases bitmap to use
-> + * @base: bit position of the desired ISA base
-> + * Return: true or false
-> + *
-> + * NOTE: If isa_bases is NULL then the host ISA bases bitmap will be
-> used.
-> + */
-> +bool riscv_isa_base_available(const unsigned long *isa_bases,
-> unsigned int base)
-> +{
-> +	const unsigned long *bmap =3D isa_bases ? isa_bases :
-> riscv_isa_bases;
-> +
-> +	if (base >=3D RISCV_NR_ISA_BASES)
-> +		return false;
-> +
-> +	return test_bit(base, bmap);
-> +}
-> +
-> =C2=A0static int riscv_ext_f_depends(const struct riscv_isa_ext_data
-> *data,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const unsigned long *isa_bi=
-tmap)
-> =C2=A0{
-> @@ -1406,3 +1429,89 @@ void __init_or_module
-> riscv_cpufeature_patch_func(struct alt_entry *begin,
-> =C2=A0	if (early)
-> =C2=A0		local_flush_icache_all();
-> =C2=A0}
-> +
-> +/*
-> + * Compute the set of bases a hart conforms to. Profile bases such
-> as
-> + * RVA23U64 are derived from its resolved ISA bitmap.
-> + *
-> + * If @isa_bitmap is NULL, the host ISA bitmap (the AND across all
-> harts) is
-> + * used.
-> + */
-> +static void riscv_set_isa_bases(unsigned long *bases, const unsigned
-> long *isa_bitmap)
-> +{
-> +	const unsigned long *isa =3D isa_bitmap ? isa_bitmap :
-> riscv_isa;
-> +	DECLARE_BITMAP(ext_mask, RISCV_ISA_EXT_MAX) =3D { 0 };
-> +
-> +	/* The IMA base is behavior the kernel always provides. */
-> +	set_bit(RISCV_ISA_BASE_IMA, bases);
-> +
-> +	/* RVA23U64 */
-> +
-> +	/* Supm with PMLEN=3D7 */
-> +	if (!riscv_have_user_pmlen(7))
-> +		return;
-> +
-> +	__set_bit(RISCV_ISA_EXT_I, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_M, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_A, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_F, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_D, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_C, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_B, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZICSR, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZICNTR, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZIHPM, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZICCIF, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZICCRSE, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZICCAMOA, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZICCLSM, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZA64RS, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZIHINTPAUSE, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZIC64B, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZICBOM, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZICBOP, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZICBOZ, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZFHMIN, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZKT, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_V, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZVFHMIN, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZVBB, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZVKT, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZIHINTNTL, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZICOND, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZIMOP, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZCMOP, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZCB, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZFA, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_ZAWRS, ext_mask);
-> +	__set_bit(RISCV_ISA_EXT_SUPM, ext_mask);
-> +
-> +	if (!bitmap_subset(ext_mask, isa, RISCV_ISA_EXT_MAX))
-> +		return;
-> +
-> +	set_bit(RISCV_ISA_BASE_RVA23U64, bases);
-> +}
-> +
-> +/*
-> + * Populate the host ISA bases bitmap (riscv_isa_bases) and each
-> + * hart's per-cpu isa_bases.
-> + */
-> +static int __init riscv_init_isa_bases(void)
-> +{
-> +	int cpu;
-> +
-> +	for_each_possible_cpu(cpu)
-> +		riscv_set_isa_bases(hart_isa[cpu].isa_bases,
-> hart_isa[cpu].isa);
-> +
-> +	riscv_set_isa_bases(riscv_isa_bases, NULL);
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Registered as arch_initcall: late enough that
-> + * core_initcall(tagged_addr_init) has populated have_user_pmlen_*,
-> + * and early enough that arch_initcall_sync(init_hwprobe_vdso_data)
-> + * finds the ISA bases populated when it snapshots the hwprobe
-> + * values into the vDSO data page.
-> + */
-> +arch_initcall(riscv_init_isa_bases);
+Keep the raw SMBus FFI calls and errno conversion in safe bound-client
+methods. Include a generic no_run example for the word-read helper.
+
+Suggested-by: Shuai Liu <847807867@qq.com>
+Link: https://lore.kernel.org/all/tencent_173B7731E90B9624F9F82613DC3031B70907@qq.com/
+Signed-off-by: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
+---
+ rust/kernel/i2c.rs | 235 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 235 insertions(+)
+
+diff --git a/rust/kernel/i2c.rs b/rust/kernel/i2c.rs
+index 0487bae811fb..6f63bb8c6f93 100644
+--- a/rust/kernel/i2c.rs
++++ b/rust/kernel/i2c.rs
+@@ -14,8 +14,15 @@
+     devres::Devres,
+     driver,
+     error::*,
++    io::{
++        FallibleIoCapable,
++        IoBackend,
++        IoBase,
++        Region, //
++    },
+     of,
+     prelude::*,
++    ptr::KnownSize,
+     sync::aref::{
+         ARef,
+         AlwaysRefCounted, //
+@@ -594,3 +601,231 @@ unsafe impl Send for Registration {}
+ // SAFETY: `Registration` offers no interior mutability (no mutation through &self
+ // and no mutable access is exposed)
+ unsafe impl Sync for Registration {}
++
++/// I/O backend for SMBus register access via I2C.
++///
++/// This backend implements only [`FallibleIoCapable`] and not
++/// [`crate::io::IoCapable`], because I2C/SMBus transactions can fail
++/// regardless of address validity. The infallible [`crate::io::Io::read`],
++/// [`crate::io::Io::write`], and [`crate::io::Io::update`] methods are
++/// therefore unavailable for this backend.
++pub struct I2cBackend;
++
++/// An SMBus view associated with a bound I2C client.
++///
++/// The pointer encodes a command offset and is never dereferenced as
++/// memory. Its type and, for dynamically sized targets, metadata describe
++/// the extent of the view.
++///
++/// # Invariants
++///
++/// The view is derived from the client's SMBus command region.
++/// Projections preserve the bounds of the source view.
++/// `client` remains valid and bound for the lifetime of the view.
++pub struct I2cView<'a, T: ?Sized> {
++    client: &'a I2cClient<device::Bound>,
++    ptr: *mut T,
++}
++
++impl<T: ?Sized> Copy for I2cView<'_, T> {}
++
++impl<T: ?Sized> Clone for I2cView<'_, T> {
++    #[inline]
++    fn clone(&self) -> Self {
++        *self
++    }
++}
++
++impl IoBackend for I2cBackend {
++    type View<'a, T: ?Sized + KnownSize> = I2cView<'a, T>;
++
++    #[inline]
++    fn as_ptr<'a, T: ?Sized + KnownSize>(view: Self::View<'a, T>) -> *mut T {
++        view.ptr
++    }
++
++    #[inline]
++    unsafe fn project_view<'a, T: ?Sized + KnownSize, U: ?Sized + KnownSize>(
++        view: Self::View<'a, T>,
++        ptr: *mut U,
++    ) -> Self::View<'a, U> {
++        // INVARIANT: Per safety requirement.
++        I2cView {
++            client: view.client,
++            ptr,
++        }
++    }
++}
++
++impl FallibleIoCapable<u8> for I2cBackend {
++    #[inline]
++    fn io_try_read<'a>(view: I2cView<'a, u8>) -> Result<u8> {
++        // `io_view()` ensures `offset + 1 <= 256`, so `addr()` is at most 255;
++        // the `as u8` cast below is therefore lossless.
++        let reg = Self::as_ptr(view).addr() as u8;
++        view.client.smbus_read_byte(reg)
++    }
++
++    #[inline]
++    fn io_try_write<'a>(view: I2cView<'a, u8>, value: u8) -> Result {
++        // `io_view()` ensures `offset + 1 <= 256`, so `addr()` is at most 255;
++        // the `as u8` cast below is therefore lossless.
++        let reg = Self::as_ptr(view).addr() as u8;
++        view.client.smbus_write_byte(reg, value)
++    }
++}
++
++/// The `Region<256>` view is byte-addressed. Consequently, its generic
++/// 16-bit operations reject odd command bytes and command byte `0xFF`.
++/// Devices whose command bytes each select an independent 16-bit register
++/// should use [`I2cClient::smbus_read_word`] or
++/// [`I2cClient::smbus_read_word_swapped`] directly.
++impl FallibleIoCapable<u16> for I2cBackend {
++    #[inline]
++    fn io_try_read<'a>(view: I2cView<'a, u16>) -> Result<u16> {
++        // `io_view()` ensures `offset + 2 <= 256`, so `addr()` is at most 254;
++        // the `as u8` cast below is therefore lossless.
++        let reg = Self::as_ptr(view).addr() as u8;
++        view.client.smbus_read_word(reg)
++    }
++
++    #[inline]
++    fn io_try_write<'a>(view: I2cView<'a, u16>, value: u16) -> Result {
++        // `io_view()` ensures `offset + 2 <= 256`, so `addr()` is at most 254;
++        // the `as u8` cast below is therefore lossless.
++        let reg = Self::as_ptr(view).addr() as u8;
++        view.client.smbus_write_word(reg, value)
++    }
++}
++
++impl<'a, T: ?Sized + KnownSize> IoBase<'a> for I2cView<'a, T> {
++    type Backend = I2cBackend;
++    type Target = T;
++
++    #[inline]
++    fn as_view(self) -> I2cView<'a, T> {
++        self
++    }
++}
++
++// SAFETY: The bound client borrow remains valid when the view is moved
++// between threads. The view exposes only SMBus transactions, which use
++// the I2C core's bus locking, and pointer projections that never
++// dereference the encoded address as memory. `T: Sync` preserves the
++// shared-view restriction.
++unsafe impl<T: ?Sized + Sync> Send for I2cView<'_, T> {}
++
++// SAFETY: Sharing a view permits concurrent SMBus transactions, which
++// use the I2C core's bus locking. The bound client remains valid for
++// the view's lifetime, and the encoded pointer is never dereferenced
++// as memory. `T: Sync` preserves the shared-view restriction.
++unsafe impl<T: ?Sized + Sync> Sync for I2cView<'_, T> {}
++
++impl I2cClient<device::Bound> {
++    /// Returns an I/O handle for SMBus register access on this I2C client.
++    ///
++    /// The returned handle provides fallible read and write methods for the
++    /// SMBus command byte range (0x00–0xFF). A command byte is a data byte which
++    /// often selects a register on the device. The 7-bit device address is handled
++    /// separately by the I2C core.
++    ///
++    /// [`crate::io::Io::try_read16`] and
++    /// [`crate::io::Io::try_write16`] on the returned handle reject
++    /// odd offsets because the [`Region`]-based bounds check requires
++    /// `offset % 2 == 0`. This model does not cover every SMBus register layout,
++    /// including layouts where auto-increment or auto-decrement results in command
++    /// bytes that appear unaligned. Use [`Self::smbus_read_word`] or
++    /// [`Self::smbus_read_word_swapped`] for word access at an odd command byte.
++    #[inline]
++    pub fn smbus_io(&self) -> I2cView<'_, Region<256>> {
++        // INVARIANT: The view borrows this bound client and covers the 256-byte
++        // SMBus command region.
++        //
++        // The provenance-free pointer encodes a command offset rather than a
++        // memory address. Its initial address is zero, and the region metadata
++        // supplies the length used for bounds checks. Projections select command
++        // offsets; SMBus accessors extract those offsets without dereferencing
++        // the pointer.
++        I2cView {
++            client: self,
++            ptr: Region::<256>::ptr_from_raw_parts_mut(core::ptr::without_provenance_mut(0), 256),
++        }
++    }
++
++    #[inline]
++    fn smbus_read_byte(&self, reg: u8) -> Result<u8> {
++        // SAFETY: `self.as_raw()` returns a valid `*mut struct i2c_client`
++        // pointer as guaranteed by the type invariant of `I2cClient`.
++        // `i2c_smbus_read_byte_data` accepts any u8 command byte.
++        let ret = unsafe { bindings::i2c_smbus_read_byte_data(self.as_raw(), reg) };
++        to_result(ret)?;
++        Ok(ret as u8)
++    }
++
++    #[inline]
++    fn smbus_write_byte(&self, reg: u8, value: u8) -> Result {
++        // SAFETY: `self.as_raw()` returns a valid `*mut struct i2c_client`
++        // pointer as guaranteed by the type invariant of `I2cClient`.
++        // `i2c_smbus_write_byte_data` accepts any u8 command byte and value.
++        let ret = unsafe { bindings::i2c_smbus_write_byte_data(self.as_raw(), reg, value) };
++        to_result(ret)
++    }
++
++    /// Reads the 16-bit SMBus word value returned for a command.
++    ///
++    /// Wraps `i2c_smbus_read_word_data`. The `reg` parameter is the SMBus
++    /// command byte (0x00–0xFF), a data byte which often selects a register on
++    /// the device. SMBus transmits the low byte first.
++    ///
++    /// Use [`Self::smbus_read_word_swapped`] for devices that transmit the
++    /// high byte of a multi-byte value first.
++    ///
++    /// Returns `Err` if the bus transaction fails, for example because of a
++    /// NACK, arbitration loss, or timeout.
++    #[inline]
++    pub fn smbus_read_word(&self, reg: u8) -> Result<u16> {
++        // SAFETY: `self.as_raw()` returns a valid `*mut struct i2c_client`
++        // pointer as guaranteed by the type invariant of `I2cClient`.
++        // `i2c_smbus_read_word_data` is safe to call with any valid client
++        // pointer and any u8 command byte.
++        let ret = unsafe { bindings::i2c_smbus_read_word_data(self.as_raw(), reg) };
++        to_result(ret)?;
++        Ok(ret as u16)
++    }
++
++    #[inline]
++    fn smbus_write_word(&self, reg: u8, value: u16) -> Result {
++        // SAFETY: `self.as_raw()` returns a valid `*mut struct i2c_client`
++        // pointer as guaranteed by the type invariant of `I2cClient`.
++        // `i2c_smbus_write_word_data` accepts any u8 command byte and u16 value.
++        let ret = unsafe { bindings::i2c_smbus_write_word_data(self.as_raw(), reg, value) };
++        to_result(ret)
++    }
++
++    /// Reads a 16-bit word from an SMBus command and swaps its two bytes.
++    ///
++    /// Wraps `i2c_smbus_read_word_data` and applies [`u16::swap_bytes`] to the
++    /// result. The `reg` parameter is the SMBus command byte (0x00–0xFF), a data
++    /// byte which often selects a register on the device.
++    ///
++    /// SMBus transmits the low byte first. This method swaps the returned bytes
++    /// for devices that transmit the high byte of a multi-byte value first.
++    ///
++    /// Returns `Err` if the bus transaction fails, for example because of a
++    /// NACK, arbitration loss, or timeout.
++    ///
++    /// # Examples
++    ///
++    /// ```no_run
++    /// use kernel::{device::Bound, i2c::I2cClient, prelude::*};
++    ///
++    /// # fn test(client: &I2cClient<Bound>) -> Result<u16> {
++    /// // Read a word from a device that transmits its high byte first.
++    /// client.smbus_read_word_swapped(0x0c)
++    /// # }
++    /// ```
++    #[inline]
++    pub fn smbus_read_word_swapped(&self, reg: u8) -> Result<u16> {
++        self.smbus_read_word(reg).map(u16::swap_bytes)
++    }
++}
