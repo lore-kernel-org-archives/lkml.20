@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794240088;
-	b=vifBJ51Llrb4rDZUrbpH3166cdgunaFsPHr1RsjsAPacYlFKOirPZQPQKwENbYL9u3RX
-	 7Yy/Hia8FSk/ztep7Xjt+7i1WSPprWsyeuVfjJ4hjaqDhK/M5u97a1Q2zvk1j//aPsJKT
-	 nTr65OjQNRrsR7thnEDp0j+L+TBGhZhbc0XvpHvh1MWL4KhPCqY4p2sYt1+8/1y4O75C1
-	 V+ShZITZp41qki+CCQf59eiGwKpQwoaoi/Ss343UZOMYYnEcInXTsFknrcWuFLjaTAayG
-	 RW4U8qlBSEjWBYM1spvlpI5IBYze02ngZoIQYSKJWsrmaEkRylLQYy/+Uxd4blvxXhA==
+	t=1794240093;
+	b=xkaoJbmjmIwr6lACFBvOI8dMVYgvqLjZ6RzfJrPHf0WrB6yUvfF8jDepC3uC6fdTuLih
+	 j/m4MlXy8RAizBv8uk2prEZxadqeBnnFEtv67ATUnIRzdCAouWikSIz2zYbFJ/vSABMha
+	 rtHQbav8PlNJb3ywA0AfNFxdDLGtTSS8ZGHBDs/gATtSD6ovA/RAvWsTatnCPGuCHvWYn
+	 orqvFmsIY6QBIsLU19NF1ZmXbZ/HsRRqfRntFBC+Gahzees7G3HYNr94qhlrqW9+dOR+L
+	 k0SH6uUz69umJDRR4n5d8Bp8DXuNsTZ/g/Uivx7dnqknIfW21ilu8Amh1/PTFoJFrBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240088;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240093;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=WkMFXub7Ch7CVzwVKxTvrbKX6YcHkbq74bbCbuB4s+0=;
-	b=aqBI16THxhXtE9ESBrEDiSviZ4tHGKmi76GF3pxcbzSB07maXxbKmbKmsEtRWD6Uv1+/
-	 N0wPZp6FUJOAJjFAvDnBvQN2Xio/4VsC+krkIjbu1ZRNHP79YdDetuTOzFjBlPwm7hiQC
-	 E9HAPOaV431zI0Q9e4YUxBdexaXPmOkll38n4g7anVr2eN6pbXqi/Isc42LyzOi25tUl1
-	 RRUTLt1qVeuaLz4TNGZyh1U773ZlM5tgchZUA4CJATOfXkzvWCxssFmP3sc6/BbM/dKZu
-	 RRSlykd36KVVVskCBzhvkmbgVYahE2+k+b+qKb0AEbEWYpn2sIACwzwP/Rmvzwdgn6A==
+	bh=QJscV3NGSsLPzzmUC/ClWQH3voh7QzyOkJMx5kRXbyo=;
+	b=HkqWHm2qU5c72G4RcB0nV3HTvYpYBxnwfku33vGEi1ZzoYyCpQ51HiBN26J0hTSDhQZr
+	 82LH6/EBleZ1t2MeeortxPeod8Q4asot1zbY3Yj2CAK5fkc+8lsABTloH1mvL/oRYaa5Q
+	 caWKqJifLZd+ZTEV+5exZD1/UzvwJr5IES1/rGx6Iv4pbdt8t14IZfXNoMZvh8hpjRr58
+	 OwR646DKaTnWh6yKwxixeBEBDGafnqQr6ohKlkwF5hLBVQRiAnwQ8q/zLfYsWu0HrmBvq
+	 //WlYpXBO1Y0CQuFnoJv2gfgp6m3eLhg5lgnk/Famt+hAA45KHOf7XJAxzvNE8tm4lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RjYaPgri;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=pAn2SFZ+;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 804476083610;
-	Mon,  9 Nov 2026 16:01:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 804476083610
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D91236082BC8;
+	Mon,  9 Nov 2026 16:01:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D91236082BC8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RjYaPgri
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=pAn2SFZ+
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0539114BF;
-	Mon,  9 Nov 2026 08:01:24 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 367451516;
+	Mon,  9 Nov 2026 08:01:29 -0800 (PST)
 Received: from localhost.localdomain (e123572-lin.cambridge.arm.com [10.2.208.46])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2A81F3F632;
-	Mon,  9 Nov 2026 08:01:22 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5C1483F632;
+	Mon,  9 Nov 2026 08:01:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794240087; bh=NbWjAbD2XELTG7nVxGNaaZOvGvRplduuBCsN/xKix6E=;
+	t=1794240092; bh=CAIyfUtJbjmfrkqxkWqZ7YLIG0a17tfM6+7+J94AUX8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=RjYaPgriXPka1kF/SrM93Il1dQjB895z2FYsGkCoMKyXHkliA2wiRqFdBo8+fqGy4
-	 LwptKc1VrggLad0y21pR8zc4Gm6gAlGB7neghthhkDwNCds04HOGdikwc73BbmvHUc
-	 0qPdpnZSIKGj0jJLJjANsNqxfGKqHm/qOEpomxE4=
+	b=pAn2SFZ+GktBtPCYVQ/Ez/focYKHrodPzOaECMjUkflBU7DpxHyZELa3aBwAwmFiL
+	 BdFJw+SChQQqxXrR+dV2Ij6KjY9LKipu0V00hbyxEjpFFb9jTZN19DZtLGKV9lTDpm
+	 kREzA0g3iOl3k4Yu/GFdZeVNiCkyhOMEPlFp71Cs=
 From: Kevin Brodsky <kevin.brodsky@arm.com>
-Date: Mon, 09 Nov 2026 15:58:35 +0000
-Subject: [PATCH RFC v10 10/22] arm64: Enable kpkeys
+Date: Mon, 09 Nov 2026 15:58:36 +0000
+Subject: [PATCH RFC v10 11/22] mm: kpkeys: Introduce
+ kpkeys_hardened_pgtables feature
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-kpkeys-v10-10-aa6c4d9603bc@arm.com>
+Message-Id: <20261109-kpkeys-v10-11-aa6c4d9603bc@arm.com>
 References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
 In-Reply-To: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
 To: linux-hardening@vger.kernel.org
@@ -85,65 +86,208 @@ Cc: Kevin Brodsky <kevin.brodsky@arm.com>,
  Ira Weiny <iweiny@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
  Thomas Gleixner <tglx@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794240029; l=1872;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794240029; l=6143;
  i=kevin.brodsky@arm.com; s=20260427; h=from:subject:message-id;
- bh=NbWjAbD2XELTG7nVxGNaaZOvGvRplduuBCsN/xKix6E=;
- b=NKrgEp0VnQpNTn77iTeA0WwI1hEE5wq9WLRIXUoViJ1WrbgIMt4MAliOZ/y9PNzGt/lHPyE3c
- 05Bq84q7cBVCs1qpbZsAecehL/hibYoaB/dVSgxiZbbmOB/mUzCgyIJ
+ bh=CAIyfUtJbjmfrkqxkWqZ7YLIG0a17tfM6+7+J94AUX8=;
+ b=o+1OCV6c8nE69uhycwwo0znE2NnD1Tad/IfI+JQDg+qFfcBQ2GcXsvu0cHVgjBWGW9D7x9EIR
+ 2p64pT0+rQaCr3uAGocy46SDGZQ6lEy27oczr/YL1piHSmm20FRBp2n
 X-Developer-Key: i=kevin.brodsky@arm.com; a=ed25519;
  pk=N2QG+eJKrvkNovwhhwJhnJ4+ScVfsGCHldmqLfcMTFs=
 
-This is the final step to enable kpkeys on arm64. We enable
-POE at EL1 by setting TCR2_EL1.POE, and initialise POR_EL1 to the
-default value, enabling access to the default pkey/POIndex (0).
-An ISB is added so that POE restrictions are enforced immediately.
+kpkeys_hardened_pgtables is a hardening feature based on kpkeys. It
+aims to prevent the corruption of page tables by: 1. mapping all
+page table pages, both kernel and user, with a privileged pkey
+(KPKEYS_PKEY_PGTABLES), and 2. granting write access to that pkey
+only when running at in a privileged kpkeys context
+(KPKEYS_CTX_PGTABLES). This patch introduces basic infrastructure;
+the implementation of both aspects follows.
 
-Having done this, we can now select ARCH_HAS_KPKEYS if ARM64_POE is
-enabled.
+The feature is exposed as CONFIG_KPKEYS_HARDENED_PGTABLES; it
+requires explicit architecture opt-in by selecting
+ARCH_HAS_KPKEYS_HARDENED_PGTABLES, since much of the page table
+handling is arch-specific. It also depends on
+ARCH_HAS_SET_DIRECT_MAP to modify the direct mapping of page tables
+using set_direct_map_pkey().
 
-Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
+Supported architectures must also provide
+arch_supports_kpkeys_early() in <asm/kpkeys.h>. This will be used
+during early boot to detect whether kpkeys_hardened_pgtables is
+going to be enabled (e.g. to decide how to allocate early page
+tables).
+
+Because this feature relies on kpkeys being supported and modifies
+attributes of the linear map, it must be inactive during early boot.
+mm_core_init() enables it before any call to pagetable_alloc() is
+made.
+
 Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 ---
- arch/arm64/Kconfig             | 1 +
- arch/arm64/kernel/cpufeature.c | 5 ++++-
- 2 files changed, 5 insertions(+), 1 deletion(-)
+ include/linux/kpkeys.h        | 33 +++++++++++++++++++++++++++++++++
+ include/linux/kpkeys_types.h  |  5 +++++
+ mm/Kconfig                    |  3 +++
+ mm/Makefile                   |  1 +
+ mm/kpkeys_hardened_pgtables.c | 16 ++++++++++++++++
+ mm/mm_init.c                  |  2 ++
+ security/Kconfig.hardening    | 12 ++++++++++++
+ 7 files changed, 72 insertions(+)
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 1075bc661833..f7e4ffbc07ac 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -2300,6 +2300,7 @@ config ARM64_POE
- 	def_bool y
- 	select ARCH_USES_HIGH_VMA_FLAGS
- 	select ARCH_HAS_PKEYS
-+	select ARCH_HAS_KPKEYS
- 	help
- 	  The Permission Overlay Extension is used to implement Memory
- 	  Protection Keys. Memory Protection Keys provides a mechanism for
-diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-index 34c5c03c0c9b..42d693197739 100644
---- a/arch/arm64/kernel/cpufeature.c
-+++ b/arch/arm64/kernel/cpufeature.c
-@@ -76,6 +76,7 @@
- #include <linux/kasan.h>
- #include <linux/percpu.h>
- #include <linux/sched/isolation.h>
-+#include <linux/kpkeys.h>
+diff --git a/include/linux/kpkeys.h b/include/linux/kpkeys.h
+index 69ec4808d850..cd3281223778 100644
+--- a/include/linux/kpkeys.h
++++ b/include/linux/kpkeys.h
+@@ -4,6 +4,7 @@
  
- #include <asm/arm_pmuv3.h>
- #include <asm/cpu.h>
-@@ -2334,8 +2335,10 @@ static void cpu_enable_mops(const struct arm64_cpu_capabilities *__unused)
- #ifdef CONFIG_ARM64_POE
- static void cpu_enable_poe(const struct arm64_cpu_capabilities *__unused)
- {
--	sysreg_clear_set(REG_TCR2_EL1, 0, TCR2_EL1_E0POE);
-+	write_sysreg_s(POR_EL1_INIT, SYS_POR_EL1);
-+	sysreg_clear_set(REG_TCR2_EL1, 0, TCR2_EL1_E0POE | TCR2_EL1_POE);
- 	sysreg_clear_set(CPACR_EL1, 0, CPACR_EL1_E0POE);
-+	isb();
- }
+ #include <linux/bug.h>
+ #include <linux/cleanup.h>
++#include <linux/jump_label.h>
+ #include <linux/kpkeys_types.h>
+ 
+ /**
+@@ -104,4 +105,36 @@ static inline bool kpkeys_supported(void)
+ 
+ #endif /* CONFIG_ARCH_HAS_KPKEYS */
+ 
++#ifdef CONFIG_KPKEYS_HARDENED_PGTABLES
++
++DECLARE_STATIC_KEY_FALSE(kpkeys_hardened_pgtables_key);
++
++static inline bool kpkeys_hardened_pgtables_enabled(void)
++{
++	return static_branch_unlikely(&kpkeys_hardened_pgtables_key);
++}
++
++static inline bool kpkeys_hardened_pgtables_early_enabled(void)
++{
++	return arch_supports_kpkeys_early();
++}
++
++void kpkeys_hardened_pgtables_init(void);
++
++#else /* CONFIG_KPKEYS_HARDENED_PGTABLES */
++
++static inline bool kpkeys_hardened_pgtables_enabled(void)
++{
++	return false;
++}
++
++static inline bool kpkeys_hardened_pgtables_early_enabled(void)
++{
++	return false;
++}
++
++static inline void kpkeys_hardened_pgtables_init(void) {}
++
++#endif /* CONFIG_KPKEYS_HARDENED_PGTABLES */
++
+ #endif /* _LINUX_KPKEYS_H */
+diff --git a/include/linux/kpkeys_types.h b/include/linux/kpkeys_types.h
+index 9de59092e9c3..09f15a9565cf 100644
+--- a/include/linux/kpkeys_types.h
++++ b/include/linux/kpkeys_types.h
+@@ -8,10 +8,15 @@
+ #include <asm/kpkeys_types.h>
  #endif
  
++#ifndef KPKEYS_PKEY_PGTABLES
++#define KPKEYS_PKEY_PGTABLES	1
++#endif
++
+ #if defined(CONFIG_ARCH_HAS_KPKEYS) && !defined(__ASSEMBLY__)
+ 
+ enum kpkeys_ctx {
+ 	KPKEYS_CTX_DEFAULT = 0,
++	KPKEYS_CTX_PGTABLES,
+ 	KPKEYS_CTX_COUNT,
+ };
+ 
+diff --git a/mm/Kconfig b/mm/Kconfig
+index 4635628de622..cf3b6105c4ad 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -1267,6 +1267,9 @@ config ARCH_HAS_PKEYS
+ 	bool
+ config ARCH_HAS_KPKEYS
+ 	bool
++config ARCH_HAS_KPKEYS_HARDENED_PGTABLES
++	bool
++	depends on ARCH_HAS_KPKEYS && ARCH_HAS_SET_DIRECT_MAP
+ 
+ config ARCH_USES_PG_ARCH_2
+ 	bool
+diff --git a/mm/Makefile b/mm/Makefile
+index 2a3ec53d62ee..07b67eaa1b3b 100644
+--- a/mm/Makefile
++++ b/mm/Makefile
+@@ -149,3 +149,4 @@ obj-$(CONFIG_EXECMEM) += execmem.o
+ obj-$(CONFIG_TMPFS_QUOTA) += shmem_quota.o
+ obj-$(CONFIG_LAZY_MMU_MODE_KUNIT_TEST) += tests/lazy_mmu_mode_kunit.o
+ obj-$(CONFIG_MEM_ALLOC_PROFILING) += alloc_tag.o
++obj-$(CONFIG_KPKEYS_HARDENED_PGTABLES) += kpkeys_hardened_pgtables.o
+diff --git a/mm/kpkeys_hardened_pgtables.c b/mm/kpkeys_hardened_pgtables.c
+new file mode 100644
+index 000000000000..4c654e0cf585
+--- /dev/null
++++ b/mm/kpkeys_hardened_pgtables.c
+@@ -0,0 +1,16 @@
++// SPDX-License-Identifier: GPL-2.0-only
++#include <linux/kpkeys.h>
++#include <linux/mm.h>
++
++#include <kunit/visibility.h>
++
++__ro_after_init DEFINE_STATIC_KEY_FALSE(kpkeys_hardened_pgtables_key);
++EXPORT_SYMBOL_IF_KUNIT(kpkeys_hardened_pgtables_key);
++
++void __init kpkeys_hardened_pgtables_init(void)
++{
++	if (!kpkeys_supported())
++		return;
++
++	static_branch_enable(&kpkeys_hardened_pgtables_key);
++}
+diff --git a/mm/mm_init.c b/mm/mm_init.c
+index d99af80ec752..347246135ce1 100644
+--- a/mm/mm_init.c
++++ b/mm/mm_init.c
+@@ -21,6 +21,7 @@
+ #include <linux/buffer_head.h>
+ #include <linux/kmemleak.h>
+ #include <linux/kfence.h>
++#include <linux/kpkeys.h>
+ #include <linux/page_ext.h>
+ #include <linux/pti.h>
+ #include <linux/pgtable.h>
+@@ -2733,6 +2734,7 @@ void __init mm_core_init(void)
+ 	kmemleak_init();
+ 	ptlock_cache_init();
+ 	pgtable_cache_init();
++	kpkeys_hardened_pgtables_init();
+ 	debug_objects_mem_init();
+ 	vmalloc_init();
+ 	/* If no deferred init page_ext now, as vmap is fully initialized */
+diff --git a/security/Kconfig.hardening b/security/Kconfig.hardening
+index 81c81ad983ad..9a6f50103482 100644
+--- a/security/Kconfig.hardening
++++ b/security/Kconfig.hardening
+@@ -271,6 +271,18 @@ config BUG_ON_DATA_CORRUPTION
+ 
+ 	  If unsure, say N.
+ 
++config KPKEYS_HARDENED_PGTABLES
++	bool "Harden page tables using kernel pkeys"
++	depends on ARCH_HAS_KPKEYS_HARDENED_PGTABLES
++	help
++	  This option makes all page tables mostly read-only by
++	  allocating them with a non-default protection key (pkey) and
++	  only enabling write access to that pkey in routines that are
++	  expected to write to page table entries.
++
++	  This option has no effect if the system does not support
++	  kernel pkeys.
++
+ endmenu
+ 
+ config CC_HAS_RANDSTRUCT
 
 -- 
 2.56.0
