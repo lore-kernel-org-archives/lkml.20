@@ -1,71 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794265567;
-	b=clLI/8xna0QYCaUXNlFgeEzB9fUZZwWp/C1aVRITbLW9g/kMUnFjudeqwZfiYWqsof9I
-	 Yk3JBvDqrWU1HJHgTvpmuVw4sTX6OvmQfCMGGYBrra8iMqekrB5uKdB9HcMyU9BeTGhpp
-	 1kn/ANVo8oeiFrrVIVpW/enB7AM5jNSeNSUJutB2LONLpr0zvmbrgB8mbeu/Oo6JSkiZn
-	 IsEvghmMZmckVKPNDEUv1BOZHihAPS4MIoNSzWxsD6rHf2SySUWo2vlOfYosPc101oKeZ
-	 HgDMjO9jBgjSwDcPhkM8FgxYqwzTPiZQ+/G5H2ugU4958jC2x94gUwGaTmIEZat3Tog==
+	t=1794265624;
+	b=rGmqvqI/OvA9pPSScHFw/PXSsNjojLCqwiEP37UJxmCrAhfHDSMRMYfSkI11dsIPpr0z
+	 z1XeQiTbsTq9Vs2P5JGwyoH8zRmPtyT8pogQNpEoOGeEWfGvYlzeUsgpKDsau0NOmEH/4
+	 8GTrKQR3DGruz6WxCBDmG0ypG/elJusDsNm+YGu861sCZ2FQKBEqsTgqHm/whKgG9Gp76
+	 jtwVxXBXfE7179wLNFS411ktqbRRRAAHVxXgCmKktIWz169K9dbt+qDbz85p6rbIQ7/lY
+	 DOVFIm0WPMXNqD1xR7bYvbyJAyUvFX5C/frxLBu9pi/cEyXLUoSq/3Vo0MtU5yJ1N2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794265567;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=U1SHI1w/RnQ/LW4m+0Hh+qVKQdWDnUn2TmXmHO+DxG0=;
-	b=m7RrXt2/dOnqpD3j2ATXW4Ulq561tigr2812LNncWYrdc0fWYXsHizwugz/Oh938S5eL
-	 yYsT/WSEJkxp/Bxg991IKpQq2kSwoYndqE3Lo82oK5U+eX2yfuW3x8bTERbC9tkgUlTHw
-	 B4Baiw9tS4r0Cd1XTCrBWt+lUEITwLsH/80o7ckXmy8vJbqSVy5339T9PrixFwwlssqBO
-	 QCC3iUqI9PjF4EGIznxRo+Z8HgPKus/4eZg4Ihk7LNcnBoyfS4ym8g8LlBJBv61XOkIcZ
-	 KokdOtbCkZ16227orOwDBkEL4xOR1yVq3fLbresWoZUrJg63TpPtcTZaDrvC4scb8Kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794265624;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=cce/9RXAeZ7GCno3/183y+2YRTDy6KkvbogDyDUbNIA=;
+	b=bosLGSnYeQwQS9HO7js1b+lynNAc3HiP81Vj9LH+qbhhtkEXkoOcwtqLkb5HNd77BnJw
+	 5U9ovRLOPObCpauXlOdibQBRrh8mcAgg1pX63jT03RHsADyvfOtMWgwgA9fasSHnfq5yz
+	 2T1deiCwf5lfohFjjoCrUPemn+8efE7ER5uy0yGSvowq88YCt7ZXg6VO58+oZDI+/BryZ
+	 EBfniBy7yhHhh3nLgL66/KGkYftsMcs5S9sjYQhLxuSxWsE07t/Y3ZWIjl18xQ/0xhZ9q
+	 TQ0wVqaOLqh+5SVmMWqw+j9oh6IiIHw1GSKRKd9+cFdZu9b+gOff4SFIfNIr1IJLJyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=RpIWK9rt;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Q/llW0h2";
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08856606A325;
-	Mon,  9 Nov 2026 23:06:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08856606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7D4606A321;
+	Mon,  9 Nov 2026 23:07:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA7D4606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=RpIWK9rt
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2AE0133D;
-	Tue, 10 Nov 2026 00:03:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794265416;
-	bh=5tzFgyfxwWQfocd3QLAWDXzBSro0If9o1QGzqiZw60s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RpIWK9rtwJGOC0ctrtUrhBeLe3+/F/uhCIiE/9ea5dwmr51jHsadpm3WCtISeY2I0
-	 GHRsGtUsWSkTlaLKEVluCdcq4XOc2t1E22Ua8NQSzAYjRp9kjM9574GprQasw9AV9H
-	 U3A+L5SO+r2vAPhM95uVHiLrWghHPtWoRxq/1qqY=
-Date: Tue, 10 Nov 2026 01:05:56 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: "G.N. Zhou (OSS)" <guoniu.zhou@oss.nxp.com>
-Cc: Frank Li <frank.li@nxp.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Rui Miguel Silva <rmfrfs@gmail.com>,
-	Purism Kernel Team <kernel@puri.sm>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	"imx@lists.linux.dev" <imx@lists.linux.dev>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Alice Yuan <alice.yuan@nxp.com>
-Subject: Re: [PATCH] media: imx-mipi-csis: add support for
- MEDIA_BUS_FMT_YUYV8_1X16
-Message-ID: <20261109230556.GA77654@killaraus.ideasonboard.com>
-References: <20261009-csis_sam-v1-1-81f2b0fb76ef@oss.nxp.com>
- <20261014215606.GB283442@killaraus.ideasonboard.com>
- <AMBPR04MB3355230D320B45E39F65B74126FA9C2@AMBPR04MB335523.eurprd04.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q/llW0h2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794265623; x=1825801623;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7pmup5JwHroklabp2D5twn2dbPMnGh/ztW33CBS2YQw=;
+  b=Q/llW0h2hdc+2u+rt77U2KyqPtvEz9EX9nmwtMthTtQUBQTBVZmaTElU
+   hECzRTHKHKOkgAEOwfMPQ41TIQ96wjJGrfzeTrq1rCMYQaJHTS299hqPS
+   KH+/u2BfIKYD51IsMhZ7bq5ydDWAPQXJnYQcW/hpmbAULm4cxXUsdHc9V
+   odPZSdvefu6bvenoIruqkslKqMSdTOhicSgArk3TouDAXRpLAWvSNlH5a
+   am6o/yJ3dopaVexuobtX+eYVZ5KVXXQP2jBPscPa3OF6BRT7CpRvhlPxy
+   YWvkh2weX1eAX/6UqkPIYByoqIhrf7JXqMyIaZ1wA0lR0slcaOwQEknWP
+   A==;
+X-CSE-ConnectionGUID: SSC4ZHgKQRSi+dStAsGEAQ==
+X-CSE-MsgGUID: ORion4UzSaCPfYUZYABvpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2998119"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2998119"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:07:02 -0800
+X-CSE-ConnectionGUID: YE0vm8kqRGqbaS24Yp0OKw==
+X-CSE-MsgGUID: +wxkWmm0Q3CUyhw4YfOevQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8424973"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:06:59 -0800
+Date: Tue, 10 Nov 2026 01:06:57 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v8 01/11] serial: 8250_dw: allow port setup to report
+ errors
+Message-ID: <avJSEbiZx7cU3ONt@ashevche-desk.local>
+References: <20261105-submit-h616-uart-fifo-v1-v8-0-14024d2b184b@gmail.com>
+ <20261105-submit-h616-uart-fifo-v1-v8-1-14024d2b184b@gmail.com>
+ <avJRsij5P7Ch3tqE@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,76 +88,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <AMBPR04MB3355230D320B45E39F65B74126FA9C2@AMBPR04MB335523.eurprd04.prod.outlook.com>
+In-Reply-To: <avJRsij5P7Ch3tqE@ashevche-desk.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Oct 15, 2026 at 03:31:53AM +0000, G.N. Zhou (OSS) wrote:
-> On Thursday, October 15, 2026 5:56 AM, Laurent Pinchart wrote:
-> > On Fri, Oct 09, 2026 at 06:58:41PM +0800, guoniu.zhou@oss.nxp.com wrote:
-> > > From: Alice Yuan <alice.yuan@nxp.com>
-> > >
-> > > Add MEDIA_BUS_FMT_YUYV8_1X16 to the list of supported bus formats.
-> > >
-> > > The format uses the same CSI-2 YUV422 8-bit data type and 16-bit
-> > > parallel bus width as MEDIA_BUS_FMT_UYVY8_1X16, but with a different
-> > > component ordering. Supporting YUYV allows sensors and bridge devices
-> > > that output YUYV formatted YUV422 data to be used with the i.MX MIPI
-> > > CSIS driver without requiring format conversion.
-> >
-> > What sensor(s) do you have in mind ? CSI-2 does not support other component
-> > orderings, the YUV4222_8B data type specifies the ordering on the bus as [U1,
-> > Y1, V1, Y2], and V4L2 maps that to MEDIA_BUS_FMT_UYVY8_1X16.
+On Tue, Nov 10, 2026 at 01:05:28AM +0200, Andy Shevchenko wrote:
+> On Thu, Nov 05, 2026 at 01:52:02PM -0700, James Hilliard wrote:
+> > Return a status from dw8250_setup_port() and propagate failures through
+> > the DW and LPSS probe paths before registering the UART. Use the existing
+> > LPSS cleanup path to release board resources and IRQ vectors on failure.
+> > 
+> > Keep the current setup behavior by returning zero on both successful
+> > paths. This separates error propagation from the configuration validation
+> > that will use it.
 > 
-> The sensor is the OV5640. Its driver already advertises MEDIA_BUS_FMT_YUYV8_1X16
-> for CSI-2 mode in mainline (ov5640.c, ov5640_csi2_formats[]). According to datasheet,
-> ov5640 ISP reorders YUV components via register 0x4300 before transmitting over the
-> CSI-2 link using the YUV422_8B data type. The CSIS itself is a pass-through — it does not
-> interpret or reorder pixel data, it just forwards whatever the sensor sends. Without
-> YUYV8_1X16 in the CSIS format table, media link validation fails when using the OV5640
-> in YUYV mode.
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> after addressing below piece.
 
-That makes sense. Overall we may have been better off by not exposing
-MEDIA_BUS_FMT_YUYV8_1X16 in the ov5640 driver and relying on the DMA
-engine on the host side to handle different YUV formats, but as the
-driver exposes it, it makes sense to support it here too. I don't like
-that all CSI-2 receiver drivers would need to be patched to support
-this, but the number of YUV components ordering isn't as large as for
-CFA patterns, so we can live with it.
+...
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > -	if (!data->skip_autocfg)
+> > -		dw8250_setup_port(p);
+> > +	if (!data->skip_autocfg) {
+> > +		err = dw8250_setup_port(p);
+> > +		if (err)
+> > +			return err;
+> > +	}
+> 
+> No, don't change it here, the return value will be simply ignored until the
+> change that will make use of it.
 
-> > > Signed-off-by: Alice Yuan <alice.yuan@nxp.com>
-> > > Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-> > > ---
-> > >  drivers/media/platform/nxp/imx-mipi-csis.c | 5 +++++
-> > >  1 file changed, 5 insertions(+)
-> > >
-> > > diff --git a/drivers/media/platform/nxp/imx-mipi-csis.c
-> > > b/drivers/media/platform/nxp/imx-mipi-csis.c
-> > > index 5f9691d76434..14a00b9fcedf 100644
-> > > --- a/drivers/media/platform/nxp/imx-mipi-csis.c
-> > > +++ b/drivers/media/platform/nxp/imx-mipi-csis.c
-> > > @@ -382,6 +382,11 @@ static const struct csis_pix_format
-> > mipi_csis_formats[] = {
-> > >             .output = MEDIA_BUS_FMT_UYVY8_1X16,
-> > >             .data_type = MIPI_CSI2_DT_YUV422_8B,
-> > >             .width = 16,
-> > > +   }, {
-> > > +           .code = MEDIA_BUS_FMT_YUYV8_1X16,
-> > > +           .output = MEDIA_BUS_FMT_YUYV8_1X16,
-> > > +           .data_type = MIPI_CSI2_DT_YUV422_8B,
-> > > +           .width = 16,
-> > >     },
-> > >     /* RGB formats. */
-> > >     {
-> > >
-> > > ---
-> > > base-commit: b38d06ad1e13c32970d58039c154f009b81a3368
-> > > change-id: 20261009-csis_sam-c5c10ed12322
+Alternatively to minimize the churn do it like
+
+	if (!data->skip_autocfg)
+		err = dw8250_setup_port(p);
+	if (err)
+		return err;
 
 -- 
-Regards,
+With Best Regards,
+Andy Shevchenko
 
-Laurent Pinchart
+
