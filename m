@@ -1,97 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.230
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.164
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193195;
-	b=HfYzgDteH16JjRWSFvTFHkeOw/VSs5bmVEm0X2wnqLz+x0awSYEjped/czsJ4TydjgXY
-	 AGW9eBHg9Xi7lfMXEb7tGhMgtqwQL7gw47++pLdUZklJZRnXGxLZnMO51wef6eNGmh7jH
-	 WyP7O/Ni0LxUmv0i9P1o05A5D9X3/d3CEXO7I/eqmcOsuyZWNgoanuDRHQPq1gfEWlJfk
-	 PDLOvBIX4B8pVPVMBS9+1hX6fDgVGrK3SkXJDdxUj8/Mc0okFVipGO0pt6QppPrxMz7vk
-	 wvC1Sz43uuZAa7HOZIaFJRM4uN4AfTDig3xvPU0I1t/s7KFdy66ykbjHQDoDbG4lFkw==
+	t=1794193199;
+	b=F9/FmvYkBGclCq/j3/ZRCPjDkkDopBUr0A3rXrdV1Bkgme9mw3J4E8vpmpyE3I+y0LhV
+	 O/gXLN4wPaOeqe+vyWq2HJCUATz91IsixhyZtHjKV3UTGkTtPe782apBkNJkBvSdUFMQB
+	 EIIIJ8DloY9REJlrDJ2jytqn0A13Ay7sbJi/XIDbOFe6F/WQUB0xNsuho0nPU/3nMs+A5
+	 sLWapmBPfCMK9xY5LvuTM4pAx6/zWlLgnfLgabLmNaAO/BI8yt0Ti2JZECnjbSvyTn2FR
+	 Q2FTO/b/esBbFRv0A34C2bkJOOH8kxgfEouqTfl01DI2EbkWf6JmqddX8Tq31X7eaQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193195;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193199;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=UezxR/RVhvOuKMLfKYFtEXdNaCdMZDx1R+ftmuecF3o=;
-	b=sTzmRfZrRUhaAKsehxbW4ODnSlkFEVe5xdKG1r0m6YH7IjBWW+RZ7wA7VndxWfiPbsw7
-	 EjVb3L9Z3rbjx96+LtuQCVCJJWneVUB0dABRhudV/iyuXfHo9YmWktKnp/b9+OvyD0TyQ
-	 CjbfFMUuVE+KO5i1qCiOPBY8ioPURBL27RaXxiT/iPABQb+eSZsyy7bYLoqBw1xCdwaPL
-	 NQgpfY159F1L3G/htJpIV+NECSrOelLtgZz+LDEJex5wLH/noKNyAmTbrF/D6ypPUonjs
-	 G3oT0OJQppCUISJizC7oT0mE71gn3UQVec2YJgjdfpcjFURhvi9jjm+lbKQs/PDPYEw==
+	bh=47wqVMEcaw84ueO6WKdDuY/fSdioFQKkzz9VZlJ6Vz8=;
+	b=NVjr3FCVOmciKz0G/EVN1noVn/PFwL74bV5v1p5yLYFPDqnKvtc1OiCImxCE5EWwJdng
+	 6hjCRHQIRKCvUdqLNTrWcmq8X72SlRvQof228XTl0nDMf+b6E9zIobfPNFm8BVxw+iCEC
+	 NLMbK5McRivXUocFfqcBgtkID1a7AoPDDSzQjB4QwLUH72bDU3OThMpn0Iok8wvlVTTP5
+	 X+9GtudJkQTKsMFQmpQk56wI++SMhMGRYSwPMMDdttmRS4DTgMYteWQ4ibiLcGGFZ/iqZ
+	 kwTIZRa8jwhwJPchhrVobuWfvceIddGyzTQc4zC5/KImylVGtmZNGar61H9EOqb2TGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MoPa0baO;
-	arc=none smtp.remote-ip=91.218.175.230
-Received: from mta0.migadu.com (out-230.mta0.migadu.com [91.218.175.230])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=hQvCkq4R;
+	arc=none smtp.remote-ip=203.205.221.164
+Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34040606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:59:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34040606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176D7606A337;
+	Mon,  9 Nov 2026 02:59:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 176D7606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MoPa0baO
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wx43d8n0K+8YSmZ04mpxkSU8au8Gzn0GNnkK1AtjfNw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794193192; v=1; x=1794797992;
- b=MoPa0baOVxNIrfh9CrrfPmCMAMIBoUMHjj7mObHSlKRGquE4KgSzpsPSSjycYUCbHcn2S2LK
- lVK/v/fc2+Pul9bBumA+D660lPoX4LNd1zXWsOTFxjSHIrpC0JFdH4FiWSWr5NdMiGowJToXxHe
- vU0xfxL3UXua3ZBHCwjt3CJA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e327f1cd4dbd98e8;
-	Mon, 09 Nov 2026 02:59:51 +0000
-X-Mizu-Trace-ID: e327f1cd4dbd98e8
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Paul Moore <paul@paul-moore.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	Julian Anastasov <ja@ssi.bg>,
-	Allison Henderson <achender@kernel.org>,
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	"D. Wythe" <alibuda@linux.alibaba.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Tony Lu <tonylu@linux.alibaba.com>,
-	Wen Gu <guwen@linux.alibaba.com>,
+	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=hQvCkq4R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1794193196;
+	bh=47wqVMEcaw84ueO6WKdDuY/fSdioFQKkzz9VZlJ6Vz8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hQvCkq4RzcvJs0WxN7dYSJ/KRbLNUO2IqABBVo7kijTCJHK7p0LVhgbPcdAPV7m5f
+	 mFEvHnAkybRAkcUP98ketMDi3/KKuylQGpTAjCoqV8Bh/Eq1knWTLB6LagDIlZZCtk
+	 Ax2oPeu9Hxvb7S1OywcGhZQp7pa7WH2RyMhJDKqQ=
+Received: from HAPYCAO-MC1.tencent.com ([101.226.143.247])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id EF52AEDC; Mon, 09 Nov 2026 10:59:53 +0800
+X-QQ-mid: xmsmtpt1794193193tw5uuel5q
+Message-ID: <tencent_08CE0BB6708C964EEA0A1358355065F23506@qq.com>
+X-QQ-XMAILINFO: OATpkVjS499ulOJfgANj6cDFaAnifZZ/ebjE9oGGjrkqTfMPEjqnZl7TkJqRJQ
+	 QIEX0rnDk4eFwkylpXpQXX2QdLncfrdQDXLLISNe+sUKMR9zrR36RHRAXjkPRgn1XXm9rm9uLEMU
+	 awNqj+5jtgyal1DPxT+RLsctsT3aJeULwhHOrlrToluPuswckL+/QAHcmKfDVtmjsBpJOrF/RE0M
+	 h1yHBCv4kmVJuMIIkLLMIKOpRYeNqWs5nLO6zgn8fEbWtxj4vM+lLJeMhYMwh8AZmraD0L3HHTwW
+	 B1RRNG7+7TP1Azb7OA1xXghbem9NmU5Ox3E728sZRIU7MOaA9z7T0Hgfmuq1m8XSi7T0WAdylPhg
+	 4y2qG/Vb6DxbA3LriQL8Js10qkytZT8mNQ3tSE4L1pogpQUKiNzLj6DoKoXWdf/X/qk/M19VOyIC
+	 dVLZg1MM8+7r5W4+OYFRlYMe6BDhChWsauMtxy7TcCVADBjvzVfun0xewIvgQq/mnD3EtDh3KiCt
+	 X0wFeuJdLG0GCsrLfo+33bxHbcQvCCPnDmRbuZ2KZVb34q7R4UvQb5yWY1pb3k4uiYpzcI+XCFb4
+	 JiLw62EvZtr2uvEkT2xhg8AVy5B8NgNauy+liFIhdsKA4hEVrXX6PxOagy3aHA5IX5kPCG1khJTk
+	 i7vYKAbLirhfdpcbxZq6lO1gAXShytjaxeRfhuKQT89Y8GSmGQxlGJLIk5CKTwiHGFgmHaAx/3wt
+	 ZIrd1A4ONopeu+1MdvYWdJcnpBCwFVdIGCkhUK9KA12/c8jlx1W6vrshdGkLdu3mSNl7HR5WEnud
+	 Y6lCzNwMZskJ3NpECAVjOlk9jcBX8F6E+pPek9skl6J3IOyHBTD2GT9THRJMlICcv2SNDZJfLWOF
+	 SLmejzWxlIBIj5r6lWGeMeSpBq6SH4zk1oCc4Rom7KUClbsv0x38XEfbWNEXDPfNY034Qu3ZtVbJ
+	 51sP3OTC/fxt2ziYdG7E4vUBawNI6ydnjS3Y6PpElyzWaVtPINDK2vvRSmjgffjk8ASvv/+4L7PN
+	 096i/CeFAKWtbUlDiFqHi0aGB1/Ycjjhsh1bqoCyEB30b8847ORIEL/Jb9IgtQZK6UkB4mTTvCGj
+	 FiOGG+YqThYzbHdCm1xex7CrjDhA==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: bo cao <treebacker@foxmail.com>
+To: Xu Yilun <yilun.xu@linux.intel.com>
+Cc: linux-fpga@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	bridge@lists.linux.dev,
-	linux-security-module@vger.kernel.org,
-	mptcp@lists.linux.dev,
-	lvs-devel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
-	linux-sctp@vger.kernel.org,
-	linux-s390@vger.kernel.org
-Subject: [PATCH net-next 11/14] ipvs: annotate data-races around lblc_expiration and lblcr_expiration
-Date: Mon,  9 Nov 2026 10:52:10 +0800
-Message-ID: <20261109025425.328445-12-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109025425.328445-1-jiayuan.chen@linux.dev>
-References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+	Tom Rix <trix@redhat.com>,
+	Abdifatah Suruur <suruurism@gmail.com>
+Subject: Re: [PATCH] fpga: dfl: afu: prevent read-only region mappings from becoming writable
+Date: Mon,  9 Nov 2026 10:59:53 +0800
+X-OQ-MSGID: <20261109025953.22618-1-treebacker@foxmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <au8LKUyKQpGCy58F@yilunxu-OptiPlex-7050>
+References: <au8LKUyKQpGCy58F@yilunxu-OptiPlex-7050>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,42 +85,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sysctl_lblc_expiration and sysctl_lblcr_expiration are read without any
-lock while their sysctl handlers update them with WRITE_ONCE(). Add
-READ_ONCE() to the readers.
+Please consider this patch withdrawn: Abdifatah Suruur's patch
+already covers it, and his v2 was posted to linux-fpga on Oct 23,
+six days before my posting.
 
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- net/netfilter/ipvs/ip_vs_lblc.c  | 2 +-
- net/netfilter/ipvs/ip_vs_lblcr.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+To be clear about where this came from: it is not taken from
+Suruur's patch.  I run an AI-agent-assisted audit of mmap/mprotect
+permission handling, and it independently flagged afu_mmap() as
+leaving VM_MAYWRITE set on regions without DFL_PORT_REGION_WRITE,
+and drafted the fix.  Two fixes of the same one-line issue, citing
+the same precedent commits of this pattern, necessarily read alike
+-- but I understand that from your side the result is
+indistinguishable from a copy, and the concern is legitimate.
 
-diff --git a/net/netfilter/ipvs/ip_vs_lblc.c b/net/netfilter/ipvs/ip_vs_lblc.c
-index e1111c3b27211..21bb820e02914 100644
---- a/net/netfilter/ipvs/ip_vs_lblc.c
-+++ b/net/netfilter/ipvs/ip_vs_lblc.c
-@@ -249,7 +249,7 @@ static void ip_vs_lblc_flush(struct ip_vs_service *svc)
- static int sysctl_lblc_expiration(struct ip_vs_service *svc)
- {
- #ifdef CONFIG_SYSCTL
--	return svc->ipvs->sysctl_lblc_expiration;
-+	return READ_ONCE(svc->ipvs->sysctl_lblc_expiration);
- #else
- 	return DEFAULT_EXPIRATION;
- #endif
-diff --git a/net/netfilter/ipvs/ip_vs_lblcr.c b/net/netfilter/ipvs/ip_vs_lblcr.c
-index dfb5bf83750db..33d6e30968a95 100644
---- a/net/netfilter/ipvs/ip_vs_lblcr.c
-+++ b/net/netfilter/ipvs/ip_vs_lblcr.c
-@@ -413,7 +413,7 @@ static void ip_vs_lblcr_flush(struct ip_vs_service *svc)
- static int sysctl_lblcr_expiration(struct ip_vs_service *svc)
- {
- #ifdef CONFIG_SYSCTL
--	return svc->ipvs->sysctl_lblcr_expiration;
-+	return READ_ONCE(svc->ipvs->sysctl_lblcr_expiration);
- #else
- 	return DEFAULT_EXPIRATION;
- #endif
--- 
-2.43.0
+The pre-send duplicate check in my tooling queries lore.kernel.org,
+which is behind an anti-bot challenge, so it returned nothing and
+the overlap with Suruur's live thread slipped through.  I should
+not have relied on it alone.  I'm sorry for the noise.
+
+Going forward I will manually search the list archive (marc.info,
+openwall mirrors) before sending anything, and I will write the
+changelog and comments by hand, so that what reaches you reflects
+my own understanding of the change.  Where my audit finds an issue
+that an existing thread already covers, I will comment on that
+thread instead of sending a duplicate.
+
+Apologies,
+Bo Cao
 
