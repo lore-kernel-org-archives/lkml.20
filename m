@@ -1,97 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794249782;
-	b=qsfgMk1Lrv2J0hiLeKggw3Dyu8LYKx0T7yQA33hnnQts/2foUgKC/gnSrM6eYR1M1ABK
-	 8tyJU0ZdSOKBwsDnDQa1Zn6Yp/BpzARkJxQfnCDf27biq6pWn8+LsXdeFOWTp6efVOcG6
-	 /XwWH3m4Dvw+Fbjy235jH9zbhWvVp/KTGpjLf2mw1XQ3YcIrYtJPahnUQ7GERmgthC5Bh
-	 H/Tz9Q2lQn5nmyXHexFF6VKd8gSCT3UHoj67k+d9JcK/w7XFbFHO85PYFzhk7fjdy+m9i
-	 4zoIpYCnaNnKhAN/FGSxgyzdEYA5FhC4p3nDA6NhqmgAQAlTr8AVeFvQSKA3EiSqVhQ==
+	t=1794249838;
+	b=FtG5MafQjDcWfmadbpVB23pgdjtQA0GNV0jyJpw+k70N4KnN68cEhnAWOW7Q//quDwml
+	 OtQGyZ+tJVaojnZR/GJfRImsrjyEUIX/hyehHu9ZyPb16wf61YcE6HKJpT4i4h6ezqpmq
+	 jlF4bnMAFwN3fiOy/zr0fINS0vHlzLOqftQRNCuR3hdkl67aEn5VEd356JFNfDDjIzXT6
+	 dWK0ot5o2MnfKC6OepOmBe5UPN7poDUp1bDUzW8MMrG+6rsuyz1ibkJ3eQiwNXtRGGKhy
+	 4etezLVTDFrsO+kjoF99ViDPKkxdgUeeZAisySZQSsa68kXaMKaJb1xsO+2K6mT42ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249782;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hCv4A4/fOHsrQBoTCNAexOwPwKPV45Fgld4XHthQZuI=;
-	b=sqJ/XcInEFMCeLJNDnE6xLL5uK14J1XxZj3f7NyHBawEbMNpS3DYxNzqIPTH35Ay8xI6
-	 LvYEqGJrIXK0VzYL+sHph5C3U+BWNfZ5XryGAAMYR8eEgRcPtLK3bGzP+v0pGdSX2kwGo
-	 fsa6s3DwQuXyjKVuuSfEq104Dbpk5u+EpcMFkR3LG13CAw20+wUhlK2dUtHc1pzRnSuFc
-	 nzB3FCkbLYHfl8J2e+P8+FuQsJpJax4Ek+Kdj2HutXVvGnp4cxQnJZRDy4sCp3xVYr3cB
-	 CVY5ghQULTWdx307JL08mxqwNbtTiBUUOKU4/DPMKHPmAUkxC+g2skXovXd8MQsiW9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794249838;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=qWZJj9JAws7V0Jyk1izm9EHeVl4jsbuBX61viu5Th8A=;
+	b=xxy7yubykTXzIUCaYs3CaZUhvvYibtNnwESc6NCNnhSFOmwvoep2lzAtLQuJAg34kU8M
+	 re6qNPynIf6sf8Fw8pcUL/ELoTZWg+z3+s9hs1ncy7kgk+zn0PUp/qPvUclcu/GblyUBZ
+	 cEFHvKQHe10eVO8D1+tFvQrzKohiQy6vy0ocMGo3JKxlkSvyL7ptFxU83DIffL8aTB+tb
+	 dPao7Rr0xuMXz5+iVlNk45UEkE5Phcc+HtBY/3x5HMratncnkdoVMh1AP3JwrDlDTReRO
+	 3JBodgXS2Jqg9pE9dwp8NlzXxzoReakXnFhB/BfjjETukkTZbyJ4eZ6z+3KSbYRQx8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TtLXkgwx;
-	arc=none smtp.remote-ip=209.85.128.175
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N5Hh1CnV;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC593606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:43:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC593606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61393606A31C;
+	Mon,  9 Nov 2026 18:43:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61393606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TtLXkgwx
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b308fca7c3so11085127b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:43:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794249781; x=1794854581; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hCv4A4/fOHsrQBoTCNAexOwPwKPV45Fgld4XHthQZuI=;
-        b=TtLXkgwxEPz0z8fneHxMiAg7Hmzz6JBs49ZXD2SYIDg9bKwIWSet86cI8DSPTU8sQh
-         hXyW4zo5k3Hg1aMngkhng5JGY8+KRymjLOGAbHvbGlzv6N8rmmzUjiL01wEyKv+vCCcr
-         OhFqj2WwJli7USde1EsLYucpDD/2mQ0cVPPg7DjRWb/0GAbQj9lejjIwYqhBdkU2pI0l
-         59iwDKinKLL53Fs2NOZpB+O5wAapCp+pxDpPYLlEJ9BV3hxyYq5XeaPAPFiHaY7GNHSe
-         c1ruN46S+Xg5hMRWrHW6KRU81EhD42T2m775xGM5vnOuePC39NPDyxG2s2yJx9VzFMOt
-         AcVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794249781; x=1794854581;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hCv4A4/fOHsrQBoTCNAexOwPwKPV45Fgld4XHthQZuI=;
-        b=oZRWD0VaRHNDK64qcqpC7psQyohBZniAjTE/x5X8WcD8f6pAI49AqYnPYZUYmF6zGq
-         M0AhWMZ2IZVFUxTw6t6C9cg2XyFgT8GKChlVKXHii+o2Pn0eb++l9Q5cj5hh+9VikSv8
-         KsQd9V5Ap53bbvPff6QTU/mSWDhs4yq4gpAHpDxlSBWHL/I1Y7Fr7/NAsoXyOiJQZq8x
-         Em/xcj5j67e1xKr3b0NGOJg5n0ZwlYsr/atNofCB9aacAX2agZVIngvzL8w8jUWrPmkf
-         ICSm+WU0XRjYrOqkFN2HYPz40d/wgnd+hj04hFdSJW3oi0lchMsmLnjUdslhnSeSUBsh
-         0Mnw==
-X-Forwarded-Encrypted: i=1; AL+hErEhMnCZswpJSDHsOMnQ75nEGzg8ez2IaZwWofGXw3krDE/8KVMg2e0gx06y5cpUaI7uUpDxl+HTSfwKQYM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89/DajKzle4RA5W/YKGRn9xVLk7sfPBC8STo+EQ6NelNMx1x5A
-	P+1Bh5r/dOiTTUABkLjVbLDIPAtWAJ97TJvvtUqNKWN3yGxhsI+tZU0Z
-X-Gm-Gg: AYBFou33g20x8zff+rVe5wiwtGhqyUt6EWYqbQU7mf73i4+sMH9ePRf536imPRPGVzL
-	dc0SKxbwbrHRNpdqLtYfNh585I0SzGlX4kRCzNrQNqoVljb9Qsu5mKFLqCZsvAolDm+YF7qNfGu
-	BlxKLTCoQnX277bp88uyliBc1ihfhcjPOOHm67M9c+LBdOGYDTf7tGfprLdX4bSzpuWF0iW873q
-	jWPxpY6JU6poRQI18a1YmsTFFGczQz/aOlSRfRo5nsGXEa2WVTPxUrTsLf6ZrNX/NBF/bjgwoLx
-	jJBLxV4Z0/Js/OKyKtXQhfeoSLD5lK7sj7tjfpGPFzKodjS7CaOLvwEF0nvyBR1qRt+cimEdWop
-	jlKRuj/uaY/jiM0B0lRC9TtSY4d2Io4AfokK91b36ItzFcmf1vXc8eXPaXU8aBc76prQ3YcpYYe
-	5HFXR1UPjKPbREUvVIMeX1bFZeBMMHX5Lk/oYv1qrAZzF73pvNKGeuY5TO+nsBP8j19Q3pkm+5s
-	pcuc6eB9mQd3NhZkljv9qfyrz8r9aea/ouXOPYkuj4XYsgfYJQn0jlzUj9anMuPxmV3GTCH7IKe
-	xSVNhv5x9w9GKX4Ztkgi1Ew=
-X-Received: by 2002:a05:690c:e204:10b0:8ae:a9c6:2740 with SMTP id 00721157ae682-8b392b6884dmr1303547b3.48.1794249780855;
-        Mon, 09 Nov 2026 10:43:00 -0800 (PST)
-Received: from localhost ([2a03:2880:10ff:10::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b39324bbf5sm961007b3.1.2026.11.09.10.43.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 10:43:00 -0800 (PST)
-From: Vlad Poenaru <vlad.wing@gmail.com>
-To: "Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>
-Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Brett Creeley <brett.creeley@amd.com>,
-	Kyle McMartin <jkkm@meta.com>,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH] virtio_pci: limit Oracle DSC2-200 virtio-net to 48-bit DMA
-Date: Mon,  9 Nov 2026 10:42:52 -0800
-Message-ID: <20261109184253.531677-1-vlad.wing@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N5Hh1CnV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794249838; x=1825785838;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=Gv6ihC4F3QMOyL0oL4yLabiarEc+5KWiqN90g+j6v8M=;
+  b=N5Hh1CnVcmwGDm2KWFhZY8NBksaPUA6Jc5W1IEjnffAfiMxgfcj77EmK
+   M+xV1TZoEpL65kNkBb9JDXuTZjAmxsGjlGOV5My9qUq1+nwb/zdKtHtDG
+   nTh4UMM4C6oRXr+WLpb9oHk//YtrFGREFs95IqK0v0iQgaF7tdAQLsmGt
+   mR1R56DJ8tTBB5nTZJmfhMFw3PBTjwzwluuiMD2UDfz4zOA57OcFxgjZy
+   WO3iaTri2HHYN2vkC6a0+IVv57tKG9VQNE5dRqhlJKRj98GNdryAKtj1S
+   /Lj0TaGxmF6rXBYd7RpXq8pyS9SQbqmdTZXZhe9EHkJ90RQ84kV1ne9co
+   w==;
+X-CSE-ConnectionGUID: YKpkgIIQTdutGYu93iVBSg==
+X-CSE-MsgGUID: vssZgVSnTXGJmAO/SnCUtw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3011460"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3011460"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 10:43:57 -0800
+X-CSE-ConnectionGUID: e+fiNwSBSii1m083MYEA4g==
+X-CSE-MsgGUID: CICV6EthSoCEia6QIIUNsA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8276613"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 10:43:55 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 9 Nov 2026 20:43:52 +0200 (EET)
+To: Akhil Boyapati <boyakhil978@gmail.com>
+cc: platform-driver-x86@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] platform/x86: hp-wmi: Use only the low byte of the
+ thermal profile
+In-Reply-To: <20261026030658.119596-1-boyakhil978@gmail.com>
+Message-ID: <741290aa-a266-7589-5372-1554d281c632@linux.intel.com>
+References: <20261026030658.119596-1-boyakhil978@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,93 +79,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-The virtio-net function of the AMD Pensando DSC2-200 (Elba) DPU, as
-shipped by Oracle (1af4:1041, subsystem 108e:1200), cannot DMA to
-arbitrary 64-bit bus addresses, and Oracle advises limiting it to 48
-bits. virtio_pci gives it a 64-bit mask, so its virtqueues stop
-completing requests once the IOMMU starts handing it IOVAs above 2^48.
-The card is used in OCI bare-metal shapes such as BM.Standard.E6.288.
+On Sun, 25 Oct 2026, Akhil Boyapati wrote:
 
-On those AMD EPYC 9005 hosts the AMD IOMMU supports a 6-level v1 page
-table (EFR[HATS] = 2), so the aperture spans all 64 bits and the IOVA
-allocator, which works down from min(mask, aperture), returns addresses
-just below 2^64:
+> On the HP Spectre x360 14 (board 8C15) the firmware answers the
+> thermal profile query (0x4C, read) with more than the profile: the
+> DSDT's GTPS method returns the profile in byte 0, OEM flags in byte 1
+> and the device posture in byte 2. In Quiet mode in laptop posture the
+> value is 0x00041103.
+> 
+> thermal_profile_get() returns the whole value, so
+> hp_wmi_platform_profile_get() matches no profile and reading
+> /sys/firmware/acpi/platform_profile fails with -EINVAL. This also
+> breaks power-profiles-daemon and tuned-ppd. Probe writes the
+> unmasked value back, which only works because the firmware's write
+> method (STPS) uses byte 0.
+> 
+> Mask the value to its low byte. Boards that return only the profile
+> are unaffected.
+> 
+> Tested on board 8C15 (kernel 7.2.11, module built from this tree's
+> driver with the change applied): platform_profile reads back correctly
+> after setting each of cool, quiet, balanced and performance, and the
+> firmware's ODVP0 follows (3, 4, 2, 1). Not tested on other boards.
+> 
+> Fixes: 4296f679ca50 ("platform/x86: hp-wmi: add platform profile support")
+> Assisted-by: LLM
+> Signed-off-by: Akhil Boyapati <boyakhil978@gmail.com>
+> ---
+>  drivers/platform/x86/hp/hp-wmi.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+> index 52077833a..6180f1d21 100644
+> --- a/drivers/platform/x86/hp/hp-wmi.c
+> +++ b/drivers/platform/x86/hp/hp-wmi.c
+> @@ -2117,7 +2117,13 @@ static int platform_profile_omen_set(struct device *dev,
+>  
+>  static int thermal_profile_get(void)
+>  {
+> -	return hp_wmi_read_int(HPWMI_THERMAL_PROFILE_QUERY);
+> +	int tp = hp_wmi_read_int(HPWMI_THERMAL_PROFILE_QUERY);
+> +
+> +	/*
+> +	 * Only the low byte is the thermal profile. Some firmware (e.g. board
+> +	 * 8C15) packs OEM flags and the device posture into the upper bytes.
+> +	 */
+> +	return tp < 0 ? tp : tp & 0xff;
 
- - With iommu.forcedac=1, the first control virtqueue command never
-   completes and virtio_net hangs in probe.
+Add a named define and use FIELD_GET(). Then the comment doesn't seem even 
+required.
 
- - Without it, iommu_dma_alloc_iova() prefers 32-bit IOVAs until that
-   space runs out once, logs "Using 64-bit DMA addresses", and stops
-   preferring them for the device. Across several thousand of these
-   hosts, 21 logged that for the virtio-net function within 0.2 to 7.3
-   days of boot. On 14 of them, TX queues then stopped completing
-   descriptors within hours ("NETDEV WATCHDOG: ... transmit queue N
-   timed out"). No host without the fallback reported a TX timeout.
+Please keep call and it's error handling next to each other (convert 
+this to the usual error handling pattern with if). Because of that you 
+cannot make the call in variable declaration block but that's fine.
 
-virtio gives a device no way to advertise a DMA address limit, and the
-platform describes none for this device, so the driver has to apply
-one. Cap the device at 48 bits through the dma_mask override that
-vp_modern_probe() already provides for devices with address limits.
-The device still gets 32-bit IOVAs first, and then IOVAs below 2^48
-instead of 2^64. pds_vdpa uses 52 bits for the same ASIC; this uses
-Oracle's narrower 48-bit limit, which still leaves 256 TiB of IOVA
-space.
-
-Only the virtio-net function is matched, since it is the one that was
-tested. force_legacy does not bypass the quirk: the legacy probe
-refuses device IDs above 0x103f, so the device always goes through the
-modern probe.
-
-Tested on a BM.Standard.E6.288 with 6-hour iperf3 --bidir soaks, at up
-to 57 Gbit/s each way with iommu.forcedac=1 and at about 26 Gbit/s each
-way without it. Neither run saw a TX timeout or an AMD-Vi
-IO_PAGE_FAULT. With forcedac, every traced IOVA for the device fell
-between 2^32 and 2^48; without it, every IOVA stayed below 2^32, as
-before.
-
-Cc: stable@vger.kernel.org # 6.5+
-Co-developed-by: Kyle McMartin <jkkm@meta.com>
-Signed-off-by: Kyle McMartin <jkkm@meta.com>
-Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
----
- drivers/virtio/virtio_pci_common.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/virtio/virtio_pci_common.c b/drivers/virtio/virtio_pci_common.c
-index 79d3395f37050..0a7c97cd80509 100644
---- a/drivers/virtio/virtio_pci_common.c
-+++ b/drivers/virtio/virtio_pci_common.c
-@@ -667,8 +667,18 @@ static const struct dev_pm_ops virtio_pci_pm_ops = {
- #endif
- 
- 
-+/*
-+ * The virtio-net function of the AMD Pensando DSC2-200 (Elba) DPU, as
-+ * shipped by Oracle (subsystem 108e:1200), cannot DMA to arbitrary 64-bit
-+ * bus addresses. Oracle advises limiting it to 48 bits.
-+ */
-+#define VIRTIO_PCI_QUIRK_DMA_48BIT	BIT(0)
-+
- /* Qumranet donated their vendor ID for devices 0x1000 thru 0x10FF. */
- static const struct pci_device_id virtio_pci_id_table[] = {
-+	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_REDHAT_QUMRANET, 0x1041,
-+			 PCI_VENDOR_ID_SUN, 0x1200),
-+	  .driver_data = VIRTIO_PCI_QUIRK_DMA_48BIT },
- 	{ PCI_DEVICE(PCI_VENDOR_ID_REDHAT_QUMRANET, PCI_ANY_ID) },
- 	{ 0 }
- };
-@@ -710,6 +720,9 @@ static int virtio_pci_probe(struct pci_dev *pci_dev,
- 	if (rc)
- 		goto err_enable_device;
- 
-+	if (id->driver_data & VIRTIO_PCI_QUIRK_DMA_48BIT)
-+		vp_dev->mdev.dma_mask = DMA_BIT_MASK(48);
-+
- 	if (force_legacy) {
- 		rc = virtio_pci_legacy_probe(vp_dev);
- 		/* Also try modern mode if we can't map BAR0 (no IO space). */
 -- 
-2.53.0-Meta
+ i.
 
