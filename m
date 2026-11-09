@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794198552;
-	b=mPlL19HnSrVYUlqtfuUDHVSyFCA/T7BvPiFLI+XtTpzUvm3YNBq3ACRSUNfGnfEFK+6B
-	 1fuFpSILcX53QEgKez6Dq/Jqk7ZEmzL7jGfkcwP8VAfxKQ60fWHPjFv5nEvvjU1LZlT99
-	 kryS88FE6XqjrRL9yyHUR3Xs19Aeuewfek5/d8HCi5ut0dn1FqSP+4sqWXZ7Q1C1aZJ5O
-	 bPnxewr3/0iWLH37x4A9rkzGmuoADFcd4IjnQ50DNL0sQnQovo0DRRljWGnYzBefu0Se5
-	 hQ1GD9TtN8VXC/itvDnSfNxKYv3yNycJL2AoKdmX3pnnfWUOpocrB7vqUqhApwMwPVA==
+	t=1794198559;
+	b=QUCUThnlgPJ+GQAkXL9W1Z7FLC0n1T+41lp2SY6x16e/ZCvuCwFGAmAQWXzfJ2TM6xC1
+	 hZPjbRunLvaUQucVF6TEHKxRTeMkN17Mlb5ZGpudO4T7YQ+nk7NUotxj7rnsFduXp13WP
+	 z6qILrn+5N9kjce9j0rUcB7RUBjDXez5Fz37Y9bEIlIKmGRqY86LidqtHHHyvRUg5dcO6
+	 D61YgrhdE3JWfZCrQ0zTenAhIw8qX0+g+olp3DXNJcfK3duQwaPiKp/LzPRya6haZF/Kx
+	 loDpTtEowD8fAI9TBpJlt903Q5gnXnhnBhMx5+TAThLwlofZ3VapOZky21BV7YUVdXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794198552;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794198559;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2TNfnPdK8OCQ55KXkxrD8Ttgxo05/cSe/OzFy4EXz3Q=;
-	b=BptHKrbZuZLn0RjQEbNCY2qhvV+/XGVq9J7Ks7D8Lk5r4fxY/Cx9b9sOlqZit6wJyw7y
-	 gNz63VNYzlAEoy3vX3nfxrGMlsefEZ7jGY/CA2q9BCZl1+okkotgIGR8CSR163dFZofUg
-	 YukRrRAZlNfRsQd9kgGojYX6nAY0i/q9y2H7Y1M2vawsyWqr4RT0HIa/5Uj4ODTMW1m89
-	 kOldN5qKuTPtlJ8skRcNIvKxcyqFnkMH8Dx0/JE/be5tEa6uUBQ0X323VxtMmcKoqqiRC
-	 MvRqS67XE9J2FaHSx+cBzkYAcqpIC17kqRSMpOIMucBjUV1XGfBu12I4zH1GVcZz9cg==
+	bh=1JrXEd2NO/cJ+1CoKfKmdQuXHWCqxoOc8mX38KC+4vo=;
+	b=RfNEK4JrBnI3L7OjPUgS42YZyP9EvQuAc71nmzu/FT64xKnkvwG4HNKsBHSNzR/vMyC8
+	 JA90YMK2MwU5DhM/WkcarfpoQPywYGGF17oPGeHWPJyF5RNa+NikHmEgyM9K0yFt0nSnt
+	 DKInV+KP32pB4wIx3pGKjL9DuURcITwMQ5a3z/tKl8uyQcnZpfNrjP75+duuktoi1kPvX
+	 kRlCDrap8P3PN9qf4LjZtNHrlErhXK6FXCO3CNZWtH+Pdl/0anzE0drq7uePYdJtZy/Vt
+	 jF67CXpGWoZR7LaRau0sSURTf7wwYujqh/nVbhdfneo3vE3IjeZ0Q47hoICWlDA8Zcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cy7Lzekx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1IQboB3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10DD606A321;
-	Mon,  9 Nov 2026 04:29:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 198DA606A323;
+	Mon,  9 Nov 2026 04:29:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Cy7Lzekx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563531F00906;
-	Mon,  9 Nov 2026 04:29:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1IQboB3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 952031F00906;
+	Mon,  9 Nov 2026 04:29:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794198551;
-	bh=2TNfnPdK8OCQ55KXkxrD8Ttgxo05/cSe/OzFy4EXz3Q=;
+	s=k20260515; t=1794198558;
+	bh=1JrXEd2NO/cJ+1CoKfKmdQuXHWCqxoOc8mX38KC+4vo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Cy7LzekxVzAXjEoUYr8hNB61VteHdfo2xpTpaX16ipgWfJX607YFrt6QVuy8mwN3a
-	 Qzlj61ESYglj5fbN+lFeRVMueGJNpVtOCVQXC5+c16tGuKhqpmYSQGbAc8jQ4G3R5V
-	 CsgAWXRT1w15AqJi7+UbYxAhVskA83/rTs4YTCSkNh3TzldZXVStSwK6jynsM4jXau
-	 25KgF3N9i5CqlX7GnpH037XoLFNzo+0iEC8S1DQ6EV4xJnJ5Q+ySztVPnRP14Fundr
-	 4Z2UAEKk81d+VzIRm7C7E17kTtj4h/q5T62Zxj3j0WsZ4dm3lrrJ8h3Nz3iIXASFPD
-	 +dX1zanQChR8g==
+	b=c1IQboB3Ziazu8d89pEJTcYjx/+p8MW4DFJs4P61Bm9z0vfQcFRcsESqwce4AvLre
+	 GPjeZpvW+LmJUopV8HP9IMAHgzR9+onhx3VUGsjIGPVYjOnHvqwUxB+05XVc+wLh79
+	 t9npLDpIwyn1pD6wuhltySUBHlj5iNgnG8imByx6XkWAuo/mcjgRmwvdkzEfPcccyk
+	 HDUH3HoWFn4nJ1I9FaQ9wI+dticsSHTXt+IuPOXTEVaMhnlCUwrbyKUbhOAKIu/kRh
+	 7RCOXirQLj8Qx+SqVyVgWdIQ3qTNzeDhgMIJlcrSRybGT/E8qYzFKZaeja1/p1MCpV
+	 NWMoKaP73MTnA==
 From: Jonathan Cameron <jic23@kernel.org>
 To: linux-iio@vger.kernel.org,
 	Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -56,9 +56,9 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	Andy Shevchenko <andy@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [RESEND PATCH 02/14] iio: accel: mma8452: poll own trigger from interrupt handler
-Date: Mon,  9 Nov 2026 04:28:39 +0000
-Message-ID: <20261109042851.1326940-3-jic23@kernel.org>
+Subject: [RESEND PATCH 04/14] iio: adc: ti-ads1119: poll own trigger from interrupt handler
+Date: Mon,  9 Nov 2026 04:28:41 +0000
+Message-ID: <20261109042851.1326940-5-jic23@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109042851.1326940-1-jic23@kernel.org>
 References: <20261109042851.1326940-1-jic23@kernel.org>
@@ -75,31 +75,29 @@ Content-Transfer-Encoding: 8bit
 
 From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-Poll data->trig from mma8452_interrupt() rather than indio_dev->trig.
-The data ready interrupt is only enabled by the driver's own trigger's
-set_trigger_state() callback, so that is the trigger in use whenever
-this path is reached.
+Poll st->trig from ads1119_irq_handler() rather than indio_dev->trig.
+The poll is only reached when iio_trigger_using_own() is true.
 
 This removes a dependency on the trig field of struct iio_dev, which
 is to become private to the IIO core.
 
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/accel/mma8452.c | 2 +-
+ drivers/iio/adc/ti-ads1119.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index f9abff3842fc..44962ac7491f 100644
---- a/drivers/iio/accel/mma8452.c
-+++ b/drivers/iio/accel/mma8452.c
-@@ -1099,7 +1099,7 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
- 		return IRQ_NONE;
+diff --git a/drivers/iio/adc/ti-ads1119.c b/drivers/iio/adc/ti-ads1119.c
+index b0f04741ddc6..e815ba6d9d4f 100644
+--- a/drivers/iio/adc/ti-ads1119.c
++++ b/drivers/iio/adc/ti-ads1119.c
+@@ -497,7 +497,7 @@ static irqreturn_t ads1119_irq_handler(int irq, void *dev_id)
+ 	struct ads1119_state *st = iio_priv(indio_dev);
  
- 	if (src & MMA8452_INT_DRDY) {
--		iio_trigger_poll_nested(indio_dev->trig);
-+		iio_trigger_poll_nested(data->trig);
- 		ret = IRQ_HANDLED;
- 	}
+ 	if (iio_buffer_enabled(indio_dev) && iio_trigger_using_own(indio_dev))
+-		iio_trigger_poll(indio_dev->trig);
++		iio_trigger_poll(st->trig);
+ 	else
+ 		complete(&st->completion);
  
 -- 
 2.56.0
