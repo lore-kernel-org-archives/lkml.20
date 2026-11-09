@@ -1,67 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794209777;
-	b=qrZ1gJYajQOibjWiMKiYz2JHzOE1bAaqcRqE6vw2i7iwl3kVGAC/Q4LZeY67YfU6VddQ
-	 tbs8lujgsHXzNDoSiY9LCLDXvdtzbd7FnwHDlCiGslZZ2DVqjmNxQM6pY/O0BDPwLkV6l
-	 pp/rRegGwc4LtDWlSqZ0SuAVQvkrmpa9igl54kKYuKufd9Mck7qu8HCAmomh0/vPcqDkn
-	 IIeOk5eeibhRdQZ6hpnXPL6bZqxo6q0PGvZgbHUCX25xupi3uwC7Hghjeyvrm4xPyuGvl
-	 TMkXj2qGqh/6MUHEfwC9aR1uMrRtlptQ8aGrPygtuKG+YilMOFSc6U0K+J9Q60lLjxw==
+	t=1794209774;
+	b=I58IiwMqndKfZKSBNi2IqNMNKILQIu0M6KHcKVCSmQ+RkgzJNXtp/+zpsJLuon07ziqc
+	 uX+eas15GL4dZhhHaGkhlOkV46awIvybnSBEX08bay3DgURsJu7cfnqC5p9jkZXPhb6RJ
+	 UY9zc/cw6pPd48srp6hXczXjyIKGCedWE581HUj/uhmUJvpQ8O3SHT3c4ma1csNjb9+1g
+	 Y5O6zZiQy9vnxFEuXsRDA1OYpskxrJBa8x9nQ0EJVq3GWa7RMd8aVti1i/c3rPxNigRWW
+	 2hoH4enOQcmD9+JnkJbvW5ZEcX1Q+NZfpuMwVG16CwXCHxG/eRDA37rJkzje3YQFffw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209777;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209774;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=32XgZBXjOCn+IKt4h3wSP8Hi+HSC5pHyRltEaxkxL94=;
-	b=haRGc8VyKq3Ya9zKyI/X6TuEyrURwfhWu7hETJBoKYKD3IH3oaI6aQs3UBjF+JQqziOM
-	 UHVtqq0eoRL/Mrq73heK3/ea0x6O4t43PbJJnQaE6qsFfSnmN4iUGbVAhgGkJqYzed5Dj
-	 bQ0kdTRwAZQRGoosvqnc+h5LoUfPYxHQ23Nc8M1BnplymhCM7XbGfDKf9Rk550SF4IEzB
-	 gxr/0YRSQPcbWzyPe0n4uLIjVkMhES9VxCYgUhaU44PA/aBXHFdoWaBgiLuZaR17CnD2S
-	 KKc+wKuoHw7v+zTvFR1Ngr2i1krabnrGChzq7ssM5qOKKvDhcS8uwjcSM4zBmjMpQ3g==
+	bh=4PSBgBKPMTFaPBbhIHGgOgP5gYmCkxw9n9vkogmf9Ac=;
+	b=eIJMtwEIv3FPybAaDT/1sDkBBbVIW1eJ0ryrmVgfggKyr4TNi+8wWXD2N4EZvRs3Sglk
+	 M6ftCXp6RWdyTurElZk+zhQKcOrGOE2DEPC81uMHb3IBwGn32COMpWC7zmSOw9Lb1x7dl
+	 jfPnvQrVsfjklk6vbaMqxaG36Ddk7DW2CzlNaTdKRQscy3u0uFqgKrqjZVMr81Zz73SM3
+	 k/eblY/JQqRkeZNNwVChshf5Nj7bvWlcDIc2xkUSH0zcO5Uzw/kjKrlgSjKvsUj0uSdFT
+	 YGNDDr5OWFszS+/na4hamzrAAZjPXnHeTajUbVT7YNCxGc5Br43KGd75hwx1Lk88ZAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=J+I3hdh3;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JXYJv7Jl;
+	arc=none smtp.remote-ip=113.46.200.217
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD90F606EE99;
-	Mon,  9 Nov 2026 07:36:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD90F606EE99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C22A2606A32A;
+	Mon,  9 Nov 2026 07:36:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C22A2606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=J+I3hdh3
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=JXYJv7Jl
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=32XgZBXjOCn+IKt4h3wSP8Hi+HSC5pHyRltEaxkxL94=;
-	b=J+I3hdh3PBQIFANVWRJ0VyotTbHx3HfwUOT1p0g8n84FpvnUjfh2S/p5ltBkWQCTXJq2mIle/
-	M8sviiE9sc/onh+tkk7FyZWZ+sIDSE2riOjDqNHLtQ8qGg/llrlvNuXRnhmsx0lBoeLCm16mBEf
-	+JrBLhkIoXOR7hkPdjbTpYw=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jNM5W5M2wz1T4LL;
-	Mon,  9 Nov 2026 15:35:43 +0800 (CST)
+	bh=4PSBgBKPMTFaPBbhIHGgOgP5gYmCkxw9n9vkogmf9Ac=;
+	b=JXYJv7JlcNeKagLb7/Y/RdeVGp4+JD8PlQlMUqoowTPP/MGsSHz6WFLxOZXJOmuDCrtIJZnuC
+	lc9IBrFhPDbFVkxrU6rEl1E6whqUmR0z8GSIP+pHEITPQ60UaqA2P0BlWaSK/JiQHCLTEVI/VeX
+	wre2AqQKpPV0pP0MbtzXKuc=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jNM5J6q91zcbMY;
+	Mon,  9 Nov 2026 15:35:32 +0800 (CST)
 Received: from whupemk200001.china.huawei.com (unknown [7.152.184.93])
-	by mail.maildlp.com (Postfix) with ESMTPS id 692C740561;
-	Mon,  9 Nov 2026 15:36:10 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id BC60340561;
+	Mon,  9 Nov 2026 15:36:08 +0800 (CST)
 Received: from localhost.localdomain (10.50.163.32) by
  whupemk200001.china.huawei.com (7.152.184.93) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 9 Nov 2026 15:36:09 +0800
+ 15.2.2562.45; Mon, 9 Nov 2026 15:36:07 +0800
 From: Chenghai Huang <huangchenghai2@huawei.com>
 To: <herbert@gondor.apana.org.au>, <davem@davemloft.net>
 CC: <linux-kernel@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
 	<liulongfang@huawei.com>, <qianweili@huawei.com>, <wangzhou1@hisilicon.com>,
 	<linwenkai6@hisilicon.com>
-Subject: [PATCH 2/4] crypto: engine - add acomp support
-Date: Mon, 9 Nov 2026 15:35:54 +0800
-Message-ID: <20261109073556.2517351-3-huangchenghai2@huawei.com>
+Subject: [PATCH 0/4] crypto: engine - add acomp support and adapt Hisilicon HPRE and ZIP drivers
+Date: Mon, 9 Nov 2026 15:35:52 +0800
+Message-ID: <20261109073556.2517351-1-huangchenghai2@huawei.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109073556.2517351-1-huangchenghai2@huawei.com>
-References: <20261109073556.2517351-1-huangchenghai2@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,237 +74,51 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
  whupemk200001.china.huawei.com (7.152.184.93)
 
-Add support for asynchronous compression (acomp) algorithms to the
-crypto engine framework: transfer/finalize helpers plus an
-acomp_engine_alg registration interface, mirroring the existing
-akcipher and kpp support.
+This series adds asynchronous compression (acomp) support to the crypto
+engine framework, then converts the Hisilicon HPRE and ZIP drivers to
+use it instead of their hand-rolled backlog / queue-retry mechanisms.
 
-As engine.h needs to embed struct acomp_alg by value, move it from
-include/crypto/internal/acompress.h to include/crypto/acompress.h.
-The internal header still provides it through the existing include.
+Patch 1 fixes the retry pump loop in the engine core: it skips the
+idle check that clears engine->busy and rechecks engine->running, so
+after the queue drains a later request can be enqueued without a pump
+and stall the engine, and crypto_engine_stop() can spin on the stale
+busy flag up to -EBUSY.
 
-Signed-off-by: Chenghai Huang <huangchenghai2@huawei.com>
----
- crypto/crypto_engine.c              | 42 +++++++++++++++++++++++++++++
- include/crypto/acompress.h          | 33 +++++++++++++++++++++++
- include/crypto/engine.h             | 13 +++++++++
- include/crypto/internal/acompress.h | 33 -----------------------
- 4 files changed, 88 insertions(+), 33 deletions(-)
+Patch 2 adds struct acomp_engine_alg with transfer/finalize helpers and
+a register/unregister interface, mirroring the existing akcipher and
+kpp support. struct acomp_alg moves to <crypto/acompress.h> so that
+engine.h can embed it.
 
-diff --git a/crypto/crypto_engine.c b/crypto/crypto_engine.c
-index 5b669038acb4..2a0740d9dd63 100644
---- a/crypto/crypto_engine.c
-+++ b/crypto/crypto_engine.c
-@@ -7,6 +7,7 @@
-  * Author: Baolin Wang <baolin.wang@linaro.org>
-  */
- 
-+#include <crypto/internal/acompress.h>
- #include <crypto/internal/aead.h>
- #include <crypto/internal/akcipher.h>
- #include <crypto/internal/engine.h>
-@@ -220,6 +221,19 @@ static int crypto_transfer_request_to_engine(struct crypto_engine *engine,
- 	return crypto_transfer_request(engine, req, true);
- }
- 
-+/**
-+ * crypto_transfer_acomp_request_to_engine - transfer one acomp_request
-+ * to list into the engine queue
-+ * @engine: the hardware engine
-+ * @req: the request need to be listed into the engine queue
-+ */
-+int crypto_transfer_acomp_request_to_engine(struct crypto_engine *engine,
-+					    struct acomp_req *req)
-+{
-+	return crypto_transfer_request_to_engine(engine, &req->base);
-+}
-+EXPORT_SYMBOL_GPL(crypto_transfer_acomp_request_to_engine);
-+
- /**
-  * crypto_transfer_aead_request_to_engine - transfer one aead_request
-  * to list into the engine queue
-@@ -285,6 +299,20 @@ int crypto_transfer_skcipher_request_to_engine(struct crypto_engine *engine,
- }
- EXPORT_SYMBOL_GPL(crypto_transfer_skcipher_request_to_engine);
- 
-+/**
-+ * crypto_finalize_acomp_request - finalize one acomp_request if
-+ * the request is done
-+ * @engine: the hardware engine
-+ * @req: the request need to be finalized
-+ * @err: error number
-+ */
-+void crypto_finalize_acomp_request(struct crypto_engine *engine,
-+				   struct acomp_req *req, int err)
-+{
-+	return crypto_finalize_request(engine, &req->base, err);
-+}
-+EXPORT_SYMBOL_GPL(crypto_finalize_acomp_request);
-+
- /**
-  * crypto_finalize_aead_request - finalize one aead_request if
-  * the request is done
-@@ -504,6 +532,20 @@ void crypto_engine_exit(struct crypto_engine *engine)
- }
- EXPORT_SYMBOL_GPL(crypto_engine_exit);
- 
-+int crypto_engine_register_acomp(struct acomp_engine_alg *alg)
-+{
-+	if (!alg->op.do_one_request)
-+		return -EINVAL;
-+	return crypto_register_acomp(&alg->base);
-+}
-+EXPORT_SYMBOL_GPL(crypto_engine_register_acomp);
-+
-+void crypto_engine_unregister_acomp(struct acomp_engine_alg *alg)
-+{
-+	crypto_unregister_acomp(&alg->base);
-+}
-+EXPORT_SYMBOL_GPL(crypto_engine_unregister_acomp);
-+
- int crypto_engine_register_aead(struct aead_engine_alg *alg)
- {
- 	if (!alg->op.do_one_request)
-diff --git a/include/crypto/acompress.h b/include/crypto/acompress.h
-index 5d5358dfab73..0809fa35490a 100644
---- a/include/crypto/acompress.h
-+++ b/include/crypto/acompress.h
-@@ -122,6 +122,39 @@ struct crypto_acomp {
- }
- struct comp_alg_common COMP_ALG_COMMON;
- 
-+/**
-+ * struct acomp_alg - asynchronous compression algorithm
-+ *
-+ * @compress:	Function performs a compress operation
-+ * @decompress:	Function performs a de-compress operation
-+ * @init:	Initialize the cryptographic transformation object.
-+ *		This function is used to initialize the cryptographic
-+ *		transformation object. This function is called only once at
-+ *		the instantiation time, right after the transformation context
-+ *		was allocated. In case the cryptographic hardware has some
-+ *		special requirements which need to be handled by software, this
-+ *		function shall check for the precise requirement of the
-+ *		transformation and put any software fallbacks in place.
-+ * @exit:	Deinitialize the cryptographic transformation object. This is a
-+ *		counterpart to @init, used to remove various changes set in
-+ *		@init.
-+ *
-+ * @base:	Common crypto API algorithm data structure
-+ * @calg:	Common algorithm data structure shared with scomp
-+ * @COMP_ALG_COMMON: see struct comp_alg_common
-+ */
-+struct acomp_alg {
-+	int (*compress)(struct acomp_req *req);
-+	int (*decompress)(struct acomp_req *req);
-+	int (*init)(struct crypto_acomp *tfm);
-+	void (*exit)(struct crypto_acomp *tfm);
-+
-+	union {
-+		struct COMP_ALG_COMMON;
-+		struct comp_alg_common calg;
-+	};
-+};
-+
- /**
-  * DOC: Asynchronous Compression API
-  *
-diff --git a/include/crypto/engine.h b/include/crypto/engine.h
-index 2e60344437da..2b4e3d0e43ed 100644
---- a/include/crypto/engine.h
-+++ b/include/crypto/engine.h
-@@ -7,6 +7,7 @@
- #ifndef _CRYPTO_ENGINE_H
- #define _CRYPTO_ENGINE_H
- 
-+#include <crypto/acompress.h>
- #include <crypto/aead.h>
- #include <crypto/akcipher.h>
- #include <crypto/hash.h>
-@@ -26,6 +27,11 @@ struct crypto_engine_op {
- 			      void *areq);
- };
- 
-+struct acomp_engine_alg {
-+	struct acomp_alg base;
-+	struct crypto_engine_op op;
-+};
-+
- struct aead_engine_alg {
- 	struct aead_alg base;
- 	struct crypto_engine_op op;
-@@ -51,6 +57,8 @@ struct skcipher_engine_alg {
- 	struct crypto_engine_op op;
- };
- 
-+int crypto_transfer_acomp_request_to_engine(struct crypto_engine *engine,
-+					    struct acomp_req *req);
- int crypto_transfer_aead_request_to_engine(struct crypto_engine *engine,
- 					   struct aead_request *req);
- int crypto_transfer_akcipher_request_to_engine(struct crypto_engine *engine,
-@@ -61,6 +69,8 @@ int crypto_transfer_kpp_request_to_engine(struct crypto_engine *engine,
- 					  struct kpp_request *req);
- int crypto_transfer_skcipher_request_to_engine(struct crypto_engine *engine,
- 					       struct skcipher_request *req);
-+void crypto_finalize_acomp_request(struct crypto_engine *engine,
-+				   struct acomp_req *req, int err);
- void crypto_finalize_aead_request(struct crypto_engine *engine,
- 				  struct aead_request *req, int err);
- void crypto_finalize_akcipher_request(struct crypto_engine *engine,
-@@ -79,6 +89,9 @@ struct crypto_engine *crypto_engine_alloc_init_and_set(struct device *dev,
- 						       bool rt, int qlen);
- void crypto_engine_exit(struct crypto_engine *engine);
- 
-+int crypto_engine_register_acomp(struct acomp_engine_alg *alg);
-+void crypto_engine_unregister_acomp(struct acomp_engine_alg *alg);
-+
- int crypto_engine_register_aead(struct aead_engine_alg *alg);
- void crypto_engine_unregister_aead(struct aead_engine_alg *alg);
- int crypto_engine_register_aeads(struct aead_engine_alg *algs, int count);
-diff --git a/include/crypto/internal/acompress.h b/include/crypto/internal/acompress.h
-index 9cd37df32dc4..75580e007c0c 100644
---- a/include/crypto/internal/acompress.h
-+++ b/include/crypto/internal/acompress.h
-@@ -23,39 +23,6 @@
-         struct acomp_req *name = acomp_fbreq_on_stack_init( \
-                 __##name##_req, (req))
- 
--/**
-- * struct acomp_alg - asynchronous compression algorithm
-- *
-- * @compress:	Function performs a compress operation
-- * @decompress:	Function performs a de-compress operation
-- * @init:	Initialize the cryptographic transformation object.
-- *		This function is used to initialize the cryptographic
-- *		transformation object. This function is called only once at
-- *		the instantiation time, right after the transformation context
-- *		was allocated. In case the cryptographic hardware has some
-- *		special requirements which need to be handled by software, this
-- *		function shall check for the precise requirement of the
-- *		transformation and put any software fallbacks in place.
-- * @exit:	Deinitialize the cryptographic transformation object. This is a
-- *		counterpart to @init, used to remove various changes set in
-- *		@init.
-- *
-- * @base:	Common crypto API algorithm data structure
-- * @calg:	Cmonn algorithm data structure shared with scomp
-- * @COMP_ALG_COMMON: see struct comp_alg_common
-- */
--struct acomp_alg {
--	int (*compress)(struct acomp_req *req);
--	int (*decompress)(struct acomp_req *req);
--	int (*init)(struct crypto_acomp *tfm);
--	void (*exit)(struct crypto_acomp *tfm);
--
--	union {
--		struct COMP_ALG_COMMON;
--		struct comp_alg_common calg;
--	};
--};
--
- struct crypto_acomp_stream {
- 	spinlock_t lock;
- 	void *ctx;
+Patch 3 gives each HPRE QP (DH/RSA/ECDH) its own crypto engine.
+MAY_BACKLOG requests are routed through the engine, which provides the
+backlog queue and retries on -ENOSPC; other requests are sent directly
+with bounded retries, and in-flight requests are cleaned up by the
+completion callback.
+
+Patch 4 gives ZIP a per-device engine pool, with each QP context
+borrowing an engine by its QP id so compression and decompression
+queue independently. Requests are sent to the hardware when it has
+room; on a full queue they are parked in the engine queue and retried,
+with the DMA mappings kept across retries.
+
+Chenghai Huang (3):
+  crypto: engine - clear busy and recheck running in the retry pump loop
+  crypto: engine - add acomp support
+  crypto: hisilicon/zip - adapt to use crypto engine
+
+Weili Qian (1):
+  crypto: hisilicon/hpre - use crypto engine framework
+
+ crypto/crypto_engine.c                      |  46 ++-
+ drivers/crypto/hisilicon/Kconfig            |   2 +
+ drivers/crypto/hisilicon/hpre/hpre.h        |   4 +
+ drivers/crypto/hisilicon/hpre/hpre_crypto.c | 414 +++++++++++++++-----
+ drivers/crypto/hisilicon/zip/zip.h          |   5 +
+ drivers/crypto/hisilicon/zip/zip_crypto.c   | 358 +++++++++++------
+ include/crypto/acompress.h                  |  33 ++
+ include/crypto/engine.h                     |  13 +
+ include/crypto/internal/acompress.h         |  33 --
+ 9 files changed, 649 insertions(+), 259 deletions(-)
+
 -- 
 2.43.0
-
