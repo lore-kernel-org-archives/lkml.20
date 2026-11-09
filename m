@@ -1,79 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794242680;
-	b=o6DZoI3G+FrdDtgV7VcJGyFWZ3OIpncAJDeGvEhdSEnf6iB5/koJY6TWwmF9/RGHdeeM
-	 655gphSVhMDARi9Lon+PNorDTTuy0NwTYoWq6EZthUqlVgulLWR9gAHMuc6iFZvTZvHgO
-	 M/pz4p88GjWrTew3EF/wOCqCfyFXjZeKty+OzrbUBbI9y+cWQbQnduOT2GRxk3DXLwQgg
-	 znW5pKM989vpE90ZPDXbfknJT8CpwA7bx3ftc1otXK/SRbCaWZI1xkfa8Fgqx/IG+j5oS
-	 iRkQ518CRwvM3qOuIf7N8KvT6oeY9tt9ZX2LGsz5J9IbAgxQtV6PTIjPMPUfMBmbyAw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242680;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=8y9Jl+1LJ8OoB5nJzl2Bt+QCd/i+vREbZWGx+2qkt5U=;
-	b=jbqYb4FedY7a+egb8BsMZwFXp/ME/lZ7BVHDkLwv+UnA+aO0GljpNqJMpzMdRscD2hFT
-	 qbV1o0DxDjGNuJlLFIfafcU1c+HDIYmuVRNmc5NlogbC/MloZZzQxQ2Gzfc2HHbPD2ecx
-	 Wy1M0dS7NSMc4llhStSUzwfLvf5NZKR/yC+YWNmufWOHFqPUBRhZChEVBq6if39pvv84y
-	 mpqi8Qds3A/eOXL5h3gohItx0Y7j8x0gahQLJqD2+Kfq8bk/m04wJz6B0asA7FuE9FoyK
-	 BcwBZ4Um2K8Og12ZD2Ubcrp75JSVeIkM7jFL/XHNOTpgXJ7K0ndDPZtXgnWVl32RwjQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TGqkEQrp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794242670;
+	b=3oW/ytBEvnndUJxhAbVNEKR8a2iYeRaBa6mmdPTFvJmD4RrbUj35Nzqm764pUOkJEnQJ
+	 xjPa1SDDGKTxtZk7jiw8Jo3YEDUW39rY2PDJ/xykGN0dypPEFO3pAkUHFAsJlDl7khrpV
+	 PoY1AOAhJFHHUSsDSZLnB6icdA7ipseWbrkuapsEXaTxY3RxpVKQQCrRj7i51T0XzQIRe
+	 jHv5HYbJOWeQZi+cyNcDAW0gCq/8ebi6+xFAVby/Vk02QeGE+R1a+8tyJLaBXBuKckdu1
+	 OheJEz7tLT7qRmUq+GOzs+sJSi5iU1yo5efbLvakHZP24bHG8bZcjrtX931rIlU6uCA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242670;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=pqc2L1WzcvzIZX23ze7NEAQi3S+/FWCxRg0BqVfI6Vg=;
+	b=3GciM4Uj6saNxWVSQ7zh52Mm5pwxA5sbcZONF06Ht1k1/V+OfjmfaAp25OdgO8oDgXUS
+	 4fRmikOcvdGgtxPaud5LZBHpgUKYqSpEyDP7YQXS4OUyIvUMOGiGj1Dts2SN28Bjwp6we
+	 QHVJiBAnzrjOBE+HXr1/2kshM3MnRTOwz2Yc5I97j6RhJD4Y6l6z1xBzXBLTwwVFlHogk
+	 vfBbvZdJUvOMvIKMZ4+8aWeRV/GTsT7Wl5C/h9EA7d7DGrNwoE2pPwszaMz0LzLMTyqWY
+	 2K1U0LA41833FvhplIPgTIYONGZ7crJWQcxEFZ5hwoRRWk1KfkkItZ5tXhXQfFLWx4Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwYrWyq9;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C552606A326;
-	Mon,  9 Nov 2026 16:44:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C29606A321;
+	Mon,  9 Nov 2026 16:44:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TGqkEQrp
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794242679;
-	b=Eajp3lHVD6RwgtkCb6itK6TBMN3gPCF3D4EOGoifeH+mDWypFQsxi2ZhByJZRZJINNFl
-	 veZxtRzqPV/pPbTGlNK0Zkc0mMVPQrNnl0u0zITgTSSwaQqAdSqQHWwRoOlH5mb3dENiG
-	 b0ZsoGv9vrkBsTEeAMYts+52M5EUCuFalVCUdPB9fEbrMvPOsx6IoiER1k1aFWo/jRB0q
-	 jP8/qa5xo+59nIdUg7nJsgmGtFBW0SPhEGTRugjT7jEMTJxBv1esSnMdNrvOSAIxxpB+B
-	 lnbh1WejIORBfq+oBnMojxtNagTRScXqJWFwP0cK3TEGnosy1D87MkdfFqt1dbIDKNA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794242679;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=8y9Jl+1LJ8OoB5nJzl2Bt+QCd/i+vREbZWGx+2qkt5U=;
-	b=3QWjciofk6xMIL3IUKQVya4w6m8kTNloyznGv1LJ/sMeJHi79jseHOaXkBWcfBPT5K7/
-	 V4+mG8VJiLShgUF0v7BwUER/+VWQqTlqgtDi0kmgQ4VopVfWr0QKOw18XoBBbQ2sBrf6N
-	 teMMv5HSG/JE/qtA11VgZnDIvDk9WY1mdAjI110mzg0GUWPsY1M6ZKcZbZnzs3ff1bHNI
-	 iJw+tCni1NZEF/jjm9Z+FKgsQxCfdwbxWT78UYYJIQgvA0JQpWwkSA1s48tgaoQJ0E3lb
-	 E+fAKxj5s0ga0H24zzAxBznJ2poYFOSkkaZ8IuYmAAxF5sjqEkLoUhN4vA9/R35/m9w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C82231F0089F;
-	Mon,  9 Nov 2026 16:44:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwYrWyq9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB6DB1F0089F;
+	Mon,  9 Nov 2026 16:44:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794242679;
-	bh=8y9Jl+1LJ8OoB5nJzl2Bt+QCd/i+vREbZWGx+2qkt5U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=TGqkEQrpnGnNmDlX2JNgXLjyTwCnVNew36ylvTYyKcnrMz+lS96a4IfVfNIVOYEAp
-	 e3vfAQzELvMQtck1hGo4rs9597nzqREOEzK355nKZaHtH/IdDmKKcc7k5PdpGFsx9e
-	 sp9gj1BJm+7L3ulEJ1IReSzdnX2F6WuwtIPotodTQah7HWB2WGdQuV7dYpt4hckT/F
-	 plEwIw7oT3dyDHmZinYUxPOJA67mxvEUHON+h9KARig5HGbQxXn+fln/WxCiCDQaF4
-	 F8OHPsMAF1eon8fWfPZcLkO5gjhQlxEimto1NzVPlAhfweQ/STixCPAwpGvw2DtWw2
-	 X/MEvTQSZfwIg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 58D8148555;
-	Mon,  9 Nov 2026 16:44:37 +0000 (UTC)
-From: Yongjian Wang via B4 Relay <devnull+echoowall.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 00:44:38 +0800
-Subject: [PATCH net-next v3 4/4] selftests/net: packetdrill: add TCP MTU
- probing test
+	s=k20260515; t=1794242670;
+	bh=pqc2L1WzcvzIZX23ze7NEAQi3S+/FWCxRg0BqVfI6Vg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RwYrWyq9onaHDWrzcgUAnNT+SCoruSQGm9pYpLkASnNzt+eJw6UaP/20lLzCx53Tg
+	 Wq/fzGQuKca+BL62LT2ecyreaIjmIcz1jp30nfdV++sUhfKFKT63PaTdjKFfDyafEr
+	 98bjeO0KYM4XsracQeh3hGCrUI4SmuGqKunKrLyeAPTyqW9tfaZxcRwJL5ATMQ9lQa
+	 XMSohEDAX5THIp9B+tYk3akCt1kk3PX4zT3DVK50IjlwwQLynszpFmdpQ9R/SUmz4V
+	 uy8S+96lC7Ed1ISDIhV4df+jGQMzks7Ar7XQ/Qm3powg856/HDIl9f5zyAz6yLg+84
+	 zi8dbhTRQ83cw==
+Date: Mon, 9 Nov 2026 11:44:25 -0500
+From: Nathan Chancellor <nathan@kernel.org>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Nicolas Schier <nsc@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, Daniel Mack <daniel@zonque.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Sasha Levin <sashal@kernel.org>, linux-input@vger.kernel.org,
+	linux-kbuild@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: apm-power - remove driver
+Message-ID: <20261109164425.GB1608140@ax162>
+References: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,99 +60,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-mtu-probing-series-v3-4-dedfab25d641@gmail.com>
-References: <20261110-mtu-probing-series-v3-0-dedfab25d641@gmail.com>
-In-Reply-To: <20261110-mtu-probing-series-v3-0-dedfab25d641@gmail.com>
-To: davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, 
- shuah@kernel.org, kuniyu@google.com, horms@kernel.org, ncardwell@google.com, 
- kuba@kernel.org
-Cc: netdev@vger.kernel.org, panweiping3@gmail.com, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Yongjian Wang <echoowall@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794242675; l=2652;
- i=echoowall@gmail.com; s=20261026; h=from:subject:message-id;
- bh=Mz0+KsqQBxhWJlyZhAiEUnDL/oZgfrLTgEwG3eDqtks=;
- b=E8pA1CIFCPMSMACXvS3bo4oPEIcOU1Q7aC5PE1l2aLEI7sUb8F92AtXZAmhcsrhJebjW/TiP1
- YmVX1Z+xl2WDlLnWgDNxa8bRYay/hON/Sere9+7/vdGdBfcWEd/rElO
-X-Developer-Key: i=echoowall@gmail.com; a=ed25519;
- pk=9XP6JhqjjPsHCF6UZZZTeqTRnXIa4+ufggnxXtTJ+no=
-X-Endpoint-Received: by B4 Relay for echoowall@gmail.com/20261026 with
- auth_id=1323
-X-Original-From: Yongjian Wang <echoowall@gmail.com>
-Reply-To: echoowall@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
 
-From: Yongjian Wang <echoowall@gmail.com>
+On Mon, Nov 09, 2026 at 12:09:44AM -0800, Dmitry Torokhov wrote:
+> The apm-power input handler solely listens for EV_PWR KEY_SUSPEND
+> events to queue APM_USER_SUSPEND via legacy APM emulation. The only
+> in-tree platforms generating those events are legacy Sharp Zaurus ARM
+> machines (spitz/borzoi/akita and collie), none of which were converted
+> to Device Tree. Both mach-pxa board files and mach-sa1100 were marked
+> deprecated in v7.3 by commit cc7852314abd ("ARM: PXA: mark remaining
+> board files as deprecated") and commit 7d92e50ceacd ("ARM: mark
+> mach-sa1100 as deprecated"), and are queued for removal in v7.5. None
+> of the remaining ARM platforms or other APM_EMULATION targets
+> (MIPS_ALCHEMY, PMAC_APM_EMU, and SH_HP6XX) emit EV_PWR input events or
+> enable CONFIG_INPUT_APMPOWER, and arch/arm/configs/pxa_defconfig
+> already dropped CONFIG_PXA_SHARPSL at the same time, leaving its
+> CONFIG_INPUT_APMPOWER=m entry inert.
+> 
+> Normalizing dashes and underscores in scripts/modules-check.sh for v7.5
+> exposes a module name collision (apm_power) between
+> drivers/input/apm-power.ko and drivers/power/supply/apm_power.ko.
+> Remove this obsolete input bridge to resolve the collision rather than
+> renaming a module whose last target platforms are going away in the
+> same cycle.
+> 
+> Reported-by: Sasha Levin <sashal@kernel.org>
+> Closes: https://lore.kernel.org/r/20261108225808.1809266-1-sashal@kernel.org
+> Link: https://lore.kernel.org/r/20261109-apm-power-input-rename-v1-1-0609e7b91825@kernel.org
+> Link: https://lore.kernel.org/r/e4da2f9d-d3b9-4267-9b64-b0f2cb43402a@app.fastmail.com
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-Packetization layer path MTU discovery (net.ipv4.tcp_mtu_probing=2) has
-no selftest coverage.
+Thanks a lot for helping with this.
 
-Add a test for an active connection. Check that it starts at
-tcp_base_mss, that it sends the first probe half way between
-tcp_base_mss and the peer's MSS once cwnd allows it, and that an
-acknowledged probe raises the MSS and leads to a larger probe.
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
 
-The SYN offers timestamps and the scripted SYN-ACK declines them.
-This also checks that MTU probing uses the negotiated header length
-for the initial send MSS.
-
-Signed-off-by: Yongjian Wang <echoowall@gmail.com>
----
- .../net/packetdrill/tcp_mtu_probing_search.pkt     | 42 ++++++++++++++++++++++
- 1 file changed, 42 insertions(+)
-
-diff --git a/tools/testing/selftests/net/packetdrill/tcp_mtu_probing_search.pkt b/tools/testing/selftests/net/packetdrill/tcp_mtu_probing_search.pkt
-new file mode 100644
-index 000000000000..a48acff8685e
---- /dev/null
-+++ b/tools/testing/selftests/net/packetdrill/tcp_mtu_probing_search.pkt
-@@ -0,0 +1,42 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Test packetization layer path MTU discovery with tcp_mtu_probing=2: an
-+// active connection starts at tcp_base_mss and raises its MSS by binary search
-+// as probes are acknowledged.
-+
-+`./defaults.sh
-+sysctl -q net.ipv4.tcp_mtu_probing=2
-+sysctl -q net.ipv4.tcp_base_mss=1024`
-+
-+    0 socket(..., SOCK_STREAM, IPPROTO_TCP) = 3
-+   +0 fcntl(3, F_SETFL, O_RDWR|O_NONBLOCK) = 0
-+   +0 connect(3, ..., ...) = -1 EINPROGRESS (Operation is now in progress)
-+   +0 > S 0:0(0) <...>
-+  +.1 < S. 0:0(0) ack 1 win 65535 <mss 1460,nop,nop,sackOK>
-+   +0 > . 1:1(0) ack 1
-+   +0 fcntl(3, F_SETFL, O_RDWR) = 0
-+
-+// The initial window is sent with tcp_base_mss. No probe yet, cwnd is below 11.
-+   +0 write(3, ..., 40000) = 40000
-+   +0 > P. 1:2049(2048) ack 1
-+   +0 > P. 2049:4097(2048) ack 1
-+   +0 > P. 4097:6145(2048) ack 1
-+   +0 > P. 6145:8193(2048) ack 1
-+   +0 > P. 8193:10241(2048) ack 1
-+
-+// The first probe is half way between tcp_base_mss and the peer's MSS.
-+  +.1 < . 1:1(0) ack 10241 win 65535
-+   +0 > . 10241:11483(1242) ack 1
-+   +0 > P. 11483:13531(2048) ack 1
-+   +0 > P. 13531:15579(2048) ack 1
-+   +0 > P. 15579:17627(2048) ack 1
-+   +0 > P. 17627:19675(2048) ack 1
-+   +0 > P. 19675:21723(2048) ack 1
-+   +0 > P. 21723:23771(2048) ack 1
-+   +0 > P. 23771:25819(2048) ack 1
-+   +0 > P. 25819:27867(2048) ack 1
-+   +0 > P. 27867:29915(2048) ack 1
-+
-+// Acknowledging the probe raises the MSS, and the next probe is larger.
-+  +.1 < . 1:1(0) ack 29915 win 65535
-+   +0 > . 29915:31266(1351) ack 1
-+   +0 > P. 31266:33750(2484) ack 1
+Nicolas, do you prefer taking this via kbuild-next directly or having
+Dmitry take it via the input tree and giving us an immutable branch? I
+assume the chance of conflicts or follow-ups are low, so we can probably
+just take it directly but I don't want to assume your preference.
 
 -- 
-Git-157)
-
-
+Cheers,
+Nathan
