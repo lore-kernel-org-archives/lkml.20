@@ -1,64 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794240537;
-	b=v6r1h2by8dbeQiH/klwJ0qrE9wU49UuHVAHlVh96XXGFgnulnsHnB9iAgSp+y7Fzu4OM
-	 mJnkQOhUakV7N64QUcW5Y19Vo5YfB+XWTdq4ScDVGz5iHq9+AMhwEGvjMRkOn0lDMvAcr
-	 OXd7Xv7mV2sjOoNlf16NDVOJm0XWd2kr9kVazl7//xPxZRvnykqpBbCEJ18whiOcQ+dHw
-	 nd0dTR6oIeQmXhCURicAi/C9AWTx3WtIVSKKWRz4QQDetaYca2aPBDMBxHHn5r+1ylqDz
-	 2cQ+if4Be/OL14zB1iSuSIMZGaueaqS0WZ5gJPnYVf6BQhbR/YgCt1UWuaFZNzahwqg==
+	t=1794240574;
+	b=qqz/rCizknf7KbnZsuTOV0XM1auHROb2r2i5s4K6s+4MZsHesasgbDCwpuIfmvdZAH9e
+	 76vte9Bn8GtKlQQXnGJPNu1SFzCOX6+bafN9Sj6qU0I5c+RFmE0Lhzhx6Delp5v+kMrdZ
+	 KHOzYf7qgqY7Zn6bi2t28E9djxRuiSF/uZ+EE5Am898rO7vVtvCBAxBGfl7/7GlZgvqFH
+	 FDDe62iXlQzBlatDOcASuN6IqyLxzv7D37L/SFkB5YmD9pzWE1qSdRgwIzXz0ioCWd9Q2
+	 Ya2R9zY3qVBkU1Bo2KaNBC8Szbp+kvMfNdeu2sVyovJ/MGx8TIIBpymxmGnbM3Pj9mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240537;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Us1acSGCownt1gWounrmyheHNyrWFqrZMDVsMoIDEO8=;
-	b=rj3Nthyhz8rh/qzYRh/veQZRkRMBgXyS0RX4r19PPYMilQB1xbSx005q0cPpCrf6rLTn
-	 ETszKTmYFZsxGXj65FzHtAavlJYZ7qzqZYqtKKEpM7k+E8TSvF7GlDELobWjgF7Mfbfci
-	 Y3caTWrkvmjcg9mW1zmdnGMSnxRr2vmK2MFSZNkvaJJci7Hbvcm8t4NdhagIA0SgON69Y
-	 wlIvPnnu/aKsztawMwehdDtda+lB2lDjMJ07CZl+adOir5zUQ6MLb2w2OhYDZOrDaFQLZ
-	 9TwNUlWgLlDt89iaH18aXQlGgjB1KjY6G5pyc2jWvLMZdPY9yuk1rD02h3yWkPzR/Bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240574;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=oUBECy7Kye9hL8xkXSPQ6hpNWvgAWLC7yF5gCgHsvsU=;
+	b=PCI+26IzuOKXWCVkBkYbkuAdF5GNYhH47whn0shei/jWCGihlPxcwqjfHrDvdTfAfx4w
+	 SGFdqVYdCg3t6REYLsbNs6AQHd1s0rsdAH13vAZQM2YupmJK+C8rQcnt69yCjekuegiSW
+	 GUlC44OWjgubMKbQfpMZmgfEoQq+x0Xr3WgYij3A6d5xoGgdVJeO74xLu8LvrYpoJDkVq
+	 iSEOZ6CpEfeX0HVsN2HcYzanfbmo+KiQ7pvPPf4CwUpJL+b1UGyfOOpgvX8I48YACeL1b
+	 COqHlfD0MrJdVnHtwimzlLykpLX5Y+CmXYrsE/BXMNl3mbG4jzAm9xLC5WDLCX9QzrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BfayhrsD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TUq5xXNl;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 0509A606A31C;
-	Mon,  9 Nov 2026 16:08:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89C6606A330
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:09:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E89C6606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BfayhrsD
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C7F4D1F0089F;
-	Mon,  9 Nov 2026 16:08:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794240536;
-	bh=Us1acSGCownt1gWounrmyheHNyrWFqrZMDVsMoIDEO8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BfayhrsDX/QcKNzceAymK2HMOGU+c5tB2/FuH6l5e1/0WCmyf0sGnK3gnIslVL14G
-	 DrEXh5qUmPPET6mY8+4RZVIu2bzsa5nxMyBvpeGVemi3b5N82aBlmTP+5I3sj0r7/e
-	 WBb+nvGRkXWnX6vAqRCGkNpzfOlRWcdmZ6c0xRU09wy1iOS15Ua40BjyZtrTC6Hk/S
-	 MM/n2HCGdz3Bxmm23t1Tn96o9+lnXQlIPZuLLK+WvCOdXwd0cCKfsM+txpmsktTAny
-	 vWuCO73/JGOuBreGI7rgCHle0jifhnYfPweNNgOn/mOZJ7DCruwfjoCG6YLGDkcx5P
-	 svOmxspRhZKaw==
-Date: Mon, 9 Nov 2026 17:08:50 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: Danilo Krummrich <dakr@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Subject: Re: [PATCH] software node: only let the owner release a managed node
-Message-ID: <lhljpce4lyhuggmfyaq4c4g2mxqe5z3gwmqyrnxptlub3bahff@vdyh47ms5ua3>
-References: <20261102-swnode-only-owner-release-v1-1-ee4c9022a629@oss.qualcomm.com>
- <avHMhh8ChrFE_b_e@hovoldconsulting.com>
- <DMQQO3DTZE66.1Q2XGGDGN3WUP@kernel.org>
- <avHZ5U_YR9QSqd0G@hovoldconsulting.com>
- <DMQREV9DFQST.1Z4ZFOFTS0Z7W@kernel.org>
- <avHfx80pHRPwtqRt@hovoldconsulting.com>
- <DMQS3EURP5MB.2DY989AOI0CSD@kernel.org>
- <avHs9hKOc3QVLM4x@hovoldconsulting.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TUq5xXNl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794240573;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oUBECy7Kye9hL8xkXSPQ6hpNWvgAWLC7yF5gCgHsvsU=;
+	b=TUq5xXNlhHaYvY5WdezpSg8+TKizeksqEje2s+WJVVmxv1uxCkHfUqq2PWT4fSHzTOe5EU
+	R7XrSfxjPGY1B5r69rvYLCMEuBMTMro6vNclHNVZinot3PhZ0x9D+yyG3Y94gKiH++2jf3
+	i9CcwPggz224e0IrYzaBcZgvtxrGb78=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-159-Q3ant5ugPyC2v36aBQvWSA-1; Mon,
+ 09 Nov 2026 11:09:29 -0500
+X-MC-Unique: Q3ant5ugPyC2v36aBQvWSA-1
+X-Mimecast-MFC-AGG-ID: Q3ant5ugPyC2v36aBQvWSA_1794240567
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 13E60195607D;
+	Mon,  9 Nov 2026 16:09:27 +0000 (UTC)
+Received: from llong-thinkpadp16vgen1.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9745E26C;
+	Mon,  9 Nov 2026 16:09:24 +0000 (UTC)
+From: Waiman Long <longman@redhat.com>
+To: Ridong Chen <ridong.chen@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Guopeng Zhang <guopeng.zhang@linux.dev>,
+	Waiman Long <longman@redhat.com>
+Subject: [PATCH 0/5] cgroup/cpuset: More fix patches
+Date: Mon,  9 Nov 2026 11:09:07 -0500
+Message-ID: <20261109160912.1369897-1-longman@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,38 +81,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avHs9hKOc3QVLM4x@hovoldconsulting.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On Mon, Nov 09, 2026 at 04:55:34PM +0100, Johan Hovold wrote:
-> On Mon, Nov 09, 2026 at 04:17:33PM +0100, Danilo Krummrich wrote:
-> > On Mon Nov 9, 2026 at 3:59 PM CET, Johan Hovold wrote:
-> 
-> > > So I think we can just go ahead and fix this in driver core directly.
-> > 
-> > Ok, then I agree it is fine as is. :)
-> 
-> Good. :)
-> 
-> I've updated the commit with the missing Reviewed-by and Fixes tag. I
-> also decided to drop the reordering of releasing the swnode references
-> as that is arguable an unrelated change and the current code expects
-> users to hold a reference unless it's a managed node.
->
+This patch series contains an additional set of cpuset fix patches.
 
-Ok, I won't be sending a v2 then.
+Waiman Long (5):
+  selftests/cgroup: Fix "test_cpuset_prs.sh -v" failures
+  cgroup/cpuset: Fix incorrect partition invalidation logic in
+    cpuset_hotplug_update_tasks()
+  cgroup/cpuset: Protect current->mems_allowed read in cpuset_fork()
+  cgroup/cpuset: Correctly set cpus_updated in
+    cpuset_hotplug_update_tasks()
+  cgroup/cpuset: Correctly set isolated_cpus when switching partition
+    state
 
-I'm not sure what the workflow is exactly among the driver core maintainers
-but the commit that ended up in tree looks quite different from what
-I submitted and what Link: references.
+ kernel/cgroup/cpuset.c                        | 66 ++++++++++++++-----
+ .../selftests/cgroup/test_cpuset_prs.sh       | 20 ++++--
+ 2 files changed, 63 insertions(+), 23 deletions(-)
 
-Such in-tree modifications from maintainers have caused problems in the
-past[1]. I would have preferred to apply changes myself based on reviews
-and send a v2 which could then be queued as it appears on the list. Just
-my 2 cents.
+-- 
+2.56.0
 
-Thanks,
-Bartosz
-
-[1] https://lore.kernel.org/all/CACMJSesVR_3-PBt1ScricSKNMRzH5gesqtTVW3mqN=gg0-O-7w@mail.gmail.com/
