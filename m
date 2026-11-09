@@ -1,89 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794255302;
-	b=GJroU0+0w4uPYyheOBFumhLPUT7ewphX5ZSLopLFAUEWbPCA491pIfLv1rrY49bPswYs
-	 UDiMEHJmPxCEw2r3kx3ahLvj5fi4fbSCJu4tMiXn3zFAPLOwutzefxjT/T4M40vX67aqd
-	 fU8XhNLEe56ws04ZJkcXrN84g4Srm09cAFMFb69WQBAzRPnHSXbgioL/QElKxHQMAqrIl
-	 xNY/3+/t1mmQONiYnoJJIOPPs1kbhg07kg3esEnx3QCWe5lXEUOk9gozw++ZO+q1swlqb
-	 Xg9pICZ1VH0cr4i70ElyM1DxTalubOkXVbBnCWf9WsZvYukiMpTUcND+2AkmNSfMO4g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255302;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=FoxVs0lzm+EWWwB8m+Smx/prpVCN9fk/Ey2Oni4TNLc=;
-	b=2JdtPPaW/Qhhdro1L4mfQt67jjIMMNo2HJeejJg4iMHCkDMoZRQ0larA8ig4BNQ+wW/F
-	 gaFt7P/P65Y0tAfXN52v4pgIBZ+RoRg2cc8Ylm1OaXlGGLluJ8xVzPGHK6Oh8VgCSEpaK
-	 4H7Ed6zjJHDPLsFEz2BYZjwk+ik7bSOEi/PT7jj5VV0Cb5dpOm3kN6ZloGEIIzRJoTiR3
-	 lAXDDQt4s5bwtB19UKnxMt2HUE7GrwE5qmMj1tHHnSk5a34ru7/jIJh4cOXj+WrGO8F9M
-	 ZPvzbDgst44cI2QcNQQwJAT0sv+3UFwXX4Q+pKVQTy07YGOIlYJMklfCMR+EMhPUm0w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=o3HD5sT1;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=103.117.158.91
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794255373;
+	b=POrS7dP2tyz6/X1tWi0MHsFuz1zWR+N8t8FHOBBhr2T7DMokjf73udrBuEo/0xUm2frY
+	 MiEeIeirNIbjFA8AHhM81LwnseBxC5aMa0YXq6TDoLMVZPT1TwUjbouO7+Gtr0dDyyXl1
+	 9LSBNguXXbbw5+j/g/MRMiwX5pcTI2OHDXxTgs3fo9mMWEauevwfy9VApzWh4ERco75t5
+	 jKr0RpbpmCuo8AIbPc0FzgysqH11YHi6Ckvx+qgE8L8dHB27k93z+ZDkwunCTrGEaOr+f
+	 zFvarKkh7GtLyxKfevlyWWdzMRjOLbg1cN83SpyqDk+//yJGfPNu5KRB2XQKWEYHddQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794255373;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=NiNGA3mEEis6nXV+E7BAIEjBtF0Ivfk/UEX6Eg2U/Zo=;
+	b=fBbJg7nW6KCWi+DCJc/U4FfUN3nBzh9mTTHHOAG42BxKoflR5WeyQQVcGkRnORJkbNdT
+	 zJIvATY/0sjLwYj7pABNPkHzjXZ90IHA28dbQwt5a5E1z8TEo8BCtmy/+KAbgZnb3+sJ+
+	 Kpv4CjUuZCADVuhn/Ist8k/x8AVMRzx4jni1g/Iryl491tKi8MarIXhoGyPmn+SPr4zwi
+	 Cp2FKamakm2Mzcv7VZowBRUfyUlEizCUYD8NY+fBwJXbebJA6gmwau+94Hv1L3OEik1gi
+	 GtVuh+WOgflNDIwdyQKZoH3xfzf6/eTpjosf5POobN4YyTyIuuPCI7en9lTyvY/XMqQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zohomail.in;
+	spf=pass smtp.mailfrom=zohomail.in;
+	dkim=pass header.d=zohomail.in header.i=@zohomail.in header.a=rsa-sha256 header.s=zoho header.b=Rwtmn6Ow;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=103.117.158.91
+Received: from sender-pp-o91.zoho.in (sender-pp-o91.zoho.in [103.117.158.91])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39493606A325;
-	Mon,  9 Nov 2026 20:15:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39493606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6E1606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:16:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E6E1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=o3HD5sT1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794255300;
-	bh=N1uMDEJ15LlMOkMdvFMaUU6VCm39ARI9V8pnLrmhems=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=o3HD5sT1HbBcSDCC7dDr/wyQeOlGdIsY9qO7fZBschoxDabUzbDyIE/Mz2aW8Ty/l
-	 B8UlO1MHkhY2gZuyzL4q0L6nSlGEJwBOeijJEtR4zC2fx2VH8QQdxkG8TquuEXcP07
-	 5NIjidMFYeNmA5YLmvrgNZwjL3y8onM6nkHVQctISrNmMEUXcF3HI8l0wxETfb9I2y
-	 Mp5dpB8aMmeKiGzf+Ppk58bnqTL2aSYvanOh/mgotbxvyNcAFM7izQUMSVAZYCjlGa
-	 FcCmMPQQDtYkOLQoU0A7/xLFq+CO3SvWz+GrkcfpyfjqtBNrKJE63ZN18JhAocYjkf
-	 l0BTkFB2p099w==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B5DE17E0269;
-	Mon, 09 Nov 2026 21:14:58 +0100 (CET)
-Message-ID: <d8ba9d67a9452bc44be219d5327aa9d7ad83275f.camel@collabora.com>
-Subject: Re: [PATCH 3/3] media: verisilicon: leave room for the JPEG header
- and one stream burst
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: shomenkow@gmail.com, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
-	 <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Ezequiel Garcia
-	 <ezequiel@vanguardiasur.com.ar>, Chen-Yu Tsai <wenst@chromium.org>, Hugues
- Fruchet <hugues.fruchet@foss.st.com>, linux-media@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Mon, 09 Nov 2026 15:14:57 -0500
-In-Reply-To: <20261109-hantro-buflimit-v1-3-f0b86ce61e66@gmail.com>
-References: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
-	 <20261109-hantro-buflimit-v1-3-f0b86ce61e66@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-OjhiqkHAYs9mqbhDUydw"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (1024-bit key, unprotected) header.d=zohomail.in header.i=@zohomail.in header.a=rsa-sha256 header.s=zoho header.b=Rwtmn6Ow
+ARC-Seal: i=1; a=rsa-sha256; t=1794255338; cv=none; 
+	d=zohomail.in; s=zohoarc; 
+	b=erZCLL66+1fQWRpIBiKg7j2TY+gkw0XD9MSe3JsdLfzxr3QrarZlJxkbEExc7Gx4NHRhYJ8tvkucNf1feY22oo+QhL/WuTc8AZF1U+dizXT6YdrccE6nAy/44tt1B5YOiDp+apVnJg2tvzQ6p7mWj0ow3sW7O8YoHS0E1v8LMLA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
+	t=1794255338; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=NiNGA3mEEis6nXV+E7BAIEjBtF0Ivfk/UEX6Eg2U/Zo=; 
+	b=MNLBKj+29IHllT8rF0ru1Yj3gzXURUaFibyJCUEZ8dXEBORGGIL95Y7GYvlcLqKKeNIse7Yky7gp0Mxsyi0C6yFOAnZmXSsuhrI3a4FNTmdu+Ki77XMAKYTadLLYYOmkK706CTjcC7rWYcjjVyW/lqSlBnQDHZ8gmQazjHEr/Dk=
+ARC-Authentication-Results: i=1; mx.zohomail.in;
+	dkim=pass  header.i=zohomail.in;
+	spf=pass  smtp.mailfrom=shivamkalra98@zohomail.in;
+	dmarc=pass header.from=<shivamkalra98@zohomail.in>
+DKIM-Signature: a=rsa-sha256; b=Rwtmn6OwsUENniwoHLto46EAP445ByULk+e8+bpaVkbyd6d6LRJvz8Xc5ZJcoNHc5PoqZuJj/ZOVP9BWtinIgWs5Afr2JeVUvDSJGW/r0/YOMCiEgv46MBQa1sefpkaXaUJg63rwLtyUqSVnpYOCHotLVmvjxI9HpcLlRNEJ/u4=; c=relaxed/relaxed; s=zoho; d=zohomail.in; v=1; bh=NiNGA3mEEis6nXV+E7BAIEjBtF0Ivfk/UEX6Eg2U/Zo=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.in with SMTPS id 1794255336648577.8557176644065;
+	Tue, 10 Nov 2026 01:45:36 +0530 (IST)
+Message-ID: <2caf9f85-8d5d-482a-8479-dd682cbf96fa@zohomail.in>
+Date: Tue, 10 Nov 2026 01:45:35 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,92 +58,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
---=-OjhiqkHAYs9mqbhDUydw
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le lundi 09 novembre 2026 =C3=A0 16:43 +0300, Sergei Khomenkov via B4 Relay=
- a =C3=A9crit=C2=A0:
-> From: Sergei Khomenkov <shomenkow@gmail.com>
->=20
-> hantro_try_fmt() keeps any non-zero sizeimage on the JPEG encoder's
-> CAPTURE queue, however small, and hantro_buf_prepare() then accepts a
-> plane of that size. hantro_jpeg_header_assemble() writes the 624-byte
-> header into the plane with the CPU before the hardware starts, and a
-> plane smaller than the header also makes the WARN_ON() in
-> hantro_h1_jpeg_enc_set_buffers() and
-> rockchip_vpu2_jpeg_enc_set_buffers() fire on every job, which userspace
-> can trigger at will. After the header the encoder writes its stream in
-> bursts, one of them even when the stream limit is 0; on the RK3026
-> VEPU1 a burst is 64 bytes. A plane smaller than the header plus 64 bytes
-> is therefore written past its end.
->=20
-> Raise a smaller request to header_size + 64, so that every plane the
-> driver accepts holds the header and at least one such burst.
->=20
-> Found with an LLM coding assistant while porting mainline Linux to a
-> Rockchip RK3026 board (VEPU1); the assistant also drafted the code and
-> this message. Tested on that board: a 640x480 CAPTURE format set with
-> sizeimage 1, 600, 656 and 689 reads back 688, 688, 688 and 689, a
-> 656-byte DMABUF plane is then refused with EINVAL, and frames that do
-> not fit a 688-byte plane stop exactly at its end and come back with the
-> ERROR flag. A request of 600, now raised to 688, encodes with no
-> warning; before this change it was kept, and the encode hit the
-> WARN_ON() at hantro_h1_jpeg_enc.c:50 (hantro_h1_jpeg_enc_set_buffers(),
-> reported in hantro_h1_jpeg_enc_run()). Also before it, with 32 and 8
-> bytes after the header (a stream limit of 0), the encoder wrote one
-> burst, 32 and 56 bytes past the plane. The burst size is measured there
-> only; not tested on other SoCs.
-
-Trim this.
-
->=20
-> Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
-> ---
->  drivers/media/platform/verisilicon/hantro_v4l2.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/m=
-edia/platform/verisilicon/hantro_v4l2.c
-> index 83af9fa1ce94..cc35beac8338 100644
-> --- a/drivers/media/platform/verisilicon/hantro_v4l2.c
-> +++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
-> @@ -394,6 +394,16 @@ static int hantro_try_fmt(const struct hantro_ctx *c=
-tx,
->  =09=09 */
->  =09=09pix_mp->plane_fmt[0].sizeimage =3D fmt->header_size +
->  =09=09=09pix_mp->width * pix_mp->height * fmt->max_depth;
-> +=09} else if (fmt->codec_mode =3D=3D HANTRO_MODE_JPEG_ENC) {
-> +=09=09/*
-> +=09=09 * The JPEG encoder writes the header with the CPU, then the
-> +=09=09 * stream in bursts, one of them even when the stream limit
-> +=09=09 * is 0. Leave room for both; a burst is 64 bytes on the
-> +=09=09 * RK3026 VEPU1.
-> +=09=09 */
-> +=09=09pix_mp->plane_fmt[0].sizeimage =3D
-> +=09=09=09max_t(u32, pix_mp->plane_fmt[0].sizeimage,
-> +=09=09=09      fmt->header_size + 64);
-
-Did you mean to align to 64 instead ?
-
->  =09}
-> =20
->  =09return 0;
-
---=-OjhiqkHAYs9mqbhDUydw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: use atomic commit for panel power
+ savings
+To: Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Weber <weber.aulendorf@gmail.com>,
+ Wayne Lin <Wayne.Lin@amd.com>
+References: <20261031-abm-sysfs-atomic-v1-1-a99068f3b49c@zohomail.in>
+ <7aec0ed4-1a4d-446b-8971-580770e3de09@amd.com>
+Content-Language: en-US
+From: Shivam Kalra <shivamkalra98@zohomail.in>
+In-Reply-To: <7aec0ed4-1a4d-446b-8971-580770e3de09@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
------BEGIN PGP SIGNATURE-----
+On 06/11/26 03:15, Alex Hung wrote:
+> 
+> 
+> On 10/30/26 15:58, Shivam Kalra via B4 Relay wrote:
+> 
+> Hi Shivam,
+> 
+> Thanks for the patch. Moving this to an atomic commit is the right direction, but as it stands every write still ends in a full modeset.
+> 
+> In amdgpu_dm_atomic_check(), any abm_level difference between the old and new connector state sets new_crtc_state->connectors_changed = true. That makes drm_atomic_crtc_needs_modeset() true, and commit_tail skips the abm_changed / stream_update.abm_level fast path. Users would see a blank/flicker on the eDP panel on every power-profile change.
+> 
+> Could you try keeping drm_atomic_get_crtc_state() and setting connectors_changed only for scaling? ABM would then go through the existing stream update with no modeset, like David's [PATCH 2/2] drm/amd/display: Avoid modeset for ABM changes - https://lore.kernel.org/amd-gfx/20260813112634.11455-3-weber.aulendorf@gmail.com/
+> 
+> Please run IGT amd_abm, including abm_gradual, before v2.
+> 
+> Also see inline comments.
+> 
+Thanks for review! I will send out v2 shortly.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavIpwQAKCRDZQZRRKWBy
-9JhRAP0Uyg+Q//c+hMJ7bQhqP6NRUPies38ldLRzcUIRtFGSFgEA8yxBDE2ptokv
-twYKX3KCvRjzKE802b1cKw7220Hddgg=
-=AjfV
------END PGP SIGNATURE-----
-
---=-OjhiqkHAYs9mqbhDUydw--
