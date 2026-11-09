@@ -1,96 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794247094;
-	b=i97gfLagkdeuQ5vPiAlHYoIFFKmYQywHfbFFk3f+pG9w673beoc76iQ/kkm4b9/Ojstn
-	 Em1NGra4uBG641lB29U9dfc+XYPV2ZKmCM5uiTNjLBioTDpEKFkGivVT2d8L06lkPJCMP
-	 tE3REoUo/nmptlRKjWKyVGUzUddStIbuTDJHYVNulDUv4sxPjEUqudLVmkA16vx+8NCAQ
-	 q/CCg560lmyYkj30JZMzBr7rr9yE8CxmbrRy5lZGsnQ1A7Ql3jFyd0kUIK5loji6iiYzF
-	 /3ZlmngVEo/2Wfc+X3GixmvJ9gaQ8y6St8lQr74wQd0qkQgMDRXPfpourBuXaI4+39w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247094;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794247134;
+	b=3Dpt8JuRN9C/XcIJJ8+TzQqJbH4nvQJnsOy1B98wY2i3b2P4xiXuRpFLDaFTMEKhrzF3
+	 WnCQFgDvn4zajVluZ4lKN5O6bi/BgXWirLTiYkXpJp3ZO7GLIMB4suZ7bJLo1Xazeqq9y
+	 43gEVZV25mhlzWs2RTDO35zhmtHOboO72D0CofDQ8EEYR1awTa5tpna3TwhPZbzgLYDOH
+	 Z2W+lTGL9ErDmH6Y5Rj8hgdeKQ7FpY52UyDxPO2+6E3j7teipXUPYMZTS2wEC3cXSebbP
+	 2TvQ5N/JBk7IrlpFzLJjpbaNMwfAvGTNof6tloMPTxPcc+vqnzGr0iItyyV45k/2LGg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794247134;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NQFcBegZVinznGcGamAVLxh2DaKy3WmcCJmY9lmdZkM=;
-	b=3rU2NffRQ02veiJZYBbVc7xxcn5GFYG88j2ByV/wyl5Kb2h3VpUfchcTBgASm/1xYip+
-	 XSq/qsJwVsvlAIu5Ftgz/7n8U6v4vNq3PAzQ3C1ZQ3hJV2FnSiSJVlTAUcg1kGu8zpwcu
-	 9uDSiTduNmORxFeVyv2LpW7LBNP+9Zlr0L9DniS5vVM5YaLnDZlWefbr6WJWAMcpRBH4N
-	 fb5+B9DbpUFZ0Lmls5CElebtD8dfKZBjdrU7nlPv72YmBxdUboy01lV4jCgLcPHn1SvGI
-	 kAtIt+I4fDVu+APWen+w2J3bY6gHe3GxD9NxHsto6Qb7IeHtUBTycdpXjsCXLLFL9FA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=luxonis.com;
-	spf=pass smtp.mailfrom=luxonis.com;
-	dkim=pass header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=hVX0AILp;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=9q75CrYbbx1raBGLb0OpIjYM8X7HXrQNmHLt90ZlSz8=;
+	b=WnkfSW7KZprKLtRA9eCsVmih4yWy6vyBak6OlmsEvdZp+3pRpiw7+f6TrfHQxgCa6OF4
+	 ImeR8CrK1eDhl5fRBpfoDPAlIZKn+G4eGGqe8E6sLlRqlork4/xhnFtlDN3mNVaBZABr+
+	 OOtF4aX/ZsnikelifUHEl5lkgKzlxDBezrSagPBy8vjaLEfgtLgARU0ezqL0ysPHmtRD0
+	 7jHv73bExm1LbJ/MVhgzYEsHtsRE8IvBIP5XdFy7DZaSKhWZXrjdkVXBp1v2omxzDc79p
+	 Et0IXVZ0dYLTgEFAkKjSEn1j6tzogS5E6pj1FUELWB7IT6AsZuzQ/w8aGmumvK7ssHA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Oblus5Sb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6179F606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:58:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6179F606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=luxonis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=luxonis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA08606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:58:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DA08606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=hVX0AILp
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-490c1d337d8so848348f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:58:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Oblus5Sb
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4c9abc1824so173294566b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:58:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794247133; cv=none;
+        d=google.com; s=arc-20260327;
+        b=d8iJDbs9R5I2r7XaTvIBs8GOs2M482Ijviixh/MkxW6dEsgxMIpDbvxMkWE5O2aFeq
+         5+jzPc8b/CSOK1JBRAnfHTE0q3W2cNzO3x8mz3ydso4JN2UNT5enXa7/XxCgHYJESR+A
+         S7WZ2Q4g7dajUlPhXd5is4bo0NNnAW++DW+GloYfuU/FVYebPxgXu6PhWsJ7VlyiiZXE
+         Q/h33FtUEIgm7QqBQ7aYBsq3vHKR/vezR4UM/pPeZfqN7j9Pgu+3rM370F12kVrUIXnP
+         tu+xG/peKTr38OzPvKN4d0FJmpgao+KADtNjL4dmbLlLBZbCuwRamauSbLNyrOxh8SRI
+         2mrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9q75CrYbbx1raBGLb0OpIjYM8X7HXrQNmHLt90ZlSz8=;
+        fh=9scdFsnSvSdYh+svxs3DNRHg081TDX/+cWt0jrhFxLM=;
+        b=n7ICMs/C76yGTVuvPeYWltQT+VrAE2MvEHOLASMMCzfSQ1sKwL8cSbr1sekV5moiSe
+         W82VUTY0/gNz6WW0JGyb6jNjYq0JPC+mOrYf0ZeVCtI2M9rfdlySMz62pzswdIwhu+vp
+         uv7fvPIVCDlSQhdO8ovznEW91ALiqOKAuHcdZC0AKpXvbSeZ75LgGaHFZcOPYaAwibsG
+         xyl0JUaDT/Nkh2BmeTKzoJ2NEiIbixa7Tqwmdh1fPxR+385Foi+SqEpR1XtIzNC0Y9Ak
+         DX0B4Y99hksiDCGjQTdgMK0n14OClmLh/9ZyiWmP06/iNhcZu9IJlBru9rBEX+2+syyH
+         goXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=luxonis.com; s=google; t=1794247092; x=1794851892; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NQFcBegZVinznGcGamAVLxh2DaKy3WmcCJmY9lmdZkM=;
-        b=hVX0AILpInoPfFisEkn/YXDFkZzXheGdiSemxWWm0t5cmFv4OFi+6aXEbTUaM3mJox
-         h1bQ5xmMku7mNUGnqOyBK+rA6jXs5x3sUZ/+0OACH3kuy/E+2694CldtctlFo2kkqDJf
-         ivyCrJT7ZVn5StfQfVydFKmVHapg05QbPWTzE5ywJs/VQz9zrW/CgHt2asoB6yH0zyz4
-         2+MYYPO7SJMum3X7wnYJ0iC7cR/2xhKqXfm5J49tinJTqSF5Vn+M40KNXAfs6mcGb42w
-         bVK1e7wZrrEYzb3K4jkpGiWL6Bo/kQHZir/pi6QCuwtr3wLOqxIUIUb+u+fgdeCorrgF
-         2ujA==
+        d=google.com; s=20260707; t=1794247133; x=1794851933; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9q75CrYbbx1raBGLb0OpIjYM8X7HXrQNmHLt90ZlSz8=;
+        b=Oblus5SbQVYBivewi2nR7J8npdN1R80u7wbVSsZOQmK8ZH8yCyKoPL05M6qt+hDUQ4
+         LJfsTf4kLBmDjBlL855mlvkiC59XkRJrDoPlUxjOGIpkrC0pxxlOs6DBqpALWznUttrO
+         G9Uy2QeRDcyreaK3mon5vtQ4Y9mc6MiAnQqT9teafpaH7P4t1LcdyeqxBjSsTCzFp962
+         Uki4ej9hjAvEip5q3I+FO1VGn0PC5Cr7EH5rWa6j0jbKxhJRYOXhBaKWLDwDaBuZM72u
+         VOfTuGNivY+sXn4D2bfJ7De36GLPIyXhVS7Z+Mppq9GrG7HhO9ZwsMsTVfaLm+n/xvUU
+         bPug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794247092; x=1794851892;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NQFcBegZVinznGcGamAVLxh2DaKy3WmcCJmY9lmdZkM=;
-        b=EZgpbRWL+6WrnDIw+B0cF0/jcruaEEt8/4N3Rj4vE8oMuxY6hPsOwJS1U2fjUPxeiQ
-         qj7Oy1H3NFfc0pTniAXdnH0/A9En5l6GnQbfdCvs3un45JSdgfTrxz5yYEM0gDb8oS4t
-         U1+tct3mUfXWbkyCg2YXJ5q3w0dAApzuQ9X1chhNqI2d7UYs/qSD7U+UeWNPvSOpZIe0
-         ibVRw4dAIHwqHPLroKikWHTleNUalTxDDDsvyaRYdTo2aJ+z/vaTSkyn+oTXklwU+GDB
-         GgN55x2e3eYcxXm4SO8wQiEghWIaUOg9IEp9ouGkqYoTXeLKRbI5H/zyc4RrchH96TaB
-         fIJQ==
-X-Forwarded-Encrypted: i=1; AL+hErHv1ZlAYDagY3K7GTiD6/mKsXrrnAGJnoesyWa56cJCKk6Wx+ZkGbPaWak5NoAvVW43YhEwZSi3k+Ih2e8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8gKae968O9Dfg14ZLLHKp9YmrsrDo/F1C3wlJYRxsJnBlC08kn
-	N9fuMrroC6uMmfuxJbgstzMnU/SHeQ4e+IuBY1ObIK5AMTrsV890SXOXqKrOGxhuZDw=
-X-Gm-Gg: AYBFou3wmcTFvg57MUYLfawnN8vmMLvFABL62V5igMvZF8PPVgqnDaIDnrZ539VogTH
-	xwXae47vdrnS8QoUKz3aatzfKflEN+bDCfwR3WzlAJJa9Ep1OmssmvwEc7clETacdF2Ngu6J08z
-	DiSXszD/bAXJjWU7kDnM/UI/OajdsctY6mUaA0U9jUHMMM+AwS3zQ+5o5HYEx/DZQsw8ZFDEK4+
-	gfyZYbrC1xgCpn9sA/QIAktuRU2SbozrSH/VLjFHgqKzxX7e29sXYblvRu+YhjOVOFYTrE+GHNc
-	f+X28qIfYQsbpnShCf2rQx2xTrIv1+55tmRbZ6nfWEZd5vdtlFGHW7QFKLmYO04nx6ucZqZlrSX
-	K4SyOuhzuCfFKZPWxo3uuBcMvCNy9xVYMr2M9yULF6tHwlXTg24GtkvgtMG8fvWEbpDm2FF6KSv
-	zHYU6t9ydlVlQbG3tZWtisTMEoTAdNMy9BeMiI7YEaBd0IXmIfV/+Vq8DHjIDP16yHxCFiSgcji
-	RwRtyhc7hgugcJmUCQhr27peLPV+z8cfuAo+YGEwSAKFF6c52miQPwugH+yeCkw6pJcJzUHkO/R
-	ub8OreaD4w3RS1p/AkP70BiPkHS6NEjbCbQAem8Mdr1kaByV9Bius2Mm9lIzF75cfk/eNg==
-X-Received: by 2002:a05:6000:29c9:b0:490:a481:7ac8 with SMTP id ffacd0b85a97d-4982eedfb1cmr255737f8f.29.1794247091597;
-        Mon, 09 Nov 2026 09:58:11 -0800 (PST)
-Received: from JureBuildPC (46-150-36-237.static.telemach.net. [46.150.36.237])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835e20327sm238110f8f.26.2026.11.09.09.58.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 09:58:10 -0800 (PST)
-From: Jure Rebernik <jure.rebernik@luxonis.com>
-To: andersson@kernel.org,
-	mathieu.poirier@linaro.org
-Cc: konrad.dybcio@oss.qualcomm.com,
-	mukesh.ojha@oss.qualcomm.com,
-	linux-remoteproc@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jure Rebernik <jure.rebernik@luxonis.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] remoteproc: qcom: pas: Request stop before tearing down GLINK and SMD
-Date: Mon,  9 Nov 2026 18:57:52 +0100
-Message-ID: <20261109175752.793130-1-jure.rebernik@luxonis.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1794247133; x=1794851933;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9q75CrYbbx1raBGLb0OpIjYM8X7HXrQNmHLt90ZlSz8=;
+        b=efiDrG2Q2+rwViO4t8P2V3HHHP26HRMdWKUp7DGd9eQsKWuuYSkd6FvQSS3dRh1QZQ
+         EXNglxCuQyi7gxinsiEv9wIWAqPjIh3L+zvfJI3ARJGjPWIkbkvknb7A8uTxTTcOC4i0
+         qbDamYigC3eWaZLBUWtyOMRNgY7UIzhG17ZZNr7rQlL3SAWscYJjOa+1B3xjCScdHJm4
+         pRvcw4rVucmIOeNYi9UqCe+wWvAdfUFwAqciRkcJ01XSA+dv2ZoojYJn4rhpwLCZLjA/
+         QGMe61WjLRvrWTwtMbk3qjq7SIrdTsoD5LrKlwczk51BS5gcvHppke4bqzUBrYkLuja8
+         WmGA==
+X-Forwarded-Encrypted: i=1; AL+hErEyylr+G+GeZ6n1W5iGpfZvO1L51/Jbsbn7efQK+iLNpehXNgfZqI/9YcJZhAiRjuN6dO0P4bqkOWeS+Ko=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Fl35OaQySPyFsJ8eA2xKj2arlJLGYVenkPzT2c7C4NsJNkl0D
+	VTiiP3cNZ28bqXGE2vbn0Edse/oaFT7tjc+jjL7Up7KchW5Y4tJCWtJnX5Jg1i8QQ/8Yfl5SobA
+	8jaLPvgzg49/R60q1kzHnsnWL8cRWY+GyTvS+/E0M
+X-Gm-Gg: AYBFou0+vJC0VjStk4mx7KctQAC4hXqL/YUpI56NP8J5O2fp2sNtaly207s/OLGiZ/9
+	pP9Y4n644/zcXXOTnqQsDNn4XDf1XM3I4Mn38kwwBdCZBADvWhSfV4VJyfF627tcLhVMRDGEzVM
+	D1YWzQRRWIJirDjFgSQeU0z4D8B1p6CUY8QVLdn3X70eKmVKzxN3YgapqN0nUXy4vmVMFYZXfyn
+	RLp+u/pEQRvMgI6WN25v/nIOihIdSdloY6U30VgabdocCIZEPK5rmQ2AsTLMAPxf5lkE5KK8nKQ
+	boVlSgykuxv2DU3G2gbPJXm/ZP6RFJOgtAecK9JLt3nDuM4A3CnGJ00Fyxq8EGPDywRJeU556Nu
+	hOz68ePhNdw1xxsF2g7zB6jzWG7wRXf0Up1Haw5YRnIsJ+ONSzx5YR3UIwItJUlLl3HfyrDiSQt
+	Of/rQuS9+w6PB5pB0=
+X-Received: by 2002:a17:907:7f9e:b0:c46:645f:cee2 with SMTP id
+ a640c23a62f3a-c5049451e5fmr16322566b.4.1794247132202; Mon, 09 Nov 2026
+ 09:58:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,149 +105,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261018074528.974953-1-lalitmaganti@gmail.com>
+In-Reply-To: <20261018074528.974953-1-lalitmaganti@gmail.com>
+From: Samuel Wu <wusamuel@google.com>
+Date: Mon, 9 Nov 2026 09:58:40 -0800
+X-Gm-Features: AclHuK_v7qaIr6WMYbYXezDLEd8d-dWLqSsdsr8a5s62qgaMbJAwuZ4_uyen8YQ
+Message-ID: <CAG2KctqPvou3A_EGiov9yZJrCWMmoEX-k4-Or-RGj_Cxdtc7Fg@mail.gmail.com>
+Subject: Re: [PATCH] perf python: Accept events larger than union perf_event
+To: Lalit Maganti <lalitmaganti@gmail.com>
+Cc: irogers@google.com, acme@kernel.org, namhyung@kernel.org, 
+	james.clark@linaro.org, adrian.hunter@intel.com, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A crash of the ADSP that the host reports, for example through the
-remoteproc debugfs crash file, can reset the whole SoC on QCS8550
-instead of restarting the ADSP. The reset was most frequent shortly
-after the ADSP had started: on two QCS8550-based boards, crashing it
-about 4.5 seconds after it was started reset the SoC in 19 of 42
-tries. The serial console showed that the system stopped right after
-the recovery started. Nothing more was logged, and the SoC was reset 6
-to 7 seconds later.
+On Sun, Oct 18, 2026 at 12:45=E2=80=AFAM Lalit Maganti <lalitmaganti@gmail.=
+com> wrote:
+>
+> Samples recorded with --call-graph dwarf carry a copy of the user stack
+> and are larger than union perf_event, so session.process_events()
+> fails on the first one:
+>
+>   $ perf record --call-graph dwarf -- ./workload
+>   $ python3 tools/perf/python/stackcollapse.py
+>   ...
+>   TypeError: Unexpected event size: 4168 < 8424
+>
+> This makes all the standalone scripts unusable on such recordings.
+>
+> pyrf_event__new() rejects events larger than union perf_event, which
+> guarded the copy into the union that pyrf_event used to embed. Since
+> commit 2c672ffdad4b ("perf python: Lazily copy events and samples from
+> process_events") the event is borrowed, or copied to a buffer of
+> header.size bytes when a callback keeps it, so nothing depends on the
+> event fitting in the union any more. Remove the check.
+>
+> With this, stackcollapse.py and flamegraph.py process a DWARF recording
+> of a two-thread workload, with the same per-symbol sample counts as
+> perf script, also when the callback keeps the events after returning.
+>
+> Assisted-by: LLM
+> Signed-off-by: Lalit Maganti <lalitmaganti@gmail.com>
+> ---
+>  tools/perf/util/python.c | 5 -----
+>  1 file changed, 5 deletions(-)
+>
+> diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
+> index 60dbe2dad5eb..8b4b2f3d0926 100644
+> --- a/tools/perf/util/python.c
+> +++ b/tools/perf/util/python.c
+> @@ -1792,11 +1792,6 @@ static PyObject *pyrf_event__new(const union perf_=
+event *event, struct evsel *ev
+>                                     event->header.size, event->header.typ=
+e);
+>         }
+>
+> -       if (event->header.size > sizeof(union perf_event)) {
+> -               return PyErr_Format(PyExc_TypeError, "Unexpected event si=
+ze: %zu < %u",
+> -                                   sizeof(union perf_event), event->head=
+er.size);
+> -       }
+> -
+>         pevent =3D PyObject_New(struct pyrf_event, pyrf_event__type[event=
+->header.type]);
+>         if (pevent =3D=3D NULL)
+>                 return PyErr_NoMemory();
+>
+> base-commit: 1c90f0a3c8a1c4e38f9edd97af9e20848805a7fb
+> --
+> 2.56.0
+>
 
-Since commit 0ea50486978f ("remoteproc: qcom: q6v5: Request shutdown if
-crash is triggered host-side"), qcom_q6v5_request_stop() also sets the
-SMP2P stop bit for a crash that the host reports, so that the firmware
-takes part in its shutdown. The stop is requested from qcom_pas_stop(),
-which rproc_stop() calls only after all subdevices have stopped. By
-then the GLINK and SMD edges to the DSP have been unregistered and
-their client devices, such as FastRPC, torn down. On QCS8550 the ADSP
-firmware treats the stop bit as a fatal error and runs its error
-handler after these links have gone away.
-
-Add a subdevice whose .stop callback requests the stop, and add it
-before sysmon. Subdevices stop in the reverse order of addition, so the
-callback runs after the SSR BEFORE_SHUTDOWN notification and
-sysmon_stop(), and before SMD and GLINK are torn down. The firmware
-then handles the stop request while its GLINK and SMD edges are still
-registered. qcom_q6v5_request_stop() still skips the request when
-sysmon got a shutdown ack, or when the firmware reported the crash
-itself and the fatal or watchdog interrupt has cleared the running
-flag. It also clears the running flag, so the call in qcom_pas_stop()
-now only sends a request when the subdevices were not started.
-
-With this change, none of 104 host-reported crashes on the same boards
-reset the SoC: 40 ADSP crashes at 4.5 seconds, 20 at 4 to 15 seconds,
-20 while the ADSP was streaming IMU sensor data and 24 CDSP crashes.
-The ADSP or CDSP restarted each time.
-
-The problem was found, and this change was written and tested, with
-the help of an AI coding assistant (Claude Code, by Anthropic). I
-reviewed the change and the test results.
-
-Fixes: 0ea50486978f ("remoteproc: qcom: q6v5: Request shutdown if crash is triggered host-side")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jure Rebernik <jure.rebernik@luxonis.com>
----
-
-Notes:
-    Tested on Luxonis OAK4-S boards (QCS8550), ADSP and CDSP, with a kernel
-    based on v7.2.6, which has 0ea50486978f as stable commit 0dc9e289bbb5.
-    The crashes were triggered through the debugfs crash file. To see when
-    the system stopped, a test script wrote a kernel log line to the serial
-    console 20 times a second. A crash that the firmware reports could not
-    be injected.
-    
-    Graceful stops through sysfs also reset these boards occasionally, with
-    and without this patch (2 of 300 stops with it, 2 of about 290 without
-    it). That problem is unrelated to this patch, and I am looking into it
-    separately. This patch does not change that case: the firmware
-    acknowledged the sysmon shutdown request, so no stop request was sent.
-    
-    qcom_q6v5_adsp and qcom_q6v5_mss also call qcom_q6v5_request_stop()
-    from their .stop callbacks, after the subdevices have stopped, and
-    qcom_q6v5_wcss does when requires_force_stop is set. I have no hardware
-    for them and left them unchanged. If the approach is acceptable, they
-    could get the same change.
-    
-    Built for arm64 (defconfig, drivers/remoteproc/, W=1) on rproc-next
-    672126dce63c and on v7.4-rc1, without warnings. Not done: sparse and
-    runtime tests with lockdep and the other debug options.
-    
-    Tool use: I asked Claude Code to make our QCS8550 image stable, to
-    stress it on our test boards and to find why a simulated ADSP crash
-    reset the board. It ran the tests, found the ordering problem and wrote
-    a first fix that skipped the stop request for a crashed DSP. I asked
-    for the stop request to be sent before the teardown instead, which is
-    this patch. It wrote the code and this changelog and ran the tests
-    above with the debugfs crash file, the serial console log and a test
-    script on the boards. I reviewed the code and the results.
-
- drivers/remoteproc/qcom_q6v5_pas.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index 57a111a0d..ddbffe45d 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -138,6 +138,7 @@ struct qcom_pas {
- 	struct qcom_rproc_glink glink_subdev;
- 	struct qcom_rproc_subdev smd_subdev;
- 	struct qcom_rproc_pdm pdm_subdev;
-+	struct rproc_subdev stop_subdev;
- 	struct qcom_rproc_ssr ssr_subdev;
- 	struct qcom_sysmon *sysmon;
- 	struct platform_device *bam_dmux;
-@@ -429,6 +430,14 @@ static void qcom_pas_handover(struct qcom_q6v5 *q6v5)
- 	qcom_pas_pds_disable(pas, pas->proxy_pds, pas->proxy_pd_count);
- }
- 
-+static void qcom_pas_stop_subdev(struct rproc_subdev *subdev, bool crashed)
-+{
-+	struct qcom_pas *pas = container_of(subdev, struct qcom_pas, stop_subdev);
-+
-+	if (qcom_q6v5_request_stop(&pas->q6v5, pas->sysmon) == -ETIMEDOUT)
-+		dev_err(pas->dev, "timed out on wait\n");
-+}
-+
- static int qcom_pas_stop(struct rproc *rproc)
- {
- 	struct qcom_pas *pas = rproc->priv;
-@@ -1012,6 +1021,15 @@ static int qcom_pas_probe(struct platform_device *pdev)
- 	qcom_add_glink_subdev(rproc, &pas->glink_subdev, desc->ssr_name);
- 	qcom_add_smd_subdev(rproc, &pas->smd_subdev);
- 	qcom_add_pdm_subdev(rproc, &pas->pdm_subdev);
-+
-+	/*
-+	 * Subdevices stop in the reverse order of addition. Request the stop
-+	 * after sysmon has asked for a graceful shutdown and before smd and
-+	 * glink are torn down.
-+	 */
-+	pas->stop_subdev.stop = qcom_pas_stop_subdev;
-+	rproc_add_subdev(rproc, &pas->stop_subdev);
-+
- 	pas->sysmon = qcom_add_sysmon_subdev(rproc, desc->sysmon_name, desc->ssctl_id);
- 	if (IS_ERR(pas->sysmon)) {
- 		ret = PTR_ERR(pas->sysmon);
-@@ -1049,6 +1067,7 @@ static int qcom_pas_probe(struct platform_device *pdev)
- 	qcom_remove_ssr_subdev(rproc, &pas->ssr_subdev);
- 	qcom_remove_sysmon_subdev(pas->sysmon);
- deinit_remove_pdm_smd_glink:
-+	rproc_remove_subdev(rproc, &pas->stop_subdev);
- 	qcom_remove_pdm_subdev(rproc, &pas->pdm_subdev);
- 	qcom_remove_smd_subdev(rproc, &pas->smd_subdev);
- 	qcom_remove_glink_subdev(rproc, &pas->glink_subdev);
-@@ -1081,6 +1100,7 @@ static void qcom_pas_remove(struct platform_device *pdev)
- 	qcom_remove_sysmon_subdev(pas->sysmon);
- 	qcom_remove_smd_subdev(pas->rproc, &pas->smd_subdev);
- 	qcom_remove_pdm_subdev(pas->rproc, &pas->pdm_subdev);
-+	rproc_remove_subdev(pas->rproc, &pas->stop_subdev);
- 	qcom_remove_ssr_subdev(pas->rproc, &pas->ssr_subdev);
- 	qcom_pas_pds_detach(pas, pas->proxy_pds, pas->proxy_pd_count);
- 	device_init_wakeup(pas->dev, false);
-
-base-commit: 672126dce63c94e7897867e4c0e681806c49cf02
--- 
-2.56.0
-
+Reviewed-by: Samuel Wu <wusamuel@google.com>
