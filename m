@@ -1,67 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794209776;
-	b=teBUpHyhNIk22oCzfXHVOiOTBtzWjQpcn4+ummxxtL05g4IaF4482LobEAo3l7ajxQRO
-	 zKxAfheM48lkqNr1QYFnmQOOB2akQqemwMEYe/FX1aoQAnrNnZjLDSFEYYeO1VIANNsJQ
-	 YrYb4Fp/tUjntgoRAkAa/j6vnk0Ll3EEResPcEHFN96oWfuYRITepwXWYqnYWZZ4RfpRY
-	 d2PBb7fH+DmliG+cMqAP8uvaVXiRHafKTmVEK/RkTEsobzp3Car3/7NBiIXCOGsHVj/nP
-	 OAOzhvTT28MKPaKZKGHagrg+vL4oVhXPHuIHM7ofthHkYEjpDe6YblpZl09jWKyOH1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209776;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=oP+TfnNZPEQgVNjsskoT2TVn8bAN4JFZz+oj1kzTdjw=;
-	b=pSH+h+x5MBc873sRtc90pLDUxfylnxyiJENy9Y4rfpVOBvUP+Ja21FvfrlzhIUylNkas
-	 Fg8yEZF4IVni8q8+0DcvqLI0El9GgHXjyuKoJ4kI3ErP47UnmXO9TcM3lozLEzTHTSUvO
-	 OTKow9FWmS7sg92EY8NEPfNUfkcpJgeqXC4if0NPZ8rgXPG2ClzizaPYJKcAJDbmlVOxt
-	 9g/ZIGu1mko2hj1oV3x5hgwTBS2cTHswrHSg06CIPOAqPZ4nR8Oyx5O4zBp9x3r3f6NCn
-	 qgXdgD2wEWv62dAHeBBbZ5vrRqnCK4nuJm016LGENYZuzMWllOx52bT6imfNaHMiQ8A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=frNFWsws;
-	arc=none smtp.remote-ip=113.46.200.227
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794210020;
+	b=Eewk5NGhYKxqUpt1QpE5ja+jb8ImZyy4U6Iyvbz1KUMdKpUpkGvDzZFjrLJF+XrasweG
+	 23wJdyXKSr5SkN5YSBi6Xqqoc9JBFt+ZdbBqBTvxRnHTdol1nwPgAN1bcKP8nZx7AyToc
+	 LO4sJjF90tnO1rDzg5BNKPHYz5wkd3grgOOsJ3sVVel1B1Ijji0Y8vQXpr7R2hrbxRfYk
+	 az5psfO87FBPHQOnk89T7Md9stRAmkP5tGTIx7COA1Q0pGpRdZAnjeJAQd6INhobXQH7m
+	 Pszz+Kolx684jU7uu3aOqHrtAw/uQT7SmiSaYPYOm1+Z3+XuDgrsZoYba0kJ504UBog==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794210020;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qbtFVfAV0d//avrt7X6KHwZhQyPReObvw80fRr8okBY=;
+	b=4RAycfiXrPExilW+artPogzLQP3pzFKLhnACRxJGxRjJ1zJHrwYbG5ElzLgp/C2RXQy5
+	 URn9pHoY3RvNHLFYKOXckVt4W0mWOg65TW+SmIEliaz5xS/7ySXjdHIko9VJWmdxeQbU/
+	 Mq92aUi0PHRd0RF816Q72JOVQPxf/cc+AEwGVlZk2Eoqod3rfeOaUdXK0kIyd0NUFXnOi
+	 HPk58QpATfSUw1081hUPJN9LQemEMPv1mQuA/jH84eXrd3aHlKvZAOtwwwHqMsPHjFfFo
+	 5lfT1yHLjRqxftTmMvoaEtr1Pq28rrQ3nzfGDYA+gzQp6E7OyBh0Mntj1aRPiufZVzg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fw1HJ3eB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A868F606A321;
-	Mon,  9 Nov 2026 07:36:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A868F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F61606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:40:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63F61606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=frNFWsws
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=oP+TfnNZPEQgVNjsskoT2TVn8bAN4JFZz+oj1kzTdjw=;
-	b=frNFWsws9egrFENZkBILAFMGc/QbzT3N+dIl3UTPvUswe2/CTu2CpDInfAcrI72P8J0ZCvJQL
-	UPH3VmNhjAXThCpN6xQrbqW1RJdcWDmiXEjK35La8xzQCYqiOLz/OPKiISXR/4AscXqW7dcz9kw
-	0HZbPRIVCdldXZGiX2ABoEM=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jNM671gfhznTbQ;
-	Mon,  9 Nov 2026 15:36:15 +0800 (CST)
-Received: from whupemk200001.china.huawei.com (unknown [7.152.184.93])
-	by mail.maildlp.com (Postfix) with ESMTPS id 3ABA44055B;
-	Mon,  9 Nov 2026 15:36:11 +0800 (CST)
-Received: from localhost.localdomain (10.50.163.32) by
- whupemk200001.china.huawei.com (7.152.184.93) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 9 Nov 2026 15:36:10 +0800
-From: Chenghai Huang <huangchenghai2@huawei.com>
-To: <herbert@gondor.apana.org.au>, <davem@davemloft.net>
-CC: <linux-kernel@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
-	<liulongfang@huawei.com>, <qianweili@huawei.com>, <wangzhou1@hisilicon.com>,
-	<linwenkai6@hisilicon.com>
-Subject: [PATCH 3/4] crypto: hisilicon/hpre - use crypto engine framework
-Date: Mon, 9 Nov 2026 15:35:55 +0800
-Message-ID: <20261109073556.2517351-4-huangchenghai2@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109073556.2517351-1-huangchenghai2@huawei.com>
-References: <20261109073556.2517351-1-huangchenghai2@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fw1HJ3eB
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b0a2a44a0cso294143a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:40:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794210020; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bIHy3C0O/Au4ifl6BWlqnC50Ac2xb+n+H2FsRfdsg3UxQRZPCB/GQnWAI24yQGXnHQ
+         GZ2Uh2qNJ+PRaCXnRj+La7qpd7MO7zdRXVQL8PbGmIIoQIDURxGsgvcIpJVTuhfLqXgT
+         arvrl4nLEDF/b99fgBlfMAOjI67xYHPF37q7HQbHuTPM7fLlEbdk2a66laV2KeJKHtJ4
+         hWw2VXAdrGerqzG4DLXK4IG1BxNdqinhTGOfi7ckE8KY4Tm9tXR5Iw65hyPN6FdWnqXO
+         OLcpyeO2oce7n7IR6Lmpyrn8ma8+iqrSu5qKIA+ZdKqhOfh+yisQ6OUkAu4UDzzgUq+V
+         UizQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qbtFVfAV0d//avrt7X6KHwZhQyPReObvw80fRr8okBY=;
+        fh=b0uOxwcNFJIFGEY1GURHk7xb9DK3CI+CXa5o7PcGPJE=;
+        b=gwBvNmvBbrJCN1TLhA+QLIjDDOr9rnYpxg5Sf6VRhv+JjuQ/amN9EfWeyWJd4wjeEu
+         yNyt+eEDzp2H1SZ23XLpUwzbMJ3oMSMvkpbUyzuhB1OahRaj8FXNmgeJkyq7bVHwRo2A
+         +07M6ZcRgWlwkoj1d7XK2G4KLEpRhrM3qpvEpoZIMgG6jeXCrqLFn7nLMP97kTtZC99j
+         ua+JdF2RrJgyewpWc9rtahXL3nogwFm0PKMjs/Qqoyih6L5/bckKGJm/sp4GwCWnAzbf
+         kBIugi6n+YsrnXvviWW4MP5TD69nUNM7I58f/3NUHgJsVWbIgprijwnCSydBJXfdiO6D
+         DBxw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794210020; x=1794814820; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qbtFVfAV0d//avrt7X6KHwZhQyPReObvw80fRr8okBY=;
+        b=Fw1HJ3eBrEG+YcG2OfXIKNyXLbtxL6pFyShNR64xnTBicLVJTLcqI70PP7XlmXPNx6
+         VWmQ662eksYGc8vJo+lcMpjTIaYcJB9aokKPIxavS8OWhjpOs8W89bix1ozwYvKeb3b4
+         M7C1Y4n+R7cdsAeFDh3I3fT0WNvzf0CnRZWDlQZYC+5M2rSyX8wMQx9uS+vQs8QSo0d/
+         2FLip2Uo0zLuYIubK7TNTBZ4sl8ZrZ+JeHk7SDm/ZlHHFtWu1M3YyNEi+YttPBGWC2RM
+         X/hXAhXzRlZNf20NwByFmIPl+GnzmQCqAB4nehLzmm3jWxLA5k3xC+msTg/JbR6XvUqv
+         ep4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794210020; x=1794814820;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qbtFVfAV0d//avrt7X6KHwZhQyPReObvw80fRr8okBY=;
+        b=pPAUdjngVr8lcDbWN2NnPEL69p4zLLqLpOC/OqoRkHa0sxXJDVz2jo3VxVb2eoIqho
+         Y7ti6x4I0V3Xjzu1Q3hBrWQudj5sflbbpdED6XtboqszA2peBVxwSkXRryXsgBm8abTR
+         PUGRXaulDSrNEtoOH9ueIQcffG2fpihjNPCFZFOaVOZk503FA9/o/Byzhtd6FbUoAXPr
+         i5sMPv7Yb5nfRxDefiyyQk/Fd/kekj9X6K5e4IKzwyt4xUl/9LLAt8yO//WfhlfJbAjz
+         mJVv3h52WETzWku5hLYRMMneBjMBqdFCDx6CR9CMf9s4vaZGZY4PGd5rL5738pFouJ2K
+         +zzw==
+X-Forwarded-Encrypted: i=1; AL+hErHz9anbdnnRPAUGtHkk7xkdykOlOf1qHj+ZykKtbVnj2ZlNCPrqLEAfb0VKTBDRUKEUpXtQxSg3eD3qo8o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/OoeZhZVOmcmKq7247+CVch3djAuZBqQMm4kNe0uDtlLD/T8DI
+	SFHMK0ycV/iRcqKA2scWGxt2+ZREKd/Eu7y9kszCbso2yeyyYCzRPn+mryqfDQqLXFkOgwAbiIf
+	Qdx7t42mnzPgcnKEOwXv7q2IeCKXe452R0mDki7c=
+X-Gm-Gg: AYBFou3Dt0Fr4Qmft7PyevEqTnZW5xC6lfyPHhe7sJxBo+vR6XO6hy7nJkKkLZMZoTf
+	Rt6XKzmB6BN7hs85DQd6io0QiEZ3/z2vEmtUCC0P/m6AXriOJPMmwVg0uAoP5RgkNxT+0gaaeMX
+	SLPKqfPyThLh7d6F1GKINn32ogDmr6x/SY4EAvX8MKfArY7l6fwXw73BiWvB8sZeslsVBt+WiOr
+	rsvgjChejaaiAiMdaHoY+5BHFrRlDmdWzSVMtHBeaVzT9mtN3f+gDp4vW9HlCcCupPxgPMYEykA
+	zcfLikX36K51KHBHD5Ns8SlSuKKQYAUvhJWCs6dqudwtL16a1KWnPYTt2CiCDBiLxU4v35uRx5B
+	pVh/fDcsFrh4UTculPEYZ4m7hJbB8KQJ6m1Q=
+X-Received: by 2002:a17:90b:384c:b0:3ad:a270:a623 with SMTP id
+ 98e67ed59e1d1-3b12d107e44mr3364118a91.4.1794210019701; Sun, 08 Nov 2026
+ 23:40:19 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,679 +104,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- whupemk200001.china.huawei.com (7.152.184.93)
+References: <20261102135330.2493332-1-robh@kernel.org> <CAAfSe-uD=s0RpuqQ_h+_fErcEC+G=N_LA6e=p_sXJ=iG7jMc3Q@mail.gmail.com>
+In-Reply-To: <CAAfSe-uD=s0RpuqQ_h+_fErcEC+G=N_LA6e=p_sXJ=iG7jMc3Q@mail.gmail.com>
+From: Chunyan Zhang <zhang.lyra@gmail.com>
+Date: Mon, 9 Nov 2026 15:39:42 +0800
+X-Gm-Features: AclHuK_dnPMk52UN3-2_wspDGRy5a6s-cwmnh8paY6ZY-G54Qz5KZ0bygsAWCVc
+Message-ID: <CAAfSe-shr1+0YpxEvf+4k+DyGe3==PUiD72CwjE+RC4gX-ShiQ@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: Use hex unit address patterns
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, Jiri Pirko <jiri@resnulli.us>, 
+	Ivan Vecera <ivecera@redhat.com>, Benson Leung <bleung@chromium.org>, 
+	Guenter Roeck <groeck@chromium.org>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Olivier Moysan <olivier.moysan@foss.st.com>, 
+	Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
+	Ulf Hansson <ulfh@kernel.org>, Hans Ulli Kroll <ulli.kroll@googlemail.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+	Orson Zhai <orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Paul Kocialkowski <paul.kocialkowski@bootlin.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Chanh Nguyen <chanh@os.amperecomputing.com>, Alistair Francis <alistair@alistair23.me>, 
+	Julius Werner <jwerner@chromium.org>, Paul Cercueil <paul@crapouillou.net>, 
+	Dmitry Osipenko <digetx@gmail.com>, Florian Fainelli <f.fainelli@gmail.com>, 
+	Thierry Reding <thierry.reding@gmail.com>, Ray Jui <ray.jui@broadcom.com>, 
+	Scott Branden <scott.branden@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	chrome-platform@lists.linux.dev, linux-gpio@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-sound@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-tegra@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Weili Qian <qianweili@huawei.com>
+On Thu, 5 Nov 2026 at 10:39, Chunyan Zhang
+<chunyan.zhang@linux.spacemit.com> wrote:
+>
+> On Mon, 2 Nov 2026 at 21:53, Rob Herring (Arm) <robh@kernel.org> wrote:
+> >
+> > Unit-addresses by default (and most commonly) are hexadecimal. There's =
+a
+> > number of cases using decimal patterns. Fix all of them, limiting the
+> > pattern to match the 'reg' limits if there are any.
+> >
+> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> > ---
+>
+> [snip]
+>
+> > diff --git a/Documentation/devicetree/bindings/thermal/sprd-thermal.yam=
+l b/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml
+> > index afa551f6185f..222d70baef1e 100644
+> > --- a/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml
+> > +++ b/Documentation/devicetree/bindings/thermal/sprd-thermal.yaml
+> > @@ -47,7 +47,7 @@ properties:
+> >      const: 0
+> >
+> >  patternProperties:
+> > -  "^([a-z]*-)?sensor(-section)?@[0-9]+$":
+> > +  "^([a-z]*-)?sensor(-section)?@[0-9a-f]+$":
+>
+> Reviewed-by: Chunyan Zhang <zhang.lyra@gmail.com>
 
-The HPRE driver has no software backlog queue for MAY_BACKLOG requests.
-When the hardware queue is full, such requests fail instead of being
-queued for later retry.
+Following up on Andy's note about this:
 
-Migrate DH/RSA/ECDH to the crypto engine framework, which provides a
-backlog queue and built-in retry on -ENOSPC. Convert akcipher_alg/kpp_alg
-to akcipher_engine_alg/kpp_engine_alg and use the corresponding engine
-register/unregister APIs.
+Please disregard my Reviewed-by. Even though I did look at some of
+the other hunks, given that I'm not familiar with the other hardware,
+I don't feel comfortable giving a whole-patch Reviewed-by out of
+caution. And since I'm no longer the SPRD maintainer, an Acked-by
+wouldn't be appropriate either. So withdrawing is the best option =E2=80=94
+sorry for the inconvenience.
 
-Only MAY_BACKLOG requests are routed through the engine; the QM
-hardware queue is deep enough to accept other requests directly, so
-they skip the engine overhead and fail with -ENOSPC when full, per
-the API contract. Non-backlog requests use a direct-send path with
-bounded retries; the error code for a full queue changes from -EBUSY
-to -ENOSPC in this path.
-
-HPRE_SEND_CNT now counts successful sends instead of attempts.
-
-Signed-off-by: Weili Qian <qianweili@huawei.com>
----
- drivers/crypto/hisilicon/Kconfig            |   1 +
- drivers/crypto/hisilicon/hpre/hpre.h        |   4 +
- drivers/crypto/hisilicon/hpre/hpre_crypto.c | 414 +++++++++++++++-----
- 3 files changed, 314 insertions(+), 105 deletions(-)
-
-diff --git a/drivers/crypto/hisilicon/Kconfig b/drivers/crypto/hisilicon/Kconfig
-index e38a71d96201..bd8390337d09 100644
---- a/drivers/crypto/hisilicon/Kconfig
-+++ b/drivers/crypto/hisilicon/Kconfig
-@@ -58,6 +58,7 @@ config CRYPTO_DEV_HISI_HPRE
- 	select CRYPTO_DH
- 	select CRYPTO_RSA
- 	select CRYPTO_ECDH
-+	select CRYPTO_ENGINE
- 	help
- 	  Support for HiSilicon HPRE(High Performance RSA Engine)
- 	  accelerator, which can accelerate RSA and DH algorithms.
-diff --git a/drivers/crypto/hisilicon/hpre/hpre.h b/drivers/crypto/hisilicon/hpre/hpre.h
-index f73d01f6da87..c1843d85bcd1 100644
---- a/drivers/crypto/hisilicon/hpre/hpre.h
-+++ b/drivers/crypto/hisilicon/hpre/hpre.h
-@@ -5,10 +5,12 @@
- 
- #include <linux/list.h>
- #include <linux/hisi_acc_qm.h>
-+#include <crypto/engine.h>
- 
- #define HPRE_SQE_SIZE			sizeof(struct hpre_sqe)
- #define HPRE_PF_DEF_Q_NUM		64
- #define HPRE_PF_DEF_Q_BASE		0
-+#define HPRE_MAX_CRYPTO_ENGINE		64
- 
- /*
-  * type used in qm sqc DW6.
-@@ -70,6 +72,8 @@ struct hpre_debug {
- struct hpre {
- 	struct hisi_qm qm;
- 	struct hpre_debug debug;
-+	struct crypto_engine *engine[HPRE_MAX_CRYPTO_ENGINE];
-+	u32 engine_num;
- };
- 
- enum hpre_alg_type {
-diff --git a/drivers/crypto/hisilicon/hpre/hpre_crypto.c b/drivers/crypto/hisilicon/hpre/hpre_crypto.c
-index 66a276786a7d..c02c33ba04d4 100644
---- a/drivers/crypto/hisilicon/hpre/hpre_crypto.c
-+++ b/drivers/crypto/hisilicon/hpre/hpre_crypto.c
-@@ -4,6 +4,7 @@
- #include <crypto/dh.h>
- #include <crypto/ecc_curve.h>
- #include <crypto/ecdh.h>
-+#include <crypto/engine.h>
- #include <crypto/rng.h>
- #include <crypto/internal/akcipher.h>
- #include <crypto/internal/kpp.h>
-@@ -118,6 +119,7 @@ struct hpre_ctx {
- 	/* for high performance core */
- 	u8 enable_hpcore;
- 	bool fallback;
-+	struct crypto_engine *engine;
- };
- 
- struct hpre_asym_request {
-@@ -336,7 +338,12 @@ static void hpre_dh_cb(struct hpre_ctx *ctx, void *resp)
- 		atomic64_inc(&dfx[HPRE_OVER_THRHLD_CNT].value);
- 
- 	hpre_hw_data_clr_all(ctx, req, areq->dst, areq->src);
--	kpp_request_complete(areq, ret);
-+	local_bh_disable();
-+	if (areq->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG)
-+		crypto_finalize_kpp_request(ctx->engine, areq, ret);
-+	else
-+		kpp_request_complete(areq, ret);
-+	local_bh_enable();
- 	atomic64_inc(&dfx[HPRE_RECV_CNT].value);
- }
- 
-@@ -357,7 +364,12 @@ static void hpre_rsa_cb(struct hpre_ctx *ctx, void *resp)
- 	areq = req->areq.rsa;
- 	areq->dst_len = ctx->key_sz;
- 	hpre_hw_data_clr_all(ctx, req, areq->dst, areq->src);
--	akcipher_request_complete(areq, ret);
-+	local_bh_disable();
-+	if (areq->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG)
-+		crypto_finalize_akcipher_request(ctx->engine, areq, ret);
-+	else
-+		akcipher_request_complete(areq, ret);
-+	local_bh_enable();
- 	atomic64_inc(&dfx[HPRE_RECV_CNT].value);
- }
- 
-@@ -386,10 +398,20 @@ static int hpre_ctx_init(struct hpre_ctx *ctx, u8 type)
- 		return -ENODEV;
- 	}
- 
-+	hpre = container_of(qp->qm, struct hpre, qm);
-+	if (!hpre->engine_num) {
-+		hisi_qm_free_qps(&qp, 1);
-+		return -ENODEV;
-+	}
-+	ctx->engine = hpre->engine[qp->qp_id % hpre->engine_num];
-+	if (!ctx->engine) {
-+		hisi_qm_free_qps(&qp, 1);
-+		return -ENODEV;
-+	}
-+
- 	qp->req_cb = hpre_alg_cb;
- 	ctx->qp = qp;
- 	ctx->dev = &qp->qm->pdev->dev;
--	hpre = container_of(ctx->qp->qm, struct hpre, qm);
- 	ctx->hpre = hpre;
- 	ctx->key_sz = 0;
- 	ctx->crt_g2_mode = false;
-@@ -448,25 +470,29 @@ static int hpre_msg_request_set(struct hpre_ctx *ctx, void *req, bool is_rsa)
- 	return 0;
- }
- 
--static int hpre_send(struct hpre_ctx *ctx, struct hpre_sqe *msg)
-+static int hpre_alg_send_message_retry(struct hpre_asym_request *hpre_req)
- {
--	struct hpre_dfx *dfx = ctx->hpre->debug.dfx;
--	int ctr = 0;
-+	struct hpre_dfx *dfx = hpre_req->ctx->hpre->debug.dfx;
-+	struct hisi_qp *qp = hpre_req->ctx->qp;
-+	int cnt = 0;
- 	int ret;
- 
- 	do {
--		atomic64_inc(&dfx[HPRE_SEND_CNT].value);
--		ret = hisi_qp_send(ctx->qp, msg);
-+		ret = hisi_qp_send(qp, &hpre_req->req);
- 		if (ret != -EBUSY)
- 			break;
- 		atomic64_inc(&dfx[HPRE_SEND_BUSY_CNT].value);
--	} while (ctr++ < HPRE_TRY_SEND_TIMES);
-+	} while (cnt++ < HPRE_TRY_SEND_TIMES);
- 
--	if (likely(!ret))
--		return ret;
-+	if (ret == -EBUSY)
-+		return -ENOSPC;
-+
-+	if (likely(!ret)) {
-+		atomic64_inc(&dfx[HPRE_SEND_CNT].value);
-+		return -EINPROGRESS;
-+	}
- 
--	if (ret != -EBUSY)
--		atomic64_inc(&dfx[HPRE_SEND_FAIL_CNT].value);
-+	atomic64_inc(&dfx[HPRE_SEND_FAIL_CNT].value);
- 
- 	return ret;
- }
-@@ -501,11 +527,16 @@ static int hpre_dh_compute_value(struct kpp_request *req)
- 	else
- 		msg->dw0 = cpu_to_le32(le32_to_cpu(msg->dw0) | HPRE_ALG_DH);
- 
--	/* success */
--	ret = hpre_send(ctx, msg);
--	if (likely(!ret))
--		return -EINPROGRESS;
-+	if (req->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG) {
-+		ret = crypto_transfer_kpp_request_to_engine(ctx->engine, req);
-+		if (ret == -EINPROGRESS || ret == -EBUSY)
-+			return ret;
-+		goto clear_all;
-+	}
- 
-+	ret = hpre_alg_send_message_retry(hpre_req);
-+	if (ret == -EINPROGRESS)
-+		return ret;
- clear_all:
- 	hpre_hw_data_clr_all(ctx, hpre_req, req->dst, req->src);
- 
-@@ -779,10 +810,16 @@ static int hpre_rsa_enc(struct akcipher_request *req)
- 	if (unlikely(ret))
- 		goto clear_all;
- 
--	/* success */
--	ret = hpre_send(ctx, msg);
--	if (likely(!ret))
--		return -EINPROGRESS;
-+	if (req->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG) {
-+		ret = crypto_transfer_akcipher_request_to_engine(ctx->engine, req);
-+		if (ret == -EINPROGRESS || ret == -EBUSY)
-+			return ret;
-+		goto clear_all;
-+	}
-+
-+	ret = hpre_alg_send_message_retry(hpre_req);
-+	if (ret == -EINPROGRESS)
-+		return ret;
- 
- clear_all:
- 	hpre_hw_data_clr_all(ctx, hpre_req, req->dst, req->src);
-@@ -832,11 +869,16 @@ static int hpre_rsa_dec(struct akcipher_request *req)
- 	if (unlikely(ret))
- 		goto clear_all;
- 
--	/* success */
--	ret = hpre_send(ctx, msg);
--	if (likely(!ret))
--		return -EINPROGRESS;
-+	if (req->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG) {
-+		ret = crypto_transfer_akcipher_request_to_engine(ctx->engine, req);
-+		if (ret == -EINPROGRESS || ret == -EBUSY)
-+			return ret;
-+		goto clear_all;
-+	}
- 
-+	ret = hpre_alg_send_message_retry(hpre_req);
-+	if (ret == -EINPROGRESS)
-+		return ret;
- clear_all:
- 	hpre_hw_data_clr_all(ctx, hpre_req, req->dst, req->src);
- 
-@@ -1433,8 +1475,12 @@ static void hpre_ecdh_cb(struct hpre_ctx *ctx, void *resp)
- 	p = sg_virt(areq->dst);
- 	memmove(p, p + ctx->key_sz - curve_sz, curve_sz);
- 	memmove(p + curve_sz, p + areq->dst_len - curve_sz, curve_sz);
--
--	kpp_request_complete(areq, ret);
-+	local_bh_disable();
-+	if (areq->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG)
-+		crypto_finalize_kpp_request(ctx->engine, areq, ret);
-+	else
-+		kpp_request_complete(areq, ret);
-+	local_bh_enable();
- 
- 	atomic64_inc(&dfx[HPRE_RECV_CNT].value);
- }
-@@ -1561,9 +1607,16 @@ static int hpre_ecdh_compute_value(struct kpp_request *req)
- 	msg->dw0 = cpu_to_le32(le32_to_cpu(msg->dw0) | HPRE_ALG_ECC_MUL);
- 	msg->resv1 = ctx->enable_hpcore << HPRE_ENABLE_HPCORE_SHIFT;
- 
--	ret = hpre_send(ctx, msg);
--	if (likely(!ret))
--		return -EINPROGRESS;
-+	if (req->base.flags & CRYPTO_TFM_REQ_MAY_BACKLOG) {
-+		ret = crypto_transfer_kpp_request_to_engine(ctx->engine, req);
-+		if (ret == -EINPROGRESS || ret == -EBUSY)
-+			return ret;
-+		goto clear_all;
-+	}
-+
-+	ret = hpre_alg_send_message_retry(hpre_req);
-+	if (ret == -EINPROGRESS)
-+		return ret;
- 
- clear_all:
- 	hpre_ecdh_hw_data_clr_all(ctx, hpre_req, req->dst, req->src);
-@@ -1679,86 +1732,176 @@ static void hpre_ecdh_exit_tfm(struct crypto_kpp *tfm)
- 	hpre_ecc_clear_ctx(ctx, true);
- }
- 
--static struct akcipher_alg rsa = {
--	.encrypt = hpre_rsa_enc,
--	.decrypt = hpre_rsa_dec,
--	.set_pub_key = hpre_rsa_setpubkey,
--	.set_priv_key = hpre_rsa_setprivkey,
--	.max_size = hpre_rsa_max_size,
--	.init = hpre_rsa_init_tfm,
--	.exit = hpre_rsa_exit_tfm,
--	.base = {
--		.cra_ctxsize = sizeof(struct hpre_ctx),
--		.cra_priority = HPRE_CRYPTO_ALG_PRI,
--		.cra_name = "rsa",
--		.cra_driver_name = "hpre-rsa",
--		.cra_module = THIS_MODULE,
--		.cra_flags = CRYPTO_ALG_NEED_FALLBACK,
--	},
--};
-+static int hpre_alg_send_message(struct hpre_asym_request *hpre_req)
-+{
-+	struct hpre_dfx *dfx = hpre_req->ctx->hpre->debug.dfx;
-+	struct hisi_qp *qp = hpre_req->ctx->qp;
-+	int ret;
- 
--static struct kpp_alg dh = {
--	.set_secret = hpre_dh_set_secret,
--	.generate_public_key = hpre_dh_generate_public_key,
--	.compute_shared_secret = hpre_dh_compute_shared_secret,
--	.max_size = hpre_dh_max_size,
--	.init = hpre_dh_init_tfm,
--	.exit = hpre_dh_exit_tfm,
--	.base = {
--		.cra_ctxsize = sizeof(struct hpre_ctx),
--		.cra_priority = HPRE_CRYPTO_ALG_PRI,
--		.cra_name = "dh",
--		.cra_driver_name = "hpre-dh",
--		.cra_module = THIS_MODULE,
--		.cra_flags = CRYPTO_ALG_NEED_FALLBACK,
--	},
--};
-+	ret = hisi_qp_send(qp, &hpre_req->req);
-+	if (ret == -EBUSY) {
-+		atomic64_inc(&dfx[HPRE_SEND_BUSY_CNT].value);
-+		return -ENOSPC;
-+	}
- 
--static struct kpp_alg ecdh_curves[] = {
--	{
--		.set_secret = hpre_ecdh_set_secret,
--		.generate_public_key = hpre_ecdh_generate_public_key,
--		.compute_shared_secret = hpre_ecdh_compute_shared_secret,
--		.max_size = hpre_ecdh_max_size,
--		.init = hpre_ecdh_nist_p192_init_tfm,
--		.exit = hpre_ecdh_exit_tfm,
-+	if (likely(!ret)) {
-+		atomic64_inc(&dfx[HPRE_SEND_CNT].value);
-+		return 0;
-+	}
-+
-+	atomic64_inc(&dfx[HPRE_SEND_FAIL_CNT].value);
-+
-+	return ret;
-+}
-+
-+static int hpre_dh_do_one_request(struct crypto_engine *engine, void *areq)
-+{
-+	struct kpp_request *kreq = container_of(areq, struct kpp_request, base);
-+	void *tmp = kpp_request_ctx(kreq);
-+	struct hpre_asym_request *hpre_req = PTR_ALIGN(tmp, hpre_align_sz());
-+	int ret;
-+
-+	ret = hpre_alg_send_message(hpre_req);
-+	if (ret && ret != -ENOSPC)
-+		hpre_hw_data_clr_all(hpre_req->ctx, hpre_req, kreq->dst, kreq->src);
-+
-+	return ret;
-+}
-+
-+static int hpre_ecdh_do_one_request(struct crypto_engine *engine, void *areq)
-+{
-+	struct kpp_request *kreq = container_of(areq, struct kpp_request, base);
-+	void *tmp = kpp_request_ctx(kreq);
-+	struct hpre_asym_request *hpre_req = PTR_ALIGN(tmp, hpre_align_sz());
-+	int ret;
-+
-+	ret = hpre_alg_send_message(hpre_req);
-+	if (ret && ret != -ENOSPC)
-+		hpre_ecdh_hw_data_clr_all(hpre_req->ctx, hpre_req, kreq->dst, kreq->src);
-+
-+	return ret;
-+}
-+
-+static int hpre_rsa_do_one_request(struct crypto_engine *engine, void *areq)
-+{
-+	struct akcipher_request *akreq =
-+	    container_of(areq, struct akcipher_request, base);
-+	void *tmp = akcipher_request_ctx(akreq);
-+	struct hpre_asym_request *hpre_req = PTR_ALIGN(tmp, hpre_align_sz());
-+	int ret;
-+
-+	ret = hpre_alg_send_message(hpre_req);
-+	if (ret && ret != -ENOSPC)
-+		hpre_hw_data_clr_all(hpre_req->ctx, hpre_req, akreq->dst, akreq->src);
-+
-+	return ret;
-+}
-+
-+static struct akcipher_engine_alg rsa = {
-+	.base = {
-+		.encrypt = hpre_rsa_enc,
-+		.decrypt = hpre_rsa_dec,
-+		.set_pub_key = hpre_rsa_setpubkey,
-+		.set_priv_key = hpre_rsa_setprivkey,
-+		.max_size = hpre_rsa_max_size,
-+		.init = hpre_rsa_init_tfm,
-+		.exit = hpre_rsa_exit_tfm,
- 		.base = {
- 			.cra_ctxsize = sizeof(struct hpre_ctx),
- 			.cra_priority = HPRE_CRYPTO_ALG_PRI,
--			.cra_name = "ecdh-nist-p192",
--			.cra_driver_name = "hpre-ecdh-nist-p192",
-+			.cra_name = "rsa",
-+			.cra_driver_name = "hpre-rsa",
- 			.cra_module = THIS_MODULE,
- 			.cra_flags = CRYPTO_ALG_NEED_FALLBACK,
- 		},
--	}, {
--		.set_secret = hpre_ecdh_set_secret,
--		.generate_public_key = hpre_ecdh_generate_public_key,
--		.compute_shared_secret = hpre_ecdh_compute_shared_secret,
--		.max_size = hpre_ecdh_max_size,
--		.init = hpre_ecdh_nist_p256_init_tfm,
--		.exit = hpre_ecdh_exit_tfm,
-+	},
-+	.op = {
-+		.do_one_request = hpre_rsa_do_one_request,
-+	},
-+};
-+
-+static struct kpp_engine_alg dh = {
-+	.base = {
-+		.set_secret = hpre_dh_set_secret,
-+		.generate_public_key = hpre_dh_generate_public_key,
-+		.compute_shared_secret = hpre_dh_compute_shared_secret,
-+		.max_size = hpre_dh_max_size,
-+		.init = hpre_dh_init_tfm,
-+		.exit = hpre_dh_exit_tfm,
- 		.base = {
- 			.cra_ctxsize = sizeof(struct hpre_ctx),
- 			.cra_priority = HPRE_CRYPTO_ALG_PRI,
--			.cra_name = "ecdh-nist-p256",
--			.cra_driver_name = "hpre-ecdh-nist-p256",
-+			.cra_name = "dh",
-+			.cra_driver_name = "hpre-dh",
- 			.cra_module = THIS_MODULE,
- 			.cra_flags = CRYPTO_ALG_NEED_FALLBACK,
- 		},
-+	},
-+	.op = {
-+		.do_one_request = hpre_dh_do_one_request,
-+	},
-+};
-+
-+static struct kpp_engine_alg ecdh_curves[] = {
-+	{
-+		.base = {
-+			.set_secret = hpre_ecdh_set_secret,
-+			.generate_public_key = hpre_ecdh_generate_public_key,
-+			.compute_shared_secret = hpre_ecdh_compute_shared_secret,
-+			.max_size = hpre_ecdh_max_size,
-+			.init = hpre_ecdh_nist_p192_init_tfm,
-+			.exit = hpre_ecdh_exit_tfm,
-+			.base = {
-+				.cra_ctxsize = sizeof(struct hpre_ctx),
-+				.cra_priority = HPRE_CRYPTO_ALG_PRI,
-+				.cra_name = "ecdh-nist-p192",
-+				.cra_driver_name = "hpre-ecdh-nist-p192",
-+				.cra_module = THIS_MODULE,
-+				.cra_flags = CRYPTO_ALG_NEED_FALLBACK,
-+			},
-+		},
-+		.op = {
-+			.do_one_request = hpre_ecdh_do_one_request,
-+		},
- 	}, {
--		.set_secret = hpre_ecdh_set_secret,
--		.generate_public_key = hpre_ecdh_generate_public_key,
--		.compute_shared_secret = hpre_ecdh_compute_shared_secret,
--		.max_size = hpre_ecdh_max_size,
--		.init = hpre_ecdh_nist_p384_init_tfm,
--		.exit = hpre_ecdh_exit_tfm,
- 		.base = {
--			.cra_ctxsize = sizeof(struct hpre_ctx),
--			.cra_priority = HPRE_CRYPTO_ALG_PRI,
--			.cra_name = "ecdh-nist-p384",
--			.cra_driver_name = "hpre-ecdh-nist-p384",
--			.cra_module = THIS_MODULE,
--			.cra_flags = CRYPTO_ALG_NEED_FALLBACK,
-+			.set_secret = hpre_ecdh_set_secret,
-+			.generate_public_key = hpre_ecdh_generate_public_key,
-+			.compute_shared_secret = hpre_ecdh_compute_shared_secret,
-+			.max_size = hpre_ecdh_max_size,
-+			.init = hpre_ecdh_nist_p256_init_tfm,
-+			.exit = hpre_ecdh_exit_tfm,
-+			.base = {
-+				.cra_ctxsize = sizeof(struct hpre_ctx),
-+				.cra_priority = HPRE_CRYPTO_ALG_PRI,
-+				.cra_name = "ecdh-nist-p256",
-+				.cra_driver_name = "hpre-ecdh-nist-p256",
-+				.cra_module = THIS_MODULE,
-+				.cra_flags = CRYPTO_ALG_NEED_FALLBACK,
-+			},
-+		},
-+		.op = {
-+			.do_one_request = hpre_ecdh_do_one_request,
-+		},
-+	}, {
-+		.base = {
-+			.set_secret = hpre_ecdh_set_secret,
-+			.generate_public_key = hpre_ecdh_generate_public_key,
-+			.compute_shared_secret = hpre_ecdh_compute_shared_secret,
-+			.max_size = hpre_ecdh_max_size,
-+			.init = hpre_ecdh_nist_p384_init_tfm,
-+			.exit = hpre_ecdh_exit_tfm,
-+			.base = {
-+				.cra_ctxsize = sizeof(struct hpre_ctx),
-+				.cra_priority = HPRE_CRYPTO_ALG_PRI,
-+				.cra_name = "ecdh-nist-p384",
-+				.cra_driver_name = "hpre-ecdh-nist-p384",
-+				.cra_module = THIS_MODULE,
-+				.cra_flags = CRYPTO_ALG_NEED_FALLBACK,
-+			},
-+		},
-+		.op = {
-+			.do_one_request = hpre_ecdh_do_one_request,
- 		},
- 	}
- };
-@@ -1770,8 +1913,7 @@ static int hpre_register_rsa(struct hisi_qm *qm)
- 	if (!hpre_check_alg_support(qm, HPRE_DRV_RSA_MASK_CAP))
- 		return 0;
- 
--	rsa.base.cra_flags = 0;
--	ret = crypto_register_akcipher(&rsa);
-+	ret = crypto_engine_register_akcipher(&rsa);
- 	if (ret)
- 		dev_err(&qm->pdev->dev, "failed to register rsa (%d)!\n", ret);
- 
-@@ -1783,7 +1925,7 @@ static void hpre_unregister_rsa(struct hisi_qm *qm)
- 	if (!hpre_check_alg_support(qm, HPRE_DRV_RSA_MASK_CAP))
- 		return;
- 
--	crypto_unregister_akcipher(&rsa);
-+	crypto_engine_unregister_akcipher(&rsa);
- }
- 
- static int hpre_register_dh(struct hisi_qm *qm)
-@@ -1793,7 +1935,7 @@ static int hpre_register_dh(struct hisi_qm *qm)
- 	if (!hpre_check_alg_support(qm, HPRE_DRV_DH_MASK_CAP))
- 		return 0;
- 
--	ret = crypto_register_kpp(&dh);
-+	ret = crypto_engine_register_kpp(&dh);
- 	if (ret)
- 		dev_err(&qm->pdev->dev, "failed to register dh (%d)!\n", ret);
- 
-@@ -1805,7 +1947,7 @@ static void hpre_unregister_dh(struct hisi_qm *qm)
- 	if (!hpre_check_alg_support(qm, HPRE_DRV_DH_MASK_CAP))
- 		return;
- 
--	crypto_unregister_kpp(&dh);
-+	crypto_engine_unregister_kpp(&dh);
- }
- 
- static int hpre_register_ecdh(struct hisi_qm *qm)
-@@ -1816,10 +1958,10 @@ static int hpre_register_ecdh(struct hisi_qm *qm)
- 		return 0;
- 
- 	for (i = 0; i < ARRAY_SIZE(ecdh_curves); i++) {
--		ret = crypto_register_kpp(&ecdh_curves[i]);
-+		ret = crypto_engine_register_kpp(&ecdh_curves[i]);
- 		if (ret) {
- 			dev_err(&qm->pdev->dev, "failed to register %s (%d)!\n",
--				ecdh_curves[i].base.cra_name, ret);
-+				ecdh_curves[i].base.base.cra_name, ret);
- 			goto unreg_kpp;
- 		}
- 	}
-@@ -1828,7 +1970,7 @@ static int hpre_register_ecdh(struct hisi_qm *qm)
- 
- unreg_kpp:
- 	for (--i; i >= 0; --i)
--		crypto_unregister_kpp(&ecdh_curves[i]);
-+		crypto_engine_unregister_kpp(&ecdh_curves[i]);
- 
- 	return ret;
- }
-@@ -1841,17 +1983,76 @@ static void hpre_unregister_ecdh(struct hisi_qm *qm)
- 		return;
- 
- 	for (i = ARRAY_SIZE(ecdh_curves) - 1; i >= 0; --i)
--		crypto_unregister_kpp(&ecdh_curves[i]);
-+		crypto_engine_unregister_kpp(&ecdh_curves[i]);
-+}
-+
-+static void hpre_free_crypto_engine(struct hisi_qm *qm)
-+{
-+	struct hpre *hpre = container_of(qm, struct hpre, qm);
-+	u32 i;
-+
-+	for (i = 0; i < hpre->engine_num; i++) {
-+		if (hpre->engine[i])
-+			crypto_engine_exit(hpre->engine[i]);
-+	}
-+
-+	hpre->engine_num = 0;
-+}
-+
-+static int hpre_alloc_crypto_engine(struct hisi_qm *qm)
-+{
-+	u32 engine_num = min_t(u32, qm->qp_num, HPRE_MAX_CRYPTO_ENGINE);
-+	struct hpre *hpre = container_of(qm, struct hpre, qm);
-+	struct device *dev = &qm->pdev->dev;
-+	u16 qlen = qm->qp_array[0].sq_depth;
-+	int ret;
-+	u32 i;
-+
-+	for (i = 0; i < engine_num; i++) {
-+		hpre->engine[i] =
-+			crypto_engine_alloc_init_and_set(dev, true,
-+							 false, qlen);
-+		if (!hpre->engine[i]) {
-+			dev_err(dev, "failed to alloc crypto engine.\n");
-+			ret = -ENOMEM;
-+			goto free_engine;
-+		}
-+
-+		ret = crypto_engine_start(hpre->engine[i]);
-+		if (ret) {
-+			dev_err(dev, "failed to start crypto engine.\n");
-+			crypto_engine_exit(hpre->engine[i]);
-+			hpre->engine[i] = NULL;
-+			goto free_engine;
-+		}
-+	}
-+
-+	hpre->engine_num = engine_num;
-+
-+	return 0;
-+
-+free_engine:
-+	for (i = 0; i < engine_num; i++) {
-+		if (hpre->engine[i])
-+			crypto_engine_exit(hpre->engine[i]);
-+	}
-+
-+	return ret;
- }
- 
- int hpre_algs_register(struct hisi_qm *qm)
- {
--	int ret = 0;
-+	int ret;
-+
-+	ret = hpre_alloc_crypto_engine(qm);
-+	if (ret)
-+		return ret;
- 
- 	mutex_lock(&hpre_algs_lock);
- 	if (hpre_available_devs) {
- 		hpre_available_devs++;
--		goto unlock;
-+		mutex_unlock(&hpre_algs_lock);
-+		return 0;
- 	}
- 
- 	ret = hpre_register_rsa(qm);
-@@ -1877,6 +2078,8 @@ int hpre_algs_register(struct hisi_qm *qm)
- 	hpre_unregister_rsa(qm);
- unlock:
- 	mutex_unlock(&hpre_algs_lock);
-+	hpre_free_crypto_engine(qm);
-+
- 	return ret;
- }
- 
-@@ -1892,4 +2095,5 @@ void hpre_algs_unregister(struct hisi_qm *qm)
- 
- unlock:
- 	mutex_unlock(&hpre_algs_lock);
-+	hpre_free_crypto_engine(qm);
- }
--- 
-2.43.0
-
+Thanks,
+Chunyan
