@@ -1,63 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193627;
-	b=DueoTsI2kng95729DoMUXGzsG9GiptlTTrZIBzLu6YUoTRs1silJP3DmtGwSfcZVuV+B
-	 s7I+Ngr7XQCqWk7Abef44WlSn5yYYqmMTO+5LvQujrgnXrZH58aN5bnlcLaK5jLaXIIAm
-	 OBgAJmBdjWdoIsp+n/atSwNiopkgHgcBrixI56Np4WpwFYMKFv68YB44li5oLRKGExHjP
-	 UVNrvPVuKqgMZvU9D+ha6AjI+h4m59YJxQngKBFk2xB41wYjo0eR5Ra2DEUuV9K91mk6Q
-	 ph899nWQ83kNP1gUug+QQ8U2TtO7zt+R4RPQNMbNTJqpVRtxlCnP+XMoN4UvXAqcFIw==
+	t=1794193637;
+	b=snCSZIQFqfnky/L+YG/YIEeU10igTPZEz7zaU/ut8pA26KDhKsOtn+wr/zcgQY94BnPC
+	 OYZwUzPJZt2uOtg4Zkeke+W4PhdkOCeyjOfscwsTpO+nD61PS34cr8FUKlc7jbjTEJ161
+	 kI8/pModMxrcVTNt0DOz46Ph52UVrjh4oIuPutOsZ4ABoWlr1id7XV+kmHoen4yENYhsu
+	 c0aCZLb4DBTDEUMxcvuRBxFWfVstUdVjDOkTsM1rcn3pFrpMBFdWwhSjqef1cGVo9fldR
+	 bhqhgsJM4OkpsSfptZtpacDrDl1wF7BfnE/++MQqFCU4yXquOykHiCCJLkkmnqmZN1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193627;
-	h=DMARC-Filter:X-UUID:X-CID-CACHE:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:
-	 X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=zOrri/hd2pArFM+Vs9DiKg0ixmhbGEFIOQRkAE0eOd0=;
-	b=mi7tf9ReD8Ok1jkDaG6kXh393Eve3VBLrdM66bhyGAMj4rZKQxskgazM/glOKXb6wGlm
-	 oyYmFbpGm4gdtd+ovoj2xs8YWRyl2njthgynrczP8J3KIaUUhEQmGe9/GiwqUKpjcPgvY
-	 wlOOFRzx5UuUYk30LsCqrUzKfXzhHzv9oLTnqlvoLFaLKAPpAs0rPRxuiUCRHtKLLprEl
-	 GtdMBtrc5NOUCUwc7WlICeKKmbsg7VEtIrZPvuhAPGJp7XsVgMCyAPBdCpnqsutuwo6NV
-	 dHLjp3hL6qhP18W2OmXiE/koLnR2yrL0ZI7qQO2/Hg00C1hq3qIFFP5A7xy/F42GAdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193637;
+	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
+	 References:Date:MIME-Version:Content-Type;
+	bh=tXMZ6wp8qnNw8G9zXiBRVNXZMZFtUxGC6RrzObvihVU=;
+	b=k6uDygM0+eAjoF5XgEdUkNQ6u9TLjDQYeeu8F347XoQ9x82DB3HbmpB799J69Exs3LTM
+	 f14zZUJsMjfyJybJ3rjcxOLYvgs3IDkZ8joxCxWtMDLPcWrQGs2pFAIpubg8mA+4EDsCH
+	 iDW1+Qw/A8eMJOILT8R1uH5SrCsl1BcVQcm6J35xUa8BCDDly6Gqh83zRfAUkb59aRn7T
+	 gG9BJfIDbBZJGlBemUSuoJQuDdilPFu8EPCNb8rEr3k4SEgj7VcKDB/9rbaihWsV13Rvm
+	 0Fu5z6v7/62lKMeiZwmWOHY23PmMocf+sSJS/mPzyB42xyGZPl5SKSzECX71y6KAPug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CmVXxU5A;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61D7A606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:07:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61D7A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: a0b1072edbea11f19a56ed5b684f684d-20261109
-X-CID-CACHE: Type:Local,Time:202611091105+08,HitQuantity:2
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:bfd4dc55-b44f-4181-9cab-56fcb24f681c,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:7db8b62,CLOUDID:fc4ce35580ccdcaf57167389320e6594,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99|100|101|
-	112|11211,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0
-	,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: a0b1072edbea11f19a56ed5b684f684d-20261109
-X-User: wangyibo@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <wangyibo@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 616076503; Mon, 09 Nov 2026 11:06:58 +0800
-From: Wang Yibo <wangyibo@kylinos.cn>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH] mailmap: add Wang Yibo's work email address
-Date: Mon,  9 Nov 2026 11:06:51 +0800
-Message-Id: <20261109030651.2289573-1-wangyibo@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC00606A321;
+	Mon,  9 Nov 2026 03:07:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CmVXxU5A
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18CC71F008A1;
+	Mon,  9 Nov 2026 03:07:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794193637;
+	bh=tXMZ6wp8qnNw8G9zXiBRVNXZMZFtUxGC6RrzObvihVU=;
+	h=To:Cc:Subject:From:In-Reply-To:References:Date;
+	b=CmVXxU5AdK8vGLK3+OJb025RFcYODm1eBFVAH5vNdDmICr2AvoeSY+cOHfSXAhc65
+	 68Ih1XeZseBMSueg1re/bakQCdlspYoOoIs6Ibdxc+Jeg6Trh73cZmz8rVE+0tj74l
+	 v4q9vaY3YNCTys4G9sO9iWPl3G7EWfyVqwPDhNL7SvJDZJpXI5XJdEh+ywylzzXqQO
+	 Cw5oQyQ7HjwBCS2UC6UmIvrMNHmZC3RLykoaBkUXkR4smO7Vl2xUYScI/1d49nMG3J
+	 BLVF+cfNaPgV7/pQ8AhdKO1Sa9YqgY9Cc/GPd89/ifKY67UWEvEX4C3Vtf52odWvL1
+	 n9DpBmZN7RvtQ==
+To: Jesse Taube <jtaubepe@redhat.com>
+Cc: "Martin K. Petersen" <martin.petersen@oracle.com>,
+  linux-scsi@vger.kernel.org,  linux-kernel@vger.kernel.org,  "James E.J.
+ Bottomley" <James.Bottomley@HansenPartnership.com>,  Nimal Prabudoss I
+ <nprabudo@redhat.com>,  jmeneghi@redhat.com,  Nilesh Javali
+ <njavali@marvell.com>,  Manish Rangankar <mrangankar@marvell.com>,
+  GR-ETH-Storage-Upstream@marvell.com
+Subject: Re: [PATCH] scsi: qedf: Remove unesseary function call
+From: "Martin K. Petersen" <mkp@kernel.org>
+In-Reply-To: <20261029160443.904468-1-jtaubepe@redhat.com>
+Message-ID: <yq1qzguwvmq.fsf@mail.kernel.org>
+References: <20261029160443.904468-1-jtaubepe@redhat.com>
+Date: Sun, 08 Nov 2026 22:07:16 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,29 +61,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-My kernel work will be signed off with my company address from now on.
-Add it to .mailmap and map the personal address I used before to it, so
-that both resolve to the same author in git log and git shortlog.
 
-Signed-off-by: Wang Yibo <wangyibo@kylinos.cn>
----
- .mailmap | 1 +
- 1 file changed, 1 insertion(+)
+Jesse,
 
-diff --git a/.mailmap b/.mailmap
-index 37aad399e4e0..32b376b9b1fd 100644
---- a/.mailmap
-+++ b/.mailmap
-@@ -967,6 +967,7 @@ Vlad Dogaru <ddvlad@gmail.com> <vlad.dogaru@intel.com>
- Vladimir Davydov <vdavydov.dev@gmail.com> <vdavydov@parallels.com>
- Vladimir Davydov <vdavydov.dev@gmail.com> <vdavydov@virtuozzo.com>
- Vlastimil Babka <vbabka@kernel.org> <vbabka@suse.cz>
-+Wang Yibo <wangyibo@kylinos.cn> <szwyb123@gmail.com>
- WangYuli <wangyuli@aosc.io> <wangyl5933@chinaunicom.cn>
- WangYuli <wangyuli@aosc.io> <wangyuli@deepin.org>
- Weiwen Hu <huweiwen@linux.alibaba.com> <sehuww@mail.scut.edu.cn>
+> The result of `skb_transport_header` was unused. Calling this function
+> warned when `skb_transport_header_was_set` returned false causing a
+> panic on debug kernels.
+
+Applied to 7.5/scsi-staging, thanks!
+
 -- 
-2.25.1
-
+Martin K. Petersen
