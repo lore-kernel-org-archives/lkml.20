@@ -1,76 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794196230;
-	b=DRDYIgF/mWOfGjJeuRB2vnzdrhmxD6crIEmmBit1McPIksX3Z2RgZehb4bD41llvys93
-	 9ZhRbTEoPeneJVb11WkCokFy4SS/YHe/s9coHCyGxgxLy1G/KyS6G4WKVLAMTEFYhaE/E
-	 Y596LAfpdVyGccdlT+BPoGfnbCx4PeKK3Fwla3oNoLUdnUx/Q03T7Qtoq3z3ObW5HDbHt
-	 GZ7x9RuJJQaTtnIq1HxLfUtXVToN+9EwA66C2rpUTkGpK+NzWVvovBTTDe7Qh1bOiwWOS
-	 EHFJE1lV+Cy0RL60yAwIJy9w5Sl8yu6EV6gUqdUf33Be71t3ezmgsV6qrcBb8ruAKlw==
+	t=1794196272;
+	b=vK18z9t4Xhb7/IkDEdDpErduncI8ZgFW0e/YWHWIQWZHYm0ZftEQGHy6AkMGQNz/LRL0
+	 6DK2HJ4yrG6pKDHnHpAhOyecHHbcbkTBMDifaLyLnDeYyVaFlogrROgoxRW3hzgSnyz0u
+	 xdRFRy7BYDFG17ibFip+JftOeCpxDxTgunvLtW4u+bxu+twajM+IgOdnD0oT45ePM6Ksq
+	 4dkrZrFCTz+vcpegqXSdUfblirXq0uL09Ccd4PIM+Et4VLRG2skZYFqqqC7fvQM+VHKh0
+	 O2BSud9+w7XUzW8vj9DeCAjDFIal8BTlbUCLpVq+raoHn9hsq/aCxHoCTTv4XOsKXwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794196230;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=ehT+64+bV/zqbei34X2bLRBbve69g0JDYdM9idHr38s=;
-	b=sxpF+taxra6kDbmqAfcVBw5R8sOD9bcErjq8qOfL9McHaXxNbjrXYEHbAVLcfg/FCTEx
-	 pBGJdAiPmV8ffsRuR8eBOooLhcJEH+w+Kq9p8lbnjGEJ94CoKW3U4bQPE74EG6Amg27lq
-	 1lHc990at0/jRNNe7a9AAqQVvacQwI9eFjxBJwFyOOHfokcJNgxGcmO854Q3kjqpVct+i
-	 r1jrc+F6ErmgwEFBY27NgnHApxIzEf9LOkzWVni2ylTrWKrWHIIZSm29nJdxnkyZsUBha
-	 PfeOae1bbnbyHIgS0SkB3QvzHNZGK5L+SD+DYx+/dZIIrZ2w66TbTg10zJ5CqR89Caw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794196272;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=y3HC3NlDohogGoQG3iyBoABNjpQ8d2suUgv9O6n6PBk=;
+	b=2FeVXfdFCkpoV3nj4NEbwosM5Gm6uB5TeBF/GszoMDRBWxPFXXnJc2ZoBVOVmU+ODVjY
+	 RdsPpTSo8T0E0W6OTgV9Z355IA96Iar5wq7sPb432Ryk4eMDh2rb03GnU5NxoIjogH1Em
+	 udIgK5XJJmlqYwoa667leFwKA42ScukOuVxmLvDnuvXHjs1AWuZZFO/A9MbFnMG5soKQ7
+	 3eCmgtMJ+KrXButbAUQjqnCCOrFC+YkJWjpxM6lWZKOJtDbXVRD+7anYaH0RXKXcuo53y
+	 0aORMCpLQt/U0MiJsCGOwCjRdWzBtmb1WiiAAcIlbQ7K74ee/LokylloFQ8dItYxgWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WzRj00ua;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IKDfFKan;
+	arc=none smtp.remote-ip=209.85.210.46
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7226E606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:50:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7226E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE38606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:51:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDE38606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WzRj00ua
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794196227; x=1825732227;
-  h=date:from:to:cc:subject:message-id;
-  bh=BIsVCppk7MeQ2ulqI1Dss8lDOQzQzR0i+jUNmCh9NIE=;
-  b=WzRj00uayr0ybmYIrc/4WAi98uMJ+aYKbkSOW2QoADfToHOkHu4MVCq3
-   QrhMUbVW9zxIUgt+uzSXp0QbunLDv/nr65efk8ekzUNSwpoGb2tuLp7o5
-   UUo6CGoVh7V/MHNHubhUuQpEUJ03TsSd3dViuYEsVNh9NhJxja0AZ1iEt
-   EVAFi/hpqKv4Uo8d0n0t/XN+bTpwmBuNBgsWJeNfj6kcWsqqm8eF49pHl
-   HgsjHm9obKhZlqOB3NvmNAlxr6AXMAiIvQOvG9gS3s6qzHh7UwOTRhLv4
-   KBVU8RvSOGkoF2OZXU/ePvKpdm2qkI49SdyrFZJ+XIs0fpl6ZqlqKJFKK
-   A==;
-X-CSE-ConnectionGUID: QfdxiP8EQY6+As0pxihzmg==
-X-CSE-MsgGUID: DyrVr8RnThmipcWTBp/K/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="3017646"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="3017646"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 19:50:27 -0800
-X-CSE-ConnectionGUID: CAQfD11xRLGB4itwhwf2Ng==
-X-CSE-MsgGUID: 8BOkLrbmTw2jP4f3cZ9jFg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="8108438"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 08 Nov 2026 19:50:26 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQGOk-00000000tqJ-3xhP;
-	Mon, 09 Nov 2026 03:50:22 +0000
-Date: Mon, 09 Nov 2026 11:49:57 +0800
-From: kernel test robot <lkp@intel.com>
-To: "x86-ml" <x86@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [tip:core:rseq] BUILD SUCCESS
- 9ad0f2d93caf9b1b70c3f239e72b241313caa21f
-Message-ID: <20261109114957.e1dNMN2B-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IKDfFKan
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-846566246e8so420056a34.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 19:51:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794196271; x=1794801071; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=y3HC3NlDohogGoQG3iyBoABNjpQ8d2suUgv9O6n6PBk=;
+        b=IKDfFKanaLu3BJ4u376Bg2Tqzaf2d1xbhF4l4fJOjwb+NUsR8vwFfA03S5k7bh8wz8
+         1h+dVv7flFOK6SZKAt1HliQJVak1JyImQXDCDp0rEfHp0wP62YU8b2KFG1LAEaZhCOHN
+         30NherwxsLMILRD9BkjNUfMbkTh4gBENNKhrEOhc4i/IfO2sAI6LraIJWE0AHeWyXOeQ
+         Kk5rSE6hmd9BfXotHV/uRfIxLnnx9AuSSaNImxR2BfN5XDI1a+AeqUojyAfNAPkNu7S/
+         CGMVEJWS95IMTbo5zWWBJbwrulfesoeW/yVVRU5GURTdebaMEKgaiqK2YFf4qCWPY58+
+         TR9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794196271; x=1794801071;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=y3HC3NlDohogGoQG3iyBoABNjpQ8d2suUgv9O6n6PBk=;
+        b=q6AUzWE7gDmL6GE8cTkeoLVak2cjIFp5V0O8OtZhalv161vETD02xOw/seK2+uw0jF
+         nBiGUbNFht++xPp/v7P1sJQSwv6WNUPUSORZTWFLseEH7XsC2CWwlDSyD7TCVPdZRovc
+         UpkRkCzGBCWW3kEREZQye2uYycr2Ni3Bc/Q7JGvX6soBBwn4zelhTOXDl/XJsK60AIhX
+         P/reQ0feMGGoDTJvQGx+5kS4DXNl3U8IOBsKkASefdbI5kfMZqRjq99isCvGqdrvx6or
+         9051QD8xQ73PjqrZn1IQxuyjgJZ5NYjLc29Xg2X283pMKWdKCe7VBBHiIxrAnEwG7JdX
+         NoFw==
+X-Gm-Message-State: APuU4Z97d3Ty/6QbTHu4SvRhm5madG5P2B5unx0e9mR+8ChIIVpQ9VDI
+	FwCnawo5U+mhqX718DVawIGL3l3ME1mbJyJo9uNxf7zG0H4MMz41MbR0
+X-Gm-Gg: AYBFou3efpiz9+hXo78G9GfYHS91YsgF4Dh5cAP03js14gT6GL3LeWAl49z0mPK9MjD
+	1iSeMHly9TPiO4GXbjhOYil76YYXbLSH6WBfGWF9PEA9tzq5xqLs3th8mKUiun3cnLcyzY+mmYq
+	0maayU703geB78n4Pz+TouTRmJ/s/7kZrR8bPUrSd5cZC+6t8npz++5M0V6Cvnhnhy06DMPzTD7
+	RUl6V7SKj5BRLlaFiVLV+JH+kv4Ax++zf50b8jNtUlBl0pAkMN6HbcNrBuv5L4+lwojhnCgNZ5t
+	NbT95p4Yxj4yp2L4Fa/wd3Seytyr92HmII8JoriE2quMAbLwMcoc6y27SMcx1jbf95c1PXQBDB8
+	fXN0euvSaKk87igkQNauUjfJQHsZeIQaUF44zHPu9gYVUa9DvJj2EQRpEeEX62AJDF/W1xpbKgp
+	AMew5QwVrs0GLu2boHOel2bEEFx5Zy9KBOPdm+6tu0FMIcKRHPEJ13FfhPGvmyRGHqQHvGIlFms
+	dZWT83/ouGur06RfsmQp6C6EdqpPwJXcn/CUKGaZWuseYhiiVSjrAKo92lO3PGLN9LhRNok8x57
+	KmApXAvfuNOS3R/v69Bfo+5GSS1RW1Jy4J9ea55hN5eB/LlFYvzRECTvMZ4dotRohE70IPqnJht
+	XL5mXThwup0B8aiDarzA/3IX6S9UHUwxlpZfwMSB9RghiHEwou8UUVd4/aLVc8oV69K6s8HjdsS
+	LCENZbcOaj0ETwkVfVfldzBLTPim35N+JJLIDUYTb8DvsTtpiGpzu1
+X-Received: by 2002:a05:6830:6415:b0:807:3423:e50a with SMTP id 46e09a7af769-85f5087a5d6mr1689845a34.15.1794196270614;
+        Sun, 08 Nov 2026 19:51:10 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f4fad32cdsm2800428a34.6.2026.11.08.19.51.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 19:51:10 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v10 0/8] serial: 8250: serialize DMA cancellation with
+ buffer reuse
+Date: Sun, 08 Nov 2026 20:50:09 -0700
+Message-Id: <20261108-submit-serial-8250-dma-cancel-v1-v10-0-e6227ddb95b1@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,296 +92,354 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XT227bMAwA0F8p8jxvInUj+7T/GPZASWTjoWm3J
+ A02FP330emApR4GpIBhQIZ0eBH9vDnoftbD5vbmebPX03yYHx98AeHDzaZv5eFOp3n4hw0GLBA
+ QpsNT283HaTkn9xNhDtPYydTloev9dIKpYSCjpMQdNs5836vNP88xvnx9XbvxTftxcZcdTQ46t
+ b0L2+WTb9jrj0//jRD+qL7pyRM+vtKvSn/ceXa3N6UgaR2pl4a50wAyiClrFAwDgZBFtGo6U3L
+ sWy/z9iaWkJqJRIGOkJjrUDAAKNgIJOUEYlna21OVxwgczVrMijlp5TB8RUTVfD+0koxTfXuKg
+ uRQYFDqIWcpqdfiPSbTpgMq90K1Mdsq1mgteZJiYFSACbsVSa3mPCJ3054TIca3p1Ig8kggWJv
+ XJl4JhuhRwKv0eg2Bay20ilU8QRvcMHpynhpiNUugycslVkKnUlzFGuRYqREhDOmEI8qQliBXM
+ kOrxTIV7LzKkEpmzWrRsvex1hG8JrBAMfQwNBVm9GObZYK28+H4uP91HtoTnC//+vH0J0xq6jf
+ KhjHEz3c7me8/+uSc8RNegngFiA56g1UyaCSGNRgvwXgFGB0c3i7W1BNHXIPpvWBaSq6ZfZop+
+ nsN5kswXQFmB/26kAsx0vgnw/JesDhYLBafArBcyhqsl2C9AqxLhpTFG9T8/0hrkC5BvgIkB6O
+ NXJrEjDrWIP8FXbwC5CVDyNxF/F4SXYIvLy+/AXNZJZ2bBQAA
+X-Change-ID: 20261021-submit-serial-8250-dma-cancel-v1-b208f84e89c1
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Tony Lindgren <tony@atomide.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Richard Genoud <richard.genoud@bootlin.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+ Timur Tabi <timur@kernel.org>, Peter Ujfalusi <peter.ujfalusi@ti.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, 
+ Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ linuxppc-dev@lists.ozlabs.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git core/rseq
-branch HEAD: 9ad0f2d93caf9b1b70c3f239e72b241313caa21f  selftests/rseq: Select only implemented architecture variants
+Reserve canceled transmit and receive storage until DMA and its completion
+callbacks have retired. Serial-core write backpressure protects a flushed
+TX FIFO while normal transfers continue to DMA directly from that FIFO.
 
-elapsed time: 871m
+The preparatory patches separate OMAP's locked TX completion processing,
+serialize asynchronous write wakeups, and fix OMAP RX locking and shutdown
+ordering. Serial-core reservation helpers then protect 8250 TX storage.
+Flushing empties the logical queue immediately. While the old transfer owns
+its storage, write_room() reports zero and write-ready notifications wait for
+retirement. Failed termination retains the reservation until normal
+completion, without advancing the reset FIFO. DMA retirement releases the
+reservation independently of port readiness. Serial core keeps writes and
+write-ready notifications gated during shutdown until successful startup
+or resume. Flushes still notify threads waiting for the logical FIFO to
+empty, independently of whether its storage can be reused.
 
-configs tested: 276
-configs skipped: 6
+RX delivers paused data before the PIO fallback and retires callbacks in
+process context. Track FIFO access separately from buffer retirement so
+PIO and the DesignWare empty-FIFO timeout handling can run once DMA has
+released the FIFO. Retry ambiguous pause failures until a successful pause
+or reported completion makes the buffer stable. Keep receive interrupts
+masked meanwhile, preserving the requested enables in the IER shadow.
+Back off pause retries from 1 ms to one second, with completion and shutdown
+waking the worker immediately. Report each prolonged stall once per flush,
+independently of other ports, while retaining the transfer. Reset the retry
+delay when the pending flush finishes.
+Confirmed DMA errors use synchronous recovery and leave RX on PIO until
+reopen. Shutdown excludes new retirement work before releasing the channels.
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+Final shutdown retains both channels and their storage until synchronous
+termination succeeds. Retry failed channels outside the port lock, starting
+with a 1 ms sleep and doubling it up to one second to limit sustained
+retries. Report the initial error, ongoing failures at five-second
+intervals tracked separately for each teardown, and recovery once both
+channels have stopped and drained. A permanently failed DMA engine blocks
+teardown while retaining its storage and callback state.
 
-tested configs:
-alpha                              allnoconfig    gcc-16.2.0
-alpha                             allyesconfig    gcc-16.2.0
-alpha                                defconfig    gcc-16.2.0
-arc                               allmodconfig    clang-24
-arc                                allnoconfig    gcc-16.2.0
-arc                               allyesconfig    clang-24
-arc                           axs103_defconfig    gcc-16.2.0
-arc                                  defconfig    gcc-16.2.0
-arc                   randconfig-1000-20261109    clang-24
-arc                   randconfig-1001-20261109    clang-24
-arc                         vdk_hs38_defconfig    clang-24
-arm                               alldefconfig    gcc-16.2.0
-arm                                allnoconfig    gcc-16.2.0
-arm                               allyesconfig    clang-24
-arm                          bcm2835_defconfig    clang-17
-arm                                  defconfig    gcc-16.2.0
-arm                         mvebu_v7_defconfig    gcc-16.2.0
-arm                          orion5x_defconfig    gcc-16.2.0
-arm                   randconfig-1000-20261109    clang-24
-arm                   randconfig-1001-20261109    clang-24
-arm                   randconfig-1002-20261109    clang-24
-arm                   randconfig-1003-20261109    clang-24
-arm                         shmobile_defconfig    clang-17
-arm                           sp7021_defconfig    gcc-16.2.0
-arm                         vexpress_defconfig    clang-19
-arm                         vexpress_defconfig    gcc-16.2.0
-arm64                             allmodconfig    clang-24
-arm64                              allnoconfig    gcc-16.2.0
-arm64                                defconfig    gcc-16.2.0
-arm64                 randconfig-1000-20261109    gcc-13.5.0
-arm64                 randconfig-1001-20261109    gcc-13.5.0
-arm64                 randconfig-1002-20261109    gcc-13.5.0
-arm64                 randconfig-1003-20261109    gcc-13.5.0
-csky                              allmodconfig    gcc-16.2.0
-csky                               allnoconfig    gcc-16.2.0
-csky                                 defconfig    gcc-16.2.0
-csky                  randconfig-1000-20261109    gcc-13.5.0
-csky                  randconfig-1001-20261109    gcc-13.5.0
-hexagon                           allmodconfig    gcc-16.2.0
-hexagon                            allnoconfig    gcc-16.2.0
-hexagon                              defconfig    gcc-16.2.0
-hexagon               randconfig-1000-20261109    clang-19
-hexagon               randconfig-1001-20261109    clang-19
-i386                              allmodconfig    clang-22
-i386                               allnoconfig    gcc-16.2.0
-i386                              allyesconfig    clang-22
-i386        buildonly-randconfig-1000-20261108    clang-22
-i386        buildonly-randconfig-1000-20261109    clang-22
-i386        buildonly-randconfig-1001-20261108    clang-22
-i386        buildonly-randconfig-1001-20261109    clang-22
-i386        buildonly-randconfig-1002-20261108    clang-22
-i386        buildonly-randconfig-1002-20261109    clang-22
-i386        buildonly-randconfig-1003-20261108    clang-22
-i386        buildonly-randconfig-1003-20261109    clang-22
-i386        buildonly-randconfig-1004-20261108    clang-22
-i386        buildonly-randconfig-1004-20261109    clang-22
-i386        buildonly-randconfig-1005-20261108    clang-22
-i386        buildonly-randconfig-1005-20261109    clang-22
-i386                                 defconfig    gcc-16.2.0
-i386                  randconfig-1000-20261109    gcc-14
-i386                  randconfig-1001-20261109    gcc-14
-i386                  randconfig-1002-20261109    gcc-14
-i386                  randconfig-1003-20261109    gcc-14
-i386                  randconfig-1004-20261109    gcc-14
-i386                  randconfig-1005-20261109    gcc-14
-i386                  randconfig-1006-20261109    gcc-14
-i386                  randconfig-1007-20261108    clang-22
-i386                  randconfig-1007-20261109    gcc-12
-i386                  randconfig-1008-20261108    clang-22
-i386                  randconfig-1008-20261109    gcc-12
-i386                  randconfig-1009-20261108    clang-22
-i386                  randconfig-1009-20261109    gcc-12
-i386                  randconfig-1010-20261108    clang-22
-i386                  randconfig-1010-20261109    gcc-12
-i386                  randconfig-1011-20261108    clang-22
-i386                  randconfig-1011-20261109    gcc-12
-i386                  randconfig-1012-20261108    clang-22
-i386                  randconfig-1012-20261109    gcc-12
-i386                  randconfig-1013-20261108    clang-22
-i386                  randconfig-1013-20261109    gcc-12
-loongarch                         allmodconfig    clang-24
-loongarch                          allnoconfig    gcc-16.2.0
-loongarch                            defconfig    clang-24
-loongarch             randconfig-1000-20261109    clang-19
-loongarch             randconfig-1001-20261109    clang-19
-m68k                              allmodconfig    gcc-16.2.0
-m68k                               allnoconfig    gcc-16.2.0
-m68k                              allyesconfig    clang-24
-m68k                                 defconfig    clang-24
-m68k                           hp300_defconfig    clang-19
-m68k                        m5235evb_defconfig    gcc-16.2.0
-m68k                        m5475evb_defconfig    gcc-16.2.0
-m68k                           multi_defconfig    clang-19
-m68k                         mvme16x_defconfig    clang-17
-m68k                          nettel_defconfig    gcc-16.2.0
-microblaze                         allnoconfig    gcc-16.2.0
-microblaze                        allyesconfig    gcc-16.2.0
-microblaze                           defconfig    clang-24
-mips                              allmodconfig    gcc-16.2.0
-mips                               allnoconfig    gcc-16.2.0
-mips                              allyesconfig    gcc-16.2.0
-mips                         bcm47xx_defconfig    gcc-16.2.0
-mips                         bcm63xx_defconfig    gcc-16.2.0
-mips                       bmips_stb_defconfig    gcc-16.2.0
-mips                      cu1000-neo_defconfig    gcc-16.2.0
-mips                           eyeq5_defconfig    clang-17
-mips                       fuloong2e_defconfig    gcc-16.2.0
-mips                            gcw0_defconfig    gcc-16.2.0
-mips                             gpr_defconfig    clang-24
-mips                            ip28_defconfig    gcc-16.2.0
-mips                        lemote2f_defconfig    gcc-16.2.0
-mips                       loongson3_defconfig    gcc-16.2.0
-mips                           rb532_defconfig    clang-17
-mips                            xway_defconfig    clang-19
-nios2                             allmodconfig    clang-20
-nios2                              allnoconfig    clang-24
-nios2                                defconfig    clang-24
-nios2                 randconfig-1000-20261109    clang-19
-nios2                 randconfig-1001-20261109    clang-19
-openrisc                          allmodconfig    clang-20
-openrisc                           allnoconfig    clang-24
-openrisc                             defconfig    gcc-16.2.0
-parisc                            allmodconfig    gcc-16.2.0
-parisc                             allnoconfig    clang-24
-parisc                            allyesconfig    clang-17
-parisc                               defconfig    gcc-16.2.0
-parisc                randconfig-1000-20261108    clang-24
-parisc                randconfig-1000-20261109    gcc-8.5.0
-parisc                randconfig-1001-20261108    clang-24
-parisc                randconfig-1001-20261109    gcc-8.5.0
-parisc64                             defconfig    clang-24
-powerpc                           allmodconfig    gcc-16.2.0
-powerpc                            allnoconfig    clang-24
-powerpc                      asp8347_defconfig    gcc-16.2.0
-powerpc                    bluestone_defconfig    clang-19
-powerpc                       ep88xc_defconfig    clang-24
-powerpc                  mpc8315_rdb_defconfig    gcc-16.2.0
-powerpc                   mpc866_ads_defconfig    clang-17
-powerpc                       ppc44x_defconfig    clang-19
-powerpc                        ppc64_defconfig    gcc-16.2.0
-powerpc               randconfig-1000-20261108    clang-24
-powerpc               randconfig-1000-20261109    gcc-8.5.0
-powerpc               randconfig-1001-20261108    clang-24
-powerpc               randconfig-1001-20261109    gcc-8.5.0
-powerpc                      skiroot_defconfig    gcc-16.2.0
-powerpc                      stx_gp3_defconfig    clang-19
-powerpc                      stx_gp3_defconfig    clang-24
-powerpc                      taishan_defconfig    clang-24
-powerpc                       tqm8xx_defconfig    clang-24
-powerpc64             randconfig-1000-20261108    clang-24
-powerpc64             randconfig-1000-20261109    gcc-8.5.0
-powerpc64             randconfig-1001-20261108    clang-24
-powerpc64             randconfig-1001-20261109    gcc-8.5.0
-riscv                             allmodconfig    clang-24
-riscv                              allnoconfig    clang-24
-riscv                             allyesconfig    clang-24
-riscv                                defconfig    gcc-16.2.0
-riscv                                defconfig    gcc-16.2.0
-riscv              nommu_k210_sdcard_defconfig    clang-19
-riscv                 randconfig-1000-20261108    gcc-12.5.0
-riscv                 randconfig-1000-20261109    gcc-8.5.0
-riscv                 randconfig-1001-20261109    gcc-8.5.0
-s390                              allmodconfig    clang-17
-s390                               allnoconfig    clang-24
-s390                              allyesconfig    gcc-16.2.0
-s390                                 defconfig    gcc-16.2.0
-s390                  randconfig-1000-20261108    gcc-12.5.0
-s390                  randconfig-1000-20261109    gcc-8.5.0
-s390                  randconfig-1001-20261108    gcc-12.5.0
-s390                  randconfig-1001-20261109    gcc-8.5.0
-sh                                allmodconfig    gcc-16.2.0
-sh                                 allnoconfig    clang-24
-sh                                allyesconfig    clang-17
-sh                                   defconfig    gcc-14
-sh                         dreamcast_defconfig    gcc-16.2.0
-sh                 ecovec24-romimage_defconfig    gcc-16.2.0
-sh                              espt_defconfig    gcc-16.2.0
-sh                             migor_defconfig    gcc-16.2.0
-sh                           r7780mp_defconfig    gcc-16.2.0
-sh                    randconfig-1000-20261108    gcc-12.5.0
-sh                    randconfig-1000-20261109    gcc-8.5.0
-sh                    randconfig-1001-20261108    gcc-12.5.0
-sh                    randconfig-1001-20261109    gcc-8.5.0
-sh                           sdk7786_defconfig    gcc-16.2.0
-sh                    secureedge5410_defconfig    gcc-16.2.0
-sh                         sh7763rdp_defconfig    gcc-16.2.0
-sh                   sh7785lcr_32bit_defconfig    clang-24
-sh                              shx3_defconfig    clang-17
-sh                             titan_defconfig    gcc-16.2.0
-sh                               ul2_defconfig    clang-17
-sh                           urquell_defconfig    gcc-16.2.0
-sparc                             alldefconfig    gcc-16.2.0
-sparc                              allnoconfig    clang-24
-sparc                                defconfig    gcc-16.2.0
-sparc                 randconfig-1000-20261108    gcc-8.5.0
-sparc                 randconfig-1000-20261109    gcc-8.5.0
-sparc                 randconfig-1001-20261108    gcc-8.5.0
-sparc                 randconfig-1001-20261109    gcc-8.5.0
-sparc                        sparc32_defconfig    gcc-16.2.0
-sparc64                           allmodconfig    clang-20
-sparc64                              defconfig    gcc-14
-sparc64               randconfig-1000-20261108    gcc-8.5.0
-sparc64               randconfig-1000-20261109    gcc-8.5.0
-sparc64               randconfig-1001-20261108    gcc-8.5.0
-sparc64               randconfig-1001-20261109    gcc-8.5.0
-um                                allmodconfig    clang-17
-um                                 allnoconfig    clang-24
-um                                allyesconfig    gcc-16.2.0
-um                                   defconfig    gcc-14
-um                              i386_defconfig    gcc-14
-um                    randconfig-1000-20261108    gcc-8.5.0
-um                    randconfig-1000-20261109    gcc-8.5.0
-um                    randconfig-1001-20261108    gcc-8.5.0
-um                    randconfig-1001-20261109    gcc-8.5.0
-um                            x86_64_defconfig    gcc-14
-x86_64                            allmodconfig    clang-22
-x86_64                             allnoconfig    clang-24
-x86_64                            allyesconfig    clang-22
-x86_64      buildonly-randconfig-1000-20261108    gcc-14
-x86_64      buildonly-randconfig-1000-20261109    clang-22
-x86_64      buildonly-randconfig-1001-20261108    gcc-14
-x86_64      buildonly-randconfig-1001-20261109    clang-22
-x86_64      buildonly-randconfig-1002-20261108    gcc-14
-x86_64      buildonly-randconfig-1002-20261109    clang-22
-x86_64      buildonly-randconfig-1003-20261108    gcc-14
-x86_64      buildonly-randconfig-1003-20261109    clang-22
-x86_64      buildonly-randconfig-1004-20261108    gcc-14
-x86_64      buildonly-randconfig-1004-20261109    clang-22
-x86_64      buildonly-randconfig-1005-20261108    gcc-14
-x86_64      buildonly-randconfig-1005-20261109    clang-22
-x86_64                               defconfig    gcc-14
-x86_64                                   kexec    clang-22
-x86_64                randconfig-1000-20261108    gcc-14
-x86_64                randconfig-1000-20261109    clang-22
-x86_64                randconfig-1001-20261108    gcc-14
-x86_64                randconfig-1001-20261109    clang-22
-x86_64                randconfig-1002-20261108    gcc-14
-x86_64                randconfig-1002-20261109    clang-22
-x86_64                randconfig-1003-20261108    gcc-14
-x86_64                randconfig-1003-20261109    clang-22
-x86_64                randconfig-1004-20261108    gcc-14
-x86_64                randconfig-1004-20261109    clang-22
-x86_64                randconfig-1005-20261108    gcc-14
-x86_64                randconfig-1005-20261109    clang-22
-x86_64                randconfig-1006-20261108    clang-22
-x86_64                randconfig-1006-20261109    gcc-14
-x86_64                randconfig-1007-20261108    clang-22
-x86_64                randconfig-1007-20261109    gcc-14
-x86_64                randconfig-1008-20261108    clang-22
-x86_64                randconfig-1008-20261109    gcc-14
-x86_64                randconfig-1009-20261108    clang-22
-x86_64                randconfig-1009-20261109    gcc-14
-x86_64                randconfig-1010-20261108    clang-22
-x86_64                randconfig-1010-20261109    gcc-14
-x86_64                randconfig-1011-20261108    clang-22
-x86_64                randconfig-1011-20261109    gcc-14
-x86_64                randconfig-1012-20261109    clang-22
-x86_64                randconfig-1013-20261109    clang-22
-x86_64                randconfig-1014-20261109    clang-22
-x86_64                randconfig-1015-20261109    clang-22
-x86_64                randconfig-1016-20261109    clang-22
-x86_64                randconfig-1017-20261109    clang-22
-x86_64                                rhel-9.4    clang-22
-x86_64                            rhel-9.4-bpf    gcc-14
-x86_64                           rhel-9.4-func    clang-22
-x86_64                     rhel-9.4-kselftests    clang-22
-x86_64                          rhel-9.4-kunit    gcc-14
-x86_64                            rhel-9.4-ltp    gcc-14
-x86_64                           rhel-9.4-rust    clang-22
-xtensa                             allnoconfig    clang-24
-xtensa                            allyesconfig    clang-20
-xtensa                           iss_defconfig    clang-24
-xtensa                randconfig-1000-20261108    gcc-8.5.0
-xtensa                randconfig-1000-20261109    gcc-8.5.0
-xtensa                randconfig-1001-20261108    gcc-8.5.0
-xtensa                randconfig-1001-20261109    gcc-8.5.0
+DMA providers must supply the callback-drain guarantee of
+dmaengine_synchronize() before retirement releases storage. The related
+provider synchronization fixes are tracked separately and must precede
+these consumer changes on affected controllers.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Based on tty-next at 6628e7d4c6b2 with the posted shutdown guard [0], channel
+configuration error handling [1], RX TTY accounting fix [2], RZ/N1
+transfer-length fix [3], transmit-PM shutdown fix [4], serport
+write-wakeup deferral v2 [5], DesignWare BUSY-safe fractional-divisor
+programming [6], and Intel MID RX DMA timeout locking [7]. The serport fix
+is needed before serializing the remaining write-wakeup callers with the
+port lock.
+
+[0] https://lore.kernel.org/r/20261021-submit-serial-8250-dma-shutdown-v1-v1-1-3d3ce383c614@gmail.com
+[1] https://lore.kernel.org/r/20261021-submit-serial-8250-dma-config-errors-v1-v1-1-c067587d1ef2@gmail.com
+[2] https://lore.kernel.org/r/20261021-submit-serial-8250-dma-rx-accounting-v1-v1-1-c11795914ab4@gmail.com
+[3] https://lore.kernel.org/r/20261023-submit-serial-8250-dma-tx-length-v1-v2-1-c3106ef4d2df@gmail.com
+[4] https://lore.kernel.org/r/20261022-submit-serial-8250-tx-pm-shutdown-v1-v1-1-0e894afa3bb8@gmail.com
+[5] https://lore.kernel.org/r/20261028-submit-serport-write-wakeup-v1-v2-1-c05d96259985@gmail.com
+[6] https://lore.kernel.org/r/20261027-submit-serial-8250-dw-divisor-v1-v4-1-41714a75e15a@gmail.com
+[7] https://lore.kernel.org/r/20261024-submit-serial-8250-mid-rx-lock-v1-v1-1-2b9afdf869d7@gmail.com
+
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v10:
+- Rebase onto tty-next at 6628e7d4c6b2, retaining the latest posted versions
+  of the prerequisites.
+- Warn once per stalled RX flush without a shared rate limit, so concurrent
+  stalls on different ports and later stalls on the same port are reported.
+- Remove OMAP shutdown notifications for the unused generic RX pause worker.
+- Use consistent TX cancellation predicates and the shared RX-running helper,
+  simplify condition formatting, and describe OMAP locking with Context:.
+- Spell retry intervals as explicit multiples of the time-unit constants.
+- Use the public bitmap header for SCCNXP wakeup iteration and leave the
+  unrelated event-handler iterator type unchanged.
+- Share and document the low-water write-wakeup check used by serial-core
+  readiness and generic 8250/OMAP TX DMA completion.
+- Explain why ambiguous pause failures retain the transfer instead of using
+  timeout-triggered PIO recovery, distinguishing data preservation from
+  termination safety and documenting the possible indefinite RX stall.
+- Track final-termination progress reporting separately for each teardown,
+  reporting ongoing failures at five-second intervals without a shared
+  rate limiter. Keep the initial failure and recovery reports
+  unconditional.
+- Collect Raul's Reviewed-by tags for the first six patches.
+- Link to v9: https://patch.msgid.link/20261102-submit-serial-8250-dma-cancel-v1-v9-0-9159caade148@gmail.com
+
+Changes in v9:
+- Back off pending RX pause retries from 1 ms to one second, wake the worker
+  on completion and shutdown, and report prolonged stalls once per flush
+  through a rate-limited warning. Reset the delay for each new flush.
+- Lock ST ASC startup's transmit servicing and RX interrupt enable after
+  requesting the IRQ, covering write wakeups from an empty FIFO as well.
+- Wake logical-FIFO drain waiters after a flush even while TX storage is
+  reserved or the port is not ready, keeping line-discipline write-ready
+  callbacks deferred until writes are allowed.
+- Use plain port locking where interrupt context or an enclosing IRQ-saving
+  lock already supplies the required exclusion, retaining IRQ-saving locks
+  in workers, tasklets and mixed-context callers.
+- Separate OMAP RX completion/flush locking and shutdown IRQ draining into
+  two preparatory fixes, with their own rationale and Fixes tags.
+- Place the new delay header before the existing include block.
+- Back off failed final DMA termination retries from 1 ms to a one-second
+  cap. Report the initial failure, rate-limit ongoing failures with elapsed
+  time and current RX/TX errors, and report successful recovery.
+- Link to v8: https://patch.msgid.link/20261029-submit-serial-8250-dma-cancel-v1-v8-0-3fd56ba352ed@gmail.com
+
+Changes in v8:
+- Retain RX transfers after ambiguous pause failures and retry in the worker
+  until pause succeeds or completion is reported, preserving delayed data
+  while masking RX interrupts and allowing shutdown to take over.
+- Retain both DMA channels and their storage during final shutdown until
+  synchronous termination succeeds, retrying failures outside the port lock.
+- Update the serport write-wakeup prerequisite to the posted v2.
+- Cover DZ transmit servicing, DECstation ZS TX/modem handling and
+  JSM Classic modem notifications with the port lock.
+- Defer ZS console-triggered TX restart to a worker, preserving the
+  port-before-SCC lock order and draining work during teardown.
+- Release Lantiq's private hardware lock before write-wakeup callbacks.
+- Assert the port-lock contract in uart_write_wakeup().
+- Retain the tx_running guard in generic and OMAP TX callbacks.
+- Publish OMAP's shutdown gate before the final RX flush, serialize
+  RX completion and runtime-suspend flushes with port and RX DMA locks,
+  and drain its UART interrupt before releasing DMA state.
+- Link to v7: https://patch.msgid.link/20261027-submit-serial-8250-dma-cancel-v1-v7-0-985a023ba4b4@gmail.com
+
+Changes in v7:
+- Rebase onto tty-next at 6b4b543fa187.
+- Use v4 of the DesignWare BUSY-safe fractional-divisor prerequisite.
+- Use an unsigned long bitmap and for_each_set_bit() for SCCNXP
+  deferred write wakeups, with unsigned port indices.
+- Narrow SB1250 modem-status locking to shared-state updates and
+  avoid taking the port lock for RX-only interrupts. Keep TX FIFO
+  consumption and interrupt masking serialized with writers.
+- Link to v6: https://lore.kernel.org/r/20261024-submit-serial-8250-dma-cancel-v1-v6-0-6f366591f566@gmail.com
+
+Changes in v6:
+- Use v2 of the DesignWare BUSY-safe fractional-divisor prerequisite.
+- Serialize CLPS711x TX servicing and interrupt-enable state with the
+  port lock. Use non-waiting IRQ disable in stop_tx(), skip queued TX
+  interrupts after stopping, and drain the handler outside the lock
+  during shutdown.
+- Make the Atmel RX/TX tasklets and SB1250 termios locking IRQ-safe
+  alongside their interrupt-handler locking, preserving the caller's
+  interrupt state when releasing the port lock.
+- Report RX DMA recovery after releasing the port lock, keeping the
+  state changes and interrupt-enable restoration serialized.
+- Link to v5: https://patch.msgid.link/20261024-submit-serial-8250-dma-cancel-v1-v5-0-9e52968928d2@gmail.com
+
+Changes in v5:
+- Add the posted serport write-wakeup deferral as a prerequisite for the
+  caller-locking preparation.
+- Add a preparatory patch serializing asynchronous write-wakeup callers
+  with the port lock, including indirect CTS and transmit-helper calls.
+  Keep sleeping register accesses outside the lock and defer SCCNXP
+  notifications until its controller lock is released.
+- Use the separately posted DesignWare BUSY-safe fractional-divisor fix
+  and Intel MID RX DMA timeout locking fix as prerequisites, leaving five
+  patches in this series.
+- Separate serial-core write readiness from DMA storage reservations. Record
+  retirement during startup and shutdown while keeping writes and wakeups
+  gated until the port is ready.
+- Wake deferred writers after successful startup or resume, including when
+  reopening with a retained FIFO, and restart any retained queued output.
+- Keep the write-ready notification pending while retained output is at or
+  above the normal wakeup threshold, until TX completion drains it.
+- Publish resume readiness under the TX restart lock without releasing a
+  reservation that may belong to a newly flushed transfer.
+- Release 8250's TX reservation after shutdown has stopped DMA and unmapped
+  the source; serial core retains control of write readiness.
+- Link to v4: https://patch.msgid.link/20261023-submit-serial-8250-dma-cancel-v1-v4-0-e759de1839de@gmail.com
+
+Changes in v4:
+- Retain flushed TX reservations through shutdown and failed resume. Release
+  them after successful resume, or when allocating a new FIFO on reopen,
+  so retirement cannot wake writers into a closing port.
+- Treat RX flush as complete once the channel is inactive, and clear the
+  shutdown guard before startup configures the UART and tests interrupts.
+- Check completion after a failed pause so a transfer that finished before
+  its callback acquired the port lock is delivered and retired normally.
+- Keep DesignWare's BUSY-safe divisor setter after fractional-divisor
+  discovery, writing DLF and DLL/DLH only after confirming DLAB.
+- Link to v3: https://patch.msgid.link/20261023-submit-serial-8250-dma-cancel-v1-v3-0-d78f9e4c4932@gmail.com
+
+Changes in v3:
+- Defer write-ready wakeups while flushed TX storage is reserved, and
+  serialize the flush wakeup with the reservation under the port lock.
+- Suppress ordinary TX starts during the reservation while preserving
+  high-priority flow-control characters, which use separate storage.
+- Separate RX FIFO access from callback retirement, allowing PIO and the
+  DesignWare empty-FIFO timeout workaround after a successful pause and
+  termination while keeping the receive buffer reserved.
+- Use the existing IER shadow for requested enables and a shared register
+  writer to keep receive interrupts masked throughout DMA error recovery,
+  including termios, RS485, modem-status and overrun-backoff updates.
+- Preserve the timeout-enable bit across stop_rx(), exclude late shutdown
+  interrupts from PIO, and avoid FIFO resets during RX DMA recovery.
+- Preserve the completion-path LSR read after stop_rx(), while gating DMA
+  resubmission on the receive interrupt enable.
+- Pack the cancellation flags after moving all their accesses under the
+  port lock, including the recovery worker's snapshot and initialization.
+- Apply the early-return, shared-helper and line-wrapping cleanups.
+- Link to v2: https://patch.msgid.link/20261022-submit-serial-8250-dma-cancel-v1-v2-0-088ea51e3891@gmail.com
+
+Changes in v2:
+- Add serial-core helpers to reserve flushed transmit storage until DMA
+  retirement. Apply write backpressure during that interval and keep normal
+  TX using the FIFO directly, replacing the private transmit buffer in v1.
+- Document the flush callback's reservation, writer backpressure and
+  retirement requirements, including release before shutdown returns.
+- Split the OMAP completion refactor into a preparatory patch and move
+  the RZ/N1 preparation-order and shutdown PM fixes to independent
+  submissions, keeping four patches in this series.
+- Take runtime PM references around worker UART accesses, and leave normal
+  RX retirement to release ownership without reading LSR or restarting DMA.
+- Synchronize the queued TX ranges before preparing the descriptor and
+  return the mapping to CPU ownership before releasing the reservation.
+- Keep the TX transfer length separate from FIFO cancellation, so a failed
+  termination can account completion without advancing the reset FIFO.
+- Exclude late RX flush work during shutdown, including Intel MID DMA
+  timeout interrupts which are independent of UART_IER.
+- Accept DMA_IN_PROGRESS after successful pause, and recover from failed
+  pause, termination or DMA_ERROR before handing the receiver to PIO.
+- Preserve stop_rx() and shutdown across recovery, and retain the
+  DesignWare empty-FIFO timeout workaround when receiving through PIO.
+- Apply the requested guard spacing and container_of() formatting.
+- Link to v1: https://patch.msgid.link/20261021-submit-serial-8250-dma-cancel-v1-v1-0-efe2b89f2303@gmail.com
+
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jiri Slaby <jirislaby@kernel.org>
+To: Richard Genoud <richard.genoud@bootlin.com>
+To: Nicolas Ferre <nicolas.ferre@microchip.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+To: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Jacky Huang <ychuang3@nuvoton.com>
+To: Shan-Chun Hung <schung@nuvoton.com>
+To: Pali Rohár <pali@kernel.org>
+To: Frank Li <Frank.Li@nxp.com>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+To: Pengutronix Kernel Team <kernel@pengutronix.de>
+To: Fabio Estevam <festevam@gmail.com>
+To: Timur Tabi <timur@kernel.org>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>
+To: Vignesh Raghavendra <vigneshr@ti.com>
+To: Tony Lindgren <tony@atomide.com>
+To: Raul E Rangel <rrangel@chromium.org>
+To: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-serial@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: imx@lists.linux.dev
+Cc: linuxppc-dev@lists.ozlabs.org
+
+---
+James Hilliard (8):
+      serial: 8250_omap: separate locked TX DMA completion processing
+      serial: serialize asynchronous write wakeups with the port lock
+      serial: 8250_omap: serialize RX DMA completion and flushing
+      serial: 8250_omap: quiesce DMA IRQ handling before shutdown
+      serial: core: allow drivers to reserve flushed transmit storage
+      serial: 8250: drain canceled TX DMA before reusing its buffer
+      serial: 8250: retire canceled RX DMA before reusing the receive buffer
+      serial: 8250: retain DMA resources when termination fails
+
+ drivers/tty/serial/21285.c          |   2 +
+ drivers/tty/serial/8250/8250.h      |  66 +++++-
+ drivers/tty/serial/8250/8250_core.c |   2 +-
+ drivers/tty/serial/8250/8250_dma.c  | 406 +++++++++++++++++++++++++++++-------
+ drivers/tty/serial/8250/8250_dw.c   |  28 ++-
+ drivers/tty/serial/8250/8250_omap.c |  69 ++++--
+ drivers/tty/serial/8250/8250_port.c |  36 +++-
+ drivers/tty/serial/atmel_serial.c   |  12 +-
+ drivers/tty/serial/clps711x.c       |  23 +-
+ drivers/tty/serial/cpm_uart.c       |   2 +
+ drivers/tty/serial/dz.c             |   9 +-
+ drivers/tty/serial/fsl_lpuart.c     |   2 +-
+ drivers/tty/serial/jsm/jsm_cls.c    |   6 +-
+ drivers/tty/serial/jsm/jsm_neo.c    |   9 +-
+ drivers/tty/serial/lantiq.c         |  12 +-
+ drivers/tty/serial/ma35d1_serial.c  |   6 +-
+ drivers/tty/serial/max3100.c        |   6 +-
+ drivers/tty/serial/max310x.c        |   9 +-
+ drivers/tty/serial/mux.c            |  13 +-
+ drivers/tty/serial/mvebu-uart.c     |   2 +
+ drivers/tty/serial/mxs-auart.c      |   2 +
+ drivers/tty/serial/sb1250-duart.c   |  25 ++-
+ drivers/tty/serial/sccnxp.c         |  43 +++-
+ drivers/tty/serial/serial_core.c    | 104 ++++++++-
+ drivers/tty/serial/st-asc.c         |   2 +
+ drivers/tty/serial/ucc_uart.c       |   6 +-
+ drivers/tty/serial/zs.c             |  94 ++++++---
+ drivers/tty/serial/zs.h             |   3 +
+ include/linux/serial_core.h         |  34 ++-
+ 29 files changed, 810 insertions(+), 223 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261021-submit-serial-8250-dma-cancel-v1-b208f84e89c1
+prerequisite-patch-id: 3604bfaa3a1c214997de1f11162b81a4541af5ab
+prerequisite-patch-id: 79dd093ffb35e254e790dffb8887faf51b64f947
+prerequisite-patch-id: 80a5061d84c055a64c760268febed179c687b99f
+prerequisite-patch-id: 7dbb404baf1f861982cf6a4b755d39cfec548223
+prerequisite-patch-id: 40881d81a27b3a1aa45203d171214faaf2197768
+prerequisite-patch-id: 76506fd9b234c7268227ff41e4d0989e82a1a433
+prerequisite-patch-id: d8219673210dac82d3adab41578ff2f76f5862c9
+prerequisite-patch-id: 48659e5ef3f5fb377d0b751f0830c0de4699262c
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
