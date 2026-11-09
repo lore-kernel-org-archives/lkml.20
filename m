@@ -1,60 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794266504;
-	b=rirwkZnJwbSNSzD8+OhlPcga8qGOkqSUuwl7wbnxgh1wSZWgirigO1iOFmfBX4ZvDQPq
-	 rYyBUmbX6f+Nr5gAiFtjhhG4c5irSX/sE+5h+438wlgI0JFlBptDwxYnHrb4tm/rJVl9O
-	 J4TvlAFOkXl/VGyw7wlsHw3ivBHcxaXKMIPU87WRc7DdBGcuTb78whIbeLxs5+YbYEVKC
-	 B4dkI12Ax9JoWjZMwYx8ntsrmqwQaJ+XBwOTTjMrq0LAUUxf0p61AZGTYNfXF58q01Fra
-	 4QC2RD6gZfpyBkEguRffPGUPa7q8E6Vy+1fKfD67jgCECA4sAhLxC/KHo6+1Wh99lXg==
+	t=1794266552;
+	b=DjYqG+BeepdBSOJJ5kVmzZsDH0HkeRncOPniMxoltghn6uYeFzJKEUMrU036glUKVlR7
+	 2JnqJNBx566WlhOnr1ZXYdoY5fV3WjYYGr0qjrboM4i0jQaIQoDiotSg14sb6Op8zT2wk
+	 k1TgnD/MNYxMi4d7/DJ5hQP9QJlzlrg6mzeC6oJ7gZGp2nD/iU13UZEBq06RHRX6rBJUF
+	 Xpf8nYiBCfoRBUvun4zv6EFalFTNlYzUEomhEYLPCeHlE1KOzg0BO0/ixNB/5snpE1pD6
+	 FvJYU6jP6Z0Y7UOp6e01hT4ihoXiFaAFoRBBqFrQMqByQA8+8mGhSYawf2vVgHzR1Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266504;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=SmhMFLn1pD5xdL192Nn1266bL4SZb57SNC4MA7BB0n4=;
-	b=kGZT66Tr1020STGZCZPnKPWsQRsRutD9ADo4v52ae1fARmD+y0odp2Pzw7fQ1yCrwtdO
-	 FEKHP9TB3Eu11LWCGnl18KY4AhHq2JzPH4pUXhMutZG++YQivkEKV3yH59xLC12sWYFOd
-	 P1LRZA8owbj5tKIo7lmhOJBCHAz2TwdV/AS5pm79DhC1tws4TTdrUihnVhmui+JDejdDH
-	 oBOwHt0RUMQGbrHrrWkXzwZNUUKVD8DzXPEZ3DO0D0XdBEC0M5lYqROVNrxwi1FWUzSU8
-	 pciqBn5KtvkziahAw7h5ctC4Snq/86TgFWwxoEtfdm/BgtCp28Pk80qn0dDlrq2v8Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794266552;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=W+XCy+nVFnxoDmQzBQ0c9S90ITTeoRgfFYCLUSeMDj4=;
+	b=g5tFmJaXFSBR0OJSXmH5MLYbDXusns3ysfOf02qsz2wSVjbFUv96W+gS8CsqDvvNQigv
+	 F8b37mPAwG1Z7eZ6kgYW1y+zakH4O+lSALYr0Bk4Ul+CMSc3yqgb5pqZWd2313pzbuUq1
+	 kqqEhdO2IRW4I9KDxrwi98VycZb+eONJ0LNgxatLzQkGsDnCw+SqHdIpLo+5KAgWEUx8G
+	 br5L/1FUjZkfRmxkaUpWxWUYqsJ8a7pMJRstzmhHDeAdr+wu4kqjWpqNEwzXSYkKzqm6O
+	 xeSAIos5OZ4DhScZ/KAfcG7sAT24Zx8xBpNK6oaaH9jaxJfoIr97t9ODjJCn0wcNH2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=oTt9gfRV;
-	arc=none smtp.remote-ip=79.135.106.118
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=J8jHts4v;
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED70E606A334
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:21:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED70E606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8595606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:22:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8595606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=oTt9gfRV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794266500; x=1794525700;
-	bh=SmhMFLn1pD5xdL192Nn1266bL4SZb57SNC4MA7BB0n4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=oTt9gfRV9IDu4tuqFf9eN3u+BKAOUjVOSTtyE24s9MTxzuluURCCCoWIDd7zq/PAw
-	 1KT/GBPG58WJttkY0dkY+cXU6bQowJEGjDdG8J1IRfUXdXDTO1I+RzTVFZYfYKDb0B
-	 N2UNzzi9V4Zaj5F8V63izt1zpLq/zE6ay+qtxi+49q/YOICeQuDmV81ZObccItESMu
-	 h4p4QQ2ciXgpm4gN1AU/R3wmuzVibRz33Z6EJ0NXvKxHeC9SirNYJkQseu3CE02/mx
-	 XFtERUzoDggmRdALG1ascye4xYV8yaLNbnk04YTQKdCMDNXw1dB7Dfhupg5hhn5Eqv
-	 M5iOsiHwRFAmw==
-Date: Mon, 09 Nov 2026 23:21:36 +0000
-To: netdev-bot+sashiko@kernel.org
-From: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: jmaloy@redhat.com, tung.quang.nguyen@est.tech, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tipc: bound reassembly size in tipc_buf_append()
-Message-ID: <mHuZAf-oFGkrZS2NLMDwNKobclne-YUo5tKMP7IZ53h15EAX-S7xraUmY5K99QcfwmggaWJgTcdctsXFPaMuAbooTWyQGhoJFfx7hlawo_g=@proton.me>
-In-Reply-To: <179426495025.994134.5478434430372728777@kernel.org>
-References: <AoU-V5M5ZCKF37bLl8ILhgeNdsnCEaiaQNuWP4K56kRfJsnhkIexZ8tFRLq7uzGiA0qNqK6shXcSZ5E4hyV0-QI0ZWSuKiJzKvMrv3NfqCg=@proton.me> <179426495025.994134.5478434430372728777@kernel.org>
-Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: 621fe41e638a70783770d9319623ec813d65833d
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=J8jHts4v
+Received: from eig-obgw-5004b.ext.cloudfilter.net ([10.0.29.208])
+	by cmsmtp with ESMTPS
+	id QPulxNmE1AR1iQYh5xa94L; Mon, 09 Nov 2026 23:22:31 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id QYh4xrKmxuJrPQYh5xwbk3; Mon, 09 Nov 2026 23:22:31 +0000
+X-Authority-Analysis: v=2.4 cv=WLZ/XmsR c=1 sm=1 tr=0 ts=6af255b7
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=yC-0_ovQAAAA:8
+ a=C-G3OIpCgmwuh2f8opQA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+ a=p49Upr6YYhNo69yxWKUU:22 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=W+XCy+nVFnxoDmQzBQ0c9S90ITTeoRgfFYCLUSeMDj4=; b=J8jHts4vEOuUy2HxMIwZKAr89F
+	h1cbBtZbq6Gt3UIU3q3O7RuBAJQWl4JrWWyDT8FYKnkBSx99VbSNTnLFXvUbu/h5zsj7ra5xv9s6d
+	jthFhamylcg5cMTS7Tj1KIJZ3kEWBTIQq98t9tJPrgymVHqO3w9YdIvH0OTL7nzgGS+Tf1j7b5pw9
+	mYC0ueLeWc+WMUWo0rB+5LYVVIA4ONfkz4jrYdfyUcfiibgd8+f5bqFbqjkK5vWVWH/Ua3iCKgRL6
+	7Tl3RBBoCQlwU2lzguXEJ3WApPcKswiIHpfzF+ucRG8Wjw1eYfELs4S3hb2ag1ym99QGCTg2l6Mn1
+	32akXeHg==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:55034 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQYh3-00000000wME-05ni;
+	Tue, 10 Nov 2026 04:52:29 +0530
+Date: Mon, 9 Nov 2026 15:22:27 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v8 4/7] watchdog: rzv2h: Drop runtime PM handling from
+ WDTDCR init
+Message-ID: <0ae129cf-87df-4d26-8d2f-0c54c09d4019@roeck-us.net>
+References: <20261001165201.763882-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261001165201.763882-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,11 +96,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001165201.763882-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQYh3-00000000wME-05ni
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:55034
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 66
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfJUHfsSFq1BCGzoKdLNOkpYdbaJVKIH22r8AaPsvCSAkhE3H7Go05jZywYtyXUdb160ypbZ1KNCk0wO0EpKifs+I6eTcFUJT6EGunoT3/jWAA/HkeAdk
+ 42dQUqAHR6IaJp1O/xkvOGU4OFpjtGfhb3g8Lyjpgb7rYg4aH4qhZLHNDXKQXdI9mJ8fPJdxYhEAKILzphFSJWzMy0XChiHwtDgI92VC71i1peDpwmD22Ruk
 
-Thanks for the review. Please disregard this version of the patch. Sashiko =
-identifies a possible NULL dereference in the new check, and Tung has alrea=
-dy rejected the original report's threat-model premise.
+On Thu, Oct 01, 2026 at 05:51:58PM +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> WDTDCR is located in the CPG region, outside the watchdog module, and is
+> accessible regardless of the watchdog's clocks and reset state.
+> 
+> Drop the unnecessary runtime PM handling from WDTDCR initialization and
+> access the register directly.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Noah
+Applied.
+
+Thanks,
+Guenter
