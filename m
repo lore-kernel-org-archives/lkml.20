@@ -1,63 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192172;
-	b=MLY3N5O1JLxic1BW8p8qKAsP+BXeA6smlhQxvxykXJEPsMiZPGhSDW1yzb+WdzVxExrZ
-	 0xnY5eHUMgO67FsOCRt4f/x6QKuYlIlo3PwwcaowObmoZpsjckcpjcepymRaj7gJoG3mi
-	 TH1YUxVlD3PR72zm0sIjM3FClRiosNUPJqSNI6xQ2/BPgc1ijO1lcM86uNiBEv6qDieuj
-	 QgiEOQ7OwfZ4C/feUiGqa9GT6YqIz1w1Aj90GqR2+As048Y/Qq33/uU0Db5iaEDt3VU/J
-	 NNTXGcifzKJ6QxYszk7b7SiGs7V5ung+Xy+slXz/hCuFz9ex/qHCdtfU8Bsb8i3GI/w==
+	t=1794192191;
+	b=XRObKgIQcD9pemLRVPL+YC69XxaMnvqYmECDC45njwzYiVPE1oQMny3KooDRq7LT1KBS
+	 YXU/t/Qok5Bf8TyAPMb4TWP8wcbfuyYQsrhVXeno989jlcW89vJogi78zLE96dIiUQMGc
+	 hI3GUjY2AOKLsySH0yg4JQvTnKaLPQsCOOXnBY3SYB04HWNmxQlyROvpGk9/+lkwNCmo2
+	 rOwgM9xbUQ1SaxcCKTzsIdoUfyW2u1YxOTGADwUg36ZxXKJfNQAlPj3O5VT1s0TVtVSzz
+	 ENfLjKdPiqSOj775rAewhqQhNxjgcGWG41LWHLGeKBiWP3fVBmI3FioRQPrv0gSYc5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192172;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=4ZD1HzBAczl7IU1PtRM9yDehp3DVa/ilO4eu9zsq+xQ=;
-	b=ZsIexzlpb9DdbRcqmD00/an4EQNjVAqikj39AsDEA34sM5hmrG/eqqvTE/7gZaJWFWwT
-	 JZ0IYkhd7CgiQlGBpHYH6WEcXnFsrgfgNkidqqswAED+utsEH4uUw7u5gKOC6oaLsiiSW
-	 FcF2OFDAtBJjsSiS2AO3ElWn/ETwIpP/c9Q7ZuK+orqOZqbAntACdwNppe+5XLd6+IGN6
-	 k3cVo1OF4d3fan5rtXvPek5xXka1Pu0XmWlgVhVYDA1k3f+k9z82ZBslNAvIjGf5Le77S
-	 68Ymugn9T0DI97cORUumQNBti5y98+4guo3w0joSMBNLL7fPcvYkenb6qc43TbYpO8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192191;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=lbsHrjkpK1cq0QRwZ9oauLF2GZ88NqZOcvz5poLBJyg=;
+	b=zPoVe3KbxSeBn8nPmm489C9YN6xzWdF54fKF/uYLs5JnOg3cGPP9GCP3N4RR6NkORyMd
+	 rk+MmKswwrA3AyGA5qy7uooWZ3MIBe5qBS8uoWWxF5uXaNrh3YSf9oIR3c8AobxHLW8HX
+	 qkrKijKWpwguZzqbXVUw9aDzDVb3XlpfXn0kYzEpsK71uzJtdpQ7qWSj4oPJm69BvVahF
+	 7TDtfNcUIctpEN0N5r5b3mCLwGgSiS6kpBkd5Y6GGNo6Ds5m/pAaaOVt/gh4vSeKiZv2c
+	 KqmVj2DhbvS6/ln7+a3R1Veus4m+27JS6Nq91FYZTWleawK6oZymbX3sjuJY1LEV7dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IligXMQJ;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=cbxiXzcB;
+	arc=none smtp.remote-ip=209.85.219.42
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2139A606A31C;
-	Mon,  9 Nov 2026 02:42:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2139A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB63606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:43:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACB63606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IligXMQJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=4Z
-	D1HzBAczl7IU1PtRM9yDehp3DVa/ilO4eu9zsq+xQ=; b=IligXMQJleodfk/cIi
-	Ui+gAfRJ8oCPCpFW0zu+ZsbZyqEOkwx3RbeGnOOydN5wRLCCOqwBSi5wQiFX969n
-	yr8EmybHXMjbEMnzcG41CywPfBq6yv6RR8KsmVQa9BcJhgKFz2podw0k53zI489Q
-	sZkLantXt5RJyO7j3j1oEzfCk=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDnH4MPM_FqYjHEGA--.39027S2;
-	Mon, 09 Nov 2026 10:42:24 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: marcelo.leitner@gmail.com,
-	lucien.xin@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org
-Cc: linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH v2] sctp: fix race between addr_wq timer handler and backlog draining
-Date: Mon,  9 Nov 2026 10:42:18 +0800
-Message-ID: <20261109024219.347985-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=cbxiXzcB
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91ea2e29d90so5105176d6.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:43:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1794192190; x=1794796990; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lbsHrjkpK1cq0QRwZ9oauLF2GZ88NqZOcvz5poLBJyg=;
+        b=cbxiXzcBq1YTRCRTQ5SpDNs57XNcRCOklDPWlZDn2EVhGusLShQSlRFpqQp4aJNUGm
+         TzAfh2JvnGlVH1xt6ca5uwisyuC/guT42PwIC1/gjLSVdqvPdKgHokbMEzSkXZECnaow
+         YtJEeG2TMwYHywh6hmjFXAwRDdSRYzQ0of8bg2ZsdIEt1bsu8POrC8NUg4D2mhgXgZ4l
+         yXQUA0OxTzasWnvl1UxIkKeBh0N/n5E2tioPhTevlGXrzWO1O9nvB6osZY69KUbUqc7G
+         rmCS62U+mF3PyNnfR5iyO1yR01jv3iYytpSMgnr9cMV6Cg1tMhQg68ZstJeLpTW5SMSe
+         aHZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794192190; x=1794796990;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lbsHrjkpK1cq0QRwZ9oauLF2GZ88NqZOcvz5poLBJyg=;
+        b=vc0sykp9daZR8MtZX1LAYpQGxU/k1AeE4Vo4eAPOvTx5bG0WMDZpCQYCvKZnbHSD1R
+         /ZoRRuCleHtjtq/t2O9X9lo+tV3GSyeof7jNWISl/kNv37/TnNjTbugcpAXF6adrZ/h2
+         wEwvEJKh3zER5fIMqBMNubodnzyVvp3DJ2RqKcW3myoK9ULdwTWQzXgQVbthNGlek9Bw
+         y87/EghwMc0vmDohM9/IJP5aclcQUyYcqSeavJlgkH0H7JN45wnYbJOJokDjloEpPqNz
+         A4hFrgkH+dVQsSlRERVK7oQ0x2wEzAC22ce8cOQmEpuO5eFKp+vOGNmAZkdV+J4ay+d2
+         FjHw==
+X-Forwarded-Encrypted: i=1; AL+hErHVTJOl0b3rUZK2oC4S+lC9RlDkvEMV900wfOW0KGA5zoG22ed2OqtnnPb+a/4Q45FIZceLijnV5L9Jphk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lpAGk3enJCtZ+2tTrx6EjaUF67AVn3q/SqowBEV6Ajng152VP
+	AoGfpL6Utk8iuAXIsD4UVs/AijUuSmi3z5qo2s3dUyKZEgmEqgby6Km7ettE67B2DQ==
+X-Gm-Gg: AYBFou0+Auex6L1EQwrHCPSwFwJxZioXunKOnaEDysNapIHfFANFExzsWOMAaUSEnD7
+	T/l/11pBJLPlH3C7wZ8SbXKbFpllgbxzG7jqn3LkZEa6cgL22O7m9Tq1juW7Z+vxyZhcav+fyIg
+	FVzLh4oIoQ1m/z1tQhpt7hwVtB3a6HITJnssmjFOMqgM94VmQqQOOHRg2anNdg/o1cy4auOcUmK
+	e4n28yF2C6j/R4zvJXK3HB7AZ9DlrRyaZAZjH9z/d8v3Tx92Pk30j56Z6QRbV9wzzoxRHO3h4mG
+	E181QdnZGb+gT2lpeCOQ1C9wglOgBBwfw6AcEyObZ4fzZqOo60b0+9i0R3vldmJVaV422zbayM6
+	oLXbwlQhWZ4NB297LQ1GXqo4Jv+b9k6jATLcw4oCgkP9+4AQmFZhzvNVF2jeD6Ra/N7QUJ/+hs2
+	gOqtBWJs9gUgC3dgIpmIWd7CiCOyCyNqFSej6NHxxP+kiVa1jSjNkGcr1pL2podkTlC1aHivx2s
+	ovtZgDwxE94KjXK+u52q0ywx0Q44ul/y+jEYbSrQf6c0Ct/ajU0OLqBzH4TMUFE9kKOqPf/8J1j
+	iAZKstfolb1v7ZZJ/tTGEEiXqnxs
+X-Received: by 2002:a05:6214:c4b:b0:91c:8ff2:51ed with SMTP id 6a1803df08f44-91ebd14d862mr87689676d6.2.1794192189470;
+        Sun, 08 Nov 2026 18:43:09 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ecee18a77sm32078146d6.26.2026.11.08.18.43.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 18:43:08 -0800 (PST)
+Date: Sun, 8 Nov 2026 21:43:05 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: kayano050408@gmail.com
+Cc: Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 0/2] usb: gadget: gadgetfs: fix ep0 request lifetime
+ and event counter
+Message-ID: <071e601f-4a8d-4ff6-bf1f-bae9606ade0d@rowland.harvard.edu>
+References: <20261107-b4-gadgetfs-ep0-v4-0-86bdfd684b54@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,122 +100,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnH4MPM_FqYjHEGA--.39027S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGw1UKF17Ww1kJw13Xw1kKrg_yoWrWw4DpF
-	WYgw4YyF4DJr1YqFn5AF4vgryrur48W3y7Ga47KwsYyanFqrnYgFyUKrW5tF4UKFsFqay7
-	Zr4qgr45AF4DJFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pimhF7UUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC4BDny2rxMxDkjAAA3M
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107-b4-gadgetfs-ep0-v4-0-86bdfd684b54@gmail.com>
 
-sctp_addr_wq_timeout_handler() walks net->sctp.auto_asconf_splist and,
-holding only bh_lock_sock(), calls sctp_asconf_mgmt() on every
-auto-asconf socket. Unlike every other asynchronous SCTP entry point
-(sctp_rcv() queuing packets to the backlog, and the timer handlers in
-sctp_sm_side_effect()), it does not check sock_owned_by_user() to defer
-its work while a user context owns the socket.
+On Sat, Nov 07, 2026 at 09:46:12PM +0900, Jing Lin via B4 Relay wrote:
+> gadgetfs_unbind() frees the preallocated ep0 request after disconnecting
+> the gadget, assuming that no I/O remains active. With dummy_hcd, a
+> delayed userspace response can leave the request queued when it is freed,
+> which triggers the warning in dummy_free_request() and a use-after-free
+> when dummy_udc_stop() drains the endpoint queue.
 
-While a user thread owns the socket (e.g. recvmsg() blocked in a copy
-to user, or release_sock() draining the backlog), sk_lock.owned is set
-but the socket spinlock has been dropped, so bh_lock_sock() succeeds
-and the timer enters
+That's right; gadget drivers in general are responsible for cancelling 
+any outstanding ep0 requests when they unbind, and not submitting any 
+new ones.
 
-    sctp_asconf_mgmt() -> sctp_send_asconf_add/del_ip() -> sctp_do_sm()
+Another thing worth fixing is near the start of gadgetfs_setup(), 
+where it casts away the constness of ctrl.  This may not cause problems 
+in practice, but it definitely has a bad look.
 
-concurrently with the backlog drain path
+> gadgetfs_setup() and ep0_write() also race on dev->req and req->buf
+> while a control transfer is in flight or while a completed delegated OUT
+> transfer is waiting for ep0_read() to copy the payload to userspace.
 
-    release_sock() -> __release_sock() -> sk_backlog_rcv()
-      -> sctp_assoc_bh_rcv() -> sctp_do_sm()
+Can you explain these races in greater detail, showing how they occur?
 
-Two state machines then run on the same association with no common
-serialization and mutate shared state concurrently: the outqueue
-control chunk list, transport->packet.chunk_list and packet->auth, and
-the transport/dst lifetime.
+> Overwriting req->buf with a descriptor pointer causes clean_req() to
+> free the descriptor buffer instead of the request buffer.
 
-The bug was found by code review of this timer entry point against the
-sock_owned_by_user() avoidance used by all other SCTP asynchronous
-entries, and confirmed with a reproducer that races an RTM_DELADDR
-address event against a user-owned auto-asconf socket. It triggers the
-following, observed with KASAN and refcount debugging:
+Can some of these problems be solved more simply, by using a new mutex 
+to protect dev->req and related values?
 
-  - rcuref "imbalanced put()" from dst_release() in
-    sctp_transport_route() racing the timer's transport routing,
-  - a GPF in sctp_packet_transmit() dereferencing a chunk pointer
-    corrupted by concurrent packet/chunk list use, and
-  - associations dying silently (ETIMEDOUT, GET_PEER_ADDRS failure).
-
-Defer the work like the other entries do: if the socket is owned by
-the user, stop processing, leave the addr_waitq entry queued and
-re-arm addr_wq_timer to retry after SCTP_ADDRESS_TICK_DELAY. The
-retry is merged with the existing IPv6 DAD retry into a single
-mod_timer() outside the loops. Sockets processed earlier for the same
-address event will see a duplicate ASCONF on retry; the peer reports
-that in an ASCONF-ACK error indication, which the association
-tolerates.
-
-Fixes: 9f7d653b67ae ("sctp: Add Auto-ASCONF support (core).")
-Signed-off-by: Binbin Deng <18983559317@163.com>
----
- net/sctp/protocol.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
-
-diff --git a/net/sctp/protocol.c b/net/sctp/protocol.c
-index 27c26e12f95d..267dc9b7a0e7 100644
---- a/net/sctp/protocol.c
-+++ b/net/sctp/protocol.c
-@@ -603,6 +603,7 @@ static void sctp_addr_wq_timeout_handler(struct timer_list *t)
- 	struct net *net = timer_container_of(net, t, sctp.addr_wq_timer);
- 	struct sctp_sockaddr_entry *addrw, *temp;
- 	struct sctp_sock *sp;
-+	bool retry = false;
- 
- 	spin_lock_bh(&net->sctp.addr_wq_lock);
- 
-@@ -624,15 +625,12 @@ static void sctp_addr_wq_timeout_handler(struct timer_list *t)
- 			in6 = (struct in6_addr *)&addrw->a.v6.sin6_addr;
- 			if (ipv6_chk_addr(net, in6, NULL, 0) == 0 &&
- 			    addrw->state == SCTP_ADDR_NEW) {
--				unsigned long timeo_val;
- 
- 				pr_debug("%s: this is on DAD, trying %d sec "
- 					 "later\n", __func__,
- 					 SCTP_ADDRESS_TICK_DELAY);
- 
--				timeo_val = jiffies;
--				timeo_val += msecs_to_jiffies(SCTP_ADDRESS_TICK_DELAY);
--				mod_timer(&net->sctp.addr_wq_timer, timeo_val);
-+				retry = true;
- 				break;
- 			}
- 		}
-@@ -645,16 +643,27 @@ static void sctp_addr_wq_timeout_handler(struct timer_list *t)
- 			if (!sctp_is_ep_boundall(sk))
- 				continue;
- 			bh_lock_sock(sk);
-+			if (sock_owned_by_user(sk)) {
-+				bh_unlock_sock(sk);
-+				retry = true;
-+				break;
-+			}
- 			if (sctp_asconf_mgmt(sp, addrw) < 0)
- 				pr_debug("%s: sctp_asconf_mgmt failed\n", __func__);
- 			bh_unlock_sock(sk);
- 		}
-+		if (retry)
-+			break;
- #if IS_ENABLED(CONFIG_IPV6)
- free_next:
- #endif
- 		list_del(&addrw->list);
- 		kfree(addrw);
- 	}
-+
-+	if (retry)
-+		mod_timer(&net->sctp.addr_wq_timer,
-+			jiffies + msecs_to_jiffies(SCTP_ADDRESS_TICK_DELAY));
- 	spin_unlock_bh(&net->sctp.addr_wq_lock);
- }
- 
--- 
-2.43.0
-
+Alan Stern
