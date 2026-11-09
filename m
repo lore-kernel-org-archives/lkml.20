@@ -1,51 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.101.248.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216184;
-	b=D3EXUFsbWiJXXnvg/vnoeT0RW9sKCBvmiur1R5Nub2gCnU6xjs4AGVYovyTeVDMAvZXy
-	 KFu+qTfWqbovifiiAFCJcoo1W4/Y4lekYUHZdVepmC1xUQc2dWVsSELjvJb9CP8mxr8kb
-	 9D/F//f7gnOFvvAtMbzB5hKVxK2C20w1zP26GnIuKjW+h4DzDJJiee6gVJ2S6d/g+/zR3
-	 sZ7vjmv7pKN9pWYRcOGtOybbMvM9Ak8XsZVUgt6KsY5hXD1Oxp0qV0ojcNrWh1JrnuUvP
-	 i9WRVkC/AiLD3oDZElEHJ5TfNRF22xvxuUHKbPx5wecmTQ1INXQD3EulpYHy+momw3g==
+	t=1794216181;
+	b=fGeHqzIMonyd5D4fTJps0EeLo7PSs37oVyUQDhy14+3rRZZdebvEPQEfkIQbtOU5uME1
+	 CyjKNloyyOnZ3JdtJEfLdtEC+oVIA4fZNIOTYCixxj13+KpmNVlzAIYh30lqj8cGQA1ZH
+	 zhOdHkrGBdeJqeFL89stCaQs1qzKG6ZxeM1vQQ1P+5Pqo0DBCyqIFXJkrELgUQRNxnuLm
+	 9nG1rjkp4BjlNsdcpdsKd/wVyUflW2N/EsdBMyojySsfqu28pGuVwYQUvEqud6uOxrtwJ
+	 lXZ1VPL+k7fxSgZMJKlkUPR90nNUqIXhouIOoQ2VXxpXGXN74vJxoqgyheQdGC/pXrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216184;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=bqG5W44C29mMzUssQf1PedJ0gjOEMrBFRNaleKCf07E=;
-	b=mH+UxFvppvj8ptxr36G6wAImObk6/yfrNX7yB0mnBGxdeCsje5R0I6fRkp+03blqI5iH
-	 gp1WKTHqjxvEioJAKONyiJ/ZqHGXYqq49Pb6ezVdbVTPIFZu7vSUUa4IniccdyNWqtAUl
-	 rydzylV7ANYcsxg/meJSGnSMs7GAoyqZ0D+654Sl2wUaMf/rxKgvUAgDkbugn/2w2qB+H
-	 GZ3MOGezzr6Dk2TPK61GenIdt0inTpsc2c4PgZB1pgQSp7r5LUiy7DdxdOkHbpNgW9eN1
-	 elBAeEoHvkPtWpT6w636rWlDySrnJQ9tXBOZlfuGFnTi4eyGs1R3+NY8VSLBTvSVtBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216181;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=3C+mbxu/DGgJwnMlvtOHx+fxPmxNpeTWk+8b9g3xqe4=;
+	b=j7JI6RWjMRm2stAZYPanFeYEPTxb+ItguzcUE18nPbycutu1ULnJzSLNuMLIIMS75yCP
+	 VRTWmFKcuo3pEWKYzJFv+61WoVz+cPr+75JTSP1Y5VeOK1pKC/P9qGSJbOl3CWq4hvkZh
+	 03k8QqdB6YGr2jHFH5nFjhYUV6HeYDFfEXRxFvf7GY1Z3resTHIIBBD7b+9S3cXXpFKCO
+	 ih3xQeLT7ryJIYZVlT0ewDiHLeQAr+37a0nsciyUUaBJcYGZnlhab1plSn7QDgMMLnIoL
+	 wsA2yNtRU1opC0OTSHLMSpr0/0KtpuAQtdYqSv1m8S16fZQgQGFkOfgIMXqghU43R4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=eswincomputing.com;
-	spf=pass smtp.mailfrom=eswincomputing.com;
-	arc=none smtp.remote-ip=46.101.248.176
-Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFA0A6082BC0;
-	Mon,  9 Nov 2026 09:23:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA0A6082BC0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
-Received: from E0002472LT.eswin.cn (unknown [10.12.96.78])
-	by app1 (Coremail) with SMTP id TAJkCgDHWW7jkPFq6pqJAA--.47946S2;
-	Mon, 09 Nov 2026 17:22:44 +0800 (CST)
-From: Xiaofeng Yuan <yuanxiaofeng@eswincomputing.com>
-To: Nam Cao <namcao@linutronix.de>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/2] riscv: kprobes: simulate nop and c.nop instructions
-Date: Mon,  9 Nov 2026 17:22:42 +0800
-Message-Id: <20261109092242.810-1-yuanxiaofeng@eswincomputing.com>
-X-Mailer: git-send-email 2.31.1.windows.1
-In-Reply-To: <20261020064136.665-1-yuanxiaofeng@eswincomputing.com>
-References: <20261020064136.665-1-yuanxiaofeng@eswincomputing.com>
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=frLNV0kF;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="Ec3/0mue";
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E9A606EEA1;
+	Mon,  9 Nov 2026 09:23:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0E9A606EEA1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=frLNV0kF;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Ec3/0mue
+Date: Mon, 09 Nov 2026 09:22:57 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794216179;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3C+mbxu/DGgJwnMlvtOHx+fxPmxNpeTWk+8b9g3xqe4=;
+	b=frLNV0kFLpbb85uWNe75Ql8aKjcMkeuMo2FVm4xMwG5eOzNS5sy0c9Oy/lNNIE9/TLhEw4
+	rrz1TJLX2qaym9OifFIzNrsxJcBabUO126mWyPqhhC0Zbmi1NJ3VgYkXQwsTMVQBTMVfXx
+	LhC2RjIttAJda72Fzn9ZpMQJJ1njHcELX3pOkJ4IWrgC9BJ5NIZ11UKRnOeTVt78vKL3gX
+	ktkRZJZdwwXEtMgnl1DBB/KR8G/AjxX2p/GZX9ULvGcg7M6n0DiVAt41V6vfwXuX8fuToW
+	nPNsxWWmXkH/IBdnbINgj5PALp2d8vjTS6+dPLG6qutg1DtFBwDr72TaIOjVyQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794216179;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3C+mbxu/DGgJwnMlvtOHx+fxPmxNpeTWk+8b9g3xqe4=;
+	b=Ec3/0mueYVLHV8HLCL+uihzvBDh8eYNFPBpIe6krD/ikvQpQE8UIct/UD+QTruueBksfly
+	l3agu3CmMSD+xjCw==
+From: "tip-bot2 for Vladimir Kondratiev" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: irq/drivers] irqchip/riscv-aplic: Do not mark the syscore
+ registered flag ro_after_init
+Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+ Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261020-aplic-async-probe-v5-1-c4861c2aafca@mobileye.com>
+References: <20261020-aplic-async-probe-v5-1-c4861c2aafca@mobileye.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,24 +79,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:TAJkCgDHWW7jkPFq6pqJAA--.47946S2
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUY37k0a2IF6F4UM7kC6x804xWl14x267AK
-	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
-	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26w1j
-	6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxV
-	W0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAa
-	Y2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4
-	A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY02Av
-	z4vE-syl42xK82IYc2Ij64vIr41l4c8EcI0Ec7CjxVAaw2AFwI0_GFv_Wryl4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxU7-B_UUUUU
-X-CM-SenderInfo: h1xd05xldrwv1qj6v25zlqu0xpsx3x1qjou0bp/1tbiAgEGE2rwpK0rJAABsL
+Message-ID: <179421617723.2093942.10236928397108586294.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-Gentle ping. Is there anything I still need to address on this series?
-Happy to rebase onto a current linux-next if that makes it easier to apply.
+The following commit has been merged into the irq/drivers branch of tip:
 
+Commit-ID:     401632b77cc38bb6de44a2e83ed7c777e540119c
+Gitweb:        https://git.kernel.org/tip/401632b77cc38bb6de44a2e83ed7c777e54=
+0119c
+Author:        Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+AuthorDate:    Tue, 20 Oct 2026 18:38:48 +03:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Mon, 09 Nov 2026 10:20:17 +01:00
+
+irqchip/riscv-aplic: Do not mark the syscore registered flag ro_after_init
+
+aplic_syscore_registered is marked __ro_after_init, but it is written
+from aplic_probe(), which can run after init. With MSI, aplic_msi_setup()
+returns -EPROBE_DEFER while the MSI parent (IMSIC) is not ready, so the
+later successful probe writes the flag after it has been made read-only.
+That write faults.
+
+Drop the __ro_after_init annotation so the flag stays writable.
+
+Fixes: b330fbfd34d7 ("irqchip/riscv-aplic: Register syscore operations only o=
+nce")
+Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://patch.msgid.link/20261020-aplic-async-probe-v5-1-c4861c2aafca@m=
+obileye.com
+---
+ drivers/irqchip/irq-riscv-aplic-main.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/irqchip/irq-riscv-aplic-main.c b/drivers/irqchip/irq-ris=
+cv-aplic-main.c
+index 1676d64..a2c4d14 100644
+--- a/drivers/irqchip/irq-riscv-aplic-main.c
++++ b/drivers/irqchip/irq-riscv-aplic-main.c
+@@ -116,7 +116,11 @@ static struct syscore aplic_syscore =3D {
+ 	.ops =3D &aplic_syscore_ops,
+ };
+=20
+-static bool aplic_syscore_registered __ro_after_init;
++/*
++ * Not __ro_after_init: probe can be deferred (e.g. MSI mode waiting for the
++ * IMSIC) and complete after the init memory is made read-only.
++ */
++static bool aplic_syscore_registered;
+=20
+ static void aplic_syscore_init(void)
+ {
