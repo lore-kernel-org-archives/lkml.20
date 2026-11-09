@@ -1,49 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794194071;
-	b=V4+sitfWnWWX09fHJpO19HRdhkxXtgeeXt4TR4bLMgLU8xCs1a4jzMnP6l6H4hRHRgrY
-	 yy9aEIMOGHovGWixPQgJRiBFzQCh+UBxsV/TwuNgb5YGno97cLZLgBfEIdes0+a73rO1t
-	 MFsEtJ8Xs+f8uayVqBpR+OycjB/DQNJ6Ulj8Ie1Xxo0A4yncZwtdzCup5rv79U2c7gyOx
-	 LppHCTxs9273o8Z/CdGMV8mZAZO2HJrVoxQe97T/oe900SqQzTLPlEm+gDWgoByb4djYd
-	 kihGKfHS/k3wo3JXlf+TZYklEErEzKsS4gaGeGglXJCGme4fm6V+FlKa41PhKTPFt9Q==
+	t=1794194190;
+	b=WiYDJHGhwShDbpkh2xHvGXvtAfkoOoCpudnLGWeA/8axo9GExRb5TS5WIrKbHJhRvcwP
+	 RBuTLS8Kf3jyVFc9A1h3XxEp6yuME8+Zfh71vyV3ChkKiEiDH89/Ogvc8LC9NkOqRBF4h
+	 rfcfvl0kEKW0LJEjgXmYyrnqla/IJD1LMcmQu8txXgCoIc7+7l3CVpMAp1WrpCYD3IGKR
+	 H6YSpiV2UfRDkoQPrtVjicYsmVDULhea4dAp0rYvwJ/HWRZ9Iu48Lg+RihJYRBdjW2UCv
+	 Bh0JMpjjRqnW39//Dq/FzoBCbf5p/eneWciyNABEQSesea1O3BtdnqwQNfkSxSZZAtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794194071;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
-	 DKIM-Signature;
-	bh=ajFsvHsw9ZV5CYCE+L14wp5QKFYCfNkD8yU/JAp01+0=;
-	b=qVKZTlF206dOdbkH/a3PxYIMY578aaXmDcN/rBWjPnI5hn389/V2HmASQa7L4u2u+CN3
-	 2ZS3WZsJEEvXQa+3iT8Pl4Cmw3jqeErjrwlLsYgbNABlbsGhSPZQin5y7kPFn3DYNVmIK
-	 2d1sDo6HGBM4J3uiTB1OQDGPce0/FoNJAdvgFMo02xjUmmqV/V5buLNKpxKow2wB/bFhS
-	 4eMYKoO+40EzVFetBb6NFoLNKOTLZZJM2aS8s3+NloNgfJlMLtV11LbZL3BBph0eqy3pQ
-	 navrupia/MoggItVdeX1HnVvDBYHimAzxDlIIZny4RRzPEEPEi8s8MKbZ/zFQXmH3sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794194190;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=QG/YViCulpD98ruZqL38gu6q9b5BGoW3iloIHaWKka8=;
+	b=4f9R3MjEM+2eFgrrG14seGUTii5kHadIJY7bpTJOnRRXq5elaOnFwb/+rjlaIqBFnxz3
+	 I0z3/h8AE3x3DsvEMIr0b2Y0TF9TfP8v5NJ+utqbzc3G95U3djVXDZ3JviEyLpfroj3hq
+	 yUZVo5u4IrhSaoledAamvAwbmcXr/c87XIUH+4AIlKkx3KPwuRp2BFJMeGYfjUK0YiMl0
+	 dSGsX7xewcV/pODHkVp31zsgTOnv+Dzr6+onIS955qPo3KJ3NyO4Fz4ggeXtdP4p/aAYy
+	 xCOCGq7KAoqRGjQoSrVMnCuS0m+RzWayhQHutKJOjJfB+QcEaBg9z+ArP28t47w8Bbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=OzzmcBb8;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 77B1E606A320;
-	Mon,  9 Nov 2026 03:14:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77B1E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EoyjVPHX;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBA0606A320;
+	Mon,  9 Nov 2026 03:16:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BBA0606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=OzzmcBb8
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
-	Vivian Wang <wangruikang@iscas.ac.cn>, Li RongQing <lirongqing@baidu.com>,
-	Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>, Yuanhe Shu
-	<xiangzao@linux.alibaba.com>, Hans Zhang <18255117159@163.com>, Vidya Sagar
-	<vidyas@nvidia.com>, Farhan Ali <alifm@linux.ibm.com>, Shawn Lin
-	<shawn.lin@rock-chips.com>, Juergen Gross <jgross@suse.com>,
-	<linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] PCI/MSI: Initialize MSI-X descriptors in the setup loop
-Date: Mon, 9 Nov 2026 11:14:11 +0800
-Message-ID: <20261109031411.2205-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EoyjVPHX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794194190; x=1825730190;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LDsJ1RS4OFWocg9FvUohCPmS/HPExmi5n3dL7SUfHpw=;
+  b=EoyjVPHXJIl5M66V5myAu3u9lFIppn/aumf/ADcnhVWeAMR+mu1oHOQZ
+   wS178ybnoGNsQ8BzmxCZvtunjsNNMW7hTqJFkdv1D8I1YIs6hF+namyFO
+   s7vfPM/D9Q0ePW+Pj2eCy6CQUGnZ3PCgKTZbtyTKS86r8cDeu2YZQXh4x
+   DsQB6nq6f5GSyoFJAIdhudX62aTqAtLWtYd8vna1vU+UApWPy3UKi4e4J
+   b8ZgMHX8OiQiO5ijVippsJ3N1454YUt6sqJJ1gNThsr3YDG6iKzDP9o8+
+   UO4d/UDvG6nn1A6AVO95vDkREzSp7cAubSeGEFyGY+wd/QIptnE490f0r
+   Q==;
+X-CSE-ConnectionGUID: gcldZ2E7THWg76l/dI/qwA==
+X-CSE-MsgGUID: XnWuo2VcTJmXSpXKTaUR+w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2783750"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2783750"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 19:16:29 -0800
+X-CSE-ConnectionGUID: TVSUkc7ARu2CxnpJwVMtYQ==
+X-CSE-MsgGUID: 27e0+9G9TYOxzG3mRlyEjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="7646984"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa003.jf.intel.com with ESMTP; 08 Nov 2026 19:16:24 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQFrp-00000000tmt-0auN;
+	Mon, 09 Nov 2026 03:16:21 +0000
+Date: Mon, 9 Nov 2026 11:15:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: Syed Saba Kareem <syed.sabakareem@amd.com>, broonie@kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Sunil-kumar.Dommati@amd.com, vijendar.mukunda@amd.com,
+	Mario.Limonciello@amd.com, venkataprasad.potturu@amd.com,
+	Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+	Siva Subramanian Ravi Saravanan <sravisar@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	"open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 3/6] ASoC: soc-acpi: move common function topology
+ helpers
+Message-ID: <202611091156.3kHcYO5O-lkp@intel.com>
+References: <20261108193119.2308421-4-syed.sabakareem@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,57 +95,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjhj-exc6.internal.baidu.com (172.31.3.16) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1794194061;
-	bh=ajFsvHsw9ZV5CYCE+L14wp5QKFYCfNkD8yU/JAp01+0=;
-	h=From:To:Subject:Date:Message-ID:Content-Type;
-	b=OzzmcBb8UKyypdfR5JRuswJ+7iDQ249ICfUMqL4NccpN7qdR3Do++/PbQL/fCA15T
-	 n9t9/a6mOKTYCHWyRs7rT8BR8vK30gh+FahnAr0giQUp5mClAMLIAHb8lMwigRuhN8
-	 iTwugNhXFf5Eq5JBWwkiBqNPIN/ufY6yPujzDFrJcq9GtWSTkPgtyu+jk1lTqWGMk+
-	 L3/mpmT/k7Tx2zh47EPICMWpL0W89g9KjnVh2EV4ig/svDYOvoBpuSr4VNzkjS1jWh
-	 4I9UXBtofju4UDX/FPpUuvCzTsvst6Kipw5/NzZ97VXF9cbf+A07CAoMJ3Vu0BvX0Q
-	 ha06kP6EufKpA==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108193119.2308421-4-syed.sabakareem@amd.com>
 
-From: Li RongQing <lirongqing@baidu.com>
+Hi Syed,
 
-msix_setup_msi_descs() reuses a single stack descriptor for all
-MSI-X entries.
+kernel test robot noticed the following build errors:
 
-Since msix_prepare_msi_desc() only sets can_mask for non-virtual
-descriptors, a virtual descriptor can inherit can_mask == 1 from
-the preceding real descriptor.
+[auto build test ERROR on broonie-sound/for-next]
+[cannot apply to linus/master v7.4-rc2 next-20261105]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-As msi_domain_insert_msi_desc() copies the descriptor, this stale
-value can cause pci_msix_write_vector_ctrl() to access beyond the
-mapped MSI-X table.
+url:    https://github.com/intel-lab-lkp/linux/commits/Syed-Saba-Kareem/ASoC-amd-acp-add-SoundWire-speaker-quirks-for-Dell-platforms/20261109-010030
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20261108193119.2308421-4-syed.sabakareem%40amd.com
+patch subject: [PATCH v3 3/6] ASoC: soc-acpi: move common function topology helpers
+config: s390-randconfig-1001-20261109 (https://download.01.org/0day-ci/archive/20261109/202611091156.3kHcYO5O-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261109/202611091156.3kHcYO5O-lkp@intel.com/reproduce)
 
-Clear the descriptor inside the loop to ensure each MSI-X entry
-starts with can_mask == 0.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611091156.3kHcYO5O-lkp@intel.com/
 
-Fixes: 3ece3e8e5976 ("PCI/MSI: Handle the NOMASK flag correctly for all PCI/MSI backends")
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
----
- drivers/pci/msi/msi.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+All errors (new ones prefixed by >>):
 
-diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
-index a346284..681dd2f 100644
---- a/drivers/pci/msi/msi.c
-+++ b/drivers/pci/msi/msi.c
-@@ -638,9 +638,8 @@ static int msix_setup_msi_descs(struct pci_dev *dev, struct msix_entry *entries,
- 	struct irq_affinity_desc *curmsk;
- 	struct msi_desc desc;
- 
--	memset(&desc, 0, sizeof(desc));
--
- 	for (i = 0, curmsk = masks; i < nvec; i++, curmsk++) {
-+		memset(&desc, 0, sizeof(desc));
- 		desc.msi_index = entries ? entries[i].entry : i;
- 		desc.affinity = masks ? curmsk : NULL;
- 		desc.pci.msi_attrib.is_virtual = desc.msi_index >= vec_count;
--- 
-2.9.4
+   sound/soc/soc-acpi.c:36:1: error: redefinition of 'snd_soc_acpi_find_machine'
+      36 | snd_soc_acpi_find_machine(struct snd_soc_acpi_mach *machines)
+         | ^
+   include/sound/soc-acpi.h:40:1: note: previous definition is here
+      40 | snd_soc_acpi_find_machine(struct snd_soc_acpi_mach *machines)
+         | ^
+>> sound/soc/soc-acpi.c:60:29: error: call to undeclared function 'acpi_fetch_acpi_dev'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      60 |         struct acpi_device *adev = acpi_fetch_acpi_dev(handle);
+         |                                    ^
+   sound/soc/soc-acpi.c:60:29: note: did you mean 'acpi_match_acpi_device'?
+   include/linux/acpi.h:1003:44: note: 'acpi_match_acpi_device' declared here
+    1003 | static inline const struct acpi_device_id *acpi_match_acpi_device(
+         |                                            ^
+>> sound/soc/soc-acpi.c:60:22: error: incompatible integer to pointer conversion initializing 'struct acpi_device *' with an expression of type 'int' [-Wint-conversion]
+      60 |         struct acpi_device *adev = acpi_fetch_acpi_dev(handle);
+         |                             ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> sound/soc/soc-acpi.c:66:18: error: incomplete definition of type 'struct acpi_device'
+      66 |         if (adev && adev->status.present && adev->status.functional) {
+         |                     ~~~~^
+   include/linux/device/bus.h:222:8: note: forward declaration of 'struct acpi_device'
+     222 | struct acpi_device;
+         |        ^
+   sound/soc/soc-acpi.c:66:42: error: incomplete definition of type 'struct acpi_device'
+      66 |         if (adev && adev->status.present && adev->status.functional) {
+         |                                             ~~~~^
+   include/linux/device/bus.h:222:8: note: forward declaration of 'struct acpi_device'
+     222 | struct acpi_device;
+         |        ^
+>> sound/soc/soc-acpi.c:82:12: error: call to undeclared function 'acpi_extract_package'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+      82 |                 status = acpi_extract_package(myobj,
+         |                          ^
+   sound/soc/soc-acpi.c:97:6: error: redefinition of 'snd_soc_acpi_find_package_from_hid'
+      97 | bool snd_soc_acpi_find_package_from_hid(const u8 hid[ACPI_ID_LEN],
+         |      ^
+   include/sound/soc-acpi.h:46:1: note: previous definition is here
+      46 | snd_soc_acpi_find_package_from_hid(const u8 hid[ACPI_ID_LEN],
+         | ^
+   sound/soc/soc-acpi.c:111:27: error: redefinition of 'snd_soc_acpi_codec_list'
+     111 | struct snd_soc_acpi_mach *snd_soc_acpi_codec_list(void *arg)
+         |                           ^
+   include/sound/soc-acpi.h:53:41: note: previous definition is here
+      53 | static inline struct snd_soc_acpi_mach *snd_soc_acpi_codec_list(void *arg)
+         |                                         ^
+   8 errors generated.
 
+
+vim +/acpi_fetch_acpi_dev +60 sound/soc/soc-acpi.c
+
+8ceffd229f0ef1 sound/soc/intel/common/sst-match-acpi.c Vinod Koul           2016-02-08  56  
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  57  static acpi_status snd_soc_acpi_find_package(acpi_handle handle, u32 level,
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  58  					     void *context, void **ret)
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  59  {
+ff4865b3c8cd74 sound/soc/soc-acpi.c                    Rafael J. Wysocki    2022-01-26 @60  	struct acpi_device *adev = acpi_fetch_acpi_dev(handle);
+59ce3233a538fc sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2021-04-16  61  	acpi_status status;
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  62  	struct snd_soc_acpi_package_context *pkg_ctx = context;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  63  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  64  	pkg_ctx->data_valid = false;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  65  
+ff4865b3c8cd74 sound/soc/soc-acpi.c                    Rafael J. Wysocki    2022-01-26 @66  	if (adev && adev->status.present && adev->status.functional) {
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  67  		struct acpi_buffer buffer = {ACPI_ALLOCATE_BUFFER, NULL};
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  68  		union acpi_object  *myobj = NULL;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  69  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  70  		status = acpi_evaluate_object_typed(handle, pkg_ctx->name,
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  71  						NULL, &buffer,
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  72  						ACPI_TYPE_PACKAGE);
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  73  		if (ACPI_FAILURE(status))
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  74  			return AE_OK;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  75  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  76  		myobj = buffer.pointer;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  77  		if (!myobj || myobj->package.count != pkg_ctx->length) {
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  78  			kfree(buffer.pointer);
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  79  			return AE_OK;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  80  		}
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  81  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12 @82  		status = acpi_extract_package(myobj,
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  83  					pkg_ctx->format, pkg_ctx->state);
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  84  		if (ACPI_FAILURE(status)) {
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  85  			kfree(buffer.pointer);
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  86  			return AE_OK;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  87  		}
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  88  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  89  		kfree(buffer.pointer);
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  90  		pkg_ctx->data_valid = true;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  91  		return AE_CTRL_TERMINATE;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  92  	}
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  93  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  94  	return AE_OK;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  95  }
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  96  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
