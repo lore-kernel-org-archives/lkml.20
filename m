@@ -1,115 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794214908;
-	b=WHgDa+xyNT5tJ/zhOEM1DlhPjA4O5znV+RbA3lZd3pA8IOhmY/Qo6jqqmMzMXwz9EyaA
-	 ZzwU6y9wFTPY6kvn/pUav6pYYCW9xu2l4RxW9P4aTKoVR95jdgk3rrqNCx+leLjvjSxqD
-	 szord3WLjcZq3xsJFVUBfocbFfqOKgfaQhHfOmT2H9ln/d9YXOQhjPADRyb6GuDL81IjP
-	 11p0NogLCoTssackyr7bnZN9hJBUHnKTwtq9kKEGGPFiCSqYUl8usrn8GUrQufOD9VACY
-	 gelJ0JID89ly2Vq/vJ70PFW0J8m9rSvbk6niozOmplPf+FgAN1S8HTamCN50rGM+Dgw==
+	t=1794214918;
+	b=B9ZxSKAPLah/1u0mWrZduH6+D5tIlnauzk2vz3bt2xZuosuBztyeYedTj/iuCPput2HH
+	 oae4CoX6KR43EH3W/QDN5h7S6ujqoKnHXOyBLS+ryNyTpzpNfXlfFHa/JvsfF5tUH9nx/
+	 b301vgIkgW3E7gvWCuod/x+9c0vVnqdQWHV6l2gceP4iUO5N0Iqvc/wCCvcg4RZRaVAr/
+	 U+v9WbI3wATHtthbAS5dWLwxkLtp24fDhd7KdgjLLerpiYwgF+2mfFQM2C7iUBDNDVMPT
+	 Yhq6aGSU4IMsZKtuLIssdFJ9frixjDwsBCpjig01okiLpXzgtA4F06oGxyIQYTuoyHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214908;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=VIasCFWP5tseFGIHnj42Zr/FPuOd6ySF94aRn114CSw=;
-	b=Y9S+ka5AHnmWFO58zBr/pAyWAiGRxFqbTZagXlZenkJSrIecILZIclzb4Zj2ryyP45NE
-	 bD4sW9MDXoZ5I14w4fR9Xi3ajPjqb+ig1626WkXbJgrSIWn3fSI/bPdWS6H1yNGexXeQJ
-	 TuB9BdaTQMOqg5h/FAcR4h3l2xsrw2NQra8rJ4OTL74dvZBoFBlUfzBnSLiloUNbrGURX
-	 9Id/b7XSPoYcXAdWX3EzrCvZEabPuUEFJnmcHLp4q72c2Gzx06PYivOoCItaWJtXCuwzy
-	 zHEqDdllz4G74/KPiHaHWFxD54ffe4HT86Aflw10Ov9ZX2gccuCAo8C8bWehfs1yRQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794214918;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 DKIM-Signature;
+	bh=F8g6Wt9NOwF6DUxJqUEaQBioV069X8V8j/0l1jIw+2A=;
+	b=Yex327mDYjsE3WPZBGLzhJBZGovj3cfYtmp6XNEXmvt7ZQrgd44sVMShB6BAQjce1v+I
+	 wtT9jAZuM94Hi6ku9hrH4skw6hQrcUYHqP6eBOzgv5N2qz+trkJAzkonhu9aIrJx2OfEZ
+	 P6Cy5UOPn4We+25hp50qffMDniibl9wTg34njwr5kDllQAgf4eaRrciV89afItkjTw2hk
+	 1X2mb2yeXIqIwxYia/n+YqPhqKK11MFbu1yDVM9fam/lqTLffymj7zqX02BwUY6PCTq4d
+	 CrNJwAGRmCwoBrB37KMFNGz8SmKL0VGGk5pju+y7tUFacHUgPuhZxW9hyrq5kyZOOoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=Wxg3Sz6G;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=XwFbSTvD;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137F4606A32A;
-	Mon,  9 Nov 2026 09:01:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 137F4606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b="X/4PLyEH";
+	arc=none smtp.remote-ip=180.76.5.236
+Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id B56DA606A321;
+	Mon,  9 Nov 2026 09:01:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B56DA606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=Wxg3Sz6G;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=XwFbSTvD
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96C58M4101903;
-	Mon, 9 Nov 2026 04:01:39 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	DKIM; bh=VIasCFWP5tseFGIHnj42Zr/FPuOd6ySF94aRn114CSw=; b=Wxg3Sz6
-	G+03q4VRyYz5cffqFlSytiL/pMS+xLrxHKDCG3qxek9HKVsZZnl4KTJc7FDKbQgz
-	OJmDXko6qUN1tnJrZvSYh8PCh8PIVnze0VrTPtHgIwpFfHI7Cnvo/GKo6pUZfzex
-	d1WMBhi5q21WiJNrIm6P3vZ5FsVmN90qfIzE4A7u7IuJot6i5LTVA2s2EqWQvRiq
-	u43nnIPKpCxxKVpHmx1jIarwr1bY0FZSYUVk9sRjYAbIj8nqp+ttWwk8DbdXSQMm
-	vYomvQha7EzsLSctIn7aQ8RjtOqHoD4OX+Oqr1dPanecQsCBoxMiSbfZvKe1I09b
-	5+S0tkPTzbkMMTw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=VIasC
-	FWP5tseFGIHnj42Zr/FPuOd6ySF94aRn114CSw=; b=XwFbSTvDVqIrVIOQT8XLA
-	J5jKvqKU70Sw0Ts4/xgsKjKTG+eFH17KbRvppSnWW/grs1uoe6CnPvLhEjrWgVto
-	ifXLEi4594UQSkWS5c4J2P6fU/mJmSBU2Hxy32VQK5AXOBc11aWk049PuLt0Y/OR
-	LjGA30KLlRxHm7/YWad2hJ5oQz9xKlTyO3b/e05XJ2UXDszDHp0oAzz/ko0599D3
-	3rak7s7x6QKhW3to0/Go/Jj2uiQeb9T47d93cxzv7/mYVuJRYg3xpdCMgFcJXzrR
-	ZUp3jsjngO3YMcfwOI9j9nqqghXZNuzvN4d03qzdz8kwu/SRRap4x1tUemzGv2CI
-	A==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4htp6knqe3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 04:01:39 -0500 (EST)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 6A991cS9045788
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 9 Nov 2026 04:01:38 -0500
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 9 Nov
- 2026 04:01:37 -0500
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 9 Nov 2026 04:01:37 -0500
-Received: from HYB-6AVb5If9qTU.ad.analog.com (HYB-6AVb5If9qTU.ad.analog.com [10.135.4.41])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A98xreK024796;
-	Mon, 9 Nov 2026 04:01:30 -0500
-From: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        Parthiban Veerasooran
-	<parthiban.veerasooran@microchip.com>,
-        Heiner Kallweit
-	<hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Marcelo Schmitt
-	<marcelo.schmitt@analog.com>
-CC: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-        Ciprian Regus
-	<ciprian.regus@analog.com>, <netdev@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Iustin
- Stolniceanu <iustin.stolniceanu@analog.com>
-Subject: [PATCH net-next v2 5/7] net: phy: adin1100: Skip the soft reset on ADIN1110/ADIN2111
-Date: Mon, 9 Nov 2026 10:59:50 +0200
-Message-ID: <20261109085952.105331-6-iustin.stolniceanu@analog.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109085952.105331-1-iustin.stolniceanu@analog.com>
-References: <20261109085952.105331-1-iustin.stolniceanu@analog.com>
+	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=X/4PLyEH
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
+	<namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
+ Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>, Li RongQing <lirongqing@baidu.com>,
+	Alexander Antonov <alexander.antonov@linux.intel.com>,
+	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH, next, v2] perf iostat: Release the port list if command allocation fails
+Date: Mon, 9 Nov 2026 17:01:43 +0800
+Message-ID: <20261109090143.1749-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,75 +54,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfXxsKPjtWD+9tp
- Lf5+1gONvzdAEjJcGGEdSGU5maXlvEfIVhJm/EweceoFlSMlyIQjSsyHxlMwBV7Nn+IsSVB+eTW
- HdYnOXK4AhHB+VhEWt1Rf+Jr+514acoh8rvYaIdN7G/xQad/N6NP
-X-Authority-Analysis: v=2.4 cv=C9l8WgP+ c=1 sm=1 tr=0 ts=6af18bf3 cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8 a=XQJP7wW7p6eG8R4eeJgA:9
-X-Proofpoint-ORIG-GUID: fZTHiuLu9NTznWcJMNLncrBsjyGuFdwf
-X-Proofpoint-GUID: fZTHiuLu9NTznWcJMNLncrBsjyGuFdwf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfX35n1essDoTB+
- e9Pv0w5r3/HkCRfi7Iu6/DboeBYf6+SuDx9vGeWJJiJ455RIa6NzjG4hida2GFpVqVSx69VTCDT
- iFeLDRAuWtlwcKR0R6b+iew+f862Rzv2Aoqyda1/rrPBcXSsZw3f/f6bTFg5FQIm8Y/PDYDtUHV
- vhvPKh8qXKtpqgo8vDI+IbOQiTDPMGdVvNZTRz53iQTxxdcwCMdBzK5YXRo+WLYWLc9KrWivU87
- q+neknf9bseridiWAcjvsLrxGRlwy1hqIYPLdTO/vVeqC/nI7Riyl413RHaCEUhrN2rfZUhOdd3
- NY71NVsMjNHwccl0/hwAZ3PbgA9ryRmJrTdY/IPsN31aIOOLmr2UfSVtrGlwOaQuFlLFOsPvIYV
- 3h9r/dLHlSCnYHjj5Tk/NoLkKm8s5ziCPOr9xdEaptQYm7wH3l+8XMH8zRf+7yCHxiJQPzeGaul
- SEUSx9cQVAjoFyxH9XQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090035
+X-ClientProxiedBy: bjhj-exc13.internal.baidu.com (172.31.4.11) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1794214911;
+	bh=F8g6Wt9NOwF6DUxJqUEaQBioV069X8V8j/0l1jIw+2A=;
+	h=From:To:Subject:Date:Message-ID:Content-Type;
+	b=X/4PLyEHFsNFleUoTyVpm1B3hQJbuIPLDulSdWMmK1g4ul2c6FoJYuyN3iiOGeoEt
+	 sYAma4gBtO7U36s/q8vnun3Rm13BF4CgYGpCGJyujf3AVe8e8kLJ4E9iiWgm6q+Ic3
+	 6h6oTxgjGldeQw3sljEABkMB+Y+YnNkiqyEsN5adKXHWXZZhFIb6yTIXtXlB723v4t
+	 Onh7AG6lnV1blOLacn5b5DP/tYOkxBmVspPLWe2RKxjGSa7qee4MAYk1WdoN4hLa9r
+	 FOGLm18LT0EGxgYoq5kpdjju3BqbxkMWniNgzMvXZKXzeV1MoHZkCfSf1bzjKAZ+VX
+	 uIb+asvppyEtQ==
 
-The ADIN1110 and ADIN2111 MAC-PHYs integrate the ADIN1100 PHY and use
-this driver. On these devices, CRSM_SFT_RST resets the whole chip, not
-only the PHY, undoing the configuration done by the MAC driver before
-the PHY is attached. MDIO reads also return stale data until the reset
-completes.
+From: Li RongQing <lirongqing@baidu.com>
 
-This is not an issue with the generic SPI protocol, where the adin1110
-driver configures the MAC in ndo_open, after phy_connect(). The OPEN
-Alliance TC6 protocol support, added in a following patch, configures
-the device in oa_tc6_init() before the PHY is attached, and the
-configuration would be lost.
+iostat_event_group() takes ownership of the root port list and frees it
+via the err: label on both the normal and parsing-error paths. When
+calloc() for iostat_cmd fails, however, the function returns -ENOMEM
+directly, leaking the list, its pointer array and every port in it.
 
-The MAC driver already resets the chip before attaching the PHY, so
-don't set .soft_reset for these devices.
+Route this failure through the existing cleanup path instead. At this
+point no port has been transferred to an event yet, so
+iio_root_ports_list_free() releases the whole list, and the trailing
+free(iostat_cmd) is a no-op on the NULL pointer.
 
-Signed-off-by: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
+Fixes: f9ed693e8bc0 ("perf stat: Enable iostat mode for x86 platforms")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
 ---
- drivers/net/phy/adin1100.c | 2 --
- 1 file changed, 2 deletions(-)
+Diff with v1: rebase to next
 
-diff --git a/drivers/net/phy/adin1100.c b/drivers/net/phy/adin1100.c
-index b946cb86b6c4..ddb91b0e7081 100644
---- a/drivers/net/phy/adin1100.c
-+++ b/drivers/net/phy/adin1100.c
-@@ -341,7 +341,6 @@ static struct phy_driver adin_driver[] = {
- 		PHY_ID_MATCH_MODEL(PHY_ID_ADIN1110),
- 		.name			= "ADIN1110",
- 		.get_features		= adin_get_features,
--		.soft_reset		= adin_soft_reset,
- 		.probe			= adin_probe,
- 		.config_aneg		= adin_config_aneg,
- 		.read_status		= adin_read_status,
-@@ -357,7 +356,6 @@ static struct phy_driver adin_driver[] = {
- 		PHY_ID_MATCH_MODEL(PHY_ID_ADIN2111),
- 		.name			= "ADIN2111",
- 		.get_features		= adin_get_features,
--		.soft_reset		= adin_soft_reset,
- 		.probe			= adin_probe,
- 		.config_aneg		= adin_config_aneg,
- 		.read_status		= adin_read_status,
+ tools/perf/arch/x86/util/iostat.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/tools/perf/arch/x86/util/iostat.c b/tools/perf/arch/x86/util/iostat.c
+index 7442a2c..d2cc2e7 100644
+--- a/tools/perf/arch/x86/util/iostat.c
++++ b/tools/perf/arch/x86/util/iostat.c
+@@ -310,8 +310,10 @@ static int iostat_event_group(struct evlist *evl,
+ 	int metrics_count = iostat_metrics_count();
+ 	char *iostat_cmd = calloc(len_template, 1);
+ 
+-	if (!iostat_cmd)
+-		return -ENOMEM;
++	if (!iostat_cmd) {
++		ret = -ENOMEM;
++		goto err;
++	}
+ 
+ 	for (idx = 0; idx < list->nr_entries; idx++) {
+ 		sprintf(iostat_cmd, iostat_cmd_template,
 -- 
-2.43.0
+2.9.4
 
