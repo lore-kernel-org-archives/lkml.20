@@ -1,78 +1,184 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.9
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794251099;
-	b=CuY/1ynUESSe/V5ymokRZPzHAQ9Y12K8qH3/zkWAvQGfw85192Vv2/r1hG94o7uURuZM
-	 5QdUkRsyepDJxOK1oH2jlbZKIe7WcwWhzJYcMYs70eQvzQSeS9jr0GkAabihP4jVul368
-	 RjDnr1J5A+ay2DA2DtSjaNIIvfMTrWw2Dvno7ankq1P7cOoeaNc8W4gmqrAN4PAIlEsiV
-	 aVQIK+LVR+Qv61WjAi1ExaHglX/IDP1yUAJQZOtqsPkOzyhbNUvSerhuBpigIa8V7Fbtb
-	 dK8DrssEKzC2mY10R0SoR2MbBZE8Je647f1G93RKD6sSf++tOWJzK/MuBqJpFKVNegQ==
+	t=1794251119;
+	b=fqAifI4hhZPDuIubAm6fvx77SckkHnK9DxD3Luv+te3Cg+heBVltq3f0MW/IB8DOBe2h
+	 y6jBf+0B47CdWc9Gi8OBB+YO+uI11+rc9PrWhphLuayA7dYY+q7bhk5CxxBIEn2c3qhHe
+	 PZiKdebTf2DWT/MdMGOtC9Wwr6Hbz+fzNuugUMu4DaeqkO6nrLI0OPcdwKcrBCjsao/m9
+	 PGcyzXydTgU6uFE4s7J4ZAGMUizRZeJVCmsO8L5KRpZAcotl9cqB0siTf7hvkgH7SSc6Z
+	 J8iuo/fcp/cE+2MWak5/E+rmpjS0VoYHSnczB0653QBXzNS5OLNnw1Ku5T01FQsc9Mg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794251099;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=P2fmqmmprCAGOSYykgJw6VD4J+cu5F8pWWrtYwCx08s=;
-	b=0k+NQtxcRHCKQEem9KTwt5/rU/ZAw9Ph9gnxW39MgmjqUZlL+VxNL1EWL4CAgbHCTK9o
-	 FBEEg7rz7zrnZZpTWNg/fF4Z30D9GJpuBpuoQwjxaShEHAAYxJIVcKYhwtw9v/YBe6Ipc
-	 5quXeKCJ6OVAzF5CaTtRxZ0Lp4GxTw09jmkkuSaDte2BkqEKeqy1R1JzzFuJjM+e8H8tY
-	 7cWmwk+4MDMocgsk3ulO1tWZsfcA5gkblS3SB48Q91SMulDR+nItwI9Jyh3GwBKJCWLV6
-	 iB7SKY9nk8pHtQ04aMtclpMOV6WEwcZQIibnKvDcdZg9XQrBXwtIcwiwNCJhv2yzE3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794251119;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=6+YZxQ13YOJ8UtOzew8TbdktPjj8yu1brjnF+SKC90w=;
+	b=Fa8RQINpxi8y1mtfGb9rctoeqzLVnPfnK/nm9oJg8GbTJooCkVT2ykGKBPhdmfxKsqNv
+	 XOFf8zZ2ezx8PQmDnzCuJWelSIj668xGe7jddCFqgmm4oteYqb0vLoZamH+sHj0Eo9+4Y
+	 JQse98Ovm8SecwxpbanlJJNzWpFDHF2iYHC+MqDz+WRJS6R/XcvdC87rOGJmQKNvOE5XP
+	 8xPFRwhFVl8BTqLOum9C5ZeYYNUK+2v+08NZAH/5AKcCwTxH0vChjTOb6BQoCIMQViPGo
+	 0P2RjjwyOc/8m2fQrx09f5jyTHrTo8NCmtLUAmxupPiosGBJESLM4o9IeklER+0eJNg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gY+VfllG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VUqLv6+c;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC80606A31C;
-	Mon,  9 Nov 2026 19:04:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303FF606A32A;
+	Mon,  9 Nov 2026 19:05:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 303FF606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gY+VfllG
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794251099;
-	b=ahhBkNHL9kK2sZzL73nrzaU3x5udFFjiFSkLC+BsM7OgCJGEEbIXWyGvvOfhgr99QMCb
-	 yn0ZtnEphq1HLMtmLMj3RXrACxhJWAFJchhNbBNXq2LvmrvYcmKlal/DnW/CyYBEh+Oc1
-	 NEi7spPuI6osQz0cmjb+hRMhFsNHGSzz/Fyd2Zp4t4LYoZTLZWDN8xLVwXG68NGI3ieOc
-	 V7B3UST8c8epxsN9/GWeEUa7lVBeCyerJchGGTCf6F0g25OWnwj79qVpjm/XKAR9ux9EA
-	 BxEje3N81FRuHAuLl/04XGo2LfLGhqcom0p0DO11AAQHwADEa6EunN2Sewq0x9lyPpQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794251099;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=P2fmqmmprCAGOSYykgJw6VD4J+cu5F8pWWrtYwCx08s=;
-	b=JbDkDqERGkqYkG5JbJ0euwvZRa7iwUwmm5ZsY4Ippe5BYg4bqmWbEFfpjGbKHklRa5vU
-	 jcyRQJe9n6ovT8XV/Lp5l7zJH98U93+vCo64CMYTMhMEvrkSvxoauN7NUbowKPJkBOSwp
-	 R3PuVAGPQQua84iqOa2ajHpCOlzipKoWJt0WLHXWDL/9JUbtO5771QvkUAwkB2gUrN8dV
-	 wemx1b3nkvZ0MHUB/XXX0I1J3MSCkL1YSMJqIAokw0UJialhc5wVkcqOejwXt2ahicUlg
-	 SVOZ1LvYxOHf9mVRmLixE3ALQZy29HCwtlNaqykbM9/jo6bs0HnVo3k0i7t2pnxh6Sw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 686A81F008A1;
-	Mon,  9 Nov 2026 19:04:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794251099;
-	bh=P2fmqmmprCAGOSYykgJw6VD4J+cu5F8pWWrtYwCx08s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=gY+VfllGE9Yy/nLafpqIvTQSojg1VfdPrajioPJqR8fAtHzexFhtHgqhCVQvM7+Yv
-	 NMJPFOWsaWu5h9Pm7C+KSiTG8K1LWXLcsNEdVgnistJrQCGjMYOHAiHws3shi7bpG7
-	 Wm98FyLYXfpbvVw29NprY5oKHfOMi2jrxmdCmZGYrYdTVmx84FQT5Y1hed2+SMZXkt
-	 NuH4I0crt2+LKcnkU+5AVE6plGlnOigz46C0z8V4DjZ9vyfM7LzjXwIEczVRc4GA6P
-	 RmnTUaiv7hGOJZV7l3k9+w6ee/hGLpAvgvwgkZFXfAu9wP0VLTO9iC7nqzjv6JczTz
-	 UoVeWpqFz3Stg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EB96D485F2;
-	Mon,  9 Nov 2026 19:04:57 +0000 (UTC)
-From: Martin Belanger via B4 Relay <devnull+martin.nvme.dev.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 14:04:53 -0500
-Subject: [PATCH 1/2] nvme-tcp: move the TLS record read loop into a helper
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VUqLv6+c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794251118; x=1825787118;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=eMXrUJ8UKbblsKqu4OOWX155UBWvy+vGw9iUtUMdPK8=;
+  b=VUqLv6+cZLIH5m7UkdnA0+prrbpAAhuJ53ZRonoKKK3ZgrbviIQ5L3CF
+   zNDnDAELO5w9/+Yo+wNShLBercPYvdWOyh9vg4SXulPjqVO6AUeR57N4R
+   kMUFzQjN/sMP7wuHJC074/vhXRhLJMbLqzSi+5bS6aRWES/ESQwrsaoCI
+   sQngD+MblsVIFZ6YHEj6uqFf+g0lz3yWCUGVxVcizmACQkRm4myZdS6CQ
+   o4OXqyWJhmZbaHCv0Rd5ui45U+YpBQITYDab5virXkLK/lH8WXrE3jjvN
+   kaL+qYCOBaGfvRk0Xh8mYlbZraD3hWnUm2F+S3o6opBGk2uaD4skp2BZj
+   Q==;
+X-CSE-ConnectionGUID: p4dPgZQQTs+rJhxzMZXmIA==
+X-CSE-MsgGUID: dJzAWP71R4eu/T3KWWfwOA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2866444"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2866444"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:05:17 -0800
+X-CSE-ConnectionGUID: an51gV7YRqiRJ2Fu+cVWyw==
+X-CSE-MsgGUID: Qh7mzGfjRbuG2X+tYCjpIQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8128919"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:05:16 -0800
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 11:05:15 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Mon, 9 Nov 2026 11:05:15 -0800
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.64) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 11:05:15 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Z7n98kQdoTgsQc1H37jRS9QANJUzTpJ59uFU+vxxnof11y/iz/G5hs3PGZN6kShLTi0M9Bia3cwD/XpBaCi1UoCxRQabWDUH8kFVLdiw7Ziprw4aNG1gbNnxRK255ehanPikiTJCBwzjyKg+52ihcVMenJtao67vC3EpirNCldgOJ0qP3tY6ppDyZAohR0niR7XZV/ST4c25aIF2qhKP1xJXubjK4VXKUQqZhg/xC9lYSJ3Tfv/1CdP4LQ6saHHlMzsX5d0b6zhkJCs9ZzLB2tu7s3Wu8cs0TSyfkZ3BsKniEnZOwsIU4HBVHNUTrIUfl+H74iePxp+GN+ClFq8caA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6+YZxQ13YOJ8UtOzew8TbdktPjj8yu1brjnF+SKC90w=;
+ b=FBXDulriYo+BZmlkPR+XGpfbpZSmpgzyT4mDCOVsfIjtg58Y5ih+EkDbyfTmwN7/alCiqpIyYxshY86+YYm3pdeq1aSCCX8IveFZpv/xV12iU0EQJjybnsCqBuF+HNE+egBev4p/C9HBdj491ZRAuAYMoElZVz9OnK44eTiBUj5AUmCXdbbhTqMJzONKknRCAVRf3W+XMTSCthixKi9pePu02hjrQKcGWuT7LjrEfqUExWyxLdP8VeQrfDX65fURX0c1GYrGr4ujSYmaPUZ4hmHOzAReEOQzprC8as55idJFjKhma/FQ0E8HYudbgiNvR/lp+rEc4lCBeYT/071pxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB824491.namprd11.prod.outlook.com
+ (2603:10b6:208:626::16) by DS6PR11MB704522.namprd11.prod.outlook.com
+ (2603:10b6:8:412::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Mon, 9 Nov
+ 2026 19:05:12 +0000
+Received: from IA3PR11MB824491.namprd11.prod.outlook.com
+ ([fe80::c2b7:5964:96e1:8ffd]) by IA3PR11MB824491.namprd11.prod.outlook.com
+ ([fe80::c2b7:5964:96e1:8ffd%5]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
+ 19:05:11 +0000
+From: "Salin, Samuel" <samuel.salin@intel.com>
+To: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>, Brian Vazquez
+	<brianvv@google.com>, Brian Vazquez <brianvv.kernel@gmail.com>, "Nguyen,
+ Anthony L" <anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+	<przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
+CC: "Chittim, Madhu" <madhu.chittim@intel.com>, "Hay, Joshua A"
+	<joshua.a.hay@intel.com>, "Samudrala, Sridhar" <sridhar.samudrala@intel.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "David
+ Decotigny" <decot@google.com>, Li Li <boolli@google.com>, "Tantilov, Emil S"
+	<emil.s.tantilov@intel.com>, Paul Menzel <pmenzel@molgen.mpg.de>
+Subject: RE: [PATCH iwl-net v2] idpf: wait for the reset completed state in
+ idpf_check_reset_complete()
+Thread-Topic: [PATCH iwl-net v2] idpf: wait for the reset completed state in
+ idpf_check_reset_complete()
+Thread-Index: AQHdWBpXjfwJ6tBorUC2IkGjruvcB7b84mQAgClnuPA=
+Date: Mon, 9 Nov 2026 19:05:11 +0000
+Message-ID: <IA3PR11MB82449130BE44CBEA89183442F79B732@IA3PR11MB824491.namprd11.prod.outlook.com>
+References: <20261009181553.582029-1-brianvv@google.com>
+ <DS4PPF7551E6552686B1C0E5EF78B23A44AE59D2@DS4PPF7551E6552.namprd11.prod.outlook.com>
+In-Reply-To: <DS4PPF7551E6552686B1C0E5EF78B23A44AE59D2@DS4PPF7551E6552.namprd11.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB824491:EE_|DS6PR11MB704522:EE_
+x-ms-office365-filtering-correlation-id: 8a890474-3b63-4d8f-1fa7-08df3e94614c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|7416014|366016|376014|1800799024|18002099003|22082099003|6133799003|10067099003|38070700021|921020|5023799004|261022075727099003|11063799006|261028144727099003|4143699003|261026140227099003|261026121527099003|261009223027099003|261021121427099003|56012099006|261022105027099003|261021123027099003|261102123227099003;
+x-microsoft-antispam-message-info: gdM0QarQeMSzvrpxyPItFH60zMMjl2apv9mNqdffAJ4/peJmn3yN4wHPcctid+cCidhnTqQ231A5N92KLuu/h1ohQTzq+phAtrrRcwJgKfwuwzQYbUEdvOW2mwlqvqNDEvzxQqW7VQ2yOYCEmjA60fS9ZerbWxSx5y2Tti+NwuEgMW95V7B67cwvP3UAiY4uYuUtsMtsrgN2Tkc0/zAtZ2xs62xqAAR1IG5FQU38ppQNNAvrVursApf3c8SaSRmUKL/hSOSlUJdYzclzr2+jRqMhy4wtrsJ4Uli6JekZdGyGvGsXEKNRLT5PhcrB+zr5cbvzJ9r6HhLbGCBTklpYjqpFVZYtvbPvzblKPVOuvF0A1/B9U2VaEek+vJnjyOIwmaBS869GA0W4eBBxgbGK2wZVDDPzSZKL9sF+LwvUidrcL7dq+Z29lUQEMi3DNplHgwI8hv9s7rUaesWuS0VXbMHpa3/nEtNVY+9vKekehDT9paeSI3qMpjxJqIqn3Ud/nuTy7jE+DMYSWn/dIgkttYLyJsHMdqqUmlwBu/8iX7rloNLL0ev0sAlO3uerbKH9gOjw2djPnYnQhzGBwB/Lcnm6bkGndogX+VC/wbzAqm9PnKPoMAtsyz+vr4mrECzAEXw8MNtRK46+73vHy0ITMKxNMClyknLDCdCTq5u3PBAYsTqvoQaZACCcBuLxIaImMIB2Fo5Iye1tzTSNOYK26bzayGeUSVtdHMsoTnfM/VqdBU2Y14EM8QsTtdai17TE
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB824491.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(38070700021)(921020)(5023799004)(261022075727099003)(11063799006)(261028144727099003)(4143699003)(261026140227099003)(261026121527099003)(261009223027099003)(261021121427099003)(56012099006)(261022105027099003)(261021123027099003)(261102123227099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0VDDK8XODffBS1Fd2jmttnknFPRzGt+rhs86P8rAA0bLQcfxLe861/eXg030?=
+ =?us-ascii?Q?gLmhpYhA0c12lKmUys5E9zuy9Zd6XR8wdZesFG8kg43tOezCIDuiulAs0OTM?=
+ =?us-ascii?Q?XCi7mMEAVItcuZP0rGVyyrJCucwe55T59KvKdYrDfbJD8KPzYkmZpKnKt6h1?=
+ =?us-ascii?Q?JZAqI40UEa/hq1fUbiyjlwHAB3PvPJ4dV4cNqGM8yBYoPi+HDDozj7qhDwNB?=
+ =?us-ascii?Q?ROoeyTmfHAP3Oqdn3F87TfV0E6Hkxkve+wmVHTy9Ro4USUM3ygSQiU6PtDoH?=
+ =?us-ascii?Q?+n1SVVMDWCblLm12lRbPLXvHIOf/WNzVBR9vBCRXxLkyDaqkKRCqM+c88Iej?=
+ =?us-ascii?Q?tWjqXpH/flv33f8ItLuDqX/56EwofGfOcj1j1+faFV/T6XAeW3JSb2tjTYfa?=
+ =?us-ascii?Q?cetUATzONN3+ddfbm/gsjA8r5WxYe68R4cmqtkF/94ObXX6Lp2wDcAVISQ1T?=
+ =?us-ascii?Q?U++yOLCxhpobQ8bisAcCpnYWIViIQ7ciVRTG9mdacTWnfHSC/p6Wnr63OU6p?=
+ =?us-ascii?Q?umLNF41nFVqLkCIQmznH0HHYrnuoGNrLkRxjb/Ce+HamX6etR9+cMwnfE2Ti?=
+ =?us-ascii?Q?4g8G5hoSghSckTpuQD/mz5XY06n9JoU9Nj1vKzOBU7Tfh4OXnThDOVv05AMr?=
+ =?us-ascii?Q?hTIC2RPB1mX44Cu2aT/tsYkFTXR4GbhtMsxdPm8TGiQ9Bz54E79QbUMUTBxc?=
+ =?us-ascii?Q?cC44a26kg04FkkSYpYyPW7OuLtnX5h4WaUGt7E3o6kUVhZmsWgZkTBpg653B?=
+ =?us-ascii?Q?8dKpJqHhQqQD4mIWe8qVn3BIsBt84pEuh0yr0/D3qFz67xGCjqlFSZlLsTqI?=
+ =?us-ascii?Q?YqQgijIHLzve/TAMCj3Kue2ZHmiu5/+TJaguh8DkdyXl7SUTeVs9Kvy+ijGH?=
+ =?us-ascii?Q?JgcPTJIT/qNSJU0w9b7AGB65G/7J2RJWHPrq/cZ/MppC4Ult1M+B/l91Vj4w?=
+ =?us-ascii?Q?hDce1ZBmZYHr2qyxdXH55KLAYUuKHmb2ZNbCxB/+eqad6i4nfSP1Xy/Myvk7?=
+ =?us-ascii?Q?n9lF+ceBzm/pzU9wtLwoexS2x6ROHqEor4m/JdptEmF5/ddKvac1bS1qGZOB?=
+ =?us-ascii?Q?R/hk9YA0K40dJz22/7YaRNLrCYwfYsDJl+IVKIMJAZPiq4dNTNBGC4E3XKD7?=
+ =?us-ascii?Q?Fk7pQmLFf0FIedh+4FEiPxy6Jqj9EBYEil8kOUKHrtDbF5HlhRM4DYbwd3jq?=
+ =?us-ascii?Q?pVT2btthWfNxnO/augixFLKfo/yypxS41DkfpxrzhD5xu578jvHxkUkdh0Yj?=
+ =?us-ascii?Q?GZZCZTxKixLycQ9IzI1IEFb76J+pfgD3UfKOdUHmveEhQA6FtaUC8B9RQpvv?=
+ =?us-ascii?Q?atNpWUEL6/cOGbYvVeUGlqy0vBzimRNqQE8zqvjC8b55H0TqnHrQlXzMo8PA?=
+ =?us-ascii?Q?k1urv9kVf9YXgykEGFs+ZL2QmUq3Dkn5B5yVKX2R+wnTUoAr9igW3y0dD3YH?=
+ =?us-ascii?Q?MPkn0Bq8loPaPQcRJKtbEWucfd/EjzwRA5TnfnHpRPi8S9bgRUwppbiO1sXN?=
+ =?us-ascii?Q?GjYCojhbzAd2L5cHLUtAYTDjNk4kA0PfJvxvaHhapcWJlWey0WW6A75Xh3Vg?=
+ =?us-ascii?Q?HB93dYW328CZauvQnWawueRVaTAmrjo9SjU/XgBD4MRzRQhdR5RipzeTDq/b?=
+ =?us-ascii?Q?E1JHiiVMCC7okViKKi1PgdWT7aKDd9gIo+4rRWN1K8D8YTJt1K+rb4lvtFIl?=
+ =?us-ascii?Q?nu9EqcUZhxO4seoSL+z9AC+SW274okNLjRKhVE+MyrZ+dcj9EUInhPLq128c?=
+ =?us-ascii?Q?MWv1cmq01A=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,137 +188,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-nvme-tcp-live-ctrlrec-v1-1-47ba61670e65@gmail.com>
-References: <20261109-nvme-tcp-live-ctrlrec-v1-0-47ba61670e65@gmail.com>
-In-Reply-To: <20261109-nvme-tcp-live-ctrlrec-v1-0-47ba61670e65@gmail.com>
-To: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
- Hannes Reinecke <hare@kernel.org>
-Cc: Martin Belanger <martin.nvme.dev@gmail.com>, 
- linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Martin Belanger <martin.belanger@dell.com>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794251097; l=3262;
- i=martin.nvme.dev@gmail.com; s=20261014; h=from:subject:message-id;
- bh=I4tNXDC3YZTae17hei8TZK0tGRXfiT5ZPYdrswIwZ+c=;
- b=1kbWCQoRGlIaN5Ypz1TLuG8zQn3jMAb+c8snPAK0dO/VssR/HwmDS5nDoV9ZaJnoCKCbU5uLB
- b1UD11paE1WA6G+Qk0VF55nQQLiYHPCp4E6+rKjJyXEu4AfscHdR5ft
-X-Developer-Key: i=martin.nvme.dev@gmail.com; a=ed25519;
- pk=4K+XXetGK35w2LzRRddd/bbHawZU222BN+YZRuSpN+k=
-X-Endpoint-Received: by B4 Relay for martin.nvme.dev@gmail.com/20261014
- with auth_id=1176
-X-Original-From: Martin Belanger <martin.nvme.dev@gmail.com>
-Reply-To: martin.nvme.dev@gmail.com
+X-Exchange-RoutingPolicyChecked: h8ot16HJWLYEPOoU4pxWofqQNRDxwkOPrjpuQCf0savpdIfIBNDpRCAHvsehJhjuZYiw6/yyBjFbc0jtGIXIqX8Z5jS6BwiFQTTw1MiCWApEIqz1MLjIBSxN2bQRQ4ycelRrqZYzEbFwxjkhQnm+de7ggiPrycbjegQJm8d3A47Kvht25y573bjg/GWZqU5qhWVQMJTDnrWdaF9bvoDNs5R9afKyoWQu5wKFEF7AViJ84Cqvy3QDTGRM1QcxTDiDJlmmBDZtmWnaPIysFlMZnXMOsYtHRRgMzjWcesvRq0zuqe24DGE5WHGGLhswqu84lv3HJaNkaGc4AAsJI7XQSQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB824491.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a890474-3b63-4d8f-1fa7-08df3e94614c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Nov 2026 19:05:11.8227
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: MM8NtEKaCSmdDP2MQfUcz1Bb4kH/LtQ7gLc3BbET988Ehbdy80svdYxQri9LM5J2v6lbJ9c+IpzD4skwDRKeoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR11MB704522
+X-OriginatorOrg: intel.com
 
-From: Martin Belanger <martin.belanger@dell.com>
+> -----Original Message-----
+> From: Loktionov, Aleksandr <aleksandr.loktionov@intel.com>
+> Sent: Wednesday, October 14, 2026 3:47 AM
+> To: Brian Vazquez <brianvv@google.com>; Brian Vazquez
+> <brianvv.kernel@gmail.com>; Nguyen, Anthony L
+> <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
+> <przemyslaw.kitszel@intel.com>; Andrew Lunn <andrew+netdev@lunn.ch>;
+> David S. Miller <davem@davemloft.net>; Eric Dumazet
+> <edumazet@kernel.org>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
+> <pabeni@redhat.com>; intel-wired-lan@lists.osuosl.org;
+> netdev@vger.kernel.org
+> Cc: Chittim, Madhu <madhu.chittim@intel.com>; Hay, Joshua A
+> <joshua.a.hay@intel.com>; Samudrala, Sridhar
+> <sridhar.samudrala@intel.com>; linux-kernel@vger.kernel.org; David
+> Decotigny <decot@google.com>; Li Li <boolli@google.com>; Tantilov, Emil S
+> <emil.s.tantilov@intel.com>; Paul Menzel <pmenzel@molgen.mpg.de>
+> Subject: RE: [PATCH iwl-net v2] idpf: wait for the reset completed state =
+in
+> idpf_check_reset_complete()
+>=20
+>=20
+>=20
+> > -----Original Message-----
+> > From: Brian Vazquez <brianvv@google.com>
+> > Sent: Friday, October 9, 2026 8:16 PM
+> > To: Brian Vazquez <brianvv.kernel@gmail.com>; Nguyen, Anthony L
+> > <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
+> > <przemyslaw.kitszel@intel.com>; Andrew Lunn <andrew+netdev@lunn.ch>;
+> > David S. Miller <davem@davemloft.net>; Eric Dumazet
+> > <edumazet@kernel.org>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
+> > <pabeni@redhat.com>; intel-wired-lan@lists.osuosl.org;
+> > netdev@vger.kernel.org
+> > Cc: Chittim, Madhu <madhu.chittim@intel.com>; Hay, Joshua A
+> > <joshua.a.hay@intel.com>; Samudrala, Sridhar
+> > <sridhar.samudrala@intel.com>; linux-kernel@vger.kernel.org; David
+> > Decotigny <decot@google.com>; Li Li <boolli@google.com>; Tantilov,
+> > Emil S <emil.s.tantilov@intel.com>; Brian Vazquez
+> > <brianvv@google.com>; Paul Menzel <pmenzel@molgen.mpg.de>
+> > Subject: [PATCH iwl-net v2] idpf: wait for the reset completed state
+> > in
+> > idpf_check_reset_complete()
+> >
+> > PFGEN_RSTAT[1:0] / VFGEN_RSTAT[1:0] (PFR_STATE / VFR_STATE) encode
+> the
+> > function reset progress as a 2-bit state, not a flag. From the IDPF
+> > specification [1], "PF Reset Status - PFGEN_RSTAT":
+> >
+> >   00b - reset in progress
+> >   01b - reset completed, written by the control plane
+> >   10b - function active, written by the control plane once the function
+> >         has completed VIRTCHNL2_OP_VERSION
+> >   11b - reserved
+> >
+> > The "Function Level Reset" chapter of the same document has the driver
+> > poll the register until it reads 01b before re-initializing.
+> >
+> > idpf_check_reset_complete() tests (reg_val & rstat_m) as a boolean,
+> > with rstat_m =3D GENMASK(1, 0), so any non-zero state is taken as
+> > "completed", although only 01b carries that meaning.
+> >
+> > That only works if hardware moves the field to 00b as soon as the
+> > reset is triggered. On the Intel IPU E2100 (8086:1452) it does not:
+> > PFSWR transitions PFR_STATE to 00b only when the field currently reads
+> 01b.
+> > When the function is active (10b) the field keeps its value until the
+> > control plane finishes the reset and writes 01b, which takes a few
+> > hundred milliseconds.
+> >
+> > Consequently, on a hard reset of an active function
+> > (IDPF_HR_FUNC_RESET) the first poll sees 10b, returns immediately, the
+> > driver re-creates the mailbox and sends VIRTCHNL2_OP_VERSION while the
+> > reset is still being processed. The control plane tears the mailbox
+> > down underneath it, VERSION is never answered, and the driver sits in
+> > a
+> > 60 second virtchnl timeout (-ETIME) before going through a second hard
+> > reset which then succeeds.
+> >
+> > An FLR on an active PF is enough to reproduce it:
+> >
+> >   # echo 1 > /sys/bus/pci/devices/0000:01:00.0/reset
+> >
+> >   [  299.685030] idpf 0000:01:00.0: HW reset detected
+> >   [  299.715710] idpf 0000:01:00.0: Device HW Reset initiated
+> >   [  362.916087] idpf 0000:01:00.0: Device HW Reset initiated
+> >   [  364.318246] eth0: (slave eth1): link status definitely up, ...
+> >
+> > Nothing is logged during the 63 seconds; the timeout is silent on this
+> > path.
+> >
+> > Make idpf_check_reset_complete() wait for the state to be exactly 01b.
+> > This is the stricter reading of the register definition and it does
+> > not depend on how the field got to its current value: functions that
+> > are still in progress (00b) or active (10b) keep polling until the
+> > control plane reports completion.
+> >
+> > With the change the same FLR results in a single reset and the link is
+> > back after 1.5 seconds:
+> >
+> >   [  206.856635] idpf 0000:01:00.0: HW reset detected
+> >   [  206.887106] idpf 0000:01:00.0: Device HW Reset initiated
+> >   [  208.368721] eth0: (slave eth1): link status definitely up, ...
+> >
+> > [1]
+> > https://github.com/oasis-tcs/idpf-
+> > specification/blob/main/idpf_specification.md
+> >
+> > Fixes: 8077c727561a ("idpf: add controlq init and reset checks")
+> > Reviewed-by: Emil Tantilov <emil.s.tantilov@intel.com>
+> > Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+> > Reviewed-by: Li Li <boolli@google.com>
+> > Signed-off-by: Brian Vazquez <brianvv@google.com>
+> > ---
+> > v2: reference the IDPF spec, name the device and add an FLR reproducer
+> >     with before/after (Paul); collect Reviewed-by tags. No code change.
+> >
+> >  drivers/net/ethernet/intel/idpf/idpf.h     | 2 ++
+> >  drivers/net/ethernet/intel/idpf/idpf_lib.c | 3 ++-
+> >  2 files changed, 4 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/net/ethernet/intel/idpf/idpf.h
+> > b/drivers/net/ethernet/intel/idpf/idpf.h
+> > index 470bc23c844c..ce8a1bd0ec8b 100644
+> > --- a/drivers/net/ethernet/intel/idpf/idpf.h
+> > +++ b/drivers/net/ethernet/intel/idpf/idpf.h
+> > @@ -166,6 +166,8 @@ struct idpf_netdev_priv {
+> >  	spinlock_t stats_lock;
+> >  };
+> >
+> > +#define IDPF_RSTAT_COMPLETE		0x01
+> > +
+> >  /**
+> >   * struct idpf_reset_reg - Reset register offsets/masks
+> >   * @rstat: Reset status register
+> > diff --git a/drivers/net/ethernet/intel/idpf/idpf_lib.c
+> > b/drivers/net/ethernet/intel/idpf/idpf_lib.c
+> > index 827c795afcb6..92eb3e9de77c 100644
+> > --- a/drivers/net/ethernet/intel/idpf/idpf_lib.c
+> > +++ b/drivers/net/ethernet/intel/idpf/idpf_lib.c
+> > @@ -1874,7 +1874,8 @@ static int idpf_check_reset_complete(struct
+> > idpf_adapter *adapter,
+> >  		 * register for us yet and 0xFFFFFFFF is not a valid value for
+> >  		 * the register, so treat that as invalid.
+> >  		 */
+> > -		if (reg_val !=3D 0xFFFFFFFF && (reg_val & reset_reg-
+> > >rstat_m))
+> > +		if (reg_val !=3D 0xFFFFFFFF &&
+> > +		    (reg_val & reset_reg->rstat_m) =3D=3D IDPF_RSTAT_COMPLETE)
+> >  			return 0;
+> >
+> >  		usleep_range(5000, 10000);
+> > --
+> > 2.56.0.385.gd3acb90ef8-goog
+>=20
+> Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
 
-Move the read loop out of nvme_tcp_skip_tls_record() into a new
-helper, nvme_tcp_drain_tls_record(). The next patch uses the helper
-to read TLS records that arrive on a live queue.
-
-No functional change.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Martin Belanger <martin.belanger@dell.com>
----
- drivers/nvme/host/tcp.c | 60 +++++++++++++++++++++++++++++++------------------
- 1 file changed, 38 insertions(+), 22 deletions(-)
-
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 7ecc6c007f8d..bf71e6f6a6ef 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -1623,31 +1623,16 @@ static int nvme_tcp_recv_tls_alert(struct nvme_tcp_queue *queue,
- }
- 
- /*
-- * Discard a TLS record that arrived in place of the ICResp. A peer may send
-- * a NewSessionTicket as soon as the handshake completes.
-+ * Read the rest of a TLS record whose first part was read into @msg.
-  *
-- * Returns 0 when the record was discarded and the ICResp can be read, or a
-- * negative errno if the connection cannot continue.
-+ * Returns the bytes read, or a negative errno.
-  */
--static int nvme_tcp_skip_tls_record(struct nvme_tcp_queue *queue,
--				    struct msghdr *msg, u8 ctype, int len)
-+static int nvme_tcp_drain_tls_record(struct nvme_tcp_queue *queue,
-+				     struct msghdr *msg, int flags)
- {
- 	u8 buf[NVME_TCP_TLS_REC_CHUNK];
--	int ret;
-+	int ret, drained = 0;
- 
--	switch (ctype) {
--	case TLS_RECORD_TYPE_HANDSHAKE:
--		break;
--	case TLS_RECORD_TYPE_ALERT:
--		ret = nvme_tcp_recv_tls_alert(queue, msg, len);
--		return ret ? : -ENOTCONN;
--	default:
--		pr_err("queue %d: unhandled TLS record %u\n",
--		       nvme_tcp_queue_id(queue), ctype);
--		return -ENOTCONN;
--	}
--
--	/* the ICResp is in a later record, drain this one first */
- 	while (!(msg->msg_flags & MSG_EOR)) {
- 		struct kvec iov = {
- 			.iov_base = buf,
-@@ -1661,16 +1646,47 @@ static int nvme_tcp_skip_tls_record(struct nvme_tcp_queue *queue,
- 		};
- 
- 		ret = kernel_recvmsg(queue->sock, &drain, &iov, 1, sizeof(buf),
--				     0);
-+				     flags);
- 		if (ret <= 0) {
- 			pr_warn("queue %d: failed to drain TLS record: %d\n",
- 				nvme_tcp_queue_id(queue), ret);
- 			return ret ? : -ECONNRESET;
- 		}
-+		drained += ret;
- 		msg->msg_flags = drain.msg_flags;
- 	}
- 
--	return 0;
-+	return drained;
-+}
-+
-+/*
-+ * Discard a TLS record that arrived in place of the ICResp. A peer may send
-+ * a NewSessionTicket as soon as the handshake completes.
-+ *
-+ * Returns 0 when the record was discarded and the ICResp can be read, or a
-+ * negative errno if the connection cannot continue.
-+ */
-+static int nvme_tcp_skip_tls_record(struct nvme_tcp_queue *queue,
-+				    struct msghdr *msg, u8 ctype, int len)
-+{
-+	int ret;
-+
-+	switch (ctype) {
-+	case TLS_RECORD_TYPE_HANDSHAKE:
-+		break;
-+	case TLS_RECORD_TYPE_ALERT:
-+		ret = nvme_tcp_recv_tls_alert(queue, msg, len);
-+		return ret ? : -ENOTCONN;
-+	default:
-+		pr_err("queue %d: unhandled TLS record %u\n",
-+		       nvme_tcp_queue_id(queue), ctype);
-+		return -ENOTCONN;
-+	}
-+
-+	/* the ICResp is in a later record, drain this one first */
-+	ret = nvme_tcp_drain_tls_record(queue, msg, 0);
-+
-+	return ret < 0 ? ret : 0;
- }
- 
- /*
-
--- 
-2.53.0
-
-
+Tested-by: Samuel Salin <Samuel.salin@intel.com>
