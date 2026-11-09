@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794249879;
-	b=CiM3pRDAmcc+Sx3F3gswRTnQtr27IZDq2pGZaIlK/Xq2225W6mcDJQjYqApIq7J/ljK+
-	 BOjFCVOI92R8aOHTjee+X/P07YwcIyGUuPFALlK/G3PR2Eh0uQBA7VYsJDhAk1S6nUl52
-	 tjicZ/L7CKu96YyvYHCEM1uHU7fzRs1YaAY9F2BOHWme8jFxogDZr1lRhfw83aw47bnZ9
-	 d6StSl3EkOwvmR3VKOdSZMlnAm+tQlfJzLJ/6CcHr2lFeIeppY53lo16Juv/Pv7dgKx/m
-	 U4cytFIGzdIQCQp+Rkpr3AaHZ5rHJWSwRw8RbpNu2zdT59KObMgwJfsxf8ypAHw0Ytw==
+	t=1794249905;
+	b=ZkOO1PhdAhJB9iygfWY0y3m3yuOtcZ6WbmPQN8HD+9ar6OnCsonnmd8u+tVBw/MLNhNA
+	 8dDnI8KPLvAPrGGOzDJ2amWeYHfAm2wekdcUzUOCcmLebmzgg3+s3LoNeP06gQlEkOPKM
+	 FngQMYmLF+BH3Ej6tfCprgBB2rqdJe+mJXPSIjU1NsuduTCkdgXs/3HnvPRmrkv+2d4Lp
+	 GAKCYVentJ43Oe0TvOsqSM7D6uO4gVMHT4HZp4YASHtAKHCrGWsuzS23yka6yUZKs8W2p
+	 kfW0k1C+r3nR6vdMQRH24g4U/Lh/o5Y2nbshRMGc8dBo64MmhgaH8UKWGBa3MsO3GMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249879;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Bwh8vGADWjPBmVfab76LRrb7I0TG/Y5xxN+WzXcgV8c=;
-	b=S0VTZin20laNGaXp5QPiqiUU9LVo6oRZv9g+ROxumZ7s6BqXTznRHdqWZVpEBzkoco5Q
-	 JBXuA2TdIeKyJiHuOm1gJJ20ZKZ/BtkuxvH1gt7nD0KHaCYTaHElwaHqNs5rjGo2M03hk
-	 eEkFmXLYAWAJMNH6VDkXF7LE2KK1uoyFsnkzpaSUwvEqSajS5vdUoA4Qxj9PhVwvepfKF
-	 imiJxmancVy62e8QLcex5jljmSo6VZxYbkibZD4ioQZbyTyQqMbir88W/yLNatDeeVY1+
-	 xZX1qcptYhcJ7h7GiAQq/PlMFHqHnEWBq03TRxnDpRDNQe3ILEXWP4OqzYvyWWOBYTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794249905;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=bEdb1aqtr3kgW3GLcjmKjP4faluOT4/pgNlM7Hd0DHI=;
+	b=jDJOoA8OPfmbMQ53a7JgOKOybs8JDVhdeq8V9oUgqaJdirxKZCY+VuHluJPW28kjxbeK
+	 5l6rH8TVq7LlhgWw+7OdRjSxbzu3Fmifb/MjVj1khsPH6hmRUuEWEv7woapOrgeKg3Ybc
+	 U+H4XIKWu4uULC6KenBvFzP92NXGaFHnKAFQ9PNwyLnftPR/DKNXXhOYrAnLAi5vRS34Y
+	 uSW0FMhJYFAsGdizOBFsHHkdYncRvKVdlLwH7u3fLOJNsbAqUNDPtXG2GwUcWLRBGEu1K
+	 VoY8jhtfFy1EkCCyTe6IFX704GvzJJt4UmO2kiBo7DAZRJp3JRrJD9nLdY7/cHVfFfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=A6H3JcTC;
-	arc=none smtp.remote-ip=91.218.175.49
-Received: from mta0.migadu.com (out-49.mta0.migadu.com [91.218.175.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Djr5FASI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FBC606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:44:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9FBC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C24B606A321;
+	Mon,  9 Nov 2026 18:45:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=A6H3JcTC
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eejodZC9+iYJaqetGqYUSu07t8YAd2/V+1t3zStwLwI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794249876; v=1; x=1794854676;
- b=A6H3JcTC5htqLiYhRXDZjfXACQRFaxlvUYQRreKY7EJX0jrkW6Js56RoUVL4F96nIoTG4x68
- HJDvpI/MVrOQSQHYut+E18rc9OeFYvDLnxKnlJQiiAmCGYjhIXAxbR6Rb1FgbGkYWPOKckztDZp
- N8vFbftLcph0V8HaTDKSD3LM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 24141ff8b478b109;
-	Mon, 09 Nov 2026 18:44:35 +0000
-X-Mizu-Trace-ID: 24141ff8b478b109
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4022d4f9-5e2e-45d1-b9b8-208c80f82ecf@linux.dev>
-Date: Mon, 9 Nov 2026 18:44:34 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Djr5FASI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67C0E1F0089F;
+	Mon,  9 Nov 2026 18:45:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794249904;
+	bh=bEdb1aqtr3kgW3GLcjmKjP4faluOT4/pgNlM7Hd0DHI=;
+	h=From:To:Cc:Subject:Date;
+	b=Djr5FASIrZokbAR07zxKHRKGrVo0/+EC2r2qpovpyp+MRe9z3Ud25xUTQtUTfQfM6
+	 hnUd8klLrSn3YYUAJpHueczC6poMq9teoNnAcmM+Unk+XAPRikBTgDE+MEiip6hANZ
+	 Ep3PIIo3czMQISTGCm0fbcAfjukq9ka8jIY4SYHO0Iw/HmAlGuU0drdx+U4b7YVaBD
+	 9xRAp/6MecTYMjvRvL3pvynyFv10JkoJHeqokOcXVSRkrllasBRPhBadVXYtbtNDm/
+	 DXuw4zAckartT8GTvGx/mDvm+R1zimhqjmHCDkOq9mNg7VX9aHrm5YwnnfQkh0BV8p
+	 SIdtcPnDRlTpw==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wei Xu <xuwei5@hisilicon.com>
+Cc: linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dt-bindings: clock: Convert hisilicon,hi3519-crg to DT schema
+Date: Mon,  9 Nov 2026 12:44:52 -0600
+Message-ID: <20261109184453.449141-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,104 +62,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] iomap: remove the atomic write length check in
- iomap_dio_bio_iter_one()
-To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
- Christian Brauner <brauner@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20261107-blkdev-atomic-bounce-v1-0-f66344262096@columbia.edu>
- <20261107-blkdev-atomic-bounce-v1-2-f66344262096@columbia.edu>
- <3fc46788-d86d-44c5-8606-385d96fede4d@linux.dev>
- <c27b9521-7c4f-41ff-88f8-55313b5f395c@columbia.edu>
-Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <c27b9521-7c4f-41ff-88f8-55313b5f395c@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/9/26 18:34, Tal Zussman wrote:
-> 
-> 
-> On 11/8/26 12:06 PM, John Garry wrote:
->> On 11/8/26 04:24, Tal Zussman wrote:
->>> bio_iov_iter_get_pages() and bio_iov_iter_bounce_write() now fail a
->>> REQ_ATOMIC bio that doesn't cover the whole iterator, so the bio here
->>> always covers iomap_length() and the check can't trigger. Remove the
->>> check.
->>>
->>> Suggested-by: John Garry <john.garry@linux.dev>
->>> Link: https://lore.kernel.org/all/82978d5c-3e08-48e9-bf0a-7913e1cd0507@linux.dev/
->>> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
->>
->> Reviewed-by: John Garry <john.garry@linux.dev>
->>
-> 
-> Thanks!
-> 
->> This looks ok. But I am just thinking that a CoW-based atomic write does
->> not have the single bio restriction, so we don't need to fail the atomic
->> in this case. However, we should have consistent rules for iovec's
->> whether it's a block device or regular file for ext4 or xfs, so this
->> makes sense.
->>
->> thanks
->>
->> BTW, you could be a real hero and add an xfstests case for this also.
->>
-> 
-> What specifically would you want to see tested? I can do an atomic write with
-> a partially unmapped buffer, with and without stable writes, and check that it
-> fails and that nothing is written.
+Convert the HiSilicon CRG binding to DT schema format.
 
-Just something similar to the blktests case which you added.
+The allowed compatibles was not very accurate, so update them to
+match the users. Drop the hi3516cv300 compatibles as the platform
+has no DT and only a few drivers (pending removal) upstream.
 
-BTW, have you tested this partially-unmapped case for CoW-based atomics 
-on xfs? You can just do that by setting atomic_wr=0
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../devicetree/bindings/clock/hisi-crg.txt    | 50 ---------------
+ .../bindings/clock/hisilicon,hi3519-crg.yaml  | 61 +++++++++++++++++++
+ 2 files changed, 61 insertions(+), 50 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/clock/hisi-crg.txt
+ create mode 100644 Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
 
-Thanks,
-John
-
-> 
->>> ---
->>>    fs/iomap/direct-io.c | 14 --------------
->>>    1 file changed, 14 deletions(-)
->>>
->>> diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
->>> index ad041ac3252a..aca7cbaea4af 100644
->>> --- a/fs/iomap/direct-io.c
->>> +++ b/fs/iomap/direct-io.c
->>> @@ -370,15 +370,6 @@ static ssize_t iomap_dio_bio_iter_one(struct iomap_iter *iter,
->>>    		goto out_put_bio;
->>>    	ret = bio->bi_iter.bi_size;
->>>    
->>> -	/*
->>> -	 * An atomic write bio must cover the complete length.  If it doesn't,
->>> -	 * error out.
->>> -	 */
->>> -	if ((op & REQ_ATOMIC) && WARN_ON_ONCE(ret != iomap_length(iter))) {
->>> -		ret = -EINVAL;
->>> -		goto out_bio_release_pages;
->>> -	}
->>> -
->>>    	if (dio->flags & IOMAP_DIO_WRITE)
->>>    		task_io_account_write(ret);
->>>    	else if ((dio->flags & IOMAP_DIO_USER_BACKED) &&
->>> @@ -393,11 +384,6 @@ static ssize_t iomap_dio_bio_iter_one(struct iomap_iter *iter,
->>>    	iomap_dio_submit_bio(iter, dio, bio, pos);
->>>    	return ret;
->>>    
->>> -out_bio_release_pages:
->>> -	if (dio->flags & IOMAP_DIO_BOUNCE)
->>> -		bio_free_folios(bio);
->>> -	else
->>> -		bio_release_pages(bio, false);
->>>    out_put_bio:
->>>    	bio_put(bio);
->>>    	return ret;
->>>
->>
-> 
+diff --git a/Documentation/devicetree/bindings/clock/hisi-crg.txt b/Documentation/devicetree/bindings/clock/hisi-crg.txt
+deleted file mode 100644
+index cc60b3d423f3..000000000000
+--- a/Documentation/devicetree/bindings/clock/hisi-crg.txt
++++ /dev/null
+@@ -1,50 +0,0 @@
+-* HiSilicon Clock and Reset Generator(CRG)
+-
+-The CRG module provides clock and reset signals to various
+-modules within the SoC.
+-
+-This binding uses the following bindings:
+-    Documentation/devicetree/bindings/clock/clock-bindings.txt
+-    Documentation/devicetree/bindings/reset/reset.txt
+-
+-Required Properties:
+-
+-- compatible: should be one of the following.
+-  - "hisilicon,hi3516cv300-crg"
+-  - "hisilicon,hi3516cv300-sysctrl"
+-  - "hisilicon,hi3519-crg"
+-  - "hisilicon,hi3798cv200-crg"
+-  - "hisilicon,hi3798cv200-sysctrl"
+-
+-- reg: physical base address of the controller and length of memory mapped
+-  region.
+-
+-- #clock-cells: should be 1.
+-
+-Each clock is assigned an identifier and client nodes use this identifier
+-to specify the clock which they consume.
+-
+-All these identifier could be found in <dt-bindings/clock/hi3519-clock.h>.
+-
+-- #reset-cells: should be 2.
+-
+-A reset signal can be controlled by writing a bit register in the CRG module.
+-The reset specifier consists of two cells. The first cell represents the
+-register offset relative to the base address. The second cell represents the
+-bit index in the register.
+-
+-Example: CRG nodes
+-CRG: clock-reset-controller@12010000 {
+-	compatible = "hisilicon,hi3519-crg";
+-	reg = <0x12010000 0x10000>;
+-	#clock-cells = <1>;
+-	#reset-cells = <2>;
+-};
+-
+-Example: consumer nodes
+-i2c0: i2c@12110000 {
+-	compatible = "hisilicon,hi3519-i2c";
+-	reg = <0x12110000 0x1000>;
+-	clocks = <&CRG HI3519_I2C0_RST>;
+-	resets = <&CRG 0xe4 0>;
+-};
+diff --git a/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml b/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
+new file mode 100644
+index 000000000000..c0b7a5521fe3
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
+@@ -0,0 +1,61 @@
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/hisilicon,hi3519-crg.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: HiSilicon HI3519/HI3798CV200 Clock and Reset Generator (CRG)
++
++maintainers:
++  - Wei Xu <xuwei5@hisilicon.com>
++
++description:
++  The CRG module provides clock and reset signals to various modules within the
++  SoC.
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - const: hisilicon,hi3798cv200-crg
++          - const: syscon
++          - const: simple-mfd
++      - items:
++          - const: hisilicon,hi3798cv200-sysctrl
++          - const: syscon
++      - items:
++          - const: hisilicon,hi3519-crg
++
++  reg:
++    maxItems: 1
++
++  '#clock-cells':
++    description: >
++      The identifiers for the cells can be found in:
++
++        dt-bindings/clock/hi3519-clock.h
++        dt-bindings/clock/histb-clock.h
++    const: 1
++
++  '#reset-cells':
++    description:
++      A reset signal can be controlled by writing a bit register in the CRG
++      module. The reset specifier consists of two cells. The first cell
++      represents the register offset relative to the base address. The second
++      cell represents the bit index in the register.
++    const: 2
++
++  reset-controller:
++    type: object
++    properties:
++      compatible:
++        const: ti,syscon-reset
++
++    additionalProperties: true
++
++required:
++  - compatible
++  - reg
++  - '#clock-cells'
++  - '#reset-cells'
++
++additionalProperties: false
+-- 
+2.53.0
 
