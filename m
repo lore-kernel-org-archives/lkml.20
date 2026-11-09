@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794226921;
-	b=E3uwntin4E8Zl07POUqMKAxq2W5J4ZbfewO/rIwIwsrc+RpQCCFkyHl7jMQoCxto/ucD
-	 kDEZEIH+be0ruThYwyXU+FffrYe0zItwyRFJo0iZJNEo6zSarJ74mBsp2nR05yhF1p2eH
-	 gkisKkQfbouKN4uKtrpPJ0fK12KKxuMfjdlJbKilXht3HufmhCl7c4kfnMip+bHlUUE2L
-	 lw7GddmRhMRxR8rMFNhdrhsWzQbILgY29t2a44iJoBF8F+vwILI86HKV0VfWNH647LRM+
-	 EJJiXRxUFSm5Lw94oxyNDJGyxY7VnbTKklmpymemR7ygOzQCNTCZSAcx7MikmD4U+lA==
+	t=1794226917;
+	b=MJdQr2T5qC6Z5WuQwTv3J8DjFfesJoqj69h5NZwyBXlJzFbCgsP35zUQ/m/C8edgFXaD
+	 ay0C4z7IdNkaU200vTAIWvOXHM9C6bSTXAYAGDFH7tm64K/J2nUhov9mjRA3vM6yaiBbR
+	 rWwRFFOcim8JazE5xmIuf0NUb3ZXWtQU+QQNxWE3s2Q07Q/s2H/+m5mo8L3bpYAkUYPMT
+	 dlw2sEpId/XUXO/ULKdqttwMOEQWPm05Wp31MS83ebtfAqnFuTzFBhD7bzGnKd8T5o/yC
+	 WuNwKLHX4ZHYTbfN3RVn1BNhXCE4jMF+h2KJnHulI8PFaFdY8sbZAfrxByaWG1XztHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794226921;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794226917;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=q1LX/Zzu5lJJ68i8CdUH/dCh4TP/qblPJOfMfJ1EhqU=;
-	b=gdiiMJMUDINyNy8mylxQ+LyOV735xxLp7eCWonnJ7Siq65pwkx91inWn0LaUG50ImzpO
-	 vd6UIdqOuR9vXFQKsLVVpzPrcnhZejQ25S5TfnyG4dSV5vgdILsyNqdWPPv1NQ6gWl6hf
-	 sAxobXGv1DKqpyW3UdV2fqi7tEy2iubKjeS+UU2tzR2LJ7gvPIkQclhpH+Z4gGMrqGouc
-	 zAf3lY6Mn4R675oA0Joyw9+BuvCgZXwKhrergMuy8MPXjEG01mX24U3MKRXQBgHctiA+4
-	 EApB9GEIl7WqiDOb2x8XjyZS/bkkPd/hbuOG+4RKfGAyxkTKmtGsAbt4oRByQ4W+oKQ==
+	bh=p4vwbYYLQrtjR0iELFGwWmSzIE6lZ4pD21prPC9EqQg=;
+	b=ixLQMHosB6BgwVk/5kyvdB283jazXRLX48J7oXBnB/KviPHSbauS/VHocLlADh4sxN5y
+	 kQVQy5vnlzcmkNvrrhb9Tw73tx9U6b49CNOWIK+Nx6jeqG9K43XNmdvQgbqmHXgaoHrrX
+	 MlHU+K4473PqVwoRkjVQdRB3ucnF1yaH3eEcOnVwk0S9DqEWe0zkqzdCHdDIKl9zWbjOP
+	 aSWz3m+9IFxIlXqsuOIvuF1nk5hhXYaaz2xPrtBVbZ2BhWMq1zaGMJ2NLSGWgmBnAT/0F
+	 E9vBCGMcvwNfl0RGFgvQ0m3tHvAhbojbFY5U2FEqSP/Hn/duJEz06suCaM5zSbz3Mhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.alibaba.com;
 	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=WXz65qFo;
-	arc=none smtp.remote-ip=115.124.30.118
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=tGfFOSyg;
+	arc=none smtp.remote-ip=115.124.30.100
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DD9606D81B
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:22:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77DD9606D81B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6473A606A335
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:21:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6473A606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=WXz65qFo
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=tGfFOSyg
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1794226912; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=q1LX/Zzu5lJJ68i8CdUH/dCh4TP/qblPJOfMfJ1EhqU=;
-	b=WXz65qFohtXHLG4f708nOooUfMYr4RjrG3F59nXD4UmShEChj9oyM9RaIewhCaOHgC+J3OxJOw5Eox3jgo6xK9LXFKfPq3nABOC3ULQBNLYUk3kEIKX83n7D4u+ADPM6EaxvUMYMwgtXB2NMGJ0Uyw9c2PAxBCmLcgrsJjbUnAE=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XEP8aqD_1794226911;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEP8aqD_1794226911 cluster:ay36)
+	t=1794226908; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=p4vwbYYLQrtjR0iELFGwWmSzIE6lZ4pD21prPC9EqQg=;
+	b=tGfFOSygVuQN+iCewyY8KS7f0ZyP7p56+Iiyez2AHPwxWY0oO6XusQjlE6W5L8U24WZ2urT6nk9P1nzrPu3Wt79JGA/tQd2TJo5yaZOvsPU44FW5GQdu+xuhDPBCSJoALH4LmIKrt9TgyjUAoriBwNYAC0kgjl+DbeFIId4hXG4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XEOjdmz_1794226907;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEOjdmz_1794226907 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 20:21:51 +0800
+          Mon, 09 Nov 2026 20:21:47 +0800
 From: Joseph Qi <joseph.qi@linux.alibaba.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Heming Zhao <heming.zhao@suse.com>
@@ -50,9 +50,9 @@ Cc: Mark Fasheh <mark@fasheh.com>,
 	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: [PATCH v3 04/31] ocfs2: abstract the dinode OCFS2_VALID_FL check
-Date: Mon,  9 Nov 2026 20:20:54 +0800
-Message-Id: <20261109122121.21473-5-joseph.qi@linux.alibaba.com>
+Subject: [PATCH v3 02/31] ocfs2: abstract the zero nlink or mode dinode check
+Date: Mon,  9 Nov 2026 20:20:52 +0800
+Message-Id: <20261109122121.21473-3-joseph.qi@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3
 In-Reply-To: <20261109122121.21473-1-joseph.qi@linux.alibaba.com>
 References: <20261109122121.21473-1-joseph.qi@linux.alibaba.com>
@@ -67,67 +67,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The test for a dinode without OCFS2_VALID_FL is open-coded three times,
-and the two spellings have already drifted apart: the normal validator
-uses le32_to_cpu(di->i_flags) & OCFS2_VALID_FL while filecheck and repair
-use di->i_flags & cpu_to_le32(OCFS2_VALID_FL).  Fold them into one
-predicate using the le32_to_cpu() form.
+ocfs2_validate_inode_block() open-codes the test for a dinode that has
+no links or no mode.  Fold the condition into a predicate so it reads
+like the neighbouring ocfs2_dinode_has_*() helpers, and so the filecheck
+variant can share it.
 
-Byteswapping is a bit permutation, so both spellings test the same
-on-disk bit on either endianness.  The BUG_ON() in ocfs2_populate_inode()
-is left alone; it asserts an invariant the validator has already
-established rather than validating on-disk state.
+Reuse ocfs2_read_links_count() rather than testing i_links_count and
+i_links_count_hi separately.  OCFS2_LINKS_HI_SHIFT is 16 and both fields
+are 16 bits wide, so the combined count is zero exactly when both raw
+fields are zero.
+
+The OCFS2_ORPHANED_FL carve-out moves into the predicate along with the
+rest of the condition, in the same early-return style as
+ocfs2_dinode_has_size_without_clusters().
+
+The return code and the log message stay at the call site: filecheck
+reports the same conditions with a different code and must not call
+ocfs2_error().
 
 No functional change intended.
 
 Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 ---
- fs/ocfs2/inode.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ fs/ocfs2/inode.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
 diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 587fcea59f5a..8b4652002ae2 100644
+index 371857673712..209066321932 100644
 --- a/fs/ocfs2/inode.c
 +++ b/fs/ocfs2/inode.c
-@@ -87,6 +87,11 @@ static bool ocfs2_dinode_has_wrong_blkno(struct ocfs2_dinode *di, u64 blkno)
- 	return le64_to_cpu(di->i_blkno) != blkno;
- }
+@@ -67,6 +67,21 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
+ static int ocfs2_filecheck_repair_inode_block(struct super_block *sb,
+ 						      struct buffer_head *bh);
  
-+static bool ocfs2_dinode_has_no_valid_flag(struct ocfs2_dinode *di)
++static bool ocfs2_dinode_has_zero_nlink_or_mode(struct ocfs2_dinode *di)
 +{
-+	return !(le32_to_cpu(di->i_flags) & OCFS2_VALID_FL);
++	/*
++	 * An open-unlinked inode legitimately has a zero link count on disk:
++	 * ocfs2_unlink() drops the last link and ocfs2_orphan_add() sets
++	 * OCFS2_ORPHANED_FL, while OCFS2_VALID_FL is only cleared later by
++	 * ocfs2_remove_inode().  DIO orphans keep their link count, so they
++	 * need no exemption here.
++	 */
++	if (le32_to_cpu(di->i_flags) & OCFS2_ORPHANED_FL)
++		return false;
++
++	return !ocfs2_read_links_count(di) || !di->i_mode;
 +}
 +
  static bool ocfs2_valid_inode_mode(umode_t mode)
  {
  	return fs_umode_to_ftype(mode) != FT_UNKNOWN;
-@@ -1530,7 +1535,7 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+@@ -1482,15 +1497,7 @@ int ocfs2_validate_inode_block(struct super_block *sb,
  		goto bail;
  	}
  
--	if (!(le32_to_cpu(di->i_flags) & OCFS2_VALID_FL)) {
-+	if (ocfs2_dinode_has_no_valid_flag(di)) {
- 		rc = ocfs2_error(sb,
- 				 "Invalid dinode #%llu: OCFS2_VALID_FL not set\n",
- 				 (unsigned long long)bh->b_blocknr);
-@@ -1854,7 +1859,7 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
- 		goto bail;
- 	}
- 
--	if (!(di->i_flags & cpu_to_le32(OCFS2_VALID_FL))) {
-+	if (ocfs2_dinode_has_no_valid_flag(di)) {
- 		mlog(ML_ERROR,
- 		     "Filecheck: invalid dinode #%llu: OCFS2_VALID_FL "
- 		     "not set\n",
-@@ -1943,7 +1948,7 @@ static int ocfs2_filecheck_repair_inode_block(struct super_block *sb,
- 		return -OCFS2_FILECHECK_ERR_INVALIDINO;
- 	}
- 
--	if (!(di->i_flags & cpu_to_le32(OCFS2_VALID_FL))) {
-+	if (ocfs2_dinode_has_no_valid_flag(di)) {
- 		/* Cannot just add VALID_FL flag back as a fix,
- 		 * need more things to check here.
- 		 */
+-	/*
+-	 * An open-unlinked inode legitimately has a zero link count on disk:
+-	 * ocfs2_unlink() drops the last link and ocfs2_orphan_add() sets
+-	 * OCFS2_ORPHANED_FL, while OCFS2_VALID_FL is only cleared later by
+-	 * ocfs2_remove_inode().  DIO orphans keep their link count, so they
+-	 * need no exemption here.
+-	 */
+-	if (!(le32_to_cpu(di->i_flags) & OCFS2_ORPHANED_FL) &&
+-	    ((!di->i_links_count && !di->i_links_count_hi) || !di->i_mode)) {
++	if (ocfs2_dinode_has_zero_nlink_or_mode(di)) {
+ 		mlog(ML_ERROR, "Invalid dinode #%llu: "
+ 			"Corrupt state (nlink = %u or mode = %u) detected!\n",
+ 		        (unsigned long long)bh->b_blocknr,
 -- 
 2.39.3
 
