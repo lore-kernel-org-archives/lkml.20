@@ -1,63 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.117
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221066;
-	b=yvls/31K5KKYg9zvzRR2ov2ZKwraze6XoQtct5UV6nhSh9QZu3uGKvgSsNGnczIsOIvI
-	 j+aDyo6XqwbC6NvdU89HodALEklIjbmqGLro2voj75uE/2aJf6DEiOOQtrSRo7pMrXhOh
-	 XtmNSLua2y9qbNQ3teWqxhz9y79COsDG+FhNbPsYgLgqQmUFUDuT7mjWYHh6ZIKqBXsFX
-	 hgsAr+932RAsP2eHY1u6dwXqnxIQevmsvicTCwLsphKiHEoFFNt7DEYd+cEzi9Vw9CQL6
-	 0AiuiNrojiKg8C5Y20Yh2jyFFsqlPw4CX7Pd5BnHT1UpXM1oWjdsqqMzMoA9817ESPw==
+	t=1794221092;
+	b=aVGt1NAAQu5Zmq5WnfGHnVT4IaVZ9gxUScBHKtdeO5kkcgKRZmc0/hDlh4YQG/ysC5JI
+	 n14TJ05Y2jxw8QErLEpng2h/AH3k1kpszFmiTrzOowEVMiBZc0Xu5sE/yHMg/PUOQ/Hat
+	 Iw0zfqv9WSZ1zX9D5jVkE3PXegnsbS+HTyvyHFaop1ErG7CyUyCwc8fb4RPTGXlnCVS3N
+	 unS8FLGPKPIIB+jGzbqIcMNTDppHMKxDbg3Grfrnxxeeg96D5m9c54zA8Wd0xUfdVaMLe
+	 uIHRnMLVXLNW3JcQtQxygqzW5slYLEeKci5GCabvJgU7VnUCZc8S6b6vjhtQRRffFZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221066;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=TXr2TKEYrIDqnyQ+02ZfHnpl8vf7msiDB6kAkQN1rZM=;
-	b=YbAVNSbzV1Q0G6YrutAEgs/EmYlf6QrVaqPDBh12Y9NmLhs7t2vYVnhwLOMzPVJn1F6u
-	 e4wTYf/jj/MAfRJvEoLP3d9Y1p0A8cYn98vxrXYUfg/95V6A9JljgG3lnotScOyjOjgkn
-	 4+Bqo9+JbjWnbs9AEtqlGqDYWdBpsSwIWKWkgMuSuv3BDCO/cfmMcWf77TeemzruzDql5
-	 Lgx9Dxq0a5gvH7UfMCULgW+f8SZx2r5KjbMQX32fxbF7OP/mFvP1Cid30uWveYLKgejSG
-	 EcQZOGRIXKTaYp00lKDK95qhGF9pmDHiy7h1KhLrMX4u0FJOdKHns/dMpV84VpiNeDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221092;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=jhRpB/3L64OWgVCzI6g0N4mh7LrBuRu768BeFhov7Os=;
+	b=nYNS+lc2xM+3p7TntHDcuqsrqJigtt9VE4KNkkpBJbE0BkmZpE20SvOGJgM29bgsSCoc
+	 /DQktWmWpiS3hj62bFHBXQC+vxm76sNDI6n18inqhfKRFz5sMwe3t9uzTSXuHnpHiwQFF
+	 mZdYhFvAXbQIaXn/S77VgCDsqI/gkdkEuyjiVyovNYZifVGO0ciUQcSlJkx5yx4vMFsY4
+	 MRnXwwL1WQbHWM2NF6nWU5nR1ox0U+Aotdv1UguDlxTci/LQMRABw6iqeytEHLWoRbk7P
+	 dVA2PHt/Y2PX34K2QyuG8oX450FncAtx1an/YpvwHu1v92Bs6ChogD8hutVNERPn4QQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mfOpr55J;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HOjhnVfY;
+	arc=none smtp.remote-ip=95.215.58.117
+Received: from mta1.migadu.com (out-117.mta1.migadu.com [95.215.58.117])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F1D606A31C;
-	Mon,  9 Nov 2026 10:44:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD88C606A323
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:44:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD88C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mfOpr55J
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34E151F0089F;
-	Mon,  9 Nov 2026 10:44:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794221066;
-	bh=TXr2TKEYrIDqnyQ+02ZfHnpl8vf7msiDB6kAkQN1rZM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mfOpr55JSOEAKsYIRwZlPYVVji4xFQLSCZnYgYFBPvHuYw5tqPT6lpcFI9qJa0aep
-	 VERbNONOWWRfHvh/4pt0kOHo5GTHTckTKsADwINYHKcBPYIEykbTiHYKFVvv6Iayco
-	 P56iKD/4w8gwEuVziu3200TNGNO+AhB2cOwaCB72Mkz71mMNHxSY5o0Mp5g7LawzBY
-	 /hqT65DQ7N9EF/R0bmufgMI1JGQVXsKSu8+Hb/tg6OQ6csPirqc+IoZQPamOaOwii6
-	 nfY5lMRBzsqXWKW0jlB2p3CN9fmRVT3ZMcVZGIxc577QjbgavPnbuP3Z9CnA+a/9r1
-	 tz7C6CPoEbMHA==
-Date: Mon, 9 Nov 2026 11:44:22 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Andrew Gigena <mail@andrewgigena.dev>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, linux-phy@lists.infradead.org
-Subject: Re: [PATCH v3 2/7] dt-bindings: media: qcom,sm8150-camss: Add SM8150
- CAMSS
-Message-ID: <20261109-slick-transparent-ostrich-28ddad@quoll>
-References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v3-2-0103e8a0bbcd@andrewgigena.dev>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HOjhnVfY
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=n9yUochbuHx8y/anYILHlFK/BKbY5H9S/STmPJZqyQA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794221089; v=1; x=1794825889;
+ b=HOjhnVfYEClUjmyKsoac8lXoaH6LKyaEf/4JwcwlXSJOtwpIK1c83pIlmEymvLFacBUEh6R7
+ YZuXoZy01D81CK+EPNHqEDiV+U82Ai0/YJ1DO+zZayEIIvXj5Pg4DlANmpWrwLdNHCRO32BoKok
+ y9+TYo9cGtJND6iyEygCo5/0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 941375bb5fe624cb;
+	Mon, 09 Nov 2026 10:44:49 +0000
+X-Mizu-Trace-ID: 941375bb5fe624cb
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 9 Nov 2026 10:44:43 +0000
+From: Akhilesh Patil <akhilesh.patil@linux.dev>
+To: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
+	robh@kernel.org, crofts@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, alexandre.belloni@bootlin.com
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-rtc@vger.kernel.org,
+	akhileshpatilvnit@gmail.com, akhilesh@ee.iitb.ac.in
+Subject: [PATCH v2] MAINTAINERS: Update Akhilesh Patil Email address
+Message-ID: <20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,72 +65,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v3-2-0103e8a0bbcd@andrewgigena.dev>
+In-Reply-To: <20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com>
 
-On Fri, Nov 06, 2026 at 06:35:34PM +0000, Andrew Gigena wrote:
-> Document the Qualcomm SM8150 Camera Subsystem. The IP integrates four
-> CSIPHY, four CSID (two full and two lite), two VFE and two VFE-Lite
-> instances, with 19 clocks, 8 interrupts, eight IOMMU streams, four
-> interconnect paths and three power domains.
-> 
-> The CSIPHY I/O spaces are not part of the CAMSS container device: each
-> CSIPHY is driven by the dedicated qcom,sm8150-csi2-phy driver, so this
-> binding only describes the VFE and CSID resources. Each CSI input port
-> is described with data lanes starting at 1, as required by the CAMSS
-> PHY mode.
-> 
-> Describe SM8150 in a dedicated schema instead of reusing another SoC's
-> schema.
-> 
-> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
-> ---
->  .../bindings/media/qcom,sm8150-camss.yaml          | 285 +++++++++++++++++++++
->  1 file changed, 285 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
-> new file mode 100644
-> index 000000000000..371ff1ce0bd2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
-> @@ -0,0 +1,285 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/qcom,sm8150-camss.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm SM8150 Camera Subsystem (CAMSS)
-> +
-> +maintainers:
-> +  - Andrew Gigena <mail@andrewgigena.dev>
-> +
-> +description:
-> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,sm8150-camss
-> +
-> +  reg:
-> +    maxItems: 8
-> +
-> +  reg-names:
-> +    items:
-> +      - const: vfe0
-> +      - const: csid0
-> +      - const: vfe1
-> +      - const: csid1
-> +      - const: vfe_lite0
-> +      - const: csid_lite0
-> +      - const: vfe_lite1
-> +      - const: csid_lite1
+Move to my new linux.dev email address akhilesh.patil@linux.dev
+I plan to use this email for kernel development going forward.
+Also update email address in few yaml and driver source files.
 
-Seems you ignored my last review, so repeating:
+Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>
+---
+ .mailmap                                                      | 1 +
+ .../devicetree/bindings/iio/pressure/aosong,adp810.yaml       | 2 +-
+ Documentation/devicetree/bindings/rtc/st,m41t93.yaml          | 2 +-
+ MAINTAINERS                                                   | 2 +-
+ drivers/iio/pressure/adp810.c                                 | 4 ++--
+ 5 files changed, 6 insertions(+), 5 deletions(-)
 
-From which binding did you copy such order of entries?
-
-Best regards,
-Krzysztof
+diff --git a/.mailmap b/.mailmap
+index 7fb33babc931..54238d2f04dd 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -1030,3 +1030,4 @@ Zhu Yanjun <zyjzyj2000@gmail.com> <yanjunz@nvidia.com>
+ Zijun Hu <zijun.hu@oss.qualcomm.com> <quic_zijuhu@quicinc.com>
+ Zijun Hu <zijun.hu@oss.qualcomm.com> <zijuhu@codeaurora.org>
+ Zijun Hu <zijun_hu@htc.com>
++Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
+diff --git a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+index ad5f26ce5043..ca4d4210f609 100644
+--- a/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
++++ b/Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: aosong adp810 differential pressure sensor
+ 
+ maintainers:
+-  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
++  - Akhilesh Patil <akhilesh.patil@linux.dev>
+ 
+ description:
+   ADP810 is differential pressure and temperature sensor. It has I2C bus
+diff --git a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+index bdd995c5c1f4..837679dc01ac 100644
+--- a/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
++++ b/Documentation/devicetree/bindings/rtc/st,m41t93.yaml
+@@ -7,7 +7,7 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: ST M41T93 RTC and compatible
+ 
+ maintainers:
+-  - Akhilesh Patil <akhilesh@ee.iitb.ac.in>
++  - Akhilesh Patil <akhilesh.patil@linux.dev>
+ 
+ description:
+   ST M41T93 is spi based Real Time Clock (RTC) with time, date,
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 222b7fc2c3aa..3aa8fa3c068f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4095,7 +4095,7 @@ F:	Documentation/devicetree/bindings/iio/chemical/aosong,ags02ma.yaml
+ F:	drivers/iio/chemical/ags02ma.c
+ 
+ AOSONG ADP810 DIFFERENTIAL PRESSURE SENSOR DRIVER
+-M:	Akhilesh Patil <akhilesh@ee.iitb.ac.in>
++M:	Akhilesh Patil <akhilesh.patil@linux.dev>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+diff --git a/drivers/iio/pressure/adp810.c b/drivers/iio/pressure/adp810.c
+index 82aa433548d2..832df6ba0ee3 100644
+--- a/drivers/iio/pressure/adp810.c
++++ b/drivers/iio/pressure/adp810.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /*
+- * Copyright (c) 2025 Akhilesh Patil <akhilesh@ee.iitb.ac.in>
++ * Copyright (c) 2025 Akhilesh Patil <akhilesh.patil@linux.dev>
+  *
+  * Driver for adp810 pressure and temperature sensor
+  * Datasheet:
+@@ -219,6 +219,6 @@ static struct i2c_driver adp810_driver = {
+ };
+ module_i2c_driver(adp810_driver);
+ 
+-MODULE_AUTHOR("Akhilesh Patil <akhilesh@ee.iitb.ac.in>");
++MODULE_AUTHOR("Akhilesh Patil <akhilesh.patil@linux.dev>");
+ MODULE_DESCRIPTION("Driver for Aosong ADP810 sensor");
+ MODULE_LICENSE("GPL");
+-- 
+2.34.1
 
