@@ -1,91 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794204675;
-	b=YvLHGiG/EHr53/lDQGfKhb354raLJYeiRktuvKcu9rc+0tL+FUb6zUnIQqBDBGin89kW
-	 1GmKBNYO7cbjgSBkKbtmE1JWkVHYsWRfEBBRS7iPmiogA9PJBBrxqBEs85b7si6WbzRQS
-	 mRunzoxxMvWe+cyyi6YIQ1jCsy95PEf3mf0JwDZpvK7k19P8qnTP6NihaQ4nZj1AgWsrq
-	 UG0I8yJJJ4s/cZ7HqDMnU//an4Hi7Zep3yjZlvAsJN/gkE5buDQMmsMhDigmko0ovR2y2
-	 iqfk9AaHxBYTSihORoeeOCLxDX/nFv6kLNKlsRi1nlDZ/T89S79OIuWBtmi/6WXJtgg==
+	t=1794204692;
+	b=X5MtopQjfifopua7xPoxt8cCKdASa3SXm4Nt9zLzgmoAehdSrXjl5Cw3bASpVAKS8EjH
+	 BqA1OYo5ymnUbxX5huivwNfaWD58ZKQpb3sllQ2J8bCLCXMmUtSXlZfBKCJ1jPXBWR4eC
+	 /yKwNRTz66A1frg1IiVgqq1TXoLibJBETIvGby/W/qCspl2yAEi4uQj0WpO6/zqSJOqX8
+	 IByt10CfkrZugIeEWfkqkztt0EMTRPNwNUv5ZUI2tFn2b1YSxbrHU47QdPwXkPPgrarjC
+	 ONwHupYdOwdH0JaTevhLBBqIrM2A1bBbkY2OpwMzj0yEbSbzVpJvtbyQF6w0bR5yq5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794204675;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794204692;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=VK23kdoiXM00kINqQ8TnOTuQlGrAahz8GOHBdkyawfw=;
-	b=QGj9wUo2KzDOh0mhWZdMfs3cvaY+5ZLgu2Sc2kcrpFxlp2XoaxQAGiF6s/F2cO1ZRmOT
-	 M6mLcwS1HiCxouUjbKI06egtm/gBbdHVWKTt7jHomSR0ZPeESKxCXUiX+4WK9g0P+R1Kp
-	 L1BBuYzXCuWLWgeuAJkbF5+afbT8PhpZfhJV5a131eId6j9eDK6ZdhAO7EdWRYfXoRt2U
-	 UWY7FxbQ7+wPK9okEZzbJsVY4rRij4Za/PZwmIEqDKA95fu+dFDidiN6FyhF23hOcMpXv
-	 fthb2uBxRKFcJkRVVc0WFG00iHqoSrqPY6qPy1QadLXR7mPa/v9IvytqEaCwfI1nSNw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RvWIcIIXPCWIw1rDnK1jAirBnM7DqOltnfOILQIkZoY=;
+	b=gwbcw7xpnWVhH5TV8pA+k83UE681gX3HlSX1MPrtJE0NnGVp644bElxglqlyNUdOO8uH
+	 F3iKaddrl6GFAZeaYDyLstaMr/SxgXAM4KVyav8+s2DBFwge16YWmE/3aQH1MSJGP9IOZ
+	 oAsDJ0yeewYT5U9CUx2aCGu6rTkyMYngjP0v9EGNGO8JB3bvVnaT+OhX9hlacb4dCIcaS
+	 DlAtVlmX8KUjPVMT4T3xvZI/oksOQ7VEhjyNVJAf7RcvX2/mAYQr8PNVs2XHA3mLDHGBK
+	 VPhPaj0I+BPPigdeiC4BpHjVquFNyfEPHPtSRJQC+GskljQsZaIExw/OSqEcIuoONOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L1QAFeYn;
-	arc=none smtp.remote-ip=74.125.224.137
-Received: from mail-yx2-f9.google.com (mail-yx2-f9.google.com [74.125.224.137])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NGgyAfjr;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72C37606D806
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:11:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72C37606D806
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1010606D817
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:11:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1010606D817
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L1QAFeYn
-Received: by mail-yx2-f9.google.com with SMTP id 956f58d0204a3-67c23293d12so370928d50.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 22:11:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NGgyAfjr
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-37000e7234bso1688376eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 22:11:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794204674; x=1794809474; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VK23kdoiXM00kINqQ8TnOTuQlGrAahz8GOHBdkyawfw=;
-        b=L1QAFeYnMMDzXx7wkd8cNEbCum97AHJd2IgVHO+1lvx5pv3mjHsAVdXNuc3cGEeBY7
-         0f9kGK/254NHsvjpu61tzj5I8+P0tMR0ay+reDpuxvT5FVhJlHHW5U5VSzdsf4VWSe/8
-         wXOk5WXIkDcq2jb6WfPRh1sIzudTKwkQeKYohWWwrHk2o4Q1Z1K7VoaX1Xw70F0pqXTR
-         ThPjxis0wRj3PXj5tPrMEtCFki0T/PT5H7+xoqAK+wN3BIYfCh8qx5CjBaxQHaJlelFf
-         GK69hSsNWXlwC7Kv1zlw6suKnAJhxCXnAqGeQglBlnt2ke/phVjVLdJFCNn9vUUFTGxY
-         K0PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794204674; x=1794809474;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794204686; x=1794809486; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VK23kdoiXM00kINqQ8TnOTuQlGrAahz8GOHBdkyawfw=;
-        b=qufHXQBBrGfS03WNDFKHua7iOVR6ZjeTJOU0LOBPut+OWyNrn+Se4xv+DUx1ZKyVWs
-         5WTCzmVlCmpqqWO59OBsdtD3xr4bpEwgFSLj7m/cMKB6xHHTCTuwh0bignYrv54Fvdpq
-         xSMyV6etHSzaM0NS7TCXv+92b+UNi+v9lq7RMoye4/FZjrxPVvYKwJXhRXzKdBtPNKxn
-         7X1E2RO9zFmXMxHzQcEvgaTkMMHqu2D6rZn6u2XT7UNNa+2Uhm5sfVaYCZ+H/13WFbRM
-         PYYnuXXln2XqXFRkDb4yJ/KMX/WkSo7kq+Ornl2OH3KjQl0/wwROURYXv+rvsqugLpDC
-         qpCA==
-X-Gm-Message-State: APuU4Z/OW4ddD9nZjzUGnn8+TcT3rwwAW6PVqG5zzKv1q2skMU1DOJP3
-	gTbt6ZTvuRxBMVnDJ8WO0TVOrnmXLGB/mIiWzakx7T2/iaTzLgxK3BEM
-X-Gm-Gg: AYBFou1X1RymR7sLymwThJbjVglylR3+0qKrZJL/uzErBszPXZDiiF8hCiCDUdn8l/h
-	2MPD+AxqDvd25eoSjt3v725yDCvGX14YjeIVgtKpbLUhH1BMQYsQLLt9AuvmN9EwfESN2LG6qtn
-	w6md1+evP0xv6x7vQNcjTPbbUnPx/rGkBTLIBTUhGlkh1EFCkXT1OViFirzS2zzIYDxL22NXIQR
-	ZArLFugCCuehBj3lMC9y9/29StFyMYyTg3tvQuNKLb4fkx7Xh7tUH/ioKeHcQK9k3tXjYjhYww2
-	v7D0anfDIhL8cP0zbl6A7iam+ffwsVvGNIizOvBAxkMTTPZ5YY3eBCMPsxbha4ovSksKLaqiUym
-	7DmVGso3Tkq25tamAdbhYJGXbaCokQBn8VDdYA2uJ3ALNzP16HZYbe0CXvxiVcLTNyvfbt6r2ru
-	r8D2oTHKmkpzjmsW59vrc6Gkz+HbmiDy3KbuqTPosc/xeJ+fOdnXu8vJXEnNJ7odMK+V1a5kSmX
-	ptNiPZTfly/InYJX62RhkiFvAqTFuUmsinv7gTIenEhYg8qa9u1kW9fdm4hikwimnu/I0O4V68Z
-	/Nbbr8HGl14EZD6OpvgGd7jcblYt0w4no6qFlPuHY09Q+dCracmiFMGQRDHEXPgznXuUNPRiads
-	64rFMiQ==
-X-Received: by 2002:a05:690e:11c2:b0:677:c8f6:8d6b with SMTP id 956f58d0204a3-67c3d9e381fmr1922614d50.50.1794204674168;
-        Sun, 08 Nov 2026 22:11:14 -0800 (PST)
-Received: from Xinshengs-MBP.attlocal.net ([2600:1702:7d20:7d20:f9f3:ca9:791a:3a8d])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c3b97e6a3sm3255092d50.22.2026.11.08.22.11.13
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 08 Nov 2026 22:11:13 -0800 (PST)
-From: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
-To: linux-usb@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	nkapron@google.com,
-	gregkh@linuxfoundation.org,
-	khtsai@google.com
-Subject: [PATCH usb-next v2] usb: gadget: f_ncm: prevent double-free of OS descriptor table
-Date: Mon,  9 Nov 2026 01:11:10 -0500
-Message-ID: <20261109061110.80422-1-xinsheng.zhu.ny@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        bh=RvWIcIIXPCWIw1rDnK1jAirBnM7DqOltnfOILQIkZoY=;
+        b=NGgyAfjrK9ii4LTmvG4jUz7TgWgVIB85fDPCYxyVKyTzqHdPYC/Tlj9r5qShcf0ITg
+         lahCrVMxhhgvc3Zi0uAJeZaFphxz5MlwjBRg0zqFZl/S9+xmgVG2gmAGpz6msm2Rgoa+
+         8Y4UR81ccmETxNd3yn5Iand+ARteI+5zBX7QLVUxlBrNOoOfkv1Q8CpYwt+F6HdFdMOu
+         QB3NpBGfpIvByFzJr3CXV9p245JWEcl90GsDFl2ju2rB7AhfFVkh169j+Fi21FZXD1fF
+         c2V5V0RfzBQjAmokrhCi+OMHJvXkdzFlOWqTZA+RY/wSxy4TAGCvBAbgMN0aWcWwJmgg
+         kwNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794204686; x=1794809486;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RvWIcIIXPCWIw1rDnK1jAirBnM7DqOltnfOILQIkZoY=;
+        b=DiOuL8zJ7h7nLLt9e8WOB2Rwj739fwqO3YUE06xRUdkORNhlsmDAfa2vfLaLneQqbp
+         na+BkBY5LT3GYGRbZ/xFKzdGq4UQ/aHLEUTnmxbcWURXxmDeQDIJ0ZqZ3NCXYy5cZY4o
+         aLAyUROqug7OmGkkwVt2JBv39pCxT+hAghyShCeYn6lSXNOlEvPiHXE3P1VpY0W9vDSg
+         DxwHtU6dVk4KRHxXlkcDMnCOBW17KpDVi9HvjflaOaJoXGMPmog2T7PoLV82QmO9bhM+
+         5CSIOmYNx2NFryB3QqgFdQ9uj8yiuUaBvBNeulJRKBODWLaXruuNDEVxH+w1uU3TO1XP
+         72jQ==
+X-Forwarded-Encrypted: i=1; AL+hErHC+wNj2vM9omR6xaHdl11Ie+Yn2nzH/4mnI1k1VGKRaTq6jUVI3VVARzFbQ+m6UJqrUPsdHrZOTl3PFdo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8fiBn3Sh037ZNGD588Wx/P7WPcN8O3nP2phynJUII+MmlgCnnR
+	d9869g76GuxsC137I/INOBCkYd6/3c1okWF9hPi1scdp2snl3paLb7Ge
+X-Gm-Gg: AYBFou2pfLP+cwq+6bxBkTTWUdVF94FS9NONx3reBuKmia8KzaLHKO5gFaXAn7dx+Yz
+	OGtl7N1rOKg7togLbXIgcqUv7RU8W4u8Ha2X6PxZ1x9YJm8rgKBvtldyFxa1Av6BGGPyDc/7FS9
+	2mKtj9mnrI+5fuX/EJAANOEBj1jU5psJR4AuHMT/MNUmltFe7bR/WKSKf2tiGS0gSmguXsSRwhK
+	KNqklCqPcPEULXD0CmWUR7EgtufBgPMoW2yVIOL932xqSyE7ow7+Y2zblkGYjcRkQ6U8+m+6apq
+	aoRGyQVIYriGNhl195665mE83qO8ckhqiZZ9Gl7DroJi4p9nmolwfU6vqNVbmOPYfAJe+7Px5lz
+	8y3DPvHCtd+TJx5kUBsop2dKxYoXtuAWIbnl25nccGEtJucT/Xl4vKszMQ90MunFdy+/qEZzMdP
+	j5IrL15xvqLJUFfRK+a4cQPCqY6zxHeRTWPb1qngpzWy8yZF5Jo3kjPL6pUZH3krP698kb0Yo15
+	CQci7zqoNLGsa/+1EmnEjmaS1Hu79JN0D4xs9gdz9Mw0umeCpoZXqkKist8p7vKrNMQ1HzqLY10
+	JZw8io11Q2QX6VWowjXk0+/Yh093q5XqWIU911ZxSuHGW76g6ACC9Zo+BvKVAMW/Anu89stxVs8
+	t0vLE1dXPqpMUYkRZ
+X-Received: by 2002:a05:7301:9f18:b0:356:7ddb:2e54 with SMTP id 5a478bee46e88-3725641e19bmr9182681eec.29.1794204685753;
+        Sun, 08 Nov 2026 22:11:25 -0800 (PST)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:3588:b56:78bf:db5e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372661ede11sm12201192eec.21.2026.11.08.22.11.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 22:11:25 -0800 (PST)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Gideon Heinz <gideonheinz02@gmail.com>
+Cc: =?UTF-8?q?Filipe=20La=C3=ADns?= <lains@riseup.net>,
+	Bastien Nocera <hadess@hadess.net>,
+	Hans de Goede <hansg@kernel.org>,
+	Edwin Velds <e.velds@gmail.com>,
+	Stuart Hayhurst <stuart.a.hayhurst@gmail.com>,
+	Andrey Smirnov <andrew.smirnov@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 11/18] HID: logitech-hidpp: shut down G920 force feedback on input unregister
+Date: Sun,  8 Nov 2026 22:10:55 -0800
+Message-ID: <20261109061103.2887636-12-dmitry.torokhov@gmail.com>
+X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
+In-Reply-To: <20261109061103.2887636-1-dmitry.torokhov@gmail.com>
+References: <20261109061103.2887636-1-dmitry.torokhov@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,49 +108,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ncm_bind() allocates an OS descriptor table only when
-cdev->use_os_string is enabled. However, ncm_unbind() frees the
-table and resets f->os_desc_n without clearing f->os_desc_table,
-leaving a dangling pointer.
+Force-feedback teardown currently runs only in the force-feedback
+destroy callback, which is deferred until the last open event handle
+is closed. If userspace holds an open handle across USB disconnect or
+driver unbind, device removal frees driver state and destroys the
+command mutex while queued force-feedback work is still active, causing
+use-after-free errors.
 
-When a ConfigFS gadget is unbound, the function object can be reused
-for a subsequent bind. The OS descriptor support can be toggled
-through the ConfigFS os_desc/use attribute, which determines
-cdev->use_os_string on the next bind. If this flag changes from true
-to false between binds, ncm_bind() skips the allocation and leaves
-f->os_desc_table pointing to the previously freed memory.
+Move workqueue teardown into the force-feedback stop callback so input
+unregistration drains queued work while driver and HID state are still
+alive. Keep calling stop from destroy as a safety net for registration
+failures, guarded so repeated teardown is a safe no-op.
 
-A subsequent unbind may therefore free the stale pointer again,
-resulting in a double-free.
-
-Set f->os_desc_table to NULL after freeing it to prevent the stale
-pointer from being reused across bind/unbind cycles.
-
-Fixes: 793409292382 ("usb: gadget: f_ncm: Add OS descriptor support")
-Signed-off-by: Xinsheng Zhu <xinsheng.zhu.ny@gmail.com>
+Fixes: 08c453f6d073 ("HID: logitech-hidpp: do all FF cleanup in hidpp_ff_destroy()")
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
-Changes in v2:
-- Add Fixes tag.
+ drivers/hid/hid-logitech-hidpp.c | 26 +++++++++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
 
-v1: https://lore.kernel.org/r/20261109053440.49156-1-xinsheng.zhu.ny@gmail.com
-
- drivers/usb/gadget/function/f_ncm.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/usb/gadget/function/f_ncm.c b/drivers/usb/gadget/function/f_ncm.c
-index 500c9c19c78b..685152ec9a5d 100644
---- a/drivers/usb/gadget/function/f_ncm.c
-+++ b/drivers/usb/gadget/function/f_ncm.c
-@@ -1741,6 +1741,7 @@ static void ncm_unbind(struct usb_configuration *c, struct usb_function *f)
- 	hrtimer_cancel(&ncm->task_timer);
+diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
+index ad3edd15cdd2..5169f3873257 100644
+--- a/drivers/hid/hid-logitech-hidpp.c
++++ b/drivers/hid/hid-logitech-hidpp.c
+@@ -2840,16 +2840,35 @@ static const struct attribute_group *hidpp_dev_groups[] = {
+ 	NULL
+ };
  
- 	kfree(f->os_desc_table);
-+	f->os_desc_table = NULL;
- 	f->os_desc_n = 0;
+-static void hidpp_ff_destroy(struct ff_device *ff)
++static void hidpp_ff_stop(struct ff_device *ff)
+ {
+ 	struct hidpp_ff_private_data *data = ff->private;
+-	struct hidpp_device *hidpp = data->hidpp;
+-	struct g920_data *g920 = hidpp->private_data;
++	struct hidpp_device *hidpp;
++	struct g920_data *g920;
++
++	hidpp = data->hidpp;
++	if (!hidpp)
++		return;
  
- 	ncm_string_defs[0].id = 0;
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+ 	hid_info(hidpp->hid_dev, "Unloading HID++ force feedback.\n");
+ 
+ 	destroy_workqueue(data->wq);
++
++	g920 = hidpp->private_data;
+ 	g920->ff = NULL;
++	data->wq = NULL;
++	data->hidpp = NULL;
++}
++
++static void hidpp_ff_destroy(struct ff_device *ff)
++{
++	/*
++	 * Workqueue teardown normally runs in ff->stop() when the input device
++	 * is unregistered. Still call it here as a safety net for error paths
++	 * before registration completes; once stopped, it becomes a safe no-op
++	 * that never touches freed driver data.
++	 */
++	hidpp_ff_stop(ff);
+ }
+ 
+ static void hidpp_ff_close(struct input_dev *dev)
+@@ -2922,6 +2941,7 @@ static int hidpp_ff_init(struct hidpp_device *hidpp, struct input_dev *dev)
+ 	ff->playback = hidpp_ff_playback;
+ 	ff->set_gain = hidpp_ff_set_gain;
+ 	ff->set_autocenter = hidpp_ff_set_autocenter;
++	ff->stop = hidpp_ff_stop;
+ 	ff->destroy = hidpp_ff_destroy;
+ 
+ 	dev->close = hidpp_ff_close;
 -- 
-2.54.0 (Apple Git-157)
+2.56.0.506.g506a7eabc5-goog
 
