@@ -1,58 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794224941;
-	b=0FeKIkE5VTOqqczJS6ngyFA57DvXnOjqhpogQBmbefWeh4mslI/6FRSGMqxh1JVP97oa
-	 3xNcz8TVPQvm5kz9x/ROuX2Z4o8wp3i2OzyfZnGvyy+Y2kZmroDvcPE0v1IE1p4utWTHg
-	 Uu+TzH8gyiQYJbOQjK8Le2f0ga028OfzBiEBKwFejQb9DO8eQNksla9OdXBbeOzNEIHWd
-	 gZWWkTu0PzowVpsANIzQJ5dWxM/Jiyb54QInTJsPLce5gzolaHpcIaSyVPO3sezpNzBM7
-	 kkwEb+shS0WkLZ/6ZyOaN3e0I5P0684AQj7jGWrY0PJfvnj21p9Q3UdQuaefis1SzRg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224941;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=/pX/0zcpELm4T3tW1ew12U67QtK8O0IA9eN0hFZtzis=;
-	b=gwNzOGk5UK6UgQz59O5ha8nQBgwtoYI0QAlP5OBe96R+gX3wDt9c/8AHLcuJCzgNHH3C
-	 G3NSMd1qowq3Y6RKYBO4o3aL6Ntb+Wn/HsNGo3aS3eMmhhoNVrVxT3oWJ4EH2uVqV9PgW
-	 OfBD5d3a1T4QI16ZJ9IhCKEXaYMh+8d6X7NYZYubHc+ZYd0C3RfSbAUvj8+D7KfFPDqUD
-	 AloUq4YrMlfu5C7C5ekVgxKxMfoI6HdDWHpWkoXLAHPJxxHhaThR2+s0ITfOJVJ+n3cMM
-	 ixOzj82bu7zFmDhug00F+MQyocwxjtyLm76LKkCJLzD9SHVcXvBfGksKV1ANIlM4E9g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Tb4WJjXo;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794224948;
+	b=jUDY3CrDQp+TWva5Hyla0hS+jbl27dV6M1AwHQRyhDzJw2hF5H++sEJNcItTQSx5UfoU
+	 nEX2ND3TxfIrstd/3h+bmG5O9pK+xZQrP76N4OWHUWqTRvgNWuRMv44xP9E27GUjsL0oj
+	 IP6z03m9O6XUYECaianjU0BgZvC9FzcZ53gNXiRvuX4fFUa5fIrCsNuzVj9J62/kh6XOd
+	 2wPgGsB3LkNJhX01DXfuuyLgxNTu1tAkzkRjahm+0d1AnX5Y/Gzqlcap4CXErVP1R7hHe
+	 zudV+llGBr/FXCGdWT6KiSAKfWHXA/c0xtRIaibxttW1Cakr78DfIm92LTJDSgub/SQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224948;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=onyTmcpfr6sAw21RjwFPyT8mxMikZoN0ykJj759s8iY=;
+	b=dy/TsO2mwX9zgsfKo2PnLG4B7/A88l6kq+iKKsLjV5D+Q5CoCjR9azCkpTcPYql6uuFX
+	 aLmwTrcZ+eyf/Ue05Fjxr4cT80lKaZOtKAud0di3cBw9s8wORK53wdHdMQ+3H1CbKHuZd
+	 jBsv9P9lDmo/Ht2sRZtYM2dX61/YRZ39BHOdbHx7qISH7+1foJM183Jn5NaNiyRLFRyg7
+	 O3HY4PlGPbbgaIhspw9P545hxwPE06Sr9v6m92UUTD9wuuFgs3LdD7aZFZDKpjDQwolgy
+	 zIZPwDT9juFi78ZP5XmCYMDbAse9dJppRMTTW8aJjj15pjAJR77IEPvg1hdcNOTB+XQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=S+CgQHNC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.49
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011049.outbound.protection.outlook.com [40.93.194.49])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02930606A331
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:48:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02930606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AC2606A323;
+	Mon,  9 Nov 2026 11:49:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97AC2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Tb4WJjXo
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=/pX/0zcpELm4T3tW1ew12U67QtK8O0IA9eN0hFZtzis=;
-	b=Tb4WJjXovABgSGjngM0OfUlcQPiTbFOoUm6oh4nqIrgd4s1GQGr69tXvGjANh5uQmwXCYMQGQ
-	rG8o3ruVB9cUbWtpeuLcMjpawW4aSw0JCXg+cE2u3MKW19IDVa4yLJfn/7EU5DzTRsUiw9R8COy
-	CADLbhBYtn4MfvnimQtKz0A=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jNSj75ypbz1T4H6;
-	Mon,  9 Nov 2026 19:48:27 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id C8B124056D;
-	Mon,  9 Nov 2026 19:48:54 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 9 Nov
- 2026 19:48:54 +0800
-Message-ID: <dc148861-35cc-4029-835e-2e93c8b64f05@huawei.com>
-Date: Mon, 9 Nov 2026 19:48:53 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=S+CgQHNC
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=F897vUxdpZG0srPJx32aOuX+AtmujYJG+m/KndxKcvmG+gH4FYHXR/XCBO2lTTKOkJsbMZBOKZtPDA5IUVb1xb74lp5wMwSmWnx/DalWRWXcZCnEHcC7pFJFJx8mpRoumG9w9+sId7N0EInXJySGqH+mbzQO+0D2pF8q7w3YcpzaJGX7PI6c4xsikfSU8Lp+rWbKo+msgga261QtW5QwUG9V+u+NCc6xxhRLIfBNIU6+tEEMSSICSP9ArEVMjOtWwi9nH8wY3At2Q2YMzDzVe5Bh0f5lSRGOCD1GCoIsqfMbHEGarYnnnIOfA/9c2g/Nzw8bo7/umhdqd4P+NtrnkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=onyTmcpfr6sAw21RjwFPyT8mxMikZoN0ykJj759s8iY=;
+ b=RoEHbyFzj+YAxB6Fq11rERVedLDhnJvru5anfpNyB0MKUD+jL+q7wmM5hcx1ClieJosH799DMUiQVJvdtLiqQnBqvteS983lj0/+TTpLj+zuLcoODi5NCRA5J5+ZR6/biQiKQaW1P136VztGDheXeb0fjgeUVtHHlMsTcMkso0jhrnxe4A2xet/mCLsTDAK0x01aWtp8vMeTGBTc45htpcI5560TCXdedwkXnMhchS0n7jkSwzU2NP5EaQgGEC0Q7gqHPUEdYs1oLmctQ6uh9q+sIAI73uvb5YT8TopcWzQok7OmdyoXqzX2tNoHTx3UKxC3ZpyAmovIKAulZQoBHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=everpuredata.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=onyTmcpfr6sAw21RjwFPyT8mxMikZoN0ykJj759s8iY=;
+ b=S+CgQHNCr+P8wr4pOzc1Vdcaem8y3IGmkMOgvECvQ+Qn7xmTvC/k9lfLMH+319fd1ftqiOneSekbO7tijs86WuMSQCcuDlJfh7f2VEsubbth7R1wF3k5Sple1H6CeofKmktMghsFcYM+/bCmNsAFzneFrVDPRjq2lekwtDUvH6EwrRu9N0i/nNqnUcM3n5xmVA2nIrS5W45yUXAypJiRIBVlB+SNNquM/qEyCDCHDGTB4nMdLYc+2GL++6BzOAofbknBQMeBUacuFVyeABvSasuDI51tqTtMCE842RMvxHE6cmIWMrrMU2HPdJnecHKXDXIPS5QJXy/4wuVSNOcHGg==
+Received: from BN9PR03CA0841.namprd03.prod.outlook.com (2603:10b6:408:13d::6)
+ by SA3PR12MB078285.namprd12.prod.outlook.com (2603:10b6:806:58d::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 11:49:02 +0000
+Received: from BN3PEPF00022BCF.namprd03.prod.outlook.com
+ (2603:10b6:408:13d::4) by BN9PR03CA0841.outlook.office365.com
+ (2603:10b6:408:13d::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Mon, 9
+ Nov 2026 11:49:02 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN3PEPF00022BCF.mail.protection.outlook.com (10.167.248.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 11:49:02 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
+ 2026 03:48:46 -0800
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
+ 2026 03:48:45 -0800
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.6)
+ with Microsoft SMTP Server id 15.2.2562.56 via Frontend Transport; Mon, 9 Nov
+ 2026 03:48:35 -0800
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Rishikesh Jethwani <rjethwani@everpuredata.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, "John
+ Fastabend" <john.fastabend@gmail.com>, Kuniyuki Iwashima <kuniyu@google.com>,
+	Neal Cardwell <ncardwell@google.com>, <netdev@vger.kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Sabrina Dubroca <sd@queasysnail.net>, Willem de Bruijn
+	<willemb@google.com>
+CC: Alexander Graf <graf@amazon.com>, Aviad Yehezkel <aviadye@mellanox.com>,
+	Bobby Eshleman <bobbyeshleman@meta.com>, Boris Pismenny
+	<borisp@mellanox.com>, Boris Pismenny <borisp@nvidia.com>, Carolina Jubran
+	<cjubran@nvidia.com>, Costa Shulyupin <costa.shul@redhat.com>, Dragos Tatulea
+	<dtatulea@nvidia.com>, Eran Ben Elisha <eranbe@mellanox.com>, Gal Pressman
+	<gal@nvidia.com>, Ilya Lesokhin <ilyal@mellanox.com>, Jacob Keller
+	<jacob.e.keller@intel.com>, Jonathan Corbet <corbet@lwn.net>, Leon Romanovsky
+	<leon@kernel.org>, <linux-doc@vger.kernel.org>, open list
+	<linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Mark Bloch
+	<mbloch@nvidia.com>, Martin Karsten <mkarsten@uwaterloo.ca>, Randy Dunlap
+	<rdunlap@infradead.org>, Richard Cochran <richardcochran@gmail.com>, "Saeed
+ Mahameed" <saeedm@mellanox.com>, Saeed Mahameed <saeedm@nvidia.com>, "Shuah
+ Khan" <skhan@linuxfoundation.org>, Simon Horman <horms@kernel.org>,
+	"Stanislav Fomichev" <sdf@fomichev.me>, Stanislav Fomichev
+	<sdf.kernel@gmail.com>, Stefano Garzarella <sgarzare@redhat.com>, Tariq
+ Toukan <tariqt@mellanox.com>, Tariq Toukan <tariqt@nvidia.com>, Wang Zhan
+	<wang.zhan@smartx.com>, "William Tu" <witu@nvidia.com>
+Subject: [RFC net-next 2/7] net/mlx5e: kTLS, Resync TX fully after its WQEs were lost
+Date: Mon, 9 Nov 2026 13:47:29 +0200
+Message-ID: <20261109114734.2087878-3-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20261109114734.2087878-1-tariqt@nvidia.com>
+References: <20261109114734.2087878-1-tariqt@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,403 +135,341 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] fs/resctrl: Unmount resctrl with the CDP state it
- was mounted with
-To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
-	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
-	<bp@alien8.de>, <tan.shaopeng@fujitsu.com>, <zengheng4@huawei.com>,
-	<gshan@redhat.com>, <jic23@kernel.org>, <ben.horgan@arm.com>,
-	<x86@kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20261105070934.2258613-1-ruanjinjie@huawei.com>
- <20261105070934.2258613-4-ruanjinjie@huawei.com>
- <7163c46a-2abf-42d2-842a-8a43dafecaa3@intel.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <7163c46a-2abf-42d2-842a-8a43dafecaa3@intel.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCF:EE_|SA3PR12MB078285:EE_
+X-MS-Office365-Filtering-Correlation-Id: 466c2000-4494-4803-c494-08df3e577321
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|7416014|1800799024|22082099003|18002099003|6133799003|10067099003|921020|56012099006|11063799006|5023799004|261028144727099003|261026121527099003|261102123227099003|261022115727099003|261026130827099003|261022113327099003|261022105027099003|261022075727099003|261021135927099003|261021130227099003|261021123027099003|261021121427099003|261021133027099003|261026140227099003|261026135527099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	KKonVmexwiuez1d7XEh6+HB1xXesWJv20tAya82/kJD12rZwi3z8huR4zVzlPMxjfrNmwGT5usFjGCRqk2lHk0xhhAW1YUdaJuLoiSQHLjn7rawlp84Jba0HI8Ao7/8rKD/UHvjkTUDfMgUqKf9o3ZZytK340hafuzuRKI/cOYbEhhU0y/CEhczat8CdZ18UD+5nEJsHgDp9qdbw27USzxVM6Wlb8I+358YjCfrcA8U+QDYRGGEvynBMOE/PQLqZJ8dny6KVB3ePKJM79teSGWtUipSLAkvOQTVrPhhp1SjaXhwUQmLQp1zIKtkFxxSm7tZci2B/dorMTY71AQAApwn+6UAYZC6ZCVoSSq6GJ2n64ANWaFnnQpBKTc46CO6IBJjEvLHSIhMpHm8MQQBMV6F9T88pB8WyqBezAI0QPlDhSFNvF7DjCVzpCJ60d9LvDYoBhseYEPPm0cy6xOKX96P94rC5bN3/ySQ2gNGjJ4T2XMTTWLt3IHAwMqYJIKE0hrZJQg7d/nYX1V/ugAcLkqMtQAB9ylIO5U6QipE4ddWYdiDhbneYUSdQpNgeZI7cQ5ps1Ckm+gRAti975MU7zdzrD3Q6KIf3LWL44uZNJiEE/QjlIvNdO674Ndc+5luSVnd07wLVdQKdzpYO7TrebQkBXN3kqT48uWLWqjNvbPB8n89YWWITU3zhmVbXiWp5KIimU+fG2QESs7cZA3qBBz0uKnWyZUvhPJhACXuXTnxpd1nSBiE8SJCo8kfpL4C9
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(7416014)(1800799024)(22082099003)(18002099003)(6133799003)(10067099003)(921020)(56012099006)(11063799006)(5023799004)(261028144727099003)(261026121527099003)(261102123227099003)(261022115727099003)(261026130827099003)(261022113327099003)(261022105027099003)(261022075727099003)(261021135927099003)(261021130227099003)(261021123027099003)(261021121427099003)(261021133027099003)(261026140227099003)(261026135527099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	3INK32UcgKnzXufYhgyNqIuhKZ4dITNPr9mhquDrDfsdITBzJUGk55vllLNEX/TELaznlgUZn61+UmNBDhe3CyyqDqK/sMd0M+vsavHGKDatGJaLsM6JqrCNEilT2/l28WszgCMwVLbN6Z/BpRzLV8yoBc6Th+g6tGv02A2Ja/thm3Koh3fQSRu3/vqsdFGUpfO9BBGtj7P9jjteGJGQyKTCEv5XkDMrsYS9FuPMKbd9K72iNm9+iAT8YmDKrBJ+nf03AgrtxprylRy6/ypwp0ufi6CnZw2Z7fzSv6S4LrKMC4WkXSJwI/ftgonQ9W7OGo+1+adm97ytvv3O+9ftWiELexnUe5Em0ys/s+qKH06o14bNZpbTGs5yh1JdNCp88iZOL2L8ApvuQqfJ0Hq7nNuEdokbr6Ud9x2ODkuoEyyq0wSoOGDV4mlL4QxfzKi+
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:49:02.3193
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 466c2000-4494-4803-c494-08df3e577321
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BCF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB078285
 
+The driver tracks the TIS state of a kTLS TX connection in software:
+expected_seq is the TCP sequence that the TIS expects next, and
+crypto_info.rec_seq is the record sequence of the last posted static
+params. It assumes that the WQEs it posts for an skb execute, which does
+not always hold:
+- The skb is dropped after its kTLS WQEs were posted, or after
+  expected_seq was advanced past its data: a failed resync, or a DMA
+  mapping error of its SEND.
+- An SQ error flushes the pending WQEs.
+- Closing an SQ (channels reopen, TX timeout recovery, HTB leaf delete)
+  destroys its pending WQEs.
 
+The TIS state is then off from the software state, and the next skb is
+not resynced:
+- An in-order skb is encrypted with a stale record state, corrupting the
+  records on the wire.
+- If static params were lost, the TIS keeps the previous record
+  sequence, and as rec_seq already matches, later resyncs skip posting
+  them. When the first static params of a TIS taken from the pool are
+  lost, the TIS still names the DEK and record sequence of the previous
+  connection that used it, and the new connection's data is encrypted
+  with them.
 
-在 2026/11/7 6:52, Reinette Chatre 写道:
-> Hi Jinjie,
+Mark the connection where the driver sees the loss: when it drops the
+skb, when the skb completes with an error CQE, and when the skb is freed
+with its SQ. The next skb of a marked connection resyncs it fully: post
+the static params even if rec_seq matches, then the progress params, and
+dump the record prefix. It takes the mark with a test-and-clear before
+posting the resync, so a loss reported meanwhile marks the connection
+again.
 
-Hi Reinette,
+The skb holds the socket, so the connection's context is alive when it
+is marked. A context that tls_device_down() releases is not marked: it
+clears the netdev and waits for RCU readers first.
 
-> 
-> On 11/4/26 11:09 PM, Jinjie Ruan wrote:
->> resctrl can be mounted without CDP, unmounted, and mounted again with
->> CDP enabled. A group's RMID is not returned to the free list when the
->> group is removed: it stays in limbo until the cache lines tagged with it
->> are evicted, and a limbo worker reads its occupancy counter in the
->> meantime. When resctrl is mounted again, the worker reads the RMIDs of
->> the groups removed by the unmount.
->>
->> On MPAM the counter is selected by the PARTID of the CLOSID that owned
->> the RMID. Without CDP, CLOSID c is PARTID c; with CDP it is PARTIDs 2c
->> and 2c+1. resctrl_unmount() clears the CDP state before it removes the
->> groups, so their monitor configuration is also removed with a different
->> CLOSID to PARTID mapping. With 5 PARTIDs:
->>
->>   mount                  CDP off, CLOSID c -> PARTID c
->>   mkdir g1..g4           CLOSIDs 1..4
->>   umount
->>     rdt_disable_ctx()    clear CDP
->>     remove g1..g4        RMIDs enter limbo with CLOSIDs 1..4
->>   mount -o cdp           CDP on, CLOSID c -> PARTIDs 2c, 2c+1
->>   limbo worker           reads CLOSID 2 as PARTID 5 > PARTID_MAX 4
->>                          MSC error interrupt, mpam_disable()
-> 
-> As I understand this issue goes both ways. If resctrl is first mounted
+Pointed out by Rishikesh Jethwani for lost initial static params, while
+discussing kTLS TX TIS reuse for TLS 1.3 rekey on netdev.
 
-Right! it also have the same problem.
+Reproduced on ConnectX-6 Dx with a test-only patch that fails the SEND
+DMA mapping of a kTLS offloaded socket's skbs at a fixed interval, after
+their kTLS WQEs were posted, while 32 connections stream pattern data
+for 60 seconds to a software kTLS receiver that checks every byte, over
+a single channel, so that no connection can move TX queue. On top of the
+previous patch only, every drop broke its connection: 2186 of 2217
+connections failed decryption. With this patch, 1838 drops broke none.
 
-> with CDP the issue may even be worse since there is no error interrupt that
-> draws attention to the problem that the wrong (albeit in range) RMID entries
+Fixes: d2ead1f360e8 ("net/mlx5e: Add kTLS TX HW offload support")
+Reported-by: Rishikesh Jethwani <rjethwani@everpuredata.com>
+Closes: https://lore.kernel.org/netdev/CAKaoeS1hj9XuM7ojLBCjGA=EXc2M-b+eRjC2Sk=8L_8XYeJ18w@mail.gmail.com/
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+---
+ .../mellanox/mlx5/core/en_accel/ktls_tx.c     | 67 ++++++++++++++++---
+ .../mellanox/mlx5/core/en_accel/ktls_txrx.h   | 15 +++++
+ .../net/ethernet/mellanox/mlx5/core/en_tx.c   | 13 +++-
+ 3 files changed, 83 insertions(+), 12 deletions(-)
 
-Yes, there is no error irq.
-
-> are tested. In such opposite scenario CDP is disabled on unmount causing
-> the limbo handler that keeps running to immediately use the wrong index
-> before resctrl is mounted again.
-
-I agree.
-
-> 
->>
->> The groups are removed after rdt_disable_ctx() clears CDP, so their
->> monitor configuration is cleared with a CLOSID to PARTID mapping that
->> differs from the one used to set it up.
-> 
-> hmmm .. this paragraph seems out of place after the limbo handler introduction.
-> This looks to be a (very) high level description of counter reconfiguration done
-> on unmount where MPAM also needs to translate a CLOSID into PARTID. This brief snippet
-> seems to be what is connected to the patch subject, not the limbo handler, and
-> describes the portion of the patch that moves rdt_disable_ctx() to be after
-> resctrl_fs_teardown()? 
-
-Yes, it does.
-
-> 
-> As I see it it the move of rdt_disable_ctx() has nothing to do with the limbo handler.
-> In the spirit of separating logical changes, could you please separate this fix into
-> its own patch? 
-
-Will put it in a seperate patch, thank you!
-
-> 
->>
->> Clear the CDP state after the groups are removed. While resctrl is
->> unmounted, don't read the RMIDs in limbo. When resctrl is mounted,
->> return the RMIDs freed under the other CDP state to the free list
->> without reading their counters, then restart the limbo worker unless it
->> is already queued. The RMIDs stay in limbo across the unmount so that a
->> quick remount does not give a new group an RMID that cache lines from
->> the removed group still carry.
->>
->> Only MPAM with CDP enabled through the cdp or cdpl2 mount option is
-> 
-> It is unexpected that a mount with cdpl2 impacts the limbo handler that
-> only taked the L3 resource into account. (more later)
-> 
->> affected; CDP depends on CONFIG_EXPERT. x86 is not affected as its RMID
->> does not depend on the CLOSID.
->>
->> Reproduced on QEMU with the sequence above:
->>
->> 	mpam:__mpam_irq_handler: error irq from msc:1 'MSMONCFG_ID_RANGE', partid:5, pmg: 0, ris: 0
->> 	mpam:mpam_disable: MPAM disabled due to hardware error interrupt
->>
->> With the change the sequence completes without an error.
->>
-> 
-> ...> ---
->>  fs/resctrl/internal.h |  1 +
->>  fs/resctrl/monitor.c  | 71 ++++++++++++++++++++++++++++++++++++++-----
->>  fs/resctrl/rdtgroup.c |  7 +++--
->>  3 files changed, 70 insertions(+), 9 deletions(-)
->>
->> diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
->> index 1c85e06f09bf..c95fa6ce62e6 100644
->> --- a/fs/resctrl/internal.h
->> +++ b/fs/resctrl/internal.h
->> @@ -373,6 +373,7 @@ void closid_free(int closid);
->>  int setup_rmid_lru_list(void);
->>  
->>  void free_rmid_lru_list(void);
->> +void resctrl_limbo_resume(void);
->>  
->>  int alloc_rmid(u32 closid);
->>  
->> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
->> index ae9ddd380515..717c3888c2b5 100644
->> --- a/fs/resctrl/monitor.c
->> +++ b/fs/resctrl/monitor.c
->> @@ -70,6 +70,11 @@ static u32 *closid_num_dirty_rmid;
->>   */
->>  static unsigned int rmid_limbo_count;
->>  
->> +/*
->> + * @limbo_cdp - The CDP state under which the RMIDs in limbo were freed.
->> + */
->> +static bool limbo_cdp;
-> 
-> The variable is described as "The CDP state ..." but its type is a boolean.
-> What does "true" mean? Could this be renamed limbo_cdp_enabled?
-> 
-> Looks like this is only set if CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID is set,
-> please mention that in the comments.
-> 
->> +
->>  /*
->>   * @rmid_entry - The entry in the limbo and free lists.
->>   */
->> @@ -852,6 +857,10 @@ void cqm_handle_limbo(struct work_struct *work)
->>  	 */
->>  	mutex_lock(&rdtgroup_mutex);
->>  
->> +	/* Don't read the RMIDs in limbo until a mount sets up the CDP state. */
->> +	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID) && !resctrl_mounted)
->> +		goto out_unlock;
->> +
-> 
-> Is this IS_ENABLED() check needed? There are several flows managing the limbo handler
-> yet just cqm_handle_limbo() and resctrl_limbo_resume() use this IS_ENABLED() check to manage
-> the lifecycle in a unique way that I am concerned will trip people up in the future when
-> trying to untangle the limbo worker lifecycle.
-> 
-> I understand that the IS_ENABLED() check is added to support MPAM specifically here but
-> I think we should aim for as much as possible similar behavior across all architectures.
-
-Yes, it is for mpam.
-
-> To that end I do not see why limbo handler should not run on MPAM when resctrl fs is unmounted
-> while on x86 it should. 
-
-Is it because the CDP implementation of x86 is different from MPAM, and
-MPAM is implemented through simulation?
-
-> 
-> Having the limbo handler only depend on resctrl_mounted here will make the behavior consistent
-> across architectures while also matching the overflow handler. Keeping these behaviors similar
-> just makes the code easier to understand and reason about. Having resctrl filesystem provide
-> consistent flows across all architectures ensures the same flows are always tested.
-> 
-> Yes, x86 would lose the ability to drain RMIDs across an unmount, but nothing needs these
-> RMIDs while resctrl is unmounted. This work ensures that the RMIDs are freed shortly
-> after a mount when they will be needed.
-
-I believe this behavior is also universal for x86.
-
-> 
-> Could you please separate out a patch that _only_ changes the limbo handler lifetime
-> independent of architecture? This patch can introduce resctrl_limbo_resume() but not release
-
-Will put it in a seperate patch, thank you!
-
-> any RMIDs from it. Splitting the limbo worker lifecycle change that impacts both
-> architectures from the MPAM specific change that releases RMIDs on mount would make
-> the impact easier to describe to reviewers.
-> 
->>  	/*
->>  	 * Ensure the worker is dedicated to a CPU as intended and not
->>  	 * relocated by workqueue subsystem as part of CPU going offline.
->> @@ -868,10 +877,12 @@ void cqm_handle_limbo(struct work_struct *work)
->>  	__check_limbo(d);
->>  
->>  	if (has_busy_rmid(d)) {
->> -		d->cqm_work_cpu = cpumask_any_housekeeping(&d->hdr.cpu_mask,
->> -							   RESCTRL_PICK_ANY_CPU);
->> -		schedule_delayed_work_on(d->cqm_work_cpu, &d->cqm_limbo,
->> -					 delay);
->> +		int cpu;
->> +
->> +		cpu = cpumask_any_housekeeping(&d->hdr.cpu_mask,
->> +					       RESCTRL_PICK_ANY_CPU);
->> +		if (schedule_delayed_work_on(cpu, &d->cqm_limbo, delay))
->> +			d->cqm_work_cpu = cpu;
->>  	}
->>  
->>  out_unlock:
->> @@ -893,10 +904,13 @@ void cqm_setup_limbo_handler(struct rdt_l3_mon_domain *dom, unsigned long delay_
->>  	int cpu;
->>  
->>  	cpu = cpumask_any_housekeeping(&dom->hdr.cpu_mask, exclude_cpu);
->> -	dom->cqm_work_cpu = cpu;
->> +	if (cpu >= nr_cpu_ids) {
->> +		dom->cqm_work_cpu = cpu;
->> +		return;
->> +	}
->>  
->> -	if (cpu < nr_cpu_ids)
->> -		schedule_delayed_work_on(cpu, &dom->cqm_limbo, delay);
->> +	if (schedule_delayed_work_on(cpu, &dom->cqm_limbo, delay))
->> +		dom->cqm_work_cpu = cpu;
->>  }
-> 
-> hmmm ... this cqm_work_cpu wrangling is a concern and surely looks like something that
-> we will trip over later. Making it worse is that there is no justification or explanation
-> for why this is needed. I *assume* that it is done with anticipation that
-> schedule_delayed_work_on() may fail since limbo handler is already pending, but please
-
-Yes, that it the reason.
-
-> also keep in mind that the worker my already be running and blocked on rdtgroup_mutex.
-> We just had to fix a similar issues in this area recently so I would like to avoid any new
-> issues here.
-> 
-> Looks like sashiko also uncovered a few issues in this area:
-> 	https://sashiko.dev/#/patchset/20261105070934.2258613-1-ruanjinjie%40huawei.com
-> 
-> Could this implementation not instead just ensure that the worker is not pending and then
-> the above two hunks can be dropped? (more later)
-> 
->>  
->>  void mbm_handle_overflow(struct work_struct *work)
->> @@ -1033,6 +1047,49 @@ int setup_rmid_lru_list(void)
->>  	return 0;
->>  }
->>  
->> +/**
->> + * resctrl_limbo_resume() - Resume RMID limbo handling after a mount.
->> + *
->> + * Release the RMIDs that were freed under another CDP state without
->> + * reading them, and restart the limbo handler.
->> + */
->> +void resctrl_limbo_resume(void)
->> +{
->> +	struct rdt_l3_mon_domain *d;
->> +	struct rdt_resource *r;
->> +	bool cdp;
->> +
->> +	if (!IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID) ||
-> 
-> Please drop this check from the core limbo handler resume code that
-> should be done for all architectures. Instead just use it to gate whether
-> release_limbo_rmids() is called or not.
-
-OK.
-
-> 
->> +	    !resctrl_arch_mon_capable())
->> +		return;
->> +
->> +	lockdep_assert_held(&rdtgroup_mutex);
-> 
-> Please move to beginning of function. How about lockdep_assert_cpus_held()?
-
-OK.
-
-> 
->> +
->> +	r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
->> +
->> +	cdp = resctrl_arch_get_cdp_enabled(RDT_RESOURCE_L2) ||
->> +	      resctrl_arch_get_cdp_enabled(RDT_RESOURCE_L3);
-> 
-> This is unexpected and looks to be leaking an MPAM quirk into
-> the filesystem? I see there is a global "cdp_enabled" that guides
-> MPAM internals but on the filesystem side it does not look right for
-> the L2 CDP state to impact the limbo handler that only operates on
-> L3 resource.
-
-I will recheck this logic, Thank you!
-
-> 
->> +
->> +	if (cdp != limbo_cdp) {
->> +		list_for_each_entry_rcu(d, &r->mon_domains, hdr.list,
->> +					lockdep_is_cpus_held()) {
->> +			if (d->rmid_busy_llc && has_busy_rmid(d))
-> 
-> How about calling cancel_delayed_work(&d->cqm_limbo) here? Could doing
-> so eliminate the need for all that cqm_work_cpu wrangling?
-
-Make sense, so we need not check whether it is running later.
-
-> 
->> +				release_limbo_rmids(d);
->> +		}
->> +	}
->> +	limbo_cdp = cdp;
->> +
->> +	if (!resctrl_is_mon_event_enabled(QOS_L3_OCCUP_EVENT_ID))
->> +		return;
-> 
-> Could this be moved to the top of the function? QOS_L3_OCCUP_EVENT_ID
-> state cannot change between mounts and this is the event that determines
-> whether limbo handler runs at all. Moving this check would also eliminate the 
-> need for the "d->rmid_busy_llc" check above.
-
-But limbo_cdp must be updated for next time check.
-
-> 
->> +
->> +	list_for_each_entry_rcu(d, &r->mon_domains, hdr.list,
->> +				lockdep_is_cpus_held()) {
->> +		/* A queued worker will run, don't move its cqm_work_cpu. */
->> +		if (has_busy_rmid(d) && !delayed_work_pending(&d->cqm_limbo))
->> +			cqm_setup_limbo_handler(d, 0, RESCTRL_PICK_ANY_CPU);
->> +	}
->> +}
->> +
->>  void free_rmid_lru_list(void)
->>  {
->>  	if (!resctrl_arch_mon_capable())
->> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
->> index 5d0351453c2f..e6b64a5c9302 100644
->> --- a/fs/resctrl/rdtgroup.c
->> +++ b/fs/resctrl/rdtgroup.c
->> @@ -3150,13 +3150,14 @@ static void resctrl_unmount(void)
->>  	cpus_read_lock();
->>  	mutex_lock(&rdtgroup_mutex);
->>  
->> -	rdt_disable_ctx();
->> -
->>  	/* Put everything back to default values. */
->>  	for_each_alloc_capable_rdt_resource(r)
->>  		resctrl_arch_reset_all_ctrls(r);
->>  
->>  	resctrl_fs_teardown();
->> +
->> +	/* Remove the groups under the CDP state they were set up with. */
-> 
-> This comment looks out of place as it documents what happens _before_
-> rdt_disable_ctx(). It also only refers to removal of group while I believe
-
-It should be moved before resctrl_fs_teardown().
-
-> (when looking an MPAM's __config_cntr()) there is an issue with counter reset 
-> also?
-> 
-> How about something like:
-> 
-> 	Clear the CDP state after the cleanup. The CDP state decides
-> 	which hardware configuration a CLOSID refers to, so the teardown
-> 	must run with the state the configuration was created under.
-
-It looks a bit more complete, will update the comment as it.
-
-> 
->> +	rdt_disable_ctx();
->>  	if (resctrl_arch_alloc_capable())
->>  		resctrl_arch_disable_alloc();
->>  	if (resctrl_arch_mon_capable())
->> @@ -3261,6 +3262,8 @@ static int rdt_get_tree(struct fs_context *fc)
->>  						   RESCTRL_PICK_ANY_CPU);
->>  	}
->>  
->> +	resctrl_limbo_resume();
->> +
->>  	/*
->>  	 * Ensure root remains accessible after mutex is unlocked so that
->>  	 * kernfs_kill_sb() can run safely if called by kernfs_get_tree()'s
-> 
-> Reinette
-
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls_tx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls_tx.c
+index 31f61f2ba824..a4aa58ef1dda 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls_tx.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls_tx.c
+@@ -87,11 +87,17 @@ static int mlx5e_ktls_destroy_tis_cb(struct mlx5_core_dev *mdev, u32 tisn,
+ 				out, outlen, callback, context);
+ }
+ 
++/* Bits of mlx5e_ktls_offload_context_tx flags */
++enum {
++	MLX5E_KTLS_TX_RESYNC, /* WQEs lost, see mlx5e_ktls_tx_handle_lost() */
++};
++
+ struct mlx5e_ktls_offload_context_tx {
+ 	/* fast path */
+ 	u32 expected_seq;
+ 	u32 tisn;
+ 	bool ctx_post_pending;
++	unsigned long flags; /* MLX5E_KTLS_TX_* */
+ 	/* control / resync */
+ 	struct list_head list_node; /* member of the pool */
+ 	union mlx5e_crypto_info crypto_info;
+@@ -498,6 +504,7 @@ int mlx5e_ktls_add_tx(struct net_device *netdev, struct sock *sk,
+ 	mlx5e_set_ktls_tx_priv_ctx(tls_ctx, priv_tx);
+ 
+ 	priv_tx->ctx_post_pending = true;
++	priv_tx->flags = 0;
+ 	atomic64_inc(&priv_tx->sw_stats->tx_tls_ctx);
+ 
+ 	return 0;
+@@ -676,7 +683,7 @@ tx_sync_info_get(struct mlx5e_ktls_offload_context_tx *priv_tx,
+ static void
+ tx_post_resync_params(struct mlx5e_txqsq *sq,
+ 		      struct mlx5e_ktls_offload_context_tx *priv_tx,
+-		      u64 rcd_sn)
++		      u64 rcd_sn, bool full)
+ {
+ 	__be64 rn_be = cpu_to_be64(rcd_sn);
+ 	bool skip_static_post;
+@@ -704,7 +711,8 @@ tx_post_resync_params(struct mlx5e_txqsq *sq,
+ 		return;
+ 	}
+ 
+-	skip_static_post = !memcmp(rec_seq, &rn_be, rec_seq_sz);
++	/* rec_seq is the record sequence of the last posted static params. */
++	skip_static_post = !full && !memcmp(rec_seq, &rn_be, rec_seq_sz);
+ 	if (!skip_static_post)
+ 		memcpy(rec_seq, &rn_be, rec_seq_sz);
+ 
+@@ -772,7 +780,7 @@ static enum mlx5e_ktls_sync_retval
+ mlx5e_ktls_tx_handle_ooo(struct mlx5e_ktls_offload_context_tx *priv_tx,
+ 			 struct mlx5e_txqsq *sq,
+ 			 int datalen,
+-			 u32 seq)
++			 u32 seq, bool full)
+ {
+ 	enum mlx5e_ktls_sync_retval ret;
+ 	struct tx_sync_info info = {};
+@@ -786,7 +794,7 @@ mlx5e_ktls_tx_handle_ooo(struct mlx5e_ktls_offload_context_tx *priv_tx,
+ 		 */
+ 		return ret;
+ 
+-	tx_post_resync_params(sq, priv_tx, info.rcd_sn);
++	tx_post_resync_params(sq, priv_tx, info.rcd_sn, full);
+ 
+ 	for (i = 0; i < info.nr_frags; i++) {
+ 		unsigned int orig_fsz, frag_offset = 0, n = 0;
+@@ -826,6 +834,28 @@ mlx5e_ktls_tx_handle_ooo(struct mlx5e_ktls_offload_context_tx *priv_tx,
+ 	return MLX5E_KTLS_SYNC_FAIL;
+ }
+ 
++/* The WQEs posted for an skb were not executed: the skb was dropped, or its
++ * WQEs were flushed by an SQ error or destroyed with their SQ. The TIS state
++ * of its connection may be off from ours, resync it fully on the next skb.
++ */
++void mlx5e_ktls_tx_handle_lost(struct mlx5e_txqsq *sq, struct sk_buff *skb)
++{
++	struct mlx5e_ktls_offload_context_tx *priv_tx;
++	struct tls_context *tls_ctx;
++
++	/* The skb holds the socket, and so its TLS context. tls_device_down()
++	 * clears the netdev, and waits for RCU readers before it releases the
++	 * driver context.
++	 */
++	tls_ctx = tls_get_ctx(skb->sk);
++	rcu_read_lock();
++	if (rcu_dereference(tls_ctx->netdev) == sq->netdev) {
++		priv_tx = mlx5e_get_ktls_tx_priv_ctx(tls_ctx);
++		set_bit(MLX5E_KTLS_TX_RESYNC, &priv_tx->flags);
++	}
++	rcu_read_unlock();
++}
++
+ bool mlx5e_ktls_handle_tx_skb(struct net_device *netdev, struct mlx5e_txqsq *sq,
+ 			      struct sk_buff *skb,
+ 			      struct mlx5e_accel_tx_tls_state *state)
+@@ -834,6 +864,7 @@ bool mlx5e_ktls_handle_tx_skb(struct net_device *netdev, struct mlx5e_txqsq *sq,
+ 	struct mlx5e_sq_stats *stats = sq->stats;
+ 	struct net_device *tls_netdev;
+ 	struct tls_context *tls_ctx;
++	bool ooo, resync;
+ 	int datalen;
+ 	u32 seq;
+ 
+@@ -858,24 +889,37 @@ bool mlx5e_ktls_handle_tx_skb(struct net_device *netdev, struct mlx5e_txqsq *sq,
+ 		mlx5e_ktls_tx_post_param_wqes(sq, priv_tx, false, false);
+ 
+ 	seq = ntohl(tcp_hdr(skb)->seq);
+-	if (unlikely(priv_tx->expected_seq != seq)) {
++	ooo = priv_tx->expected_seq != seq;
++	/* Take the loss mark before resyncing, a loss reported meanwhile
++	 * marks the connection again.
++	 */
++	resync = test_bit(MLX5E_KTLS_TX_RESYNC, &priv_tx->flags) &&
++		 test_and_clear_bit(MLX5E_KTLS_TX_RESYNC, &priv_tx->flags);
++	if (unlikely(ooo || resync)) {
+ 		enum mlx5e_ktls_sync_retval ret =
+-			mlx5e_ktls_tx_handle_ooo(priv_tx, sq, datalen, seq);
++			mlx5e_ktls_tx_handle_ooo(priv_tx, sq, datalen, seq,
++						 resync);
+ 
+-		stats->tls_ooo++;
++		if (ooo)
++			stats->tls_ooo++;
+ 
+ 		switch (ret) {
+ 		case MLX5E_KTLS_SYNC_DONE:
+ 			break;
+ 		case MLX5E_KTLS_SYNC_SKIP_NO_DATA:
+ 			stats->tls_skip_no_sync_data++;
+-			if (likely(!skb->decrypted))
++			if (likely(!skb->decrypted)) {
++				/* Nothing was posted, keep the mark. */
++				if (resync)
++					set_bit(MLX5E_KTLS_TX_RESYNC,
++						&priv_tx->flags);
+ 				goto out;
++			}
+ 			WARN_ON_ONCE(1);
+-			goto err_out;
++			goto err_lost;
+ 		case MLX5E_KTLS_SYNC_FAIL:
+ 			stats->tls_drop_no_sync_data++;
+-			goto err_out;
++			goto err_lost;
+ 		}
+ 	}
+ 
+@@ -889,6 +933,9 @@ bool mlx5e_ktls_handle_tx_skb(struct net_device *netdev, struct mlx5e_txqsq *sq,
+ out:
+ 	return true;
+ 
++err_lost:
++	/* Resync params may have moved the TIS state to the dropped skb. */
++	set_bit(MLX5E_KTLS_TX_RESYNC, &priv_tx->flags);
+ err_out:
+ 	/* Parameter and DUMP WQEs may have been posted for the skb. */
+ 	mlx5e_tx_flush(sq, skb);
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls_txrx.h b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls_txrx.h
+index 93bd383a23d8..a6b15dcd32b8 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls_txrx.h
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls_txrx.h
+@@ -29,6 +29,15 @@ void mlx5e_ktls_handle_get_psv_completion(struct mlx5e_icosq_wqe_info *wi,
+ void mlx5e_ktls_tx_handle_resync_dump_comp(struct mlx5e_txqsq *sq,
+ 					   struct mlx5e_tx_wqe_info *wi,
+ 					   u32 *dma_fifo_cc);
++void mlx5e_ktls_tx_handle_lost(struct mlx5e_txqsq *sq, struct sk_buff *skb);
++
++/* The WQEs posted for the skb may have not been executed. */
++static inline void
++mlx5e_ktls_tx_try_handle_lost(struct mlx5e_txqsq *sq, struct sk_buff *skb)
++{
++	if (tls_is_skb_tx_device_offloaded(skb))
++		mlx5e_ktls_tx_handle_lost(sq, skb);
++}
+ 
+ void
+ mlx5e_ktls_rx_resync_async_request_cancel(struct mlx5e_icosq_wqe_info *wi);
+@@ -69,6 +78,12 @@ mlx5e_ktls_tx_try_handle_resync_dump_comp(struct mlx5e_txqsq *sq,
+ 	return false;
+ }
+ 
++static inline void
++mlx5e_ktls_tx_handle_lost(struct mlx5e_txqsq *sq, struct sk_buff *skb) {}
++
++static inline void
++mlx5e_ktls_tx_try_handle_lost(struct mlx5e_txqsq *sq, struct sk_buff *skb) {}
++
+ static inline bool
+ mlx5e_ktls_rx_handle_resync_list(struct mlx5e_icosq *sq, int budget)
+ {
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c
+index eb8a7a89b120..bee6f0bf1eff 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c
+@@ -386,6 +386,7 @@ static void mlx5e_tx_drop(struct mlx5e_txqsq *sq, struct sk_buff *skb)
+ 	if (IS_ENABLED(CONFIG_MLX5_EN_TLS) &&
+ 	    tls_is_skb_tx_device_offloaded(skb)) {
+ 		/* kTLS WQEs may have been posted for the skb. */
++		mlx5e_ktls_tx_handle_lost(sq, skb);
+ 		mlx5e_tx_flush(sq, skb);
+ 		return;
+ 	}
+@@ -815,13 +816,15 @@ bool mlx5e_poll_tx_cq(struct mlx5e_cq *cq, int napi_budget)
+ 	i = 0;
+ 	do {
+ 		struct mlx5e_tx_wqe_info *wi;
++		bool last_wqe, err_cqe;
+ 		u16 wqe_counter;
+-		bool last_wqe;
+ 		u16 ci;
+ 
+ 		mlx5_cqwq_pop(&cq->wq);
+ 
+ 		wqe_counter = be16_to_cpu(cqe->wqe_counter);
++		/* WQEs covered by an error CQE may not have been executed. */
++		err_cqe = get_cqe_opcode(cqe) == MLX5_CQE_REQ_ERR;
+ 
+ 		do {
+ 			last_wqe = (sqcc == wqe_counter);
+@@ -832,6 +835,10 @@ bool mlx5e_poll_tx_cq(struct mlx5e_cq *cq, int napi_budget)
+ 			sqcc += wi->num_wqebbs;
+ 
+ 			if (likely(wi->skb)) {
++				if (unlikely(err_cqe))
++					mlx5e_ktls_tx_try_handle_lost(sq,
++								      wi->skb);
++
+ 				if (unlikely(!wi->num_bytes)) {
+ 					/* Dropped, held by mlx5e_tx_flush() */
+ 					dev_kfree_skb_any(wi->skb);
+@@ -859,7 +866,7 @@ bool mlx5e_poll_tx_cq(struct mlx5e_cq *cq, int napi_budget)
+ 			}
+ 		} while (!last_wqe);
+ 
+-		if (unlikely(get_cqe_opcode(cqe) == MLX5_CQE_REQ_ERR)) {
++		if (unlikely(err_cqe)) {
+ 			if (!test_and_set_bit(MLX5E_SQ_STATE_RECOVERING,
+ 					      &sq->state)) {
+ 				mlx5e_dump_error_cqe(&sq->cq, sq->sqn,
+@@ -913,6 +920,8 @@ void mlx5e_free_txqsq_descs(struct mlx5e_txqsq *sq)
+ 		sqcc += wi->num_wqebbs;
+ 
+ 		if (likely(wi->skb)) {
++			/* Destroyed with the SQ, not executed. */
++			mlx5e_ktls_tx_try_handle_lost(sq, wi->skb);
+ 			mlx5e_tx_wi_dma_unmap(sq, wi, &dma_fifo_cc);
+ 			dev_kfree_skb_any(wi->skb);
+ 
 -- 
-Best regards,
-Jinjie
+2.44.0
 
