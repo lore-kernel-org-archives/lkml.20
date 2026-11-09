@@ -1,58 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193309;
-	b=Tm9lj7Q7zC31cc+tYtFcIvkxWEFGA4bMpq1pFun+GI6vgjBDvVYBHkD7DVzBi8nYiPgG
-	 x2oyjj+sLhdFyRHMF8uZNJFOtWBVHbx1ElNZmw5sSvOit4nXZUZq3xCyDxqBgCn1u0dvl
-	 epHuJ651PC2dWHI3vHApdS6s38cMpdEXgcj6MfX6BzVypUx42tqs7p3aheBIaXTuiBNkC
-	 A9VYsrHzCHuqBg6PHwCTg39a5MvsDNm/FTf1O6lGDewoWi70wePcL9Is3HJHLMpymotJ0
-	 da4Az9J3dCjDI8ICBrpoSoNvow4CFo2CAUYs+/RaApMe3cfKRMNlnSroNrmGX3eed6g==
+	t=1794193478;
+	b=1vSvE1NDw7jdvVQ0LjzYzvO8QhNCaGRUiyBYehV0oKMLEVC4INdoKQ4X0La1gA3mkLpg
+	 Eq191t4H3W1NoNd8d97r64hxb0jewHFQ40O3oKlVzGMmOsiV92O2qalxzFUa0txifs/ka
+	 f3n8YkITaZD4n+M4QiDGEB5xwwD6YPV1VIXjVHxtyKpWGEO48isLmiEiXsVxDjI0O+hyT
+	 MgiTo4LrCWXoFCPrA5znrtZxcj3FV4Ijyrb18EZBFQnj8mhwP3S+ElPkH87XxFcGPGYnB
+	 9m6YjW+RJNvDYnfV5RCy2RjARyOo7p00UlG8JGZQX08q83Q4eWGdqp91kiX69NjvyyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193309;
-	h=DMARC-Filter:DKIM-Signature:To:Content-Transfer-Encoding:In-Reply-To:
-	 References:Content-Type:Cc:From:Message-Id:Mime-Version:
-	 X-Lms-Return-Path:X-Original-From:Date:User-Agent:Subject;
-	bh=1hRQQIAsbz+9/1zs9i6aKCxFWN+3vpkyx/yMvD7P5R0=;
-	b=R1ueNxLDjL+zZFFAzo3JwnEhiGYDK3Y+l0cSrVgTBfLPEM1DfLpQq5d1WVDlXVQTAH4+
-	 qd+NBFkvBLLsbQyJqfsSq0wEzCA7gAgPQ3Mpz7Ly8cUpYFYGQCbD7YJ9VP9pMSIo5tRAg
-	 3tAXuHPi7OrF/JM9e/pDs6F39tLB0jIOx6R0OMegd1mkaalDMmxMwR6t2vIL2j32UqCDI
-	 vSeu50kemvELPBOtLXKmwbFkzTzPL9df2l09RcmQYXXw5klR166hLkuL2UkVZd3WgG4Ux
-	 mTMW85TUQ1jubHNIUjhVpfjPV7f7IOVbeazx8woS+Oqu0JQgv63aiPftCnI5etrey5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193478;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Mbaxm6pY4DxTSQpSJHy5VFk99rqnTyFhJcAlVZ816Oc=;
+	b=HDYmO74+yxpZeWlYmYVuU7iWaJzVAt44Sg1IaBImGQ3lSFaB9zEE9liJafAGy2dmqfNN
+	 H0OLgLZa8cyDnYARSq2mMnr99VSFB3BfsO+umbl6r1AYb0SvxpT79krZ6MpqtGijjxygc
+	 C1lBaYvO5U3weASjpiJRL/5ObwhrapxK+Dr8poGdEbDswf1gwBpXjIfqxV3HZBOssLhcq
+	 YLiXTU+w5VhwPaga/LcYBVVWWvcM5flvYYNcUQCLu7yiIVqqsNTQzRSV/gAWh6CH21B16
+	 E4tg66tLl/7cvUF25bx9OIEbYXZ06kuyP4T/M3unlf1uMsQtgncxWk4uaMKJWhclAOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=KKTkXpoh;
-	arc=none smtp.remote-ip=209.127.230.112
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=CtYCblXF;
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F874606A320
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:01:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F874606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7625606A31C;
+	Mon,  9 Nov 2026 03:04:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7625606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=KKTkXpoh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794193303; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=1hRQQIAsbz+9/1zs9i6aKCxFWN+3vpkyx/yMvD7P5R0=;
- b=KKTkXpoh4kDAoST2pFtgH6ACtOvpHO4vRc//VT8NJL0gWGYM9S3HB+Xvh0MAVBfzSFVJFR
- aWLcOawaAlpAekLguGW5YEvXNIVlq8Id0VGl6E+bK/IfKRHCiADKGgxLg6X5Sp2wWvQQam
- Z9G0z+ttud/1GE9qkKW6HL0KQzFBj8rykapVI/M+OM/3JHp65n/XGFoVuXU+ba+25dx72d
- rHvomKMzBSzVGPWedj9AdIGMt2lDzbOB/ThRjBj/Ce10eQG++TBXi0R4A3lLislihZIwSz
- n48jT6flXXHYWzbo1tHnBEM5YUrkVoyAJQMkq9jIGe8TwNBVWgz9pAa7miqitg==
-To: "Balbir Singh" <balbirs@nvidia.com>
-Content-Transfer-Encoding: 7bit
-In-Reply-To: <au2qhlsxQt3SRwIu@parvat>
-References: <20261105120615.16817-1-lizhe.67@bytedance.com> <20261105120615.16817-3-lizhe.67@bytedance.com> <au2qhlsxQt3SRwIu@parvat>
-Content-Type: text/plain; charset=UTF-8
-Cc: <muchun.song@linux.dev>, <osalvador@suse.de>, <david@kernel.org>, 
-	<akpm@linux-foundation.org>, <rppt@kernel.org>, <apopple@nvidia.com>, 
-	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Message-Id: <ca38db3a-a8fe-47c3-8813-5c3b0ac4b7ac@bytedance.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=CtYCblXF
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Mbaxm6pY4DxTSQpSJHy5VFk99rqnTyFhJcAlVZ816Oc=;
+	b=CtYCblXFy/cGn0hGPSCCSQ18qXbxR6oawatN6w1O3/wMKm7tujOVfxw+d9a5gLpD4r0XqwFnE
+	0H8hBRFJJP8RckrglcAuREAk8RCtGQ/T6Ob+lI9OVQjG8owTT2uvRysPTEzPVUZarOBZGmWSPFL
+	VtJNROtL5QnLfCR26uXv2io=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jNF4V2976z1K9BF;
+	Mon,  9 Nov 2026 11:04:26 +0800 (CST)
+Received: from dggpemr200001.china.huawei.com (unknown [7.185.36.96])
+	by mail.maildlp.com (Postfix) with ESMTPS id 317694048B;
+	Mon,  9 Nov 2026 11:04:34 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by dggpemr200001.china.huawei.com
+ (7.185.36.96) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 9 Nov
+ 2026 11:04:33 +0800
+From: Ran Hongyun <ranhongyun1@huawei.com>
+To: <john.johansen@canonical.com>, <georgia.garcia@canonical.com>,
+	<paul@paul-moore.com>, <jmorris@namei.org>, <serge@hallyn.com>
+CC: <apparmor@lists.ubuntu.com>, <linux-security-module@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <ranhongyun1@huawei.com>,
+	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Subject: [PATCH] apparmor: fix double d_instantiate() in ns_mkdir_op()
+Date: Mon, 9 Nov 2026 10:56:00 +0800
+Message-ID: <20261109025600.2031008-1-ranhongyun1@huawei.com>
+X-Mailer: git-send-email 2.52.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,102 +69,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26af13791+8b8158+vger.kernel.org+lizhe.67@bytedance.com>
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-Date: Mon, 9 Nov 2026 11:01:22 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] mm/hugetlb: optimize bootmem hugepage tail vmemmap init
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ dggpemr200001.china.huawei.com (7.185.36.96)
 
-On 11/6/26 6:23 PM, Balbir Singh wrote:
-> On Thu, Nov 05, 2026 at 08:06:15PM +0800, Li Zhe wrote:
->> Boot-time HugeTLB allocation has to initialize tail struct pages itself
->> when HugeTLB vmemmap optimization (HVO) is unavailable or fails.  For
->> gigantic pages, this can cover a large number of tail pages.  Most state
->> installed by __init_single_page() and prep_compound_tail() is identical
->> for every tail page in the same huge page; only PFN-dependent fields
->> need refreshing.
->>
->> Initialize the first tail page normally, copy it into a local template,
->> then initialize the remaining tails from that template with
->> memmap_init_page_from_template().  This avoids repeatedly doing the full
->> __init_single_page() and prep_compound_tail() sequence for state that is
->> identical across tail pages in the same huge page.
->>
->> On an arm64 QEMU/KVM guest using 4K pages and 64 boot-time 1G hugepages
->> (HVO unavailable on arm64 in v7.4-rc1), the measured fallback tail
->> initialization time improved by 36.43%, measured with a temporary
->> jiffies-based printk modeled after the existing timing in
->> memmap_init_zone_device():
->>
->>    base:             318.4 ms
->>    with this patch:  202.4 ms
->>
->> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
->> ---
->>   mm/hugetlb.c | 23 ++++++++++++++++++-----
->>   1 file changed, 18 insertions(+), 5 deletions(-)
->>
->> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->> index da5d04edf7c1..987f16a5ea27 100644
->> --- a/mm/hugetlb.c
->> +++ b/mm/hugetlb.c
->> @@ -3219,19 +3219,32 @@ static void __init hugetlb_folio_init_tail_vmemmap(struct folio *folio,
->>   	enum zone_type zone = folio_zonenum(folio);
->>   	int nid = folio_nid(folio);
->>   	struct page *page = folio_page(folio, start_page_number);
->> +	struct page template;
->>   	unsigned long head_pfn = folio_pfn(folio);
->>   	unsigned long pfn, end_pfn = head_pfn + end_page_number;
->>   	unsigned int order = huge_page_order(h);
->>   
->> +	if (start_page_number >= end_page_number)
->> +		return;
->> +
-> Can this actually happen?
+ns_mkdir_op() drops inode_lock for simple_pin_fs() and re-acquires it
+before instantiating the dentry.  A concurrent mkdir() of the same name
+can pass the VFS negative-dentry checks in that window and also reach
+d_instantiate(), tripping BUG_ON(!hlist_unhashed(&d_alias)).
 
+Re-check that the dentry is still negative after re-acquiring inode_lock
+and return -EEXIST if a concurrent mkdir() won the race.
 
-No, current callers always pass a non-empty range. I kept this to
-preserve the old for-loop no-op semantics for an empty range, but it is
-not needed here. I will remove it in v2.
+Fixes: 4ae47f33354a ("apparmor: add mkdir/rmdir interface to manage policy namespaces")
+Signed-off-by: Ran Hongyun <ranhongyun1@huawei.com>
+---
+ security/apparmor/apparmorfs.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
->
->>   	/*
->>   	 * As we marked all tail pages with memblock_reserved_mark_noinit(),
->>   	 * we must initialize them ourselves here.
->>   	 */
->> -	for (pfn = head_pfn + start_page_number; pfn < end_pfn; page++, pfn++) {
->> -		__init_single_page(page, pfn, zone, nid);
->> -		prep_compound_tail(page, &folio->page, order);
->> -		set_page_count(page, 0);
->> -	}
->> +	pfn = head_pfn + start_page_number;
->> +
->> +	/*
->> +	 * Seed a template from the first real tail page and refresh only
->> +	 * PFN-dependent fields before copying it.
->> +	 */
->> +	__init_single_page(page, pfn, zone, nid);
->> +	prep_compound_tail(page, &folio->page, order);
->> +	set_page_count(page, 0);
->> +	memcpy(&template, page, sizeof(template));
-> Do we need a separate template and page?
-Yes. page is the first tail page that has already been initialized
-normally. A separate template is needed so that later iterations can
-refresh the PFN-dependent fields before memcpy_nontemporal() copies the
-final state to each destination page.
+diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+index a99366467217..5a9565eeb62b 100644
+--- a/security/apparmor/apparmorfs.c
++++ b/security/apparmor/apparmorfs.c
+@@ -2111,6 +2111,12 @@ static struct dentry *ns_mkdir_op(const struct mnt_idmap *idmap, struct inode *d
+ 	if (error)
+ 		goto out;
+ 
++	/* the dentry may be instantiated by a concurrent mkdir */
++	if (unlikely(d_really_is_positive(dentry))) {
++		error = -EEXIST;
++		goto out_pin;
++	}
++
+ 	error = __aafs_setup_d_inode(dir, dentry, mode | S_IFDIR,  NULL,
+ 				     NULL, NULL, NULL);
+ 	if (error)
+-- 
+2.52.0
 
-Thanks for the review and the Ack.
-
-Thanks,
-Zhe
-
->
->> +
->> +	for (pfn++; pfn < end_pfn; pfn++)
->> +		memmap_init_page_from_template(pfn_to_page(pfn), pfn, zone,
->> +					       &template);
->>   }
->>   
->>   static void __init hugetlb_folio_init_vmemmap(struct folio *folio,
-> Acked-by: Balbir Singh <balbirs@nvidia.com>
