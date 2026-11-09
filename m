@@ -1,48 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.245.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.204
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794191671;
-	b=RZ91KOAttDddoPtFLfLyyaR2bZT9KfeXqt93O20AjUr0soLMYik64+9rVF9Jzi2YR6xU
-	 1CIUXLNLLdnP9E7JPQwq2LKptlWEgXjIUB2IH2rsfbWm+aOyNQlElSpvs8yrR8cv8jmf6
-	 COXXRwd0y8wUNIaBB9Yp2xt4WNfzFH3zC8FiAszVy45a4CUpcbo8biV/zwh9sft6/FH4x
-	 U/CoMPD6+rdx6Skm/nIP3xTF99VxLVfnnkanvvshc6FujUiO2aTJm1nw+Nwb6JVavuGPd
-	 83BGPb6Vl+rxX0lbG5JP2zTp7Mvc5w6DGzojh2Ff/tQ5JDK4q7H0VFVt5DAVw/PwDug==
+	t=1794191682;
+	b=2wNDzXAGd0yXpB5jFATYFjQaXpfaWQSLGacHhGf13J+VfO8mOeI18FXgXJGfofm31Els
+	 cSALad/3ePMxOV2gcOAy3zorEzPlEl6Zz2mD34YWjRwrDl+ZEWBQIFEovA18UUQjra8JO
+	 Yi85SsiM0bMuTNyo24Gp84YOhNqxYsYOSHOLpoQhcXwuLG9Ra6onKs+I+UzCGoDG2ziTe
+	 x4hJYGRxhTJ9FaCjObXDNqfHoYm421o8DKG5jpyacA5C9sBhSjYg3aHtd2YknG3B4NyJU
+	 ZWlQVFJYewyWCqCaNmsy62LzZSdy6upviaH7G1rFSwI64iALzZNMAjdnU8yIacSgGiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794191671;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=yaOg5jE0A5OJDKzqYaU0N0tlT5DHTRA+lI5J6+ouIOE=;
-	b=nwZPjPLXDN7xqFFUeMtnPKpN/CV1VMBC0Aym+xSLfYJ2b7XtTEH89ukbHfJJIQNoj1Nq
-	 5GnBxGipOLxUvPZUU5tEDPSaY+heeOqYzHDANy8uVBMHKVEMbh0UkiJrd6RKHHvT+zoB3
-	 xxGd/w3AKaWnBRxxxDkOTaIZH7RKJbP0/FIIXQ+VMIy8yERmVBVU+59wkTVt8iEmfgsaF
-	 YBE622xFKZjUDMJ7XIrq/pie83EptzDTvkzPFATgvuNkTbJMvrUKTUJmYIMkhOdamQnkj
-	 3Ji85ga3sBt1XhLqyUyDEd2hKrciFtx1fRHOk+ebmwXz6v4VcbteeQMTZhpIwyWiH7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794191682;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=17hrMgRLWHFMxzi/w8AjQ1hc79wxooWOGGXrIHOf1cE=;
+	b=R9lD621ZvT/lFoOwkViLZngM4hC2JNnWKALJhnNqOBOnzhMXd6WbpJqFKDBE8b3Xc41B
+	 KzFZDJyQ1dvXVVL3WsdujZq9r2ToasKwik1i/E0diWZ10zCIJe67rLsJicaLKzJL907jp
+	 nABVjk7APbj16ghCftz+nRMmlKVTXhQnX9XXTXzbmiBIPCpJH1D24WWEclkRa+1dtCJGi
+	 RG4kfMBCSRjZFQljexCe0zoM5XaTct+l4NxFzjYrY1rzRMUqFgj0w6cnycoq1VCSFj9sw
+	 3V6lVRVDCMogmAcE2YEvdw4MFvzxiZRqM4j8HrbIoKDFtu45+aOwdnn/fXBiDBtEZXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=strlen.de;
-	spf=pass smtp.mailfrom=strlen.de;
-	arc=none smtp.remote-ip=91.216.245.30
-Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E1kYaEH6;
+	arc=none smtp.remote-ip=95.215.58.204
+Received: from mta1.migadu.com (out-204.mta1.migadu.com [95.215.58.204])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9DE606A320;
-	Mon,  9 Nov 2026 02:34:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E9DE606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
-Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
-	id 3DB7160490; Mon, 09 Nov 2026 03:34:21 +0100 (CET)
-Date: Mon, 9 Nov 2026 03:34:20 +0100
-From: Florian Westphal <fw@strlen.de>
-To: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "pablo@netfilter.org" <pablo@netfilter.org>,
-	"kadlec@netfilter.org" <kadlec@netfilter.org>,
-	"netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] netfilter: nft_dynset: reject DELETE op when set lacks
- ->delete
-Message-ID: <avExLOsc3ZWRF5hh@strlen.de>
-References: <5aybqcVfq3WxYdpbT0Ea6bEWamp-4x10J9FF_5La7SSXJ57a4j176x_t3zUW8Ii2r84MsPX8xx_vNashO2PRWvuO9yNsaxS8YV_4TLc-QHU=@proton.me>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BD94606A332
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:34:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8BD94606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=E1kYaEH6
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5+eXtFOPw8ri8zVpqqb1XMOQVeMGX4sPLIb3BO8RS5s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794191679; v=1; x=1794796479;
+ b=E1kYaEH6geZzRwSNpJrbVowY52bR/Gl+rBzc2FmVZw4opA/3j74cqrHLhGZeiHPlS+VZ3xp7
+ jTq/g0+e9GhGcqRh1Fq69ENp8y4v3w1lfF7MLjz2IueEs7rPga97rVYfX/15zvySxtFsGvp/CLN
+ Tw7sjx/gzOcNDTCYJszTiX8s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 9205fe4f08972061;
+	Mon, 09 Nov 2026 02:34:39 +0000
+X-Mizu-Trace-ID: 9205fe4f08972061
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,39 +57,184 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5aybqcVfq3WxYdpbT0Ea6bEWamp-4x10J9FF_5La7SSXJ57a4j176x_t3zUW8Ii2r84MsPX8xx_vNashO2PRWvuO9yNsaxS8YV_4TLc-QHU=@proton.me>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v2] dax/pmem: fix unaligned compound devmap initialization
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <cxseojgn.ritesh.list@gmail.com>
+Date: Mon, 9 Nov 2026 10:34:18 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Dan Williams <djbw@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>,
+ Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Joao Martins <joao.m.martins@oracle.com>,
+ Pavithra Prakash <pavrampu@linux.ibm.com>,
+ stable@vger.kernel.org,
+ nvdimm@lists.linux.dev,
+ linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <1672E495-DED0-4475-B17E-DB63D10DD529@linux.dev>
+References: <20261107030126.90894-1-songmuchun@bytedance.com>
+ <cxseojgn.ritesh.list@gmail.com>
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-Noah Weinberger <NoahWeinberger2003@proton.me> wrote:
-> Hello,
-> 
-> nft_dynset_init() checks that the referenced set implements ->update,
-> but for NFT_DYNSET_OP_DELETE the packet path calls set->ops->delete
-> unconditionally. Today the only set type with ->update (nft_set_hash)
-> also implements ->delete, so the call is always valid - but any future
-> set type implementing ->update without ->delete turns a rule evaluation
-> into a NULL function call.
-> 
-> Reject the DELETE op at init time when ->delete is missing, next to the
-> existing ->update check.
-> 
-> Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07), net/netfilter/nft_dynset.c:98-101 (eval), 209-217 (init).
-> Longstanding asymmetry.
-> 
-> This was found during an assisted (AI-supported) static source review of
-> mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); every code path cited below was re-verified by the
-> reporter against that tree. The patch below has NOT been compiled and has
-> NOT been runtime tested, and no reproducer was produced - the triggering
-> conditions are described above instead. Please treat this as a report for
-> verification rather than a battle-tested fix.
 
-This would have been fine 1 year ago but we no longer have resources
-and time to reproduce and verify such "fixes".
 
-Ask your LLM for a reproducer, run it, show a minimal backtrace.
-We have LLMs too and we can use them to create enough usless and
-time-consuming tasks as-is.
+> On Nov 9, 2026, at 09:57, Ritesh Harjani (IBM) <ritesh.list@gmail.com> =
+wrote:
+>=20
+> Muchun Song <songmuchun@bytedance.com> writes:
+>=20
+>> Static pmem Device DAX namespaces reserve space for namespace =
+metadata
+>> before the user-visible data range, and may also include padding =
+needed
+>> to satisfy the Device DAX alignment. __dax_pmem_probe() adjusts the
+>> dax_region range to start at the data range, but the dev_pagemap =
+range
+>> still starts at the beginning of the namespace.
+>>=20
+>> That is not valid for compound devmap mappings whose memmap is stored =
+in
+>> system RAM. Compound page initialization requires the start PFN to be
+>> naturally aligned to the compound page size, because the head and =
+tail
+>> struct pages are initialized according to that geometry. If the pgmap
+>> starts before the aligned data range, memmap_init_zone_device() can =
+build
+>> compound page metadata from an unaligned PFN.
+>>=20
+>> The resulting struct page layout is inconsistent with the Device DAX
+>> mapping. A later mmap fault can then resolve the user-visible PFN =
+through
+>> invalid compound page metadata and hit a kernel panic while inserting =
+the
+>> DAX folio.
+>>=20
+>> Fix this by rounding the pgmap start up to the Device DAX alignment =
+for
+>> non-altmap mappings. This gives compound mappings the required =
+naturally
+>> aligned start while retaining full-section vmemmap savings when the
+>> original start is already aligned. The altmap path remains unchanged
+>> because memmap_init_zone_device() skips the altmap reservation =
+itself.
+>>=20
+>> Fixes: 14606001efb4 ("device-dax: compound devmap support")
+>> Cc: <stable@vger.kernel.org>
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> Reported-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>> Closes: https://lore.kernel.org/r/wlrkqqvg.ritesh.list@gmail.com
+>=20
+> Tested v2 also on my Power dev test setup. With this patch the =
+reported
+> problem is fixed. I am no more hitting the following warning and =
+crash:
+>=20
+> [    3.071811][    T1] WARNING: mm/mm_init.c:1175 at =
+memmap_init_zone_device+0x144/0x470, CPU#0: swapper/0/1
+> [    3.082276][    T1] NIP [c000000000596604] =
+memmap_init_zone_device+0x144/0x470
+> [    3.082763][    T1] LR [c0000000006d72b8] =
+memremap_pages+0x3b0/0x974
+> [    3.083345][    T1] Call Trace:
+> [    3.083629][    T1] [c000000006d86e00] [c000000006d86e40] =
+0xc000000006d86e40 (unreliable)
+> [    3.084975][    T1] [c000000006d86f10] [c0000000006d72b8] =
+memremap_pages+0x3b0/0x974
+> [    3.085449][    T1] [c000000006d86fe0] [c0000000006d78b8] =
+devm_memremap_pages+0x3c/0xa4
+> [    3.085891][    T1] [c000000006d87020] [c00000000125c084] =
+dev_dax_probe+0x264/0x3d0
+> [    3.086339][    T1] [c000000006d870c0] [c000000001259a28] =
+dax_bus_probe+0x140/0x1c8
+> [    3.086778][    T1] [c000000006d87110] [c0000000011ce640] =
+really_probe+0x108/0x580
+> [    3.087218][    T1] [c000000006d871a0] [c0000000011ceb84] =
+__driver_probe_device+0xcc/0x284
+> [    3.087668][    T1] [c000000006d87230] [c0000000011ceea0] =
+driver_probe_device+0x5c/0x10c
+> [    3.088123][    T1] [c000000006d87270] [c0000000011cf05c] =
+__device_attach_driver+0x10c/0x1e8
+> [    3.088582][    T1] [c000000006d872f0] [c0000000011cab70] =
+bus_for_each_drv+0xc0/0x13c
+> [    3.089035][    T1] [c000000006d87350] [c0000000011cf65c] =
+__device_attach+0xdc/0x2b0
+> [    3.089467][    T1] [c000000006d873f0] [c0000000011cfaac] =
+device_initial_probe+0x80/0x98
+> [    3.089910][    T1] [c000000006d87420] [c0000000011cac44] =
+__bus_probe_device+0x58/0xf4
+> [    3.090358][    T1] [c000000006d87470] [c0000000011c8030] =
+device_add+0x850/0xa78
+> [    3.090778][    T1] [c000000006d87530] [c00000000125b040] =
+__devm_create_dev_dax+0x1c0/0x638
+> [    3.091236][    T1] [c000000006d875d0] [c00000000125b6c8] =
+devm_create_dev_dax+0x44/0x7c
+> [    3.091676][    T1] [c000000006d87600] [c00000000125dbe8] =
+__dax_pmem_probe+0x238/0x27c
+> [    3.092120][    T1] [c000000006d87770] [c00000000125dc4c] =
+dax_pmem_probe+0x20/0x44
+> [    3.092542][    T1] [c000000006d87790] [c000000001237a14] =
+nvdimm_bus_probe+0xcc/0x370
+> [    3.093097][    T1] [c000000006d87830] [c0000000011ce640] =
+really_probe+0x108/0x580
+> [    3.093610][    T1] [c000000006d878c0] [c0000000011ceb84] =
+__driver_probe_device+0xcc/0x284
+> <...>
+> [    3.099405][    T1] ---- interrupt: 0 at 0x0
+> [    3.099837][    T1] Code: 7c0802a6 fa8100b0 faa100b8 fb8100f0 =
+7d574030 7d4a4030 f8010120 fbe10108 3917ffff 7d294038 3109ffff 7d284910 =
+<0b090000> 3d2201c5 7bb53664 7ed607b4
+> [    3.101209][    T1] ---[ end trace 0000000000000000 ]---
+> [    3.104702][    T1] BUG: Unable to handle kernel data access on =
+write at 0xc00c000000210000
+> [    3.105209][    T1] Faulting instruction address: =
+0xc000000000596394
+> cpu 0x0: Vector: 300 (Data Access) at [c000000006d86aa0]
+>    lr: c0000000005962c4: memmap_init_compound+0xac/0x2a8
+>    sp: c000000006d86d40
+>   msr: 8000000002009033
+>   dar: c00c000000210000
+> dsisr: a000000
+>  current =3D 0xc000000006d33e00
+>  paca    =3D 0xc000000005010000   irqmask: 0x03   irq_happened: 0x01
+>    pid   =3D 1, comm =3D swapper/0
+> Linux version 7.3.0-17056-gc0944ee4a2c4 (powerpc64le-linux-gnu-gcc =
+(Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #111 =
+SMP PREEMPT Mon Nov  9 07:25:29 IST 2026
+> enter ? for help
+> [c000000006d86e00] c0000000005968f8 =
+memmap_init_zone_device+0x438/0x470
+> [c000000006d86f10] c0000000006d72b8 memremap_pages+0x3b0/0x974
+> [c000000006d86fe0] c0000000006d78b8 devm_memremap_pages+0x3c/0xa4
+> [c000000006d87020] c00000000125c084 dev_dax_probe+0x264/0x3d0
+> [c000000006d870c0] c000000001259a28 dax_bus_probe+0x140/0x1c8
+> [c000000006d87110] c0000000011ce640 really_probe+0x108/0x580
+> [c000000006d871a0] c0000000011ceb84 __driver_probe_device+0xcc/0x284
+> [c000000006d87230] c0000000011ceea0 driver_probe_device+0x5c/0x10c
+> [c000000006d87270] c0000000011cf05c __device_attach_driver+0x10c/0x1e8
+> [c000000006d872f0] c0000000011cab70 bus_for_each_drv+0xc0/0x13c
+> [c000000006d87350] c0000000011cf65c __device_attach+0xdc/0x2b0
+> [c000000006d873f0] c0000000011cfaac device_initial_probe+0x80/0x98
+> [c000000006d87420] c0000000011cac44 __bus_probe_device+0x58/0xf4
+> [c000000006d87470] c0000000011c8030 device_add+0x850/0xa78
+> [c000000006d87530] c00000000125b040 __devm_create_dev_dax+0x1c0/0x638
+> [c000000006d875d0] c00000000125b6c8 devm_create_dev_dax+0x44/0x7c
+> [c000000006d87600] c00000000125dbe8 __dax_pmem_probe+0x238/0x27c
+> [c000000006d87770] c00000000125dc4c dax_pmem_probe+0x20/0x44
+> [c000000006d87790] c000000001237a14 nvdimm_bus_probe+0xcc/0x370
+> [c000000006d87830] c0000000011ce640 really_probe+0x108/0x580
+> <...>
+>=20
+> Feel free to add:
+>=20
+> Tested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 
-I have a db of +1k reports just like this one.
+Thanks for testing again.
+
+Muchun
+
