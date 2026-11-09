@@ -1,118 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242984;
-	b=XePPBGRZVvpiLoqw5566HO12sVmvAFgm1iXB8PQRKLWpYo480pJN0Ik43ZkAvBb54LtX
-	 H1i7Yvu+a9ebi10rTvW+kRdZIdC9WIjl5myDIPJ7OfPhy0d+Xc3XoADb629q/vYKhOz7U
-	 WomK5yP+ew1C1QsQRZ14JBdskfXUOlvIqFQsTb5gzkJAYMCi3KMbavHOqDNasvOFYc/Pt
-	 OyEhNR7SV0jG6kXsasCHKjPuqqPARNv0cEJ1x7IzNd7WwywjvNmKo24FYXLR/5UXqRLvv
-	 BBNMsSvGsjN+LYfyw+PdJ1etkafj57moW+AqIJD7ykDY8i+dyJdK5fRMPLGirZExBXQ==
+	t=1794242985;
+	b=ovA+Uzw68GVzNFFDkV+YlFCOlikIIGY5/JuTSRbN/WHDsGdb0efZuGKb7A5dItUJ0KOC
+	 pIxw/1J7jj3tcqN0o7xsbZhdhMPZNr+e70oskFG3TfceGViQG8X/LGjO0KAu6Q+C28HgP
+	 2LE0fSM8qzEoap3ww4C5l463pLRWLyef2Zfa12GnxRMCAR4x1O4PWB982x/O2Z5ZfKrVk
+	 /XYjehdi7Y/FZaYy7LxhKBg73OsBw8fA09TxgUJjya1y48V4AFakY59ZP0lb9c+mCt3BS
+	 iOXA0sy7eo6cqC268Ilrub2mk8m7a14GwtLHE0/s1jauzwI76wV8svBDh1Dmr7jAeZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242984;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=0MUhxbWDDfH0Pr44fdAQRQQ5nxMYgF5W2NWtbwUlm6Y=;
-	b=18hNYwXscQ87PvdvYXPhnY311szPLYkOB6LI6DtQMeXQy8kaJG3DOjJjlSxt/okToylx
-	 EKVwqO/kvW+WvotK9pS3qlAFtakjYPkSKhxUMxyVE2PeNaQuBxbhBSZfweX7ke1YSX+BW
-	 B3SqlGMZsBBT/okVUBjNkvqrwuzXpWTUom3LKzvrZn8GR898XG8Hj39PjMATpFeRZR+7W
-	 en9dij63nz2N8jmUFJ4MZ3uZJygHgxXgoh54ZsVkXuv6QG7dI781GTinOQIidpMQqpBi1
-	 ZEmr4E13d1bIUAIAE+Ag6L51FW9Y4dMkwKrM8eGB9qiDhfoCVqO9nEXtjzNFsnc6DUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242985;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=ntK5gzbhUL208dXGGZmvcLVkuFXD/3KoPHqBMeHnBTY=;
+	b=w0rcyA9zb1E5qsQTE8lBHMnseGqvYE4Juf3A2ThREUQozH5IAwrqHqahukOCRvXUu2Aa
+	 kDuEmXpd0k6uIpWOIHofvotaTZibHopT9lT5UDsLV3AWC/Lz71OYGWduy2xg5iPrL0uID
+	 lWju+SdmAZOC7Awr6gfxUNiBmX+Dqm0H+o8L6F9tCaMKYxe8fXZzxy5FpLJsQ5/wpiAMO
+	 x4HEphR1ai2x9Kv0QRTcynOMY1Pb68w4Ex4SJ4/5th40EQGJBuSSZ3fnsoAgg9XWbQeTV
+	 /+z4gJCkcyM1ULDiK5gv4KHYZAxMTkYNAJbWIfp/sWqZKjRWy3aiArjXo9W5CK4rs9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KC7CguAf;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S4KYiYgh;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Hh58Y2/m";
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC59606A32A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:49:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAC59606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5649606A339;
+	Mon,  9 Nov 2026 16:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5649606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KC7CguAf;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=S4KYiYgh
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DFNM33589056
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 16:49:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=0MUhxbWDDfH0Pr44fdAQRQQ5
-	nxMYgF5W2NWtbwUlm6Y=; b=KC7CguAfa8iBs2P29e6oQQPgHbafjEd2ffGuL0DW
-	UqnHX5yB/jTghZ6hUFCCtTZAnWkk44cc9vx8MyLXLoLFZNwv4da0brsRaqfDMI5K
-	JvNoZxQvq9YfoOZqobJKRdjW+I8MQAGxjyoojtY8dFzaDyOHsGbfREfxdROcqHZW
-	dhiybZIRpy033tEJd76g1eOHGzm3jaOxWnqENtpN+TnWXRQjodKMMDnDb+TC5ccu
-	ipJrUzBlkHzfwRmNe3vma5jUPwP+c5xLBWoaWHKq6Dq1Aj7+SYj5V/BUhQTU4pU6
-	UjT6NdIlgOWEj4EvvcwMQ4TWUHMZLXnvOw0vP/C3gy2eAw==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hudcj94k6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:49:43 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7cc10da5ad4so179063137.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:49:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794242982; x=1794847782; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0MUhxbWDDfH0Pr44fdAQRQQ5nxMYgF5W2NWtbwUlm6Y=;
-        b=S4KYiYghSTSwwrSjsJ7a6xgKsLVHMyUM9E+pHccQFK7ny0VGNm1RRP97I+ZkU6EPFf
-         jiE2v1jvWH8P3ffVAm2cWE00E7TF01nHO6PmKWu1r+qu24QYP4+n2uKuH9Tyu0Dk1L+2
-         vrNHRr5hYiyFteV2CzpUE94RWum6vK1WMYX1keOcOEM4GFCjiHbN/vL8LevPTUhJulCy
-         /AblkjbJ2pU+HYF1q6tmrNOWy32FgychJtCt6y8xnmWB+5V0gA3zT9boTP+mQs/4z4CV
-         S/xeduoo/RtG6y5NqxMaApLR4PxDPCkuFOjAasnpMebAFr0i3KzdhpE97porFEM5x5qP
-         9AiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242982; x=1794847782;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0MUhxbWDDfH0Pr44fdAQRQQ5nxMYgF5W2NWtbwUlm6Y=;
-        b=UQiduAG3E/Dq6TLdTrD/pqtuHZaKRN3QCZdiDmf0DcW4i4GvsGqmvzR0zez9yd1Ea8
-         SD0oLCofnQDL3BFHzd96JrVQs61MrFscVVgrcnEiyoGL+4t1B4gpTtF5IYf5i/nFHWwY
-         Od6ZE2WtLSy3F6W+02leN0iAn7BOFA5C9P9K+9EoqjfV8KyuulSMX1KDKprmtKbO+3RZ
-         I2ImcbNNLNZuBvdEuWZ2VcFcwofIiuVVbSNmQURojDCrVYv4zjt+fb/zaPLtc3+Ov8bc
-         o0bqkp+adJnRHMZ7JoAc+lJ540WtRQquq0j3t+gn/YJd7Gn0VGVD1Pl67Qy9qlBIdhHz
-         TidQ==
-X-Forwarded-Encrypted: i=1; AL+hErEDD+T1srfWKL67OEOHYfHTxSsjOAJmnKpupJ4KcY6Zo9ZX2+FZYIIh3Oz4c+Eto/ed3Ez7JKpRQ9NLLiA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Q6ekeTxj+Zn4iamcn2MU5MclscqITiZhjyWXjPe11GXWkwB0U
-	67uK/3pEhiKAG9BEUTXx0ou/pnQgv9vLVKLQbD2XD63eGuZQjw5otZ/wpmVT0h7BKcYeb7C3N7E
-	IPqy0EXLRWO8RQOKlBik4ayz2TJ8RLG5DeW2CuMJ2KfqQZoY6h1a1g+vuUCV0oTtQCYk=
-X-Gm-Gg: AYBFou2s7P9qjYTGafP9Hfy4YCs20yY8J+XajycFV5FPhwAHYpEzRIdECTlveOP1igB
-	anHsLlhlxxc03shW2uNWY68nRQdJCLcXVhOAB3pwB5+gPJ1BTCH96jMIQI/XNjXX5p5KRQARKo8
-	C0AaF4mHz9j22oCWSoEsTG/izCueAL3CDQXnzhbvdTiaHcHdxDliIytZJB9fZNoQOib01CdxgHz
-	FlfUV4aLyFxVhwnCXx3iEIXR9leOt9Os7+c/8G/yzMPk/FXIbRrjt6djJ2980KyY+f2wvaavS5S
-	Nc27i7Cmc5dOReEJNYZK6y+5m9GhnP69ZpKL8mtYTvUL0OhSzsYmLbYlhhpX5Z+k7eEN+AfdqsO
-	aEeKVf/JRA2wGRlvrRLFX4MafSD1UmuhE/DBKJ602IB8zh0Cj0TojRIlNm2X6FZE=
-X-Received: by 2002:a05:6102:548c:b0:7c3:9a36:bbda with SMTP id ada2fe7eead31-7d2daaad4dcmr1467425137.5.1794242982020;
-        Mon, 09 Nov 2026 08:49:42 -0800 (PST)
-X-Received: by 2002:a05:6102:548c:b0:7c3:9a36:bbda with SMTP id ada2fe7eead31-7d2daaad4dcmr1467408137.5.1794242981355;
-        Mon, 09 Nov 2026 08:49:41 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fc8abcsm629675e9.9.2026.11.09.08.49.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:49:40 -0800 (PST)
-Date: Mon, 9 Nov 2026 18:49:39 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: mahua-crd: Enable DisplayPort
-Message-ID: <3ldmalxx2qiphh2bmkru4dgf4j5k4q5rlhsn4urbwmwxit72zh@7bzssinqivhy>
-References: <20261109-mahua-dp-v1-1-c1fdfb8eedb5@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Hh58Y2/m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794242985; x=1825778985;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=ZYrr7yXEcAfkqcNTcDNMdpQscFbDq1OMas0rdq8GxKg=;
+  b=Hh58Y2/m/ID3pC84/h0JqekxrZlrLRLAv/7PoNz6TycPO4OS7MzdEDRr
+   iWAyGAdCohTSTAjnzR+f1phLGy9RwLIupVJpSeklLWU8YdstdmshPzA4/
+   lFAn7VWBp5TKeFhr4I0nG8X6x5pi5ZE5TYM2IhnhYZETNWdhkXi9ddsQ8
+   XrHtCtgWgE2cMo4avQNZss2Vv9jjh1wPE0W21qyztnfdrvRGJQmeuW1Fo
+   7tiUzPJ5uoeCS+v4TrhpKbM1tu8QGOw5z8V5Vo2LvOPEPkVasDig5kipC
+   JJ2+ADlsZIj6PElA6eoCLAiwdJ19Ba1NgI4ZC2HAIWzvXxWLQM0yCSFIG
+   A==;
+X-CSE-ConnectionGUID: m1Wc4WmKT1qONzODaw8aMQ==
+X-CSE-MsgGUID: FfJLgKQHQRWMgJNVPceCNA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3005200"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3005200"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:49:44 -0800
+X-CSE-ConnectionGUID: /YFCPKe1Q7WTUqSiMEy4Bg==
+X-CSE-MsgGUID: IrGSkU9xSQG+QaYaBWhvfg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="9653170"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:49:42 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 9 Nov 2026 18:49:37 +0200 (EET)
+To: Rodnei Cilto <rodnei.cilto@gmail.com>
+cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+    Ike Panhc <ikepanhc@gmail.com>, Mark Pearson <mpearson-lenovo@squebb.ca>, 
+    "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+    Hans de Goede <hansg@kernel.org>, linux-input@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 2/2] platform/x86: ideapad-laptop: add CapsLock/NumLock
+ LED via EC
+In-Reply-To: <20260628-ideapad-kbd-leds-v1-2-50b421d94927@gmail.com>
+Message-ID: <82a8e236-d219-3ce5-f6fa-c5ff23d910c3@linux.intel.com>
+References: <20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com> <20260628-ideapad-kbd-leds-v1-2-50b421d94927@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,44 +82,265 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-mahua-dp-v1-1-c1fdfb8eedb5@oss.qualcomm.com>
-X-Proofpoint-GUID: snVR2t5qecviD5vNArDoUYSdGD3t5OIG
-X-Proofpoint-ORIG-GUID: snVR2t5qecviD5vNArDoUYSdGD3t5OIG
-X-Authority-Analysis: v=2.4 cv=au0nmiZV c=1 sm=1 tr=0 ts=6af1f9a7 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=ArbKvjEle962CzFOaqYA:9 a=CjuIK1q_8ugA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA2NiBTYWx0ZWRfX2VFXf9dSdzk7
- JvFYX3B7+ZclFz9v/INhRHIY7JMzCJeCjkHt4T8Yt2JXQUk2TVa1FmHIWqfBOYSWZ4jQltZJabR
- lnYn7jc73G3IORBDsm0gy+jeuXQROSA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA2NiBTYWx0ZWRfX9pUCJsfCKwmV
- U/Ixb5Zj2e0OIeHna7c0/tN4c8daKx0OiMoaSYVXFxp5IFu2swIbtJ+KUfqAT2fOJk7QERA5NVs
- 6at5usuBS5hD7wzHXrnfZ89pWhDqyuobKcv14ZlTiZotTn2ffxsYb1hVi5vliREu7To878YAVxr
- dBmJK5uYGftJcmg5eJR9w1VVgADc0kHgJrKVMByA4beae/evTgeIOsSjB9YSmdckKgJtlSdThO2
- ExqjjkBoagrOIgrsz2o6duNv5MY73i/wcPJ+q9A4YwxSyrMfwwIXF1oHhHrIom4o34H3XmBHVNG
- AKrvGQPhqVtXNIPXjXsS+SqxESQnvV7kTyvguVeO/u7IRaYoq6LahK/BtWbbtllMHH6P0LO7yW1
- fy+86NfzdbTzrQ51M0SOsUen2cnBe2O3pZUF29wYZpAKUZfC21UwhCxLsm2IOfMzY5jQiJ8YLsx
- kjNfBKw/dxcKM4dK8Kw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 suspectscore=0 bulkscore=0 impostorscore=0
- phishscore=0 clxscore=1015 malwarescore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611090066
+Content-Type: text/plain; charset=US-ASCII
 
-On 26-11-09 21:20:00, Nabige Aala wrote:
-> Mahua CRD uses the same DisplayPort configuration as Glymur CRD.
-> Enable the two DisplayPort controllers associated with the
-> Type-C ports and define the supported link frequencies for
-> their outputs.
+On Sun, 28 Jun 2026, Rodnei Cilto wrote:
+
+> Some Lenovo IdeaPad laptops (e.g. 83RR/83SR, Wildcat Lake) have
+> physical CapsLock and NumLock LEDs controlled via the EC.
 > 
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+> The EC exposes CAPL (bit 5) and NUML (bit 4) at offset 0xA1.
+> Writing these bits via ec_write() and evaluating _QDF via
+> acpi_evaluate_object() causes the firmware to sync EC state to the
+> GPIO lines that drive the physical LEDs.
+> 
+> Discovery via DSDT analysis on Lenovo IdeaPad 83RR (Wildcat Lake):
+>   - CAPL/NUML at EC offset 0xA1 (bits 5 and 4)
+>   - _QDF (_SB.PC00.LPCB.EC0._QDF) reads CAPL/NUML -> SGOV()
+>   - GPIO 0x001A1087 -> CapsLock LED physical pin
+>   - GPIO 0x001A0485 -> NumLock LED physical pin
+>   - ec_read/ec_write exported via EXPORT_SYMBOL in drivers/acpi/ec.c
+>     and declared in <linux/acpi.h>
+> 
+> Add two led_classdev entries (input::capslock, input::numlock)
+> guarded by DMI match (features.kbd_leds) for 83RR and its Brazil
+> regional variant 83SR.
+> 
+> Signed-off-by: Rodnei Cilto <rodnei.cilto@gmail.com>
+> ---
+>  drivers/platform/x86/lenovo/ideapad-laptop.c | 143 +++++++++++++++++++++++++++
+>  1 file changed, 143 insertions(+)
+> 
+> diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
+> index 4fbc904f1fc3..03e3f234067c 100644
+> --- a/drivers/platform/x86/lenovo/ideapad-laptop.c
+> +++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+> @@ -42,6 +42,17 @@
+>  
+>  #include <dt-bindings/leds/common.h>
+>  
+> +/* EC keyboard LED control (IdeaPad EC PS/2 emulation).
+> + * Validated on Lenovo IdeaPad 83RR (Wildcat Lake):
+> + *   EC offset 0xA1 bit4=NUML, bit5=CAPL
+> + *   _QDF syncs EC state to GPIO -> physical LED
+> + * ec_read/ec_write declared in <linux/acpi.h>
+> + */
+> +#define IDEAPAD_EC_KBD_LED_OFFSET	0xA1
+> +#define IDEAPAD_EC_KBD_LED_NUML_BIT	BIT(4)
+> +#define IDEAPAD_EC_KBD_LED_CAPL_BIT	BIT(5)
+> +#define IDEAPAD_ACPI_EC0_QDF_PATH	"\\_SB.PC00.LPCB.EC0._QDF"
+> +
+>  #define IDEAPAD_RFKILL_DEV_NUM	3
+>  
+>  enum {
+> @@ -198,6 +209,7 @@ struct ideapad_private {
+>  		bool ctrl_ps2_aux_port    : 1;
+>  		bool usb_charging         : 1;
+>  		bool ymc_ec_trigger       : 1;
+> +		bool kbd_leds             : 1;
+>  	} features;
+>  	struct {
+>  		bool initialized;
+> @@ -210,6 +222,11 @@ struct ideapad_private {
+>  		struct led_classdev led;
+>  		unsigned int last_brightness;
+>  	} fn_lock;
+> +	struct {
+> +		bool initialized;
+> +		struct led_classdev capslock;
+> +		struct led_classdev numlock;
+> +	} kbd_leds;
+>  };
+>  
+>  static bool no_bt_rfkill;
+> @@ -1587,6 +1604,99 @@ static void ideapad_backlight_notify_brightness(struct ideapad_private *priv)
+>  /*
+>   * keyboard backlight
+>   */
+> +static int ideapad_kbd_led_ec_set(u8 bit, bool on)
+> +{
+> +	u8 val;
+> +	int err;
+> +
+> +	err = ec_read(IDEAPAD_EC_KBD_LED_OFFSET, &val);
+> +	if (err)
+> +		return err;
+> +	if (on)
+> +		val |= bit;
+> +	else
+> +		val &= ~bit;
+> +	err = ec_write(IDEAPAD_EC_KBD_LED_OFFSET, val);
+> +	if (err)
+> +		return err;
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Hi,
+
+Don't you need to protect this RMW sequence with a lock?
+
+> +	acpi_evaluate_object(NULL, IDEAPAD_ACPI_EC0_QDF_PATH, NULL, NULL);
+> +	return 0;
+> +}
+> +
+> +static void ideapad_capslock_led_set(struct led_classdev *led_cdev,
+> +				     enum led_brightness brightness)
+> +{
+> +	ideapad_kbd_led_ec_set(IDEAPAD_EC_KBD_LED_CAPL_BIT, brightness != LED_OFF);
+> +}
+> +
+> +static enum led_brightness ideapad_capslock_led_get(struct led_classdev *led_cdev)
+> +{
+> +	u8 val;
+> +
+> +	if (ec_read(IDEAPAD_EC_KBD_LED_OFFSET, &val))
+> +		return LED_OFF;
+> +	return (val & IDEAPAD_EC_KBD_LED_CAPL_BIT) ? LED_ON : LED_OFF;
+> +}
+> +
+> +static void ideapad_numlock_led_set(struct led_classdev *led_cdev,
+> +				    enum led_brightness brightness)
+> +{
+> +	ideapad_kbd_led_ec_set(IDEAPAD_EC_KBD_LED_NUML_BIT, brightness != LED_OFF);
+> +}
+> +
+> +static enum led_brightness ideapad_numlock_led_get(struct led_classdev *led_cdev)
+> +{
+> +	u8 val;
+> +
+> +	if (ec_read(IDEAPAD_EC_KBD_LED_OFFSET, &val))
+> +		return LED_OFF;
+> +	return (val & IDEAPAD_EC_KBD_LED_NUML_BIT) ? LED_ON : LED_OFF;
+> +}
+> +
+> +static int ideapad_kbd_leds_init(struct ideapad_private *priv)
+> +{
+> +	int err;
+> +
+> +	if (WARN_ON(priv->kbd_leds.initialized))
+> +		return -EEXIST;
+> +
+> +	priv->kbd_leds.capslock.name           = "input::capslock";
+
+Documentation/leds/ example seems to have input<number>::capslock ?
+
+You should also cc leds people when sending v2.
+
+> +	priv->kbd_leds.capslock.max_brightness = 1;
+> +	priv->kbd_leds.capslock.brightness_set = ideapad_capslock_led_set;
+> +	priv->kbd_leds.capslock.brightness_get = ideapad_capslock_led_get;
+> +	priv->kbd_leds.capslock.flags          = LED_RETAIN_AT_SHUTDOWN;
+> +
+> +	err = led_classdev_register(&priv->platform_device->dev,
+> +				    &priv->kbd_leds.capslock);
+> +	if (err)
+> +		return err;
+> +
+> +	priv->kbd_leds.numlock.name            = "input::numlock";
+> +	priv->kbd_leds.numlock.max_brightness  = 1;
+> +	priv->kbd_leds.numlock.brightness_set  = ideapad_numlock_led_set;
+> +	priv->kbd_leds.numlock.brightness_get  = ideapad_numlock_led_get;
+> +	priv->kbd_leds.numlock.flags           = LED_RETAIN_AT_SHUTDOWN;
+> +
+> +	err = led_classdev_register(&priv->platform_device->dev,
+> +				    &priv->kbd_leds.numlock);
+> +	if (err) {
+> +		led_classdev_unregister(&priv->kbd_leds.capslock);
+> +		return err;
+> +	}
+> +
+> +	priv->kbd_leds.initialized = true;
+> +	return 0;
+> +}
+> +
+> +static void ideapad_kbd_leds_exit(struct ideapad_private *priv)
+> +{
+> +	if (!priv->kbd_leds.initialized)
+> +		return;
+> +	priv->kbd_leds.initialized = false;
+> +	led_classdev_unregister(&priv->kbd_leds.numlock);
+> +	led_classdev_unregister(&priv->kbd_leds.capslock);
+> +}
+> +
+>  static int ideapad_kbd_bl_check_tristate(int type)
+>  {
+>  	return (type == KBD_BL_TRISTATE) || (type == KBD_BL_TRISTATE_AUTO);
+> @@ -1832,6 +1942,29 @@ static void ideapad_sync_touchpad_state(struct ideapad_private *priv, bool send_
+>  	priv->r_touchpad_val = value;
+>  }
+>  
+> +static const struct dmi_system_id ideapad_kbd_leds_dmi_table[] = {
+> +	{
+> +		/*
+> +		 * Lenovo IdeaPad 83RR (Wildcat Lake) - EC PS/2 emulation
+> +		 * controls CapsLock/NumLock LEDs via EC offset 0xA1 + _QDF.
+> +		 * CAPL=bit5 (0x20), NUML=bit4 (0x10).
+> +		 * _QDF drives GPIO via SGOV() to physical LED pins.
+> +		 */
+
+Put this comment before the table and generalize it such that it doesn't 
+start with the model but only given that as an example.
+
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "83RR"),
+> +		},
+> +	},
+> +	{
+> +		/* Lenovo IdeaPad 83SR (83RR Brazil regional variant) */
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "83SR"),
+> +		},
+> +	},
+> +	{ }
+> +};
+> +
+>  static const struct dmi_system_id ymc_ec_trigger_quirk_dmi_table[] = {
+>  	{
+>  		/* Lenovo Yoga 7 14ARB7 */
+> @@ -2178,6 +2311,8 @@ static int ideapad_check_features(struct ideapad_private *priv)
+>  	priv->features.touchpad_ctrl_via_ec = touchpad_ctrl_via_ec;
+>  	priv->features.ymc_ec_trigger =
+>  		ymc_ec_trigger || dmi_check_system(ymc_ec_trigger_quirk_dmi_table);
+> +	priv->features.kbd_leds =
+> +		dmi_check_system(ideapad_kbd_leds_dmi_table);
+
+Fits to one line.
+
+>  
+>  	if (!read_ec_data(handle, VPCCMD_R_FAN, &val))
+>  		priv->features.fan_mode = true;
+> @@ -2418,6 +2553,12 @@ static int ideapad_acpi_add(struct platform_device *pdev)
+>  			dev_info(&pdev->dev, "FnLock control not available\n");
+>  	}
+>  
+> +	if (priv->features.kbd_leds) {
+> +		err = ideapad_kbd_leds_init(priv);
+> +		if (err)
+> +			dev_warn(&pdev->dev, "Could not set up kbd LEDs: %d\n", err);
+> +	}
+> +
+>  	/*
+>  	 * On some models without a hw-switch (the yoga 2 13 at least)
+>  	 * VPCCMD_W_RF must be explicitly set to 1 for the wifi to work.
+> @@ -2477,6 +2618,7 @@ static int ideapad_acpi_add(struct platform_device *pdev)
+>  		ideapad_unregister_rfkill(priv, i);
+>  
+>  	ideapad_fn_lock_led_exit(priv);
+> +	ideapad_kbd_leds_exit(priv);
+>  	ideapad_kbd_bl_exit(priv);
+>  	ideapad_input_exit(priv);
+>  
+> @@ -2506,6 +2648,7 @@ static void ideapad_acpi_remove(struct platform_device *pdev)
+>  		ideapad_unregister_rfkill(priv, i);
+>  
+>  	ideapad_fn_lock_led_exit(priv);
+> +	ideapad_kbd_leds_exit(priv);
+>  	ideapad_kbd_bl_exit(priv);
+>  	ideapad_input_exit(priv);
+>  	ideapad_debugfs_exit(priv);
+> 
+> 
+
+-- 
+ i.
+
