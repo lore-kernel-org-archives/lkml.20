@@ -1,93 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.129.82
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794258990;
-	b=ebGJAa36liisnByO0xJfWsFw8umS77ryOtXTbZ2jNVUSia/uMc/sxXH12DiFAO93CrdM
-	 xDlPgTGS3ivFVKkabAhwedCfvs9PfegZrpBN5XEfL+wspR4MnPzwHGvkARRfOjU2OJZCQ
-	 TahVhddjAMVswcvS2aeRVBpWk9SXYoiKSpYFHNGiF28/0qxBJ8UydCpcn8YVdZhKGQNNw
-	 6IdW2Jb5ooHJmDAwW0lAYAU5cTtF3bXKwb91RC/TaIy9iHyfgWRtL5GjJwD+WSW/SAU1F
-	 IFg0e5NzsrTVkR+Uy66e0PHIVhPcQSFpk4BuNj5kLNf1e8UfWICWVXnQx16xGrxd/UA==
+	t=1794259051;
+	b=pOer6mdRVBjsM3NmzWwVQLVKi9dyAc9qvagLBCeKiA1Id/U5azw8tBo1Vt5lOsl62G53
+	 tylsOHA2gtBZlakkIJ+CCJ0med0Uur3sSnS2Cei+KL55vxk2JG7S4a0k6VqKbYfhE4pY4
+	 b11MQiD5LUAh78Snxd7dujVxfdmGusRzes2biJaACrZR2LBboQfEeqdl02XXPE0LcuIlo
+	 SRQYuk5vRQ8hkynY2ywTZD/mlzfJ/akskk6cXFZbFsKTYb6NRTXKgx9EuFTmwJzsmAfxi
+	 seaX1TBig0GsC7CuFt5E8l4qHXRFQOzRzHdJJU13u8Z1ejgglHjKnsSkzJ51WbLRHfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794258990;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794259051;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=vURM/ycOWtNcfROgQ72z0JMUPAmEvRYCw8hhtZdgFRk=;
-	b=Am+LDvRYCcQdi9ZEwRagQCwO3JnamIELmSWeKCdMDUjmmUoWiUaegp6T5+wexnAQiEnN
-	 y7C74tyvB9mDD4NTPFuliIExwTTqMwF/gBdgfF0J3Mm/5fLYdJ7rMz6aG2hqM+Q+CwWNA
-	 SzcHx4yxA8raKbcnvod+Vc5Sn7m+IpG9qqVMaBXtxBMQ6UXa0/45Psq2aQ9XxD/BVzoZj
-	 3DCD5keHD0bU1gOq3gCUqhHWlyKtXWzAahTYk6FJm6/3EuQAUMiBo11llo24qbFh84r2+
-	 AT2K9Yvxf2V3qtISnW/XllbLoP3oWJfE/lPn9+uspd0JuQVa34aF7RG+mU7K0n4EOUw==
+	bh=JEYXfU1U8URc2Pv4E4ZpGfok3ipwYXJn6tUppDNmvZ4=;
+	b=zNnuBeJCj9XXhLrmiSEWHY0Nxu12i24CHwLnLWKoBFZm57R2C3WsCJ5VIdX2/4USPHW+
+	 qcKYkXvtnoHWMwT0oywDxQsk+K/KQQFv/tjFIGAzJGzDA9FsubkJct56yGY4XHZcIh5nB
+	 YsuN+uYBAmFyBf4N4+vkCGDQ+TY3qfkHTNR6YF7cZsVT78XZ0aKMTaybXSLqBO7bN4E5L
+	 QqkJt1H91Ro4q8cO98bybxjJU3elje9gjD9P7FBiyDHr8LvQSvV7UcmRDS1RntIiJLcIr
+	 NfJ9dtBStMBAFYThmWFeBvtRQvqkxb7xTMaJPcJMNh0fdWq25VROrGamjjZSPfZxbbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MgmtA6b2;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b="OlSmHg/F";
+	arc=none smtp.remote-ip=74.6.129.82
+Received: from sonic317-27.consmr.mail.bf2.yahoo.com (sonic317-27.consmr.mail.bf2.yahoo.com [74.6.129.82])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B4D606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:16:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93B4D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F445606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:17:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F445606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MgmtA6b2
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so9826645e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:16:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794258988; x=1794863788; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vURM/ycOWtNcfROgQ72z0JMUPAmEvRYCw8hhtZdgFRk=;
-        b=MgmtA6b2fe2WIcS70GTp+kgCwjUwkfW2fyiPRqoacbm1QAOB12xEdROeA42cB2H5sT
-         73eCYA/Fa4go87r+TbcL/qlITF7hJSdH5dOjFBeBYUAxOSu0VPbKDrRzZfnFzOeS2XXo
-         o2Uh6ZQM+SEfnwEYWyFlivd3D6zUak+h+aTUsePbAHVVyHIB4jpCGfbMbwf7OxyayXzk
-         0K79nXEozl4JrV5y1QAh2vgzvVEvzu90WaVJaHEGQvfqXaUAwtWkAd6ztm7VOobzlBmL
-         3+zT4c4y/hktKpwsCM+zI50yWWxNBSPG73fGdKw5aQ3Als/DryewE89974Ftv+oDDBK1
-         tdJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794258988; x=1794863788;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vURM/ycOWtNcfROgQ72z0JMUPAmEvRYCw8hhtZdgFRk=;
-        b=umj6seto3oXlqsZZbm1hxPQiDGDuoDOwZ3Wry0oKfhWgVLomUZq+zTfjRn0irzK99Y
-         zsnqTAhpZpuG4/PY+94Dc+0SbQUprkgJjSkaYgnojV041LPAz0K3Tv1/keMoKHp/vX4z
-         BWajwkAi+ULsftddYB1r1DWWZwPcmMZFNirqyWxxaqZgV1akkRVhXKrWrSPan27gtyzk
-         Ri6XnkdAEE+EscgX9PQzvrtW+cAYgypFzqTdWQUy+2qlI0AZjyER1D3EQs+OXOdRrCLK
-         oQ4mi1EWOFO4r3DNIhxBfbJQR6BV6Q4E/5kU5uQWH3T8JtHJb6qyDrhvvias//7k5kGN
-         Jmzg==
-X-Forwarded-Encrypted: i=1; AL+hErFXByO+WhJMaJl3MndKaGnMsTMCOSp44CX+Rs21KrAbLXQWf3nFmr7xABO4jW0Gy3C7ywupruBXwubfTM0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9YLluZ4PmHBf7aJDsfOVxQJ9HKY71/Ja29f5L1IGbIOCguiVZ7
-	1yvqIYq8qGKn8kJ6HFZWJjS08lNXfFwasCskzqZaoxUm2EfzsBgUF2wY
-X-Gm-Gg: AYBFou1hmjpZez4AwAXcH3Iqi6kNqDBIkp9/+2ZjfYIPypGN0gp3ACKv8v9IavRud/I
-	TTwxxeaQeLh13OnaAgJE1OeGzQyfwmR/naOXzK3gkNMofFdW9g9VWvKZ4erIYfvQWRi/x9D3KiF
-	d8boomPDsG+UuYqqjRJx3Mv0VYi2ztHbGz32Qs1CsUhtK5wHZCA6WgDWodzs4AFH+tCPm7aQESu
-	pQaRrD/asW+RLnpKNSd+i/wYnkLKGAgx0AKKJU0jRhoMLP2Dv1g4tOUavoJ+d3mb/rRlrA0T8z7
-	xnrLOj1piw3ZmJ38uNJkba8mEKMshJrlCg1q05OFtwHOEI4vt5u/B17iF2aiIaVO6Jg1hvb74sL
-	FVy44zLBL0XuuYfKie0iREUGB1vH77qUeEQs1t2Yt5w0i/BV3t3wUZ2HpM/Wu2S0EBtxyMtZRtO
-	Yjh7Jl+goCOLc7yu7X9QmIxxYCIu9LLjSvKM9EMvtYSV2IJQgfj02GNRs2PSdDGWqwutZW3pHz/
-	0W/6rTjaSkGd7DWixlaXXxiGxJwgEKP8K1Q318WIG6Y7CmSkGGlyc6cpAqtcgK72n31DG51IhkP
-	7FtuE3p6XKQWD4neryJvbi4mDi4HdOSuek0DRgV+kNSBb1AYhTrj4LwQSODO2HRFNjPPa+vvr+g
-	hSFxjn3YubMnCnTURWPizwhb3SKZLfqcfGhv60bhra8GI
-X-Received: by 2002:a05:600c:6291:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4ba0234ead8mr7663955e9.22.1794258987873;
-        Mon, 09 Nov 2026 13:16:27 -0800 (PST)
-Received: from PC-DE-MARCUS (host-149-154-244-77.dynamic.voo.be. [149.154.244.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01fe2f09sm17550795e9.4.2026.11.09.13.16.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 13:16:27 -0800 (PST)
-From: Marcus <baronmarcus2005@gmail.com>
-To: nathan@kernel.org,
-	nsc@kernel.org
-Cc: linux-kbuild@vger.kernel.org,
-	llvm@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=OlSmHg/F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794259050; bh=JEYXfU1U8URc2Pv4E4ZpGfok3ipwYXJn6tUppDNmvZ4=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=OlSmHg/FUKOhRWfmKE7j8Ac2XMNl+zoEGewIx9k8o9wWrP/55uFDVjINBmUDXvKljHlbZrOkUt8NC3fV4jt8YR9vsAl5wAPd8MF0zhhqw+z/VGt7549iVGZr6dxDA5pyXdqAKQyixrkMKoaWSOMYx8uusYjc25hU1aTPq5VTtRYH9ayM6jVZGw7nwpG/pAqobbsb98WciZr1DLI2dn4namA5Fc6Sa4md414z60H2+V/qcdAR3FT8olSX7Vx/OrHRaHnmXiMWXcKaa4VNjVNCLeHf6U4h947+a3XwYzF/9Z1PtgsnFudzb4ybNxmOV6wV7VrsYf6CqjOf6CwpM725zA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794259050; bh=0+TYf67+QjJoeQRcKp42ARBIsirGSgU2qRrgbgDZkMo=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=pY4SR4AAJpIhMlrvOOomJw+hsKp3AVuyZF5jYyHVwFyDDWe2GXq1tPpZCZnp63Nfj9wPMpNh80aMXMcIl8HGSxYpViHztTNAkiASw4skLXq+kh89EH7F6mkhH496X1hdkqWhpzUoIbBCbBVeD1Q08fc6jhWL50Miz7tHKo8oscMeWkUQd4IVECJ/HhNaZ7XjLYHvXtIJAhKzJSHsltznDC52jvq+FLhWg3NqxYSIFENPstlwwfE74+GiGAjMOqSSXAI+CKoJQI3psb6pshB7h9twYXAjM/MnjgVNJinbIrhy1tTobi9wPpZ/bVhkYIt5vORcD/3xGdNJGEZrUzrLaA==
+X-YMail-OSG: Tgl8SNMVM1lVrN5jVoNX4.jTIPQmpt9M9h46xfk9v.Y0QtLfdMB1wmYmgsKOyIl
+ B_wUph1Ku6VoJ91I0jM9n8zIijrP6tKkqfnUUIn3b2EW1VahwXSSKvmIXdgrdcXw07c4pE.DtFMh
+ h9vfV5q.FpFLwm6aBrOeN1c5j7j_BgJswmdjzSafVfU4hosYdotPC4rCtS1HAoCD9U92i87VOnV_
+ x5Qr3_EXWrSr7Fm51ymQ7JIyLUhYZ6oZygsyhpm0uVMVaP4XQHDw3hTqTNKFrSdyD_ZB41dUuU8l
+ kudPWk52fGw4x5nIraJd8qV_dz16TWb0afVRSpuBxf.gu3gsBCTTACpblGsn1BvE.7BXwSDVX32j
+ QRoypnKipohpe1ZgBHbjDDZ5YlJP.9pBB7yOxEIRKVCfSLsT3p049VaFAUweqNG2lvorlAaAVv3l
+ gQiCEZQf0rDnrKExZt_fdnPurl86me1_Vsbn9rOcInUem63Z_aeZEIOdaIfrkXsWWVEDNYk.1iQs
+ rzpFlPAQ9tkzEVUrn4z7HTVHiHQh4JrU8C5qYwqTCuUU9iJl1gZx4.0Uyn.ouBiXRcE.DdXTa6oV
+ 7CvQO4v1SAEEM9ZJf.rexQNRFqilNwJ1qTuxEY27TMXSrxiKEVLx2NpcAyY50w02ZF_gynVI4EuR
+ nsd6gv7yrzsaeqHW3DHgXvGu2PtRHai3ce_hB7H7Vz698DlIVv5Px0kbpodgOKxeBf8pGl.SCrFB
+ 4kvz7ojVrMH8jN.5s_gvuROWpCsy6zXfOuvjWUoceDlH.nS4Z4zd2ETh.6Gf_MzGF8Fqa.n3sIlg
+ 9S.lUNwUO.E7bB47cSwRRbtmTqtt7AvMVVSEF3HyPlFdAvjmVFcaskAiJU8IIvFri.uhrfvC9r3c
+ VnaTce.7Dqnk1X.ELU5wAP2o1hJA2_tlbRFdQs2Fu6yDJREqonEMISU2OsWCAdq3k7WkGPzi_0lb
+ JaEzjsmpd6laIpHVN3Ei0lUTF2MqYqMAcJNmmbsp_V_GByyijEskOK4TOmQdmWmc1BoaHU4FGHQD
+ 2VZtGmB5e.gHtncruPAj53rl88hZan1zzDkSeXpeVhhHZfZZWGh_7OHdeev80lOCJBQYYT5AwOZZ
+ gjH2oa0DFB5g8iu2shM8GkF5zJqVG0RQQCTFzWpb3Ot00pc3ta36xjGhfDeiUx.gdXYVQ8CSE6VZ
+ qC1mEAJZzrr5aHWpP53RydxroGbCaFeSFFLmzn0KAd0kO1eW8hejKCPLXtZc3IiEfpl8j25NJB1M
+ hGAKMPklAfuWsmRCm237ltzMXmLuM8nK_14i59B8ytvwf1PcmSbY6QLqe34WAROUrmiG1axogaeA
+ EvcLDJdlX_U39zrcbX7IXPY9y9kkTUlVzjtgSXksR4juifMPqkH0fYvLVA97lg5EWAKDaZbR9nbZ
+ tQFb0Qw8JHhSfLf5wRrOviIiJlX5_cLPcuui4BzI6XJkViZbypDyD_ly.dfV.OOkK6SdocQf7dV9
+ Iqea8gFh35fqg2Qew6pXex77nLcTijSqSTdXlcyuUTXs61iNnDN8HK0FBvTnaC3IIvAwl7Xqr7SF
+ 8SovI_cAF4YtQ4ORZfTyt8MyccI95N24TzOlqDL_VrnVrQ1UE9Ljt0TpUla36drFusGjZbu9ra54
+ UCVVzOjEmSMSbAkSi0S3xzTpDqTx5qi9qTxGkAN6l._cUmRVhvmG_9k0GPB0IjJNMKUrhcUIkCS5
+ FoMkaXCkwnYyYfd2XL2uMWJBQQ4GPKKvx6nTJ1Wtn_WFph9o1MaGkyzeXDPZWRNrwwwaCEtJ3ozj
+ dtxzfLsexRY6Mlb9DBOy4beAaBz7vm0CFvovUJlwPiKl3MgY.zMYROQaugR2pSDrNmBM3L6YFteX
+ CuTjtWULpapYo4yl6sY9FvEKvji36YMTPJHR2h5E.zQfuiMwIbFkpZ6o0LotzsEc4t_OlFiQvePZ
+ Of4SUAH3gMJ44WYCLWxykI409ZKS4uZ47VAoBQrqipDEWomsydjfzM9kiZtElD4eOg4XjJxp2IFn
+ q9DMbCQUKuxg.59ObkbSW9HI2btaLGqZ37blwe1rG0dlqW9IydbkcajWQpYdJ5wx0PwN2m.9pGd2
+ wn0xUdrJ5WkE1Oi342F2TxoF9NesYfOSV_atXkuLgMAWIONZe.hDauvaKK6Pb_MYhggaeOgLYdlK
+ Kdk2iX4hFGN7tgvG6NXAQYhJFqGCFK6p9zBOVemHxFPI19vphxGNKPgx2pIUUOdOsuQDOQ.CzZly
+ sLVnBln9TVBBHQLhlCjcZRQ8aQRPsPZXykA93bPf4Fk2ulGzeoYFh4cIBGd0i8.0lGkngYg1E13Z
+ W3b5pCkPuDz.0FhsoGtsPKbA9OV_JgHM3hO4Y
+X-Sonic-MF: <laurian.iacob@yahoo.com>
+X-Sonic-ID: 1b7985fb-3b4d-4ae8-8e1a-4586d8568523
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic317.consmr.mail.bf2.yahoo.com with HTTP; Mon, 9 Nov 2026 21:17:30 +0000
+Received: by hermes--production-ir2-5dd9bf4598-c45bs (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 90404a0c6e0834d8f8b330b4d7fcd50a;
+          Mon, 09 Nov 2026 21:17:28 +0000 (UTC)
+From: Laurian Iacob <laurian.iacob@yahoo.com>
+To: tomi.valkeinen@ideasonboard.com,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] run-clang-tools: Resolve the compilation database before changing directory
-Date: Mon,  9 Nov 2026 22:16:18 +0100
-Message-ID: <20261109211618.1496-1-baronmarcus2005@gmail.com>
-X-Mailer: git-send-email 2.51.2.windows.1
+Subject: Re: [PATCH] media: i2c: ds90ub960: use scope-based guard(mutex)
+Date: Mon,  9 Nov 2026 23:17:26 +0200
+Message-ID: <20261109211726.8316-1-laurian.iacob@yahoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261106114859.1579-1-laurian.iacob@yahoo.com>
+References: <20261106114859.1579-1-laurian.iacob@yahoo.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,47 +95,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The script reads the compilation database relative to its working
-directory, but passes the same path to clang-tidy after switching to each
-entry's directory. When the database is outside the build directory, a
-relative path can therefore point to a nonexistent location. clang-tidy
-then runs without the recorded compilation flags or finds an unrelated
-database in a parent directory.
+This patch is superseded by v2:
+https://lore.kernel.org/all/20261109210940.7751-1-laurian.iacob@yahoo.com/
 
-For example, invoking the script with database/compile_commands.json from
-the parent of database/ and build/ fails to load the database when its
-entries use build/ as their directory.
+v2 fixes ub960_update_bits() returning 0 on error and drops the
+conversion of functions that still use goto.
 
-After reading the JSON file, resolve its containing directory to an
-absolute path for clang-tidy's -p option. This preserves the caller's path
-resolution when the subprocess changes directory.
-
-The issue, fix, and reproducer were developed with OpenAI Codex assistance.
-Verified with Python 3.13 and clang-tidy 23.1.4 using a C file requiring a
-definition from the database, with relative and absolute database paths
-outside the build directory and a database in the working directory.
-
-Fixes: 6ad7cbc01527 ("Makefile: Add clang-tidy and static analyzer support to makefile")
-Signed-off-by: Marcus <baronmarcus2005@gmail.com>
----
- scripts/clang-tools/run-clang-tools.py | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/scripts/clang-tools/run-clang-tools.py b/scripts/clang-tools/run-clang-tools.py
-index 79d58b34..cc19f8bb 100755
---- a/scripts/clang-tools/run-clang-tools.py
-+++ b/scripts/clang-tools/run-clang-tools.py
-@@ -86,6 +86,8 @@ def main():
-     with open(args.path) as f:
-         datastore = json.load(f)
- 
-+    args.path = os.path.dirname(os.path.abspath(args.path))
-+
-     lock = multiprocessing.Lock()
-     try:
-         with multiprocessing.Pool(initializer=init, initargs=(lock, args)) as pool:
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.51.2.windows.1
-
+Thanks,
+Laurian
