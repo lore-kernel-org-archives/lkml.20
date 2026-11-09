@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794248747;
-	b=o10f51EALnm3OcxEnsP9BllxEgknzvgOqZIWjXSZKlcsimhysx5c9PUvZhgS3rrGOThL
-	 f4YrOA5liEJEjjHsOy4CUVpXPB/PUsYNQKtCn57ae2xekLfLNvbvQwmtz9Vfuo7zur1DM
-	 BKbptlddvWI/SYTZtmofuKDLKTC7rps8TMtAv6ZFAXiNGlGTHN4vITPH5Z9yvM3v0W1tt
-	 /YgElie+YFfh2Q1yiaOmTINN/u+7n6VEN7ndYgczq1n3eu0k1bSEhjcAoduEYuThYg5Nq
-	 MjPXwNOQFO++y3DMQuCP0quyJca+afL3xkZIRQhBzo8/cnyK3LTKXDJclOoo67J/+Dg==
+	t=1794248740;
+	b=I4M9OwKAhBjIHFlTzizDUHO7WBxUSVX7o+iWClQ5OUqDGZl+/Bc7Y59HZt9BNIeBeOOS
+	 xQ0g9mPmptp8DfkOd3JOo1bkc0fnkxSQpPKHHz0yFjaf4clpWwJrwjJXjH3ud59WmTrU5
+	 mrL/mOb0I84l1l+q5edI+61vIk/oGfmASjAz00eB/qYpwi5DZNYhnlm/2AvuyAWqXZKtd
+	 42rXI11LlufPmXuDYFQsZA8fZ1GfUUTDYXfar1pdaLjDDv+nasw9+rJARFpdGKnk8TzTl
+	 k45tC+tFZPf6j1GhbPKNZjoidbZ+9q1AE/xPY0o7tRLgsCmbX2yP6FA+8zP/EvK2+5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794248747;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248740;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=mg8qaLpI3RsEIdTCRIOG9C+aZGDoM534bPWkCcix4/0=;
-	b=0g3ywU5JKAMBgP5zjqM28mnBOLxiICvNrAiOMOF8DanqzHsd5+EAcoF+xfV82Q1XdEK0
-	 iSJ6L9TLD0cA7PziRyNpweEAA1K1MY6TnsrdshLTw6EP179L3Hgs0mkkaynaDILn44bV+
-	 gQdXTxore2otE2znupQIwVId7UMjoB3VqfeQmGrgQxSI7osL1smF0pQLFLsESiNfPDsj4
-	 1nf9JKZr/dHaCPR/euICyXzD8x5+JlKSfe0QDUfRwWi/HBycQFJC1qd4nRzC2hJe0ScMt
-	 ou8qCOPDIlf+l7rfD2ViXHspRoaUsenJVfCuKT9F+UT5dDvxavPAaFYfUvKrmmXRmiw==
+	bh=yXbpKNTutM+q8EpPl46Tft0Cw/JJ6ViVyA1KiMY2C84=;
+	b=tW0sf05BBsh/1kWglM59xNtymQ8pK3Dr014MJ6qdIY7dTTN9wLge/Fe5lrO0V9DlV4Xs
+	 P9rsYuaUBzHRe+FLUSDvxHL5IDk6fdu5je8xDiuNr0DHGxrPP/4l5OwmVZoN1Ze+4Ya7f
+	 PZ0xzw/Hfi3UYvRIp/s74urg6JQNYf1O0WbjsFeaRZljnYJMKSaMFAV4ipECh4vSh8ykO
+	 nuYKq6h957JbRTlJ1JoaHINFuW423ZwY1sJa6ldu4qWZbnSUrVhcA3SBW4CokT3mEJ3yE
+	 x9XYoypdqkGkA7UP36Zp87g3vsu/y4Oh5f7bWjX/Q4mh2oHsT/VhwMqHFWcjALO2HAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ThmX7itu;
-	arc=none smtp.remote-ip=209.85.218.72
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ej1oO1S0;
+	arc=none smtp.remote-ip=209.85.208.72
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D88D60A5BE5
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:25:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D88D60A5BE5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2273606A332
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:25:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2273606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ThmX7itu
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c40bbd26f74so106837266b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:25:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Ej1oO1S0
+Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6b42827bb4bso820908a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:25:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794248745; x=1794853545; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794248737; x=1794853537; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mg8qaLpI3RsEIdTCRIOG9C+aZGDoM534bPWkCcix4/0=;
-        b=ThmX7ituOGKCJ/kIRBVyCRVEXvPFYuBftUNzFd1yxrczKYiEwBUMdhGjS3i0Fv0ADs
-         Bm4JZAeRnKYMuCUff3WMf8fEOFQmDkFflIpZ5LxQYul8XRRZSW62hZ/eSlg+FsZInRnh
-         eeXjFyBd3nhjjWKR07ClOHrYDw42onaBSkVUtMpPbwiteoyEeRpwFqb3kZAYkkOjplXD
-         UBy6l7W3V5oldzpxhEr4zZWTxp78WCcXG9AHboSWhCPBCrCIUAQvpNpeBgnbpJc9oFn9
-         x3wVpJtcIuV+dmZxpOiCT6DeKS0Zd/OEdS4GlQHDr/5Fa73hXSkbozMs4pIIKnvLqljM
-         kb3Q==
+        bh=yXbpKNTutM+q8EpPl46Tft0Cw/JJ6ViVyA1KiMY2C84=;
+        b=Ej1oO1S0w1d5G5L/0Q1NFkUNsUmb+jkTFezTc5catOvTSjkW5Ano6ghByl4/xx2aqY
+         aVYiNADDKhdZsTzF6c3jOVInPyZXnqpieqfIENSO7bnQNjMYc4olx3xg1SY08d5Fb6J9
+         ORePJpQrJKzEx1KoCoAXv8gL093OaCdzmbFp8pHFDhsJNGLuL4D3LHpK8sWIqJnjGlwe
+         zIiXFSFKXI0dqUX+JhP1yNn1vZHMxCm2T6ETw++SfFyri8JWpGE0Ve+e18w6mqwUk4dz
+         DUctTq6HHXUAnse22kC4ouZKKJjZWS6GBp4KF7Z30xgTs4XqWbEeIOdwe5Tl6RoSI+/q
+         fQ1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794248745; x=1794853545;
+        d=1e100.net; s=20260707; t=1794248737; x=1794853537;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mg8qaLpI3RsEIdTCRIOG9C+aZGDoM534bPWkCcix4/0=;
-        b=sU37EHK4M8Es9OPM0BlSu/shdDOUJ7BKlzTp3fv1AVPzag0xdK8bPi04WlYYFA/BVj
-         ubcyIPOzHSMmlY8OhRfslrCS3FzvXF29tQvPBCNGEsV7I8bV/XQkkWx0zGDyeT/CW0H+
-         60tCnz4kuIxevQE5Aj7TAnCBDMWKyozpJ3NJWpn5e0dhpQkdgNad0hvgLrJ4+mIcfClo
-         Zv91TwuTYypkiFgGrySY3gGg/XZg05MDgHSHpJcokbITyEd/E8wf5EdT3XE+iDHMJSrZ
-         Yl3bTIqa80WfluXM5pZ39gENTNiKF0LrGHu6dwS1F5bWcGKADTwLzXvMqh7pzSsidDnk
-         zykA==
-X-Forwarded-Encrypted: i=1; AL+hErGrvh6p9dOROH0Bn0EGVnRm7bxaMHkgsdNuKVYSngfi3ZBOL728RB0zPQWZgGTEauNMzccIQ3I3p+1gTEQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8kjn4RA+DfBkmMfTYCFPP0fdPmQ5UXzxUSTAqS10U40FeK0nnF
-	r4zygQSqSPgUD9IykkqrHpEh7w/4A8OwtvGU7QxMsTEwSkyW90TtdbzsXjG9747VyGTryXG5yHC
-	2lyYZCg==
-X-Received: from ejpk6.prod.google.com ([2002:a17:906:66c6:b0:c2e:3341:2b56])
- (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:9488:b0:c50:475d:980e
- with SMTP id a640c23a62f3a-c50496a4aedmr13882366b.38.1794248744417; Mon, 09
- Nov 2026 10:25:44 -0800 (PST)
-Date: Mon,  9 Nov 2026 18:25:15 +0000
+        bh=yXbpKNTutM+q8EpPl46Tft0Cw/JJ6ViVyA1KiMY2C84=;
+        b=01HOLsEVUAo/jP1Jl//DqMnhMUYj2zGCBa2hbOwc0fXG8GPdmnzg42GViwVsSaJwXh
+         3+G78ur/CJ6SjMV+ZmSC7/Z6wI22ZCDUdBt6IyEBTCEMPGBtQALhzhHmxsd2+YmAWStS
+         qLvapowuYtzY3aDRa+WcKKIeEyTNapIEolUzSCQFbr9yiRxndRM/I5dwn7AUd3B8Zwut
+         JSwPzSH1gLf82gygXAS39c9NxahtWedZ5rCWaWK4HMLelm2jiuOLuhfrvu3k13dP+eeg
+         SSNcMNbXmp1CFSoEzXj5jrnJ1z1lzDQeKenrfs2hZYUcFVcKWE9H6j0D1IB/edDu103I
+         OKrA==
+X-Forwarded-Encrypted: i=1; AL+hErEP1G1A5epvq3JL98zXle9xa5rSiYl7e4dSEaIaXLHx8XKNcTfe93gtJ/EAnGggJOT0xzQM5IvSpQ8WG30=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SpP9d4k9W4x2nUeygLvqsiV8Vo+OXFunoLooRAPvTmtHyjQ1r
+	DkPA3HLS/hH98yOrPC5W8auE/PJHLolR2COkRvXlPO5KlkX7LfmELFqLDEX2KyvBPRBS2808Rn+
+	xLUoS/Q==
+X-Received: from edsu12.prod.google.com ([2002:aa7:d98c:0:b0:6ac:c4fc:4feb])
+ (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:234a:b0:6ac:8ef4:177d
+ with SMTP id 4fb4d7f45d1cf-6b756ad59a4mr348040a12.20.1794248736768; Mon, 09
+ Nov 2026 10:25:36 -0800 (PST)
+Date: Mon,  9 Nov 2026 18:25:08 +0000
 In-Reply-To: <20261003212241.3432303-1-lrizzo@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261003212241.3432303-1-lrizzo@google.com>
 X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
-Message-ID: <20261109182533.3594984-8-lrizzo@google.com>
-Subject: [RFC PATCH v2 07/25] iommu/dma: Release PISA domain mappings on
- domain teardown
+Message-ID: <20261109182533.3594984-1-lrizzo@google.com>
+Subject: [RFC PATCH v2 00/25] PISA: Pre-mapped IOVA Superpage Allocator for
+ DMA and CoCo
 From: Luigi Rizzo <lrizzo@google.com>
 To: Luigi Rizzo <rizzo.unipi@gmail.com>, Joerg Roedel <joro@8bytes.org>, 
 	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>, 
@@ -103,551 +103,270 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafae
 	Luigi Rizzo <lrizzo@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Each PISA page can be mapped by multiple IOMMU domains.
+This is v2 of the RFC previously posted as DMA_PMD [0] (renamed to avoid
+confusion with CPU page table PMD levels).
 
-Add pisa_domain_release() (called from iommu_put_dma_cookie()) to drop
-a dying domain from the registry, clear its bit across all active PISA
-pages, and wait on SRCU before reusing the domain index. If iommu_unmap()
-fails on page release, mark the 2MB page PISA_QUARANTINED and leak it
-so a device can never access reallocated memory.
+PISA stands for "Pre-mapped IOVA Superpage Allocator" and as the name
+says, it is a specialized memory allocator. Invoked via __GFP_PISA* flag
+to alloc_pages(), it returns pages ("PISA memory") that make DMA-related
+operations on that memory a lot more efficient, both in software and
+in hardware.
 
-When a group's last DMA API user detaches
-(iommu_device_unuse_default_domain() with owner_cnt reaching 0), call
-pisa_domain_quiesce() to unmap all active PISA pages from the default
-domain and flush the IOTLB while keeping the domain's window and index
-for future demand mappings.
+Specifically, PISA memory has the following properties:
 
-Signed-off-by: Luigi Rizzo <lrizzo@google.com>
----
- drivers/iommu/dma-iommu.c  |   3 +
- drivers/iommu/iommu.c      |   5 +
- drivers/iommu/pisa-alloc.c |  14 ++-
- drivers/iommu/pisa-kunit.c |  18 ++++
- drivers/iommu/pisa-map.c   | 214 ++++++++++++++++++++++++++++++++++++-
- drivers/iommu/pisa-priv.h  |  56 +++++++++-
- include/linux/pisa.h       |   1 +
- 7 files changed, 306 insertions(+), 5 deletions(-)
+- it is backed by 2MB contiguous physical pages, so the IOMMU can
+  use large leaf mappings and significantly reduce IOTLB pressure see [1]
 
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index fba6084feac81..025bceebb2262 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -430,6 +430,9 @@ void iommu_put_dma_cookie(struct iommu_domain *domain)
- 	struct iommu_dma_cookie *cookie = domain->iova_cookie;
- 	struct iommu_dma_msi_page *msi, *tmp;
- 
-+	/* Drop cached PISA mappings before the IOVA domain goes away. */
-+	pisa_domain_release(domain);
-+
- 	if (cookie->iovad.granule) {
- 		iommu_dma_free_fq(cookie);
- 		put_iova_domain(&cookie->iovad);
-diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index b486b8bbd1fcd..dfba3d5c277c2 100644
---- a/drivers/iommu/iommu.c
-+++ b/drivers/iommu/iommu.c
-@@ -37,6 +37,7 @@
- #include <linux/generic_pt/iommu.h>
- 
- #include "dma-iommu.h"
-+#include "pisa-priv.h"
- #include "iommu-priv.h"
- 
- static struct kset *iommu_group_kset;
-@@ -3363,6 +3364,10 @@ void iommu_device_unuse_default_domain(struct device *dev)
- 	if (!WARN_ON(!group->owner_cnt || !xa_empty(&group->pasid_array)))
- 		group->owner_cnt--;
- 
-+	/* Unmap persistent PISA windows when the last driver detaches. */
-+	if (!group->owner_cnt)
-+		pisa_domain_quiesce(group->default_domain);
-+
- 	mutex_unlock(&group->mutex);
- }
- 
-diff --git a/drivers/iommu/pisa-alloc.c b/drivers/iommu/pisa-alloc.c
-index d7b73c3a6c0b6..dd90aad296edf 100644
---- a/drivers/iommu/pisa-alloc.c
-+++ b/drivers/iommu/pisa-alloc.c
-@@ -13,6 +13,7 @@
- #include <linux/pisa.h>
- #include <linux/export.h>
- #include <linux/gfp.h>
-+#include <linux/iommu.h>
- #include <linux/list.h>
- #include <linux/llist.h>
- #include <linux/memcontrol.h>
-@@ -30,6 +31,7 @@
- #include <linux/workqueue.h>
- #include <net/sock.h>
- 
-+#include "dma-iommu.h"
- #include "pisa-priv.h"
- 
- /* Parameters are pisa.<name> at boot and in /sys/module/pisa/parameters/. */
-@@ -88,6 +90,10 @@ static void pisa_release_page_rcu(struct rcu_head *head)
- 
- 	WRITE_ONCE(meta->pa, NULL);
- 
-+	/* Possibly still mapped by a device: leak it, still charged. */
-+	if (meta->flags & PISA_QUARANTINED)
-+		return;
-+
- 	/* The page has been unmapped from every domain by pisa_release_page() */
- 	pisa_slot_free(slot);
- 	atomic_long_dec(&pisa_nr_pages);
-@@ -107,7 +113,8 @@ void pisa_release_page(struct pisa_meta *meta)
- 		return;
- 	}
- 
--	/* pisa_unmap_all(meta) will be called here once IOMMU mappings are added. */
-+	/* Quarantined on unmap failure and leaked in pisa_release_page_rcu(). */
-+	pisa_unmap_all(meta);
- 
- 	/* Clear PISA_ACTIVE before the RCU grace period so new readers stop entering. */
- 	WRITE_ONCE(meta->flags, meta->flags & ~PISA_ACTIVE);
-@@ -194,7 +201,8 @@ static bool pisa_place_meta(struct pisa_meta *meta)
- 	lockdep_assert_held(&pa->lock);
- 
- 	if (avail == bpp) {
--		if (pa->num_idle_pages >= pa->max_idle_pages && !READ_ONCE(pisa_idle_ms)) {
-+		if ((meta->flags & PISA_QUARANTINED) ||
-+		    (pa->num_idle_pages >= pa->max_idle_pages && !READ_ONCE(pisa_idle_ms))) {
- 			list_del_init(&meta->list);
- 			WRITE_ONCE(meta->on_list, PISA_LIST_NONE);
- 			llist_add(&meta->llnode, &pisa_free_list);
-@@ -204,7 +212,7 @@ static bool pisa_place_meta(struct pisa_meta *meta)
- 			WRITE_ONCE(pa->idle_jiffies, jiffies);
- 		pa->num_idle_pages++;
- 		on_list = meta->nr_dirty ? PISA_LIST_IDLE_DIRTY : PISA_LIST_IDLE_CLEAN;
--	} else if (!avail) {
-+	} else if (!avail || unlikely(meta->flags & PISA_QUARANTINED)) {
- 		on_list = PISA_LIST_FULL;
- 	} else {
- 		bool sparse;
-diff --git a/drivers/iommu/pisa-kunit.c b/drivers/iommu/pisa-kunit.c
-index 5a2e806e74654..f0775aa45a058 100644
---- a/drivers/iommu/pisa-kunit.c
-+++ b/drivers/iommu/pisa-kunit.c
-@@ -5,6 +5,7 @@
- #include <kunit/test.h>
- #include <linux/gfp.h>
- #include <linux/pisa.h>
-+#include <linux/iommu.h>
- #include <linux/mm.h>
- #include <linux/shrinker.h>
- #include <linux/skbuff.h>
-@@ -183,6 +184,7 @@ static void test_alloc_and_recycle(struct kunit *test)
- #ifdef CONFIG_IOMMU_DMA
- static void test_window_helpers(struct kunit *test)
- {
-+	struct iommu_domain dummy_domain = {};
- 	struct pisa_window win = {};
- 
- 	KUNIT_ASSERT_EQ(test, pisa_meta_init(), 0);
-@@ -196,6 +198,22 @@ static void test_window_helpers(struct kunit *test)
- 	KUNIT_EXPECT_TRUE(test, is_pisa_iova(&win, SZ_4G));
- 	KUNIT_EXPECT_TRUE(test, is_pisa_iova(&win, SZ_4G + pisa_window_size - 1));
- 	KUNIT_EXPECT_FALSE(test, is_pisa_iova(&win, SZ_4G + pisa_window_size));
-+
-+	/* Sentinel values in pisa_window_declined(). */
-+	win.domain_idx = PISA_IDX_NONE;
-+	KUNIT_EXPECT_EQ(test, pisa_window_declined(&win), 0);
-+	win.domain_idx = PISA_IDX_NOHUGE;
-+	KUNIT_EXPECT_EQ(test, pisa_window_declined(&win), -EOPNOTSUPP);
-+	win.domain_idx = PISA_IDX_NOWINDOW;
-+	KUNIT_EXPECT_EQ(test, pisa_window_declined(&win), -ENOSPC);
-+	win.domain_idx = PISA_IDX_NOIDX;
-+	win.idx_gen = READ_ONCE(pisa_idx_gen);
-+	KUNIT_EXPECT_EQ(test, pisa_window_declined(&win), -EBUSY);
-+	win.idx_gen--;
-+	KUNIT_EXPECT_EQ(test, pisa_window_declined(&win), 0);
-+
-+	/* Releasing an unregistered domain with an active allocator is a safe no-op. */
-+	pisa_domain_release(&dummy_domain);
- }
- 
- #endif /* CONFIG_IOMMU_DMA */
-diff --git a/drivers/iommu/pisa-map.c b/drivers/iommu/pisa-map.c
-index 2e8d635dec34c..2ba977bb68734 100644
---- a/drivers/iommu/pisa-map.c
-+++ b/drivers/iommu/pisa-map.c
-@@ -4,13 +4,19 @@
-  * See Documentation/core-api/pisa.rst for the architecture overview.
-  */
- 
-+#include <linux/atomic.h>
- #include <linux/bitops.h>
- #include <linux/cache.h>
-+#include <linux/dma-map-ops.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/pisa.h>
-+#include <linux/export.h>
-+#include <linux/iommu.h>
- #include <linux/mm.h>
- #include <linux/moduleparam.h>
--#include <linux/pisa.h>
- #include <linux/slab.h>
- #include <linux/spinlock.h>
-+#include <linux/srcu.h>
- 
- #include "dma-iommu.h"
- #include "pisa-priv.h"
-@@ -88,3 +94,209 @@ void __init pisa_slots_init(void)
- 	/* Size of every domain's window: one 2MB page per slot. */
- 	pisa_window_size = (u64)pisa_nr_slots << PISA_SHIFT;
- }
-+
-+/*
-+ * Registry of PISA IOMMU domains (0 .. PISA_MAX_DOMAINS - 1). Each slot is
-+ * FREE (!domain && !base), ACTIVE (domain), or DRAINING (!domain && base) while
-+ * pisa_domain_release() clears @meta->domains_mapped bits.
-+ */
-+static struct {
-+	struct iommu_domain *domain;
-+	dma_addr_t base;
-+} pisa_domains[PISA_MAX_DOMAINS] __read_mostly;
-+static DEFINE_SPINLOCK(pisa_domains_lock);
-+
-+/* Protects pisa_unmap_all() readers against concurrent pisa_domain_release(). */
-+DEFINE_STATIC_SRCU(pisa_srcu);
-+
-+/* Bumped under pisa_domains_lock whenever a domain index is released. */
-+unsigned int pisa_idx_gen __read_mostly;
-+
-+/* Report a short IOMMU unmap and mark @meta quarantined so it is never reused. */
-+static void pisa_quarantine_meta(struct pisa_meta *meta, struct iommu_domain *domain,
-+				 int idx, dma_addr_t iova, size_t unmapped)
-+{
-+	pr_err_ratelimited("pisa: unmap of IOVA %pad in domain %p (index %d) returned %zu, quarantining PISA page\n",
-+			   &iova, domain, idx, unmapped);
-+	WRITE_ONCE(meta->flags, meta->flags | PISA_QUARANTINED);
-+}
-+
-+/*
-+ * Unmap @meta's leaf PTE from every active domain holding it. Returns 0 on
-+ * success, or -EIO if any unmap failed (@meta is then quarantined).
-+ */
-+int pisa_unmap_all(struct pisa_meta *meta)
-+{
-+	dma_addr_t offset = pisa_meta_win_offset(meta);
-+	int idx, srcu_idx;
-+
-+	srcu_idx = srcu_read_lock(&pisa_srcu);
-+	for_each_set_bit(idx, meta->domains_mapped, PISA_MAX_DOMAINS) {
-+		struct iommu_domain *domain;
-+		unsigned long flags;
-+		size_t unmapped;
-+		dma_addr_t base;
-+
-+		if (!test_and_clear_bit(idx, meta->domains_mapped))
-+			continue;
-+
-+		spin_lock_irqsave(&pisa_domains_lock, flags);
-+		domain = pisa_domains[idx].domain;
-+		base = pisa_domains[idx].base;
-+		spin_unlock_irqrestore(&pisa_domains_lock, flags);
-+
-+		/* Free, or draining: pisa_domain_release() handles the bit. */
-+		if (!domain)
-+			continue;
-+
-+		unmapped = iommu_unmap(domain, base + offset, PISA_SIZE);
-+		if (unlikely(unmapped != PISA_SIZE))
-+			pisa_quarantine_meta(meta, domain, idx, base + offset, unmapped);
-+	}
-+	srcu_read_unlock(&pisa_srcu, srcu_idx);
-+
-+	return (meta->flags & PISA_QUARANTINED) ? -EIO : 0;
-+}
-+
-+/* Clear domain @idx from all populated slots. */
-+static unsigned int pisa_forget_domain(int idx)
-+{
-+	unsigned int slot, dropped = 0;
-+
-+	rcu_read_lock();
-+	for_each_set_bit(slot, pisa_slot_bitmap, pisa_nr_slots) {
-+		struct pisa_meta *meta = READ_ONCE(pisa_slot2meta[slot]);
-+
-+		if (meta && test_bit(idx, meta->domains_mapped) &&
-+		    test_and_clear_bit(idx, meta->domains_mapped))
-+			dropped++;
-+	}
-+	rcu_read_unlock();
-+	return dropped;
-+}
-+
-+/*
-+ * Release @domain's registry index and clear its bit in all active
-+ * PISA pages, waiting out concurrent unmappers on @pisa_srcu before freeing
-+ * the slot.
-+ */
-+void pisa_domain_release(struct iommu_domain *domain)
-+{
-+	struct pisa_window *win;
-+	unsigned int dropped;
-+	unsigned long flags;
-+	int idx;
-+
-+	/* Nothing has ever been active, so nothing can reference @domain. */
-+	if (!static_branch_unlikely(&pisa_key))
-+		return;
-+
-+	win = pisa_dma_window(domain);
-+	/* @domain never active, so no PISA page can be holding a bit for it. */
-+	if (!win || !smp_load_acquire(&win->base))
-+		return;
-+
-+	idx = win->domain_idx - PISA_IDX_FIRST;
-+	spin_lock_irqsave(&pisa_domains_lock, flags);
-+	if (pisa_domains[idx].domain != domain) {
-+		spin_unlock_irqrestore(&pisa_domains_lock, flags);
-+		return;
-+	}
-+	/* Leaving @base set moves the slot to DRAINING state */
-+	pisa_domains[idx].domain = NULL;
-+	spin_unlock_irqrestore(&pisa_domains_lock, flags);
-+
-+	dropped = pisa_forget_domain(idx);
-+
-+	/* Wait out in-flight pisa_unmap_all() readers before reusing @idx. */
-+	synchronize_srcu(&pisa_srcu);
-+
-+	/* Mark slot FREE and bump @pisa_idx_gen so NOIDX domains retry. */
-+	spin_lock_irqsave(&pisa_domains_lock, flags);
-+	pisa_domains[idx].base = 0;
-+	WRITE_ONCE(pisa_idx_gen, pisa_idx_gen + 1);
-+	spin_unlock_irqrestore(&pisa_domains_lock, flags);
-+
-+	if (dropped)
-+		pr_debug("pisa: released %u PISA page mappings for domain %p (index %d)\n",
-+			 dropped, domain, idx);
-+}
-+
-+/*
-+ * Remove @meta's leaf PTE from live @domain (registered at @idx with @base),
-+ * batching the IOTLB flush into @gather. Returns 1 if unmapped, 0 otherwise.
-+ */
-+static unsigned int pisa_unmap_domain_locked(struct pisa_meta *meta,
-+					     struct iommu_domain *domain,
-+					     int idx, dma_addr_t base,
-+					     struct iommu_iotlb_gather *gather)
-+{
-+	dma_addr_t iova = base + pisa_meta_win_offset(meta);
-+	size_t unmapped;
-+
-+	if (!test_and_clear_bit(idx, meta->domains_mapped))
-+		return 0;
-+
-+	unmapped = iommu_unmap_fast(domain, iova, PISA_SIZE, gather);
-+	if (unlikely(unmapped != PISA_SIZE))
-+		pisa_quarantine_meta(meta, domain, idx, iova, unmapped);
-+	return 1;
-+}
-+
-+/*
-+ * Unmap all PISA leaf PTEs from a domain whose last DMA API user detached,
-+ * keeping its window and domain index so mappings are re-installed on demand.
-+ */
-+void pisa_domain_quiesce(struct iommu_domain *domain)
-+{
-+	struct iommu_iotlb_gather gather;
-+	struct pisa_window *win;
-+	unsigned int slot, done = 0;
-+	bool release = false;
-+	dma_addr_t base;
-+	int idx;
-+
-+	if (!static_branch_unlikely(&pisa_key))
-+		return;
-+	win = pisa_dma_window(domain);
-+	/* Pairs with smp_store_release() in pisa_window_assign(). */
-+	base = win ? smp_load_acquire(&win->base) : 0;
-+	if (!base)
-+		return;
-+	idx = win->domain_idx - PISA_IDX_FIRST;
-+
-+	iommu_iotlb_gather_init(&gather);
-+	/* Keep call_rcu()-freed pages from reaching the buddy allocator before IOTLB sync. */
-+	rcu_read_lock();
-+	for_each_set_bit(slot, pisa_slot_bitmap, pisa_nr_slots) {
-+		struct pisa_meta *meta = READ_ONCE(pisa_slot2meta[slot]);
-+		struct pisa_alloc *pa;
-+		unsigned long flags;
-+
-+		if (!meta || !test_bit(idx, meta->domains_mapped))
-+			continue;
-+		done += pisa_unmap_domain_locked(meta, domain, idx, base, &gather);
-+		if (likely(!(meta->flags & PISA_QUARANTINED)))
-+			continue;
-+		pa = READ_ONCE(meta->pa);
-+		if (!pa)
-+			continue;
-+		spin_lock_irqsave(&pa->lock, flags);
-+		if (meta->pa == pa) {
-+			if (meta->on_list == PISA_LIST_IDLE_CLEAN ||
-+			    meta->on_list == PISA_LIST_IDLE_DIRTY)
-+				pa->num_idle_pages--;
-+			release |= pisa_place_meta(meta);
-+		}
-+		spin_unlock_irqrestore(&pa->lock, flags);
-+	}
-+
-+	if (done)
-+		iommu_iotlb_sync(domain, &gather);
-+	rcu_read_unlock();
-+	if (release)
-+		pisa_schedule_reclaim();
-+	if (done)
-+		pr_debug("pisa: unmapped %u PISA pages from idle domain %p (index %d)\n",
-+			 done, domain, idx);
-+}
-diff --git a/drivers/iommu/pisa-priv.h b/drivers/iommu/pisa-priv.h
-index 3ef6e51402ceb..f97f69a13d1a9 100644
---- a/drivers/iommu/pisa-priv.h
-+++ b/drivers/iommu/pisa-priv.h
-@@ -13,6 +13,9 @@
- #include <linux/types.h>
- #include <linux/workqueue.h>
- 
-+struct iommu_domain;
-+struct iommu_iotlb_gather;
-+
- /**
-  * struct pisa_window - A domain's IOVA window reserved for PISA pages
-  * @base: Window base IOVA (PISA_SIZE aligned), or 0 if unassigned
-@@ -33,6 +36,9 @@ struct pisa_window {
- 
- #define PISA_BLOCKS(order)	(1U << (PISA_ORDER - (order)))
- 
-+/* Max simultaneous PISA IOMMU domains (bit index in pisa_meta.domains_mapped). */
-+#define PISA_MAX_DOMAINS		128
-+
- /* Sentinel values of pisa_window.domain_idx below PISA_IDX_FIRST. */
- enum {
- 	PISA_IDX_NONE,	/* not attempted yet */
-@@ -47,15 +53,18 @@ enum {
-  * - pisa_allocs_lock (rwlock): outermost; protects pisa_allocs list.
-  * - pisa_meta_mutex (mutex): serializes pisa_meta_init() and page-table alloc.
-  * - pa->lock (spinlock, irqsave): per-allocator lists, bitmaps, and stats.
-+ * - pisa_domains_lock (spinlock, irqsave): leaf lock over pisa_domains[]/windows.
-+ * - pisa_srcu: protects pisa_domains[] readers against pisa_domain_release().
-  */
- 
- /**
-  * struct pisa_meta - Metadata for a single PISA page in @pisa_meta_array
-- * @flags:	PISA_ACTIVE while this page is owned by a pisa_alloc
-+ * @flags:	PISA_ACTIVE / PISA_QUARANTINED
-  * @nr_clean:	Zeroed available blocks in @clean_bitmap
-  * @nr_dirty:	Dirty available blocks in @dirty_bitmap
-  * @on_list:	Current placement in @pa (enum pisa_meta_list)
-  * @slot:	Dense IOVA slot index in every domain's window
-+ * @domains_mapped: Bitmap of domain indices holding this page's leaf PTE
-  * @pa:		Owning pisa_alloc (NULL for reservoir pages)
-  * @list:	Node in @pa lists or per-node reservoir (pisa_node.pages)
-  * @llnode:	Node in lockless pisa_free_list for async release to the buddy allocator
-@@ -69,6 +78,9 @@ struct pisa_meta {
- 	u16 nr_dirty;
- 	u8 on_list;
- 	u32 slot;
-+
-+	DECLARE_BITMAP(domains_mapped, PISA_MAX_DOMAINS);
-+
- 	struct pisa_alloc *pa;
- 	struct list_head list;
- 
-@@ -136,6 +148,12 @@ struct pisa_node {
- /* Per-NUMA-node PISA state (ring/TX/user allocators, reservoir). */
- extern struct pisa_node pisa_nodes[MAX_NUMNODES];
- 
-+/* Offset of @meta from the start of a domain's window. */
-+static inline dma_addr_t pisa_meta_win_offset(const struct pisa_meta *meta)
-+{
-+	return (dma_addr_t)meta->slot << PISA_SHIFT;
-+}
-+
- int pisa_meta_ensure_pfn(unsigned long pfn, bool can_block);
- struct pisa_meta *pisa_meta_of_pfn(unsigned long pfn);
- unsigned long pisa_meta_to_pfn(const struct pisa_meta *meta);
-@@ -202,11 +220,30 @@ unsigned long pisa_reservoir_shrink(struct list_head *release_list, unsigned lon
- 
- /* Size in bytes of every domain's PISA IOVA window, fixed at boot. */
- extern u64 pisa_window_size;
-+/* Bumped under pisa_domains_lock whenever a domain index is released. */
-+extern unsigned int pisa_idx_gen;
- extern unsigned int pisa_nr_slots;
- 
- void pisa_slots_init(void);
- int pisa_slot_alloc(struct pisa_meta *meta);
- void pisa_slot_free(unsigned int slot);
-+int pisa_unmap_all(struct pisa_meta *meta);
-+
-+/* Return negative errno if @win's domain was permanently/currently declined, or 0. */
-+static inline int pisa_window_declined(const struct pisa_window *win)
-+{
-+	switch (READ_ONCE(win->domain_idx)) {
-+	case PISA_IDX_NOHUGE:
-+		return -EOPNOTSUPP;
-+	case PISA_IDX_NOWINDOW:
-+		return -ENOSPC;
-+	case PISA_IDX_NOIDX:
-+		return READ_ONCE(win->idx_gen) == READ_ONCE(pisa_idx_gen) ?
-+		       -EBUSY : 0;
-+	default:
-+		return 0;
-+	}
-+}
- 
- /* Return true if @dma falls within @win's reserved PISA IOVA window. */
- static inline bool is_pisa_iova(const struct pisa_window *win, dma_addr_t dma)
-@@ -217,17 +254,34 @@ static inline bool is_pisa_iova(const struct pisa_window *win, dma_addr_t dma)
- 	return base && dma - base < pisa_window_size;
- }
- 
-+void pisa_domain_release(struct iommu_domain *domain);
-+void pisa_domain_quiesce(struct iommu_domain *domain);
-+
- #else /* !CONFIG_PISA || !CONFIG_IOMMU_DMA */
- 
- #define pisa_nr_slots 0U
- static inline void pisa_slots_init(void) {}
- static inline int pisa_slot_alloc(struct pisa_meta *meta) { return 0; }
- static inline void pisa_slot_free(unsigned int slot) {}
-+static inline int pisa_unmap_all(struct pisa_meta *meta) { return 0; }
-+
-+static inline int pisa_window_declined(const struct pisa_window *win)
-+{
-+	return -EOPNOTSUPP;
-+}
- 
- static inline bool is_pisa_iova(const struct pisa_window *win, dma_addr_t dma)
- {
- 	return false;
- }
- 
-+static inline void pisa_domain_release(struct iommu_domain *domain)
-+{
-+}
-+
-+static inline void pisa_domain_quiesce(struct iommu_domain *domain)
-+{
-+}
-+
- #endif /* CONFIG_PISA && CONFIG_IOMMU_DMA */
- #endif /* _DRIVERS_IOMMU_PISA_PRIV_H */
-diff --git a/include/linux/pisa.h b/include/linux/pisa.h
-index 18ba1c83bd6d3..ab1c32e065bbb 100644
---- a/include/linux/pisa.h
-+++ b/include/linux/pisa.h
-@@ -27,6 +27,7 @@
- 
- enum {
- 	PISA_ACTIVE		= BIT(0), /* page is owned by a pisa_alloc */
-+	PISA_QUARANTINED	= BIT(1), /* IOMMU unmap failed: never reuse */
- };
- 
- /* Enabled on first pisa_meta_init() to activate fast-path hooks. */
+- IOMMU mappings are recycled while PISA memory is used for IO buffers,
+  thus greatly reducing IOVA allocation and dma map/unmap costs.
+  This includes cases (e.g. overcommitted VMs or Confidential Compute)
+  where they would trigger expensive VM exits or bounce buffer copies.
+
+- PISA memory is returned to the buddy allocator in background, and
+  only after all existing IOMMU and IOTLB mappings have been flushed.
+  This removes a significant security problem in DMA-FQ, which instead returns 
+  pages before flushing the IOTLB, without the performance penalty of
+  strict iommu (DMA) where the flushes are synchronous.
+
+The pitch line remains:
+
+  PISA has the performance of identity mapping, guarantees that only active
+  I/O buffers have IOMMU/IOTLB mappings (unlike DMA-FQ), removes bounce-buffer
+  copies in Confidential Computing VMs, and integrates transparently with
+  existing kernel subsystems and drivers.
+
+=== KEY IDEA: A SPECIALIZED MEMORY ALLOCATOR
+
+For avoidance of doubt, PISA is NOT a new buffer cache, page_pool
+replacement, slab allocator, or custom netdev feature. The kernel already
+has plenty of specialized caches and pools (page_pool, socket page_frags,
+SLUB, page cache) built on top of the buddy allocator.
+
+Instead, PISA sits *below* those existing subsystems as a specialized
+memory provider modeled after alloc_pages() and __free_pages_prepare().
+It enforces a few properties on the memory it dispenses so that IOMMU
+mapping, unmapping, and CoCo page decryption become nearly free:
+
+1. PISA allocates order-N blocks out of physically contiguous 2MB pages that
+   are mapped once per IOMMU domain using 2MB IOMMU leaf entries in a
+   reserved per-domain IOVA window (and decrypted once upfront in CoCo
+   guests). Subsequent dma_map_*() calls resolve the IOVA with a simple
+   window offset calculation, and dma_unmap_*() is a no-op.
+
+2. Freed blocks are intercepted in __free_pages_prepare() and recycled
+   back into their PISA allocator while their 2MB IOMMU mappings remain
+   active. A 2MB page is returned to the buddy allocator only when all
+   of its blocks are idle, its IOMMU mappings have been removed from all
+   domains, a synchronous IOTLB flush has completed, and an RCU grace
+   period has elapsed.
+
+3. Callers allocate from per-NUMA-node PISA allocators using standard page
+   allocator calls with __GFP_PISA_RW (DMA_BIDIRECTIONAL) or __GFP_PISA_RO
+   (DMA_TO_DEVICE, mapped IOMMU_READ-only so devices cannot overwrite
+   shared/adjacent data), falling back to the buddy allocator on failure.
+
+Because PISA operates at the page allocator and DMA mapping boundary,
+existing clients require minimal changes. For example, the entire patch
+integrating page_pool with PISA (patch 13/25) is just 3 lines:
+
+  --- a/net/core/page_pool.c
+  +++ b/net/core/page_pool.c
+  @@ -16,6 +16,7 @@
+   #include <net/page_pool/helpers.h>
+   #include <net/page_pool/memory_provider.h>
+   #include <net/xdp.h>
+  +#include <linux/pisa.h>
+  @@ -622,6 +623,8 @@ static noinline netmem_ref __page_pool_alloc_netmems_slow(...)
+   	if ((gfp & GFP_ATOMIC) == GFP_ATOMIC)
+   		gfp |= __GFP_NOWARN;
+  +	if (dma_map)
+  +		gfp |= pisa_rx_gfp(pool->p.dev);
+
+Similarly:
+- Coherent rings/queues (dma_alloc_attrs()) are served from the per-node
+  order-0 PISA allocator when dev->pisa_coherent is enabled; no driver
+  changes needed.
+- Socket TX page fragments (skb_page_frag_refill()) use a per-task
+  page_frag fed by __GFP_PISA_RO when the egress device has pisa_tx_bufs
+  enabled; no driver changes needed.
+- Small TX skb heads (kmalloc_reserve()) use a parallel
+  skbuff_small_head_pisa SLUB cache backed by zeroed, read-only PISA
+  folios (SLAB_CACHE_PISA_RO) when pisa_tx_skb_heads is enabled. This
+  eliminates the per-driver TX header bounce-buffer patches from v1.
+- TX MSG_ZEROCOPY, O_DIRECT, and buffered disk I/O migrates or allocates
+  order-0 user and page-cache folios from per-node PISA allocators so
+  zero-copy network sends and storage I/O also use 2MB IOMMU mappings.
+
+All features are strictly opt-in per device via
+/sys/devices/.../pisa_{coherent,rx_bufs,tx_bufs,tx_skb_heads} (and
+pisa.user_max_4K_pages for user/page-cache folios). Until a device opts in,
+PISA is gated off by a static key and allocates no metadata.
+
+=== CHANGES SINCE v1 [0]
+
+I have make use and applied several comments and suggestions received on
+the previous version. The changes are massive so perhaps it makes sense
+to look at the new code in isolation, unless you have already revised
+in detail the previous version.
+
+A high level summary is the following:
+
+- Renamed DMA_PMD to PISA (CONFIG_PISA, include/linux/pisa.h,
+  drivers/iommu/pisa-*.c, /sys/devices/.../pisa_*).
+
+- Hooked __GFP_PISA_RO and __GFP_PISA_RW into __alloc_frozen_pages_noprof()
+  and alloc_pages_bulk_noprof(), replacing custom pool calls in page_pool
+  and socket TX refill.
+
+- Added lockless per-CPU block caches (pisa_enable_pcp()) in front of the
+  per-node order-0 RW and SKB_FRAG_PAGE_ORDER RO allocators.
+
+- Added SLAB_CACHE_PISA_RO in SLUB and skbuff_small_head_pisa for small
+  TX skb heads, dropping the per-driver TX header bounce-buffer patches.
+
+- Added PISA support for MSG_ZEROCOPY user pages (madvise(MADV_PISA) and
+  automatic upgrade on send) and block/page-cache I/O (O_DIRECT and
+  buffered reads/writes), plus age/waste-based compaction and scrub
+  migration (pisa.wasted_pct, pisa.old_ms, pisa.scrub_migrate).
+
+- Made metadata table initialization and static key activation lazy on
+  first device opt-in.
+
+=== PERFORMANCE BENEFITS
+
+Your mileage may vary. Enabling the IOMMU may have no throughput impact
+until system components (bus, IOTLB, CPU) become overloaded. Aside from
+throughput reduction, one key metric is IOTLB effectiveness. Below are SMMU
+performance counters on a large ARM64 system with 2x200G NICs running
+bidirectional traffic:
+
+    === DMA-FQ MODE (total throughput ~440Gbps)
+    25,757,488      smmuv3_pmcg_*/event=0x80/   IOTLB lookups
+    16,634,941      smmuv3_pmcg_*/event=0x81/   IOTLB misses
+
+    === PISA on top of strict DMA (total throughput ~745Gbps)
+    22,693,218      smmuv3_pmcg_*/event=0x80/   IOTLB lookups
+        30,536      smmuv3_pmcg_*/event=0x81/   IOTLB misses
+
+The 2MB mappings make IOTLB misses almost non-existent because the working
+set of IOTLB entries is reduced by a factor of ~512.
+
+=== NOTES
+
+[0] v1 (DMA_PMD):
+    https://lore.kernel.org/all/20261003212241.3432303-1-lrizzo@google.com/
+
+[1] IOMMU IMPACT AND IOTLB THRASHING
+Documented in detail in Documentation/core-api/pisa.rst. In short, there
+are three main costs with the IOMMU:
+- CPU cost for dma_map/unmap
+- CPU cost and latency for synchronous IOTLB flush (required for security)
+- IOTLB thrashing when the working set of 4KB pages exceeds IOTLB capacity,
+  causing IOMMU page walks that backpressure PCIe/bus traffic (30..60%
+  throughput drop on high-speed NICs). See also:
+  https://lore.kernel.org/all/4b42f2eb-dc29-153e-ace9-5584ea2e5070@redhat.com/
+  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10280580/
+
+[2] WHY NOT USE PAGE_POOL FOR EVERYTHING
+page_pool is a consumer of PISA (via __GFP_PISA_RW), not a replacement:
+- page_pool does not split 2MB pages into order-N blocks or manage shared
+  2MB IOMMU mappings across domains;
+- page_pool pages cannot be managed by arbitrary get_page()/put_page()
+  callers (socket TX fragments, SLUB slabs, user/page-cache folios);
+- page_pool requires a single NAPI consumer with BH disabled and a known
+  device at allocation time, whereas socket TX, SLUB, and dma_alloc_attrs()
+  run in process/preemptible context across arbitrary devices.
+
+Luigi Rizzo (25):
+  iommu/dma: Introduce CONFIG_PISA and metadata table
+  iommu/dma: Add PISA allocator lifecycle and page recycle hook
+  iommu/dma: Add per-NUMA-node PISA page reservoir
+  iommu/dma: Add PISA block allocation
+  iommu/dma: Add global cap and shrinker for PISA pages
+  iommu/dma: Reserve a per-domain IOVA window for PISA pages
+  iommu/dma: Release PISA domain mappings on domain teardown
+  iommu/dma: Use per-domain IOVA window to map PISA memory
+  driver core: Add per-device pisa_* sysfs attributes for PISA optin
+  iommu/dma: Use PISA for coherent DMA allocations
+  iommu/dma: Add per-CPU block caches to PISA allocators
+  net/core: Use per-node PISA allocators for skb_page_frag_refill()
+  net/core: Use PISA for page_pool memory
+  iommu/dma: Support decrypted PISA pages
+  iommu/dma: Add background page scrubber for PISA allocators
+  mm/slub: Add SLAB_CACHE_PISA_RO for PISA-backed slab caches
+  net: Allocate small skb heads from PISA
+  iommu/dma: Migrate user pages into PISA for TX zerocopy
+  iommu/dma: Stop recycling old PISA pages when allocator waste is high
+  net/libeth: Use GFP_KERNEL when pre-filling RX rings
+  net/gve: Use GFP_KERNEL when pre-filling RX rings
+  net/gve: Use PISA memory for RX buffers
+  block, mm, iommu/dma: Support PISA for disk I/O and scrub migration
+  Documentation: Add PISA architecture documentation
+  iommu/dma: Add PISA statistics and debugfs
+
+ .../admin-guide/kernel-parameters.txt         |    6 +
+ Documentation/core-api/index.rst              |    1 +
+ Documentation/core-api/pisa.rst               |  426 ++++
+ block/bio.c                                   |   46 +
+ drivers/base/core.c                           |   78 +
+ drivers/iommu/Kconfig                         |   34 +
+ drivers/iommu/Makefile                        |    5 +
+ drivers/iommu/dma-iommu.c                     |   48 +-
+ drivers/iommu/dma-iommu.h                     |   16 +
+ drivers/iommu/iommu.c                         |   10 +-
+ drivers/iommu/pisa-alloc.c                    | 2063 +++++++++++++++++
+ drivers/iommu/pisa-kunit.c                    |  669 ++++++
+ drivers/iommu/pisa-map.c                      |  553 +++++
+ drivers/iommu/pisa-meta.c                     |  300 +++
+ drivers/iommu/pisa-node.c                     |  378 +++
+ drivers/iommu/pisa-priv.h                     |  511 ++++
+ drivers/iommu/pisa-user.c                     |  662 ++++++
+ .../ethernet/google/gve/gve_buffer_mgmt_dqo.c |    7 +-
+ drivers/net/ethernet/google/gve/gve_rx.c      |   40 +-
+ include/linux/device.h                        |   27 +
+ include/linux/gfp_types.h                     |   17 +-
+ include/linux/netdevice.h                     |    4 +
+ include/linux/pisa.h                          |  367 +++
+ include/linux/sched.h                         |    4 +
+ include/linux/skbuff.h                        |    2 +
+ include/linux/slab.h                          |   10 +
+ include/linux/swap.h                          |    1 +
+ include/net/libeth/rx.h                       |   11 +-
+ include/net/sock.h                            |  143 ++
+ include/trace/events/mmflags.h                |   11 +-
+ include/uapi/asm-generic/mman-common.h        |    2 +
+ kernel/dma/direct.c                           |   14 +-
+ kernel/exit.c                                 |    2 +
+ kernel/fork.c                                 |    2 +
+ mm/filemap.c                                  |   15 +-
+ mm/madvise.c                                  |   11 +
+ mm/page-writeback.c                           |    8 +
+ mm/page_alloc.c                               |   59 +
+ mm/readahead.c                                |    5 +-
+ mm/slab.h                                     |    3 +-
+ mm/slab_common.c                              |    5 +-
+ mm/slub.c                                     |   14 +-
+ net/core/datagram.c                           |   85 +-
+ net/core/page_pool.c                          |    3 +
+ net/core/skbuff.c                             |   42 +-
+ net/core/sock.c                               |   62 +-
+ net/ipv4/esp4.c                               |    4 +-
+ net/ipv4/ip_output.c                          |   19 +-
+ net/ipv4/tcp.c                                |   17 +-
+ net/ipv4/tcp_output.c                         |   12 +-
+ net/ipv6/esp6.c                               |    4 +-
+ net/ipv6/ip6_output.c                         |   19 +-
+ 52 files changed, 6784 insertions(+), 73 deletions(-)
+ create mode 100644 Documentation/core-api/pisa.rst
+ create mode 100644 drivers/iommu/pisa-alloc.c
+ create mode 100644 drivers/iommu/pisa-kunit.c
+ create mode 100644 drivers/iommu/pisa-map.c
+ create mode 100644 drivers/iommu/pisa-meta.c
+ create mode 100644 drivers/iommu/pisa-node.c
+ create mode 100644 drivers/iommu/pisa-priv.h
+ create mode 100644 drivers/iommu/pisa-user.c
+ create mode 100644 include/linux/pisa.h
+
 -- 
 2.56.0.542.g3ef89b7020-goog
 
