@@ -1,70 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223461;
-	b=QM6Wl0Od0nrPkYcoPY1ToGXnE1nx/VW4xfZ0/dJDrdhhz678hJXmd9rBYEnL9oWZZVeO
-	 iBAVh64tB4iO6udfTVgodncWEXPnbiBqLZGdiGv37QhNsWQJg3teei4oUwsSVcf+kdlsN
-	 lCUF809iRfBRIYIQ/BAc7Ham1T8A5n38yREjRdI/wEQTmy70O5mHEIhoj146/efii6N95
-	 /1BKysVDoaj0aSsSy5DbReC1MivXpBSNsV29blr0WNrgRiXXvtoN+bsdohjjli+SLHrfA
-	 pQI7m676sLuGttMcRTkv5XEOEMGkzx8K43ai+p7ijd/mc5Gb/nkH4FDsnoVMVrFFIfA==
+	t=1794223463;
+	b=bpoKifaI5ym+6EhgFEA+RaYtLCscHm3sdi2OuI3xCEnxmp+K/YTuT6fIYwuuxfcVs6Ma
+	 oA4Y3w4qRdqHF212k0B0yeyPwcmK8yPe4+mq0OPAQYUdXRkGjMtUZM3OYAq1n+ceU+d9L
+	 EGDeiZhDcmyf9grQUWzC9Sxi9ps3aX2xFC3GATwm3IOlO14cmlNAuLcNdLWYGcxPexn78
+	 sXfNmV5SNNVI1WTNq9f8Wp3oPX1jDUJfrbLfAxNoqNHDDUyKAI8qLlgVvFttm8+TYU3ds
+	 mVeJov5g3poltL0mKP+1guYqS+DpF8VrhDdM4+P4TkS6FwQXwMtS6++cR7MzlqoQi4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223461;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223463;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=AwNAeOOEuNDUA4AaaId5KqgQe8BRoEb1zw2ve0Lhbyo=;
-	b=zu/RNsQOZUYsi98TXy6Jt2IlVvLLftzG+/lJPOtUdgAAxllkeJuHoEhj5cGcMBMy5HJW
-	 UWuSW3FraJrPQ5ZuGWwCXc7abuizqAZYhNctNwFWOtSfJzzzsvvNYttt70HEonRee2ETx
-	 P3K9/Dr8W2Jt58F6hNndRk7YbcFLtLu+Ip5/slFecYBTViE1O2nTneHbv7YszjxcPcRoF
-	 Yvx6jUeWUNChCLXVmlxSnvF8TWOKfoVqpeG2AkASVk0sKJ20ZiegT22h5jZ8pP+A9n2Wf
-	 gBnJ41hYe983Y4glUmXcbyDtGUEf7OnR/zSJItM0SfrWwdorrad+YbEUfWy/YzaRDeg==
+	bh=G3Ba0p/h751/9m3dnnXnltfXm//v4b2yBGW0yblY5kk=;
+	b=FExDtrvpXLS5Q6gmOV0pGi9PQyvv4xjiB5olQfLQxHGosfRrgAW68MnB9pxnbrKjKWvZ
+	 UzLhzHu54bpybJP3rCMSw8QfV1JP3bA6uKYmG1A8yLFYZ26pacr0I5DaxErqAaheKzeS5
+	 P8EEM8UahWAr3fCNhM/spz6pMWEy4F70p7BS0Sem441dLjObSTRDuBupq4HoJnhQmqEIT
+	 JCbIljlHzTF5o58k84cqa1FmOUdvv7JGqObSAaOf1ex/lt3ReDiZCyh8EoYvaTueDz/Cl
+	 dkOBUKEagloCqeuXZHos2owS4adsDLdzIOKRYgvS5nsIQHnKGWvdozv7ZP6q8wWuNVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="RaowZB/U";
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=IPLLgTIr;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3366606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:24:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3366606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E808606A332
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:24:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E808606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=RaowZB/U
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=IPLLgTIr
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 56751169E;
-	Mon,  9 Nov 2026 03:24:17 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 23F2A1516;
+	Mon,  9 Nov 2026 03:24:19 -0800 (PST)
 Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E90223F85F;
-	Mon,  9 Nov 2026 03:24:17 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id A855A3F85F;
+	Mon,  9 Nov 2026 03:24:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794223460; bh=Kkmftib56f3AMxIKdYPPCjung1RFBfnihXj5m1EZsbY=;
+	t=1794223462; bh=JxhGBRgLcIwUFoRsO4Q7rZ/Z5w2PFVEbenlFpICHqXc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=RaowZB/U9NPIcmp5vOjzWHMob9hYbOyG0rpHtd+SwdV34lNqRtzbgfNdyZqgUZz0L
-	 3RzdmI2YQyhWGzMSgk5JUQWAP1ayb+zBdew+kv6yNE0O6Vu27tjPlYSa0PGUxiNhmg
-	 GS2QaSNACRh4RkxEo7gzuO3Wxp1pj8jWButJrNeM=
+	b=IPLLgTIrbc1ltih/cqihkwzN7I5GATwEqDV4npsfe19gwNuW0ngAxnVPpDWwO0w2l
+	 1kiTDPVcl/vqmYVpUu8MZkOlHvbYPotghjzRdBM9V+dJncb4HxjPryyWjn1NChuSCY
+	 8J6MnRdFyQ87vzaM1vzEaztLf9+yYBvRDO2TUvP0=
 From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Leo Yan <leo.yan@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-	Jie Gan <jie.gan@oss.qualcomm.com>
+To: mike.leach@arm.com,
+	james.clark@linaro.org,
+	leo.yan@arm.com,
+	alexander.shishkin@linux.intel.com,
+	Chao Xu <xuchao066@163.com>
 Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
 	coresight@lists.linaro.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH v3 0/2] fix clock refcount imbalance for all Coresight platform drivers
-Date: Mon,  9 Nov 2026 11:23:55 +0000
-Message-ID: <179422341588.3275439.4801778261959568174.b4-ty@arm.com>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] [v2] coresight: funnel: inport schedule by priority can not take work
+Date: Mon,  9 Nov 2026 11:23:56 +0000
+Message-ID: <179422341587.3275439.15606482552305642928.b4-ty@arm.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260710-fix-clock-refcount-unbalance-v3-0-a37a1fb17981@oss.qualcomm.com>
-References: <20260710-fix-clock-refcount-unbalance-v3-0-a37a1fb17981@oss.qualcomm.com>
+In-Reply-To: <20261027151457.5713-1-xuchao066@163.com>
+References: <20261027151457.5713-1-xuchao066@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,22 +71,20 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 10 Jul 2026 09:14:46 +0800, Jie Gan wrote:
-> Found a clock imbalance issue when remove the CTCU module.
+On Tue, 27 Oct 2026 23:14:56 +0800, Chao Xu wrote:
+> The CoreSight SoC-600 TRM, section 10.11.2, PRIORITYCONTROL, a funnel
+> rejects priority register writes whenever any port is enabled. The
+> current sequence therefore prevent the configured priorities from
+> taking effect. Write the priority register before enabling the
+> first port.
 > 
-> coresight_get_enable_clocks() enables the programming clock and the
-> optional AT clock through devm_clk_get_optional_enabled(), which also
-> registers a devm action to call clk_disable_unprepare() when the driver
-> detaches.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/2] coresight: Fix clock refcount imbalance on platform remove
-      https://git.kernel.org/coresight/c/c2d0f71617f4
-[2/2] coresight: tnoc: Fix clock refcount imbalance on platform remove
-      https://git.kernel.org/coresight/c/69285a3b57db
+[1/1] coresight: funnel: inport schedule by priority can not take work
+      https://git.kernel.org/coresight/c/533e91f192eb
 
 Best regards,
 -- 
