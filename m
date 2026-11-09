@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794240844;
-	b=Y1VD/KJ5YFG/I3MOQnhGiL6xWCK+ptoUV3No+DKHl5vdP20RPG3olL7TO5/QSp3tP4US
-	 1p7hochVTf6xKXLVXF5JsMUetwUxEKoEX+xnYkGq0mWm5DBM7hSMPGJ/3IXMNQhsZ8pOw
-	 LbNQploi5DGP33xeD7IPFBpbk6/SurjfEMStCCTEmAEC8ImsJLpOnrqHyUw6YkJ8QIYWZ
-	 YfSkQwFrsZAelj26EmU+zXl+BWBjog6nGqQU+u7wO98HcP/3RPXeeQe3LLKwC6k3/24NJ
-	 Tzijw0twJuJ/9iZLw7d5728mAmijadjcdlsiH0DAllaBnDqtjNfoY7pmXx6CbcSxvPA==
+	t=1794240858;
+	b=ejD5paT1E26+vqrxQxhXZwOealPagMzhc+ZGyMnUMWB1k9fiRyqD3sCpkJDBngra8/VQ
+	 RoKuB6G+OoySQP1h+7diyVspOVfYpFDHXMcVHNI6gh62t5nrg3O2T1CCmIKX24jqp8kO+
+	 c91WYWuRKdqpO1xRgJX+CG/07EwMwKoPLg4MxgG7MTfw8N8FWGGSwT2K4SqsPnk8MPs2u
+	 KSMQDfxEGExZvuR5rIQBTIKa5Y8SEXeOkUOAoTG5Y2CPvfKhVayBkw2GAOwAs/dedIV3c
+	 8nhsmtlwkOXogVVRNf+Q1Qht0QFdn4grn7ksu5j5GwcM8PVlowiC1IflTcKbcFQtH7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240844;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=RVDPfH3Ode68kwTp62yVfBJGx284cqqREueZ0mgCu50=;
-	b=0I4eVE/HJ0htWsdmB11hrHh3xBWRkumPaLpIZMuhQkDdZ2xm/Hh2XJNN2+JoEiroU9vN
-	 0Z0E+L65dKAl2jqFM/YkI1wNurYE2ouK0Mp1irl7+rzN3vYq4N+/N0mOH+H9sjfXGJ8jh
-	 Ei1LlTcpVTMz57Eq0iiwDceRaIlRjplZEfk2Ss7tBBB6R3ultTi869ekhAXIAfqYHE+lh
-	 eyZV84trLDN/nqRq/DwxHwit2VG4CkFhUpdD4f6GkkwnRjswF7uBtH8AGPoRYCHsNtRTp
-	 +vYBg1sIys87CyWM/ka+JjCgXZoZRiP+bbstqE2w1xlWg5hFx/YgVff8jjoTHDR8MWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240858;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=FoBZPBz0A32H03ZJeXTMKctFSPuuFEY2YbURgnGwEZQ=;
+	b=jYkAsboD7chWu/W97QaDhGj3MuO3O92yd97X5sylxtulKsMUHRA5YSvA+0+i3bjnKtIA
+	 0cMaoeyeJ/sxfeqruuIXjXy+a9YMKHNyGY0KRcXU/S2M7G1Bi2JT4aRot/LEoEtwevOKu
+	 9ULSJjWBDjYYkuuoNu2kG9oD6ugjHLxJNEmRelJqN4qEI0siohJ484A9hmb0hhp1baJZ4
+	 +9UnYaahxYywOvpubHWPnaubVLfSLXRijGAngt2ps0iNgdZMKtmXJSC9ipD4E52dqvUuf
+	 sMscPESiAVPn/AWk5ClBxQ1V2CduvA6cffopyH1ftppk79M4bak5QgrNdEWuMZfEnZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CU0HHyi6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrgoeqzO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA8C606A321;
-	Mon,  9 Nov 2026 16:14:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F574606A334
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:14:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CU0HHyi6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9746D1F0089F;
-	Mon,  9 Nov 2026 16:14:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrgoeqzO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 294BC1F00907
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:14:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794240844;
-	bh=RVDPfH3Ode68kwTp62yVfBJGx284cqqREueZ0mgCu50=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CU0HHyi6GMM0L8nyluZV31Up/1fO8WvY61hhbWIWblXQ6zr8pk/yOozZcSXF9s2Gw
-	 1fauQG1x4ePXkriBbjDZLb/rqDVSXPBitEc9itwk+kW3/axxwoNaMCRSldfXqsJkYG
-	 jBgxlgMEyAn95SLNLswBBHApMidahSZfI/7PaK4OiFmX+cm+zSVa0umITM5ika8OLI
-	 QqZwnsjV8at35PqqbshP2ezYXC2FhiNk/Ho3iw4CQO27i4jpTTi6M/nSHjGebATqJy
-	 Pg5cEEYhfhEPLK3/dc0C4O1i5oikUOhNadoofQsc4uBetL6GdsfBo3O/6CanwLLU0M
-	 wA+Cmen/Ci4tw==
-Date: Mon, 9 Nov 2026 09:14:02 -0700
-From: Keith Busch <kbusch@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Keith Busch <kbusch@meta.com>, bhelgaas@google.com, maz@kernel.org,
-	lrizzo@google.com, hch@lst.de, changfengnan@bytedance.com,
-	namjain@linux.microsoft.com, linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-nvme@lists.infradead.org
-Subject: Re: [PATCH v3 2/2] PCI/MSI: Implement irq_mask_noflush() for MSI-X
-Message-ID: <avHxSog2_rsJKGUy@kbusch-mbp>
-References: <20261106173448.34794-1-kbusch@meta.com>
- <20261106173448.34794-3-kbusch@meta.com>
- <87wlqpwukt.ffs@fw13>
- <au-DcqwAz2wmmOne@kbusch-mbp>
- <87o6c0wbo4.ffs@fw13>
+	s=k20260515; t=1794240857;
+	bh=FoBZPBz0A32H03ZJeXTMKctFSPuuFEY2YbURgnGwEZQ=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=QrgoeqzO13po6lKggu39WD60MDVQu+ADwHfSf5jTVoCR5UA/aIko4G6nqRYimQ8mw
+	 LM5MzksIR5DhOiqrfFw4GROP9wBVkz9CdpM7WZ0TPwHXY3IhwqH8muit2yJmAhgNIy
+	 CeC+BFF59IBSy93AIlYJ8TBk14vy0ja1/pPbWQP0Wdy+C4o8585XaIRVOwJTbvhbd0
+	 M4MrRxBxIzjKEQm0dc6E3QT64ruDkJ+65xdH1FBsS+4BPcG7xwrETMFImkbODD/i20
+	 CubIkNx3H00PsxlotV7dYSNoONHn5xAuyL+Hf9jMPmlH7dKZCfIvOXgHeryBnKPH30
+	 pyi+MxWfIDoPw==
+Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-4af173320f9so498723b6e.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:14:17 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFsOWz4J0zIYq1FT5njlRGctOfMXgj64kenkT3ixh/OEUdqZeV3pTpq8ZBdkhTzdNLChzovyYu1U5g4F3Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9FuUOThWeHgj+G29kGx3SC2HJBWwpfCXI2VhgR6dg288nNJRKh
+	mZiQQD2Z4ZqvwmVfiYpSgZghr0AHWTWxOtb3BJHZA/NIsYhGhbdqSG88pYfOI3QruzbZNjpWK9k
+	p6UwctO7Z6ANVnAan2blpB3+LcywqqUU=
+X-Received: by 2002:a05:6808:1381:b0:564:3fe1:2f95 with SMTP id
+ 5614622812f47-5683cdc8174mr51063b6e.56.1794240856276; Mon, 09 Nov 2026
+ 08:14:16 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,33 +59,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87o6c0wbo4.ffs@fw13>
+References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech> <20261009-a733-clk-v6-4-ae8178fce7e8@pigmoral.tech>
+In-Reply-To: <20261009-a733-clk-v6-4-ae8178fce7e8@pigmoral.tech>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Tue, 10 Nov 2026 01:14:02 +0900
+X-Gmail-Original-Message-ID: <CAGb2v65=FbB=WeG6UxvO2S7eapFAs6up05H8yKxE9ZV5XHHg7w@mail.gmail.com>
+X-Gm-Features: AclHuK_oriluD6lv7Dh-nyywN-v7TzMrzN3qlz6xuuw7NLsiTt8EPPBIYrFTgRg
+Message-ID: <CAGb2v65=FbB=WeG6UxvO2S7eapFAs6up05H8yKxE9ZV5XHHg7w@mail.gmail.com>
+Subject: Re: [PATCH v6 4/8] clk: sunxi-ng: a733: Add PLL clocks support
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, netdev@vger.kernel.org, 
+	Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, 
+	Andre Przywara <andre.przywara@arm.com>, Norman Herms <dockseed@proton.me>, 
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Nov 07, 2026 at 10:53:47PM +0100, Thomas Gleixner wrote:
-> On Sat, Nov 07 2026 at 13:00, Keith Busch wrote:
-> > This is done on purpose: pci_msix_write_vector_ctrl() already has the
-> > same offline check, so nothing actually gets written, same as before.
-> >
-> > And regardless of whether it's offline or not, we have to set the
-> > PCI_MSIX_ENTRY_CTRL_MASKBIT in the cached msxi_ctrl. That's common to
-> > both paths, so it lives in the noflush helper to avoid duplicating it.
-> 
-> Indeed, but that's an unreadable mess TBH.
+On Sat, Oct 10, 2026 at 12:54=E2=80=AFAM Junhui Liu <junhui.liu@pigmoral.te=
+ch> wrote:
+>
+> Add PLL clock support for the main CCU of the Allwinner A733 SoC. The
+> structure is mostly similar to the sun55i, with the addition of a
+> PLL_REF clock that normalizes the hardware-detected DCXO/hosc frequency
+> (19.2MHz, 24MHz, or 26MHz) into a consistent 24MHz reference for all
+> subsequent PLLs.
+>
+> Model the independently gated outputs of the peripheral, video, and DE
+> PLLs as programmable-divider child clocks, with each output gate modeled
+> separately. Follow the documented hierarchy for the derived peripheral
+> PLL outputs.
+>
+> PLL_AUDIO0 uses SDM parameters from the vendor driver to provide a
+> 22.5792MHz * 4 output. PLL_AUDIO1 provides fixed /2 and /5 outputs and
+> does not expose fractional rates, but its SDM controls are modeled so
+> that stale firmware settings can be disabled when an integer rate is
+> programmed.
+>
+> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
 
-No disagreement there! I was just going for a minimal diff, but we can
-refactor a bit on the way. I'll take a stab at it.
-
-I also don't really get the rationale for putting the check in
-write_vector. The commit message says the checks are to avoid having to
-deal with errors, but posted writes don't produce errors, so not sure
-what it's actually guarding against.
-
-> Can we please change that to have two functions here?
-> 
->     pci_msix_write_vector_ctrl()
-> plus    
->     pci_msix_write_vector_ctrl_and_flush()
-> 
-> and fixup the related call sites?
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
