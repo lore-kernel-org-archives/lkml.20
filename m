@@ -1,56 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227538;
-	b=msB3vH+m71VDnhnGRcqDm1ORlKUMGf+VVfpoHvniwqHDMw3r3Loxns97sfcWH9P9neyC
-	 Ql2liWh6moz4WDJeLL+vtycQViB/FRixTdehjflZduR1Y5cnpePYq3f/3viSDYf5zNkg5
-	 r37PJtCP0HeNr0bbi/42i8CLkMWIiu+iAYTqMLVsAMkV0olAs05pcJGh5ol5Bg9Y6ZdzB
-	 rQEY2J0EadKWIvkSk3Au9ejBzAvHD5mGYIWwjZKdYpPppm3eGurNqIPmoKQu3BGoECcyc
-	 M6jQpixQrKi2g7keM0zLdQkmWeGvMUg18EkvKe/TFCtuhFcImFJNrhd9LkjJqMNSCfA==
+	t=1794227537;
+	b=Sb8nHAfj1cKRjSXcvtYSXv9CMeqV8tSL1Xsu8W2eSuL4ua0gqiR95TGD3bAKWogVPx+E
+	 KoUdDrgqpEHl90EFC+zu9kAY4b/APxY4XaiOah5wt9m2P67y9QGiREwqs0PtaLB+WOP1f
+	 KUSXNz0E30hTzEqqBTL98oEL2Cog4o0D75kqwALNpQ4fgty3vwS9dN29Sg3OfQ1lGhpUg
+	 yzkDfsBYLW3wzLNUf+cPclolFta8x8E3FivMbWBvFYDFB7kYs7t2527MRJdshDmRLDnY6
+	 X+zBmGPOFBGf1Yy8MOCYua+ZWRUDwo5jI/pSUlN1MuEZuZ+ckvm17eOCc+ZHRVwc1qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227538;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=rRahu7+ghGWvG/w1/MODNtWwwwbr25JxkuWHLv7mvl4=;
-	b=pvyWJNhSAjdOPXix+y1ybJpjzYlzcUhcMVj57ML05eNZhM9ZtR2j4uThkKuE2gQx5hac
-	 RWRyMJAYaZJHgXRk9k6n/s2w6/T+95vxCgjj7MACWmJR8QHKoBVCrVaI53jVv2meXTIDz
-	 8K/Yq6MzI9y1M/9Llo54yulMEC+1AL7s4KOpCVrGUZ1FndkAbIZDSHZiAIyqKLaUWWS6o
-	 zsw6vSFuklhJ3/SfW8YMWZqqEHFYAB9WD1t0yk8NtVDIZf/2Si0xzdGPQjORTnTRNqv1b
-	 WzlwgVnriaogk0Pby1Gc+8nD1P4+xk5fiOcmoljEl6aHFeHPKxZNjWAfsJtfMwqaX/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227537;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=eerlHc+2nw9LU1blteBgbDf72O/+xt2VeIxgqcPfxtY=;
+	b=vbVm1Z57pZTdJ40eJfd0QlkZG6NONjuE+TRR/QjSdHB+UZYiAqhDgT3iwCna5pZDyG+q
+	 FFwlHbDx0bxsU9+HTx8aIQTjMSAbcMuhWfGgneNys5HO3Y5VXLUAB2532AYEk33E7FJWm
+	 i1VQMG/19Iy3AT8NoI15dzHmmY5aZAcgM8O/rndXpWDdOavKuj/CCnjYDXBw9N4T+SDLO
+	 S0YWOugIDWreR76p85kC5Ph46Zqb+G21cfj1ViEFRG4FuPV3ffdSqnUE4APl/vqVyOhHs
+	 y4qssk7PlR6BYvXre18QD6Qq58dign2sSxsbo6Vmt1cO/DvhVcnWzUYlWa+vcwURhJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRAaarR7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=michaelmcallister.org;
+	spf=pass smtp.mailfrom=michaelmcallister.org;
+	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=5MBBv6Y5;
+	arc=none smtp.remote-ip=79.135.106.112
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9F30606A331;
-	Mon,  9 Nov 2026 12:32:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12058606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:32:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12058606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TRAaarR7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DEBE1F008A3;
-	Mon,  9 Nov 2026 12:32:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794227537;
-	bh=rRahu7+ghGWvG/w1/MODNtWwwwbr25JxkuWHLv7mvl4=;
-	h=Date:From:To:Cc:Subject;
-	b=TRAaarR75p3tZFRKgt/Z5AKmOxaeZyEniyA1daYQVa8xnpmp26Nd0GOYWK8ub9ERA
-	 V7kq8Wz7i3dNl8vwm/xubwEo1JP/Y+1igPo5V8RsZLuJaNxCLYvfVgI0uRtCh+oRct
-	 FfxB9WtcFgvpJnpHGhR7c9dhSOzG8IafWaMCiudsgJo4HhNSNNmFzStKAeEqnFj9BU
-	 cJTlNLydUOYC1jux6GCUOe4WSIicWeVNHdWNRk8M3QMI9gPNyCt6IdiinbttnGJJZa
-	 BpowtOo3qmahMZrHGOqsEVg5GxrRsSLYyC5/FN5MWv2862y58tWTOaoj4PD+OIyvWy
-	 /Sv92eImVuVaQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 1B34B1AC5995; Mon, 09 Nov 2026 12:32:15 +0000 (GMT)
-Date: Mon, 9 Nov 2026 12:32:15 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the drivers-memory-fixes tree with the
- origin tree
-Message-ID: <avG9T_NrXRjVDgjh@sirena.co.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=5MBBv6Y5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=michaelmcallister.org; s=protonmail2; t=1794227533; x=1794486733;
+	bh=eerlHc+2nw9LU1blteBgbDf72O/+xt2VeIxgqcPfxtY=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=5MBBv6Y5HpHr3wguQtHSBZaHetMylu67S5tbrJtq9xyxFfFjNu8/uBGd1+RNzDsYl
+	 MjN1jdQRTG8BMp3We6zvMpRGVYYq1FA5lmyE9gEiKOFPf4ILHQm23xhGIl3wz26Ej9
+	 x8QTTpJYMBNWAqOJchCYkaMyyD9R4MP9lsDuhSGIP3hEcj5Qh7Eb3xqmceKyfXOMm7
+	 aKGkXW7/NW072roRpMqRcoAB/BUx1QnMX8NguugA3OaP8qazwGbBR0wxRhnROUm0nf
+	 JDclYc0VCqAAqKNTz5bDFh7+F0Ccf8o6edAX3zjuWP1pByPCSxbxmKf2yhzZ2JQMqe
+	 o55mTh2+LBgMg==
+X-Pm-Submission-Id: 4jNTgV4YVsz2ScQG
+From: Michael McAllister <me@michaelmcallister.org>
+To: robin.clark@oss.qualcomm.com, lumag@kernel.org
+Cc: abhinav.kumar@linux.dev, jesszhan0024@gmail.com, sean@poorly.run,
+ marijn.suijten@somainline.org, airlied@gmail.com, simona@ffwll.ch,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject:
+ [PATCH] drm/msm/dsi: avoid pinning the command buffer on every transfer
+Date: Mon, 09 Nov 2026 12:32:05 +0000
+Message-ID: <179422752570.88190.13452031230666113805.msm-dsi-pin-leak@michaelmcallister.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,78 +65,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ujEC44Ov2VwRuRhw"
-Content-Disposition: inline
 
+The command buffer is already pinned by msm_gem_kernel_new() when it is
+allocated. Calling msm_gem_get_and_pin_iova() to fetch its DMA address
+adds another pin for each transfer, while teardown only drops the
+allocation's lifetime pin. This leaves outstanding pins on the buffer.
 
---ujEC44Ov2VwRuRhw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Use msm_gem_get_iova() to retrieve the address without taking another
+pin. The allocation's existing pin keeps the mapping valid until
+msm_gem_kernel_put() releases the buffer.
 
-Hi all,
+Fixes: 7ad0e8cf6317 ("drm/msm: Count how many times iova memory is pinned")
+Signed-off-by: Michael McAllister <me@michaelmcallister.org>
+---
+Hi,
 
-Today's linux-next merge of the drivers-memory-fixes tree got a
-conflict in:
+I ran into this while testing display teardown on the Moto G10. The DSI
+command buffer is already pinned for its lifetime, so this avoids taking
+another pin every time we fetch its DMA address.
 
-  drivers/memory/fsl_ifc.c
+I tested this as part of the G10 display fixes on 7.2.9, including display
+power cycling, suspend/resume and teardown with the compositor stopped.
 
-between commit:
+Thanks,
+Michael
 
-  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
-oc_obj() family")
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-=66rom the origin tree and commit:
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index d92659d80f..64fc54dff4 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1428,7 +1428,8 @@ int dsi_dma_base_get_6g(struct msm_dsi_host *msm_host, uint64_t *dma_base)
+ 	if (!dma_base)
+ 		return -EINVAL;
+ 
+-	return msm_gem_get_and_pin_iova(msm_host->tx_gem_obj,
++	/* The command buffer stays pinned from allocation until teardown. */
++	return msm_gem_get_iova(msm_host->tx_gem_obj,
+ 				priv->kms->vm, dma_base);
+ }
+ 
 
-  a78ee2e05f7c7 ("memory: fsl_ifc: Clear fsl_ifc_ctrl_dev on probe failure =
-and removal")
+base-commit: 1e59855738454b14021b64115f0090eafc7526ae
+-- 
+2.39.5
 
-=66rom the drivers-memory-fixes tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/memory/fsl_ifc.c
-index db2d239aeba89,83991c05a6a5c..0000000000000
---- a/drivers/memory/fsl_ifc.c
-+++ b/drivers/memory/fsl_ifc.c
-@@@ -207,15 -210,15 +210,15 @@@ static int fsl_ifc_ctrl_probe(struct pl
- =20
-  	dev_info(&dev->dev, "Freescale Integrated Flash Controller\n");
- =20
-- 	fsl_ifc_ctrl_dev =3D devm_kzalloc_obj(&dev->dev, *fsl_ifc_ctrl_dev);
-- 	if (!fsl_ifc_ctrl_dev)
- -	ctrl =3D devm_kzalloc(&dev->dev, sizeof(*ctrl), GFP_KERNEL);
-++	ctrl =3D devm_kzalloc_obj(&dev->dev, *fsl_ifc_ctrl_dev);
-+ 	if (!ctrl)
-  		return -ENOMEM;
- =20
-- 	dev_set_drvdata(&dev->dev, fsl_ifc_ctrl_dev);
-+ 	dev_set_drvdata(&dev->dev, ctrl);
- =20
-  	/* IOMAP the entire IFC region */
-- 	fsl_ifc_ctrl_dev->gregs =3D of_iomap(dev->dev.of_node, 0);
-- 	if (!fsl_ifc_ctrl_dev->gregs) {
-+ 	ctrl->gregs =3D of_iomap(dev->dev.of_node, 0);
-+ 	if (!ctrl->gregs) {
-  		dev_err(&dev->dev, "failed to get memory region\n");
-  		return -ENODEV;
-  	}
-
---ujEC44Ov2VwRuRhw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavG9TgAKCRAv73Ows9A4
-iXrSAQC7lhzRjSUAy6EexCQyxrtvlgfatmNxcCvg/DJ7cxEsNQD/Rm49w5vdf1pg
-XyFP2U49jvfQiWg3K2IFJlCoSp1WEQI=
-=WFKt
------END PGP SIGNATURE-----
-
---ujEC44Ov2VwRuRhw--
