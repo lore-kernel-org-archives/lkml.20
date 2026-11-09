@@ -1,65 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231178;
-	b=5YyQF5+fOTxrA0LiwLX8cp1r836jR3C2h5AsWbbYSpfqd3CItHZQXasgte9ny0kHRs9Z
-	 Q0t6I8fD+xOm0OPIAlOEeK3ZaVDLNNtP8ZufjPV0nz07ohsH6nA4HUDwXG6h2ve7bWo5S
-	 6mcL5OifZqAQb7bIgW/syTZdQ/424EEcOgwT2G62KeSdpzOSLesZN+89SrI/kdMW2x9U8
-	 6lAf/N8V7jLsir85mMcbRhBnFNehLIYqfhvx56N4OlQQ8ReahzYSRr00I3y0NQN+iynge
-	 WxJAdl2bDzu3obnpACnu+aVL5UBZ2lU9omKGHQzRntOOjge6Ny3mD6LEyhsCLEWZQIg==
+	t=1794231255;
+	b=weNmef3zyvudqJ/d5g7uO4XJ+D8dEuwqrC5juSakxRAprJ+BcvCzpnKTXEkigLF45Dpc
+	 Y1XWSMvl7kW8NskOwQKiLVjntCXgxCydj5dlIvK6oSbhnQ1YUUmbK8kHCioP2n3LPnEKH
+	 GyKc+ZB1XVWUjoPoU6rkcVb9AvvegvNsnjkj3Psw6eYbn0gBiB1yQzJZNkSwkuN7x4dEB
+	 GOjMDiT7C5qKj/oUWwr3A/HNhojr6nNRVOifqFKK1YHWb3qkRSmEkMFG0+XHRUQ0L4ytV
+	 +E3WAcWe9oDG6/YEhSDe97YyAT1ZY0MH+vWoldig8pB1p3Gf5e1DdC12ulXMyBpBGVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231178;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=40bKMwmS+zqliWyWpfE0ENwj1eMynIlSudH9fVtlnO4=;
-	b=v/2YcgtUi/Ip5l1fs0rBOrin7yccaN/7hbvXgHCGvDP3wC51tKCNPLF+gR2JtHQkxIKF
-	 /SJrYNyfGKNCYl+7ntsH+IJsa/BSl55iQXVyZAcfP5BCkiVYfewBsPLdJ8MLcqGku7EiF
-	 Z4q/QZbX1P6e2ziQxFWHsrRaKHYQnf8tvk3VIu+IHWH73BNeYCuKa9MnNNNJ2ZUwvTrXX
-	 vWhdi5deTvM5UI1bPssgu7FVZ0++rI/Q3i1KXIk7gJEhCcpPe4gWSyvion+Rz0//dQN42
-	 U6g5JudhUAT1IQD50YyPr2HOGZs437QQw1P/86QKhCbRemdSct+CdjxmT9j1mCtVV0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231255;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=O/zXdtBfMr7yE0U9APEwE8s+KVBal7Su8WTATDna9Ng=;
+	b=xhL2G6Y3wKjc3y+a3abRCuVssRuS6kbQ8gvAwFluHynzT4RtIYdOb6S/onUNWZthIybT
+	 4OENbhZ0IdbTdZNEpJXaVcLNnXgLxpMjwbdcI0FA1Q5E9XZUfe7q603+kz+pw9CHbWtgJ
+	 kme65ZilLjM9f8j/GfQq0K1p4GlUF7GO0ABHfbZohDoZs+JWiH+8ADjISXmaBRn9+8Zga
+	 ObZHN4EI4KhtlA08y/qPO9zhhXj+z6YEWq20F9XMG+HbS2BRGfViK3diOMejTynGIhOs6
+	 fzkiJzZq8f9xR6mB+UeqLv/4cU85v+xMAxaDnmYytfCTVrPGApqlHeL43Rk1A1r9fiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=Bbm86PvU;
-	arc=none smtp.remote-ip=95.215.58.168
-Received: from mta1.migadu.com (out-168.mta1.migadu.com [95.215.58.168])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t6WN2+mE;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B35606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:32:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45B35606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23BEF606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:34:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23BEF606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=Bbm86PvU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Fvo0rU4AAAD5ybmggyHQoZ1nYUH7YGGjSe5YZFFbZuE=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794231175; v=1; x=1794835975;
- b=Bbm86PvUjI3zrbGY+81JkYDU5PoHIZDhecLGKWYu2QzvSduoHWC7fC8GVqaJ6gu7+Vdfg/Ph
- thyBZi5PFa1MUb64BUCAw8Gt0Q3c8q4tBqRn/o7Y65RCv9qmp7zZhGLn6Z/TcGTVOCxQqXTWbNx
- 1iY0tXMPH/nov4HTuyaYYy2cF4riz9oe+dFlHLdshxjYoIfOFDuxN9SY2pWrAf01xu3RzMCoMPs
- jKv0h+h8ZhV+jPLhlIM7V1+i94VHtvPWLNvQPX1sKzXvs/f6P84rCa6RLSaHZEDoBIo2elc1Kk5
- y/VynyjTbqYdMxfnEKbx/l7UbSRDC26m6M5inVCOhvBYQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d3a5308d7d69d732;
-	Mon, 09 Nov 2026 13:32:55 +0000
-X-Mizu-Trace-ID: d3a5308d7d69d732
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 9 Nov 2026 21:32:45 +0800
-From: Weijie Yuan <kernel@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] docs/zh_CN: translate AI-related process guides
-Message-ID: <avHLfe6N56YjXa-i@wyuan.org>
-References: <cover.1794153793.git.dzm91@hust.edu.cn>
- <cover.1794197977.git.dzm91@hust.edu.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t6WN2+mE
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-492f563d1c6so288897f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:34:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794231253; x=1794836053; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=O/zXdtBfMr7yE0U9APEwE8s+KVBal7Su8WTATDna9Ng=;
+        b=t6WN2+mE9iQM4YnBdje3Ui5tG4kcd7+vF1GCKhcKKS+jODZ9yiCDlIOBXOXG0kq4cB
+         PzdFGYUKQ4k4L+90G2rnighEFZqpX78LhMdzuj1UXh+zG9nSZB3Rml3K1+KW1d2Adt8r
+         t7I4BBpU+X8qovz9enet/RDJidp26NSFkRTsw5vrcG1IrIsqG93SIJJZl5SQusybotXh
+         CceBgspQ/Bxt2yZ9R90xLj4i69rFkyMqHsU8hecMk5QgBX/iXv3iuBejQZFnwn70mxQp
+         pE2DSaDMJXmAqjUJG2/s1HSO5UIv6r6PEqKI7D637XAieA7X/9ivuyvsMiNqicEMznJa
+         mzKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794231253; x=1794836053;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O/zXdtBfMr7yE0U9APEwE8s+KVBal7Su8WTATDna9Ng=;
+        b=N1GevtgO3zuOg5MmfpoMOU2bssDZa4VqJSyzWr7tQl/QohScIVKp2vg69l4PCAZiC1
+         zwyBZc3Cl97Thva9LSXj7Dpxm8LqqOoi4pln9LfPD9P2FIg295qjq2zhWNrGuc5eBNNc
+         mRFQTaNnO1A04NAxQH+Ov2cRMrZIhA2o9GJjXgZ5v8runFY41c30EBnH3NcfNRPVaSP9
+         vSyL60gaA6ic9+yo8L6222oHYYeV9kFFMcxeeVnOjEl6D50fsBsDAbfYgsKwRhtKktwx
+         cJNiIauCkEzvbvmUnLddGpoyRT0N/9t6K4sN+pGfRDD2y3ND5d73G7Qd/dkpGkPEiB8u
+         dPqQ==
+X-Forwarded-Encrypted: i=1; AL+hErFPOlCO3cwVU3fD2bDCPGBgGyCPZPZw/LqtgDYNHRCuudVVs2r4Yda4/Khm/q7bRnQ3t4FrQtlchCT/1ak=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3J80D3ytxuUIYW57RUjb2eQaezvM0WKPUXCQr5SW1FHBqrf/3
+	9EGMGhsJNBspXuEIfP7huvHqN6ktFz1y3MUEcexwj4FbYd/2QAcuvOtJ
+X-Gm-Gg: AYBFou1zMSFRs7i2LplhtGZhYJMZtv95aVjCpkscxqWib+rnMjfVoo3q/4ddrvdugXg
+	XSilF5tPD14FBCi5h4XnJfHEgxjEN3iJS2Vvb1rSYoofD40UkHU9qbHmfgZUymENdQ1Ca4pRdDS
+	1yY3Wm7YDwTATSy6JJ2TDTIqbyCtMTTTqtltd4eLxkNCrJZ+CQtmQsaaffkf3T+z6HBc1xOR4y5
+	yzrVbEkV/o0rTcc6m0s5dSCpbaAxMdowBYleVKA9d5Pmd5rozxw4NHmxNf7gPCb53aBlucM7TTa
+	Le280uCSuPoMRYzAZNeImneVX1g+42NiDclcS4dR02oSxyXhiVmmC3tytSJAbxQvpvpDbS1QXo2
+	aFGDUzRYQWQnLqBsOQivTGffHg3yk67LWLk1dQS0GOkHWavw+KWFJ2DffROcgRF83RCF5Z0GR9l
+	7MwMRInNqvjjLNs90QGnGsWA+QkdAez0KSYVqcKtkyBVGePkIxbeqPK6X4cdGd7SCzJ5LG57dXS
+	oxT/uGykyRQZ/QX1bKkb1kiAY4BVeHStSlN/sckdOGtSTtY9pD4GgrhukocOmngVB2a3/VoqwFg
+	3LYcaWPTcdqRdQC5JW5XsZbxvBD+AQX4GpFiwwV0ZOup/0HMN/Dvys05qA==
+X-Received: by 2002:a05:6000:26c8:b0:494:f239:aefa with SMTP id ffacd0b85a97d-49584d47551mr8921475f8f.34.1794231253290;
+        Mon, 09 Nov 2026 05:34:13 -0800 (PST)
+Received: from mail.gmail.com ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-495966f3163sm10075884f8f.11.2026.11.09.05.34.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 05:34:12 -0800 (PST)
+Date: Mon, 9 Nov 2026 13:45:46 +0000
+From: Anton Protopopov <a.s.protopopov@gmail.com>
+To: bot+bpf-ci@kernel.org
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+	eddyz87@gmail.com, memxor@gmail.com, almagui@kernel.org,
+	john.fastabend@gmail.com, qmo@kernel.org, brauner@kernel.org,
+	kpsingh@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
+	emil@etsalapatis.com, ihor.solodrai@linux.dev, sashal@kernel.org,
+	bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+	martin.lau@kernel.org, mason@kernel.org
+Subject: Re: [PATCH v1 bpf-next 17/18] selftests/bpf: Enable bpf_scan_ir in
+ the config
+Message-ID: <avHOikbXvM5poRr5@mail.gmail.com>
+References: <20261106210314.1767267-17-a.s.protopopov@gmail.com>
+ <23cbf06b46fa6d1cdfa3a9bbcd247deec22de8efbe5d1b2fff4cb89177171d56@mail.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,45 +103,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cover.1794197977.git.dzm91@hust.edu.cn>
+In-Reply-To: <23cbf06b46fa6d1cdfa3a9bbcd247deec22de8efbe5d1b2fff4cb89177171d56@mail.kernel.org>
 
-On Mon, Nov 09, 2026 at 01:21:36PM +0800, Dongliang Mu wrote:
-> Add Chinese translations of the process guides for coding assistants,
-> generated content, and the kernel threat model. The final patch updates
-> the coding-assistants guide to link to the new translations.
+On 26/11/06 09:35PM, bot+bpf-ci@kernel.org wrote:
+> > selftests/bpf: Enable bpf_scan_ir in the config
 > 
-> Changes in v2:
-> - Add the missing Signed-off-by tags to all four patches.
-> - Spell out "AI 助手" in patch 4/4 to address the terminology nitpick.
-> - Format the English commit references in patch 3/4 for checkpatch.
-> - Add Weijie Yuan's Reviewed-by tags.
+> TL;DR: Commit message only: the list of cases where Kconfig ignores the plugin
+> options looks incomplete (other arches, missing matching llvm-config), so "CI
+> builds and tests it" may not hold and fmodret_retval may silently skip.
 > 
-> Dongliang Mu (4):
->   docs/zh_CN: translate coding-assistants.rst
->   docs/zh_CN: translate generated-content.rst
->   docs/zh_CN: translate threat-model.rst
->   docs/zh_CN: link AI guide to translated documents
+> >     selftests/bpf: Enable bpf_scan_ir in the config
+> >
+> >     The bpf_scan_ir plugin is off by default. Without it bpf_testmod has no
+> >     fixtures for the plugin and fmodret_retval skips. Enable the plugin in
+> >     the selftests config, so CI builds and tests it. Kconfig ignores the
+> >     options with GCC and with clang older than 19.
+> >     Signed-off-by: Anton Protopopov <a.s.protopopov@gmail.com>
+> 
+> Is the list of conditions in the last sentence complete?  The commit message
+> says Kconfig ignores the options "with GCC and with clang older than 19", and
+> that CI "builds and tests it".
+> 
+> scripts/llvm-plugins/Kconfig has more conditions.  LLVM_PLUGINS needs
+> CC_IS_CLANG, a working $(LLVM_CONFIG), an llvm-config with the same major
+> version as $(CC), and a $(HOSTCXX) that accepts the LLVM headers.
+> CLANG_PLUGIN_BPF_SCAN_IR needs X86_64 || ARM64, DEBUG_INFO_BTF, !LTO_CLANG and
+> CLANG_VERSION >= 190000.
+> 
+> So config.s390x, config.ppc64el and config.riscv64 never get the plugin, and a
+> clang >= 19 host without a matching llvm-dev drops both options silently.  In
+> those cases the build succeeds, bpf_testmod is built without the
+> bpf_testmod_retval*.o objects, and fmodret_retval reports SKIP.
+> 
+> Could the message list the full set of conditions, or say that "CI builds and
+> tests it" only holds when a matching llvm-config is available?
 
-I happened to take a look at what is Sashiko's review on this serie:
+Yes, thanks, will rephrase it.
 
-https://sashiko.dev/#/patchset/cover.1794197977.git.dzm91%40hust.edu.cn
+> 
+> ---
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+> 
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42294987431
 
-Besides the Original: and Translator: thing, Sashiko says that the new
-translations below are not added into zh_CN/process/index.rst.
-
-And I checked that the English original version of these are indeed
-added in their index.rst, so perhaps we can by the way tidy up our
-index.rst in Chinese process dir and add these new articles?
-
-Thanks.
-
->  .../zh_CN/process/coding-assistants.rst       |  74 ++++++++
->  .../zh_CN/process/generated-content.rst       |  97 ++++++++++
->  .../zh_CN/process/threat-model.rst            | 168 ++++++++++++++++++
->  3 files changed, 339 insertions(+)
->  create mode 100644 Documentation/translations/zh_CN/process/coding-assistants.rst
->  create mode 100644 Documentation/translations/zh_CN/process/generated-content.rst
->  create mode 100644 Documentation/translations/zh_CN/process/threat-model.rst
