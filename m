@@ -1,97 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.151
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193124;
-	b=WSjXUNSEKD9Y0O1jq1uh4KuxSEd9GDQwLbLEzW/PdiBrpACJPIdTL0opUkrryjlwGJ9y
-	 qq2q6pLXLpGo6BNjeok01lrHlWYOcTkHb5BNztPhbiFegYL37p8ckH/MOsg8aWVQlV7Bq
-	 3oKtEBR1P34RMEJ0s7r6GPbIAM7fre1nHNLxeuijV+hfjmSHngItVsslQNfMkD7wI3eBJ
-	 N6iEVSYkfRRsiVQFUiIEvY3OM4k4F0s7+M0tPYZoEoX5jQ/hFr+ArPkR7cBLnMX8IPsE8
-	 eT/ZU22Kl1NY0MNOHwLLgd3fZQq7Oe9+5g9padaP4AgqIO7ICxem3pCsH4RDxTbxLzg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193124;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yphr/xiIDRgmCIjQY3JvfmHV8o2HtJ/A7EORNX9HaRg=;
-	b=v377giXyjlxpFWMiK7MvkVDlA7g/MxQajnRs8QtelAQbolM3NR8JZnUVEZkj7+1A4hKR
-	 a0TLwa8FLPb+TUulr6LLQAfqW0r7zk5u/g2VhoF4eNeFEg48i7P9rwQIs3itMGDHwMPsm
-	 icROtw4cykSVThRWo8giB2WbZbSfjM0FOg23t9mhbVBGdMx56o8DaeuKC3ZLdxxNxScNh
-	 XhTH9xtG/0/XUCT04w8inEUKiZEdy3F7B4T/7cYCurOT7vRf/XaeFu6/N2GumBkUFoh5F
-	 eqxROTO0j5nm86rt5gSgtIng3Nj7OhyYUIoNoA54GaNF2q4FaCoGfs/tGW+M0fka4Kg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FSPwdPT5;
-	arc=none smtp.remote-ip=95.215.58.151
-Received: from mta1.migadu.com (out-151.mta1.migadu.com [95.215.58.151])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.80
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794193131;
+	b=i7Yjx824wCvz3VvG95xTDyPuttv49nCJP2ZELoXFZJ1zkAXsvsE2j+8TzMahsfRdCwNF
+	 q1/NMBLmVIZS4pqq24hqoXsvX4NbUHXhz/cHoHGjPluV0wf14C2rvWa9bO5kWwLq1EaV1
+	 zXg/6rbREnzwGVz319syybxW61NxDVGdfyBSsmyoMm8hpo96Mrw7EH4DkwDF9Y2dl1/kr
+	 dXPbrmrpCyqhv+WzMLevy55wlXG4s9w5fLD9vU7c4znputeFDkJxx3q8E5TAtEmBU1d87
+	 EtD6SsE1Tz1umSoS7ZSWku8un0LljgQXlrnDLNk+68WVFG2LyesaIF5njqk1mhAzdSw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193131;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Vwex8GKAAhQ1Zb1/glbBsz2ZpWDu1Yavm3d7ZnbfqGE=;
+	b=q4jSvxdxtvwCRAjZdH7DFhVBVgpBqNkkXso4CKJgoK8vOREjrtN3HQ/1ddAzB+YWpF7r
+	 UohRUp+QbwZ/as9em0DeqyhZRJpjTWpDhdxhNa7wJvVp4x8//NB+Qy9BAv1IapUMlfScZ
+	 azdUnBxOts5pFreexnBmVPNIzC4X9oQNbp532RYD/uleb5h80EXipEQ1evvO3a7q1+FfU
+	 h7gD8NUG6hBB84URQpT83+d3OZA+1wHvNFA7RR+pFu8x80ZIzTBZjem+jOOIe0k+t7A0H
+	 31trAPDIipVWZLrmVyYxU3EH8LM19ot+DfxgUqQH05TleI5oYrzgqxFzuNhZi4hrI7A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b="Bu/Vgzrw";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.80
+Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022080.outbound.protection.outlook.com [40.107.193.80])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46689606A323
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:58:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46689606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B95606A320
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:58:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1B95606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FSPwdPT5
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=96rAeUWmnzHN6yth5vv/wCTrXAV8exvh1VkI3YdM/T0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794193122; v=1; x=1794797922;
- b=FSPwdPT5dTGic4pY9LBjBaB5dut9cna9HmtiO4CIZPwehWLvelm8KsWiqfsq46ib8/amyH3N
- S5K02wwnFyCe9vXoO6pP4N5M8gOSfmuS/Top0M1Ygjap+sLL6gVo5nVxLr4c6cS6Wd6jzr68HJy
- AajJzFBXp/hmjxu2X2Ykgi+I=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 95288f8eb6e1ae45;
-	Mon, 09 Nov 2026 02:58:42 +0000
-X-Mizu-Trace-ID: 95288f8eb6e1ae45
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Paul Moore <paul@paul-moore.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	Julian Anastasov <ja@ssi.bg>,
-	Allison Henderson <achender@kernel.org>,
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	"D. Wythe" <alibuda@linux.alibaba.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Tony Lu <tonylu@linux.alibaba.com>,
-	Wen Gu <guwen@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	bridge@lists.linux.dev,
-	linux-security-module@vger.kernel.org,
-	mptcp@lists.linux.dev,
-	lvs-devel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
-	linux-sctp@vger.kernel.org,
-	linux-s390@vger.kernel.org
-Subject: [PATCH net-next 08/14] rds: annotate data-races around core rds sysctls
-Date: Mon,  9 Nov 2026 10:52:07 +0800
-Message-ID: <20261109025425.328445-9-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109025425.328445-1-jiayuan.chen@linux.dev>
-References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=Bu/Vgzrw
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jghFEftxux9evbr/M4lxMFJNXaqCilc3Qmf1QQLKpTBMglxL8b7WnDEAKvEv5yroYuh92C74j+YYAetG4guCsQpmhkdyN+/wU2nknvZhkLjZs6UejTxskQv2BY1a5HXBWSwwR+TkxbnTs0W8orIxb1ncdzcXMbRv3uCQq+AoClWZpNIqbYHq4qbWP/zAgQYUklg3LTCkzWHydCd3Ze34L57n9tea4Soagx9oJu363PECOmZuqquZdrPG/dDZwQR1v0nwyuCFilAIdVffH6OEN+0WfeaaLyiv4sIdHBmwMGPC3C3TaAuAoAHGHTy4T7Fplt7OOWqt61zlnb38qqkuXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Vwex8GKAAhQ1Zb1/glbBsz2ZpWDu1Yavm3d7ZnbfqGE=;
+ b=SpyEzV4IVQomOd8n3eq1GZPTuTqgSAOZ+X/82w0e9sVfE7lprb8I6c+rhTQqoTKmX88293GsE6O3Ozv1qwG4wcZxOQK8TpeZaLsSELW2z92YZb03YkHVXNc+ziAEemkzV6+egWhc+U7hOnx6V/CV7CaPWjqxeB6+5Dbl14ZeRKITM2Dj+9+MwHnHrMV5OWVAemrXGvTujRffze01M2n3XhTMTrP1xCB4JagjOVI/Ir/zQ9PHxn+tLuxKAjEJBC3zn/Hfqc/4FkndCiU0oQuviifdNI0yCpfOkxMj2ya0Nz3J095MqJZ9PoRYrrk7zCxDyU1PGgPE7ws9nTpZ/HpcpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Vwex8GKAAhQ1Zb1/glbBsz2ZpWDu1Yavm3d7ZnbfqGE=;
+ b=Bu/VgzrwoRAJoZo6NonJn71mf5GVL8YuIVfSkzXgTHvKxd6KZ5bKa2FeFi15VrJASGHtjurwszthImqnPnBD/ROGwpPxplRdl6tGa0lzGHazBOoXSyrqoGQPtU87iVdgCw6HafzMxfY90xwj/dwKsQzblTKbGA56KJc1CgaxWY2l02Q791wc9O4H/wodtH0AEmV2KJU3IRXT9GMOsWu2H8C7uAdNqhtn7w2LYkLg3BGS1Q+2p4houokzNEq4sFUiulSNL3+wknderC+1jkkfQY6fUQzVT/F8T5r7vLHKFy2jQJw0dWCfGyEXtM7cp8LRuOpWWHgHnyM8Xu9dcqZk3g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YQ1PR01MB376387.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:c8::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 02:58:49 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 02:58:49 +0000
+Message-ID: <db323b83-60ae-41d7-bdd1-03ef4e789061@efficios.com>
+Date: Sun, 8 Nov 2026 21:58:48 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 23/29] sched/deadline: Move a task's bandwidth when it
+ must leave its CPU
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com, linux-kernel@vger.kernel.org
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-24-mathieu.desnoyers@efficios.com>
+ <sashiko-outbox-203989@kernel.org>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <sashiko-outbox-203989@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBP288CA0037.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:9d::14) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,82 +101,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQ1PR01MB376387:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07baebea-0f0f-46f8-13f8-08df3e0d6114
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|10070799003|1800799024|366016|4143699003|56012099006|261022105027099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	LMbmgffzq3asQb3ZrpP//HQPa+3WcZ+U4/CzBzjD9CHXGk2w4arDrIwC9pFJs2/ptIDiltw4DhTjTXgQySxGHCnVvsX3lj+K6ho1z0ZEEkPwtKXbE1G3tz9wH/8n7tKy2j8IRI5XKz+CwrHfDY5O4kQxcnlQ7L4en4OiZmMiih6HKUE2E5WGq/+trrZT9zu3287R8HNbLsvm/1s/Mh83IcdpHYVuj/OOGcBpP7CAs64sObnwJVdU6eL8mMHuRJy28CqlpC9Cko19xaZ1MjVeYT0drRfkYS46qR0Hmx1+RwbUbJUYwP/k2h7hIVAcQJSfglC5U/SjiLahRu5vRhmXhDGYuCoLDu7L/+u4imvq9kCO3cv+z7wXTenVEHmaEzZqzXBiatUqG+UnNkU9SgEfx2g3XfVxA1rIEXfUm/PfNxb/oeNu2KdN/C30vixPQEaZszNsNTUg2k2E9CfPk0jfafjXg0k9VwoUkg5HerkW9iH4HqdpoqAsqtYgwUzQXz7ZqkjvQBxOQRi6tL8F5Cq6ZhHeQMVnTh/TAjDauuVFu5Lnoc4UjzK3uTVl6+Xlf9EcheAWuNvmZBa/dqS03EcECKyzg7IqYdJDOCI6z8O2Rpc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(10070799003)(1800799024)(366016)(4143699003)(56012099006)(261022105027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SldaVzJFdEdoTjFyWmJ1YkY1VmRDRXZzdUJEbUo0V0ZRUG5ueGtHUmpzNkRN?=
+ =?utf-8?B?YnJ1SFIrdkpDZUd5eVZacmlCOEpDWkF1NWI3bll5TU5PeXVnaWNkd0x6V0x5?=
+ =?utf-8?B?YkJEMitJVXlCVjNZU1pqcnZHK1ljcjdwODYyOHBteUZkaVQ3VlVzRzBucFBp?=
+ =?utf-8?B?SjVIbTlEOEVkSmlIRndtaTJhWjEzRGJNV0wrdHE2Z1gyZzNhTk04Q3lSdHBN?=
+ =?utf-8?B?QlBYVkZMWjVRNGdVR1VGM0wwYmZ4SVlIY3FzTHlYcDRhKzc1Y25xQkJHalZJ?=
+ =?utf-8?B?NXp0WXFybGUvcVdmT1kwNEZNeStWeEJFRy8xSHlQYjlPTUJuM2l0aThXOXgz?=
+ =?utf-8?B?OTgxS3F3N0tnWnQwc1E4QU1SOEttKzZiZjU4czVmVEFIbWZPYW1ZeGx6K05X?=
+ =?utf-8?B?S2IwWU1Ka0RBSXBycWtTRkZjZEl2bldnUmlvRnU1Ylp2cENIS1hEa1FPSUtG?=
+ =?utf-8?B?TVJlSnJsYnR4QzNDM3JZWFpzbnhZczd3czZ6NFF1RTZZTTU3ZnlaUWNwVkJQ?=
+ =?utf-8?B?cHQ3bEtQdmxhQ1R3YTFDaThKWmZTZXBWYndIaWZYekZlSnJyS01ZeTN5eHg0?=
+ =?utf-8?B?V3IwaGM3TEkwWUloNXZONC9mdTJLVVcwMDMrN1N1UlhZOFkyQUM3SWdrdkND?=
+ =?utf-8?B?Nkhya1k4MDJOdTFQMWhZbE16WXo0RVNzNFBJMTN0cGI1b1plOHFZc3BGSCta?=
+ =?utf-8?B?QWFsbnU0VjdnRlZrNkVuOXJMWitPN29KWmJKcXpVSmRjR0wzT0kxOHpqdWFZ?=
+ =?utf-8?B?dVd5RmQ1SDdlNDVSeDJJMGRLZjNhVHZubmVweXV2SUh2c3BZcjRibUVlbFJH?=
+ =?utf-8?B?ejViQytaRFIvenRUWGQ2RmlSejNERFBGWFdPaTA5ZEZjcjJ5NllaV2hmUWla?=
+ =?utf-8?B?ZldmZUNVNTd0cEIrSWZEMlRvaGFLeG9yekRRdlllamZab0tyVjlLdzlVRUt1?=
+ =?utf-8?B?c0dvSmlJd3BxazI1SHV0Snh2WXRIU002MkFsZ3NPT1BkeG94Y1hrY3RQRVZ3?=
+ =?utf-8?B?d0lydTZ0dXRERlN0SFNrY3gzc0UwdzFabURON0JrOHhXR1podloxUTBwZEx1?=
+ =?utf-8?B?VERDMnBZM09hb05DaFhaWW9nckJpdXpmclhBckR2MEN2aFJSYzVwNWZoZ1cy?=
+ =?utf-8?B?WVJ4TzM2bWMrUlBBR0xKaWxpc05uNldYSEowcitkTTVjQ01FYVVKenNad1Bk?=
+ =?utf-8?B?TlNyZFVzZE03Z001RzNWNm1YMEFWS2EyeXA3a0xEQlN5enVTVEE3Z0d5emJM?=
+ =?utf-8?B?WVNkdEZGNEVBQTdSL0owQ2loYTRrS3EvbWE1N1lJRnJQQ2N2MzZSZVBkN09q?=
+ =?utf-8?B?U3hSdGVST2VuTFRwa2d5T2FRUGlBWFlVbGxiU2pYWHArUVdvcFZkZWhvRXNX?=
+ =?utf-8?B?V0VVTEU2Z1lRVngrMnhMQlRPUEo2dkdTZmN1cFJ1alVSZjhGQ2ZaMStiNkVB?=
+ =?utf-8?B?Z2YxbGlScFZPVlFTQ2ZLejRuVTlQUThLTlpKRXFOZlROZnNsc05BZUFMbDNl?=
+ =?utf-8?B?MDlPb0ZWUW12aDFBVkhnUlFRbmNuVUpiaGNyem9KZWpsSFRTcHZwUXpqOUlL?=
+ =?utf-8?B?dVdWRGVtRGNEd2F4bU5CRlVnQmpXQzdaN2lQSUJMNWYzcEFaamRDbUtnR05y?=
+ =?utf-8?B?Znl1MlRKUjQ5VnA0UUorcVNuRjU1Zm4xNEhpZldBMkhNLzd1bmpvZ3BRNzFM?=
+ =?utf-8?B?eVlqVU1hbEQzMnJlS1B4ZVBDQzU3M3N4VHhhUlVCdmx1K2pYNUtJMlJyL080?=
+ =?utf-8?B?QkhPUVFycHNLM0JaTm95NUpmbzdzNmRHOVNNTzB5SmpGa0NheU11L2NxNmlj?=
+ =?utf-8?B?cXdIbFJlMU1xdGZDTm9VSENHQVRsSEZCSHp2VWNraDhVZWZtakVaUXAwWitx?=
+ =?utf-8?B?cXRoV0ZrOFFyT01qTGdQU2JPU0JaZ0ZqVlpxMW00eHJGaWMvdHFiZVowV2Jh?=
+ =?utf-8?B?MEtIaXh2dUdhVVBDUEhNaWZXdURCMXpycDlUUklJM0I5N05PZlZrTlN6YnIz?=
+ =?utf-8?B?UndFQUlHRE5zdHFLOW8ydDA4dVBaTGxnc0t3M0NsWHROVHY0OXFoSkx3MmZm?=
+ =?utf-8?B?enNrOGNybnAraGlwNU9mK3hvU0d2MmZHS0sybWlEalFpcG5PSmQrcnJoN0x6?=
+ =?utf-8?B?TWsrb0RpaHNNYmpUemF0K1hzNHlzblJ4eTYwNyt2RVk4VzE2cVppVmtwai8x?=
+ =?utf-8?B?WUY4S3g1N1Z6YlRiNWJ2RWZRUkUyOTRIYlpUaG0xOHdpRHd0OEZFZzQzNkJh?=
+ =?utf-8?B?WFpVMGhhL25FZWhwREtlb3ViSTR4eG45YUhJM1dYM2hmUFFNU1k1THdjdjli?=
+ =?utf-8?B?UFcrQ1JPZElzbE5Vbk1qTGFKcGw4Q1JIQVA4UHNQWkFzeHZFSVp6R25LNWcv?=
+ =?utf-8?Q?Ca4t7gm3KKHtRcwUUazF01Wgbx7ZTva0Jv2rvSG/bG8+V?=
+X-MS-Exchange-AntiSpam-MessageData-1: 3U/QgDc/LKjeLwAvPLcfX6gMtZ85l6J734o=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07baebea-0f0f-46f8-13f8-08df3e0d6114
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 02:58:49.4710
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VX0YJzPAvTGYq01Ovatx3yyxIY/69VgHiT7gAOZ+ZRf1LIrdNOQ8uhS7Mj5OMhIl0c0f8QAttO50ByfLTVMZk5RoeWklDLx58rYkvowkl54=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQ1PR01MB376387
 
-reconnect_min_delay_ms, reconnect_max_delay_ms, max_unacked_packets,
-max_unacked_bytes and ping_enable are read without any lock while their
-sysctl handlers update them with WRITE_ONCE(). Add READ_ONCE() to the
-readers.
+On 2026-11-08 14:41, sashiko-bot@kernel.org wrote:
+ > stale dl_bw_cpu on same-rd return in dl_task_move_bw()
 
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- net/rds/recv.c    | 2 +-
- net/rds/send.c    | 8 ++++----
- net/rds/threads.c | 4 ++--
- 3 files changed, 7 insertions(+), 7 deletions(-)
+Thanks. The record can name a CPU the task no longer runs on. That
+matters only for a task that departs before the rebuild. The rebuild
+recounts a task in the class on the CPU it is on. A departed task whose
+recorded CPU is inactive loses its bandwidth until its 0-lag time. The
+comment above dl_departed_list says so. The release from def_root_domain
+happens only between the detach and dl_clear_root_domains(), in the same
+rebuild, which clears it. Still, the next version records the CPU a task
+departs from, which covers this case.
 
-diff --git a/net/rds/recv.c b/net/rds/recv.c
-index 00ab60f2d9969..daccbfc8cb8a2 100644
---- a/net/rds/recv.c
-+++ b/net/rds/recv.c
-@@ -370,7 +370,7 @@ void rds_recv_incoming(struct rds_connection *conn, struct in6_addr *saddr,
- 	}
- 	cp->cp_next_rx_seq = be64_to_cpu(inc->i_hdr.h_sequence) + 1;
- 
--	if (rds_sysctl_ping_enable && inc->i_hdr.h_dport == 0) {
-+	if (READ_ONCE(rds_sysctl_ping_enable) && inc->i_hdr.h_dport == 0) {
- 		if (inc->i_hdr.h_sport == 0) {
- 			rdsdebug("ignore ping with 0 sport from %pI6c\n",
- 				 saddr);
-diff --git a/net/rds/send.c b/net/rds/send.c
-index f38967f65af18..66e75a382bcc7 100644
---- a/net/rds/send.c
-+++ b/net/rds/send.c
-@@ -87,8 +87,8 @@ void rds_send_path_reset(struct rds_conn_path *cp)
- 
- 	cp->cp_conn->c_map_queued = 0;
- 
--	cp->cp_unacked_packets = rds_sysctl_max_unacked_packets;
--	cp->cp_unacked_bytes = rds_sysctl_max_unacked_bytes;
-+	cp->cp_unacked_packets = READ_ONCE(rds_sysctl_max_unacked_packets);
-+	cp->cp_unacked_bytes = READ_ONCE(rds_sysctl_max_unacked_bytes);
- 
- 	/* Mark messages as retransmissions, and move them to the send q */
- 	spin_lock_irqsave(&cp->cp_lock, flags);
-@@ -380,9 +380,9 @@ int rds_send_xmit(struct rds_conn_path *cp)
- 				set_bit(RDS_MSG_ACK_REQUIRED, &rm->m_flags);
- 
- 				cp->cp_unacked_packets =
--					rds_sysctl_max_unacked_packets;
-+					READ_ONCE(rds_sysctl_max_unacked_packets);
- 				cp->cp_unacked_bytes =
--					rds_sysctl_max_unacked_bytes;
-+					READ_ONCE(rds_sysctl_max_unacked_bytes);
- 				rds_stats_inc(s_send_ack_required);
- 			} else {
- 				cp->cp_unacked_bytes -= len;
-diff --git a/net/rds/threads.c b/net/rds/threads.c
-index 639302bab51ef..115fcff0a5b13 100644
---- a/net/rds/threads.c
-+++ b/net/rds/threads.c
-@@ -137,7 +137,7 @@ void rds_queue_reconnect(struct rds_conn_path *cp)
- 
- 	set_bit(RDS_RECONNECT_PENDING, &cp->cp_flags);
- 	if (cp->cp_reconnect_jiffies == 0) {
--		cp->cp_reconnect_jiffies = rds_sysctl_reconnect_min_jiffies;
-+		cp->cp_reconnect_jiffies = READ_ONCE(rds_sysctl_reconnect_min_jiffies);
- 		rcu_read_lock();
- 		if (!rds_destroy_pending(cp->cp_conn))
- 			queue_delayed_work(cp->cp_wq, &cp->cp_conn_w, 0);
-@@ -156,7 +156,7 @@ void rds_queue_reconnect(struct rds_conn_path *cp)
- 	rcu_read_unlock();
- 
- 	cp->cp_reconnect_jiffies = min(cp->cp_reconnect_jiffies * 2,
--					rds_sysctl_reconnect_max_jiffies);
-+					READ_ONCE(rds_sysctl_reconnect_max_jiffies));
- }
- 
- void rds_connect_worker(struct work_struct *work)
+ > missed bw move in migrate_task_rq_dl() on task wakeup
+
+Thanks, both shapes are real. The test should not ask whether the task
+leaves an allowed CPU. It should ask whether the new CPU's root domain
+counts the bandwidth. The next version compares the root domain of the
+recorded CPU with the new CPU's, in migrate_task_rq_dl(). It does the
+same check in task_woken_dl(), for a wakeup with no migration. The same
+state also comes up with admission control on. A task is moved asleep
+into a cpuset of an isolated CPU. Then cpuset.cpus gets back the CPU the
+task sleeps on. Two new cases, hotplug_fallback_in_mask and
+mask_back_asleep, fail on v5 and pass with the fix.
+
+Thanks,
+
+Mathieu
+
 -- 
-2.43.0
-
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
