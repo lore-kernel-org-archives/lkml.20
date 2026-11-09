@@ -1,99 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794232061;
-	b=YlclmM9MeGiL1NxJeYuZLpAWVR13uggTlVLMAAI7FBt50g5Gq0H+dfv8DRdqE7fHVVg1
-	 22V9qyMF5a72lifRv9ugeLDiDvGspNzs2PyvywSJic+eIBvguk7Vvdlih+WXY+cN2v/tX
-	 OXGywzHCOsWa1xID5Hg+LYPP9CxlJInSLIMss3QPt/Fp4a/qHUtXvNuaX2PHCOMuDT3Fv
-	 yyBcKLOEkZEEMwDFz87fSO/f5o8h7XMyQg3+YWOTxUUOIS2SI7T2bI8u1oF1XUn6GO60z
-	 1/UaroyNeuWaLAy8wGSoMoi1VtpUx5slYAwJCtGVRBXv65bfx2+GM0ReTenbh50tVuQ==
+	t=1794232103;
+	b=dPkKCDiilQfsZad+pNZeoWTWRMZ072krWtmmxFh0xesFu1Il5E9wCteBqfCDeJ2HU1Yh
+	 ILhD6eip+ubiUSt17t+NzJb9wEyV7YpkpDYF5Fds0722T6bWQYTRCNP56xjI1PUKX2uml
+	 dYlx6sUluewpRWkT3PBXEYRAMEirzXf3oewzUmEO4S0CqtbeThJnmUIUPh5rU3BVEsS1Z
+	 kNUb28FJZQZnHaWpMlYkF5uHL+9LRRDrRCbdwwkzfcmQj7ATPGtIX3VIVf0CM8g+bugth
+	 rTP2sIb5OoH7bQrhZNs3E93IeXbM/JMN6TeVZsugXLmda3KM/cwEhXk6LLebYAVSBTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794232061;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794232103;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=MWN3G6USZ/dj8AJfyvahPduuzp3NKOxmGRBSQgdtHV8=;
-	b=k0lx+GlGB5XKRAMayNEXlQYobbHMzFrbFV9uUl6Guib7ovxwqZvJk4RXA78C7Ng21DH2
-	 Q5JnDSsM4bgr77XJfZJc6b8CREAPo6+eqOhiYugAbs6ivohFtMyxR6H/s5MuolQ3j3AvF
-	 HJsDHJ/kRxF/P256qqVHbrGHipesATPEJ+1G/Q7F25lA7evCiiuSJxMlnhwm3gqr8/dMq
-	 KZS05bm/jYu17BfvR8opCTGWujSSoF8BZb3actlQKj2a5+phvr95z2D5XP3EMez4TBsGg
-	 e9pPM/RttDDquTwyLKJ6kpKkDONQVrPrFzV0ewsbSiBPWC83E3jkowOJTy1FvZQ70NA==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=2xFblzM1dSzR/Kh3l6RiwUKC3aSm0Lww3LXjNnffbow=;
+	b=tOyKZ9PufncAgwzSHl5CZxAY8iUQyLXucA4KNsJeYDdWux3e71k4rjODT3w5d9pWRdh5
+	 TXz75aQY7Wfc7SDMCYh/QTCFQ1ylY/sy+DRqxYpALJyQkFrQERsWMhZqsBF4TgMs9uad8
+	 TOGsfqBDNxD/cg7pnrT358/Um+cRVjirSkI03TIxuObMp7+OC9OMPkOehtBlK8dMzBS8j
+	 YElaqadF/5uPCoKkWmnylfrOQaDTDZ80lVqmbTd+rqLi3scyoFpvm19ieNkiskcljn1b/
+	 yEf+Ux8kFrKUpRG7BQmViwruYvz4q0+3BQo0px2mxDOovoa2SlOq/RJMXtGSX5EGFoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Peiv54B7;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=LuwJxS0W;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DE18606A33E
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:47:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DE18606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B01606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:48:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63B01606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Peiv54B7
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso8765785e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:47:41 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=LuwJxS0W
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a214af2076so6364775e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:48:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794232060; x=1794836860; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MWN3G6USZ/dj8AJfyvahPduuzp3NKOxmGRBSQgdtHV8=;
-        b=Peiv54B7LWZaSvhVVKsk2sgJbYgCH3fx02yq75B0DGc++TJzWsY6qK5P4onJUBghmY
-         ZSo0bd0tgXOSlYPA2gPVWmro8dNgSu/kdnyUWocvFJcw6LzHHsHxSBuD6T4yC60r32yu
-         9mFruvo7VcL+MXHVdFSF3Pc66y5VY9KDmb9znGGg49KrQkQ2F1/Qj/z1VSyVwbjEk5s0
-         U6No4OgSOXvRe14kWi+GMnNouI0jE2BC5nluhaNfXsiWkT3xFtGLRbdGMVBR0qOzOpe5
-         TxTH2XhyPbIJdtnRMErWNGm6u/Nss/hpgGwp62/VHuBLQNqAWCbQqbBxk22xirSddYaF
-         3HGg==
+        d=linaro.org; s=google; t=1794232102; x=1794836902; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2xFblzM1dSzR/Kh3l6RiwUKC3aSm0Lww3LXjNnffbow=;
+        b=LuwJxS0WW1EpJ45qqhmjeMoKS+KeGs6OBOKD25AdVoZ7hmTx9JNOSapXm/pA+abz55
+         B3zD3MyB+swCViEi9CuJQoNniMI6hYQsrsd2ize6DNka5kZDiet4m9hbXxPYaZ6Jm0xA
+         WAvVMuET5F9Fs589JOnIykSJ8v7EcRa84JW5ZQx0J2Utz7saAQnTZ2JK2zu8v0aFPfpD
+         FY9jP1vwsdPUYE/Fq91Nf4BwHJoCKZsaSjt3LGDHIrwHlDeYxaCW+onzkczZZuvBLnWg
+         m9w1kmiCCVYuxMB6CLBCAXpQj2M7PYShNcEUFLwM3hK2yxnRAxzJ+6QXyO4rlt+jw9cw
+         cSqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794232060; x=1794836860;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MWN3G6USZ/dj8AJfyvahPduuzp3NKOxmGRBSQgdtHV8=;
-        b=JKL9N+y5xTyPCM8apBf5j8qhATypOnClkQ1fELieThLNYhMynhCHAuDgTPb4RjgGNk
-         wc2o4A7y18IfwuHhQkdSP53gkGZBcN95qYfPg6zWvFzsr4nTGkOgMDaB76AAUOKFt5RX
-         iZo0Bkb2GLDBhLJX3u5WokG/kUPFPj1CUWIeT1d5+IS5WehsUTdMIBQwsbG1Rrv1zJRH
-         s0+38n/A8F6PiX89bQHMmzNZYXw1g/KLHlkTtda+giTjjG/hjkrf8qsk8T78xVCFkgl5
-         +eeSTABIlrkg/YgUEDjqgZtUP356bXbsREZEMS7tF2l6aMFDlddc+l0zFVl67LV8U7X8
-         sL5Q==
-X-Forwarded-Encrypted: i=1; AL+hErFplW3/KmFrF7DzvsrC2aasq+ljWpL+JEBKKggzaUmgmE2WuTZ9xTu/lK8jaWoInZ443J5baE3Gk+bok6A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xSgosH5JdSr6iD/anNLrnrrvtetQKUVUBjDi6Ub44ecloa7k/
-	mAh+fibuPmtq8rbuUNIUMLj1l5B3IFlLnuyp9RarBzdmCJNjJQNVMl2SWzSCJw==
-X-Gm-Gg: AYBFou3t+r234z8Ada4AQC5luUXajaKS6VThQtY60wFcRmsUlwnNZlxwGvNabBV6s3k
-	OWQ7Sx2w1WpJzBq7htwE8N8yU+YEzK/AzR91U3XQhSLxuD4ivg814OHUlOr5Jk+zNdRXxV8CDGv
-	so5hylN5vq/bvkxnY/nAZUzxjPhcsQMoMtYVdx6td+qK4rRwtN98MuAEO1GsYvWDfotIM1TL7Nw
-	NrGWKR1H6D2TTvUeThBg5BK32lJsQUoAIHRMiv18JM2MDtXRbwBlhaHRNvswq65vyWjliD3taXN
-	iAfqw0xa9DxisIzAO5eZFkHUrEFO102CctqN4nFfqZeh9wg3uuBPm0wB/8VBFSsFsbD8GtfZsHp
-	CQN1ZGS9f8qn2FJlO4aV3c6EyMUBO8Bv0xxCCkTwnbmUo2s+Atn7Tbuoy9R/fqinlYi320s2cuq
-	ZqOA+PI5RkvA8SOXnDKDmZo7v9FbDwkXgmAtgGe/haGt3AE3v2fcOkGXAM9aWSJiGUPZl4Sr7Ry
-	CQU0uyVu634Fxd5Kf8MQCW87j0tH2orykMwjCt/IyW5moaKxINm4LobrJbF+U9bX3izeEzXrBIQ
-	+8ufk8A70R3LpdOc6hhRhuDOZLKr6gF5uUFS
-X-Received: by 2002:a05:600c:4f0e:b0:4a2:1612:637a with SMTP id 5b1f17b1804b1-4b963c6e154mr77001645e9.16.1794232059808;
-        Mon, 09 Nov 2026 05:47:39 -0800 (PST)
-Received: from mail.gmail.com ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4959783fd04sm10425052f8f.47.2026.11.09.05.47.37
+        d=1e100.net; s=20260707; t=1794232102; x=1794836902;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2xFblzM1dSzR/Kh3l6RiwUKC3aSm0Lww3LXjNnffbow=;
+        b=US1YuuhjpS+2kk83+fWRiRYl66QMnaswEmTrZMHiSds+TSyivbgZF/43HrG/X64dzS
+         DtubWc2yQNwOQQld170bhQJ0h5OuCzipUTxZ+SIJP+aPLvBZ2pGHOt1Z1wJfStIlFZhy
+         saNwQXPUAY/hVkLbLRDyUOl+HRhLBkAQzPGhw4PRdpE0RZDTKU63i11yGUPvotcA+WJG
+         EDNbAZiVJaeUx2WM+gxfaEzMYJjB2dHvToxDuIE1VrJCQ1U+YNIsRdPSo7vbOM1Ngydl
+         SB4HyXVVy3IwBuwQAcLI9nnRl6z1k4pUduZqpLKeS5wFzBSq5eJAN5Bv2etGRaDwht54
+         3AKw==
+X-Forwarded-Encrypted: i=1; AL+hErF0Jl3pYzI3CX+b5x4I9ncydRv1sqjkt1Ve/GvoMRp+WYQbPwHFioSnTJYjCKuCHYhWmfR938np7j8HBRw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DVOSkmheaWpJgKEUGUqo2sjkRL4NiCqt9QPmV2f5xaEPxk69g
+	2P/zt4IX7XtF3jUhWOYd5Nh47Iv8hkDzLH8oPHnJ+i08/RAiayjh6CB3z1PtZHmbFTU=
+X-Gm-Gg: AYBFou1gOHPjBdtJbcGo7bkxbC+P5RBJmcMri1CcoE3mnNBSVSTBse5xFfcTDm77Zmu
+	7kRgbrc2OvkMekfObmfRsLB4o6O8Tiqr/SzQZo6pxpvmyJWyZ/wh6vrH7ryRY5+tsZ+t3X67spG
+	oI3sLPWcjAxIfEVUzr8IDgpTfSXJi/jkquAtM+0jSrMpE0KHL3ACkxRyUeDeCIGHCaVZyaOGIY6
+	wBdDZhkqpl1XZpq5fyw8LBKOpRpyHvOxClTylswpOaWZW0EqoDaW3OfqIGJHWJEgmJ+GOiryrvQ
+	KmcdDoHMQfOAojqsm5y9iv8dm44xmFEpzUvyAyyIJIJDRPDJ3QJe9YmTKyVt0i2k1zkX9zaOS3c
+	8HDFND22pDXE7R2/ERrikcY6dkgPS4RAO19yNW26WWqGevX4R7yWfPQHDTZ7ZDWrLm/AD4sv7QJ
+	aSpVs2utnvqmLRV/u2OLEEKYaC7QIGsRfTOZNoUvrjx2fQnGeE5Lhlhcf+/nUwvvWCA4oyVDp+n
+	8FMqEaNZ8j3iMK6nqkbIeZw+RptBehPL2Y44A92hX/PirS/g2x2tl18zvRj7zShDVPDMxlVbGj4
+	f/+ZwvK9ySd8Eqrn1WIXI2zahRlKU4idc+htI5g7AWuCxg6pEUyQ9w==
+X-Received: by 2002:a05:600c:8b72:b0:4a1:efba:511 with SMTP id 5b1f17b1804b1-4b963c953eamr76345915e9.35.1794232101787;
+        Mon, 09 Nov 2026 05:48:21 -0800 (PST)
+Received: from pop-os.local ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7bb101537sm98522045e9.0.2026.11.09.05.48.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 05:47:38 -0800 (PST)
-Date: Mon, 9 Nov 2026 13:59:12 +0000
-From: Anton Protopopov <a.s.protopopov@gmail.com>
-To: bot+bpf-ci@kernel.org
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
-	eddyz87@gmail.com, memxor@gmail.com, almagui@kernel.org,
-	john.fastabend@gmail.com, qmo@kernel.org, brauner@kernel.org,
-	kpsingh@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
-	emil@etsalapatis.com, ihor.solodrai@linux.dev, sashal@kernel.org,
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
-	martin.lau@kernel.org, mason@kernel.org
-Subject: Re: [PATCH v1 bpf-next 16/18] selftests/bpf: Test fmod_ret
- candidates found by bpf_scan_ir
-Message-ID: <avHRsGTClKW57FAt@mail.gmail.com>
-References: <20261106210314.1767267-16-a.s.protopopov@gmail.com>
- <8b7031053a1e8023c64c8c33203f67f4215142ba84cdbab9d77c89050766c106@mail.kernel.org>
+        Mon, 09 Nov 2026 05:48:21 -0800 (PST)
+From: James Clark <james.clark@linaro.org>
+Subject: [PATCH v4 0/4] perf tools: LLVM dwarf and flaky test fixes
+Date: Mon, 09 Nov 2026 13:48:07 +0000
+Message-Id: <20261109-james-perf-test-fixes-v4-0-355ee6b81917@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,81 +91,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8b7031053a1e8023c64c8c33203f67f4215142ba84cdbab9d77c89050766c106@mail.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABfP8WoC/3XNQQ6CMBAF0KuQrq1pB1rAlfcwLgpMoUSBtEg0h
+ LvbYkwwhuXPzH9/Jg6tQUdO0UwsTsaZvvMhOUSkbFRXIzWVzwQYSM5ZQlt1R0cHtJqO6EaqzdN
+ nnQJIIWJecUV8d7C4Hnz1cv1k9yhaLMeAhY/GuLG3r3V44uHvuyF2NiZOGWUFpHmBKLKYnW+mU
+ 7Y/9rYmYWSCLSP3GPBMrnIOUoLOAP6YeMvke0zsGcwqpqRAyTP1wyzL8gZmUBJTWwEAAA==
+X-Change-ID: 20261104-james-perf-test-fixes-f72265531d1a
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, Jakub Brnak <jbrnak@redhat.com>, 
+ Leo Yan <leo.yan@arm.com>
+Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, 
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ James Clark <james.clark@linaro.org>
+X-Mailer: b4 0.15.2
 
-On 26/11/06 09:50PM, bot+bpf-ci@kernel.org wrote:
-> > selftests/bpf: Test fmod_ret candidates found by bpf_scan_ir
-> 
-> TL;DR: Nits only in the selftests: a fmod_ret test program's name may
-> misdescribe its target, and some includes in bpf_testmod_retval.c may be
-> unused.
-> 
-> > diff --git a/tools/testing/selftests/bpf/progs/fmodret_retval.c b/tools/testing/selftests/bpf/progs/fmodret_retval.c
-> > new file mode 100644
-> > --- /dev/null
-> > +++ b/tools/testing/selftests/bpf/progs/fmodret_retval.c
-> 
-> [ ... ]
-> 
-> > +/* Declared targets and the static rules are not restricted */
-> > +SEC("fmod_ret/bpf_testmod_retval_declared")
-> > +__success
-> > +int BPF_PROG(declared_any, int ret)
-> > +{
-> > +	return -1;
-> > +}
-> > +
-> > +SEC("fmod_ret/bpf_modify_return_test")
-> > +__success
-> > +int BPF_PROG(static_rule_any, int a, int *b, int ret)
-> > +{
-> > +	return -1;
-> > +}
-> 
-> This isn't a bug, but bpf_modify_return_test() is in the
-> bpf_test_modify_return_ids BTF_FMODRET set, so it looks like a declared
-> target rather than one allowed by check_attach_modify_return().
-> 
-> Would a name like declared_vmlinux_any fit better, or was this meant to
-> attach to something the static rules allow?
+Running the tests on an LLVM build results in some dwarf issues that
+need fixing. And there is an easy fix for some flakiness caused when
+tests are run in parallel.
 
-Yep, thanks. They have different nature: one is from vmlinux, one is from
-module. Will rename correspondingly.
+Assisted by Claude Opus 5.5
 
-> [ ... ]
-> 
-> > diff --git a/tools/testing/selftests/bpf/test_kmods/bpf_testmod_retval.c b/tools/testing/selftests/bpf/test_kmods/bpf_testmod_retval.c
-> > new file mode 100644
-> > --- /dev/null
-> > +++ b/tools/testing/selftests/bpf/test_kmods/bpf_testmod_retval.c
-> 
-> [ ... ]
-> 
-> > +#include <linux/atomic.h>
-> > +#include <linux/btf.h>
-> > +#include <linux/btf_ids.h>
-> > +#include <linux/compiler.h>
-> > +#include <linux/err.h>
-> > +#include <linux/errno.h>
-> > +#include <linux/error-injection.h>
-> > +#include <linux/mutex.h>
-> > +#include <linux/rcupdate.h>
-> > +#include <linux/spinlock.h>
-> > +#include <linux/types.h>
-> 
-> This isn't a bug, but are linux/mutex.h, linux/rcupdate.h and linux/btf.h
-> still needed here, or are they left over from earlier fixtures?
-> 
-> [ ... ]
+Signed-off-by: James Clark <james.clark@linaro.org>
+---
+Changes in v4:
+- Remove unused add_probe_vfs_getname() argument to fix shellcheck.
+- Link to v3: https://patch.msgid.link/20261109-james-perf-test-fixes-v3-0-e8d0a65e618a@linaro.org
 
-Thanks, indeed, will remove.
+Changes in v3:
+- Rebase to resolve new conflicts
+- Link to v2: https://patch.msgid.link/20261106-james-perf-test-fixes-v2-0-9a912662f822@linaro.org
 
-> 
-> ---
-> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-> 
-> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42294987431
+Changes in v2:
+- Break perf probe line (Namhyung)
+- Use a software event instead of cycles for VM compatibility (Namhyung)
+- Link to v1: https://patch.msgid.link/20261105-james-perf-test-fixes-v1-0-0b279bee5830@linaro.org
+
+---
+James Clark (4):
+      perf libdw: Find the CU by iterating all CUs when aranges are missing
+      perf dwarf-aux: Support DW_OP_addrx locations for global variables
+      perf test probe_vfs_getname: Fix missing debuginfo detection
+      perf test: Don't starve per-process tests with system-wide events
+
+ tools/perf/tests/shell/lib/probe_vfs_getname.sh |  9 ++--
+ tools/perf/tests/shell/record.sh                |  6 +--
+ tools/perf/tests/shell/record_lbr.sh            |  2 +-
+ tools/perf/tests/shell/record_sideband.sh       |  4 +-
+ tools/perf/util/annotate-data.c                 | 27 +---------
+ tools/perf/util/dwarf-aux.c                     | 70 ++++++++++++++++++++++---
+ tools/perf/util/dwarf-aux.h                     |  3 ++
+ tools/perf/util/libdw.c                         | 19 +++----
+ 8 files changed, 90 insertions(+), 50 deletions(-)
+---
+base-commit: 13a8d580433a3b72b10be34f0e26787fe5659d3c
+change-id: 20261104-james-perf-test-fixes-f72265531d1a
+
+Best regards,
+--  
+James Clark <james.clark@linaro.org>
 
