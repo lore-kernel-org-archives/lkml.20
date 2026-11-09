@@ -1,80 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.190.147
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794261984;
-	b=hldOE/N26BiGLMPzrssBpDc97+K4LltlI6vR+dcyf14rSGRYmCCHObqZaMsiW9g/8Tif
-	 VHfEkCqRHEHK4CjbXebUSwPcBRFKEgXexvzyNQERsLp5A7MH4xoDmI9koO0N2yt9dANpk
-	 jmtNAOIWWHH8xt7ejwGgHxvhYMKYrmSO0cfrOODro7GbDQvXdDfezx1yS208nnHWXUkvd
-	 jQcPVX+W7foNas5S2Rj0QKZawZMRe2nXWAG0iAaxrSyQQZuTzTPEeG9lLOjqzM9ToKLQQ
-	 8EiFE1slAEDhA53eSOWV+rQ6S1Xw2LF1jXphNt0u8M1vpSNysVApTqp/kHqtgFG4Iwg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794261984;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=LXdslhn4QFOhXiE4/3m7pT0ytL36hZW2Gbm9O6IkB2U=;
-	b=wFCAMqwxCWDyKn4ytJ663M9xOEmlg57XyAfdDZ2hmBFlOZtXgJYqvVMY0M+IHD3PZqFR
-	 I+IC8CQOevxGhGvyivtqG7s9ULP4qUnhMxDxVn8x9K/YFNbVbMVMtDjmR6NXrOByQryU5
-	 mzhBJjdpfiZZ7dyNFZ0FhZ725NEHLGWEHlKeJlELIM+XNuvm8VOhTdltIi0Opf8TTzoLv
-	 ZRL5fzGFd0o8iQkLV4NqFrFgTBGYmk5qNtsqE+/TNif9gwINf+ujUoDFIJBamGqtOTc1x
-	 AsZ6Fr7gJVVAX7mML0PM0Q6+z4tWWAl7wt8plBTvRiU6pzb62RNBishOlSjQGNYPl3Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=DYMytSYK;
-	arc=none smtp.remote-ip=66.163.190.147
-Received: from sonic315-21.consmr.mail.ne1.yahoo.com (sonic315-21.consmr.mail.ne1.yahoo.com [66.163.190.147])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794262011;
+	b=hv0yJCH9bN/5V+qY994+6QvuFGs+DGY4WO2J7oyT9QQOQ6Z+ncKo8Z0eEIGrqeSbMIab
+	 XpIo6sDVEVZbQpK6rNYWuzG4DtaevQ4OceOVAK/6YiawQjSj9M4X+6JUcd60f6ounn9Yt
+	 CBlCrgoHN0bvMYuHmrgxLz97/N3+dJev3jy7feMujQ0HDwr+vLWkQ0t0RilItEGdqh1rl
+	 95LC+8T3z6CbeQGDOk0t5nqtSNPEO2Q+ingSIgJhmwJ0J1QOQ6a+Jd6ruSWYrk+flvsSE
+	 cm8PIBffyrJVg5WrEtqrTN2XKyqsP7AbhLfiKu2sFzPN7fwFaj8Wyy5VAiF/rr/xdzQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794262011;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=t2+WFOl4jOfThUR5eHCL+U8ZKopHXwLxKhpsdWMufzQ=;
+	b=psNHQgdoL336W+6EEGL4iIe3xs4DQe6oDGHAz/Ai/r1RVPouWppcH97ppSVm9H4h073Q
+	 7CmH2ugnuy4yQVAnRHO/ffPcLUzo7n3bIhxlYPXl9mkj8CjCN5bQhWq+CLCqIJ5C/wTm8
+	 VntEf4GZUayy8WfX7QM1kZWdh2UU32CS54q1IvbdAs70dxIrAERRBCxhPD1wqTbl7RBZO
+	 TrE9sZiPiAJnkbc5Tse4mb4en1G+EW/q/Xhs2J1sneUBdw4LSbXxGZS6dQIFyD0mW99pb
+	 VyPhxJKuzbgjqExOcUUp8k6URmGD186QIpZuzgTcogrR6tQJw53j1q45DzijkMIbJZw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKlDOfNK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22A4606A321;
+	Mon,  9 Nov 2026 22:06:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GKlDOfNK
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794262010;
+	b=HQev7O/f3HSX/sjFxYNyRQyCC5yYk6nvOb5HBT1Af5vCiX96z98K5XU9Ygy4mS68Z2Ja
+	 8gT1NcrNqBdC0IoPpfEgcH1j0nLxN4drWkHWLrJTmhG4EprF5RTDFhgOXAMFXi4k7biF2
+	 l9WSK02Kvv37+5yJoVKFgpZZ/GC3OdGGaRRjJEhVEpORxyUi+g4RTfSbGpngD3ryNa/UL
+	 KGg57FZrq9eJhtLJ6AkBs92HyoS2cnQOokmjB5axEfXjXlkRMPKqqdxYvupLPcEDuTCqO
+	 rz++0dARySFUQO9dphdb0LWQskXf53RWnq7K7EknpQG45M6iTUiBFF2D8bfTPf3M17Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794262010;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=t2+WFOl4jOfThUR5eHCL+U8ZKopHXwLxKhpsdWMufzQ=;
+	b=e7ClXhLuRBTr3plbo1zJkmj+8OZagKmoxT8cCNxjx2J+7fZmy4yT1maOXi3lekhiL9qk
+	 qE1ul3LkhycJAZXB2kBMCCuUoRze+WZfQlm/jG2K4VSJUwpfqep2CNTw8fYkeMe0VmSQO
+	 A1089KNMCzbicUub/DwuGziCOrLKrNLOxJiJzN3YblRs5JMoNjxH5yq9WIgPzSEP/7Egv
+	 T73rGS/QiKSLp1Q/wA2sJeqsnecoz5vQdDvH1RSb5mwAkGHb09mhhfb9bF43TJuhBb+4E
+	 NJcjPM7COU1NawhzTPB5ccb9DpT90LlC3Io2V0YK5xGGjZI8WZS17vyMyp/iyvOcuNQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0839F606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 22:06:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0839F606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=DYMytSYK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794261983; bh=LXdslhn4QFOhXiE4/3m7pT0ytL36hZW2Gbm9O6IkB2U=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=DYMytSYK3AwByEXZ4ZLoYE4wFsAKjciyP+vSKcA65h4l6xkLbLtJJHpfqj97rIG7fN73ep+zEY7eZ90zh9YV7morXl4TToX1oS1UosIc3SDsykAjyioIDKR+qhERIb7Eg07Ctf7rCxo4EzYvHiyPG0DM0yQrXjio8S7iNzfxUO8eH5wFmXbm5T33IQYeUjUd5ekLCXJjnGkeAeAU3jORgvmiWMND9CVB3S//N3wLM2xCe8xX9hII0JznantqFH4mSTGaICsERT9u/60wnizb1DG0CxaMPnn/CendAHU58Rays4hod6Hhg9S3bSvj4f4zUmvHEGBDlK3Q+U5LxnE88A==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794261983; bh=KaOp+Il++hyuwkT6/Vmv2fNNwBliSJJPIUzvrFnxIo3=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=TCUq6+b5bNS7VVrLKb8+dAuk/BvKDxdoMad/YbDGKgcS3MwqHrTlZyFouktv18n4MR/nWzCMzrK4dzhaVdlcCtchn6su9r4CoUf7ZWUg9tK95/LK5XpE/1DxNfus67iuys9+PRcnWc0cv2bR4jIPo0ubmyLyo/IqfUwQMjdEUCmTHT+zj9lGxvj2kyyZEO0asc02kbzp7+0cuNAgPHX8p6u75N8EMg9fyXc3O+LjFF+HgiHVBc/LdYI8fX52jeJh3Uq3DyUQlhhfeEgINIdqlebfmdZVRbTb942o7eIOoeU6lj4Nn7Sq+SVRpI9xutlHGDnI5hv84FH2z/JcjdZByw==
-X-YMail-OSG: mU_d6JcVM1na2kursYcZv.ZgUwJtq.y.BP7YO7QUPF0EOePXec9ANKXuWeVxgRO
- Wekst1SNltPuRcLut7brl7pO7oGSc3DDn3DC0UR7bRNshUBmMgXmiQtO4WgSINqfxVIljAlya.YB
- QsKRkuoTesNNleti.UdaTvKk6wDAvN6ajF_B39M3jpEWsmrj0VOiA9YASBfcPw2jnLL4l2MdRM2V
- 0hRxJX8o.G_sIjk0VUcqVZU6_0tfNb8nAane05gLgRfczTWonFbWdgrN_V2LsOIL1OA8C_Aj0swy
- rRLTtHWI6qdJwe2JvnmRFa.wRktubI4Vn5V9xS3vUinLN9Ah7kpUKL7706Lj8r3X56NRuCdsNhti
- G.E_UAntTkaHIDKyddcPT9VNeZa5_yrjvTSKPXZT2YvJIV.M7gfhk9y3ONNR_ywbs5W0_03ZFeFf
- E_EmOd8U31pNj2Ms9Fd0TJlQp8NtqXe.Ms4.gSfZhMFJFOuQRB3m9HCPxuMDvuWwTHlm22sjGcXy
- TjGorrVcLF2GQa2mEpYiL_CvluSQ7YKMZJVwyvoTs862Lp1S45bWSB1rJIbx8P3VRufhZsRfbWvW
- ZNuj9qDidf6lSZJkPhTGKVCzHuFK52ck7H6Rn886M8S9Jm7YIu5RXYIS88uiuZ9ixORY.ski6vhL
- 3x8xq1HJGAknzMEk0brWd_gFHAq_p1hHRVSIwe5hxeYpX1Ze4nrEiWyA5DuGoiw_nzLFSCWPYC8.
- pZJMkNssvnsonGMsf25BV.sA_a_E6X9blrdkbdmp.HanYjdBgW9VezDMcbavwkWo.5qqsCz6RKuS
- PEJTJSkENwjgSMDYR_ZPM5s6685g5vKvULMdKP2yNaHPNt4cgBRM6PfPxdM0_aKyVVqAYRCGtMXe
- stY.raLXqMXYrDwuR9NHloHOh68IpMONz3XEH42f3KvtdE0fgL4KsuH.EvwPadk8IGDCMr0o.Ado
- yGE9yVt9n6Fk2vR78EP38OU.UzHr4aFqSK7y42me41YDZkREy4nT69ccLlJYDcpVRXAlKXEzTyMY
- Hyal2zoQXP9.xQ_6iyJf51q1Qgr.rcq67jeDGUllrhRo7U9T3SnMZhowBdYTTkgLy.xpeQbXSyFV
- JGtlmXGSjgtaw7tnG7fV786G_JMds1MrjfmlsFDTFnGxWGRj3J0M5YiMUXcviM.tAOUzeHIU8wNH
- 8Uzi742vIDn6TPibbEmWypZIlNvYjGGaiS7UkZn6PeiWADuMm3YkmtEO2jEJ2RnBm__QZHA7wcil
- 0qlQEP3BCfbtG9vUMGkzwi0V4o7AryQakwp85tkXzcKcPnY4mOyLBCOO5aIAjmZlHTHAarcEBcfx
- TCCWmIJ_z0xNOvbQqOEL0K8k33JrQWxeF91cimB6rerVaXa23tzHe2h7IxBAPM.hi24WpOQqGRdI
- 2Dztj.3cS7wH3FEKrkdc.JaeOCwt5ntmvqNfeLLxw2Myb8tdSvLUxT6sT.tkXA97UxhFqy6e6O.c
- W3LoRmt0PnIZgbCgaMpE41sukwexny71nwD4dZA0vwZP3y.hwVDiFNDWjCtonJ7Rf8cIhdYy1KLe
- Qho7NyMmC6YcnEk5VljmulnIB43VlOczRkc75s8aEW5iruxPA4Z7kTmeluF9cN5JFiYfppz4rMIP
- .fTLXS.qkhfLNRPnsEPmHHln4aDl8.hfUtR.xdBoa32BmbFViF3S7wumtz6YzmvTXO9BS0R7b0H2
- zVeoZIt2ohq8JyFL5sPR1iJUuU39nKmHCTujWrBgneIx5CkyL0OTerL1RGvNzPdJ95NYr7IcK4rp
- rSWnsUkPSNDqHS2U9D.YjzMMxHAq0Pf8.6xf.h.9xwDH2NAn4eL5CHGWdj7Q8i3EskMtl3M5pkDP
- Ks6IploLiIuHlO1DIeNk9xCXnQRp00EZY_b_vT6GvlaPs_h7GL9LJ3no7K1vwvTxcaGNSedw08lr
- 1urq3dkj1MMONkF5CChUxR03Lvxri3sBF2eYhVtaPAvyL8tqEk9Dp4EgRQPXuE.ZloObqtCVR5tu
- I3s8Gld.acuU3rMP6oaZ1dypTUgTM91pT0gt7h0026LaOrEC_Jhn6x5vxn.iFmoqCnyxv0WtqxK4
- IjRGIWPyBhBuoMEwFWulKJyZH7Aw3jIb3Ydvt9pRlNNQ_wDwC83eRhtBBZLYuzpvf.sFPQAfIEHn
- OFmiNcoRUXYj2d5KQuauYrJ18xl0VDS3ixY5ZZ5tslSzr0LgfynK7SCZbd9FpHPmq6gaG1G871gn
- jf2XCAdWByuhpxZi9BGbB7C5NmhbXGGwNLjUd7o_cHGWuPbqAqEZHi68i.h71apEfOxyPchnJqoQ
- 59T_1_rkGilygk4ZyL6P3BDh6XVBtoBgd_x9biIJrddEIx4JbL_I-
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: fad1860a-1754-460a-b3ba-7b3aa4e0ec41
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic315.consmr.mail.ne1.yahoo.com with HTTP; Mon, 9 Nov 2026 22:06:23 +0000
-Received: by hermes--production-ir2-5dd9bf4598-98szj (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID cdecb7d7b98a1d01b52c305e1afc5ec8;
-          Mon, 09 Nov 2026 22:06:20 +0000 (UTC)
-Message-ID: <3d61128d-bcd2-4f31-8ba0-e35b488b5205@yahoo.com>
-Date: Mon, 9 Nov 2026 23:06:17 +0100
+	by smtp.kernel.org (Postfix) with ESMTPS id CB95F1F0089F;
+	Mon,  9 Nov 2026 22:06:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794262010;
+	bh=t2+WFOl4jOfThUR5eHCL+U8ZKopHXwLxKhpsdWMufzQ=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=GKlDOfNKAe7LzmId1qzCymiVXGXl9D6OeZ0SVlixVRnG7ig8KM+IK+FFPjQ7asbL1
+	 ugZkFivdXajSnmPbqv3ZusTquoBtTdnUJXDXMUg1Cq6egrT5ojlXLpjKOUiyGrXzU2
+	 1QnzEGVL7TchUFGug2DqAbAp2SdSXqf9iaujnLNQINq4F7xdPWfbxEr2Ie26AAV6OC
+	 5ixE6mr4CCus7IflL5rCc0b+kLy+pDeShSNfR5qocOcoJN7MdnbeZz81i+1KZ5dP6P
+	 e6M1HSq4zSg35eZxKHyhoAjrJdWd/ztJk6DfFaL+iweo7az7+S5RIoQBLj4mMoCLKH
+	 +vROZuzZCTTBg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5CE764869E;
+	Mon,  9 Nov 2026 22:06:49 +0000 (UTC)
+From: Kohei Otsuka via B4 Relay <devnull+kohei.spacemachines.com@kernel.org>
+Subject: [PATCH v3 0/2] serial: 8250_of: RS-485 on Microchip Core16550
+Date: Tue, 10 Nov 2026 09:06:47 +1100
+Message-Id: <20261110-core16550-rs485-v3-0-4294334243fa@spacemachines.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,93 +83,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v7 05/10] net: dsa: realtek: rtl8365mb: set and
- get vlan 4k for family D
-To: Luiz Angelo Daros de Luca <luizluca@gmail.com>,
- =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>
-Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
- <1ccb6acc-0809-4abe-8443-576f6727a6d5@yahoo.com>
- <ausoMS5PcpEFz02i@analog.com>
- <CAJq09z7djw7MAbjc8jZuNsj12JhNCUOsGj-Ve73XwRjjHHO=JQ@mail.gmail.com>
-Content-Language: pl
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-In-Reply-To: <CAJq09z7djw7MAbjc8jZuNsj12JhNCUOsGj-Ve73XwRjjHHO=JQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNQQ7CIBQE0Ks0rMXwQVpx5T2MC6C/FhNLA5Vom
+ t5dqBsTdTnJzJuZRAwOIzlUMwmYXHR+yEFsKmJ7PVyQujZnwhmvAZig1geEWkpGQ9ztJZVM6o5
+ 1nUY0JK/GgJ17rOLp/M7xbq5op8KURu/i5MNzvUxQev/1BJTRugWJBgGlUcc4aos3bXs3YNxaf
+ yPlJfFPR307PDsapBLCNkax5pezLMsL/9CM5xABAAA=
+X-Change-ID: 20261103-core16550-rs485-505af0ffaeeb
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>, 
+ devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ conor.dooley@microchip.com, Kohei Otsuka <kohei@spacemachines.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794262008; l=3104;
+ i=kohei@spacemachines.com; s=20261103; h=from:subject:message-id;
+ bh=2t/y+JgPR+YcsPrIb1nJlI+zK2fJ6JA0sGv09e5rrOA=;
+ b=hZzUdKg2K6uNjMYDff3C8oXouSGZf4MSIFlp63W0xXWUMs1PX4rxILMm+li+MtEhHAM9h7+Qj
+ FMbE2lKaNOvAUv5GLdl8sZb5PUv4IXmEqjUGdbQqOn/fU7zDUkKPlwe
+X-Developer-Key: i=kohei@spacemachines.com; a=ed25519;
+ pk=1kit/vmX5JiLGH9NPcqlvT55ISWaLmNipdL5VrriRt0=
+X-Endpoint-Received: by B4 Relay for kohei@spacemachines.com/20261103 with
+ auth_id=1385
+X-Original-From: Kohei Otsuka <kohei@spacemachines.com>
+Reply-To: kohei@spacemachines.com
 
-On Mon, Nov 9, 2026 at 2:31 AM, Luiz Angelo Daros de Luca wrote:
-> This is how I'm structuring it now, though it might migrate to
-> function pointers later. A family check inside a shared function only
-> makes sense for very localized differences. Since family A is shaping
-> up well and family B sits conceptually between A and C, `is_d` doesn't
-> scale well for future variants.
+Core16550 is a 16550-compatible UART soft IP for Microchip FPGAs. We use
+four of them in the fabric of a PolarFire SoC Icicle Kit as RS-485
+ports, described as "ns16550a" with linux,rs485-enabled-at-boot-time.
+With RS-485 enabled, RTS (the transceiver's driver enable) goes high at
+the start of the first transmission and never drops, and the port stops
+receiving. Core16550, like the original 16550A, raises no interrupt on
+TEMT, so __stop_tx() waits for one forever unless the port has
+UART_CAP_NOTEMT, which 8250_of never sets.
 
-We are completely on the same page here. In the upcoming v10 patchset,
-I have already migrated to function pointers to handle these 
-family-specific differences cleanly.
+Testing, on a PolarFire SoC Icicle Kit with four Core16550 instances
+on FIC3 (PCLK 50 MHz), linux-mchp 6.18.17 with this series applied
+and the ports described as "microchip,core16550-rtl-v3",
+115200 8N1, against USB-RS485 (2-wire, half duplex) and USB-RS422
+(4-wire) converters:
+- All four ports transmit and receive correctly with both converters.
+- On RS-485, each port keeps receiving after transmitting, across
+  repeated request/response exchanges in both directions.
+- Without the series, RTS stays high after the first transmission and
+  nothing more is received.
 
-I introduced a dedicated `struct rtl8365mb_family_info` which has made it possible to reduce the use of `switch` statements:
+This series was prepared with the help of an AI coding assistant
+(Claude, Anthropic): the analysis of __stop_tx(), both patches and
+these messages. I reviewed and tested the result and take
+responsibility for it.
 
+Link: https://github.com/linux4microchip/meta-mchp/issues/5
 
-struct rtl8365mb_family_info {
-	enum rtl8365mb_family family;
-	unsigned int num_ports;
-	const struct rtl8365mb_jam_tbl_entry *jam_table;
-	size_t jam_size;
-	int (*ext_config_forcemode)(struct realtek_priv *priv, int port,
-				    bool link, int speed, int duplex,
-				    bool tx_pause, bool rx_pause);
-	int (*vlan_4k_read)(struct realtek_priv *priv, u16 vid,
-			    struct rtl8365mb_vlan4k *vlan4k);
-	int (*vlan_4k_write)(struct realtek_priv *priv,
-			     const struct rtl8365mb_vlan4k *vlan4k);
-	size_t l2_entry_size;
-	void (*l2_data_to_uc)(const u16 *data, struct rtl8365mb_l2_uc *uc);
-	void (*l2_uc_to_data)(const struct rtl8365mb_l2_uc *uc, u16 *data);
-	void (*l2_data_to_mc)(const u16 *data, struct rtl8365mb_l2_mc *mc);
-	void (*l2_mc_to_data)(const struct rtl8365mb_l2_mc *mc, u16 *data);
-};
+Signed-off-by: Kohei Otsuka <kohei@spacemachines.com>
+---
+Changes in v3:
+- dt-bindings: drop the ns16550a fallback, as the generic driver leaves
+  RTS asserted in RS-485 mode (Conor)
+- 8250_of: match microchip,core16550-rtl-v3 directly, as a PORT_16550A,
+  and retitle the patch to match
+- Link to v2: https://patch.msgid.link/20261109-core16550-rs485-v2-0-a15933c7b907@spacemachines.com
 
-static const struct rtl8365mb_family_info rtl8365mb_family_c = {
-	.family = RTL8365MB_FAMILY_C,
-	.num_ports = RTL8365MB_C_MAX_NUM_PORTS,
-	.jam_table = rtl8365mb_init_jam_8365mb_vc,
-	.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
-	.ext_config_forcemode = rtl8365mb_c_ext_config_forcemode,
-	.vlan_4k_read = rtl8365mb_c_vlan_4k_read,
-	.vlan_4k_write = rtl8365mb_c_vlan_4k_write,
-	.l2_entry_size = RTL8365MB_C_L2_ENTRY_SIZE,
-	.l2_data_to_uc = rtl8365mb_c_l2_data_to_uc,
-	.l2_uc_to_data = rtl8365mb_c_l2_uc_to_data,
-	.l2_data_to_mc = rtl8365mb_c_l2_data_to_mc,
-	.l2_mc_to_data = rtl8365mb_c_l2_mc_to_data,
-};
+Changes in v2:
+- dt-bindings: rename the compatible to microchip,core16550-rtl-v3,
+  following the -rtl-vN convention of Microchip's other fabric cores
+  (Conor)
+- dt-bindings: explain in the commit message why ns16550a remains a
+  valid fallback (Conor)
+- 8250_of: match microchip,core16550-rtl-v3
+- Dropped Krzysztof's Acked-by on 1/2, as the compatible changed
+- Link to v1: https://patch.msgid.link/20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com
 
-static const struct rtl8365mb_family_info rtl8365mb_family_d = {
-	.family = RTL8365MB_FAMILY_D,
-	.num_ports = RTL8365MB_D_MAX_NUM_PORTS,
-	.jam_table = rtl8365mb_init_jam_8365mb_vc,
-	.jam_size = ARRAY_SIZE(rtl8365mb_init_jam_8365mb_vc),
-	.ext_config_forcemode = rtl8365mb_d_ext_config_forcemode,
-	.vlan_4k_read = rtl8365mb_d_vlan_4k_read,
-	.vlan_4k_write = rtl8365mb_d_vlan_4k_write,
-	.l2_entry_size = RTL8365MB_D_L2_ENTRY_SIZE,
-	.l2_data_to_uc = rtl8365mb_d_l2_data_to_uc,
-	.l2_uc_to_data = rtl8365mb_d_l2_uc_to_data,
-	.l2_data_to_mc = rtl8365mb_d_l2_data_to_mc,
-	.l2_mc_to_data = rtl8365mb_d_l2_mc_to_data,
-};
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jiri Slaby <jirislaby@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Lubomir Rintel <lkundrak@v3.sk>
+To: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-serial@vger.kernel.org
 
+---
+Kohei Otsuka (2):
+      dt-bindings: serial: 8250: add Microchip Core16550
+      serial: 8250_of: add Microchip Core16550
 
-This infrastructure should make it very straightforward to hook up 
-your upcoming Family A support without duplicating logic or bloating 
-the shared functions.
+ Documentation/devicetree/bindings/serial/8250.yaml |  1 +
+ drivers/tty/serial/8250/8250_of.c                  | 12 ++++++++++++
+ 2 files changed, 13 insertions(+)
+---
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+change-id: 20261103-core16550-rs485-505af0ffaeeb
 
 Best regards,
-Mieczyslaw
+--  
+Kohei Otsuka <kohei@spacemachines.com>
+
+
