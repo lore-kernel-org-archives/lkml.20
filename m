@@ -1,62 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221741;
-	b=PEUZAY/W5jdG7RVWBRBSsEMvyeybgeWjantWef43DK0mMvvR7Jwns3FH5dqSCZMQ/oBH
-	 nD31oZPkxuC2J4uLYPZQKHzFkomcbBecs/FUnklfgIWsdcaJfxodgF6Tc6JkkX2QbP+D+
-	 kATuDlCOVbWz1U0BOAK+loQ7E2kQLVeRwc3E4nfNoB/O4U5mEc3BgRrGWZpgemq/ioU2I
-	 3BLcyaXEurKqCiBJhPzjKDPiLhrvZbaVKy3dQRdfA/u1/hSv4KzFLii63Qc0kH2HVSUiz
-	 w6RYWnah4dDMjVunhRy/8LwECnUkVdBdGmGxCF4Hj/tENyX8fwIgb9qQjEuFk0dMA0A==
+	t=1794221750;
+	b=25oX/xuWgPUBDLiXZoEcRn7qlmJ5fOuWHAEscekQ6nXn73JtBHrCOiWaydD5ye6JyXOt
+	 OSRLE4TwKIIh0sNAq0eduRhfyeKHPvQpxlyuT7KXL2+RomOB1ejLWllxoOGdWNTG2vk9l
+	 kjsQ/M99XTs9wCgeqJgW5ZE7MGGy7RgONc7TMzpqzoFpk/y5606ZFoBaxQatIhjqnmDRa
+	 cmwCNToP8bQx5Uk8/uSiwmulRwfAsKNsRsMDcNpYiSqjX5fZss/plPwjeQg1s62/e+JF7
+	 yZuyyur4/eBU8zUOSMXoKoMZZgN8rAUEdFkE7Fvk4NwUA2JQh6hC9GuFfpUebNYNgMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221741;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=q+s822aoyOQcLk/M2/YgWQ6S9BG0XXraAhsgxIcPi/6r4jE+ynK5QRKJhhNmfu5Zwp2g
-	 gtSDHGrJevgFgSFn1+Tas0mXOdN0r1QiWm0evrLiz/AaiVWHirpBv5MTJW2iyJ9X78gCQ
-	 MeQZJHb7XF1VQoQQ3Dh/dfENt83yVpJRaWpYyOxYAELQNv+DUJUPVoyxBsfwnR+ZdUfdB
-	 kraOQGz13Usf4J6AaloJkqJkf9hjet333ZJflh/z37yzppQ8iXRptL0IBRhklh+QpIm55
-	 tBQsAFNxMa8RutFNFTLpYryh72j3Q0J/gCdPF6sQJCpYcxA7gFr04Mycx4Y7QpmJL6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221750;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=WjVWX6E21tFl2sD8Mx7SLeOlrK6FQokIkj+LlsMQstQ=;
+	b=yJAHJbKn8ITaQMno/q27bIUV1a3/4HYG4TVqERAlxxaikuGDDk5mH3W7Btei0BByLI+x
+	 QQTBNutANMZkgaLdDLMLFkAyFCajp6pv8ISrvNfYpnzlMtUiuXLAG49qV8hpaO134w65t
+	 15WvLhuVlwopA+aGEnUyyIX9qQSUD7DAHswagnfb3yLl+tLi2ViLn+MxDNKJ4JIz1krXO
+	 el52bMGvEAvlSN8C99aNYOjJ+K5LRQVLq2MQ8DSBTjGlrkiNIyn0/7i4+LnjjbqELvmZ9
+	 4fziE9TOYwwZgUCa3BnwPSKoYulnowjfD/4A6RAh0NZ++0et1r2cZFZBLOt6bgcunbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AdjXmmdg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=CscclKHE;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qufVQwoT;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=n7NL+oR7;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qZ3i4Ij6;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541AE606D803;
-	Mon,  9 Nov 2026 10:55:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C022606A321;
+	Mon,  9 Nov 2026 10:55:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C022606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AdjXmmdg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 321F01F008A5;
-	Mon,  9 Nov 2026 10:55:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794221740;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AdjXmmdgpD/Q7naIbJqzKqIhUpEFXgDfOW1C6M6lLN1NuZicbb90CybLL9sc3idKc
-	 7wwBBOuA2vpcFgaQr4QaGe7bRPmCukLUHP3vcguIWZWLMpEm8Kdop/X2kAt0ne95Oo
-	 5csRE5aEdZyErVJc9jupzJt8McbCpP9t8aZDKuz2v2lxSBsrNWetCm6LWB2GcNFohM
-	 hx5dNAsYnCH/Ygk3vLw9PY9p7J6SH0oo9LonpXBflO1gZZ/2r2AV/9pmpzfcHgY8Te
-	 rSe7Eyyt0+7vai6/rRho0n1rFL01uVk1TGL0G+T7WdMFwbo9X7M2j67lcvyO11/cxO
-	 4dZOaxz3n58og==
-From: netdev-bot+sinfo@kernel.org
-To: kmahammadraf <kmahammadraf@marvell.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- Sunil Goutham <sgoutham@marvell.com>, Ratheesh Kannoth <rkannoth@marvell.com>,
- Geetha sowjanya <gakula@marvell.com>, Subbaraya Sundeep <sbhatta@marvell.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Aditya Thapliyal <athapliyal@marvell.com>
-Subject: Re: [PATCH net] octeontx2-af: Fix keep PF_FUNC match for AF TX rules
- in rep mode
-Date: Mon, 09 Nov 2026 10:55:39 +0000
-Message-ID: <179422173977.488859.15568451328984924402@kernel.org>
-In-Reply-To: <20261109105043.1986921-1-kmahammadraf@marvell.com>
-References: <20261109105043.1986921-1-kmahammadraf@marvell.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=CscclKHE;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qufVQwoT;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=n7NL+oR7;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=qZ3i4Ij6
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0D8DA2202C;
+	Mon,  9 Nov 2026 10:55:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794221748; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WjVWX6E21tFl2sD8Mx7SLeOlrK6FQokIkj+LlsMQstQ=;
+	b=CscclKHEIlu/Q61Xk5Hh4VchYO+eezj+MGVMuYCp8E2Xs8ENpkkNja9WQp0ucIIyQeV2j6
+	y1OUzfzv9zSFSYqILcH40oukwIWrfPsWf/R325cZ/26GCAPCOdIWciItDUKgPjS9jNEH5P
+	scALSnazHU/dRIuYjQkKonIHiB/++24=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794221748;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WjVWX6E21tFl2sD8Mx7SLeOlrK6FQokIkj+LlsMQstQ=;
+	b=qufVQwoT1LMSP11eAa4ve7TRhyy8JX5taO1QNjgQEqXhR7vyx1RyLzuyOvwWCS/AvFH7+o
+	TmrSXifcntz7kUBQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=n7NL+oR7;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=qZ3i4Ij6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794221747; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WjVWX6E21tFl2sD8Mx7SLeOlrK6FQokIkj+LlsMQstQ=;
+	b=n7NL+oR7Reaim+RWNUMTZHX2Q/WVbcqcqJ9pPXizXf0ljWHkiTQIpIQU0hx2DR4wlkL0c2
+	E9RdrhClQELefsBi9xLJ3fp4aLVAg62zrgC8QSHXvFYbHtqgJeTCJh4NDxz0rCQOj+fy9f
+	fiLlhmj1UXgEtQFAwHEOfmHojYtvswE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794221747;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WjVWX6E21tFl2sD8Mx7SLeOlrK6FQokIkj+LlsMQstQ=;
+	b=qZ3i4Ij6wVdOuvLQnvtDp3MHdOPaZc5kDK/WlKCa0WV3s07OnP1hl2zmKhc0L7VHGK3VR8
+	2bIKy5Lnbba3UjAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D703013319;
+	Mon,  9 Nov 2026 10:55:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id aeYKKrKm8WqQBgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 09 Nov 2026 10:55:46 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 5CE2221EB8; Mon, 09 Nov 2026 11:55:38 +0100 (CET)
+Date: Mon, 9 Nov 2026 11:55:38 +0100
+From: Jan Kara <jack@suse.cz>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: willy@infradead.org, jack@suse.cz, akpm@linux-foundation.org, 
+	kas@kernel.org, dave.hansen@linux.intel.com, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] filemap: prefault writes starting beyond EOF
+Message-ID: <vmzll2iszhdaycphuyjjp6vwki7gf4npbfb2eltzt3rc7pbdsk@bcnlvrzc6c2g>
+References: <20261104071002.49693-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,29 +112,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261104071002.49693-1-dennylin0707@gmail.com>
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 0D8DA2202C
 
-Hi!
+On Wed 04-11-26 07:10:02, Hungyu Lin wrote:
+> Since prefaulting moved to the slow write path, a buffered write can reach
+> ->write_begin() and ->write_end() before discovering that its source buffer
+> is unreadable. Several filesystems can extend i_size in these callbacks
+> even when no data was copied. For example, a one-byte pwrite() at offset
+> 4096 into an empty file can fail with EFAULT but leave a 4096-byte file.
+> 
+> Prefault the source before ->write_begin() when the write position is
+> beyond EOF, and return EFAULT if no source bytes can be made readable.
+> Overwrites and appends continue to skip this prefault. Keep the existing
+> slow-path faulting for forward progress after a failed atomic copy.
+> 
+> This also leaves intentional zero-length ->write_end() calls used by
+> generic_cont_expand_simple() unchanged. As with the previous prefaulting
+> behavior, a concurrent userspace unmap can still race with the later copy.
+> 
+> Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+> Reported-by: Kiryl Shutsemau <kas@kernel.org>
+> Closes: https://lore.kernel.org/linux-mm/at9xXRhD2xZhszEj@thinkstation/
+> Suggested-by: Kiryl Shutsemau <kas@kernel.org>
+> Link: https://lore.kernel.org/all/at-XtWBQg3jv3H8Z@thinkstation/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Looks good! Feel free to add:
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+								Honza
 
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+> ---
+> 
+>  mm/filemap.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index b74bc1e5015c6f318333427f223b9f42061a6213..30414d55412b84f11ebe98b8eea607ee8c04eef5 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -4389,6 +4389,16 @@ ssize_t generic_perform_write(struct kiocb *iocb, struct iov_iter *i)
+>  			break;
+>  		}
+>  
+> +		/*
+> +		 * Some filesystems can extend i_size even when nothing was copied.
+> +		 * Prefault writes beyond EOF to catch unreadable source buffers.
+> +		 */
+> +		if (unlikely(pos > i_size_read(mapping->host)) &&
+> +		    fault_in_iov_iter_readable(i, bytes) == bytes) {
+> +			status = -EFAULT;
+> +			break;
+> +		}
+> +
+>  		status = a_ops->write_begin(iocb, mapping, pos, bytes,
+>  						&folio, &fsdata);
+>  		if (unlikely(status < 0))
+> 
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> -- 
+> 2.43.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
