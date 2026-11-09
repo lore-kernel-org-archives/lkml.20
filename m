@@ -1,108 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794244775;
-	b=ygOBPGwOSgcVaKSebPony5utTd/X2R+2ztWq8rVCnnEr5Mp4f7aLXmf3yjGOiUq4K7PG
-	 wS+b0WkdZjBjZJl3Fjsr3VvXWRdz381HxTf5wJd3ZSBGtdXJkZBGndAzLa9vfZkNjEl0K
-	 OOZT0A+v9Sz24O+nr+5E6fK+ISaT2jprVJO5P84L4k5u0lVifN3QLUe5vB0WxwLm1j7uU
-	 gvOX79Zu2oo6RQR0q+sZF095FQrJNYwgyw9h31T3mCfVmvWRZtwQeD95BZgkZx8NsrO4v
-	 SMJjfm4OZF9fNJDQaqbBvFpZv8p6zj5wpcVJxuUYf3duz0iFyYA6+FTNyWzr8qp7vZQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794244775;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=MMqSTPwyM7+G562MwDgalvr5hNwoPGS/N0h3xKBXGc0=;
-	b=bDy89QfMNgk9vAnm1vccoPX171B5Yg7rZ8o1/HvRdQkcbg2GG11bIJsABRSw6YnbNkEe
-	 tXn7+iGVeXv/vT4+9h8wCtwAteE4yYEumzR5YWoC4eqtLZEAo3kmY/UMSz6l3vEkQdSWi
-	 Sq9Q/XuxG1f/YKDlxGXFbExLr4Hl0pQZAcxT4sWnme1oa0kVDR6uT74Mw99eKTzLwjTLT
-	 M40ZFPpsTarHHa50FG9FPed8T/Xuv1ZdSyhN/QDgbqKFIqHL7sqhmZeQ8v/NOJZXxSnPe
-	 yQt321O7KM10vCyH89NiRdbGoWlt/8hfuWZopHDR1SeDJqUkPzfYglh8CY5qFltMMSA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=HSyBbWY8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.11
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010011.outbound.protection.outlook.com [52.101.201.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794244880;
+	b=xFvxANS1sV6MZv8Q2fugoy7r6mH+Zbs9Xs74VnaWCRjKl2e46V5JqrylPkoAPurILABZ
+	 JsK1WosKdntD32fYPhg753MJRGP6biEK95VZDIw0xKz8pxvcROWf5yR64utDDHIZWvYuW
+	 DDdYNwtjQAorlIsyk8CNFuT7FzvUnV5HBs5GNH6wGzkkXaz6MrPuCT62jrPQ81CV7n9J3
+	 vWKHc7wSGGwdRyoT/3ignIv8LWThOvbWGL7dmlTN9bVx7P58T4Am9FLAzwGNU3Aax00ZA
+	 UYWRWE+UKL7HpFJnUcqnSypqz45/twGNS6X/uQJ/h9e8h//93Ydnm9e4d7vDWmTRd7A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794244880;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=Lya5VOYipCBA3m/jA7lCTGHVEoCh2C48za/J5i6OB14=;
+	b=wOb4RQE3JdKUFOmehTJEQ75PZKpzs+GoQ2MyKOwP+zclXcbfemdZVKvBaTSAO3Q5fs3u
+	 pvMhfYpgkjzmIMYWhOWaGoccqcihTjtXMSgh9vBqNwl9A8/XuE5AyTRefKqDqHwf2QiCP
+	 eQAAwSfbhBQXJg4fzODKd9yPllXgfRngvibKWklqCpsi+B7WS9dOdsQNdeH6SeviOLydd
+	 SeHRK+rXyek4S1cLoTQh3kPYq1JEeUtUoHFsUDh/AXxoTnz+RwjOOaD5kz0RgebsQziMJ
+	 sLtAQRLmHzY/IIpNbuhx2cMkv4ocwZY7dD78UK3Y3Xa+p9eiaqXTkFcG99MohZQNsVA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N42WBtPw;
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F8C1606A321;
-	Mon,  9 Nov 2026 17:19:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F8C1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C260606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:21:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C260606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=HSyBbWY8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w5AicsPwFcoY3X5HkrljABk4I5lvAIEpuF5YlN/yA8V1AoKMn8kvEEOtlF0Md367JD0EKtD8ZrI+1q0xRvGBdDbBQjlpdio22kwWykHxk/TVuldg+vIzzh/xI9Vr21AOpVAvU/7m2MQrquC2RpuVttDaagyfGshstFgl/njhE3BZEiFXXQIb0nmlkG+3pe8e9Mvkk1dps+L/2KMhxbjlHNDRS1rmUHdRO15goHWVQRcwfcdL4Cc+OsLIiL7pUgXUSuo9jsYEYUk9Fo6LHLpMw8LnmCpq+gTHoUWtG5/eeQhKWwoAD/+cCLhd0gzU1e8JoYmlW3lnQoZJINIWZQld+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MMqSTPwyM7+G562MwDgalvr5hNwoPGS/N0h3xKBXGc0=;
- b=T+56Y83qXC3hOUIYQxPJ0uSBbqp8LAInPxoTJItF5dCnRwk0vhM29dufimDheIeSusvvJFF9jb32mG6UYVystM9+Ii0eOlJ8MvM5s9GUMftP7FS58dvTZOYQq3H5vprmZBryRSNMbyB8YMHTXhaIciU64rUZgT9KYVsDY4/VFLZzi84PUR6UyANm7Vu3kc2q7jF6GYey6vyqtXZAxvw8rMxcax+r5DtQWKXzXpj5nmvRKDsluG/WcYrLZububRJUOZ/fGtDUFoPBoOd1vuKNkp8k05mVHdWETNOupo0NUp7CtrNAB0JW1SWtD5U6/BH5Vnl+5bZ3wY753p63yWPB/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MMqSTPwyM7+G562MwDgalvr5hNwoPGS/N0h3xKBXGc0=;
- b=HSyBbWY8XVEN6/e9ZqN9IMaSI4kCMjOjjWP7QojVATDFar3e0LqgdXZ884wAK3JkuxL0xOO+o6CyXfhpBErvity+sijiJXYv2JZ/OVfs+6B5PPVa7N6e37z56WZvfpZphMLBTACJyEG6PTHkkDWqfqTZn/k3yGY3dP435b21Bvg=
-Received: from CH0PR08CA0003.namprd08.prod.outlook.com (2603:10b6:610:33::8)
- by CYYPR12MB8704.namprd12.prod.outlook.com (2603:10b6:930:c2::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Mon, 9 Nov 2026
- 17:19:30 +0000
-Received: from BN1PEPF00006002.namprd05.prod.outlook.com
- (2603:10b6:610:33:cafe::4c) by CH0PR08CA0003.outlook.office365.com
- (2603:10b6:610:33::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
- Nov 2026 17:19:30 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00006002.mail.protection.outlook.com (10.167.243.234) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 17:19:30 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
- 2026 11:19:29 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
- 2026 11:19:28 -0600
-Received: from xhdharinit40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 9 Nov 2026 11:19:27 -0600
-From: Vasantha Likitha T <vasanthalikitha.tandra@amd.com>
-To: <linux-i2c@vger.kernel.org>
-CC: <andi.shyti@kernel.org>, <michal.simek@amd.com>,
-	<linux-kernel@vger.kernel.org>, <git@amd.com>, Vasantha Likitha T
-	<vasanthalikitha.tandra@amd.com>
-Subject: [PATCH v2] i2c-tools: i2cdetect: Set I2C adapter timeout and retries using ioctl
-Date: Mon, 9 Nov 2026 22:49:24 +0530
-Message-ID: <20261109171924.3632557-1-vasanthalikitha.tandra@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N42WBtPw
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so682601eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:21:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794244879; x=1794849679; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lya5VOYipCBA3m/jA7lCTGHVEoCh2C48za/J5i6OB14=;
+        b=N42WBtPwfgmD+BCEgS2a0LNEND5FwOLphMbydWHo16YodSBir7Vub1vLXMCm/Ivd4U
+         qg5LmPrOIyA0mrPw4++UM4hY0eBjpee6fNoOQYEHPpRFakTyADiuKjCJie9Ru4EAqUwR
+         nw5ioq5ZipiYslJtxUMMYZGU7zj5+3jP/FkhmGvkXlbYLygXQO92TtOq2oQnH6MF4PlB
+         B85CODk4yitL4Cg0dYjip32Un4PdmjLUu5xCTvU9QwaAwVla1Yv6efJSelNZle7y8etH
+         q+EUFZbvWsrg2+wy7L1Pz97ytHf8/PYD8LUzh3EUxKoeRLog3RQWb1I3y/7AztzQHbHv
+         XsgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794244879; x=1794849679;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Lya5VOYipCBA3m/jA7lCTGHVEoCh2C48za/J5i6OB14=;
+        b=tb059SN1WRFnymL79/JV/VutOotVdaQKF/3b164W52vFJoPBKUNnPA+Vc6fQoZze6N
+         JldobBmvCIyMmlN03W7pzTKxUu/Afhi/MB80R9nm9yx570XaP0Bowm22qgMrzQ5hyVCF
+         y3XY3vIou8mQdO0V4zHEOkcNox6J2mA4g9FMN8/0om7uk9ccFy1dvSfCWZMtmTAjAs40
+         fGPw8Oo29a/djlt5mTHz8cyqxfC6nWGXewrLAcuqN8uVc5T9BndRANXyDrd148gz+7km
+         dAvnS2xFg0lFTCddm/GlPjcROQy6xhNW12Qr+n+l2OEfb6MnGrqNG/8NkRB6/AMjDwgn
+         0WCQ==
+X-Forwarded-Encrypted: i=1; AL+hErHnukNw8+2xvh0lZl9QcQalkF3mfFbknlR0kJU3VIE2+GRl8FyEUoc691RrKRBnsxnuIuTzRNLF+/mWX24=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+KbQ5/MHfZelFO/Y70XSZZ230wKgNZ1IDo6e/fSfhg/Imq0UN4
+	rIL1zMi8vTDzdTda5ohj8g0oDRrhzdj53zHQfJvBRIfPA0jDM+bxgw6k
+X-Gm-Gg: AYBFou2GnOQWMfer64WInu4Sh/k8MaFQzBHhwou+uVkqDWa5xnEXXS7iRKJamng45jf
+	NSDYfAHJb775VVwfh5yht3yyHU+w/w4VjJn65qbK8aHjABiBotj78+ey3WHNHUwJeBkIPAumXWa
+	Go2xQC39GfW/atGVO+ImpYPARB8MHMqVCnhRvSbCx8qrHP4UIRssGDNl91yXjd0+Hziagdpj0Ye
+	n46dnMpSID35CwjhAlyZVja+zY5lJ+BFyepcBCWs3d7j3s6fc429ilvst5A8SheG4oSdPOXUe73
+	mlf4cw2V/4geg2hlpnjC7FDZXBLLQdx5327idNgjpPi+3afZkbkXDZCtjlv1D9JtqOkrEL/K4WL
+	53jfnQtxk7bqKdHwOkfIBhyHmqNYgACSfETrgEfyLY+jLnflx9DYdh4w2qRYukPPaZHuf1BDbpu
+	5ocighmbFLxx1K3Q55J1Z9Skmhg0G3/oqd2Uj7z2HQAM6MBb1xJqe/kTMGmhsBVJC0ln5OB7jbv
+	vaVto6bk36FUayg3aIxG2tNBjcPZ1oJO1O/L5QXKFaAl6P3RA0hYNJubLQkslBNVOu8NYvuYW4i
+	XUXQEye1nHZuI2KC//PAlA==
+X-Received: by 2002:a05:693c:62dc:b0:36f:5746:3369 with SMTP id 5a478bee46e88-3725807c859mr7945389eec.24.1794244879122;
+        Mon, 09 Nov 2026 09:21:19 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:67::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372666d2fcbsm14268734eec.24.2026.11.09.09.21.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 09:21:18 -0800 (PST)
+Date: Mon, 9 Nov 2026 09:21:14 -0800
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, Kaiyuan Zhang <kaiyuanz@google.com>, 
+	Eric Dumazet <edumazet@kernel.org>, Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, "David S. Miller" <davem@davemloft.net>, 
+	Simon Horman <horms@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>
+Subject: Re: [PATCH net-next v3 2/2] net: prevent mixing frags from different
+ memory providers or bindings
+Message-ID: <avIAOgCLksqW-ZNP@devvm16445.scu0.facebook.com>
+References: <20261104042521.3979880-1-almasrymina@google.com>
+ <20261104042521.3979880-3-almasrymina@google.com>
+ <auy0aaY0-g32aYi9@devvm16445.scu0.facebook.com>
+ <CAHS8izNrM+iaT6OOJVoZdVp00TkNRhFe9ucCVrwaUWL0oQS7Ow@mail.gmail.com>
+ <au5SPWdVCuso8Esq@devvm16445.scu0.facebook.com>
+ <CAHS8izNXwhTybUHk3Zkh-cmp9CXz2m9kXt-NoB2huu5co1rGAg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,131 +108,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00006002:EE_|CYYPR12MB8704:EE_
-X-MS-Office365-Filtering-Correlation-Id: eaea7e39-be71-439d-4561-08df3e859d5f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|11063799006|261102123227099003|261028144727099003|261022105027099003|261021121427099003|261021123027099003|261009223027099003|56012099006|261026140227099003|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	4P89PABUpWdKtgsPTGWJ+5Eoe3+SIg3R7wDP6FK+vwfPRWhzQ2FneoVHT7FMNqg0vb8ghLd0Lgt492V0gbxvy2jLKysNAOfXBl94SNpi687lUTlJhHwHBXSoPaVGj3gdig/5qxAKIfKDvULPNeJgb4qYJYvTSlkw0guGfSMxY5bsOfyiZXaQv6F7GJc3Wrmdd0cANijWsWitsmeXJpSUxBccpZpVG92fi7+N1oKIiaDOR0wWmxgvhuh49FmS29kSMDJ0eLb6nhUFPLZPaj2cZ7cKgZV/weVJDHb5NUou998Fro3u14+f3wzSSRCeAvFO15+nSB5B211eO10AFZ7WEECpGZeA88IDSD+nuBQ4xLbSa+kzNqV45epb0kClXmGtYY95vbBL4RWha0UzW7hFntl/ECCRs0Ns3U7LxDoOl5mTtbY049vrgjHo1ihHhcxEXaNaTsWV18qRwiy1GR6Rn2+n+fdmsP5Hf5NmN5JRxrTKEMjqaSvnHlSqeiVbIhbdUoaMHUvRLJDdVCNsbQ++g6kWnyQWPfMJr1GyNTW1i7HRqVhc7P+Uknnr9G5f1kMDxru6X3tCVWiqZkkVU2IlQlWgfVpso2YDUgUZbcllKOl25VAlBBI3oRbaYogfPw0JVNDwb/7fvZGozQDsDF/i8NIioxtrEAJofHKISnNQg77xOnbVEzDDADuT1LucOUZcH38mWdCn/l/wAU7Qg9XhPA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(11063799006)(261102123227099003)(261028144727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261009223027099003)(56012099006)(261026140227099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	u/PKHyo+xJh8oQLW/cOgWQCS+AxaupUZajIVaKv3DMxsjo4Y+r2n5pM5YuSZ1auolW05dPKpcGXTbIamqpzF7SL2sZQBpDTOBqs/kaeu2TGTgww+ltuM29qZEJFcXJTk6Jbry4CNE1dmQTKjqoRgwUc5dW8qVsBL3NJV34y3rd4fzqrHMA+O+R2FhFtAaXTQN82TeBy1++FvKjkvTzDtIBrxZfCzsK54z3kM2OLGkKCoLRlCWChz/gN4Upf2Hm/rxIHU25S1/9/YT1d83PdCeKc1ILNVoArPFfr5u/I+e1Y0h/QAe8de4QrI4pgNt0uEk9jru5QN4ZZHldtpkHCw1RfJ2mrq0sCpeCAxtmz2MFC4F6x007JMwKnhK0yPlSniP4huM9Cox/dUZGlrEoFCaB+1KlE+/+oSXYFejkKU2NvRI/7zCHLWv7x/XpvH3Dd8
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 17:19:30.1236
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eaea7e39-be71-439d-4561-08df3e859d5f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00006002.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8704
+In-Reply-To: <CAHS8izNXwhTybUHk3Zkh-cmp9CXz2m9kXt-NoB2huu5co1rGAg@mail.gmail.com>
 
-Add -T TIMEOUT and -R RETRIES to i2cdetect to set the adapter
-timeout and retry count through the I2C_TIMEOUT and I2C_RETRIES
-ioctls before probing the bus.
+On 11/07, Mina Almasry wrote:
+> On Fri, Nov 6, 2026 at 2:22 PM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
+> >
+> > On 11/06, Mina Almasry wrote:
+> > > On Thu, Nov 5, 2026 at 8:59 AM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
+> > > > > +static inline void *skb_net_iov_provider(const struct sk_buff *skb)
+> > > > > +{
+> > > > > +     struct net_iov *niov;
+> > > > > +
+> > > >
+> > > > [..]
+> > > >
+> > > > > +     if (!skb_has_net_iovs(skb) || !skb_shinfo(skb)->nr_frags)
+> > > > > +             return NULL;
+> > > >
+> > > > (a few nits/questions)
+> > > >
+> > > > Why !skb_has_net_iovs is not enough? (and if !nr_frags is required,
+> > > > maybe fold it into skb_has_net_iovs?)
+> > > >
+> > >
+> > > Well skb_has_net_iovs only checks skb->unreadable, which is not
+> > > actually enough. The skb doesn't necessarily have net_iovs if it's
+> > > unreadable, it technically could be that it has no frags, right?
+> > >
+> > > Technically we should never have the edge case where
+> > > skb->unreadable==true && skb_shinfo->nr_frags==0, but I don't think
+> > > the code is careful about that today, and I don't know that I want to
+> > > do a global refactor everywhere we remove frags, which skb-> flags
+> > > need to be updated.
+> > >
+> > > but you're right that it can be folded.
+> >
+> > Not sure I'm buying that, but happy to look again if you disagree. I think
+> > the only way to make an skb unreadable right now is to add at least
+> > one niov frag? Don't think this is (ever?) gonna change? What does
+> > and unreadable skb without frags even means?
+> 
+> I have no doubt that we set skb->unreadable correctly when we add an
+> unreadable frag. I have doubt that we unset it correctly when we
+> remove the last unreadable frag (or we do it correctly for other skb
+> flags like pfmemalloc). If you can trust it, my LLM confirmed my
+> suspicion:
+> 
+> ```
+>   1. skb->pfmemalloc is NEVER cleared (or recomputed) when nr_frags
+> becomes 0 on an sk_buff—and isn't even propagated in skb_split() /
+> skb_shift():
+>       • None of ___pskb_trim(), __pskb_pull_tail(), skb_split(),
+> skb_shift(), skb_condense(), gro_pull_from_frag0(), or
+> __pskb_trim_head() touch skb->pfmemalloc.
+>       • Why it's fundamentally broken to just clear skb->pfmemalloc =
+> 0 on nr_frags == 0: Unlike struct xdp_buff (which has a separate
+> XDP_FLAGS_FRAGS_PF_MEMALLOC flag that BPF helpers clear via
+>       xdp_buff_clear_frag_pfmemalloc() in filter.c:4441-4444 and
+> filter.c:12740-12743 when !sinfo->nr_frags), struct sk_buff has a
+> single sticky skb->pfmemalloc:1 bit shared by both linear skb->head
+>       (skbuff.c:515-885) and frags[] (skbuff.h:2631-2632). Clearing
+> skb->pfmemalloc when nr_frags == 0 would wrongly clear pfmemalloc when
+> skb->head itself was allocated from PFMEMALLOC reserves.
+>   2. skb->unreadable is cleared in some nr_frags -> 0 paths, but still
+> missed in a few others:
+>       • Unlike pfmemalloc, skb->unreadable only applies to frags[] /
+> frag_list (linear skb->head is always CPU-readable).
+>       • Where we DO clear skb->unreadable when nr_frags == 0:
+>           • ___pskb_trim() (skbuff.c:2810-2811): if
+> (!skb_shinfo(skb)->nr_frags && !skb_has_frag_list(skb))
+> skb->unreadable = 0;
+>           • skb_split_inside_header(), skb_split_no_header(), and
+> skb_shift() (skbuff.c:4228-4454): cleared by Patch 1/2 in this series.
+>       • Where nr_frags can drop to 0 and skb->unreadable is NOT cleared:
+>           • pskb_carve_inside_nonlinear() (skbuff.c:7139-7167): if
+> pskb_extract() carves past all frags[] (k == 0, e.g., into frag_list),
+> shinfo->nr_frags = 0 on the clone without clearing skb->unreadable (if
+>           !skb_has_frag_list(skb) or if the remaining frag_list is readable).
+>           • __pskb_trim_head() (tcp_output.c:2020): sets
+> shinfo->nr_frags = k without checking !k (in practice tcp_trim_head()
+> is only called when len < skb->len and skb_headlen(skb) == 0, so k > 0
+> unless a
+>           frag_list is present).
+>           • skb_try_coalesce() (skbuff.c:6365) and skb_gro_receive()
+> (gro.c:131): zero from_shinfo->nr_frags = 0 when stealing frags
+> without clearing from->unreadable (benign because from is immediately
+> freed
+>           via stolen-head free).
+>           • __pskb_pull_tail() (skbuff.c:2894) and
+> gro_pull_from_frag0() (gro.c:416): cannot be entered with
+> skb->unreadable == 1 (__pskb_pull_tail() bails on
+> !skb_frags_readable(skb), and
+>           skb_gro_reset_offset() requires skb_frag_page(frag0) != NULL).
+> ```
+> 
+> I already have 1 ambitious refactor on list to try to remove
+> pp_recycle. I think maybe I want to do the nr_frags checks in this
+> patch rather than do a global cleanup of setting skb flags correctly
+> so that skb->unread is 100% accurate. WDTY?
 
-TIMEOUT is given in units of 10 ms, as the I2C_TIMEOUT ioctl expects.
-Both values are applied only when the option is given, so the default
-behaviour is unchanged. Non-numeric or negative values are rejected
-with an error.
-
-Signed-off-by: Vasantha Likitha T <vasanthalikitha.tandra@amd.com>
----
-Changes in v2:
-- Move the change from i2ctransfer to i2cdetect and add -T and -R options,
-as suggested in review.
----
- tools/i2cdetect.c | 41 ++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 38 insertions(+), 3 deletions(-)
-
-diff --git a/tools/i2cdetect.c b/tools/i2cdetect.c
-index 3c22f17..8b08e55 100644
---- a/tools/i2cdetect.c
-+++ b/tools/i2cdetect.c
-@@ -35,11 +35,14 @@
- static void help(void)
- {
- 	fprintf(stderr,
--		"Usage: i2cdetect [-y] [-a] [-q|-r] I2CBUS [FIRST LAST]\n"
-+		"Usage: i2cdetect [-y] [-a] [-q|-r] [-T TIMEOUT] [-R RETRIES]\n"
-+		"                 I2CBUS [FIRST LAST]\n"
- 		"       i2cdetect -F I2CBUS\n"
- 		"       i2cdetect -l\n"
- 		"  I2CBUS is an integer or an I2C bus name\n"
--		"  If provided, FIRST and LAST limit the probing range.\n");
-+		"  If provided, FIRST and LAST limit the probing range.\n"
-+		"  TIMEOUT sets the adapter timeout (unit: 10 ms)\n"
-+		"  RETRIES sets the adapter retry count\n");
- }
- 
- static int scan_i2c_bus(int file, int mode, unsigned long funcs,
-@@ -220,9 +223,10 @@ int main(int argc, char *argv[])
- 	int first = 0x08, last = 0x77;
- 	int opt;
- 	int yes = 0, version = 0, list = 0;
-+	long timeout = -1, retries = -1;
- 
- 	/* handle (optional) flags first */
--	while ((opt = getopt(argc, argv, "FVahlqry")) != -1) {
-+	while ((opt = getopt(argc, argv, "FR:T:Vahlqry")) != -1) {
- 		switch (opt) {
- 		case 'V': version = 1; break;
- 		case 'y': yes = 1; break;
-@@ -235,6 +239,23 @@ int main(int argc, char *argv[])
- 			}
- 			mode = MODE_FUNC;
- 			break;
-+		case 'R':
-+			retries = strtol(optarg, &end, 0);
-+			if (*end || !*optarg || retries < 0) {
-+				fprintf(stderr, "Error: Invalid number of "
-+					"retries!\n");
-+				help();
-+				exit(1);
-+			}
-+			break;
-+		case 'T':
-+			timeout = strtol(optarg, &end, 0);
-+			if (*end || !*optarg || timeout < 0) {
-+				fprintf(stderr, "Error: Invalid timeout!\n");
-+				help();
-+				exit(1);
-+			}
-+			break;
- 		case 'r':
- 			if (mode == MODE_QUICK) {
- 				fprintf(stderr, "Error: Different modes "
-@@ -326,6 +347,20 @@ int main(int argc, char *argv[])
- 		exit(1);
- 	}
- 
-+	if (timeout >= 0 && ioctl(file, I2C_TIMEOUT, timeout) < 0) {
-+		fprintf(stderr, "Error: Could not set the adapter timeout: %s\n",
-+			strerror(errno));
-+		close(file);
-+		exit(1);
-+	}
-+
-+	if (retries >= 0 && ioctl(file, I2C_RETRIES, retries) < 0) {
-+		fprintf(stderr, "Error: Could not set the adapter retry count: %s\n",
-+			strerror(errno));
-+		close(file);
-+		exit(1);
-+	}
-+
- 	if (ioctl(file, I2C_FUNCS, &funcs) < 0) {
- 		fprintf(stderr, "Error: Could not get the adapter "
- 			"functionality matrix: %s\n", strerror(errno));
--- 
-2.43.0
-
+Hard to say how real the above are and when they happen. But if they
+are, let's fix them separately instead of defensively sprinkling nr_frags
+checks everywhere?
