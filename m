@@ -1,74 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794256640;
-	b=pHSJCsNmcB8yLLG1Waprl/xhB85Mb40X/CSBuueVbJa8ulnkzA/BvWc5k8rIkbjVaXGK
-	 lZayp6KCDhJmpcdzjrxTUMFr6RweOrv8RmjbQp8/KhdovEnM7kn3a+DjHGGXogVeMhjhQ
-	 2UAczfpsFaMiJWW8peGbjUO5WPyoJzbGl3mQatoiP4WmPLb2RdnH9y2wblNXGN9xBB9Am
-	 TwvEqCHRcsjy8U848fdGGNB2c5deDRnn0Ftim854BwHunxZvJ7DwkE6S1cE9SbAyqfCCV
-	 PGf4vsNeRIqSDOc8JGHtRSlGbkA/lDJ/j/27BQtmaZ5nvNkXTDadsz5bWD9NQNNqP7Q==
+	t=1794256649;
+	b=Ed2r8hCBB2EawpcaDMnw592RahZYFe/kNloJ4aqeM0xNYm5NRauJEzCoDboApvScxLZK
+	 gBehkRpCq3rFnze+Y6oN9qIBzr/x91+GYUkdyBK4UYz5m3oGeu+aHllMtBz+lEJRt/4od
+	 vURJKmUX8ZTJqlhPBP3UvODP7KoSU5zPKd8zxdy+7XzwU0ZqoWligvYOo38sxnCIZpFF9
+	 qSY5qLrZOl6f6zyydhuNf2TlgC/c/5Lzs5x3hq/aTzXfW6+L60N2rCQnh0Asajy8uz4pA
+	 VkWSW0neZphy5UXeRr2Lw/dLmh47ZLTBCSYYsWLnoFcO9Ndh++asKA+ndLYohM1y/4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794256640;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=qvOtAbv0QfyHUrDp1aq48tDo8bWXkNREmKBOalVwHmc=;
-	b=k3RwcBBbsoA7TaTnVhHpE/ngfZqLtxdfGmc15hTmQkYyt0ezwquc/AiG8wTvF2Z6C7IV
-	 SR2vWNk2D0SkF66CZA1D1jgF9gl8eIPLOMuw++ckRvJdBQq0pVvrEiCUWkAie89nJfNi2
-	 lmlhdyiaczq5iUZXpS+iyh6rDfqMWGmacrt1OvC1kN5/2OF99LUkAogqy75Gy5rO7sELE
-	 xYg0hyXeB3ixrE4twTWhLsr2pglsnBqZ545D1VRb/nHBcI/lqTNxR64E6saY48Qm0fjKS
-	 ueOvugWIi7nQ5+EZpTvI47FhtVhFVCt2CB6VhUqoCbtI1hiip3IbWFSpj3b84i+dWCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794256649;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=tsXqv021D7xDJLBYEcDly17IxW8mw4G6+Z2raCWr8GY=;
+	b=Tzrd5L6hVB5y2S47gIfTf22Sb6VSfJdF/AB3c97Ck+mlFpsfoNWM7TpkAJFq0VYnAMNn
+	 pUZaiLTsvKC8jsLb5Yv2DvHDlZ+qtVBj7S9HvAxCBxqoJRQufHzCZzM+tMXrHb+Y7H9jt
+	 xDp9m1D9d/v/0qercl2q7riPHF1T5hvW3ezLNiAIWlYGqvGH545VKjwGDOAZbmgVw1GvG
+	 I0PK0FJ2ECS51s+60S4fJGVwkLlY6jMXx+QH/+CeWRmztRWL6dpKRS1VAccd8UEMOEes6
+	 Z1yfAI+gJCNiXX8AacsfWzTDB5LvJeEs8CmVC7Tg4UVj6fhSkA7VhgRVI2O0j/E7lNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ypGfgrIf;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="aRMS/gtd";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MuxuvId3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350CE606A31C;
-	Mon,  9 Nov 2026 20:37:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 350CE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76025606A321;
+	Mon,  9 Nov 2026 20:37:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ypGfgrIf;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=aRMS/gtd
-Date: Mon, 09 Nov 2026 20:37:15 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794256637;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qvOtAbv0QfyHUrDp1aq48tDo8bWXkNREmKBOalVwHmc=;
-	b=ypGfgrIfW2JEl+gjsUiNyoHGTXmdotDRl60dKZ8iVJrJnvfkoUjBS3igJigVCrd3yODWzX
-	InGkEUOvFI5OzvjJek+HgxJXZpZCAvBrn/mP8tD49gDdxrTUZ7eEEeksYjD+VYfYGFYF+e
-	ePdTp5GEBt+Q98NzzZpLdN9l/EHw8PY/6IFOxPCJCrdXk76d8Jxj1YznMoKocN4zRqnHs/
-	43vnQAzqcaBQ0ShR+lme88C1S4ow48Nf3RQa5EILzZmlhUL7PUifywZTNAuo6FwkTQvW4M
-	YfdY63VmHtD2GoKvaAcx47/NCBkoOlYSdiewD0EgR2rlNuozoTrbd7cjA7fQ+w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794256637;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qvOtAbv0QfyHUrDp1aq48tDo8bWXkNREmKBOalVwHmc=;
-	b=aRMS/gtdyNfScsPrAFVsDvdcHoYJ7lhU3GrkKdQFHJxUCjdc3rXwUUFNnPJp2Vh47xcbis
-	nCGRJOp/omsD6kDQ==
-From: "tip-bot2 for Avi Weiss" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: timers/core] alarmtimer: Trace the requested expiry when
- starting an alarm
-Cc: Avi Weiss <thnkslprpt@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261101192401.858702-2-thnkslprpt@gmail.com>
-References: <20261101192401.858702-2-thnkslprpt@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MuxuvId3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11FDC1F0089F;
+	Mon,  9 Nov 2026 20:37:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794256649;
+	bh=tsXqv021D7xDJLBYEcDly17IxW8mw4G6+Z2raCWr8GY=;
+	h=From:Subject:Date:To:Cc;
+	b=MuxuvId3oTkDxdUIk1M34q6oow2B8ASSxBWhH4HLJWsy8qLEze84iLZ+hLqSU1z94
+	 0iqyYMO75vVRxSHRDF54zw/KcDiaPBO9f+7HpKb22SC1NFdJdoyxeFirEBw75SGt6K
+	 fO8I5C6GEJAoCqMNCuGmhhK7pPRlbZk/0TpXX7V46VckBxXwFRaNBXRuosjZR/g2zY
+	 NFk4kF31RaQ1atzzBkSUIjcu0l3U/5sMye8jDuEIR3jbF9cawN4AlQc/hpdABOG0VE
+	 eLT+jbL9Jkw0DjsLX3ngi4mW9ykTRz1dkBG71cK7iEVKAal6nWfGJq87BGHSaEQnFa
+	 3TA5ihhCO+TZg==
+From: Jeff Layton <jlayton@kernel.org>
+Subject: [PATCH v3 0/8] nfsd: more delegated timestamp fixes
+Date: Mon, 09 Nov 2026 15:36:41 -0500
+Message-Id: <20261109-deleg-cb-getattr-times-v3-0-710c7244a6ea@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,54 +53,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179425663587.2093942.7486072361332355619.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNQQrCMBCF4auUWTuSTCSkrryHuEjbMQ3WVpIQl
+ NK7m3alC3H5P5hvZogcPEc4VjMEzj76aSyhdhW0vR0do+9KAwnSUgrCjgd22DboONmUAiZ/54j
+ G2pq0oLqRGsrxI/DVPzf4fCnd+5im8Nr+ZLmuf8ksUWBrhSLdGaNJnW4cRh72U3Cwmpk+Hf3To
+ eKYg1JaGtvUVn45y7K8Ae8/JwkFAQAA
+X-Change-ID: 20261102-deleg-cb-getattr-times-8aa926029b16
+To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>
+Cc: Tom Haynes <loghyr@gmail.com>, linux-nfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4291; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=qaUyX0Ckat3OuXhwKU+UvTXNLVj5tmHyi5DQnEuwWtk=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq8i7xZ6c2IDNGQ9pTqUnQmk8jk41DyZEuroI5O
+ d67HYH33aiJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCavIu8QAKCRAADmhBGVaC
+ Fc44EACDu68HbBnJcA/g6Kx+LFwuf549qNDrkNVTENQboW9FrggEYwKRwyEQqdqE5lKQogmBP/1
+ OK5F2S3Hd3MKL/Jaj/sBO8maJ7xDQ6DlEopy6ByPK/BcCK86LAkeXb1V12pC6HCIt+rMnqDNl31
+ 0soakc5es809KMqd+KUbknqL+Al4+CBUpC0bZMGT6r5114Do2+lKlMI8Ly7PY5OhSwF4U7XGMIk
+ WxmGzvYIx6/wsHgBl1ptghCf/wTIluVd5zd83F6zvswModDuWAddngpzWqtpOppnTQVEkQJWP3M
+ 04HxoZLDWJIIqIlhzDoWz9A5iuSExr26Jc2X9vU2+RFLwzYociEKO0CJgrbvWRv7GLyzEq79IBZ
+ CKqQ1nhf5kcuaK3ffOJ02hEMie5B45lXwHJrIAyuGf/hruiqGRE8bc972XF8HvjgPxjU9kFQhMw
+ 74oZj5HbAf62w4ah0sJrHtRSuN2YipFm8EqN5nXGfeF2T98C4zyKt6cj6cMJVVNNHAbY1UIWqN3
+ 4cCRaWN5YM3I184k6S7DIEFs5JozEVvIWASavyeF4STq+mnFDpaBJVBIXEFAEnxzHYqS3bIxWXB
+ YGVm2S/Ju1lH7Lw/SXneglVTDdAgGgC8nZr2q5/dsBti0GadrMzP7llrHosb2hwxaIblEd8iScq
+ MZjZ7Pw8xW4ABGA==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-The following commit has been merged into the timers/core branch of tip:
+This version fixes the existing patches and adds some new ones to fix
+problems that agentic review spotted. Note that there is also a
+companion client-side series that fixes some related issues.
 
-Commit-ID:     0359ecff58853a491dd0f09792fea8e87235ae06
-Gitweb:        https://git.kernel.org/tip/0359ecff58853a491dd0f09792fea8e8723=
-5ae06
-Author:        Avi Weiss <thnkslprpt@gmail.com>
-AuthorDate:    Sun, 01 Nov 2026 21:24:02 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Mon, 09 Nov 2026 21:31:47 +01:00
+The catch with this version is that we need a fix to
+inode_set_ctime_deleg(), and that lives in fs/inode.c. We'll either need
+to get Christian to take that one or get his blessing to merge it via
+the nfsd tree. It's a pretty small patch, so the latter might be OK.
 
-alarmtimer: Trace the requested expiry when starting an alarm
+Original cover letter follows:
 
-alarm_start_timer() traces alarm->node.expires before updating it,
-so alarmtimer_start reports the previous deadline on rearm.
+Chuck recently added a new DELEG27 pynfs test that fails against nfsd.
+These patches fix the behavior of delegated timestamps (again), such
+that DELEG27 now passes.
 
-Move the tracepoint after assigning the new expiry time.
+I also ran some tests with the git regression testsuite which turns out
+to be very sensitive to timestamp bugs, and that turned up a few more
+server-side bugs.
 
-Fixes: 183d00b72713 ("alarmtimer: Provide alarm_start_timer()")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20261101192401.858702-2-thnkslprpt@gmail.com
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- kernel/time/alarmtimer.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Changes in v3:
+- "Honor delegated timestamps when change and size match":
+  - record applied times from SETATTR too, so a stale CB_GETATTR reply
+    can't move them backward
+  - record ctime from the inode; atime/mtime from the untruncated values
+  - move the vet/record prototypes to nfs4ctl.h
+- "don't stamp over an applied delegated mtime at DELEGRETURN":
+  - share the vetting between SETATTR and CB_GETATTR
+  - set dl_setattr only after the holder's mtime is applied
+  - test dl_setattr under inode_lock at DELEGRETURN
+- "don't vet delegated times against an exclusive-create verifier":
+  also set the floors for read timestamp delegations
+- "mark the delegation written on COPY/CLONE instead of stamping c/mtime":
+  - look up the nfs4_file for every async COPY
+  - remove the now-unused nfsd_update_cmtime_attr()
+- New: fs: check a fine-grained time before clamping a delegated ctime
+- New: nfsd: check a fine-grained time before clamping a delegated mtime
+- New: nfsd: raise delegated time floors after a size-changing SETATTR
+- Kernel-doc, comment and commit message fixes
+- Link to v2: https://lore.kernel.org/r/20261106-deleg-cb-getattr-times-v2-0-8433618ab9a1@kernel.org
 
-diff --git a/kernel/time/alarmtimer.c b/kernel/time/alarmtimer.c
-index 33c35f1..ecf8c89 100644
---- a/kernel/time/alarmtimer.c
-+++ b/kernel/time/alarmtimer.c
-@@ -344,10 +344,9 @@ bool alarm_start_timer(struct alarm *alarm, ktime_t expi=
-res, bool relative)
- 	if (relative)
- 		expires =3D ktime_add_safe(expires, base->get_ktime());
-=20
--	trace_alarmtimer_start(alarm, base->get_ktime());
--
- 	guard(spinlock_irqsave)(&base->lock);
- 	alarm->node.expires =3D expires;
-+	trace_alarmtimer_start(alarm, base->get_ktime());
- 	alarmtimer_enqueue(base, alarm);
- 	if (!hrtimer_start_range_ns_user(&alarm->timer, expires, 0, HRTIMER_MODE_AB=
-S)) {
- 		alarmtimer_dequeue(base, alarm);
+Changes in v2:
+- "Honor delegated timestamps when change and size match" reworked:
+  - set ATTR_FORCE when applying the holder's times
+  - record applied times in dl_[amc]time; vet and record under inode_lock
+  - vet SETATTR's delegated times in nfsd_setattr() under inode_lock
+  - also mark file modified on a holder WRITE whose mtime didn't pass dl_mtime
+  - always report ncf_initial_cinfo as the change attr for timestamp delegations
+  - catch the holder's own server-side changes (SETATTR, xattrs, etc.)
+    via a change attribute saved at grant
+  - log, rather than fail the GETATTR, if applying the holder's times fails
+- New: don't stamp over an applied delegated mtime at DELEGRETURN
+- New: don't vet delegated times against an exclusive-create verifier
+- New: mark the delegation written on COPY/CLONE instead of stamping c/mtime
+- Link to v1: https://lore.kernel.org/r/20261102-deleg-cb-getattr-times-v1-0-ca0326d88623@kernel.org
+
+---
+Jeff Layton (8):
+      nfsd: Report vetted delegated timestamps in GETATTR replies
+      nfsd: Honor delegated timestamps when change and size match
+      nfsd: don't stamp over an applied delegated mtime at DELEGRETURN
+      nfsd: don't vet delegated times against an exclusive-create verifier
+      nfsd: mark the delegation written on COPY/CLONE instead of stamping c/mtime
+      fs: check a fine-grained time before clamping a delegated ctime
+      nfsd: check a fine-grained time before clamping a delegated mtime
+      nfsd: raise delegated time floors after a size-changing SETATTR
+
+ fs/inode.c             |  16 ++-
+ fs/nfsd/nfs4callback.c |   2 +-
+ fs/nfsd/nfs4ctl.h      |  15 +++
+ fs/nfsd/nfs4proc.c     | 101 +++++++++--------
+ fs/nfsd/nfs4state.c    | 292 +++++++++++++++++++++++++++++++++++++------------
+ fs/nfsd/nfs4xdr.c      |  10 +-
+ fs/nfsd/state.h        |   6 +-
+ fs/nfsd/vfs.c          |   6 +
+ fs/nfsd/vfs.h          |   4 +
+ fs/nfsd/xdr4.h         |   9 +-
+ 10 files changed, 325 insertions(+), 136 deletions(-)
+---
+base-commit: d692f252c52b8d1b4bc7481554f314df31ed8249
+change-id: 20261102-deleg-cb-getattr-times-8aa926029b16
+
+Best regards,
+-- 
+Jeff Layton <jlayton@kernel.org>
+
