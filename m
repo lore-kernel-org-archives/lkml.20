@@ -1,61 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.69.30.187
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794265004;
-	b=vh0vyOxE8kq+4SBFoA2vGEyTDMdPoSbP++zew5PDwb6m+A9N54dZpi1JOd8kcix3WneB
-	 AoCkqIhZNSomYFGwFc4XGysA8TT46IFCNbjxObUyA3Heh5+2YV6XLc563cRP4sgFrc/Us
-	 oSYyoq8xptY1DMgvpRXhHM2vM6uPp3ntDpYLsGm8ELpb0fQXgj7F5KGRuwp3qu1r/9Ten
-	 rw7BJmJTaB/88jEqNnvWYNEFz8uAkqYzTBcNj0jjrAuxJVhuiEizzUr8Tsw+cwDL6sWHG
-	 i5DtN9FgA4KvjS5i9RJKv6j86X0vVOm+ngtxkvcBkOaSdoQVmuxoTNqGuDVYu0GYopA==
+	t=1794265083;
+	b=tGv9Dz0OJnVkOjafyNlAK0YbahQREt4b5joTjw8Qfgn0f2prLMP4XCvt1yGOyVJkK8+U
+	 PNEXzdiUTw2FXIGMMQqxk/iGV1fbS7roBIE4WDCAVQ5/5IQ2JdbZurI8+1Ut3qZ4h489Q
+	 t9RtabahXUurgGvGcTESbTF6aasQRsk5WHI+x9NDSFe4Jx4b001ZgobIeaUoaylz8RKc2
+	 LsOMNqz+xw4a/zG2g7EPK3hNC6X9IGrYTXRN+jw1JSnFQD4plrqbdkjj3Ffh8pC5F8NzX
+	 6GmwNYObEgS/FyUoyDZ4zRh2EzRimNHCydc6/2/pRiFnIp86EDZHtm96SS/K+hohTHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794265004;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GWAVL70i6r6sAHI5CbKhPc1r3FwU+hCVb2gn7ZX9euY=;
-	b=gmDNoMBLKWEtsoXM40OAAelIYYbQWhMf7CZBGNq7DeIvlVMBehfoh7b1qLR2nHHkkGzF
-	 jEl2t8u5zYjnFYpTjtYF+CG930Aq9I2WTBaMc218rfWGoBT/1ZX8+hLZZtLUGgXHQY/KU
-	 GSgcRZGQ4M+jOERO0eP7P1DhJ87DmBWz1Cz43nam3cyOtxHCBbXZcs7ZdT1Z1tyk8S5Wq
-	 ZT744lapm3XDUjrkHJdgLTEKp/lc18rrFA2dyVQLi2AQJOxacA3Xn+cOTABbZYQVoKTAm
-	 8FkHstVzOWBas3kx57pjzVlhEvxSPvk+ZMrogJoVE5GBgeg7FKS8mpRj5DJne6T9+hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794265083;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=APuVGr9Syfi20cMf1JwWjHvFw/aqU07E3GrFheF9DSw=;
+	b=Zv8ggkBCd3t+4p8Ak3++YL2rdv8XryP2ROHpAYUSQAcez2EGaRykLMracd0jlyv7CO+w
+	 pW6PYIDDdkr4tBfXziXiGkIAn6jPShBgdL0IP3cFKH1cvIXH5nXZFC58ZTXXWHFufvXFR
+	 94DUkaRbnXvqpJwd/Kb6DB156x2uCW9em9dKhvqXlnWbOQgBeR1RNc/ND2ajlW/hK28jp
+	 iZ0VbeKrNdKwd87hH+Z1Al69zK/j62h+W2ORZYfYR7DkThXzfUQTlTkDdjUl/eSCJvFMs
+	 KSejXg/nDcOCEqjovBz+d8q5Gcq8yCahZxPR2bSAVfaeRjZqP8WCwB7SHu6P14RQEwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=freenixos.com;
-	spf=pass smtp.mailfrom=freenixos.com;
-	dkim=pass header.d=freenixos.com header.i=@freenixos.com header.a=rsa-sha256 header.s=mail header.b=uR7gVJhX;
-	arc=none smtp.remote-ip=54.69.30.187
-Received: from mail.freenixos.com (mail.freenixos.com [54.69.30.187])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P2o3myNT;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B78606A321;
-	Mon,  9 Nov 2026 22:56:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91B78606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=freenixos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freenixos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C279B606A321;
+	Mon,  9 Nov 2026 22:58:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C279B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=freenixos.com header.i=@freenixos.com header.a=rsa-sha256 header.s=mail header.b=uR7gVJhX
-From: Hex Lindqvist <hex@freenixos.com>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freenixos.com;
-	s=mail; t=1794264996;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GWAVL70i6r6sAHI5CbKhPc1r3FwU+hCVb2gn7ZX9euY=;
-	b=uR7gVJhXmXl+I0WLlrHtMgLpTbMNFHuQChRchHjUc3vZiAjNvrdUs1h4OUCdLZolSZZMaU
-	rdOyN10H7wHDE43Lt0umjKmFJHSLivqI0SOXPoB26Gqx4EjW2v1cEg5WVZJDF1KKXnugAN
-	CEZv0pJW0WFPKIU8xk65Osu+PayTbRekN/aFB5J+F9zjZmNxiAO5TzNCLJ825rA7KZB986
-	isML65CbAL3lN9uQxH2DXFd3M+WM6C1XjUGs37kOhiP0MrzOPkL+qhz6Qf9G9fdajW+PD8
-	ExuhpKwXgavXXnJLq8/MJ29eSWRLoJuyOovBgixOmMwqvDiBmb0UoQcPHfPIuw==
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Zijun Hu <zijun.hu@oss.qualcomm.com>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Paul Menzel <pmenzel@molgen.mpg.de>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Bluetooth: btusb: Use DECLARE_FLEX_ARRAY() for memdump segment data
-Date: Mon,  9 Nov 2026 14:56:32 -0800
-Message-ID: <20261109225632.1227242-1-hex@freenixos.com>
-In-Reply-To: <CABBYNZJdeHXP1XjYcTwUdCe_SFfxMETpSQbF7t0FHyxY4YfZQQ@mail.gmail.com>
-References: <20261108042008.226295-1-hex@freenixos.com> <b83e0172-2f64-4e28-9750-1a5fb3dd6b41@oss.qualcomm.com> <CABBYNZLJpDXTPmE_=rJ=J3oUMWRzybHhut4y1kPTEU8y2AKKiQ@mail.gmail.com> <CABBYNZJdeHXP1XjYcTwUdCe_SFfxMETpSQbF7t0FHyxY4YfZQQ@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=P2o3myNT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794265083; x=1825801083;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gLk2yVe76ajtu1KrWCk+zmfgNuAUqzVJtyq7tY5vbag=;
+  b=P2o3myNTBMmgQCZWcFtsSLgSIu6plTgz4TwXfcWlrOzcv8TQwJ46cMgQ
+   qjrCqW9gh804hq+oqdxlEm276NGvCYukickQw83yR9S1lnbnZeMMFjtOD
+   z7cc2MJ2gLcAS0V5Zuz/bBAJcfsZZwKawd+9mva+C3CdpbEk+YdVn4QTF
+   B4Oyh0zNOuNOeu+fVBm4eQJAv4fw03EIvIzXl20QS5ZIH4JXenbr7S4yk
+   0mE0dOLZ4whIk6kPOwBWpHTfR7RTSxUlEVMEWLrZUGP6502r+VcANu+54
+   rZyAFgNedEN0fLy5YVzoosE1MYWpVSjysa/OXw5qeANcRGQEE1DV5JU+C
+   g==;
+X-CSE-ConnectionGUID: fPjr6SLlSjaLljuMwHkDmw==
+X-CSE-MsgGUID: 9jsOWlZUQmCAo/+21NSL1A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2899342"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2899342"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:58:02 -0800
+X-CSE-ConnectionGUID: T3RHJ0ZVRUiHpNbWBPbDdg==
+X-CSE-MsgGUID: /OnDlxXBTTKRLkahbt7bZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="7998415"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:57:55 -0800
+Date: Tue, 10 Nov 2026 00:57:53 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Raul E Rangel <rrangel@chromium.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Richard Genoud <richard.genoud@bootlin.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Timur Tabi <timur@kernel.org>,
+	Peter Ujfalusi <peter.ujfalusi@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v10 2/8] serial: serialize asynchronous write wakeups
+ with the port lock
+Message-ID: <avJP8Sym_LQX9UVc@ashevche-desk.local>
+References: <20261108-submit-serial-8250-dma-cancel-v1-v10-0-e6227ddb95b1@gmail.com>
+ <20261108-submit-serial-8250-dma-cancel-v1-v10-2-e6227ddb95b1@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,48 +103,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108-submit-serial-8250-dma-cancel-v1-v10-2-e6227ddb95b1@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Luiz, Zijun,
+On Sun, Nov 08, 2026 at 08:50:11PM -0700, James Hilliard wrote:
+> uart_write_wakeup() expects the UART port lock to be held. Several worker,
+> DMA completion and interrupt paths call it without that lock, including
+> indirect calls from uart_handle_cts_change() and the transmit helpers.
+> 
+> Take the port lock around these notifications or their transmit helper.
+> Keep sleeping SPI and regmap accesses outside the locked region, and keep
+> the FSL LPUART completion lock held through its wakeup. Acquire the port
+> lock after releasing private channel locks to preserve the ordering used
+> by UART callbacks. In the MUX timer, publish available FIFO space under
+> the port lock and keep the hardware FIFO-drain wait outside it.
+> 
+> Use plain port locking in hard-IRQ handlers and in helpers whose callers
+> already mask interrupts. Atmel status handling is also called during
+> resume, where lock_suspended is acquired with interrupts disabled; JSM
+> interrupt processing holds its IRQ-saving board lock. Keep IRQ-saving
+> locking in workers, tasklets and other mixed-context paths.
+> 
+> Take the port lock after requesting the ST ASC interrupt and hold it
+> through startup's transmit servicing and RX interrupt enable. The transmit
+> helper can notify writers even when the FIFO is empty, and serial core
+> calls startup without holding the port spinlock.
+> 
+> Use IRQ-safe locking in the Atmel RX and TX tasklets and SB1250 termios
+> path, since their interrupt handlers now acquire the same port lock.
+> Preserve the caller's interrupt state when releasing those locks.
+> 
+> On SB1250, lock modem-state updates after reading and filtering the change
+> status, and wake modem-status waiters after unlocking. Take the TX lock
+> inside its service routine so RX-only interrupts need no acquisition.
+> Keep that lock across x_char handling, FIFO consumption and the decision
+> to mask TX interrupts: a writer must not enqueue data and enable TX between
+> the empty-FIFO check and the interrupt-mask write. Each TX invocation sends
+> at most one character.
+> 
+> Serialize CLPS711x TX servicing and its interrupt-enable state with the
+> port lock. Disable TX interrupts without waiting in stop_tx(), since a
+> threaded handler may need that same lock. Have an already queued handler
+> leave stopped output untouched, and drain it outside the lock during
+> shutdown before the transmit FIFO can be released.
+> 
+> SCCNXP handles interrupts under a controller lock which its UART callbacks
+> acquire with the port lock already held. Collect the ports needing wakeups
+> in an unsigned long bitmap while servicing the controller, then release
+> that lock before visiting the set bits, taking each port lock and
+> rechecking the wakeup threshold. Removal drains the IRQ or timer before
+> unregistering the ports.
+> 
+> This serializes write notifications with port-locked serial-core state
+> changes, allowing readiness and transmit-storage reservations to gate the
+> notification without a check-versus-shutdown race.
+> 
+> Cover DZ TX servicing and JSM Classic modem notifications as well. On
+> DECstation ZS, acquire the port lock before the SCC lock and notify writers
+> after releasing the SCC lock. Defer normal TX restart after console output
+> to a worker, since console output can already run under the port lock.
+> Check transmitter readiness before consuming another character and drain
+> the restart worker during shutdown and removal. Release Lantiq's hardware
+> lock through the transmit helper's completion hook before notifying the
+> line discipline.
 
-Thank you both for looking at this, and Paul for the review.
+...
 
-On Mon, Nov 9, 2026 at 10:39 AM Luiz Augusto von Dentz wrote:
-> On Mon, Nov 9, 2026 at 10:35 AM Luiz Augusto von Dentz wrote:
->> While this maybe true if the above code does produce new warnings then
->> it needs to be fixed anyway, from the commit message it doesn't
->> mention any build warning but that perhaps is because it is enclosed
->> into a union which mask it or something, anyway trainling variable
->> length should be accompany with __counted_by; so the compiler can do
->> bounds checking.
+> --- a/drivers/tty/serial/sb1250-duart.c
+> +++ b/drivers/tty/serial/sb1250-duart.c
 
-There is no build warning, with or without the union; the patch was
-only about the zero-length array being deprecated. __counted_by does
-not fit here: the struct has no count field, and the segment length
-comes from skb->len.
+> -	if (delta & (M_DUART_IN_PIN0_VAL << S_DUART_IN_PIN_CHNG))
+> -		uart_handle_cts_change(uport, !(delta & M_DUART_IN_PIN0_VAL));
+> +	if (!(delta & ((M_DUART_IN_PIN2_VAL | M_DUART_IN_PIN0_VAL) <<
+> +		       S_DUART_IN_PIN_CHNG)))
 
-> Maybe not DECLARE_FLEX_ARRAY, but [0] is not recommended for vla see
-> the Link tag, in fact the first_segdata[] does follow it so this needs
-> to be fixed anyway.
+Just keep it a single line.
 
-As Zijun says, segdata is only an offsetof() anchor, so it can go
-together with the union:
+> +		return;
+>  
+> -	if (delta & (M_DUART_IN_PIN2_VAL << S_DUART_IN_PIN_CHNG))
+> -		uport->icount.dsr++;
+> +	scoped_guard(uart_port_lock, uport) {
+> +		if (delta & (M_DUART_IN_PIN0_VAL << S_DUART_IN_PIN_CHNG))
+> +			uart_handle_cts_change(uport, !(delta & M_DUART_IN_PIN0_VAL));
+>  
+> -	if (delta & ((M_DUART_IN_PIN2_VAL | M_DUART_IN_PIN0_VAL) <<
+> -		     S_DUART_IN_PIN_CHNG))
+> -		wake_up_interruptible(&uport->state->port.delta_msr_wait);
+> +		if (delta & (M_DUART_IN_PIN2_VAL << S_DUART_IN_PIN_CHNG))
+> +			uport->icount.dsr++;
+> +	}
 
-	struct qhci_vse_memdump {
-		__le16 seqno;
-		u8     subsys;
-		__le32 dump_size;
-		u8     first_segdata[];
-	} __packed;
+...
 
-	#define QHCI_MEMDUMP_HDR_LEN	offsetof(struct qhci_vse_memdump, dump_size)
+> --- a/drivers/tty/serial/sccnxp.c
+> +++ b/drivers/tty/serial/sccnxp.c
 
-The header is pulled with QHCI_MEMDUMP_HDR_LEN, the first segment's
-dump_size with sizeof(md_vse->dump_size), and the kernel-doc gains a
-line saying that middle and last segments carry their payload right
-after @subsys. The generated code does not change.
+> -static void sccnxp_handle_events(struct sccnxp_port *s)
+> +static unsigned long sccnxp_handle_events(struct sccnxp_port *s)
+>  {
+> +	unsigned long wakeup = 0;
+>  	int i;
+>  	u8 isr;
+>  
+> @@ -491,20 +492,40 @@ static void sccnxp_handle_events(struct sccnxp_port *s)
+>  		for (i = 0; i < s->uart.nr; i++) {
+>  			if (s->opened[i] && (isr & ISR_RXRDY(i)))
+>  				sccnxp_handle_rx(&s->port[i]);
+> -			if (s->opened[i] && (isr & ISR_TXRDY(i)))
+> -				sccnxp_handle_tx(&s->port[i]);
+> +			if (s->opened[i] && (isr & ISR_TXRDY(i)) &&
+> +			    sccnxp_handle_tx(&s->port[i]))
+> +				wakeup |= BIT(i);
 
-Zijun, would that work for you? If so, I will send it as v2.
+__set_bit()
 
-Thanks,
-Hex
+>  		}
+>  	} while (1);
+> +
+> +	return wakeup;
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
