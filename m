@@ -1,85 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.162.73.231
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253734;
-	b=Vz7O+JS/qvIS1eaA7EtZDWZBL3U1NuIbcDE8Fre1wT9FG4PLXREq2NWsSnXUqoE3Pcm7
-	 7nJrPW9rE8coIaK1aVeq8lqdJJAnmc2OfCDFU3IHrPs3NPXes0lZEt22Tro6UG7O03iAx
-	 PmkQS1HvTQcQjVskj3A7sWSW4lHp9cfv+gLkKElBRW9qS0zoWUH/bQfdcFZE+K2XYdi2P
-	 e7/IUv1yN8W0yJfZR5omiiY7e6EqoXY9hKSrutN3mrpy+FYtMCe9pYCSlOavPQliP7N72
-	 7JNs16pTGmGMnJjrF57nPU5N32zGAbttD7lgwYkafAvQkJviupeYHM6HXF0c9wyCvkQ==
+	t=1794253745;
+	b=zyxN8N6hEnzAD6a2dgfDPbv6pYDWVogtlESeuUZf4IkwWUDiA3gOYNVXvn0NjDCmoXHs
+	 aQxXufd3/OV+lHxXWSVP6+tyFXJ9D8jtL3lQRcM3rPsxhSW1x/Zgnj15jRQ82e29D6nM6
+	 ACOXfiYfyqqjtlYzAfNAwJ4Nnx13MENg4uPuM1r0u8XK294vFt8CxZbBpptRbYeH8k/PI
+	 DRrm6FdnSl8H2629lxXBt23L+FUj8ckfnoQwHLKvl4pgmLDGuIUahBN3jUcqqiD1rR3qh
+	 IekA2WrDjPDulTLzuD5Vag/C/kjeCn/Ok21FJ7I3UbzZrJBnxM9RfpC3eDVfp1RdEmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253734;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:X-Originating-IP:X-ClientProxiedBy:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=j9g5WU5Spk+Dn//kp9f4xjhZLy9psmLHKbjpszhklxY=;
-	b=iknuiBh+bWVw7dGGnGkBpHU4luJeqYcalaGCghE0Hvm5z9gWmjySgtktpUyg3uSIW0Vr
-	 5CugpgH1P/ECGQkQeA7UebGTx2tAzNJr5RQiJbb2+5lnJbxxNBSa/3Bts4DyBJDVDvCMY
-	 vCmRlgyFnjsI0U3hvoIE/C3zN+Q3L6a0fvZ7UWH6+DDKDehCYdZZh6rs21J22fFSWJuxe
-	 YgPyZqxUe4gw+GZsEvp8iOTiXfRKvHDlLgMTveo9WMfjZjSyDMSLPOE1eb+O1z5/RoMzs
-	 S1ECjeS0KiggFgBJlhgyDuaCeK6vFKlhHSYgjM/bXyPQ7NiXJ2Pb8Fp4ueyHlWpF2kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253745;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=ba2Q7AJDVOznKzIVSG4WADmv5TxkLP7hX7pgseAgvN0=;
+	b=dVSDYFRvLMVm4BMC80C+054KCuux9ptlpjP3Rxw63InKw3NqMN6qdS1ca5fOSeBngZLo
+	 x5UK4t5+Z0nOQ7OeMRYXbyaPomgnyDSC3mSmIUPhfzRf/WZ1FJm7cmH/2lu/1n9zBQ6RH
+	 KobUlJeTqt9rs/4JJU/2CDXwcpguJOfC0J+TP/ruQCEQpItSC4Dmc+vEUnQmXgYkwxtzp
+	 AUy09aet9IAq7lGCJtRSTVq0c8RbdGnrVFnhlyNxc1YKUHNUxl6W/I4E9ZIXScm47gDN5
+	 HWB7bLkbLBhntqYheuvr+a/KGD/7/pMnig6vpCZqFpVljDWO9JwEzHHY8kp03O0Yx8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=qUA8ifQX;
-	arc=none smtp.remote-ip=35.162.73.231
-Received: from pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.162.73.231])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=cryspen.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAA1C60A260F;
-	Mon,  9 Nov 2026 19:48:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAA1C60A260F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=qUA8ifQX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794253733; x=1825789733;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=j9g5WU5Spk+Dn//kp9f4xjhZLy9psmLHKbjpszhklxY=;
-  b=qUA8ifQXZeebkVfK0xkFfBxMI6KnWdqlpj5G70/ZX8lqeBXCwQXePWjN
-   /FamJMEiOvHMwPn2o/74TgA3hpwq2DcDLfm3gvSN8zk2RP8ADQ+EpHWdM
-   r9gNNw74vchVCdl1ERjecU8ybKc4GDpmMpvN6D7z4Md+eUoiLcamZ2Gie
-   X3lRMG4+s0UYcXlDfiNJH3ivJDok8oe8tCRYcADsnvfma5oedvGqwDsA7
-   nYJVnpsETK13reDiQHeAv6u0en/LYKhGdXuPIlorHQHqeLszawJHCgWOr
-   dlFQZOMQwWzKZ5eK6HHpvYwryRCjdMpnCH01smlzzAsDioiKFRYRKbc7g
-   w==;
-X-CSE-ConnectionGUID: kPrsA+GwQg+OVR1pdBYLbA==
-X-CSE-MsgGUID: 0PFA2SNUS/GC+oyMTPF7Pg==
-X-IronPort-AV: E=Sophos;i="6.27,204,1787011200"; 
-   d="scan'208";a="33357812"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-012.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 19:48:51 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:15320]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.128:2525] with esmtp (Farcaster)
- id a0b40043-b039-4313-b4fc-b9571f74dcb7; Mon, 9 Nov 2026 19:48:50 +0000 (UTC)
-X-Farcaster-Flow-ID: a0b40043-b039-4313-b4fc-b9571f74dcb7
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Mon, 9 Nov 2026 19:48:50 +0000
-Received: from dev-dsk-sieberf-metal-1a-7543e84d.eu-west-1.amazon.com
- (172.19.116.227) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Mon, 9 Nov 2026
- 19:48:47 +0000
-From: Fernand Sieber <sieberf@amazon.com>
-To: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>,
-	<vincent.guittot@linaro.org>, <shuah@kernel.org>
-CC: <dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
-	<mgorman@suse.de>, <vschneid@redhat.com>, <kprateek.nayak@amd.com>,
-	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<nh-open-source@amazon.com>, <hborghor@amazon.de>, <fmubeen@amazon.de>,
-	<dwmw@amazon.co.uk>
-Subject: [PATCH 1/2] sched/fair: Renew slice protection when current is picked again
-Date: Mon, 9 Nov 2026 21:48:26 +0200
-Message-ID: <20261109194827.87349-2-sieberf@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109194827.87349-1-sieberf@amazon.com>
-References: <20261109194827.87349-1-sieberf@amazon.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B3D606A336
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:49:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B3D606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cryspen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4b4571ff080so15584235e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:49:04 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794253743; x=1794858543;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ba2Q7AJDVOznKzIVSG4WADmv5TxkLP7hX7pgseAgvN0=;
+        b=rS+ZIqNrs0ZC+oQHaRuNDnzE6pbYJ3JXX0Uy1nKx3x8BwZs111n5g4rxCKc5pXxBUh
+         SGXGJnpoV1TNKjsKyIUv0JxVnCZoSWiFzjz1uLsJQ/4WQSYdX7z00dXys72kbmB4vhLr
+         H4Vf58Vm6Ko9hckIwYm7rXlcX+FZQJrYsSCXvWdLiJYVnU+xAznJa0FsZR36C8oDJF21
+         fCGSqHGIrhzbg0mCGLcVkKZoE2xYsbh1+h3B0UnHdMdOjZ8onOdp9L5wlCMAkiSDZs7c
+         OeH/06sxM5dNasNlvoKzSZY78GXbhNMDlYYbDFXjBEbeekKU4PFyF+swyJbPfZdRY3Xj
+         nbew==
+X-Forwarded-Encrypted: i=1; AL+hErG57AuQez/UaudOj++xO86I1ZQgoUUOUg4vftp2sYIOartDPukC9hDsb1loFdis9VJwEoDb+wbNJSr40po=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/lB0i5jypLWk7XKmyP5bWAg/k8CEuv4UxfZAgpuKbNkVb41N/E
+	QKYboovZWc2S26z4mRMUMOZZi7DA6lMnFam0Ov8U3vTdpF6qYjOFLseF
+X-Gm-Gg: AYBFou2XYiSO7fOFMTF7y73pf1E5tHN5bJwOM7RGXQltyHYAgLBnS9fpusneDTt+4tm
+	jAoK/55vApwrjJHSvtEHfvMLlKViaEcjYz1Q+v60uAVDHFFwLMcJLJKr99nFoBzGptEuiY9FXBo
+	mI871ZdJuxtxvpkq0USOmNaky5eGYz86KdvsnuPnJT8xGoDJWYRJ8CNT/qzndQztqRRz6yXQzOy
+	UY7PJ9PbVymA7rjZCP0buqUyotkXPg5XtiR9ILANvOczWXh7HuUC5x5cHZZtnb4cWV0tl/H1yRV
+	LJVcZG2InD+e2HSENN1UpOpwqJXoCa8PRN+M//MRnyVUP2JM86IBfHHg4QlElY/onuwq47+nlwV
+	Aew6PlrfQKEGP53cgwka1MmhkpCdplLgaO5tyG+8hyVefRvwDzoY8czwZS7Ws/FgGjxmGj97qSQ
+	VAPSX0pcDThGcFxG2IOu6soubOYeBUawHdWyfyYlv22zow3Q0Owpd5R9OFIo6deUxD61yc6NIlc
+	tsZS/38MGF0So8lLiIFJp6hDkAL6Qdbx4l+vV3DQOO0xdT3la862kr+PXNbPbGYB5Ksc0BqTQTj
+	JIOASCgrwJ4iK5dfugMW/BcStGiKp7Qce5UMjX78T1bDfSl7+jwe0unqW1Gc4k1kuE+q0Y3k6Wu
+	NirC4NLzUTfKal9ZITxiRHfBFZpvXFjZLABW41uOy+ndZPHZaSABirpnsLgHlzYA=
+X-Received: by 2002:a05:600c:1d29:b0:4a1:f7f4:7cf1 with SMTP id 5b1f17b1804b1-4ba023376d4mr4246085e9.11.1794253742529;
+        Mon, 09 Nov 2026 11:49:02 -0800 (PST)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba02300988sm6618615e9.0.2026.11.09.11.49.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 11:49:01 -0800 (PST)
+Date: Mon, 9 Nov 2026 22:48:58 +0300
+From: Dan Carpenter <dan@cryspen.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Dan Carpenter <error27@gmail.com>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH] keys/trusted/tpm2: rename "bool" to "boolean"
+Message-ID: <avIjqp3n29DKkpPp@stanley.mountain>
+References: <avFcjHwnh9mrOEnz@stanley.mountain>
+ <avHelQ1nxsDVcQkZ@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,98 +90,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avHelQ1nxsDVcQkZ@kernel.org>
 
-Commit 0b9ca2dcabc3 ("sched/fair: Always trigger resched at the end of a
-protected period") made update_curr() request a reschedule as soon as the
-running entity's protected period has run out:
+On Mon, Nov 09, 2026 at 04:54:13PM +0200, Jarkko Sakkinen wrote:
+> 
+> Are we migrating to C23? I've not followed this too closely.
 
-	if (resched || !protect_slice(curr)) {
-		resched_curr_lazy(rq);
-		clear_buddies(cfs_rq, curr);
-	}
+Google AI says that we will adopt C23 next year or the year after.
+I argued that it would be would be after 2030 but AI said, "No, there
+is too much juicy stuff in C23 for kernel developers to wait so long."
 
-se->vprot, which protect_slice() tests against, is armed by
-set_protect_slice() in set_next_task_fair() only for a fresh pick
-(SNT_PICK). An entity that is picked again - prev == next, so
-put_prev_set_next_task() uses SNT_REPICK, see commit c72945693b90
-("sched: Restart fair hrtick after same-task repicks") - keeps its expired
-vprot. Every later update_curr() on it therefore sets TIF_NEED_RESCHED
-again, and keeps doing so until the entity is switched out.
+I don't have a pressing need for this patch to be merged.  I was
+just playing with some compiler related tools noticed this.  It's
+the only place in the kernel which uses "bool" as a variable name.
 
-On a CPU that picks only for itself this is mostly harmless, because the
-pick runs inside __schedule(), which clears TIF_NEED_RESCHED right after
-it.
-
-With core scheduling it is not. pick_next_task() does a core wide pick and
-calls pick_task(rq_i) - hence pick_task_fair() and update_curr() - on every
-SMT sibling's runqueue. resched_curr_lazy() on a remote runqueue ends in
-smp_send_reschedule(), a real rescheduling IPI to that sibling. The sibling
-schedules, re-picks the same task, renews nothing, and its own core wide
-pick sends the IPI straight back. The two siblings then trade rescheduling
-IPIs for as long as both run a task whose protected period has expired.
-
-This needs CONFIG_PREEMPT_LAZY=n. __resched_curr() only calls
-smp_send_reschedule() for the eager TIF_NEED_RESCHED, and
-resched_curr_lazy() asks for TIF_NEED_RESCHED_LAZY instead once
-PREEMPT_LAZY is built in, so a lazy kernel sets a remote flag and sends no
-IPI.
-
-To reproduce on any SMT machine built with CONFIG_SCHED_CORE=y and
-CONFIG_PREEMPT_LAZY=n:
-
- 1) take an SMT sibling pair from
-    /sys/devices/system/cpu/cpu0/topology/thread_siblings_list;
- 2) give the process group a core scheduling cookie with
-    prctl(PR_SCHED_CORE, PR_SCHED_CORE_CREATE, 0, PIDTYPE_PGID, 0);
- 3) fork four children that spin, two pinned to each sibling. Two per
-    runqueue is the minimum: update_curr() returns early while
-    cfs_rq->h_nr_queued == 1;
- 4) read the RES row of /proc/interrupts for both siblings, wait ten
-    seconds and read it again.
-
-Renewing on a repick does not undo 0b9ca2dcabc3: the resched leg of the
-condition is untouched, so the reschedule at the end of a protected period
-still happens. A repicked entity gets the same bounded protection a fresh
-pick gets - set_protect_slice() caps vprot at the entity's own deadline, at
-the shortest slice enqueued on the cfs_rq under RUN_TO_PARITY, and at
-ineligible_vruntime() under PREEMPT_SHORT - and only once its previous
-protection has expired.
-
-Fixes: 0b9ca2dcabc3 ("sched/fair: Always trigger resched at the end of a protected period")
-Signed-off-by: Fernand Sieber <sieberf@amazon.com>
----
- kernel/sched/fair.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index d4cc0caee6265..237908a8c4cd1 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -15645,6 +15645,13 @@ static void set_next_task_fair(struct rq *rq, struct task_struct *p, enum snt_e
- 	sched_fair_update_stop_tick(rq, p);
- 
- repick:
-+	/*
-+	 * A repick is a pick: renew a protected period that ran out, else
-+	 * update_curr() reschedules on every update until p is switched out.
-+	 */
-+	if (type == SNT_REPICK && on_rq && !protect_slice(se))
-+		set_protect_slice(cfs_rq, se);
-+
- 	/*
- 	 * A same-task repick skips put_prev_task_fair(), but
- 	 * pick_task_fair() refreshed the entity hrtick_start_fair() reads
--- 
-2.47.3
-
-
-
-
-Amazon Development Centre (South Africa) (Proprietary) Limited
-29 Gogosoa Street, Observatory, Cape Town, Western Cape, 7925, South Africa
-Registration Number: 2004 / 034463 / 07
+regards,
+dan carpenter
 
