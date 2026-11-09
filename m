@@ -1,66 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239901;
-	b=seikPZHxWVJpJFIEIHIIBJXGgCTBf91bLCsH/x68inl3+eUo6g3Ub+kHFZOrp6P41Wjw
-	 yK1xgiXU40UQgssedrbHjVXNcYT7WsEQKg3VIiDoyrNB6vg/UbQh39pgqxakykWv3Vl5h
-	 R8cUy4/xBU8zGQ+S8Hl6s6xRVgbHpLe7mgTG3byBDul4iOKvl/rrSl8j6NB1iCyTMuzAo
-	 fRWpTEA+ABSqTcIwMUG5IwGTIAfeaaJCuYzX0cSZ2dGQc+pPyzrNa0P0ZsLWKPTQ+VDTQ
-	 l+ePU/KzPvJUjp97tntP54xEGSYrYy4xgNxUZ2HBo8gCs7rWxyuV5AMBqaaHwZH9Sdg==
+	t=1794239894;
+	b=Zc815vhLP1qZvz9gvcKEnP3v0jp2hxqySqs58dazYvUR5PJxe/Pgo1vthHU1K8/3QM+L
+	 2l7YR7Jy4Sk8JABC4iojJKrmZzFzhA35BZ7Ny4/ah3QrZfM/wQ4vB2p8PcSB2sMO/boG8
+	 59PvSAlUUpAGs9FbkbOmOpw6RNfj63iiBZHgKfTGn3KH7FL9zc9e9XUUXoY6J0DcCvk+8
+	 32OvL2vFBd+h0stqlR6+abMCfO7VLmXDbGIytKLXSUClDrLjdWhs+quQgq1Atujjmbszw
+	 c122ddhyTuQsHxge16g9ow+Rq46sIkhUVaulmFLBFT6/Z0wu3cf8CdUkR5cFnfb2cvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239901;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=zLeBDeQcVR5Q0Jv6hH+HoARVZwuyEL/ztbGvicGzjrg=;
-	b=t90ZjwwYti1rh/ODAbfwd1CDlq2XcG+jOaNDq5sI6AmgESAC5BQlEXflp7C/nObiQeta
-	 LAM0eNl21zqHGX03IvTtd6JzaOxmzjIAw9/e7PAvWFVyTpXNaUFXO+Jh6aFzx5N3AyD2q
-	 VYbUL+fFOaPISpDnOUjILv9LSc2in0XLZTzbZig5AFLN4wNVzt4Kh8QBIVZumrm6MH+Ie
-	 dDUhCERiNfBqvl8N6CldBf8+dawY99Iztqgo4ODXPY0mToV6zBWjtSn8DtQqKDImNPcxl
-	 d95UyTAEvdyrUtaEIHVhhDzsEA66fgmiD7I8EHg4binjP99wCRNGF7U+xRKe+Z69W6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239894;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=x7AGsOET450GqGMhY7lv5S1Lu7ewfrdv+H0Q8y9LtsU=;
+	b=VIzj0IUR0LF/jIFmPlguK01sjh2jKv1PtFVaup9dSviiqQqFacYtGKSel+5pO+zPmkn+
+	 ESRvTtNM651lXs0z1tJHXpd1wHaaS1r6YdhVBKNAamb4wcbjuEHe0oj/yg05fuT0hCcCb
+	 bP6bTfH4Li4rELIY9Bj7sp2++j6QYldgQ46Rc7exBTqSmpzZ2hlC7IHKt0wAnfYWj4XXx
+	 OgrSjMzJ0nCWrKn+UbRYMv6Kw2IAXnuqKDV/b+wsp28QUM4KzQyo3AVYUykvP2TKPd8zR
+	 hlBqxf8M326ixB5mZ+s7G4e1jIDqKMUCGrLY4Kw2jyqxQQhnrULsIxvhc3UH7UnxfhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=OQLaxX+1;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=bOkWpp6C;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8DA60A2633;
-	Mon,  9 Nov 2026 15:58:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB8DA60A2633
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A42A606EEBA;
+	Mon,  9 Nov 2026 15:58:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A42A606EEBA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=OQLaxX+1
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jNZFN434Dz8Xrnw;
-	Mon, 09 Nov 2026 23:58:16 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794239896;
-	bh=ZD5Vz0dYdMHAoRn66WdpVTqDsd56pq0fa4QdyoLKuG8=;
-	h=Date:From:To:Cc:Subject;
-	b=OQLaxX+11GbDnFLswRX/TE40XfrzbYOf4xISJ+RH0IThRMVMDvWrkDjjT0gKgnybs
-	 g2A6o0WJyqr2mAwKUC1BNxiVSZbbp/Ek1LJlvjIwkEN4AlbFdelVT+6VfWVFIrCOAO
-	 M1OdKNDDFUK/015H3s2R15hHvRD+E0fiy0+eq6pGo2M808nyiV+f0qFfoA4T9XaNoC
-	 VwXNvfV8HdzX0vPlbKS02H4JOzUQgIVVu6GsJ8HGqC+4xzdOkHylhvNQCshUBU+xVc
-	 8Rc+RfC8ECiIWq2q4xm8c4wKyFvy412h9hf5ucdVDBgVIXH1zB33sRQlRYluFfQNsj
-	 wQZ2rEzohr8Xw==
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl1.zte.com.cn with SMTP id 6A9Fw961036738;
-	Mon, 9 Nov 2026 23:58:09 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Mon, 9 Nov 2026 23:58:13 +0800 (CST)
-X-Zmail-TransId: 2af96af1ed95a12-a17af
-X-Mailer: Zmail v1.0
-Message-ID: <202611092358134332uegNg75loROSwL53Em6A@zte.com.cn>
-Date: Mon, 9 Nov 2026 23:58:13 +0800 (CST)
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=bOkWpp6C
+Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id 521B826673;
+	Mon,  9 Nov 2026 16:58:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1794239883;
+	bh=x7AGsOET450GqGMhY7lv5S1Lu7ewfrdv+H0Q8y9LtsU=; h=From:To:Subject;
+	b=bOkWpp6CD3ayZn8qsB0Vo5ILpZbwIgH1z1cSg1NHc76AvibvYKRVKexj+B3CITpiI
+	 ccNVQJ0rkYNyGvvL+9iO2CkkV3fbpLH0T2oq9hgsNGyAjVKtRezSYRtCJmsUD6sttv
+	 MWsE5viUxuhK590itgrUNdaJ6GWgVn8nUDIjp75BwWAjkez3CoM9/ZBtMs75rnyZyy
+	 lZdfZm/PnuilidSuya+ve6zZgHUVn62yp94kjB3I/8StB2JZKavFhb5qUOfR4M+oTn
+	 Ahfk6chdFyp/qmybUHLkJDqWo5VzN5HN2hPacBfOHYWf6Fk7Iqzh/piQUEpvmW8VJ0
+	 319c+O25EY92w==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-bsp@toradex.com,
+	x86@kernel.org,
+	linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org
+Subject: [PATCH v2 5/8] ARM: dts: imx6ull-colibri-emmc: Add Toradex Capacitive Touch Display 7" Parallel
+Date: Mon,  9 Nov 2026 16:57:45 +0100
+Message-ID: <20261109155751.475875-6-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109155751.475875-1-francesco@dolcini.it>
+References: <20261109155751.475875-1-francesco@dolcini.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,283 +79,179 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <tom.leiming@gmail.com>, <shuah@kernel.org>, <linux-block@vger.kernel.org>,
-        <linux-kselftest@vger.kernel.org>
-Cc: <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIXSBzZWxmdGVzdHM6IHVibGs6IHByb3BhZ2F0ZSByZWNvdmVyeSB3b3JrZXIgZmFpbHVyZXM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A9Fw961036738
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Mon, 09 Nov 2026 23:58:16 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF1ED98.001/4jNZFN434Dz8Xrnw
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-The recovery tests update ERR_CODE in background subshells and use wait
-without PIDs. A worker can report a failure while the parent still prints
-PASS and exits with zero. Calling _show_result() from a failed worker also
-removes shared backing files while other workers may still be using them.
+Add a device tree overlay for the Capacitive Touch Display 7" Parallel
+on the Colibri iMX6ULL eMMC parallel RGB LCD interface.
 
-Wait for each recorded worker PID and aggregate its status in the parent,
-keeping failures ahead of skips and preserving errors across batches.
-Return worker and device-creation errors without reporting or cleaning up
-from the child, so the parent can finish waiting before shared cleanup.
+The panel is a LogicTechno LT161010-2NHC 7" WVGA TFT Transmissive LCD
+and the touch input is provided by an Atmel MaxTouch capacitive touch
+controller.
 
-Fixes: 57e13a2e8cd2 ("selftests: ublk: support user recovery")
-Fixes: 533c87e2ed74 ("selftests: ublk: add test for UBLK_F_QUIESCE")
-Fixes: 63276182c513 ("selftests: ublk: add user copy test cases")
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+The touch controller is connected to the Toradex 10-way Capacitive Touch
+Interface connector available on Iris v2 and Aster carrier boards.
+
+The panel, backlight and LCDIF configuration is identical to the Colibri
+iMX7 eMMC one, only the Atmel MaxTouch controller wiring is SoC
+specific. To avoid duplicating it, rework the Colibri iMX7 eMMC overlay
+moving the common part to a new dtsi shared between the two modules,
+and include it from both overlays.
+
+The overlay is also combined with the Iris v2 and Aster carrier board
+device tree to provide a ready-to-use DTB.
+
+Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-7inch-parallel/
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
-Tested on native x86_64 Bash 5.2 with the recovery scripts and common
-helpers from the unpatched and patched trees. Device and I/O operations
-were replaced by test-only stubs. Single-worker failures at every launch
-position, multiple failures, skips, signal termination and device-creation
-errors no longer produce a final PASS or a zero exit status. Successful
-runs still pass, and cleanup follows all worker exits. Prerequisite skips
-still exit before preparation. The 71 scenarios passed their expected
-checks on each tree. This does not exercise real ublk devices or I/O.
+v2: add the tdx vendor prefix to the overlay, shared dtsi and combined DTB names
+---
+ arch/arm/boot/dts/nxp/imx/Makefile            | 12 +++++++
+ ...mc-tdx-panel-cap-touch-7inch-parallel.dtso | 31 +++++++++++++++++++
+ ...ri-tdx-panel-cap-touch-7inch-parallel.dtsi | 29 +++++++++++++++++
+ ...mc-tdx-panel-cap-touch-7inch-parallel.dtso | 16 ++--------
+ 4 files changed, 74 insertions(+), 14 deletions(-)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtso
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ull-imx7-colibri-tdx-panel-cap-touch-7inch-parallel.dtsi
 
- tools/testing/selftests/ublk/test_common.sh   | 23 +++++++++++++++++--
- .../testing/selftests/ublk/test_recover_01.sh | 20 ++++++++++++----
- .../testing/selftests/ublk/test_recover_02.sh | 20 ++++++++++++----
- .../testing/selftests/ublk/test_recover_03.sh | 20 ++++++++++++----
- .../testing/selftests/ublk/test_recover_04.sh | 14 ++++++++---
- 5 files changed, 80 insertions(+), 17 deletions(-)
+diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+index c05cc9ff782d..a0d22028f20d 100644
+--- a/arch/arm/boot/dts/nxp/imx/Makefile
++++ b/arch/arm/boot/dts/nxp/imx/Makefile
+@@ -356,6 +356,15 @@ dtb-$(CONFIG_SOC_IMX6SX) += \
+ 	imx6sx-udoo-neo-basic.dtb \
+ 	imx6sx-udoo-neo-extended.dtb \
+ 	imx6sx-udoo-neo-full.dtb
++
++imx6ull-colibri-emmc-aster-tdx-panel-cap-touch-7inch-parallel-dtbs := \
++	imx6ull-colibri-emmc-aster.dtb \
++	imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtbo
++
++imx6ull-colibri-emmc-iris-v2-tdx-panel-cap-touch-7inch-parallel-dtbs := \
++	imx6ull-colibri-emmc-iris-v2.dtb \
++	imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtbo
++
+ dtb-$(CONFIG_SOC_IMX6UL) += \
+ 	imx6ul-14x14-evk.dtb \
+ 	imx6ul-ccimx6ulsbcexpress.dtb \
+@@ -384,9 +393,12 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
+ 	imx6ull-14x14-evk.dtb \
+ 	imx6ull-colibri-aster.dtb \
+ 	imx6ull-colibri-emmc-aster.dtb \
++	imx6ull-colibri-emmc-aster-tdx-panel-cap-touch-7inch-parallel.dtb \
+ 	imx6ull-colibri-emmc-eval-v3.dtb \
+ 	imx6ull-colibri-emmc-iris.dtb \
+ 	imx6ull-colibri-emmc-iris-v2.dtb \
++	imx6ull-colibri-emmc-iris-v2-tdx-panel-cap-touch-7inch-parallel.dtb \
++	imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtbo \
+ 	imx6ull-colibri-eval-v3.dtb \
+ 	imx6ull-colibri-iris.dtb \
+ 	imx6ull-colibri-iris-v2.dtb \
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtso b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtso
+new file mode 100644
+index 000000000000..6d0ad21ae2d7
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx6ull-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtso
+@@ -0,0 +1,31 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Toradex Capacitive Touch Display 7" Parallel connected through the 40-way
++ * Unified Interface Display and 10-way Capacitive Touch Interface connectors
++ * (as featured on Iris v2 and Aster v1.1 carrier boards).
++ *
++ * https://docs.toradex.com/104497-7-inch-parallel-capacitive-touch-display-800x480-datasheet.pdf
++ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-7inch-parallel/
++ * https://www.toradex.com/accessories/capacitive-touch-display-7-inch-parallel
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++
++#include "imx6ull-imx7-colibri-tdx-panel-cap-touch-7inch-parallel.dtsi"
++
++&atmel_mxt_ts {
++	pinctrl-0 = <&pinctrl_atmel_conn &pinctrl_atmel_snvs_conn>;
++	/* SODIMM 107 / TOUCH_INT# */
++	interrupt-parent = <&gpio5>;
++	interrupts = <4 IRQ_TYPE_EDGE_FALLING>;
++	/* SODIMM 106 / TOUCH_RST# */
++	reset-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
++
++	status = "okay";
++};
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-imx7-colibri-tdx-panel-cap-touch-7inch-parallel.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ull-imx7-colibri-tdx-panel-cap-touch-7inch-parallel.dtsi
+new file mode 100644
+index 000000000000..21688c63d11f
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx6ull-imx7-colibri-tdx-panel-cap-touch-7inch-parallel.dtsi
+@@ -0,0 +1,29 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Panel, backlight and LCDIF part of the Toradex Capacitive Touch Display 7"
++ * Parallel overlays, connected through the 40-way Unified Interface Display
++ * connector, shared by the Colibri iMX6ULL eMMC and Colibri iMX7 eMMC overlays.
++ *
++ * The Atmel MaxTouch controller wiring is SoC specific and is described by
++ * the overlay including this file.
++ *
++ * https://docs.toradex.com/104497-7-inch-parallel-capacitive-touch-display-800x480-datasheet.pdf
++ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-7inch-parallel/
++ * https://www.toradex.com/accessories/capacitive-touch-display-7-inch-parallel
++ */
++
++&backlight {
++	status = "okay";
++};
++
++&lcdif {
++	status = "okay";
++};
++
++&panel_dpi {
++	compatible = "logictechno,lt161010-2nhc";
++
++	status = "okay";
++};
+diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtso b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtso
+index f336f7b05a2b..340e772f5c6e 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtso
++++ b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-tdx-panel-cap-touch-7inch-parallel.dtso
+@@ -17,6 +17,8 @@
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
+ 
++#include "imx6ull-imx7-colibri-tdx-panel-cap-touch-7inch-parallel.dtsi"
++
+ &atmel_mxt_ts {
+ 	pinctrl-0 = <&pinctrl_atmel_connector>;
+ 	/* SODIMM 107 / TOUCH_INT# */
+@@ -27,17 +29,3 @@ &atmel_mxt_ts {
+ 
+ 	status = "okay";
+ };
+-
+-&backlight {
+-	status = "okay";
+-};
+-
+-&lcdif {
+-	status = "okay";
+-};
+-
+-&panel_dpi {
+-	compatible = "logictechno,lt161010-2nhc";
+-
+-	status = "okay";
+-};
+-- 
+2.47.3
 
-diff --git a/tools/testing/selftests/ublk/test_common.sh b/tools/testing/selftests/ublk/test_common.sh
-index af2ea4fa1..c5adb4d29 100755
---- a/tools/testing/selftests/ublk/test_common.sh
-+++ b/tools/testing/selftests/ublk/test_common.sh
-@@ -379,6 +379,26 @@ run_io_and_kill_daemon()
- 	fi
- }
- 
-+# Collect recovery workers in the parent before removing shared backing files.
-+_wait_recovery_tests()
-+{
-+	local pid
-+	local ret
-+
-+	for pid in "$@"; do
-+		if wait "$pid"; then
-+			continue
-+		else
-+			ret=$?
-+		fi
-+
-+		# A failure takes precedence over a skipped worker.
-+		if [ "$ERR_CODE" -eq 0 ] || [ "$ERR_CODE" -eq "$UBLK_SKIP_CODE" ]; then
-+			ERR_CODE=$ret
-+		fi
-+	done
-+}
-+
- run_io_and_recover()
- {
- 	local size=$1
-@@ -387,8 +407,7 @@ run_io_and_recover()
- 	local dev_id
- 
- 	shift 2
--	dev_id=$(_add_ublk_dev "$@")
--	_check_add_dev "$TID" $?
-+	dev_id=$(_add_ublk_dev "$@") || return $?
- 
- 	fio --name=job1 --filename=/dev/ublkb"${dev_id}" --ioengine=libaio \
- 		--rw=randread --iodepth=256 --size="${size}" --numjobs=4 \
-diff --git a/tools/testing/selftests/ublk/test_recover_01.sh b/tools/testing/selftests/ublk/test_recover_01.sh
-index 1cddc2345..950928abd 100755
---- a/tools/testing/selftests/ublk/test_recover_01.sh
-+++ b/tools/testing/selftests/ublk/test_recover_01.sh
-@@ -11,8 +11,8 @@ ublk_run_recover_test()
- 	ERR_CODE=$?
- 	if [ ${ERR_CODE} -ne 0 ]; then
- 		echo "$TID failure: $*"
--		_show_result $TID $ERR_CODE
- 	fi
-+	return "$ERR_CODE"
- }
- 
- if ! _have_program fio; then
-@@ -25,20 +25,32 @@ _create_backfile 0 256M
- _create_backfile 1 128M
- _create_backfile 2 128M
- 
-+pids=()
- ublk_run_recover_test -t null -q 2 -r 1 -b &
-+pids+=("$!")
- ublk_run_recover_test -t loop -q 2 -r 1 -b "${UBLK_BACKFILES[0]}" &
-+pids+=("$!")
- ublk_run_recover_test -t stripe -q 2 -r 1 -b "${UBLK_BACKFILES[1]}" "${UBLK_BACKFILES[2]}" &
--wait
-+pids+=("$!")
-+_wait_recovery_tests "${pids[@]}"
- 
-+pids=()
- ublk_run_recover_test -t null -q 2 -r 1 &
-+pids+=("$!")
- ublk_run_recover_test -t loop -q 2 -r 1 "${UBLK_BACKFILES[0]}" &
-+pids+=("$!")
- ublk_run_recover_test -t stripe -q 2 -r 1 "${UBLK_BACKFILES[1]}" "${UBLK_BACKFILES[2]}" &
--wait
-+pids+=("$!")
-+_wait_recovery_tests "${pids[@]}"
- 
-+pids=()
- ublk_run_recover_test -t null -q 2 -r 1 -i 1 &
-+pids+=("$!")
- ublk_run_recover_test -t loop -q 2 -r 1 -i 1 "${UBLK_BACKFILES[0]}" &
-+pids+=("$!")
- ublk_run_recover_test -t stripe -q 2 -r 1 -i 1 "${UBLK_BACKFILES[1]}" "${UBLK_BACKFILES[2]}" &
--wait
-+pids+=("$!")
-+_wait_recovery_tests "${pids[@]}"
- 
- _cleanup_test
- _show_result $TID $ERR_CODE
-diff --git a/tools/testing/selftests/ublk/test_recover_02.sh b/tools/testing/selftests/ublk/test_recover_02.sh
-index 9c3f48188..beeeb3535 100755
---- a/tools/testing/selftests/ublk/test_recover_02.sh
-+++ b/tools/testing/selftests/ublk/test_recover_02.sh
-@@ -11,8 +11,8 @@ ublk_run_recover_test()
- 	ERR_CODE=$?
- 	if [ ${ERR_CODE} -ne 0 ]; then
- 		echo "$TID failure: $*"
--		_show_result $TID $ERR_CODE
- 	fi
-+	return "$ERR_CODE"
- }
- 
- if ! _have_program fio; then
-@@ -29,20 +29,32 @@ _create_backfile 0 256M
- _create_backfile 1 128M
- _create_backfile 2 128M
- 
-+pids=()
- ublk_run_recover_test -t null -q 2 -r 1 -z -b &
-+pids+=("$!")
- ublk_run_recover_test -t loop -q 2 -r 1 -z -b "${UBLK_BACKFILES[0]}" &
-+pids+=("$!")
- ublk_run_recover_test -t stripe -q 2 -r 1 -z -b "${UBLK_BACKFILES[1]}" "${UBLK_BACKFILES[2]}" &
--wait
-+pids+=("$!")
-+_wait_recovery_tests "${pids[@]}"
- 
-+pids=()
- ublk_run_recover_test -t null -q 2 -r 1 -z &
-+pids+=("$!")
- ublk_run_recover_test -t loop -q 2 -r 1 -z "${UBLK_BACKFILES[0]}" &
-+pids+=("$!")
- ublk_run_recover_test -t stripe -q 2 -r 1 -z "${UBLK_BACKFILES[1]}" "${UBLK_BACKFILES[2]}" &
--wait
-+pids+=("$!")
-+_wait_recovery_tests "${pids[@]}"
- 
-+pids=()
- ublk_run_recover_test -t null -q 2 -r 1 -z -i 1 &
-+pids+=("$!")
- ublk_run_recover_test -t loop -q 2 -r 1 -z -i 1 "${UBLK_BACKFILES[0]}" &
-+pids+=("$!")
- ublk_run_recover_test -t stripe -q 2 -r 1 -z -i 1 "${UBLK_BACKFILES[1]}" "${UBLK_BACKFILES[2]}" &
--wait
-+pids+=("$!")
-+_wait_recovery_tests "${pids[@]}"
- 
- _cleanup_test
- _show_result $TID $ERR_CODE
-diff --git a/tools/testing/selftests/ublk/test_recover_03.sh b/tools/testing/selftests/ublk/test_recover_03.sh
-index 92f401217..0c6b312e2 100755
---- a/tools/testing/selftests/ublk/test_recover_03.sh
-+++ b/tools/testing/selftests/ublk/test_recover_03.sh
-@@ -11,8 +11,8 @@ ublk_run_quiesce_recover()
- 	ERR_CODE=$?
- 	if [ ${ERR_CODE} -ne 0 ]; then
- 		echo "$TID failure: $*"
--		_show_result $TID $ERR_CODE
- 	fi
-+	return "$ERR_CODE"
- }
- 
- if ! _have_feature "QUIESCE"; then
-@@ -29,20 +29,32 @@ _create_backfile 0 256M
- _create_backfile 1 128M
- _create_backfile 2 128M
- 
-+pids=()
- ublk_run_quiesce_recover -t null -q 2 -r 1 -b &
-+pids+=("$!")
- ublk_run_quiesce_recover -t loop -q 2 -r 1 -b "${UBLK_BACKFILES[0]}" &
-+pids+=("$!")
- ublk_run_quiesce_recover -t stripe -q 2 -r 1 -b "${UBLK_BACKFILES[1]}" "${UBLK_BACKFILES[2]}" &
--wait
-+pids+=("$!")
-+_wait_recovery_tests "${pids[@]}"
- 
-+pids=()
- ublk_run_quiesce_recover -t null -q 2 -r 1 &
-+pids+=("$!")
- ublk_run_quiesce_recover -t loop -q 2 -r 1 "${UBLK_BACKFILES[0]}" &
-+pids+=("$!")
- ublk_run_quiesce_recover -t stripe -q 2 -r 1 "${UBLK_BACKFILES[1]}" "${UBLK_BACKFILES[2]}" &
--wait
-+pids+=("$!")
-+_wait_recovery_tests "${pids[@]}"
- 
-+pids=()
- ublk_run_quiesce_recover -t null -q 2 -r 1 -i 1 &
-+pids+=("$!")
- ublk_run_quiesce_recover -t loop -q 2 -r 1 -i 1 "${UBLK_BACKFILES[0]}" &
-+pids+=("$!")
- ublk_run_quiesce_recover -t stripe -q 2 -r 1 -i 1 "${UBLK_BACKFILES[1]}" "${UBLK_BACKFILES[2]}" &
--wait
-+pids+=("$!")
-+_wait_recovery_tests "${pids[@]}"
- 
- _cleanup_test
- _show_result $TID $ERR_CODE
-diff --git a/tools/testing/selftests/ublk/test_recover_04.sh b/tools/testing/selftests/ublk/test_recover_04.sh
-index 4c83c1840..232ae7d4a 100755
---- a/tools/testing/selftests/ublk/test_recover_04.sh
-+++ b/tools/testing/selftests/ublk/test_recover_04.sh
-@@ -11,8 +11,8 @@ ublk_run_recover_test()
- 	ERR_CODE=$?
- 	if [ ${ERR_CODE} -ne 0 ]; then
- 		echo "$TID failure: $*"
--		_show_result $TID $ERR_CODE
- 	fi
-+	return "$ERR_CODE"
- }
- 
- if ! _have_program fio; then
-@@ -25,15 +25,23 @@ _create_backfile 0 256M
- _create_backfile 1 128M
- _create_backfile 2 128M
- 
-+pids=()
- ublk_run_recover_test -t null -q 2 -r 1 -u &
-+pids+=("$!")
- ublk_run_recover_test -t loop -q 2 -r 1 -u "${UBLK_BACKFILES[0]}" &
-+pids+=("$!")
- ublk_run_recover_test -t stripe -q 2 -r 1 -u "${UBLK_BACKFILES[1]}" "${UBLK_BACKFILES[2]}" &
--wait
-+pids+=("$!")
-+_wait_recovery_tests "${pids[@]}"
- 
-+pids=()
- ublk_run_recover_test -t null -q 2 -r 1 -u -i 1 &
-+pids+=("$!")
- ublk_run_recover_test -t loop -q 2 -r 1 -u -i 1 "${UBLK_BACKFILES[0]}" &
-+pids+=("$!")
- ublk_run_recover_test -t stripe -q 2 -r 1 -u -i 1 "${UBLK_BACKFILES[1]}" "${UBLK_BACKFILES[2]}" &
--wait
-+pids+=("$!")
-+_wait_recovery_tests "${pids[@]}"
- 
- _cleanup_test
- _show_result $TID $ERR_CODE
