@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192232;
-	b=mW5Oc4bY9XCgxjQWoKzIj2IbuBrx0Ky4L2tuaoyfWE0cpU9F0RtnlyK4yiyLY6cm3RJZ
-	 +egVUk+koKZtkz2RL4YeBL13xj1uuC9kMT8w2eNK6xwGPDulN6Oz4Z0FlgEK2RE/ZCQa7
-	 hidETe+aMjJLqbz2dEPW6y5gkYmrY8vfqCU+0UlDJ74bz5tqQ7TsbJsfbUIzOwJVy2lY6
-	 tA/GkrQ+96zrT7cRWdbHbzhFLwA0xBeUaMAkWxfrya4seAsopAyVw3PaA0yWDkSAFEio7
-	 h4F2yMPtr32ZVlPhBaSvfzie6mq96rIeSiJBGRmXRKXzDGzpqTvZtEE0a2UsXxERHCw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192232;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Yq6Wg8dZm4uB3bJQCmf1miWvm1ABWBJ7TTfz/AA487Q=;
-	b=SRQxhbhiNLbVIpejxgYM4WgAKRKzyP7cyoxplK+brXlQIcvtjzI0zenkdpBGFKSq7lcq
-	 8ovwmuO9GC5dylTfysCmqMsqKC3LZblIXtgcZ+StCnm09WbBdoMQsgYE3m0HmQW3DczpH
-	 doNnpBbPK9Jtv1SeMkFLlZoQ8T2eP3yqswcr/gG5Vb3Yq2MycZKgdAEr9uZEzhEjCPcvb
-	 sWijfn+IuAWoW68rcnR+/2qoCOXuEEu2p2INYLLNiAts9+FsYvbySsNZUBq90BSVF6ZnR
-	 kj7+3ZD8PjHsA5jDS3NwODa7wLGBkS9Qar39RaQ/YGMH/Iy4+3c5D9TQi4Qu3cMN+Kg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="n1/628eM";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794192268;
+	b=3kAZ78AI3SHq/jEKCHQLQpRgiJMv8taZNHjDEfH8fKBicqcCtR7DGQY4ga275uAgiqJM
+	 X1dOu4k2z0g8X/xJpuBZqFd12K/Sxw8IO+IWNRowF40c7Lo2Z9HdcNszNVsppxCBWp2GD
+	 OPTbWWDpX5HYcRlqWdNcjSrmd7KXbJZxLazxMKqcjXENLa/CcBE7toeS/zOC/CSsDAXt3
+	 Fvbwk3SBIzgcanTW/L70PsZHBvsVIwVQQjSxaIuroGLJabl1rmd7CHiuSf7mroKJvC2fN
+	 TKQRKCbRSI05+AgnKeKqN9PN3OlNVpj4NfRAYXdq+O5UlNNqKEw12fJMoIEL2xb0ONA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192268;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=lizOVy5JA8TKh5Yky6TmOsMP24uJtn6vdJB5vxQOYHE=;
+	b=ojkUu0n3Eb4rZW7ftgW6je+enedD8BqLB5VdLkhtUGob73kZcNDzpiC8VjKUbQJYYnBh
+	 6mpbiQ3VjD1MHaisLtButKZTfvQzeS8eqkeBL8NipZ9kJYlTUbJyDlwX1CzpR2CWESuOt
+	 wiiDqsxVMyppZnoFnIYWdlZKwp+8jXhUBCHckjoTCfJtT36nZ8779KA/P5joC0EpBc64k
+	 rJtTLHgAISO9rBdNsIF0SAKdFcbRrRpAZP0TOlner8J5dhacHHCyoW+ATJ7XLSkmznZCO
+	 CCxVu67QArd4lxYuntjWvoEqdcO1q++zpZkndQWER5pD/irDKV8oGpMFvUR17kDwSYA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H+kwyYZE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44532606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:43:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCC79606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:44:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCC79606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n1/628eM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD5B91F008A2
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:43:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794192231;
-	bh=Yq6Wg8dZm4uB3bJQCmf1miWvm1ABWBJ7TTfz/AA487Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=n1/628eMuF0qPAkqesisYQ6yKWJ7AmwnuO4vlBh18h6Mj36/7w+FGaj+I60SWAPhH
-	 D0OAPqOPz7kbkmrxpEYoORTdfBel351gZLiQfi4B+tzWMqcHNafX/L5Zft/yGhttMj
-	 hvy96X4MxRcGm8b9ek2TMXliumh9cbCxqBzsD1ic0KGJbQJ6GPBUTjERr4M4TcnPsD
-	 eNbcW8kuACQkLpReDZ8FF4IhhBR9QChQfZq5cRyy8XMZzuks9w2tPEqYdiIBFYr2uL
-	 bPV32hAroVDL3cyKi2ybGo26vdrvfs5T3ZpfwA9favWSGpR+lypSfipGx+pSu9Z6Mu
-	 SuD1iF8Duahyg==
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b4bd3d98bfso433952a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:43:51 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHdimZ5v/ikcUJ2Vyw8S8A06Rfz6vo/yfn9v6tkUX5gsMW99C1VDVCGT6eWTdlyU1QErHQEhuDWM/L8Sok=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3u1G9oVDnWyaW6L/MOIymwTpjRgJtDBLBQHajK4AtpHnJ9d1s
-	VCTYWE7Xo2ggdHI9R1dVja7OYQOYqLPr9xiy7TOZjMf/0Hi9YEhB+4VkBN7zLkv+rrev6YwTQoj
-	cYpWOgwhwm1AiGSNEJP0fWhHGg8AshKY=
-X-Received: by 2002:a05:6402:4487:b0:6b5:7de8:87cd with SMTP id
- 4fb4d7f45d1cf-6b72249a189mr1729932a12.42.1794192230805; Sun, 08 Nov 2026
- 18:43:50 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H+kwyYZE
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15ea896ddc8so812584c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:44:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794192267; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XdOP8EClCPsm6NKgxQ4FJEcafCl5NSe4EBXms6Oh6GLCj1iJrPPgA3EDbhhSlfIAiB
+         3+a0vvNYdN/diK/5cpeLeSj9HSXdxketOr90sla/5SQ/zX+VR3upYdtz6P7OoyGUW6xh
+         ccExnOlZztHkL5D2h2JV1V5Sw4DQuNPe7LguOmHbGA1Y42NonBGr+GPy70TsddyTq+bQ
+         nmON/RZYyOPn0vLcoV0FiQil89fomzBe7d8QySJ1jw1rPwWtVUKjuF7DPqYYn72ynrfN
+         Cnk2hszoDmlhZTQ14uixVtLQxJPRHv7TgfDfZe13u0lNUOJws++Cwh1yYEuVxBe4PZfp
+         9Ziw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lizOVy5JA8TKh5Yky6TmOsMP24uJtn6vdJB5vxQOYHE=;
+        fh=H+kYH4hYATH4LuJDaDnYvbMTvG8dzC3GFe9vgVm7wNA=;
+        b=KVn6uhexItquehD8mVJppQMfrz2ZSIxxBOxD2LfcQZeTBz6fh+QqLEuLnsm8B2nwPw
+         hf7k8w8orHFOeppDOPb01xK6C8eLNnZaGLNOuaR+Q1dNFnHO/HbuzH3hO8/rL62YncrO
+         btumTTHOmU5U3PDsPy8l/LYMnk12rBppBq8wTF0AyJKHRDY+Z2wBSPbAIwVaqlFok6DV
+         EK2H4HwJJ36frLCrkgRX4tIh6oRzhPIGhuWXMqvhxM+CZvfoAUzL0wAG/CL7ggprQnY2
+         Vrpu9yPizCxuQPnqvaQx7NOFDZcUj632ASfoob4iSV2ODmBCFt6KPlY/6kb+xUP+4qMz
+         NTlQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794192267; x=1794797067; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lizOVy5JA8TKh5Yky6TmOsMP24uJtn6vdJB5vxQOYHE=;
+        b=H+kwyYZEDd0R4A0FTkVD3QYfw31uPv8dnVBZ+nh7D3zue5lQXWlApwrN2t+qKvMO5X
+         fosgAAv/Ifq3+tVChuvpbuxpExpKsio1+YJch0/8Z04kTStr1ucu4edsg9igk5Dn457P
+         7empY6zGNQ92virgcqoWC7E30OTFchyuOBibYsJjx+oYXRRCP+9tKQyyFqdxCWicxT8H
+         rPocIhDVNE2NPXXgM7mjHyytT9R0+bs/xEulfCq5iA19tOwiwOVtTElJbNUoHlgf3fy/
+         rtbvX8kbhobLvbBzEFhBY+Eomy6OI2ZFLIfJl95SXChKq0pPhutZE/WaoHTKW0CHj+7X
+         MqLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794192267; x=1794797067;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lizOVy5JA8TKh5Yky6TmOsMP24uJtn6vdJB5vxQOYHE=;
+        b=RNNv+0e4Bulk+2ZjsAT3D/6fzaMPijwF+ALDf1C9Lg/eitSd7/rX4veg0WTeZoN2OY
+         tGYGlr2ZX3dafNWUAM1jXsuhIBPE6O1kORld1HCJPvofQxtNSn3XGQ2D9ft3kDUHKL5C
+         GMddBgR0QBmPA1UYtX8RWCU/S/UxQPxT7r+mqQjAv6zVlD2oBd0L7+nZ1kyfP73hgQHw
+         MVVNYtdnLJXqWCiR72Bkzn1+5xJZWJjlA0PH0qb4gte7/VnW53vIXyYDTMRvG095hTDR
+         LMNo2EQslD+2dUjez4YAwCxpwSo+7oN4qI7mMFavwss+e3VpFyd6e2PYDR1EtdZ2x1m8
+         3qyQ==
+X-Forwarded-Encrypted: i=1; AL+hErH6G//hJ82ARLc16fxU+sli3pPjCgfHPgmuuhkdWrdrm+6iT7MgxOqQV3c6S2DaFmKsRpZM1MqcAugDuz0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FYkktC1h+pfjX8MDiWZyHaFzt+MK3bG5uH5BUfTAovSVdlK6a
+	NxoLBcuHuOUq7HAjXar+B5Jvz7hJmOwsDKZxBBiawiqb+DL1c0D9eja33V/gsIz6uWRSae8lfxb
+	OO7UQh1/IV02ShaIrTtb0So8T6ve5sDY=
+X-Gm-Gg: AYBFou0uENQR3J7yAMe+m92gI6Z9eu/WaNYFCDqTJ8QJGfdPEtDny4tqZnSgj/cFW4g
+	3TL9iIKh/IxBJ9VvgzamKokD0Kq0kzUPG0EwSB5hgtGjDXQpQ7ExQhZ0SvMpuiZmwX54JolBd7E
+	pP8w5Xte65rEoJuCIl3qNuNz1NxEbqAhZ2PyE5dDhCZbinB+pdj/Fwyt99BFJrOrfpb2WYN+/cD
+	sWzOmvRiysbX6GhlvxlttJ2oJOLTHA+Vv+jFyay8QyWdTVUGfhcHgWomWLBvHtK1b+FHSJFUb1S
+	j/p7GYC2CRMiQ6qtyMP5Q97eJN/UJWvtHF+mBdJwxGhlExHcb58k2VHzDliF7MubjBuCSYjMWao
+	0FYknxwjz69YDzTCT0PW/I6wj347EJ9jVYYRbuZA=
+X-Received: by 2002:a05:701b:2616:b0:1b2:558a:d781 with SMTP id
+ a92af1059eb24-1b39fe291d2mr3839870c88.5.1794192266580; Sun, 08 Nov 2026
+ 18:44:26 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,78 +104,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106084034.1579494-1-songwei.chai@oss.qualcomm.com>
- <au2UzljzfMaiL7F6@hovoldconsulting.com> <5df6771c-a440-45cb-bdb9-ca25b42287fa@oss.qualcomm.com>
-In-Reply-To: <5df6771c-a440-45cb-bdb9-ca25b42287fa@oss.qualcomm.com>
-From: Saravana Kannan <saravanak@kernel.org>
-Date: Sun, 8 Nov 2026 18:43:39 -0800
-X-Gmail-Original-Message-ID: <CACRMN=d8OnSHZ=4DOmfWafwYL+8ZTGggrxdWV2-iTptEJmd19A@mail.gmail.com>
-X-Gm-Features: AclHuK83znKgPlPm3mYNg-jihIjo0y5-ZXz-onGQXWzrK1htisLXcdgRQNPmioU
-Message-ID: <CACRMN=d8OnSHZ=4DOmfWafwYL+8ZTGggrxdWV2-iTptEJmd19A@mail.gmail.com>
-Subject: Re: [PATCH v1] driver core: Demote "Fixed dependency cycle(s)"
- message to debug level
-To: "Songwei.Chai" <songwei.chai@oss.qualcomm.com>
-Cc: Johan Hovold <johan@kernel.org>, gregkh@linuxfoundation.org, rafael@kernel.org, 
-	dakr@kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	songchai@qti.qualcomm.com, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org, 
-	devicetree@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>
+References: <20261022-psci-fix-v3-0-9ce2133c5659@gmail.com>
+ <20261022-psci-fix-v3-1-9ce2133c5659@gmail.com> <20261106212939.GA1814035-robh@kernel.org>
+In-Reply-To: <20261106212939.GA1814035-robh@kernel.org>
+From: Reza Kurniawan <imkyufie@gmail.com>
+Date: Mon, 9 Nov 2026 09:44:14 +0700
+X-Gm-Features: AclHuK-MtGA26JxVmDU8vwHD7H1Dr6pcTzIJGZiqmr_2gGFPDRoc8BRW2dGJq-o
+Message-ID: <CAAq9HC7Fk-duB0LKaDDKeEmLYvZuvWTBab-YpjS9x9QHm0z+7Q@mail.gmail.com>
+Subject: Re: [PATCH v3 1/4] dt-bindings: arm: psci: Add skip-suspend-mode-switch
+ property
+To: Rob Herring <robh@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Christian Loehle <christian.loehle@arm.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Val Packett <val@packett.cool>, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	Alejandro Tafalla <atafalla@dnyon.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 8, 2026 at 6:08=E2=80=AFPM Songwei.Chai
-<songwei.chai@oss.qualcomm.com> wrote:
->
->
-> On 11/6/2026 4:50 PM, Johan Hovold wrote:
-> > [ +CC: Saravana ]
-> >
-> > On Fri, Nov 06, 2026 at 04:40:34PM +0800, Songwei Chai wrote:
-> >> fw_devlink detects and relaxes dependency cycles automatically, so thi=
-s
-> >> is not an error condition requiring user action. On complex DT
-> >> topologies (e.g. CoreSight), this message can fire for many node
-> >> pairs and adds noise to the boot log, even though it's primarily
-> >> useful for debugging. Switch pr_info() to pr_debug() so it stays
-> >> available via dynamic debug when actually needed, without cluttering
-> >> default boot logs.
-> >>
-> >> For example, on sm8750 this produces 125 such lines in the boot log in
-> >> total, 80 of which are CoreSight-related, e.g.:
-> >>
-> >> [    0.057190] /soc@0/funnel@10041000: Fixed dependency cycle(s) with =
-/soc@0/stm@10002000
-> >> [    0.057211] /soc@0/stm@10002000: Fixed dependency cycle(s) with /so=
-c@0/funnel@10041000
-> >> [    0.057229] /soc@0/funnel@10041000: Fixed dependency cycle(s) with =
-/soc@0/tpda@10004000
-> >> [    0.057249] /soc@0/tpda@10004000: Fixed dependency cycle(s) with /s=
-oc@0/funnel@10041000
-> >> [    0.057254] /soc@0/tpdm@1000f000: Fixed dependency cycle(s) with /s=
-oc@0/tpda@10004000
-> >> [    0.057260] /soc@0/tpda@10004000: Fixed dependency cycle(s) with /s=
-oc@0/tpdm@1000f000
-> > I reported this elsewhere a while back:
-> >
-> >       https://lore.kernel.org/all/Z6t45aOGDkotqM4Z@hovoldconsulting.com=
-/
-> >
-> > Are you sure it's not the coresight bindings that should be fixed?
->
-> No, Johan, I don't think this is a Coresight bindings issue.
->
-> This is the mechanical result of the standard bidirectional graph
-> binding + fw_devlink's direction-agnostic phandle scan =E2=80=94 it will =
-appear
-> on any SoC/CoreSight topology using the standard binding, and there's no
-> alternative binding syntax that avoids it.
+Hi Rob,
 
-You can add the post-init-providers property so Linux/OSes can know
-which dependency is not a probe time or initialization time
-dependency.
+The failure isn't fatal on MSM8917/MSM8937, so a runtime fallback
+would work there. My concern is other platforms. Today, a rejected
+PSCI_SET_SUSPEND_MODE makes the driver stop, which is the safe
+outcome when firmware misbehaves in a way we can't diagnose (PSCI
+has no call to read back the current mode, so we can't tell what
+state it's in).
 
-A lot of cycles can be broken by adding just a few of these. It'll
-make sure the coresight stuff gets probed in the right order, and more
-importantly also does suspend/resume, etc in the right order too.
+A generic "try, and avoid on failure" would turn that into
+"continue", for every platform, including ones we haven't verified,
+unexpected things could happen after that. The property lets a
+platform that is known to be safe opt in explicitly.
 
--Saravana
+Best regards,
+Reza
+
+On Sat, Nov 7, 2026 at 4:29=E2=80=AFAM Rob Herring <robh@kernel.org> wrote:
+>
+> On Thu, Oct 22, 2026 at 09:41:10AM +0000, Reza Kurniawan wrote:
+> > From: Alejandro Tafalla <atafalla@dnyon.com>
+> >
+> > On some SoCs (e.g. Qualcomm MSM8917 and MSM8937), PSCI_FEATURES reports
+> > that OS-initiated mode is supported, but every PSCI_SET_SUSPEND_MODE
+> > call is rejected with NOT_SUPPORTED.
+>
+> Is that call fatal? Why can't you just try the call and if it fails,
+> avoid it. Then you don't require a DTB change to fix the issue.
+>
+> Rob
