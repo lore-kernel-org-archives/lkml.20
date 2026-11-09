@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218805;
-	b=TPHPdzifQ7vZ23WA+gf1bNVGsFaXibfmVPT164BvRTHATTBcw8E7GLRuZdyyk0VTuiUe
-	 3CG9HD41343YlhLkzSRTh9I9d3/rFYF+0OFB1o9cf2cN+MpGQKG8Qn5PaL1mzJvx/G2kP
-	 DdQdWMHzadgg5sn1ZBS/gFpxB91KPyS1TPHFdja6dY2aohnb+FHUpgRBbM43KPX/TvnlR
-	 egs0diFm0CKbpjc7yPx/VgBYkP3V1JeVV8EP2cZOjsS9F9Hwv6HgtlaQe9BuH/EBRNoPD
-	 KRdNpAzSXzrqDNACSplE8OYz+3k1+v+EIXJjtKEVhHomuJhmQYCfL0FW+70vYmgIEuQ==
+	t=1794218828;
+	b=yMaHZJDJcJZIaVM5WLjKJSV6abejgeOxBmV1vOiUhMXw9cWd2Pte0Gn8T3qCGsER477a
+	 f3VGT7ni89FatB/VJEowEc9sf2jMPUbXoEkAkS77LYMpJDCMrg0KSSwksPZHBQLU9AZfM
+	 zpFZPSei1jK0W6QeX9mReUDqhRjP3qDhwwbb7aURbCFrGJ7KCe03e0wNhcf7uPuVOPpW7
+	 Heh1LWFQuNu9L2AgstB2s85pxu4A5Jm5XFeqAlMINEwdR/0prBs66rXM0p1yuDFBwj9wj
+	 IMH8Ftc89iCEdbfHZDnwwGJ4U11/Dc+IJf9aBsDCdzVfd3S6jWtqJ1xPsLF0JKzeJow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218805;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8w4ouvn8GAV3fcHokFzFm1nhmbZuRMSblkfq3Ny21VM=;
-	b=wGvUcMBPXRzt7ZQLPo2Mv+zz0vU8VVvYa6bST4cK9yBnuh7+E8+k/KCrVf2SRVH3HXhD
-	 wEOfIfN5sxeIUaqWiI1qL/vvPPAkHabxLFberg7lZ/OOycrG7N68VvALSLY3wmwZ1zyif
-	 YnVhUBQNcFHhNO+yNvmqv3PrDdemhrYIvw8pbLryaQorvjLprBEd0mZQOE0FAZZOOZUQE
-	 Q3vuZxh0DGWmYLUYNM7dCbRhkEg5qILHv+jVB0VejjucWC2CgyTs3z9ULFueAXtXGoCuE
-	 JPh0vg7Dvpocg+q4SZ711oqHzN5iuwBsEDB4wAh/MA6U9SSejIVojUrigRNcrt5Lw0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794218828;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=HrsIsrqSYPkZUAPyuLllNQ1aS8CwBsDo/9IWKIbJVfA=;
+	b=0kI6jY9toj2LzjT5TvLGwQgwaWU4qBG5z9akGfJ32jbBiCXRM+TniMnAY7hB4JtrHGjX
+	 tK6lz06wTIQna/g9Guj/qGEcrmYd50JvTh60QNDhJVsOtcArU8Xu66FFlLLdt+RoKcu43
+	 g5NYyOiVD6jBBERSXBU7hyaAc3LAzdmviIrJ+OSLs9n/2T09QO8AqBk8VC0Lx47xkk4v2
+	 78IldNMZoUK1kSwaJJ5QNQP7jV58HBYDpfCAppuJ0S1o3KhQ/mhuP1wD5+droEX7KlU39
+	 v1hF5muVF7LhPdSBwm6m6hpWmb0ncGv18GiB8RPec1MBIfdji9S36qCTiz/8Q3EdOEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ozGw+CCs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VI8yRdjT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D51606A321;
-	Mon,  9 Nov 2026 10:06:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DA8606A31C;
+	Mon,  9 Nov 2026 10:07:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ozGw+CCs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70FB91F0089F;
-	Mon,  9 Nov 2026 10:06:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VI8yRdjT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCF831F0089F;
+	Mon,  9 Nov 2026 10:07:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794218804;
-	bh=8w4ouvn8GAV3fcHokFzFm1nhmbZuRMSblkfq3Ny21VM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ozGw+CCs2dwrEqQXpZ6bC52PnXO0aaKwY0bVubxDrDy/7IGPG3nuFY8sg1V4ELuGX
-	 tqExMyCubR8D8Pu6Djc5xNYXblC0emOLA6FxMqkrFj5KcsW6RTmHmSFbeB2+oSV7eK
-	 V68U07qFmhkvTR8YDUq8FFP/X8AHDp5UDQf+HlP9t/xymhpDWYSTr5xLsnJJDZZzTQ
-	 dA6zz4VGVef0hCvfnm1UH2MO0YsNm+6QHjVBFpLxvLop39Z2QNRVvXhy6HxCe5RYxC
-	 3auwWQTi7V0LsVynqdiIo/4e0rHX+FGrl3QkLqg28cKrGqavCdL0vAkWY49ot7Qwrr
-	 wYApfAIv+3zvA==
-Message-ID: <d16585cc-44bb-4f8d-9853-a67cb63d49b3@kernel.org>
-Date: Mon, 9 Nov 2026 11:06:39 +0100
+	s=k20260515; t=1794218827;
+	bh=HrsIsrqSYPkZUAPyuLllNQ1aS8CwBsDo/9IWKIbJVfA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VI8yRdjT7fBUJPMzLDt2H1mylAHBDLlQ55kdtzz7yVjxHqcA+QOMLSIVo/0wAASYr
+	 Z7RWNX7Rl6RZSi2UO1oZcZLnKAgL4RvLRpLBeuktP+gpX0Swtyk9ZyQE+Q45VRjWUw
+	 c8aEFA+Ptp3OuOOCwk8S/PdY0vaPOB5Jk9HKxHbc4OLf3KUIze/wW8BnNEKKOkmUSa
+	 kobRALJLj0KzreD1irfZSMicoRE4Ip8wU6ZgPoI2iyNxQUHX+cIk/Mw/Kzv4W0PZfP
+	 DMXxH0Nmz8xusIV4oT54nW+mLJXVgXgzLL2VA7510LUb921GAZ+85Y9dwBPem3eNP0
+	 sTEkwfeY2T67g==
+Date: Mon, 9 Nov 2026 11:07:02 +0100
+From: Joel Granados <joel.granados@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Wen Yang <wen.yang@linux.dev>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 00/39] sysctl: replace overloaded extra pointers with
+ typed bounds and context
+Message-ID: <avGVyB9erjZl8zIO@hobbes>
+References: <cover.1793204511.git.wen.yang@linux.dev>
+ <20261029105837.2f8bee67@pumpkin>
+ <0316f664-d98c-43be-92af-13c30436727a@linux.dev>
+ <au85ISJ2qUsB7y-6@hobbes>
+ <20261107170507.0d66cc2e@pumpkin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,81 +61,226 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH 1/3] power: supply: max17040: pass the device
- fwnode to the power supply core
-To: Hugo Karlsson <huggek@klattorp.se>, sre@kernel.org
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- matheus@castello.eng.br, me@iskren.info, m.szyprowski@samsung.com,
- clamor95@gmail.com, sebastian.reichel@collabora.com
-References: <20261108154241.198160-1-huggek@klattorp.se>
- <20261108154241.198160-2-huggek@klattorp.se>
- <3b4d9f8a-2b5b-49c6-a2fa-666548029975@kernel.org>
- <b7672bea-edea-40e2-a4b9-b06d026265a1@klattorp.se>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <b7672bea-edea-40e2-a4b9-b06d026265a1@klattorp.se>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zykn2ejteafndfrg"
+Content-Disposition: inline
+In-Reply-To: <20261107170507.0d66cc2e@pumpkin>
 
-On 09/11/2026 09:53, Hugo Karlsson wrote:
->  > Please run scripts/checkpatch.pl on the patches and fix reported
->  > warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
->  > patches and (probably) fix more warnings.
-> 
-> Thanks, sorry in regards to that. I ran both, the only findings are
-> for the "Assisted-by: " line, which checkpatch does not recognise
-> ("Non-standard signature" and "Unrecognized email address"); --strict
-> reports no checks on the code itself
-> 
-> It seems it was removed in 1e035297ffda at the 13 October as Sebasation 
-> could just drop it on the applied series, but that´s maybe something I 
-> need to do myself and send a patch v2? Or is that just cosmetic?
 
-It's cosmetic, please drop assisted-by if you send v2.
+--zykn2ejteafndfrg
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 00/39] sysctl: replace overloaded extra pointers with
+ typed bounds and context
+MIME-Version: 1.0
 
-Best regards,
-Krzysztof
+On Sat, Nov 07, 2026 at 05:05:07PM +0000, David Laight wrote:
+> On Sat, 7 Nov 2026 16:27:39 +0100
+> Joel Granados <joel.granados@kernel.org> wrote:
+>=20
+> > On Mon, Nov 02, 2026 at 11:40:40PM +0800, Wen Yang wrote:
+> > >=20
+> > >=20
+> > > On 10/29/26 18:58, David Laight wrote: =20
+> > > > On Thu, 29 Oct 2026 00:34:39 +0800
+> > > > wen.yang@linux.dev wrote:
+> > > >  =20
+> > > > > From: Wen Yang <wen.yang@linux.dev>
+> > > > >=20
+> > > > > struct ctl_table describes an entry with data, maxlen and, until =
+this
+> > > > > series, two untyped misc pointers in extra1 and extra2. Those two=
+ pointers
+> > > > > have accumulated at least seven unrelated jobs: a fixed bound, a =
+bound read
+> > > > > through a pointer on every call, an object or namespace pointer, =
+a small
+> > > > > integer cookie encoded into the pointer, a lock signal, NULL stan=
+ding for
+> > > > > "no bound", and a value the core itself casts to unsigned int whi=
+le
+> > > > > validating a u8 range. Nothing in the entry says which job applie=
+s, so
+> > > > > readers infer it from the handler, and the core gets it wrong whe=
+re it
+> > > > > treats extra1 as an unsigned int. =20
+> > <--- snip --->
+> > > > > (~574 new min/max initializers) instead of pointing at constants.=
+ The
+> > > > > sysctl ABI is unchanged; the parport spintime minimum is correcte=
+d as
+> > > > > described above.
+> > > > >=20
+> > > > > The cost is 8 bytes per ctl_table entry on 64-bit (56 -> 64) and =
+4 bytes on
+> > > > > 32-bit, because priv is appended; the range read path gains no in=
+direction
+> > > > > and the migrated entries no longer dereference a bound pointer. =
+=20
+> > > >=20
+> > > > Can you remove the little-used 'priv' parameter by making the extra
+> > > > information just follow the table entry (nested structure) and have
+> > > > the relevant functions use container_of() to get the outer structure
+> > > > and extra values?
+> > > >  =20
+> > >=20
+> > >=20
+> > > Hi David, Hi Joel,
+> > >=20
+> > > I reworked the context side of the series so that priv is gone entire=
+ly;
+> > > and the final tree has no per-entry context pointer.
+> > > A small helper recovers the enclosing object, but it needs the slot
+> > > index from the caller:
+> > >=20
+> > >   #define sysctl_table_container(entry, type, member, index) ({      =
+ \
+> > >           static_assert(__same_type(*(entry),                        =
+ \
+> > >                                     typeof_member(type, member[0])), =
+ \
+> > >                         "pointer type mismatch");                    =
+ \
+> > >           (type *)((void *)(entry) - offsetof(type, member) -        =
+ \
+> > >                    (size_t)(index) * sizeof(*(entry)));              =
+ \
+> > >   })
+> > >=20
+> > > The reason plain container_of() is not enough is that the core keeps =
+the
+> > > table as a contiguous array.  For
+> > >=20
+> > >   struct addrconf_sysctl_table {
+> > >           struct addrconf_sysctl_ctx context;
+> > >           struct ctl_table table[];
+> > >   };
+> > >=20
+> > > the handler receives an interior entry, and
+> > >=20
+> > >   container_of(ctl, struct addrconf_sysctl_table, table)
+> > >       =3D=3D (char *)outer + index * sizeof(struct ctl_table)
+> > >=20
+> > > for ctl =3D=3D &outer->table[index].  It only returns the outer objec=
+t for
+> > > index 0.  Passing the index explicitly keeps the original registered
+> > > entry usable:
+> > >=20
+> > >   static int addrconf_sysctl_forward(const struct ctl_table *ctl, ...)
+> > >   {
+> > >           struct addrconf_sysctl_table *t =3D
+> > >                   sysctl_table_container(ctl, struct addrconf_sysctl_=
+table,
+> > >                                          table, ADDRCONF_SYSCTL_FORWA=
+RDING);
+> > >           const struct addrconf_sysctl_ctx *ctx =3D &t->context;
+> > >           ...
+> > >   }
+> > >=20
+> > > Shared handlers get one wrapper per slot; the common body does not ne=
+ed
+> > > to know its position:
+> > >=20
+> > >   #define DEVINET_CONF_WRAPPER(attr)                                 =
+ \
+> > >   static int devinet_conf_##attr(const struct ctl_table *ctl, ...)   =
+ \
+> > >   {                                                                  =
+ \
+> > >           struct devinet_sysctl_table *t =3D                         =
+   \
+> > >                   sysctl_table_container(ctl,                        =
+ \
+> > >                           struct devinet_sysctl_table, devinet_vars, =
+ \
+> > >                           IPV4_DEVCONF_##attr - 1);                  =
+ \
+> > >           return devinet_conf_proc_common(ctl, &t->context, ...);    =
+ \
+> > >   } =20
+> >=20
+> > Two questions before seeing the actual implementation of this.
+> >=20
+> > 1. This means that we will have to add more macros to the sysctl
+> >    callers? There is a clear signal in [1] against overuse of macros.
+> > 2. I understand that you are doing this to avoid having priv. Is it to
+> >    save memory?  Yes. priv is a void* and we are also trying to get rid
+> >    of these. But this changes removes the use of two void pointers and
+> >    replaces it with just one.
+>=20
+> The idea behind removing the 'void *priv' is mostly to save memory.
+> There are a lot of systctl and hardly any need it.
+>=20
+> This solution does look nasty.
+> I suggested another where the size of the array entries was passed in
+> by the caller.
+That would mean changing all the proc handler signature. Right?
+
+> If that works it would allow the per-value function use container_of()
+> to get extra fields.
+Would this mean that the callers would have to have to keep track of the
+ctl_table offsets? in other words the sysctl indices and the caller's
+indices would have to be synced. right? This goes a bit against the
+second point in [1]. Which I'm still willing to live with, but worth
+avoiding if it can be done.
+
+Best
+
+[1] https://lore.kernel.org/atoDngZsxy3TWmO_@hobbes
+
+
+> That only really helps if only a few 'private' functions need it.
+>=20
+> David
+>=20
+
+
+
+> >=20
+> > Best
+> >=20
+> > [1] https://lore.kernel.org/CAHk-=3DwjUmLrJd4KM4xvJHUN4P0r8oSu5LyvG4Jip=
+nhxizBrE9Q@mail.gmail.com
+> > >=20
+> > > Single-entry tables simply use slot 0:
+> > >=20
+> > >   struct devinet_forward_table *t =3D
+> > >           sysctl_table_container(ctl, struct devinet_forward_table, t=
+able,
+> > > 0);
+> > >=20
+> > >=20
+> > > The series is 20 commits over 134 files, with no priv at any point.  =
+If
+> > > you would prefer a different shape for the helper or the wrappers, I =
+am
+> > > happy to adjust it.
+> > >=20
+> > >=20
+> > > Thanks,
+> > > Wen
+> > >  =20
+> > > > David
+> > > >  =20
+>=20
+
+--zykn2ejteafndfrg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmrxm0UACgkQupfNUreW
+QU8R7wv/aad4+doUCBbcOxH5zO2Rg4nvC7cOKpkalU4+WbIGiThVH77rYtuPS1ZC
+ZgzUgOfOJPgdPYM300e7A17yZ6B3VKJwTM0X731XYnahP2q9lIOJGw6CKigHN3Vh
+mu/tMoqZcfYttH2EdT3rFcuha8oXC1buECEZX91dZKBSjUAT1ma6jl0gTTrP0RmD
+3YWzjd90LGIzcjb2oMrmYBVXU1jBdDR0VXot52104wS08MW1djXpcLZERt2bNIoU
+hdGEf7nHcvqvQv1c5s/RweZHprTn8nwU0c2umj7dTTWiUCOnaWoZLk+/AmVCJJpB
+zB9Oqeh3Lnt9SmuSM+zL9+ySGlWPUnqZzeY5UusU6yNY29A0yGQjApO5/Xqs3jqw
+HTAtBh0QiGeO/8TwIhHgLCgVSf/QbU7Gt/rHOG0h7aBEeSvmzTsrJ6fiHdVgc1AV
+OCBgxTc45IN68n6bm3zkgXk/gjbmx5fXc/JV2kwoKwfeDNG2eQNZElE3aJBSZX80
++CAc1KVV
+=YBJs
+-----END PGP SIGNATURE-----
+
+--zykn2ejteafndfrg--
