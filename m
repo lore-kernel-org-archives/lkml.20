@@ -1,64 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794194450;
-	b=Uy+Kn/fO4xf080WwQ+5c7ZWJW3croQPRe9S0z7nm2aCCjKPCGUmq8dDvcpnkPFpHipvH
-	 37sC0QgOKpIJ+fX5YZ+/IrpLhAMbuOPkd9YqvwY7YyPUPqEV5Yw8BwkoJxiPaNvCsSjZh
-	 V8BVc08IACTEHw033nz0hCDmT5xk2EMUmkxILcsUAZaJB8IfILCJxx14O6v4FVQwmBDQ+
-	 wrtqVFnwqPirrQDBBKPoqJk6g406TJq02B5OIXrOoxAHdr7+pI5jaNEB8L2mJzvj2vl9f
-	 m22D48YSBprxaCfGISwcupFXwqjbNBiynBMDRfFewsNtf0pScwB03mXIHeteY+qwGlw==
+	t=1794194462;
+	b=oejz5PjgIncFbu+7xqkIvIH4z3mtC9jauD0a6ZtCNRy2PXSprtVkWDxaFvejHpQeeJ9J
+	 lCh+UHjeNBe6FrTpRwXwKYX7+0LQUvjSv8VRK8MmbgiL4bNLa2YkDwtnGF2GK3tlFiduJ
+	 hCIsdpIal/7CFfb9xTpEBvozOkun4plwI15cWSvPtI9eb5yWhTMR/FL97YH6/wDpXJ2FI
+	 TBfjVYxWjo6TdMc3Sk0Mze6+mKuNyP1LNoJ7ERT8mFcWN/tRHVuWEt1l6xxyvpMPWCKhy
+	 QUzIRwmd0eDOM2IwFS7btfi5MszNgVoz5vPHyRJl/fwW0v0d9kS2APe0q8YDSu4Re/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794194450;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3osCUGKIRdfqRxbfCMoBYSTVDqH7GGYQBf+CFlyvQBQ=;
-	b=G3IaQMjygeBrqAuXJi/5C9DylzUbliSsrNKE3lxHkHi8FD8YOejqJ+bpY1jlstgtqLMt
-	 6/qXkk0J+2+6ejFnZ2t7XtB/hyUS7uZhUPfZmBIbbspDil4biMtwiLWGtFy8EIFiEKw/L
-	 542yMwK9dQA6ToL2u/aRuc7K6gcZquqbUvNzXCfGG2M8pyGbo8hAhhQzlWusHLZRT0wwp
-	 W/pk9FipW5pwDQfTI53iCnZNDivFHQkJVpsL7zNjUVSSzyBbJuQn37ciNXIDiu8wGfuNK
-	 mqkOICOPJcWdh5RqtzVuBbR0x14H/87GAbykcP7ZwxYrFlLtT+6N21BocQf/h6842tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794194462;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=w3nIMT4lGIeybYISQRLMNlP/QKxip1YYnlHFsiRaLFI=;
+	b=DNxlOmjP5xAhuFhRoxv0a3UViKwtclJ1qPWaV7ATyiDPmtaWvTofN0EiJMFF2GPBTvLh
+	 tiWRIgJmxGcINYpDkFma/kgfY6S78m6gSBe2CqQzmgBDHCdoPqFVXc9FEgQD40efhK0EC
+	 sXCkdRZVj07Ka+h8RMW7gngzJEp//qnE9aTR/21Fp5XeNHJhco3aVQ5FPSwtk2yLU8Sqy
+	 iKnb9uRxrp+WCv3mktBb+LG4Cml3vxpYurJg2BrDnfF7HX3/Bz3WyCY5vWRg2wN9Cxp61
+	 k9knWeHla1rs6OBWWxLBqdWenOf9Fc13u2Wa/LFXQvY8wYWkfzhmORsMHffDY7o+AkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=blds9jFf;
-	arc=none smtp.remote-ip=91.218.175.209
-Received: from mta0.migadu.com (out-209.mta0.migadu.com [91.218.175.209])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5AB606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:20:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC5AB606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=YLbsyhGJ;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE82B606A322;
+	Mon,  9 Nov 2026 03:21:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE82B606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=blds9jFf
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=J3gMqHFmBA5xrH8UutN0iiV25mi7esd0zElN1ijyFSU=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794194447; v=1; x=1794799247;
- b=blds9jFfeV9SVeB80lkN552mpjUA3H0ztMBsRhLkFxDH4ACdKfsQ9IpMpRGQtKKSl36SrfkP
- aSH7UDv01C+h5JlyT9k1hjQ+CT+gRRxEFZ0yTNagLT33q8tyEZIQZbNHD5+Ye81Ux+PvG6gFA8H
- sobYH50R4WR33Dg5gJ4x3OqO8uCgOzCz2N+rzSuVnpxtvtHDPfkQpLVgIXI2EWjC9/M9wq1wvVX
- xhzSemiuJYBc9saMorQ743TmUTMvx+PABFbPboEVbTCSARYmiqnredEnaSWfRnvS14ZiV53VD0F
- lKMtzamxxvKBylytQ0291a0QdsC+7GL3bihD0TXf+MMKQ==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 804fbb3a37150994;
-	Mon, 09 Nov 2026 03:20:47 +0000
-X-Mizu-Trace-ID: 804fbb3a37150994
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 9 Nov 2026 11:20:40 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] docs/zh_CN: translate threat-model.rst
-Message-ID: <avE8CDLZhiILn8QK@wyuan.org>
-References: <cover.1794153793.git.dzm91@hust.edu.cn>
- <704397edfecc39bf93ea6871aaa149c750adbdab.1794153793.git.dzm91@hust.edu.cn>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=YLbsyhGJ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=YLbsyhGJa7eypJ5epPiWq5ZS0tvIZ0qTyv3WyZPHlGo99gmzBTVz6g9HD81Ee9+TqaA5OoUaBPuig
+	 MGwgDn235F30aDW/6sYifU7z/ME8V5bU9vhOLcy6x/WW696PDHTIzgomU+Wc5s1gwlv+jtCdVhl2VO
+	 eW6CshYzSpqEtqzk=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af13c18406-c568d;
+	Mon, 09 Nov 2026 11:20:59 +0800 (CST)
+X-RM-TRANSID:2ee96af13c18406-c568d
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from cmss.chinamobile.com (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96af13c19da5-7f7f5;
+	Mon, 09 Nov 2026 11:20:59 +0800 (CST)
+X-RM-TRANSID:2ee96af13c19da5-7f7f5
+From: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+To: linux-rtc@vger.kernel.org
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-kernel@vger.kernel.org
+Subject: [PATCH] rtc: ab-eoz9: fix negative temperature readings
+Date: Mon, 09 Nov 2026 11:45:00 +0800
+Message-ID: <20261109-rtc-ab-eoz9-neg-temp-1-yuehongwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,27 +66,52 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <704397edfecc39bf93ea6871aaa149c750adbdab.1794153793.git.dzm91@hust.edu.cn>
+Content-Transfer-Encoding: 8bit
 
-Dongliang Mu <dzm91@hust.edu.cn> writes:
+(-60 degrees C), so the driver computes "raw + ABEOZ953_TEMP_MIN".
+regmap_read() hands the raw value back in an unsigned int, which makes
+that addition - and the multiplication by 1000 that follows - unsigned as
+well: -60 becomes 0xffffffc4 and 1000 * (raw - 60) wraps around for every
+raw value below 60.
 
-> Translate the Linux kernel threat model into Chinese, including English
-> changes from parallel history merged into docs-next.
-> 
-> Also includes bea79063a351 and 11f46e30e688, combined in merge
-> 2bdcd6cf2ac4.
-> 
-> Update the translation through commit 60763c2f834d
-> ("docs: threat-model: fix /dev/kmsg reference")
+On 64-bit systems the wrapped unsigned int is then zero-extended into the
+long hwmon attribute, so every temperature below 0 degrees C is reported
+as a huge positive value: raw 0 (the -60 degrees C code) becomes
+4294907296 instead of -60000, raw 30 (-30 degrees C) becomes 4294937296
+instead of -30000.  This also contradicts temp1_min, which the same
+driver reports as -60000, and consumers that only look for negative
+values (thermal governors, monitoring daemons) do not discard the bogus
+value.
 
-Looks good.
+Perform the arithmetic on a signed value.
 
-Reviewed-by: Weijie Yuan <wy@wyuan.org>
+Fixes: 67075b63cce2 ("rtc: add AB-RTCMC-32.768kHz-EOZ9 RTC support")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+---
+The two expressions were checked with a small user space model of the
+same types: raw 0 gives 4294907296 with the old expression and -60000
+with this fix, raw 30 gives 4294937296 and -30000.
 
-Thanks.
+Compile-tested with gcc and W=1 (CONFIG_RTC_DRV_ABEOZ9=m); there is no
+AB-RTCMC-32.768kHz-EOZ9 hardware here, so this was not exercised on a
+device.
 
-> ---
->  .../zh_CN/process/threat-model.rst            | 168 ++++++++++++++++++
->  1 file changed, 168 insertions(+)
->  create mode 100644 Documentation/translations/zh_CN/process/threat-model.rst
+ drivers/rtc/rtc-ab-eoz9.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/rtc/rtc-ab-eoz9.c b/drivers/rtc/rtc-ab-eoz9.c
+--- a/drivers/rtc/rtc-ab-eoz9.c
++++ b/drivers/rtc/rtc-ab-eoz9.c
+@@ -399,7 +399,7 @@ static int abeoz9z3_temp_read(struct device *dev,
+ 		ret = regmap_read(regmap, ABEOZ9_REG_REG_TEMP, &val);
+ 		if (ret < 0)
+ 			return ret;
+-		*temp = 1000 * (val + ABEOZ953_TEMP_MIN);
++		*temp = 1000 * ((int)val + ABEOZ953_TEMP_MIN);
+ 		return 0;
+ 	case hwmon_temp_max:
+ 		*temp = 1000 * ABEOZ953_TEMP_MAX;
+
+
+
