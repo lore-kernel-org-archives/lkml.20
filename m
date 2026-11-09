@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794267027;
-	b=tjZdkUZHmr00M+hwafeM+1r1ZRLGXPImyMvB06+YBk07NKmd3KZ0Z3KVTEvJiNrYgzfV
-	 5FwT3lzdzsrsx/wj1l6MlNQYzvF2rOoAlAxpXVBWcnjTOVED8AcoffPqlXlaHmt1cvyrS
-	 Ts53iFdifkjKyBKqaUXA5vI2gcfd77iuMnBHda7xZH/NBQRjW9bejIxxibIP1ne5UAp63
-	 h4UI4Hc1veFL2uIiqCMN4bA04IkvHElvbtx0IQQRShbs6vSyvJTVqzABdm3ycFL6xVob5
-	 SnAHZl8Og1lOYZmU8OyRQlZ8klar+gQi1GVTK9XmEO5+wy6+r0v5p6RObf7TQXmjCpA==
+	t=1794267029;
+	b=aFx7/aAl+SKOIBqrnUMmRIw3RdXIJwQfQHLBflwO65nNd1y9Ox9uTnSu9/B5Lmye4YX+
+	 0qHb3GmYi1plEG0a/lshHhTtoGr8xOSPvK+nZFfNnuFHxrMcufS482AMAZYAeNMk8qA5i
+	 QHQ2VluLKr5EngLyyQaZ5JZwXQTZcaPOGYth77jkH5sR24uq56J07Oz8kq+Niz/VFCgA6
+	 oHTERAgk9f+t7VEh9nsXaGQ7RBjWRgtgAlPrP3A019tE6z4TyC7HIiBMZk1fXR/IUxvGq
+	 gtWw3HA4se7AoJdFLPl+ap64ugCp8g+Oo0HzHsEo68rt/OnySWnkLN/qmcNhK4NPsPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794267027;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794267029;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=Aul0+57KJrHaIZ99Xbi6Jwc/cNCXvRyRs0VsyjGNzjo=;
-	b=RMA1Z1EN8vzfoGNmTvETU/5ur/IXJ4A43zuYJ9awzdVyr+y3J6ATmLwaB/N1gjB4Nzhy
-	 gFfJRu1BdTClZEYM0TAjb78ogp/72wQ816IFi/7MZjHFCCt0S9yqv4uw3cJ6kss8jUvbU
-	 08TzD8OLVAWbA4ULHq1p3oZKlBzEMuC5uq3BTkQNZmyzfwqEHdoM13DArbqF2yfPpC7kW
-	 RZKW2R7zm9foIDoRYNI1r0o2DZ7CEznHISrxpMfzUmH4DN/bEzb7C8irlyEcXRm9vbOtj
-	 hZUcnwkTD2c3Jhuy+0llel2nGCEVFg1hRNKeFBeRATxNTcfetmKMOr/tdhNQU58wJ7w==
+	bh=utZOYS4SAXgB2EwrXvT+V1JUlvBmdbFEIh/ePk2lfvc=;
+	b=tjziwB/0NlzaAnNUS0reha6cK6pLZPLActGujvnpzVpTXnI4Fhpk6rCJ1clnZWmIVkB6
+	 rl8eSxIMtxNCDTRUZ4qPekhyZ7ULAgNAuPiyS+suJoceUnVKDArFww4MHNocYzukqR+kW
+	 Mqx/l58NvXc+vHmTwC41Bg7zbe2YMGGcsHBNhJylzqMSGWPB9djc66kyUfkl3LiPfPGQa
+	 /dhwgY1yJMN5pRaikSGUT5PEnNZs2Vd+QiruMmfCNSGNxQZYhafibBXFPzeEmoOtJSOJA
+	 84FAF63sRRdUvOv9xblmCgJr6vPz5C8NjTYgagyvqoRRhKFZwd7qZA8YhBPQrxGTNog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JKMuYezg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CBXJQvMB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2109360A2600;
-	Mon,  9 Nov 2026 23:30:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3C760A260F;
+	Mon,  9 Nov 2026 23:30:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JKMuYezg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC73B1F0089F;
-	Mon,  9 Nov 2026 23:30:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CBXJQvMB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 669221F0089F;
+	Mon,  9 Nov 2026 23:30:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794267027;
-	bh=Aul0+57KJrHaIZ99Xbi6Jwc/cNCXvRyRs0VsyjGNzjo=;
+	s=k20260515; t=1794267028;
+	bh=utZOYS4SAXgB2EwrXvT+V1JUlvBmdbFEIh/ePk2lfvc=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=JKMuYezgzJUgf+6PkJAGgmrkLx2iaJQak262xV8i5njRvYaRlQPMRZh4KGVpQroq5
-	 xXyeJnb+hpodlqQMLsyoYJMAqKJ3uRwtuPQZnmrk8xCDOg3uPxbHE5X+C+OA2boT67
-	 xwidnV65g0DDxUQG7flm2V2g7D+AEZxhbCHSg3/g+tlwe8PLl5KbscuMGox0J8lrcR
-	 a+Apt7fX4ALgCjmDyduCebDxMxqd8MfqvE35JhiLpH26iFYWVcRSDzwh3A04GjLuCG
-	 BlCn8lNzd3Bj5fkLPHNAU9gEsMYgbmK5CoBvdTWAxJ0zQlTrVdHyrFn4J43H/EzUf+
-	 aeur+vZPxGAiA==
+	b=CBXJQvMBIvIZEOyxF5qOe9JcpCYk0gLQ6ZDI0AYWoHb0+F7XX9sr7rjM7TrKmKz4l
+	 JbDvlGg/LGAehpRfaQrL4FhL25tQRhvl+CrcSWqSxm8CBxdSsewWNq+kuj/C2YoW1M
+	 rbJhs2GTR4Djl6JmdaD7ukd/zvjRNKBnM4KSyS1Jx7dY6Nmuvk4H08bddnd09ZZoqu
+	 wfK42/4CkEVK2FnQLSpWmQm5567EExpkm7cZY2wCAyEf4PVmFrSEHupSkUJkxw/H3G
+	 eOA38Xv73rpefDtm4lciLjT1rBs4WUoVAueoWBev3BbofJRRDj6mwpuBbDtggGTMqn
+	 edSs5LsopPEKQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D843E391AFA5;
-	Mon,  9 Nov 2026 23:30:26 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E118391AFA5;
+	Mon,  9 Nov 2026 23:30:28 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,50 +54,43 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v4 0/5] netconsole: Support messages
- ratelimit-ing
+Subject: Re: [PATCH net-next v2] dt-bindings: net: Convert
+ snps,dwc-qos-ethernet
+ to DT schema
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <179426702566.3543549.15081609670268314046.git-patchwork-notify@kernel.org>
-Date: Mon, 09 Nov 2026 23:30:25 +0000
-References: <20261103-netcons_ratelimit-v4-0-b554c27ba27a@debian.org>
-In-Reply-To: <20261103-netcons_ratelimit-v4-0-b554c27ba27a@debian.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, shuah@kernel.org, edumazet@kernel.org,
- rdunlap@infradead.org, paulmck@kernel.org, gustavold@gmail.com,
- asantostc@gmail.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kernel-team@meta.com
+ <179426702692.3543549.11224444718065652161.git-patchwork-notify@kernel.org>
+Date: Mon, 09 Nov 2026 23:30:26 +0000
+References: <20261103220402.471214-2-robh@kernel.org>
+In-Reply-To: <20261103220402.471214-2-robh@kernel.org>
+To: Rob Herring (Arm) <robh@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, krzk+dt@kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, treding@nvidia.com, jonathanh@nvidia.com,
+ alexandre.torgue@foss.st.com, peppe.cavallaro@st.com, joabreu@synopsys.com,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
 Hello:
 
-This series was applied to netdev/net-next.git (main)
+This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Tue, 03 Nov 2026 02:37:45 -0800 you wrote:
-> netconsole hands every console message to every enabled target, with no
-> bound on the rate.
+On Tue,  3 Nov 2026 16:04:01 -0600 you wrote:
+> Convert the "snps,dwc-qos-ethernet-4.10" binding to DT schema format.
+> The binding uses several common snps,dwmac properties, so move them to
+> the snps,dwmac-common.yaml schema.
 > 
-> At Meta, a few hosts caused some DoS and netconsd was OOM killed in
-> some regions, fed by 3 billion RCU messages from thousand hosts and by
-> a swap fault that retries forever, which logged 6 million copies of one
-> line on a single host in a few hours.
+> Drop support for standalone "snps,dwc-qos-ethernet-4.10" compatible
+> and "axis,artpec6-eqos" as there are no users. Also drop the
+> "snps,dwc-qos-ethernet-mdio" as it is also unused. Add the interconnects
+> and iommus properties. Replaced the example with one from Tegra186.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,v4,1/5] netconsole: send the oops when oops_only is set
-    https://git.kernel.org/netdev/net-next/c/96178f0437dd
-  - [net-next,v4,2/5] netconsole: add a per-target message rate limit
-    https://git.kernel.org/netdev/net-next/c/cfc3ceefdc96
-  - [net-next,v4,3/5] netconsole: allow configuring the rate limit interval through configfs
-    https://git.kernel.org/netdev/net-next/c/04d1be8ae2dd
-  - [net-next,v4,4/5] netconsole: allow configuring the rate limit burst through configfs
-    https://git.kernel.org/netdev/net-next/c/8481c27649b9
-  - [net-next,v4,5/5] docs: netconsole: document rate limit feature
-    https://git.kernel.org/netdev/net-next/c/ec1e576cd88d
+  - [net-next,v2] dt-bindings: net: Convert snps,dwc-qos-ethernet to DT schema
+    https://git.kernel.org/netdev/net-next/c/47d30748de0b
 
 You are awesome, thank you!
 -- 
