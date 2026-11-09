@@ -1,77 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794210802;
-	b=cScSqSz+UjWs9pce3I0/Sr3LKH03YZkEXmYmDUNgdcZSwOf6VLC0Dh3WkjnB8JzVFSM0
-	 7MReXop+Ofkf1gKwq4iu5iJ+7ykBTAejosUNtX4gwS25uiXsyox5OnwX+dV54c1m5jN08
-	 iGOIh117pemWoiCdwhbidTgVIuQ2hiNOFu8XP6pxv2jLNdUUjFNtQuv91WN+pmqKIhJ5T
-	 chsf8KmTT524NE9FJju7i59RjdNrP4vzyj/zt7DAUqAhpvrDUCNjTHz/pyi+9qp9gvJI+
-	 yUnGngzo/kgamIlPJH5HhharuWhGfULYx+1PRmVuIhh5gWtn+2ahWhm006DQDcI2WjA==
+	t=1794210797;
+	b=yqnLwOGPn29q3xL+LVyU6PX44yp+S/olIcSZ44sy88noHPanLvsEewkP1b5IHc7oMUXs
+	 hkZhQy5wSdhml0frE6cHhAkOgntBU+h5YssrjZG4sZpPc46lgvySq6SN+vWO9vjkHu/oT
+	 u5++3JZMME/RiZ/df0UXC8c7zqaQN16Ly0I8RiEuor581G+6D3Z8PSFZlE1JIB/kmSFWM
+	 6Pq2T6QHAd+EDt8x2Oz9kvfAQ8YRvLobFPvBSDF7p2MWPo22alNLKLnsJxeduNAvCk9tU
+	 OR8Ut57gFbv0VxZEBHHi/9IIYrst5OOswIVYO51rmlw4lfzSu9x2VMu92ihFkFStLjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794210802;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=mtwimrsAGfjjluaZ29H+iIKzD9a3mq5Gyxp1CKu0/S4=;
-	b=WJhXB1a0ZSO/+nPexKGAatVvEvzXFEVpqN+Faa+xhPFZHgcr86QP/wQeHgcN+B6K6ydy
-	 TwTopLO46nWeeUXXs2KLWfPltcGN0IPaC4lYKWJnJFkRLL7gytpBBsU/EIgAuBb8Z/mkm
-	 4aDpTnviij4E7bP80qxNNkdPvphM96Q45DbyyDmDo4rTeQqiRiXlUBjy4y/CssaDNPfqF
-	 NlE8f1/QCxcR9yW06pttdo7GLT45fQmT1LfA3FrN6+8w68bveM0X7V+MBKO6d8IfP7E9f
-	 c3AcO8+8hIrxq669HO2ndyEgdl7l1q4+EAz0ZxiuDrOOdmRjgTeOXuVziFRjR4KP4Jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794210797;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=ekIw17i4+Cy0WA0lfjGw3LVAomYDJS2Tj+aYGoSnnao=;
+	b=gy1qEoB1baQ2fEKxeVTiFduqdd1FoEoZ4x/qQxlyMm9LqTQ4nJ3G94Jo6fQkB92atR0c
+	 8FslxQ8XpM1ptFjSRXqV29Zggit1YOBlfVqrXZoqmDkq74Q4+tU+GvBTG7hkjCQ6z0ANW
+	 mDmfL+hTSMXyZPzDYr7CJym+YRambzqjVrfd/J01Rz4g083egi02kVyVpUHjrF/rn8a0D
+	 QhXlUBpR0GPTfL/tRTUQZk2N6Cn6C9sxQZrGLlJbO30uksupYeXhp8YZ1eVwUIYP0GxFR
+	 Fw/EzAfqeaxG4gc8tFjz9b1ZVOxxMBtO4Qdyy2stZN2ywL39ezYfRVHDYEAOt6ca1qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=g6DzDdfc;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=g6DzDdfc;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=faCEPrtp;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12B3606A323
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:53:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A12B3606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C76C606A321;
+	Mon,  9 Nov 2026 07:53:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C76C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=g6DzDdfc;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=g6DzDdfc
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C2F3F21F83;
-	Mon,  9 Nov 2026 07:53:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794210799; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mtwimrsAGfjjluaZ29H+iIKzD9a3mq5Gyxp1CKu0/S4=;
-	b=g6DzDdfcnRcM33YreK2ahQsBHkXEbLPIgPFv9GPVarTdwsPQr2CTIsF55ENSLzdf38DC5s
-	npi7JRAh/4EppTiPS1/9LSZ7QXBfih7Cv5u+iLWv04iPb2n9fQTbmef45IfBmsI1M9Pxsm
-	mGFFaqOrG219P4NlTHxK3DLrTjyISYE=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794210799; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=mtwimrsAGfjjluaZ29H+iIKzD9a3mq5Gyxp1CKu0/S4=;
-	b=g6DzDdfcnRcM33YreK2ahQsBHkXEbLPIgPFv9GPVarTdwsPQr2CTIsF55ENSLzdf38DC5s
-	npi7JRAh/4EppTiPS1/9LSZ7QXBfih7Cv5u+iLWv04iPb2n9fQTbmef45IfBmsI1M9Pxsm
-	mGFFaqOrG219P4NlTHxK3DLrTjyISYE=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6749A13319;
-	Mon,  9 Nov 2026 07:53:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ZaOBD+978WrJRwAAD6G6ig
-	(envelope-from <jgross@suse.com>); Mon, 09 Nov 2026 07:53:19 +0000
-Message-ID: <7af392b9-0cf9-46fe-a820-c994942893fe@suse.com>
-Date: Mon, 9 Nov 2026 08:53:18 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=faCEPrtp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794210796; x=1825746796;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=6ohVP8VdMNiP3olnLQYYifetx/XcaqaIFJmgBOWF4Gw=;
+  b=faCEPrtp8OqnmjXgKhdfEb7kptBZ55V1rv4BKd3DeDcoKHo8SltXYtoG
+   MtpiNZXOAb8TAOtf1l5qtMCP0TNH54De+gEI0r84t0QVHiRXbPyc50+h/
+   V6A9qQp1WWXCo56LZ5GpLYm6gCJ7KR8ewaiS5aj8GCayzl3HdDWuqCN56
+   kpcloISYr2pw1O3KGF+nr6RY0uBDUvLvW5bLUBClbABOwp72+o746cMBF
+   bOZ3b6ojKfW6BQqiDxvrt+MMaPEvR9rVULwOM4TcJ+kltaoWgtTqh/3Yt
+   35yHJhUZaXRmTe4d/3cF2k47qtI6GACz1N60mmgfQTfYyDq7ERe4Ns6Rt
+   w==;
+X-CSE-ConnectionGUID: vKMn/+90RT2wAj9gbH36CA==
+X-CSE-MsgGUID: n83HlRejRdWmpEnhS+MbwA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2917629"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2917629"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 23:53:15 -0800
+X-CSE-ConnectionGUID: XO1L8Ht/Ro+eKqGLHg8BNg==
+X-CSE-MsgGUID: vpVNX5mRQZWxkuFwmWEvYg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="8375725"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 23:53:12 -0800
+Message-ID: <2aeaac02-368c-40b4-9b2d-feef5e9d9ea8@linux.intel.com>
+Date: Mon, 9 Nov 2026 15:53:09 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,184 +73,102 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/events: replace __get_free_pages() with kmalloc()
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: David Hildenbrand <david@kernel.org>, Vlastimil Babka
- <vbabka@kernel.org>, linux-mm@kvack.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <20261108-b4-xen-v1-1-76095f25cbf4@kernel.org>
+Subject: Re: [PATCH v3 04/18] KVM: x86/pmu: Add PMC bitmap accessor helpers
+To: Yosry Ahmed <yosry@kernel.org>, "Chen, Zide" <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
+ Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
+ linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
+ Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
+ Xudong Hao <xudong.hao@intel.com>
+References: <20261106013927.166209-1-zide.chen@intel.com>
+ <20261106013927.166209-5-zide.chen@intel.com> <au4kyULjUYdqbfIq@google.com>
+ <531bd088-dc5e-4b2e-953a-6d9d6f14b61e@intel.com>
+ <CAO9r8zMs+aBPN-w7L3nZxwVV-Dr2f0tBYBjicDsdYVp_Mc2AWg@mail.gmail.com>
 Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20261108-b4-xen-v1-1-76095f25cbf4@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------wXW5pNoOVuHMY5I23DbFQuaD"
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-9.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	NEURAL_SPAM_LONG(3.49)[0.998];
-	BAYES_HAM(-3.00)[100.00%];
-	SIGNED_PGP(-2.00)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_BASE64_TEXT(0.10)[];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~];
-	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -9.80
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <CAO9r8zMs+aBPN-w7L3nZxwVV-Dr2f0tBYBjicDsdYVp_Mc2AWg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------wXW5pNoOVuHMY5I23DbFQuaD
-Content-Type: multipart/mixed; boundary="------------9CjsJxfyxMmK8BT64s75qaM0";
- protected-headers="v1"; hp="clear"
-Message-ID: <7af392b9-0cf9-46fe-a820-c994942893fe@suse.com>
-Date: Mon, 9 Nov 2026 08:53:18 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/events: replace __get_free_pages() with kmalloc()
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: David Hildenbrand <david@kernel.org>, Vlastimil Babka
- <vbabka@kernel.org>, linux-mm@kvack.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <20261108-b4-xen-v1-1-76095f25cbf4@kernel.org>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20261108-b4-xen-v1-1-76095f25cbf4@kernel.org>
 
---------------9CjsJxfyxMmK8BT64s75qaM0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On 11/7/2026 6:35 AM, Yosry Ahmed wrote:
+> On Fri, Nov 6, 2026 at 2:19 PM Chen, Zide <zide.chen@intel.com> wrote:
+>>
+>>
+>> On 11/6/2026 1:09 PM, Yosry Ahmed wrote:
+>>>> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+>>>> index b8875ed5502c..4f192429ed93 100644
+>>>> --- a/arch/x86/include/asm/kvm_host.h
+>>>> +++ b/arch/x86/include/asm/kvm_host.h
+>>>> @@ -595,7 +595,10 @@ struct kvm_pmu {
+>>>>              DECLARE_BITMAP(reprogram_pmi, X86_PMC_IDX_MAX);
+>>>>              atomic64_t __reprogram_pmi;
+>>>>      };
+>>>> -    DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
+>>>> +    union {
+>>>> +            DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
+>>>> +            u64 pmc_exists64;
+>>> __pmc_exists would be more consistent with __reprogam_pmi above.
+>> I used the *64 suffix and without '__' to match the cntr_mask/cntr_mask64
+>> and fixed_cntr_mask/fixed_cntr_mask64 pattern in struct x86_pmu_capability
+>> (patch 7), whereas __reprogram_pmi used '__' because it is an atomic64_t
+>> rather than a scalar mask.
+> I don't follow why the '__' prefix is specific to atomics, but anyway,
+> I will leave this up to you and Sean.
 
-T24gMDguMTEuMjYgMDk6NDIsIE1pa2UgUmFwb3BvcnQgKE1pY3Jvc29mdCkgd3JvdGU6DQo+
-IHNldF9ldnRjaG5fdG9faXJxKCkgYWxsb2NhdGVzIGEgcGFnZSBmb3IgdGhlIGV2ZW50IGNo
-YW5uZWwgdG8gSVJRDQo+IG51bWJlciBzb2Z0d2FyZSBsb29rdXAgdGFibGUuDQo+IA0KPiBU
-aGlzIGJ1ZmZlciBjYW4gYmUgYWxsb2NhdGVkIHdpdGgga21hbGxvYygpIGFzIHRoZXJlJ3Mg
-bm90aGluZyBzcGVjaWFsDQo+IGFib3V0IGl0IHRvIGdvIGRpcmVjdGx5IHRvIHRoZSBwYWdl
-IGFsbG9jYXRvci4NCj4gDQo+IGttYWxsb2MoKSBwcm92aWRlcyBhIGJldHRlciBBUEkgdGhh
-dCBkb2VzIG5vdCByZXF1aXJlIHVnbHkgY2FzdHMgYW5kDQo+IGtmcmVlKCkgZG9lcyBub3Qg
-bmVlZCB0byBrbm93IHRoZSBzaXplIG9mIHRoZSBmcmVlZCBvYmplY3QuDQo+IA0KPiBQZXJm
-b3JtYW5jZSBkaWZmZXJlbmNlIGJldHdlZW4ga21hbGxvYygpIGFuZCBfX2dldF9mcmVlX3Bh
-Z2VzKCkgaXMgbm90DQo+IG1lYXN1cmFibGUgYXMgYm90aCBhbGxvY2F0b3JzIHRha2UgYW4g
-b2JqZWN0L3BhZ2UgZnJvbSBhIHBlci1DUFUgbGlzdCBmb3INCj4gZmFzdCBwYXRoIGFsbG9j
-YXRpb25zLg0KPiANCj4gRm9yIHRoZSBzbG93IHBhdGggdGhlIHBlcmZvcm1hbmNlIGlzIGFu
-eXdheSBkZXRlcm1pbmVkIGJ5IHRoZSBhbW91bnQgb2YNCj4gcmVjbGFpbSBpbnZvbHZlZCBy
-YXRoZXIgdGhhbiBieSB3aGF0IGFsbG9jYXRvciBpcyB1c2VkLg0KPiANCj4gUmVwbGFjZSB1
-c2Ugb2YgX19nZXRfZnJlZV9wYWdlcygpIHdpdGgga21hbGxvYygpIGFuZCBmcmVlX3BhZ2Vz
-KCkgd2l0aA0KPiBrZnJlZSgpLg0KPiANCj4gTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
-cmcvYWxsLzYzNTQwNWU0LTk0MjMtNGEyNS1hNmU3LWUwM2M4ZWEwYmNiZUByZWRoYXQuY29t
-DQo+IFNpZ25lZC1vZmYtYnk6IE1pa2UgUmFwb3BvcnQgKE1pY3Jvc29mdCkgPHJwcHRAa2Vy
-bmVsLm9yZz4NCg0KU2hvdWxkbid0IHlvdSBhbHNvIHJlcGxhY2UgX19nZXRfZnJlZV9wYWdl
-KCkgaW4geGVuX2luaXRfSVJRKCk/IEkgZG9uJ3Qgc2VlDQp3aHkgdGhpcyBpcyBiZWluZyBv
-bWl0dGVkLg0KDQoNCkp1ZXJnZW4NCg0KPiAtLS0NCj4gVGhpcyBpcyBhIChzbWFsbCkgcGFy
-dCBvZiBsYXJnZXIgd29yayBvZiByZXBsYWNpbmcgcGFnZSBhbGxvY2F0b3IgY2FsbHMNCj4g
-d2l0aCBrbWFsbG9jLg0KPiANCj4gTGFyZ2VseSwgYW55dGhpbmcgdGhhdCBkb2Vzbid0IG5l
-ZWQgc3RydWN0IHBhZ2UgKG9yIGEgbWVtZGVzYyBpbiB0aGUNCj4gZnV0dXJlKSBzaG91bGQg
-anVzdCB1c2Uga21hbGxvYygpIG9yIGt2bWFsbG9jKCkgdG8gYWxsb2NhdGUgbWVtb3J5Lg0K
-PiBSZW1vdmluZyBuZWVkbGVzcyBjYWxscyB0byBwYWdlIGFsbG9jYXRvciBoZWxwcyB3aXRo
-IG1lbWRlc2MgKGFrYSBwcm9qZWN0DQo+IGZvbGlvKSBjb252ZXJzaW9uIGFuZCBnaXZlcyBh
-IG5pY2VyIEFQSSB3aXRob3V0IGNhc3RzLg0KPiAtLS0NCj4gICBkcml2ZXJzL3hlbi9ldmVu
-dHMvZXZlbnRzX2Jhc2UuYyB8IDQgKystLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2Vy
-dGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy94
-ZW4vZXZlbnRzL2V2ZW50c19iYXNlLmMgYi9kcml2ZXJzL3hlbi9ldmVudHMvZXZlbnRzX2Jh
-c2UuYw0KPiBpbmRleCBmZDE2ZDY1MmM4MWYyLi44YzM3NzQ5MzQyOWI3IDEwMDY0NA0KPiAt
-LS0gYS9kcml2ZXJzL3hlbi9ldmVudHMvZXZlbnRzX2Jhc2UuYw0KPiArKysgYi9kcml2ZXJz
-L3hlbi9ldmVudHMvZXZlbnRzX2Jhc2UuYw0KPiBAQCAtMjMwLDcgKzIzMCw3IEBAIHN0YXRp
-YyBpbnQgc2V0X2V2dGNobl90b19pcnEoZXZ0Y2huX3BvcnRfdCBldnRjaG4sIHVuc2lnbmVk
-IGludCBpcnEpDQo+ICAgCQlpZiAoaXJxID09IC0xKQ0KPiAgIAkJCXJldHVybiAwOw0KPiAg
-IA0KPiAtCQlldnRjaG5fcm93ID0gKGludCAqKSBfX2dldF9mcmVlX3BhZ2VzKEdGUF9LRVJO
-RUwsIDApOw0KPiArCQlldnRjaG5fcm93ID0ga21hbGxvYyhQQUdFX1NJWkUsIEdGUF9LRVJO
-RUwpOw0KPiAgIAkJaWYgKGV2dGNobl9yb3cgPT0gTlVMTCkNCj4gICAJCQlyZXR1cm4gLUVO
-T01FTTsNCj4gICANCj4gQEAgLTI0MSw3ICsyNDEsNyBAQCBzdGF0aWMgaW50IHNldF9ldnRj
-aG5fdG9faXJxKGV2dGNobl9wb3J0X3QgZXZ0Y2huLCB1bnNpZ25lZCBpbnQgaXJxKQ0KPiAg
-IAkJICogdGhyZWFkIHdhcyBmYXN0ZXIgaW5zZXJ0aW5nIGl0LCB3ZSBjYW4gZHJvcCBvdXJz
-Lg0KPiAgIAkJICovDQo+ICAgCQlpZiAoY21weGNoZygmZXZ0Y2huX3RvX2lycVtyb3ddLCBO
-VUxMLCBldnRjaG5fcm93KSAhPSBOVUxMKQ0KPiAtCQkJZnJlZV9wYWdlKCh1bnNpZ25lZCBs
-b25nKSBldnRjaG5fcm93KTsNCj4gKwkJCWtmcmVlKGV2dGNobl9yb3cpOw0KPiAgIAl9DQo+
-ICAgDQo+ICAgCVdSSVRFX09OQ0UoZXZ0Y2huX3RvX2lycVtyb3ddW2NvbF0sIGlycSk7DQo+
-IA0KPiAtLS0NCj4gYmFzZS1jb21taXQ6IDY2MjhlN2Q0YzZiMjVjOGQxOGYxMzQ1ZTNhMjBk
-MjE4MjlhYWU3ZTQNCj4gY2hhbmdlLWlkOiAyMDI2MDYyNC1iNC14ZW4tYTFjZDYyOWNlOWY0
-DQo+IA0KPiAtLQ0KPiBTaW5jZXJlbHkgeW91cnMsDQo+IE1pa2UuDQoNCg==
+Per my understanding, '__' prefix hints this function/variable should not
+be accessed directly, it should be accessed via some wrapper helpers. So I
+think it depends on if we hope the variable pmc_exists64 should be accessed
+directly.
 
---------------9CjsJxfyxMmK8BT64s75qaM0--
+Thanks.
 
---------------wXW5pNoOVuHMY5I23DbFQuaD
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmrxe+4FAwAAAAAACgkQsN6d1ii/Ey9J
-cwf+L3XaMzorCG1a1NqCToQpyu0zZH4Y8kmNNW0/rOxHQHH3N6z1NjBS/4OA3dFxz/HgVZJG9fjN
-VpLu3NGawgxhx0kswckZeP0mL1qsTAJNqCJt2iR9xPBSQIhvWz2dTObySLv7i2AzzK+7Ker8V/A3
-l9M7wG9YjYC9c0fsPRcqtYFECiH8KZL47sOCGX+2mS5bn1lJG7U9/C1ODW3hmiTns3rdiYFg8TxX
-NFVkoo/VFf1nIjJtr4IVJsVNhyOsfTRRbbiy4eyb8RpYC5mCNK2t9k1m5Q/EN8ZvRlsG+EcptY/7
-VqBH+RbDz8HR65Q9mlfkxWSs8/m1rpk6XBRjjX7n+A==
-=sx3s
------END PGP SIGNATURE-----
-
---------------wXW5pNoOVuHMY5I23DbFQuaD--
+>
+>> Also, arch/x86/events/perf_event.h has similar names:
+>>
+>>         union {
+>>                         u64             cntr_mask64;
+>>                         unsigned long
+>> cntr_mask[BITS_TO_LONGS(X86_PMC_IDX_MAX)];
+>>         };
+>>         union {
+>>                         u64             fixed_cntr_mask64;
+>>                         unsigned long
+>> fixed_cntr_mask[BITS_TO_LONGS(X86_PMC_IDX_MAX)];
+>>         };
+>>
+>> Seems either way won't be absolutely unifie
+>>
+>>>> @@ -120,6 +144,17 @@ static inline struct kvm_pmc *kvm_pmc_idx_to_pmc(struct kvm_pmu *pmu, int idx)
+>>>>                      continue;                               \
+>>>>              else                                            \
+>>>>
+>>>> +/*
+>>>> + * @mask is expected to be a scalar unsigned long derived from pmu->pmc_exists,
+>>>> + * which is already constrained by KVM_MAX_NR_{AMD,INTEL}_{GP,FIXED}_COUNTERS,
+>>>> + * so iteration up to KVM's maximum counter count is safe.
+>>>> + */
+>>>> +#define kvm_for_each_gp_counter(i, mask)    \
+>>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_GP_COUNTERS)
+>>>> +
+>>>> +#define kvm_for_each_fixed_counter(i, mask) \
+>>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_FIXED_COUNTERS)
+>>> These are not used in this patch, are they?
+>>>
+>>> They should probably be introduced when they are used. Also, do we
+>>> always end up passing kvm_gp_pmc_mask() and kvm_fixed_pmc_mask()? If
+>>> yes, maybe we should pass in the pmu here instead?
+>> The intent was to group all bitmap accessor helpers together in this
+>> patch for easier review so that the big patch 5/18 could be kept to
+>> mostly mechanical replacements.
+>>
+>> But if you prefer introducing them on first use, I'll move their
+>> definitions to patch 5.
+> Yeah I think it's clearer to see what their definitions are with their usage.
+>
+>> Regarding passing 'pmu' directly, I initially implemented it in this
+>> way, but I can't recall why I discarded it. I will take another look.
+> Thanks.
