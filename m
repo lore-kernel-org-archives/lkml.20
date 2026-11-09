@@ -1,75 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794225111;
-	b=JTOcfirhfxk2hZ8gNC/55mBw6vPR3ShocIaOZhetdQrnZCdJe4kWtXnkKOgSss0OZT1M
-	 goqBLVB/UXQvhyN7Px/iF602yRAQTinZSTLLk1wD7uDy3Myd2Iks/g8aZa5M1d/otd0Ec
-	 MgbCs8BXMgyeDfbuxWmrQVuV1i982Sgxk/5dHJo+AWvazxHCz+f04XboeKiT+itnNtFTj
-	 tRNz6Yq86S2Cn5A4s9pTRLEFAnsCy7akHRTRhFQQX26p7ZDK/c1ZmVagDsxTa5iAryVd4
-	 KOj3Wwodm/oVB2e4aQtmv0QV9A4KjFe2rS8rCuhu5XPMF7qSNEfkc7+QotmcGF1FFKw==
+	t=1794225113;
+	b=mkmpWMBIJGRZgCiF88rQE0fz7b5vVl/CQ/jBmemrBuH+Rur0Ts1A/BqMkFZhPG7uT0tE
+	 503KiFzHWlVwTGC8fCbeleHMflTNCNMnri/c4V5YTVwWM4/7baifVVKYLJ1j+u/TP+DGK
+	 gxZXXibhdLXBZLVxE6KzO5CHpiKrRv7lJ1i32OdbCIAFhk10GRI/mmaJG0fVMQ48KAFYf
+	 knhZ6ljMWm0CLrnfqBpRfFdV8zpSOwiaeKJNxMoBm370Q3O6fXn86t3eJKyQBVw4wTmSf
+	 AvdnOnob2vMng6j6V6VyR99RUQgsrr4M5xa0eESzUPf5Qia+VY+XpOZcx5RDQkN8smw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225111;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225113;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=1UPevI7WKuScXsMZT7gDPXjOAAzdjjcPuo0MhA49GNo=;
-	b=uLe9t8LkRJeiXO06u2pgyhWtVRi88owzKLtqyt/H4A6oTQuZq8BHzwkdivY51H4czamT
-	 /8FhCBzA5/r6elHcmHWfAnLbFlI9gw3gxWFJd7BOLHjcedSATTxmeV2yEKjWr1MVYJNpN
-	 y3fpPmOSqiZT/UDHGqvL43zWt0Ot1aYXpHrH+tn1TXT4jNDmjqBmo/1ZWlU6NoiPkCd+s
-	 nt+mnQjjMayY8MXWX0Sb77WtaCUBfdWRrILypilckAjRFKeiBJO7Ti/lZ439Z/ZRvw26R
-	 gtxSvWeKt0mEAjm9s3ImV5Y6uEEruubfjQozm0wEoSjRE1TsugjWUOWD0DtRR/y1rdg==
+	bh=31QDkAex+N9vcCqSzQnxDFeIWqmzxraQZ9LbzxyE+vc=;
+	b=Ei8cQak0YIZiJhQgK1f8WlMn78ynuo22E5fhZRKldnLqzkzNAPLm2QIhqvi33NEnEs7M
+	 QYIIimoe9v8IXntxrzNjN5kl+6RoaDzoHBrg4UX9HRno7QhdgBjALuiIxVjY2O/F9Go2o
+	 aClx8OZDsAM07eaMGryZrLGx3eEpBZEA8lEhfIhOE4vvLWSSfZwb5SZsPZ2c0mh2EXV4k
+	 GHdaKrmbUsykZOeNPEtH98wZ/32pOzK7HesfO35gtuQz06+cojORwwyzdD+DNVHr5qCcz
+	 sNLV9mB/xK2mLY7B5zpqiBAKMkHunpNs/P4k1+tFp6AQBKjR2oe+OH1QY+vl8ESpgcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=UGivb5T+;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=BU6Qk321;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Woa8Belt;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="gWj/qP1h";
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F8E606A31C;
-	Mon,  9 Nov 2026 11:51:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93F8E606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37773606A331;
+	Mon,  9 Nov 2026 11:51:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37773606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=UGivb5T+;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=BU6Qk321
-Date: Mon, 09 Nov 2026 11:51:46 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Woa8Belt;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=gWj/qP1h
+Date: Mon, 09 Nov 2026 11:51:48 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794225108;
+	s=2020; t=1794225109;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1UPevI7WKuScXsMZT7gDPXjOAAzdjjcPuo0MhA49GNo=;
-	b=UGivb5T+plAcq9J0k81DRc3EZnbPTOgwYXo1syRLn9leJ2h73fviXfvN458Hyzb110mDtg
-	xgE0uLkmBPWpvbgAuVWCG3+KpabARltkZ5Cx/LAgNImMnmUB24DeNZ99tRdrwTOLwvotCs
-	2RQ6e2OhdAPJWS5Wpc3/AtvMQEgKjedZyjd1sBfC19pwyA8pNgPyBAtpRxItXz6dsZHtvd
-	Yi68k/M458MR+X4dw7IDc13rhurZJ9aQI93dYihA/oWdJ36ucevGnu+aOsEXXBXDgKFH8F
-	VzgkI4W0INi4iJLwWs8kBXZiBvLMf6opP6GQ/ECtJjIO0t2oOQvv5ymnQ91jOQ==
+	bh=31QDkAex+N9vcCqSzQnxDFeIWqmzxraQZ9LbzxyE+vc=;
+	b=Woa8BeltehqAskEiIbLfbjcj7itEkOuJUcnwIN4Um2l9zmFaL4Np2gnEEo7F4I5OS9ztdO
+	r8bKE9/0OKN2mia43DYZdY9ZAkk9W/eLWF8D28rziV428bdJoWQ53zsibUrJXvas735dtV
+	SjVEpFxxEJXodNKPwkbu8POzlnyLeXd++XWCXM+q9ue7/TED9ZTL950MP9ZMUB8OI4Ltpi
+	3ZJewYQv1LkVzFi5hiecWa+LAcsYoWqiBqgI62jZpsyu+E0s0KM3Ip/7NMz//CHlxa3lZB
+	T+8MT+w48SPhgCYFUS+kDJvotvB0BJ2Fds3YcAIhQr7x5rkFgjPQ5fbz82gCTA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794225108;
+	s=2020e; t=1794225109;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1UPevI7WKuScXsMZT7gDPXjOAAzdjjcPuo0MhA49GNo=;
-	b=BU6Qk3218ZSEDJ+gAMwDJuWZGfWSPFyC3+TXIBvsx134nOeJeBXfj1IFaZVcAVLy0dousg
-	s7fH21UESEtms4Ag==
+	bh=31QDkAex+N9vcCqSzQnxDFeIWqmzxraQZ9LbzxyE+vc=;
+	b=gWj/qP1h380sJgPmkHUiW8avYGmH9azLbvtPccXC1BtpRagMlKWbm714TBmzR/5UfRTy6d
+	bJawSeLamOZzfNDA==
 From: "tip-bot2 for Aaron Tomlin" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/core] sched/debug: Protect lockless rq->rd access in
- print_dl_rq()
-Cc: "sashiko-bot" <sashiko-bot@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>,
+Subject: [tip: sched/core] sched/core: Annotate rq->rd with __rcu and update
+ lockless readers
+Cc: Aaron Tomlin <atomlin@atomlin.com>,
  "Peter Zijlstra (Intel)" <peterz@infradead.org>,
  Ingo Molnar <mingo@kernel.org>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261030151307.768523-3-atomlin@atomlin.com>
-References: <20261030151307.768523-3-atomlin@atomlin.com>
+In-Reply-To: <20261030151307.768523-2-atomlin@atomlin.com>
+References: <20261030151307.768523-2-atomlin@atomlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,7 +79,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179422510657.2093942.3742262954322150670.tip-bot2@tip-bot2>
+Message-ID: <179422510820.2093942.16903596681933251054.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -89,64 +89,797 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the sched/core branch of tip:
 
-Commit-ID:     d7e670601af6c564ccf6d3b2ddf70ee4f41a6d1c
-Gitweb:        https://git.kernel.org/tip/d7e670601af6c564ccf6d3b2ddf70ee4f41=
-a6d1c
+Commit-ID:     c6ff5c553093a521279a82fbfe352fec4144edf9
+Gitweb:        https://git.kernel.org/tip/c6ff5c553093a521279a82fbfe352fec414=
+4edf9
 Author:        Aaron Tomlin <atomlin@atomlin.com>
-AuthorDate:    Fri, 30 Oct 2026 11:13:03 -04:00
+AuthorDate:    Fri, 30 Oct 2026 11:13:02 -04:00
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Mon, 09 Nov 2026 12:39:08 +01:00
+CommitterDate: Mon, 09 Nov 2026 12:38:48 +01:00
 
-sched/debug: Protect lockless rq->rd access in print_dl_rq()
+sched/core: Annotate rq->rd with __rcu and update lockless readers
 
-In print_dl_rq(), cpu_rq(cpu)->rd is dereferenced locklessly to display
-deadline bandwidth statistics.
+The root_domain pointer rd field in struct rq is updated dynamically
+using RCU, and its memory reclamation is deferred via call_rcu() in
+rq_attach_root(). However, struct rq's rd field was missing the __rcu
+compiler annotation, and several lockless readers across the scheduler
+subsystem accessed rq->rd directly without using RCU dereference
+primitives.
 
-During CPU hot-unplug or cgroup cpuset repartitioning events,
-partition_sched_domains() calls cpu_attach_domain(), which executes
-rq_attach_root() to detach the CPU from its root_domain. When the
-reference count of the detached root_domain drops to zero,
-rq_attach_root() calls call_rcu(&old_rd->rcu, free_rootdomain) to
-schedule memory teardown after an RCU grace period.
+Add the __rcu annotation to struct rq's rd field. For code clarity,
+introduce the rcu_dereference_root_domain() helper macro to validate
+access under sched_domains_mutex or active RCU-sched read-side critical
+sections. While mechanically identical to
+rcu_dereference_sched_domain(), defining rcu_dereference_root_domain()
+preserves the natural symmetry of rq->rd and rq->sd in struct rq, while
+keeping grep-ability straightforward. Update readers and accessors
+across kernel/sched/ to use rcu_dereference_root_domain().
 
-However, rq_attach_root() previously updated rq->rd using a plain C store
-without an RCU publication barrier (i.e., rcu_assign_pointer()). Without a
-release memory barrier on the writer side, CPU or compiler reordering could
-allow the new rq->rd pointer store to become visible to other CPUs before
-the initialization writes to rd->dl_bw are committed.
+This ensures proper memory ordering, enables Sparse static analysis
+validation, and avoids false Lockdep warnings under CONFIG_PROVE_RCU.
 
-Furthermore, because print_dl_rq() did not hold an RCU read lock while
-dereferencing cpu_rq(cpu)->rd, an RCU grace period could elapse
-concurrently while debugfs is reading the file, allowing
-free_rootdomain() to execute kfree(old_rd) and causing a use-after-free
-race condition when print_dl_rq() reads dl_bw->bw.
-
-Resolve this by using rcu_assign_pointer(rq->rd, rd) in rq_attach_root() to
-guarantee a release memory barrier when publishing a root_domain.
-Finally, fetch rq->rd using guard(rcu)() and rcu_dereference() in print_dl_rq=
-().
-
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
 Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Link: https://patch.msgid.link/20261030151307.768523-3-atomlin@atomlin.com
+Link: https://patch.msgid.link/20261030151307.768523-2-atomlin@atomlin.com
 ---
- kernel/sched/debug.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ kernel/sched/core.c     | 23 +++++++----
+ kernel/sched/deadline.c | 82 ++++++++++++++++++++--------------------
+ kernel/sched/fair.c     | 27 +++++++------
+ kernel/sched/rt.c       | 64 +++++++++++++++++--------------
+ kernel/sched/sched.h    |  7 ++-
+ kernel/sched/syscalls.c |  6 +--
+ kernel/sched/topology.c | 13 +++---
+ 7 files changed, 125 insertions(+), 97 deletions(-)
 
-diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-index ab6ff91..ac4971c 100644
---- a/kernel/sched/debug.c
-+++ b/kernel/sched/debug.c
-@@ -1176,7 +1176,8 @@ void print_dl_rq(struct seq_file *m, int cpu, struct dl=
-_rq *dl_rq)
- 	SEQ_printf(m, "  .%-30s: %lu\n", #x, (unsigned long)(dl_rq->x))
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 5ed660f..175b52a 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -8546,8 +8546,10 @@ void set_rq_online(struct rq *rq)
+ {
+ 	if (!rq->online) {
+ 		const struct sched_class *class;
++		struct root_domain *rd;
 =20
- 	PU(dl_nr_running);
--	dl_bw =3D &cpu_rq(cpu)->rd->dl_bw;
+-		cpumask_set_cpu(rq->cpu, rq->rd->online);
++		rd =3D rcu_dereference_root_domain(rq->rd);
++		cpumask_set_cpu(rq->cpu, rd->online);
+ 		rq->online =3D 1;
+=20
+ 		for_each_class(class) {
+@@ -8560,6 +8562,7 @@ void set_rq_online(struct rq *rq)
+ void set_rq_offline(struct rq *rq)
+ {
+ 	if (rq->online) {
++		struct root_domain *rd =3D rcu_dereference_root_domain(rq->rd);
+ 		const struct sched_class *class;
+=20
+ 		update_rq_clock(rq);
+@@ -8568,18 +8571,20 @@ void set_rq_offline(struct rq *rq)
+ 				class->rq_offline(rq);
+ 		}
+=20
+-		cpumask_clear_cpu(rq->cpu, rq->rd->online);
++		cpumask_clear_cpu(rq->cpu, rd->online);
+ 		rq->online =3D 0;
+ 	}
+ }
+=20
+ static inline void sched_set_rq_online(struct rq *rq, int cpu)
+ {
++	struct root_domain *rd;
+ 	struct rq_flags rf;
+=20
+ 	rq_lock_irqsave(rq, &rf);
+-	if (rq->rd) {
+-		BUG_ON(!cpumask_test_cpu(cpu, rq->rd->span));
++	rd =3D rcu_dereference_root_domain(rq->rd);
++	if (rd) {
++		BUG_ON(!cpumask_test_cpu(cpu, rd->span));
+ 		set_rq_online(rq);
+ 	}
+ 	rq_unlock_irqrestore(rq, &rf);
+@@ -8587,11 +8592,13 @@ static inline void sched_set_rq_online(struct rq *rq,=
+ int cpu)
+=20
+ static inline void sched_set_rq_offline(struct rq *rq, int cpu)
+ {
++	struct root_domain *rd;
+ 	struct rq_flags rf;
+=20
+ 	rq_lock_irqsave(rq, &rf);
+-	if (rq->rd) {
+-		BUG_ON(!cpumask_test_cpu(cpu, rq->rd->span));
++	rd =3D rcu_dereference_root_domain(rq->rd);
++	if (rd) {
++		BUG_ON(!cpumask_test_cpu(cpu, rd->span));
+ 		set_rq_offline(rq);
+ 	}
+ 	rq_unlock_irqrestore(rq, &rf);
+@@ -9013,8 +9020,8 @@ void __init sched_init(void)
+ #endif
+ 		rq->next_class =3D &idle_sched_class;
+=20
+-		rq->sd =3D NULL;
+-		rq->rd =3D NULL;
++		RCU_INIT_POINTER(rq->sd, NULL);
++		RCU_INIT_POINTER(rq->rd, NULL);
+ 		rq->cpu_capacity =3D SCHED_CAPACITY_SCALE;
+ 		rq->balance_callback =3D &balance_push_callback;
+ 		rq->active_balance =3D 0;
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 35345ae..61b6a6d 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -120,17 +120,12 @@ static inline u8 dl_get_type(struct sched_dl_entity *dl=
+_se, struct rq *rq)
+=20
+ static inline struct dl_bw *dl_bw_of(int i)
+ {
+-	RCU_LOCKDEP_WARN(!rcu_read_lock_sched_held(),
+-			 "sched RCU must be held");
+-	return &cpu_rq(i)->rd->dl_bw;
++	return &rcu_dereference_root_domain(cpu_rq(i)->rd)->dl_bw;
+ }
+=20
+ static inline int dl_bw_cpus(int i)
+ {
+-	struct root_domain *rd =3D cpu_rq(i)->rd;
+-
+-	RCU_LOCKDEP_WARN(!rcu_read_lock_sched_held(),
+-			 "sched RCU must be held");
++	struct root_domain *rd =3D rcu_dereference_root_domain(cpu_rq(i)->rd);
+=20
+ 	return cpumask_weight_and(rd->span, cpu_active_mask);
+ }
+@@ -156,16 +151,13 @@ static inline unsigned long dl_bw_capacity(int i)
+ 	    arch_scale_cpu_capacity(i) =3D=3D SCHED_CAPACITY_SCALE) {
+ 		return dl_bw_cpus(i) << SCHED_CAPACITY_SHIFT;
+ 	} else {
+-		RCU_LOCKDEP_WARN(!rcu_read_lock_sched_held(),
+-				 "sched RCU must be held");
+-
+-		return __dl_bw_capacity(cpu_rq(i)->rd->span);
++		return __dl_bw_capacity(rcu_dereference_root_domain(cpu_rq(i)->rd)->span);
+ 	}
+ }
+=20
+ bool dl_bw_visited(int cpu, u64 cookie)
+ {
+-	struct root_domain *rd =3D cpu_rq(cpu)->rd;
++	struct root_domain *rd =3D rcu_dereference_root_domain(cpu_rq(cpu)->rd);
+=20
+ 	if (rd->visit_cookie =3D=3D cookie)
+ 		return true;
+@@ -533,15 +525,18 @@ void init_dl_rq(struct dl_rq *dl_rq)
+=20
+ static inline int dl_overloaded(struct rq *rq)
+ {
+-	return atomic_read(&rq->rd->dlo_count);
++	return atomic_read(&rcu_dereference_root_domain(rq->rd)->dlo_count);
+ }
+=20
+ static inline void dl_set_overload(struct rq *rq)
+ {
++	struct root_domain *rd;
++
+ 	if (!rq->online)
+ 		return;
+=20
+-	cpumask_set_cpu(rq->cpu, rq->rd->dlo_mask);
++	rd =3D rcu_dereference_root_domain(rq->rd);
++	cpumask_set_cpu(rq->cpu, rd->dlo_mask);
+ 	/*
+ 	 * Must be visible before the overload count is
+ 	 * set (as in sched_rt.c).
+@@ -549,16 +544,19 @@ static inline void dl_set_overload(struct rq *rq)
+ 	 * Matched by the barrier in pull_dl_task().
+ 	 */
+ 	smp_wmb();
+-	atomic_inc(&rq->rd->dlo_count);
++	atomic_inc(&rd->dlo_count);
+ }
+=20
+ static inline void dl_clear_overload(struct rq *rq)
+ {
++	struct root_domain *rd;
++
+ 	if (!rq->online)
+ 		return;
+=20
+-	atomic_dec(&rq->rd->dlo_count);
+-	cpumask_clear_cpu(rq->cpu, rq->rd->dlo_mask);
++	rd =3D rcu_dereference_root_domain(rq->rd);
++	atomic_dec(&rd->dlo_count);
++	cpumask_clear_cpu(rq->cpu, rd->dlo_mask);
+ }
+=20
+ #define __node_2_pdl(node) \
+@@ -699,14 +697,15 @@ static struct rq *dl_task_offline_migration(struct rq *=
+rq, struct task_struct *p
+ 	 * since p is still hanging out in the old (now moved to default) root
+ 	 * domain.
+ 	 */
+-	dl_b =3D &rq->rd->dl_bw;
++	dl_b =3D &rcu_dereference_root_domain(rq->rd)->dl_bw;
+ 	raw_spin_lock(&dl_b->lock);
+-	__dl_sub(dl_b, p->dl.dl_bw, cpumask_weight(rq->rd->span));
++	__dl_sub(dl_b, p->dl.dl_bw, cpumask_weight(rcu_dereference_root_domain(rq->=
+rd)->span));
+ 	raw_spin_unlock(&dl_b->lock);
+=20
+-	dl_b =3D &later_rq->rd->dl_bw;
++	dl_b =3D &rcu_dereference_root_domain(later_rq->rd)->dl_bw;
+ 	raw_spin_lock(&dl_b->lock);
+-	__dl_add(dl_b, p->dl.dl_bw, cpumask_weight(later_rq->rd->span));
++	__dl_add(dl_b, p->dl.dl_bw,
++		 cpumask_weight(rcu_dereference_root_domain(later_rq->rd)->span));
+ 	raw_spin_unlock(&dl_b->lock);
+=20
+ 	set_task_cpu(p, later_rq->cpu);
+@@ -2222,9 +2221,10 @@ static void inc_dl_deadline(struct dl_rq *dl_rq, u64 d=
+eadline)
+ 	if (dl_rq->earliest_dl.curr =3D=3D 0 ||
+ 	    dl_time_before(deadline, dl_rq->earliest_dl.curr)) {
+ 		if (dl_rq->earliest_dl.curr =3D=3D 0)
+-			cpupri_set(&rq->rd->cpupri, rq->cpu, CPUPRI_HIGHER);
++			cpupri_set(&rcu_dereference_root_domain(rq->rd)->cpupri, rq->cpu,
++				   CPUPRI_HIGHER);
+ 		dl_rq->earliest_dl.curr =3D deadline;
+-		cpudl_set(&rq->rd->cpudl, rq->cpu, deadline);
++		cpudl_set(&rcu_dereference_root_domain(rq->rd)->cpudl, rq->cpu, deadline);
+ 	}
+ }
+=20
+@@ -2239,14 +2239,15 @@ static void dec_dl_deadline(struct dl_rq *dl_rq, u64 =
+deadline)
+ 	if (!dl_rq->dl_nr_running) {
+ 		dl_rq->earliest_dl.curr =3D 0;
+ 		dl_rq->earliest_dl.next =3D 0;
+-		cpudl_clear(&rq->rd->cpudl, rq->cpu, rq->online);
+-		cpupri_set(&rq->rd->cpupri, rq->cpu, rq->rt.highest_prio.curr);
++		cpudl_clear(&rcu_dereference_root_domain(rq->rd)->cpudl, rq->cpu, rq->onli=
+ne);
++		cpupri_set(&rcu_dereference_root_domain(rq->rd)->cpupri, rq->cpu,
++			   rq->rt.highest_prio.curr);
+ 	} else {
+ 		struct rb_node *leftmost =3D rb_first_cached(&dl_rq->root);
+ 		struct sched_dl_entity *entry =3D __node_2_dle(leftmost);
+=20
+ 		dl_rq->earliest_dl.curr =3D entry->deadline;
+-		cpudl_set(&rq->rd->cpudl, rq->cpu, entry->deadline);
++		cpudl_set(&rcu_dereference_root_domain(rq->rd)->cpudl, rq->cpu, entry->dea=
+dline);
+ 	}
+ }
+=20
+@@ -2686,12 +2687,14 @@ static void migrate_task_rq_dl(struct task_struct *p,=
+ int new_cpu __maybe_unused
+=20
+ static void check_preempt_equal_dl(struct rq *rq, struct task_struct *p)
+ {
++	struct root_domain *rd =3D rcu_dereference_root_domain(rq->rd);
++
+ 	/*
+ 	 * Current can't be migrated, useless to reschedule,
+ 	 * let's hope p can move out.
+ 	 */
+ 	if (rq->curr->nr_cpus_allowed =3D=3D 1 ||
+-	    !cpudl_find(&rq->rd->cpudl, rq->donor, NULL))
++	    !cpudl_find(&rd->cpudl, rq->donor, NULL))
+ 		return;
+=20
+ 	/*
+@@ -2699,7 +2702,7 @@ static void check_preempt_equal_dl(struct rq *rq, struc=
+t task_struct *p)
+ 	 * see if it is pushed or pulled somewhere else.
+ 	 */
+ 	if (p->nr_cpus_allowed !=3D 1 &&
+-	    cpudl_find(&rq->rd->cpudl, p, NULL))
++	    cpudl_find(&rd->cpudl, p, NULL))
+ 		return;
+=20
+ 	resched_curr(rq);
+@@ -2951,7 +2954,7 @@ static int find_later_rq(struct task_struct *task)
+ 	 * We have to consider system topology and task affinity
+ 	 * first, then we can look for a suitable CPU.
+ 	 */
+-	if (!cpudl_find(&task_rq(task)->rd->cpudl, task, later_mask))
++	if (!cpudl_find(&rcu_dereference_root_domain(task_rq(task)->rd)->cpudl, tas=
+k, later_mask))
+ 		return -1;
+=20
+ 	/*
+@@ -3235,7 +3238,7 @@ static void pull_dl_task(struct rq *this_rq)
+ 	 */
+ 	smp_rmb();
+=20
+-	for_each_cpu(cpu, this_rq->rd->dlo_mask) {
++	for_each_cpu(cpu, rcu_dereference_root_domain(this_rq->rd)->dlo_mask) {
+ 		if (this_cpu =3D=3D cpu)
+ 			continue;
+=20
+@@ -3358,10 +3361,8 @@ static void set_cpus_allowed_dl(struct task_struct *p,
+ bool dl_task_needs_bw_move(struct task_struct *p,
+ 			   const struct cpumask *new_mask)
+ {
+-	if (!dl_task(p))
+-		return false;
+-
+-	return !cpumask_intersects(task_rq(p)->rd->span, new_mask);
 +	guard(rcu)();
-+	dl_bw =3D &rcu_dereference_root_domain(cpu_rq(cpu)->rd)->dl_bw;
- 	SEQ_printf(m, "  .%-30s: %lld\n", "dl_bw->bw", dl_bw->bw);
- 	SEQ_printf(m, "  .%-30s: %lld\n", "dl_bw->total_bw", dl_bw->total_bw);
++	return !cpumask_intersects(rcu_dereference_root_domain(task_rq(p)->rd)->spa=
+n, new_mask);
+ }
 =20
+ /* Assumes rq->lock is held */
+@@ -3371,9 +3372,10 @@ static void rq_online_dl(struct rq *rq)
+ 		dl_set_overload(rq);
+=20
+ 	if (rq->dl.dl_nr_running > 0)
+-		cpudl_set(&rq->rd->cpudl, rq->cpu, rq->dl.earliest_dl.curr);
++		cpudl_set(&rcu_dereference_root_domain(rq->rd)->cpudl, rq->cpu,
++			  rq->dl.earliest_dl.curr);
+ 	else
+-		cpudl_clear(&rq->rd->cpudl, rq->cpu, true);
++		cpudl_clear(&rcu_dereference_root_domain(rq->rd)->cpudl, rq->cpu, true);
+ }
+=20
+ /* Assumes rq->lock is held */
+@@ -3382,7 +3384,7 @@ static void rq_offline_dl(struct rq *rq)
+ 	if (rq->dl.overloaded)
+ 		dl_clear_overload(rq);
+=20
+-	cpudl_clear(&rq->rd->cpudl, rq->cpu, false);
++	cpudl_clear(&rcu_dereference_root_domain(rq->rd)->cpudl, rq->cpu, false);
+ }
+=20
+ void __init init_sched_dl_class(void)
+@@ -3443,10 +3445,10 @@ void dl_add_task_root_domain(struct task_struct *p)
+ 	cpu =3D cpumask_first_and(cpu_active_mask, msk);
+ 	BUG_ON(cpu >=3D nr_cpu_ids);
+ 	rq =3D cpu_rq(cpu);
+-	dl_b =3D &rq->rd->dl_bw;
++	dl_b =3D &rcu_dereference_root_domain(rq->rd)->dl_bw;
+=20
+ 	raw_spin_lock(&dl_b->lock);
+-	__dl_add(dl_b, p->dl.dl_bw, cpumask_weight(rq->rd->span));
++	__dl_add(dl_b, p->dl.dl_bw, cpumask_weight(rcu_dereference_root_domain(rq->=
+rd)->span));
+ 	raw_spin_unlock(&dl_b->lock);
+ 	raw_spin_unlock_irqrestore(&p->pi_lock, rf.flags);
+ }
+@@ -3507,7 +3509,7 @@ void dl_clear_root_domain(struct root_domain *rd)
+=20
+ void dl_clear_root_domain_cpu(int cpu)
+ {
+-	dl_clear_root_domain(cpu_rq(cpu)->rd);
++	dl_clear_root_domain(rcu_dereference_root_domain(cpu_rq(cpu)->rd));
+ }
+=20
+ static void switched_from_dl(struct rq *rq, struct task_struct *p)
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 0552eaf..d4cc0ca 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -8121,13 +8121,14 @@ static inline void set_rd_overutilized(struct root_do=
+main *rd, bool flag)
+=20
+ static inline void check_update_overutilized_status(struct rq *rq)
+ {
++	struct root_domain *rd =3D rcu_dereference_root_domain(rq->rd);
++
+ 	/*
+ 	 * overutilized field is used for load balancing decisions only
+ 	 * if energy aware scheduler is being used
+ 	 */
+-
+-	if (!is_rd_overutilized(rq->rd) && cpu_overutilized(rq->cpu))
+-		set_rd_overutilized(rq->rd, 1);
++	if (rd && !is_rd_overutilized(rd) && cpu_overutilized(rq->cpu))
++		set_rd_overutilized(rd, 1);
+ }
+=20
+ /* Runqueue only has SCHED_IDLE tasks enqueued */
+@@ -9803,7 +9804,7 @@ static int find_energy_efficient_cpu(struct task_struct=
+ *p, int prev_cpu)
+ 	unsigned long prev_delta =3D ULONG_MAX, best_delta =3D ULONG_MAX;
+ 	unsigned long p_util_min =3D uclamp_is_used() ? uclamp_eff_value(p, UCLAMP_=
+MIN) : 0;
+ 	unsigned long p_util_max =3D uclamp_is_used() ? uclamp_eff_value(p, UCLAMP_=
+MAX) : 1024;
+-	struct root_domain *rd =3D this_rq()->rd;
++	struct root_domain *rd =3D rcu_dereference_root_domain(this_rq()->rd);
+ 	int cpu, best_energy_cpu, target =3D -1;
+ 	int prev_fits =3D -1, best_fits =3D -1;
+ 	unsigned long best_actual_cap =3D 0;
+@@ -10007,7 +10008,7 @@ select_task_rq_fair(struct task_struct *p, int prev_c=
+pu, int wake_flags)
+ 		    cpumask_test_cpu(cpu, p->cpus_ptr))
+ 			return cpu;
+=20
+-		if (!is_rd_overutilized(this_rq()->rd)) {
++		if (!is_rd_overutilized(rcu_dereference_root_domain(this_rq()->rd))) {
+ 			new_cpu =3D find_energy_efficient_cpu(p, prev_cpu);
+ 			if (new_cpu >=3D 0)
+ 				return new_cpu;
+@@ -13048,13 +13049,15 @@ static inline void update_sd_lb_stats(struct lb_env=
+ *env, struct sd_lb_stats *sd
+ 		env->fbq_type =3D fbq_classify_group(&sds->busiest_stat);
+=20
+ 	if (!env->sd->parent) {
++		struct root_domain *rd =3D rcu_dereference_root_domain(env->dst_rq->rd);
++
+ 		/* update overload indicator if we are at root domain */
+-		set_rd_overloaded(env->dst_rq->rd, sg_overloaded);
++		set_rd_overloaded(rd, sg_overloaded);
+=20
+ 		/* Update over-utilization (tipping point, U >=3D 0) indicator */
+-		set_rd_overutilized(env->dst_rq->rd, sg_overutilized);
++		set_rd_overutilized(rd, sg_overutilized);
+ 	} else if (sg_overutilized) {
+-		set_rd_overutilized(env->dst_rq->rd, sg_overutilized);
++		set_rd_overutilized(rcu_dereference_root_domain(env->dst_rq->rd), sg_overu=
+tilized);
+ 	}
+=20
+ 	update_idle_cpu_scan(env, sum_util);
+@@ -13300,8 +13303,10 @@ static struct sched_group *sched_balance_find_src_gr=
+oup(struct lb_env *env)
+ 	if (busiest->group_type =3D=3D group_misfit_task)
+ 		goto force_balance;
+=20
+-	if (!is_rd_overutilized(env->dst_rq->rd) &&
+-	    rcu_dereference_all(env->dst_rq->rd->pd))
++	struct root_domain *rd =3D rcu_dereference_root_domain(env->dst_rq->rd);
++
++	if (rd && !is_rd_overutilized(rd) &&
++	    rcu_dereference_all(rd->pd))
+ 		goto out_balanced;
+=20
+ 	/* ASYM feature bypasses nice load balance check */
+@@ -14953,7 +14958,7 @@ static int sched_balance_newidle(struct rq *this_rq, =
+struct rq_flags *rf)
+ 	if (!sd)
+ 		goto out;
+=20
+-	if (!get_rd_overloaded(this_rq->rd) ||
++	if (!get_rd_overloaded(rcu_dereference_root_domain(this_rq->rd)) ||
+ 	    this_rq->avg_idle < sd->max_newidle_lb_cost) {
+=20
+ 		update_next_balance(sd, &next_balance);
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index adcf5f0..81a71aa 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -338,15 +338,18 @@ static inline bool need_pull_rt_task(struct rq *rq, str=
+uct task_struct *prev)
+=20
+ static inline int rt_overloaded(struct rq *rq)
+ {
+-	return atomic_read(&rq->rd->rto_count);
++	return atomic_read(&rcu_dereference_root_domain(rq->rd)->rto_count);
+ }
+=20
+ static inline void rt_set_overload(struct rq *rq)
+ {
++	struct root_domain *rd;
++
+ 	if (!rq->online)
+ 		return;
+=20
+-	cpumask_set_cpu(rq->cpu, rq->rd->rto_mask);
++	rd =3D rcu_dereference_root_domain(rq->rd);
++	cpumask_set_cpu(rq->cpu, rd->rto_mask);
+ 	/*
+ 	 * Make sure the mask is visible before we set
+ 	 * the overload count. That is checked to determine
+@@ -357,17 +360,20 @@ static inline void rt_set_overload(struct rq *rq)
+ 	 * Matched by the barrier in pull_rt_task().
+ 	 */
+ 	smp_wmb();
+-	atomic_inc(&rq->rd->rto_count);
++	atomic_inc(&rd->rto_count);
+ }
+=20
+ static inline void rt_clear_overload(struct rq *rq)
+ {
++	struct root_domain *rd;
++
+ 	if (!rq->online)
+ 		return;
+=20
++	rd =3D rcu_dereference_root_domain(rq->rd);
+ 	/* the order here really doesn't matter */
+-	atomic_dec(&rq->rd->rto_count);
+-	cpumask_clear_cpu(rq->cpu, rq->rd->rto_mask);
++	atomic_dec(&rd->rto_count);
++	cpumask_clear_cpu(rq->cpu, rd->rto_mask);
+ }
+=20
+ static inline int has_pushable_tasks(struct rq *rq)
+@@ -580,7 +586,7 @@ static int rt_se_boosted(struct sched_rt_entity *rt_se)
+=20
+ static inline const struct cpumask *sched_rt_period_mask(void)
+ {
+-	return this_rq()->rd->span;
++	return rcu_dereference_root_domain(this_rq()->rd)->span;
+ }
+=20
+ static inline
+@@ -608,7 +614,7 @@ bool sched_rt_bandwidth_account(struct rt_rq *rt_rq)
+ static void do_balance_runtime(struct rt_rq *rt_rq)
+ {
+ 	struct rt_bandwidth *rt_b =3D sched_rt_bandwidth(rt_rq);
+-	struct root_domain *rd =3D rq_of_rt_rq(rt_rq)->rd;
++	struct root_domain *rd =3D rcu_dereference_root_domain(rq_of_rt_rq(rt_rq)->=
+rd);
+ 	int i, weight;
+ 	u64 rt_period;
+=20
+@@ -659,7 +665,7 @@ next:
+  */
+ static void __disable_runtime(struct rq *rq)
+ {
+-	struct root_domain *rd =3D rq->rd;
++	struct root_domain *rd =3D rcu_dereference_root_domain(rq->rd);
+ 	rt_rq_iter_t iter;
+ 	struct rt_rq *rt_rq;
+=20
+@@ -1058,7 +1064,7 @@ inc_rt_prio_smp(struct rt_rq *rt_rq, int prio, int prev=
+_prio)
+ 		return;
+=20
+ 	if (rq->online && prio < prev_prio)
+-		cpupri_set(&rq->rd->cpupri, rq->cpu, prio);
++		cpupri_set(&rcu_dereference_root_domain(rq->rd)->cpupri, rq->cpu, prio);
+ }
+=20
+ static void
+@@ -1073,7 +1079,8 @@ dec_rt_prio_smp(struct rt_rq *rt_rq, int prio, int prev=
+_prio)
+ 		return;
+=20
+ 	if (rq->online && rt_rq->highest_prio.curr !=3D prev_prio)
+-		cpupri_set(&rq->rd->cpupri, rq->cpu, rt_rq->highest_prio.curr);
++		cpupri_set(&rcu_dereference_root_domain(rq->rd)->cpupri, rq->cpu,
++			   rt_rq->highest_prio.curr);
+ }
+=20
+ static void
+@@ -1575,8 +1582,10 @@ out:
+=20
+ static void check_preempt_equal_prio(struct rq *rq, struct task_struct *p)
+ {
++	struct root_domain *rd =3D rcu_dereference_root_domain(rq->rd);
++
+ 	if (rq->curr->nr_cpus_allowed =3D=3D 1 ||
+-	    !cpupri_find(&rq->rd->cpupri, rq->donor, NULL))
++	    !cpupri_find(&rd->cpupri, rq->donor, NULL))
+ 		return;
+=20
+ 	/*
+@@ -1584,7 +1593,7 @@ static void check_preempt_equal_prio(struct rq *rq, str=
+uct task_struct *p)
+ 	 * see if it is pushed or pulled somewhere else.
+ 	 */
+ 	if (p->nr_cpus_allowed !=3D 1 &&
+-	    cpupri_find(&rq->rd->cpupri, p, NULL))
++	    cpupri_find(&rd->cpupri, p, NULL))
+ 		return;
+=20
+ 	/*
+@@ -1796,12 +1805,12 @@ static int find_lowest_rq(struct task_struct *task)
+ 	 */
+ 	if (sched_asym_cpucap_active()) {
+=20
+-		ret =3D cpupri_find_fitness(&task_rq(task)->rd->cpupri,
++		ret =3D cpupri_find_fitness(&rcu_dereference_root_domain(task_rq(task)->rd=
+)->cpupri,
+ 					  task, lowest_mask,
+ 					  rt_task_fits_capacity);
+ 	} else {
+=20
+-		ret =3D cpupri_find(&task_rq(task)->rd->cpupri,
++		ret =3D cpupri_find(&rcu_dereference_root_domain(task_rq(task)->rd)->cpupr=
+i,
+ 				  task, lowest_mask);
+ 	}
+=20
+@@ -2192,16 +2201,17 @@ static inline void rto_start_unlock(atomic_t *v)
+=20
+ static void tell_cpu_to_push(struct rq *rq)
+ {
++	struct root_domain *rd =3D rcu_dereference_root_domain(rq->rd);
+ 	int cpu =3D -1;
+=20
+ 	/* Keep the loop going if the IPI is currently active */
+-	atomic_inc(&rq->rd->rto_loop_next);
++	atomic_inc(&rd->rto_loop_next);
+=20
+ 	/* Only one CPU can initiate a loop at a time */
+-	if (!rto_start_trylock(&rq->rd->rto_loop_start))
++	if (!rto_start_trylock(&rd->rto_loop_start))
+ 		return;
+=20
+-	raw_spin_lock(&rq->rd->rto_lock);
++	raw_spin_lock(&rd->rto_lock);
+=20
+ 	/*
+ 	 * The rto_cpu is updated under the lock, if it has a valid CPU
+@@ -2209,17 +2219,17 @@ static void tell_cpu_to_push(struct rq *rq)
+ 	 * update to loop_next, and nothing needs to be done here.
+ 	 * Otherwise it is finishing up and an IPI needs to be sent.
+ 	 */
+-	if (rq->rd->rto_cpu < 0)
+-		cpu =3D rto_next_cpu(rq->rd);
++	if (rd->rto_cpu < 0)
++		cpu =3D rto_next_cpu(rd);
+=20
+-	raw_spin_unlock(&rq->rd->rto_lock);
++	raw_spin_unlock(&rd->rto_lock);
+=20
+-	rto_start_unlock(&rq->rd->rto_loop_start);
++	rto_start_unlock(&rd->rto_loop_start);
+=20
+ 	if (cpu >=3D 0) {
+ 		/* Make sure the rd does not get freed while pushing */
+-		sched_get_rd(rq->rd);
+-		irq_work_queue_on(&rq->rd->rto_push_work, cpu);
++		sched_get_rd(rd);
++		irq_work_queue_on(&rd->rto_push_work, cpu);
+ 	}
+ }
+=20
+@@ -2280,7 +2290,7 @@ static void pull_rt_task(struct rq *this_rq)
+=20
+ 	/* If we are the only overloaded CPU do nothing */
+ 	if (rt_overload_count =3D=3D 1 &&
+-	    cpumask_test_cpu(this_rq->cpu, this_rq->rd->rto_mask))
++	    cpumask_test_cpu(this_rq->cpu, rcu_dereference_root_domain(this_rq->rd)=
+->rto_mask))
+ 		return;
+=20
+ #ifdef HAVE_RT_PUSH_IPI
+@@ -2290,7 +2300,7 @@ static void pull_rt_task(struct rq *this_rq)
+ 	}
+ #endif
+=20
+-	for_each_cpu(cpu, this_rq->rd->rto_mask) {
++	for_each_cpu(cpu, rcu_dereference_root_domain(this_rq->rd)->rto_mask) {
+ 		if (this_cpu =3D=3D cpu)
+ 			continue;
+=20
+@@ -2395,7 +2405,7 @@ static void rq_online_rt(struct rq *rq)
+=20
+ 	__enable_runtime(rq);
+=20
+-	cpupri_set(&rq->rd->cpupri, rq->cpu, rq->rt.highest_prio.curr);
++	cpupri_set(&rcu_dereference_root_domain(rq->rd)->cpupri, rq->cpu, rq->rt.hi=
+ghest_prio.curr);
+ }
+=20
+ /* Assumes rq->lock is held */
+@@ -2406,7 +2416,7 @@ static void rq_offline_rt(struct rq *rq)
+=20
+ 	__disable_runtime(rq);
+=20
+-	cpupri_set(&rq->rd->cpupri, rq->cpu, CPUPRI_INVALID);
++	cpupri_set(&rcu_dereference_root_domain(rq->rd)->cpupri, rq->cpu, CPUPRI_IN=
+VALID);
+ }
+=20
+ /*
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index f0c661c..a4df59c 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1308,7 +1308,7 @@ struct rq {
+ 	int membarrier_state;
+ #endif
+=20
+-	struct root_domain		*rd;
++	struct root_domain __rcu	*rd;
+ 	struct sched_domain __rcu	*sd;
+=20
+ 	struct balance_callback *balance_callback;
+@@ -2218,6 +2218,9 @@ queue_balance_callback(struct rq *rq,
+ 	rq->balance_callback =3D head;
+ }
+=20
++#define rcu_dereference_root_domain(p) \
++	rcu_dereference_all_check((p), lockdep_is_held(&sched_domains_mutex))
++
+ #define rcu_dereference_sched_domain(p) \
+ 	rcu_dereference_all_check((p), lockdep_is_held(&sched_domains_mutex))
+=20
+@@ -3134,7 +3137,7 @@ static inline void add_nr_running(struct rq *rq, unsign=
+ed count)
+ 	}
+=20
+ 	if (prev_nr < 2 && rq->nr_running >=3D 2)
+-		set_rd_overloaded(rq->rd, 1);
++		set_rd_overloaded(rcu_dereference_root_domain(rq->rd), 1);
+=20
+ 	sched_update_tick_dependency(rq);
+ }
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index 0ec401a..2d77ca0 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -621,14 +621,14 @@ change:
+ #endif /* CONFIG_RT_GROUP_SCHED */
+ 		if (dl_bandwidth_enabled() && dl_policy(policy) &&
+ 				!(attr->sched_flags & SCHED_FLAG_SUGOV)) {
+-			cpumask_t *span =3D rq->rd->span;
++			struct root_domain *rd =3D rcu_dereference_root_domain(rq->rd);
+=20
+ 			/*
+ 			 * Don't allow tasks with an affinity mask smaller than
+ 			 * the entire root_domain to become SCHED_DEADLINE. We
+ 			 * will also fail if there's no bandwidth available.
+ 			 */
+-			if (!cpumask_subset(span, &p->cpus_mask) ||
++			if (!cpumask_subset(rd->span, &p->cpus_mask) ||
+ 			    rq->rd->dl_bw.bw =3D=3D 0) {
+ 				retval =3D -EPERM;
+ 				goto unlock;
+@@ -1131,7 +1131,7 @@ int dl_task_check_affinity(struct task_struct *p, const=
+ struct cpumask *mask)
+ 	 * root_domain.
+ 	 */
+ 	guard(rcu)();
+-	if (!cpumask_subset(task_rq(p)->rd->span, mask))
++	if (!cpumask_subset(rcu_dereference_root_domain(task_rq(p)->rd)->span, mask=
+))
+ 		return -EBUSY;
+=20
+ 	return 0;
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index 9d3a1b8..99878da 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -427,7 +427,7 @@ static bool build_perf_domains(const struct cpumask *cpu_=
+map)
+ 	int i;
+ 	struct perf_domain *pd =3D NULL, *tmp;
+ 	int cpu =3D cpumask_first(cpu_map);
+-	struct root_domain *rd =3D cpu_rq(cpu)->rd;
++	struct root_domain *rd =3D rcu_dereference_root_domain(cpu_rq(cpu)->rd);
+=20
+ 	if (!sysctl_sched_energy_aware)
+ 		goto free;
+@@ -492,9 +492,8 @@ void rq_attach_root(struct rq *rq, struct root_domain *rd)
+=20
+ 	rq_lock_irqsave(rq, &rf);
+=20
+-	if (rq->rd) {
+-		old_rd =3D rq->rd;
+-
++	old_rd =3D rcu_dereference_root_domain(rq->rd);
++	if (old_rd) {
+ 		if (cpumask_test_cpu(rq->cpu, old_rd->online))
+ 			set_rq_offline(rq);
+=20
+@@ -510,7 +509,7 @@ void rq_attach_root(struct rq *rq, struct root_domain *rd)
+ 	}
+=20
+ 	atomic_inc(&rd->refcount);
+-	rq->rd =3D rd;
++	rcu_assign_pointer(rq->rd, rd);
+=20
+ 	cpumask_set_cpu(rq->cpu, rd->span);
+ 	if (cpumask_test_cpu(rq->cpu, cpu_active_mask))
+@@ -3495,8 +3494,10 @@ match2:
+ 	/* Build perf domains: */
+ 	for (i =3D 0; i < ndoms_new; i++) {
+ 		for (j =3D 0; j < n && !sched_energy_update; j++) {
++			int cpu =3D cpumask_first(doms_cur[j]);
++
+ 			if (cpumask_equal(doms_new[i], doms_cur[j]) &&
+-			    cpu_rq(cpumask_first(doms_cur[j]))->rd->pd) {
++			    rcu_dereference_root_domain(cpu_rq(cpu)->rd)->pd) {
+ 				has_eas =3D true;
+ 				goto match3;
+ 			}
