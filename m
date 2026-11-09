@@ -1,53 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.161.220
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794201716;
-	b=JowYYFk5YxhBDA6P30ArWJbO7YZMVPILl+VRqBl+y4T7nFFNhENhdGB3kfGQS0cclPuG
-	 K0973Garb/gsPqvjEdvHyrK50IuhoIvPCZoazH4fdlEdvUM0nVftWXlykSc0DrGfZfwmQ
-	 9Cgmp+IOjzoacv0jJd3SDfe1lWZ8p2DkZya4k2lJHMdyVwVhp0by9wHd3Jevbxtfr2N4g
-	 NcPQCwlg2KvBUZsSya2YpGg6VqsHa6l08ThyNDK6HMCsYPVrXQas+e8fiaLiKRvgQHZja
-	 hcx1uIegPemN8EhLaZlugUfCmcMoDsySkRI75sQqUtOJ1gBQ8ddrt38vD9E+KT90gAg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794201716;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=BFFU+fI2ROLJzJslgjYuUGevW7kvRB3CrpxpEyAMwm8=;
-	b=JgXvsdhmby3TL61RmHWGJNbjV5MgV+I1hO/6YxV4S2rClWE78tNtjsj6YI6SHsg+qRfP
-	 /2ZFEYre7l5YUTpAgfhccxuSipak1XklMHTwrQFpUElOazzp71pXskp8mm+09BdNgO9JB
-	 U3xIiUR6jEKUkU87lYiPfFuhCi4YEK2QAuqGire+zDDk4+mILqhkN2yx9U2n6DEUWLVY/
-	 7/N6My9Vzlek46eiaba0meLbNmnP+1kAyip5kGd0pFoiG2fFzjyK04z/LV+K+2E7FIJe0
-	 /5SexUoAj1dy27hDB4YCihwC3u7QC1+LvYh9T0fcCFQd9xxOZw+MOcn2x6A1gqhBieQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=162.243.161.220
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D1CC606A331;
-	Mon,  9 Nov 2026 05:21:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D1CC606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.50])
-	by app2 (Coremail) with UTF8SMTP id IQEQrMCmzsZrWPFqYTIKAA--.11020S2;
-	Mon, 09 Nov 2026 13:21:47 +0800 (CST)
-Received: from hust.edu.cn (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wAn8jVlWPFq3SUuAA--.28705S6;
-	Mon, 09 Nov 2026 13:21:46 +0800 (CST)
-From: Dongliang Mu <dzm91@hust.edu.cn>
-To: Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/4] docs/zh_CN: link AI guide to translated documents
-Date: Mon,  9 Nov 2026 13:21:40 +0800
-Message-ID: <27cecdd625db14563933678300b7da1d9b4fa254.1794197977.git.dzm91@hust.edu.cn>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <cover.1794197977.git.dzm91@hust.edu.cn>
-References: <cover.1794153793.git.dzm91@hust.edu.cn> <cover.1794197977.git.dzm91@hust.edu.cn>
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794201788;
+	b=oXvbaxouRvsGn9tcg7x+ppKeHxacJpdKw+kANr/t5scCW7lhS75zmjkExlyNpWz14xDa
+	 //USwk35ciXeXVNACqm+jsaMDgLH1/qpEsoSwk+v1d3IZE7x73q0BPgG+gSt8CnfWUNqW
+	 yTSmiQiBDejvCisrlgWaONm2W1K7rtt0Sw/N54BhVRiRLVMyTJVFrBQINq0A5KvaZJjOp
+	 b3heVYFaY9ZUAwI6ASwKLpfVTJTEVUTU4dqiOO2Z3dXghxzOG0KP8c0YauhcF+EM2vuiK
+	 VViH1VtEgQVSzkT16sJax0eCUAxgvgjIHgIleMPkLkOMkdzL2X/KAgm8jINYTb6w3qQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794201788;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=WIf0dJI3704E56UOzqLD2NIWJwb6NLuXPSl2wIJw8fs=;
+	b=SYrfPNOhw5eBsinw6XoKculQ90wcOAN3l+57Eh1NyOqcCHKJNgxKDezLDFjerx9t3h0F
+	 KIBjkZIuCsQYgvhoOsCp9O4etDaqsubK1MR+BlESBv1ph6P/41MKEq6wHOj9yBQZy0Ba+
+	 8A/6sIvDCWbxhA820U+18RwRa/QO38fegHfzzaAp6kd4JhN42tQ32+Wyj7PCAHFfTdbWR
+	 BWwi0aCsxBYMqUP6aSqVqMkmlkVc0i1dsq4aofm3nvxWvhp/aPRB31OjMlZOeTv2GO2JE
+	 ab1N3WGlSaUa4LoMc9dKyCg3s258vABJ6cyeVHd5LSX8nl+TBub8HPGoQTAD4zihP2g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=beAqg+sY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F5E606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:23:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55F5E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=beAqg+sY
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c49c32650adso62451866b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 21:23:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794201787; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ajKd/Zo1JIYgkIJCRdSsaFMHWicNZa00gvo8Y5ynRr8/jKQfTuSNbEBf+7SQmK8bZa
+         D2NKnfXBrKDMFRfhUtvE1vQbkP3zmPeYeLuU0i6nyo+fhljYuKqOOn2kwh/V14UuLKZa
+         rWTDAheqons8Xaf4hs2qGF/YUhreaYJQs7cxywG1tR8HQEjrudVkE7UJzxpQRjPCVbnz
+         6DXH0NpYG7Ho+tIjgU+oZ8vNKiSn71AkW/AciVLPN9oKzjF0A0yd12FzRFpFwlbjCFaC
+         d+XlaaUZzftxu4KTnnDYUaKlGSipK3OaLw3ncicbnE/UH2vQBn99EajE+T72S16FFXBJ
+         /RCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WIf0dJI3704E56UOzqLD2NIWJwb6NLuXPSl2wIJw8fs=;
+        fh=YBg3PsORLV3kCCjLya8GtdR9a6u6H8k2EK8qAgFZPxQ=;
+        b=rXGb/cvXBz6jqs0HvBsMwMP2kF8Z9Q2gCT3r/D7a69O/xwQYh0QuAsoa93Orafz/VF
+         ahQ1AyVaWeNSPrzh7Ib8IfeUDjWHqVq0kXj+ulVwcXtQN4m37xEz2bQkUCmeIYNavWsd
+         g2rQUiIkFREODEpDQesBQW0KpUqHJf+LMqnoZtRJ/jDiFKtaTT6jFl+y1g+VSPgZLu+d
+         CJKt8FqdsBOrnZLNK1UL0tp+ioeOoX6gOyIdPwzeFTsD7z0TwekCNZjqUHB/Qgp7WCX/
+         HLZlrj2nFSaXfQGwzn2j5/yxuyvCR/FPNpONg5E21y9BG2QWnWWzyE+nj4YczmPXJoYj
+         Xm2g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794201787; x=1794806587; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WIf0dJI3704E56UOzqLD2NIWJwb6NLuXPSl2wIJw8fs=;
+        b=beAqg+sYyt9qCgMR0MefwQJHBP6F3SNo43T/wNyMBSEtHybyQhjG5gUFzzxSyuxY9t
+         lOP9HNFhByeoXGWnyFtmQtJGoKbvYv27Fc+IImspICCuxHoOxsqFgtvzTrLVv0a2kRxt
+         gcafF1RMy0rM41sE5/qBa9epTQEYsDyWEk0iM43/fVSDGODhDxrWHItr3W4F1Gt5rXE5
+         w36K0YBsoNnk3P+PgGkS29t5KyBzL1BIZd+eKDGeAflsDuiFMizH/mtF4JHpYVKZnSR0
+         jd31xfSekQQmsH2hD1qXZXAiVeBQ1SVw5ZrDj4yTcoZ80x5UJ5GoUpcX1d95e/8AoaFU
+         TwTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794201787; x=1794806587;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WIf0dJI3704E56UOzqLD2NIWJwb6NLuXPSl2wIJw8fs=;
+        b=rkCW07HIaNQHpJDoRWs1HvMsW0OVRag9sN7JvJGX1cbCnElbUo9BvbhpTPzLGCN7N/
+         hlTqQb3LTxA3XY73Q0NkwMx4hFqMaYRoyVxYw9PPrdq4E2dnKesnrzJ0tGwlne/aamHy
+         X7LcpHiVxRItUFVnfuhgRHa2DgTK7mPONbHMbnxm1JJXe9t2weQVi7EdXHIDPxzbtSOF
+         E6yyKBmjy8iVNCKjj0xkefDr9R/elTgNd/4VdNWsVyn+wcdYI+VTYuxZfmsMivy1jinE
+         bMRGmKEAAVOXEH/CL0Gr0MrFqhTmnAromN5WPkwf6QLN6ege5fATfQVplvlq3qZXCCxL
+         Hn+Q==
+X-Forwarded-Encrypted: i=1; AL+hErEj8Y8EpDCxzdGGHOKL/jy/SJqgl0VPPQHuU0K/9Me3NjfzzvD2EGzRAMJPjgUUkz3qs/AFDpqZuc3B9CI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/S7iTzIm4Gca6FHX5+GCZC/3AmHwns7kWomVPIHIZ5MEQqVRAY
+	Ap5nSymA7tefK7yqUNFbqLiUM2sGqZ9H0nJOOi3E1pmWZli96GoT/aCRWVFdGMQOyszAV3jws7B
+	ax8zdoRzDHyOXKmTCNzLo2Ei0beL+NyY=
+X-Gm-Gg: AYBFou0wvlcCpxR1vtbHD7WHAAEsx+m4WbEEzB6xLFjejv+JGpr5ZuN3My6XFAbCoUx
+	mvSZxkn+JdtSqeTRnH3uT3UjtL/y6J49oCBbf5ToVJ+PiVeBpmAXOeUDUsNVU1r1yhQlF/F7D+E
+	3VKDkoSV1J2t1246j/cZ0nB7PGX4rW5/dBXlygVeghXbG48AICgiAXJ1jqW4+wt/M1fIjqDaXEt
+	vau/clwxc1rumRusDGtXBR+k8Wmx/Ay4Aj6hHI5jHizg97DPznF7rdBlIc22BGz0cVFIpy9yXDl
+	t8RO5yWwZyNydcuZT2vTskah7k5REtQqep56T6YoJjDzkTKoV1kE7U9vJCr/gL19eFsgxWnQPY2
+	gQ61qGcKRBeb4bSoUwJNyUlMjikDziMPPwi82I5vJh4XdQpc3+reAs2KotlIxS9iXZP0N
+X-Received: by 2002:a17:906:99c4:b0:c40:80eb:c541 with SMTP id
+ a640c23a62f3a-c4d6d162393mr200408166b.2.1794201786662; Sun, 08 Nov 2026
+ 21:23:06 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,66 +104,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IQEQrMCmzsZrWPFqYTIKAA--.11020S2
-Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoW7trW7tw1kuFykKFyxWFyDWrg_yoW8trW8pF
-	ykKFyxtan5Z3W5Kr4xKFWxXryUCFy7Wayjkryxt3saqrn5tw1Ivr9xt34UtF13W34xZa45
-	Zrs5KrZ8ur1avFUanT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUHFb7Iv0xC_Ar1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
-	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
-	126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
-	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
-	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
-	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtw
-	CY02Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC2
-	0s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26ryj6F1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
-	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF
-	0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvj4RECJPDUUUU
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
+References: <20261027-drm-misc-next-manta-auxbus-v1-0-3a45c3cf531d@a-marquet.fr>
+ <20261027-drm-misc-next-manta-auxbus-v1-2-3a45c3cf531d@a-marquet.fr>
+In-Reply-To: <20261027-drm-misc-next-manta-auxbus-v1-2-3a45c3cf531d@a-marquet.fr>
+From: Inki Dae <daeinki@gmail.com>
+Date: Mon, 9 Nov 2026 14:22:29 +0900
+X-Gm-Features: AclHuK81atJWOGvLDgXq9hG63fw54it5ISsaMjIoBGuiYyjTASlvmDvAtFTGEpY
+Message-ID: <CAAQKjZNBb4CnhBn-TSD=8zbrOtWbu7fdpJDjOOvfAZQmAhNcYw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/exynos: exynos_dp: change poweron/off to encoder enable/disable
+To: tb@a-marquet.fr
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+	Kyungmin Park <kyungmin.park@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Douglas Anderson <dianders@chromium.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+	Lukas Timmermann <linux@timmermann.space>, Henrik Grimler <henrik@grimler.se>, 
+	Hendrik Noack <hendrik-noack@gmx.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Point coding-assistants.rst to the Chinese translations of
-generated-content.rst and threat-model.rst.
+Hi,
 
-Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
-Reviewed-by: Weijie Yuan <wy@wyuan.org>
----
-v1->v2: add the trailers and spell out "AI 助手" in the bug-reporting step
+2026=EB=85=84 10=EC=9B=94 27=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 9:09, =
+Alexandre Marquet via B4 Relay
+<devnull+tb.a-marquet.fr@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> From: Alexandre Marquet <tb@a-marquet.fr>
+>
+> Current functions exynos_dp_poweron()/exynos_dp_poweroff(), that
+> supposedly powers on/off the device, actually only enable the encoder
+> clock. This cause issues where poweron() calls fail silently in
+> analogix_dp_probe(), leading in some cases to a state were the encoder
+> is never enabled but the rest of the driver assumes that it is.
 
- .../translations/zh_CN/process/coding-assistants.rst      | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Moving the FIMD DP output clock control to the encoder callbacks makes
+sense. Analogix runtime resume can occur for AUX access before
+encoder->crtc is assigned, so its power_on callback is not a reliable
+place to enable the display pipeline clock. The DRM atomic helpers
+call encoder enable before enabling the bridge, and encoder disable
+after disabling the bridge. That ordering keeps the clock on while the
+display link needs it.
+The change looks good to me.
 
-diff --git a/Documentation/translations/zh_CN/process/coding-assistants.rst b/Documentation/translations/zh_CN/process/coding-assistants.rst
-index 2a432d1dc401..afa89e4140ce 100644
---- a/Documentation/translations/zh_CN/process/coding-assistants.rst
-+++ b/Documentation/translations/zh_CN/process/coding-assistants.rst
-@@ -18,7 +18,7 @@ AI 编程助手
- 
- 有关 AI 编程助手生成内容的准则，参见：
- 
--* Documentation/process/generated-content.rst
-+* Documentation/translations/zh_CN/process/generated-content.rst
- 
- 许可和法律要求
- ==============
-@@ -66,9 +66,9 @@ AI 代理 **不得** 添加 Signed-off-by 标签。只有人类才能依法作
- 8. 说明哪些工作未能完成。如果修复无法构建或测试，或者无法编写复现程序，
-    应明确说明：维护者目前在分析未经验证的报告和未经测试的修复上浪费了
-    太多时间。
--9. 阅读 Documentation/process/threat-model.rst，判断缺陷属于漏洞
--   还是普通缺陷，并将结论交由报告者复核（助手绝不能自行发送任何
--   内容）。普通缺陷按以下文档所述方式投稿：
-+9. 阅读 Documentation/translations/zh_CN/process/threat-model.rst，
-+   判断缺陷属于漏洞还是普通缺陷，并将结论交由报告者复核（AI 助手绝不能
-+   自行发送任何内容）。普通缺陷按以下文档所述方式投稿：
-    Documentation/translations/zh_CN/process/submitting-patches.rst；
-    漏洞按以下文档所述方式报告：
-    Documentation/translations/zh_CN/process/security-bugs.rst。
--- 
-2.51.0
+Thanks,
+Inki Dae
 
+>
+> Signed-off-by: Alexandre Marquet <tb@a-marquet.fr>
+> ---
+>  drivers/gpu/drm/exynos/exynos_dp.c | 40 +++++++++++++-------------------=
+------
+>  1 file changed, 13 insertions(+), 27 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/=
+exynos_dp.c
+> index 82c238829921..16b00aacd55b 100644
+> --- a/drivers/gpu/drm/exynos/exynos_dp.c
+> +++ b/drivers/gpu/drm/exynos/exynos_dp.c
+> @@ -43,39 +43,27 @@ struct exynos_dp_device {
+>         struct analogix_dp_plat_data plat_data;
+>  };
+>
+> -static int exynos_dp_crtc_clock_enable(struct analogix_dp_plat_data *pla=
+t_data,
+> -                               bool enable)
+> -{
+> -       struct exynos_dp_device *dp =3D to_dp(plat_data);
+> -       struct drm_encoder *encoder =3D &dp->encoder;
+> -
+> -       if (!encoder->crtc)
+> -               return -EPERM;
+> -
+> -       exynos_drm_pipe_clk_enable(to_exynos_crtc(encoder->crtc), enable)=
+;
+> -
+> -       return 0;
+> -}
+> -
+> -static int exynos_dp_poweron(struct analogix_dp_plat_data *plat_data)
+> +static void exynos_dp_mode_set(struct drm_encoder *encoder,
+> +                              struct drm_display_mode *mode,
+> +                              struct drm_display_mode *adjusted_mode)
+>  {
+> -       return exynos_dp_crtc_clock_enable(plat_data, true);
+>  }
+>
+> -static int exynos_dp_poweroff(struct analogix_dp_plat_data *plat_data)
+> +static void exynos_dp_crtc_clock_enable(struct drm_encoder *encoder,
+> +                                       bool enable)
+>  {
+> -       return exynos_dp_crtc_clock_enable(plat_data, false);
+> +       if (encoder->crtc)
+> +               exynos_drm_pipe_clk_enable(to_exynos_crtc(encoder->crtc),=
+ enable);
+>  }
+>
+> -static void exynos_dp_mode_set(struct drm_encoder *encoder,
+> -                              struct drm_display_mode *mode,
+> -                              struct drm_display_mode *adjusted_mode)
+> +static void exynos_dp_enable(struct drm_encoder *encoder)
+>  {
+> +       exynos_dp_crtc_clock_enable(encoder, true);
+>  }
+>
+> -static void exynos_dp_nop(struct drm_encoder *encoder)
+> +static void exynos_dp_disable(struct drm_encoder *encoder)
+>  {
+> -       /* do nothing */
+> +       exynos_dp_crtc_clock_enable(encoder, false);
+>  }
+>
+>  static const struct drm_encoder_funcs exynos_dp_encoder_funcs =3D {
+> @@ -84,8 +72,8 @@ static const struct drm_encoder_funcs exynos_dp_encoder=
+_funcs =3D {
+>
+>  static const struct drm_encoder_helper_funcs exynos_dp_encoder_helper_fu=
+ncs =3D {
+>         .mode_set =3D exynos_dp_mode_set,
+> -       .enable =3D exynos_dp_nop,
+> -       .disable =3D exynos_dp_nop,
+> +       .enable =3D exynos_dp_enable,
+> +       .disable =3D exynos_dp_disable,
+>  };
+>
+>  static int exynos_dp_bind(struct device *dev, struct device *master, voi=
+d *data)
+> @@ -171,8 +159,6 @@ static int exynos_dp_probe(struct platform_device *pd=
+ev)
+>
+>         /* The remote port can be either a panel or a bridge */
+>         dp->plat_data.dev_type =3D EXYNOS_DP;
+> -       dp->plat_data.power_on =3D exynos_dp_poweron;
+> -       dp->plat_data.power_off =3D exynos_dp_poweroff;
+>         dp->plat_data.ops =3D &exynos_dp_ops;
+>
+>         dp->adp =3D analogix_dp_probe(dev, &dp->plat_data);
+>
+> --
+> 2.43.0
+>
+>
+>
