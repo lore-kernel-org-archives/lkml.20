@@ -1,68 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794267908;
-	b=QgkU+13TkAznI5ZJ/ElJKitOkRhSP1aFb8uLm7IXzQGP+PiW1nJCJvzc5VHp+CKC/4xQ
-	 eYMsA05t/h3iLEmc65SF2zNfvJ5K5ofyesW1ZfL2zvtfpkEbnExYox3S0u+eVhPZHEvGv
-	 anS7HsA8R82PNqaBkLtXuLsi1cL3MdUiRzTjL/vps8MvoUtcrx2alrEDnX3/iNw9I/nZ9
-	 PZHdUp6oIQPPz16DLzdreH9UATn7OKuq/bTsLGGKIfprr3vIrN3Ub7ouL2RmPcYQypqtt
-	 UG6cKteg7GKk5SiM4LQTCi+PrTZnN/CNz/T0VTpj3x6qAfcKq9mhICHv+v7QbBBH2Pg==
+	t=1794267944;
+	b=aQWT/aqWEswD1MbqVd/SSMUHnOSg/qknTT/WyrZwV6fWL6VDLiLXZdKQMXQw405fvqnk
+	 WyyFIZEew7s5pBHsfjgH6KnnNkW79vPneonzr7PQwiBPg5gFUIyPBNZgBrMROL22qQ38R
+	 S0eSybz8ryVcvt0bUVgyWeZsx0Dzl0d9qgi3SXQ9UsKZnXwU4OUCO6JnJ3DbNBxI5g6se
+	 ZH/lPxsKm50olx/YccTia75UarE94wmxI/lEhNN4HqldX9JWvHVgX3LiPE4sQoO0J/1ex
+	 5OAeZwtCCC87F2e9RXFv5ZyfRHYxv5l6Qn3hQn8WjHIzubfsF7/kHDHgmIM3K4O+txQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794267908;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=ARFzZMYbi8INs9UqTEW+/SstEKOn1k1E9h0yDC2zdqg=;
-	b=OILCceh8PgcTaD+HD2rX0x9ykarhLPGaJqHWYD9CshIeWE6VBKe2g45RPLXpW4qHVcN5
-	 cIwbPeSQxnkLk4We/pb17X0JzP02mflhxoVnoIvUq38x+73ZB+4oIlewwdjNqm4juilv9
-	 3+LTGinEz6LBh4GzECAXcgnN1dtz7Pgx75JjRcrakCaNKqafgETEEsDUBfT6LU1YmMUOh
-	 YPuQ1/bY9pB4oWmQ++OXuNiPDkI6hTG1361fsnhk9PM700m/r1CV4P+RmcuaoXPHXSuB4
-	 seg1D9lWlNQ0YV+k7pd1xYNxtIy1usPFRQB/SxFPM5g7g2ublgBzKRYUT5y8WwwEPcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794267944;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=X9fMC0zqN3ETxlJdsyr5ayEq0uPBqTA5dIHIwwyBzMg=;
+	b=b9BC7auUDISmZ/Qq6Qb1UKS6cU6VJhUfTjTIB4rgq0s3ZcduLEAxsTvBu9cAP8n/xS39
+	 r9Xlq6HXzjRQNs7WTkZNkgHkoy70ZDBu2E/nR7ENdphu4kHJv0CwD5I2SJ9BTGlrfkOZP
+	 5g2palj9epGoqunf1REw4AfgbN0rOoNi70x176Y6xIUkYXGbDrIZZ4k7ARCWWaRHx7Bo7
+	 VgcqO1CNCotWj8Uk7JyomckK9IM5oDNuwthXN6vyQ7Yd2fKKqjxH3K80DwqhbkWJREmkv
+	 /QeHG+MReWsVIoX953WH+UtIvhhT2ALtt35M/XqN289ylgvwl23ORHj3eI4WHOzwXgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HUfB4O0A;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=telaak.dev;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36375606A31C;
-	Mon,  9 Nov 2026 23:45:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36375606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HUfB4O0A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794267901; x=1825803901;
-  h=message-id:date:mime-version:from:subject:to:cc:
-   references:in-reply-to:content-transfer-encoding;
-  bh=P7pSRE/Bdy3ii9bQ2nejb/HYjJ8HUx8CzOOf5E5L+p0=;
-  b=HUfB4O0AROHYJqXn5XPm+aOS6bluStG6zzy4eurRjv/z8i3omz/z2Njz
-   frucyEF9tO0xHEpffmMNCvHGcne/L23FKtmUImaxYYH3oas3VV6Vgn1z5
-   VWWksnbXcsiRbHCiUtKzVc7VtdLu39hBwJV5l4nTgibyBXdnmvigE0HMm
-   Cjjptui0p/B6gWH/J5alB8vkhxGPu92l0/JLmdmildXdgxPHhfnf52B1X
-   E4YqjjrF/8TlO3V2rDns9PW7a83j6JCwoM7ku0NVN6vPD7i53vgxlKFt+
-   JJYwKOXyWRa51SkHbzfgTHWy9kkYOuf+kiZnUIXZs1nR4aQ7B2rwZM89T
-   w==;
-X-CSE-ConnectionGUID: 3FVg3yfDRB+t9OUvlqCIZw==
-X-CSE-MsgGUID: EkyDXQjGSiW9tDSn6spTRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2890291"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2890291"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:45:00 -0800
-X-CSE-ConnectionGUID: A+8GozaLQV+NoWRR/jVRAg==
-X-CSE-MsgGUID: oD9iay6cQ4yk/Go6KrnHUA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7986194"
-Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:44:59 -0800
-Message-ID: <6afef7f3-4b34-4598-8dab-98611aa0a6c7@intel.com>
-Date: Mon, 9 Nov 2026 17:44:57 -0600
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2655D606A338
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:45:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2655D606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8b4c8b51b58so1009748b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:45:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794267943; x=1794872743;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=X9fMC0zqN3ETxlJdsyr5ayEq0uPBqTA5dIHIwwyBzMg=;
+        b=DY7d4NhfVQLM68IoSVYb33OUICHQX12jOd3QK6iXKsyRSzeRs1DwLHc8D9NnDCrdAk
+         gNYUz5I/skhWGwYNE+fTZ4BEkePdG/KGH0veuxjUwTbT6CAyTeg1VOQBnwhbjZXmwXdZ
+         M2pjP7CVyGjaR9ocKn/K0jIvUpD4tavmD+6l9+7LNVrh3h7PELtyCLKJirXAdyMarSLi
+         YuvQD6dEOYRVasas6xqFvzlsO6urU/YPKc7Uo0wcYC9JcGTEZmeTgA6R1LjTBrE5aQSW
+         gThtP3XRuvmmBwpibKQYBiJYSMCvY/IdWyrHKipoum02NTtU03u0kMvyiA/561+wDVeA
+         WNug==
+X-Forwarded-Encrypted: i=1; AL+hErHm+dwnGN65zcOO9hvZcg8UEN8JvCLf4yWUJFNif/RamaqXpMpq1lmIkHbaEE16HdW9/p6EyJDjBs850NI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3VR7DtgomwazjdHGtvstfEXZetzebtVTHm5rmr5hf98nZ9G8z
+	nl34OxbeeJkedxy+b2K6+uYmhd1sCs4A8HpeTXgaDuEqcLp54IQ3BwIg8qFh1i7h
+X-Gm-Gg: AYBFou3bpdaiGTNB7i2YON4hxDYHq2/89SKzZ6XgZochzCd03x+cD0ssF3Fr7GjJWN+
+	C4mq2BYI0x32YPQp/LfMZruaTnbIysgGej9JaydYY14WjmZ0/I59AZsxoCfTpxciC/ifyz3R9JL
+	ZO9fuE3NKBxe6bm4kjw40fPm48XHQ5JMBo9Mw8DFPFtYoWPVyXLQzOwsZqUT5phC7dbmi9+s9L2
+	4M3x03Q8J0BiS5L4RePfniKofwKnodyv2vP+TtFFpq+QX1H3w4PWoRUxoZ6V9n0Xdl8NqMWOZwF
+	hlxlymosAOqymCdtW7J3GFbGTCVemZVAJpAUXvVJ+zcxpg0pd7D5s+jgG0axkgiVk7mYem9IaYb
+	VaYUK6iRwyms3C1YSRxxa5yl8h5YDao24loac620uQUhvuNxQH1pIy9zcPo2Hx32DyV0PF3POsf
+	dP7PysH+CIz65aQOyWOrktftcjNS1fQAkQFQNEkM9EghSZVpR1DsKH2eGfhwcDLUCCR+iRYmsSP
+	a1UVqNnrK9W7lUa4oIfwFXUTi6QEwtkrER6mHphk0sumpDTH0X3/yuBErw5QYHOU7Cc7DL4n0xr
+	+e95FMAugS0nJhrrLf81sKg3AFVQJOd3zw4PBblLIk5aiqCE2UcJJIxLdNcGGd/7voCPzQm38P8
+	y89UK+PRh2uE/YIeMKpx7khkXD1k0exDp/Jy38QHXqLY=
+X-Received: by 2002:a05:6a00:3c84:b0:8ac:2c22:4b79 with SMTP id d2e1a72fcca58-8ba88b946e1mr1191845b3a.18.1794267943318;
+        Mon, 09 Nov 2026 15:45:43 -0800 (PST)
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com. [74.125.82.175])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaad41578sm206170b3a.32.2026.11.09.15.45.42
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 15:45:42 -0800 (PST)
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so2888204eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:45:42 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErF1Fsm7J574PqDljNhbCCgQ/oA9+3OKKP6Tgiw/+V0vJNXd8ch/lXsgDbmSjA3tNsJggk6k/wFVAaec3qo=@vger.kernel.org
+X-Received: by 2002:a05:7301:6790:b0:36a:1904:60a3 with SMTP id
+ 5a478bee46e88-3751ef79800mr1511776eec.15.1794267942134; Mon, 09 Nov 2026
+ 15:45:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,232 +81,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: "Chen, Zide" <zide.chen@intel.com>
-Subject: Re: [PATCH v3 11/18] KVM: x86/pmu: Emulate
- IA32_PERF_GLOBAL_STATUS_SET MSR
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
- Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20261106013927.166209-1-zide.chen@intel.com>
- <20261106013927.166209-12-zide.chen@intel.com> <au44SIwBF52nsIkk@google.com>
-Content-Language: en-US
-In-Reply-To: <au44SIwBF52nsIkk@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261108-mxl-gsw1xx-reset-v2-2-46c1da093893@telaak.dev> <179426744353.994134.16211561618771955131@kernel.org>
+In-Reply-To: <179426744353.994134.16211561618771955131@kernel.org>
+From: Joseph Telaak <joseph@telaak.dev>
+Date: Mon, 9 Nov 2026 18:45:30 -0500
+X-Gmail-Original-Message-ID: <CAPY4CJ5oMoZoJ9ivcOBe97MmT5t0wa4aj1dc8BS_YXOsbPO0bA@mail.gmail.com>
+X-Gm-Features: AclHuK-cQP4T-VAWBA1r5t7qJjfPj8sdhzoAjpgY1zmdvVatkQxJQLIbryTxlWU
+Message-ID: <CAPY4CJ5oMoZoJ9ivcOBe97MmT5t0wa4aj1dc8BS_YXOsbPO0bA@mail.gmail.com>
+Subject: Re: [PATCH net-next v2 2/2] net: dsa: mxl-gsw1xx: reset the switch
+ through reset-gpios
+To: netdev-bot+sashiko@kernel.org
+Cc: hauke@hauke-m.de, andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net, 
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, daniel@makrotopia.org, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+> If CONFIG_RESET_GPIO is disabled, does this lookup silently return NULL even
+> when the switch node has reset-gpios?
 
+Yes, as for every driver that gets its reset-gpios through the
+reset-gpio fallback. A platform that uses reset-gpios enables
+RESET_GPIO.
 
-On 11/6/2026 2:35 PM, Yosry Ahmed wrote:
-> On Thu, Nov 05, 2026 at 06:39:20PM -0700, Zide Chen wrote:
->> Intel PerfMon v4 introduces IA32_PERF_GLOBAL_STATUS_SET (0x391) to
->> allow software to set individual bits in the global status MSR. Reads
->> of IA32_PERF_GLOBAL_STATUS_SET always return zero.
->>
->> IA32_PERF_GLOBAL_STATUS_SET is not part of the VM state, so it doesn't
->> need to be advertised to userspace, nor saved and restored during live
->> migration.
->>
->> Always intercept IA32_PERF_GLOBAL_STATUS_SET to prevent the guest from
->> modifying status bits that are not virtualized by KVM.
->>
->> Bit 63 (CondChgd) stays unreserved in pmu->global_status_rsvd to
->> architecturally allow the guest to write this bit on STATUS_RESET (0x390)
->> to clear it, and allow userspace to set it on GLOBAL_STATUS (0x38E).
->>
->> However, bit 63 is architecturally reserved in STATUS_SET per the SDM.
->> Reject writes to bit 63, injecting #GP for guest writes. While older
->> processors had silicon errata that accepted writes without #GP (e.g.
->> SKX95), strictly enforce the architectural specification for
->> deterministic behavior across migrations.
->>
->> Platform-specific EDS clarifies that CondChgd indicates a change to
->> IA32_MISC_ENABLE[7], which KVM intercepts and keeps strictly read-only
->> for guests. This guarantees hardware will never assert CondChgd during
->> guest execution.
->>
->> Thus, the architectural asymmetry among these three MSRs is safe; being
->> unable to restore bit 63 to hardware via STATUS_SET is benign because
->> the guest will never legitimately observe CondChgd. Filter it out
->> defensively before writing to hardware in intel_mediated_pmu_load().
->>
->> Originally-by: Yang Weijiang <weijiang.yang@intel.com>
->> Signed-off-by: Zide Chen <zide.chen@intel.com>
->> ---
->> v3:
->> - Split from combined v2 patch into standalone GLOBAL_STATUS_SET patch.
->> - Always intercept IA32_PERF_GLOBAL_STATUS_SET to prevent passthrough of
->>   unvirtualized status bits. (Jim)
->> - Reject writing bit 63 (CondChgd) to IA32_PERF_GLOBAL_STATUS_SET. (Jim)
->> - Filter out bit 63 before writing to hardware in intel_mediated_pmu_load().
->> - Move validation for MSR_CORE_PERF_GLOBAL_STATUS_SET to pmu_intel.c rather
->>   than common pmu.c to avoid exposing the Intel MSR on AMD.
->>
->> v2:
->> - Add the missing vmcs02 updates for these two MSRs.
->> - Change "> 3" to ">= 4" to make the "v4-gated" more obvious and match
->>   the existing code style.
->> ---
->>  arch/x86/kvm/pmu.c           | 13 +++++++++++++
->>  arch/x86/kvm/vmx/pmu_intel.c | 14 ++++++++++++--
->>  2 files changed, 25 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
->> index 27d6a9169821..2cb5bccc7044 100644
->> --- a/arch/x86/kvm/pmu.c
->> +++ b/arch/x86/kvm/pmu.c
->> @@ -855,6 +855,7 @@ int kvm_pmu_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
->>  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_CLR:
->>  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
->>  	case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
->> +	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
->>  		msr_info->data = 0;
->>  		break;
->>  	default:
->> @@ -921,6 +922,18 @@ int kvm_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
->>  		if (!msr_info->host_initiated)
->>  			pmu->global_status &= ~data;
->>  		break;
->> +	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
->> +		/*
->> +		 * Bit 63 (CondChgd) is architecturally reserved in STATUS_SET.
->> +		 * Older CPUs errantly accepted writes without #GP (e.g. SKX95),
->> +		 * but KVM strictly enforces the architectural spec to ensure
->> +		 * consistent behavior across migrations.
->> +		 */
->> +		if (data & (pmu->global_status_rsvd | GLOBAL_STATUS_COND_CHG))
->> +			return 1;
-> 
-> Is it intentional to disallow userspace from writing
-> GLOBAL_STATUS_COND_CHG through MSR_CORE_PERF_GLOBAL_STATUS_SET, even tho
-> it's allowed through MSR_CORE_PERF_GLOBAL_STATUS?
+> Would a gpiod based lookup, or a gpiod fallback, make the documented
+> property work whatever the reset framework config is?
 
-Yes, this is intentionally, since bit 63 is architecturally reserved in
-MSR 0x391.
+v1 did that; Daniel asked for reset-gpio instead, so v2 uses the reset
+controller API.
 
-> 
->> +		if (!msr_info->host_initiated)
->> +			pmu->global_status |= data;
->> +		break;
->>  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
->>  		if (!msr_info->host_initiated)
->>  			pmu->global_status |= data & ~pmu->global_status_rsvd;
->> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
->> index ce668ea08da5..e81a3f8b9b02 100644
->> --- a/arch/x86/kvm/vmx/pmu_intel.c
->> +++ b/arch/x86/kvm/vmx/pmu_intel.c
->> @@ -197,6 +197,8 @@ static bool intel_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
->>  	case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
->>  	case MSR_CORE_PERF_FIXED_CTR_CTRL:
->>  		return kvm_pmu_has_perf_global_ctrl(pmu);
->> +	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
->> +		return pmu->version >= 4;
->>  	case MSR_IA32_PEBS_ENABLE:
->>  		ret = vcpu_get_perf_capabilities(vcpu) & PERF_CAP_PEBS_FORMAT;
->>  		break;
->> @@ -827,8 +829,16 @@ static void intel_mediated_pmu_load(struct kvm_vcpu *vcpu)
->>  	toggle = pmu->global_status ^ global_status;
->>  	if (global_status & toggle)
->>  		wrmsrq(MSR_CORE_PERF_GLOBAL_OVF_CTRL, global_status & toggle);
->> -	if (pmu->global_status & toggle)
->> -		wrmsrq(MSR_CORE_PERF_GLOBAL_STATUS_SET, pmu->global_status & toggle);
->> +
->> +	/*
->> +	 * CondChgd is architecturally reserved in GLOBAL_STATUS_SET. Unless
->> +	 * set by malicious userspace, this bit should never be set in
->> +	 * pmu->global_status; filter it out defensively to protect against
->> +	 * a host #GP.
-> 
-> IIUC, this will ignore bit 63 completely when written by userspace,
-> should KVM be doing this?
+> Does this full chip reset conflict with the slew rate binding?
 
-Yes, if userspace writes GLOBAL_STATUS (0x38E) with bit 63 set, it would
-be silently dropped here before writing to hardware.
+It does: a board that adds reset-gpios gets the power-on defaults for
+the slew rates it does not set. v3 will say so in the binding.
 
-Because KVM always intercepts IA32_MISC_ENABLE, bit 63 is not supposed
-to be set for guest GLOBAL_STATUS.
+> Does each deferred probe then repeat the full 250 ms + 1 s blocking pulse?
 
-The case you mention should not happen in reality, but theoretically it
-exists and this sounds not clean enough.
+Yes. The switch is not registered at that point, so the cost is the
+delay, and only when the conduit defers.
 
-I'm thinking of doing it differently: similar to the CTR_Frz bit, KVM
-can keep bit 63 CondChgd reserved, and provide a backdoor to allow
-writing this bit to 0x390:
-
-diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-index 393068093757..1429da7148bd 100644
---- a/arch/x86/kvm/pmu.c
-+++ b/arch/x86/kvm/pmu.c
-@@ -925,9 +925,11 @@ int kvm_pmu_set_msr(struct kvm_vcpu *vcpu, struct
-msr_data *msr_info)
-        case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
--               if (data & pmu->global_status_rsvd)
-+               if (data & (pmu->global_status_rsvd &
-~GLOBAL_STATUS_COND_CHG))
-                        return 1;
-                fallthrough;
-        case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_CLR:
-@@ -935,13 +937,7 @@ int kvm_pmu_set_msr(struct kvm_vcpu *vcpu, struct
-msr_data *msr_info)
-                        pmu->global_status &= ~data;
-                break;
-        case MSR_CORE_PERF_GLOBAL_STATUS_SET:
--               if (data & (pmu->global_status_rsvd |
-GLOBAL_STATUS_COND_CHG))
-+               if (data & pmu->global_status_rsvd)
-                        return 1;
-                if (!msr_info->host_initiated)
-                        pmu->global_status |= data;
-diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-index 117ff54d4aea..0f426634373e 100644
---- a/arch/x86/kvm/vmx/pmu_intel.c
-+++ b/arch/x86/kvm/vmx/pmu_intel.c
-@@ -652,7 +652,7 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
-        pmu->global_ctrl_rsvd = counter_rsvd;
-
-        pmu->global_status_rsvd = pmu->global_ctrl_rsvd
--                       & ~(GLOBAL_STATUS_BUFFER_OVF |
-GLOBAL_STATUS_COND_CHG);
-+                       & ~GLOBAL_STATUS_BUFFER_OVF;
-        if (vmx_pt_mode_is_host_guest())
-                pmu->global_status_rsvd &= ~GLOBAL_STATUS_TRACE_TOPAPMI;
-
-@@ -892,13 +892,7 @@ static void intel_mediated_pmu_load(struct kvm_vcpu
-*vcpu)
-        if (global_status & toggle)
-                wrmsrq(MSR_CORE_PERF_GLOBAL_OVF_CTRL, global_status &
-toggle);
-
--       /*
--        * CondChgd is architecturally reserved in GLOBAL_STATUS_SET. Unless
--        * set by malicious userspace, this bit should never be set in
--        * pmu->global_status; filter it out defensively to protect against
--        * a host #GP.
--        */
--       set_bits = (pmu->global_status & toggle) & ~GLOBAL_STATUS_COND_CHG;
-+       set_bits = pmu->global_status & toggle;
-        if (set_bits)
-                wrmsrq(MSR_CORE_PERF_GLOBAL_STATUS_SET, set_bits);
-
->> +	 */
->> +	if ((pmu->global_status & toggle) & ~GLOBAL_STATUS_COND_CHG)
-> 
-> Maybe store this in a variable as it's used in wrmsrq() as well?
-
-Yes, thought about it. One more variable vs cleaner code. Will do.
-
-> 
->> +		wrmsrq(MSR_CORE_PERF_GLOBAL_STATUS_SET,
->> +		       (pmu->global_status & toggle) & ~GLOBAL_STATUS_COND_CHG);
->>  
->>  	wrmsrq(MSR_CORE_PERF_FIXED_CTR_CTRL, pmu->fixed_ctr_ctrl_hw);
->>  }
->> -- 
->> 2.56.0
->>
-
+pw-bot: cr
