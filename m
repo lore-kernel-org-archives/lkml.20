@@ -1,87 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187384;
-	b=cOef2yMMwh6KOkbx+nVKRJyreVnmNwxY3i64OUmdQMEqQXAZlUkh3lBqm3D1kLgQef1z
-	 eOykqu3cYBB6Y8qZbJskqpvKrByQ/Sg+KFGMa/Z61jzgU/bmcIy+nXsAOFix4Qs0izBYY
-	 WkYo7bllzbn3Vs2hBI1g4bcqgEHjGiV1Q56j0fMgckCfciCUqwe6l48uxqGjm3NwJWun8
-	 hpXViAe1vv9sbVSGi4ESPyDUtz/NYu5J0vquLArJdYxcErHdrhZRdL+Dt6al3ySsyjXak
-	 cGXwa/qNP+0pSWITpSSSda1BogUrWdjDMXZ05Kv4xYpRY13Qf2mHoRNHoxycnIkkuSQ==
+	t=1794187382;
+	b=d5BVAeQ+X1MffJRJJGKVFYBqpUmkqI3cEafhrwHrtKRs4j2jyOzkVF4l2vXQyC4xNRYf
+	 vtg1JdimJ7lMWZd15b6wKWf1JEDygHoX1LHEPkbw1NH6lWrEaB3fpiaWy1+7ghiDaORiy
+	 vZkD3W87E9fnGuVoTnu/1NmNHoNyocTNJGZbDTEXa7PJF2xRccZMewZYp34ovRskmQQoP
+	 1n4x0opvV5ZZeN/8mEdAsNhKK918NLXHKhVhkxxcSLWUj+piKW6R9ghu+YbpFLoTBQDBi
+	 50D/scJ5hQp4c3P2KKt5m2TRka9lMNrKJjyybdENOMr8c01vG1FLn/4iNX6hycQK1wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187384;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=XX9ESCVfSBNTpp12XWWFYyZTazCHcyRRL6wSEZ9nPSY=;
-	b=DsUphGkk/NQdVTKHA88qeJi1h1Ez1RhUjnSh9o5iwc28rgF5IOkBlx4tTTmRmY0cxmtZ
-	 eU9w++Th0cBeKlZNmZO8+05+8gRoIzvZ0Zu7+k7wq5UXE5rgQ4UQPLhmuZymUnZsalu0v
-	 9x65Pcu8U77rWciTBJZiOFhacGNS4nZPUvxj5uqe4bVUzNxiz/9kiIKcaH7UoOGnbRAin
-	 NR1hrOhj3L3/lAzpOOQAxl6ivtL855ZFOqJ4yDAA7Vlx7OxQ+Ut/16u15RGepOPyvfw9E
-	 gVD/THq5KIYr9RUZfJ9PB9OZoLFe4/Kz8RW0CUbOMtej5hxjei3SyracVAhaVypq+Jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187382;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=L7Ie4rh+uYGxiq2YkIEoTSDrjYWbd6DHs/eMTJlEa9Q=;
+	b=L4qn7c0ejwwNUhu9T1nQd1jFEZfz9S+rbjOb3cy/gw3IHxWYGQr0pwBueM1Hd49tbxok
+	 j60qBwFFKq5Sa4IrMigm/WVyYqDZWxhYvgizxqV+EP9PyXyNCTWOW2Vi3GR2Rm1LCZ1h8
+	 hwv8keE00wtS4jQXRTniabSNOWiku+lj5liM+S/c8AsfL2o1QPYe9Iu87Ps56744sjyb6
+	 v7Q3mm5L0ZQzKA515Nk0cGbASfOmFa8OBspTRVDB//wjUcYer1sIyD+cUSFyRsVb5IuOs
+	 9L0MxTAbk1cHQU+sTSBBaiR86AqQ6FPNj839CAvmcLTWzdIkCnaWjSGlh/DlJyE7BwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SE0qTeFz;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WtqNDTYG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D5960A260F
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:23:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5D5960A260F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E89608361C;
+	Mon,  9 Nov 2026 01:23:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SE0qTeFz
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1b3ada81853so60653c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 17:23:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794187383; x=1794792183; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XX9ESCVfSBNTpp12XWWFYyZTazCHcyRRL6wSEZ9nPSY=;
-        b=SE0qTeFzqaJu1j4culD59qlETogr4FP2tlhi3RdWubs2Rq6jhDqKWZvimjhU1ipQCO
-         BED90XOaroUx7mK3TKABT5wicefxpFqjgzEyVcWH9LZb6WyLHUvFzDiM9ccNkHq/WY1m
-         ZR0TtXFtschd0HQXj+fYBViVncxDK6vmflvAfcQDtx6H72X5G1WjzntJZmgQOJqZLrdD
-         mYAPv2dNk6EnIB7rdZX0yVKJ/3PgNdN62PXUsT2c0aiem4FV23qwQaydrLsTgUjR/9gO
-         sMaRYZXGJVSHxLdIijypmxp9xqYE2S064M8BEvrU75am7Tcfbx20c/FyRHDRaBIcbTIt
-         0clA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794187383; x=1794792183;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XX9ESCVfSBNTpp12XWWFYyZTazCHcyRRL6wSEZ9nPSY=;
-        b=yntbsd+GylHotvpzcA41Mhh5Loqv1IdbwfFcYdhTNy4pHCQ0gJ+q3pGCoCsue24Ybk
-         8jJv7TnbXGt7GuFADUvM+qub7jZp1r3GduCG5DBdVwjRSidjhwzWgjXu3SxKEfFeZ1TO
-         cdfq1v33Z/2O7n0a9rJWsmAOoZiiiDLVvX5WHVRoBqrx6lV/PvGCjP+4HKmnMDs9d5kn
-         A6sRerEQtUKQpdL2QpC0kuEqgqwix+SFMdRzuX4KTmd49vKc8cTPzPgOYwu81XqCIqfg
-         GJ2/OGAcsM9vdhO1miwXfJx7u4U0O6vUbaTfri41aJuctXuIFgGfA29CfqrAJHkj3fZ3
-         hcEA==
-X-Forwarded-Encrypted: i=1; AL+hErFP2L9zLk76bWedk6oysZDHP05yKs+TgiiWFIRvW+cAebbnYi1Ca6FOFtJ9QJcSw1FqVXTBzv6MVD6QrEw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9J+k7o1+dV8Zee5JzHsGUKN4pW0sbTzifv+MvD1N/XZ19FQ7n7
-	q0WVl5t0AHJvd4G6sFl2LEITv6zcWZiE33HwjAebzy+uNy92+vQGdiJHiAepAXl84bM=
-X-Gm-Gg: AYBFou2tPZuTYc2sbmjtGQh+sZegNRs6FjxUF2tCjZ8DZNRDOnQeP24b1eNtsGDn/dj
-	6wfo5f5t7kpH9hgSaRT8utcB8jIJKTqzA2qYBYbeAF4mhXGdMgEO/fZUJeSzTDFPuueHdKQEXd8
-	8X+fFLFn6oEs1YBh1BE6YwS/LiU1QT58SLglksTObL8M6+u2ZXk4t+PYX1wdvsxJbkdJLmWebe9
-	YTLG2hnYWWO3nXglRCnNdNOFBnPafgHSQrXkZndf5wR3HIbeftY/fSQIuIVbNP5g4bavcq/zr+I
-	FFPB0soVDJsXs6a9P07LJcMOavTOL6iPXIywsjhvOH3dxT/MLBqhBOEFAv0DL8Gd9DHh4Ws9EVx
-	U+50wxfzotq4WFuGCHO7R9c059ENsmTEXW9C5/veVM74RuLQn4T00SsVfTe3PI7PElfBqubqL2v
-	EeVx/fVTI0pim/5Y0eNkYhJhCAmdHmdnxnAaVZ2FxW1ff9HJHC/K3dnhPJHzE5GVVNX5tDoV6xk
-	0kus9WreGr51PuJ0baZglPUnd0SzqhYB9pFSeszrEwrkCRzfRPYYlKZktuhtezS9Ok/aDF1UMCB
-	0RfLQGGk2FdU/8pRk7QOi89XTA==
-X-Received: by 2002:a05:701b:2306:b0:1b3:a22c:7f68 with SMTP id a92af1059eb24-1b3a22cb4a4mr3636286c88.29.1794187382778;
-        Sun, 08 Nov 2026 17:23:02 -0800 (PST)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771ea85bsm9428226c88.18.2026.11.08.17.22.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 17:23:02 -0800 (PST)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Date: Sun, 08 Nov 2026 20:22:50 -0500
-Subject: [PATCH v4 1/5] mm/ksm: align smart scan skips with the scan number
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WtqNDTYG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7D811F008A3;
+	Mon,  9 Nov 2026 01:22:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794187381;
+	bh=L7Ie4rh+uYGxiq2YkIEoTSDrjYWbd6DHs/eMTJlEa9Q=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=WtqNDTYGMKb1uwgxb3dvg8Tbu0JhIG5QgTYAcstBRvzVLdAHT6iFj1a14W3RdmqBZ
+	 NyHNPWoTXkn8hirfreV9or1CBrFcQqNgboycfQb7tyDEbyb4s+3YJm7/2FFLW902bu
+	 ia0uF/sDR1+052W50w95+mg6hNMhjtyijlX4Hr6DCEcAf/8ixUA9hUNe1tllof4n48
+	 yFehCNNp39ouaAgwF7/8y7OT22nk5cbHhwVvQhHo8ZLJIuIEAhzit0Y/gR7r4HE3qc
+	 sLSyxSfMjslU7mv3aWX2VCxExr3aytLZ2HjJMHhhq6J6ihRwkHChlEYFeS4nhSwRI1
+	 POlwnWoM1gtrw==
+Subject: Re: [PATCH net-next v3 5/9] bnxt_en: set the netmem TX frag size
+ limit to 32KB
+From: netdev-bot+sashiko@kernel.org
+To: sdf.kernel@gmail.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch,
+ edumazet@kernel.org, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, michael.chan@broadcom.com,
+ pavan.chebbi@broadcom.com, saeedm@nvidia.com, tariqt@nvidia.com,
+ mbloch@nvidia.com, alexanderduyck@fb.com, kernel-team@meta.com,
+ sdf@fomichev.me, dimitri.daskalakis1@gmail.com, almasrymina@google.com,
+ dtatulea@nvidia.com, bobbyeshleman@meta.com, asml.silence@gmail.com,
+ daniel@iogearbox.net, razor@blackwall.org, leitao@debian.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-kselftest@vger.kernel.org, leon@kernel.org
+Date: Mon, 09 Nov 2026 01:22:59 +0000
+Message-ID: <179418737922.994134.6838913010792422653@kernel.org>
+In-Reply-To: <20261105222058.944293-6-sdf@fomichev.me>
+References: <20261105222058.944293-6-sdf@fomichev.me>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,134 +71,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-1-86be8fe77e7a@gmail.com>
-References: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-0-86be8fe77e7a@gmail.com>
-In-Reply-To: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-0-86be8fe77e7a@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
- Qiliang Yuan <odys.yuan@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
 
-Smart scan skips pages that KSM has failed to de-duplicate for a while.
-Once a page is three scans old, its rmap_item counts down its own number
-of scans to skip, 1, 2, 4 and then 8 as it ages, so an old page is looked
-at every ninth scan.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-The unstable tree is rebuilt on every scan, so two identical pages that
-are not in the stable tree yet can only be merged in a scan that looks
-at both. Each countdown runs from when its own page became mergeable, so
-two pages that became mergeable at different times end up on different
-phases and, once both are old, may never be looked at in the same scan
-again. They then stay unmerged for as long as they live. The pairs below
-are counted by making a page mergeable, waiting for 0 to 20 full scans
-before doing the same with an identical page, 20 times for each wait,
-and checking the pair after another 64 full scans, on two boots per
-kernel.
+Low priority / nit picks for your consideration:
 
-Pick the skipped scans by the global scan number instead, with periods
-of 2, 4 and 8 scans. The periods being powers of two, every old page is
-looked at on each scan that is a multiple of 8, whatever its age, so any
-two pages meet at least every eighth scan. The longest period goes from
-nine scans to eight, so ksmd looks at more of the pages that never
-merge. The rest of the table is measured on 64M of such pages, median of
-five runs of 256 scans on each of three boots per kernel, CPU time from
-schedstat:
+- [Low] This patch fixes a real bug in released kernels but has no Fixes:
+  tag, and it does not say that it depends on the earlier patch in this…
 
-                              before     after      after/before
-  pairs merged (of 420)       361        420        116%
-                              334        420        126%
-  pages looked at per scan    1792       2048       114%
-  ksmd CPU time per scan      6.30 ms    6.88 ms    109%
-                              6.40 ms    6.96 ms    109%
-                              6.15 ms    6.88 ms    112%
+Pre-existing issues:
+- [High] bnxt_start_xmit() still writes non-netmem page frag lengths
+  straight into the 16-bit TX BD length field (TX_BD_LEN = 0xffff << 16).
 
-Fixes: 5e924ff54d08 ("mm/ksm: add "smart" page scanning mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-Tested-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Xu Xin <xu.xin@linux.dev>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/ksm.c | 24 ++++++++++--------------
- 1 file changed, 10 insertions(+), 14 deletions(-)
+--
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index d24b129932bf7..3053b438e9c10 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -197,7 +197,6 @@ struct ksm_stable_node {
-  * @head: pointer to stable_node heading this list in the stable tree
-  * @hlist: link into hlist of rmap_items hanging off that stable_node
-  * @age: number of scan iterations since creation (unstable node)
-- * @remaining_skips: how many scans to skip (unstable node)
-  * @linear_page_index: the original page's index before merged by KSM (stable node)
-  */
- struct ksm_rmap_item {
-@@ -214,7 +213,6 @@ struct ksm_rmap_item {
- 		struct {
- 			unsigned int oldchecksum;
- 			rmap_age_t age;
--			rmap_age_t remaining_skips;
- 		};			/* when unstable */
- 		unsigned long linear_page_index;    /* for reverse mapping, when stable */
- 	};
-@@ -2457,16 +2455,14 @@ static struct ksm_rmap_item *get_next_rmap_item(struct ksm_mm_slot *mm_slot,
- }
- 
- /*
-- * Calculate skip age for the ksm page age. The age determines how often
-- * de-duplicating has already been tried unsuccessfully. If the age is
-- * smaller, the scanning of this page is skipped for less scans.
-+ * Calculate how often a page of the given ksm page age is scanned. The age
-+ * determines how often de-duplicating has already been tried
-+ * unsuccessfully. The older the page, the fewer scans look at it.
-  *
-  * @age: rmap_item age of page
-  */
--static unsigned int skip_age(rmap_age_t age)
-+static unsigned int scan_period(rmap_age_t age)
- {
--	if (age <= 3)
--		return 1;
- 	if (age <= 5)
- 		return 2;
- 	if (age <= 8)
-@@ -2516,17 +2512,17 @@ static bool should_skip_rmap_item(struct folio *folio,
- 		return false;
- 
- 	/*
--	 * Are we still allowed to skip? If not, then don't skip it
--	 * and determine how much more often we are allowed to skip next.
-+	 * The unstable tree is rebuilt on every scan, so two identical pages
-+	 * can only be merged if both are looked at in the same scan. Pick the
-+	 * scans by the global scan number rather than per page: the periods
-+	 * are powers of two, so pages of any age meet on every scan that is a
-+	 * multiple of the longest one.
- 	 */
--	if (!rmap_item->remaining_skips) {
--		rmap_item->remaining_skips = skip_age(age);
-+	if (!(ksm_scan.seqnr & (scan_period(age) - 1)))
- 		return false;
--	}
- 
- 	/* Skip this page */
- 	ksm_pages_skipped++;
--	rmap_item->remaining_skips--;
- 	remove_rmap_item_from_tree(rmap_item);
- 	return true;
- }
+bnxt_en: set the netmem TX frag size limit to 32KB
+
+This patch sets dev->netmem_tx_max_frag_size to SZ_32K in bnxt_init_one().
+That caps netmem TX frags at the largest power of 2 that fits in the 16-bit
+TX BD length field. With 64K pages this lowers the PAGE_SIZE default, so
+64KB devmem frags no longer wrap the BD length to 0 with BIG TCP.
+
+> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> index f20b61180ab2d..4bcf84faf18f1 100644
+> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> @@ -17471,6 +17471,7 @@ static int bnxt_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
+>  	if (BNXT_SUPPORTS_QUEUE_API(bp))
+>  		dev->queue_mgmt_ops = &bnxt_queue_mgmt_ops;
+>  	dev->netmem_tx = NETMEM_TX_DMA;
+> +	dev->netmem_tx_max_frag_size = SZ_32K;
+
+[Severity: Low]
+The commit message says:
+
+  With 64K pages it lowers it, 64KB frags would otherwise wrap the BD
+  length to 0 with BIG TCP.
+
+Isn't this a bug that already exists on 64K-page kernels, rather than a
+side effect of the new limit?
+
+Before this series, net_devmem_get_niov_at() returns size = PAGE_SIZE - off,
+and zerocopy_fill_skb_from_devmem() applies no other cap. With BIG TCP, an
+aligned devmem send can produce a 65536-byte frag. bnxt_start_xmit() then
+does:
+
+    flags = len << TX_BD_LEN_SHIFT;
+
+which leaves 0 in the 16-bit length field.
+
+Should this patch carry a Fixes: tag for commit 4922ca773d9d ("eth: bnxt:
+add netmem TX support")?
+
+This change also only works together with "net: devmem: add a per-device
+netmem TX frag size limit". That patch adds dev->netmem_tx_max_frag_size and
+binding->tx_max_frag_size, and it has no Fixes: tag either.
+
+Without the tags and a note about the dependency, stable kernels on 64K-page
+systems (arm64 64K, ppc64) would keep the wrap. Would a separate minimal fix
+for the net tree work better?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the same 16-bit wrap still
+looks reachable for frags that are not netmem. bnxt_start_xmit() writes
+every frag length straight into the TX BD:
+
+    len = skb_frag_size(frag);
+    ...
+    flags = len << TX_BD_LEN_SHIFT;
+    txbd->tx_bd_len_flags_type = cpu_to_le32(flags);
+
+TX_BD_LEN is defined as (0xffff << 16), and the length is not clamped or
+split. Meanwhile the DMA mapping and dma_unmap_len cover the full frag.
+
+The new limit is only applied in zerocopy_fill_skb_from_devmem(), through
+binding->tx_max_frag_size. bnxt enables BIG TCP via
+netif_set_tso_max_size(dev, GSO_MAX_SIZE) in bnxt_init_one(). That means
+ordinary page frags can reach 64K or more.
+
+On 64K-PAGE_SIZE kernels, SKB_FRAG_PAGE_ORDER is 0, so
+skb_page_frag_refill() hands out 64K pages. tcp_sendmsg_locked() can then
+coalesce data into one frag of a full 65536 bytes. Sendfile or splice of a
+full 64K page-cache page gives the same result.
+
+On any page size, MSG_ZEROCOPY on a THP or hugetlb buffer goes through
+zerocopy_fill_skb_from_iter(). That function merges contiguous subpages of
+the same compound head:
+
+    if (head == skb_frag_page(last) &&
+        start == skb_frag_off(last) + skb_frag_size(last)) {
+        skb_frag_size_add(last, size);
+
+so a single frag can be larger than 64K.
+
+In these cases, can the NIC get a BD whose length (len mod 64K, or 0) does
+not match the mapped buffer? That could produce malformed TSO segments or a
+TX timeout.
+
+The RX side already handles this limit. bnxt.h has the comment "The RXBD
+length is 16-bit so we can only support page sizes < 64K". There doesn't
+seem to be an equivalent check on TX, for example in bnxt_features_check()
+or bnxt_start_xmit().
+
+BIG TCP has been enabled in bnxt since commit b6488b161ab2.
 
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105222058.944293-1-sdf%40fomichev.me
