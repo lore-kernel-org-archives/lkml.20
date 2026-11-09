@@ -1,62 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794264205;
-	b=QuZpWFSjdBhEsHPgPZ89Ko7yapVN991GPObr0maXlM5knGUi9aWa3L0qMUxxM/U31enX
-	 Edmo+VbiotthgbTwYoYrNAXGFeNMmMAbeasOMRnexWVoJGIQ42jKIBAC170CInH8wQRhP
-	 aspymcweauQHw3so/BFuiaGfTbOVDg+6T1nKlSCLxQ+YnxFO7h7NiQsVgXrjGxLwRfENo
-	 iS5aE7LRFe91wBEWFSQdBazpc+CA8Sgzy80P1KEWXChOMdv7biI+T/7sAV0tq2C6Rzr7n
-	 MXYeVygTxlavepyeAa8BJGsrvE36KQNPIY6ll0oT9eKYVRkKqU+8DuXS+mYuDt7Re1g==
+	t=1794264268;
+	b=oH04JHj43nfsVZQYRQqkCUWRqdxsKC5jsSHUakHNDWhONoeI1YYpROQDoyFSWKSRiGtR
+	 r/55DfKVpmp8N5gK8oiKITMAaP0kN2QlqLsN2K4CWUDDeukPSSBhjBFoPiio6j38Oc+1A
+	 N4k9sctyGdqGpaxFITqmW98ZEu0IMUMnEixUSq9tB2TTj5+lRpln0b5VLYpQb7UsXrbTA
+	 +F63OjH5Axa+9e9bNJpCnS6nxExpJGNy00rExxwH+WPSQcwa7SI3OMbHjVpsJebOFnLkz
+	 e1d3KxoaqaaohcS8iSGbQfFQJn4R7btDjm84E6Ic2Bam4WKXtY1Ivzpq8pxeuSaObWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794264205;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=f33n0TKV6Gl6OltgqwE+NfftpSuDKX7bv0O11aGFdNY=;
-	b=H2fIV/uRXGzaux4ZM20RriHzpOrSC+rxQqE275HE/s0rreymfrYr8tcsPaHhIzTB+Wcz
-	 m1xULxf2q94ldV+HFFpqmtsYGM4KFnhRVUJ9kR9oer23FVyiHqnBemY5nJHpEiEiiZiX2
-	 K5cpDxmC8oXGAi2mh2zgaLyEBvW15C9roUnwGRULB2QhQfVF6KbL/6cq0MfML3ZURtii6
-	 xtLD3uU8k8pqoK8HDtG0w2HzWisNtfqR10H73EBj/S7EtNnxRj7TizTqRtA83Sr6qAuNW
-	 jblXduzrWDTeVS/3gZGqrE3vw5a5y6TVevMWdshqYv1wCRqsGxIvMeI9CJvw6NTX1og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794264268;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=sW2OTlXXKR8dKl3QHSI6vhpdFVcaiQtobE/De/1t4MQ=;
+	b=c94+Sb+cv9RodmO3KzXMB9iAZQ7W9nLBI/iNifjYxlKxcaKHxX6y6yr0V+YXRajaOtlR
+	 XIOqNYectQjlcaQA0pCE7huF7txdxnAUdhVo0nmflIu4/dwoTYE/rUUsAlqnIrQy6iRjV
+	 XQrg98Tko0jBDrgH2tNkDUIbYd3dcgTrV5UaxykQf6iJS1oto1hI6/b939R14qJ6etDFp
+	 0TcDfrueW15cyBgCYgRUJY00BnnVnpINBWnanhuMxfd0I2TpBV/YEFBrHzRlW46J331W/
+	 QcOgMi1fjn7RDz1wlXN+5tQzQYNXXEvG958Mv385luyHPPImHqchNtVZyvqHinuksDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F9oE84ui;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SbkdXtyk;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF28606A321;
-	Mon,  9 Nov 2026 22:43:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0C7606A31C;
+	Mon,  9 Nov 2026 22:44:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F0C7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F9oE84ui
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B97F1F008A1;
-	Mon,  9 Nov 2026 22:43:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794264204;
-	bh=f33n0TKV6Gl6OltgqwE+NfftpSuDKX7bv0O11aGFdNY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=F9oE84uiJ3ulyffmPfjpC5JbiiRkrhp6GQKYbuFfEF44M/I6h3pm2W3EofGdyLL8n
-	 DQVGyFAzMUadSX9PFO1Xus72lPTMYonUSeAQ9s9BjaW0IkjpITtdhmHQMeFijxUzlr
-	 y/kGgILD5hSTZpBTNaLF9deTDVYZbAbSHlz+f2TiujeA/TWjDORAWIRtf9K3HXHuOn
-	 00mZYA3I7qB86tcBhil/ihsEl4CasbLxhWJnk47l2VaKthIePHdFp2f9URoI42vdkh
-	 hBq/FIJZfIGP4hqjUEvaajrxSvAq8J7CSlvbABTppFBQB8GA81iTqBZl7ufBYRli+R
-	 miStDme8ygOEQ==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 2F211303EFD1;
-	Mon, 09 Nov 2026 22:43:21 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Sheetal <sheetal@nvidia.com>
-Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Sameer Pujar <spujar@nvidia.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- Mohan Kumar <mkumard@nvidia.com>, linux-sound@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261005085227.2133834-1-sheetal@nvidia.com>
-References: <20261005085227.2133834-1-sheetal@nvidia.com>
-Subject: Re: [RFC PATCH v2 0/2] ASoC: tegra: ASRC ratio control updates
-Message-Id: <179425146879.3711751.16122870776630483225.b4-ty@b4>
-Date: Mon, 09 Nov 2026 19:11:08 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SbkdXtyk
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794264268; x=1825800268;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=EAUjAeXNL95mChqC6/84jUL0sSnQ+BJmmJ8PzdF0zvQ=;
+  b=SbkdXtyk2zKAcu9PgBGrmMtlaq7/L3VL6fORRB0OlpVHSlalyUOB1ET1
+   /8//puB40JB7BUM2Kn4fk+hhj6bGPUci5dPgtRgIq2U1WodyOSEN+aJWK
+   yEdhvc2BADjiAqQqm4Ir81Kj7tisRHnqiWjASk8LAI8rMXpYEVL8jZH/h
+   xJpMJyvmEHt5LN084Ciop8tmpoIZF7So+bpw0U44T9iSFYPwJ8scWz0gl
+   qmWCHK2OZ9Rn4k+b4fPOjvRtdcA+2N4Tkv061RoWgXsS8Gkr8gstGo4gj
+   BElgAecGM9Z2dcJMw4fVEUkVBr6Ccvpgde+9ijo77IRFI6mwMBNb0oSnh
+   w==;
+X-CSE-ConnectionGUID: /YhBnHLITLGcopfFxV6FHA==
+X-CSE-MsgGUID: /TrdXwgjSry0nVMhq1OO/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2993819"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2993819"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:44:27 -0800
+X-CSE-ConnectionGUID: FyfHAJkOQXu4b5KDXPQSZg==
+X-CSE-MsgGUID: 1ZcJkbugRKOlBr+mcyMBRw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="7852337"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:44:26 -0800
+Date: Tue, 10 Nov 2026 00:44:22 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Zhu Jun <zhujun2@cmss.chinamobile.com>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	andy@kernel.org, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: temperature: mcp9600: Bound thresholds before
+ scaling
+Message-ID: <avJMxjqjpgDO-web@ashevche-desk.local>
+References: <20261109093518.5418-1-zhujun2@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,58 +80,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1571; i=broonie@kernel.org;
- h=from:subject:message-id; bh=r1Sk9HBUffEJCcd5ARTPXxYQ3SAA+Dbt8K4M96lYBxc=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI++XSuLW7Q4erlqJ7f5Z9+UiVJVPclY0qeddyUVw9j/
- //aFyjUUcrCIMbFICumyBKXxf2yvuT1Gr6DC9tg5rAygQxh4OIUgIk802FkmDDFwt1ycW7h0kun
- 3r/JnaLZKf01JfOK9+boBbIBQdushBj+xykKtjPrqDHOPii9J3bPbq4bMrM+7vyq8YIxZFnZkyM
- rmQA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109093518.5418-1-zhujun2@cmss.chinamobile.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 05 Oct 2026 08:52:25 +0000, Sheetal wrote:
-> ASoC: tegra: ASRC ratio control updates
+On Mon, Nov 09, 2026 at 05:35:17PM +0800, Zhu Jun wrote:
 > 
-> This RFC updates the Tegra ASRC software ratio controls so userspace
-> programs the integer and fractional ratio parts through one paired ALSA
-> mixer control.
+> mcp9600_write_thresh() multiplies the integer part by 1000000 before
+> clamping to the supported temperature range. The multiplication can
+> overflow int, so a request such as 3000 degrees can select the lower
+> threshold instead of the upper threshold.
 > 
-> This is a userspace-visible ALSA mixer control ABI change. Existing
-> userspace that programs the ratio with separate controls must switch from
-> the legacy commands:
-> 
-> [...]
+> Clamp the integer part to the hot-junction range before scaling. Keep
+> the existing final clamp for fractional values and the narrower cold-
+> junction range.
 
-Applied to
+...
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+> +		val = clamp_val(val, MCP9600_MIN_TEMP_HOT_JUNCTION_MICRO / 1000000,
+> +				MCP9600_MAX_TEMP_HOT_JUNCTION_MICRO / 1000000);
 
-Thanks!
+Use MICRO from units.h (but be careful about sign.
 
-[1/2] ASoC: tegra: Update ASRC ratio controls
-      https://git.kernel.org/broonie/sound/c/318362fc175e
-[2/2] ASoC: tegra: Cache ASRC ratios until streams are active
-      https://git.kernel.org/broonie/sound/c/ee15f439e255
+>  		/* Scale value to include decimal part into calculations */
+>  		s_val = (val < 0) ? ((val * 1000000) - val2) :
+>  				    ((val * 1000000) + val2);
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
 
