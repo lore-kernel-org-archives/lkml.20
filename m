@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187289;
-	b=YMLh+ep7ZwcZF55K6WpNTFSlf6hT4SyCbDGwJFE2FE8r5uN21rve4TLibNQUG/rEK25n
-	 7nFMCzB3caZYhgGiQIaL9r3i7ExHbJofncGI0ovlEstNux2LSHgk9cZ0V5tzhtg8bnRwl
-	 vETsGjBe6OF0pG2YCe2fmYzGSrNCS6CeyaKpC0wTjb80qtqWO73rNj2rOtTU0AkdkSqfQ
-	 0X0eyl8a4w28It8P6fUq883ARzyTRk6naCj9QBasG73i30TuKvwEbqdKIfBI6Un34SreB
-	 4csxRSvv7JJLrM5PTfhySeoY6vMX6RdtH/h8czH0mu0da645aHzKMJ3WCGMvXTenMig==
+	t=1794187287;
+	b=nqCsnuyTrYH5rYg+qzq/ynaWg7dn/IodTOZ4LEkYd73r4JtKQGD8Y43KsrUdZ08VA7qu
+	 HAERsnMZ5HUDmG0fgrZErL4TsvdOUeGYyR6gdSDpNlpY3DMzTAGqu/njCWH1ggSrTxPGR
+	 ZpmuQoA+PJ9dW8fI7s9dLTTPheMDK1Q/U/I5zRLUXoUMEizrVy3zzSCgmdKxE/Mjw8MLv
+	 yRHZfVyYhtimYYfOm3seziddQ38Kbh8jH4RxWdayX7k4DCvCQOI9lvmna5EAkYVx+UEcN
+	 s5kXyxtqjLNBZqY9txb0T5OLQVKTCkDngUPwVDSh8vAtboRmQtQUEWHp+4yz8PXBC8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187289;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187287;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=SR/76Q1Z57YyfL7/pX6GVKGYRXjznlqWiAUlX6lozs4=;
-	b=R7pqFEFTKzxkY3XJsR+t8lbTgsW3u9/hiYylA5rHPNeIj6NT4z2kgBSpaB8cftbWv+b+
-	 sxkcKN1VnQUU7G8TqOwyaiiEVvWeFhNvoJCu+JMYRTjHnF+fZt/1AZe8Tf6EZukrqxrJw
-	 tswuhToIv2pKA3JfHgi/X78mWlsFXySOvTknJFMyq2r0aZqAp+OQhUZnWA/LfFAJz+HCl
-	 47oJZOD6I6BPeTBnkpoUCulvUiraB9LD+6OH82yrqEbBz8Da2YszA+uABKTAYgzCgViWi
-	 1E+KuB9g1OUvzesCYdJb+625pw//BFsC1t3Heivb5MIzaQTXDRVJfbHIBelIsXL3V5Q==
+	bh=Ab0Mw4iSTNA2k5eZaP75VVaX8Iz1KNLj1JlNYy/km+U=;
+	b=bSc24wjlVpQDZWEjv0HF63OUa9MonhwwTCHHj7U2QJlbd3dUbcAsSQqiQ/mPW1RR7jrh
+	 RlKip2lwxPnj+pLiSC3KgZvptzB1U0k3n87ls539mOGK1Tv+s/4kn0NVfIYOm6Kjla3P/
+	 TfvchSa5U5SGxSU7mz2uNiG8hy9F39ftxTWs3j+WTpunP6xsJ9RCInpauEXlSYx1t1vUO
+	 sBzPQYaLBVJLLy1GrKMN2bGvrvgzsF735ORxvU8hauDXtGo2UZx2k7yga6J32CunP4Z9n
+	 znLoBEVBR0K17Y1lnjThjewnLRJXXMFjbXTkW4zCRxKLHLO3f9E+RCcvTjTIjInyVOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=none smtp.mailfrom=desiato.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=qecoNL0Y;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=bS27lcWH;
 	arc=none smtp.remote-ip=90.155.92.199
 Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0C9606EE90;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462B0606D810;
 	Mon,  9 Nov 2026 01:21:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D0C9606EE90
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 462B0606D810
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=qecoNL0Y
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=bS27lcWH
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
 	To:From:Reply-To:Content-ID:Content-Description;
-	bh=SR/76Q1Z57YyfL7/pX6GVKGYRXjznlqWiAUlX6lozs4=; b=qecoNL0YT9N3J6QDcfhdb3CYLK
-	M3y0Heu+j6haI2EszDlWoo82TCSq4n2iLg70sWTKEu7zisutAr+uhXQ1Az335/sr9Q+4x8ULz83nm
-	pVkh2Hh+OvFaTkEtm/UsR9FNc9CzVBO+2C3ZNji0cWFORzcGeiS4UoddbMjWe4020idoEx6sJ7sFR
-	4RC16nYhEEMl/azSuDUYfzB5AoRTHQaNtsMxSqUHlRMbv/wPxgBONjX7AGoGxMmsQ20fG1dluSdS5
-	0UVORl+ivp+eQdNIRTSuN3pNo+H/VT50AzCTRnKGFmt7YsUOS7+TlNAQOyMDW0GLXlmgay3ZhOX3i
-	o38HU/fg==;
+	bh=Ab0Mw4iSTNA2k5eZaP75VVaX8Iz1KNLj1JlNYy/km+U=; b=bS27lcWHZuP1+9EjRMhxO9quQF
+	UK2/7axrd3yAA+3DgK3Sl98QEgWuDVQT4UUtLo6XJNtbmsBI1eS9RqodBSLBRXq+dU2bAXF1ObSAS
+	iv58LgoHw6D+nhYss932nAeAMr4MATlz6T2uEYvlIUrHtR8yWl0e4UWuuHFldHn2yJLdKnlDxhjgC
+	muOwvWZ1+L+oHb1hxSia9EkthCmqEO34GimkJh+RJDnXM/VuOaWhkuj9cjiIIE1mN6x/HFY+0DuiB
+	EyN81hq4I2I6mnq+6JSxG031oQtRNmBZpwHEGMrxYIjJTbjiuiPsh8VXaGoh/5p/NOurPtl5Td0WM
+	8MupR2SQ==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xQE4Q-00000006AY6-27Ls;
-	Mon, 09 Nov 2026 01:21:15 +0000
+	id 1xQE4S-00000006AYK-02Bj;
+	Mon, 09 Nov 2026 01:21:16 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xQE4O-0000000EKU7-1pEh;
-	Mon, 09 Nov 2026 01:21:12 +0000
+	id 1xQE4P-0000000EKVW-1fdS;
+	Mon, 09 Nov 2026 01:21:13 +0000
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -78,9 +78,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Dongli Zhang <dongli.zhang@oracle.com>,
 	joe.jin@oracle.com,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v12 01/24] KVM: x86: Improve synchronization in kvm_synchronize_tsc()
-Date: Sun,  8 Nov 2026 17:20:47 -0800
-Message-ID: <20261109012112.3415328-2-dwmw2@infradead.org>
+Subject: [PATCH v12 22/24] KVM: x86/xen: Drop open-coded fallback clock read in kvm_xen_start_timer()
+Date: Sun,  8 Nov 2026 17:21:08 -0800
+Message-ID: <20261109012112.3415328-23-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261109012112.3415328-1-dwmw2@infradead.org>
 References: <20261109012112.3415328-1-dwmw2@infradead.org>
@@ -100,116 +100,122 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-When synchronizing to an existing TSC (either by explicitly writing
-zero, or the legacy hack where the TSC is written within one second's
-worth of the previously written TSC), the last_tsc_write and
-last_tsc_nsec values were being misrecorded by __kvm_synchronize_tsc().
-The *unsynchronized* value of the TSC (perhaps even zero) was being
-recorded, along with the current time at which kvm_synchronize_tsc()
-was called. This could cause *subsequent* writes to fail to synchronize
-correctly.
+When no coherent (CLOCK_MONOTONIC, TSC) pair was available,
+kvm_xen_start_timer() computed one from separate ktime_get() and
+rdtsc() calls rather than using get_kvmclock_ns(), with a comment
+explaining that the latter had a systemic error from scaling host TSC
+directly to nanoseconds instead of scaling to the guest TSC first.
 
-Fix that by extrapolating the generation's TSC value to the current
-time (data = cur_tsc_write + elapsed cycles) before passing it to
-__kvm_synchronize_tsc(), so the recorded {data, ns} pair always lies
-on the generation's line and the one-second matching window slides
-forward with each synchronized write. When the TSC is stable, reuse
-the generation's offset exactly; when it is unstable, compute a new
-offset for the extrapolated value.
+Commit abdef42276d8 ("KVM: x86: Fix KVM clock precision in
+get_kvmclock() with TSC scaling") removed that systemic error: in
+master clock mode, get_kvmclock_ns() now scales the host TSC delta to
+the guest TSC and converts it with the guest's own mul/shift,
+computing precisely what the guest would.
 
-Furthermore, there were *three* different TSC reads used for calculating
-the "current" time, all slightly different from each other. Fix that by
-using kvm_get_time_and_clockread() where possible and using the same
-host_tsc value in all cases.
+The fallback is also nearly unreachable. It sits behind the
+use_master_clock check, so on 32-bit (where the master clock is never
+active) it is dead code, and on 64-bit kvm_get_monotonic_and_clockread()
+can only fail there if the host clocksource changed after the last
+master clock update, in the window before the resulting masterclock
+update is processed. In exactly that window get_kvmclock_ns() takes
+its raw-clock fallback path rather than the guest TSC computation,
+which is continuous with the last valid snapshot and tolerable for
+the one timer that can be started before the pending masterclock
+update lands.
 
-Extrapolating the matching window from the generation's origin at the
-nominal guest frequency means that, for a guest whose requested
-frequency is within tsc_tolerance_ppm of the host's (so hardware
-scaling is not engaged), the window drifts from the guest's actual
-TSC line by up to 250ppm — crossing the one-second window after about
-67 minutes. A write which then fails to match still installs the
-exact value with a freshly computed offset; the cost is only a fresh
-generation. The previous code re-anchored on every matched write,
-which bounded that drift per-interval but recorded values the
-generation's line did not pass through, which is the bug this patch
-exists to fix.
+Drop it and fall back to the existing get_kvmclock_ns() path.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Reviewed-by: Paul Durrant <paul@xen.org>
 ---
- arch/x86/kvm/x86.c | 39 ++++++++++++++++++++++++++++++---------
- 1 file changed, 30 insertions(+), 9 deletions(-)
+ arch/x86/kvm/xen.c | 48 ++++++++++++++++++++++------------------------
+ 1 file changed, 23 insertions(+), 25 deletions(-)
 
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 32563a91fba9..7a2b0b99373f 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -210,6 +210,10 @@ module_param(pi_inject_timer, bint, 0644);
- static bool __read_mostly mitigate_smt_rsb;
- module_param(mitigate_smt_rsb, bool, 0444);
+diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
+index 6aa00f746cba..dae43acb3cc3 100644
+--- a/arch/x86/kvm/xen.c
++++ b/arch/x86/kvm/xen.c
+@@ -188,7 +188,7 @@ static void kvm_xen_start_timer(struct kvm_vcpu *vcpu, u64 guest_abs,
+ 	struct kvm_vcpu_xen *xen = &vcpu->arch.xen;
+ 	int64_t kernel_now, delta;
+ 	uint64_t guest_now;
+-	int r = -EOPNOTSUPP;
++	bool fallback = true;
  
-+#ifdef CONFIG_X86_64
-+static bool kvm_get_time_and_clockread(s64 *kernel_ns, u64 *tsc_timestamp);
-+#endif
-+
- #define KVM_SUPPORTED_XCR0     (XFEATURE_MASK_FP | XFEATURE_MASK_SSE \
- 				| XFEATURE_MASK_YMM | XFEATURE_MASK_BNDREGS \
- 				| XFEATURE_MASK_BNDCSR | XFEATURE_MASK_AVX512 \
-@@ -1374,14 +1378,23 @@ void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
- {
- 	u64 data = user_value ? *user_value : 0;
- 	struct kvm *kvm = vcpu->kvm;
--	u64 offset, ns, elapsed;
-+	u64 offset, host_tsc, elapsed;
-+	s64 ns;
- 	unsigned long flags;
- 	bool matched = false;
- 	bool synchronizing = false;
+ 	/*
+ 	 * The guest provides the requested timeout in absolute nanoseconds
+@@ -210,6 +210,7 @@ static void kvm_xen_start_timer(struct kvm_vcpu *vcpu, u64 guest_abs,
+ 	do {
+ 		struct pvclock_vcpu_time_info hv_clock;
+ 		uint64_t host_tsc, guest_tsc;
++		int r = -EOPNOTSUPP;
  
- 	raw_spin_lock_irqsave(&kvm->arch.tsc_write_lock, flags);
--	offset = kvm_compute_l1_tsc_offset(vcpu, rdtsc(), data);
--	ns = get_kvmclock_base_ns();
-+
-+#ifdef CONFIG_X86_64
-+	if (!kvm_get_time_and_clockread(&ns, &host_tsc))
-+#endif
-+	{
-+		host_tsc = rdtsc();
-+		ns = get_kvmclock_base_ns();
-+	}
-+
-+	offset = kvm_compute_l1_tsc_offset(vcpu, host_tsc, data);
- 	elapsed = ns - kvm->arch.last_tsc_nsec;
+ 		if (!cpu_feature_enabled(X86_FEATURE_CONSTANT_TSC) ||
+ 		    !vcpu->kvm->arch.use_master_clock)
+@@ -230,43 +231,40 @@ static void kvm_xen_start_timer(struct kvm_vcpu *vcpu, u64 guest_abs,
+ 		if (r)
+ 			break;
  
- 	if (vcpu->arch.virtual_tsc_khz) {
-@@ -1424,13 +1437,21 @@ void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value)
-          */
- 	if (synchronizing &&
- 	    vcpu->arch.virtual_tsc_khz == kvm->arch.last_tsc_khz) {
--		if (!kvm_check_tsc_unstable()) {
 +		/*
-+		 * If synchronizing, advance the reference point to "now"
-+		 * so the matching window slides forward with each vCPU.
-+		 * Extrapolate from the generation's own origin: 'elapsed'
-+		 * is measured from the most recent write, which lies on
-+		 * the generation's line only for the first matched write.
++		 * With use_master_clock set, the clocksource was TSC-based
++		 * when the master clock was last updated. The clockread can
++		 * only fail here if the clocksource has changed since, in
++		 * which case a masterclock update is already pending and
++		 * get_kvmclock_ns() returns the raw-clock fallback value —
++		 * continuous with the last valid snapshot, which is as good
++		 * as it gets in that transient window.
 +		 */
-+		u64 delta = nsec_to_cycles(vcpu, ns - kvm->arch.cur_tsc_nsec);
-+
-+		data = kvm->arch.cur_tsc_write + delta;
-+
-+		if (!kvm_check_tsc_unstable())
- 			offset = kvm->arch.cur_tsc_offset;
--		} else {
--			u64 delta = nsec_to_cycles(vcpu, elapsed);
--			data += delta;
--			offset = kvm_compute_l1_tsc_offset(vcpu, rdtsc(), data);
+ 		if (!IS_ENABLED(CONFIG_64BIT) ||
+-		    !kvm_get_monotonic_and_clockread(&kernel_now, &host_tsc)) {
+-			/*
+-			 * Don't fall back to get_kvmclock_ns() because it's
+-			 * broken; it has a systemic error in its results
+-			 * because it scales directly from host TSC to
+-			 * nanoseconds, and doesn't scale first to guest TSC
+-			 * and *then* to nanoseconds as the guest does.
+-			 *
+-			 * There is a small error introduced here because time
+-			 * continues to elapse between the ktime_get() and the
+-			 * subsequent rdtsc(). But not the systemic drift due
+-			 * to get_kvmclock_ns().
+-			 */
+-			kernel_now = ktime_get(); /* This is CLOCK_MONOTONIC */
+-			host_tsc = rdtsc();
 -		}
-+		else
-+			offset = kvm_compute_l1_tsc_offset(vcpu, host_tsc, data);
- 		matched = true;
- 	}
++		    !kvm_get_monotonic_and_clockread(&kernel_now, &host_tsc))
++			break;
  
+ 		/* Calculate the guest kvmclock as the guest would do it. */
+ 		guest_tsc = kvm_read_l1_tsc(vcpu, host_tsc);
+ 		guest_now = __pvclock_read_cycles(&hv_clock, guest_tsc);
++		fallback = false;
+ 	} while (0);
+ 
+-	if (r) {
++	if (fallback) {
+ 		/*
+-		 * Without CONSTANT_TSC, get_kvmclock_ns() is the only option.
++		 * Without CONSTANT_TSC and the master clock,
++		 * get_kvmclock_ns() is the only option.
+ 		 *
+ 		 * Also if the guest PV clock hasn't been set up yet, as is
+ 		 * likely to be the case during migration when the vCPU has
+ 		 * not been run yet. It would be possible to calculate the
+ 		 * scaling factors properly in that case but there's not much
+-		 * point in doing so. The get_kvmclock_ns() drift accumulates
+-		 * over time, so it's OK to use it at startup. Besides, on
+-		 * migration there's going to be a little bit of skew in the
+-		 * precise moment at which timers fire anyway. Often they'll
+-		 * be in the "past" by the time the VM is running again after
+-		 * migration.
++		 * point in doing so. Without the master clock, the
++		 * get_kvmclock_ns() drift accumulates over time, so it's OK
++		 * to use it at startup. Besides, on migration there's going
++		 * to be a little bit of skew in the precise moment at which
++		 * timers fire anyway. Often they'll be in the "past" by the
++		 * time the VM is running again after migration.
+ 		 */
+ 		guest_now = get_kvmclock_ns(vcpu->kvm);
+ 		kernel_now = ktime_get();
 -- 
 2.43.0
 
