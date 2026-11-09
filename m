@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794268631;
-	b=zqC6Kn58dB2W0RSW2rHkSkQVdXB6xMP/37wUgG4nl18yQe0DC5TbKkwqfs2X/Uru7ChB
-	 j193p5lgohwfWOzBp98snHJvw3YFBkChoFanynFgf5Lms2Giz2i5DNuy3MedSrXORgc4A
-	 pmknbzE6Lftm+xWDLSBoFDEy1C3X4/9nYZ4Xwgrt6J9SWXmarlv09FoZaKHl8NIOj8RXR
-	 8OPmSyh0wMnkLQx9TniKwwupCLknXnG5FvAjhGigzmfZDT1ecT64q/XZUebTqKB749COT
-	 Dmrku760P+tlv3q6Kzf6uzUbpWjVJn9Jbmy1c/pJJHuoOQZ0xMes3UyKaMD1mesxKmw==
+	t=1794268636;
+	b=p55R1uzDHGRJU5/4w2UuMUDRtS6bMD6dEBreVDrChbOpYp2FbtZ2MY1Pglfyf9qRtjtA
+	 4llIM9MUkksOcWVG7UXZfRRZb7Mek6NmQdHixJr3VtfGReyjnkUx0hTWcF2oiABBJHAcZ
+	 sbMg+BLpSdc9sXaATuwT40hUHew3rf4rs6LWmU0I6Sgj5W60KEPtNZzkqIUQtQ4pW4K6j
+	 MWeWzg+q1YR39AdsqZcSnSb7OQ1z7L3cTIeG7Hs1f6cc3hBeN8q05QwJZp/irs9jRo7Nu
+	 C3ChBmTXXBAPDY0K9jjWahB/02DWMxRdshOGDbHzt/nD9sRLMlhl2TmCr7Qum9E4t/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794268631;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268636;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4QtPx/sfImUb2j3o6tXqSSTPDZ/xP4IpG3PYn+xcfLA=;
-	b=aatg8UgpHOWT1DLeAEfCInhau3E+TFQysHGN0Dcc58Qzr/EMBjIjDUIm/ITuKGNW59MW
-	 RpWKxbr0QMXku80W79tejkrg3Nx7udnxBWPiAzLvLvTjhek/mIB9oyhH0yjnLUJXDI0Ad
-	 1iTioMFRaD+CHNGtofKmBUMuNlLthQ7rfMpOde/806fEvSAqlnSjqA2Kc0pMrhXfYAQW7
-	 TivKnnbKx7e73Q/Wzt1U5+jzmBeT795oDqtzYVumgyp0CZWGQxc7irrjAWXZzQcuefX52
-	 Lkthaqog/YMDyYjWG2feedJEg9dAvN5PsBZKmbBabPYaRL2B2bKnbZ0rohobp1CT0EA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/ZB/vPr2FZoQD53j4mXH80SNVxv2c4eMTKKs+9xQEfc=;
+	b=fvulo4d873JxwPkOW5Q1ZLlAKOI6YzDjlWzMxY+2fRcI+zAFTw2JeIrnPGrokZfX7vnq
+	 NMsoheMKd8ksG82jQOJRb+QjiV7ViH2Kcf1F/igxoL0efgywi0XaCmS/dLVFq3rYU6XAU
+	 sqac970Or5C3oa+yr4i1Sd9adBZxGc/4I5gnZDmEUueTWdyAkaLjaUpw+D7rjbYfccpQY
+	 A+OHLIcZzuytOurPMyzhnQfs6kMqlonLZaf01inhqPX8lYFR5A6fa7eoj1PMqqiA79rh3
+	 X+vSuiKpTe1ohJakUMkse5GeubzHKv7wkAjdLf6Mzqiqbuun68HlwH0jVGrrs6+No0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sFhS9AND;
-	arc=none smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P4xY8f9+;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FD6606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:57:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6FD6606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11ED860A3830
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:57:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11ED860A3830
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sFhS9AND
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c43373ae89aso30827666b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:57:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P4xY8f9+
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4d28f75d62so193198566b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:57:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794268629; x=1794873429; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4QtPx/sfImUb2j3o6tXqSSTPDZ/xP4IpG3PYn+xcfLA=;
-        b=sFhS9ANDj67M01mHnqET4gArH+2qoFDKb/2FsFvOS69CgWOuJ+Mti1so4OC8K/JaMt
-         UQRfbA6jPzKkvBsOCD8sqR8uRFtD13GZ73yqUKLmSv/RDzXSHnaXXlWit8ArXJ0cNuve
-         vX1bWb6UWP2xZd4GfMV2he77fElu+LAUGTpwRtew58D4eO1ui+MPGglA8q1WPNKkDIG9
-         4m47kHNDb7Rbn4KH54NM+aBbp5r916ox5JWDL93C0ijLP8YdHAKsmH/csUscRoSxT6W6
-         OzLoBfXNxfkjuSZuBazVsVWl5iv0UbzzPF/OR36ZFhFeP2Ks8tNYud/hWPBO578zs4dk
-         Qa8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794268629; x=1794873429;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794268634; x=1794873434; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4QtPx/sfImUb2j3o6tXqSSTPDZ/xP4IpG3PYn+xcfLA=;
-        b=BjAl8pTh2ziieaxZxHpqkXshMsnU1p2hVkKp6zbkJrLwI998lefOH1v2e4/PhJ4bOl
-         JiSle0cIfabQiBe0Bsa+SAuYJbFIVpTsHl85DYHiJLiz+AOYeD2Qj30ShL3WZPW8C9/h
-         AUJeb8XowyV4L2RzxaDeN1GKxWK1RuxZ6/D39TM7iLlJX4S6exC/hiLbu73/njxmILz5
-         FIUBGJEP8fvS5U+UfOafrG6kPapkDjNZI1we2/zkye71zBnpaOqMsqioJJRuP7oWLdls
-         R65wtH4nORbnrb3j1UWQvHDAtKOfcdh4hdlXtKsYDLy+ciL/XLRXtKsH/HUhhQA9WnSX
-         yJKg==
-X-Forwarded-Encrypted: i=1; AL+hErGlLNd/Cg2B450meO5qovEWdds6jiNp4DOyDLl5tkay/GxanK3vFRw4WI4u/4zq5uf8+fhynOQQrdASh7I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8R4F3sMVLjk/xD12NspdAppyIRYg+VxBYiVybO9iKAQdEQrMde
-	rldp7LcrcDxnpShNwg41EpK+eBL+aQtMN8uFEnbB4FMO9qwp4rG6Rtnn
-X-Gm-Gg: AYBFou1JAZyWPgUNegUF/8YpkJTccizZuatDNxEkSHhFy2aytur5ro1RkHcYVMScCYz
-	P6m50cpi5Sihd+S2dbwVkZWqgeCqRPLjJAFaOx3op+roUqTG7uvb1f4AbO2yKdVQOup0Tqu6jOD
-	dlCXWYUqKK5C/eEPiSKZ4AxMgDC7HN9HtxusoM2hqdh6I4gTDhqtZ8GFnup71Z7RqeXfOiqR6td
-	/SP16u1yw2YwmkZY9wS66HK5qqHzup5J9tH4HNoqn5n4sqMv54IfnoDdKvIxaHq6gOtu7fC7jaI
-	kd8SJRO/hd7PAa1FPUndPORe/+tA8jYwCHZ/R6Cmo6fbqnTQlyHVJUGKms4D8MfbwCtO5tYyfdZ
-	x8tDpmDenZP+CUk/QypMnRP7Fqi8OEB69Y2tfWHbEQbaw28RTgfgWCtstod0qwbMMbLA8NpmuyL
-	Je7hEu0LLOHBj7eCJ9N0YZdvR0zT7mM1djR8mF6iMnI83JoOwTeKGRUkYRSriqesnbCxC84uk9z
-	ISZCyUaZuSkwrJsBDTVv95nAB6iQH6Qi16XXW/XFb0IMXTi1xyn0zVCz0rKT6MdXWTVkRTLF+gW
-	mSpKD6UmNhqQ6oJQkvryz8bItI7GFKCs2QRl7OIFQy2NHPhlkEpzKow=
-X-Received: by 2002:a17:907:9694:b0:c46:88ef:2e46 with SMTP id a640c23a62f3a-c504922b5c9mr78004466b.1.1794268629159;
-        Mon, 09 Nov 2026 15:57:09 -0800 (PST)
+        bh=/ZB/vPr2FZoQD53j4mXH80SNVxv2c4eMTKKs+9xQEfc=;
+        b=P4xY8f9+42UusvTWn3hlEAHq18vsf1pEJ4g7cBxH9lamOwOlfEwNFyya8J+PcDZJiv
+         TP7hkoykehSdcnLFnEFjFln3P0LVYBMz55FVv+JWGgQpPjOht/lyNWVGtHTLhqed1dYM
+         jshVInNlM+HdVFGC9F5C7Q5AuwWKU/VMSdIPExxmakQMRGo39jSY5ezho0FcwUOZds5W
+         G4iOZWD339/E3VSqg1crq5jsu+hIJntvFUCNmti39NH1aqO0aAeidxR1U+zjuWwyLHwd
+         P9BiYY6pCGmEgMZqrJoZrGjsWR1uJKt1GnigWQrDLSORIQJdBziOmIG1rc+C+EmK4Pm9
+         sSFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794268634; x=1794873434;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/ZB/vPr2FZoQD53j4mXH80SNVxv2c4eMTKKs+9xQEfc=;
+        b=KMQAQip0jVCg8GwAT2Ewq8dsW2s/x64fAGso2eQ0VkG8t4uNUNHezqDMvHxlUaHO5W
+         RxwYSkZHnf9aZPnxrWW935/eacedZf6V2D8l8WX2s6NiilpQpiW91WvWzEPnauJ2diwt
+         EhgDjNNANfq3eiAun6H7ZkbRCA1jz4W4LXbZKnZb7dpkQ7TC+TPrQLQH2eA0OELhdbKm
+         VPJOe5/QK2Qz6rsrd+LuX9S67U/LmsX0BLCou5WfokwKo4Gm9fwDhAbgQ9x8UYNRgUXb
+         GLAWVDH4MfLbKFMDK3E+zTxiLP4eqjTYnTXc97KnmsGgIj6hZ5s5+H5OXX3tLM8Ee6g/
+         Hgmw==
+X-Forwarded-Encrypted: i=1; AL+hErGwC72OvcvP9gSlcdTjyj3OZxjRsjr0vgZlByb6GHj0ebvL35Ql7cY0rshL4RfGXsCn5LvRpo5yqR2p1rg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8JDdZJJUgRuGelKFQ/mxuFCRS0Y+ChWdD9R5Ld4Nso2wwSRtJy
+	UBjed8d/DiT77cXhiVFxzOOsJpk5LMqrlaHMlse5PC5ZwSyPlLQy1Kxj
+X-Gm-Gg: AYBFou2Anj7x8GAwY02+TExkiaqRc110oHUFyGjkugKOAfJO7kEkJvMrLDlPzY7w3tm
+	OGcNdSv5Q3WAiT7dkgAa9pW+AfeHgIhG0kCN8ReBrvaM7MjtsKlQXG/yniobJZny37rVtNrwZlL
+	BYLZytrtVWy3QmFZEVMYZhKUcbenjPFN35bHt6dUXhBelFCzVSwR+UiszWJ7r5aMWWVWaInf6vO
+	+zawHN1GCNGEFkDPi1n4WmdMwzrTy2/BMWxK/EcXZSNJqlUv1HKMXCXGb8iawhlhTz7v+7BaphC
+	RrHViY5b+qw3hwQ1vz+EdlyPJZuSi8U9Rbeut4tvGlPP/v8bzooGByc/aCOQnWD8Sz/pbFvHJVM
+	+eYVW7VTcFpXOxFthjlP5WuhMpHTDOYqhykXrLCvKd9micSfLk9w3a7gRgWhj5DEpIt3WT2Dcw+
+	u8AYap+HJEoK5/Ne/m17zwpS/Q8V5chsKVnhSDuNj+3EI517WJAA6Ba1J1RGOEliQ4xjxvCUbWm
+	ZZCZEBPv8GMwHRBBjJ9NNNdV1KKcyytyy+gLFD6t4VpLz83GR6f3je7DDXSKpT0pH6DThugYGGQ
+	VgSuzXyprRQ9VhxxLHXpIV9w1Q9BHj7xt4gdNrsJUpkg0GDbj7hwC18=
+X-Received: by 2002:a17:906:4804:b0:c41:9228:baef with SMTP id a640c23a62f3a-c504952c10emr55099366b.8.1794268634080;
+        Mon, 09 Nov 2026 15:57:14 -0800 (PST)
 Received: from localhost.localdomain ([2a13:e746:396c:c600::8fa])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a56b772sm33725066b.16.2026.11.09.15.57.08
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a56b772sm33725066b.16.2026.11.09.15.57.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 15:57:08 -0800 (PST)
+        Mon, 09 Nov 2026 15:57:13 -0800 (PST)
 From: "Kordian Chmielewski (mlody1212)" <kudzo51@gmail.com>
 To: netdev@vger.kernel.org
 Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
@@ -87,10 +88,12 @@ Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net 0/7] net: bcm4908_enet: TX ring and DMA fixes
-Date: Tue, 10 Nov 2026 00:56:53 +0100
-Message-ID: <20261109235700.2586821-1-kudzo51@gmail.com>
+Subject: [PATCH net 7/7] net: bcm4908_enet: drop RX frames longer than the buffer
+Date: Tue, 10 Nov 2026 00:57:00 +0100
+Message-ID: <20261109235700.2586821-8-kudzo51@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109235700.2586821-1-kudzo51@gmail.com>
+References: <20261109235700.2586821-1-kudzo51@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,39 +105,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These fix the BCM4908 Ethernet driver; the bugs were found on a
-TP-Link Archer AX6000 running OpenWrt. The first patch is the
-important one: the TX ring indexes wrapped at different points, so a
-full ring could look empty, and under sustained load the queue stopped
-for good with nothing logged.
+poll_rx() takes the frame length from the DMA descriptor and passes it
+to skb_put() unchecked, so a length larger than the buffer ends in
+skb_over_panic() from the NAPI poll. It was seen on a BCM4908 with the
+RX channel's MAX_BURST raised to 32, where the DMA reported a length of
+3388 bytes, more than twice the size of the buffer; with the default
+burst length it has not been seen. Drop such a frame like any other bad
+one and count it as a length error.
 
-The others drop a TX frame whose DMA mapping failed instead of
-retrying it, free what stop leaves in the TX ring, unmap RX buffers
-that were freed while still mapped or unmapped with the wrong size,
-order the descriptor writes before OWN, and drop RX frames longer than
-the buffer instead of panicking in skb_put().
+Fixes: 4feffeadbcb2 ("net: broadcom: bcm4908enet: add BCM4908 controller driver")
+Signed-off-by: Kordian Chmielewski (mlody1212) <kudzo51@gmail.com>
+---
+ drivers/net/ethernet/broadcom/bcm4908_enet.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-The last patch guards against something seen only with a non-default
-RX burst length; I am fine with it going to net-next instead.
-
-The same changes have run on the 6.12 and 6.18 kernels of two Archer
-AX6000 units and an AX11000 since the end of September. Here they are
-on top of net; each patch builds with W=1.
-
-Kordian Chmielewski (mlody1212) (7):
-  net: bcm4908_enet: fix the TX ring wrap
-  net: bcm4908_enet: drop a TX frame whose DMA mapping failed
-  net: bcm4908_enet: release the TX ring on stop
-  net: bcm4908_enet: unmap the buffer of a dropped RX frame
-  net: bcm4908_enet: unmap RX buffers on stop with their mapped size
-  net: bcm4908_enet: publish the buffer address before OWN
-  net: bcm4908_enet: drop RX frames longer than the buffer
-
- drivers/net/ethernet/broadcom/bcm4908_enet.c | 106 +++++++++++++++----
- 1 file changed, 83 insertions(+), 23 deletions(-)
-
-
-base-commit: 86706ffa990ecd46a4326f8eecbccbbd60a6cb8d
+diff --git a/drivers/net/ethernet/broadcom/bcm4908_enet.c b/drivers/net/ethernet/broadcom/bcm4908_enet.c
+index ea4a9eb98..b2debdfa0 100644
+--- a/drivers/net/ethernet/broadcom/bcm4908_enet.c
++++ b/drivers/net/ethernet/broadcom/bcm4908_enet.c
+@@ -660,10 +660,13 @@ static int bcm4908_enet_poll_rx(struct napi_struct *napi, int weight)
+ 
+ 		len = (ctl & DMA_CTL_LEN_DESC_BUFLENGTH) >> DMA_CTL_LEN_DESC_BUFLENGTH_SHIFT;
+ 
+-		if (len < ETH_ZLEN ||
++		/* A length past the buffer would make skb_put() panic the kernel */
++		if (len < ETH_ZLEN || len > ENET_RX_BUF_DMA_SIZE ||
+ 		    (ctl & (DMA_CTL_STATUS_SOP | DMA_CTL_STATUS_EOP)) != (DMA_CTL_STATUS_SOP | DMA_CTL_STATUS_EOP)) {
+ 			dma_unmap_single(dev, slot.dma_addr, ENET_RX_BUF_DMA_SIZE, DMA_FROM_DEVICE);
+ 			skb_free_frag(slot.buf);
++			if (len > ENET_RX_BUF_DMA_SIZE)
++				enet->netdev->stats.rx_length_errors++;
+ 			enet->netdev->stats.rx_dropped++;
+ 			break;
+ 		}
 -- 
 2.56.0
 
