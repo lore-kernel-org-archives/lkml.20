@@ -1,89 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794261499;
-	b=bJ0Ws4+Wn8xAaf04DzrwrP4pXr56KvYIuVyIPT6AFHBfblZeM7v0o1aG8RO5seAFcaJz
-	 Y8Vq3s3MGdrbvFVG0H0eOaAMtmzFnhR/y3CqlXnrTOr3Lj6QvweLQiSQk2FAm+yVvUNh1
-	 jrPM/hUq03RadxLlIw7/pMXqTjEQoWADJOfVdEK6NwXqRURRVlyLT9TikQ6OyP8cO1v1V
-	 +8HOoWlSn/nEAYf8OKsjtNadrD0JKKExHNE094chRB5+DEsfwsB1jBOmatvEJe62hUc/5
-	 d2/Ciy/u0tNHvZt6SNo4y7F9w+ic9258hKEnhAfqu9lRUZx97vxNSGBOa4s1cpMLslw==
+	t=1794261527;
+	b=lK4ly8DvrWmLcs1kNwHwGSXHgVutoMMhIUxLN7zQN6BBy5e9QDAuvP3NdKmU5TyxuSVI
+	 FJTKzYu/j744Nh8S7dqYpsPLU8OsH7Mnyq0ZLjMOUqqJnv4yT8g/ICs9ttg8BlZmsnCmj
+	 z2TVCoGJbAEE2JzjdEM6ek5LQ+s4/ycyIxeSRsdLX4LMesb1HhqHEtvSty6XjVSoZKUDI
+	 EQGLKLyJpXCZLEPMRlXFDXSshCiBVpQR5N6Q7wIo6bOCJrms813btYDx/qII+sJLz0glX
+	 co6dd0S19Ghny4zm26Im8DYAJfO6qucRBmM7gISQTs2T4HjCL1JuXFtzO77BAeZQL4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794261499;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=q03BRgBOcQNLCRjgQwIL6L5lX3ohT8w/lgFYZ6hcCWg=;
-	b=RvnPPyIPiq6xGpMYr7yBzOhue45Vwg34/acnSwHFVlp3md07HfOi+i2ChTWwCNJO0qVR
-	 r/R0yIneQD8XPI0ych2HTd65LJxRiea4kGvC3Ihy/cn4oBLoFkGUTlQxa8LWOmz19sLoA
-	 5ZOX3dzdTzXhnJ2dXn7GPAxlMmtgto9LGnK0t2aSiom6b5YivMJMZxsCQh+vvw4Wt3ucU
-	 pkX2c0JhMIjtc9COjdEBSkwfC9+PnmqwgZ9KXITK5ZAxn0uduhVYibF9UXEns/0VpSBqq
-	 b0DeeHI3lFw8hx1ygLKKd/0rebOOWQHasvHtp6KxqEheKcWKZEr2n8C4HPMKIVFhz8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794261527;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=uuKGJFIAQTv+RlaHpzDx+37smg+UIdatunDm/wqv+7s=;
+	b=APdNqsmiWrlBOs0GqoHBRgRN0BSmrICsdl3OIt48TdR9J7qTxQSTW+F5Sze2qH9waXTc
+	 slL7HRvfxvcE2VPbuHulYbfUposm0rDjUnEzFzlx5Mv+xuKFFy8jPkuA+rNX5DYAKeENV
+	 iZwAbuUAFau0yKMIsbPCJNlfrhEjzAm2bk5JORj5qcTTzOU+W/YG6b/yRvlL7a7IymoLS
+	 UhAqQm27yq4CPrERz//mlATaOPZbRB+P+x9qGb6xcn30cwcfBmXU9vHwIyXkEgGCpEdTi
+	 YtGUtvi/UUAel+7puq56PoOxdF34FiURjVMLj5hAaVAkhLVAZYh2Yf1nfOpMVOM3bYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zYO9x1Mb;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YSue7FtR;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB0AF606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:58:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB0AF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C92606A31C;
+	Mon,  9 Nov 2026 21:58:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8C92606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zYO9x1Mb
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4d581da0aaso141531266b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:58:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794261497; x=1794866297; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q03BRgBOcQNLCRjgQwIL6L5lX3ohT8w/lgFYZ6hcCWg=;
-        b=zYO9x1MbNwJ+vVirkbtAQ6GaGoIyfE3bXBdqwm8xZu7VLwvhFj56va0o++rdqRLDXj
-         cX66Kt9oSCJSpPoic6oQcGqR90HFFOxD/LZDxfImAPBjX8+96UIQvHzxHYTcIYq3pSn8
-         LeGbjCvPRg0P96wlmQyrNk2DlMCC6cpXszeBXUmTCJyxQFuWMC4L2xIu2LZqJqepnUCz
-         fUSxPTQaKY9zrJpgs/A4ddA4wfQQfo8q4VgRxWqnISyokRQ7EooIkZaVRF1dd3pY47B+
-         aRuCilGOQNLoZlBPm/N6cn25j/fuxjlXwPF+ma6WsWRx+ocCE6JRIri+aWgVv/urFg9C
-         e33Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794261497; x=1794866297;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q03BRgBOcQNLCRjgQwIL6L5lX3ohT8w/lgFYZ6hcCWg=;
-        b=WFLmb/9lY/G9zp5A6Fh7ZtybcLaTcNTcLofp4IlyKdGbeIhISihgFzbjWoQhePY/hY
-         YxJhUa3oa4ZkXvY5m0Aq9sMxeoCQCsOvT3YiEUmJgaXUfJeHsRo8dXqDWMyZ2cWuAS+I
-         wVeCCNanOwTzLDnOO7AfU9TTg9stIYP3akHP0bzSQbb2oCXg85leQZrKmNv9JRgz6Ch/
-         ioX/WkdC0+yF1hjmqAL7pXOdlAeyAF0g795cOKmhItEwmvDoqDoeBLEk75vIeinXVyj3
-         tQ8txr+krrJaRVWbvWLeVDvB43cVuHlc2xgrqFbp6WheQnma35MNpXKPcjqPBIOeERmR
-         F/2A==
-X-Forwarded-Encrypted: i=1; AL+hErGJEzvZe4m43Bv1v4An6twN1/WsXZkDWawD/hXlX3YMxRAhKKfNkQvKYGv18pzlldQf/kHeW6CLPQkZsBc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ji/ABEOuPqR06GBQCM1Att6haSdqwmHmo9ippyu82BaTg8lU7
-	zsJH/zWFJPSjxDvGwsGz4DlVB+tQFsA1IQeA1+vaTVb/2I2hgq7XZM0e
-X-Gm-Gg: AYBFou0ykH+e4itxWILADgN/TxZS18YzPZgvuHe1J0b+Ltl4o6n64sg08KfpMWeijt+
-	ISDuwCx56VW4cGu+XLvsvW3k5Gdr8zQYdqRXU5Yfk9BKtmivLL0ONEuPIMIj5ZFOEJRYt8vlKjb
-	N/0F9UKFSWLASCGLkAE4PJyB9NmV8choYuY1Nr+D3a4rAKXeB/fyviMNHVQetYBPCMXyCxS1SmY
-	18qCkMf1XXZJhPqouDJWfA3tK3HJyIIEGKvnUj6jxY2aerggD3n2jrbCHn0HyAr2OC2YA3sckJ3
-	PIZJPxme/pwxmMOQ6JZaF0Rz6ePKoiy/8acJwY3ySVvwpW/MzbgbGXsSvIlS78HT6o4OvyG445Z
-	G05ghxRDGGFmGsBkrfXRfxvVTz8WJDjNIcRnHKNMh0tHZjfB6aY9GWV/qtvMZFMvd0oRCERc+1f
-	zmGmfVO0eJh4ZZF7hfDTP327jl4WwfWF1NEGELSFsz7D7cdZ1GSjsFXS9jeXe6QhW484ZLTiaQp
-	S83fNlq6oxoKKRuXDyaRbnAcow0RzpJcgk1d0fE6BiI40bkGnwjOCc/QXh9lSpMifCGnw3sdRlz
-	zMPKpf210BwJ5nXV7VoQyontQh6JJksmXu9QPUP48yB9Qoa6TuOF7PYBQGqKTr9j0SEuZx2PQt/
-	U7f6N2g==
-X-Received: by 2002:a17:907:1905:b0:c45:b99:f282 with SMTP id a640c23a62f3a-c50491c3b10mr53885866b.7.1794261497276;
-        Mon, 09 Nov 2026 13:58:17 -0800 (PST)
-Received: from ?IPV6:2a02:a03f:a75e:9a00:b7ed:a37a:5b51:f302? ([2a02:a03f:a75e:9a00:b7ed:a37a:5b51:f302])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a685f99sm20298666b.82.2026.11.09.13.58.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 13:58:17 -0800 (PST)
-Message-ID: <1c0bd741-0e5d-428e-ac89-3907d62c4eb9@gmail.com>
-Date: Mon, 9 Nov 2026 22:58:14 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YSue7FtR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794261526; x=1825797526;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gNtUecHaPmKuaL6tSyYP7NTuJUMVrc+ZsiUj1ZvKFIw=;
+  b=YSue7FtRSlLeXM6/8ztZy4eOVt6VeaOTQC6NdAfCdGFsdWr8qmhKAUGD
+   EaAHUHxqdEUEESydCw9DTPZix24qnKCjNKR9+Q8gPAU4YsCAAlcleJfje
+   f4s28co8Sjapa6KbBgu6rbWlTMDy95Ij8B9NfPqpJBmNX6XGCWs0iBTCZ
+   kqLw0T4BSujzzq6scROH7q3iUprgvPb7AeTrl2Gg0UoSY4g358/olGXPv
+   USARbTtVoMZQcUJZM3wbEf+4Z+Iz1gVw+R5GY4kYS9+M8gYvOmS2rt877
+   320pdf6aSi7SLOc0EnG8sYfIax1/SdxrUbjbW00EZUf5FUSPGfiS9BnTV
+   A==;
+X-CSE-ConnectionGUID: dUx6eaANReSXdngUr1ASNg==
+X-CSE-MsgGUID: Qv3R1GUBTeyQvQEoay+byw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2875380"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2875380"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:58:45 -0800
+X-CSE-ConnectionGUID: C84YxAV5Q3OA++szL5UfqA==
+X-CSE-MsgGUID: gtpJKZIjSgK2DJb4/V6/DA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="9723857"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:58:44 -0800
+Date: Mon, 9 Nov 2026 23:58:41 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Kent Gibson <warthog618@gmail.com>,
+	Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 5/5] gpio: cdev: don't overwrite the whole flags field
+ when configuring lines
+Message-ID: <avJCETUZidpmICKR@ashevche-desk.local>
+References: <20261109-gpio-desc-flags-atomic-v2-0-c4c54b476628@oss.qualcomm.com>
+ <20261109-gpio-desc-flags-atomic-v2-5-c4c54b476628@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,50 +84,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net: lwtunnel: use GFP_KERNEL in build_state
- paths
-To: Max Boone <mboone@akamai.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: Donald Sharp <sharpd@nvidia.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- Debabrata Banerjee <dbanerje@akamai.com>, Nick Hudson <nhudson@akamai.com>
-References: <20261106-build-state-use-gfp-kernel-v1-1-18084382f878@akamai.com>
-Content-Language: en-US
-From: Justin Iurman <justin.iurman@gmail.com>
-In-Reply-To: <20261106-build-state-use-gfp-kernel-v1-1-18084382f878@akamai.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-gpio-desc-flags-atomic-v2-5-c4c54b476628@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 11/6/26 12:40, Max Boone wrote:
-> Since 3d25eabbbf67 ("ip_tunnel: Add dst_cache support in lwtunnel_state
-> of ip tunnel"), build_state runs outside RCU and all its callers can
-> sleep, but paths still use GFP_ATOMIC.
+On Mon, Nov 09, 2026 at 11:27:09AM +0100, Bartosz Golaszewski wrote:
+> linehandle_flags_to_desc_flags() and
+> gpio_v2_line_config_flags_to_desc_flags() read the flags word with
+> READ_ONCE(), modify the local copy and write it back with WRITE_ONCE().
 > 
-> For dst caches, that limits allocation to populated percpu pages. A
-> large burst of SRv6 nexthops outruns the refill worker and will fail
-> with -ENOMEM despite there being free memory:
+> The per-request config_mutex does not exclude sysfs, the irq core or
+> drivers touching the same descriptor, so bits they set or clear
+> concurrently can be lost.
 > 
->    percpu: allocation failed, size=40 align=8 atomic=1, atomic alloc
-> failed, no space left
+> Build the mask of bits owned by the line configuration and their new
+> values locally and apply them with gpiod_update_flags(). The whole
+> group changes in a single atomic step.
 > 
-> Batching 20000 RTM_NEWNEXTHOP under QEMU gave 10-109 failures per run
-> before, none after.
-> 
-> This commit converts the allocations reached through ops->build_state()
-> and are called after the rcu_read_unlock():
-> 
->    - ila_build_state(), ioam6_build_state(), rpl_build_state(),
->      seg6_build_state(): build_state ops
->    - bpf_parse_prog(): only called from bpf_build_state()
->    - lwtunnel_state_alloc(): only called from build_state ops (also
->      affects mpls, ip/ip6 tunnel, xfrmi and seg6_local)
-> 
-> Signed-off-by: Max Boone <mboone@akamai.com>
-> Reviewed-by: Debabrata Banerjee <dbanerje@akamai.com>
-> Reviewed-by: Nick Hudson <nhudson@akamai.com>
+> While at it: rename the functions whose semantics changed from
+> "conversion" to "flags update" accordingly.
 
-Reviewed-by: Justin Iurman <justin.iurman@gmail.com>
+...
+
+> @@ -3,6 +3,7 @@
+>  #include <linux/anon_inodes.h>
+>  #include <linux/atomic.h>
+>  #include <linux/bitmap.h>
+> +#include <linux/bitops.h>
+>  #include <linux/build_bug.h>
+>  #include <linux/cdev.h>
+>  #include <linux/cleanup.h>
+
+Unneeded hunk as explained in the previous reply.
+
+...
+
+> -static void linehandle_flags_to_desc_flags(u32 lflags, unsigned long *flagsp)
+> +static void linehandle_update_desc_flags(u32 lflags, struct gpio_desc *desc)
+>  {
+> -	unsigned long flags = READ_ONCE(*flagsp);
+> +	const unsigned long mask = BIT(GPIOD_FLAG_ACTIVE_LOW) |
+> +				   BIT(GPIOD_FLAG_OPEN_DRAIN) |
+> +				   BIT(GPIOD_FLAG_OPEN_SOURCE) |
+> +				   BIT(GPIOD_FLAG_PULL_UP) |
+> +				   BIT(GPIOD_FLAG_PULL_DOWN) |
+> +				   BIT(GPIOD_FLAG_BIAS_DISABLE);
+
+Usually we don't do such an assignments in the definition blocks.
+I believe the split will look better.
+
+> +	unsigned long flags = 0;
+>  
+
+	mask = ...;
+
+(and with longer line you may combine close bits, like OD/OS or PD,PU, and
+ DISABLE).
+
+> -	assign_bit(GPIOD_FLAG_ACTIVE_LOW, &flags,
+> -		   lflags & GPIOHANDLE_REQUEST_ACTIVE_LOW);
+> -	assign_bit(GPIOD_FLAG_OPEN_DRAIN, &flags,
+> -		   lflags & GPIOHANDLE_REQUEST_OPEN_DRAIN);
+> -	assign_bit(GPIOD_FLAG_OPEN_SOURCE, &flags,
+> -		   lflags & GPIOHANDLE_REQUEST_OPEN_SOURCE);
+> -	assign_bit(GPIOD_FLAG_PULL_UP, &flags,
+> -		   lflags & GPIOHANDLE_REQUEST_BIAS_PULL_UP);
+> -	assign_bit(GPIOD_FLAG_PULL_DOWN, &flags,
+> -		   lflags & GPIOHANDLE_REQUEST_BIAS_PULL_DOWN);
+> -	assign_bit(GPIOD_FLAG_BIAS_DISABLE, &flags,
+> -		   lflags & GPIOHANDLE_REQUEST_BIAS_DISABLE);
+> +	__assign_bit(GPIOD_FLAG_ACTIVE_LOW, &flags,
+> +		     lflags & GPIOHANDLE_REQUEST_ACTIVE_LOW);
+> +	__assign_bit(GPIOD_FLAG_OPEN_DRAIN, &flags,
+> +		     lflags & GPIOHANDLE_REQUEST_OPEN_DRAIN);
+> +	__assign_bit(GPIOD_FLAG_OPEN_SOURCE, &flags,
+> +		     lflags & GPIOHANDLE_REQUEST_OPEN_SOURCE);
+> +	__assign_bit(GPIOD_FLAG_PULL_UP, &flags,
+> +		     lflags & GPIOHANDLE_REQUEST_BIAS_PULL_UP);
+> +	__assign_bit(GPIOD_FLAG_PULL_DOWN, &flags,
+> +		     lflags & GPIOHANDLE_REQUEST_BIAS_PULL_DOWN);
+> +	__assign_bit(GPIOD_FLAG_BIAS_DISABLE, &flags,
+> +		     lflags & GPIOHANDLE_REQUEST_BIAS_DISABLE);
+
+...
+
+> +static void linereq_update_desc_flags(u64 lflags,
+> +						    struct gpio_desc *desc)
+
+This is ugliest part of this patch in my opinion. Just make it a single line.
+`clang-format` is in use I assume?
+
+...
+
+> +	const unsigned long mask = BIT(GPIOD_FLAG_ACTIVE_LOW) |
+> +				   BIT(GPIOD_FLAG_EDGE_RISING) |
+> +				   BIT(GPIOD_FLAG_EDGE_FALLING) |
+> +				   BIT(GPIOD_FLAG_OPEN_DRAIN) |
+> +				   BIT(GPIOD_FLAG_OPEN_SOURCE) |
+> +				   BIT(GPIOD_FLAG_PULL_UP) |
+> +				   BIT(GPIOD_FLAG_PULL_DOWN) |
+> +				   BIT(GPIOD_FLAG_BIAS_DISABLE) |
+> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_REALTIME) |
+> +				   BIT(GPIOD_FLAG_EVENT_CLOCK_HTE);
+
+Same comment as before.
+
+> +	unsigned long flags = 0;
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
