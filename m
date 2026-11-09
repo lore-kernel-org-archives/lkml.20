@@ -1,47 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=14.137.139.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794215299;
-	b=JKVxaX5mXb7iWpEphqlN1oSdNh12f7RgPbFzgDogv8+AIUgvdYoUC7H2DnEHIRccjRft
-	 L+soDJr7TK5cqEIq91hHUmXrBlnAqciZOaya1QAIPuvvEj8Nal7D4dgF8ji6Iy/CJA7HR
-	 349pO4dckpqHslxKU5bZl9J4KJ3TUx1RQH83gjY8kVHivyLFqfs+3FYOZ2rPqUFg5KSSg
-	 +XLHTqcM/SOTJwlhN0siJSEzSCIgHJAJ1wPsyM9ktXCfXLcEGXEr4qlbMokusSJn40r/z
-	 ami8VJLNXnll/sv/fSJz6w8nTh18hoXrB2VC7SAQQ+k01xwVgOeLJ2gx5rY37sZgtmw==
+	t=1794215320;
+	b=iKYgBAnd9So4njozrTl0zeboLgQMIMSAUqCL+LvbaBgpLev28WkrdadOGKAEGq0AHFId
+	 X/wonTK1NNc9HuenkaFE/wJmkQgLViJX7cwd6DA4Xs5+kVvWqUgDrWAkxhOpKKXF0UqfS
+	 NjCEoTFkcBwVwTxFO68lYLjh+NSAgr3+gjksajK/GnLEcFNaQEescSyDOQJ12K4AKhojz
+	 CPW/v5CrdgKzSWRSJKIxnbKF3Ek+q6sL6UEEu8BdiF/1WrgnI9jxkNd9zNHF3RrDM7l7b
+	 begWPSXvezQ/qH3D+S5ViHYXSc6J0m9F7Ap49PauYfd22JcfTWWaR6fNA53JsuA0Uuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794215299;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=WNYcEhnvU8wcHU8zemgPXvta2itTQnZpRv+qT216orI=;
-	b=Y3xTv58d0EL/88fJxAgb/g1b8FixWp/KUQ9iarB+1lHiUpATMHHZP6ztNrYka4AiGQn3
-	 QuFAhgD6XlMQWmw/pBvIIiGYEOYMTDsa6pT9RACu/MJkLRGtY1FqItGp8YUi4frjkkyQf
-	 OFEA8SnoE/OgxYjZVrwx+ypgoBAFXF0/kxDOoZNTlzI91FEdRGdzKs78q3COgEYfjGI1S
-	 6ImhvApYZiFfo4jyBiSnLqUZ+mySRcDL0waifTGpbrnECSGWrDlqEmjyKtCsoABWE3Lag
-	 z2ru2+WhzkMw9Qi365xAYuh39ys4ZYXGxF3Bl4YJEVINhvXzjre6zWQ5B92XpfzfA8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794215320;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=asv+L+6XrSQhvTA+x8KlHG7bpla/glF8wUGDppGecfM=;
+	b=Qf0kjWiINDBb1YauY+ewdoUpgjoiQ9ePfLxkcR27zquRC50c+3qiMP1tVgvUa389o8o4
+	 dn/obf3wOumNODlrMLOVMa4vElmdBcx3wV5hp+XYLEunI9ha7DbbiL6LQTlcbhfRViGul
+	 WRwFcwf4gckNlWtWsj9SaSrrvH29o84u/mnE/LIgs94XUJchKcDeuzUGtmVH3TtBfKJlV
+	 T/9Y5QXmcO4rzjvgCSUejOYQkZ1r8ryoUsaVkITn6luaT3UzNPtTqmL5aOMS3z38KsZ3Q
+	 cyNk6bxT+FKxK8h4dKOcqXoiV0eurbS0Sykf6MU9QcoC+VyCpVImd3n5u5ZfHEGxzrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=14.137.139.46
-Received: from frasgout13.his.huawei.com (frasgout13.his.huawei.com [14.137.139.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE3B606A31C;
-	Mon,  9 Nov 2026 09:08:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCE3B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.18.224.235])
-	by frasgout13.his.huawei.com (SkyGuard) with ESMTPS id 4jNP7h5QBLzpV8h;
-	Mon,  9 Nov 2026 17:07:44 +0800 (CST)
-Received: from mail02.huawei.com (unknown [7.182.16.157])
-	by mail.maildlp.com (Postfix) with ESMTP id 7ECA14055C;
-	Mon,  9 Nov 2026 17:08:07 +0800 (CST)
-Received: from [10.221.98.11] (unknown [10.221.98.11])
-	by dep2_app1 (Coremail) with UTF8SMTPA id nRC2B0AmB11vjfFqZ2IPAA--.4181S2;
-	Mon, 09 Nov 2026 10:08:07 +0100 (CET)
-Message-ID: <98d6c26c-3dc4-4659-8284-a7ab0629bb40@huaweicloud.com>
-Date: Mon, 9 Nov 2026 10:07:48 +0100
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ozg8aZ+6;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6CAF7606A321;
+	Mon,  9 Nov 2026 09:08:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CAF7606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Ozg8aZ+6
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 891F114BF;
+	Mon,  9 Nov 2026 01:08:35 -0800 (PST)
+Received: from [10.57.12.22] (unknown [10.57.12.22])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ABB8E3F85F;
+	Mon,  9 Nov 2026 01:08:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794215318; bh=b/Z8FOQeGGjUmR5j+LUi8n9Jv3kX2zKWVa4aDbKzjXE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Ozg8aZ+6ju7WL3UUHR16QwAhksplV/ASDDZW3dQr9NmR9+OrjSnwnB/YOwK6Sn6eT
+	 +kIEQtT4khd5vClwnlxABv+rMZ8rWsoTdj93yBRbD6f4dn+ZaVIkqT/uh+26cpQaZ/
+	 O1NXsHR5Qj7I7BU7NBsc33Kqv2YFefS6QtncQW+8=
+Message-ID: <bcb0bfcb-e359-4710-aa6f-8de032327d03@arm.com>
+Date: Mon, 9 Nov 2026 09:09:09 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,123 +54,86 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] evm: fix TOCTOU heap OOB in protected xattr reads
-To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>,
- Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>
-Cc: Eric Snowberg <eric.snowberg@oracle.com>,
- linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261107230514.1108379-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: Re: [PATCH v5 4/6] powercap: dtpm: Use generic powercap hierarchy
+ helpers
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, rafael@kernel.org,
+ Heiko Stuebner <heiko@sntech.de>, Shuah Khan <shuah@kernel.org>,
+ Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kselftest@vger.kernel.org
+References: <cover.1793666444.git.daniel.lezcano@oss.qualcomm.com>
+ <bded992091c92baa7246b939f266297f99c8942b.1793666444.git.daniel.lezcano@oss.qualcomm.com>
 Content-Language: en-US
-From: Roberto Sassu <roberto.sassu@huaweicloud.com>
-In-Reply-To: <20261107230514.1108379-2-Jeremy.Jean@oss.cyber.gouv.fr>
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <bded992091c92baa7246b939f266297f99c8942b.1793666444.git.daniel.lezcano@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:nRC2B0AmB11vjfFqZ2IPAA--.4181S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCFy7ZryDZr45KFW7trW5ZFb_yoW5Cr45pF
-	90kFW3tr45t34Ikr9rtF13Aa4Fk34DXw1Uu3yxG3W2yan09rs5ZrySgrWjgryxCrnrXwn7
-	Aa90qFnYkw1qvaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUyvb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
-	AFwI0_Jr0_Gr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2
-	j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7x
-	kEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxG
-	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
-	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
-	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
-	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
-	wI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU17KsUUUUUU==
-X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAgASDWrxOrk8KAACsT
+Content-Transfer-Encoding: 7bit
 
-On 11/8/2026 12:05 AM, Jérémy Jean wrote:
-> ima_eventinodexattrs_init_common() queries the total size of protected
-> xattrs, allocates that amount, and calls evm_read_protected_xattrs()
-> again to fill the buffer. This creates a TOCTOU window: if the
-> protected xattr changes between the two calls to
-> evm_read_protected_xattrs(), names and lengths are written without
-> checking whether the data still fits in the target buffer. This can
-> yield an OOB heap write that KASAN reports as:
+
+
+On 11/3/26 04:48, Daniel Lezcano wrote:
+> DTPM implements its own hierarchy creation and destruction logic while
+> the powercap core now provides generic helpers for this purpose.
 > 
->    BUG: KASAN: slab-out-of-bounds in evm_read_protected_xattrs+0x15e/0x280
->    Write of size 20 at addr ffff888002c59bcd by task init/62
+> Convert DTPM to use the generic powercap hierarchy infrastructure.
+> Duplicate the platform hierarchy before creating it, and use
+> powercap_hierarchy_create() and powercap_hierarchy_destroy() to manage
+> the DTPM zones.
 > 
-> Reject fields that no longer fit in the target buffer. For xattr
-> values, also check the length returned by the copy before accounting it.
-> This also handles the case where a size of 0 is treated as a length
-> query.
+> Add DTPM callbacks to create and destroy the zones associated with each
+> powercap hierarchy node. Adapt the CPU and devfreq backends to return
+> the created DTPM instance and use the node name provided by the
+> hierarchy.
 > 
-> Fixes: 8314b6732ae4e ("ima: Define new template fields xattrnames, xattrlengths and xattrvalues")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> Convert the Rockchip RK3399 description to struct powercap_hierarchy
+> and keep the device tree path as DTPM-specific node data.
+> 
+> This removes the DTPM-specific hierarchy traversal and destruction code
+> and leaves the hierarchy management to the powercap core.
+> 
+> Preserve best-effort creation: an unavailable backend returns NULL to
+> skip its branch, and setup failures are warned about and skipped rather
+> than rolling back independent zones. Invalid node descriptors remain
+> fatal. Reject a DT node with a NULL path before calling
+> of_find_node_by_path(), treating it as an invalid descriptor rather
+> than an unavailable backend.
+> 
+> When the representative CPU is offline, find an active policy through an
+> online sibling whose related_cpus mask contains it. Hold the CPU hotplug
+> read lock during selection and setup, and initialize the zone through the
+> policy's active CPU while keeping the hierarchy-provided name. An entirely
+> offline policy still has no active CPU to initialize through.
+> 
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
 > ---
-> Changes since v1 (after review from Sashiko):
-> - Handle the 0 case.
-
-Hi Jeremy
-
-I already sent a patch to the mailing list to fix the same problem (it 
-is similar to yours):
-
-https://lore.kernel.org/linux-integrity/20261029142707.2602008-1-roberto.sassu@huaweicloud.com/
-
-Thanks
-
-Roberto
-
-> v1: https://lore.kernel.org/all/20261107194909.1061154-2-Jeremy.Jean@oss.cyber.gouv.fr/
-> Sashiko: https://sashiko.dev/#/message/20261107194909.1061154-2-Jeremy.Jean%40oss.cyber.gouv.fr
+> Changes in v5 (since v4):
+> - Reject a NULL DT node path with -EINVAL before invoking
+>    dtpm_setup_dt(), as suggested by Lukasz Luba.
+> - Document that a missing path is an invalid hierarchy descriptor.
 > 
->   security/integrity/evm/evm_main.c | 16 ++++++++++++++++
->   1 file changed, 16 insertions(+)
+> Changes in v4 (since v3):
+> - Rebase on v7.3; no code or commit-description changes.
 > 
-> diff --git a/security/integrity/evm/evm_main.c b/security/integrity/evm/evm_main.c
-> index ac8328812e6ef..2ed0b67b9109b 100644
-> --- a/security/integrity/evm/evm_main.c
-> +++ b/security/integrity/evm/evm_main.c
-> @@ -389,6 +389,10 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
->   		case 'n':
->   			size = strlen(xattr->name) + 1;
->   			if (buffer) {
-> +				if (total_size > buffer_size ||
-> +				    size > buffer_size - total_size)
-> +					return -ERANGE;
-> +
->   				if (total_size)
->   					*(buffer + total_size - 1) = '|';
->   
-> @@ -398,6 +402,10 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
->   		case 'l':
->   			size = sizeof(u32);
->   			if (buffer) {
-> +				if (total_size > buffer_size ||
-> +				    size > buffer_size - total_size)
-> +					return -ERANGE;
-> +
->   				if (canonical_fmt)
->   					rc = (__force int)cpu_to_le32(rc);
->   
-> @@ -407,12 +415,20 @@ int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
->   		case 'v':
->   			size = rc;
->   			if (buffer) {
-> +				if (total_size > buffer_size ||
-> +				    size > buffer_size - total_size)
-> +					return -ERANGE;
-> +
->   				rc = __vfs_getxattr(dentry,
->   					d_backing_inode(dentry), xattr->name,
->   					buffer + total_size,
->   					buffer_size - total_size);
->   				if (rc < 0)
->   					return rc;
-> +				/* A size of 0 may be treated as a query. */
-> +				if (rc > buffer_size - total_size)
-> +					return -ERANGE;
-> +				size = rc;
->   			}
->   			break;
->   		default:
+> Changes in v3 (since v2):
+> - Rebase on v7.3-rc7.
+> - Preserve best-effort branch creation using the generic NULL result.
+> - Find an online policy sibling for offline CPU representatives and
+>    protect policy selection and setup against CPU hotplug.
+> - Keep generic API behavior and documentation in patch 1.
+> - Fix __initdata placement; match-table indentation is handled in patch 3.
+> - Name setup callback arguments and remove whitespace-only lines.
+> - Update the description.
+> 
+>   drivers/powercap/dtpm.c         | 180 +++++++++++++++-----------------
+>   drivers/powercap/dtpm_cpu.c     |  62 ++++++++---
+>   drivers/powercap/dtpm_devfreq.c |  22 ++--
+>   drivers/soc/rockchip/dtpm.c     |  67 +++++++++---
+>   include/linux/dtpm.h            |   6 +-
+>   5 files changed, 198 insertions(+), 139 deletions(-)
+> 
 
+Thank you Daniel for addressing that, LGTM
+
+Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
