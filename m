@@ -1,65 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.73
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192725;
-	b=ZKtB/hRRzZ5lqv00cgNwFcHdYVktO3ELWQFSKuz7B1rfIRbi4VDWttcet3qWL3nh/mKF
-	 0cb9h7ao/kBF37yFHg2KZfjySdBltYPnDDm5dcwOhgCd8QmmyEADS8cm7pXGxXFDyO7h6
-	 Fb/MAjgucmegrrQuf/YQNa2Si6XPUSmCq8c+e/5lNLYsAHTKb1QMa1kaztUpfEXdMdX6a
-	 /8P5d19Qu/8HvpYiAQz7jBRftDHE9hcteRQuMsZ8sHX1QmKTrcLnAi4sj3YP9fxsK/Dv6
-	 4MeETKXtf/fW9IGmlJUG5ddbHGKoztsUXzabR3bQ2pHuH/KPkUd6526ZwUwHjLBvU5Q==
+	t=1794192726;
+	b=yTIz3vWvHnLoKi+4/hq8jA4KkxZRUFV2TS/sQoAwURzA5kHb3Mo9mSYTva4Y4h4muRF0
+	 DXD7MJFw3Js2OkzBnHFHqDlwTGBUEappuCvwAYYGRJPRi1c718uDgpI5Bhy9WavkJ0EoJ
+	 wf3pm50NmDjO6HjmXFu7cHoCSxJJEPDPN/OWwijqdKQteuMx4Y8toYep9AeMZthoBdcEE
+	 RfvGdmt0lnx0eajtFKZwLSH5f0PdUCCA8bPjOGVQu7kseOc3aNbVwfEU4rDSz8bdH15gs
+	 2/jf65iTimvi/nYoc+6ushxdXxx5cyTJ0kPK5kmdkNIidGd/03tkTkrZp0YdVYC151A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192725;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:Sender:
-	 X-CM-SenderInfo;
-	bh=0IVgJm9SwBtqm3JEH4p4DgqeS4PG7F4ayQmUO2+CLgM=;
-	b=ONgTQcWk5acFEzmOIJKCELU9CxJ2dGQGc/Oyvb/LMUpbc1xGIZuKCS+ie0qnMP8ZUmji
-	 4a5CMpHUECyuCKTSGdmfHRdnk9ds+wMre2Mr7unZ9/ZsTzvDsZiPNXu+N+jNEeNktNegg
-	 KYftyFSoGKte23gna7WBoJB43jfexjfIss/vE3w9+D7BglQIIi4ScwpQt/uGegT9NbXXs
-	 WeRiyRF4sfGv5uzm57uUsUTnXSb/jqTM0Slp/2kIBY4jFjBkV+DCz0NLfrU9nnSgbIlUp
-	 15Z2Hxx77JYOwmPj8t7qXuR3YIROIIH6EGNO9kyc861xYkZzXH+oX276wV22Y33NFxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192726;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=nWqWiduDQX/+eDY/lBNMvXq4xgQ2WR9If/niokbocYQ=;
+	b=kfRWTLd5OlssAp4mo6N5wOYAlbQLWaNB52/nxWKA/l2l4ZoPtm1DoUlkoQV9K3uJVbiC
+	 2F6symmWQYs8uGtaGiWHym8Z83iSjpzVFgyNK3WQT/9V8Cuw0e9MKeuvtALrEEFsI+MrE
+	 LLiwp3v+raUrZs18XdYjrCO/iGtu2D90J0ffLISKYOeLOyCcqKnbEBobbZdX07hLZCnaj
+	 31WyEcozDEcF0jVRJWRiYSWPH56PFpj6ntbCfQKXDso64vHk7Bqzz6fS5nohc3Tm/NtJ4
+	 luYZxiiQCpuH5Z+AggYTcJlEj65+VchPYbXIQ30DoB+l6vVD0lXPfkQFBXoHGn7Nwxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="hh/ehNtT";
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pKqbz5+1;
+	arc=none smtp.remote-ip=95.215.58.73
+Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96BA606A325;
-	Mon,  9 Nov 2026 02:52:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A96BA606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7E1606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:52:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B7E1606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=hh/ehNtT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=0I
-	VgJm9SwBtqm3JEH4p4DgqeS4PG7F4ayQmUO2+CLgM=; b=hh/ehNtTirXnykZrAB
-	F+Zj+3J3BVQ0bh/uAmJ7M9vNjUv/idcL4jYPwdmmgMi71gSgrdW0IbMXa4Jdp03M
-	fYcbQ1Ie8RxklmVUHRhIFiiw7+KLx254o8Y6MaoKrvExXH/Yx3mOkXuUbrF57YER
-	ZNqTnCC4saGC9xeZHwIuQ3FuI=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgCX2nMiNfFq6L9SEw--.17801S2;
-	Mon, 09 Nov 2026 10:51:15 +0800 (CST)
-From: Yang Xiuwei <yangxiuwei@kylinos.cn>
-To: x-professor@outlook.com
-Cc: mkp@kernel.org,
-	James.Bottomley@HansenPartnership.com,
-	axboe@kernel.dk,
-	linux-scsi@vger.kernel.org,
-	bvanassche@acm.org,
-	jthoughton@google.com,
-	asml.silence@gmail.com,
-	io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v3 5/6] io_uring/cmd: allow reusing SQE storage for completion data
-Date: Mon,  9 Nov 2026 10:51:14 +0800
-Message-Id: <20261109025114.433681-1-yangxiuwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <a4ec8431c2f36172348449b872faf26d7d6d4d7a.1794045010.git.x-professor@outlook.com>
-References: <cover.1794045010.git.x-professor@outlook.com> <a4ec8431c2f36172348449b872faf26d7d6d4d7a.1794045010.git.x-professor@outlook.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pKqbz5+1
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1zQrA1miKQ/sO3U4FLD9eN7ND1EAn4eFHq58nFmS/2c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794192722; v=1; x=1794797522;
+ b=pKqbz5+1nAKvoDjratDGIzCVYLRnYWqr1KkI/51AbwTsIOLh1H3KSkwjZnitIUapDrfX3moK
+ iBDOjWlEa0LcAglhZ0IIVJXQpa10JvLhgoeorLL1bBrmrzYqTSk7F/F73Ux8tJumFsmES18Q1nY
+ WVU2IQ4+YlREcEp/U62zWKW0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f8a5242679d67f97;
+	Mon, 09 Nov 2026 02:52:02 +0000
+X-Mizu-Trace-ID: f8a5242679d67f97
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <3f45a5f9-9c87-420d-b6a5-6145c834c0d1@linux.dev>
+Date: Mon, 9 Nov 2026 10:51:46 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,31 +58,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgCX2nMiNfFq6L9SEw--.17801S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrurW8KFyrCFyrJF1DWFW3Wrg_yoWxuFX_Cr
-	Z8tr1xArW3G3Z3KwsxKFZavw4qgay5Cr1kW395ur9xX343uas5CryDJr4Fk3Waqa12qFs8
-	Gr93Z34xJrnrGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUUZ2-7UUUUU==
-Sender: yangxiuwei2025@163.com
-X-CM-SenderInfo: p1dqw55lxzvxisqskqqrwthudrp/xtbC6QRt-WrxNSTgVgAA3B
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 1/6] block: refuse a dma-buf bio that carries a crypto
+ context
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Dan Williams <djbw@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, tytso@mit.edu,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
+ <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huawei.com>, "Darrick J. Wong" <djwong@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, asml.silence@gmail.com,
+ Anuj Gupta <anuj1072538@gmail.com>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, Li Wang <liwang@kylinos.cn>
+References: <20261105065847.196540-1-mengmeng.zhao@linux.dev>
+ <20261105065847.196540-2-mengmeng.zhao@linux.dev>
+ <20261106104119.GA5668@lst.de>
+From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
+In-Reply-To: <20261106104119.GA5668@lst.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Yingjie,
-
-On Sat, 7 Nov 2026 at 09:50, Yingjie Wang wrote:
-> uring_cmd requests already allocate enough asynchronous state to hold a
-> copied 128-byte SQE. Once a driver has consumed every SQE field and
-> committed to asynchronous completion, that storage is no longer needed.
-
-> Add a helper that transfers the storage to the driver until command
-> completion without growing the request or adding an allocation.
-
-io_async_cmd is io_uring's own async state. sqes[] is what
-io_uring_cmd_sqe_copy() points ioucmd->sqe at. Giving that buffer to
-scsi_bsg couples the driver to the io_uring layout and lifetime.
-
-Preallocating the buffer in bsg itself may be a better fit.
-
-Thanks,
-Yang Xiuwei
-
+On 11/6/26 18:41, Christoph Hellwig wrote:
+> On Thu, Nov 05, 2026 at 02:58:42PM +0800, Mengmeng Zhao wrote:
+>> +	/* a dma-buf bio has no pages for integrity work or contents crypto */
+>>  	if (unlikely(op_is_dmabuf(bio->bi_opf) &&
+>> -		bdev_has_integrity_csum(bio->bi_bdev))) {
+>> +	    (bdev_has_integrity_csum(bio->bi_bdev) ||
+>> +	     bio_has_crypt_ctx(bio)))) {
+> 
+> This could really use a factored helper explaining all the refusals.
+> And maybe we should use the chance to sit back and think what else
+> would blow up and add it there as well.
+> 
+Hi Christoph, thanks for the review. I will extract a helper in V2 soon. 
+There are several buffered io fallbacks, it's really necessary to discuss
+how to avoid these. Glad to join it.
