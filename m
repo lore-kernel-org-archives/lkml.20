@@ -1,97 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794202734;
-	b=axXCfkr01ezJMBKNOPzW2XPz4jB6LPHgtjfzSC31JbYHdK51nYl6Fck9T/03SMJ7YiKn
-	 8dVZfeXf2XDSiSSz25qL75qsqbEv82IU+/MViWg4gv/a8bqezwU7/Vr3DmTE+UEDPaA7p
-	 dFIPS2Uee/XBVjhrs5axACZwsNWYerRwDwx11gfNRjaQezWDdkULhVgOCaaKnULngPkMK
-	 NBgZayIaCeUrYPpAKh0z2sJN4EaPpSRG1QG0cqPgGbzKLRyBwi/6MdAIesLSFhx6Repem
-	 CiIwGfiamDBjDON0lj4eaS3ZccAG3egW1rBktwR71Xp51QoWTwecU9bTMBGw0ftB2Zg==
+	t=1794202770;
+	b=SkoEu9OhyUGzIQYbrGk/9vuXtnDkclvlfb/ujJ+c6m2V9BBLxtF1aH1EVcVLpRUDx4c6
+	 K8HuQXDeGmoCNusD+E08uDnN721WdQhhcha+epcS226WpnxtNHs2JZktLK83IMLUE6u9S
+	 0FS1d1x0F4VwLdMmFRooDwFW4YcIhuv2mlCYFllAWor4u3sTdn2Pbvk+EA/wrCpbJJgbY
+	 xbTQHtKazLf9uMPDDhSNyYNKvVJUp1lCfI31EzYVMa2v1jjnjUbdHCalcXNGUPm6v14U2
+	 E8htxN4Di97GbRaGElbqVnzgloW65ZdGKs7KGB3RB34PGynlppLlS6b7AvX4bWJChhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794202734;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794202770;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition;
-	bh=1IS9bB79S6ELO3/6XYypihEImNKjKlv6tMYPTAYxBWM=;
-	b=ruYK3OQqRdILdJRjPBq9hNdPKoJq+nTToCHJX2C5NmPZD91gaIFqGKParyJ2DtGlVFWD
-	 Q9NnfrZMa/DgZPNeVy136pahbP8+uvWwTksRZOFo9vmozYtF3UHR5ljPmVJL51ZEIi5YQ
-	 74vEwl5QixnWLil8a+Xc8GbgUFmL79RlGScCR+rrt2IcPsS2h1Ko7/DMWX+vtc1YU/Csz
-	 NkRmcAx28NSrXpog8Ja4aWcqh0NbkQNBCm6QmpczegUBN3Y/BTVCBY2utHF3tawmtES45
-	 IoHXIle31vVTDCNwuNruJt91omKLUPUCGadYza22FMyLkOctL38MGixLFs9y6cAibEw==
+	 Content-Disposition:X-Mailer;
+	bh=4uU3D93eNb0dcAsvNYKSr00RkTcidb/i2o2hNB/WLWc=;
+	b=MmTKYTJ5DWARTXjfduVwTMl2LylUv7JjCE7G8ritFOHoqxw36Ntyd8AmCGAcsuBKBbnf
+	 w746Gb4zt2aCQkKZJU+Y6aVgQZSPDGJvOpaKEBrlKU7BeSAmg8UKfRbcJW4EIKR3xP4HC
+	 WlKIWbaQlaWp4gtfmgVUDwUywuqgwddxoRyFsM94DVoc97vMjz+4oAdEjNNs8oXtzFOFz
+	 ywf0evMgYVZgjXVW1uEUGSzbNpyF0qAWP6TbrPvQ6EFG5IpPcD/D7/eRZUp2ckGkTJz/i
+	 BKSAh57Rv5+tXCjIxqfDgZiTUVG4ofxTfza7aRgA0reKX20P1H5XmcHFgD0KeTQKNJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P52m1tCu;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="m/c396Cw";
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C81606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:38:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2C81606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828AF606A330
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:39:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 828AF606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P52m1tCu
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso4652355e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 21:38:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m/c396Cw
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4910b863b84so278911f8f.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 21:39:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794202732; x=1794807532; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794202769; x=1794807569; darn=vger.kernel.org;
         h=content-disposition:content-type:mime-version:message-id:subject:cc
          :to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1IS9bB79S6ELO3/6XYypihEImNKjKlv6tMYPTAYxBWM=;
-        b=P52m1tCukE761aWyH02DuccwGLNXxEJHkzKsb0kG+eBy4GwBBl7L4AQi/DJfVfOqYQ
-         4CYkp5AThDEMyORh4Z5vQG+z0rwNRFbX70PrcQCcItiGahcuHnh9v3KG2E3HkQpUDx1f
-         lOV27Oyi9b5p5vDUxkwQsXTjCGxqOn7g2rzBba7ecJGZgvNR//iGmxoG6w2/ri5tbm5H
-         yU73DsRp+blZAZ1DMNm7WlmQL9D0usA1+bWzpn0DOhJ6EoVr7ayvg5+n4e7fmDcBJkGN
-         NatjWWp5iZQyTWn+A00Ono9MlxIc301c2WuYI4p06abSS8WfUcW0gODmCHRhQM7A3W79
-         Cplw==
+        bh=4uU3D93eNb0dcAsvNYKSr00RkTcidb/i2o2hNB/WLWc=;
+        b=m/c396CwshKMa2EHH+DQktTUWKdT+G4FYhJZRO1ZyIRIhcH4JLYWrzEMYp+ItdlBIA
+         TfrpaAz5zE0hxf52AhEiwplZI2VXfKYLCOe+FYHpU03rM56D8UVCIbC4EkcKucUXujME
+         UqLm9dyYq2Pd28HnP+Gy67SC8ArUdRCZcomkUowXHVNoiFIICmBTIVdlsiscdGA64vyO
+         RBLD8ILK91ZHqy91P5VTxFDBpvH+IqxaQ1CA0lQRBHmprYuUvpkUhVStr1VvYNw7G1dZ
+         nYRFBFec5K4S/6FdpKhkVPUYrgzt6s8D/Fsckxa/yVxaOe5ssdJEt9lk6iqQknhDSoKJ
+         IOMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794202732; x=1794807532;
+        d=1e100.net; s=20260707; t=1794202769; x=1794807569;
         h=content-disposition:content-type:mime-version:message-id:subject:cc
          :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1IS9bB79S6ELO3/6XYypihEImNKjKlv6tMYPTAYxBWM=;
-        b=r85nSpN6FmxwX/5VncJ0XAoBMhPwKn4246cjCTxb403lJIP3W54fiHUPG7BR5JMFpv
-         qXJ2XoMrTgQIfOUInevZvCMyKxrZe4SIF86aD7HBceDeWb8LXX/HdsjzBOFTgkTat8DC
-         PV+OPq8lYUvsk3zJAuZgzF1wIGLxEIV34LPgsRasIucFW7A28IBRe+w0BUK9jtK1JKZ9
-         9DEIYHFH3CdRo4+OQuCzyIIp5zrdsyBi+olPoVRFdlqSRzhL5dd5gVws+PtJGwwQgMK7
-         DJAHdRZ1pJeBTXmgAPD7nV/aDgZPLAF98UYrYjKZ6FNfcqkMCsoOxEwJ82aCiTqXBuvU
-         tcew==
-X-Forwarded-Encrypted: i=1; AL+hErHW/XpdNCyuYXQNYzhZu1oqn26DAh2D5Nqjlb+vT7e2DfXVV0F5IThImOtavPsOwk59+xeTX1aK8/2pSvI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/KTxMvIneYByaqgY3xB/OsCoJQd7W8KhXkuydYlPp1q0SNtV3p
-	EYJ4sJy6VaAT5T0Zc9FGl5SpnOkVXvbEDpkRSHS+q9W/Eyl81DZmsEdb
-X-Gm-Gg: AYBFou17Vlu4GLw9ahW6q4N2g4oTf65nkHZlsgdn974kWoa4/p3Hujmbr/Jn4hCV+Jy
-	2OpbJzETHS8Vsjx4ojiwn7x/R7Wagj9ifFzosQaxbrQUE7l5hDDe3XFWBrCIf1Uy1z3b5dqntfy
-	5FdFGqGDEVvObpAXBpBRFaHtmjw88mLsasaDmHGEkTGLE8PVLBQi63nhfw5xQWRlQvyGhSiOroM
-	0EEwobimIKbHJbOZ6I0g2BACIMSVjoQMw3Czmgey8kAZtZzXKQuwYwVfHWfxdobTdOjsolkubM7
-	AbJ64ntpkiO5z9qeC26Td28KCFOBpBsmtsWZ6dS9lIjGtNBLH+Yp+jRU5n2PngCLw4G28+fohhF
-	ZhJPcAzYuRF+EgGcLt9g68ZUpBnWYzr6el0+ASLVTgX3pqyu9VTHD06fEMw4dQRu+iXJECeVFa9
-	h/4ZqpRmT8gmPdbw5VzQHXLVqte+5ngGsK37ve5yaC2U2XPFjQEczvyoJpqqqGnGexCzKL5nNRI
-	ORqdQtcT8N+OJeSats7v3pAyOkN2dgo6LeeZ9nly3GslIcYaxyy1xFE4IqUOCIrke2MEoZPRYzl
-	7BDDVdVkbUSErArdz9ccFFSL4d+ghUrzwIVl2u3m34BMUV2+nFAJ/sGoYGa/10sc8p8LUxk/Oty
-	jDUg/sG+Z64ukejiXgJMk4zj1feBh9Yxnd3AsN6ntFLCkGv3kRdkC181qzyy8QzLI0TPX0pwu97
-	adgpBRvsGQ8Dqz
-X-Received: by 2002:a05:600c:8b6d:b0:4a2:729:f7ce with SMTP id 5b1f17b1804b1-4b963c6d1dcmr53426495e9.8.1794202731953;
-        Sun, 08 Nov 2026 21:38:51 -0800 (PST)
+        bh=4uU3D93eNb0dcAsvNYKSr00RkTcidb/i2o2hNB/WLWc=;
+        b=Pq1rIiFSxHuVXuolf9eYyxc03XOh9+HoG+IKn2I0Tj31pfjPJ5QDsxni8xAhCwuvYv
+         eHYCy7N61QpV4wshf9s7BQGlrbLVJOufGPU1T/N567rHudPlk/FUn4HOr4rc8ZBpG+Is
+         flc8uqht6InVU0npq8BY4fUgfeBpZ/UsJ5ZpKLh/vYje+KrFxPYtpjE+4aDvOk/kex4X
+         phiMlV4cxv4wOMFRrr8xyBTMVR6cMf9J7NgnryRMQ0oHYbpbLQ58e0TJxdCmOpxWvRcu
+         EXm4WfdbfvHrAD+nWgz0SrSjQD0upGfZHRb6G9Uu2FocILCAtQCs1T46U+GkXZTphGIs
+         kmuQ==
+X-Forwarded-Encrypted: i=1; AL+hErFTZ0KCpgrDH6V4kElXDjbT+xgXMYDU3nE/H0P1CSgyPz3ps1Muy5e9NQyo2cyd+F+rc7OjEWHRCcBL7qo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9m8YR0Mvq5L60Azcg9AZTXoGZJW9LL6KyqIWeXwIjdZ4ArAcMb
+	sNo0/fGdaMa3csBXQwykuPpEmWZIRTOlxBiLqbfZf6pPgPHPgdinqxk+
+X-Gm-Gg: AYBFou2b3+gWJsgXsNIxALbt7hiNGf6bM/Zf7940qmFoldGSPBv8jQjrZNGza/eiE1j
+	U1BidsFSEcpB/2Paqa0Q9EHPMtLXPWxcVBeGkLCEZqMqa5nwShW0iKRceACOEXeM4ewz7SLu/OS
+	70tFzWA2XLPjF89rE16stWi96hUptfexW3NYg1yppNw0Ln9fqJnI386ldw7ZZoAdSBTfX83prap
+	gFKWZ5zHNeeJ4vl7qgujneIRoYE4kvW6nM1G13Cfib1OvTy+YLN0OZq4tXYaax9rGGUwBj8OPbq
+	rXRRuDWujdyqn9NnMHuTu4VIy5Jn7N1rAS0DmW1Wmeyjs04TH6E6s4rL9kNpL0fcRq6OIWqmoc/
+	/gISkshRZSup8aCa6+fjnQUzkvan1AnSOj0j2LoyOjfqOndTpbPcKXcN7p3KwrSdUqIhw6qzheB
+	+BjadxyP/xP0Y4boEY/RbrLJ0+CtIAFuUwpBwUuPqGmK/b6ceMmo7xJqtquVuQghy9RSbQ502N0
+	CXy/y0jrz922qC8ajFZKyj91fbmoUrHG5qjgvX69AqQMXruuSj/uLXn75GjZRwbrpVKs4b8dfWA
+	a3a/VCeBcimdFTir0i/O8If0NyEgc2w8edP754wALnbX4Rfm0t59WnIN64wFS9SOKHL/Fzmk1PF
+	yX2lgJXw/kxBkpMmnEf+M/igRxNsezuOiiFysKqDxao9UmSrJyTzOuL5+59Q7sMR8bw==
+X-Received: by 2002:a05:6000:250a:b0:48e:d40:a87c with SMTP id ffacd0b85a97d-49423997d63mr12864728f8f.16.1794202768807;
+        Sun, 08 Nov 2026 21:39:28 -0800 (PST)
 Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm99903155e9.8.2026.11.08.21.38.50
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4967a70a35dsm4750189f8f.9.2026.11.08.21.39.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 21:38:50 -0800 (PST)
-Date: Mon, 9 Nov 2026 08:38:47 +0300
+        Sun, 08 Nov 2026 21:39:27 -0800 (PST)
+Date: Mon, 9 Nov 2026 08:39:24 +0300
 From: Dan Carpenter <error27@gmail.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Sean Christopherson <seanjc@google.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Karthik Bhargavan <karthik@pereq.eu>,
-	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>
-Subject: [PATCH] KVM: nVMX: Prevent potential user space corruption
-Message-ID: <dab486f129c36ba1cfb322ceb56ec6fdef020ca3.1793959700.git.dan@cryspen.com>
+To: James Bottomley <James.Bottomley@hansenpartnership.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>, Mimi Zohar <zohar@linux.ibm.com>,
+	David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org
+Subject: [PATCH] keys/trusted/tpm2: rename "bool" to "boolean"
+Message-ID: <avFcjHwnh9mrOEnz@stanley.mountain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,63 +102,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 
-At the start of the function it does:
+In C23, "bool" is a keyword so rename this array from bool[] to boolean[]
+to avoid a conflict.
 
-	if (is_guest_mode(vcpu) &&
-	    nested_cpu_has_shadow_vmcs(vmcs12) &&
-	    vmcs12->vmcs_link_pointer != INVALID_GPA)
-		kvm_state.size += sizeof(user_vmx_nested_state->shadow_vmcs12);
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-This says if the three conditions: is_guest_mode(),
-nested_cpu_has_shadow_vmcs() and != INVALID_GPA are met then we are
-copying sizeof(shadow_vmcs12), which is 4k, bytes to the user.
-
-Later, we check if the user has enough space to handle the copy and
-if "user_data_size" is too small we bail out.
-
-        if (user_data_size < kvm_state.size)
-                goto out;
-
-But at the end of the function it accidentally left out the
-is_guest_mode() part of the condition so potentially we could copy more
-than "user_data_size" bytes which would result in userspace corruption.
-Presumably, users normally allocate enough space and we don't often
-corrupt memory in practice.
-
-Add the is_guest_mode() condition to fix this bug.
-
-Fixes: fa58a9fa7497 ("KVM: nVMX: include shadow vmcs12 in nested state")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dan Carpenter <dan@cryspen.com>
+Signed-off-by: Dan Carpenter <error27@gmail.com>
 ---
-This bug was found through our formal analysis work at Pereq.eu.
+ security/keys/trusted-keys/trusted_tpm2.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-I do not view this as a very serious bug because it requires userspace's
-participation in corrupting itself.  Userspace can corrupt itself
-directly if it wants.  However Claude says it cannot share the
-reproducer for this bug to anyone under any circumstances so I have not
-been able to test a before and after.  I have run the kvm-tests on a
-patched kernel.
-
- arch/x86/kvm/vmx/nested.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 879183c1bfa5..a9c126f702d6 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -6878,7 +6878,8 @@ static int vmx_get_nested_state(struct kvm_vcpu *vcpu,
- 	if (copy_to_user(user_vmx_nested_state->vmcs12, vmcs12, VMCS12_SIZE))
- 		return -EFAULT;
+diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+index 30188a0ec676..2d6cc53539c8 100644
+--- a/security/keys/trusted-keys/trusted_tpm2.c
++++ b/security/keys/trusted-keys/trusted_tpm2.c
+@@ -59,13 +59,13 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
+ 			       asn1_oid_len(tpm2key_oid));
  
--	if (nested_cpu_has_shadow_vmcs(vmcs12) &&
-+	if (is_guest_mode(vcpu) &&
-+	    nested_cpu_has_shadow_vmcs(vmcs12) &&
- 	    vmcs12->vmcs_link_pointer != INVALID_GPA) {
- 		if (copy_to_user(user_vmx_nested_state->shadow_vmcs12,
- 				 get_shadow_vmcs12(vcpu), VMCS12_SIZE))
+ 	if (private->blobauth_len == 0) {
+-		unsigned char bool[3], *w = bool;
++		unsigned char boolean[3], *w = boolean;
+ 		/* tag 0 is emptyAuth */
+-		w = asn1_encode_boolean(w, w + sizeof(bool), true);
++		w = asn1_encode_boolean(w, w + sizeof(boolean), true);
+ 		if (WARN(IS_ERR(w), "BUG: Boolean failed to encode"))
+ 			return PTR_ERR(w);
+ 
+-		work = asn1_encode_tag(work, end_work, 0, bool, w - bool);
++		work = asn1_encode_tag(work, end_work, 0, boolean, w - boolean);
+ 	}
+ 
+ 	/*
 -- 
 2.53.0
 
