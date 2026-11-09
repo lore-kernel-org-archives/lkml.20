@@ -1,135 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.10
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794198868;
-	b=qvl/ACEa884LcJGtr21BWbXo4Ah2J9zjn2GwgknQjExE7Los05j2bUtnOhiM1jgsZeHY
-	 7fIOm69GE0QJKbDgVR4zPc0STITn4pMuYNzUPgNBfd3nK+b7fogn02oeov8AQJ7ZTVr/M
-	 5MNtXRQJ5FMQgQMusMkgnMod5NgA1R1UYUdoKzd52fTa/eXz7KSjAbsiOSV26u0A68aP5
-	 ayhFKVGTs/IIYd5NpeeDwEWjYHShHF6CIMlJX6qGwJpsfzPZcgaE9WGTNF9++Uz7349R9
-	 yADGPut28n2I42sXFsYqi7/lwFM1G7FqikjsPY8uNg9uCjYMAQNiOTqrB4mt6apA43A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794198868;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=JdXboV7qxhltwNH0LSlUGIaBkpIrFuZqTC7N4GeLyss=;
-	b=B+EFjJs5W96p3V9B2dhO3/KK+R9ZbXFPMv48v0K96VpBQh3r1wDfe4+94yFGlNxwEyY/
-	 k9v90PA2UuiHvLHBgKaMRTuL8/EgrBCVaYOm/7C2Kj3aGawQTtq1DCbX7sJKBorGwiIEw
-	 I5Bv0ZtUPJ5DmDDMr4K8uuUs1+TYFodXJOLTg1M+GxkEowuhcE3xT795+mVoi6N+xbVb8
-	 TdZDKUsE+W/XQSNvEe72+nujldBIt8rfcM9N1we7d8yMRDhJHrNnSRj566QOIQ2KFYKK5
-	 PyxGnPX4Wbn9YtlkZZdpiJJwPrwCqlkoC+GQu5fGAEz5ZW+E6gseqWyb/8XF7gE4C8A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RoehDnAO;
-	arc=fail smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794198996;
+	b=xQu5tztcOGpIFbA3ul7PaVKAypqZavjKu953Mj/o2SbAqXRs56znV7/mMe+X77Hul7dT
+	 rYkCKNVCa/UEUuX6so698xQCetpvp6njvCRdaeBwcvBQVEHF9oDaNzL0ql4DmWfddwbQf
+	 mtZdFFc9BEwvo69WEEHbXJZsYGYUND0HTG34vMrhKLPVsUhjy/JSmhMMF09zP+kW29L5A
+	 +ekXHCXfhHwJmZLuTmi2Aj06NYI+5jl+YHxiOsTcysED7IjmNY/Q92h0ZkrOWx+YGY8/P
+	 LifN84CMMcGJmfRs58Mib22loO7MeA+s+tKeIDvTng0EDV3c21pRUReOVJK2P/rt1bw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794198996;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=uTmIS9aKyym5dH1US1ljpTNJCXSvpIpBaRQvIEMaxHs=;
+	b=aUgqP2mkZv+LP2vk1/imhPAgzvkxSlSJQ8aZILRs9oJ3OwBVE8WSeeWYRSnzAbUiVSRa
+	 LCOx/z8wEoostRwZagXERFEh5KmcquZShL1J1PASsDH9fzhw8EFkrfG6AIIoFh0fCEsjS
+	 2p78UhwOsA1MPExzqGgDCDSjjJE3GGPWxHJBRO4MrdYodTvp3veW65P/FUkOy3v7tBAT5
+	 kwyLvB5+gWKOxC1Wy4Ogo1tI/HAQmn2reGue7oyHuwhTPfrBL9slAnoXkmlpKkAQu4b5u
+	 NlcK5sjpM+HFZ76gQihurc3L8miOYnrEYNSHC4zzFSjjbvf+H1y50LFa8tQsngsZcaQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ma6N62v9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC60606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:34:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DC60606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22545606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:36:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RoehDnAO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794198865; x=1825734865;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=a5yAsM2ArfnJ82919SOECnhUtIe1OwnTp2CXvDgUU60=;
-  b=RoehDnAOdyPwjoGKVgcyVCFi9CaMbqfh1XtseY4UtH+1fsV/fRqe72Ws
-   O+xHb+TKHllF+TYynnw8GGE0bkoz9wEWl4KWCpV4bZ+rZ8LyS9XtjB7hI
-   g7zlxAsPlj8Xitg4udAJg39Es9xX50BCCKOdSei9VCA7TMYAr8o57N2fa
-   YVnjtpCpOVOYlnwmANucA9JBHzFwo5OYqKOgNu1nLrDqT3wew6S9Aenc5
-   ucgRnJHoRu1PExW1uf9/G0h2kJfu0r7Ed1ntE2fwzpJaSpOiMZvLknnIL
-   RKz+5wOX89Ujd1VvtABQwtPnQa9n6agfJhSkeq+phcuthxWmgQo5O/DdA
-   w==;
-X-CSE-ConnectionGUID: px97ssUSTkeBPE1ELydq1g==
-X-CSE-MsgGUID: ew94hxzIQBC75gSUky2dMw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2819575"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2819575"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 20:34:24 -0800
-X-CSE-ConnectionGUID: DkoXC/0+Qfitg6bQnqp0Gg==
-X-CSE-MsgGUID: cDMfWOS6TmGMVPkZi32fXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7940071"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 20:34:25 -0800
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 8 Nov 2026 20:34:24 -0800
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Sun, 8 Nov 2026 20:34:24 -0800
-Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.24) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 8 Nov 2026 20:34:24 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DtU8O0Crd9kDD2rDkwDnnNeJiptqRdnEK+PZ2wGCNbivoS/s/ITKpdoCqn+d5C6ElaslXT6wRseWD/EBRt2KtqeoG9xN1B5vFXeNZtXkXCnyN762YOzvZN9K7kZEXljKuEsKoFx/F2Aeb3CVYGv9t81jy4RjIAcH4+hxjNqhphBaLoEc4bbuUfD5fy8fLV3XNEm7c2+VZWo8LtBh4AJuepe66Pm1wv4+EcHglatcvdtfWDAroOIJLcBQ9jUK/eAY2NDG5NCZAT2sWS+8luSdzyVdSktENDSSNt7GK+mjHCLPNxrJ9KqrHNivgHE2cqu0EStg8ZzyWJZ79O1V4LZveg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xdXyFIBxuV087j5YzfqQlOqvfr+ZGSU5Wqne6ftSAxM=;
- b=kd0XYc+k7TFbgVm+O9N99tupVGo/gCbToq117wUcPM1o2h0y8U0C1r0i+vzCYlUWWfVLOPEuGXyZ2r9ssitnjdItiE3YU/KN7Fc5abvPpoWqscTTxgo0l4g6dJF+1VjoFj2z9EyZtu6wC3U2QgsJA5xNmX2Ccdn6twiKE+eYK0SbefejyWZw+K7D6okKlBVxef+J8XsQ/h4m5aX/SXDZCmAlLmX89GVYd/tNfzQPaqWIElFRO7uc5LPnckqJ3qAG/9Ct15zaHIClkNKjZGAtBM6pr3yeuq9LFTkfjobyKkF2SZ7RirfJOOUI0ANxUBq42BuhO01iRWDKfeKNuXnMFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
- by CH3PR11MB196721.namprd11.prod.outlook.com (2603:10b6:610:364::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 04:34:22 +0000
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 04:34:21 +0000
-Date: Sun, 8 Nov 2026 20:34:18 -0800
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
-	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 24/33] drm/xe: Add defrag profiling tracepoints
-Message-ID: <avFNSl7oIffZTPi8@nvishwa1-desk>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-25-matthew.brost@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260711025619.2540575-25-matthew.brost@intel.com>
-X-ClientProxiedBy: SJ0PR05CA0002.namprd05.prod.outlook.com
- (2603:10b6:a03:33b::7) To MW3PR11MB4684.namprd11.prod.outlook.com
- (2603:10b6:303:5d::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ma6N62v9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA141F0089F;
+	Mon,  9 Nov 2026 04:36:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794198995;
+	bh=uTmIS9aKyym5dH1US1ljpTNJCXSvpIpBaRQvIEMaxHs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ma6N62v9XBEMD4MKGpZQhtguYQqVYkJd+iTa7t/DpXBS8g0ZtUEwKBL+08sEzT78g
+	 rtnDCxaD+fEJPEqdESt5wJyDWiAcH6Ia6eB7M/sjGJQUA0oJaVGgCwwhc7aHzDzCys
+	 7CK2MaD9eXw8V9K0Pu4bqiGzY9QeDpL/RHfintzQmOv+DHyh7IqgxY9JrAsgTD3Oco
+	 YVdKTgRskwuwXWIT2vCdzrxAMVx/LdfqEz4Cfh4JATemMcdSZkRHGoiitmA0kVrVLm
+	 /Os2aalndyNDqSi5tJaiHqlHEXV3U4IRX0/7+FGRaNXel8aUv4FFnCRpXjqqUtpORu
+	 B+OvYiT4ihCjQ==
+Date: Mon, 9 Nov 2026 12:16:22 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Charlie Jenkins <thecharlesjenkins@gmail.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] riscv: entry: Mark ret_from_fork_kernel() and
+ ret_from_fork_user() noinstr
+Message-ID: <avFJFlcVI1ycJzmJ@xhacker>
+References: <20261109041845.33695-1-kmehltretter@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -139,249 +61,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|CH3PR11MB196721:EE_
-X-MS-Office365-Filtering-Correlation-Id: b2f8099b-78aa-4446-6147-08df3e1ab9be
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: HAC7MKkGngzdZn8p0I/DQL8Av3OD6DL/DIM5VZXVexYztpIDS2PwXFYo9X9Eqd+qkiQgj5rC/AUX/+pTSdPvg59KBO3gEDgqDr2X2APQLHKNWE2/EwGD6SB1na14fgR41CnrICqZK1xxNgALVpohQH/bgTc2pLwvbnHe3M9kWgLNFxrfi1H12pHl9ZzUQ3XZcn6vzZ8ll9x9qJ8Qqkmj7UpiLlvG8tYmSXQU5Z8/15no/Z6LfR4eW66mPzupnjf9JgsUGPFAX0LRgZufOoZ2DF57JrhB1Qul2UVFd0+4OWftBw72vGXsNTSl1e+vHjo8vaxOYcZFSbb5S+psyXsvfke9HbilfrU8IvLoVzuJI0ITkoOvd1DBSg1IsnqR/F096BTthVxAbTVlbwIATPX4CI5X1p03OnZTVy9kYQxJ9Phgfysffi/kdCXo0Y0ueV3LwVHuSXxKUkMYOdMtSYAPtjVV3jlY7aykv4Q2l2CjnyG7VsJlUB2U1DXb2w36Fk+qkmf829GgB2Y9i8GZanFj9FuGPHlZjBl8hn1CxycDRRkDpBNhXGeXzXunkJqLRJvjhXvFZadYDM0N3M6idxkOS3yf2bmf7TigrE6QwtNHibEYtMabRogPwBDunniEO0WWXNWKDRufz55A2zbTU8tJPaC3dFTf7gVs2N+u1ln6m6g=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?BUI9UQGb1vbxtGObGd6okkjCbvLKusFqkqAaBBmZtC1vHrtWdbQN77mMph?=
- =?iso-8859-1?Q?bgNfTs24Uc98eONFHaPp81t3e+M9j7ecMThLrGljO/UkM7DbzmmdsX27o+?=
- =?iso-8859-1?Q?7il3LgwDWNhEM41jvYG3pQXgkeMhvsm1pka0QsLi/NolW6m6HN3l+2kc27?=
- =?iso-8859-1?Q?ylqAnKHtxZ4hUlazOTKaimv0VyATxTvNFNUbKwV8fuIQ8I6EB44LPhhxXg?=
- =?iso-8859-1?Q?jmi1WAXW5k6UXuw7NyA+oYwRF8ciNCTbvxIey7UFui6hIhllJDqPrtvi0C?=
- =?iso-8859-1?Q?1Fhqkqh9IzQJ4Zu5Ta+0rR3AGTpnEcauwDTOUumE1N5EOc+ZAnzDr9FBul?=
- =?iso-8859-1?Q?82b7Eze3Cw36UIcZmNQY+w+/VJZv0E61UYGNHpStHqAzDum0P4IoqZ04SU?=
- =?iso-8859-1?Q?ENYkQIvOO2PW1amDhrlPTUtetoDkZio4woAhAu5FGvgx+dkTxhezHjJ8na?=
- =?iso-8859-1?Q?tbzo1Wd6RMUCoRy0A5CEJpAjjHFPeQuSn/T+owde6VuCuLZrPy5KvEEzup?=
- =?iso-8859-1?Q?88bLSN+srh8Ohbkm/UC/movanEXxQEvE/AeVhIevIBWLYl6bOvM6aqXay8?=
- =?iso-8859-1?Q?Mzvc/nJuyI+VZ4R0t3ooHtDd2EQz3TZfqktMdYPjku1nAujfg4twmMZ5xV?=
- =?iso-8859-1?Q?DDsjCqHpDYx482a1mE3ILGf/TocoeuIlKVaMuanUed+gZEwG0teV8EaI1S?=
- =?iso-8859-1?Q?HHUosH7f+3AEJT0xAGR/G+4+99zwwFo1CilQ8MjubamR0pG539hIXDYjqz?=
- =?iso-8859-1?Q?OE9AwJihaVp8nh7iHCAsv7xs2Avs01h3zirBxJ+xzFyu/2xGgq3lFWywcP?=
- =?iso-8859-1?Q?DFbQcw89Ye8AZJCFbfENTW38SPPSBrU/vlk5n9dhYXWrcnImM6pThgSiNm?=
- =?iso-8859-1?Q?nIjp7ck/RW2ak4d9Tv7EAOOnIvjY4b4xSbWBh4cJXH60MT7rEeuvdT8y5b?=
- =?iso-8859-1?Q?lzCJSlqWuWXECuT5GcX672XpmETQyjjCiH7SLO/uxJv55i5baB1UCj1mY+?=
- =?iso-8859-1?Q?J5fuDmh6FbDNuuzBo4CtUL48vbwGt2XLD/UdTamIAIVtXgRx+z7xg6YU48?=
- =?iso-8859-1?Q?eUlGUs/B8UW7N++DYN9drZjSDKV9BRtsNtOgnnKuowwrZDsTcB3fWSWv3F?=
- =?iso-8859-1?Q?col9Xz3ofhcIjyfaYo6yeldb+8T/FRy2R5U1r0cXyCazGd169oYi0enKVm?=
- =?iso-8859-1?Q?C7rAq+tOM3EgvFFboKv/EwYkJFlV6bW2ClgSIpV0wkmd0SXfWCFpI1kcgX?=
- =?iso-8859-1?Q?s21M3PRHSV61NQfzYjtsMFCkfHM0CGC1WtbJQck6zMMyDCBBVghK+oVWJj?=
- =?iso-8859-1?Q?7NOKhxJGx1fc+MNs7VQHPKzl1OZoLqElnsDFtbbDYbHIHU/554XbR5/upN?=
- =?iso-8859-1?Q?zQO9yaphBVrldn4WouvMMVYg84JN39xHXzVCnl+aaUPivT3tQlYbxRpjiq?=
- =?iso-8859-1?Q?k5sYjGPBFfTjRKo/juKVnfypQ4uZQEnMZZuhJaDU9dIMi+53eSdabcYKus?=
- =?iso-8859-1?Q?p4skiYBgRGnwhBel2c0E0bZd+TJsvzjIQu3a35ZkpjCkdvK3VqZePWvu5Z?=
- =?iso-8859-1?Q?MzYqeFj7zZMfXwqPHwEa8+HwgLPBFFwZwItmAu76bevFnnLh3VX6zYH/mP?=
- =?iso-8859-1?Q?la4pW9ITVoDL4ON0b/NplkPyYTE6JVLFELTYb+Xv74n+6BMJE+jlU7bP5O?=
- =?iso-8859-1?Q?KlY0HV2NmRP5C9BI7d0kjNN76euBgVljVMQr76FwqLkbWEaRxs+4GXg7xB?=
- =?iso-8859-1?Q?auYzaiw4LCPs/oLQ/qKLS4TmkxvgBeJilKNR8nMjkp8hhWMo4nJgWSRidu?=
- =?iso-8859-1?Q?4KxhyYaN3HaYp6sNiQ7CxQGGldUgt3eWOWy6RuFrhWVmjtB4MIKD?=
-X-Exchange-RoutingPolicyChecked: BtpcfFqVADn5jbJ9gPtwdG6FNM4a7HV25F+ZWdJj/t7/N1GXioK0gb9gFsYCd7NmSAuGaTLlMn/+At4iypC8QYeY+g+qAU+XrcUd9FnTGAYX7H5Ev/6an2gUGC8u1qodQRWp1zFSHYvWWH9CA/eBg2LVT2M9azSBcIUbqVPgs4FV8vFtXMmltaLaZJoqv7wF26GByaUmAupNom/pKj2uPgB/tEjwg+PBEK4WWedqXR+cemulzluclFb9M26NuHS/K13aCQLt+AnfRG/Iv8hFvB2y8uqWGtfd8xz84mwwkwP38TuexMxW4Vpbs86CfvtttWnCd1VXcXr/lJY5J1GzTQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2f8099b-78aa-4446-6147-08df3e1ab9be
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 04:34:21.7730
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pv71sKL+nHEqSSEu0q6ZnOxhjMelP25lF9UZ11xko3xr354MJxjOH7hipm3/FCkzoqQlkq+041HPikxVk+vm/tKF/2eSGsZlnBiAocW3lW49yQU9ye1fvRBE+v+52LCq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB196721
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261109041845.33695-1-kmehltretter@gmail.com>
 
-On Fri, Jul 10, 2026 at 07:56:10PM -0700, Matthew Brost wrote:
->Add two tracepoints to profile the page defragmentation worker:
->
-> - xe_bo_defrag_worker: emitted on worker entry and exit with the
->   current defrag list count and the bytes processed in the run.
-> - xe_bo_defrag_one: emitted per BO with the run budget, the prealloc
->   fill ratio (got/want) and the lock-held, lock-wait and prealloc
->   durations, plus the bytes consumed and the result.
->
->These break down the cost of a defrag attempt into its locked vs
->unlocked phases, making it possible to confirm that the expensive
->beneficial-order allocation and cpu cache mode change happen outside
->the BO dma-resv lock and that the residual lock-held time is copy-bound
->(with the tail dominated by lock-wait behind active rendering).
->
->Cc: Carlos Santa <carlos.santa@intel.com>
->Cc: Ryan Neph <ryanneph@google.com>
->Cc: Christian Koenig <christian.koenig@amd.com>
->Cc: Huang Rui <ray.huang@amd.com>
->Cc: Matthew Auld <matthew.auld@intel.com>
->Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->Cc: Maxime Ripard <mripard@kernel.org>
->Cc: Thomas Zimmermann <tzimmermann@suse.de>
->Cc: David Airlie <airlied@gmail.com>
->Cc: Simona Vetter <simona@ffwll.ch>
->Cc: dri-devel@lists.freedesktop.org
->Cc: linux-kernel@vger.kernel.org
->Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->Assisted-by: GitHub_Copilot:claude-opus-4.8
->Signed-off-by: Matthew Brost <matthew.brost@intel.com>
->
->---
->
->v3:
-> - Move the ns-to-us division into TP_fast_assign() to avoid a 64-bit
->   divide in TP_printk() (Sashiko)
->---
-> drivers/gpu/drm/xe/xe_bo.c       | 18 +++++++++-
-> drivers/gpu/drm/xe/xe_trace_bo.h | 59 ++++++++++++++++++++++++++++++++
-> 2 files changed, 76 insertions(+), 1 deletion(-)
->
->diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
->index 8b89d34f37d4..25e5b72f870c 100644
->--- a/drivers/gpu/drm/xe/xe_bo.c
->+++ b/drivers/gpu/drm/xe/xe_bo.c
->@@ -1263,7 +1263,9 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
-> 	struct ttm_placement placement;
-> 	struct ttm_place place;
-> 	enum ttm_caching tt_caching;
->-	unsigned int order, want = 0;
->+	unsigned int order, want = 0, got = 0;
->+	u64 lock_ns = 0, prealloc_ns = 0, lockwait_ns = 0;
->+	ktime_t t0;
-> 	int ret = 0;
->
-> 	*consumed = 0;
->@@ -1294,6 +1296,7 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
->
-> 	/* Phase 2: preallocate outside the lock; */
-> 	if (want) {
->+		t0 = ktime_get();
-> 		ret = ttm_pool_prealloc_fill(pool, tt_caching, &pp, want);
-> 		if (ret || !pp.count) {
-> 			ret = ret ?: -ENOMEM;
->@@ -1301,12 +1304,16 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
-> 					 XE_GT_STATS_ID_DEFRAG_FAILED_COUNT, 1);
-> 			goto out_err;
-> 		}
->+		prealloc_ns = ktime_to_ns(ktime_sub(ktime_get(), t0));
-> 	}
->
-> 	/*
-> 	 * Phase 3: re-take the lock, re-check, and validate using the prealloc.
-> 	 */
->+	t0 = ktime_get();
-> 	xe_bo_lock(bo, false);
->+	lockwait_ns = ktime_to_ns(ktime_sub(ktime_get(), t0));
->+	t0 = ktime_get();
+On Mon, Nov 09, 2026 at 05:18:45AM +0100, Karl Mehltretter wrote:
+> ret_from_fork_kernel() and ret_from_fork_user() are traceable and
+> return after syscall_exit_to_user_mode() enters the RCU extended
+> quiescent state via user_enter_irqoff() on NO_HZ_FULL CPUs. When
+> function_graph tracing is enabled with
+> FTRACE_VALIDATE_RCU_IS_WATCHING, the return hook runs after RCU stops
+> watching and triggers the ftrace_return_to_handler() warning.
+> 
+> Mark ret_from_fork_kernel() and ret_from_fork_user() noinstr.
+> 
+> Fixes: f955aa8723a6 ("riscv: entry: Convert ret_from_fork() to C")
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 
-Here only phase 3 locking is profiled. What about phase 1 locking?
-
-Niranjana
-
->
-> 	if (!xe_bo_needs_defrag(bo)) {
-> 		xe_bo_defrag_remove(bo);
->@@ -1362,9 +1369,13 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
->
-> unlock:
-> 	xe_bo_unlock(bo);
->+	lock_ns = ktime_to_ns(ktime_sub(ktime_get(), t0));
->+	got = pp.used;
-> out_err:
-> 	ttm_pool_prealloc_fini(pool, &pp);
-> out:
->+	trace_xe_bo_defrag_one(bo, budget, want, got, lock_ns, prealloc_ns,
->+			       lockwait_ns, *consumed, ret);
-> 	return ret;
-> }
->
->@@ -1396,6 +1407,9 @@ static void xe_bo_defrag_worker(struct work_struct *w)
-> 		return;
-> 	}
->
->+	trace_xe_bo_defrag_worker(xe, 0, atomic_read(&xe->mem.defrag.count),
->+				  true);
->+
-> 	/*
-> 	 * Process at most XE_BO_DEFRAG_SIZE_LIMIT bytes of newly (re)allocated
-> 	 * backing per run rather than draining the whole list in one go. Only
->@@ -1503,6 +1517,8 @@ static void xe_bo_defrag_worker(struct work_struct *w)
->
-> 	xe_pm_runtime_put(xe);
-> 	drm_dev_exit(idx);
->+	trace_xe_bo_defrag_worker(xe, defrag_bytes,
->+				  atomic_read(&xe->mem.defrag.count), false);
-> }
->
-> static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
->diff --git a/drivers/gpu/drm/xe/xe_trace_bo.h b/drivers/gpu/drm/xe/xe_trace_bo.h
->index 86323cf3be2c..b159d37d39a1 100644
->--- a/drivers/gpu/drm/xe/xe_trace_bo.h
->+++ b/drivers/gpu/drm/xe/xe_trace_bo.h
->@@ -85,6 +85,65 @@ TRACE_EVENT(xe_bo_move,
-> 		      __get_str(new_placement_name), __get_str(device_id))
-> );
->
->+TRACE_EVENT(xe_bo_defrag_worker,
->+	    TP_PROTO(struct xe_device *xe, u64 defrag_bytes, int count,
->+		     bool enter),
->+	    TP_ARGS(xe, defrag_bytes, count, enter),
->+	    TP_STRUCT__entry(
->+		     __string(dev, dev_name(xe->drm.dev))
->+		     __field(u64, defrag_bytes)
->+		     __field(int, count)
->+		     __field(bool, enter)
->+		     ),
->+	    TP_fast_assign(
->+		   __assign_str(dev);
->+		   __entry->defrag_bytes = defrag_bytes;
->+		   __entry->count = count;
->+		   __entry->enter = enter;
->+		   ),
->+	    TP_printk("dev=%s %s defrag_bytes=%llu count=%d",
->+		      __get_str(dev), __entry->enter ? "enter" : "exit",
->+		      __entry->defrag_bytes, __entry->count)
->+);
->+
->+TRACE_EVENT(xe_bo_defrag_one,
->+	    TP_PROTO(struct xe_bo *bo, u64 budget, unsigned int prealloc_want,
->+		     unsigned int prealloc_got, u64 lock_ns, u64 prealloc_ns,
->+		     u64 lockwait_ns, u64 consumed, int ret),
->+	    TP_ARGS(bo, budget, prealloc_want, prealloc_got, lock_ns,
->+		    prealloc_ns, lockwait_ns, consumed, ret),
->+	    TP_STRUCT__entry(
->+		     __string(dev, __dev_name_bo(bo))
->+		     __field(size_t, size)
->+		     __field(u64, budget)
->+		     __field(unsigned int, prealloc_want)
->+		     __field(unsigned int, prealloc_got)
->+		     __field(u64, lock_us)
->+		     __field(u64, prealloc_us)
->+		     __field(u64, lockwait_us)
->+		     __field(u64, consumed)
->+		     __field(int, ret)
->+		     ),
->+	    TP_fast_assign(
->+		   __assign_str(dev);
->+		   __entry->size = xe_bo_size(bo);
->+		   __entry->budget = budget;
->+		   __entry->prealloc_want = prealloc_want;
->+		   __entry->prealloc_got = prealloc_got;
->+		   __entry->lock_us = div_u64(lock_ns, 1000);
->+		   __entry->prealloc_us = div_u64(prealloc_ns, 1000);
->+		   __entry->lockwait_us = div_u64(lockwait_ns, 1000);
->+		   __entry->consumed = consumed;
->+		   __entry->ret = ret;
->+		   ),
->+	    TP_printk("dev=%s size=%zu budget=%llu prealloc=%u/%u lock_us=%llu lockwait_us=%llu prealloc_us=%llu consumed=%llu ret=%d",
->+		      __get_str(dev), __entry->size, __entry->budget,
->+		      __entry->prealloc_got, __entry->prealloc_want,
->+		      __entry->lock_us, __entry->lockwait_us,
->+		      __entry->prealloc_us, __entry->consumed,
->+		      __entry->ret)
->+);
->+
-> DECLARE_EVENT_CLASS(xe_vma,
-> 		    TP_PROTO(struct xe_vma *vma),
-> 		    TP_ARGS(vma),
->-- 
->2.34.1
->
+Reviewed-by: Jisheng Zhang <jszhang@kernel.org>
+> ---
+> Assisted by an LLM.
+> 
+> v2:
+>  - Drop instrumentation_begin()/instrumentation_end() around the kernel
+>    thread callback. They only feed objtool's noinstr validation, which
+>    riscv does not have (Jisheng Zhang). ret_from_fork_kernel() and
+>    ret_from_fork_user() disassemble identically to v1 (Clang, defconfig
+>    with NO_HZ_FULL and FUNCTION_GRAPH_TRACER).
+> 
+> v1: https://lore.kernel.org/r/20261107194931.69176-1-kmehltretter@gmail.com/
+> 
+> Tested with v1 on mainline d48723711bae (after v7.4-rc1) under QEMU
+> riscv64 (-smp 4) with NO_HZ_FULL, FTRACE_VALIDATE_RCU_IS_WATCHING,
+> PROVE_LOCKING, nohz_full=1-3 rcu_nocbs=1-3 on the kernel command line,
+> and function_graph tracing during parallel fork bursts across CPUs 0-3.
+> 
+>  arch/riscv/kernel/process.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/riscv/kernel/process.c b/arch/riscv/kernel/process.c
+> index 34c1d498d1cad..6f2b46d1a8e98 100644
+> --- a/arch/riscv/kernel/process.c
+> +++ b/arch/riscv/kernel/process.c
+> @@ -225,14 +225,15 @@ int arch_dup_task_struct(struct task_struct *dst, struct task_struct *src)
+>  	return 0;
+>  }
+>  
+> -asmlinkage void ret_from_fork_kernel(void *fn_arg, int (*fn)(void *), struct pt_regs *regs)
+> +asmlinkage void noinstr ret_from_fork_kernel(void *fn_arg, int (*fn)(void *),
+> +					     struct pt_regs *regs)
+>  {
+>  	fn(fn_arg);
+>  
+>  	syscall_exit_to_user_mode(regs);
+>  }
+>  
+> -asmlinkage void ret_from_fork_user(struct pt_regs *regs)
+> +asmlinkage void noinstr ret_from_fork_user(struct pt_regs *regs)
+>  {
+>  	syscall_exit_to_user_mode(regs);
+>  }
+> 
+> base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
+> -- 
+> 2.39.5 (Apple Git-154)
+> 
