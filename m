@@ -1,77 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.82.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794266195;
-	b=PQybIkHuvlmjZ2SfovRRR0givv/utwMOWAN8mRvBFWUbOS7Q42xzRH7zbiu4r/xDQXYL
-	 JwDOEljXnYaeGWZy83tBqWUiFGLRIrooGo1cIyfi9wXU+WlHn+9d2Ld6l7ns9sBzH8bJQ
-	 xUxyqw4YILu1hugmvxAbQchtFHqAg8hrBdNZaFT5efieaKbDb7EtSpK7H4OClhKdbWFW0
-	 erMAbm0J6JFvCCb+VHUrvauEzVqXFgIIM31ufmUIN2ORztQOiBNPin3BOaFNUACFSWNNc
-	 gHA6kQXGBm6CAi2E3z3AvDHac63v4eCLLvWDVNT++s+lc0NFLlG57jmPdlm6wMagTnQ==
+	t=1794266217;
+	b=TuwiQNk0CPe5eXXJXso6Zpo1df6SqCJ/fukc8L4FB5rA4hzEX5o7+//S6hvdEZCSbnmQ
+	 21D8PLNj66kuBJ0s0PxgKDrZ9xsGhNsk1Wo6/fpFXS+rJ2bH/l8F5Exe7Lx5hUqhxYXRd
+	 o4Jk5CKOPtqi0EPLdNVOGAwLBbzMYeth5+yL0N6MCN0Yq8+yaC62pmky1vuygvyyDEEFs
+	 phDN1Zvd8wDu09V1wmRwElLOOV2I7JeeUhiSDQdGVAJ86EsxMdR6+OhrsXYQ6770heXr2
+	 qTDhNWKwG3ZaZ9T/uc3Jkx5wOSLhKQBX4Cg34XrBxfE0LQ5TK5FPj5SBtJq76SgIFmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266195;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 References;
-	bh=ltnr/+G+3z7GhzFVAEBSNNIy+NSu2Lv4d3u3TtzEZtU=;
-	b=eBWbRi0TtWikNWu+dO+6IdifJ3rgElh8gRcd8VhuzNbnnIGdnUubxRKvM8WSB3ganSha
-	 TvNynNDgYFzO8xPgc39xLyPXNcwlJqpVBkT6olKMnxq8Kyl+TjAAaVUaqS26ahJeETLyI
-	 07yTaK5vJP/WG7Dy9xpjSvk+X/CkmL2HwVooDTvUxbn4rQInPx9F/yyxndM23QMbEwkIz
-	 Cy9nVhTnmaOna6YzrKmiFF+p/frRZWBbzBjcggyVACMP2dfhsq8JIUog+pSCOzlUiijDk
-	 hVc7jo5zcy5H9lOdvkKe4ev/1HYmboXryLaSEU4YW5Zn53xM4P9/NN7NSSEgsN5IdsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794266217;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=ourNGXvQ5Ub4aFSYZr4GTp+31ZYMvfjzPnbWU36+4JY=;
+	b=2uL0Zke9agIRpF6hB3N7LhsauzjiHO7JiaQwdrYAmiiQ8T2GCWG4sVmzSbINmsdqpfx6
+	 KajRiFJyHRhNwN4a4gUyfdvnkn+RwBxEvKQvrC78LjiCNFlHZ3XJut5MN9sI79FTL81G4
+	 AdtAm2yf7Q9cKbj7jWV0YMuULFV0aK0iQXL09E5iwiNxVaLqYLLJcnOTYfRF0w+e/qDSu
+	 oMgi/+CszNgWvsehVP1StUcOg/Gao0hGpLYDYIbUIHpZWbB/vkxGEaykMShkJyKzyw5W9
+	 HYDbrscMrhpzGLNupOJYGbfM7/bl+hqwFe2akei/TzQ7f5S1u+Ms/uBU4puxaSbVSHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.pl;
-	spf=pass smtp.mailfrom=yahoo.pl;
-	arc=none smtp.remote-ip=34.2.82.16
-Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=g8OM+qIh;
+	arc=none smtp.remote-ip=44.202.169.35
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD8F606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:16:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AD8F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1794266187; bh=ltnr/+G+3z7GhzFVAEBSNNIy+NSu2Lv4d3u3TtzEZtU=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=kxHFFzIFI9s+fT2cRQiWF0EV2klmDt9uTiUbl94uKx5arcZ3JfOoSQYaXlXIgAYwgVP8TVBDCZFLID7Xm6F1gm0NUhz73kWLHRp/rHVC0Gwz3n3VKEaqAkn/6aZM36isosKymDATCuk2iplJy9q6qss9BSpeAkUYiYVjCzniOt8ySSEYf+JCqX/+aSfb08v/XdEQlDccX649FwvKpX7duk+zOhAj1BXSj8we2J8cuHSctbh7JkFnDLzkAJlARte7FhUxkSxmK0vtteAsKgLHsfAE9O1JhajBBx4ma/u1b8KTuhNEIine90ZB38i7ELBYNdp10R7+wgDz80VL7Hqutw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1794266187; bh=ujjZToLGF/dNgRfErsyg9RSGiqWvxnqDWgUYtKWrwla=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=MdmLwmEDvwjvkg8E21jh8BkQamV1RCMgQOxWoBEAXIMJKa33bte1Sy+6R3Tgh71WGKHxvcWDBKFtIuCQ9jqYfgNI7cqp0qSlW0u5qLveF/gzSdaDdHOh7wPlgltwvwanjNBUiddBdrrIrTZhI/Y4ZrE2sXyBa1/IIc32vEpqZgNPFlJiWKaEoHOMngTfcnJspOesUVQLEPsi5rpLEPNOMu/V4GioNoU0zYHmqmAKqGXHkO1JHhYZ0kzJm48N/6PI+QAxDm3pR3VHfhPVD6eiLZeVf+BpZJZk+ygeRE79bse7HkXO1ehoD6fxFwItLxASsW0TH8SXet5mfFORkY5iYA==
-X-YMail-OSG: WSBXLAoVM1kzegwyILIQ4bV70tIvWNhLI47AQ.Purmnegym10mkmYYKfn0IwFQB
- CkFKdTgKdqll3SgCXbR2lAlEMUOnzhwxaaukjM2_iTdWYLOphjiHTKycARpvYPYx027D19MWEp.h
- adAmHWO_zZHQF7Kui47c6L52IsSB5CAFeNFyaS10torClpaZuMTn4vsDjcbY69N8kJEC3QYFbaqb
- TlYHzqdQSZESiqaFJ_ZvLrb0VBMROAaIKQ3DfHth8j0gVXCMsik6WXKLBDGNl6s1T6mAYNkqzopq
- H20W6GdeL0WgkEjCDS8VcFfByXRSn60BHiggkDDLhPPlPYr32LItnHGehnUT.ApmckXtHU_H4d_A
- 5F7Kc8bLG.JBL6tXtdeYWDUyQX6csoVrWlyAqyMnA_KvG4HX0HKwMV2pA533vrHtDhTcNwzjmduI
- biPlClb9bDmSmtAgOBXSn.a7GTN0cQ6zclZMFjLngCQKOTF9JqERQTcPBtXFrV1fvd6Ic4TudmzN
- v9LeeO1LRrd.Ev8teEH4KnrfS44gpRyMFXrIQpzTvrDDNzQSf6.ESgAk7oi8I4G_3pLD_ICZ5y65
- AcH0xEoD4bowoPHKcaEXXnuchQeEVMrieSdGxJzuJNLikOpFJdzVdwpNqL2MA7s.DPKh3KneWc.D
- etK9ZNIFujdi.XSnZCv4tbNG4lDSvm0LAtMVq2P2BBM30NNRDdZ1e_ODPLsN7OchkFn4x.Pkhys9
- Yjj8IRukB_u.FVjlOSxRYuMzmBTE2uv6oGI.wSCk1sfN4BBFemKkyONuiXGvQPt5KJwoDZGKkFjD
- Cl.Y2MxgtS0P084r_vIJPUwOTQiJ.Hep98lTtonxZbVnv8uAFFB_v4T7W7N70PS3H8fC5Ezzo0pk
- au_.Pa9dHtMkz9Lf66uCUz58KjHBTBsSyTQbUimrIkMLcCEpxVEb8.Lnkp49yAn_wI6XsSyYQVFF
- w11IGjQcGVNjQTF6uOhB4KRGG1QxrfrLtUTTPy0YkQdRrBt4.yF6JeY0RyMd7kxqyKaLeeu5i3Mx
- PuTsxRv.t9Lb8Zut_bVz30Wy0tfBBBRRRCa3ZxZ618KWINpG4w9auv_KPR2fjdp07RxLHorT7258
- Q4_SSTIv0z6tOFFLvap0S1hppgOP6MgxjLMkxnLuAqpJRZb_.le31t1ZsgguSe3X39Bx6w.r28NM
- F7Goy06xRFfftq2OmM5cRtBXzkJ5vubOLHG0iNNtSXU35eBPB5jhxLperQasEEJrhAl4LyvSDpxb
- ey0v8g3wLkEVcxNF1VKh9wxMqVTYM3r1zhrpXVj8hK3ClupPO2y7eGsskG0WCiRo9QOrNkJrNfse
- BnKOcdpqYlE42RGSY7cyndJQvqn1Q4P9YCq3rDjgD80uFJztjn0ljrC5b6rElV2qdYnyvjG5u9_1
- EwQ05og.e0N7vEmZPCoj2RXiwqdD6Rbm592hTYHKo9BkW36ICbOajLUQxlnGOqvHao9cUUDOvvKp
- KKF9B8emnYxvf_sriPC2kgHKO8SrhuoBlEGNYPq0t55XARtH.EZY_WHYndT8HgHNgIUoaAXWznov
- xHeZOrGXoJQL_jsp06ZH_N1_0LY3_X4a50gjx5srUNRj.rafBq2jK7rktWgeU0hFAsjwoHjNfaZU
- iznrmXo2bv9ynEFUM36I0az398EgIcRhdAM6.yIUJEC5BOUhAccjePhbfDMNkIoWhXh_eze1cFxy
- 4A5uoZa5KimrJCusy5Xru4yZBN_vU_YVyUSEzURm8b.ElLyxj1pp4KW1NGK3CN22bfBMjJ27TNSY
- Q7pjatwEyJWaVNWXb2Rwo1TQ7c3slosWYbHI9gavsqbNt_JJlBuiiOBHsMDcwqPgNTvdenJ5Hbcr
- Y0duLk92idBNc9MA1l2U3PfS2CK7w3_IJfChF1blRybaMLxFUmDDHfIJ7JlhgQcUp24TGMdEqynQ
- d161Ay1RLE4BrfZX0SJEvta01vmQv9eUstCjMY89IsfAoN42oqH7HEGWpvrx.YO8JSXY0VnM.Yri
- YpfcfP4hzuC8mVjDWIvHwY2I-
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: 8f642e59-6e65-4565-a8a9-eba782ec6a9d
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-101 with HTTP; Mon, 9 Nov 2026 23:16:27 +0000
-Received: from dip144.lsn.ir2.yahoo.com ([87.248.99.153])
-          by hello (SMTP) with SMTP ID d24e8f6e67628daad9045ce19de4aea3;
-          Mon, 09 Nov 2026 23:16:22 +0000 (UTC)
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
-Date: Tue, 10 Nov 2026 00:16:20 +0100
-Subject: [PATCH] staging: media: av7110: remove commented-out code in
- av7110_hw.c
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E653E606A331
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:16:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E653E606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=g8OM+qIh
+Received: from eig-obgw-6007b.ext.cloudfilter.net ([10.0.30.166])
+	by cmsmtp with ESMTPS
+	id QRrFxpF8Q4vCDQYbgxCM3m; Mon, 09 Nov 2026 23:16:56 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id QYbfx3pnR3nNNQYbfx32Pn; Mon, 09 Nov 2026 23:16:55 +0000
+X-Authority-Analysis: v=2.4 cv=TuLmhCXh c=1 sm=1 tr=0 ts=6af25467
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=yC-0_ovQAAAA:8
+ a=GU2OR-2u3yUetoAu5r4A:9 a=CjuIK1q_8ugA:10 a=p49Upr6YYhNo69yxWKUU:22
+ a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=ourNGXvQ5Ub4aFSYZr4GTp+31ZYMvfjzPnbWU36+4JY=; b=g8OM+qIh4P8JuAXOofLquteH9V
+	GA8GU+WHHy5ORMPSZWQXI2f2OHpxFOrmM6ExzkPpZDlo/xKgsF+FSDcJttYpKH6NowrZpbtzzGyzT
+	D99Mj8eK3o8LtpxJHBQzwEKYH7KBe8tYLPJQ/7yQ22xZfiIRmrqJzNAIckR50HsbtEZfVR7puSGZu
+	M3Pq6DIFGUP/dou1iJq4r4TPSNeRgBe32TRDERfdkm+KaAGOWtmjKLSxghGkwKkH8v2Mv4QSDT8zc
+	1PY3Z99s2mFe0WYa9TvLqjk+UoN3SvAvVYe3ALxd0NIof43zNhrR0jircdZTB5idKxqkRG0rtyNe9
+	UR1ibrIA==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:47824 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQYbd-00000000tOY-3UMs;
+	Tue, 10 Nov 2026 04:46:53 +0530
+Date: Mon, 9 Nov 2026 15:16:52 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v8 2/7] watchdog: rzv2h: Use pm_runtime_put_sync()
+Message-ID: <36f3db86-774e-4e38-9216-a5af7ccbf6a5@roeck-us.net>
+References: <20261001165201.763882-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261001165201.763882-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,96 +95,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261110-av7110-hw-commented-dead-code-v1-1-3ef26d2673df@yahoo.pl>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6CMBBG4Vchs3aSDgsuvopxUTq/MiYU0yKaE
- N7doquTb3M2ykiGTOdqo4TVss2xQE4VhdHHO9i0mGpXNyLi2K/tkfHNYZ4mxAXKCq+FCg591w/
- iusa1QuXxTLjZ5/e/XP/Or+GBsBxT2vcv1mReLYEAAAA=
-X-Change-ID: 20261110-av7110-hw-commented-dead-code-c989b1086071
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Tomasz Unger <tomasz.unger@yahoo.pl>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794266181; l=2420;
- i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
- bh=8L0SKizL+Q76ZAVeVC8cUXjbPIjPKGIzYD7kON3gByI=;
- b=VIgdqiaP729AfNuiNU5zXY4DYf6KGLEQ/aE6L8JoWqUgBLZtvxAw+T4c4U08pZ/uQV/fPliXh
- 4LrABBUUhPdDw8VB1zpCswjj5ewzw8qCWjQnOp1Xq8LpBNhazG4X55Q
-X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
- pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
-References: <20261110-av7110-hw-commented-dead-code-v1-1-3ef26d2673df.ref@yahoo.pl>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001165201.763882-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQYbd-00000000tOY-3UMs
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:47824
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 26
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfLDrNb4YEYcwG9uA164JH6q4xldZSFcIioMho3nUlsHQZbUB9p2FY8c68KRA8/VyccHivffzQdkJqwGF4dgYFLZxFOObaFxeAkmH1s84b8Fn6ynnLE0m
+ H8lcT5ToQMA6pc79DhED9NfE53BWaKMvoreSM6d96weAvTHOzfiPBFvgWY6Njqb/8BTBXvewBFfQxoTOuTWZVI1VYfdIdDjdTATwz9KgvHGpG5Ka15lv5gW8
 
-Remove commented-out code from av7110_hw.c: two saa7146_setgpio()
-calls and an ARM_ClearIrq() call in av7110_bootarm(), and three
-dprintk() debug calls in __av7110_send_fw_cmd(), av7110_send_fw_cmd()
-and av7110_fw_cmd().
+On Thu, Oct 01, 2026 at 05:51:56PM +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> pm_runtime_put() may trigger the idle check after pm_runtime_disable()
+> is run as part of devm_pm_runtime_enable()'s cleanup action, leaving
+> runtime PM active.
+> 
+> Use pm_runtime_put_sync() to ensure the idle check runs synchronously.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-All of these lines have been commented out since the beginning of git
-history (Linux 2.6.12-rc2). They serve no purpose and only clutter the
-source.
+Applied.
 
-Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
----
- drivers/staging/media/av7110/av7110_hw.c | 9 ---------
- 1 file changed, 9 deletions(-)
-
-diff --git a/drivers/staging/media/av7110/av7110_hw.c b/drivers/staging/media/av7110/av7110_hw.c
-index b0bd7666d48b..13ed214e6ef9 100644
---- a/drivers/staging/media/av7110/av7110_hw.c
-+++ b/drivers/staging/media/av7110/av7110_hw.c
-@@ -209,8 +209,6 @@ int av7110_bootarm(struct av7110 *av7110)
- 	/* boot */
- 	dprintk(1, "load boot code\n");
- 	saa7146_setgpio(dev, ARM_IRQ_LINE, SAA7146_GPIO_IRQLO);
--	//saa7146_setgpio(dev, DEBI_DONE_LINE, SAA7146_GPIO_INPUT);
--	//saa7146_setgpio(dev, 3, SAA7146_GPIO_INPUT);
- 
- 	ret = request_firmware(&fw, fw_name, &dev->pci->dev);
- 	if (ret) {
-@@ -248,7 +246,6 @@ int av7110_bootarm(struct av7110 *av7110)
- 	saa7146_setgpio(dev, RESET_LINE, SAA7146_GPIO_OUTHI);
- 	msleep(30);	/* the firmware needs some time to initialize */
- 
--	//ARM_ClearIrq(av7110);
- 	ARM_ResetMailBox(av7110);
- 	SAA7146_ISR_CLEAR(av7110->dev, MASK_19 | MASK_03);
- 	SAA7146_IER_ENABLE(av7110->dev, MASK_03);
-@@ -303,8 +300,6 @@ static int __av7110_send_fw_cmd(struct av7110 *av7110, u16 *buf, int length)
- 	u32 stat;
- 	int err;
- 
--//	dprintk(4, "%p\n", av7110);
--
- 	if (!av7110->arm_ready) {
- 		dprintk(1, "arm not ready.\n");
- 		return -ENXIO;
-@@ -430,8 +425,6 @@ static int av7110_send_fw_cmd(struct av7110 *av7110, u16 *buf, int length)
- {
- 	int ret;
- 
--//	dprintk(4, "%p\n", av7110);
--
- 	if (!av7110->arm_ready) {
- 		dprintk(1, "arm not ready.\n");
- 		return -1;
-@@ -452,8 +445,6 @@ int av7110_fw_cmd(struct av7110 *av7110, int type, int com, int num, ...)
- 	u16 buf[MAX_XFER_SIZE];
- 	int i, ret;
- 
--//	dprintk(4, "%p\n", av7110);
--
- 	if (2 + num > ARRAY_SIZE(buf)) {
- 		pr_warn("%s(): len=%d is too big!\n", __func__, num);
- 		return -EINVAL;
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261110-av7110-hw-commented-dead-code-c989b1086071
-
-Best regards,
---  
-Tomasz Unger <tomasz.unger@yahoo.pl>
-
+Thanks,
+Guenter
