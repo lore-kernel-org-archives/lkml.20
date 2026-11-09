@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794248881;
-	b=d7aC6W4U7ldNNkgmX5lStKHrG5Op9y8IhNRBWb2jiMx6tOSOCJ2UHIxlNbMTOJZCLmIy
-	 DdZ5WfnrHU7us+ABDRENC250d34pe91CqjS3WKkkO6ZcxOMg/2fjDo07NBoKMIek45EQh
-	 Du4W4drLfE/F110ecTZFYeu6LV5rAVJhsu6xTbWBjLi+xqSXcUUQoqOk9maPk30jzUS5z
-	 utU3RL4tfWYdX9LIlLYSVQ+2BVlnTnkEUUUJIBNn9srlB8yzJifh4JVv+7aBJMgnRnyEC
-	 AO6wORhmBlqNlEXBOukpfkxOHbWCnreOafqK1qaUoytOST4h3VfMgrY1G/AgkaEAuzw==
+	t=1794248882;
+	b=Qm4eeo1QGnyF3FTksoRB9lgUJKYexepWfrDGVwm84nNXrH6sVikxJ/t2eFG/wEYsghyY
+	 X6fOp2jnLEYWfML9gkKRhz+SKluW9JGdQE/eD+nsslr+IiZk+ycTqx7cTR7McureGO0ZW
+	 nMSbMNwnkCWxAaarmzR99aveVDgagDFB6uVmn0v6BTTmgQiMJHgxVlhEvCsqPsAON2PIM
+	 0qMbLqWnFPMvgY0BTzt5YYXmsy+PEB3PI22PKT5OUDsP4UW4zM8HnhGe8fQEhzvP7yRua
+	 9nDgHVt/QoTOkudX7lPKFH/lhoC9OvVPyurSLcQ+n3Y4sndT7oVYytOf/DBsVpGQuiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794248881;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248882;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=mDWFweHSaiLpPshCS+h0q+iQaBu+Lgc9eGDx2KfwrFI=;
-	b=uVYwA4jaOr+z997c5TkRfoIiiImU+XgUDOr4uGAUAvnmImGVfKBnI7BRfZmzwqIK9hfQ
-	 gycc9cRq9FKi4fK+ynX73/Z5iNG3tUUOgVp4rsgreKyEiyk8YB11RTOnb1Aao9S3BrozO
-	 Ds32fBCx4ilFTkWB2RB4WxfTYSEAjh+KkaAG3q9uXdyLQoI50ldcvnwIF1d0krJCvjQhS
-	 0TsYw+ZmFFF9BQSu0jwrHkSd/1ng9CWHJkhhZKyG4y8FmpQ2lARGCiMAJ98MWwyZ3Wnp7
-	 YWmrRK4os6wALCemxxhEUoABdFy4mrCVbrIVibl8tr4Yt9RPlKD0GWMhfo7pU7DPZlg==
+	bh=2Km2GSxbHj/FwJWinfGFQrNYNNiuY/aL3TRKRBAUre4=;
+	b=ilDCk5DmxSS7CAkSgs1OmeRhkvN5C9eeIBD//tGpbmW3uq9COfilVfCPMYCcrRFunNBq
+	 jsU3tTls7P2T0qgpFdqSYNKpkqsV/g77ECAb5j8mi6FimEbefG1XFj39dKKdxywzTD+2x
+	 iczCCK7yn+m4pQ109J3i7IjSxOIyA+uAtnFeAsRjzsq6O5f369lvK/YVX1jNFuLzkqqiO
+	 ZaAaT37w5L3iAhLdrxjF4dS/iS6Nd4p85Dy+yPcKoVLecjDHh5Q1SVv+IMHWg9fSBhtXj
+	 lre4l3a9qF2TRoIbnwb5QYpKI7Tnl6dfZS2KWVcetBLdxuWI38UP4Op/QUq03WpNTRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YcqTCjTp;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LCpU0slD;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7E7E4606CC67;
-	Mon,  9 Nov 2026 18:28:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E7E4606CC67
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 125D3606CC7E;
+	Mon,  9 Nov 2026 18:28:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 125D3606CC7E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YcqTCjTp
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LCpU0slD
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E91191758;
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7FAFD1516;
 	Mon,  9 Nov 2026 10:27:57 -0800 (PST)
 Received: from fedora (LJ9QCPV96V.austin.arm.com [10.118.150.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D12233F882;
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 67B023F882;
 	Mon,  9 Nov 2026 10:28:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794248880; bh=J7EaISQeGY9QzQfcJ7AujRJOKPOkfJhuRA/a7kt8pXY=;
+	t=1794248880; bh=TezBVMNN6ys0eo1UDXqs5nEWcIgbDf5ZaksL5J9sVA4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=YcqTCjTpFZ8v6r5DSW9z3y4VFfKrCU486QOfw2utAPO7Lhg521/Zg0JVwjXE6iex7
-	 DwNxAI8qtYwO86gLXzWJqinLT83xKK7mvVfoU8Nf2hr3n/T6WeL+U1GsA6jzJhvO5j
-	 7FvCMN5ZkHFdu/UbWO3y3dbd3XI5/e1RP1ERV9Mc=
+	b=LCpU0slDYy6FAmTne67yVMyUDseKI/TcfooVukx5cMHtl1ArCnMWZSfeh81vJYbRw
+	 sgikhecqphNp0sHI2P8Rz7m62kxFlqBPYq3fgAaVbjItBepgIINJf+NCh5Vg7sHCzo
+	 NVll1VkJIB0m4llujQkLtv8KQDKuY2/oym8U8lZk=
 From: Bill Roberts <bill.roberts@arm.com>
 To: "H. Peter Anvin" <hpa@zytor.com>,
 	Borislav Petkov <bp@alien8.de>,
@@ -55,9 +55,9 @@ Cc: bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	Bill Roberts <bill.roberts@arm.com>
-Subject: [PATCH v5 3/6] selftests/x86: add shadow stack lock test
-Date: Mon,  9 Nov 2026 12:27:55 -0600
-Message-ID: <20261109182758.252223-4-bill.roberts@arm.com>
+Subject: [PATCH v5 1/6] selftests/x86: fix Makefile dependencies
+Date: Mon,  9 Nov 2026 12:27:53 -0600
+Message-ID: <20261109182758.252223-2-bill.roberts@arm.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261109182758.252223-1-bill.roberts@arm.com>
 References: <20261109182758.252223-1-bill.roberts@arm.com>
@@ -72,87 +72,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The shadow stack selftests do not currently verify that locking
-a feature prevents subsequent changes to its enabled state.
+The amx_64, avx_64, and apx_64 tests compile xstate.c as an
+additional source file. However, their Makefile rules add xstate.c
+directly to EXTRA_FILES without registering it as a prerequisite.
 
-Add a test that locks the WRSS feature while enabled and verifies
-that attempting to disable it fails with -EPERM.
+As a result, modifying xstate.c does not trigger a rebuild of the
+affected test binaries, potentially leaving stale test executables.
 
-Despite WRSS being locked, this allows the existing code in main()
-to disable shadow stack before returning to prevent a SIGSEGV from
-a shadow stack underflow. This is why shadow stack enable is not
-locked.
+Use the existing extra-files macro to register xstate.c as both
+an additional compilation input and a build dependency.
 
 Signed-off-by: Bill Roberts <bill.roberts@arm.com>
 ---
- .../testing/selftests/x86/test_shadow_stack.c | 38 +++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ tools/testing/selftests/x86/Makefile | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/tools/testing/selftests/x86/test_shadow_stack.c b/tools/testing/selftests/x86/test_shadow_stack.c
-index b52c5420c137..e047f1ceae0a 100644
---- a/tools/testing/selftests/x86/test_shadow_stack.c
-+++ b/tools/testing/selftests/x86/test_shadow_stack.c
-@@ -1060,9 +1060,28 @@ int test_ptrace(void)
- 	return 1;
- }
+diff --git a/tools/testing/selftests/x86/Makefile b/tools/testing/selftests/x86/Makefile
+index 7565d2cf6a3c..407f52ac2628 100644
+--- a/tools/testing/selftests/x86/Makefile
++++ b/tools/testing/selftests/x86/Makefile
+@@ -125,6 +125,9 @@ $(eval $(call extra-files,test_syscall_vdso_32,thunks_32.S))
+ $(eval $(call extra-files,fsgsbase_restore_64,clang_helpers_64.S))
+ $(eval $(call extra-files,fsgsbase_restore_32,clang_helpers_32.S))
+ $(eval $(call extra-files,sysret_rip_64,clang_helpers_64.S))
++$(eval $(call extra-files,amx_64,xstate.c))
++$(eval $(call extra-files,avx_64,xstate.c))
++$(eval $(call extra-files,apx_64,xstate.c))
  
-+static int test_locking(void)
-+{
-+
-+	if (ARCH_PRCTL(ARCH_SHSTK_LOCK, ARCH_SHSTK_WRSS)) {
-+		printf("[FAIL]\tCould not lock Shadow stack write\n");
-+		return 1;
-+	}
-+
-+	if (ARCH_PRCTL(ARCH_SHSTK_DISABLE, ARCH_SHSTK_WRSS) != -EPERM) {
-+		printf("[FAIL]\tCould change Shadow stack write after lock\n");
-+		return 1;
-+	}
-+
-+	printf("[OK]\tShadow stack locking\n");
-+
-+	return 0;
-+}
-+
- int main(int argc, char *argv[])
- {
- 	int ret = 0;
-+	unsigned long status = 0;
+ # check_initial_reg_state is special: it needs a custom entry, and it
+ # needs to be static so that its interpreter doesn't destroy its initial
+@@ -136,8 +139,5 @@ $(OUTPUT)/nx_stack_32: CFLAGS += -Wl,-z,noexecstack
+ $(OUTPUT)/nx_stack_64: CFLAGS += -Wl,-z,noexecstack
  
- 	if (ARCH_PRCTL(ARCH_SHSTK_ENABLE, ARCH_SHSTK_SHSTK)) {
- 		printf("[SKIP]\tCould not enable Shadow stack\n");
-@@ -1079,12 +1098,31 @@ int main(int argc, char *argv[])
- 		return 1;
- 	}
+ $(OUTPUT)/avx_64: CFLAGS += -mno-avx -mno-avx512f
+-$(OUTPUT)/amx_64: EXTRA_FILES += xstate.c
+-$(OUTPUT)/avx_64: EXTRA_FILES += xstate.c
+-$(OUTPUT)/apx_64: EXTRA_FILES += xstate.c
  
-+	/* Note: test_shadow_stack_lock() needs write enabled */
- 	if (ARCH_PRCTL(ARCH_SHSTK_ENABLE, ARCH_SHSTK_WRSS)) {
- 		printf("[SKIP]\tCould not enable WRSS\n");
- 		ret = 1;
- 		goto out;
- 	}
- 
-+	if (ARCH_PRCTL(ARCH_SHSTK_STATUS, &status)) {
-+		printf("[FAIL]\tCould not get Shadow stack status\n");
-+		ret = 1;
-+		goto out;
-+	}
-+
-+	if (status != (ARCH_SHSTK_WRSS|ARCH_SHSTK_SHSTK)) {
-+		printf("[FAIL]\tStatus not as expected, got 0x%lx status, wanted: 0x%llx\n",
-+			status, (ARCH_SHSTK_WRSS|ARCH_SHSTK_SHSTK));
-+		ret = 1;
-+		goto out;
-+	}
-+
-+	if (test_locking()) {
-+		ret = 1;
-+		goto out;
-+	}
-+
- 	/* Should have succeeded if here, but this is a test, so double check. */
- 	if (!get_ssp()) {
- 		printf("[FAIL]\tShadow stack disabled\n");
+ $(OUTPUT)/sigframe_fpu_portability_64: CFLAGS += -mno-avx -mno-avx512f
 -- 
 2.55.0
 
