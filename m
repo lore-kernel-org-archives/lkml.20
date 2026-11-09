@@ -1,80 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794188702;
-	b=atYZCNBYSMkKZbD6vz9H1i88v7wKGbcisB2iqWi07XtXu6F++b7HTuFxFS9bChq0lV6C
-	 TLJGOawefGmjQ2SZNxuCROHERzvT6HJgQv7ivAFGxfgk1nii6+t9N6AkkPteFEOZ7HJxm
-	 pOq0ArdToNJOmlsKa/4fH5L9iyFdn+0rxDdmQh7AE9wrAHw/GuzGrxj/VXLy8UWlBUBUk
-	 +JndPz6W0xg2Byzv6WKytbX2GPjBLRCOLbFvK/OxCJ9GCsDMWk57adB13+2dDmZBHqoa7
-	 uWw7l5NRsiS7NIq8my85ZXFaJAKntxiQ8nnT3z5g64a0tCniRPXd5oLAnvPZxAV/4Ag==
+	t=1794188743;
+	b=FesyZeisXiU/YVCo+kXrlh9RDtTf+vQ3Kygs7TCTAY6qY3x1sNYl6v5l3LMkJwoqOnIR
+	 mGvDe8dqmyg6vvzQQDx1kYjMtsqksBcS+M9smr3uysmu5F1GnzyMPvgaNXx815xACyX69
+	 SUTg1clwjTgH8g9P0nwSbLvtGF5LCuP6wMham/oSYps27jV/1R9SN+T26xu/HEI3VDz8X
+	 s5lvYmTmTt1D+gwOrFKkLzK8TCO8m2KHDfVZIJfOAnBag7padPsUd/tOHMQnIio/oKbOD
+	 A/3LNPMGmYVmri3Q1BQwl6BwC3j6KqnLxAMU/m9wS2HK6ybwQxo+P9bgPiyOPoUAttg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794188702;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=4mItYuat9G2EvtLzqP0BDGrCMfaF2naDoK7jgEQ7BqQ=;
-	b=hN2hD+S8wSV1lY+brhbbdVZ5MAhVxA7d9KCHdzNU3aUfATjx7EeNvT0fnk9yCadyzoq6
-	 LBA/0yiGQ0BbvA+0taXdkttls2Vka6HKejP2jZATLmfnshk8AcI4TSpiMi9CgFaouJ5Rb
-	 NAlV32bgtv3x4LvgO2/vSqJirN6GYpdUNbBopySthv4kH9mqPo7Mia1oP4zE3A7mc8jL4
-	 wIb9en+SajRJmlZS+6iUwX23ty82a/Yh7JCyJzi6xq7+2VrEkQp8N0kBfe+TRE7w1srJn
-	 PaaCtQdIigcE67DxaSiPI4W9gSt5tNQwjYHKnDlp9Bcet9ikThzj3zLlhXgZ0j41Dxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794188743;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3Sf9xjMisnPuuJIfrzz6CIBnS51JvwzLeY6jUL8yvs4=;
+	b=DT3hOmL9jVs0yBapxgHG4cSqTKQCZlVy6la4jbPea1jos4lb3cJaEB9XINaEtWjZbuw5
+	 ApbZj3l6FmL6bafDiJruZ/eCPyaMV+RxPfL8+CqmeQo+SVyFHeBtfCkgU2cMwZDurndDl
+	 hLr9M+je9tbGsJbaJzNNFHPEt6pkTgmgU9XjY/EO6/yFEqBOj65rwBrXBYhzjAeXmfVS5
+	 ByWuFsRM6sm/z133XvRmOE+lAswDaEwaozjSMD/2i9jD5DIAK6Jalk8p/27GqHxkcSkgw
+	 qHpkZVH7a4dmmK3frvQAUZu+2PgzBVtFEYEw4ZvwAaWUcq3lIGUAKNAovnFca6HvHoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=hMPI7QCz;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85BBD606A322;
-	Mon,  9 Nov 2026 01:45:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85BBD606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=eL2QQhjh;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F7A8606A321;
+	Mon,  9 Nov 2026 01:45:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F7A8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=hMPI7QCz
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A91inxgF3877161, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794188689; bh=4mItYuat9G2EvtLzqP0BDGrCMfaF2naDoK7jgEQ7BqQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=hMPI7QCzSiZYgiEPeA0VlV6nJNZnPQsyssDzIZ5BNI027BYAmkJxfFDlQC5GV/yKI
-	 LvqmCxZNbuqx2J5bibok4JWSnbeTr1f3CaDtJWwsX7ohaAlC9wId1jC34ynxkSA3gU
-	 wKT/v27soow6nTHK5EzTEVln80RIGcHsba5X0krEvcdfFJv3N3metgrcyTAEdZ3KMG
-	 eQsnEurJ4jH/pswRNgVtj2n/lUoqRsoMnOlN/pO/EzOpa103H9TYc5YZ59xPQqF12y
-	 ssaOFOwRRRcVqlZLI14sY/TyLOCxeGWFSwBMYGVb9neaYf5E3XNnwgPFDvtYRvWg8/
-	 5DcihLwyxAoKA==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A91inxgF3877161
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 9 Nov 2026 09:44:49 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 09:44:49 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Mon, 9 Nov 2026 09:44:49 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Ho Jie Feng <hjf3108@gmail.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>
-CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next 4/5] wifi: rtlwifi: rtl8192du: enable USB RX
- aggregation
-Thread-Topic: [PATCH rtw-next 4/5] wifi: rtlwifi: rtl8192du: enable USB RX
- aggregation
-Thread-Index: AQHda3lL9w2T8fKlSE2DNNuQSInmgLck79mg
-Date: Mon, 9 Nov 2026 01:44:49 +0000
-Message-ID: <e826d25ce74e4d839f2719509494c129@realtek.com>
-References: <20261103095256.949327-1-hjf3108@gmail.com>
- <20261103095256.949327-5-hjf3108@gmail.com>
-In-Reply-To: <20261103095256.949327-5-hjf3108@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=eL2QQhjh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=eL2QQhjh+YlOy50l26Muskvn2IMoC5eJIlr2qSNJyibMvg8hla1+C1J9+vhrsMY7pXBcs6uMgXddH
+	 GQ5CsBPqpYfa5rSwIZDWnjX7myuL2EN/yk4I63YAwaqCEkDIDRyILLC9EQAC74inmEklmDmUnrtnUf
+	 4R2CyatZEoBFinwQ=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af125c2749-5e7e3;
+	Mon, 09 Nov 2026 09:45:39 +0800 (CST)
+X-RM-TRANSID:2ee86af125c2749-5e7e3
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.108.79.102])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af125c1671-7c022;
+	Mon, 09 Nov 2026 09:45:39 +0800 (CST)
+X-RM-TRANSID:2eea6af125c1671-7c022
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	idosch@nvidia.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	willemdebruijn.kernel@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yana06070@163.com,
+	shuah@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	willemb@google.com,
+	tpluszz77@gmail.com
+Subject: [PATCH net v3 1/2] ipv6: fix cached route reuse for control messages
+Date: Mon,  9 Nov 2026 09:45:25 +0800
+Message-ID: <20261109014400.9025-1-yanxia@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,75 +80,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Ho Jie Feng <hjf3108@gmail.com> wrote:
-> Allow RX aggregation of up to 48 pages of 128 bytes or 24 with two MACs.
+A connected IPv6 UDP or ping socket can reuse its cached route when an
+SO_MARK cmsg requests another mark. A packet can then bypass a prohibit
+rule instead of failing with EACCES.
 
-You can describe a little bit how you build separate skb, especially
-the last one.=20
+ip6_sk_dst_lookup_flow() reads the cache even when connected is false.
+UDP clears connected after parsing IP or socket control messages. Ping
+always passes false.
 
->=20
-> Test results (2.4 GHz):
->    before after
-> TX 5.2    6.4
-> RX 27.1   32.0
->=20
-> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+Only read the cache when connected is true. Ordinary connected UDP
+sends keep using the cache. Ping sends do a fresh lookup.
 
-Acked-by is given, but some minor comments.
+Found during code review of IPv6 UDP route caching. On UML, the same
+connected-socket selftest fails four IPv6 cases before the fix and
+passes all 54 with it.
 
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Fixes: c6af0c227a22 ("ip: support SO_MARK cmsg")
+Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Link: https://lore.kernel.org/netdev/willemdebruijn.kernel.1e0038bcc3ef8@gmail.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
+---
+v3:
+  - Read the cache only when connected is true, as Willem suggested.
+  - Drop the SO_MARK-specific cookie flag and UDP/ping branches.
+  - Restore the discovery method in the commit message.
 
-> +void rtl92du_rx_segregate_hdl(struct ieee80211_hw *hw, struct sk_buff *s=
-kb,
-> +                             struct sk_buff_head *queue)
-> +{
-> +       struct rtl_priv *rtlpriv =3D rtl_priv(hw);
-> +       unsigned int offset =3D 0, pkt_size;
-> +       struct sk_buff *new_skb;
-> +       __le32 *rxdesc;
-> +
-> +       while (skb->len - offset >=3D RTL_RX_DESC_SIZE) {
-> +               rxdesc =3D (__le32 *)(skb->data + offset);
-> +               pkt_size =3D RTL_RX_DESC_SIZE +
-> +                          get_rx_desc_drv_info_size(rxdesc) *
-> +                          RX_DRV_INFO_SIZE_UNIT +
-> +                          get_rx_desc_shift(rxdesc) +
-> +                          get_rx_desc_pkt_len(rxdesc);
-> +
-> +               if (get_rx_desc_pkt_len(rxdesc) =3D=3D 0 ||
-> +                   pkt_size > skb->len - offset) {
-> +                       rtl_dbg(rtlpriv, COMP_RECV, DBG_WARNING,
-> +                               "bad frame at %u of %u, size %u\n",
-> +                               offset, skb->len, pkt_size);
-> +                       break;
-> +               }
-> +
-> +               /* The last frame keeps the original skb. */
-> +               if (ALIGN(pkt_size, RTL92DU_RX_AGG_ALIGN) >=3D skb->len -=
- offset) {
-> +                       skb_pull(skb, offset);
-> +                       skb_trim(skb, pkt_size);
-> +                       __skb_queue_tail(queue, skb);
-> +                       return;
-> +               }
-> +
-> +               new_skb =3D dev_alloc_skb(pkt_size + RTL92DU_RX_HEADROOM)=
-;
+v2: https://lore.kernel.org/netdev/20261104092240.15649-1-yanxia@cmss.chinamobile.com/T/
 
-What is the purpose of RTL92DU_RX_HEADROOM ?
+Tested on net cb284914e749 with GCC 12.3.1:
+  - UML route checks: 50/50.
+  - x86_64 W=1: vmlinux, bzImage and modules built with allmodconfig-
+    and allyesconfig-derived configs. WERROR, KASAN and KCSAN disabled;
+    allyes also has KUNIT_ALL_TESTS disabled. No added diagnostics.
 
-> +               if (!new_skb)
-> +                       break;
-> +               skb_reserve(new_skb, RTL92DU_RX_HEADROOM);
-> +               skb_put_data(new_skb, rxdesc, pkt_size);
-> +               __skb_queue_tail(queue, new_skb);
-> +
-> +               offset +=3D ALIGN(pkt_size, RTL92DU_RX_AGG_ALIGN);
-> +       }
-> +
-> +       dev_kfree_skb_any(skb);
-> +}
-> +
+ net/ipv6/ip6_output.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index 25fe0ba..cb648c8 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -1305,7 +1305,7 @@ EXPORT_SYMBOL_GPL(ip6_dst_lookup_flow);
+  *	@sk: socket which provides the dst cache and route info
+  *	@fl6: flow to lookup
+  *	@final_dst: final destination address for ipsec lookup
+- *	@connected: whether @sk is connected or not
++ *	@connected: whether the flow can use and update the socket dst cache
+  *
+  *	This function performs a route lookup on the given flow with the
+  *	possibility of using the cached route in the socket if it is valid.
+@@ -1322,11 +1322,14 @@ struct dst_entry *ip6_sk_dst_lookup_flow(struct sock *sk, struct flowi6 *fl6,
+ 					 const struct in6_addr *final_dst,
+ 					 bool connected)
+ {
+-	struct dst_entry *dst = sk_dst_check(sk, inet6_sk(sk)->dst_cookie);
++	struct dst_entry *dst;
+ 
+-	dst = ip6_sk_dst_check(sk, dst, fl6);
+-	if (dst)
+-		return dst;
++	if (connected) {
++		dst = sk_dst_check(sk, inet6_sk(sk)->dst_cookie);
++		dst = ip6_sk_dst_check(sk, dst, fl6);
++		if (dst)
++			return dst;
++	}
+ 
+ 	dst = ip6_dst_lookup_flow(sock_net(sk), sk, fl6, final_dst);
+ 	if (connected && !IS_ERR(dst))
 
 
