@@ -1,67 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794247671;
-	b=LLTPspfIeae0pymAdcgapDe+nqGCLWsXZDRSjBi2fVWvy7WJPwm19vbgqDW79mGFI8iO
-	 bgmv0/GR96wRrHaSdiko0Do+TNC0sDJk6860kdZIL5ylCxvjuL3iawM0EcQ6BxButMiV8
-	 SvFUWRPkSBpz3W3FkiFdBqhwiReXf8h/IeaHHGcIUvQqJM6DQr11jhZMhMfvIUCAl1Ztk
-	 kZA/BIEWFmzmSRo9d8suQrgz/85IhvhcM4UEbnVAYAzfyD6QcrLcmgekt2wxSqSMP8jjr
-	 H1bCStKvwbeugMUqMB/qH3hAJcx5ydt1TSsvf4K7W3Ae1veoWdQaRl6bwbp5CcWjS3w==
+	t=1794247691;
+	b=aVpbieldmcYU17f+d9zsetxI+RqK7lZBA41OytWLSDFnOZdUTqabVk2TMfxXD0lwHozU
+	 6W2ik3ycQwP3YVOvDU05r9KeZ0YtHPeRsiNh4OoLW41sOmBz0xQdYmvMrUrPJjyHgXEDT
+	 8lG8t8oD9emmXZxyEdzDV7bc6VhC0zNcLmsvqtO1fKPT6iYkbuwXHAMnIZHqYcFrMtPZ1
+	 eSTTkk6gfaz5yjgqF1CisEEdkCgqBAkzAssvWFnSOINK4ncHFCZU+8ma0s1d4w5JpwJCi
+	 Yzjkq/F27VS435XqJBxSaUx/6Wy0IhWHD3b+GaJwUPM1gbu5UyyIcfeqB0wpL6IHESg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247671;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=oZD/E2ws0gxQw7hvaJXLUZeaQXjcNhPide10/UOfvlI=;
-	b=RMNGeyEP/wbQQfeJ0A5ZwIgTl/zD3zfc8h7quIn7WyedaPD0Yraz3FfMoUp8gozjt/hx
-	 d0r4BSizAW9Wd6pe14R+zDryuctQ2X86VmHBtS89J5r9yyfBRXKCuA11ClSlBnSh0US0D
-	 GtHW2O4gIB0tMxTl3US0ja/xPU1ehqZmn9kQdy3HKNp5k29xSZtfTisRRxKhfZDJzgzK5
-	 +jvubOmaM86MegJCWc8OzBfSRlYy0pESCZewz6Jd5rH5GaWrFNKjqggUhXstZ5rBTj5NY
-	 fARS6PnotdpKjjNQWcEeEmVzgWuZWWxOf7vA+71cC76nPR9pEkxz/RvemGS9CjjItIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794247691;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	bh=s7U/x5CE+niXpSBFgBUHJahPZfA7nFuXi/iUGvk2YDg=;
+	b=j/Buw4lHRWZmII5hShFBtLq+bIMvLla8pe4WlITN2TFhdciVHL3dZsT7hDXIMC8S5zEF
+	 cFlwy6BxhIrV9KBjvfq4+lT8WAOR2gVtd9q7KBqRlxrsoZrhRvbiVXTn6oH5qZ92Mai9c
+	 Gz2JD3+57stYEXDfpPwKkiLv4W4LSuZY3Y11arpqinai4xbPn76swOQrThf4I4sS6xfyw
+	 66/DV6HTsUuv3hw1Pir7wEqTYUqwNRvP+CLtA3e0iGPj2iNE5GYhwVAGTNO0sJbqDqabJ
+	 WcJJ6jHBXeOEBv57ETWcG+pzZqCJHZFVuQCHBMDkMFnothPtr0vhTN7RkhycURWHsDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dolcini.it;
-	spf=pass smtp.mailfrom=dolcini.it;
-	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=ieOAYH0K;
-	arc=none smtp.remote-ip=217.194.8.81
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IP9SxyfD;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DB760A2600;
-	Mon,  9 Nov 2026 18:07:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7DB760A2600
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F481606A325;
+	Mon,  9 Nov 2026 18:08:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F481606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=ieOAYH0K
-Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 236531F92C;
-	Mon,  9 Nov 2026 19:07:48 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1794247668;
-	bh=oZD/E2ws0gxQw7hvaJXLUZeaQXjcNhPide10/UOfvlI=; h=From:To:Subject;
-	b=ieOAYH0KbEEXTsOEJuNOcy5xV6OAt9Q/H6DIYsjr1ULHhw7VmWBzzp4Ujgpeb6G+6
-	 SvANWcy5z7Fkz+DxXMXqi6x96rAzr2uH6DqTe/MxtrJmzV+C1QmE1Ymgpqk877gecJ
-	 dmHg0vL9grVz3DLnUWpiSIiKmmf6l0g5T24jtP6OKpkVbCQx+Z1qI1Gb2Pv58SCqcw
-	 XXosCJeX4v7mfMx0o9J9oPPSgvBh5l12vJtrEyQY2e09NP5ypk/GqRljtQEl5ioEk7
-	 ebhK11GGQ8mCSfFDtEVjR5UxbRpywvgExadUsMQQm9n/0DMDaFgio1sEvDog4LsZYf
-	 W2vdQ5lfllJhQ==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: linux-bsp@toradex.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1] arm64: dts: freescale: imx8mm-verdin: Fix I2C pinctrl group comments
-Date: Mon,  9 Nov 2026 19:07:41 +0100
-Message-ID: <20261109180742.537977-1-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IP9SxyfD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794247691; x=1825783691;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=wfrbeowEpzlsOOtS5Xzt/Z99rOONWv91scfsMt1LT1o=;
+  b=IP9SxyfDSB6EGFGs7A0bVCps7q2rwZcFhAiDYps8uP26aAu5UsHuIxSf
+   tlmYluqa8O0Vkzw3iTrVKhijz+FC+kmiN5XaQ71GLb+8eONi8JfI0J27i
+   gAac0Ey+5zHnjNqUoGr9URlzdDJ+F39/qK50JinS21ss/u/G8rc4vPQ7x
+   mqFEASpQPYKebvqnlIxIvZKEEeurzQ5f47Zp+zwzxQZxNVFZvEO6oQe8W
+   qyB2XD0JMOX45lgejPKqDw7YfMTajxl51pPK45w+PADjiswcG2ePqK5eB
+   51DxM3/Q69Vre2Thnw8Y200cdNemMOs78amfHRZkMWzOSK6HYmZMgrBl8
+   w==;
+X-CSE-ConnectionGUID: KecGYyTSRKKI8ipgzy4cvw==
+X-CSE-MsgGUID: CyDqiia7S7WO37n5QGEFUw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2894249"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2894249"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 10:08:09 -0800
+X-CSE-ConnectionGUID: REOqqbgbSlKUYG/hgL23ew==
+X-CSE-MsgGUID: M/rq1zH2TtK3zErWiBcqiA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8094048"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.93])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 10:07:59 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Petr Pavlu <petr.pavlu@suse.com>, Petr Pavlu <petr.pavlu@suse.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+ <linux@roeck-us.net>, Ian Abbott <abbotti@mev.co.uk>, H Hartley Sweeten
+ <hsweeten@visionengravers.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rudolf Marek <r.marek@assembler.cz>, Andi
+ Shyti <andi.shyti@kernel.org>, Chris Snook <chris.snook@gmail.com>, Andrew
+ Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, Marek =?utf-8?Q?Beh=C3=BA?=
+ =?utf-8?Q?n?=
+ <kabel@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Andreas Noever <andreas.noever@gmail.com>, Mika Westerberg
+ <westeri@kernel.org>, Yehezkel Bernat <YehezkelShB@gmail.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
+ <jirislaby@kernel.org>, Duncan Sands <duncan.sands@free.fr>, Chas Williams
+ <3chas3@gmail.com>, Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez
+ <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Aaron
+ Tomlin <atomlin@atomlin.com>, Wolfram Sang
+ <wsa+renesas@sang-engineering.com>, linux-watchdog@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
+ linux-i2c@vger.kernel.org, netdev@vger.kernel.org,
+ intel-wired-lan@lists.osuosl.org, linux-rtc@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-atm-general@lists.sourceforge.net, linux-modules@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] Remove obsolete __MODULE_STRING()
+In-Reply-To: <a190f981-d668-4208-8148-f4e50adb31a6@suse.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261002-module-string-v2-0-fc7438acaf4d@suse.com>
+ <2e88806e-57dd-47e0-a9ef-a8507d22aa3e@suse.com>
+ <a190f981-d668-4208-8148-f4e50adb31a6@suse.com>
+Date: Mon, 09 Nov 2026 20:07:56 +0200
+Message-ID: <6c00fc009f4e61e87895eb2dd3d77c5dfb28183d@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,42 +108,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Mon, 09 Nov 2026, Petr Pavlu <petr.pavlu@suse.com> wrote:
+> On 10/14/26 11:36 AM, Petr Pavlu wrote:
+>> On 10/2/26 10:31 AM, Petr Pavlu wrote:
+>>> __MODULE_STRING() has been an alias for __stringify() since "[PATCH]
+>>> MODULE_PARM support for older modules" [1] in 2002-12. That change also
+>>> moved it to the graveyard section at the end of linux/module.h
+>>>
+>>> Replace the remaining uses of __MODULE_STRING() with __stringify() and
+>>> remove the macro.
+>>>
+>>> Apologies for the wide distribution. Acked-bys are appreciated.
+>>>
+>>> [1] https://git.kernel.org/tglx/history/c/136839a1b4
+>> 
+>> I've queued the second patch ("drivers: Replace __MODULE_STRING() with
+>> __stringify()") on modules-next for v7.4-rc1. Thanks for the Acked-byes
+>> and reviews.
+>> 
+>> The first patch ("hwmon: Replace __MODULE_STRING() with __stringify()")
+>> should go through the hwmon tree. Once these changes are in mainline,
+>> I plan to pick up the final patch ("module: Remove obsolete
+>> __MODULE_STRING()").
+>
+> v7.4-rc1 no longer contains any __MODULE_STRING() calls, so I've queued
+> the final removal in patch 3 on modules-next for 7.5-rc1.
 
-The comments above the pinctrl_i2c2 and pinctrl_i2c3 groups are
-swapped: SODIMM 55/53 is Verdin I2C_2_DSI (i2c2) and SODIMM 95/93 is
-Verdin I2C_4_CSI (i2c3), as the controller nodes already state.
+Perhaps send it for v7.4-rc3 to prevent *new* __MODULE_STRING() users
+from cropping up between now and v7.5-rc1?
 
-Fixes: 6a57f224f734 ("arm64: dts: freescale: add initial support for verdin imx8m mini")
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+BR,
+Jani.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-index 1ac9d000d415..88539253ed45 100644
---- a/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-verdin.dtsi
-@@ -1031,7 +1031,7 @@ pinctrl_i2c1_gpio: i2c1gpiogrp {
- 			<MX8MM_IOMUXC_I2C1_SDA_GPIO5_IO15		0x146>;	/* PMIC_I2C_SDA */
- 	};
- 
--	/* Verdin I2C_4_CSI */
-+	/* Verdin I2C_2_DSI */
- 	pinctrl_i2c2: i2c2grp {
- 		fsl,pins =
- 			<MX8MM_IOMUXC_I2C2_SCL_I2C2_SCL			0x40000146>,	/* SODIMM 55 */
-@@ -1044,7 +1044,7 @@ pinctrl_i2c2_gpio: i2c2gpiogrp {
- 			<MX8MM_IOMUXC_I2C2_SDA_GPIO5_IO17		0x146>;	/* SODIMM 53 */
- 	};
- 
--	/* Verdin I2C_2_DSI */
-+	/* Verdin I2C_4_CSI */
- 	pinctrl_i2c3: i2c3grp {
- 		fsl,pins =
- 			<MX8MM_IOMUXC_I2C3_SCL_I2C3_SCL			0x40000146>,	/* SODIMM 95 */
+
 -- 
-2.47.3
-
+Jani Nikula, Intel
