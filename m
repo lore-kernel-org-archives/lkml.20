@@ -1,100 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794246483;
-	b=Rm7sTvYgjkBn9Pm+tqtMkVGHiypb02sy3SqLokJ1ugfgzn9quHuhe/PX9lYAdiwOg3W8
-	 zWl+/e+MtwZ6LdpYHJxjhyQoPjK46uZ6qyPBVKsiNNb9Y3JSF4pbPXYCGsKOccPUf5uf0
-	 wJPvA404HN4Eo3EpvZrmk6i8ZwSUg0Ev6yaDKsP0P+FnPi727U779UjSTQ3bNBNWSFkDD
-	 7BSVYEpPGkoB3+z6MTC+2x7roPIWWNBpWHrguEL0jNXryhOaaY6VR70ux/YR46eksofRU
-	 8JZf5rfprDpXJl4mBxhGWxWcx0lBKldY9ODXFf5pVB3sySSiVNNgYJuxLfB7y1yffLw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246483;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794246482;
+	b=ZQhGZcOFt/23noWFdqC9i6ygF+CzZKWvpRvRgpxdKjZsHgwk8QLAcddG3p//ngCLwwoR
+	 FYkbwffje2r/VJ3VCfPiH2lrg0251pDqYFClTOUfqcsJOcQTYz2xVSR/J4wIaBD23kr3Z
+	 WvCx49VlcYrzkF45ysJ/G+VYAhxqXH87HTSVWbcxX/gqPnjqNIuAMwWQrb5QhDIufW116
+	 cUwDYnxs45wxNcQiFlueLfmr0BslQbEWTOfgmvRgcZ3/8buV/4P2ww+F2er7pE9f2pxTC
+	 d00QOQseHLlQO9we+LCRYND8NEyFGNCuxW0MDRrSepP331o4gWZYK1va+V0m/SJXCeg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246482;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=RHWJdH5skqZXvBWkiRsFGkN+eeAfmyFX8crg4i6q9fE=;
-	b=N53sUw3EydoimoiKVCMHeJOV0pl138J/uugunws6XYRgZRusJ4126/bB8dME2clv1WRt
-	 FSFKpC3at1tlMAZ3wL7ovCUsYHIxR8nw7qIyQnQiKcYZVieBeVjDTSMgTz2SU0qVAuk3q
-	 st8e54I7vhIztbhW+rpPQYAChsPSQOYgRIVrOxAIVm+gvyJPKI9GwCRl6f343WFZ69nl/
-	 1KbThpQxnhyXecc+Qcms9yg4KY2qW2oNDAemNCsJR3nGUt9WLXjLfloDCpbEV07KVBjLQ
-	 Fw7ibKJ15vr2dwvP5h64F8RdDnsJ+8O5odY/zDfnB+UQ7wdinxZBQVl5UcyfxQ40zSw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PlQzsroE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.180
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tczO0T2acqzLBXDm0bXtzLxXrF1+AKk/7INkxfR+dio=;
+	b=Rjocp/vDF7RdV/cEsUSxc9zdh7QMVgOAuIL1ZHdGevMF3ZPV+3CVwsNioNl4bn+fkUmJ
+	 +/kYGX4Y49gcI/P81DsczyBTOtqCweZJ84lBrCCI9lLyIXv1B0M4s21pPB7jbl4LRwblj
+	 ZTA8Qui7UaH+pjg0wh0HdFak1uN3lck7pcM9eGpOtuCB08Gi13UhFILCIOjF55P62feVk
+	 M0Or4+rCJzvhXSN882hdN3KbBPkP0O0q5XswNazdxxOXUhHvq4ps/fP7Hnee3sOBOZh7N
+	 IoFW5PTqFiu35KBvu+OfOtxfAkp4J0S6Ac0/VK9GT2jImmzFnReQZ+TkC0AxfgoHd1A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mgcrea.io;
+	spf=pass smtp.mailfrom=mg-crea.com;
+	dkim=pass header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=OV5rh1oA;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CEB0606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 464D860A2634
 	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:48:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CEB0606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 464D860A2634
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgcrea.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PlQzsroE
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-535f598d126so330051cf.1
+	dkim=pass (2048-bit key) header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=OV5rh1oA
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-490585eddfcso970421f8f.0
         for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:48:02 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794246482; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Mj60XyCOM5tZ5hrKsqSWbc3XDJ4zOnELkdqNPwo4V6b8I0EVWNXimm4b1FLh8EJgt1
-         /NzUCogFcBF3Ig8uiJGfDXOUh/qkgAD4tQVDblO0NsbZEeY6BH+nLnrsqQ05XavH9qPG
-         MqNwgjtxETrqaGx55VmHXqoAfdTkfmSLTRRCW1CZ26fJ7c9PZAmDW/Y9jD1GZIeg/89U
-         5aiAB6nlcFARR7YRxAnaY4LEIiW1CXBdchrJRa1NFNXPiVjqlJcv4jo0F4cTTBOjv3TK
-         D0ybY8X2bvQQmvSJISgxC4oXxpha6Ulmc9pLioic6F73jKrxOHSO9agyeyGNoOgtONr6
-         KoOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RHWJdH5skqZXvBWkiRsFGkN+eeAfmyFX8crg4i6q9fE=;
-        fh=4PTXBFO/NlkLO2N5jgweEyTGZOaz0X8afgqCw5xSIMU=;
-        b=dWh2MO+LtFYr4WoWzGrId5bodXVCs0bODs+9LyMiz9FJqM1DlEsfG/1W2PdbKwNerJ
-         KrJQ7pcVzVV207fiDCT1lqbcQ2Zoi1H4hEeHo0hB+lyP8taSDiToerfR8+wylUXni8+D
-         x8KdUu2SxEGnvNhtFIIIaXMTfpqzdyZBu/bQ9alWYTQtW+r4vrjitcfQmd1NAZuSgK2o
-         CvRtcDllNryCX0GwPPdH4gn0Nkoanqe5RwOtulMnGpzu4vilZT/0j+wnO7fqRCJ0SFSa
-         fHZa6t8RclHAWIr5e3ZvMvug/qkIQETsiABwp/hqLsBthA6eiyoX8vd7UoM+NpA3bAAf
-         n60A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794246482; x=1794851282; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RHWJdH5skqZXvBWkiRsFGkN+eeAfmyFX8crg4i6q9fE=;
-        b=PlQzsroEegMmRszghWrxWlR3+QriErwbvpJl+2oZLn31vLGOLbPs5zPKCk9NYunO9Z
-         ZzajMoI2p4AhFYPnuQS5QJVyjcbpJGsatZg6H4wpzQW73ChBpyisgHcE3jhJEsSG9cK+
-         fYBDZOl1IFev17IL99RP9TK8tWLrM4+rdO8nzshwFrzEf/hYrLw+tj2Ss6yYHJVIb7sZ
-         3stB1SI8YVD1ovOSnsD6HoKXE+P/6Jgixvkm6v58qFpP6BI6jaaDM0cLlSh8BRnYxJNd
-         8pbzw1QzfOrX3cL8tOR0KTvQ4pRpQhHzAdUA6RC8l2zfyZg90i7aDyxLlTS7SO92RgfE
-         Ev/Q==
+        d=mgcrea.io; s=google; t=1794246481; x=1794851281; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tczO0T2acqzLBXDm0bXtzLxXrF1+AKk/7INkxfR+dio=;
+        b=OV5rh1oAMSZdpVKbq/NriZTyay8/W8OE2CeSgfLLXfT95l4zVXRS+i/3QYOzlm7cRb
+         5f3SNszNs39EHFU0EniBTgMJYf88n7Gc/+yVK8EB1XJlqU2MoXMSFH0cZZjHdBItFR83
+         az1JQ5SrG/l+VV5ECHGrp7eQ8iI6vnwAjmcXsDTdmKJPGKLRMBAtXPtbgbEnFPpf5YyX
+         N6NiAcqVOTsIgcYjksiBr1JszhwRetumagyQYW1kYgxpyfFqwZnLJt+z+3Rd1qsMZCrK
+         WGRaj7PQd8mzNz5bfA+oULp7dllZxfAKiVsc0RazcLGG42K39ipnc4XsOJSO05QFm0/e
+         yJCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794246482; x=1794851282;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RHWJdH5skqZXvBWkiRsFGkN+eeAfmyFX8crg4i6q9fE=;
-        b=XzJzOZQ2tWJ2XYfgC4bTGZhGjacB2A3lIhwdEcBmUjo3sFz5pZoW1XorYhYyP/PKeV
-         +tZxo2N5StvhqKNlsrpAkth5P0/zOhW/f+6qUIgqR+KgdtOqCzdtIaP5qXHqZn+bjSwO
-         s+R7ilvbqw0vs8VUz5wu9QVSPbkUPBFfKlVOSNz5NQ0dpn9Frq1fQt+ZTPssKhiMkibO
-         MIHeMw1XpoThPiE4JOizUYnJM1+4gWjNDuX/glL8QbOOzccacxGsbQdz2UQb5XPLaOqk
-         ze3PpxHzXXGgf9LcyczM4sH1xjUXaywF3Ww/P2IrPI7TRhkYhcXjIK1s8qFMPHPMIwVB
-         gHcw==
-X-Forwarded-Encrypted: i=1; AL+hErFrqwrt+pRtexU+MT1BXK6Lv3VnRNmG29lXswQaVIDBxhf+mG+Tk3RY8yYdkVu/BgFtH/gkFl3fXHegGOw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cGRPIyxF4fa90EIEJ6La0EJZup/SCP+k56Ky8WDQkzFR2nXNI
-	Ge94vNp06KQ2vpVdXicAKdv5fjMt3PunrrC2ujkVI+Oy3BvyAw3vWT1Aod8LQFoaJN1VG2tfBno
-	fdSD7p7A5H0ihB2guIRYuMr2jqolz7v9FNjc1KaA5
-X-Gm-Gg: AYBFou1+BIOOOzVzf6UnHm3b2ffbAbgMKbWqdyz9K2zD4Uls6LYIkik9dYMyQIVdQBe
-	jssE00VhIwLcy9S2pImYE3PcRCiGDbtu3F+E5/wI/L4rjR64RO9QR+YMFlgQRXhzJy164Mc/aBB
-	ZHXDdubScrpK/ZXT5//6pLjqYCt0vsAJulJuM3/hvS1NTn09A6r07OCcdXtbiWSNHjkAigcQAtw
-	F/1bZsjRSoYVlUF7ZQ1fBKhNmX9coRN/aw9GVH9Jn3guZ1n8JYGwmSS4eP8f6NgYvV6ZyZ6AjxK
-	720GF6sXyaFbwImgcpZKGPa8ABszUWziWCddnNuB5hv/JPlbbLlYr9n1aTHbwWSWbLMuofp2SA1
-	ob8uyDgD0WAA/8h3ylpsCFgMqR1MaRpolQB+Te9R6o+ugFSU0tNcpGXeFFXfTdiRPt64=
-X-Received: by 2002:a05:622a:a05:b0:535:30a:76c7 with SMTP id
- d75a77b69052e-55517715f34mr1531781cf.3.1794246480432; Mon, 09 Nov 2026
- 09:48:00 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794246481; x=1794851281;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tczO0T2acqzLBXDm0bXtzLxXrF1+AKk/7INkxfR+dio=;
+        b=tE8z6RJTLOPTQwxByp0zmq2cVVYP9+SgczmmHfNHvMXOfquZtmHFzsQkN0LeffWNVv
+         nb2oiJfxPjTO1OjJr8LIr0GZoeAzio1JfsAQViBbeQOacEwLZC8IQ780FXeE4yyDb+KZ
+         blb4LBXBcMipmbxMoCKoSW4BMVYE3KtMZTilLHsim+6NeRJgdClyMJOGX2zLGqd49hqx
+         Z+CkTRa+F16+PN3cNCpjqs4Y+pLCoDVviRPWl8KDJZRM4SOVJrxxindrVSspYaQrTibK
+         mmrv/xM17qsIg4f3wfVZgnnQkPX5akd0MRHiTVvt9NNNN63e5K5H+wdBwRQ16oySwsJk
+         JQow==
+X-Forwarded-Encrypted: i=1; AL+hErEPYLjUAAWFYhpOCQ90owhBggavCFuDWnpp3bJVxFIAdwURCmyg53vSbSDZcadg8NEsih0ehelzGyfkPZI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+a6uIFgrTJ+Iwzy+0ESZxByG8BTmT9miBkoLvT4W/2a9de5CJH
+	SlZdPz+4815fsb78Pu9ng5QaLqFc+36Rz1T/pnAOF2kZSQuS/QkHNtIXw7tLTooxsQ8=
+X-Gm-Gg: AYBFou0vYfPcjCX+Ns0J/8Vb2d9L4kwK38QBTdiy4JjCTVMw1gjohidYxjsMt5fkpkC
+	MCOufQWRFzgBiA0m4bsAQwgPBmQX7GxRNwzpx1h7SunPxphTkpyeIRxhlexZ/9Y8cO03E+IUCPR
+	TD+dTA9lA8W52MPpKJ/7rY3+Kc3ck97MoTld8990H8hQ6MmkbIlfz1UGojv5kICa8jG/63+nhwU
+	Waunyfpp/UEYDNPdaXtbQ9lcSdtccjLodq0WtIcrI+/8EY8h91+C4y2xAqpzQaGeYZvNvGZa0v7
+	IbcG/ARv3tdUveQpUvdOLEoC8WB51ly/ra9EyBKq07S1fignGcAxQB02k7+dUdJ3wbm1I+FfQEn
+	KMW3BXkGS15nEo+o7HwaJfMoVzI0ncqyrle7Y871k2OUjTNbJspohvF/p7Gyqx55xW7nbfUAQbD
+	rKcwoVFKmffnWTdPfDi61AK6bFzBzJLK0Pf5bs7hYlAUeUGfPL06fyLNN+yjA6IYO6hjD0kVHZ7
+	F1ustvWJSoFchvF3c4owLQmk6SoebTIkO0FlnQ+Pgo56P8VWsPtiNlOWqQ4NMRYQW0LS+pLfmV4
+	GUF9mzSvhwA2WuwILqidm7XBFSt2Ee1QpHg4uXMldjfA6UQFmE3mXgDpLAcYSRuPHdbEwdFqdcB
+	hWEo0G6YhZg==
+X-Received: by 2002:a05:6000:25f1:b0:491:9fc1:e6c2 with SMTP id ffacd0b85a97d-498318067demr229440f8f.51.1794246480672;
+        Mon, 09 Nov 2026 09:48:00 -0800 (PST)
+Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:e834:fd4d:2ecb:b787])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a3f4esm167322f8f.53.2026.11.09.09.48.00
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 09:48:00 -0800 (PST)
+From: Olivier Louvignes <olivier@mgcrea.io>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	"H . Nikolaus Schaller" <hns@goldelico.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Olivier Louvignes <olivier@mgcrea.io>
+Subject: [PATCH v4 5/5] drm/panel: Add the HiBy LG35583
+Date: Mon,  9 Nov 2026 18:46:40 +0100
+Message-ID: <20261109174640.96951-6-olivier@mgcrea.io>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261109174640.96951-1-olivier@mgcrea.io>
+References: <20261109174640.96951-1-olivier@mgcrea.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,170 +113,417 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109-james-perf-test-fixes-v4-0-355ee6b81917@linaro.org> <20261109-james-perf-test-fixes-v4-4-355ee6b81917@linaro.org>
-In-Reply-To: <20261109-james-perf-test-fixes-v4-4-355ee6b81917@linaro.org>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 9 Nov 2026 09:47:49 -0800
-X-Gm-Features: AclHuK8Qp2Cv9kN48IExBwB2gdj912t_RB5Gh3vuokUoac-1DxjpaOwzjPM0dOs
-Message-ID: <CAP-5=fX-AuoMOL+yPXw2FsdcC5Xg7qkb-Q038U3BeB+P+Rf_Yg@mail.gmail.com>
-Subject: Re: [PATCH v4 4/4] perf test: Don't starve per-process tests with
- system-wide events
-To: James Clark <james.clark@linaro.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Jakub Brnak <jbrnak@redhat.com>, Leo Yan <leo.yan@arm.com>, 
-	Arnaldo Carvalho de Melo <acme@redhat.com>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 9, 2026 at 5:48=E2=80=AFAM James Clark <james.clark@linaro.org>=
- wrote:
->
-> Some tests intermittently fail when run in parallel, for example "Check
-> branch stack sampling" fails with no branches recorded at all.
->
-> The default event is cycles:P which there may only be 1 or 2 HW counters
-> for on Intel because it's precise. System wide or per-core precise
-> events hog the HW counter leaving other per-process tests with no
-> samples. Rather than make all the tests that use default record commands
-> run serially, just make the system wide ones use a software event which
-> has the greatest possible compatibility. They don't need precise
-> sampling or HW counters anyway. The per-process tests can be left alone
-> as their events/processes never run concurrently on any one core.
->
-> The LBR filter is another resource shared by all events on a CPU, and
-> the system-wide LBR test uses different filters to the per-process
-> branch stack test, so mark the LBR test as exclusive.
+The 480x800 parallel RGB panel of the HiBy R1. It is set up over a 3-wire
+SPI bus with 16-bit words, each carrying a register address byte or a
+data byte, which no existing panel driver speaks. The set-up sequence is
+the vendor kernel's; prepare sends it up to sleep-out, and enable and
+disable switch the display on and off. It asks for BGR666: in RGB order the
+R1 shows red and blue swapped.
 
-Thanks for deflaking the tests! Making the LBR test exclusive is
-pragmatic; however, it also feels like a shame since recording LBR
-data in parallel should be something we expect users to do.
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+---
+ MAINTAINERS                                |   1 +
+ drivers/gpu/drm/panel/Kconfig              |  10 +
+ drivers/gpu/drm/panel/Makefile             |   1 +
+ drivers/gpu/drm/panel/panel-hiby-lg35583.c | 342 +++++++++++++++++++++
+ 4 files changed, 354 insertions(+)
+ create mode 100644 drivers/gpu/drm/panel/panel-hiby-lg35583.c
 
-For PMUs that can have a single user we have logic which prints
-conflicting users in dump_perf_event_processes:
-https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
-t/tree/tools/perf/util/evsel.c?h=3Dperf-tools-next#n4519
+diff --git a/MAINTAINERS b/MAINTAINERS
+index ddc559cac674..062270232344 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8350,6 +8350,7 @@ DRM DRIVER FOR HIBY LG35583 PANEL
+ M:	Olivier Louvignes <olivier@mgcrea.io>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
++F:	drivers/gpu/drm/panel/panel-hiby-lg35583.c
+ 
+ DRM DRIVER FOR HIMAX HX8394 MIPI-DSI LCD panels
+ M:	Ondrej Jirman <megi@xff.cz>
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 26ffa2378f55..79528ff0100a 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -209,6 +209,16 @@ config DRM_PANEL_LVDS
+ 	  handling of power supplies or control signals. It implements automatic
+ 	  backlight handling if the panel is attached to a backlight controller.
+ 
++config DRM_PANEL_HIBY_LG35583
++	tristate "HiBy LG35583 RGB/SPI panel"
++	depends on OF && SPI
++	help
++	  Say Y here if you want to enable support for the LG35583, the
++	  480x800 parallel RGB panel of the HiBy R1 digital audio player,
++	  which is set up over a 3-wire SPI bus.
++
++	  To compile this driver as a module, choose M here.
++
+ config DRM_PANEL_HIMAX_HX8279
+ 	tristate "Himax HX8279-based panels"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index 365f2e73f6b4..9f5cacfaba29 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -21,6 +21,7 @@ obj-$(CONFIG_DRM_PANEL_ELIDA_KD35T133) += panel-elida-kd35t133.o
+ obj-$(CONFIG_DRM_PANEL_FEIXIN_K101_IM2BA02) += panel-feixin-k101-im2ba02.o
+ obj-$(CONFIG_DRM_PANEL_FEIYANG_FY07024DI26A30D) += panel-feiyang-fy07024di26a30d.o
+ obj-$(CONFIG_DRM_PANEL_FOCALTECH_OTA7290B) += panel-focaltech-ota7290b.o
++obj-$(CONFIG_DRM_PANEL_HIBY_LG35583) += panel-hiby-lg35583.o
+ obj-$(CONFIG_DRM_PANEL_HIMAX_HX8279) += panel-himax-hx8279.o
+ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83102) += panel-himax-hx83102.o
+ obj-$(CONFIG_DRM_PANEL_HIMAX_HX83112A) += panel-himax-hx83112a.o
+diff --git a/drivers/gpu/drm/panel/panel-hiby-lg35583.c b/drivers/gpu/drm/panel/panel-hiby-lg35583.c
+new file mode 100644
+index 000000000000..9189c7c19665
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-hiby-lg35583.c
+@@ -0,0 +1,342 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * The LG35583 panel of the HiBy R1
++ *
++ * Copyright (c) 2026 Olivier Louvignes <olivier@mgcrea.io>
++ *
++ * A 480x800 parallel RGB panel, set up over a 3-wire SPI bus with 16-bit
++ * words: 0x20 and a register's high byte, 0x00 and its low byte, then 0x40
++ * and each data byte. HiBy calls it the LG35583; its controller is not
++ * identified. The set-up sequence is the one the vendor kernel sends.
++ */
++
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/media-bus-format.h>
++#include <linux/module.h>
++#include <linux/regulator/consumer.h>
++#include <linux/spi/spi.h>
++
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++
++#define LG35583_ADDR_HI		0x2000
++#define LG35583_ADDR_LO		0x0000
++#define LG35583_DATA		0x4000
++
++#define LG35583_SLPIN		0x1000
++#define LG35583_SLPOUT		0x1100
++#define LG35583_DISPOFF		0x2800
++#define LG35583_DISPON		0x2900
++#define LG35583_RAMWR		0x2c00
++
++struct lg35583_write {
++	u16 reg;	/* 0: wait val milliseconds */
++	s16 val;	/* -1: no data */
++};
++
++#define REG(r, v)	{ (r), (v) }
++#define CMD(r)		{ (r), -1 }
++#define DELAY(ms)	{ 0, (ms) }
++
++static const struct lg35583_write lg35583_init[] = {
++	REG(0xb100, 0x06), REG(0xb101, 0x01), REG(0xb102, 0x54),
++	REG(0xb104, 0x07), REG(0xb105, 0x06), REG(0xb106, 0x06),
++	REG(0xb107, 0x4a), REG(0xb108, 0x21), REG(0xb109, 0x08),
++	REG(0xf101, 0xc0), REG(0xf103, 0x01),
++	DELAY(5),
++	REG(0xb400, 0x01), REG(0xb600, 0x10),
++	REG(0x3a00, 0x77), REG(0x3b00, 0x03), REG(0x5e04, 0x02),
++	REG(0x3600, 0x08),
++	DELAY(5),
++	/* Gamma */
++	REG(0xe000, 0x00), REG(0xe001, 0x2f), REG(0xe002, 0x3f),
++	REG(0xe003, 0x1f), REG(0xe004, 0x21), REG(0xe005, 0x2c),
++	REG(0xe006, 0x2c), REG(0xe007, 0x61), REG(0xe008, 0x1c),
++	REG(0xe009, 0x18), REG(0xe00a, 0xbc), REG(0xe00b, 0x27),
++	REG(0xe00c, 0x59), REG(0xe00d, 0x6a), REG(0xe00e, 0xbb),
++	REG(0xe00f, 0xbe), REG(0xe010, 0x3e), REG(0xe011, 0x48),
++	REG(0xe100, 0x00), REG(0xe101, 0x32), REG(0xe102, 0x45),
++	REG(0xe103, 0x26), REG(0xe104, 0x21), REG(0xe105, 0x2c),
++	REG(0xe106, 0x5c), REG(0xe107, 0x63), REG(0xe108, 0x1c),
++	REG(0xe109, 0x19), REG(0xe10a, 0xd3), REG(0xe10b, 0x28),
++	REG(0xe10c, 0x59), REG(0xe10d, 0x6b), REG(0xe10e, 0xdb),
++	REG(0xe10f, 0xde), REG(0xe110, 0x5f), REG(0xe111, 0x6b),
++	REG(0xe200, 0x7f), REG(0xe201, 0x7d), REG(0xe202, 0x86),
++	REG(0xe203, 0x89), REG(0xe204, 0x10), REG(0xe205, 0x1e),
++	REG(0xe206, 0x41), REG(0xe207, 0x77), REG(0xe208, 0x0d),
++	REG(0xe209, 0x1d), REG(0xe20a, 0xc8), REG(0xe20b, 0x30),
++	REG(0xe20c, 0x5f), REG(0xe20d, 0x71), REG(0xe20e, 0xc3),
++	REG(0xe20f, 0xbe), REG(0xe210, 0x3e), REG(0xe211, 0x48),
++	REG(0xe300, 0x7f), REG(0xe301, 0x7f), REG(0xe302, 0x86),
++	REG(0xe303, 0x93), REG(0xe304, 0x10), REG(0xe305, 0x1e),
++	REG(0xe306, 0x41), REG(0xe307, 0x89), REG(0xe308, 0x0d),
++	REG(0xe309, 0x1d), REG(0xe30a, 0xe0), REG(0xe30b, 0x30),
++	REG(0xe30c, 0x5f), REG(0xe30d, 0x70), REG(0xe30e, 0xe4),
++	REG(0xe30f, 0xdf), REG(0xe310, 0x5f), REG(0xe311, 0x6b),
++	REG(0xe400, 0x00), REG(0xe401, 0x43), REG(0xe402, 0x6f),
++	REG(0xe403, 0x60), REG(0xe404, 0x21), REG(0xe405, 0x2c),
++	REG(0xe406, 0x5a), REG(0xe407, 0x6d), REG(0xe408, 0x1c),
++	REG(0xe409, 0x18), REG(0xe40a, 0xc6), REG(0xe40b, 0x27),
++	REG(0xe40c, 0x59), REG(0xe40d, 0x6a), REG(0xe40e, 0xbb),
++	REG(0xe40f, 0xbe), REG(0xe410, 0x3e), REG(0xe411, 0x48),
++	REG(0xe500, 0x00), REG(0xe501, 0x46), REG(0xe502, 0x75),
++	REG(0xe503, 0x67), REG(0xe504, 0x21), REG(0xe505, 0x2c),
++	REG(0xe506, 0x5a), REG(0xe507, 0x7e), REG(0xe508, 0x1c),
++	REG(0xe509, 0x19), REG(0xe50a, 0xdd), REG(0xe50b, 0x28),
++	REG(0xe50c, 0x59), REG(0xe50d, 0x6b), REG(0xe50e, 0xdb),
++	REG(0xe50f, 0xde), REG(0xe510, 0x5f), REG(0xe511, 0x6b),
++	DELAY(5),
++	REG(0xc200, 0x70), REG(0xc202, 0x70), REG(0xc203, 0x44),
++	DELAY(20),
++	REG(0xc200, 0x51), REG(0xc201, 0x06), REG(0xc202, 0x51),
++	REG(0xc203, 0x66),
++	DELAY(20),
++	REG(0xc100, 0x45),
++	DELAY(5),
++	REG(0xc700, 0x46), REG(0xc000, 0xa3), REG(0xc002, 0x8a),
++	DELAY(5),
++	CMD(LG35583_SLPOUT),
++	DELAY(130),
++};
++
++struct lg35583 {
++	struct drm_panel panel;
++	struct spi_device *spi;
++	struct gpio_desc *reset;
++	struct regulator *vcc;
++	struct regulator *vccio;
++};
++
++static const struct drm_display_mode lg35583_mode = {
++	.clock = 28000,
++	.hdisplay = 480,
++	.hsync_start = 480 + 24,
++	.hsync_end = 480 + 24 + 24,
++	.htotal = 480 + 24 + 24 + 24,
++	.vdisplay = 800,
++	.vsync_start = 800 + 14,
++	.vsync_end = 800 + 14 + 5,
++	.vtotal = 800 + 14 + 5 + 8,
++	.flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC,
++	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
++};
++
++static struct lg35583 *to_lg35583(struct drm_panel *panel)
++{
++	return container_of(panel, struct lg35583, panel);
++}
++
++static int lg35583_word(struct lg35583 *ctx, u16 word)
++{
++	/* Copied to a DMA-safe buffer. */
++	return spi_write_then_read(ctx->spi, &word, sizeof(word), NULL, 0);
++}
++
++static int lg35583_cmd(struct lg35583 *ctx, u16 reg)
++{
++	int ret;
++
++	ret = lg35583_word(ctx, LG35583_ADDR_HI | (reg >> 8));
++	if (ret)
++		return ret;
++	return lg35583_word(ctx, LG35583_ADDR_LO | (reg & 0xff));
++}
++
++static int lg35583_write(struct lg35583 *ctx, const struct lg35583_write *w)
++{
++	int ret;
++
++	if (!w->reg) {
++		msleep(w->val);
++		return 0;
++	}
++
++	ret = lg35583_cmd(ctx, w->reg);
++	if (ret || w->val < 0)
++		return ret;
++	return lg35583_word(ctx, LG35583_DATA | w->val);
++}
++
++static int lg35583_prepare(struct drm_panel *panel)
++{
++	struct lg35583 *ctx = to_lg35583(panel);
++	unsigned int i;
++	int ret;
++
++	ret = regulator_enable(ctx->vccio);
++	if (ret)
++		return ret;
++	usleep_range(5000, 6000);
++
++	ret = regulator_enable(ctx->vcc);
++	if (ret)
++		goto err_vccio;
++	usleep_range(5000, 6000);
++
++	gpiod_set_value_cansleep(ctx->reset, 0);
++	usleep_range(5000, 6000);
++	gpiod_set_value_cansleep(ctx->reset, 1);
++	msleep(50);
++	gpiod_set_value_cansleep(ctx->reset, 0);
++	msleep(30);
++
++	for (i = 0; i < ARRAY_SIZE(lg35583_init); i++) {
++		ret = lg35583_write(ctx, &lg35583_init[i]);
++		if (ret) {
++			dev_err(panel->dev, "Unable to set up the panel: %d\n", ret);
++			goto err_vcc;
++		}
++	}
++
++	return 0;
++
++err_vcc:
++	gpiod_set_value_cansleep(ctx->reset, 1);
++	regulator_disable(ctx->vcc);
++err_vccio:
++	regulator_disable(ctx->vccio);
++	return ret;
++}
++
++static int lg35583_enable(struct drm_panel *panel)
++{
++	struct lg35583 *ctx = to_lg35583(panel);
++	int ret;
++
++	ret = lg35583_cmd(ctx, LG35583_DISPON);
++	if (ret)
++		return ret;
++
++	return lg35583_cmd(ctx, LG35583_RAMWR);
++}
++
++static int lg35583_disable(struct drm_panel *panel)
++{
++	struct lg35583 *ctx = to_lg35583(panel);
++	int ret;
++
++	ret = lg35583_cmd(ctx, LG35583_DISPOFF);
++	usleep_range(5000, 6000);
++	return ret;
++}
++
++static int lg35583_unprepare(struct drm_panel *panel)
++{
++	struct lg35583 *ctx = to_lg35583(panel);
++
++	lg35583_cmd(ctx, LG35583_SLPIN);
++	usleep_range(5000, 6000);
++
++	gpiod_set_value_cansleep(ctx->reset, 1);
++	regulator_disable(ctx->vcc);
++	regulator_disable(ctx->vccio);
++	return 0;
++}
++
++static int lg35583_get_modes(struct drm_panel *panel, struct drm_connector *connector)
++{
++	/* Red and blue are swapped on the R1 without it. */
++	static const u32 bus_format = MEDIA_BUS_FMT_BGR666_1X18;
++	struct drm_display_mode *mode;
++
++	mode = drm_mode_duplicate(connector->dev, &lg35583_mode);
++	if (!mode)
++		return -ENOMEM;
++
++	drm_mode_set_name(mode);
++	drm_mode_probed_add(connector, mode);
++
++	connector->display_info.bpc = 6;
++	connector->display_info.bus_flags = DRM_BUS_FLAG_DE_HIGH |
++					    DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE;
++	drm_display_info_set_bus_formats(&connector->display_info, &bus_format, 1);
++
++	return 1;
++}
++
++static const struct drm_panel_funcs lg35583_funcs = {
++	.prepare = lg35583_prepare,
++	.enable = lg35583_enable,
++	.disable = lg35583_disable,
++	.unprepare = lg35583_unprepare,
++	.get_modes = lg35583_get_modes,
++};
++
++static int lg35583_probe(struct spi_device *spi)
++{
++	struct device *dev = &spi->dev;
++	struct lg35583 *ctx;
++	int ret;
++
++	ctx = devm_drm_panel_alloc(dev, struct lg35583, panel, &lg35583_funcs,
++				   DRM_MODE_CONNECTOR_DPI);
++	if (IS_ERR(ctx))
++		return PTR_ERR(ctx);
++
++	ctx->spi = spi;
++	spi_set_drvdata(spi, ctx);
++
++	spi->bits_per_word = 16;
++	ret = spi_setup(spi);
++	if (ret)
++		return dev_err_probe(dev, ret, "Unable to set up SPI\n");
++
++	ctx->vcc = devm_regulator_get(dev, "vcc");
++	if (IS_ERR(ctx->vcc))
++		return dev_err_probe(dev, PTR_ERR(ctx->vcc), "Unable to get vcc\n");
++
++	ctx->vccio = devm_regulator_get(dev, "vccio");
++	if (IS_ERR(ctx->vccio))
++		return dev_err_probe(dev, PTR_ERR(ctx->vccio), "Unable to get vccio\n");
++
++	/*
++	 * Deasserted, which keeps a panel the boot loader left on as it is, but
++	 * as an output: after a reset the pin is an input, and prepare's reset
++	 * pulse would never reach the panel.
++	 */
++	ctx->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(ctx->reset))
++		return dev_err_probe(dev, PTR_ERR(ctx->reset), "Unable to get reset\n");
++
++	ret = drm_panel_of_backlight(&ctx->panel);
++	if (ret)
++		return ret;
++
++	drm_panel_add(&ctx->panel);
++	return 0;
++}
++
++static void lg35583_remove(struct spi_device *spi)
++{
++	struct lg35583 *ctx = spi_get_drvdata(spi);
++
++	drm_panel_remove(&ctx->panel);
++}
++
++static const struct of_device_id lg35583_of_match[] = {
++	{ .compatible = "hiby,lg35583" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, lg35583_of_match);
++
++static const struct spi_device_id lg35583_ids[] = {
++	{ "lg35583" },
++	{ }
++};
++MODULE_DEVICE_TABLE(spi, lg35583_ids);
++
++static struct spi_driver lg35583_driver = {
++	.probe = lg35583_probe,
++	.remove = lg35583_remove,
++	.id_table = lg35583_ids,
++	.driver = {
++		.name = "panel-hiby-lg35583",
++		.of_match_table = lg35583_of_match,
++	},
++};
++module_spi_driver(lg35583_driver);
++
++MODULE_AUTHOR("Olivier Louvignes <olivier@mgcrea.io>");
++MODULE_DESCRIPTION("HiBy R1 LG35583 panel driver");
++MODULE_LICENSE("GPL");
+-- 
+2.39.5
 
-I wonder if, when we get zero counts or no samples we could perform a
-similar analysis and report conflicting users=E2=80=94though this would
-inherently be racy. If we had that, maybe we could just repeat the LBR
-tests until there are no conflicting users and not need the exclusive
-tag.
-
-Anyway, doing all of that is a bigger project.
-
-Reviewed-by: Ian Rogers <irogers@google.com>
-
-Thanks,
-Ian
-
-> This fixes the "Check branch stack sampling" test and other flakes when
-> a system-wide record from another test runs at the same time, for
-> example:
->
->   $ sudo perf record -a -o /dev/null -- sleep 30 &
->   $ sudo perf test -vvv "Check branch stack sampling"
->   ...
->   Testing user branch stack sampling
->   ERROR: Branches missing ^brstack_bench\+[^ ]*/brstack_foo\+[^ ]*/IND_CA=
-LL/.*$
->   ...
->   Testing user branch stack sampling [Failed]
->   ...
->   Testing branch stack filtering permutation (call,CALL|SYSCALL)
->   Testing branch stack filtering [Failed empty script output]
->   ...
->   ---- end(-1) ----
->   138: Check branch stack sampling : FAILED!
->
-> Signed-off-by: James Clark <james.clark@linaro.org>
-> ---
->  tools/perf/tests/shell/record.sh          | 6 +++---
->  tools/perf/tests/shell/record_lbr.sh      | 2 +-
->  tools/perf/tests/shell/record_sideband.sh | 4 ++--
->  3 files changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/tools/perf/tests/shell/record.sh b/tools/perf/tests/shell/re=
-cord.sh
-> index 01dc3e22fa73..e4789e2bcf43 100755
-> --- a/tools/perf/tests/shell/record.sh
-> +++ b/tools/perf/tests/shell/record.sh
-> @@ -388,7 +388,7 @@ test_system_wide() {
->    echo "Basic --system-wide mode test"
->    local ret=3D0
->    perf_record_with_retry "${perfdata}" "check_system_wide" "perf test -w=
- thloop" \
-> -    -aB --synth=3Dno || ret=3D$?
-> +    -aB --synth=3Dno -e cpu-clock || ret=3D$?
->    if [ $ret -eq 2 ]; then
->      echo "System-wide record [Skipped not supported]"
->      return
-> @@ -471,7 +471,7 @@ test_cgroup() {
->    echo "Cgroup sampling test"
->    local ret=3D0
->    perf_record_with_retry "${perfdata}" "check_cgroup" "perf test -w thlo=
-op" \
-> -    -aB --synth=3Dcgroup --all-cgroups || ret=3D$?
-> +    -aB --synth=3Dcgroup --all-cgroups -e cpu-clock || ret=3D$?
->    if [ $ret -eq 2 ]; then
->      echo "Cgroup sampling [Skipped not supported]"
->      return
-> @@ -491,7 +491,7 @@ test_uid() {
->    echo "Uid sampling test"
->    local ret=3D0
->    perf_record_with_retry "${perfdata}" "check_uid" "perf test -w thloop"=
- \
-> -    -aB --synth=3Dno --uid "$(id -u)" || ret=3D$?
-> +    -aB --synth=3Dno --uid "$(id -u)" -e cpu-clock || ret=3D$?
->    if [ $ret -eq 2 ]; then
->      local logfile=3D"${PERF_RECORD_LOGS[${#PERF_RECORD_LOGS[@]}-1]}"
->      if grep -q -E "libbpf.*EPERM|Access to performance monitoring" "$log=
-file" || \
-> diff --git a/tools/perf/tests/shell/record_lbr.sh b/tools/perf/tests/shel=
-l/record_lbr.sh
-> index 8d51afeb437b..6b6af59db871 100755
-> --- a/tools/perf/tests/shell/record_lbr.sh
-> +++ b/tools/perf/tests/shell/record_lbr.sh
-> @@ -1,6 +1,6 @@
->  #!/bin/bash
->  # SPDX-License-Identifier: GPL-2.0
-> -# perf record LBR tests
-> +# perf record LBR tests (exclusive)
->
->  set -e
->
-> diff --git a/tools/perf/tests/shell/record_sideband.sh b/tools/perf/tests=
-/shell/record_sideband.sh
-> index 2182551873be..f16889e3fa9a 100755
-> --- a/tools/perf/tests/shell/record_sideband.sh
-> +++ b/tools/perf/tests/shell/record_sideband.sh
-> @@ -22,7 +22,7 @@ trap trap_cleanup EXIT TERM INT
->
->  can_cpu_wide()
->  {
-> -    if ! perf record -o ${perfdata} -BN --no-bpf-event -C $1 true > /dev=
-/null 2>&1
-> +    if ! perf record -o ${perfdata} -BN --no-bpf-event -e cpu-clock -C $=
-1 true > /dev/null 2>&1
->      then
->          echo "record sideband test [Skipped cannot record cpu$1]"
->          err=3D2
-> @@ -39,7 +39,7 @@ test_system_wide_tracking()
->      can_cpu_wide 1 || return 0
->
->      # Record on CPU 0 a task running on CPU 1
-> -    perf record -BN --no-bpf-event -o ${perfdata} -C 0 -- taskset --cpu-=
-list 1 true
-> +    perf record -BN --no-bpf-event -e cpu-clock -o ${perfdata} -C 0 -- t=
-askset --cpu-list 1 true
->
->      # Should get MMAP events from CPU 1
->      mmap_cnt=3D`perf script -i ${perfdata} --show-mmap-events -C 1 2>/de=
-v/null | grep MMAP | wc -l`
->
-> --
-> 2.43.0
->
