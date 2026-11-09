@@ -1,72 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216858;
-	b=L/HwYg4qf78Brd4DBbMAy6Yy4M81rKob+iRWjd8Pnzojd/VBOWDcS3wKSXQCm+UaTWqZ
-	 40bpvdarp8xSIPJDKFSMILloX7XPW0gEh5D6XkCvPzVrqpMAOBVDNV+1u5XPDgWN1O3Gy
-	 p+VG9HyaKTrSxwfKwDKkS71grOgkXQmXVJJunjbExDvVDjZEZ3ayFR0UZ/+oa24kpnUGY
-	 eoJHuFcjfkXf9+YcgPO4KOWUAyqeNZpe/NLf/NgABEtrtkswSYTkDnwBKd7Ptt+l1g3qG
-	 dwQhKDDooAfEzKDXme9DM7PW6EvSKd3vQi7I/d8btWoS89YlNEEBB3x60ZHE3sU15Fw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216858;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=GQyZO4u8YwN90ZByf/x3nUIg6XKgQaPmDNuRTLK33HU=;
-	b=KikafbP+gVrA/2DX9Ha4KwgoVBdFZ+NjRm/M1rAlwmkc78zLf6U778+IlsJjE21exvHe
-	 1/JpG0WoVyb/O1PoMSZDa2qSkaYqX/vxLWBi99c35kUqdFM1acYGIriIRpEfFBdGZTj7s
-	 tH/nTd3w5h4ZSVzibNDgVHbCOjaaIT3jM70nv2QVokUaiOvYkXn8m7ftwXBlNhvdQ2mas
-	 CweO+JXaSs0geaYOqqI1NA4Ols3ZHH2qSGLVbUPPExUAqj39MOAx2J+gJ5JdyulCh4ZXC
-	 11Eu9CEuJICUobG/43nBf1Lxoj0ITgRV1eN8LeszQR3FaOJcCHyLuXIp2iBqhhT9Dbg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=w6rz.net;
-	spf=pass smtp.mailfrom=w6rz.net;
-	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=ffFzwrsI;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794216853;
+	b=KeJK49/oQQrfAR1d3i5zeG0eFqzEslRVPcJuiDdcVG52raMVjcToqDMoIX92buK/4rBG
+	 GGBg3XDIWil5sSfo4ndyYfjiMut9iA1HfDREso4o1UcIK65Y7n/nCac2EB8RPTh3XRqju
+	 Lza+3SapwSyQAOMCDeC9064u3Is1FrL3L6LHwLa9C/4iCF7m3L1ADqjP794IVfEeyf7vl
+	 uqj3/dTog8C7cvtg128sh9VHaJ9450I/LnqnaqoGFsYpbd8AwtCywO0dThT9jpPcrYc5T
+	 hDcc6VJVM5RHm62yMXn17/vzzHskt1eZ+YLVb2cjmQv3fE3KWdLZ9P86sGPSGj4B1LA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216853;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/2TSwr5Ws04kwWFHYd/kmVLZ1VCqBmMqj6jylfx1BQQ=;
+	b=dBRSxLfazzeSvwGdRz6TJjMGrBK1PjeDcnvxvjAtXv8o7xwhGXsaH0fS08k8yINN2D8G
+	 yeFM58uuLyohJnu0RDVzkRDZKnTtHpLYT1UDIViWiK6SJpmKUrjteeGBEaYbkhh6IqFFQ
+	 nYA+RwwcvCTz5Uu7OAvplTety+aCOel5CBBz+S8UOW+NsxO8B2H7X/bSGHRaqHzKtaf0J
+	 uivqo/6DM8cGzOjYwRqQQ/nPF4Qtg6sHccoT+NA5IoroWHRkLFPTGRgaVKZh2YfUk/UCT
+	 FzuAbP2aluTjz9NPfimRMBMfE8CoI7w6PXsIer7JzddvJIN1i5nFVALouAn4QR+qrOg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HA2isnI+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF04606A33C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:34:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CF04606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 557F7606A31C;
+	Mon,  9 Nov 2026 09:34:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=ffFzwrsI
-Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
-	by cmsmtp with ESMTPS
-	id PnW7xjf6D4vCDQLlYx5JfW; Mon, 09 Nov 2026 09:34:16 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id QLlYxgmhv8cn4QLlYxrI6S; Mon, 09 Nov 2026 09:34:16 +0000
-X-Authority-Analysis: v=2.4 cv=Qrde3Uyd c=1 sm=1 tr=0 ts=6af19398
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=GQyZO4u8YwN90ZByf/x3nUIg6XKgQaPmDNuRTLK33HU=; b=ffFzwrsIihC2IZHN4c1Vhl8QT1
-	qaYnsD+LnO7MW6D8+IPLNJl6xT2jlZRZ7ZOCOGIfReavOz8WIkKmYaGFlYH6GfLPYLY6vQINFC7+3
-	P/tS9ubF1T7yrgbOrHdqQ5uKF0FJjlOd5S/165JFmeqSyt9VFGrpbmkqHYz31At/woc3BEw52/+cm
-	xuwWEu32SN5jNykKQQve9XCfPKqtcxfJrPCUfzEUh8sVjhyjIxQHs7UnQpdeKgsIRD4jBsIzKEqcf
-	KRQZTTeAIOWowkwvAiup157cD6eReVAr8UMDHbmM38deGnyUekzv4j8aK8k5rOtQUChVOI9imd/wI
-	bGHax+yw==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:57736 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xQLlX-00000001Wnh-1RD5;
-	Mon, 09 Nov 2026 02:34:15 -0700
-Message-ID: <6d323bf2-541e-4cf3-8b8b-b5d566bd6f71@w6rz.net>
-Date: Mon, 9 Nov 2026 01:34:13 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HA2isnI+
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794216852;
+	b=Nf4NjO01Ju6q/aK/HDEXbisWLhi9YaZXCiEd6pZqObxpmwaOMdWbqiG94gyQE3UnZa+6
+	 58sK50M1HQm9D0ukFXG2HzqkxfPX8H6HYeME6xSIi4HVVbgvdGMHa68b0r0oYc0up2xA5
+	 pWpG1GOG67TST8hUNq1CtUF0HOm+9emk4KSsZ0r2SH4sdbMlBYAFkJvzG/lNV0B+M3aA1
+	 USqpzXGtyGB4jjveZSfvnWKcNBye33MNy7GbYlaSWFz96vsIOckwnup4cZNygFJgZ6oKU
+	 q98LmYq5YcxI+O0EwBuv6+OYdZD0q6W/Cmvtz8HgaJ9An03JJpCqd6rvYJl3EuHLuAQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794216852;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/2TSwr5Ws04kwWFHYd/kmVLZ1VCqBmMqj6jylfx1BQQ=;
+	b=0LzPfjO6Zs3qApu/XNDx2f2xCKVj1ePCE90YEXr6/UZDXg57DUcT7rvBCFzvky4Yu0ui
+	 SfyRCzFDtJ5yumMbR54fa8CgD5wRsrSeSYNgxnURhvuZZ+VanENnj1RntJ34ebldgRIwU
+	 g5jMzJ7nfTBwex0X9bGaB7MYRUCqJY5GtTaP2YdBCscjOdJHDFxv3oPeztL+gyTMaEGnP
+	 HNPludAgpJQxoQTdRV6F8/VZNc+7Dv1Os8mHdKNi/SZrV9/eD1zSgO8IVhvNTzEajOIcB
+	 RlLWgjK4pEKlgxmhB9iHLfsreQ4Sjali2mKZahlRoPkjXDzisD10UOPiZ2+VKwEHhMg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id 2F8E51F008A2;
+	Mon,  9 Nov 2026 09:34:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794216852;
+	bh=/2TSwr5Ws04kwWFHYd/kmVLZ1VCqBmMqj6jylfx1BQQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HA2isnI+HMsi6vJeaASJxpAqyQb3rOIgQN0zuYRGpy6UeLEmV1WnqBGKJkHwllEg0
+	 jGanu4nxhqGjxUlsmToMuunR/KNloVXW7kgUBdh0qgJ+TAdb9+eMGATut9WqEHep0u
+	 sAySWgrb4HQf/vXi18AyfkdJmnTC51Ehx/p4azFGL9DBQ24ULozXYgd6wm39OIACtF
+	 Mkk4wZMSFp6kDSRHTedujVrfUECl8TvtnbNzjsLx88ZO+PGM8gJI85UfgsCj9GA+r8
+	 rcXQYb5modOzNvBnKdAy7pgQ2OSDV6EyP8uzWbIzhHq7dxRppjj6gTjtUVFZzn5t+P
+	 GFsPI1ZSorVow==
+Date: Mon, 9 Nov 2026 10:34:04 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Raffaele Tranfaglia via B4 Relay
+ <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
+Cc: raffaele.tranfaglia@gmail.com, Nuno =?ISO-8859-1?Q?S=E1?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Andy Shevchenko <andy@kernel.org>, linux@analog.com,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: light: adux1020: use guard() to simplify lock
+ handling
+Message-ID: <20261109103404.00006e3c@kernel.org>
+In-Reply-To: <20261108-adux1020-guard-v1-1-db9c582f1eea@gmail.com>
+References: <20261108-adux1020-guard-v1-1-db9c582f1eea@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,63 +89,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/869] 6.18.63-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261107134852.069646174@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261107134852.069646174@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xQLlX-00000001Wnh-1RD5
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:57736
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 37
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfPpvhpI3WNor4sRBW5hr8lTOpMH4l0iroMPYU7Noy3aXn/wdwwGw5i3bfD4Q2v8/xhcNIGpGGDsysgPcjA/fZxb2K6cnCHQvEQz/TtFmsYVHwUDRNOCL
- 87woJpDwJJ4uQh1bjdMJOol4QiKG3BV+ViqOv8qMChu2ldwvjVeXKf98vRZnoEjjnfZinzY7HNmhFm0THH69BzbZEcVroRPstv4=
 
-On 11/7/26 05:44, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.63 release.
-> There are 869 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.63-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+On Sun, 08 Nov 2026 20:16:13 +0000
+Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org> wrote:
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+> From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+> 
+> Use guard(mutex) in adux1020_read_raw(), adux1020_write_raw() and
+> adux1020_write_event_config() so the lock is released automatically on
+> return. This allows returning directly instead of jumping to a common
+> unlock label, and lets adux1020_write_raw() drop its ret variable.
+> 
+> No functional change intended.
+> 
+> Suggested-by: Jonathan Cameron <jic23@kernel.org>
+> Link: https://lore.kernel.org/all/20261107222957.5332237b@jic23-hlaptop/
 
-Tested-by: Ron Economos <re@w6rz.net>
+Not sure if the link is necessary, but can be dropped later.
 
+But looks good to me!
+
+Reviewed-by: Joshua Crofts <crofts@kernel.org>
+
+-- 
+Kind regards,
+Joshua Crofts
