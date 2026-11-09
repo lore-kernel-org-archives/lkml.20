@@ -1,100 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228587;
-	b=LvPsqceJknKtcWO5G/EJ3wfhTH7n3cIISv7oeQfprS9JVB7zTokyMPtcdZetVZ305Cow
-	 /IN+hSHXZMFn7MEA0ICxUTal/NQkErMQrLYyYKtywh0sadYeQA2PtL3gkBcyXLIgtKfC3
-	 PA1FvW1SQz+g55j1AdAa9rRyvlBPrGkTG1y0y1XVrjxBaRhXrwzPNXOsWl6rBWA1E3q9g
-	 nJwewz4sxZYT2YVGr1SArOQJ2d60lDbyB/eONnAZVgIKhmk7QIv0EQik+rEGhlgQDK9A7
-	 hjE9ShmXUxM5ZZnst54onNNTAdNPyjC2tlB+L/7zWR8wXk+x9NBCqzbcNzdqmi5ipQw==
+	t=1794228586;
+	b=39MiwY8XJnMeB3MySU4H/FI+XHqhi6jP7G9ZkNcau5aRvl2MYu4YNY2IyOLOogzTys3E
+	 4In/CDb/QjhBj46o0zVg7poSlKSuKQjqYr2llBb6tYoaaSYfg0lt9XnHQovw2qkrqf9Lr
+	 8QeC0hSoK8N24RrHZvl39jOQ9GINPIh1woNko8+hTrcEQz3ehMCeCc/buuhfzPodWzObR
+	 hO1NL/XKKimYraFvyLcagnrBv61d0cFn7Nfa2Ap2bPAAemGPwrqSlJHNu8tJrokzFKluy
+	 Ew8UxQ1hcV2gteiY59DULVsMwmC7IvUBRp4HOsLhJEvQ4t8NDGW64BLTauLcQSWZkWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228587;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mG9Y8k2vnChqxaqg4HKskuIcpQ6X4WU53zywg6kGBHQ=;
-	b=2KWR1xLyTOkeULK5mlRSsuWahjtiaBQDMDB3u72AqBoHu/F1410/kOOMDJO8Y1/Sm0uj
-	 BoEG31Fj98PSL2pii4b43P6Ay/uG4YyvDlrxKqarREVSm0G8KHuBkkc/Gh2dYxOPCkjr/
-	 +rzjisdXxiKeuWAXOyMPpuywjhT3GHIqT3nXGKIanV9mmRtG9xy1KwtgQiEFBEc174o/u
-	 I8VxzfJmAJpYAC9s+rVuE5qhucOSmxxsAwU3/Sm9WFg8Hss5xrOXXF/YoDZyZa3QciSmY
-	 G6AaE5D2ryAcoqgD1LG1ZCxnggFB1Bh71W9WYWXeHKXo/oocAVy4qAncjyoctpr1z7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228586;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=8nZAwGS6CTOwltNNT7HN871xA3eXVwrJJClB1UtUFo4=;
+	b=K6hNsKj8cdsddMUsLu3PP6S//uEyDv3UJ3OcLNtI1uiirDA5SRdSzlZBOn6CN6E1TouW
+	 hxqVMWYej7h/5lYZ1Oa67JYF6+amU7L9CquRw1QBn7r0CTjc8pnm0Aim7NsuVa8tp07f/
+	 Z54vZN7+YiRO61NNwzn0+QamswmVpCBwbNak/MNfL05tQ5rIWUTxhxtN2B1G6T9lbexu3
+	 Yr6IVz+c+ZHAtjNWWS+QeCUAJMZtW/NpFk7DAg6/Hs+zyi5mJ/G+ILz1EvBhn4M4g/pNs
+	 xi6zaeZuAouy0aH/34RygqSUyrbgtStyAZ0l615zlOm8Bc23MDsRQR1SYXqolMbj2ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oof0SMWW;
-	arc=none smtp.remote-ip=209.85.210.54
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MghTQEz6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CEA9606D813
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:49:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CEA9606D813
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E6E606A31C;
+	Mon,  9 Nov 2026 12:49:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oof0SMWW
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-8439fe796ebso484588a34.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 04:49:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794228586; x=1794833386; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mG9Y8k2vnChqxaqg4HKskuIcpQ6X4WU53zywg6kGBHQ=;
-        b=oof0SMWWrTw7FAV1sR7haIUYvt37AGp5bvoFIQrQqKl5y3EQHSNObrqGZoA43pTS6/
-         vQ7kyrQns04frayvawgKvXrnk9MiPVvt92jHDHu9jcnmECI53hw4K1kVIzXNEhQLX6KQ
-         szK/zf6NWtZOiGpPvIZlEdWYrgCNc7e/0oPsm9fnuurtXeL60+h7Jug7EoeLUoKxrLdT
-         T1BTuZIVSA2vkrrBOvrJhpwQM3JonL3TONgmJu6ExAtrP//EsJb1M9piyWeHwn3yrWrh
-         mevuVNdPNwX+c4Zlw6GIWl1au12qv6htBKq8z5z6DyvrsB9ZTlsRvQy0RlnTBSsJLQso
-         mVVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794228586; x=1794833386;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mG9Y8k2vnChqxaqg4HKskuIcpQ6X4WU53zywg6kGBHQ=;
-        b=XtB98yODQJGM6jPGZjp9EHeB7G01vbgbijoHed4uOqr+Uxtvy7+DmwOPA7Fch2LnVO
-         6k7KULHpv4VJf+KSBPV7PSDDIwEV7fM2euqomaD8ZQArbCVTSFr7NtZMsU+VP3yNmF/I
-         GyXL4EZxgWsErkJAvxB/Gk4KbtILeEbn2Q5mgsgwqogYwFcRaW/6L/kPuvL8Sb7fMcd6
-         1D9WoBOcudYIX5O2TEqbnnbobrTqf6Yftj0H2WzoIvY4Ww/vNm3I3JrGFTrtKRuuHwZb
-         Qv7eTQ/8DrsCjyC2Fp8WjracTupbzHFCOW2ua9DIe/bAv9aMO2xn+Y52+2bDxXJw7e2i
-         NYkA==
-X-Forwarded-Encrypted: i=1; AL+hErEy/bwkD2gacussHNx8wYhNGKcVMkXiDRgffmMju0q3EIcr8KlrI0lRj34/sgiGtIpA9Odn3fZJtGXrHSQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89eXvY4ql83m2YvLIFruh38jPItCF+4hC/NVzNLlcd5LFLQtS9
-	08LZThTBm2xGb5kUn1TDwrXmnR5PjIWp7LoeO5aa9pysU53Qey6Ct+2G
-X-Gm-Gg: AYBFou0wSyWPXB4pp23VxnZX0wvc8oqduW9k3xb30S2wRefafoAbqKyZnm+CNTTTFTP
-	NekPRo0FNt9q69UnsfuoGgYJuYXBM0krRFI6jZCQ2jR7CGg7/7q0tlGpvLs0NxFR8ivtTdlloUf
-	ZtOaWENzLp6p7kwTo0DA2Ztmg7heZIaNVgBqB7YhCkhL/GPsy1dygz/2sLEFLcExDxGPGPAKz/9
-	86F8wahc40eHnqso5JTXhIM+xSoEjyAv1deGgRtbzk5UFO9KvCVYOP4L7lvgkIeRK/1BWWubkPg
-	x1A2hXJeK6VEo5eeTdSv9L65CiNFmetbM3AXX6AOeQa3w8+CxOo/d8j1t+pClhqMEHbJcaDMPOF
-	KwLpgth2lIBYsYTNVCw+cahD+pYb4/yclmf9S2mDPyK6+wzzeolY1fqYVDn0ycfFxzxs4TASKQN
-	fdHpNxIgXrnRPu6YlNdSSmCWIatYranwqct5X03DDaSoj052QIY/wCAseQVTo+9Askt90UaIg1y
-	TSIVD4C5DuEpy1r1vswokZE0Qib9HYs+pzMoK8FGJ6MUQtGRLdrVsh9YRtHhKlAq5zGYa5Tpp2W
-	sTtQQY6vcgUyhFSd7/Ew+xX1XXC1K9ivVwuu7k97qROlfQcf
-X-Received: by 2002:a05:6830:6810:b0:823:38f9:ea5d with SMTP id 46e09a7af769-85f5078a13cmr3054227a34.11.1794228585816;
-        Mon, 09 Nov 2026 04:49:45 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f4fbce9cdsm3565509a34.20.2026.11.09.04.49.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 04:49:45 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Sergey Ryazanov <ryazanov.s.a@gmail.com>,
-	M Chetan Kumar <m.chetan.kumar@linux.intel.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH net] net: wwan: iosm: cancel adb_timer on cleanup to avoid use-after-free
-Date: Mon,  9 Nov 2026 21:49:33 +0900
-Message-ID: <20261109124933.1603575-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MghTQEz6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 642181F0089F;
+	Mon,  9 Nov 2026 12:49:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794228585;
+	bh=8nZAwGS6CTOwltNNT7HN871xA3eXVwrJJClB1UtUFo4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MghTQEz6ajvzzXgmguo/lZbT+yNbG6uoT28c7pwFQK74+sPfgG3vGrltHSZRLD+nx
+	 L3bnGKjrRedF/NvATnUY+v+WvzExTi4AjtiHZTFdhy4OXNUKSWIyJeg/jbzWj4Xxxj
+	 e/2h4v7qLNZggAMUz0TW/J/GeD3l9NTeQoRzCpBT/Vd+OMilOKTDB9N9/+Lhy8W2fg
+	 K39Z3P/hpLJhU0s2e1WuV/7jbzanAwWjDnCALeQ8N7wv93iJbnHeTsYnHp6Xu1QW9n
+	 VwNWmkjD1Q81R7puY7Ivhf28SWnq98KaRlN456lMdWUF/5hEas+79hTWApcGuqqk5g
+	 b8F37gANJF24Q==
+Date: Mon, 9 Nov 2026 13:49:41 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Imran Shaik <imran.shaik@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Eric Dumazet <edumazet@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Ajit Pandey <ajit.pandey@oss.qualcomm.com>, 
+	Taniya Das <taniya.das@oss.qualcomm.com>, Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org
+Subject: Re: [PATCH v2 02/10] dt-bindings: ptp: Document TSCSS hardware on
+ Qualcomm QDU1000 SoC
+Message-ID: <20261109-sticky-caiman-of-research-65e9a4@quoll>
+References: <20261108-tscss-v2-0-d5f575010427@oss.qualcomm.com>
+ <20261108-tscss-v2-2-d5f575010427@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,46 +66,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261108-tscss-v2-2-d5f575010427@oss.qualcomm.com>
 
-From: Hyunjung Ko <hj351016@gmail.com>
+On Sun, Nov 08, 2026 at 06:48:23PM +0530, Imran Shaik wrote:
+> Add Devicetree bindings for the Timestamp Counter Subsystem (TSCSS) found
+> on Qualcomm QDU1000 SoC.
+> 
+> TSCSS is a time synchronization subsystem composed of two main blocks:
+> Timestamp Counter (TSC) and Event Timestamp Unit (ETU). The TSC block
+> provides a continuously running counter used for timekeeping, while the
+> ETU captures timestamps for external hardware event triggers.
+> 
+> Co-developed-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+> ---
+>  .../bindings/ptp/qcom,qdu1000-tscss.yaml           | 170 +++++++++++++++++++++
+>  1 file changed, 170 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/ptp/qcom,qdu1000-tscss.yaml b/Documentation/devicetree/bindings/ptp/qcom,qdu1000-tscss.yaml
+> new file mode 100644
+> index 000000000000..52a063ec4b78
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/ptp/qcom,qdu1000-tscss.yaml
+> @@ -0,0 +1,170 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/ptp/qcom,qdu1000-tscss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Timestamp Counter Subsystem (TSCSS) on Qualcomm QDU1000 SoC
+> +
+> +maintainers:
+> +  - Imran Shaik <imran.shaik@oss.qualcomm.com>
+> +  - Taniya Das <taniya.das@oss.qualcomm.com>
+> +
+> +description: |
+> +  Qualcomm TSCSS is a time synchronization subsystem composed of two main
+> +  blocks - the Timestamp Counter (TSC) and the Event Timestamp Unit (ETU).
+> +
+> +  The TSC block is a timestamp generator that maintains a running counter used
+> +  for system timekeeping, and is functional with just the AHB and counter
+> +  clocks.
+> +  The ETU block captures TSC timestamps for external hardware events. Each
+> +  ETU slice binds a slice number to an external event selector, and
+> +  generates its own interrupt when that event is triggered.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,qdu1000-tscss
 
-ipc_imem holds five hrtimers.  ipc_imem_cleanup() cancels four of them
-(td_alloc_timer, tdupdate_timer, fast_update_timer and startup_timer)
-but not adb_timer.  adb_timer is armed at runtime from the MUX uplink
-aggregation path (ipc_imem_adb_timer_start(), reached from the encode
-path) whenever aggregation is active.
+I failed to spot the difference against your binding at patch #1. How do
+they differ?
 
-If the device is torn down (modem reset, PCIe unbind) while an
-aggregation window is open, adb_timer can still be queued when
-ipc_imem_cleanup() returns and ipc_imem is freed.  When it then expires,
-ipc_imem_adb_timer_cb() runs container_of() on the freed ipc_imem and
-queues a task against it, a use-after-free.
-
-Cancel adb_timer alongside the other hrtimers in ipc_imem_cleanup().
-
-Found by static analysis; not tested on real hardware (needs an Intel
-M.2 7360 WWAN modem).
-
-Fixes: 1f52d7b62285 ("net: wwan: iosm: Enable M.2 7360 WWAN card support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- drivers/net/wwan/iosm/iosm_ipc_imem.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/wwan/iosm/iosm_ipc_imem.c b/drivers/net/wwan/iosm/iosm_ipc_imem.c
-index 4405c85..20f8da5 100644
---- a/drivers/net/wwan/iosm/iosm_ipc_imem.c
-+++ b/drivers/net/wwan/iosm/iosm_ipc_imem.c
-@@ -1239,6 +1239,7 @@ void ipc_imem_cleanup(struct iosm_imem *ipc_imem)
- 	hrtimer_cancel(&ipc_imem->tdupdate_timer);
- 	hrtimer_cancel(&ipc_imem->fast_update_timer);
- 	hrtimer_cancel(&ipc_imem->startup_timer);
-+	hrtimer_cancel(&ipc_imem->adb_timer);
- 
- 	/* cancel the workqueue */
- 	cancel_work_sync(&ipc_imem->run_state_worker);
--- 
-2.43.0
+Best regards,
+Krzysztof
 
