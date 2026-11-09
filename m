@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794211937;
-	b=ztZDrCNyo1EIsOXQj/BqximKePfMlvhbfZrv+9V6qYOP7rix77wQ9JenI1Zi0K5AFeSK
-	 eS72/hFL8VJkWHmE5+EqTM07hdy5YXAaln9KFGVteV3NP+NQwNnrYiGKvArp5IbC6TEFM
-	 x3j9JGmskYZdAzSgJxVGX1vWmaqoatoFZc7Uu8/UfYRO2Tau3/LPOlqv9XnSmfNRVEaYr
-	 qUrJ9YSlW5TKdmMD2eJyhhnlfRXZ1Ecjyq8PaYREzuE5VLCbBXxorFiFYEcrkDU0xUNVu
-	 pl/xoFDaym7MKdyDhQHJv6qht5rZhuvqss45jAER2NCsnXEkU2wk3ntC5YAy9eC6X6Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794211937;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:X-Mailer:References:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=rorBGLAsniE2vG3yATMjVG80a6o5W4YIh5/81HTrjZo=;
-	b=Sci/h/WIrZsSFPOaG6HeN3/Jo3FiJUmyM4d4AaSiAbLmUap8/Tfl6dsxh4HCtpg/OC7X
-	 /nwiRYfZ+BRDgFOcncLzKUMBrTSPoquPvEd5Z6eszZ3TMHBuFqrk/A/4sk5ySbX82QWEV
-	 BGi3Xw8Vo2B+fF79/oGWB05AMIKlRFI/TgolF5TwHU+ucG6ISLTxJIrGASzkPpLHDePCD
-	 vbtZw/AzRmbHqOXwm/lKAeXtqYElLPO2TaDWCxGT34RXhoZcyKE9dp+zkJUYgACvd6SAT
-	 FKx7l9inaOC/6hAx1/OqdUr722W6cUYgMDPJtPoClv11b9gulM809L1aMdhm7k/d2mw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Clebw8yt;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794212265;
+	b=ne7ovsK1nrmYf99OHt7nmjx93yOUaUTc4OD2y/UM8AB2XLQ0XyVB96XVO5jcsf7xtCF8
+	 rHJGqeDsmMrm63Hs8A33NPaWY6NkcN5GWecag/FXLkPLHWZsMZG3Az4t5vCxs0e+hdC7N
+	 ml6v+JLpNK+LyGHm6K6NGuEOsHYRQh0rsRWbQqNcXDh2BmDTdx8ZS4zGs4kVA5JFVz09R
+	 6OBuisq0triT58n/Hq9/h2k+N267qo+Y+SOEY7c0jIx0OTjbzjNMimQdeTZOcqGDJsglr
+	 ZZCkzKCzFAvvJ/fpCrWByQMYz2J4BQZvAuYOclxY6VLkP7H4RvXA1mtwjf+3tJFE9kw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212265;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GicAkmhuf4ryBLM8YzSZTSCqCMWM75k2VSA5zlKCbWw=;
+	b=hNwRTxG/FpoTA1ZbftV0EdElcMECznCRzTSY98Qz4qkIJtLHSQzQuxpJiiHnf3NtgNH4
+	 sOi5FZozlZqrhZ9ldsnOwS57N91UMwrIjFIO9ueuFLypUNFe35wiv/ZbMD6a1tEgH2H45
+	 OYl6NTLE44+SwLM6J1KtvvwZN6JXp2+EE8AVeXIuyR3brcjDpgQOMqbbmudBTJBbUi70U
+	 UevRzRflUQIpuzqABNkZBhkIPeLycoAn9j1+A/5awzjZSRaTeKRV2vLN6AA6MRQiQvnzZ
+	 SXB/8B6j1oGQiAhVmcYFLdM2nx92KIZUmafv64tKe+gxiR55JH3Es5dhG9QX+EO9ycQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxhYoc7d;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F511606A321;
-	Mon,  9 Nov 2026 08:12:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F511606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2EC606A321;
+	Mon,  9 Nov 2026 08:17:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Clebw8yt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794211865;
-	bh=rorBGLAsniE2vG3yATMjVG80a6o5W4YIh5/81HTrjZo=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=Clebw8ytDEyQdWO4tsGxY8B7ZQFBe3y3PKjzeCj9sHWQt/HWy/sno3CbDARrbC3Yf
-	 aPAhqfH8M645I6bFVerOF4CwZK0n+QW7J+A+8AEIKKegC6GIX7nIeMdif630LIlE0P
-	 P+3lcXtxf2STZNV5Fh9SVngeT4KOtywVNioLsKm4=
-X-QQ-mid: zesmtpgz7t1794211858t8407dd36
-X-QQ-Originating-IP: ttxQFy42B6HOpJChlAzs7cKsMszT5V8pJkxIGpqntUU=
-Received: from = ( [58.254.68.27])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 09 Nov 2026 16:10:55 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 9920573175547933257
-EX-QQ-RecipientCnt: 20
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fxhYoc7d
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794212265;
+	b=NdyF8GvtYkM7czlVt2wj5oYVSFCa6SejfhwBlHB6EPvv3jrShPLcBWHhoWuzFJXmFxNw
+	 K1yDJD6EoXNRyfLx/PSTEd2XGWUlSP1mOWquxHQGMGUZUCHXDLVmSp1ySG3z8WFVyy86a
+	 ckj0xrjECj6haZBUrsMGoF2s4Mj/oFik4QtbysknWmy4mRO8RCHa7A136bmP9IHzjhr12
+	 TPbhX1O4bnwk+/ni8RQcEzwoPoJTgnK2XolyNY2vdclwCoFZeVHFQzEEusYJ6DToERg+L
+	 ckS45NFhIfHXnjLLG02ZZaGtyM0yvEJ6ZeBxxAbBpUrOUYXXDj68sGn8z/flZMydpaQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794212265;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GicAkmhuf4ryBLM8YzSZTSCqCMWM75k2VSA5zlKCbWw=;
+	b=MgGBHoy3hCjPptCPpjUXaNQAybpBs72R0SkfVNjjwHN5xyF/FXxxDHaPwGXC6Ob0r8ui
+	 tHCElXE/KzChwUdCPVtrZrdTURKKY2LP2tirxxiVp468XO0UB0sEEZt6gDGarLmLK1U+Y
+	 LKrupxgk8X/1aqlE0eXgKotHtqlOunbxCHjsmN15lYrCE0/eifTaRuwTtIiwQHTirIR7l
+	 zk4NGy6FjKXwffyUISZIMkMx74hFcEVF9pWPmWJcJjY1pypgSFluLjonpJJBDXvtfO4ei
+	 uzAacLcqBmZHECgQZ8gBnty72SKYju7zF8A0FGrgydYbdFAUU99y/MdaiIqaaYf/B5A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9148D1F0089F;
+	Mon,  9 Nov 2026 08:17:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794212265;
+	bh=GicAkmhuf4ryBLM8YzSZTSCqCMWM75k2VSA5zlKCbWw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=fxhYoc7d6TINHCq0+gINlVgIOkVykL4r+v9poeGMOJqeztE+UyOvsCfNrDoE2hNq9
+	 ZcoOlPq0tuagiXTZ252uGCZxLKqDm8DaNPl5/FyoJcjDaGBqClVpKCd9NXEVmxxaN6
+	 UXBqRQFrSYH0Srpn2/rLKCD+3tmZrTq9cQ19sJbkAsAHZ1CNutyz1DnofM86F3Uo6X
+	 MQjN7nhq3I1lKAPjcZ3OpZ7NI9hI2shJnRC1nObzOLbsXfz+V/WM/iTL3+CcX2VfHn
+	 AZud/pjc1y8xbm4tt9wTg32B7LieLZfuxmVwTLYNdw70tD1JvSrsSnlHk1j+H5jWrY
+	 jjkndR1EBaVCw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 240914834C;
+	Mon,  9 Nov 2026 08:17:44 +0000 (UTC)
+From: Moad Tarrih via B4 Relay <devnull+tarrihmoad.proton.me@kernel.org>
+Date: Mon, 09 Nov 2026 08:17:40 +0000
+Subject: [PATCH v2] platform/x86: asus-wmi: Ignore unusable kbd backlight
+ WMI device on ROG Strix G814FP
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,128 +82,182 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=451327d1c3297fa83e6d3c22c14fc23d5eeb61071de10435f2daa7ad48fb;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Mon, 09 Nov 2026 08:10:54 +0000
-Message-Id: <DMQJ0R4QTE6R.2I492KA9N85CB@linux.spacemit.com>
-Cc: "Vadim Fedorenko" <vadim.fedorenko@linux.dev>, <netdev@vger.kernel.org>,
- "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, "Eric Dumazet" <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Yixun Lan"
- <dlan@kernel.org>, "Chukun Pan" <amadeus@jmu.edu.cn>, "Siddharth Vadapalli"
- <s-vadapalli@ti.com>, "Tomas Hlavacek" <tmshlvck@gmail.com>, "Muhammad
- Bilal" <meatuni001@gmail.com>, "Maxime Chevallier"
- <maxime.chevallier@bootlin.com>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] net: spacemit: Hold RTNL lock in emac_resume() and
- emac_suspend()
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Vivian Wang" <wangruikang@iscas.ac.cn>, "Ali Tariq"
- <alitariq45892@gmail.com>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>, "Andrew Lunn" <andrew@lunn.ch>
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261105123441.2524171-1-alitariq45892@gmail.com>
- <DMO13SWAGZAN.NYISGLGI7Y5A@linux.spacemit.com>
- <c55c5878-d9c1-4863-bc55-99d334ba2ede@gmail.com>
- <12a95b3a-9c8b-4a2d-9b81-12b3839e64a9@lunn.ch>
- <DMPNAPNEGQ5I.XYUIB7Y8HDCA@linux.spacemit.com>
- <ee3f414c-fffa-41e6-8bec-6af7ce676c4b@iscas.ac.cn>
-In-Reply-To: <ee3f414c-fffa-41e6-8bec-6af7ce676c4b@iscas.ac.cn>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NqA5U4hogVD1rNr39/l0nmxRGaWTgVLB9O3rrXhJ67gjH6FfZIRvrfzd
-	zV1qpEyLncy4dj5z0miNXFo7TJsZenFpjuj0XIuSI0zy8aockZGh52HVtmxHfM/dZxnlKAO
-	Fyp96VwkT32VjsCbBVOQZEhVxrDYxAVsboObzqEdNiqW6gZrWmEWPgsGvJIGSVzF+ObZFFH
-	8OAVXOiWwlQGW/iMAnL5S6CirNPHJvU5Z1zor4yzzgDyXkW2mcW1/H8GEQYl6V5mxrgzFeb
-	Tq7l19XAG3ODZaJ7voTdnyJnBG7Rf+3xduM/abTD9r5+wnMr4UjLx0/N5hXucu2oMRlrCyx
-	Ey6H1Dkc1XktusU/W4Jb0s27aPdEj26QFPd1UPDbZXP1wQ116Nq6KjkWlvwNuOTQW1VWLUl
-	NTC1tfM/aEKXdWqHrw2roXGd/+zigpHaeVIiFDSwkLNPpMchDulil9yZSUruNt3kJZxe1km
-	jxAYlB95h4ezGqcmf7cjDcHADgAfUr022EbmPBkccBS4Fvh1GwoIH+PNFupWIqawWLzpIua
-	LciU/iyftDBMo0TALkoWD10mHc/58HlzLmuagG+Kd7FcRT/hHsX2+8eFxyPujgO4NWxTymX
-	K24TPMx3nSbFThiKmFoPpdPacm/GqUD9zBtznpiwVJ3uZixBTKeUGLRmVsa58n4B9AIsnOT
-	lEiaoI19qLEz6+OyYwjTLd9ii3EoeKXbTJcJ3UTbmeHux8992hn7SG2tDCBOaz68W6SmhXL
-	BuXyhjMCLiqEx3DaJ/OyQCxFSuwkfWIakLWBTF11dwZYuO+xlwlj5Xu2IeEE43gNvXdAy2E
-	q2BLCDYtiBI7pTnb7fq2x1Ojsli9u8N+6XR91p6gPFCYv74RVRmviLuc/FSsO68+KN17Qdh
-	7uzv+zBEox1J+aV7DCSqj0cZZzgSzzrX51FLdsEpsJVTACfmppPEzgKMCIVU+jfjQs7ti77
-	3At3Hc0d3p0wIvYcMa3tC8Z1FR3UehqCAT2Zwj/6sSCrmsAcHIPbdDMtE+B2nLhsg8PN5lX
-	BqYaeH85C3uEZbTSMsB1Q6SjqhI90IGq6+srQS0CrENVfbrZ+gqvKcRPcgUbW0QMHXhNj2N
-	q1mNaXQL3kAGVAwSXKNF1zg3ctbZmvAgq6sGK27buKghCnTgPt5gfvzzkOe5jDCff1+a+/k
-	bO3x
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-asus-wmi-kbd-readback-v2-1-c048fc53d8ee@proton.me>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WPQQ6CMBREr2K69pu2IGlceQ/DoqUfqQSK/QU1h
+ LtbwL3Ll8zMy8yMMDgkdjnMLODkyPk+gTweWNXo/o7gbGImuSyE4Ao0jQSvzkFrLATU1uiqBZk
+ VMj+jkhYVS90hYO3e2+6t3JlG88AqrmNronEUffhs4kmsuX+OSYAAU2eqLnLOtcXrEHz0/alDV
+ i67JOBzTB/iz7wsX9gEnnnhAAAA
+X-Change-ID: 20261108-asus-wmi-kbd-readback-236245e82de8
+To: Corentin Chary <corentin.chary@gmail.com>, 
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Antheas Kapenekakis <lkml@antheas.dev>, 
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: Sercan GOKMEN <gokmensercan@gmail.com>, 
+ Burak Goncu <burakgon12@gmail.com>, Denis Benato <benato.denis96@gmail.com>, 
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Moad Tarrih <tarrihmoad@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794212264; l=6275;
+ i=tarrihmoad@proton.me; s=20261108; h=from:subject:message-id;
+ bh=YC6708aPnllJ505YNKrXbdPIH5G4EWcQfflTfwu8cJE=;
+ b=ey79igGTqzypZ4XKkZfSWtawSMixEVllsZv8pZ89a6a9K2s7kU98nx1Z8K5tPgYwq4ycmwwxX
+ 212cfI1qkeVCXhJelgyuadPiB+kwFKZ9CvhIWdLTvNKmHcM8zdFo5VM
+X-Developer-Key: i=tarrihmoad@proton.me; a=ed25519;
+ pk=wtwpmYxZldK7Qebavgtx7P5WmSQOiWjicK0506NOKLg=
+X-Endpoint-Received: by B4 Relay for tarrihmoad@proton.me/20261108 with
+ auth_id=1453
+X-Original-From: Moad Tarrih <tarrihmoad@proton.me>
+Reply-To: tarrihmoad@proton.me
+Content-Transfer-Encoding: 7bit
 
---451327d1c3297fa83e6d3c22c14fc23d5eeb61071de10435f2daa7ad48fb
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+From: Moad Tarrih <tarrihmoad@proton.me>
 
-On Mon Nov 9, 2026 at 7:59 AM GMT, Vivian Wang wrote:
-> On 11/8/26 15:19, Troy Mitchell wrote:
->
->> On Sat Nov 7, 2026 at 5:32 PM GMT, Andrew Lunn wrote:
->>> On Fri, Nov 06, 2026 at 03:44:50PM +0500, Ali Tariq wrote:
->>>>
->>>> On 11/6/26 2:43 PM, Troy Mitchell wrote:
->>>>> On Thu,  5 Nov 2026 17:34:37 +0500, Ali Tariq wrote:
->>>>>> @@ -2056,7 +2059,9 @@ static int emac_suspend(struct device *dev)
->>>>>>   		return 0;
->>>>>>   	}
->>>>>> +	rtnl_lock();
->>>>>>   	emac_stop(ndev);
->>>>>> +	rtnl_unlock();
->>>>>>   	clk_disable_unprepare(priv->bus_clk);
->>>>>>   	netif_device_detach(ndev);
->>>>> This can deadlock. emac_stop() -> emac_down() calls
->>>>> cancel_work_sync(&priv->tx_timeout_task) with RTNL now held, while
->>>>> emac_tx_timeout_task() starts with rtnl_lock().
->>>>>
->>>> Thanks Troy, that makes sense.
->>>>
->>>> For the deadlock, I think the correct function to call is rtnl_trylock=
-()
->>>> inside the emac_tx_timeout_task(), which would return if the lock is a=
-lready
->>>> held and will hold the lock if it is not.
->>> rtnl_trylock() is generally a workaround needed for badly written
->>> code. Please try to avoid it.
->> Agreed. If the reset is done in place, the work does not need RTNL at al=
-l,
->> so .ndo_stop can keep cancel_work_sync() as is.
->>
-> Thanks for the diagnosis and suggestions.
->
-> Although, maybe we could simply avoid cancel_work_sync() in emac_down()?
-> emac_tx_timeout_task() checks for !netif_running and does nothing if
-> already down so it should be safe. The task cancel_work_sync() in
-> emac_remove() does cleanup on unbind so the task is not leaked.
->
-> This seems to be the pattern in other drivers as well. What do you think?
-That was my first thought too, but I'm not sure netif_running() is
-enough here. emac_suspend() calls emac_stop() directly, so
-netif_running() is still true and a pending work would stop the device
-a second time. And since the netdev is devm-registered, emac_remove()
-runs before unregister_netdev(), so the work could be requeued after
-the cancel there.
+On the ASUS ROG Strix G18 G814FP, writing a level to the keyboard
+backlight brightness in sysfs works, but reading it back always gives
+0, and the read makes the Fn brightness keys misbehave.
 
-So we'd still need to cancel it in suspend and remove, and at that
-point resetting in place looks simpler to me. What do you think?
+The firmware reports the keyboard backlight WMI device as present but
+doesn't implement it. DSTS(0x00050021) always returns 0x50000, which
+is level 0 regardless of what the actual level is, and every
+DEVS(0x00050021) write is rejected as an unsupported method. The
+keyboard backlight is actually driven by hid-asus. asus-wmi saves the 0
+as the current level on every read, and the brightness keys step from
+the saved level. So after any read, for example by the desktop or by
+systemd-backlight, the brightness-up key sets the keyboard to the
+lowest level instead of one step higher.
+
+Add a kbd_led_no_wmi quirk that makes asus-wmi treat the keyboard
+backlight WMI device as absent, and set it for this board, matched on
+the DMI board name. asus-wmi then keeps the LED registered for hid-asus
+and no longer reads from or writes to the WMI device. The entry also
+sets wmi_backlight_set_devstate which the board currently gets from
+the default quirk_asus_unknown, so nothing else changes for it.
+
+As a side effect, the kbd_rgb_mode and kbd_rgb_mode_index attributes are
+no longer created on this board, they never worked here since the firmware
+rejects those writes as well.
+
+This patch was written with the help of an AI coding assistant (Claude
+Code, Claude Opus 5.5). I reviewed it and tested it on my affected laptop.
+
+Fixes: fac55d29581f ("platform/x86: asus-wmi: Add support for multiple kbd led handlers")
+Suggested-by: Antheas Kapenekakis <lkml@antheas.dev>
+Suggested-by: Denis Benato <denis.benato@linux.dev>
+Cc: stable@vger.kernel.org
+Signed-off-by: Moad Tarrih <tarrihmoad@proton.me>
+---
+Tested on an ASUS ROG Strix G18 (board G814FP, BIOS G814FP.317,
+keyboard 0b05:19b6) on 7.2.14, built as DKMS modules. The keyboard
+backlight is still registered and driven by hid-asus, the attribute
+reads back the level that was set, the brightness keys step from the
+real level, and the level survives suspend/resume and reboots.
+Build-tested with W=1 against pdx86 for-next (c339f4010dea): no
+warnings. checkpatch --strict is clean.
+
+The kbd_rgb_mode and kbd_rgb_mode_index attributes are no longer
+created on this board. They never worked here: writes to kbd_rgb_mode
+are rejected by the firmware with -ENODEV, like the brightness writes.
+
+To answer Denis's questions on v1, the bug this patch fixes happens on
+the latest BIOS for this board as of writing, which is version 317.
+I only have the G814FP, so I don't know if other 2025 G814 models
+are affected, the quirk only matches G814FP.
+
+This no longer depends on Sercan GOKMEN's kbd_led_no_readback patch.
+Both patches add a field to struct quirk_entry and a DMI entry, so
+whichever lands second may need a trivial rebase.
+
+AI assistance: Claude Code was used to trace the keyboard backlight
+code in asus-wmi, run the debugfs DSTS/DEVS probes, write the patch and
+draft this message. Testing and final review were done by me on the
+hardware.
+---
+Changes in v2:
+- Add a quirk that makes asus-wmi skip the keyboard backlight WMI
+  device on this board instead of detecting rejected writes at
+  runtime (Antheas), so no more WMI writes that are known to fail
+  are issued (Denis).
+- Link to v1: https://patch.msgid.link/20261108-asus-wmi-kbd-readback-v1-1-bf38f6400ade@proton.me
+---
+ drivers/platform/x86/asus-nb-wmi.c | 14 ++++++++++++++
+ drivers/platform/x86/asus-wmi.c    |  3 ++-
+ drivers/platform/x86/asus-wmi.h    |  6 ++++++
+ 3 files changed, 22 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
+index 3b0f3346dc60..fbdb00248be5 100644
+--- a/drivers/platform/x86/asus-nb-wmi.c
++++ b/drivers/platform/x86/asus-nb-wmi.c
+@@ -93,6 +93,11 @@ static struct quirk_entry quirk_asus_unknown = {
+ 	.wmi_backlight_set_devstate = true,
+ };
+ 
++static struct quirk_entry quirk_asus_g814fp = {
++	.wmi_backlight_set_devstate = true,
++	.kbd_led_no_wmi = true,
++};
++
+ static struct quirk_entry quirk_asus_q500a = {
+ 	.filter_i8042_e1_extended_codes = true,
+ 	.wmi_backlight_set_devstate = true,
+@@ -167,6 +172,15 @@ static int dmi_matched(const struct dmi_system_id *dmi)
+ }
+ 
+ static const struct dmi_system_id asus_quirks[] = {
++	{
++		.callback = dmi_matched,
++		.ident = "ASUS ROG Strix G18 G814FP",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
++			DMI_MATCH(DMI_BOARD_NAME, "G814FP"),
++		},
++		.driver_data = &quirk_asus_g814fp,
++	},
+ 	{
+ 		.callback = dmi_matched,
+ 		.ident = "ASUSTeK COMPUTER INC. Q500A",
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index b33ebdb21aa2..51fea21ff247 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -2165,7 +2165,8 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
+ 	asus->kbd_led.brightness_set_blocking = kbd_led_set;
+ 	asus->kbd_led.brightness_get = kbd_led_get;
+ 	asus->kbd_led.max_brightness = ASUS_EV_MAX_BRIGHTNESS;
+-	asus->kbd_led_avail = !kbd_led_read(asus, &led_val, NULL);
++	asus->kbd_led_avail = !asus->driver->quirks->kbd_led_no_wmi &&
++			      !kbd_led_read(asus, &led_val, NULL);
+ 	INIT_WORK(&asus->kbd_led_work, kbd_led_update_all);
+ 
+ 	if (asus->kbd_led_avail) {
+diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
+index b45f81b38a47..9f3769fc82f7 100644
+--- a/drivers/platform/x86/asus-wmi.h
++++ b/drivers/platform/x86/asus-wmi.h
+@@ -41,6 +41,12 @@ struct quirk_entry {
+ 	bool wmi_force_als_set;
+ 	bool wmi_ignore_fan;
+ 	bool filter_i8042_e1_extended_codes;
++	/*
++	 * The keyboard backlight WMI device reports itself as present, but the
++	 * firmware does not implement it: reads return level 0 and writes are
++	 * rejected. Leave the backlight to hid-asus.
++	 */
++	bool kbd_led_no_wmi;
+ 	int key_wlan_event;
+ 	enum asus_wmi_tablet_switch_mode tablet_switch_mode;
+ 	int wapf;
+
+---
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+change-id: 20261108-asus-wmi-kbd-readback-236245e82de8
+
+Best regards,
+--  
+Moad Tarrih <tarrihmoad@proton.me>
 
 
---=20
-Troy Mitchell
-
-
---451327d1c3297fa83e6d3c22c14fc23d5eeb61071de10435f2daa7ad48fb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavGADiEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC+e2gD/YgsXO0i+wbp0
-YbJpT9nglIg76qI/eZv+U64XzNFHF5YBAJh+8gKVh4eYAy2JDB7r0FgzWcGReBGG
-GbVSaS7QWJkO
-=YcRX
------END PGP SIGNATURE-----
-
---451327d1c3297fa83e6d3c22c14fc23d5eeb61071de10435f2daa7ad48fb--
