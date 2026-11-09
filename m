@@ -1,87 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794259409;
-	b=qD+l8gGEi4yGTzjiqLfy9IAvNfdqhxCxMmpQ6D927SiWs4j9Z89ddslO6jcSzQlgdXQj
-	 PQvX6Min8hBl8sKLVkn5r5YHrKoJgAiua9rcwEFFub3lGrBHhNEnJnZQ1mEVwJyOJ1LKX
-	 TxaNZUJSKDO5qN1lSm1kqYFsnV7HERL6CHGj62925eDY4ypyehZxC8BV0Xw8+FrZC7t7O
-	 FajuzXv1/DgKtekNZwj4Wz96olGzox1EvjDwKb5JN0wNavFqnpYbapM3gYzkMlsclt3cH
-	 kHbJRfrZWLHX/xkjWstLocavux9kseYwpxrNrT4x1qkEIrNb2GTifY1TXZiY648hjfg==
+	t=1794259475;
+	b=wDaYnnAsF36GgTqJDqoA3p7YnZ95KlZIn+D8FgUhdWlsERWDaf8Hh7nPk+w3XBmCNkSN
+	 9yt0+Fmg0BmoC2Bwgw+i2kOBKri3kveDugg6IwKUNd/mAigLP3CvKvxOs/91UrFnXKr6j
+	 gvAHvuGdk/KWYCKwkS4/RX/+rJDJFHt+9WsfGS8+Ow41ZeQZUR4Vh6e25Zmn5ti85jjSD
+	 cEyoG+g5shIeUbBUUz89etJNJ7eifDNYDh3liOlxNXi1g341RXMfOtrP2+mZ34fkMkdPr
+	 8GblgfLCciCcwIqv0itCk/z1DkoIlGHTQg2sC6nB4Kgv91bYFNXzwpTnlEhZJezl6hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794259409;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:
-	 Content-Transfer-Encoding;
-	bh=5p15Wb3kzPE37M7VtnOaHaW0RqcNfcAj8nyBrjFRkQk=;
-	b=CYaQIn0aKs3npEeFK0GB3MxcoZRvolFkxDZt57jJrGztB2iUAgDPeMEgC4CrDkD1SCf0
-	 +wHazqNiTIBbdUcnv+N1nAJmAdp13+kwdS3mf7r5XymikqVTFRHIwpaZHqIbk+pBSKuwF
-	 p4rQB5Rio73+6f6XVPftkBidhsTk9ObiQt6OIrFUJD5g0vBHIJ1NbH1cNWVG+xcMs33Ph
-	 SiODcA4auW2DIiGi6c+C+Ep46ZssWLD0Jh8tTjVo7smXMOJQJsILeKhZ3MJcN4uxC1i2H
-	 HAt1Zos1m7fhIn4lDTyBMPvS9K7+tIn8gLF5U4J1FMvGkSGN6f4RhYHOZtDuoK1ACcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794259475;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=VwNIMHVC1qCxujO6tLJJkfLjDqI44HVPYAXEO2T1aqU=;
+	b=hgb3oHsymC/9NvYznaT5Eg9CrUGRe84/cYUDldC9CxIeok8ZAR2NojGL+v0pBhr5GKxh
+	 FimDd+jaS8MvEpAyA2eZDbKXQR+Twb7+4mOyVNuprTq++QjP+BQqpxU7E5SwGGXBMgFPq
+	 49IBn9gBS2WE67aB8AULSeHEmMWY3JYWro2+fK2NJxRzYQ4e80bfd/0ZCgPD/FCFPTmr8
+	 JBsOP4/XBRoB8cplRV6C9LaoZyqWRWN2cpXKhc/F1/d72ULqfgXlvPwSidVbrXVoTdl0a
+	 QqukZRuEE3WZq0e96PmHr9fhUN+Eh0F1Jw6ZwDbkb6j6Pyz8OBgkEZpqfPHROKfI3fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=fail reason="signature verification failed" header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=j2tpxB9H;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ojkFtnXk;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A462606A325;
-	Mon,  9 Nov 2026 21:23:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A462606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FB9606A31C;
+	Mon,  9 Nov 2026 21:24:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67FB9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=j2tpxB9H
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id DC8C440E0255;
-	Mon,  9 Nov 2026 21:23:24 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
-	reason="fail (body has been altered)" header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id wd58f5gQ-F7D; Mon,  9 Nov 2026 21:23:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794259401; bh=PCx4oeUJ0piui2+J9YL4CZu/4nfYGRm57CG6++yDoFY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=j2tpxB9HXAbjAcij5vEWnn/23KcZZcyHCjGshnbNojFz/n+jVyvfEDk02WKK4UHgL
-	 pnJQOZLMfkhbvzjrN6t2hUak2sXIufcYT0I+iXwPp5RhHly6O6h2uyHLMuhKbydpNr
-	 pCmHlf7eO3pCzPB+2cFKOA9J8Mz08VyHIQXvEJ8z42W90+h/lidq4KjQpwPfrfrHOl
-	 VW+WA7xQrGHzTHk7x9zFq9hSr2YBtgRgorxRY7cjaYi6TrQ2IQ/v0hPZ3dxQ0xYdcI
-	 X2GCq0tPnbMkP/KVLIUBsM1U5UD6xbr+XYSZ05Gzs+7ARee3M6tUvXvuDncDkH4D2o
-	 fBrRX4ZwmDxtpcPA+Eqe7ps76B92ZQfFXbYJS7bl8bFc/L5/hJKvjFdC4wtFeWCc/V
-	 yNHZLKeOW/4ozodGFi+XG9XbKn3QiW7O941/l8oLmsJMlv2G2wAmLvJUkbT9WbIriV
-	 DewdLKUgt7SRaMCDTSAhEF/9ZVGnS+q+RsQKmA04QcmddvkumgzLO5oWoWkEmTwfhT
-	 RbqsdYc4CLStzq/n79OgX8yC+VoPJGEYTjVciTjcNrT2KLNeArQEzlNWpuDXSE6MTB
-	 +UQk5nU4QQI7j2LBXaok98j4TtmrzT7MTYK9bmhfJcSHMq9OyElQq9awDztC5txOmG
-	 i0BggbghVQt5OsjsAnumXILA=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EBAF940E0184;
-	Mon,  9 Nov 2026 21:23:08 +0000 (UTC)
-Date: Mon, 9 Nov 2026 13:23:05 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Rik van Riel <riel@surriel.com>
-Cc: "Luck, Tony" <tony.luck@intel.com>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"x86@kernel.org" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
-	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"kernel-team@meta.com" <kernel-team@meta.com>,
-	Breno Leitao <leitao@debian.org>
-Subject: Re: [PATCH] x86/mce: Restore rate limit on MCE logged message
-Message-ID: <20261109212305.GDavI5uXK066CxHoNA@fat_crate.local>
-References: <20261108143751.3af49e48@fangorn>
- <20261108202820.GCavDbZJgmwKqysH4X@fat_crate.local>
- <CH8PR11MB4034331B3E52AF39AA9C003E68FC732@CH8PR11MB403433.namprd11.prod.outlook.com>
- <20261109195216.GBavIkcPlh-HcT_7JW@fat_crate.local>
- <63ed91b49db00d7a601b8ae1625571ee0c46ffca.camel@surriel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ojkFtnXk
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=VwNIMHVC1qCxujO6tLJJkfLjDqI44HVPYAXEO2T1aqU=; t=1794259473; x=2109619473; 
+	b=ojkFtnXkhCXJ72z3JXSsOAMN8ZI1qCrMk2fK//lClOf0rCVlCdoil5Qk+9ojd95rgQ7lgDZiqvk
+	rvCy8xB74NBxjydkaoW7Y9NPBwfEAn5Jag1MzKxKmdEYVeqhxXRqAfOrlUSQUf8yJEswBu7e36gKf
+	HkVX5yc8+Ub6//G72gLmgm7eXNlkchgdPwfnpAjoOZH7CcQfvLrvyapBmWnAClz4ubR3fYbLkX7lA
+	LPRhq/ggxaqN5g/1FpRhR0Dz0HNrDHbORNZVsvfY+RKOoakerzKWueecaNu+wftn8GczfrNEQhF7g
+	YBKxVg5/HWVFshrCy3ow2Ru8ckOPEScQnC1g==;
+Received: from [177.172.122.137] (helo=[192.168.15.100])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xQWqi-007kQb-B5; Mon, 09 Nov 2026 22:24:20 +0100
+Message-ID: <80f6613a-9a25-40f9-a6af-64581ca800ce@igalia.com>
+Date: Mon, 9 Nov 2026 18:24:26 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,26 +57,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <63ed91b49db00d7a601b8ae1625571ee0c46ffca.camel@surriel.com>
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/futex: Skip futex_requeue_pi on unprivileged
+ thread creation
+To: =?UTF-8?B?UsOpbmljaCBCb24gxIZpcmnEhw==?= <renich@evalinux.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Darren Hart
+ <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>,
+ Wake Liu <wakel@google.com>, Shuah Khan <shuah@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>
+References: <20261104150546.1041422-1-renich@evalinux.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20261104150546.1041422-1-renich@evalinux.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 03:12:43PM -0500, Rik van Riel wrote:
-> There are a dozen or so "mce: MCE records pool full!"
-> lines, and then two=C2=A0of these:
-> "mce_gen_pool_add: <bignum> callbacks suppressed"
+Thanks for the patch!
 
-Sounds to me like you getting errors logged and there's no userspace cons=
-umer
-at all.
+Em 04/11/2026 12:05, Rénich Bon Ćirić escreveu:
+> The futex_requeue_pi and futex_requeue_pi_signal_restart selftests
+> create threads with the SCHED_FIFO real-time scheduling policy to
+> exercise Priority Inheritance futex requeue operations.
+> 
+> When executed without root privileges or in environments lacking the
+> CAP_SYS_NICE capability, pthread_create() fails with EPERM. Currently,
+> create_rt_thread() asserts that ret == 0, causing all 24 parameterized
+> variants in futex_requeue_pi and futex_requeue_pi_signal_restart to fail
+> unconditionally. Missing execution permissions should be reported as
+> a skip rather than a hard test failure.
+> 
+> Handle EPERM from pthread_create() in create_rt_thread() by invoking
+> SKIP() and returning -EPERM. Update callers to check the return value
+> and exit early so the test harness records the test as skipped.
+> Privileged test execution with CAP_SYS_NICE or root remains unaffected
+> and continues to run all test assertions.
+> 
+> Fixes: b7d837c2d49e ("selftests/futex: Migrate futex_requeue_pi to harness")
+> Fixes: 7fe733f11215 ("selftests/futex: Migrate futex_requeue_pi_signal_restart to harness")
+> Signed-off-by: Rénich Bon Ćirić <renich@evalinux.com>
 
-What is your fleet policy about collecting and logging hw errors?
-
-Do you even care about them?
-
---=20
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Reviewed-by: André Almeida <andrealmeid@igalia.com>
