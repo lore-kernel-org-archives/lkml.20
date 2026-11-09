@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794243212;
-	b=xx9L0q7GiLFOcxXtUn4TJGNFUimAT+6Gc2j59BpCUjkEpAajsVNJ71Jt8lQ2HqJVYvd9
-	 USyR0FKkJngG8gcytxaUbBeqVWZvOeOzPZCvMQdWq5Db/QDso6bCILlerADrc7PMxRYbI
-	 /xRN9Z3pZLKfRU5B4p85JwboVwphV6dc7U+hUJQTOVBVIm+2fmgx+VPe/MyUgjTxT4LDc
-	 DiyBSqHlPUZuSmFO0d6bQIP2eqULw0/8eyP1ntk662XBfDo2ELHls5h7MxKCf5QRR78bh
-	 IEtgo4TzhhVG48bAaq7HgpcgCKb7cc08sl/mpNAsYwOLbx0ojiXTkUOqE11KD4gQsMA==
+	t=1794243217;
+	b=uLVikfYGCr9fek3W9x49olqGlXpSbGnSH3QCuaDD+s+gM0SJHzY6SvLqiU5eEpVWxr7W
+	 oBccgz7Hkp6bbz+q25FgbAa4hI8Y8KuW4R4cZdNyaQnl91FXxDB0z5SSvipMsRqFcQbUH
+	 g/UgMVJnlxXxmuzOE+dBOxnlJNUgU1dSm9m+B7N2QNl61DhEbY13R5ZxhxuceWFLB7ZRG
+	 vKhO9k6HsQsBN9d2NtCAPocm5t1ORMW1DboYlA06UGoP/MIuhGWS+tVuRSTYL7722yUYZ
+	 ++Lz7il0dCJNrP6se1iRA9bqB3Npx1vAePpv/YiAYEtzpBJEad2lRniG10veEUBKRJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794243212;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794243217;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=n/o+KdlAQOdJoFsrUVk4Pwcg9WiRwxYqGqB2UYDqVSg=;
-	b=a/Oy92yEeZ2dM0bVaalwjgiQo0uT9rBhLfQYd+Lt8R2xbauBvpw6zzXr9LJUcohrHm6M
-	 CPm5BDN4ncbm1aWr//UDHOnP+MoHVrChm1AbV4FZ63HVyvyim6wT6kSazeyHwsGCvEDhd
-	 z2IpdOUVOIRuclg5kuudxK8Nl2SgPWgW8uh7awqHF+iXG0Ebwk/fT9KnjB6Nrf7zdr5yL
-	 zTOp+UcRef0RNGyDLDLypW1AqI7dNKig10lSFIacGVxBZ9Qtr+qv2JzfeaRuki4OntgIL
-	 1Bka/ZSUoNfj+K3poxgRO8tQQ1jys3xPI8k4IBCo10B/sXBIE4zQa4ZoBk6yIow8ygg==
+	bh=44v6KtyQHlKDjxBRLz0JvUcVR/HFDHmdgJx8X70B37M=;
+	b=2vrMY+8/Du9Ob7mzDw+qEgG0k7DJwWDd9MbSBbi80/BW0+JOh53abtDEYCGcrzEfey5e
+	 NdcS/NTWidixDM1JnfSSGO/CKDtFvvR3IHLmJVOaalzMTapVVbQOciwtpT4F0xVNlp6rT
+	 M7UP1B88qyTXFb/+nxgYT5CH+Nw+iLuBvxsBVX5lUC9FerjsnqoCWOT4ta3riZahpUcBi
+	 wH9R3/USR/Ggk9cBcZO/GRYp/x4LIGMA8Er88YTL6pHkSBeF0NxuJeKqr07HD/iOxEroe
+	 At8xc0zRaWYWtroqDbL+znOW0JIbwF10fPXcR96t/XY8PSEKil0NTaBNHfLDM5dVB8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cZyuxNP8;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h2VyakrY;
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE568606A334
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:53:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE568606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00870606EEA7
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:53:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00870606EEA7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cZyuxNP8
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cdd89d84521so100427a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:53:31 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h2VyakrY
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b08cf16decso659627a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:53:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794243211; x=1794848011; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794243216; x=1794848016; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=n/o+KdlAQOdJoFsrUVk4Pwcg9WiRwxYqGqB2UYDqVSg=;
-        b=cZyuxNP8L3fSZDzQFMRV88CjDipkL4TLG7usKIljDDTCMMhj5bbbCZc6nNe67iSjcV
-         qtzF/4NoXCejqWlHjSJvSvzWzVYiEN2l8Fn+qiGGx0b2Ata+ypjaVrihNTp2WwUVrMVa
-         TkNomnzlOAWzpeaOeAtxQHliE0o6hWVKhN2tZESrmAOCN81kF1qK40EkJBTtSBKysmux
-         wbR47QtuFg8ZVQ/r81PxQTwyzHnyKBjoy04F86cshlMh/Yy66aQ5uVAC8p8w4DFvb157
-         F3qhxi4Zf1BUCvsFmvpbyGq/4bV6P2b3PnR5qY54zZscPN7oKZEky6glBx6EDqKCZCjB
-         qqVQ==
+        bh=44v6KtyQHlKDjxBRLz0JvUcVR/HFDHmdgJx8X70B37M=;
+        b=h2VyakrY6Q86h0CPS7bV18MQ0sFP1t1kVU4cl4jyCkjP3WFSB77At3DuhrYg9Z7zam
+         58GIOXGcmTafcyfX0mcEVK3eE5rV88pYr1RLirXGN7oLMlBdpvsLgA5mpyljlIl/1RuP
+         obtLufU2TWYYO4Q8BCqLQvfa1UnWHaemPxOy5e+VFx3JsjI0su7AVtDehT2he7tOG0xI
+         cG2S/PDW1tPDavoyY8hzYHc40XNuzk3j1/y+rq4sq6X8BYy2CV8UNXtFdC/uizHoKf9S
+         vD0IjY6uInsP4ODO503yCjq1woUkXT+zQP48gVhvTc9tzXw9g4OuPQI1556oHc0AdUoh
+         zLow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794243211; x=1794848011;
+        d=1e100.net; s=20260707; t=1794243216; x=1794848016;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n/o+KdlAQOdJoFsrUVk4Pwcg9WiRwxYqGqB2UYDqVSg=;
-        b=QhPRMGXkcRUZ2doZGyNNKzw24VSlpIrikmhqLZd8QSuSGrmcJ/yFmJYxV3QrZoARsm
-         MIthBBxqM1XythmoG35gcGYxZGJQzV+1HDoGMYopc/YPlE43vurYq2HUxpWH7z5lCOen
-         KICviqXXzzHphxEDQCvtHZlDH796XqAIt/lRPS3aWO3p5WwMtZ4Smoce4yRXRYsAuQX6
-         Ucajj00hZ8ZSUvcZo8YK7xFVTKDt9Qw5x/OzAB2bVVlH/doXJ8/aL1MywLToJEdnI6RP
-         CrUpApbkOq/K4K3AFrkRR7YeTL++JvfIN+1yZ8mNsuhIbiiA8NFha9hp0F2CpSOQXRqc
-         suDg==
-X-Forwarded-Encrypted: i=1; AL+hErH/NW4k61OY4j076kr9p1VXXc4XJhs58wIn0elY1G+8Q5SVGGPylDC/tugAJqrrgRAjMWmfDBnD7eXhGnk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+4Ol48gYmsQPOmX6mXRu0KzTc5EIr5W8hRCJn0TlQY3qsyAXDw
-	jggvi0SEH0KP6tecRWMaLQ5v7Dzp7HzFedDEioUPCjnJajd8ASgLSwDPlrd2xYcT
-X-Gm-Gg: AYBFou2KdwiluT+7208Qp5Re4+K9F/pC9UBSz1uil9BrsXPrJrEronvtsAf31rOGznT
-	nbWOzslyY2ypWvk/Bl+9NEZJgeyecVCzrlsdDiTDXy0qHNwVpJdtbP3M92O5gTLDWYpH3C1X4UN
-	GUgkUbGxSaWsI77TjUj1/Ir6Dk5Jlhr+4Muyt/MSQCfRXXKmhbCv6n6elP97BmT/jXOUCun2Wrv
-	pLOWso6To7kz9UYRvD4046ROA+yc1jdCyhNkJtSZ5Rx09jJNre4XV4WZ2u8ZdA2SwzxXeN5xsAV
-	LQ6F6ZmbDrS3Rx+0/NotLYZlTEMk7AjlGOfZpY/4gHgUgtxFtPmnTr7MdAUX8Kl4LPI1ohLZPjh
-	5XAKDqgWULUqcPJGz4SqBk99uGHMztrNN27r8JIhaZ425xMZ6Wf1UNmS7jQEzKOmaXG6kcRo6KX
-	RC3PXAAXucA8elz26l5NlqyoBPL2WtucsVK8nhgcxx4qa/USbt+zi450VvpU9Nd1dmM2Cx6Thfx
-	38IxNYKL/By9QezvUgujcFCNJ3c/lYBjpEHUJ/RH6RfrVsZVllt3ZCCJISJ8ezhVmFMs7VToNPX
-	ld04wijGPiWpcYqTmZDWCCZGsZJb5xfaTGgPRJV1Yg7q+i+Px7LN82QtCG1iTpWDeL/cZ5na/9e
-	dadga
-X-Received: by 2002:a17:90b:5688:b0:3ac:9ad9:6afe with SMTP id 98e67ed59e1d1-3b167a2c765mr50121a91.39.1794243210983;
-        Mon, 09 Nov 2026 08:53:30 -0800 (PST)
+        bh=44v6KtyQHlKDjxBRLz0JvUcVR/HFDHmdgJx8X70B37M=;
+        b=n8287C3rKJ/fMOTaaCrOOxv/YCH4L1fg8WZcalH7bt4p4AeM2+UB+GBB1AP38/WjLf
+         HtFHHnkk4LLBw4XR1tlgM3Np2mlo2bnSrpYxDNh9Uc1Lgv1WtHoEFb1nIVJG++hHfuf8
+         NFxdM/tOmXHVZ5jtyxb8VrnJyHfvmKgVu1Jq6XOKgpbDmVhOEPFYOgVWy2YcCtKqBClX
+         4C9Gzt0v90JU7m271+Lsj+dDPLYMoPA6aZeQqLmFNAXso/bt0fhLkBL9/kPYvyVaA9Hd
+         sdIywD6iBj0LsdSvjOF1CPAAoJyecI83STpbAy2iFTj0m3OHsOVcd3r2Ru5WS2EVt2Ei
+         piZw==
+X-Forwarded-Encrypted: i=1; AL+hErHP8o+Dn7vG+sf8dio1582EGEK+GhKKbjJYdjQkiFKDDdRVYKopOObe0nPOFN2AG86quvnAU7lj4bBQ1RY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/RKMHPFc2vYQVsW4pMECWS2S6tag/J9B1kNoIRYzy6+FReruF
+	5Lwcr8Jt4glU4H5ij9E0giCGfI2oPloODoKO/OM6DE0QVZl1OwDgOaLD
+X-Gm-Gg: AYBFou2vjQ4abAIcdyJ1TzIDBD1rXRMDr2d5EDYmbQcUvO6nuBYK4+ZNJVaxmv1xH2y
+	86izezq9R+4jQyi8kbYdQJ02A0BcEd55S3a8wvArUHAiziSyecn32yx/0CHYn3xkc2V9amMKC9F
+	KfVopbZPSe8ky2Mwvlzno/HlEBN4TbZVi1LYBF+cY0MdP+grrVqon+EDPVJ7qlZM8RVe+d80D6K
+	cA3DQJ0eK3OSnJq59icVuk4BfpzjOYgueMBJaBOPjvCjbpYJOr5uEGymMrFz+64mBC9pP5xF5J3
+	Szyd5z/TzCHbAR+DEw/yZWPWbIMqtLeMp41JUPNuuHbSx1QeZzEiCtGoUfqoGsI9yiGWjsgfiFr
+	fMJc/I4fbt2BfFl+hGxynloywmrKb0rOMm8c8/f5A9NJIlt0z/Dm/25sDcBZD0z4RUyagiHwbv8
+	qd7qzetrWVUdVeOgpkJF3XV4NEhz7xVQK7B99GQj79xBE/CTgkiq5cF1q/HH46DM02ZoRbTofk3
+	/Ux6HXWFz0q9Qr19oPLsz15/QChf29D+PnJRYuhdvnoRKRjdOdTZo68spcdUudwLpbV9tFzVq5E
+	Ut6OJqYMo8HCaSGaGfqOALUaXF9lzxo3s/O5ilEKlaDHjG2Nn2mW4YwqcqynKI0v1HdohQKTDOS
+	LioRzLA==
+X-Received: by 2002:a17:90b:5101:b0:3b0:934c:5e41 with SMTP id 98e67ed59e1d1-3b166caf0d6mr242689a91.29.1794243216288;
+        Mon, 09 Nov 2026 08:53:36 -0800 (PST)
 Received: from debian.ari ([152.56.156.124])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1034718f8sm6455688a91.4.2026.11.09.08.53.25
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1034718f8sm6455688a91.4.2026.11.09.08.53.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:53:29 -0800 (PST)
+        Mon, 09 Nov 2026 08:53:35 -0800 (PST)
 From: Archit Anant <architanant5@gmail.com>
 To: jic23@kernel.org
 Cc: dlechner@baylibre.com,
@@ -89,9 +89,9 @@ Cc: dlechner@baylibre.com,
 	linux-kernel@vger.kernel.org,
 	joshua.crofts1@gmail.com,
 	Archit Anant <architanant5@gmail.com>
-Subject: [PATCH v6 04/11] iio: adc: ti-ads1015: return -ENODATA when match data is missing
-Date: Mon,  9 Nov 2026 22:21:32 +0530
-Message-Id: <20261109165139.30803-5-architanant5@gmail.com>
+Subject: [PATCH v6 05/11] iio: adc: ti-ads1015: use dev_err_probe() for error handling
+Date: Mon,  9 Nov 2026 22:21:33 +0530
+Message-Id: <20261109165139.30803-6-architanant5@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261109165139.30803-1-architanant5@gmail.com>
 References: <20261109165139.30803-1-architanant5@gmail.com>
@@ -106,29 +106,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When i2c_get_match_data() returns NULL, it indicates that driver match
-data is absent rather than an invalid argument being provided.
+Simplify the error handling paths in ads1015_probe() and
+ads1015_client_get_channels_config() by converting dev_err()
+calls that are immediately followed by a return statement
+over to the modern dev_err_probe() helper.
 
-Return -ENODATA instead of -EINVAL to more accurately reflect the failure.
-
+Suggested-by: Jonathan Cameron <jic23@kernel.org>
 Signed-off-by: Archit Anant <architanant5@gmail.com>
 ---
- drivers/iio/adc/ti-ads1015.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iio/adc/ti-ads1015.c | 28 ++++++++++++----------------
+ 1 file changed, 12 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
-index af3ba6b75c410..d18a2ac1205ff 100644
+index d18a2ac1205ff..9fd07ee21ede8 100644
 --- a/drivers/iio/adc/ti-ads1015.c
 +++ b/drivers/iio/adc/ti-ads1015.c
-@@ -974,7 +974,7 @@ static int ads1015_probe(struct i2c_client *client)
+@@ -896,18 +896,16 @@ static int ads1015_client_get_channels_config(struct i2c_client *client)
  
- 	chip = i2c_get_match_data(client);
- 	if (!chip)
--		return dev_err_probe(&client->dev, -EINVAL, "Unknown chip\n");
-+		return dev_err_probe(dev, -ENODATA, "Unknown chip\n");
+ 		if (!fwnode_property_read_u32(node, "ti,gain", &pval)) {
+ 			pga = pval;
+-			if (pga > 5) {
+-				dev_err(dev, "invalid gain on %pfw\n", node);
+-				return -EINVAL;
+-			}
++			if (pga > 5)
++				return dev_err_probe(dev, -EINVAL,
++						     "invalid gain on %pfw\n", node);
+ 		}
  
- 	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
- 	if (!indio_dev)
+ 		if (!fwnode_property_read_u32(node, "ti,datarate", &pval)) {
+ 			data_rate = pval;
+-			if (data_rate > 7) {
+-				dev_err(dev, "invalid data_rate on %pfw\n", node);
+-				return -EINVAL;
+-			}
++			if (data_rate > 7)
++				return dev_err_probe(dev, -EINVAL,
++						     "invalid data_rate on %pfw\n", node);
+ 		}
+ 
+ 		if (fwnode_property_present(node, "label")) {
+@@ -1018,18 +1016,16 @@ static int ads1015_probe(struct i2c_client *client)
+ 	data->regmap = devm_regmap_init_i2c(client, chip->has_comparator ?
+ 					    &ads1015_regmap_config :
+ 					    &tla2024_regmap_config);
+-	if (IS_ERR(data->regmap)) {
+-		dev_err(&client->dev, "Failed to allocate register map\n");
+-		return PTR_ERR(data->regmap);
+-	}
++	if (IS_ERR(data->regmap))
++		return dev_err_probe(dev, PTR_ERR(data->regmap),
++				     "Failed to allocate register map\n");
+ 
+ 	ret = devm_iio_triggered_buffer_setup(dev, indio_dev, NULL,
+ 					      ads1015_trigger_handler,
+ 					      &ads1015_buffer_setup_ops);
+-	if (ret < 0) {
+-		dev_err(&client->dev, "iio triggered buffer setup failed\n");
+-		return ret;
+-	}
++	if (ret < 0)
++		return dev_err_probe(dev, ret,
++				     "iio triggered buffer setup failed\n");
+ 
+ 	if (client->irq && chip->has_comparator) {
+ 		unsigned long irq_trig = irq_get_trigger_type(client->irq);
 -- 
 2.39.5
 
