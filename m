@@ -1,68 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794254285;
-	b=FIe0hknqCBP70PuVIc+Usn5WLd3dRLEzMkIIfsi0Rh9XGDixjZLfoILT0mMtENpZ5zeE
-	 IgPstgSqKfLvLwKW0M7g6drXap2D4a0XeqgoS/m52+2NxVPmBDg3G4nqXqF+LyhJUYhzc
-	 2XSRjnr3TaLEnYqqTV6ZhDtWB2p5MHhIUKtgGucxPHs29N9n+iLp1wckCmUAbw6Rkphg4
-	 Pr/hL0H8+MjcWWnBBZt9kDLTRtMoro13fCUKr1HPFN/S9JQ1sneUs6lqGFKcUErZU8vQ8
-	 mTIPD+9M3tPP9E+x80kUe3HXorzh/0Z6R45VyiOMtOtPRZaSwqh/lwQtdifnrF/vRDQ==
+	t=1794254302;
+	b=jgpApzpQIKoEfKeE757GBbs41nh1PkLIvFTa8L0sbA1p2tvWUBMdu4VJmQm+FBnaAh9x
+	 BHZTHZxJATlL/9DgaNMqlX62u9lw5Wc1caOJg7RA1QlChgXAbkvcSH+qaAPzjG2fop2eW
+	 ZOb/5tPTJMq9DRh/cAbjKqag1k+WJlIeBLY7gPlXFw9D0g+MMkqW6CHLchLACFdkvIxxh
+	 zfvVz4c4/hJ+clsee/5SDZJqutJ78+juHEmJnIFK88G0zfwgWSae2pBmMfyvCYKX6c4r/
+	 QEmvnpIgSxs/3/lJh758ygM6iy3/XCOidkjGx6/Qmyfvp9AV72BQTJ/ys6Upw2nJWMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254285;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254302;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=+TpZeABLEGDFPdHMw3IQ0aXis6WxVSnn1N2SuHse+zU=;
-	b=2QlAF4I4RPAnQN+4d+gcIAZsbRjldRw2HNss2M/2hMc9/Zzj3Mgxn9+7HV6OvWoEYgWC
-	 ZGOwMK/DAACGL/jPQubktUmwjpf6Ss+KW8yF1k2g/X1ZDU8DRguGDL2vhTWtBv5OG8L2O
-	 wYqNvGU5Sj0GxLLlfGvb9QYku/YWCjKk7ECYHCATJaMMqMe4I7UZzlM41vfsD3KzD5slE
-	 y7mB3ST9Lg+DGDswBXRYCTJR22UBsJkQ+gvQT8LW/ayB13iUpH3pCcRAhhjge0cUyyREh
-	 B14GtOFfugS7JUOx3TLQuw3z4rH1OW3nsdS1xYP1CnAwRh+XpYnMcyu9B6gyJRxDO9Q==
+	bh=LjlIdWOtAx4vgBSOIZMhE9Gxzn2GjEyrd7gwD+Ba4Y0=;
+	b=Fl58cxKJcwdW6iq2O3YH44LkWqM9c4dNS4/pNJu/x2Ml3yrENj11U931ghkzRafI2RPl
+	 pdoqZmjLGZS6e5Q7VTk4U7fOQW4N9sMB+n4DQ0XCFwFp5K1Yo/ttRAWHCTPmahIoJ7sxP
+	 x1o3XpsIq0wuCrtXbYR8Kc+OdBkihKD5uDY5BPeDmOVUH48p/vmYNN38SZUxN+6KGzQlQ
+	 um8XoczjM91hmVqJnAZ1x0J7YHbdfRkESlfFmTAtUSWl1vnLGoGAA8ScjQdZRUn1jhk31
+	 Vj9qUbvxKcZoGDCLa90whLY+T8NYR6umCnb3gwp3Bt7gtDEQ/eCcHu+J6IJuJAricBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jd/OT2nD";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="R/1WuOAu";
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBCF606A326;
-	Mon,  9 Nov 2026 19:58:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E262606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:58:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E262606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jd/OT2nD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 425EB1F0089F;
-	Mon,  9 Nov 2026 19:58:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794254285;
-	bh=+TpZeABLEGDFPdHMw3IQ0aXis6WxVSnn1N2SuHse+zU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jd/OT2nDm3xtg790g19pXgA9sOGAowcUSNzwdHRuTeAGFF+d+BwJH0kRVEvh8qvmm
-	 kQG0DVcCieCh+JCN9os5OUtDzWMhcj4aM4dmwn5/ojBFWZShrbGF/8wwdhgj8l/x6a
-	 reYfRboZOKSctEQNQhQW6MyoFhNF0d9ssizIA+4RGYvWiP8/KrVMeUA2zkB61aLqNZ
-	 bJXokA8TOvHK+oB1FE6/VQ7rfQKKIXNE35T0OEtRYyjApE0SemuXqepKY3hKI6tbBw
-	 jbcLnzdxSOb0DcUIwuRnnttYp3CHnli9Vw5dzSTDV29ONgpWJXhcSKaR64qokfb0TJ
-	 0/ZIsecATiDJA==
-From: Jiri Olsa <jolsa@kernel.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>,
-	Naveen N Rao <naveen@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Jason Baron <jbaron@akamai.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Alan Maguire <almagui@kernel.org>,
-	x86@kernel.org,
-	linux-trace-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R/1WuOAu
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cdba1b5ed8dso573538a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:58:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794254302; x=1794859102; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LjlIdWOtAx4vgBSOIZMhE9Gxzn2GjEyrd7gwD+Ba4Y0=;
+        b=R/1WuOAuCnN/JHW6ktRQlo8KATUbKPdmjv9knkQlezuppBKQ2QFjLENs6otezsL2xP
+         eTi11KqJIzewO8F4GEX9Pf6o4wLrfbGRV4H9OSeZy3ikk84qdvC4VMdEMg/MHDhDNLVv
+         yv4ssmwMsCkU4txSd9s/sNEluf8Pigwe2x3/j3/gXS/kK2AAnjAD+0PdFvTVfnpnzLh/
+         fBvyKMdHhUoSFRmcYglCQljvABVmnVeCkXj1NCgIQil7Gk/POjf49qomsOEd0fN8NByQ
+         wbFuKhXBaMycT4NEbjJxj+bT9JfZWmsfDPrZ9S7aOK25smaHJEJaVgMkSFajcl+3hg6B
+         jaCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794254302; x=1794859102;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LjlIdWOtAx4vgBSOIZMhE9Gxzn2GjEyrd7gwD+Ba4Y0=;
+        b=ETBMJbglcuKEeBOKktsIcEXugwEx5j3v0/L1zBpRlfdw4y1pZGEluEl6SK8oaLoEaP
+         qB4TQD3TOCBLIuA/O2eyVxwiWG2d2+bLvkN7MUe4uFrSxeAFbzo9arH8w53rMfAvVoov
+         Aex+2VglDfgNrbnDhouq0nnRtC91/ErwkrZlsxG/GB3rDgzJ1IfLZtQE/dZVSc5YIqjK
+         TZ3y7ZDMxX/rTbXSJNo+cfjkRkAHBKwUeN/fDNYQc554DNj+o0S+uITq6f19eCOc2qLX
+         HQG/KmaNEsn5Dew8msj8MxLFEfVC67PznI/bIgRRLU2cSO4h4vKoAbMMFfV1V4Hjwn2N
+         fpGw==
+X-Forwarded-Encrypted: i=1; AL+hErFexQ21maLDTBvM3v5v4+99Lis5qqsI6W3c2iH6GfdQ2kFRA5xXRHTMXTXQ/mTKMfOYk31S5HpfaFEEbz0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+P1SKazkujI0oYPFB7SqiDq58ihZqSJQH2wOI/hsvtHZRhovkb
+	gzLql5YhDQnJz6T3a6SQgBbhm2osbqTIlSlDSTmzeuaQKOIIf4hsLm8e
+X-Gm-Gg: AYBFou1WkAhLdMK7l1j6AW3dQ9UwduQ6K6YuMwxlJdfUTICjIhNU1bTjIWXn+PX9ojJ
+	1J05UARBRDhGiVHm5uWbIpDvMKIQp0iM3Yp16xaKHRKPaJGndNpRG13MkD3+0+XcS4isdzr1yB4
+	hINR/x2xd0iaMEIvKCgb766WGA2MMnK2hL0nxw6XqxkcTJbMpE1B3tX7wm6A6xEPm4OrKCqb7AY
+	VyQuC8yG7+yp0beOq9App4iqPVbBuv5qfjLOCSb7/6GmbjKAlQXHv/q7mL89LSInIUO5wxnZakz
+	iWxjve7KygQiYzl4cL5VyntHA7YdJEhCZr9H0fRpdO6+5sT6odXAuwpar2mPb8XN31LwftU+Vup
+	hNJnxG7R/2iq8/1q39+UJHkXsBdtHzn3MciHpXwEQtcoRJRS0Mj9JytcVSmb2zYiK4/sCtu9NDz
+	JwlqiRhjfJ0/2K9yyTGKiRwkfrTLSQ96bCOxS98m5FCYfoUqfO1OUtnXBHPw5hDLhr6gvHTFG06
+	nsdKKPifrjP3gb7jB2YCK62eX13Ao41ZV1xJNAyaET8b9v5CLHg8PcFLDbaCmILnlkf1aOV8qNz
+	W2EFpLpZp3eg7W8WchMJyLU3d88iPxIFE1tUCwQgWhLlQspV4rFbFH9toAAWYjRiovU/6hkHGUW
+	FTYLiAATQMojBKlwCZMI60MOEFtAPs9KoqPD//EQmfmoKnvo/lXulcro=
+X-Received: by 2002:a05:6a21:110:b0:3e2:4e6e:6ca3 with SMTP id adf61e73a8af0-3f18fb8127amr165601637.34.1794254301572;
+        Mon, 09 Nov 2026 11:58:21 -0800 (PST)
+Received: from localhost.localdomain (mx-ll-183.88.2-201.dynamic.3bb.co.th. [183.88.2.201])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa2a7fbesm61629b3a.11.2026.11.09.11.58.18
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 11:58:21 -0800 (PST)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: linkinjeon@kernel.org,
+	stfrench@microsoft.com
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH 11/13] x86/kprobes: Use kprobe address iterator in can_probe
-Date: Mon,  9 Nov 2026 20:57:59 +0100
-Message-ID: <20261109195759.1091316-1-jolsa@kernel.org>
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: refuse reauthentication of an expired session as another user
+Date: Tue, 10 Nov 2026 02:58:13 +0700
+Message-ID: <20261109195813.24238-1-mike.michalo@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109194916.1089703-1-jolsa@kernel.org>
-References: <20261109194916.1089703-1-jolsa@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,60 +101,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Walk the instructions before the target with for_each_addr_kprobe() and
-pass each matching kprobe to recover_probed_instruction(). Reuse the
-iterator’s kprobe for the target instruction as well.
+When a Kerberos session expires, its owner can reauthenticate it. For an
+NTLM reauthentication, ntlm_authenticate() only compares the new user with
+sess->user when the session is still valid. An expired session is in
+SMB2_SESSION_IN_PROGRESS during the reauthentication, so it takes the
+other branch and simply sets sess->user to the new user:
 
-Signed-off-by: Jiri Olsa <jolsa@kernel.org>
+- the session's open files, tree connects and other state, created under
+  the original user's identity, now belong to whichever user just
+  authenticated, and a later Kerberos reauthentication is compared
+  against that user rather than the original one;
+- the original struct ksmbd_user is overwritten without being freed.
+
+krb5_authenticate() already refuses a different user in this case, and
+the valid-session branch of ntlm_authenticate() does too. Do the same for
+an expired session: compare with the existing user and refuse a different
+one with -EKEYREJECTED, freeing the newly looked-up user either way.
+
+An AI assistant was used to find and fix this and as an independent
+reviewer.
+
+Fixes: a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets expire")
+Cc: stable@vger.kernel.org
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
 ---
- arch/x86/kernel/kprobes/core.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ fs/smb/server/smb2pdu.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/arch/x86/kernel/kprobes/core.c b/arch/x86/kernel/kprobes/core.c
-index 6ad8b89a9ba1..4d63826f6c04 100644
---- a/arch/x86/kernel/kprobes/core.c
-+++ b/arch/x86/kernel/kprobes/core.c
-@@ -287,6 +287,8 @@ static inline bool is_exception_insn(struct insn *insn)
- static bool can_probe(unsigned long paddr)
- {
- 	unsigned long addr, __addr, offset = 0;
-+	struct kprobe_iter iter;
-+	struct kprobe *kp;
- 	struct insn insn;
- 	kprobe_opcode_t buf[MAX_INSN_SIZE];
- 
-@@ -295,7 +297,9 @@ static bool can_probe(unsigned long paddr)
- 
- 	/* Decode instructions */
- 	addr = paddr - offset;
--	while (addr < paddr) {
-+	for_each_addr_kprobe(iter, kp, addr, paddr) {
-+		if (addr == paddr)
-+			break;
- 		/*
- 		 * Check if the instruction has been modified by another
- 		 * kprobe, in which case we replace the breakpoint by the
-@@ -304,7 +308,7 @@ static bool can_probe(unsigned long paddr)
- 		 * relative-jump. Since the relative-jump itself is
- 		 * normally used, we just go through if there is no kprobe.
- 		 */
--		__addr = recover_probed_instruction(buf, addr, NULL);
-+		__addr = recover_probed_instruction(buf, addr, &kp);
- 		if (!__addr)
- 			return false;
- 
-@@ -327,7 +331,7 @@ static bool can_probe(unsigned long paddr)
- 	if (addr != paddr)
- 		return false;
- 
--	__addr = recover_probed_instruction(buf, addr, NULL);
-+	__addr = recover_probed_instruction(buf, addr, &kp);
- 	if (!__addr)
- 		return false;
- 
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index b084cca8813cc..234439c1526f9 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -2365,6 +2365,17 @@ static int ntlm_authenticate(struct ksmbd_work *work,
+ 			return -EKEYREJECTED;
+ 		}
+ 		ksmbd_free_user(user);
++	} else if (sess->user) {
++		/*
++		 * Reauthentication of an expired session: as for a valid
++		 * session, and as krb5_authenticate() does, it must be by the
++		 * same user. Replacing sess->user would also leak the old one.
++		 */
++		if (!ksmbd_compare_user(sess->user, user)) {
++			ksmbd_free_user(user);
++			return -EKEYREJECTED;
++		}
++		ksmbd_free_user(user);
+ 	} else {
+ 		sess->user = user;
+ 	}
 -- 
 2.43.0
 
