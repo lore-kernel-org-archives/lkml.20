@@ -1,57 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794198996;
-	b=xQu5tztcOGpIFbA3ul7PaVKAypqZavjKu953Mj/o2SbAqXRs56znV7/mMe+X77Hul7dT
-	 rYkCKNVCa/UEUuX6so698xQCetpvp6njvCRdaeBwcvBQVEHF9oDaNzL0ql4DmWfddwbQf
-	 mtZdFFc9BEwvo69WEEHbXJZsYGYUND0HTG34vMrhKLPVsUhjy/JSmhMMF09zP+kW29L5A
-	 +ekXHCXfhHwJmZLuTmi2Aj06NYI+5jl+YHxiOsTcysED7IjmNY/Q92h0ZkrOWx+YGY8/P
-	 LifN84CMMcGJmfRs58Mib22loO7MeA+s+tKeIDvTng0EDV3c21pRUReOVJK2P/rt1bw==
+	t=1794199123;
+	b=lVora1UQtDW7T7WH+jiS1XMYJfxwMevyVedKJlueCnfLaH6nFHv6VRjmUuNnlXcwOQIR
+	 i8wgMzJEjEPjTptlYaEVKwcRH6WYa1Du9KtNkks6N9JCGT2J1w9/wFKJ40hM0cPIa8JRZ
+	 QWO/gzddWhoamCE0xfsMWZGfY+izcBlSUPqySDThRlPumCmefrzxxtyMZSNM5F4ooJ/4o
+	 39mujY3+N7CGIErb2HLxRu1KfnxzGYz0inVjCraYfHujc2jSK3NUtWdDC9zazWe7aKHBz
+	 nfCWGhwRdWRaVI7BKLpwTbF40kCfdRjULBXEFE1Mr1Eu/d3ZaNTb/uhANsmYe+oVQEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794198996;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=uTmIS9aKyym5dH1US1ljpTNJCXSvpIpBaRQvIEMaxHs=;
-	b=aUgqP2mkZv+LP2vk1/imhPAgzvkxSlSJQ8aZILRs9oJ3OwBVE8WSeeWYRSnzAbUiVSRa
-	 LCOx/z8wEoostRwZagXERFEh5KmcquZShL1J1PASsDH9fzhw8EFkrfG6AIIoFh0fCEsjS
-	 2p78UhwOsA1MPExzqGgDCDSjjJE3GGPWxHJBRO4MrdYodTvp3veW65P/FUkOy3v7tBAT5
-	 kwyLvB5+gWKOxC1Wy4Ogo1tI/HAQmn2reGue7oyHuwhTPfrBL9slAnoXkmlpKkAQu4b5u
-	 NlcK5sjpM+HFZ76gQihurc3L8miOYnrEYNSHC4zzFSjjbvf+H1y50LFa8tQsngsZcaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794199123;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VnyGCZlBiCMpGECUC/uuk3qO0l8oc5IWtcXelbxc1Pc=;
+	b=OqrfXKeD9WnAHYkHXOuCKmcnbA9/2/DmALTgU3ZnuC/rp0ShmgRPcr00QbRcuShOdydH
+	 ZebNwtDa0nnba4I14FR2AitowCjTCvAhzfqxRNFhMulwSwcddsKvYHwbRpt18OfTMI9jM
+	 dPezH0ec9HMZdZ6jOVul7gJBVRMm7ioMrkuxdpGlhwOmZkFj79vu2QGY+RodYQuuoBkNR
+	 ABAXDBAWPmzSNaBIdzoGtOYzZh6gxGpkoif3PtMCVpLWhdxWuld+Fq/IAf7aQVc4H3OCn
+	 9QYBK+B/HkphbKFHDnhW4h0yvo9xtKwHWueLus8qwgphCc2VDbNPmW67fXcbuT4d86w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ma6N62v9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22545606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:36:35 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=efWucSc2;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 60764606A31C;
+	Mon,  9 Nov 2026 04:38:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60764606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ma6N62v9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA141F0089F;
-	Mon,  9 Nov 2026 04:36:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794198995;
-	bh=uTmIS9aKyym5dH1US1ljpTNJCXSvpIpBaRQvIEMaxHs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ma6N62v9XBEMD4MKGpZQhtguYQqVYkJd+iTa7t/DpXBS8g0ZtUEwKBL+08sEzT78g
-	 rtnDCxaD+fEJPEqdESt5wJyDWiAcH6Ia6eB7M/sjGJQUA0oJaVGgCwwhc7aHzDzCys
-	 7CK2MaD9eXw8V9K0Pu4bqiGzY9QeDpL/RHfintzQmOv+DHyh7IqgxY9JrAsgTD3Oco
-	 YVdKTgRskwuwXWIT2vCdzrxAMVx/LdfqEz4Cfh4JATemMcdSZkRHGoiitmA0kVrVLm
-	 /Os2aalndyNDqSi5tJaiHqlHEXV3U4IRX0/7+FGRaNXel8aUv4FFnCRpXjqqUtpORu
-	 B+OvYiT4ihCjQ==
-Date: Mon, 9 Nov 2026 12:16:22 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Charlie Jenkins <thecharlesjenkins@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] riscv: entry: Mark ret_from_fork_kernel() and
- ret_from_fork_user() noinstr
-Message-ID: <avFJFlcVI1ycJzmJ@xhacker>
-References: <20261109041845.33695-1-kmehltretter@gmail.com>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=efWucSc2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=efWucSc2+npSO4CmuFLi+0YWXEMlBYi0ARIJnAB6y8iO2Wh0xg6fUSdSLf3ffrRTvinoUXjl92yq3
+	 RikUbekUhjLw/4eWrEI21u/MRAgELsbqxM57RDd1FvJB7irUbak5pmXXITGl2/i1VpsDTVpcGMAXaX
+	 vCBdKJOvQyYgRq4M=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76af14e4e118-c193a;
+	Mon, 09 Nov 2026 12:38:39 +0800 (CST)
+X-RM-TRANSID:2ee76af14e4e118-c193a
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from Z04181456177947 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af14e4cd7b-8170b;
+	Mon, 09 Nov 2026 12:38:39 +0800 (CST)
+X-RM-TRANSID:2ee76af14e4cd7b-8170b
+From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+To: linux-input@vger.kernel.org
+Cc: dmitry.torokhov@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] Input: bcm_iproc_tsc: fix clock prepare leak in close
+Date: Mon,  9 Nov 2026 12:38:35 +0800
+Message-ID: <20261109043837.586-1-zhaofeng2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,68 +69,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261109041845.33695-1-kmehltretter@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 05:18:45AM +0100, Karl Mehltretter wrote:
-> ret_from_fork_kernel() and ret_from_fork_user() are traceable and
-> return after syscall_exit_to_user_mode() enters the RCU extended
-> quiescent state via user_enter_irqoff() on NO_HZ_FULL CPUs. When
-> function_graph tracing is enabled with
-> FTRACE_VALIDATE_RCU_IS_WATCHING, the return hook runs after RCU stops
-> watching and triggers the ftrace_return_to_handler() warning.
-> 
-> Mark ret_from_fork_kernel() and ret_from_fork_user() noinstr.
-> 
-> Fixes: f955aa8723a6 ("riscv: entry: Convert ret_from_fork() to C")
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+iproc_ts_start() (the input open callback) enables the controller
+clock with clk_prepare_enable(), but iproc_ts_stop() (the close
+callback) only calls clk_disable().  Every open/close cycle of the
+input device therefore leaks one clock prepare reference, and the
+clock can never be unprepared again.
 
-Reviewed-by: Jisheng Zhang <jszhang@kernel.org>
-> ---
-> Assisted by an LLM.
-> 
-> v2:
->  - Drop instrumentation_begin()/instrumentation_end() around the kernel
->    thread callback. They only feed objtool's noinstr validation, which
->    riscv does not have (Jisheng Zhang). ret_from_fork_kernel() and
->    ret_from_fork_user() disassemble identically to v1 (Clang, defconfig
->    with NO_HZ_FULL and FUNCTION_GRAPH_TRACER).
-> 
-> v1: https://lore.kernel.org/r/20261107194931.69176-1-kmehltretter@gmail.com/
-> 
-> Tested with v1 on mainline d48723711bae (after v7.4-rc1) under QEMU
-> riscv64 (-smp 4) with NO_HZ_FULL, FTRACE_VALIDATE_RCU_IS_WATCHING,
-> PROVE_LOCKING, nohz_full=1-3 rcu_nocbs=1-3 on the kernel command line,
-> and function_graph tracing during parallel fork bursts across CPUs 0-3.
-> 
->  arch/riscv/kernel/process.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/riscv/kernel/process.c b/arch/riscv/kernel/process.c
-> index 34c1d498d1cad..6f2b46d1a8e98 100644
-> --- a/arch/riscv/kernel/process.c
-> +++ b/arch/riscv/kernel/process.c
-> @@ -225,14 +225,15 @@ int arch_dup_task_struct(struct task_struct *dst, struct task_struct *src)
->  	return 0;
->  }
->  
-> -asmlinkage void ret_from_fork_kernel(void *fn_arg, int (*fn)(void *), struct pt_regs *regs)
-> +asmlinkage void noinstr ret_from_fork_kernel(void *fn_arg, int (*fn)(void *),
-> +					     struct pt_regs *regs)
->  {
->  	fn(fn_arg);
->  
->  	syscall_exit_to_user_mode(regs);
->  }
->  
-> -asmlinkage void ret_from_fork_user(struct pt_regs *regs)
-> +asmlinkage void noinstr ret_from_fork_user(struct pt_regs *regs)
->  {
->  	syscall_exit_to_user_mode(regs);
->  }
-> 
-> base-commit: d48723711bae9b8cdc56719c448ba42fef28cbee
-> -- 
-> 2.39.5 (Apple Git-154)
-> 
+Pair the enable with clk_disable_unprepare().
+
+Fixes: d5ae685f1530 ("Input: add Broadcom iProc touchscreen driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+---
+Verified against current upstream master, which still has the
+unpaired clk_disable() in iproc_ts_stop().  Not runtime-tested
+(no iProc hardware).
+
+ drivers/input/touchscreen/bcm_iproc_tsc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/input/touchscreen/bcm_iproc_tsc.c b/drivers/input/touchscreen/bcm_iproc_tsc.c
+index 9c84235327..07176f8631 100644
+--- a/drivers/input/touchscreen/bcm_iproc_tsc.c
++++ b/drivers/input/touchscreen/bcm_iproc_tsc.c
+@@ -330,7 +330,7 @@ static void iproc_ts_stop(struct input_dev *dev)
+ 	val = TS_CONTROLLER_PWR_TS;
+ 	regmap_update_bits(priv->regmap, REGCTL2, val, val);
+ 
+-	clk_disable(priv->tsc_clk);
++	clk_disable_unprepare(priv->tsc_clk);
+ }
+ 
+ static int iproc_get_tsc_config(struct device *dev, struct iproc_ts_priv *priv)
+-- 
+2.39.2
+
+
+
