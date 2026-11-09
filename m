@@ -1,73 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794234516;
-	b=0PiyunGOcU0u9RyP2DgZI6EXWBayX6QMCp1EL52ehXOjJK2dip1cAbqy4VfRpkbBnoKG
-	 tus+W25G2k6Qs+eSKeWT/ytnivav2yU14BBxZm0nWFkJu8LNBzICJrUeAOydOtN0XiqrS
-	 Uvnoja31GcAZ2EUzXyOKg0GOP+rzFrFqIQ1c9vQgamwbounurKEBjDMboo6zlhyT175cq
-	 dOHusZhoL47K9IQGBCYmaIhcWLJ0/a68YqZ2sLCgpoXH+iKQP6faRUUQSbi8b0z3v3AFu
-	 K2dJ1NfpOqOyy1l9bGfwWiJEIutdkS9In+RjcdAqCtVWXA1piVMjMgdD+DHl4Xrop2g==
+	t=1794234595;
+	b=P/Q+eII+4JRrVwSlQwMeQy0u0Ex02q/Mc+gIhWvxz7KmfNEWR/UNyBlSrJ2Kk7Q8ziGp
+	 avxwytj/ZVSllH/5GbutNnFljEs14HlXT/HQaxIoNm4zDByiEDxGQwyLID2hu22AvTw6y
+	 a04Gy16khv1QfxMJ+TNRvhFXnWVr/UpJ0fzrD/h9jmNOgcSOk6UTKOZbQHZ26LIxjQiOg
+	 iEKwaUCCgg1HhPX7mvtgSuIoflceUHt4fu+IYKDCBH8r5WjHsZ51bOYXeTuHVCDUeCZD6
+	 uhjbkRFtG2ciJauC611G70g6ylm8SR0R0WL8qnpOFr1sVR+NKDJi8cpqhQOXRqYA98w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794234516;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=nejG8CTg/b7KBR9Zc2Eod3tSixBdqEzA8yLaK1qcvpM=;
-	b=5kCH3JIWYD+V9Nf7uE5/x1zodNtWsdNsIkQ4cqUx6kHTWQflQ7M9z+8hHQwtB7Ytz9BB
-	 pOhofQiu6bD3oO5jM6axXhSucDfTIOrSrG2sENk6EaJcnQ5wI9BmO0rF2RV3l2t97htI4
-	 tcLpTFdHueyEqb33prlsygZXfvjov9/AQSgbqrMra1XZkDLps9Dp26X4ko58teEhdjuUV
-	 UM3NgwMMiWWgxeB3MT70Dz/qmVsVPphOip1bPg0ZUdkVROLZSsWUKXkebBVIRWBHEJ5LQ
-	 hAqV637xc0E5+HCWYtK0oTLas3MHamAoNR/6jpGbIZ5NHLPdn3fGCbubbs5PwxexpaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794234595;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=S7KDZcKU/Io5XgxBPImwgDSYRzpyHFK91x9pGyphsAM=;
+	b=PTZnra6U3N01SvA5hI4LBsf6IJUfEpzaqY0PyNNSCKeI+WhrNvz45GfPfXYUQEqGoR2m
+	 MPjeQkpqImMU6cdR/lpoXqVs44nyVm8jT2GjNWhKF3yXMvbJhJzF8/HujVgIO0CqGBBmr
+	 nQNhG9ZbL3yXaIbTc53k7mAdRB5g8BZhJy6soHw/xfUjvVMtbPl8zGOrPET0DCF+NAv6S
+	 G7fNeAz8ftCWfiqVidIBSTMJBdc0/5XZ04ErfIESyP5cxvcz1k48wG+JFoCNynmiWy/B0
+	 RRvnIvg3czESvqWixPbMIIbeHBmXQSPwHGJ4w0w5ikeOVMiEhPa7nKMgq5lsvIrWJCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=OnrH+nIS;
-	arc=none smtp.remote-ip=162.62.57.137
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hsUSmamq;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KaRuyotC;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FFF7606A325;
-	Mon,  9 Nov 2026 14:28:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FFF7606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D8F606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:29:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5D8F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=OnrH+nIS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794234510; bh=nejG8CTg/b7KBR9Zc2Eod3tSixBdqEzA8yLaK1qcvpM=;
-	h=From:To:Cc:Subject:Date;
-	b=OnrH+nISw0aXyC1IktZpkyCojcAQt687Lg22+JBh4nHliTgCBeSuQMlRZaGGHxF0f
-	 aX377fxuOU2iP2iSUYQwQnqTJ+GwI46rQDEBRAVh9dmYyhgU1VBjAXu9/68ZliSV7J
-	 X3BZhgx2lVrHOlkCz/ZHHxDrl8zpfMvjNq/r9+rM=
-Received: from [172.18.4.77] ([202.113.185.209])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 71C3506F; Mon, 09 Nov 2026 22:28:28 +0800
-X-QQ-mid: xmsmtpt1794234508t94lyr68f
-Message-ID: <tencent_F39A283F1F83A8B954C5EFE09123A72F5307@qq.com>
-X-QQ-XMAILINFO: M1rD3f8svNzn0jjLyk5wjRneX4y+Koo4A+TE8pvCz3PQEc6mRtc+jTZ6gu8P9n
-	 5CbbLV2/4F9JNVE+wWVDqw8TFuLkxyl8iBZMW+l6mGinoxtZtXJoBP3IH5YaGt0r6y9T6YNMGerp
-	 m1ZDmmmdmACTRS0KFzXMpp3dR5urMAKaOolyXxJ4zs8HYwbEQhYuu3FAqnkaOJOomP4f4/0RwFDw
-	 aNzzXtom7cf7CNx9x5PqfLS9EjW+npkdH/iHXO67iVtzJ3D+K9I9SjyaoI3IyawDXpTvSGKWQ5+E
-	 +0Qz9Pn36wmf/WViC/8sE9nTZGOMrfztlPdyVReTVWaq5Z8H32Bc/tAQiBdaVb1EVeYjdjiSKEHg
-	 JDC4L6pYiEut39sYiRMJlRMviOg1xpSOeX6m6sobtowa2l3U5rdUvgNxSx6iTKujnTGDqrmqH4tm
-	 Fm/emvsGRUbIslK3NcF9sDlbrh5RSwovfgPz9y1qBQbFt7yCMQ1yK8yA5Np4q+CYEtzKg1jb+wQ7
-	 caWLbvDkR5b+Mh2sUkP7OA/RiCkzkmEyX75ypvdxyuV3NdR3Csb4sXwX8GUU+CvpyJI5S2nNzwK9
-	 C1wKprqSnfBPhKv8D54ked5bZq1pcwFUbsA4LgRja+Z2ghGEDZ1c1p9W3rjvK4xzBK3qFzavFYGr
-	 iGfM4bL1+jxdO9O+rIi5/vUdhNmQPiFopTV+AdarOeqFG+ygltD1JW1GGOBHhI0gIaIimW2vBcgY
-	 s5hr0O03UTkfUq7DS/q/4cwlySVZ63olNMOgWq0mopVTuzfXJvY3VTLG8CBnDOsD/w7wiWDzHF+j
-	 JW6wAZFkNrLyqYBWvw1Vlpj2j8EY5WLS+6z5K5+EvxLmWIBHaIOTQDlp+2JvH1IJ2WfIZKFDsoOp
-	 EMDRhDPnG4TSPItu+R/5wowBRnQHemhypc1d9J/OaNv/7QcT+FzW2N3Yy3NN0gz5hpy5lJ3uQWlp
-	 oGbb8/70bJj16ENLH4Ix8NNnX0w+tDnwpCYW4ocNty5nsfJ325JmeM/EiCMxj4zzAtV5nGD8gHjX
-	 LoHJ4PsyNtf5ak9EMLc1FrExEB/b3TKJF5mrtjgtFR2vv2Pywh3sfKDRuwOrRamQ/Nj/UYHw==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Guikun Yang <yangguikun19@qq.com>
-To: Carlos Maiolino <cem@kernel.org>
-Cc: "Darrick J. Wong" <djwong@kernel.org>, linux-xfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: xfs log recovery: six distinct issues, one per report (index)
-X-OQ-MSGID: <c42-xfs-logrecovery-index-20261110@qq.com>
-Date: Tue, 10 Nov 2026 10:00:00 +0800
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hsUSmamq;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KaRuyotC
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DFESA4025867
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 14:29:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	S7KDZcKU/Io5XgxBPImwgDSYRzpyHFK91x9pGyphsAM=; b=hsUSmamqp+4mG1SE
+	KUW3SAIjEc099jEXwvCQNZqDxsS3vQvHCjIM+5B3BoN7z7sqS7O7QrgeV88ZoJTh
+	mjt+RbmGUPGbyQGVrx+LoWEJuhY+eDxW8H7C3p4T+C55dPaQH0Z6d7ZimAalRx3q
+	BOF0MZB6HkO8jSfTK0Ra40Z6nvrkckSC9pa3mIFiYUS79qzRsS+2gqDcdYk80C07
+	/qLRjX7YjRhwcuTFP7yTF33rjKenqqsila2AURcFh0f2/poJv+Efmqvznmu9YSdj
+	v3MwHvujMgKbY0uKlOEDvlQCWK5VOPUg9Jje2gA6hpT4usmLQWJruPJXdSVohW1r
+	7fQ3og==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hua589bwy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 14:29:53 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7d2c5352d1eso30767137.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:29:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794234592; x=1794839392; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S7KDZcKU/Io5XgxBPImwgDSYRzpyHFK91x9pGyphsAM=;
+        b=KaRuyotCuCFrcyvYNPhSecTPgRBE5ZluStDX2v4stdKM1N/NEX9M0Bx0+rl5JZX7Lt
+         wV/aYv7XQbP7zkO0CE43aUt3OVYofm+Sy980jRRM1ydR/v4nahyVZakqlkFgzso4VS7P
+         0MaYjjruIP43L/mMGJFeh0qC5z4d6gz2ZmWl5SAqOcj6hWtTOGBVL6PW3yW3J2UONFuw
+         SvDEa+TxHOyzO+MtsN1wIBM+9y12bZHXcczljC6mHXurGG0E2vu2uWx+tAY1rubvvBLN
+         QPf5gXvNME/pa7VbH2B4z1BlfWAImbBOp3Wg2HgT3Zlk+s6ufT2D4VAopFTB98eVlHDj
+         rlpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794234592; x=1794839392;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S7KDZcKU/Io5XgxBPImwgDSYRzpyHFK91x9pGyphsAM=;
+        b=02dVsUOFzsNS+VAbo/ih+oRRDsBbr62R1uqz+PqJ/nDf/ilQaVro1IhUevlAFXC/vC
+         ENzQrhv4HwbzCW4rxGwkj/XJ7giOeBv9vjRUEUFCJz7PNl2cb7drNrPohrAAZwylOUKy
+         NGKAabGlQr7fktMsytJfgDQqtJMVzuhXeQux4+WZeJ146fSn5Xa14jtyNCJRLXOSEfBR
+         8X7i+jbtQkU8oJ9HbKtjOO8gthz5ZE2emoVqJwSei7exnBmfZVMsTo8js79s5p90Eaf/
+         OQMqSIwZpdMiTrW871s1viX5aY+VSMzTCpaMRo5Udt/QOBzOPQQW3Lby3XWajNzz9emf
+         p9eQ==
+X-Forwarded-Encrypted: i=1; AL+hErGnvxYWRVs94NP82/YcffDaj5RfCFLWauqrfSqF72VR8Z493o1q/MZJKXC267hKNdD0E2+Pt4eg/By5r1c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NeBn9X2SppMnRVGrAQ7caH1e9OI3mgQ9ECq867QrwgYH5iqtN
+	ieIxCc3WsKUBGJc4NFaaoVpDHM2c23m0prWOGDj4guCbAPzHYpa7fu+RXBmDfAnfalVTHF8VLf3
+	T/IOwAnn/QI4DHyS9q9KmIQBNfL+tSx9noJCbH2W/sCAuMBQcxGLSEgrr2H/KciVDr0VMNAoF8K
+	o=
+X-Gm-Gg: AYBFou3FTO2uU3IjC+y3N4MnUKE+vFjTrYo500bdmmZ96S3nsFoGHBMmbHOk14tS47y
+	H85fNd5byMqC9nCGwpURzsHvRf9pD9cOOcTwBnn0o+jv2rI33yqm2vDdMF2o9EdYJ5Ebvte4bvS
+	E9aT44hHEUKk++HlowWzJwUMWg/cN2a3MySiIgNO7Wc0guamxbL3E24/2SkJ65QZYPOixEhzcde
+	VOwqcOhTRBDvyUwZfXv1T2cIqPbl+Hqqp20aJpNH7IV4WhrjJGPd1KS2ds1yIc6f5WL+YPz98mG
+	RgV8Dc7wq5OACPBHcas5irXPVuVP4sTVWDhFMckVu0n3gzCfTdzTr8UGc3um84NEK1D5+HKMpek
+	p5XfhaeTDw+/U7FpGrJfm3n4ejarbhYwBGuPdbPDp/Z8GYRL+Y2I4be8kh6dFyIo3qhO+lQ==
+X-Received: by 2002:a05:6122:360d:b0:5e0:2ba:5a06 with SMTP id 71dfb90a1353d-5ece737a062mr963301e0c.4.1794234583912;
+        Mon, 09 Nov 2026 06:29:43 -0800 (PST)
+X-Received: by 2002:a05:6122:360d:b0:5e0:2ba:5a06 with SMTP id 71dfb90a1353d-5ece737a062mr963286e0c.4.1794234583423;
+        Mon, 09 Nov 2026 06:29:43 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a47515dsm173047166b.44.2026.11.09.06.29.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 06:29:42 -0800 (PST)
+Message-ID: <fd8b69b2-5487-4e99-a45e-d6c2ce9ae1f1@oss.qualcomm.com>
+Date: Mon, 9 Nov 2026 15:29:40 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,58 +116,147 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 4/4] PCI: qcom: Implement shutdown() callback
+To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Jingoo Han <jingoohan1@gmail.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+References: <20261107-shutdown-v8-0-bf607c6429b0@oss.qualcomm.com>
+ <20261107-shutdown-v8-4-bf607c6429b0@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261107-shutdown-v8-4-bf607c6429b0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA1NyBTYWx0ZWRfXw9mSm1q4SnlN
+ dwD/I2BdUY97bmq7rBiR1CQqzhaAm9LpKfpmdGJ8k3zYD5Uilnrw7+UZoNmLIUIZVJ19MnE9JH4
+ eWT198RHqTZ2xy1qSp21+0xWQHQ+OoaCD3wTrxYwlX4J1edSSqdPHLM0+JyqzUmEFay1dK/iFZ4
+ rjxCiqANw+80M4YziZUuWqWhdrBjXMmce//Aigj3tVboOWqw089bPmeU2GpqJaVjXL86L6oRJg5
+ PHsG5uD8uEsLHdRiwJMMmrc9/sltA+xLBQaG/bOxt5qUyrppw7iGUTyPLeBEg7Sg6iuWRgDSvmy
+ 3+0mLPqVl3HdxN51gskqNudEjhqz3TaDQx+TNDixa52uR7MD1jSz1SKNG+KZ3GPo/aZXc3WLAdM
+ pRvXjuUrc8lGMun9WWY8887h9Tzr0fNYkkBqNDVRhPxeWUYjo76bYv3fwU181mievPwduI3+RRg
+ SYmbzicZdhKVQlzgW8g==
+X-Proofpoint-ORIG-GUID: vv2O6GU-SToNflKc3AoKRF-Q3HK-id8i
+X-Proofpoint-GUID: vv2O6GU-SToNflKc3AoKRF-Q3HK-id8i
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA1NyBTYWx0ZWRfX/TKWg11bu36a
+ QFo00dYHAD/s4wREsx6Grj18Iouhsv5VkO8ExgzPwDZBDUsFxbFr1LgLRqQxCGOzCTJt763vHS7
+ rM2wGZqiLDZZsX5XGqK3+d9c4RozOeE=
+X-Authority-Analysis: v=2.4 cv=C9V8WgP+ c=1 sm=1 tr=0 ts=6af1d8e1 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=mifKogskm1HCQoUnOUEA:9
+ a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090057
 
-Hi,
+On 11/7/26 2:45 AM, Krishna Chaitanya Chundru wrote:
+> From: Manivannan Sadhasivam <mani@kernel.org>
+> 
+> PCIe host controllers should bring the link down cleanly before system
+> shutdown/reboot proceeds to remove power/clocks from the controller.
+> Without this, the link may still be up and endpoints still have
+> transactions in flight when power/clocks are cut, which can trip SMMU
+> translation faults or NoC protocol errors.
+> 
+> Reuse dw_pcie_suspend_noirq() in the shutdown path to force the link
+> into L2, putting it into D3cold.
+> 
+> device_shutdown() runs with interrupts enabled, unlike suspend_noirq().
+> Mask the chained MSI IRQ(s) and the Global IRQ before tearing down the
+> link and clocks/PHY, since a late/spurious interrupt could otherwise
+> reach a handler that touches now-unclocked PARF/DBI registers. Use
+> dw_pcie_mask_msi() rather than dw_pcie_free_msi() so the MSI IRQ domain
+> and the MSI mappings held by downstream devices (which device_shutdown()
+> does not remove) are left intact.
+> 
+> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+> ---
+>  drivers/pci/controller/dwc/pcie-qcom.c | 41 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 41 insertions(+)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
+> index d39753f0e724..c5b06db3b92a 100644
+> --- a/drivers/pci/controller/dwc/pcie-qcom.c
+> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
+> @@ -2046,6 +2046,9 @@ static int qcom_pcie_ecam_host_init(struct pci_config_window *cfg)
+>  
+>  	dw_pcie_msi_init(pp);
+>  
+> +	/* Stash pci so qcom_pcie_shutdown() can mask the MSI IRQ(s) later */
+> +	platform_set_drvdata(to_platform_device(dev), pci);
+> +
+>  	return devm_add_action_or_reset(dev, qcom_pci_free_msi, pp);
+>  }
+>  
+> @@ -2466,6 +2469,43 @@ static int qcom_pcie_probe(struct platform_device *pdev)
+>  	return ret;
+>  }
+>  
+> +static void qcom_pcie_shutdown(struct platform_device *pdev)
+> +{
+> +	const struct qcom_pcie_cfg *pcie_cfg = of_device_get_match_data(&pdev->dev);
+> +	struct qcom_pcie *pcie = NULL;
+> +	struct dw_pcie *pci;
+> +
+> +	if (pcie_cfg && pcie_cfg->firmware_managed) {
+> +		/*
+> +		 * Firmware owns the link teardown and clock/PHY shutdown in
+> +		 * this mode; Linux only owns the chained MSI IRQ(s), which
+> +		 * still need to be masked off before shutdown proceeds.
+> +		 */
+> +		pci = platform_get_drvdata(pdev);
 
-Between 2026-11-07 and 2026-11-09 I sent six separate reports about
-log recovery in fs/xfs. They were posted as replies under one subject
-line, which was a mistake on my part - they are independent defects,
-each with its own root cause, its own reproducer and its own fix. This
-mail is an index so they can be handled one by one; no action beyond
-that is implied.
+Revisiting my older comment, we can still stash `pci` in drvdata regardless
+of the flavor and do `struct qcom_pcie *pcie = to_qcom_pcie(pci);` in
+places where we need it
 
-1. XLOG_WAS_CONT_TRANS with no buffered region reads ri_buf[-1]
-   native NULL deref at mount, no sanitizer needed
-   Message-ID: <c30-xfs-wascont-rideref-20261107@qq.com>
-   fs/xfs/xfs_log_recover.c, xlog_recover_add_to_cont_trans()
+Konrad
 
-2. Logged superblock geometry installed without validation
-   UBSAN shift-out-of-bounds via sb_inopblog
-   Message-ID: <c31-xfs-logged-sb-geometry-20261107@qq.com>
-   fs/xfs/xfs_buf_item_recover.c, xfs_sb_from_disk() +
-   xfs_update_last_ag_size()
-
-3. ilf_len used as buffer read length without requiring whole blocks
-   KASAN slab-out-of-bounds in xfs_inode_buf_verify()
-   Message-ID: <c34-xfs-ilf-len-oob-20261108@qq.com>
-   fs/xfs/xfs_inode_item_recover.c:351
-
-4. ilf_size read from a region shorter than the format header
-   KASAN slab-out-of-bounds in xlog_recover_add_to_trans()
-   Message-ID: <c37-xfs-ilf-size-short-region-20261109@qq.com>
-   fs/xfs/xfs_log_recover.c, region collection stage
-
-5. Buffer data map runs index ri_buf[] unchecked in
-   do_inode_buffer()
-   KASAN slab-out-of-bounds in xlog_recover_do_inode_buffer()
-   Message-ID: <c40-xfs-inodebuf-item-index-20261109@qq.com>
-   fs/xfs/xfs_buf_item_recover.c:625
-
-6. The same unchecked source index in do_reg_buffer(), with the
-   destination side already fixed by CVE-2026-80536
-   KASAN slab-out-of-bounds in xlog_recover_do_reg_buffer()
-   Message-ID: <c41-xfs-regbuf-run-index-20261109@qq.com>
-   fs/xfs/xfs_buf_item_recover.c:464
-
-Separately, ilf_boffset (report of 2026-10-31, bumped on 2026-11-08)
-still has no bound and is a distinct issue from the six above:
-   Message-ID: <x1-xfs-ilf-boffset-20261031@qq.com>
-
-All seven reproduce at mount(2) from a crafted image, are deterministic,
-and are unchanged in mainline as of 2026-11-09. Reproducers are
-available on request. Happy to send any of them as a patch series
-instead if that is preferred.
-
-Thanks,
-Guikun Yang
-
+> +	} else {
+> +		pcie = platform_get_drvdata(pdev);
+> +		pci = pcie->pci;
+> +
+> +		if (pcie->global_irq)
+> +			disable_irq(pcie->global_irq);
+> +	}
+> +
+> +	if (pci->pp.use_imsi_rx)
+> +		dw_pcie_mask_msi(&pci->pp);
+> +
+> +	/*
+> +	 * In firmware-managed mode 'pcie' stays NULL and firmware owns the
+> +	 * link/clock teardown. Otherwise, skip if the controller is already
+> +	 * suspended (e.g. a prior resume failed), since dw_pcie_suspend_noirq()
+> +	 * would touch DBI registers with clocks/interconnects already off.
+> +	 */
+> +	if (pcie && !pcie->pci->suspended)
+> +		dw_pcie_suspend_noirq(pcie->pci, true);
+> +
+> +	pm_runtime_put_sync(&pdev->dev);
+> +	pm_runtime_disable(&pdev->dev);
+> +}
+> +
+>  static int qcom_pcie_suspend_noirq(struct device *dev)
+>  {
+>  	struct qcom_pcie *pcie;
+> @@ -2657,5 +2697,6 @@ static struct platform_driver qcom_pcie_driver = {
+>  		.pm = &qcom_pcie_pm_ops,
+>  		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+>  	},
+> +	.shutdown = qcom_pcie_shutdown,
+>  };
+>  builtin_platform_driver(qcom_pcie_driver);
+> 
