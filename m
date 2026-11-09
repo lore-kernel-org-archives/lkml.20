@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794192909;
-	b=AJf81kR0ubBbC9v4tvQhvEkJKjetuHrVXLPJNU1ebem6zS0VYkRTbxAtfxwXBAqhIy2c
-	 +O/2HjTj3HO2stZojmHs0j5zvCLmJjqbt1f2uBpk/VjA6y00MLQ5KIknVwpbxkzdfYXF1
-	 JZdTb7BFKs0kZifQE+QWAn0RXttG2h3ABgXr0iAPtu0tschWGxsNzBM8Qmbpq1Cambi9r
-	 JE4AXi9v+kmYMf4fxLcrAFdG32XJ/w661xXAup8lBnvb6wRqRMNU8gqefuyGNaH5TaC+9
-	 cEgVb2ek2uEkWeFChfgNTCGwSM+8sUMqKeUhF1QIlTjGCHFTTy0/JEltbFlLN/4M1Hw==
+	b=ouDr1+walAUZw5JFWN/p1IJkI6MU1zt304HxcJSc52/mqY8dCaS2NIGkzidD7a22rxwT
+	 eGi291sXtWfjWhFFJ15mb+AZXF6kGr1MjY9+RmP3m467RhLff0hkZ1PnCu0ei/Fl1t8UZ
+	 5kGX2EGTTaRtoHN396dqk4aQeM5qTyfj8IZOsa8rmx0n4N0AXqyOm3v5b9PBPpxKbL4Ra
+	 RuOEmkZ9vklWJeQ1lD299gHmQRjAItd6mspcUPLb0iu9l8Q7nm2SsXP5ZpW1g+O0PaJcp
+	 ncrOpy/YEOlY9J1ZO3b/s6PRpuxN/Zw4Sn14VJCQUvH8bYHqMOVl2IWa1zEsHRamdAg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794192909;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kI7NYgQuuFTeHXrZ9zRhIvS7hLT9PxIJ1Nkc0ImVrAM=;
-	b=PaCkg4hr/KmWNLyXxggh6XJoy3jrcJ0CQDiifTUhhMHjKnnjAKC/TsFbg2hq6QkLICnU
-	 B0nkoHu6swNLqf1ADDz0HFESF7dN90xaNyld2flz8Yyst8s9oEjYbwjsLVG5NXV8669ZU
-	 7hnzoPLmKZSktKk8NAHnNalII+E1yAthDPfd32dq6JFVjyh9IROE/RDwOOCQ1GkXde+m/
-	 vtXwaVa04tPwo4vNnkzepsr44Ix/8FMSxfQrP7UprkDJE6rKF3Yhf+ifYX8smga4Zlpx6
-	 N0iY75xIrKqRY19Z1lyYQazWSRN5PUhbZon2jK+018dgGEmOj50ZkSEeHAJid9U3DdA==
+	bh=v0dZEvGHVJY0R9uWYe8/mOz/5B0p+NtTR15YHC7b/7E=;
+	b=YQ/I7p+6TPHpsFMGvXEdW0hmsC2ObzHKujgFXioybx8ziVez33XX2iFBE2+AwkQ3uF6N
+	 NOQAulIMhSUTtM7dFpNviF3RjNJR+6Tj6seyQKAFfDDQyLLd6wd8RgmKf3ax6Yj6VeAvY
+	 7Kyhx/XEEWTkZe+NPkp/1HTw6qmyO99vbaoB4RUwoWq3EHTS2PrPidYxTd5jpSl63TUlU
+	 jw/W1I+CJI4ssJnvNUgQ9KxbJPxss1qtFLPHmBGRxlxVpbjN+B3Cin6hEgFlOLDF5tDaX
+	 I2y7gNsKBPiXg0wwuKixJs1F+KgS6HQ6nGK/1YjACURX5YHXPdpOTTb7HvWLTEbPhxA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDWV4o8v;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFY3xNiF;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCD7606A323;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20D9606A32A;
 	Mon,  9 Nov 2026 02:55:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LDWV4o8v
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFY3xNiF
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794192908;
-	b=DRtARona248pJKiNIYZoO/SE4nyT7gxrHo5O9KA529pM8nkx0PYS8eMIOYepWioMK8v1
-	 tq4RQYFhgh0vE8125MRbYavDzFWRqLvrlyYl5cYBCmSu9KIw1X6axGwmGwR2PWZAFskDs
-	 nHvZvPTva+COtCnLFRZkw/pA50MZPGQ/xTviDhxpM4C1voPABm38v68odwCYjjbKYg7jP
-	 jOW0qcLtUmhgaQ8UmKdUnsoinx0oB4RqPe1RWvLeY8e5hYSck2qXOShtEGkTnDrmBc8kd
-	 Io3IIQDGVybVZcbogVMJPS39bNzeLOruTwTtlGVKNpeoE4YBXHnkIQYb4na4ovB2IZQ==
+	b=NVni0Q+Dg/0T5AQ+IorIMXr/VwFJsDCBVAzfJuVd+s146hCqUQKgAxfQ7gxI7je9sFjk
+	 xFz/g+g+UjPWQ7qwVtBQjiFY7tlKR4tt6nUyARI3RgaUl+k0FOijUMmP3GpHyjyDTcMOX
+	 Cd0SiQUzJDNKSr4ofNB1vMbaZcQqi0CeCjmjm3Dt3G3GOQ37v9PWFuLNtdkwPorQg/w5A
+	 pCyPs1GNkD92R0RyZygVLCjgnBtGznuPjE1Sh8xn5s85lInhf3DemEElapYxI6sA2qGAv
+	 x6Y0CsREUzeZ1ZVUUSw7GJbaD4OJ0Mba/fQ39oXct9ObQmPeQM36PC+FwDnCT4RCVeQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794192908;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kI7NYgQuuFTeHXrZ9zRhIvS7hLT9PxIJ1Nkc0ImVrAM=;
-	b=sbiOeQ9iuW7gm+T1CA1C+q2kDQHLRGo4n7itil6Sbv7PwCGF6WKm3fJrDXftSruIsSQT
-	 dy+o/qVgl5PSdgsi0YkgqbOVl5OneRVYpkfbC0BVvzv4S/VYZLep1SpECzYiZOUU15hZE
-	 yYb/w0E7ChYCwiOT3tBOBMWVEQfoJL+yveS9BQqgGo36LBAMZ7Z+MFdo+JZEdMOFZ/fVH
-	 LkOtrD81RF7sMuMbQc2hlYz6c0YhquGwxSJVjiLyxLtXA3oPvnRjgp21U8PHXYtBqkbne
-	 ubLddlkb9MFxQj/4zMuTBi26dBCkbLEPa29EG1W+SpB26hQhcSIpOxOIbJtC45AtEyA==
+	bh=v0dZEvGHVJY0R9uWYe8/mOz/5B0p+NtTR15YHC7b/7E=;
+	b=DOd0OCp1ROban3TLQFp1RdyHFXorMLOip99oERp5E6mnT7vJ4UYrQxxTIsNuhm1N3tD+
+	 OhCa+TBQdVKMAI+YPJVgB4ztUF1UuAw4MneoS1CoFNJH+iANd6e2iBuAMUNd6TZo+yjHu
+	 7+NovemF7VMmcMEPuOYsFQN29UaGPHDnX3sxvH2qCtJP+mAZUq1+uaUtf5smHpFpirdpj
+	 eoiG9qWNAeeuJzcsL4ybqCJn5TAdP3TGnpQiUq0h+xOgak+1NHskh5eXcUPkkdmXE58rI
+	 /khB7DKPzoV4Q89rTOChweKkG1UCWEU0Ib4h4PQv63lR03PoPnX2rS/rnOWIgFR1imA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 842581F008A1;
+	by smtp.kernel.org (Postfix) with ESMTPS id 880091F008A2;
 	Mon,  9 Nov 2026 02:55:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794192908;
-	bh=kI7NYgQuuFTeHXrZ9zRhIvS7hLT9PxIJ1Nkc0ImVrAM=;
+	bh=v0dZEvGHVJY0R9uWYe8/mOz/5B0p+NtTR15YHC7b/7E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=LDWV4o8vlT197OPb/RL7gcLCTGTLVJ6+iqF1rPdLukjEqcCv66sdi8Rsrv7N9u1Aq
-	 3bTunV4iPKy+kvBkiuK5dxu7jSLJjJMdLI3THnBWG9sgnhmAjwkQythXv3vW45IX7a
-	 ReNoNEKZSH8NrT0R7978HFpR2IJZKSKWptwWPXthFqwTxfBttGdlY5sqJaMZVlxFIL
-	 fK2uqv3ZQ4p9zBgZdK+/5xYagGumeh6SA/h/6Rg/JUso7K7fPYEvrFu3i7ErP5Xs7O
-	 VkHM2xyI/ynV3/vjPyvryA/TNLQ162z3eS90xklseONztfPmM4vBxFcGF6YR3ZTBCX
-	 DIG2D2UEs/HoA==
+	b=OFY3xNiFVpzUo7Hax9OsqusU4FRbHqcBufYXDb/rtFfwV8JFm8E/j78ENBSTO9zm7
+	 3ToEXz8f19F3gRLIS/XDil5H3RmpEdokQyl91ZRlnq1e/WSaTz9AhJRdeUb4YNfLrt
+	 TpKisNql9k8zHN61mbsLTGDEi3QLlY+SNsyQpZA20TU4DgrKWt4IkOEQoUbqci7aNb
+	 wIpRWqLbEpzOEVqN5VEghnhse97knnErz7xVankIT7efgU/aWQBwMUTDd3ZRuTneQP
+	 pRvoIgo8WIl96TYa4XuuYWq2EjuEfqFDr0FlzaggkB9zbotvAPVTZUeDumO4JyT5b5
+	 rFo5QLe+p/g0w==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 067DC4820F;
+	by lkml.kernel.org (Postfix) with ESMTP id 155EA48243;
 	Mon,  9 Nov 2026 02:55:07 +0000 (UTC)
 From: Kohei Otsuka via B4 Relay <devnull+kohei.spacemachines.com@kernel.org>
-Date: Mon, 09 Nov 2026 13:55:05 +1100
-Subject: [PATCH v2 1/2] dt-bindings: serial: 8250: add Microchip Core16550
+Date: Mon, 09 Nov 2026 13:55:06 +1100
+Subject: [PATCH v2 2/2] serial: 8250_of: drop RS-485 RTS on Microchip
+ Core16550
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-core16550-rs485-v2-1-a15933c7b907@spacemachines.com>
+Message-Id: <20261109-core16550-rs485-v2-2-a15933c7b907@spacemachines.com>
 References: <20261109-core16550-rs485-v2-0-a15933c7b907@spacemachines.com>
 In-Reply-To: <20261109-core16550-rs485-v2-0-a15933c7b907@spacemachines.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -94,11 +95,11 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
  conor.dooley@microchip.com, Kohei Otsuka <kohei@spacemachines.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794192905; l=1517;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794192905; l=2135;
  i=kohei@spacemachines.com; s=20261103; h=from:subject:message-id;
- bh=tVquJwmRACDuh480fTmlsHeIfkSp7Ofs4+cTK3nRbqo=;
- b=VIyOrtl+nYTF1R05LAEuQP9NoK+Lhy2kJMg60Iib8Tz2NG5p9x1VmbIxgETfVKy9VrJL4lkNK
- qKdH4GvU05TCp9YAFJA24IQhfht6sfutY8om5D/nbBZcVtoApSO8ExK
+ bh=zB2zzCjY5jGdBW3bz8SbL+SIiy1mkD1eN/4HcK9U8ig=;
+ b=ikHWkWqXRfD6U4iTaFAtEZY2wJSVCDiHhxCGbkCs0FjWMkuRay/J+3i1gyFsThiAEzWWoDevG
+ ZTYnB7S2hdYCfgm7NuIAq/SiYzTjpYUqggc+E3W/3EEnjZKWRiG6v6C
 X-Developer-Key: i=kohei@spacemachines.com; a=ed25519;
  pk=1kit/vmX5JiLGH9NPcqlvT55ISWaLmNipdL5VrriRt0=
 X-Endpoint-Received: by B4 Relay for kohei@spacemachines.com/20261103 with
@@ -109,38 +110,50 @@ Content-Transfer-Encoding: 7bit
 
 From: Kohei Otsuka <kohei@spacemachines.com>
 
-Core16550 is a 16550-compatible UART soft IP core for Microchip FPGAs,
-including the fabric of PolarFire SoC. Its registers, interrupts and
-baud rate divisor follow the 16550A, so a driver that knows only
-ns16550a operates it fully: transmit, receive, FIFOs and modem control
-all work. What the generic driver cannot know is that the core raises
-no interrupt on TEMT, which it needs to drop RTS after a frame in
-software RS-485 mode (em485). ns16550a therefore stays a valid
-fallback, with RS-485 RTS control the one feature that needs the
-specific compatible.
+Core16550, a 16550-compatible UART for Microchip FPGAs, interrupts on
+THRE but not on TEMT. When the last character moves from the FIFO into
+the shift register, the THRE interrupt calls __stop_tx(), which finds
+TEMT clear and, without UART_CAP_NOTEMT, returns to wait for a TEMT
+interrupt that never comes. RTS, and with it the RS-485 driver enable,
+then stays asserted after the frame, and receive interrupts, disabled
+for the half-duplex transmission, stay off.
 
-Add microchip,core16550-rtl-v3 with ns16550a as the fallback. As for
-Microchip's other FPGA fabric cores, the -rtl-v3 suffix is the major
-RTL version of the IP, Core16550 3.x.
+Set UART_CAP_NOTEMT for nodes compatible with
+"microchip,core16550-rtl-v3", so em485 drops RTS from its stop timer
+one frame time (plus 1/7) after THRE, as it does for DesignWare UARTs.
+
+Set UART_CAP_FIFO as well: with the capabilities already non-zero,
+serial8250_do_startup() no longer fills in the PORT_16550A default,
+and without UART_CAP_FIFO serial8250_clear_fifos() does nothing, so
+the RX FIFO is not flushed at the end of a half-duplex transmission.
 
 Link: https://github.com/linux4microchip/meta-mchp/issues/5
 Signed-off-by: Kohei Otsuka <kohei@spacemachines.com>
 ---
- Documentation/devicetree/bindings/serial/8250.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/tty/serial/8250/8250_of.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
-index 50d5c977afa3..6f806b972f5c 100644
---- a/Documentation/devicetree/bindings/serial/8250.yaml
-+++ b/Documentation/devicetree/bindings/serial/8250.yaml
-@@ -137,6 +137,7 @@ properties:
-               - ti,da830-uart
-               - loongson,ls2k0500-uart
-               - loongson,ls2k1500-uart
-+              - microchip,core16550-rtl-v3
-           - const: ns16550a
-       - items:
-           - enum:
+diff --git a/drivers/tty/serial/8250/8250_of.c b/drivers/tty/serial/8250/8250_of.c
+index b41ca604083f..e23539b2fda3 100644
+--- a/drivers/tty/serial/8250/8250_of.c
++++ b/drivers/tty/serial/8250/8250_of.c
+@@ -278,6 +278,16 @@ static int of_platform_serial_probe(struct platform_device *ofdev)
+ 	if (port8250.port.fifosize)
+ 		port8250.capabilities = UART_CAP_FIFO;
+ 
++	/*
++	 * Core16550 has no TEMT interrupt: without UART_CAP_NOTEMT the em485
++	 * code waits for one after the last THRE interrupt and never drops RTS.
++	 * Set UART_CAP_FIFO too, because a non-zero value stops
++	 * serial8250_do_startup() filling in the PORT_16550A default.
++	 */
++	if (of_device_is_compatible(ofdev->dev.of_node,
++				    "microchip,core16550-rtl-v3"))
++		port8250.capabilities |= UART_CAP_FIFO | UART_CAP_NOTEMT;
++
+ 	/* Check for TX FIFO threshold & set tx_loadsz */
+ 	if ((of_property_read_u32(ofdev->dev.of_node, "tx-threshold",
+ 				  &tx_threshold) == 0) &&
 
 -- 
 2.53.0
