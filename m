@@ -1,77 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.35
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794244435;
-	b=Foj+EoIpE8Oz5Uve4PmNgRjHh5iNL65+fL+KB2VySwMfj9vE3kEUjvJrIghpRQ1sICCP
-	 3UYlG12HIFNvFrYaSkdu0Px52IuCxuYtvSiYU7hRPJRadaVkN0o0DBvDdOX4KzpgtkZ9N
-	 Wb+R3IlS2O+hG1PSuKfSsUmMAxeOtf5oUef6t4f9TqwK6H6fMwntk2HbWnuGTumQDxoK3
-	 wEes8j9XeLVY9gFwDu0Rldh9W2Z1mLUNE3E3zsooreV166yl8bsmyAM28DrwD+0Y23eVr
-	 u65hmXFFnpUdHbWmYfGjsVgpVPI6vfUwWaq9ZS94YtYjGxbzK2eawLwZdx3soA//1Uw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794244435;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=LUi5S3TExYT+fKA6nyYWe9RLlbolnfUl69avGF7yzSc=;
-	b=wQlJRmfsI68mPWTZwos6aspEPRMobOisWmQ0h1F912MBU8NZcm0QynXoB8gB43Trd6si
-	 jZ5s865DRaTM/Rp3PvUI09dGIhLwSguGlXCmjUBN733eQSgSkR03vHktuPKEhyO8O5h9D
-	 HwBck6QdPcsn9itSgYwQNmXAgIooIEsl5bV11vtxBp/CDIs6nZgEsXSeC4eb6E+ay6a7R
-	 yOGFABiu5Tfxmq643hQzOhPHnDqkEI++rqwLOSZbJx2/65PlpJQJaFp8zIgeYXQ7C4qzh
-	 krxoNDBFDDCOFMt27U3UhWZfJnXFs92FoW9o5sbhl8QIHpz9hnoFzsZ188I7HOqk7KQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SL9coC7X;
-	arc=none smtp.remote-ip=35.89.44.35
-Received: from omta36.uswest2.a.cloudfilter.net (omta36.uswest2.a.cloudfilter.net [35.89.44.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794244441;
+	b=YoQeZp8A9CD21u4GdD8L7pHaWacCn0bASAfJ9YFJy3Yy8jhCCXU/rH9SQ8NdubJYVrlq
+	 Luj0qVz+H02vDuZIEYO4/rOttpm80ZlessE6w7fWZfAA1So9rmxLLQF4w2LzC98HDdzN4
+	 jovng4Puh5JkR6RnXfC0nqfsQAQmk4Krb1ZRzpv6fjs9WpBOkWRhiwkEE+Rx0i8BLQ/PZ
+	 f0QA7CpZx+J/pSGT+AwH6ZLb1NNIsZ9RiDq6pQ/w4GDBJ6htdxCa2Nl9dhP697RuR2iwL
+	 Z+FV7kYFnE5YHXOyA6gRMBQGrP0FY61Bj0gGvhSD8PhYVXrn/1YOJGSu0oon9hzLRJA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794244441;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=vRaqHFzNYgfeSdDuQJOemDmKXLex1oxMeAO5v9Iyzm4=;
+	b=1A955t32efSaqFtlOEJbSkFPVQUGoKOK2QeWOoqlr0r9q2+QZ719hQfDKtENn2Q4L65A
+	 cQwzXbfWuJrkXTxTOONZVWO49VaH0gLm0OgFmuNiaz9HrVB4xyhYAd+D2IeX7WDCYSsRt
+	 +9r3/FaYtvVh2rN9IT0LhF97U6cY5G1V497WlAZVARPFAOhtSnBHddYdZpRF0fgOzNtCd
+	 sQINgNRNZMFzTwOa2XUZ38gF8whC7XioCIJe7pSHqyfO+JxidOlftYoDai0m1lOZO+Fl7
+	 6uv10LzaFyVhJBNYPKtSTJRlBe1CHsusrrAuaw05vrnZmmR+yewfp96h9jvN/QrphaA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=D5rNEJa1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.46
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013046.outbound.protection.outlook.com [40.93.196.46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5B0606A337
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:13:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE5B0606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D75D606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:14:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D75D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=SL9coC7X
-Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
-	by cmsmtp with ESMTPS
-	id QPeAxnu6IRiNxQSwMxL683; Mon, 09 Nov 2026 17:13:54 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id QSwLx6t9IlaNKQSwMxuWmc; Mon, 09 Nov 2026 17:13:54 +0000
-X-Authority-Analysis: v=2.4 cv=UbpRSLSN c=1 sm=1 tr=0 ts=6af1ff52
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=RKWXfmB6k3OvuUuLRrUA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=LUi5S3TExYT+fKA6nyYWe9RLlbolnfUl69avGF7yzSc=; b=SL9coC7XO+Wt4q9A24N7Ryi5WA
-	902LaFEVdDkTGUHliCCdJI200tcz3v1oMo3EJUWmI4LukqCwtNfm3S8o6IHLr5SVRl/6jbDE7Gy6N
-	GfnsqMZXHAKjzSWieaKTqYWDS/s9+17Y8GE4ew73nHeUmyWP23o8iuA1BUaFWCZj1wcrXr/UViAj/
-	zogsbiBzQyq5bV9C+nlqfJNHfWyTmiRZY3geU8vKf+iqtc229gcgYmYqjv2NAlUkmneSZJVdIEaOA
-	nXyRSWUqNmIdx9FXm4/PNKcHWWDoGxPMAmoR4x71BVPUUrA5r0fHdTLVuVagSHbxx0+wKGb9dqOvX
-	a1Al68HQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:48712 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQSwL-00000002B35-2D1O;
-	Mon, 09 Nov 2026 22:43:53 +0530
-Date: Mon, 9 Nov 2026 09:13:52 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Tomasz Bojanowski <tomasz@bojanowski.me>
-Cc: Hamza Mahfooz <someguy@effective-light.com>,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (nct6683) Restore manual fan control after resume
-Message-ID: <5a1c2efa-648c-4282-b641-4d9cbeb0e012@roeck-us.net>
-References: <20261109163328.61787-1-tomasz@bojanowski.me>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=D5rNEJa1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uci14pLt24oa4vPXThZ6N0TumIy44zwhVKe6jzYM11gvKibpn0UlcCjpPsrh/zCHCM23VJEo+399Ug9a+G/HTXCAMJ6OPszcBWsRITiVW9cxlUTh3QwLW/ubZr52xW8aHXdvpbp1MN8VZNsYi+Tr3fkGSSsTf8kImiZFovgNJjjKk6lvbxsvuPL3rDT8OKrlcUkie5R79t/czrIn1uT1DjAwmBGexVS2KiHwO//1vcaRlGCMzTb/1dsiSMhb81YRlGp5q8s+k41Q915jLoGim2RpZVUsVdKVuHR5NuzvGAwaG3R0Xq8idctYLYpPtRW/iUcnJUi+tYCIHbb2U+idCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vRaqHFzNYgfeSdDuQJOemDmKXLex1oxMeAO5v9Iyzm4=;
+ b=fY5ckiiFfyIIHskAUjf2npdyGg+8NYbnI5Goj4B3Zj2H98hr6SgwkoPmuiRJtjgUlWmxgPiOfcnVb3/a6WmZ/tpbpkdjX5iwh5BJjVWTqBBo2jm/Pdw4QY2tTxyMYXzcZDXFlm0kbmgBQrG1nTSryY1DwDrgmEqeZMCVKXlxiNKeUHVEiRUTPkguT5XAOc71wcs7k2ds4OcMYwNEoBZAU/NO/ejihExyxFKx4UW/aS4AKIfPG142HMEJHxu/V2B8YNPO+sBFuePn5cVQkmD43Et1suS/w101r8j4x5t8eIgRJpABQJSYOP2FJJYr+m6VU6HHcKy8wR6A7hZQDOrIgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vRaqHFzNYgfeSdDuQJOemDmKXLex1oxMeAO5v9Iyzm4=;
+ b=D5rNEJa1JgbDjT4X3YUT8/QoATGduaRftInh33ACsVy7Ov+vVTQ4mTDi6w7Y538fqrtqraQe8KHZhHmK7n1JKmmoh9B0QqjTL7yarrfpxtodIfLCJu9zz9+PKPeeYMlcu0mgRBef9S6uTKyVaBtsUXwEcseUDKeb/Sny3p/D9AM=
+Received: from SJ0PR03CA0160.namprd03.prod.outlook.com (2603:10b6:a03:338::15)
+ by BY5PR12MB4083.namprd12.prod.outlook.com (2603:10b6:a03:20d::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
+ 2026 17:13:57 +0000
+Received: from CO1PEPF0001885E.namprd02.prod.outlook.com
+ (2603:10b6:a03:338:cafe::af) by SJ0PR03CA0160.outlook.office365.com
+ (2603:10b6:a03:338::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.11 via Frontend Transport; Mon, 9
+ Nov 2026 17:13:57 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF0001885E.mail.protection.outlook.com (10.167.249.247) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 17:13:57 +0000
+Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53; Mon, 9 Nov 2026 11:13:54 -0600
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>, Alex Deucher
+	<alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+	<christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+	<simona@ffwll.ch>
+CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	Sashiko-bot <sashiko-bot@kernel.org>, <amd-gfx@lists.freedesktop.org>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v4 1/6] drm/amdkfd: avoid NULL kfd_process_device in kfd_profiler_pmc
+Date: Mon, 9 Nov 2026 18:13:20 +0100
+Message-ID: <20261109171333.4329-1-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,48 +108,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109163328.61787-1-tomasz@bojanowski.me>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQSwL-00000002B35-2D1O
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:48712
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 5
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfOnujw4rPce4O2qHLZ2Qp6u6yfSHo3tCQzqIyCdUl/3zDXjnzfjAMCmmPLI/aa6Z7aCScjjw7Jq1lSGkEypRbufdu9sVBxB6Nyfx2Q9owRC/U5nWAw/f
- im04wIrpZproIcy9nGVEEsblfbnxUO/pSBfK2MvYLE0ljy0SbwM1xsbg6W83jlGd7K7vi0Dm3ehROxVZikQok2KKk1dNoQmWfX2+c85bH9aZHGncSYTpo1PI
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF0001885E:EE_|BY5PR12MB4083:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13d8db0d-5563-44c9-a4d3-08df3e84d719
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|18002099003|10067099003|13003099007|11063799006|261009223027099003|261102123227099003|261021121427099003|261021123027099003|56012099006|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	+AXKcDTTgR4wY+rnR1HnU56MUUPTb7SQOL7g5zTM7h6QAQAGrl/+WbCda/WS//wNpXyAKIBgadNc7UM+qxGY5Hl+/wsZ52hn1bmkcN5jV0L14bQ1lWD0PUaWmDZ0laFilzqxiIwyoBQFsJtE0hMU5RfznLXmj715vPkvo+IQzq3ACK8bPCcLQthlABMZQb83YJLkOjntCAge4CbeRaqMCLF/N2kkq/rNlP45mogzl2mNwqWQJTGdPfHixWUxHCjBbNnYrFGF244uh8hSRo9zZYJ3pQMCzh9BvIdPJ5wgsWMR5eqA84JT8LqkpXcFJ9m8cT7kNtdX2z99MM57kJQJs+K1zg8D2YpzXbeVV1uimOsskwdjCnuIwTPJ37ns1yQlzSdKkdGCHU1eP61sxNpi0uNE9UBxVjNTY9TpviNOPoeeycfhrLcoKPO16xcSZrSQFN7yfaEpKdlKvXBMemMmGlIr7tQulU8q2s96s+eBuokH21FPCRJ69VPY+bdJCX0N9IcuvylFlWYFLEHSh1B72nyGQ7XjVAkXQpTLX8DXgS3CCvJ1kPniSf7DrMXN8EkYhp0rG2e1BusMWa5zmuDZcb1kCwfXxXA79M1s60XW+7zy232UbjRZd2WhcwUplTI7k/YiKphzYtm4GtO20ENGjA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(18002099003)(10067099003)(13003099007)(11063799006)(261009223027099003)(261102123227099003)(261021121427099003)(261021123027099003)(56012099006)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gVBzRh304tIIYD6BpVd2ojBx9gROmTTbaFgp/Z+kWtvNJNaldPmWnq84hCfwW2SCrG/M3UdkvJP4A0+umym6t2iDxf89558wxgB5e8hYOffC9HynISEuNcncnKRHYZSkrvMmeyDYp2l3g418dqvhh9IHRInmMXG2iCCDckJ1f47ygvZQFk4DrYsGTmjoyTxks2lcmHndHZnvM0mwAv1PzGJ0l3mIc+uztwyw5OBceLloabwt9FaXzbjnZdhLXlbJf08FPMrynzkJbnLYgIUwQyt0qw6JHTAunoYZjMcdgoOGuOOCRdHcdfarXWcm3pldLSRQ0E9XiQZ6SrgpFzJEsEYXSFZqJ0wrxKnIvjrjBEGv3R3vtR7zQ5wpH46U/S8YtvQlBCi8gqPxTZ+NcM/2kUn2ja+Ve7FUQbXrde2bJ1TN8mWpHVVvuX0yr1yinDGW
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 17:13:57.3835
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13d8db0d-5563-44c9-a4d3-08df3e84d719
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF0001885E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4083
 
-On Mon, Nov 09, 2026 at 05:33:28PM +0100, Tomasz Bojanowski wrote:
-> On MSI boards with NCT6687D-R, the BIOS restores automatic fan control
-> on resume from S3. The manual mode and duty cycle set through
-> pwmN_enable and pwmN are lost, and pwmN_enable reports 2.
-> 
-> Remember the channels switched to manual mode through sysfs and their
-> duty cycle, and restore them on resume if the EC switched them back to
-> automatic mode. Other channels are not touched.
-> 
-> Tested on an MSI MAG B850M MORTAR WIFI (MS-7E61): with pwm16_enable set
-> to 1 and pwm16 to 153, pwm16_enable reads 2 after resume from S3 without
-> this patch. With this patch it stays 1 and the fan returns to the manual
-> duty cycle.
-> 
-> Fixes: 5410a1257e26 ("hwmon: (nct6683) Add fan control support for MSI boards with NCT6687D-R")
-> Signed-off-by: Tomasz Bojanowski <tomasz@bojanowski.me>
+All other callers of kfd_process_device_data_by_id deal with
+a possible NULL return value except kfd_profiler_pmc.
 
-Applied.
+Check it after the mutex unlock and return -EINVAL as others
+place do.
 
-Thanks,
-Guenter
+Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com?part=4
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 6c710e4a5220..ad086240a6dd 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -3463,8 +3463,10 @@ static inline int kfd_profiler_pmc(struct kfd_process *p,
+ 	/* Enable/disable perfcount if requested */
+ 	mutex_lock(&p->mutex);
+ 	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
+-	dqm = pdd->dev->dqm;
+ 	mutex_unlock(&p->mutex);
++	if (!pdd)
++		return -EINVAL;
++	dqm = pdd->dev->dqm;
+ 
+ 	dqm->ops.set_perfcount(dqm, args->perfcount_enable);
+ 	return status;
+-- 
+2.43.0
+
