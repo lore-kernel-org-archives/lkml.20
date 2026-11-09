@@ -1,55 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242830;
-	b=oiV1jvhfOp3EdgbJcZPgs4KxJwn1MlkG6m0Ea0t5oQX5hG8PyzCoZcK3XybcENL5U1l1
-	 7vobm6xh+d4yr8AZhNcD9nRR0VP6BRHUrjAWPoOn45g30bVzT6btJ/QdBHDrKoEmXByIn
-	 JPH6Q0jTxfOF31b87cuMMLEdi/YPsPUgJ4B8CeNVAcH6qJYuHNu8HXMTbNzPG7YOUiOLR
-	 uTURF5hQ/KXgHEGdiB5ffdXeRKmKqJCnjkeA9kRPF1svv0SEe7ZtFFsqLOVwK3e1bG0kb
-	 05Ly86cjjaGJ9vt68+bVN4AezJnIEjcHX1Crf4k9UKwCkrX0YQVpn3YMt2qPyoKok5A==
+	t=1794242847;
+	b=EU+cM/otft1woR4qWScwvxfFe4jKLw33Cyp1hvrj1Vo6O76QaogVPHp7anNxbs65Fv1n
+	 PDeOwnncmcZz+zXCz02XK4//cuRQjVOd89vVIUBk3UXBDqs35/Ecc4i5D0vMbXCCgdrDk
+	 TvweLEc77whCEUTQ/SsKt/u7WrQIeNXB6u2crS0Qd4H1TOdDdxOuXaK1odtczRKSj8Y88
+	 MWee9aWXdVgh9UB6/LD0q5+4ImK5NIJhBXRzTafPskzrcI64907HaOxmA9QkZ66CCLE/Y
+	 tM8cTjnbZ5tIH2ix3O5/WK0Izz3JDuYGif2EXXFAB5LrCeMIxjC/u1Snegb2WsQz5Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242830;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=jQV5c6NkatZ0Eses+bAi+sUwiAR6q3hhUXHWX3VdAdw=;
-	b=1awYYJRB3pfxgTYNWKLOPPEWvQhpPNxKz8aY1Hz9U2axHWzdC4e3D+fCqgTdM6DsYuIx
-	 EjwgGkNdAtfwzYmXs8vEZRDsY/vls2N2PEnd5ngSPT1sDctUsOAwG8uIClB4unw9gPo/1
-	 0hZlgojZNm5TBoaq+L3D5HfaS1k5GcfE8LPXifIfGvKzhs/ruccMElSkGhOCfK9fZSqiT
-	 +R7HzUOmDZOzFguTI43A/7xxPUd9VJf76M5hNaDynDMCQRTdemp6Vi18SVOMc7u+3WQ7q
-	 RQEswxOhUjRkx0sFo3Dls5pfYsbS9Nogrw5GIePuTphSvlOP7U1+WqdM8nnvumhOKLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242847;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=7QCQMX1YjQnxjMAljTgB/goZ5DEceQMQpw/VVgpYcMs=;
+	b=WkYvv8oDaKsovz/sOzNS+G01X4b89xCMSLFH8qUVwIZ1avEkz4DiPsvWenf68wXq5VZL
+	 KIWN41xU/yVittOzv7u2ESQfuOVYzzvUiUlPOsFWw0qvBgxKWm6l/u4YLLcdivXwKs/89
+	 h+gEbKosH+4lkPlwKYEOwFuhimR4ga2rhLnksO9UjkFQ1f9hjCVzgIKBoHhhqwo8F+uLU
+	 23+vC6ZLs8GTOpq7VBD3O8blOzL8IE22iZ/alydvHhvTcmaBWB/Y9VE55bZ2NPqQTwMYR
+	 Yyv9UPkZ1p2TSNV7gvUjcNw3qmszCDsMOgP/sBAg2IzPdFeXTsnjwP4VEC7uzwa/QOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeQUAB+K;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=IciOi2Ea;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39989606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:47:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F39606A32A;
+	Mon,  9 Nov 2026 16:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57F39606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeQUAB+K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A74801F00907
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:47:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794242829;
-	bh=jQV5c6NkatZ0Eses+bAi+sUwiAR6q3hhUXHWX3VdAdw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EeQUAB+K3o2BE8CbM/vq5tKHXRrU4LpEjh/A6Yib0XkNa37hhWL0a40OO6Z9gghlU
-	 3Q43aK76v9HNzOzOdx72/7s09xK15YM7wORJpbB/F3e1auWN+gFtw+l4MIdOW3Akmz
-	 yqtB60eUQDwLBugC5y1pbdslO8C7R2fgAMA76imZtBOX0WU+f0vEafdvGh0Wg7Apcl
-	 KmH3s7nMBtfmJy1+ipDOJzS1SL1dQ5cDiokbJsXSdAaLfPNorj/j2zASgF8dx7j8Lk
-	 C1anCPZ04lJLBu8tJJJKuBZN+N1NSxvMavO0ruqozawapkAp0DFScTVWdziyDIjaTy
-	 tMquGJkhmjCSQ==
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5ec6f271883so621666e0c.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:47:09 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEBHTaENBiZ7IAfcSvPN13MOzxGdVHxaxdzW6lNeW3iwOGvTnswZpQhSSJQEmD1scb8RejgzzMOatASpd4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xtwbJ8Emy+vN+JRzwOThA8fpoohAgbQVpgSfSe2gc50PNCA8r
-	WYwLaoys/gAtwqloyqqMArAYbvSWO7keAcXw+9x1+khMKrPUmiLHz5hrV2Plycl6YdJDdcOJNYP
-	pIn/IwATdCUgZIFxcd0H3jvBZ5IVdNWg=
-X-Received: by 2002:a05:6122:298a:b0:5ec:4653:2431 with SMTP id
- 71dfb90a1353d-5ece73577efmr1865906e0c.15.1794242828771; Mon, 09 Nov 2026
- 08:47:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=IciOi2Ea
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=7QCQMX1YjQnxjMAljTgB/goZ5DEceQMQpw/VVgpYcMs=; b=IciOi2EalUVDjRbB5OUGTXNODO
+	rkV1/LhYzpmiMWNxS0A1xxFKSkiO+QzI9vFplgW24p1OsTEo1caT6bzeikKmDF4Q9X5KhWYJD+/1Y
+	TqF82KfcRoWLVw7tEVIqeo4cEIQjdfc3t5Zz1+GRePy3z2ZiNiWB9lkf3Y/rUQdryHdbgYSEchuBE
+	cILT3sN0O6thFzOaI595Wijdsny8EfeIoGfeYVp2zvtY7gmxkOTcjeI5ymgOtE0DMX0KURnSyEVJv
+	ZaUjQhWtX0593JC4Z8Z7s4Cu2q1QIismwYYjKtu8afkDVizNAruRpmJ90N0G92cy4Z0kY/H5iAuwg
+	vtO5znfw==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xQSWd-00BlNJ-1a;
+	Mon, 09 Nov 2026 16:47:19 +0000
+Date: Mon, 9 Nov 2026 08:47:15 -0800
+From: Breno Leitao <leitao@debian.org>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Petr Mladek <pmladek@suse.com>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ryan Roberts <ryan.roberts@arm.com>, printk@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Re: [PATCH printk 3/6] printk: Evaluate flush policy in
+ nbcon_allow_unsafe_takeover()
+Message-ID: <avH1ZVs2Hyx62jgQ@gmail.com>
+References: <20261109123127.489676-1-john.ogness@linutronix.de>
+ <20261109123127.489676-4-john.ogness@linutronix.de>
+ <avHTDeox8nDGLC6Q@gmail.com>
+ <87qzgunkof.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,235 +72,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024223501.1420953-1-daniel.lezcano@oss.qualcomm.com> <ed4aac63-ac58-4e2a-ae45-ebf4da158228@oss.qualcomm.com>
-In-Reply-To: <ed4aac63-ac58-4e2a-ae45-ebf4da158228@oss.qualcomm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 9 Nov 2026 17:46:53 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0gGeKEqMWvP3cQrXztZt-faFZJF+yNfygcBPT57f-a8Lw@mail.gmail.com>
-X-Gm-Features: AclHuK_21pB0sZBLQgS6pGtnjP6yV12ddWqNvd6v3npp0rwykw62-EY_ITW-xpY
-Message-ID: <CAJZ5v0gGeKEqMWvP3cQrXztZt-faFZJF+yNfygcBPT57f-a8Lw@mail.gmail.com>
-Subject: Re: [PATCH v3 0/4] Make platform profiles firmware independent
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Maximilian Luz <luzmaximilian@gmail.com>, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
-	Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <W_Armin@gmx.de>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jack Wu <jackbb_wu@compal.com>, 
-	"Mario Limonciello (AMD)" <superm1@kernel.org>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-pm@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87qzgunkof.fsf@jogness.linutronix.de>
+X-Debian-User: leitao
 
-On Mon, Nov 9, 2026 at 5:37=E2=80=AFPM Daniel Lezcano
-<daniel.lezcano@oss.qualcomm.com> wrote:
->
->
-> Hi,
->
-> sashiko validated this series
->
-> Is there any other comments for these changes I should take care of ?
+On Mon, Nov 09, 2026 at 03:34:32PM +0106, John Ogness wrote:
+> On 2026-11-09, Breno Leitao <leitao@debian.org> wrote:
+> > That is coming from:
+> >
+> >    550 static int nbcon_context_try_acquire_hostile(struct nbcon_context *ctxt,
+> >    551                                              struct nbcon_state *cur)
+> >    552 {
+> >    553         unsigned int cpu = smp_processor_id();
+> >    554         struct console *con = ctxt->console;
+> >    555         struct nbcon_state new;
+> >    556
+> >    557         if (!ctxt->allow_unsafe_takeover)
+> >    558                 return -EPERM;
+> >    559
+> >    560         /* Ensure caller is allowed to perform unsafe hostile takeovers. */
+> >    561         if (WARN_ON_ONCE(ctxt->prio != NBCON_PRIO_PANIC))
+> >    562                 return -EPERM;
+> 
+> Wow, you managed to get a hostile takeover. Out of curiousity, do you
+> know how dangerous this really is? Can this basically just result in
+> garbage on the network? Or is there dangers of running into the forest
+> with NULL or garbage pointers? And is the danger acceptable?
 
-I'd love to see some feedback from someone having a vested interest in
-this interface.  Mario?  Mark?
+Sure, I was playing with different scenarios, and this was done with a
+test module that forces the takeover:
 
-> On 10/25/26 00:34, Daniel Lezcano wrote:
-> > Make platform profile selection independent of ACPI firmware.
-> >
-> > The provider API already uses struct device, profile enums and callback=
-s;
-> > it does not require an ACPI handle or firmware node. However, the core =
-is
-> > built under drivers/acpi/, its Kconfig symbol depends implicitly on ACP=
-I,
-> > and initialization fails when ACPI is disabled, preventing non-ACPI
-> > providers from using the existing firmware-independent class interface.
-> >
-> > This series moves the core to drivers/platform/profile/ and introduces
-> > CONFIG_PLATFORM_PROFILE, updating all existing provider selectors. It
-> > retains the tristate configuration and platform_profile module name.
-> > Firmware-specific discovery and profile operations remain with provider=
-s.
-> > The core can also be selected directly through its Kconfig prompt.
-> >
-> > An optional ACPI adapter obtains the legacy sysfs kobject and is linked
-> > into the same module. The generic core contains no ACPI types or symbol=
-s
-> > and initializes without ACPI support or with ACPI disabled at boot.
-> > The existing /sys/firmware/acpi/platform_profile and
-> > /sys/firmware/acpi/platform_profile_choices attributes remain available
-> > on active ACPI systems.
-> >
-> > CONFIG_PLATFORM_PROFILE_LEGACY controls the backwards-compatible aggreg=
-ate
-> > sysfs interface. It defaults to enabled to preserve existing userspace.
-> > Disabling it omits the legacy sysfs callbacks and ACPI adapter while
-> > retaining class devices and kernel profile cycling. New userspace shoul=
-d
-> > discover and control individual class devices instead.
-> > The interface is deprecated, with removal intended after the 2028 LTS
-> > kernel once userspace migration is complete. A shared pr_notice_once()
-> > warns on legacy attribute access rather than on merely loading the core=
-.
-> > The default remains enabled while userspace adopts released class-devic=
-e
-> > support; this series does not claim that ecosystem migration is complet=
-e.
-> >
-> > The existing firmware-independent interface remains:
-> >
-> >    /sys/class/platform-profile/platform-profile-X/name
-> >    /sys/class/platform-profile/platform-profile-X/choices
-> >    /sys/class/platform-profile/platform-profile-X/profile
-> >
-> > Non-ACPI userspace controls providers individually through these class
-> > devices. Aggregate selection remains available through the legacy ACPI
-> > attributes, and aggregate profile cycling remains available to kernel
-> > callers. No new sysfs directory or userspace ABI is introduced.
-> >
-> > The original first patch, "Separate handler locking from sysfs lifetime=
-",
-> > fixing the handler access race and sysfs teardown locking issue, has be=
-en
-> > sent separately as a standalone v3 fix. It is not included in this seri=
-es.
-> > The base tree used here already contains that fix.
-> >
-> > Patch 1 extracts the core and initializes it before built-in consumers.
-> > Patch 2 completes class-device notifications and registration cleanup.
-> > Patch 3 documents firmware-independent profile selection through class
-> > devices. Patch 4 makes the legacy ACPI aggregate sysfs interface option=
-al
-> > and documents its deprecation.
-> >
-> > Validation performed during development (before this rebase):
-> >
-> >    - ARM64 built-in core with CONFIG_ACPI=3Dn: W=3D1 build and sparse.
-> >    - x86 modular core with CONFIG_ACPI=3Dy: W=3D1 object build and spar=
-se.
-> >      Both CONFIG_PLATFORM_PROFILE_LEGACY=3Dy and =3Dn are covered.
-> >    - Full x86 kernel link and QEMU boot with lockdep and list debugging=
-,
-> >      with active ACPI and with acpi=3Doff.
-> >    - Firmware-less providers exercising common and hidden choices,
-> >      profile reads/writes, invalid input, mixed profiles, cycling,
-> >      partial callback failures and POLLPRI on the class and legacy ACPI
-> >      interfaces. With acpi=3Doff, class get/set, notifications and kern=
-el
-> >      cycling are exercised. Both runs check that no new aggregate sysfs
-> >      directory is created.
-> >    - Concurrent sysfs I/O with two persistent providers while a third
-> >      provider is registered and removed 200 times, last-provider attrib=
-ute
-> >      removal and repeated provider module reloads.
-> >    - QEMU with active ACPI and CONFIG_PLATFORM_PROFILE_LEGACY=3Dn: veri=
-fy
-> >      the legacy attributes are absent, class get/set and notifications
-> >      work, and kernel cycling and registration/removal stress pass.
-> >
-> > The provider API and profile names are unchanged. Aggregate writes reta=
-in
-> > their sequential, non-transactional behavior: a failing callback does n=
-ot
-> > roll back providers already updated.
-> >
-> > Changes in v3:
-> >    - Send the original first patch fixing the handler access race and
-> >      sysfs lifetime locking separately as a standalone v3 fix, includin=
-g
-> >      the requested profile_lock protection comment and Fixes tag.
-> >    - Reduce this series to the four remaining patches and renumber them=
-.
-> >    - Rebase the remaining changes onto the current base, which already
-> >      contains the separately submitted locking fix.
-> >
-> > Changes in v2:
-> >    - Add the Fixes tag to patch 1 and explain how the mutex-guard conve=
-rsion
-> >      reintroduced the teardown deadlock previously fixed in 041142d7d25=
-2,
-> >      and how class-device support subsequently extended the affected pa=
-ths.
-> >    - Drop the proposed /sys/kernel/platform_profile/ aggregate interfac=
-e
-> >      and its ABI documentation. Use the existing firmware-independent
-> >      /sys/class/platform-profile/platform-profile-X/ devices instead.
-> >    - Preserve aggregate selection through the legacy ACPI attributes an=
-d
-> >      retain internal aggregation for kernel profile cycling.
-> >    - Refocus patch 3 on class-device notifications for direct writes an=
-d
-> >      restoring aggregate visibility after failed registration.
-> >    - Update the Kconfig help and documentation to describe the existing
-> >      class interface and distinguish it from ACPI aggregate selection.
-> >    - Revalidate class controls and notifications with acpi=3Doff, legac=
-y
-> >      aggregation with ACPI active, and the absence of a new aggregate A=
-BI.
-> >    - Add CONFIG_PLATFORM_PROFILE_LEGACY (default y) to make legacy aggr=
-egate
-> >      sysfs code optional, independently of class devices and kernel cyc=
-ling.
-> >    - Mark the legacy ABI deprecated and describe removal after the 2028=
- LTS
-> >      kernel, conditional on userspace migration. Emit one shared notice=
- on
-> >      legacy attribute access; retain the enabled default during migrati=
-on.
-> >    - Move the legacy ACPI ABI documentation from testing/ to obsolete/,
-> >      document the replacement class attributes and update MAINTAINERS.
-> >
-> > Changes in v1:
-> >    - Initial series extracting the core from ACPI, separating handler
-> >      locking from sysfs lifetime operations and retaining the legacy AB=
-I.
-> >    - Proposed a firmware-neutral aggregate sysfs interface alongside th=
-e
-> >      existing per-provider class devices (removed in v2).
-> >
-> > Daniel Lezcano (4):
-> >    platform profile: Extract the core from ACPI
-> >    platform profile: Complete class notifications and registration
-> >      cleanup
-> >    platform profile: Document firmware-independent profile selection
-> >    platform profile: Make legacy ACPI aggregate interface optional
-> >
-> >   .../sysfs-platform_profile                    |  12 ++
-> >   .../ABI/testing/sysfs-class-platform-profile  |   2 +-
-> >   .../userspace-api/sysfs-platform_profile.rst  |  55 ++++++--
-> >   MAINTAINERS                                   |   5 +
-> >   drivers/acpi/Kconfig                          |   3 -
-> >   drivers/acpi/Makefile                         |   1 -
-> >   drivers/cpufreq/Kconfig.x86                   |   2 +-
-> >   drivers/platform/Kconfig                      |  35 +++++
-> >   drivers/platform/Makefile                     |   2 +
-> >   drivers/platform/profile/Makefile             |   5 +
-> >   drivers/platform/profile/acpi.c               |  15 +++
-> >   .../profile/core.c}                           | 122 ++++++++++++++---=
--
-> >   drivers/platform/profile/profile.h            |  17 +++
-> >   drivers/platform/surface/Kconfig              |   6 +-
-> >   drivers/platform/x86/Kconfig                  |  10 +-
-> >   drivers/platform/x86/amd/pmf/Kconfig          |   2 +-
-> >   drivers/platform/x86/dell/Kconfig             |   4 +-
-> >   drivers/platform/x86/hp/Kconfig               |   2 +-
-> >   drivers/platform/x86/lenovo/Kconfig           |   6 +-
-> >   drivers/thermal/intel/int340x_thermal/Kconfig |   2 +-
-> >   include/linux/platform_profile.h              |   3 +
-> >   21 files changed, 255 insertions(+), 56 deletions(-)
-> >   rename Documentation/ABI/{testing =3D> obsolete}/sysfs-platform_profi=
-le (70%)
-> >   create mode 100644 drivers/platform/profile/Makefile
-> >   create mode 100644 drivers/platform/profile/acpi.c
-> >   rename drivers/{acpi/platform_profile.c =3D> platform/profile/core.c}=
- (88%)
-> >   create mode 100644 drivers/platform/profile/profile.h
-> >
-> >
-> > base-commit: 8244dc8f69f0e73cb1789355260b7d68bf5494e7
->
+1) Acquire netcon_ext with nbcon_device_try_acquire(), so the console
+   is owned at NORMAL priority and in an unsafe state
+
+2) mdelay() for a few seconds without releasing it (simulating
+   a possible netpoll busy TX queue -- or some other networkdelay)
+
+3) echo b > /proc/sysrq-trigger from another CPU
+
+--breno
