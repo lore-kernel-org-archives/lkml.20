@@ -1,47 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794212992;
-	b=qVHUvIt1ryeCw+4TLo3CCQ4HVqyXxeO8jWiGPZJP/MEHNqF/D5mIztFPfGlIfovzUe3t
-	 C6Fk2i1MVnvToGI7pZ3LMPjNRMxhqQ1+fov6ojpwdnwQUHAri3OmqwxVL65rApki3z2Js
-	 RSPG81EZboLpS4c3nPVHvbWk979CzcByaoV0s2XhKXkkpWwr+nsQV0zyFjHGGRXKNwL6S
-	 4kuPxSXZihyPunL2K+CThImB9QdH71r+SRFQfjhmN/fAOz2f6op9mH+CLscyXFfU8bzMj
-	 IZbt2sFdYUxZPInwDMmre4EneTzgAECMevRiBLf3As7G6YbmscT4DW5/EVeP1VuruEA==
+	t=1794213015;
+	b=ZDyPtLItHICfAccdRJsLQpvtOdkxfpkV2ghx1S6Jze5IF658QpT1yZMkrq/n25CRvHdn
+	 V+nHxKMBGzl45At/HQ7A5/Q4tHUdzLtVQHXXwB+mrfaK8PkV3P4HX/C5AHP+Em5IX0mKm
+	 hAApBL/EWDLHmMYFtGgUV8Z0V64AsJYN587AbUBwj18a5AKHFdhxwqR9goiINjdrAyQ5C
+	 TPH7TcFQFeSnqSi8wNki3ACsn8H/0NUW4v86lcQCDEyxgBrcWWt2ZpcNOtcBZxYuF/J0D
+	 Be/6Yki6JDKsjacKCiAJfmQV5IfnsgPkNWMIC9ktyOn13f3nhIJXA4X59LUMpDYocGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212992;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ySwcpEO/v0qQJdUqN0WTogHzx91HMoo5Nvn5a1Zm8QY=;
-	b=glW44CA2ZA0Gwb/r7YUoz6WgNukHiCo+Nw3nxNJor3qke1V27+ZXsr+T9Reij6vpd3+P
-	 IVOHvQcM633SlsNYJ0Lx7kHlAX39U3atSh5bFQlSt2eQhi5gLEBtOIeXfB4fMDNhjMBOK
-	 rGahWpq4i7ukn0JZ+vq9/3MwkURWgO5jMR2hbm2QUitzwOxswHGevAG5Y4Ii8n1MluY0O
-	 9qKQg42Nk5Dni1A8GkSc4E7eYL634UGK4qxmLRzJ9T37Tgj06BjITijJMAJy5e5XzuxhX
-	 Xuv24vdqOh/V8tLFVsv40bBrkYinS+arDateVGfN4e+wFFPSYJvLgQlJVX9q+t+GEwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213015;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=gYmNWV1rm3ygUd91UJdw9gR5xquyUcoWzSp9DB3N2c8=;
+	b=kwVqQ/3JxCQpjBTO5eALgDmhXQ81hYFCs8uDTXvDHjfvk/zbNchIiB1yglGY3WGKBy35
+	 +yN/ArOmHyhMeUOaObZDxRbFBcJIVvWywxigVJTmsvLW6ce9Ktb+Et1nvJkalKH1mlK2z
+	 4TMkyQ0PXIoTUkccK2KPdRwyBss6UyswMgyPaI7Lr2roJgP7uZsZF91QmX+N7HALZNky9
+	 EejEWIUtDQhbL9TsmlEkUoRkExG2Ey6ssMlpZoyqUPqAL1kt1aAuKUjX+vCftZy8VNiwl
+	 pu8NM7DjpaAc4nxcyPOht9UixEwhL0gQUsi8YNzoLeJ/al8XAy/iJmADaFLWBX3lpfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BkWfwYQv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=gK7AJAf6;
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740C4606A31C;
-	Mon,  9 Nov 2026 08:29:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B76606A31C;
+	Mon,  9 Nov 2026 08:30:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9B76606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BkWfwYQv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9C0A1F0089F;
-	Mon,  9 Nov 2026 08:29:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794212992;
-	bh=ySwcpEO/v0qQJdUqN0WTogHzx91HMoo5Nvn5a1Zm8QY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BkWfwYQvEfkQobIuzw0xP0ZaLAcRnBRVr8KzoheGOqbZEz8snt70rmqcKKXp3M+SJ
-	 wpy49Q08GLpHiTWcOx3QE0Dzi6xyQvhGtqan+5P+xOAdVGNYQmuffByOu2rn68b5Py
-	 vmBSUqtbc8y168j/q2vmI2HrPOTUalT1w3j2alERGDL2bWcf2r/c3K1MBcyKVx5u++
-	 o3/KD4FQ8ZsLhs7vbmfK9vWjCkom/lV0arnFCp053gge0oXnfveKYvt6YbJcdlPcEB
-	 UvTRpPsl+6+pMM/ZwYQP9/YHscgqgiDmCFT71GdiSTZLohRM+bEsF9pQN7NPMcCIsi
-	 KjoTSssf6zc3g==
-Message-ID: <9dbfc665-089c-45f7-bca2-74caee322885@kernel.org>
-Date: Mon, 9 Nov 2026 09:29:37 +0100
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=gK7AJAf6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794212954;
+	bh=gYmNWV1rm3ygUd91UJdw9gR5xquyUcoWzSp9DB3N2c8=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=gK7AJAf6L02ZSqdVZzOn1Oi7QidEAY7F8LZdeLl+zGsR0uk1O79DO3YYLH+g7fACj
+	 ObuGY2HTX5FjaEeiIgxZVXwKWBTHgM1GMJoZLdDoDnN2g20n+oHDtVMyYLt5/72PXd
+	 oNZAaa0DKceWJ5Jg3php2u4rFd3NLLcB9nnKq/zQ=
+X-QQ-mid: zesmtpsz3t1794212937tf574f476
+X-QQ-Originating-IP: 1GzHOlaNovGB9WvowQCBhTYzUK8z7c7NFtzph5Ftq74=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 09 Nov 2026 16:28:55 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 5203412662589610849
+EX-QQ-RecipientCnt: 9
+From: raoxu <raoxu@uniontech.com>
+To: sudeep.holla@kernel.org
+Cc: linux@roeck-us.net,
+	cristian.marussi@arm.com,
+	marek.vasut@mailbox.org,
+	arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com
+Subject: [PATCH] hwmon: (scmi) Enable temperature sensors using their sensor IDs
+Date: Mon,  9 Nov 2026 16:28:54 +0800
+Message-ID: <AED18609B941BCFD+20261109082854.3739085-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,176 +73,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 16/17] arm64: dts: qcom: Add initial Halliday dtsi
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Robert Marko <robimarko@gmail.com>,
- Guru Das Srinagesh <linux@gurudas.dev>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Lee Jones <lee@kernel.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Wesley Cheng <wesley.cheng@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>,
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Georgi Djakov <djakov@kernel.org>,
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-usb@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20261109-halliday-dts-v1-0-289114ab8197@gmail.com>
- <20261109-halliday-dts-v1-16-289114ab8197@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261109-halliday-dts-v1-16-289114ab8197@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MfJtHqZtrd+O0mh5CtnHDBrZln1M1rSMnBJxvN43PbBUF8zTEvEnhB74
+	JSdC7+NEzdDqEW6W59d8IA6XrG6f4PltrbyHuz0DcAy4otOpSS1PY3qMGJILLT441bsVRD+
+	Jq8fKE9dJuqqzHvbY0zT+vpvmzC0oKo+eHAbYkn/Q1CYABlTij1UCOeZv03KbSRHIXeGqcp
+	oklCqm9LuR8AVMSL9Irv807UwG2wIfF4tX9EB/y9wPY7mJguVa7OKvx/jhHER52snijz/DL
+	eDFKdkzfYh/B0lc7Zul9zQYiULbJS1HE8LgW9gKZ8TWvDfFVCl124eHWVCBQ0a16BFeZpZR
+	qnFiadhmVtLfyKs0f1rl8jK9EbzNkB4ywx1ye4eJcg6Ec7pNUCj0tSkH8Yg0y6i+UPGQHs0
+	W+07rJWijtQaIaVf9ZZunzclE3iJAA5YbruVESLJCGZ/P9ISids3o4VCSgaDT8ZAmtRqA+N
+	6UziD2/Su2gj6y4ZQT/xqx2Z21kirmP1CKzUjSYk8GmeiR6AJ5vIbar3heUMULrNc0AzOcv
+	1IGQFAGYpsGMbY28i47LDFiLNAKN7lJ2eBb16/1F+gItrzgSVgioXyROiXK94PqeMC6s57/
+	CNiI0R8KdT1a6xxkBPEEXGPxOVb5qxg3cK9Elrjm4PcZBqV+RxpZ4Qda6iNWxGwfJtxbWvJ
+	bCqTl49Arn3kaG8WT+seRzfGAlqAZn2+rKdExrmYH6EWN2IgjKz/8G/qn9/m3ngDFpI8b1r
+	Gvdw2d23QTSoy9LtGChPPsEjOccsSGbEaAmgUsavTSvfDVqLYNY35Ki7DKfWpKsk4sJltrJ
+	uU07UepS+vj997hpvl9s61zJcXX0d/ToZUgJDVchUkoULDz97o05eF4vQvFz3LzwvMht541
+	4Gv+kuEwYfnY5cqAntTwffyHHYgidfVN6XFui3qb9uH5RFbOnUHsL0jzD+g4dK9zrSQKY93
+	wWM19Nz0oeslZMilkgs4VFigABUiBLq1Qg0/ityWzu92y2MA33rdyt530Y5/JWInW+CuZbM
+	tcRHTW+ShNCU96cmdmHFC2BEiKWmUNx57iT4IzqA==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-On 09/11/2026 01:33, Stanislav Aleksandrov wrote:
-> Add the device tree for the Qualcomm Halliday SoC
-> (SXR2250P / Snapdragon XR2+ Gen 2).
-> 
-> It describes the CPUs with their idle states, cpufreq and OPP tables,
-> the GIC and the PDC, the timers, SCM, SMEM, RPMh with its clocks, power
-> domains and interconnects, TLMM, GCC, SPMI, the apps SMMU, USB, UFS
-> with ICE, TSENS with the thermal zones and the PMU.
-> 
-> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-> ---
->  arch/arm64/boot/dts/qcom/halliday.dtsi | 1859 ++++++++++++++++++++++++++++++++
->  1 file changed, 1859 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/halliday.dtsi b/arch/arm64/boot/dts/qcom/halliday.dtsi
-> new file mode 100644
-> index 000000000000..c891913e3cc1
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/halliday.dtsi
-> @@ -0,0 +1,1859 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
+From: Xu Rao <raoxu@uniontech.com>
 
-Odd license, suggests you copied it.
+scmi_hwmon_probe() groups sensors by hwmon type, so the index in
+scmi_sensors->info[hwmon_temp] is not necessarily the SCMI sensor ID.
+Passing that index to config_set() targets a different sensor if the
+platform exposes non-temperature sensors ahead of temperature sensors.
+The intended temperature sensor can remain disabled, causing subsequent
+readings to fail. If configuring the wrong sensor fails, thermal
+registration of the intended sensor is also skipped.
 
-> +/*
-> + * Copyright (c) 2026, Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Use the firmware sensor ID, as the read and thermal registration paths
+already do, so temperature sensors are enabled correctly.
 
-You should retain original copyrights as well.
+The patch was reviewed and the commit message expanded with OpenCode
+AI assistance.
 
-> + */
-> +
-> +#include <dt-bindings/clock/qcom,halliday-gcc.h>
-> +#include <dt-bindings/clock/qcom,rpmh.h>
-> +#include <dt-bindings/interconnect/qcom,halliday-rpmh.h>
-> +#include <dt-bindings/interconnect/qcom,icc.h>
-> +#include <dt-bindings/interconnect/qcom,osm-l3.h>
-> +#include <dt-bindings/interrupt-controller/arm-gic.h>
-> +#include <dt-bindings/power/qcom,rpmhpd.h>
-> +#include <dt-bindings/soc/qcom,rpmh-rsc.h>
-> +
-> +/ {
-> +	interrupt-parent = <&intc>;
-> +
-> +	#address-cells = <2>;
-> +	#size-cells = <2>;
-> +
-> +	chosen {
-> +	};
+Fixes: 72804d1631b3 ("hwmon: (scmi) Enable sensors to assure they can be read")
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ drivers/hwmon/scmi-hwmon.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Drop node.
+diff --git a/drivers/hwmon/scmi-hwmon.c b/drivers/hwmon/scmi-hwmon.c
+index 9ae8f774297e..6a9895697f3c 100644
+--- a/drivers/hwmon/scmi-hwmon.c
++++ b/drivers/hwmon/scmi-hwmon.c
+@@ -342,7 +342,7 @@ static int scmi_hwmon_probe(struct scmi_device *sdev)
+ 		if (!sensor)
+ 			continue;
+ 
+-		ret = sensor_ops->config_set(ph, i, sensor_config);
++		ret = sensor_ops->config_set(ph, sensor->id, sensor_config);
+ 		if (ret) {
+ 			dev_err(dev, "Error enabling sensor %s. err=%d\n",
+ 				sensor->name, ret);
+-- 
+2.50.1
 
-
-> +
-> +	clocks {
-> +		sleep_clk: sleep-clk {
-> +			compatible = "fixed-clock";
-> +			#clock-cells = <0>;
-> +		};
-> +
-> +		xo_board: xo-board {
-> +			compatible = "fixed-clock";
-> +			#clock-cells = <0>;
-> +		};
-> +	};
-> +
-
-...
-
-> +
-> +	thermal-zones {
-> +		aoss0-thermal {
-> +			thermal-sensors = <&tsens0 0>;
-> +
-> +			trips {
-> +				aoss0-critical {
-> +					temperature = <115000>;
-> +					hysteresis = <0>;
-> +					type = "critical";
-> +				};
-> +
-> +				aoss0-hot {
-> +					temperature = <110000>;
-> +					hysteresis = <1000>;
-> +					type = "hot";
-
-Oddly ordered. These are sorted by temperature, even if dt-check-style
-disagrees.
-
-
-Best regards,
-Krzysztof
