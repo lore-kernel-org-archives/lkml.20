@@ -1,45 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794235534;
-	b=jckAYA6tDAjLTnw2ECxueudiA6j+KBTMrgGC/hyx8MBlhGDeSH5v88Obitc3fze/cLma
-	 R3b3yfptUubUF5F6WYITR4tgmcSf4h10vwiuFJS2cL6r8QM8SidXt+S5brKO0WBqrZnnL
-	 AD4Ny5xyFwaqAYr7fcdrWV/nAt/W+A8hDJso5cheoeI5AeE2thtfB6TStwLBcxnaiJC3J
-	 BLJCvTGViVRybHlS4n/4bVhj6dnStDE3F3mS1MiyjlC4gaTYa0ZpqHN3WUlkLRajfR5cS
-	 9XlD2kqSpkzENzqSLUK+JCiO4AxSMxJYKoi9XbA9B9x/03K20PNQFFjaw8EuPaBUDAQ==
+	t=1794235575;
+	b=uZazWi7rOkRyOWKaMxPt9h69VL3T1fGRq6X2HAEk2ryQ5n5KQCkuBhK7JQ1KrTwP8KGt
+	 Vc1iN+xRNSbOx4ETtc5YHqqEysxjFt2NEbuvXJfkIpt/J/xN2TB8XeBUwMvNudjktw3l4
+	 3G8tWS5FPLhf0z944axtlNgO3nyv5KBRHbrpNuwhczA/3zdl4frsA+Z69w2VAbpn9bmgi
+	 OVnUr6pZP0FpCojr6+q9UpjZD7GDKqP8iGJ008Q9tgWV2au0j86iB9Yeg+60THzRAV/ne
+	 YkfwQTPk7tsuVndfmOnrrY3LGlueRjZ6l7bsdbg0GDnNeQJNA+dF/PEGFvUliFvHkmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794235534;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
-	 In-Reply-To;
-	bh=/D0Fm0EfrglcvxPXBN4YDRxM7eN9aO3JwR4XYycjofw=;
-	b=XzojEdwIrf/sISjiIm4WlXJ7QdXBHtPO5sMXY1eRbzbKFlqhoKeoWiwzayZ3F/G3QXxI
-	 K3j4/G3UtUuUK3hlqDCgLnaWLfPrv36+vlupmkg/poNVFqRKjR49VQmfAeQLxbGseRYRk
-	 2TicYY5qX3tFN2nvuUhV2U/H/jI8+r4kPerehJOzeHZw8ycHClHiReQUCvAwH26Grnm9w
-	 1tCeh5yL5hMTSVAmRIkPgdqrY+k3zt2+a0iXwE6xvRiDhLmA7tdaeNGcUJQjufGbq/ckf
-	 EuCAj04nBDnPkFOa2pOss0AD5j7yxdJGlCCodCm6/ijrDLnkAypIy7y1Pwid5W6GsRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794235575;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ZTynlzVV0Ls8ODcAkfDfMcepOFVJ/hELBpVjw8Sm7jw=;
+	b=UMYw43I2Rmap54C089P3IbzUiq1456YHzESVquIN13byu9YOmBtX+ChS1jc0Tv74lVub
+	 TKPB4i2Ts6kSizxPeAQ90Hh/YjdTwCaXP7kQ7lH+Bp5GNe4HMYEI+GV1JPaJzv2Xhg4Hb
+	 Moq+V82O5xDe7tITbh5VgCFv5ypu3ycGc3p8qPvJX+8ZvlUboFvfE2WZ6iAgRWhepKBXp
+	 QaewHusclpmB4Bs9fNlPmFvaEbJxiDZYRQ44K0AzJLfakCZUDzLcPzaU9E3ohbDOwOUDw
+	 M5/VgiT3jte22PSubSIFeUOGCc0bMckHxtFII1EoIVMuEmnYi3Rck0i+NvvN+SzunZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duLjF8Wi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Obm6L/ji";
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2438C606A321;
-	Mon,  9 Nov 2026 14:45:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A08606A331;
+	Mon,  9 Nov 2026 14:46:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5A08606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=duLjF8Wi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA3F1F0089F;
-	Mon,  9 Nov 2026 14:45:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794235533;
-	bh=/D0Fm0EfrglcvxPXBN4YDRxM7eN9aO3JwR4XYycjofw=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=duLjF8WiFcjnGjMpU7rT3PLCmzc0sHvSPEt3/z+CZqejVJd88kuOFqHIEuTe1QniY
-	 QnnOKP8UMF3vEznhbtwR8x/tHUQKmMNpdLhg60PdKBHOqssHrEzELkI75nCZtKIYst
-	 pJgptj/n9TIIjlBMlHI/jSI3QDOo5SyLCjVHJ8vvrE0aFpqDQ/Uog9qRXFfKWMX3JW
-	 aPTrGNdS+XcKryq811guyz3h/x2Ajk/eN5sk3i9GxKlfbVE4IEACD8lczZC9MJU1UV
-	 xNDHe0ni7yALGQa1DTIVNNRb85K4YaWiaLWmQMKg31FUZ5KbRzsnuNC/XZmuoU3ZTd
-	 GaFgqiVQRC8LQ==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Obm6L/ji
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794235574; x=1825771574;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=eH+3l1QBIxv1/IMcwKV7cNhEIMMQ97rqwGMaHvQn0c4=;
+  b=Obm6L/ji3msyphQvZ3tXMfA26TuAAqQofij/6zmImPlscD4dwJDmwi+h
+   QQweuUI2716t3zFyxKAj6uN5dosr7OfQgm0x/ZdnbS8RaLegbvvm2MTlT
+   HINDnVrgomJpTGMHyIIUxViOBvkvaCdntQDDtl48KqA3lOLPmYHEv5Plv
+   KGW2/4byhe/DVbHSEKH+J2jZrv99OnfJx2Ra7A2Sg4FwytvA/BcTiNLTu
+   PTln9MQNVFLODWHlzaf4brB5KiYWzSCilfPJAOgUZduwvCwRxD/p20bnC
+   uhoKKIkNBWZyzgImJ9D7pEVuUbU6f3FR+Betb7De0Q3KgQedm/aa0EFJk
+   A==;
+X-CSE-ConnectionGUID: PaPCJRqETouGZvzIB+tGEg==
+X-CSE-MsgGUID: Jh8CjTIOQlaSTPO2w/wX/w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2836640"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2836640"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:46:14 -0800
+X-CSE-ConnectionGUID: zH+OlhDfR6KlqmKRlcD/ow==
+X-CSE-MsgGUID: 5j1elAAYTqyHqmM13E4YYg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="8323933"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:46:11 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	linux-pci@vger.kernel.org,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-kernel@vger.kernel.org
+Cc: Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] PCI: Fix NULL dereference when shrinking window without optional size
+Date: Mon,  9 Nov 2026 16:45:51 +0200
+Message-ID: <20261109144553.2516-2-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109144553.2516-1-ilpo.jarvinen@linux.intel.com>
+References: <20261109144553.2516-1-ilpo.jarvinen@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,117 +83,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 09 Nov 2026 15:45:29 +0100
-Message-Id: <DMQREV9DFQST.1Z4ZFOFTS0Z7W@kernel.org>
-Subject: Re: [PATCH] software node: only let the owner release a managed
- node
-Cc: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>, "Andy
- Shevchenko" <andriy.shevchenko@linux.intel.com>, "Daniel Scally"
- <djrscally@gmail.com>, "Heikki Krogerus" <heikki.krogerus@linux.intel.com>,
- "Sakari Ailus" <sakari.ailus@linux.intel.com>, "Bartosz Golaszewski"
- <brgl@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, "Rafael J. Wysocki"
- <rafael.j.wysocki@intel.com>, <linux-acpi@vger.kernel.org>,
- <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- "Balasubramani Vivekanandan" <balasubramani.vivekanandan@intel.com>
-To: "Johan Hovold" <johan@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261102-swnode-only-owner-release-v1-1-ee4c9022a629@oss.qualcomm.com> <avHMhh8ChrFE_b_e@hovoldconsulting.com> <DMQQO3DTZE66.1Q2XGGDGN3WUP@kernel.org> <avHZ5U_YR9QSqd0G@hovoldconsulting.com>
-In-Reply-To: <avHZ5U_YR9QSqd0G@hovoldconsulting.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon Nov 9, 2026 at 3:34 PM CET, Johan Hovold wrote:
-> On Mon, Nov 09, 2026 at 03:10:31PM +0100, Danilo Krummrich wrote:
->> On Mon Nov 9, 2026 at 2:37 PM CET, Johan Hovold wrote:
->> > On Mon, Nov 02, 2026 at 04:25:16PM +0100, Bartosz Golaszewski wrote:
->> >> device_create_managed_software_node() creates a node whose lifetime i=
-s
->> >> tied to the device it was created for. software_node_notify_remove() =
-is
->> >> called for every device that has the node as its fwnode (primary OR
->> >> secondary) and, if the node is managed, unconditionally detaches it f=
-rom
->> >> that device and drops the creation reference.
->> >>=20
->> >> This breaks when the node is shared with another device. Example: the
->> >> i2c-designware copies the parent's fwnode to the adapter's struct dev=
-ice.
->> >> When the adapter is deleted, it releases the reference that belongs t=
-o
->> >> the owner and the latter ends up with a dangling pointer.
->> >>=20
->> >> Record the device's "manager" and only perform the actual release whe=
-n
->> >> notify is called for that "owner" device.
->> >>=20
->> >> Reported-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@i=
-ntel.com>
->> >> Closes: https://lore.kernel.org/all/20261009164241.923756-2-balasubra=
-mani.vivekanandan@intel.com/
->> >> Fixes: 151f6ff78cdf ("software node: Provide replacement for device_a=
-dd_properties()")
->>=20
->> Hm...the documentation of device_create_managed_software_node() does poi=
-nt out
->> the limitation that it shouldn't be shared with other devices.
->>=20
->> Now, that's rather fragile and the reason I pointed out [1] it should be
->> changed, but it's technically not a fix?
->>=20
->> [1] https://lore.kernel.org/all/DM1FMM3KEYU9.1D26IINII93FO@kernel.org/
->
-> It's hard to determine at allocation time whether a node will eventually
-> end up being reused. That's why added the following clarification to the
-> commit message:
->
-> 	Note that it was never the intention that managed software nodes
-> 	would be shared, but descendants reusing ancestor firmware nodes
-> 	is not uncommon and such use is hard to predict when allocating
-> 	software nodes.
+adjust_bridge_window() assumes a bridge window it needs to shrink is on
+add_list. A window is only added to add_list when it has optional size
+or alignment. When resource distribution gives a window that is not on
+add_list less space than its required size, res_to_dev_res() returns NULL
+that is unconditionally dereferenced.
 
-Yeah, that's why I said it's fragile. :)
+Consider a hotplug Root Port with no spare pref space and a switch below
+it with two non-hotplug Downstream Ports. 02:00.0 has a 2M pref BAR below
+it and 02:01.0 a 1M one. Alignment leaves only 1M of pref space for
+02:00.0, and hot-add (emulated using a remove+rescan cycle) crashes in
+the inlined adjust_bridge_window():
 
-(Not trying to split hairs, I guess both can be argued for, whether we trea=
-t
-something like this as fix or not, so I'm fine with either.)
+  BUG: kernel NULL pointer dereference, address: 0000000000000030
+  RIP: 0010:pci_bus_distribute_available_resources+0x19b/0x4b0
+  Call Trace:
+   <TASK>
+   pci_bus_distribute_available_resources+0x468/0x4b0
+   pci_bus_distribute_available_resources+0x468/0x4b0
+   pci_bridge_distribute_available_resources+0x7a/0x90
+   pci_assign_unassigned_bridge_resources+0x43/0xe0
+   pci_rescan_bus_bridge_resize+0x23/0x40
+   bus_rescan_store+0x63/0x80
 
->> >> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.=
-com>
->
->> > The end-result applied for 7.4 (to fix the 7.3 regression) is here:
->>=20
->> A previous reply from Balasubramani suggested to adjust the doc-comment =
-of
->> device_create_managed_software_node(), so I thought Bartosz will send a =
-new
->> version.
->
-> I missed that comment (and his Reviewed-by tag, will add).
->
-> The function still does not return the allocated node and managed nodes
-> should generally not be shared. The exception would be descendants
-> reusing ancestor nodes, and that may happen elsewhere in the stack.
->
-> So I think the kernel doc is fine as-is, for now.
+The required size must not be shrunk, so return early when the window
+has no optional size.
 
-That's fair.
+Fixes: dc4b4d04e1ca ("PCI: Prevent shrinking bridge window from its required size")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: stable@vger.kernel.org
+---
 
->> Also, are we sure this is -rc material? I think the original commit wasn=
-'t
->> technically broken and the bug in Xe was fixed otherwise.
->
-> The regression was introduced by 0f485f88656a ("drm/xe/i2c: use
-> device_create_managed_software_node()") in 7.3 and Bartosz framed it as
-> an alternative fix for that bug.
->
-> Are you saying this has since been fixed differently?
->
-> If so, this can obviously wait.
+As it was a non-public run of sashiko, no link is available to sashiko's
+report.
 
-There's the fix in [1] and Andy said he'll pick it up for Xe in one of the
-replies.
+ drivers/pci/setup-bus.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-[1] https://lore.kernel.org/all/20261009164241.923756-2-balasubramani.vivek=
-anandan@intel.com/
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index ed16ef7c26fa..bd0974def921 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -1896,7 +1896,11 @@ static void adjust_bridge_window(struct pci_dev *bridge, struct resource *res,
+ 				break;
+ 		}
+ 
++		/* Without optional size, there is nothing to shrink. */
+ 		dev_res = res_to_dev_res(add_list, res);
++		if (!dev_res)
++			return;
++
+ 		add_size = size - new_size;
+ 		if (add_size < dev_res->add_size) {
+ 			dev_res->add_size -= add_size;
+-- 
+2.47.3
+
