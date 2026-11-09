@@ -1,102 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.217.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794262781;
-	b=otA/LsZCPJfpJ1GOm9JvFG1DKEXpi3bO2j92+HnsiEyrMUJ8yHlTO8aDGMs2jIISYhHl
-	 /RnLDGwg9JdYE/ZR8XD+YLdqWg7R8cRRW/r2JoposjpPgyKsfHmynXCjWeVzQwY01vjdu
-	 FCRBByz4gWN/KRW24hlsFq7BpkXpLpknJItsgL4axZzuRAJWOF6AA22JnQKTXgfBb+UfV
-	 meqC2kLTlv3cn/YbaXw7TFD2TM2KRmBo+6yBXw3RRRwo9wFUSkTFkhiIhJgAwXM3rWJl+
-	 ErSksxMh9Xn+2L86/kMhVDIQ4Ryv/eFBFN5ktdwpLCGxmsYf6OBqCMAUUY4rkzxeOUA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794262781;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=MP+WAilXYUhWawcb62odslULgFQa1HZ4MqYuoDALXQk=;
-	b=NR46cPBT0IwRPxN4Al5UXnxmst4KhnqldtlYuajFXYqGIRQNwVG5UuHJzmAkwM3GW1yZ
-	 WgnAlXMjg5/yj/88gJbCUPVUrpniOtmRP6aiUGYUJKkjGr8lW5Pr5PpsY0lBieiGcJCeh
-	 yIJxweh6Dq2TDkcwz7u9iKbq1CfqzZLaZ7g5DZW9RoGWuYGOapRBVRUlq06ONmOQnrfTE
-	 MN4BeZUQd76vlxDSybyjcTH8UjKj/Zeck8WaSp6Ogp6uFK5ZRSpgvTI2GDo2kglrulRpO
-	 0/kA0oesKId8YsKzTaghnwdgUWwqFzKYv2wuvUjUR1f0PkT5fAgjY0TNBYqmJuuNtag==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=U+7hfUYf;
-	arc=fail smtp.remote-ip=209.85.217.41
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794262782;
+	b=Fzo/1EImYJKGOHnOW98LSggrM8dq5fH5OtsLZn7xO5GR5Jb9VFr3eXE+pnAt0jjeOlih
+	 77onkzQGoJTx1ERXn67GvnHzpYtvOmfmooyl4FR5UG+XCZF3tHBJ2pjkXYSCg6IxDmC4y
+	 P6PoskpqfzOqVkck+48WyBGy1I4aSjby2jZdB5P6zebPhRS9uv8jkevCjPzYd0wooiiJ8
+	 3WC6hCI+dDQtFirFCeotWzZ46im4NSS4kd8mCppVwkbmJUrbv79MhSu/w+fFNSDjfIJg8
+	 /kYyyu3WztyR0GG72vFBXDFY1epOggwWh55+Kl7MC12rDJM5FydjgFTKeBAZOGnSxog==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794262782;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=afKMkguvfez53cWzZbCFfgC6H/eKB4UEUPW6MxWiE+g=;
+	b=uE04MChCssh6siPNQBc+yZQQptsHDHuBXWyNHxQxf9o2umpi6dqBMsiSe/T7belZgcmW
+	 KoIQ/BpwSOL7GCwmd0DvPBgF7bI6oooNHKJfUUlGY+BiDBnfrxpoRicK0ExjI0Tvf8f3G
+	 qO2A8ehYyMcppR2kGJpEZPBSlKJ0uUM/B8jHBui71LoF0gGDSFBmBnOKiaiRvo3yawaCG
+	 ozR5a2ZbXZK4NDD1JcJpZRNpnlnVM7K7ECA8SBbD01cHpk2jJrSPjI7v7+8Y9XC93rcUO
+	 w9CRQv69F4INgM9lPf2Tpb8etA8jva98MXrNW2zoDfezChaUFaVY9yyLwD0rCnwZHxw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZGcZacf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE645606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 22:19:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE645606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5A2606A339;
+	Mon,  9 Nov 2026 22:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=U+7hfUYf
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7cc013095d4so508946137.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 14:19:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794262780; cv=none;
-        d=google.com; s=arc-20260327;
-        b=krzNXgy7RY6DCFGfN9MWxGTKfrSQY0rRD3B3Hm2HWMgXOy3H0S8U0O7j8HxuIYRDN6
-         6kWkiWu6bR4pRI4S8+rcd3DRIMHmxoOGc7fRlwHndBl1qnRK8fGKYTEcQZmD7SMWSe1Q
-         2KtiwzlW9FciSizUX6dau8VqaYwnNMmzMQ+Bz05mzxM9Ep16dQ7/qGrxk7AvZz39dd2B
-         mN08SgPTuTWzUIINCk2p8NWsPTsPje54/hv+/jOkK5BwT27bnU+zmybW3H9I8D1FUNKY
-         bvs0oH0ytZs0xRey1+GLkCLWILFpgQ9U8EdjnCOguvu8qFjP8yihVDdBv9BB6uOmnP6g
-         svrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MP+WAilXYUhWawcb62odslULgFQa1HZ4MqYuoDALXQk=;
-        fh=LR6PAKMz+IOGTAEhK3O3V5+jQGR4UG21+FFPujdm6Fk=;
-        b=ZxeHMaed/rY2UcrFKd+oDV8lPkBt2C7B3dmSlxj7ENEj3WoP7ZU8kpAfV2WCD0u+OZ
-         O354u7OiIRYFIT3S762f60+4ZMbp26iqw4M7H2vpq3HcJyEs1BltDoLW5U1hqKpwr/9F
-         uvlGirLDq26nst1jeuITnqt6Se0lN7iI5aDG9fXIG9i2pYrNM5OMaAqvlnanlSbYASxR
-         Bdc0hozzVW7rCCn3Ny4p774oLDvtftfH+0kvShXazxhp+0ssMSSdh2Ulx8jQXS0w2iJL
-         liue0dcLaWEVmpNzI6K4nMS31CwE1zI56OhyY1rl6ptgSUmveHFRAoSq8WxtkER+rJyH
-         jG7w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1794262780; x=1794867580; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MP+WAilXYUhWawcb62odslULgFQa1HZ4MqYuoDALXQk=;
-        b=U+7hfUYfJSddCWuUxckhMhwwVvf4YQFBKE3rf1Ffnn40Rejr9+Yh38Ga+vgHW5lrDO
-         u9zBamgBF4E9yKrbFaeNuXsqhU7D4jUwYHCs+p7/lLuhc+nD7UZkoVAxYTimQHOY+eEd
-         FOjF6Rda6TddzuH8q6z+viwpegCRBhwpbr/PDuXBvjfwd/7wVfQSe/cMW/cw3sBAdxbO
-         HrjbeK0dVcCQXC3Z9EPzXDXmSNajinR7ACfLkeWbPE9AeHc6ZU2UJsGI4oXlbjcsP3q4
-         +4M5TmhBAX+zDVdunngxvnmR0/Mm8nRnNwnfUQjk0lbY7olcbMW5erdmQYX1KGJ00t4L
-         ToNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794262780; x=1794867580;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MP+WAilXYUhWawcb62odslULgFQa1HZ4MqYuoDALXQk=;
-        b=xi01vWyDq587jKNUdpMt7lzEnLnMVc2j5dSh2aNs2LlzjRrMlj6K1StdbqoPhoaAHW
-         kzjARSCGMnZX6tWSkPUKrww3eVRmDZwGcvGj0BS7ZpGzmuoC0gIxqeNxpZxBHUwWlcq9
-         w8Qydg//YfV/OFVeJ7zq4hcP48nmr8IXw45Wwm+S+C91MRxNWWe5LQvWy+xw4BAIMgIW
-         blKYXeVXWWz9vkiJAcKYiyTcp2/tenQkdZf7t5ekQzhidThmQy+I0W7DoUeoF0vXoqWR
-         Bgkd0kRf4pP51TO315W6JdNF5QQ8LA/6f1zt3QtgfxnFue3OBKBxLFSvuvlSQlB+ojI+
-         2lqw==
-X-Forwarded-Encrypted: i=1; AL+hErFwU46O8UJMMGv4L7MoGS4rwyt7IXbFnO7c4W1NFH1GpCvxghkcqBPDoTGh3Ul/eEnvfq8jxGk4xRLMaPM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/y+HFmI7YpV40xn5GBdx7mVmVGVjg8KsQk7L7iNCw9xDxsjGUz
-	mAGZ1+0CR1XFlAFR9dl6rhmmJaM1Giwdo8E8765U7jUoTGY8uNmCwQhpKNTt7YqR0U5aCjo1XuG
-	jm0r+voOf+Itp5kkXKtOh2l8NU45+DEJUmQn7kDf8PREN2w6o3KWvFRD221KJ
-X-Gm-Gg: AYBFou1fe7CIb4z81qqvGG/05BcjdJ0/s9N+dz5DL2ECbdV2Cbof0TtpZovWX109RdZ
-	JbOJzhIMIAXEQjlecyQLvDk/twUUs7mRMX2O6G/XM2guwv5BpwModVOo1t6xPSQF7zHQSH1qaeK
-	Co7k+dZbzrbNhGRvhFLB9Z+gFYtykoNqvTfHfYQPWNL1Y1xWG6TX30dSkiHINoO4Em23kDJ+dQ6
-	OWJL7mCaPv5H2PMXsG9RetNbrCAd056k+byADS/N2w7h96VI8cNLOFM93fgbLAoT7hBgVaREeDD
-	hIvRAG59cAY08xjn9hQY02YX67qZqI6Ue5hUo8n3+mlw9q1RWyWPC/8aTR2DguMGwLfklJFaDJy
-	rcq9d24gg03U5Fu3SoXnIXU63jibSxbHqIWDplVU2GR73daTgsVSr7hSotMRcm/1+fsTLt15noH
-	MXJhSSf1xxiEwunEJA6d8+TCVsn79tSEmZSi1faSpiJoNYj5qlFikzEbObvLHnSxHChTXT/ALua
-	V04saoyQ6+LSbP78/reApWt
-X-Received: by 2002:a05:6102:a51:b0:7d2:d159:f425 with SMTP id
- ada2fe7eead31-7d301bd171emr279481137.19.1794262779351; Mon, 09 Nov 2026
- 14:19:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aZGcZacf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38DC11F00900;
+	Mon,  9 Nov 2026 22:19:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794262781;
+	bh=afKMkguvfez53cWzZbCFfgC6H/eKB4UEUPW6MxWiE+g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aZGcZacf4+S6LK+n+7E0phNcVgN822Wqcbs3afsWQxf5jwWDDWz2hc66YFAwXyP1v
+	 yLh0swRr3427TNpBjLTHLXxN6oxfLmUc5NYacwuvghZbqVOsc5doyNp0Sxs83qEx7R
+	 YSibp4En7GgnrA/qbKNHfv6zS1KwZidxEsgo/+JWvhXAtAVdsAoa3h7xPtAUDIvLmb
+	 78RYstPxHlRxZ3SKs4B1cumjcPqIadZZDpqftYyBP2bboM5ukfJB3N2q14yzmU7bEy
+	 n55dT6MKa+xiW7CrKvi3byloDGKAmOzVDNExpcn+j3sZdE80NTx9tOXZfahuj0gU99
+	 E8hiboQXFz35w==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id B991DCE0FFF; Mon,  9 Nov 2026 14:19:40 -0800 (PST)
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: rcu@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	rostedt@goodmis.org,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	"Paul E . McKenney" <paulmck@kernel.org>
+Subject: [PATCH 6/8] rcuscale: Consolidate per-writer arrays into struct writer_state
+Date: Mon,  9 Nov 2026 14:19:37 -0800
+Message-Id: <20261109221939.2070171-6-paulmck@kernel.org>
+X-Mailer: git-send-email 2.40.1
+In-Reply-To: <db8c185c-5523-48e5-abee-020503b4875f@paulmck-laptop>
+References: <db8c185c-5523-48e5-abee-020503b4875f@paulmck-laptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,349 +66,289 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109114734.2087878-1-tariqt@nvidia.com> <20261109114734.2087878-5-tariqt@nvidia.com>
-In-Reply-To: <20261109114734.2087878-5-tariqt@nvidia.com>
-From: Rishikesh Jethwani <rjethwani@everpuredata.com>
-Date: Mon, 9 Nov 2026 14:19:28 -0800
-X-Gm-Features: AclHuK9TsNUujWmbkc3zBgB09FhFzj4OUSQiMJsQdVHQFSB58CNhyZd_ZNz-s24
-Message-ID: <CAKaoeS0AC-czE9g8OWi=+oenZYRsgXjRkSX-BsX2imHhKNW+QA@mail.gmail.com>
-Subject: Re: [RFC net-next 4/7] net/mlx5e: Drain old TX SQs before activating
- new channels
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	John Fastabend <john.fastabend@gmail.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
-	Neal Cardwell <ncardwell@google.com>, netdev@vger.kernel.org, 
-	Paolo Abeni <pabeni@redhat.com>, Sabrina Dubroca <sd@queasysnail.net>, 
-	Willem de Bruijn <willemb@google.com>, Alexander Graf <graf@amazon.com>, 
-	Aviad Yehezkel <aviadye@mellanox.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
-	Boris Pismenny <borisp@mellanox.com>, Boris Pismenny <borisp@nvidia.com>, 
-	Carolina Jubran <cjubran@nvidia.com>, Costa Shulyupin <costa.shul@redhat.com>, 
-	Dragos Tatulea <dtatulea@nvidia.com>, Eran Ben Elisha <eranbe@mellanox.com>, Gal Pressman <gal@nvidia.com>, 
-	Ilya Lesokhin <ilyal@mellanox.com>, Jacob Keller <jacob.e.keller@intel.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Leon Romanovsky <leon@kernel.org>, linux-doc@vger.kernel.org, 
-	open list <linux-kernel@vger.kernel.org>, linux-rdma@vger.kernel.org, 
-	Mark Bloch <mbloch@nvidia.com>, Martin Karsten <mkarsten@uwaterloo.ca>, 
-	Randy Dunlap <rdunlap@infradead.org>, Richard Cochran <richardcochran@gmail.com>, 
-	Saeed Mahameed <saeedm@mellanox.com>, Saeed Mahameed <saeedm@nvidia.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Simon Horman <horms@kernel.org>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Stanislav Fomichev <sdf.kernel@gmail.com>, 
-	Stefano Garzarella <sgarzare@redhat.com>, Tariq Toukan <tariqt@mellanox.com>, 
-	Wang Zhan <wang.zhan@smartx.com>, William Tu <witu@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 9, 2026 at 3:49=E2=80=AFAM Tariq Toukan <tariqt@nvidia.com> wro=
-te:
->
-> On devices with tis_tir_td_order, commit 3b88a535a8e1 ("net/mlx5e:
-> Defer channels closure to reduce interface down time") closes the old
-> channels only after the new ones are activated. Their SQs are
-> deactivated before that, which rings a final doorbell, but nothing
-> waits for the HW to execute their pending WQEs: the completions of a
-> deactivated SQ are not polled, and the SQ is destroyed only when its
-> channel is closed. Meanwhile, the new SQ of the same TX queue starts
-> transmitting. A flow's WQEs still pending on the old SQ can then
-> execute after its newer WQEs on the new SQ, as WQE fences order only
-> within an SQ.
->
-> Besides reordering packets, this breaks kTLS TX offload. The WQEs of a
-> connection update its TIS crypto and record tracking state as they
-> execute. When old WQEs execute after new ones, e.g. because a PFC
-> pause held the old SQ back, the TIS state gets out of sync with the
-> TCP stream, and the connection's records go out corrupted.
->
-> Before activating the new channels, drain the TX SQs of the old ones:
-> reap their completions until all their WQEs have completed. If they
-> do not drain in time, e.g. under a long pause, warn, and close the old
-> channels before activating the new ones, as before that commit. Move
-> the deferred closure into mlx5e_switch_priv_channels(), next to that
-> decision.
->
-> Pointed out by Rishikesh Jethwani while discussing kTLS TX TIS reuse
-> for TLS 1.3 rekey on netdev.
->
-> Reproduced on ConnectX-6 Dx, with 248 channels, by changing the
-> channel count between 247 and 248 every 2 seconds while 32 kTLS TX
-> offloaded connections stream pattern data to a software kTLS receiver
-> that checks every byte. On this setup, the new channels are activated
-> about 230 ms after the old ones are deactivated, so the old SQs must
-> still hold WQEs by then: with every TX queue rate limited to 10 Mb/s,
-> 9 of 41 connections failed decryption in 60 seconds, and 11 of 43 in
-> 120 seconds. With this patch, no record failed in five such runs, 7
-> minutes in total; the drain timed out and fell back to closing the old
-> channels first 7 times. At 1 Gb/s per queue, the old SQs always
-> drained in time.
->
-> Fixes: 3b88a535a8e1 ("net/mlx5e: Defer channels closure to reduce interfa=
-ce down time")
-> Reported-by: Rishikesh Jethwani <rjethwani@everpuredata.com>
-> Closes: https://lore.kernel.org/netdev/CAKaoeS1hj9XuM7ojLBCjGA=3DEXc2M-b+=
-eRjC2Sk=3D8L_8XYeJ18w@mail.gmail.com/
-> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-> ---
->  .../net/ethernet/mellanox/mlx5/core/en/txrx.h |  1 +
->  .../net/ethernet/mellanox/mlx5/core/en_main.c | 88 ++++++++++++++++++-
->  .../net/ethernet/mellanox/mlx5/core/en_tx.c   | 41 +++++++--
->  3 files changed, 118 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/txrx.h b/drivers/=
-net/ethernet/mellanox/mlx5/core/en/txrx.h
-> index 24e91279243e..b5bd1b6e8601 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en/txrx.h
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en/txrx.h
-> @@ -112,6 +112,7 @@ struct mlx5e_xmit_data_frags {
->
->  netdev_tx_t mlx5e_xmit(struct sk_buff *skb, struct net_device *dev);
->  bool mlx5e_poll_tx_cq(struct mlx5e_cq *cq, int napi_budget);
-> +bool mlx5e_txqsq_drain(struct mlx5e_txqsq *sq);
->  void mlx5e_free_txqsq_descs(struct mlx5e_txqsq *sq);
->
->  static inline bool
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/=
-net/ethernet/mellanox/mlx5/core/en_main.c
-> index c3c2c5720c6f..a721e30bcaa8 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-> @@ -3421,6 +3421,82 @@ static int mlx5e_switch_priv_params(struct mlx5e_p=
-riv *priv,
->         return 0;
->  }
->
-> +/* Time for the TX SQs of deactivated channels to complete their WQEs. *=
-/
-> +#define MLX5E_SQ_DRAIN_TIMEOUT 100 /* msecs */
-> +
-> +/* Returns 1 if the SQ still has pending WQEs, and records the first suc=
-h SQ. */
-> +static int mlx5e_drain_txqsq(struct mlx5e_txqsq *sq,
-> +                            struct mlx5e_txqsq **pending)
-> +{
-> +       if (mlx5e_txqsq_drain(sq))
-> +               return 0;
-> +
-> +       if (!*pending)
-> +               *pending =3D sq;
-> +
-> +       return 1;
-> +}
-> +
-> +/* Returns the number of the channel's TX SQs that still have pending WQ=
-Es. */
-> +static int mlx5e_drain_channel_txqsqs(struct mlx5e_channel *c,
-> +                                     struct mlx5e_txqsq **pending)
-> +{
-> +       struct mlx5e_txqsq __rcu **qos_sqs;
-> +       int num_pending =3D 0;
-> +       int i;
-> +
-> +       for (i =3D 0; i < c->num_tc; i++)
-> +               num_pending +=3D mlx5e_drain_txqsq(&c->sq[i], pending);
-> +
-> +       qos_sqs =3D mlx5e_state_dereference(c->priv, c->qos_sqs);
-> +       if (!qos_sqs)
-> +               return num_pending;
-> +
-> +       for (i =3D 0; i < c->qos_sqs_size; i++) {
-> +               struct mlx5e_txqsq *sq;
-> +
-> +               sq =3D mlx5e_state_dereference(c->priv, qos_sqs[i]);
-> +               if (sq)
-> +                       num_pending +=3D mlx5e_drain_txqsq(sq, pending);
-> +       }
-> +
-> +       return num_pending;
-> +}
-> +
-> +/* Wait for the TX SQs of deactivated channels to complete all their WQE=
-s,
-> + * so that none of them executes concurrently with the new SQs.
-> + * The PTP SQs are not waited for, they carry PTP event packets only.
-> + */
+From: Joel Fernandes <joelagnelf@nvidia.com>
 
-The regular/QoS drain and the timeout ordering look right to me. The
-PTP SQs can carry TLS data, though. Their indices are in
-real_num_tx_queues and txq2sq, and egress skbedit can select them,
-bypassing mlx5e_select_queue(). mlx5e_xmit() runs the kTLS handling on
-any SQ, and does not reject a non-timestamped skb on a PTP SQ.
+The writer kthreads keep their state in five parallel arrays indexed by
+writer number: writer_tasks, writer_durations, writer_n_durations,
+writer_done and writer_freelists.  Each must be allocated, NULL-checked,
+freed and cleared separately, and the cleanup path needs several
+guards to cope with any one of them being missing.
 
-If a PTP SQ holds TLS WQEs during a channel replacement, the drain can
-succeed while its TX queue index is reused, by the replacement PTP SQ
-or by a new regular SQ after a channel count change. With one TC,
-growing from 247 to 248 channels changes index 247 from PTP to the new
-regular channel's SQ. A fixed skbedit rule still selects 247, and patch
-7's owner-index comparison permits new TLS work there while the old
-PTP SQ is still pending and not yet destroyed.
+Collapse them into a single array of struct writer_state, holding the
+task pointer, the duration buffer, the measurement count, the done flag
+and the existing struct writer_freelist.
 
-I'd prefer to include the PTP SQs in the drain/close ordering.
-Rejecting TLS data on them before any connection-state change or TLS
-WQE posting would also be safe, but with a fixed skbedit rule every
-retransmit goes back to the same queue and is dropped again, stalling
-the connection. Excluding their indices only in queue selection does
-not cover skbedit.
+This reduces initialization to one allocation and one out-of-memory
+check, and cleanup to a single kfree().  As a side effect, this also
+fixes a leak: cleanup only ran its frees under "if (writer_tasks)", so
+if the writer_tasks allocation failed while a later allocation (for
+example writer_durations or writer_n_durations) still succeeded, those
+already-allocated arrays were never freed.  With a single allocation,
+that partial-allocation state can no longer occur.
 
-> +static bool mlx5e_drain_channels_txqsqs(struct mlx5e_channels *chs)
-> +{
-> +       unsigned long exp_time;
-> +
-> +       exp_time =3D jiffies + msecs_to_jiffies(MLX5E_SQ_DRAIN_TIMEOUT);
-> +       for (;;) {
-> +               struct mlx5e_txqsq *pending =3D NULL;
-> +               int num_pending =3D 0;
-> +               int i;
-> +
-> +               for (i =3D 0; i < chs->num; i++)
-> +                       num_pending +=3D mlx5e_drain_channel_txqsqs(chs->=
-c[i],
-> +                                                                 &pendin=
-g);
-> +
-> +               if (!num_pending)
-> +                       return true;
-> +
-> +               if (time_after(jiffies, exp_time)) {
-> +                       netdev_warn(pending->netdev,
-> +                                   "Old TX SQs not drained in %d msecs (=
-%d pending, e.g. SQ 0x%x txq %d cc 0x%x pc 0x%x), closing the old channels =
-first\n",
-> +                                   MLX5E_SQ_DRAIN_TIMEOUT, num_pending,
-> +                                   pending->sqn, pending->txq_ix,
-> +                                   pending->cc, pending->pc);
-> +                       return false;
-> +               }
-> +
-> +               usleep_range(10, 20);
-> +       }
-> +}
-> +
->  static int mlx5e_switch_priv_channels(struct mlx5e_priv *priv,
->                                       struct mlx5e_channels *old_chs,
->                                       struct mlx5e_channels *new_chs,
-> @@ -3428,6 +3504,7 @@ static int mlx5e_switch_priv_channels(struct mlx5e_=
-priv *priv,
->                                       void *context)
->  {
->         struct net_device *netdev =3D priv->netdev;
-> +       bool defer_close =3D false;
->         int carrier_ok;
->         int err =3D 0;
->
-> @@ -3450,7 +3527,10 @@ static int mlx5e_switch_priv_channels(struct mlx5e=
-_priv *priv,
->         }
->
->         mlx5e_set_xdp_feature(priv);
-> -       if (!MLX5_CAP_GEN(priv->mdev, tis_tir_td_order))
-> +
-> +       defer_close =3D MLX5_CAP_GEN(priv->mdev, tis_tir_td_order) &&
-> +                     mlx5e_drain_channels_txqsqs(old_chs);
-> +       if (!defer_close)
->                 mlx5e_close_channels(old_chs);
->         priv->profile->update_rx(priv);
->
-> @@ -3462,6 +3542,9 @@ static int mlx5e_switch_priv_channels(struct mlx5e_=
-priv *priv,
->         if (carrier_ok)
->                 netif_carrier_on(netdev);
->
-> +       if (defer_close)
-> +               mlx5e_close_channels(old_chs);
-> +
->         return err;
->  }
->
-> @@ -3499,9 +3582,6 @@ int mlx5e_safe_switch_params(struct mlx5e_priv *pri=
-v,
->         if (err)
->                 goto err_close;
->
-> -       if (MLX5_CAP_GEN(priv->mdev, tis_tir_td_order))
-> -               mlx5e_close_channels(old_chs);
-> -
->         kfree(new_chs);
->         kfree(old_chs);
->         return 0;
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c b/drivers/ne=
-t/ethernet/mellanox/mlx5/core/en_tx.c
-> index bee6f0bf1eff..eb20e3d14d46 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_tx.c
-> @@ -780,10 +780,11 @@ void mlx5e_txqsq_wake(struct mlx5e_txqsq *sq)
->         }
->  }
->
-> -bool mlx5e_poll_tx_cq(struct mlx5e_cq *cq, int napi_budget)
-> +/* Returns the number of polled CQEs. */
-> +static int mlx5e_poll_tx_cqes(struct mlx5e_txqsq *sq, int napi_budget)
->  {
-> +       struct mlx5e_cq *cq =3D &sq->cq;
->         struct mlx5e_sq_stats *stats;
-> -       struct mlx5e_txqsq *sq;
->         struct mlx5_cqe64 *cqe;
->         u32 dma_fifo_cc;
->         u32 nbytes;
-> @@ -791,14 +792,9 @@ bool mlx5e_poll_tx_cq(struct mlx5e_cq *cq, int napi_=
-budget)
->         u16 sqcc;
->         int i;
->
-> -       sq =3D container_of(cq, struct mlx5e_txqsq, cq);
-> -
-> -       if (unlikely(!test_bit(MLX5E_SQ_STATE_ENABLED, &sq->state)))
-> -               return false;
-> -
->         cqe =3D mlx5_cqwq_get_cqe(&cq->wq);
->         if (!cqe)
-> -               return false;
-> +               return 0;
->
->         stats =3D sq->stats;
->
-> @@ -891,11 +887,40 @@ bool mlx5e_poll_tx_cq(struct mlx5e_cq *cq, int napi=
-_budget)
->
->         netdev_tx_completed_queue(sq->txq, npkts, nbytes);
->
-> +       return i;
-> +}
-> +
-> +bool mlx5e_poll_tx_cq(struct mlx5e_cq *cq, int napi_budget)
-> +{
-> +       struct mlx5e_txqsq *sq =3D container_of(cq, struct mlx5e_txqsq, c=
-q);
-> +       int i;
-> +
-> +       if (unlikely(!test_bit(MLX5E_SQ_STATE_ENABLED, &sq->state)))
-> +               return false;
-> +
-> +       i =3D mlx5e_poll_tx_cqes(sq, napi_budget);
-> +       if (!i)
-> +               return false;
-> +
->         mlx5e_txqsq_wake(sq);
->
->         return (i =3D=3D MLX5E_TX_CQ_POLL_BUDGET);
->  }
->
-> +/* Reap the completions of a deactivated SQ, whose NAPI is disabled, wit=
-hout
-> + * waking its TX queue. Returns true once all its WQEs have completed.
-> + */
-> +bool mlx5e_txqsq_drain(struct mlx5e_txqsq *sq)
-> +{
-> +       int polled;
-> +
-> +       do {
-> +               polled =3D mlx5e_poll_tx_cqes(sq, 0);
-> +       } while (polled =3D=3D MLX5E_TX_CQ_POLL_BUDGET);
-> +
-> +       return sq->cc =3D=3D sq->pc;
-> +}
-> +
->  static void mlx5e_tx_wi_kfree_fifo_skbs(struct mlx5e_txqsq *sq, struct m=
-lx5e_tx_wqe_info *wi)
->  {
->         int i;
-> --
-> 2.44.0
->
+Assisted-by: Codex
+Fixes: 8704baab9bc8 ("rcutorture: Add RCU grace-period performance tests")
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Tested-by: Bradley Morgan <brads@mainlining.org> # Power10
+Acked-by: Davidlohr Bueso <dave@stgolabs.net>
+Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+---
+ kernel/rcu/rcuscale.c | 129 ++++++++++++++++++------------------------
+ 1 file changed, 56 insertions(+), 73 deletions(-)
+
+diff --git a/kernel/rcu/rcuscale.c b/kernel/rcu/rcuscale.c
+index b172882824aca..5659eaebc5c0d 100644
+--- a/kernel/rcu/rcuscale.c
++++ b/kernel/rcu/rcuscale.c
+@@ -115,17 +115,21 @@ struct writer_freelist {
+ 	struct writer_mblock *ws_mblocks;
+ };
+ 
++struct writer_state {
++	struct writer_freelist wst_fl;
++	struct task_struct *wst_task;
++	u64 *wst_durations;
++	int wst_n_durations;
++	bool wst_done;
++};
++
+ static int nrealreaders;
+ static int nrealwriters;
+ static int nrealexp;
+-static struct task_struct **writer_tasks;
+ static struct task_struct **reader_tasks;
+ static struct task_struct **exp_tasks;
+ 
+-static u64 **writer_durations;
+-static bool *writer_done;
+-static struct writer_freelist *writer_freelists;
+-static int *writer_n_durations;
++static struct writer_state *writer_states;
+ static atomic_t n_rcu_scale_reader_started;
+ static atomic_t n_rcu_scale_writer_started;
+ static atomic_t n_rcu_scale_writer_finished;
+@@ -542,9 +546,9 @@ static struct writer_mblock *rcu_scale_alloc(long me)
+ 	struct writer_freelist *wflp;
+ 	struct writer_mblock *wmbp;
+ 
+-	if (WARN_ON_ONCE(!writer_freelists))
++	if (WARN_ON_ONCE(!writer_states))
+ 		return NULL;
+-	wflp = &writer_freelists[me];
++	wflp = &writer_states[me].wst_fl;
+ 	if (llist_empty(&wflp->ws_lhp)) {
+ 		// ->ws_lhp is private to its rcu_scale_writer task.
+ 		wmbp = container_of(llist_del_all(&wflp->ws_lhg), struct writer_mblock, wmb_node);
+@@ -598,8 +602,9 @@ rcu_scale_writer(void *arg)
+ 	u64 t;
+ 	DEFINE_TORTURE_RANDOM(tr);
+ 	u64 *wdp;
+-	u64 *wdpp = writer_durations[me];
+-	struct writer_freelist *wflp = &writer_freelists[me];
++	struct writer_state *wsp = &writer_states[me];
++	u64 *wdpp = wsp->wst_durations;
++	struct writer_freelist *wflp = &wsp->wst_fl;
+ 	struct writer_mblock *wmbp = NULL;
+ 
+ 	VERBOSE_SCALEOUT_STRING("rcu_scale_writer task started");
+@@ -669,7 +674,7 @@ rcu_scale_writer(void *arg)
+ 			started = true;
+ 		if (!done && i >= MIN_MEAS && time_after(jiffies, jdone)) {
+ 			done = true;
+-			WRITE_ONCE(writer_done[me], true);
++			WRITE_ONCE(wsp->wst_done, true);
+ 			sched_set_normal(current, 0);
+ 			pr_alert("%s%s rcu_scale_writer %ld has %d measurements\n",
+ 				 scale_type, SCALE_FLAG, me, MIN_MEAS);
+@@ -687,7 +692,7 @@ rcu_scale_writer(void *arg)
+ 						cur_ops->get_gp_seq();
+ 				}
+ 				if (shutdown_secs) {
+-					writer_tasks[me] = NULL;
++					wsp->wst_task = NULL;
+ 					smp_mb(); /* Assign before wake. */
+ 					rcu_scale_cleanup();
+ 					kernel_power_off();
+@@ -703,10 +708,10 @@ rcu_scale_writer(void *arg)
+ 
+ 			if (!atomic_xchg(&dumped, 1)) {
+ 				for (i = 0; i < nrealwriters; i++) {
+-					if (writer_done[i])
++					if (writer_states[i].wst_done)
+ 						continue;
+ 					pr_info("%s: Task %ld flags writer %d:\n", __func__, me, i);
+-					sched_show_task(writer_tasks[i]);
++					sched_show_task(writer_states[i].wst_task);
+ 				}
+ 				if (cur_ops->stats)
+ 					cur_ops->stats();
+@@ -714,7 +719,7 @@ rcu_scale_writer(void *arg)
+ 		}
+ 		if (!selfreport && time_after(jiffies, jdone + HZ * (70 + me))) {
+ 			pr_info("%s: Writer %ld self-report: started %d done %d/%d->%d i %d jdone %lu.\n",
+-				__func__, me, started, done, writer_done[me], atomic_read(&n_rcu_scale_writer_finished), i, jiffies - jdone);
++				__func__, me, started, done, wsp->wst_done, atomic_read(&n_rcu_scale_writer_finished), i, jiffies - jdone);
+ 			selfreport = true;
+ 		}
+ 		if (gp_succeeded && started && !alldone && i < MAX_MEAS - 1)
+@@ -725,7 +730,7 @@ rcu_scale_writer(void *arg)
+ 		rcu_scale_free(wmbp);
+ 		cur_ops->gp_barrier();
+ 	}
+-	writer_n_durations[me] = i_max + 1;
++	wsp->wst_n_durations = i_max + 1;
+ 	torture_kthread_stopping("rcu_scale_writer");
+ 	return 0;
+ }
+@@ -1069,13 +1074,11 @@ rcu_scale_cleanup(void)
+ 		reader_tasks = NULL;
+ 	}
+ 
+-	if (writer_tasks) {
++	if (writer_states) {
+ 		for (i = 0; i < nrealwriters; i++) {
+ 			torture_stop_kthread(rcu_scale_writer,
+-					     writer_tasks[i]);
+-			if (!writer_n_durations)
+-				continue;
+-			j = writer_n_durations[i];
++					     writer_states[i].wst_task);
++			j = writer_states[i].wst_n_durations;
+ 			pr_alert("%s%s writer %d gps: %d\n",
+ 				 scale_type, SCALE_FLAG, i, j);
+ 			ngps += j;
+@@ -1089,14 +1092,12 @@ rcu_scale_cleanup(void)
+ 			 rcuscale_seq_diff(b_rcu_gp_test_finished,
+ 					   b_rcu_gp_test_started));
+ 		for (i = 0; i < nrealwriters; i++) {
+-			if (!writer_durations)
+-				break;
+-			if (!writer_n_durations)
+-				continue;
+-			wdpp = writer_durations[i];
++			struct writer_state *wsp = &writer_states[i];
++
++			wdpp = wsp->wst_durations;
+ 			if (!wdpp)
+ 				continue;
+-			for (j = 0; j < writer_n_durations[i]; j++) {
++			for (j = 0; j < wsp->wst_n_durations; j++) {
+ 				wdp = &wdpp[j];
+ 				pr_alert("%s%s %4d writer-duration: %5d %llu\n",
+ 					scale_type, SCALE_FLAG,
+@@ -1104,34 +1105,23 @@ rcu_scale_cleanup(void)
+ 				if (j % 100 == 0)
+ 					schedule_timeout_uninterruptible(1);
+ 			}
+-			kfree(writer_durations[i]);
+-			if (writer_freelists) {
++			kfree(wdpp);
++			if (wsp->wst_fl.ws_mblocks) {
+ 				int ctr = 0;
+ 				struct llist_node *llnp;
+-				struct writer_freelist *wflp = &writer_freelists[i];
+-
+-				if (wflp->ws_mblocks) {
+-					llist_for_each(llnp, wflp->ws_lhg.first)
+-						ctr++;
+-					llist_for_each(llnp, wflp->ws_lhp.first)
+-						ctr++;
+-					WARN_ONCE(ctr != gp_async_max,
+-						  "%s: ctr = %d gp_async_max = %d\n",
+-						  __func__, ctr, gp_async_max);
+-					kfree(wflp->ws_mblocks);
+-				}
++
++				llist_for_each(llnp, wsp->wst_fl.ws_lhg.first)
++					ctr++;
++				llist_for_each(llnp, wsp->wst_fl.ws_lhp.first)
++					ctr++;
++				WARN_ONCE(ctr != gp_async_max,
++					  "%s: ctr = %d gp_async_max = %d\n",
++					  __func__, ctr, gp_async_max);
++				kfree(wsp->wst_fl.ws_mblocks);
+ 			}
+ 		}
+-		kfree(writer_tasks);
+-		writer_tasks = NULL;
+-		kfree(writer_durations);
+-		writer_durations = NULL;
+-		kfree(writer_n_durations);
+-		writer_n_durations = NULL;
+-		kfree(writer_done);
+-		writer_done = NULL;
+-		kfree(writer_freelists);
+-		writer_freelists = NULL;
++		kfree(writer_states);
++		writer_states = NULL;
+ 	}
+ 
+ 	/* Do torture-type-specific cleanup operations.  */
+@@ -1226,37 +1216,30 @@ rcu_scale_init(void)
+ 				goto unwind;
+ 		}
+ 	}
+-	writer_tasks = kzalloc_objs(writer_tasks[0], nrealwriters);
+-	writer_durations = kcalloc(nrealwriters, sizeof(*writer_durations), GFP_KERNEL);
+-	writer_n_durations = kzalloc_objs(*writer_n_durations, nrealwriters);
+-	writer_done = kzalloc_objs(writer_done[0], nrealwriters);
+-	if (gp_async) {
+-		if (gp_async_max <= 0) {
+-			pr_warn("%s: gp_async_max = %d must be greater than zero.\n",
+-				__func__, gp_async_max);
+-			WARN_ON_ONCE(IS_BUILTIN(CONFIG_RCU_TORTURE_TEST));
+-			firsterr = -EINVAL;
+-			goto unwind;
+-		}
+-		writer_freelists = kzalloc_objs(writer_freelists[0],
+-						nrealwriters);
++	writer_states = kzalloc_objs(writer_states[0], nrealwriters);
++	if (gp_async && gp_async_max <= 0) {
++		pr_warn("%s: gp_async_max = %d must be greater than zero.\n",
++			__func__, gp_async_max);
++		WARN_ON_ONCE(IS_BUILTIN(CONFIG_RCU_TORTURE_TEST));
++		firsterr = -EINVAL;
++		goto unwind;
+ 	}
+-	if (!writer_tasks || !writer_durations || !writer_n_durations || !writer_done ||
+-	    (gp_async && !writer_freelists)) {
++	if (!writer_states) {
+ 		SCALEOUT_ERRSTRING("out of memory");
+ 		firsterr = -ENOMEM;
+ 		goto unwind;
+ 	}
+ 	for (i = 0; i < nrealwriters; i++) {
+-		writer_durations[i] =
+-			kcalloc(MAX_MEAS, sizeof(*writer_durations[i]),
+-				GFP_KERNEL);
+-		if (!writer_durations[i]) {
++		struct writer_state *wsp = &writer_states[i];
++
++		wsp->wst_durations = kcalloc(MAX_MEAS, sizeof(*wsp->wst_durations),
++					     GFP_KERNEL);
++		if (!wsp->wst_durations) {
+ 			firsterr = -ENOMEM;
+ 			goto unwind;
+ 		}
+-		if (writer_freelists) {
+-			struct writer_freelist *wflp = &writer_freelists[i];
++		if (gp_async) {
++			struct writer_freelist *wflp = &wsp->wst_fl;
+ 
+ 			init_llist_head(&wflp->ws_lhg);
+ 			init_llist_head(&wflp->ws_lhp);
+@@ -1274,7 +1257,7 @@ rcu_scale_init(void)
+ 			}
+ 		}
+ 		firsterr = torture_create_kthread(rcu_scale_writer, (void *)i,
+-						  writer_tasks[i]);
++						  wsp->wst_task);
+ 		if (torture_init_error(firsterr))
+ 			goto unwind;
+ 	}
+-- 
+2.40.1
+
