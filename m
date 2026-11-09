@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794196277;
-	b=nNdYzeZX2fff6m/pLOryWJ9IVGzlEYFddWYm7ZEIhMoaW4l95aHFxNDh41l1EgXUgFNu
-	 HSzWvBfHFJVO3DHLo3gCcV1nE0wTqv4dYcue4L/yy4srdES/tHX2tocQq4tYE+MiNUHtO
-	 N2XN004T0PQz64XFSqia1PjA7LyDgdfZLpm/NMfYIlGYideBuG4OGwGNa3uowivSsfCyC
-	 uxu11rKJRP5XJz45dhEHnr0F+twslvGYF0503oET6N4SnxcZ6iDyfcktbirU0DTokM7/F
-	 PDdIH+jYvqjmZiSgxIwAjpdr5BBduu68cm7NLTxQfRWfts2CTm6Wr0gE/N8fgtwddTA==
+	t=1794196285;
+	b=QB9tPAN/p8mtt21rpmoyBFaw4OwI2jCUmMpSqxvA3QkmAdHH+ZG3WWJWU6wfIhK63MFM
+	 opziuSDiF1gmD/k/rErBF0UlsNniMBIPaxma8SfZIqWvGXcz1gXWhvaodIz4GyIzsRlY8
+	 YGJALabSp2MEU5Or9iZMBMg3njtcGrhEMQxW1Jp7JY7xIwD8ElrXCCoCMRQ8/qq44UfHN
+	 wh23V2YbFeY1x5cuRG2j8Cmgwq31MKS+vzjOj6+L7sJXN243L5DMiYR17kZ7RkUgq8Zlv
+	 bY8UHVth52rBjIVUlYVb7oslaBMrjLk8L+4ZA9bzp5yk7UDpzApHCDzY9p9tWkV86PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794196277;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794196285;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=RLeox9UCna+JAgQJPZ2ik+qyzedm8mitCUwWv3Rb40k=;
-	b=YrKuiQ9FuvVRTQz1njCEwalPRN7gtwc0Va+JeY06lHt+uEPDTtg5mWdww1IOvmjFVnfw
-	 cgUVGCXIdU44XOL8UZCMGDK9t93iI4tOqzYt8o8WYpKvM0GA4zRm0UZER0dDpZD9KoKdD
-	 kSJ4l0uD8w1QeRZnhI8y7JgV4VBzPO3RJoviZfruNMr48s2Wev9Wgo7lnSI5WbSDOZpuA
-	 a7yXMB2IqCHNX4FcHIIR1h6zmM4aBpzBm8kuJdf1A1ylszg+dQZpLYGEoaVXh+tO+c2U4
-	 XE8tcFn0SwDlj08vwlowdakWxXk4VnJ75P919ph6vG0S6IZZl5IbW2UUzziK3mhFG6A==
+	bh=PCXVp3TiouFUBp+9ys/g3hrJvGOqhB12mNnRiK6VjhQ=;
+	b=i0GYAi6fK873JJl2eioXElN9kXDVT9NeMOtw0J0VPI8lbzmMg6iJs5BYMPabADPClw7O
+	 iSDz86I5WoLYtI/2/sdT51woKF0fZgrawOXCQrb8qjoJAEXdIpmpacpES3BMSuPjOakAx
+	 NZwXHLM1DSH5yWmxyyWtCcXyJhrrhoKWtmSiKquxBoCo7TE8jjbwl2a6nLfx8yrDXQjPW
+	 33pec7C7zsqUo6ZvwuMUNR6VEBhMXWpxrC+YDki/qEgCEqgqFx43MMPRC4350/CSzz3lW
+	 2zBjTdIMaSR8YMaz/BnGDgl5WaaMUV2IS6p8TnoiLDyeB/zlNgHB54fofELHfLV2jrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="iRu7/eI5";
-	arc=none smtp.remote-ip=209.85.210.51
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x1UMBJu5;
+	arc=none smtp.remote-ip=209.85.210.46
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0325606A33A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:51:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0325606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3CC606A338
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:51:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD3CC606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iRu7/eI5
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-844a8bf7e25so310500a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 19:51:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x1UMBJu5
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-843ea301d60so229572a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 19:51:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794196276; x=1794801076; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794196284; x=1794801084; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RLeox9UCna+JAgQJPZ2ik+qyzedm8mitCUwWv3Rb40k=;
-        b=iRu7/eI5jbPQv586S/vAhjA9mCQe3E+hSVRxrGLWdzZ1Cu98h8PhkR7ync5vauEodJ
-         8cZFqsEZaDudsOfOz7RI+EUCAvmciAretwgXQBpkcKuD3cFb37HLm5mzTayAeKjP1w+z
-         zLxXTqedYctsoSjpHJsY+XghbosThFK8q7oRWox8t1f4c8Jw4F4aCQd9oZBjFCTOxSxA
-         eOZdV2QbyyyID9OhaVEMWpQpUZfAFmtFzpNNPvU+nYI7z49wnNgBot4Lw9GkFKPCNmhI
-         riNa0XS3q2Z9Of/LXhYba9Z3bDA0q87CA4ZfVXNvc3R92iECt4EC21E0FX193on+S7tj
-         ayUw==
+        bh=PCXVp3TiouFUBp+9ys/g3hrJvGOqhB12mNnRiK6VjhQ=;
+        b=x1UMBJu53Yb/TLUJHtAjmL/MIwmZU18KvEpl9CcUAgwqR2nlac7RKBegYGqv9ST/p+
+         ciBM9BSEPiAHwURUQKr5DRHLcgKmtaOAVaN8kp7SZXUvwUWItxKKdLx0Y/IFkY4HFhf5
+         II5QikIFyY3+ltI3TAMIL8NT7abKojFrPxbqrnYZSwpLOHSjIZbD3lSr1IQQhGTcxPzZ
+         QyP+SyTihb1BZUb6pJC/mTWeD+dRu01Wm9ODX1mAaKLFEjFLDx9fSmsZbtgJCmUy/L1T
+         YodywidTr011IRxXDCqpdCXsRki3s4OZDcTMLW7p8tKYHPfPrdzS8w7WNF7Hi8ep5mOJ
+         FKsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794196276; x=1794801076;
+        d=1e100.net; s=20260707; t=1794196284; x=1794801084;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RLeox9UCna+JAgQJPZ2ik+qyzedm8mitCUwWv3Rb40k=;
-        b=XfSNFvu+DNselGkaDKVp2Yj90qmGkRK0918CIM9Y0DxQeMZW2Zp2Z3EEoyHckasmUZ
-         d7kXM6WPl0HGbcxz4qVQdEocreAJhQ1r50guJ8RxNCATGJKHvBHVQmgSaufc3VQgME0e
-         bbDFnu0GEzR7JvkRuNYiuO/rQAjHU2lsPoAzEijYH5kWeGvq0zPgUhHiiciRHnAIGW1O
-         dFHi+WhXxGgYjbK/cbTy8L102s3CQPTiIWqW/oWwvQ/E1H9PRD+ZG0A4XDyZzwajjV1K
-         00mjHUfkHW2+kvCDDTVUD/HtNAL2HiIwKWfcGwS3QBF0F/EKwBpB7Vaxa/9sOT4WX/Tg
-         0Deg==
-X-Gm-Message-State: APuU4Z/CkZmL4sRp5uVvXklnMqNBMHFKPCA/PLe20QnSHk4EJ+Gczb5p
-	OUa4KwgWAzuzyQMughyBSrV5Pj09SjYaQbMcTpM9JT43/oPATUe0f3xg
-X-Gm-Gg: AYBFou3fA9g+FX4ITN2UiBU7cI6sNxw35dOhU+0ObULcbijyvH/XmsNZDDZWoVH5YR1
-	vl+2A+c+DL1KxoVLooC3wSb/izRIE5t5xHRVzJqrndnej6FMWt64dm8zaLF5CJ52/VKKg+5mTKs
-	e6cQv2qeoLEieZ5zDzbopLcUHnIFi+lg/DZKQAthwaRqLKwTENHKW8dOl7I0vP9DLKZp/aS+5gj
-	Yy1GYEEwrtdm91PSwHIsX/nHSf/5VlQyxUlc2V6L8Pk22BCyWIyQW3ZX6LdEq96mThLc2YWitks
-	QJHd0m5gsToDpar40h1o+KcJyiFaoxS7aTUtoQhb5mjFj9jpTVztmXIu3DgwbG1NZi+Cy701JSV
-	F3ltWRRPAUaLiBYvTkG3yCemGaymmboLxRLUmkITWURYkq/M2J/xb+97wMpEdlHc9oIBk2utT1s
-	pPcZSEUB2+daahCfFYYR3/pvlQn28YYGo5XF5xZ5bbvM4PdM6VViDvUX4PjxYoUgDrdhsnPByZj
-	4FdbN0lgq92C+u/hYgzxrm7y11Zn8rXwVEJeXElJTvLJTlsFQLkBex6fGBoYBed+un+mMFO1p9N
-	lWvb8crk67GGuy16/yQeHN9+jv5yrhIFM/3BFV7GxZuHFQ2jDPZRx8l+LdJRZiVPPNeW93xItKO
-	taIQafLSjlczk2rDTbwOe+cShtylrkB+NZeNP/dBg6nRWdLJ5v0pamu5Gxolp/sgPpSS+JfZhsi
-	DBFsyOsVYYT4PZrtxlhkEOJAEo5mfS6YE84w2u+vIADbm38uinuG7r
-X-Received: by 2002:a05:6830:2b2c:b0:821:c75e:5309 with SMTP id 46e09a7af769-85f506ac2damr2072062a34.7.1794196275699;
-        Sun, 08 Nov 2026 19:51:15 -0800 (PST)
+        bh=PCXVp3TiouFUBp+9ys/g3hrJvGOqhB12mNnRiK6VjhQ=;
+        b=z49s62uN/NvHsq4Y1sSSkocEU0bXG/bHUfKrWKzUvJTdvIVJpHoYiiZGDAngOERlC7
+         vrtzP0lrqLLd3Lm40y0E4/M509x51FBYP0Boo5oo7ohmg0J2GUL/6Kn6TVbREXZfVHlQ
+         DP9QKnFqhQsU3xIOAdZ0yQP8D0qQ7jWPuJ57hUhVcZvCRu/KXMFsVICqDMzKwjGJecRF
+         cMZj31/YFonbUqvcjyXppQsQG1Q3oGSP59KFYoE/rfZUuzxSC/Cybl4Uj8NprKcxM3rI
+         IJ6GYuoNjn9GX1lcunagPhBE64pYCueHD1mr2YVgFnpON+hsGz19ThPAtBt9rfcyN1Wn
+         R+6w==
+X-Gm-Message-State: APuU4Z9Fp+94U07UNGsr/GvaUnEr/xnWOAdi4xKUQYqNGhUPWC6ysLTm
+	BjiNzHVZF2sn7ysZIjrzh30V1xSlwuT/5LyNUFz/LrvHZIlDcF7Y9ifu
+X-Gm-Gg: AYBFou3r7YSkvIveUjtjfxKktbNiNrqCaSCbtF/haMJ1eSLsKzmXQV5nS+M44VWav4g
+	kcZCv9eIbylXqDRrDEwH0okvaKdrUdle3y2+HBZWFuA4+H3wkFGYPA0uk/WpIKeXzR4e79LUYF1
+	Vn3MIR1yS+A62prflKYqaMnL7rrFPac1ofs078RPWv1jez/VbMUTgU4fyHriLzMkNZpLVKpp09f
+	2NW+uzrIBjLQUiWb2Y7YrljTda0gOpn19e4iXJoWmxVjBIcRe+p92sKA4qhPd6/iI90EaJDErDx
+	HBILTkcdsdtAfBIa3GwEzF+QXnlg3o1lJ+Us4KNWkrwYv0tmtAGtI39rVGH7gj5bRRwlrI4pSaz
+	k1T/PzrFHcKCto2uY1sH/kiYsL3B/BdAfRo4BSs1LGogn56BhfTDMd8oyE3U1A6psaf3HQcFmXt
+	GYZuAoZKRFGwhAXYIPTsUbLQ6RN/CTdXKNCQNURbdnlJhb9bnRZexdHpSPwvbuXtY2JAtNo3z0g
+	2o35o6i2Mq+7Q1wuwa/rfHirb3eUVn7YvEjCtkVZZxfPerMTcAQRd+hq007HwTu++Siq5KCCjaf
+	khekoJoRZe68Wnh319S+E1lTtHMlceSZLUdEa02/xaZMUkuQx6yMmjlMxEsHuFO8o5JtSoE1W9b
+	0zNpiC6+z5ami1CFw92HYH/03nWs6YyqsTeuC7c0uFLukK3DIwY9ZwiS4Chrw8vKuYjuog0yV8a
+	R209s3YZiNJYQmfTbhLFWZpY2beByHZQo4G3i4aEJ4EfE6M9ikGscq
+X-Received: by 2002:a05:6830:928:b0:845:156f:58b1 with SMTP id 46e09a7af769-85f50847937mr2643447a34.24.1794196283700;
+        Sun, 08 Nov 2026 19:51:23 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f4fad32cdsm2800428a34.6.2026.11.08.19.51.14
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85f4fad32cdsm2800428a34.6.2026.11.08.19.51.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 19:51:15 -0800 (PST)
+        Sun, 08 Nov 2026 19:51:23 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 20:50:12 -0700
-Subject: [PATCH v10 3/8] serial: 8250_omap: serialize RX DMA completion and
- flushing
+Date: Sun, 08 Nov 2026 20:50:17 -0700
+Subject: [PATCH v10 8/8] serial: 8250: retain DMA resources when
+ termination fails
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-serial-8250-dma-cancel-v1-v10-3-e6227ddb95b1@gmail.com>
+Message-Id: <20261108-submit-serial-8250-dma-cancel-v1-v10-8-e6227ddb95b1@gmail.com>
 References: <20261108-submit-serial-8250-dma-cancel-v1-v10-0-e6227ddb95b1@gmail.com>
 In-Reply-To: <20261108-submit-serial-8250-dma-cancel-v1-v10-0-e6227ddb95b1@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -122,91 +122,117 @@ Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-Moving RX DMA locking out of __dma_rx_do_complete() left the DMA
-completion callback calling it without rx_dma_lock. Shutdown and runtime
-suspend flush RX under rx_dma_lock but without the port lock, allowing
-these paths to overlap the callback's buffer accounting and flip-buffer
-insertion. RX submission and UART interrupt handling also require the
-port lock.
+serial8250_release_dma() ignores the return from dmaengine_terminate_sync()
+before freeing the coherent RX buffer, unmapping the TX FIFO and releasing
+the channels. If the provider fails to stop a channel, the DMAengine
+wrapper returns the error without synchronizing its callbacks. Hardware
+or a detached callback can then access the released storage and state.
 
-Take rx_dma_lock inside the port lock in the completion callback. Hold
-the port lock around the shutdown and runtime-suspend flushes, matching
-the existing interrupt-path lock order. Assert both locks in the common
-completion helper and the port lock at the flush entry point.
+Checking the error and returning early would not preserve their lifetime:
+serial core frees the TX FIFO after the driver's shutdown callback returns,
+and port removal can then release the callback context as well.
 
-Fixes: 789898416749 ("serial: 8250: 8250_omap: Move locking out from __dma_rx_do_complete()")
-Reviewed-by: Raul E Rangel <rrangel@chromium.org>
+Require successful synchronous termination of both channels before
+releasing any DMA resources. Retry failed channels after a sleep outside
+the port lock, leaving channels that have already stopped and drained
+alone. Keep the shutdown gate and storage reservation in place throughout
+the retries.
+
+Start retries with a 1 ms sleep and double it up to one second. This
+makes short-lived failures responsive while bounding sustained retry
+activity; neither delay is a hardware timeout. Report the initial failure
+and ongoing failures with the elapsed time and current RX/TX error codes.
+Track the five-second progress-report interval separately for each
+teardown, so failures on different ports are reported independently.
+Report recovery once both channels have stopped and drained.
+
+A permanently failed DMA engine blocks close or removal. This deliberately
+retains the buffers, mappings, channels and callback context until the
+provider can establish that they are no longer in use.
+
+Fixes: 9ee4b83e51f7 ("serial: 8250: Add support for dmaengine")
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/tty/serial/8250/8250_omap.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ drivers/tty/serial/8250/8250_dma.c | 50 ++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 48 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
-index b6f108d34854..5e114dd8f9bf 100644
---- a/drivers/tty/serial/8250/8250_omap.c
-+++ b/drivers/tty/serial/8250/8250_omap.c
-@@ -771,8 +771,10 @@ static void omap_8250_shutdown(struct uart_port *port)
- 	guard(serial8250_rpm)(up);
+diff --git a/drivers/tty/serial/8250/8250_dma.c b/drivers/tty/serial/8250/8250_dma.c
+index 1ea22954150c..a279e3a1a845 100644
+--- a/drivers/tty/serial/8250/8250_dma.c
++++ b/drivers/tty/serial/8250/8250_dma.c
+@@ -528,6 +528,53 @@ int serial8250_request_dma(struct uart_8250_port *p)
+ }
+ EXPORT_SYMBOL_GPL(serial8250_request_dma);
  
- 	flush_work(&priv->qos_work);
--	if (up->dma)
-+	if (up->dma) {
-+		guard(uart_port_lock_irq)(port);
- 		omap_8250_rx_dma_flush(up);
++static void serial8250_terminate_dma(struct uart_8250_port *p)
++{
++	struct uart_8250_dma *dma = p->dma;
++	unsigned int delay_us = 1 * USEC_PER_MSEC;
++	ktime_t start, last_report;
++	int rx_ret, tx_ret;
++
++	rx_ret = dmaengine_terminate_sync(dma->rxchan);
++	tx_ret = dmaengine_terminate_sync(dma->txchan);
++	if (!rx_ret && !tx_ret)
++		return;
++
++	start = ktime_get();
++	last_report = start;
++	dev_err(p->port.dev,
++		"DMA termination failed: RX %d, TX %d; teardown blocked\n",
++		rx_ret, tx_ret);
++
++	/*
++	 * Shutdown cannot return while DMA owns storage or callback state:
++	 * serial core frees the TX FIFO afterwards, and removal frees the port.
++	 * Retain both channels and retry outside the port lock. A permanently
++	 * failed DMA engine therefore prevents teardown from completing.
++	 */
++	while (rx_ret || tx_ret) {
++		fsleep(delay_us);
++		/* Retry promptly at first, then limit sustained retry activity. */
++		delay_us = min(delay_us * 2, 1 * USEC_PER_SEC);
++		if (rx_ret)
++			rx_ret = dmaengine_terminate_sync(dma->rxchan);
++		if (tx_ret)
++			tx_ret = dmaengine_terminate_sync(dma->txchan);
++		if (rx_ret || tx_ret) {
++			ktime_t now = ktime_get();
++
++			if (ktime_ms_delta(now, last_report) < 5 * MSEC_PER_SEC)
++				continue;
++			dev_err(p->port.dev,
++				"DMA termination still failing after %lld ms: RX %d, TX %d\n",
++				ktime_ms_delta(now, start), rx_ret, tx_ret);
++			last_report = now;
++		}
 +	}
- 
- 	serial_out(up, UART_OMAP_WER, 0);
- 	if (priv->habit & UART_HAS_EFR2)
-@@ -898,7 +900,7 @@ static int omap8250_rs485_config(struct uart_port *port,
- #ifdef CONFIG_SERIAL_8250_DMA
- static int omap_8250_rx_dma(struct uart_8250_port *p);
- 
--/* Must be called while priv->rx_dma_lock is held */
-+/* Context: port lock and priv->rx_dma_lock held. */
- static void __dma_rx_do_complete(struct uart_8250_port *p)
++	dev_info(p->port.dev, "DMA termination recovered after %lld ms\n",
++		 ktime_ms_delta(ktime_get(), start));
++}
++
+ void serial8250_release_dma(struct uart_8250_port *p)
  {
- 	struct uart_8250_dma    *dma = p->dma;
-@@ -911,6 +913,9 @@ static void __dma_rx_do_complete(struct uart_8250_port *p)
- 	int			ret;
- 	u32			reg;
+ 	struct uart_8250_dma *dma = p->dma;
+@@ -537,9 +584,9 @@ void serial8250_release_dma(struct uart_8250_port *p)
  
-+	lockdep_assert_held_once(&p->port.lock);
-+	lockdep_assert_held_once(&priv->rx_dma_lock);
-+
- 	if (!dma->rx_running)
- 		goto out;
+ 	cancel_work_sync(&dma->tx_flush_work);
+ 	cancel_work_sync(&dma->rx_flush_work);
++	serial8250_terminate_dma(p);
  
-@@ -977,7 +982,8 @@ static void __dma_rx_complete(void *param)
- 	if (dmaengine_tx_status(dma->rxchan, dma->rx_cookie, &state) != DMA_COMPLETE)
- 		return;
+ 	/* Release RX resources */
+-	dmaengine_terminate_sync(dma->rxchan);
+ 	scoped_guard(uart_port_lock_irqsave, &p->port) {
+ 		dma->rx_running = 0;
+ 		dma->rx_terminating = false;
+@@ -551,7 +598,6 @@ void serial8250_release_dma(struct uart_8250_port *p)
+ 	dma->rxchan = NULL;
  
--	__dma_rx_do_complete(p);
-+	scoped_guard(spinlock, &priv->rx_dma_lock)
-+		__dma_rx_do_complete(p);
- 	if (priv->throttled)
- 		return;
- 
-@@ -995,6 +1001,8 @@ static void omap_8250_rx_dma_flush(struct uart_8250_port *p)
- 	unsigned long		flags;
- 	int ret;
- 
-+	lockdep_assert_held_once(&p->port.lock);
-+
- 	spin_lock_irqsave(&priv->rx_dma_lock, flags);
- 
- 	if (!dma->rx_running) {
-@@ -1811,8 +1819,10 @@ static int omap8250_runtime_suspend(struct device *dev)
- 		}
- 	}
- 
--	if (up && up->dma && up->dma->rxchan)
-+	if (up && up->dma && up->dma->rxchan) {
-+		guard(uart_port_lock_irqsave)(&up->port);
- 		omap_8250_rx_dma_flush(up);
-+	}
- 
- 	priv->latency = PM_QOS_CPU_LATENCY_DEFAULT_VALUE;
- 	schedule_work(&priv->qos_work);
+ 	/* Release TX resources */
+-	dmaengine_terminate_sync(dma->txchan);
+ 	dma_unmap_single(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
+ 			 UART_XMIT_SIZE, DMA_TO_DEVICE);
+ 	dma_release_channel(dma->txchan);
 
 -- 
 2.53.0
