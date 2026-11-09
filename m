@@ -1,99 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794222376;
-	b=U/z1pPN1tHKprMA2/eOM8heFQJ6LO56p81RBL1DwW0aRFEE8WaiRSPVaKrdxqDpEAqEd
-	 POSONMAd8H3uUjNkAx4nPC67LcHEGm0AN+pbGTSd5BZpeAsrA/eTbAzveepKM2Ci5oTP2
-	 8edfSvIBQIlk61GyflJONlK4pGUES3kBzccyUVrsCqqSIN+c2fHbbtUm32cBzNFUIMdOW
-	 +3fUPvZgSKs1iRFRz8o1oZKZBky1W2gRQiRmYghXSNAUjBoJJ0v8v37naPjXt4nzg+BIf
-	 4ZAwJedF8MG/yABbqw2ptSW1PPPmD/7VZGQju3RNiSB97LzBlaNItBBJQrwdA+A151A==
+	t=1794222381;
+	b=uZWuz9AR4RBiMpq5kTZlkiGB7Baocr5JKBhV5QPhj/jzm4Ju1BZIV0nQmhVgEvO5fT2R
+	 ISYU8gzFYP8+QVqEFo5pHPixL+vfMEuQPR8bmpVXqKRvkYKyNmMMnhI50mchbnPwQeZNU
+	 PFapu9941aMeLYwEF+PWPgS/qwi7Y3Yx4+Om7a9ll5RbMpZVDWA0wCFQlgo1F0FHBQDzK
+	 3eVzqHzp6NhPoSPESMqK36vYmz1BsehtG8QU7EpBFBiYT6EV4cqauWCSmqqFbb34wRqX7
+	 3YPrkDuvdPKV7n3J9Ssy3rPZKWi19kfRGj8+5d8cSUTTKJdOE4i/gVGr7amKh+nEhGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794222376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794222381;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=d8vRIIYl392fLQltvVGdYCiU5psYi3L4CF/tseUFWuI=;
-	b=1KcYN8UHvTwXCtBg4yhmCV/q7uo4pJFN6FXvSFhYez7EQQIQCQycp6G8Egzdsm7H96B6
-	 7Gdm5qp06iDs4nAteIXvb8cl5bkWcZ6Thx5gWnXN7r7Oe9KeqUxBwWTBZpZWFWQQDER/q
-	 VqJVnbyC/KeHe63mwSTX9mtIFzkjn+MOw8MnlDIDbN/th7/IiyMVIF76//2QVL/ELYC6c
-	 ob6r9AInBbCNOB+UcX+EHw5e0usjZzC9tJHYiQddvv7UrhZhdPAXUIrGE7dI4rkbHkxwQ
-	 LLHp5hNHj57Q5t8LOYRcjwg9xgUES9e7zjKQAPNcgKr4ZpaTbqjhlSO0p9sJQ1Lh/Cg==
+	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=NNDm3p+UngqnrcyLX5Ukiw0BOrNKOL/SmJHH/8S74cQ=;
+	b=N1FbCamW3FJcG83Ps397gA7utxle1SpOFBH3Uh4ynbytQV2KMdkpRPYcz2t7lL0JTpfu
+	 AkFf4FkfFToCQGXgZY+W75ajvbUSQRWJJlF3zG2CUcYMEcHTxycOAj2AV+qxwUi18IcUt
+	 A9NxT4Ib9CaBVj/fOJaX3jIjcV54XOmimsDoENqLYr8DrZQyyDhz0fRA0fybz5uclkhi4
+	 NxqT2OrqJquGsvK3shsVXWuapbik+V34+jHaD1q5ljMM1GetaGohRwZzQfXDeT9aOCdtC
+	 N8cyZVQSsnmvlL0gojB92GN68U0MHZFBeXThFuLM6queBUFyQ958W1mNHA77bTwZvHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NQBER74O;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PWjA2Lvj;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AA0606A32A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:06:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74AA0606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D73606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:06:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20D73606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NQBER74O
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a018493d57so23965e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:06:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PWjA2Lvj
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a208d93758so7369975e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:06:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794222375; x=1794827175; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=d8vRIIYl392fLQltvVGdYCiU5psYi3L4CF/tseUFWuI=;
-        b=NQBER74OU5U3ZNxkP7QM3WDEqDaLQG+IRNaj6Lfu7gFSHjIosHZG30KG910/k1aXjn
-         EG3e6n/soxDFjNqohoSRC23OY6LHQxkMLyjJEcWh+1AdV1vmt4+GNAXhUgSTL2Y5ym9I
-         OTe0ZZcrC6PgOkQv7+Bu9lbHQBLDFm0qeCgSgL0CUkc9iJ5ooKvUNQfiiprvb9KMJiGM
-         a0ZjY6h9QnN85gTUMwHti0AukhF4NRX5r0gxPon2zMdefhVagjkuaRaiSkF1Nfj6AQzK
-         EXaN0e3vFENLurgoTCsM2c5zcCG1co1M91QG8MSDPy5pFG0P156WXKajxSclcizr48vg
-         GHQw==
+        d=linaro.org; s=google; t=1794222379; x=1794827179; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NNDm3p+UngqnrcyLX5Ukiw0BOrNKOL/SmJHH/8S74cQ=;
+        b=PWjA2LvjYpWCVERyEdvhNDTO5CxcRrBdnaCjzXWupoli7WUWCMNDZaJhKhCBnuidH/
+         7EyJ1AGyLVRX+J2Yz2kyGpqCjKieVkTjCpQ7aDvTiQg+ED0vXnHrIbLr0RD7eWCOLhx2
+         MvjdxwpOKccAMLZjYeMVV1zUHAosWNYch7O9VUE1hiWunFGEdMTFg0oKSCznsiRQycvl
+         3p9hAnogHYU4d/k/1wTjDnzN9vL6MEwoXOIr7CknmzgXJZjtKGqFJSHGJWR4vMY7GMA4
+         jVCeuohzLSIQ3QzuZ/Ecz9B8I6MgtJgJcAUbsY3AULJdNvBC4O/x+Qtc3WslLbSnxGYe
+         6U6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794222375; x=1794827175;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794222379; x=1794827179;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d8vRIIYl392fLQltvVGdYCiU5psYi3L4CF/tseUFWuI=;
-        b=Sn5JnV+4XDCvTDeIlJWpkwdiHuE9O4zk0w4sl9eFADfpLZR2QIuxele9HY2Yczd3Wj
-         Ncnj8UCM46ov7oziG9i42Fv2h52A2VGKKOTste0wGD4ug1N5F3wI59Qmpgw6iw7AG1br
-         kL8vVkYLf1pZ6ItXJSJfUyuDATBg+pF4UKfhW/S+NpKScARR2K2t1QbD+ufJT3CxbVIL
-         ftDVoqT9xy2ZlHxFkg/qI3Yp456orq1/E2+8NlfRo41BJb9y5xA9TL32FU6ZsIuOBLLb
-         rAn4LUyCmSV2jWt8Tp8Vlif3OTNOsK10yZiCTYqV1Ns6PJfTZidnIPSXrVsGFAsqoJyQ
-         bs3g==
-X-Forwarded-Encrypted: i=1; AL+hErHG/e28vmTsGD1R1RXF4IwX2+GjtN6HetoxhClyi5Ett83ox9A3ijIO52OJkJ4S+JuphWkn6daQ4Ujw0dQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8XNiUKeHyQ3g2f1mvT0APfZteJJexxj8PudjWK03u8Caxzzo22
-	2Z2WLIJ/9trj8mrEsm+mWxrHHcmG+JdIU/nOUKVzfSfNbif4KIvWXAj/Leda0FCklQ==
-X-Gm-Gg: AYBFou11C3lrJK/gdeTpZsuedahFavX256q31tioaRsXJ+w1G8xEAxlwKLeRKjgz8Fb
-	S+aHWI66YisM7FHqDjCr2dP7atFi4vL2xKQ94VVU7nhugRxB0x4pHaIUkWKmgwBDnvKxzP+fZs9
-	3vVux8vRBv7arqgC0GeT2cZyVwYX00IhpPZlqQcqOyTCyKemGWfC0L8HKJHDFVMz8rkxhFe3rPa
-	HLloXTwgbW/9d4+ZAFjvH5kEO5Ov7NbFVmmBYTr8uG7AUkuQ+xVQ8d0a5QG2OHUwro/kv1eNW99
-	AidZ3bgPazHoK07FEB/2rgIotA0+doOZ22SzsNu1b6KIqaiUGTAgup0x8W6Or6mytxIPlzlkWYh
-	RBWQYgfmmyonRO+gbeAtYiwBa291L9GASt2/NYkQ4htmfGvzQ2cK1V0qldMVTbdkkM/2inKnotA
-	3WDtHv0RnuQ5bmFrIo6k1GukQo3pTuNwQsBlGgTB23ENOXnUd91TwTQnvw3/oawI1wJ7szUwaug
-	hUzZK6mhRZqpQppIcsHfR7cjVu8K7bmr/GF+AXHgmpRLEEaalMVwPW3Wa5XBE62ral3dL8/ugbb
-	l8nuf5+wjXL++eYHP2Kg+IkNCjjJYIrRpTThVEjYQfpJptKvH5Z9341t3USmPLNzAZ3uww==
-X-Received: by 2002:a05:600d:640f:10b0:4a2:1912:6687 with SMTP id 5b1f17b1804b1-4b8aec1d290mr1382195e9.2.1794222374432;
-        Mon, 09 Nov 2026 03:06:14 -0800 (PST)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-496c89d8630sm4422045f8f.15.2026.11.09.03.06.12
+        bh=NNDm3p+UngqnrcyLX5Ukiw0BOrNKOL/SmJHH/8S74cQ=;
+        b=yz1TY/IVtIudUUhPynhgbBbxus0VPsAu3mi4Pw/dYuRrYiHJNN0/5BPAzM1IjnkvOs
+         r0+aSm/IOr6HYFm4cSqulgWsc5BHl7tPD6V/r1+Ezq2c2ftC4j31v6X/sGmfDzzqr5Vf
+         yETDOmldecvBWP6alQ09SQxP2uc1kQHkD9vhXL/GW+4zMiiv49FP3VU/XyiEHJbvLcVV
+         mK7sXhUm5VGVHnuB3aD08zVPWausbwrrRVnFvadHOnOxnaV1k8gSR7Jw0CEBIDkw6fOD
+         EclctxPNYGJoxzplHSyxGH+b2+z9eFt4hTFLq7WY/nsonXjTMyc1ztl+oLsz1C3Xkdyr
+         fkZQ==
+X-Forwarded-Encrypted: i=1; AL+hErEQDGfpvDBsPqvFxNRZuePWEn9YeMbh/AgutkVpApYXAjPjNfkuwChMDuueAEJfSq/gIDzLeoqCIq0k8SU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9aoQl1Fzu8ZKd+E5ljjCBC7WZQMgGSS3kFxgctKe4FDLuKkZIF
+	lUreRZBQouJcvJLoVvyBQI5kbDXkBUycOt/eM/n0/BtDhg8B/k9V14aJ35UO+UtmB8g=
+X-Gm-Gg: AYBFou3D6lqeiSaJ3RlZ0YkVVtYUtFXTk+G4UXZM0iUbdzD9vq78Az2yMnc7kYhj3OU
+	fOMaTopMIf52VZtiCFNKjOlHKXFK5Cm0IuEUfMuVk2IAytA0Cb27aFMW1UCpZ2nOxsFYljo6GsP
+	i3mGk1s3FTdhM2tQOOrV0j6yEeUwQxUjR9FKey+JWrlhaGXhlwAx7VMjESUt+6+AbOJWdDUV23O
+	ppyzgBpp7G9pRd6yqWzXSxluuhzljiiCpsApLv+3khuKwEwdQL4zsBl24wDl2abvrF5uBfvmU2M
+	eUvfxlNHkutllw44TFzBHynL5g05J/zH1OG1lTGTceTW+7Lo68TJ8LH1ugL6k6CbvqPdk45e7tg
+	ztZAqIcT4oUXKcHqyL2IfFXcGzyNo0tF9rvCgJ4TVDyh6gv2pD5zR+ol3Y0gaoQYQBntToH8wvw
+	uhuBDgjuZdOV7uSS5HjGcgVTGUOfcpHcSCiIEf5hxmxSawy7j33Mo0pFyg3QZYfA8IoChnPzgyj
+	Q8jHlJLY2gHMzftVsibWjZDNtY9X+ORMd2nkR+DHa7z88zo9S1N/Dhn0+/Noh9eTqlQQhUwfaiD
+	kjawijpMHvL5yHIguSuo7AxqWftYE7uH0IKCoZ2XRSk=
+X-Received: by 2002:a05:600c:3f1a:b0:4a1:c6fd:4db0 with SMTP id 5b1f17b1804b1-4b963c87ffdmr68091205e9.19.1794222379267;
+        Mon, 09 Nov 2026 03:06:19 -0800 (PST)
+Received: from arrakeen-2.home ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e32ad4d1sm239723095e9.5.2026.11.09.03.06.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 03:06:13 -0800 (PST)
-Date: Mon, 9 Nov 2026 11:06:09 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
-	catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
-	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com,
-	yuzenghui@huawei.com, joro@8bytes.org, jgg@ziepe.ca,
-	mark.rutland@arm.com, qperret@google.com, tabba@google.com,
-	vdonnefort@google.com
-Subject: Re: [PATCH v9 13/25] iommu/arm-smmu-v3-kvm: Add MMIO emulation
-Message-ID: <avGpIXoiLzncL29t@google.com>
-References: <20261015200903.2735565-1-smostafa@google.com>
- <20261015200903.2735565-14-smostafa@google.com>
- <au4w8nvPQ3xv7igC@nvidia.com>
+        Mon, 09 Nov 2026 03:06:18 -0800 (PST)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org
+In-Reply-To: <20260903-mibox4-dt-v3-0-1a8e395d923c@stu.hqu.edu.cn>
+References: <20260903-mibox4-dt-v3-0-1a8e395d923c@stu.hqu.edu.cn>
+Subject: Re: [PATCH v3 0/2] Add initial device tree support for the Xiaomi
+ Mi Box 4 (MDZ-21-AA), an Amlogic S905L based TV box.
+Message-Id: <179422237792.1514386.10691096283154842282.b4-ty@b4>
+Date: Mon, 09 Nov 2026 12:06:17 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,43 +102,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au4w8nvPQ3xv7igC@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Fri, Nov 06, 2026 at 11:56:34AM -0800, Nicolin Chen wrote:
-> On Thu, Oct 15, 2026 at 08:08:44PM +0000, Mostafa Saleh wrote:
-> > +static bool smmu_dabt_handler(struct user_pt_regs *regs, u64 esr, u64 addr)
-> > +{
-> > +	struct hyp_arm_smmu_v3_device *smmu;
-> > +	bool ret;
-> > +
-> > +	for_each_smmu(smmu) {
-> > +		if (addr < smmu->mmio_addr || addr >= smmu->mmio_addr + smmu->mmio_size)
-> > +			continue;
-> > +		hyp_spin_lock(&smmu->lock);
-> > +		ret = smmu_dabt_device(smmu, regs, esr, addr - smmu->mmio_addr);
+Hi,
+
+On Thu, 03 Sep 2026 18:18:44 +0800, YuChia-Kan wrote:
+> The series adds the board device tree and enables the main on-board hardware, including eMMC, RTL8723DS Wi-Fi, HDMI output, HDMI CEC, USB host, power LED, audio, Mali GPU and the Amlogic video decoder.
 > 
-> Going through the followup patches, I found this smmu_dabt_device
-> gets really too big. Perhaps it can be bisect to read and write at
-> least? Something like:
+> Bluetooth is currently not described in the device tree. The device firmware uses the H4 UART protocol, while the current mainline RTL8723DS Bluetooth support expects H5.
 > 
-> static bool smmu_mmio_handler(smmu, regs, esr, off)
-> {
->         /* decode ESR: len, rd, xzr; width check */
->         if (is_write)
->                 return smmu_mmio_write_handler(smmu, off, len, val);
->         val = smmu_mmio_read_handler(smmu, off, len);
->         if (!is_xzr)
->                 regs->regs[rd] = val;
->         return true;
-> }
-
-Yes, I was wondering about the size of the dabt handler also.
-I will try this, but that will propably won't cut the size in half.
-
-Thanks,
-Mostafa
-
+> Tested:
 > 
-> Nicolin
+> * SMP (4 CPU cores)
+> * 2 GiB RAM
+> * eMMC
+> * RTL8723DS Wi-Fi
+> * HDMI output
+> * HDMI CEC
+> * USB 2.0 host
+> * Power LED
+> * Mali GPU
+> * Amlogic VDEC
+> 
+> [...]
+
+Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.5/arm64-dt)
+
+[1/2] dt-bindings: arm: amlogic: add Xiaomi Mi Box 4
+      https://git.kernel.org/amlogic/c/3e965cc7f86b7358a850b191605db72a09450f81
+[2/2] arm64: dts: amlogic: add Xiaomi Mi Box 4 support
+      https://git.kernel.org/amlogic/c/36f28822232ae35d36ccd2587e333db1ac961ff7
+
+These changes has been applied on the intermediate git tree [1].
+
+The v7.5/arm64-dt branch will then be sent via a formal Pull Request to the Linux SoC maintainers
+for inclusion in their intermediate git branches in order to be sent to Linus during
+the next merge window, or sooner if it's a set of fixes.
+
+In the cases of fixes, those will be merged in the current release candidate
+kernel and as soon they appear on the Linux master branch they will be
+backported to the previous Stable and Long-Stable kernels [2].
+
+The intermediate git branches are merged daily in the linux-next tree [3],
+people are encouraged testing these pre-release kernels and report issues on the
+relevant mailing-lists.
+
+If problems are discovered on those changes, please submit a signed-off-by revert
+patch followed by a corrective changeset.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+
+-- 
+Neil
+
