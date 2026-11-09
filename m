@@ -1,105 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794254506;
-	b=bdApnHhxxYQ0/Jf7l04IaiKGOwDTEqTdxR2tZzcOJiA7yAZisxfnqlfrKJEMN3y39ORT
-	 ejyYabso/hW1gMunU1ShiMUF3MGMVqjuo25aonT3lAw35qmYUEtabRwu54Zjza8B2A+gN
-	 9LPBVKIWI7D4X5C0qjqe039GU4ciub0D682+LU3jjqEHXg9HS5fyKyh8IZgZWT1svW5bz
-	 2eN17ECMAUx8SgX9UA+mcrq3EQQySDwg/l0sohYC0VtzMtCcJ17Lwn6OGIygofgpvDW0/
-	 8hdl5d92iqmW84K1haChp4JxRiHbL56mGGb4FkmfiECAEVBbT2w6W80tUmHHd6jjTrA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254506;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794254539;
+	b=AkaXdeb0N3nR5lef7NPiMhHUvoFZZFT1ZA9xQ4znID8z4MNo85soOWtkzBZoO83kMDzj
+	 vvAd4wS9Him/v4pB1zdkB/BQLDPAa1Eke9q7J9fjRb6vxTMZ0Loy458CxwasLbYUumN9D
+	 A+z8g6bv0NGtGeqV5G2DU6yXF0bf8u6zsI8TFuLlhqi03sz2n6jv2CECYzjQKDl28RLjH
+	 h8QazJogaSGButpEO7MHZGS2KXbL71r6WnJeHtPqSioPtX/xVn7fSP0DFKfBOSC5kiV3I
+	 MD9v5Mq8f11OPdRyW6Uy65Ej3tVJojM3fwspLBweZD8YVnhuvWdPZYRJMikhw2uqERw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254539;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=J4VE9jPLkx8Wgxv9dqM+38TTLHjiOxYTXAGaI9TvUkM=;
-	b=AxK/oYBoNA3iRepaLD41Aq8p8ew94ELbfyl1NxVKVWFFTe4z2qaBYo5+5iVSyIoq4saT
-	 z1V7oIvXfR5AyndAMAsN6sO1a6kHMykLCSBVMfqUkcI6SNIvdt6NZULsc3C0IQxRQTMsk
-	 NizhZMB0s+sU6z/aU6P5gMEFLRQ8t3Ovs/jPXzG67iW+xJ4i21FraoKSx/MhqAbqqP/dA
-	 YygsPP5VTUvR6Q9mpj8M9fnvC0GZ+E96wNrF878DGGRCQBJYZfvlxgECO5atBJWRjmTYI
-	 sbZC2KBY8wswGiYyT6ffaYuz5DaXaKa2qFOb/UGndD4bXeRgnp686uDDCTzEQL9W4cQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VVPYRW4J;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.53
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	 Date:From:To:CC:Subject:User-Agent:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=N6du0A0pfE7SOqnYy6d2IHFtRfcrlpzDplqzOqawfFs=;
+	b=Lj+qdJgx5rlEL9+DQLeEEqUDizPjZHrHnvRN0isbmnuB/iotsuTrmhld1E63bAdHvcoI
+	 Qd4gvJUOs/JtiT/FdV0SGAtJVCRqCj6fvWkvB2bEnrm71bIu2yON6L6d7SCdTh70jsDmZ
+	 2QRBrTQrwSGIU88/XBgF/8zYDNJrjKhJ5J2nalgGv3XKQjRLnS2QOZ58f3AASn19Or2H9
+	 nc0S0LBHEx//5Gv20qTXaxcYoWRDhMIH7TtFjXR4BMjTHwSj+/YfjXT7nYj1nriijwfr0
+	 ur7axfZ/6qyRsOZF0L3icJIC8zt9Z8sawD/ELyknwd5Q1sfXF57TZrCchgPI0DnAEzw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JVpiQ8lx;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E8D606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:01:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50E8D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E90E606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:02:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E90E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VVPYRW4J
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91e8a05ec5aso13196876d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 12:01:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794254505; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nQi9o4uq6ozMbBQMhPGKdPIhL3i+aRx5Ms712kZmqxM1C3nKVtwRbEJb2Eikeky0NX
-         7kc0iDtroBUHfayCr++A5mQh/A3bWl6mASEBi30CUA9GXUrZ1AScpkqn7T6dPQG8EL9X
-         gch5FxAuWWp2joie7QAFU3JX/IKxDghXYXYp6XG7QCXWLeWy/HldJVLRpz5ISCD7C2/W
-         UYcfGfokKiv0JtZED2w5QolwDwL9NrTXUSWLuJFHWYhBYr7OZKvEe1ZdnkCYzVO16FXs
-         3s02aGSh0Ke2M7NR4tXzJKQFLQuzHWhpWWgxTAD4jTm0YnOTkAlxAfGJMhh7QlP/WWgN
-         ESGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=J4VE9jPLkx8Wgxv9dqM+38TTLHjiOxYTXAGaI9TvUkM=;
-        fh=PdAp40hB/LktWE8/mPRgI9WbIqwlsFt/7Z5sx6keMYI=;
-        b=rBCfo4m6k6nPUIasGxlLLUXZrJKd+LSFRTiYORTymlBQq/nvjn5MMyyd/oiv/IaLD/
-         rIc/Al+Fiui6gDjIBrC2HuhuMoEDv30Vh0vpEaW0coIDuxG3gDsc6OMOE1dNc7rPZMjy
-         7DANUcv4eSLhKRL0qumnWgEIYm2RMizMOOCq9ePYyspdLLLinJz/sA3v5uGgTC38teHB
-         81q7jXZRXfKBEEzOo6TrGOXWcYRjTb8DKp+t1J3dOrfRf1v8DNGh/UWR+J1FlQ9A+2A2
-         vBe9XuSk/uQtoSqR90FT+hry4C/iT9WCUf+dS5La84kuY5B1sRPgws49RXogbhRM51lz
-         jSPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JVpiQ8lx
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so2517842eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 12:02:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794254505; x=1794859305; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J4VE9jPLkx8Wgxv9dqM+38TTLHjiOxYTXAGaI9TvUkM=;
-        b=VVPYRW4JPvKdjZtMe60xViJTU6BBoc2rCxcc+xXkxgWvR2IBMqJdLO9vMfmCodQgi2
-         LGdZQhiKlhxEoMvzgVUZ4nhj7VowzBl72y9cmNHm+o2uZmzMVEg0HyCOT5yj2bbO55hh
-         ZOr4VijaX1waBVZ1yPYmALNxxoWgCRVkceOUN4uxRgNQlYRiPD4ziOKRCYrqLawMAQNH
-         UQiD8UlIRpS2xubC9lWbVmcz23NYznk35FfNHKS+NUm39MjNGY8AkxFReM/KMJrKHrHA
-         6TKwrtxjuoEHCAjmZuEt8vQBDdkcr6zAOf1Edvi3KSYbgxUXL16UaEl9Y2kJoG2MHM3E
-         BeNQ==
+        d=gmail.com; s=20260707; t=1794254538; x=1794859338; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=N6du0A0pfE7SOqnYy6d2IHFtRfcrlpzDplqzOqawfFs=;
+        b=JVpiQ8lx/oHOpOlYGdEpYpakrJ7qCgz4EtJUk8uROsg7VRGaflDJirTO2SFmvVECo5
+         Pi1cBB3UChzmbYA5s++IFyosJvBduUCQsdNKkU9Q80ygD/vFgDJI3kY9OSzmrTjXI9YU
+         6zGBAHOMcpKE0DvHFPwA/NP5BXHc0/K9LJK8yrTX8MlxzZrU20dufSg/cetSyv8i3gvU
+         32n9bq79IQ7Y6pzaf0HmKquiHhseHvWR7Q58QF5PJaiv/L1eijzzA8D6OUKCxbM8gzim
+         vuWVqR1BtYsdvlKinPc5KQEaBani2WxTA7vdn07ugk/anMOmCsShciiyPs8CXCqizYv8
+         20bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794254505; x=1794859305;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=J4VE9jPLkx8Wgxv9dqM+38TTLHjiOxYTXAGaI9TvUkM=;
-        b=jYpA/jec7wYs3gb8acc/0dinL/W4nKozoGcPAoBHc4v72m1oxvi76vks8pNU4OApIl
-         WKb0QpAfxlztbjUiXbO0WorjtDdnckFmSvAwLBXMv8M+nNOv8+ru7WmvMoZYma2+2B9a
-         I6D3ALRTqBXQoBTpgFp0ff3yovxpL+42AiC6am35ztUuRLYqMvva/ZJ2rnNzoX9M5uOH
-         oRDifmQtfVcGPHiIhhO8lHu0lsD7fd6bfJfPUEINXB0aNX7m+/JFZteDJt8HIir7xQ7m
-         ae24CgqxGdUKWqgxX5+j1wzO44QhZLWLPEA7b2AaBzz4ZfSBI3KhxYGgPA/zZ7guTNCf
-         fbsg==
-X-Forwarded-Encrypted: i=1; AL+hErHbm/3JuXBbbBUtEHz5pzX6sHUxdn7zbGxVGlgqSOB2PVebMw2hugEGB1un2ohiK23ujhzP7mEVC7rt9QA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wxpbhb+5blZ289BSyDIePJ7YQSBamFBKuUuhpaF/70swyn1tM
-	eowZ6gneANEDeprqM271lqKncQ50GnocNInwesneJ3Nk+EjWgnIZZswZ5rEoGNiiSyONGy6u1kW
-	QLp6PhxpSUnA4QG4TEhLWxO0Dw/hGa49+JznsCRmi
-X-Gm-Gg: AYBFou0xHEuEmXIdXpZsSWUCbgFUd/9B0Ei9sbHR4tHSb+nZIwdUu8i0iJSF5flfKz2
-	hJTKAECPsdMmmO2lZOMgJGKoGUCdx1nApfbz3+vZP1tyatCoHqlH2UIR+3DsyhBqs+kCkx6O+h5
-	CN/AkZOVWjhsOmk6w0q5gs+9ldDxm/tbynPq3EFjNUM1ti2Gmy1oH0V+leHu4OARrJjmTi4C8Mt
-	+7gq9EDAfgOnPQMbfH5QgIkjpM2XlE6T6+dh5QO4PjafhvgmzNoXmKB3ea6hBLIDBEuMsEJPLGi
-	gDkeQ2sSntwbI2cDmrpL+8mnXDCEn6G7vWfBk2aEvYcHoADFYp9A6aks98XpLjGYmiz/mx8f2XB
-	JRSyWUzRLGbn2HkK2DwepARsmUEooJ/yd0nBs3d/GcB5hPKAd+rgvdOdr/LE7Pud44c4EdAav18
-	FXBC8RkIJCdAtLI/bimmoEhEK60D/ITx8SenHT0/TT8QfD
-X-Received: by 2002:a05:6214:1d21:b0:91e:9664:4e2b with SMTP id
- 6a1803df08f44-91eef7a3c83mr11947696d6.7.1794254504037; Mon, 09 Nov 2026
- 12:01:44 -0800 (PST)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 9 Nov 2026 12:01:43 -0800
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20261105-tdx-selftests-v16-14-2024e8fa517a@google.com>
-References: <20261105-tdx-selftests-v16-0-2024e8fa517a@google.com> <20261105-tdx-selftests-v16-14-2024e8fa517a@google.com>
+        d=1e100.net; s=20260707; t=1794254538; x=1794859338;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N6du0A0pfE7SOqnYy6d2IHFtRfcrlpzDplqzOqawfFs=;
+        b=ilmgc7pOwqlsL593rUgChxHdk9SNJs15zxf7YiRf2L1D3DMMDV4PIN5J+Bq0xpR1s1
+         0hI5jjy4XSKdYtQWO23g6Jc3llNNSifAeZ1uuaomanboAI3mGT9X5VoKLaLMYU4Gz+LN
+         7Rg1jGidml6nk/Dlj/E90pPUGkCxVl9lgLL53rL7YNZyWkoChVW8Uh2v5Rh3J820B2h0
+         BLvIqYpDZ47OZ8KajWCQutrEDQ7gOABQWK9+jeq2scDMrkDkH84iCIzNxezn8Vk4fdIB
+         ZE1dXLIQyELIeKKkH5hxmbzuEF1GfETKxEph1Q6sRxsABbLrgJF0mpwIYhYELxi/alUt
+         hBNA==
+X-Forwarded-Encrypted: i=1; AL+hErE9jjeEagkVK01o5kPYaF15cjT09EFCzIy7ooT64k/yH5fmd5kYg+0DiZAlPCjI9ZkRIoNFhNMYyp+uBjo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/m5WmTcDMJ6foJ5m39HF+bdbYMs4LGqS6D3DnAT6lzh7Iizpep
+	/whRn7y05SUrW2CGQwLcJt91Ng6zcxiwBTT2CIJLAt97iJ3psz1F7nO6
+X-Gm-Gg: AYBFou2QSDbbNZOQJWp512zvWJzPmAKfl2EvhbsyILksBTe4E5p/9rmjDuZSHieOS+/
+	F1jiLUSiiajsfQiKERFP+IojDTCAolcTFElx1q+6Q6+x+7W9UU8fCIzOE1aswkqsq/eWjbWhbR+
+	MSSslYFJ+fiG1fx9XaLXDPVS8pKfMOvqFVrSUsyOxa21blh1E/eBhKHi4T6Xn6lKu/+Ub4IrsHs
+	D8t9s5Aqz5PqchLhmpLd9h71EhfEXpotH7kWI07hoSiHnu66uzmjicQlQZFGE9gtJbcOI+aoFws
+	SVcLzQwvez+GAWtWxumkyz7nCO+uNXjuxLfiowZfxxKfVCmWtXOCnYhbpTphFSHcJQUM/yw0mdv
+	HmkwUb6R5ZCX9yzbi80l2vxcYX8/vPkHsE5Mf1EXk+P2Jx0mm03NcpuQ1GUaHi2UBcv1dAe4698
+	a8/7q619BByWtUPXJWjUuTln+7+UYuHAPI8qy5svSaCX9GpvUQmXGf7CrFQNUVPE7DEfVN/Wnu8
+	Oo3i9BOVBGIxbAdCFxwFnOh34Z76XuyZgynw1XfkQCLYCIfcelf25zQj+jrFbBEXhskBVHEBXHK
+	LlxUbSSOt1oK2f7ss5mWvYU02bS18j6HpoUF9t0rK/ESDA==
+X-Received: by 2002:a05:7301:488c:b0:36a:3453:a356 with SMTP id 5a478bee46e88-3751fc3a379mr436289eec.36.1794254538058;
+        Mon, 09 Nov 2026 12:02:18 -0800 (PST)
+Received: from ehlo.thunderbird.net ([2804:2bf0:60e7:ae00:175b:6568:be30:fd38])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520cfe07dsm556671eec.20.2026.11.09.12.02.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 12:02:17 -0800 (PST)
+Date: Mon, 09 Nov 2026 17:02:11 -0300
+From: Arnaldo Melo <arnaldo.melo@gmail.com>
+To: linux-perf-users@vger.kernel.org, Ian Rogers <irogers@google.com>,
+ Samuel Wu <wusamuel@google.com>
+CC: Lalit Maganti <lalitmaganti@gmail.com>, acme@kernel.org, namhyung@kernel.org,
+ james.clark@linaro.org, adrian.hunter@intel.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] perf python: Accept events larger than union perf_event
+User-Agent: Thunderbird for Android
+In-Reply-To: <CAP-5=fX6aqHuaV5c+Kfk5iY7SWgXKu+kWX+ReQ4agqkHg89tUA@mail.gmail.com>
+References: <20261018074528.974953-1-lalitmaganti@gmail.com> <CAG2KctqPvou3A_EGiov9yZJrCWMmoEX-k4-Or-RGj_Cxdtc7Fg@mail.gmail.com> <CAP-5=fX6aqHuaV5c+Kfk5iY7SWgXKu+kWX+ReQ4agqkHg89tUA@mail.gmail.com>
+Message-ID: <BCA0C66E-7AF5-4368-AAE3-FB96B09712A6@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,37 +100,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 9 Nov 2026 12:01:42 -0800
-X-Gm-Features: AclHuK965yyNFO13V7bpMX0YP25CWk-grxkHlMzQ2EkXDGXWn8vJSUwM5EQspQQ
-Message-ID: <CAEvNRgG4BGkr5QhNaOQrBLzGp5uy7Bc8Lv0c5a5tp5uUr047nQ@mail.gmail.com>
-Subject: Re: [PATCH v16 14/20] KVM: selftests: Set entry point for TDX guest code
-To: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
-	Chenyi Qiang <chenyi.qiang@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>, 
-	Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
-	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Reinette Chatre <reinette.chatre@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
-	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, 
-	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Oliver Upton <oupton@kernel.org>
-Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Lisa Wang <wyihan@google.com> writes:
 
-> From: Sagi Shahar <sagis@google.com>
+
+On November 9, 2026 3:27:56 PM GMT-03:00, Ian Rogers <irogers@google=2Ecom=
+> wrote:
+>On Mon, Nov 9, 2026 at 9:58=E2=80=AFAM Samuel Wu <wusamuel@google=2Ecom> =
+wrote:
+>>
+>> On Sun, Oct 18, 2026 at 12:45=E2=80=AFAM Lalit Maganti <lalitmaganti@gm=
+ail=2Ecom> wrote:
+>> >
+>> > Samples recorded with --call-graph dwarf carry a copy of the user sta=
+ck
+>> > and are larger than union perf_event, so session=2Eprocess_events()
+>> > fails on the first one:
+>> >
+>> >   $ perf record --call-graph dwarf -- =2E/workload
+>> >   $ python3 tools/perf/python/stackcollapse=2Epy
+>> >   =2E=2E=2E
+>> >   TypeError: Unexpected event size: 4168 < 8424
+>> >
+>> > This makes all the standalone scripts unusable on such recordings=2E
+>> >
+>> > pyrf_event__new() rejects events larger than union perf_event, which
+>> > guarded the copy into the union that pyrf_event used to embed=2E Sinc=
+e
+>> > commit 2c672ffdad4b ("perf python: Lazily copy events and samples fro=
+m
+>> > process_events") the event is borrowed, or copied to a buffer of
+>> > header=2Esize bytes when a callback keeps it, so nothing depends on t=
+he
+>> > event fitting in the union any more=2E Remove the check=2E
+>> >
+>> > With this, stackcollapse=2Epy and flamegraph=2Epy process a DWARF rec=
+ording
+>> > of a two-thread workload, with the same per-symbol sample counts as
+>> > perf script, also when the callback keeps the events after returning=
+=2E
+>> >
+>> > Assisted-by: LLM
+>> > Signed-off-by: Lalit Maganti <lalitmaganti@gmail=2Ecom>
 >
-> Since the rip register is inaccessible for TDX VMs, we need a different
-> way to set the guest entry point for TDX VMs. This is done by writing
-> the guest code address to a predefined location in the guest memory and
-> loading it into rip as part of the TDX boot code.
+>Probably worth having:
 >
-> Signed-off-by: Sagi Shahar <sagis@google.com>
-> Signed-off-by: Lisa Wang <wyihan@google.com>
-> Reviewed-by: Xiaoyao Li <xiaoyao.li@intel.com>
-> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+>Fixes: 2c672ffdad4b ("perf python: Lazily copy events and samples from
+>process_events")
+>
+>Reviewed-by: Ian Rogers <irogers@google=2Ecom>
 
-Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+
+I'll pick it for v7=2E4,
+
+Thanks,
+
+- Arnaldo=20
+>
+>Thanks,
+>Ian
+>
+>> > ---
+>> >  tools/perf/util/python=2Ec | 5 -----
+>> >  1 file changed, 5 deletions(-)
+>> >
+>> > diff --git a/tools/perf/util/python=2Ec b/tools/perf/util/python=2Ec
+>> > index 60dbe2dad5eb=2E=2E8b4b2f3d0926 100644
+>> > --- a/tools/perf/util/python=2Ec
+>> > +++ b/tools/perf/util/python=2Ec
+>> > @@ -1792,11 +1792,6 @@ static PyObject *pyrf_event__new(const union p=
+erf_event *event, struct evsel *ev
+>> >                                     event->header=2Esize, event->head=
+er=2Etype);
+>> >         }
+>> >
+>> > -       if (event->header=2Esize > sizeof(union perf_event)) {
+>> > -               return PyErr_Format(PyExc_TypeError, "Unexpected even=
+t size: %zu < %u",
+>> > -                                   sizeof(union perf_event), event->=
+header=2Esize);
+>> > -       }
+>> > -
+>> >         pevent =3D PyObject_New(struct pyrf_event, pyrf_event__type[e=
+vent->header=2Etype]);
+>> >         if (pevent =3D=3D NULL)
+>> >                 return PyErr_NoMemory();
+>> >
+>> > base-commit: 1c90f0a3c8a1c4e38f9edd97af9e20848805a7fb
+>> > --
+>> > 2=2E56=2E0
+>> >
+>>
+>> Reviewed-by: Samuel Wu <wusamuel@google=2Ecom>
+>
+
+- Arnaldo 
