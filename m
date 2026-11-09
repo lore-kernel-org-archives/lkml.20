@@ -1,100 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.77.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794253714;
-	b=RupgCLb++BF/CQPYAXoSxUcG3H+2O+TGAi9qZ/dNB681NPy9JzsZyH0jGhW/gZK//jEd
-	 AcO4eVzX3OR02z51X2M/5f3saNq6tk+/OLYuS6/cN1mcCHtLrTwZcjW+UoTtC+Kh9vfco
-	 nnVMTgsMKtxl83KqPQpeCOS4FGBv1z0WDKc3/tk7ZM4dKCSIbENOigDyP8lXcCdvIc6yE
-	 tZHOxxaI1X269GwVCWBvWC8ynE1p9UeRcEE+oFSRFhoQwn4WYvPyCsP6yDvSdroB4tJuH
-	 2XU1DRcCBHIjfk5Ar5FXH/AqjX0o9KSXTcOwWeIkB5b2WqHi4xVAk7r6GAWdrm8kY3A==
+	b=Gl/AraUkiSz2NbF2/JErJvmx3Dkzh8rtKWlsf59cqq98IJ3Xg9cBDmJQChkj97rX+83p
+	 Jbe4kjJCeGmG3do31EA3WGjCJkBS+TFqNidn6i2gzd2pyueGEJA95nHisjhS6ESofcrOH
+	 R/ImWDJNkDQfwLYOmSu5fsOkbWzI8vO3SHTlOb/ypRRLD9WR579miESDBBNASjmXJrcu/
+	 EbTuKVTMHjE34fecrwujrdH5uc5+RtwwecmxZgPHzAU9aCZUgB2Wr554lOnTdKscWIQYC
+	 APkGCxUIQ7ai4PB78xEneqLsMoCYW5hA7xp0UZbN16I/eH1kXImZO91nirNbnR/w5FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794253714;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=38YkGSuhDvTuq5veTZ6Adl0FWR6KD9P9IHveutw8QFQ=;
-	b=ybbVQjcXx8U16qpTJXSgl4xAdK0rfB1bcJgOPoaHWJtgENWUdoJ9HSqpih4Yp91Bcufw
-	 eVvd5JsPYLDGAJ0ubclN2xu9mNvJGDWIfzGM2oFvD6RN/Mux3LQYhm2CINB82muTPR8MM
-	 o/Uy75ZZ7VUeXubXGpWPgPa7X246tFCeoumRBJ8fYde9hImDePP36ug0HeFauZzwTUtJS
-	 V/LganLDwMkKWNKppZytRBByu66zm8UXR3sPakv8pkd0/25UPJoODweHfuQrdkD+wLviz
-	 aCn6EN+vzvT03oiT5KxOvgKiWrlQA1XA4GHt3Hpn2IzQv/dIU8LxQ5H+Wyhimd+fBSQ==
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 X-Originating-IP:X-ClientProxiedBy:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=hg6Lq3LaZX+NBqsbdEPtxB2Zy/CQ06DdlwM0HCmSCr8=;
+	b=THFZDW4QnuU5B7CcKABwxBmd6oj1jVpmbYWaGp+66NfU8C6vI1hMYKFyEGnOpkeyfe3t
+	 m7Pxd6k+JCVoWIGeIFJIU5RO4xu8Q/URJ4P0CzPnPitB0XqQn/XROvStVcL7Mru8nigXc
+	 66Y4pFvvlUAE9XblRI2d1huXBOhrAKNNJOa3dDQ6Oc6vTwXIPqiEvtag0aHqiA8ppahdK
+	 tPYfJtUPUvInxXW7Lu2ANgkWQewqenU/UeIXNP822tZ1yjWHNy0Y21AyVnPHNPKzsE3JY
+	 vF8HPTskz2hXRqHoBDi2mY30aMLFeoUhT1w0lK1cQi4pu8g2aPBHA/nZa9zvmwI6IYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vkBlloGT;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=RIXLERVx;
+	arc=none smtp.remote-ip=44.246.77.92
+Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EAA9606A33F
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:48:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EAA9606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79F3560A260C;
+	Mon,  9 Nov 2026 19:48:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79F3560A260C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vkBlloGT
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36f6295304dso1622064eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:48:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=RIXLERVx
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794253713; x=1794858513; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=38YkGSuhDvTuq5veTZ6Adl0FWR6KD9P9IHveutw8QFQ=;
-        b=vkBlloGTCA95RBaB+i3kq0dG40kqd5rAdmF6OoULbKrTf37YiyQGLWhqKZ0HSJDQky
-         ih+b4XAudsOjRWQut8MJbdnUFV1wQSpucIWE3X3ZnDaVLu+TeyJL5RGn3BFYLeulfCfy
-         UCiDOBioy8Z8d2bN22PG9H72T+Y+ERtaAJSqQ6vJq5ru3eCo8sOpeiXViiamsGqgZryX
-         Tm7JcfKrS2ZHbPnHQ9Jh+Jd5k3jvekL5TIEFVMJmyLJmGjJANCanI3lHajsxuh1rtvg9
-         BVT8WRis1iIL1N88H4b5hD7oRyg8vqF073gqSJc8UkM17P0FjnN9ZW60k4IeQvhfksMP
-         hCAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794253713; x=1794858513;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=38YkGSuhDvTuq5veTZ6Adl0FWR6KD9P9IHveutw8QFQ=;
-        b=eoSA3QopYD1T7YC1m1RnHguHG1TnIhQqMq4ly+dgnitg1lWaCPd4DjKuY1RAwPWKL6
-         /fTBzE/tUwJPD0gYy+27m48DL/n48kkwrPp3oN52Vcmv9kq9WIN/H4hwVjrkIlMVIUmP
-         XXUUoC9GnM32HHSpAS9QrjsrEfg9/Mw9o7rTrByXhVBnQiqB+KcGEGr2YoET3jBw79KG
-         qloZzt4lyriCTEvWOCwWpd3dT6Q5B9XUbEC6OTQ5pKNsw9jI7rXaE+irS0l6Xzp8cY7T
-         A7rdl1ddWVCbwTYD//P/TNTetNTmzpZfQCqUYTW+2W1QtIVMeefpo4QmvwAteq/jCGua
-         fBNQ==
-X-Forwarded-Encrypted: i=1; AL+hErGpWjftMEmXxUSvoSvoNNt2E3DXiW7a1IfQGE6cSoFE+7mO1PVNI5nyq7yExePXvIavvPGKhf4kb0gKPbM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+laD4yTs7ozfOC0qYcIZNlIWtn9zA8FwBqtrkCYH8BVtcryKO5
-	/ui7RFNSqugIOwxvlHqKXsd9P6NWAB0boKQwhN+eRCTX09CDkLOVEtcy
-X-Gm-Gg: AYBFou001h/Ex73rB9ITHZkOjgPhMpXmXwgzalAcLGOuOVYcmsNvkBCdH/sLocYWt8P
-	hz0KFTZDRBVW7zB9j9zXSv3NBiXdHJaH0WpZZQ70feL56Y9E6fKKKnadWiNKR7VxZxdHY//DGxn
-	crxXzTSBep9f8u6NgVL6VoINpTMKocm8P5dKkbpRcY2nIiIMuAW1GpoN+Aonpj28deULQCEWuFO
-	Aj4v2eMI9Si0Y/LnzpCMglYJIKC3ufQ/FIADJb2KubhZzoSis64lLW+vUhZ5h48/LdTjKCmoVE4
-	28gO/pFnWNkmEiDqh2rXheYJMcBAyerUMgcDcHNVW5eYUQq2oHVSpSDQdfabkKLfGOVW6N829mz
-	BL+FKyCFSuiIyg0STYlBQmsU2LSPnQWuHsrEgcFOvuEM0Ja578Ik1yZlSzWnSg9cu4B1J7qxagK
-	CQmUQdcXOKRVk1P0zP2MafwntEkaIzKjzTSyV+u+Lqnmd8K4CAb6/U67+VAI1HcJFLdyg3dIGhP
-	O1CLNj3y397fEO54IItUX2BrOztMRdna3c3RHEx5IEU/usooPmutU8jZrGcuvmV8FdPw7zrRq6w
-	aZtXFxrnFTual2M1kaivOVbPaooEMt834dciJbKh2ZZsnLKOmJb6TQLmEwBzowAF
-X-Received: by 2002:a05:7301:7d01:b0:370:d7fe:6585 with SMTP id 5a478bee46e88-3751e994360mr365715eec.11.1794253713247;
-        Mon, 09 Nov 2026 11:48:33 -0800 (PST)
-Received: from obadmin-Precision-3680.atlascopco.group ([167.103.3.1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe32276sm530164eec.8.2026.11.09.11.48.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 11:48:32 -0800 (PST)
-From: Sahaj Chaudhari <sahaj123.sc@gmail.com>
-To: linusw@kernel.org,
-	brgl@kernel.org
-Cc: Sahaj Chaudhari <sahaj123.sc@gmail.com>,
-	j-keerthy@ti.com,
-	nsekhar@ti.com,
-	prabhakar.csengg@gmail.com,
-	avinashphilip@ti.com,
-	sujithkv@ti.com,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] gpio: davinci: allocate bank IRQ data before installing handlers
-Date: Tue, 10 Nov 2026 01:19:10 +0530
-Message-ID: <20261109194910.2282454-3-sahaj123.sc@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109194910.2282454-1-sahaj123.sc@gmail.com>
-References: <20261109194910.2282454-1-sahaj123.sc@gmail.com>
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794253714; x=1825789714;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=hg6Lq3LaZX+NBqsbdEPtxB2Zy/CQ06DdlwM0HCmSCr8=;
+  b=RIXLERVxIpYCMvVKLibk4KuoUu+/e+Il6u2MfXxxSWEbJPjtSZo+C6im
+   T09I4xsgVtYy4ODLAagikLsxcynZQiSVOCg4fTBNne4TJKZ13nF92yHqc
+   gJgxvf6zpNpeq6tw2znnLgsu7RJyZA9G2DTPXEjVEe0bQSfENjuDXOKWf
+   HKlLU6HRRabYfjKCJ77pEgT8VE7S567BUP5zq6pOwUebBrTdTfeQ77X3J
+   mBE2okpxSxSWX/yjEvmd+TA6vAQcJhnJhLemfMwGmPHd3BcwVkj8jToRg
+   hM3EVKZ7P0I2DIzQmB1orJ34yOtC4Mz5AJKES+xpzgBy6xXr5bHVirzrA
+   Q==;
+X-CSE-ConnectionGUID: dviy2xHsSgW2E3LS/kxk/g==
+X-CSE-MsgGUID: lZDCxsgsRzWAHfjvihhVlg==
+X-IronPort-AV: E=Sophos;i="6.27,204,1787011200"; 
+   d="scan'208";a="33546071"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 19:48:32 +0000
+Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:22452]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.55.227:2525] with esmtp (Farcaster)
+ id f60dd975-c1d5-4f4e-a67b-dbe0158e5e0e; Mon, 9 Nov 2026 19:48:31 +0000 (UTC)
+X-Farcaster-Flow-ID: f60dd975-c1d5-4f4e-a67b-dbe0158e5e0e
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Mon, 9 Nov 2026 19:48:31 +0000
+Received: from dev-dsk-sieberf-metal-1a-7543e84d.eu-west-1.amazon.com
+ (172.19.116.227) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56; Mon, 9 Nov 2026
+ 19:48:28 +0000
+From: Fernand Sieber <sieberf@amazon.com>
+To: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>,
+	<vincent.guittot@linaro.org>, <shuah@kernel.org>
+CC: <dietmar.eggemann@arm.com>, <rostedt@goodmis.org>, <bsegall@google.com>,
+	<mgorman@suse.de>, <vschneid@redhat.com>, <kprateek.nayak@amd.com>,
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<nh-open-source@amazon.com>, <hborghor@amazon.de>, <fmubeen@amazon.de>,
+	<dwmw@amazon.co.uk>
+Subject: [PATCH 0/2] sched/fair: Stop core-scheduled siblings trading rescheduling IPIs
+Date: Mon, 9 Nov 2026 21:48:25 +0200
+Message-ID: <20261109194827.87349-1-sieberf@amazon.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,66 +87,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: EX19D031UWA004.ant.amazon.com (10.13.139.19) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-If allocation fails partway through bank setup, previously installed
-chained handlers still point at devm-managed data that is released when
-probe fails. Allocate the complete bank-data array before installing the
-first chained handler so an allocation failure leaves no handlers behind.
+Since v6.17, two SMT siblings under core scheduling can keep sending each
+other rescheduling IPIs, thousands per CPU per second, while each keeps
+running the same task.
 
-This fixes the probe-failure path; it does not change ordinary device
-removal.
+Commit 0b9ca2dcabc3 ("sched/fair: Always trigger resched at the end of a
+protected period") makes update_curr() ask for a reschedule once the
+running entity's protected period has expired. set_protect_slice() only
+rearms that period on a fresh pick (SNT_PICK), so an entity that is picked
+again keeps an expired vprot and every later update_curr() on it asks
+again. Under core scheduling the ask is remote: a core wide pick calls
+pick_task() - hence update_curr() - on every sibling's runqueue, so each
+sibling IPIs the other, which schedules, re-picks the same entity, renews
+nothing, and IPIs back.
 
-Fixes: b5cf3fd827d2 ("gpio: davinci: Redesign driver to accommodate ngpios in one gpio chip")
-Signed-off-by: Sahaj Chaudhari <sahaj123.sc@gmail.com>
----
- drivers/gpio/gpio-davinci.c | 24 +++++++++++-------------
- 1 file changed, 11 insertions(+), 13 deletions(-)
+Patch 1 renews the protection on a repick. Patch 2 adds a selftest that
+cookies one SMT pair, runs two spinners on each sibling and fails above
+1000 rescheduling IPIs per CPU per second. It reproduces in a 4 vCPU QEMU
+guest (-smp 4,sockets=1,cores=2,threads=2) with CONFIG_SCHED_CORE=y and
+CONFIG_PREEMPT_LAZY=n: without patch 1 it fails 6 runs out of 7, at
+808-2123 IPIs/CPU/s; with it all 7 pass, at 224-271.
 
-diff --git a/drivers/gpio/gpio-davinci.c b/drivers/gpio/gpio-davinci.c
-index caeecfc3df20..751c0e3a9676 100644
---- a/drivers/gpio/gpio-davinci.c
-+++ b/drivers/gpio/gpio-davinci.c
-@@ -550,6 +550,13 @@ static int davinci_gpio_irq_setup(struct platform_device *pdev)
- 	 * Or, AINTC can handle IRQs for banks of 16 GPIO IRQs, which we
- 	 * then chain through our own handler.
- 	 */
-+	irqdata = devm_kcalloc(dev, DIV_ROUND_UP(ngpio, 16),
-+			       sizeof(*irqdata), GFP_KERNEL);
-+	if (!irqdata) {
-+		irq_domain_remove(chips->irq_domain);
-+		return -ENOMEM;
-+	}
-+
- 	for (gpio = 0, bank = 0; gpio < ngpio; bank++, gpio += 16) {
- 		/* disabled by default, enabled only as needed
- 		 * There are register sets for 32 GPIOs. 2 banks of 16
-@@ -564,21 +571,12 @@ static int davinci_gpio_irq_setup(struct platform_device *pdev)
- 		 * gpio irqs. Pass the irq bank's corresponding controller to
- 		 * the chained irq handler.
- 		 */
--		irqdata = devm_kzalloc(&pdev->dev,
--				       sizeof(struct
--					      davinci_gpio_irq_data),
--					      GFP_KERNEL);
--		if (!irqdata) {
--			irq_domain_remove(chips->irq_domain);
--			return -ENOMEM;
--		}
--
--		irqdata->regs = g;
--		irqdata->bank_num = bank;
--		irqdata->chip = chips;
-+		irqdata[bank].regs = g;
-+		irqdata[bank].bank_num = bank;
-+		irqdata[bank].chip = chips;
- 
- 		irq_set_chained_handler_and_data(chips->irqs[bank],
--						 gpio_irq_handler, irqdata);
-+						 gpio_irq_handler, &irqdata[bank]);
- 
- 		binten |= BIT(bank);
- 	}
+This series, including the changelogs, was prepared with the help of an AI
+coding assistant; I have reviewed and tested all of it.
+
+Fernand Sieber (2):
+  sched/fair: Renew slice protection when current is picked again
+  selftests/sched: Add a core scheduling rescheduling IPI test
+
+ kernel/sched/fair.c                           |   7 +
+ tools/testing/selftests/sched/.gitignore      |   1 +
+ tools/testing/selftests/sched/Makefile        |   4 +-
+ tools/testing/selftests/sched/config          |   2 +-
+ .../selftests/sched/cs_resched_ipi_test.c     | 377 ++++++++++++++++++
+ 5 files changed, 388 insertions(+), 3 deletions(-)
+ create mode 100644 tools/testing/selftests/sched/cs_resched_ipi_test.c
+
 -- 
-2.43.0
+2.47.3
+
+
+
+
+Amazon Development Centre (South Africa) (Proprietary) Limited
+29 Gogosoa Street, Observatory, Cape Town, Western Cape, 7925, South Africa
+Registration Number: 2004 / 034463 / 07
 
