@@ -1,99 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253986;
-	b=Q1F1EaT+wqJk4hGaKhcbRKnNZlpaIbo7v4yQ1PeStzpHfyLxtwvEX2iXcWBwz8LBCVfr
-	 YjvjLWWdxhOgsxZWeUOKNSG0IJrx/40Xvx4EGHlh9JGhbSeVMXcShVKnKiVRHv4Rg0xu2
-	 zSvMUzQq9P1bK4UAsQhrO51DP+TX/vZ87AgrAHMTjuEwcI+HawV1Sk3DlCB8R5qLBF+TX
-	 bwtbbe+yvl1QlHVuDtozrHCFJMcGulfSN4TkwDFVs+XDBYWhseRSchWoLHBd3JTTGjVrg
-	 325Zt8DsIHIqF9SoqbGpNOtQGIACFTHjDZuIYr1TgLLuXzpsRHu/XcbYx6VuKx176+A==
+	t=1794254003;
+	b=I+CXf+2t9ZM3n3wakjEoDWgvn2hU03+2njQodNKiDkGrQgvNdCZ9sTccAu77QzNtgYvN
+	 fBSaf8KYGYNP+pVbzrWN5U+lZnWsYgI4hIfMAfsHTJ+ySuZmxjTa4itUFLz/JALox3wtl
+	 Pcn6d+lbtU/DSVqXkKR1p3OcirBVpn7kIm3xnEQISRNLezS75oGdQT8AirCNp8ciQtDPu
+	 F0FNXOPh551SEZsmXzDfzO2Ypx0Wp08hUKTGtKLwB44QCQjWAYzU+e9cXAFdBtyRraNH9
+	 NjJlj59XCkaAIGaJqVie0iIloHpoGSs0R0eZGmKxYpTIzPDdNMWSkPhyHh/k8PApbCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253986;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=gAorfxIyUvbBcX96PfMi8oF/ogo2BfVfyJbNm4STPww=;
-	b=ju9289Lf7RQddKmv3cK8j4vFX5o1wJQEyYhSBFKbVlre9t3dMsle74U2yq0Gfn5QAg6S
-	 1oCpACcKTV4BpESzp4gEfDSfxos77HlXEy4HSgQfkdJCAQ6yY7N1ALZvm5T36UgsP45Ii
-	 gP+Pd+qqInBQOI8e+ysW3nvTRGRXteO31bLedsAL5V/iql5JqSstFDrUT9Z0RbeIH0VBA
-	 F3fl4yfCF9JpDIak/57NfHIp6tUPabI1Hi34ulycl7pS+rMEYY6kgrSw9OGB7dFpW5CfA
-	 w66BDTjarNKayWmbCduoS0gEKjzI6DfbIo7ylC8ws7lo7UwYnPAyE0ZvSIyYWJa1Ysg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254003;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=trWh7b/oaV73RFxc+/uIz5fIntxEntW0xD8Fkcoyd2g=;
+	b=qpORojX3ZzfayAr3PuRiKqiHUgccPsZNASnMo3gqDFvfbpoF01LrgAtIBDBbos5DXSZ0
+	 wOwFFf+fW4tmXD1VbLp0nDqNh6mCE4sJC22hoe0DDPRAx4nU/KrC6HBiD4XlVUXgWz9p+
+	 6TWq0uGL1thNlObVmJ9fF9ZakShkS7L/xdLUI/NsdLQPKkL7goN6IpgWRtbpCEAPdfmMe
+	 EPpWA9DUIlA14ap1wAqWPcUg6KnlRDmdbW0AYCQlsMuOAqP5GZIdtSC16AkPvBHZCfXp0
+	 zKRMvKN3xJ+8sFOlMkc78GKg7qRJzsMD1KLYVD1zlu80BEMM3KAAdejBthS/p64nSww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qWt7ITv/";
-	arc=none smtp.remote-ip=74.125.229.133
-Received: from mail-dl2-f5.google.com (mail-dl2-f5.google.com [74.125.229.133])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=RbbZEf8g;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=FS4x2C4g;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800EB606A339
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:53:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 800EB606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA43B606A31C;
+	Mon,  9 Nov 2026 19:53:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA43B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qWt7ITv/
-Received: by mail-dl2-f5.google.com with SMTP id a92af1059eb24-1ac216daf7dso723386c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:53:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794253985; x=1794858785; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gAorfxIyUvbBcX96PfMi8oF/ogo2BfVfyJbNm4STPww=;
-        b=qWt7ITv/CVwWMnO7nbLE6nC1aAG5BonHOqFPfpJ2NRQcvtRZ9dsC5eGGAEcWlg26t6
-         +CT7WN6RIUhJbmYItfcn1xjHuwLfuHkFdrNFoMyaEh7XmF7G9+Y9ZIbOCeBk3fneev2h
-         /JNu+ddogJjpbCGMh4BbytOPM5alPXMUa5asoR5PHa6t4dfmk1IuMgme4xdsL7hev4Dn
-         QItB3o91jx11IjrEGYFriODKb5B4NfjfkLao1NTJ1JOeUtCM8R4zCJNgsaCtDYKG2RI4
-         +YE/w2slWhO0xN3ZOsSzSihZE6FMtfO92PwwJLY+wjRg/XtVzhi4mPH+raWRKqayBo+d
-         c9Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794253985; x=1794858785;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gAorfxIyUvbBcX96PfMi8oF/ogo2BfVfyJbNm4STPww=;
-        b=akn5E3PvuE+30DWK3mS1YHCsuKLl567xoKj6GcxVpA2Mc5YxtnSqfL1A/N9rccz7EF
-         IBN42+tXML2D22SAonMe+09dRPsZCGy3KSzHgeyOEKF73PDyXqZwIxu0OV0dcoFWi8dj
-         xttFlxDIDzr+JrLcAadAmiuYSeApQJ8lC++Qx114IujNTQXarXQRxd/MYiekEPdbAyNI
-         tsY6vaR+mexELYD8w1QJnArEINC9+EA3TaNfJ/kqQ9izGJ5mVeZ5KIgbkR4ExZtqRIm6
-         WEWRyodoioJ2bxdF9sXLRxJM8AYt3K7GxGD8odL+gKuGWscuD4QbACQsD/2rIuf2331J
-         PS6Q==
-X-Forwarded-Encrypted: i=1; AL+hErGktQk9aLT1giez4VokYWaIuw5Up0/uPny3zXy/jEbrFd+4hcNDJDOvsJ+p0wx6t6puOZwgxuXeGzIJH+w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wTdRP8WU6oXIglmwMRbcHa9WqYOpfD1LhRn2zK9RGKZ9PHB4G
-	+7ZD0QuOxdxxkBKHkKiqLFHO9CvKJdN9OTsGoAUMBVnylIYmSRIeND1f
-X-Gm-Gg: AYBFou2zaYnl1yXAbRNM2t7zCPYp0oFlEGtAW9iwiFYZwaE3hDDFQuMbQj/juE5Mpiu
-	P2WYnJdkMeRjzv3DQJuHjj/eioUcgdoqBDW8hXD+0+8ZkhwFKgDAutDjZYT4R775s+5g9IUDlIx
-	KIh6lBsxZmoXie/bLhJCRU+6SJS52q5VcRZEGltV1Y3AJug5gOC1SW2S+uuUPee4Exq9HlTFERT
-	5hfd3S57x85L9ft3Zq873h4f0Tb5HApY3MKT+SpnsOMVae1/6vRqmVAAeJCR+VVZReHeaDJphwI
-	YuzxkirRKysPcGNSKcICVttZueGfx5CyTShLQTR9OAevSYnzWByVnJ8r/uo+RtLao74QxfQoQZm
-	Gp0aKDTdXLfQTHLKh9BGDipyg7xT2BIU8m2VmVxxiNiJ2sfp+udXELCD8+35NvyiCH0U04Ml3aB
-	J+UV9n3PlikkXNrkXOFzibujXzEzC83+J/qG+UoFRcM4joCzR6wfXQH9ExwsqCPAIwsril/RB8h
-	URjYsKRD6Q9r1u9T0BsQKDrJxh4QxNTw8+S7XTlhaflWex+lFFGgk88uTMoEpVRhdgXbCRMZU9V
-	wEOkQcwI9/wdqUsp1NOEog==
-X-Received: by 2002:a05:693c:6007:b0:36c:da71:37e0 with SMTP id 5a478bee46e88-3751c6350e1mr401135eec.2.1794253984600;
-        Mon, 09 Nov 2026 11:53:04 -0800 (PST)
-Received: from localhost ([2a03:2880:9ff:70::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-375218c863csm447069eec.28.2026.11.09.11.53.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 11:53:04 -0800 (PST)
-Date: Mon, 9 Nov 2026 11:52:55 -0800
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Daniel Borkmann <daniel@iogearbox.net>, Nikolay Aleksandrov <razor@blackwall.org>, 
-	David Wei <dw@davidwei.uk>, Bobby Eshleman <bobbyeshleman@meta.com>, 
-	Dragos Tatulea <dtatulea@nvidia.com>
-Subject: Re: [PATCH net-next v2 5/6] net: devmem: resolve physical map_dev
- for leased RX bindings
-Message-ID: <avIkaDJ_G89_BYH9@devvm16445.scu0.facebook.com>
-References: <20261108055809.2122934-1-almasrymina@google.com>
- <20261108055809.2122934-6-almasrymina@google.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=RbbZEf8g;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=FS4x2C4g
+Date: Mon, 09 Nov 2026 19:53:16 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794253999;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=trWh7b/oaV73RFxc+/uIz5fIntxEntW0xD8Fkcoyd2g=;
+	b=RbbZEf8gZ3qjkVyR3QdD0Kf54m0Leq8zSV15f7Kn5+GzScSdY/GGSoGYlcqIrdE5sRDshy
+	fIAEYZZF6xqtIQDdoyltaNVqfz6ScPkpCf+S2eAdQWSlVjs5YSXRtBBVvnL42w+ZJRhjcu
+	mHLx9uoj5D5TYRI780kSX9HeNetqkCpa6UeSbyxegRBXa7pbKsl5CFD9f09FiXIQlXwesM
+	tIt7muu9u+GbYozrcFm5OhwrXDzs8NkwkxC0XnQYGqqFQzcYWOzD8FdHB3xmaz0L46Qs3I
+	AOEg/gJjnU49iBfh5OqOVb2dCCn+EmSBu8k2ij/nABkj0P9XSGtedqK7t5gLmg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794253999;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=trWh7b/oaV73RFxc+/uIz5fIntxEntW0xD8Fkcoyd2g=;
+	b=FS4x2C4gXOkYW1nnt/nNIJS6TZEReMn/E3BB2Q8otzz0bvjehoDB2hZy4hQpBwtpEaq9U5
+	tqZmMq79Td0iLsAg==
+From: tip-bot2 for Thomas =?utf-8?q?Wei=C3=9Fschuh?= <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: timers/core] alarmtimer: Return early if try_module_get() fails
+Cc: linux@weissschuh.net, Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261102-alarmtimer-locking-v1-3-3c79a698aeae@weissschuh.net>
+References: <20261102-alarmtimer-locking-v1-3-3c79a698aeae@weissschuh.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,56 +77,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261108055809.2122934-6-almasrymina@google.com>
+Message-ID: <179425399695.2093942.11906446385711241339.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/08, Mina Almasry wrote:
-> Previously, netdev_nl_bind_rx_doit() passed netdev as both map_dev and
-> bind_dev to net_devmem_bind_dmabuf(), so leased RX bindings stored the
-> virtual netdev in binding->map_dev without tracking the physical backing
-> netdev at all. Unregistering the physical backing netdev while a leased
-> RX binding was active failed to detach and unmap the dmabuf.
-> 
-> Return the physical backing net_device from netdev_nl_get_dma_dev() when
-> the RX queue is leased from another netdev, lock map_dev around
-> net_devmem_bind_dmabuf() when map_dev != netdev (matching
-> netdev_nl_bind_tx_doit()), and assert in net_devmem_bind_dmabuf() that
-> both bind_dev and map_dev are locked.
-> 
-> Because a leased map_dev is reached via rxq->lease->dev and locked with
-> raw netdev_lock(map_dev) rather than netdev_get_by_index_lock(), it may
-> already have entered NETREG_UNREGISTERING and completed
-> net_devmem_dev_unregister(map_dev) before cascaded unregistration of
-> bind_dev tears down the lease. Reject binding in
-> net_devmem_bind_dmabuf() if map_dev->reg_state != NETREG_REGISTERED.
-> 
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
-> ---
->  net/core/devmem.c      | 12 ++++++++++++
->  net/core/netdev-genl.c | 19 ++++++++++++++++---
->  2 files changed, 28 insertions(+), 3 deletions(-)
-> 
-> diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index bb785a871d1c4..2dac581a57e13 100644
-> --- a/net/core/devmem.c
-> +++ b/net/core/devmem.c
-> @@ -321,6 +321,18 @@ net_devmem_bind_dmabuf(struct net_device *map_dev,
->  	size_t i;
->  	long err;
->  
-> +	netdev_assert_locked(bind_dev);
-> +	netdev_assert_locked(map_dev);
-> +
-> +	/* When map_dev != bind_dev, map_dev is locked via the queue lease
-> +	 * rather than netdev_get_by_index_lock(), so it may already be
-> +	 * unregistering before cascaded bind_dev unregistration runs.
-> +	 */
-> +	if (map_dev->reg_state != NETREG_REGISTERED) {
-> +		NL_SET_ERR_MSG(extack, "Device is being unregistered");
-> +		return ERR_PTR(-ENODEV);
-> +	}
+The following commit has been merged into the timers/core branch of tip:
 
-And you can call this new lease-valid here as well? Otherwise, the changes
-are too LLM-y, testing some super low-level conditions and are a bit hard
-to read/follow?
+Commit-ID:     8c35d628b82dfa883394fa7cbfb9847017ed3d52
+Gitweb:        https://git.kernel.org/tip/8c35d628b82dfa883394fa7cbfb9847017e=
+d3d52
+Author:        Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
+AuthorDate:    Mon, 02 Nov 2026 06:11:56=20
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Mon, 09 Nov 2026 20:50:03 +01:00
+
+alarmtimer: Return early if try_module_get() fails
+
+Simplify the logic by returning early if try_module_get() fails.
+
+Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://patch.msgid.link/20261102-alarmtimer-locking-v1-3-3c79a698aeae@=
+weissschuh.net
+---
+ kernel/time/alarmtimer.c | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
+
+diff --git a/kernel/time/alarmtimer.c b/kernel/time/alarmtimer.c
+index 8eeea09..33c35f1 100644
+--- a/kernel/time/alarmtimer.c
++++ b/kernel/time/alarmtimer.c
+@@ -77,7 +77,6 @@ static int alarmtimer_rtc_add_device(struct device *dev)
+ {
+ 	struct rtc_device *rtc =3D to_rtc_device(dev);
+ 	struct platform_device *pdev;
+-	int ret =3D 0;
+=20
+ 	if (rtcdev)
+ 		return -EBUSY;
+@@ -94,17 +93,16 @@ static int alarmtimer_rtc_add_device(struct device *dev)
+=20
+ 	device_init_wakeup(&pdev->dev, true);
+=20
+-	if (try_module_get(rtc->owner)) {
+-		WRITE_ONCE(rtcdev, rtc);
+-		/* hold a reference so it doesn't go away */
+-		get_device(dev);
+-		pdev =3D NULL;
+-	} else {
+-		ret =3D -1;
++	if (!try_module_get(rtc->owner)) {
++		platform_device_unregister(pdev);
++		return -1;
+ 	}
+=20
+-	platform_device_unregister(pdev);
+-	return ret;
++	WRITE_ONCE(rtcdev, rtc);
++	/* Hold a reference so it doesn't go away */
++	get_device(dev);
++
++	return 0;
+ }
+=20
+ static inline void alarmtimer_rtc_timer_init(void)
