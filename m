@@ -1,77 +1,76 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794259598;
-	b=Si/Te4uPxegqCS1yFUOoxqPTTTgqal2Hv2DWz4L01viSKAOqI0KgLlkmaRYyOMQRx5CN
-	 o7QEktK/w+sHnDrTGcOKsn7qCP+ufNBNfm6z5Ge7TUlWEM8WaPU34Fe3hJiFQ/oHtawlV
-	 A7Spk8kESUysD6a8uMywglzwGbBdef26hF3B3NtI08of7trk25/v0LMoBAYmwnGZJwIdv
-	 PY9TQKFhXVeamHPZxko4QL9Mu6jRBsq8BaOx/RmdeIIewd64MT8W/8yoaRgd7WSxK/XWl
-	 wAViTi8KeyiYjzoumMtp0NLrHHrFPnM34ktpGcQZ8zxemqhmBPWhkSxmtEuuFWxNQEw==
+	b=fGD8dBz9GL4ESYRCz28F7w0qQKM7NgrkKSyFqZq/OeVE59vGUcmUrBEmPNou+s6k1cBy
+	 x0LGZ5Y6biBwEq0h7TLr1ptjuOp6nnpPMTdwkI3v1f8brZqjUYt0D+tBk6zjbFfMSLF2s
+	 n6dm6kcWZZDmy4LmGlvNhQ4v3TFNywyD9OZWGhj5IymMDbwNDzgfD78zw+pUPcHq2H/8a
+	 LnOfZMlJyQszaHlhmIWQjMpboG7CIzCnD7rJ/91yHH4IydtRusSYrF4GA0J2mZUbuE6eM
+	 4tmTfh6jRgB3p6L8+ZLLRfMLh5tZfy1yvTGjt2VytlwJuSy1yVzuxSXzGZRPgd/ACMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794259598;
 	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
 	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
 	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=9T/Cxfy40DMYKpgdCoy5lmF/aG4jW9r6fse7gIoy3p0=;
-	b=dCHTDNsEab9h+CGRQSY1kM8JldXTiXZ+F5vcW3BXoPpNqK88S+PG7PLBTLj4bWOVGal+
-	 v95Q5FWBWXPpMpryovncMQ0Ozg7gRrzpMqCoKBuicrbq+BUyThLYecex/YiDWRhit7SD0
-	 YIEYJ5ha1FbiT91Z8Zz5KC5lvMGgyEHk6NwifVxRy/MROF9dqdpN5EBC4RaqwSy7BWnIQ
-	 W3Sh37D8DS8wbV8Vn4aNp3z+ABcKvfr7D5HpgfAPZ94y9eRdII0yWwkvju5XA96mH+d+G
-	 dK/Eez0DOX9JsFOx+ayRtwJkiXyNuytgUl7s6CyansxxRGGDkweaV5aDnXLTlBSZcCw==
+	bh=duwJk/Wws+rRjMwG7vuzmSHDUb/pQjF+eqiv4bEhbhM=;
+	b=hFXzEmAHd2HJz+X4fCqB+DxWfb+g3w912jebHuUl/b245jH2v0n4sFxWnu7zDrITRMDH
+	 WerRSbUpmDSOZ3CutqQJ2bUDMXTc5SJ9xsvJqQ3mrSUrvfEpYHwUQt41gbtMM3p7ct5Ba
+	 WTJ6AWFfWLFN/bIP8IDDZzo3vNZHizd+xqQX5vdMKh7C1mZB8ECx8EtGN9NtkY6txbZiF
+	 jnvlQfuFkuPOjIJFs8selRw9QWzDbML7cSiTE4MJ5ZKNv2t5BgYvvM8x+Yv0HmK8npbah
+	 RgUPCDX/Jci5D1m0rCGX9gZaWAOpLof9yKN636j2bXvVQedFj3PBDQhzp8bHD6AmmOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=VIfqHijT;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wsNnpdZa;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=L6pFJPBk;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=puUFlHFK;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78361606A332;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7822C606A331;
 	Mon,  9 Nov 2026 21:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78361606A332
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7822C606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=VIfqHijT;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=wsNnpdZa
-Date: Mon, 09 Nov 2026 21:26:32 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=L6pFJPBk;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=puUFlHFK
+Date: Mon, 09 Nov 2026 21:26:33 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794259594;
+	s=2020; t=1794259595;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9T/Cxfy40DMYKpgdCoy5lmF/aG4jW9r6fse7gIoy3p0=;
-	b=VIfqHijTf+YUNwcIdi4BmfxoFBRfhirlXHL7XJxrpNrYLQ6wwgDUf1KPxzvLkgbsHpp+oi
-	pdf9v8bh2nW/OyvvzYk8meDLh3CX+C3Ufe2MU7cq6REfyRXu81TnkFXW/E1y+lnN07yY8Y
-	L1F/JERT4NJGmRNCtZ/GqR8A0Lk2KzTyH/A/X8ohcOIuGDH0q3dHXtXipERc8RmeJ7z8qe
-	augL6DXOV4ZJYL9fi9pj4ILyMeKueFA77nEQyveC03MN6tHN8h1r6bbkNlXlzxcuyFUbFD
-	xo/p33Ji/aeOUAvDSDT/3pQOzXNpX+Vzika/k0n4M0fhaZ6R0qgnLjRKPwp38A==
+	bh=duwJk/Wws+rRjMwG7vuzmSHDUb/pQjF+eqiv4bEhbhM=;
+	b=L6pFJPBkcboIV/FtIibZlIbG3oJ87Ks20CcRunH2gir7yc0wsdzwa9ayXsq2HhkGRrKVUM
+	JLAZZpM210dqdHHIq1mhX1g0+3t1E2u2PjnASlYn/uPnDS7QzryAPFn1S8tkR6YJEgKEXc
+	smQZ2c+MfJJkbJjiELYNLrppEeNl9XohgHMq21dVw4kBxlPiHyq2aR+ocfMmmb1bhpUgUw
+	Tls8SNuOBJQBftkEywA1WVMfp+7oieR0Ioa2ccVHhUdrbrkiplMmDFalzUpzGtZyETMGPl
+	k1KbBJQgkCUmxUibPH0Hz2pfqEEwU1M7Jeq+JGPKMX9zUrQDQQrTdIivdEMdVQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794259594;
+	s=2020e; t=1794259595;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9T/Cxfy40DMYKpgdCoy5lmF/aG4jW9r6fse7gIoy3p0=;
-	b=wsNnpdZabgzzwQXjMXFOfW15K+lJ5POt/OBpZchjZHcjjSzEjh3KpHLD6bFNP4/k8bDB0k
-	33oP6BvEyRTh2jBg==
+	bh=duwJk/Wws+rRjMwG7vuzmSHDUb/pQjF+eqiv4bEhbhM=;
+	b=puUFlHFKebZSvoNw2WjbMnKBeySPefs7sZesKz0gkiwLTtYcHj8yLsLhodBNA6NOyDibTE
+	wVx0+f3sQ8PJ8lBw==
 From: "tip-bot2 for Reinette Chatre" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/cache] fs/resctrl: Drop unnecessary parameter from
- resctrl_io_alloc_parse_line()
+Subject: [tip: x86/cache] fs/resctrl: Drop unnecessary is_mba_linear() helper
 Cc: Reinette Chatre <reinette.chatre@intel.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Ben Horgan <ben.horgan@arm.com>,
- Chen Yu <yu.c.chen@intel.com>, Jinjie Ruan <ruanjinjie@huawei.com>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Chen Yu <yu.c.chen@intel.com>,
+ Ben Horgan <ben.horgan@arm.com>, Jinjie Ruan <ruanjinjie@huawei.com>,
  Tony Luck <tony.luck@intel.com>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: =?utf-8?q?=3Ca1cbad5a426689842502793f21ddb1e9b3b6408d=2E1793834?=
+In-Reply-To: =?utf-8?q?=3C493995284247554d05dc3813722168fb053d5d10=2E1793834?=
  =?utf-8?q?224=2Egit=2Ereinette=2Echatre=40intel=2Ecom=3E?=
-References: =?utf-8?q?=3Ca1cbad5a426689842502793f21ddb1e9b3b6408d=2E17938342?=
+References: =?utf-8?q?=3C493995284247554d05dc3813722168fb053d5d10=2E17938342?=
  =?utf-8?q?24=2Egit=2Ereinette=2Echatre=40intel=2Ecom=3E?=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,7 +81,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179425959226.2093942.15264992073228548889.tip-bot2@tip-bot2>
+Message-ID: <179425959390.2093942.8201170258762923576.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -92,69 +91,58 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the x86/cache branch of tip:
 
-Commit-ID:     2a93af75384b7e95d62c5a9a39e13573e2170ec5
-Gitweb:        https://git.kernel.org/tip/2a93af75384b7e95d62c5a9a39e13573e21=
-70ec5
+Commit-ID:     79d147bbc7e3e4d99fc3e460fbb671c87a0453e1
+Gitweb:        https://git.kernel.org/tip/79d147bbc7e3e4d99fc3e460fbb671c87a0=
+453e1
 Author:        Reinette Chatre <reinette.chatre@intel.com>
-AuthorDate:    Wed, 04 Nov 2026 16:13:33 -08:00
+AuthorDate:    Wed, 04 Nov 2026 16:13:32 -08:00
 Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Sun, 08 Nov 2026 19:10:41 -08:00
+CommitterDate: Sun, 08 Nov 2026 18:55:42 -08:00
 
-fs/resctrl: Drop unnecessary parameter from resctrl_io_alloc_parse_line()
+fs/resctrl: Drop unnecessary is_mba_linear() helper
 
-resctrl_io_alloc_parse_line() parses a line written to the io_alloc_cbm file.
-It receives both a schema and a pointer to the schema's resource. Its only
-caller looks up the resource from the schema just to pass both.
+is_mba_linear() assumes it operates on the MBA resource and returns whether
+the resource's delay values are linear. There is only one caller that
+separately makes the same assumption.
 
-Passing the resource separately is redundant and allows a caller to pass a
-resource that does not belong to the schema. parse_line(), which parses lines
-written to the schemata file, already receives only the schema and determines
-the resource from it.
-
-Pass only the schema to resctrl_io_alloc_parse_line() and have it determine
-the resource itself, matching parse_line() and in preparation for passing
-additional information when supporting multiple controls.
-
-No functional change.
+Avoid duplicating the resource assumptions and let the only caller access
+the needed property directly.
 
 Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
 Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
 Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+Reviewed-by: Ben Horgan <ben.horgan@arm.com>
 Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Reviewed-by: Tony Luck <tony.luck@intel.com>
-Link: https://patch.msgid.link/a1cbad5a426689842502793f21ddb1e9b3b6408d.17938=
+Link: https://patch.msgid.link/493995284247554d05dc3813722168fb053d5d10.17938=
 34224.git.reinette.chatre@intel.com
 ---
- fs/resctrl/ctrlmondata.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ fs/resctrl/rdtgroup.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
-index 4562072..69123b2 100644
---- a/fs/resctrl/ctrlmondata.c
-+++ b/fs/resctrl/ctrlmondata.c
-@@ -955,11 +955,12 @@ out_unlock:
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 57ab090..443b41a 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -2577,11 +2577,6 @@ out_destroy:
  	return ret;
  }
 =20
--static int resctrl_io_alloc_parse_line(char *line,  struct rdt_resource *r,
--				       struct resctrl_schema *s, u32 closid)
-+static int resctrl_io_alloc_parse_line(char *line, struct resctrl_schema *s,
-+				       u32 closid)
+-static inline bool is_mba_linear(void)
+-{
+-	return resctrl_arch_get_resource(RDT_RESOURCE_MBA)->membw.delay_linear;
+-}
+-
+ static int mba_sc_domain_allocate(struct rdt_resource *r, struct rdt_ctrl_do=
+main *d)
  {
- 	enum resctrl_conf_type peer_type;
- 	unsigned long dom_id =3D ULONG_MAX;
-+	struct rdt_resource *r =3D s->res;
- 	struct rdt_parse_data data;
- 	struct rdt_ctrl_domain *d;
- 	bool update_all =3D false;
-@@ -1052,7 +1053,7 @@ ssize_t resctrl_io_alloc_cbm_write(struct kernfs_open_f=
-ile *of, char *buf,
- 	io_alloc_closid =3D resctrl_io_alloc_closid(r);
+ 	u32 num_closid =3D resctrl_arch_get_num_closid(r);
+@@ -2621,7 +2616,7 @@ static bool supports_mba_mbps(void)
+ 	struct rdt_resource *r =3D resctrl_arch_get_resource(RDT_RESOURCE_MBA);
 =20
- 	rdt_staged_configs_clear();
--	ret =3D resctrl_io_alloc_parse_line(buf, r, s, io_alloc_closid);
-+	ret =3D resctrl_io_alloc_parse_line(buf, s, io_alloc_closid);
- 	if (ret)
- 		goto out_clear_configs;
-=20
+ 	return (resctrl_is_mbm_enabled() &&
+-		r->alloc_capable && is_mba_linear() &&
++		r->alloc_capable && r->membw.delay_linear &&
+ 		r->ctrl_scope =3D=3D rmbm->mon_scope &&
+ 		!rmbm->mon.mbm_cntr_assignable);
+ }
