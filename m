@@ -1,106 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794202151;
-	b=UyVyKY2BbSQw1/NDWZHPWsbDSFKPfMnwTCUHHVZNwHZm3w911gyvi3m41kcJBM32QX18
-	 pyuKnFFtn85m6eTZoXcEly6ZAPpgPxu3saDKM0+B+8Mpr/MudJYrRUE/KHNgBhToKymSh
-	 bsD/q7F0LkHVpnk8bEHuvRgSHDT/gQHr149Nd0Bof9XTi3EXgvuplsMhcKjfsk3ONWzFj
-	 m7Bk7MdWbJyNuRxdWv8khF/Ifhyh2pGswknk2JL1EvKdCenQV2xGQazH4k0iSArlpLTxB
-	 jeLvKdJjJXCZ15aCKEmKgORRI+nkrneZDFnsCz0q8gDLzndfATqnN+v2ka79sjMgddQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794202151;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+2wCtwxXKIDkxHcE0WIbk0DNcnVd4qsfVLWBnePcPdM=;
-	b=RSLaoe6DYKWW6Yn6wNtHwfXcVc+7MQSGqpZOviS8ktz6G9arMm+Hq341EhQja4ByiZ7f
-	 BpGf/6ytm16t3cXAwhzU3ndmenwVw5LmN5xybyud3GNM0k0cueuytMERgG9Z08DZZsKlU
-	 ZbN0G2XunygYc4hwdBg/UGNyLXiCTt/7fGOkO8gl3gFyo2quG4D90+ToBnsj7s0Hd90Ut
-	 +MB8agcYH+KUp3tR2eecnM2onBcZrC7kuiZ3r3rwHwjOaPDwHgMQX1bR9jsaIvzDTyQ4+
-	 u2+5xovv1Jmnv4w3vge5/BY4YQDnFo284+DFzXW/b4lehHrJGHudDuxX8EDbpBtAc5w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="LX/HvpaV";
-	arc=none smtp.remote-ip=209.85.210.177
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.42.75
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794202155;
+	b=UpMg9eytA2mNg2JYlQDzXTTV8OiprTPkSUv4dEZdysobRLHJn40Bv5rmVR+TeeqJVV7i
+	 6zRqyRNvuOT9fVh3UpRMcHWidl2LpMIn9NTDgRTjasNANJtFYvQ2hJM3mZn9t67pEwa0f
+	 AncU5RFTVzFr9jSmMKDnPH9PrwO2xxziP9sq3asB48Q5Y5fciky0iz4MKRICwgsDja3Xm
+	 vM9sKSEsIwCDKegddDEtd78JlngxdAGL5uM5iLHmM5G5kSpBqmUxRVOTV2ePGD7soGMrc
+	 IhQeDXlfMB+W75R7kVVx3Du5niUfm0c9q561UrEfC9BUo6bpwwZdwbpiFn/FnaIA4IA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794202155;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=UF1KiSDPA3yHB/vfgsjHvkHBC0fKpxkCCUhPLGWmbFc=;
+	b=u1m8UjJDy1sPT9d9Aoy+C2bMFZwSbH226PI/EXlEt04u1/E8kAOY+7dFTXZHnMEpVr0W
+	 yG94RxLrjRdWaPXhm7RJUZsqG9BS9vYS8OrSgaeOvqTmOtzx4MFjo7KsIWwM0KEmwDwIG
+	 ddKfnjdbTPn7jkEzV2q+AgnPtNl1EZKD8bfvJU5Wnq+CNJhjGtnyP4nyFzmsXq9xRYrs6
+	 /PPG4gYBKhEqdIHax4WYAeX5CFXBZEdYp6Q5DdlD5Ke38AUOHUqZJsHhxf6X2d/a9QOal
+	 v+LXWmuBnG/WvOONjtvnmrjIWDRC90KCEGv+O/+IH5lQ1PEYNNqqqvFtYkEbiuk4+HQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chipsnmedia.com;
+	spf=fail smtp.mailfrom=chipsnmedia.com;
+	dkim=pass header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b="kUcyyAe/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.42.75
+Received: from SE2P216CU007.outbound.protection.outlook.com (mail-koreacentralazon11021075.outbound.protection.outlook.com [40.107.42.75])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A34606A331
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:29:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2A34606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A181606D807;
+	Mon,  9 Nov 2026 05:29:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A181606D807
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LX/HvpaV
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a594d313a3so244506b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 21:29:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794202150; x=1794806950; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+2wCtwxXKIDkxHcE0WIbk0DNcnVd4qsfVLWBnePcPdM=;
-        b=LX/HvpaVQDBWsfT2+0kqohS3rHoUvbJMJyHIyGTYM75vhqzY44mOOPLBOQOMGmRZMc
-         fdSEenpF6UfrQx6rMyoOVZ4GED/c28nfS4NqAjp3hbg2HovMPvtZjFz89gtZh148mf3q
-         3LbDIHsqHCVgGuemSPtTR4l/uaQUQKEtq0wP7k9NeoNPGOGNlwoBDFEE7xuLGjbXZihb
-         IOewJOuL/zQ4bPoCjl4ncxrMrrKtn+izP4xIzIMs7bhPHeTn3ke2Ilc7N+d8OB6zPb2v
-         G/+1KoKBborVG/JHGQzrZDgAmhdxsS5R/i6Bv7+cuGec4aS6QcdutHHFAz/GUUpNrum/
-         9mjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794202150; x=1794806950;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+2wCtwxXKIDkxHcE0WIbk0DNcnVd4qsfVLWBnePcPdM=;
-        b=dRnDNHGTmGJbWfUpHy2b5SSe2j/rXFWCDl2s3x5E2R08sJZuGEEwU2GItnTTqsGuCF
-         vAwxPzVfok9cAcWOXsoFdR6wt+NxkSCX9eh7DGSegO6l/41pj9yfEdheifEdOG8Qm1M4
-         wCwiHBUhEXY1HzeY0GVVQXt8NDWTPdFedUlywUceWTFVAWOqn+dukcsE8ghW4W/mVmcG
-         ZIfu3UkPc/f9fgXbOrhNhqdDWQLP3fjRD0hmyLNamQ9kEZYYcUt6HZiwz70JGuJg+nrA
-         I2QQ1ZTu0oK+FKJGL1YWjNnOWxiDst+UX7vm1+Kj8gPH2sAMxTr2jGn9BiII/uzJrJQV
-         +7eQ==
-X-Forwarded-Encrypted: i=1; AL+hErGX/hfavPN/7rpmsP9jHCHTAYqN8Lt9XN1rLwbT196G+wPVl34AWg+AaZ1ld98c0cObLTa64EeWNFbO/Ic=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9OnltfX39oPgNX8Gvl2JruzSOTfncW0qaZGKuhKeojzsi50yr/
-	V/441zdcoumxIsovFmKkWNWHzXjmc44z8tW729CnNFR/eFr1R60s1vQ5
-X-Gm-Gg: AYBFou0weFazXO5bFsIdgUt1xGBm5/7qJb9hacJlbqkFG8FfrcUBYf9ye3yv3HuI7LY
-	hs5LpR0vBm3j4CTT12N3Cn3zbnUh5R99GZVwdotnjOvhh1RBu6Jchai067a2hqgLkgDPvZ02D79
-	6lcfYW2ualDCefAnmbfgx7f6a5/1OFV/OFCmY1kCNyV14dhQwXjVCQ3bYpaA/B0jCgEAkxl3gB7
-	1Fl86DaQP4z3sxOTUCFDshWkZ4mO9my4SJX1QZ+pWRp3WqEIbQJ1NUI+cV2xQzLp2CtHkYYbve1
-	tTet2W5KskRXC86lQ9veouVbyX6C1NLLuK3H9HS9Rqo1gFhnb3pw6OHZwNZzKq4XXAhVdvCsHkI
-	gmadS76snL1xMzGZ4SeCptU5ck98WNPdU3AvZhT68PPkj+qgdOGh+4gEpO8gOqM2NGZlT5FB8sz
-	Sf5R3ODv7XCyXZVZ0syXtYGhmgZVqiyZD+8NYMqt6zJOkjhehTnqgzQez1wEq4lm4wTlYzZQaSw
-	ZGWdejQKEueIRumPL80ATbXmanfKaPYR6IuKu3aMNxcXJgQM1qpUy4BI9klyVOqLS0qfklrK5Bb
-	XM92p/sbTIQ+OTU1qYT+anIhZ5GKzpUlQ5GZH+RGQbXX16ZKHvttEvU0T4Sry+yoE+lBI2ja5qY
-	lI40W5R/pR/cuFwM=
-X-Received: by 2002:a05:6a20:ef1a:b0:3e5:904c:78d3 with SMTP id adf61e73a8af0-3eed5ce2668mr2545295637.69.1794202149963;
-        Sun, 08 Nov 2026 21:29:09 -0800 (PST)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb9681385fsm1180899a12.6.2026.11.08.21.29.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 21:29:09 -0800 (PST)
-From: Shan-Chun Hung <shanchun1218@gmail.com>
-To: ychuang3@nuvoton.com,
-	schung@nuvoton.com,
-	vkoul@kernel.org,
-	Frank.Li@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	kees@kernel.org,
-	gustavoars@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	dmaengine@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.a=rsa-sha256 header.s=selector2 header.b=kUcyyAe/
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f8nxYUo4gnp6NWFL0RlDtnBU1QskW++wqV+GlzhmrOSYABY5b/122QQxy15Ru5nevFbZ8oVaRwQayCuDqP0EG6F2wtJMHmt8ymDghfWjGjpRs3Lg+Cm0j5xZhlWk9VW2ZQivPOIdMR0CUIqHfluT6DT8LfGWNa+XimERJgSSVnjgvhACdkLgYaanUbB08WK/b4CkUzpkTxtcUXdE8lvDjYTrbTmP3+W+qLAAi7Gn80RDVkDETRwsqev36jLykms2orf50E5NiVKIExhVWG+BY6MtsGA5G89nNo0awhzThUHgOfD5SfnLzAhig90Pl0a6gfGUABkozx0d8QLvjuy2kA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UF1KiSDPA3yHB/vfgsjHvkHBC0fKpxkCCUhPLGWmbFc=;
+ b=Bi2Nznd9NqU6b3v/Cvchwyp+gGMUF7/T5w09nf4r8bG5MR/+yUn3K4l4mO+iVIg2s0JcebRHl/GPnRxggegQFOhxT+aWNlG8Kd7G535+iFh0SzLH5YSyKtiDi5rJsOWC0BQ4Q2L6zuG8NzeGYjKhjx/UBarOY8FJgi8oBVECRVLBAtEEZq+kv4LruZThSiTQEr52hLn1N8mQgc314veQ4yNkfwMCuaaQLupDbc3ud5X93U4KKg5npyHcCiKXppKinzPRkeBX9n8VdbPJUEIsLD+eY6yw36kJ/cE87P20lqa3ypMgAWhwcdivxwElWV9VFve37w8W+q5/f0G8lnt4hg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
+ header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UF1KiSDPA3yHB/vfgsjHvkHBC0fKpxkCCUhPLGWmbFc=;
+ b=kUcyyAe/HU+yKaxdd5eEUlv4aAQxoeuDClIiwbcDl5Gp6UBEXJ8lF4t6cxvJ/Gazfd/y4V77rI9a96VarRNsa2ZICiNm0K4NxhxaMFaEZbJVYtNjkErpOxthjQVMCNyO6Hrk+QDtwo6PfOddKehrcOayba0rnsOqg9j1MdH3W1IHJJIn/vr6XYz+uBUwAwHDnMGxohLOtnBZmvju8fmJR9rUHDXzkmeOP5MVLUaSk6RABVXMHEZnk6fLJAbxpAWmOKliAj7uot8iDHekry8X9hHcHTw2U4wLpw86TUX16y7Xd97iOeg99zdG7D9JC/PlMyAaEjD2xI3s2xzGQTZZ7w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
+Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM (2603:1096:101:f::14) by
+ PUVP216MB596218.KORP216.PROD.OUTLOOK.COM (2603:1096:301:173::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
+ 2026 05:29:06 +0000
+Received: from SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
+ ([fe80::8f6c:834c:6cef:7be]) by SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
+ ([fe80::8f6c:834c:6cef:7be%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 05:29:06 +0000
+From: "Jackson.lee" <jackson.lee@chipsnmedia.com>
+To: mchehab@kernel.org,
+	hverkuil-cisco@xs4all.nl,
+	nicolas.dufresne@collabora.com,
+	bob.beckett@collabora.com
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Cc: Shan-Chun Hung <shanchun1218@gmail.com>
-Subject: [PATCH v2 1/2] dt-bindings: dma: nuvoton,ma35d1-pdma: Document MA35D1 PDMA controller
-Date: Mon,  9 Nov 2026 13:28:59 +0800
-Message-Id: <20261109052900.2960473-2-shanchun1218@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261109052900.2960473-1-shanchun1218@gmail.com>
-References: <20261109052900.2960473-1-shanchun1218@gmail.com>
+	jackson.lee@chipsnmedia.com,
+	lafley.kim@chipsnmedia.com,
+	b-brnich@ti.com,
+	hverkuil@xs4all.nl,
+	nas.chung@chipsnmedia.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2 6/9] media: chips-media: wave5: decode only when the ring holds unclaimed bitstream
+Date: Mon,  9 Nov 2026 14:28:50 +0900
+Message-Id: <20261109052853.110-7-jackson.lee@chipsnmedia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261109052853.110-1-jackson.lee@chipsnmedia.com>
+References: <20261109052853.110-1-jackson.lee@chipsnmedia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SL2P216CA0135.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:1::14) To SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:f::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,93 +105,214 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SLXP216MB1148:EE_|PUVP216MB596218:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d5e7122-f81e-410a-e904-08df3e225f51
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|52116014|23010399003|38350700014|10067099003|5023799004|56012099006|261021123027099003|261021121427099003|261022075727099003|261022105027099003|261009221227099003|261009221727099003|261009223027099003|261009223327099003|261009220027099003|261026140227099003|261028144727099003|261026121527099003|261102123227099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	6klCp/eSULt8wbxwSWiQNoHOcD5/3X/7LVprf3i93Tv2N9JjNDeV7AnICcag9iSbldyXogJNmOdk6qiDeGGGnaWSIDv9y1GSkeAiGP/3Xic9Nxh3NwFzLLcVHRNkTPgntxm/TVgxLEJthYmdwKHxaQdsvpnAsSuK31RYXfsH1R26vzhsmaLUYmJxrO4tO75ebwhXJCw8gtA7VEOPZjWRcmiib6fE9jhHegr+r1xXdmDihSRF8aB2Q2PvZ2S4FXDfBDX8iWpWwQrd9+K5nraikh0r/9wCNNFPkX7+b0YqTbr836oaPCoCZaUV2VKU7sRW9B6O6LXVM+qpT9vz8otrX6eOBHiTR72Fc7QE7CQVMYI+BbJcWLxpcxUyxJUZYQ4Vtn2VUjRlsG8fu7Unz4k+lrGGR2h5QN9UxMtcbyJqRa2l0LqEDYexNapxr0KdQaXsyD+Y8YqcVVqvofBM2dHUjIb9h3MA/6T7CVTG1H4gvPcKgVRxegUSgf5GWxHNPKHsG+Bi6AG7S71M+ifUWDDS5YlJXq9rFVsSn3ZctAKeT1EwOKtslHLPFMl0XGnIXqxK+FL/r7sEVYgetjr7GoujMhpKspbpkAk9j3EfIlzeHPYXxU9T1CISGT/5U9rI/dUdLC4mov6HGh3P+yOGIxeXko6Th5Lz9i7IBEWJsJ2zN899tW//rw48NQOk+hIMtEf1lBAxcA1Tqz8Zo4N9RsYCPGP0SiUmHYgAr1gosaBnRI8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SLXP216MB1148.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(52116014)(23010399003)(38350700014)(10067099003)(5023799004)(56012099006)(261021123027099003)(261021121427099003)(261022075727099003)(261022105027099003)(261009221227099003)(261009221727099003)(261009223027099003)(261009223327099003)(261009220027099003)(261026140227099003)(261028144727099003)(261026121527099003)(261102123227099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?siLXZqncGOnIPNxF6a87SanRnchRgQ/SXkE+pfFXyzGRKouAUKLDg6OG1s9i?=
+ =?us-ascii?Q?KMGXyL32xQTMApueeAi6lkXzHja/XnnDEMwK4uUC5R77WQgOihPM47l5h3ba?=
+ =?us-ascii?Q?b5tzUeNrkjB63TaAbu6aOgqpXzTBx/KMJUIQEd2CIJKMmj7S4gaH1q75xe+T?=
+ =?us-ascii?Q?u+r7f/boc8R8xiE+1LrYcgKTyxKADgZVQBzlHyTeDyQCkStW+Fxd136nfDTh?=
+ =?us-ascii?Q?9thBNGGJz2wJwKgDsdVO3MUafIBsB5S81P2GPKCkn5N07sAcXCxJ06+lSlCR?=
+ =?us-ascii?Q?z48iUwpTCPtDBio/zKTGgVC0SipQRvnjZFCZZPOh5Min7IEF2O/JBVDG71JW?=
+ =?us-ascii?Q?/6bc7fk4y+H9LzHIHdnbHb+8+sXvWhSDl41zODPeMtfXWOjQoHNjUoZQBgjM?=
+ =?us-ascii?Q?zZIDxykPP3xDrQxLSa95glcAQuRiyw5E08twGir+OEoCzEMOg6L99FlB7f1o?=
+ =?us-ascii?Q?WimRroa+im4SEmTTSu1OzqaWx4K30Ob2bDcNLIvlRBNGeUKVoo5a2sKxTCKf?=
+ =?us-ascii?Q?iF3WLaRwfVwAbP7aeekByk3rVNL+bHmCApUQ0f+QbGrejfmZNrn1/xmpckis?=
+ =?us-ascii?Q?2HmDRjx2SPKEAAr6Bgc881KjJ5jw/GPG5xKjJpVflkdTS0MBOqXXRew+CQav?=
+ =?us-ascii?Q?jap4Q8qqtjzGB2jlVxmLbeT+gQwe9dXTPsaUN8BEobItLSbMTlj4mwm7weF0?=
+ =?us-ascii?Q?Y8k015nyaxYOYEpY081H4dxKLuiwUXQvyHwxYe4vqIbeBQr87+VqzYtFYuZL?=
+ =?us-ascii?Q?CDY/5AF0Y9mxKf8CTGDpO94Eet1CgRlNExc6i1+uoaUNwMO/DAduVfnCAu5I?=
+ =?us-ascii?Q?cksKrdR81uGEiQBXPglYfCUY8/67KNUzquQ5yBzDe6f/TCY2UFDwnfFmlyHz?=
+ =?us-ascii?Q?Y4CHWpuFRZkPALgHMK2nUglOzanPIL8kRNvS6Nda6/OUJaRdU0XxwPdGxyW0?=
+ =?us-ascii?Q?tVtT6Nj7nLL5AEJ/lyhfHJWxAnG10FTlMkqf2rd67LsAM5bm87eM69D/cxIH?=
+ =?us-ascii?Q?hJ2GBsEP/3lVy6u/dxn4aSlP5HNfFzt1jHWpMIJFlr39GYVQmwYynyOMIx4V?=
+ =?us-ascii?Q?mi7q37zxVO8ZJtgYpPPv+7QU5uT/ZQrs+4YLzfrXbUgkwnOAHYcvrU6rkWAR?=
+ =?us-ascii?Q?jB2AVyfDpLMGrlR0Fw1JTvNhqU2NT5jzrz8UfrHCCy3B9wSrf17YfvAukQk4?=
+ =?us-ascii?Q?O5I7dpTaHJWTR2e38GmfQ7/oqOhailKxdyeN2xw2HuKr2Z5ShrhERsh/7j1i?=
+ =?us-ascii?Q?wBD7ApDs5C/P6qQyGI2idygh26I1tKNx7PV4FiL748dDeEkbpxnAIohJdX3w?=
+ =?us-ascii?Q?aOp6vGfqRNSQ9x16Uh6wOEJXmes5HAl2lqUIQj9kZs/EeAeD6I3KhfNSbxCB?=
+ =?us-ascii?Q?u7mYIYHBPL6OpFi5C/y2wKvO79KIVfDC/eCzjGfSXtejb4X0A1l9ytrHjPn+?=
+ =?us-ascii?Q?QfI7tPPLiuwnmZTXRio97M2t+5adc9jiehNFLcuUQWJWzrgWuxRGZCgN7nNU?=
+ =?us-ascii?Q?tPKr+pe8ki3nZrgexafPLHWQjr2qg6EjruQ/Brn6GSmvldkuyXLRPl0JKmvh?=
+ =?us-ascii?Q?DrLNV11ndNUmrpA4EmdEuY9lepxZuHI187qkr6mqOacBYEK/YN9dixRQsZE3?=
+ =?us-ascii?Q?DzuGObJ/0raSQ3eUStzIiqRkjR+oTZs8RGnRBdWrNgIY6Lf2d200sk5BlW2I?=
+ =?us-ascii?Q?9yFbYCaS3s1lkBXp9P5jXhrgKwu4wAG+i2HU3GL6Gbo5ftM+hvjBLYKrUJeb?=
+ =?us-ascii?Q?RiKbvuIj3JDlV8z0Lm8k3rJOWs1FuSM=3D?=
+X-OriginatorOrg: chipsnmedia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d5e7122-f81e-410a-e904-08df3e225f51
+X-MS-Exchange-CrossTenant-AuthSource: SLXP216MB1148.KORP216.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 05:29:06.0520
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SuUltT8rwhCzg+N/A+Kuu/urlqBj/Vk54aarOxnAx7gRzxy6xQkFllrfnMf33PZgdPN0Gp678Q+ByfBnJ4mNFIEJ5ZnfDVDRPQXMzDi3v+I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUVP216MB596218
 
-Add binding for Nuvoton MA35D1 PDMA controller.
+From: Jackson Lee <jackson.lee@chipsnmedia.com>
 
-Signed-off-by: Shan-Chun Hung <shanchun1218@gmail.com>
+device_run() decides whether to issue a DEC_PIC by comparing the instance
+queue count against the number of OUTPUT buffers held. Those two count
+unrelated things and diverge routinely with interrupt timing, so commands
+go out against an empty ring buffer, or duplicate one already in flight,
+corrupting the decoded output and producing display results the driver is
+not expecting.
+
+Decide on the real state instead: decode only when the ring still holds
+bitstream and no queued command will consume it.
+
+That can leave an instance idle with data still buffered. If the in-flight
+command completes without freeing an OUTPUT buffer, nothing re-runs
+device_run() and a client that has queued every buffer it owns cannot
+restart it. Re-check on a 100 ms timer, which a normal wait outruns.
+
+release() disables that timer rather than cancelling it: a device_run()
+still executing at close can re-arm it until v4l2_m2m_ctx_release() has
+waited for that run, and a cancelled timer would then fire on the freed
+instance.
+
+Fixes: 8c5a74a24cbb ("media: chips-media: wave5: avoid skipping device_run while VPU has work")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jackson Lee <jackson.lee@chipsnmedia.com>
+Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
 ---
- .../bindings/dma/nuvoton,ma35d1-pdma.yaml     | 71 +++++++++++++++++++
- 1 file changed, 71 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
+ .../chips-media/wave5/wave5-vpu-dec.c         | 67 +++++++++++++++++--
+ .../platform/chips-media/wave5/wave5-vpuapi.h |  1 +
+ 2 files changed, 64 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml b/Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
-new file mode 100644
-index 000000000000..d05971662a5d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/dma/nuvoton,ma35d1-pdma.yaml
-@@ -0,0 +1,71 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/dma/nuvoton,ma35d1-pdma.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+index 3ecf535f5622..668c923dfa36 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c
+@@ -1618,6 +1618,7 @@ static void wave5_vpu_dec_stop_streaming(struct vb2_queue *q)
+ 	else
+ 		streamoff_capture(q);
+ 
++	cancel_delayed_work_sync(&inst->unstall_work);
+ 	inst->empty_queue = false;
+ 	inst->sent_eos = false;
+ 	pm_runtime_put_autosuspend(inst->dev->dev);
+@@ -1698,6 +1699,31 @@ static bool wave5_is_draining_or_eos(struct vpu_instance *inst)
+ 	return m2m_ctx->is_draining || inst->eos;
+ }
+ 
++/*
++ * How long an instance may sit idle with bitstream still buffered before it is
++ * assumed stuck. A normal wait -- including one instance queued behind others on
++ * a shared VPU -- clears in a few milliseconds, so this never fires for it.
++ */
++#define WAVE5_UNSTALL_DELAY_MS 100
 +
-+title: Nuvoton MA35D1 PDMA controller
++static void wave5_vpu_dec_unstall_work(struct work_struct *work)
++{
++	struct vpu_instance *inst = container_of(to_delayed_work(work),
++						 struct vpu_instance, unstall_work);
 +
-+description:
-+  The MA35D1 SoC has four Peripheral DMA (PDMA) controllers. Each controller
-+  has 10 channels and performs memory-to-memory, memory-to-peripheral and
-+  peripheral-to-memory transfers.
++	/*
++	 * Someone already made progress, or the instance is no longer running a
++	 * picture. Poking the scheduler for an instance that is tearing down
++	 * would queue a job against a context that is about to be freed.
++	 */
++	if (!inst->empty_queue || inst->state != VPU_INST_STATE_PIC_RUN)
++		return;
 +
-+maintainers:
-+  - Shan-Chun Hung <shanchun1218@gmail.com>
++	dev_dbg(inst->dev->dev, "%s: restarting a stalled instance\n", __func__);
++	inst->empty_queue = false;
++	v4l2_m2m_try_schedule(inst->v4l2_fh.m2m_ctx);
++}
 +
-+allOf:
-+  - $ref: dma-controller.yaml#
+ static void wave5_vpu_dec_device_run(void *priv)
+ {
+ 	struct vpu_instance *inst = priv;
+@@ -1717,14 +1743,32 @@ static void wave5_vpu_dec_device_run(void *priv)
+ 		if (ret < 0) {
+ 			dev_warn(inst->dev->dev, "Filling ring buffer failed\n");
+ 			goto finish_job_and_return;
+-		} else if (!inst->eos &&
+-				inst->queuing_num == 0 &&
+-				inst->state == VPU_INST_STATE_PIC_RUN) {
++		} else if (!inst->eos && inst->state == VPU_INST_STATE_PIC_RUN) {
++			struct dec_info *dec_info = &inst->codec_info->dec_info;
++			bool ring_has_data;
 +
-+properties:
-+  compatible:
-+    const: nuvoton,ma35d1-pdma
+ 			wave5_vpu_dec_give_command(inst, DEC_GET_QUEUE_STATUS, &q_status);
+-			if (q_status.instance_queue_count == v4l2_m2m_num_src_bufs_ready(m2m_ctx)) {
++			ring_has_data = dec_info->stream_rd_ptr != dec_info->stream_wr_ptr;
 +
-+  reg:
-+    maxItems: 1
++			/*
++			 * Nothing new to feed, so stop here and wait -- unless the
++			 * ring still holds bitstream that no queued command will
++			 * consume. Decoding an empty ring, or redoing what an
++			 * in-flight command will take, corrupts the output.
++			 */
++			if (q_status.instance_queue_count || !ring_has_data) {
+ 				dev_dbg(inst->dev->dev, "%s: no bitstream, skip\n",
+ 					__func__);
+ 				inst->empty_queue = true;
++				/*
++				 * Stopping with data left over relies on the
++				 * in-flight command to bring us back. If it ends
++				 * without freeing an OUTPUT buffer, a client that
++				 * holds them all cannot queue one to restart us.
++				 */
++				if (ring_has_data)
++					mod_delayed_work(system_percpu_wq, &inst->unstall_work,
++							 msecs_to_jiffies(WAVE5_UNSTALL_DELAY_MS));
+ 				goto finish_job_and_return;
+ 			}
+ 		}
+@@ -1966,6 +2010,7 @@ static int wave5_vpu_open_dec(struct file *filp)
+ 	mutex_init(&inst->feed_lock);
+ 	mutex_init(&inst->run_lock);
+ 	INIT_LIST_HEAD(&inst->avail_src_bufs);
++	INIT_DELAYED_WORK(&inst->unstall_work, wave5_vpu_dec_unstall_work);
+ 
+ 	inst->codec_info = kzalloc_obj(*inst->codec_info);
+ 	if (!inst->codec_info) {
+@@ -2060,6 +2105,20 @@ static int wave5_vpu_open_dec(struct file *filp)
+ 
+ static int wave5_vpu_dec_release(struct file *filp)
+ {
++	struct vpu_instance *inst = file_to_vpu_inst(filp);
 +
-+  clocks:
-+    maxItems: 1
++	/*
++	 * The unstall timer dereferences both m2m_ctx and inst, which
++	 * wave5_vpu_release_device() frees. stop_streaming() disarms it for a
++	 * streaming instance; make sure nothing is left pending on any other path.
++	 *
++	 * Disable it rather than cancel it: a device_run() still executing
++	 * here can re-arm it until v4l2_m2m_ctx_release() below has waited for
++	 * that run, and a cancelled timer would then fire on the freed
++	 * instance. The instance is never reused, so it is never re-enabled.
++	 */
++	disable_delayed_work_sync(&inst->unstall_work);
 +
-+  interrupts:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  "#dma-cells":
-+    const: 2
-+    description:
-+      The first cell is the PDMA channel number. The second cell is the
-+      peripheral request source number, as listed in the reference manual.
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - interrupts
-+  - "#dma-cells"
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
-+    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
-+
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        dma-controller@40080000 {
-+            compatible = "nuvoton,ma35d1-pdma";
-+            reg = <0x0 0x40080000 0x0 0x2000>;
-+            interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-+            clocks = <&clk PDMA0_GATE>;
-+            resets = <&sys MA35D1_RESET_PDMA0>;
-+            #dma-cells = <2>;
-+        };
-+    };
-+
-+...
+ 	return wave5_vpu_release_device(filp, wave5_vpu_dec_close, "decoder");
+ }
+ 
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
+index 2d515c9028a5..28df7f19c459 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.h
+@@ -9,6 +9,7 @@
+ #define VPUAPI_H_INCLUDED
+ 
+ #include <linux/kfifo.h>
++#include <linux/workqueue.h>
+ #include <linux/idr.h>
+ #include <linux/genalloc.h>
+ #include <media/v4l2-device.h>
 -- 
-2.25.1
+2.43.0
 
