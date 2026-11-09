@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794260325;
-	b=ap/y4ecGq7e0j8dRKj0ATp/Nq09y1jMoOZtMnE95UgchDGJlsZ4ye5FtebE20+v/CN98
-	 M4tG0fKHVQzrFJqO16QKfimfI13BUnffsOFEHsniwEKZQ1noKOpWZxoUhD31I4mxs7sk1
-	 q/W5V45avitI9cWQGuMjkrlkFFRZ8en9vspeqmXh3hryfo1ZLxtbvCRkZq9KsSHTnEHQv
-	 hTyT9BsKf7iUMmiMBU5t+3Bb3yVGsuilSnJPTK7LOvizEowxE7NRqJpRLkbVJeRqAHPHL
-	 tH8Qkr4BKcZgeMWq21SiwuZvhZXllF5vMTztqwiw+G9/iccbGa2j/sy0lI3vJKCjQpA==
+	t=1794260333;
+	b=VMBS8T6MlkLpAyDa3NXQ+0effP1o9mz4V5pLUXT9IaAXCwmERjTDAv71kLljmKFozGY+
+	 F54474oIYFKIFmV02x8ptXA7M/53t7UakAOs65fwPRKebI8EaZ56JcqHocq6QckfkAC3h
+	 dak3PLAOQcyUoHSUW/+lhgPsP/hXQD+m8tUqj/kJlAGtABVHjGVqK60V9OKufY0lmX/c1
+	 eY476zo4wH6MAfbXBLwQIsqQ3vtiV6nnIUqzOL7y/OfNsNZ8/E47ofHTK/m+Y3BIAlypI
+	 OfiP9nGS/UDXXHt+UZ8qUniKEklYmpfCLYsSuLKWpjv0PdQO/5l1up0elunRqnm0WdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794260325;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794260333;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
 	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
 	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=k7Wh9srWpnIpNuXMJqXefydfIgxiTocR4gjfGUw2Pb8=;
-	b=zTMYAwX3toTBD3sy886Mu9u/Q31JCcCX97oYsu+93yxxOQXPjLe01u7nGrxLyU+B5omK
-	 p55O/sfYraZv9pcM9R+kkCGDGLGyyZqbScv2xTMTNOhv9UI7a2S7G68fSLapH03s0aCd+
-	 caCF/1kof/KUkFnkU4ZNEB4ne++eNkATkGGLcYA+W4LWKQC7fIM19e3tYhLmDtFdxjT8I
-	 CXDOQsej4B+AMny/snfWlEYLGFaW5i0qrbk8yqEjmqTLI8116KgBbCmcPZbgnuinW4rIL
-	 18U5eWwKIvlVj4B7K358mf1JYGfbRwrdr0VuYYO517dvdIS3zSUU33sda8650bG4Z0g==
+	bh=wo67bMf12uv9sxkRm+RvBafvUVvq2/g1Yt8DBSFwVh0=;
+	b=zFmEldLa8I0D/1GFFnhLwv/ogWhRGKUN1pqDFn3dWLOpBPpzHEGaEhd4a3iVCMK2GTvQ
+	 VHlHF2UWuRmLD0hUltOLcJ0lmVpw3RT2O40AUrXXydOb2HMXWmGJR5HI7uIy5GG2IciPI
+	 qIYK2/5a6Nxe3+qNG5uo1Eoxp6XhpW1VqO1blmxzlZo9uoNlHWal8ZcCKNZTrQRRQJyJd
+	 rWIcVf968zwMm5dQHUSa8PySh5kRQXBfqsEawF0LFSgGGEDx8hab4Tv3e2nTBm9E7YGfl
+	 zYDitxp+wFjOO0IVTGFrIcChW0o2t+dlKEx2HqOMGeCKM5fm/cygW9NKSuG8bFdCpgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.cyber.gouv.fr;
 	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=J6hvdKHR;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Z7XNvdgA;
 	arc=none smtp.remote-ip=51.159.188.251
 Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE4A606A325;
-	Mon,  9 Nov 2026 21:38:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDE4A606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B00F606A330;
+	Mon,  9 Nov 2026 21:38:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B00F606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=J6hvdKHR
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Z7XNvdgA
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=k7Wh9srWpnIpNuXMJqXefydfIgxiTocR4gjfGUw2Pb8=; b=J6hvdKHR9wXW/u+g9iSF4bPcaE
-	wCVzFZiWVOMkxE6lu5YRgzXa8QfzUfgek5/6tq9cHzP5G3uF8xpA4k78few0UK5pSq7h5gs1NWwFd
-	+IDU54RdEra8wntUNiL8gv2Cy6MLzOsYlE5LVpia9Ijv0CpXVjyNV9+N9R/wRBNzXRJisXWtrGwLP
-	U9PQpjOkVrcJk7Nld/rHYLkNRvjWE5JpInmYaScQOjTvnDrGCLMzTnMmXWRDydixAu5dy9Arbx766
-	F/W5Q4Q7Hn6N0V1pp+gmW3Clbf5H6JD36IzVQFcdMmLiUVm0D5QrrSkZMZXG38cEcvxN/SPEgBK97
-	i6H3BOcQ==;
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=wo67bMf12uv9sxkRm+RvBafvUVvq2/g1Yt8DBSFwVh0=; b=Z7XNvdgAUo9AowM/jnrPUyvfN/
+	lcMJU8sjgNLr3aN8p1bRhLk558hNzLmuA7qgyJSvEpvCyC0uSBn/PWkqZpd61orugrF68TmRps0wf
+	I9TVaz6cDoY4Bpgnb+5TBmE26Fay9s6ZbrDrZlJc7XfDVUduv/zIFGoBXo4lWSoTt5pkLRxNvZP8u
+	1fhlsl+pIDjDXE7TvqQXKNUwgrE2DyZvJ0hd6k1PxqMeR64qln3db6mbN14ypOk2b4GP85fAFfhBe
+	kBzO6xDuDmhLgZtCCyPh+cd3TWj8B3lkFklZRUezDyYHsWwdzqpyGzGg4Shlrhzo+NsnsuMulqZAy
+	KseDcVzg==;
 Received: from [151.115.150.205] (port=40012 helo=gepetto..)
 	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.100.1)
 	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xQX4d-0000000FGXi-1Bs7;
-	Mon, 09 Nov 2026 22:38:42 +0100
+	id 1xQX4l-0000000FGXi-48UT;
+	Mon, 09 Nov 2026 22:38:51 +0100
 From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
 To: Steffen Klassert <steffen.klassert@secunet.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
@@ -60,11 +60,14 @@ To: Steffen Klassert <steffen.klassert@secunet.com>,
 	Ido Schimmel <idosch@nvidia.com>
 Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-Subject: [PATCH net v4 0/2] xfrm: fix IPv6 atomic fragment policy handling
-Date: Mon,  9 Nov 2026 21:38:01 +0000
-Message-ID: <20261109213803.1785516-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH net v4 1/2] xfrm: fix IPv6 first-fragment protocol decode
+Date: Mon,  9 Nov 2026 21:38:03 +0000
+Message-ID: <20261109213803.1785516-4-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109213803.1785516-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261109213803.1785516-2-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,33 +90,88 @@ X-Source:
 X-Source-Args: 
 X-Source-Dir: 
 
-This series fixes two IPv6 fragment issues in XFRM session decoding.
+Commit 7a0207094f1b ("xfrm: policy: replace session decode with flow
+dissector") replaced XFRM session decoding with the flow dissector.
+While the old IPv6 decoder kept walking past an IPv6 Fragment
+extension header, the flow dissector stops unless the caller sets
+FLOW_DISSECTOR_F_PARSE_1ST_FRAG. For an atomic fragment followed by
+extension headers, inbound policy lookup can therefore see the header
+after Fragment instead of the actual upper-layer protocol and miss
+protocol selectors.
 
-Patch 1 restores upper-layer protocol decoding for IPv6 first
-fragments.
+Make the dissector continue through first IPv6 fragments. Keep the
+port, ICMPv6 and GRE selector fields zero for all fragments, as the
+old decoder did. This also keeps the result the same when a BPF flow
+dissector fills ports for a first fragment.
 
-Patch 2 builds on Patch 1 and restores ports, ICMPv6 type and code,
-and GRE keys for atomic fragments, while leaving them unset for real
-fragments.
+Fixes: 7a0207094f1b ("xfrm: policy: replace session decode with flow dissector")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
+ net/xfrm/xfrm_policy.c | 35 ++++++++++++++++++++++-------------
+ 1 file changed, 22 insertions(+), 13 deletions(-)
 
-Changes in v4 after a review from Sashiko:
-- Patch 1: unchanged.
-- Patch 2: Use skb_header_pointer() and remove the XFRM pull to fix
-  local input decoding and avoid stale header pointers.
-
-v1: https://lore.kernel.org/all/20261101230745.2043474-2-Jeremy.Jean@oss.cyber.gouv.fr/
-v2: https://lore.kernel.org/all/20261103225842.3204446-2-Jeremy.Jean@oss.cyber.gouv.fr/
-v3: https://lore.kernel.org/all/20261106202910.723098-2-Jeremy.Jean@oss.cyber.gouv.fr/
-
-Jérémy Jean (2):
-  xfrm: fix IPv6 first-fragment protocol decode
-  xfrm: fix selector matching for IPv6 atomic fragments
-
- include/net/ipv6.h      |  1 +
- net/ipv6/exthdrs_core.c | 25 ++++++++++----------
- net/xfrm/xfrm_policy.c  | 51 ++++++++++++++++++++++++++++++-----------
- 3 files changed, 51 insertions(+), 26 deletions(-)
-
+diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
+index 9ea60c7717ff8..bda5100c9fdbf 100644
+--- a/net/xfrm/xfrm_policy.c
++++ b/net/xfrm/xfrm_policy.c
+@@ -3480,23 +3480,29 @@ decode_session6(const struct xfrm_flow_keys *flkeys, struct flowi *fl, bool reve
+ 	if (reverse) {
+ 		fl6->saddr = flkeys->addrs.ipv6.dst;
+ 		fl6->daddr = flkeys->addrs.ipv6.src;
+-		fl6->fl6_sport = flkeys->ports.dst;
+-		fl6->fl6_dport = flkeys->ports.src;
+ 	} else {
+ 		fl6->saddr = flkeys->addrs.ipv6.src;
+ 		fl6->daddr = flkeys->addrs.ipv6.dst;
+-		fl6->fl6_sport = flkeys->ports.src;
+-		fl6->fl6_dport = flkeys->ports.dst;
+ 	}
+ 
+-	switch (flkeys->basic.ip_proto) {
+-	case IPPROTO_GRE:
+-		fl6->fl6_gre_key = flkeys->gre.keyid;
+-		break;
+-	case IPPROTO_ICMPV6:
+-		fl6->fl6_icmp_type = flkeys->icmp.type;
+-		fl6->fl6_icmp_code = flkeys->icmp.code;
+-		break;
++	if (!(flkeys->control.flags & FLOW_DIS_IS_FRAGMENT)) {
++		if (reverse) {
++			fl6->fl6_sport = flkeys->ports.dst;
++			fl6->fl6_dport = flkeys->ports.src;
++		} else {
++			fl6->fl6_sport = flkeys->ports.src;
++			fl6->fl6_dport = flkeys->ports.dst;
++		}
++
++		switch (flkeys->basic.ip_proto) {
++		case IPPROTO_GRE:
++			fl6->fl6_gre_key = flkeys->gre.keyid;
++			break;
++		case IPPROTO_ICMPV6:
++			fl6->fl6_icmp_type = flkeys->icmp.type;
++			fl6->fl6_icmp_code = flkeys->icmp.code;
++			break;
++		}
+ 	}
+ 
+ 	fl6->flowi6_proto = flkeys->basic.ip_proto;
+@@ -3507,10 +3513,13 @@ int __xfrm_decode_session(struct net *net, struct sk_buff *skb, struct flowi *fl
+ 			  unsigned int family, int reverse)
+ {
+ 	struct xfrm_flow_keys flkeys;
++	unsigned int flags = FLOW_DISSECTOR_F_STOP_AT_ENCAP;
+ 
+ 	memset(&flkeys, 0, sizeof(flkeys));
++	if (family == AF_INET6)
++		flags |= FLOW_DISSECTOR_F_PARSE_1ST_FRAG;
+ 	__skb_flow_dissect(net, skb, &xfrm_session_dissector, &flkeys,
+-			   NULL, 0, 0, 0, FLOW_DISSECTOR_F_STOP_AT_ENCAP);
++			   NULL, 0, 0, 0, flags);
+ 
+ 	switch (family) {
+ 	case AF_INET:
 -- 
 2.47.3
 
