@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794226935;
-	b=t8/EewF1g7/rpiZdK4mIkmjUTTXlZ5XiI5EnxlagNOz8GGdQ6IjiLtCifyRtTxwMQqnW
-	 rQ/H1qSxvxoltv03z+w9W/0I5F+4GRVmyENCdTTreqyqAqjUU4hpzorBFnQ1Q2HQV8K+i
-	 hpG9qCNGCTbnRe2SCga4nrR/iJX5So19ASo7ost3ngb2Bl+lQHKB3NIcIDwNtw4EgaNu7
-	 iK9ZWg6ICvJLKZ9GPttWN5MmIzPSXo3JmXGtp+Bw9fxcXE9WQpMvAp2FQpXTlGxvSqpTy
-	 4YdmIlXM2FYl7MVYsbX5UGsfrfN1OG7T6cD79Na8n3/s7riIT3P9E7ZKf4w22Aimzhw==
+	t=1794226931;
+	b=XjvGapaKRhjjbkFuRSYluyMXf3f1PhU7rwJ1xVIS0VtgpqELE6rb3/zCjL7SpN/4rhkS
+	 8xt9Mc43umfs11gpJq+uxqhMTag/SsxAL2SI0GsuhVrz6+xXP8ychoZ1/iQlRcUOghTEe
+	 L7MzUHr2p6P49MSEMm0MaCtR4donhXAIKkTPEYZTiEPijyG803szQFTOeAMcggcVFMSjG
+	 d/2X43TcbgvFOmY8Qm/Ki7K557a19+j8hehjCJFVkicbvesDAJYTXfZE/ZlfoG9ZFCorx
+	 P6LlbTWfEU5jg3Wiv+fvinoofQ55HQQI2d/VjI4EqIAB5pAiFrUl2bS2xg53olcNOgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794226935;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794226931;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=YsBDLDdvhHgGE4hbSYAmMvLRsGcnCVXi8pM03OETaug=;
-	b=SqeiHxc5MgDz6OsPJQ0qIBCJH5NN3zbBj1TegWNI1JeaySchQWQ5V1XENHQPxXrORWjq
-	 kbED8aoTkBnF5JFWJ6/iknNGvmcofadZTbDE+zsQJRzjkhGwvTP63qHAVgZ73h5G8llWu
-	 P+S+dCrFsX1bIZs+/2GVegEhfjrG9XO6/jTzn41melRnL03WsI5EpLka/M1fIljO0lvci
-	 0uZJtp/Q1pIQu3bWOD7RRfWq48TnpkZlKU7w4+njmM/q2SdxKcxw8lgm7D9tGaqY5+Zzv
-	 TqsZIqNFQ/wFg6I6munYehW1iTFV+rA5gwz2GDum6CKz52LwcmbiEAyxZh+67gbBbyQ==
+	bh=IYY0cQWeCGGeLPowFR5ATBEysByyfJHPA9/ZmkBd9LQ=;
+	b=HMZ5MmCZmtEQafsQihRo4iQVqZPh629oZsbjOZioWOpbDY8D3ozhw3w+cxY1gdXSN/YF
+	 P+U1g+VRyUUR2F7+lbYH7ZRJXDHl5cVbNBXvD/8ZQ6NhqgYR01pRbG1ShI5S/RoCXI/Hq
+	 hVMfyslLOGxK9z60Fw2hNkl9yq24NYKIsbG1OA95eyd6AzAy4FfCOEzBKVpqsebS/NSCQ
+	 16TuwEeY4KNF3SdQrKf4P3Mmv/oZ3Rd+5on+Rnhb2dSHIFGsEIbTlh5isSskUH+4OLLxO
+	 rqkPCl/tf+Y0pBvJRypFRj/N2ObB4Avsv6GE6DRXqKQLT+t1C0oPFgJ+fFKcWPVbjfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.alibaba.com;
 	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=WGNKcYiO;
-	arc=none smtp.remote-ip=115.124.30.124
-Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=CcuEXumQ;
+	arc=none smtp.remote-ip=115.124.30.133
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5444C6082BDB
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:22:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5444C6082BDB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527AB606EEB6
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:22:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 527AB606EEB6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=WGNKcYiO
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=CcuEXumQ
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1794226930; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=YsBDLDdvhHgGE4hbSYAmMvLRsGcnCVXi8pM03OETaug=;
-	b=WGNKcYiOgi27DQ2qKjuUVv4iozZHBvGBnbSIfw1T1Q9cv1r1+CHuiduVbfjWoc3EjUX3nGfj6uvflaZw1Py4FFbs9OilzoIas8g57RYHaRmZfBVaQHS4nQdf3ryUeSNmQVTnEraJlCZ/m6M0zKbMw40YwpwPilZ2gI7UPZF3Xa8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XEP8avi_1794226929;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEP8avi_1794226929 cluster:ay36)
+	t=1794226928; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=IYY0cQWeCGGeLPowFR5ATBEysByyfJHPA9/ZmkBd9LQ=;
+	b=CcuEXumQb3ZVAZkrncMhLvhvmq/JLdfDpR5Zy5qh9W41BZk42RXSKUgqhx4UOCVlZcbwktU2StxOHQWUVeC1ewxydPA7dNx2hMOxeruwVvu06puAFjXK+3/JU9T29abGQe03O8l/bAWKzaEL6iR53DqhbdMRRSylN7VOWNPjJ5k=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R131e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=7;SR=0;TI=SMTPD_---0XEOjdst_1794226926;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEOjdst_1794226926 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 20:22:10 +0800
+          Mon, 09 Nov 2026 20:22:07 +0800
 From: Joseph Qi <joseph.qi@linux.alibaba.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Heming Zhao <heming.zhao@suse.com>
@@ -50,9 +50,9 @@ Cc: Mark Fasheh <mark@fasheh.com>,
 	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Joseph Qi <joseph.qi@linux.alibaba.com>
-Subject: [PATCH v3 24/31] ocfs2: check dinode suballoc slot in online filecheck
-Date: Mon,  9 Nov 2026 20:21:14 +0800
-Message-Id: <20261109122121.21473-25-joseph.qi@linux.alibaba.com>
+Subject: [PATCH v3 21/31] ocfs2: abstract the extent list next free record check
+Date: Mon,  9 Nov 2026 20:21:11 +0800
+Message-Id: <20261109122121.21473-22-joseph.qi@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3
 In-Reply-To: <20261109122121.21473-1-joseph.qi@linux.alibaba.com>
 References: <20261109122121.21473-1-joseph.qi@linux.alibaba.com>
@@ -67,47 +67,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Wire both suballoc slot predicates into the filecheck validator.  An
-OCFS2_INVALID_SLOT on a non-system inode and an out-of-range slot keep
-their separate messages, so the log still distinguishes the two.
+Fold the l_next_free_rec against l_count test into a predicate and use it
+in both ocfs2_validate_inode_block() and
+ocfs2_filecheck_repair_inode_block(), which open-coded the same
+comparison.  Repair keeps its ocfs2_dinode_has_extents() guard, which
+selects the id2.i_list union arm.
 
-The range predicate excludes OCFS2_INVALID_SLOT, so system inodes
-created by mkfs.ocfs2 from the global allocator are still accepted.
+This completes the split of ocfs2_validate_inode_block()'s open-coded
+conditions into ocfs2_dinode_has_*() predicates.  Every return code and
+log message stayed at its call site, so the normal validator still
+escalates through ocfs2_error() while filecheck reports its own
+OCFS2_FILECHECK_ERR_* codes without touching the error handling state.
+
+No functional change intended.
 
 Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 ---
- fs/ocfs2/inode.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ fs/ocfs2/inode.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 6d2fb46e6c38..10eaa2c4445e 100644
+index 8c4ea3d048d1..9db147de1982 100644
 --- a/fs/ocfs2/inode.c
 +++ b/fs/ocfs2/inode.c
-@@ -2029,6 +2029,24 @@ static int ocfs2_filecheck_validate_inode_block(struct super_block *sb,
- 		goto bail;
+@@ -278,6 +278,12 @@ static bool ocfs2_dinode_has_oversized_extent_count(struct super_block *sb,
+ 		ocfs2_extent_recs_per_inode(sb);
+ }
+ 
++static bool ocfs2_dinode_has_bad_extent_next_free(struct ocfs2_dinode *di)
++{
++	return le16_to_cpu(di->id2.i_list.l_next_free_rec) >
++		le16_to_cpu(di->id2.i_list.l_count);
++}
++
+ void ocfs2_set_inode_flags(struct inode *inode)
+ {
+ 	unsigned int flags = OCFS2_I(inode)->ip_attr;
+@@ -1939,7 +1945,7 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+ 					 ocfs2_extent_recs_per_inode(sb));
+ 			goto bail;
+ 		}
+-		if (next_free > count) {
++		if (ocfs2_dinode_has_bad_extent_next_free(di)) {
+ 			rc = ocfs2_error(sb,
+ 					 "Invalid dinode %llu: extent list l_next_free_rec %u exceeds l_count %u\n",
+ 					 (unsigned long long)bh->b_blocknr, next_free, count);
+@@ -2110,7 +2116,7 @@ static int ocfs2_filecheck_repair_inode_block(struct super_block *sb,
  	}
  
-+	if (ocfs2_dinode_has_invalid_suballoc_slot(di)) {
-+		mlog(ML_ERROR,
-+		     "Filecheck: invalid dinode #%llu: suballoc slot %u for non-system inode\n",
-+		     (unsigned long long)bh->b_blocknr,
-+		     le16_to_cpu(di->i_suballoc_slot));
-+		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-+		goto bail;
-+	}
-+
-+	if (ocfs2_dinode_has_out_of_range_suballoc_slot(sb, di)) {
-+		mlog(ML_ERROR,
-+		     "Filecheck: invalid dinode #%llu: suballoc slot %u\n",
-+		     (unsigned long long)bh->b_blocknr,
-+		     le16_to_cpu(di->i_suballoc_slot));
-+		rc = -OCFS2_FILECHECK_ERR_INVALIDINO;
-+		goto bail;
-+	}
-+
- 	if (!ocfs2_valid_inode_mode(le16_to_cpu(di->i_mode))) {
+ 	if (ocfs2_dinode_has_extents(di) &&
+-	    le16_to_cpu(di->id2.i_list.l_next_free_rec) > le16_to_cpu(di->id2.i_list.l_count)) {
++	    ocfs2_dinode_has_bad_extent_next_free(di)) {
+ 		di->id2.i_list.l_next_free_rec = di->id2.i_list.l_count;
+ 		changed = 1;
  		mlog(ML_ERROR,
- 		     "Filecheck: invalid dinode #%llu: mode 0%o has unknown file type\n",
 -- 
 2.39.3
 
