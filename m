@@ -1,105 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794238174;
-	b=VY7gLKeF3YMdCr94KqbyPiVaFHqzeYe0d9Q9Z+GrU0HcuUfvYLV8/Xs3H3sdEwFxWvPx
-	 uvAP9JAgYSltmlwOkSDw9WJWvlcifJwEV7e3TsZ3q854lGp7Y7hMQpdIRWluUC80zz2nY
-	 JP/5tpaX+X+yX+C9f3CldhiV8oe60do80df7cezJIvkNQ7RyCgMI/Wu5z17nPi9vNvUca
-	 AC+Ijrj+NqLUyWvxQXHSnobUAi7ca4zqDogNQTdG19SJtqYV3veJSypv+aW127EHnLwZC
-	 3nqps3g36Rpn+6HrLFqb9ekby1O9c8fCuwlsI8mc1cKDivcC5wM7UZdKew2oTxfTguQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794238174;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Message-ID:Subject:From:To:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=XU3f8iOzysWsUXprwUt22rCfRKOt8VzIxFdJ24lS6Ew=;
-	b=a8lJVSELNSi2ir0norPFIYBdA99IS9HHCbdVhwP9Lglg4dfaED8ePWOOQyvBItKPeRK0
-	 4Ys5QoGTaPkJpXVaPx88QdVWELNf8PfjGvtTETuN07aVUfjVijIt1oTczuNmWhcKjejEs
-	 xMf67VcpFgSUUlmHV9/8jehHIgdmeHKrMl9zWoI6+x5ElmdkPSnNUL1hdXuRW9iA41mDV
-	 iudY741C62WOImOXBZC+x7Bnknjjv/V6Kp7SUIc5DpgD9XYk66Xw+w1XaPMd13ufcWuNx
-	 Zuw8eh2DmTnwOdU14hQ1dQfSadoKLMsB+hOOUTrg3z+3v/e18XOgfevEk+napcwVuRw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=iokpp.de;
-	spf=none smtp.mailfrom=iokpp.de;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=OqlZYnEE;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=24bjRyDW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.52
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.52])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794238251;
+	b=zu9g4s00tATRyB9RRXcTSqn24erprFHRguf2Txtt9i56TwwWR5vnhLJe1H8thKigmw60
+	 DLo5lykyXSBVUPCZL+vw0dh0FkG9TVLdB6YZdVfhCwbBL4qk9i7B+eCZOmqVYEY03GUXR
+	 wGTIpGr/bwzyhYIrFzEoY7UtM9VxGQTvtWhAzawKRk60899SkOh8UN7ye+o+kxxn/I+Ui
+	 LfaG/l/dhtzyZziQbxCLuBuhYfCg+0IvhA5F21xpybFwxlZ0bbPuibZtrfFY/6kaV+Q4o
+	 Kinpy49qCziWrYvYeffoavv4IB8mlz3E03PGM9CP8gF6UU+FpWNeEa6TMBOAbCugXKg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794238251;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=V5g7iAv1moGxi0gGJy3HbE9/3VPtH5ZT9DUaoiuR8x4=;
+	b=qwqk6KeyZ50Tk6FbA5f55Yxe11o43oPwc7Ap73/aTM98q5G6acYrwSGgOuSMXA0X3Bom
+	 RDze3jkBCpPABadX1+BHPrsm1oo9IcyQCEO8dzuoQm1fOFmMoPkNiNwVm8mMActYgyoTh
+	 0cHPvGXYt/pijxl3B4MZpWvl77ZedwLXB7gZlyh0d01IEzvnT00RC+E4ElnsSGRmhQEr5
+	 5MA+Zq9osRmtD8bJ0N90Fz6jeuYLDdGpwZ6IiKELeNWcM0t2MJl0bgFaRxSSYSNw5k2Pp
+	 NdFmNrjHyd04ymzkjdoBXjdv9cBx020T0+954qyVZbwwFcrrC8YbQyFZ2+DSDM+giOQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=JfFNXXRW;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=aR6tAZkw;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A7AF606A31C;
-	Mon,  9 Nov 2026 15:29:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A7AF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCD3606A321;
+	Mon,  9 Nov 2026 15:30:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FCD3606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=OqlZYnEE;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=24bjRyDW
-ARC-Seal: i=1; a=rsa-sha256; t=1794238140; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=NOTMaKuTbmhqhCpv5k1b1DHYrWuDuUkPBpXZRWoM6b8SmgafHS37lOcuXResm0eAe3
-    GFTTaoDLhcUt4WemdAXb5SeoI2AkpSmz1qQgGsv5Nu14AeFDJ2wUHTAVLyXtDgMFSNhc
-    uJCha+Onl6YPAI/S68oX6fljoLmu6EvDjlB/znumAQXIne28MWOfIa4Ygwp+/w0f5rcg
-    t5g/krGEqDCUzyAVpbJE069f/HkvOI3SdXn3hB1Li3fY3GyB0Ov4bwJpzbP2qFgVfARL
-    JZVYNeDJsC/RygZ2XKtnxe7vmRDqE+6MKJNM79DO90FWk+sN1AR6/i9EqSnmrYF57MLC
-    jTKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794238140;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:To:From:Subject:Message-ID:Cc:Date:From:
-    Subject:Sender;
-    bh=XU3f8iOzysWsUXprwUt22rCfRKOt8VzIxFdJ24lS6Ew=;
-    b=d4fSN8lAPxk4OXQd6x9vPZgtjDmnUHrc0Tr/4VJkZQmod/b2FNsadjt+ZqLMHS0+0n
-    994jNuKoKzrmM2QXCzL4/lWExsdVtBVYXcoj1Wwj/4B44xnMw8s3CjZigMsY4/6hZTzf
-    gjUcO834xwuaVPHP5qoCGLfmRb9Xnxgt0AVFMEEjIq6W2xvO9SJ3Tc21ip0m6zM9QC6u
-    V4SLTsGDPSdkjmwF8wTXeDW8+Hjc1CGZWwvrsCcVHqcIeeGARrfN10UrZR/P2oea5aSu
-    1Gdl1hDo2MOCfFpzNoCrQJw4WK2bekBB5J/HOlZLJQU1gBKy1jNrThmWp48wui1Vr4Qf
-    UQXg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794238140;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:To:From:Subject:Message-ID:Cc:Date:From:
-    Subject:Sender;
-    bh=XU3f8iOzysWsUXprwUt22rCfRKOt8VzIxFdJ24lS6Ew=;
-    b=OqlZYnEECVVdhZx0fKX1OZFaDBT6z+U8JRvXPdZraMOEfq4eB8E15DlV8sS+i5TN3O
-    LKStF8H72XlqM34J1S2HDfv69ppIiDYVE5pUK12hYQd/o4ffs08kHgqzW95m25hDLxCC
-    /3WNdCUoCmiA91XC4IjLIWXuZuLSP2mqqHZv7fHZD8IgaWGoYoqlBKhfT2FtRVXnCnxs
-    PoIM0YnV/8rk8h+iQGW8yncqnkJK+dVZPkkukL/x+Q1vZz/DAx91hZ9fW7nBT6SE+Jhr
-    eD26BlO7KZ2O0czfvL/I6BtjrAlGY5R1TdX7ipINpe2nvcitkhM0b75RPBGOufISaDtt
-    leTQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794238140;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:To:From:Subject:Message-ID:Cc:Date:From:
-    Subject:Sender;
-    bh=XU3f8iOzysWsUXprwUt22rCfRKOt8VzIxFdJ24lS6Ew=;
-    b=24bjRyDW+Ah057SAUJSo7hd9pmwMI96PI3xuSNjd9/EIE5V+h1yNIK5/MdZ+npCRS0
-    1JbUyLQ52jT+K0qYK8AA==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
-Received: from [10.176.237.78]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad2A9FSxWhm
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Mon, 9 Nov 2026 16:28:59 +0100 (CET)
-Message-ID: <dd6f1be598ce31e732100a641f7598589bcc1b32.camel@iokpp.de>
-Subject: Re: [PATCH v8 1/3] scsi: ufs: core: Clear saved errors in
- ufshcd_link_recovery()
-From: Bean Huo <beanhuo@iokpp.de>
-To: HOYOUNG SEO <hy50.seo@samsung.com>, linux-scsi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bvanassche@acm.org, mkp@kernel.org, 
- martin.petersen@oracle.com, stanleyjhu@google.com, peter.wang@mediatek.com,
-  alim.akhtar@samsung.com, kwangwon.min@samsung.com, kwmad.kim@samsung.com, 
- cpgs@samsung.com, h10.kim@samsung.com
-Date: Mon, 09 Nov 2026 16:28:58 +0100
-In-Reply-To: <728258269.41794200283102.JavaMail.epsvc@epcpadp2new>
-References: <cover.1794196863.git.hy50.seo@samsung.com>
-	 <CGME20261109041346epcas2p403d660b62bc9f227fef868e8b19816af@epcas2p4.samsung.com>
-	 <728258269.41794200283102.JavaMail.epsvc@epcpadp2new>
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=JfFNXXRW;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=aR6tAZkw
+Date: Mon, 09 Nov 2026 15:30:47 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794238249;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=V5g7iAv1moGxi0gGJy3HbE9/3VPtH5ZT9DUaoiuR8x4=;
+	b=JfFNXXRWHl0WAbGH6oH37tbUwy/+ThV5LYE95PvScXs5xeiYBB/kXCril7Lhw3s7kW7aXB
+	zE2RknfDagJ9gY8TBZ628l4kJE9QCfnBuVnwu1DRNrMBkS7ZU9s+NeEXyys70nQLaLt7xA
+	gODbPjngDtzBPDGQhBiKaEUSOD8rTKU0AoW9losYBK/bNHJG+UXoY+er5VQK0jXUqy3d10
+	JxGxCiNHqzKD8jxu1otuEjbJDB5aQ/Pe/hKy4evXW0RBTV35rH8VPX1a5w4HceIoIMBiXD
+	Ua2cQMIBWVRxQInrjSXqWScRZV+f/GVYxur9nW6XqInc3GEaxaXCboW4UAbtOA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794238249;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=V5g7iAv1moGxi0gGJy3HbE9/3VPtH5ZT9DUaoiuR8x4=;
+	b=aR6tAZkwQZ+DSfHbHJKismaJVftAQoCDE8ZtJefFdAoOlqpEwchOBswpCoJMnw83V8XsXm
+	+1KOkZRHL1MAuPCQ==
+From: "tip-bot2 for Sergey Shtylyov" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: timers/nohz] tick/sched: Make kernel parameter skew_tick boolean
+Cc: Thomas Gleixner <tglx@kernel.org>,
+ Sergey Shtylyov <s.shtylyov@auroraos.dev>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261001202417.73273-1-s.shtylyov@auroraos.dev>
+References: <20261001202417.73273-1-s.shtylyov@auroraos.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,6 +79,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Message-ID: <179423824733.2093942.14857522755455998898.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+The following commit has been merged into the timers/nohz branch of tip:
 
-Reviewed-by: Bean Huo <beanhuo@micron.com>
+Commit-ID:     438b55d86a1a96949355f6b1b17720191937beb4
+Gitweb:        https://git.kernel.org/tip/438b55d86a1a96949355f6b1b1772019193=
+7beb4
+Author:        Sergey Shtylyov <s.shtylyov@auroraos.dev>
+AuthorDate:    Thu, 01 Oct 2026 23:24:09 +03:00
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Mon, 09 Nov 2026 16:28:35 +01:00
+
+tick/sched: Make kernel parameter skew_tick boolean
+
+The kernel parameter skew_tick requires an integer value, despite being
+boolean in nature, and the parser functions ignores errors.
+
+Convert the static variable sched_skew_tick to 'bool' and thus use
+kstrtobool() to parse the parameter's value and return an eventual parser
+error to the caller. The input values 0 and 1 keep working as before.
+
+As the variable can only be set at boot time mark it __ro_after_init.
+
+Found by Linux Verification Center (linuxtesting.org) with the Svace
+static analysis tool.
+
+Suggested-by: Thomas Gleixner <tglx@kernel.org>
+Signed-off-by: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Link: https://patch.msgid.link/20261001202417.73273-1-s.shtylyov@auroraos.dev
+---
+ kernel/time/tick-sched.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+index c6d86e4..5e96c2e 100644
+--- a/kernel/time/tick-sched.c
++++ b/kernel/time/tick-sched.c
+@@ -1499,13 +1499,11 @@ void tick_irq_enter(void)
+ 	tick_nohz_irq_enter();
+ }
+=20
+-static int sched_skew_tick;
++static bool sched_skew_tick __ro_after_init;
+=20
+ static int __init skew_tick(char *str)
+ {
+-	get_option(&str, &sched_skew_tick);
+-
+-	return 0;
++	return kstrtobool(str, &sched_skew_tick);
+ }
+ early_param("skew_tick", skew_tick);
+=20
