@@ -1,57 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794225705;
-	b=JKUp35g1ZcoAWqOAmi6IWRv8m+GVckOyNi6ox7Ox99z8FMwCnEqYArLAazmgIPhZijp4
-	 IBkJI5dlvRbnlzNtbO9Kv8umgT12FMjlLKdsSqUe20qR+bpGN2/i9WRgU48DJuN40WpkV
-	 bVBwSeDnhVcetPoR9ZtQ0zpblxYcbaP3s8/kuq86r4tnPB5zwdaerELmphXPd5yUAZx1+
-	 VAwfRub/1dajbT225Zdf52vqSpWMAqSvFAl0QCdaaT7MJl/FYGmZ8YeH35Euy26dlmwld
-	 px809mWKqgDN1cb4dzpHO0jqf+iWfRKrBXl/gVaL6Ix4BSRDPsydiMfM83GV84jCrfg==
+	t=1794225720;
+	b=APRwp1nvVKBpMfsL6xjt7fn8X52NtsnU8PGtnKDUOL4/a4wKHo990+Q3DKNRBM1BBe8w
+	 e43AwAUZVmbgL1+npFV6b+/FTzMaN9v2TOhefaHqu9xmWaflSrNm+nhAK+KBFCr15nI7k
+	 nkCh+RR0bClUKuCgxVmpSHtpM7Zks8aSd2p+p8hqY6x7/D66aNVVnKRAaxG4Aw2x/X4Mw
+	 5/9UrQ6A+7fDRBu/EDdYzkFLvZt+QY9c85vSiFCmtR3eKlRarTjRJmLikG+7oSLhFt4LY
+	 z12Vd+j3kTE0+MOLIlLDIcyrmVMu7cpGXKenagZ7hyFE3yiaBQfjnEFzJ8sIYpyq5+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225705;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2s50hqIp26pJ8pmQA6ZdhucGPA4voSGGtlTJVp1vBcU=;
-	b=nretithJQx8WTVogJINYsjrQJ4Tj+Yz6DNvORnNdny/CHZ7LEYQwdxKPbFjDHwe70RpX
-	 I0V4lAty9eoZae40vCDy1e1j/V4c57XVjPkAEgfPICPeT/yuC3vga6SeUbp6qu2rI6sV7
-	 O7pPi00maxwT3MDafphRPz4HxchxlpIFNJnHzyFNBKKM59yVlfRcdQtdG6raviI69hqwa
-	 lSny4fF/UnwlZ+P7bkPoAvnAwqYDQ63qsmb0CVmb6XhoBMaLVDIlRFmyx9K5DKQSQc5oC
-	 11m4jq8Lw1BuqpZixSupuuOz5IP1onVdgT1jXMqOhozINAxIxdT0wgM5vXe7SkCBvrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225720;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=szgQb0dY5ZnhzHxi0dDY7s5APqPVFKBR+bd+pkS5brY=;
+	b=ZLzaMcd361pg9s2gCxDnOJR+nnLardA/+VAtQIuG6vAomR6sHqrGjfOBa4jfAkpjzqi2
+	 4j/pczSKrmz5PzUgUARFfF2TjjKL6fj7MS4E4j1n4zxZkDPosJPU99YBekXbZo/jOSI1a
+	 zUDGiM13NFDm5GVJggXTWiHG7BIi5kHdH89i+5VqFsIViRILzSyAHG/n6lpztuKIUsP6I
+	 QjRYCbhAWmW9Nk1xRin0BOQ9Ws/916twq2eaIPOtl0PbQv0W7RxVU+7iLHDwJptwzMyL0
+	 wzhAEKrysT/ArB7Vw31fBnm/UM0PN38uPqJjOll2BjdOKhr4aoySyRoAUf2qBw+oo1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFYS8VKZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="mav/ns5O";
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B8F0606A335
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:01:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600D2606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:01:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 600D2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gFYS8VKZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02BE31F0089F;
-	Mon,  9 Nov 2026 12:01:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794225705;
-	bh=2s50hqIp26pJ8pmQA6ZdhucGPA4voSGGtlTJVp1vBcU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gFYS8VKZ821gy8B2On31XEDsS/3iMlbK5lXbWukOLAYjauc5qH2n8u7jFTXCjBXcs
-	 23j6VKUkvZzgeXIeQB9pUtxOURuuq91gH4LJbNwl60mpWQcti5HKyE/mAk1daUoUF8
-	 yOt0NBx4EWOGVNWNd2m60Bo1YH9o82JLIkP5UjndgJU3DZhOkbQx30kZFYEQTPl8+n
-	 DZUNJ4aU/tjgb6DQatwLPYqaqbcTx0SNFLrivPeMQWh6RA6tGYOFE/FPa26dX1c7ob
-	 tk8hehHCLSwOcNAbu/AxKpo1U+869PdNYKU4ymhHoPN+hPJi+acPQdmqlPeo7Rt4NK
-	 C+o7ASVV9VvKw==
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] riscv: Keep helpers used by noinstr code in non-instrumentable text
-Date: Mon,  9 Nov 2026 19:41:29 +0800
-Message-ID: <20261109114129.20260-3-jszhang@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261109114129.20260-1-jszhang@kernel.org>
-References: <20261109114129.20260-1-jszhang@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mav/ns5O
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a206f0b95bso32195e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 04:01:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794225718; x=1794830518; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=szgQb0dY5ZnhzHxi0dDY7s5APqPVFKBR+bd+pkS5brY=;
+        b=mav/ns5Obke33gqupiqSr8Ht+NeycPkeOP7JGP9tVdqHzx8r0yjg4oBl9akAPIAkXv
+         JM68ScW2fAVGk5MiYFIH3VVmmnLccEKXVRGonyVAobYpa0o2g9GoqM94o74M3WWRQKu8
+         4D74tt82yoGRc0fxpLXZlCzNofGm1tUCNhR01u6s0gkq1fGntvUqaBffsuMM9z5BCzhO
+         aajF2cWDh4po7whVy57cWkH73Wv0pDQcArs4hiAGMRNK+n7y/2ywxavs0GiaPQV1cyQM
+         4yv4Mgur6hgP4S75oynbXaN3/274HargCdknHE6pHnEQV+FOpMm+88h7nDgpEUv4sBo0
+         FHMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794225718; x=1794830518;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=szgQb0dY5ZnhzHxi0dDY7s5APqPVFKBR+bd+pkS5brY=;
+        b=s2GSLadNIj50q4TMH17dA1OBTOnLFzT0F8QphcZ5oDDGQnmiZGrcQpwDBwGkdU8LU8
+         pG+EcSv+DNIYICIRtBnwj2xJ9sK2g0axQt/cIIqRew/Du3YPvhQnFMH3vX/R2xZAkBc/
+         LMTMH4y8ynyoI/+0GZac+EYhzRZTDoFzcvZn+oymIDeMo63nsS5JL3ZIdw9g7+Jl+9Mu
+         wbAA5ciOzqIloDKSEF51yIVjhtkc7TqeJO1RkKVnhb7Ppug5jp/U0BNe/eXqPrEuo1k9
+         /dS56IC3YIapyJhaumC+44vbzP8Bp59KoNV6sismvw9G2vPVC7rldME1otkxK2xiccRO
+         fPqA==
+X-Forwarded-Encrypted: i=1; AL+hErGnWGrSgulOc17j7vz/K8A8gHs/dDdm+e1J3Q64XW5TRrOGd95RbiSEQgOubDmWhSKrPP3lxSS7jL+unuI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wz2TaQSheG/WDe4FG+C6fscccWbM39btk7taExwO10cZWmn42
+	7zdEFLQDZlRflFmMZYf50f63/aLV+wRIY5EtFXnX7OAaRZY8DUcq5yAIsJotI5z3xQ==
+X-Gm-Gg: AYBFou3o1/XSrq6ysrbYQ6LHSVZnXaD1k0WDCgiaga6lPm3rqivzB3978u7j0I8kOud
+	+U/RSyuiXuT4hgJOU6VLQSlnLC5TKm7yaLOwxjU2W6bpmNcQKgXCIaC7WeJC/uvDREcXrWURq9c
+	SPSnlC1h5JnUq90zr7Xw9EvhUKOKNNPMgtg91xJpeRarh5+0YP3MxZXS5zWAW+KDukNxv0CR6Ru
+	/6MmwtvO59sHmDI8vGos2eAr7CAy11uiJWhOGgLl9EgaIZIH1hdyaQwpjhp/gQ9VwS5Bvo/QZhp
+	QDNdy3ahCQnu0DNE62nbI5vHZovX7o+r1WTjvGPxTiVGqWcOO6Khajx+YacTEENx5bb6NotPNcX
+	jGRFzH53vvTOX3BR9rt1PaBCXKmZ/YdRfVAKcAdmXLh6mtO86/0M7nPI47zg3Wv4u8JI2A5bdDx
+	N+D8cH+6XiUbgJIME1CyVdanaWD2hnyuCZiNBN4wesURZQlEMak/Y1r2a7vtrQCAiTDWsGxYf7O
+	eopSza57x0bT08B1B43vZYqksp6OZwHXZkrIKzX+IiZjtRwR4+b67jciag/VrRRdojQnrAc5XD9
+	mE27MIV0U58+NV/J7YTpjRdLz6gDWydEc8iHRV0k51PIfJ4vhOUn/wj3ZMawxc8/IgzdzA==
+X-Received: by 2002:a05:600c:c055:b0:4a2:bd1:a80a with SMTP id 5b1f17b1804b1-4b811e398ffmr1476265e9.2.1794225717416;
+        Mon, 09 Nov 2026 04:01:57 -0800 (PST)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4967003fefbsm5468334f8f.13.2026.11.09.04.01.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 04:01:55 -0800 (PST)
+Date: Mon, 9 Nov 2026 12:01:48 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
+	catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
+	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com,
+	yuzenghui@huawei.com, joro@8bytes.org, jgg@ziepe.ca,
+	mark.rutland@arm.com, qperret@google.com, tabba@google.com,
+	vdonnefort@google.com
+Subject: Re: [PATCH v9 17/25] iommu/arm-smmu-v3-kvm: Shadow stream table
+Message-ID: <avG2LCJVZIyhWQSG@google.com>
+References: <20261015200903.2735565-1-smostafa@google.com>
+ <20261015200903.2735565-18-smostafa@google.com>
+ <au4uTxliZFv12Bqn@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,297 +103,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <au4uTxliZFv12Bqn@nvidia.com>
 
-A plain inline annotation does not guarantee inlining. In particular,
-size optimization can cause helpers called from noinstr functions to
-be emitted out of line in .text. Such copies do not inherit the
-caller's instrumentation restrictions.
+On Fri, Nov 06, 2026 at 11:45:19AM -0800, Nicolin Chen wrote:
+> On Thu, Oct 15, 2026 at 08:08:48PM +0000, Mostafa Saleh wrote:
+> > @@ -538,6 +655,7 @@ static bool smmu_dabt_device(struct hyp_arm_smmu_v3_device *smmu,
+> >  
+> >  		if (is_write) {
+> >  			bool last_cmdq_en = is_cmdq_enabled(smmu);
+> > +			bool last_smmu_en = is_smmu_enabled(smmu);
+> 
+> It'd read better with smmu_was_enabled and smmu_is_enabled.
+> 
 
-Use __always_inline for the IRQ, idle, stack-check and vector helpers
-reachable from non-instrumentable entry paths, including their nested
-helpers. Also force inline arch_exit_to_user_mode_prepare().
+Sure, will update them.
 
-Build-tested the affected entry, trap, idle, stacktrace and KVM objects
-with GCC and CONFIG_CC_OPTIMIZE_FOR_SIZE=y. Inspected object symbols
-and relocations.
+> > diff --git a/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.h b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.h
+> > index 3903ae358555..31ab7a0335a8 100644
+> > --- a/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.h
+> > +++ b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.h
+> > @@ -27,6 +27,12 @@
+> >   * @cmdq_host:		Host view of the CMDQ, only q_base, base_dma and llq used
+> >   * @cmdq_max_shift:	Max shift for the CMDQ probed from HW
+> >   * @cr0:		Last value of CR0
+> > + * @host_ste_cfg:	Host stream table config
+> > + * @host_ste_base:	Host stream table base
+> > + * @strtab_cfg:		Stream table config as seen by HW
+> > + * @strtab_dma:		Physical address of the shadow stream table
+> > + * @strtab_size:	Size of the shadow stream table
+> > + *
+> >   * @mmio_addr, @mmio_size and ARM_SMMU_FEAT_COHERENCY are filled by the host
+> >   * before de-privilege, the rest by the hypervisor driver.
+> >   */
+> > @@ -50,6 +56,11 @@ struct hyp_arm_smmu_v3_device {
+> >  	struct arm_smmu_queue	cmdq_host;
+> >  	u32			cmdq_max_shift;
+> >  	u32			cr0;
+> > +	dma_addr_t		strtab_dma;
+> > +	size_t			strtab_size;
+> > +	u64			host_ste_cfg;
+> > +	u64			host_ste_base;
+> > +	struct arm_smmu_strtab_cfg strtab_cfg;
+> 
+> The order is different here than the kdocs.
+> 
+> Also, it might be cleaner to group host/shadow/hw stuff separately:
+> 
+> struct hyp_arm_smmu_v3_device {
+> 	...
+> 	struct hyp_arm_smmu_v3_device_host host;
+> 	struct hyp_arm_smmu_v3_device_shadow shadow;
+> 	struct hyp_arm_smmu_v3_device_hw hw;
+> 	// Or
+> 	struct {
+> 		...
+> 	} shadow;
+> 	struct {
+> 		...
+> 	} host;
+> 	struct {
+> 		...
+> 	} hw;
+> 	...
+> };
 
-Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-Assisted-by: LLM
----
- arch/riscv/include/asm/cpuidle.h       |  2 +-
- arch/riscv/include/asm/entry-common.h  |  4 ++--
- arch/riscv/include/asm/irqflags.h      | 14 +++++++-------
- arch/riscv/include/asm/processor.h     |  2 +-
- arch/riscv/include/asm/stacktrace.h    |  2 +-
- arch/riscv/include/asm/vector.h        | 22 +++++++++++-----------
- arch/riscv/kernel/kernel_mode_vector.c | 17 +++++++++--------
- 7 files changed, 32 insertions(+), 31 deletions(-)
+That looks better, thanks! I will try it in the next version.
 
-diff --git a/arch/riscv/include/asm/cpuidle.h b/arch/riscv/include/asm/cpuidle.h
-index 71fdc607d4bc..edb064a8d2e5 100644
---- a/arch/riscv/include/asm/cpuidle.h
-+++ b/arch/riscv/include/asm/cpuidle.h
-@@ -10,7 +10,7 @@
- #include <asm/barrier.h>
- #include <asm/processor.h>
- 
--static inline void cpu_do_idle(void)
-+static __always_inline void cpu_do_idle(void)
- {
- 	/*
- 	 * Add mb() here to ensure that all
-diff --git a/arch/riscv/include/asm/entry-common.h b/arch/riscv/include/asm/entry-common.h
-index 34ed149af5d1..90c6d61a2251 100644
---- a/arch/riscv/include/asm/entry-common.h
-+++ b/arch/riscv/include/asm/entry-common.h
-@@ -7,8 +7,8 @@
- #include <asm/thread_info.h>
- #include <asm/vector.h>
- 
--static inline void arch_exit_to_user_mode_prepare(struct pt_regs *regs,
--						  unsigned long ti_work)
-+static __always_inline void arch_exit_to_user_mode_prepare(struct pt_regs *regs,
-+							   unsigned long ti_work)
- {
- 	if (ti_work & _TIF_RISCV_V_DEFER_RESTORE) {
- 		clear_thread_flag(TIF_RISCV_V_DEFER_RESTORE);
-diff --git a/arch/riscv/include/asm/irqflags.h b/arch/riscv/include/asm/irqflags.h
-index 6fd8cbfcfcc7..0478ea545ceb 100644
---- a/arch/riscv/include/asm/irqflags.h
-+++ b/arch/riscv/include/asm/irqflags.h
-@@ -10,43 +10,43 @@
- #include <asm/csr.h>
- 
- /* read interrupt enabled status */
--static inline unsigned long arch_local_save_flags(void)
-+static __always_inline unsigned long arch_local_save_flags(void)
- {
- 	return csr_read(CSR_STATUS);
- }
- 
- /* unconditionally enable interrupts */
--static inline void arch_local_irq_enable(void)
-+static __always_inline void arch_local_irq_enable(void)
- {
- 	csr_set(CSR_STATUS, SR_IE);
- }
- 
- /* unconditionally disable interrupts */
--static inline void arch_local_irq_disable(void)
-+static __always_inline void arch_local_irq_disable(void)
- {
- 	csr_clear(CSR_STATUS, SR_IE);
- }
- 
- /* get status and disable interrupts */
--static inline unsigned long arch_local_irq_save(void)
-+static __always_inline unsigned long arch_local_irq_save(void)
- {
- 	return csr_read_clear(CSR_STATUS, SR_IE);
- }
- 
- /* test flags */
--static inline int arch_irqs_disabled_flags(unsigned long flags)
-+static __always_inline int arch_irqs_disabled_flags(unsigned long flags)
- {
- 	return !(flags & SR_IE);
- }
- 
- /* test hardware interrupt enable bit */
--static inline int arch_irqs_disabled(void)
-+static __always_inline int arch_irqs_disabled(void)
- {
- 	return arch_irqs_disabled_flags(arch_local_save_flags());
- }
- 
- /* set interrupt enabled status */
--static inline void arch_local_irq_restore(unsigned long flags)
-+static __always_inline void arch_local_irq_restore(unsigned long flags)
- {
- 	csr_set(CSR_STATUS, flags & SR_IE);
- }
-diff --git a/arch/riscv/include/asm/processor.h b/arch/riscv/include/asm/processor.h
-index e9d339bcb7e9..a921c6f2675a 100644
---- a/arch/riscv/include/asm/processor.h
-+++ b/arch/riscv/include/asm/processor.h
-@@ -186,7 +186,7 @@ extern void start_thread(struct pt_regs *regs,
- extern unsigned long __get_wchan(struct task_struct *p);
- 
- 
--static inline void wait_for_interrupt(void)
-+static __always_inline void wait_for_interrupt(void)
- {
- 	ALT_RISCV_WFI();
- }
-diff --git a/arch/riscv/include/asm/stacktrace.h b/arch/riscv/include/asm/stacktrace.h
-index b1495a7e06ce..c7c991452e11 100644
---- a/arch/riscv/include/asm/stacktrace.h
-+++ b/arch/riscv/include/asm/stacktrace.h
-@@ -16,7 +16,7 @@ extern void notrace walk_stackframe(struct task_struct *task, struct pt_regs *re
- extern void dump_backtrace(struct pt_regs *regs, struct task_struct *task,
- 			   const char *loglvl);
- 
--static inline bool on_thread_stack(void)
-+static __always_inline bool on_thread_stack(void)
- {
- 	return !(((unsigned long)(current->stack) ^ current_stack_pointer) & ~(THREAD_SIZE - 1));
- }
-diff --git a/arch/riscv/include/asm/vector.h b/arch/riscv/include/asm/vector.h
-index cd09f32e1ea3..1e8f22484733 100644
---- a/arch/riscv/include/asm/vector.h
-+++ b/arch/riscv/include/asm/vector.h
-@@ -85,12 +85,12 @@ static __always_inline bool has_xtheadvector(void)
- 		return false;
- }
- 
--static inline void __riscv_v_vstate_clean(struct pt_regs *regs)
-+static __always_inline void __riscv_v_vstate_clean(struct pt_regs *regs)
- {
- 	regs->status = __riscv_v_vstate_or(regs->status, CLEAN);
- }
- 
--static inline void __riscv_v_vstate_dirty(struct pt_regs *regs)
-+static __always_inline void __riscv_v_vstate_dirty(struct pt_regs *regs)
- {
- 	regs->status = __riscv_v_vstate_or(regs->status, DIRTY);
- }
-@@ -105,7 +105,7 @@ static inline void riscv_v_vstate_on(struct pt_regs *regs)
- 	regs->status = __riscv_v_vstate_or(regs->status, INITIAL);
- }
- 
--static inline bool riscv_v_vstate_query(struct pt_regs *regs)
-+static __always_inline bool riscv_v_vstate_query(struct pt_regs *regs)
- {
- 	return !__riscv_v_vstate_check(regs->status, OFF);
- }
-@@ -198,7 +198,7 @@ static __always_inline void __vstate_csr_restore(struct __riscv_v_ext_state *src
- 	}
- }
- 
--static inline void __riscv_v_vstate_save(struct __riscv_v_ext_state *save_to,
-+static __always_inline void __riscv_v_vstate_save(struct __riscv_v_ext_state *save_to,
- 					 void *datap)
- {
- 	unsigned long vl;
-@@ -235,7 +235,7 @@ static inline void __riscv_v_vstate_save(struct __riscv_v_ext_state *save_to,
- 	riscv_v_disable();
- }
- 
--static inline void __riscv_v_vstate_restore(struct __riscv_v_ext_state *restore_from,
-+static __always_inline void __riscv_v_vstate_restore(struct __riscv_v_ext_state *restore_from,
- 					    void *datap)
- {
- 	unsigned long vl;
-@@ -272,7 +272,7 @@ static inline void __riscv_v_vstate_restore(struct __riscv_v_ext_state *restore_
- 	riscv_v_disable();
- }
- 
--static inline void __riscv_v_vstate_discard(void)
-+static __always_inline void __riscv_v_vstate_discard(void)
- {
- 	unsigned long vl, vtype_inval = 1UL << (BITS_PER_LONG - 1);
- 
-@@ -300,7 +300,7 @@ static inline void __riscv_v_vstate_discard(void)
- 	riscv_v_disable();
- }
- 
--static inline void riscv_v_vstate_discard(struct pt_regs *regs)
-+static __always_inline void riscv_v_vstate_discard(struct pt_regs *regs)
- {
- 	if (riscv_v_vstate_query(regs)) {
- 		__riscv_v_vstate_discard();
-@@ -317,7 +317,7 @@ static inline void riscv_v_vstate_save(struct __riscv_v_ext_state *vstate,
- 	}
- }
- 
--static inline void riscv_v_vstate_restore(struct __riscv_v_ext_state *vstate,
-+static __always_inline void riscv_v_vstate_restore(struct __riscv_v_ext_state *vstate,
- 					  struct pt_regs *regs)
- {
- 	if (riscv_v_vstate_query(regs)) {
-@@ -341,12 +341,12 @@ static inline bool riscv_preempt_v_dirty(struct task_struct *task)
- 	return !!(task->thread.riscv_v_flags & RISCV_PREEMPT_V_DIRTY);
- }
- 
--static inline bool riscv_preempt_v_restore(struct task_struct *task)
-+static __always_inline bool riscv_preempt_v_restore(struct task_struct *task)
- {
- 	return !!(task->thread.riscv_v_flags & RISCV_PREEMPT_V_NEED_RESTORE);
- }
- 
--static inline void riscv_preempt_v_clear_dirty(struct task_struct *task)
-+static __always_inline void riscv_preempt_v_clear_dirty(struct task_struct *task)
- {
- 	barrier();
- 	task->thread.riscv_v_flags &= ~RISCV_PREEMPT_V_DIRTY;
-@@ -358,7 +358,7 @@ static inline void riscv_preempt_v_set_restore(struct task_struct *task)
- 	task->thread.riscv_v_flags |= RISCV_PREEMPT_V_NEED_RESTORE;
- }
- 
--static inline bool riscv_preempt_v_started(struct task_struct *task)
-+static __always_inline bool riscv_preempt_v_started(struct task_struct *task)
- {
- 	return !!(task->thread.riscv_v_flags & RISCV_PREEMPT_V);
- }
-diff --git a/arch/riscv/kernel/kernel_mode_vector.c b/arch/riscv/kernel/kernel_mode_vector.c
-index b9481a3e40e3..a8b308b3a231 100644
---- a/arch/riscv/kernel/kernel_mode_vector.c
-+++ b/arch/riscv/kernel/kernel_mode_vector.c
-@@ -124,27 +124,27 @@ static __always_inline u32 *riscv_v_flags_ptr(void)
- 	return &current->thread.riscv_v_flags;
- }
- 
--static inline void riscv_preempt_v_set_dirty(void)
-+static __always_inline void riscv_preempt_v_set_dirty(void)
- {
- 	*riscv_v_flags_ptr() |= RISCV_PREEMPT_V_DIRTY;
- }
- 
--static inline void riscv_preempt_v_reset_flags(void)
-+static __always_inline void riscv_preempt_v_reset_flags(void)
- {
- 	*riscv_v_flags_ptr() &= ~(RISCV_PREEMPT_V_DIRTY | RISCV_PREEMPT_V_NEED_RESTORE);
- }
- 
--static inline void riscv_v_ctx_depth_inc(void)
-+static __always_inline void riscv_v_ctx_depth_inc(void)
- {
- 	*riscv_v_flags_ptr() += RISCV_V_CTX_UNIT_DEPTH;
- }
- 
--static inline void riscv_v_ctx_depth_dec(void)
-+static __always_inline void riscv_v_ctx_depth_dec(void)
- {
- 	*riscv_v_flags_ptr() -= RISCV_V_CTX_UNIT_DEPTH;
- }
- 
--static inline u32 riscv_v_ctx_get_depth(void)
-+static __always_inline u32 riscv_v_ctx_get_depth(void)
- {
- 	return *riscv_v_flags_ptr() & RISCV_V_CTX_DEPTH_MASK;
- }
-@@ -186,8 +186,8 @@ static int riscv_v_start_kernel_context(void)
- 	return 0;
- }
- 
--/* low-level V context handling code, called with irq disabled */
--asmlinkage void riscv_v_context_nesting_start(struct pt_regs *regs)
-+/* Called from assembly before entry bookkeeping, with interrupts disabled. */
-+asmlinkage void noinstr riscv_v_context_nesting_start(struct pt_regs *regs)
- {
- 	int depth;
- 
-@@ -201,7 +201,8 @@ asmlinkage void riscv_v_context_nesting_start(struct pt_regs *regs)
- 	riscv_v_ctx_depth_inc();
- }
- 
--asmlinkage void riscv_v_context_nesting_end(struct pt_regs *regs)
-+/* Called from assembly after exit bookkeeping, with interrupts disabled. */
-+asmlinkage void noinstr riscv_v_context_nesting_end(struct pt_regs *regs)
- {
- 	struct __riscv_v_ext_state *vstate = &current->thread.kernel_vstate;
- 	u32 depth;
--- 
-2.55.0
+Thanks,
+Mostafa
 
+> 
+> Nicolin
