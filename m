@@ -1,60 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.17
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794247135;
-	b=AgHhdqWB9gVokJHNNHGx2ct6lPiNmHK7wiruX1WUb2tpv+JZ0H8zTPRWwyOE7+UcAhXc
-	 044Ai3OBKCb2kHznAkLnjzXSQ360eFFY729S3R7SG/y+I+84+tijGLrcLSrZ4Jz+owrYW
-	 nhDA5Uhoj8ulO74yI8wLwnVgzSSqkk2YL9QrLR7wup/kw0f70d069LJQatMJsFEeNBOtN
-	 hJtDtVgtKgiHgT/t/ALJkRxVJqvAdmwJfTgw/Cpb3tlojeM4nMfgAkPTx/jDQmhsRhopH
-	 4kjStGWdFfmAjM+0BTGH1mQZdlnOuCyVdQoL6Q2fcTj3goppr5xOV22qhGZKm2zNLEQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247135;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type;
-	bh=Y+fgjkU6Ch+Nq/fZNg56d1mNXfquwFsBnARd47tdQs4=;
-	b=NwNdyjKOCTtodNe+Ddiqhko6k7OsTO5oWN8xwPxg7JZ9cvlA3el12Pr9el6EyyCoLhJb
-	 wTmePSSWof85Onn7r4kvURBH72SYD1SOsH+CirPhb5XprYcS70CR5WpvAxOdgjH+f4txy
-	 ahwRqCiC0522/9McAYkKGipP1iv0WqT1EEtXt3aFrjoTFaJSp0ZP2iGHMlAIOmVLwQPXQ
-	 CLhEJzguGj728Xfqvix77ZscygbEYD4FzBaKzpHtu3p1VVRcHHrNBEoC5U7MuWqomR8Mq
-	 L78WcHPqX9pYYniMs0GMCpTUYQHnGQ/BVm5QVquSrY1RPVGWdaTa6q+9UlI9Wt2zyLw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=httpd.dev;
-	spf=pass smtp.mailfrom=httpd.dev;
-	dkim=pass header.d=httpd.dev header.i=@httpd.dev header.a=rsa-sha256 header.s=protonmail3 header.b=Ig9gk3fE;
-	arc=none smtp.remote-ip=185.70.43.17
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794247151;
+	b=wsjarhROCVWGovvJj2ZxTO67UzGd5WBEtNy175b68gkdRLEj0w4fB5ir8ocW7mXV7+1K
+	 C8CsWDtMg7dROWrvzGertqEE4XttFPace2mfZqnZBSWCHobUhgiW8E7j5q7QwJZlkyBSv
+	 jGcGerAOwim9y0IjZ2CXL0Jmnr9Jk5Mc4PaczpyUrOY9s7d3kPAOPZGVEQ4TKgifszqQG
+	 x8SQNFnl22zIlPwn7YlAdjlVxekvSEWQgbLQqaC5WqFtSeZ0vc923GUjDxQRvwujb/5zA
+	 AMNTbeVkdXPQO3RsdduOW4n4/bYNek1bEs3JE/YwsgPATJXDtJ01ifhjvU3fr9Ow48Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794247151;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Z/ZNHj0Rn68UKNmdBxxUTiUBJqPFSpfv4f03+17ya94=;
+	b=Ag1/zWpfwA1UMmkNU8w7W8Zth3nKkeb8msQbyirgRKGSc4Y/v/ZcFj1mKWk3Dx0fUxFZ
+	 v1EM3g1BYCvz6O7xk8KG3Xjds59r5G6Cx7YNGHIscy3I7xi22nUHaEVddG9JF8goHLpbk
+	 BOTV/sbGs3mSbNcprMNmfkc9pcjBV7KDhnh7gsZKlGuHeQg3Kz/SPfKGbeTNOkrYsnSIu
+	 RB/K4I+hQfKX8NVqC8P7PqpuzcGBvlHZVEZKJ7crbyDEEuEyjYLAVuxquTaiTV3cuXM1X
+	 izi1w68RgPuPUTKSOj4IB1nIksATnANf0psmA49lmoUFde295Mi+8bV5NrI3glj3SuA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AIo4bkEN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76BFA606A331;
-	Mon,  9 Nov 2026 17:58:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76BFA606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF34606A338
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:59:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DF34606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=httpd.dev header.i=@httpd.dev header.a=rsa-sha256 header.s=protonmail3 header.b=Ig9gk3fE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
-	s=protonmail3; t=1794247132; x=1794506332;
-	bh=Y+fgjkU6Ch+Nq/fZNg56d1mNXfquwFsBnARd47tdQs4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Ig9gk3fEV0CNVvGVb5u+nYFqV+z3CCvrhKU9G4xv0jp7E9bhyEwRabwD+E0VRiFtp
-	 S6E4fFD4XfwQgdeLyWX3/0uEAbTBH2TfKGOM1Kgwjf2Frbo71JDUYA2MReCVfFp8zd
-	 XWqEBghgUUSi6fkMz+IJW3Oz7sOboSmJ19g20cPKz6HrnV4tl8AYEzZAbzgCBU62hf
-	 FDVyGQvr/vkueBH1l4K6xV4VXs6bf0Ixr3qFVCadyyti4lWmWZRyzhY4f6n0ikiMk2
-	 cOi011ff4mbxGUADhwZFbjfWGHezML/iEi1lnGFgLNVejiXqp2WJBa64+Go34nJvKf
-	 vvkmFfshPvhbg==
-Date: Mon, 09 Nov 2026 17:58:47 +0000
-To: Takashi Iwai <tiwai@suse.de>
-From: Angel J <iamanaws@httpd.dev>
-Cc: linux-sound@vger.kernel.org, tiwai@suse.com, perex@perex.cz, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Fix the Dell XPS 8940 headset microphone
-Message-ID: <5ncUNWXphcObbYD04quaQMbD0tGoekaHB-QQrX5tgC7sSbzoT9jRVrbY9PyT6mRbww0G9-voA6Y98HjvPg7U25kmeybfQALp5NsNKym-3pc=@httpd.dev>
-In-Reply-To: <87wlqtukxh.wl-tiwai@suse.de>
-References: <20261103150336.507675-1-iamanaws@httpd.dev> <87wlqtukxh.wl-tiwai@suse.de>
-Feedback-ID: 163474212:user:proton
-X-Pm-Message-ID: e7ce95f4ff7b34428871c11747fcf23dc5dad867
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AIo4bkEN
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-677d35fd1d2so1402231d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:59:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794247149; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l0MwyAdGfFkcPHFmS4m0RHked4rSbytt8katZjIiovRUg6/6alGrgkAvXHKuVJCU3Z
+         b2MUxZh/B5JraIozXrIZWe+KftJ51cBxgGGwVg/YhDkHdfEHAUDp7C3EYR0DgT1rcAKs
+         Ldl+7vVI6W2ubjdFMJLs0HfDQopv66Lk/RzGhrade3G75kIdJklVflaBZb7yWbyD+aoQ
+         NPtjJUSck++d5HC25DtU0E+r82Hl4vsiLsr9uR7TLMgi6BDSqEgWeipL4x5FCY/U5bNT
+         lVDmBNrFvUi+dhfch9jTwlopWXxnfyaRaPQGHWxmvu7NCi6s7C+xYO1x0FfxVkYVk7eu
+         02HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Z/ZNHj0Rn68UKNmdBxxUTiUBJqPFSpfv4f03+17ya94=;
+        fh=U7J9MrpWA05iR1kmMzAL2Bml/Fd3TRcli4XjnixZrHo=;
+        b=sprqi9uc6pcMMFMr5cm/OjC4ZBZcBLiZlfcNge6TtIeuuD7Z6oXGZi2QA6bfYZm19G
+         dc/i2oBhUj7XS2BsQAg5n9IhdZc55ktRBW5k1DCTCgFxi4o3cl8bpy6wU8esVK8K3Mc+
+         bDV108KCMlQqmqqDCTj8pQfXA4MqQJ5HIqKanLI0SrqEIqtszDForbkmzYF9ZpZl/xRs
+         CMvYAivuygVbaLHrT5GDWKreMH75P1t6NNTC0cVyV+WBZbk4G0xBD+oRJf1Jq63JbngE
+         NQqsaVCmTGDEocJad+R+2xMa+qZ/hu+KpRC6b5ndE6BtjFBnSXs8YHWwnGJW7AgB0BHY
+         UDGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794247149; x=1794851949; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z/ZNHj0Rn68UKNmdBxxUTiUBJqPFSpfv4f03+17ya94=;
+        b=AIo4bkENCltLwdrhDOZewdicQonBGCTBeQaFNVBEliAS7m9/i3hKneycQdveLgr8ZM
+         FEekiHI3WHCXhSHf/ycI2V4XlVTWenynjHLnoJsebDlk/YEP8paOC+Aed4lBOWTEPKhG
+         P8yo8WRqPR8B6G+3WkngiNWDTOA96V1IsaJw/DAbLam/H8VXhlJq0WnVhf1Z/Tw6LzS5
+         vk51tVv1X+KkoG8qSPwMEy0ZcIR51QFt7/I51IiJeH1cZjmX6R8oa82Dq6sXSAKMgAs2
+         vYS8ymODLfSHrABA0Exg7U5dcGeXxvulRyUb5vjjqNu8VEHI+BOCfkfVA9fqubYvAQZZ
+         uA7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794247149; x=1794851949;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z/ZNHj0Rn68UKNmdBxxUTiUBJqPFSpfv4f03+17ya94=;
+        b=NmMUUKygX8MyIz+uYhaIU/AmvBFYCQdV8grXLX1fXMB+AHBF6ow7p2CwRmAkQiRGDm
+         X8X4/p27j+08jmgjXQq9Q9+JPeppZuxwdwFUHzfMXJR7vqSxlfSW3icKiP1BqKG9yOfW
+         myeldj22e5jZ026jCrhI7O8Tps/Nn1GcyO3dDlV6VII/jkx/uOL4cUiK+XzW1b4C+63g
+         2YmmZ1OL7TtQeZznn1FbC0DGMhopRgWZexTPw5W8D3FzT9jC95UWq0JVYnXqUIzQUvTX
+         AAZwZXoIpMebFKFq0JkPlc0zx1oZ/slClvfNkqJu3apZ7YzKtbknsx36SM88J412h+IQ
+         N4lw==
+X-Forwarded-Encrypted: i=1; AL+hErFhszEs1IyiYPCof8eZib3in8iCjSSdzDTiP4saabq9IZTgeNG/p4I7Pb7Ud8GHVv6aUR2MVhkdJa8EduQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qrPxb7UBPd+qYSx3ttDlow0WB+OKE1xgkWrySKEKFKFOkMEG5
+	Sx/OiApK7Yj9O81+sVFmM7gp3wuE14YHMlemdjBxTbPXYn2au+e8DjGaEkrSjAMLLot0V906qrf
+	fJgxZ5MNmq9WGFlPNMg7DnXT8yBKGydg=
+X-Gm-Gg: AYBFou1u0hrtC968fQdJ+GZEDbaOxdJouzTgx/T9TjqYzND+BW4xJQstTS9JHOcmuHh
+	UIFVVmpkMzBeVablvGI5KWF71im7qM3uYfqSHrsvxbaSAooXfqYOGbCiCLgsXz6lO2eVbnGjTU9
+	09RbThxEJsJJoFjv0fdMJ5n+xt8NCVMFI28yZrC4cEXsvl3YjPtr7Q3AvJS43U3s86gTDhxOXeP
+	k4l2GJwjNCLVh/VwG+baa9kZ+KzK7KWG4nCXvASACtUPKlYXtFIiKROH9bB7z0gQG7SxhvdxHUh
+	Ulyk5pOWonK1b01DFaShPuPs5Kf4uu1W4DuZSdLZjOMBRpUsBZmstIjB++IQo3YDL8CxgUi/K79
+	cRj672RxtYHQAOSFyCtIHTRJNap5YWAHo+IH1ngX0XksV3QoN8xjCMCFHZ9P4u/+d7vpvlmyXLI
+	DBz20pRX/l+TalkEFw6xkEK6A8+0nYiR/11drquF/9RgB6WFYpGGh3tbb4Bw==
+X-Received: by 2002:a05:690e:138c:b0:679:fa54:1ea6 with SMTP id
+ 956f58d0204a3-67c56830448mr223512d50.88.1794247146395; Mon, 09 Nov 2026
+ 09:59:06 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,55 +105,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------feda68883e02afcb08b56f23442a9709fbfedd7e94eca92a69b2698ecd229a21"; charset=utf-8
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------feda68883e02afcb08b56f23442a9709fbfedd7e94eca92a69b2698ecd229a21
-Content-Type: multipart/mixed;boundary=---------------------1063e13f09dfd5db6e016353888b598c
-
------------------------1063e13f09dfd5db6e016353888b598c
+References: <20261109165939.138448-1-mdshahid03@gmail.com>
+In-Reply-To: <20261109165939.138448-1-mdshahid03@gmail.com>
+From: Stephen Smalley <stephen.smalley.work@gmail.com>
+Date: Mon, 9 Nov 2026 12:58:55 -0500
+X-Gm-Features: AclHuK9ejIQT6HgBplyFvbZQHs5s3CbaGps3p33veN7nSZEUOaWjdoafe_Z68xc
+Message-ID: <CAEjxPJ6DApZN+Ri=9dZ6Ff4d-aegQzVKpTT04EtgOaJtdjy8Yg@mail.gmail.com>
+Subject: Re: [PATCH] selinux: fix potential use-after-free in sel_netif_flush()
+To: mdshahid03@gmail.com
+Cc: Paul Moore <paul@paul-moore.com>, =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>, 
+	selinux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
 
-On Tuesday, November 3rd, 2026 at 23:15, Takashi Iwai <tiwai@suse.de> wrot=
-e:
-> The code change looks OK, but could you resubmit with a proper
-> Signed-off-by tag with your full name (also From tag, too)?
-> Signed-off-by is a legal requirement.
+On Mon, Nov 9, 2026 at 12:00=E2=80=AFPM <mdshahid03@gmail.com> wrote:
+>
+> From: Mohammad Shahid <mdshahid03@gmail.com>
+>
+> sel_netif_flush() use list_for_each_entry() while deleting
+> entries from the network interface list.
+>
+> Use list_for_each_entry_safe() to save the next entry before
+> deleting the current one and avoid accessing freed memory.
+>
+> The issue is reported by smatch as potential use-after-free.
+>
+> Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
 
-Hi Takashi,
-
-Thanks for reviewing. My understanding is that the guidelines require
-a known identity, without necessarily requiring disclosure of a full
-name. I consistently use =E2=80=9CAngel J=E2=80=9D and this email address =
-for kernel
-contributions. My PCI fix, commit 8805840aad73, was merged with the same
-author identity and Signed-off-by.
-
-Is there an additional requirement for this submission that I=E2=80=99m mi=
-ssing?
-
-Thanks,
-Angel J
-
------------------------1063e13f09dfd5db6e016353888b598c--
-
---------feda68883e02afcb08b56f23442a9709fbfedd7e94eca92a69b2698ecd229a21
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wrsEARYKAG0FgmryCckJEBoBbwppzUxnRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmdS8xGq20cmH0vl0FOE4nYbuCgqoDYSGCYfwO9L
-p/QVHRYhBEAFf9htFyVnqZzmVhoBbwppzUxnAAAI0gEA/ZvroE/vomNwnnaV
-+RUa09tAGOXW3NnsEaoXk5qsQasBAKAiFk+6QIySa1U22OP45Q0Gf7PT2vu5
-ZYNsBWX4b5wA
-=pusZ
------END PGP SIGNATURE-----
-
-
---------feda68883e02afcb08b56f23442a9709fbfedd7e94eca92a69b2698ecd229a21--
-
+This isn't actually necessary AFAICT - sel_netif_destroy() preserves
+the forward link with list_del_rcu() and defers reclamation with
+kfree_rcu(). The loop holds spin_lock_bh() throughout, so the current
+entry remains alive through the iterator increment.
