@@ -1,121 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794214643;
-	b=wKQ6jbJ7roXWuYxbOmB7gDDOtia7Gva+BOxiXsCi9qFhVD1x3mnpIqS7IR6UvVI9P1ss
-	 eNSYzyLmO+2oPkD8n1BXlNAcm5P8QSsy8Gd5uSYA8pXsmYlQVG1Xplc9J0yCVJGXTaBKv
-	 ILhfVWqijOwRz+knNDw9NseZ2VOAkdo6vjRo0m6z2aFSyIo2YqaA+mzO5+m0ta1JArFzg
-	 WnFlMg1dDbxMDC9senoi+xJrL+sOfQGz2nxvo4CMRBp5EPCIgsi5wx0v0c1MBfwOAWyud
-	 anq8il1C88bMtI+6tsNJpLUBzMfFAvzgHwKaC/8XOHGNLiQ7AwO10yEh2iEpjrv2sJg==
+	t=1794214668;
+	b=IS+0MyCYs/SSTblynhNob2VyWwHS11B6+okiNw9l1zCicZma/yTCeKGjB2oZ1+cq2pF+
+	 beUzZNe7tG94onN4YXfPjoQt9YwnP5fLibv5ltRA8VW+4Xw6Z5syt4lA+4CD445iClfNw
+	 dTGhvGBUyzJsT9A/gpd0Adc5GipvGAMp3I4+5zvphnc8AR78YTvKagh6ugu/FGPV/Rs3k
+	 fkmmower+TBz4IuHT4sHF33KFwOS+Bb0J6FGZt0ER7Z5YvvRPzU8aije3gECK7vOYqXkH
+	 QnVG3ZBBfqiadC0WHJjg4sOWoaRiPaSRSkMqUXXIO3UVh+kub/7fXA5rDQW1Nhg/Fjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214643;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=XzEGE3tZdC7w1G3PUODyH7sAeFFJNDrzFSsizGE/Oiw=;
-	b=g8VoljGhpBG7ZIa1MH3CFTfk4oDCmaldznjvfC6ndnuEkXIHNmMTQ2OrkJkUuTMG/3nh
-	 VueKUUkMJOEl/l4jtAoKU3J8MsgtoaIoqXrV4SHyjBtmD9FF3rjwKwsIf4dDlyX7QMoH2
-	 S+dqoKt4fy3Hwd+jLJjo21acbwwYSm70BdKV3RIE6j/8fiJ0mPqlVq40TulNpgViYS+BX
-	 8g7VM/kMXHshye5JLmHa2NIFAgdEh8OMJcGP1bgQ2HJOwHQd7yE4LoghYdn611UXd2m6u
-	 1KO9y2nXNfcWBVOED648H7pc6N6R5kvgFwNWD3vsoCirwndpQFWe/Bouna5XAf3z0Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794214668;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6gPNbhKnS4UiPYe9GkhcEdm+Vle3xI8UXMcC7kdMJ/8=;
+	b=FtgJKZRB9OOiTB7/C2AnOloYjZJ8EyzML119iqDF4lAM/ItzJypFvdVKc/Iw2BOy4w5R
+	 uzrvckwUxBmLYcRv9SHN+/Q0ED/R6sf3KOyloX+j7He+Ms92Z9cdo9S8Rmmp9mF+wAwQN
+	 Nv/VYCqfZh9HA8PScBGO/r00DP2YZCYI4MGDYUMPvMdnHem8fUmZ6P2i3stu/cGSFPMht
+	 Xn/LrbgtwAA1DeI+G3PVrr9RO3k3xgAM8FDhWqgkVfY2e0m7k7fQaBRbGA8ClTkALKzIY
+	 YLYfcI4Gf/tC6mDkxD8e5++qmuwRq5yOQRu1x5Q+Dhp/TbpdrPXVY063yJ2rlvubOKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qi51nJHP;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VeFy6aM3;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WX99d5g8;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF26E606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:57:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF26E606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F21606A323
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:57:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87F21606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qi51nJHP;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VeFy6aM3
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A969xZw055799
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 08:57:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XzEGE3tZdC7w1G3PUODyH7sAeFFJNDrzFSsizGE/Oiw=; b=Qi51nJHPDFbJ7q8n
-	qXkhTkmLCX/0LKCsplGWLTa1YMVJ3RwOt9AsTDmtZxJF62wlaCj3zv2Ze8Est1aa
-	580pukGyxUUlTtAc8xrMQzhh/GOoI2A4URoEJL+LMW9hkiSg3154okCev2fGp00b
-	vXkH87SlXdmdYv38+2XRSmP6FVSWZjBLfFRovyeJSZT9qb3mMyipvzS/O9hClenr
-	2dHkQm6Elrvpwp71fNarlQIDxOvNn+ieCYjrAQGylXPpanmlz+Bn5OKKknMDbuDv
-	/NQ2viBqKaC33FiMSFCOuqqWOvb2Q/aBWksxnXWh2w4lUQcv4jFEtrTqXdpsV8rM
-	rWsEJA==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4htuqm2cdf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:57:21 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7d2c7a903a1so523573137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:57:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WX99d5g8
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so7505545e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:57:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794214641; x=1794819441; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XzEGE3tZdC7w1G3PUODyH7sAeFFJNDrzFSsizGE/Oiw=;
-        b=VeFy6aM3M2DUbgHAo/GOqbpk9ncqOFx5dD+e1aYRK0Q2Fxoti7uLbz7kV/6Ka2XWMx
-         Ws37jKObk+ZQd+ZkKNzLS+VZMNckFJu9O+1hWC/yxJ1O72A4639vF7ZwI8O2zx4T0/vR
-         7nRVlvBOP11Uh4M3/IBsBOmxdpg9aE9Ye2FC2t98fGbWwS5DrrUfKmJGRvzdVXd8YHMn
-         HKuRYDH3OsrcccEoEayJ90TS/xZauzdfb17nL90es/bVRAzHMyEDHJ7LGu1Ya7Xkdtrl
-         lQZ3Cf+o7cq3CDmDIArPLdFtgtstcJYcSUeDER3T4bA9xtTfxj6IIOaa4zXJWNG5xUkr
-         d2QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794214641; x=1794819441;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794214667; x=1794819467; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XzEGE3tZdC7w1G3PUODyH7sAeFFJNDrzFSsizGE/Oiw=;
-        b=2jh6JM2X6gYg7Bn/OBbK740U75VYW+GixqhmAfzwAACSDcdlZcBypHGZ1qcMWnOJAe
-         N7SXpF6nagu3AHgveGI5Qp4rT0MIgtAh1phqUmD39v7CQ5AvweIJ07MX/mvnaYMtbd5V
-         g5I3Ei1kzs1XhGa0MU3++sEAdcs2RhWshRa8TbFJEd8DoJ/fE3z1kIjlgHMGO9+ul0UG
-         dvXo6uW6KY6qvHIGz1cUd8/ut5Vf3faFh5/ogITSM0p5AuEQRUytxaJoMvtPpPvVSwbn
-         OEqSbisy/YURkquZyZzgC90GVRbtn8cAhqGZUV8Stl36cQ5B/7SruWZ/wdqvhT0UmIwU
-         iIZw==
-X-Forwarded-Encrypted: i=1; AL+hErEjB6+A9H/MSxbMIAfFZZ5OzvKwgBrTnLAPezeUsqOPI9R7XKV2cAfFVq/V4NyRkrcOPL4GKbYarWEuOeI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+HCeb/f84k3M0hMxjCHPQSZU6kGbPfo5VJ+21ENa8b8QefDNCr
-	uIVCa4y0ntyxfhVgO4f4y/y6sTyShZ73rNIFVwCIB24JYUrmv+sUXCAwvngtcMDO4vXNt+GLqXV
-	57WaSeOn4h7nIO6XD2xgznUWlxwtlGScyinaXNIvaBie6tysoGskltt0vJltA80Qz3k0=
-X-Gm-Gg: AYBFou0JHvR2lBgUxctcqkr+HXKpSz8sXGdYbSG4xvJ4nTHL2JrsCc5E2X+o/S+evpt
-	G9vGtkeNyLJ00zXUFnxGDo/t3SVm6/+4aAnLrpiCpfdEvwDEwA2yb8JzZsojbjeDQzsp6skFmtt
-	gziEIgpLwfUpSczh2Fi6YwxBN2UIPKbR+JM8azml7gGpPzcmXPksXJHIdOtWmvhV9TxZx+5oWcL
-	g6OOeYm07fq496uuTe/3w4b1/1N5hvJuWDQUxq9Cz98yBMCd5Uy5jjGcdmy1ctjv0jz/Np61mjY
-	97Fve0op4ScrzSjodsnGPWNTV9Dd+MWgowxjCdxZ12P/fvOSuwvJjw4Dqpz6eR19kBDtSk8y8e0
-	DoKbwNOsxdxTFqiyhTkOFXo850ch9r9vN4MJs2FpEZICDP2Ia1cTzyVN3E2Hvo7aZSXR9xaU4Xw
-	fIS9HTonWCQ9SJ44b/O7KMqXld0Vh+7xD3r5DVnS9pbcxUptfXG0wfIOODgT0+9g==
-X-Received: by 2002:a05:6102:3ed4:b0:7cc:1045:604 with SMTP id ada2fe7eead31-7d2db195765mr1024638137.30.1794214641207;
-        Mon, 09 Nov 2026 00:57:21 -0800 (PST)
-X-Received: by 2002:a05:6102:3ed4:b0:7cc:1045:604 with SMTP id ada2fe7eead31-7d2db195765mr1024622137.30.1794214640680;
-        Mon, 09 Nov 2026 00:57:20 -0800 (PST)
-Received: from brgl-qcom.home (2a01cb1d00dc7e0089167b9b97a26c96.ipv6.abo.wanadoo.fr. [2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49592f38e55sm9001442f8f.4.2026.11.09.00.57.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 00:57:19 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        Mika Westerberg <mika.westerberg@linux.intel.com>,
-        Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH] gpio: of: fix potential misconfiguration of hogged lines
-Date: Mon,  9 Nov 2026 09:57:18 +0100
-Message-ID: <179421463614.21176.6551038527438941872.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261105-gpiolib-of-hog-uninitialized-v1-1-fcaeaccefab6@oss.qualcomm.com>
-References: <20261105-gpiolib-of-hog-uninitialized-v1-1-fcaeaccefab6@oss.qualcomm.com>
+        bh=6gPNbhKnS4UiPYe9GkhcEdm+Vle3xI8UXMcC7kdMJ/8=;
+        b=WX99d5g8HsNJ2Xc3dJWqBEteZ1Yzefr2XigtdxHvKUPJpgca1CoZqq4dp9NTaNP6YU
+         bfxXvVbrXNq1MdQzDcVoMJst5p/JdASrGhqAQ35GgrQgGpWZpMZlArfgaA1khdBAvC3f
+         UCgBrQaf6/SWaIrIz1cfg3VI8DlRIOxG1IFQ8rIXoFZQPGYzqcNzDEqWjIR9CgfeTAw8
+         NE+Bm718A9eCD1tFyyGwavlgkgZz4MK9/UkYHD7WODjq9NCi/wfmLAsHbxT2jEtokNMQ
+         8Q5NxTbvsYh5rJzdZ+Fl9IzESFScMGEZ1Re6QX6Qo6SLBiZakqLIE2CVv/0RDj39F8Jv
+         /HqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794214667; x=1794819467;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6gPNbhKnS4UiPYe9GkhcEdm+Vle3xI8UXMcC7kdMJ/8=;
+        b=SsbGroWfS7oXI/QE8Bgk04qIgiJm3yj2Vzw6VAborIscl7IJpKKlhTnp0MHLKP4iLK
+         WpJunVfto21apCDD0Y2Kzmaf9gPbMf0vQD+231aj6T0ffd9wiELj3x4FFHN9kPZnm2TY
+         XLjjLzlM0g5RH/cXESoA/3xmv+5iWP2ZMkrDEIJwU7VPVabqnKOx8q/s8gHhKdInpa4w
+         JfcetqURYMj9jBtEq7F6v/pyL2MMaRi396IV0EyL0kxet0LyqNot1OhDnFdKB0RKOGh5
+         VYxE1hyDg++YFGDM/CVie7nNgbNFEi+yvBNRBQKozd6/vY69VEVge6yCCTjYV+OfMSFN
+         K/FA==
+X-Forwarded-Encrypted: i=1; AL+hErEwx+auPoDudFylzMaZADPQiDv53wWh+2gbMYUXXlBI6PHicXV7Q8FuLjQLx9hOeBskAwUU0JjKRGh/Auk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9teyjwlzx4VzpSFgfCOUvdhBXTWD9uB7Kk+neuflsOcSuGJSpz
+	YU2nakWLZ6PmKDXeqY065BDVLHRdrQwGCaD1+xSjtCG/GE0hV1Xrr3BJ
+X-Gm-Gg: AYBFou1vQezmHuNlifsYv4nc18UKQgz3TYRZwh7T+7Ya+P9bj32QrYWrl9oqYhXVFzn
+	hm8k1c904/J3/y7Xmllnufxcjp/DEdTfZ1ZSbrw3fnVdcUrCbeBgl8Fl44dygZd9fIepZsorQDk
+	5DAev9pQb9UXAzsMLWYAtdOJZI3YQfR5aTil/XLVpFNsEsLVP+/G/xUApHn19P5LvmBT52BtDZe
+	Q77ZS7fFynAxvPWEJT+RW34hENrGRooyft5wy9H0OQC3F4ov9RUV9sO2o2+og6zHJJBAtmYeOkr
+	u54F4+jIx5cg39RfwfWmO3tk6e9v17gP6ENhzdPm5sdOc2DNqkFozDPAtMlP3jLmmV3ltKqB89V
+	9SXjz838U58GdWZvBknEnAJNlq5LgfuM9NmPxTHE+l75hhyuji0RKERnhZ4DWOgqAL2QF+4Mu1z
+	eaDhfgD/YI/yLf1b9PscpFIQzy0NybStpDCMrTzgHlGNKsVCL0r4Pqf5Rs587ly+tdk7X6nmHva
+	UwzWaytrTt75NmPFeH4rE7IPNBRnV4hCI9W63RH6i4S9sE/l1SsJXboNcEPZ/3grG7plCZ0wAVz
+	upZmyJBXJyRPnvI/sZQ7XkU=
+X-Received: by 2002:a05:600c:4f86:b0:4a1:fa21:fd90 with SMTP id 5b1f17b1804b1-4b960d9b17dmr61969495e9.9.1794214666809;
+        Mon, 09 Nov 2026 00:57:46 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b79501502asm149200295e9.2.2026.11.09.00.57.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 00:57:46 -0800 (PST)
+Message-ID: <a9fb2d3c-d518-49d3-9479-a25fa2cfc5b3@gmail.com>
+Date: Mon, 9 Nov 2026 09:57:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,53 +92,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfX6xU/yjFJDpN3
- JeoGEB8pp8AgHFXOJzYPuwX+XV2Lo/z7kQgV1AMMtesNSeMBtpbici9pMT1Cq3i47PaiQX6aTv2
- QeGV4WwylmPaNvrIA6tgYdt/9xjh5Js=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfX8D6n6fv0FISQ
- J+AG8VWG2ZFxE1KV+FiPgPIzCmR/sU3mYnPwBVO5RN+dUvpiATezeMf+4F4C7zuJWxLiKD+Afam
- aG12JVTdfEp8VIC0zXSMmPrNuGEkBY3ucG2mdng94ibfEpNt+73ppmJqnr0mAERyZxBdAGxUx+N
- 7KCaXbIJUj/cSRsVtqO5aG7SDTJmG0u7zyTT0G0peGw8J66MXk09Dh9L3jZ1pbk3rS4XnKUwKqJ
- A0dc6Szz35h35wS6K7iSFn6k1umzJNCVII4dVZuSpoyQJ50yd8Yv8PAjrTxyPl3DwUEaoqUli1D
- kFA3YtL+ajjgjLg15NDmqI1dHeNnRsH/RSsnv8/shH6P8l9eTw/6AR9VlGkfdbpSgZ5iLuGx7Ew
- RHuiJqgUpylE/5AEt7AcnWLHdtwoCd6Lh3Bbhv0985L7dAGoNly+yP+8LP+8VDgqSju4n2L/RmG
- 79z7bSybWcAjYVo44hA==
-X-Authority-Analysis: v=2.4 cv=JLquIMKb c=1 sm=1 tr=0 ts=6af18af1 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=ePiHbNq-gTG-vOfASXAA:9 a=QEXdDO2ut3YA:10
- a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-GUID: 7omcqTDYpDZUKochRtomvUk4gP49UTYM
-X-Proofpoint-ORIG-GUID: 7omcqTDYpDZUKochRtomvUk4gP49UTYM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 impostorscore=0
- spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090035
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] mm: limit pagecache folio refcount when splicing
+ into pipes
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
+ Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
+ Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
+ <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Steve Sistare <steven.sistare@oracle.com>, John Hubbard
+ <jhubbard@nvidia.com>, Josef Bacik <josef@toxicpanda.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
+ linux-arch@vger.kernel.org, iommu@lists.linux.dev, stable@vger.kernel.org
+References: <20261107-refcount_overflow_stable-v2-0-c38f6809b106@kernel.org>
+ <20261107-refcount_overflow_stable-v2-2-c38f6809b106@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261107-refcount_overflow_stable-v2-2-c38f6809b106@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-On Thu, 05 Nov 2026 14:37:52 +0100, Bartosz Golaszewski wrote:
-> In of_gpiochip_get_lflags() the local variable xlate_flags is declared
-> without being initialized before its address is passed to
-> of_xlate_and_get_gpiod_flags() when processing a devicetree gpio-hog
-> child node. If a driver uses an of_xlate() callback that doesn't update
-> the flags argument (like gpiochip_fwd_delay_of_xlate()) we'll end up
-> passing that uninitialized value to of_convert_gpio_flags(), potentially
-> misconfiguring the hogged GPIO.
+On 11/7/26 11:23 PM, David Hildenbrand (Arm) wrote:
+> Similar to mapping pagecache folios into page tables, let's reject
+> additional references when splicing folios into a pipe if the refcount
+> is at its limit, similar to how we handle it during GUP.
 > 
-> [...]
+> This will prevent more cases of possible folio refcount overflows with
+> large pagecache folios.
+> 
+> Let's keep it simple and check in the two callers of
+> splice_folio_into_pipe(). Return -EOVERFLOW if the limit prevents any
+> progress, so do_splice_read() can fall back to copy_splice_read() when
+> read_iter is available. This keeps sendfile() and other splice users
+> working when ordinary reads would still succeed.
+> 
+> Also fall back to copying in FUSE when taking another reference through
+> fuse_ref_folio() would exceed the limit.
+> 
+> Also check in try_get_page() to cover pipe-buffer duplication by tee()
+> and partial pipe-to-pipe splicing.
+> 
+> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
+> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
+> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  fs/fuse/dev.c      |  5 +++--
+>  fs/splice.c        |  8 +++++++-
+>  include/linux/mm.h |  9 ++++++---
+>  mm/filemap.c       | 11 ++++++++---
+>  mm/shmem.c         |  4 ++++
+>  5 files changed, 28 insertions(+), 9 deletions(-)
+> 
+> diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+> index 3641abb90d6bb..4f6b7b42bfd3e 100644
+> --- a/fs/fuse/dev.c
+> +++ b/fs/fuse/dev.c
+> @@ -1265,9 +1265,10 @@ int fuse_copy_folio(struct fuse_copy_state *cs, struct folio **foliop,
+>  		if (cs->write && cs->pipebufs && folio) {
+>  			/*
+>  			 * Can't control lifetime of pipe buffers, so always
+> -			 * copy user pages.
+> +			 * copy user pages. Also copy folios at their refcount limit.
+>  			 */
+> -			if (cs->req->args->user_pages) {
+> +			if (cs->req->args->user_pages ||
+> +			    unlikely(folio_ref_count_over_limit(folio))) {
+>  				err = fuse_copy_fill(cs);
+>  				if (err)
+>  					return err;
+> diff --git a/fs/splice.c b/fs/splice.c
+> index e6d43329ed3f0..df73a4e65118b 100644
+> --- a/fs/splice.c
+> +++ b/fs/splice.c
+> @@ -956,6 +956,7 @@ static ssize_t do_splice_read(struct file *in, loff_t *ppos,
+>  			      unsigned int flags)
+>  {
+>  	unsigned int p_space;
+> +	ssize_t ret;
+>  
+>  	if (unlikely(!(in->f_mode & FMODE_READ)))
+>  		return -EBADF;
+> @@ -977,7 +978,12 @@ static ssize_t do_splice_read(struct file *in, loff_t *ppos,
+>  	 */
+>  	if ((in->f_flags & O_DIRECT) || IS_DAX(in->f_mapping->host))
+>  		return copy_splice_read(in, ppos, pipe, len, flags);
+> -	return in->f_op->splice_read(in, ppos, pipe, len, flags);
+> +	ret = in->f_op->splice_read(in, ppos, pipe, len, flags);
+> +
+> +	/* Fallback to copying when hitting folio refcount limits. */
+> +	if (unlikely(ret == -EOVERFLOW) && in->f_op->read_iter)
+> +		ret = copy_splice_read(in, ppos, pipe, len, flags);
 
-Applied, thanks!
+here it can't tell where the -EOVERFLOW came from, if another file
+returns -EOVERFLOW (i.e. tty_fops uses copy_splice_read, and
+n_hdlc_tty_read() returns -EOVERFLOW after dropping the frame), it now
+gets a second read. also, the first read already lost data. so the data
+read returns different data, the dropped frame is never reported and
+returns the next frame instead.
 
-[1/1] gpio: of: fix potential misconfiguration of hogged lines
-      https://git.kernel.org/brgl/c/c62364eeac0f123478fca2f2d8e2424fdcd55032
 
-Best regards,
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+cheers,
+jose a. p-a
