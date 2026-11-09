@@ -1,125 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794255839;
-	b=UPHgkMdFFko0iy4y0/5Bjw3LU+xEKlHy+5HyWrE0JjWkkxU44Ht0vDQlrsB8w1ZFNmX4
-	 BD5abKkXBY7OT91oUx6RmhpDKnNIXZ3q4FoUDT/fdfE6P9JU/1i338XjB1RGA7I0+C8fK
-	 3bz3IbTGz0sgCn8DHIIqDcqynxjFkcWGRqsMXa1HNWqbXw0R6bs1bgoJBE8CSrXyj+YUY
-	 RW1bVYJ+OMB3u5UqA/MEwo7WtH1EqgyvzaFr2ylLg0WGW3AgSQzRmHKZe0efTeNROZKio
-	 F295gX8cDK62oqEPOnjPUhrke/o9rGNQI9zc2Je4Bh0hp12kslbyTaNETY5qM+1v8FA==
+	t=1794256061;
+	b=voXWdwEoXhOPdLMs2iQDzgrB7QuwW8G2oP2/TVbt2Klj4lPOtjDKMkSb10dkjOetlcBN
+	 tKdMYcMVd2WqAjxVxzqEwhMB2fN9Ec52rYxsYcruSZhOVrknRZ2z6TlzyXI/3IfLiBhmp
+	 4VXNjJXBjqGXG83ZC+l3I1XgXi3qCW9rXLfhARAepOO7cWnyOboUG5+1HaApiMlZAy2pa
+	 3CKRuq444Mw8KTqNA96KKlawFecHXw6uyjKKyzAVClyNdolQupgR4nbJit2w7A+nfvJr0
+	 jMqcWSLLlO4RqkVPZhuVR9rDd1NqRSsL6XzwHN3YAwVwuMXCaTzhQKNfpnRHx5zhdrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255839;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:Reply-To:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YgAFQd7bekj3d7oevT9/mkDM82sDq88XmkOWnMQYsvw=;
-	b=4d9MXufe+5iW2dmZvDfawCE0iVst5d5x4eVMZ+PPjGF8rMjnszYuYy8Y3IzAytC9xf3o
-	 eNmQAAmUQGinpL1YiTN1Ib36aVaztZtwmgtxSeu2DiK4YilAbh/oya1LQvRVuJ6uOV4go
-	 CHFajUWdMejOqvI6YALAfmc6ZH4BIHrlGkSSp9oM6NY5C0DTdxGHUMu7zdEll3XTxRacR
-	 SG9PLpq7hIpEl2rj8yo8KP9Yr4CZWcA277krLq671IKuixAWKyM6Y5BfYe973OX/DANoo
-	 RxV0KSJYSZiPh6IAcPqzDzmEsttGHQNx7UwNC1/0WaZLd2Oz7b+Ms/dih4FVQ/rUP3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794256061;
+	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=bSSYE7l0m2Lbw/z8BOO6ZEg+OH6DFPR1Glr9kdGiV3o=;
+	b=yVnPNxgb1NWPJ2lBSazED4k7JJJwfz7KuWRs9O/Ty+g01nW52he//9RkF0b8l7xRlRsn
+	 +YZ2E7EkZCX1r6Wh6ygQmZUP/c0JzmvEQ2U+CKq8gevrMKYnuG+T9ew2mkU07VfdcRjxV
+	 WLCOcBBdTe0t1ibm9aPE7dNdT3z29pDRK+28BFZLV5+OnaopdvoStFYIcuVLdFFL9kapG
+	 XRx2bjABeZpbvsgxSyo4IlGr4vFvAGrspRCPsA7VMzAlydapZjAMAJgfWjilIeX/MycEh
+	 TpH8GWL84MsJgLfZHsxHJLpugToaJWHg4bbbyMGlzKSQcVL0rWsgdHO4JABD4rcrPnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ownmail.net;
-	spf=pass smtp.mailfrom=ownmail.net;
-	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm3 header.b="V7/TZ9BP";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=vl6so0Ty;
-	arc=none smtp.remote-ip=103.168.172.147
-Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHhjktSL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7086A606A339
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:23:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7086A606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A1AC606A321;
+	Mon,  9 Nov 2026 20:27:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm3 header.b=V7/TZ9BP;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=vl6so0Ty
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id AA537EC018B
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:23:52 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Mon, 09 Nov 2026 15:23:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
-	:subject:to:to; s=fm3; t=1794255832; x=1794342232; bh=YgAFQd7bek
-	j3d7oevT9/mkDM82sDq88XmkOWnMQYsvw=; b=V7/TZ9BPvMZmCzesF1rCMPstjL
-	gv9sCFN9awQqzHFbOf6HPF7BCbuC1nBgrJehw9N8pU0MKG2uDkG8C2j7xjk7EcjX
-	hEXn+d9yCBTnp2hG870p1iPovQn3gcAC+FhcU2decsOJacO81J+KsvbJYQUkMNJv
-	9l5/90Fp4oG73FmAteT1RoSdJ5gIltDHzzlwlcObz+9rzfO3lrHX+c6s3QnvtDSA
-	+DbF+2ceU5LV45TRezm6p8fBO4aWq/Nln0aPrRFxXovWN+BF6fvBO1Pom2+9nE82
-	4mFlSN94C4RSF5+pTMZRkL5jXNYL30f+iO3jV3zubpwYgHhEXyrtyJN3A5fQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1794255832; x=1794342232; bh=YgAFQd7bekj3d7oevT9/mkDM82sD
-	q88XmkOWnMQYsvw=; b=vl6so0TyDCypo65LT2FOy0VQ0BefABHm5OaT2QmMxJ94
-	8kgoJdiRKCd4EbdDjEzOPBMmQlfFWUtgl+/rrbTd+7PxZlLzHOGjhbm13ymsrX2l
-	mshk8+FH9Zp/uz5jD9NhhKoKl036ZF4mExBQu8vmYtPrq+k1fUVuus1L1zbKG1e9
-	1fnbZAhozyS89mm/74FXckr4DdDjOC1zKXte1dUnWO4JQHmU0CWvGn8EW9TWiFqE
-	CHdG/pSr8fNLWex08A33ZOvlFQGBBx0erRgJAtXMjpVTjz2SiBA7JyAJvHMBRTTk
-	sUnYK9O1JDpHVhJ7wFH/0ibgkFRtwT+u5izUgSq1+g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=ownmail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794255832; d=ownmail.net;
-	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:rargO9cp95Qe+yglzWUQB/aS84/oKH1VC19D5fWqilKa0ON
-	2qszxHtE4vsKdlhKPoe1hM4wfb6oTH4BkPWH+QSswpobJJUvsLEbIBLOBaSLWKN1
-	FW370nw7IbGT9pemgKCY/T9f1ZheqzcnvuZ9Ra4R+tFPq3QebUetUi7UJ7jDKJgR
-	pIl3NKUciIiG/fPeSy0Jki6DrkXYNI/GinYQBrYSzNGmgSGVS12GL30o+fGvgC1t
-	o272vYpKFjmS99JLBue/lx+3zEY9+L8v3h5WTrBcD/UWzZ0c1j62SASXKdETRJ2k
-	TDDVxSW0fI7BwUylIDQk26h8MGMmx7VavrYvzwQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,reply-to,subject,to;
-Message-Instance: m=1; h=sha256:ZuVE5KupMboxf8CJR5q9TNrICTq3KeBKw2JNTUYCMkE=:pYqqfF3ON6NV4H1AoY3rAvBK1gVr4WtDfU1tarkcu18=;
-X-ME-Sender: <xms:1yvyamazFYUtfzqihhtMEdIK9V-CMslgvyrMEgSKJvLvLpOBRA3H1Q>
-    <xme:1yvyanqM62FPzOrrNjdotbLW1ifVWtWcE6KEtx8Boq34V-yBFAVD4HMA0xpuN5hgF
-    XVuGzrB1i0yYXdbV0b8dZsueQM21wneCuaJjS0auq6W54I_RBw>
-X-ME-Received: <xmr:1yvyaqSvRpW1oVHVay9UNrCHtXvN41YIO2t5sOl-kHHl3VEK3IOAw-_b7eW83nO1UVg5ChONZIheXFAJOsW300peTEJm58U>
-X-ME-Proxy-Cause: dmFkZTFb9ERLq480HsM4xsch1wsVTeR4VK1aOwVAMqkGvq1SNe0pnoHhuxUvqWWxaaBhxb
-    38E1ZY7E3a6l5iRZOf77TQwuVyacb2k4xro7oAvHDhyIl2HfVZnhdpZ+UdpZwTDy6lN/Y5
-    3/c1y0VJVZGHmXMmVWGToQdDCO3N5v7Gn0Stv9OUvbNbgh/fyMlV4nR/+4lgGGPnyCtdQ3
-    3mGQsa+nqqTvgGKJZaNBOih+iHGhbIoUZJpFfTiBHyzNc8evEwmRrcSEUqBKl/MPYCKi8d
-    hKchU+Zcd1stBG++Mt2GMUfELYtmZKj5i3LvD9pjbeOj708zAGetmj+eaRh2LfdH9n/mj3
-    NQoQ6P61St0zI19naVawRN3yRGCPbyS6hTywNrdrlD8zZggrQUDu6SqDx7Xa0Rey/Hj0v9
-    KfaF6rrelKJVdyXCtLKAsW/XU2qoEBZU7/Gh1iwmQ9BISgZS1Q5sBhD8G7L0lvAtApTxg/
-    ywtJWYkqif+yfsKSF5VoY7nop3Lx4OuQO9eMLNPdzJb5XqrZJqvuQhI7FdGFRUfLahoFxC
-    HPs5ynvO3r0CMNGVRwUP6dQGZhf2pxumhg3cUBUfpwYfogfiSEPsCOhLrK/jKLqWspVqb8
-    UeulRmZOjWTRHo1szNn+ZmEOa5P7258ev9jSGt575GItWDiflLGQICGG0d9g
-X-ME-Proxy: <xmx:1yvyarrz-ioqEg_BjgEf_d3ZOh-9TxrguY95TwC9JAIkBcCnOcrmHw>
-    <xmx:1yvyak39FY977EA4yRb2yUQLZPnRFZxWogAnVap7n1Hddamn6imQbg>
-    <xmx:1yvyaq5yHbSDAYQidgkFw_7NLts4MKprMLn80nyO6_pOcgVX4qxUPw>
-    <xmx:1yvyaoRhS4pRYrrg-nWY3BQfjs_y331-3BIHPBhoiFP4OyPxUi4g7w>
-    <xmx:2CvyapNwe2-kh_MnJ9BB_5PfxjGJ-pxs2DU-n7nIxLEHA18x5ukTyrf7>
-Feedback-ID: i9d664b8f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 9 Nov 2026 15:23:48 -0500 (EST)
-From: NeilBrown <neilb@ownmail.net>
-To: Ilya Dryomov <idryomov@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] cephfs: prepare for changes to VFS locking
-Date: Tue, 10 Nov 2026 07:20:22 +1100
-Message-ID: <20261109202339.1380828-1-neilb@ownmail.net>
-X-Mailer: git-send-email 2.50.0.107.gf914562f5916.dirty
-Reply-To: NeilBrown <neil@brown.name>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UHhjktSL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07F871F0089F;
+	Mon,  9 Nov 2026 20:27:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794256060;
+	bh=bSSYE7l0m2Lbw/z8BOO6ZEg+OH6DFPR1Glr9kdGiV3o=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=UHhjktSLeWOD/tGVNplwVa0Q7ggxUXoT+CFNoInRKLbMWeiez8pFUyYitGWg6ovNU
+	 VOwffa3R/xHzJicPyIc5nq74rMgvFCS0+CtaEV84fcbnBujX62vJwfo7KGlFEirqrC
+	 IAsEG2nMr4Cc3tE3AWsRg0FfDIIK64O+rATx34ZmMW/+Hzmym7Wtve4DsDgOe1ctSJ
+	 H5tm4RyGfxiUOwpQaBEH8xocAiGmI0UBh0ShCpF+RzgYRY0tdvwITFo7iKgAOqXX7P
+	 D5QNIOKBBvk1ACSUXqRuTg2mrrd8qsH5GrTWgM8uSyP1Vxu3oRqfvh/btaNz1wKCDi
+	 Iv35oDyaakI8g==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 7722730216A6;
+	Mon, 09 Nov 2026 20:27:04 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,39 +52,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/5] spi: sifive: fix division by zero in clock divisor
+ calculation
+From: Mark Brown <broonie@kernel.org>
+To: shao.mingyin@zte.com.cn
+Cc: broonie@kernel.org, linux-spi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ pjw@kernel.org, samuel.holland@sifive.com, william.zhang@broadcom.com, 
+ kursad.oney@broadcom.com, jonas.gorski@gmail.com, 
+ bcm-kernel-feedback-list@broadcom.com, anand.gore@broadcom.com, 
+ florian.fainelli@broadcom.com, rafal@milecki.pl, 
+ linux-arm-kernel@lists.infradead.org, sven@kernel.org, j@jannau.net, 
+ neal@gompa.dev, asahi@lists.linux.dev, ryan.wanner@microchip.com, 
+ nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, 
+ claudiu.beznea@tuxon.dev
+In-Reply-To: <20261106234756882V9wUQNCEZAYUGTAbexMSL@zte.com.cn>
+References: 20261106234751020Egf42VCVVlsSC_Msov4HO@zte.com.cn
+ <20261106234756882V9wUQNCEZAYUGTAbexMSL@zte.com.cn>
+Date: Mon, 09 Nov 2026 20:27:03 +0000
+Message-Id: <179425602306.3711751.12136281369535948110.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=763; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=5xd3GS5/MG9NcUE+L6KjqXG6YKTxSTMJYectNTsrnko=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+6Ux/lKFcMGP9nyZxi7W/mg7N3VBZbPJdrk1e23q73
+ 7FDvwwsOkpYGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjARLxOG/4GPfmTnXbhjyrhD
+ 4H1v0cUCwZ+tBXy7C+346q498LbaepLhx1KmWkOhWQHH7rhFPMsx+LjCJv615P293RUu+zPzzRO
+ YAQ==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-This v2 drops 3/3 which was deprecating d_add() - there is no rush for
-that so I'm not going to push it at present.
-It also fixes the first patch to increment "skipped" when d_alloc_trylock()
-returns -EWOULDBLOCK.
+> Clamp the divisor to 1 Hz so the divider calculation is well defined.
 
-The VFS patches that this series depends on are upstream, so this can
-land in any tree.
+> +	/* A device with max_speed_hz == 0 must not divide by zero */
+> +	speed_hz = max_t(u32, t->speed_hz, 1);
+> +
+>  	/* Calculate and program the clock rate */
+> -	cr = DIV_ROUND_UP(clk_get_rate(spi->clk) >> 1, t->speed_hz) - 1;
+> +	cr = DIV_ROUND_UP(clk_get_rate(spi->clk) >> 1, speed_hz) - 1;
+>  	cr &= SIFIVE_SPI_SCKDIV_DIV_MASK;
+>  	sifive_spi_write(spi, SIFIVE_SPI_REG_SCKDIV, cr);
 
-Thanks,
-NeilBrown
+If we did genuinely end up with a speed of 1Hz this results in only
+dividing by 2, and we then truncate this to 12 bits to fit in the
+register which feels a bit risky.  We should probably handle the
+overflow if the result doesn't fit in the mask.
 
-original intro:
-I am working on changes to directory locking.  The medium term goal is
-to lift d_alloc_parallel() locking above i_rwsem, so d_alloc_paralle()
-can be run unlocked, and consequently cannot be called when ->i_rwsem is
-held.
-
-The requires:
- 1/ that d_alloc_parallel() not be called while i_rwsem is held and also
-    that d_alloc()/d_splice_alias() not be used (unless the filesystems
-    doesn't support creating objects).
-    cephfs uses d_alloc()/d_splice_alias() when priming the dcache from
-    the results of readdir.  A new interface d_alloc_trylock()
-    is now available and can be used instead.
-
- 2/ a dentry must not be d_drop()ed while an operation is ongoing, as an
-    unlocked d_alloc_parallel() would then be able to create a new
-    dentry with the same name.  cephfs calls d_drop() in couple of places
-    before d_splice_alias() but this is no longer needed as d_splice_alias()
-    handles spliced aliases now.
-
-
- [PATCH v2 1/2] cephfs: Use d_alloc_trylock() in
- [PATCH v2 2/2] cephfs: Don't d_drop() before d_splice_alias()
+-- 
+Mark Brown <broonie@kernel.org>
