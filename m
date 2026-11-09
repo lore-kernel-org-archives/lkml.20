@@ -1,55 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794197433;
-	b=ITZ4FK0BC0AEwUbFb/PckFtDRwUz9O6FGfIc3XHu3FsP0mSCB1uV4dnegL34PbEglDW5
-	 NSVJpXnxQ+MQKr7bGQc4A/Cu0y7oY3BlYfqfPYOk8G20U0RoBISxdROQeZlGTrIwFapmd
-	 9JPhY793r3GfZe2GHuAmXNrtsZ5v4Egqhuakopi5xBKYJXyOVuO4v28f8cUeqT8kyopKy
-	 Cn/uqgMwG5H3IogJd+JJOZIuBYh7ZazM1yRacVfuy39ZLBzzqp52lsWEdpvRTIGcNYbyk
-	 dKQsPY1HgL2k+d3dAFbRVuvEzMHCEG9e68O6I2EcVZQlUjeMH00yq19fLMDUoJsPj1A==
+	t=1794197488;
+	b=TaDEwXZ6TF8WeYZlci7GJMZsE48ng35gmy5fCXGsYn0xZjNhwgOZyA2670/+jGbdMBqO
+	 1sxFJQunEUCA5BO/35/k1S9IEH8Sex5E1EfB9kXSPJTBd2Dgc5tiRSZ0LSoofaLMJcgSJ
+	 3o5jsyd7hb2s4c7RC2oYYLr3/U/VnUpcD8sct7DzfR/1r7x8k3XIVJUtfJk1PEuGNqiz5
+	 yhvpNSR7g5CkHggXD4TlwdX9TX6FYBw8BZaomLOI9WuZjX5uPxeBUWaUGNf4tfu7kf+xY
+	 NRGPOm9Ev8o17F0Y8F69lrLGNjqBj6Qg1qDv3MQoKdRUncOiE0oPKYfeNgKK9qdA9qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794197433;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=8S5DM78zElTqwaOBcaW0m0f9w1FmRk2jB2iY+XjpYmw=;
-	b=P8ICqavPpE4ekfE6KYNaFoeQlO5SjvYLZrkrrkmhnfwU8UlRJXASCspGVSyVBjXSnAd5
-	 usoMHYFOpRJyGT4Km8zMWweVSlTcvoQJ3cRLzFrjL+NkFqoYEmFWe8/7AWKorG9ISHtAe
-	 wWjUgqK3GGRmM4uVQl8elvWfh7HW2W0uF29BHAk9IzTTTCupo7rbF6z9m4/L7k+DGqrsd
-	 Q4I8ejDpD3N4JIGquWsadrAaXZGr0cJTcq64SrrfVQICiYo9cm9e1SK4wVYSv7t7r613J
-	 rCjseS6g1xWAMaeF+Hk/OntPW3H074VbJw0Pt+dgl0wW0ejgBARzfO/JLEbrAaRqL3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794197488;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:X-Mailer:Thread-Index:
+	 Content-Language:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:cpgsPolicy:X-CFilter-Loop:
+	 X-CMS-RootMailID:References;
+	bh=wD5FMo2nPtvrLWfHX1ci93C+4a9ws4m7WGRPTT11aSo=;
+	b=PSS0WSU+cBpiN/ptXRylSQYvw/kRGiIpKZJIENPGn+hg6yk0XUx7HXwjDq1h/KAVDoeI
+	 5meSmpn4zPMGAcHArlruKHvu0Y4CwQ0FAUL3n760Q62g8Bpui1q0yExDR5hjkJDgiEaE2
+	 j2/dJqMKR/HTaN6WLNGFGNG34OdfPMi/vQDzvqB/K1StKz7qrijG8qGUBfm2Dtx0yEjtP
+	 6NoLqJa+P/7nonnecYejPk+QSMlNIe2VRbcEsPXK/c4VUwJK3p9u3ptz9xSZ7yFviTGMP
+	 bfryWWSNZJx0C7VxA4VGojwa7C/y+I6NexU0eSuZwLJvzYKrmyooiLEcL5Ak7DHqhqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Jg4f/3lg";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=rU8ZkZ55;
+	arc=none smtp.remote-ip=203.254.224.34
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384CA606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:10:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E02606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:11:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77E02606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jg4f/3lg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5EBE1F008A5
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:10:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794197431;
-	bh=8S5DM78zElTqwaOBcaW0m0f9w1FmRk2jB2iY+XjpYmw=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Jg4f/3lg91PEHrjJlkp9NV4Ab7anuDRaOG0SPxwmzJb4ipXnTUc+KHBy/syr8IgPK
-	 y1dr/NRgiHJWF6cClbE3z4zo69rvNekrA5B+3Fxpe7FF+mZ7s5ZQCiECFbZwgZ8Gz5
-	 W/T8AgQZ7AkJE0KrKLFvXXxf2zqaV+1vuVpyO4ZE95XYR2SjO2gBogGmCA3bY24Avg
-	 bc5+JwfLojQAGPxMmp718JKNMPtrjs9JCvXcvqb9wflH6HzfJAxmOHPjeG4fJKQYe9
-	 OAwkbXFsNxu9LeWrmZkkDN/HnGSeckfknvj+jVi/cgo5JlLj40tnLqjdizNIfuq6UC
-	 nPzZh0cG9KY3w==
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5c126fa1e3aso215234e87.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 20:10:31 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGBsed2glpLrz2eQ7mLIRmJR2b+cm4AlYT8a+WTFoepoNSthXhMJr0eUuI9OR3Gt8wrZF8P90dhgrunmDk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ZIq8FMKZSCa2/lvecpYV4zjuJDi94QC+t0IP/ruyKMa9WHFTS
-	z2RX22m9d1Fzo56+tTOTBpwGuNCremhfLHX5Ab9a2iSojh2gZBzk1shN6G3o6qgQjbGc0KPXkHl
-	eq/Dg7vPNAy5iI2mPZY2dBIpkdRfv4Mc=
-X-Received: by 2002:a05:6512:220e:b0:5be:588d:a0dd with SMTP id
- 2adb3069b0e04-5c14bfe4683mr744303e87.15.1794197430534; Sun, 08 Nov 2026
- 20:10:30 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=rU8ZkZ55
+Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261109041125epoutp0427465cd5f4ef46fdf266dca8fc713c2b~mRRtRycDH2923829238epoutp04Y
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:11:25 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261109041125epoutp0427465cd5f4ef46fdf266dca8fc713c2b~mRRtRycDH2923829238epoutp04Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794197485;
+	bh=wD5FMo2nPtvrLWfHX1ci93C+4a9ws4m7WGRPTT11aSo=;
+	h=From:To:In-Reply-To:Subject:Date:References:From;
+	b=rU8ZkZ555gdlOjzK9L5kfbx2ZkvcS49hh6wh7skz+YKFL7peOx0QP2CHNj7MnbBqQ
+	 Lxx0uIPS/nnOKRVMRxXobtuThO/mJqIGZWKVcXXkVaec4OtPvBZoqfChHkz16+sjFz
+	 kktvP67vq/kinJxPQwY24iAvMlAJ/6kbSTJEV9Z8=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas2p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261109041124epcas2p45140975b24d56245c1bfb20b661769f3~mRRs3PoJw2413024130epcas2p4u;
+	Mon,  9 Nov 2026 04:11:24 +0000 (GMT)
+Received: from epcas2p4.samsung.com (unknown [182.195.38.203]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4jNGYm2g2Wz2SSKm; Mon,  9 Nov
+	2026 04:11:24 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas2p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261109041123epcas2p2dc0901804207c6b1fae32d3dfd627555~mRRsFx2FC0244902449epcas2p2x;
+	Mon,  9 Nov 2026 04:11:23 +0000 (GMT)
+Received: from KORCO118546 (unknown [12.80.207.184]) by epsmtip2.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20261109041123epsmtip201710ec87ee55488408274bcf5026302~mRRsBgYA_3165831658epsmtip2C;
+	Mon,  9 Nov 2026 04:11:23 +0000 (GMT)
+From: "hoyoung seo" <hy50.seo@samsung.com>
+To: "'Bart Van Assche'" <bvanassche@acm.org>, <linux-scsi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <mkp@kernel.org>,
+	<martin.petersen@oracle.com>, <stanleyjhu@google.com>,
+	<alim.akhtar@samsung.com>, <kwangwon.min@samsung.com>,
+	<kwmad.kim@samsung.com>, <cpgs@samsung.com>, <h10.kim@samsung.com>
+In-Reply-To: <2ac84978-3223-44b7-af80-de59def8a0f1@acm.org>
+Subject: RE: [PATCH v7 3/3] scsi: ufs: core: Limit early link recovery in
+ the error handler to runtime PM
+Date: Mon, 9 Nov 2026 13:11:23 +0900
+Message-ID: <024201dd7000$61f0b9e0$25d22da0$@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,237 +81,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106021310.777075-1-dlzhangak@isoftstone.com>
- <CAOuZWzyZoQ9oAHKmxVg7B292Vx-QZ2E+QLt6xVnpfKpps+4Yfw@mail.gmail.com> <1794188329.6AF12428.004.4jNC9j12vbz23pF@fangwg01>
-In-Reply-To: <1794188329.6AF12428.004.4jNC9j12vbz23pF@fangwg01>
-From: Xiubo Li <xiubli@kernel.org>
-Date: Mon, 9 Nov 2026 05:10:18 +0100
-X-Gmail-Original-Message-ID: <CAOuZWzx7eg1bNzyoY+kTP2CB4NqwwC23K1RC-etdWW1VyF01fA@mail.gmail.com>
-X-Gm-Features: AclHuK_h6dgwJlKOOZQGOnuzJuzzvMmy-nxM8CV0pLLb1lhVXu3oOZAKsTf1pwA
-Message-ID: <CAOuZWzx7eg1bNzyoY+kTP2CB4NqwwC23K1RC-etdWW1VyF01fA@mail.gmail.com>
-Subject: Re: [PATCH] ceph: revalidate dentries under snapdir to drop stale snapshots
-To: zhangdaolong <dlzhangak@isoftstone.com>
-Cc: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
-	Viacheslav Dubeyko <slava@dubeyko.com>, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQEkM+dZWAh2IxYDFumpsgtRiqg2ZAMhLHJLAxXuZpoBUKS0a7hbWtKw
+Content-Language: ko
+X-CMS-MailID: 20261109041123epcas2p2dc0901804207c6b1fae32d3dfd627555
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: AUTO_CONFIDENTIAL
+CMS-TYPE: 102P
+X-CPGSPASS: Y
+cpgsPolicy: CPGSC10-234,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261106061547epcas2p40541421c139d758cdc3633302634d29b
+References: <cover.1793943246.git.hy50.seo@samsung.com>
+	<CGME20261106061547epcas2p40541421c139d758cdc3633302634d29b@epcas2p4.samsung.com>
+	<66ffa35908823d693cde364ef6fbdeef50aa5a69.1793943246.git.hy50.seo@samsung.com>
+	<2ac84978-3223-44b7-af80-de59def8a0f1@acm.org>
 
-On Mon, Nov 9, 2026 zhangdaolong <dlzhangak@isoftstone.com> wrote:
-> Validating the dentry against the head directory's snap realm
-> cached_context (when holding caps on the head directory) before falling
-> back to LOOKUPSNAP makes total sense and avoids the unnecessary MDS round
-> trips on cache hits. Could you please share the diff you tested? I would
-> be glad to incorporate it and test it for v2.
+Hi Bart,
 
-Sure, below is the diff I tested. It already contains your ceph_d_revalidat=
-e()
-change and the comment update, so it can replace that part of your patch in
-v2. It leaves out the ceph_unlink() hunk.
+Thank you for the review and for the Reviewed-by on patch 2.
 
-I tested it with two kernel clients on one host, against a vstart
-cluster, on a KASAN + lockdep kernel. It covered recreating a removed
-snapshot, stale data after a same-name snapshot was recreated, a removed
-ancestor snapshot (_p1_<ino>), 50 rounds of "B rmdir, A mkdir right
-away", and a removed snapshot while A has its cwd inside it after an MDS
-"cache drop". All of them behave the same as with your patch. Cached
-lookups send no LOOKUPSNAP (0 vs 3000 for 3000 stats). There were no
-KASAN reports. Lockdep stayed clean when I ran the same diff on top of
-our development branch; on plain master, an unrelated VFS lockdep report
-turned lockdep off before these tests ran.
+> Has it been considered to use the runtime PM status maintained by the
+> PM core instead of introducing a new member variable?
 
-> Agreed. I will drop this hunk from v2 and send it as a separate patch.
-
-> In v2, I will update the comment and point Fixes: to 2817b000b02c
-> (while also mentioning 200fd27c8fa2 in the commit message).
-
-Sounds good, thanks.
-
-diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
-index 6eb5b1cb039b..21983e14cb67 100644
---- a/fs/ceph/dir.c
-+++ b/fs/ceph/dir.c
-@@ -1979,6 +1979,58 @@ static int dir_lease_is_valid(struct inode
-*dir, struct dentry *dentry,
-        return valid;
- }
-
-+/*
-+ * Check whether a cached dentry under .snap still names an existing snaps=
-hot.
-+ *
-+ * The MDS issues no lease for these dentries, but it sends a snap update =
-to
-+ * every client holding caps in a realm when a snapshot in it is created o=
-r
-+ * removed.  So as long as we hold caps on the snapped directory, its real=
-m's
-+ * snap context tells us whether the snapshot still exists.  Without caps =
-we
-+ * cannot tell, and the caller has to ask the MDS.
-+ */
-+static int snapdir_dentry_is_valid(struct inode *dir, struct dentry *dentr=
-y,
-+                                  struct ceph_mds_client *mdsc)
-+{
-+       struct inode *inode =3D d_inode(dentry);
-+       struct ceph_vino vino =3D {
-+               .ino =3D ceph_ino(dir),
-+               .snap =3D CEPH_NOSNAP,
-+       };
-+       struct ceph_snap_context *snapc =3D NULL;
-+       struct ceph_inode_info *pci;
-+       struct inode *parent;
-+       u32 i;
-+       int valid =3D 0;
-+
-+       if (!inode || ceph_snap(inode) > CEPH_MAXSNAP)
-+               return 0;
-+
-+       parent =3D ceph_find_inode(dir->i_sb, vino);
-+       if (!parent)
-+               return 0;
-+       pci =3D ceph_inode(parent);
-+
-+       down_read(&mdsc->snap_rwsem);
-+       spin_lock(&pci->i_ceph_lock);
-+       if (__ceph_is_any_real_caps(pci) && pci->i_snap_realm &&
-+           pci->i_snap_realm->cached_context)
-+               snapc =3D
-ceph_get_snap_context(pci->i_snap_realm->cached_context);
-+       spin_unlock(&pci->i_ceph_lock);
-+       up_read(&mdsc->snap_rwsem);
-+       iput(parent);
-+
-+       if (!snapc)
-+               return 0;
-+       for (i =3D 0; i < snapc->num_snaps; i++) {
-+               if (snapc->snaps[i] =3D=3D ceph_snap(inode)) {
-+                       valid =3D 1;
-+                       break;
-+               }
-+       }
-+       ceph_put_snap_context(snapc);
-+       return valid;
-+}
-+
- /*
-  * Check if cached dentry can be trusted.
-  */
-@@ -2002,12 +2054,20 @@ static int ceph_d_revalidate(struct inode
-*dir, const struct qstr *name,
-
-        mdsc =3D ceph_sb_to_fs_client(dir->i_sb)->mdsc;
-
--       /* always trust cached snapped dentries, snapdir dentry */
--       if (ceph_in_snap(dir)) {
-+       if (ceph_snap(dir) =3D=3D CEPH_SNAPDIR) {
-+               /* a snapshot under .snap may have been removed by others *=
-/
-+               if (flags & LOOKUP_RCU)
-+                       return -ECHILD;
-+               valid =3D snapdir_dentry_is_valid(dir, dentry, mdsc);
-+               doutc(cl, "%p '%pd' inode %p under snapdir, valid %d\n",
-+                     dentry, dentry, inode, valid);
-+       } else if (ceph_in_snap(dir)) {
-+               /* snapshots are immutable: trust dentries inside one */
-                doutc(cl, "%p '%pd' inode %p is SNAPPED\n", dentry,
-                      dentry, inode);
-                valid =3D 1;
-        } else if (inode && ceph_snap(inode) =3D=3D CEPH_SNAPDIR) {
-+               /* the .snap dentry itself */
-                valid =3D 1;
-        } else {
-                valid =3D dentry_lease_is_valid(dentry, flags);
+I had not, and it is a good idea. In v8 the error handler checks
+whether the runtime status of the WLUN is RPM_SUSPENDING or
+RPM_RESUMING, read with READ_ONCE() without power.lock, and the new
+member and its updates in ufshcd_wl_runtime_suspend() and
+ufshcd_wl_runtime_resume() are gone. runtime_status only exists with
+CONFIG_PM and pm_runtime.h has no helper for these two states, so I put
+the check into a small helper next to the other ufshcd_rpm_*() helpers
+in ufshcd-priv.h that returns false without CONFIG_PM.
 
 Thanks,
-- Xiubo
+Hoyoung
 
-zhangdaolong <dlzhangak@isoftstone.com> =E4=BA=8E2026=E5=B9=B411=E6=9C=889=
-=E6=97=A5=E5=91=A8=E4=B8=80 02:39=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Sat, Nov 7, 2026 at 12:17 PM Xiubo Li <xiubli@kernel.org> wrote:
-> >
-> > Hi Daolong,
-> >
-> > Thanks for the patch. I can reproduce this with two kernel clients, and
-> > it is a bit worse than described: after B removes .snap/s3 and creates =
-a
-> > new .snap/s3, A still reads the file contents of the old snapshot. A
-> > removed ancestor snapshot also stays visible as .snap/_p1_<ino> in chil=
-d
-> > directories. Your patch fixes all of these cases.
-> >
-> > [...]
-> >
-> > >         /* always trust cached snapped dentries, snapdir dentry */
-> > > -       if (ceph_in_snap(dir)) {
-> > > +       if (ceph_in_snap(dir) && ceph_snap(dir) !=3D CEPH_SNAPDIR) {
-> >
-> > With this change nothing can validate a dentry under .snap anymore. The
-> > MDS issues no lease for it, the snapdir only has CEPH_CAP_PIN, and a
-> > snapped inode has no real caps. So every path walk through .snap/<name>
-> > does a synchronous LOOKUPSNAP. With 3000 stats of .snap/s3/f on a cache=
-d
-> > snapshot (in a VM, so only the order of magnitude matters):
-> >
-> >                  ops/s   LOOKUPSNAP   p50/p99 (us)
-> >   unpatched     257834        0         3.1/6.9
-> >   this patch     10065     3000        89.9/273.1
-> >   realm check   234741        0         3.4/7.5
-> >
-> > The "realm check" row is an alternative that avoids the round trip. The
-> > client already knows which snapshots exist: the directory's snap realm
-> > keeps the list in cached_context, and the MDS sends a snap update to
-> > every client with caps in the realm when a snapshot is created or
-> > removed. So d_revalidate can keep trusting a dentry under .snap while
-> > its snapid (ceph_snap(inode)) is still in the realm's snap context of
-> > the head directory, and only fall back to LOOKUPSNAP when it is not, or
-> > when we hold no caps on that directory.
-> >
-> > I tried this on 7.2.9. It fixes the same cases as your patch: recreatin=
-g
-> > a snapshot, reading stale data, removed ancestor snapshots, and 50/50
-> > "B rmdir, A mkdir right away" rounds. It sends no LOOKUPSNAP on cache
-> > hits. I can send you the diff I tested if it helps.
->
-> Hi Xiubo,
->
-> Thank you very much for reproducing the issue, identifying the additional
-> stale read and removed ancestor snapshot cases, and benchmarking the
-> LOOKUPSNAP overhead.
->
-> Validating the dentry against the head directory's snap realm
-> cached_context (when holding caps on the head directory) before falling
-> back to LOOKUPSNAP makes total sense and avoids the unnecessary MDS round
-> trips on cache hits. Could you please share the diff you tested? I would
-> be glad to incorporate it and test it for v2.
->
-> > >                 if (!err && !req->r_reply_info.head->is_dentry)
-> > >                         d_delete(dentry);
-> > > +               else if (err =3D=3D -ENOENT)
-> > > +                       d_drop(dentry);
-> >
-> > Please make this a separate patch. With the revalidate fix, rmdir of a
-> > stale snapshot already fails in the lookup and never sends RMSNAP. I
-> > checked the MDS counter with and without this hunk. Also, this hunk
-> > affects unlink() of regular files too.
->
-> Agreed. I will drop this hunk from v2 and send it as a separate patch.
->
-> > Nits: the "always trust cached snapped dentries, snapdir dentry" commen=
-t
-> > needs an update. Also, the trust-all check dates back to 2817b000b02c,
-> > while 200fd27c8fa2 only added the unreachable LOOKUPSNAP branch, so
-> > please explain the choice of Fixes: tag.
->
-> I originally chose 200fd27c8fa2 ("ceph: use lookup request to revalidate
-> dentry") because it explicitly added the CEPH_MDS_OP_LOOKUPSNAP branch in
-> ceph_d_revalidate() intending to revalidate dentries under CEPH_SNAPDIR,
-> but overlooked that the earlier check from 2817b000b02c ("ceph: directory
-> operations") made it unreachable. In v2, I will update the comment and
-> point Fixes: to 2817b000b02c (while also mentioning 200fd27c8fa2 in the
-> commit message).
->
+> -----Original Message-----
+> From: Bart Van Assche <bvanassche@acm.org>
+> Sent: Saturday, November 7, 2026 6:58 AM
+> To: HOYOUNG SEO <hy50.seo@samsung.com>; linux-scsi@vger.kernel.org; linux-
+> kernel@vger.kernel.org; mkp@kernel.org; martin.petersen@oracle.com;
+> stanleyjhu@google.com; alim.akhtar@samsung.com; kwangwon.min@samsung.com;
+> kwmad.kim@samsung.com; cpgs@samsung.com; h10.kim@samsung.com
+> Subject: Re: [PATCH v7 3/3] scsi: ufs: core: Limit early link recovery in
+> the error handler to runtime PM
+> 
+> On 11/5/26 10:11 PM, HOYOUNG SEO wrote:
+>  >  		ufshcd_rpm_get_noresume(hba);
+>  > -		if (hba->pm_op_in_progress) {
+>  > +		if (READ_ONCE(hba->runtime_pm_in_progress)) {
+>  >  			ufshcd_link_recovery(hba);
+>  >  			ufshcd_rpm_put(hba);
+>  >  			return;
+> 
+> Has it been considered to use the runtime PM status maintained by the PM
+> core instead of introducing a new member variable? While
+> ufshcd_wl_runtime_suspend() or ufshcd_wl_runtime_resume() is running,
+> hba->ufs_device_wlun->sdev_gendev.power.runtime_status is either
+> RPM_SUSPENDING or RPM_RESUMING. During system PM it is either RPM_ACTIVE
+> or RPM_SUSPENDED. Reading runtime_status without holding power.lock is not
+> more racy than reading the new flag.
+> 
 > Thanks,
-> Daolong
+> 
+> Bart.
+
