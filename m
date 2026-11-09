@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.77
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.85
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794193060;
-	b=zwN5R6hfiMjhlEj3Xx5mRBi/JclrqAlS3LQ5/w74ofhHEdrqn/Co3RPGhVSszh1HgB24
-	 fQc+d8GmEX8Lwhm57GjLl2AzMh8jHR1FyB0KVuj+iojxJJ8vJcFB7DvjyB5vznqTFYdsC
-	 3FiDD4/kW93j/3QKeLXugcHzA1SXrRm2JgQdcBhhxpjGAjyfN1XIKAjfhDekdcEbDbIjd
-	 BVElqC8j3i9HuEUklyMdYy+EElTepPcExPyPemicA+TbBJVDq81LqBTC6VRP6YSXQDw2v
-	 DCpWwHuu3PBfiOo0FtZIwE1iy1PJQx3J6ladCufnRIyktaW+DXfbUoSDqhY9KapHgtg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=EoB25xrLyeop0VT7W3p7MC4FTBwVzd+3YQUo3ZYdR13V02ijrGHQGEX7xmoIptgzh7D5
+	 pSvdSrjeJJUc8kog85vT2YcnKq6FKJG0MdUMlHKycN5F5rc4TF7VDPXuYV2fcdRRKbh0a
+	 NDv/b0nSbAW8HYh1nTv2yGdpQXKHeEzln4LJNAfqtA7XaWHZZhHMiwGyIiEK64EbEgZoy
+	 R+Z1zQ0wi73DT1ztMNY1dxOBkOllP7UsjZTbHDVHv/6UYfdzzETYFlFkooQ5sJT/7AdWh
+	 1nO0dKdw5rGF76TxPEvaoFNVsj4CNbjZaKxEWUWUKPX7I32EKZcCqoR3x5fTMbRoTzQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794193060;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=dwJNxf5rCTAUship/jh+E19aKDon5spv76HcuaGEvU0=;
-	b=nzLXg4S/eu5NKL7ysp4U6KvbVd2QSTzUV0kHINgLiyKmUg+UR1liX1Ew9B6RjmHB/Gsx
-	 xOxIZiXH69nBXkQ3eRjB9H1bfkfuTOAomuxDnCqFpVSKBuKEFP2Y3gTd8lrxat9ENLiGQ
-	 8QX4CLKRjp2BB5vzeo7kc+FXudeo1mzqtETfxHUllkAY8n13lJnP1oIQHynOKRi57sN3o
-	 K8plVGp7AZi3mkGKnTs6KlPsK30eSLKapdQBe5hIczGLDIWjD7Xt5nH2RFA0/21OSm6t8
-	 Po800K2qt9BG8oOocX3vfHMwwmUH5qUlI0vmDuwCxiwxjykpK8ibzUEY3fUTHKCuzTw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I8byLkeK;
-	arc=none smtp.remote-ip=95.215.58.77
-Received: from mta1.migadu.com (out-77.mta1.migadu.com [95.215.58.77])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=F/cKq6zN71WV1MJrIOLxWJ0XZrqIg7yqs3/MNpoYvB8=;
+	b=sQLvI5OC816atRWJHZfxP3X8MSrS/CytjSdJXH0blBxA4ZjFH3Md7uCSLtveksqRw5WW
+	 5lfWqYcC41xDLNiSzTs88dIQmHnq56NcuxY2xWtofsbzm9hJGWlWN5yngZeSVYqQhd7dp
+	 RfzDfc4IMXnlF/W05K8cq27WY8oikrPHDMLTUVDwQbVnLbvIgxPM2HqbbED/69tYt9OI5
+	 BGbd88CuPMlC+2dy1XTH5bu5Yya9QNZBBP/JQ3rALUNWkOjeqVdqxpIyg2y08pkCNpCB0
+	 uyQi4MVO5Q41plOmZn7+CxQ4ze2jL0YvsrMvzDYEeURbx4lKBED8XobjxXeipbJiGPg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=b32z0FY1;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.85
+Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022085.outbound.protection.outlook.com [40.107.193.85])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB6B606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:57:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEB6B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C3E606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:57:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64C3E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I8byLkeK
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=u5WrG/yasaWjBHktQ78tjm0ZVxb5BYE57NobquyrXQE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794193058; v=1; x=1794797858;
- b=I8byLkeKV8e26R9x/axeTIC88d6JqAaJWmc2v1X3zNoSbxc5GzsqJ5RsezFM+BlRGgJzG/so
- naERNpQyMvNttHnnPVnld5pGPknHctfXbmAzh8w6NXRN6azXloAu2kOY+DQpKuSBiKw9EXbZrqx
- 25E6X3fkyWY89AK0Y8bHRFfk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e5337828cc32e4d1;
-	Mon, 09 Nov 2026 02:57:37 +0000
-X-Mizu-Trace-ID: e5337828cc32e4d1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f062d92e-a016-447f-926f-bd1b1ce7f106@linux.dev>
-Date: Mon, 9 Nov 2026 10:57:35 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=b32z0FY1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dpliq+/SJSmVEVSYQZtQ/clfvzgm4i72SkPixPMraLe8zR4Xg34Adin0afPSyQjyPSfSX4dOzajow56+W6P+/pkLYhWcTM7pe95NZmbXD2SDvgkBZmz1JLeActxynXZgom99l2xOPHa24kL+nCS3F/UcmlH403apzaNwH1ENeyf5Gb3Uhg5TTvAvRHpgwVhem8W0/BojHEMd2eDBA+h7i/Q07VmOgwGoGD+rG6S7rkM/CTHxibS0PWg6plIdQ6Wyk0+g0rDmSWM2Al50tH7fMNFa67egD4QG+cWfp7p/84yXyVR1epCjh/SsqJ+DGP8tARFA0rY9o6F4LNjkbU4+Og==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F/cKq6zN71WV1MJrIOLxWJ0XZrqIg7yqs3/MNpoYvB8=;
+ b=YQtrtJXL3kUG+IqNHuq4TY/sOPDSMD+74Sok2tdOiNzl7PHs+Mdi6bFTcccHqmE41eyuhZYweAbOf8CjqyqoBn4SLEiVSSMNZWDFlNRyzuXEcA/7ny+3gPhYsm2ZkQENP4jLQ6s40+IKRNMhU1NLN3xZiUYu8v9RabVuFYnHWC94lDzLCBW1Lb0xuLn+n9iWPX6fAPLmLFfG+vdjTXlQXE8bk66vkaFoSoirsttn9wf90Ed0DlMyxucX818pyqfQqC7cO58ZkiJVr3mofivLT5y8UtjrXzaDwIiKdQGNmvmm1kAZxumr2l5z1+m7H9v6OW0xjQd5WdZMGHtVby2SuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F/cKq6zN71WV1MJrIOLxWJ0XZrqIg7yqs3/MNpoYvB8=;
+ b=b32z0FY1FrhiTC3c1xVmNJ2GDKBH8xwatPWyvDjAaIJbwNJ7t0EfFoUFMAUjHodQo05dyUluTQCFAhpdAsBY9x9FjP2/yAZTfE2ZFaKzUKdp1P+SjXHSTLuADcEoYRDEqfbAWKqBGRL2i2+qJvKDrLDC88qtLUx1CFnGeQJ9QdGpfj5jEOQybDIylBzH64liAaSi+soFAjiTNE4+9SE9cnWvOh328ioqw8Nnmly/iM50E9ZAEeOqXv7AbvsS+jGzoac4LbqhyETKMcoAxsiLtgfjLMTirMrK/YmSPaRQIaYPnh70+7u8/1Wmzp3mvlusPT/J6Iq31yXlq+HuR3s3MA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YQ1PR01MB376387.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:c8::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 02:57:39 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 02:57:39 +0000
+Message-ID: <2b16a58d-09b8-4068-ad91-3aeed012bc9e@efficios.com>
+Date: Sun, 8 Nov 2026 21:57:38 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 21/29] cgroup/cpuset: Reserve the bandwidth in the root
+ domain a task moves to
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com, linux-kernel@vger.kernel.org
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-22-mathieu.desnoyers@efficios.com>
+ <sashiko-outbox-203956@kernel.org>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <sashiko-outbox-203956@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0009.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:85::22) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,154 +101,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/mm_init: factor out
- memmap_init_page_from_template()
-To: Li Zhe <lizhe.67@bytedance.com>, Balbir Singh <balbirs@nvidia.com>
-Cc: osalvador@suse.de, david@kernel.org, akpm@linux-foundation.org,
- rppt@kernel.org, apopple@nvidia.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261105120615.16817-1-lizhe.67@bytedance.com>
- <20261105120615.16817-2-lizhe.67@bytedance.com> <au2tQaaMBg3umthq@parvat>
- <25a188bf-05e4-4f0e-b670-a9dc88195b21@bytedance.com>
-Content-Language: en-US
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <25a188bf-05e4-4f0e-b670-a9dc88195b21@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQ1PR01MB376387:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9221267a-f415-4ed6-4b00-08df3e0d370f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|10070799003|1800799024|366016|5023799004|4143699003|56012099006|261021121427099003|261022105027099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|261102123227099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	MCW5X/0Vg4u0EvYc4j7HGe8zirpSjO42DjflGOpmlrwuGoCnpSgbLH3t47JyzacuuwUHzz2Q+0LWXKlsQkvDCBlOixDe6u4Uc3lC0NY70tcuWAAk65supWG6pjtUAdxBNs7vtuQKVsXrfe1cQHx1mPmCHJUfhROAkkJGiL/vx6HmEcg7bGRn7kjja5nCZ4+TXq7oDYn0BgPqNOJZ6GDzvmW08tA0R79zY2JSpUTNJg0D6jeqCHwDq8N3yAjJ2HJkVfpEcDi/nQaVuYG/6swRto7aDkg+UjMh21Li4WM7xOPRGlltUuW5BgRh86QZXTMfIjuGKQtwl8GqgdR1E8WghF7HEKeHTv/fsYaMF5b4LEknWPDRsZSOZuliUQvCLQHpPnolyjMVeret/RisDhdNjrJIYvXq3uOAvJ7+PQUn0iOB8YCN4axHe9HcGW14Ne6zF2JuHjUrJU7bV5Hmryn2Soi4Ld+xPLI2Z8rcnVsFRGjf7nqWyOOQkK52h9Otwo/i3mis29PMGBLHMYEayrJVStJNMgijtgJb6lYOkY0pVL84k/MdkAzcpNO8syMjXVIpsrJLO/VrYkLNr0N7jPfQreHNs9XjgyepWLotqzDXZ8E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(10070799003)(1800799024)(366016)(5023799004)(4143699003)(56012099006)(261021121427099003)(261022105027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?c1p3NHY2bjlsZ2oyLzc3M0M2cGtMYVdqMkNHNFVVVmUzK1VQOThUN21hRERz?=
+ =?utf-8?B?eU8rQ29IcUJwckk0L2ZJV2VnQ1pTdUdRMDNqUXJTWjVzQ0I5QUEzb0h1VEpC?=
+ =?utf-8?B?enZrZmlscm5MM3QxUk9aT2xVSmRGV2dnYWVQc3IwbDV3MU1DTmNCYUJwVGh0?=
+ =?utf-8?B?YVhXcWdSTExKWFpFVFQvUHFXaklwQjhEMCs4anBjVnhjZUU3dzQ5am9QZFda?=
+ =?utf-8?B?Q1VXUGsrUWlrNG13M05xNGVmNU5sTS9lOXBkZFVWeWRoNmNBUW9SVFJKSXpC?=
+ =?utf-8?B?bTBsUEh1Z0U5N0N6R3MxdHowa3lIeUpyVndVdm14Q0p5WFNZeUcxRWJ5TjhT?=
+ =?utf-8?B?dlB1Q2I3Zi9UbTJTS2tLUEhEZjIxVzhXelBGY1lNVVF4eUxQV3FSTGlCUnBK?=
+ =?utf-8?B?TlpHeWRrSTN5a3ZFNnVsaGsrUHN0WU8yMTZpVy9zbld5d3E2c0dHbSsyMDll?=
+ =?utf-8?B?YkpSY2JPNnlCVDRWd1ZMcVg3MmQvZ0J2SDNxWmhRUjZ6czlZc2Q1b0JmK3Vi?=
+ =?utf-8?B?cExqcWNJdFlsOXR4T05tS1JNSDBKQm5NMTR5S3hoTUEwUDNLdnVDSDFmVW1p?=
+ =?utf-8?B?VEN3ZW01RzJFY1UxVTBCciswRnF5MS9Ta0Iyc3RhQ0xFVlduTEcvYlVkVTVX?=
+ =?utf-8?B?RzMvK1I5TkxNZ2V6dURDbXhqWUdER1dMb1A0REpxMHVOdCsyTFVpc2hsai9Z?=
+ =?utf-8?B?SXc5c2piUEFyNkRmSFVWVldNakoxRWtlMTJ4UTFyb1gvMHRWdDFsVzluUmNp?=
+ =?utf-8?B?M3hYd1pWM3dMYjVDVDZRSGpya1VvOTlmcFk4ZmV1QThjZlJRTFhlaHVNVnpJ?=
+ =?utf-8?B?WXg3TWVrRlZYL3FqcTNoNGx3dXFqRlJUcTFrQjdoTnBKQW4zOStteWJwRGV0?=
+ =?utf-8?B?SU51WmI0UjVwNWNuQkg4ZkpjMDFObVIwUmRRWURGc1N0WEhjYmY4N3Z2L3JV?=
+ =?utf-8?B?VzR5c29GQk13eFFEeW92MzFxK0lPR2VlSUFEbjRzTmE5V3F1ZVNLa0lxSE1X?=
+ =?utf-8?B?MjVhbTM0UG9IK0k5a3hidW1BV3FBaFYxdWVsYSsvb09MMm9MSzR2azBwQlBi?=
+ =?utf-8?B?M1lDOGJZZ01OYURydkdMbDdxR0tsTitxbXZDaDFlbnVEQWtqK1pxUDZWVDQv?=
+ =?utf-8?B?MldFTXVmTFljU2t6NlJxN1A5NDZOWW8rZnhWZ0c3dGg5UktmbFp2eG5raXBo?=
+ =?utf-8?B?Vm0vdjJrUDJNTCtkWlNDWWFCSCs5UzlSOTJDZHNpM1MvTTU2ZGxRWnpMTHVr?=
+ =?utf-8?B?eGRyaXBhQ3FOQTFvT2hPWmhBbGMyMWtPclBrcXYzWlRpbk1ZREo4QjB2QzBS?=
+ =?utf-8?B?RlJEc0ltSlR0N1g4M1M1VVptbDNuYThybVJBMlE2Yk5HeUVFS2FCUzQzV1Jr?=
+ =?utf-8?B?aVBMRWNpK3d6RlN6S1dISWg2dmVuamxlU3FEb3lrMjQxKytBSUtFVEFVQjJB?=
+ =?utf-8?B?QWlSMldJMWo5VVcyajVORHZCcUZoSlVGMkU0YnFmN21jK1hpRUFWS2lCaUYy?=
+ =?utf-8?B?UFBrQWp4R1RrSkdzSXNJUkFLMjBjU0pMNEc3Q3JPKytacDVMa3RITjBTWTdU?=
+ =?utf-8?B?QlEvMHBDemR1VTQvYkZNZ3ozTzFNVTlTSXRKSzlraUpsOW50TC9xekRncDhj?=
+ =?utf-8?B?MXJOdUIvU1pkclkwM1grbXdqWHpPME9DZHIvV3E2T2dJbkVxZGgvVWxZMWNM?=
+ =?utf-8?B?VjB6ZC94QlhUbyswb29GMTBOWGFpc3M2UEdKSVBZTHlPODNqRWhWK1gzZkJO?=
+ =?utf-8?B?V2Y1aEJjRXlnc3l2T0FPSjBwc0xvV1hta3ZRY0RBSkcwOUk2UVZuc2hrZDBZ?=
+ =?utf-8?B?Ylp1REZIK3hRM0dPaEd6THJNdnJ5dk8ycnFGNFJjV3NuTmIrdjNERUI5TkVI?=
+ =?utf-8?B?S2FGVlRMckpQNDVqZ0hDRUwwR1lSbWNTS3ZRd0FrQjI5c01CNlo1ckUwZ0RV?=
+ =?utf-8?B?U01UZWU5RDUrVHp6TWdmVzE5Q3hrVmR3cnErZXI1QUw4VXZTL0ZQT04ySFFr?=
+ =?utf-8?B?aEtlQ0FOWm5vcGJoeERUMDZXbDdOeGh1SjVIOVFkWDdIY0l0MlhJdnowRGEy?=
+ =?utf-8?B?SjJLRmhBbnJRbnRiZ09pTXppOWZPclkzNkc0N20zQkNtTUY2bS9iQlpjUll4?=
+ =?utf-8?B?V3hEWHlOa3VTRmtPbnhIaFcxTzdxRFdZWTllZXl2REtIMUFTNnU0Y0FwRUZs?=
+ =?utf-8?B?eEExNWJBTjlNYllMeFdyb1lrRSs0SGJuOFhBd0ZkWlkxbDdUazJFMngxODZz?=
+ =?utf-8?B?NUFVS1VBVkpUbG9aTFRyV0xvdk5zc0ZGK2RVVkhpQXFLUm5CMVhxbWtJUmJD?=
+ =?utf-8?B?ckpqRmIyL01vWlFDb3d0Y0ZEN0RVTzF6U3dPd0o0dFZwWXh1RTFpZUJNVVZ3?=
+ =?utf-8?Q?z5E9qQC1n56vl7A8lsh8oOkp3lNPqJq2VSfQQcOKTiQHw?=
+X-MS-Exchange-AntiSpam-MessageData-1: cmAdjGYBJMVWZYshrwB3ddgwGKGwdfVUXIc=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9221267a-f415-4ed6-4b00-08df3e0d370f
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 02:57:38.9717
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rEylDRYMA7sqigVJmugpr+lp15K8fzE5US7sDtNp0C7wYcSpXToFZYdeCO+bsO0gyEDyG8GAPlZnxyQl/AYYVVZtZigwdiQ9k8xlvt9dxyc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQ1PR01MB376387
 
+On 2026-11-08 14:32, sashiko-bot@kernel.org wrote:
+ > equal cpumask early exit skips set_cpus_allowed_dl()
 
+This is the early exit of __set_cpus_allowed_ptr_locked(), as on patch
+18. The next version skips it for an attach that reserved the bandwidth.
 
-On 2026/11/9 10:51, Li Zhe wrote:
-> On 11/6/26 6:34 PM, Balbir Singh wrote:
->> On Thu, Nov 05, 2026 at 08:06:14PM +0800, Li Zhe wrote:
->>> ZONE_DEVICE memmap initialization already uses a reusable struct page
->>> template when initializing compound tail pages.  The template mostly
->>> contains invariant state, but a few fields still depend on the target
->>> PFN and must be refreshed before copying the template into each
->>> destination struct page.
->>>
->>> Factor that operation into memmap_init_page_from_template() so other
->>> boot-time memmap initialization paths can reuse the same helper.
->>>
->>> No functional change intended.
->>>
->>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
->>> ---
->>>    mm/mm_init.c | 29 +++++++++++++++--------------
->>>    mm/mm_init.h |  2 ++
->>>    2 files changed, 17 insertions(+), 14 deletions(-)
->>>
->>> diff --git a/mm/mm_init.c b/mm/mm_init.c
->>> index 2a0e782a151d..495e20fbdec0 100644
->>> --- a/mm/mm_init.c
->>> +++ b/mm/mm_init.c
->>> @@ -625,6 +625,17 @@ void __meminit __init_single_page(struct page *page, unsigned long pfn,
->>>    	vmemmap_optimization_verify_zone(page);
->>>    }
->>>    
->>> +void __meminit memmap_init_page_from_template(struct page *page,
->>> +		unsigned long pfn, unsigned long zone, struct page *template)
->>> +{
->>> +	set_page_section_from_pfn(template, pfn);
->>> +#ifdef WANT_PAGE_VIRTUAL
->>> +	if (!is_highmem_idx(zone))
->>> +		set_page_address(template, __va(pfn << PAGE_SHIFT));
->>> +#endif
->>> +	memcpy_nontemporal(page, template, sizeof(*page));
->>> +}
->>> +
->> Can we make the template a const? Why can't we do
->>
->> void __meminit memmap_init_page_from_template(struct page *page,
->> 		unsigned long pfn, unsigned long zone,
->> 		const struct page *template)
->> {
->> 	memcpy_nontemporal(page, template, sizeof(*page));
->>
->> 	set_page_section_from_pfn(page, pfn);
->> #ifdef WANT_PAGE_VIRTUAL
->> 	if (!is_highmem_idx(zone))
->> 		set_page_address(page, __va(pfn << PAGE_SHIFT));
->> #endif
->>
->> That way we don't update template once it is set, if template is r/o,
->> then we don't need both first page and template in the caller to
->> be different.
+ > __dl_task_bw_move_cpu() skips move on spanning cpumask
 
-I used to think that too.
+The attach reserves nothing here, by design: the root domain that counts
+the task stays in the mask. If the task then has to leave its CPU and
+lands in the other root domain, migrate_task_rq_dl() moves the bandwidth
+there (patch 23). So total_bw stays right. What is skipped is the room
+check in the root domain it lands in. That is the same for every move
+without a reservation, as patch 23 says. The next version states it in
+this patch's message.
 
-> I kept it this way to preserve the memcpy_nontemporal() write pattern:
-> update the PFN-dependent fields in the template first, then copy the
-> final state to the destination page once.
->
-> If we copy first and then update the destination page, the hot loop
-> would do a non-temporal copy followed by normal stores to the same
-> struct page. That is the pattern this helper avoids.
+ > per-CPU reservation mismatch when task_cpu() changes
 
-After thinking it through, that should be the reason. To prevent
-similar confusion for others, I suggest adding a comment here
-explaining why this specific order is used.
+Thanks. The window is real: a wakeup between can_attach() and attach()
+can move a sleeper, and the reservation is then not used. But the
+bandwidth does not stay in the partition. The task's CPU is out of its
+new mask, so migrate_task_rq_dl() moves the bandwidth when the task
+leaves it. total_bw ends right. What is lost is the admission, in the
+root domain the task lands in. It differs from the one reserved only
+when the destination spans two root domains. This is the same as for a
+task that changed its affinity or its policy in that window, so I leave
+it as is.
 
-Thanks.
+Thanks,
 
->
-> Thanks,
-> Zhe
->>>    #ifdef CONFIG_NUMA
->>>    /*
->>>     * During memory init memblocks map pfns to nids. The search is expensive and
->>> @@ -1073,17 +1084,6 @@ static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
->>>    	}
->>>    }
->>>    
->>> -static void zone_device_page_init_from_template(struct page *page,
->>> -		unsigned long pfn, struct page *template)
->>> -{
->>> -	set_page_section_from_pfn(template, pfn);
->>> -#ifdef WANT_PAGE_VIRTUAL
->>> -	if (!is_highmem_idx(ZONE_DEVICE))
->>> -		set_page_address(template, __va(pfn << PAGE_SHIFT));
->>> -#endif
->>> -	memcpy_nontemporal(page, template, sizeof(*page));
->>> -}
->>> -
->>>    /*
->>>     * With compound page geometry and when struct pages are stored in ram most
->>>     * tail pages are reused. Consequently, the amount of unique struct pages to
->>> @@ -1136,8 +1136,8 @@ static void __ref memmap_init_compound(struct page *head,
->>>    
->>>    	/* Initialize the remaining tail pages from template. */
->>>    	for (pfn = head_pfn + 2; pfn < end_pfn; pfn++)
->>> -		zone_device_page_init_from_template(pfn_to_page(pfn), pfn,
->>> -						    &template);
->>> +		memmap_init_page_from_template(pfn_to_page(pfn), pfn,
->>> +					       ZONE_DEVICE, &template);
->>>    	prep_compound_head(head, order);
->>>    }
->>>    
->>> @@ -1192,7 +1192,8 @@ void __ref memmap_init_zone_device(struct zone *zone,
->>>    	for (; pfn < end_pfn; pfn += pfns_per_compound) {
->>>    		page = pfn_to_page(pfn);
->>>    
->>> -		zone_device_page_init_from_template(page, pfn, &template);
->>> +		memmap_init_page_from_template(page, pfn, ZONE_DEVICE,
->>> +					       &template);
->>>    
->>>    		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
->>>    			cond_resched();
->>> diff --git a/mm/mm_init.h b/mm/mm_init.h
->>> index 0034e37dbabd..22c465122b47 100644
->>> --- a/mm/mm_init.h
->>> +++ b/mm/mm_init.h
->>> @@ -111,5 +111,7 @@ void memblock_free_all(void);
->>>    
->>>    void __meminit __init_single_page(struct page *page, unsigned long pfn,
->>>    				unsigned long zone, int nid);
->>> +void __meminit memmap_init_page_from_template(struct page *page,
->>> +		unsigned long pfn, unsigned long zone, struct page *template);
->>>    
->>>    #endif /* __MM_MM_INIT_H */
->>> -- 
->> Balbir
+Mathieu
 
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
