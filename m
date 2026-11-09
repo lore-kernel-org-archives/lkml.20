@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217482;
-	b=32ZsjRuzMkryWQCIoAmOdLOK8C73G9S2FBGVjh9XyphQxxiVNxQTcvBcfKA4nZk39ldT
-	 gGrot7d3azML4/SiOyAuzyz1ASFk1X/9P8cjwLEuoc1XWVva0cuTGJm/lwsbVOJZmpISD
-	 dsX6s0TJL9b8iVQx3ErK4rwul2DQ28w4avGPL/j1LA25zNxRqOJkMtn8Dn3WBXflXvpVW
-	 ZVT1ZGQe+h+iWUOdpo+ipatGQe+bPSTyd7rAUCk1iBtkCLl+nN3sW+WrCKCzUf2KmGe+O
-	 WijwkMZRUdt2z/rn33/nIc+9fHt4mIJUMWUxHQAiDgmIqmxXI9QgqWhwUoZvXwhan4g==
+	t=1794217483;
+	b=L/d2TYQyq3Os2MYumqx1nfro8U5LxDZ5X1la5RVAX0Va+F3kvtXBzVwT3pLoMV6Bx6uu
+	 yyTfv8Ndz/WdXzIx1cQRYQ8oLcZjeLruFVF4ELp1IaJvY0bXqEcqi4/9cG5UJqv64KE7/
+	 t0LiPH3I8i/ysvLf7J9WO5IB6HuVOwu2ClVLnv1MDdzt8UoJzvAHSERG2bQd2kOnSEp1b
+	 52/khKaaHctCXVmBniyBli+4Y4fQMWeIVyHVYt38kZbEi54c5ieKzgAjPvYbmPGdKP1G3
+	 JrhAGXUpAIj3r3/GTmfQxX0IROZwkNW836RVLyEVM3tjQpbyhfEpkOveCbJQC3adTZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217482;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217483;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Sender:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=g8A+Y6zXIPiBIQxTC+YPHzUv8cnmYiYdG+K+y89iVwA=;
-	b=FKcfQp73CSgT5bg5FYKf0eFBDqcC65fgBFxMe0r2iUxpC8aOcPtFBVwPYxrgWDd//Wqy
-	 CS1Jxxq1cYVjDO3NLzhKyV8JW53mOdGKq70Bs9Ichz+YRZ9Q7BwmuPEdlOQoYjpYN9yTE
-	 nU3DjkYHO6RYxqjiIiNahwV1IPmLj6DJUttbbUYiwynGy1SIYA2WmAx9c4t9YhAed4t+I
-	 P9nxLf5yihnDUUjYUej1+ZwePum3+Qw4lnwqsxRoEzw+oA9IA7bjzhf6wNir2te4IafGR
-	 jie4cSAXVl0w+ocH1hZXDo3FBJr7SkucbNkAoZ+2gYzqSn9WBPVGNWGOdWVJh3jWCzA==
+	bh=W8ajPa61qLbRbu2px572/0QmwG9CerOEFMibBPl4Dkg=;
+	b=14qigy28gCXVMQKLH1I79myIqa49kzrHYXPUaRJ4ot3fHUv5yuQSOE1vrX1f0hkGGl1r
+	 QZVBKXQiToMN57bLMQM8r3RbDCLwvG2neyHa+4G01SpGbqCeaygvzxXSd9kQLwb9Kqe5h
+	 //whK+g4KJSFVvla5/gmWGp38wNp5eJQd6U7lwT5DB2W6Ops3xl0saPxOyETtd5HvI075
+	 uOT0phebyRd5PVknVThv6iALkKs95v085c89cpaIT5O1kmTxtINZsFkNYMymT0gjy1hf1
+	 9VCoPD7URINlSPLSfDrQy/w+9vlodJQAnVdc1CqqzNQntjUQjLJVKsQ1Y+ZVC69yY9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f1JJginy;
-	arc=none smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uFFOqLjY;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA685606D803
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:44:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA685606D803
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED94606D812
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:44:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ED94606D812
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f1JJginy
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b58cb69927so1108848a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:44:41 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uFFOqLjY
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4d58c50743so89034266b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:44:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794217480; x=1794822280; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794217481; x=1794822281; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=g8A+Y6zXIPiBIQxTC+YPHzUv8cnmYiYdG+K+y89iVwA=;
-        b=f1JJginyIgFtdDthYnWhcZR4ycToyifTR0/MGopPtXmNZeKpzYOPSx4jQjb321Dott
-         WCZJPIevSpGVIdRTHrrVQuop6SB7HjhN1pgv27d3g2cW4q2CGdiZ6MNevcaJ1QF/s7ra
-         NcP5m57oPR97kjZKHw0jQtKZnEOwfYGYvdXikH2SGm1walDCKSHvb2+zq7oa9HOdHw/7
-         58fjRTCAjx/H/P2qkd3qQCrO2WPsZQh47N1fOA70jiWSHgfRqvSwKthEp3m9o1NfV86o
-         ZmDbVU9TxAAwbiSN5TYdShc33K+62VzRbWtknAYIJYVpG/NuN5HgknPYnxDMCdRsTXGq
-         1a+A==
+        bh=W8ajPa61qLbRbu2px572/0QmwG9CerOEFMibBPl4Dkg=;
+        b=uFFOqLjYbxtxCdGUrDysJLaT4598O5TrWxQMOBgKxYgAxlnLoAr+qyOieQ6xWhuZZu
+         Pvcmo8biv0U7+AU8vLHPbaRW3pOT2nSC+MGYEEJDDsFNJheGojve2UDbofH00Dk/Isjt
+         5CvyLLUwqX+/W/vLCMl7+2GMpZAHX0gvNzh6NVZi0K0GXQDG9mT4mCvh4oCzCJ6A+m4K
+         sO3JDCyBpx2TXizrTv/mCfIKlsQTbxO/zq1XTXHJGbiFU3p4HPStcGzOVxLS3BqE3AMP
+         NFUeW1MUPNewyGpiyRAJFiroT9sQeV+KloWr07DT8v3ECcxpCiwXZGvJ3YK6F2WoEwH5
+         2TjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794217480; x=1794822280;
+        d=1e100.net; s=20260707; t=1794217481; x=1794822281;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=g8A+Y6zXIPiBIQxTC+YPHzUv8cnmYiYdG+K+y89iVwA=;
-        b=iiwE5Ij/qcY3rxYLLAU5yBmNn9WwVyscl6AdDZPixQdKLjzA1WwZsgUDjBaiULIvg5
-         Joc0Lg+BkAgT/2GrGMf5lcjTt3cGXnfsQ14pazKThEF2HZt7VAPWWmI1eeWI08+qthxq
-         yHZb10at3q5Bdjy3eNiGsTMvETkLpaD4MHwraDH413WXJR1Atr+X4+WJnDnty2aMkvfk
-         D6eNZupLtblMZda3Pt1jzgRYPf8xf+pYOEFIHvADAoCRq/Bc/h0KtkFhXPhuJA3tO82h
-         J2fgvDmCyFO/mKIU/nBKcf76qL23TMQd1CkrzvpQxzuHpsappP+hSHd6SCOBvcROTZKW
-         5BvQ==
-X-Forwarded-Encrypted: i=1; AL+hErEUVHiCL3PN0C35WdaLawIdxt4hlLqOUvVuZ/slRzYGgzTWGBRh4BPZOdfB3+kxiImhgoYRNPV/oLTB6Ic=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9lsgNh884PM8vdd4Q/jI0vPwpCqfBs5Pyja9oXGO7W2nhTNael
-	4juccanVW0fIfrKCoVcjOWyC5WJyP20i0/q4lyUmW1zRg3feHgiOWZPH+BixTmZL
-X-Gm-Gg: AYBFou3Jzt8wxMwx7TSEtJTg29nko7imCKvFWVSyjMTJ5p4CMsOeisRRAmApx6uq4R3
-	dgs3Emf1v8C/2sC3HREjtNAJI72q5GFGqHMT5U4XrDujvV0wMiSaJ8IG5WAVEvZ6o9NjNmuK7oO
-	pPe0lycB4Dqsc9L6TRXkMyXQbmZ9AnDJ4OZPzbIiqdhvkIrkP8+R1tIbNOhN3QqiguM+m7i195h
-	LyFfQSCrRlyJkrZcwTspiQp1NWLdYO/3jTI5HinAQ6jdmlLHyPCVaWW2FyoON7hsYJJUjCPByf1
-	d088aZTaBwcVD7hCuf4rs8q4xRBG4dqC++iy93P0uCrUlZ5bWTkO5IQBciGCwMASqeKBHxYqt4w
-	pqrvLQO2cNIjGll21cRjU/ffFvOIIht7qNwnpk5u9FbdU87g2oqnsxgEe93I2ZoAPrE+3C4Q3GM
-	jKefgLm5BwlrhrwH08oCW4ZT9CVfKGpszwYZUwwbc3HEj2EM2jYePAZzwmZ1FM7QHi4uvvzVprS
-	7bfx8djcMtmX+sP1ASxHUk4e++b+iSR5NLDHZSF/7CzDjCtCg+VUNAv1CzR1k5RxZj+KKVwojOw
-	6vpoI4ricPJKJNWqjgP0+zOCH8QPXSEonm6BAKw9ByIoZXgTm4D9grk6
-X-Received: by 2002:a17:907:3ea8:b0:c29:4b57:503e with SMTP id a640c23a62f3a-c4d6da00f7amr242929166b.1.1794217479893;
-        Mon, 09 Nov 2026 01:44:39 -0800 (PST)
+        bh=W8ajPa61qLbRbu2px572/0QmwG9CerOEFMibBPl4Dkg=;
+        b=ltKVxUfRldxDNfoCqBJjBmBO0tM5gx1hDpHyDpngMl/pZTQPMfgo1FaxG+h0HTNIlm
+         TDKixY8fM+WjUz5XKMxH++nWB9iECz2qM1Gi0oAVvVk+r+O7fLTog/utwdm5DoW/LGFw
+         rytC8aWfZOXvt/ZQHOa+c+bZV1hVl1Q9kVLsp15fVfMV8ktJpcMftxMo52eYbsM47MgO
+         Q43h4nYH03QxiFH2W2CHvx2w+Q77JSlLSKwas78atPjYWcpK959wVAyuVpkNQT1SC54U
+         NkUDrH1C+aPO39H7hYH47rCRxWbLIR/lc+oHwKzjaAu8j5NSDZFovCaaPDC+fto5IIbS
+         DDmA==
+X-Forwarded-Encrypted: i=1; AL+hErGH6Ci6JzpKsPRgxkFkCkPwVUPY5icq4a0sBZ5SV4v1NKKB5+EvA9SYXzxvi7vbeOxkDE1u0vBkVZRrkwg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9iKo/UYD5SrYRCJNli8NNUZYnVEyyBls7l1R7UtIn19P0r3mlv
+	5pVXPYLopZ91hIK0QaCo9DDx58V7g4fmEB292F44TjqWHXF7QEPFXsch
+X-Gm-Gg: AYBFou0iaE52cR44OgjBUI80X0rT19pxdSi/o4ZaOXmdBm+bUg6wfPLwUHWRpSVxy98
+	KsCbi/+10ug8LHCS6UUDgTtr1m+ckj+dFXwLl/lDwHfAm6D53T6wkoVclSJPqfrmpJ+inNNqZ7+
+	oyDmohuJJm29TQAEHj2a04L+OWpmEIFW4dupusExNpnpIJtMOTo1UabGZOYUG/Y2xYftg3uZQ1H
+	S6Ki0t6eC241IYhq1MBJChwW5NIBHbA/MarWRX+8kxe6DV/dyv2xYir1PASodyPJ/r2nXWeNOVb
+	t0ZDAwzbWMEgFHZWPlS56/fR8KHeoZGmRpC3dGwu23FReb+fyn0oRSjmbqv5iF6YtPkF+te7/GU
+	PVFvaMXt11Z7okrOvzPznKV+s+hOqtKhtMP+ub7kuPtewDX6ddMekOYbpuc0SQXIgWNC1Mx1vSJ
+	PEjo4yHiXk0+6zO6BZIwJKhqOV3PieIxB8xpp55ikU30NGwm5lzP5zt0ggi81IdtV46gXWVuBld
+	QD62GXXwQob8M8DDvxiYVeNlnJ5G7DYFPfT5fhFpdoxrv7d/ebytSZGIC1oaCrnPEfBnjPMpiN8
+	AhbgCJMlRDEJYz249qeQAaF4NF6pvNecW06xjHJPmIQKaZbYC0IJjO9h
+X-Received: by 2002:a17:907:160e:b0:c3e:4f41:e2a6 with SMTP id a640c23a62f3a-c4d6d161e93mr224560466b.6.1794217480921;
+        Mon, 09 Nov 2026 01:44:40 -0800 (PST)
 Received: from torstein-desktop.internal ([2a01:799:3a1:9700:6e3a:d704:53e2:f00e])
-        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c4d6a4753aasm137786866b.45.2026.11.09.01.44.38
+        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c4d6a4753aasm137786866b.45.2026.11.09.01.44.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 01:44:39 -0800 (PST)
+        Mon, 09 Nov 2026 01:44:40 -0800 (PST)
 Sender: Torstein Eide <torsteine@gmail.com>
 From: Torstein Eide <torsteine+linux@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
@@ -87,9 +87,9 @@ Cc: Hans de Goede <hansg@kernel.org>,
 	Maoyi Xie <maoyixie.tju@gmail.com>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/4] HID: lg-g15: add LCD pixel-content framebuffer
-Date: Mon,  9 Nov 2026 10:44:24 +0100
-Message-ID: <20261109094426.1432465-3-torsteine+linux@gmail.com>
+Subject: [PATCH 3/4] HID: lg-g15: report Super-key-lock state on G15 v2's keyboard interface
+Date: Mon,  9 Nov 2026 10:44:25 +0100
+Message-ID: <20261109094426.1432465-4-torsteine+linux@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261109094426.1432465-1-torsteine+linux@gmail.com>
 References: <20261109094426.1432465-1-torsteine+linux@gmail.com>
@@ -104,430 +104,311 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a 160x43 1bpp fbdev framebuffer for the GamePanel LCD's pixel
-content, behind the new HID_LOGITECH_G15_FB option.
-
-Updates use fbdev deferred I/O: when userspace dirties the framebuffer
-(mmap, write() or the drawing ops) the frame is packed into the LCD's
-column-major wire format and sent as Output Report 3. The packed wire
-buffer is a heap allocation, not a stack array, since the USB core
-refuses to DMA-map stack memory. A set bit is a dark pixel, so the
-visual is FB_VISUAL_MONO01.
-
-The keyboard ignores output reports unless an URB is queued on the
-input endpoint, so the HID device is kept open while the framebuffer
-exists. The fb_info is released from fb_destroy, as it may outlive the
-HID device while /dev/fbN is still open. The last frame is re-sent on
-resume, since the LCD loses its content across a USB reset.
+The G15 v2 exposes a second USB HID interface (046D:C226) previously
+left to hid-generic, which reports the Super-key-lock ("Game Mode")
+state on report 3. Bind it as LG_G15_V2_KBD: keep default hid-input
+behavior for normal typing, and additionally decode report 3 to expose
+the lock state as a read-only g15::game_mode LED.
 
 Tested on Logitech G15v2.
 
-Based on libg15.c.
-
 Signed-off-by: Torstein Eide <torsteine+linux@gmail.com>
-Based-on-work-by: Philip Lawatsch <philip@lawatsch.at>
-Based-on-work-by: Alex Ibrado <alex@ibrado.org>
-Based-on-work-by: Anthony J. Mirabella <mirabeaj@gmail.com>
-Based-on-work-by: Mike Lampard <mlampard@users.sourceforge.net>
-Assisted-by: Claude:claude-opus-5-5
+Assisted-by: Claude:claude-sonnet-5
 ---
- drivers/hid/Kconfig      |  13 ++
- drivers/hid/hid-lg-g15.c | 303 +++++++++++++++++++++++++++++++++++++++
- 2 files changed, 316 insertions(+)
+ drivers/hid/hid-ids.h    |   1 +
+ drivers/hid/hid-lg-g15.c | 192 ++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 189 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index 2481bc01c435..57305180818a 100644
---- a/drivers/hid/Kconfig
-+++ b/drivers/hid/Kconfig
-@@ -674,6 +674,19 @@ config HID_LOGITECH
- 	help
- 	Support for Logitech devices that are not fully compliant with HID standard.
- 
-+config HID_LOGITECH_G15_FB
-+	bool "Logitech G15 LCD framebuffer support"
-+	depends on HID_LOGITECH
-+	depends on HID_LOGITECH=FB || FB=y
-+	select FB_SYSMEM_HELPERS_DEFERRED
-+	help
-+	  Provide access to the 160x43 monochrome GamePanel LCD of the
-+	  Logitech G15 and G15 v2 keyboards via a framebuffer device.
-+
-+	  The LCD is updated with deferred I/O whenever the framebuffer
-+	  contents change. Say Y here if you want to draw on the LCD from
-+	  userspace or bind a framebuffer console to it.
-+
- config HID_LOGITECH_DJ
- 	tristate "Logitech receivers full support"
- 	depends on USB_HID
+diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+index 91319aa6516d..44ebf2a0accc 100644
+--- a/drivers/hid/hid-ids.h
++++ b/drivers/hid/hid-ids.h
+@@ -950,6 +950,7 @@
+ #define USB_DEVICE_ID_LOGITECH_G13		0xc21c
+ #define USB_DEVICE_ID_LOGITECH_G15_LCD		0xc222
+ #define USB_DEVICE_ID_LOGITECH_G11		0xc225
++#define USB_DEVICE_ID_LOGITECH_G15_V2_KBD	0xc226
+ #define USB_DEVICE_ID_LOGITECH_G15_V2_LCD	0xc227
+ #define USB_DEVICE_ID_LOGITECH_G510		0xc22d
+ #define USB_DEVICE_ID_LOGITECH_G510_USB_AUDIO	0xc22e
 diff --git a/drivers/hid/hid-lg-g15.c b/drivers/hid/hid-lg-g15.c
-index 50abe6c58b10..35d183787383 100644
+index 35d183787383..592c9747738e 100644
 --- a/drivers/hid/hid-lg-g15.c
 +++ b/drivers/hid/hid-lg-g15.c
-@@ -6,6 +6,7 @@
-  */
- 
- #include <linux/device.h>
-+#include <linux/fb.h>
- #include <linux/hid.h>
- #include <linux/leds.h>
- #include <linux/led-class-multicolor.h>
-@@ -13,6 +14,7 @@
- #include <linux/random.h>
- #include <linux/sched.h>
- #include <linux/usb.h>
-+#include <linux/vmalloc.h>
- #include <linux/wait.h>
- #include <dt-bindings/leds/common.h>
- 
-@@ -22,6 +24,22 @@
- 
- #define LG_G15_FEATURE_REPORT		0x02
- 
-+/*
-+ * LCD pixel content, G15/G15 v2 GamePanel LCD only. Not a Feature Report:
-+ * a numbered Output Report sent over the interrupt-OUT endpoint. The wire
-+ * buffer has a fixed 32-byte header before the packed pixel data starts,
-+ * and the packer's last (partial) row-group reads up to 132 bytes past
-+ * the logical WIDTH/8*HEIGHT frame size, so the backing allocation must
-+ * be padded to LG_G15_LCD_WIRE_SIZE, not just the logical frame size.
-+ */
-+#define LG_G15_LCD_OUTPUT_REPORT	0x03
-+#define LG_G15_LCD_WIDTH		160
-+#define LG_G15_LCD_HEIGHT		43
-+#define LG_G15_LCD_ROW_BYTES		(LG_G15_LCD_WIDTH / 8)
-+#define LG_G15_LCD_FB_SIZE		(LG_G15_LCD_ROW_BYTES * LG_G15_LCD_HEIGHT)
-+#define LG_G15_LCD_WIRE_OFFSET		32
-+#define LG_G15_LCD_WIRE_SIZE		0x03e0
-+
- #define LG_G510_FEATURE_M_KEYS_LEDS	0x04
- #define LG_G510_FEATURE_BACKLIGHT_RGB	0x05
- #define LG_G510_FEATURE_POWER_ON_RGB	0x06
-@@ -88,6 +106,17 @@ struct lg_g15_led {
- 	u8 red, green, blue;
+@@ -63,7 +63,8 @@
+ enum lg_g15_model {
+ 	LG_G13,
+ 	LG_G15,
+-	LG_G15_V2,
++	LG_G15_V2,	/* 046D:C227, GamePanel LCD iface */
++	LG_G15_V2_KBD,	/* 046D:C226, keyboard/consumer-ctrl iface, not the LCD */
+ 	LG_G510,
+ 	LG_G510_USB_AUDIO,
+ 	LG_Z10,
+@@ -134,6 +135,17 @@ struct lg_g15_data {
+ 	bool lcd_contrast_set;		/* LCD contrast written at least once */
  };
  
-+struct lg_g15_fbdev {
-+	struct fb_info *info;	/* NULL when no framebuffer is registered */
-+	/*
-+	 * Packed wire-format buffer, heap-allocated (not a local/stack
-+	 * array): it gets DMA-mapped by hid_hw_output_report()/usbhid, and
-+	 * the USB core refuses to map stack memory (returns -EAGAIN, see
-+	 * object_is_on_stack() in drivers/usb/core/hcd.c).
-+	 */
-+	u8 *wire;
++/*
++ * State for the G15 v2's separate keyboard + consumer-control USB device
++ * (046D:C226). Unlike lg_g15_data above, this is not the GamePanel LCD
++ * interface: it carries normal typing (left to generic hid-input) plus one
++ * extra report we care about, so it only needs a small amount of state.
++ */
++struct lg_g15_kbd_data {
++	struct led_classdev led;	/* g15::game_mode, read-only */
++	bool super_lock;		/* Cached HW state of the Super/Windows-key lock */
 +};
 +
- struct lg_g15_data {
- 	/* Must be first for proper dma alignment */
- 	u8 transfer_buf[LG_G15_TRANSFER_BUF_SIZE];
-@@ -99,6 +128,7 @@ struct lg_g15_data {
- 	struct hid_device *hdev;
- 	enum lg_g15_model model;
- 	struct lg_g15_led leds[LG_G15_LED_ARRAY_SIZE];
-+	struct lg_g15_fbdev fbdev; /* G15/G15 v2 GamePanel LCD only */
- 	bool game_mode_enabled;
- 	bool backlight_disabled;	/* true == HW backlight toggled *OFF* */
- 	bool lcd_contrast_set;		/* LCD contrast written at least once */
-@@ -1051,6 +1081,270 @@ static void lg_g15_setup_led_rgb(struct lg_g15_data *g15, int index)
- 	gled->mcdev.subled_info = subled_info;
+ /********* G13 LED functions ***********/
+ /*
+  * G13 retains no state across power cycles, and always powers up with the backlight on,
+@@ -717,6 +729,8 @@ static int lg_g15_get_initial_led_brightness(struct lg_g15_data *g15)
+ 		 * the LCD and touch keys part of the speakers.
+ 		 */
+ 		return 0;
++	case LG_G15_V2_KBD:
++		break; /* Never reached, this model has no lg_g15_data */
+ 	}
+ 	return -EINVAL; /* Never reached */
+ }
+@@ -981,11 +995,138 @@ static int lg_g510_leds_event(struct lg_g15_data *g15, u8 *data)
+ 	return 0;
  }
  
-+/********* G15 LCD framebuffer *********/
++/********* G15 v2 keyboard interface functions *********/
 +
-+#ifdef CONFIG_HID_LOGITECH_G15_FB
-+
-+/*
-+ * fb_info private data. The fb_info can outlive the HID device (e.g. when
-+ * /dev/fbN is still open on unplug), so the link back to the device is
-+ * cleared in lg_g15_unregister_fb() and the fb_info itself is only freed
-+ * from fb_destroy once its last user is gone.
-+ */
-+struct lg_g15_fb_par {
-+	struct fb_deferred_io defio;
-+	/* Protects g15 and serializes frame updates */
-+	struct mutex lock;
-+	/* NULL once the HID device is gone */
-+	struct lg_g15_data *g15;
-+	/* At least one frame was sent successfully */
-+	bool sent;
-+};
-+
-+static const struct fb_fix_screeninfo lg_g15_fb_fix = {
-+	.id		= "G15 LCD",
-+	.type		= FB_TYPE_PACKED_PIXELS,
-+	/* A set bit is a dark pixel */
-+	.visual		= FB_VISUAL_MONO01,
-+	.xpanstep	= 0,
-+	.ypanstep	= 0,
-+	.ywrapstep	= 0,
-+	.line_length	= LG_G15_LCD_ROW_BYTES,
-+	.smem_len	= LG_G15_LCD_FB_SIZE,
-+	.accel		= FB_ACCEL_NONE,
-+};
-+
-+static const struct fb_var_screeninfo lg_g15_fb_var = {
-+	.xres		= LG_G15_LCD_WIDTH,
-+	.yres		= LG_G15_LCD_HEIGHT,
-+	.xres_virtual	= LG_G15_LCD_WIDTH,
-+	.yres_virtual	= LG_G15_LCD_HEIGHT,
-+	.bits_per_pixel	= 1,
-+	.red		= { 0, 1, 0 },
-+	.green		= { 0, 1, 0 },
-+	.blue		= { 0, 1, 0 },
-+	.vmode		= FB_VMODE_NONINTERLACED,
-+};
++/* Report 3, byte 1 bit 0: Super/Windows key lock state ("Game Mode") */
++#define LG_G15_V2_KBD_GAME_MODE_REPORT	0x03
 +
 +/*
-+ * Packs pixels column-major (8 vertically-stacked source rows per
-+ * destination byte), not the row-major layout the linear fb buffer holds.
-+ *
-+ * fb is LG_G15_LCD_WIRE_SIZE bytes (padded, not just LG_G15_LCD_FB_SIZE) -
-+ * the last of the six 8-row groups only has 3 real pixel-rows (43 isn't a
-+ * multiple of 8), and this reads past the logical frame into that padding
-+ * for the other 5.
++ * The G15 v2's keyboard device uses struct lg_g15_kbd_data as drvdata, not
++ * struct lg_g15_data. This is the one check used by every entry point to
++ * tell the two apart.
 + */
-+static void lg_g15_fb_pack(u8 *wire, const u8 *fb)
++static bool lg_g15_is_v2_kbd(struct hid_device *hdev)
 +{
-+	unsigned int output_offset = LG_G15_LCD_WIRE_OFFSET;
-+	unsigned int base_offset = 0;
-+	unsigned int row, col;
-+	unsigned int height_in_bytes = DIV_ROUND_UP(LG_G15_LCD_HEIGHT, 8);
-+
-+	for (row = 0; row < height_in_bytes; row++) {
-+		for (col = 0; col < LG_G15_LCD_WIDTH; col++) {
-+			unsigned int bit = col % 8;
-+			unsigned int sub;
-+			u8 packed = 0;
-+
-+			for (sub = 0; sub < 8; sub++) {
-+				unsigned int pixel_offset =
-+					base_offset + sub * LG_G15_LCD_ROW_BYTES;
-+
-+				packed |= ((fb[pixel_offset] << bit) & 0x80) >> (7 - sub);
-+			}
-+
-+			wire[output_offset] = packed;
-+			output_offset++;
-+			if (bit == 7)
-+				base_offset++;
-+		}
-+		base_offset += LG_G15_LCD_WIDTH - LG_G15_LCD_ROW_BYTES;
-+	}
++	return hdev->vendor == USB_VENDOR_ID_LOGITECH &&
++	       hdev->product == USB_DEVICE_ID_LOGITECH_G15_V2_KBD;
 +}
 +
-+/*
-+ * Deferred IO callback, runs when userspace dirtied the framebuffer (through
-+ * mmap, write() or the drawing ops). Writes made while a frame is being sent
-+ * re-arm the deferred work, so no update is lost.
-+ */
-+static void lg_g15_fb_deferred_io(struct fb_info *info, struct list_head *pagereflist)
++static enum led_brightness lg_g15_v2_kbd_super_lock_get(struct led_classdev *led_cdev)
 +{
-+	struct lg_g15_fb_par *par = info->par;
-+	struct lg_g15_data *g15;
-+	u8 *wire;
++	struct lg_g15_kbd_data *kbd = container_of(led_cdev, struct lg_g15_kbd_data, led);
++
++	return kbd->super_lock;
++}
++
++static void lg_g15_v2_kbd_set_super_lock(struct lg_g15_kbd_data *kbd, bool super_lock)
++{
++	if (super_lock == kbd->super_lock)
++		return;
++
++	kbd->super_lock = super_lock;
++	led_classdev_notify_brightness_hw_changed(&kbd->led, super_lock);
++}
++
++/* Fetches the current lock state, which may already be on at probe/resume. */
++static void lg_g15_v2_kbd_read_super_lock(struct hid_device *hdev,
++					  struct lg_g15_kbd_data *kbd)
++{
++	u8 *buf;
 +	int ret;
 +
-+	mutex_lock(&par->lock);
++	buf = kzalloc(2, GFP_KERNEL); /* DMA-able, not on the stack */
++	if (!buf)
++		return;
 +
-+	g15 = par->g15;
-+	if (!g15)
-+		goto out;
-+
-+	wire = g15->fbdev.wire;
-+	memset(wire, 0, LG_G15_LCD_WIRE_OFFSET);
-+	lg_g15_fb_pack(wire, (const u8 *)info->screen_buffer);
-+	wire[0] = LG_G15_LCD_OUTPUT_REPORT;
-+
-+	ret = hid_hw_output_report(g15->hdev, wire, LG_G15_LCD_WIRE_SIZE);
-+	if (ret < 0)
-+		hid_err_ratelimited(g15->hdev, "Error writing LCD framebuffer: %d\n", ret);
++	ret = hid_hw_raw_request(hdev, LG_G15_V2_KBD_GAME_MODE_REPORT, buf, 2,
++				 HID_INPUT_REPORT, HID_REQ_GET_REPORT);
++	if (ret == 2 && buf[0] == LG_G15_V2_KBD_GAME_MODE_REPORT)
++		lg_g15_v2_kbd_set_super_lock(kbd, buf[1] & 0x01);
 +	else
-+		par->sent = true;
++		hid_dbg(hdev, "Error reading Super-key-lock state: %d\n", ret);
 +
-+out:
-+	mutex_unlock(&par->lock);
++	kfree(buf);
 +}
 +
-+static void lg_g15_fb_damage_range(struct fb_info *info, off_t off, size_t len)
++/* Decodes report 3 and mirrors the Super-key-lock bit into the game_mode LED. */
++static int lg_g15_v2_kbd_raw_event(struct hid_device *hdev, u8 *data, int size)
 +{
-+	schedule_delayed_work(&info->deferred_work, info->fbdefio->delay);
-+}
++	struct lg_g15_kbd_data *kbd = hid_get_drvdata(hdev);
 +
-+static void lg_g15_fb_damage_area(struct fb_info *info, u32 x, u32 y,
-+				  u32 width, u32 height)
-+{
-+	schedule_delayed_work(&info->deferred_work, info->fbdefio->delay);
-+}
++	if (!kbd || data[0] != LG_G15_V2_KBD_GAME_MODE_REPORT || size != 2)
++		return 0; /* Not our report, or the non-consumer-control interface */
 +
-+FB_GEN_DEFAULT_DEFERRED_SYSMEM_OPS(lg_g15_fb,
-+				   lg_g15_fb_damage_range,
-+				   lg_g15_fb_damage_area)
++	lg_g15_v2_kbd_set_super_lock(kbd, data[1] & 0x01);
 +
-+static int lg_g15_fb_blank(int blank, struct fb_info *info)
-+{
 +	return 0;
 +}
 +
-+static void lg_g15_fb_destroy(struct fb_info *info)
++/*
++ * The G15 v2's keyboard USB device exposes two HID interfaces of its own
++ * (boot keyboard + consumer control); both match this same USB product ID,
++ * so this probe runs once per interface. Only the consumer-control one
++ * carries report 3, so the LED is only registered there; the other gets
++ * plain generic hid-input and nothing else, same as if hid-generic had
++ * bound it.
++ */
++static int lg_g15_v2_kbd_probe(struct hid_device *hdev)
 +{
-+	struct lg_g15_fb_par *par = info->par;
-+
-+	fb_deferred_io_cleanup(info);
-+	mutex_destroy(&par->lock);
-+	vfree(info->screen_buffer);
-+	framebuffer_release(info);
-+}
-+
-+static const struct fb_ops lg_g15_fb_ops = {
-+	.owner		= THIS_MODULE,
-+	FB_DEFAULT_DEFERRED_OPS(lg_g15_fb),
-+	.fb_destroy	= lg_g15_fb_destroy,
-+	.fb_blank	= lg_g15_fb_blank,
-+};
-+
-+static int lg_g15_register_fb(struct lg_g15_data *g15)
-+{
-+	struct lg_g15_fbdev *fbdev = &g15->fbdev;
-+	struct lg_g15_fb_par *par;
-+	struct fb_info *info;
-+	void *buffer;
++	struct hid_report_enum *rep_enum;
++	struct hid_report *rep;
++	bool has_game_mode_report = false;
++	struct lg_g15_kbd_data *kbd;
 +	int ret;
 +
-+	fbdev->wire = devm_kzalloc(&g15->hdev->dev, LG_G15_LCD_WIRE_SIZE, GFP_KERNEL);
-+	if (!fbdev->wire)
-+		return -ENOMEM;
++	ret = hid_parse(hdev);
++	if (ret)
++		return ret;
 +
-+	/* Padded to LG_G15_LCD_WIRE_SIZE - see the comment by that macro. */
-+	buffer = vzalloc(LG_G15_LCD_WIRE_SIZE);
-+	if (!buffer)
-+		return -ENOMEM;
-+
-+	info = framebuffer_alloc(sizeof(*par), &g15->hdev->dev);
-+	if (!info) {
-+		ret = -ENOMEM;
-+		goto err_free_buffer;
++	rep_enum = &hdev->report_enum[HID_INPUT_REPORT];
++	list_for_each_entry(rep, &rep_enum->report_list, list) {
++		if (rep->id == LG_G15_V2_KBD_GAME_MODE_REPORT)
++			has_game_mode_report = true; /* This is the consumer-control interface */
 +	}
 +
-+	par = info->par;
-+	mutex_init(&par->lock);
-+	par->g15 = g15;
-+	par->defio.delay = HZ / 10;
-+	par->defio.deferred_io = lg_g15_fb_deferred_io;
-+
-+	info->fbdefio = &par->defio;
-+	info->fbops = &lg_g15_fb_ops;
-+	info->flags |= FBINFO_VIRTFB;
-+	info->screen_buffer = buffer;
-+	info->screen_size = LG_G15_LCD_FB_SIZE;
-+	info->fix = lg_g15_fb_fix;
-+	info->var = lg_g15_fb_var;
-+
-+	ret = fb_deferred_io_init(info);
++	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT); /* Plain generic keyboard input */
 +	if (ret)
-+		goto err_release_info;
++		return ret;
++
++	if (!has_game_mode_report)
++		return 0; /* Boot-keyboard interface, nothing more to do */
++
++	kbd = devm_kzalloc(&hdev->dev, sizeof(*kbd), GFP_KERNEL);
++	if (!kbd)
++		return 0; /* Non-fatal, keyboard input still works without the LED */
++
++	kbd->led.name = "g15::game_mode";
++	kbd->led.max_brightness = 1;
++	kbd->led.brightness_get = lg_g15_v2_kbd_super_lock_get;
++	kbd->led.flags = LED_BRIGHT_HW_CHANGED; /* Enables the hw_changed notify below */
++
++	ret = devm_led_classdev_register(&hdev->dev, &kbd->led);
++	if (ret)
++		return 0; /* Non-fatal, keyboard input still works without the LED */
 +
 +	/*
-+	 * As with the G-keys settings report in probe, the keyboard ignores
-+	 * output reports unless an URB is queued on the input endpoint, so
-+	 * keep the device open for as long as the framebuffer exists.
++	 * Only set drvdata once the LED is registered: raw_event may run as
++	 * soon as hid_hw_start() returns, and notifying a brightness change
++	 * on an unregistered LED triggers a WARN.
 +	 */
-+	ret = hid_hw_open(g15->hdev);
-+	if (ret)
-+		goto err_defio_cleanup;
++	hid_set_drvdata(hdev, kbd);
++	lg_g15_v2_kbd_read_super_lock(hdev, kbd);
 +
-+	ret = register_framebuffer(info);
-+	if (ret)
-+		goto err_hw_close;
-+
-+	fbdev->info = info;
 +	return 0;
-+
-+err_hw_close:
-+	hid_hw_close(g15->hdev);
-+err_defio_cleanup:
-+	fb_deferred_io_cleanup(info);
-+err_release_info:
-+	mutex_destroy(&par->lock);
-+	framebuffer_release(info);
-+err_free_buffer:
-+	vfree(buffer);
-+	return ret;
 +}
 +
-+static void lg_g15_unregister_fb(struct lg_g15_data *g15)
-+{
-+	struct fb_info *info = g15->fbdev.info;
-+	struct lg_g15_fb_par *par;
-+
-+	if (!info)
-+		return;
-+
-+	/* Waits for a running update; later ones see par->g15 == NULL */
-+	par = info->par;
-+	mutex_lock(&par->lock);
-+	par->g15 = NULL;
-+	mutex_unlock(&par->lock);
-+
-+	g15->fbdev.info = NULL;
-+	/* The fb_info is freed by lg_g15_fb_destroy() once its last user is gone */
-+	unregister_framebuffer(info);
-+	hid_hw_close(g15->hdev);
-+}
-+
-+/* The LCD loses its pixel content across a USB reset or power loss */
-+static void lg_g15_fb_redraw(struct lg_g15_data *g15)
-+{
-+	struct fb_info *info = g15->fbdev.info;
-+	struct lg_g15_fb_par *par;
-+
-+	if (!info)
-+		return;
-+
-+	par = info->par;
-+	if (par->sent)
-+		schedule_delayed_work(&info->deferred_work, 0);
-+}
-+
-+#else /* CONFIG_HID_LOGITECH_G15_FB */
-+
-+static inline int lg_g15_register_fb(struct lg_g15_data *g15) { return 0; }
-+static inline void lg_g15_unregister_fb(struct lg_g15_data *g15) { }
-+static inline void lg_g15_fb_redraw(struct lg_g15_data *g15) { }
-+
-+#endif /* CONFIG_HID_LOGITECH_G15_FB */
-+
- static int lg_g15_register_led(struct lg_g15_data *g15, int i, const char *name)
+ static int lg_g15_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 			    u8 *data, int size)
  {
- 	int ret;
-@@ -1407,6 +1701,10 @@ static int lg_g15_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		ret = lg_g15_register_led(g15, LG_G15_LCD_CONTRAST, "g15::lcd_contrast");
- 		if (ret)
- 			goto error_hw_stop;
+-	struct lg_g15_data *g15 = hid_get_drvdata(hdev);
++	struct lg_g15_data *g15;
 +
-+		ret = lg_g15_register_fb(g15);
-+		if (ret)
-+			goto error_hw_stop;
++	if (lg_g15_is_v2_kbd(hdev)) /* Separate kbd/consumer-ctrl dev */
++		return lg_g15_v2_kbd_raw_event(hdev, data, size);
+ 
++	g15 = hid_get_drvdata(hdev);
+ 	if (!g15)
+ 		return 0;
+ 
+@@ -1015,6 +1156,8 @@ static int lg_g15_raw_event(struct hid_device *hdev, struct hid_report *report,
+ 		if (data[0] == LG_G510_INPUT_KBD_BACKLIGHT && size == 2)
+ 			return lg_g510_leds_event(g15, data);
+ 		break;
++	case LG_G15_V2_KBD:
++		break; /* Never reached, handled via lg_g15_is_v2_kbd() above */
  	}
  
  	return 0;
-@@ -1462,6 +1760,9 @@ static void lg_g15_remove(struct hid_device *hdev)
- 	if (g15 && g15->work.func)
- 		cancel_work_sync(&g15->work);
+@@ -1417,6 +1560,9 @@ static int lg_g15_register_led(struct lg_g15_data *g15, int i, const char *name)
+ 			ret = devm_led_classdev_register(&g15->hdev->dev, &g15->leds[i].cdev);
+ 		}
+ 		break;
++	case LG_G15_V2_KBD:
++		ret = -EINVAL; /* Never reached, this model has no lg_g15_data LEDs */
++		break;
+ 	}
  
-+	if (g15)
-+		lg_g15_unregister_fb(g15);
+ 	return ret;
+@@ -1492,6 +1638,12 @@ static int lg_g15_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	struct hid_report *rep;
+ 	int ret, i, gkeys = 0;
+ 
++	if (lg_g15_is_v2_kbd(hdev)) /* Not the GamePanel LCD interface */
++		return lg_g15_v2_kbd_probe(hdev);
 +
- 	hid_hw_stop(hdev);
- }
- 
-@@ -1481,6 +1782,8 @@ static int lg_g15_resume(struct hid_device *hdev)
- 	if (contrast->cdev.dev && g15->lcd_contrast_set)
- 		lg_g15_contrast_set(&contrast->cdev, contrast->brightness);
- 
-+	lg_g15_fb_redraw(g15);
++	if (id->driver_data == LG_G15_V2_KBD) /* e.g. a mismatching new_id */
++		return -ENODEV;
 +
- 	return 0;
- }
+ 	hdev->quirks |= HID_QUIRK_INPUT_PER_APP;
+ 
+ 	ret = hid_parse(hdev);
+@@ -1574,6 +1726,8 @@ static int lg_g15_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	case LG_Z10:
+ 		connect_mask = HID_CONNECT_HIDRAW;
+ 		break;
++	case LG_G15_V2_KBD:
++		break; /* Never reached, rejected above */
+ 	}
+ 
+ 	ret = hid_hw_start(hdev, connect_mask);
+@@ -1732,6 +1886,16 @@ static const struct hid_device_id lg_g15_devices[] = {
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_LOGITECH,
+ 			 USB_DEVICE_ID_LOGITECH_G15_V2_LCD),
+ 		.driver_data = LG_G15_V2 },
++	/*
++	 * The G15 v2's keyboard + consumer-control USB device (a separate
++	 * device from the GamePanel LCD one above, on the keyboard's builtin
++	 * hub). Normal typing is handled by generic hid-input; we only bind
++	 * this to also expose the Super/Windows-key-lock ("Game Mode") state,
++	 * see lg_g15_v2_kbd_probe().
++	 */
++	{ HID_USB_DEVICE(USB_VENDOR_ID_LOGITECH,
++			 USB_DEVICE_ID_LOGITECH_G15_V2_KBD),
++		.driver_data = LG_G15_V2_KBD },
+ 	/* G510 without a headset plugged in */
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_LOGITECH,
+ 			 USB_DEVICE_ID_LOGITECH_G510),
+@@ -1750,7 +1914,18 @@ MODULE_DEVICE_TABLE(hid, lg_g15_devices);
+ 
+ static void lg_g15_remove(struct hid_device *hdev)
+ {
+-	struct lg_g15_data *g15 = hid_get_drvdata(hdev);
++	struct lg_g15_data *g15;
++
++	/*
++	 * The G15 v2's keyboard device uses struct lg_g15_kbd_data, not
++	 * lg_g15_data below; it has nothing to clean up beyond hid_hw_stop().
++	 */
++	if (lg_g15_is_v2_kbd(hdev)) {
++		hid_hw_stop(hdev);
++		return;
++	}
++
++	g15 = hid_get_drvdata(hdev);
+ 
+ 	/*
+ 	 * g15->work is only initialized for the models that schedule it
+@@ -1772,9 +1947,18 @@ static void lg_g15_remove(struct hid_device *hdev)
+  */
+ static int lg_g15_resume(struct hid_device *hdev)
+ {
+-	struct lg_g15_data *g15 = hid_get_drvdata(hdev);
++	struct lg_g15_data *g15;
+ 	struct lg_g15_led *contrast;
+ 
++	if (lg_g15_is_v2_kbd(hdev)) {
++		struct lg_g15_kbd_data *kbd = hid_get_drvdata(hdev);
++
++		if (kbd)
++			lg_g15_v2_kbd_read_super_lock(hdev, kbd);
++		return 0;
++	}
++
++	g15 = hid_get_drvdata(hdev);
+ 	if (!g15)
+ 		return 0;
  
 -- 
 2.53.0
