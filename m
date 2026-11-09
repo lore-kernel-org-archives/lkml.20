@@ -1,63 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794247770;
-	b=wccbdMlBGuAKkxPoQPxEUGgp7nt8i/TxB/8tFZnYl/D70FCLdkbQNRit8CZ996EHyBiE
-	 19hBcDuHMwcz+1mQ0eZC/J8ia6wDGFgz0rTr/dTVHKk9qu1m5cWu5yIeIdzPO7obK4ft/
-	 +ariB92wDxy6vFKbMLxLMdPm7BgrdF1Rd796E6bIyuBffc4bQWvdXTTtnK10gve8uiq+F
-	 MtBAlb/mtwJ8+TohZoi+bLjdu+uQHL4q7BkNRCx1h+8bbNiI5slN0sqvoNGOzZPFlgBzN
-	 wiyw2QJ21jsx2l33BXTmi5YUyD6gx6dbIqCK3RNjsH0JzQz9ufy1RKdj1MyFmhqgzHA==
+	t=1794247782;
+	b=BBLea36hPK4+PS1eUaQjUR53JHmXTIbFV2IY0MVv6PKU81flNwXs7w0ZG2wbrln7Wmv6
+	 rBXi/rIF1H8ANq074wULin8J7zFqajr749NkPfQMlWR95eO7hL06cJN4KU1pjkfT5xhci
+	 BMGRXXfbGck/fFmSrZ/PRr4qclVBSo/rqdyOU20V6kYapfCa71nw0CSpblwq9tY5H7wFw
+	 oBsfUa7P+1Irz9fqtDoD4QpVk1v9MgGfC6ypt1alxoRRZVAGxNZxGKycMR4Wnl4dc+yAw
+	 +UdNxcNeanE8nhPcbU3TdE4LxYDzK7zi0wfhf1F4WSWgYMvyRhdqqOVrZXtADA5im5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247770;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794247782;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
 	 In-Reply-To;
-	bh=AhgYO2YTCGyPJ2/VNeCXL72x5NvLo0XiOft6lPOJ+wc=;
-	b=qiZdXhkL0hNP0+AwNQj05LF17yuLl5aVo0RJX1bD3k/HsuwtDSmkgiHiCSJvGYl8j7/c
-	 5N97SrHyS1JYbgixRoJ+Bp3DCOl7Yf6fVxV1OIyFgibZFVz1hR0X+i3JoRB3aLpup5By1
-	 Et1Xz/7iYhjbmyA4BMFJqxrYZgmh2eLGStAYTj3cLn/+aGwXb+J4PNpAev1Ej8ih8VVYF
-	 CQE0LuP8VPFEOpbxcOPxxOjSK4DjgF2Nstdhd+Ocyn1wwTiKiCiDaizGgkK4IoBwu5kA6
-	 24PTr3stFNSB7W5K9y0pedLqfF/pcF3Gp6ooa2+kg3qRn/au9nwe5dv2qhc71ZOTDzg==
+	bh=hoQOzrsBfuekc5HffGWMwvLYL2nRUtXJwxmyC3goQbg=;
+	b=Tp1rNgNAfK3mbHpyyo9rKaFeCbOBPtycaMjgVRYhj1h6tB2VWQvSJyM3WnXE5wNmFeIy
+	 B9P9gD7HEG1PE26dacwl/z954kfN8R8EntIqGkb6qRv2TaS0zZx+sSO+Q8s08gdo+0BQ+
+	 hrVN5U2FWGURq3LmQyhrTQ2cY4lSnrjz2af+mYw69t0Rqjc970tJRlZPc47SQ+CWyqaFH
+	 xcSaQRFNu5iESmas/S+7XQ+0GM7RCfzgXY6ssdL3ElBb3pBF82FI8naexboVTbTj8UJB2
+	 VrBcV/b1g+06FBYWSqDHHOWUXPYyKNaTpzpFs3DSDn1z/Yns+Q8QN30T06rj6BqbZpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=S26Y0hDn;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=c1YnfyYH;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=cZnTZKI4;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8185606A325;
-	Mon,  9 Nov 2026 18:09:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8185606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6C3606A31C;
+	Mon,  9 Nov 2026 18:09:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F6C3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=S26Y0hDn
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=AhgYO2YTCGyPJ2/VNeCXL72x5NvLo0XiOft6lPOJ+wc=; b=S26Y0hDniOtgxnpW1kUYp4W0vT
-	c9RLXpQOH43vlorWGxEAzJqqkeUJ1UZ6b7NN9B4SohaQtj0Wvof4Y6BXgRHhqGpdpfEFs2VsbnWpo
-	KeNq+YAygRu8g0WKBJNb3G724vGOiTOkJnKwgsAz0G/OiVKv7a7RISKeORXtrNAD/azE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xQTnw-00FJvg-Ci; Mon, 09 Nov 2026 19:09:16 +0100
-Date: Mon, 9 Nov 2026 19:09:16 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Stefan Eichenberger <eichest@gmail.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: phy: c45: select BASE-T1 type for the forced
- speed
-Message-ID: <c6a48ee3-6de5-4289-acd2-35e5ca140d55@lunn.ch>
-References: <20261109144837.738619-1-iustin.stolniceanu@analog.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=c1YnfyYH;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=cZnTZKI4
+Date: Mon, 9 Nov 2026 19:09:36 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794247778;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hoQOzrsBfuekc5HffGWMwvLYL2nRUtXJwxmyC3goQbg=;
+	b=c1YnfyYH4Jkf1wyvgFuiBZhOGHbif341DwyM9F/dA/kFZoJ3zmersEJqTTGNjl6Sracff/
+	28jhNQ6RIu2Q6TygiohXin57t1gyEcrFcBLHQjaKl4DIp9OahytWc9vCOeIPIt+tLfprf2
+	5J+gUM+rNO0rG789piUC0cSE3zcgxRXgQB58uzjNk8OeVpE0p06RemNywnkh4i8DBfHCF1
+	DFYvantMZ5rOOqGO5STNwpg5fvMPIOCC6FjanFaIBo2c7bgNxEvKJgqBj0zRjEe6uz2vhT
+	aWHRoFgrAyRJaWROKpTWT4x46Qi2fARrXTHtpjdMLPkFfClvOOsLm8fJtxLqog==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794247778;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hoQOzrsBfuekc5HffGWMwvLYL2nRUtXJwxmyC3goQbg=;
+	b=cZnTZKI4NHAI3Dktunl/gh47SVwPWYsMWTdlJLbeHZtMW+885w8vJswl+YnbI88JZ+CAZO
+	5ACkXliLEDXbP8Ag==
+From: "Ahmed S. Darwish" <darwi@linutronix.de>
+To: sashiko-reviews@lists.linux.dev
+Cc: Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	John Ogness <john.ogness@linutronix.de>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
+	Daan De Meyer <daan.j.demeyer@gmail.com>,
+	Luca Boccassi <luca.boccassi@gmail.com>,
+	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 02/10] kconfig-checker: Introduce PREEMPT_RT
+ configuration rules
+Message-ID: <avIMYMqTKkwAozk_@lx-t490>
+References: <20261106091922.7560-1-darwi@linutronix.de>
+ <20261106091922.7560-3-darwi@linutronix.de>
+ <sashiko-outbox-202757@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,33 +90,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109144837.738619-1-iustin.stolniceanu@analog.com>
+In-Reply-To: <sashiko-outbox-202757@kernel.org>
 
-> +/* Type selection value for the BASE-T1 PMA/PMD control register (1.2100,
-> + * 802.3-2022 Table 45-178) matching the forced speed. 10 Mbit/s is ambiguous
-> + * between 10BASE-T1L and 10BASE-T1S, so the supported link modes decide.
-> + * 2.5G, 5G and 10GBASE-T1 are not handled as there are no link modes for them
-> + * yet.
-> + */
-> +static int genphy_c45_baset1_type_sel(struct phy_device *phydev)
-> +{
-> +	switch (phydev->speed) {
-> +	case SPEED_100:
-> +		return MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_100BT1;
-> +	case SPEED_1000:
-> +		return MDIO_PMA_PMD_BT1_CTRL_TYPE_SEL_1000BT1;
-> +	case SPEED_10:
-> +		if (linkmode_test_bit(ETHTOOL_LINK_MODE_10baseT1L_Full_BIT,
+On Sat, 07 Nov 2026, sashiko-bot@kernel.org wrote:
+>
+> [Severity: Medium]
+> Should this also check CONFIG_NO_HZ_IDLE?
+>
 
-Overall, this looks good. A nitpick, please could you sort these by
-speed. I can see why you put them in this order, 802.3 lists the bits
-in this order. But many kernel developers don't seem to read 802.3
-that closely.
+Correct, it should be added, as legacy "compatible" CONFIG_NO_HZ might be
+removed in the future.
 
-With this changed, please add: Reviewed-by: Andrew Lunn
-<andrew@lunn.ch>
+>
+> [Severity: Medium]
+> Will any .config with CONFIG_DEBUG_INFO=y or CONFIG_DEBUG_FS_ALLOW_NONE=y
+> still fail against the CONFIG_DEBUG_.* pattern rule?
+>
 
-    Andrew
+Correct, both CONFIG_DEBUG_FS_ALLOW_NONE and CONFIG_DEBUG_INFO.* should be
+handled.
 
----
-pw-bot: cr
+>
+> [Severity: Low]
+> Is this rationale meant for CONFIG_DEBUG_KERNEL rather than
+> CONFIG_DEBUG_MISC?
+>
+
+Correct!
+
+Thanks,
+Ahmed
