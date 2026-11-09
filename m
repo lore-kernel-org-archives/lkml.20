@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794196740;
-	b=UjX+IAAv6YzOFDJJc7AbWRg5VqXADMzOr9gIEvYcsasPsIaL0R1OsLHyoJyhyfov2hgR
-	 19GPjXAbR7+hu+GOm4xph1Geg/7e/BEiYacfcAr1o/OeryF6Cg8euXyF/wvKFos1XZ+FE
-	 MlW/u5CNCrwUqCycvzVxSZxn+BdtaEiIc4Jxav12hYXJgILhwgeH+nOkeDMEUpYQpqHlR
-	 s7TMUEoWus0XVngBusyHa+jcN2Afs/AXmpiWYWhFFnhqzCG1E/E2+n8oqPTqfyrZ/vDkI
-	 NM+f6MBqpJfVhqLnvvl+6zv/h0ZdSh7ejxR7NIL7tzcaa9Yv6RgFVfvrqABqOFVqhQA==
+	t=1794196753;
+	b=gKdi9JcmLk48CzG72HOLnFp9z91MXW7zlO55zGwML97MrTjx+Kdcd438OIr//K1maaET
+	 KGtVlVg9lB47uxluRfGCyAEm3ZidK4LsIDwXTo0r6dMXU2zyc+y9HJ7MSRdQ/F4fmzdqg
+	 4V8TffKN3Rda1oYupjAdf13DXr0hbjX+3n9nEstCuQ2RYCkRQJuKyEs88RUoJfxMeom5f
+	 0vu77foByirIzMGrhtyyRqyI2uiYhTA1Ze1w+/mL3cCpkKrB/t68awptr53StwUtdX8vY
+	 VchwthLXIN5v3NV8FC/wgvdYHpjpGuwXyj5UJ1vjgUpjnuP8rw3Ax9dbrRynLPSCMpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794196740;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=mNKWKeQaizgMT/LZrjHv0QI/kJLBxPj3nyrlUjJt+Rw=;
-	b=UVMy3qqPWe3xtjMx/f0192WClqj/v6QI1QQJnYIuZKIjS03eiFpCoRDk9dcVcAXC5VQA
-	 /IvolLRKS0GuMYiCPAUWEXr+lOhdFd17SdLFYo8gy/DR7i6wy9bnhbfx+8yxzlhWDwTDK
-	 vzVko1lI/ndujbeIVnwn8cfq68bjlC0AoHEhcEzK81r2XPrH8p6w/FVUK3UT5VexfbQSV
-	 CCTBKPDKECaSR0Kp+V7TBTXNyLFyNyvtga46hmb7pcnEFjJ5HQalEpVC1K/JkJ7TtQpg9
-	 23piT8xUiUxVC0qaGdTJv8a0MZvdLWEN9jZE2W9Ov0DIiVHxMwR0Pyq69acW8DZExiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794196753;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=ME3PhzKv+3KgT6aXu12teusJRCWDcoOwJXl3TiAU6IU=;
+	b=JbWolcrNPO1jVpd4QNtu9ZwPOlVTEOwDt4C/64srj9gd8olyyoIQaDENcI4YYbvmicbX
+	 uYM0cqQtH4jz60uIG2nzRCxrB+228ndODgCiStLC+c1tz6dns+5Rv4/N22ZQi2bmbvLR7
+	 kQNx4mMdStXbxmQpI36mTbTd+CLJHcJwC96yjNAzRbYtETxXhPnSXmAbZzavcKwmP25c8
+	 xSsV7MrhpsDwplhQy9894DaNbAMbo3WJMrwBorqIwHf2XjA3rQC1PwNSnmOk4R7XukFFX
+	 D6w7rw4t61n//w6drGH5LWtHBtp8RhGVuLPDY/ON62B4rAl0jaZb6MYfMhaPMCZq7ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=yhXwaODF;
-	arc=none smtp.remote-ip=115.124.30.133
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EDD606A31C;
-	Mon,  9 Nov 2026 03:58:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19EDD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=yhXwaODF
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794196729; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=mNKWKeQaizgMT/LZrjHv0QI/kJLBxPj3nyrlUjJt+Rw=;
-	b=yhXwaODFp3EfLG9PrFG2Igm98j9S4+1rlJqaTrZTcU6Kl0XG1Rqr8W9At8JXhLqJmYvGbEtb+6NB8ltIWKFd1Tgoj1h9JUvQ8JU//6muix+/tq0IOjEDNXVA7M+abRr88tyuQIoknITTP6mykRaXKa5h3KMt7TjXyfyJpfhWcCw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=4;SR=0;TI=SMTPD_---0XEITxm8_1794196727;
-Received: from 30.221.146.205(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEITxm8_1794196727 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 11:58:48 +0800
-Message-ID: <54a1224e-abc6-4042-8979-2c21441fb4ff@linux.alibaba.com>
-Date: Mon, 9 Nov 2026 11:58:47 +0800
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C929606A31C;
+	Mon,  9 Nov 2026 03:59:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C929606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8DxC9INRfFqtLIdAA--.20237S3;
+	Mon, 09 Nov 2026 11:59:09 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJCxtMwKRfFqyxszAA--.12328S2;
+	Mon, 09 Nov 2026 11:59:07 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>
+Cc: linux-mm@kvack.org,
+	loongarch@lists.linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] mm/slub: Genericize x86-specific cmpxchg16b comment
+Date: Mon,  9 Nov 2026 11:59:06 +0800
+Message-ID: <20261109035906.10857-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,88 +58,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] smb: client: hold server ref while queueing reconnect
- work
-To: Paulo Alcantara <pc@manguebit.org>
-Cc: Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261103091558.2342761-1-joseph.qi@linux.alibaba.com>
- <7e2543c16b6b75edb8c55b138175dcd8@manguebit.org>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <7e2543c16b6b75edb8c55b138175dcd8@manguebit.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJCxtMwKRfFqyxszAA--.12328S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7ZF45uw4UCF4xKw4DKF1Dtwc_yoW8tF1rpF
+	4xurW7Xw4Dur4S9a47Aw47uw43Jay8KFW7Ca1rK343Zwn8Krn8KFyIkrWrXFZ5JrWI9a1U
+	Kan7trW5ZF4UAFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU3529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4j6r4UJwAaw2AFwI0_JF0_Jw1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
+	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_
+	Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
+	xGrwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
+	JVW8JwCFI7km07C267AKxVWUAVWUtwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07j5o7tUUUUU=
 
-Hi Paulo,
+The kmalloc_nolock() infrastructure relies on slab caches with double-word
+atomic cmpxchg capabilities (__CMPXCHG_DOUBLE). The current inline comment
+in __kmalloc_nolock_noprof() uses 'cmpxchg16b' as the prerequisite hardware
+capability.
 
-Thanks for reviewing it.
+However, "cmpxchg16b" is an x86-specific instruction mnemonic (CX16). On
+the modern architectures supported by the Linux kernel, this double-width
+atomic primitive is satisfied by different hardware implementations:
+(1) arm64: satisfies it via LSE atomics ('casp' instruction)
+(2) s390: satisfies it via native 'cdsg' instruction
+(3) riscv: satisfies it via ZACAS extension ('amocas.q' instruction)
+(4) loongarch: satisfies it via SCQ extension (using an 'll.d'/'sc.q' loop)
 
-On 11/8/26 1:28 AM, Paulo Alcantara wrote:
-> Joseph Qi <joseph.qi@linux.alibaba.com> writes:
-> 
->> When query_server_interfaces() returns -EOPNOTSUPP on a secondary
->> channel, smb2_reconnect() calls smb3_update_ses_channels() which for a
->> channel runs cifs_chan_skip_or_disable().  That clears the channel's
->> slot in the session and calls cifs_put_tcp_session(), which can drop
->> the last reference of the channel and tear it down.
->>
->> smb2_reconnect() then falls through to skip_add_channels and queues
->> reconnect work on that server, using a server that may already be
->> freed.  The send path obtained the channel from cifs_pick_channel(),
->> which does not take a reference, so the session's channel reference is
->> the only one.
->>
->> Take our own reference on the channel before calling
->> smb3_update_ses_channels() and drop it after the reconnect work has
->> been queued, so the channel cannot be freed while it is still used.
->>
->> Fixes: f591062bdbf4 ("cifs: handle servers that still advertise multichannel after disabling")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-> 
-> Please check sashiko comments
-> 
->         https://sashiko.dev/#/patchset/20261103091558.2342761-1-joseph.qi%40linux.alibaba.com
+Update the comment to "double-width atomic cmpxchg", which provides the
+following advantages:
+(1) Accurately describes the cross-platform hardware invariant.
+(2) Covers both 32-bit and 64-bit platforms.
+(3) Aligns well with the __CMPXCHG_DOUBLE flag.
+(4) Avoids misleading developers of non-x86 architectures.
 
-These points are about the multichannel disable path as a whole rather
-than about this change, so let me try to answer them together.
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+v2:
+  - Update "128-bit atomic cmpxchg" to "double-width atomic cmpxchg" to
+    properly cover both 32-bit and 64-bit platforms, suggested by Harry.
+  - Refine the commit message to format the architecture implementations
+    and advantages into structured lists for better readability.
 
-What this patch does is narrow.  It holds a reference on the channel
-across smb3_update_ses_channels() so that the final cifs_put_tcp_session()
-runs after cifs_queue_server_reconn() instead of before it.  Previously
-the last reference was dropped inside cifs_chan_skip_or_disable(), which
-cancelled server->reconnect, and skip_add_channels then re-armed it on a
-server whose srv_count was already zero.
+ mm/slub.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Queueing reconnect work on a just-terminated channel is indeed
-pointless, but that comes from f591062bdbf4 ("cifs: handle servers that
-still advertise multichannel after disabling"), which added the goto
-skip_add_channels into a label that already ended with
-mod_delayed_work(cifsiod_wq, &server->reconnect, 0).  With the reference
-held, the work is either cancelled by the final put or runs and bails on
-server->terminate in smb2_reconnect_server(), before it reaches
-smb2_reconnect() and ses->session_mutex.  The send path holds no locks
-there, so neither ordering can deadlock.
-
-The srv_count == 0 race is reachable, and smb3_reconfigure() is the
-clearer path into cifs_decrease_secondary_channels().  But it is older
-than this patch and I don't think it can be closed here.
-cifs_pick_channel() returns a channel without a reference, so once
-srv_count can drop to zero under us the pointer is already stale on
-entry to smb2_reconnect().  Reading server->srv_count to decide whether
-to take a reference would itself be the use-after-free.
-
-The guarded increment is the same idiom smb2_reconnect_server() already
-uses, and it narrows that window rather than widening it.  Refcounting
-the channel selection looks like the real fix, which is a much larger
-change.  There is at least no double put, since cifs_ses_get_chan_index()
-returns CIFS_INVAL_CHAN_INDEX once terminate is set and
-cifs_chan_skip_or_disable() then returns -EHOSTDOWN without putting
-again.
-
-So what's your opinion?
-
-Thanks,
-Joseph
+diff --git a/mm/slub.c b/mm/slub.c
+index 45e077c7526c..090302f1daeb 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -5589,8 +5589,8 @@ static void *__kmalloc_nolock_noprof(DECL_TOKEN_PARAMS(size, token), gfp_t gfp_f
+ 	if (!(s->flags & __CMPXCHG_DOUBLE) && !kmem_cache_debug(s))
+ 		/*
+ 		 * kmalloc_nolock() is not supported on architectures that
+-		 * don't implement cmpxchg16b and thus need slab_lock()
+-		 * which could be preempted by a nmi.
++		 * don't implement double-width atomic cmpxchg and thus need
++		 * slab_lock() which could be preempted by a nmi.
+ 		 * But debug caches don't use that and only rely on
+ 		 * kmem_cache_node->list_lock, so kmalloc_nolock() can attempt
+ 		 * to allocate from debug caches by
+-- 
+2.42.0
 
