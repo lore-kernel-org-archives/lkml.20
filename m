@@ -1,52 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794219730;
-	b=u0o8oiYfSz/UJLs47wAJb+Xs50zMv+iiNBvup0mkcFZihaQMJM6x3qA8sEAPywVoGJBO
-	 B3511QhkaWYJCyTJncIj1tKP4Mb2+a2KlLMk9QcOiAS+lwLDCJo8S/Le9jiYii0LoAhvF
-	 0SeNWH7ffwP4tostl5GzUUbB5J3Pc5LnIKnYCIp98usiAmOD6ElP+jioTYgdWc4EDKgXr
-	 vvn1/0K44XyooWRm/S6WYx9LYX1h8oVmFTmI6MdNiMTvxnkRIwlwiU8JK1XIiKpMipO0f
-	 ruHRk/wqGyWEKtUkBAjgSSsPOzKm3Zi02GjFR+PaB+7168EHnSmkBHuxj0Z2EIWB/0A==
+	t=1794219844;
+	b=pLihiGdMoEP8pgtSHzSoXntgtmHV5vQ81DVFWVkwdVmBus+DPRY/VcePRkp5eCZByYel
+	 8i2lsoeT+8UZj5thisAkCDpjcgWwAftDiyzgbzOaWO56JlS8aHA7R/RoBTjn7QeozK+kj
+	 3n1vrDgjah6IY9TojSIxwMXL14Jxjjd9gNJkCQqWvW80zvvEeznmVBKMLEqPPomcizVHH
+	 8xzjogaVDGGrJ1g1yQAxHCK68FfQwTscl/YoNewS4DfSZHwx6b91bbzuA9mlVgIGx80Qo
+	 +iwoK4lEqBqqkF5W25XEWs3ZN36bR5OJvuJ7TOL//A/HMgvyTucWd+H+c5ildiItlhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794219730;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=iPcV1/YFudmIF9K6nkbj2ycq/qpJcOLHweLRDaGFQyM=;
-	b=1fhePFaUPMniNVm49mQBs3C2PxbAH8LMizbk/MiL6tjdl1H41HA57CDiebXhsFMUy/3r
-	 lvvQlesxV2Qbti19cTnTptbV6LELJqhdvmgyluUf6foG7/L1ZrIYZZ2BEY7GHUalQIcWE
-	 4WakuoKeXj8DfSUnnxvf1K70E1uoP5rxvB6R6KbqnUAE3c3glJHbkf0NKupp+hpdZpJv4
-	 whnPcTTLlQWH4nRGkkFbl8VxBOzAPZBvq6I57mHpm/osmMgstmkZFt8nz+sG7sH5rYInY
-	 1EivZRdLifQn7iOevs6LJLCsJXecySzaYcnkeCXl7DBki58rxRIsR7SfUPMpjxMDohA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794219844;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LrHYhLri5ZS8HxQtgSMKMn2DV1tWM8X9x+L3DN75OE0=;
+	b=WiQSmcJdVPowHxVgtzbqk0Ytq26qrZ4ZzX4fB2G6Zjfhymnx67Rq/jZbSPbxw5u7VRbo
+	 NBv9dDH6eaJXSo5B0prz++ZZOemnFdi8VJVTuTqdGrVzvlNyCRyOIkLrvb6U1RS0iwbCB
+	 22JjovfN7U1tzYfb2PErUhxRnPuNMr2CYHHlVuSCsGuoa8nCnh3vfEw9oL5ukUbG1MTsY
+	 F+nkzvOTtG5KRfBjB/glaq94ClYHae1hL934q/hZPZxF5FgKLCSMxDOv2kunExs97iIte
+	 HLO8QzMWA1FedSpAnw9T3Y9gCDXZJwDR8P0sRBqtv8xCdWeQaZ3rLqQG5zpTHlMyWdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=rchZXeYP;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AAA50606A322;
-	Mon,  9 Nov 2026 10:22:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAA50606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=nlj9epQT;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A710606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:24:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A710606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=rchZXeYP
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C52521576;
-	Mon,  9 Nov 2026 02:22:05 -0800 (PST)
-Received: from e132581.arm.com (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 23C9E3F632;
-	Mon,  9 Nov 2026 02:22:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794219728; bh=OqKqpxSrpUS49kONNs9z4tUJA+53UdQ+dJdC8b5DWo8=;
-	h=From:Date:Subject:To:Cc:From;
-	b=rchZXeYPtrUeGb4SPtrAAuq5UrhX+P/kThWjDFVmDPhRblbvotqMOJoGW7ol7/Ocf
-	 7OX6vF020lOSc7/7Is2JFVzam0fU2PfLnmie5l+SBssKKTbJKmPZlgzX6nfxmktNmI
-	 y60CESSgcyv1zjzsnt0m03R8nIjYtAGvgwzf+MTA=
-From: Leo Yan <leo.yan@arm.com>
-Date: Mon, 09 Nov 2026 10:21:39 +0000
-Subject: [PATCH] perf/aux: Avoid reclaim for optional higher-order
- allocations
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=nlj9epQT
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so6847325e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:24:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794219842; x=1794824642; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LrHYhLri5ZS8HxQtgSMKMn2DV1tWM8X9x+L3DN75OE0=;
+        b=nlj9epQT2z6HXVUfKx/96+teYLS0gsHU4Q126wQ+ycCDv1e0EFZ/IAcHbWKSpCckJW
+         7b/tQV0B1zwMXX/DCdHAVXFRc+UJkrBnM9ACxgvHO0TsEBg+noR/O+LJOeoDjXayliSi
+         AXXpc8GA8kTyUxBQ4dGW7p+w4IWZb7+5k2Ys0vipibDcKHeNUAIRCfklmxMhJMxtqeRY
+         oQ9wiWxx44j0cI7aQ6Zsuz9xDMcGpOiEQbhFpSx9s/r5lzxSAcw6MYqmN3jR2WV0sUuB
+         gDDvv94jll9603RI6xnhZ6wrnmtFYxeLCj2xcAIDkcNdWBDJIeExnlA6PlTr+ybRmalJ
+         NSqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794219842; x=1794824642;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LrHYhLri5ZS8HxQtgSMKMn2DV1tWM8X9x+L3DN75OE0=;
+        b=mMQ7gDIoG7Hnhdp3DAhPjNPMf71ED2qDAt7ipN6mBhUe9pRY1honT3/iJdyIhUxD2D
+         rYPmEK9rZcnYUdi/coFItwksdlqbZFEbiVz+kA//ZTFBdt4OWODDhNvxFSzt2qWQhg1Z
+         B3rUzaacqqzdYQ3jPMIO8HJUFuEe8lFH9uHHlGZ2BqWLxwNCF7GBShv8H3y5xlEKhmDq
+         8n3oe3Id2xqbco1bvW/mj9w4oxI/9BYetQkmfsd22z8RzofpF1jDk4sUV3K5o/3Ad2wW
+         ifMSqq/jQ2Bap6WHk8B1KmRy7chZcUElNNnySjWM+XoMMhD0v/DAK9uG70bs1qPlPThA
+         x9tQ==
+X-Forwarded-Encrypted: i=1; AL+hErH67RaUft/6hSho7/N6K1grwEvuQAn+zLhmEzM/h0AN4LBePZ8Ozl6Pj9yPqPIlt8VMy8WzRtfDDmaZFGA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lzz73Z2prfESWQFl1sPBdY2smmq2DJaQUL/IxFlQ58ut8NgjX
+	H6oCgtNB3c8G5GCvLfltA4QX0Cka1nJKQVgfrklblnwMeEBFoJ3K2rRP0UbMP3R+pAk=
+X-Gm-Gg: AYBFou32wKfdHYfD3QgwlZe1Tfdd+hDB5yy1mouAEP7ADdGziIvB2wkxmHlr4gV4lnV
+	lnbhZPDnt0WAmvy+UC7UV5wd/ftC4FKXAGDjqRtHAfObmJRUMPlK/pLg0xCHftjXWC656oH7ZZo
+	W43zOle+4NWOmOJUSZWmGy3eI4jblgXU+lSWSQlVzRaejFT9VS93ZQzBzToygzRvYTHd9xFoUvQ
+	YHE2Ot7qMrb+aCRm0R236BQQzeix4g2bbxPD9iJGPD8ZjC1QcCv90qCLLXUitJcxjFjB+K1J0nJ
+	3Rp9rl4d47PiTxta8gBhF+es2AMv0kwVp27KyCJNG4Yp+X5m0kpeQ5gGursMoWNkWNrDJ9mvrvT
+	yWZNfFx1dz06M5NPJMCkepU64MF5EsIIGW/sfr9+1gVMqXfS3poPH49BKx1Nb5Cj9d236eElLgU
+	fqYynvlew4dYFPYX8ga4xZn929qG0IXvwJG2TZv1EafZm+dbLNcB6Fv0jBxn9sbQiJr7BLu4oYp
+	J07PHAoWlS8APIoZqz7DepZoV18qC6zpT/3rHZbX4g3UGLZyxyRmGComrlqvYjLJcGefR/32vUx
+	CZXsfNUxAU/BGMwOR++9u4jJ9fUfuRCB
+X-Received: by 2002:a05:600c:3113:b0:4a1:f720:74cd with SMTP id 5b1f17b1804b1-4b963c91d7fmr67354805e9.24.1794219842343;
+        Mon, 09 Nov 2026 02:24:02 -0800 (PST)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7efb1547fsm406780645e9.11.2026.11.09.02.24.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 02:24:01 -0800 (PST)
+Message-ID: <bf6925f6-613f-4e20-8491-2a99183f34fb@linaro.org>
+Date: Mon, 9 Nov 2026 10:24:01 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,185 +92,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] perf vendor events arm64 AmpereOneX: Fix misspelled
+ PublicDescription keys
+To: TAKANO Mitsuhiro <takano32@gmail.com>
+Cc: Ian Rogers <irogers@google.com>, John Garry <john.garry@linux.dev>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Ilkka Koskinen <ilkka@os.amperecomputing.com>,
+ linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo
+ <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
+References: <20261108183846.3804875-1-takano32@gmail.com>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <20261108183846.3804875-1-takano32@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-perf_aux_alloc_optimize_psi-v1-1-d56ac4bf3ef5@arm.com>
-X-B4-Tracking: v=1; b=H4sIALKe8WoC/x3MQQqDMBAF0KvIrA0kWRT1KkVCmP7ogDUh0SIV7
- 25w+TbvpIIsKDQ0J2X8pEhcK0zbEM9+naDkU01W25cxulcJOTi/H84vS2QX0yZf+cOlIopt6Bg
- WvddMdUgZQY5nf4/XdQPZccYzbQAAAA==
-X-Change-ID: 20261109-perf_aux_alloc_optimize_psi-c2f8ce2e9a0c
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Will Deacon <will@kernel.org>, Yabin Cui <yabinc@google.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Tamas Petz <tamas.petz@arm.com>, 
- Tamas Zsoldos <tamas.zsoldos@arm.com>, 
- Michiel van Tol <michiel.vantol@arm.com>, Dev Jain <dev.jain@arm.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Leo Yan <leo.yan@arm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794219725; l=6169;
- i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
- bh=OqKqpxSrpUS49kONNs9z4tUJA+53UdQ+dJdC8b5DWo8=;
- b=zQvGw5O+6p1Ag7n0sBNF5VSoiVuML3ZYzl6JyHypzO152xYE2N7186f88DX1cpJ7LSMDm0ew9
- ckSeeSZI747BXo1zLXq2A0s1xfBp66RcLOhfxoAlKoKSu4vtHrzdM/C
-X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
- pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-PERF_AUX_GFP includes __GFP_NORETRY, but still permits reclaim and
-compaction. Repeated higher-order allocation attempts on fragmented
-systems can therefore cause substantial stalls. Yabin reported that
-these stalls raise memory PSI and trigger Android's lmkd to kill
-applications.
 
-For PMUs supporting scatter-gather buffers, higher-order allocations
-are optional: allocation can fall back to smaller orders. Clear
-__GFP_RECLAIM for these attempts, and add __GFP_NOMEMALLOC to prevent
-them from using emergency reserves through inherited allocation
-privileges. Available higher-order pages can still be used.
 
-Use __GFP_RETRY_MAYFAIL instead of __GFP_NORETRY so order-0 and NO_SG
-allocations can retry reclaim and compaction without directly invoking
-the OOM killer. This improves allocation success at the cost of
-potentially longer stalls.
+On 08/11/2026 18:38, TAKANO Mitsuhiro wrote:
+> Sixteen of the 28 entries in mmu.json spell PublicDescription as
+> "PublicDescrition"; the other 12 spell it correctly.  jevents.py reads
+> only the keys it asks for by name, so those 16 fields are dead.
 
-Testing used an arm64 Orion6 board (12 CPUs) and Dev Jain's
-compact-bench pressure workload [1], with 64 KiB mTHP in madvise mode,
-four worker threads and a 120-second hold time:
+Shouldn't jevents enforce some kind of schema? This seems like a bug in 
+the generator that it's allowed. And we have all the json files in one 
+repo, so we can fix everything when adding strict validation.
 
-  Requested demand   compact-bench arguments
-   90%               89 64 4  1 120
-   95%               94 64 4  1 120
-  100%               99 64 4  1 120
-
-Once the workload is holding its mappings, run the AUX allocation test
-in a separate cgroup so its PSI excludes the pressure workload's stalls.
-The measure_memory_psi.py script reads cgroup memory.pressure totals
-and /proc/vmstat before and after each perf record command, and reports
-their deltas. --delay=-1 allocates AUX buffers while keeping tracing
-disabled; /dev/null avoids trace files and their page-cache footprint.
-
-  #!/bin/bash
-  set -euo pipefail
-
-  mkdir /sys/fs/cgroup/aux-psi
-
-  results_dir=$(mktemp -d /tmp/psi-perf-cgroup.XXXXXX)
-
-  for i in {1..10}; do
-      echo "Iteration $i/10"
-
-      python3 ./measure_memory_psi.py \
-          --psi-file /sys/fs/cgroup/aux-psi/memory.pressure \
-          --out "$results_dir/run-$i" -- \
-          sh -c '
-              echo "$$" > /sys/fs/cgroup/aux-psi/cgroup.procs || exit 1
-              # Allocate AUX buffers while keeping tracing disabled.
-              exec perf record -vv -a -e cs_etm// -m 256,4M \
-                  --delay=-1 --no-buildid --no-buildid-cache \
-                  -o /dev/null -- sleep 1
-          '
-  done
-
-  echo "Results: $results_dir"
-
-The following values are totals over ten runs per pressure case, shown
-as before -> after. PSI some measures time when at least one task in
-perf's cgroup is stalled on memory; the VM counters are system-wide
-counts.
-
-  Demand      PSI some (ms)  allocstall_*  compact_stall     pgscan_direct
-     90%     0.000 -> 0.000        0 -> 0         0 -> 0            0 -> 0
-     95%    64.099 -> 0.430       70 -> 2        72 -> 0     51,179 -> 600
-    100%   98.343 -> 10.298      99 -> 10       147 -> 0   51,954 -> 1,308
-   Total  162.442 -> 10.728     169 -> 12       219 -> 0  103,133 -> 1,908
-
-Total PSI some falls by 93.4%. Allocation stalls fall from 169 to 12,
-and recorded direct compaction stalls fall from 219 to zero. All 30
-after runs exit successfully, including all ten at 100% requested
-demand. The median PSI some delta is zero in every after case, with
-25 of 30 runs reporting zero PSI some, compared with 11 of 30 before.
-
-[1] https://lore.kernel.org/all/d2b8edf0-39ab-4a44-bd0d-58230dee2fad@arm.com/
-
-Reported-by: Yabin Cui <yabinc@google.com>
-Link: https://lore.kernel.org/lkml/CALJ9ZPO9XxF-kz5K67Jg8RtpiEmK7XFU3e+xDak6LyV_We7yBQ@mail.gmail.com/
-Suggested-by: Yabin Cui <yabinc@google.com>
-Signed-off-by: Leo Yan <leo.yan@arm.com>
----
- kernel/events/ring_buffer.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
-
-diff --git a/kernel/events/ring_buffer.c b/kernel/events/ring_buffer.c
-index 95f4fbdfd2764de5b72d901d778c46302f525fad..37bda4398724a2516f121c53daf61cd3f706922a 100644
---- a/kernel/events/ring_buffer.c
-+++ b/kernel/events/ring_buffer.c
-@@ -617,9 +617,9 @@ long perf_output_copy_aux(struct perf_output_handle *aux_handle,
- 	return len;
- }
- 
--#define PERF_AUX_GFP	(GFP_KERNEL | __GFP_ZERO | __GFP_NOWARN | __GFP_NORETRY)
-+#define PERF_AUX_GFP	(GFP_KERNEL | __GFP_ZERO | __GFP_NOWARN | __GFP_RETRY_MAYFAIL)
- 
--static struct page *rb_alloc_aux_page(int node, int order)
-+static struct page *rb_alloc_aux_page(int node, int order, bool no_sg)
- {
- 	struct page *page;
- 
-@@ -627,7 +627,16 @@ static struct page *rb_alloc_aux_page(int node, int order)
- 		order = MAX_PAGE_ORDER;
- 
- 	do {
--		page = alloc_pages_node(node, PERF_AUX_GFP, order);
-+		gfp_t gfp = PERF_AUX_GFP;
-+
-+		/*
-+		 * Don't reclaim or use emergency reserves for optional
-+		 * higher-order allocations.
-+		 */
-+		if (order && !no_sg)
-+			gfp = (gfp | __GFP_NOMEMALLOC) & ~__GFP_RECLAIM;
-+
-+		page = alloc_pages_node(node, gfp, order);
- 	} while (!page && order--);
- 
- 	if (page && order) {
-@@ -683,6 +692,7 @@ int rb_alloc_aux(struct perf_buffer *rb, struct perf_event *event,
- 		 pgoff_t pgoff, int nr_pages, long watermark, int flags)
- {
- 	bool overwrite = !(flags & RING_BUFFER_WRITABLE);
-+	bool no_sg = event->pmu->capabilities & PERF_PMU_CAP_AUX_NO_SG;
- 	int node = (event->cpu == -1) ? -1 : cpu_to_node(event->cpu);
- 	int ret = -ENOMEM, max_order;
- 
-@@ -733,7 +743,7 @@ int rb_alloc_aux(struct perf_buffer *rb, struct perf_event *event,
- 		int last, order;
- 
- 		order = min(max_order, ilog2(nr_pages - rb->aux_nr_pages));
--		page = rb_alloc_aux_page(node, order);
-+		page = rb_alloc_aux_page(node, order, no_sg);
- 		if (!page)
- 			goto out;
- 
-@@ -748,8 +758,7 @@ int rb_alloc_aux(struct perf_buffer *rb, struct perf_event *event,
- 	 * buffering. In this case, the entire buffer has to be one contiguous
- 	 * chunk.
- 	 */
--	if ((event->pmu->capabilities & PERF_PMU_CAP_AUX_NO_SG) &&
--	    overwrite) {
-+	if (no_sg && overwrite) {
- 		struct page *page = virt_to_page(rb->aux_pages[0]);
- 
- 		if (page_private(page) != max_order)
-
----
-base-commit: 2651f6deb3326129a052897df193052dc28ea94f
-change-id: 20261109-perf_aux_alloc_optimize_psi-c2f8ce2e9a0c
-
-Best regards,
--- 
-Leo Yan <leo.yan@arm.com>
+> 
+> Fixing them does not change the perf list output: every one of the 16
+> entries has a BriefDescription with the same text, and jevents.py drops
+> the long description when it equals the brief one (jevents.py:405).
+> Running jevents.py for arm64 before and after this change gives a
+> byte-identical generated string table.  This is a cleanup, not a fix for
+> anything a user can see.
+> 
+> The file becomes self-consistent again, and the field works if the brief
+> text is ever changed on its own.  No text, name, code or expression
+> changes.
+> 
+> Written with Hermes Agent, an LLM assistant; the tables were regenerated
+> with jevents.py on top of this change, perf was not rebuilt.
+> 
+> Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+> ---
+>   .../arch/arm64/ampere/ampereonex/mmu.json     | 32 +++++++++----------
+>   1 file changed, 16 insertions(+), 16 deletions(-)
+> 
+> diff --git a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/mmu.json b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/mmu.json
+> index 66d83b680651..9457f9be4ecc 100644
+> --- a/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/mmu.json
+> +++ b/tools/perf/pmu-events/arch/arm64/ampere/ampereonex/mmu.json
+> @@ -30,37 +30,37 @@
+>           "BriefDescription": "Data TLB translation cache hit on S2L2 walk cache entry"
+>       },
+>       {
+> -        "PublicDescrition": "Data TLB translation cache hit on S2L1 walk cache entry",
+> +        "PublicDescription": "Data TLB translation cache hit on S2L1 walk cache entry",
+>           "EventCode": "0xd805",
+>           "EventName": "MMU_D_TRANS_CACHE_HIT_S2L1_WALK",
+>           "BriefDescription": "Data TLB translation cache hit on S2L1 walk cache entry"
+>       },
+>       {
+> -        "PublicDescrition": "Data TLB translation cache hit on S2L0 walk cache entry",
+> +        "PublicDescription": "Data TLB translation cache hit on S2L0 walk cache entry",
+>           "EventCode": "0xd806",
+>           "EventName": "MMU_D_TRANS_CACHE_HIT_S2L0_WALK",
+>           "BriefDescription": "Data TLB translation cache hit on S2L0 walk cache entry"
+>       },
+>       {
+> -        "PublicDescrition": "Data-side S1 page walk cache lookup",
+> +        "PublicDescription": "Data-side S1 page walk cache lookup",
+>           "EventCode": "0xd807",
+>           "EventName": "MMU_D_S1_WALK_CACHE_LOOKUP",
+>           "BriefDescription": "Data-side S1 page walk cache lookup"
+>       },
+>       {
+> -        "PublicDescrition": "Data-side S1 page walk cache refill",
+> +        "PublicDescription": "Data-side S1 page walk cache refill",
+>           "EventCode": "0xd808",
+>           "EventName": "MMU_D_S1_WALK_CACHE_REFILL",
+>           "BriefDescription": "Data-side S1 page walk cache refill"
+>       },
+>       {
+> -        "PublicDescrition": "Data-side S2 page walk cache lookup",
+> +        "PublicDescription": "Data-side S2 page walk cache lookup",
+>           "EventCode": "0xd809",
+>           "EventName": "MMU_D_S2_WALK_CACHE_LOOKUP",
+>           "BriefDescription": "Data-side S2 page walk cache lookup"
+>       },
+>       {
+> -        "PublicDescrition": "Data-side S2 page walk cache refill",
+> +        "PublicDescription": "Data-side S2 page walk cache refill",
+>           "EventCode": "0xd80a",
+>           "EventName": "MMU_D_S2_WALK_CACHE_REFILL",
+>           "BriefDescription": "Data-side S2 page walk cache refill"
+> @@ -90,61 +90,61 @@
+>           "BriefDescription": "Level 2 instruction translation buffer allocation"
+>       },
+>       {
+> -        "PublicDescrition": "Instruction TLB translation cache hit on S1L2 walk cache entry",
+> +        "PublicDescription": "Instruction TLB translation cache hit on S1L2 walk cache entry",
+>           "EventCode": "0xd901",
+>           "EventName": "MMU_I_TRANS_CACHE_HIT_S1L2_WALK",
+>           "BriefDescription": "Instruction TLB translation cache hit on S1L2 walk cache entry"
+>       },
+>       {
+> -        "PublicDescrition": "Instruction TLB translation cache hit on S1L1 walk cache entry",
+> +        "PublicDescription": "Instruction TLB translation cache hit on S1L1 walk cache entry",
+>           "EventCode": "0xd902",
+>           "EventName": "MMU_I_TRANS_CACHE_HIT_S1L1_WALK",
+>           "BriefDescription": "Instruction TLB translation cache hit on S1L1 walk cache entry"
+>       },
+>       {
+> -        "PublicDescrition": "Instruction TLB translation cache hit on S1L0 walk cache entry",
+> +        "PublicDescription": "Instruction TLB translation cache hit on S1L0 walk cache entry",
+>           "EventCode": "0xd903",
+>           "EventName": "MMU_I_TRANS_CACHE_HIT_S1L0_WALK",
+>           "BriefDescription": "Instruction TLB translation cache hit on S1L0 walk cache entry"
+>       },
+>       {
+> -        "PublicDescrition": "Instruction TLB translation cache hit on S2L2 walk cache entry",
+> +        "PublicDescription": "Instruction TLB translation cache hit on S2L2 walk cache entry",
+>           "EventCode": "0xd904",
+>           "EventName": "MMU_I_TRANS_CACHE_HIT_S2L2_WALK",
+>           "BriefDescription": "Instruction TLB translation cache hit on S2L2 walk cache entry"
+>       },
+>       {
+> -        "PublicDescrition": "Instruction TLB translation cache hit on S2L1 walk cache entry",
+> +        "PublicDescription": "Instruction TLB translation cache hit on S2L1 walk cache entry",
+>           "EventCode": "0xd905",
+>           "EventName": "MMU_I_TRANS_CACHE_HIT_S2L1_WALK",
+>           "BriefDescription": "Instruction TLB translation cache hit on S2L1 walk cache entry"
+>       },
+>       {
+> -        "PublicDescrition": "Instruction TLB translation cache hit on S2L0 walk cache entry",
+> +        "PublicDescription": "Instruction TLB translation cache hit on S2L0 walk cache entry",
+>           "EventCode": "0xd906",
+>           "EventName": "MMU_I_TRANS_CACHE_HIT_S2L0_WALK",
+>           "BriefDescription": "Instruction TLB translation cache hit on S2L0 walk cache entry"
+>       },
+>       {
+> -        "PublicDescrition": "Instruction-side S1 page walk cache lookup",
+> +        "PublicDescription": "Instruction-side S1 page walk cache lookup",
+>           "EventCode": "0xd907",
+>           "EventName": "MMU_I_S1_WALK_CACHE_LOOKUP",
+>           "BriefDescription": "Instruction-side S1 page walk cache lookup"
+>       },
+>       {
+> -        "PublicDescrition": "Instruction-side S1 page walk cache refill",
+> +        "PublicDescription": "Instruction-side S1 page walk cache refill",
+>           "EventCode": "0xd908",
+>           "EventName": "MMU_I_S1_WALK_CACHE_REFILL",
+>           "BriefDescription": "Instruction-side S1 page walk cache refill"
+>       },
+>       {
+> -        "PublicDescrition": "Instruction-side S2 page walk cache lookup",
+> +        "PublicDescription": "Instruction-side S2 page walk cache lookup",
+>           "EventCode": "0xd909",
+>           "EventName": "MMU_I_S2_WALK_CACHE_LOOKUP",
+>           "BriefDescription": "Instruction-side S2 page walk cache lookup"
+>       },
+>       {
+> -        "PublicDescrition": "Instruction-side S2 page walk cache refill",
+> +        "PublicDescription": "Instruction-side S2 page walk cache refill",
+>           "EventCode": "0xd90a",
+>           "EventName": "MMU_I_S2_WALK_CACHE_REFILL",
+>           "BriefDescription": "Instruction-side S2 page walk cache refill"
+> 
+> base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
 
