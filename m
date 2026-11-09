@@ -1,79 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794263640;
-	b=dqnjy7e3eJxP3sc9sfEwXLN1DOGQvl7kcQLotu4dKE2Juwk2KYlUU+DaOO4arl6sqz7p
-	 Me4bYIKdjbvbxF3gvgbkBoiO2T2Oe1M5/Y0MF/cgUWULCp6OaTODYRqyTBQkKCMvPwLIL
-	 L8NlGDs8Tx5x5zIv54wkpxnqDVQQg7CfQN48RiIOSiAcl/Rz0PMzN3LMtykjXOm4Ikp4q
-	 WBoVKMC9RVnfVo/Wdk8FK3hpqsVAt9stB2btPQddxTK8A6Agq3I52X4vkRFamQMT8D8Ip
-	 T7QWE2tR3QJP6GmB0W+07R6OFj630sy8fhTNnWcZsVqlktTzZqvAI0AaZI9kPOn8OXg==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794263659;
+	b=2jW+5TMDs5w+Lf3DGDc8l2w8GdoVvuFJ7O8HYF6BLiIOmfCvdV08+uYHMZHkCyc31xEQ
+	 76jiUDwu1LHd9s/bY6ubNARp4khoQsYWnFCpGuVm9Or09u1Ljfk6T3eKZIRPI4KJTQYSm
+	 3GvwH6v04fW2/V06ktCQt1I5LJqNN/Qe01CYoXHpedFVaaPT+SD7pGzFC2RDABS12wi0S
+	 to2A2UG4mXYqfEexqsLvZhLIAyhgDO9X3YvqJp9Q6jq7/i4dPFVrpkdEhffotoV1A+8Ak
+	 FZnwt2xrT+Pbtch7VnhCrrvDmyTuPraD/Aw9eaqpee+0w+IN/6h1KW8UFZ/KNpjNFWw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263640;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1CsRf0YcuKzwMQXsUZyEVhrviRIPm5xpm4F4SF276F4=;
-	b=jdBjonAgBvnAPaYjkLvTrkFh0lURpooA6dEQ+7WSN8TnQycBpRgDwM8wQ5Zy+CTPUZ3/
-	 KN/13z8w4Q93IG035p6Zcr/BH0rkqrRWR4OUIorfP8DEcf89IKb1KeSubyiYOOTgq4L3L
-	 ebm9COklz9MvV2I4kSVvzr4BrfovK6fj2+eH8Mx6bs8gV3U/RzAKVrxDk13je13odlsbi
-	 oTFep/mYJly7AMTPt/q0WmB+G1UHZPeulYHmY0eOOdVOXxP9gX4flDCz6J1CMCZDYqn1O
-	 v55Ki2i4e8H+07NU8TPD0gc3Qu2nvDBHZ5kRssRcJ0YtwgLgbNx2twVmxkoUmFkR9Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263659;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=bZv1v3CLSQEW/CI9+mqq+SpQtM/sqWPDDyh4oaKjSRE=;
+	b=n0uqWH0VxRjH/9bxBIpsP9JOfIz1UCkwhWhgXa3SPqHRvJs8mJtfYLz/7XP2LStiDcsd
+	 u/+mmXuu6PLfNtGZ1E7LPUW++uCYUrhVTmiqjJQsn1ytu/wxkRaAnxQ1xt3lQ1bSQvhFx
+	 BHlsLSuHpQ8LkyvP6ZdVXHAYh8DA8G6KjWj+rke3EUGg9k85vct+8GjMIwYNCw7T2D4/K
+	 AbtziCebKLGRE329XKTp1IpE75m74vFlxrM9zTzYJAdQF+Ir4Lc3zilePtBauh6HQLCY8
+	 R6QyIQN3ukvvJnlObf43hGfmaC7PvnAoIh5sAlvM6hdq/zlObtn+lzL55L2uMrh1Oyw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eOvjwA2y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Itf0w8UQ;
+	arc=fail smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97223606A31C;
-	Mon,  9 Nov 2026 22:34:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22645606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 22:34:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22645606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eOvjwA2y
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794263640;
-	b=D+AUuAM+VjH8V5oL7rCtXphVcys9ox+tZRwpltcVeOR5uJFTSE3UPvclF4+O7dklBjqO
-	 zGquxu0lUflGdS4v3m8/4aWFExq8ByvwUak6S/wi2wXAZ1aD2vuzK3rr5bcjCFFhGjSVS
-	 SSDcZMuEyaByxT6GdDXWKT0PDcGGWhpgesRJRQUjoVGfrYq3ZF4xYmiOiPsWmjPTAbzg4
-	 djd/nxuGG9NO8UpH04qik1d9mQrlh91LFC9T771kpRc/cCACdnkPwl0sYoEHUunS9B4S5
-	 wXUhfmeqMVeIgtoCy6gJkk+4ErVBhRqcpDDZUGLpb5AB2zWM6fhTucdxP7LYGqlN7jw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794263640;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1CsRf0YcuKzwMQXsUZyEVhrviRIPm5xpm4F4SF276F4=;
-	b=X7XDW+Z07MfGoQ2tlpZXp2ronEIwR7Zr/WjtZWqwsgIwPEfEfduNOd3OPMziF6BwKHAj
-	 8fERHmoD4ZAKWbYwJAROMAET75nHDdDhei/gJVwHNCpVgInGyyJaiKIdwlJ97yjLlWh4Z
-	 NG4El3H0GL2hZ8fN4kLNzumP/ns6hW5M1NoZlrzoLAzX5Q/iNrBUUnDLXSc/AQEBncHwt
-	 LIsbvYfFESMQRFo/tJjIPrjgLAXnzeKJDOm9iLC81PguCcM83ukKXO0DDHNJ91+eC/+iF
-	 /Bos1zRkXq+17zugfezI69wXhXXPy4+cdJrajl1voGR9EnhVZGdxeOdehb+MCkED4YQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8EEC71F008BD;
-	Mon,  9 Nov 2026 22:33:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794263640;
-	bh=1CsRf0YcuKzwMQXsUZyEVhrviRIPm5xpm4F4SF276F4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=eOvjwA2y0CGm1NgBkRiEtZXpLkbJh9d7VvUwBZegauPqUVGd4vf+2mbC5Okt6848M
-	 AWet1hFWPdWp0p2VCaGbJuQmJI4ZiicgrZKipFO6saGJToD+oBYTTIaJaokCy8TilT
-	 NsSxrpfF6oQwfZ7RHRz98OkEXEKDjKrm9QbKp4x4ujhKG+xUvPBJVvGnDrWfl5k0/9
-	 6QJ3rnU3ha6nuIixJOTTjTWbSzfY+VE+UsWXAUOuwdci0LuGHXxbJd75tpozsNVPaX
-	 6Us9AdhBtPPrpsYclo9OAePUS+riQKALblO7fRj7FNYb9I+yCLcm522p+pSjWtLD3S
-	 YiU3udgMy8XlA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 20489486B0;
-	Mon,  9 Nov 2026 22:33:59 +0000 (UTC)
-From: Gaurav Suman via B4 Relay <devnull+gauravsuman007.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 22:33:47 +0000
-Subject: [PATCH RFC] ASoC: codecs: wcd934x: keep MCLK enabled so init
- writes reach the codec
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Itf0w8UQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794263656; x=1825799656;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=SqidAtjaWxG9LV27uD7dcIUHFkTGXnyzlLCdHsEDOK4=;
+  b=Itf0w8UQVwDdmUxBIov0T4FqChRjiyCeA7EmW7ZTkDMy2Htevhgon43k
+   hZYgkfEfUlDZCdafDLMQHqhwMSQXRhX8UxJOcVHql2FZXUEN6n+VejA0I
+   jsg1J8QkGYhaNYXiBk3TYqW4ZHhqSfLT7gryM1FWYD4w8JE/LHjLI2blm
+   ppujKCY/YAApUyFiDiUvXfuoFlsuj7g5AYL0A/JCKsF2yqlt8BFyt+BtB
+   WJL1BLuwxVZ5sZfiUHB1qSD2Ad0cA5SREfyhwqeCggZRsgzEpUIMAbOT0
+   vupZddB6zBnv+Xk8ZTSoxmD8X56zctQHs1zOnB+XdfgNLNF8vinfRSlcg
+   g==;
+X-CSE-ConnectionGUID: z5YbENsVQAWGDy/lrtVxQw==
+X-CSE-MsgGUID: iY5z60KFRHGhr0ISLaqNwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2916195"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2916195"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:34:15 -0800
+X-CSE-ConnectionGUID: w3MKUt60RGiBwT7UnqVl3A==
+X-CSE-MsgGUID: NVOBXRuYSUiMUr9tdoszbA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8294993"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:34:16 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 14:34:14 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Mon, 9 Nov 2026 14:34:14 -0800
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.30) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 14:34:14 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pX8MWPFbuMHvGjgp0MuknXE7w14JrBeqFTQVq5er08cieggUjr9Env6igOlLUQ33qdsRFWz+sC9HeXC6mbeHLN6Bk+5p5Cg1c/4NxUd1706m1ImYsB3zQNiDrlCUaoRjBRzc/Hu8Gw//xn8vEyPfR6BOwWn0ff6vlp7gyOj5gxvGAKBLrzDxbVCpq351qpAp4nJqoNi9CX0sMk5HhT3c6o2RYtlSkzup5yPfmoafUNZ6uZgaonYUFFFGzf1TCYvPEBWxFCqv1jyU/FFubOYhZdbu6X0boiS+Uq2ihFuxzQIaKzMJDL6A1iHIPhJQFo+Cu+ccolRtbiXE23Bu1xBaAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bZv1v3CLSQEW/CI9+mqq+SpQtM/sqWPDDyh4oaKjSRE=;
+ b=hPRdi75wRO1JGNLw/avWu2sAg92tOKFHdWaYBFYSAyRAprrAPM9LJWhH+NaPNBCcM8/ICxjQescZGMH41PoD7ZalJJuXsLMFffxZygYpzdYKaLFxSe8EnRt8fPoUx+fP3WyuafeFxp1MNp9ZOa7VLAZCBehnLXfhkC0j/5aR359b6aRMWzKmFWdb4u2evjwNHFDq/berz0cvs/5o34j6xqo08bha4bnqDu7bgnGv7MfYqtRlsBWId1WrJuQkdbh/S5bVPyfEf5RiHIH7WBj6rFKYvyz4mRVhyeflppbI4O80ow+62k4OvAGcF6czXJOEx7K4RKDz25/Ri9gQUEMKQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by PH7PR11MB7075.namprd11.prod.outlook.com (2603:10b6:510:20e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 22:34:11 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
+ 22:34:11 +0000
+Date: Mon, 9 Nov 2026 14:34:08 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: Lizhi Hou <lizhi.hou@amd.com>
+CC: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
+	<dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
+	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>,
+	<thomas.hellstrom@linux.intel.com>, <himal.prasad.ghimiray@intel.com>,
+	<honghuan@amd.com>, <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>
+Subject: Re: [PATCH V1 1/2] drm/gpusvm: add drm_gpusvm_pages unmapped and
+ retry helpers
+Message-ID: <avJKYLGpfjPGGRsb@gsse-cloud1.jf.intel.com>
+References: <20261106184217.2720718-1-lizhi.hou@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261106184217.2720718-1-lizhi.hou@amd.com>
+X-ClientProxiedBy: BY3PR04CA0010.namprd04.prod.outlook.com
+ (2603:10b6:a03:217::15) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,91 +135,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-wcd934x-mclk-v1-1-ab86342e7ead@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAEpK8moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQwNL3fLkFEtjkwrd3OScbN2UVFPLVEMzEzMLA3MloJaCotS0zAqwcdF
- KQW7OSrG1tQDvN9SUYwAAAA==
-X-Change-ID: 20261109-wcd934x-mclk-de59e1646807
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Gaurav Suman <gauravsuman007@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794263638; l=2522;
- i=gauravsuman007@gmail.com; s=default; h=from:subject:message-id;
- bh=8u46K9MtmpC/yZH7MaaIGPTHQMOfd8OqvroqTAoIDKw=;
- b=w+dOp4lUMyGty2jZoxIvNtUcRjLUY05x9zhThT6au4LkhC/wFP6g5GWXIChw8BlQKGNbG0/pF
- Er7ssv0G9cDDRWxrnPbWM27XRwHOTpM9thMIDASkQgg2xY3u+SAXMii
-X-Developer-Key: i=gauravsuman007@gmail.com; a=ed25519;
- pk=lnUC0mQfc0KyA0LE73pQ4+QWYVRaCD8Sd3XWxLZO+JY=
-X-Endpoint-Received: by B4 Relay for gauravsuman007@gmail.com/default with
- auth_id=1467
-X-Original-From: Gaurav Suman <gauravsuman007@gmail.com>
-Reply-To: gauravsuman007@gmail.com
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|PH7PR11MB7075:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6afbc527-282b-45ef-6c76-08df3eb1931c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|261102130727099003|11063799006|261021121427099003|261021123027099003|261009223027099003|261022105027099003|56012099006|261009221227099003|261026140227099003|261026121527099003|261102123227099003|261028144727099003|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info: vHUU21XgGMWVTfFm95rEKDSasU1K+7Ve2ZGB2nhUlyYHw6pI9ztpNQQtgwG5mXAo+onCFZdPmO5/Q1gQcYHOAJ7nTMf/iNQCcSD4EpxePTWa/v1rEXu6Hi3t8leQxvJytEE+qS1Smm02t1eMxveyW+ozVKOw4FKzrXSys1cbViqDy5Cm0W+DWcRv1PH8a4VeH5BjT7LvB3zOndnkVKHpPEdlcAVNULqE7owBtS0IgfdzsqG5bgdUCAU6sHJ4iCHQf+0WAI1Gp8REu5NcViDAHbSWeT7Xoz6qTiOWsEk78lUX1gJmuVFUyPYUnbAh03iLUqoiO1a9HFyG9E1wwbzMRr6p5/uHWhi4eJr4yaHBMbpoMupAfkA69H2V1+5AhDNFZS9H7IelvPaqDW/0IgqVlHaBN8hZczFGP0JI02QiaFf/8ye3Y4cdPnsn5ejmvmh+pajl9IuUvxzqe1avQCtiigxgbLCVTYyci66ScFsSI+mOz1v8C/hUF0gt9T4NWOuTZM2GQMiw+0/ai67OU47W+s5QjUXjb7PHln8ePcc1jsxvmJpuvcMLFpH9e8ppUSoTRcinVPd4wYABoIw2NDKvMcMErwV6M/PtyCr3FiM2h0DZ7AbTwUeQ8vVMWXj5FTUNRTat5EEN+nvgEgatDLtma3P3udMfqOafm9Y4gXkcxak=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4787.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(261102130727099003)(11063799006)(261021121427099003)(261021123027099003)(261009223027099003)(261022105027099003)(56012099006)(261009221227099003)(261026140227099003)(261026121527099003)(261102123227099003)(261028144727099003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?H60XcL/jHUKxW+kTitse5CQB7Ql4AAC37rHl2gtb5i9dojTMrQiRl5xyLlLf?=
+ =?us-ascii?Q?3opip7EhpAWvc6H8iExRHeFkwNAkuiTMOH6k6l+0xUXr13YWlRE0fghV+D3f?=
+ =?us-ascii?Q?pdcGrY95giGrUWOCq6eugh1TCYE+r1lgpwRHEP9rel0teZD2I1sJbUWdDsB8?=
+ =?us-ascii?Q?TkPkFyFc//bqoStxA96Oh0sC8faJQqUmyGJY+lBnYiXwQei6vpg+Nh20/jTH?=
+ =?us-ascii?Q?AUBZqxk7cEOoxOgzfPSctNjiWqjXXBZ7dzqAbgIFSz0xPgVMsK3UoqzH26hi?=
+ =?us-ascii?Q?E/IovHbKVL360N/OKGw8i8gWv7NJCk7DfSlDugWKvPe4nHizU5Ga8QgXg0rO?=
+ =?us-ascii?Q?NwmxGckRMRayKtJgb4L/i+PnmCawXLo9Pkt3qQx88SXtUhpcqIUhPgNN3hks?=
+ =?us-ascii?Q?D2EOV8IDLaAdhRpd1jR6Xgj3NQ6BZtiSBuw/0vuSLgrJIQy2i7la/Ef+VkcN?=
+ =?us-ascii?Q?PjJ9/CoPHrinz+NXPB4Dj8DaqKMHxvPWdZiCWRJQetDbQQV+32CcfG1phLVl?=
+ =?us-ascii?Q?arBrhi+KlpuMCEEtxLXWA5nVHZ60GdL+oTtQA0aCEoIyYTGLEHUNNKRLjQx0?=
+ =?us-ascii?Q?SDnuHjyr2vLkG66c4DTxjXKF8943jDLfCVEfQbbU47sCWZjtqmWcVEK9fgIg?=
+ =?us-ascii?Q?tIVEuz4pOfT2bf7fgFXY6HaU3VyHZlgmiYYilUr9tyQDnRQPfAnuBmxMLuAI?=
+ =?us-ascii?Q?kQ6CRTIbDXZyHiYKk7aAWfHU1hP4eFcYOvDVqJcCKUvdlhbQQm5Nm18U5MFC?=
+ =?us-ascii?Q?iRTSmHznBwov6GwOo6Ai3pOM8VD6bS9yiuHou/QHkdg13gOquL11opXROJB8?=
+ =?us-ascii?Q?SiTjgmGOChh5rhr1YNXaJNanCqI5LFAZJ44Nt/scbzN8biQwrkib+93h2mjP?=
+ =?us-ascii?Q?sjkSMUQ9HJ8Ajk3Qx/uFWrku/t0G917NvKpCxKaBnWsBhgr0V6Ge6hdB+AoA?=
+ =?us-ascii?Q?TUr8evyNv+7sC0L7cpPNDcOW8/uZYt3C1ssNBriAiwS90/vIAq4M6manPRdu?=
+ =?us-ascii?Q?g9CIJgDETt3JCPTeK0eFQmUUrbPOmFQp1ntS3CzQ1O4SJ2IHwWrLEaDKWusY?=
+ =?us-ascii?Q?fiT/AUNdyni7OrDp+kKHVUMex2xOB6MJbuyt+ngrqLUPMIXaGb4s1x9vieI5?=
+ =?us-ascii?Q?cMJudjCOoP6MawRFwFO3JOyhEV/23s+rvqVvKZLus60iTQGy8u2fyvJq6S5k?=
+ =?us-ascii?Q?/o7u/gLvbk/2jMsBvWxgy3fY8SfvjPuy3IYy3/GAHX288xK7fQcDwWzMqYfq?=
+ =?us-ascii?Q?HbaRMK6tRc7SNaayX2VPkGFr2nZTKAgbO0k5sQx8z6qjbcXD9szwcwUDECmk?=
+ =?us-ascii?Q?nPYNWOANFokG8q3TmbAv7gdeknrjH1txWpWWZhbfBv7BX31isngii+WsP6BE?=
+ =?us-ascii?Q?qkC8zR1E9y1lSrIKViSKNCQPvIz/xAsZ2ftopxdmPb/9bswfxERxwHwhFm7T?=
+ =?us-ascii?Q?ZslkCtzw4hxBGac8ZN2Ej54uXsykOdd5FlXxQThT61ZanwWJcWj9kuvR7NA7?=
+ =?us-ascii?Q?9/DFhhI4QrIIF6D4m2t7UPB+Lyc+R9TLKIDdLeZCFkMwjRMv32J54rKwYRy8?=
+ =?us-ascii?Q?yabebuhWBeWAo699I46pU8R6ykl18KDwZDiAftPGGFF7z+UaYWcaRS1RYCwz?=
+ =?us-ascii?Q?eCWmPOSQTwWeDh5pITHRCIzrOCxPgX1p418yATZw6rxYZTR0CHTAcvIl0+Qb?=
+ =?us-ascii?Q?uqxLuAlQdYdc6dxa16rXUikH6Dm2wSfmLfDQEQxEtWkdFkdVsGyB5OHqQR5t?=
+ =?us-ascii?Q?eHITQPIUDQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: tYpyuq0RQb0ylBnaqqxORnn5n2TNks9JBbcMhggJpjSV/NsyqFV2l4bcMHOfH8eDksYe1Qdrh6BkbhNni/yidllfuNTbAXZ0WnYc8Iob7xz/MzTBLiX9Ov1yYjZTYe6gwX4f4fKdsOoOF7L1d/aAC2oQUihMkiI9stOzPzN0J9cbZEy7fs8p2cKghXkb4/zPW9UsWhdKSI4PSfCualM2h76Py0pj+LoslTZ1LkGXsk+iYWOpTU8s85RDqpQTE/CBdy6IEG1qwVDbttM/l5mQ9+IxyqeI2zb1u3wzYtKfKuXn4GvHnOCVmGRzePJd5d6Pzj8hvziMAoSo92EyTBY5NQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6afbc527-282b-45ef-6c76-08df3eb1931c
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 22:34:10.9529
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8/pPLdX/PFI4mQUrfqfCodvtE1DWxLJ0QQUvPySe7JTM/Ij8vKT6qN04lP866+MlgmIs7X46ijuT1tHwIig45w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7075
+X-OriginatorOrg: intel.com
 
-From: Gaurav Suman <gauravsuman007@gmail.com>
+On Fri, Nov 06, 2026 at 10:42:16AM -0800, Lizhi Hou wrote:
+> From: Matthew Brost <matthew.brost@intel.com>
+> 
+> Drivers which only use the drm_gpusvm_pages API (no drm_gpusvm_range)
+> have no way to mark pages unmapped from their MMU notifier, as
+> drm_gpusvm_range_set_unmapped() requires a range. They also have to open
+> code the mmu_interval_read_retry() check on the recorded notifier_seq
+> to commit pages faulted with &drm_gpusvm_ctx.no_dma_map.
+> 
+> Split the pages part of drm_gpusvm_range_set_unmapped() into
+> drm_gpusvm_pages_set_unmapped(), and add drm_gpusvm_pages_read_retry()
+> which performs the commit side check with a lockdep assert on the
+> notifier lock.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
 
-On an LG G8x (SM8150, WCD9340 over SLIMbus) the microphones record
-digital silence on roughly half of all boots. Register dumps look
-correct because they are served from the regmap cache, but the
-writes never reached the hardware: the WCD934x digital core ignores
-register writes while its MCLK/sysclk is off.
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
-wcd934x_comp_init() runs with MCLK off unless the SoundWire master
-happened to probe first and enabled the clock through
-wcd934x_swrm_clock(); __wcd934x_cdc_mclk_enable(false) then leaves it
-running because the SWR clock bit is set. Probe ordering is not
-deterministic, which matches the random good and bad boots.
-
-Enable MCLK before wcd934x_comp_init() and leave it enabled, which is
-what the good boots already do. With this change 8 of 8 boots had a
-working microphone (before: about 3 in 5 silent).
-
-Enabling MCLK only around wcd934x_comp_init() (and disabling it
-again afterwards, as wcd934x_enable_efuse_sensing() does) was not
-enough: 2 of 4 boots were silent again, so later writes made while
-the clock is off are lost as well. An alternative would be to mark
-the cache dirty and resync whenever MCLK goes from off to on; this
-patch takes the simpler route at the cost of keeping MCLK running.
-
-The fault was found, the change written and the boot tests run with the
-help of an AI coding assistant (Claude Opus 5.5, Anthropic); I reviewed
-the change and the test results.
-
-Signed-off-by: Gaurav Suman <gauravsuman007@gmail.com>
----
-Tested on LG G8x ThinQ (SM8150).
----
- sound/soc/codecs/wcd934x.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
-index 0ed24cca088f839263f015778e8281027392e51f..6b6ce5ba5d30da194db1b1570a58f0324956f96f 100644
---- a/sound/soc/codecs/wcd934x.c
-+++ b/sound/soc/codecs/wcd934x.c
-@@ -2995,6 +2995,12 @@ static int wcd934x_comp_probe(struct snd_soc_component *component)
- 	/* Default HPH Mode to Class-H Low HiFi */
- 	wcd->hph_mode = CLS_H_LOHIFI;
- 
-+	/*
-+	 * The digital core drops register writes while MCLK is off, but the
-+	 * regmap cache still records them. Keep MCLK running so the init
-+	 * sequence below and later mixer/DAPM writes actually reach the codec.
-+	 */
-+	__wcd934x_cdc_mclk_enable(wcd, true);
- 	wcd934x_comp_init(component);
- 
- 	for (i = 0; i < NUM_CODEC_DAIS; i++)
-
----
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
-change-id: 20261109-wcd934x-mclk-de59e1646807
-
-Best regards,
--- 
-Gaurav Suman <gauravsuman007@gmail.com>
-
-
+> ---
+>  drivers/gpu/drm/drm_gpusvm.c | 49 +++++++++++++++++++++++++-----------
+>  include/drm/drm_gpusvm.h     | 29 +++++++++++++++++++++
+>  2 files changed, 64 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
+> index 03dbe304e4b8f..63a26919f59db 100644
+> --- a/drivers/gpu/drm/drm_gpusvm.c
+> +++ b/drivers/gpu/drm/drm_gpusvm.c
+> @@ -1761,9 +1761,8 @@ static int drm_gpusvm_dma_map_pages(struct drm_gpusvm *gpusvm,
+>   *
+>   * With &drm_gpusvm_ctx.no_dma_map no mapping state is recorded, so
+>   * drm_gpusvm_pages_valid() never returns true and success is only a snapshot:
+> - * the caller must recheck mmu_interval_read_retry() against the recorded
+> - * &drm_gpusvm_pages.notifier_seq under the notifier lock, and hold it until
+> - * its work is visible to invalidation.
+> + * the caller must recheck drm_gpusvm_pages_read_retry() under the notifier
+> + * lock, and hold it until its work is visible to invalidation.
+>   *
+>   * Return: 0 on success, negative error code on failure.
+>   */
+> @@ -2021,6 +2020,38 @@ bool drm_gpusvm_has_mapping(struct drm_gpusvm *gpusvm, unsigned long start,
+>  }
+>  EXPORT_SYMBOL_GPL(drm_gpusvm_has_mapping);
+>  
+> +/**
+> + * drm_gpusvm_pages_set_unmapped() - Mark GPU SVM pages as unmapped
+> + * @gpusvm: Pointer to the GPU SVM structure.
+> + * @pages: Pointer to the GPU SVM pages structure(s).
+> + * @pages_count: Number of GPU SVM pages structure(s) passed in.
+> + *
+> + * Mark @pages as unmapped, after which drm_gpusvm_get_pages() fails with
+> + * -EFAULT for them. Intended to be called from the driver's MMU notifier on
+> + * MMU_NOTIFY_UNMAP, and usable without a &drm_gpusvm_range by drivers that
+> + * only use the drm_gpusvm_pages API. The caller must hold the notifier lock
+> + * in write mode.
+> + */
+> +void drm_gpusvm_pages_set_unmapped(struct drm_gpusvm *gpusvm,
+> +				   struct drm_gpusvm_pages *pages,
+> +				   unsigned int pages_count)
+> +{
+> +	unsigned int i;
+> +
+> +	lockdep_assert_held_write(&gpusvm->notifier_lock);
+> +
+> +	for (i = 0; i < pages_count; ++i) {
+> +		struct drm_gpusvm_pages_flags flags = {
+> +			.__flags = pages[i].flags.__flags,
+> +		};
+> +
+> +		flags.unmapped = true;
+> +		/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
+> +		WRITE_ONCE(pages[i].flags.__flags, flags.__flags);
+> +	}
+> +}
+> +EXPORT_SYMBOL_GPL(drm_gpusvm_pages_set_unmapped);
+> +
+>  /**
+>   * drm_gpusvm_range_set_unmapped() - Mark a GPU SVM range as unmapped
+>   * @range: Pointer to the GPU SVM range structure.
+> @@ -2039,20 +2070,10 @@ void drm_gpusvm_range_set_unmapped(struct drm_gpusvm_range *range,
+>  	struct drm_gpusvm_range_flags range_flags = {
+>  		.__flags = range->flags.__flags,
+>  	};
+> -	unsigned int i;
+>  
+> -	lockdep_assert_held_write(&range->gpusvm->notifier_lock);
+> +	drm_gpusvm_pages_set_unmapped(range->gpusvm, pages, pages_count);
+>  
+>  	range_flags.unmapped = true;
+> -	for (i = 0; i < pages_count; ++i) {
+> -		struct drm_gpusvm_pages_flags flags = {
+> -			.__flags = pages[i].flags.__flags,
+> -		};
+> -
+> -		flags.unmapped = true;
+> -		/* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
+> -		WRITE_ONCE(pages[i].flags.__flags, flags.__flags);
+> -	}
+>  	if (drm_gpusvm_range_start(range) < mmu_range->start ||
+>  	    drm_gpusvm_range_end(range) > mmu_range->end)
+>  		range_flags.partial_unmap = true;
+> diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h
+> index 4d31c6bba7455..b43432af56377 100644
+> --- a/include/drm/drm_gpusvm.h
+> +++ b/include/drm/drm_gpusvm.h
+> @@ -349,6 +349,10 @@ void drm_gpusvm_range_set_unmapped(struct drm_gpusvm_range *range,
+>  				   unsigned int pages_count,
+>  				   const struct mmu_notifier_range *mmu_range);
+>  
+> +void drm_gpusvm_pages_set_unmapped(struct drm_gpusvm *gpusvm,
+> +				   struct drm_gpusvm_pages *pages,
+> +				   unsigned int pages_count);
+> +
+>  int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+>  			 struct drm_gpusvm_pages *svm_pages,
+>  			 unsigned int num_pages,
+> @@ -383,6 +387,31 @@ static inline void drm_gpusvm_init_pages(struct drm_gpusvm_pages *svm_pages,
+>  	svm_pages->notifier_seq = LONG_MAX;
+>  }
+>  
+> +/**
+> + * drm_gpusvm_pages_read_retry() - Check whether GPU SVM pages went stale
+> + * @gpusvm: Pointer to the GPU SVM structure.
+> + * @svm_pages: Pointer to the drm_gpusvm_pages.
+> + * @notifier: The notifier passed to drm_gpusvm_get_pages() for @svm_pages.
+> + *
+> + * Check whether @notifier was invalidated since the last successful
+> + * drm_gpusvm_get_pages() for @svm_pages. This is the commit side check for
+> + * pages faulted with &drm_gpusvm_ctx.no_dma_map, where no mapping state is
+> + * tracked. Pages that were never faulted always report as stale. The caller
+> + * must hold the notifier lock and keep holding it until its use of the pages
+> + * is visible to the invalidation path.
+> + *
+> + * Return: True if the pages must be faulted again, false otherwise.
+> + */
+> +static inline bool
+> +drm_gpusvm_pages_read_retry(struct drm_gpusvm *gpusvm,
+> +			    struct drm_gpusvm_pages *svm_pages,
+> +			    struct mmu_interval_notifier *notifier)
+> +{
+> +	lockdep_assert_held(&gpusvm->notifier_lock);
+> +
+> +	return mmu_interval_read_retry(notifier, svm_pages->notifier_seq);
+> +}
+> +
+>  /**
+>   * drm_gpusvm_pages_first_dma() - Resolve the device address array
+>   * @svm_pages: Pointer to the drm_gpusvm_pages.
+> 
+> base-commit: d2a8cee91bfa8616f713c7c8f539a81e8e3554ea
+> -- 
+> 2.34.1
+> 
