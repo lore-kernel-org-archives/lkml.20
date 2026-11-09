@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794233388;
-	b=ddrOLIJnlHd8Wt2ZGGFzpn+pDiH/v+fYei3iqylkKkFK7MkmIY0I+53K3KeXguuJOZlv
-	 /XS+SvIdYYu0rCSe7JvLkaYeyX6GrW8S95B2j4tA5DgmqQT+F35/nn9DvlNdGMqC5Jk2Q
-	 2lVwazndctS/Jroy5BN6R0hegXePM5nyaMSHMgiG9Px0TA8Px1/VpdwG9aKz5iUWNndB0
-	 9jronlfEbNHGpGiaVbq967n++KLnNnKfOE158XpxKS5Ex98gxJi0SxvNXA5q9U3TLwPWU
-	 ug3PBV6fb0F0x6o9Ez10KYr/MY5ztfiHxOuKbFJGUMHV3Mw3Go4CmK43um2zAhb4O9A==
+	b=sHR0DmPDMAB9ZbuejOw8NpPRmPeXLRvh5ZsF3cn3Fh4VAYY71oqdV9ibPLoTWCfoI5Wp
+	 pTdMG+TN9MlqVkg8nvYkq8iJWXy2S3yyMMPY2mz9v0POsYlQqhj9etJrOUyUeZzmpzT7g
+	 B7PshoFFZRRFhhRgQjWWbeXUPYYZIvEoyvSZLKfWJ1R/P6pkMIsvu0UUgmeTFNENke3b3
+	 lCXhlTcB4zCU/tZMQ31Gp4ldLPI12fkuP3dEtlUVcmYtFS/4SSEpax85sJCOjQtVIRWlb
+	 U8R+Y2RCgSZJqPVSR/31TFx5yY2oSSpvE0Nu5vhNg0X1/2/KzQAcvN+uCtg4WZwxqNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794233388;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ci9vDSWyHxSq9FnZq3Zk79d2N7kH1vKnpPKWHcUFCWk=;
-	b=MyEII7igohrfAVqVJkBJRpLZV+XsqP2rrVrQdCpsbTxZADj+2E85+uw6KcjZXtF3ppVx
-	 7eSDYnRnT2Bb3HHlrHgT6wOhypVzGYF2bov2YIsuZHQxZoRr3rjUNYRwoMFLj0wb5wdfj
-	 6/QN/ysB2V/7oPmbIIB4S675otv9gFT1+8izUnK9jxh3QCC8XjOWrJYVgZ0+2rUmrHIvP
-	 P3mzhU3dBfx1CwjgWD406/P9CGqqiBUoRxMSJAwn0bfnY4EmiRZkNX3ShmJH+FuWz1ZK1
-	 qtM0bc+DZD1Z+OgsuI3bo7HzGPFfNkTpKHf2q2imAMAzkEMDJKYDF43C3xc1sywqV6w==
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=yeA4qHAALZZrIqz65amctTB+fqUgwUGBfDhuoDx9XcM=;
+	b=195SJNQ6chJLEpc4CXGieXH/7ngwIgNZrLX+Q48tptzsgyW/KPCfR/ItqQsXaNWUnFXn
+	 A3S5i0XQkUWRinlIjRyR/3jFj2NLT+ALo0Cv0HOhuY1OUwmX0tVQZfEop5LF9f4o30JQC
+	 lOzGSbM/gES8DKg9F7kR+EeEGjaVaazppGuURxzlMyJAKh/cjF9wsoI70UJD6mStRYKko
+	 g4dxdSTy3E8C8FvciMjo/HSS45qpphqK5dRr/u0k23oyr7dvhKXaJwFxfZu9VPkVTvQto
+	 rxW8zQvBAQeSKzZouey1iQYRfDzmukkUdejNKY7Kq0Uf4C2pkqXM/nfacZaDPHpRf1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g8vLOHOd;
-	arc=none smtp.remote-ip=95.215.58.175
-Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mPsAveHC;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D036083604
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:09:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1D036083604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E59606D80F;
+	Mon,  9 Nov 2026 14:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8E59606D80F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g8vLOHOd
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uLmLi4eG+xNd/B9EvuWggXquRDTQtxE2MGsM+EpVXzc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794233386; v=1; x=1794838186;
- b=g8vLOHOdSzuJdv/A70FV8EuOzjjIxf7nDIOvwzm6wZwYNqXk17fAJ940lznBivP8T6AjYk+C
- fcUE9MxO+LcudfkAe6vKj1RRQo3FMeCRvn/iPYa8T0WD2dSeFNXkoN0/22R9yxjZLR5z6l2t9O/
- j/fL3y+p6WeibuZZsIFDBdPs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 07ac29793a07b48e;
-	Mon, 09 Nov 2026 14:09:45 +0000
-X-Mizu-Trace-ID: 07ac29793a07b48e
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	KP Singh <kpsingh@kernel.org>,
-	Matt Bobrowski <matt@bobrowski.net>,
-	Shuah Khan <shuah@kernel.org>,
-	Leon Hwang <leon.hwang@linux.dev>,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=mPsAveHC
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 6FBCB4E4155D;
+	Mon,  9 Nov 2026 14:09:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3DF2460051;
+	Mon,  9 Nov 2026 14:09:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 02EC6103292D3;
+	Mon,  9 Nov 2026 15:09:41 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794233384; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=yeA4qHAALZZrIqz65amctTB+fqUgwUGBfDhuoDx9XcM=;
+	b=mPsAveHCMUVyL0Im9uNtaYBOUGuQN+IKYBW/hdBRks6vATDmJqFiNOoEmiUKa1nS/J2d+T
+	2boX0H9bLlJGJEzAUfi46d73jqw1ANqw7EEdI4avhjCLDQq6hi8axqfJLPNn1rJFxNoU5l
+	WpenMfq1D9JEz8bGHOlSTW1UCR3ybANHzr4oIpI9ckbMg6id9hKOXwXK1abachs0sx8dcg
+	2w3aqfjVSDFg4mtPy0o3fASnKeu74Xn3ZNxxqKbkE5TlDrF49Y83KszYJfJ514JWkBOr2x
+	eLe/mdFtPj+/iJpWV4+eABCAYNYZHDhxzpxmLfSlYArQQZkhj1eE82nOoJctGg==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Kalle Niemi <kaleposti@gmail.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>
+Cc: driver-core@lists.linux.dev,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH bpf-next 9/9] selftests/bpf: Verify cgroup prog link_create logs
-Date: Mon,  9 Nov 2026 22:08:16 +0800
-Message-ID: <20261109140816.5196-10-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261109140816.5196-1-leon.hwang@linux.dev>
-References: <20261109140816.5196-1-leon.hwang@linux.dev>
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: [PATCH v9 4/4] bus: simple-pm-bus: Populate child nodes at probe
+Date: Mon,  9 Nov 2026 15:08:42 +0100
+Message-ID: <20261109140916.90625-5-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109140916.90625-1-herve.codina@bootlin.com>
+References: <20261109140916.90625-1-herve.codina@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,352 +87,89 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Check the error code, log message, and reported log size for unsupported
-flags, invalid target FDs, and relative attachment errors. Cover missing
-or conflicting ordering flags, a missing BPF_F_LINK flag, invalid link FDs
-and IDs, preorder mismatches, and anchors outside the target cgroup.
+The simple-pm-bus driver handles several simple busses. When it is used
+with busses other than a compatible "simple-pm-bus", it doesn't populate
+its child devices during its probe.
 
-Also cover revision mismatches, conflicting attachment flags, cgroup
-hierarchy restrictions, and the per-cgroup program limit.
+This confuses fw_devlink and results in wrong or missing devlinks.
 
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+Once a driver is bound to a device and the probe() has been called,
+device_links_driver_bound() is called.
+
+This function performs operation based on the following assumption:
+    If a child firmware node of the bound device is not added as a
+    device, it will never be added.
+
+Among operations done on fw_devlinks of those "never be added" devices,
+device_links_driver_bound() changes their supplier.
+
+With devices attached to a simple-bus compatible device, this change
+leads to wrong devlinks where supplier of devices points to the device
+parent (i.e. simple-bus compatible device) instead of the device itself
+(i.e. simple-bus child).
+
+When the device attached to the simple-bus is removed, because devlinks
+are not correct, its consumers are not removed first.
+
+In order to have correct devlinks created, make the simple-pm-bus driver
+compliant with the devlink assumption and create its child devices
+during its probe.
+
+Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 ---
- .../selftests/bpf/prog_tests/cgroup_link.c    | 324 ++++++++++++++++++
- 1 file changed, 324 insertions(+)
+ drivers/bus/simple-pm-bus.c | 27 ++++++++++++++++++++-------
+ 1 file changed, 20 insertions(+), 7 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/cgroup_link.c b/tools/testing/selftests/bpf/prog_tests/cgroup_link.c
-index 15093a69510e..5a27d3a6a26c 100644
---- a/tools/testing/selftests/bpf/prog_tests/cgroup_link.c
-+++ b/tools/testing/selftests/bpf/prog_tests/cgroup_link.c
-@@ -253,3 +253,327 @@ void serial_test_cgroup_link(void)
+diff --git a/drivers/bus/simple-pm-bus.c b/drivers/bus/simple-pm-bus.c
+index 23ac18551fd9..569580788575 100644
+--- a/drivers/bus/simple-pm-bus.c
++++ b/drivers/bus/simple-pm-bus.c
+@@ -26,6 +26,12 @@ static void simple_pm_bus_depopulate(void *data)
+ {
+ 	struct device *dev = data;
+ 
++	if (!pm_runtime_enabled(dev)) {
++		/* No PM runtime, we can directly depopulate */
++		of_platform_depopulate(dev);
++		return;
++	}
++
+ 	/*
+ 	 * Bus stays on for children
+ 	 * This ensure that the bus will not be put in idle asynchronously when
+@@ -83,16 +89,23 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
+ 	match = of_match_device(dev->driver->of_match_table, dev);
+ 	/*
+ 	 * These are transparent bus devices (not simple-pm-bus matches) that
+-	 * have their child nodes populated automatically.  So, don't need to
+-	 * do anything more. We only match with the device if this driver is
+-	 * the most specific match because we don't want to incorrectly bind to
+-	 * a device that has a more specific driver.
++	 * need to have their child nodes populated. So, don't need to do
++	 * anything more except populate child nodes during this probe(). We
++	 * only match with the device if this driver is the most specific match
++	 * because we don't want to incorrectly bind to a device that has a more
++	 * specific driver.
+ 	 */
+ 	if (match && match->data) {
+-		if (of_property_match_string(np, "compatible", match->compatible) == 0)
+-			return 0;
+-		else
++		if (of_property_match_string(np, "compatible", match->compatible))
+ 			return -ENODEV;
++
++		dev_dbg(&pdev->dev, "%s: populate only\n", __func__);
++
++		ret = simple_pm_bus_populate(&pdev->dev, lookup);
++		if (ret)
++			return dev_err_probe(&pdev->dev, ret, "failed to populate\n");
++
++		return 0;
  	}
- 	cleanup_cgroup_environment();
- }
-+
-+static void check_cgroup_link_create_log(int prog_fd, int target_fd,
-+					 struct bpf_link_create_opts *opts,
-+					 int err_exp, const char *msg)
-+{
-+	char log_buf[128] = {};
-+	LIBBPF_OPTS(bpf_log_opts, log_opts,
-+		    .buf = log_buf,
-+		    .size = sizeof(log_buf),
-+		    .level = 1,
-+	);
-+	int fd;
-+
-+	opts->log_opts = &log_opts;
-+	fd = bpf_link_create(prog_fd, target_fd, BPF_CGROUP_INET_EGRESS, opts);
-+	if (!ASSERT_LT(fd, 0, "bpf_link_create")) {
-+		close(fd);
-+		return;
-+	}
-+
-+	ASSERT_EQ(fd, err_exp, "err");
-+	ASSERT_STREQ(log_buf, msg, "log_buf");
-+	ASSERT_EQ(log_opts.true_size, strlen(msg) + 1, "log_size");
-+}
-+
-+static void test_cgroup_link_create_log(int target_fd, __u32 flags, int err_exp, const char *msg)
-+{
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = flags,
-+	);
-+	struct test_cgroup_link *skel;
-+
-+	skel = test_cgroup_link__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "test_cgroup_link__open_and_load"))
-+		return;
-+
-+	check_cgroup_link_create_log(bpf_program__fd(skel->progs.egress), target_fd, &opts,
-+				     err_exp, msg);
-+
-+	test_cgroup_link__destroy(skel);
-+}
-+
-+static void test_log_invalid_flags(void)
-+{
-+	const char *msg = "Invalid flags.\n";
-+
-+	test_cgroup_link_create_log(-1, BPF_F_ALLOW_OVERRIDE, -EINVAL, msg);
-+}
-+
-+static void test_log_invalid_target_fd(void)
-+{
-+	const char *msg = "Invalid target_fd.\n";
-+
-+	test_cgroup_link_create_log(-1, 0, -EBADF, msg);
-+}
-+
-+static void test_log_cgroup_attach(struct bpf_link_create_opts *opts,
-+				   int err_exp, const char *msg)
-+{
-+	struct test_cgroup_link *skel;
-+	int cg;
-+
-+	cg = test__join_cgroup("/cgroup_link_log_attach");
-+	if (!ASSERT_GE(cg, 0, "join_cgroup"))
-+		return;
-+
-+	skel = test_cgroup_link__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "test_cgroup_link__open_and_load"))
-+		goto out;
-+
-+	check_cgroup_link_create_log(bpf_program__fd(skel->progs.egress), cg, opts, err_exp, msg);
-+	test_cgroup_link__destroy(skel);
-+
-+out:
-+	close(cg);
-+}
-+
-+static void test_log_relative_without_order(void)
-+{
-+	const char *msg = "Specify exactly one of BPF_F_BEFORE or BPF_F_AFTER.\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = BPF_F_LINK,
-+	);
-+
-+	test_log_cgroup_attach(&opts, -EINVAL, msg);
-+}
-+
-+static void test_log_relative_both_orders(void)
-+{
-+	const char *msg = "Specify exactly one of BPF_F_BEFORE or BPF_F_AFTER.\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = BPF_F_LINK | BPF_F_BEFORE | BPF_F_AFTER,
-+	);
-+
-+	test_log_cgroup_attach(&opts, -EINVAL, msg);
-+}
-+
-+static void test_log_relative_type_mismatch(void)
-+{
-+	const char *msg = "BPF_F_LINK is required for relative link attachment.\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = BPF_F_BEFORE,
-+		    .cgroup.relative_fd = -1,
-+	);
-+
-+	test_log_cgroup_attach(&opts, -EINVAL, msg);
-+}
-+
-+static void test_log_invalid_relative_link_fd(void)
-+{
-+	const char *msg = "Invalid relative link FD.\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = BPF_F_LINK | BPF_F_BEFORE,
-+		    .cgroup.relative_fd = -1,
-+	);
-+
-+	test_log_cgroup_attach(&opts, -EBADF, msg);
-+}
-+
-+static void test_log_invalid_relative_link_id(void)
-+{
-+	const char *msg = "Invalid relative link ID.\n";
-+	/* Link ID zero cannot identify a link. */
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = BPF_F_LINK | BPF_F_ID | BPF_F_BEFORE,
-+	);
-+
-+	test_log_cgroup_attach(&opts, -ENOENT, msg);
-+}
-+
-+static void test_log_relative_anchor(__u32 flags, bool other_cgroup, int err_exp, const char *msg)
-+{
-+	int cg, other_cg = -1, anchor_fd = -1, prog_fd;
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .flags = flags,
-+	);
-+	struct test_cgroup_link *skel;
-+
-+	cg = test__join_cgroup("/cgroup_link_log_relative");
-+	if (!ASSERT_GE(cg, 0, "join_cgroup"))
-+		return;
-+
-+	if (other_cgroup) {
-+		other_cg = test__join_cgroup("/cgroup_link_log_other");
-+		if (!ASSERT_GE(other_cg, 0, "join_cgroup other"))
-+			goto cleanup;
-+	}
-+
-+	skel = test_cgroup_link__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "test_cgroup_link__open_and_load"))
-+		goto cleanup;
-+
-+	prog_fd = bpf_program__fd(skel->progs.egress);
-+	anchor_fd = bpf_link_create(prog_fd, cg, BPF_CGROUP_INET_EGRESS, NULL);
-+	if (!ASSERT_GE(anchor_fd, 0, "bpf_link_create"))
-+		goto destroy;
-+
-+	if (flags & BPF_F_LINK)
-+		opts.cgroup.relative_fd = anchor_fd;
-+	check_cgroup_link_create_log(prog_fd, other_cgroup ? other_cg : cg, &opts, err_exp, msg);
-+
-+	close(anchor_fd);
-+
-+destroy:
-+	test_cgroup_link__destroy(skel);
-+cleanup:
-+	if (other_cg >= 0)
-+		close(other_cg);
-+	close(cg);
-+}
-+
-+static void test_log_both_orders(void)
-+{
-+	const char *msg = "BPF_F_BEFORE and BPF_F_AFTER are mutually exclusive.\n";
-+
-+	test_log_relative_anchor(BPF_F_BEFORE | BPF_F_AFTER, false, -EINVAL, msg);
-+}
-+
-+static void test_log_relative_preorder_mismatch(void)
-+{
-+	const char *msg = "Relative attachment BPF_F_PREORDER mismatch.\n";
-+
-+	test_log_relative_anchor(BPF_F_LINK | BPF_F_BEFORE | BPF_F_PREORDER, false, -EINVAL, msg);
-+}
-+
-+static void test_log_relative_not_in_cgroup(void)
-+{
-+	const char *msg = "Relative attachment not found in target cgroup.\n";
-+
-+	test_log_relative_anchor(BPF_F_LINK | BPF_F_BEFORE, true, -ENOENT, msg);
-+}
-+
-+static void test_log_revision_mismatch(void)
-+{
-+	const char *msg = "Cgroup revision mismatch: expected 2, actual 1.\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .cgroup.expected_revision = 2,
-+	);
-+
-+	test_log_cgroup_attach(&opts, -ESTALE, msg);
-+}
-+
-+static void test_log_exclusive_attach(bool child, const char *msg)
-+{
-+	LIBBPF_OPTS(bpf_link_create_opts, opts);
-+	int cg, child_cg = -1, prog_fd, err;
-+	struct test_cgroup_link *skel;
-+
-+	cg = test__join_cgroup("/cgroup_link_log_exclusive");
-+	if (!ASSERT_GE(cg, 0, "join_cgroup"))
-+		return;
-+
-+	if (child) {
-+		child_cg = test__join_cgroup("/cgroup_link_log_exclusive/child");
-+		if (!ASSERT_GE(child_cg, 0, "join_child_cgroup"))
-+			goto cleanup;
-+	}
-+
-+	skel = test_cgroup_link__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "test_cgroup_link__open_and_load"))
-+		goto cleanup;
-+
-+	prog_fd = bpf_program__fd(skel->progs.egress);
-+
-+	err = bpf_prog_attach(prog_fd, cg, BPF_CGROUP_INET_EGRESS, 0);
-+	if (!ASSERT_OK(err, "bpf_prog_attach"))
-+		goto destroy;
-+
-+	check_cgroup_link_create_log(prog_fd, child ? child_cg : cg, &opts, -EPERM, msg);
-+
-+	err = bpf_prog_detach2(prog_fd, cg, BPF_CGROUP_INET_EGRESS);
-+	ASSERT_OK(err, "bpf_prog_detach2");
-+
-+destroy:
-+	test_cgroup_link__destroy(skel);
-+cleanup:
-+	if (child_cg >= 0)
-+		close(child_cg);
-+	close(cg);
-+}
-+
-+static void test_log_attachment_flags_conflict(void)
-+{
-+	const char *msg = "Attachment flags conflict with existing flags.\n";
-+
-+	test_log_exclusive_attach(false, msg);
-+}
-+
-+static void test_log_hierarchy_disallows_attach(void)
-+{
-+	const char *msg = "Cgroup hierarchy does not allow attachment.\n";
-+
-+	test_log_exclusive_attach(true, msg);
-+}
-+
-+#define BPF_CGROUP_MAX_PROGS 64
-+
-+static void test_log_too_many_programs(void)
-+{
-+	const char *msg = "Too many programs attached to cgroup (limit 64).\n";
-+	LIBBPF_OPTS(bpf_link_create_opts, opts);
-+	int cg, prog_fd, err, i, nr_links = 0;
-+	int link_fds[BPF_CGROUP_MAX_PROGS];
-+	struct test_cgroup_link *skel;
-+
-+	cg = test__join_cgroup("/cgroup_link_log_limit");
-+	if (!ASSERT_GE(cg, 0, "join_cgroup"))
-+		return;
-+
-+	skel = test_cgroup_link__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "test_cgroup_link__open_and_load"))
-+		goto cleanup;
-+
-+	prog_fd = bpf_program__fd(skel->progs.egress);
-+
-+	for (i = 0; i < ARRAY_SIZE(link_fds); i++) {
-+		err = bpf_link_create(prog_fd, cg, BPF_CGROUP_INET_EGRESS, NULL);
-+		if (!ASSERT_GE(err, 0, "bpf_link_create"))
-+			goto destroy;
-+
-+		link_fds[nr_links++] = err;
-+	}
-+
-+	check_cgroup_link_create_log(prog_fd, cg, &opts, -E2BIG, msg);
-+
-+destroy:
-+	for (i = 0; i < nr_links; i++)
-+		close(link_fds[i]);
-+	test_cgroup_link__destroy(skel);
-+cleanup:
-+	close(cg);
-+}
-+
-+void test_cgroup_link_log(void)
-+{
-+	if (test__start_subtest("invalid_flags"))
-+		test_log_invalid_flags();
-+	if (test__start_subtest("invalid_target_fd"))
-+		test_log_invalid_target_fd();
-+	if (test__start_subtest("relative_without_order"))
-+		test_log_relative_without_order();
-+	if (test__start_subtest("relative_both_orders"))
-+		test_log_relative_both_orders();
-+	if (test__start_subtest("relative_type_mismatch"))
-+		test_log_relative_type_mismatch();
-+	if (test__start_subtest("invalid_relative_link_fd"))
-+		test_log_invalid_relative_link_fd();
-+	if (test__start_subtest("invalid_relative_link_id"))
-+		test_log_invalid_relative_link_id();
-+	if (test__start_subtest("both_orders"))
-+		test_log_both_orders();
-+	if (test__start_subtest("relative_preorder_mismatch"))
-+		test_log_relative_preorder_mismatch();
-+	if (test__start_subtest("relative_not_in_cgroup"))
-+		test_log_relative_not_in_cgroup();
-+	if (test__start_subtest("revision_mismatch"))
-+		test_log_revision_mismatch();
-+	if (test__start_subtest("attachment_flags_conflict"))
-+		test_log_attachment_flags_conflict();
-+	if (test__start_subtest("hierarchy_disallows_attach"))
-+		test_log_hierarchy_disallows_attach();
-+	if (test__start_subtest("too_many_programs"))
-+		test_log_too_many_programs();
-+}
+ 
+ 	bus = devm_kzalloc(&pdev->dev, sizeof(*bus), GFP_KERNEL);
 -- 
-2.55.0
+2.56.0
 
