@@ -1,79 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794206082;
-	b=bwTqH9vx5OrnUGJzxY0pDgEOks/v9JbukObkeLefvvqpwRe50sQp2ThYDYOT93m7PrOb
-	 4mPs4Z5DS6JQNzWnB29+BUysPJ0xn1/yftXkMZZsXIdIci3KS9K6bMYITCdrLtXmJmu2E
-	 mhAt314MiIB5lImM/hoSXMf1jbHiPoi6ErNx5til3qzII/5ZLrxM/PA6LxfLrChn4LwSv
-	 mKVkUS2Sr8m3f3Xzo1F2y+MLCJCmH6t4ZziqdAL6cX25e4uAUjoNhoUVLzZITpS4tVyNQ
-	 8PfS4YkLY081Cp6NJoRXWBeoOqoCnfEGr8WQjyPcXFuXlGBxgv5MxNH+iwCXgNpGwyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794206082;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=ESX1JHxy1DZ7sLwexlMAPg6zavFwrhel2U+u+NQmhvc=;
-	b=k/Uvt2biys3q9XhKzGNYk8rSSwR2dqQXGqPo/EG5vVP4PBT0uyUvDy5bz5JQ5i4cop8f
-	 L43p0Fg7dzbQu8Zpqc612WZ2N3VFUp8r8B6V3VAl3hzhTTTGnEXtPqfyH/iBzlII7xrwZ
-	 KrQR7/Ze/Je0SaUln4TWnAW2FNKLahA7ZiqGR5qdxnMTkTrAL995MxadgURIg9cksja4v
-	 78TP1CWkKVGSuK3KVLXHBba+l3aMoiT0JuhPhK5gljCbGbDSfQ9PEy8XZz1zJUnOCm1cF
-	 Uz/gb2FhbjSR/FnE+R9SZGdfj0G8RS15Au3SnnlF8fuW1jNHpB6p8glci6xDuN6b4hg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kwuynAZD;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.72
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794206100;
+	b=VIiYeA/SCuimgHVQ7kj/z8nyKIX8ls1CE4+oNlDaALXCuMetRzYoc/FIMPyM05L3mvA+
+	 KCHspwWz4Sy6yExWFv6FNeaJZp/CCKZTOEKUyvykJ6lrU3BIQ3ZlQA/xUk32YCUyIPfi9
+	 MH7P18PG2wuBgtdeCM967naStAC4/nBKVlCRDHCGsUs/Mqo5Hvr2srbxrcO4ZN8fYU+BW
+	 eVba1WSOEi7z0w9Nx9CjLCy4Lwp20uyMQxeAP6UBpPubtvddHVT4qfsKwS6lDwbusIL65
+	 uARoBihedGRqVfCJlIzoCd2hZZDjPL9PQA4xF6SyIL+wWIWpUzmwvNgx+FnL6yBlh+w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794206100;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Authentication-Results-Original:Received:Received:Message-ID:Date:
+	 User-Agent:From:Subject:To:CC:References:Content-Language:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-CodeTwo-MessageID:
+	 X-CodeTwoProcessed:X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=rseQX7vXp2t1+EdyOu0G7X5tvj/pZ/xAUX/c5fPxImo=;
+	b=QYPNgT1wW6c/agUpuPLcFZgGFDHlowfCTZuAMFj52wpV8bHCO3LdmZUKypihKuY8kUzz
+	 WwppHeBtN7BOlIxG9KCJOWR0C4M22kCTMc5wMlyuKEBNli3v1yiCM+pMmFDIFw/yhjSlC
+	 WTzyEKI5lBDVRUHHFgpDztq6Bx0AscGUuJyei5m7Wj4wTzyDp581viwX08tqOj1HLdtSi
+	 ieaH4YXAiZP7WVa/Z6+NuFKqgXTSi+r1sNxtjY87hUyvwyD2swdRbP+AJ7PWgvZkJ8lWV
+	 Ytla1soqEUaExDsLx2RPtML3ey5AMB6068tgLtPRRY1+79upAUq7RbPZDMQCL7EPzwQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=topic.nl;
+	spf=pass smtp.mailfrom=topic.nl;
+	dkim=pass header.d=topic.nl header.i=@topic.nl header.a=rsa-sha256 header.s=selector2 header.b=sqD5civB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.72
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11021072.outbound.protection.outlook.com [52.101.65.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98654606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:34:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98654606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B539606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:34:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B539606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=topic.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=topic.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kwuynAZD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794206081; x=1825742081;
-  h=date:from:to:cc:subject:message-id;
-  bh=iuow8yI42nJ73lgO6c9nwFQ1RKHFsacJu8zWaBrwzKk=;
-  b=kwuynAZDxA2lylx+nDpS1/d/q8HZdne9i8uucz1QMejQExhIOO5bgv9q
-   7x6QyR4qq6kIIDOgt6rL7yDKwjzlAe0qeqdejKd05Fkt49/o/0pXXwzcd
-   caupJDk37X4mK19hfeWjCFehuKzwwxZ1EqpysMgpmA7rHLv0dVp+zdub3
-   ftEnv7QS138RM32cjW9PRe+6nQUoPrKTB9jn3Qq1jLM4RybYYl5EFQplZ
-   0MGnAEmdM5c7xQz6y7Tv+jwYmHLhgQhQKS+w9PZV4jtW87bD4jj7JN4oA
-   uLQ95hX1Wr122leV4MGqirvBOfL9aOnbcT/X9pY35JAK/GGs4NBIiIlCD
-   g==;
-X-CSE-ConnectionGUID: Nmo3/UJ4Sn2C6SulxFKlvw==
-X-CSE-MsgGUID: vLIKxZcCQmSOTwXxbZvv3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2914313"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2914313"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 22:34:40 -0800
-X-CSE-ConnectionGUID: A0J8K8ABQtuzBW4TuTdczw==
-X-CSE-MsgGUID: NYGetotDQcyzpenDhP4HXw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7825951"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa006.jf.intel.com with ESMTP; 08 Nov 2026 22:34:38 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQIxf-00000000u25-2bFX;
-	Mon, 09 Nov 2026 06:34:35 +0000
-Date: Mon, 09 Nov 2026 14:34:34 +0800
-From: kernel test robot <lkp@intel.com>
-To: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
- Frank Li <Frank.Li@nxp.com>
-Subject: [tip:irq/drivers 7/11]
- drivers/irqchip/irq-imx-irqsteer.c:269:1: warning: label 'out' defined but
- not used
-Message-ID: <202611091409.SjBn3tkJ-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key, unprotected) header.d=topic.nl header.i=@topic.nl header.a=rsa-sha256 header.s=selector2 header.b=sqD5civB
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ASmdlg+4Ic6jfK/6UHi5mQMkCOMkHfY2IUtOhuTJw9HVq0TpQG9O9yN0vjBBnG7miLuURE/6yxZkcucGmR5V5Gsl4k0hU6fsNVmUhDyBxXtVyXlUmGf1XZ8h3Uh8nwut+zSfoRmEPV0Z54CGdG1pAyLK1fgpmq062oSESpUrGdtYQDMAqplVA0JN9oeTBl9wtqXduZrq9imDA22GpEbslvMi2Ga6hW2Rr2+vKyi8r6qNv4wp8Ap5JTSzPKJKT0zYUDKXsKJmp4CQ28HBqGvqVa55kA4K0qFC436sJbC7LSDYUKkX0LNHMCl7RVwLG/UYY/hys3qWXc0x7gNxj+tU8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rseQX7vXp2t1+EdyOu0G7X5tvj/pZ/xAUX/c5fPxImo=;
+ b=IeBT9sph8kUR52qfV1IIoWUDIPOu9+np2YiNGmPcjwavnLo3mVcCh4zS8ILJN7uBc3R12uFkghq5RT7WK+CddpmTAkzi85hoa03mV8kdyxWE8SLLVLxs1l/Jyt4ZV6TBpfb/Rl+12Zzf3voSJ9o9Sdrvst0wpucc7FD7LNgqBh0D6+h3c0ABHlho5Wl62h4jb9c3Cj3dypSCnHSEt2wVQvwO3ny0Veu4EyPjVwIBbgQdF4jbJZNn3DdRnTgR8QIC+pPq1eP8PoC8o8D3Ex1eX7+I+vKPifmhVqyZJZnU0u5KqnW4ZGx1Z6/9DP+fZ970CqvtJoCfKmuF5W0GexVRiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 20.93.157.195) smtp.rcpttodomain=googlemail.com smtp.mailfrom=topic.nl;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=topic.nl; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=topic.nl; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rseQX7vXp2t1+EdyOu0G7X5tvj/pZ/xAUX/c5fPxImo=;
+ b=sqD5civBbI6ZuBF5ruGgystDnKWrXiyljFcsUMH0l+hp5fRuZvm/zM+d28MnqDV38Xn9eDg48HPk7GeHWlOfYo8AAvWc5MriWgbyW9VcPF0ZQqHgKx0f+4cHWcgG6xK8YddX1vVQBY/2fATzGrGMCQvSGtPM6x0SinE2Be75QcXCBhcjJHEZn+F2CO4eUimZ+DG1a9FC1nGWyvILRNWs1TevpBwmTlzUEBTdOvmJQfNlDrqYcyEBcu/RuR1qQo1duK4FvgatxoE4slVaX49KE2AJ5jeVmF8k9y/aPzTyTVFvAxpMIqIZZEjhVCw2m2mjgEzrPJj1X6cqkKhLexAoZw==
+Received: from DUZPR01CA0286.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b7::12) by AS8PR04MB8085.eurprd04.prod.outlook.com
+ (2603:10a6:20b:3f9::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 06:34:55 +0000
+Received: from DB1PEPF000509EF.eurprd03.prod.outlook.com
+ (2603:10a6:10:4b7:cafe::6d) by DUZPR01CA0286.outlook.office365.com
+ (2603:10a6:10:4b7::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
+ Nov 2026 06:34:55 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 20.93.157.195) smtp.mailfrom=topic.nl; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=topic.nl;
+Received-SPF: Pass (protection.outlook.com: domain of topic.nl designates
+ 20.93.157.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=20.93.157.195; helo=westeu11-emailsignatures-cloud.codetwo.com;
+ pr=C
+Received: from westeu11-emailsignatures-cloud.codetwo.com (20.93.157.195) by
+ DB1PEPF000509EF.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 06:34:55 +0000
+Received: from GV1PR07CU001.outbound.protection.outlook.com (40.93.214.98) by westeu11-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Mon, 09 Nov 2026 06:34:54 +0000
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=topic.nl;
+Received: from VI0PR04MB12030.eurprd04.prod.outlook.com
+ (2603:10a6:800:316::24) by AS8PR04MB8499.eurprd04.prod.outlook.com
+ (2603:10a6:20b:342::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Mon, 9 Nov 2026
+ 06:34:52 +0000
+Received: from VI0PR04MB12030.eurprd04.prod.outlook.com
+ ([fe80::e428:3105:17ec:8224]) by VI0PR04MB12030.eurprd04.prod.outlook.com
+ ([fe80::e428:3105:17ec:8224%4]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 06:34:52 +0000
+Message-ID: <e70bb142-20fb-46e2-8aa4-955854ddb1d2@topic.nl>
+Date: Mon, 9 Nov 2026 07:34:51 +0100
+User-Agent: Mozilla Thunderbird
+From: Mike Looijmans <mike.looijmans@topic.nl>
+Subject: Re: [PATCH 2/2] regulator: pwm-regulator: Revert "Add validity checks
+ in continuous .get_voltage"
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mark Brown <broonie@kernel.org>
+CC: linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>
+References: <20261106130010.340950-1-mike.looijmans@topic.nl>
+ <1b153bce-a66a-45ee-a5c6-963ea6fb1c82.949ef384-8293-46b8-903f-40a477c056ae.6954786b-65e0-4206-a0c4-60cd251dbec9@emailsignatures365.codetwo.com>
+ <20261106130010.340950-2-mike.looijmans@topic.nl>
+ <27e5c94a-acf2-4e32-92df-e3de124e0bc6@sirena.org.uk>
+ <CAFBinCCN+P0YRvOP9pwmxVXGv-MGyuZn_45nCZ-7ko8Ko3v+-A@mail.gmail.com>
+Content-Language: en-US, nl
+Organization: Topic
+In-Reply-To: <CAFBinCCN+P0YRvOP9pwmxVXGv-MGyuZn_45nCZ-7ko8Ko3v+-A@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM8P189CA0022.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:20b:218::27) To VI0PR04MB12030.eurprd04.prod.outlook.com
+ (2603:10a6:800:316::24)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,132 +133,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic:
+	VI0PR04MB12030:EE_|AS8PR04MB8499:EE_|DB1PEPF000509EF:EE_|AS8PR04MB8085:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f5bf474-da82-41e7-a284-08df3e2b9175
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|52116014|22082099003|38350700014|18002099003|4143699003|261009223027099003|3023799007|56012099006|261021121427099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|261028144727099003|261102123227099003|10067099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ 35XqjTzRPMd00Yuqny3gp5h3lq0LdFne5YxgjtHzK2uqXofTMNHjn7wHf2Dh2+KQRjmEbFuqqCqGAp3Mgw/nasAbc9clKccHbnozR0vScACYqMkho81lzn+yalDcGGFZcJ3YNTVt7YdKxrgFS9WQo6ipskYZ+ofqdNjOLYmG9yZViZl+838J7A67BA1fC8Yhv4GCeP1krxVljYnlH2fpHC5mTfD0crnPuREjgqopINHXhl8ohqyeqvW875HVTp8sUaJIyDHdiLFg9PDmK7nfxzZ3CoW88mYLrRjaWYvmqvAjr/8AQexyThw0M4cT7nUy+IErzMwlfmUaNP9iNJ0YZBygLk+t74cycjayZElo186PVxImg3CMsfbkDHIm5L3Vbq2kESBX3rmLwR/taSH+Q4tTDSvahv5p0FiMcLDMxPw3OPe6aNp81ewDN/80adJqr2rsOJB7oMdEp+EQ3JWhjig330O7XeOWxPaNxjlAtC3q/tFdOKh+v9DIGZ+AYelbV2wnzgZeweJm9vLtF4CP8zo/Rf97QIvV07FviNJ4kPziYF/UC+MMrCUcPQePgULoWqpuYstWX+XwUy6nQIZDLrUXfaQfvRczyxgsrw/MPkMphPQ67ub97VRsXU3tfH4or241glu4pEiem4Ts5bRlkbDIpuIPkzHwTf9748zspIc=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB12030.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(52116014)(22082099003)(38350700014)(18002099003)(4143699003)(261009223027099003)(3023799007)(56012099006)(261021121427099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(261028144727099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1102;
+X-Exchange-RoutingPolicyChecked: bpASH2+MhYZ8j1Qn6OHA8iw35lkUZpL8qYJRLZWctedAG473RlokyjtoKwpidSnZvpttt1hm7LzTpeHzRiMf4N41LGK/vIV+cOGOhQamA/1PrRP6ZeoZHlhmoOdqHLknEiYgvRXv5rEipUU6dNmfuOHUOJsuUBR9gKRy/dVrtEmC54rkp39Mm84npzc6z3VqhrLnJXLb2twios/WtBNqv0Tl13UhzhU2KEq0yNB3fRDxTa7HrhTImzvlMQT+Pjz6lEBRmJulgqeaR1JTBdbfEw5N1yylsbZm9sdBG1rHu6h6tEA3vh81KkJ+JpHIcDgMMs/ZXFp5skEgnw12J+vpVA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8499
+X-CodeTwo-MessageID: e4cc650a-5c06-47ac-870e-2511dc0ef795.20261109063454@westeu11-emailsignatures-cloud.codetwo.com
+X-CodeTwoProcessed: true
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB1PEPF000509EF.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	47d5c5a2-e801-49ad-76af-08df3e2b8f4a
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|35042699022|14060799003|1800799024|82310400026|36860700016|4143699003|56012099006|261021121427099003|261022105027099003|261022075727099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	94J+M63Q3P5ks8FS3YxpmPHG/6UZiOaR6WOfiI4eJbrX0LHleOqPzlnWa7mhU8Dv9hr9WDLsIU1F3y31nD6ZR3JjGxnWOBI/DEN6BVy6JcL0fjb1bXhH2zSFHRc0NVitkCFtT1MwEu2/C50JqVrjJvxYOfSBLim7OJtrsFGYAQrbPYlAilHcZvPbRBr59Knfu6oVT5Zug6CqzGTr9DgC1Rsbv0q+vr//JahJ93t2p+IXDP+kO5jR0yY/IgZIH0Nc8SH6hss6mz+0SoMJ9KStBtqag6YROjtYUupceEFvUR9m7slLCnOcuZMQDmobWmD1jpBTwFwrQMb4kBJ70QvOTa/DDsgt5h38/aI5BOJnlLj4ngxUDtlLz+bNnwvDC+G2VmGl6IkVSeday3dwtZ3jf1wCk6cd7hZgQGnJxKDLFDn84yffYhxMUfn5ut+JpBoMCnQgTbrgK3bGWhuijqFiaEwiNtFwuTa3jvFIGgVZ6d7BYD/jwMFimqm94Vu+EuY1bhlKj2M68Wm/f/Qod0EUaUiiP1CA0VhizVs1ETHp32K8vSvP1QYHyZY2nnlW0fvreToWajEI0CVWp2JT44mng7L1AECT+tmIflbE6PsXTBiZ+qMHGzkyskTDY0+75Cwsl97MIe1YrHeCMw0oeaVGCw==
+X-Forefront-Antispam-Report:
+	CIP:20.93.157.195;CTRY:NL;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:westeu11-emailsignatures-cloud.codetwo.com;PTR:westeu11-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(35042699022)(14060799003)(1800799024)(82310400026)(36860700016)(4143699003)(56012099006)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	g6rJHFQkHsccWibXv2ADrTMQgRCVIyTS8BLKB1sJSqbehgaGBXG5BH4Eze3pdH5jpCcEHdU+YsPk0KKR5qDuNTFbbWs9WfbSfI0N6GrX5kYxmEBXw7J5J4emzX5X9dkF8RfL2oz3Aig1zAxXq8OVBrmhqGgG/ADSSOQvQqdLPYOpQjyBySbc40mS1cktOrtVpiHLOHMAePQQM/TBJ1gk0/JQrX+HwLAsh9sN/K8lSuwhcjplywLouYrHSAfYoO1ZOb/Y+ve0N3vb6g0OFWb3mYfsSGZp0fvyah9nfeP10ZgfFmH5+B0ichjWkr+C1/CuOnRJ1wKpIUmb5ozRm4Plqp//ICH9GXLTTorYiZ769KjGn1RNV81lTxa3I8RoqtXAqBQcn+mwk4tVojq5UEwPLTCc244NR6tIH7L9SolrPBZUNv82eHppMNfkoeL1DQ4f
+X-OriginatorOrg: topic.nl
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 06:34:55.3992
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f5bf474-da82-41e7-a284-08df3e2b9175
+X-MS-Exchange-CrossTenant-Id: 449607a5-3517-482d-8d16-41dd868cbda3
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=449607a5-3517-482d-8d16-41dd868cbda3;Ip=[20.93.157.195];Helo=[westeu11-emailsignatures-cloud.codetwo.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509EF.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8085
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq/drivers
-head:   0c0da722d7839e5250999416404d4a4055afb300
-commit: 54ac29cd11115edd9f72f17aa4551658735f919d [7/11] irqchip/imx-irqsteer: Let devres own the clock
-config: nios2-randconfig-1001-20261109 (https://download.01.org/0day-ci/archive/20261109/202611091409.SjBn3tkJ-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261109/202611091409.SjBn3tkJ-lkp@intel.com/reproduce)
+On 06-11-2026 22:45, Martin Blumenstingl wrote:
+> On Fri, Nov 6, 2026 at 2:46=E2=80=AFPM Mark Brown <broonie@kernel.org> wr=
+ote:
+>> On Fri, Nov 06, 2026 at 01:59:56PM +0100, Mike Looijmans wrote:
+>>> This reverts commit c92688cac239 ("regulator: pwm-regulator: Add validi=
+ty
+>>> checks in continuous .get_voltage").
+>> And again...  please don't try to sneak changes past people :/
+> Thank you for looping me in, Mark!
+>
+>>> The core, and in particular the machine_constraints_voltage() method,
+>>> expects the regulator to report what the current setting is, even if th=
+at
+>>> is outside the allowed range. The core will then bring the voltage into
+>>> that range. It cannot do that if the regulator refuses to return its
+>>> setting, and causes probe() to fail for a pwm-regulator when it has
+>>> restrictions to the PWM range with messages like:
+>>>    dsp7-pwm: failed to get the current voltage: -ENOTRECOVERABLE
+>>>    pwm-regulator dsp7-supply-pwm: error -ENOTRECOVERABLE: Failed to reg=
+ister
+>>>      regulator pwm-regulator
+>>>    pwm-regulator dsp7-supply-pwm: probe with driver pwm-regulator faile=
+d
+>>>      with error -131
+>>>
+>>> Besides that, regulator_get_voltage() is not supposed to return any
+>>> state information, as is mentioned in the API documentation.
+> according to include/linux/regulator/driver.h:
+>   * @get_voltage: Return the currently configured voltage for the regulat=
+or;
+>   *                   return -ENOTRECOVERABLE if regulator can't be read =
+at
+>   *                   bootup and hasn't been set yet.
+>
+> Can you please specify which API documentation you are referring to?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611091409.SjBn3tkJ-lkp@intel.com/
+https://docs.kernel.org/driver-api/regulator.html#c.regulator_get_voltage
 
-All warnings (new ones prefixed by >>):
-
-   drivers/irqchip/irq-imx-irqsteer.c: In function 'imx_irqsteer_probe':
->> drivers/irqchip/irq-imx-irqsteer.c:269:1: warning: label 'out' defined but not used [-Wunused-label]
-    out:
-    ^~~
+And the text above clearly states "can't be read at=C2=A0bootup and hasn't=
+=20
+been set yet", which is not the same as "whenever it's set out of range".
 
 
-vim +/out +269 drivers/irqchip/irq-imx-irqsteer.c
+> I believe back when this change was authored it didn't make a
+> difference on my board (but made sense based on review feedback).
+> So I'm not against reverting as long as we have a proper explanation
+> why the original patch is incorrect.
+>
+>
+> Best regards,
+> Martin
 
-0136afa08967f6 Lucas Stach           2018-12-17  178  
-0136afa08967f6 Lucas Stach           2018-12-17  179  static int imx_irqsteer_probe(struct platform_device *pdev)
-0136afa08967f6 Lucas Stach           2018-12-17  180  {
-0136afa08967f6 Lucas Stach           2018-12-17  181  	struct device_node *np = pdev->dev.of_node;
-0136afa08967f6 Lucas Stach           2018-12-17  182  	struct irqsteer_data *data;
-28528fca490814 Aisheng Dong          2019-02-20  183  	u32 irqs_num;
-28528fca490814 Aisheng Dong          2019-02-20  184  	int i, ret;
-0136afa08967f6 Lucas Stach           2018-12-17  185  
-0136afa08967f6 Lucas Stach           2018-12-17  186  	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
-0136afa08967f6 Lucas Stach           2018-12-17  187  	if (!data)
-0136afa08967f6 Lucas Stach           2018-12-17  188  		return -ENOMEM;
-0136afa08967f6 Lucas Stach           2018-12-17  189  
-33b1c47d1fc0b5 Shenwei Wang          2024-07-03  190  	data->dev = &pdev->dev;
-358b9d248a026d Anson Huang           2019-04-01  191  	data->regs = devm_platform_ioremap_resource(pdev, 0);
-0136afa08967f6 Lucas Stach           2018-12-17  192  	if (IS_ERR(data->regs)) {
-0136afa08967f6 Lucas Stach           2018-12-17  193  		dev_err(&pdev->dev, "failed to initialize reg\n");
-0136afa08967f6 Lucas Stach           2018-12-17  194  		return PTR_ERR(data->regs);
-0136afa08967f6 Lucas Stach           2018-12-17  195  	}
-0136afa08967f6 Lucas Stach           2018-12-17  196  
-54ac29cd11115e Zhipeng Wang          2026-11-04  197  	data->ipg_clk = devm_clk_get_enabled(&pdev->dev, "ipg");
-e0c45b107fc94c Anson Huang           2020-08-11  198  	if (IS_ERR(data->ipg_clk))
-e0c45b107fc94c Anson Huang           2020-08-11  199  		return dev_err_probe(&pdev->dev, PTR_ERR(data->ipg_clk),
-e0c45b107fc94c Anson Huang           2020-08-11  200  				     "failed to get ipg clk\n");
-0136afa08967f6 Lucas Stach           2018-12-17  201  
-0136afa08967f6 Lucas Stach           2018-12-17  202  	raw_spin_lock_init(&data->lock);
-0136afa08967f6 Lucas Stach           2018-12-17  203  
-7d3a5eb78e3614 Arnd Bergmann         2019-03-04  204  	ret = of_property_read_u32(np, "fsl,num-irqs", &irqs_num);
-7d3a5eb78e3614 Arnd Bergmann         2019-03-04  205  	if (ret)
-7d3a5eb78e3614 Arnd Bergmann         2019-03-04  206  		return ret;
-7d3a5eb78e3614 Arnd Bergmann         2019-03-04  207  	ret = of_property_read_u32(np, "fsl,channel", &data->channel);
-7d3a5eb78e3614 Arnd Bergmann         2019-03-04  208  	if (ret)
-7d3a5eb78e3614 Arnd Bergmann         2019-03-04  209  		return ret;
-0136afa08967f6 Lucas Stach           2018-12-17  210  
-5e72917802dd65 Ciprian Marian Costea 2026-03-11  211  	data->devtype_data = device_get_match_data(&pdev->dev);
-5e72917802dd65 Ciprian Marian Costea 2026-03-11  212  	if (!data->devtype_data)
-5e72917802dd65 Ciprian Marian Costea 2026-03-11  213  		return dev_err_probe(&pdev->dev, -ENODEV, "failed to match device data\n");
-5e72917802dd65 Ciprian Marian Costea 2026-03-11  214  
-28528fca490814 Aisheng Dong          2019-02-20  215  	/*
-28528fca490814 Aisheng Dong          2019-02-20  216  	 * There is one output irq for each group of 64 inputs.
-28528fca490814 Aisheng Dong          2019-02-20  217  	 * One register bit map can represent 32 input interrupts.
-28528fca490814 Aisheng Dong          2019-02-20  218  	 */
-28528fca490814 Aisheng Dong          2019-02-20  219  	data->irq_count = DIV_ROUND_UP(irqs_num, 64);
-28528fca490814 Aisheng Dong          2019-02-20  220  	data->reg_num = irqs_num / 32;
-f99f3c4acaff0d Fabio Estevam         2026-11-04  221  	if (!data->irq_count || data->irq_count > CHAN_MAX_OUTPUT_INT)
-f99f3c4acaff0d Fabio Estevam         2026-11-04  222  		return -EINVAL;
-deb904e45b4e32 Aisheng Dong          2019-02-20  223  
-4730d2233311d8 Lucas Stach           2022-04-06  224  	if (IS_ENABLED(CONFIG_PM)) {
-0136afa08967f6 Lucas Stach           2018-12-17  225  		data->saved_reg = devm_kzalloc(&pdev->dev,
-deb904e45b4e32 Aisheng Dong          2019-02-20  226  					sizeof(u32) * data->reg_num,
-0136afa08967f6 Lucas Stach           2018-12-17  227  					GFP_KERNEL);
-0136afa08967f6 Lucas Stach           2018-12-17  228  		if (!data->saved_reg)
-0136afa08967f6 Lucas Stach           2018-12-17  229  			return -ENOMEM;
-0136afa08967f6 Lucas Stach           2018-12-17  230  	}
-0136afa08967f6 Lucas Stach           2018-12-17  231  
-0136afa08967f6 Lucas Stach           2018-12-17  232  	/* steer all IRQs into configured channel */
-5e72917802dd65 Ciprian Marian Costea 2026-03-11  233  	if (irqsteer_has_chanctrl(data->devtype_data))
-0136afa08967f6 Lucas Stach           2018-12-17  234  		writel_relaxed(BIT(data->channel), data->regs + CHANCTRL);
-0136afa08967f6 Lucas Stach           2018-12-17  235  
-f98835ded6dcbb Zhipeng Wang          2026-11-04  236  	/*
-f98835ded6dcbb Zhipeng Wang          2026-11-04  237  	 * Mask all interrupts before wiring up the chained handlers. CHANMASK
-f98835ded6dcbb Zhipeng Wang          2026-11-04  238  	 * has inverted polarity (a set bit enables the interrupt), so writing
-f98835ded6dcbb Zhipeng Wang          2026-11-04  239  	 * zero masks the source.
-f98835ded6dcbb Zhipeng Wang          2026-11-04  240  	 */
-f98835ded6dcbb Zhipeng Wang          2026-11-04  241  	for (i = 0; i < data->reg_num; i++)
-f98835ded6dcbb Zhipeng Wang          2026-11-04  242  		writel_relaxed(0, data->regs + CHANMASK(i, data->reg_num));
-f98835ded6dcbb Zhipeng Wang          2026-11-04  243  
-95cb660c28dcec Zhipeng Wang          2026-11-04  244  	platform_set_drvdata(pdev, data);
-95cb660c28dcec Zhipeng Wang          2026-11-04  245  
-95cb660c28dcec Zhipeng Wang          2026-11-04  246  	ret = devm_pm_runtime_set_active_enabled(&pdev->dev);
-95cb660c28dcec Zhipeng Wang          2026-11-04  247  	if (ret)
-54ac29cd11115e Zhipeng Wang          2026-11-04  248  		return ret;
-95cb660c28dcec Zhipeng Wang          2026-11-04  249  
-93174c05dd2e9b Jiri Slaby (SUSE      2025-06-11  250) 	data->domain = irq_domain_create_linear(dev_fwnode(&pdev->dev), data->reg_num * 32,
-0136afa08967f6 Lucas Stach           2018-12-17  251  						&imx_irqsteer_domain_ops, data);
-0136afa08967f6 Lucas Stach           2018-12-17  252  	if (!data->domain) {
-0136afa08967f6 Lucas Stach           2018-12-17  253  		dev_err(&pdev->dev, "failed to create IRQ domain\n");
-54ac29cd11115e Zhipeng Wang          2026-11-04  254  		return -ENOMEM;
-0136afa08967f6 Lucas Stach           2018-12-17  255  	}
-4730d2233311d8 Lucas Stach           2022-04-06  256  	irq_domain_set_pm_device(data->domain, &pdev->dev);
-0136afa08967f6 Lucas Stach           2018-12-17  257  
-28528fca490814 Aisheng Dong          2019-02-20  258  	for (i = 0; i < data->irq_count; i++) {
-28528fca490814 Aisheng Dong          2019-02-20  259  		data->irq[i] = irq_of_parse_and_map(np, i);
-7db5fd6b751fbc Shengjiu Wang         2025-03-05  260  		if (!data->irq[i])
-7db5fd6b751fbc Shengjiu Wang         2025-03-05  261  			break;
-28528fca490814 Aisheng Dong          2019-02-20  262  
-28528fca490814 Aisheng Dong          2019-02-20  263  		irq_set_chained_handler_and_data(data->irq[i],
-28528fca490814 Aisheng Dong          2019-02-20  264  						 imx_irqsteer_irq_handler,
-0136afa08967f6 Lucas Stach           2018-12-17  265  						 data);
-28528fca490814 Aisheng Dong          2019-02-20  266  	}
-0136afa08967f6 Lucas Stach           2018-12-17  267  
-0136afa08967f6 Lucas Stach           2018-12-17  268  	return 0;
-28528fca490814 Aisheng Dong          2019-02-20 @269  out:
-28528fca490814 Aisheng Dong          2019-02-20  270  	clk_disable_unprepare(data->ipg_clk);
-28528fca490814 Aisheng Dong          2019-02-20  271  	return ret;
-0136afa08967f6 Lucas Stach           2018-12-17  272  }
-0136afa08967f6 Lucas Stach           2018-12-17  273  
 
-:::::: The code at line 269 was first introduced by commit
-:::::: 28528fca4908142bd1a3247956cba56c9c667d71 irqchip/imx-irqsteer: Add multi output interrupts support
+--=20
+Mike Looijmans
 
-:::::: TO: Aisheng Dong <aisheng.dong@nxp.com>
-:::::: CC: Marc Zyngier <marc.zyngier@arm.com>
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
