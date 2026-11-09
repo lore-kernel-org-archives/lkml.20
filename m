@@ -1,112 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794233621;
-	b=pmhMShsPDgXi/qzDBAJ6V/0WDsdLSKpMna+ug5GKj4eFQg7hlbC9sQ6AE+rduxbB9KZ3
-	 h5vEZjZW86MWXyqJVBVh54yGNiBjkBkb6gjbllCDkO/57E3T+uxJVxnhF2Sz29BmRRYrT
-	 SKx7FCc8BhPyX2seThfovZyWkixdU7PYOAeX/GgDehV8D8ioep7BeQoYKClJhOk7ZZv9O
-	 XdSAyESGEyRBGenWw14IYI1aIkmI+61fhhK3nUKwjpv2BeJYlOVmX016YlpCS2vu5E9ck
-	 jVCfOSrcMu0II6WRg5DiNSDRsYRmJ3mgFpbg9wSC46BZzWzRGha6faCm56kMq+A2/Pg==
+	t=1794233659;
+	b=SlK5uzpZ5qY1M7PtUK+YL5+9AdZQfz5bJ6MSiZZuZMa55oUJZ+4dwXqf2liKLU3135dS
+	 NOsByl79cOXjGjQq4CAemiMxPwDQXbeu5gcJZPWg3YYuITlzi2VO5JnlXsblYWnT7WIt5
+	 MPrwhC200R5vjn//qy8ItCuJPFvcnjPcNhMVByUmPRFKqbk45aQEVVC6yBiCVK7Fm0gVS
+	 DRAVSjJ4W9Ip3tF6JDQEgk3WcAocmoTJnNKbyy5LZyeteMQbIDrGhA7efi9xMqtPCEr7r
+	 G7XFRLS7bnVKgSOJKLvXW4nTc8uyfLF+6uUgbgoR3Jt4sCN5oIzU+Bfn/1tRh5cApnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794233621;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=9e78KPc8jahAevPotNvn6m1tw9CTzVGALrHqcnEIRm8=;
-	b=fphAb72BRdCFMLzfXZeBKf/5LjcvY61yvclxpKgv1l8eLw0KIqIYjECQ7r+XwC3oEujg
-	 2BfslWBZyfs48wav/RVR3+LM1ud4YBnieEa4Y7k6pZgpJwA/J5CDQRKvK1KvmXhCUWIDx
-	 H6XJ9lJK8Ye73kFbliNoxd5Y8JMDsBJVhgjv3h/YEdkMJTGARdQ/bLvLHF2PEdZkIF2ni
-	 +iyW7ZXZ4u1OSDm0yb1/OhiwXel+VVT397zCl+nNvHHK7303KgoXqyI1SlVdT5EwOjDrh
-	 5GgmrTNl83yKkytYQ6fJ8TxxusmNhKidVw92J6jy74V6Xg+ZUT1NdpbDCJQXlTt/vlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794233659;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=GSnPkr/rL24SbEjAXMIorIPla/nW3FYOSJPsATx3I5k=;
+	b=o4UDmSv6MwMA2vOJ28tcOqSBMNF3VYBQBGPwqowj8oXIfG3g/zUOhYOWC/ck9lWn7Crz
+	 Sc76FmDxN6+/JzymDMjwPQvhkIIQxHzK2ElsDoNJGd0SxQvXf55jRevQdSSm5hN4ROH7n
+	 qENtvdyQaZk2XI/GB9LnNeHb8sgLvSMQR8GgQ/ACxibndtBPGjcqLSAdXB95D0bJAemMp
+	 JpfcHKVT+l8yIfk3iFTntY8HLT7sZrsyVQ1F42KvpYr/IKZq8Eg1iLc/eia/UzMweoN2Q
+	 dG5LEhZqSXqIUI9045jaBpdVAyd1ONwFqXsCiUWop9SgUSUah9Xzcqfy98mW7G6VcKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ctW9LfKu;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sgnxScPO;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ctW9LfKu;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sgnxScPO;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kj8V6vhs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 203C4606A31C;
-	Mon,  9 Nov 2026 14:13:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 203C4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97568606A33A;
+	Mon,  9 Nov 2026 14:14:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ctW9LfKu;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sgnxScPO;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=ctW9LfKu;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=sgnxScPO
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 777461F7BE;
-	Mon,  9 Nov 2026 14:13:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794233619; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9e78KPc8jahAevPotNvn6m1tw9CTzVGALrHqcnEIRm8=;
-	b=ctW9LfKuSTMcAiN0bPE02eqSR2r4e+pePA2C1iCM/MZTACcal+F6SuXjhJNKthku7GM2Oa
-	27y6SERccF5Nt4crrWi/yk+DEzmUAiRfp5EvetlPEZO/SYoNq+zTz8qXDgaH842ga9hAnV
-	e+q8MWGq5RlVFsWki2yBf0FBGzpJO6s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794233619;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9e78KPc8jahAevPotNvn6m1tw9CTzVGALrHqcnEIRm8=;
-	b=sgnxScPOMPTqiKplWt1uH0MVtAlyjDY3axAhU5ZrcPD9hlDe/0FiPDIa5SCnJD0aAcFdhu
-	aDNjHEvLskTxU4Bg==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ctW9LfKu;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=sgnxScPO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794233619; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9e78KPc8jahAevPotNvn6m1tw9CTzVGALrHqcnEIRm8=;
-	b=ctW9LfKuSTMcAiN0bPE02eqSR2r4e+pePA2C1iCM/MZTACcal+F6SuXjhJNKthku7GM2Oa
-	27y6SERccF5Nt4crrWi/yk+DEzmUAiRfp5EvetlPEZO/SYoNq+zTz8qXDgaH842ga9hAnV
-	e+q8MWGq5RlVFsWki2yBf0FBGzpJO6s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794233619;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9e78KPc8jahAevPotNvn6m1tw9CTzVGALrHqcnEIRm8=;
-	b=sgnxScPOMPTqiKplWt1uH0MVtAlyjDY3axAhU5ZrcPD9hlDe/0FiPDIa5SCnJD0aAcFdhu
-	aDNjHEvLskTxU4Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2C43F13319;
-	Mon,  9 Nov 2026 14:13:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +AxLOw3V8WqDWQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Mon, 09 Nov 2026 14:13:34 +0000
-Date: Mon, 9 Nov 2026 14:13:32 +0000
-From: Pedro Falcato <pfalcato@suse.de>
-To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Hugh Dickins <hughd@google.com>, Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH v2 2/2] mm/memory: refuse to map page cache folios that
- are not uptodate
-Message-ID: <avHUz0yxoQ2Ny4oH@pedro-suse.tail5790ac.ts.net>
-References: <20261109120403.82361-1-kas@kernel.org>
- <20261109120403.82361-3-kas@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kj8V6vhs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F03A31F0089F;
+	Mon,  9 Nov 2026 14:14:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794233659;
+	bh=GSnPkr/rL24SbEjAXMIorIPla/nW3FYOSJPsATx3I5k=;
+	h=Date:From:To:Cc:Subject;
+	b=kj8V6vhsSQZUPG5XoKQMgPoEvAmsSwSZoinQk78dfHYAMdsKmxOG8b4fGW3qkojTf
+	 QpqsCJhfAV6HyoRysZ9H9NcUV1HegafaK3HriujOFkiJlntwEUxy+NLZF7tvln8deB
+	 B8VV7V1oaS6ufKU3elLgaFt5OPrvBfB5rl/MwjC3zgfMN+rQna8ne7gvG3w2CXIjVI
+	 hfVP4haf1yLRNLBmq7LP5r8fk2UNwu2Bi+x9HvK+WdODVr63VXL9IOGdMaYokNYLvh
+	 409EBYCSLS0oB3n5Tkzd5rqbY9sHnCd1FDXc/2wt1n1nyq8GQxjHPndItb+hl9PXVy
+	 aLtylzOH0C4SQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id C77BA1AC5995; Mon, 09 Nov 2026 14:14:16 +0000 (GMT)
+Date: Mon, 9 Nov 2026 14:14:16 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Lee Jones <lee@kernel.org>
+Cc: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
+	Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the mfd tree with the origin tree
+Message-ID: <avHVODjuTlxhuwkW@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,70 +59,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="57jt3IwzCWLIYfiG"
+Content-Disposition: inline
+
+
+--57jt3IwzCWLIYfiG
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109120403.82361-3-kas@kernel.org>
-X-Rspamd-Queue-Id: 777461F7BE
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MISSING_XM_UA(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -13.51
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 09, 2026 at 12:04:02PM +0000, Kiryl Shutsemau (Meta) wrote:
-> A page cache folio that is not uptodate holds data that was never read
-> in or cleared. shmem fallocate(2), for one, adds such folios and clears
-> them only on first use. Mapping one hands userspace whatever the memory
-> held before.
-> 
-> Each path that maps page cache checks for this itself: fault-around in
-> next_uptodate_folio(), a fault in filemap_fault() or shmem_get_folio().
-> Nothing in the mapping code does, so a caller that misses the check
-> leaks stale memory silently. MADV_COLLAPSE did exactly that with
-> fallocated shmem THPs until recently.
-> 
-> Warn and refuse the mapping in __do_fault() and do_set_pmd().
-> 
-> __do_fault() checks the folio ->fault() returned while it is still
-> locked. do_shared_fault() unlocks it for ->page_mkwrite(), and a
-> writeback error can clear PG_uptodate after that; that case retries the
-> fault instead. For CoW, __do_fault() sees the page cache folio that
-> do_cow_fault() copies from. do_set_pmd() covers MADV_COLLAPSE, which
-> maps without a fault.
-> 
-> The fault gets SIGBUS, as for a folio that fails to read in.
-> MADV_COLLAPSE fails and leaves the range to be faulted in.
-> 
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Hi all,
 
-Awesome!
+Today's linux-next merge of the mfd tree got a conflict in:
 
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+  drivers/mfd/rz-mtu3.c
 
--- 
-Pedro
+between commit:
+
+  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
+oc_obj() family")
+
+=66rom the origin tree and commit:
+
+  9aac1f80c8784 ("mfd: rz-mtu3: Do not use struct rz_mtu3_channel::dev")
+
+=66rom the mfd tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+
+diff --cc drivers/mfd/rz-mtu3.c
+index 7e1313a57abc0,558ed3fbe5207..0000000000000
+--- a/drivers/mfd/rz-mtu3.c
++++ b/drivers/mfd/rz-mtu3.c
+@@@ -315,17 -291,16 +291,16 @@@ static int rz_mtu3_probe(struct platfor
+  	struct rz_mtu3 *ddata;
+  	struct reset_control *rstc;
+  	unsigned int i;
++ 	int ret;
+ =20
+ -	ddata =3D devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
+ +	ddata =3D devm_kzalloc_obj(dev, *ddata);
+  	if (!ddata)
+  		return -ENOMEM;
+ =20
+- 	ddata->priv_data =3D devm_kzalloc_obj(dev, *priv);
+- 	if (!ddata->priv_data)
+ -	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+++	priv =3D devm_kzalloc_obj(dev, *priv);
++ 	if (!priv)
+  		return -ENOMEM;
+ =20
+- 	priv =3D ddata->priv_data;
+-=20
+  	priv->mmio =3D devm_platform_ioremap_resource(pdev, 0);
+  	if (IS_ERR(priv->mmio))
+  		return PTR_ERR(priv->mmio);
+
+--57jt3IwzCWLIYfiG
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavHVOAAKCRAv73Ows9A4
+iUs9AQCZLrhWQVJ/gK7jdM3fc9nXKnk3gwcTSCzsqB6j4s0JTwEA2CkF9UDIae+M
+33zXmU6XxvnPTLwyFy5RqPWsPttxuQM=
+=2XI3
+-----END PGP SIGNATURE-----
+
+--57jt3IwzCWLIYfiG--
