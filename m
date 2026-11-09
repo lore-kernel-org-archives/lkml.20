@@ -1,76 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794255099;
-	b=PNzeb7Ik2YeFJWUXa5a3qA5bThSvvZ1woTAhLES9N33CC6IIqMIPxguITmYNsVmm125E
-	 D7TN01GJd+MX1GaCadulKWPDI53yv7n3kzHjsvKjamDWShIRAhI49weURW1paaHlR4Hvx
-	 C4LcunGBk2wiUkK82MWWx6ijuZIP3tD9x3LtyHf734avNo3DpPeeOG7n4JnmqlHZbRSnO
-	 9jCTAHefB3/B+hSA/6GjX+WEp2qf2BehDx+oELcGSBbuqptDyzFNrDFkvQFPTBf7256VC
-	 YzUxjXldmbDgrLmnZebDy+KFteW+vvfyX47N9ixopZbhDyl8qd6XQ+WrtwzvUltx1HA==
+	t=1794255125;
+	b=kLOFB4y293QpQmWjs8AIWJ1RB+/J89Yp8Q1MAd0rTWyFj8im3cd26jmG3UW/bG0ycJb2
+	 QUv7BOdNCi9OjxsZ9aduc6tq7YFVCNIukclyCBDiJ8Epg7/PRfi0z4Ho9Nck7b+aCq8Bz
+	 DCeatMG1/+enh7MVoObtmQqX5VuY0ar3c/7mYuJqzorU8c1XUaZYrSMuMJZjw0HWVkf7K
+	 dKAn2R2J/IB1O8mF2ykFuwfXx772sH4brqQV3N/K/Q2pUFVBcs4pHFSF5iXlsk3IdTQDY
+	 hpjslpUJBuUj+nb7nge34TadSnixO/KZM7Z2dGHMKkROGB1ZX17dLaqEc7lW36LyvZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255099;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=FGfAVWgpi2aN94+rs+NNa1Po8AGQSVyIerXI/e4BStI=;
-	b=nL0r/kerTmlCFc/cGt/gdHi12Jd4YP4Xf0NkJNykMHtYP21ze9buS+SYd5nAV7qLrxF4
-	 +2CWMjCR8s03xKQumDXfJtrmy6PO5gLElGBZUm13nv3ZnKLxh9D42uoFEERiZeT392E3r
-	 5h3+t2iB8ue/V6hYAIdGHDXR0bjEhMVtRsI4P/TqyleLCrir6OsUbqJFzxMnCzKC1k/jR
-	 cBTu6RzwMpNhmijcuX8SyedejqvTXx9t6u7bY60jZzgO+Ovo0rXWGI7FFguy1BZmsygOr
-	 T/iHBemIWug+iqBgb+kG8qv9lbWHpsSP3d4ZAHt0CekpIN4GpuN3nchxrsokrsnKwjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794255125;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=292T8O0aYQmW1UA5e/QuA2F7Fm+KQFHNlKPM8I6UjFs=;
+	b=ewfwrCSmVncljdSMjtcd/pD86raBH5CJPe72ChUNHDH4b3lvzOqCLo5/yz6oCIsVCJgh
+	 kMkHKmQTu68+sdDl+HxUa1hMGuVLT8IgvUnPLGR4V2b+6KKE1hu4/4Wl5d7ZY1U/mUeDq
+	 Uq57z6/sL0gtpDUWaAd9MSYu8bpfH9yOiE/7jlq4uh/ISo+uc2vymbWhRakgV+Tc8zNA+
+	 /HzGAbx/r6FBMBjU/s8OCeaM9Um67e2VG144uwwKSNSzV1jCEaa6LR8yK6vRxWwmJnEgi
+	 XjwCrTte9K0i0Nhmdy0YhsaEGy9/e6E22WqVe6ZPbN8UPG+YiisqlaLh/Kz8vWh6u6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="N+I/1kP+";
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=dama.to;
+	spf=none smtp.mailfrom=dama.to;
+	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Ip8+iMcH;
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF06606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:11:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF06606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94EB5606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:12:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94EB5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=N+I/1kP+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794255098;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=FGfAVWgpi2aN94+rs+NNa1Po8AGQSVyIerXI/e4BStI=;
-	b=N+I/1kP+R6vfF3+6liOx3bI5B5KLdxcWJgHVSkM2HJ4eOSUj2HzU26ALxHnCrdBeoFFajU
-	QpVpo1uSTXU+ifrcsETONcMRSPtljHgBIF4H/osFWNw5fjMWGDpf7YSE4rcFJSheG2B4Bs
-	OvytxJbHtvqyvmc07/RmfRaOmQ+kjkE=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-636-UFTivgPGO7erJxWaWnQWWQ-1; Mon,
- 09 Nov 2026 15:11:34 -0500
-X-MC-Unique: UFTivgPGO7erJxWaWnQWWQ-1
-X-Mimecast-MFC-AGG-ID: UFTivgPGO7erJxWaWnQWWQ_1794255092
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5886E180060F;
-	Mon,  9 Nov 2026 20:11:32 +0000 (UTC)
-Received: from loberman-thinkpadp16gen3.redhat.corp (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A8E5C18004D2;
-	Mon,  9 Nov 2026 20:11:30 +0000 (UTC)
-From: Laurence Oberman <loberman@redhat.com>
-To: "Martin K . Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Martin Wilck <mwilck@suse.com>,
-	Hannes Reinecke <hare@kernel.org>,
-	John Garry <john.g.garry@oracle.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: scsi_dh_alua: set handler_data before alua_initialize()
-Date: Mon,  9 Nov 2026 15:11:20 -0500
-Message-ID: <20261109201120.1067815-1-loberman@redhat.com>
+	dkim=pass (2048-bit key) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Ip8+iMcH
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdb1199bfd8so509789a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 12:12:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794255124; x=1794859924; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=292T8O0aYQmW1UA5e/QuA2F7Fm+KQFHNlKPM8I6UjFs=;
+        b=Ip8+iMcHvKrY9zFOYypIviny/5cFym2x9yoAPmDDC/trN/zTVtZ3Y6KFEbImBGAzr8
+         d77ZFlCo1lr4hxIOKdtTTGH6w5JmYn0vplbDm2XbqLUAhJ8neXrnB+NJeSuKgNLO6u8d
+         W6wqtBbfw+e3zJLU101XOWq7oMybWBRKbDvhkxIbYc/0uIhoAecYTArBfiOfSUNq2scN
+         sTsJpI1UNH8FovGNkAWkCyCJysaFs3KiXEl5knV7KiyniUuoctuo+8C1uB8jqOFGl/4S
+         zCPqNKNUZB/RX4+khtR4NgZJmV0Iygb9l1gYHuVNIe1ojV5WRudu6JhtX61gIEi6AXfY
+         aU+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794255124; x=1794859924;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=292T8O0aYQmW1UA5e/QuA2F7Fm+KQFHNlKPM8I6UjFs=;
+        b=2s/pKmQMvDMHi4Ft1kWnLtzIYNNVEVm+Lnp/RiP1glAfQ+WldqsoE1Icq0H+gcC6ZM
+         WGWax8ROm6UxjbxCnITtjmRpDCRhJeWJlZInvZhMa08j4viuFA9WigiSyGmeMSn82gZ0
+         Yza2oZuiGcNrLtOP0X350TwWlW+7bB8mZHK2DY8IuHfAiQaX3XUhjg7f5ZVMpgeYXRwO
+         nXJ+zkHReqIe4BeT7I85CJ66yjHHHijVeuPU835Ujy3+7kWRzhlz1JcJJ6DuO4EgHZiL
+         o0r5KCDh9Zky6tCza9E3Fuf/w7koRz3qKP8bmTjMrUItQqjMpMkwQRms5BAFQTeHJO0d
+         LqdA==
+X-Forwarded-Encrypted: i=1; AL+hErFcO1/sgTe05LivD2PpsYvMXRZ8MBsLHJzGTlfChKmIL9wAZMDEWKXG+vjlybFLmcQ9qJlUVCnfM1QDEWo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SHL3IMcbqMD/VSkJJNOIt4NNROJahwIIkmMRh1XrTYN3bGtft
+	t6DrsW3jZrmlbyJEtlUz+Zsy3G4P+XB8pNRb+522avHUSUtlOcGWwrkDdIGlfPyGFUc=
+X-Gm-Gg: AYBFou3+ALs2HgqE0qsfhfnZMd8PGlFBGE3BEm4P2ZcXU6vMTeeaGAeIInxyHEq3CqN
+	X3eqmmrb0WXtRp/DcQ7JmeszuME8u4zj7DJ2Ee/t9ehi5866wXahPzmrpiPRf/OSw8EEyjWjO/v
+	pjUgjgsRWJrLD6K6y+hOrednAFO1BxgBmi27quclsUiqqhowK9ANOXkV48s2ZWZ58AIKcbjG6EM
+	h9C0Q8umDJd8C9vkMgrYirwl0DA1HPfcYqdEDc7F4B73JZVU8AJ7AQFtMzQWukH4SKqq+Vhc6GZ
+	+msY7y32+yQURCoUVNC10AzvAVVJ5AN/d2Ilpw1UrN3XDSJnn86OV96XK7jsQb8vdSbLLIODtTN
+	05BJDMyt8yOPn4cuzOODrtgUxJu1o3rtbROp4CBUCrL8zVrrsybPHNSsMSd5Zpoj/5dcpqLsmLb
+	lvwS6JNiogrbXiXYiubH7t7gf5nGVQzDru5UD8WfKiHxjqGxjRZ6ZZCzAvSHNSsuLjShJvLO9Rp
+	dn1AOOifAmSVMaV44tsYKbZ1c4M30DzbsB1f2ylq7QGy5qCFgAj1qI4VQory1oxAKNIfJORrXtD
+	GEEg1gdRukub+U6d/qXOOAYGWpa0Cx8s2JroixKv1g==
+X-Received: by 2002:a17:90b:37c8:b0:3a0:4668:4cb0 with SMTP id 98e67ed59e1d1-3b166d1efc2mr707172a91.47.1794255123838;
+        Mon, 09 Nov 2026 12:12:03 -0800 (PST)
+Received: from localhost ([2a03:2880:2ff:57::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1676d83absm798172a91.7.2026.11.09.12.12.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 12:12:02 -0800 (PST)
+Date: Mon, 9 Nov 2026 12:12:02 -0800
+From: Joe Damato <joe@dama.to>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v5 0/4] bnxt_en: Make RING FREE more robust
+Message-ID: <avIpEpoCYvLHYl3j@devvm20253.cco0.facebook.com>
+Mail-Followup-To: Joe Damato <joe@dama.to>, netdev@vger.kernel.org,
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
+	linux-kernel@vger.kernel.org
+References: <20261106191423.4194081-1-joe@dama.to>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,113 +103,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106191423.4194081-1-joe@dama.to>
 
-Since commit 50759b881e1d ("scsi: device_handler: alua: Call
-scsi_device_put() from non-atomic context"), alua_rtpg_queue() only
-queues an RTPG when sdev->handler_data points at an alua_dh_data whose
-port group matches:
+On Fri, Nov 06, 2026 at 11:14:16AM -0800, Joe Damato wrote:
+> Greetings:
+> 
+> This is a follow up to the previous RFC (linked below).
+> 
+> On two production systems, I saw the following dmesg pattern:
+> 
+>   NETDEV WATCHDOG: transmit queue 0 timed out 6073 ms
+>   Resp cmpl intr err msg: 0x51                  x20
+>   hwrm_ring_free type 1 failed                  x12
+>   hwrm_ring_free type 2 failed                  x8
+>   AMD-Vi: IO_PAGE_FAULT  x3
+> 
+> This suggests that, for some currently unknown reason, TX completions stall
+> and the netdev watchdog fires. The driver asks FW to free the rings, this
+> times out, but the driver ignores the possible failure and frees ring memory.
+> Since the FW didn't respond to the ring free command, it is possible that the
+> FW is still DMAing to the memory which was freed.
 
-	struct alua_dh_data *h = sdev->handler_data;
-	...
-	if (h && rcu_dereference(h->pg) == pg) {
+OK so Sashiko found a lot of random stuff and I thought it might be good to
+summarize what I plan on addressing in the next revision in one place.
 
-However alua_bus_attach() only assigns sdev->handler_data after
-alua_initialize() returns, and alua_initialize() -> alua_check_vpd()
-is where the initial RTPG is queued. At that point handler_data is
-still NULL, so the initial RTPG is silently dropped: no RTPG is sent,
-nothing is logged, and sdev->access_state keeps its zeroed default of
-active/optimized for every path.
+For v6:
 
-With dm-multipath this goes unnoticed, as pg_init calls
-scsi_dh_activate() once the map is loaded, which queues an RTPG after
-handler_data is set, and multipathd's alua prioritizer issues its own
-RTPG from userspace. Anything relying on sdev->access_state without a
-subsequent activate (sysfs access_state/preferred_path, native SCSI
-multipath path selection) sees every path as active/optimized until a
-Unit Attention or rescan triggers an RTPG.
+Patch 1:
+  - Fix commit message
+  - Return the errno from hwrm_req_send().
 
-Seen on an HP P2000 G3 FC array (implicit ALUA, two port groups, four
-paths per LUN) with dm-multipath not in use: sg_rtpg reports port group
-0 active/non-optimized and port group 1 active/optimized, but
-/sys/class/scsi_device/H:C:T:L/device/access_state reads
-active/optimized on all four paths after boot, and no
-"alua: port group XX state ..." message is logged. Writing "activate"
-to dh_state sends the RTPG and corrects access_state.
+Patch 2:
+  - Only check the response for HWRM_RING_FREE. HWRM_SELFTEST_IRQ and
+    HWRM_RING_RESET keep the existing behavior.
+  - Read the valid byte with READ_ONCE(), then dma_rmb() before reading
+    the rest of the response, including error_code.
+  - Respect BNXT_HWRM_CTX_SILENT for the new warning.
 
-Kernels without commit 50759b881e1d queue the attach-time RTPG
-unconditionally and are not affected.
+Patch 3:
+  - Count a ring as stuck only when no response arrived, not when the
+    firmware replied with an error.
+  - Don't stop DMA when BNXT_STATE_IN_FW_RESET or BNXT_STATE_FW_FATAL_COND is
+    set.
 
-Fix by assigning sdev->handler_data before calling alua_initialize(),
-and clearing it again on failure. sdev->handler is only set once
-scsi_dh_handler_attach() sees ->attach() succeed, so no handler
-callback can observe the partially initialised alua_dh_data. On the
-failure paths of alua_initialize(), h has not been added to a port
-group and no RTPG has been queued, so freeing it is unchanged.
+Patch 4:
+  - Make BNXT_NO_FW_ACCESS() also test BNXT_STATE_DMA_STOPPED.
 
-Fixes: 50759b881e1d ("scsi: device_handler: alua: Call scsi_device_put() from non-atomic context")
-Cc: stable@vger.kernel.org
-Signed-off-by: Laurence Oberman <loberman@redhat.com>
----
+Update commit messages as needed.
 
-Notes:
-    Tested on an HP P2000 G3 FC array (30 LUNs, 4 paths each): with this
-    patch the "alua: port group 00 state N ..." messages are logged during
-    boot and access_state shows two active/optimized and two
-    active/non-optimized paths per LUN without any manual activate.
-    Without it, all paths read active/optimized until an RTPG is triggered.
-    
-    I found this while testing John Garry's native SCSI multipath series
-    (v9) on an HP P2000 G3 FC array (30 LUNs, 4 paths each, dm-multipath
-    not in use). Native multipath uses sdev->access_state for path
-    selection, and every path showed active/optimized, although sg_rtpg
-    and dm-multipath (alua prio 50/10) both report port group 0 as
-    active/non-optimized. No "alua: port group XX state ..." message was
-    logged at boot. Writing "activate" to dh_state corrected access_state,
-    which pointed at the attach-time RTPG never being queued.
-    
-    With this patch, the port group state messages are logged during boot
-    and access_state shows two active/optimized and two
-    active/non-optimized paths per LUN without any manual activate.
-    
-    This fix is independent of the native multipath series. It affects any
-    user of access_state/preferred_path, and ALUA prep_fn fast-fail, on
-    kernels with 50759b881e1d where nothing calls scsi_dh_activate()
-    after attach.
-    
-    v9 series: https://lore.kernel.org/linux-scsi/20261108204733.557995-1-
-    john.garry@linux.dev/
+The Sashiko feedback that I think is real, but that I haven't seen in prod or
+I think feels more like "new features" instead of bug fix and should be a
+series for net-next:
 
- drivers/scsi/device_handler/scsi_dh_alua.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+  - Making the per queue paths more robust.
+  - Completion and NQ failures are not counted as stuck.
+  - The polling path in __hwrm_send() probably needs a dma_rmb between reading
+    the valid byte and reading the rest of the message.
+  - bnxt_resume, bnxt_fw_reset_task, and bnxt_io_slot_reset all call
+    pci_set_master without checking the DMA bit.
+  - Notifying bnxt_re when DMA is stopped.
 
-diff --git a/drivers/scsi/device_handler/scsi_dh_alua.c b/drivers/scsi/device_handler/scsi_dh_alua.c
-index 87ac0a6d63e5..84ff3aed2c46 100644
---- a/drivers/scsi/device_handler/scsi_dh_alua.c
-+++ b/drivers/scsi/device_handler/scsi_dh_alua.c
-@@ -1233,13 +1233,20 @@ static int alua_bus_attach(struct scsi_device *sdev)
- 	INIT_LIST_HEAD(&h->node);
- 
- 	mutex_init(&h->init_mutex);
-+	/*
-+	 * alua_rtpg_queue() only queues an RTPG when sdev->handler_data
-+	 * points at this alua_dh_data, so set it before alua_initialize()
-+	 * otherwise the initial RTPG issued from alua_check_vpd() is
-+	 * silently dropped and sdev->access_state is never populated.
-+	 */
-+	sdev->handler_data = h;
- 	err = alua_initialize(sdev, h);
- 	if (err != SCSI_DH_OK && err != SCSI_DH_DEV_OFFLINED)
- 		goto failed;
- 
--	sdev->handler_data = h;
- 	return SCSI_DH_OK;
- failed:
-+	sdev->handler_data = NULL;
- 	kfree(h);
- 	return err;
- }
--- 
-2.56.0
-
+If Broadcom or any of the maintainers disagrees and thinks some or all of this
+should be part of this series please let me know.
