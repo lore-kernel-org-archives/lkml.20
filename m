@@ -1,85 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794212578;
-	b=VUUMP3njJaS1ZtwVyRDvNA3Q7MedGugG/YmkTqGGy7sHLQiiXBeYo4pneOvDXp14Loq5
-	 mKJwcO/YRKXVvvHy4lAVLPvv1Ytx6uedEyUMDnkTJuHpni5sX3KU/zxN3kgdEPQtmiDH6
-	 q43fmiU3QEY8qcnPX+qarfw3J6RVqpwc0naLE0BP8Ga1koqEtINlyYicDFvqSZrfy8RaR
-	 DO7F3WLQiJUQfeaWZgjcm+Wd05DhPJ0vPllNAX+xuwYRlxyShVcb0QWQYigcgVM/BzhyV
-	 SfQzVSeNW97oSNLJN8GGYyitzE2QhDR7mkkfMkryGLTFsFJDpx6WgsyjZ3GrYKyaMoA==
+	t=1794212580;
+	b=mJsexS+SE2yihEgO1p68xDfrAjFnKWpX6UZxnCoAxw3x5MXlI4NNqi3zVXroU36/uLiE
+	 gTDblghnSNwWqDoDunre960mh6LZdXkTCodaCBRD1MdlEEkPfgLSdiMfbpiYtwOsGWB9U
+	 98qmXDZR53IDdcZHI6ROhezmMAoQnCJ+wPPXv6V4ojBTCkr28g2zC6S/EjfdO1Oe7M7Bu
+	 8B3y86kWN/diuKOBvccOcRSATFtwVDjA5uIQaT92yOmYc/etI5iLX2r8S3KgXJQNZUZ0c
+	 B9Yj4rZj72R2S+0Ic4gmuQom+xUbcRwz6UJZJfvGPmgIkbPp0nCmmG/dcY9/6unGmIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212578;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=NxG/u4u9BGu7G5Ao9Bh0a6rRDz42atbNH5H/yOM96FE=;
-	b=YJiLImhCH1NLOLgZLlukog51KOIQ5WxNKVklryEQ3MZvnfAfBC0NcIGioyhr3kbetxa6
-	 esL6SwzyRrFC+x+pP3yujkqjhYyjLJpfxA4xr06TAdIrUns2rOtNXp1ExRAC4PQDmpssy
-	 KQy6VtzIrjfF3+/8rv3sf4i5AwvPnPeOQsTDKgI4g30uLuLRgU8kH0011GQjw+CuvCIlr
-	 onTR0AxNGC6dMch+l2IJ+PLnqApwayLvxVA96MDBThjBo7snW6ln9jyqOT2mcf88I+XFV
-	 FWuF/54g6cC5rfibKETtp2RNUmtVdrGVUG+5/yw84/pcokUvjEQiSkKzTo+uK//lVsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212580;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Stat-Signature:X-Rspamd-Server:X-Rspamd-Queue-Id:X-Spam-Status:
+	 X-Session-Marker:X-Session-ID:DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=lxQRjwNzhgUme2zk4vouWgD/lFV/r7F9Q/0FYQ7yZG0=;
+	b=w8gUwtruCwCnYrmbJS8c8BC+I6uWhyo2Vap7qyn0BgvPyJlmj+kuZmgu6FApIeP5RGhb
+	 NSC4dVMfs7QUllGW7W+2Nohhg/rV9Tr+I9ppK4qmj6RmhKWBX4k2J9lqOK8fD3hzowslt
+	 13P8xtmKp9Wb8bQDkVl+EY+wOGpsb1PJBSa/SU/rLhcxjWVe6MGpxOZfA45QL+NiTIKAr
+	 ZtIRrt1IlMVJ10QjByczTU9nyGLACot9Y5x7SyqpGqDNXI7m3PUkLvGy/xSZWFylDdwXJ
+	 qiL45n8Tl/MpUDng5eMQ15r5ovY9YfZn+uK5fORIET2ty5E5oarCYSyIMgJ2FjHdaUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=e1+BlNEK;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=T5hrrgaF;
+	arc=none smtp.remote-ip=216.40.44.17
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0571B606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:22:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0571B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2B2606A332;
+	Mon,  9 Nov 2026 08:22:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F2B2606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=e1+BlNEK
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so3512935e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:22:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794212575; x=1794817375; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NxG/u4u9BGu7G5Ao9Bh0a6rRDz42atbNH5H/yOM96FE=;
-        b=e1+BlNEKoOVHMw6ZSYrl81mAyS7B2vn/1v0q7Gf7iW/Bx9KkfVzP7lP3NzS+NntQKt
-         vbAFvzpbBBpYbln2KjMEu0tDc3qFDoQLypFkc7AKbCrVUXK9g3karlx/nA4xxV/s8Wv6
-         xFZ6xqijOIkjuVxXCCpQXPVq6UFjp3m4BskCESh+D9/JW807grXeyGsSKMrKVumI7DDc
-         ecGK5jMnZkGCRlZZ6KekOWwpeTa36+34iSLv7FkdO6oOOGcTjJA6J2XpeKZKuFjnMNaE
-         5+OMU+vpRJa8GmLErJY84EIsp1bZrulLwbRaGGcrf/4qMnvH291rP+xxoydSxscspelp
-         Dr4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794212575; x=1794817375;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NxG/u4u9BGu7G5Ao9Bh0a6rRDz42atbNH5H/yOM96FE=;
-        b=PwcmBDW5BICAkTiMi6avJ2MuMTgaDarno056U7a2UIN+QEV7GGdi4BM5s+VgY6tNaU
-         PQnfZYPbM872raF33qQQN5oHwAukj6hv6coQog0MVY8/7ohj++flJQRG3Qy6Q4CvsOUU
-         FzrL6NvDUqXZ+xa6/BoPJicCiPsA748iO4CvIQmDlV/SlHkdfo10reCwqE7RKSnq76dF
-         nzf/KZmqDLbp4R8QtZ3WSdU0xn4NcfzNTFA/IPOAh4NoKmzbbJ4by/X2APuBkOuuE/yr
-         vlqDG/Iu0fVvl3Vk9+RLDEBqQdRfyFXNHml9OP4oyV8ruWYoni6+9vNQRNybIqqAnlwR
-         mTAg==
-X-Forwarded-Encrypted: i=1; AL+hErH/Uw/bNdjqYreAKnnvEtBDPbgVmgCZIEN3Irxb5y8C/u8Bda0182EV5dnFirCHQJIY0RvdgJroW1JBtZI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rEBR3+P7a7STV1KjGtzFNPkcysyc3saOrSoGHWq9LWqG/HSTM
-	8QJErzaOMSfiMxqEVv+cmcwHcbrLPJqgDx7MQgQ5Zve4it6MlSwLkls3qfdoT/4klJk=
-X-Gm-Gg: AYBFou3FOqFSy2qak6uA5QyLLVFc0SfBCz4vcTgtbJ1rYKmr9qBrLF7Fv5fEALgGczU
-	CzPILuTd55JVl4YQd6mQhhsINwCiLwDFfhkrNk2AmRiJOduhrBj5UI70/iM1V/IMRgMuSje8Vg1
-	pBgPZGWPg1/x5CtFYFNoa31HkcXw7vDFq4xaWaN8uU3x6WJB5tkWPEPh/2ziMKjE0fO6V4QtR9P
-	+DEyXN/dH4HbncfOuKuufd/7R8PPKKYH9NGVduYtVP3Pb6x/df+K2KXAO5F/jTHKZEBf0RMzOvO
-	MfELARMADqISebdGaLMOeUG9MICeJVcmhYrwPovV3HAY5l5Y6BILgZfKhXGSjQ6cTqqPj0LR9ot
-	SqOnwlyolE6xpEUZiTdx1AUkVq8CRoxn3DJi5sW6ZCpifYxZ+FZ5o7fORu+Pfu3LnZ7HaRA3Ia8
-	PFq7V507ugtbEvwP9akJUpH2wxPKyY7AD/DSKu5L0sSp993Re5aQw8QVWasVaSHJoT6+XsSGf0+
-	yYev2bH83DEYjA1Ms+axjWCQrqh68ddNL/KQ6rF0q6dV8TwqbU8tEr8zV5I1R6xu35jGU9cvvDv
-	Yga3aESIERhohpiSTlFNb83ylP8=
-X-Received: by 2002:a05:600c:1c23:b0:4a1:f736:79f3 with SMTP id 5b1f17b1804b1-4b960da4ad3mr74504955e9.5.1794212575442;
-        Mon, 09 Nov 2026 00:22:55 -0800 (PST)
-Received: from [127.0.1.1] ([151.61.248.197])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90f1117fasm139701265e9.13.2026.11.09.00.22.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 00:22:54 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=T5hrrgaF
+Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id 302E4A820C;
+	Mon,  9 Nov 2026 08:22:52 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf05.hostedemail.com (Postfix) with ESMTPA id 098D720010;
+	Mon,  9 Nov 2026 08:22:48 +0000 (UTC)
+Date: Mon, 9 Nov 2026 03:22:41 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: LKML <linux-kernel@vger.kernel.org>, Linux trace kernel
+ <linux-trace-kernel@vger.kernel.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Vincent Donnefort
+ <vdonnefort@google.com>, Breno Leitao <leitao@debian.org>
+Subject: [PATCH] ring-buffer: Do not allow reader to see unfinished moved
+ head
+Message-ID: <20261109032241.55e57d26@fedora>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,42 +59,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 0/4] ASoC: meson: fix missing REGMAP_MMIO dependencies
-From: Valerio Setti <vsetti@baylibre.com>
-To: Jude Gyimah <jude.gyimah87@gmail.com>
-Cc: jbrunet@baylibre.com, lgirdwood@gmail.com, broonie@kernel.org, 
- perex@perex.cz, tiwai@suse.com, neil.armstrong@linaro.org, 
- khilman@baylibre.com, martin.blumenstingl@googlemail.com, 
- linux-sound@vger.kernel.org, linux-amlogic@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261107165527.576383-1-jude.gyimah87@gmail.com>
-References: <20261107165527.576383-1-jude.gyimah87@gmail.com>
-Date: Mon, 09 Nov 2026 09:22:49 +0100
-Message-Id: <179421256915.10992.15316919043567627727.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=502; i=vsetti@baylibre.com;
- h=from:subject:message-id; bh=N6o2biIKf/6AqsgDmShn74SQm8T8RQuwU2MQPtShIl8=;
- b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFkfm27vnJKjU7tJrMtO/JTW7R3vjztV9PvXdLJdz0vgi
- 7l76NTmjlIWBjEuBlkxRRaW6fd+F5SqPTROOFkAM4eVCWQIAxenAEyk8QbDf/9y36b1mSGnD2qF
- cz/nW+su0sFV6up2+uSmkEVTsmLTPzMyXK6okvrTo34y7vq6ezOrj8iF6VfY8HHHl3BErQ31aPH
- gAAA=
-X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
- fpr=0497DEFB707526E13360C970DE4B936DD13A0100
+X-Stat-Signature: g8sr9p9x95fog3j7gzhuarq1zop4dru3
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: 098D720010
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/prPkD/Pipo7SBos5JqDxCjTyrb1Zb2Yg=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=lxQRjwNzhgUme2zk4vouWgD/lFV/r7F9Q/0FYQ7yZG0=; b=T5hrrgaFApZvA5ajhhzY4Vvt9dJ4jRhFM8hD5Ve820WV5QISwd1D/8/3BrLDM+m2CGlldEqLz9ueArkKdWPdaNoGzMf4WO7QCvrVKSi2pfQ/PdEpZYslo3B5tebbtUS2tsHoIMXs4zQSs/HiVJ9O07tT9H37Q9E3thgu5s+D7hg=
+X-HE-Tag: 1794212568-571396
+X-HE-Meta: U2FsdGVkX19XV+9IhCqE0Odk1TRWUwda1u8Z14ntUtuRw+ijoRvdOUwWKcoEocIwaAsOnG7cqzWrpv9o8YQbFrnV+anIu/R12sXvH5LwqTv+9S6D2H0tFMmGsqx6YK3eYiC+hxHhdq9ceV3STFAyQO3I0wj8qLZOF8/GxOcU2uy0KVNwIGxlKCsDlXs0eHIA28djMqMnxj17HYYeM21Y0rQQfriD5YWCty8n9by5RbDizq62oiDul01qcU7LedesZ4i1AXxMwNDnH7+h8MOwZoumQN94/57pnFFSkRmEuYY0R+zwFwl6ESn92eQJYkX4IEjOBnmzSu5xyzdT7p7hW/eMl9A7olenyUkOQngefOrHzrbEeaA9HBdYDRxEKaFtmkNa2EKjdghVIY1Hwkjp3AreWysqrKzU9LhXU53rgKq25Acdg0TciJdzu8S90Fy1LKPaOX70CQE=
 
-On Sat, 07 Nov 2026 17:55:23 +0100, Jude Gyimah <jude.gyimah87@gmail.com> wrote:
-> ASoC: meson: fix missing REGMAP_MMIO dependencies
-> 
-> Each of these drivers can be built into vmlinux while the code
-> providing a symbol it calls is a module, which fails to link.  The
-> same shape in 4 drivers, so they are here as one series.
-> 
-> Affected: aiu, axg-pdm, axg-spdifin, axg-spdifout.
-> 
-> [...]
+From: Steven Rostedt <rostedt@goodmis.org>
 
-Reviewed-by: Valerio Setti <vsetti@baylibre.com>
+The reader of the ring buffer swaps out a blank sub-buffer with the "head"
+of the writable ring buffer so that it has sole access to the sub-buffer
+and doesn't race with new writes. To do this, when the writer fills the
+ring buffer and needs to overwrite the oldest sub-buffer, it has to mvoe
+the HEAD of the buffer that the reader will take next.
 
+While it is moving the head, the reader is prevented from doing the swap.
+This is accomplished by the writer changing the HEAD flag of the head page
+with the UPDATE flag. It then sets the next sub-buffer to have HEAD flag
+set as well.
+
+The cpu_buffer->head_page points to the last place the reader saw the head
+page. When it needs to acquire a new page from the ring buffer, it will
+start at the cpu_buffer->head_page and search for the sub-buffer with
+either the HEAD or UPDATE flag set. It will only do a swap if the
+sub-buffer has the HEAD flag set, otherwise it waits for the UPDATE flag
+to clear to find the new head page. The problem is that this
+cpu_buffer->head_page can be stale, and if an interrupt happens while an
+event is being written, and the interrupt writes a lot of events, it can
+move the head page several sub-buffers from the original head page. If the
+cpu_buffer->head_page ended up between the original head page that has the
+UPDATE flag set and the new head page with the HEAD flag set, it can allow
+the reader to see the new head page and swap that one out while a commit
+is still in progress. This can corrupt the ring buffer.
+
+Have the writer update the cpu_buffer->head_page to keep it pointing to
+the old head page before it does the update to make sure that the reader
+will always start its search outside the UPDATE and new HEAD sub-buffers.
+
+Cc: stable@vger.kernel.org
+Fixes: 77ae365eca89 ("ring-buffer: make lockless")
+Closes: https://lore.kernel.org/all/20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org/
+Reported-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+ kernel/trace/ring_buffer.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index c64e001c3fc0..0d37f8b529d5 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -1494,7 +1494,13 @@ rb_set_head_page(struct ring_buffer_per_cpu *cpu_buffer)
+ 	if (RB_WARN_ON(cpu_buffer, rb_list_head(list->prev->next) != list))
+ 		return NULL;
+ 
+-	page = head = cpu_buffer->head_page;
++	/*
++	 * Make sure that the start of the search of the head_page does not
++	 * start between the writer adding the UPDATE and the new HEAD that it
++	 * moves forward.
++	 */
++	/* Sync with the writer moving the HEAD in rb_handle_head_page() */
++	page = head = smp_load_acquire(&cpu_buffer->head_page);
+ 	/*
+ 	 * It is possible that the writer moves the header behind
+ 	 * where we started, and we miss in one loop.
+@@ -3721,6 +3727,15 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
+ 		local_sub(rb_page_commit(next_page), &cpu_buffer->entries_bytes);
+ 		local_inc(&cpu_buffer->pages_lost);
+ 
++		/*
++		 * To prevent a stale head_page from being between
++		 * the UPDATE and new HEAD pages, set it here to have
++		 * the reader check always find the update before
++		 * finding the HEAD page.
++		 */
++		/* Sync with the reader setting the head page */
++		smp_store_release(&cpu_buffer->head_page, next_page);
++
+ 		if (cpu_buffer->ring_meta)
+ 			rb_update_meta_head(cpu_buffer, next_page);
+ 		/*
 -- 
-Valerio Setti <vsetti@baylibre.com>
+2.53.0
+
