@@ -1,80 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794258858;
-	b=d0Soe2X7qtyHUwW3B5m8Lyv7nJkmi6tk1TgH4LeuSFsHhL/znrmuTpfX9xYcmV2H+MFM
-	 WtGy8UBxFfBY37uS5DRwan0pHgoqVzyYwjjGjhMUkGLAucuu4Ymf6A1lw6mJyI0Xmb2Gy
-	 7SpsxXdcP1F75y+bM/KdQ4OnIXEbLY5soWU9zGOwl8+AstnCCVztawm77HVPDcjVGlZ2e
-	 7dZiVkFyKlkZ1Gfn06xRkly+9mbvIMbKwTmV6sIt03Nu93jYwqqQ0Z8OcBLWkr9IjNnuV
-	 /zn+65vEZ758jpz5q/Y6vOrD1sZ14pwz1f5HMGGZrEMRupFR49YLL5+Bpr7Hz2phctw==
+	t=1794258882;
+	b=rMfpOzt9ggPjqsCGbJRCrwevxTCqRYDzXasZ3dF/qrVkkRnplIWCe50Jc3UtnIn5FRhv
+	 I5UO2FDmA19MLdpsDktcb2jRvm68aNwZYaUb9rpi5VgV000rNtPVglsnE44NmaYivSZvZ
+	 LpiPSNP8pcHtu9aNpC2x1buenYc5AhwcObIwdp6EbXivDERkZcFEW5GmsZCKF2/ju5Y0Y
+	 iqbCSFIugtmayAPfYPw2cg9n6b5eAekfNnJNxfRw9oKaOJlRpRAxA7+noeIgVlqQdQRno
+	 vtnkVHBvql1m32s/ZIrygWH4LhWt4j6/6nDpeSiPWpqLRY6oeWE95gesicJ6U5o6Kog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794258858;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794258882;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=1NtsNuj46Dzk0jkhcJogOuPuCcF1LqC48vhpTmVcMPk=;
-	b=0MRd9paDid4ys8Q9iNsYFIub4ZAhjnh4OanHbrYlV2k5Nrxx5bR1Eu5a3amqErpQ6ZhK
-	 NIoSgiyx+mJ5CAg7M5VmjNVIY6RgPAbflEKjE0sfRWY9SmyiIE47kxHFPqWgjDwS6gEWr
-	 Ubme916OkdeX9OWDk7MZRXc0fFrW5HvHTXkmtz/8iqNBNthaV3hG0ZfmWCbTpN25ABN8I
-	 wwHE/TU0g2wpCTZGLf9+kj+NF/cD0odfpe8TtfV4AureHoWPuxv8vNfTqcROMkVut1XZ6
-	 s8gV1lRVbP2u0DGZrqZoneg1ij47TkNGDBavhGbXyXHOIl0D/5q0OYsntwCkmK4mBzA==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=LzxAxQBez/SvJRZ4viHcOWPNEClCEA7jRf28Z+6nb+A=;
+	b=mh3K4pIAE6Gy3N4mUPqY8tGqAUjMeBIYpDmn5auCX2+rUa/d6/HC9Uk+ijeOUgBX/o42
+	 Ysq9F1vcARDiZuN33Nm76FGxmThoObVpqeZnaTcBfWU+5EVXAohNZh0MBBVPf0zjD01Ad
+	 K5syq3yhuoNUeGC4F/2aKburVuFq3w784G2LgDEPKz8sIQZUYxabbeXQskc2/Au3zKL3z
+	 jti8ZYJqVSy6VxRXjFsUdwdtTtNPq5SKZgrjgWGu9pWuj06XyuOYG7z1WZ0gxch7w+GXO
+	 9yJY7woFWrSHHJg2wdP113FQcgvq3DlzgA5G64GPgOWDl4qCzOsY5m53dB6gYlVJ9ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ePZizGX4;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PzBM3Qa7;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E90606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:14:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66E90606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99483606A321;
+	Mon,  9 Nov 2026 21:14:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99483606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ePZizGX4
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PzBM3Qa7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794258858; x=1825794858;
+  t=1794258882; x=1825794882;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=uBbJGX0ROzFfOyISdoSsTEY5cGeOybtEFrw6eFurM4s=;
-  b=ePZizGX4LcbOhDoC8BPGPvx8lz1+wohv3KF9qrJcBY9UMGUWAEGneqAz
-   gKF1fjODBxBWO52FY7aCHHnjX8B/olwWl+BfUjJJXQWPf4imtHQWP5aHj
-   YR+LYv2Qs2F8VxGfQYCDYowQsVxg0KWiy4jADz1zWvEbKkybCw0jWo0mj
-   06UbTWocolFXdkwuMmU5+IvfJUHTYTSC/+/AKlX4TwyitnQxbuaHdfeNQ
-   mPLwDxNZMlotdOev7tUC5s9zGXuUYl97po8/NOGs/6hLc++nSwtbabwg8
-   jgmB7gEDWzT8+VoQDb8PDoZ3HyOhZf4Cm+FpVNQ/gci3lEmKvOBe+8tDa
-   Q==;
-X-CSE-ConnectionGUID: 52kD8zIWQYuaLhctWQ0/Fw==
-X-CSE-MsgGUID: Uxnf5vXlTtCVlo4GkLdd/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3079966"
+  bh=kmHmN0RR8dw/qpJ0KbXfrz1fGzXClYbh/LSN+8s2mS0=;
+  b=PzBM3Qa7tX3HN+vTJ+oGcTvdt9wHrp5gcnq3wBajGZjx+dLRcIcYnOp0
+   pHGM1rh1Gu8QUW4jiXm1gBsMkdYGukgzOyKmLwJutdSalWQ7qGGWst2yc
+   01VA7j0dN9v7Li5O1J3PobHsaiqWk2xwSl4yCuvLzlcylClQ9VL8M1CSW
+   Lcp84vQK54+ELRaFyZqp4v5K+zFsedZk0BOFG4bqJ1gblAykGf+/lkIDp
+   3DTLqsuoxNA8KKSfVfMggyjT8SWgLHlwdC8PDYdwtYfGNWhdRZrhGJzTz
+   apflEo88fMwu+MsuRwupUW8XsrkYAsjEXrIfyafleKtIrz/ePnGRsPslV
+   g==;
+X-CSE-ConnectionGUID: AQrn3YE2SfqNN6H9dqNa6A==
+X-CSE-MsgGUID: bt5jJtRqQR2EAbWfqtPBgw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3024641"
 X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3079966"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:14:17 -0800
-X-CSE-ConnectionGUID: /UmNdik9RoqjUpV3TogPcQ==
-X-CSE-MsgGUID: +V8aMcX/RJGH558EwhsCmg==
+   d="scan'208";a="3024641"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:14:41 -0800
+X-CSE-ConnectionGUID: xzmAUpCHQqOrNJwalQn7LQ==
+X-CSE-MsgGUID: CoDzslKhTQqir/LTY6qg2g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7854540"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa005.jf.intel.com with ESMTP; 09 Nov 2026 13:14:12 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQWgo-00000000vLX-3BBm;
-	Mon, 09 Nov 2026 21:14:06 +0000
-Date: Tue, 10 Nov 2026 05:13:25 +0800
-From: kernel test robot <lkp@intel.com>
-To: Laurijssen <lauserve@gmail.com>, linux-kernel@vger.kernel.org,
-	pjw@kernel.org, akpm@linux-foundation.org, jannh@google.com,
-	brauner@kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Laurijssen <laurijssen@protonmail.com>
-Subject: Re: [PATCH] SYS: add utsname_set_field to reuse code in
- setdomainname and sethostname
-Message-ID: <202611100542.gPwF4AkM-lkp@intel.com>
-References: <20261109114421.8414-1-laurijssen@protonmail.com>
+   d="scan'208";a="8128451"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:14:38 -0800
+Date: Mon, 9 Nov 2026 23:14:35 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH v2 4/4] software node: pin remote endpoint swnode
+Message-ID: <avI3u_QLJ-UTLkYh@ashevche-desk.local>
+References: <20261106-swnode-race-v1-v2-0-f8bc7b14d578@nxp.com>
+ <20261106-swnode-race-v1-v2-4-f8bc7b14d578@nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,50 +90,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109114421.8414-1-laurijssen@protonmail.com>
+In-Reply-To: <20261106-swnode-race-v1-v2-4-f8bc7b14d578@nxp.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Laurijssen,
+On Fri, Nov 06, 2026 at 12:38:38PM +0800, Peng Fan (OSS) wrote:
+> 
+> software_node_graph_get_remote_endpoint() looks up the referenced node
+> with software_node_fwnode() and then takes a reference with
+> software_node_get(). The borrowed pointer can be released in between.
+> 
+> Use software_node_to_swnode_get() directly and return the fwnode with
+> the acquired reference retained.
 
-kernel test robot noticed the following build errors:
+...
 
-[auto build test ERROR on akpm-mm/mm-everything]
-[also build test ERROR on brauner-vfs/vfs.all linus/master v7.4-rc2 next-20261109]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> software_node_graph_get_remote_endpoint(const struct fwnode_handle *fwnode)
+>  {
+>  	struct swnode *swnode = to_swnode(fwnode);
+>  	const struct software_node_ref_args *ref;
+> +	struct swnode *remote;
+>  	const struct property_entry *prop;
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Laurijssen/SYS-add-utsname_set_field-to-reuse-code-in-setdomainname-and-sethostname/20261109-124421
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
-patch link:    https://lore.kernel.org/r/20261109114421.8414-1-laurijssen%40protonmail.com
-patch subject: [PATCH] SYS: add utsname_set_field to reuse code in setdomainname and sethostname
-config: nios2-randconfig-1000-20261110 (https://download.01.org/0day-ci/archive/20261110/202611100542.gPwF4AkM-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 11.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261110/202611100542.gPwF4AkM-lkp@intel.com/reproduce)
+Prevent reversed xmas tree order.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611100542.gPwF4AkM-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   nios2-linux-ld: kernel/sys.o: in function `__do_sys_sethostname':
-   kernel/sys.c:1424:(.text+0x1c8c): undefined reference to `utsname_set_field'
->> kernel/sys.c:1424:(.text+0x1c8c): relocation truncated to fit: R_NIOS2_CALL26 against `utsname_set_field'
-   nios2-linux-ld: kernel/sys.o: in function `__do_sys_setdomainname':
-   kernel/sys.c:1457:(.text+0x1ccc): undefined reference to `utsname_set_field'
-   kernel/sys.c:1457:(.text+0x1ccc): relocation truncated to fit: R_NIOS2_CALL26 against `utsname_set_field'
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-vim +1424 kernel/sys.c
-
-  1421	
-  1422	SYSCALL_DEFINE2(sethostname, char __user *, name, int, len)
-  1423	{
-> 1424		return utsname_set_field(name, len, UTS_PROC_HOSTNAME);
-  1425	}
-  1426	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
