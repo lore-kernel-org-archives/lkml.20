@@ -1,101 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794233680;
-	b=PqBfMz7D/8+udtNYlc2/aspAJJNM832gsfDiY5jFKtDK9CsjiaxLsgyCfD0N6VuJ0A4J
-	 dWwGG8sakWXURpRaLHPFVsJYbtfsW0grC8rxoWH/WKT8Z5H1zA2arycGeQgcEIAgI+JQY
-	 oAbhgsfzVGvd5Zp+GwWO09yBzdIpxvULK31J9F4xgfqBEdr6x0dGj4dTPem5CXUkUj+8j
-	 pWCFYV/mb72J5kMvVOwtA9GBq9ZtQbcvlv3qzEH8tR101wcWE8RokxhAJeZEC/Oq0X1sl
-	 b6AqpiUxNRtiOHj+EaRyPHbQ0dnm5+qBfR1QjdvczqsyLyrzgQ03oMAqjwrHfmCL9Vg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794233680;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=C9mUjzXalHv94qx96P0J3reYmh+gRnmsVzt8eaOGm78=;
-	b=yUgMCzPpycSx2RQsUl/pGut2o6CdjvfLxw6c1FdDDs41AJ8Ay9sPUoiwZunfMDa+mseJ
-	 LOuNi7n+3tNTOx4iOv5CfT7yNymrlynPBCnw0G9sQl0X3o6WblIDRfEBH1LSlPCExkWof
-	 jwjilrUy9ln2UplqV++/8u64mmyjTyS5sJ7w5REQ4pXo1uEHFsdwyN5ndTFk4FvUOYVti
-	 MTEjz/fdz/bLNouxySpDTaNsfxyaONQCd63T3ZgCC3PSNZeY69F2vPxT3/3hoMh942VPj
-	 7Wh681cXQmtM8fWn0jcRC7OHY/QoLK3dtT8VcN7jqijMsA3OGynIoF/BrOhB6pzvKCA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=W1FZi+2c;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.181
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794233687;
+	b=HUfEqXB2JIwS4m/hhCmfK3d78mhI2L718Q4/wgvrCB8W67vfguhtuN6IBCe3ATVEhCjC
+	 yO9Z3b8h9UPYU+jWfcBAwEHv2715YYShdZn8/biYQLHpZh3723lRSMQLRLxTwvbFaMeMB
+	 jDPbeNtd/yE1+qV/wn0BZJ0ArjHn0XgOFglqW/PjQgC5kKyLpmZPP8Fyp+mVKaghaXb0j
+	 2TH8M22rwUybc5LSWdwjzf2k0d0Iyx8W9vS5Mi4ZMTzC8bH6SJ/hLqQuwgTSB4xf8vKG5
+	 V0Bl7gdSyZmjbxyeAqdqIs0ssdAHXcAEs0sTkYfEyEU8ew/j0b2yt3/7NbUp+hpgFdw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794233687;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=0NnuZXZ0EDkso7UKWFxA1UC22xPJ1cUbt0qhAl3H2pM=;
+	b=un52pG2zfyuoB6EMwN45276d40XG3OMexc5TQ+u9Mq31eOTg8eIDied+tNz4g+sVMa/1
+	 ex6uygy996dcJtYbLCLyiNL0Og7nP4RKI/snaToR/ZgHm0oa+ZUhejtV/yBudG0vE0Mu2
+	 D1bvWIhYTCWNyx1ndbyMJJx17qQbWZSLQdDTRO0OuthIM70gzPKHgOzyM6188562NDYfw
+	 otvFL70NR5dzChXCQrtDp7t1UGlGZ+Q+bzWBYgrugKji87UFuIVb6zdS7SO5B+QBgBQJD
+	 4BewMUPrBASAxkFsqrsbb7RMPpjK56+I2bGNSZ+Mgo0BtQ+3EyDogqbs8LKDX6W9gVA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2zFGg5n;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 177CB606A339
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:14:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 177CB606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A505F606D83E;
+	Mon,  9 Nov 2026 14:14:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=W1FZi+2c
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eac7220e9cso293634e0c.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:14:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794233679; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YYRjxN4ZWIZkmY3Pr/gRz20xLdHKAa04I4EvKfIwM4euazZMYHVtx0sm3rhLMB4OS0
-         xGuzNElk6Ey+NamYgrJMHisToRLkfhEQKVQ8YF5Om4lhhzAFH2KAZEjKSNccnBh+VzV6
-         8wvv/xsWdLQrqwgQ7fJ+V337KQuE9X9Hx9Vqzb4Yy6Z8ZGW6y/S6BmGbpOjK8f3ehJvm
-         VllZZDYyh8SjxMla05JOUvPYnMmYJ4qiXLgC0Qs8kNmrsjI4YvYg3uODE1ml/PACm3/h
-         B4EGvh4Lfz1BAMkGO9N+DmD5utosAZHHKbzFz8+CqXWGeglZP39pFApmPEYmdb1DzpRI
-         6Pcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=C9mUjzXalHv94qx96P0J3reYmh+gRnmsVzt8eaOGm78=;
-        fh=4uoyUSYJaGX2QvUmdrNaHgkGyYskCXOpSXBjU38CQNQ=;
-        b=eVjo+mES1oZPBM8CpPsfQMgB38KEFsty3hAtvMzIX9cKmW5gPQKqA1F3lGCeSzJcDS
-         U/KlJNbzjJVCY/RqbsW/4bxij2mEyh1C0uAd4sbO2mqTa4OVKdqXA6Da2tWNVa/n4Vye
-         3MTJMf+SzdHQcfBInjlCocM2MALDI3+Li1yfTf3VetUY+/6tbVbKkieXOHv3Ami8Hd53
-         gi8fA8b922Oxe08rafRUB8NWb5g3OvPy58CpAZxsD2cx4AWq7HATgWIhEpUCz+kVKMB6
-         8SLecSw8CWPRwJFcF0J5iJMuvyFn+PSbkblGlAnnrgOBOKb6UWcq84ueNN8kO1+6YwJH
-         NGpA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794233679; x=1794838479; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=C9mUjzXalHv94qx96P0J3reYmh+gRnmsVzt8eaOGm78=;
-        b=W1FZi+2cjuJ/Pd5UY7IKO1Q2TxqG6+Wimax/h1l7sNRrlCVEqwNPHbl8D/GreBLxU6
-         /v9GOPr60u+hW2mo9LBUmFNVLSUC4tKj0E3UCldtVynb3rtpfoImhFCbCJJCCFSvaNCm
-         3ycJwOCfXjuy35io4Y5gAXXa+/DH1w6XAgtTqbNrLuOlrwxy023k/ZG2GgIYD6jjxmfh
-         9d43WO+UNJ2n4dyEqsQlcDCt5CPhTISBP0G+J9HpaI58Drjw9tHvPX7zzGNETTF+FZPR
-         5PVnzRi+Id6uR9XjSfimvZDbqFIB2/jgvV0Dfd+sZRAh35KWVtWjPJIY1spbfSkcqJFb
-         Jrbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794233679; x=1794838479;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C9mUjzXalHv94qx96P0J3reYmh+gRnmsVzt8eaOGm78=;
-        b=FOma9dxne7HQXHCeYw/Glu5eFXYdtSt7IVbBUDIwEc23xANO1jbKUa4XyORNhtrQ0q
-         h6iB++DOh0HzWMNaMPEx/eiMJQ49MPeezoLhEg3E/XrAqBOo/c30H028IpwYP21VOgeq
-         erJI7Pze51FWvBSXp6LE3B4uUZWgVl9AxDE9NC5E3OUXoZw51yg1KkY7hNLrVs9FfqGV
-         wsjzEtn4l/Z9cojIX/0QGRmnoJbUJgO+7OhjWaqUJcF+MyzfH/vdMVAro5cNz/4KVaaT
-         RzO4nccMgpDLuvNV5wL+yhRck4cTI7JMCfm1cElt3sEAO30gVMEnGVBHbbAZZfRL4qOT
-         BU/w==
-X-Forwarded-Encrypted: i=1; AL+hErGeRzeLi08OXjb8Wk5jmHyA5Xb5V7z2A03tBufmBvrk+IfZI+NBBADzdR53spMBLdFStvVapC6EzyFqq4k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/iVi4fmTAh6zraWxdHwP+L+MnH8CHkjGvGVz8bmm0ITgJiZqW8
-	TvvyAwF+2BlvdLKMZ7nl8PegFM/WlnW+/ZE4socyaee5yOvkrjpdRPwroMCCMPxxJuF5gWiN2xb
-	RsuMrodNe3NCjGaZI51LS0ErhQw35XEzNDI/mwpE=
-X-Gm-Gg: AYBFou2wOaWA4ldMcKAp5lrhzG80CavTE7gr1TCooWJ50/UgTO1OQvheElyQYRYGxwL
-	z6VPkxSveCoUT9dwAGMRnBGQhQI9O3bqMtEoVzd2cUDJPrJmkBIZsrOnqhLxihL6wyZPss4IOAj
-	xRdVpAlw/gklTm69CYg6wE1k4SkY/x2au6PKVPhhsDL8VcsxtSTZg+g/Obm9A6kBCqqeTOmhM0o
-	abQweXeMuy1CV7WNxjtTJYLiJKavjJKYJ6f5a8DPEPgGwMyLNSFOGKclV2ITdmRuWOmhJRXA2qD
-	QWIKZ86lXItYFvIpvT1t3WnJ5MAaEX8pqYJjkONTkMAsICsp7JXoInbxq8r9p2qFh5JhaF4TFEz
-	I4DpKo9zcQumeGLTOyLzBUsBLMmLG3QtBiITaqrJ0roFUVcXk8m9liXdhmnSnsx7TDu+ow5l0t5
-	wtNifC92sBrIO/SzVm4YSmPYA=
-X-Received: by 2002:a05:6122:20a9:b0:5ec:b4ec:e93f with SMTP id
- 71dfb90a1353d-5ece7248b4bmr1176604e0c.10.1794233678355; Mon, 09 Nov 2026
- 06:14:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z2zFGg5n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B06B41F008A1;
+	Mon,  9 Nov 2026 14:14:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794233686;
+	bh=0NnuZXZ0EDkso7UKWFxA1UC22xPJ1cUbt0qhAl3H2pM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Z2zFGg5nuA9/Gzs189f2IpYMO5j6cgYlurq5HLtd/RMXSFsS3b2glM7EktRik+9/5
+	 mJ0eKKIU02VrdknWvUvX+mKT4cDENdjtT9TBNhBpKv5ucM/8m6cAKKL9lgnxjs/mck
+	 UrfUNPnPz1gRNN3y+dFSn7rgjzfTYdMyvt1Sp7XbUpcFxmjEajj5F+f+1x0kqdmT2S
+	 HW5HZ9MV4PB7Fz+ET5x0NYxa86B8EjQZ9CnagnchN1ccJiH83+rVDzKlMO1kvVk1Q/
+	 Cs82z05jwXnYYoKJgIS8dtjleuTASrwLxhgTiWxLcfamwQDSsCLhFyeI2RzvO1XI/R
+	 zQtN45ss9Sb2w==
+From: Sasha Levin <sashal@kernel.org>
+To: Nicolas Schier <nsc@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Harald Freudenberger <freude@linux.ibm.com>,
+	Holger Dengler <dengler@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-kbuild@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"kernelci.org bot" <bot@kernelci.org>
+Subject: [PATCH 2/2] devicetable-offsets: Get struct cpu_feature from a device-id header
+Date: Mon,  9 Nov 2026 09:14:41 -0500
+Message-ID: <f610c07f39df15f3e7ebdc63bfcd759ca7a687a8.1794233316.git.sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <66e4ee9c7f9b4bc48fcee92a94b6bb6d92fe1ad2.1794233316.git.sashal@kernel.org>
+References: <cover.1792144769.git.u.kleine-koenig@baylibre.com> <179416565740.60865.16102443399828949110.b4-review@b4> <66e4ee9c7f9b4bc48fcee92a94b6bb6d92fe1ad2.1794233316.git.sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,60 +72,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260928063824.1386524-1-morbo@google.com> <20261002124226.435265-1-morbo@google.com>
- <kcqbiis4m7zqlm6nzpacx6fkbycyy5gjz5nnhtlxlhzxn3tklb@d7j7ciafnpew>
-In-Reply-To: <kcqbiis4m7zqlm6nzpacx6fkbycyy5gjz5nnhtlxlhzxn3tklb@d7j7ciafnpew>
-From: Bill Wendling <morbo@google.com>
-Date: Mon, 9 Nov 2026 06:14:22 -0800
-X-Gm-Features: AclHuK_MqeRDtoqTOgbcQ-UKaELZDMLvDZbLcqrG79GD9Nb9csHUyVNFVw5OyLA
-Message-ID: <CAGG=3QXfNQtgp1CqD-56x-nvnqZumcejBKqcgeaNZAj=ftz1Dg@mail.gmail.com>
-Subject: Re: [PATCH v2] gpiolib: annotate struct acpi_gpio_mapping with __counted_by_ptr
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Jeremy Kerr <jk@ozlabs.org>, 
-	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 9, 2026 at 1:21=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.org=
-> wrote:
->
-> On Fri, Oct 02, 2026 at 12:42:25PM +0000, Bill Wendling wrote:
-> > The 'data' pointer field in 'struct acpi_gpio_mapping' is associated
-> > with the 'size' field, which represents the number of elements of
-> > type 'struct acpi_gpio_params' allocated for 'data'.
-> >
-> > To improve bounds checking via CONFIG_UBSAN_BOUNDS and
-> > CONFIG_FORTIFY_SOURCE, annotate 'data' with the __counted_by_ptr
-> > attribute.
-> >
-> > Analysis of allocation, assignment, and access points shows that the
-> > pointer is never accessed before the count is set, which guarantees tha=
-t
-> > this annotation is safe and will not cause runtime panics or
-> > false-positive bounds checks.
-> >
-> > Cc: codemender-patching+linux@google.com
-> > Assisted-by: LLM
->
-> This can be dropped now.
->
-Okay. Do you need me to send a new version?
+Since commit cdfdbc11552b ("Move struct cpu_feature to
+<linux/cpufeature.h>"), devicetable-offsets.c includes
+<linux/cpufeature.h>, which includes <asm/cpufeature.h> on architectures
+that select GENERIC_CPU_AUTOPROBE. On loongarch and mips that header
+pulls in <asm/elf.h>, and from there <linux/fs.h> and <linux/mmzone.h>,
+which need <generated/bounds.h>. devicetable-offsets.c is built before
+that header is generated, so even defconfig fails on both:
 
-> > Signed-off-by: Bill Wendling <morbo@google.com>
-> > ---
-> > v2: Undefine "__counted_by" and "__counted_by_ptr" in the EFI stub
-> >     library as it doesn't need it and Clang is missing a flag to
-> >     enable them.
-> > ---
->
-> Plase, don't send new versions of patches as replies to previous
-> threads, this confuses tools (and maintainers).
->
-The "v2" is NOT the version that should be integrated. I said the
-original patch. "v2" was sent as part of the discussion we were having
-how to solve the issue that cropped up, and not meant to be the
-defacto version.
+  include/linux/page-flags-layout.h:6:10: fatal error: generated/bounds.h: No such file or directory
 
--bw
+Move struct cpu_feature to <linux/device-id/cpu_feature.h>, next to the
+other device id types, and include that from <linux/cpufeature.h>,
+devicetable-offsets.c and file2alias.c.
+
+Reported-by: kernelci.org bot <bot@kernelci.org>
+Closes: https://d.kernelci.org/i/maestro:7473c68181d97f248d2541b3b91d105111c36f97
+Closes: https://d.kernelci.org/i/maestro:9b122468fe2be859df134b78bb35a907e6f99ba7
+Fixes: cdfdbc11552b ("Move struct cpu_feature to <linux/cpufeature.h>")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/linux/cpufeature.h            | 18 +-----------------
+ include/linux/device-id/cpu_feature.h | 18 ++++++++++++++++++
+ scripts/mod/devicetable-offsets.c     |  2 +-
+ scripts/mod/file2alias.c              |  2 +-
+ 4 files changed, 21 insertions(+), 19 deletions(-)
+ create mode 100644 include/linux/device-id/cpu_feature.h
+
+diff --git a/include/linux/cpufeature.h b/include/linux/cpufeature.h
+index 7b22a536542d5..cd470987777f3 100644
+--- a/include/linux/cpufeature.h
++++ b/include/linux/cpufeature.h
+@@ -6,23 +6,7 @@
+ #ifndef __LINUX_CPUFEATURE_H
+ #define __LINUX_CPUFEATURE_H
+ 
+-/*
+- * This file is included by scripts/mod/file2alias.c which is compiled
+- * using the host compiler which might not have <linux/types.h> but the
+- * __u{8,16,32} types are defined there locally.
+- */
+-#ifdef __KERNEL__
+-#include <linux/types.h>
+-#endif
+-
+-/*
+- * Generic table type for matching CPU features.
+- * @feature:	the bit number of the feature (0 - 65535)
+- */
+-
+-struct cpu_feature {
+-	__u16	feature;
+-};
++#include <linux/device-id/cpu_feature.h>
+ 
+ #ifdef CONFIG_GENERIC_CPU_AUTOPROBE
+ 
+diff --git a/include/linux/device-id/cpu_feature.h b/include/linux/device-id/cpu_feature.h
+new file mode 100644
+index 0000000000000..937fbe00dcd55
+--- /dev/null
++++ b/include/linux/device-id/cpu_feature.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef LINUX_DEVICE_ID_CPU_FEATURE_H
++#define LINUX_DEVICE_ID_CPU_FEATURE_H
++
++#ifdef __KERNEL__
++#include <linux/types.h>
++#endif
++
++/*
++ * Generic table type for matching CPU features.
++ * @feature:	the bit number of the feature (0 - 65535)
++ */
++
++struct cpu_feature {
++	__u16	feature;
++};
++
++#endif /* ifndef LINUX_DEVICE_ID_CPU_FEATURE_H */
+diff --git a/scripts/mod/devicetable-offsets.c b/scripts/mod/devicetable-offsets.c
+index 875eafeb743de..2b5217edf6389 100644
+--- a/scripts/mod/devicetable-offsets.c
++++ b/scripts/mod/devicetable-offsets.c
+@@ -1,6 +1,5 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #define COMPILE_OFFSETS
+-#include <linux/cpufeature.h>
+ #include <linux/kbuild.h>
+ 
+ #include <linux/device-id/acpi.h>
+@@ -12,6 +11,7 @@
+ #include <linux/device-id/ccw.h>
+ #include <linux/device-id/cdx.h>
+ #include <linux/device-id/coreboot.h>
++#include <linux/device-id/cpu_feature.h>
+ #include <linux/device-id/css.h>
+ #include <linux/device-id/dfl.h>
+ #include <linux/device-id/dmi.h>
+diff --git a/scripts/mod/file2alias.c b/scripts/mod/file2alias.c
+index f848b39145d97..08b45e096c164 100644
+--- a/scripts/mod/file2alias.c
++++ b/scripts/mod/file2alias.c
+@@ -121,7 +121,6 @@ typedef struct {
+ /* Big exception to the "don't include kernel headers into userspace, which
+  * even potentially has different endianness and word sizes, since
+  * we handle those differences explicitly below */
+-#include "../../include/linux/cpufeature.h"
+ #include "../../include/linux/device-id/acpi.h"
+ #include "../../include/linux/device-id/amba.h"
+ #include "../../include/linux/device-id/ap.h"
+@@ -131,6 +130,7 @@ typedef struct {
+ #include "../../include/linux/device-id/ccw.h"
+ #include "../../include/linux/device-id/cdx.h"
+ #include "../../include/linux/device-id/coreboot.h"
++#include "../../include/linux/device-id/cpu_feature.h"
+ #include "../../include/linux/device-id/css.h"
+ #include "../../include/linux/device-id/dfl.h"
+ #include "../../include/linux/device-id/dmi.h"
+-- 
+2.53.0
+
