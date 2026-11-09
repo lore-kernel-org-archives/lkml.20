@@ -1,80 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221159;
-	b=l7PjTruRU5Ktk6dmvh2L6jVtoU7khiCzshTNadDpABZhk2r7+XAbqU3KaJVfKKZ++Wjv
-	 wGs4u0Oq0JfM5FVN/vvgCCjgQg9vgM1lUY3WjHZUpilyXudALj7tmoW5/DIHioj0LDR7W
-	 ZYpMV3z1v7639ikZ+GwNsGqd7rPIdP7tUfC7cdoMr/kfX+UiM7eslcG4lN26E/HYD8T7L
-	 1HbojORRJSG9Cfgm7dcf8JerEVyxOotwlzPrBi4D1WezpENUXTk0QCQo+AaNHeaVEDy7N
-	 bZx2pmJphANsEQ3g6v6HcSMglUDJZIvnVQjEvr5cPA6FHnZtELp9YOM8KIZHIE1wzbw==
+	t=1794221207;
+	b=z05KSNbMmbE2pxW83IbcBZjVVpDhroOXAk1PSTTyBhkSHEmkjczEuXx1oLNxG2XsKwaR
+	 hWGYAMgdfSH2tEmNlEcwo4phJOqF+Lwlg5iat21ycrVawpoVOiTzoj8Xz9ZAqve+YpywC
+	 R0S5zu2achbv3KruGnO+68FuDWMeRxX4FxnFxl5GXyetlpOQuZOeFfPtzMlLx7Ilk7KCb
+	 AJ44d9W1PK5NygrxyjfAA5zewDM11QrFV8if+kpZXu/mdgSAVKPAGSPq0s78eo8sbGdz8
+	 6GlsjX1bIPZwmb825zifTnr5tZhu44f2KtxzHoNHeNxDqD2Y0SWBdE508vydEwbbffw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221159;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Mli2NzOE9bpY2LuU2SDWnBpzIwjxTbdEEyLHTvMsrGY=;
-	b=hajnfu5lg+cb12KjoUFWzu9Lp2wlwa0acTUJTxUm4bm4z//Xmh7v85PM+Jabp+2FICyI
-	 6Bgl17FcIWxiE6oJB4Exjx6Q4rx1fxJ8aihe/5hgLgnI4wNc/IbTMweBstw7PXM8ZIxkW
-	 8NBmymzVo8PPbD9dtyHcN325gERggcDINYageLedP9Q1zZCge9K/pz7/wZESsa1DT5wLY
-	 EAj9r9RFx3UGuVUCybcCwjog2XdcQnLx3BiA4anydCZnM34AgDtW2U5mNyCiyflK3/HH7
-	 eQytNPifgikBedfhCbl+KWOKuepK6w6byl/RMnKuJ2ljNhveIe1kPEo8c5rJ8YLvxGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221207;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=EGLRBtrqwLmpuLL/DC/Zcp+EGbQUnDJwdb8d7ZNXyZw=;
+	b=lP9afI2B9UOe3FV8KnhMrzqO9dI8fDcp0JzNcml6xALAN3Kijg+3sm9lXRPQ1VMH5/mF
+	 ze2ez3TBSK9oHWWvYzn35MLId7pOM86XHKkMvy46HcW/25MUnV1yPIBb/5BTufXJP6+iV
+	 vrNKomeolnvlXk+1spxvQFrOxr5XOK1cSxoObf3HeBH/EP0TTVoZ1SvtGOgqFMGhxxAcQ
+	 L6pInn5jXRYXbF40JMEZ1j+D7LWMQ5/qxVGiIRkoEZxKtx7ktiD2iRUCMpV4A1vrARo1t
+	 +Fd+mEcZe+1z+fmHzqZX/+APVEemaNV1gjgF8ZJR8fjVA/eXyXOJ0Ynz3jlvDKEPXOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BpwUsJiC;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dro8/MQC";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED3B606A322;
-	Mon,  9 Nov 2026 10:45:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9ED3B606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88486606A325;
+	Mon,  9 Nov 2026 10:46:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BpwUsJiC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794221157; x=1825757157;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IVZ2D9+rtI9pK846EPVCPzIiWQqKJR9uRcmCu/AVT1A=;
-  b=BpwUsJiC4N0z+nULCXn49KB1fC9MYoncaSi5SfuSBiUrOJnWCCPIvGp+
-   Elp/jK+5e9TuAM7GFjKKqdUupAkxd70sxXo/vrM2kvzcdzmkzXIpjZa+8
-   ymx0ZNnxj6ha+K37es0j2yDPD5VP77UMPZNfjAi04zEpZkx1AtnjXgRBd
-   fdYIC2JOHFqBe01rERa2xSOVanAghhlpu91DZFTTLJB5UaBRSnZJbaXl2
-   NzBR/0/UhRY+CaQjFlit9LHY7pD2N0eLOU1uBulgK5+CMhY41Bnr8rkF1
-   6vlR8Hk9lBt07roT4DF7ca0aQ508wHE8y7GKbyUa5tV2Wv3zpthdnlN8t
-   g==;
-X-CSE-ConnectionGUID: Gkquja3DTBupI5C+46plFQ==
-X-CSE-MsgGUID: H9Mq9V58QyiyPEHa9D3mdg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2934782"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2934782"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 02:45:57 -0800
-X-CSE-ConnectionGUID: 0+QkFJmIRF+hovaGgxvF+g==
-X-CSE-MsgGUID: Sy8aaLyxTQ+pjQFGMT7wsg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="8012326"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 09 Nov 2026 02:45:55 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQMsr-00000000uMR-1WR6;
-	Mon, 09 Nov 2026 10:45:53 +0000
-Date: Mon, 9 Nov 2026 18:45:33 +0800
-From: kernel test robot <lkp@intel.com>
-To: xujiahao <xujiahao@cmss.chinamobile.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	xujiahao <xujiahao@cmss.chinamobile.com>
-Subject: Re: [PATCH v2] Input: sidewinder - use scnprintf() for the port names
-Message-ID: <202611091814.ChpgVgpE-lkp@intel.com>
-References: <20261109010548.438699-1-xujiahao@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dro8/MQC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82E421F0089F;
+	Mon,  9 Nov 2026 10:46:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794221207;
+	bh=EGLRBtrqwLmpuLL/DC/Zcp+EGbQUnDJwdb8d7ZNXyZw=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dro8/MQCh7R7TbkAjW26BFB+ihtZj8Wbf7vP0yl/I+MaAhv/gOlpgbg3xqAvSJE0N
+	 TG0VHmR1JnLdYZWiTHIHdEkTKsnmJHiX6Yqg4KSUsNOt9MUW8sTW1XvYqXEPZSSsNA
+	 i/hgHWE5q3LZT3rcu1W3XHY5Ys5DoI+wOB93omFwluipdFFKoK8jUd61lz4I/ndNgo
+	 ieyq30nEKtMONxHi0pWIt03PAuKwhmwhAhSNlb3LyQMx4W7o3Aajq77qWQM+kVbzGz
+	 AhKNYYZhR0mpIwbyP1C0B8NVaEVlNXDm/OjXU8PdA5anFaVzN7p1W30A/TEuRu4Tvl
+	 HhiEw8uw4mNqQ==
+Subject:
+ Re: [PATCH net-next] net: dsa: motorcomm: Free the MIB block on port teardown
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+Date: Mon, 09 Nov 2026 10:46:46 +0000
+Message-ID: <179422120601.994134.564932634198490394@kernel.org>
+In-Reply-To: <20261108101648.1308271-1-mmyangfl@gmail.com>
+References: <20261108101648.1308271-1-mmyangfl@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,39 +63,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109010548.438699-1-xujiahao@cmss.chinamobile.com>
 
-Hi xujiahao,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-kernel test robot noticed the following build errors:
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-[auto build test ERROR on dtor-input/next]
-[also build test ERROR on dtor-input/for-linus hid/for-next linus/master v7.4-rc2 next-20261105]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-url:    https://github.com/intel-lab-lkp/linux/commits/xujiahao/Input-sidewinder-use-scnprintf-for-the-port-names/20261109-090548
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git next
-patch link:    https://lore.kernel.org/r/20261109010548.438699-1-xujiahao%40cmss.chinamobile.com
-patch subject: [PATCH v2] Input: sidewinder - use scnprintf() for the port names
-config: arm-randconfig-1000-20261109 (https://download.01.org/0day-ci/archive/20261109/202611091814.ChpgVgpE-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 10.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261109/202611091814.ChpgVgpE-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611091814.ChpgVgpE-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   arm-linux-gnueabi-ld: drivers/input/joystick/sidewinder.o: in function `sw_3dp_id.constprop.0':
->> sidewinder.c:(.text+0xa52): undefined reference to `__aeabi_uldivmod'
->> arm-linux-gnueabi-ld: sidewinder.c:(.text+0xa66): undefined reference to `__aeabi_uldivmod'
+- [Medium] The patch adds a memory leak on the yt921x_dsa_port_setup()
+  error path (drivers/net/dsa/motorcomm/chip.c).
+- [Low] A comment in yt921x_phylink_mac_link_down()
+  (drivers/net/dsa/motorcomm/chip.c) is now false.
 
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
+net: dsa: motorcomm: Free the MIB block on port teardown
+
+The patch moves the per-port MIB block from devm_kzalloc() to
+kvzalloc_obj() and frees it in yt921x_dsa_port_teardown(). The next
+.setup() then gets zeroed counters after the hardware reset. The
+disable/enable pairing of the MIB poll work in port_setup is dropped.
+
+> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+> index 33e5fc127244d..fd737c3e2e184 100644
+> --- a/drivers/net/dsa/motorcomm/chip.c
+> +++ b/drivers/net/dsa/motorcomm/chip.c
+> @@ -1994,11 +1994,11 @@ static void yt921x_dsa_port_teardown(struct dsa_switch *ds, int port)
+>  	struct yt921x_port *pp = &priv->ports[port];
+>  	struct yt921x_mib *pm = pp->mib;
+>  
+> -	/* get_stats64() might not be synchronized with port_teardown(), hold
+> -	 * the MIB block till the device teardown
+> -	 */
+> -	if (pm)
+> +	if (pm) {
+>  		disable_delayed_work_sync(&pm->work);
+> +		pp->mib = NULL;
+> +		kvfree(pm);
+> +	}
+>  }
+
+[Severity: Low]
+
+This isn't a bug, but the MIB block is now freed here on every tree
+teardown, so the comment in yt921x_phylink_mac_link_down() looks stale:
+
+drivers/net/dsa/motorcomm/chip.c:yt921x_phylink_mac_link_down() {
+    ...
+	/* No need to sync; port control block is hold until device remove */
+	pm = priv->ports[port].mib;
+	if (pm)
+		cancel_delayed_work(&pm->work);
+    ...
+}
+
+The code still looks safe, but for a different reason. DSA stops and
+destroys phylink before .port_teardown():
+
+  user ports:     dsa_user_destroy()->dsa_port_phylink_destroy()
+  CPU/DSA ports:  dsa_port_disable_rt()->phylink_stop(), then
+                  dsa_shared_port_link_unregister_of()
+
+All of these run before dsa_port_devlink_teardown().
+
+Could this comment be updated to give that reason instead of the old
+devm lifetime?
+
+[ ... ]
+
+> @@ -2006,12 +2006,11 @@ static int yt921x_dsa_port_setup(struct dsa_switch *ds, int port)
+>  	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+>  	struct yt921x_port *pp = &priv->ports[port];
+>  	const struct yt921x_info *info = priv->info;
+> -	struct device *dev = yt921x_priv_to_device(priv);
+>  	struct yt921x_mib *pm = pp->mib;
+>  	int res;
+>  
+>  	if (!pm && (BIT(port) & yt921x_info_ports_mask(info))) {
+> -		pm = devm_kzalloc(dev, sizeof(*pm), GFP_KERNEL);
+> +		pm = kvzalloc_obj(*pm);
+>  		if (!pm)
+>  			return -ENOMEM;
+>  		pp->mib = pm;
+
+[ ... ]
+
+> @@ -2031,9 +2026,6 @@ static int yt921x_dsa_port_setup(struct dsa_switch *ds, int port)
+>  	if (res)
+>  		return res;
+
+[Severity: Medium]
+
+Now that the MIB block is no longer devm-managed, does this error path
+leak it?
+
+pm is allocated with kvzalloc_obj() and stored in pp->mib before
+yt921x_port_setup() runs. yt921x_port_setup() can fail, for example
+when a register write fails in yt921x_userport_standalone() or in the
+YT921X_PORTn_PRIO_ORD or YT921X_PORTn_ISOLATION writes. In that case
+this function returns without freeing pm.
+
+The DSA core doesn't call .port_teardown() after a failed .port_setup():
+
+net/dsa/devlink.c:dsa_port_devlink_setup() {
+    ...
+		err = ds->ops->port_setup(ds, dp->index);
+		if (err)
+			return err;
+    ...
+}
+
+dp->setup stays false, so dsa_tree_teardown_ports()->dsa_port_teardown()
+skips this port:
+
+net/dsa/dsa.c:dsa_port_teardown() {
+    ...
+	if (!dp->setup)
+		return;
+    ...
+}
+
+yt921x_mdio_remove() frees the ACL blocks but not priv->ports[].mib.
+
+With a single switch, dsa_register_switch() fails and so does probe.
+The devm-allocated priv, which holds the only pointer to the block, is
+then freed.
+
+For user ports, dsa_port_setup_as_unused() retries and reuses the
+leftover pm. If that retry also fails, the block leaks the same way.
+
+The commit message says .port_teardown() "pairs with every successful
+.port_setup()", which doesn't cover the failed-setup case.
+
+Could this path kvfree(pm) and clear pp->mib when this call did the
+allocation? Another option is to allocate only after yt921x_port_setup()
+succeeds.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108101648.1308271-1-mmyangfl%40gmail.com
