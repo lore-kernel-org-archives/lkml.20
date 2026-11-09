@@ -1,49 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794249132;
-	b=T2M4XgwVjG+xLTcQXY1RUGk2nK2Ubr7x2vhcIcGjHmhLIotNoYH+Lis+uGPk1MMHtgRX
-	 yDebsGbiDoo3mjOSCfQrn1g5KStxOIXhWZqTxoWntaYYQDMhJjzzQf3wFtZ66K43Nv3jH
-	 HjJPZlz9spEbfSxBtw0UFLtevsY/rrd3RzSH53HlOyDHg1FzYg4Su3I2ZlpFPpBQobQx/
-	 C261K7jJZohH8PzNbn4FTCuWYzSmggQdV4WXUoCZ9ZU/13eK9SfH90ZTmf4I0Xpj0nuKe
-	 GB747xJRfA8C+CIPXwYqpjXs+cxy4KID3vxAXQtEfP8YR6zS3YnuaxXwU6e7m2qjpCg==
+	t=1794249139;
+	b=D2ITQLuwfpjHHNWD8j2zlJx5TUtA/57m13pM3FBDPjE60nrCdfTEPO2QvtumBYhaI56F
+	 Nq/RHFhSi9+DZrCd7F+rWw75/QuMi81nAoW2cxxpM5F6sHvs0V6aRew3lo2H5be6XKhR3
+	 CDRvhCRgv/O91fVOnkLylnRGs0teMMmlafdSrQTHUC9cPPAoJS70z0iAlhY3CmgmTWKQA
+	 qUSIoQhL8PfaU2pSL6jlxRn5Y+jjliZI52NocvZoTOkBAQvTeKPV++gHQplriEvYsilCr
+	 diD6Ykf8cYuySltEoqQuZcXGndo65620k84N1PQD299SKxT/DrqcqgbxRPcZxq2EkoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249132;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=h/Bd473+Uax1ERBjRspXIJTjnfLx1UaFniL2HymVmOY=;
-	b=hhNCfnSGBPwRtpMoub+GhWJSpV/PgtRDJ9zZZ4XbOdwaxDpcQNqU4e3loMNuL6X0exLd
-	 DfrUDOyg3Ljpv0vBoRQixatqmOccdQt8wyzcHEQTzXm+HeyIkj/5Gqe2oQ7VKCyNr5fI9
-	 uILApvISYOMHszBzW60OfB02b8SmWPL9x7keBX6taXpILCMJrTCtiVwliZ9h3f3CJX98w
-	 0+B95Dy8KwZUdFYk1xQqobqtnN21ZLXC3zUuiuuRcSM0o8v/hc8feiLTW168LB8tEeZEc
-	 yNH/LJqqLy+KsTQGgV0s1XJ8Ffyhn0J6CeDK2mWu+v1uoSbSYOH4tfiun8WmChGBaQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794249139;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=AabjF3kCjbqAZX2M1/nnB3VL6whiVsR2g4lcFusaBqM=;
+	b=h4ORuWO4XDQVpPlM3LsXXvKdG+0/bb9ArQmoBxdzdgZ1LAO2aCJYz6od8WnueLHSAh/Y
+	 es909rkwAj0TAXhadHtkbSZ13/4ddB+UwRBJFCyTZwwP+55ScphkKey6swfzc3tFDhs27
+	 spA5zw6kRoQfm2pjBGR2Q5irVWNnQ1VswwZ6K8dz3CjivB7lW4GIpvDunRZy5oCGe4ivU
+	 XrsZzBiELKv0l1bLNs1nbm/4iN1s9+ccw3787z0BvucVWW8FfDSbh95OA+EJP9wgfn3HS
+	 gKGnTRUSzLahN3M7y/sughJDisqoPRyKwyONpS05iQ1EWppTC1WGGiLrl/PzGVldveg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfsy3Ze4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YkHpHFOF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E147D606B58A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:32:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD289606B58A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:32:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfsy3Ze4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039A81F008A1;
-	Mon,  9 Nov 2026 18:32:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YkHpHFOF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A8B91F0089F
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:32:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794249131;
-	bh=h/Bd473+Uax1ERBjRspXIJTjnfLx1UaFniL2HymVmOY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=lfsy3Ze4pC4fQ8Wju5XXWmBxzswRHlIyyZTxmTosI0btdYkO5uwTmDxGrDBiKgkNc
-	 m0HM+iuLsIzOA7K06pAX/SSKIPGqUPhWmZEStxE8e3fnArtQNJAz3zmx2tDHbt5Pv4
-	 5JaBlOhpsEXkkhk1nljU703ZLIsgbEiXPhKspk6NRySRH0CVzd1MO1PGGgSqcajd6h
-	 Mm/o1hsP9RwCNSu0P9adK4qBtsoTHct1oxVfxrxBuHwhmixPZXXZeExhdkpoZpNiyB
-	 inxb5/TzV25jAKbp1ug13oQkov+FcZWVSIubeDtyzYnbvvf8/Y4XB7+Zd75la76Zy1
-	 sugxpdzZjYqKA==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Mon, 09 Nov 2026 19:31:54 +0100
-Subject: [PATCH 2/2] MAINTAINERS: remove myself from MEMORY MANAGEMENT -
- RECLAIM
+	s=k20260515; t=1794249138;
+	bh=AabjF3kCjbqAZX2M1/nnB3VL6whiVsR2g4lcFusaBqM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YkHpHFOFP0g8RR2eVdQgch4FIpO2HVB2S/jkNLMgaLgL4wSJp3+hmN+GbnXnTkFSA
+	 6Ht74Km1FLdJnUwKQ0VsXqzpGZnN2lOC7G7bCItMXR3Cbf6NxiIHiEU6oQi4rQN74A
+	 +tYtfL/9vJ6sRIGTL+JoMpG+sUbyxZaM9pMOZsjrd1d1td+78zcHKVo0Ut0H+NkwzA
+	 o1t/XnoTbe+lMoDGIsbv0X32u5TSx6dlcCsyVKR0qGYL7678PKqjSFXVkwKojNdpOG
+	 /05TYNVSA6ggHp+K1nu7TySiM7ytKCu7Y9jMW7LpEH3OthQPekvoinsochn223ou0g
+	 wj0PW9KTodzBQ==
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5c102ad8420so878856e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:32:18 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGXvAhOCRuvDL9Uw7Jh/GsQv7N4uIGlZ4g9TXT/QUf4YOPH98Dc1HNklVMNv78vpJc/l4/Vy1R199o8O+8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lUz6i4WOjcNbdi26f9bigoWWZoHs6B4i/wgOSAqqrhpS5KnKz
+	/FuJvmjokTbU+iF+G91urbKjaIPnAIQeagsHM8R7F5lZN8XRtHbggjyMkAzXiN3Nb7Uo5TYCJfo
+	cu1EaZ0i5N6tTVrAP6OW6IHHGpBgDHpo=
+X-Received: by 2002:a05:6512:3f0d:b0:5c1:4e17:1ee7 with SMTP id
+ 2adb3069b0e04-5c156eb0a32mr71702e87.57.1794249137037; Mon, 09 Nov 2026
+ 10:32:17 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,57 +59,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-maintainers_mglru-v1-2-c25e6de60bcc@kernel.org>
-References: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org>
-In-Reply-To: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Lance Yang <lance.yang@linux.dev>, Ridong Chen <ridong.chen@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=832; i=david@kernel.org;
- h=from:subject:message-id; bh=oEU8IfcwSlE8hn8tOxT+a/rYJs7VL5OhvNpKJq1C9ZE=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLI+Cc725Lr5Xz84ZM6iFU9VFxU0m6gtYp2cE3KVZdvR+
- r8BG2oOdZSyMIhxMMiKKbIEBd83ePlyXW21Gx8zzBxWJpAhDFycAjCR2MMM/wuDDi4sfzBzURjn
- co/qvnC3uwLHNCS1T3/x9b56SDL09jKGfypeTQ0XOouXizF/ET/seiZjt1RHbuVCIc7j+hW5C2d
- 1sAAA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+References: <CAJZ5v0jv9VQhZKbQcWYHEU0sQUPn5sLsRmqHzEtZ4T6GY0t3ZA@mail.gmail.com>
+ <20261030014412.1652-1-atharvatiwarilinuxdev@gmail.com>
+In-Reply-To: <20261030014412.1652-1-atharvatiwarilinuxdev@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 9 Nov 2026 19:32:04 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0hHOKFYS4D+CLRiCF0hiRK6SOY=VKJ619rTNauipnHsrA@mail.gmail.com>
+X-Gm-Features: AclHuK_I2Ur9BBcerWA9T-cAm-CBK6sVJcd2gsJpUYWkE4XceQZr0yZqtQR7ioA
+Message-ID: <CAJZ5v0hHOKFYS4D+CLRiCF0hiRK6SOY=VKJ619rTNauipnHsrA@mail.gmail.com>
+Subject: Re: [PATCH RESEND] ACPI: processor: Use Apple-specific methods for P/C-states
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Cc: rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I don't really get to look at most reclaim related stuff. For things
-that are actually relevant for me, I'm sure people will CC me.
+On Fri, Oct 30, 2026 at 2:44=E2=80=AFAM Atharva Tiwari
+<atharvatiwarilinuxdev@gmail.com> wrote:
+>
+> > You haven't provided a motivation for the change and I know nothing
+> > about Apple platforms, sorry.
+>
+> APSS provides more P-states than _PSS on apple macs, for example on MacBo=
+okPro11,3
+>
+> _PSS provides 17 P-states ranging from 800Mhz to 2301 Mhz, while
+> APSS provides 28 P-states ranging from 800Mhz to 3500 Mhz
+>
+> Same with ACST, on Xserve3,1 _CST provides 2 C-states (C1, C6)
+> while ACST provides 3 C-states (C1, C2, C6).
+>
+> This is also used in older macs only (before 2015).
 
-So remove myself from the MEMORY MANAGEMENT - RECLAIM section for now
-to have a bit less noise in my inbox.
+Which one is used in older Macs, ACST?
 
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- MAINTAINERS | 1 -
- 1 file changed, 1 deletion(-)
+> And also macOS uses these.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e7ac319a570c..7dc8548236b9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17808,7 +17808,6 @@ F:	tools/mm/page_owner_sort.c
- MEMORY MANAGEMENT - RECLAIM
- M:	Andrew Morton <akpm@linux-foundation.org>
- M:	Johannes Weiner <hannes@cmpxchg.org>
--R:	David Hildenbrand <david@kernel.org>
- R:	Michal Hocko <mhocko@kernel.org>
- R:	Qi Zheng <qi.zheng@linux.dev>
- R:	Shakeel Butt <shakeel.butt@linux.dev>
-
--- 
-2.43.0
-
+Information like the above should go into the patch changelog.
