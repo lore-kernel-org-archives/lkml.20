@@ -1,63 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794201562;
-	b=wUW6Ttunzwu2eSGMtCCyjgaV8lYexlAzltGb4uaHGvD00xPpyOMEEXgwKGSqsTzwJeyN
-	 sPthzNOLsumHtn3n/hDWYmj2qXD8/LjKfQ64Ffh1FX8xBRBLOavp2lF8JxYSvPkmWu4ny
-	 o84266WbPovLRuNBeLzTnlbl0f6RGKpG7SJVgqL43jraRoY3FdGg3XXTRdFQYdxUanf73
-	 61u6JCV20/ZTNj79eh+Jmo9GLNwg22TFChpyfTuL5hpDPUOxVqw11HvOQA2abaXL3QLIC
-	 thrvQzWiSKIweKrv+Dx3NMkt08EbFFUjeBFpf6w8UwMvafpLZBYr28f7j5qzAz8rjUA==
+	t=1794201645;
+	b=48GxAZGeKmEptXeLL+/SxRckwb7BwKcGJVmxHXxNndlB9bOWEH6m7LuKhAQPEX/H4op5
+	 +Wr6IS0+f89WfKcz3NEicNrIAnZ6H1+I/lnqr4LsANqNzE2O+D3dWChPo3nwifyjTv5Cw
+	 v3mczl6bvnv/d6YEo5sPRdcsddlBJfpJt/ljRajv1Fpu2bZplKGXzU8DGGGa4NtIW+9Q2
+	 4Q4p7cEPBcz8ZLAL52zTNWd5KNPJvS9X1l8EL71G8hfrxCWnLlvWi2CQPHz2hSyxK7EN/
+	 hXRF/cUOagjMTwOAPgSre8BdGbwoO6DFrSy2lqRqAjyoHNTL+Vb+xUCat1JNokDuBww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794201562;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version:
-	 DKIM-Signature;
-	bh=Ce3YwrOJXaRipfIYp3w8Z9TnqInm8hZCIQukd1m1qlk=;
-	b=auEuUg7PpLRMCu33ePhFV93jq91ASMgyJWITtnV8sMxs3c6wef5RJTp7AsWY/7nEHx9T
-	 xBiR/Y6i0EqEYYvTVe8Ht6ddyXxw/s5xODUa1Y3mjLgZum2zjZU9zdIbvI0Qhb+IMpSWh
-	 ZvJsgrwUN3iLrBft308+m/rKNjMpFdozxZD6fQaAW/+h3zuLdSr2U8cViffxhWhZ1MjEO
-	 XLBOZvY/VJraiFgw1Vr5xF3KTX1rh6CjrytdWzGhLp6O4fp+4wN5Y+kugOfuGhHG84QE9
-	 A2Ek+arz0uaDSau0Q/oq9EP3Wvn7bM6yQ5bY0G5D8HArc38RAZk+cnrVkyX5fI5qnwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794201645;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+Z5AeTikV6P1Bo6jjMySgK3YnbL1zfbL494WZAKZHgk=;
+	b=aanbNQyjF/zdtCTn2fzJz2uDvizsKqE1DvgJTTvGA2YjPmdhW/w/msKUecnC7vKlEksq
+	 dhbe5nHIJht7fuWk1S3zjaPiF/434QHJ0hIR5KWpOEuwARZPYwKlSizyF0wArnj1iOPW/
+	 tU7vd3FeX8+9nmbQgs/xIMa1ELjCkR7fAeATcSYwYzboMOku+dJTO26W1JX3A9hwhbL2U
+	 gp35zwK1JHw5BO/0BGQ30bERNdS9BBxmZyR8OuFdGCN5n2QmCU1TrTqvYENJKSlj8LlxO
+	 TPVf06cZqR6FyxHGWr+Hx0wME8+41dxqIPonLrb4nxKqME4R1A3WELmz7tZXePYnLzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=BnktGqNT;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 66A8B606A321;
-	Mon,  9 Nov 2026 05:19:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66A8B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=Sg2bp79R;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=zm7foiu6;
+	arc=none smtp.remote-ip=202.12.124.156
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42926606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:20:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42926606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=BnktGqNT
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.45
-From: "Li,Rongqing" <lirongqing@baidu.com>
-To: Kuniyuki Iwashima <kuniyu@google.com>
-CC: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
-	<edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: =?gb2312?B?tPC4tDogWz8/Pz9dIFJlOiBbUEFUQ0hdIGFmX3VuaXg6IEZpeCB3cm9uZyBz?=
- =?gb2312?B?b2NrZXQgdGVzdGVkIGluIHRoZSBzeW1tZXRyaWMgaGFsZiBvZiB1bml4X3N0?=
- =?gb2312?B?YXRlX2xvY2tfY21wX2ZuKCku?=
-Thread-Topic: [????] Re: [PATCH] af_unix: Fix wrong socket tested in the
- symmetric half of unix_state_lock_cmp_fn().
-Thread-Index: AQHdbiv8JPaqeURuJkmRgktJk6Opfbchu90AgAN7aIA=
-Date: Mon, 9 Nov 2026 05:19:15 +0000
-Message-ID: <06faaaea248d4cefb1f12d1221b75a8a@baidu.com>
-References: <20261106201822.1734-1-lirongqing@baidu.com>
- <au7bGHqwhXXttXH_@google.com>
-In-Reply-To: <au7bGHqwhXXttXH_@google.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=Sg2bp79R;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=zm7foiu6
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 81C477A012A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 00:20:43 -0500 (EST)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-04.internal (MEProxy); Mon, 09 Nov 2026 00:20:43 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794201642;
+	 x=1794288042; bh=+Z5AeTikV6P1Bo6jjMySgK3YnbL1zfbL494WZAKZHgk=; b=
+	Sg2bp79RV+1Eh+8jeWbm/Yhmt9WY39CLJuafzeqEWPbjvsVswnifL2q63wrGzRqb
+	9sD7I+ad3prxc47qReGPWgBaYWqJh3+WBAisBrokGCvdEJgZtcq5BFnySA/JOuPO
+	sipAZdbERH9VxG69uuua9cX6MIO+KCeg3XKDZhupbuMFNY5Sb1IrmyLRK/FI4itI
+	Cmfs8CMvxrVqwjjJ0Q0TlxkCkmVIyW9AHClKo566UjnfeRlSlZbYFULULkqvpyJK
+	VGaOHIH8Iuyb3n2IUcsMko5GumoN4AEhWscRVjDebJRdgZfLH30oa/xzieh2baB7
+	YjvsBO/rOe9minAsBqRRPQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794201642; x=
+	1794288042; bh=+Z5AeTikV6P1Bo6jjMySgK3YnbL1zfbL494WZAKZHgk=; b=z
+	m7foiu65rP36ChsVouaCpafIOLWd7siVDRK82dkQ/ou0i1LPcUhrdrNvIp8WbsRK
+	+FjUyBIU4O1yOf/Eo+jEnTY4y0wYPV1KAT70LBjlS2r7+iD+6gWgyEFDEoahad26
+	s0KDKuIt9+EV6za12u9ttiadQLqPmXO3BazjP/Jrh8vgLEovjAoBJVXsmYd/7fGF
+	bmg3EdCjQbFfZMkHO4tr3E9FqSGZe/RsDwyS927kj6NTdQpRWEd69OtJftyIqgxX
+	Ff0o15ikExxiRulVvd6dMK1+g+wXOWsfsvIPl8T5NVZo+ypeHWTb1hR8NW/n5j7S
+	pC5nnYPvCoyvi8RBB2dkg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794201642; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:H0haNVho6LMLGH+yQIWTJwl9MHLJ8JCEKk881sf8YqLeXcc
+	+aEVjgkYkdnaC0xbDJyI4AEa7Urczq60WAAwWZp9Bcr54ubI8Ce0PCaP7qlzz0LW
+	nDlkGFBSKYpMl2NHEry3KfEE2DyAZf3Jo6bYf4hj617uGNO4tKT3SVyBgyOllpGF
+	j+DEjXu4kGB0lUhmrmWU90DnggeMrKGk90TYjAVRRlbKBzh1JEU16yJlEYSJdMSB
+	2KVAFQykK0RcuEwo5AT69Q4T6z70QfM69U9zZ9dmM/A0H50u8EoLVWS1rb/aZ1cM
+	7U//Cuhjx+QEYz4FsDDGLCRroyHfEC2fZCDfpDg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:+QBrP130DD0/PDlu/7OMcxbsU59FzW70U4C27zWAYVY=:z9bSbprL88OoP4ToYH0ngAcLU++q4BxeIBM3FewlMO4=;
+X-ME-Sender: <xms:KljxavvEmnqL2jngqPQjNz_sOax0AtNO6nphpgL74etNEOeEon5xAQ>
+    <xme:KljxasWvRl4QW7L6BUOr2ZEdrZ1nVYPV5neXSuZXaHpzC-XWk7lZdpLCVWXYOx21s
+    tCxlli5UCXgZWyGjwQZ7eje-68BONP6sJ0ZePG_yTNhH9uK5ENDrmM>
+X-ME-Received: <xmr:KljxauS7s46QG3vc3U_HvZs7WuxnmfJv1mL7m_aFggAEQztF1zXORLgVbLmeqviNSYzUY2hJluxEZsvTP379BI8xhKRoV210>
+X-ME-Proxy-Cause: dmFkZTEXGE0LMi7MmvLBKdPaqPq0Y0Ux/k/cc2UVdeIwHu9uyysaon3Kg83AXfHEzzXYYv
+    TpPBlyn7tFwkLosuJTOMUcNjlA5KnOfxi6YYGQ7UhhbSirydp5h6WRA6kHg92KOFgcuvVF
+    Dw+pU/ttV8QueykmChQttFD3twSjI5CenJQH4XH4fvG63JcM7DBHVx20bnWYScZUrpr9FE
+    XxuZXd03UPvpytADP9s0SiTg6K9i16/ggSLlcxJ2f1QTEHlU0H4U1jSnItqStS7T9f+knP
+    7v+d02WGJSGKf75dQQ/OuCkMf6NumNgBK+MJARFNBKAef6OC4jnN3R2Yt7r4+Z+/3B9FUl
+    9g11GHCkxm0r5PWc8vVSnmSv3gKfcK0tQdFQoNFeLPm/Y1Ma90T5iQrzWUFnbDLXnmqAPd
+    y6dRB95ETQ504N8frS9Gpg9bd9qoQtM/k1hEm1L+6SFjBkJnHqMCafSP368q45ZswBvOXR
+    /qZSN296dQBMZvHYWM7yhMMiixYuZmoT9JL+HvrhLOS3FsxV5J8N1aPTcD8r4k3N7B6iG6
+    QytMl/gQ2Pw3LQ9bMRzv2I5bT7nMRaSwiH01vK46jnw9E2AeVO5SFIPpQhnrrlkNZdV9kW
+    jog35eGtXjzNcZYVZn/Jchi9zdmhROazL9cVbUFZy9FHhuTydxi/FI9hfF7g
+X-ME-Proxy: <xmx:KljxaiLC-H7Yfqlk6MgKmjuSd3BuSfvvBNG6nlahjCLL0KgJLSzU2A>
+    <xmx:Kljxan3tGH36r8UWfSmjkqJKEP5Y7VkG4iKAuRHlOJfnBhYLNA1u9Q>
+    <xmx:KljxatICk76V7ZTeoZox_kIqua4dCYY0kZUYS6PEkNyruGeZxvMkEw>
+    <xmx:KljxavkAg_iZbeUHYG-oLu7fggaTF_mxV_tyG0grJhAih_C6IWy1lw>
+    <xmx:KljxaqCgvDd2JV8IMfo6Ns6OT4zT2kGYsFI01sQffco9L8M_bC8-qi4W>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 9 Nov 2026 00:20:40 -0500 (EST)
+Message-ID: <40c6b45b-1d91-4ac0-808b-a1771a24faaa@pobox.com>
+Date: Sun, 8 Nov 2026 21:20:39 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,51 +119,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1794201559;
-	bh=Ce3YwrOJXaRipfIYp3w8Z9TnqInm8hZCIQukd1m1qlk=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=BnktGqNTdzYCtmaSKBirjfFdHdxXUvMZp//Iq6FTjlo4y3zxCE8daWyoIIvEkLnPr
-	 tHmAJ0e3x6qWRJ6UrktvTlxEkLzJYZLb25MzI+HHWWdcapxnVuqlHmjC3GNQzYLeuN
-	 eSrXOQB/i2/+QerzxR5Qjzfg3aJBwH6nLLv7/E21LQKE0Xv86N1Z7Ux7MmgBg9Pdlo
-	 W9w5EfKIKjwOQUhTeSy3+RpY6DIEuNF98+6BnO30ZdcGX9JuMzxS3gVKMPDjTdYHbE
-	 DqbdOyfPJdKxqVmNCP4GeuTrM+tStqG2CwQCc8BTzEVK3Ch7e6054OK1iUrQxO32/U
-	 dozKF7/paX7AA==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 0000/1536] 6.12.117-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261107134957.653319350@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261107134957.653319350@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-DQo+ID4gW1BBVENIXSBhZl91bml4OiBGaXggd3Jvbmcgc29ja2V0IHRlc3RlZCBpbiB0aGUgc3lt
-bWV0cmljIGhhbGYNCj4gDQo+IFRoaXMgaXMgbmV0LW5leHQgbWF0ZXJpYWwsIHNvIGl0IHNob3Vs
-ZCBiZQ0KPiANCj4gICBbUEFUQ0ggbmV0LW5leHQgdlhdIGFmX3VuaXg6IC4uLg0KPiANCj4gc2Vl
-IERvY3VtZW50YXRpb24vcHJvY2Vzcy9tYWludGFpbmVyLW5ldGRldi5yc3QuDQo+IA0KPiANCj4g
-T24gU2F0LCAwNyBOb3YgMjAyNiAwNDoxODoyMiArMDgwMCwgbGlyb25ncWluZyB3cm90ZToNCj4g
-PiBGcm9tOiBMaSBSb25nUWluZyA8bGlyb25ncWluZ0BiYWlkdS5jb20+DQo+ID4NCj4gPiBUaGUg
-c2Vjb25kIGhhbGYgb2YgdW5peF9zdGF0ZV9sb2NrX2NtcF9mbigpIGlzIG1lYW50IHRvIG1pcnJv
-ciB0aGUNCj4gPiBmaXJzdCBvbmUgd2l0aCB0aGUgcm9sZXMgb2YgYSBhbmQgYiBzd2FwcGVkLCBi
-dXQgaXQgc3dpdGNoZXMgb24gYidzDQo+ID4gc3RhdGUgYWdhaW46DQo+ID4NCj4gPiAJaWYgKGIt
-PnNrLnNrX3N0YXRlID09IFRDUF9MSVNURU4pIHsNCj4gPiAJCXN3aXRjaCAoYi0+c2suc2tfc3Rh
-dGUpIHsNCj4gPiAJCWNhc2UgVENQX0NMT1NFOg0KPiA+IAkJY2FzZSBUQ1BfRVNUQUJMSVNIRUQ6
-DQo+ID4gCQkJcmV0dXJuIDE7DQo+ID4NCj4gPiBUaGUgZW5jbG9zaW5nIGlmIGFscmVhZHkgZXN0
-YWJsaXNoZWQgdGhhdCBiIGlzIFRDUF9MSVNURU4sIHNvIHRoZQ0KPiA+IHN3aXRjaCBjYW4gb25s
-eSByZWFjaCB0aGUgZGVmYXVsdCBsYWJlbCBhbmQgdGhlIGJyYW5jaCBhbHdheXMgcmV0dXJucw0K
-PiA+IDAsICJubyBvcmRlciBrbm93biIsIGluc3RlYWQgb2YgdGhlIGludGVuZGVkIDEuDQo+ID4N
-Cj4gPiBUZXN0IGEncyBzdGF0ZSwgYXMgdGhlIGZpcnN0IGhhbGYgZG9lcy4gIFRoZSBjb2RlIGlz
-IG9ubHkgY29tcGlsZWQNCj4gPiB3aXRoIENPTkZJR19QUk9WRV9MT0NLSU5HLCBzbyB0aGVyZSBp
-cyBubyBydW50aW1lIG1lbW9yeS1zYWZldHkNCj4gPiBpbXBhY3Q7IHRoZSBlZmZlY3QgaXMgdGhh
-dCBsb2NrZGVwIGNhbm5vdCB2YWxpZGF0ZSB0aGlzIG5lc3Rpbmcgb3JkZXINCj4gPiBvZiB1bml4
-X3N0YXRlX2xvY2soKS4NCj4gPg0KPiA+IEZpeGVzOiA5OGY3MDZkZTQ0NWIgKCJhZl91bml4OiBE
-ZWZpbmUgbG9ja2luZyBvcmRlciBmb3IgVV9MT0NLX1NFQ09ORA0KPiA+IGluIHVuaXhfc3RyZWFt
-X2Nvbm5lY3QoKS4iKQ0KPiANCj4gUGxlYXNlIGRyb3AgdGhlIHRhZy4NCj4gDQo+IEFzIGNvbW1l
-bnRlZCwgdGhlIGJyYW5jaCBuZXZlciBoaXRzIGFuZCBubyByZWFsIGlzc3VlIGV4aXN0cywgbm90
-IHdvcnRoDQo+IGJhY2twb3J0aW5nLg0KPiANCg0KT2ssIEkgd2lsbCBzZW5kIHYyDQoNCltMaSxS
-b25ncWluZ10gDQoNCj4gDQo+ID4gU2lnbmVkLW9mZi1ieTogTGkgUm9uZ1FpbmcgPGxpcm9uZ3Fp
-bmdAYmFpZHUuY29tPg0KPiA+IC0tLQ0KPiA+ICBuZXQvdW5peC9hZl91bml4LmMgfCAyICstDQo+
-ID4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KPiA+DQo+
-ID4gZGlmZiAtLWdpdCBhL25ldC91bml4L2FmX3VuaXguYyBiL25ldC91bml4L2FmX3VuaXguYyBp
-bmRleA0KPiA+IGU3YTA1ODIuLjUwMWU2OTMgMTAwNjQ0DQo+ID4gLS0tIGEvbmV0L3VuaXgvYWZf
-dW5peC5jDQo+ID4gKysrIGIvbmV0L3VuaXgvYWZfdW5peC5jDQo+ID4gQEAgLTE2Myw3ICsxNjMs
-NyBAQCBzdGF0aWMgaW50IHVuaXhfc3RhdGVfbG9ja19jbXBfZm4oY29uc3Qgc3RydWN0DQo+ID4g
-bG9ja2RlcF9tYXAgKl9hLA0KPiA+DQo+ID4gIAkvKiBTaG91bGQgbmV2ZXIgaGFwcGVuLiAgSnVz
-dCB0byBiZSBzeW1tZXRyaWMuICovDQo+ID4gIAlpZiAoYi0+c2suc2tfc3RhdGUgPT0gVENQX0xJ
-U1RFTikgew0KPiA+IC0JCXN3aXRjaCAoYi0+c2suc2tfc3RhdGUpIHsNCj4gPiArCQlzd2l0Y2gg
-KGEtPnNrLnNrX3N0YXRlKSB7DQo+ID4gIAkJY2FzZSBUQ1BfQ0xPU0U6DQo+ID4gIAkJY2FzZSBU
-Q1BfRVNUQUJMSVNIRUQ6DQo+ID4gIAkJCXJldHVybiAxOw0KPiA+IC0tDQo+ID4gMi45LjQNCj4g
-Pg0K
+On 11/7/26 5:33 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.117 release.
+> There are 1536 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Mon, 09 Nov 2026 13:46:08 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.117-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+
+I took 6.12.116 and applied the stable-queue as of commit
+39e32a361d2fca269cec12e8669e2bd3b84844d9 ("drop 24 patches based on RC
+review feedback"). So this dropped the build-breaking XFS patch, but
+still had "smb: client: validate NT transaction response layout and
+offsets".
+
+Tested on my Lenovo ThinkPad T14 Gen 1 and an arm64 virtual machine.
+Working well, no regressions observed.
+
+Tested-by: Barry K. Nathan <barryn@pobox.com>
+
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
