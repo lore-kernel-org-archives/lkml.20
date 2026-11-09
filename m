@@ -1,68 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794263286;
-	b=A54/DaPtwZeHSUudmkfQeoJfalmNQGnL8ddLEigLPRbenibLyXyk8wprhu9aPC1PUCSM
-	 +/A5rO/eC8JssdE+ADSzETg2rhuu/8MMV1BkTBBvDFt7Pf5bhddx1E7l5ro9InxPWcGv5
-	 T+OhYCMAPsZa7JrTnbgg5pny/fsfynAzrEWHiJTM93IJ5dw33Cv8HvZD946yzh3AsNs2T
-	 4Irt1Vw7FSq/IEYHBt+xFDA5qPvleQ7BA7migKZnbCJnHzNvbInX1B8Zi/C2krZL3te72
-	 r+EhCtulQiY+PbxRomJR136EYe1T80N9jBoOO22XPdw5vS2gxOReF1x0YSAy2R2B8yA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263286;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=wc4/ml/eH1O4k3Y1BTYhWYiLh1fjGgzYV80i4p3jK2o=;
-	b=Sr0so4fxI7c4A5FVCGPGly3rlZ1WlCz0BXvnLWY5ixXumctqiMDdfhdT4STrhdGslW7/
-	 RmwplxWgY9RtiWsgsPEIoQzUSdwsuEE+Zg/fb6akLEhA9Um61m9Z+EYUNhqZjf3ZJr1st
-	 RHcMGR3uDJe+vpl5rm7hsaZ4ksXRJGw/nQMqxLKhE34AZQA+rNegFZdV79aglrfG76i36
-	 nbJmE8LTiwLJs4weMbl/qpDXOYmCsa47WDQi6F+D/r4qPEXEa9xRdNh8y20573DcS9m9h
-	 y5Xg6WrHtKCgbqyCEf7gouqSr67rU/Acv63OdDz9eM+2KXXOpuR6+LR/K7q8FQSm/dA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iOW+0cZp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794263409;
+	b=uyJrQWkAZZY9uDXM8OV+CWRZwK4UNbR/srZwIlVvGepAH+3WOvaGZi//pOw9bGjLCkwq
+	 ipLb32DYu4L+vIrGB1cdtp4eOxhgEUfhWOo7vb44tu0Ba1D5NhdIwI/Nm4jClgC3j4Els
+	 YAdsbNLKRw+ZRwZS1APUIir1CIUl3ir0PLefMOmzBKNZVwtvdAplg4bfqdZlq8QaC69a+
+	 NVR1FqEaAEAkQiwaOx/sVUxN5rddX8I+fpKS/O0v4GMB9AbRDl2rO9PeQlhJx2ifNTLwe
+	 ZS91zn/SVXik31HNsKUUCMIRtgx7aC5/GVRwtsfN9l50IsqkR8ile7zikh+c8xkARpg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263409;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=S6J9qhUwfhfejNNDnNi/t39zME3R/+tshu3QmKCryWs=;
+	b=ikhJhBLMuUHZdX8vzSJEajurZgef48A2RzIu//scjEegotaoVRMkAtrvK6S5cEiLZZPZ
+	 ZIGyPA2OPe3IAs00mwU1gxaMj0Kki1sp58VT4VxC3/TQDVaKfT/UWllW2oFsbt5kTP8Z+
+	 3jsjP8Zv+6L4l9KoNWy1Z2QaSWJIYWsKG4ypFHSZe9dbPwRsn9n0awI05R1w9XZSx26tZ
+	 QhLWxDnwWOflCLaYTsHAQBTEEvkOBIK+lp2vmf3JXrw0FDnKXVBZxGsldlhR0iDYtLpBH
+	 2DeMt4EVbrSKiZnfj/R/Hq2/W6FgLLe9y4s412xMFk6BQcRPiQHs8nlDu2RtcBNdO2A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bc6ecKnX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB4E606A321;
-	Mon,  9 Nov 2026 22:28:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B42606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 22:30:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45B42606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iOW+0cZp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A821F0089F;
-	Mon,  9 Nov 2026 22:28:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794263285;
-	bh=wc4/ml/eH1O4k3Y1BTYhWYiLh1fjGgzYV80i4p3jK2o=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=iOW+0cZp8ZdjOcgvFLbFD+uA/y2u0ZimDukX5XfB+ExEssnw8F1bq1kKoI/2ZVJpY
-	 rbMTfE8olAdPf/hq54a+GiYhF7qaSsw3xa+8SNgZmpY17+Q1mnxXKsLUWJQaEbP9zs
-	 0dzJ7ubdV4evJffpMob/nnc3cboCInYpRD1J/5uTE1+LiUmyKSRFLci9D+HKq/JJEu
-	 5wm9OuTG8htEB7WROWFNmXrXxuXlbIKT4u5t8gH9S0kh6t8x7jcedJ1JUlF/8JdNZb
-	 bpU6EVSOVm2hYAmPTiq5ue2/UrtMqKRZrNNkYnsXHFmeUdHRJ5iF2Vzm1Dxb8bPj22
-	 wxWFi6w7Rgl1g==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Aaron Tomlin <atomlin@atomlin.com>, pmladek@suse.com,
- john.ogness@linutronix.de, rostedt@goodmis.org, senozhatsky@chromium.org,
- mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, bsegall@google.com,
- mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
- akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org,
- pasha.tatashin@soleen.com, pratyush@kernel.org, ruirui.yang@linux.dev,
- david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
- surenb@google.com, mhocko@suse.com, kees@kernel.org,
- anna-maria@linutronix.de, frederic@kernel.org, mhiramat@kernel.org,
- mathieu.desnoyers@efficios.com, brendan.jackman@linux.dev,
- hannes@cmpxchg.org, ziy@nvidia.com, bigeasy@linutronix.de,
- clrkwllms@kernel.org
-Cc: linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- linux-mm@kvack.org, linux-trace-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev
-Subject: Re: [RFC PATCH v2 3/5] timers: Avoid blocking on hrtimer_cpu_base
- lock during Oops or panic
-In-Reply-To: <20261103024453.922373-4-atomlin@atomlin.com>
-References: <20261103024453.922373-1-atomlin@atomlin.com>
- <20261103024453.922373-4-atomlin@atomlin.com>
-Date: Mon, 09 Nov 2026 23:28:01 +0100
-Message-ID: <87y0b1tzbi.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bc6ecKnX
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-533202fe429so33361cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 14:30:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794263408; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DVCQ+4EEN9mbMikxK4F/BJPgjpkkf/Gw4lfLlSAuH3M5aeffIxXUyFGVUORFFlz7nw
+         Poid3rYlDr2CSRN0+nkEQ28iFKEZWFVzem1f6aXyxpYzMfzX4DYwIAGn3PQ9UJH+vFPR
+         2HO0cKF7qYL66ejMBMphkXUBDu95Ue8DIfZzbVuD2c3CjFLQZvK8J3S9F/n/iedf9JLz
+         /kTN3Idn5LgUgt0OkxaKcwWgw2VrFXtdSQEMXOeI5/9vLkX1ttvmVzox5yaf2GgZxgrs
+         G438EQTsVQ7PYZQlLctiyloYQXhEWLNsV4QGlCBJEjtoB9kMIizutJxoV/fgRNq1QUJO
+         pMcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=S6J9qhUwfhfejNNDnNi/t39zME3R/+tshu3QmKCryWs=;
+        fh=+he5gF8Tc9wbNrDywy2dQQOcibjUVrNJb1rSAD40UpI=;
+        b=qtTnveSPW1CZtdqt14OOvPwxrFIukYBpbtuOoMz7fBoyXWd1GrFsoAghorqgJGB2Vl
+         Algwnv2dHsndmeE8OiKhGwlnpTaHjbrOr1NZ9pN6W99ssVXTOoxSFStOHVr4SRosd10v
+         ugSBYFeo+IomPHlpsCubo5XTOfvAD/VN9kFKGWVuX9bhT8pcVMBp0ajqJfwgdARrZJVL
+         HAb8mv9leA7Mpiya2O932jJPnvEF7YsuT6mS3jAtTVEMw3kyE0/N7RRfSD9VKWWb8TsP
+         YXqmFtFeqt9Lg8KXwCpCU214101ExwJp2uSUp/KDkC+DMXRBN8sQu6vhlc48uk6ITSld
+         H5RQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794263408; x=1794868208; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=S6J9qhUwfhfejNNDnNi/t39zME3R/+tshu3QmKCryWs=;
+        b=bc6ecKnXzqp5zahKN5US+W/GLFNu9bOCxLTorv75CdL/TyOgB/Qh6QFUi86M3M/XI3
+         3gbxOXuAYS2+xcjqU4SLj5C27dCKM/SCCgBGdSbxDV00eICb4MzgEjo9vjECQ1QTCTmr
+         MgCtojiqIWlVyB6AunwAs2qSQJP0tUdJsdT71C1y4WilJg+rQa++O5B+9FpAikzFpyGD
+         TU94u5aUZCMHCz2bEPFushfsTW1bpin21NCA0WBKSF7omxyVw4eI3lnqeaGfI4JhzN5X
+         ZQZwi7mBvwRBGIVH1EKWZ2xsmVHzuYxoBrVKANockiyw6pDDJKKlw7J5nTOQpM4hDjUm
+         KR1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794263408; x=1794868208;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S6J9qhUwfhfejNNDnNi/t39zME3R/+tshu3QmKCryWs=;
+        b=NYT5fpXp+XYfmDBpyahtjOnzHAstRWXNQ7t2W86y4yOyp8BxPCrJ7CSGjx2n3K+dPT
+         SPocCCZ59q+NdKA700We74TslhHm3YRQG0QOcvRQ00iGRTB0ILMTvaHf+NemSYk1QedS
+         VdAjtEoTg+XPLxKHlO+QzTyOuTH/L/X8hr4tGnp8AjmY7CxHovXK49weOVYF+SHsI67b
+         jlLCrqgnV/OIiw17SQzNHUEEJDOlZyDn8spZSWfE6D8SvUQzlV09WkBKQ8+uGSOZu1ts
+         tXE3qpMK+V8nFA4eDfZGJNH+dV5o6e2GDDVrEve71WnR+IrTlZhEOb3SN72eihJOnsln
+         Vc0w==
+X-Forwarded-Encrypted: i=1; AL+hErEiJDxMDHit7speI3D7pLHTPCy27pq47ZAvQG/Vs7DXoDPSPJWdZkkh8GKB04u4EWlw2jLB3PlcXvp+lLU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HxOUhdZB3Q5Rttq2AvDE7kuIsmdToRuqWI2RXPVmaNIsPxgze
+	uZ9Tp6Tkqruy4ou8a9vXGN0snimQ1L6TZI0FufDyWzyBurHOVP8KwGNKUTe3dK19Cu22lO6V94r
+	4o1KydchUt1tWDsAYQzW5uiKaJpe4jjV0Ar0nJKAl
+X-Gm-Gg: AYBFou319tqZAQ8+MOIOKdOIguvBE262GzQTnTxxHBnr8uQSYu9yKfFqW4ol2PFyaZI
+	rtpsT+OGYEc6683S6ieLozwRIS3jv+XZcrFAdrfFNcFQJyon6KgsemlK6mN9wXL0VzfZXHGVM5i
+	jOjDaI9/hQ3+D1S9GL9evyYAX08hT55zlleCYmyHUIU5W8gAFGnH7r30El2ToSpz79THeY9xpLF
+	vssgj8c5nWmGymLymaFUyflWxzmmg4NcFPQ64FFTvHbwOo6nOX9Tln6yhEH/h9xV8sCqtswPM7T
+	RlLQpKr+9CyBcJ/C+6G2WdlwXkve0IkebMKNvHdNbFYBL6Fjah22POK7NUYOwaxOTrk7aeib4tp
+	6AwKKe/rHJIos0t1vc/ip97Dl+kPCxD68UMgMa8t438dr9uCUQAPgp0X010O6tvpIOmE=
+X-Received: by 2002:a05:622a:1b16:b0:530:e00f:7768 with SMTP id
+ d75a77b69052e-555290bb288mr6464421cf.0.1794263407457; Mon, 09 Nov 2026
+ 14:30:07 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,484 +104,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261108223913.3624571-1-irogers@google.com> <20261108223913.3624571-7-irogers@google.com>
+ <b8d171de-52fe-474e-96db-d119840c6240@suse.com>
+In-Reply-To: <b8d171de-52fe-474e-96db-d119840c6240@suse.com>
+From: Ian Rogers <irogers@google.com>
+Date: Mon, 9 Nov 2026 14:29:55 -0800
+X-Gm-Features: AclHuK-dlWDp0B4FdK6V9QBR5LM_sA67_T-19O3ovPwDJ5RdBpzojQ18ICzxF_E
+Message-ID: <CAP-5=fXd640kfaR+soPdiEV2mfqCPGDANCt04KzaXBphYP4Htg@mail.gmail.com>
+Subject: Re: [PATCH v3 6/9] xen/sys-hypervisor: Add release callback to hyp_sysfs_kobj_type
+To: Juergen Gross <jgross@suse.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Kees Cook <kees@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+	Christophe Leroy <chleroy@kernel.org>, Nayna Jain <nayna@linux.ibm.com>, 
+	Srish Srinivasan <ssrish@linux.ibm.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>, Alexander Aring <aahringo@redhat.com>, 
+	Felix Kuehling <felix.kuehling@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Zhihao Cheng <chengzhihao1@huawei.com>, Sumanth Korikkar <sumanthk@linux.ibm.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, driver-core@lists.linux.dev, 
+	llvm@lists.linux.dev, linux-hardening@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-sh@vger.kernel.org, 
+	linux-s390@vger.kernel.org, gfs2@lists.linux.dev, 
+	xen-devel@lists.xenproject.org, linux-mtd@lists.infradead.org, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02 2026 at 21:44, Aaron Tomlin wrote:
-
-> When sysrq_timer_list_show() dumps active high-resolution timers across
-> all online CPUs, it calls ktime_get() (which spins on tk_core.seq) and
-> print_active_timers() unconditionally acquires each CPU's
-> base->cpu_base->lock via raw_spin_lock_irqsave(). If invoked from an
-> Oops, NMI, or panic context while the crashing CPU or a wedged remote
-> CPU is inside a timekeeping write section or already holds
-> base->cpu_base->lock, sysrq_timer_list_show() will spin indefinitely
-> and prevent panic recovery or kexec from completing.
+On Sun, Nov 8, 2026 at 10:56=E2=80=AFPM Juergen Gross <jgross@suse.com> wro=
+te:
 >
-> Use the NMI-safe ktime_get_mono_fast_ns() helper in
-> sysrq_timer_list_show() and raw_spin_trylock_irqsave() in
-> print_active_timers() when in_nmi(), oops_in_progress, or
-> panic_in_progress() is active, noting any contended lock and returning cleanly instead of
-> deadlocking.
+> On 08.11.26 23:39, Ian Rogers wrote:
+> > hypervisor_init() in drivers/base/hypervisor.c creates hypervisor_kobj
+> > with kobject_create_and_add() (which allocates a dynamic kobject using
+> > dynamic_kobj_ktype), and hypervisor_subsys_init() in
+> > drivers/xen/sys-hypervisor.c then overwrites hypervisor_kobj->ktype wit=
+h
+> > &hyp_sysfs_kobj_type, which had no .release callback.
+> >
+> > Add hyp_sysfs_release() calling kfree(kobj) to preserve the dynamic
+> > kobject release behavior.
+> >
+> > Fixes: cff7e81b3dd7 ("xen: add /sys/hypervisor support")
+> > Signed-off-by: Ian Rogers <irogers@google.com>
+> > ---
+> >   drivers/xen/sys-hypervisor.c | 6 ++++++
+> >   1 file changed, 6 insertions(+)
+> >
+> > diff --git a/drivers/xen/sys-hypervisor.c b/drivers/xen/sys-hypervisor.=
+c
+> > index 91923242a5ae..0e8a2cd69fd6 100644
+> > --- a/drivers/xen/sys-hypervisor.c
+> > +++ b/drivers/xen/sys-hypervisor.c
+> > @@ -659,7 +659,13 @@ static const struct sysfs_ops hyp_sysfs_ops =3D {
+> >       .store =3D hyp_sysfs_store,
+> >   };
+> >
+> > +static void hyp_sysfs_release(struct kobject *kobj)
+> > +{
+> > +     kfree(kobj);
+> > +}
+> > +
+> >   static const struct kobj_type hyp_sysfs_kobj_type =3D {
+> > +     .release =3D hyp_sysfs_release,
+> >       .sysfs_ops =3D &hyp_sysfs_ops,
+> >   };
+> >
 >
-> Fixes: d999bd9392de ("panic: add options to print system info when panic happens")
-> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
-> ---
->  kernel/time/timer_list.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
+> Wouldn't it make sense to have a common function for just kfree(kobj)?
 >
-> diff --git a/kernel/time/timer_list.c b/kernel/time/timer_list.c
-> index 0406bf4488e9..4973650c4ae5 100644
-> --- a/kernel/time/timer_list.c
-> +++ b/kernel/time/timer_list.c
-> @@ -68,7 +68,15 @@ static void print_active_timers(struct seq_file *m, struct hrtimer_clock_base *b
->  
->  	touch_nmi_watchdog();
->  
-> -	raw_spin_lock_irqsave(&base->cpu_base->lock, flags);
-> +	if (in_nmi() || oops_in_progress || panic_in_progress()) {
-> +		if ((!IS_ENABLED(CONFIG_SMP) && in_nmi()) ||
-> +		    !raw_spin_trylock_irqsave(&base->cpu_base->lock, flags)) {
-> +			SEQ_printf(m, "  [cpu_base lock contended]\n");
-> +			return;
-> +		}
-> +	} else {
-> +		raw_spin_lock_irqsave(&base->cpu_base->lock, flags);
-> +	}
+> In your series there are 3 instances of .release just doing kfree(kobj).
+>
+> In case this is not wanted or with using the suggested common .release
+> helper you can add my
+>
+> Reviewed-by: Juergen Gross <jgross@suse.com>
 
-TBH, that's horrible and unreadable gunk.
+Thanks Juergen!
 
-Clearly the approach of all of this is:
+lib/kobject.c already has a static dynamic_kobj_release() that does
+this (and there are ~15 other places in the tree open-coding a static
+kfree(kobj) release wrapper), so include/linux/kobject.h +
+lib/kobject.c would be the natural home if we exported one.
 
-   1) Pick some existing code
-   2) Invoke it
-   3) Hope that it works
-   4) If not add bandaids to make it "work"
+I kept them as local static functions here for two reasons:
 
-Seriously?
+1. Patches 2/9, 3/9, and 6/9 carry Fixes: tags, and keeping the small
+   local callbacks avoids a dependency on a new driver-core export for
+   backports.
+2. Since kobjects are normally embedded in a larger struct and freed via
+   container_of(), I wasn't sure whether Greg and Danilo would view an
+   exported kfree(kobj) release helper (especially alongside
+   __must_init) as an invitation for misuse on embedded kobjects.
 
-Each of the callers of sys_info() knows the exact context in which it is
-invoked, right?
-
-So the obvious and clean solution is to hand exactly that context
-information into sys_info() and further down into the invoked
-functions so they can make informed decisions and eventually omit
-pointless information which is otherwise emitted in proc/sysrq-t.
-
-Something like the uncompiled mockup below should give you an idea.
-
->  	curr = timerqueue_linked_first(&base->active);
->  	/*
-> @@ -262,7 +270,8 @@ static inline void timer_list_header(struct seq_file *m, ktime_t now)
->  
->  void sysrq_timer_list_show(void)
->  {
-> -	ktime_t now = ktime_get();
-> +	ktime_t now = (in_nmi() || oops_in_progress || panic_in_progress()) ?
-> +		      ns_to_ktime(ktime_get_mono_fast_ns()) : ktime_get();
-
-That's a pointless exercise. Just use ktime_get_mono_fast_ns()
-unconditionally. It's perfectly fine for the purpose of this in all
-contexts.
+Unless Greg or Danilo would like dynamic_kobj_release() (or similar)
+exported now, I'll plan to keep the local callbacks for this series
+and can send a follow-up cleanup for the tree-wide callers if
+driver-core maintainers think a shared helper makes sense.
 
 Thanks,
+Ian
 
-        tglx
----
---- a/kernel/time/timer_list.c
-+++ b/kernel/time/timer_list.c
-@@ -17,10 +17,16 @@
- 
- #include "tick-internal.h"
- 
-+struct tlctx {
-+	struct	seq_file	*seq_file;
-+	ktime_t			ts_now;
-+	enum sysinfo_context	si_ctx;
-+};
-+
- struct timer_list_iter {
--	int cpu;
--	bool second_pass;
--	ktime_t now;
-+	int	cpu;
-+	bool	second_pass;
-+	ktime_t	now;
- };
- 
- /*
-@@ -28,35 +34,51 @@ struct timer_list_iter {
-  * to the console (on SysRq-Q):
-  */
- __printf(2, 3)
--static void SEQ_printf(struct seq_file *m, const char *fmt, ...)
-+static void SEQ_printf(struct tlctx *ctx, const char *fmt, ...)
- {
- 	va_list args;
- 
- 	va_start(args, fmt);
- 
--	if (m)
--		seq_vprintf(m, fmt, args);
-+	if (ctx->seq_file)
-+		seq_vprintf(ctx->seq_file, fmt, args);
- 	else
- 		vprintk(fmt, args);
- 
- 	va_end(args);
- }
- 
--static void
--print_timer(struct seq_file *m, struct hrtimer *taddr, struct hrtimer *timer,
--	    int idx, ktime_t now)
--{
--	SEQ_printf(m, " #%d: <%p>, %ps", idx, taddr, ACCESS_PRIVATE(timer, function));
--	SEQ_printf(m, ", S:%02x", timer->is_queued);
--	SEQ_printf(m, "\n");
--	SEQ_printf(m, " # expires at %lld-%lld nsecs [in %lld to %lld nsecs]\n",
--		(long long)hrtimer_get_softexpires(timer),
--		(long long)hrtimer_get_expires(timer),
--		(long long)ktime_sub(hrtimer_get_softexpires(timer), now),
--		(long long)ktime_sub(hrtimer_get_expires(timer), now));
-+static void print_timer(struct tlctx *ctx, struct hrtimer *taddr, struct hrtimer *timer,
-+			int idx, ktime_t now)
-+{
-+	SEQ_printf(ctx, " #%d: <%p>, %ps", idx, taddr, ACCESS_PRIVATE(timer, function));
-+	SEQ_printf(ctx, ", S:%02x", timer->is_queued);
-+	SEQ_printf(ctx, "\n");
-+	SEQ_printf(ctx, " # expires at %lld-%lld nsecs [in %lld to %lld nsecs]\n",
-+		   (long long)hrtimer_get_softexpires(timer),
-+		   (long long)hrtimer_get_expires(timer),
-+		   (long long)ktime_sub(hrtimer_get_softexpires(timer), now),
-+		   (long long)ktime_sub(hrtimer_get_expires(timer), now));
-+}
-+
-+static bool lock_hrtimer_base(struct tlctx *ctx, struct hrtimer_clock_base *base,
-+			      unsigned long *flags)
-+{
-+	switch (ctx->si_ctx) {
-+	case SYSINFO_CTX_LOCK_SAFE:
-+		raw_spin_lock_irqsave(&base->cpu_base->lock, *flags);
-+		return true;
-+	case SYSINFO_CTX_TRYLOCK_SAFE:
-+		if (raw_spin_trylock_irqsave(&base->cpu_base->lock, *flags))
-+			return true;
-+		fallthrough;
-+	default:
-+		SEQ_printf(ctx, "  Unsafe context: Skip timers.\n");
-+		return false;
-+	}
- }
- 
--static void print_active_timers(struct seq_file *m, struct hrtimer_clock_base *base, ktime_t now)
-+static void print_active_timers(struct tlctx *ctx, struct hrtimer_clock_base *base, ktime_t now)
- {
- 	struct timerqueue_linked_node *curr;
- 	struct hrtimer *timer, tmp;
-@@ -64,13 +86,14 @@ static void print_active_timers(struct s
- 	unsigned long flags;
- 
- next_one:
--	if (m && seq_has_overflowed(m))
-+	if (ctx->seq_file && seq_has_overflowed(ctx->seqfile))
- 		return;
- 	i = 0;
- 
- 	touch_nmi_watchdog();
- 
--	raw_spin_lock_irqsave(&base->cpu_base->lock, flags);
-+	if (!lock_hrtimer_base(ctx, base, &flags))
-+		return;
- 
- 	curr = timerqueue_linked_first(&base->active);
- 	/*
-@@ -83,51 +106,48 @@ static void print_active_timers(struct s
- 	}
- 
- 	if (curr) {
--
- 		timer = container_of(curr, struct hrtimer, node);
- 		tmp = *timer;
- 		raw_spin_unlock_irqrestore(&base->cpu_base->lock, flags);
- 
--		print_timer(m, timer, &tmp, i, now);
-+		print_timer(ctx, timer, &tmp, i, now);
- 		next++;
- 		goto next_one;
- 	}
- 	raw_spin_unlock_irqrestore(&base->cpu_base->lock, flags);
- }
- 
--static void
--print_base(struct seq_file *m, struct hrtimer_clock_base *base, ktime_t now)
-+static void print_base(struct tlctx *ctx, struct hrtimer_clock_base *base)
- {
--	SEQ_printf(m, "  .base:       %p\n", base);
--	SEQ_printf(m, "  .index:      %d\n", base->index);
-+	SEQ_printf(ctx, "  .base:       %p\n", base);
-+	SEQ_printf(ctx, "  .index:      %d\n", base->index);
- 
--	SEQ_printf(m, "  .resolution: %u nsecs\n", hrtimer_resolution);
-+	SEQ_printf(ctx, "  .resolution: %u nsecs\n", hrtimer_resolution);
- #ifdef CONFIG_HIGH_RES_TIMERS
--	SEQ_printf(m, "  .offset:     %lld nsecs\n",
--		   (long long) base->offset);
-+	SEQ_printf(ctx, "  .offset:     %lld nsecs\n", (long long) base->offset);
- #endif
--	SEQ_printf(m,   "active timers:\n");
--	print_active_timers(m, base, ktime_add(now, base->offset));
-+	SEQ_printf(ctx,   "active timers:\n");
-+	print_active_timers(ctx, base, ktime_add(ctx->ts_mono, base->offset));
- }
- 
--static void print_cpu(struct seq_file *m, int cpu, ktime_t now)
-+static void print_cpu(struct tlctx *ctx, int cpu)
- {
- 	struct hrtimer_cpu_base *cpu_base = &per_cpu(hrtimer_bases, cpu);
- 	int i;
- 
--	SEQ_printf(m, "cpu: %d\n", cpu);
-+	SEQ_printf(ctx, "cpu: %d\n", cpu);
- 	for (i = 0; i < HRTIMER_MAX_CLOCK_BASES; i++) {
--		SEQ_printf(m, " clock %d:\n", i);
--		print_base(m, cpu_base->clock_base + i, now);
-+		SEQ_printf(ctx, " clock %d:\n", i);
-+		print_base(ctx, cpu_base->clock_base + i);
- 	}
- 
- #define DIAG_READ(x) data_race(READ_ONCE(x))
- 
- #define P(x)				     \
--	SEQ_printf(m, "  .%-15s: %llu\n", #x, \
-+	SEQ_printf(ctx, "  .%-15s: %llu\n", #x, \
- 		   (unsigned long long)DIAG_READ(cpu_base->x))
- #define P_ktime(x) \
--	SEQ_printf(m, "  .%-15s: %lld nsecs\n", #x, (long long)DIAG_READ(cpu_base->x))
-+	SEQ_printf(ctx, "  .%-15s: %lld nsecs\n", #x, (long long)DIAG_READ(cpu_base->x))
- 
- #ifdef CONFIG_HIGH_RES_TIMERS
- 	P_ktime(expires_next);
-@@ -141,13 +161,12 @@ static void print_cpu(struct seq_file *m
- #undef P_ktime
- 
- #ifdef CONFIG_TICK_ONESHOT
--# define P(x) \
--	SEQ_printf(m, "  .%-15s: %llu\n", #x, \
--		   (unsigned long long)DIAG_READ(ts->x))
--# define P_ktime(x) \
--	SEQ_printf(m, "  .%-15s: %lld nsecs\n", #x, (long long)DIAG_READ(ts->x))
--# define P_flag(x, f)			    \
--	SEQ_printf(m, "  .%-15s: %d\n", #x, !!(DIAG_READ(ts->flags) & (f)))
-+# define P(x)										\
-+	SEQ_printf(ctx, "  .%-15s: %llu\n", #x, (unsigned long long)DIAG_READ(ts->x))
-+# define P_ktime(x)									\
-+	SEQ_printf(ctx, "  .%-15s: %lld nsecs\n", #x, (long long)DIAG_READ(ts->x))
-+# define P_flag(x, f)									\
-+	SEQ_printf(ctx, "  .%-15s: %d\n", #x, !!(DIAG_READ(ts->flags) & (f)))
- 
- 	{
- 		struct tick_sched *ts = tick_get_tick_sched(cpu);
-@@ -162,8 +181,7 @@ static void print_cpu(struct seq_file *m
- 		P(last_jiffies);
- 		P(next_timer);
- 		P_ktime(idle_expires);
--		SEQ_printf(m, "jiffies: %llu\n",
--			   (unsigned long long)jiffies);
-+		SEQ_printf(ctx, "jiffies: %llu\n", (unsigned long long)jiffies);
- 	}
- #endif
- 
-@@ -171,129 +189,138 @@ static void print_cpu(struct seq_file *m
- #undef P_ktime
- #undef P_flag
- #undef DIAG_READ
--	SEQ_printf(m, "\n");
-+	SEQ_printf(ctx, "\n");
- }
- 
- #ifdef CONFIG_GENERIC_CLOCKEVENTS
--static void
--print_tickdevice(struct seq_file *m, struct tick_device *td, int cpu)
-+static void print_tickdevice(struct tlctx *ctx, struct tick_device *td, int cpu)
- {
- 	struct clock_event_device *dev = td->evtdev;
- 
- 	touch_nmi_watchdog();
- 
--	SEQ_printf(m, "Tick Device: mode:     %d\n", td->mode);
-+	SEQ_printf(ctx, "Tick Device: mode:     %d\n", td->mode);
- 	if (cpu < 0)
--		SEQ_printf(m, "Broadcast device\n");
-+		SEQ_printf(ctx, "Broadcast device\n");
- 	else
--		SEQ_printf(m, "Per CPU device: %d\n", cpu);
-+		SEQ_printf(ctx, "Per CPU device: %d\n", cpu);
- 
--	SEQ_printf(m, "Clock Event Device: ");
-+	SEQ_printf(ctx, "Clock Event Device: ");
- 	if (!dev) {
--		SEQ_printf(m, "<NULL>\n");
-+		SEQ_printf(ctx, "<NULL>\n");
- 		return;
- 	}
--	SEQ_printf(m, "%s\n", dev->name);
--	SEQ_printf(m, " max_delta_ns:   %llu\n",
--		   (unsigned long long) dev->max_delta_ns);
--	SEQ_printf(m, " min_delta_ns:   %llu\n",
--		   (unsigned long long) dev->min_delta_ns);
--	SEQ_printf(m, " mult:           %u\n", dev->mult);
--	SEQ_printf(m, " shift:          %u\n", dev->shift);
--	SEQ_printf(m, " mode:           %d\n", clockevent_get_state(dev));
--	SEQ_printf(m, " next_event:     %lld nsecs\n", (long long)dev->next_event);
-+	SEQ_printf(ctx, "%s\n", dev->name);
-+	SEQ_printf(ctx, " max_delta_ns:   %llu\n", (unsigned long long) dev->max_delta_ns);
-+	SEQ_printf(ctx, " min_delta_ns:   %llu\n", (unsigned long long) dev->min_delta_ns);
-+	SEQ_printf(ctx, " mult:           %u\n", dev->mult);
-+	SEQ_printf(ctx, " shift:          %u\n", dev->shift);
-+	SEQ_printf(ctx, " mode:           %d\n", clockevent_get_state(dev));
-+	SEQ_printf(ctx, " next_event:     %lld nsecs\n", (long long)dev->next_event);
- 
--	SEQ_printf(m, " set_next_event: %ps\n", dev->set_next_event);
-+	SEQ_printf(ctx, " set_next_event: %ps\n", dev->set_next_event);
- 
- 	if (dev->set_state_shutdown)
--		SEQ_printf(m, " shutdown:       %ps\n",
--			dev->set_state_shutdown);
-+		SEQ_printf(ctx, " shutdown:       %ps\n", dev->set_state_shutdown);
- 
- 	if (dev->set_state_periodic)
--		SEQ_printf(m, " periodic:       %ps\n",
--			dev->set_state_periodic);
-+		SEQ_printf(ctx, " periodic:       %ps\n", dev->set_state_periodic);
- 
- 	if (dev->set_state_oneshot)
--		SEQ_printf(m, " oneshot:        %ps\n",
--			dev->set_state_oneshot);
-+		SEQ_printf(ctx, " oneshot:        %ps\n", dev->set_state_oneshot);
- 
- 	if (dev->set_state_oneshot_stopped)
--		SEQ_printf(m, " oneshot stopped: %ps\n",
--			dev->set_state_oneshot_stopped);
-+		SEQ_printf(ctx, " oneshot stopped: %ps\n", dev->set_state_oneshot_stopped);
- 
- 	if (dev->tick_resume)
--		SEQ_printf(m, " resume:         %ps\n",
--			dev->tick_resume);
-+		SEQ_printf(ctx, " resume:         %ps\n", dev->tick_resume);
- 
--	SEQ_printf(m, " event_handler:  %ps\n", dev->event_handler);
--	SEQ_printf(m, "\n");
--	SEQ_printf(m, " retries:        %lu\n", dev->retries);
-+	SEQ_printf(ctx, " event_handler:  %ps\n", dev->event_handler);
-+	SEQ_printf(ctx, "\n");
-+	SEQ_printf(ctx, " retries:        %lu\n", dev->retries);
- 
- #ifdef CONFIG_GENERIC_CLOCKEVENTS_BROADCAST
- 	if (cpu >= 0) {
- 		const struct clock_event_device *wd = tick_get_wakeup_device(cpu);
- 
--		SEQ_printf(m, "Wakeup Device: %s\n", wd ? wd->name : "<NULL>");
-+		SEQ_printf(ctx, "Wakeup Device: %s\n", wd ? wd->name : "<NULL>");
- 	}
- #endif
--	SEQ_printf(m, "\n");
-+	SEQ_printf(ctx, "\n");
- }
- 
- static void timer_list_show_tickdevices_header(struct seq_file *m)
- {
- #ifdef CONFIG_GENERIC_CLOCKEVENTS_BROADCAST
--	print_tickdevice(m, tick_get_broadcast_device(), -1);
--	SEQ_printf(m, "tick_broadcast_mask: %*pb\n",
-+	print_tickdevice(ctx, tick_get_broadcast_device(), -1);
-+	SEQ_printf(ctx, "tick_broadcast_mask: %*pb\n",
- 		   cpumask_pr_args(tick_get_broadcast_mask()));
- #ifdef CONFIG_TICK_ONESHOT
--	SEQ_printf(m, "tick_broadcast_oneshot_mask: %*pb\n",
-+	SEQ_printf(ctx, "tick_broadcast_oneshot_mask: %*pb\n",
- 		   cpumask_pr_args(tick_get_broadcast_oneshot_mask()));
- #endif
--	SEQ_printf(m, "\n");
-+	SEQ_printf(ctx, "\n");
- #endif
- }
- #endif
- 
--static inline void timer_list_header(struct seq_file *m, ktime_t now)
-+static inline void timer_list_header(struct seq_file *ctx)
- {
--	SEQ_printf(m, "Timer List Version: v0.11\n");
--	SEQ_printf(m, "HRTIMER_MAX_CLOCK_BASES: %d\n", HRTIMER_MAX_CLOCK_BASES);
--	SEQ_printf(m, "now at %lld nsecs\n", (long long)now);
--	SEQ_printf(m, "\n");
-+	SEQ_printf(ctx, "Timer List Version: v0.11\n");
-+	SEQ_printf(ctx, "HRTIMER_MAX_CLOCK_BASES: %d\n", HRTIMER_MAX_CLOCK_BASES);
-+	SEQ_printf(ctx, "now at %lld nsecs\n", (long long)ctx->ts_mono);
-+	SEQ_printf(ctx, "\n");
- }
- 
--void sysrq_timer_list_show(void)
-+static void sys_timer_list_show(struct tlctx *ctx)
- {
--	ktime_t now = ktime_get();
-+	ctx->ts_mono = ktime_get_ns_fast();
- 	int cpu;
- 
--	timer_list_header(NULL, now);
-+	timer_list_header(ctx);
- 
- 	for_each_online_cpu(cpu)
--		print_cpu(NULL, cpu, now);
-+		print_cpu(ctx, cpu);
- 
- #ifdef CONFIG_GENERIC_CLOCKEVENTS
--	timer_list_show_tickdevices_header(NULL);
-+	timer_list_show_tickdevices_header(ctx);
- 	for_each_online_cpu(cpu)
--		print_tickdevice(NULL, tick_get_device(cpu), cpu);
-+		print_tickdevice(ctx, tick_get_device(cpu), cpu);
- #endif
--	return;
-+}
-+
-+void sysinfo_timer_list_show(enum sysinfo_context si_ctx)
-+{
-+	struct tlctx ctx = { .si_ctx = si_ctx, };
-+
-+	sys_timer_list_show(&ctx);
-+}
-+
-+void sysrq_timer_list_show(void)
-+{
-+	struct tlctx ctx = {};
-+
-+	sys_timer_list_show(&ctx);
- }
- 
- #ifdef CONFIG_PROC_FS
- static int timer_list_show(struct seq_file *m, void *v)
- {
- 	struct timer_list_iter *iter = v;
-+	struct tlctx ctx = {
-+		.seq_file	= m,
-+		.ts_mono	= iter->now,
-+	};
- 
- 	if (iter->cpu == -1 && !iter->second_pass)
--		timer_list_header(m, iter->now);
-+		timer_list_header(&ctx, iter->now);
- 	else if (!iter->second_pass)
--		print_cpu(m, iter->cpu, iter->now);
-+		print_cpu(&ctx, iter->cpu);
- #ifdef CONFIG_GENERIC_CLOCKEVENTS
- 	else if (iter->cpu == -1 && iter->second_pass)
--		timer_list_show_tickdevices_header(m);
-+		timer_list_show_tickdevices_header(&ctx);
- 	else
--		print_tickdevice(m, tick_get_device(iter->cpu), iter->cpu);
-+		print_tickdevice(&ctx, tick_get_device(iter->cpu), iter->cpu);
- #endif
- 	return 0;
- }
-
-
-
+>
+>
+> Juergen
