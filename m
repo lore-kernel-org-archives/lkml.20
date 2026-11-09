@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187281;
-	b=RTJGqROaytVWN5iOFgTFd/HFFqBAcempezevJNPk9TQ1LJdrIDbfu4+TW4+F5LTis18J
-	 DkMFFOW9LMy5ArEEx1cuPyc42S3hI937Kn9uQUfEk0nzQsNYcXxkhzH0JEw98R9Iu0Ywk
-	 ESYn+b8HCYLYKpLLHGx6aGJj2bTVKQc42caaswYqWT4MCm7mvRFwycCLNqA48PFa2cMpJ
-	 vW+M6Zs/bYVvoZobRFy6i/A2SJn9lKZCub1fwgRbk6Whtb2sxpuhIOjAmfD7kctQxnnKn
-	 /ex4NhKeN6Bh7IBo0VKhQwV9aiHxKQZmDLQ65dHP0P17zdk/suCjOd4YgTdXYLoKF2Q==
+	t=1794187289;
+	b=1r+Y5ty5bQG8t7fWDT3w7vpBhrQKGyLoMraJQC1Hpi71N7So7z7TyUZ5Rw3/MF9N/pJI
+	 oe3E1U4uEKOuu9UiwaJjp9/Qg6ZBhj8vZtnUk0MIgkejfqJLfIcZ2s61vO/wF3xQClICg
+	 4G0TNKhqXmWwpfgSHkFJPvAoXkhNFJUhIyZwIJOLSAQDjy6C5ywy4m3RYW4K/Dl7bwD1R
+	 gcV+t0r3b4235YMf8TPYKPmcQlqeEKhFAH3r4kSlvgMM+TdQDsTnA3BFbes+qZG1OqHGG
+	 fWcFtT5/RQZh4QlUg4UUvFdBjwoWkSiNiHoZPTo1zmaIEAzW2lxbtyfQPEl7lfYp8rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187281;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187289;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=BxDhP/5FAQ5VWdRRHlkDCKig9L7gezWwXUkQaosCkl4=;
-	b=MTSMKYn/q3zPnxKmwNDO7oqk2g4ye+MQtiXhAVaRZXgxO+Q+lcLQpEJUPiVb07hWJgQf
-	 BCAgMrZ+MEnDVc0LLrX1ezPnR+h8JIbUEgnDyeZ1SKZ96GYWG0l7qoFwlesQhupRwJ9Cx
-	 KuB8LKP5fzB2gEnMh4BjfbCuJGcyc70WzzbdkCn41su85q0hFoAOtts18QNlRVlSojMkl
-	 GZqtHiTdnpiajmTs/xCEhKXr6Eu/KElra/mLKego/Pe5qSh792OroPyPKNikcia5ouN8Y
-	 8F5P2ZfDZAysv0fDITUwetPVQxxFurZ1PWmMOPEF7DLy+9q50MNNc9RAhOb1k73IDGA==
+	bh=OT/QKs0wsvf6qI0TnfD621/+/S2W6eRxFlyThtM/WtI=;
+	b=b6TDz5RBrYgW+Ftz687j++kpuKLjt8gJ6aI+0ePzQv4ixCEhGGXW+OWwyugKGaVt18cD
+	 n7PU5932tvTJVZBwPRqQJkayBrTsm/8+ZgjyHJXg66WJna0Cu8hBalLO+mzWgb2r//D4A
+	 W7wsugUrH80BMYKq0StR4u962AfwF0gSxwSN1pOsH9fq733j9GNW7QxJmWUIgrIyiV0OQ
+	 6Bxg7LstMu1UJlXO/WXSc2tlT7lbLX2BHTIbmfXzYCq/tvxBWstdZkQr5ffNcMiTEyYIf
+	 x+VcxITxcUtf09YOautOeJu9GwoBayADHcKRdw/umA0uhAah6AbXNTkCdUfr/SlMxhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=f5HyYbHG;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	spf=none smtp.mailfrom=desiato.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=LXFhc9QY;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71401606A325;
-	Mon,  9 Nov 2026 01:21:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71401606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A994606EE8D;
+	Mon,  9 Nov 2026 01:21:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A994606EE8D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=f5HyYbHG
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=LXFhc9QY
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=BxDhP/5FAQ5VWdRRHlkDCKig9L7gezWwXUkQaosCkl4=; b=f5HyYbHG+7boQQNJIRCPSm7JW2
-	6zOJSyN2yGjXm6VHsuXMMDnq2XIz+z6VnZ+axV7TqzeDNfdNzHgm2tv/RMVnsN5gMbfLYbFfHDL1G
-	eIwr69Aod10j7TA0Wx3rdNLLfLfJCsdOCUoA3VotmJNYEsQikWtFOvQrVYt510sN1tqhCroqCw8kq
-	OIqtL3DEFR7qhC350Af/tsocqk7qi8BC2I+ZIQJ89ZkYY+t9QqKmlyfbzg0yi35oP3sYNuqC5v0El
-	3lsG4Qelh5vULim8Zd1UcRR59P8XyhXvH9RaJ5mgSRBpr21SrZOxNHIBXjgrgD7+3O4kta9BfG4IC
-	foaabdRA==;
+	bh=OT/QKs0wsvf6qI0TnfD621/+/S2W6eRxFlyThtM/WtI=; b=LXFhc9QY37K3I2psP1wVzaxpqZ
+	sJ4zIa5yo6SoH4KLnnYO5R8WjQYmLr+CAY4P9CjYJrkXRcVsdJhDC02tjiSg/BreUnuMXLt+KpIEr
+	S6JYARDFtYAabld2X+pLV3yJW/Ai5XdgIICWIUFbJzqhg6p63sjnf61xRoKpFZG3/PWn+bdDwfAx+
+	N6P6vg1AtAElKDWHHlnYz7qW6ZOcuoKkYwcNWDmL7xAjbaXG2Jx3LbdLlKkHL0TYEIVaQE3SwDFZP
+	2E6bn3OfkwJNP6OAgX1/lH/drBRIIHz5jxF2LeJf0IqRfAzoCKsSWOnjkCkK3j6W9GpBNAqFiSxim
+	z44p4Waw==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xQE4O-00000007Pvq-3U5n;
-	Mon, 09 Nov 2026 01:21:12 +0000
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xQE4Q-00000006AYE-27yv;
+	Mon, 09 Nov 2026 01:21:14 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xQE4O-0000000EKUM-2ex1;
-	Mon, 09 Nov 2026 01:21:12 +0000
+	id 1xQE4P-0000000EKUt-00ql;
+	Mon, 09 Nov 2026 01:21:13 +0000
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -78,9 +78,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Dongli Zhang <dongli.zhang@oracle.com>,
 	joe.jin@oracle.com,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v12 06/24] KVM: x86: Avoid gratuitous global clock updates
-Date: Sun,  8 Nov 2026 17:20:52 -0800
-Message-ID: <20261109012112.3415328-7-dwmw2@infradead.org>
+Subject: [PATCH v12 13/24] KVM: selftests: Use UAPI pvclock-abi.h in xen_shinfo_test
+Date: Sun,  8 Nov 2026 17:20:59 -0800
+Message-ID: <20261109012112.3415328-14-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261109012112.3415328-1-dwmw2@infradead.org>
 References: <20261109012112.3415328-1-dwmw2@infradead.org>
@@ -95,75 +95,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Eliminate two sources of unnecessary KVM_REQ_GLOBAL_CLOCK_UPDATE:
+Now that pvclock-abi.h is a UAPI header, use it in xen_shinfo_test.c
+instead of locally duplicating the struct definitions.
 
-1. kvm_write_system_time(): The global clock update was a workaround for
-   ever-drifting clocks based on the host's CLOCK_MONOTONIC subject to
-   NTP skew. Now that the KVM clock uses CLOCK_MONOTONIC_RAW, the clock
-   does not drift with NTP corrections and there is no need to
-   synchronize all vCPUs on boot or resume. Use KVM_REQ_CLOCK_UPDATE on
-   the vCPU itself, and only when the clock is being enabled, not
-   disabled.
-
-2. kvm_arch_vcpu_load(): In master clock mode, migration between pCPUs
-   does not require any clock update since the master clock reference is
-   shared. Only request a local KVM_REQ_CLOCK_UPDATE for the vCPU's
-   first-ever load (vcpu->cpu == -1) to generate initial pvclock params.
-   In non-master-clock mode, keep the global update to synchronize all
-   vCPUs.
+Sync the tools/ mirror of the header to the UAPI content: the KVM
+selftests include path puts tools/arch/x86/include ahead of the
+installed kernel headers, so the mirror is what actually gets used.
+That makes the struct fields __u64 (unsigned long long), so switch
+the verbose printfs away from PRIu64, which is "lu" on 64-bit.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- arch/x86/kvm/msrs.c | 7 ++++---
- arch/x86/kvm/x86.c  | 4 +++-
- 2 files changed, 7 insertions(+), 4 deletions(-)
+ tools/arch/x86/include/asm/pvclock-abi.h      | 27 +++++++++-------
+ .../selftests/kvm/x86/xen_shinfo_test.c       | 31 ++++++-------------
+ 2 files changed, 24 insertions(+), 34 deletions(-)
 
-diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-index e91650af44c2..a2dffa1c706f 100644
---- a/arch/x86/kvm/msrs.c
-+++ b/arch/x86/kvm/msrs.c
-@@ -1285,14 +1285,15 @@ static void kvm_write_system_time(struct kvm_vcpu *vcpu, gpa_t system_time,
+diff --git a/tools/arch/x86/include/asm/pvclock-abi.h b/tools/arch/x86/include/asm/pvclock-abi.h
+index b9fece5fc96d..6d70cf640362 100644
+--- a/tools/arch/x86/include/asm/pvclock-abi.h
++++ b/tools/arch/x86/include/asm/pvclock-abi.h
+@@ -1,6 +1,9 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
+ #ifndef _ASM_X86_PVCLOCK_ABI_H
+ #define _ASM_X86_PVCLOCK_ABI_H
++
++#include <linux/types.h>
++
+ #ifndef __ASSEMBLER__
+ 
+ /*
+@@ -24,20 +27,20 @@
+  */
+ 
+ struct pvclock_vcpu_time_info {
+-	u32   version;
+-	u32   pad0;
+-	u64   tsc_timestamp;
+-	u64   system_time;
+-	u32   tsc_to_system_mul;
+-	s8    tsc_shift;
+-	u8    flags;
+-	u8    pad[2];
++	__u32   version;
++	__u32   pad0;
++	__u64   tsc_timestamp;
++	__u64   system_time;
++	__u32   tsc_to_system_mul;
++	__s8    tsc_shift;
++	__u8    flags;
++	__u8    pad[2];
+ } __attribute__((__packed__)); /* 32 bytes */
+ 
+ struct pvclock_wall_clock {
+-	u32   version;
+-	u32   sec;
+-	u32   nsec;
++	__u32   version;
++	__u32   sec;
++	__u32   nsec;
+ } __attribute__((__packed__));
+ 
+ #define PVCLOCK_TSC_STABLE_BIT	(1 << 0)
+diff --git a/tools/testing/selftests/kvm/x86/xen_shinfo_test.c b/tools/testing/selftests/kvm/x86/xen_shinfo_test.c
+index aaa414c677ad..43548d8faa74 100644
+--- a/tools/testing/selftests/kvm/x86/xen_shinfo_test.c
++++ b/tools/testing/selftests/kvm/x86/xen_shinfo_test.c
+@@ -98,22 +98,7 @@ struct sched_poll {
+ 	u64 timeout;
+ };
+ 
+-struct pvclock_vcpu_time_info {
+-	u32   version;
+-	u32   pad0;
+-	u64   tsc_timestamp;
+-	u64   system_time;
+-	u32   tsc_to_system_mul;
+-	s8    tsc_shift;
+-	u8    flags;
+-	u8    pad[2];
+-} __attribute__((__packed__)); /* 32 bytes */
+-
+-struct pvclock_wall_clock {
+-	u32   version;
+-	u32   sec;
+-	u32   nsec;
+-} __attribute__((__packed__));
++#include <asm/pvclock-abi.h>
+ 
+ struct vcpu_runstate_info {
+ 	u32 state;
+@@ -987,12 +972,14 @@ int main(int argc, char *argv[])
+ 
+ 	if (verbose) {
+ 		printf("Wall clock (v %d) %d.%09d\n", wc->version, wc->sec, wc->nsec);
+-		printf("Time info 1: v %u tsc %" PRIu64 " time %" PRIu64 " mul %u shift %u flags %x\n",
+-		       ti->version, ti->tsc_timestamp, ti->system_time, ti->tsc_to_system_mul,
+-		       ti->tsc_shift, ti->flags);
+-		printf("Time info 2: v %u tsc %" PRIu64 " time %" PRIu64 " mul %u shift %u flags %x\n",
+-		       ti2->version, ti2->tsc_timestamp, ti2->system_time, ti2->tsc_to_system_mul,
+-		       ti2->tsc_shift, ti2->flags);
++		printf("Time info 1: v %u tsc %llu time %llu mul %u shift %d flags %x\n",
++		       ti->version, (unsigned long long)ti->tsc_timestamp,
++		       (unsigned long long)ti->system_time,
++		       ti->tsc_to_system_mul, ti->tsc_shift, ti->flags);
++		printf("Time info 2: v %u tsc %llu time %llu mul %u shift %d flags %x\n",
++		       ti2->version, (unsigned long long)ti2->tsc_timestamp,
++		       (unsigned long long)ti2->system_time,
++		       ti2->tsc_to_system_mul, ti2->tsc_shift, ti2->flags);
  	}
  
- 	vcpu->arch.time = system_time;
--	kvm_make_request(KVM_REQ_GLOBAL_CLOCK_UPDATE, vcpu);
- 
- 	/* we verify if the enable bit is set... */
--	if (system_time & 1)
-+	if (system_time & 1) {
- 		kvm_gpc_activate(&vcpu->arch.pv_time, system_time & ~1ULL,
- 				 sizeof(struct pvclock_vcpu_time_info));
--	else
-+		kvm_make_request(KVM_REQ_CLOCK_UPDATE, vcpu);
-+	} else {
- 		kvm_gpc_deactivate(&vcpu->arch.pv_time);
-+	}
- 
- 	return;
- }
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index ade7e71eb57f..0348f24cfd1d 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -2723,11 +2723,13 @@ void kvm_arch_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
- 		 * On a host with synchronized TSC, there is no need to update
- 		 * kvmclock on vcpu->cpu migration
- 		 */
--		if (!vcpu->kvm->arch.use_master_clock || vcpu->cpu == -1) {
-+		if (!vcpu->kvm->arch.use_master_clock) {
- 			if (__ratelimit(&vcpu->kvm->arch.kvmclock_update_rs))
- 				kvm_make_request(KVM_REQ_GLOBAL_CLOCK_UPDATE, vcpu);
- 			else
- 				kvm_make_request(KVM_REQ_CLOCK_UPDATE, vcpu);
-+		} else if (vcpu->cpu == -1) {
-+			kvm_make_request(KVM_REQ_CLOCK_UPDATE, vcpu);
- 		}
- 
- 		if (vcpu->cpu != cpu)
+ 	TEST_ASSERT(wc->version && !(wc->version & 1),
 -- 
 2.43.0
 
