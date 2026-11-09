@@ -1,97 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192975;
-	b=vvrKd088HR3b+wn1avAcY9tHM4AxpWtSUGsT8uXjIOFeP5PDL853lg2XklH10NEmo+Hv
-	 GvRvTTGXkoHtCHFm2+I5nXU0B9HmW/+Yz06H4FZnPpSBu7SdGWTvGlJW1J4f+xoS4AZ9B
-	 3yiSELI7YrFCsgzcZGVrNffnu9eAfDHo/t/Cv14RiO2uB/9yyBB0cp/85hA86S525Jx94
-	 zQs4xYD9yMw95NWwRnFRro5CVdO3k4JGYwIpH9u83+aPolfp7D5ivsjiVQmRBEjLDxNaV
-	 tnKB7GC3wZAioo5vuvGKoZ2Xl63sY8lcpAz0sv9DFjybCMuT8fjSuCjRTZ/rneOQFKQ==
+	t=1794192989;
+	b=NcJqx2EOneAq7KBA8WjYbqzZ9PWop2zSZhEL/dlBp00YIfnH4D6jm8BPqyzIo9+1WnBy
+	 trAdTXZ2gad0RRiaQVcSgWQ4vU/BPpGukkgdHH1LkVrLvrixdNSsLjyF2VBnikGeZaoDR
+	 JIZQCLb0HC7Pzd1CnrYOOs/GQ5sqq5JjWxMxD1HNzptcZCqnia5RU+jR3ugg9z9uhJVhF
+	 qLZq53NCAI8MdPvR7oxQXBj8L4b9YNfWbMZ/spm6IYJ4/yDFZXIr1/Xm7I2qkXQpWofog
+	 HTwqcjXUXqgTg4AqKQ6wPi/nvVRh2j4OoKrRXJA6N1IpOSrP2QaSfu1Fz+jem0VK9DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192975;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192989;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=RaQtkVcxzBk9BCoME2U3bmc9YHf7+BB9h58s0wdq0EY=;
-	b=0oxDmzNPu+zg6D9vMCoXtSAR3PltK54pGkbFOK6ESEfkH6POeGgBzCA3BfoHbF3z9efQ
-	 g4AypOaDbDYULOMSsJn8CbN6MSNR9LJF1Yr8Y5wa40F5jVjyNtZOgl2OyTqP4qr57SG9g
-	 Vr7VdHs6O4C8vhoLJcQWdTmIcfDa5JnFu/wkHJTirI8Ymdeeo6g2aPNHHIFwJyvXFbVEm
-	 ogrOTBz4toyQQ+8zPzQEpCQk1Oufjj/wCy0Tx46SRGOuiQAS9sDrvt9K9O8UCFt4C/xO7
-	 H3cRw5NckDvBuYvpVfU8McAD5IAg/z+T3fiJYoHycs5R8JDuJNGTMSMSr0EuQqmc5CQ==
+	bh=n+4TwEwtUO3KwUkahtVVwASlPtdRGoMNVNlYwVFyhNM=;
+	b=JWw7xLxWqvycWRs8ebQujrJdlU2uyRwKa55UEklBr41vZQEZdF08slUGAn6eIQC+RQKl
+	 jds0rHHQKB2y4f1uO3f8U9HzNlBFX9HhPQiwmM8Cv/HjgtFZCHNT3m7wQqR/aR4UdQpRI
+	 DPqMOp436FNpw64i3N2DsHeFW2NICP2PTSYtzRVN0CBLPCtfLtj2vjJDqV31zB+FgrfoJ
+	 MgU5s+gB60e+Vt9QhzGs1DQYyd64PXxx4iZWkEnbSFpkomk9U8WUKjLhspgjQxU4gRkBy
+	 cK/eajCmj+8l68n3kdNqvt/zyFPBvO/71R/9XhS7n1m7yWaP6H4djiJkiUtKoMMvRWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pPsEyQj1;
-	arc=none smtp.remote-ip=95.215.58.227
-Received: from mta1.migadu.com (out-227.mta1.migadu.com [95.215.58.227])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ony5awTA;
+	arc=none smtp.remote-ip=91.218.175.74
+Received: from mta0.migadu.com (out-74.mta0.migadu.com [91.218.175.74])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E0F606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:56:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6E0F606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9768606A320
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:56:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9768606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pPsEyQj1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ony5awTA
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4k7ckGD6tUfxybB5EnqooZtc5aOl3FhWKSEZts3QU7E=;
+DKIM-Signature: a=rsa-sha256; bh=E6nbi2q9BWguhq7sUJJq5GhBbCo7Z1GUqwFoBaxZTl4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794192972; v=1; x=1794797772;
- b=pPsEyQj1uqZQPM1Q9MSE773hInHOYi4lRhr43uud/usXlQa6R5ezWeoAYGchkTLlJt1/XYpd
- TcidCn8H0VNDZm/N5UJBqTXFBRwllm5jMsext23W45FGCUuy0llqHd3RyMTN6oahRbWb76c22Om
- GJ4d1+tGLQaqRtOXNw94TIy8=
+ t=1794192986; v=1; x=1794797786;
+ b=Ony5awTAgbmLsrGgFLGN+cLVk7IZWAP3tmpT1qrRBuK7dNO0hugdBuUGWBeLt4XIjNOYMq3f
+ 7ufDpZOF7Pzol6jvJvfzNo6qsYak2JTaZ021ZasCg8mEm4DH8yyv7OPSEEEHd98kmkqwqbmAG44
+ vNDNkSGgDm4jSgrI5mi+O+yI=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 07673be978d49c6a;
-	Mon, 09 Nov 2026 02:56:12 +0000
-X-Mizu-Trace-ID: 07673be978d49c6a
+Received: by smtp.migadu.com with ESMTPS id f9c8e6b6d36b6895;
+	Mon, 09 Nov 2026 02:56:26 +0000
+X-Mizu-Trace-ID: f9c8e6b6d36b6895
 X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Paul Moore <paul@paul-moore.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	Julian Anastasov <ja@ssi.bg>,
-	Allison Henderson <achender@kernel.org>,
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	"D. Wythe" <alibuda@linux.alibaba.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Tony Lu <tonylu@linux.alibaba.com>,
-	Wen Gu <guwen@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	bridge@lists.linux.dev,
-	linux-security-module@vger.kernel.org,
-	mptcp@lists.linux.dev,
-	lvs-devel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
-	linux-sctp@vger.kernel.org,
-	linux-s390@vger.kernel.org
-Subject: [PATCH net-next 02/14] inet: frags: annotate data-races around fqdir->timeout and fqdir->max_dist
-Date: Mon,  9 Nov 2026 10:52:01 +0800
-Message-ID: <20261109025425.328445-3-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109025425.328445-1-jiayuan.chen@linux.dev>
-References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+Message-ID: <f7f034f6-cc88-4f54-a37f-9e9fd2dbb62f@linux.dev>
+Date: Mon, 9 Nov 2026 10:56:11 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,62 +58,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC 5/6] iomap: refuse dmabuf iterators on contents-encrypted
+ inodes
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Dan Williams <djbw@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, tytso@mit.edu,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
+ <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huawei.com>, "Darrick J. Wong" <djwong@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, asml.silence@gmail.com,
+ Anuj Gupta <anuj1072538@gmail.com>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-mm@kvack.org, Li Wang <liwang@kylinos.cn>
+References: <20261105065847.196540-1-mengmeng.zhao@linux.dev>
+ <20261105065847.196540-6-mengmeng.zhao@linux.dev>
+ <20261106104403.GC5668@lst.de>
+From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
+In-Reply-To: <20261106104403.GC5668@lst.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-fqdir->timeout and fqdir->max_dist are read without any lock while their
-sysctl handlers update them with WRITE_ONCE(). Add READ_ONCE() to the
-readers.
+On 11/6/26 18:44, Christoph Hellwig wrote:
+> I think contents-encrypted should be content-encrypted.
+> 
+> But we really need to find a way to make these checks more
+> systematic instead of sprinkling them everywhere.  E.g. have a flag
+> in file->f_mode to allow it, which then only leaves the direct I/O
+> to buffered I/O fallback as a special case.
+> 
 
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- net/ipv4/inet_fragment.c | 2 +-
- net/ipv4/ip_fragment.c   | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index 0b8d22ffafca6..ba10aec88cc9b 100644
---- a/net/ipv4/inet_fragment.c
-+++ b/net/ipv4/inet_fragment.c
-@@ -415,7 +415,7 @@ static struct inet_frag_queue *inet_frag_create(struct fqdir *fqdir,
- 		inet_frag_putn(q, 2);
- 		return NULL;
- 	}
--	mod_timer(&q->timer, jiffies + fqdir->timeout);
-+	mod_timer(&q->timer, jiffies + READ_ONCE(fqdir->timeout));
- 	spin_unlock_bh(&q->lock);
- 	return q;
- }
-diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
-index 36105dd192823..e70ef3fe5e331 100644
---- a/net/ipv4/ip_fragment.c
-+++ b/net/ipv4/ip_fragment.c
-@@ -89,7 +89,7 @@ static void ip4_frag_init(struct inet_frag_queue *q, const void *a)
- 
- 	q->key.v4 = *key;
- 	qp->ecn = 0;
--	if (q->fqdir->max_dist) {
-+	if (READ_ONCE(q->fqdir->max_dist)) {
- 		rcu_read_lock();
- 		p = inet_getpeer_v4(net->ipv4.peers, key->saddr, key->vif);
- 		if (p && !refcount_inc_not_zero(&p->refcnt))
-@@ -220,7 +220,7 @@ static struct ipq *ip_find(struct net *net, struct iphdr *iph,
- static int ip_frag_too_far(struct ipq *qp)
- {
- 	struct inet_peer *peer = qp->peer;
--	unsigned int max = qp->q.fqdir->max_dist;
-+	unsigned int max = READ_ONCE(qp->q.fqdir->max_dist);
- 	unsigned int start, end;
- 
- 	int rc;
-@@ -242,7 +242,7 @@ static int ip_frag_too_far(struct ipq *qp)
- 
- static int ip_frag_reinit(struct ipq *qp)
- {
--	if (!mod_timer_pending(&qp->q.timer, jiffies + qp->q.fqdir->timeout))
-+	if (!mod_timer_pending(&qp->q.timer, jiffies + READ_ONCE(qp->q.fqdir->timeout)))
- 		return -ETIMEDOUT;
- 
- 	inet_frag_queue_flush(&qp->q, SKB_DROP_REASON_FRAG_TOO_FAR);
--- 
-2.43.0
-
+Agreed, adding the check to every file system is quite tedious.
+We'll look into redesigning the implementation based on your
+suggestion. Thanks for your time!
