@@ -1,90 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794214022;
-	b=yEkWhT4STe206nRBMnAHkxElZOzlPWRZ81giPr/Z1zoQ1NSy5tb45mzlR4Hst6sMAdBx
-	 PwWHbmuBKcumjzPelZJxvhcq0TqWAvisCNxVcSgvun1a/3K8k/CpVZ564yNf6gcVKyZn4
-	 kuiRjjIy11I4MsvqCcnEIyc9773QBVvMa3zFJS9mHXzLt1ewRO1G/XVNgLdgABLHWOwof
-	 IXL0RJC21oM7qUDidqao2d3q7zhfz4+5K++hPzlRdfaFdHeoyAzF8U2Z8+d1wnDn6P6K0
-	 F3A1+48IqJa4YVCmwZ4kyDqjje+2X8cswsiWavXJAKGbpVFg2AaMco6veOBzQuYhZkg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214022;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.106
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794214139;
+	b=gSPWm1uHPI0+GXIfvBgb/qNcsAzNFyTsa03vQLkH0AVzR/Lg3NIkx+MlUiGtwIZN/pYs
+	 XkY0SLKDgIuzuOeuJr98P0j2MR+Yc12jojSGImTBYjB55+wOdyM6Be4xPfmoELbTPueF6
+	 ar/Q7YDu2sE5Ld8b1mZRNZzbh+WaE5Eh5csFpXIv4nKE4RPYbFeYpa6kw/4ckDAoE6fly
+	 8wc0ypqLi34TSTl3mI5nLWoJmbPBviVwBTLpL5pPhc+NSUBx7v+Y6yR8Cpp9YdDR7yO8d
+	 hn0w7jne46l1Kz7M7MCS5/ZKp5fgGIRRQaz4WamJ1gB2C3TMcgfVuBttNoJA0a0dWGA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794214139;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=p6+qnX849jp/6JD+pVHbvJqGOwgNSqvsHvAosu48gKE=;
-	b=hzrFt6VSXdkDehPAxYPYb1fw/W5oT2Fd6PTdajTlVJwsTZ1E9gmyLkNYKj6+dD3gXP+T
-	 vNpm+NwaK4/2gbW5j7hNa5Mj6w5eZvfqrgrXBH7Xb/3hu0XOHaSGdnOAc5eNEaH3Vfty+
-	 +7aDwwy0YSeD4+yTc9s0dKsfsKqmAKIpd8g+O4is0E9nUylj8eoGMNg8k0XoFsPF9K3Mw
-	 Sl/FfciKUpC6tMqSEE8Yx0HX5fnox6CZ3Wt/Pkz6FaFrls6S+OM3iAppi4DiRA2t+Ob53
-	 I2TzSIn1sHOrGu45MP6DYY6OBsHfFmR/8Gl/V/HmhK/sp6/jQJZf2PRn93OJWsOPq8w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cR4NptMk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	bh=n7dKS3uLxqz3hFWxQ/Hr/z79HJ4aXd4+1+IODE3lfqg=;
+	b=XHRr7as9aueM1SF8Gkewp3Qd/ca79+Z5uOlmqbT05yDxMKA95AOIgkAPBooGn3iCGZyf
+	 sckPmGu5MvFlfEhGBsEmlhANVs+52DLI/JURAEcrwn1Aa8XadrF2aXIhDeQ2Xc2+dDmCX
+	 IdkF0jN+Dn+dBkjrpxpM791WueWCTohYsgUzsz/un+r0oROcHxmhpoX6c/pzF3ss9a5x2
+	 syE/IpcdiP+iF4C9ewSU2Bfx99Y4c1KcWs5m+J7ZGcvcEzuHBzCtJp1BmhHiXiaFQEYFq
+	 RBK8kavOTrA3s29GyMsPAQrtPrVMW/X4XY539v7PMsPRyRnR9o0Y8ze/4zdZqz9aGCg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JYmoB1rv;
+	arc=none smtp.remote-ip=95.215.58.106
+Received: from mta1.migadu.com (out-106.mta1.migadu.com [95.215.58.106])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E488A606A33E;
-	Mon,  9 Nov 2026 08:47:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82ED0606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:48:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82ED0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cR4NptMk
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794214021;
-	b=joUjlQj9B36vNEmRQZnPcL6n93O0xapZB9y2mYKm+4+N8qMxpOKpYEov77aiWTRGccrI
-	 zTO3p8tpaCN83CtUdZB7Y74LIv11rBoxs8n9KsvCp1UfMGiGTWcpX++/lbPiY2hW/IIi/
-	 0W4sDd85PPuftrMwULJhJl2G49jxmg17QaLUajVOuFUKQa11cqRzclAlYjHcVqzw4siSK
-	 Qd0CQuGoQIpQoaygmFQgC86ZS+5Qdt+iV3Bgjayov7WRLipm5q+YLY6N1MWJ821HBgPZo
-	 0RK9XWR52vWwBta8UkEI+yqwG4+2i3iuYSYDV7CgR8iH1y+qDjbj9UD5MiUjRc7gA7w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794214021;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=p6+qnX849jp/6JD+pVHbvJqGOwgNSqvsHvAosu48gKE=;
-	b=ItKdL4UJH8JH+nCv4Ck6TDwvbZxTYC5IIV0COFRn/vEH7oJYsjrPsLUaqCawxbHQMbey
-	 DajwS4aV29w7b2m/FRi2/MeBspoG8g07uIPNsrckdJ/Ah9h/csZ9pk/RSYVtmEFHYDxsX
-	 IkNnzfZrwYlWgCB6Z2vgWkDtBICHqPm1VbiUwGkPgBPgCFwFE5ab7C8+zc9wgZCWeCTS5
-	 zsCZLnsOIiFhRawf9tdaNfGDfjoC2H74CQKyx0Txqqevr77CiHGsgR9i2VA9h6WcFVr3x
-	 pJLd1E9LuDCaqpn78G+rdW7X4seijtTS4O24hu6fnsdPzqpxfSbmldDWCFtkyfVLe4g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id 2EAD31F0089F;
-	Mon,  9 Nov 2026 08:46:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794214021;
-	bh=p6+qnX849jp/6JD+pVHbvJqGOwgNSqvsHvAosu48gKE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cR4NptMkOKvU2B1seiOg15pv1v+0ndJlc4XgdLwBeWxFx3bhEq9KovQFlDtC4m2pT
-	 pHx6najM9uGT1XR/vz9tfHSSYLMtGj7z16rB73/Qdbpub6su0raBmasuAZilD9qSX+
-	 vvIMWitsxtKPT40BwZE57q02b2nwLsALhqYlg37Bq8J+zNW9h7gMfBl7dY8YpHtiSc
-	 EsQxpOp/8L8XkqQ17Ko2Llp1k4Wk9c+ENUwLWiSx9bI9gf1W1TZrol/zW9rh7vUWQy
-	 XEaTUpcfYvRCn7H/VebSPOx0fzeRauqdIK7Iyc+vjwSK7QMiLxrCIZfSROlCnNMAQV
-	 Ka86d39Ku384Q==
-Date: Mon, 9 Nov 2026 09:46:32 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Song Qiang <songqiang1304521@gmail.com>, Radu Sabau
- <radu.sabau@analog.com>, Maxwell Doose <maxwell@maxwelld.cc>, Tomasz
- Duszynski <tduszyns@gmail.com>, Erikas Bitovtas <xerikasxx@gmail.com>,
- Waqar Hameed <waqar.hameed@axis.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org, Jonathan
- Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [RESEND PATCH 13/14] iio: light: vcnl4000: poll own trigger
- from interrupt handler
-Message-ID: <20261109094632.00002649@kernel.org>
-In-Reply-To: <20261109042851.1326940-14-jic23@kernel.org>
-References: <20261109042851.1326940-1-jic23@kernel.org>
-	<20261109042851.1326940-14-jic23@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JYmoB1rv
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZJp1sWID1Y8h4yq9sHvxEkK5gbfl1wOQbzOgvALLC6k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794214136; v=1; x=1794818936;
+ b=JYmoB1rvb1NwrRmhDmfRkFPQsb7Ofvk+pfQwPzft0tj53oNTU9Q2T2h959A+ZfnOr1izEMM1
+ c7+Mei6o3PKNMYEZ57XqIUhxHCCE44FJsU1fXN17A64PbOvHKMmGm0XzHmLzZ1mRBbQCTK7TfZe
+ GIEHXnvnMo+r1HKdpcklITR8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f659de905a07cf78;
+	Mon, 09 Nov 2026 08:48:56 +0000
+X-Mizu-Trace-ID: f659de905a07cf78
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 02/19] KVM: arm64: selftests: Inject an abort before a vCPU's first run
+Date: Mon,  9 Nov 2026 08:48:37 +0000
+Message-ID: <20261109084854.840576-3-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109084854.840576-1-fuad.tabba@linux.dev>
+References: <20261109084854.840576-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,46 +83,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon,  9 Nov 2026 04:28:50 +0000
-Jonathan Cameron <jic23@kernel.org> wrote:
+KVM commits an external abort injected with KVM_SET_VCPU_EVENTS
+immediately, even before the vCPU's first run. For a normal VM on a pKVM
+host that path panicked the hypervisor until commit a2bb5f5c67a95
+("KVM: arm64: Pin the host vCPU before adjusting its PC under pKVM"). No
+test injects before the first run.
 
-> From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> 
-> Keep a pointer to the driver's trigger in struct vcnl4000_data and poll
-> that from vcnl4010_irq_thread() on a data ready interrupt rather than
-> indio_dev->trig.
-> 
-> With the driver's own trigger in use this is the same trigger. The
-> driver does not restrict which trigger may be used and the data ready
-> interrupt is enabled whenever the buffer is enabled, so with another
-> trigger in use the data ready interrupt previously also polled that
-> trigger, running its consumers in addition to when it fired itself.
-> Now samples are only captured when the selected trigger fires, with the
-> trigger handler clearing the data ready status as before.
-> 
-> This removes a dependency on the trig field of struct iio_dev, which
-> is to become private to the IIO core.
-> 
-> Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> ---
->  drivers/iio/light/vcnl4000.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/iio/light/vcnl4000.c b/drivers/iio/light/vcnl4000.c
-> index 911f8d1c74d4..cab6e0af8c7e 100644
-> --- a/drivers/iio/light/vcnl4000.c
-> +++ b/drivers/iio/light/vcnl4000.c
-> @@ -206,6 +206,7 @@ struct vcnl4000_data {
->  	struct vcnl4200_channel vcnl4200_al;
->  	struct vcnl4200_channel vcnl4200_ps;
->  	uint32_t near_level;
-> +	struct iio_trigger *trig;
+Add one, checking that the guest takes the abort at its entry point.
 
-Just swap near_level and trig and you'll eliminate a 4 byte hole.
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ .../selftests/kvm/arm64/external_aborts.c     | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
+diff --git a/tools/testing/selftests/kvm/arm64/external_aborts.c b/tools/testing/selftests/kvm/arm64/external_aborts.c
+index 1a858d0d82968..45c9300b2ca0e 100644
+--- a/tools/testing/selftests/kvm/arm64/external_aborts.c
++++ b/tools/testing/selftests/kvm/arm64/external_aborts.c
+@@ -113,6 +113,26 @@ static void vcpu_run_expect_sync(struct kvm_vcpu *vcpu)
+ 	__vcpu_run_expect(vcpu, UCALL_SYNC);
+ }
+ 
++static void test_sea_before_run_guest(void)
++{
++	GUEST_FAIL("Guest ran before taking the injected abort");
++}
++
++/* Test that an abort injected before the vCPU's first run is taken at its entry point. */
++static void test_sea_before_run(void)
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm = vm_create_with_dabt_handler(&vcpu, test_sea_before_run_guest,
++							expect_sea_handler);
++
++	expected_abort_pc = (u64)test_sea_before_run_guest;
++	sync_global_to_guest(vm, expected_abort_pc);
++
++	vcpu_inject_sea(vcpu);
++	vcpu_run_expect_done(vcpu);
++	kvm_vm_free(vm);
++}
++
+ extern char test_mmio_abort_insn;
+ 
+ static noinline void test_mmio_abort_guest(void)
+@@ -420,6 +440,7 @@ static void test_serror_amo(void)
+ 
+ int main(void)
+ {
++	test_sea_before_run();
+ 	test_mmio_abort();
+ 	test_mmio_nisv();
+ 	test_mmio_nisv_abort();
 -- 
-Kind regards,
-Joshua Crofts
+2.47.3
+
