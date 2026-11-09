@@ -1,54 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218976;
-	b=4OnK9T/2p0/iqc6R3yaat9UTFskrH0InVopn+Ix8ERkSTBrFAnD6koTNfNQGKvMJkqKf
-	 Y5ZrnsbeV3DDrRxDkE8HaKCdyICJqDpxhlXNM7kw6ZAlxkw214UV6b1XRSd0t4CA9QtRe
-	 rXJ5BRvESX1DhbypDHDWQhsmUwYNW+7g6u04k9mzli1wI5r8SoHoPORJc8xEO/l8fIrUM
-	 dDGfA5KC+PfxNEzP4qJCFcR6836bGT6/CYhToH/5wR1gUeYwA9xqlACmzSix4DdmkEUiJ
-	 8T7aWcSH1ljwO2Kv5TnLdgM9n9YOwQP4yCPyfolbY8qyQ1q43X6H7L8SIZ4EY+ZGPcA==
+	t=1794219006;
+	b=R1bfAVxd3idCADhZpI95roIv59EQC2K2xOFXTMemJ5SPDuv2BB6y2wY6G5B2OWNa/uAM
+	 +hqm7aS0A6l2UzWnqTjo09fzy6ssEC4gmCJKN0CCGlWSRQPHWE4PeRvYpSrlyCrax/lWC
+	 V2E0B3iHI/CrVdB2kWBUUyZy24yXODd4oAMV0qsMmmEp4ZZ7pg0G89C/laitLtH3Bu3Ud
+	 sQ71jbFb3KEZiNnyOOj16OdCr+DdPMXr8aAiCkOlihYtAes6tf26tc6kPR3lMNNyiwe4t
+	 5L3CNrbqbHvQ+gb7hKCg1nBn0R4S9sfOVINKSiUn33J+Iwj+kA9AtMFTDEgAOo93qNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218976;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cVDZpxqqtGXanXSa85zXaSGNSgk4+pujulEU5rVUYrI=;
-	b=veqMXMNZCpS4Ywa1Y2FRN+jPnD8RCjs2T+iduT+e1D9ARa/sT0G3NZcIOTm4rfJ4VGDV
-	 9G+wI659VZibNyi5AjGxv+lzMdcgGtQoOttGUTJYBH2WmEfxKP9rFUsy4CgrRkHR06Gq2
-	 7251KcRd+0hNxArXuzc9VhaIbsKzlYIweaZWBORBd+0PxC/rz11opf71kBtUiLlAUMRdK
-	 kQpu815hURABeOg4owrnLH/ykugKtwhM40/Y/aZgPm4+PXm6saXG+m/PjKuRvpNBioFdR
-	 G4oX3OygJFlwBcrFb/Ejhke9y0GQXH5p1uH2jfmOMvctkV5BSU7/GqGNhSNoSqwcRKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794219006;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=CMJEtzILuNn3I2Jmk5TXkZKrrv9n1NP0tA5pa/79/1A=;
+	b=HgJQPp1NPmoVN57mEo8oNsCA12q4pmTZxZ83g0lPo3WN+Fhsj62wIXyDo/ZCs4LpKDDu
+	 5yA2/wQr94fWRYTi+25OxabOSoNdL3qj/LCbdJjwkAqEqsCFNwlqNVSJdW9hyuHSrWrot
+	 jFkjKhcDjzVN8LvJdY0C6crnid8QUwuAS4Acb8xTl0CHQ1WxZj1Ez3x+EuPET5ZBRbvT0
+	 houBnrtk8YPNCnqFYNRs/GF9Ah5VRDjVd8GB8L3wrJF1IKI4CbmiJPSEa0dK+Du3PxtDv
+	 7TJScuAOatHEZbbiJx43Mj9UsjUajfZqX0a8EaJV8V3o/YPpwZZwYXamAXw4e5mdJxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkD0ZTkK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6Ko42Xc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8794606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:09:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C74D0606A31C;
+	Mon,  9 Nov 2026 10:10:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkD0ZTkK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52AA01F0089F;
-	Mon,  9 Nov 2026 10:09:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6Ko42Xc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676AA1F0089F;
+	Mon,  9 Nov 2026 10:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794218976;
-	bh=cVDZpxqqtGXanXSa85zXaSGNSgk4+pujulEU5rVUYrI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RkD0ZTkK4UPON4c35h81yShsugX7KG37JtcxD2aUF6JUC30zWJqFhbDGyKqUah9ae
-	 fP2maAVrCgbTCNnhOWJVTJhjX79zLJ/0RE7a7icltlw54oqi2yDeZ2WhBVR4ulKCT2
-	 swE1tBlCR8QmzwQs3Tm3msHIU6pou/hNuz26EdKD3d+L0lrIbcRdJcLxUFT0dGV7A2
-	 T4+0CI8h+D2boYeyH/j/gl6VVoSMgqf/fas9k5ObVWEF/08LvOecImOd6GEnB+Vvv9
-	 TKnxk59d9A/Keuth0/lDlaE1ixFwS/OTMmkPcerP53RJx8DGnJL0EkgK2mC53fElRk
-	 2xZZqsrVZFqkw==
-Date: Mon, 9 Nov 2026 12:09:29 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Chris Down <chris@chrisdown.name>
-Cc: pasha.tatashin@soleen.com, pratyush@kernel.org, graf@amazon.com,
-	kexec@lists.infradead.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] kho: Don't release incoming bootmem areas when
- kho_init() fails
-Message-ID: <avGb2Trm-C3_YC-7@kernel.org>
-References: <au_vQhHAcJbkryXN@chrisdown.name>
+	s=k20260515; t=1794219005;
+	bh=CMJEtzILuNn3I2Jmk5TXkZKrrv9n1NP0tA5pa/79/1A=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Q6Ko42XcOLMalNZH0lVEIv9pmQG0mHWPegT7SAW3hqIhFKbSK8Vxf/l5+J5tWlcVC
+	 gq11a82+ULXf574sOEw5Bj17c4XqYCUIeDeTYzSfTY0ok9l+5Ytib3UnxXAulGLniu
+	 cFafqLSvM8q9Nv7Sd0Og0ZvpDXbXlS3EJ76y9b36CTYLNdDU2c+tqjm8gzkJWoI8TR
+	 OrZ1IB4jsEscKc4yPZwko/X8dPmLX7BPIuMh7oLwuxd7XgRVW3HJihTjV3mynBapnj
+	 kEyGRy42/uK7xdFwdIqAQ2Z8gmtW4OzHrV2t2SPlUAUTCMdZyF1dB3kjPRyVYwagRQ
+	 0GWgFezsoTC2g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5E2E2380822A;
+	Mon,  9 Nov 2026 10:10:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,69 +53,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au_vQhHAcJbkryXN@chrisdown.name>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] macsec: reject frames that decapsulate into runt Ethernet
+ frames
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179421900417.2681732.2334748130206762249.git-patchwork-notify@kernel.org>
+Date: Mon, 09 Nov 2026 10:10:04 +0000
+References: <20261030042237.74106-1-kylebot@openai.com>
+In-Reply-To: <20261030042237.74106-1-kylebot@openai.com>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: netdev@vger.kernel.org, sd@queasysnail.net, linux-kernel@vger.kernel.org,
+ outbounddisclosures@openai.com
 
-Hi,
+Hello:
 
-On Sat, Nov 07, 2026 at 07:40:50PM -0800, Chris Down wrote:
-> kho_populate() adds the incoming bootmem areas without reserving
-> them. memblock_free_all() then hands the remainder to the buddy
-> allocator.
+This patch was applied to netdev/net.git (main)
+by Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>:
 
-This paragraph is confusing.
-It reads like kho_populate() should have reserved bootmem areas, but it
-didn't.
- 
-> Unfortunately however, if kho_init() fails, err_free_bootmem
-> currently frees every area with free_reserved_area(). This can free
-> pages still backing early allocations or free buddy pages a second
-> time.
-
-Is this an issue you hit in practice or it was reported by a code analysis?
-
-> To fix this, let's only free the areas on a cold boot when
-> kho_reserve_bootmem() reserved them.
+On Thu, 29 Oct 2026 21:22:37 -0700 you wrote:
+> When an SCI is unknown and the C bit is clear, macsec_handle_frame()
+> removes the SecTAG and the default ICV without checking how much of the
+> frame remains. A short frame can therefore become an skb shorter than
+> ETH_HLEN. eth_type_trans() cannot pull its Ethernet header, and a second
+> stacked MACsec device can copy stale skb headroom into a packet delivered
+> to a packet socket.
 > 
-> Fixes: c609c144b0e8 ("kexec: add KHO parsing support")
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Chris Down <chris@chrisdown.name>
-> ---
->  kernel/liveupdate/kexec_handover.c | 10 ++++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-> index 6f1f55fe3181..a566ad6634d8 100644
-> --- a/kernel/liveupdate/kexec_handover.c
-> +++ b/kernel/liveupdate/kexec_handover.c
-> @@ -1899,11 +1899,13 @@ static __init int kho_init(void)
->  	kho_radix_destroy_tree(tree);
->  err_free_bootmem:
->  	kho_out.fdt = NULL;
-> -	for (int i = 0; i < kho_bootmem_cnt; i++) {
-> -		void *start = __va(kho_bootmem[i].addr);
-> -		void *end = start + kho_bootmem[i].size;
-> +	if (!fdt) {
+> [...]
 
-I think using !is_kho_boot() makes this clearer.
+Here is the summary with links:
+  - macsec: reject frames that decapsulate into runt Ethernet frames
+    https://git.kernel.org/netdev/net/c/1d5e2c57e9ff
 
-> +		for (int i = 0; i < kho_bootmem_cnt; i++) {
-> +			void *start = __va(kho_bootmem[i].addr);
-> +			void *end = start + kho_bootmem[i].size;
->  
-> -		free_reserved_area(start, end, -1, "");
-> +			free_reserved_area(start, end, -1, "");
-> +		}
->  	}
->  	kho_enable = false;
->  	return err;
-> 
-> base-commit: fa4ad798f6f681031775266044ba1b0cf3c670bd
-> -- 
-> 2.54.0
-> 
-
+You are awesome, thank you!
 -- 
-Sincerely yours,
-Mike.
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
