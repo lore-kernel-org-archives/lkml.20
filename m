@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794187083;
-	b=MnLrSVmB+eM+q7hAkJwTnfzgm2pICxbJWi9IsvT3F6s5ZOD9df118hcKCLS+S1Rgb6Ak
-	 Nz4kakD4AH6acvMvbLWIPLdfI7YfxvXKITi5X3gFfyEEFIAtGRYIP8nzrhGOhpckIU7hi
-	 2EIuaKbFWNrJ9NSD5Wjnb1+Zte1X+UMqvsSh4ObERDN/1eGWyTKZSwIVpLcQfqikNc8oD
-	 IeoXUxmupsmlTCfzYWZNu46qs3NsmIGKnxus8a3gA99Ap6ZH76pC7Wq/MG4L5RtheUZ5Z
-	 hFl03q61UVmx+Ad8vvL1VYGow/26Qyjg78djkCR1Xr0QXiOvic/r5afX+moaWs0YDDw==
+	b=YlX9r/vr0YN5rlpLTiOn3wxKLmktNRFyIPmOamtzRM2/pOfmM1GX7KZBafUSszVmYaRa
+	 LVd0AUBorXF3z4ooThBzEWF1jpmF9OBWJuYDXncJh7lkQ5VyeUd3XnoVWqm0XJv3S3oix
+	 Ogt3aUQHqpOOlEumSL29pthLqeK+aqROSGX92NRxsK/z0w49LOfylY4avrs/lmEguhNqh
+	 6T+Qz7FK7S4/7nh1cYaJ3o7r6aQLLGRwTA5+l3nYLlZtW9wuenPjP9ZRVGRLjPe9OJCeI
+	 AGB4o0UUY3uxl80XIKjI6ImTygrQYgbvFLn1HDgXjKfiAGWcxkNZF43QewnRHZ0RoeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794187083;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-CMAE-Envelope;
-	bh=0UQFTxkw/HfIqjISqbAkKNzK2A8OXExXXoUPu8/3b00=;
-	b=UAwcWqFryHicKTe9/EfjNAgMep2E6yeLK904RBPy29vpJGOt8QP9HgvtSjwJWrrq4rvf
-	 4+iCPsj75KGqoUMKLSxY0GIkotDPtsETLXBhfBZQnbgGeYiX8JHHUz675V4haAYzme086
-	 O+kOsfhy68zst5LZewl8anuH5dJJTadsvS/ni9Y9RgNL5OGjRiKCiXpyu3XvZTPcsrzWo
-	 rvC+CfZfoFYRSebvIVFVS0uYADI73MrCK1O2lqyz25Y3MIIkQx+iube+z5bN+lSpcCgcw
-	 9CeVe2HkIzU4LzF4UQ+TCl+XTG6XCm5rxuCM9z8CilJvQU38BJKqRQvO1SSiay17MTA==
+	bh=4XltKv9j08futEKwreOKMozha5nBa7yYaFGpBttg/Vk=;
+	b=gZA7Zsc2dYe3SUJnFxmR+pef9Ux5ulNv//iahcaR50M/5ofYXp86OMtB8QbjZPu9fz37
+	 vPiqNhqbyPDcPvWoxWhFiuXBfo/gyvGgZkEA9Yfy+7udjGb8cS16dZTFKXSpT7yGbWsM8
+	 hc0ymQyNKudH1cxSLbzyqURxdR8x7MB9gsgz7YHq255v99J6O/Gt+3I0ZDC3oBdGzLQu1
+	 dOI3iYpsULPIwgJfjBXh+gTsC1QKLkkNkpZqJd4DEgXL+BH6tQqwd45djafFNAc+7ctcH
+	 oe/VQGZfeLWI6B4oX9HXq4i8F5GWxVz8F0m80FifgRJEqeeMLp8PQgQg4xJs3INPc2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mythread.it;
 	spf=pass smtp.mailfrom=mythread.it;
-	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=PhwYHtuA;
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=nNwbng4R;
 	arc=none smtp.remote-ip=62.149.156.116
 Received: from smtpcmd11116.aruba.it (smtpcmd11116.aruba.it [62.149.156.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76684606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76980606A336
 	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:18:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76684606A323
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76980606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=PhwYHtuA
+	dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=nNwbng4R
 Received: from [127.0.0.1] ([87.16.49.252])
 	by Aruba SMTP with ESMTPSA
-	id QE1AxMsH06VShQE1BxPovR; Mon, 09 Nov 2026 02:17:54 +0100
+	id QE1AxMsH06VShQE1BxPouz; Mon, 09 Nov 2026 02:17:53 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1794187074; bh=M8e1E3AFMBy9iSve8rW+kLzKE99lCoOKdT27fT8i/1Y=;
+	t=1794187073; bh=vKCGoYZkyy2tX3DnxdaTcewcIzz4/PetZAI2mHkxFSg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:To;
-	b=PhwYHtuAnuosncd9JRZg5BscUzbHpzd87Y4jwh8dRUm/QUNUGT9zB7omY+2Um1YFJ
-	 3nUYd3bjIZIGBXHQWJHXrN4z8IbqHxadFCer0s1QAaW0Y0brqsDYeIQ0mp39xLu5DC
-	 5QxJUEYHDoSg4vk2+wPJHNq8nTVnmVeC4qFk6xeUgxXgxISwie8C1lGzxWQKDId2Rh
-	 vFYybUv+ZbmltZ9HT/g4N/4xLMZiIp4mvFcWBQJdZY/fptEhLpnS/XWrIvs+p7FLsU
-	 pIZeK3nzMRrbkZb4ZBjNeiiZ7JUJnjUErOL8x8MFI91LqSok37v2WaNyTsTgkPQR9t
-	 SfjOHjFRMK4hA==
+	b=nNwbng4R6q1PjPD6GQyi6wRf8DHOvySEklMuQaLl5LOZclKJF+Fm4IvfyMyYGC92c
+	 MeP67BdIeEdtXvHWEJ0ZgsfyIEc13EedhMC9FpN/sD/Ea1CfR0FIz9yFYiMsu1eEWO
+	 S2/wDADUKbFnQA78dR05rXUv4rR4MuNC2byHwKEkjAvHVGCK5j+KmOzePF62824vwf
+	 /IoBsV9S5YgR/SQ/8YuwhOHj62u56G8cP61ty7lLCZUTdW7AK+zmzLLWgh9mLa8Bhg
+	 zg+c1rwCR4lnh6wDUE/uoPpvPb/w43BcjpkBvahWbFHs5cvwkzrmI7GEerQsVCamXL
+	 LopXQOO0x5mCw==
 From: Alessio Ferri <alessio.ferri@mythread.it>
-Date: Mon, 09 Nov 2026 02:17:52 +0100
-Subject: [PATCH wireless-next v4 02/10] bcma: pmu: init PLL and resources
- on BCM4352/BCM4360
+Date: Mon, 09 Nov 2026 02:17:51 +0100
+Subject: [PATCH wireless-next v4 01/10] bcma: core: clear only FORCEHT for
+ BCMA_CLKMODE_DYNAMIC
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,7 +60,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-bcma-ac-rev1-v4-2-de1262c18b54@mythread.it>
+Message-Id: <20261109-bcma-ac-rev1-v4-1-de1262c18b54@mythread.it>
 References: <20261109-bcma-ac-rev1-v4-0-de1262c18b54@mythread.it>
 In-Reply-To: <20261109-bcma-ac-rev1-v4-0-de1262c18b54@mythread.it>
 To: =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
@@ -70,180 +70,33 @@ Cc: vit9696 <vit9696@protonmail.com>, ville+git@takio.fi, egc112@msn.com,
  linux-mips@vger.kernel.org, Alessio Ferri <alessio.ferri@mythread.it>, 
  b43-dev@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-CMAE-Envelope: MS4xfA0SHnp7/o1kd6yqNJOwxQ9vhGBL4ANMkZqJ/MlRU6NcbLTLJG6wQLJXR978HuYWEYipWWphXGxbozZm8p1w++CcEwuVs3pTkD1lBJ20cKs7x66LY7ZO
- lPPxLcppsYWEvc99HGnRnIC1KkYsC01OvWhZjoF/A16my8XfcvPZtQinQ6hyBPO/54IZ57QV5xdcM4Cs2fG7IUipQQ3UyGsuZ/zSXSby5FILX0qafbbGO0s2
- lJyGypyqM5VPyry4Ig6v819AhE5kzGniuKo+kLbJqeAtozKB6ffkUgvuCRTaLm7+Q7V+5QN4gE2pGL0AGwffg9h0/VoBw3JAKiZjd3Ipe0WVfCgxB1BOh69R
- MRv+wSUc4/Ab1VnwNi7LQ57g0F53Qbmbk2v4s0EvLv29tM00yMnMLi6zhSQy0jWpm9SrVS847vMEtoc9SHjv6a/bgJBL8cz4NnEs/D2REzNpbRwn1oyKCn3F
- ylYWEYsSklBQcXBVXSj93DAHrMOimmP33IBBzA==
+X-CMAE-Envelope: MS4xfEdioDTGY1z/u4GjVMe1mHbLmWpT+rI4H8Xls66NQln3AiF++CcMvxSaaGmsBXk3x4g8Dib6BHu6BK7TnmTEOyW7ehauJEouv8SmkiWXnR8yDAh0bB+l
+ EloZ/IAJiS+pl1kaopHIob50iIHTC/gQWIgjGsi2LETExhRM+4Iw4SCq/wC0LddyDFKmHZ1+cC9a7yW1HZgGp/1yMl5U8vhOCUJNDyGRBZVhLbHUNeFzuHa5
+ El4XezI2nRw/fKrMcWh6jLOdHOlPh61DGekcC/bMC7HU+xVzJxUEkJhFHncDdWUYTu9ZDKdKoVTiCfIGDOjT4RrpaXx0JVGSUZ4h5ElM/Icp1mpuzk8xrtoL
+ lqrk58HMIeGgZOleaDyOXw1A8zY//V541UoWSHJa05W6otiIa2vqQ47zRVXM8GFp6e8/iRuanRLI5ji6BUU/0BWNimWWZaL78D4YfdbOLmR7Op+ESZdUK2Rx
+ +AtcAd9UX0hdJ+tOJ0A1x3quhZXaT7BEcnQH7A==
 
-Program the PMU as Broadcom's driver does (hndpmu.c):
-
-- on chip rev 3 and later, set the BBPLL to a 960.0098 MHz fractional
-  VCO from the 40 MHz crystal, unless the backplane runs on HT already;
-- set the resource up/down times and, on rev 4 and later, a min
-  resource mask of 0x103;
-- with chipstatus RSRC_INIT_MODE0 clear, program PLL controls 6 and 14,
-  and on rev 4 and later 7 and 15 with REFCLK enabled in chipcontrol 1;
-  on rev 3 and later, set max_res_mask to 0x1ff.
+Clear FORCEHT with bcma_mask32() and leave the other CLKCTLST bits as
+they are.
 
 Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 ---
- drivers/bcma/driver_chipcommon_pmu.c        | 81 +++++++++++++++++++++++++++++
- include/linux/bcma/bcma_driver_chipcommon.h | 14 +++++
- 2 files changed, 95 insertions(+)
+ drivers/bcma/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/bcma/driver_chipcommon_pmu.c b/drivers/bcma/driver_chipcommon_pmu.c
-index 263ef6fa1..7a226fcd2 100644
---- a/drivers/bcma/driver_chipcommon_pmu.c
-+++ b/drivers/bcma/driver_chipcommon_pmu.c
-@@ -11,6 +11,7 @@
- 
- #include "bcma_private.h"
- #include <linux/export.h>
-+#include <linux/math64.h>
- #include <linux/bcma/bcma.h>
- 
- u32 bcma_chipco_pll_read(struct bcma_drv_cc *cc, u32 offset)
-@@ -145,6 +146,78 @@ static void bcma_pmu2_pll_init0(struct bcma_drv_cc *cc, u32 xtalfreq)
- 	/* TODO: Do we need to update OTP? */
- }
- 
-+static void bcma_pmu_4360_pll_init(struct bcma_drv_cc *cc)
-+{
-+	struct bcma_bus *bus = cc->core->bus;
-+	const u32 xtal_hz = 40000000, vco_hz = 960009800;
-+	u32 ctl2;
-+
-+	if (bus->chipinfo.rev < 3)
-+		return;
-+	/* The backplane may be running from the BBPLL. */
-+	if (bcma_cc_read32(cc, BCMA_CLKCTLST) & BCMA_CLKCTLST_HAVEHT)
-+		return;
-+	if (bcma_pmu_get_alp_clock(cc) != xtal_hz) {
-+		bcma_warn(bus, "No 40 MHz crystal, BBPLL left as is\n");
-+		return;
-+	}
-+
-+	ctl2 = (vco_hz / xtal_hz) << BCMA_CC_PMU4360_NDIV_INT_SHIFT |
-+	       BCMA_CC_PMU4360_NDIV_MODE_FRAC << BCMA_CC_PMU4360_NDIV_MODE_SHIFT |
-+	       1 << BCMA_CC_PMU4360_P1DIV_SHIFT;
-+	bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL2, ctl2);
-+	bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL3,
-+			      div_u64((u64)(vco_hz % xtal_hz) << 24, xtal_hz));
-+	bcma_pmu_set32(cc, BCMA_CC_PMU_CTL, BCMA_CC_PMU_CTL_PLL_UPD);
-+}
-+
-+/* Up/down times of resources 0-8 on chip rev 4 and later */
-+static const u32 bcma_pmu_4360b1_res_updown[] = {
-+	0x00000001, 0x00000001, 0x00000001, 0x00000001, 0x00860002,
-+	0x00000000, 0x00020001, 0x00080001, 0x00000000,
-+};
-+
-+static void bcma_pmu_4360_resources_init(struct bcma_drv_cc *cc,
-+					 u32 *min_msk, u32 *max_msk)
-+{
-+	u8 rev = cc->core->bus->chipinfo.rev;
-+	bool init_mode0 = cc->status & BCMA_CC_CHIPST_4360_RSRC_INIT_MODE0;
-+	unsigned int i;
-+
-+	if (rev < 4) {
-+		bcma_pmu_write32(cc, BCMA_CC_PMU_RES_TABSEL, 6);
-+		bcma_pmu_write32(cc, BCMA_CC_PMU_RES_UPDNTM, 0x00200001);
-+	} else {
-+		for (i = 0; i < ARRAY_SIZE(bcma_pmu_4360b1_res_updown); i++) {
-+			bcma_pmu_write32(cc, BCMA_CC_PMU_RES_TABSEL, i);
-+			bcma_pmu_write32(cc, BCMA_CC_PMU_RES_UPDNTM,
-+					 bcma_pmu_4360b1_res_updown[i]);
-+		}
-+		*min_msk = 0x103;
-+		/* The max mask must cover the min mask before it is written. */
-+		bcma_pmu_set32(cc, BCMA_CC_PMU_MAXRES_MSK, *min_msk);
-+	}
-+
-+	if (init_mode0)
-+		return;
-+
-+	if (rev < 4) {
-+		bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL6, 0x09048562);
-+		bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL14, 0x09048562);
-+	} else {
-+		bcma_chipco_chipctl_maskset(cc, 1, ~0,
-+					    BCMA_CHIPCTL1_4360_REFCLK_EN);
-+		bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL6, 0x080004e2);
-+		bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL7, 0xe);
-+		bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL14, 0x080004e2);
-+		bcma_chipco_pll_write(cc, BCMA_CC_PMU_PLL_CTL15, 0xe);
-+	}
-+	bcma_pmu_set32(cc, BCMA_CC_PMU_CTL, BCMA_CC_PMU_CTL_PLL_UPD);
-+
-+	if (rev >= 3)
-+		*max_msk = 0x1ff;
-+}
-+
- static void bcma_pmu_pll_init(struct bcma_drv_cc *cc)
- {
- 	struct bcma_bus *bus = cc->core->bus;
-@@ -156,6 +229,10 @@ static void bcma_pmu_pll_init(struct bcma_drv_cc *cc)
- 			xtalfreq = 20000;
- 		bcma_pmu2_pll_init0(cc, xtalfreq);
+diff --git a/drivers/bcma/core.c b/drivers/bcma/core.c
+index 37a5ffe67..f4246689e 100644
+--- a/drivers/bcma/core.c
++++ b/drivers/bcma/core.c
+@@ -100,7 +100,7 @@ void bcma_core_set_clockmode(struct bcma_device *core,
+ 			bcma_err(core->bus, "HT force timeout\n");
  		break;
-+	case BCMA_CHIP_ID_BCM4352:
-+	case BCMA_CHIP_ID_BCM4360:
-+		bcma_pmu_4360_pll_init(cc);
-+		break;
+ 	case BCMA_CLKMODE_DYNAMIC:
+-		bcma_set32(core, BCMA_CLKCTLST, ~BCMA_CLKCTLST_FORCEHT);
++		bcma_mask32(core, BCMA_CLKCTLST, ~BCMA_CLKCTLST_FORCEHT);
+ 		break;
  	}
  }
- 
-@@ -188,6 +265,10 @@ static void bcma_pmu_resources_init(struct bcma_drv_cc *cc)
- 			  BCMA_RES_4314_WL_CORE_READY;
- 		max_msk = 0x3FFFFFFF;
- 		break;
-+	case BCMA_CHIP_ID_BCM4352:
-+	case BCMA_CHIP_ID_BCM4360:
-+		bcma_pmu_4360_resources_init(cc, &min_msk, &max_msk);
-+		break;
- 	default:
- 		bcma_debug(bus, "PMU resource config unknown or not needed for device 0x%04X\n",
- 			   bus->chipinfo.id);
-diff --git a/include/linux/bcma/bcma_driver_chipcommon.h b/include/linux/bcma/bcma_driver_chipcommon.h
-index 0cb6638b5..525155658 100644
---- a/include/linux/bcma/bcma_driver_chipcommon.h
-+++ b/include/linux/bcma/bcma_driver_chipcommon.h
-@@ -107,6 +107,7 @@
- #define  BCMA_CC_CHIPST_4706_PCIE1_DISABLE	BIT(5) /* PCIE1 enable strap pin */
- #define  BCMA_CC_CHIPST_5357_NAND_BOOT		BIT(4) /* NAND boot, valid for CC rev 38 and/or BCM5357 */
- #define  BCMA_CC_CHIPST_4360_XTAL_40MZ		0x00000001
-+#define  BCMA_CC_CHIPST_4360_RSRC_INIT_MODE0	0x00000020
- #define BCMA_CC_JCMD			0x0030		/* Rev >= 10 only */
- #define  BCMA_CC_JCMD_START		0x80000000
- #define  BCMA_CC_JCMD_BUSY		0x80000000
-@@ -500,6 +501,16 @@
- #define BCMA_CC_PMU_PLL_CTL3		3
- #define BCMA_CC_PMU_PLL_CTL4		4
- #define BCMA_CC_PMU_PLL_CTL5		5
-+#define BCMA_CC_PMU_PLL_CTL6		6
-+#define BCMA_CC_PMU_PLL_CTL7		7
-+#define BCMA_CC_PMU_PLL_CTL14		14
-+#define BCMA_CC_PMU_PLL_CTL15		15
-+
-+/* BCM4360 PLL control 2 */
-+#define BCMA_CC_PMU4360_P1DIV_SHIFT		0
-+#define BCMA_CC_PMU4360_NDIV_MODE_SHIFT		4
-+#define  BCMA_CC_PMU4360_NDIV_MODE_FRAC		3
-+#define BCMA_CC_PMU4360_NDIV_INT_SHIFT		7
- 
- #define BCMA_CC_PMU1_PLL0_PC0_P1DIV_MASK	0x00f00000
- #define BCMA_CC_PMU1_PLL0_PC0_P1DIV_SHIFT	20
-@@ -527,6 +538,9 @@
- #define BCMA_CHIPCTL_4331_BT_SHD0_ON_GPIO4	BIT(16)	/* enable bt_shd0 at gpio4 */
- #define BCMA_CHIPCTL_4331_BT_SHD1_ON_GPIO5	BIT(17)	/* enable bt_shd1 at gpio5 */
- 
-+/* BCM4360 ChipControl 1 */
-+#define BCMA_CHIPCTL1_4360_REFCLK_EN		BIT(11)
-+
- /* 43224 chip-specific ChipControl register bits */
- #define BCMA_CCTRL_43224_GPIO_TOGGLE		0x8000		/* gpio[3:0] pins as btcoex or s/w gpio */
- #define BCMA_CCTRL_43224A0_12MA_LED_DRIVE	0x00F000F0	/* 12 mA drive strength */
 
 -- 
 2.34.1
