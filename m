@@ -1,82 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794258731;
-	b=CFX/kiFRKxy173f0XXsFnWBwe4wyEMntiy/Gq+DXy4CNiVrDnLiKo3m0fGMFvI+nlSec
-	 2SMRgxEksuxIZL5MbM6EymiUi60KMa9u340EYge6FXJio7lZxiOtceSaZtQzuQ5jMflws
-	 Gl4A2El/m7GNOLl2SH7UeZVTTsRdnGqqC2XprN+urq6RdIELC2ey8c6t/Zb2GgdvtO/8R
-	 wwX20gc+cKaOmc6DKn4ZgTk4mDiSK97lKFGiqOi1OXsIcdS4eCzJSucnIlJ0JO9PC+BRL
-	 f+tZKjt9jwLLmYSsJJCyBd280NaS4npEp8q/wSRQo60lQZQ0ZLzdJEZ+Uh+PjFGPWOQ==
+	t=1794258780;
+	b=m0jdt/d7lDm+uFmo+E5FzSONZ+OfqKF69xt33RZ/Y3NQN2YWxUuXRoOTdwYNeFBT+9aH
+	 Mou1UXMSQ6JV1TLHH60qDX0pJPTZZR7As5fEaZYaH+3Rvs+WISx5lz12+QDstIPRB580E
+	 NWwrEBIOUKoOX9/cvEHUUS/tmot5nJ+GcX89vxQnqlU8VryIEk+3r8Nr9XpBcHevn0vYL
+	 VzuZM1TSFUrrFzyscgJrG7SW5AhfTizEt/g30JKBUc64gaR/0oGzuxz9jFT2i1+FIGoUS
+	 iUpkUkagvhf6LvA0HaujG36pdnR+yZ/bAWPZsX8b5jb1VYGpEZZWGN4Lt3tVbyeY+5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794258731;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=81LJPDvx89CoZT4hf8Pu1pH44fBggMLuvFdmRZ6jqX8=;
-	b=UcwJpNuRdwlSY2PLXAIdRXo2OXDkG1cMu6CBj39j+LXUMg0wQwcjmldI8tfyhxCkWB6u
-	 wFtma+vy57SlGSRG4YGsYIYFheUJRHK8sLQnPLbtC2jcl1p3fp4UeHlY6zO5wa4lcXQoR
-	 HQ66Wpi7rrV4uSgpxVqUrYrIjWzoW07r2Rm1HfG55Yg/h9QbNC6f4W3v4GKEZPvlRVfGz
-	 86F6Xa4pI6yAVZW2QkpHwGrgcqe/Uq+PTimGU2UTVzMAev8tFLNix8axeFtE9rentHNQS
-	 7QGhWFRR+aRX8llisUVM4ac/ZioaZVHu5Of2IUjCnptvKguD5no1ClNZaWXPZ0NfD2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794258780;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wSH/DQOT88tW+MfhVryjWdaFHOf/OVH5pZJUhCRAHp8=;
+	b=tOAurBsSwXjldRLSQye6RoMMncS2mfGoCrGwDpsgQjb8RLrrSWeYhYK9hRWwRo0WH/8r
+	 +Pqn2srtCP3quZNrC5RR8DoAwYdKshOp9NedG5yunU09EdtR3xks6A2IVLqzb6KPOzxGZ
+	 mhNgAFccW/9BuyIc0VumBz4xNffcilEc3JONfrrRlzi4NGdhJTnK+2ZE7m+ciegUXca8g
+	 toF3dFcZ4MJBMDzJCqBdBB2qNLl4ha+MpxAwnpUMbuTkcYOfIyLkVUYvsUTqtAHvQVyEY
+	 qlshhA/AfEz4BWa7IUcXABj98r+JceC/CbD/VIG/vghtRr3erstBmlY5aqxF/uaCbXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=F3eSB+VK;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsxNcMeD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C12606A31C;
-	Mon,  9 Nov 2026 21:12:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15C12606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99267606A31C;
+	Mon,  9 Nov 2026 21:13:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=F3eSB+VK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794258730; x=1825794730;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gxYtxO+2eMGpONGrNp4PBU06L5SiPEzU67NeCyIQNk4=;
-  b=F3eSB+VK7d0z6nOlNRWjW0W7AtWysXGYmvugH5DCrLPP9ykjzJumUB04
-   spmashQEdy48ab84aKEChYtg37O0ORharFc2kszwv8k52mFE4hfXBvMMf
-   5f+K7dGRMyjaW7A0OTOOhFspwnOF/6uBdFksxsdt1PB+M8Tf7zsuAo2nl
-   yKfjBWF41IUtPmRRFH/NUtKLbDeW8h5yMF/d3urmrtLmM61erjqDE3q8x
-   9cR2B53yZu7088WVI2BDEVizJ0C8le+/CwHYc5+Ac1BVo/xm/KWDW2tfe
-   YrmdLxVAN4Ba6Hu2p5B3ukPABaTXGgemlkQnJTz4pG3Oc6G50TNTy0DTW
-   Q==;
-X-CSE-ConnectionGUID: bnCk63JLRoaXkzyZjoQjiA==
-X-CSE-MsgGUID: AzRTYjhCSRaCuEJl0+Xw7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2992803"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2992803"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:12:10 -0800
-X-CSE-ConnectionGUID: WWEop3DfSBmVu73bsAIzIw==
-X-CSE-MsgGUID: uTY2yx17T9id0b+s2yJ5Jw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8279553"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 09 Nov 2026 13:12:07 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQWeq-00000000vKd-2HSm;
-	Mon, 09 Nov 2026 21:12:04 +0000
-Date: Tue, 10 Nov 2026 05:12:02 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Baorui.Liu" <baorliu@amd.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, Len Brown <lenb@kernel.org>,
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	acpica-devel@lists.linuxfoundation.org,
-	kernel test robot <lkp@intel.com>, "Baorui.Liu" <baorliu@amd.com>
-Subject: Re: [PATCH v7] ACPI: button: Report wakeup key only for power button
- wakeups
-Message-ID: <202611100542.1xljQv20-lkp@intel.com>
-References: <20261109082832.496-1-baorliu@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsxNcMeD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B551F0089F;
+	Mon,  9 Nov 2026 21:12:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794258780;
+	bh=wSH/DQOT88tW+MfhVryjWdaFHOf/OVH5pZJUhCRAHp8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FsxNcMeDM08/3I4TV1/3pivquZehCEemjIhTRYxFaI6kxFeDB1UYwsQL3J6bwTuJ6
+	 TpKBKs9yTNmSHzEI2yN4hIpI/+8MbXqrblu3GMGWfmUY0l5+m6OIZfNL6b9jQRw4Ur
+	 yQte2W8uUBh36JH9Bizy/rMO3Z6C2NbJ1TtLn7BR2WCuSi2p7kAfIjqawLSohhvlSU
+	 j/mcvfF1kbDx6by1zEq5LcHbYQSwRIRnluQFM2HsWvuyNneixFMkgIyY6uGzk1LtmK
+	 ysl/YPcmYpJaHxlCYAuvZZGMAuZhtEguVU50UjC9gaVrPbhNxanCW8oqJlyg0aI+3W
+	 cqZSR7IOKKZcw==
+Date: Mon, 9 Nov 2026 21:12:58 +0000
+From: Yosry Ahmed <yosry@kernel.org>
+To: "Chen, Zide" <zide.chen@intel.com>
+Cc: Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
+	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
+	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>, 
+	Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>, 
+	Dapeng Mi <dapeng1.mi@linux.intel.com>, Xudong Hao <xudong.hao@intel.com>
+Subject: Re: [PATCH v3 04/18] KVM: x86/pmu: Add PMC bitmap accessor helpers
+Message-ID: <avI20tEzyvIshy2f@google.com>
+References: <20261106013927.166209-1-zide.chen@intel.com>
+ <20261106013927.166209-5-zide.chen@intel.com>
+ <au4kyULjUYdqbfIq@google.com>
+ <531bd088-dc5e-4b2e-953a-6d9d6f14b61e@intel.com>
+ <CAO9r8zMs+aBPN-w7L3nZxwVV-Dr2f0tBYBjicDsdYVp_Mc2AWg@mail.gmail.com>
+ <e977b107-7762-46d3-ba31-832eb9ae609c@intel.com>
+ <CAO9r8zPVt++jgZD3-Jd-DYKMjYyAfUuQkvEXD4pKqe0bdYE29A@mail.gmail.com>
+ <c2844568-f8f6-450e-a718-1e9e3b7b3e4b@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,84 +69,222 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109082832.496-1-baorliu@amd.com>
+In-Reply-To: <c2844568-f8f6-450e-a718-1e9e3b7b3e4b@intel.com>
 
-Hi Baorui.Liu,
+On Mon, Nov 09, 2026 at 12:59:01PM -0600, Chen, Zide wrote:
+> 
+> 
+> On 11/9/2026 12:07 PM, Yosry Ahmed wrote:
+> >>>>>> +/*
+> >>>>>> + * @mask is expected to be a scalar unsigned long derived from pmu->pmc_exists,
+> >>>>>> + * which is already constrained by KVM_MAX_NR_{AMD,INTEL}_{GP,FIXED}_COUNTERS,
+> >>>>>> + * so iteration up to KVM's maximum counter count is safe.
+> >>>>>> + */
+> >>>>>> +#define kvm_for_each_gp_counter(i, mask)    \
+> >>>>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_GP_COUNTERS)
+> >>>>>> +
+> >>>>>> +#define kvm_for_each_fixed_counter(i, mask) \
+> >>>>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_FIXED_COUNTERS)
+> >>>>>
+> >>>>> These are not used in this patch, are they?
+> >>>>>
+> >>>>> They should probably be introduced when they are used. Also, do we
+> >>>>> always end up passing kvm_gp_pmc_mask() and kvm_fixed_pmc_mask()? If
+> >>>>> yes, maybe we should pass in the pmu here instead?
+> >>>>
+> >>>> The intent was to group all bitmap accessor helpers together in this
+> >>>> patch for easier review so that the big patch 5/18 could be kept to
+> >>>> mostly mechanical replacements.
+> >>>>
+> >>>> But if you prefer introducing them on first use, I'll move their
+> >>>> definitions to patch 5.
+> >>>
+> >>> Yeah I think it's clearer to see what their definitions are with their usage.
+> >>
+> >> OK, then I can move these two macros to the next patch.
+> >>>>
+> >>>> Regarding passing 'pmu' directly, I initially implemented it in this
+> >>>> way, but I can't recall why I discarded it. I will take another look.
+> >>>
+> >>> Thanks.
+> >>
+> >> How about these? With them, we can remove the {gp,fixed}_mask variables
+> >> that you pointed out in your review of 5/18. The APIs are more
+> >> complicated, but the caller code is much cleaner.
+> > 
+> > I don't understand why we can't keep the macros as-is, but just move the
+> > calls to kvm_gp_pmc_mask() and kvm_fixed_pmc_mask() inside the macros?
+> 
+> for_each_set_bit() requires a pointer (`const unsigned long *`) as
+> input, but AFAICT a loop macro cannot declare a temporary local
+> variable, nor it can use do { ... } while(0). So something like:
+> 
+> #define kvm_for_each_gp_counter(i, pmu)                              \
+>         unsigned long gp_mask = kvm_gp_pmc_mask(pmu);                   \
+>         for_each_set_bit((i), &(gp_mask), KVM_MAX_NR_GP_COUNTERS)
+> 
 
-kernel test robot noticed the following build errors:
+Gemini suggested compount literals, and it seems to at least compile and
+I see a few instances around the kernel:
 
-[auto build test ERROR on ee3b82351a306b559fd132b9b168185fee641a18]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Baorui-Liu/ACPI-button-Report-wakeup-key-only-for-power-button-wakeups/20261109-162832
-base:   ee3b82351a306b559fd132b9b168185fee641a18
-patch link:    https://lore.kernel.org/r/20261109082832.496-1-baorliu%40amd.com
-patch subject: [PATCH v7] ACPI: button: Report wakeup key only for power button wakeups
-config: x86_64-randconfig-1015-20261109 (https://download.01.org/0day-ci/archive/20261110/202611100542.1xljQv20-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261110/202611100542.1xljQv20-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611100542.1xljQv20-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   ld: drivers/acpi/button.o: in function `acpi_button_resume':
->> drivers/acpi/button.c:568:(.text+0x2384): undefined reference to `acpi_sleep_pwr_btn_wakeup_pending'
-
-
-vim +568 drivers/acpi/button.c
-
-   544	
-   545	static int acpi_button_resume(struct device *dev)
-   546	{
-   547		struct acpi_button *button = dev_get_drvdata(dev);
-   548		struct input_dev *input;
-   549		bool report_wakeup = false;
-   550	
-   551		/*
-   552		 * Drain notify work queued while suspended so a late power-button
-   553		 * notify still observes suspended == true, sets wakeup_pending, and
-   554		 * does not synthesize KEY_POWER for userspace.
-   555		 */
-   556		acpi_os_wait_events_complete();
-   557	
-   558		/*
-   559		 * Sample and report KEY_WAKEUP before clearing suspended. Otherwise a
-   560		 * notify that arrives after sampling but before suspended is cleared
-   561		 * can set wakeup_pending and then be dropped without KEY_WAKEUP or
-   562		 * KEY_POWER. Clear suspended before wakeup_pending so a new SCI sees
-   563		 * suspended == false and takes the normal KEY_POWER path; barrier()
-   564		 * keeps that store order.
-   565		 */
-   566		if (button->type == ACPI_BUTTON_TYPE_POWER) {
-   567			report_wakeup = READ_ONCE(button->wakeup_pending) ||
- > 568					acpi_sleep_pwr_btn_wakeup_pending();
-   569			if (report_wakeup) {
-   570				input = button->input;
-   571				input_report_key(input, KEY_WAKEUP, 1);
-   572				input_sync(input);
-   573				input_report_key(input, KEY_WAKEUP, 0);
-   574				input_sync(input);
-   575			}
-   576		}
-   577	
-   578		WRITE_ONCE(button->suspended, false);
-   579		barrier();
-   580		WRITE_ONCE(button->wakeup_pending, false);
-   581	
-   582		if (button->type == ACPI_BUTTON_TYPE_LID) {
-   583			button->last_state = !!acpi_lid_evaluate_state(ACPI_HANDLE(dev));
-   584			button->last_time = ktime_get();
-   585			acpi_lid_initialize_state(button);
-   586		}
-   587	
-   588		return 0;
-   589	}
-   590	#endif
-   591	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+index f949fdbf359c6..3930680937577 100644
+--- a/arch/x86/kvm/pmu.c
++++ b/arch/x86/kvm/pmu.c
+@@ -1347,8 +1347,6 @@ static __always_inline u32 gp_eventsel_msr(u32 idx)
+ static void kvm_pmu_load_guest_pmcs(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+-	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
+-	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
+ 	struct kvm_pmc *pmc;
+ 	u32 i;
+ 
+@@ -1357,14 +1355,14 @@ static void kvm_pmu_load_guest_pmcs(struct kvm_vcpu *vcpu)
+ 	 * is intercepted if hardware has counters that aren't visible to the
+ 	 * guest (KVM will inject #GP as appropriate).
+ 	 */
+-	kvm_for_each_gp_counter(i, gp_mask) {
++	kvm_for_each_gp_counter(i, pmu) {
+ 		pmc = &pmu->gp_counters[i];
+ 
+ 		if (pmc->counter != rdpmc(i))
+ 			wrmsrq(gp_counter_msr(i), pmc->counter);
+ 		wrmsrq(gp_eventsel_msr(i), pmc->eventsel_hw);
+ 	}
+-	kvm_for_each_fixed_counter(i, fixed_mask) {
++	kvm_for_each_fixed_counter(i, pmu) {
+ 		pmc = &pmu->fixed_counters[i];
+ 
+ 		if (pmc->counter != rdpmc(INTEL_PMC_FIXED_RDPMC_BASE | i))
+@@ -1407,8 +1405,6 @@ void kvm_mediated_pmu_load(struct kvm_vcpu *vcpu)
+ static void kvm_pmu_put_guest_pmcs(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+-	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
+-	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
+ 	struct kvm_pmc *pmc;
+ 	u32 i;
+ 
+@@ -1416,7 +1412,7 @@ static void kvm_pmu_put_guest_pmcs(struct kvm_vcpu *vcpu)
+ 	 * Clear selectors and counters to ensure hardware doesn't count using
+ 	 * guest controls when the host (perf) restores its state.
+ 	 */
+-	kvm_for_each_gp_counter(i, gp_mask) {
++	kvm_for_each_gp_counter(i, pmu) {
+ 		pmc = &pmu->gp_counters[i];
+ 
+ 		pmc->counter = rdpmc(i);
+@@ -1426,7 +1422,7 @@ static void kvm_pmu_put_guest_pmcs(struct kvm_vcpu *vcpu)
+ 			wrmsrq(gp_eventsel_msr(i), 0);
+ 	}
+ 
+-	kvm_for_each_fixed_counter(i, fixed_mask) {
++	kvm_for_each_fixed_counter(i, pmu) {
+ 		pmc = &pmu->fixed_counters[i];
+ 
+ 		pmc->counter = rdpmc(INTEL_PMC_FIXED_RDPMC_BASE | i);
+diff --git a/arch/x86/kvm/pmu.h b/arch/x86/kvm/pmu.h
+index 98e6f2443b82e..37a6664fdb9c9 100644
+--- a/arch/x86/kvm/pmu.h
++++ b/arch/x86/kvm/pmu.h
+@@ -149,11 +149,11 @@ static inline struct kvm_pmc *kvm_pmc_idx_to_pmc(struct kvm_pmu *pmu, int idx)
+  * which is already constrained by KVM_MAX_NR_{AMD,INTEL}_{GP,FIXED}_COUNTERS,
+  * so iteration up to KVM's maximum counter count is safe.
+  */
+-#define kvm_for_each_gp_counter(i, mask)	\
+-	for_each_set_bit((i), &(mask), KVM_MAX_NR_GP_COUNTERS)
++#define kvm_for_each_gp_counter(i, pmu)	\
++	for_each_set_bit((i), &(unsigned long){ kvm_gp_pmc_mask(pmu) }, KVM_MAX_NR_GP_COUNTERS)
+ 
+-#define kvm_for_each_fixed_counter(i, mask)	\
+-	for_each_set_bit((i), &(mask), KVM_MAX_NR_FIXED_COUNTERS)
++#define kvm_for_each_fixed_counter(i, pmu)	\
++	for_each_set_bit((i), &(unsigned long){ kvm_fixed_pmc_mask(pmu) }, KVM_MAX_NR_FIXED_COUNTERS)
+ 
+ static inline u64 pmc_bitmask(struct kvm_pmc *pmc)
+ {
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 6dade9d26d1ad..9b25590469712 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -704,8 +704,6 @@ static void nested_vmx_merge_pmu_msr_bitmaps(struct kvm_vcpu *vcpu,
+ {
+ 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+ 	struct vcpu_vmx *vmx = to_vmx(vcpu);
+-	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
+-	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
+ 	int i;
+ 
+ 	/*
+@@ -715,12 +713,12 @@ static void nested_vmx_merge_pmu_msr_bitmaps(struct kvm_vcpu *vcpu,
+ 	if (!kvm_vcpu_has_mediated_pmu(vcpu))
+ 		return;
+ 
+-	kvm_for_each_gp_counter(i, gp_mask) {
++	kvm_for_each_gp_counter(i, pmu) {
+ 		nested_vmx_merge_msr_bitmaps_rw(MSR_IA32_PERFCTR0 + i);
+ 		nested_vmx_merge_msr_bitmaps_rw(MSR_IA32_PMC0 + i);
+ 	}
+ 
+-	kvm_for_each_fixed_counter(i, fixed_mask)
++	kvm_for_each_fixed_counter(i, pmu)
+ 		nested_vmx_merge_msr_bitmaps_rw(MSR_CORE_PERF_FIXED_CTR0 + i);
+ 
+ 	nested_vmx_merge_msr_bitmaps_rw(MSR_CORE_PERF_GLOBAL_CTRL);
+diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
+index 961d16e7f31f5..d3a00ae8018eb 100644
+--- a/arch/x86/kvm/vmx/pmu_intel.c
++++ b/arch/x86/kvm/vmx/pmu_intel.c
+@@ -57,11 +57,10 @@ static struct x86_pmu_lbr *vcpu_to_lbr_records(struct kvm_vcpu *vcpu)
+ 
+ static u64 intel_pmu_fixed_ctrl_bits(struct kvm_pmu *pmu, u64 bits)
+ {
+-	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
+ 	u64 fixed_ctrl_bits = 0;
+ 	int i;
+ 
+-	kvm_for_each_fixed_counter(i, fixed_mask)
++	kvm_for_each_fixed_counter(i, pmu)
+ 		fixed_ctrl_bits |= intel_fixed_bits_by_idx(i, bits);
+ 
+ 	return fixed_ctrl_bits;
+@@ -85,13 +84,12 @@ static void reprogram_fixed_counters(struct kvm_pmu *pmu, u64 data)
+ 	 * hardware, e.g. to ensure the event filter is enforced.
+ 	 */
+ 	u64 old_fixed_ctr_ctrl = pmu->fixed_ctr_ctrl_hw;
+-	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
+ 	struct kvm_pmc *pmc;
+ 	int i;
+ 
+ 	pmu->fixed_ctr_ctrl = data;
+ 	pmu->fixed_ctr_ctrl_hw = data & ~intel_pmu_fixed_anythread_mask(pmu);
+-	kvm_for_each_fixed_counter(i, fixed_mask) {
++	kvm_for_each_fixed_counter(i, pmu) {
+ 		u8 new_ctrl = fixed_ctrl_field(pmu->fixed_ctr_ctrl_hw, i);
+ 		u8 old_ctrl = fixed_ctrl_field(old_fixed_ctr_ctrl, i);
+ 
+@@ -369,21 +367,19 @@ static bool intel_pmu_handle_lbr_msrs_access(struct kvm_vcpu *vcpu,
+ static u64 intel_pmu_get_global_inuse(struct kvm_vcpu *vcpu)
+ {
+ 	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+-	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
+-	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
+ 	bool pmi_inuse = false;
+ 	u64 eventsel, data = 0;
+ 	u32 fixed_ctrl;
+ 	int i;
+ 
+-	kvm_for_each_gp_counter(i, gp_mask) {
++	kvm_for_each_gp_counter(i, pmu) {
+ 		eventsel = pmu->gp_counters[i].eventsel;
+ 
+ 		if (eventsel & ARCH_PERFMON_EVENTSEL_EVENT)
+ 			data |= BIT_ULL(i);
+ 		pmi_inuse |= !!(eventsel & ARCH_PERFMON_EVENTSEL_INT);
+ 	}
+-	kvm_for_each_fixed_counter(i, fixed_mask) {
++	kvm_for_each_fixed_counter(i, pmu) {
+ 		fixed_ctrl = fixed_ctrl_field(pmu->fixed_ctr_ctrl, i);
+ 
+ 		if (fixed_ctrl & (INTEL_FIXED_0_KERNEL | INTEL_FIXED_0_USER))
