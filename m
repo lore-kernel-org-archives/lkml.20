@@ -1,100 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794238085;
-	b=c5oZdiT+28o/9sayw1sNGXtzG1Bg+Sam5WjJPEgtjh3HxqpyRhiiHZ7KVFJ32UwQ33W8
-	 Xdv3iO7wFs7XpiswRNG0BbHxVzSwirfvnNIRHXQOgMX4PCSjXLDrlTwOKlaDFsARojr/j
-	 brD/I/gbu6U0iBLV8oF5uVA3EWLitnxLh61ikYFeZsvGxTXgaZKz6q5/2CB0PU2n/oSud
-	 rmvMx1iLukkeoYyZk8oLhwwSm4pFqiBtRzNxPneaiKA0qQ7NgL63YfNOJHdr4VXMNwuxk
-	 6YQYCAOV4tMe5Vfi4q7zU+xncQ9/dBGgJHTT+MoGZOZVuPV+wjKSfoTz8IOl0cl4/ig==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794238085;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=rc8neeysb2lhJi4v3fQWNja46WdfiOwuQ6GoM/+JvzI=;
-	b=Atr6O8EofRxqqSVzvYreJ8/X2pvjvib93bpDoxWpCc5A3HjQP6j2jFzzUnragad10MMs
-	 7PZX2+nNnvlGWZNwGSU12drUqQcmOt27K/g2paGkoUUEFgZQeFw73JJ9DSa0U/qySAq7q
-	 OzyqNVDXcIueMpBCzQTKSBjGpvJUrj0mg0Xnwj2htafb3tueXfnWW2MSZhQn3T37H+kID
-	 oJ82jLk3ZguS/rAPlY3+h7ljJCZg2xG1W/iNHQe+k4lgOwVy/vKV5+ra71/OjxV9DvP+Y
-	 w4WArAH3q3fg5g3bT5ASLhQNYwsZWnaQqb2+JfIcV+ZLtnF5BLXrPj9M03TFDHNZR1g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zHmolP8k;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794238124;
+	b=VswczHr8vaVPGaMvyQz2e4WLWZ8ruhCBvhnJt9gmbzQB3cMlieLuxCpHZBhQsd4kTWTH
+	 CigKTDGKqJFtQcdiAIhvZ65cciQwcrKXDkiIIT2kIARWJZkYDJX2K0d7n4IJ7UY3QAD3e
+	 PXz86Hqd967/ZgAmPyfLg8zQJuYVSv1Kl37oKjA/9+9jGhyZDhG6ZKV/0P3C+aXKWt1R4
+	 fGpNDgM13tRZwcovNEECwQBt730i/ARUCNBpl7NlMP9LznPEkSDrOHkZQfxg020sLqQFU
+	 7E/1nNKYhyrmJsS97tUu9iCDx5HuU3naoyfcBXh/7RBnCKpDjEj/p8H89ZX+Azj6jdA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794238124;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=B2vyEo5b1bt5v4hJpNTxZdeyGVePDC7Pmfk5vt9hzUc=;
+	b=4eq97/V5WHPddCZpDbxE7VbRUkZSZPVgnIR9+gd66rapH5KA/99Q+6ETpc1UBc9V2o2O
+	 bfwEB5Gk/0LN2ckbSFRZT8fX59vVUmzNvt7qOqwF9G6EFQHc8Vr26tjTi/dSaVadbqMPG
+	 eSRhj7WZlI5eRM2uc58l+zA/vE92WS3YGbDnyZbgpjHNqeP49iSowwet4FogTGm1Aite0
+	 voi2pm4dJM4xNC8N6/FML8y4B1cxVqmpsEVlWFHobtfINpmuasycZkjhTRkr7EB/hCaEX
+	 kiYrqi+063qgF4do6DdBEOr+NEncBU8HAYuhjH5zXb9eSJ1TYSCy54Bstyi8uSYP+gg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=lTMRzCL8;
+	arc=none smtp.remote-ip=35.89.44.33
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3869606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:28:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3869606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EEDF606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:28:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EEDF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=zHmolP8k
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b633ddfad6so1305416a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:28:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794238083; cv=none;
-        d=google.com; s=arc-20260327;
-        b=knEEk6kyVkIbmq8zRrZjPg9wCVuhhgcs6S/ztlGYCeASA+rnC8I4GkGWtf2BIi4z+q
-         zwU2j5zk02KAuNsW/eX4vBvOp/S0IT0d1uaMJep2cXYQk9lLK72jABxAA88TrMtUVVby
-         wmzXuzKS5lJvA2lCXqN+7D5NoVe9HGuUyhaj5bc0J0Y/TaTv2IUEPV1lwbHyoKiXXm4m
-         9VrQQC9bGy0wDNdhUMt3pELn71amklJpFP8JRgUn19DPrTFFuiMS7sPp/cBEsx15QAZw
-         8ggFLzm21m/X9yAoQqYgvcj1BlPC/kM+p3X8TPlXmutl434Xf8WsGkUlQEc+RJoNfpCM
-         JoEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=rc8neeysb2lhJi4v3fQWNja46WdfiOwuQ6GoM/+JvzI=;
-        fh=ksnsatCL3NwjpkSu+y89q51V1hUG957aJAcEmv5ELtg=;
-        b=saMgPluAcyGPize9NGZznTxUa9xqpSSFVdRbMt1X4BvNAUy8anOPFuI6/6+1iI9FeR
-         TLcGcuEx4yaiBKL6iNqJzXqLlH4/bMx9L572fiSvpouVZZpFPUaFbnfxjmmHGMmUY1ZK
-         bl2mzj+4f2oty+j14+ZIv/J+7C//iOnJecpXvPkYjI3FSLQHB785wDWfif1v30NKx/GT
-         zTjLgs8ud53eJ210uSsiPM2G4Gm2xbH6UJ5YjtNMZPRTFj8pXt7p7W9AOVCzE/79/eDs
-         vWtfyKLZyZLF3jDXlxofkyr/zRiPz7vfqEzT3b26gYjORzjYHk1pq8ReGPWV8bGVvqHX
-         cWYQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794238083; x=1794842883; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rc8neeysb2lhJi4v3fQWNja46WdfiOwuQ6GoM/+JvzI=;
-        b=zHmolP8kJzpNhKmXGS2JUdry8wd7hwRK2Fk6tq465Zy6uEp9nOp3OCbY4ANUd4YEWF
-         xPIl0WZdHEcYrtwZNvQoCcSOgc1P3tWKyTyFVLPmorOnHudnj2LU+lg4DjXl5iB2PsQ0
-         FEDRDDp/jVCw/TSQ2qydBzZcfMgi5J/4ZlT0suLyU6wmscIj07i8ciz7KHhhDBMj/h8L
-         njOMLbxga9zrlTjCohbg5oj3C495NMsr9PzYOd1b7GGomW2a1jP69x4yDhaLJvCBEnXE
-         G/vS/cgHvmdNowld9azpMV0CzMdlKKZBqlIbDJeOgTRw70tdC2cgeajqJ8rxDlqQVdwK
-         hbnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794238083; x=1794842883;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rc8neeysb2lhJi4v3fQWNja46WdfiOwuQ6GoM/+JvzI=;
-        b=dvVyPEL69enfMyb1zHkTZkbzJtilqzoKiiAR8y2Cy1hsVQHm2gmGgtRaLO51fRNAER
-         Uc9asTPfcRVyHO0LPeazlO6h1vhbZMWV3XOOpVkSU7espR9tuT+QH1+acV3/Feg5vmok
-         JOkj9fFKCChKVwGz5ZBupClJHNLLIlmxaU0H3ZLYMlgYpps+c4MzcVaPWcq6neDaB2io
-         Xhg888nKopR/XId2js7vtthDAUs8plcBKFxfpsKTwic2cMT7mvi176IDUJYeY4751suf
-         4FEo+3fA5GASxFRPnV9jUQNIe49doY2GY182r00VFq1zKP+AAG4pHAA0UteTqlZkCz0r
-         6Muw==
-X-Forwarded-Encrypted: i=1; AL+hErF0UrGdzXFL/LzWxZv2McXF5BRkubp5dFK4COSfb6jSE2IflkuVN/RXfv7nIWCwH81UR1qXUP61RXV3QMc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8L/Mj2pCJRsxrnOz08vl5M+H8huj5F0FqNqvoWuhF40dOYd+du
-	YW5wX45E4w4vGoVy7+GY74+g/tqyGv6ujpNk9krz+/hRFL/T6ZJuBANAkzZwE4egql1/jI3WD7M
-	OnbTfbDegJvRGENGKVYJHhiHIBfjp9IjbrkYGCoOB7Q==
-X-Gm-Gg: AYBFou1avTBgYx4ACCaYOMVM4r+QpGlKEA5RCfCsV537ZAVooCEKeUH1ryw8Msb+X6T
-	Pt+OLVXrXgE8LBbMgcNABIVjN9ZaAoFjWkgZV/j98vucRcvN6W09LrqRGVvYxa8IDelCol169q+
-	Wke+7xo4yil6HWp4ZOXIuuCpOMh9xq/Ua6wn9Huk9kkbROVxVdWcT1BFSwY2CHSUW2YtVI23OGh
-	OLMjkPWNyCSfPTP5MjGGmU6cAxTsaJKnk0pZGuAhBV+KhONoqJjDC4Kz0MdjoPcMrTXJ1jmDrmz
-	Ob6SW62xnh88rX/LaxB/qdJpAY1B6Q5FnwWJ/dmKRAmpPAjTxKVgxCHX73J9HYfoS1OCUOw0cKl
-	h+sUwEWYapfKIaBp1141rnGb0+3N3u5dnRwpFaqg5L5cTBaTGT8yE2IGhAb3XqiZMLTqQOGHXHn
-	gb72JTcc8C7MkvcIg=
-X-Received: by 2002:a05:6402:4513:b0:6b7:28b9:f357 with SMTP id
- 4fb4d7f45d1cf-6b728b9f818mr2731473a12.40.1794238083112; Mon, 09 Nov 2026
- 07:28:03 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=lTMRzCL8
+Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
+	by cmsmtp with ESMTPS
+	id QRF3xOHlBAR1iQRIZxVqAh; Mon, 09 Nov 2026 15:28:43 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id QRIYxY0vzxmi7QRIZx7mlv; Mon, 09 Nov 2026 15:28:43 +0000
+X-Authority-Analysis: v=2.4 cv=KuFN2XWN c=1 sm=1 tr=0 ts=6af1e6ab
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=VwQbUJbxAAAA:8
+ a=yC-0_ovQAAAA:8 a=pGLkceISAAAA:8 a=Bc9-fzvMU0tklgv-buwA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=B2vyEo5b1bt5v4hJpNTxZdeyGVePDC7Pmfk5vt9hzUc=; b=lTMRzCL8hvXA
+	tMU+zRBnUqs/tk41gqWTSKzucfsY75DpJsHANPHGLVyEY8oOXvNPX41AkGoY1ZphnfhKFbVP2fmy2
+	7b61mJxbw56xGtARUS5/qekOtYHqpyWgSDDG5AV2neyFeeySu1RXP52CLysgIilx/DDBgZLbKrg9m
+	9aJJ04pLr8iTfD+g02+qou5HHkWgEuWBsi0PJm0J3rz3ubfunsJ6vwZJhuCqBeD+TqB4WWFzKidZ4
+	+8yd5Rmu0/86bW9hWZsiaI2IegnMf+QIU6nGI7c5rNa5Fk52kEiT5OCHMvHH3EituXuiBuKQJag3M
+	HZjP62eL6WzloiutpaJ+6A==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:58606)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQRIX-00000001ESL-1tvc;
+	Mon, 09 Nov 2026 20:58:41 +0530
+Message-ID: <744d20c9-9aa2-4f3b-b42f-cfdd0a17da65@roeck-us.net>
+Date: Mon, 9 Nov 2026 07:28:39 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,58 +76,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
- <20261106151947.3991524-6-vincent.guittot@linaro.org> <au4i4IWFvJw-7Q0Q@scheduler.schedules>
-In-Reply-To: <au4i4IWFvJw-7Q0Q@scheduler.schedules>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Mon, 9 Nov 2026 16:27:51 +0100
-X-Gm-Features: AclHuK-rDLMXgdJprNmM67KERGYoPJj3EfP3DSZ08EHC8kkLhXMU79a1MZdCg4I
-Message-ID: <CAKfTPtAwAkm1NaZac2HKDPgAOh=7OjasQRwgr=e5jfSeQe_R7A@mail.gmail.com>
-Subject: Re: [PATCH 05/20 v3] sched/eevdf: Add per cpu cached min_slice
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, 
-	linux-kernel@vger.kernel.org, lukasz.luba@arm.com, rafael@kernel.org, 
-	linux-pm@vger.kernel.org, tj@kernel.org, void@manifault.com, 
-	arighi@nvidia.com, changwoo@igalia.com, sched-ext@lists.linux.dev, 
-	qyousef@layalina.io, christian.loehle@arm.com, pierre.gondois@arm.com, 
-	sshegde@linux.ibm.com, tim.c.chen@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/7] Add syscon support for Renesas WDT driver
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Brian Masney <bmasney+clk@redhat.com>,
+ Stephen Boyd <sboyd@kernel.org>, linux-renesas-soc@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-watchdog@vger.kernel.org,
+ Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261001165201.763882-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <CA+V-a8u-3NFryZA_8GN=fR09+fcyvNGLMV-09z-mPXTePxkgvg@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <CA+V-a8u-3NFryZA_8GN=fR09+fcyvNGLMV-09z-mPXTePxkgvg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQRIX-00000001ESL-1tvc
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:58606
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 20
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfGkBSH/Q90eL8xyev8sU0DdPG6O+HVOMmlmT4/2fTRq3FtuFvji8OVZHtcfpSjQLNI/A4heHzFNAccQ7mMlHArFKR8bigLUiMxKRwUXvxjY1hZjnpZt/
+ THUw7M57SdiPCljUsnwJCCDslNRUv3snGPgZgJpSFtDMkQFU3vSU8NeFK+ug0D+S4nUfByA3lsCigmNX8s1jk45xh/t2bWmXKflWiBbIMVnn94hZ0lxLdrRQ
 
-On Sat, 7 Nov 2026 at 07:53, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
->
-> On Fri, Nov 06, 2026 at 04:19:32PM +0100, Vincent Guittot wrote:
-> > In order to use min_slice during CPU selection, update a cached value when
-> > needed after en/dequeing a new task. This cached value includes current
-> > task.
-> >
-> > Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
-> > ---
-> >  kernel/sched/core.c  |  1 +
-> >  kernel/sched/fair.c  | 28 ++++++++++++++++++++++++++++
-> >  kernel/sched/sched.h |  1 +
-> >  3 files changed, 30 insertions(+)
-> >
-> > diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> > index d7c3b43158de..031efe7d49fb 100644
-> > --- a/kernel/sched/core.c
-> > +++ b/kernel/sched/core.c
-> > @@ -9012,6 +9012,7 @@ void __init sched_init(void)
-> >               rq->sd = NULL;
-> >               rq->rd = NULL;
-> >               rq->cpu_capacity = SCHED_CAPACITY_SCALE;
-> > +             rq->min_slice = ULONG_MAX;
->
-> This is already getting changed to 0 in 6/20, instead of changing there,
-> wouldn't it be better if we changed it here from the start?
+On 11/9/26 04:27, Lad, Prabhakar wrote:
+> Hi all,
+> 
+> On Thu, Oct 1, 2026 at 5:52 PM Prabhakar <prabhakar.csengg@gmail.com> wrote:
+>>
+>> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>>
+>> Hi all,
+>>
+>> This series adds syscon support for the Renesas RZ/T2H and RZ/N2H SoCs in
+>> the WDT driver. The WDTDCR register is part of the CPG/MSSR block for
+>> which the CPG driver registers SYSC regmap. WDT driver now uses this
+>> syscon to access the WDTDCR register.
+>>
+>> These patches were part of two seprate series [0] and [1], out of which
+>> certain patches have been queued separately, so I have included rest of
+>> the patches into this single series.
+>>
+>> Merge strategy, as the WDT driver now includes renesas.h header file,
+>> the driver patches can go via renesas-soc.
+>>
+>> Note, patches have been rebased on top of next-20260930.
+>>
+>> v7->v8:
+>> - Dropped patch "watchdog: rzv2h: Drop enabling clocks in the
+>>    restart handler" addressing Sashiko's comments
+>>
+>> v6->v7:
+>> - Added a new patch to introduce rzt2h_cpg_wdtdcr_count_start() function
+>> - Added new patch to drop pm_runtime_resume_and_get() &
+>>    pm_runtime_put_sync() calls while accessing the WDTDCR register.
+>> - Dropped propagating WDTDCR access errors.
+>> - Dropped converting WDTDCR handling to regmap as this would require
+>>    resource address comparison to get WDT index to call
+>>    rzt2h_cpg_wdtdcr_count_start().
+>> - Made use of rzt2h_cpg_wdtdcr_count_start() in restart handler
+>> - Added if regmap is available, use it for WDTDCR access
+>> - Updated commit message
+>>
+>> v5->v6:
+>> - Used pm_runtime_put_sync() in rzv2h_wdt_stop() function.
+>> - rebased on top of next-20260922
+>>
+>> v4->v5:
+>> - patch #1 is new addressing Sashiko's comments to avoid potential deadlock
+>> - patch #4 is new addressing Sashiko's comments
+>> - Dropped checking rzt2h_wdt_wdtdcr_count_start() return value in
+>>    restart path.
+>> - Handled the regmap locking in the driver and introduced nolock
+>>    version to be used in the restart path.
+>> - Added review-by tag.
+>>
+>> [0] https://lore.kernel.org/all/20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+>> [1] https://lore.kernel.org/all/20260814191415.2110732-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+>>
+>> Cheers,
+>> Prabhakar
+>>
+>> Lad Prabhakar (7):
+>>    clk: renesas: r9a09g077: Add helper to start WDTDCR counter
+>>    watchdog: rzv2h: Use pm_runtime_put_sync()
+>>    watchdog: rzv2h: Drop WDTRCR_RSTIRQS define
+>>    watchdog: rzv2h: Drop runtime PM handling from WDTDCR init
+>>    watchdog: rzv2h_wdt: Add syscon based WDTDCR access
+>>    arm64: dts: renesas: r9a09g077: Use CPG/MSSR syscon for WDTDCR access
+>>    arm64: dts: renesas: r9a09g087: Use CPG/MSSR syscon for WDTDCR access
+>>
+> Gentle ping.
+> 
 
-Yes, the rq->min_slice = 0 in patch 6 should have been part of this
-patch. I merged it to the wrong patch
+No feedback on the first patch of the series. If you let me know which patches
+don't depend on it, I'll be happy to apply them. AFAICS that would be patches
+2-4 ?
 
+Thanks,
+Guenter
 
-
->
-> Aside from that,
->
-> Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
