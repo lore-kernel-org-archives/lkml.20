@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794215353;
-	b=4CiD55i/aHieJQ6GzMx4AZ+fP38fBN7G7NdfIB7yZf3UWr8PjPsxfPRqglgmeM+/jE9b
-	 JszWaq3UOvDh08wv6wpt5ZloBOhlNOupmadrsRsoigvM9ElQFfxZFWBgAOaSSQxI7dfE9
-	 DFrsWs+swhAIFjXXRzf+ucUOg+u2qyEWfwDYLdUUODpAKYYdh+ZUQGNyqDdfWdAXJhzbv
-	 /QH15aHXzAh/gA2xupecfA0jjGLl1k+QARc2MIed+AKTQBQUIBw6NSORjvPRs2i4y4XTO
-	 s+m5I+mu1yMyDxq+Qp0mnUzI3btKL6jt4UQve60Wjn6HCQZk1/jA93fmuuyTo6IgGIg==
+	t=1794215360;
+	b=myeuk+vrUXtwK6qFhcp9PIJngiSIQds6LomrOSweMfvm3LSegKprEsFB3Iozb0AeqBtP
+	 4z2XzvU78vAlt6J6G5VIDEenwpJXQjBAQhBUYEwk+gT+/sfvHEcfpy4gjiOFGCBOcRTLZ
+	 KWJ/0AlMJ+DrAiSPSXipHrc7KZT/Dpk4LBe3hxz5rdnqG4y6+9C/tQuXepTzvsoaUaHfQ
+	 YLy/QWI8SURS5jvevttmuNmU8N8l15vryjqNTvdxfE1/B7hqZEyaVaZgGspVg4K+NyU0v
+	 X1mP4VG/sRSLmLDklDqUU1JzjEqa6J9sjswpCpwW9na/JbpHwZVEANd1Qy7kiuP1PNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794215353;
-	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
-	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=dF7x4L6CgRyPJLEoJCQrQ4pP7smVInKwSeYvbcT8/HI=;
-	b=FmnMbrf6EoJMbuYsLmYQq3/cFpgA+Abu0l4HYm/5mtj8stu/VYNugstS4U1fkFmIb+50
-	 LeqaRr42U0pm+4oCVh7dswo3Tdo2HWpRTeC1HNSSrKW6OR/8vK0jS/g3IxoV6njsrRoZN
-	 Bo3i3f8e2RxoyKPCHoKSylVi9M7lxzVxj3AkAf7u9vGcMyr4+aNhzZtGg2GwyH4hM2F2+
-	 0BVcQLiEMnX6XA7c8R4jsTNczK5xCncRJoOV/BW7Waayp1QBu2hpSxiF2/ONgeQ3YxhCI
-	 eInxyBX/tHQsNOyaEwC7+yT+l6R4NvcycPOsVp+sQjgeXrh2lz2i6B5zh5k1e02Xd+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794215360;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+KBLzQyqsR334QCpiwaANoenKn13j8vn07qxRoKBlVI=;
+	b=oBtdBAd7PZ+oYSsx2VzICt3JMMapMgIk2peplHsToGw6xVIQ6EbrrADMQtBpbc5yj5j5
+	 XxBKHaUwoynBU/j0q8eg12VqNZIFk4HDQjARv+EO2XlAKUPjffgkOvewBsEx0Ks/GApzQ
+	 QZmA69fSpDFbv0ey7OBF1j5OEQ/xwqzxwfh1hmrG2AX0natsT4E6FEwZK4WnLIMSXyrDN
+	 NGHsn+IAvYB45/Q1olncutmIDS7tOK+3yx84x08Co5cBYC5S4y9WdJwJ8ic/tt6sl05t8
+	 s32IfGTCRyAdzC1o5wCw1w6LLMrR/WrAyVYkENBUBonMYdF07Wqd7uABYBK4ANpRypA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b="R9/kCXlh";
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=wirenboard.com;
+	spf=pass smtp.mailfrom=wirenboard.com;
+	dkim=pass header.d=wirenboard.com header.i=@wirenboard.com header.a=rsa-sha256 header.s=google header.b=GP56uGAf;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A148606D803;
-	Mon,  9 Nov 2026 09:09:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A148606D803
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17AE606A334
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:09:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A17AE606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wirenboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wirenboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=R9/kCXlh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=dF7x4L6CgRyPJLEoJCQrQ4pP7smVInKwSeYvbcT8/HI=; b=R9/kCXlhPKlWEYGNLPEHOjxGos
-	jfHH1rVhwiBDTwUo+LFfGN6U67Y0i/mw6jMLBadDIN3n89LzJnc27/S1NgfZ8mZg8a4oG2IMECGXe
-	QO9v62nQhwlK2Qwq4x4pfOzyCTdnn1gLRnyp74dexZ1g3IP8drv62Z22dR35kiWgeW/JvdGBXMers
-	2RcsrpuC8mJ1gfuaGJYEMGf3dcdL7JfF0moNvoc4u6T6oyBhmrMd1VdzQ4rb0WU4ts7CqKNwYnov0
-	NvVorK1ukJx2Zf7z1t4/e4gVHxlpFHJYgB8n+dXe2meBeyRdJHfWpKELZ0X3NW2aQgdnGXS95qwWv
-	eWiL32hw==;
-Received: from [::1] (port=36922 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <nicolas.bouchinet@oss.cyber.gouv.fr>)
-	id 1xQLNB-00000007yi4-0YGr;
-	Mon, 09 Nov 2026 10:09:04 +0100
+	dkim=pass (2048-bit key) header.d=wirenboard.com header.i=@wirenboard.com header.a=rsa-sha256 header.s=google header.b=GP56uGAf
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so3659745e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:09:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=wirenboard.com; s=google; t=1794215358; x=1794820158; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+KBLzQyqsR334QCpiwaANoenKn13j8vn07qxRoKBlVI=;
+        b=GP56uGAfqelAtz+ZKaQKSFJnHPlW7rl/XXFsOM4NhpYtf3oyCLoe/DAXcg/bArFdH5
+         8MBGX+H3d0by1/+cPEYkqvKdwXrYv2aP8og9SOSauz5bDB/24hphmYKSGLIBwIMPay37
+         90CIcMv7qfHO8+oJjghypJNcIEojMyuwI3z/w7Uc4YDSx4s4Zit+6DlQqdWztnua88kU
+         m5WmvkAC/6oI7auisFFVKxYleskNY1zUgtSuopvyeFcQLNGA8pHqhmHfiJVUNZ4lqmxj
+         b3g1UhBiwXbpd3fFqofeHZxJ/N2Txu0LjHKTCAuLunbblAdyLBr6gNZiYjiX8iIaNRGz
+         2Qqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794215358; x=1794820158;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+KBLzQyqsR334QCpiwaANoenKn13j8vn07qxRoKBlVI=;
+        b=UDuJmQR5KBtQ8rCVOFaQzJQX8F8msuml8bHZ399N/D1waQPULxqNKdguwCHqSZnMXk
+         N95ZaDwV8SHbJjT+t3z2ijwpfqxXhJrMVFP8WTOGz6wO7rqQ2WaE3oDvf2HrX6k4Flnr
+         V1LbaKL6U5Old3dEdUtMShsYDPuby+DDeq5pcRFE5Z9af4ZWy6QZbZM5RkyJw7vKEEvW
+         dGg97oqIKn/Cc/LaXo1/IMSxEXAjv8XGvNgZW9b94EL5JEBMk+skYn26hvaMqVpSPbWU
+         bBu9F5maIdbd+Jn3g+n2YF02tgug+LWpubI33DiDVfdgXX6RCGdJhzVZXtG7eugOuiJ7
+         y98A==
+X-Forwarded-Encrypted: i=1; AL+hErGMCAKaXLuYm3LhUJLTeVA3wWC3/UMYZRC0YTL6fKNjV+3jeXmof5jfgtlKnYE6i3qWIry3eFS+A75l6LU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z892Tzx2M1G8wqdUD5rGFLPZSVCJuhAcGwbi0bNxndH7EOb+Pt4
+	4b8WlguCEO7tLUzPSGEtGDnLc6qFpmhQlbWjqF5jHQhdLChX67P2QO47xob2Ijt+0eg=
+X-Gm-Gg: AYBFou2/DNmMj/ugms3X4k2iHFC3o+RCAGyLRa/WFelhi4FKrUBfxB7HoiqRvUZ1CXK
+	T561E9L554Vy4kqzmwObzCb51YYSgGK8yRVW254+b0+UfAElFlq5yJXHI1V2NYweimo6zFpnIWs
+	GXT+IxlFIHK0HV6QR+vp7GGujpAQXvmKSsjLnmR7qKXClc+DF4J5s0FU+6OdWom4ydeSAbFpNtu
+	9Egzst/fHP+QFXCjPXW5VjXVNuUTiAgPv2AD/lQf6Y3uEvU6TAG0aURpiCqEG6qq1v0OSx+biKI
+	iP2qlnYlunsAsFEOlQHhnVEim9Wk0aAoU9vkb3WGCOe8xC/xfvHbR1miv6SZ4wz01/F7dtcv0yn
+	Z9OkYCzD3yRH8tRq5HyAOLl+Ge9rlxjfmn0a0hM1/Gb3UjRpXF3a3flYGJneSnXiWZFNeD6rIT0
+	iCPPCCn+BoN7p23W+xheouAFjZhnOkdvMrkj/JUIdmMEELGn1QrmcW8YgVtih4lQdTmGn+vhALD
+	oqaXS8SJwkJxzNi6h8I4+KHSiuB2Mr+k8HiBqP0Iv6qUvf3tQ67N3lGrv6rT+NCSirGXVn7nAjk
+	QoP+bx2EetJis9M9rKpcZ2gXXNgXJYRzrh7xXLou0VeL6/eUtoaiqvEWs9nqvYk=
+X-Received: by 2002:a05:600c:474a:b0:4b5:2c72:651c with SMTP id 5b1f17b1804b1-4b963c6cac0mr68998635e9.5.1794215358048;
+        Mon, 09 Nov 2026 01:09:18 -0800 (PST)
+Received: from localhost.localdomain ([85.137.25.106])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49592f398a4sm8250905f8f.6.2026.11.09.01.09.16
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 01:09:17 -0800 (PST)
+From: Ilya Titov <ilya.titov@wirenboard.com>
+To: sboyd@kernel.org,
+	wens@kernel.org,
+	jernej.skrabec@gmail.com,
+	samuel@sholland.org,
+	andre.przywara@arm.com
+Cc: bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ilya Titov <ilya.titov@wirenboard.com>
+Subject: [PATCH] clk: sunxi-ng: h616: register CPU PLL notifier before mux notifier
+Date: Mon,  9 Nov 2026 12:09:14 +0300
+Message-ID: <20261109090914.46872-1-ilya.titov@wirenboard.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,99 +104,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 09 Nov 2026 10:08:59 +0100
-From: nicolas.bouchinet@oss.cyber.gouv.fr
-To: Cai Xinchen <caixinchen1@huawei.com>
-Cc: xiujianfeng@huawei.com, paul@paul-moore.com, jmorris@namei.org,
- serge@hallyn.com, shuah@kernel.org, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- bpf@vger.kernel.org, lujialin4@huawei.com
-Subject: Re: [PATCH -next 0/9] lockdown: fix the securityfs interface and add
- tests
-In-Reply-To: <20261103082421.3033195-1-caixinchen1@huawei.com>
-References: <20261103082421.3033195-1-caixinchen1@huawei.com>
-User-Agent: Roundcube Webmail/1.6.20
-Message-ID: <f118d32f369dff7182956b64e6bc1dd8@oss.cyber.gouv.fr>
-X-Sender: nicolas.bouchinet@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: nicolas.bouchinet@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: nicolas.bouchinet@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Transfer-Encoding: 8bit
 
-Hi Cai,
+Currently the CPU mux notifier is registered first, so on
+POST_RATE_CHANGE the CPU is switched back to PLL_CPUX before the PLL
+notifier re-locks it. The CPU then runs from the PLL while it is still
+settling. The comment for ccu_pll_notifier_cb() says it must be
+registered first, and the other sunxi-ng drivers (A33, H3, R40, A64,
+A100) do it in that order.
 
-Thanks for your contribution.
-> The lockdown LSM exposes /sys/kernel/security/lockdown, but the file is
-> not documented and has no selftest.  While looking at the interface we
-> also found a configuration bug and several accumulated cleanups.
-> 
-> The series is organized as follows:
-> 
->   - patches 1-2 are small cleanups in lockdown_write(): stop scanning
->     after the matching level and drop an update to a length variable
->     that is not used afterwards.
->   - patch 3 replaces sprintf() with scnprintf() so that the status
->     buffer is bounded explicitly if more levels are added later.
->   - patch 4 makes the LSM select SECURITYFS.  Without it, a kernel
->     built with CONFIG_SECURITYFS=n logs "failed LSM lockdown core
->     initcall with errno -19" and does not create the file advertised
->     by the Kconfig help text.
->   - patch 5 removes LSM_AUDIT_DATA_LOCKDOWN and its formatting code,
->     which became dead when the SELinux lockdown implementation was
->     removed by commit f5d0e5e9d72d.
->   - patches 6-7 drop an unused include, simplify the securityfs
->     registration, and move lockdown_reasons[] next to its only user.
->   - patch 8 documents the ABI and adds the new file to the LOCKDOWN
->     SECURITY MODULE entry in MAINTAINERS.
->   - patch 9 adds a kselftest covering the read format, invalid levels,
->     and the rejection of the current or a lower level.
-> 
-> The only functional change is patch 4; the rest are cleanups,
-> documentation, or test coverage.  The selftest never escalates
-> lockdown on the machine where it runs.
-> 
-> Cai Xinchen (8):
->   lockdown: Add break in lockdown_write
->   lockdown: bound the status string with scnprintf
->   lockdown: select SECURITYFS
->   lsm: remove unused lockdown audit data
->   lockdown: drop an unused include and simplify secfs init
->   lockdown: move lockdown_reasons next to its only user
->   Documentation/ABI: document the lockdown securityfs file
->   selftests/lsm: add lockdown securityfs test
-> 
-> Kalevi Kolttonen (1):
->   lockdown: remove useless decrement operation
-> 
->  Documentation/ABI/testing/securityfs-lockdown |  41 ++++
->  MAINTAINERS                                   |   1 +
->  include/linux/lsm_audit.h                     |   2 -
->  include/linux/security.h                      |   2 -
->  security/lockdown/Kconfig                     |   1 +
->  security/lockdown/lockdown.c                  |  63 +++++--
->  security/lsm_audit.c                          |   4 -
->  security/security.c                           |  40 ----
->  tools/testing/selftests/lsm/Makefile          |   3 +-
->  tools/testing/selftests/lsm/common.c          |  35 +++-
->  tools/testing/selftests/lsm/common.h          |   2 +
->  tools/testing/selftests/lsm/lockdown_test.c   | 176 ++++++++++++++++++
->  12 files changed, 300 insertions(+), 70 deletions(-)
->  create mode 100644 Documentation/ABI/testing/securityfs-lockdown
->  create mode 100644 tools/testing/selftests/lsm/lockdown_test.c
+We see random hangs and oopses on T507 based boards when cpufreq
+switches frequency often. In the oopses and JTAG dumps we captured, CPU0
+was always in ccu_mux_notifier_cb() or ccu_pll_notifier_cb(). Other
+CPUs were usually stuck on dsb after tlbi, waiting for CPU0.
 
-Those looks good to me, I've added comments in patch 9.
-I'm not at work this week so I'll tests your series next monday. Sorry
-for the inconvenience.
+Running a random walk over all OPPs with some load on other cores, two
+boards hung 20+ times in about 3 days. With the PLL notifier registered
+first there were no hangs in the same time.
 
-Best regards,
+Fixes: 087b4083d3f9 ("clk: sunxi-ng: h616: Reparent CPU clock during frequency changes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ilya Titov <ilya.titov@wirenboard.com>
+---
+ drivers/clk/sunxi-ng/ccu-sun50i-h616.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-Nicolas
+diff --git a/drivers/clk/sunxi-ng/ccu-sun50i-h616.c b/drivers/clk/sunxi-ng/ccu-sun50i-h616.c
+index 955c614830fa..00b7811f3a84 100644
+--- a/drivers/clk/sunxi-ng/ccu-sun50i-h616.c
++++ b/drivers/clk/sunxi-ng/ccu-sun50i-h616.c
+@@ -1235,13 +1235,16 @@ static int sun50i_h616_ccu_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
++	/*
++	 * Re-lock the CPU PLL after any rate changes. Must be registered
++	 * before the mux notifier, so CPU goes back to a locked PLL.
++	 */
++	ccu_pll_notifier_register(&sun50i_h616_pll_cpu_nb);
++
+ 	/* Reparent CPU during CPU PLL rate changes */
+ 	ccu_mux_notifier_register(pll_cpux_clk.common.hw.clk,
+ 				  &sun50i_h616_cpu_nb);
+ 
+-	/* Re-lock the CPU PLL after any rate changes */
+-	ccu_pll_notifier_register(&sun50i_h616_pll_cpu_nb);
+-
+ 	/* Reparent GPU during GPU PLL rate changes */
+ 	ccu_mux_notifier_register(pll_gpu_clk.common.hw.clk,
+ 				  &sun50i_h616_gpu_nb);
+-- 
+2.54.0 (Apple Git-157)
+
