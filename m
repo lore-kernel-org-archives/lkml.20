@@ -1,75 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794248757;
-	b=nzJnuDid+k9Qgm6x3dd4JcBt4u3M22cCgrYIFt7YNmXcj+4rtJmqBjo10aYUQZqnU+AZ
-	 1Xp77gzkyHCboddWy1nmdMXciiSmTbQ35d9aOZGmoiEKDCWQO8XmmxLPdK+NnanvqrOgt
-	 OFPH3q2SnXa2Lj6iTWV7pQN4PA0pBQcLnB9yBrb0N/lXyfwR1zr3c8spPJ0APri2BNXcS
-	 RD8WU2xIXYwrrVCRHsmEe2yQc9RVDinuiB2owF9LhFPvtbJxV+dHRFt5wkOpuZQTWGP94
-	 W26JOuopewcBWeRmoilp30nzP6kJ8HJMFUco6WHrYhKl8i7jCVPbzJ7SMlWaI8NpJ4Q==
+	t=1794248795;
+	b=dOM0nZ09iAPJIDM4o45Ru3vv4/fS9XvwAdreppELj/jevxmmPEqrAWPLs6OeFP9ePdGi
+	 SyTqnMIJGD1arWjqkr6I3B6jRM3k8deHSjLVVBrgAprPFze/rv+6YfAL+SmwsiEunY1lP
+	 mp0kZiuQL2ue3duS8qafkWalc9D8fvWYXONXKSMvQR4dDSx11yNifg+U3/PArfI+xyMNg
+	 Cm78nLbiGwshrGCxl07wEVqWBBptUTs8TicVyrGP0LIswnLQCJHzHMscGCjRQP5YvTZjj
+	 H1Tta9qqKZrNj8yl4zwnK555SREr3S+9XQJpqxfNK2yAjhdprkYnQ10Uc7icNDhlEeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794248757;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248795;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:X-DetectorID-Processed:
 	 Content-Type;
-	bh=EOBLNFdEo9U1nkMeSubCwXPQCx/4OB0eWyI1PfnbzsM=;
-	b=Ky+lO2dGEZta7wIIG9YqQGjQjmmEhwLWW7UdodBDDjrbYMoKQUdi4o3HyOLl1YUufZwx
-	 JsLumqUOCEkwJCPzZgGo51dgbQfivC/GWb43mLT0YGggDPErjEtT93YmzWLBpNT84uI4P
-	 oMjVXhjpydYBkXG5Ip3dcaifd9HTekvxvvTh9RNoHlwk1VAyn+C6yP+TFPW4IzLAt2i8P
-	 TyfqZFlxXoDm6etEIrNrWHddy34T0O5p8mchYhcepQ6kAiJ5xgVsA0+EsDtVbI/xmipKi
-	 xcwet7sJFiYIw2WS1frIyzri1HgtiQY7lJY4R9yay+FpnQvORTBckPBmlP/KR2gFaFw==
+	bh=T56Z1eCWadKHf7E9bPDcddBvVL5N4FbrdTrJOAapOq4=;
+	b=uSwJG/5gfQjrG8HznIHKiA+hg0Lxu92s9/s2Yts9z5A35e3Led7uRWdJhs7R5j7uz53R
+	 BcufFNk4SiOqBCkOtt62Z9VWa/xakJYxn7wEU9pyMWT3z4wvcTQ4/htw6S4x2NsvRk4UA
+	 WLIjjssNNfHh09ka5fBsYa3aklE8zDza+hYEFKf6cnRT7L6ZjSzB86AL72DtEfUMMDm6F
+	 UJBkOXcpzJJmV72z0rg8KME5JnV0q8xC64L0n2ty0zNVVZNu2dMpZxfEGG9h3l1lKwKNV
+	 xAIAUf3M6XLoKmIsYvVqGyJ3CQz6VN7VO7RC1GJ5kO2I7AN3kbwWRX1DeWkvTCe5qKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cUOBeWlL;
-	arc=none smtp.remote-ip=209.85.218.69
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=LsUAWELY;
+	arc=none smtp.remote-ip=209.85.215.228
+Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C49660A2610
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:25:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C49660A2610
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B037D606AFC3
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:26:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B037D606AFC3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cUOBeWlL
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c29c391bd2fso105336566b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:25:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794248755; x=1794853555; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EOBLNFdEo9U1nkMeSubCwXPQCx/4OB0eWyI1PfnbzsM=;
-        b=cUOBeWlLdBb0y0rvsb1SOUE8twA+sxhdLr+IbIxtsvnpXCFGBy679e253wVV2sPNqC
-         LnrigVx3m6xrZSRnmBLJAl+U0FkGEnmfM8+US6mAjdXpU+dv8HS0tcMNjr6PAQf8W1kA
-         Eds0AN+80pH9IZJhm/DcnWtJ6Tb3RvTaX+SkUPHHvAvDfp+ehSvFJoySFo6CEcbxlhgU
-         9HNwYOv11cKuMCFtfwOIsN4R3w9rBzjyAHZL/EiwYifUAnXKncTmfJH5W3mErhUWVC8E
-         xTmzK1/3N8Kx1zqo46WOLa/SIBkzh8CdwJNjB3dHRpZkWqNLq1EM04+jUVDrDzYtdas2
-         RoMQ==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=LsUAWELY
+Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cc758830601so743205a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:26:34 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794248755; x=1794853555;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EOBLNFdEo9U1nkMeSubCwXPQCx/4OB0eWyI1PfnbzsM=;
-        b=TiC/9BVG8jAE2U+DlwRrl2B3Lapq6qbgm6LUmkA9AJ//eh6j5iERaVm9pMEdwYHzss
-         V6zji7s4QM9hHOv3MNy8WeRsEiYJtgCA1J4RmSPsQafMXBoVQ5uCJGEMnYGP4IN/vjQF
-         wGsUZYkDsm6Qw3Kff3pWkmlv3lFZKMKz3gPsYFpajPrWPSTeBJNlFmw2++gWghjWRwT3
-         PZM8ofty3PU2WDMp574Idju6QtVJRdDqNlpEGzO5tjaQ4QHB67du1mfdFPQZbWBAo5w1
-         nYCGlVHk7UEr0MWIqS/S008oN2UlktEfUfm3/MHNX36yo5mgGkJCm+oQKL+8LgeurvoB
-         ITog==
-X-Forwarded-Encrypted: i=1; AL+hErFz6DLJu1D+zMd4BNx7+5nb2T/mricqI5TFqgf9B5K/zS1SAcpZ0fGRlYoYlfsYsp/SW/kbnRv1BIexqSs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RDtuJm2EL8W2lJax037BMzOm1kNTx3IDzf+wLCvRr4BZlPZU7
-	CqooqIHgElBAde3P4f8e5PD0jtFpouNNbIzDa/X67Cts3sYjL7SXurfASbzMeNGAjE31wISlukK
-	EKbcUcQ==
-X-Received: from ejmc5.prod.google.com ([2002:a17:906:5285:b0:c29:6cda:93b5])
- (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:cd07:b0:c42:e6c8:e494
- with SMTP id a640c23a62f3a-c504955cc09mr14726566b.37.1794248753833; Mon, 09
- Nov 2026 10:25:53 -0800 (PST)
-Date: Mon,  9 Nov 2026 18:25:25 +0000
-In-Reply-To: <20261003212241.3432303-1-lrizzo@google.com>
+        d=1e100.net; s=20260707; t=1794248794; x=1794853594;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=T56Z1eCWadKHf7E9bPDcddBvVL5N4FbrdTrJOAapOq4=;
+        b=w83JiYSm+vly0C2jzPIlNClsSme2cIPTQDV6kQkSZN3T9mVVi7o4niiHDdXin+Vy0B
+         52s6i7WvsB7Vsp2whq3QNYc6zVpuuwN8uYJAjRi6zSuOnMtXCLflzVdgjZvJRxdFeeyW
+         uWf4hb1Y8fEEEbJv5fJ3VljjWEZL7Kj0cAglCsCn/EcNlZBcCkc0C6fxdSRDP4lue/su
+         ZgdNumdxtSZwKFQl350tf+GQ288XejzEn7Gd7rnQ7oDrUs1hWuchMrS3ex3D7ex+DVhE
+         WaZ1Vk7xPDVYB3Ny7Qk0MP1Kq88CMwBHes5RgWagWXqOFOLiJTLapsYk1p4xHJnIwXES
+         ju0Q==
+X-Forwarded-Encrypted: i=1; AL+hErEmwTd/aYR9GC1eN/r88TXf8CNQB0YCr3NEk4xhm3JOdlnhsBNXSNv2d7gnLRz1lls5tyCtjBIHWMloSkE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8hZ0tiaBJQF0mG0mg6KJKxBBkvHqIsfhTZMshytTikujg2KvEU
+	xxa7hKtg531XFXBbyLWFhojwbssFU66G0DijY041fhd5wsKDfsyAuxTcM93Ebcv44Ot6Z3xxnfe
+	3wkQF7Zzpa1tSU+EDq+SQ0MSPivzDYP9i+2SATSMFtQd/f0Sh9zl05ENu+4MJUsnAi1gMVqSf7R
+	JwBi9wn0wvUt7PpgDk0ZigZYImkRJdc2A1DFQzHQ6hBBsgmyihtkvejxkzT3YE9DTB12TAJ4Dcp
+	LmsYh/ZJIBQ9PBoB6Q=
+X-Gm-Gg: AYBFou3ER03GdaiAEGHe5ZP94akVkF/99kBtAO8f0Orcjm0G5wFVrzwP4zJZpyL7NTf
+	dfMfOxURIGUrKrv2w22525YuNMjwH+MawDP9Xl/7ESL1vNxgIV4VJeDFym0+0lfzxtafPyUd3KP
+	fZU/6OCtEMCo3bMnTXhgiTJXofbz2rL12V3TdNKj/yDHAo/V1yP2s9JbJtJ6vGbR3OvGmU4vxPC
+	n1h2MgZ2sNddbEd5yaxLfHfK7CKXSQyM/zMbKFRa84fMkjEf4AewhUGZd+eDMCSv5u8ZUujKN+i
+	QA2RyecWIQ4Ae1uGdQ++QWwGwQCgrM64/2F3VmnL+JnWjUHAa3Qs7oa8doNLh0vifcNu/WT1wnd
+	8+M73R5TIAk7POBjcOxDZetlyUb5Gknjh6oInFHhYDj73+xhC9Q/Xf15BiFQzCUpkVs6vwTwlz5
+	dlykQuYDHKWMID2V+EJZ7mLrwHvIYqgntMaNQ=
+X-Received: by 2002:a17:90a:e7cd:b0:3ac:450b:164c with SMTP id 98e67ed59e1d1-3b166cc770amr480444a91.47.1794248793935;
+        Mon, 09 Nov 2026 10:26:33 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b16700d812sm202129a91.4.2026.11.09.10.26.33
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 09 Nov 2026 10:26:33 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c25501f4aa2so133641066b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:26:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794248792; x=1794853592; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T56Z1eCWadKHf7E9bPDcddBvVL5N4FbrdTrJOAapOq4=;
+        b=LsUAWELYIN5/69WgPWYoiQ/A1DBqQ7of6WGxv6wuPwe5kzvPanpdMZNVybzBLU8d56
+         6OdD+NG2YMuViG8MtbeRBH+q2EyPQEBtZL/ycCfvLT2p+MSHyaZMbOSNPFcZg4Yri+mr
+         jJlE0lMdpSMsA0Xn3TLelm5W/C5JwuRubIsWM=
+X-Forwarded-Encrypted: i=1; AL+hErHKJFd4y8RY1mnxAI6dBbprljt0l0jH43EzmgOCgQtG17WcxyyVE51I15iBkPv3jEiD6oxS7yzB3+gq3tY=@vger.kernel.org
+X-Received: by 2002:a17:906:4fd3:b0:c2a:4847:231b with SMTP id a640c23a62f3a-c504971a8e6mr13366266b.24.1794248791993;
+        Mon, 09 Nov 2026 10:26:31 -0800 (PST)
+X-Received: by 2002:a17:906:4fd3:b0:c2a:4847:231b with SMTP id
+ a640c23a62f3a-c504971a8e6mr13364466b.24.1794248791591; Mon, 09 Nov 2026
+ 10:26:31 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,730 +97,154 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261003212241.3432303-1-lrizzo@google.com>
-X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
-Message-ID: <20261109182533.3594984-18-lrizzo@google.com>
-Subject: [RFC PATCH v2 17/25] net: Allocate small skb heads from PISA
-From: Luigi Rizzo <lrizzo@google.com>
-To: Luigi Rizzo <rizzo.unipi@gmail.com>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Matthew Wilcox <willy@infradead.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Willem de Bruijn <willemb@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Joshua Washington <joshwash@google.com>, 
-	Harshitha Ramamurthy <hramamurthy@google.com>, Alexander Lobakin <aleksander.lobakin@intel.com>, 
-	iommu@lists.linux.dev, netdev@vger.kernel.org, linux-mm@kvack.org, 
-	linux-block@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Luigi Rizzo <lrizzo@google.com>
+MIME-Version: 1.0
+References: <20261106191423.4194081-2-joe@dama.to> <179408152976.994134.11735257663578231009@kernel.org>
+ <avIGzUc6WaGgYBKG@devvm20253.cco0.facebook.com>
+In-Reply-To: <avIGzUc6WaGgYBKG@devvm20253.cco0.facebook.com>
+From: Michael Chan <michael.chan@broadcom.com>
+Date: Mon, 9 Nov 2026 10:26:17 -0800
+X-Gm-Features: AclHuK_S-1r3HvHQhTzNX5vnvw08UgphMWKN8-YDiqeLjNoKJmrz8XXzentSisE
+Message-ID: <CACKFLimsTFE_-1uL5LH9bcoCze=hofB+OukqS4jj5DzY_7eW9g@mail.gmail.com>
+Subject: Re: [PATCH net v5 1/4] bnxt_en: return the RING_FREE status to callers
+To: Joe Damato <joe@dama.to>, netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org, 
+	michael.chan@broadcom.com, pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	prashant@broadcom.com, edumazet@google.com, horms@kernel.org, 
+	linux-kernel@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="000000000000e6a987065fdc19fb"
+
+--000000000000e6a987065fdc19fb
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The linear part of most transmitted skbs is a small head from the
-skbuff_small_head cache. To avoid per-packet IOMMU map/unmap operations
-or bounce-buffer copies for headers, allow backing small TX skb heads
-with PISA memory.
+On Mon, Nov 9, 2026 at 9:45=E2=80=AFAM Joe Damato <joe@dama.to> wrote:
+>
+> On Sat, Nov 07, 2026 at 07:58:49PM +0000, netdev-bot+sashiko@kernel.org w=
+rote:
+> > By the end of the series, bnxt_hwrm_ring_free() counts stuck rings only
+> > for TX, RX and AGG failures. If a CP or NQ RING_FREE fails, would
+> > bnxt_stop_dma() be skipped, with __bnxt_close_nic() going on to free
+> > that ring's memory in bnxt_free_mem()?
+>
+> This also seems possible, but this is not what I observed in the field. O=
+n
+> three hosts, the NQ rings failed alongside the RX/TX ring free failures a=
+nd so
+> if this series were applied DMA would be stopped.
+>
+> I suppose it is possible that only the NQ or completion rings fail and th=
+is
+> series do not handle that case.
+>
 
-When per-device pisa_tx_skb_heads is enabled, create a parallel
-skbuff_small_head_pisa slab cache backed by zeroed, read-only PISA
-folios (SLAB_CACHE_PISA_RO). Eligible TX paths passing __GFP_PISA_RO
-allocate small heads from this cache and fall back to skbuff_small_head
-on failure.
+The NQ and CQ free operations differ slightly from the TX/RX rings.
+The TX/RX ring free operation requires a feedback loop from the CQ
+using interrupts, and it may fail after an IOMMU fault.  Your patches
+target this mode of ring free.  Perhaps you can elaborate on this in
+the commit message?  Thanks.
 
-Signed-off-by: Luigi Rizzo <lrizzo@google.com>
----
- drivers/base/core.c        |   4 +-
- drivers/iommu/pisa-alloc.c | 133 ++++++++++++++++++++++++++++++++-----
- drivers/iommu/pisa-kunit.c |   5 +-
- include/linux/device.h     |   6 ++
- include/linux/pisa.h       |   6 ++
- include/net/sock.h         |  74 ++++++++++++++++++---
- net/core/skbuff.c          |  39 ++++++++---
- net/core/sock.c            |  23 +++++--
- net/ipv4/ip_output.c       |   8 ++-
- net/ipv4/tcp.c             |   2 +-
- net/ipv4/tcp_output.c      |  12 ++--
- net/ipv6/ip6_output.c      |   8 ++-
- 12 files changed, 263 insertions(+), 57 deletions(-)
+--000000000000e6a987065fdc19fb
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-diff --git a/drivers/base/core.c b/drivers/base/core.c
-index ade0c94b02ae7..efc1f9b9d255d 100644
---- a/drivers/base/core.c
-+++ b/drivers/base/core.c
-@@ -2951,7 +2951,7 @@ static DEVICE_ATTR_RW(name)
- PISA_BOOL_ATTR(pisa_coherent);
- PISA_BOOL_ATTR(pisa_rx_bufs);
- PISA_SET_ATTR(pisa_tx_bufs, net_pisa_tx_bufs_set);
--PISA_BOOL_ATTR(pisa_tx_skb_heads);
-+PISA_SET_ATTR(pisa_tx_skb_heads, net_pisa_tx_skb_heads_set);
- 
- static struct attribute *dev_attr_pisa[] = {
- 	&dev_attr_pisa_coherent.attr,
-@@ -3113,6 +3113,8 @@ static void device_remove_attrs(struct device *dev)
- 		device_remove_group(dev, &dev_attr_pisa_group);
- 		if (dev->pisa_tx_bufs)
- 			net_pisa_tx_bufs_set(dev, false);
-+		if (dev->pisa_tx_skb_heads)
-+			net_pisa_tx_skb_heads_set(dev, false);
- 	}
- 
- 	if (dev->physical_location) {
-diff --git a/drivers/iommu/pisa-alloc.c b/drivers/iommu/pisa-alloc.c
-index 3b5c49d143a7e..7df2ecde32916 100644
---- a/drivers/iommu/pisa-alloc.c
-+++ b/drivers/iommu/pisa-alloc.c
-@@ -37,6 +37,7 @@
- #include <linux/slab.h>
- #include <linux/spinlock.h>
- #include <linux/workqueue.h>
-+#include <net/hotdata.h>
- #include <net/sock.h>
- 
- #include "dma-iommu.h"
-@@ -922,37 +923,133 @@ int net_pisa_tx_bufs_set(struct device *dev, bool val)
- }
- 
- /*
-- * The sysfs attribute pisa_tx_bufs lives on the physical DMA parent
-- * (dev->dev.parent), whereas a socket route (dst->dev) may point to an upper
-- * virtual net_device (bond, VLAN, ipvlan, etc.). Walking lower devices via
-- * netdev_walk_all_lower_dev_rcu() on every TX allocation would be too
-- * expensive, so dev->pisa_tx_stamp caches the walk result on the net_device
-- * and refreshes it at most once every 256 jiffies:
-- *   bit 0 (PISA_TX_STAMP_OK):         pisa_tx_bufs enabled on lower device(s)
-+ * dev->pisa_tx_skb_heads: when set on an egress device, small TX skb heads
-+ * (__GFP_PISA_RO) come from a copy of skbuff_small_head whose slab pages are
-+ * PISA blocks. The linear part of most transmitted skbs is then mapped
-+ * through the PISA window without per-driver bounce buffers. Several heads
-+ * share a slab page and each one ends with its skb_shared_info, so:
-+ * - the allocators are TX-only (DMA_TO_DEVICE): their PISA pages are mapped device
-+ *   read-only, and a DMA mapping that wants device writes gets a per-buffer
-+ *   IOMMU mapping, as for any kmalloc() buffer;
-+ * - slab pages are zeroed when taken from the allocator, so the device can read
-+ *   skb heads (live or freed) but never older contents of the page.
-+ * Heads are freed with kfree() whichever cache they came from, so the key
-+ * can be toggled at any time. The cache and allocators are created on the first
-+ * write and never destroyed.
-+ */
-+DEFINE_STATIC_KEY_FALSE(net_pisa_tx_skb_heads_key);
-+EXPORT_SYMBOL(net_pisa_tx_skb_heads_key);
-+
-+static struct kmem_cache *pisa_skb_small_head_cache __read_mostly;
-+
-+/* Lazily initialize skbuff_small_head_pisa on first enable. */
-+static int pisa_skb_head_init(void)
-+{
-+	unsigned int size = kmem_cache_size(net_hotdata.skb_small_head_cache);
-+	struct kmem_cache_args args = {
-+		/* As skbuff_small_head, see skb_init(). */
-+		.useroffset	= 0,
-+		.usersize	= SKB_WITH_OVERHEAD(size),
-+		.sheaf_capacity	= 32,
-+	};
-+	static DEFINE_MUTEX(mutex);
-+	struct kmem_cache *s;
-+	int ret = 0;
-+
-+	mutex_lock(&mutex);
-+	if (pisa_skb_small_head_cache)
-+		goto out;
-+
-+	/* No slab is allocated before the cache is published below. */
-+	s = kmem_cache_create("skbuff_small_head_pisa", size, &args,
-+			      SLAB_HWCACHE_ALIGN | SLAB_NO_MERGE | SLAB_CACHE_PISA_RO);
-+	if (!s) {
-+		ret = -ENOMEM;
-+		goto out;
-+	}
-+	WRITE_ONCE(pisa_skb_small_head_cache, s);
-+out:
-+	mutex_unlock(&mutex);
-+	return ret;
-+}
-+
-+int net_pisa_tx_skb_heads_set(struct device *dev, bool val)
-+{
-+	static DEFINE_MUTEX(lock);
-+
-+	if (val) {
-+		int ret = pisa_skb_head_init();
-+
-+		if (ret)
-+			return ret;
-+	}
-+
-+	mutex_lock(&lock);
-+	if (dev->pisa_tx_skb_heads != val) {
-+		WRITE_ONCE(dev->pisa_tx_skb_heads, val);
-+		if (val)
-+			static_branch_inc(&net_pisa_tx_skb_heads_key);
-+		else
-+			static_branch_dec(&net_pisa_tx_skb_heads_key);
-+	}
-+	mutex_unlock(&lock);
-+	return 0;
-+}
-+
-+void *pisa_skb_head_alloc_node(gfp_t flags, int node)
-+{
-+	if (!static_branch_unlikely(&net_pisa_tx_skb_heads_key))
-+		return NULL;
-+	return kmem_cache_alloc_node(pisa_skb_small_head_cache,
-+				     flags | __GFP_NOMEMALLOC | __GFP_NOWARN, node);
-+}
-+
-+/*
-+ * The sysfs attributes pisa_tx_bufs and pisa_tx_skb_heads live on the
-+ * physical DMA parent (dev->dev.parent), whereas a socket route (dst->dev)
-+ * may point to an upper virtual net_device (bond, VLAN, ipvlan, etc.).
-+ * Walking lower devices via netdev_walk_all_lower_dev_rcu() on every TX
-+ * allocation would be too expensive, so dev->pisa_tx_stamp caches the walk
-+ * result on the net_device and refreshes it at most once every 256 jiffies:
-+ *   bit 0 (PISA_TX_STAMP_BUFS):       pisa_tx_bufs enabled on lower device(s)
-+ *   bit 1 (PISA_TX_STAMP_HEADS):      pisa_tx_skb_heads enabled on lower device(s)
-  *   bits 31..8 (PISA_TX_STAMP_MASK):  upper 24 bits of (u32)jiffies
-  */
--static int netdev_pisa_tx_bufs_walk(struct net_device *dev, struct netdev_nested_priv *priv)
-+static u32 netdev_pisa_tx_flags(const struct net_device *dev)
- {
--	return dev->dev.parent && READ_ONCE(dev->dev.parent->pisa_tx_bufs);
-+	struct device *parent = dev->dev.parent;
-+	u32 flags = 0;
-+
-+	if (parent) {
-+		if (READ_ONCE(parent->pisa_tx_bufs))
-+			flags |= PISA_TX_STAMP_BUFS;
-+		if (READ_ONCE(parent->pisa_tx_skb_heads))
-+			flags |= PISA_TX_STAMP_HEADS;
-+	}
-+	return flags;
- }
- 
--/* Slow path of __netdev_tx_pisa_ok(): refresh dev->pisa_tx_stamp. */
--bool netdev_tx_pisa_refresh(struct net_device *dev, u32 now)
-+static int netdev_pisa_tx_walk(struct net_device *dev, struct netdev_nested_priv *priv)
- {
--	bool ok;
-+	priv->data = (void *)((uintptr_t)priv->data | netdev_pisa_tx_flags(dev));
-+	return 0;
-+}
- 
-+/* Slow path of __netdev_tx_pisa_ok(): refresh dev->pisa_tx_stamp. */
-+u32 netdev_tx_pisa_refresh(struct net_device *dev, u32 now)
-+{
- 	if (dev->dev.parent) {
--		ok = READ_ONCE(dev->dev.parent->pisa_tx_bufs);
-+		now |= netdev_pisa_tx_flags(dev);
- 	} else {
-+		struct netdev_nested_priv priv = {};
-+
- 		rcu_read_lock();
--		ok = netdev_walk_all_lower_dev_rcu(dev,
--						   netdev_pisa_tx_bufs_walk,
--						   NULL) != 0;
-+		netdev_walk_all_lower_dev_rcu(dev, netdev_pisa_tx_walk, &priv);
- 		rcu_read_unlock();
-+		now |= (uintptr_t)priv.data;
- 	}
--	now |= ok ? PISA_TX_STAMP_OK : 0;
- 	WRITE_ONCE(dev->pisa_tx_stamp, now);
--	return now & PISA_TX_STAMP_OK;
-+	return now;
- }
- EXPORT_SYMBOL(netdev_tx_pisa_refresh);
- #endif /* CONFIG_NET */
-diff --git a/drivers/iommu/pisa-kunit.c b/drivers/iommu/pisa-kunit.c
-index 9cc1328893ace..3fc17024bc9d0 100644
---- a/drivers/iommu/pisa-kunit.c
-+++ b/drivers/iommu/pisa-kunit.c
-@@ -489,9 +489,10 @@ static void test_dev_pisa_attrs(struct kunit *test)
- 	}
- 	kunit_check_pisa_attr(test, dev, "pisa_coherent", &dev->pisa_coherent);
- 	kunit_check_pisa_attr(test, dev, "pisa_rx_bufs", &dev->pisa_rx_bufs);
--	if (IS_ENABLED(CONFIG_NET))
-+	if (IS_ENABLED(CONFIG_NET)) {
- 		kunit_check_pisa_attr(test, dev, "pisa_tx_bufs", &dev->pisa_tx_bufs);
--	kunit_check_pisa_attr(test, dev, "pisa_tx_skb_heads", &dev->pisa_tx_skb_heads);
-+		kunit_check_pisa_attr(test, dev, "pisa_tx_skb_heads", &dev->pisa_tx_skb_heads);
-+	}
- 	device_unregister(dev);
- }
- 
-diff --git a/include/linux/device.h b/include/linux/device.h
-index 08f511b978ded..d588ae27c960c 100644
---- a/include/linux/device.h
-+++ b/include/linux/device.h
-@@ -816,11 +816,17 @@ struct device {
- 
- #if defined(CONFIG_NET) && defined(CONFIG_PISA)
- int net_pisa_tx_bufs_set(struct device *dev, bool val);
-+int net_pisa_tx_skb_heads_set(struct device *dev, bool val);
- #else
- static inline int net_pisa_tx_bufs_set(struct device *dev, bool val)
- {
- 	return -EOPNOTSUPP;
- }
-+
-+static inline int net_pisa_tx_skb_heads_set(struct device *dev, bool val)
-+{
-+	return -EOPNOTSUPP;
-+}
- #endif
- 
- #define __create_dev_flag_accessors(accessor_name, flag_name) \
-diff --git a/include/linux/pisa.h b/include/linux/pisa.h
-index b9c5197f2d88d..452b8fa20c8d7 100644
---- a/include/linux/pisa.h
-+++ b/include/linux/pisa.h
-@@ -113,6 +113,7 @@ unsigned long pisa_alloc_pages_bulk(gfp_t gfp, unsigned int order,
- struct folio *pisa_alloc_folio(gfp_t gfp, unsigned int order, int nid);
- bool pisa_has_free_blocks_rx(const struct device *dev, unsigned int order, int nid);
- bool pisa_page_can_recycle(const struct page *page);
-+void *pisa_skb_head_alloc_node(gfp_t flags, int node);
- 
- static inline gfp_t pisa_rx_gfp(const struct device *dev)
- {
-@@ -169,6 +170,11 @@ static inline bool pisa_free_coherent(struct page *page, size_t size)
- 	return false;
- }
- 
-+static inline void *pisa_skb_head_alloc_node(gfp_t flags, int node)
-+{
-+	return NULL;
-+}
-+
- static inline bool pisa_page_can_recycle(const struct page *page)
- {
- 	return true;
-diff --git a/include/net/sock.h b/include/net/sock.h
-index 73906351d11db..78f16b76dfc3b 100644
---- a/include/net/sock.h
-+++ b/include/net/sock.h
-@@ -1900,6 +1900,10 @@ int sk_getsockopt(struct sock *sk, int level, int optname,
- 		  sockptr_t optval, sockptr_t optlen);
- int sock_gettstamp(struct socket *sock, void __user *userstamp,
- 		   bool timeval, bool time32);
-+struct sk_buff *__sock_alloc_send_pskb(struct sock *sk, unsigned long header_len,
-+				       unsigned long data_len, int noblock,
-+				       int *errcode, int max_page_order,
-+				       gfp_t gfp);
- struct sk_buff *sock_alloc_send_pskb(struct sock *sk, unsigned long header_len,
- 				     unsigned long data_len, int noblock,
- 				     int *errcode, int max_page_order);
-@@ -2671,20 +2675,27 @@ static inline struct page_frag *sk_page_frag(struct sock *sk)
- }
- 
- /* 256-jiffy cache in dev->pisa_tx_stamp; see netdev_tx_pisa_refresh(). */
--#define PISA_TX_STAMP_OK	BIT(0)
-+#define PISA_TX_STAMP_BUFS	BIT(0)
-+#define PISA_TX_STAMP_HEADS	BIT(1)
- #define PISA_TX_STAMP_MASK	(~0xffU)
- 
- #ifdef CONFIG_PISA
- DECLARE_STATIC_KEY_FALSE(net_pisa_tx_bufs_key);
-+DECLARE_STATIC_KEY_FALSE(net_pisa_tx_skb_heads_key);
- 
- static inline bool net_pisa_tx_bufs_enabled(void)
- {
- 	return static_branch_unlikely(&net_pisa_tx_bufs_key);
- }
- 
--bool netdev_tx_pisa_refresh(struct net_device *dev, u32 now);
-+static inline bool net_pisa_tx_skb_heads_enabled(void)
-+{
-+	return static_branch_unlikely(&net_pisa_tx_skb_heads_key);
-+}
- 
--static inline bool __netdev_tx_pisa_ok(const struct net_device *dev)
-+u32 netdev_tx_pisa_refresh(struct net_device *dev, u32 now);
-+
-+static inline bool __netdev_tx_pisa_ok(const struct net_device *dev, u32 flag)
- {
- 	u32 stamp, now;
- 
-@@ -2692,9 +2703,9 @@ static inline bool __netdev_tx_pisa_ok(const struct net_device *dev)
- 		return false;
- 	stamp = READ_ONCE(dev->pisa_tx_stamp);
- 	now = (u32)jiffies & PISA_TX_STAMP_MASK;
--	if (likely((stamp & PISA_TX_STAMP_MASK) == now))
--		return stamp & PISA_TX_STAMP_OK;
--	return netdev_tx_pisa_refresh((struct net_device *)dev, now);
-+	if (unlikely((stamp & PISA_TX_STAMP_MASK) != now))
-+		stamp = netdev_tx_pisa_refresh((struct net_device *)dev, now);
-+	return stamp & flag;
- }
- #else
- static inline bool net_pisa_tx_bufs_enabled(void)
-@@ -2702,7 +2713,12 @@ static inline bool net_pisa_tx_bufs_enabled(void)
- 	return false;
- }
- 
--static inline bool __netdev_tx_pisa_ok(const struct net_device *dev)
-+static inline bool net_pisa_tx_skb_heads_enabled(void)
-+{
-+	return false;
-+}
-+
-+static inline bool __netdev_tx_pisa_ok(const struct net_device *dev, u32 flag)
- {
- 	return false;
- }
-@@ -2714,20 +2730,58 @@ static inline bool __netdev_tx_pisa_ok(const struct net_device *dev)
-  * active, so only data that leaves the host in clear qualifies: IPsec payload
-  * is still plaintext here.
-  */
--static inline bool dst_tx_pisa_ok(const struct dst_entry *dst)
-+static inline bool __dst_tx_pisa_ok(const struct dst_entry *dst, u32 flag)
- {
- 	bool ok = false;
- 
--	if (!net_pisa_tx_bufs_enabled() || !dst)
-+	if (!dst)
- 		return false;
- 
- 	rcu_read_lock();
- 	if (!dst_xfrm(dst))
--		ok = __netdev_tx_pisa_ok(dst_dev_rcu(dst));
-+		ok = __netdev_tx_pisa_ok(dst_dev_rcu(dst), flag);
- 	rcu_read_unlock();
- 	return ok;
- }
- 
-+static inline bool dst_tx_pisa_ok(const struct dst_entry *dst)
-+{
-+	return net_pisa_tx_bufs_enabled() &&
-+	       __dst_tx_pisa_ok(dst, PISA_TX_STAMP_BUFS);
-+}
-+
-+static inline gfp_t pisa_tx_gfp_dst(const struct dst_entry *dst)
-+{
-+	if (net_pisa_tx_skb_heads_enabled() &&
-+	    __dst_tx_pisa_ok(dst, PISA_TX_STAMP_HEADS))
-+		return __GFP_PISA_RO;
-+	return 0;
-+}
-+
-+static inline gfp_t pisa_tx_gfp_sk(const struct sock *sk)
-+{
-+	if (net_pisa_tx_skb_heads_enabled() && sk) {
-+		bool ok;
-+
-+		rcu_read_lock();
-+		ok = __dst_tx_pisa_ok(rcu_dereference(sk->sk_dst_cache),
-+				      PISA_TX_STAMP_HEADS);
-+		rcu_read_unlock();
-+		if (ok)
-+			return __GFP_PISA_RO;
-+	}
-+	return 0;
-+}
-+
-+static inline struct sk_buff *sock_alloc_send_skb_dst(struct sock *sk,
-+						      unsigned long size,
-+						      int noblock, int *errcode,
-+						      const struct dst_entry *dst)
-+{
-+	return __sock_alloc_send_pskb(sk, size, 0, noblock, errcode, 0,
-+				      pisa_tx_gfp_dst(dst));
-+}
-+
- /* Is @pfrag the task's frag reserved for PISA-eligible data? */
- static inline bool is_pisa_pfrag(const struct page_frag *pfrag)
- {
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 8da53d5b76fc2..04ae3bb4bd905 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -93,6 +93,7 @@
- #include <linux/user_namespace.h>
- #include <linux/indirect_call_wrapper.h>
- #include <linux/textsearch.h>
-+#include <linux/pisa.h>
- 
- #include "dev.h"
- #include "devmem.h"
-@@ -607,16 +608,23 @@ static void *kmalloc_pfmemalloc(size_t obj_size, gfp_t flags, int node)
- static void *kmalloc_reserve(unsigned int *size, gfp_t flags, int node,
- 			     struct sk_buff *skb)
- {
-+	bool pisa = flags & __GFP_PISA_RO;
- 	size_t obj_size;
- 	void *obj;
- 
-+	flags &= ~__GFP_PISA_RW;
- 	obj_size = SKB_HEAD_ALIGN(*size);
- 	if (obj_size <= SKB_SMALL_HEAD_CACHE_SIZE &&
- 	    !(flags & KMALLOC_NOT_NORMAL_BITS)) {
-+		*size = SKB_SMALL_HEAD_CACHE_SIZE;
-+		if (unlikely(pisa)) {
-+			obj = pisa_skb_head_alloc_node(flags, node);
-+			if (likely(obj))
-+				goto out;
-+		}
- 		obj = kmem_cache_alloc_node(net_hotdata.skb_small_head_cache,
- 				flags | __GFP_NOMEMALLOC | __GFP_NOWARN,
- 				node);
--		*size = SKB_SMALL_HEAD_CACHE_SIZE;
- 		if (likely(obj))
- 			goto out;
- 		/* Try again but now we are using pfmemalloc reserves */
-@@ -2144,6 +2152,15 @@ void skb_copy_header(struct sk_buff *new, const struct sk_buff *old)
- }
- EXPORT_SYMBOL(skb_copy_header);
- 
-+static inline gfp_t skb_head_pisa_gfp(const struct sk_buff *skb)
-+{
-+	if (net_pisa_tx_skb_heads_enabled() &&
-+	    !skb->head_frag &&
-+	    is_pisa_page(virt_to_page(skb->head)))
-+		return __GFP_PISA_RO;
-+	return 0;
-+}
-+
- static inline int skb_alloc_rx_flag(const struct sk_buff *skb)
- {
- 	if (skb_pfmemalloc(skb))
-@@ -2182,7 +2199,7 @@ struct sk_buff *skb_copy(const struct sk_buff *skb, gfp_t gfp_mask)
- 
- 	headerlen = skb_headroom(skb);
- 	size = skb_end_offset(skb) + skb->data_len;
--	n = __alloc_skb(size, gfp_mask,
-+	n = __alloc_skb(size, gfp_mask | skb_head_pisa_gfp(skb),
- 			skb_alloc_rx_flag(skb), NUMA_NO_NODE);
- 	if (!n)
- 		return NULL;
-@@ -2226,7 +2243,8 @@ struct sk_buff *__pskb_copy_fclone(struct sk_buff *skb, int headroom,
- {
- 	unsigned int size = skb_headlen(skb) + headroom;
- 	int flags = skb_alloc_rx_flag(skb) | (fclone ? SKB_ALLOC_FCLONE : 0);
--	struct sk_buff *n = __alloc_skb(size, gfp_mask, flags, NUMA_NO_NODE);
-+	struct sk_buff *n = __alloc_skb(size, gfp_mask | skb_head_pisa_gfp(skb),
-+					flags, NUMA_NO_NODE);
- 
- 	if (!n)
- 		goto out;
-@@ -2315,7 +2333,8 @@ int pskb_expand_head(struct sk_buff *skb, int nhead, int ntail,
- 	if (skb_pfmemalloc(skb))
- 		gfp_mask |= __GFP_MEMALLOC;
- 
--	data = kmalloc_reserve(&size, gfp_mask, NUMA_NO_NODE, NULL);
-+	data = kmalloc_reserve(&size, gfp_mask | skb_head_pisa_gfp(skb),
-+			       NUMA_NO_NODE, NULL);
- 	if (!data)
- 		goto nodata;
- 	size = SKB_WITH_OVERHEAD(size);
-@@ -2524,7 +2543,8 @@ struct sk_buff *skb_copy_expand(const struct sk_buff *skb,
- 
- 	oldheadroom = skb_headroom(skb);
- 	n = __alloc_skb(newheadroom + skb->len + newtailroom,
--			gfp_mask, skb_alloc_rx_flag(skb),
-+			gfp_mask | skb_head_pisa_gfp(skb),
-+			skb_alloc_rx_flag(skb),
- 			NUMA_NO_NODE);
- 	if (!n)
- 		return NULL;
-@@ -5025,7 +5045,8 @@ struct sk_buff *skb_segment(struct sk_buff *head_skb,
- 				hsize = len;
- 
- 			nskb = __alloc_skb(hsize + doffset + headroom,
--					   GFP_ATOMIC, skb_alloc_rx_flag(head_skb),
-+					   GFP_ATOMIC | skb_head_pisa_gfp(head_skb),
-+					   skb_alloc_rx_flag(head_skb),
- 					   NUMA_NO_NODE);
- 
- 			if (unlikely(!nskb))
-@@ -6974,7 +6995,8 @@ static int pskb_carve_inside_header(struct sk_buff *skb, const u32 off,
- 	if (skb_pfmemalloc(skb))
- 		gfp_mask |= __GFP_MEMALLOC;
- 
--	data = kmalloc_reserve(&size, gfp_mask, NUMA_NO_NODE, NULL);
-+	data = kmalloc_reserve(&size, gfp_mask | skb_head_pisa_gfp(skb),
-+			       NUMA_NO_NODE, NULL);
- 	if (!data)
- 		return -ENOMEM;
- 	size = SKB_WITH_OVERHEAD(size);
-@@ -7096,7 +7118,8 @@ static int pskb_carve_inside_nonlinear(struct sk_buff *skb, const u32 off,
- 	if (skb_pfmemalloc(skb))
- 		gfp_mask |= __GFP_MEMALLOC;
- 
--	data = kmalloc_reserve(&size, gfp_mask, NUMA_NO_NODE, NULL);
-+	data = kmalloc_reserve(&size, gfp_mask | skb_head_pisa_gfp(skb),
-+			       NUMA_NO_NODE, NULL);
- 	if (!data)
- 		return -ENOMEM;
- 	size = SKB_WITH_OVERHEAD(size);
-diff --git a/net/core/sock.c b/net/core/sock.c
-index 695fefe316925..0ddb5e57f4969 100644
---- a/net/core/sock.c
-+++ b/net/core/sock.c
-@@ -3061,9 +3061,10 @@ static long sock_wait_for_wmem(struct sock *sk, long timeo)
-  *	Generic send/receive buffer handlers
-  */
- 
--struct sk_buff *sock_alloc_send_pskb(struct sock *sk, unsigned long header_len,
--				     unsigned long data_len, int noblock,
--				     int *errcode, int max_page_order)
-+struct sk_buff *__sock_alloc_send_pskb(struct sock *sk, unsigned long header_len,
-+				       unsigned long data_len, int noblock,
-+				       int *errcode, int max_page_order,
-+				       gfp_t gfp)
- {
- 	struct sk_buff *skb;
- 	long timeo;
-@@ -3092,7 +3093,8 @@ struct sk_buff *sock_alloc_send_pskb(struct sock *sk, unsigned long header_len,
- 		timeo = sock_wait_for_wmem(sk, timeo);
- 	}
- 	skb = alloc_skb_with_frags(header_len, data_len, max_page_order,
--				   errcode, sk->sk_allocation);
-+				   errcode,
-+				   sk->sk_allocation | (!data_len ? gfp : 0));
- 	if (skb)
- 		skb_set_owner_w(skb, sk);
- 	return skb;
-@@ -3103,6 +3105,16 @@ struct sk_buff *sock_alloc_send_pskb(struct sock *sk, unsigned long header_len,
- 	*errcode = err;
- 	return NULL;
- }
-+EXPORT_SYMBOL(__sock_alloc_send_pskb);
-+
-+struct sk_buff *sock_alloc_send_pskb(struct sock *sk, unsigned long header_len,
-+				     unsigned long data_len, int noblock,
-+				     int *errcode, int max_page_order)
-+{
-+	return __sock_alloc_send_pskb(sk, header_len, data_len, noblock,
-+				      errcode, max_page_order,
-+				      pisa_tx_gfp_sk(sk));
-+}
- EXPORT_SYMBOL(sock_alloc_send_pskb);
- 
- int __sock_cmsg_send(struct sock *sk, struct cmsghdr *cmsg,
-@@ -3322,7 +3334,8 @@ bool skb_page_frag_refill_dev(unsigned int sz, struct page_frag *pfrag,
- 		const struct dst_entry *dst = skb_dst(skb);
- 
- 		rcu_read_lock();
--		if (__netdev_tx_pisa_ok(skb->dev ?: (dst ? dst_dev_rcu(dst) : NULL)))
-+		if (__netdev_tx_pisa_ok(skb->dev ?: (dst ? dst_dev_rcu(dst) : NULL),
-+					PISA_TX_STAMP_BUFS))
- 			gfp |= __GFP_PISA_RO;
- 		rcu_read_unlock();
- 	}
-diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
-index a5ea530bc8b5b..c49a33355ea45 100644
---- a/net/ipv4/ip_output.c
-+++ b/net/ipv4/ip_output.c
-@@ -1134,14 +1134,16 @@ static int __ip_append_data(struct sock *sk,
- 			alloclen += alloc_extra;
- 
- 			if (transhdrlen) {
--				skb = sock_alloc_send_skb(sk, alloclen,
--						(flags & MSG_DONTWAIT), &err);
-+				skb = sock_alloc_send_skb_dst(sk, alloclen,
-+							      flags & MSG_DONTWAIT,
-+							      &err, &rt->dst);
- 			} else {
- 				skb = NULL;
- 				if (refcount_read(&sk->sk_wmem_alloc) + wmem_alloc_delta <=
- 				    2 * sk->sk_sndbuf)
- 					skb = alloc_skb(alloclen,
--							sk->sk_allocation);
-+							sk->sk_allocation |
-+							pisa_tx_gfp_dst(&rt->dst));
- 				if (unlikely(!skb))
- 					err = -ENOBUFS;
- 			}
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index b8d44a0638914..038063717951c 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -931,7 +931,7 @@ struct sk_buff *tcp_stream_alloc_skb(struct sock *sk, gfp_t gfp,
- {
- 	struct sk_buff *skb;
- 
--	skb = alloc_skb_fclone(MAX_TCP_HEADER, gfp);
-+	skb = alloc_skb_fclone(MAX_TCP_HEADER, gfp | pisa_tx_gfp_sk(sk));
- 	if (likely(skb)) {
- 		bool mem_scheduled;
- 
-diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
-index cf3ddc055d48d..b7f04a9df199a 100644
---- a/net/ipv4/tcp_output.c
-+++ b/net/ipv4/tcp_output.c
-@@ -3892,8 +3892,8 @@ void tcp_send_fin(struct sock *sk)
- 		}
- 	} else {
- 		skb = alloc_skb_fclone(MAX_TCP_HEADER,
--				       sk_gfp_mask(sk, GFP_ATOMIC |
--						       __GFP_NOWARN));
-+				       sk_gfp_mask(sk, GFP_ATOMIC | __GFP_NOWARN) |
-+				       pisa_tx_gfp_sk(sk));
- 		if (unlikely(!skb))
- 			return;
- 
-@@ -3921,7 +3921,7 @@ void tcp_send_active_reset(struct sock *sk, enum sk_rst_reason reason)
- 	TCP_INC_STATS(sock_net(sk), TCP_MIB_OUTRSTS);
- 
- 	/* NOTE: No TCP options attached and we never retransmit this. */
--	skb = alloc_skb(MAX_TCP_HEADER, priority);
-+	skb = alloc_skb(MAX_TCP_HEADER, priority | pisa_tx_gfp_sk(sk));
- 	if (!skb) {
- 		NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPABORTFAILED);
- 		return;
-@@ -4011,7 +4011,7 @@ struct sk_buff *tcp_make_synack(const struct sock *sk, struct dst_entry *dst,
- 	int mss;
- 	u64 now;
- 
--	skb = alloc_skb(MAX_TCP_HEADER, GFP_ATOMIC);
-+	skb = alloc_skb(MAX_TCP_HEADER, GFP_ATOMIC | pisa_tx_gfp_dst(dst));
- 	if (unlikely(!skb)) {
- 		dst_release(dst);
- 		return NULL;
-@@ -4548,7 +4548,7 @@ void __tcp_send_ack(struct sock *sk, u32 rcv_nxt, u16 flags)
- 	 * sock.
- 	 */
- 	buff = alloc_skb(MAX_TCP_HEADER,
--			 sk_gfp_mask(sk, GFP_ATOMIC | __GFP_NOWARN));
-+			 sk_gfp_mask(sk, GFP_ATOMIC | __GFP_NOWARN) | pisa_tx_gfp_sk(sk));
- 	if (unlikely(!buff)) {
- 		struct inet_connection_sock *icsk = inet_csk(sk);
- 		unsigned long delay;
-@@ -4601,7 +4601,7 @@ static int tcp_xmit_probe_skb(struct sock *sk, int urgent, int mib)
- 
- 	/* We don't queue it, tcp_transmit_skb() sets ownership. */
- 	skb = alloc_skb(MAX_TCP_HEADER,
--			sk_gfp_mask(sk, GFP_ATOMIC | __GFP_NOWARN));
-+			sk_gfp_mask(sk, GFP_ATOMIC | __GFP_NOWARN) | pisa_tx_gfp_sk(sk));
- 	if (!skb)
- 		return -1;
- 
-diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-index 957c38a08680c..47a6fea3456fe 100644
---- a/net/ipv6/ip6_output.c
-+++ b/net/ipv6/ip6_output.c
-@@ -1695,14 +1695,16 @@ static int __ip6_append_data(struct sock *sk,
- 				goto error;
- 			}
- 			if (transhdrlen) {
--				skb = sock_alloc_send_skb(sk, alloclen,
--						(flags & MSG_DONTWAIT), &err);
-+				skb = sock_alloc_send_skb_dst(sk, alloclen,
-+							      flags & MSG_DONTWAIT,
-+							      &err, &rt->dst);
- 			} else {
- 				skb = NULL;
- 				if (refcount_read(&sk->sk_wmem_alloc) + wmem_alloc_delta <=
- 				    2 * sk->sk_sndbuf)
- 					skb = alloc_skb(alloclen,
--							sk->sk_allocation);
-+							sk->sk_allocation |
-+							pisa_tx_gfp_dst(&rt->dst));
- 				if (unlikely(!skb))
- 					err = -ENOBUFS;
- 			}
--- 
-2.56.0.542.g3ef89b7020-goog
-
+MIIVWQYJKoZIhvcNAQcCoIIVSjCCFUYCAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
+ghLGMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
+VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
+AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
+AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
+NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
+26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
+hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
+ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
+pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
+71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
+G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
+Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
+4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
+x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
+ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
+gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
+1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
+YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
+b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
+c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
+AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
+bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
+IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
+Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
+dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
+nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
+AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
+mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
+5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
+CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
+F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
+bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
+YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
+bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
+LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
+RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
+xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
+jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
+vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
+TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
+sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
+D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
+DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
+BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
+VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
+zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
+tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
+2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
+phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
+a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
+ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
+07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
+SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGjzCCBHeg
+AwIBAgIMZh03KTi4m/vsqWZxMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
+ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
+MDIzMB4XDTI1MDYyMDEzNDk1NloXDTI3MDYyMTEzNDk1NlowgdcxCzAJBgNVBAYTAlVTMRMwEQYD
+VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
+MDExNzENMAsGA1UEBBMEQ2hhbjEQMA4GA1UEKhMHTWljaGFlbDEWMBQGA1UEChMNQlJPQURDT00g
+SU5DLjEiMCAGA1UEAwwZbWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTEoMCYGCSqGSIb3DQEJARYZ
+bWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
+AKkz4mIH6ZNbrDUlrqM0H0NE6zHUgmbgNWPEYa5BWtS4f4fvWkb+cmAlD+3OIpq0NlrhapVR2ENf
+DPVtLUtep/P3evQuAtTQRaKedjamBcUpJ7qUhBuv/Z07LlLIlB/vfNSPWe1V+njTezc8m3VfvNEC
+qEpXasPSfDgfcuUhcPR+7++oUDaTt9iqGFOjwiURxx08pL6ogSuiT41O4Xu7msabnUE6RY0O0xR5
+5UGwbpC1QSmnBq7TAy8oQg/nNw4vowEh3S2lmjdHCOdR270Ygd7jet8WQKa5ia4ZK4QdkS8+5uLt
+rMMRyM3QurndiZZJBipjPvEWJR/+jod8867f3n0CAwEAAaOCAd0wggHZMA4GA1UdDwEB/wQEAwIF
+oDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3Nl
+Y3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEF
+BQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1Ud
+IAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIB
+FiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAy
+hjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwJAYDVR0R
+BB0wG4EZbWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNV
+HSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUJbO/Fi7RhZHYmATVQf6NlAH2
+qUcwDQYJKoZIhvcNAQELBQADggIBABcLQEF8mPE9o6GHJd52vmHFsKsf8vRmdMEouFxrW+GhXXzg
+2/AqqhXeeFZki82D6/5VAPkeVcgDeGZ43Bv89GHnjh/Vv0iCUGHgClZezpWdKCAXkn698xoh1+Wx
+K/c/SHMqGWfBSVm1ygKAWkmzJLF/rd4vUE0pjvZVBpNSVkjXgc80dTZcs7OvoFnt14UgvjuYe+Ia
+H/ux6819kbi0Tmmj5LwSZW8GXw3zcPmAyEYc0ZDCZk9QckL5yPzMlTAsy0Q+NMVpJ8onLj/mHgTk
+Ev8zt1OUE8MlXZj2+wgVY+az2T8rGmqRU2iOzRlJnc86qVwuwjL9AA9v4R13Yt8zYyA7jL0NiBNP
+WaOSajKBB5Z/4ZVtcvOMILD1+G+CVZX7GUWERT9NRXw/SyIEMU59lFbuvy4zxe3+RbOleCgp3pze
+q8HE2p9rkOJT3MkCNLxe+ij4RytIvPQXACsZeLdfTDUnjeXCDDJ9KugVhuqMelAZc4NissPz8FOn
+2NK++r5/QamlFqYRhsFxSBIvhkh2Q/hD3/zy4j17Yf/FUje5uyg03FblSBOk2WYpRpXEuCpyn5pb
+bYVIzfhQJgwGfO+L8BAeZIFjO1QL3s/zzn+RBlTl4wdDzh8L9eS+QEDhMcSsqb4fFRDbsoVuRjpx
+R5MunSUzk4GcmmM19m7oHhPGeKwIMYICVzCCAlMCAQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UE
+ChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0Eg
+MjAyMwIMZh03KTi4m/vsqWZxMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3DQEJBDEiBCBJbQJp
+RDtgWh7AMzQpx8NZ2Lnq/D5Cvv/VK+nVFvaBITAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwG
+CSqGSIb3DQEJBTEPFw0yNjExMDkxODI2MzJaMFwGCSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEq
+MAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCG
+SAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQBLeX+FEZUxtunCVJerPmQKDvbbWviVNFz1Uuv7PizF
+6vHc8sxVUvzd8uW+EU75bDxlIv6PZVS7yeF66DwVgDQyPcjz4eZJpa1/nQ7nbytEqMI4XwYvf1rh
+ZFRyVyNokTEaAlA1uc3dvnGMjp2O1DhPjdHKLjGT4SFjfcWLMjFugA0R8FwLCS+pZ7if0xz3XLRc
+nNEWeeVvmxAiZP47KQfRONmjrxYILQM07pGIofUUHQ0leJjZlPea5SBN9xi9Gj/a86wF25g8x5/d
+SpVpOu32CYwrEJoS2yBXkoRmDVTZTreioenB2Fh4NCRoPWXeuoEHexIexGP/Xc8kyg7E2PCD
+--000000000000e6a987065fdc19fb--
