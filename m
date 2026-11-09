@@ -1,47 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794212772;
-	b=GNv3x1D9kaeenyLj9c5M5P/i4RmNBXAiaSaJq6gfq2uYDUcGMnHLA2beXeT0wO7MjzXV
-	 7eY6ktzdZTBS9aSGT4ExsA02sc98rwJL2wzNU0DDAP67msm7Csozub8gy8aBG/e4qgzAN
-	 FmfcuEXt27t9l8FmZlh9OC1/3LR/xoVwMfsb5ejwAqOjPx1ezdfX9GmnSJVUa0xs9XbPM
-	 eI1M5SSp6Ej++rc53i22CwVmENRngAOLDDxr654Fzjg8kzAjL6mXv4xi7P3nHQmOLTACC
-	 vA+ikRSBEpKGRwVymcloFE9LF+uzLCUwkIRcbGDS+zAfnvmW4Ldr+IRlgFaFDqhmaUw==
+	t=1794212819;
+	b=UTl+Jscgha5EDlM+6Lvmdhi0SlvwlFvAY15T/BKlfgt4rv9DJnL0P9ikyDzqnXHmpIx0
+	 vXEzVj6LKMDd5tsA4C84PL01AcXses3ZEItFRAssjpXMI6YDFq/jgrFy8iKmC53d7UvBX
+	 0sBVbvRZUG64Y+1/yDyCLbkyLnxm2CvOHSSlO2jFjyYijdXTi697JJNQOZ2mWkyPJiyUt
+	 Gka/P6uS83mqfOBYOqG691f6LqFf7lA9CWiuCd8uDpz/TpcuRizRyLdfdk35N8kaY1dJC
+	 0lZ39m3sFB8N4ETQf+f7VhNG7mLHC9s5uWcSFC4E7q6LzuV8MQNDLiN4FJHC/3s1bPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212772;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=zWuQ3p27UIemdCXPGPIrkkPUH0IJBHZ4roQ2dSRcIvo=;
-	b=0M+WayD4pHw1nBwmicSO+0AmrQ2yYHLnggw6pU2+yJcn02hbiwExpuhxLK7lNcrGpVOZ
-	 72w2LScu2eraeBsU4Ztorzh+PrljMfyMrfIXmklzg3gwR8aE0Gh78h2FCxzvw+uB6weOx
-	 R0eIuu2x5pC/YmCAjzNt5bi7zjsk7hXQlgM93IEcrPD3uHEkcQ2gj/nZ6ccAzbbDTSACU
-	 wq0vWKpBsEDcRVJXYyomrJZ8IRSZGlfNzizvD2KuuFOR7DTMSQD7KhjtPVZXQRmdpZJRK
-	 NmS7qjbs4mdu02rwTAhRqP6+JbanXz00nujexnycEcywpbuIMjpOpvHxCnPGeI3OCFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212819;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=IWGbInK1jdqWzqaTB9EgR+W+5CoWAJO2TLJFxQVt21I=;
+	b=Iz16hvtaN8YmaORtf3zmrL3njD5tYRrXuKxbRt686i2K235Vj2p1zvnhhyi4YD1I1dvx
+	 IzryUuQbrFDPSYV17QA6onfn7mqLJp28SrQo3Cmkxe6//h4hNwZz2ks4XCLZnvz5ywKBB
+	 utGlTehc3gRHUU1g8jiJ+0zDqHiglcRR0wlYcE8UkWliVfmD1WKnde36MJIuxClcRm9T9
+	 Zcy0PNNGqa8IjT0fatkQ+0R1Uv+CEaL9t1Y7AG4XNgy1SOLLVo8/b1frfl7HTilT+ggk7
+	 xTOqHpzfUEFGrB8mCVwFV15X/53+kJrTD3ceRjFx2h0vv1/4/4HkxjbZfjK+qAQFhqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDJzs3gM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oWP+Rohp;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9351606A322;
-	Mon,  9 Nov 2026 08:26:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921AB606A334
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:26:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 921AB606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDJzs3gM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21B6F1F0089F;
-	Mon,  9 Nov 2026 08:25:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794212771;
-	bh=zWuQ3p27UIemdCXPGPIrkkPUH0IJBHZ4roQ2dSRcIvo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DDJzs3gMF7pz5Mlv0wt7rZUXIIuiPDhYBkLsRf+HANOIyMcGMt1c+pAjW5PHIyYKi
-	 nYCeMjGIa3MyTCqLn6eDYpsweHwQxjHZNL/M8lS2nGf8TCjOhjMQl9XRkDnzhZU0hM
-	 jWz+hHslZDUnc/E3j470EUFJ7majXC/rON+kq1NckUlowF1ZIzNTN9TQj4jTu4x8IY
-	 Gc0WhTLaPb80aUSREr1NcMxqLYxL2225xVi9FzQB4wCTwmqQHaXQCrNBuLaf6IVN/Q
-	 WUNSX0ejaKQUcZGSLsWUWjb18W4W7wKvWkSob988ZtEoNY1jJm7764VwIWIBDym5kE
-	 D+0TzXxZRVepQ==
-Message-ID: <78a88d4d-11af-40c1-b063-b6a4d4298ecd@kernel.org>
-Date: Mon, 9 Nov 2026 09:25:54 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oWP+Rohp
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4922523d1afso258383f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:26:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794212817; x=1794817617; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IWGbInK1jdqWzqaTB9EgR+W+5CoWAJO2TLJFxQVt21I=;
+        b=oWP+Rohp/ZJqGkQ+oORUcfZmPncX/8Tq39EQaGWxPWIS52HRy425y5lFRzPPC3Chpl
+         /R7Jba9ogvC+/fZs6IAAZLC3jvceX5rU0N7ivWgRMFm8SIrKMTFw+1zt0ASAEIaa5JAu
+         UiwHcK/EI2ZqUTaK8ufuyQaNuPAmmgTyJ62mcVKWNy4xbc1yJKoEzMxYi1VmdnGuwMKF
+         0lpR5fsyxrbB5W39WxkLI46qF1McQOggOviPNfVmhqipl5VHYpLizq1dXBzyHZIs8QOV
+         7ekEv63CMreUCjyBhkEpfNMx5f2L/Yxte8iqYzHEvOv2NaGv2E2dLtPqZ4wEAyPxeMF5
+         uCnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794212817; x=1794817617;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=IWGbInK1jdqWzqaTB9EgR+W+5CoWAJO2TLJFxQVt21I=;
+        b=IpuPV4RnGkPr9KyJLX3JLmaab2xlxMJO+8Uc4DXX8f5mqbHZEG/qiJOzSOCYserVQW
+         F0D4nzrWf3ANQiOTGv52QI0t79AupgsZxIRO6fF0ymmGfqKOrJX1gjOMdFJxzOYHmTcH
+         QN1aUomkyO/DMPHw8O52mlyqLRIKVB/YzSbC/smmzT4VNGkMpmBWmGZCp0cNlvxth6hi
+         VGwP38G+WILQBcCnZIjNNFPiKVQaZRkXH2NjP8X0QRH90nmhjI51zai/IJB1GIonSysX
+         jfhL0cADh97ZwBwbcXDE4wOBXracOWW7hPO8+yuMlJd87u40oKRoWuqJZU5VVyGopQ8Y
+         l4xw==
+X-Forwarded-Encrypted: i=1; AL+hErEXocrfGK3VJB1mMjM2J5onL3YuAsZCmZZ46e+3uRW9yq3P7eo5I0xu8kbwHQNC+h7O9pby9rXANjyF3ks=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+oPhyZzpo3wDJ/z4yOCnL3CvZZvpwZDFv+paKDhFDXB1rWTBX0
+	nYKqzE17ffQY+TlDkg4UzxzfB0DeEIcSfI5uJnCxqoaYSbf22xCTdSFV
+X-Gm-Gg: AYBFou1ljTf8k4uUoWlUeULuv078OKzq3C9qLBwcqNPR5szGBFlx49TfIY4FKohpU0d
+	7J1p44Jgel+55fy8AJbYu1o1/IhJOLkuZKjHxjj1E9u5hca2XmLmJJZzgAeJMeyg4UU72YHJzde
+	Q6w4IOKX+C89Tmjm0NJ9Q8Epm1zujpn1AGUNrrn7jV7K+u+W7hn1YHdN98upnSXJKNpVUq8lVUS
+	5AMWLz8k1iAERS6wwKSx4BdOZlVDpbWT/yI0y9HbTvKpXxXB7h5Ayrft3amvJ5HPaTq1oJs/Lz1
+	I6dlJKxS6WSOOK5IlIcE1mRF5S4gAyBJej3YN4cC3V1GM6ZqBCJEWtVF3lgJ+qFWrjisRctgg/Z
+	lWJ0GZwri7wkIQF+1sTbI8gjHtt7m4MMQpSquqxaDV0eJk6gIBZxBh1/TlLpyFXQz0y/pIZSBT1
+	t3AGzkio9AMj8JUBwkCtCH1nuAvji8wn6f+dOXezWY2DW/kzVW+9tQMD/HLskMFNFtNLnefsezI
+	V9ccpFNTSIDTilZkqF5yGW2Sy9A0OKthVzZ4ODDtAQ9ySI4PxgXWrIFX9iDNiOWzZchgJi9Vlf/
+	TBAWiS8iMyECqDeSiU4PV5CXrBUH3RSVbWOLxW7dww==
+X-Received: by 2002:a05:6000:4b0f:b0:492:dddc:64c3 with SMTP id ffacd0b85a97d-49583deb6d6mr5829208f8f.41.1794212816806;
+        Mon, 09 Nov 2026 00:26:56 -0800 (PST)
+Received: from [192.168.10.105] ([212.58.121.92])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-495b90701c7sm10520949f8f.10.2026.11.09.00.26.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 00:26:56 -0800 (PST)
+From: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Date: Mon, 09 Nov 2026 08:26:52 +0000
+Subject: [PATCH] watchdog: gunyah_wdt: Re-enable the watchdog on resume
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,100 +91,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/17] dt-bindings: arm: qcom-soc: Add Halliday
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Robert Marko <robimarko@gmail.com>,
- Guru Das Srinagesh <linux@gurudas.dev>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Lee Jones <lee@kernel.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Wesley Cheng <wesley.cheng@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Bart Van Assche <bvanassche@acm.org>,
- Bean Huo <beanhuo@micron.com>, Stanley Jhu <stanleyjhu@google.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Amit Kucheria <amitk@kernel.org>,
- Thara Gopinath <thara.gopinath@gmail.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Georgi Djakov <djakov@kernel.org>,
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
- linux-usb@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-scsi@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20261109-halliday-dts-v1-0-289114ab8197@gmail.com>
- <20261109-halliday-dts-v1-1-289114ab8197@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261109-halliday-dts-v1-1-289114ab8197@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-gunyah-wdt-resume-v1-1-fbd84545ce92@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAMuD8WoC/yXMyw6CMBBG4Vchs3YSWi8JvopxUYZfGBOr6VCEE
+ N7dqstvcc5KhqQwOlcrJUxq+owFbleRDCH2YO2Kydf+5FzdcJ/jEgZ+dyMnWH6A/bEN0ogc9gF
+ UulfCTeff83L923J7h4zfEW3bB7URElB1AAAA
+X-Change-ID: 20261109-gunyah-wdt-resume-25bac9cc43ae
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, 
+ Hrishabh Rajput <hrishabh.rajput@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Pavankumar Kondeti <pavan.kondeti@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Stanislav Aleksandrov <lightofmysoul@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794212814; l=3385;
+ i=lightofmysoul@gmail.com; s=20261108; h=from:subject:message-id;
+ bh=JhBHgp9sr8F6eF0LAjuuKHo+Dq8rxxMvSwyeg83jF/c=;
+ b=ql8wh3203NCheD2G7gbJkVZlyVz94Lq19rmDLGGQXmLsGxxXzrNYlSbxL6ypH2s0BQ2gF1EVT
+ IX7uthTFwsADMsIVAQSWkq77pwMbZ+82PV+GrQp+s6yAdIRlgcFvv2k
+X-Developer-Key: i=lightofmysoul@gmail.com; a=ed25519;
+ pk=jeRUlfmkhE53CJPoeIIXgu7rTE0ybDRH0HQrEwbydzg=
 
-On 09/11/2026 01:33, Stanislav Aleksandrov wrote:
-> Add Halliday to the SoC codenames allowed in Qualcomm compatibles.
-> 
-> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom-soc.yaml | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+gunyah_wdt_suspend() disables an active watchdog, and
+gunyah_wdt_resume() enables it again with gunyah_wdt_start(). start()
+first disables the watchdog, which fails with -EINVAL when it is
+already disabled. start() ignores that only while the watchdog is
+inactive, but on resume it is still active for the watchdog core, so
+start() returns before it enables the watchdog:
 
-This should be squashed with patch #15. Also, there is no benefit in
-organizing patches within patchset where patches to the SAME subsystem
-are split all over. #1 and #2 targets SoC, then there is a break and
-again we are at SoC at #15.
+  gunyah-wdt gunyah-wdt: gunyah_wdt_start: Failed to stop gunyah wdt -22
+
+So after every system suspend, the watchdog is left disabled.
+
+Move setting the timeout and enabling the watchdog into
+gunyah_wdt_enable(), and call it on resume, where the watchdog is
+already disabled.
+
+Tested on the Samsung Galaxy XR (Qualcomm Halliday) with s2idle and
+deep suspend.
+
+Fixes: ca316e145c35 ("watchdog: Add driver for Gunyah Watchdog")
+Cc: stable@vger.kernel.org
+Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+---
+gunyah_wdt binds on the Samsung Galaxy XR (Qualcomm Halliday) with this
+SCM patch:
+https://lore.kernel.org/r/20261109-qcom-scm-gunyah-uid-v1-1-2776343f9a3b@gmail.com
+
+This work was made together with Claude.
+Reviewed and tested on my Galaxy XR. Without this patch the watchdog
+doesn't bite after a suspend. With it, it bites again after both s2idle
+and deep suspend.
+---
+ drivers/watchdog/gunyah_wdt.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/watchdog/gunyah_wdt.c b/drivers/watchdog/gunyah_wdt.c
+index 557a78306d18..348c7ccddde0 100644
+--- a/drivers/watchdog/gunyah_wdt.c
++++ b/drivers/watchdog/gunyah_wdt.c
+@@ -62,19 +62,12 @@ static int gunyah_wdt_call(unsigned long func_id, unsigned long arg1,
+ 	return gunyah_error_remap(res.a0);
+ }
+ 
+-static int gunyah_wdt_start(struct watchdog_device *wdd)
++static int gunyah_wdt_enable(struct watchdog_device *wdd)
+ {
+-	unsigned int timeout_ms;
++	unsigned int timeout_ms = wdd->timeout * 1000;
+ 	struct device *dev = wdd->parent;
+ 	int ret;
+ 
+-	ret = gunyah_wdt_call(GUNYAH_WDT_CONTROL, WDT_CTRL_DISABLE, 0);
+-	if (ret && watchdog_active(wdd)) {
+-		dev_err(dev, "%s: Failed to stop gunyah wdt %d\n", __func__, ret);
+-		return ret;
+-	}
+-
+-	timeout_ms = wdd->timeout * 1000;
+ 	ret = gunyah_wdt_call(GUNYAH_WDT_SET_TIME, timeout_ms, timeout_ms);
+ 	if (ret) {
+ 		dev_err(dev, "%s: Failed to set timeout for gunyah wdt %d\n",
+@@ -89,6 +82,20 @@ static int gunyah_wdt_start(struct watchdog_device *wdd)
+ 	return ret;
+ }
+ 
++static int gunyah_wdt_start(struct watchdog_device *wdd)
++{
++	struct device *dev = wdd->parent;
++	int ret;
++
++	ret = gunyah_wdt_call(GUNYAH_WDT_CONTROL, WDT_CTRL_DISABLE, 0);
++	if (ret && watchdog_active(wdd)) {
++		dev_err(dev, "%s: Failed to stop gunyah wdt %d\n", __func__, ret);
++		return ret;
++	}
++
++	return gunyah_wdt_enable(wdd);
++}
++
+ static int gunyah_wdt_stop(struct watchdog_device *wdd)
+ {
+ 	return gunyah_wdt_call(GUNYAH_WDT_CONTROL, WDT_CTRL_DISABLE, 0);
+@@ -224,7 +231,7 @@ static int gunyah_wdt_resume(struct device *dev)
+ 	struct watchdog_device *wdd = dev_get_drvdata(dev);
+ 
+ 	if (watchdog_active(wdd))
+-		gunyah_wdt_start(wdd);
++		gunyah_wdt_enable(wdd);
+ 
+ 	return 0;
+ }
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261109-gunyah-wdt-resume-25bac9cc43ae
 
 Best regards,
-Krzysztof
+--  
+Stanislav Aleksandrov <lightofmysoul@gmail.com>
+
