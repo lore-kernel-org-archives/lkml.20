@@ -1,83 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794244685;
-	b=AHwH8GQ4/0eBcAEIQ8SsM2P9E0kkfqTpBzzIii4h3sqPecpLVh3sc6ogtvpALbK6TYhR
-	 zYJeAOvWk1rXDPediCh2yt9PqBKK90gc6dpQYW2l6dN8r1IssKOnxorhwPJq3HJSN5QP3
-	 2K3/E5t04v2J0iizaSy8qzu+RHxH7AABnIKZscqQfrvQjZO7QAL0+s86DA+8pWn8PSD4T
-	 uC7ex+h8PTv0svMbd4hu7juI9A9WKA/GNP2yZrFN77egIDxdGaiCnfx9PfT96Ahs4kfP9
-	 zWE7H5N+ndoWGlpyvoo+FMqlpfm9+jXkFotob7llkfCOJreEqy4RUpXOz1g1dazVN4Q==
+	t=1794244688;
+	b=3AsPLsFS3oVzzpRsIt9amUTW7OMRuRtF96uoW0sILDWo9koVHAwp3T2JBqNvaHl6j3Zt
+	 6Uzac/zXXYCpZOutwz87sY+WLgJj1KejsBSjW8i5KcvrdY7TmzN1h73xTAlVzxvwLQl89
+	 6GTLdV0AiZnwSrMEFlZwSyJw5oXfFUahprXN4h+JHwyNmEj4qTWxnQP9MBSE6Y3VlBIuC
+	 NSpAAAPSYjxFv/EI984/wzlTbRIFvyUFhkb6oe9L6ky7AcGudCmSn10fUeIaHdSirg4Hp
+	 rsIUxlYi0D4EghD4aswPkA0rCReRPqRulR/kO2MDfQMdcf6/1VXvjNVXyoaxSpx+xTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794244685;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794244688;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Z2Siy8NkZqN/VokropBjA9uuaJYQWKIpte5yuEqWPog=;
-	b=GHoJaMcRT9yO3wzZ9sybE9E7ybPCU2rSG77qi5gSWHc24mVcTnplDE9VlVW7p+HEMfOJ
-	 TSCeb0YizmfkbUq/ZMr9rhuVguziCADzW5AJdWDgvNhP+OEEWPM3BucpF226y/ZDXeS7Q
-	 d6m6/3p9cDR+NEu2NI7ElpO8VLNDwT+3BVU+KVXGwsqHrWKULZ1oyGBjhP8HYa+Hq40zA
-	 VmkKLXmB0vWKErAAWrq+oAZV/sQCeE8ZZorOH7N2jAp1GRwwCla338g6vhpLr3zkJF//U
-	 EKX7bHpJ2/yNn69m3vDxFQEy9c9GyZAvhP3bvbpd2MRyPPxHZ6V/qMrjL6MK22qVg5g==
+	bh=4TaVc8RNeAzFNs1Ph3vgOybQkr83PU7asLdiABCA4EI=;
+	b=V8mQbMUtzGovdhgWxfGMYPXHT6pO6xfvCLmS8d4ewVHkVVf46ZkqqbIMiYvThFma6Bbe
+	 Fy/ne/L9sYlPtyYAaUWWPCcI6ovQcmDHCkzOOvSuKhljlakfaVwUiKs1YZcy0R73Y8MQZ
+	 YN6yvpnzcdj5H96qzIbL/cuNeiRX4CXdxFfw5eZtc/W89k6fdERBqygMXRvYODH3hz4IM
+	 yLdSGfbgIbz0qoBQs5F42NQ1TmJXvLoEucqLB1dLPvZMtsEcCcERsKDzR2HCp+m9CRAnr
+	 7MfZYGZjAzw324FGwzVOpBuAmF0vZg23GvVaU2I4QqrusEs7pbKhtenxFn2SXbAnKyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=fatecpompeia.edu.br;
 	spf=none smtp.mailfrom=fatecpompeia.edu.br;
-	dkim=pass header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=rmMyyBcX;
-	arc=none smtp.remote-ip=209.85.217.52
-Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
+	arc=none smtp.remote-ip=209.85.222.45
+Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B466B606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:18:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B466B606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B45F606A32A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:17:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B45F606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fatecpompeia.edu.br
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fatecpompeia.edu.br
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=rmMyyBcX
-Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7cc81984fceso395082137.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:18:04 -0800 (PST)
+Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-99075306daaso543529241.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:17:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fatecpompeia-edu-br.20260707.gappssmtp.com; s=20260707; t=1794244683; x=1794849483; darn=vger.kernel.org;
+        d=fatecpompeia-edu-br.20260707.gappssmtp.com; s=20260707; t=1794244677; x=1794849477; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Z2Siy8NkZqN/VokropBjA9uuaJYQWKIpte5yuEqWPog=;
-        b=rmMyyBcXW7ALMVD9INlgkPTUsukaT2oxRQw89G8pOPAcS28S0l1nSTZQCl3y51nwjv
-         QJXvM07wCT4GlPuMOA1lKn1deIn3urGvfJDtYv+NJ56RqjfT4SMGK9ftM/ZdEFgLDLXr
-         RvQYmTjk/m0scfX3E5G4ju0zk9P5VO+lu8rL5oer54KfhFDj+1g9LeW1BcG0G/GAc16V
-         vP/cksufXyIYSLVVCNpCjTFv60ux8ReHBQNguejFmP+9XNl0tckQduyzkMvL5Mv8XRBU
-         Vnh93LPxH+c7FVBR/1BJWFzvUGuWcXD27J1CFZ4PQ2NCjNSM3IUahWPEtwbrfU/FTnRO
-         A7bg==
+        bh=4TaVc8RNeAzFNs1Ph3vgOybQkr83PU7asLdiABCA4EI=;
+        b=WjEApXFE1pTnIb+KmmPuTjctaOkqfyxAgG2LeCOpwF4Csad+fG/qqRpt/cdm+D9G0M
+         1pP6PJHRBFg+h1ltlJZycyYIwFiWqylUZAVSOsK16VKLgp6XHPleHVTM6rVuNCByXiVv
+         4GTwnAMk/drrkd/D3ZbjHpDr2NszDRBGF9uxwvxqmS8/RVEpAD3b6VSI1JpP8wbgsZO+
+         3Dm8KX3Ep3EjqFPEmwpzerftrK7VnpLb6691tL2/9qEXtnhFhct8uouFz96K2gI0P3BR
+         co2shXK4eXnDpAiBL0vkj7Hgr/VHsOhjzAi+c8bFoVsDz8wMffsgYGQkOszFmGbVcWip
+         KC4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794244683; x=1794849483;
+        d=1e100.net; s=20260707; t=1794244677; x=1794849477;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z2Siy8NkZqN/VokropBjA9uuaJYQWKIpte5yuEqWPog=;
-        b=X22OgMy1IDR1HnyAK0smRV6Eg+1B/MQ5hzgrq+MrIEd4z6dRKpNFPQwjfmg29qJa7l
-         FieXPo4E6WTePEAp1pN1yNW0vN0I5Baw+sz+KdnYwW8BWkkJuNX1saV9P+fezYdm6vGv
-         R0bg1pW+xSm8wV3AjQAn6zwn+Zkr+Yo4jEWVo9hSkFOfXDnka/ldHShFA2I8On6MC/Pc
-         HyMhjhO7H74rEXNmMY/W/w9RPwSyFVNtCl0M+GCnhufxBkrqSXrU1cqTySZxUwfGtHBg
-         4nNRMDHx+r9rCRDwKo4bbqD4BCzO+aPLq/uBnO5bHmYAWI9W/g5kj861FYR/IKVNNpp4
-         Icog==
-X-Forwarded-Encrypted: i=1; AL+hErFVNXRZS0z47pS0zx5BpVk5ESpCIbCE/8gWrdy12GyAEE44A9YqZnXJkQd/RBe5WvPl5Tf6e2+C+AzJrSM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BHqVhU7D2dwjgUedDSjQLSdE/0ZfoCDNnj+6dvZh97UIIsiff
-	GmV0EhYtktxpoOseSt/sWbrirUK5L5XVVvoO29+9ziF55R9mYsBX2xZLkHWTc8OL3v4=
-X-Gm-Gg: AYBFou236Rdr7a6oxErdP1xxWvd/ZppIErmFaB/TMM15hpWIzq6UqnK98YeFPSKI5XT
-	/lTWXqR4KAHVenXkg9ZgiVwS1ni6m2HwBuab0usdGEEn59jy+hYnI18jspy6DDVUVyt6MhJrdUW
-	UWMUKSZ/yRrYysw9th9Vp415VbXKLlDf/v+DVqIH4LZOkol4j1TFGeojz8XqnGJcvTLzvDqZ+oI
-	GQAcCvjYagSCnTkHg2RVdsiIqNBox6KRW3b9FhNPM6B0/LrPjef3ioE3EhqsvkIeu4iCZrZYkP/
-	YivgjCBOSgxMp5UZ8HnPnbj1Li9Iijs2rebvv+/ekXF1qu9jykhVFPm2Ja6CeqKoQ8T8VvJdcGx
-	lDLymXdnLhUQtJZYtSxQc/Ia904fQIge5VDwaIMJNB/mC8ejCn45g4WJG/AvB2wrC9dnd1c5ypa
-	lUW1/YvmM4EgA2Ndtt4YWBkoaEVVpcCeh487mjnCssiMHLb5KE91Uw0kwrvlXe28Au48CUl2hqD
-	mzKls/d5g/pIoCWliPPhKRoIfrb08x1uD35Piq9OxCjJ9IBJXubPbG/jQY0iG7sviAGFomSxohV
-	4uJ9CV4fYT7jVmYgEhgXDm6qLmnk9E1pp8zwqpBY+ai6+2vzfheADEfalLbn8r04HUU=
-X-Received: by 2002:a05:6102:6891:b0:7d0:3ed0:c61c with SMTP id ada2fe7eead31-7d2db0c3973mr1355903137.16.1794244683474;
-        Mon, 09 Nov 2026 09:18:03 -0800 (PST)
+        bh=4TaVc8RNeAzFNs1Ph3vgOybQkr83PU7asLdiABCA4EI=;
+        b=B3DM5WqK4VOt9uel+Bl2HQpsVimCvPUlR1NyCo4wvqsXf/Xd4p6EG10ZV+cXOX7/X4
+         YdeznowDPw/e31LLAEfVcJWx6rfjWC9/4vguiKKCj55EzCJK5pzfG1mn8y+uj+VF11CG
+         rEQhB2JAZMdumsqnbZYTRx1PYK+viRRHIwFof59lWWbPhloJKV85tRnZgr28w0ysHo1b
+         p/m1YEAYaRHC704XAvlFGO/gpZ8HDwPS4AZuDAPBhnBApxB/Ci0ZX1Ll9Xc0M/xBw8NS
+         GyJ2Lkw2HWFlKVfC8R9GycTvA4gt6SeRu4ew+Yda6KGLZsSXeptK3bfHARipIQRxWm9Y
+         cRrQ==
+X-Forwarded-Encrypted: i=1; AL+hErH3iUEMdMqGmcQoMs5VcK4C9d9KxF8eGPgKtkhHIvKUQoLD+jrVutcmoIghmLv10G7jy1T6ZxtvzqimYJU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8ps+MeWdXenkLYOofe5NUxGeMgChxkEuAZcB0FTcUodXhtG2pL
+	MyF1RrLnSxitmqJoS+ZrmNscZ91DS5m2KY1DjDmR32DC7uWwFTc9YCNEwzmXWMgqsOA=
+X-Gm-Gg: AYBFou0GsJ/eH+WSdMW1gxlm6HGs5vP9y65fKtzTcgs7YC9L+vPqtHNXjnDN2AawnB7
+	Q94V1OILE1zPwm+NEc1G41BabNaAB4yeqKhqoqpyMWIeNzkwG9LjEZKcpCLRMead9o8dFlmW1ZQ
+	W362qof5kM+Ky7k+MtSEUJ7mhdi1m+9zUPi3LpVSlGx2mKhmSyrUjhk0eYNBfdxBAm52lnqIEq/
+	tIhtookI29gv55nXDGclL3bezbPbmC+O1J58R4+7g8wr8gxHt8Ovw1NxdRqTcs6aK5KTIIURh2H
+	sxDszsxxuKFL3OypWvvS5HcMt/uQKhYyRI1UbwM1EtCGd0YntUjL1xMhfXb9gUOSfMSrs029T/G
+	qQnJIr2+13PlCL1eIsDvZkpKrZ5lFRyt+8SXTdSr54W6BGpIBVqrB3eGGswZbG1eiTqeh13bIi5
+	iO08i73YUnYqtwJXd4/g82U/pfQQdVGsdDL8OvL7wUsh2IG4HIOb4fSJ972rz6DSX19gtF4SEVL
+	Jt8nWsgMmRpkURYHnxy9M110tk9bT1NNOn0JCq3m2Vdx4ghxSQNaKPTFwm2Y4R5WIxG2iznK9kn
+	oYs351gXIJZDEkRgPOW98DNdj66oi2Qa7JbE9Gt1gr942u65U8oMkXA13b9eHNxLD8Px
+X-Received: by 2002:a05:6102:2922:b0:7d2:b348:6355 with SMTP id ada2fe7eead31-7d2db26a095mr1451337137.23.1794244676733;
+        Mon, 09 Nov 2026 09:17:56 -0800 (PST)
 Received: from localhost.localdomain ([2a09:bac5:dd4:1c96::2d9:5d])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d2db605322sm4323468137.7.2026.11.09.09.17.59
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99c200838f0sm156302241.9.2026.11.09.09.17.53
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 09:18:03 -0800 (PST)
+        Mon, 09 Nov 2026 09:17:56 -0800 (PST)
 From: Allan Siriani <allan@fatecpompeia.edu.br>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -90,12 +87,12 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] media: qcom: camss: always stop the pipeline in stop_streaming
-Date: Mon,  9 Nov 2026 14:17:57 -0300
-Message-Id: <20261109171757.76911-1-allan@fatecpompeia.edu.br>
+Subject: Re: [PATCH v2 2/4] media: qcom: camss: vfe-4-1: program the RDI write master buffer size
+Date: Mon,  9 Nov 2026 14:17:50 -0300
+Message-Id: <20261109171750.76883-1-allan@fatecpompeia.edu.br>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <919e9806-5e1b-49ee-a88a-7b6dd6d93c18@linaro.org>
-References: <20261109112611.94010-1-allan@fatecpompeia.edu.br> <20261109112611.94010-4-allan@fatecpompeia.edu.br> <919e9806-5e1b-49ee-a88a-7b6dd6d93c18@linaro.org>
+In-Reply-To: <7f8e0938-2b35-43df-afe7-18b0ad917698@linaro.org>
+References: <20261109112611.94010-1-allan@fatecpompeia.edu.br> <20261109112611.94010-3-allan@fatecpompeia.edu.br> <7f8e0938-2b35-43df-afe7-18b0ad917698@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,8 +104,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 09/11/2026 13:02, Bryan O'Donoghue wrote:
-> this comment is completely redundant
-> Please drop.
+On 09/11/2026 12:57, Bryan O'Donoghue wrote:
+> Requires a Fixes: tag
 
-Dropped in v3.
+Fixes: 4c98a5f57f90 ("media: camss: Add VFE files")
+
+> This feels like a slop-comment which is no bueno
+
+Agreed, it adds nothing. Dropped in v3, together with the comment above
+the function.
+
+> (pix->height - 1) << 4
+>
+> Silently truncating here is incorrect.
+
+Done, v3 writes (pix->height - 1) << 4 as vfe_wm_line_based() does.
