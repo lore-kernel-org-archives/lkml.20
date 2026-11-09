@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231557;
-	b=dETTKMw50n0Z//fgBMRWGmaP6IGyaHNsPznI0/TGPda7O8QW81zt8WLTWCg1QzSEwejt
-	 n7g4YkFAggpFZCfdiPd116lEMdl83iFF6xj8Z8R22+ZGItGPjrYh/IP6HbjhqjdcktauO
-	 5dCisxsqU93ggqeWhKY4n5dZ45DQLEB2bxQF/agSHC5xVEv2wvl15JKyDRjcAzt/Een7f
-	 8oBGCc+b03SfUvvMj75kM5vVeePqCRU3ELP4ZIShTGuhbzKiEKTD6xBLN1mPMQI3BflVT
-	 LXKiSbgLacW1aFA7ItMSxp6IKiteLfC87JpyudRGSL26/tn08EuGiW6BCfeaa5YmUsQ==
+	t=1794231564;
+	b=IACN9Tu3ZKvr2lsMzPqJLs4HpqQOoP5zphTNWZuLyqnE+0fQle4lZnVC7ERmxF5ykDtU
+	 iF6e7PUz6Vu9zgx3jPvmt9Wz+P0UjWsTRVmalR58UI/42QbdELqcvRhDI1YhvF3iW/BRw
+	 b+5oLA3t6YDjD53iuGed+VSAkzImlGyfOmEJ+4ITOCfgImOylyIuBU0FJP3xn2NF91a44
+	 EBVdxt5c3dVeaL664QC4mlWQ/YSnxv/ISV5B31SqCzQPpliSrZv1QfnYu/4pS+Zyx90uK
+	 DfSyihCWnLPEsszrRXY7x89OoockQrXNBVYTLD7NNsOXAiZ0/TSpjgByagdrIXOJcdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231557;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231564;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HEBV1anMn1x6YBVCqg8AbZeiCX3KVIogYwj3J+og3T8=;
-	b=vw0YMB4uTloaUt+mc4VD6mXWhR10AG7Gvd7+tebsk2HDgnLlQMqD58dm8KG01edZ1zwp
-	 S2XGnEhfEaXsNfFaPgqv2e9jE3qnW5mkRKF5a4dDwrhiBkMJ3cxW2Ftld6WCpKg7b8ann
-	 uq+XjxW5dNyLi4m0Gdmb96DzLpudfmkBVdHQ6bvCOIeO6pkO8iWLUPWv17Z3yLdOca89X
-	 bAFaMyAVabT9boAt9jhtmoauAQFISISDvg9WEfiNg3kCuGXVHHGPNCcihOCbBmwZ/SXwn
-	 leTe+CRGAP3gWoGHdVHQBb97Bw7/CCPYom4HpCDutCQVB5wDzQnI9FNQe5WfxPRGr3A==
+	bh=9EeOB9u+/9zwiIE4qzGkedjBVs8MINTSV7waj5u02a8=;
+	b=Yq7sSmf77rBSBeNK9INfa6gSuy/Ghdj9Fev6j5wkVgQKxLELe02OmdhNOxQt8XGI9pAO
+	 wUL0abR0j6eKPymjWnshlm4T64IXnY9Dp/cT5P4WeIFMqz3+KhBOwyTR8gIDMz25LEONw
+	 2jIcvwGlph6AY0RNHz4FqmyvIXXTJF1vw56AZTnUpyMELvjd9OjFgbPTaDwBHpkmYJ+k+
+	 cmerX146mFA7n2I2a2NSM+PaV8nPfUAyPy1TjPVy9GzJbr8Nq6Ido/FyzgJ3fSBzSRMZM
+	 ZM9FtfI9JatVettpFSMjiIjOlPcqeUqqFyNPTs/EwH3i9F0qLqYZYwA3D/KfXViLUpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=flw0ucz4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DM14gBG5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EAB4606A321;
-	Mon,  9 Nov 2026 13:39:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6E1606A338;
+	Mon,  9 Nov 2026 13:39:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=flw0ucz4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C47F91F008A1;
-	Mon,  9 Nov 2026 13:39:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DM14gBG5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA6F1F0089F;
+	Mon,  9 Nov 2026 13:39:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794231557;
-	bh=HEBV1anMn1x6YBVCqg8AbZeiCX3KVIogYwj3J+og3T8=;
+	s=k20260515; t=1794231563;
+	bh=9EeOB9u+/9zwiIE4qzGkedjBVs8MINTSV7waj5u02a8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=flw0ucz4p0RW3uKykRjf+sL8Z4V/nB3JZi6e/JMlwKL4R8QXH7N9K7Hivi6X7upMX
-	 XCPdY4Ub5e0MISOFWOcGMpHOFrINDq97IHF49VBcjFwlUUqk7LUUGFYDiT/NoyJOkc
-	 Ok/KDvbLhCU0CFWVszVpgR9Hy5X42cyNncBRRCye0msJLM/pJL2i9Eg8tmbpm5ddU0
-	 JlC2VG4y9Cis0UoQmSacv67DYsBvLMpO1t3vVfb3ReAd6YuKrOMHa1LqDFYAkZBMlU
-	 LsfZXXS7XtyOVUPocdwGuxVv6b0wVcVy+rU9P+BfLbRTzzlOgn0QqUpU5C1TN6gi+s
-	 0No7XscfgKm2A==
+	b=DM14gBG5jHclDjY0Pkk4xcff2oUoW6RZHDO7esJ5sBtC7qzKEWaYZc8uci1xgYev3
+	 hKVHbinkFf++S9nUWcZoBArAsMp10Xzh8W6vhNvTMVcC33M8aP8j5VTyDhIZuvYqRo
+	 gCATQsDjSZdHrUIBFwCyD5SU4tJidgojqcmv10EACY+E/W8aKCiBPr456u23Shb9kj
+	 rUqSicm568UvVuQ88/pchRKCr3Nb//3eJGCwgfMDau3/xz3iymFDw7jvSXIvXXo8AZ
+	 KW2eXAhfnoWgTDcky61It+3067wjpYiG5bFnoZGdBUksT481mgoSbr6FpAUBoFxwNF
+	 1uU9HfqiDXWSA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	Aaron Skomra <aaron.skomra@wacom.com>,
 	Ping Cheng <ping.cheng@wacom.com>,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org,
 	Jiri Kosina <jkosina@suse.com>
-Subject: [STABLE v5.10 1/5] HID: wacom: Advertise SW_MUTE_DEVICE capability prior to registration
-Date: Mon,  9 Nov 2026 13:39:02 +0000
-Message-ID: <20261109133911.3026622-2-lee@kernel.org>
+Subject: [STABLE v5.10 3/5] HID: wacom: Fix Use-After-Free in wacom_bamboo_pad
+Date: Mon,  9 Nov 2026 13:39:04 +0000
+Message-ID: <20261109133911.3026622-4-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
 In-Reply-To: <20261109133911.3026622-1-lee@kernel.org>
 References: <20261109133911.3026622-1-lee@kernel.org>
@@ -66,185 +65,176 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[ Upstream commit ba16e5ffbaa10fde960918d69af5e49f2b3fdd5e ]
+[ Upstream commit 3a523ecf9ac3fdd33f5eb31c43937ee44135395b ]
 
-Input subsystem guidelines require that device capabilities are advertised
-before the input device is registered.  The Wacom driver was violating
-this by advertising the SW_MUTE_DEVICE capability post-registration in
-wacom_set_shared_values() (and duplicating it in device-specific setup
-cases).
+wacom_bamboo_pad_pen_event() accesses wacom->shared->pen locklessly
+relative to wacom_remove_shared_data() which nullifies it.  This
+can lead to a Use-After-Free if the sibling device is removed while
+events are being processed.
 
-Resolve this by moving the SW_MUTE_DEVICE capability setup to
-wacom_setup_touch_input_capabilities() for all touch devices that support
-it.
+Resolve this by introducing RCU protection for pen and touch
+pointers:
 
-For generic touch devices whose capabilities depend on mute switch
-usages parsed from a sibling Pen/Pad interface, defer registration
-with -EPROBE_DEFER until the sibling has parsed its descriptors and
-initialized shared capabilities.
+ - Annotate 'pen' and 'touch' in wacom_shared struct with __rcu.
+ - Wrap lockless readers in wacom_bamboo_pad_pen_event() with
+   rcu_read_lock() and rcu_dereference().
+ - Update writers in wacom_sys.c using rcu_assign_pointer().
+ - Use rcu_dereference_protected for comparisons under
+   wacom_udev_list_lock.
+ - Also use rcu_access_pointer in wacom_sibling_pending() and
+   wacom_mode_change_work() to avoid warnings (while lockless access in
+   the latter remains a pre-existing issue).
 
 Cc: stable@vger.kernel.org
-Fixes: d2ec58aee8b1 ("HID: wacom: generic: support generic touch switch")
+Fixes: 8c97a765467c ("HID: wacom: add full support of the Wacom Bamboo PAD")
 Signed-off-by: Lee Jones <lee@kernel.org>
 Acked-by: Ping Cheng <ping.cheng@wacom.com>
 Tested-by: Ping Cheng <ping.cheng@wacom.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[Lee: Retain devm_add_action() error handling and adapt context around
-      is_soft_touch_switch and wacom_initialize_battery()]
+[Lee: Use explicit lock/unlock calls and top-of-block declarations in
+      wacom_remove_shared_data() and wacom_bamboo_pad_pen_event() for
+      -std=gnu89 compatibility, and adapt to res_wacom]
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/hid/wacom_sys.c | 86 ++++++++++++++++++++++++++++++++++-------
- drivers/hid/wacom_wac.c |  5 +++
- 2 files changed, 77 insertions(+), 14 deletions(-)
+ drivers/hid/wacom_sys.c | 40 ++++++++++++++++++++++++++--------------
+ drivers/hid/wacom_wac.c | 14 +++++++-------
+ drivers/hid/wacom_wac.h |  4 ++--
+ 3 files changed, 35 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
-index f418efa868ee..e5d12683f578 100644
+index 94e12c56e040..465d075d16f9 100644
 --- a/drivers/hid/wacom_sys.c
 +++ b/drivers/hid/wacom_sys.c
-@@ -924,6 +924,9 @@ static int wacom_add_shared_data(struct hid_device *hdev)
+@@ -882,15 +882,22 @@ static void wacom_remove_shared_data(void *res)
+ 	struct wacom_wac *wacom_wac = &res_wacom->wacom_wac;
  
- 	wacom_wac->shared = &data->shared;
- 
-+	if (wacom_wac->has_mute_touch_switch)
-+		WRITE_ONCE(wacom_wac->shared->has_mute_touch_switch, true);
+ 	if (wacom_wac->shared) {
++		struct hid_device *touch, *pen;
 +
- 	retval = devm_add_action(&hdev->dev, wacom_remove_shared_data, wacom);
- 	if (retval) {
+ 		data = container_of(wacom_wac->shared, struct wacom_hdev_data,
+ 				    shared);
+ 
+ 		mutex_lock(&wacom_udev_list_lock);
+-		if (wacom_wac->shared->touch == res_wacom->hdev) {
+-			wacom_wac->shared->touch = NULL;
++		touch = rcu_dereference_protected(wacom_wac->shared->touch,
++						  lockdep_is_held(&wacom_udev_list_lock));
++		pen = rcu_dereference_protected(wacom_wac->shared->pen,
++						lockdep_is_held(&wacom_udev_list_lock));
++
++		if (touch == res_wacom->hdev) {
++			rcu_assign_pointer(wacom_wac->shared->touch, NULL);
+ 			rcu_assign_pointer(wacom_wac->shared->touch_input, NULL);
+-		} else if (wacom_wac->shared->pen == res_wacom->hdev) {
+-			wacom_wac->shared->pen = NULL;
++		} else if (pen == res_wacom->hdev) {
++			rcu_assign_pointer(wacom_wac->shared->pen, NULL);
+ 		}
  		mutex_unlock(&wacom_udev_list_lock);
-@@ -931,11 +934,6 @@ static int wacom_add_shared_data(struct hid_device *hdev)
- 		return retval;
+ 
+@@ -2350,14 +2357,17 @@ static void wacom_set_shared_values(struct wacom_wac *wacom_wac)
  	}
  
--	if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH)
--		wacom_wac->shared->touch = hdev;
--	else if (wacom_wac->features.device_type & WACOM_DEVICETYPE_PEN)
--		wacom_wac->shared->pen = hdev;
--
- out:
- 	mutex_unlock(&wacom_udev_list_lock);
- 	return retval;
-@@ -2336,22 +2334,76 @@ static void wacom_release_resources(struct wacom *wacom)
- 
- static void wacom_set_shared_values(struct wacom_wac *wacom_wac)
- {
-+	struct wacom *wacom = container_of(wacom_wac, struct wacom, wacom_wac);
-+
-+	guard(mutex)(&wacom_udev_list_lock);
-+
-+	if (wacom_wac->has_mute_touch_switch) {
-+		WRITE_ONCE(wacom_wac->shared->has_mute_touch_switch, true);
-+		wacom_wac->shared->is_touch_on = true;
-+	}
-+
  	if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH) {
- 		wacom_wac->shared->type = wacom_wac->features.type;
- 		wacom_wac->shared->touch_input = wacom_wac->touch_input;
-+		wacom_wac->shared->touch = wacom->hdev;
-+	} else if (wacom_wac->features.device_type & WACOM_DEVICETYPE_PEN) {
-+		/* Pairs with smp_load_acquire() in wacom_sibling_pending() */
-+		smp_store_release(&wacom_wac->shared->pen, wacom->hdev);
+-		if (wacom_wac->shared->touch == wacom->hdev || !wacom_wac->shared->touch) {
++		struct hid_device *touch =
++			rcu_dereference_protected(wacom_wac->shared->touch,
++						  lockdep_is_held(&wacom_udev_list_lock));
++
++		if (touch == wacom->hdev || !touch) {
+ 			wacom_wac->shared->type = wacom_wac->features.type;
+-			wacom_wac->shared->touch = wacom->hdev;
++			rcu_assign_pointer(wacom_wac->shared->touch, wacom->hdev);
+ 			rcu_assign_pointer(wacom_wac->shared->touch_input, wacom_wac->touch_input);
+ 		}
+ 	} else if (wacom_wac->features.device_type & WACOM_DEVICETYPE_PEN) {
+-		/* Pairs with smp_load_acquire() in wacom_sibling_pending() */
+-		smp_store_release(&wacom_wac->shared->pen, wacom->hdev);
++		rcu_assign_pointer(wacom_wac->shared->pen, wacom->hdev);
  	}
-+}
- 
--	if (wacom_wac->has_mute_touch_switch) {
--		wacom_wac->shared->has_mute_touch_switch = true;
--		wacom_wac->shared->is_touch_on = true;
--	}
-+static bool wacom_sibling_pending(struct wacom *wacom)
-+{
-+	const struct wacom_features *features = &wacom->wacom_wac.features;
-+	struct hid_device *hdev = wacom->hdev;
-+	struct usb_interface *sibling_intf;
-+	int ifnum;
-+
-+	if (features->type != HID_GENERIC ||
-+	    !(features->device_type & WACOM_DEVICETYPE_TOUCH))
-+		return false;
- 
--	if (wacom_wac->shared->has_mute_touch_switch &&
--	    wacom_wac->shared->touch_input) {
--		set_bit(EV_SW, wacom_wac->shared->touch_input->evbit);
--		input_set_capability(wacom_wac->shared->touch_input, EV_SW,
--				     SW_MUTE_DEVICE);
-+	if (wacom->wacom_wac.shared) {
-+		/* Pairs with smp_store_release() in wacom_set_shared_values() */
-+		if (smp_load_acquire(&wacom->wacom_wac.shared->pen))
-+			return false;
- 	}
-+
-+	if (!hid_is_usb(hdev) || !wacom->usbdev || !wacom->intf ||
-+	    !wacom->intf->cur_altsetting)
-+		return false;
-+
-+	ifnum = wacom->intf->cur_altsetting->desc.bInterfaceNumber;
-+
-+	/*
-+	 * On composite Wacom devices, the Pen interface is always interface 0.
-+	 * If the Touch interface is interface 0, there is no sibling Pen
-+	 * interface on this device (standalone touch device).
-+	 */
-+	if (ifnum == 0)
-+		return false;
-+
-+	/* Look for the sibling Pen interface at interface 0 */
-+	sibling_intf = usb_ifnum_to_if(wacom->usbdev, 0);
-+	if (!sibling_intf || !sibling_intf->cur_altsetting)
-+		return false;
-+
-+	if (sibling_intf->cur_altsetting->desc.bInterfaceClass !=
-+	    USB_INTERFACE_CLASS_HID)
-+		return false;
-+
-+	if (sibling_intf->cur_altsetting->desc.bInterfaceSubClass == 1 &&
-+	    (sibling_intf->cur_altsetting->desc.bInterfaceProtocol == 1 ||
-+	     sibling_intf->cur_altsetting->desc.bInterfaceProtocol == 2))
-+		return false;
-+
-+	/*
-+	 * Interface 0 is a candidate HID interface on this composite device
-+	 * whose probe has not completed yet (shared->pen is NULL). Defer until
-+	 * interface 0 finishes probing and registers shared values.
-+	 */
-+	return true;
  }
  
- static int wacom_parse_and_register(struct wacom *wacom, bool wireless)
-@@ -2427,6 +2479,11 @@ static int wacom_parse_and_register(struct wacom *wacom, bool wireless)
- 	if (error)
- 		goto fail;
+@@ -2373,8 +2383,7 @@ static bool wacom_sibling_pending(struct wacom *wacom)
+ 		return false;
  
-+	if (wacom_sibling_pending(wacom)) {
-+		error = -EPROBE_DEFER;
-+		goto fail;
-+	}
+ 	if (wacom->wacom_wac.shared) {
+-		/* Pairs with smp_store_release() in wacom_set_shared_values() */
+-		if (smp_load_acquire(&wacom->wacom_wac.shared->pen))
++		if (rcu_access_pointer(wacom->wacom_wac.shared->pen))
+ 			return false;
+ 	}
+ 
+@@ -2844,16 +2853,19 @@ static void wacom_mode_change_work(struct work_struct *work)
+ 	bool is_direct = wacom->wacom_wac.is_direct_mode;
+ 	int error = 0;
+ 
+-	if (shared->pen) {
+-		wacom1 = hid_get_drvdata(shared->pen);
++	struct hid_device *pen = rcu_access_pointer(shared->pen);
++	struct hid_device *touch = rcu_access_pointer(shared->touch);
 +
- 	if (!(features->device_type & WACOM_DEVICETYPE_WL_MONITOR) &&
- 	     (features->quirks & WACOM_QUIRK_BATTERY)) {
- 		error = wacom_initialize_battery(wacom);
-@@ -2491,6 +2548,7 @@ static int wacom_parse_and_register(struct wacom *wacom, bool wireless)
++	if (pen) {
++		wacom1 = hid_get_drvdata(pen);
+ 		wacom_release_resources(wacom1);
+ 		hid_hw_stop(wacom1->hdev);
+ 		wacom1->wacom_wac.has_mode_change = true;
+ 		wacom1->wacom_wac.is_direct_mode = is_direct;
+ 	}
  
- fail_hw_stop:
- 	hid_hw_stop(hdev);
-+	cancel_delayed_work_sync(&wacom->init_work);
- fail:
- 	wacom_release_resources(wacom);
- 	return error;
+-	if (shared->touch) {
+-		wacom2 = hid_get_drvdata(shared->touch);
++	if (touch) {
++		wacom2 = hid_get_drvdata(touch);
+ 		wacom_release_resources(wacom2);
+ 		hid_hw_stop(wacom2->hdev);
+ 		wacom2->wacom_wac.has_mode_change = true;
 diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index f74da953d78f..8804bc2cba32 100644
+index 059572ea0509..4c7ad9dc543e 100644
 --- a/drivers/hid/wacom_wac.c
 +++ b/drivers/hid/wacom_wac.c
-@@ -3882,6 +3882,11 @@ int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
+@@ -3203,6 +3203,7 @@ static int wacom_bpt_irq(struct wacom_wac *wacom, size_t len)
+ static void wacom_bamboo_pad_pen_event(struct wacom_wac *wacom,
+ 		unsigned char *data)
+ {
++	struct hid_device *pen;
+ 	unsigned char prefix;
  
- 	if (features->type == HID_GENERIC) {
- 		hid_dbg(hdev, "generic touch setup\n");
-+		if (wacom_wac->has_mute_touch_switch ||
-+		    (wacom_wac->shared && READ_ONCE(wacom_wac->shared->has_mute_touch_switch))) {
-+			input_set_capability(input_dev, EV_SW, SW_MUTE_DEVICE);
-+			wacom_wac->has_mute_touch_switch = true;
-+		}
- 		/* setup has already been done */
- 		return 0;
- 	}
+ 	/*
+@@ -3215,13 +3216,12 @@ static void wacom_bamboo_pad_pen_event(struct wacom_wac *wacom,
+ 	prefix = data[0];
+ 	data[0] = WACOM_REPORT_BPAD_PEN;
+ 
+-	/*
+-	 * actually reroute the event.
+-	 * No need to check if wacom->shared->pen is valid, hid_input_report()
+-	 * will check for us.
+-	 */
+-	hid_input_report(wacom->shared->pen, HID_INPUT_REPORT, data,
+-			 WACOM_PKGLEN_PENABLED, 1);
++	rcu_read_lock();
++	pen = rcu_dereference(wacom->shared->pen);
++	if (pen)
++		hid_input_report(pen, HID_INPUT_REPORT, data,
++				 WACOM_PKGLEN_PENABLED, 1);
++	rcu_read_unlock();
+ 
+ 	data[0] = prefix;
+ }
+diff --git a/drivers/hid/wacom_wac.h b/drivers/hid/wacom_wac.h
+index 957247e6ba1c..56d54ac53b3d 100644
+--- a/drivers/hid/wacom_wac.h
++++ b/drivers/hid/wacom_wac.h
+@@ -287,8 +287,8 @@ struct wacom_shared {
+ 	unsigned touch_max;
+ 	int type;
+ 	struct input_dev __rcu *touch_input;
+-	struct hid_device *pen;
+-	struct hid_device *touch;
++	struct hid_device __rcu *pen;
++	struct hid_device __rcu *touch;
+ 	bool has_mute_touch_switch;
+ 	bool is_touch_on;
+ };
 -- 
 2.56.0.506.g506a7eabc5-goog
 
