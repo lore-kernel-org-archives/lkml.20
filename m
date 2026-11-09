@@ -1,57 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794243882;
-	b=GCTO7d8YY3p302HSUpGjcNif076jNv9+8yCz3OKawzf01/Wv+k5sGFcXUPMdn4V4r/vS
-	 Ca0ZkA82+CR5V29iBjptiJ2amHDLQLMxEGiG7KbHELO2LyTE5xcukEL7YAj22JvnzB4TW
-	 WfkXW/SsgpJ0Mb3STjQL2RY3IRLn+Nl2QTJnk6VrFZtJeKR0/bWhzu4i95NqtMfAMfPN/
-	 4k6mWf7rfvaSd6REl1BMQj/p0/K13tFbfxLj92qam/Hdy4TNIXwR1gWRxCrxjfZg8Vh9J
-	 sfLKGuwMpSVzJECC7xp7RyupDk5eR/Wv+8ttAOwZcw6o07csUH0z503+EuxoluqMykg==
+	t=1794243894;
+	b=U8e+0xLXGdlv2Xrl6skFJQXT1Rz+mJiWg8dy7uInBYoAyaHZYmEHVnsrpojEjI1QJ667
+	 tZtxPc3mbIPX0+shVDJRaWHdbSNhACy8MHtStT0q0DJ4tNGfRS6V/HU14AM7nSAeXa7QY
+	 dMFCzyRu64xMPNILyumV3xSsxUsVVdX1TAc7d0rjpUrR5glm00LmMhSCxKJmUKDgPpdkQ
+	 JxMq1+FpwYNpF2r/siwue/RYP6eDtF0qqZB0BG13WY5aZ+pYAs/+hMQT8lw6ySkrMG2Wt
+	 GulPAG1CFVVfSA9daYjctolJe0RwZm/3+SrWGden1qT0HW7+i2PLydEi6GW+OzN2hLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794243882;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=+odsCpg7jpRsaCQXSZZ4yxoA+q2K8SnFUpM1JNTaGdM=;
-	b=lIjAKru5SGVbLsfdFfaVYEtWd/BlZGLJ4dAtW/cQU6jbXfiKmfsSxqU8bnPB/6L554fu
-	 eTJ+iqSw+/hS19+DqgDuA6YQDtM6lrmEcrxexycuSQflma2uY/pleoNitT6plR825Zg2T
-	 C+co9r90BQXupSEdVcYC/jaYNlHMiJy/wFnWYXuHgrXdPXOl7yM/sYbwneiPC6GSL9JyG
-	 ecSt8zu5bM0WQQvFvfLbfDdBckx8Slm2eZOVQAy4TNtuZHAd4GaXvjHxO7w1tLB1OBo9v
-	 JuXQy4Bc66wYjl0k7Bl+cEXrkSPGO9DppmO/qF92cdP7rgDvHJ4UVqvdCdeNEQDqGfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794243894;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=93TBdXA6VfwaeFyOsaksO5eGGGBGxnvWIH0FYk6LMa8=;
+	b=zyW01840jDqOGKdBJvjlftpJ2irB5wu6ccv/9hFjuHhX1T7t1wWbnFPBlt3SNowuL71p
+	 EduLSFDSp3B5BLQ5RXNG69MeSBO419v4o/bya1WXLZNixKCXlZJjgBBSaRwm8Lo3anIGT
+	 V/phdh6DD9/EcHWoy5pob+ng2wNREoJuFfyWjSSZ659xtubqg7DA7luzDBZy0Ywnzl1Q/
+	 Bgh7rLnyUkGpdkgU8fHduZtqm1P7nyxb8DxNcQ8pY3542iPlR5cM/0IuH6WXLdiOj8y9/
+	 LMeR3VextsRrWiGZ45iURyaGwwc6FDhKB03Fy/rKTLHlFHLXETWwjZdnNOaosbe2UVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FODMQ6HF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=RN+oHVFZ;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=35fhVzPt;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFC6606A339;
-	Mon,  9 Nov 2026 17:04:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD28B606A336;
+	Mon,  9 Nov 2026 17:04:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD28B606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FODMQ6HF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62A7D1F008A1;
-	Mon,  9 Nov 2026 17:04:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794243881;
-	bh=+odsCpg7jpRsaCQXSZZ4yxoA+q2K8SnFUpM1JNTaGdM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FODMQ6HFrJPYbAiPnyWZS0/BhpGp22hllkW0FNfkoaK5CcC043UUfohcKcPk1gp16
-	 +9rUSS5AA4O8P+dEykIPa8fswmqGJ0vYl2zVPKtNbC1dNy1YVwUbtIWWghnDLkPv4H
-	 pfEuNOOx7qWMEfr3GxEDV18r56z+KZxWptqV+Z2+Ei9UoN4dbxPH9IMVswH7Fcd9ST
-	 0kAiW09cm9cSKYdVE6hlg0yi5Uu18PRtwm/TOXAHJEMGfMP2/T5bBWkDZaG2hYpECf
-	 JMe7NL5gOG3nRzUWGmhVvmYoVpBL3PYjuULhStALMsZ/6RHe4Yfzy1/B7YEbUsb+YW
-	 e4jLSkMwebdeA==
-Date: Mon, 9 Nov 2026 09:04:40 -0800
-From: Oliver Upton <oupton@kernel.org>
-To: Jinqian Yang <yangjinqian1@huawei.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev, maz@kernel.org, fuad.tabba@linux.dev,
-	yuzenghui@huawei.com, joey.gouly@arm.com, seiden@linux.ibm.com,
-	suzuki.poulose@arm.com, liuyonglong@huawei.com,
-	wangzhou1@hisilicon.com, prime.zeng@hisilicon.com,
-	tangchengchang@huawei.com, zhengtian10@huawei.com,
-	linuxarm@huawei.com, liujian222@huawei.com
-Subject: Re: [PATCH] KVM: arm64: Register irq_bypass consumers only with GICv4
-Message-ID: <avH9KJ99im5Z2wEb@kernel.org>
-References: <20261109112018.241298-1-yangjinqian1@huawei.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=RN+oHVFZ;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=35fhVzPt
+Date: Mon, 9 Nov 2026 18:04:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794243892;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=93TBdXA6VfwaeFyOsaksO5eGGGBGxnvWIH0FYk6LMa8=;
+	b=RN+oHVFZwQ2NPQQk9VOl1tZfMbv+3RmVj2ko/T1efzO8XsZmrAZa8Y3eyyZEr5nfr38tdv
+	KEnB1ufoD9n6eY1ZtYptaPnAHf/oW6zuC0U84UAKZ9VGDrzAmpT/5jaxJfYjAt24ys8jH9
+	Nc35jtRE/0Yg42oVdhnkwqhMHT90HOjCif5W8ZeEQVyeuK9qSKWhmtc4G79poG8gpiUOXL
+	M0at766FG1K1sLfnrKC8F/RMVrcZLJY4nWVqVNWAkGgT87GdLq7OMGgtlxhA5b3/24GpZz
+	yLjZwSAoAkOMpFM+IdIUM+1VWRRkamtIFpvHoxU7ZvtSlPo/weQrSSOAMtl5yw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794243892;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=93TBdXA6VfwaeFyOsaksO5eGGGBGxnvWIH0FYk6LMa8=;
+	b=35fhVzPtetsHVOTgVfJ+fvDbzOaNXhaTQrfRJG+Usykq5mzxKHaXLskP3dT/cqhCk4X4du
+	wjp1q/3bgb8sQGAw==
+From: "Ahmed S. Darwish" <darwi@linutronix.de>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Julian Braha <julianbraha@gmail.com>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ingo Molnar <mingo@redhat.com>, Nicolas Schier <nsc@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	John Ogness <john.ogness@linutronix.de>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
+	Daan De Meyer <daan.j.demeyer@gmail.com>,
+	Luca Boccassi <luca.boccassi@gmail.com>,
+	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
+	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, arighi@nvidia.com
+Subject: Re: [PATCH v1 00/10] tools: Introduce a kernel configuration checker
+Message-ID: <avH9Mo05xQjv5wYq@lx-t490>
+References: <20261106091922.7560-1-darwi@linutronix.de>
+ <a20153cd-d148-4618-8089-ad81cb16fe23@gmail.com>
+ <20261109003745.GA3429615@ax162>
+ <avHxmCEdHgyRD7n0@lx-t490>
+ <20261109165230.GC1608140@ax162>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,47 +91,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109112018.241298-1-yangjinqian1@huawei.com>
+In-Reply-To: <20261109165230.GC1608140@ax162>
 
-Hi,
+On Mon, 09 Nov 2026, Nathan Chancellor wrote:
+>
+> On Mon, Nov 09, 2026 at 05:15:20PM +0100, Ahmed S. Darwish wrote:
+> >
+> > What about kconfig-audit?  Something like:
+> >
+> >    ./tools/kconfig-audit/audit.py -c .config -p preempt_rt
+> >
+> >    make POLICY=preempt_rt auditconfig
+> >
+> > config-policy-checker does sound good, but it feels verbose.
+> >
+> > Feedback appreciated.
+>
+> Yeah, config-policy-checker is a little verbose and might not translate
+> into make rules well. kconfig-audit does not sound bad to me, especially
+> with the rename of RULES to POLICY; at the very least, it is on the
+> right track.
+>
 
-On Mon, Nov 09, 2026 at 07:20:18PM +0800, Jinqian Yang wrote:
-> kvm_arch_has_irq_bypass() on arm64 returns true unconditionally, so
-> every irqfd assignment registers an irq_bypass consumer even when the
-> hardware cannot perform GICv4 direct MSI forwarding. In that case
-> kvm_vgic_v4_set_forwarding() bails out at its very first check, since
-> vgic_supports_direct_msis() is false without has_gicv4, and the
-> registration becomes pure overhead: every KVM_IRQFD ioctl takes the
-> global irq_bypass mutex, which becomes a contention point when many
-> VMs boot concurrently.
-> 
-> Gate the registration on kvm_vgic_global_state.has_gicv4, the way x86
-> gates on enable_device_posted_irqs. Functionally this is a no-op:
-> without GICv4 the consumer registration never did anything beyond
-> acquiring the lock.  On a GICv3-only host booting 100 microVMs
-> concurrently this cuts the average boot time by ~5 ms, matching the
-> gain observed with CONFIG_HAVE_KVM_IRQ_BYPASS=n.
-> 
-> Signed-off-by: Jinqian Yang <yangjinqian1@huawei.com>
-> ---
->  arch/arm64/include/asm/kvm_host.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index 97332ffcb130..785d57388032 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -1744,7 +1744,7 @@ void kvm_set_vm_id_reg(struct kvm *kvm, u32 reg, u64 val);
->  
->  static inline bool kvm_arch_has_irq_bypass(void)
->  {
-> -	return true;
-> +	return kvm_vgic_global_state.has_gicv4;
->  }
+Thanks!
 
-This should just take a pointer on struct kvm then use
-vgic_supports_direct_msis() since having an initialized irqchip is a
-precondition of kvm_irqfd_assign().
+Then, kconfig-audit it is.
 
-Thanks,
-Oliver
+--
+Ahmed S. Darwish
+Linutronix GmbH
