@@ -1,99 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794225720;
-	b=APRwp1nvVKBpMfsL6xjt7fn8X52NtsnU8PGtnKDUOL4/a4wKHo990+Q3DKNRBM1BBe8w
-	 e43AwAUZVmbgL1+npFV6b+/FTzMaN9v2TOhefaHqu9xmWaflSrNm+nhAK+KBFCr15nI7k
-	 nkCh+RR0bClUKuCgxVmpSHtpM7Zks8aSd2p+p8hqY6x7/D66aNVVnKRAaxG4Aw2x/X4Mw
-	 5/9UrQ6A+7fDRBu/EDdYzkFLvZt+QY9c85vSiFCmtR3eKlRarTjRJmLikG+7oSLhFt4LY
-	 z12Vd+j3kTE0+MOLIlLDIcyrmVMu7cpGXKenagZ7hyFE3yiaBQfjnEFzJ8sIYpyq5+g==
+	t=1794225760;
+	b=epVYwWYkMerjCxCYKgcNMjnp8NzSk9OQX8r3ZzB8hobQRw8WAynVwYzSxSS0KxC58I7F
+	 kKgQtE1BWTlWFnp+w3jWFEk63pRVynLM/E95/GV47dO6shWuDw384J1Q3Abna8QtLx+Tc
+	 pB/WIsebRGsyXckQU3BDW4dKPrkWKtgq8EYXmxsdzks2oTkzMyRh7H3rZQpYcvBB8sZEZ
+	 Q8Avdd6+JMnRzgK0lKJ1fFwSjxH06LCHG2DPd/N7iMowjnbB6ddp0eLY/1gl/WlCthKEX
+	 8khf+7o52eMp6cZmM6rQSvHVXBTBrUpIbnRm8KE7jag5wI4Il5VJm5WxQWwjFL0yFhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225720;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=szgQb0dY5ZnhzHxi0dDY7s5APqPVFKBR+bd+pkS5brY=;
-	b=ZLzaMcd361pg9s2gCxDnOJR+nnLardA/+VAtQIuG6vAomR6sHqrGjfOBa4jfAkpjzqi2
-	 4j/pczSKrmz5PzUgUARFfF2TjjKL6fj7MS4E4j1n4zxZkDPosJPU99YBekXbZo/jOSI1a
-	 zUDGiM13NFDm5GVJggXTWiHG7BIi5kHdH89i+5VqFsIViRILzSyAHG/n6lpztuKIUsP6I
-	 QjRYCbhAWmW9Nk1xRin0BOQ9Ws/916twq2eaIPOtl0PbQv0W7RxVU+7iLHDwJptwzMyL0
-	 wzhAEKrysT/ArB7Vw31fBnm/UM0PN38uPqJjOll2BjdOKhr4aoySyRoAUf2qBw+oo1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225760;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=VOZzSzEpmNtfvzG2qO1eY0yK/YBvNo2Yl7ZJRUhzM/A=;
+	b=jJJZdCVu26okfRwPiHqhxbThCArrq7rM/BnVGR1Ax6G4VEHndcSP2ZOv6WjKFg30p4PM
+	 pNm/FYSGa4dccui5j/gDyhYhpk+IIsD0mBvVdfQLy4R4d0I/3J5NnoA5O352wtwmOeHic
+	 WeQuVMQrw9mRdiqmBmvzgUhDqN8vc2PmcCKEhh4sTC9BHNRyVJQSr30/dwO8UOjOBX3k0
+	 lJXm5WllPQDftjVCRHTIi3ehwh4UM5OBLJYR2L/7XPGUdTYGfnPNgDt2SU2y74UTJ7pqn
+	 JSs8aWKsQ4cHnImkkVRdDUbzF+BTXDU/kUnSN3n1E4kixcZfrWhMU2wRDHNGBvOHgrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="mav/ns5O";
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CwNn6JMt;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 600D2606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:01:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 600D2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FFE606A31C;
+	Mon,  9 Nov 2026 12:02:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77FFE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mav/ns5O
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a206f0b95bso32195e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 04:01:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794225718; x=1794830518; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=szgQb0dY5ZnhzHxi0dDY7s5APqPVFKBR+bd+pkS5brY=;
-        b=mav/ns5Obke33gqupiqSr8Ht+NeycPkeOP7JGP9tVdqHzx8r0yjg4oBl9akAPIAkXv
-         JM68ScW2fAVGk5MiYFIH3VVmmnLccEKXVRGonyVAobYpa0o2g9GoqM94o74M3WWRQKu8
-         4D74tt82yoGRc0fxpLXZlCzNofGm1tUCNhR01u6s0gkq1fGntvUqaBffsuMM9z5BCzhO
-         aajF2cWDh4po7whVy57cWkH73Wv0pDQcArs4hiAGMRNK+n7y/2ywxavs0GiaPQV1cyQM
-         4yv4Mgur6hgP4S75oynbXaN3/274HargCdknHE6pHnEQV+FOpMm+88h7nDgpEUv4sBo0
-         FHMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794225718; x=1794830518;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=szgQb0dY5ZnhzHxi0dDY7s5APqPVFKBR+bd+pkS5brY=;
-        b=s2GSLadNIj50q4TMH17dA1OBTOnLFzT0F8QphcZ5oDDGQnmiZGrcQpwDBwGkdU8LU8
-         pG+EcSv+DNIYICIRtBnwj2xJ9sK2g0axQt/cIIqRew/Du3YPvhQnFMH3vX/R2xZAkBc/
-         LMTMH4y8ynyoI/+0GZac+EYhzRZTDoFzcvZn+oymIDeMo63nsS5JL3ZIdw9g7+Jl+9Mu
-         wbAA5ciOzqIloDKSEF51yIVjhtkc7TqeJO1RkKVnhb7Ppug5jp/U0BNe/eXqPrEuo1k9
-         /dS56IC3YIapyJhaumC+44vbzP8Bp59KoNV6sismvw9G2vPVC7rldME1otkxK2xiccRO
-         fPqA==
-X-Forwarded-Encrypted: i=1; AL+hErGnWGrSgulOc17j7vz/K8A8gHs/dDdm+e1J3Q64XW5TRrOGd95RbiSEQgOubDmWhSKrPP3lxSS7jL+unuI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wz2TaQSheG/WDe4FG+C6fscccWbM39btk7taExwO10cZWmn42
-	7zdEFLQDZlRflFmMZYf50f63/aLV+wRIY5EtFXnX7OAaRZY8DUcq5yAIsJotI5z3xQ==
-X-Gm-Gg: AYBFou3o1/XSrq6ysrbYQ6LHSVZnXaD1k0WDCgiaga6lPm3rqivzB3978u7j0I8kOud
-	+U/RSyuiXuT4hgJOU6VLQSlnLC5TKm7yaLOwxjU2W6bpmNcQKgXCIaC7WeJC/uvDREcXrWURq9c
-	SPSnlC1h5JnUq90zr7Xw9EvhUKOKNNPMgtg91xJpeRarh5+0YP3MxZXS5zWAW+KDukNxv0CR6Ru
-	/6MmwtvO59sHmDI8vGos2eAr7CAy11uiJWhOGgLl9EgaIZIH1hdyaQwpjhp/gQ9VwS5Bvo/QZhp
-	QDNdy3ahCQnu0DNE62nbI5vHZovX7o+r1WTjvGPxTiVGqWcOO6Khajx+YacTEENx5bb6NotPNcX
-	jGRFzH53vvTOX3BR9rt1PaBCXKmZ/YdRfVAKcAdmXLh6mtO86/0M7nPI47zg3Wv4u8JI2A5bdDx
-	N+D8cH+6XiUbgJIME1CyVdanaWD2hnyuCZiNBN4wesURZQlEMak/Y1r2a7vtrQCAiTDWsGxYf7O
-	eopSza57x0bT08B1B43vZYqksp6OZwHXZkrIKzX+IiZjtRwR4+b67jciag/VrRRdojQnrAc5XD9
-	mE27MIV0U58+NV/J7YTpjRdLz6gDWydEc8iHRV0k51PIfJ4vhOUn/wj3ZMawxc8/IgzdzA==
-X-Received: by 2002:a05:600c:c055:b0:4a2:bd1:a80a with SMTP id 5b1f17b1804b1-4b811e398ffmr1476265e9.2.1794225717416;
-        Mon, 09 Nov 2026 04:01:57 -0800 (PST)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4967003fefbsm5468334f8f.13.2026.11.09.04.01.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 04:01:55 -0800 (PST)
-Date: Mon, 9 Nov 2026 12:01:48 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
-	catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
-	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com,
-	yuzenghui@huawei.com, joro@8bytes.org, jgg@ziepe.ca,
-	mark.rutland@arm.com, qperret@google.com, tabba@google.com,
-	vdonnefort@google.com
-Subject: Re: [PATCH v9 17/25] iommu/arm-smmu-v3-kvm: Shadow stream table
-Message-ID: <avG2LCJVZIyhWQSG@google.com>
-References: <20261015200903.2735565-1-smostafa@google.com>
- <20261015200903.2735565-18-smostafa@google.com>
- <au4uTxliZFv12Bqn@nvidia.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CwNn6JMt
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9AEYwV1481111;
+	Mon, 9 Nov 2026 12:02:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=VOZzSz
+	EpmNtfvzG2qO1eY0yK/YBvNo2Yl7ZJRUhzM/A=; b=CwNn6JMt9uDpo2aSJAGA6o
+	1SH0e44+qfTsHn0Og7ZRCO5pyurjiIsgH1qGO6YsiyFeywx0rlzA1jp0sBSnuO11
+	8JJUud/omDsFNlev1o4r9Z62JRJ8O+jnhzSQuWl8MVdgaKQ/7O2wndAyQfY//YMy
+	rNC/C6vqM2/5/Xe2zyZNAlA9UJKZcJN27TejhNpsDP6tRCTXt8NE8ghRMYwGKt4q
+	LDEC6cKDb0qPTLVOLC2pHsa9deiR6lmIeNWxGv5EtXxQnQjr0uV6abV00VrnvZuY
+	L2HE1pHqjnvPyI3VdsJzCHjwfnr4+TVk3QPb//H3qtuKbblZcNxMb5rhdH/CSAuQ
+	==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsunsvxdk-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 12:02:39 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9A4tPc4140993;
+	Mon, 9 Nov 2026 12:02:38 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4htfthffj8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 12:02:38 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A9C2Yri47841558
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 9 Nov 2026 12:02:34 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8DD1F20043;
+	Mon,  9 Nov 2026 12:02:34 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6BA2720040;
+	Mon,  9 Nov 2026 12:02:34 +0000 (GMT)
+Received: from [9.68.16.159] (unknown [9.68.16.159])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  9 Nov 2026 12:02:34 +0000 (GMT)
+Message-ID: <50ea2597-15ba-471d-968b-546ce358d20d@linux.ibm.com>
+Date: Mon, 9 Nov 2026 13:02:34 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,76 +85,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au4uTxliZFv12Bqn@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] s390: Guard emitting assembler macros for
+ insn-common-asm.h
+To: Steffen Eiden <seiden@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev
+ <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>
+Cc: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Andreas Grapentin <gra@linux.ibm.com>
+References: <20261105-insn-v2-1-ff27987aa212@linux.ibm.com>
+Content-Language: en-US
+From: Christian Borntraeger <borntraeger@linux.ibm.com>
+In-Reply-To: <20261105-insn-v2-1-ff27987aa212@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0NiBTYWx0ZWRfX/f53oy/ssrtj
+ YRGMRyiwTPcw6WV0kwDKDVXkd3UIxlTVgVY5OZUG7ZTtfo1+AlIgAd7wI7/n7F6Ezd1LkLItEs6
+ o0PmxFWEiANtxzjxJtjITW5olPkC/pw/D79zKrOpnQhwB+53u3XIL9cC8FhPW7JEu5U7LyaNWVh
+ E55kywchmVbFeCfa6u8fIO4GWC5qd/CWaMHC3ClAd04ILVFF/8J2pytp4mOlXh8+VSNNceQo2wN
+ 0G682PFlJEMZfeEUGBvAklLncIWOBpv48t3Jr4LGMMOlQHHgf6iiVDwF1IdyNre64mwvQXSAcqX
+ yGBC+kYyrmdZ4VOtzribqxqzgLQQkq6SsWHA0bjURht/KrLW55ayOGgqRVJwsGHyXWiDRNlqsd+
+ amOZ19WthXPxwHcB0Co0/h6OeyqLj0VxE8xxy8L1CjDT2wVlaJzdyGfY9MpTpbkyJtrlj6nOVEw
+ zF6jJu1RGvIdAivSuvw==
+X-Proofpoint-ORIG-GUID: KN_9cFbh7Mn83eu_7q_B0fbCkfT6e5SD
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0NiBTYWx0ZWRfX0FZDgQGO+LzU
+ hxnOu2smSXT1qxFYSSnW2X7s1mm3RoMov52G+dNzw4SZLqkjpLFMoYM9hFn9BFrvEBtNYdEo813
+ TNQeiXTP/vh79OMxC0uxmmzxb9nJlaM=
+X-Authority-Analysis: v=2.4 cv=euZKXYpX c=1 sm=1 tr=0 ts=6af1b65f cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=3WwxFDiQG7SU9cBGjFoA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: KN_9cFbh7Mn83eu_7q_B0fbCkfT6e5SD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090046
 
-On Fri, Nov 06, 2026 at 11:45:19AM -0800, Nicolin Chen wrote:
-> On Thu, Oct 15, 2026 at 08:08:48PM +0000, Mostafa Saleh wrote:
-> > @@ -538,6 +655,7 @@ static bool smmu_dabt_device(struct hyp_arm_smmu_v3_device *smmu,
-> >  
-> >  		if (is_write) {
-> >  			bool last_cmdq_en = is_cmdq_enabled(smmu);
-> > +			bool last_smmu_en = is_smmu_enabled(smmu);
-> 
-> It'd read better with smmu_was_enabled and smmu_is_enabled.
-> 
 
-Sure, will update them.
-
-> > diff --git a/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.h b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.h
-> > index 3903ae358555..31ab7a0335a8 100644
-> > --- a/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.h
-> > +++ b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.h
-> > @@ -27,6 +27,12 @@
-> >   * @cmdq_host:		Host view of the CMDQ, only q_base, base_dma and llq used
-> >   * @cmdq_max_shift:	Max shift for the CMDQ probed from HW
-> >   * @cr0:		Last value of CR0
-> > + * @host_ste_cfg:	Host stream table config
-> > + * @host_ste_base:	Host stream table base
-> > + * @strtab_cfg:		Stream table config as seen by HW
-> > + * @strtab_dma:		Physical address of the shadow stream table
-> > + * @strtab_size:	Size of the shadow stream table
-> > + *
-> >   * @mmio_addr, @mmio_size and ARM_SMMU_FEAT_COHERENCY are filled by the host
-> >   * before de-privilege, the rest by the hypervisor driver.
-> >   */
-> > @@ -50,6 +56,11 @@ struct hyp_arm_smmu_v3_device {
-> >  	struct arm_smmu_queue	cmdq_host;
-> >  	u32			cmdq_max_shift;
-> >  	u32			cr0;
-> > +	dma_addr_t		strtab_dma;
-> > +	size_t			strtab_size;
-> > +	u64			host_ste_cfg;
-> > +	u64			host_ste_base;
-> > +	struct arm_smmu_strtab_cfg strtab_cfg;
+Am 05.11.26 um 14:46 schrieb Steffen Eiden:
+> The CPP include guard of insn-common-asm.h is ineffective when the file
+> is read via a gas-level .include from inline asm. The assembler ignores
+> all '#' lines, so every .include redefines GR_NUM/VX_NUM and fails with
+> "Macro was already defined" if a translation unit emits more than one
+> such include. This is not the case right now but may lead to future
+> build issues.
 > 
-> The order is different here than the kdocs.
+> Add a header 'asm/insn-common-asm-emit.h' that can be used by C/H files
+> which want to emit those macros. The header guards the GAS include to
+> prevent multiple includes in one compilation unit.
 > 
-> Also, it might be cleaner to group host/shadow/hw stuff separately:
+> Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
+> Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
+> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+> ---
+> Changes in v2:
+> - Use a separate -emit header and CPP Guards to guard the asm .include.
+>    (Andreas)
+> - Link to v1: https://lore.kernel.org/r/20261102-insn-v1-1-df048a0be0d5@linux.ibm.com
+
+
+Thanks applied.
+
+As we need this for the 2nd series of the arm on s390 support I will take it via the kvms390
+tree and queue it for kvms390/next as the first patch on top of 7.4-rc2. So if we ever have a
+(unlikely) complex conflict we can create a topic branch pointing to that commit at any
+time.
+
+> ---
+>   arch/s390/include/asm/fpu-insn.h             | 2 +-
+>   arch/s390/include/asm/insn-common-asm-emit.h | 8 ++++++++
+>   2 files changed, 9 insertions(+), 1 deletion(-)
 > 
-> struct hyp_arm_smmu_v3_device {
-> 	...
-> 	struct hyp_arm_smmu_v3_device_host host;
-> 	struct hyp_arm_smmu_v3_device_shadow shadow;
-> 	struct hyp_arm_smmu_v3_device_hw hw;
-> 	// Or
-> 	struct {
-> 		...
-> 	} shadow;
-> 	struct {
-> 		...
-> 	} host;
-> 	struct {
-> 		...
-> 	} hw;
-> 	...
-> };
+> diff --git a/arch/s390/include/asm/fpu-insn.h b/arch/s390/include/asm/fpu-insn.h
+> index eeb0a233d5c7..aaf1faeb3dc5 100644
+> --- a/arch/s390/include/asm/fpu-insn.h
+> +++ b/arch/s390/include/asm/fpu-insn.h
+> @@ -14,8 +14,8 @@
+>   #include <linux/instrumented.h>
+>   #include <linux/kmsan.h>
+>   #include <asm/asm-extable.h>
+> +#include <asm/insn-common-asm-emit.h>
+>   
+> -asm(".include \"asm/insn-common-asm.h\"\n");
+>   asm(".include \"asm/fpu-insn-asm.h\"\n");
+>   
+>   /*
+> diff --git a/arch/s390/include/asm/insn-common-asm-emit.h b/arch/s390/include/asm/insn-common-asm-emit.h
+> new file mode 100644
+> index 000000000000..26a31e8439bf
+> --- /dev/null
+> +++ b/arch/s390/include/asm/insn-common-asm-emit.h
+> @@ -0,0 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +
+> +#ifndef __ASM_S390_INSN_COMMON_ASM_EMIT_H
+> +#define __ASM_S390_INSN_COMMON_ASM_EMIT_H
+> +
+> +asm(".include \"asm/insn-common-asm.h\"\n");
+> +
+> +#endif /* __ASM_S390_INSN_COMMON_ASM_EMIT_H */
 
-That looks better, thanks! I will try it in the next version.
-
-Thanks,
-Mostafa
-
-> 
-> Nicolin
