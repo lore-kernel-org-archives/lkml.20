@@ -1,110 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794210827;
-	b=u9Takek9+CEDthBtrdFiM6/6txFOSUHsJmTcuCZK98iU3juneDrdvX39UmrO4Kvgs/PW
-	 C+iYdXWuZWDAobmt8rbK7rNvL8rI0wCrUv2dzhz2wGZ57bcp4ibkXn2jbYKdF0EMtb5Vj
-	 S5HzQ1JtQ2YXGTEDWhXmZRw/R+GCb9InbeP3g1OwsJ+1RdKWv5ckrjuFyUmQkIk0dQL6f
-	 ovp8VD5IZnIeT46CUM739Kvl01MDSZxm58JX7ncHne3sPm7w2WDmaDfVlH+z+ji2LDoUX
-	 NNu5nD9Mjcrifm1Lw+7gDkmK2pdVVNhkp/eZEIjDoxGF41jUzcbQ5c3XHiwqKMXTExw==
+	t=1794210867;
+	b=fA7WpkUk2XF/HyT3EMTzc8mYiNAq9cmThAW/iD1mByPHASXTo8QCQSvNHc1F/Q2VWerP
+	 kaC8C20HecfJWFNcAZyjp5aOBqQRZMtfNXMZPfHz0WQTouF5qjNKo6TMbXzSLXp6FsOHP
+	 u1WXS9vGrobJFk9wBXhxe6pUVjxu5U5MbEZjczHKnCQBG+2Gb1g5W8NjRL44tUY54oxpk
+	 UKaKs4/F8+AAn7btaGrcbWkN0RdIOU+8MqdNev2RWlvUeffU1/UYEf+QgVWNFRwWum6jy
+	 5KPIe5ojIOcvYBmXzJKxclL+3BY2SBDrriPtu+L60wcWq4yCrvfokiExjrxvTGMLLDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794210827;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:Content-Language:To:Cc:
-	 References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=o+haZWFojym2Cv7RGNTo1dLDTnfV5B6AZEJXSj/GaWs=;
-	b=axNHgBaadu++m03MRFp1BnrNIABebAYhj+2TNIybplm5YgG8xdP8ripBSAL6M7OUbNm3
-	 HShnQbUcOHmsFaZxKhSHNyS2sugFNZ7AlxjycvBYPJw8By9xdqMiRrBOihinFpiDzRzDP
-	 LgMX528/MWL394hI5pwTxpyY/qHdi4o18zK5Jhqvoj7yOl9vgQU2xCcjDQsLYYrduuRQ/
-	 eCdgHotkmC280lFcbt5GtnCzez5d/bZWfNrIfGAjF/YC/7Py2zsQ7Kb0d+8d/BHi2Iifp
-	 vsHBrWx14ubJNZBRN7sCsdwpe327Recx9gu/Nkgy45/NE9ZoBSqjU2CIHTPR5uYT2tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794210867;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=ZWl9jingBRzJ5jAonR3zuO+3KdpoVL68SjqrmB0AJc4=;
+	b=3utvUcdyaJ5SOq2KGwiT9q/I4kZ1oDalNMbM/F68aOAyfwpg0RbjLMwX7NpJw8j/6wE0
+	 FqIr/fWw7j8tyclP8pk4bKSKXnSqtyeGuJM4sQnDV5z1YaivDevjHDEpJrdJieTL/NDmz
+	 6OXy6iqzW7g1fLDG9HbN6URVEOEgKwW4x09M+2Nn9KjryiHtWXb1CvcqtZxU2bm1iO64U
+	 qNYHog79UZ98ue/wMVoFZ7dvz35ceeYPIDhwA/tzhAyaQjPf5YH7kdge1GTVk3KVZdQlb
+	 hCiRW8XD/52RuAcZ9NrcKuhWtZl0wuZWc4Jtz2L7YdWXfrUjbtyh57CazPgeq1WHf0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mwM0zqzP;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b90r7U7d;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b="JG/VO2lC";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=rPtbq+8D;
+	arc=none smtp.remote-ip=202.12.124.154
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C522606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:53:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C522606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC6F4606A323
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:54:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC6F4606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mwM0zqzP;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b90r7U7d
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96AWlp066277
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 07:53:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	o+haZWFojym2Cv7RGNTo1dLDTnfV5B6AZEJXSj/GaWs=; b=mwM0zqzPE6GbLpxf
-	fPNNojxyfYZePnBTqYOCrYvsGhQc2rrkol1ZfbQ0XXT9kajSnpYIV61DfyfK3c7K
-	MK2DX7MjIcC8XkVNr5QrB7PqnqUZfZkErmJ0bfXPAzzl9dnzcxds/J2JRXyWk7IZ
-	kFcbBh/orXJNJ+L4Ht6g5UnVWFOKbNy/ad3GI/yDT3o5yyJRyt120Dg/LSe8SeBq
-	99U8/4iZI08rtlVGptz09iH2SdFdiUVseuDqxbdDHemspBUeYyyhrn/34rVIwHXc
-	4Z2u8GpGTwoGbJgFSBv4wclj6TnnAgcw+0O9FA1baVlD6D8N0WYOnDH45SPMrxtp
-	dDG4rQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsujxdcqu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:53:45 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30c0d568830so1766471eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:53:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794210825; x=1794815625; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o+haZWFojym2Cv7RGNTo1dLDTnfV5B6AZEJXSj/GaWs=;
-        b=b90r7U7dsFEs2gLNFOEJSRjMDRwLvlfcAfYWu128wF11lkbTstsrnwfb2rkrAAlTbO
-         PhwE/dpqBu8m2e9BtGl4PlpbiWYHznMDk4W9LKz22/UHwWa6ktqIDuEsMbSYpQvgLdFu
-         xBsziTcclobRIRI736MC/dOt97wLBrF/pfXRzWZ8UGiT76uuPmVKXs0xiGjasJ4x5EXG
-         4JRo3PKhaawsJq5PBZJOzgcM7Q8qmXWkLQgqg6Ab41MqKc0M0Hu1C2NcaE5bsfE/w0Cy
-         U5xhgbNwN+u/HPsq0WdxJUN+CyKJ2nvWbEc2NCpPlh0+Js73/W6/paHRDJyS98xS9HNo
-         rd3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794210825; x=1794815625;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o+haZWFojym2Cv7RGNTo1dLDTnfV5B6AZEJXSj/GaWs=;
-        b=aU8huvuEWdBhTzHjfeG2uqLhRZlGW0J/nVgnsRJWt9sLIpqiZES87b1W6W1nPTES+8
-         TYqHKlxYUIfEHCEyaMEwhTTfMvuElKZwR7fCVOfsXX2OOJ/txIY2CvT/QdJ+D58DwuwD
-         QAsMRy3p0l+I8kl6vGDryatmxupM34jxsbhLTAiiei3DBIs9JlPXeKbuTHfhlS7g2pV3
-         hUI61I+8ajfwfpp7jzkbTHua+zXbPb7HZmWY93h/EzQ7DUu9B9aqF9J8gNwucef7qltt
-         Cs7/r4mQ6OLIsWqHZjKf+S+FDXbZ2WCKN8G0uKrbWo8IkxUA3wDTNg+yQcsWwBrpsZvy
-         rKGg==
-X-Forwarded-Encrypted: i=1; AL+hErERcoCT69jrlNgGtSXCNlm/qD5K4xhl6k4UJr3ce4tF4w9K/VDUwAdbDHpCpBGNSFvjsrYI4f/XAxjSgRs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ZS9KGL5m+BngydsT4tb4B2XY3fApETajc0zQ1RpVqyevOPRPi
-	io8o76PW6IPgeGKy5CHy2AuLevBbmJlyeyBiCPRVbhgpiNiRoQ5+EhOsC+UAVo7tXs98DFUPWD/
-	b5EX6148TzC+dY0ItKtdUvPk4Cu0D5G5DokXxYI4t3XgJq66b2fO/f/5MtkwhBIFwFeM=
-X-Gm-Gg: AYBFou3GjIxXhSComknkLfmk038wMfVbC3UIFsbXmc8NVJfNHr7sKPvD+rBhLilAIXK
-	F8LyxGneTR54bNANPh+81lGRF8cYzcn7cI2EXZJ5KETtpoyqEaFCh7Ktaz08zISIXu8KVl6Rhrb
-	SJOa+ICzl5IuQHndtAYhbn9r3vv5r2QjbxJG2K1d6/OID4T0Rc5ht5sO5FPzW4kAL8UZWdqwx3F
-	za187zr6Cv79hre2YKKmLs3XDG3sUZzYlvCzkrvVLDxvKgrrQ/Wc8ojtEsCBZmwnjc3NU03oxku
-	z+38mkASMcZbbNK7V10kB3A/xeeNmc0CjNxWP6qeSFE2vonYCcuGJzh3P/1DQ0qFgVfghGowyLm
-	GJWxETpBD//HlPZSEuElorrwcWr51fZQvFhVMlMJzgCfFHMYtd4y+8+RmZRdAZrJ1mvBufzTN7d
-	CXqFc=
-X-Received: by 2002:a05:693c:4003:b0:36a:1f4f:3e9 with SMTP id 5a478bee46e88-3725d782bc5mr5640838eec.20.1794210824261;
-        Sun, 08 Nov 2026 23:53:44 -0800 (PST)
-X-Received: by 2002:a05:693c:4003:b0:36a:1f4f:3e9 with SMTP id 5a478bee46e88-3725d782bc5mr5640810eec.20.1794210823672;
-        Sun, 08 Nov 2026 23:53:43 -0800 (PST)
-Received: from [10.204.100.41] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372669d2826sm11874478eec.29.2026.11.08.23.53.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Nov 2026 23:53:43 -0800 (PST)
-Message-ID: <cf7b6956-90a7-ac3b-1b2b-545f95a14117@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 13:23:37 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=JG/VO2lC;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=rPtbq+8D
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id E27F77A0112
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:54:25 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 09 Nov 2026 02:54:26 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794210861;
+	 x=1794297261; bh=ZWl9jingBRzJ5jAonR3zuO+3KdpoVL68SjqrmB0AJc4=; b=
+	JG/VO2lCNqs07FngyJ7sAGpb5yy4Lvl4D5i6PBSlZehYdyaXJdONub8jYg5cFb4p
+	D5waHZjLmZ/gym7e3LJLg3CEWIB7JfUkdWO50roZS16Rp1ql3ZY7a8ngrNBP6cqo
+	rYop5t6tqTSEA0QnHsD/FGnvwQmw3JceqUhRC5vOopoHDw7mhELkrFXD5uCFXeHt
+	sLGDANpG5PzQDVsX5Clq4qdNifqyZjtOyUWHmqlCbObIoNN+6C3i5zZr12PoBCUj
+	9Q9xjj8LRUtINNmlFgP63h58s3aJkXbeTc9F5uqyqE4Gh2wqrVnc+wfVHlxAGMHR
+	UohNUkLaAdOzJlRBswjwMg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794210861; x=
+	1794297261; bh=ZWl9jingBRzJ5jAonR3zuO+3KdpoVL68SjqrmB0AJc4=; b=r
+	Ptbq+8D099xl3neJOYJETm/+DDpoVWpMJBJsspnIy4MNnjMUe89LSpmH2b9PmmXn
+	8lHVL4rADE/bWp2PRXabFPrhQg7ItFkhdPEcrz6KDxNvsBvpTOTU/tYeJQcB0N9b
+	vNtG5biqc3kjdNiFK2t3LNRDVHFlKm45bOCUCgYa9Lu2qyo26u6MVBtSo2DhhbZ5
+	tsgtaSZTXidlLxxy3ZwIqxcAPKAMiz7hQBWBzH4PJnJC3oAHfvYEZPWW/Dvuk+O7
+	OH8A9NzJPn4jaR8lm4Avm9K7F63d9V6ZsPugyubBD4EVoaX4CJyNO1ZCm1KC7Sko
+	BTVYhIqDF7EoJA91SurnA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794210861; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:P9GipjRay6yNs/gTiaEiURkNblY7jT+nEABSpjdPbrx0y/1
+	b1NwTRpA+JIWfgiXf189/uq67vNASMgCljPzF9GYipRiVJxzbwIg05F7Cx6ocVbp
+	s7q1DtdQo7o3Huf0PyZ5Y7LkUF2D13gzQ6+5Oa0zvZMKMfJBoQfDzGuivyKr8e0X
+	zITaJkOJqR+SHfWBKSzmbs0u1xcuK40fkdAAQfXW7eg9/ytiIIdKemcHmwQeFreq
+	WvpIrMmnyK1VbqkJQQ4ExioBVy5AETB0kQzorqTdde+V0KFEmuElr5S+Gvoy2fuL
+	eN8ptZ7RehXTCkWGd/TZXNNgPrSJCZMsciaitWA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:br0h45qtPgSMInCnHStrufGtjfx3n0i1XgMdXhJuoi0=:9EZ78bDb/IFFrfazya5uDh2QzfACEXi+vbNDDTBiANM=;
+X-ME-Sender: <xms:KnzxajJPabEKH3Cme6Du29CyTpdTgfW8Kdp9LDgB7u6HhkIBgwtOxw>
+    <xme:Knzxah94pGAakNpgsvSHwVMZEAVQxmiUbfEAin0pf3zRcMOIV3q_GvAk62d-qkdR-
+    1_wsxEBh7-I3DtnPZ_woewRVdf2pq1zilKkgt20FVMM6Xr3l3pat9wT>
+X-ME-Proxy-Cause: dmFkZTFLBPZbwZtPJBZ6eGa1A0tuL5I23qQHDe5h6M5107y16xhJ43qHckrVl7wSASxvMB
+    uQIspcTnvmRRYpTIHvglYFVFyN9RBDpkWrf3cQKOM4H/8WFSFE8aRcd+CG+mIoWA4WVWop
+    3svGV8oEXlP1fhZTwSGOPH9EDNmoaR9XsEAG2VSSARJlWgaTYxsxQ/q5wmTrVHwWEpyR9f
+    fzJXT2XkxEDmtfrXAdXDgUHYyF9JxZtmnZWWWK8du3uMwTFaSeF9Rosw3loPwrWS5oDmF2
+    ZJIfJ33U1+iO26YFIB2wDU0QKtC08h0Prnw3PzsIJwF1S7VPSj42dPVMh/Gj3vkLoWdoHM
+    RGYzKUPIVLP4Pd3XVu9Kv70ufqpLFDGmjMU1d1XhhNF9uHDIaK4xgYxJrp04KGBfcrqftZ
+    CUQxuKryCVcwPXGR2lsIm4QM7Mffe4BTk/J+kz0OeT5hHOTMY19JoaW9JVRV21EH25Gw/l
+    hf7exVwNf6PDxg3hnd6RwhMVZC/iTIKhyyRWrXnc0g6vxB//wPlSVrOS5COwDXbbSlB2jy
+    vhwgDRb0X6v4odMT8QNd7Umwfg1/hOt0ngYGmLHssaVrO93231lVN8nq0RM4M2a4ykRgRY
+    pSOg0pnQjWHv8fBuDTHLbK/c8k7sCWSJ+Tx4PNQ6JABoNVPggIe4Sv3skgvw
+X-ME-Proxy: <xmx:K3zxagwDC6I1YEnhi5Ef1X-kKsGkVFwmoJLNIJRwXEhesMSIdAvVwg>
+    <xmx:LHzxauVzymye-IrMhAg1UfIdf5bOp7KyVDn1ppvc5wYZEL4916oWuQ>
+    <xmx:LHzxaiNySRdQi0g7UcAYaxQySSYRAqHle1ZHcJ1ZMu6I9VF87I2sqg>
+    <xmx:LHzxagAGfgfPzCu-KfvAY0ZHPoygMCz48TdXN2LTvDUXzmmuaX4Esg>
+    <xmx:LXzxak7Ybh3qiuUxpqoFCHXSg7PAR9SaazcAOhG8_4AIk5XQnf1b0INu>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id DAF7032A0097; Mon,  9 Nov 2026 02:54:18 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,200 +115,186 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 3/3] media: qcom: iris: Improve diagnostics for system and
- session failures
-Content-Language: en-US
-To: Dipayaan Roy <dipayaan.roy@oss.qualcomm.com>, linux-media@vger.kernel.org
-Cc: vikash.garodia@oss.qualcomm.com, dikshita.agarwal@oss.qualcomm.com,
-        abhinav.kumar@linux.dev, bod@kernel.org, mchehab@kernel.org,
-        p.zabel@pengutronix.de, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261106153126.120858-1-dipayaan.roy@oss.qualcomm.com>
- <20261106153126.120858-4-dipayaan.roy@oss.qualcomm.com>
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <20261106153126.120858-4-dipayaan.roy@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+X-ThreadId: A33Xb_92NdCN
+Date: Mon, 09 Nov 2026 08:53:58 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ "Wolfram Sang" <wsa@kernel.org>
+Cc: "Felipe Balbi" <balbi@kernel.org>, "Tony Lindgren" <tony@atomide.com>,
+ "Hyunjung Ko" <hj351016@gmail.com>, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <def3815d-d3f6-4032-b7f3-d2b5e48c770f@app.fastmail.com>
+In-Reply-To: <20261109072950.3474308-2-dmitry.torokhov@gmail.com>
+References: <20261109072950.3474308-1-dmitry.torokhov@gmail.com>
+ <20261109072950.3474308-2-dmitry.torokhov@gmail.com>
+Subject: Re: [PATCH 1/2] Input: lm8323 - remove driver
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: KmBLV-5XBqPhfjJPaOOOcl2i3BykEw9D
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzMSBTYWx0ZWRfX7WpG3Cel5c3Q
- RPE4fiahjFZJjAmFZRRov6hq9SiOg3Kw/as26xVZBT98PFw3KZtV9gAO9o+iIrYIzCxRcnWrBbZ
- Ytk5K2U9YaODS4PbtP4wlWU83oI0j3dXp97A6/6t3pwH18duw/8pGI9k8x1IHCNC5yoLJZywRlr
- 6UbFDDl7ApdFTYZMS1EXS3P39RxefqzIwrUkM03JU4Q48jEShlj55b1cGW0+F1HsIslvFazRkaH
- UDUSr8xZvm35ChGeXEfGrftFjFQpzdQxbxVyQH/o1TkkCT8NVHmJlPIRAqRsUfwdpvAxPQ64RIv
- earKG801O9KRFT4YcTlIg4fN4MO3dXn7wA9XhQpHLffNSOGyZyo/Vh0nD9Pia5MYC9a8hrma5VA
- r32oga+UYAEGxMSrpADbC5wtB3PHEYRfD6wAlhYuuS8v0dkZb+ZifZiVh6du5XdlLz3TR527D25
- R47Ef8OgyBv6HeK90bg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzMSBTYWx0ZWRfXz2FePpAKBWXg
- VPmrYTQW7dQMcjl7Ynd5qoxvd9gzcC5X98hp4IBzJNH/IIfmDm/tLhze+SXsHauPKo0RLhkeLvs
- L9NiDferWqMGQuerIO9gCPfgoD/YJlc=
-X-Authority-Analysis: v=2.4 cv=TeIDJhQh c=1 sm=1 tr=0 ts=6af17c09 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=Fb52MO1wo91ysUZOzKQA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: KmBLV-5XBqPhfjJPaOOOcl2i3BykEw9D
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0 adultscore=0
- spamscore=0 priorityscore=1501 clxscore=1015 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090031
 
+On Mon, Nov 9, 2026, at 08:29, Dmitry Torokhov wrote:
+> The LM8323 keypad driver relies exclusively on legacy platform data,
+> has no Device Tree or generic device property support, and has no users
+> in mainline (including the Nokia N810 DTS, which never added support
+> for it). Its PWM/LED handling and unbind lifetime are broken, and after
+> hardware-tested IRQ fixes in 2011 the driver has for over a decade only
+> received mechanical API conversions and static-analysis cleanups
+> without hardware testing.
+>
+> An inquiry on the mailing list asking whether anyone still uses or
+> wishes to keep the driver received no objections. Remove the driver
+> and its platform data header.
+>
+> Link: https://lore.kernel.org/r/Zr6I9RB5mibU_12N@google.com
+> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 
-On 11/6/2026 9:01 PM, Dipayaan Roy wrote:
-> Log system and session response timeouts, firmware-reported failures,
-> and failed recovery attempts so the cause of an error is visible.
->
-> Add debug messages for unknown sessions, invalid state transitions,
-> and successful recovery. Avoid a redundant system init timeout message
-> after firmware reports an error, and rate-limit Gen2 session response
-> errors.
->
-> Signed-off-by: Dipayaan Roy <dipayaan.roy@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_core.c              |  2 ++
->  drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c |  8 +++++++-
->  drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c | 13 ++++++++++++-
->  drivers/media/platform/qcom/iris/iris_probe.c             |  8 +++++++-
->  drivers/media/platform/qcom/iris/iris_state.c             |  5 ++++-
->  drivers/media/platform/qcom/iris/iris_utils.c             |  2 ++
->  6 files changed, 34 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
-> index d558475986ff..4224feaf1caf 100644
-> --- a/drivers/media/platform/qcom/iris/iris_core.c
-> +++ b/drivers/media/platform/qcom/iris/iris_core.c
-> @@ -43,6 +43,8 @@ static int iris_wait_for_system_response(struct iris_core *core)
->  	ret = wait_for_completion_timeout(&core->core_init_done,
->  					  msecs_to_jiffies(HW_RESPONSE_TIMEOUT_VALUE));
->  	if (!ret) {
-> +		if (core->state != IRIS_CORE_ERROR)
-> +			dev_err(core->dev, "system init response timed out\n");
->  		core->state = IRIS_CORE_ERROR;
->  		return -ETIMEDOUT;
->  	}
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> index 1ce7f97d4087..5c411e69e5fd 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen1_response.c
-> @@ -284,6 +284,8 @@ static void iris_hfi_gen1_sys_init_done(struct iris_core *core, void *packet)
->  	struct hfi_msg_sys_init_done_pkt *pkt = packet;
->  
->  	if (pkt->error_type != HFI_ERR_NONE) {
-> +		dev_err(core->dev, "system init failed (HFI error %#x)\n",
-> +			pkt->error_type);
->  		core->state = IRIS_CORE_ERROR;
->  		return;
->  	}
-> @@ -740,8 +742,12 @@ static void iris_hfi_gen1_handle_response(struct iris_core *core, void *response
->  			struct hfi_msg_session_hdr_pkt *shdr;
->  
->  			shdr = (struct hfi_msg_session_hdr_pkt *)hdr;
-> -			if (shdr->error_type != HFI_ERR_NONE)
-> +			if (shdr->error_type != HFI_ERR_NONE) {
-> +				dev_err(dev, "session %#x response %#x failed (HFI error %#x)\n",
-> +					inst->session_id, hdr->pkt_type,
-> +					shdr->error_type);
->  				iris_inst_change_state(inst, IRIS_INST_ERROR);
-> +			}
->  
->  			if (pkt_info->pkt == HFI_MSG_SESSION_FLUSH) {
->  				if (!(--inst->flush_responses_pending))
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> index b82f50458fe1..d5b4b27e0549 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> @@ -296,6 +296,8 @@ static int iris_hfi_gen2_handle_system_init(struct iris_core *core,
->  					    struct iris_hfi_packet *pkt)
->  {
->  	if (!(pkt->flags & HFI_FW_FLAGS_SUCCESS)) {
-> +		dev_err(core->dev, "system command %#x failed (flags %#x)\n",
-> +			pkt->type, pkt->flags);
->  		core->state = IRIS_CORE_ERROR;
->  		return 0;
->  	}
-> @@ -929,8 +931,11 @@ static int iris_hfi_gen2_handle_session_response(struct iris_core *core,
->  	};
->  
->  	inst = iris_get_instance(core, hdr->session_id);
-> -	if (!inst)
-> +	if (!inst) {
-> +		dev_dbg(core->dev, "response for unknown session %#x\n",
-> +			hdr->session_id);
->  		return -EINVAL;
-> +	}
->  
->  	mutex_lock(&inst->lock);
->  	inst_hfi_gen2 = to_iris_inst_hfi_gen2(inst);
-> @@ -958,6 +963,12 @@ static int iris_hfi_gen2_handle_session_response(struct iris_core *core,
->  			if (packet->type > range[i].begin && packet->type < range[i].end) {
->  				dequeue |= (packet->type == HFI_CMD_BUFFER);
->  				ret = range[i].handle(inst, packet);
-> +				if (ret && !(packet->flags &
-> +					     HFI_FW_FLAGS_SESSION_ERROR))
-> +					dev_err_ratelimited(core->dev,
-> +							    "session %#x response %#x failed: %d\n",
-> +							    inst->session_id,
-> +							    packet->type, ret);
->  				if (ret)
->  					iris_inst_change_state(inst, IRIS_INST_ERROR);
->  			}
-> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-> index dd48fa750013..9cefe090466b 100644
-> --- a/drivers/media/platform/qcom/iris/iris_probe.c
-> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
-> @@ -306,9 +306,15 @@ static void iris_sys_error_handler(struct work_struct *work)
->  {
->  	struct iris_core *core =
->  			container_of(work, struct iris_core, sys_error_handler.work);
-> +	int ret;
->  
->  	iris_core_deinit(core);
-> -	iris_core_init(core);
-> +	ret = iris_core_init(core);
-> +	if (ret)
-> +		dev_err(core->dev, "failed to recover from system error: %d\n",
-> +			ret);
-> +	else
-> +		dev_dbg(core->dev, "recovered from system error\n");
->  }
->  
->  static int iris_probe(struct platform_device *pdev)
-> diff --git a/drivers/media/platform/qcom/iris/iris_state.c b/drivers/media/platform/qcom/iris/iris_state.c
-> index 5552725c614e..bcb138ccf08c 100644
-> --- a/drivers/media/platform/qcom/iris/iris_state.c
-> +++ b/drivers/media/platform/qcom/iris/iris_state.c
-> @@ -56,8 +56,11 @@ int iris_inst_change_state(struct iris_inst *inst,
->  	if (request_state == IRIS_INST_ERROR)
->  		goto change_state;
->  
-> -	if (!iris_allow_inst_state_change(inst, request_state))
-> +	if (!iris_allow_inst_state_change(inst, request_state)) {
-> +		dev_dbg(inst->core->dev, "session %#x invalid state change %x -> %x\n",
-> +			inst->session_id, inst->state, request_state);
->  		return -EINVAL;
-> +	}
->  
->  change_state:
->  	dev_dbg(inst->core->dev, "state changed from %x to %x\n",
-> diff --git a/drivers/media/platform/qcom/iris/iris_utils.c b/drivers/media/platform/qcom/iris/iris_utils.c
-> index 1096cc4b01c3..5ca4d8e0836b 100644
-> --- a/drivers/media/platform/qcom/iris/iris_utils.c
-> +++ b/drivers/media/platform/qcom/iris/iris_utils.c
-> @@ -78,6 +78,8 @@ int iris_wait_for_session_response(struct iris_inst *inst, bool is_flush)
->  	ret = wait_for_completion_timeout(done, msecs_to_jiffies(HW_RESPONSE_TIMEOUT_VALUE));
->  	mutex_lock(&inst->lock);
->  	if (!ret) {
-> +		dev_err(inst->core->dev, "session %#x %s response timed out\n",
-> +			inst->session_id, is_flush ? "flush" : "command");
->  		iris_inst_change_state(inst, IRIS_INST_ERROR);
->  		return -ETIMEDOUT;
->  	}
+Reviewed-by: Arnd Bergmann <arnd@arndb.de>
 
-Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+I made an identical patch (for both drivers combined) based on the
+same conclusion, but you beat me to posting it.
+
+I have additional Input driver patches in the same series at
+
+https://git.kernel.org/pub/scm/linux/kernel/git/arnd/playground.git/log/?h=board-remove-7.4
+
+It's a mix of three types of changes:
+
+- drivers that have been unused for years
+- drivers that become unused after I remove the board files
+- drivers that support both DT and platform_data, and I remove the latter
+
+My plan was to post these after my board removal series is merged,
+and this got delayed until 7.5 now after some back and forth because
+I wanted to make sure they remain in the LTS kernel.
+
+If you like, I can send more of these earlier.
+
+      Arnd
+
+2fc6e4e7ae89 Input: serio: remove RiscPC keyboard driver
+ drivers/input/serio/Kconfig  |  11 ----
+ drivers/input/serio/Makefile |   1 -
+ drivers/input/serio/rpckbd.c | 152 -------------------------------------------
+ 3 files changed, 164 deletions(-)
+48553e29487a Input: mouse: remove RiscPC mouse driver
+ drivers/input/mouse/Kconfig    |  10 ----
+ drivers/input/mouse/Makefile   |   1 -
+ drivers/input/mouse/rpcmouse.c | 113 -----------------------------------------
+ 3 files changed, 124 deletions(-)
+cc705b30670f Input: touchscreen: remove unused iPaq micro driver
+ drivers/input/touchscreen/Kconfig         |  12 ---
+ drivers/input/touchscreen/Makefile        |   1 -
+ drivers/input/touchscreen/ipaq-micro-ts.c | 156 ------------------------------
+ 3 files changed, 169 deletions(-)
+e0fa7869cf39 Input: touchscreen: remove HP jornada720 support
+ drivers/input/touchscreen/Kconfig         |  10 --
+ drivers/input/touchscreen/Makefile        |   1 -
+ drivers/input/touchscreen/jornada720_ts.c | 156 ------------------------------
+ 3 files changed, 167 deletions(-)
+0e7bc6741e99 Input: touchscreen: remove unused mc13783 driver
+ drivers/input/touchscreen/Kconfig      |  12 --
+ drivers/input/touchscreen/Makefile     |   1 -
+ drivers/input/touchscreen/mc13783_ts.c | 245 ---------------------------------
+ 3 files changed, 258 deletions(-)
+b106094d20b6 Input: touchscreen: remove unused ad7877 driver
+ drivers/input/touchscreen/Kconfig  |  13 -
+ drivers/input/touchscreen/Makefile |   1 -
+ drivers/input/touchscreen/ad7877.c | 813 -------------------------------------
+ 3 files changed, 827 deletions(-)
+618f5f964ae6 Input: touchscreen: remove unused tps6507x driver
+ drivers/input/touchscreen/Kconfig       |  12 --
+ drivers/input/touchscreen/Makefile      |   1 -
+ drivers/input/touchscreen/tps6507x-ts.c | 291 --------------------------------
+ 3 files changed, 304 deletions(-)
+f19aee30274b Input: serio: remove sa1111 ps/2 driver
+ drivers/input/serio/Kconfig     |   4 -
+ drivers/input/serio/Makefile    |   1 -
+ drivers/input/serio/sa1111ps2.c | 384 ----------------------------------------
+ 3 files changed, 389 deletions(-)
+f89e36a6d981 Input: keyboard: remove unused ipaq-micro driver
+ drivers/input/keyboard/Kconfig           |  10 --
+ drivers/input/keyboard/Makefile          |   1 -
+ drivers/input/keyboard/ipaq-micro-keys.c | 165 -------------------------------
+ 3 files changed, 176 deletions(-)
+f47f4668b39e Input: keyboard: remove unused locomo driver
+ drivers/input/keyboard/Kconfig     |   8 -
+ drivers/input/keyboard/Makefile    |   1 -
+ drivers/input/keyboard/locomokbd.c | 340 -------------------------------------
+ 3 files changed, 349 deletions(-)
+94397d400e71 Input: keyboard: remove unused jornada720_kbd driver
+ drivers/input/keyboard/Kconfig          |  10 ---
+ drivers/input/keyboard/Makefile         |   1 -
+ drivers/input/keyboard/jornada720_kbd.c | 142 --------------------------------
+ 3 files changed, 153 deletions(-)
+45a0b5d9aec8 Input: keyboard: remove lm8323 and lm8333 drivers
+ drivers/input/keyboard/Kconfig  |  22 --
+ drivers/input/keyboard/Makefile |   2 -
+ drivers/input/keyboard/lm8323.c | 813 ----------------------------------------
+ drivers/input/keyboard/lm8333.c | 213 -----------
+ 4 files changed, 1050 deletions(-)
+7b34e2e324ff Input: joystick: remove as5011 joystick driver
+ drivers/input/joystick/Kconfig  |  10 --
+ drivers/input/joystick/Makefile |   1 -
+ drivers/input/joystick/as5011.c | 354 ----------------------------------------
+ 3 files changed, 365 deletions(-)
+62cfa3e37cba Input: misc: remove unused mc13783-pwrbutton driver
+ drivers/input/misc/Kconfig             |  10 --
+ drivers/input/misc/Makefile            |   1 -
+ drivers/input/misc/mc13783-pwrbutton.c | 266 ---------------------------------
+ 3 files changed, 277 deletions(-)
+e907244315b7 Input: misc: remove unused cma3000 accelerometer driver
+ drivers/input/misc/Kconfig           |  24 ---
+ drivers/input/misc/Makefile          |   2 -
+ drivers/input/misc/cma3000_d0x.c     | 379 -----------------------------------
+ drivers/input/misc/cma3000_d0x.h     |  31 ---
+ drivers/input/misc/cma3000_d0x_i2c.c | 113 -----------
+ 5 files changed, 549 deletions(-)
+9dcaab7ec67a Input: misc: remove unused kxtj9 driver
+ drivers/input/misc/Kconfig  |  10 -
+ drivers/input/misc/Makefile |   1 -
+ drivers/input/misc/kxtj9.c  | 548 --------------------------------------------
+ 3 files changed, 559 deletions(-)
+82f1f73d7331 Input: misc: remove unused max8997_haptic driver
+ drivers/input/misc/Kconfig          |  12 -
+ drivers/input/misc/Makefile         |   1 -
+ drivers/input/misc/max8997_haptic.c | 434 ------------------------------------
+ 3 files changed, 447 deletions(-)
+8a21394cb9e7 Input: misc: remove unused bma150 driver
+ drivers/input/misc/Kconfig  |  10 -
+ drivers/input/misc/Makefile |   1 -
+ drivers/input/misc/bma150.c | 575 --------------------------------------------
+ 3 files changed, 586 deletions(-)
+a25190646153 Input: misc: bma150: remove platform data based probing
+ drivers/input/misc/bma150.c | 49 ++++++++++++++++++++++++++++-----------------
+ 1 file changed, 31 insertions(+), 18 deletions(-)
+3ee02d394861 Input: misc: remove unused adxl34x driver
+ drivers/input/misc/Kconfig       |  37 --
+ drivers/input/misc/Makefile      |   3 -
+ drivers/input/misc/adxl34x-i2c.c | 137 ------
+ drivers/input/misc/adxl34x-spi.c | 103 -----
+ drivers/input/misc/adxl34x.c     | 872 ---------------------------------------
+ drivers/input/misc/adxl34x.h     |  30 --
+ 6 files changed, 1182 deletions(-)
+7303850802da Input: misc: remove unused ad714x driver
+ drivers/input/misc/Kconfig      |   30 -
+ drivers/input/misc/Makefile     |    3 -
+ drivers/input/misc/ad714x-i2c.c |   97 ----
+ drivers/input/misc/ad714x-spi.c |  103 ----
+ drivers/input/misc/ad714x.c     | 1200 ---------------------------------------
+ drivers/input/misc/ad714x.h     |   53 --
+ 6 files changed, 1486 deletions(-)
+067581d4518d mfd: remove unused da903x driver
+ drivers/input/touchscreen/Kconfig     |  13 --
+ drivers/input/touchscreen/Makefile    |   1 -
+ drivers/input/touchscreen/da9034-ts.c | 364 ----------------------------------
+ 3 files changed, 378 deletions(-)
+0403fd11877e mfd: remove unused adp5520 driver
+ drivers/input/keyboard/Kconfig        |  10 --
+ drivers/input/keyboard/Makefile       |   1 -
+ drivers/input/keyboard/adp5520-keys.c | 190 ----------------------------------
+ 3 files changed, 201 deletions(-)
+d26d231fe10b mfd: remove unused 88pm80x driver
+ drivers/input/misc/88pm80x_onkey.c | 152 -------------------------------------
+ drivers/input/misc/Kconfig         |  10 ---
+ drivers/input/misc/Makefile        |   1 -
+ 3 files changed, 163 deletions(-)
 
