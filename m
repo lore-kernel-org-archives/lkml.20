@@ -1,100 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794229889;
-	b=nLoD+KJvOrcDnH+scpoJqRvcHoklwfv5UtQcsSPw/7JhoyG5evGaqP3R2QojQbc5BXAH
-	 MhZB0OWulsGmTs+IcSJGgT8GeVOj5DA0A/YpqJ//v1bRNxKTDNQAY/9pQcjxe+UVNvAqO
-	 OznUdTaXSVVMyDkGlJUhJtt4QsGgUONinBdmBD9P0CZi8P1u6cz/uW0IEanKGmpMWCuJU
-	 0sbCnzuncDBVK6YW1EmnHzGvtzEYYwrKeq5cTDWeKeFgwS4C3YqQ6leUI4C+NNC98zW56
-	 NbU/ZlYQHkuIafAWYsNZwJVgWJNDpDqKJv5JpSB9TlN/rEQCSjxNB0mlc8Up/7Klp0A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229889;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=hUJXyPH6zLDpAwnCmjc82BETffXEe/qWcreTBUEPjBk=;
-	b=FnRt4RIbTiEcVkUpHF3GSezX9SU2yDFj43V2adKnotvX8QRVJUNfukZwqbZArRPQnz05
-	 U00KKl0luK0WcL1rx0DNXrDi4HaKG/yEIHwzETEu84sUUaIeK3zoav8cyPhwfIxk5IPzo
-	 AhsunVTsF9bd7lXnBB5v1RDbQWsEwSA5fDMAAkv0cAvVnzxcYu68pOFllBMbkW7g40WJb
-	 Lw0kZTlT3WQr65W9TYjT00ZIlr1NVq0GERbOCtmkWIHPhQdDJ1wXVev54a+D58ylKzOgT
-	 4SHDzvo1k0FOZPo2SZ0xSeCjA/1Gdhbt+S+JIeIxYo5quGZQPuXaBrdsxzBWaxHfrZw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TlYxLweL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794229954;
+	b=NJhD7eYH5h2+vC7Agno6sF4wbGItq2FV5Hu/6AjCcfPpBRAzdj665VA8bml4IQ5upxSC
+	 futXQtDxeaZXYLie6qQNY/ZXjfUduDl3+qPuX+0ofbq21VWr6jpt+zyaHfmwItzCCm78L
+	 DFSzMzkXzhu35c2pGNtQhMFMtr563mq15oYm9hShYDYL/knni67nyrykvx17ax/rp09bt
+	 mguaume2OGgsDvBv4OxTuZcY5+iIIDbd151w9spfS/lXkcCgEJnBCxTAyBtxJ6djrwKMb
+	 yMmNyNmsYcWxMx5UlhaWt7XzuzQtGGUgR1Vz9Zg5SvEhoEk10kbzaSwFi9UJVc8ux1A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229954;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=VcGX3S/ok2ofcwS3uJdO8rQXnNkquiVnumUqc1g1VFE=;
+	b=soj20ttTAa3yzy5/aFOh825nMsFMn/iySB6z69peUZjTmWQAKOs2thdSTVCJAT7/FikV
+	 lTbzip4i43XxNgR1uIZeqCRTxR/+3NpFTDO47ZvC/pSxEWMWuZvD3hZmX8S4T4LeVsSoi
+	 eXC5gbWPCWaG2QKnvYnoSBVGiv91XUWOlzoYcXoM6EwiXs/35ZPH5tBzsWhSpX6QGzo96
+	 Amdim+KwZWAL/7tvfkyj5dh7O2cxejQ2uuuOtudu0Pbc0LdHgAHFVJhQM6AjNE0gTM8+F
+	 lWSJzvfyCx8c7ByGKn7LHDBnB+lZIN43Tvepo8l7Zka/yLttMlRYbzlf6KZgLXjR2ow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ll9SyF9z;
+	arc=none smtp.remote-ip=91.218.175.195
+Received: from mta0.migadu.com (out-195.mta0.migadu.com [91.218.175.195])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C2C606A334
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:11:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C2C606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DC4606A331
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:12:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29DC4606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TlYxLweL
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5c00c727a21so27357e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:11:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794229887; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qVEIGVvlGmLrExMRQEpABSP7o7jylSL2nE4+eO8eAzTaLesInSICmkZjcg7ZMEYk7V
-         MXyxHd2BctaujyDSdhw66/oeshovw8FOwl5zT9uaTLIKtBE7tFOyxhOqIfIp28KDhoxj
-         eNDYTBY7B/GBVMZsDBNfcCOOjeMCXdLR53Tkp3/bocApWZg4HDKhzI6lFmvAJ+2ahJaC
-         VrYkrfKajHvAxpDORWDlW7QUOrCdzTbr/OXjkXowG+j56rZuKe+amKqrRMkihmwqZBcT
-         ccfO5RtUWXopt3nw+pKUOpOHE5Fnh12CZdGnblSIjG8gxXhmTusWR17ncOFbWgxrJytP
-         SAOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=hUJXyPH6zLDpAwnCmjc82BETffXEe/qWcreTBUEPjBk=;
-        fh=YJMgXgTH0heqPXZ739WsLnxNdvvitvaQ3jZE4Uzq6Lc=;
-        b=QXozQJlTK7DFPtyTIzC820mQuHOV8FqNPstxEQbFHIQK5EIiQh+r0l4YO6kSCZpnFU
-         5xB2M1tmzvS5k45cz0c0yj5nBgG9ELsEesmOvq83xsWkmF23kWZwo9SOFYZz5HB7WB1p
-         iL/Nxexxh05vXG/6hvlbzdSUQ4kMf7/Y+WTKoVa02aSaEaLHIN5m4WEI6ZMdjQvBwC9q
-         1lSRVd+G+1rLwlAvi9aO9EJ+m3p3ZrOp7yBeCPAn/gEwex+uQ1uAnEzG5A8xYTicVJoY
-         OVPbyT2mB0y8ZIQH3hdMi3vU8FILg+AiDE00Qanh9fW8LNtRzvlPkAtcoRzsrI43m/4k
-         ABvQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794229887; x=1794834687; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hUJXyPH6zLDpAwnCmjc82BETffXEe/qWcreTBUEPjBk=;
-        b=TlYxLweL5cnGw7kcvkwBnXE496pEYOz46n9I8mIZaOWbRk/zE3gtaI2/aAagwoEzog
-         ruIdONyvii0IBixHJQerhe1ly28H2J1eL0F0VAKiDMN1dkerDGBgsfQQ0EbbkWSttfBT
-         GddaiTUwWtTnCyzNRnBQv9RDdjSgHc/ww0TxA02ls+6YW8KbrWxpgvTOAnEW7gQIifZj
-         FD6X9IqSRTnUHWSHomjUdqbZZ/7/r9YKYi/DjaV05fAWouL+3c/Q3qm5IgVH8OWbdyki
-         r23MkJq7UAmHjnMb5+WBrZG9LKBBcOU62C/sXjiPX06EWunaY/1AmJRljyC3vSJvWX5c
-         lZvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794229887; x=1794834687;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hUJXyPH6zLDpAwnCmjc82BETffXEe/qWcreTBUEPjBk=;
-        b=US36BIafGoLQi9M8Lt9neQxqCGct4GFH5tOM52AVU5Syk+zouScH/A881rRZe9oCbL
-         95TVBsZ+us6cL6CcZhARdQ5mOxo8dpUqFoiKGiEO8RIIJX+ahnZdfgQj7NdLaqyT0xao
-         khrwmNDgqprInqVvc3nlHHdPk70bTjXUXSYsYj9omUhAjZ3nyNtIHekqZjDRwnSq/N9o
-         xSj1hKxnuwSQshhP44Z+esyRvLvMyxYoOTAgiVyXgPaVTo0qjSnf4NuOGmQavkNhii+q
-         4J/bpeUGMlN4uFEjMykZIi5YpXed7XXO25ls/07wweUwsZhGoTEE/Mjvf6rV0+Vl99qk
-         aucw==
-X-Forwarded-Encrypted: i=1; AL+hErGchwApkqrHnwTYquG5M2pDwXEpNHZ45NeTtsAKp2meuRiP/b1/+/6ES01OylysEqUmOX2RTGXR71kd2OY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Q+ZLhY2+NzGI8aT7lwaBPix/wo5te/MjWEHAuKYVIleqf8Bsj
-	MjCo1gIaiuq+FYL9I7DyOKk5lrqb4iZ+2+hiLkDLJKcixVoQokTJw9raCZ2KvL3fnOtZn8nfy1G
-	igSaKm2+odRpZ3OBhM/H9ZocK54gtQkE=
-X-Gm-Gg: AYBFou3soYV/hZVHKS52nIZN3XMFG6n0Z3smvVl+GxV1ysjBJ1dWPRetiGyjNcWQpfa
-	34PHBwUQM9QM5FwM8+l/rPzzNelh825H6MCOV8YLBMqWFTyXcPKakXJHOcpHBez59Sezel83Hxs
-	MFbyQ7veIxWLL8vLOEiFaZjem39BnBVoksaYCsFOlyWGB8goSpOHQj2aquNgWuwRmHNWKVcFtQ4
-	bLax6hDFOLENkW10/UcD3YZqHXQVsFRF4jWCJQOUuQKDArElgD9obrNM9jE1msTxJnkiT0hMv5Q
-	hSBQsclJj4V1bX6ZUjnxPX9TWIVnXKW3zFlLSMDCLiIMM+X2wthDd441hCDwg4f/g5KpiR+0pSp
-	Isl5VQpY1t9+qZ/bz6nOhwwJeZFXnMePr/wBibMGT2HTkBuqPX7rLckkTMwFqZ5CSOW+Hl3C/tE
-	Byv6YtHfMJv1+AR1s2bpOmisjfHGDW/gD+rckdIvPV/Kde7RTHFg==
-X-Received: by 2002:a05:6512:6402:b0:5c0:62:7fc3 with SMTP id
- 2adb3069b0e04-5c14c0521a4mr1492621e87.5.1794229886753; Mon, 09 Nov 2026
- 05:11:26 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ll9SyF9z
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9ZfmGyDfW24qGm7656Xt3E7F30kmlnVfQdHu0DS+Udo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794229951; v=1; x=1794834751;
+ b=Ll9SyF9zNlSMAGfwbEgHRzmiDmW6DEXh9Xfjr2F4nstXo8/Oxv+CNcwJl9Hv3ehjqU8sK2Tu
+ RmSHN5VFbSCkpXljtXH9MiqAaCeVkDYTDtS1TgaWzkoTfieZag7EXJumvfpvdP2cJeH3g9s6pZK
+ P5B04ihTOsK+7mEM1edYdDog=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 86ac3c8a92c8c74c;
+	Mon, 09 Nov 2026 13:12:31 +0000
+X-Mizu-Trace-ID: 86ac3c8a92c8c74c
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c14bc5a743so5482e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:12:26 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHtXLbR6pGyEiH4zXE6UV0M1hM05HsAdDEE6dvlZ1KtBJD9UlROtZQEMBdRjXJcHRJpc8JkRmh5z0lmhrI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8/xoqFvUucAT+mMpVC2RHwAfSAe7gZ+f3fjPtOI0tTq24EI/Gd
+	l/e68S8kN618eOxjSmzK8tKadX8MGsdMscFfslQBFuHF0DiMhoMywlCI/ux4K39JWrRK7pGvBDm
+	O+Yg/Hgsm8K4hOwVNhMYdpjk+YpbuXVMH8U/OI7fF
+X-Received: by 2002:a05:6512:1109:b0:5bf:c3e1:532b with SMTP id
+ 2adb3069b0e04-5c00b60a427mr195461e87.5.1794229945777; Mon, 09 Nov 2026
+ 05:12:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,35 +66,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106113545.708896-1-chenyou910331@gmail.com>
- <3bbce43f-476c-4a21-8da3-2be98a696e9c@hust.edu.cn> <bab86e6c-bbda-4ad0-bd88-5ace76946eb0@hust.edu.cn>
-In-Reply-To: <bab86e6c-bbda-4ad0-bd88-5ace76946eb0@hust.edu.cn>
-From: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
-Date: Mon, 9 Nov 2026 21:11:14 +0800
-X-Gm-Features: AclHuK8D9gYdXznX6LC4moeS7v-8RvkJxZ4j_oXJHpo9nIA22wV5WJg6HcIkwAA
-Message-ID: <CAKspUh+n2giArsUzKeHq1F-D8VkV89kUNevc-hFnpxjWFWNZsw@mail.gmail.com>
-Subject: Re: [PATCH 00/13] docs/zh_TW: process: add translations of 13 documents
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Weijie Yuan <wy@wyuan.org>, Yanteng Si <si.yanteng@linux.dev>, Alex Shi <alexs@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261102141304.126883-1-steven.price@arm.com> <20261102141304.126883-11-steven.price@arm.com>
+ <fa0ee5a1-4c49-4c1f-bfbb-c270dc4b6301@arm.com> <CA+EHjTy970AWnhYoZ5OqxQ8ojCAELeejw60y2NmpDsM_ZMdu4Q@mail.gmail.com>
+ <06e52c9c-9026-4279-b8c0-53a54a667dad@arm.com>
+In-Reply-To: <06e52c9c-9026-4279-b8c0-53a54a667dad@arm.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 9 Nov 2026 13:11:49 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTzJ1O8=q0rL5CkLKN3CBDr=TkujEw_M-W0H=BJfmrTEzg@mail.gmail.com>
+X-Gm-Features: AclHuK9lv_i4f5zskQj2LbWryVS8Q4D5sdKCijE4VdtfsoeeW5x-cT5K6pQCDgo
+Message-ID: <CA+EHjTzJ1O8=q0rL5CkLKN3CBDr=TkujEw_M-W0H=BJfmrTEzg@mail.gmail.com>
+Subject: Re: [PATCH 10/11] KVM: arm64: CCA: Support runtime faulting of memory
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Steven Price <steven.price@arm.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
+	Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>, Will Deacon <will@kernel.org>, 
+	James Morse <james.morse@arm.com>, Oliver Upton <oliver.upton@linux.dev>, 
+	Zenghui Yu <yuzenghui@huawei.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>, 
+	linux-coco@lists.linux.dev, 
+	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Gavin Shan <gshan@redhat.com>, 
+	Shanker Donthineni <sdonthineni@nvidia.com>, Alper Gun <alpergun@google.com>, 
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>, 
+	Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-> In the current stage, it would be more important
-> to fix all severe issues in the translation other than adding more
-> translation.
+Hi Suzuki,
 
-Thanks for sharing your plan.  I think you are right that fixing
-existing translations and making them reference each other matters more
-than adding new ones, and I'd like zh_TW to work that way too.
+On Mon, 09 Nov 2026 11:35:31 +0000, Suzuki K Poulose
+<suzuki.poulose@arm.com> wrote:
+[...]
+>> applies as is. Only how the expected state is computed differs: for a
+>> pVM it comes from the per-page share state rather than an IPA bit.
+>
+> When you say, per-page, you mean per-IPA or per "backing page" ? i.e.,
+> can pKVM do something like :
+>
+>     kvm_ipa_is_private(kvm, ipa) ?
+>
+> (similar to Realm) or does it need the struct page backing the "ipa" ?
 
-zh_TW is at an earlier stage, though: it has only a few dozen
-translations, most of them converted from zh_CN, so there are few zh_TW
-documents for references to point at yet.  Much of what needs fixing
-also only became visible while translating; that is how the terminology
-issues and these unused labels came up.
+Per IPA, so kvm_ipa_is_private(kvm, ipa) would work for pKVM too. A
+pVM's page is private unless the guest has shared it, and that state
+is in its stage-2 PTE at EL2, not in the struct page. The host kernel
+doesn't have a copy today, since EL2 handles the share and unshare
+hypercalls and the new state is only at EL2, so the pKVM side of the
+check, a hypercall or a host-side mirror, is part of pKVM's
+guest_memfd support when that lands.
 
-So my plan is to first finish process/, the area the scope RFC commits
-us to maintaining.  After that I'll follow your approach: resolve the
-references so they point at zh_TW documents where a translation exists,
-fix the remaining issues in the existing translations, and only then
-add new translations.  The terminology cleanup will go in alongside.
+Cheers,
+/fuad
