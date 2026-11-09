@@ -1,68 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794237876;
-	b=u5Al+mpiivGQNW6spT4wpzQK37IR39TDEnBgKKXVB3am/YNLaqGj6EIiQgvShSs88ePr
-	 pNH7SV8HXP/ixalo7PaaZpQ+QVZxDp72SrGpMYR6oa2+jNFSaXBT0YWfzad0Roke0rIRZ
-	 9pLX2PzJ6X7H2l147xb5xwpkqtrIvpN8omdHjBeL9JVuFrczCxmxc8wEeg6LMC1EFDrLN
-	 bkmigH4sngwIYe6tb5ub92V3VT3loDbG9Phwb5+6DNTpsshEaU1rWqSqIzeLSrP2Sn3ba
-	 zjXjlW9hv8PewgRF1Id4YQduT5yCqPWoe22CQziR2Y4C7yQ6H5OyXTzdIGl93x17PBQ==
+	t=1794237888;
+	b=gM7Nx1UT3V4zptItu9ygPKwBuweOMvFEiFiAHgN/x8btVtDrHBnPjY46I2CBfhG3hrQM
+	 FUUbHJj+uig1dIC+c2NRkeaDMI/eppMmtrV6eyrnQFXijL0yLxsei9e0fYwr96eMa0uwC
+	 GuCPkFqf0rhFPzq5cbQJvS6HHZnjlwhCNc38vDVIiD/NftrWm/0gXKyv62683R1gmt7R0
+	 geSEfNDUWpLRhjAI1JQj8i1C2h4gRaLH3ZEHRDTjCgSDnFSmLwbgwcb8PYZy6ZFPRT1U+
+	 anrxD5yokhCbk9wRozyJTuyyhya8tPnH2tVpMQAf5nQWzhzacAOGgbPp5LNPLP3KwmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237876;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=05PSSj9KAFKOlOAqbcefgviQBOp2FmRn72Lc22GkBCE=;
-	b=3RzC8ra6X73JlVKZWF3wPOLUBZHi8xA4o2waqOV5RvVdM0Zxe+dQaVyM/6Al5mbR5KOl
-	 4NuLh5I3AJP8zeicN+7FLqcBpPy6NyIR7Vs6R7ETeBCScUBZKzZkuu9f1kLZwiawi6/4d
-	 Zd5mtULK3yHCx87uBSSHV44GQ3uVKTZxtxAIv3GJIE7Ju8hVl8g02NGP07bGmSOh5Rthm
-	 saTlBXyI9zE+WwcZtylsh5YRqMBIXWJb/FAEO2mFa4qOB/xXxYFhVPgFwga0Opp1zcxco
-	 QwhDl+UM/xJrTdTAlPaSAcx1kJBXgnRWl8JJsBCqUboXdrOUGGY00koVCBaLlxicPkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237888;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8WX0F8nMHDszbM5NjizmqwpyrFNWwfILJpVqr66lwxI=;
+	b=18yo2rLK7mY8gvC48Qcj3xKjqY2ssB013SzO36cqq3jlMR53HB3TV0O55dpmoRMO8164
+	 0Kq2vBIvhKMUlPNjIqUn7Gsoj6Zk95vnMkQMShoXN/4HX3XzXwUFrv9HMor3qIUfXAxRj
+	 Pn87n+ZEZg08cotae6C80eraw6JoJpJ9Z14oqh3D3JmY86bZSvaQsg/spXs7xw7MEGASo
+	 Tdwm5rWODh0ApiHZtHSeAvoqrqGbfLkWbIWUvcNjC3ps62A/Yt7+Mq9vkZW+g4RoxGFxz
+	 6xoiPQRvQYn6ixcd1InAAOP2b+nNVqRiDYl5kMbPfJWFtwza/JYZg37I8baU9bIgTCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dW2hIoim;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1C7A606A321;
-	Mon,  9 Nov 2026 15:24:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1C7A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WX+sG5u7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D70606A330
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:24:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dW2hIoim
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7AFAE14BF;
-	Mon,  9 Nov 2026 07:24:30 -0800 (PST)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 066483F632;
-	Mon,  9 Nov 2026 07:24:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794237873; bh=5m0+4MkLWcNQHhoWxQ/fZjW/kH3KPYnBjU3kMCC73T0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dW2hIoimCnQ4aKC8wFf3cXyw0LwNNqLNkYtgmSRm+3yJohT9NFUKs1o/pkWDFnJRT
-	 1wKRX/L73wDMpIEmpsF9AhxYzUsWJZITwwrPlodIg5trvqYhZD/NzK9X9gVmZ6nJSB
-	 yOgP4lk2Y95HlkvimKrTvBU+9ZtrzIzSVdrIsDto=
-Date: Mon, 9 Nov 2026 15:24:28 +0000
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Rik van Riel <riel@surriel.com>,
-	Yuan-Hao Hsu <aa9736195201@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/6] mm: khugepaged: ignore MADV_HUGEPAGE for shadow
- stacks
-Message-ID: <avHlrEfKXDNtFJG4@e129823.arm.com>
-References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
- <20261109-refactor_gup_fast-v3-1-2aaef02df0e1@arm.com>
- <3a2d4135-f531-4797-8dd2-a2732a846e45@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WX+sG5u7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 549DE1F008A1
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:24:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794237887;
+	bh=8WX0F8nMHDszbM5NjizmqwpyrFNWwfILJpVqr66lwxI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WX+sG5u7EcuZwen1naP7QcR0JG9gtzcmXxO66QIgi8DHcE6a+WdwYKaatDoMxcE32
+	 VefY+8zsWi578yt4cUpPkANrFgJYAfwdiYMMXIyktO72MKMQCusxwkPuBJs3peG8SF
+	 yFeuZNwUb+T/SqJdwuJiKZ5zRbhQdPTM06VvFJuEGEf//TYsH5GA6yimA8eWnTyDIh
+	 B7iuKorqeMjl7jYRIWvXxFmGZY5lBMX0undR4gJcqVGb/coDHJJ4huRd1v7xGJgoWr
+	 JuYL812qqj5sdqiwI1jG9ZgwoFROobCxvbFj0BhgRXpewTOo+c3ry2DEQeJ9+zT7oV
+	 IRvQw7UtMrttg==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ab4891fc73so7525471fa.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:24:47 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHcsJZAfn/H52VMjbkAr+Lv5nduXwNPc/f6Ks+uwPEqtUPJtixuv7LvWAax4QEWSjPsWLP8rhDqyrSFWoI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++xQ8j96sjRV7LHbyTsvuZvkKmGUOYujXNT2vX+XeGe4NrrUkd
+	G5SJmgLdN1F/yB7SeNpXDcpSeCk/NpRAyjaqER0DzTJwP4nF/sgCMWy8AjGtS5Iupplas8RKLbS
+	U+ZWDIUDsEJunSCpgPeoOtcuAilmGAow=
+X-Received: by 2002:a05:6512:6cb:b0:5c1:4e41:3cdf with SMTP id
+ 2adb3069b0e04-5c1514e0072mr709299e87.12.1794237885651; Mon, 09 Nov 2026
+ 07:24:45 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,83 +59,230 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3a2d4135-f531-4797-8dd2-a2732a846e45@kernel.org>
+References: <20261103221717.3840215-1-briannorris@chromium.org>
+ <20261103141442.v2.3.I40c0bc917fa0b13111251844e9a54feb1d9cd7d2@changeid>
+ <CAJZ5v0jWCz0XDgzeETbmMfGOmvh2G9qcx7xLODrpQ9NiwsddKA@mail.gmail.com>
+ <auuICAm4BC_8Pzs5@google.com> <CAJZ5v0jTX1FgeS9FCV=+V4uacSgLQBVsSPnU27ybgUGg57GUOA@mail.gmail.com>
+ <auzlLwlleGLPsLcw@google.com> <CAJZ5v0g25xQeRaLJWJyAo2fcJko+gZ7w6JhX7FzMgRx2+uuimw@mail.gmail.com>
+ <au0oKFb9CmNzc6Cg@google.com>
+In-Reply-To: <au0oKFb9CmNzc6Cg@google.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 9 Nov 2026 16:24:33 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0hKpjMsGQm8Cpa89x5wkNxqkggDNbp+eQ0S-E52DETWjQ@mail.gmail.com>
+X-Gm-Features: AclHuK931oANkV8p6-cRViUQLiT63hdK6qIBRvMQXju8Za-NQWods2ppuhoMaf0
+Message-ID: <CAJZ5v0hKpjMsGQm8Cpa89x5wkNxqkggDNbp+eQ0S-E52DETWjQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] PM: runtime: Propagate last_busy from dependent to dependency
+To: Brian Norris <briannorris@chromium.org>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Fabrice Gasnier <fabrice.gasnier@st.com>, linux-pm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Ulf Hansson <ulfh@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	Andy Shevchenko <andy@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> On 11/9/26 13:32, Yeoreum Yun wrote:
-> > commit 3efb9800557b ("mm: do not map the shadow stack as THP") makes
-> > shadow stack mappings default to VM_NOHUGEPAGE. However, userspace can
-> > still clear this flag and set VM_HUGEPAGE through madvise().
-> > 
-> > Allowing large folios in x86 shadow stacks exposes a limitation in
-> > folio_pte_batch_flags(). For example:
-> > 
-> >   1. create a shadow stack mapping.
-> >   2. apply MADV_HUGEPAGE and populate the mapping with a PTE-mapped
-> >      large folio.
-> >   3. apply MADV_DONTFORK to the first base page of that folio.
-> >   4. call fork().
-> > 
-> > In the parent, the first page remains writable and anonymous-exclusive,
-> > while the remaining pages shared with the child become write-protected
-> > and lose PageAnonExclusive(). These pages can still belong to the same
-> > large folio.
-> > 
-> > On x86, writable shadow-stack PTEs have _PAGE_RW clear and _PAGE_DIRTY
-> > set. Write-protected PTEs have both bits clear, with the dirty state
-> > preserved in _PAGE_SAVED_DIRTY.
-> > 
-> > When FPB_RESPECT_WRITE is set without FPB_RESPECT_DIRTY,
-> > folio_pte_batch_flags() normalizes PTEs using pte_mkclean(), which clears
-> > both dirty bits. This loses the distinction between writable
-> > shadow-stack PTEs and write-protected PTEs, allowing them to be grouped
-> > into the same batch. GUP-fast can encounter such a batch when walking
-> > across the VMA boundary created by MADV_DONTFORK.
-> > 
-> > Since there is no practical use-case shadow stack with large folio,
-> > ignore MADV_HUGEPAGE for shadow stack mappings, preserving their
-> > VM_NOHUGEPAGE setting and preventing large-folio allocation.
-> > 
-> > Fixes: 3efb9800557b ("mm: do not map the shadow stack as THP")
-> > Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > Cc: <stable@vger.kernel.org>
-> > ---
-> >  mm/khugepaged.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> > index 40fad28c52f6f..51ec043fa26c3 100644
-> > --- a/mm/khugepaged.c
-> > +++ b/mm/khugepaged.c
-> > @@ -367,6 +367,9 @@ int hugepage_madvise(struct vm_area_struct *vma,
-> >  {
-> >  	switch (advice) {
-> >  	case MADV_HUGEPAGE:
-> > +		/* PTE batching doesn't work reliably. */
-> > +		if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
-> > +			break;
-> >  		*vm_flags &= ~VM_NOHUGEPAGE;
-> >  		*vm_flags |= VM_HUGEPAGE;
-> >  		break;
-> > 
-> 
-> Ack, I prefer this solution for now until we know how to make pte_mkclean() on
-> x86 shadow stack PTEs not result in an implicit pte_wrprotect().
+On Fri, Nov 6, 2026 at 2:06=E2=80=AFAM Brian Norris <briannorris@chromium.o=
+rg> wrote:
+>
+> On Thu, Nov 05, 2026 at 10:18:52PM +0100, Rafael J. Wysocki (Intel) wrote=
+:
+> > Of course, it will not prevent the parent from suspending if the child
+> > does not attempt to resume it for a time longer than its autosuspend
+> > delay.  That's by design and you didn't have to take the time to
+> > demonstrate it.
+>
+> To be clear, I wasn't just trying to demonstrate for fun or because it
+> wasn't clear. I think there's value in putting concrete reproducible
+> test cases out there. (KUnit is an easier common ground than some
+> particular piece of obscure hardware.)
+>
+> > The question is how often those kinds of patterns occur in practice.
+> > Or IOW, whether or not they occur often enough to justify adding
+> > complexity related specifically to addressing them.
+>
+> Well, I tried to keep very close to the spirit of the actual real
+> reports in question. So when commit c537d3457542 says, "As an example
+> [...] cat in_voltageY_raw at a 0.2s rate", I think it's not a far
+> stretch to test 0.1s too. And it's actually quite odd (IMO) if 0.2s
+> behaves *better* than 0.1s or 0.09s, just because it hits the parent's
+> rpm_resume() more often.
+>
+> > > On Thu, Nov 05, 2026 at 12:59:24PM +0100, Rafael J. Wysocki (Intel) w=
+rote:
+> > > I would love to hear your counterarguments.
+> >
+> > OK, I'll say more about that tomorrow (it's past 10 PM here, time to
+> > go away from the keyboard).
+>
+> Great! And don't rush on my account. I'm interested in eventual
+> progress, even if not rapid. I'm sure you're busy.
 
-Yeap. As we discussed in offline, just skip clearing dirty bit for
-shstk in pte_mkclear() wouldn't work since it would make a another
-regression -- wouldn't be page-outed.
+Having to context-switch back to this later would probably be harder
+than continuing it now.
 
-Might it would be good to use another soft-bit for shstk in x86.
-But, for now, it seems enough as you said.
+> Or, maybe I should have gone to LPC...
 
-> 
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+I was busy all the time there though, so I guess no regrets at least
+from that standpoint.
 
-Thanks!
+> > > I don't believe your solution solves the problem,
+> >
+> > That depends on what problem in particular you mean.
+> >
+> > It addresses an inconsistency in rpm_resume() and as I said above,
+> > this needs to be done anyway because it is not only related to the
+> > cases when children or consumers are involved.  There are other cases
+> > in which rpm_resume() gets called for an active device and the lack of
+> > last_busy update causes the device to suspend earlier than expected.
+>
+> Yes, on second thought, I agree that your patch addresses a real
+> problem, even if it's not (IMO) quite a full solution for commit
+> c537d3457542's.
 
--- 
-Sincerely,
-Yeoreum Yun
+No, it is not a full solution for this kind of a problem.
+
+> > > and my solution does while also handling
+> > > the inconsistency you mention.
+> >
+> > I'm not sure about that.
+>
+> Sorry, I see that part was inaccurate.
+
+No worries.
+
+> > For example, say a device has an autosuspend delay of 2 s.  Say it is
+> > initially suspended and user space writes "on" to its "power/control",
+> > so the device resumes.  Now, 1 s later, user space writes "auto" to
+> > the device's "power/control" and the autosuspend delay is respected,
+> > so the device doesn't suspend.  Next, 1.5 s after the first resume,
+> > user space writes "on" to the device's "power/control" and the device
+> > does not resume because it is active (its last_busy is not updated).
+> > Finally, user space writes "auto" to the device's "power/control", say
+> > 1 s later, and the device suspends even though it can be expected to
+> > stay active for at least 1 s more.
+> >
+> > How is that going to be addressed by propagating last_busy from
+> > children/consumers to parents/suppliers?
+>
+> Agreed, your patch addresses some scenarios mine doesn't.
+>
+> I also agree the power/control behavior is a bit awkward, although it's
+> not very convincing to me as a use case.
+
+Well, that was just the first example I could think about while
+writing the above.
+
+> (Arbitrary/periodic fiddling
+> with power/control seems more like a nuisance API than a real expected
+> use case.) Or if it were, I would suggest solving that by adding
+> pm_runtime_mark_last_busy() to pm_runtime_allow() :)
+
+Interesting thought, and hold on to it.
+
+> To me, a more convincing one is: a non-autosuspending child with an
+> autosuspending parent, in a situation otherwise similar to commit
+> c537d3457542. The child is not likely to intentionally update last_busy,
+> but only implicitly via rpm_resume(). When you solve the inconsistency
+> with your patch, then it enables my patch to be more effective w.r.t.
+> the parent.
+>
+> > Note that I'm not dismissing your proposal, I'm just having doubts
+> > about the need to do this kind of thing in the core code.
+>
+> OK. I agree it adds a bit of complexity, but at the moment, it seems to
+> me like the most thorough way to improve the ergonomics for clients
+> (drivers) here. And that's pretty much my entire motivation here: to
+> improve the ergonomics of runtime PM -- even if in this case, it
+> requires a little (core) complexity.
+>
+> So, I'd love to hear what can make the ergonomics better here, with less
+> core complexity.
+
+Let me start with a clear problem statement to kind of refresh the context.
+
+In some cases, there are unwanted parent suspends occurring between
+child suspend and resume that delay the latter unnecessarily and
+generally waste energy.  They mostly occur when the child suspends and
+resumes relatively often and the parent's autosuspend delay is too
+short to cover the entire period between the child suspend and resume
+along with the preceding period of the child activity following the
+most recent update of the parent's last_busy timestamp, at least
+sometimes.
+
+Of course, this also equally applies to suppliers and consumers, but
+let's focus the attention on parents and children.
+
+The problem addressed by
+
+https://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git/commit/=
+?h=3Dlinux-next&id=3D55b2b8af704f845e01fa2f31ee259b07641ce3a9
+
+makes the unwanted parent suppends to occur more often because it
+causes the parent to entirely miss its last_busy updates in the cases
+when pm_runtime_resume() (or equivalent) is called for it when it is
+active.  When this goes away, it should be possible to address those
+"unwanted parent suspends" at least in some cases by increasing the
+parent's autosuspend delay.  However, using larger autosuspend delay
+values generally causes system power to grow (on average) because it
+effectively causes devices to spend less time in suspend, so
+increasing autosuspend delay values is not a particularly attractive
+option.
+
+Notice though that advancing the last_busy timestamp more often
+without reducing the autosuspend delay values of the affected devices
+is also likely to lead to the overall increase of system power because
+it would effectively cause the devices to spend less time in suspend
+(on average) likely increasing their power (unless the majority of
+their suspends are unwanted).
+
+Now, let me acknowledge that some drivers evidently want rpm_idle() to
+always set the autosuspend timer instead of suspending the device
+right away.  That may be because of the "unwanted parent suspends"
+problem at hand or for other reasons.  Regardless, it is effectively
+equivalent to setting last_busy in rpm_idle(), so they use their
+.runtime_idle() callbacks for calling pm_runtime_mark_last_busy().  It
+arguably would be nice to allow them to just declare that, for example
+by introducing something like pm_runtime_use_autosuspend_always() to
+be called instead of pm_runtime_use_autosuspend() if the driver wants
+rpm_idle() to always set the autosuspend timer instead of attempting
+to suspend the device directly.
+
+I think that using pm_runtime_use_autosuspend_always(), if it existed,
+might be attractive for a couple of reasons.  First off, which is
+rather obvious, a driver using pm_runtime_use_autosuspend_always()
+wouldn't need to worry about last_busy at all, so it would never need
+to call pm_runtime_mark_last_busy() or pm_runtime_put_autosuspend().
+It would just need to call pm_runtime_use_autosuspend_always() once
+and set the autosuspend delay (which may even be combined with the
+former).  Second, the autosuspend delay of a driver using
+pm_runtime_use_autosuspend_always() would only need to cover the
+period after the last runtime PM reference to the given device had
+been dropped while currently an autosuspend delay needs to cover that
+period along with some (usually unknown) period of device activity
+between the most recent last_busy update and the time when rpm_idle()
+gets called.  Thus, with pm_runtime_use_autosuspend_always(), the
+autosuspend delay usage would be arguably more straightforward and
+easier to reason about, and also the autosuspend delay might be
+reduced in the majority of cases.
+
+Of course, drivers that have the "unwanted parent suspends" problem
+might switch over to using pm_runtime_use_autosuspend_always() and
+adjust their autosuspend delay values to cover full periods of their
+children's suspension.  In theory, it should be possible to reduce
+their autosuspend delay values while at it, for reasons explained
+above, so the total average system power might even remain unchanged
+at least roughly.  That overall might be a zero-overhead change.
+
+Using pm_runtime_use_autosuspend_always() would also make autosuspend
+work consistently in all situations regardless of the reason why the
+last runtime PM reference to the given device had been dropped,
+including the "power/control" manipulations from user space, in which
+case it would be equivalent to calling pm_runtime_mark_last_busy() in
+the sysfs code path mentioned by you above.
+
+Moreover, suppose that pm_runtime_use_autosuspend_always() turns out
+to work for everybody, regardless of whether or not they have the
+"unwanted parent suspends" problem.  In that case, it will be possible
+to simplify the whole autosuspend delay handling quite a bit.
