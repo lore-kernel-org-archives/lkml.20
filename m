@@ -1,107 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794246669;
-	b=u6FZ59adpG/WUOy9tUVIDVigasnBrrRlsBJ873iI2f2hipa6SWJSSpYAeHTCLWrsqkMU
-	 p0Lpth0X7kIgu4Vb+R6DFWtmLN3y0Y9LfvM5/GAZet3y0Huc5ZemGr/iu3WxVMTXpPSGH
-	 nlwEvIOsSufmwjVtddJZ2NiatR72i3sjoiF/9d4xOhSX8hCUOBBe3IPuTQJvqK0p30vas
-	 mO5ybpU7Jy5YQ6pKclqljm0/O+qzMo06b6Cp4swswSRXHMsxuCwq3+Il5yMAW/K0wOjdZ
-	 hdnNcmqlIS85E4gOtrSEi3Yyjog3iB90at4IXBdB1/ppsduWVekobCYrCl1jCjkCjxQ==
+	t=1794246663;
+	b=5b+9AWTHpNNdSVvbg/qSnAbSM5sQjDJl49KVexABLv3f6G3xC/uaG1geq7KGIlehGBdr
+	 OJRb/BSwkCPpYKfjNsROQcs2Va+ZbBFe2yYWLHdLrDwkEzPebLso5Hj86YeDnSP/YYRRb
+	 Vh3z6lijt4y+tDUuklLOU3vOhY41PBRW490LMKMCMACF1DnwcI5MDCozH8qWngK36IjCn
+	 JzO6lXHQVEN4dg1F4BtHoolMYnhBsWzeGwPPcqGHH000Gtl51q3qR/98EtyAhcA0HjGPp
+	 w5vReLnCmEhuV3UwjuJLMp8RhfwXyDz2f6+gENuC7NC2gQIp/5FZOhQ5UlV299Ar/og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246669;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=EHFCx52QXB+dxM1oRGEYW8olq3Iv2zM5Gz/ZhK7pFLA=;
-	b=x7fZNi6XpqAEb2F8KapnGJ2Vyj2gbRqzvTere0zCOlv5PjtDzOeGCD7RPWrEQJwBJNaV
-	 h0ZftgsDsy9LzfFtbAnCFG+cCRf3aoq4WeNO301QBbJYUyOLY4nfsQRzp95oKqAWAcgoM
-	 7iP4N+xCC7c0CI5LUp8hxsCsSxyoc1LX4pEl6KjQJHsmfaqOc7BHfL94qJfp+3hTLsZWY
-	 wdgViPcJmUu5YcF+g6Q4GcYLXZx+3m3U+mjF29/o1m7ey8p9WTgzl6Y17FxpPov3Dk6kY
-	 nzmjAo5CIRf/HE7lbnZk2ilYxkIji9zrZvDP19I/jdq+eoF+glmtiodzBMntY7x2cFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246663;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=d83Kt88Nu157+vux/kvDitp5mRWQIZYWnDgojwr6MgE=;
+	b=nUMm7sHOScR0z7xL3+sVY6xpg2+N3/80A1WICQMxyYqlbg0eKb3ffsEhu/2qZwSmvmot
+	 CxgPK5SCLbelEgZUVWz6R4eem2FztkgkI81l5iiuw8A0dK4SbPbsTqxu0XNYFRH2poyKm
+	 Hpho6iSWLVqOcGFa8K9XsYSWfcxFMsl8BAdAYrhoxKggKC2A3qSMzGVRkMZGF7xR9vCgn
+	 7lIhVfoa+OThP2NDy+4JSu53HxzM9byBVD/lv4TTeLCi/lht+SFaWMFMEPUa2Bu7c3eVQ
+	 QHZgtaVkKZ1vvXZWGauUxAHvwKoYJKiNyFv3kobgih3NIj9x7WB4P/HytiE9IJ1PyeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LBTXI423;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0779360A2602
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:51:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0779360A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LIJrPBYa;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0789A606A31C;
+	Mon,  9 Nov 2026 17:51:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0789A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LBTXI423
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-492690dd5daso829670f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:51:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794246667; x=1794851467; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EHFCx52QXB+dxM1oRGEYW8olq3Iv2zM5Gz/ZhK7pFLA=;
-        b=LBTXI423vlgi2O7BVRr2y01V367QWyvFHRmNVLQOxObpxeEsi9isoJH1oStcBoiik1
-         YLXUaGmPdpUz22qXIDsHZGx/+8AE+C/3MdBHvbZo8nyhmG4UpaWCqDPDrebSOTsee0vT
-         hlKVNZUe8Hwa1MqEauWi5lzQv2z14bufd82bj2AwPu8CvdBoo2Dyrh7pdKt0TKfIDjLL
-         s+CDJIFRBPnt5T/LzdMgDSJPpL/km2ofABy4rnhVrGqcZPhiU5Wn3NKqd3xaS5KK8sxf
-         rDp09mA8CiG8PlVUE3TD8KG9rXPBKsn4cuTwN4qZPLq9g8xBxiVjGs5O2hNlw7XOmASS
-         9SiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794246667; x=1794851467;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EHFCx52QXB+dxM1oRGEYW8olq3Iv2zM5Gz/ZhK7pFLA=;
-        b=DMOLLeYvlFOPYBGZc6uVvoIMMIOxGXQ6PJIOiG2AQ2tlhOazjFv+GEDIGDOni9krkP
-         ySK8Xpgog6Yo/YQ5Gutj4ndcUPmacjnEKfqGzIY5MYWZX1bqQize9WMBmqdGEINoiwZ9
-         PjvhuXVbogkSdUXd4XYRJVNQPlRHgWlFH4PkVkschglR0nsijGhpJ1QQTwhFoM19MUNV
-         nLEkw2xbRWVrEez/YtTFrngyhGylLhvjyHmS82Q/DlANOVHE/eGmPhTWEBlOm+IHx1uY
-         DmuT87G7txGB9mOxzs7RezNz+JR0Cm90lsFRkYshldAlF1umQNfSRFPs9f7Oh9GSz4sp
-         othw==
-X-Forwarded-Encrypted: i=1; AL+hErFU657y/JA/jzTpwoRk21F9j65M2mK3K8M5lzPtwv6aJBwfRSWhKtaVtPL0oGcwjvbO5qfIv85YuPoOME8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/H24ScRkdgPwJqqeEowT07UrCdkxURD8Z290OYqYKu5dEiUv0C
-	SgAam7RxfVXMCkH4+QG2q+y1TdbkVl6i0kMtb9y4wx2BXUCeO5EEGd4n
-X-Gm-Gg: AYBFou3a5N3R0/wueg0tc14/o8cWXoPmBOElRDo3UAgtYnAr14oMaIE+EE7UXO+pcda
-	HZT9nSN1iPPugNtdB+Om/fxIyBZzAe/VKWAoKDsP/wr62geneIcgBVn4WU0rI280D/JRfrR9qfF
-	jgBiQp6/2l5ZtJX6PyHm8rw1KBpFPa+wvI8sLN4QHqcFnhjQOZyaXaa4UoDSBdKzGehZXEFYXIu
-	YbKmF+W7mJAwNmpysxOYT5n7k3VwaHKbbAnofY4ii8O7Nd/91gr4bKAUpmWIBT6nueocLxArapV
-	27gfYl94cB9nihvFbkZ6Jn4BqC9ki4AS9LMpgnzIx/XB+dFK9ylaMh4apiL8xagys1dOxLsQH52
-	XnkwhUNxZhXYNgzXdy/C/5mOLZqXfJUeWO93cIIr5bMk1AFcV9Xg0rmvYf4cjUP3ksDWF4C4EbG
-	YP29v5ZGgA74f6WA6goYjkMVnS8+yFxD8uqnaWq5k6FXXgx0mhUBjt8ie5o6sEEhmS4Lolskdst
-	8RoPvhmFWC574IezeHqC890Eyk4oVDdkXLFNDnzifIFJZ2GlWmgWJAZJgv503UDuvak6yM0vquF
-	niRCuVcpd1+AH/0aUVhHyeNl+q/4YGoRiKpekmjvbWvwTAWlheuVJ7Spri3jCeJ06a7gVqnw8oe
-	jObb2hbsXpalpjtqzKYQcpJYONQpWsMzTeawUqTx81G5IC9j6z57NbphCtMhI6+ms7QSP+DsWT3
-	s3FxMj2pOEGBt9/Ry8ZKEm7Z10E3ODSI17ia6M2KYdut9A2ya29rIsiumG/W/n4Et5yvKquUawg
-	jXhWPUUHX1kIwv3g1V2OAptMsl/PV404q/JjIJoiKq6RhWuXbY57E91+A==
-X-Received: by 2002:a05:6000:26cb:b0:491:da8f:7276 with SMTP id ffacd0b85a97d-4982eb0b774mr396069f8f.26.1794246667071;
-        Mon, 09 Nov 2026 09:51:07 -0800 (PST)
-Received: from jernej-laptop (86-58-12-36.dynamic.telemach.net. [86.58.12.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a4238sm200717f8f.54.2026.11.09.09.51.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 09:51:05 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
-	Paul Kocialkowski <paulk@sys-base.io>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH v2 01/11] staging: media: cedrus: free MV-col buffers in buf_cleanup
-Date: Mon,  9 Nov 2026 18:50:06 +0100
-Message-ID: <20261109175016.42061-2-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109175016.42061-1-jernej.skrabec@gmail.com>
-References: <20261109175016.42061-1-jernej.skrabec@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LIJrPBYa
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D41C91476;
+	Mon,  9 Nov 2026 09:50:58 -0800 (PST)
+Received: from [10.211.55.3] (unknown [10.57.89.2])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2F1AF3F673;
+	Mon,  9 Nov 2026 09:50:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794246661; bh=/lUfAw9eGMej+oyjsDlyMUKexHDWWLSK8vp6iNpaMGE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=LIJrPBYaMVxejvF/SjJMtfkE9HSusKM3mY/ffkVmMYKoaI2YCkHdPerlL9BjOS9vK
+	 7g4hzUBHwZ0djO8Rck28/KPSTbyoCcQ7AV2VBcZPa9tJaXCVYo9n2bENTERhVefUYN
+	 h5H28MvNzCQ3ZanTJxJXhQUgdrfWLh25iYjvXksw=
+Message-ID: <dc1398f4-b81c-4ad8-b706-df89a1622e6c@arm.com>
+Date: Mon, 9 Nov 2026 17:50:57 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,182 +53,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Thunderbird Daily
+Subject: Re: [RFC PATCH 00/6] resctrl: Support mba_MBps on MPAM
+To: Jinjie Ruan <ruanjinjie01@gmail.com>, babu.moger@amd.com, bp@alien8.de,
+ corbet@lwn.net, Dave.Martin@arm.com, fenghuay@nvidia.com,
+ james.morse@arm.com, rdunlap@infradead.org, reinette.chatre@intel.com,
+ skhan@linuxfoundation.org, tony.luck@intel.com, x86@kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Cc: ruanjinjie@huawei.com
+References: <20261109132621.3862497-1-ruanjinjie01@gmail.com_quarantine>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261109132621.3862497-1-ruanjinjie01@gmail.com_quarantine>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-v4l2_m2m_ctx_release() releases the CAPTURE queue before the OUTPUT
-queue. When userspace closes the file handle without STREAMOFF, the
-CAPTURE buffers are already gone by the time the OUTPUT stop_streaming
-calls the codec stop() callback, so the per-buffer H.264/HEVC MV-col
-buffers are never freed. This is easily reproduced by killing a player
-during H.264 or HEVC decoding. Each killed 1080p session leaks about
-2.3 MiB.
+Hi Jinjie,
 
-Add a buf_cleanup codec op, called from the vb2 buf_cleanup of the
-CAPTURE queue, and free the MV-col buffer there. stop() keeps using the
-same helper.
+On 09/11/2026 13:26, Jinjie Ruan wrote:
+> From: Jinjie Ruan <ruanjinjie@huawei.com>
+> 
+> Resctrl offers two ways to describe an MBA policy:
+> - The percentage interface writes a fraction of the maximum bandwidth
+>   into the hardware control register
+> - The MBA software controller (mounted with -o mba_MBps) takes
+>   an absolute target in MiB/s and adjusts that percentage based on
+>   the MBM counters sampled once per second.
+> 
+> The problem is that a percentage alone isn't enough. How much bandwidth
+> a percentage actually corresponds to depends on the memory frequency,
+> the channel count, how many threads are generating traffic, the access
+> pattern, and the traffic of other groups. Neither MPAM nor x86 resctrl
+> reports the maximum bandwidth in MiB/s. So an administrator who wants
+> to enforce an absolute budget (a tenant SLA, a noisy-neighbour limit)
+> has to measure and re-tune the percentage on every machine. x86 resctrl
+> has had this software controller since 2018; MPAM has never been able
+> to use it. This series makes it work on MPAM.
 
-Fixes: fec94f8c9954 ("media: cedrus: h264: Optimize mv col buffer allocation")
-Fixes: 0ee952c2f484 ("media: cedrus: h265: Associate mv col buffers with buffer")
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
----
- drivers/staging/media/sunxi/cedrus/cedrus.h   |  1 +
- .../staging/media/sunxi/cedrus/cedrus_h264.c  | 28 +++++++++++--------
- .../staging/media/sunxi/cedrus/cedrus_h265.c  | 28 +++++++++++--------
- .../staging/media/sunxi/cedrus/cedrus_video.c | 10 +++++++
- 4 files changed, 43 insertions(+), 24 deletions(-)
+I see that you are enabling the software controller at the same time as
+assignable mbm counters. This means that if you enable the software
+controller and create too many monitor groups then the software
+controller will stop working. Any user applications already using the
+software controller would be broken.
 
-diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.h b/drivers/staging/media/sunxi/cedrus/cedrus.h
-index c4b1217c14b6..54f867949fba 100644
---- a/drivers/staging/media/sunxi/cedrus/cedrus.h
-+++ b/drivers/staging/media/sunxi/cedrus/cedrus.h
-@@ -167,6 +167,7 @@ struct cedrus_dec_ops {
- 	int (*setup)(struct cedrus_ctx *ctx, struct cedrus_run *run);
- 	int (*start)(struct cedrus_ctx *ctx);
- 	void (*stop)(struct cedrus_ctx *ctx);
-+	void (*buf_cleanup)(struct cedrus_ctx *ctx, struct cedrus_buffer *buf);
- 	void (*trigger)(struct cedrus_ctx *ctx);
- 	unsigned int (*extra_cap_size)(struct cedrus_ctx *ctx,
- 				       struct v4l2_pix_format *pix_fmt);
-diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c b/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-index fc54d993b11f..892193c12b2f 100644
---- a/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-+++ b/drivers/staging/media/sunxi/cedrus/cedrus_h264.c
-@@ -647,10 +647,23 @@ static int cedrus_h264_start(struct cedrus_ctx *ctx)
- 	return ret;
- }
- 
-+static void cedrus_h264_buf_cleanup(struct cedrus_ctx *ctx,
-+				    struct cedrus_buffer *buf)
-+{
-+	if (buf->codec.h264.mv_col_buf_size > 0) {
-+		dma_free_attrs(ctx->dev->dev,
-+			       buf->codec.h264.mv_col_buf_size,
-+			       buf->codec.h264.mv_col_buf,
-+			       buf->codec.h264.mv_col_buf_dma,
-+			       DMA_ATTR_NO_KERNEL_MAPPING);
-+
-+		buf->codec.h264.mv_col_buf_size = 0;
-+	}
-+}
-+
- static void cedrus_h264_stop(struct cedrus_ctx *ctx)
- {
- 	struct cedrus_dev *dev = ctx->dev;
--	struct cedrus_buffer *buf;
- 	struct vb2_queue *vq;
- 	unsigned int i;
- 
-@@ -662,17 +675,7 @@ static void cedrus_h264_stop(struct cedrus_ctx *ctx)
- 		if (!vb)
- 			continue;
- 
--		buf = vb2_to_cedrus_buffer(vb);
--
--		if (buf->codec.h264.mv_col_buf_size > 0) {
--			dma_free_attrs(dev->dev,
--				       buf->codec.h264.mv_col_buf_size,
--				       buf->codec.h264.mv_col_buf,
--				       buf->codec.h264.mv_col_buf_dma,
--				       DMA_ATTR_NO_KERNEL_MAPPING);
--
--			buf->codec.h264.mv_col_buf_size = 0;
--		}
-+		cedrus_h264_buf_cleanup(ctx, vb2_to_cedrus_buffer(vb));
- 	}
- 
- 	dma_free_attrs(dev->dev, CEDRUS_NEIGHBOR_INFO_BUF_SIZE,
-@@ -710,5 +713,6 @@ struct cedrus_dec_ops cedrus_dec_ops_h264 = {
- 	.setup		= cedrus_h264_setup,
- 	.start		= cedrus_h264_start,
- 	.stop		= cedrus_h264_stop,
-+	.buf_cleanup	= cedrus_h264_buf_cleanup,
- 	.trigger	= cedrus_h264_trigger,
- };
-diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
-index 780da4a8b5af..6c643862ab73 100644
---- a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
-+++ b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
-@@ -858,10 +858,23 @@ static int cedrus_h265_start(struct cedrus_ctx *ctx)
- 	return 0;
- }
- 
-+static void cedrus_h265_buf_cleanup(struct cedrus_ctx *ctx,
-+				    struct cedrus_buffer *buf)
-+{
-+	if (buf->codec.h265.mv_col_buf_size > 0) {
-+		dma_free_attrs(ctx->dev->dev,
-+			       buf->codec.h265.mv_col_buf_size,
-+			       buf->codec.h265.mv_col_buf,
-+			       buf->codec.h265.mv_col_buf_dma,
-+			       DMA_ATTR_NO_KERNEL_MAPPING);
-+
-+		buf->codec.h265.mv_col_buf_size = 0;
-+	}
-+}
-+
- static void cedrus_h265_stop(struct cedrus_ctx *ctx)
- {
- 	struct cedrus_dev *dev = ctx->dev;
--	struct cedrus_buffer *buf;
- 	struct vb2_queue *vq;
- 	unsigned int i;
- 
-@@ -873,17 +886,7 @@ static void cedrus_h265_stop(struct cedrus_ctx *ctx)
- 		if (!vb)
- 			continue;
- 
--		buf = vb2_to_cedrus_buffer(vb);
--
--		if (buf->codec.h265.mv_col_buf_size > 0) {
--			dma_free_attrs(dev->dev,
--				       buf->codec.h265.mv_col_buf_size,
--				       buf->codec.h265.mv_col_buf,
--				       buf->codec.h265.mv_col_buf_dma,
--				       DMA_ATTR_NO_KERNEL_MAPPING);
--
--			buf->codec.h265.mv_col_buf_size = 0;
--		}
-+		cedrus_h265_buf_cleanup(ctx, vb2_to_cedrus_buffer(vb));
- 	}
- 
- 	dma_free_attrs(dev->dev, CEDRUS_H265_NEIGHBOR_INFO_BUF_SIZE,
-@@ -918,6 +921,7 @@ struct cedrus_dec_ops cedrus_dec_ops_h265 = {
- 	.setup		= cedrus_h265_setup,
- 	.start		= cedrus_h265_start,
- 	.stop		= cedrus_h265_stop,
-+	.buf_cleanup	= cedrus_h265_buf_cleanup,
- 	.trigger	= cedrus_h265_trigger,
- 	.extra_cap_size	= cedrus_h265_extra_cap_size,
- };
-diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_video.c b/drivers/staging/media/sunxi/cedrus/cedrus_video.c
-index ad4ec3490775..adc7f255d7cf 100644
---- a/drivers/staging/media/sunxi/cedrus/cedrus_video.c
-+++ b/drivers/staging/media/sunxi/cedrus/cedrus_video.c
-@@ -560,6 +560,15 @@ static void cedrus_stop_streaming(struct vb2_queue *vq)
- 	cedrus_queue_cleanup(vq, VB2_BUF_STATE_ERROR);
- }
- 
-+static void cedrus_buf_cleanup(struct vb2_buffer *vb)
-+{
-+	struct cedrus_ctx *ctx = vb2_get_drv_priv(vb->vb2_queue);
-+
-+	if (V4L2_TYPE_IS_CAPTURE(vb->vb2_queue->type) &&
-+	    ctx->current_codec && ctx->current_codec->buf_cleanup)
-+		ctx->current_codec->buf_cleanup(ctx, vb2_to_cedrus_buffer(vb));
-+}
-+
- static void cedrus_buf_queue(struct vb2_buffer *vb)
- {
- 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
-@@ -579,6 +588,7 @@ static const struct vb2_ops cedrus_qops = {
- 	.queue_setup		= cedrus_queue_setup,
- 	.buf_prepare		= cedrus_buf_prepare,
- 	.buf_queue		= cedrus_buf_queue,
-+	.buf_cleanup		= cedrus_buf_cleanup,
- 	.buf_out_validate	= cedrus_buf_out_validate,
- 	.buf_request_complete	= cedrus_buf_request_complete,
- 	.start_streaming	= cedrus_start_streaming,
--- 
-2.43.0
+Would instead teaching MPAM about the mbm_default fixed allocation of
+counters be better? If a platform has sufficient bandwidth counters then
+we can ensure there is a counter for every monitor group. If necessary,
+we can also reduce the number of CLOSID/RMID the driver reports so that
+there is one per monitor group.
+
+Thanks,
+
+Ben
+
+> 
+> What this series does
+> =====================
+> 
+> MPAM refuses mba_MBps in two places:
+> - Its MBM counters are assignable, and supports_mba_mbps() refuses
+>   the option when they are.
+> - Its maximum bandwidth control is a soft limit by default, which
+>   can't hold a single requester down to the target.
+>   MPAMF_MBW_IDR.MAX_LIM reports whether the hard limit exists.
+> 
+> MPAM also makes two generic defects reachable:
+> - Writing the control register sleeps (smp_call_on_cpu()), while
+>   the worker runs under the RCU read lock
+> - A 16-bit fraction lets the minimum control value reach zero, which
+>   divides by zero in the estimator
+> 
+> The patches:
+> 
+> - Patches 1 and 2 fix the two generic defects.
+> - Patches 3 and 4 make the loop runnable on MPAM: the worker takes the
+>   CPU hotplug lock around the sleeping control update, and assignable
+>   counters are accepted with a fixed assignment mode.
+> - Patches 5 and 6 handle the maximum: the driver sets HARDLIM and
+>   records the MAX_LIM behaviours, and mba_MBps is refused where only
+>   the soft limit exists.
+> 
+> x86 has no assignable counters in the mode where the controller is
+> allowed, and does not set the soft-limit flag, so its behaviour is
+> unchanged.
+> 
+> Testing
+> =======
+> 
+> With the MPAM MSC model in QEMU:
+> 
+> - From a 9606 MiB/s baseline, a 7000 MiB/s target converges to
+>   6888 MiB/s and a 9000 MiB/s target to 8766 MiB/s.
+> - The memory-side MSC register shows MBW_MAX.HARDLIM set.
+> - A modelled MSC that implements only the soft limit refuses the
+>   mba_MBps mount, while a plain mount succeeds.
+> - With mbm_assign_on_mkdir forced on while the controller is in use,
+>   a write of 0 is refused, and the user's value is restored after
+>   unmount.
+> - The KUnit tests for the MPAM driver pass.
+> 
+> Jinjie Ruan (6):
+>   fs/resctrl: Avoid division by zero in the MBA software controller
+>   fs/resctrl: Do not update bandwidth from a failed counter read
+>   fs/resctrl: Take the CPU hotplug lock for software controller updates
+>   fs/resctrl: Allow mba_MBps with assignable MBM counters
+>   fs/resctrl: Reject mba_MBps when the maximum is only a soft limit
+>   arm_mpam: Program the hard limit for the software controller
+> 
+>  Documentation/filesystems/resctrl.rst | 13 +++-
+>  drivers/resctrl/mpam_devices.c        | 55 +++++++++++++----
+>  drivers/resctrl/mpam_internal.h       |  4 ++
+>  drivers/resctrl/mpam_resctrl.c        |  9 +++
+>  fs/resctrl/monitor.c                  | 86 +++++++++++++++++++++------
+>  fs/resctrl/rdtgroup.c                 | 48 ++++++++++++---
+>  include/linux/resctrl.h               |  5 ++
+>  7 files changed, 179 insertions(+), 41 deletions(-)
+> 
 
