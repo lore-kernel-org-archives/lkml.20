@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794238999;
-	b=4IGsZj8N4LlBeoq4hirrYr3MWnYagZh6Ehdn2vsnVA20fYA5+LsbMr7XuXsc/5nuG2m0
-	 VAzM8DOS0wzlECPEw0d+7z4ytPYaS2LHWfYGSL4yi4AaJYFTY5kQ2Vk1qpV5ShJxw7T6a
-	 hIdsIbcJ/UaMvYkEpgKGYKe3LWhRftWBLLPlECog9gxmEj6oZBsgPOvnQTwMye30ihRhP
-	 +0v6CKREt221g8G8uBN4b8PPtWNrhFGPpLx2uJU+MJLZGHaLJZ8vd061SuAGdoRE0mvJ3
-	 37I46fj00phMTEC6l7BeniZmdyiz8g4CksfMRH4S5Zqhbq6iR/x+EckAKWJ6Gsw1MzQ==
+	t=1794239007;
+	b=BXnMnFMTSvcptJ8UFAxfwIUdkvjKgapAW/VknUdhc6QHRNW/i9NbmuMqXXlKOFZdiZb8
+	 oLuan8VfeKSQAkEpuWGt0pR7oSNxnvmoLfZkdMqPtEcfj2K3sefkqkyKWrMMmHSFv9JsU
+	 U4t+s/Q0ErlULomFulv1W6x6v0wCtkhWkl2cc94LotGvz8rxSiz2dmlXtF9HK/kA3CtUV
+	 6WPyewKIEIAfzegyJWZzWMly5Vu9JyJCALI3QLYE7owkKt0aMv0l3bmas63Mhv3DyYJkx
+	 KhbBQC63mFHLSEo8Op26zwEjLnxRMe/CHGhoVg/TgfQsV6uLZytwzyh1L4Bg80aRoOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794238999;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cL++JI9C+4Cy1uXsxf69XJu4TXzjHGTPhlS+dkkhl1k=;
-	b=jZQVtoWoiErAtCR0adRjpd8WAGzR6/yahSLXk3jjLYjbDORmmT+6nvMcSfOSKRgN7lrE
-	 H6utfQ4+6/tsUDrK304Swt/Sfhon9vBr1lLrw0AoPsOmVRZHeHnJt89KEQ0MZ1CzORWK9
-	 ShxHSLu0cMyC6pw4L9sryRYjpWTSUCMB6rNEN/wd5hQAX8l6s+tglyee4jDsjnf/Xw9SI
-	 bM4hSQhrcxCyqWAPRtXfOGmsYtPE+8QwuvY/N08mn9N9kAivEQ245LBtW8gHpTdQsWdGl
-	 wpPY5rSulE4IFYAxhrwFdDuayyEZq8zxS0tHinmZURU1Hd2InPWhSiPa7UKh6zsCoSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239007;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mQ4LVrS7TAycIWuwYP6nLPokX8EbBu04NF8VpAWRnUc=;
+	b=pEAdL9IKtpxjZaRr/5Yj5CrWF1xzpaZsa8GpPhZWJLqC4IAor8ucszpL/olVXh8/tYXq
+	 T9WQnxA+8Z8j3pLaSu0hb+/xc1IqZ/Syb9n0sqC4AAuSG6L1o0s0+dNzrALV++vyGDkU1
+	 Td3ujs/9StHKpqrWL0R/92T+F5vnJ5RdPb/4jTjpvPnl9tB6ALi3KO4cRpM/Od5/5sLfi
+	 4LeOEkQkR5ZB7d1pEoh4eQtkKnbDY8l9lV7UuQfDD8ou64LNAUr75Vc+ICJlZEcyQhe0y
+	 RrONN6xIhjZ8bIGO+TJl4ytwTESzyVuBycNTzEqVjaZzQ83W8qczps5IS2lFdJqwsfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HlazxI5W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=linux.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id DBC85606A31C;
-	Mon,  9 Nov 2026 15:43:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HlazxI5W
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E7FD81F0089F;
-	Mon,  9 Nov 2026 15:43:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794238998;
-	bh=cL++JI9C+4Cy1uXsxf69XJu4TXzjHGTPhlS+dkkhl1k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HlazxI5WEzYsWkggYjXwI9aVHs5Rv1+vsftVJo7FV22BKBcQe6TkZG+6QLMtVG+o+
-	 Ex0iQ80VQLXKcU9eWg1MZEegeXd2LdQzTx1xvTmjHLXUGW5SssMjusEPxZ120eg//9
-	 /E2YW8WYL6Gt1cA14BBPaoYyaHfx8FedE1jam7J/gsViUX5OFEDzqz3GFWd6MnSARs
-	 3dYgxkgCjCUPmzo+zlEQL/2oXhzgcIwNtU0pLdAgpU2GVIpXwJRrcSyMq1z4qGyDfP
-	 ym9nUD4v0XWeUmjdsgUmE1vu3hhb2nUQmzyYAFr9NwHTzyh3YuJBdkUSw+GEz+Jvg9
-	 L7bTSDkh4hVqw==
-Date: Mon, 9 Nov 2026 16:43:14 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: document the Halliday Top
- Level Mode Multiplexer
-Message-ID: <cdfwfoubvs6dvwojrjhryjejeqcpmtllu2ko7vhjcgxshgvsga@65rliahvcppf>
-References: <20261109-halliday-tlmm-v1-0-a181d54214cd@gmail.com>
- <20261109-halliday-tlmm-v1-1-a181d54214cd@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B628A606A330
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:43:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B628A606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b354d27917so7771267b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:43:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794239006; x=1794843806;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mQ4LVrS7TAycIWuwYP6nLPokX8EbBu04NF8VpAWRnUc=;
+        b=vuF3S0NoNPTt6nSu1ufvQh5mIF7i1NbFJ5du6y7gS8qsn7lVQjsVjY9kaGD1hffRzi
+         3TJHM68DR0SfJMVo7EIfhJBPf0g9Ku2u35/yZB1narS76l1xsqRG4MykeCBvpSReQ90n
+         0DjTrq1od9lJS7Rn0ayQdSmI5aHoJJhfIU6RwAuso/ZhiumpMcyWz4u0mF6uoG+arMFo
+         5ofNHJbxiKzhe3ho7ZUDY6Q0sOfDhixEFhuTyEbk/Ne2Le3mbGcUZSB1LHuVJg/Nmoj1
+         8msGzE0EVOG2c78V8UM5/darG59y0hZcouUzfIFhJfzoa4uUcyYqoXOYId8FGG8sUY2B
+         Y3qQ==
+X-Forwarded-Encrypted: i=1; AL+hErG7nP/CbI9ojpleagzgXoxo7Zpw5ixKbO5SLwkOWGrEf67FdAJx+dCcV/ZCRP58xhwp1GfkfD5S6N1YX/E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/dLdAXHWTc3TWW+m1ShZOV+5fRQs0qBRMDZPPbIgCM1bYPbmog
+	EX2x/ZT0n6KA9IOEpQ5kM9f5u95xGs4D6XkBqyhbRnowYr8zhirm/Am7AuKNNHqn4YE=
+X-Gm-Gg: AYBFou1BnyA6DSHCV1WV4ejrHLvCzuU62RT2kpD1TU+ES7l+j8VwXKlIIiOIO8cfkcO
+	98hA1ULDAT94aDGra6p7BlWIeHwSqoZ145dMmCWHcNPXXnuujR2EiRkhMWz8uxlz9PaXFOJERYZ
+	spiLV5+thv0JhQNII1fJyjEyDQfD1Lw8O6ceDZQBK98x2qkLA0hGRI366JnqS+k00mrAy22CPCh
+	jQJf3OZVqNLHd5UMgH4x2knjFUMAfEArpASo2dqV1LlOArw7M3m9+DRcP22rFs+ECQj5PgN/sUx
+	+h2fpuwMZjKzkITA94BUHMBScSYnU7qyhfaXtDXNeSerjseeHiUFIMy/yGlPUrS+5R0GArl0KSs
+	3wFAPmsnr6sDkdkF4zcXrERJMFtlRtJ+VsEESIhcObKVWcvcGnHf81X1F7hNjk3HKOM7uuX7Ht2
+	8f9jyaRCcnuH6HFXE4eq9D5OrQF8r1zIvV8Autea+etcdRJyy0XQWQEyR97R8Nzz39BD7c4T6SL
+	S2ivrRsCyNb/IKBfTq8gwI0b3boMPfs1NilEF2GTGDh+Ow7TXB0O1vRl/Iki9u9YPWcP7E0btoi
+	Oy/eFTxtsLbwIei87T8vIV2oHcpxV924pV0pbIZhso/cW/Fe3sENRxI10m4qEZP6ygBWotLcrsM
+	YqSpuI9QK/JAdF+SUi+GZkeQSjhsGJQvwOS3SZZHIDorXONQX3co1QIkT8iHrpiO94ht+24QoNy
+	jarw==
+X-Received: by 2002:a05:690c:e650:10b0:8b1:88ad:1fce with SMTP id 00721157ae682-8b36ca8148fmr18846077b3.42.1794239005703;
+        Mon, 09 Nov 2026 07:43:25 -0800 (PST)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com. [209.85.128.173])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b36b298f13sm37867407b3.0.2026.11.09.07.43.24
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 07:43:24 -0800 (PST)
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-8b354d27917so7770917b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:43:24 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHJss2qe0QXGg46oGlodITgc0xBPgd5jykvmflVqJZ8GfoiBcRG62PZe5qJc37syGqYvDHLluECXB6FTRU=@vger.kernel.org
+X-Received: by 2002:a05:690c:e3ce:b0:8b3:56f0:38d1 with SMTP id
+ 00721157ae682-8b36c854704mr28695777b3.3.1794239004423; Mon, 09 Nov 2026
+ 07:43:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,185 +83,184 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109-halliday-tlmm-v1-1-a181d54214cd@gmail.com>
+References: <20261103163715.385394-1-tanure@linux.com> <20261103163715.385394-3-tanure@linux.com>
+ <20261105-stoic-cricket-of-tolerance-cb3014@quoll> <35dc1ebf-5194-4ec8-adfb-dcc8ea717750@amlogic.com>
+In-Reply-To: <35dc1ebf-5194-4ec8-adfb-dcc8ea717750@amlogic.com>
+Reply-To: tanure@linux.com
+From: Lucas Tanure <tanure@linux.com>
+Date: Mon, 9 Nov 2026 15:43:13 +0000
+X-Gmail-Original-Message-ID: <CAJX_Q+0QqBHGv-4nfmY8N_xr=KQgUFtwPQTVZBxTK1LHV0jGOQ@mail.gmail.com>
+X-Gm-Features: AclHuK8i80yCCEWCPsmXh9g28kddZ8mRpDlp24I5tNty5i0jlojD6mTpEXhkklk
+Message-ID: <CAJX_Q+0QqBHGv-4nfmY8N_xr=KQgUFtwPQTVZBxTK1LHV0jGOQ@mail.gmail.com>
+Subject: Re: [PATCH v5 2/7] dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
+To: Chuan Liu <chuan.liu@amlogic.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, xianwei.zhao@amlogic.com, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 09, 2026 at 12:28:37AM +0000, Stanislav Aleksandrov wrote:
-> Document the Top Level Mode Multiplexer on the Qualcomm Halliday SoC
-> (SXR2250P).
-> 
-> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-> ---
->  .../bindings/pinctrl/qcom,halliday-tlmm.yaml       | 146 +++++++++++++++++++++
->  1 file changed, 146 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,halliday-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,halliday-tlmm.yaml
-> new file mode 100644
-> index 000000000000..172de2d98997
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,halliday-tlmm.yaml
-> @@ -0,0 +1,146 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/pinctrl/qcom,halliday-tlmm.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Technologies, Inc. Halliday TLMM block
-> +
-> +maintainers:
-> +  - Stanislav Aleksandrov <lightofmysoul@gmail.com>
-> +
-> +description:
-> +  Top Level Mode Multiplexer pin controller in Qualcomm Halliday SoC.
-> +
-> +allOf:
-> +  - $ref: /schemas/pinctrl/qcom,tlmm-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,halliday-tlmm
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  gpio-reserved-ranges:
-> +    minItems: 1
-> +    maxItems: 112
-> +
-> +  gpio-line-names:
-> +    maxItems: 224
-> +
-> +patternProperties:
-> +  "-state$":
-> +    oneOf:
-> +      - $ref: "#/$defs/qcom-halliday-tlmm-state"
-> +      - patternProperties:
-> +          "-pins$":
-> +            $ref: "#/$defs/qcom-halliday-tlmm-state"
-> +        additionalProperties: false
-> +
-> +$defs:
-> +  qcom-halliday-tlmm-state:
-> +    type: object
-> +    description:
-> +      Pinctrl node's client devices use subnodes for desired pin configuration.
-> +      Client device subnodes use below standard properties.
-> +    $ref: qcom,tlmm-common.yaml#/$defs/qcom-tlmm-state
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      pins:
-> +        description:
-> +          List of gpio pins affected by the properties specified in this
-> +          subnode.
-> +        items:
-> +          oneOf:
-> +            - pattern: "^gpio([0-9]|[1-9][0-9]|1[0-9][0-9]|2[01][0-9]|22[0-3])$"
-> +            - enum: [ ufs_reset, sdc2_clk, sdc2_cmd, sdc2_data ]
-> +        minItems: 1
-> +        maxItems: 36
-> +
-> +      function:
-> +        description:
-> +          Specify the alternative function to be configured for the specified
-> +          pins.
-> +        enum: [ atest_char, atest_usb, audio_ext_mclk0, audio_ext_mclk1,
-> +                audio_ref_clk, cam_mclk, cci_async_in, cci_i2c_scl,
-> +                cci_i2c_sda, cci_timer, cmu_rng, dbg_out_clk,
-> +                ddr_bist_complete, ddr_bist_fail, ddr_bist_start,
-> +                ddr_bist_stop, ddr_pxi0, ddr_pxi1, ddr_pxi2, ddr_pxi3, dp0_hot,
-> +                edp0_hot, edp0_lcd_self, edp1_dpu0_lcd, edp1_dpu1_lcd,
-> +                edp1_hot, gcc_gp1, gcc_gp10, gcc_gp11, gcc_gp2, gcc_gp3,
-> +                gcc_gp4, gcc_gp5, gcc_gp6, gcc_gp7, gcc_gp8, gcc_gp9, gpio,
-> +                i2s0_data0, i2s0_data1, i2s0_sck, i2s0_ws, i2s2_data0,
-> +                i2s2_data1, i2s2_sck, i2s2_ws, ibi_i3c, jitter_bist,
-> +                mdp0_vsync, mdp0_vsync0_out, mdp0_vsync1_out, mdp0_vsync2_out,
-> +                mdp0_vsync3_out, mdp0_vsync4_out, mdp0_vsync5_out,
-> +                mdp0_vsync6_out, mdp0_vsync7_out, mdp0_vsync8_out, mdp1_vsync,
-> +                mdp1_vsync0_out, mdp1_vsync1_out, mdp1_vsync2_out,
-> +                mdp1_vsync3_out, mdp1_vsync4_out, mdp1_vsync5_out,
-> +                mdp1_vsync6_out, mdp1_vsync7_out, mdp1_vsync8_out,
-> +                pcie0_clk_req_n, pcie1_clk_req_n, pcie2_clk_req_n, phase_flag,
-> +                pll_bist_sync, pll_clk_aux, prng_rosc0, prng_rosc1, prng_rosc2,
-> +                prng_rosc3, pwm_0, pwm_1, pwm_10, pwm_11, pwm_12, pwm_13,
-> +                pwm_14, pwm_15, pwm_16, pwm_17, pwm_18, pwm_19, pwm_2, pwm_3,
-> +                pwm_4, pwm_5, pwm_6, pwm_7, pwm_8, pwm_9, qdss_cti, qdss_gpio,
-> +                qup0_se0, qup0_se1, qup0_se2, qup0_se3, qup0_se4,
-> +                qup0_se4_l0_mira, qup0_se4_l0_mirb, qup0_se4_l1_mira,
-> +                qup0_se4_l1_mirb, qup0_se4_l2_mira, qup0_se4_l2_mirb,
-> +                qup0_se4_l3_mira, qup0_se4_l3_mirb, qup0_se5, qup0_se6,
-> +                qup1_se0, qup1_se0_l3_mira, qup1_se0_l3_mirb, qup1_se1,
-> +                qup1_se1_l3_mira, qup1_se1_l3_mirb, qup1_se2, qup1_se2_l3_mira,
-> +                qup1_se2_l3_mirb, qup1_se3, qup1_se3_l3_mira, qup1_se3_l3_mirb,
-> +                qup1_se4, qup1_se5, qup1_se6, qup1_se6_l0_mira,
-> +                qup1_se6_l0_mirb, qup1_se6_l1_mira, qup1_se6_l1_mirb,
-
-The number of QUPv3 functions could probably be limited by merging the
-entries differing just in line numbers but this is how it's always been
-in sam8550 so let's leave it.
-
-> +                sd_write_protect, sdcc5_vdd2_on, tb_trig_sdc2, tgu_ch0_trigout,
-> +                tgu_ch1_trigout, tgu_ch2_trigout, tgu_ch3_trigout, tmess_prng0,
-> +                tmess_prng1, tmess_prng2, tmess_prng3, tsense_pwm1,
-> +                tsense_pwm2, usb0_phy_ps, usb2phy_ac_en,
-> +                vsense_trigger_mirnat ]
-> +
-> +    required:
-> +      - pins
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    pinctrl@f100000 {
-> +        compatible = "qcom,halliday-tlmm";
-> +        reg = <0x0f100000 0x300000>;
-> +        gpio-controller;
-> +        #gpio-cells = <2>;
-> +        gpio-ranges = <&tlmm 0 0 225>;
-
-make dt_binding_check will not raise an error because it ignores
-non-existent phandles but please make the example correct and add the
-tlmm label to the pinctrl node.
-
-> +        interrupt-controller;
-> +        #interrupt-cells = <2>;
-> +        interrupts = <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>;
-> +
-> +        gpio-wo-state {
-> +            pins = "gpio1";
-> +            function = "gpio";
-> +        };
-> +
-> +        i2c-w-state {
-> +            scl-pins {
-> +                pins = "gpio58";
-> +                function = "qup1_se0";
-> +                bias-pull-up;
-> +            };
-> +
-> +            sda-pins {
-> +                pins = "gpio57";
-> +                function = "qup1_se0";
-> +                bias-pull-up;
-> +            };
-> +        };
-> +    };
-> +...
-> 
-> -- 
-> 2.55.0
+On Fri, Nov 6, 2026 at 3:16=E2=80=AFAM Chuan Liu <chuan.liu@amlogic.com> wr=
+ote:
 >
+> Hi Krzysztof, Lucas,
+>
+> On 11/5/2026 7:57 PM, Krzysztof Kozlowski wrote:
+> > [ EXTERNAL EMAIL ]
+> >
+> > On Tue, Nov 03, 2026 at 04:37:10PM +0000, Lucas Tanure wrote:
+> >>
+> >> Assisted-by: LLM
+> >
+> > Drop this one.
+> >
+> >> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> >> ---
+> >>   .../bindings/net/amlogic,meson-dwmac.yaml     | 59 +++++++++++++++++=
+++
+> >>   1 file changed, 59 insertions(+)
+> >>
+> >> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac=
+.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> >> index e769c9bb70d8..6de013e3e8f6 100644
+> >> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> >> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> >> @@ -23,6 +23,7 @@ select:
+> >>             - amlogic,meson-gxbb-dwmac
+> >>             - amlogic,meson-axg-dwmac
+> >>             - amlogic,meson-g12a-dwmac
+> >> +          - amlogic,t7-dwmac
+> >>     required:
+> >>       - compatible
+> >>
+> >> @@ -57,6 +58,59 @@ allOf:
+> >>               - const: clkin1
+> >>               - const: timing-adjustment
+> >>
+> >> +  - if:
+> >> +      properties:
+> >> +        compatible:
+> >> +          contains:
+> >> +            const: amlogic,t7-dwmac
+> >> +    then:
+> >> +      properties:
+> >> +        clocks:
+> >> +          items:
+> >> +            - description: GMAC main clock
+> >> +            - description: First parent clock of the internal mux
+> >> +            - description: Second parent clock of the internal mux
+> >> +            - description:
+> >> +                clock of the pipeline stage inserted in the bus path =
+between
+> >> +                the controller and the DRAM. Without it, the controll=
+er cannot
+> >> +                complete DMA transfers.
+> >> +            - description:
+> >> +                clock of the register block holding PRG_ETH0 and PRG_=
+ETH1.
+> >> +                Without it, the block reads as zero and ignores write=
+s.
+> >
+> > This sounds like you take clock from other block. That's wrong, that
+> > device should take its own clock.
+>
+> I see that the clock in the dts patch corresponds to <&clkc_periphs
+> CLKID_SYS_ETHPHY>. This clock provides the working clock for the APB Bus
+> of the ETH PHY controller, and this clock will affect the register
+> reading and writing of the ETH PHY (including the ETH_PLL). See section
+> 15.3.4.2 RegisterDescription in A311D2 Datasheet for details.
+
+Thanks. That section is the PHY block at 0xfe028000, the region of the
+mdio multiplexer node. The registers in this description are PRG_ETH0
+and PRG_ETH1 in eth_top at 0xfe024000. On the VIM4 the same gate feeds
+them too: with it off they read as zero and ignore writes. My datasheet
+revisions do not say which clock feeds eth_top. Can you confirm it is
+this one?
 
 Thanks,
-Bartosz
+Lucas
+
+>
+> >
+> >
+> >> +
+> >> +        clock-names:
+> >> +          items:
+> >> +            - const: stmmaceth
+> >> +            - const: clkin0
+> >> +            - const: clkin1
+> >> +            - const: pipeline
+> >> +            - const: pclk
+> >> +
+> >> +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.=
+yaml.
+> >> +        # The RX delay line of this glue is fine tuning in 200ps step=
+s,
+> >> +        # added on top of what phy-mode describes. The TX side has no=
+ fine
+> >> +        # tuning: its only step is a quarter of the clock period, the=
+ full
+> >> +        # 2ns at 1Gbit/s, so the TX property is not accepted.
+> >> +        tx-internal-delay-ps: false
+> >> +
+> >> +        # Deprecated: new SoCs use the standard *-internal-delay-ps
+> >> +        # properties instead.
+> >> +        amlogic,tx-delay-ns: false
+> >> +        amlogic,rx-delay-ns: false
+> >> +
+> >> +  # Delay definitions for Meson8b and newer
+> >> +  - if:
+> >> +      properties:
+> >> +        compatible:
+> >> +          contains:
+> >> +            enum:
+> >> +              - amlogic,meson8b-dwmac
+> >> +              - amlogic,meson8m2-dwmac
+> >> +              - amlogic,meson-gxbb-dwmac
+> >> +              - amlogic,meson-axg-dwmac
+> >> +              - amlogic,meson-g12a-dwmac
+> >> +    then:
+> >> +      properties:
+> >>           amlogic,tx-delay-ns:
+> >>             enum: [0, 2, 4, 6]
+> >>             default: 2
+> >> @@ -106,6 +160,7 @@ allOf:
+> >>             contains:
+> >>               enum:
+> >>                 - amlogic,meson-g12a-dwmac
+> >> +              - amlogic,t7-dwmac
+> >>       then:
+> >>         properties:
+> >>           rx-internal-delay-ps:
+> >> @@ -142,6 +197,10 @@ properties:
+> >>         - items:
+> >>             - const: amlogic,meson6-dwmac
+> >>             - const: snps,dwmac
+> >> +      - items:
+> >> +          - const: amlogic,t7-dwmac
+> >> +          - const: snps,dwmac-5.10a
+> >> +          - const: snps,dwmac
+> >
+> > I see no such hunk in the code, so not sure how to review this.
+> >
+> > Best regards,
+> > Krzysztof
+> >
+> >
+> > _______________________________________________
+> > linux-amlogic mailing list
+> > linux-amlogic@lists.infradead.org
+> > http://lists.infradead.org/mailman/listinfo/linux-amlogic
+>
+> --
+> Best regards,
+> Chuan
+>
