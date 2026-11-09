@@ -1,99 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794240475;
-	b=pfLUMtP6fwAjd9OL5whECJb3IRtrhlAHB4p2TRH7hYyr1OUL4Kvt0FSbhKkEzfSs0UaF
-	 3uMv2Aihd7VBAb3E9+9VCOcJHXaFMIT+lLnkdLUKIgjO9jMFFwcJ5YYYnXPysdF943AqH
-	 zQqdu8hYmHDKrmPXZCNSabu2Y4bNuy4fdFomqLOlQGdVuCr+mhJj5t3PPSlD6LpADmT4Z
-	 Uzt39kF47G/EA8NlkGCamCvpC957rKJQYrpJLveXCEOpcVRsWhn4kdfMRxrQTRszMKDzp
-	 nSTtwWhBZ3sx0Sa3ohkM9q2G1Mebntgc0vH5zdZHK7Z6a7FyLskBN7R6QRCM0TzNU/A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240475;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794240509;
+	b=5q2aQpaq2aRlhcFFodqL4WAjF5zI3hjpo0M/lZt73CO9ySsC+SyXmF+CVRcmjm7tms8l
+	 rZ15IUJCQxQqZExbJ5vrdOpjRrCZn85RIRND+2X8avaPOPPTL8RLmtCtofEoaf3UA1Yoa
+	 jsQIYffF/5lzCVAVRQPXd0kUYVyjcrFns5WYwCZdSgmH7LczWIbkVUHgTmDoWgvZ64uGw
+	 kQuAGhyWPgdCROp1JkzWo/APL4jpp0dQYfTtWFEbIfRzPscwZVV1Uuj42D3fqtyZkgvAg
+	 S/DtMKZzUqCHbqFZrbFMZge5t+jf+qL+8rcDBACFMjrpPabe1onac08Jx3gmAtx5qhQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240509;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=MbwONemvQTwiYEvnpJlP+l9rrcIEBnFd/b+PD1QFDBQ=;
-	b=1ievvVToMFOd5OJTCjdVwGcoW8s3WDvFntQ9q99ipyrorFIuaA1qM5zPRo9eK7L0IVe2
-	 AHvbsiDh9jbSuG02F+x4Rsy57rjtYqYLGSbmzNDEhJ6DV3mbw7aNCd5VFT/GUXaZ4CBEJ
-	 kjwijNrCUodJ0Rq+IiKzp8jKYSWZ5sgQ4zKH74KnV6IkzgNJsO3Hw75COfg79Y9QCwc3P
-	 S4ZkSVdlOC0ogMc0tfCyN7NHwrTqpFbfVvf9oDUlp15+tw5jk3yQnbTnkseuWJF5R7wdq
-	 79LX9AnwhUnNSMbVN9OHWxikGhWPUm4KjRwVQ+PEHlgrY74HfX2Vd3i9hkJp//UFq6w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bqGE6uj9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=4SBBPsSc3/Ep6nC8xR1PMHfDpiIh8UItfXg1xvFovQw=;
+	b=dp1YWG83Z0atR32EOqsj1maHrSul3Su04iMkk+XfUzmGnM2Br6VmiR5y2Zz94g3NuNgy
+	 b5gFTbTFlSC/fb2aVrFxGuSI5AIH/K4ZCUm8oO+soRmrUZhaGzkqerz1iox2RcCQ1lMkY
+	 +BN1+xGrZvsJo+HVMBWkMi20XyvEgrD4ZPBKGXrIrjqGwn+ePjKJQk9DfMhIOQit0I+3I
+	 TfcPAA/dvDLQZht9b9ZYKYL42ezqHQzRse7Ofk1GC75c2x+Wp2zf/AREWFiYGiCjA4y09
+	 ZN+pRxJAR2CAZRgf3T645VWL19e1WcCFUG/4QVKcs2oREGrqDc+KJ2tiWNoFRUOpmPw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=jJd+VzFL;
+	arc=none smtp.remote-ip=209.85.219.46
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DBC606EE84
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:07:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1DBC606EE84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA49606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:08:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FA49606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bqGE6uj9
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1931ff67a29so2785528c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:07:54 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794240474; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W7q0yHtEwXxyseBmk2Ht+Qh9pK1sGhlejtBCYwA33tBNFaP4G31sGcoBo0Gqy4ZYpp
-         71kPuIsCLtpSNe/vtdtSIZ0sooAi5nTBa1jghm4TUz5N+xeguXBc4ZsRfUXw87a7Z5Na
-         z6W6nFXY+6KCxTOUExBbx3VfML/zyIUi2bd4ZXo9NeooNVKmwk1goFYfRaHIkR3xXFao
-         xV4nYh0sJGkPo1p9jwyhD7LOoIQcxCf2NI10gsQORP+X/rGM65MDMRcUsfD7yDK0zGWA
-         43Vn7mXBWsu+Lyff8bAu1vxofKuQcbYL3Y2DvK93t4C9DdPI5E+WDioVEeEmogezhw7P
-         ivMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=MbwONemvQTwiYEvnpJlP+l9rrcIEBnFd/b+PD1QFDBQ=;
-        fh=8crguad2bb7hziGmSdo2T6icWAP1+BU5UlK88/wDzI4=;
-        b=gNXxKMqMLAmknhyVoC1iZG+7ZijHWdd0t9xZ2Aqpq4u5z9jvRVFYTzpQp/heXSWQ6M
-         JCzPFyqHwK13cTWvABXJjkZCLx65gfyDvM/WfkmY0n2G8Ad9DUoCxp0hTQTnpcVAcJcV
-         flmddkakeJ2zWCFxxAL7mE1yCByabQJBd9fzc0fMnHPsC99zMVoG3R5gvtfut75Pf+TW
-         oMFRa4r8D8Ao3Q6m/pUqtGPveupHcn6I+AO3nkQq7gJn/9la/tZGbaSzRQyYXdIU7nwC
-         j3yvJ7NelsRt8F6guQMe1CxN9DH2OHPG3vr9EU0+KQBqPukao7emFLHG98n1rXrsVmtD
-         CIeA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=jJd+VzFL
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-91c1f548f87so14239536d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:08:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794240474; x=1794845274; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MbwONemvQTwiYEvnpJlP+l9rrcIEBnFd/b+PD1QFDBQ=;
-        b=bqGE6uj9fKNrG3w60stdKMh4HkVt8FhOYmdsnCe4TVSocwnXywOb+5yHbPTKcgBfcB
-         24sIIhOCRIpBIAHL8ykVKY6f1y9oj6FVgZNKihX+p7xXKXhf2hd9n18VlVZRd5UEK2TC
-         360/o11TUVm8T2JwYmSC9DN7xhrMXgjAf3UzdZ5LwFHaNXt/ewz9OrucTI1Kq47o6hpj
-         zb83MyoEqsO0ZR05PKUu5U10cJr2zvZO5ICX+FlyUxmtUdMikqYc5HxQ0hSaqc8rFk2z
-         /oVTW00zFJcwb3FEQQiz06zNvurrx5ypDVuEpVFB0joXKVBkl9pD8dr5TxhzRVPGQlmg
-         ne2w==
+        d=rowland.harvard.edu; s=google; t=1794240507; x=1794845307; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4SBBPsSc3/Ep6nC8xR1PMHfDpiIh8UItfXg1xvFovQw=;
+        b=jJd+VzFLTL+ZpWFvm5Dym8sZpj1ikUvXlM0hb+Wyi3zxnNynzqBQeftpgrryufVtVJ
+         y7chtGrXlZK2cVsDP5jFyj3gm1d5fXI8qtPPjKDodBkgyqIGTrGXm+P57mpFD0QriSYy
+         iMHR26EC7QiNg1whxqC+RBFvOJ0VhK63ynrmf+ke50xcCvgvx8AqtMqf1/yLO3FNseZ5
+         +fBWxztt94xZ4EToQBgtXfui+tFJ5cLhr6Z689dshtk6mC5Y5f0KqKoVwYMVnIlzQQGm
+         6F+QLFbpspUK7AY/+08fIQ4H8eoW3ePVC6xrn80uov5Zai+rCx6Jp2Z4AIfh6WXDMgWz
+         GiQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794240474; x=1794845274;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MbwONemvQTwiYEvnpJlP+l9rrcIEBnFd/b+PD1QFDBQ=;
-        b=ffGylF0TlW3Mpx5J3zcmmeTxsWoaBAtPmKWa1JqxIDpPcOZ9F9imxknYIPPN9AogGC
-         jmU59BF4RteaKo1+LCRtTFkov7EeoHUOaAlZzMxjE4Q5XDQv6BgqRzBCQv4UuO7WTWKh
-         H7xMhzGj+hlzxDWyP3LUDRjWNUFS0lzyWMs2QTycVs0kbl9xPYk5eF7GIjOFqRAV9Pqd
-         iO9TJ4gqoF+qDef51a7AFDrHpsBeXY5BYqD/8G/QRvA864vdmx6MG0z+5GZKPV8wgrSq
-         U1SdBqZSwO9Z0X9oREv/DVYMTevP46GRK20nXP1kgmWFJALEyBa7pXkJRjFMM3dPugng
-         w46w==
-X-Forwarded-Encrypted: i=1; AL+hErE6RHrsVeV4KefyGIauGLvtR0xqweB9IA7aLkjjEHwZZUoG4Y2mnrmPApPokJuxqbVxc9exYI57lmoqgvk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/iATeztGAnpfEJk/f6yXoprvJYt2ucj8/tAXP68pEzyx3p4vJe
-	xdjVp+kbzvDTgGoWVp6x4OGhb5XjgkY7DERsyZX59WvnWOsddbRuVj0SMyDFn8t/TcRA1WHXRcS
-	CtpKfKD4UQMrf9e11DmmY9knO8m8Zy8JxfpJHXGIKjg==
-X-Gm-Gg: AYBFou0jHuUgUtwJpLGnr3jI9occUnvFZvkfJep7RqwlNTBCkcVfubCP3lp3DDeMJMs
-	e79Ui1U+CGtcieijxsk/fe8m1nLI6K/uw3qxEUh8i/hy/444HF/Zq6XvG2ramRtKHpN/bcZloOj
-	gc8nI3f6lwMZj4WJLhI+/1FvnTHBWr4DRcpCBA+P0R4DYqDAZXOPgln9FyVGuhu5HkvDLzWsDXT
-	XXmM26GgqvaD8vXkIDt71EaQ2HdUw5559OldrTnk5lfywKpvFlRMPzwGE5wuHwbIhfVTpOdrznF
-	9lEJKaU5EuoohB2kFvs3HebU4ptxvsluhP2X7t5kWfnwFlaJJrry+MqLCPKn4ejddQ/WM3IjH4s
-	uR4bFcYfKXG8+idoKb40/yQr5dEAbwesYapb8f715yXcmyCVKXUoBLQ4sqe8EdqS58zaO6xc=
-X-Received: by 2002:a05:701b:4284:10b0:194:3a84:e67a with SMTP id
- a92af1059eb24-1b39ff06096mr7491026c88.41.1794240473701; Mon, 09 Nov 2026
- 08:07:53 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794240507; x=1794845307;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4SBBPsSc3/Ep6nC8xR1PMHfDpiIh8UItfXg1xvFovQw=;
+        b=oAkNjx0UCxgLzgfYCW7yfy1Lf2DXIlAoKP3MbFBsSqaWFOghsPHYTwHDpnho7faXJl
+         7JuCYYCAWjMDmgQ9F0p3ent5Z/ax7PKKjzrrBZ9xLVIlw9g5y2qiMb4QCWW5vtEakD6R
+         YB5FY0JUAygWzuG7tqd0np5ibQgCPFR7+hH/f7SoMhLajO5ESKu5bp8OaVvu1jBUP6El
+         D3ZLPf/Nm4KNZQ0MJdAQDznME6NZYiH5OtB+QTwNJhRfSlnVXWIolKDawuovPU7WgNAr
+         PHIIHvFKkSC+f1h6SNDdwishGxW6JA9WSdFx1XgVKf3XXLTNHqRdmdSexNWWL81skBZG
+         65pw==
+X-Forwarded-Encrypted: i=1; AL+hErHlKNoolYc23A+cLccki8DVm+oGja01C+eTnDmhMk2VYv0YPNGQ2Ru/JFng+cO6ZLyH6vxsriQ1zAAci/w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BE7//fOoI/WBq3hEzDfwUbcHs5wDM8n07aIfRXNLfsw5yDiF4
+	wjLxC3Yu5FUOfCHdOBHEl02V47Ljenbs7TvIRQGnGLJBFaZcN3urh6BYxqaiAlK0Jw==
+X-Gm-Gg: AYBFou3Jb3HPUe2vcOvtJnPXR63P+kug7BWvkk8eTzrBkgGZXQxzGwwFsP7dpqT+kvD
+	vuE5oVKgJC45iqLuQWgh+zs/lUNaobORDeOhSdgaYHNiyqvI75PmqXJMnDUu7yjgVqsLWShvBTQ
+	Oxmi1uC/+PeJP16+dW3SgaIxlhCNI7tB9EGxCYNv3wmT+3gY8Vgt6HBMQPh4fnELDWAEYFZLu0X
+	sd4XLIJNTr+DH8xiRIY7rszWRsMqd7w0/fEO7twNPVdqeye/MIbTMYWiXfZu1SyNI4zjIkHzuwl
+	GOPzgF7uUwvOS9njJWIqfKXRFxEPzczDQf92Cx3EnC7weCzFy68BiPBj1nIMBUwqmSNzJkEX2Hf
+	1B4JjbMj4ASTcI/ZrVxX1g7uIT11VpXeA82IFf9JfUop1EEiEXGWPvermky8BzXo7ukshz3EsMZ
+	1g4pEjf/WMtYCG/kbF44btw42Nd+9MuREv4pKjo8kepOFJgf2SS4ZnE7ODIuy7euYKGiKS81ZEJ
+	8H5bVAGyVKe4v/C+FLdrvUcMZ9jCDLqZdmxgrlCSgAfLhb/3hIEEgL7smbksuTQxsY7LqzdsZbI
+	ZAafODr8MCmo7NyMMKWWt4CD9xMq
+X-Received: by 2002:a05:620a:440f:b0:93e:d5c1:da49 with SMTP id af79cd13be357-947842cc78cmr674785385a.82.1794240506826;
+        Mon, 09 Nov 2026 08:08:26 -0800 (PST)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::66b0])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e61c333sm7310285a.3.2026.11.09.08.08.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 08:08:24 -0800 (PST)
+Date: Mon, 9 Nov 2026 11:08:22 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>, linux-usb@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] USB: usbfs: replace __get_free_page() with kmalloc()
+Message-ID: <b39fd45c-657c-46dd-94e5-af7d633d297d@rowland.harvard.edu>
+References: <20261108-usb-v2-1-c9209d527559@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,63 +98,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
- <20261106151947.3991524-9-vincent.guittot@linaro.org> <20261109144350.GD2668564@noisy.programming.kicks-ass.net>
-In-Reply-To: <20261109144350.GD2668564@noisy.programming.kicks-ass.net>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Mon, 9 Nov 2026 17:07:31 +0100
-X-Gm-Features: AclHuK8HkNgfirok1D7dYwfSows5oKF3C-rSYYm8dDteUYYcSG8yjSHtd3IxClM
-Message-ID: <CAKfTPtDcu6HS-G75bG7xp10t-n-XceneFtqxa_cAd+B96zCJiw@mail.gmail.com>
-Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, lukasz.luba@arm.com, 
-	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org, 
-	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, 
-	sched-ext@lists.linux.dev, qyousef@layalina.io, christian.loehle@arm.com, 
-	pierre.gondois@arm.com, sshegde@linux.ibm.com, kayracizmeci@gmail.com, 
-	tim.c.chen@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108-usb-v2-1-c9209d527559@kernel.org>
 
-On Mon, 9 Nov 2026 at 15:43, Peter Zijlstra <peterz@infradead.org> wrote:
->
-> On Fri, Nov 06, 2026 at 04:19:35PM +0100, Vincent Guittot wrote:
-> > +static struct task_struct *pick_next_pushable_fair_task(struct rq *rq)
-> > +{
-> > +     struct task_struct *p;
-> > +
-> > +     if (!has_pushable_tasks(rq))
-> > +             return NULL;
-> > +
-> > +     p = plist_first_entry(&rq->cfs.pushable_tasks,
-> > +                           struct task_struct, pushable_tasks);
-> > +
-> > +     WARN_ON_ONCE(rq->cpu != task_cpu(p));
-> > +     WARN_ON_ONCE(task_current(rq, p));
-> > +     WARN_ON_ONCE(p->nr_cpus_allowed <= 1);
-> > +     WARN_ON_ONCE(!task_on_rq_queued(p));
-> > +
-> > +     /*
-> > +      * Remove task from the pushable list as we try only once after that
-> > +      * the task has been put back in enqueued list.
-> > +      */
-> > +     plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
-> > +
-> > +     return p;
-> > +}
->
-> This means a task will only be pushed once? After which it needs to be
-> re-enqueued on the runqueue?
+On Sun, Nov 08, 2026 at 10:39:34AM +0200, Mike Rapoport (Microsoft) wrote:
+> do_proc_control() allocates a temporary buffer for the data stage of a
+> control transfer issued from userspace.
+> 
+> This buffer can be allocated with kmalloc() as there's nothing special
+> about it to go directly to the page allocator.
+> 
+> kmalloc() provides a better API that does not require ugly casts and
+> kfree() does not need to know the size of the freed object.
+> 
+> Performance difference between kmalloc() and __get_free_pages() is not
+> measurable as both allocators take an object/page from a per-CPU list for
+> fast path allocations.
+> 
+> For the slow path the performance is anyway determined by the amount of
+> reclaim involved rather than by what allocator is used.
+> 
+> Replace use of __get_free_page() with kmalloc() and free_page() with
+> kfree().
+> 
+> Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> ---
+> This is essentially a resend of the "USB: usbfs: replace __get_free_page()
+> with kmalloc()" patch that fell between the cracks.
+> 
+> Alan and Vlastimil agreed on v1 that the kmalloc() overhead does not matter
+> for usbfs memory accounting:
+> 
+> https://lore.kernel.org/all/8cbe558e-7f53-4ce4-be8e-52fdba9105d4@rowland.harvard.edu
+> ---
+> v2 changes:
+> * drop already merged patches
+> 
+> v1: https://patch.msgid.link/20260830-usb-v1-0-aa349c302246@kernel.org
+> ---
 
-Yes, my goal is to keep the list small to avoid ending up with many
-tasks to push. So I only check if prev could be pushed somewhere else
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
 
->
-> So if it was found during migrate_disable(), its thereafter stuck? --
-> this seems a little weird.
-
-If a task is migrate disabled while we are about to look for a
-possibly better CPU, it will have to wait until after the next time it
-becomes current. This is a simple way to pace the number of tasks to
-push in one callback
+>  drivers/usb/core/devio.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/usb/core/devio.c b/drivers/usb/core/devio.c
+> index 101cb94254809..9a7cc7cdf00be 100644
+> --- a/drivers/usb/core/devio.c
+> +++ b/drivers/usb/core/devio.c
+> @@ -1190,7 +1190,7 @@ static int do_proc_control(struct usb_dev_state *ps,
+>  		return ret;
+>  
+>  	ret = -ENOMEM;
+> -	tbuf = (unsigned char *)__get_free_page(GFP_KERNEL);
+> +	tbuf = kmalloc(PAGE_SIZE, GFP_KERNEL);
+>  	if (!tbuf)
+>  		goto done;
+>  	urb = usb_alloc_urb(0, GFP_NOIO);
+> @@ -1265,7 +1265,7 @@ static int do_proc_control(struct usb_dev_state *ps,
+>   done:
+>  	kfree(dr);
+>  	usb_free_urb(urb);
+> -	free_page((unsigned long) tbuf);
+> +	kfree(tbuf);
+>  	usbfs_decrease_memory_usage(PAGE_SIZE + sizeof(struct urb) +
+>  			sizeof(struct usb_ctrlrequest));
+>  	return ret;
+> 
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20260829-usb-ad052ea1ffad
+> 
+> --
+> Sincerely yours,
+> Mike.
