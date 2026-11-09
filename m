@@ -1,48 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794256070;
-	b=MIKZH4kGtimTbZ7VDeBBOX1kiPqpB+jTXe7Uyx+lWyhzDaGVpsSYOIvW4NmSucm3qjFb
-	 TUAcW1XkK70mom+3myqzlQcyoCGpEfxrOuICUK1MWyc+RuyKA7TbPa8/gihvlcIZjR3Kv
-	 NMWR87V48V+QhhKae1tUFigzQ3q016o9vL3QufpAmgh1MBMx8okhWtG6JWOVcxQiUoHe7
-	 Cv7wbRW86c+ODqgdtGfoj48HunxPt1BkzFditNpzyprXTwxp30mdCoEq8/4rrfiNFOxN6
-	 Ql7exJMt/zWvuPJcNlPc/aQ1gMKCBUVzvZ7vs6UO7Om1+oUgiBVlyLpjOSS4rOHPrfg==
+	t=1794256136;
+	b=0jt9xDtlZj7+4CquAx+tbqMh3EzL3ZIngCSsyfd8ZiegrMXCI8RR4QHmHNBs5/SVivq3
+	 MZsFhYClOa1eVOuE61Z+5q0zpFCRqe22OcGr15aooliFI7XDRQTW/buM6sij+SExEMQyo
+	 /Gi7XIXnEq9tBpiYMR4yB05KeybSGVEKtgFMsrAvqRvBb5bBCHHO4MW3rmx7YMbaWq1JD
+	 L4U/Nndpg5PNGansa/tNakTBe4UnPGaoYssESFvV/ds62kmpOQblRxKMb+5rZEblcx5BZ
+	 74Zrvv36Qp4H3thRVX2IzqXhHuUdOi9U4/4ymwZghKeLMFq7dG4woKvOWwFNA0o2ySg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794256070;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=uSmqEwTPBCw7yv/vu+RoTvS1k78wUQRDkeFSllXkLKI=;
-	b=TWoBjtrjfD3oxHZBq3z7WIGxzJElgpsKhvkgdEtKZVn4R1544M8LUmXvb+SqalzU3bCo
-	 /27qnv50wKQKO2iVGexRjSr2SDXU/oG89r1QX+Y4G+xz0reA4UBcRJhKvHOiY2+qBa7T/
-	 c9yWcqEJkXqAaY+yD9T92ohBhgaSZFjasCxl4GahbxgNuE/GH/x0+2OF6/0BDC3TY+GO0
-	 fPOolFR/yID7QE19zVYKbvmomIfqVuQNGyIHKGoFEmsKyRa4K1G2thkCFmC+qXtQA2odI
-	 2reWauTXJmbT/EflcelRwbM8aJKJtAjOUB0gMPKuhB2QMJWol/ixc8nQDpI8UUsHViQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794256136;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-Last-TLS-Session-Version;
+	bh=O8bWXtQs5tyhPqTBhmBjUN2HbzWi04nLxsVKERMlLnY=;
+	b=yurXnaXZW71vRqm6FoCj2P7S6XAMdb3vhep4spK6YpuU7A5H8odyHKQDuR9kEzo8wi8L
+	 wp9Q3sdVjPBQAMscAqt+9owwoF3/6VR6tHJca1+qsAV8NIkZT1iZTiBwdsfWutuUsNHgY
+	 yjlVxGhGdSw2S6uZohxLlGe8s/Hz+JlZ39a4yCI+czSr7yIkJHgglzeefoU3mv3N/Ujyj
+	 /bVUarROI8ZgHyHyVFRG+Nn6AKNvxI8AwEqec9t3vyKGB0I2k9hTOTB2GCnw+b80zZRvK
+	 SjHXA6fyhZGsJxCQQBPWcMJFcvyBkbyuEWDYM+NvGPaZqCtW9XsEg2LfXITOWQ1/EKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8FIBdKP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=OfLuCSba;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53322606A31C;
-	Mon,  9 Nov 2026 20:27:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7439A606A321;
+	Mon,  9 Nov 2026 20:28:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7439A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A8FIBdKP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7830A1F008A1;
-	Mon,  9 Nov 2026 20:27:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794256069;
-	bh=uSmqEwTPBCw7yv/vu+RoTvS1k78wUQRDkeFSllXkLKI=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=A8FIBdKPcoGsNZlhGhiZxSuNdfssvT5PPZ6PrGGJaBdnGlh1o1Uoc3D7idyPnLDiT
-	 opYuDkhI6iTo2Dkz+j/2fqI0v2JoKsTponThIl770h6qo0JswzOFpuPxvcoISfhMLO
-	 96j3RJ4LE5aydnXA6E3B6PD9yMVvYhuO+YDa7DOayKR1+meLwulbZPWOyrGw/Zy9XR
-	 15iPrvzzJn0jCEPLUw84HtOy53ejShG6QX23kJRYzSx+whednhH04vvje3HVr3t+Dm
-	 nW4yxHSm4PYTVRKI2m50h9lbf4d2syeJKmb9gnxqIi/Ac3TCjiT0EH0AYw5cSRm0nW
-	 MzROyVWkrB9Sw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 7B1B130216A7;
-	Mon, 09 Nov 2026 20:27:04 +0000 (GMT)
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=OfLuCSba
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 085A8A1583;
+	Mon, 09 Nov 2026 21:28:48 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1794256131; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=O8bWXtQs5tyhPqTBhmBjUN2HbzWi04nLxsVKERMlLnY=;
+	b=OfLuCSbabGbXKxsEWTqsxyM3H3PDPY0x1vCeUaij/McT8+ZLIk+jVIiEn81OsUSWcQyp+y
+	EL0A2/Et5KjkhkSyrVBg5SKA52z7ZzgkT2HENFFUWlylMZ2fNRx2qMvOwMLyrTPuVt8CBk
+	PL773vnoj0kE8Lyom1RbSv+Ljwd2FHKa7ynPAFMsvm62xWbdGUoJpaxB8T10Dtww2tTy5M
+	ESYBAVQ4lTHKf5aWyPpRZXk9tJbaIeMGe45Q2hz7KSosP8+t0aBPQuHWjRp+THYnOh1yGU
+	g4FXLYpwsReFK27ZXMrn/09xpMwviqO1DUJedIC+eIILUh5OrPHION4rBAwizQ==
+Message-ID: <62513008af14da4a6fb35e1a9566146dca0efbef.camel@tipi-net.de>
+Subject: Re: [PATCH net] net: bcmgenet: cap the Tx queue threshold at the
+ ring size
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: opendmb@gmail.com, florian.fainelli@broadcom.com, andrew+netdev@lunn.ch,
+ 	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, 	justin.chen@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, 	razor@blackwall.org,
+ kerneljasonxing@gmail.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Mon, 09 Nov 2026 21:28:48 +0100
+In-Reply-To: <179424433591.994134.17565447879442853727@kernel.org>
+References: <20261106-nb-genet-txq-thld-net-v1-1-53bbac647b71@tipi-net.de>
+	 <179424433591.994134.17565447879442853727@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,55 +71,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 5/5] spi: atmel: fix division by zero when transfer
- speed is zero
-From: Mark Brown <broonie@kernel.org>
-To: shao.mingyin@zte.com.cn
-Cc: broonie@kernel.org, linux-spi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- pjw@kernel.org, samuel.holland@sifive.com, william.zhang@broadcom.com, 
- kursad.oney@broadcom.com, jonas.gorski@gmail.com, 
- bcm-kernel-feedback-list@broadcom.com, anand.gore@broadcom.com, 
- florian.fainelli@broadcom.com, rafal@milecki.pl, 
- linux-arm-kernel@lists.infradead.org, sven@kernel.org, j@jannau.net, 
- neal@gompa.dev, asahi@lists.linux.dev, ryan.wanner@microchip.com, 
- nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, 
- claudiu.beznea@tuxon.dev
-In-Reply-To: <20261106234803459Z94udUX-Ai29-OfBFRND6@zte.com.cn>
-References: 20261106234751020Egf42VCVVlsSC_Msov4HO@zte.com.cn
- <20261106234803459Z94udUX-Ai29-OfBFRND6@zte.com.cn>
-Date: Mon, 09 Nov 2026 20:27:03 +0000
-Message-Id: <179425602307.3711751.7845465463671042950.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=913; i=broonie@kernel.org;
- h=from:subject:message-id; bh=5Ht5M+VjLA+M4Oeg4Wh7v9V7rBg4ioA0/PuJ6uvdihU=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+6cwo4GpdvnHDs+b2EqXGWWmFbOv3bLGv27Gy+iRXw
- +xl6+0CO0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjAR/XKG/+mKh+SPln9/OHVZ
- iTCL3Tnj7mVTVhZfq9utt/jr8s0KtXMY/udUHd3KsWHVo+SciZ4KfYlxvJ7TO/hbzxa9OPSEs/v
- IY04A
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+X-Last-TLS-Session-Version: TLSv1.3
 
-> atmel_spi_one_transfer() calls atmel_spi_set_xfer_speed() for every
-> transfer.  A device whose max_speed_hz is zero (no spi-max-frequency
-> property, or created through the spidev sysfs new_device interface
-> without a speed) leaves the transfer speed at zero, and the divider
-> calculation divides by it.  spi_setup() would only clamp the speed if
-> host->max_speed_hz was set, which this driver does not do.
+On Mon, 2026-11-09 at 17:12 +0000, netdev-bot+sashiko@kernel.org wrote:
+>  [...]
 
-...
 
-> Clamp the divisor to 1 Hz so the zero never reaches the division.
+> [Severity: High]
+>=20
+> Does this fully fix the stall on queues 1 to 4 when
+> CONFIG_MAX_SKB_FRAGS
+> is 31 or more? The wake threshold is now capped, but the per-skb
+> admission
+> check at the top of bcmgenet_xmit() has not changed:
+>=20
+> bcmgenet_xmit() {
+> =C2=A0=C2=A0=C2=A0 ...
+> 	if (ring->free_bds <=3D (nr_frags + 1)) {
+> 		if (!netif_tx_queue_stopped(txq))
+> 			netif_tx_stop_queue(txq);
+> 		ret =3D NETDEV_TX_BUSY;
+> 		goto out;
+> 	}
+> =C2=A0=C2=A0=C2=A0 ...
+> }
+>=20
+> free_bds can never be larger than ring->size (32). So an skb with
+> nr_frags >=3D 31 gets rejected even when the ring is completely empty.
+>=20
+> In that case nothing is in flight, so no Tx-done interrupt arrives
+> and
+> bcmgenet_tx_poll() never wakes the queue. The watchdog is the only
+> wake
+> source left:
+>=20
+> dev_watchdog()
+> =C2=A0 bcmgenet_timeout()
+> =C2=A0=C2=A0=C2=A0 bcmgenet_tx_reclaim(dev, ring, true);
+> =C2=A0=C2=A0=C2=A0 BCMGENET_STATS64_INC((&ring->stats64), errors);
+> =C2=A0=C2=A0=C2=A0 netif_tx_wake_queue(txq);
+>=20
+> The qdisc then retries the same requeued skb and gets NETDEV_TX_BUSY
+> again, so the queue stops again.
+>=20
+> Wouldn't that leave the queue, and every flow hashed to it, stuck for
+> good? The "NETDEV WATCHDOG: transmit queue N timed out" message and
+> the
+> error count from the commit message would then come back every
+> watchdog_timeo.
+>=20
+> The core does not keep such skbs away from the driver. The driver
+> advertises NETIF_F_SG, and it has no ndo_features_check and no
+> skb_linearize() fallback. Highly fragmented skbs can come from
+> MSG_ZEROCOPY, from splice, or from forwarded traffic.
+>=20
+> Should bcmgenet_xmit() also handle skbs where nr_frags + 1 >=3D ring-
+> >size?
+> It could linearize or drop them, or clear NETIF_F_SG for them in
+> ndo_features_check.
+>=20
+> > =C2=A0	ring->clean_ptr =3D start_ptr;
+> > =C2=A0	ring->c_index =3D 0;
+> > =C2=A0	ring->free_bds =3D size;
+>=20
+> [ ... ]
 
-> -	scbr = DIV_ROUND_UP(bus_hz, xfer->speed_hz);
-> +	scbr = DIV_ROUND_UP(bus_hz, max_t(u32, xfer->speed_hz, 1));
+Another angle, also pre-existing, but lets fix this properly with
+another patch in v2. Long term goal should be to get rid of the
+undersized queues (see my response to Florian)
 
-This has a similar issue with limiting, in this case even worse as we
-generate an invalid SCBR value and then validate it later in the
-function.  We should just set the maximum instead of bothering with the
-division if we're subsituting a default here.
+--
+pw-bot: cr
 
--- 
-Mark Brown <broonie@kernel.org>
+--=20
+Nicolai Buchwitz <nb@tipi-net.de>
