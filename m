@@ -1,97 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794263793;
-	b=ykrV5v8js5kOrtEEHcq1Fv10ueJtEhkpR92BXWwVJ4JKcmxDfNskQMzsBT8fNhDGxZHC
-	 475QeGVLTFgtxfqo7WhylTaZAQYIkzV6YjcTyQCTODFSQdx3KNkrTeZ6hHIM6uKE+V6xT
-	 K1lFzJQKHYUIxbHt6BEj1IEAmaWl2d3Wp4K9vVYy2ZA5oTtMtTkokXI0ebHBaEbwsI1xw
-	 vZ4R8Dj93OEOrmwjBpoSw89OC5abhxVXj639dEmrdP9kRE6ZuKTWqAl2mB9PLfqLGL3b8
-	 I2GMpP02cde8CmSlTRHFGwIewfq4sBUhsuEA31NLEGzq9RkWTlsstXaI1mpDpB6FOFg==
+	t=1794263860;
+	b=lBG28ljti2T/j7N+TlsDdohDR4vm0LmxZq1nxJDl2qM1seiIsEr6/RCRj4W1ND3lK9aY
+	 0Vk8mVNCcc/yFJ2qDHElgv3JlkJt0YpfjdjxUiIiUZH9X1QVaPGiL96GVpK/Ru/hHq6+s
+	 H9D3L+DIf7Ezf6fDhMaT+t+QdF3xvT71SOfPV9jGVODTkVOPA5o4+/7ATOufM5T4zdxl7
+	 paLHWIf1zsppyh2RzhTeC/BdXCLhEI0G3gFG31i0bih32Qy1QjdIg/3fWcpDijAztZeeC
+	 iV4pEHp82IsWc4wyXm6cMElHFQ1FUH1BiyrYEzqK3SxK6GNpl9xV2uRhsZ8k6+QkKHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263793;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=RAD7j9whtlVxi4idGzxZNOOQo3aSRCIudDY3EkMacks=;
-	b=h1N4Oj36Soa9scINYriD4/+/3Y5w2C9nqtatYuAM/+jZdBzkISynQ6C8Keswc2wZDTHj
-	 bBDd/hlqdT+WU1T6sw54gpqskbLi9Rj6L7VtPE9Ye538iCc3fj/8Blai3P+RqX0Ka707P
-	 aKyjYOCu/H8mjYY3Hezq4IFWlcvLSd9/txbhMa9o1DCb5A8KnmXqHuXCZTT1w9dGuIKp7
-	 +1OQs6NfA4wyk+YwoDRl8Ihs/1jVGNpjFrY5tGlYyk3bEFqjvODwxso0qdFRnrTDYLMVe
-	 E7CJotgDmAao77zafJMo9sYbbVXibum+2wbHIV2Niruh27mIb98v6uA1Njvjjr5OjdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263860;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xuxIBLcK2++oC52tS24cdCbvIwRS+urg9+SN33nMZe4=;
+	b=MClGKgXd1SftZFmEYm+7hhgcyQAC/FUpyo0AsMKdXywY622Z6xV0i3Gi3e7sgOSrddrJ
+	 NBktw7mRPhNJ6fgwzPYqZbF7P3sEyVagWfg3YUha5knqiKAgSAwEYqAWjp6S0K4jku5+X
+	 xyOdvDN/8LE1aWZ98pYbpe5uj7VjLcrRC92HDAEWml1aHVSYSMUme2+X8i+cmv/ncVPQp
+	 OnHe1cjWS67TBa014HQ6zJzWLs+7Znt4UD4Y9CzBQaSzkasudrttBhtDYAxEzCKP40L5G
+	 sMIzOIXWaiWOVXxuo8GnvTbAzRureiRLao9hd/re23n55zocwgznJw/jtr+M3hVBAQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bly0HD4a;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=sltVbzrP;
+	arc=none smtp.remote-ip=74.125.231.134
+Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69689606A325;
-	Mon,  9 Nov 2026 22:36:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69689606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4841A606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 22:37:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4841A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bly0HD4a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794263793; x=1825799793;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qoEBEYWCz9dH5MiLs3jExw8OGhdQVJnuSBEorHHTbAQ=;
-  b=bly0HD4aJEyDtMu7hSRADCJmNcsB58G31IXeggR8ja2ohPRmY4UN0ybQ
-   8i8YdJ7FFGBi7Ar5bXgSv/7vGsuFGwqw1iPZeDcQjc8gKmZJPHIi8cZI1
-   doZBBvHGDkTBAwlFjIOtyfkv9SjEs/pk4iYF+W+IuniXcLdmwvvdYE0Zw
-   QleqXpVxcQFdFALLG9IHsbwVpXFHQshiwLlUJ6N6JW2TvS2Hek1uAL+xf
-   ya186Q6cye4T9rYT65sFmg+d0USfb08MHrAcgAZ6NvHw8K6R2OFeJadn/
-   mtM1vTXALrhFznKP+RwRvKufwKgqiSPM07zN2egnjtlNV0NTscBhqAXwV
-   A==;
-X-CSE-ConnectionGUID: Rprrm0S6SSSc43dV3t9CuA==
-X-CSE-MsgGUID: C1FIyUsBSZGSPZx8k5czvQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3012003"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3012003"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:36:32 -0800
-X-CSE-ConnectionGUID: VmjHkxDAT6SPVaN2PnVDmA==
-X-CSE-MsgGUID: rqdczbCuRKSkmkeXwVwD3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8125082"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:36:25 -0800
-Date: Tue, 10 Nov 2026 00:36:23 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Alejandro Colomar <alx@kernel.org>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Geert Uytterhoeven <geert@linux-m68k.org>, andy@kernel.org,
-	bartosz.golaszewski@oss.qualcomm.com, brgl@kernel.org,
-	dakr@kernel.org, devicetree@vger.kernel.org, djrscally@gmail.com,
-	driver-core@lists.linux.dev,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	heikki.krogerus@linux.intel.com, hverkuil-cisco@xs4all.nl,
-	joe@perches.com, johan@kernel.org, kees@kernel.org,
-	laurent.pinchart@ideasonboard.com, lenb@kernel.org,
-	linusw@kernel.org, linux-acpi@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org, namhyung@kernel.org,
-	rafael@kernel.org, robh@kernel.org, rostedt@goodmis.org,
-	sakari.ailus@linux.intel.com, saravanak@kernel.org,
-	schwab@linux-m68k.org,
-	Linus Torvalds <torvalds@linux-foundation.org>, zanussi@kernel.org
-Subject: Re: [PATCH v2 1/2] string: Add strprefix(), and deprecate
- str_has_prefix()
-Message-ID: <avJK54xRN9_Sta3k@ashevche-desk.local>
-References: <d3b325ecefd1d991ca25a4de2a859353f3ad7cfb.1793882260.git.alx@kernel.org>
- <20261105125154.83478-1-geert@linux-m68k.org>
- <aux8LYQkGSNjCGHv@devuan>
- <alpine.DEB.2.21.2611070223510.17804@angie.orcam.me.uk>
- <au7TvMP0YhW2e_oM@debian>
- <alpine.DEB.2.21.2611071115110.17804@angie.orcam.me.uk>
- <avBglVuXPjbKnWwl@debian>
- <avBikocxPXRos_GF@debian>
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar.com header.i=@riscstar.com header.a=rsa-sha256 header.s=google header.b=sltVbzrP
+Received: by mail-oo2-f6.google.com with SMTP id 46e09a7af769-8217177c5daso394137a34.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 14:37:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar.com; s=google; t=1794263859; x=1794868659; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xuxIBLcK2++oC52tS24cdCbvIwRS+urg9+SN33nMZe4=;
+        b=sltVbzrPcVPBEoocFVmHx6CNRKiWxCtPW+vxDuWArUIQgAgs4QDDNuN5hh4J0R7DIL
+         R++YKW9pKJ9Iwvx9TAssugbHOsPA1hZAy8InJibucpWYmxg+Q5JStHYwDymX092qS+Mk
+         FKCbdj2PwVo8KbRICaOv16AlHnTJeIi6dMoUu5PCWl/HtjikfDuMbxr5SyzM3+4TO22m
+         +Y4lQieYoGn2R6JzjR8GQr64Z0TNPMYFC7Wx8bULN5k0q+gBJ8JDYJzCPE3PLUuPOS8K
+         kgIdKXYNYr3zEIceFoyU5aY3Bq3SXzvIJsnSmJHSiOI99IivkcLseNW1I/+ebjdJ8x0W
+         MBEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794263859; x=1794868659;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xuxIBLcK2++oC52tS24cdCbvIwRS+urg9+SN33nMZe4=;
+        b=tucuPgdJr6extJzioT+Xkti9UNpqkkeOMNMoMVhPBhaklpJpQKRemSm118uypBFM5N
+         wWuLgrek/sKZwyqT05vlrJBuso6Q+iOysr2wGROOHfrtt71Xq+RmwVrny1YQ4AOnsTdz
+         QYIBpwybJWsZcMEN+0LVGUuqL+GYbazAGbnYFeMDtInk9uDckMOY/wNGLtiTecNDWwwY
+         JZmzFMJfFvbMkYDTWCyiP1958xBjDDpnYqWHW00TfRwNACFvUv7pKAl4oj7zE/tlNDqh
+         qTWVY/OERiC7tyKWvhR7zE4q6v3nA7KdNbXa7O/hcLkM/C4TRRlv7WFnzpdiWfv9+UN+
+         0xdA==
+X-Forwarded-Encrypted: i=1; AL+hErG0JsC/2i6OOMaDAAejpSIFqVv3HP/6WsqByRm6ouUo7ryfJp2jUlGr03oidZMBjWdjNLvDU1OsnYTAup8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SVLKc5wGyR1KPhvP19t7vordtxyseP7Bc7+2we+WealWb3Fq5
+	aIfPg9NR8gGQMpJiUbKmVIB7Szmpa2SbDpOEMJO+lCN/sIcWvOyS0U7JyaRtKYZC2QaukX+8VJ+
+	R8z+EXV9hLK8d
+X-Gm-Gg: AYBFou04fBLMAf2+RLzG3WZNNB0+fYxR+5IWATPIpG0OZzdvH59EslwMQXQEo+vsM1v
+	oO1CFtTiw21y+A2C1gd0m8ye8o9SeDgZOBYjjPAcrUAGwlBjzVCDaSkMAFe2Wtr0brB8dGkxwhZ
+	mOOHEL2chUahf136XIvUKIlm8PJtwEqA4NEqeNYubkLDZZ/xT108eLcM4PWzbW5WYRYdEsgSWjj
+	GbYltHOj971cXomLNcQLePhyrq7UlYTO2g2nyFODfByJzYruZ0dS9IOEm2nROtckkzZoFUaabOz
+	Ta0xu56XFs/kyz4AZ4b29JgSQYxvbRSuGcG0gbUI3XQGBRhMjmc8TfSk6FLO2rFV/IC3ZneFmu5
+	FVOEk5Ew1gElaAv4ZpgWxvtWgdY80sK7ZMDYRZQiP+MqvP+VitDXBsUAgINl5LDSZxJLVnnXlqv
+	9+9LfyqNWur9ZWzc9cCT3E+jKUi3/UfGFRXnq+mKeA8R9RpUJG4KTfa5Ip+8SOHHWCJDb2dmIU5
+	0hxdPeRC2iCZ9aylRJlFSZrX6T+xp6qWbKq6pSMInHtQFdqC71fEevG+Af2VwgKigDykovvG1qJ
+	rd+yM0NUSbv6RlvJNR73CA1Hb7sh
+X-Received: by 2002:a05:6830:314f:b0:821:94d2:83cd with SMTP id 46e09a7af769-860dc79d674mr715978a34.9.1794263859082;
+        Mon, 09 Nov 2026 14:37:39 -0800 (PST)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-860dcbfa983sm492176a34.20.2026.11.09.14.37.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 14:37:38 -0800 (PST)
+Message-ID: <6c3c21e0-e499-4b6b-83b9-b4f63e6c9b7e@riscstar.com>
+Date: Mon, 9 Nov 2026 16:37:37 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,88 +93,220 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avBikocxPXRos_GF@debian>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] irqchip: introduce TC9564 SoC MSIGEN support
+To: Thomas Gleixner <tglx@kernel.org>, radu@rendec.net, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: Daniel Thompson <daniel@riscstar.com>, p.zabel@pengutronix.de,
+ mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
+ danielt@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261012190245.3988619-1-elder@riscstar.com>
+ <20261012190245.3988619-3-elder@riscstar.com> <871p8vvx8x.ffs@fw13>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <871p8vvx8x.ffs@fw13>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 08, 2026 at 12:54:33PM +0100, Alejandro Colomar wrote:
-> > Date: 2026-11-08 12:49:08+0100
-> > From: Alejandro Colomar <alx@kernel.org>
-> >
-> > Hi Maciej,
-> > 
-> > > Date: 2026-11-08 11:05:51+0000
-> > > From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-> > >
-> > > On Sat, 7 Nov 2026, Alejandro Colomar wrote:
-> > > 
-> > > > Hi Maciej,
-> > > > 
-> > > > > Date: 2026-11-07 02:44:23+0000
-> > > > > From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-> > > > >
-> > > > > On Thu, 5 Nov 2026, Alejandro Colomar wrote:
-> > > > > 
-> > > > > > Do you think strafterprefix() would be better?  Do you have any other
-> > > > > > suggestions?
-> > > > > 
-> > > > >  FWIW strsuffix() seems an obvious choice to me.  After all what the API 
-> > > > > does is request the string's suffix beyond the specified leading part.
-> > > > 
-> > > > Actually, strsuffix() is something else:
-> > > > 
-> > > > 	char *
-> > > > 	strsuffix_(const char *str, const char *suffix)
-> > > > 	{
-> > > > 		ptrdiff_t  off;
-> > > > 
-> > > > 		off = strlen(str) - strlen(suffix);
-> > > > 		if (off < 0)
-> > > > 			return NULL;
-> > > > 
-> > > > 		if (!streq(str + off, suffix))
-> > > > 			return NULL;
-> > > > 
-> > > > 		return str + off;
-> > > > 	}
-> > > > 
-> > > > It finds the start of a suffix in a string.  That is:
-> > > > 
-> > > > 	strcmp(strsuffix("foobar", "bar"), "bar") == 0;
-> > > 
-> > >  Hmm, I'd have called that strskipto().  If that's not possible for some 
-> > > reason (I can't see it used in Linux), then strskip() or strskipover() 
-> > > could be used for this API.
+On 11/8/26 3:17 PM, Thomas Gleixner wrote:
+> On Mon, Oct 12 2026 at 14:02, Alex Elder wrote:
+>> +config TC9564_MSIGEN
+>> +	tristate "Toshiba TC9564 MSI distributor"
+>> +	depends on TC9564_PCI
+>> +	depends on GENERIC_IRQ_CHIP
 > 
-> Another issue with the name strskipto() is that the name doesn't make it
-> clear whether the second argument is a string, or a list of characters.
+>    s/depends/select/
 > 
-> That is, would strskipto() something similar to strpbrk(3)?
-> It's not clear from the name.  From strprefix() and strsuffix(), the
-> meaning of the second argument is clear from the function name.
+> Otherwise this relies on some other driver to select GENERIC_IRQ_CHIP...
 
-On this bikeshedding thread I'm with Alejandro.
+The reason this uses "depends on" rather than "select" is
+to avoid a recursive dependency.
 
-> > strsuffix() exists in many projects, and in all of them it seems to have
-> > these semantics (or very similar ones).
-> > 
-> > Just look at a Debian code search of those names.
-> > 
-> > The strprefix() and strsuffix() pair of functions are widely
-> > implemented, and while the exact details of the return value differ
-> > slightly (some return just a boolean, others return a pointer that can
-> > be used as a boolean too), the overall semantics of them are quite
-> > consistent.  strsuffix() has less drift than strprefix().
-> > 
-> > If we added strsuffix() here with the semantics commonly attributed to
-> > strprefix(), and then had strskipto() with the semantics commonly
-> > attributed to strsuffix(), I'd expect programmers to eventually get
-> > confused and use the wrong one. 
+     error: recursive dependency detected!
+         symbol GENERIC_IRQ_CHIP is selected by TC9564_MSIGEN
+         symbol TC9564_MSIGEN depends on TC9564_PCI
+         symbol TC9564_PCI depends on PCI_DYNAMIC_OF_NODES
+         symbol PCI_DYNAMIC_OF_NODES depends on OF_IRQ
+         symbol OF_IRQ depends on IRQ_DOMAIN
+         symbol IRQ_DOMAIN is selected by GENERIC_IRQ_CHIP
+     For a resolution refer to Documentation/kbuild/kconfig-language.rst
 
--- 
-With Best Regards,
-Andy Shevchenko
+We already depend on TC9564_PCI (and use it as the default value).
 
+GENERIC_IRQ_CHIP gets selected by IRQ_DOMAIN, which we get from
+OF_IRQ, from PCI_DYNAMIC_OF_NODES, from TC9564_PCI.
+
+Should I just drop "depends on GENERIC_IRQ_CHIP"?
+
+> 
+>> +/**
+>> + * struct tc9564_msigen - Context for MSIGEN IRQ domain
+>> + * @ioaddr:	Pointer to mapped MSIGEN memory
+>> + * @irq:	IRQ number for MSIGEN
+>> + */
+>> +struct tc9564_msigen {
+>> +	void __iomem *ioaddr;
+>> +	unsigned int irq;
+> 
+> https://docs.kernel.org/process/maintainer-tip.html#struct-declarations-and-initializers
+
+I'll fix the alignment for these.
+
+>> +};
+>> +
+>> +#define HWIRQ_COUNT			25
+>> +
+>> +#define MSI_OUT_EN_OFFSET		0x0000
+>> +#define MSI_MASK_CLR_OFFSET		0x000c
+>> +#define MSI_MASK_VALUE			BIT(0)
+>> +#define MSI_INT_STS_OFFSET		0x0010
+>> +
+>> +static void tc9564_msigen_irq_handler(struct irq_desc *desc)
+>> +{
+>> +	struct irq_domain *irq_domain = irq_desc_get_handler_data(desc);
+>> +	struct irq_chip *chip = irq_desc_get_chip(desc);
+>> +	struct irq_chip_generic *gc;
+>> +	unsigned long status;
+>> +	unsigned long hwirq;
+>> +
+>> +	gc = irq_get_domain_generic_chip(irq_domain, 0);
+>> +
+>> +	chained_irq_enter(chip, desc);
+>> +
+>> +	status = irq_reg_readl(gc, MSI_INT_STS_OFFSET);
+>> +	for_each_set_bit(hwirq, &status, HWIRQ_COUNT)
+>> +		generic_handle_domain_irq(irq_domain, hwirq);
+> 
+> You want to use generic_handle_demux_domain_irq(), which allows you to
+> actually implement affinity settings for individual interrupts.
+
+That sounds better, thanks for pointing it out.
+
+>> +	/*
+>> +	 * Clear the MSI flag. Most interrupts within TC9564 are level-high
+>> +	 * type. If any interrupts are still asserted then clearing this flag
+>> +	 * will cause the (edge-triggered) MSI to be regenerated.
+>> +	 */
+>> +	irq_reg_writel(gc, MSI_MASK_VALUE, MSI_MASK_CLR_OFFSET);
+>> +
+>> +	chained_irq_exit(chip, desc);
+>> +}
+>> +static int tc9564_msigen_irq_domain_init(struct irq_domain *irq_domain)
+>> +{
+>> +	struct tc9564_msigen *msigen = irq_domain->host_data;
+>> +
+>> +	irq_set_chained_handler_and_data(msigen->irq, tc9564_msigen_irq_handler,
+>> +					 irq_domain);
+> 
+> No line break required. You have 100 characters. All over the place.
+
+OK.  I normally stick with 80 columns but since you prefer 100
+I'll adjust the formatting throughout this file to use that.
+
+>> +/* Find the PCI device we're associated with (not necessarily the parent) */
+> 
+> What does that mean and why is this platform device driver dealing with
+> a PCI device in the first place?
+
+We have modeled this chip using PCI endpoint bus, which allows
+a PCI endpoint to present a child bus that implements multiple
+device functions via each of its BARs (or a single bus can
+represent multiple BARs).  Device nodes within a pci-ep-bus
+sub-node use a platform device that is matched by compatible
+string.
+
+This MSIGEN block collects interrupts from multiple sources
+within the chip and translates them into MSIs delivered to
+the host.  We know that this block is subordinate to a PCI
+device.  If this were a direct child of the PCI device, we
+would just look at the parent.  But because the pci-ep-bus
+is in there, we need to go to the grandparent.  The code loops
+as it travels up rather than assuming it's parent->parent.
+
+(Daniel might have more to say on this--if so he'll chime in.)
+> This really wants proper comments explaining this in the source _and_
+> the change log of this patch. And no, your sloppy cover letter
+> explanation does not cut it at all.
+
+There are several distinct but interrelated drivers and it's
+been a bit repetitive to explain some of these things.  I'll
+incorporate better big-picture descriptions both in the code
+and in the patch headers in the next version.
+
+>> +static struct pci_dev *tc9564_msigen_find_pci_dev(struct device *dev)
+> 
+>> +static int tc9564_msigen_probe(struct platform_device *pdev)
+>> +{
+>> +	struct irq_domain_chip_generic_info dgc_info;
+> 
+> Struct is uninitialized.
+
+You're right, these should have been zeroed.
+> 
+>> +	struct device *dev = &pdev->dev;
+>> +	struct irq_domain *irq_domain;
+>> +	struct tc9564_msigen *msigen;
+>> +	struct irq_domain_info info;
+> 
+> Ditto. Look at other drivers how this is done correctly.
+> 
+>> +	struct reset_control *reset;
+>> +	struct pci_dev *pci_dev;
+>> +	struct clk *clk;
+>> +	int ret;
+>> +
+>> +	pci_dev = tc9564_msigen_find_pci_dev(dev);
+>> +	if (IS_ERR(pci_dev))
+>> +		return dev_err_probe(dev, PTR_ERR(pci_dev),
+>> +				     "failed to find PCI device\n");
+> 
+> See bracket rules in the documentation I linked to or simply get rid of
+> that line break. Same all over the place.
+
+So you want brackets around the muti-line body of the if statement.
+
+Switching to 100 column line widths might make this become moot.
+In any case, understood.
+>> +	dgc_info.name = "tc9564-msigen";
+>> +	dgc_info.handler = handle_level_irq;
+>> +	dgc_info.irqs_per_chip = HWIRQ_COUNT;
+>> +	dgc_info.num_ct = 1;
+>> +	dgc_info.init = tc9564_msigen_irq_chip_init;
+>> +	dgc_info.exit = tc9564_msigen_irq_chip_exit;
+>> +
+>> +	info.fwnode = of_fwnode_handle(dev->of_node);
+>> +	info.domain_flags = IRQ_DOMAIN_FLAG_DESTROY_GC;
+>> +	info.size = HWIRQ_COUNT;
+>> +	info.hwirq_max = HWIRQ_COUNT;
+>> +	info.ops = &irq_generic_chip_ops;
+>> +	info.host_data = msigen;
+>> +	info.dgc_info = &dgc_info;
+>> +	info.init = tc9564_msigen_irq_domain_init;
+>> +	info.exit = tc9564_msigen_irq_domain_exit;
+> 
+> Both initializations (except for info.host_data) can be done at the
+> declaration with a static initialization, which avoids that parts of the
+> structs contain random stack content. No?
+
+Yes.
+
+I personally don't prefer initializing structs and unions
+where they are defined as stack variable.  But you're right,
+they need to get zeroed in that case.
+
+Anyway, I'll do what you suggest.
+
+> Please look through the sashiko comments as well.
+
+Yes I think I responded to all issues in both of them,
+indicating how (and whether) I intend to address each.
+
+Thank you for your review.
+
+					-Alex
+
+> 
+> Thanks,
+> 
+>          tglx
 
