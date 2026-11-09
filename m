@@ -1,133 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794224704;
-	b=jIXzt1/eSqDOpxtZe5yngCVw4OzYRccd3Tbkd5kZFVUf2kVbiM7QwGhL/KRwNDZN4SZP
-	 54L+AjeMu7C4rfNx+UeOrKOiqQEux68s60I0mCtUOIMus02+nb/ScRSEb/xUPiVwaCS3Z
-	 WppsceEBCTo/AkBGKFqJZEWTeQnSXxNThbg4FnaUinZO9hNjvhBqmSNjlOmNXduopEPSu
-	 Okk+R6KyqT3It96Ctkh1fpWBU3vHlbQWpHSYpoD3TDvp0amuVcpN3wi6kR8ql4UZEvHT4
-	 buI1z/X4rzfx6tcbxjXg8h21RQqZCzHTThEJNNFP9Vfmq5e475G0igZl9ziwyB/uewQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224704;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=jD3z+kf+p7o3UoabVYPoGxaaVHCfZCCVEt1sMeZ6TKg=;
-	b=en1E/OMh14XaAEAorM4NJgKRE117gdGTR72NE9WoE4gyY1EGI+s0BMiwLjv93AdD9qLO
-	 MSmzp9IznpwgulOhYMMtagN5Bz8rag2RyfUaU+9fzuG4T0sXwjU//suQiL/yGixtdfqJ2
-	 5lf9znTZDbFXWoU+fdUXDba/lBgNuhL031/qt155cm2go936pbHOn01OoI1GYXsnff/o1
-	 NKu4mimY88IOcra5msS91gcMGHEhl/jaLPGBODa8bNo483Un8ki3R1b1Mp6KXczrUvzFF
-	 k7bHuqTx5FOdKGONKfGKfcFXb+eGCIWlfJ32VNstD/h0jbZMWlITLM+gJwrcQYLA1rA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AUna2nQ+;
-	arc=fail smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794224734;
+	b=kiPbNzxnFqpF619ACGaFX7z4qhXdFYzfkL8EZdK3zhqdEJph0pVFISdOK64qoQQWnnmj
+	 JBni4BGynNRYjilviub9auSyabRCAgJNojF8WJNaecwN3+wYUKjb59QBDHGIYrN4Lw6XD
+	 PNYNIjTbBPZWSVq99gIH3JY2Vzkw5BJCNiYrgjo7UdcblAf1kpv5+4M8EIuMkW3TdIxe+
+	 EjTIM0JFmP7cy0XjySTxJ/z0ySu5FGEzuwdekv5zQV6adJahlXcG68f11FCT9Oa+/f/qs
+	 vxycKZyCDb47u/Cvded6w0InRE2JqlW89IpVXwJe40hZHIDGLpYET1lNohPvAmARXiQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224734;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Originating-IP:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID;
+	bh=irG90fauHo+0sxPX4/6DXZ3VbObB3qleZnxDyg6JX1k=;
+	b=3+0cKTbCdh/DfLa1fXhWzT0mReVI0E6CyElE26f7x1/hYdELpA1i/2+vWsKkbQrFu7Rs
+	 8qJ2pJSyJwKitQZ0J+XOq0A1LMIi2LUkyNJGPu84ePZloWvrv+fUWk/K6UdW48faakqXW
+	 7C8tNnR+49+PcOisDO6qtjNWJeLH4ugMqCpQU9+4T8HV35t9/g5lfthNgRSifP5ed5Nnr
+	 WYvffSO5N94Jp/vHOIIj3HrYS/DLdOYcDlzZyqb+f+qX/3udevB6a3wy5I1D7rZas56dd
+	 Nom/pd3vS+bJQj7h+NL46npYcftyh41h13t6sOv1QkK8CToN6sB7J2UycfRxdgiXFpA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=UV4zqCPH;
+	arc=none smtp.remote-ip=185.132.180.163
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54DF606A322;
-	Mon,  9 Nov 2026 11:45:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C54DF606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA21606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:45:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CA21606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=AUna2nQ+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794224702; x=1825760702;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=Dq5vVML3wPlbTuFgGX6ADaQWTyeLQQoNVMEu3ET1UMQ=;
-  b=AUna2nQ+qU8G+7hCBocjENwbapcNgmJuXaEUuUE0RSpDDuD667g9h88Y
-   mK6rfugJve66yaAePsNE44gI+MI0TCzmtmv9/kG+knaeXoJSpVsS2mcRV
-   AtmLnmVa2by53QiQ6SHDADs10n0nqXYCooqxhAhPfMd7LL85nnKMOHcFm
-   VjjZrJDhV3EJ3sAmlGouFY6K5PgfF+pY5AmIR3QwbyUW1CTRjIhKE1LMZ
-   /CZx5Xp1q8VVHZRafi8IWUwcXFTdM5jJ+iLfbdQIHe738c8D8UQNIjRgQ
-   kF2BaI3jS5C1PSzsxzK0X0Pjub3Vjx0xqXUdwVuUWeBOCdUNbuKPH4kHz
-   w==;
-X-CSE-ConnectionGUID: YjNVAxT8TrShl7WJKz201g==
-X-CSE-MsgGUID: HPFA5LA3TnmYk0BjqkMdlA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2983381"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2983381"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:45:02 -0800
-X-CSE-ConnectionGUID: ZD2R8tOET3iccdLn0CPX9w==
-X-CSE-MsgGUID: oSpeyBAvRxSN63otZFWiag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="8182670"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:45:02 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 03:45:01 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 9 Nov 2026 03:45:01 -0800
-Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.9) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 03:45:01 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PJnRVdH+AT/AR7Hr2V+SCjzv2BO0mEOXdfXFvByw9N/hQYrMCOKuWVNjCE/Luj1PRDEgsEMo0Nvsh9yoNqlZ0M4gxBk8k7l/MTo87yoRlJG4QB2nXOUHrZBmpipGLw27CNHNSyfu0eBdW6ihFwNO8FraPgFx0J07VJRGIsXWV+VfWr7Yf6+umjTbMRy/ZZ15qGDCd9hecJqV2exjRN7h11hmbQTamkFtEMQxYsNhqWez1HhDm60XGGSQGSBFdrLU3WQfIK4BJS+fs2l1yIgCfIj+CWkGaDg2Cpf/+QAwM/5knvLBhL9R083RcrZddSSvzIwci3X3NnTVInq8Is+seg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jD3z+kf+p7o3UoabVYPoGxaaVHCfZCCVEt1sMeZ6TKg=;
- b=UD277Cvgt0KknVj8o91bAxIzknNcUqd1sJ8VjqKJ+a3y9FXiBCf5zBBPLsEly+u+pzZKdmBggbHzYmccyq56lvpsch3smw9QsLnapSDlY244DrL0Wsrws/KMICB045WQA3oqPIGmFucOopc4ZTU/C49bvqGZMBmpSOXLARHgVbSSSgOk1NxOEin+6uu4d2f1XIylcc2B6YAcd2ZiUG77NQ5IT40fQCaVTAU+Do/3CAOsUGLVf1C0BBVMSIdGHedSgwQ8zwQJS4ECqoF3VEQtuyOfCRghkL8ufT0byg3wDB97NjfF3m/k4AaInJr9mn6f1mDtMyVgSs+qjyBNlkuMNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ0PR11MB5630.namprd11.prod.outlook.com (2603:10b6:a03:3bb::6)
- by MW3PR11MB4587.namprd11.prod.outlook.com (2603:10b6:303:58::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 11:43:57 +0000
-Received: from SJ0PR11MB5630.namprd11.prod.outlook.com
- ([fe80::79de:af84:3b43:84e3]) by SJ0PR11MB5630.namprd11.prod.outlook.com
- ([fe80::79de:af84:3b43:84e3%4]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
- 11:43:57 +0000
-Message-ID: <02c36d47-ad50-4f2c-88cc-6c91f62bba00@intel.com>
-Date: Mon, 9 Nov 2026 13:43:50 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] igc: Disable PCIe L1.2 substate on I225-LMvP and
- I226-LMvP devices
-To: <netdev-bot+sashiko@kernel.org>, <danividanivi@gmail.com>
-CC: <anthony.l.nguyen@intel.com>, <przemyslaw.kitszel@intel.com>,
-	<intel-wired-lan@lists.osuosl.org>, <netdev@vger.kernel.org>,
-	<bhelgaas@google.com>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <kuba@kernel.org>
-References: <20260925112850.189302-1-danividanivi@gmail.com>
- <179068206160.434549.1717741783856466607@kernel.org>
-Content-Language: en-US
-From: "Ruinskiy, Dima" <dima.ruinskiy@intel.com>
-In-Reply-To: <179068206160.434549.1717741783856466607@kernel.org>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: TL0P290CA0001.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:5::15) To SJ0PR11MB5630.namprd11.prod.outlook.com
- (2603:10b6:a03:3bb::6)
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=UV4zqCPH
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id 6A97OPRb2046631;
+	Mon, 9 Nov 2026 11:45:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=dk201812; bh=irG90fauHo+0sxPX4/6DXZ3
+	VbObB3qleZnxDyg6JX1k=; b=UV4zqCPHfSIkzAHnTAeZ10OhW+KjwM9IWsSZGf3
+	ku7LdhuH6QLFM+LhMeiP6TlnoICss09QQljjv+25gRJJ4WAefz709mPSDw7hIhKn
+	LM1OvbebfZYS/rmX+fvneag4wO2TJKaDNLHwtgV4WkH4CGfJaOjx1Jm6j9JzSVsb
+	6H6sx42BlVVPUOEhSOz4VcOz/Fz0OTjfvnEQffa3qIdd9OyPfB69TGPBATZCc6b1
+	nQ/qhkaMz8AVEZk4UsoY4ZDY+acXRVXAN1kzU2bThd4I9LXhMcIeiUXfOdJF3zBC
+	BVcw0bQJgPCQu0Z4+c7Uah9VzKz3hAgzVUyKIRiGyLyP41Q==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hsvxx1g4h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT key_exchange=secp384r1);
+	Mon, 09 Nov 2026 11:45:12 +0000 (GMT)
+Received: from [127.0.1.1] (172.25.5.26) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
+ 2026 11:45:10 +0000
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Subject: [PATCH v4 0/2] drm/imagination: MMU defines updates and
+ improvements
+Date: Mon, 9 Nov 2026 13:44:50 +0200
+Message-ID: <20261109-b4-include-mmu-defines-only-in-mmu-code-v4-0-20a857dcbbbb@imgtec.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -137,118 +70,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR11MB5630:EE_|MW3PR11MB4587:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3342f2b7-eba3-4352-72bf-08df3e56bd22
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|18002099003|22082099003|6133799003|10067099003|4143699003|56012099006|11063799006|261028144727099003|261026121527099003|261102123227099003|261022105027099003|261022075727099003|261021121427099003|261026140227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: vNveLvh1KNbrXCKwpjgSvKNg1zXscaVRA/qnfIpKKacJQn68Hh4jO4nI2WlaBvHYhAkPTyi/VRf+DM84gCR3DqkKOTbGf7/26x+8miFKIEVmBjK2HcYgEhvtjb07es7W00HxsEsho6hsAwogxrqMPLAlvK6fl/F/FIarLXB4ZIXAgAsKctIWcgzVAYmf7/vgHcrYBTVYzwipx3yYIomFYFf4393aQuS5MTrTfDxxs9PuZbyzU1QO4KV0V4vEdHQR1Irm4MNPu4kYCS0YtNGfxF0t9FRuQJPfDEc4WpflZVSCqKfvLcUx9x8At8clI68k4KZMZJcLCysDeIWDbJHMsrVEVvYNHtz53+ybl3hK1VyPztvxfw9f3KZek9q83VwrVZKoY+4U5vj6vk+5N9eMND97tjl2g32mE/usJcFsUvdvjgWoH2pjCZrXIvO3VnW6g/eqVmI84vz7CQhq0AEIff1lnzd1V5pG7KiA/XZTUrDN/t6Y9Sw7k+whmkMC38qNWJWjcEPOi2WAy8ZGx9ZldDDsPzXWJ7n0gy8pRg3EhqfiyunCU5zGxynY+EiZnrDmGYO624Q2t1Ujl08qaBPzTGZXwX802MTxxgnQl9qryAw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR11MB5630.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(4143699003)(56012099006)(11063799006)(261028144727099003)(261026121527099003)(261102123227099003)(261022105027099003)(261022075727099003)(261021121427099003)(261026140227099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aGdVRDNvaDRmOFhpSnJpOFJvelU0djVCS0xGMnBQRytEaGVxenh0bUgyS3Q5?=
- =?utf-8?B?R0cvY2RJL3Z4eEZSaDJvaGxMSmpnQjZ3NGhHZ0lma3I2SHJ2Zm1jeFU3TEVT?=
- =?utf-8?B?YkFOeGwyWHlEeEYzZDZQOElMaENNQjZDak1CdTBTUHJwZ0svZDZaK1gwODZD?=
- =?utf-8?B?RWtUb3hXTWNuaU9GN01aUlNHdFAvZXBzcEczY2VuMC8zZzE3eHdOQjh3V3g5?=
- =?utf-8?B?WExlMVkrbkRQNnlzVVZTWFdNdXpvT3RmZnBzUUNSLzJGaWs3RjdEVlU4Z2FY?=
- =?utf-8?B?VkxxRVhLU0NYZUEyUEZYRUF6ejJvYTZSREk2YjhrTXA3UGZFbUFGZDlaK1ls?=
- =?utf-8?B?bVc5Wmg1c3RMUkRmNFdpMVNUQndmcnhMTW13YmVKcjBEZjZZd0I0c1JSUFdX?=
- =?utf-8?B?TUZ4bjVTd3NxRkFLYTNpOW81VnJacFZHRm1sWHU4bXJqYnFZQkhldUVGS3g2?=
- =?utf-8?B?WVlVZWVIY3RRNE45K3FybjFBeDE5eEJUb1ZYOFVONWR0eG9jRjFQSWhYYkFY?=
- =?utf-8?B?UDhkMms0bE9oZlhueTBrRHRBZFlsWWFjOXpNb3lCMHZSdGIyZ3Z6Uk1zNWtm?=
- =?utf-8?B?L2pKMDZmUGsyNmNsMS85TGF0bGw2WVFRSlY1V0Q3Rjg2OThIU3JUTXM3ZEg4?=
- =?utf-8?B?ejliczk5OUVtejNDMWdaSW9mSlU1WWc3eEVKSDZPb1dWbEE3MGVNSWNPSTI2?=
- =?utf-8?B?QTRiWXJmdERCRTVKYlZVbUpLMFZnSzB0SVVnUThFeTE1VGw5S2hkT29EdDEz?=
- =?utf-8?B?d2lvK2ZXTDduaEVuTXlSWGdFWTU1MnNXYzk5SVhqTmVLNWlVMGxPd0xza1pU?=
- =?utf-8?B?Rzh6NXMrbVJXOExoTEhNV1FvdUN5aTBXSXhWQjE5N2k1WXJpaHpESU1YUEMr?=
- =?utf-8?B?aXh1VWUwYlB5UUw1Y2U4ZlZnaThKNmowOXgwMWFFc21kOGVkWU9iMXBhZ2sz?=
- =?utf-8?B?cnlpTnFyOGtMR0hxNXFUVWUvVnhkUFNHekxBd2lNVUQvZTVPNHg0UHV3UWhy?=
- =?utf-8?B?N3pEQmRadjdZYVdodTk0bjYwVjVoaUNKZXFnV2V3SW9ReVVLaStmankwcXFE?=
- =?utf-8?B?cUxieVhUMXZmbVlkMGdZUnZsNGZNeGJyN0pMSUxwN0RGWDlRWmNBT1VPY1ZD?=
- =?utf-8?B?ekdXVFJEbS92MUdyY2NyTWhCN3dqb29xdEF1UlVreDFkOUR4c1NUdkR5NU9q?=
- =?utf-8?B?eGtZSjFTeDhKdDVIZzMwMkw0L0ZMY3luV0N3N3d0YkpMU2dHVkNPSjhaUFpz?=
- =?utf-8?B?bnNLQktuY3c5S3RjOUlnV0F3TThBOHRlcG81dHF1Ri9MdytDOEkyU2FhMlpN?=
- =?utf-8?B?MGgzSlUrbU0xOXdqZUJwdkVIUnNMMzlsNGxSb1lDbUlIcFZpbnpyM08xMWJ1?=
- =?utf-8?B?YTl1RS9taVF4UDhwaEY0ZGNqMU9OdmFGdHhJbjA4QjUvTVFTcDMrVjZCcDZj?=
- =?utf-8?B?SUs3TGZTSjhZQ25RVExzM2VUbzRyUG9WMjk0Z3p4WDVYZHdNbjVoMFR3bnFv?=
- =?utf-8?B?YWcyV0pGOHR0d2Z6NmsvLzRTNnFWeHlEZVpCSmtXaDFqWk5zbEwwakZqelhO?=
- =?utf-8?B?c0R0ZC9ycU1vUDdFdkhzRzNTblZRT3ZLZkpwYUZjY2pRRWxpZGx6S3Jqdzlh?=
- =?utf-8?B?Y1I0UDNFa2U1YlhaMG5uM3ExZ0NreXVXNE5HL3RuVlYyY0pDazB2RksrWXNN?=
- =?utf-8?B?VFo5czIrTU5DcDdaV3pvN045dWd6bFQ5N1htN1dpODZMSEgwaWthS3Y0OWtF?=
- =?utf-8?B?ZXpZeXVUdllLYmVBN2JOcU9LRTd1ZGZlZjVhbEYwYWxEclRqNmhNL3hvVUdB?=
- =?utf-8?B?UEtVRXI0anlBaS91bXRVaFM2dTlEaHlrL1JVTHE4NkQ5TEVOSmNZZVNLQVBD?=
- =?utf-8?B?WkZMZUlrUGd2bTVwWDFkZjd2RXV6M051a1pzNDIvMHhreHY1NDlRU09sM1dV?=
- =?utf-8?B?TWc1cldqdHV2Q1NMRU5YQWxNSHpWWVFNQ1lQcUVpTTdUVW5tNkpwa0tWZVNh?=
- =?utf-8?B?ODR3OHhFaU1SK09vZ245RXdwcXBLcnNtYlFVd0ppTEttZWZxMGNwWEl1SFNx?=
- =?utf-8?B?WFVSQnNuS0NiR0NxYi9sN3FoNkUwK2xpTzAwdmZlZitYdk9rTkpPeGFUM1Y5?=
- =?utf-8?B?d0lBRytHaVk1N0kxNC9ld0J0VFRGaUxweUViZVc1QWpHenRqZllpc3pBakdI?=
- =?utf-8?B?czgwWUFKbUpFcUdUQjArVjFVcEsrNG1KZVdZeDlWeG5UbE1TWjhNQXZOQ0pQ?=
- =?utf-8?B?K3Q3QkF0bHJ1OXNxTHpSVUxZWWZ3eWJld0Rmb2xtcmFzMmFpeHV6cTRPSnNo?=
- =?utf-8?B?aklzNWc3R0hEZDljcjVaSXZqVjJYZmp4eWhFMzdWVmkvREVWKzlzUT09?=
-X-Exchange-RoutingPolicyChecked: Mfie3Cqphw4U9Z8kvVP6L0x3/7QHoRhGJH+aVxa/f5lhWYi4pCnPEsaxXzSOQYPZI4kx28sPl7dzncEyc/vlJdgkui+vW2QxWeKW6nai+yn8sMtLJUX2ikmAHvJfS5on7SweUAr4eEf2JBnx9uJvuRki9gC1YnWfvhLvYj/2RIgYicakBjjMXGKF4aJs9OFDOEIukB3+rd/abCo+dTIf7lPqGwRdBai/HAl5zxH2vqJnnZZVJGv+WorFaBsd0eV6a8wEbRiUoZc6OXe+mLaJ/8eJKUHlWaaRPnTJjWDSyqkMw7lCVG4Oq76e/lDEdh0U4Vw/Z20jBFru4sT/R7inbw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3342f2b7-eba3-4352-72bf-08df3e56bd22
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB5630.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:43:57.2151
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wohVK3ElYAgT81eg6XIeX7xRh5+EFZTFZZmT9/g0GZZBjX5SiT3KJyPuI8fBxNxibij3N4K2ElZPrVa8FJEwBw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR11MB4587
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADKy8WoC/5XOTW7DIBAF4KtErEPFjx1DVr1HlQUMQ0IUQ2RsK
+ 5bluxc7Uqqqm3T5mKfvMZOMXcBMjruZdDiGHFIsodrvCFxMPCMNrmQimDgwLRm1FQ0RboND2rY
+ DdehDxExTvE3lsL1BKkfDpVaK+cYDkqLdu9J8bEtfp2fOg70i9Cu/Ni4h96mbtq+MfO39f3Xkl
+ FGhORrnHQppP0N77hE+ILVknR3FC+aMi/dhUWBlEGrVNI2xhz+w/IE5q96HZYG91qKuuLbKwi9
+ 4WZZva6I8NKMBAAA=
+X-Change-ID: 20260930-b4-include-mmu-defines-only-in-mmu-code-a139880f7fce
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>,
+        Alexandru Dadu <alexandru.dadu@imgtec.com>,
+        Brajesh Gupta <brajesh.gupta@imgtec.com>,
+        Gyeyoung Baek <gye976@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794224710; l=2051;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=6RDFas5RD6WjDcSw2Arfda599rDAkM+c4RDwOfRkiu8=;
+ b=eCHYenkwkXCOcBAwrp3D+O325SAS9LOfiBtvnzsaG4C4s6xDqvizerFM7bDjHSL/U4c079AVP
+ Ri8lWM9UPCCCEdyj4llTQ8rPG2IXQSU8mC2r5z2pocXOueMCfpE1hnk
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0NiBTYWx0ZWRfX0xi4EHBtvT1N
+ nofIm7oczSHU5lR7N1N+6n1+9MLplnrxJQWCXzT5nnQ7saPRMUxbfZfvVazcWy0c8bRafZAH0E6
+ er0TLFASy0SOpm0VP9Rb7WZJteCX+z0=
+X-Proofpoint-ORIG-GUID: ijNWrFzLBlw0WqJhymLJuv1_a3B_wyVh
+X-Authority-Analysis: v=2.4 cv=H+JOUOYi c=1 sm=1 tr=0 ts=6af1b248 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=h_3jC4m0AyQA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=pGLkceISAAAA:8 a=QyXUC8HyAAAA:8
+ a=VwQbUJbxAAAA:8 a=e5mUnYsNAAAA:8 a=aErvwOJsbcN-9OlzexIA:9 a=QEXdDO2ut3YA:10
+ a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0NiBTYWx0ZWRfXzgoyf79BfTKV
+ aiuj/lZERcSAKTjBQZrVc+/j/XsMxG77cYe3IMeNjLdBXzXxebRuTAPA1TVfcEUHFO7HX+ykwP4
+ Z5BPUhn3Wg1QL6AQJf+7ZGtuv7K64e+1Qy8H/QlcvcPiqnqhi0yNuyAQmQd0Hj3JJYxu2iwEg77
+ B2cgdkjwIuEGcQqmYI/1npQ6OlS6tItRDORtwTfG0QexB4K6l4TGK9fGtlZFlZv58JNPoDzG4UM
+ lr9qXONk/kmUDpzUYOuiwcdcx+3PcjqNLKsMas/QVONzH4f9X4TCNCXaXXIGV+EFX8tSizRRhlb
+ lekrfi+eJALAZa7988XxZq6uqDUkeZNcctRLZ9bLvVoSzBAFGVJrPuv1XwYaIMuFeFG9LnrFNY2
+ x5LWqshiPoMNJRBqQv7dZlXKOlorPDvETTdhB2zZGEUPLBYxjUYHgbR82Hrt8Ey9lUTjMXOyfop
+ mI/lKuj62uwFtvZOKyw==
+X-Proofpoint-GUID: ijNWrFzLBlw0WqJhymLJuv1_a3B_wyVh
 
-On 29/09/2026 14:41, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 (1) · Medium: 1 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] The widened condition in `__igc_resume()` (igc_main.c:7562-7563)
->    makes I225-LMvP and I226-LMvP call the non-locked…
-> - [Medium] Adding `IGC_DEV_ID_I226_LMVP` to `igc_is_device_id_i226()`
->    (drivers/net/ethernet/intel/igc/igc_base.c:450) changes more than the…
-> - [Low] In `igc_probe()`, `__igc_resume()` and `igc_io_slot_reset()`, the
->    return value of…
-> 
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but the patch now
->    exposes I226-LMvP to it.
-> 
-> --
-> 
-> igc: Disable PCIe L1.2 substate on I225-LMvP and I226-LMvP devices
-> 
-> This commit adds IGC_DEV_ID_I226_LMVP to igc_is_device_id_i226(). It also
-> extends the ASPM L1.2 disable in probe, resume and PCI error recovery to
-> IGC_DEV_ID_I225_LMVP. The motivation is BadDLLP errors, link timeouts and
-> shutdown hangs seen when I225-LMvP negotiates L1.2 behind Thunderbolt/USB4
-> docks.
-> 
-> Link: https://lore.kernel.org/lkml/eb5a9805-3e53-ec22-696e-21c6b8cf0bfc@molgen.mpg.de/T/
+- Restrict the inclusion of MMU defines to MMU code.
+- Refactor MMU defines to use kernel style and access.
 
-I think this patch might better be split into several patches.
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Reviewed-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+Reviewed-by: Gyeyoung Baek <gye976@gmail.com>
+---
+Changes in v4:
+- Added "Reviewed-by" tags to the commits.
+- Link to v3: https://patch.msgid.link/20261104-b4-include-mmu-defines-only-in-mmu-code-v3-0-f9925419b8bc@imgtec.com
 
-1. Adding the missing IGC_DEV_ID_I226_LMVP to igc_is_device_id_i226(). 
-This was probably an accidental omission.
+Changes in v3:
+- Added ROGUE_MMUCTRL_VADDR_[PC|PD|PT]_INDEX_SHIFT defines.
+- Updated the cover letter with the "Reviewed-by" tags.
+- Rebased onto a more recent drm-misc-next.
+- Link to v2: https://patch.msgid.link/20261012-b4-include-mmu-defines-only-in-mmu-code-v2-0-8aec58777ab6@imgtec.com
 
-2. Addressing the locked vs. non-locked call to pci_disable_link_state 
-(the possible deadlock noted by Sashiko) - this should be looked into a 
-bit more, I don't know off the top of my head what race is / isn't possible.
+Changes in v2:
+- Update the pvr_page_table_l2_entry_raw_set() description to better reflect the general changes.
+- Link to v1: https://patch.msgid.link/20260930-b4-include-mmu-defines-only-in-mmu-code-v1-0-291eadfde23b@imgtec.com
 
-3. The actual problem with L1.2 substate this patch aims to solve. I 
-checked with the HW team and there are two conclusions - (a) it is 
-strange that L1.2 is enabled somehow for I225_LMVP - this is not 
-expected. (b) generally it is probably best and simplest to remove any 
-device ID checks and simply disable L1.2 across the board in this 
-driver. Unless there are downsides to calling the API when it is already 
-disabled (I don't expect there are).
+To: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: imagination@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
 
---Dima
+---
+Alessio Belle (2):
+      drm/imagination: Switch to kernel-style MMU defines and access
+      drm/imagination: Don't include MMU defines outside of MMU code
+
+ drivers/gpu/drm/imagination/pvr_mmu.c            |  91 ++++-----
+ drivers/gpu/drm/imagination/pvr_rogue_mmu_defs.h | 244 +++++++++++------------
+ drivers/gpu/drm/imagination/pvr_vm.h             |   2 -
+ 3 files changed, 156 insertions(+), 181 deletions(-)
+---
+base-commit: 49f40f15d20f5b4073d517da7efbcea079f1b9e3
+change-id: 20260930-b4-include-mmu-defines-only-in-mmu-code-a139880f7fce
+
+Best regards,
+--  
+Alexandru Dadu <alexandru.dadu@imgtec.com>
 
