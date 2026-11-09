@@ -1,89 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794215735;
-	b=kQW6N1Ymxvai9oBpra/s7t4uEULg9KGA+xyYnQc0wQadSlYNlpQ5tbYfNadjeEj/slhZ
-	 /enH6AqW7wmwk6kWspDiMaN0sqg1+9PGJAYs6gnHhNglj1GUF8NaYFh4nTCbbtjI6i+60
-	 ar5pcJbb/So/t2bLllacLxnuTIEHgpGLQakjO/7lU2FWV4y6nFAOUtYSOiMJi7lc97q/j
-	 tW4FnN0Dh/jpogalLR8WfkCnVMHxriO7PXN32WYhZUh5RnaWnUeDvIrWewWuqiHh0oFA/
-	 suhrzIe2RDezEQsDwlPOHoWgxKmitFffUiv8k3pwNgnStumgC5BysYfLSnnYdiQYQ8A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794215735;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794215736;
+	b=U+Pq73kYRzQn8pkP+HJ8q94iD5oYMOnKLiqFgr8AC23gwR0TH3+Jh+IOzxKa8L49ICX/
+	 AYUwd0zsP7wv/XP6Mso7R5aYCvRVtm78Q5vHnCFbofCFt20geLwBauTffjW6akKTPy4l9
+	 NXOiJCvBI9WLKEDmgL6mdDevCryN4//e6MJ7lPigDdg/CWXnv2210VDLlViyRnwHW6dtK
+	 0+V1brG4zilM2C/MtB46Zoy0iVwnPqGyEL3VGLMZUwLRKRCtA2VGL5gA3h2da4D/KLRrz
+	 dJFclkMWARF6fuZ5WwfEeOxNe131eLQNZ0sw9IfJCum0Gk4XZXbGlSB+5nYyT524sEw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794215736;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=6Jxa9zmBNngX04KUHpP3i3yWBurR9dFeJjzlLzsw8C8=;
-	b=CVas0RZqZ44UwPfODRZhnoU5qhj8+7a6yuFKFCjXSrFTy0YGTJEee5TNNDiAyY87GUQq
-	 bqWriEMpqDSICsGE7DLsGcy0rHpCd5HoeLq5jpSvh9SX3Ja80fKG3eLz7uxlmSoX1I0Zl
-	 DKE/isL6uaWSML6+hG1WWqcZSouMrkKl0DvbWgqYvTFGrXmWpYIf2t2+t6t8HckzFclfk
-	 LZs5Pqc3+QpSp1ON9dBN3E8Xg4Xmj7Amq6mdWKrNuITG4rw8THL3kKVJdGjKxBnst8MqO
-	 5iDdYlpWcS8Ha3rkV3fLNuRxWe9e3WwrUpfKN5Wph6+yCJO9cwOtKnhwI44XvTs5qcQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Kc/yUXks";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314DE606D803;
+	bh=KEF1Ift8QXeIIMmLK6TeplXWe0D5JCBlq+6V3tmbvsY=;
+	b=XsSTbJ5yHLuEuBZHQg3aG2cVWAWaCAb3p0Frq5lx0PPO7LdKIV4HzLiUjCnYIp4TqYNS
+	 KE3iP32k7bloqHK08SlA+P0+1aMeqKiDGdpozlpZydeWhkOi/4Zw2891HDAltVCiGhCiF
+	 ZvJZb2ChNiHH1QF6QKwLI0JfyeaqRvEY8/Og+/cUA8XrHeRogMJGeO/+TUohHoHXGdRhf
+	 72yRX3x3ddJM1evABpulaMKTD7aN7oKtIuZuivr+1TYP4qxc+wQFA0n2HsOBls4Ej8vs2
+	 TuFgk4M7eH4mWt7vb0PJWHFsYu9tQdH71z9XPYx8UgPcK56R9bIC8SHY9z2pChH5djg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=iEM6v23+;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 29F5C606A321;
 	Mon,  9 Nov 2026 09:15:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29F5C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kc/yUXks
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794215735;
-	b=qy+60FY7SAQVKjDUvY7ss/EiD2GrCBvtl8cB61fGA5+jXAb/5vdUpNS6HwD+r+lHnuu1
-	 vbZ+fPXVDl+X7h/d6vWbI+uouQx0h9iDmF9MoZfWAOxL1aq0dCZc78dC2KKSh5X2ZuY79
-	 zSlJcsdxKhkL8ci8ouZeJM9RXywd/GRV/eQ5FHZuXmN+ZMNsicMu513fi4/HUHSOZ52DP
-	 vh+gjPhtlfbD7Rx4XNELNSzwv8/mYLin+Xoc9s+ny6LGOO3gdJoJnYMpkukSktVEfMU4T
-	 +U9gc6BUDnfLrba6y9+bZ9Sn/hZP4tHG90Ts8EwCOIqEq+e1Vy5z0z9rolCEX+fICJw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794215735;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6Jxa9zmBNngX04KUHpP3i3yWBurR9dFeJjzlLzsw8C8=;
-	b=IOH250LBsf30dHeqUHyphihaxFA2SykFvAXQ676P02UT+PlFrlI/uZtcAs43w9+H0g3Y
-	 WC4+WQWV+PSNVmSWia9uO7QUNo7luLykRPKZmACos89hPPnRk3bntX1D3wA6YV0i2CYFc
-	 hY3c22g0OaKOCuuBRmUDdlzaqWeQEBy5vNWbxinTcz7VipnwkmkN3DBKkIDt2aE16LB7y
-	 W7ucr5qdzww4/+fH3BuCiENZcmirlgDeJlZTw/3xFc6CNmt3HE/d8uG8x7DWhwdbJ5yYG
-	 SwXRGD7KmbT7XAkc1D5INoumi+N2XU+GwhxCfgC30Abxn468CImWyNKTbbdHU4nbSfg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id 06AAD1F0089F;
-	Mon,  9 Nov 2026 09:15:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794215734;
-	bh=6Jxa9zmBNngX04KUHpP3i3yWBurR9dFeJjzlLzsw8C8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Kc/yUXksMiJzCnYZKIeUaI92iMS40EC5mVipgUcbfrXsfXmEssvuZfbpswYRBEDtS
-	 WwMqTw5CDwJzg8s0b9yza1ZT0h+Pwrs6+gSLUqfLJL1SY7yT2xjXMkamY1yXip2KsA
-	 B6zjRlbOVMr1k7uR2whcBtk7ERrjpWozXfmKbARdc2sJKNyeYJKlyo4xGvMuaiKpSj
-	 9MuZKJ1F24aW/alom3HB66+x8RHYuqZla+ifvs/kJBUtu8XU0Qe/QxezdGxdyHTi3E
-	 NuD/mq/wU2VGBmS0UgyGFmQAcBdtp9vaqckO4PwCd23GjHcfFL7k00v4A/drLbRsp0
-	 1EvxjfICDx6EA==
-Date: Mon, 9 Nov 2026 10:15:25 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Song Qiang <songqiang1304521@gmail.com>, Radu Sabau
- <radu.sabau@analog.com>, Maxwell Doose <maxwell@maxwelld.cc>, Tomasz
- Duszynski <tduszyns@gmail.com>, Erikas Bitovtas <xerikasxx@gmail.com>,
- Waqar Hameed <waqar.hameed@axis.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org, Jonathan
- Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [RESEND PATCH 00/14] IIO: Ensure iio_trigger_poll() is of the
- device owned trigger.
-Message-ID: <20261109101525.0000640c@kernel.org>
-In-Reply-To: <20261109042851.1326940-1-jic23@kernel.org>
-References: <20261109042851.1326940-1-jic23@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=iEM6v23+
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A8EBC14BF;
+	Mon,  9 Nov 2026 01:15:31 -0800 (PST)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C7E863F85F;
+	Mon,  9 Nov 2026 01:15:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794215734; bh=sr5QScSmf+D8r3q4ANU7+rTNxyee2YoCxEsyeghwk8E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=iEM6v23+lZozZ1UiFu5q/RhrLZJ+7HhNJRGBdwgjgI3omUrImxuLeYMNq4b6gpGl7
+	 G7L+6QK5Ch88XcCMKUQSwRCSjFjBoQ3a5xG6lZW4hSH9Gfy5Yy2r/IZA4SyndSmaLV
+	 csxoZsH3Dw+NFHGHKV3Agdy8/MJL8fRRK7UnEgMg=
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Cc: sudeep.holla@kernel.org,
+	james.quinlan@broadcom.com,
+	f.fainelli@gmail.com,
+	vincent.guittot@linaro.org,
+	etienne.carriere@st.com,
+	peng.fan@oss.nxp.com,
+	michal.simek@amd.com,
+	d-gole@ti.com,
+	jonathan.cameron@oss.qualcomm.com,
+	elif.topuz@arm.com,
+	lukasz.luba@arm.com,
+	philip.radford@arm.com,
+	david@kernel.org,
+	souvik.chakravarty@arm.com,
+	leitao@kernel.org,
+	kas@kernel.org,
+	puranjay@kernel.org,
+	usama.arif@linux.dev,
+	kernel-team@meta.com,
+	Cristian Marussi <cristian.marussi@arm.com>
+Subject: [PATCH v15 12/35] firmware: arm_scmi: Add Telemetry update intervals enumeration
+Date: Mon,  9 Nov 2026 09:11:58 +0000
+Message-ID: <20261109091221.2532706-13-cristian.marussi@arm.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261109091221.2532706-1-cristian.marussi@arm.com>
+References: <20261109091221.2532706-1-cristian.marussi@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,37 +82,308 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon,  9 Nov 2026 04:28:37 +0000
-Jonathan Cameron <jic23@kernel.org> wrote:
+Add support to enumerate available Telemetry update intervals.
 
-> From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> 
-> Resend due to wrong linux-iio email address. Sorry for the noise!
-> 
-> LLM used to help pull this fairly straight forward series together.
-> 
-> The primary aim here is to ensure a clean layering between the two sides
-> of the trigger / pollfunc (push to buffers) divide.  The caller of
-> iio_trigger_poll() and iio_trigger_poll_nested() should be using data
-> relevant to the trigger, not iio_dev->trig which is the
-> current_trigger for the device. Most drivers got this layering right,
-> but not this set!
-> 
-> This is also step 1 in a plan to make iio_dev->trig opaque allowing
-> more control of how it is assigned and avoiding traps around lifetimes.
-> 
-> Includes one precursor fix that has been broken long enough I think
-> we can just merge it via the slow path along with the rest of these.
+Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+---
+v14 --> v15
+ - removed unused dev reference in interval parsing
+ - added missing initialization of intrvs->grp_id
+v13 --> v14
+ - splitted out of the old Basic Telemetry patch, contains the
+   update_intervals enumeration routines
+---
+ drivers/firmware/arm_scmi/telemetry.c | 198 ++++++++++++++++++++++++++
+ include/linux/scmi_protocol.h         |  21 +++
+ 2 files changed, 219 insertions(+)
 
-Patch 3 doesn't apply on iio/togreg (I see you're missing a base commit).
-
-I only have a few pahole nits, otherwise LGTM.
-
-Reviewed-by: Joshua Crofts <crofts@kernel.org>
-
+diff --git a/drivers/firmware/arm_scmi/telemetry.c b/drivers/firmware/arm_scmi/telemetry.c
+index 9944506652f5..e57534c93b26 100644
+--- a/drivers/firmware/arm_scmi/telemetry.c
++++ b/drivers/firmware/arm_scmi/telemetry.c
+@@ -92,6 +92,21 @@ struct scmi_msg_resp_telemetry_de_description {
+ 	struct scmi_de_desc desc[];
+ };
+ 
++struct scmi_msg_telemetry_update_intervals {
++	__le32 index;
++	__le32 group_identifier;
++#define	ALL_DES_NO_GROUP	0x0
++#define SPECIFIC_GROUP_DES	0x1
++#define ALL_DES_ANY_GROUP	0x2
++	__le32 flags;
++};
++
++struct scmi_msg_resp_telemetry_update_intervals {
++	__le32 flags;
++#define INTERVALS_DISCRETE(x)	(le32_get_bits((x), BIT(12)) == 0)
++	__le32 intervals[];
++};
++
+ #define IS_TDE_TSTAMP_TYPE(__t, __ttype)	((__t)->ts_type == (__ttype))
+ #define IS_TDE_TS_NONE(_t)	(IS_TDE_TSTAMP_TYPE((_t), TSTAMP_NONE))
+ #define IS_TDE_TS_LINE(_t)	(IS_TDE_TSTAMP_TYPE((_t), TSTAMP_LINE))
+@@ -693,6 +708,176 @@ static int scmi_telemetry_de_descriptors_get(struct telemetry_info *ti)
+ 	return scmi_telemetry_de_groups_init(ti);
+ }
+ 
++struct scmi_tlm_ivl_priv {
++	struct scmi_telemetry_intervals **intrvs;
++	unsigned int grp_id;
++	unsigned int flags;
++};
++
++static void iter_intervals_prepare_message(void *message,
++					   unsigned int desc_index,
++					   const void *priv)
++{
++	struct scmi_msg_telemetry_update_intervals *msg = message;
++	const struct scmi_tlm_ivl_priv *p = priv;
++
++	msg->index = cpu_to_le32(desc_index);
++	msg->group_identifier = cpu_to_le32(p->grp_id);
++	msg->flags = cpu_to_le32(FIELD_PREP(GENMASK(3, 0), p->flags));
++}
++
++static int iter_intervals_update_state(struct scmi_iterator_state *st,
++				       const void *response, void *priv)
++{
++	const struct scmi_msg_resp_telemetry_update_intervals *r = response;
++
++	st->num_returned = le32_get_bits(r->flags, GENMASK(11, 0));
++	st->num_remaining = le32_get_bits(r->flags, GENMASK(31, 16));
++
++	if (st->rx_len < (sizeof(*r) + sizeof(r->intervals[0]) * st->num_returned))
++		return -EINVAL;
++
++	/*
++	 * total intervals is not declared previously anywhere so we
++	 * assume it's returned+remaining on first call.
++	 */
++	if (!st->max_resources) {
++		struct scmi_tlm_ivl_priv *p = priv;
++		struct scmi_telemetry_intervals *intrvs;
++		bool discrete;
++		int inum;
++
++		discrete = INTERVALS_DISCRETE(r->flags);
++		/* Check consistency on first call */
++		if (!discrete && (st->num_returned != 3 || st->num_remaining != 0))
++			return -EINVAL;
++
++		inum = st->num_returned + st->num_remaining;
++		intrvs = kzalloc_flex(*intrvs, update_intervals, inum);
++		if (!intrvs)
++			return -ENOMEM;
++
++		intrvs->num_intervals = inum;
++		intrvs->discrete = discrete;
++		intrvs->grp_id = p->grp_id;
++		st->max_resources = intrvs->num_intervals;
++
++		*p->intrvs = intrvs;
++	}
++
++	return 0;
++}
++
++static int
++iter_intervals_process_response(const struct scmi_protocol_handle *ph,
++				const void *response,
++				struct scmi_iterator_state *st, void *priv)
++{
++	const struct scmi_msg_resp_telemetry_update_intervals *r = response;
++	struct scmi_tlm_ivl_priv *p = priv;
++	struct scmi_telemetry_intervals *intrvs = *p->intrvs;
++	unsigned int idx = st->loop_idx;
++
++	intrvs->update_intervals[st->desc_index + idx] =
++		le32_to_cpu(r->intervals[idx]);
++
++	return 0;
++}
++
++static int
++scmi_tlm_enumerate_update_intervals(struct telemetry_info *ti,
++				    struct scmi_telemetry_intervals **intervals,
++				    int grp_id, unsigned int flags)
++{
++	struct scmi_iterator_ops ops = {
++		.prepare_message = iter_intervals_prepare_message,
++		.update_state = iter_intervals_update_state,
++		.process_response = iter_intervals_process_response,
++	};
++	const struct scmi_protocol_handle *ph = ti->ph;
++	struct scmi_telemetry_intervals *intrvs = NULL;
++	struct scmi_tlm_ivl_priv ipriv = {
++		.grp_id = grp_id,
++		.intrvs = &intrvs,
++		.flags = flags,
++	};
++	void *iter;
++	int ret;
++
++	iter = ph->hops->iter_response_init(ph, &ops, 0,
++		TELEMETRY_LIST_UPDATE_INTERVALS,
++		sizeof(struct scmi_msg_telemetry_update_intervals),
++		&ipriv);
++	if (IS_ERR(iter))
++		return PTR_ERR(iter);
++
++	/* Cleanup iterator inner allocations on failure */
++	ret = ph->hops->iter_response_run(iter);
++	if (ret) {
++		kfree(intrvs);
++		return ret;
++	}
++
++	*intervals = intrvs;
++
++	return 0;
++}
++
++static int
++scmi_telemetry_enumerate_groups_intervals(struct telemetry_info *ti)
++{
++	struct scmi_telemetry_res_info *rinfo;
++
++	if (!ti->info.per_group_config_support)
++		return 0;
++
++	/* Get rinfo without triggering a recursive enumeration */
++	rinfo = __scmi_telemetry_resources_get(ti);
++
++	for (int id = 0; id < rinfo->num_groups; id++) {
++		int ret;
++
++		ret = scmi_tlm_enumerate_update_intervals(ti,
++							  &rinfo->grps[id].intervals,
++							  id, SPECIFIC_GROUP_DES);
++		if (ret)
++			return ret;
++
++		rinfo->grps_store[id].num_intervals =
++			rinfo->grps[id].intervals->num_intervals;
++	}
++
++	return 0;
++}
++
++static void scmi_telemetry_intervals_free(void *interval)
++{
++	kfree(interval);
++}
++
++static int
++scmi_telemetry_enumerate_common_intervals(struct telemetry_info *ti)
++{
++	unsigned int flags;
++	int ret;
++
++	flags = !ti->info.per_group_config_support ?
++		ALL_DES_ANY_GROUP : ALL_DES_NO_GROUP;
++
++	ret = scmi_tlm_enumerate_update_intervals(ti, &ti->info.intervals,
++						  SCMI_TLM_GRP_INVALID, flags);
++	if (ret)
++		return ret;
++
++	/* A copy for UAPI access... */
++	ti->info.base.num_intervals = ti->info.intervals->num_intervals;
++
++	/* Delegate freeing of allocated intervals to unbind time */
++	return devm_add_action_or_reset(ti->ph->dev,
++					scmi_telemetry_intervals_free,
++					ti->info.intervals);
++}
++
+ static const struct scmi_telemetry_info *
+ scmi_telemetry_info_get(const struct scmi_protocol_handle *ph)
+ {
+@@ -868,6 +1053,7 @@ static void scmi_telemetry_groups_free(struct scmi_telemetry_res_info *rinfo)
+ 
+ 		kfree(grp->des);
+ 		kfree(grp->des_str);
++		kfree(grp->intervals);
+ 	}
+ }
+ 
+@@ -932,6 +1118,12 @@ scmi_telemetry_resources_enumerate(struct telemetry_info *ti)
+ 		goto done;
+ 	}
+ 
++	ret = scmi_telemetry_enumerate_groups_intervals(ti);
++	if (ret) {
++		dev_err(dev, FW_BUG "Cannot fully enumerate group intervals. Degraded system.\n");
++		goto done;
++	}
++
+ 	/* Get rinfo without triggering a recursive enumeration */
+ 	rinfo = __scmi_telemetry_resources_get(ti);
+ 	rinfo->fully_enumerated = rinfo->num_des == ti->info.base.num_des;
+@@ -1007,6 +1199,12 @@ static int scmi_telemetry_protocol_init(const struct scmi_protocol_handle *ph)
+ 		return ret;
+ 	}
+ 
++	ret = scmi_telemetry_enumerate_common_intervals(ti);
++	if (ret) {
++		dev_err(dev, FW_BUG "Cannot enumerate update intervals. Abort.\n");
++		return ret;
++	}
++
+ 	ti->info.base.version = ph->version;
+ 
+ 	return ph->set_priv(ph, ti);
+diff --git a/include/linux/scmi_protocol.h b/include/linux/scmi_protocol.h
+index c81b4ceb84b3..f38ca2f8099b 100644
+--- a/include/linux/scmi_protocol.h
++++ b/include/linux/scmi_protocol.h
+@@ -830,8 +830,25 @@ struct scmi_pinctrl_proto_ops {
+ 	int (*pin_free)(const struct scmi_protocol_handle *ph, u32 pin);
+ };
+ 
++#define	SCMI_TLM_GET_UPDATE_INTERVAL_SECS(x)	(FIELD_GET(GENMASK(20, 5), (x)))
++#define SCMI_TLM_GET_UPDATE_INTERVAL_EXP(x)	(sign_extend32((x), 4))
++
++#define SCMI_TLM_GET_UPDATE_INTERVAL(x)		(FIELD_GET(GENMASK(20, 0), (x)))
++#define SCMI_TLM_BUILD_UPDATE_INTERVAL(s, e)				    \
++	(FIELD_PREP(GENMASK(20, 5), (s)) | FIELD_PREP(GENMASK(4, 0), (e)))
++
+ #define SCMI_TLM_GRP_INVALID		0xFFFFFFFF
+ 
++struct scmi_telemetry_intervals {
++	unsigned int grp_id;
++	bool discrete;
++	unsigned int num_intervals;
++#define SCMI_TLM_UPDATE_INTVL_SEGMENT_LOW	0
++#define SCMI_TLM_UPDATE_INTVL_SEGMENT_HIGH	1
++#define SCMI_TLM_UPDATE_INTVL_SEGMENT_STEP	2
++	unsigned int update_intervals[] __counted_by(num_intervals);
++};
++
+ struct scmi_telemetry_grp_info {
+ 	unsigned int grp_id;
+ 	unsigned int num_des;
+@@ -844,6 +861,8 @@ struct scmi_telemetry_group {
+ 	unsigned int *des;
+ 	char *des_str;
+ 	struct scmi_telemetry_grp_info *info;
++	unsigned int active_update_interval;
++	struct scmi_telemetry_intervals *intervals;
+ };
+ 
+ struct scmi_telemetry_de_info {
+@@ -901,6 +920,8 @@ struct scmi_telemetry_info {
+ 	bool reset_support;
+ 	bool fc_support;
+ 	struct scmi_telemetry_base_info base;
++	unsigned int active_update_interval;
++	struct scmi_telemetry_intervals *intervals;
+ };
+ 
+ /**
 -- 
-Kind regards,
-Joshua Crofts
+2.54.0
+
