@@ -1,62 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794255607;
-	b=cf3GYFPig0MnHPLs3H9Z+IXpbV8YYxaIZ1+1eQDdv2jjvtRlXKaBgXgYX4jBZnSMgci+
-	 OMbtyl20oWTbT81Y3F+KUTwXTl0Lm+qUQqFjCy+LMSYLb92MTg65a+bEuMlwYOBa2bhLN
-	 fKIjfWphSfhL3l0oscWYVXS6jCvhfoVM0pNT5haqKENgoIuzJ5DjhY71awpQMS5rKh44/
-	 HEayo7I5m6D7ALeSvYCLSbtX8SeALF2rZGwc/5SG6HoqS8AxDUDAPbL/GNSIHz0unT4rJ
-	 acV63cwBzzEvoj/W8wesH1Om6ygD49OzMJD/FtKLZTgs8i0zfLut/FR7/q+d1Ex3EXQ==
+	t=1794255653;
+	b=y3IRpLoGVLhPns1elzWlLnqvygfFee1/iXZTbSROE/RVNH1Zdf2kmL0uUySK8ZmLB/Rs
+	 4koiMKlnjfAKrG4wifuZX2JIYe3v9qW6f9Z2T2psdncYtLotRYZG2QA+hEmIJtu9xf5Yz
+	 YhzQJTHgiKOYIjlYPEESVlHgpApDX7TBiYisdTsfXxvI5+l95Q2dVxtnGzM6OFcv+MOxD
+	 ekMocxygBGUiPkpykSjlOTzprokKjt4ptMIUrruT7r/huRd37WTBNjYtvU5h/wb/OdA9x
+	 4x5ODRl6XThEYL0wB5nKh1QCywXOPVpnv+pleOk7Geo0ZoPrTed/zZGnWWVQWQQ2veQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255607;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=IcBL3a80r84RA3Ro027wMRJVkdShjlT42KuGCQbF6jo=;
-	b=wbWzwTKhLk0Ak+X10EjiHbHy9ipJ1Dgj9GskYRhZVvGomyod6wQjRIs8nuAvk1jAG4jo
-	 w6mExYBogNJE5m0WAUwDlQQfNEqTm/Mi6qQrqSfDKqMmWjQdp8hhUyGXV5IbjHnWWOvaW
-	 Z9Py7MhebOE2502NvesaFD/+jkIAfb2P7kyvk7r6B5/8QjPnurUtykQ2ppbhSgpVLMe/l
-	 DdETALX82/gdfD6EezKbCLoruFDrsgp8YznOwcWVeQvLEb2i6Vt73UdqXKmMZmo9JIGg3
-	 Nvqm/SgAAfyKpKyH5SbvqJa3GswbHqZ8GEl8GeZfvMvWNzIVO/BZPHhlkG3LPS2ZsQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794255653;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:In-Reply-To:
+	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=p2VWU/WN+cSmCH2dIzfqt0paEgoVmZoUIq28wLtQsws=;
+	b=zIYSshtyDfyPfItC570XbCL/S/RWfwueQEX7PfXswP3srpDIEcLyFgRdAGr6JKh19hCV
+	 cvE2biyBVaN1SgVWFLbr+Rt9Spiy1QOZRmSMIfQGJONBQ+o2pQNvy59vNJUVmJjLQz2Uk
+	 q07/F/XCJfHAGvIrYv2tHsKyoThy6AiEsNtFEaBqcI2jqTjSthrGtmc+wTW7VtEnrp/yW
+	 eiEyvuUmiwjliXjXRlqHeAuJZXCKqRdkQfMmaAuvCsjsHoxF/uFoHQqJP2ALvgAeacwnM
+	 XK+vdHvr8xZqG+vZp84rO9kps75GNqfEB4mcf+7W77qNUJBjSrY1xrgaW07FApcdxjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HjMw8nLW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=NW7ei05y;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A6F606A32A;
-	Mon,  9 Nov 2026 20:20:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D96606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:20:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5D96606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HjMw8nLW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19EDB1F0089F;
-	Mon,  9 Nov 2026 20:20:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794255606;
-	bh=IcBL3a80r84RA3Ro027wMRJVkdShjlT42KuGCQbF6jo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HjMw8nLWjwc11PenB3/UnNBdeoGofUyEt89ZWH7hSnJqYtJzhDuOFrD/q+apcceBz
-	 Q9tR3Hey2bMYOlvmAQk6LpbuBOtm/4cZlOjJtmwwX/Xox/4Zp7RaQGME+UhxTOWjpD
-	 e6RN6m1ApDYmolSL6diC4RuCAHs9UDvNrm66KoiDVfdUZcC3q1pe2aDnhUdWElD16w
-	 U5ifvLJyb90nArCqI8OqLj+OTGNu73t73V80RSrPJbyKXzaPPtf7TaHGJvQGKTu22F
-	 VoeGztmXiSY7Lbo2p1NbfY9tnr2ot1OyP1zC0vT/GK/a+J/IU8BNQddEsbo/YSnuTw
-	 oFkwUz9vCKJLg==
-Date: Mon, 9 Nov 2026 12:20:04 -0800
-From: Oliver Upton <oupton@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Fuad Tabba <tabba@google.com>, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/16] KVM: arm64: Support debug, SVE, MOPS, PIE/POE,
- FPMR and more in protected VMs
-Message-ID: <avIq9AIE-9igDzsV@kernel.org>
-References: <20261109083205.806619-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=NW7ei05y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794255651;
+	bh=8QMmlJOyXYlkKm0qbr8+Mg9iII8ZAXA3eOsqDxVO/1w=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=NW7ei05yK1PBmE5ViCWK6tUV0mV3vMfhGFrcViShk5+pP1bJnhtX2F1/ZptB6GOOd
+	 Tg4Co234NOUFYxFsiLy/LkRdykrl/QrqVdLyo0W7pRZuf16oh+2P8YZ8P86vaS2jnp
+	 GezkwiNZ7SeKfB7sPmZ6UDyNSfTql+kgkZU9GnPHnAltiv2etmGpxHSi4EjhMpCn+L
+	 GttjhmwdRP6Gp9rt9cRp/NKOyRzMCZ8VsqZghR6DH84zVvHvIaesomYNglK34MJnks
+	 b5PwNTiwjNPkfI3lAeD3ZdlnhBSoHwrMit3vo2hpx1KZ9EdGZ4EX4b9yhDP2mcSmDM
+	 PwwxQ3YZettrA==
+Received: from localhost (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DB8D317E0DC3;
+	Mon, 09 Nov 2026 21:20:50 +0100 (CET)
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Dan Carpenter <error27@gmail.com>, 
+ Sashiko <sashiko-bot@kernel.org>
+In-Reply-To: <20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com>
+References: <20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com>
+Subject: Re: [PATCH 0/3] drm/display: hdmi: Fix SCDC scrambling corner
+ cases
+Message-Id: <179425563470.412379.16294380759448058422.b4-ty@b4>
+Date: Mon, 09 Nov 2026 22:20:34 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,69 +74,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109083205.806619-1-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-36e3f
 
-Hi Fuad,
 
-On Mon, Nov 09, 2026 at 08:31:49AM +0000, Fuad Tabba wrote:
-> Hi folks,
+On Wed, 04 Nov 2026 15:26:19 +0200, Cristian Ciocaltea wrote:
+> This series fixes a few corner cases in the scrambling helpers
+> introduced by commit d653818324ed ("drm/display: hdmi: Add HDMI 2.0
+> scrambling management helpers").
 > 
-> With most of the groundwork now merged, bringing protected VMs up to
-> the features we support for them in Android turns out not to be a big
-> series. So this folds self-hosted debug [1] and SVE [2], which I posted
-> separately last week, into one series with the rest. Both are small,
-> and keeping them apart would only leave a few conflicts where they add
-> neighbouring lines to the pVM ID-register code. The debug and SVE
-> patches are unchanged from those postings.
+> Patch 1 fixes a potential NULL pointer dereference in
+> drm_connector_hdmi_sync_scdc() reported by Smatch.
 > 
->   01:     Self-hosted debug.
->   02-05:  SVE, with EL2 owning a protected vCPU's SVE state.
->   06-07:  Compute a protected vCPU's fine-grained traps at EL2.
->   08-16:  Advertise TCR2, SCTLR2, S1PIE, S1POE, MOPS, FPMR and the
->           features EL2 already handles for non-protected guests.
-> 
-> Tested on QEMU, in hVHE and nVHE, and on FVP for S1POE and the fields
-> QEMU doesn't model (CLRBHB, RPRFM, ECBHB, LSFE, LSUI, HAFT, ETS3 and
-> F16MM). v2 of the pKVM selftests series [3] will cover debug, SVE,
-> MOPS, PIE, POE and FPMR.
-> 
-> Based on Linux 7.4-rc1 (6628e7d4c6b25); it also applies to 7.4-rc2
-> (7475ea8b58616).
-> 
-> Cheers,
-> /fuad
-> 
-> [1] https://lore.kernel.org/all/20261102093950.2922035-1-fuad.tabba@linux.dev/
-> [2] https://lore.kernel.org/all/20261105130456.1617185-1-fuad.tabba@linux.dev/
-> [3] https://lore.kernel.org/all/20261104084842.132944-1-fuad.tabba@linux.dev/
+> [...]
 
-Ok, we really need to slow down the rate of patches here. I had already
-applied the SVE series locally and now we've got a grab-bag of CPU
-features in addition to what I was ready to apply.
+Applied, thanks!
 
-The whole point of respinning a series is so we can converge on the
-shape of the feature and get it merged. Adding a whole pile of things
-that wasn't asked for just muddies the context for us dumb humans and
-slows down the rate at which you're going to land things upstream.
+[1/3] drm/display: hdmi: Prevent NULL pointer dereference in sync_scdc()
+      commit: 6e73b637dc16953067635d9ba2019f5645092217
+[2/3] drm/display: hdmi: Use committed state to decide on SCDC resync
+      commit: 59d532e39ea794ba6d0f8e8acd1ea4fb20d27877
+[3/3] drm/display: hdmi: Reset sink scrambling on non-scrambled modesets
+      commit: b4146c6155b1efefe8caa604ed9cc7a2673f8591
 
-Going forward, can you please:
+Best regards,
+-- 
+Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
- - Keep an individual series focused on the original intent. Don't
-   unnecessarily expand scope.
-
- - Only iterate on a couple of series on the list at a time. Sashiko
-   findings are interesting, but you're gonna have to draw a cutline in
-   terms of how many additional patches are going to ride the coattails
-   of any particular series.
-
-   You're obviously a very active contributor and reviewer, so I don't
-   anticipate such a rate limit to actually impede your patch velocity.
-
-Sorry, I really do appreciate the amount of work that you're doing to
-get pKVM in good shape upstream. I just get the sense that Marc and I
-are going to quickly encounter bandwidth limitations.
-
-Thanks,
-Oliver
