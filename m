@@ -1,53 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228062;
-	b=eikQJBIyP+ttzFgn1T5VyQETuyQ0zVi1t1zTdG/y4Nrs91PHbpdhAKS1xIxb5vMNxtCI
-	 t6xaazJ5Y0v/IINN/EyCdF+Q+a0pWgy/vT9FrOYer6TdZLq5L4hPlWQ6iSLxrQCipWX/Q
-	 mEABxviFbKPN4CGsg2vbA2RI+rm+D3vXsX1d3s7SGqQylnshVNQz/6oQ95qOJe5HAoawT
-	 88fsyYQNXnWO4VitB7Jy2m+B5cUe553nn0LudODNBXIW2/IMF6UDKa3WdmFowyKAYnk/M
-	 VcMP6y+G/wIIB1f9cnaGofBWNm/E9+IQ8QhNiR71cX3hql8U4MNrNWjvgkAFswjTR3g==
+	t=1794228140;
+	b=kc4EQBUjOuQy2zTzvLKEApjKMMBKM0krZ3NVMuGcxZ+plnHihQgnvZBCb+jTHszU34Mj
+	 Vj9kxM21OKDUOg2swrf6LDBpqWTzZt+7EXfrMujpYqkdSFzwvMq441jHZ5DTh/UIYVNBa
+	 jH37VkouTNmxNSdKahqQW75fAHUCkSD/PQn+FIgJwYkbOE1MSBgbdi3WY+05YujvA8qNn
+	 oXWi3EYo4tVNGM1EsNtO3BgyLvP6kgNJRewMwhkg9zpPVL/DzXO2WBW6k/tudW+nWXf58
+	 l3AfqKobc2EvXRMzljjEt318zRBkFzG3jztJ3RwLGr1uN3kVWfylTWeq013w/VUUiwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228062;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=f+/rvpSnyGAg1uGXCiVfJRDQ5Zsx/f3G/vzkEJ12Kx4=;
-	b=sycDKu/7vhvEGBcSGdUtJL9S/z8Tg7jGVFiihMxwpPD4XYgyPT0DQ8A4p3k4jtaHkyeK
-	 152mBTfvu52Fo+17Y1HMaw4ZYvFOqZwokt0ab0w9gzpU8gc7sVNJ2XOiROAU1UqSoYjO9
-	 5URM2N4SnEoVFqCM3EZ38Dp+BViv1htGGrLpkqs9y7T5iKji9HxgytP0Mh/uAXbWCysN9
-	 wCxA3Pj8HZkX7dYVBWl+edz1xxdrZBJyC5REgtOtvacDkykQVRil3dagywW0u6vlkSU34
-	 HSHj/w8Rg8N8LWF0uzq1Lh+PuYECkqrVzMSlH1jPZQDiirwFsrhl+1Oojn5DBmdr6Aw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228140;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=iydcdsyCbn/1HMCuIAo5cr9JeqRLn8CAd0o0w+T8bOU=;
+	b=gbZxV+qFONz7NfiIedOlipRohVeNFhHNwG69vSHCfviQkCb7ItQ5kleNdhlOhz73vB/k
+	 PUShf2xMenloyHJbJx7bkEeXz7wYyGeH8U+L8BaYMT00w0sHo0Tv4JmCLghBqoUDB3bLZ
+	 RYevsYFAaE0P2+YRZIQfYv/Y52Jn/UYRXNg6vJZoaCxSUcILD+qJq0yVAEz4jjetNbIsC
+	 Tr1FDDEkhg+I6YqnDCika6WDCqukq7toqksgZfmZ/k6Gj0HDcB6jzAbE1BCo4MkehaCYL
+	 0CDaWQCRrEOk5q0p0Q0TssMtmxBNuzeRihA+xbCMRiwrOelGqqORt/M3mxyD2pORxmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=KRKJo35A;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CApGwua0;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pluYaXYO;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C00606A332
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:41:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3C00606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E717A606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:42:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E717A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=KRKJo35A
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=f+/rvpSnyGAg1uGXCiVfJRDQ5Zsx/f3G/vzkEJ12Kx4=; t=1794228060; x=2109588060; 
-	b=KRKJo35AcJobuyMoWpZwXsfek8YlQlYFKKgIcVYOk+GMmm/YlI8qg/pZ1k3gRvhTi+drnOLg2+C
-	akguTNgYr6suFn1OpBzfZOpN+JudehXOgh869lx2lJejeWIbq7bnWryIJxl2NLlcCFRSMZ7DiktIi
-	OwEkk989ScbBimFGVIZDS4EJm9NybhzmzBJUMsAEmduj6coBEOGeLzkFzd+kSTl6ju+mrTUiZyu2o
-	0A5NDtnmuSstHGJwceQeOQKRskIyJ+IQs8FIQK8o5GW3CVKxCNmQvxIU0meEQuJEy5Q07DtAKJMJW
-	dsEpLpdCQWjpwE7oPWaAxTeuSRLcBy9uOyxA==;
-Received: from [179.105.94.163] (helo=[192.168.0.4])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xQOg7-007Gw2-Og; Mon, 09 Nov 2026 13:40:51 +0100
-Message-ID: <b3b2bfc8-b6cf-4b89-bc7f-5f1987beea7e@igalia.com>
-Date: Mon, 9 Nov 2026 09:40:47 -0300
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=CApGwua0;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pluYaXYO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794228139;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iydcdsyCbn/1HMCuIAo5cr9JeqRLn8CAd0o0w+T8bOU=;
+	b=CApGwua0AdngnI9aQO07XVnDBnLBQcRQH+093EzexAdDs4FB8ZgAPupWfql3XxhwrthWKA
+	JdK+czj/TGwaE1HmIYOpd/hzizpZMiNE1JQ4HO3bLeYCSWCElgcVOIPyFvxi/6DmYoEv9v
+	xCMpqNxhbLDZ1bq+y/pCZKnmDiFSHA8=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-257-GYrzfze-OCKRGxpIvwER7A-1; Mon, 09 Nov 2026 07:42:17 -0500
+X-MC-Unique: GYrzfze-OCKRGxpIvwER7A-1
+X-Mimecast-MFC-AGG-ID: GYrzfze-OCKRGxpIvwER7A_1794228136
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a70b42bab0so8320415e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 04:42:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794228136; x=1794832936; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iydcdsyCbn/1HMCuIAo5cr9JeqRLn8CAd0o0w+T8bOU=;
+        b=pluYaXYO9Z9mXrCtps+gEWLNOMtSEIvVsckq8L6y6OF0oItWFAJi09sk5bpViNP0hJ
+         DPBx71ZOSSQ9us5U1YqnNGdn7FtDYxG/FW9j0+rng1m8YxNMvD9DfdfoPhvCtb7A5L15
+         Fn3nMMR+k3dJunGbtTqqFzHkg1MLG8DwOJbYUw49Qk8+tdVRvRrSTJpvP0PItBX5d/GW
+         hPq3BIlO1XCWUijlavaO9KSClYoyqy0tQHDnKXhQ0UNGlq5ehxbS1M/srm5x9PYofhgv
+         jQ7oNlvu9a2HPdJdaBflXSgz0tjEkAQFuDYMxnMrfmdcv3lNlzRXzDpkTR+pN9iySGUa
+         3S/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794228136; x=1794832936;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iydcdsyCbn/1HMCuIAo5cr9JeqRLn8CAd0o0w+T8bOU=;
+        b=w7FW3N+0TJ07OAZf4vcs71f+3BpJhMRdLApPgi2jjutpUO67O5XmDso7qz1t2GYe9G
+         cMRQgN5X3eJBtK1lwuQRYm9uqlqm1eEYl9Mn4fIGGtEkzzf9sbpqPT+r1VOabAFRkjwt
+         UJgULd2kyeh4KzxFBGM/QvN73txamSdBGz+XR+Fjz6IJKXCmUOezWv9unIQ1pi4SiM8Q
+         YeGjecwCh/bXQ9lneRsSINYhaiSgTOlC3d4RixccyRq2PVfti3o2PmsB8Lg8obypng8d
+         +DUK1B8kMsjOo30ltTIeYJCDdHWfMyhABLoY0CKBFHEH0zbrDBsognzlQmPXlw/TNbzC
+         Z/0Q==
+X-Forwarded-Encrypted: i=1; AL+hErHgcS/UZBcE9kr3KxngAFm8YJAIBCrIgngwK7nmgYMkNmN4oq1H8vkckzHmdkkustISklp2fCMfWlbxrbU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88PMdMeK05hCqbQ8mkt3bcUDWhmzqDok2eVwkBl1dP959pv506
+	Ni3dgqmTxX454EJ3mmwG0ueGwiWNMwDVLT2oE4LsVIzn6HkJdJ98rPH61WjFO9jB84u6LuOWi2/
+	C+j9lLHNX8OjjnV2rLYStlkZoQVdWUPd4BsNhJ5hjJm+ifHKQIncBz7w2ME7W8Xevfw==
+X-Gm-Gg: AYBFou34jbTurUGRQVoW6gITcgYyRcHdPSEWNOrs8sTVUyjB2/i5RFZkT5arsucUxuc
+	bP7FbsSWiMT+reKlv6bA96Ji5PuCulvMKF7fAYRcFyHzDJsFzQpkW+o7PZcH+rrLq9jjomiVFi5
+	rGFiy7n74ZgcVaBvxECJEiCL0QILKWu90ym8QP/hR8c9fBWBT5Snz3WWOYn4uTZMqnUOmyRowRa
+	nkaxmKigyh8rpsnCCu0XCAhRzzvDxmswrn5Dvo1OrOrbWUObZViKTV9G4rw8C9+nQHEjFSpVpmz
+	2cNHKG1NHlsAhw4bLnphENmZtdS5frJRYh6yhBRnxieFGrTXxr1gWfTe65X/Py1UWeyFfxxD8xz
+	LYkO0wdjlaHWZc7WA0UdjSzxekNkxxcho9onEh+amkFz3Gn3FIMMeaEJ3fVCaCmp9qyx64AFXJb
+	eU1w==
+X-Received: by 2002:a05:600c:8506:b0:4a2:10f9:37db with SMTP id 5b1f17b1804b1-4b963c664fdmr75986185e9.7.1794228136197;
+        Mon, 09 Nov 2026 04:42:16 -0800 (PST)
+X-Received: by 2002:a05:600c:8506:b0:4a2:10f9:37db with SMTP id 5b1f17b1804b1-4b963c664fdmr75985755e9.7.1794228135838;
+        Mon, 09 Nov 2026 04:42:15 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7efb1f3acsm247331855e9.14.2026.11.09.04.42.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 04:42:14 -0800 (PST)
+Date: Mon, 9 Nov 2026 13:42:12 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org, longman@redhat.com,
+	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
+	clrkwllms@kernel.org, parri.andrea@gmail.com,
+	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 03/29] sched/deadline: Do not admit bandwidth for
+ parameters that are kept
+Message-ID: <avG_pJmgQr3V-PXZ@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-4-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,129 +128,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/display: hdmi: Prevent NULL pointer dereference
- in sync_scdc()
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dan Carpenter <error27@gmail.com>
-References: <20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com>
- <20261104-hdmi-scdc-scramb-fixes-v1-1-16a9bb3d64a6@collabora.com>
- <712f4d29-f69c-4130-9cc6-3efccacba3aa@igalia.com>
- <e9a58f67-d6ff-44a4-ab32-31e44e6f7f0f@collabora.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <e9a58f67-d6ff-44a4-ab32-31e44e6f7f0f@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108185406.1549770-4-mathieu.desnoyers@efficios.com>
 
-On 09/11/26 09:39, Cristian Ciocaltea wrote:
-> Hi Maíra,
-> 
-> On 11/9/26 2:00 PM, Maíra Canal wrote:
->> Hi Cristian,
->>
->> On 04/11/26 10:26, Cristian Ciocaltea wrote:
->>> The connector pointer is used to initialize the local variables hdmi and
->>> dev before the NULL check takes place, leading to the following Smatch
->>> complaint:
->>>
->>>     drivers/gpu/drm/display/drm_hdmi_helper.c:663 drm_connector_hdmi_sync_scdc()
->>>     warn: variable dereferenced before check 'connector' (see line 657)
->>>
->>> Move those initializations after the sanity check to avoid a potential
->>> NULL pointer dereference.
->>>
->>> Fixes: d653818324ed ("drm/display: hdmi: Add HDMI 2.0 scrambling management helpers")
->>> Reported-by: Dan Carpenter <error27@gmail.com>
->>> Closes: https://lore.kernel.org/all/arJo7A7L5hud3tyc@stanley.mountain/
->>> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->>> ---
->>>    drivers/gpu/drm/display/drm_hdmi_helper.c | 7 +++++--
->>>    1 file changed, 5 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
->>> index f85cce3d6254..872f7e32e8d2 100644
->>> --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
->>> +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
->>> @@ -653,9 +653,9 @@ EXPORT_SYMBOL(drm_connector_hdmi_disable_scrambling);
->>>    int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
->>>                     struct drm_modeset_acquire_ctx *ctx)
->>>    {
->>> -    struct drm_connector_hdmi *hdmi = &connector->hdmi;
->>> -    struct drm_device *dev = connector->dev;
->>> +    struct drm_connector_hdmi *hdmi;
->>>        struct drm_connector_state *conn_state;
->>> +    struct drm_device *dev;
->>>        struct drm_crtc *crtc;
->>>        u8 config;
->>>        int ret;
->>> @@ -663,6 +663,9 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
->>>        if (!connector || !plugged || !ctx)
->>>            return 0;
->>>    +    hdmi = &connector->hdmi;
->>
->> hdmi is only used once (and you are going to delete it in the next
->> commit), so personally, I would prefer to delete this variable in this
->> commit and use connector->hdmi directly when needed.
-> 
-> Ack.
-> 
->>
->>> +    dev = connector->dev;
->>> +
->>>        /*
->>>         * This is normally part of .detect_ctx() call path, which already holds
->>>         * connection_mutex through @ctx.  However, re-acquiring it with the
->>>
->>
->> drm_modeset_lock() here could use the variable dev instead of
->> &connector->dev.
-> 
-> Well spotted, I missed it.
-> 
->>
->> Anyway, these are just a few nits.
->>
->> Reviewed-by: Maíra Canal <mcanal@igalia.com>
-> 
-> Thank you for reviewing the series.  Please let me know if you'd still like me to
-> send a v2 to address your findings in this patch.
-> 
+Hello,
 
-These are very small nits, not worth a v2. Feel free to push the patches
-to drm-misc-fixes.
+On 08/11/26 13:53, Mathieu Desnoyers wrote:
+> __sched_setscheduler() runs the deadline admission test on a request
+> with SCHED_FLAG_KEEP_PARAMS. But the task keeps its parameters: the
+> call skips __setscheduler_params().
+> 
+> Commit f4dddf90d58d ("sched: Skip priority checks with
+> SCHED_FLAG_KEEP_PARAMS") made sys_sched_setattr() copy the task's own
+> parameters into such a request. Then the priority checks pass.
+> get_params() copies them without a lock.
+> 
+> Another call can change the task's parameters before
+> __sched_setscheduler() takes the runqueue lock. The request is then
+> stale, and dl_param_changed() takes it for a change. sched_dl_overflow()
+> would put the stale bandwidth in place of the task's own in total_bw,
+> and in this_bw for a sleeping task. But the task keeps its own dl_bw.
+> Its release at the 0-lag time takes that dl_bw, and the difference
+> stays behind.
+> 
+> Fix this by skipping sched_dl_overflow() for SCHED_FLAG_KEEP_PARAMS.
+> There is nothing to admit for parameters that are kept.
+> 
+> Found by reading, after the Sashiko AI review of the first posting of
+> this series raised the boosted case of the previous patch. Not
+> reproduced: the parameter change must land inside that window.
+> 
+> Fixes: a509a7cd7974 ("sched/uclamp: Extend sched_setattr() to support utilization clamping")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> ---
 
-Best regards,
-- Maíra
+The change looks good to me.
 
-> Kind regards,
-> Cristian
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+
+>  kernel/sched/syscalls.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+> index 0e8b5c7324f6..894f93a80d5d 100644
+> --- a/kernel/sched/syscalls.c
+> +++ b/kernel/sched/syscalls.c
+> @@ -690,8 +690,13 @@ int __sched_setscheduler(struct task_struct *p,
+>  	 * of a SCHED_DEADLINE task) we need to check if enough bandwidth
+>  	 * is available. Keep this check last. If a later check failed,
+>  	 * nothing would give back the bandwidth it reserves.
+> +	 *
+> +	 * With SCHED_FLAG_KEEP_PARAMS, the task keeps its parameters, so
+> +	 * there is nothing to admit. The parameters in attr may also be
+> +	 * stale: sys_sched_setattr() read them from the task without a lock.
+
+However I had to wonder what usecase would still make sense for a
+KEEP_PARAMS call on a SCHED_DEADLINE task, I would say a !DL params
+change (UCLAMP for example) for a (at the moment) DEADLINE task that
+might become !DEADLINE in the future? Maybe we could add this to the
+comment.
+
+Thanks,
+Juri
 
