@@ -1,53 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794200161;
-	b=5BhAbI3BrrMqLa+z3POvByvQTJhW8dSvb5SEKzpJQqttSnwIoONcqIn44zNZ3B/37olT
-	 nOWUTKGybH4mMOWcG5xEcX70mx31OUkg4cF4MheNCHrbTu2ZJHFZjmzuPtLUX9F8z9wbw
-	 81PBo7ZHFKN/i4kpYb3swgrE++TfiI9o8Rg8OOZEUQjU8YcuamuR80IvFIafXcLi71fKE
-	 U6PEb0Zt34l2z0ViKZ3SeJ/ApHReNL1aitV18OGCPrNfocKWbswA4Eq3ORta0gA/ZHbIK
-	 znTeXiX7X3Xbg09qBv7aFAqE3AvoDjyd1+wHNLvmFBKVnGrXGRHfY2oWd/hVOdJPNbg==
+	t=1794200240;
+	b=RvoXjOcVQsJpi7HsELUtGRWjdjMTrD9aPoxS49XAYbe7cS4PwhgAAbcT8kVSqJ9XueIm
+	 CmLB3YUa+7eG5y472hxK6PFBxdx5YjM/CgYntSeay62aYGRbSFNG41UJLguep98pDREvq
+	 1MvXpo2Vu6yNp7Ezw6Qs1g4sxviDbWPvG+futIEpbWXkd8LMux85Vp41J2Kzq3oIe3pe7
+	 kEFg1IoOupqLaeIYQi71bDp/AmU4RzfpV3IWJacMvI6WZeQS1Ezu8LHQ3Mbw4/gAcO11y
+	 f73HGhkXHQSMGzKB/ah6/6wYCXOZ+ANww7t5/Kf/4bj071WIqKHHc57ex0jc3MtYMig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794200161;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4BSzauKWBXzEWh2NOL2cEOkqWKg5lTP3fLJkY7UAIBE=;
-	b=liLTTHVaM45ziBgdDT5S51OO3UsOlOhW4vyDYfh2eEGjYdnAbHW6T4VtXk9omj8Nro1N
-	 ltQlbl3woR7qjJ81O5lqKXQhfITPHdhtFuQNLprIN5k96nJob4wCz0leMaTOUbrHhffV5
-	 o7OnOLhPnzLsqXUxkekbbP8kTir3B4IS7LligZ8BSBzdFJdGAFpteLg/L4LaV4Bpaph2G
-	 KiYfzPIB+0ZBwa2Cv98j2N5c2KstnkQnzeOmR4RyvLVDdTKPEg2AsEDgHJQhNWXpfRbjR
-	 xUvWJa/ue80ZCaTsIx7vaMe8bEFN/gj4vYl1x/OJTqBw3qprrIVhIJQHSLXiTDlMwtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794200240;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=1zNWv97CstwBNheuwZjrwa0R2kSphitL/TC9zaG/Pkw=;
+	b=5I8CaGX1GH5jYGYPckR5ml3qqf5XKCAF94bWniQ81Pid+rFT6ttfSJU76cAcDXHefZ/3
+	 H6qCDYeDkO70IgqE+F39ofsDnROI4PNReBeymGIoJ0WBKiuMtee3WR54r93nvIhFVVFpS
+	 DY4TpwAm/QiVSSOKPsPjeA90KvoH8IRcBlgBWmiCPrCN7Hj6AJjR2F4irM10F1k6/QIDD
+	 /MUVskKkwPp4j4Tan7bCs8v2vF7NulRvPlEobJ3YDYBksAluLbTEw4j9SAH0zY1H+MM/a
+	 wBlvUFKCyPxVF06JbuUDkmNf9QPd1u+LNYenW+rZjI86ccyilxamuNZ+PiIe1Ug8mJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jXbCJZ7u;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N95gnPXL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A004A606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:56:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B8C1606A31C;
+	Mon,  9 Nov 2026 04:57:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jXbCJZ7u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104141F0089F;
-	Mon,  9 Nov 2026 04:56:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794200161;
-	bh=4BSzauKWBXzEWh2NOL2cEOkqWKg5lTP3fLJkY7UAIBE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jXbCJZ7upjP3ExijCs7FPIurR6qi5cqjHGNPUg/LOiv/YNR7Y9lZVwJcWXViqlN4x
-	 /AIe10dfRMt1Hwrj3JgfS4i57TRLfC10PcgYnOIXu0VzkZtbcNbVrPF01TxPDD6eVk
-	 YkF/3OkXptbd4KilBEW0pjxC29g9BrCjgRSqw3k0=
-Date: Sun, 8 Nov 2026 20:56:00 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] debugobjects: Fix NULL pointer dereference in
- kmem_alloc_batch()
-Message-Id: <20261108205600.3e737ad18ce85b6ce3049309@linux-foundation.org>
-In-Reply-To: <20261109041215.11280-2-ekffu200098@gmail.com>
-References: <20261109041215.11280-1-ekffu200098@gmail.com>
-	<20261109041215.11280-2-ekffu200098@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N95gnPXL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1152D1F0089F;
+	Mon,  9 Nov 2026 04:57:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794200240;
+	bh=1zNWv97CstwBNheuwZjrwa0R2kSphitL/TC9zaG/Pkw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=N95gnPXLnpzv+UXjUpQJCQWPHnwlMCE3wfy8ChEdK4EBt37m07f/VDaAK11B2doNk
+	 DpoWmXLnxhO33o2Rq+cqHz/6ZzWH2CI/Ab9KsOobE+JX3xVTT75wULQ2YLb5lYadTv
+	 +fFW0HXQF2FStsCCbpdQMoIzPuinc28mvJ1Y1CAH9pGxmXXd/uDtWLoWkaXjWZicqs
+	 mS9AeVlEqfs/uy+GFLoSw+lYuFZeng03TFRq82FCbwpVaVIMxga88hFuR1VVt/SdGJ
+	 eiHwh7d2xs2CsPWvXC0GvHjOLiQhcO88/PK///+rvCTcwyZTUyTAhdgOWPFu3GN5ch
+	 aDiNcK/jSWjDg==
+Date: Mon, 9 Nov 2026 12:37:00 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: yunhui cui <cuiyunhui@bytedance.com>
+Cc: David Laight <david.laight.linux@gmail.com>, pjw@kernel.org,
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+	dennis@kernel.org, tj@kernel.org, cl@gentwo.org, ast@kernel.org,
+	daniel@iogearbox.net, andrii@kernel.org, martin.lau@linux.dev,
+	eddyz87@gmail.com, memxor@gmail.com, song@kernel.org,
+	yonghong.song@linux.dev, jolsa@kernel.org, bjorn@kernel.org,
+	pulehui@huawei.com, puranjay@kernel.org, thuth@redhat.com,
+	ajones@ventanamicro.com, ben.dooks@codethink.co.uk,
+	rkrcmar@ventanamicro.com, samuel.holland@sifive.com,
+	zong.li@sifive.com, conor.dooley@microchip.com, tglx@kernel.org,
+	debug@rivosinc.com, seanwascoding@gmail.com, andybnac@gmail.com,
+	menglong8.dong@gmail.com, cyrilbur@tenstorrent.com,
+	wangruikang@iscas.ac.cn, atishp@rivosinc.com,
+	apatel@ventanamicro.com, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	bpf@vger.kernel.org, arnd@arndb.de, nathan@kernel.org,
+	nick.desaulniers+lkml@gmail.com, morbo@google.com,
+	justinstitt@google.com, qingfang.deng@siflower.com.cn,
+	linux-arch@vger.kernel.org, llvm@lists.linux.dev, dave@stgolabs.net,
+	emil@etsalapatis.com, ihor.solodrai@linux.dev, broonie@kernel.org
+Subject: Re: [External] Re: [PATCH v9 1/3] riscv: implement this_cpu
+ operations
+Message-ID: <avFN7LbSK0q1gsB6@xhacker>
+References: <20261108110406.97495-1-cuiyunhui@bytedance.com>
+ <20261108110406.97495-2-cuiyunhui@bytedance.com>
+ <20261108213254.67805ef0@pumpkin>
+ <CAEEQ3w=5QwwvMJFJkpS51APoBjhed6oriCkvcieRdUFWrKtmSg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,28 +78,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAEEQ3w=5QwwvMJFJkpS51APoBjhed6oriCkvcieRdUFWrKtmSg@mail.gmail.com>
 
-On Mon,  9 Nov 2026 13:12:10 +0900 Sang-Heon Jeon <ekffu200098@gmail.com> wrote:
-
-> During boot, debug_objects_replace_static_objects() calls
-> kmem_alloc_batch() while obj_cache is still NULL.
+On Mon, Nov 09, 2026 at 11:47:43AM +0800, yunhui cui wrote:
+> Hi David,
 > 
-> If kmem_cache_zalloc() fails, kmem_alloc_batch() tries to free the
-> allocated objects with free_object_list(). But free_object_list()
-> always calls kmem_cache_free() with obj_cache, which causes a NULL
-> pointer dereference.
+> On Mon, Nov 9, 2026 at 5:33 AM David Laight
+> <david.laight.linux@gmail.com> wrote:
+> >
+> > On Sun,  8 Nov 2026 19:04:04 +0800
+> > Yunhui Cui <cuiyunhui@bytedance.com> wrote:
+> >
+> > > RISC-V has no asm/percpu.h, so this_cpu_*() read-modify-write
+> > > operations use generic implementations that disable local interrupts.
+> > >
+> > > Implement RISC-V-specific this_cpu operations with preemption disabled
+> > > to keep accesses on the current CPU.
+> >
+> > Have you looked at some of the schemes (I think arm64 has the latest,
+> > but also s390) that do most per-cpu ops without disabling preemption.
+> > In particular they save the pre-emption check when pre-emption
+> > is enabled.
+> >
+> > Basically the code tells the scheduler which register contains the
+> > per-cpu data so that it can be 'magically' flipped during a context
+> > switch.
 > 
-> So use the cache passed to kmem_alloc_batch() instead.
+> Many thanks for pointing this out and suggesting this optimization. This
+> is a very useful suggestion. In the common case no preemption or migration
+> occurs, so the preemption bookkeeping and reschedule check are unnecessary
+> overhead.
+> 
+> Implementing this scheme for RISC-V will require additional changes beyond
+> the current series. If this series is otherwise acceptable, I would like
+> to land the current this_cpu_* support first and then prepare a follow-up
+> series using this approach.
 
-Thanks.
+Hi Yunhui and David,
 
-We conventionally assume that memory allocations in __init code cannot
-fail.  Because if they do fail, something has already gone horribly
-wrong with the kernel and it simply isn't viable.  If an unchecked
-allocation results in an oops then that's fine - it was inevitable
-anyway.
+During the merge window but before rc1, I implemented a riscv POC
+following arm64's preemptible this cpu scheme. Each operation records
+its per-cpu pointer, offset and address registers. Exception entry saves
+and clears this state, and a noinstr c helper repairs the saved offset
+and address registers on exception return after any migration.
 
+However, my PoC is based on current percpu offset.
 
+I planed to sent it out last Sunday, but then I found Yunhui sent
+his percpu series(which is up to v9, I didn't know this before) on Sat.
+So I hold on the sending.
+
+Now would it make sense to rebase the PoC on Yunhui's series patch2 and
+patch3, especially the percpu offset optimization? I can post an RFC
+with this rebased implementation.
+
+Thanks
+> 
+> 
+> _______________________________________________
+> linux-riscv mailing list
+> linux-riscv@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-riscv
