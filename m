@@ -1,47 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216030;
-	b=Lbv2TBeZFBhXhBRSOWe3yheWD0hDAIJsjEUVJkgcACSbCwMHOE+IW5EowbOBD7srGCKB
-	 jwoQKeqeQ9uNbTFIXxMgBItL/VC54wdtN59I4hla2enKu/eIh1wuuAzLddoo41m0FV2Qn
-	 iFHlgKH4ivYyT9Y6IJWArURmu0tlkSsocgnklSipx3IT1m46Zr0UOnRdBemZk7C0NOfKu
-	 1H/3HS3WkL1Il/H3V04SBbqIjkRLe6UX8asz/cEhUni4InM+1Ttfr7KxOh4RoAhAl3sl+
-	 iReLWWUTJR7HOZCMr217Zq2vuR5d3/crgngt9xLh+80mMYSNE9o1u3M3tXybOGr90Rg==
+	t=1794216050;
+	b=ACN6wMgTRUqaZgMD0DIju9LZgVScOQq8cYOguTMF6js1i7jm3whP7X6RQZBYb59yH0y+
+	 kunbSnfu/WnG6qmt2HTSy+55IulQZnmCn52R2xClAE3898HJtnRnN6pVNJh+PrpT9ji/n
+	 g0uFKmIaeVPAjOICineDgfaPazzbj24s9N6iHwnsFn7yGiHEdvfcG4GMZeb1iyiLk2iA5
+	 z+WXEFhMnYorce2Hzy8ldltpHtxgmVpngHj2wb0VnE77ccKFavwkPMuGLA5fQGwdaDCaL
+	 Pb/YpqUP2ibI3jm3gCmrtRwARoid/wREStyNL2JDK/Fw9mt3aCWugchp53al26DoW/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216030;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:DKIM-Signature;
-	bh=kwCvPkXgwrZOz9NQ5CtI9zg2+YkBy4S3vvYk8lmOZ8I=;
-	b=e4MldVr8zofJU+ILjf0KkG5xVJqg8srfvgqpHS/uNZNm3gc4ttHgtWk+hsM6+gHAKxkl
-	 oFx9fFMZjVn/BL7ymOSJy+A6maf7EdPDBUxZ6TbctRY/LaT1PS2t5hnC5jxDXDWYlkNUG
-	 6keVZimv3wNNT+phomX1Ve4e1CKGYxJUwgYdkvsgBGseKByAdKcts8SFYmGrE1YgKsNQE
-	 KcVk2z0Xe+/cC8dq1cBDFEGARjJ0RTv0O/6czCDwvBRjjy/ADotI3nORa0ePNGV5H0vtX
-	 hXf/n9uKYTdgsCuPI+i84Um+mKDbo3G97RCWxEvQWymjSSmpUZZKESQTyaiggCpgN8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216050;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=8h0PI3x5L84bxHJWgvhwyPcSqbxezc6i6wUfYwT0/gw=;
+	b=i7zICc73IzVshNmjwpyvSfCysv4BnfgdypM+QuMRpDNUJwV+ZxnTWl4m3ucs6cMscRDu
+	 5zMCt19nkbMlnoSb+4nkYWV+hmV5DBt3PcznKga8OKK/DvTnexHRY8N/8IJykpFXi42Oo
+	 MkUcOzEH96LKs65C6sKKgVvGBzHtDHXmHb0XAo4KujwlIDywMqKeZEOsedMy9nM6Tic/n
+	 5nZ/kjCQ09HHzQrpeRrhIUvaClGoh5AyHxdgyXcydpF2/716c9i6BNjXQ10GWtoi29x5b
+	 do9dbHWAtCtE1tCs+u36KGRHnun+oIrG2T1A3Y3vDigC4vvV6Oo8JullHJg6d8KvGiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=i+jpgJFO;
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 49944606A31C;
-	Mon,  9 Nov 2026 09:20:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49944606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWMKq2ci;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFE4E606A337;
+	Mon,  9 Nov 2026 09:20:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=i+jpgJFO
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Kuniyuki Iwashima <kuniyu@google.com>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	<horms@kernel.org>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Li RongQing <lirongqing@baidu.com>
-Subject: [PATCH,net-next,v2] af_unix: Fix wrong socket tested in the symmetric half of unix_state_lock_cmp_fn().
-Date: Mon, 9 Nov 2026 17:20:16 +0800
-Message-ID: <20261109092016.2082-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PWMKq2ci
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B8531F008A2;
+	Mon,  9 Nov 2026 09:20:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794216049;
+	bh=8h0PI3x5L84bxHJWgvhwyPcSqbxezc6i6wUfYwT0/gw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PWMKq2cik7On9nLBWZZo+q2yFr8sWXi/dqsHfAOWf5G8lTU47xEhSOhDJMI8XikaX
+	 5m07d7IVQvL4OmfmjXbpZC1xKhl0bnPIHFCc1+GnK9lePH1J9OXffOSC3rolXJf+DP
+	 k4ocKY24KRkrPS6q7WNJrkW/H6guwGWdd1Qlf00BWCHthyiEskC+lVYU1caVCSxDJ4
+	 8mr+TmUNdQsWrTcx+JFHlqbf5vM/T8amfu0IckZaVZKSK+i+YeSGHR/TccZjqYXArb
+	 yGxJbGTMk29VHdRtuVjfBsvlx9exyhCVwGps8u3eDDtXsofy9sTxR1LmMTyHZmh202
+	 /IyFsFh/XTSVw==
+Date: Mon, 9 Nov 2026 10:20:41 +0100
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: Muchun Song <songmuchun@bytedance.com>
+Cc: David Hildenbrand <david@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Oscar Salvador <osalvador@suse.de>, Qi Zheng <qi.zheng@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>, linux-mm@kvack.org,
+	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org, x86@kernel.org,
+	loongarch@lists.linux.dev, linux-s390@vger.kernel.org
+Subject: Re: [PATCH v3 4/5] mm/sparse-vmemmap: drop vmemmap_can_optimize()
+Message-ID: <avGQadeXQU0ayFYv@localhost.localdomain>
+References: <20261107043122.25650-1-songmuchun@bytedance.com>
+ <20261107043122.25650-5-songmuchun@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,52 +73,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjkjy-exc9.internal.baidu.com (172.31.50.19) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1794216025;
-	bh=kwCvPkXgwrZOz9NQ5CtI9zg2+YkBy4S3vvYk8lmOZ8I=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=i+jpgJFOOrqtKSWxMaXnNBaU2X98LQ9hpxvtTVKOP5veK66MMxsv2bpF+B0DFzP5E
-	 F4khOkjV0qI/T7WJ+NQMVGlnjegqgp2GEsO04behyIwITJbkSwbyq5Bgq4dYnBZbg0
-	 wyw92Bt2ifXDvGIoxqGbzGOjDh2gLv84xzmdcHOA8e7bnrr23XamLaHYeYzrtZvjUx
-	 wCLuLHq2TQ+g2NZFhRajnmocWTF+hOfy6CIjxnCVeicC7+QoH+2oKs7DRlcm1pVi/I
-	 9D3oHha3ahw/wuL5WAvDOUROYUlu6bigKT877QQ9V91vjkq5Zb9C4S6fk4scSbRoHI
-	 GYMb7NCdLBgBg==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107043122.25650-5-songmuchun@bytedance.com>
 
-From: Li RongQing <lirongqing@baidu.com>
+On Sat, Nov 07, 2026 at 12:31:21PM +0800, Muchun Song wrote:
+> section_vmemmap_optimizable() can already decide whether a section uses
+> vmemmap optimization based on the section compound order. The DAX-specific
+> vmemmap_can_optimize() helper duplicates that policy, so remove it to
+> simplify the code.
+> 
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 
-The second half of unix_state_lock_cmp_fn() mirrors the first with a and b
-swapped, but it tests b->sk.sk_state again.  Since b is already known to be
-TCP_LISTEN, the switch only hits default and always returns 0 ("no order
-known") instead of 1.  Test a's state instead, as the first half does.
+Reviewed-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
 
-This code is only built with CONFIG_PROVE_LOCKING, so the impact is limited
-to lockdep failing to validate this unix_state_lock() nesting order.
-
-Found by AI.
-
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
----
-Diff with v1: target to net-next, and drop fix tag
-
- net/unix/af_unix.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
-index e7a0582..501e693 100644
---- a/net/unix/af_unix.c
-+++ b/net/unix/af_unix.c
-@@ -163,7 +163,7 @@ static int unix_state_lock_cmp_fn(const struct lockdep_map *_a,
  
- 	/* Should never happen.  Just to be symmetric. */
- 	if (b->sk.sk_state == TCP_LISTEN) {
--		switch (b->sk.sk_state) {
-+		switch (a->sk.sk_state) {
- 		case TCP_CLOSE:
- 		case TCP_ESTABLISHED:
- 			return 1;
--- 
-2.9.4
 
+-- 
+Oscar Salvador
+SUSE Labs
