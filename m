@@ -1,76 +1,118 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794260426;
-	b=sA1NkYb9U+8fR98OvCGXdONC4dKckZaz+ABdmF1FnXwpe/gi7Hk3/dXKIYalmoOeLNWf
-	 AzPDI6USHrpGXF09MG6EFkjBCX9sD6i0a+9l/v2LZqJ4puTOD1ACYjIs8lTNgdUNA9MfA
-	 UF/mwc+eOmbGy2nXMy1+/WcU6NhmEdAIYIqbOzoLqiUCvSRC00assWA6GJuTe+hOWRGwG
-	 ul0lgAMjc1Q+sZqZOKO/GJL/cDc0pxwag3TEy2As7wgyMj1SxVHX/N5r1/CUjKxPBeP8z
-	 ZBEB3cgJan9hhL9UmQ6s3+xuvw4lXU7v2TUYRECHEmDl97/aPHUrt7yqZwilbxZybEQ==
+	t=1794260461;
+	b=bk/fL33HrJDGdQ9ZTSAuTf6U1NkztG8+O1ndgDROAXTpc7uMswnggmL1Nw0bCTqGjYWr
+	 qF9z8wE/zxm0fOGvbnEPZRWkMwnqzaI5MSi7F4nGLbFEpqYVEzR3bi5eBWu17D/a+QJyq
+	 nQ3t3uUqQLyvBLD4ZI8DR+8Odg+IENRoSnH/KGvE2m3yHIxOOSn1Ep6DO6jjobO6FpMWB
+	 2Slmd0f+xeIORNPfkjWEnP3AkxsI/mmg/me7ZHd7cohv943h6e0Wh1nIMxPWLBvrKKtyt
+	 WfLqqr7iadf6MN5jR5/C5U9Oqt+cpfwMCOtJ+oyHK1LhWTz76j+Xzf4szluD1QxMbtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794260426;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=kbXpWsGA6wjP0sgcEePfgquKyUEPpPh/l8eqP/BlFbU=;
-	b=GEljXpMlPXt5eMiyBSGES6vZkaIK+4lATdOS046yhF4ZB/zD54AfgLV+mLo6gerNvYW3
-	 Z+0oQqTmTws5hNj44yyo23xvCxBLOvAPBdCUmcg7vSwSLZhE0CX3JTUoaddcoRv9et7TN
-	 hlD/7lSSgqnkrwVuetl0TNhKuvgsxlVp6CGjjupL8ghT00e1kKTQzrLegn3UrwAonIhjO
-	 1xu0voNdqzWtup+HHjObV3ZcztPM+cFQOUD8tzwUVx+upKg2LPaI95749VJ3ssHLgpGOi
-	 IISLYKk17uaKiQrwDAZmIbJhGs8Hh4eGcGcDAvakaTe0327WqCFq/yaEemwugcSz9Sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794260461;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=f4mRcM/+qi2XZzFnwy9p7mpo/dc0cbBpke6kcb+FN80=;
+	b=hZOqvAiXRhAJ1XT1lIMinWRI78qjOZUv0FNsSJSba3cELQfeegqIEnwoL9f3NAL+FgEG
+	 nCt1ZUDPAa+fhpoO3VYQJMwstZqSpPDEzVIO1HA4r7mUsgwq4IT6v9V106BrrOukTG7GM
+	 /uEAyTdcB708Iiar7FH3R1kpR4YT20xKGbnSHFzYL5vUOJhKn30cZ5ofGD6jSi/pcLliW
+	 WykDkuXLki/EIpeKuw6TdWCU/FegWpUenCCsY9FU8adW36Qm8dCv8xbdaxo7O9QRMZSC7
+	 WwGEx+lmXL4o8IllrPNNT1UjcLEha1nIJCSIgZO6wJA99b16TxXfAN+1oFd0Iv2hpzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b7Gc1CB4;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oj8jMXMH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JlwLDjr2;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424C7606A321;
-	Mon,  9 Nov 2026 21:40:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 424C7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9D1A606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:41:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9D1A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b7Gc1CB4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794260425; x=1825796425;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5NVSwZOPfn0jj1MPptSgjkG5ckE1/OJgvnBjUPbvvjQ=;
-  b=b7Gc1CB41EaIKUg/0YAxvkZvKWjVsyN4jPjyI3y/pB7BjZ5F5d8HJnrh
-   95wA2dkFt24iAdKKKi5Im3DYNbWoXTY7VMU+6BLJqgTmi92w5y8pOiI1L
-   PcmG6hge2GJHZaOdZx12LLzilDaC4HWKypMOuRgVfTGz6ZYVvLgnA6K3N
-   sAMV8RLPwIQO3/Xh9MqqMUWmc7bL5qjAmVt9nPbVxAW0uiUJmtmKyV4Wg
-   SjGDXJ7r+goxD22SmlAkk5OZyTuFs516SfdymtuvSkiIyPrrzZovCcPrL
-   hnXLtwGZo4xkpDlqqHY5BVlcPQgixlpYj3o0XYm8AjC8fmAz0DGoBI58x
-   Q==;
-X-CSE-ConnectionGUID: RZjJT9jPQ5CGR0Wu66Ht7w==
-X-CSE-MsgGUID: zZ13kACRSB2H5tiTt5+sBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2883929"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2883929"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:40:25 -0800
-X-CSE-ConnectionGUID: MSujhSu6TWWx9FrasFgZjQ==
-X-CSE-MsgGUID: ElzKqfZjQLmrvIcNW8Q4dg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7989377"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:40:23 -0800
-Date: Mon, 9 Nov 2026 23:40:21 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: raoxu <raoxu@uniontech.com>
-Cc: lee@kernel.org, mika.westerberg@linux.intel.com, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mfd: intel-lpss: Clamp latency tolerance to the register
- value mask
-Message-ID: <avI9xV5PbYvKdFe1@ashevche-desk.local>
-References: <82545EC5E5ABC9F0+20261109094242.3783672-1-raoxu@uniontech.com>
- <avI9fDRmwFyIfTDv@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oj8jMXMH;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JlwLDjr2
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9LAKqi1062357
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 21:40:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	f4mRcM/+qi2XZzFnwy9p7mpo/dc0cbBpke6kcb+FN80=; b=oj8jMXMHdDyXx0J6
+	Ij9Jxh437huewYEuL2L43gSDEvInLikDx63uTn4LjmUCgQeM3QIeQpCdJdpWBunO
+	yRg4xoTNew49haIlrReKrss5HJqOC5V2Ht03w83tJ7Jt6a98QrDETWwWuk5BFC6b
+	hzcf+MnwsegeNphqnN1LsN0Gu/1quCnrortxm6FqYmlqMA/Zh0QR459JvP//uqKI
+	RzlW+1E4Ne6R9Q0s08w84LOKV6bEQ2f8PMW7/UKOiOcgLtTol6i5Q2j/fTWxD9fO
+	UX9q5wdpwA6RksaCa7U4yN5wDBxnL8vbPV4RmrAer2hGRY9Zkfft0Zq6HmrUsRpK
+	1587lg==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hucydj9wb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:40:59 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33713e5e6daso1947215eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:40:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794260458; x=1794865258; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f4mRcM/+qi2XZzFnwy9p7mpo/dc0cbBpke6kcb+FN80=;
+        b=JlwLDjr262OQNxzhA2LFpebHKirZ4Y6g+iT8pGLm7XYTwBbnlBTTGo4BRontIhQ1BO
+         3ECuG1RpDx2Gqgqut3YpCjIVET9plyC3scTRjX6ixvew6BAgQz/5Hu+jl2LFHG9cvhDB
+         Omac/f/MbZln8KQPYHEQVqTwNQpi26L6WRp2iRdokBjxMqUOzXksXZGKQm7Txrm0+qt+
+         5emYdWeZsf+UiBopTKMmy9Lv1eXwFBIZx/khjgvpA1Hab0keZN7u6B/f6GOpcTbzFnUF
+         unD/OFOTzV+MPxJUhx5pA9+mYPXPsz/QU7BZz2lmiR73HtvpVrl1ZVsLAVqa8PLTbeIx
+         KopA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794260458; x=1794865258;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f4mRcM/+qi2XZzFnwy9p7mpo/dc0cbBpke6kcb+FN80=;
+        b=XoNszrZf3XsBS9VVtNvBPc3OK63oMmco8zPhW+E3tE8Ip4+IdyaZGz0QxTHUFVDL2W
+         y3KH084X4ThpcsmIWtCeF137gzJR7nn8vlU1vO71Vv4BwslyvQVk1WWtrc/Uh3vNyZE1
+         a1cgsyrEJGwXld9idMx4EEGsZOxPQydxCn6Sjyc6+63F+9NSnfdG7VllUhWMiuTU1Di9
+         QimW6oCrrFZKBuoE3qLqJaqTHPt+QqTmpqWbF0HfYHyL+A1ts0mAkkT4/wzehLGukzfg
+         +4FefSzLdPK34nsw49/BpukU80LHyEhrM6rhL6bXHH0Zvoj9JtrpHHUlTiiQzodfQTUO
+         XEqA==
+X-Forwarded-Encrypted: i=1; AL+hErE1QZaLUZToIi2/+c82wvLBrmvIQONogc+vPvrCa7VzxQKF2GJBSJ8SGZGbRhbgsBdP+uTQdA5AypNvFx4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/EiVYcNvdx8UwCtkd3Nhck44jveT0QF6H3kmIdNRIHe+yRVAaE
+	3lLcHeEkPl8Tmf3WtrZU7wuoEjYNpIc9a1U6Qig5uSv6u3t0Dj6xcqqSK5Cy72lEew6NY8+zBnu
+	ECrvl8WvLRPwcPLJ45fw88dFXTvTP1PY7WsbwWnDQqPB0klDS/wEu446Wn+O1raTH/3o=
+X-Gm-Gg: AYBFou22zhxuuy7oBegcjSzy7Qo6OKSQBRmdc4QJk/VKBKYuhNqAWr8E9WJmrPaEzyD
+	/SSI+Y2+2OoL43D12mXuCooP+dXrnCrgjGKqB17x78GXDY9HO5lWhR0UqmJ2fxTFKokeTVCXmze
+	kp6RIuJ7c0QU1K7q+NM9WrzxoVZbpeYiBnnDdpY7d7+uMJiY/n911Mb4NLkeXWIsix+903Bav70
+	w1vABnGgxSS4sXwpZlg05LST3FPkS/+Ne9Hv61kE4IxkxgeLyh8GC0FMblDz+G2FFsRrM6h+4Ct
+	7ACX/sYDqCFrRe1Rx8VQJ9pgwA6mIM0PNLwc3uGbI9a9xM0WWIpNHumZ2Gu5W5dNc1oIkVCqxc5
+	w2H0I45eAjjPlB4av6FOCQfOxxYJvtj1s2E6drRxNz6eBHY9MlGlG/T/yBtJyiUb2CT5gI0+xlW
+	8yrhNLaNZEmoaip9qSTnK96EiriB0=
+X-Received: by 2002:a05:693c:6384:10b0:372:32a1:b384 with SMTP id 5a478bee46e88-3751fe32260mr745042eec.33.1794260458384;
+        Mon, 09 Nov 2026 13:40:58 -0800 (PST)
+X-Received: by 2002:a05:693c:6384:10b0:372:32a1:b384 with SMTP id 5a478bee46e88-3751fe32260mr744999eec.33.1794260457688;
+        Mon, 09 Nov 2026 13:40:57 -0800 (PST)
+Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520512ec1sm989985eec.12.2026.11.09.13.40.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 13:40:56 -0800 (PST)
+From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+To: jjohnson@kernel.org, Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Cc: ath12k@lists.infradead.org, linux-wireless@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+In-Reply-To: <20261030090906.298234-1-jtornosm@redhat.com>
+References: <20261030090906.298234-1-jtornosm@redhat.com>
+Subject: Re: [PATCH] wifi: ath12k: fix wrong register read for RU start
+ index of 80_3 segment
+Message-Id: <179426045625.3811579.10660215408027354985.b4-ty@b4>
+Date: Mon, 09 Nov 2026 13:40:56 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,64 +122,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avI9fDRmwFyIfTDv@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA4NiBTYWx0ZWRfX6vVfrCEXoj0b
+ 2iT72Mv4tD3BaT6AAbHZvRyJfJdtWiDABrZqPcgwtVdR1pI0qAkD98VafllCnV2TWRnacujGJP4
+ uwdkiITxDmYR4BXqOXaMGs254gdOexY=
+X-Proofpoint-GUID: 24ZTicVfYh2u0_F7Z59hwV_FmgJa_N6s
+X-Proofpoint-ORIG-GUID: 24ZTicVfYh2u0_F7Z59hwV_FmgJa_N6s
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA4NiBTYWx0ZWRfX1uXQI8wNnCOp
+ XpYjE/IKlaYzSwHtmSF1RKWHgdVaDqcp264E2Z7zdcsSAVn2e40jDAI0sjZpmYb1BaQkYxhj2BL
+ EvsQlatZdxrilCbaz1shFoYIy0kk6MFssdpl9/yOTQJ8ycyk0wLZD5tqI4UIPxY7d/1YbSDvdEe
+ zBSuosi15N5AV+gVNtAeAqD7FzZstPuADVHMJThL0xAehZxwAWl/VcFHq12VTqZT5eOtx4twckD
+ i7mw8pKcoPUKaBSE58RIyFh+ttm1vnur6Z6YLYc4TfeLcyLKiX+cKe6YHOng5SyC6UaAnZSONVy
+ JLmlbhITMm4NHZko0ZAWoynCyddCKfSmHxiMqaw7WQinbbwK0rX/NHAaDkZeX/Szrc7ddVRU7uE
+ Nly7P9Z3hLbhR1h89gOj+9R5w5DmRvQi27nrusBM+jCPScToI50YZoOid+Y64FAi516cOlinxf1
+ 1ArebYLF2enYFQVtuVA==
+X-Authority-Analysis: v=2.4 cv=XuRvqlF9 c=1 sm=1 tr=0 ts=6af23deb cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=LQZMuA99dPo4G15aSkQA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_07,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0 adultscore=0
+ suspectscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611090086
 
-On Mon, Nov 09, 2026 at 11:39:12PM +0200, Andy Shevchenko wrote:
-> On Mon, Nov 09, 2026 at 05:42:42PM +0800, raoxu wrote:
-> > 
-> > The PM QoS latency tolerance interface accepts non-negative s32 values,
-> > but the LPSS active and idle LTR registers have only a ten-bit value
-> > field. intel_lpss_ltr_set() selects the larger scale for requests above
-> > 1023 us and ORs val >> 5 into the register without limiting its width.
-> > 
-> > For a request of 32768 us, the shifted value is 1024 and the latency
-> > value field becomes zero. A request of 100000 us leaves only 53 in the
-> > value field. Still larger requests can set bits outside both the value
-> > and scale fields. Thus a relaxed latency request can produce a much
-> > stricter tolerance and unnecessarily restrict power saving.
-> > 
-> > Clamp the shifted value to LPSS_PRIV_LTR_VALUE_MASK before combining it
-> > with LPSS_PRIV_LTR_SCALE_32US. This saturates oversized requests instead
-> > of wrapping the field, matching the Intel LTR handling in sdhci-pci.
-> > Negative values and PM_QOS_LATENCY_ANY retain their existing handling.
+
+On Fri, 30 Oct 2026 10:09:06 +0100, Jose Ignacio Tornos Martinez wrote:
+> The RU start index for the fourth 80 MHz segment (80_3) is read from
+> rx_usr_info->info2 instead of rx_usr_info->info3. The bitmask used
+> (HAL_RX_USR_INFO3_RU_START_IDX_80_3) is correct for info3, so applying
+> it to info2 extracts garbage bits, producing an out-of-range shift
+> exponent that triggers a UBSAN splat:
 > 
-> Shouldn't we rather forbid to apply wrong values?
+>   UBSAN: shift-out-of-bounds in drivers/net/wireless/ath/ath12k/wifi7/dp_mon.c:302:22
+>   shift exponent 284 is too large for 64-bit type 'long long unsigned int'
+>   Call Trace:
+>    ath12k_wifi7_dp_mon_hal_rx_parse_user_info.cold+0x3a/0xef7 [ath12k_wifi7]
+>    ath12k_wifi7_dp_mon_rx_parse_status_tlv+0x621/0x990 [ath12k_wifi7]
+>    ath12k_wifi7_dp_mon_parse_rx_dest+0xa9/0x2b0 [ath12k_wifi7]
+>    ath12k_wifi7_dp_mon_srng_process+0x34f/0x560 [ath12k_wifi7]
+>    ath12k_wifi7_dp_mon_process_ring+0x205/0x270 [ath12k_wifi7]
+>    ath12k_wifi7_dp_service_srng+0x1b4/0x5e0 [ath12k_wifi7]
+>    ath12k_pci_ext_grp_napi_poll+0x43/0x100 [ath12k]
 > 
-> > The supplied fix was reviewed and this commit message prepared with
-> > OpenCode AI assistance.
-> 
-> This paragraph should go after '---' line below.
+> [...]
 
-...
+Applied, thanks!
 
-> > Fixes: 4b45efe85263 ("mfd: Add support for Intel Sunrisepoint LPSS devices")
-> > Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> > Cc: stable@vger.kernel.org
+[1/1] wifi: ath12k: fix wrong register read for RU start index of 80_3 segment
+      commit: e49c1be5860334976e485777b97991aae9b4e8c7
 
-Ah, and it's not a fix, it's just improving user experience. The interface even
-not a sysfs one IIRC.
-
-> > ---
-
-...
-
-> >  		if (val > LPSS_PRIV_LTR_VALUE_MASK)
-> > -			ltr |= LPSS_PRIV_LTR_SCALE_32US | val >> 5;
-> > +			ltr |= LPSS_PRIV_LTR_SCALE_32US |
-> > +			       min_t(u32, val >> 5, LPSS_PRIV_LTR_VALUE_MASK);
-> 
-> No min_t() in a new code. You mentioned clamping, use clamp(),
-> it's exactly for that.
-> 
-> >  		else
-> >  			ltr |= LPSS_PRIV_LTR_SCALE_1US | val;
-
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Jeff Johnson <jeff.johnson@oss.qualcomm.com>
 
