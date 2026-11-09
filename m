@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794249139;
-	b=D2ITQLuwfpjHHNWD8j2zlJx5TUtA/57m13pM3FBDPjE60nrCdfTEPO2QvtumBYhaI56F
-	 Nq/RHFhSi9+DZrCd7F+rWw75/QuMi81nAoW2cxxpM5F6sHvs0V6aRew3lo2H5be6XKhR3
-	 CDRvhCRgv/O91fVOnkLylnRGs0teMMmlafdSrQTHUC9cPPAoJS70z0iAlhY3CmgmTWKQA
-	 qUSIoQhL8PfaU2pSL6jlxRn5Y+jjliZI52NocvZoTOkBAQvTeKPV++gHQplriEvYsilCr
-	 diD6Ykf8cYuySltEoqQuZcXGndo65620k84N1PQD299SKxT/DrqcqgbxRPcZxq2EkoQ==
+	t=1794249189;
+	b=yjxS8ZOdfkHPjctn6xADaLi5Acp+fWUkq9KXm9cfovBNLOh12Ut+1yRQbMUF9/5h0Inc
+	 qk10kTPTuhE2+I2clx47CsPtiNv8sJdDjFHbKerssTcpHBgATVicOBHBOUVFgvPvOB8S7
+	 rguUvzSYIGoWBsvIKQn3hSqR7cOGxC18ShHhxMg/2QQWUYF92gEUBJqMLeezpX+3sM+yR
+	 DSoIHsGmqxW5jlgSjJ9AuObMx1afV6PU8FyNw6MHHzJg4rvbmEkRB+BCeq1m0eX46XVcb
+	 CgSV3svnAKdiygK5RPUgyPY+kS3utUODK3Wn8RTt/RgrTFU2wnFn+hz9xfk77ZXHSRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249139;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=AabjF3kCjbqAZX2M1/nnB3VL6whiVsR2g4lcFusaBqM=;
-	b=h4ORuWO4XDQVpPlM3LsXXvKdG+0/bb9ArQmoBxdzdgZ1LAO2aCJYz6od8WnueLHSAh/Y
-	 es909rkwAj0TAXhadHtkbSZ13/4ddB+UwRBJFCyTZwwP+55ScphkKey6swfzc3tFDhs27
-	 spA5zw6kRoQfm2pjBGR2Q5irVWNnQ1VswwZ6K8dz3CjivB7lW4GIpvDunRZy5oCGe4ivU
-	 XrsZzBiELKv0l1bLNs1nbm/4iN1s9+ccw3787z0BvucVWW8FfDSbh95OA+EJP9wgfn3HS
-	 gKGnTRUSzLahN3M7y/sughJDisqoPRyKwyONpS05iQ1EWppTC1WGGiLrl/PzGVldveg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794249189;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=5QqEXwmctImB2/RSSvLeaLHACbFNWEAT+e+zjZl/oOk=;
+	b=saCg9xvXr5l7R0y42TZWn0iJeSJwURP6EHvcLdcasqIjpEu7Ury++OqyaxLhoyUpqAP9
+	 icZkJ5dD+8NHcXYp7BEH3fcav38tMhNEFSxdh+JN6gvscxAuVj7p3458AfOyWaEIpBHj2
+	 83kpjcSOytS+vMl/t/JYlkm6vNe6rf4lHD6q589/tGt3gP5mADWtUzieJ14qyJ+wtJBPe
+	 cib2RPEfnUejPaJvSz7F8xAbfr0IUnTlMy1QECC4tG++GfvLtHkMkVAUy4ZbjPLct0eE+
+	 HLbk/uwwSZkAcoHHKofP4QDL9xfjbI7kv+f6YlLZT6soph/1G5oITMl0D8MeADREvEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YkHpHFOF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rv+LeCjS;
+	arc=none smtp.remote-ip=74.125.229.132
+Received: from mail-dl2-f4.google.com (mail-dl2-f4.google.com [74.125.229.132])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD289606B58A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:32:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6C6606B5B7
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:33:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B6C6606B5B7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YkHpHFOF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A8B91F0089F
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:32:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794249138;
-	bh=AabjF3kCjbqAZX2M1/nnB3VL6whiVsR2g4lcFusaBqM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YkHpHFOFP0g8RR2eVdQgch4FIpO2HVB2S/jkNLMgaLgL4wSJp3+hmN+GbnXnTkFSA
-	 6Ht74Km1FLdJnUwKQ0VsXqzpGZnN2lOC7G7bCItMXR3Cbf6NxiIHiEU6oQi4rQN74A
-	 +tYtfL/9vJ6sRIGTL+JoMpG+sUbyxZaM9pMOZsjrd1d1td+78zcHKVo0Ut0H+NkwzA
-	 o1t/XnoTbe+lMoDGIsbv0X32u5TSx6dlcCsyVKR0qGYL7678PKqjSFXVkwKojNdpOG
-	 /05TYNVSA6ggHp+K1nu7TySiM7ytKCu7Y9jMW7LpEH3OthQPekvoinsochn223ou0g
-	 wj0PW9KTodzBQ==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5c102ad8420so878856e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:32:18 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGXvAhOCRuvDL9Uw7Jh/GsQv7N4uIGlZ4g9TXT/QUf4YOPH98Dc1HNklVMNv78vpJc/l4/Vy1R199o8O+8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lUz6i4WOjcNbdi26f9bigoWWZoHs6B4i/wgOSAqqrhpS5KnKz
-	/FuJvmjokTbU+iF+G91urbKjaIPnAIQeagsHM8R7F5lZN8XRtHbggjyMkAzXiN3Nb7Uo5TYCJfo
-	cu1EaZ0i5N6tTVrAP6OW6IHHGpBgDHpo=
-X-Received: by 2002:a05:6512:3f0d:b0:5c1:4e17:1ee7 with SMTP id
- 2adb3069b0e04-5c156eb0a32mr71702e87.57.1794249137037; Mon, 09 Nov 2026
- 10:32:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rv+LeCjS
+Received: by mail-dl2-f4.google.com with SMTP id a92af1059eb24-1b2459d36aaso12247c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:33:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794249187; x=1794853987; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5QqEXwmctImB2/RSSvLeaLHACbFNWEAT+e+zjZl/oOk=;
+        b=Rv+LeCjSGM46zIB/QgtUgYeq0ONIpvm1Ekc/vgCuTw8zzFzOKAXV5vviqgPznxoyLs
+         U6BtiQlUVASpfCEzMKeQuOEtZ/xAOZvYBnRw/pH0rbhZ1Mlm2nPKlod+hqfiRln4th8L
+         nzwqP4cbcnk7CaQ6iEgp7JnmlUvmCnffQqnyOCcMHZaOy9eYJYKAZqudxT+GIU9FZnp9
+         9iYxFSsKMY+nzkA9xkosPslLk9iS6C9KCrtMlY8eruLwaqXtvVXx+omHkDvPXv/mpPvP
+         xZ/5hdYvdGCJQuXhwP8KOiLXfiSIk/71ZlBhnEkILOc0aUFoxsL/0krXaURWnH8n0+Gp
+         xs8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794249187; x=1794853987;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5QqEXwmctImB2/RSSvLeaLHACbFNWEAT+e+zjZl/oOk=;
+        b=eLjXKkQSnvzPrB2W50WoNyPpVEfpPR6HLzSq/GnfvpsuLn2tgmwYQOeuZBKAEOFjcl
+         Q/1/t1xXyJOsNcH6lWhOs+ZV3tpqBsWeQiLB48jnToKGOO4w29teNN1v0D8FEoIOk3AX
+         A1Gv7HE1iIeIND1c/quzU4lU2EOgDAkAocqxurQ0eXFC/UPTn2r28VeR3d7XJQe8r8XK
+         mAwSILOlORDhCRMGT9zPnpO89hEl279FJZhGnKTyWHyM0pSijYImoHiR9B0hMVgcis+m
+         VonY5k2IvKtqLRLEH/lyf1AroBbhREpzvFiKURMlgq9uzmy/qrzZV6vppmyVigsofgwn
+         McVw==
+X-Forwarded-Encrypted: i=1; AL+hErFyvkD09dubAA5hCm1QPEHKOxZHAxoDVuEdyde//lGT6JbNc2yew4/ccJY0S1eOGHf8CPDHDTSCQysjQEA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/e/OxvJtEkT6+2E6evY5c2DbzwNTJWU7Utc2yhLlC8FElUwhTq
+	A86k8wqUqKUSqGMTzHOYzlvzMMCUQLN6TfiL63alimzPL8S5fqkeTloV
+X-Gm-Gg: AYBFou2J5Bs4SnLZqaUb/wvAeqls2cC5Za2Wz0lpU3N/5rQ8K4VzTxAFr8dY41O4sQF
+	1ZwRkTnxb8qzNRs4KAA0gRNkr0g6J2q9TZFwE/sNxEDuVtvprzJzaJPJIgBrLzt1P1wT/8eiSet
+	QZ/M4X9chBartA3576jWN5kkYcqCK5yzJGpiCuVBHOk+NtFxOyk1urNcB4criX18etaxAeYQU7y
+	2yK4MVP63q3+MpuTNNuzuv+0nxaLfaDrJxjGQdtrpykN1ck60jE6/T/WUlguCr4krjjL7IbGN7+
+	xXt0WE0E8ggsmDjSPuvbIIvhebTvy9jHxFbfcUQasRW138DjGEkud61x1/Ez+8w5VnSHusq859g
+	OYCqK8tBxhkKJMHnw+XBNr8s9KeKEqIZl9Wigf2GvWLRENpJ/0kNi34KbfnKD/35vyWD/ueaHNT
+	kO3tMPEPhAtaFByUY9MnAPe6JsPtTwWPYlugsFXp654nrU/xeLfHk7GyS68lGsTcEEZdW9H9VzY
+	AwCKggs/RQqvMj+ekHan+syrILIv5alLxYKpBtjbOQEpmMXI8s5ECRgL+ejN5vixaJDUOQVkO0n
+	XyjP2Vwh9hGjgsLfQXeEpA==
+X-Received: by 2002:a05:7023:a4c:b0:1b2:60ab:1e9a with SMTP id a92af1059eb24-1b3b605b765mr299989c88.10.1794249187342;
+        Mon, 09 Nov 2026 10:33:07 -0800 (PST)
+Received: from localhost ([2a03:2880:9ff:6e::])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b11435sm802762c88.4.2026.11.09.10.33.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 10:33:06 -0800 (PST)
+Date: Mon, 9 Nov 2026 10:32:44 -0800
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, Kaiyuan Zhang <kaiyuanz@google.com>, 
+	linux-kernel@vger.kernel.org, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	Daniel Borkmann <daniel@iogearbox.net>
+Subject: Re: [PATCH net-next v4 2/2] net: prevent mixing frags from different
+ memory providers or bindings
+Message-ID: <avIRJ3vdIj6Jr9zJ@devvm16445.scu0.facebook.com>
+References: <20261108013838.1454450-1-almasrymina@google.com>
+ <20261108013838.1454450-3-almasrymina@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,40 +104,488 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAJZ5v0jv9VQhZKbQcWYHEU0sQUPn5sLsRmqHzEtZ4T6GY0t3ZA@mail.gmail.com>
- <20261030014412.1652-1-atharvatiwarilinuxdev@gmail.com>
-In-Reply-To: <20261030014412.1652-1-atharvatiwarilinuxdev@gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 9 Nov 2026 19:32:04 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0hHOKFYS4D+CLRiCF0hiRK6SOY=VKJ619rTNauipnHsrA@mail.gmail.com>
-X-Gm-Features: AclHuK_I2Ur9BBcerWA9T-cAm-CBK6sVJcd2gsJpUYWkE4XceQZr0yZqtQR7ioA
-Message-ID: <CAJZ5v0hHOKFYS4D+CLRiCF0hiRK6SOY=VKJ619rTNauipnHsrA@mail.gmail.com>
-Subject: Re: [PATCH RESEND] ACPI: processor: Use Apple-specific methods for P/C-states
-To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Cc: rafael@kernel.org, lenb@kernel.org, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261108013838.1454450-3-almasrymina@google.com>
 
-On Fri, Oct 30, 2026 at 2:44=E2=80=AFAM Atharva Tiwari
-<atharvatiwarilinuxdev@gmail.com> wrote:
->
-> > You haven't provided a motivation for the change and I know nothing
-> > about Apple platforms, sorry.
->
-> APSS provides more P-states than _PSS on apple macs, for example on MacBo=
-okPro11,3
->
-> _PSS provides 17 P-states ranging from 800Mhz to 2301 Mhz, while
-> APSS provides 28 P-states ranging from 800Mhz to 3500 Mhz
->
-> Same with ACST, on Xserve3,1 _CST provides 2 C-states (C1, C6)
-> while ACST provides 3 C-states (C1, C2, C6).
->
-> This is also used in older macs only (before 2015).
+On 11/08, Mina Almasry wrote:
+> Enforce that all fragments in a nonlinear skb come from compatible
+> memory providers (and for devmem, the exact same binding):
+> 
+> - Add skb_has_net_iovs(skb) (skb->unreadable && skb_shinfo(skb)->nr_frags),
+>   assuming skb->unreadable and net_iov-backed frags are equivalent for
+>   now (with a comment noting the two can be decoupled in the future if
+>   readable net_iovs are introduced).
+> - Add skb_net_iov_provider(), skb_mem_provider_compat(), and
+>   skb_frags_can_coalesce() so multi-skb coalescing, shifting, and GRO
+>   paths can share a single check across pp_recycle, skb_zcopy(), and
+>   fragment memory providers:
+>   - page vs net_iov is rejected via skb_has_net_iovs() without chasing
+>     frags[0] or struct net_iov
+>   - page vs page and net_iov vs net_iov compare skb_net_iov_provider()
+>     (NULL == NULL with 0 pointer chases for page-backed skbs;
+>     net_iov_owner(niov) for devmem and niov->desc.pp for other net_iov
+>     providers such as io_uring zcrx)
+>   - Because skb_has_net_iovs() requires nr_frags > 0, coalescing or
+>     shifting net_iov frags into a frag-less (nr_frags == 0) skb is also
+>     rejected (no in-tree TCP caller shifts net_iov frags into an empty
+>     skb; update netmem_ref_test_net_iov to pre-populate the target skb
+>     with a frag from the same binding before calling skb_shift()).
+> - Add net_devmem_skb_binding() and use it in
+>   validate_xmit_unreadable_skb(), zerocopy_fill_skb_from_devmem(), and
+>   tcp_sendmsg_locked() so frags from different devmem bindings or memory
+>   providers cannot be mixed on TX.
+> - Use skb_frags_can_coalesce() across skb_try_coalesce(), skb_shift(),
+>   and skb_gro_receive().
+> - Use skb_mem_provider_compat() in skb_gro_receive_list(),
+>   tcp_skb_can_collapse(), and tcp_skb_can_collapse_rx().
+> - Reject converting linear head_frag payloads into page frags on
+>   unreadable skbs in skb_try_coalesce() and skb_gro_receive().
+> - Propagate skb->unreadable and compare skb_frag_netmem() instead of
+>   skb_frag_page() (which returns NULL for net_iovs) when merging frags
+>   in tcp_clone_payload().
+> 
+> This issue is theoretical and was found by manual code inspection and
+> LLM review; it was not triggered in production. Verified with the
+> net_core KUnit test suite; not tested on real hardware.
+> 
+> Fixes: 65249feb6b3d ("net: add support for skbs with unreadable frags")
+> Fixes: bd61848900bf ("net: devmem: Implement TX path")
+> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> ---
+>  include/linux/skbuff.h | 65 ++++++++++++++++++++++++++++++++++++++++++
+>  include/net/tcp.h      |  5 ++--
+>  net/core/datagram.c    |  4 +--
+>  net/core/dev.c         | 14 ++++-----
+>  net/core/devmem.h      | 22 ++++++++++++++
+>  net/core/gro.c         | 16 ++++-------
+>  net/core/net_test.c    | 42 +++++++++++++++++++++++----
+>  net/core/skbuff.c      | 24 ++++++----------
+>  net/ipv4/tcp.c         |  2 +-
+>  net/ipv4/tcp_output.c  |  3 +-
+>  10 files changed, 150 insertions(+), 47 deletions(-)
+> 
+> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> index 6787fcf6ac3e4..e6f63450a193a 100644
+> --- a/include/linux/skbuff.h
+> +++ b/include/linux/skbuff.h
+> @@ -1882,6 +1882,17 @@ static inline bool skb_frags_readable(const struct sk_buff *skb)
+>  	return !skb->unreadable;
+>  }
+>  
+> +/* Return true if frags in this skb are backed by net_iovs.
+> + * Assumes skb->unreadable and net_iov-backed frags are equivalent for now;
+> + * the two can be decoupled in the future if readable net_iovs in skbs are
+> + * introduced. Also check nr_frags because not all frag-removal paths clear
+> + * skb->unreadable when nr_frags drops to 0.
+> + */
+> +static inline bool skb_has_net_iovs(const struct sk_buff *skb)
+> +{
+> +	return skb->unreadable && skb_shinfo(skb)->nr_frags;
+> +}
+> +
+>  static inline void skb_mark_not_on_list(struct sk_buff *skb)
+>  {
+>  	skb->next = NULL;
+> @@ -3763,6 +3774,60 @@ static inline void *skb_frag_address(const skb_frag_t *frag)
+>  	return page_address(skb_frag_page(frag)) + skb_frag_off(frag);
+>  }
+>  
+> +/* Return an opaque pointer identifying the memory provider instance of @skb's
+> + * net_iov fragments:
+> + * - For devmem (NET_IOV_DMABUF), net_iov_owner(niov) (&binding->area, 1:1 with
+> + *   the binding across RX queues and TX).
+> + * - For other net_iov providers (e.g., io_uring zcrx), niov->desc.pp (shared
+> + *   across all areas of an io_zcrx_ifq).
+> + */
+> +static inline void *skb_net_iov_provider(const struct sk_buff *skb)
+> +{
+> +	struct net_iov *niov;
+> +
+> +	if (!skb_has_net_iovs(skb))
+> +		return NULL;
+> +
+> +	niov = skb_frag_net_iov(&skb_shinfo(skb)->frags[0]);
+> +	if (!niov)
+> +		return NULL;
+> +
+> +	if (net_is_devmem_iov(niov))
+> +		return net_iov_owner(niov);
+> +
+> +	return niov->desc.pp;
+> +}
+> +
+> +/* Return true if the memory providers of @skb1 and @skb2 are compatible
+> + * for coalescing. For any struct page-backed provider (the buddy allocator
+> + * or a future provider handing out struct pages), coalescing is assumed
+> + * feasible. For net_iov-backed providers, the provider instance pointer
+> + * must match.
+> + */
+> +static inline bool skb_mem_provider_compat(const struct sk_buff *skb1,
+> +					   const struct sk_buff *skb2)
+> +{
+> +	/* Check skb_has_net_iovs() first to avoid chasing frags[0] and
+> +	 * struct net_iov when only one skb is net_iov-backed.
+> +	 */
+> +	if (skb_has_net_iovs(skb1) != skb_has_net_iovs(skb2))
+> +		return false;
+> +
+> +	return skb_net_iov_provider(skb1) == skb_net_iov_provider(skb2);
+> +}
+> +
+> +static inline bool skb_frags_can_coalesce(struct sk_buff *to,
+> +					  struct sk_buff *from)
+> +{
+> +	if (to->pp_recycle != from->pp_recycle)
+> +		return false;
+> +
+> +	if (skb_zcopy(to) || skb_zcopy(from))
+> +		return false;
+> +
+> +	return skb_mem_provider_compat(to, from);
+> +}
+> +
+>  /**
+>   * skb_frag_address_safe - gets the address of the data contained in a paged fragment
+>   * @frag: the paged fragment buffer
+> diff --git a/include/net/tcp.h b/include/net/tcp.h
+> index 3560adddf8215..07a222c0fe2d7 100644
+> --- a/include/net/tcp.h
+> +++ b/include/net/tcp.h
+> @@ -1268,14 +1268,15 @@ static inline bool tcp_skb_can_collapse(const struct sk_buff *to,
+>  		      mptcp_skb_can_collapse(to, from) &&
+>  		      !skb_cmp_decrypted(to, from) &&
+>  		      skb_pure_zcopy_same(to, from) &&
+> -		      skb_frags_readable(to) == skb_frags_readable(from));
+> +		      skb_mem_provider_compat(to, from));
+>  }
+>  
+>  static inline bool tcp_skb_can_collapse_rx(const struct sk_buff *to,
+>  					   const struct sk_buff *from)
+>  {
+>  	return likely(mptcp_skb_can_collapse(to, from) &&
+> -		      !skb_cmp_decrypted(to, from));
+> +		      !skb_cmp_decrypted(to, from) &&
+> +		      skb_mem_provider_compat(to, from));
+>  }
+>  
+>  /* Events passed to congestion control interface */
+> diff --git a/net/core/datagram.c b/net/core/datagram.c
+> index ecc30a6f83023..1e7db61e25a56 100644
+> --- a/net/core/datagram.c
+> +++ b/net/core/datagram.c
+> @@ -712,8 +712,8 @@ zerocopy_fill_skb_from_devmem(struct sk_buff *skb, struct iov_iter *from,
+>  	size_t virt_addr, size, off;
+>  	struct net_iov *niov;
+>  
+> -	if (i && skb_frags_readable(skb))
+> -		return -EFAULT;
+> +	if (skb->len && net_devmem_skb_binding(skb) != binding)
+> +		return -EMSGSIZE;
+>  
+>  	/* Devmem filling works by taking an IOVEC from the user where the
+>  	 * iov_addrs are interpreted as an offset in bytes into the dma-buf to
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index 1aece2fe2429f..f241d8c650fcd 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -4169,8 +4169,7 @@ static struct sk_buff *sk_validate_xmit_skb(struct sk_buff *skb,
+>  static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
+>  						    struct net_device *dev)
+>  {
+> -	struct skb_shared_info *shinfo;
+> -	struct net_iov *niov;
+> +	struct net_devmem_dmabuf_binding *binding;
+>  
+>  	if (likely(skb_frags_readable(skb) ||
+>  		   dev->netmem_tx == NETMEM_TX_NO_DMA))
+> @@ -4179,14 +4178,11 @@ static struct sk_buff *validate_xmit_unreadable_skb(struct sk_buff *skb,
+>  	if (dev->netmem_tx == NETMEM_TX_NONE)
+>  		goto out_free;
+>  
+> -	shinfo = skb_shinfo(skb);
+> -
+>  	/* All net_iovs in an unreadable skb share the same binding. */
+> -	if (shinfo->nr_frags > 0) {
+> -		niov = netmem_to_net_iov(skb_frag_netmem(&shinfo->frags[0]));
+> -		if (net_is_devmem_iov(niov) &&
+> -		    (net_devmem_iov_binding(niov)->direction != DMA_TO_DEVICE ||
+> -		     READ_ONCE(net_devmem_iov_binding(niov)->dev) != dev))
+> +	if (skb_shinfo(skb)->nr_frags > 0) {
+> +		binding = net_devmem_skb_binding(skb);
+> +		if (!binding || binding->direction != DMA_TO_DEVICE ||
+> +		    READ_ONCE(binding->dev) != dev)
+>  			goto out_free;
+>  	}
+>  
+> diff --git a/net/core/devmem.h b/net/core/devmem.h
+> index c4f476947dfaa..9d7fc2914de14 100644
+> --- a/net/core/devmem.h
+> +++ b/net/core/devmem.h
+> @@ -10,6 +10,7 @@
+>  #ifndef _NET_DEVMEM_H
+>  #define _NET_DEVMEM_H
+>  
+> +#include <linux/skbuff.h>
+>  #include <net/net_namespace.h>
+>  #include <net/netmem.h>
+>  #include <net/netdev_netlink.h>
+> @@ -117,6 +118,21 @@ net_devmem_iov_binding(const struct net_iov *niov)
+>  			    struct net_devmem_dmabuf_binding, area);
+>  }
+>  
+> +static inline struct net_devmem_dmabuf_binding *
+> +net_devmem_skb_binding(const struct sk_buff *skb)
+> +{
+> +	struct net_iov *niov;
+> +
+> +	if (!skb_has_net_iovs(skb))
+> +		return NULL;
+> +
+> +	niov = skb_frag_net_iov(&skb_shinfo(skb)->frags[0]);
+> +	if (!niov || !net_is_devmem_iov(niov))
+> +		return NULL;
+> +
+> +	return net_devmem_iov_binding(niov);
+> +}
+> +
+>  static inline u32 net_devmem_iov_binding_id(const struct net_iov *niov)
+>  {
+>  	return net_devmem_iov_binding(niov)->id;
+> @@ -250,6 +266,12 @@ net_devmem_iov_binding(const struct net_iov *niov)
+>  {
+>  	return NULL;
+>  }
+> +
+> +static inline struct net_devmem_dmabuf_binding *
+> +net_devmem_skb_binding(const struct sk_buff *skb)
+> +{
+> +	return NULL;
+> +}
+>  #endif
+>  
+>  #endif /* _NET_DEVMEM_H */
+> diff --git a/net/core/gro.c b/net/core/gro.c
+> index 1b033855a20db..51a694b26401b 100644
+> --- a/net/core/gro.c
+> +++ b/net/core/gro.c
+> @@ -100,16 +100,7 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
+>  	struct sk_buff *lp;
+>  	int segs;
+>  
+> -	/* Do not splice page pool based packets w/ non-page pool
+> -	 * packets. This can result in reference count issues as page
+> -	 * pool pages will not decrement the reference count and will
+> -	 * instead be immediately returned to the pool or have frag
+> -	 * count decremented.
+> -	 */
+> -	if (p->pp_recycle != skb->pp_recycle)
+> -		return -ETOOMANYREFS;
+> -
+> -	if (skb_zcopy(p) || skb_zcopy(skb))
+> +	if (!skb_frags_can_coalesce(p, skb))
+>  		return -ETOOMANYREFS;
+>  
+>  	if (unlikely(p->len + len >= netif_get_gro_max_size(p->dev, p) ||
+> @@ -158,7 +149,7 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
+>  
+>  		NAPI_GRO_CB(skb)->free = NAPI_GRO_FREE;
+>  		goto done;
+> -	} else if (skb->head_frag) {
+> +	} else if (skb->head_frag && skb_frags_readable(skb)) {
+>  		int nr_frags = pinfo->nr_frags;
+>  		skb_frag_t *frag = pinfo->frags + nr_frags;
+>  		struct page *page = virt_to_head_page(skb->head);
+> @@ -233,6 +224,9 @@ int skb_gro_receive(struct sk_buff *p, struct sk_buff *skb)
+>  
+>  int skb_gro_receive_list(struct sk_buff *p, struct sk_buff *skb)
+>  {
+> +	if (!skb_mem_provider_compat(p, skb))
+> +		return -ETOOMANYREFS;
+> +
+>  	/* make sure to check flush flag and to not merge */
+>  	if (unlikely(p->len + skb->len >= 65536 ||
+>  		     NAPI_GRO_CB(skb)->flush))
+> diff --git a/net/core/net_test.c b/net/core/net_test.c
+> index 2b5080c226636..4a56b44f4addb 100644
+> --- a/net/core/net_test.c
+> +++ b/net/core/net_test.c
+> @@ -947,6 +947,9 @@ static void netmem_ref_test_net_iov(struct kunit *test)
+>  	copy = alloc_skb(0, GFP_KERNEL);
+>  	KUNIT_ASSERT_NOT_NULL(test, copy);
+>  	copy->pp_recycle = 1;
+> +	skb_fill_netmem_desc(copy, 0, netmem, 64, 16);
+> +	copy->len = 16;
+> +	copy->data_len = 16;
+>  	KUNIT_EXPECT_EQ(test, skb_shift(copy, skb, 16), 16);
+>  	KUNIT_EXPECT_EQ(test, atomic_long_read(&niov.desc.pp_ref_count), 3L);
+>  	KUNIT_EXPECT_EQ(test, atomic_long_read(&binding.ref.data->count),
+> @@ -1485,9 +1488,10 @@ static void netmem_ref_test_try_coalesce(struct kunit *test)
+>  	};
+>  	struct sk_buff *to, *from, *clone;
+>  	struct net_devmem_dmabuf_binding binding = {};
+> -	struct net_iov niov = {};
+> +	struct net_iov_area area2 = {};
+> +	struct net_iov niov = {}, niov2 = {};
+>  	struct page *pp_page, *reg_page;
+> -	netmem_ref pp_nm, niov_nm;
+> +	netmem_ref pp_nm, niov_nm, niov2_nm;
+>  	struct page_pool *pool;
+>  	long base_pp_ref, base_iov_ref;
+>  	int base_pp_page_ref, base_reg_ref;
+> @@ -1578,18 +1582,19 @@ static void netmem_ref_test_try_coalesce(struct kunit *test)
+>  	from = alloc_skb(0, GFP_KERNEL);
+>  	KUNIT_ASSERT_NOT_NULL(test, to);
+>  	KUNIT_ASSERT_NOT_NULL(test, from);
+> -	skb_put(to, skb_tailroom(to));
+>  	to->pp_recycle = 1;
+> -	to->unreadable = 1;
+>  	from->pp_recycle = 1;
+> -	skb_add_rx_frag_netmem(from, 0, niov_nm, 0, 64, PAGE_SIZE);
+> +	skb_add_rx_frag_netmem(to, 0, niov_nm, 0, 32, PAGE_SIZE);
+> +	napi_pp_get_page(niov_nm);
+> +	skb_add_rx_frag_netmem(from, 0, niov_nm, 32, 64, PAGE_SIZE);
+>  	napi_pp_get_page(niov_nm);
+>  
+>  	clone = skb_clone(from, GFP_KERNEL);
+>  	KUNIT_ASSERT_NOT_NULL(test, clone);
+>  	KUNIT_EXPECT_TRUE(test, skb_try_coalesce(to, from, &fragstolen,
+>  						 &delta));
+> -	KUNIT_EXPECT_EQ(test, atomic_long_read(&niov.desc.pp_ref_count), 4L);
+> +	KUNIT_EXPECT_TRUE(test, to->unreadable);
+> +	KUNIT_EXPECT_EQ(test, atomic_long_read(&niov.desc.pp_ref_count), 5L);
+>  	KUNIT_EXPECT_EQ(test, atomic_long_read(&binding.ref.data->count),
+>  			base_iov_ref);
+>  	consume_skb(from);
+> @@ -1597,6 +1602,31 @@ static void netmem_ref_test_try_coalesce(struct kunit *test)
+>  	consume_skb(to);
+>  	KUNIT_EXPECT_EQ(test, atomic_long_read(&niov.desc.pp_ref_count), 2L);
+>  
+> +	/* 4. Reject coalescing net_iov skbs from different bindings. */
+> +	net_iov_init(&niov2, &area2, NET_IOV_DMABUF);
+> +	niov2_nm = net_iov_to_netmem(&niov2);
+> +	netmem_set_pp(niov2_nm, pool);
+> +	netmem_or_pp_magic(niov2_nm, PP_SIGNATURE);
+> +	atomic_long_set(&niov2.desc.pp_ref_count, 2);
+> +	to = alloc_skb(0, GFP_KERNEL);
+> +	from = alloc_skb(0, GFP_KERNEL);
+> +	KUNIT_ASSERT_NOT_NULL(test, to);
+> +	KUNIT_ASSERT_NOT_NULL(test, from);
+> +	to->pp_recycle = 1;
+> +	from->pp_recycle = 1;
+> +	skb_add_rx_frag_netmem(to, 0, niov_nm, 0, 32, PAGE_SIZE);
+> +	napi_pp_get_page(niov_nm);
+> +	skb_add_rx_frag_netmem(from, 0, niov2_nm, 0, 32, PAGE_SIZE);
+> +	napi_pp_get_page(niov2_nm);
+> +	KUNIT_EXPECT_FALSE(test, skb_try_coalesce(to, from, &fragstolen,
+> +						  &delta));
+> +	consume_skb(from);
+> +	consume_skb(to);
+> +	KUNIT_EXPECT_EQ(test, atomic_long_read(&niov.desc.pp_ref_count), 2L);
+> +	KUNIT_EXPECT_EQ(test, atomic_long_read(&niov2.desc.pp_ref_count), 2L);
+> +	netmem_clear_pp_magic(niov2_nm);
+> +	netmem_set_pp(niov2_nm, NULL);
+> +
+>  	page_pool_put_full_page(pool, pp_page, false);
+>  	page_pool_put_full_page(pool, pp_page, false);
+>  	__free_page(reg_page);
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index 43e720d30b67b..90d7691e5f545 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+> @@ -4342,10 +4342,9 @@ int skb_shift(struct sk_buff *tgt, struct sk_buff *skb, int shiftlen)
+>  
+>  	if (skb_headlen(skb))
+>  		return 0;
+> -	if (skb_zcopy(tgt) || skb_zcopy(skb))
+> +	if (!skb_frags_can_coalesce(tgt, skb))
+>  		return 0;
+>  
+> -	DEBUG_NET_WARN_ON_ONCE(tgt->pp_recycle != skb->pp_recycle);
+>  	DEBUG_NET_WARN_ON_ONCE(skb_cmp_decrypted(tgt, skb));
+>  
+>  	todo = shiftlen;
+> @@ -6300,17 +6299,8 @@ bool skb_try_coalesce(struct sk_buff *to, struct sk_buff *from,
+>  	 * tricky (due to potential race with the clone disappearing) and
+>  	 * rare, so not worth dealing with.
+>  	 */
+> -	if (to->pp_recycle != from->pp_recycle)
+> -		return false;
+> -
+> -	/* All frags in an skb must either all be struct page-backed or all
+> -	 * belong to the same memory provider instance; do not coalesce skbs
+> -	 * that would mix them.
+> -	 */
+> -	if (skb_frags_readable(from) != skb_frags_readable(to))
+> -		return false;
+> -
+> -	if (len <= skb_tailroom(to) && skb_frags_readable(from)) {
+> +	if (len <= skb_tailroom(to) && to->pp_recycle == from->pp_recycle &&
+> +	    skb_frags_readable(to) && skb_frags_readable(from)) {
+>  		if (len) {
+>  			if (unlikely(skb_copy_bits(from, 0,
+>  						   skb_tail_pointer(to),
+> @@ -6324,17 +6314,21 @@ bool skb_try_coalesce(struct sk_buff *to, struct sk_buff *from,
+>  		return true;
+>  	}
+>  
+> +	if (!skb_frags_can_coalesce(to, from))
+> +		return false;
+> +
+>  	to_shinfo = skb_shinfo(to);
+>  	from_shinfo = skb_shinfo(from);
+>  	if (to_shinfo->frag_list || from_shinfo->frag_list)
+>  		return false;
+> -	if (skb_zcopy(to) || skb_zcopy(from))
+> -		return false;
+>  
+>  	if (skb_headlen(from) != 0) {
+>  		struct page *page;
+>  		unsigned int offset;
+>  
+> +		if (!skb_frags_readable(to) || !skb_frags_readable(from))
+> +			return false;
+> +
+>  		if (to_shinfo->nr_frags +
+>  		    from_shinfo->nr_frags >= MAX_SKB_FRAGS)
+>  			return false;
+> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+> index b9de7c302ba83..67651b1936a8d 100644
+> --- a/net/ipv4/tcp.c
+> +++ b/net/ipv4/tcp.c
+> @@ -1251,7 +1251,7 @@ int tcp_sendmsg_locked(struct sock *sk, struct msghdr *msg, size_t size)
+>  		trace_tcp_sendmsg_locked(sk, msg, skb, size_goal);
+>  
+>  		if (copy <= 0 || !tcp_skb_can_collapse_to(skb) ||
+> -		    unlikely(skb_frags_readable(skb) != !binding)) {
+> +		    unlikely(net_devmem_skb_binding(skb) != binding)) {
+>  			bool first_skb;
+>  
+>  new_segment:
+> diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
+> index cf3ddc055d48d..b8a5c3556243b 100644
 
-Which one is used in older Macs, ACST?
+[..]
 
-> And also macOS uses these.
+> --- a/net/ipv4/tcp_output.c
+> +++ b/net/ipv4/tcp_output.c
+> @@ -2692,8 +2692,9 @@ static int tcp_clone_payload(struct sock *sk, struct sk_buff *to,
+>  				     probe_size - len);
+>  			len += todo;
+>  			skb_shinfo(to)->flags |= skb_shinfo(skb)->flags & SKBFL_SHARED_FRAG;
+> +			to->unreadable |= skb->unreadable;
+>  			if (lastfrag &&
+> -			    skb_frag_page(fragfrom) == skb_frag_page(lastfrag) &&
+> +			    skb_frag_netmem(fragfrom) == skb_frag_netmem(lastfrag) &&
+>  			    skb_frag_off(fragfrom) == skb_frag_off(lastfrag) +
+>  						      skb_frag_size(lastfrag)) {
+>  				skb_frag_size_add(lastfrag, todo);
 
-Information like the above should go into the patch changelog.
+From [0]:
+
+Maybe easier to not merge niovs here? Add '&& !skb_frag_is_net_iov' to
+that 'if (lastfrag' check? (or your new skb_has_net_iovs)
+
+Looks like it is tcp_mtu_probe path, not sure we care about merging there?
+
+0: https://lore.kernel.org/netdev/86219505a92ebc720950d87dc76662f3@gmail.com/T/#m4dee51f9a8bf1600add71955d468a983e114d4b6
