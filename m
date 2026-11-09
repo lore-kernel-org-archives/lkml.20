@@ -1,81 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794195088;
-	b=J/4QOY6+iDdHD+Kk1EGjxbSsJQ2+TTqEWfGlbKUfJZ4MEid1vOsmNe1phB9v8uIwsD5X
-	 /CyXYl+OJVEgDgkmOtuK9VpufOuYellHqVR3o1XNaOJlPSTy3yR9M/wd+2+lsJDJWs9GU
-	 liJVYZfWFCmNXKrFC3//f5L7KBr162l8sgrcKxVXmck1QhsEKROahUoJq0gC9Jv8suJxn
-	 pSTxUTztS+wc+9+EWOayHVJJBE60i1NQ1dXuk3vNEfimAtnijlyOukAh2NZbY/CFjVKOR
-	 qei0v6GzGs4mbWzk2fhcXIEddiyNIzSZRCSS83iagWNfboKFot0Czq/VSTT879nyy5A==
+	t=1794195135;
+	b=qFPhOJ4pmN8IhJmMYD7sVNSawTpJjB4x4yn7d6OaFRTY6KR2DxAfcrsBoFea8zFOBGqg
+	 CcWbL18Hjj0n8VYnoZg6yaPza2C6IY9+7Xri5fakxU4oKjiUuS1muuFhVzT3rpk3m20ZY
+	 dTj/mG9oESoyA795MXAL6n5WX8CXodBOo7l8YkYLaRmrw+XaK9Y/t2oRFizNDRWvdo9cC
+	 Cf4n/wrmD2V5l+c7vOUzyt/wtcMNSuZUhySBc0zd6GmzwDTPsLm57+z3XIqzMJRkp2ntE
+	 YgU7wDUY0iccDMaFiFTcEavD7aLWkBv9d9bTIg/IDa8BIPxg8YMJWU9tJpZJfEPxfzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794195088;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:
-	 Content-Transfer-Encoding;
-	bh=7h9gujRoiJjcc4FUBagD+Vkd7AT2WQ+KsrTI8xvvbgs=;
-	b=cw2mU69MH1Nb2VSjful8H1qMyFeY3vZ5QJGCDf8+bLoEL6ofbDGvrAB5VTpRbEWzU7SV
-	 Ci5lyb0msNFxV/XUcc9NztHVmr8Yd+gOq4p6UqNLSXIUOWH5QUn9MecUj1+xVx3GnTeXt
-	 2A6Ce3zBbvlo8k+S7RCNZ8FikExyAcJHzS7+zmgPpRO/0q8zC/u0heCqlhewGDDs02782
-	 5mG/ZlYOlmN/PBWoD/QfKuALnsY/39JH/CU/wiXO3OiPSdVs1I10aOgvmlieBNwcLipsl
-	 KVupcKRJ4u6MT43EIOnB5pNx4nVyN/XwJC5paomuHYaPJaImn39MzU1Dl3fCo6j6icw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794195135;
+	h=DMARC-Filter:DKIM-Signature:Cc:Date:Content-Transfer-Encoding:
+	 X-Lms-Return-Path:X-Original-From:From:Subject:Mime-Version:X-Mailer:
+	 Content-Type:To:Message-Id:Received;
+	bh=YzDaYCBdSlrb9LFHCCjVU8KX83BPN0Qfxpy4gBXOK+o=;
+	b=pOdxhLeYEpxhPnD82XA12UfsVjjpcOqBtp3z9RFaEl1SySA59kQr9fCcSJlhBWtQdER9
+	 BrS0bZOvztZop+uUg4ssrC3qQ+SGUJjJqrtJCmsGzLaLec5J9nPg/RKEj0fU7xp053z6G
+	 G4YJbu0560H3Yw7Zb/73zxzLtJfueXICCi8I/mp4S08CvGAttC4+S4ri3UsInreZPDfPT
+	 fZsZIc+rG6zPaDA0TL60C+IhsYidwoUZGuk0YfMUlcQtqq9cLR/gmIiSNtdUnXQ+4VmHQ
+	 xSeDx/o76c8YwG3anmSYRZOf23X7o81+InB24I+4BzmORqvv6GPcF1wRixk2ihEB0XA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=fail reason="signature verification failed" header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b="Sn/kxibo";
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=deepcomputing.io;
+	spf=pass smtp.mailfrom=deepcomputing.io;
+	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=mazc4Bmw;
+	arc=none smtp.remote-ip=209.127.231.28
+Received: from va-2-28.ptr.blmpb.com (va-2-28.ptr.blmpb.com [209.127.231.28])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0FC606A31C;
-	Mon,  9 Nov 2026 03:31:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B0FC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0F7606A320
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:32:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD0F7606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Sn/kxibo
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 4DC4940E01E1;
-	Mon,  9 Nov 2026 03:31:24 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
-	reason="fail (body has been altered)" header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id fSr_K88CxAsy; Mon,  9 Nov 2026 03:31:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794195080; bh=G2paekuPNMEqonKhlRQSysxWYlUIiQcikXp7kwpEJAk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Sn/kxiboa5Hsi4RZJu1QDWhjwlMx6jbx2sX0sTMg5dgqqJJTG9N27x6YB/ReMZgND
-	 HSxLwWyTyU7dQbONAxG0mRG5CG4UaRLetb61hlkOoxCTbSlzKLYD5fwSs96ufNUlHy
-	 3z2vrAJsRMa7jo2Ad2U9dBYTKOD97Xvj+X95igI1lx5lSrga2USIS3+vp8tYTOVEDl
-	 xGdqO+dsvie/hvj+7ni29CIu/hdISJEjZlijHXQpU/fHO1FOxTGRloUahxJEY0Gu4V
-	 ostYsQRJaFLLMVzQi01nxWmolvRieV2BpB3MLOjrRyDh4/Z3J4vwkKSzk9rrqFvuo+
-	 UmVeIaQ15EvHHm/oOTAf5SucbgLuz+mv3MLy367cVVTTzKvz2PeqCu7TgaPrZuxGlN
-	 /kgw4F+sG4AXU3FShnmOMr2jJc3qj4QZhn5Gdy6UJRTaAqRHRnNHdfnMhifEP19Im9
-	 ClNjszdkAJi3y4xR3HW3wQAZSCHyrO1ICpSAQdXkcQMQtmNtwSvUmlVHD41n3iwY3q
-	 3AOA2BD0t2nVWZ2rpO1ZXqN4dvLnSPNTTHqednDcJB6r+sNSudJZTv27NuEcmXT2EZ
-	 3HPrEiRF1f/UXRNAFv+erPVVnCIhHnh0+h2CHPfCCkUhEBZAGMB76IabnXqMkkag2f
-	 JdEQJ/uoQ685K5tm0KHRzc3g=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id AE74E40E0497;
-	Mon,  9 Nov 2026 03:31:11 +0000 (UTC)
-Date: Sun, 8 Nov 2026 19:31:08 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: linux-kernel@vger.kernel.org
-Cc: linux-tip-commits@vger.kernel.org,
-	Fabio Estevam <festevam@nabladev.com>,
-	Zhipeng Wang <zhipeng.wang_1@nxp.com>,
-	Thomas Gleixner <tglx@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Radu Rendec <radu@rendec.net>, x86@kernel.org
-Subject: Re: [tip: irq/drivers] irqchip/imx-irqsteer: Validate IRQ count
- before creating domain
-Message-ID: <20261109033108.GEavE-fNcWoLB94CXe@fat_crate.local>
-References: <20261104073759.386777-3-Zhipeng.wang_1@oss.nxp.com>
- <179417457995.2093942.6001079047755881830.tip-bot2@tip-bot2>
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=mazc4Bmw
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794195129;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=YzDaYCBdSlrb9LFHCCjVU8KX83BPN0Qfxpy4gBXOK+o=;
+ b=mazc4BmwyxscUch6uiRgmt/4eFAe3sxKGToaNVbJvQVveZgFoCoM4xkGtNJMUT2WOctWyW
+ s8V6uikNfzU7SdeF2SUGB32Z34b0wLjmXmNvss1JC0K4BX+H/GPXrPWVIzGfh3L0eToMYy
+ mzOsJe+rHfQIO7EsErS3EVIG0toDoLRhbrsEeTbhmkcMgDuzjfWlLSIbs13EM7XMBmVSc9
+ OWrML56W/AlCwhrfvsKmXPPWKAAzeqguLrsR/S43lYNhvKW3kHUa7b8bWZVLaG60MAeASZ
+ enC0EKytx5p/ddAv1+kFXfgHN/54RA4WfiWypnTFmbJZXDM7JWsvdt7JxqfnSA==
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
+	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Sandie Cao" <sandie.cao@deepcomputing.io>
+Date: Mon,  9 Nov 2026 11:31:54 +0800
+Content-Transfer-Encoding: 7bit
+X-Lms-Return-Path: <lba+26af13eb7+a0e42b+vger.kernel.org+sandie.cao@deepcomputing.io>
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+Subject: [PATCH v4 0/3] Enable USB and SD for Deepcomputing FML13V05 board
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,96 +61,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <179417457995.2093942.6001079047755881830.tip-bot2@tip-bot2>
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.43.0
+Content-Type: text/plain; charset=UTF-8
+To: "Yixun Lan" <dlan@kernel.org>, 
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>
+Message-Id: <20261109033154.361399-1-sandie.cao@deepcomputing.io>
+Received: from roma-Laptop-12th-Gen-Intel-Core.lan ([218.17.141.187]) by smtp.feishu.cn with ESMTPS; Mon, 09 Nov 2026 11:32:06 +0800
 
-On Sun, Nov 08, 2026 at 09:49:39PM -0000, tip-bot2 for Fabio Estevam wrot=
-e:
-> The following commit has been merged into the irq/drivers branch of tip=
-:
->=20
-> Commit-ID:     f99f3c4acaff0df9393c1e6a3f28b7b974e01d95
-> Gitweb:        https://git.kernel.org/tip/f99f3c4acaff0df9393c1e6a3f28b=
-7b974e01d95
-> Author:        Fabio Estevam <festevam@nabladev.com>
-> AuthorDate:    Wed, 04 Nov 2026 16:37:50 +09:00
-> Committer:     Thomas Gleixner <tglx@kernel.org>
-> CommitterDate: Sun, 08 Nov 2026 22:43:43 +01:00
->=20
-> irqchip/imx-irqsteer: Validate IRQ count before creating domain
->=20
-> The IRQ count is validated after creating the IRQ domain. If it is
-> invalid, probe returns without removing the domain, leaving its host
-> data pointing at devm-managed memory that is freed on probe failure.
->=20
-> Validate the count before allocating resources to avoid the leak and
-> dangling pointer.
->=20
-> Fixes: 28528fca4908 ("irqchip/imx-irqsteer: Add multi output interrupts=
- support")
-> Signed-off-by: Fabio Estevam <festevam@nabladev.com>
-> Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Reviewed-by: Radu Rendec <radu@rendec.net>
-> Link: https://patch.msgid.link/20261104073759.386777-3-Zhipeng.wang_1@o=
-ss.nxp.com
-> ---
->  drivers/irqchip/irq-imx-irqsteer.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-i=
-mx-irqsteer.c
-> index 1b8d0c8..766756e 100644
-> --- a/drivers/irqchip/irq-imx-irqsteer.c
-> +++ b/drivers/irqchip/irq-imx-irqsteer.c
-> @@ -218,6 +218,8 @@ static int imx_irqsteer_probe(struct platform_devic=
-e *pdev)
->  	 */
->  	data->irq_count =3D DIV_ROUND_UP(irqs_num, 64);
->  	data->reg_num =3D irqs_num / 32;
-> +	if (!data->irq_count || data->irq_count > CHAN_MAX_OUTPUT_INT)
-> +		return -EINVAL;
-> =20
->  	if (IS_ENABLED(CONFIG_PM)) {
->  		data->saved_reg =3D devm_kzalloc(&pdev->dev,
-> @@ -246,11 +248,6 @@ static int imx_irqsteer_probe(struct platform_devi=
-ce *pdev)
->  	}
->  	irq_domain_set_pm_device(data->domain, &pdev->dev);
-> =20
-> -	if (!data->irq_count || data->irq_count > CHAN_MAX_OUTPUT_INT) {
-> -		ret =3D -EINVAL;
-> -		goto out;
-> -	}
-> -
->  	for (i =3D 0; i < data->irq_count; i++) {
->  		data->irq[i] =3D irq_of_parse_and_map(np, i);
->  		if (!data->irq[i])
+This series updates Deepcomputing FML13V05 Device Tree: Add P1 PMIC 
+regulator tree, add USB controller and USB phy, Enable SD card.
 
-I'm guessing it is this one because it removes the "goto out;" around the
-2xx-ish linenumbers but forgets to remove the out: label itself:
+This series is rebased on next-20261105.
 
-drivers/irqchip/irq-imx-irqsteer.c: In function =E2=80=98imx_irqsteer_pro=
-be=E2=80=99:
-drivers/irqchip/irq-imx-irqsteer.c:271:1: error: label =E2=80=98out=E2=80=
-=99 defined but not used [-Werror=3Dunused-label]
-  271 | out:
-      | ^~~
-cc1: all warnings being treated as errors
-make[4]: *** [scripts/Makefile.build:290: drivers/irqchip/irq-imx-irqstee=
-r.o] Error 1
-make[4]: *** Waiting for unfinished jobs....
-make[3]: *** [scripts/Makefile.build:572: drivers/irqchip] Error 2
-make[3]: *** Waiting for unfinished jobs....
+---
+Changes in v4:
+- [patch1]
+  - Remove unused reg_aux_vcc3v3.
+  - Rename p1@41 to pmic@41.
+  - Add regulator-always-on for dldo4.
+- [patch3]
+  - Correct Onboard SD Card comment.
+- Link to v3: https://lore.kernel.org/all/20261102060012.100623-1-
+sandie.cao@deepcomputing.io/
 
-An allmodconfig x86_64.
+Changes in v3:
+- Remove useless gpio header.
+- Add Onboard SD Card comment.
+- Link to v2: https://lore.kernel.org/all/20261020081633.3673704-1-
+sandie.cao@deepcomputing.io/
 
---=20
-Regards/Gruss,
-    Boris.
+Changes in v2:
+- Remove usb3b, usb3c node define in k3.dtsi, it's already uploaded by 
+other patch.
+- Add phys and phys-name define for usb3b, usb3c, usb3d in 
+k3-deepcomputing-fml13v05.
+- Remove cd-gpios, use non-removable for sdhci0. 
+- Remove vmmc-supply for sdhci0.
+- Link to v1: https://lore.kernel.org/all/20260922110231.3426011-1-
+sandie.cao@deepcomputing.io/
 
-https://people.kernel.org/tglx/notes-about-netiquette
+---
+
+Sandie Cao (3):
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add P1 PMIC regulator
+    tree
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller
+    and USB phy support
+  riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card
+    support
+
+ .../spacemit/k3-deepcomputing-fml13v05.dts    | 220 ++++++++++++++++++
+ 1 file changed, 220 insertions(+)
+
+
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+-- 
+2.43.0
