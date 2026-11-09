@@ -1,127 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794268644;
-	b=lr9CM874/JYUd60TSZDuphqyVBsk/8y6Fk7OVOcfUk8G22FlRvJsI8/tWaL021EFHiy5
-	 BrF+eAL09l72aJ/CU0DlVXv8Sj7ZWaEQPlyfq99j65nq4C/C+yzlymzdNYPn+k/qlFdsQ
-	 7Lhv57xSW8mFzPtDBGIF1eEO9F2eEr8xQ6o8FtySqlosKm41m1BXb1RzcYSQB9gttBiEp
-	 Dz/Lzn7mWrU4UBiliRyetPVFtcxysl14734FR2hDcmGUQjA7NXGhouZ5Z85rVFAQe7SK1
-	 h135YT4HE6DAuOs4yVJoeezma2swL/zFjb0scsgev13MF6f65U3zQhz4d3LdJFf48aA==
+	t=1794268646;
+	b=VL/VlJhnnKfdUnWKBM3xYCIZWas7sfJe+bxxRDznqw2HOu83Uspu7fyeOxYRQcBBccpR
+	 KS1T2Fdf6WQc408uAG24QWqvgp1Dakg3/bIv5Iqqq9uoW/rIm1p4AboDRUcK+Ps5Smtpb
+	 MASGD43HQJ54vSVDkNGvKiZBI66lacY0O03fLn1XmmHngOP5OdkpRh415bJa5L0U2aC9s
+	 quLnH6l3TAxhBWfV8vjnuUblctnD/i/bKiwPKenSEMvac5UZUktWtDDaWfNmcqXBvh93L
+	 vb/R2MHjF1yHJFgYEcDBjt7pH0zcyOGYzFDktEtUouok1DOTLY6XHJHUb/3VCMey9dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794268644;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=PCyUzlqAB6XNK1tam0Dwe7EWgFWawysxa8qRUG9TL1Y=;
-	b=b140yo/AbudmSwExkTUClGhLRJ5xLKsw+1dGJ2cLUse1i+8exy1pbrYcwtfG+vKc/Ge1
-	 +iFOYQlFUOqiI87nGTMvH8Wmvr5GnZCyyDYS2NcI0mShZ/NQARNUIXr9JNiag3xIaR79A
-	 i1ItRaTX+q81Z7qA/3sw7VAal+YnSQdmL7ey17XmEbQ25nGvdx/6aUc+leOT77J+FyHBT
-	 Z1A7kmu9pZOzGUn3jlzuOnoVap1djr3Cjl8U4j1C+mFJC3qEORkEKdSkVtOeEKC07jR4W
-	 OhqyIFdpC4bN6/hovPqYw1UFkpL1bUj3Yt4/Fn0Wp53VszoXA7pJI9BQIu2p1Rd33tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268646;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-DetectorID-Processed;
+	bh=c2l02lH4CkPIKl8yer1fYXore0VFomr5mbN4wJ3bvKc=;
+	b=4+TyoucO08hvltE+My6XeKdxbriW/fW5JLTMmLb52nCDTw2N4HbDlheHAcmciZh7IQbi
+	 coWPD268onH5kkRh1/gIi8+2DqKNbvHpLHUNPL696nVQTvAHNG9rEcBJJBvISQk8oVBUt
+	 hvLRUbgAV1DigNWZ+gCAIsW9/RrjWhdWlG5B04A9ABA85vTOPRrNgf9lnWtGPoyrWWKJ9
+	 2X3iWgcDv2w5y6obFDKcCAgB6mGZshyUhhDXk18KI1EMOeZMXnLd4jfEbeoA14kQ2eEQL
+	 zFviG5IgungOUmL7avPY/XKKCuzaq/qo+90UjBZO75pxTnLNJzqKns0iiyjm3E6sYfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="P7df/oHK";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="gVv1/uPl";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b="K/ookRI7";
+	arc=none smtp.remote-ip=209.85.215.227
+Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8746071818
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:57:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE8746071818
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B3876071819
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:57:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B3876071819
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=P7df/oHK;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gVv1/uPl
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9L9t5X2017996
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 23:57:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PCyUzlqAB6XNK1tam0Dwe7EWgFWawysxa8qRUG9TL1Y=; b=P7df/oHKtu/L6AL9
-	oqYI7wHDYo8ud+Jllx28MBig/s6ZgrSXgSZD/FmgLmOSw5KhdD0OIUqoIHDM3uhE
-	GX4utPRN8O+heRLZjQvIie38noeZiaKYJM2rNyww0+N7G9FxR2/0uxvIbYHjSTP6
-	lkHtRnEJdrfspa4LbZoWMf2Y5rIOSc2paYFC4vVRQGNJn0cxWNfvI9SmfEixSX0c
-	HH7pwFMAze9twemWpnh7rHEe5nxk/O8tSMu9L8qDMpYnXTsET+ldsCQ1d0mknyMH
-	kKoK3cS+h8m8jc8CGvh2/lh9LO2Yfq/NQ5ukTOXIXU9HrKzcNagmnCTiUd8YxLZa
-	/MbDwQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4humjg0rvp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 23:57:22 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36de26cb4b3so1797487eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:57:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794268642; x=1794873442; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=PCyUzlqAB6XNK1tam0Dwe7EWgFWawysxa8qRUG9TL1Y=;
-        b=gVv1/uPlgCLww/HUdkfYCw4cN6zYD+rQ4YDn/MY//8kQPqwadDyGeFNuprOMHq6GSS
-         LxEvlSpLLCJMgXiJJMKaMBXgW5OLUZHUOWsYRljWN0125SoO8R6uDjs1GjEmKPjn2II5
-         ogV2D/awHsx86yay6dQ5CBlWq12WlpAdImjeI7FzWaCB20x3Wvjk9sr3WNf0XVZvRcyF
-         biUPB/FsdQ+yZDQ7Z0/4dSnvae5NrRPDlv1LPYNJJMJBw0TI9DmMdkUd6x20T2nVLfer
-         R2thru6i8VbcpZ2NWWUDC67i0QBz+dqpWGtQ0U9JnnNHDIGJoPidYZEInUdsFaYsouH/
-         tW4A==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=K/ookRI7
+Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cdb75699c7cso602118a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:57:25 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794268642; x=1794873442;
-        h=content-transfer-encoding:content-type:mime-version:organization
-         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=1e100.net; s=20260707; t=1794268645; x=1794873445;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=c2l02lH4CkPIKl8yer1fYXore0VFomr5mbN4wJ3bvKc=;
+        b=S7TpDUXcDe5OYOZlPAFQRTYvt4tJEqiQsjmAZjEXjqHDpc4eGSPCKTI9pYRQITYy68
+         DG5QwAucLKiVmm/4T61e81XOGqVpuupDrYD97b95iFklt7pkimrXsdS1wzCA7n6J7tOP
+         8SF0QMkGg5MsnqryyM4HrEXuT3+qz7qSZCscC0oQkIgoLoxXG8NSynjMQR+zhvAawwiP
+         VyguHhovy8egWLQo3mc+JKLf6vHoFx2Jk2yx/8ItVuPWNYtsFW9+8QLwyW4ZfNQxt8sa
+         ICm+CgMemC7MbW6RspkIUbyiY3rr/C1nNrTJJzuoZ3zbMPqMM4T0PZrVXNwNeu+mWBUU
+         wuBg==
+X-Forwarded-Encrypted: i=1; AL+hErGuHDXj4FStUeTzlHvspl2o+4ssz4qf3QF5e/V6BRv9sCJSo/RY3nAFT4C+Te6zE0vMbNJK/bNPaS9wXcU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+v6D2lDpQJtmsAF1sjbguyB6G+b1A6MuSlq0W+MRCrzsu911sa
+	pOZgkvIcG/lxU54xBI7QrOestZGd672ofCt56QlbVJZD2knonfgSgsOAt/LIl4PFVJxCopDGYic
+	X2VZEU94QT6VTHqk4iq8eoD5D59gCU3zDhbcpzi/GZOrj5rNFyKaJ0rW8Rr8J6aLeqxkcH37r91
+	PWRN/yb9dMlvWH3IyTRiT0Y1sFtsWUe4uMAV5fHL1Sz0X5VTsmm8RL9xuTCYl0d1MT2seuW78fX
+	mdfODclYbNZJ9bc+Rt3dBUy
+X-Gm-Gg: AYBFou2h6zsqYZDgwMdbcwJ4NsidPUnDMvIh7Y6cB9pD9mvWw1IeQ1x8+nIRyAs/waA
+	erfyY6u/GXDXi6hSZD58i0XWxuKcqy07XXyktALJjdxwenY1tm9O9K+Txgfe/w/ldFIAFaXziJE
+	xSgQ5QVIDTAqMklA/cGrC81JDyYTpCsM+jhXo90c1hrOhsH1pSP6w2Vu3Qfyliz/2vEvLjUOLYh
+	1zRwpPx0/i/Akt1cfcDk6yk05lsX4ZDc78pW+cK3ENVTEGSz8YBw6MGVNHFQ8oFXUEKdibpWhLT
+	92RdxD4vHhPtmTWXDdF5eJznyNbW58fqJq9/vQxuyxgKJ8oWEYKgshtvVKefIPcMVGbIrzmO2eG
+	HPBigxuLI8bsTw3IginnjzEb/UP0OZ6vnqc9cfhffyY2QetWVB+tReszKNezeOuwnT7GiN6mXrV
+	hD31ZFGraCXpjM/WV7Ye9iTER7vZMfkJLn72s85F2q
+X-Received: by 2002:a17:90b:50cb:b0:3ac:b185:fa16 with SMTP id 98e67ed59e1d1-3b166cc8e64mr1283979a91.43.1794268644714;
+        Mon, 09 Nov 2026 15:57:24 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b16908fa5fsm251465a91.3.2026.11.09.15.57.24
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 09 Nov 2026 15:57:24 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-944138ed63fso249578385a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:57:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794268643; x=1794873443; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PCyUzlqAB6XNK1tam0Dwe7EWgFWawysxa8qRUG9TL1Y=;
-        b=e9LvmJO93AhIhuRQq1N+M/ZVv8qQx9sGp7uKhDP8xUVsaILPC59HFB/Mqqohzgxuc3
-         n8Kn+YfsULkp6500DhfTf+IHzad9rQ4vT9/w8rSYxDgWGSPMy7uns0TG4Zmqtfc4bow1
-         Po50/RUJMwv3HFnPDyiqTOxojufPoo4I9JzPEtAVOaK4jfRpJYQjj3xk7YlhZgXol6iP
-         vLMTfLJtQ1eGlFJRaJMuaAoWouqu0XHn5lMSe10i4xbyeeShJgD97M85RKUTJJA5TfvG
-         V0jAynIvvmYFO3MU8DMYvVUlFG3Ccfjakp1zTsRcgoxVSRnGfY52BY7KMnW9ljBp5bSM
-         vcoA==
-X-Gm-Message-State: APuU4Z90ky82zZwjMSSv3kYPaFmeK+mz+c179Vt2EL3qaqmDPRoTGSeg
-	wLENwoy6Ei2MRR4i2lbPon6BSScDwraIm5O7cwAXBMgY2GmlqziPHRIM1Q9Q1vZQmayU8jIKtX/
-	0kXF0PfDu5EOJ0SLhvbYZSoCWRJrC3dfo/6vizjwYq88myDcvzUkUac6ZNKxtY/32KVY=
-X-Gm-Gg: AYBFou18xdzZCteikx3jhn8y5M0qK/yoXyDzaMq3Y/9NPqYdzdu3lXN5uRGD+4KvnIm
-	SPjctJJ3Yk1adeI+ergYX7/JY4yDlH0PAs8CDeIC3a8pcwS3jsruOP1OjnGSGnSFYlx5l4YiI0C
-	JdZ33u3lrBf3ptFDFin9ChZOH2RYsf65hkX6op9poWjrfZokw1BaqqDU55hgQ8FVVlBf0mnfw1z
-	yQI4j6y9TngGPSqzslJu42W3hEOq6/s5cyFTSeKAh24VQ+d3Z+T4wdQmvaTD0CTGbsVGvTM6O0z
-	442RhkUsOzchAS6yKc4/SM3qAT2m4rOzi0crNAjx48Iw1Cgc4iTiJlPED+dQUTryn3zSRVQPAry
-	zcKX5LSTTB6METLGedYnOGif9tLZuPC7z8F5K5kqG2WdjE1F8UWUb4oU2KvUAqBpdrWilj//h0t
-	3IeA6sOdF/p1pCn61MPguBsw3mUA==
-X-Received: by 2002:a05:693c:808b:b0:36d:d7ec:5e3d with SMTP id 5a478bee46e88-3751fa3d519mr1153087eec.21.1794268641540;
-        Mon, 09 Nov 2026 15:57:21 -0800 (PST)
-X-Received: by 2002:a05:693c:808b:b0:36d:d7ec:5e3d with SMTP id 5a478bee46e88-3751fa3d519mr1153056eec.21.1794268640929;
+        bh=c2l02lH4CkPIKl8yer1fYXore0VFomr5mbN4wJ3bvKc=;
+        b=K/ookRI7S4LJQIWYZUBH4covA9zZEZL+Vyxe7CkJEHbCcfnMqrigxh8b5MLRjMCK5r
+         N2ZWIto40byAJr0vsNXHwevSBtiahcqeSXmlTrT2pwdUjS2SeI4729iqL5DqsL/PkIs6
+         lXyoTlDVIGcvRMp65u0MCoxQAvJ9Y+fvYOKk0=
+X-Forwarded-Encrypted: i=1; AL+hErEaSqz3+6ruu7KxMQpd3JLiqVaOdmo6DxAmUFQoXuiskBNhDz96nXpoS8JQxZxuiWTKwVt2GrO7aovOMZ4=@vger.kernel.org
+X-Received: by 2002:a05:620a:8089:b0:947:90cc:f151 with SMTP id af79cd13be357-9479f1c07ffmr155202785a.7.1794268643075;
+        Mon, 09 Nov 2026 15:57:23 -0800 (PST)
+X-Received: by 2002:a05:620a:8089:b0:947:90cc:f151 with SMTP id af79cd13be357-9479f1c07ffmr155200585a.7.1794268642539;
+        Mon, 09 Nov 2026 15:57:22 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e734698sm94360885a.13.2026.11.09.15.57.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
         Mon, 09 Nov 2026 15:57:20 -0800 (PST)
-Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37520608b52sm1608728eec.13.2026.11.09.15.57.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 15:57:20 -0800 (PST)
-Date: Mon, 9 Nov 2026 15:57:09 -0800
-From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-To: Cristian Marussi <cristian.marussi@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-        sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-        f.fainelli@gmail.com, vincent.guittot@linaro.org,
-        etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-        d-gole@ti.com, elif.topuz@arm.com, lukasz.luba@arm.com,
-        philip.radford@arm.com, david@kernel.org, souvik.chakravarty@arm.com,
-        leitao@kernel.org, kas@kernel.org, puranjay@kernel.org,
-        usama.arif@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v15 09/35] firmware: arm_scmi: Add Telemetry basic
- attributes enumeration
-Message-ID: <20261109155709.000059cb@oss.qualcomm.com>
-In-Reply-To: <20261109091221.2532706-10-cristian.marussi@arm.com>
-References: <20261109091221.2532706-1-cristian.marussi@arm.com>
-	<20261109091221.2532706-10-cristian.marussi@arm.com>
-Organization: Qualcomm
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+Message-ID: <c7ed60fe-eddd-43b5-9576-f574b5dd80da@broadcom.com>
+Date: Mon, 9 Nov 2026 15:57:18 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,254 +106,240 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA5NSBTYWx0ZWRfX4kW7v8t9E1fD
- 2VkdczRdPuBQeFCjbLIgqwwWYAqr/MoT7e5m2P/N1HfFdnIErbkcm3QTmiTpxnGqDntmoDcxrDA
- 3ceiHJIL51WXerEPQU1XsQLYKYhHQG4dTzP/vKH4J25o+d2tN9lHLx4h8ZE27POXk5emzq+u982
- KSj6kzKfjF7TzsB/gEjDQsCCH8zbecT3QXb4TlKr1lFU+fMxBV4njsS4CLKdit7s+2uUhZjhzH5
- VS3vOuEStGQg8xPuJLg58ozi2rvF33TvhcDi9RsY5soeQiqLrX8YxFDMVC0pUhGTdpEkxywzJBx
- 4g7vACqbnZvFbqbUa6eSlra3pKB7UgoD4slBTGC7rUB1sKgJ3UQfbKXtCA1rMNnw/YApUlu7hEa
- dwn+dkkk547sms/fpNmD+kFpNkHqXqwfqdSNGQP/QPdQg3yGMcmENQRFobvMG+HWLCefaaIM6Bl
- AoPMkj6BeRedPFKhOqQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA5NSBTYWx0ZWRfX/6+K6mU0UoOl
- 41xhR3/CpkZAV3QljevF1pgFrWmzh0mwtu5NzQ4F/N01GQ6AQpfPnKQx2Ua0NDABdW24VJOAtq/
- PyEtYZKL3HzuaDg71eF3BptxCOhXS00=
-X-Proofpoint-GUID: wf4dWMU4KJQBmD6ZxSFMSV1jAbmoU8_Z
-X-Authority-Analysis: v=2.4 cv=B6gsQ+tM c=1 sm=1 tr=0 ts=6af25de2 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=7CQSdrXTAAAA:8 a=FN7pwp8LrHzWrJGgN4QA:9 a=CjuIK1q_8ugA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-ORIG-GUID: wf4dWMU4KJQBmD6ZxSFMSV1jAbmoU8_Z
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_07,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 suspectscore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611090095
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 4/8] net: dsa: b53: reject conflicting mirror
+ destinations
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, vivien.didelot@gmail.com,
+ linux-kernel@vger.kernel.org
+References: <20261030211617.288562-5-florian.fainelli@broadcom.com>
+ <179348376172.3131.11440720201294156466@kernel.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
+ xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
+ M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
+ JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
+ PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
+ KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
+ AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
+ IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
+ ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
+ bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
+ Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
+ tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
+ TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
+ zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
+ WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
+ IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
+ U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
+ 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
+ pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
+ MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
+ IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
+ gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
+ obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
+ N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
+ CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
+ C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
+ wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
+ EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
+ fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
+ MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
+ 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
+ 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
+In-Reply-To: <179348376172.3131.11440720201294156466@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Mon,  9 Nov 2026 09:11:55 +0000
-Cristian Marussi <cristian.marussi@arm.com> wrote:
-
-> Add SCMIv4.0 Telemetry basic support for minimal initialization and
-> protocol attributes enumeration: expose telemetry instance descriptor
-> via a simple information retrieval protocol operation.
+On 10/31/26 14:56, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
 > 
-> Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+> Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] At this commit, the new conflict check in b53_mirror_add()
+>    (drivers/net/dsa/b53/b53_common.c:2553-2557) decides whether rules…
+> - [Low] The commit message says the patch propagates a failed capture-
+>    control read, but only the B53_MIR_CAP_CTL read in b53_mirror_add()…
+> 
+> Pre-existing issues:
+> - [Medium] Each per-port, per-direction mirror source bit is shared by
+>    every tc matchall mirror rule on that port and direction, but it is…
+> 
+> --
+> 
+> net: dsa: b53: reject conflicting mirror destinations
+> 
+> With this patch, b53_mirror_add() reads B53_MIR_CAP_CTL first. While
+> MIRROR_EN is set, it rejects a new mirror rule whose destination differs
+> from the one already programmed. b53_mirror_del() now clears the whole
+> CAP_PORT_MASK field along with MIRROR_EN when the last source is removed.
+> 
+>> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
+>> index c38e8c5838bd8..378f47e7250cd 100644
+>> --- a/drivers/net/dsa/b53/b53_common.c
+>> +++ b/drivers/net/dsa/b53/b53_common.c
+>> @@ -2543,7 +2543,19 @@ int b53_mirror_add(struct dsa_switch *ds, int port,
+>>   		   struct netlink_ext_ack *extack)
+>>   {
+>>   	struct b53_device *dev = ds->priv;
+>> -	u16 reg, loc;
+>> +	u16 reg, loc, cap_ctl;
+>> +	int ret;
+>> +
+>> +	ret = b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &cap_ctl);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	if ((cap_ctl & MIRROR_EN) &&
+>> +	    (cap_ctl & CAP_PORT_MASK) != mirror->to_local_port) {
+>> +		NL_SET_ERR_MSG_MOD(extack,
+>> +				   "Only one mirroring destination is supported");
+>> +		return -EOPNOTSUPP;
+>> +	}
+> 
+> [Severity: Medium]
+> Can leftover hardware state make this check reject a valid first rule?
+> 
+> The check only looks at MIRROR_EN and CAP_PORT_MASK as read back from
+> B53_MIR_CAP_CTL. It doesn't look at B53_IG_MIR_CTL or B53_EG_MIR_CTL.
+> 
+> At this commit, nothing in the setup path writes any of these three
+> registers. The only writers are b53_mirror_add() and b53_mirror_del().
+> Also, b53_switch_reset() doesn't soft-reset every chip.
+> 
+> Suppose a bootloader, a previous kernel (kexec or warm reboot) or an
+> earlier driver bind left MIRROR_EN set with capture port X. The first tc
+> mirror rule to any port other than X would then fail with -EOPNOTSUPP and
+> "Only one mirroring destination is supported", even though no software
+> rule exists. Before this patch, the add path just overwrote the stale
+> destination.
+> 
+> The reverse case also seems possible. Stale source bits with MIRROR_EN
+> clear pass this check, so those ports end up mirrored. The same stale bits
+> also stop b53_mirror_del() from ever clearing MIRROR_EN.
+> 
+> The later patch "net: dsa: b53: harden mirror register programming" in
+> this series seems to fix this. It adds b53_mirror_init(), which zeroes all
+> three registers from b53_setup() and bcm_sf2_sw_setup(). It also bases the
+> occupancy test on the source masks:
+> 
+> 	if (((reg | other_reg) & MIRROR_MASK) &&
+> 	    (cap_ctl & cap_mask) != cap_port) {
+> 
+> Could that be folded into this patch, so this commit doesn't regress on
+> its own?
+> 
+>>   
+>>   	if (ingress)
+>>   		loc = B53_IG_MIR_CTL;
+>> @@ -2554,11 +2566,10 @@ int b53_mirror_add(struct dsa_switch *ds, int port,
+>>   	reg |= BIT(port);
+>>   	b53_write16(dev, B53_MGMT_PAGE, loc, reg);
+>>   
+>> -	b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &reg);
+>> -	reg &= ~CAP_PORT_MASK;
+>> -	reg |= mirror->to_local_port;
+>> -	reg |= MIRROR_EN;
+>> -	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, reg);
+>> +	cap_ctl &= ~CAP_PORT_MASK;
+>> +	cap_ctl |= mirror->to_local_port;
+>> +	cap_ctl |= MIRROR_EN;
+>> +	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, cap_ctl);
+>>   
+>>   	return 0;
+>>   }
+> 
+> [Severity: Low]
+> The commit message says the patch will "propagate a failed
+> capture-control read rather than making the decision from uninitialized
+> data". Are the other register accesses here still unchecked?
+> 
+> Just above this hunk, the source mask read is not checked:
+> 
+> 	b53_read16(dev, B53_MGMT_PAGE, loc, &reg);
+> 	reg |= BIT(port);
+> 	b53_write16(dev, B53_MGMT_PAGE, loc, reg);
+> 
+> reg is an uninitialized stack variable. On failure, b53_mdio_read16() and
+> b53_spi_read16() return without writing *val. A failed read therefore
+> writes garbage back into B53_IG_MIR_CTL or B53_EG_MIR_CTL.
+> 
+> Both writes are unchecked too, and the function returns 0 either way. DSA
+> then keeps a mall entry that the hardware never accepted.
+> 
+> The source bit is enabled before B53_MIR_CAP_CTL is written. If the
+> capture-control write fails, MIRROR_EN can stay clear, and a later rule to
+> a different destination would pass the new guard.
+> 
+> b53_mirror_del() has the same pattern. If its B53_MIR_CAP_CTL read fails,
+> reg still holds the other-direction source mask, and that value is written
+> into the capture control register:
+> 
+> 	b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &reg);
+> 	...
+> 	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, reg);
+> 
+> The later patch "net: dsa: b53: harden mirror register programming" in
+> this series seems to fix all of these. Every read and write is checked,
+> B53_MIR_CAP_CTL is programmed before the source bit is enabled, and the
+> delete path jumps to an error label instead of writing back garbage.
+> 
+>> @@ -2595,10 +2606,8 @@ void b53_mirror_del(struct dsa_switch *ds, int port,
+>>   
+>>   	b53_read16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, &reg);
+>>   	/* Both no longer have ports, let's disable mirroring */
+>> -	if (loc_disable && other_loc_disable) {
+>> -		reg &= ~MIRROR_EN;
+>> -		reg &= ~mirror->to_local_port;
+>> -	}
+>> +	if (loc_disable && other_loc_disable)
+>> +		reg &= ~(MIRROR_EN | CAP_PORT_MASK);
+> 
+> [Severity: Medium]
+> This isn't a bug introduced by this patch, but each per-port,
+> per-direction source bit is shared by every matchall mirror rule on that
+> port and direction, and it is not reference counted.
+> 
+> dsa_user_add_cls_matchall_mirred() in net/dsa/user.c allows several
+> identical rules, and each one is tracked as its own mall entry. Earlier in
+> b53_mirror_del(), deleting any one of them clears the shared bit:
+> 
+> 	reg &= ~BIT(port);
+> 
+> With this patch, if that was the last bit, MIRROR_EN and CAP_PORT_MASK are
+> cleared as well. Does the remaining rule then stop mirroring in hardware
+> while it is still installed? And would the new guard in b53_mirror_add()
+> then accept a rule to a different destination?
+> 
+> The later patch "net: dsa: b53: reference count shared mirror source
+> bits" in this series seems to fix this. It adds mirror_count[2] to struct
+> b53_port, so the hardware is programmed only on the first reference and
+> cleared only when the last one goes away:
+> 
+> 	if (--(*mirror_count))
+> 		return;
+> 
+>>   	b53_write16(dev, B53_MGMT_PAGE, B53_MIR_CAP_CTL, reg);
+>>   }
+>>   EXPORT_SYMBOL(b53_mirror_del);
+> 
 
-A few minor things inline.
+Agreed that the conflict check needs to handle stale hardware state in 
+the same patch. I’ll fold the mirror initialization and register-access 
+hardening into this change, along with the shared-source reference 
+counting, so the fix is complete in isolation.
 
-Thanks,
-
-Jonathan
-
-> diff --git a/drivers/firmware/arm_scmi/protocols.h b/drivers/firmware/arm_scmi/protocols.h
-> index d1f1bde8a7cc..77daedddaab7 100644
-> --- a/drivers/firmware/arm_scmi/protocols.h
-> +++ b/drivers/firmware/arm_scmi/protocols.h
-> @@ -410,5 +410,6 @@ DECLARE_SCMI_REGISTER_UNREGISTER(sensors);
->  DECLARE_SCMI_REGISTER_UNREGISTER(voltage);
->  DECLARE_SCMI_REGISTER_UNREGISTER(system);
->  DECLARE_SCMI_REGISTER_UNREGISTER(powercap);
-> +DECLARE_SCMI_REGISTER_UNREGISTER(telemetry);
->  
->  #endif /* _SCMI_PROTOCOLS_H */
-> diff --git a/drivers/firmware/arm_scmi/telemetry.c b/drivers/firmware/arm_scmi/telemetry.c
-> new file mode 100644
-> index 000000000000..23eaac485691
-> --- /dev/null
-> +++ b/drivers/firmware/arm_scmi/telemetry.c
-> @@ -0,0 +1,149 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * System Control and Management Interface (SCMI) Telemetry Protocol
-> + *
-> + * Copyright (C) 2026 ARM Ltd.
-> + */
-> +
-> +#include <linux/atomic.h>
-
-I'm not immediately spotting this being used.  Perhaps take another
-look at whether some of these should wait for later patches
-where their usecases come in.
-
-> +#include <linux/bitfield.h>
-> +#include <linux/compiler_types.h>
-> +#include <linux/device.h>
-> +#include <linux/err.h>
-> +#include <linux/io.h>
-> +#include <linux/limits.h>
-> +#include <linux/module.h>
-> +#include <linux/slab.h>
-> +#include <linux/sprintf.h>
-> +#include <linux/string.h>
-> +#include <linux/uuid.h>
-> +
-> +#include "protocols.h"
-> +#include "notify.h"
-> +
-> +/* Updated only after ALL the mandatory features for that version are merged */
-> +#define SCMI_PROTOCOL_SUPPORTED_VERSION		0x10000
-> +
-> +#define SCMI_TLM_DE_IMPL_NUM_DWORDS	4
-> +
-> +/* An enum listing the protocol specific commands definitions */
-> +enum scmi_telemetry_protocol_cmd {
-> +	TELEMETRY_LIST_SHMTI = 0x3,
-> +	TELEMETRY_DE_DESCRIPTION = 0x4,
-> +	TELEMETRY_LIST_UPDATE_INTERVALS = 0x5,
-> +	TELEMETRY_DE_CONFIGURE = 0x6,
-> +	TELEMETRY_DE_ENABLED_LIST = 0x7,
-> +	TELEMETRY_CONFIG_SET = 0x8,
-> +	TELEMETRY_READING_COMPLETE = TELEMETRY_CONFIG_SET,
-> +	TELEMETRY_CONFIG_GET = 0x9,
-> +	TELEMETRY_RESET = 0xA,
-> +};
-> +
-> +struct scmi_msg_resp_telemetry_protocol_attributes {
-
-I like clear names as much as anyone, but probably wouldn't lose much by
-abbreviating a little?
-
-struct scmi_msg_rsp_telemetry_prot_attr
-perhaps?
-
-> +	__le32 de_num;
-> +	__le32 groups_num;
-> +	__le32 de_implem_rev_dword[SCMI_TLM_DE_IMPL_NUM_DWORDS];
-> +	__le32 attributes_1;
-> +#define SUPPORTS_SINGLE_READ(x)		(le32_get_bits((x), BIT(31)))
-> +#define SUPPORTS_CONTINUOS_UPDATE(x)	(le32_get_bits((x), BIT(30)))
-> +#define SUPPORTS_PER_GROUP_CONFIG(x)	(le32_get_bits((x), BIT(18)))
-> +#define SUPPORTS_RESET(x)		(le32_get_bits((x), BIT(17)))
-> +#define SUPPORTS_FC(x)			(le32_get_bits((x), BIT(16)))
-
-I guess a local style thing but my normal inclination would be not hide
-what is going on here and instead define
-	ATTRS1_SUPPORTS_FC BIT(16)
-and use the le32_get_bits() inline.  These helpers have lost the connection
-with attributes_1.  
-
-> +	__le32 default_blk_ts_rate;
-> +};
-> +
-> +struct telemetry_info {
-> +	bool streaming_mode;
-> +	unsigned int num_shmti;
-> +	unsigned int num_des_tstamp;
-> +	unsigned int default_blk_ts_rate;
-> +	const struct scmi_protocol_handle *ph;
-> +	struct scmi_telemetry_info info;
-> +};
-> +
-> +static int
-> +scmi_telemetry_protocol_attributes_get(struct telemetry_info *ti)
-> +{
-> +	struct scmi_msg_resp_telemetry_protocol_attributes *resp;
-
-It feels like this is in the function scope rather than the if (!ret)
-mostly because it has a really long type name. See above.
-
-> +	const struct scmi_protocol_handle *ph = ti->ph;
-> +	struct scmi_xfer *t;
-> +	int ret;
-> +
-> +	ret = ph->xops->xfer_get_init(ph, PROTOCOL_ATTRIBUTES, 0,
-> +				      sizeof(*resp), &t);
-> +	if (ret)
-> +		return ret;
-> +
-> +	resp = t->rx.buf;
-
-I think this would ideally be in the if (!ret) as well which makes
-more sense if the declaration is in there.
-
-> +	ret = ph->xops->do_xfer(ph, t);
-> +	if (!ret) {
-
-Maybe given long lines and indent, this is worth a helper function.
-
-> +		__le32 attr = resp->attributes_1;
-> +		__be32 de_impl_version[SCMI_TLM_DE_IMPL_NUM_DWORDS];
-> +
-> +		ti->info.base.num_des = le32_to_cpu(resp->de_num);
-> +		ti->info.base.num_groups = le32_to_cpu(resp->groups_num);
-> +		for (int i = 0; i < SCMI_TLM_DE_IMPL_NUM_DWORDS; i++)
-> +			de_impl_version[i] =
-> +				cpu_to_be32(le32_to_cpu(resp->de_implem_rev_dword[i]));
-> +		import_uuid(&ti->info.base.primary_revision, (const __u8 *)&de_impl_version);
-> +		ti->info.single_read_support = SUPPORTS_SINGLE_READ(attr);
-> +		ti->info.continuous_update_support = SUPPORTS_CONTINUOS_UPDATE(attr);
-> +		ti->info.per_group_config_support = SUPPORTS_PER_GROUP_CONFIG(attr);
-> +		ti->info.reset_support = SUPPORTS_RESET(attr);
-> +		ti->info.fc_support = SUPPORTS_FC(attr);
-> +		ti->num_shmti = le32_get_bits(attr, GENMASK(15, 0));
-
-I think that mask belongs up with the structure definition as people will want
-to check the whole thing in one place.
-
-
-> +		ti->default_blk_ts_rate = le32_to_cpu(resp->default_blk_ts_rate);
-> +	}
-> +
-> +	ph->xops->xfer_put(ph, t);
-> +
-> +	return ret;
-> +}
-
-> diff --git a/include/linux/scmi_protocol.h b/include/linux/scmi_protocol.h
-> index 3f7cc35eb861..f076ce5601cf 100644
-> --- a/include/linux/scmi_protocol.h
-> +++ b/include/linux/scmi_protocol.h
-> @@ -2,17 +2,19 @@
->  /*
->   * SCMI Message Protocol driver header
->   *
-> - * Copyright (C) 2018-2021 ARM Ltd.
-> + * Copyright (C) 2018-2026 ARM Ltd.
->   */
->  
->  #ifndef _LINUX_SCMI_PROTOCOL_H
->  #define _LINUX_SCMI_PROTOCOL_H
->  
->  #include <linux/bitfield.h>
-> +#include <linux/bitops.h>
-
-Not seeing use of that in this patch within the header.
-Perhaps it should be included in a later patch or in the c file?
-
->  #include <linux/device-id/scmi.h>
->  #include <linux/device.h>
->  #include <linux/notifier.h>
->  #include <linux/types.h>
-> +#include <linux/uuid.h>
->  
->  #define SCMI_MAX_STR_SIZE		64
->  #define SCMI_SHORT_NAME_MAX_SIZE	16
-> @@ -828,6 +830,35 @@ struct scmi_pinctrl_proto_ops {
->  	int (*pin_free)(const struct scmi_protocol_handle *ph, u32 pin);
->  };
->  
-> +struct scmi_telemetry_base_info {
-> +	unsigned int version;
-> +	uuid_t primary_revision;
-> +	unsigned int num_des;
-> +	unsigned int num_groups;
-> +	unsigned int num_intervals;
-> +	unsigned int num_shmtis;
-> +};
-> +
-> +struct scmi_telemetry_info {
-> +	bool single_read_support;
-> +	bool continuous_update_support;
-> +	bool per_group_config_support;
-> +	bool reset_support;
-> +	bool fc_support;
-> +	struct scmi_telemetry_base_info base;
-> +};
-
+pw-bot: cr
+-- 
+Florian
