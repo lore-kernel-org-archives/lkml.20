@@ -1,81 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794188822;
-	b=mFvTvNnqnOiIJjMwoLCOzhbBtdSg6vWtq8vORlnE56zwic00I98EBUc5dce3M01JBi1I
-	 HjpkLtGb2l/TJF0dbh3KAn3UHpitPcA67EE7ooMc8YiIdifR53iU1zTyYEiOyhCIQbvnV
-	 h8uY+hDwUvXDjvEPxH7gQtt17jz4JYB4v/hNjGUPQS1EzMJUC4IxMVst+W/s+b/sMph9P
-	 50nt9Ir5Tj47CKujDwbrfcPAv0cJ3ovAKQLRzpAQ5Pw022Sbo+KvuSrWMWIG38gpogzIh
-	 eW7jtSapvHj0VtuLZbl11iy1F2rrJE3AOOtMjXzCN2SG8Yp58nRXoCk7PM/luz4wWYg==
+	t=1794188985;
+	b=n3La4aF83Y6HMtt8v/nLXr9FQebMWbVNoh7tRMmxSsjsIpl+jL5zVovSyXYLHzlm8a3T
+	 bL3dZKOvVoWeVIt1b8zgR6VdWIIkDHV8YkuyTCWtat8z3cxgmoRCke6LSgGbbtwZzhNZT
+	 04rGKnvmiilihubdgy2QuhaXRuSY6r9j1OkjnGId9p78QHvdPRFBWzzfkYcuZKTfGzh5V
+	 Q5grU2XnvBK+IykaWfJNdQcT2h2bcoRnmzayYWpzNbgNuBP4yQA7rncuJDdD2zr7YNdIl
+	 +sog82Yd/NE74CFEsSSHm4vHsDpZS84ibIPzrZ+B53NzxAYEID//x3PBdslLc03ejow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794188822;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=fedi2FVynnyOJO1ineshwdOa6R54PcmKGeFqXDNuo4Y=;
-	b=hX3BlXZyGpA1XvnX1IJmZRpz9so5P30ML6an5Iy8pcOf4abSpEUI+nzhKJ0R+Rrzmrn0
-	 9DZl4vHV2nRNfGK7zH/QpwSR7utecU92MjT2GkdioaUTvIMp84hjnps4H6rA8604SC5Du
-	 buRzv3CQROh2BqZfyg12XTYASStjUDqSyt+KR6n87qoasPnnG6wIdiP6R6+Os3HZAdzxE
-	 Q/5sUQ58SPdC/eZlLXMDVQFSYZ4RMtV9Olgq/tzCRVvUP2N1Menn4ZU7lHJlsy2K+1MI2
-	 Bi4PyqhMtpETM9fJHIpfezVKgqVV+6QUnvEbAMDwus2UqK3mFpKq0+Je6PW8fgiMR4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794188985;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=vvG1+/vjKfCBP5nEDq5gE2tcNkiHQ0ZBsViIpJ1rtj8=;
+	b=id4/UM5NwanZ7h2uZKQT046sppehCC+EN6uG7qJRmA/5JlVOuLmwj1JmGU0lFhKv7tFU
+	 mnSunPOfXT4Lp71eZ+8nJAQIaBe8Shsoe9RQZzAjY9iskwrgT35XQSSgtGoAfgSun83aY
+	 zvaCPPqFPSlSDxzdZhmpz/663yRmRZCB8lpQGqQICTYcf14dnTbCMsmJTpi3f0W0AmyRL
+	 HNZArSnXZWLI/Ym+AATxvCo2mVwqurUPDN40BMbvQUGajQxNWJ6xuT1lx6gwnVo8edkNO
+	 8DyR1tCRBXBBro4hUsBqTyuQlwT6hu4siBe3BUGIspjQ1n0x0tGnkU/h3HQV1p7MklA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=ewSrOaw1;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ckJVll3w;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1B51606A320
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:47:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1B51606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE729606A320
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:49:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE729606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=ewSrOaw1
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 63DAA40E04CF;
-	Mon,  9 Nov 2026 01:46:52 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id deQr1jtHEFED; Mon,  9 Nov 2026 01:46:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794188809; bh=fedi2FVynnyOJO1ineshwdOa6R54PcmKGeFqXDNuo4Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=ewSrOaw14xWo1pOPOQplULOYL8edYcpP8wqCSNU7W9k1cWrQ4VzcwlqwV5qkQP9kP
-	 RPq607t9kudr8qHOAj8kuV1nMSJ8KCMjrdYGMTEr5fIKeXLhclKtdbefVgr7/U6rYT
-	 c2tVARkvqZU7yp+k0713BmTzKoPC0anxOijocHVT8L1eaxMOKeUI/xii69WuHBeMdt
-	 INIbP1VI+s+CQm1BQZCKJGYAyzDGMvO4DxMCBpS2XBOM+a0YuSimmZP0v1WfV9Z4wD
-	 Svvp8Ezx24l5TgxYsZsb+MGyGm7BTPHHi5ZjMtQkmMn0SET8L1CLxDy6otdly/+yqW
-	 0o4dS1ic7rUGz8x9MV0FBuAmXMXHYpVtToFe62h3MsaIB/wVJhnVGM5W822v2uFq8J
-	 zIsdcuktLvOO5yBZYMvFt7gIHY6XwDEm0M8iGoo4ls9a2Q5rEbgKwRxTAr6JMVGWk3
-	 dlzHiqTDfq+v9EcyVsz5U8KfmR0yHpK5HfjeCB7sQ2W6pjOeyMAyaZubMI8FNx8Lp1
-	 wfoFkhIWSbyHHDJRSd17HkDE1wf9+d0zxER/UeaY0fNp1mIWWGrTXN9bFnjOdGgK/q
-	 JngSngGHU6+zTHQ2CE7EJiO0t4uvY9YiGwnEeXwuJHNlGy0sGqXQEZ5A8zhn3rtGXY
-	 TkzOlyL6eq4LZZW2AUmV76jQ=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id B91B640E0140;
-	Mon,  9 Nov 2026 01:46:32 +0000 (UTC)
-Date: Sun, 8 Nov 2026 17:46:29 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Reinette Chatre <reinette.chatre@intel.com>
-Cc: tglx@linutronix.de, dave.hansen@linux.intel.com, x86@kernel.org,
-	hpa@zytor.com, fustini@kernel.org, fenghuay@nvidia.com,
-	peternewman@google.com, yu.c.chen@intel.com,
-	linux-kernel@vger.kernel.org, patches@lists.linux.dev,
-	tony.luck@intel.com, ben.horgan@arm.com, james.morse@arm.com,
-	Dave.Martin@arm.com, babu.moger@amd.com
-Subject: Re: [PATCH v3 0/5] x86,fs/resctrl: Cleanups in preparation for
- multiple controls support
-Message-ID: <20261109014629.GEavEl9ds0dVxaOqER@fat_crate.local>
-References: <cover.1793834224.git.reinette.chatre@intel.com>
- <0dfb141b-7b92-423b-8603-12d99ad1b2e7@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=ckJVll3w
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=vvG1+/vjKfCBP5nEDq5gE2tcNkiHQ0ZBsViIpJ1rtj8=;
+	b=ckJVll3wnRtFor2xxQNFB0YM2StyCRHZ64lPmSZ2vxkyyZ2Gjgpl2PECPFH39S4q+YNVv/w40
+	RnFySqC6ticmInR8OWBCEzA6LwKFixIueZZ0d86PlT3YKCncQL05mmYfJVAtKBGnYRBtNd67oD/
+	kKinsyRRaNyRqhLA+xJU8gw=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jNCPr1xFrzLlXC;
+	Mon,  9 Nov 2026 09:49:20 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 0A25F40573;
+	Mon,  9 Nov 2026 09:49:34 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 9 Nov
+ 2026 09:49:33 +0800
+Message-ID: <c6834584-eeac-469b-99d8-095fac40ee6b@huawei.com>
+Date: Mon, 9 Nov 2026 09:49:32 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,19 +62,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <0dfb141b-7b92-423b-8603-12d99ad1b2e7@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] arm_mpam: resctrl: Limit num_rmids to the CLOSIDs in
+ use
+To: Ben Horgan <ben.horgan@arm.com>, <james.morse@arm.com>,
+	<reinette.chatre@intel.com>, <fenghuay@nvidia.com>, <gshan@redhat.com>,
+	<jic23@kernel.org>, <zengheng4@huawei.com>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20261106081923.2333070-1-ruanjinjie@huawei.com>
+ <28cbd086-af52-47c4-9e71-6957ab8caf76@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <28cbd086-af52-47c4-9e71-6957ab8caf76@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Wed, Nov 04, 2026 at 04:26:43PM -0800, Reinette Chatre wrote:
-> Dear x86 maintainers,
+
+
+在 2026/11/6 19:01, Ben Horgan 写道:
+> Hi Jinjie,
+
+Hi Ben,
+
 > 
-> Could you please consider this series for inclusion?
+> On 06/11/2026 08:19, Jinjie Ruan wrote:
+>> On MPAM an RMID is a PMG within a PARTID, so resctrl can only allocate
+>> the PMGs of the CLOSIDs it uses. info/L3_MON/num_rmids is instead set
+>> to the whole PARTID and PMG space when the monitors are initialised,
+>> and halved when CDP is enabled. It reports more RMIDs than resctrl can
+>> allocate in two cases:
+>>
+>> - With CDP each CLOSID takes two PARTIDs, and resctrl halves the
+>>   CLOSID count rounding down, while MPAM halves the whole RMID space.
+>>   With 5 PARTIDs and 2 PMGs resctrl has 2 CLOSIDs and 4 RMIDs, but
+>>   num_rmids reads 5. The count is too high whenever the number of
+>>   PARTIDs is odd and there is more than one PMG.
+>>
+>> - On a monitor-only system there are no control groups and resctrl
+>>   only uses the default CLOSID, but num_rmids still covers every
+>>   PARTID. With 5 PARTIDs and 2 PMGs it reads 10 while only 2 RMIDs
+>>   can be allocated.
+>>
+>> RMID allocation is limited to the CLOSIDs in use, so only the value
+>> reported to userspace is too high. Creating as many monitor groups as
+>> num_rmids allows fails with -ENOSPC before that number is reached.
+>>
+>> Work out the number of CLOSIDs with the rules resctrl applies when it
+>> is mounted: schemata_list_add() halves a resource's CLOSID count
+>> while CDP is enabled on it, rounding down, closid_init() takes the
+>> smallest across the resources, and a monitor-only system has only the
+>> default CLOSID. Report (pmg_max + 1) RMIDs for each of those CLOSIDs,
+>> counting at monitor initialisation and from
+>> resctrl_arch_set_cdp_enabled(), which resctrl calls whenever a mount
+>> or unmount enables or disables CDP.
+>>
+>> Fixes: 264c285999fc ("arm_mpam: resctrl: Add monitor initialisation and domain boilerplate")
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> Cc: <stable@vger.kernel.org> # 7.1.x
+>> Cc: James Morse <james.morse@arm.com>
+>> Cc: Ben Horgan <ben.horgan@arm.com>
+>> Cc: Reinette Chatre <reinette.chatre@intel.com>
+>> Cc: Fenghua Yu <fenghuay@nvidia.com>
+>> ---
+>> v3:
+>> - Drop resctrl_arch_set_mon_rmid_count() and count the CLOSIDs in the
+>>   MPAM driver instead, as Ben suggested.
+>> - v2: https://lore.kernel.org/all/20261105123304.2281987-1-ruanjinjie@huawei.com/
+>> v2:
+>> - Also fix num_rmids on monitor-only systems, as Ben suggested.
+>> - Retitle from "arm_mpam: Round the CDP RMID count down to whole CLOSIDs".
+>> - v1: https://lore.kernel.org/all/20261104101622.563280-1-ruanjinjie@huawei.com/
+>> ---
+>>  drivers/resctrl/mpam_resctrl.c | 45 +++++++++++++++++++++++-----------
+>>  1 file changed, 31 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+>> index 5468367776e2..6859849f299b 100644
+>> --- a/drivers/resctrl/mpam_resctrl.c
+>> +++ b/drivers/resctrl/mpam_resctrl.c
+>> @@ -191,6 +191,34 @@ static void mpam_resctrl_monitor_sync_abmc_vals(struct rdt_resource *l3)
+>>  	 */
+>>  }
+>>  
+>> +/* The RMID count follows the CLOSIDs resctrl uses. */
+>> +static void mpam_resctrl_set_num_rmid(void)
+>> +{
+>> +	struct mpam_resctrl_res *res = &mpam_resctrl_controls[RDT_RESOURCE_L3];
+>> +	struct rdt_resource *l3 = &res->resctrl_res;
+>> +	enum resctrl_res_level rid;
+>> +	u32 num_closid = UINT_MAX;
+>> +
+>> +	for_each_mpam_resctrl_control(res, rid) {
+>> +		u32 res_num_closid;
+>> +
+>> +		if (!res->resctrl_res.alloc_capable)
+>> +			continue;
+>> +
+>> +		res_num_closid = mpam_partid_max + 1;
+>> +		if (res->cdp_enabled)
+>> +			res_num_closid /= 2;
+>> +
+>> +		num_closid = min(num_closid, res_num_closid);
+>> +	}
+> 
+> There are global variables mpam_partid_max, cdp_enabled and a helper resctrl_arch_alloc_capable().
+> Using these should make this simpler.
 
-/me is looking...
+Make sense.
+
+> 
+>> +
+>> +	/* Monitor-only systems have only the default CLOSID. */
+>> +	if (num_closid == UINT_MAX)
+>> +		num_closid = 1;
+>> +
+>> +	l3->mon.num_rmid = (mpam_pmg_max + 1) * num_closid;
+>> +}
+>> +
+>>  int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+>>  {
+>>  	u32 partid_i = RESCTRL_RESERVED_CLOSID, partid_d = RESCTRL_RESERVED_CLOSID;
+>> @@ -217,11 +245,6 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+>>  	cdp_enabled = enable;
+>>  	mpam_resctrl_controls[rid].cdp_enabled = enable;
+>>  
+>> -	if (enable)
+>> -		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx() / 2;
+>> -	else
+>> -		l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
+>> -
+>>  	/* The mbw_max feature can't hide cdp as it's a per-partid maximum. */
+>>  	if (cdp_enabled && !mpam_resctrl_controls[RDT_RESOURCE_MBA].cdp_enabled)
+>>  		mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = false;
+>> @@ -238,6 +261,8 @@ int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable)
+>>  	if (!cdp_enabled && mpam_resctrl_controls[RDT_RESOURCE_MBA].class)
+>>  		mpam_resctrl_controls[RDT_RESOURCE_MBA].resctrl_res.alloc_capable = true;
+>>  
+>> +	mpam_resctrl_set_num_rmid();
+>> +
+> 
+> Why move the location of where num_rmid is set?
+
+The loop needs to look at which resources can be allocated, and the code
+above will turn off MBA when CDP is enabled and turn it back on when CDP
+is disabled, so it must wait for it to finish making the changes before
+calculating.
+
+> 
+> Thanks,
+> 
+> Ben
+> 
+>>  	if (enable) {
+>>  		if (mpam_partid_max < 1)
+>>  			return -EINVAL;
+>> @@ -1344,15 +1369,7 @@ static int mpam_resctrl_monitor_init(struct mpam_resctrl_mon *mon,
+>>  	l3->name = "L3";
+>>  	l3->mon_scope = RESCTRL_L3_CACHE;
+>>  
+>> -	/*
+>> -	 * num-rmid is the upper bound for the number of monitoring groups that
+>> -	 * can exist simultaneously, including the default monitoring group for
+>> -	 * each control group. Hence, advertise the whole rmid_idx space even
+>> -	 * though each control group has its own pmg/rmid space. Unfortunately,
+>> -	 * this does mean userspace needs to know the architecture to correctly
+>> -	 * interpret this value.
+>> -	 */
+>> -	l3->mon.num_rmid = resctrl_arch_system_num_rmid_idx();
+>> +	mpam_resctrl_set_num_rmid();
+>>  
+>>  	if (type == QOS_L3_MBM_TOTAL_EVENT_ID) {
+>>  		int err;
+> 
 
 -- 
-Regards/Gruss,
-    Boris.
+Best regards,
+Jinjie
 
-https://people.kernel.org/tglx/notes-about-netiquette
