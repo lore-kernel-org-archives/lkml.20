@@ -1,89 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187280;
-	b=3yuVxjA6ZbHlIQ/FcbaJKNhiTGWyyNcK0ssp9icNnG3GJMpoCswZZVdw/g85sRvFAuFL
-	 xbJ9eFI2DHrit7AWUjDSRkuABUtuiVouXWnH1KOS0LsLjUaAGcx/5SLOfAAQBhdKu6zAV
-	 6yPCVOhtuAX/JbFsANxij/9L9JEoJeW19vLqd1nog+PfbNUskU40sKXy1dhyiaA53FcFG
-	 n/tHVQfLUuULF7o6bn9E8sQugLK6nbeitD6P/74uNSCC57WXME1EHG0n9HpFxASt5gVLN
-	 ynCOLtXPhoAr7oItptM3LoDBz0Tc9FWwwyiX2PR9Cd552ZXW7oVEWSlBy9DpDOGHZNQ==
+	t=1794187283;
+	b=MFUOeDsDd/Tbl90R81cv2fR0Cyduqagp7s/udrc1k0aL80/TI19bGP9teR+cMHhRqu64
+	 zfW1IfImJKKofES1By9TMh/bujSYA3pecNxCzZviGC7b/cVDM4IXV0mxZNshqDJSBPmxH
+	 mWYm3t2qvov/IOSM33XqUxJU08a+GNI6JUZiozyysrphnUsZ0TP34VYae7mMC5bjoFuUk
+	 YR6LDN+/JNPf6C6XINjEerx53IpuznRSRWEgfAh68MAvkwfTmO9kLIe+ggYrafe/OFWUO
+	 AD/jHVhOlhtEZBeJCIHhy/6/bmNrWHKU26uT8axBcjindYhsMbiosJYG30GILqBRAkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187280;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=jhbHTsXlkafiijDqKYXVFTZ8kLMGsWqGWQ4/HbRTNCs=;
-	b=31qQ8TGX+I8v0lo1228RF+xNP7SWcGAaZ13wHhhjgNYHOUDoRsUv4wO3Jdw09VJbxn/b
-	 GRg6rcAAVuHEPSlYgRf1Ats6z22A5WckijWo3M3iqqzjS3Dt2qij6KCwmiEzuhdT9DfsB
-	 OfR1REn392rX1HU/3sZpwtPyXvYz22KX6d3YXFGg+B9XsSq8HatKS0Bk4MfIgCzCwh5lw
-	 lTwjvwp0ODXE9ubX55DCg/IW3BmUELGgNdnmisah34Crv8M2eqRDmqtR9DdVjQIRfx5KB
-	 QTdhnqZ8ws9v49IvBxNsZqJz890DOEMCPR4g6h6JjrcRJ5RTUQOa7SJxmTJuM3WPNfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187283;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=/Z17mWdlObRHExXZCL6A/eytm6yqI/SONEQ1qiNL+yY=;
+	b=ytKkPcblbo+OmCFp2vGnhNH2EWKeQ2FZ9CVDepBX6s9C0SejjAF1LoFu4gP357S3bRF7
+	 GXFEnxadoRv+slBWfjCIoDIwQyeKXGv0rRKT1E8qMqmhUVUGYnFaXNShYZ+pqu/tbeaw7
+	 SN10semA927lbpPIrOG2ikpkNyYscZXF6CyhDuolK5xk+KDzczDO/L4MwXHVyUG6aGFuv
+	 12yP/KAYMqfL0nVW/HGH1NI5V0CP3M+fzXKPpEZp5fFUP8vTV2HJWB2U2ntBJeIoS2y94
+	 Y00/QjhK9sBJAvCz80Z5++VHLZqqyFdCcNJZeG3s3PRvoxvQXtocCOudP/USHhwJa8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=UMiTYyaJ;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=networkplumber.org;
+	spf=pass smtp.mailfrom=networkplumber.org;
+	dkim=pass header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OKEGSm3w;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71438606A32A;
-	Mon,  9 Nov 2026 01:21:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71438606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22AD1606D83E
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:21:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22AD1606D83E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=networkplumber.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=networkplumber.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=UMiTYyaJ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
-	To:From:Reply-To:Content-ID:Content-Description;
-	bh=jhbHTsXlkafiijDqKYXVFTZ8kLMGsWqGWQ4/HbRTNCs=; b=UMiTYyaJUWRPpigzSX/2R4AfNf
-	Vms5l1HWVobQvkUIuIvqktD0UgljhqxSbtoiRrsneCppCdTNcKxy8ly0tJqBPhNnip96ELPYdAV46
-	pTVBeOf2FCjl/Af314myhUZtQJTMYO4fTEWjC7W4CRrHfJL9OCXfV0gY+9eWIvOmjvEfNd31l/eJf
-	R4VjoZJ9AcTbMWMfKdwocZ6BBEQZ90As+82F9cuKSVmnjwBy9MGTCNesvzdaYTKGxrPgjh1eH5vCX
-	Cj2T5dSA1IPFIUfOpUZYN5G+Li/Wd+b4emrOkVGbedGPy+R+eyALKGKOIA/+GXVUAjSqPdDoChUhj
-	VOAyAk6g==;
-Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xQE4P-00000007PwJ-2HJo;
-	Mon, 09 Nov 2026 01:21:13 +0000
-Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xQE4P-0000000EKVS-1Vui;
-	Mon, 09 Nov 2026 01:21:13 +0000
-From: David Woodhouse <dwmw2@infradead.org>
-To: kvm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	x86@kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paul Durrant <paul@xen.org>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Sascha Bischoff <Sascha.Bischoff@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Jack Allister <jalliste@amazon.com>,
-	Dongli Zhang <dongli.zhang@oracle.com>,
-	joe.jin@oracle.com,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v12 21/24] KVM: selftests: Test that the first user TSC write is honoured exactly
-Date: Sun,  8 Nov 2026 17:21:07 -0800
-Message-ID: <20261109012112.3415328-22-dwmw2@infradead.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261109012112.3415328-1-dwmw2@infradead.org>
-References: <20261109012112.3415328-1-dwmw2@infradead.org>
+	dkim=pass (2048-bit key) header.d=networkplumber-org.20260707.gappssmtp.com header.i=@networkplumber-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OKEGSm3w
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3b14b96448eso140862a91.3
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 17:21:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=networkplumber-org.20260707.gappssmtp.com; s=20260707; t=1794187282; x=1794792082; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/Z17mWdlObRHExXZCL6A/eytm6yqI/SONEQ1qiNL+yY=;
+        b=OKEGSm3w4MAnap14tM2oUrid8Tww6hSauoTRrzABho3H/h1kA6j/G8+PZ+9SJSSj3u
+         0fDtlJVx1q3GDvwNTXIyEQH5m2NLU15e2AMby4zsSOTqLYQ26kgmJPX9Vydr9fOQJikI
+         D36vpUBRDhUzkCyjZudlKLa42fGo3NfnnMQKCWn2DogmKKY2rU/Xewvx9vMUulfOe4Sd
+         4HAsQGUKzfOiOFBO0wKD1iU3wJzIxPuLXJmOfw1BcR9aO1d7lH+4t3qTIKbFd5/6Vy75
+         Y9mZUg7YoKLfwnVtlklDpG/VhI59WUsvygIn4+9lCHGd2GqT1R0skg3GU1kGiwEMSUfg
+         6qeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794187282; x=1794792082;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/Z17mWdlObRHExXZCL6A/eytm6yqI/SONEQ1qiNL+yY=;
+        b=sIAs8pLN71PoAasWcy/RhoxPYsR7Pkk15+JU2s6AjPoky+9ccmhglk+rT5gPB2xFe1
+         9aV03LiXCZlkRiDJIucGw6DGDUwYuDZA4/+Ucq8eUiaEcRxebTkWX5Gcb1YFnjmGt/5x
+         suGmGMmN3khUrRsOBDujEps6llUJ4+btSnpotb6GklLY26uuShodbWVsx1Y3bPHBRFwL
+         q2nHu95EONIKJ0RoWLm0xoQ+OZzh6A3odGiwIrMz4SvtOB0xHwqOsMjJHTHnO9QqPBlE
+         TtNgRO6QZGtJRFWsWALz4olGbNV1FRVoIQhvSJmGN8IcJOqxwGsc68ocBQwsBGUSXN1H
+         O+5Q==
+X-Forwarded-Encrypted: i=1; AL+hErGM2IrOWV6qyY/dUgtuUAmCHd3Bb1e+v/z0u3+ZFN2kHQ//dxE6tFSgUKTysYEZSm9w+KfA11B/mVdQbFg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xzFHHsdrbTCz8E9scW/kOn4pJS88cFCYcyKlXSgdckp8qty35
+	bBvjdLa50u+Dhs6Eh3NFJVpMdXeg3t5LuaF7xDC4cXSmQRnTfcgEhpB49FPJgFiAtrY=
+X-Gm-Gg: AYBFou1DMbo8Bqexu864DS2aAV291ZM9VNExvMVvdjCNEtUFadjdRQbWwqNjatf1H91
+	QOgkEijYHVx05IgkIQaxKeMY+LY7k8+rjBMJnhxMVMm2AldJjSx7f8j5EOR36Vv+mj+PNUIM7vO
+	oSUVgs5DkTeUOZJIX5L4tAA/L9xGrX1lY6IspU8Nf3HnihrvRkw2dVK185zKGUrP2zUTjH3YxWr
+	2A08FWWfyoKJqT9vgpcSJ2py1lfoQjRl7amgq2vr149uPgBeWfuX6yZaUoigDBGgohoO3raNwWr
+	1/J/EPAUmnlbbpeoP0/zK9i2xe2La2MaXXZBFgt3guB7I4te7iyVLCRDOiWzWRqvjTdBoSq5S3j
+	Ky+CZ7suJeKOrbfVrC8wv+Uuf8FB3yuwxi5LfSOJp1iTnbFqtVAkNt+tKyZeXRue7FsHT1FxsZz
+	XSmcnkY5Gta08Ojj3tMoKiaPsSg4theT6G97kcX3OliXneu075NRxwVJBvwfMZv119I9mV5o1Ef
+	AvY3d+6MoOIEEZB/RkAoMVkux4llHQBmlGMKlsU5Q/xamUAXXWCO4PvxMW3fIfucow6pfUF07Ll
+	MHV6YZQdQkOB6FuJ26vM4XEwJetciFuJ/OcWf8qgWDS7uHW5GcC9DFycmcAfpGoqks6yQTI=
+X-Received: by 2002:a17:90b:54c4:b0:3ab:27f0:c90b with SMTP id 98e67ed59e1d1-3b12d5813c1mr2577245a91.53.1794187282446;
+        Sun, 08 Nov 2026 17:21:22 -0800 (PST)
+Received: from phoenix.lan (204-195-112-43.wavecable.com. [204.195.112.43])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b103432e26sm4883217a91.3.2026.11.08.17.21.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 17:21:22 -0800 (PST)
+From: Stephen Hemminger <stephen@networkplumber.org>
+To: netdev@vger.kernel.org
+Cc: dsahern@kernel.org,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org (open list:KERNEL SELFTEST FRAMEWORK),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH 3/3] selftests: net: netlink-dumps: test dump of route larger than skb
+Date: Sun,  8 Nov 2026 17:13:14 -0800
+Message-ID: <20261109012115.11898-4-stephen@networkplumber.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109012115.11898-1-stephen@networkplumber.org>
+References: <20261109012115.11898-1-stephen@networkplumber.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,207 +105,344 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-From: David Woodhouse <dwmw@amazon.co.uk>
+Add IPv4 and IPv6 multipath routes that do not fit in the first dump
+skb of a fresh socket. The dump must return the route or fail with
+-EMSGSIZE, not end with status 0.
 
-The 1-second "slop" heuristic in kvm_synchronize_tsc() is only
-supposed to apply between successive userspace TSC writes, i.e. once
-kvm->arch.user_set_tsc has been set by a previous write. The kernel's
-own internal TSC synchronization on vCPU creation (and frequency
-changes) must not arm it, otherwise the first genuine userspace write
-falling within 1 second of virtual cycle time of the kernel's default
-generation is "corrected" back to that generation instead of being
-honoured — breaking the restore of a guest with less than one second
-of runtime.
+IPv6 nexthops cannot use lo, so create a dummy device and generalize
+lo_set_up() to if_set_up(). Add the IPv4 routing options to config.
 
-Add a test which creates a vCPU and immediately performs a first
-host-initiated write of a TSC value corresponding to ~500ms of guest
-runtime, then verifies the value reads back exactly (modulo elapsed
-time) rather than being snapped back to the kernel's default
-generation near zero.
-
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Stephen Hemminger <stephen@networkplumber.org>
 ---
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../selftests/kvm/x86/tsc_user_set_test.c     | 153 ++++++++++++++++++
- 2 files changed, 154 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/x86/tsc_user_set_test.c
+ tools/testing/selftests/net/config          |   3 +
+ tools/testing/selftests/net/netlink-dumps.c | 271 +++++++++++++++++++-
+ 2 files changed, 270 insertions(+), 4 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 1edc78845fd3..fd063806a7fb 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -151,6 +151,7 @@ TEST_GEN_PROGS_x86 += x86/xcr0_cpuid_test
- TEST_GEN_PROGS_x86 += x86/xss_msr_test
- TEST_GEN_PROGS_x86 += x86/debug_regs
- TEST_GEN_PROGS_x86 += x86/tsc_msrs_test
-+TEST_GEN_PROGS_x86 += x86/tsc_user_set_test
- TEST_GEN_PROGS_x86 += x86/vmx_pmu_caps_test
- TEST_GEN_PROGS_x86 += x86/xen_cpuid_timing_test
- TEST_GEN_PROGS_x86 += x86/xen_migration_test
-diff --git a/tools/testing/selftests/kvm/x86/tsc_user_set_test.c b/tools/testing/selftests/kvm/x86/tsc_user_set_test.c
-new file mode 100644
-index 000000000000..a74eb78a975b
---- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/tsc_user_set_test.c
-@@ -0,0 +1,153 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Test that the first userspace write to MSR_IA32_TSC takes effect
-+ * precisely, and is not subjected to the 1-second "slop" heuristic
-+ * which is only supposed to apply between successive *userspace*
-+ * writes (kvm->arch.user_set_tsc).
-+ *
-+ * The kernel synchronizes the TSC internally when a vCPU is created
-+ * (and when its frequency is set). If any of those kernel-internal
-+ * paths incorrectly sets user_set_tsc, then the first genuine write
-+ * from userspace which happens to fall within 1 second of virtual
-+ * cycle time of the kernel's default generation is "corrected" to
-+ * match that generation instead of being honoured exactly. That
-+ * breaks the restore of a guest which has genuinely been running
-+ * for less than one second.
-+ *
-+ * Simulate exactly that: create a vCPU (kernel establishes a default
-+ * TSC generation starting near zero), then perform the first
-+ * host-initiated write with a value corresponding to ~500ms of guest
-+ * runtime. If the slop heuristic fires, the written value is snapped
-+ * back to the kernel's generation (near zero) and the TSC reads back
-+ * hundreds of milliseconds low. Repeat with an explicit
-+ * KVM_SET_TSC_KHZ on the never-run vCPU before the write: that is
-+ * another kernel-internal synchronization which must not arm the
-+ * heuristic (nor open a generation that swallows the first write).
-+ */
-+#include "kvm_util.h"
-+#include "processor.h"
+diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
+index d4416f8bdcfd..e2f136274e6d 100644
+--- a/tools/testing/selftests/net/config
++++ b/tools/testing/selftests/net/config
+@@ -29,6 +29,8 @@ CONFIG_IP6_NF_MATCH_RPFILTER=m
+ CONFIG_IP6_NF_NAT=m
+ CONFIG_IP6_NF_RAW=m
+ CONFIG_IP6_NF_TARGET_REJECT=m
++CONFIG_IP_ADVANCED_ROUTER=y
++CONFIG_IP_MULTIPLE_TABLES=y
+ CONFIG_IP_NF_FILTER=m
+ CONFIG_IP_NF_IPTABLES=m
+ CONFIG_IP_NF_IPTABLES_LEGACY=m
+@@ -38,6 +40,7 @@ CONFIG_IP_NF_NAT=m
+ CONFIG_IP_NF_RAW=m
+ CONFIG_IP_NF_TARGET_REJECT=m
+ CONFIG_IP_NF_TARGET_TTL=m
++CONFIG_IP_ROUTE_MULTIPATH=y
+ CONFIG_IP_SCTP=m
+ CONFIG_IPV6=y
+ CONFIG_IPV6_FOU=m
+diff --git a/tools/testing/selftests/net/netlink-dumps.c b/tools/testing/selftests/net/netlink-dumps.c
+index 4a94a25167e2..43f63f3f2289 100644
+--- a/tools/testing/selftests/net/netlink-dumps.c
++++ b/tools/testing/selftests/net/netlink-dumps.c
+@@ -263,11 +263,11 @@ TEST(close_with_ref)
+ 	usleep(100 * 1000);
+ }
+ 
+-static int lo_set_up(int sock, bool up)
++static int if_set_up(int sock, const char *name, bool up)
+ {
+ 	struct ifreq ifr = {};
+ 
+-	strcpy(ifr.ifr_name, "lo");
++	strcpy(ifr.ifr_name, name);
+ 	if (ioctl(sock, SIOCGIFFLAGS, &ifr))
+ 		return -1;
+ 	if (up)
+@@ -321,12 +321,12 @@ TEST(dump_with_queued_ntf)
+ 		       sizeof(addr)), 0);
+ 
+ 	// A large read makes the kernel attempt large dump skbs
+-	ASSERT_EQ(lo_set_up(inet_sock, true), 0);
++	ASSERT_EQ(if_set_up(inet_sock, "lo", true), 0);
+ 	n = recv(netlink_sock, buf, sizeof(buf), 0);
+ 	ASSERT_GE(n, (ssize_t)sizeof(struct nlmsghdr));
+ 
+ 	// Leave one notification queued, then start the dump
+-	ASSERT_EQ(lo_set_up(inet_sock, false), 0);
++	ASSERT_EQ(if_set_up(inet_sock, "lo", false), 0);
+ 	n = send(netlink_sock, &dump_links, sizeof(dump_links), 0);
+ 	ASSERT_EQ(n, sizeof(dump_links));
+ 
+@@ -362,4 +362,267 @@ TEST(dump_with_queued_ntf)
+ 	close(inet_sock);
+ }
+ 
++#define BIG_RT_TABLE	100
++#define BIG_RT_IFINDEX	100
++#define BIG_RT4_NH	1500
++#define BIG_RT6_NH	500
 +
-+/*
-+ * Returns false when the attempt was inconclusive: a snapped-back value
-+ * tracks time since vCPU creation, so if creation-to-write time gets
-+ * anywhere near the written 500ms, a buggy kernel's value could land
-+ * inside the assertions' tolerance and pass. The caller retries.
-+ */
-+static bool test_first_write(bool set_freq)
++static const struct {
++	struct nlmsghdr nlhdr;
++	struct ifinfomsg ifm;
++	struct nlattr name_hdr;
++	char name[8];
++	struct nlattr linkinfo_hdr;
++	struct nlattr kind_hdr;
++	char kind[8];
++} new_dummy = {
++	.nlhdr = {
++		.nlmsg_len	= sizeof(new_dummy),
++		.nlmsg_type	= RTM_NEWLINK,
++		.nlmsg_flags	= NLM_F_REQUEST | NLM_F_ACK | NLM_F_CREATE |
++				  NLM_F_EXCL,
++		.nlmsg_seq	= 1,
++	},
++	.ifm = {
++		.ifi_family	= AF_UNSPEC,
++		.ifi_index	= BIG_RT_IFINDEX,
++	},
++	.name_hdr = {
++		.nla_len	= 4 + sizeof("dummy0"),
++		.nla_type	= IFLA_IFNAME,
++	},
++	.name = "dummy0",
++	.linkinfo_hdr = {
++		.nla_len	= 4 + 4 + 8,
++		.nla_type	= IFLA_LINKINFO,
++	},
++	.kind_hdr = {
++		.nla_len	= 4 + sizeof("dummy"),
++		.nla_type	= IFLA_INFO_KIND,
++	},
++	.kind = "dummy",
++};
++
++static struct {
++	struct nlmsghdr nlhdr;
++	struct rtmsg rtm;
++	struct nlattr dst_hdr;
++	__u8 dst[4];
++	struct nlattr table_hdr;
++	__u32 table;
++	struct nlattr mp_hdr;
++	struct rtnexthop nh[BIG_RT4_NH];
++} new_route4 = {
++	.nlhdr = {
++		.nlmsg_len	= sizeof(new_route4),
++		.nlmsg_type	= RTM_NEWROUTE,
++		.nlmsg_flags	= NLM_F_REQUEST | NLM_F_ACK | NLM_F_CREATE |
++				  NLM_F_EXCL,
++		.nlmsg_seq	= 1,
++	},
++	.rtm = {
++		.rtm_family	= AF_INET,
++		.rtm_dst_len	= 24,
++		.rtm_protocol	= RTPROT_STATIC,
++		.rtm_scope	= RT_SCOPE_LINK,
++		.rtm_type	= RTN_UNICAST,
++	},
++	.dst_hdr = {
++		.nla_len	= 4 + 4,
++		.nla_type	= RTA_DST,
++	},
++	.dst = { 198, 51, 100, 0 },
++	.table_hdr = {
++		.nla_len	= 4 + 4,
++		.nla_type	= RTA_TABLE,
++	},
++	.table = BIG_RT_TABLE,
++	.mp_hdr = {
++		.nla_len	= 4 + sizeof(new_route4.nh),
++		.nla_type	= RTA_MULTIPATH,
++	},
++};
++
++struct rtnexthop6 {
++	struct rtnexthop rtnh;
++	struct nlattr gw_hdr;
++	__u8 gw[16];
++};
++
++static struct {
++	struct nlmsghdr nlhdr;
++	struct rtmsg rtm;
++	struct nlattr dst_hdr;
++	__u8 dst[16];
++	struct nlattr table_hdr;
++	__u32 table;
++	struct nlattr mp_hdr;
++	struct rtnexthop6 nh[BIG_RT6_NH];
++} new_route6 = {
++	.nlhdr = {
++		.nlmsg_len	= sizeof(new_route6),
++		.nlmsg_type	= RTM_NEWROUTE,
++		.nlmsg_flags	= NLM_F_REQUEST | NLM_F_ACK | NLM_F_CREATE |
++				  NLM_F_EXCL,
++		.nlmsg_seq	= 1,
++	},
++	.rtm = {
++		.rtm_family	= AF_INET6,
++		.rtm_dst_len	= 64,
++		.rtm_protocol	= RTPROT_STATIC,
++		.rtm_scope	= RT_SCOPE_UNIVERSE,
++		.rtm_type	= RTN_UNICAST,
++	},
++	.dst_hdr = {
++		.nla_len	= 4 + 16,
++		.nla_type	= RTA_DST,
++	},
++	.dst = { 0x20, 0x01, 0x0d, 0xb8 }, // 2001:db8::/64
++	.table_hdr = {
++		.nla_len	= 4 + 4,
++		.nla_type	= RTA_TABLE,
++	},
++	.table = BIG_RT_TABLE,
++	.mp_hdr = {
++		.nla_len	= 4 + sizeof(new_route6.nh),
++		.nla_type	= RTA_MULTIPATH,
++	},
++};
++
++static struct {
++	struct nlmsghdr nlhdr;
++	struct rtmsg rtm;
++} dump_routes = {
++	.nlhdr = {
++		.nlmsg_len	= sizeof(dump_routes),
++		.nlmsg_type	= RTM_GETROUTE,
++		.nlmsg_flags	= NLM_F_REQUEST | NLM_F_DUMP,
++		.nlmsg_seq	= 2,
++	},
++	.rtm = {
++		.rtm_table	= BIG_RT_TABLE,
++	},
++};
++
++static int nl_request_ack(int sock, const void *req, size_t len)
 +{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	u64 freq_khz, t_write, t_read, slack_cycles, mono_ns, create_ns, read_ns;
-+	struct timespec ts;
-+	int r;
++	struct nlmsghdr *nlh;
++	char buf[4096];
++	ssize_t n;
 +
-+	clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
-+	create_ns = ts.tv_sec * 1000000000ULL + ts.tv_nsec;
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, NULL);
-+
-+	if (set_freq) {
-+		/*
-+		 * Halve the frequency so this is a real change, exercising
-+		 * the frequency resynchronization path rather than the
-+		 * unchanged-frequency no-op.
-+		 */
-+		r = __vcpu_ioctl(vcpu, KVM_GET_TSC_KHZ, NULL);
-+		TEST_ASSERT(r > 0, "KVM_GET_TSC_KHZ failed");
-+		vcpu_ioctl(vcpu, KVM_SET_TSC_KHZ,
-+			   (void *)(unsigned long)(r / 2));
-+	}
-+
-+	r = __vcpu_ioctl(vcpu, KVM_GET_TSC_KHZ, NULL);
-+	TEST_ASSERT(r > 0, "KVM_GET_TSC_KHZ failed");
-+	freq_khz = r;
-+
-+	/*
-+	 * The first user write: a guest TSC corresponding to 500ms of
-+	 * runtime. This is within 1s (of virtual cycle time) of the
-+	 * kernel's default generation, so it is exactly the case that
-+	 * the slop heuristic would destroy if it were (incorrectly)
-+	 * armed by the kernel's own internal TSC synchronization.
-+	 */
-+	t_write = freq_khz * 500ULL;		/* khz * ms = cycles */
-+
-+	/*
-+	 * Measure only the write..read window (a window measured from
-+	 * before creation would also bound a snapped-back value), and
-+	 * insist the write lands well before 500ms of creation time so
-+	 * a snapped-back value cannot sit inside the tolerance.
-+	 */
-+	clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
-+	mono_ns = ts.tv_sec * 1000000000ULL + ts.tv_nsec;
-+
-+	if (mono_ns - create_ns > 250000000ULL) {
-+		pr_info("  creation took %lu ms, retrying for a conclusive run\n",
-+			(mono_ns - create_ns) / 1000000);
-+		kvm_vm_free(vm);
-+		return false;
-+	}
-+
-+	vcpu_set_msr(vcpu, MSR_IA32_TSC, t_write);
-+
-+	t_read = vcpu_get_msr(vcpu, MSR_IA32_TSC);
-+
-+	clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
-+	read_ns = ts.tv_sec * 1000000000ULL + ts.tv_nsec;
-+
-+	/*
-+	 * Bound the whole creation..read interval too: a snapped-back
-+	 * value tracks it, so letting it approach the written 500ms
-+	 * (via a stall between the two MSR ioctls, which the slack
-+	 * below would otherwise absorb) would let a buggy kernel pass.
-+	 */
-+	if (read_ns - create_ns > 400000000ULL) {
-+		pr_info("  creation..read took %lu ms, retrying for a conclusive run\n",
-+			(read_ns - create_ns) / 1000000);
-+		kvm_vm_free(vm);
-+		return false;
-+	}
-+
-+	mono_ns = read_ns - mono_ns;
-+
-+	/*
-+	 * The TSC advances between the write and the read; bound the
-+	 * difference by the measured elapsed time around the two ioctls
-+	 * plus 10ms of slop, so a descheduled test cannot flake. If the
-+	 * write was snapped to the kernel's default generation, the
-+	 * value read back is ~500ms low (i.e. below t_write), which is
-+	 * unambiguous.
-+	 */
-+	slack_cycles = freq_khz * (mono_ns / 1000000ULL + 10);
-+
-+	TEST_ASSERT(t_read >= t_write,
-+		    "TSC went backwards from explicit write: wrote %lu, read %lu"
-+		    " (first userspace write was subjected to 1-second slop?)",
-+		    t_write, t_read);
-+	TEST_ASSERT(t_read - t_write < slack_cycles,
-+		    "TSC read back too far from written value: wrote %lu, read %lu",
-+		    t_write, t_read);
-+
-+	kvm_vm_free(vm);
-+	return true;
++	if (send(sock, req, len, 0) != (ssize_t)len)
++		return -errno;
++	n = recv(sock, buf, sizeof(buf), 0);
++	if (n < 0)
++		return -errno;
++	nlh = (struct nlmsghdr *)buf;
++	if (!NLMSG_OK(nlh, n) || nlh->nlmsg_type != NLMSG_ERROR)
++		return -EPROTO;
++	return *(int *)NLMSG_DATA(nlh);
 +}
 +
-+static void run_first_write(bool set_freq)
++// Dump table BIG_RT_TABLE on a fresh socket, so the first dump skb is
++// small, and count routes. The table holds only one route, too large for
++// that skb. Returns the status from NLMSG_DONE or NLMSG_ERROR.
++static int dump_big_table(struct __test_metadata *_metadata, int family,
++			  int *routes)
 +{
-+	int i;
++	int netlink_sock, i, ret = 1;
++	char buf[32768];
++	int one = 1;
++	ssize_t n;
 +
-+	for (i = 0; i < 5; i++)
-+		if (test_first_write(set_freq))
-+			return;
++	netlink_sock = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
++	ASSERT_GE(netlink_sock, 0);
++	ASSERT_EQ(setsockopt(netlink_sock, SOL_NETLINK, NETLINK_GET_STRICT_CHK,
++			     &one, sizeof(one)), 0);
 +
-+	TEST_FAIL("vCPU creation repeatedly too slow for a conclusive run");
++	dump_routes.rtm.rtm_family = family;
++	n = send(netlink_sock, &dump_routes, sizeof(dump_routes), 0);
++	ASSERT_EQ(n, sizeof(dump_routes));
++
++	*routes = 0;
++	for (i = 0; i < 100 && ret > 0; i++) {
++		struct nlmsghdr *nlh;
++
++		n = recv(netlink_sock, buf, sizeof(buf), 0);
++		ASSERT_GE(n, 0);
++
++		for (nlh = (struct nlmsghdr *)buf; NLMSG_OK(nlh, n);
++		     nlh = NLMSG_NEXT(nlh, n)) {
++			if (nlh->nlmsg_type == RTM_NEWROUTE)
++				(*routes)++;
++			if (nlh->nlmsg_type == NLMSG_DONE ||
++			    nlh->nlmsg_type == NLMSG_ERROR) {
++				ret = *(int *)NLMSG_DATA(nlh);
++				break;
++			}
++		}
++	}
++	EXPECT_LE(ret, 0);
++
++	close(netlink_sock);
++	return ret;
 +}
 +
-+int main(void)
++// A route that doesn't fit in the first dump skb must either be dumped or
++// end the dump with EMSGSIZE. It must not end the dump as if complete.
++TEST(dump_large_route)
 +{
-+	run_first_write(false);
++	int netlink_sock, inet_sock, i, ret, routes;
 +
-+	if (kvm_has_cap(KVM_CAP_TSC_CONTROL))
-+		run_first_write(true);
++	ret = unshare(CLONE_NEWNET);
++	if (ret && errno == EPERM)
++		SKIP(return, "Needs CAP_SYS_ADMIN for a netns");
++	ASSERT_EQ(ret, 0);
 +
-+	return 0;
++	inet_sock = socket(AF_INET, SOCK_DGRAM, 0);
++	ASSERT_GE(inet_sock, 0);
++	netlink_sock = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
++	ASSERT_GE(netlink_sock, 0);
++
++	ret = nl_request_ack(netlink_sock, &new_dummy, sizeof(new_dummy));
++	if (ret == -EOPNOTSUPP)
++		SKIP(return, "Needs CONFIG_DUMMY");
++	ASSERT_EQ(ret, 0);
++	ASSERT_EQ(if_set_up(inet_sock, "lo", true), 0);
++	ASSERT_EQ(if_set_up(inet_sock, "dummy0", true), 0);
++
++	for (i = 0; i < BIG_RT4_NH; i++) {
++		new_route4.nh[i].rtnh_len = sizeof(new_route4.nh[i]);
++		new_route4.nh[i].rtnh_ifindex = 1; // lo
++	}
++	ASSERT_EQ(nl_request_ack(netlink_sock, &new_route4,
++				 sizeof(new_route4)), 0);
++
++	for (i = 0; i < BIG_RT6_NH; i++) {
++		struct rtnexthop6 *nh = &new_route6.nh[i];
++
++		nh->rtnh.rtnh_len = sizeof(*nh);
++		nh->rtnh.rtnh_ifindex = BIG_RT_IFINDEX;
++		nh->gw_hdr.nla_len = sizeof(nh->gw_hdr) + sizeof(nh->gw);
++		nh->gw_hdr.nla_type = RTA_GATEWAY;
++		nh->gw[0] = 0xfe; // fe80::<i + 1>
++		nh->gw[1] = 0x80;
++		nh->gw[14] = (i + 1) >> 8;
++		nh->gw[15] = (i + 1) & 0xff;
++	}
++	ASSERT_EQ(nl_request_ack(netlink_sock, &new_route6,
++				 sizeof(new_route6)), 0);
++
++	// The ACK reads above used large buffers, which raise the dump
++	// skb size for this socket. Dump on fresh sockets instead.
++	close(netlink_sock);
++
++	ret = dump_big_table(_metadata, AF_INET, &routes);
++	if (ret != -EMSGSIZE)
++		EXPECT_EQ(routes, 1);
++
++	ret = dump_big_table(_metadata, AF_INET6, &routes);
++	if (ret != -EMSGSIZE)
++		EXPECT_EQ(routes, 1);
++
++	close(inet_sock);
 +}
++
+ TEST_HARNESS_MAIN
 -- 
-2.43.0
+2.53.0
 
