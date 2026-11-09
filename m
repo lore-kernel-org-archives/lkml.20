@@ -1,100 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794261545;
-	b=hW/o04vhQDWd/afJ4kvoAzX9wj0eZ59YN0Sw20FCPOZACcygM1Z/lsAqyhJVvE5uc4Ax
-	 LQqGd10ljCNqYklzZ1llYJxdU3RohLND3bNdpULboJv7yMFoppSj6VkVQFsRPVuLtlq8r
-	 AY/7tI0T5R+Ps0bfqy/vZzUvO/7dVqkN39NP2/gQt2XXYJ9OsRJ7Uni2NImwxUQtgL6B3
-	 TFkc0cBQZVklofAMeS+E+MEQdfkIzGTJ7mEYcY/uRLuNybkOjLbUic8FbcYbNuxox1rCU
-	 pCNJEfP+MDoD4YE3IYf+m7f2rmFPPtsQrXg+LV+49BzggNM8NIQk0ZaQswOJ2RTaTyg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794261545;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=cvV1+x6egeZIOS6mY7nPlFsWTpahpD9QoPA6e3DqkZE=;
-	b=0loxNU5WMLH6JfQsINYhfHaefGeaXpvtM/GuNMBAZbPS4lQ7GNRjiXfms98N0YrIjpHm
-	 l6rtYc6l36wJwM3fU7dZH74i0J/zNYNI39johRL6tej6ThwGfpSXD3IB7LYNdtvW4DbFs
-	 nyT5aCr8vw+/+MHAtiIJEIqIbJDNFb6meN2najgIxni+HYsfaBQMHU1DMqvEEDwvbKbVb
-	 hbUcL55ZTCOgkJlLzi/DeZQnyfQiu+SJyLKFxTft37qxSI/sOV9PoJebKkHF7LC3yf9/t
-	 Iis5fEuGEJrxmuKd1wsRwAJO/1ISOoTFFN7JRrIV68TvnmtYa8tXkQ/Texdj+lKPB2g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jVkI7ClZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.174
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794261579;
+	b=AxU91AIydOSmZgnZvNTDVMsODfu7U4NSytHx9A4J2R6A82wUFjJK3j5IcCP78S9xEKbt
+	 xTg3HF5ARUWIWeM7OQ7ckjUVwltOWmB7FSn3HugSh6RcNQqHClubFyMHAhcI/xWp/3dVl
+	 VWpoXIvxzajmbMf2RyGavJD54LJF11zZeZVo/Hk58w+YLAP2ctqMe98QRw6XWDlV0qyVi
+	 58JTTLCoR2ccU7FWT1mEwcT4E8sED3yTxihhU1NOP53xVLJSbvzBHJJg7wpfhquM8q1oR
+	 UbEPoj147f5svc7sZzn7nqEiTiO+SHjNnGhhUJBgRb1RqvVZlcl/J+7HCBxoYozaT2A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794261579;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=0JHuIrO6HeQW90zGwb8mXlKmQS/KkaD9r735yyDrBqE=;
+	b=AFnZydLdA0wb5QWaOQ7b5SdWerQB9YuDcJtw2t2l7xKFValJWCgoKuaD+aqqXNTUSfDg
+	 nL6f7DSTxCHhxVFxLyXyALPK5DDizNX/nHupa5o2Tb+/kjFZy+Y7ll6slqLDiC1kENxVx
+	 +SnG2Zgj8GdMqZ6DrHMQtqyEZXp+2d98VV1yzQiI562t8n0j4xhbINY0BndqfeHXhGqLw
+	 VF6iabcZTcImYbrZwff0SXx+Sx+WekhCqs2EGt+xvVaj2cvM2rt9xuzhRdhEOW8pvBzSa
+	 nbPNKYV+IJfG2dot0DzXM3QAWPh91XZVCYmeGYbXG4hR9ylJv7F+8WzIXP9FKqewh+g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ch7ENt1R;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X3wlStDb;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B282606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:59:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B282606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E92606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:59:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97E92606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jVkI7ClZ
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5383c97c8cfso24911cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:59:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794261544; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Qpa2fJeBvQA6wZ6FpHY6gD3dwGGhSCYYq3s1m7VUWKdnlOA53lP6BILe5d+2uuxB49
-         /tdR1mqXO++LR0oZ5rbLn7IeJGMHpByTYmY25l/DphPaDjadAfmA3hC4vXMzL9xvIwzR
-         98DT6jrW7CjqNd/3KNVS9IqJFiyy12lTgjwXZX8lskx32XcdISrhpqLVV1YD3o7XmFr8
-         HbLIWiQPgpSdfG2SiTbMiY2RDE0kSy4gWyH/toF6wTHRRUvLEXTDie87tlfqGtJB3R8l
-         AhI21EMxtuL6qu3WpaO2ZltlDneg1IiwaJpqpEz0yNfeRGYQIz3V81982mXRm/omf+X0
-         LJpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cvV1+x6egeZIOS6mY7nPlFsWTpahpD9QoPA6e3DqkZE=;
-        fh=Z2wTRF79xehlm2cy4UAJXXKaa53S8lNKdb3t0v2fV/o=;
-        b=NFZP+OsXAB5fn+CxuwGZTfyTaqwWX8ruCjfMtbc2/lHJbO+1+9JltK9BCEo6wHimBy
-         BRVJh4icPMnqSQ074qCFATGX/S9YCl1fhQS2tehh7G0V85Ceu+RE9jUvWbOqsgNlo8zg
-         6SC4eDywbrnbRZglhlCVTScPKxsxq6MPcUPWIfHw68Iw4ZPuXYwLySJsIYUZ2/RHfSg9
-         qPP6v6YM87mMGthLa+XLEd7VB7ZjjWvU0tCPrR/0FdBkVBy0oSss+TDpppxakdhwBVvh
-         y/yEFU9jPjtuExjyOezXPJiJzNEDNuJMT+hq24zxsYO8wkPUsLmTOiuQxmhqiuni3FMK
-         O/vQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ch7ENt1R;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=X3wlStDb
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9LA29f2018848
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 21:59:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=0JHuIrO6HeQW90zGwb8mXlKm
+	QS/KkaD9r735yyDrBqE=; b=ch7ENt1RzDTd0Cy7LxpzaWmCtj9d3F01+Hesh4BO
+	N9/scIG+o0vWI7Afc0J/S+FawtUid/nr8dHGkwsttMKKFtg8PycXQr3b9blscG3A
+	XQbV3K4sLckCt9xGYeyA3WDY3hv7aEeEEpb84ZR7LwXjZ3aIIxbMFxBUZhmUeiCy
+	8an16Vyl773x2e46hibUyNnBozTfG5TanrEmW5CN6oNFZ+sLCeI/RUGLa8GFqwzD
+	oCUY4svEPyRjJoR5sLCtgK/3LVqMUGdjTvLQHHoouKW0O57bUel68STegcYV3mTJ
+	aSzC6kRc9wN4TRFfcI35Z7T9H3ucxJcD8HPtMZw3wh9eGw==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4humjg0ebg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 21:59:37 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7d2cb77c7abso154497137.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:59:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794261544; x=1794866344; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1794261577; x=1794866377; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=cvV1+x6egeZIOS6mY7nPlFsWTpahpD9QoPA6e3DqkZE=;
-        b=jVkI7ClZXWzRolTRJvb3/jiz8GXDNAi+Y51HAKVmPxjpEr4DLkMY2pC3v8pW9QvTPs
-         MQ4cDApZpO8kRYa+teKED5Whuhh5R+kE842e8ggpcT0V3wBqOQPrTRfGD5CBlq+QzOzm
-         acJ/V3/Ch1f+Yq1NiFIhnD6GoQbZx0gL5ikGtAfFkHqLH0fhEaOkWEX+3LcHNm55DJLM
-         tvG4zsT83FWpKqnD1J31VDVGO2HuXTwXiBRIOlclJFPXXjuaFae8Z9D0ueUpNgWNnEtD
-         AU26LzgZk7sKb36su4b3HhVW7ZsnS4QRDD41AlkhsbXG7LgesizMD3HGqgcOGaESVn7U
-         Aa+w==
+        bh=0JHuIrO6HeQW90zGwb8mXlKmQS/KkaD9r735yyDrBqE=;
+        b=X3wlStDbDzUkelKbfNuZ9htfiYQglqCloPyFrmv+wu2BNQziLEP2elRzoY3HEYIv6u
+         WvI8fRvKuR85P4v+g/iF9NTEOLZApHNefT6bMlBnj5ApnfpMjs4WjB563P4LFHTrxrXf
+         xJdOVbSsnMgb04D7Sp0XlgyQm6JkQ2WmA3BWtToLy1dmHm8Os/t6OOf4RSVWxX2V33ID
+         mFV4PL5PX5m0ngfeRYh2mBjOqOYxVLUkP/NL743fRoOKiJVh6/rXBxfDNtQST2VfpgUX
+         1czJkDbbSbO4YXcPAPaMqGKFe+nOC9xDVQhAvCl+Ih5wwWLgDQF+DAtuHDY8k+rVmoLv
+         ipvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794261544; x=1794866344;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794261577; x=1794866377;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cvV1+x6egeZIOS6mY7nPlFsWTpahpD9QoPA6e3DqkZE=;
-        b=xzF7oj8ZLQjtJW1YO7OYaXxz9AtBSMM2qn5ZUi86FV3DgpGvviIjyQcwnXNpjxAqXW
-         8fJhQGKixBr28Y8qLXwl+EIjRFAj8Oi2oaaFvOWmZSnthE7qWdpmX2GpLaWWo648QhTS
-         FRti7+YwA5LZ/bknuiAmOfLrWlkCN3X0uOc88UZqZEO3jw3U1g1vFWT42M7qLhief+d6
-         X/7xP2l7iCQfO6/m3ik9sU3DXQsWAqbXKSVw5D/eZ7TZyvMHZtDWkYuYpDCALoRcht4o
-         f15ylgk71MmTfdLK7eZVsRHlX1Q41TdsJEERwkJyfKp41ZnAUvO/PLYp0S+csdCuWwBK
-         s8QQ==
-X-Forwarded-Encrypted: i=1; AL+hErGIfBSFrWWp9BeWgDj9P5gytQLUimxouxHF/K1GSaS588g6BpXC9v6iwvOiD7AiNZ7grsbDtRfhuiAu1Rw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+e/5XHw05iXuEsyNNhZa08oWS0OWK7IVlnlg5ewplQ+N6SOY/Z
-	QWCef1Pb7c5twYQQQ1Oat9s2QSLSXCKwMJqSqZ1I68iVEZOmE0mQf0YLCjqrlYjPuGnHU9yRxT2
-	nurKat1/E6jQgtx46KhtPPDWjzI/RoS2r8zYcWztg
-X-Gm-Gg: AYBFou2b4zQa63pG73hz8RhjVErhUvMOGgYze4hLEyDwV2syctoL9QFxfHYmRFNmdU+
-	OqSPq4CcwEOQFd4rKXBbY1TKOzeq8HsXZCAu/fKKLXQoO/yOgny+DX7V44IZturtCyIf2a6jrbf
-	UrLvDVXijpqMjfMRGvBGqNy8nM9JpkKkHvO0BidBLlx+EFqMpk1rtS+a/B1oGmYnssUWmbI0kA1
-	h6QoCqgUBCL33oaMPbDAHhM+LLVVK8QaKbzTN+ltLDiaKsNk5Gc1zcWR2JVaVcPDrgu3Xn9A7A2
-	UkI6bs1j1cytaA7SgWrJ+4CtKZY1rZTQ55OSXYQbXrhMIvwAYTvuU4otNcJ7ckaz4LbJJL/oez/
-	SZb3I6Yo0ce1Ul/7/oDa9kAzloUYXK7G2pL0ZWJcFKVljQwAR+qi4/jrHRld4bVkcP24=
-X-Received: by 2002:a05:622a:5a11:b0:52f:8389:29e0 with SMTP id
- d75a77b69052e-555294b5379mr5278851cf.0.1794261543291; Mon, 09 Nov 2026
- 13:59:03 -0800 (PST)
+        bh=0JHuIrO6HeQW90zGwb8mXlKmQS/KkaD9r735yyDrBqE=;
+        b=KK9OVT1udxgvmONDI2pnvtZcCULJFLCVP0C1WgZjvqb9tCjSBJeySv5UB+w32KAVQf
+         Hd3ATAJrrdoXIIWudTKFzXv6XltLFsycFmk44Ql+CeWeMA9rtpYUZ31m3kc95Bka3Wee
+         Egp13N3nB2SV9gWyodBRBf/0JhG6kZBg+Bqq/tiaR5XKRu4/br04qhLdbQ6N0CQMICyQ
+         faXTrLnoRQFvJSj25l1lXumyUO5SqaOGrKsBzY9MAIz+VHrlofK/ETlUYj+PEkpWaSLq
+         r2R1DYXtvlFfMYBCuu9B6u1X3MAuUscZNI/v5kL4mD9FUGj3mNiuqRhlGLYWg3zzPwiY
+         57gw==
+X-Forwarded-Encrypted: i=1; AL+hErEJj1dSm3xZ0mZ2LWqFwLmuc/Yv955P2jrBFmw6x8XOo3ggT1yG+9P00gqJ5hJhgs3JXzy8lvmPxOQegYk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/R0UM8cI7VydSXPaZRkAhNVOZXB+7lNTkawMqzC0iRKLLljDPB
+	HuPaRqn9KygLWo1QDFhVq6oCx3eMd//S3Tj1j5d9rB9K+C8iz4ltUeyzq+6ThN4BHlcyp3ww3c/
+	XdedIE0IOV9CajktQLTPsISZEAH58oNbbo7Mn6D5P/bACAMYQ3Uro9zmCnVzlMbY582s=
+X-Gm-Gg: AYBFou1i7OyThsYKfW3szqEa7PidpS1nxI6UHbIuXsXjEz1VM/0ZQXDfy7NKdJuEClm
+	wnE75NV1FgOGQB5zFWl77P0gZs5uD56lB1r12xDYCU1DwzxQR3WDqSwyMlI7hyxcQeqdwk+IA0N
+	FBszWGEGahcAinSUGxVze5rC7zYGJx3hzS4aRCMgFWyw9km0UNq2lhdYGRhT4GODvtykfeJwa7o
+	X55NksbG/R3y02uVI2V4dNiaZKwhdstI7oFsr6BPDre9kuaLv34UC9GLwZ7fLhLAQYuhfMqxmtb
+	n5j1Q0A/lNYHdws6g+Fzj+Kg9O4ru5O9yJHIYysCiElRQcKjiUoPdwKn000MjU9yhm+U6Qxus6H
+	MuyDoJVJPPTLq9rC73dUlKNOaLTd0vb0MOo054cqms2s0eJkvLjQHKEwwp6+vvI0=
+X-Received: by 2002:a05:6102:3753:b0:7cc:828b:41f4 with SMTP id ada2fe7eead31-7d301c3f850mr257641137.35.1794261576512;
+        Mon, 09 Nov 2026 13:59:36 -0800 (PST)
+X-Received: by 2002:a05:6102:3753:b0:7cc:828b:41f4 with SMTP id ada2fe7eead31-7d301c3f850mr257625137.35.1794261575843;
+        Mon, 09 Nov 2026 13:59:35 -0800 (PST)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498363e0019sm1354173f8f.38.2026.11.09.13.59.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 13:59:34 -0800 (PST)
+Date: Mon, 9 Nov 2026 23:59:33 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Hans de Goede <hansg@kernel.org>
+Cc: Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 2/3] platform: arm64: lenovo-thinkpad-t14s: Add Gen 7 EC
+ support
+Message-ID: <o55caq7vadrcc6ioc7n7aplbyh55n63mqgno6j2mgcksrjzb35@ptnencuakeo6>
+References: <20261107-t14s-gen7-ec-v1-0-f4a8edaac447@oss.qualcomm.com>
+ <20261107-t14s-gen7-ec-v1-2-f4a8edaac447@oss.qualcomm.com>
+ <44e4ede9-3eb8-418a-b1f1-7e9dc75e2e75@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,123 +129,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261109120320.75053-2-qirui.001@bytedance.com>
-In-Reply-To: <20261109120320.75053-2-qirui.001@bytedance.com>
-From: Ian Rogers <irogers@google.com>
-Date: Mon, 9 Nov 2026 13:58:51 -0800
-X-Gm-Features: AclHuK9ZqQj8qRR7GQExEW7WbgHpHS7TF-EO6qkNbhVRaleoN-uxmSQ4-CoXb4w
-Message-ID: <CAP-5=fUf=MD72=wuSxem+j6S11J2SvOaxOEb+H+ifLV=Y2p03A@mail.gmail.com>
-Subject: Re: [PATCH] perf parse-events: default data breakpoints to any size
- on RISC-V
-To: Rui Qi <qirui.001@bytedance.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-riscv@vger.kernel.org, peterz@infradead.org, mingo@redhat.com, 
-	acme@kernel.org, namhyung@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <44e4ede9-3eb8-418a-b1f1-7e9dc75e2e75@kernel.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA4NyBTYWx0ZWRfX6HlLM1IMaUli
+ PHK0QbHzNgvlh9vYQLPsCfC6raEHRrOx7wUQ/wGMPktBUXPR47MTTrnPTgyvooWsaR1p98PgHUF
+ Iw0/ohnGz3IsONSio7W9H2hmbqLH7bknhtDzO1FUHTp59UVhxOVL9++nn5s1laB3clnPG3wBNcY
+ FH4XpdqHaOULzRiMKdhXd/l9QJOkcg2h0isXo8/6N0iY2CI3z6EMy71eE0beVn36iaC5J0/qGmW
+ 9pPIjLkddf8X1LPFck1EmiczHVJS1cb/D0MYouDyu5LJzESHgF7r/Ja2zJip8KzkLLZrimxvkC1
+ +BXfI8L1HwLbGUIFLgfPmfgOyJx8sN8IJnk475rn1nIooWluvN6YYTEe0VYHEJq2V6/TeqwPyPn
+ ziqCMoOt64AGh5m2Dl0MYTJRhkEHSfrPR1Q7+MuI7cXL5ipDEQjUEJkMgdUO2MOK5kpuVhF6mCz
+ dnsh78Tbs1SAJjuDL/w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA4NyBTYWx0ZWRfX0S2sLcbMLPoE
+ GOf0UMwZ5/P+oDy0gKzhxm5soQ9A0lzNAKU251cj0LnKT3Okc/jv/NAmATztzZ/CkequqmQ+HMH
+ 6EJShHNhKcwCEUDwe+udYh3z5fA3AGE=
+X-Proofpoint-GUID: FeTP3Nhlu_XhXhGKYQq1oaGq8QmOJAlK
+X-Authority-Analysis: v=2.4 cv=B6gsQ+tM c=1 sm=1 tr=0 ts=6af24249 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=5kuUbzVnSpjELaQO4TEA:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-ORIG-GUID: FeTP3Nhlu_XhXhGKYQq1oaGq8QmOJAlK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_07,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 adultscore=0 suspectscore=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 malwarescore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611090087
 
-On Mon, Nov 9, 2026 at 4:06=E2=80=AFAM Rui Qi <qirui.001@bytedance.com> wro=
-te:
->
-> When the length of a data breakpoint is not specified on the command
-> line, perf defaults it to HW_BREAKPOINT_LEN_4:
->
->   $ perf record -e mem:0x30020:w ./prog
->
-> That assumes the length describes a byte range that is compared
-> against the address of the access, which is how the x86 debug
-> registers and most other architectures work.
->
-> RISC-V debug triggers behave differently.  An Sdtrig mcontrol6
-> trigger encodes the width of the memory access it should match, and
-> it only fires for accesses of exactly that width.  Watching an 8-byte
-> variable with the implicit 4-byte length therefore never triggers:
-> the perf event is created and enabled, but no event is ever
-> delivered:
->
->   $ perf stat -e mem:0x30020:w ./prog          # 8-byte stores
->   0       mem:0x30020:w
->   $ perf stat -e mem:0x30020/8:w ./prog
->   10      mem:0x30020:w
->
-> The failure is silent and easily mistaken for a broken hardware
-> breakpoint implementation.  Tracing hw_breakpoint_exceptions_notify()
-> while the event is active confirms the trigger never fires.
->
-> Zero is a valid length for RISC-V data breakpoints: the kernel
-> encodes it as size 0, which means "match any size".  That is what a
-> user leaving out the length asks for, so use it as the default on
-> RISC-V and keep the existing 4-byte default elsewhere.
->
-> Tested on a riscv64 kernel with hardware breakpoint support.  With the
-> default length, watching an 8-byte and a 4-byte variable both count
-> 10 stores, while explicit lengths keep their exact-width behaviour:
-> /8 only matches the 8-byte access and /4 only the 4-byte one.
->
-> Signed-off-by: Rui Qi <qirui.001@bytedance.com>
+On 26-11-09 15:52:16, Hans de Goede wrote:
+> Hi Abel,
+> 
+> On 6-Nov-26 23:01, Abel Vesa wrote:
+> > The embedded controller of the ThinkPad T14s Gen 7 uses the same
+> > register layout and event codes as the Gen 6 one, but a different set
+> > of I2C commands. Going by the ACPI EC accessors in the Gen 7 firmware:
+> > 
+> >   - register read:  write {0x80, reg}, then write {0x80} + read 1 byte
+> >   - register write: write {0x81, reg, val}
+> >   - event read:     write {0x84, 0x00}, then write {0x84} + read 1 byte
+> > > With the Gen 6 commands the EC never reports any event and the LED
+> > and keyboard backlight accesses have no effect.
+> 
+> Thank you for working in this. I've been testing this and my own T14s gen7
+> and also I've taken a closer look at the DSDT leading to a bunch of
+> improvements. Instead of making these as suggested I've just gone ahead and
+> implemented these as fixup-s to be squashed into a v2 patch.
+> 
+> For easier review by you I've split the improvements into 4 patches (attached):
+> 
+> 1: Fix Fn-F12 not emitting a key-press + filter out some EC codes being reported
+> when pressing Fn + Fxx key combos which already send an I2C-HID kbd event.
+> 
+> 2: Add Gen 7 suspend/resume handling
+> 
+> 3: Cleanup: has_kbd_bl2_and_standby and mic_mute_led_generic checks are
+> really just checks for the original (gen6) support vs gen7 support
+> drop the bools and directly check which variant ec->variant points
+> at instead.
+> 4: Cleanup: has_kbd_bl2_and_standby and mic_mute_led_generic checks are
+> really just checks for the original (gen6) support vs gen7 support
+> drop the bools and directly check which variant ec->variant points
+> at instead.
+> 
+> > Describe the bus accessors and event read per variant and add one for
+> > the Gen 7. The Gen 7 firmware does not use the second keyboard backlight
+> > register or the modern standby register, it drives the mic mute LED as a
+> > generic LED (id 0x0e) instead of a bit in the audio register and, when
+> > the keyboard backlight is cycled with Fn+Space, it also reports 3 for
+> > the high level, so handle those differences too. Also handle the Gen 7
+> > only events as known ones.
+> 
+> So about these differences:
+> 
+> 1: For the spk / mic mute LEDs, on a hunch I tried using std LED controls
+> with a LED idx/id of 15 for the spk mute LED and that also works.
+> 
+> I did not find either way (REG_AUD vs REG_LED) for the spk mute LED in
+> the DSDT, instead the DSDT ends up sending an ACPI notify event, relying
+> on some windows driver to handle this.
+> 
+> How did you find that REG_AUD still works, did you just try the gen 6
+> method ?
 
-The change makes sense to me, and I may have been the last person to
-tweak how this parsing runs. Could you address at least the test
-failure issue with something like:
+Yep, just tried the Gen 6 method and it worked. Nothing in the DSDT
+for it either.
 
-- TEST_ASSERT_EVSEL("wrong bp_len", HW_BREAKPOINT_LEN_4 =3D=3D
-evsel->core.attr.bp_len, evsel);
-+ TEST_ASSERT_EVSEL("wrong bp_len", default_data_breakpoint_len() =3D=3D
-evsel->core.attr.bp_len, evsel);
+Re-checked just now: the speaker mute led lights up both via REG_AUD bit 6
+and as generic led 15 via REG_LED. Since the mic mute led is already a generic
+led (0x0e) on Gen 7, I'm fine with moving the speaker mute one to 15 too,
+if you prefer. Otherwise I'll keep REG_AUD, since that path is shared with Gen 6.
 
-and then I'll add my tag.
+> 
+> 2: For the kbd backlight, again the DSDT ends up sending an ACPI notify event
+> and does not access the EC itself at all.
+> 
+> How did you find that T14S_EC_REG_KBD_BL1 also works on gen 7?
+
+Same, tried the Gen 6 register and it worked. Writes change the level
+and reads follow the Fn+Space changes, which is how I noticed the extra
+level.
+
+> 
+> 3: For suspend/resume the DSDT does have modern-standby handling both
+> making the LEDS glow and setting some magic bit (which presumably makes
+> the EC use less power or maybe makes it send less wakeup events if we
+> were to make the EC IRQ a wakeup source) ?  This is implemented in
+> my second fixup patch.
+
+Squashed it in, thanks. Haven't been able to verify this path on my
+unit though, suspend has some unrelated other issues. Will try tomorrow.
+
+> 
+> Regards,
+> 
+> Hans
+
+All four fixups are squashed into patch 2 for v2, with your
+Co-developed-by and Signed-off-by.
 
 Thanks,
-Ian
-
-> ---
->  tools/perf/util/parse-events.c | 23 ++++++++++++++++++++++-
->  1 file changed, 22 insertions(+), 1 deletion(-)
->
-> diff --git a/tools/perf/util/parse-events.c b/tools/perf/util/parse-event=
-s.c
-> index f3ba70d4f76b..b72e4b0da8a1 100644
-> --- a/tools/perf/util/parse-events.c
-> +++ b/tools/perf/util/parse-events.c
-> @@ -598,6 +598,27 @@ size_t default_breakpoint_len(void)
->  #endif
->  }
->
-> +/*
-> + * Default length for data breakpoints when the user did not specify one=
-.
-> + *
-> + * Most architectures treat the length as a byte range that is compared
-> + * against the address of the access, so 4 bytes is a reasonable default
-> + * that matches most accesses.  RISC-V debug triggers (Sdtrig mcontrol6)
-> + * encode the width of the access in the trigger instead, and a trigger
-> + * only fires when the access has exactly that width.  This holds for
-> + * both RV32 and RV64.  With a fixed default, an access of a different
-> + * width silently never matches, so pass 0 on RISC-V, which the kernel
-> + * translates to "match any size".
-> + */
-> +static size_t default_data_breakpoint_len(void)
-> +{
-> +#if defined(__riscv)
-> +       return 0;
-> +#else
-> +       return HW_BREAKPOINT_LEN_4;
-> +#endif
-> +}
-> +
->  static int
->  parse_breakpoint_type(const char *type, struct perf_event_attr *attr)
->  {
-> @@ -658,7 +679,7 @@ int parse_events_add_breakpoint(struct parse_events_s=
-tate *parse_state,
->                 if (attr.bp_type =3D=3D HW_BREAKPOINT_X)
->                         len =3D default_breakpoint_len();
->                 else
-> -                       len =3D HW_BREAKPOINT_LEN_4;
-> +                       len =3D default_data_breakpoint_len();
->         }
->
->         attr.bp_len =3D len;
-> --
-> 2.52.0
->
+Abel
