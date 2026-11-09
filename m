@@ -1,82 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794246479;
-	b=R9/X29GBmVFEtcdGV/MISUfxsIDB89Z63Iv7XkgdhXVaGVA4/q6Xyu5SBHohhaLdtFVn
-	 c6ci+kqRK2QARm451N19YxOaE5gIC5brrx2KB3cO5su9/kx3Ix7WMw0NiJaRJibzfgfnk
-	 XK+YKZft1wY8ZCpydwzugW+OMS+yyVwtNs4CZl4Uyf259+uTHOMFEFmCOib1ov8pCsewb
-	 vNufVHXmqAA2vYxJ+J89mEIFsrSXm7GdZ6XwgjH3N4X9cGtfmuGO0jWfhCQbifUluvXHu
-	 af9cnfMWoTkWdf1bP1GIR74Kzw5VUob8Mb5W9/5NX/1KqhUls7S3gbaxmgEjq82Snjg==
+	t=1794246480;
+	b=JE+Yq5w/CNDBiAgzjXJ1yAi7YKjb0Mo2/Wv85jsGNJUput6xqkXjYGwzEr0mNO6SRU4i
+	 1IhBq/YpoTaGCzOy5zVmzGiJN2fq36oJ2s9pKe/y1VCovttVOv2oj26+txLemBQCREVhF
+	 OU3U9EEvMii4QH+27nOHDjGzqEkOGVZitjP7qrTYqUDnacgiTsa3Fy8+PKoX3JF657k4p
+	 8DRGoBOWAz9wpqO3m5QGACgM6lRDpU5JcWDmhInsQ7IHPMl5TAenKiYtrH3VSsfu9AEwX
+	 IH1oCT9ZLdYqNhk1VuR3dhm0obfkfEc5+UPdgGx+1hDlvKiqcT7Mcd4oC9Zib74QmuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246479;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246480;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xT5wwu1nZ1qpjPGd0nNHLklZ2axNl7KOUWGDWBxQnDk=;
-	b=LsnECs5QBJ3R7D4srK5DodCcLFKjaGdxB7T3oVtYbScUpMzX4CAmgP3vMv+v0awT8hoO
-	 nU2yF0lb2t9P/qRheaxiaTx/V3zsQEtH9aHcCBi5T+RSMMH2S+6vGc2m0DF8PSDrmKqEk
-	 z62FX/YQJMCLikhS8MuabD4jRuIh60yXEUqUFqFed2xoSsjIk81wDumcP15DoytcRU4vK
-	 XL0gYEUUB2PPiTovTv0+kLf/QGP9HJ6tNHLGEa56FdNQWVrwx0OMOu66yxiuIt8emdLBp
-	 F67boFAA8hSFrvTmmJc96iNV3K0cj34W1YNex/02zK9Boj77TtBxeiGAoCvS/U6ayaw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ZPQrRdeY/kRtnbmlFvQBDv3Ep9Z0Ve/f+uT8OM+fsyc=;
+	b=ShpMFKPiUpxZhQpzAWK8ZRBK1m8JMqDiVgkb5mP64GTAoVHUSWnZQbMTAUNMGG3kNfHv
+	 AXsGkSeeVpQvXl6bUWnn8Z0x6l3/VoQ+vbCuSGVZcgCrzFzRDqLekVi471gHAKpbX5O6I
+	 Uet/W7//dFJtbdB/JFuZLvPhR8GTIM+UC5YsiPwSivzOR96BMIiZ12/fyDwrHefsKvFjb
+	 H4g4EHONYBZkG8Fo+CWJkC6mA4iGWy6XabO+LZw6NlurhacElJ2+61TnigXbHfmS/8EMl
+	 6nCK3D/7mUvrVS7ldlg6l/PK3WEjPLQSo2nkfJ5RaRzXSq13hxSNrBWeB5qOcCYkjwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mgcrea.io;
 	spf=pass smtp.mailfrom=mg-crea.com;
-	dkim=pass header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=lg+jvrAZ;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b="Lkus6vZ/";
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACD7606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:47:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8ACD7606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC056606A338
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:47:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC056606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mgcrea.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mg-crea.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=lg+jvrAZ
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e3b22e971so642718f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:47:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=mgcrea.io header.i=@mgcrea.io header.a=rsa-sha256 header.s=google header.b=Lkus6vZ/
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4ba013938d7so1580105e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:47:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mgcrea.io; s=google; t=1794246477; x=1794851277; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xT5wwu1nZ1qpjPGd0nNHLklZ2axNl7KOUWGDWBxQnDk=;
-        b=lg+jvrAZ2oCcpclFvkbTpf91jID/AaZztTrOJRevcSz5eps7oFI86DUGJ7nt/JGOU7
-         zwN9T3JfLXyuaWQIK6M7QAZuK5Hk3zsCCX6Tqrz5GJBA260PvGVPBYm3QC1knxjRZOe8
-         zAHSCuPac1o0fsXhMhrfHQbMz9JUagHIqbBi4ex62KwT4DTpl4BUShq0Xd4LlIzsHgLD
-         ZGndriX1axeFbc40naXlzB/bY+bzX7p+U5NQWIB6dqnvX5doN0fXc9/W3BsAmTN3Ox2n
-         zkYW1KsG5Ky2FHu60+/q9fWLxElCn9a7GZJes+eCwj9CNaPNAoPWoJKdU7VY3VUKqqWb
-         p4bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794246477; x=1794851277;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=mgcrea.io; s=google; t=1794246478; x=1794851278; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xT5wwu1nZ1qpjPGd0nNHLklZ2axNl7KOUWGDWBxQnDk=;
-        b=wLF4hlMM1kkpDYWofQVY9EFl0icda+frx/6G8Hk+iissCW7LcTV9L7aww0S0zQzZAS
-         f99UV+D/CBoysMqhXREijBhDSzfvihca7tuiW1bjjTtG2YMnaaqna0QQqshjuDh28/mg
-         GWTS/IuuVlIjXqtXdPffsKY9B7g3qhD13ctr5SXdQixBpiTNImvUgqJ/VpTcq7TRMXgI
-         I5hxwPcmIxQlK9YsVHQfGtf2oE+7mogU/rjLUFT/VmRfuGc84oo5H1I14IiKKU0YSJMf
-         k/QrGddGxDXYB7tJxKIhWbgH1KWp60FnhC0MGy74xuDymGInsTh7d06jbNIfFpC4hBLp
-         rc9w==
-X-Forwarded-Encrypted: i=1; AL+hErGyB8Y3dvWCnmdn9X9/kHPU6E6Nm6xkZ0i4b037Yy8fZVKZ3MbyqEOtx2UX5sc5VS4YTTtRPlkGJEmRT9k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8SvU2djEvWej7AySL3aaeFCp8J3OerbjupNgMBSG57NbNeLZ+i
-	HEBCqMJC85uiN4pJ1m1YkTdm1eTQknVBIr8WUiSRCbvtCT+qMusdoMCMrd2i1eDxpQU=
-X-Gm-Gg: AYBFou3Quuu5PGPmjhuq2uOpnRdvb1JN4TiR2CUKzmMemrUoZCNSoDx2DPzpObNLDMN
-	7fqR0grGBuY85KeTis6j0gm5+F/DWatZ1yGrbKGoiVXKIsHkyISHnsSnGWVSOZ6weQVgy3yD9p1
-	LQm29C9bCfcYMEPdqQwd0XCl/GrJMo54ZGkT4fib+1gu1u8R+u0a6VC+3jFMzps9Yh67TcyCzxl
-	wq/WwACv543Dc1RA6G7X5JCvusppSm3ApOdGwAKoMt+qsp0FsGz14r/aRPRQJqGmum7NCDZWnDj
-	Jl1T7Jkyg52Inyyg1/c+xbqtfkc3hfipjl7c2rGVZgcbTQpSDbmhqoay7Fo2PUc/G4xIVe9NogR
-	9v5NyeRQ9K0+m0/xpRw5mNG1Wh7u8GSvVkxP1MOdMzWzo/fhPDy2jnHTYM/jp88ryu5NYZafrOk
-	zDSBInrrtR0ykykXvoPtlIJDQR+t8Jd+3Id2htoqnk7pmD2dYz6H8ay6KhDCTmj4//Z7T5ulfLK
-	IrlCoG1q/H7Sdo8CM8KSyZaGTCmfLwMZlkDTT6h/hq1pWFf3H7VKLQa7ur/kAT6U0AoxBkhzp1U
-	wwAAY4N9zB1Xx8i5JU9FDUMifrIiGWCGNkDeDiia9j4Iu009b2mDmK9dxIAv8FA=
-X-Received: by 2002:a05:6000:2212:b0:488:89c7:31aa with SMTP id ffacd0b85a97d-498307c50c2mr300693f8f.39.1794246476845;
-        Mon, 09 Nov 2026 09:47:56 -0800 (PST)
+        bh=ZPQrRdeY/kRtnbmlFvQBDv3Ep9Z0Ve/f+uT8OM+fsyc=;
+        b=Lkus6vZ/PEW5s/E5sett25uDWAFCHeq199L2QKvptiDfvqImhdPNi81hCSE+NGbwFC
+         3RLkM0dI2rwntuKSisFIEGQ0qXBg2S85ZS7HJY3bY8WG8s22NZ/eSmbhkhhab5z6WC4Z
+         7l1z0jGTTADnpXP/56YtGk51e31DxQYJYd1R/TYrAM46sxskGSDsbyPeh42opCk2cAej
+         z1HlIFi0YWh54hWy7tj6d3MCRpmbx/HBawHxOjcnBm6TU+Ob7NFdEWN6CBRBu6n2T2B1
+         G1aErT/W3snaseiTZx5oTL4I/crEkVmCarFOwp7PckxGxGoG440QxcaV0sPU0qqhHsKv
+         +hqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794246478; x=1794851278;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZPQrRdeY/kRtnbmlFvQBDv3Ep9Z0Ve/f+uT8OM+fsyc=;
+        b=hRb5i4DZ9CHsqFQfWDHGWOYijOhY53wpmnmefsofWpZzBA3Dm5ChNYcRNNAoTmjKmZ
+         kmS0+Beno/CsKXeH9Sz4fpeBj42IaFBpAft7ytNMsbnCoKzvZ7CIEgPZ6UnQqFdblEIs
+         1Wl/Bh4I3ZKX0yQPpOt3x/1Jt8fTXj7UHCa74wDn4wZVDGqOJL1YfLmGlAd2pHwYpNIo
+         qa1+p/Qt32z/Q2KTr+RaeKfN5PRnq8AAeVGT41jRO79JjoBKytRFelBYQapC/ezUwK1V
+         FEuvgFplQ1+XXcWkTSHMvOJPi/PcBC9uoP8CaUSYLQYpSy68UvswgeBw+j123E+jdeFD
+         U2sQ==
+X-Forwarded-Encrypted: i=1; AL+hErHIWlItAoba/hy1DGI5kriVlipFMIiGC/8v1EQjl8wluaDv8faRnxik7/O19z6Ro7ZuL+BcqpMzMLwsF74=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+kOw5uVYMl+FlkjWZLR9mjFFcC2NNpmoiu7tlHdnG8Bwce14GU
+	aae6qiJQNwkGhn2gt5ruJtOTpBuQGoG+aUDUHKXLlb7l4FDJPKhnYdHriankXIRnmSA=
+X-Gm-Gg: AYBFou2LFyRARmKgVO/4EygyjOSi+7sh2CLkd94uXMZYxshkgQTy8WcaKoJ7ZqYufS/
+	u/ZKNEV7wIzHoaYzF++zvj8Dh4jKGw2xW68ScCl549dW/F9es/A9Ozv/fMBlRBpkR9ohKqLEfSF
+	0ohHTzFROSYuoZP9wE1RAmPv2fco+ztqxOgj7xtel8PP9aQujOlICJhJ646DV+g0xh2dcOoNSGf
+	uwGcpEotCijO9V7QQF7+eCxmOn1nUWQ4BHWwy1kRxwwRnm0lGhjDKrzazcJFNP1y4l9h5mhoXgH
+	dpzNCej1zfGONexZGWOh3VMEiEEHYbGQi0muPCBAVlVKHE6iZetb7AxUt/UAnWe4ilk/piaq13i
+	LTGOTVQgFAqc92adnG3pesGGHjMQaxEOrnxrSX7sa3UjTnPP/7aFhILSZP/k7d4yK9Siup+TILX
+	6WGImtYk4hyJoizWA+DRLWD3CQED96o7LJ49iCi52+r+cBVlwe9+QnLOJNXcstLTdHqFVCa+wYx
+	LzSk47298Eal/dY/SiZ+EpvTUuUeBI3B/Wxf7/jlOkkRRRX6qXIWXWOiRXeA/YvH6POQgSyx89y
+	9Xi7qtd4LQHM8NBxDxtfsvTVBbguDtV7ja5PfAL1nnXJTcJjbe2zWa8cB/rwXkIovqYdO5S5/Cn
+	wIkJQbm9m
+X-Received: by 2002:a05:600c:46d0:b0:4a1:fae5:f2e2 with SMTP id 5b1f17b1804b1-4ba023052c9mr134995e9.4.1794246478209;
+        Mon, 09 Nov 2026 09:47:58 -0800 (PST)
 Received: from localhost.localdomain ([2a01:e0a:9d2:5a71:e834:fd4d:2ecb:b787])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a3f4esm167322f8f.53.2026.11.09.09.47.56
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a3f4esm167322f8f.53.2026.11.09.09.47.57
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 09:47:56 -0800 (PST)
+        Mon, 09 Nov 2026 09:47:57 -0800 (PST)
 From: Olivier Louvignes <olivier@mgcrea.io>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -96,10 +98,12 @@ Cc: David Airlie <airlied@gmail.com>,
 	linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Olivier Louvignes <olivier@mgcrea.io>
-Subject: [PATCH v4 0/5] drm/ingenic: Add the X1600 display controller and the HiBy R1 panel
-Date: Mon,  9 Nov 2026 18:46:35 +0100
-Message-ID: <20261109174640.96951-1-olivier@mgcrea.io>
+Subject: [PATCH v4 2/5] dt-bindings: display: Add the Ingenic X1600 display controller
+Date: Mon,  9 Nov 2026 18:46:37 +0100
+Message-ID: <20261109174640.96951-3-olivier@mgcrea.io>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261109174640.96951-1-olivier@mgcrea.io>
+References: <20261109174640.96951-1-olivier@mgcrea.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,132 +115,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The display controller of the Ingenic X1600 is not the one ingenic-drm
-drives: it fetches frames through descriptors and keeps its interface and
-timings in register blocks of their own. It is the X2000's DPU without
-the composer. This series adds a binding and a driver for it, then the
-panel of the HiBy R1, an X1600 audio player: 480x800 parallel RGB, set up
-over a 3-wire SPI bus.
+The X1600's display controller fetches frames through descriptors and
+keeps its interface and timings in register blocks of their own (X1600
+programming manual, chapter 10), so it shares nothing with the
+controllers ingenic,lcd.yaml describes. Its registers are those of the
+X2000's display controller without the composer, which the X2000 and
+X2600 manuals call the DPU, as the X1600 manual does in its register and
+clock names: hence ingenic,x1600-dpu, which an X2000 binding can extend.
 
-The driver covers what the R1 uses and what could be tested: parallel RGB
-panels on a 24-bit bus and one full-screen RGB565 plane. The composer,
-smart panels and other pixel formats are left out.
-
-Two things come from the vendor kernel rather than the manual. A flip
-also writes SRD_CHAIN_START, which the manual doesn't describe for a
-running controller; flips without it were not tried. The panel's set-up
-sequence is the vendor's too: HiBy calls the panel LG35583, its maker and
-controller are unknown, hence the hiby prefix.
-
-Changes in v4:
-- 3/5: the clock runs from probe to unbind (devm_clk_get_enabled()), as
-  in ingenic-drm, instead of being gated with the CRTC (Paul). The
-  controller only takes register writes while clocked, so the timings
-  and the output format can now be set in the encoder's
-  atomic_mode_set(), and the bus_flags and color_order fields go. The
-  burst length is set once in probe, and atomic_disable() no longer has
-  a failed clock start to handle.
-- 3/5: probe brings the clock down to at most a 720p pixel clock right
-  after enabling it. After a reset it runs at its parent's rate, 1.4 GHz
-  on the R1, and kept that fast until the first modeset the controller
-  hung the R1 at every cold start.
-- 3/5: atomic_enable() takes the mode from the new CRTC state, there is
-  no writel(readl()) nesting, and drm_mode_config_create_initial_state()
-  replaces drm_mode_config_reset() (Paul).
-- 3/5: mode_valid() still checks the pixel count against 1280x720 rather
-  than 720 per side, which would refuse the R1's 480x800 panel (Paul
-  agreed).
-- 3/5: the file is ingenic-dpu-x1600.c, and the module and driver are
-  ingenic-dpu-x1600 (Nikolaus).
-- 5/5: unprepare() turns vcc off before vccio, the reverse of prepare()
-  (Sashiko).
-- Rebased on drm-misc-next.
-
-Changes in v3:
-- The compatible is ingenic,x1600-dpu, and the binding and the driver say
-  "display controller" rather than "LCD controller" (Nikolaus). The X2000
-  and X2600 manuals call this block the DPU, and the X1600 manual does too
-  in its register and clock names. There is no generic ingenic,dpu
-  fallback, as writing-bindings.rst asks for SoC compatibles: an X2000
-  binding can fall back to the X1600's. The driver keeps its file name;
-  splitting it for the X2000's composer and interfaces belongs with
-  X2000 support.
-- 2/5: no $nodename and no clock-names; the driver takes its one clock
-  unnamed (Krzysztof). The example's node is display-controller@.
-- 2/5: there is no IPU in front of this controller (Krzysztof asked on v2,
-  Paul answered): it fetches its own frames, so the output port is its
-  only link.
-- 4/5: reset-gpios, backlight and port dropped, panel-common has them
-  (Krzysztof). The example's endpoint points at the controller's new
-  label.
-- Krzysztof's Acked-by on 1/5 and Reviewed-by on 4/5.
-- Rebased on drm-misc-next after -rc1.
-
-Changes in v2, all in 3/5 and all found by the Sashiko review of v1:
-- Commits wait for flip_done instead of a vblank before the planes are
-  cleaned up. A flip's event waits until the controller reports reading
-  the new descriptor, which can be a frame after the vblank that v1's
-  default commit_tail waited for, so the old framebuffer could be freed
-  while still scanned out.
-- A CRTC being enabled sends its event from atomic_enable(), once the
-  controller runs; v1 sent it from atomic_flush(), which runs first.
-- A plane that is not visible is rejected: the controller always scans
-  out a whole frame, so v1 would have read past the end of a small
-  framebuffer placed off-screen.
-- atomic_disable() returns early when atomic_enable() failed to start
-  the pixel clock, instead of touching an unclocked controller.
-
-Tested on a HiBy R1: the fbdev console and a player drawing through
-fbdev, blanking and unblanking, 60 page flips in 0.97 s at about 61 Hz,
-and the colour order (RGB order swaps red and blue on this panel). For
-v2 also: 120 fbdev pans in 1.95 s (one flip per frame, none timing out),
-three blank/unblank cycles, and a 64x64 framebuffer set on the primary
-plane just past the right edge through SETPLANE, which v1 accepted and
-v2 refuses with -EINVAL, while a full-screen one is still accepted. v3
-was run on the R1 with its node changed to match: the driver binds to
-ingenic,x1600-dpu with its clock unnamed, and the player draws. For v4:
-four blank/unblank cycles with the clock left running and the timing
-registers kept, 60 pans in 0.98 s and 120 in 1.97 s with none failing,
-an unbind and bind of the driver, which turns the clock off and then
-writes the timings again from atomic_mode_set() on the first modeset,
-and five cold starts with the kernel loaded into RAM through the boot
-ROM's USB mode and started as the boot loader does.
-
-The X1600 has no device tree upstream yet; its support is being posted
-one subsystem at a time. The R1's backlight uses the X1600 PWM driver
-posted separately, now at v3:
-https://lore.kernel.org/r/20261102201325.29507-1-olivier@mgcrea.io
-
-v3: https://lore.kernel.org/r/20261106112000.1612-1-olivier@mgcrea.io
-v2: https://lore.kernel.org/r/20261025191640.13592-1-olivier@mgcrea.io
-v1: https://lore.kernel.org/r/20261025085816.60405-1-olivier@mgcrea.io
-
-Olivier Louvignes (5):
-  dt-bindings: vendor-prefixes: Add HiBy
-  dt-bindings: display: Add the Ingenic X1600 display controller
-  drm/ingenic: Add a driver for the X1600 display controller
-  dt-bindings: display: panel: Add the HiBy LG35583
-  drm/panel: Add the HiBy LG35583
-
- .../bindings/display/ingenic,x1600-dpu.yaml   |  61 ++
- .../bindings/display/panel/hiby,lg35583.yaml  |  67 ++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |  12 +
- drivers/gpu/drm/Makefile                      |   1 +
- drivers/gpu/drm/ingenic/Kconfig               |  22 +
- drivers/gpu/drm/ingenic/Makefile              |   1 +
- drivers/gpu/drm/ingenic/ingenic-dpu-x1600.c   | 739 ++++++++++++++++++
- drivers/gpu/drm/panel/Kconfig                 |  10 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-hiby-lg35583.c    | 342 ++++++++
- 11 files changed, 1258 insertions(+)
+Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+---
+ .../bindings/display/ingenic,x1600-dpu.yaml   | 61 +++++++++++++++++++
+ MAINTAINERS                                   |  5 ++
+ 2 files changed, 66 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
- create mode 100644 Documentation/devicetree/bindings/display/panel/hiby,lg35583.yaml
- create mode 100644 drivers/gpu/drm/ingenic/ingenic-dpu-x1600.c
- create mode 100644 drivers/gpu/drm/panel/panel-hiby-lg35583.c
 
-
-base-commit: 8deaade4a5a4ff635df91e246e42139ab2b33f6d
+diff --git a/Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml b/Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
+new file mode 100644
+index 000000000000..0e9f4442e4b9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
+@@ -0,0 +1,61 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/ingenic,x1600-dpu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ingenic X1600 display controller (DPU)
++
++maintainers:
++  - Olivier Louvignes <olivier@mgcrea.io>
++
++description:
++  The display controller of the Ingenic X1600 SoC, the DPU of the X2000
++  without its composer. It fetches frames through descriptors in memory
++  and drives a parallel RGB panel or a smart panel; its registers have
++  nothing in common with the controllers described in ingenic,lcd.yaml.
++
++properties:
++  compatible:
++    const: ingenic,x1600-dpu
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: The pixel clock, whose gate also gates the controller
++
++  port:
++    $ref: /schemas/graph.yaml#/properties/port
++    description: The output, to the panel or bridge.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    display-controller@13050000 {
++        compatible = "ingenic,x1600-dpu";
++        reg = <0x13050000 0x10000>;
++
++        interrupt-parent = <&intc>;
++        interrupts = <31>;
++
++        clocks = <&cgu 16>;
++
++        port {
++            dpu_out: endpoint {
++                remote-endpoint = <&panel_in>;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1c3aec082b0a..ca3f1a4bbd3a 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13182,6 +13182,11 @@ F:	include/linux/mfd/ingenic-tcu.h
+ F:	sound/soc/codecs/jz47*
+ F:	sound/soc/jz4740/
+ 
++INGENIC X1600 DRM DRIVER
++M:	Olivier Louvignes <olivier@mgcrea.io>
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/ingenic,x1600-dpu.yaml
++
+ INJOINIC IP5xxx POWER BANK IC DRIVER
+ M:	Samuel Holland <samuel@sholland.org>
+ S:	Maintained
 -- 
 2.39.5
 
