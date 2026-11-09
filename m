@@ -1,55 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794212580;
-	b=mJsexS+SE2yihEgO1p68xDfrAjFnKWpX6UZxnCoAxw3x5MXlI4NNqi3zVXroU36/uLiE
-	 gTDblghnSNwWqDoDunre960mh6LZdXkTCodaCBRD1MdlEEkPfgLSdiMfbpiYtwOsGWB9U
-	 98qmXDZR53IDdcZHI6ROhezmMAoQnCJ+wPPXv6V4ojBTCkr28g2zC6S/EjfdO1Oe7M7Bu
-	 8B3y86kWN/diuKOBvccOcRSATFtwVDjA5uIQaT92yOmYc/etI5iLX2r8S3KgXJQNZUZ0c
-	 B9Yj4rZj72R2S+0Ic4gmuQom+xUbcRwz6UJZJfvGPmgIkbPp0nCmmG/dcY9/6unGmIw==
+	t=1794212687;
+	b=BVnViqDz+HbJRdUxpJkQhHszezRTQ3Ijp8oAiGjCB6t1stnRJ5WnHvAnuMXMnEp23N1q
+	 KK/fsHjYo7M2CGVvxGC1SmwRjuSDmBhGkQOnY8jPe6nwtfNzE5T/AhSFJLclRqIH8/aAm
+	 KXTlqkWqgdXgqpK5ju37UDkGDWie1ae4rUqcFo2xeJxTu0pfRw0AQZ1c2hHmZLw9PICpP
+	 5/5OxB0EuT/5JuiY76BCq6KaR8Gu1w4EhXZnz0f/6zn6GJI+aiJJ4iqVLBccyeN77001e
+	 a/HbOrVKPT2hGnTBbjgcPrkn+YU/s2vs8wKfeLGpQMLDjT2FJRV7yDBUvT1mpzsFDKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212580;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Stat-Signature:X-Rspamd-Server:X-Rspamd-Queue-Id:X-Spam-Status:
-	 X-Session-Marker:X-Session-ID:DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=lxQRjwNzhgUme2zk4vouWgD/lFV/r7F9Q/0FYQ7yZG0=;
-	b=w8gUwtruCwCnYrmbJS8c8BC+I6uWhyo2Vap7qyn0BgvPyJlmj+kuZmgu6FApIeP5RGhb
-	 NSC4dVMfs7QUllGW7W+2Nohhg/rV9Tr+I9ppK4qmj6RmhKWBX4k2J9lqOK8fD3hzowslt
-	 13P8xtmKp9Wb8bQDkVl+EY+wOGpsb1PJBSa/SU/rLhcxjWVe6MGpxOZfA45QL+NiTIKAr
-	 ZtIRrt1IlMVJ10QjByczTU9nyGLACot9Y5x7SyqpGqDNXI7m3PUkLvGy/xSZWFylDdwXJ
-	 qiL45n8Tl/MpUDng5eMQ15r5ovY9YfZn+uK5fORIET2ty5E5oarCYSyIMgJ2FjHdaUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212687;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=LLXggI5QK5tYcxastPpVEd5Wzgnwlo56lcs2+CggC+g=;
+	b=QZv+ft8QGStJ6dGa313ERBj8Gv0YZjbxkDEdHLZQaIXch1gpzTBHH0piRSJSxbA6P3f7
+	 yXJt0RTA3yHBWL8jbU2gBA9xETmVspoqyeypgebCOWw6VDIs96RKUtYVUdwgqjoctMOFo
+	 oh1oQOwCaeeFiotoHDFH8D8JS5ujIwDFyeQjnJLROZPCbT5Di59oktQxYVZ7TzjDA9mb8
+	 eC6dqz5Fsep8zsQXuthbAuFKlxgihuutCclAwvU/4ohbnQLF720i5gw0zsu2y1KRthZ4M
+	 gDc7R3QUojMfgBGdo8zdkUH4sibTMRiTZX0RBGuma6r0cgoPU8QKFYULjjZkBwFSTXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=T5hrrgaF;
-	arc=none smtp.remote-ip=216.40.44.17
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Yl0TLYiE;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WUB53U6r;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2B2606A332;
-	Mon,  9 Nov 2026 08:22:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F2B2606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A023606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:24:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A023606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=T5hrrgaF
-Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 302E4A820C;
-	Mon,  9 Nov 2026 08:22:52 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf05.hostedemail.com (Postfix) with ESMTPA id 098D720010;
-	Mon,  9 Nov 2026 08:22:48 +0000 (UTC)
-Date: Mon, 9 Nov 2026 03:22:41 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: LKML <linux-kernel@vger.kernel.org>, Linux trace kernel
- <linux-trace-kernel@vger.kernel.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Vincent Donnefort
- <vdonnefort@google.com>, Breno Leitao <leitao@debian.org>
-Subject: [PATCH] ring-buffer: Do not allow reader to see unfinished moved
- head
-Message-ID: <20261109032241.55e57d26@fedora>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Yl0TLYiE;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WUB53U6r
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96A8hC056083
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 08:24:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=LLXggI5QK5tYcxastPpVEd5W
+	zgnwlo56lcs2+CggC+g=; b=Yl0TLYiExRgofqtRFITadDV69rrRizSYCR4/HTx7
+	nH+QlRhzl2pXe2fZpr6VF3GoRdhjNqCFWmC93zIYtLeweU6ZKTmql4kGB+i09Kpd
+	LSuV84EpVsJHefMq+lg0QlRh2btsmTJwkRbHDGG7FoYS9Ld8LgVyZncoo8l7jExo
+	lIXXlQhL8rlJl+0Jo7GBw3gVDhTzPeX1VqI9gdRg5hPciTr0qXyf/MSDeA005mrc
+	ay6WOGYMkbuvdHc7sqDpvpnuvFHc1dgw7meqh1sYb6j1KNBzpZ00rswKnJMlFGNC
+	JiiiA9u7UB0jErNcj7fWBC2lRBvrdFZAHvfrT5skjhy7Sg==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4htuqm28u7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:24:46 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-139b62317d0so1349844c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:24:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794212685; x=1794817485; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LLXggI5QK5tYcxastPpVEd5Wzgnwlo56lcs2+CggC+g=;
+        b=WUB53U6riY2fVUTTdnQtq62gj64PBZITwRR1OGoPvpranAJ5iovdyQ+SnijwMqL/Vg
+         mUn2zv+pqI1KW8j15+7gZRL8tjDx63UEpFMbRQFV+0eSLTQKJwCe0NfEZ28ntTFCfPg3
+         9tPZZ8SAiaryxS6bC6hfUyP2DT1Ikr/Etos9qOC/Ueh3dj9RjIRERAgIuzeO0wKLv2jA
+         TA6zHOgXvFfdyKYkmpEV3tpLzB4jVEVsGGwiGFmyUaYVf/wMjTCzyrDFGJc1OgygPFAe
+         EMId6+bTFZnr5BwKZTu3CHDl8dh7fL5LhnBaNY7JUzN9pCX2c1P1reBlinWnEWH1OU7N
+         JtzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794212685; x=1794817485;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LLXggI5QK5tYcxastPpVEd5Wzgnwlo56lcs2+CggC+g=;
+        b=Kga/ciQmVN8aDtGF89RSBj2ltdr3nyLdffQ0F8IusiDGLqQrbosFc06KXO5H+ztK/x
+         uc/+DL3IyKlsSSWpRlHPyM3mxZPdmlpW8CfWWwSA/VRNWQ+y7i3TiI5zuOr6ju0uGLtj
+         HClIn/YbJeD1RhzhGD845yTLliBPXMoaaWrnCPHHeivfHf72l6xgWjdsRlBRKTfEoivT
+         o+jcroVRo21ZPhh0K7EgLUKyD68cVtCgY9o411Aws8M0yeLM6ioHMsoWLvlVzNbmOU6q
+         6u9LYap/vjoGDP5A0sGFw59i7ghW5W2VSCi+GEC8WJU3AfvxPGljRU6mgNP9ixWkuUOc
+         X7dg==
+X-Forwarded-Encrypted: i=1; AL+hErEaCUWtL1e0jG8zzgkL73WBNtcRTeOO0Hy7LAmnzjZM8lMrCC3f/dSmU1h2wwtyOHK1+43nz18QzQnc4kU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/IMxo4pz3RYy8QhMT4glVs99Bq22RL0LoLbee0RMT8xiX37vZS
+	ylcAddfD5amxIJzpU4aRxnDO7+dYFKGZ8hQv7KZTLs1lnZlqjjusP7RClquvF/8MW22rUShqj9m
+	j1COAg3BVBZehXFf8YD67bWsKR1DBP9TyUB++KscTlMMxxf2f3WNsLjVoOOI8rOp66tg=
+X-Gm-Gg: AYBFou3oPRvCUJGKfVPJ3tlC/wVn8BJ0Dmikrv9sgVkvV2qhttvkcNZ7QQf1mVHRIQw
+	EAPZRhVyUVRIJw07aAvcNHXTktknQme30865s+h1tyIBH+OqfcFnQZ0X0rBNq94pPeEEZ8XeMEK
+	kckIRQC3aImnahQ8Q7uz+TNCwdwyII3pDgxegzhzxU5sIugySV14210ULpWmZup+PynK505l6Ik
+	yh95+dlpGN0Ax9OWEn6e07OiSk+7vn4im3/xHWgn1/YlBfpWXlqaHgU5U1jG2ycos878blkaP6B
+	yB1vxR+i9B92j+BZeSw+NcNhZCufZrzfjWkQlsnJRhssibJGLkdKtKr5a6kGeysjoisS8VsXdyI
+	mQ2gdoqm0Hg9/75N4f6FZrM9yBsDmCJcZ3ClmfcJ2Us+oOhe0/901WeapSyTn1nQg/OswYHCqHL
+	yEvarTw1zT2YZ5Ug==
+X-Received: by 2002:a05:701b:4302:b0:17e:ee5f:6715 with SMTP id a92af1059eb24-1b39fef0409mr5658265c88.27.1794212685032;
+        Mon, 09 Nov 2026 00:24:45 -0800 (PST)
+X-Received: by 2002:a05:701b:4302:b0:17e:ee5f:6715 with SMTP id a92af1059eb24-1b39fef0409mr5658223c88.27.1794212684403;
+        Mon, 09 Nov 2026 00:24:44 -0800 (PST)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771fa200sm10803939c88.22.2026.11.09.00.24.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 00:24:43 -0800 (PST)
+Date: Mon, 9 Nov 2026 16:24:37 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Mark Brown <broonie@kernel.org>, Srinivas Kandagatla <srini@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Shenghao Ding <shenghao-ding@ti.com>,
+        Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
+        Sen Wang <sen@ti.com>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-sound@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: codec: pcm1681: Acquire sck when bound to a card
+Message-ID: <avGDRUwyEBk2qQaM@QCOM-aGQu4IUr3Y>
+References: <20261021031228.2074402-1-shengchao.guo@oss.qualcomm.com>
+ <179390052368.3073895.16132231139898724200.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,92 +126,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: g8sr9p9x95fog3j7gzhuarq1zop4dru3
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: 098D720010
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/prPkD/Pipo7SBos5JqDxCjTyrb1Zb2Yg=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=lxQRjwNzhgUme2zk4vouWgD/lFV/r7F9Q/0FYQ7yZG0=; b=T5hrrgaFApZvA5ajhhzY4Vvt9dJ4jRhFM8hD5Ve820WV5QISwd1D/8/3BrLDM+m2CGlldEqLz9ueArkKdWPdaNoGzMf4WO7QCvrVKSi2pfQ/PdEpZYslo3B5tebbtUS2tsHoIMXs4zQSs/HiVJ9O07tT9H37Q9E3thgu5s+D7hg=
-X-HE-Tag: 1794212568-571396
-X-HE-Meta: U2FsdGVkX19XV+9IhCqE0Odk1TRWUwda1u8Z14ntUtuRw+ijoRvdOUwWKcoEocIwaAsOnG7cqzWrpv9o8YQbFrnV+anIu/R12sXvH5LwqTv+9S6D2H0tFMmGsqx6YK3eYiC+hxHhdq9ceV3STFAyQO3I0wj8qLZOF8/GxOcU2uy0KVNwIGxlKCsDlXs0eHIA28djMqMnxj17HYYeM21Y0rQQfriD5YWCty8n9by5RbDizq62oiDul01qcU7LedesZ4i1AXxMwNDnH7+h8MOwZoumQN94/57pnFFSkRmEuYY0R+zwFwl6ESn92eQJYkX4IEjOBnmzSu5xyzdT7p7hW/eMl9A7olenyUkOQngefOrHzrbEeaA9HBdYDRxEKaFtmkNa2EKjdghVIY1Hwkjp3AreWysqrKzU9LhXU53rgKq25Acdg0TciJdzu8S90Fy1LKPaOX70CQE=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179390052368.3073895.16132231139898724200.b4-review@b4>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzMyBTYWx0ZWRfX9SIIneH0gHYR
+ IuudylEG+b7uxQwun0IR2TE0BLuEpEjD719m3sRJe2j+O5TG/6lprQgbQtv6t8BOnTO2ysi8Wsi
+ JgLMEfkT/ojjJ1pg6WZTjmgS7+Tn/FA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzMyBTYWx0ZWRfX+IYODYYxsjBR
+ V2zXdtSsUvlT2rzBeelcxVZCOpTj/wBDbUSF5Ghxz8gHAdAr8sikEnfJ/618GmCs1NlxuYgdUlR
+ MAKYVv2Z5gZNLRdGdEKsXDYyHCWWBnSM/NHw9grZAdoQXKcHg5A5SswnCwr2BAPBd9/YdRyOCeK
+ LhHpJM3j2qkzA5HXnTG39Xwanl0BPvEij9ZrJ72X92acoRROr9b9HqDcJtY4dVOMCr/EY1LimJK
+ Firz4W4NXn+9SkuhuBJRU5aFaPxQnK9Fge28w9ivXo2XIJ7/ZNGsvzOYvgbzaNwMmDgpyRsmqYC
+ chaSCrEajfEwpJAsnhj7XjErZrl4MpZKOMJ/2xOco9B1phTkyBXqfhFrjq1SYtNTqZFG5DSVIWs
+ pHj0XDG8dzt0A7y1j83n19p0gjqUyFc5aeqFGon5uE0G0yXOIj3DpqPvku6xIu9aBgrQRED+uNa
+ K0obfC9/e0QYxhipVRg==
+X-Authority-Analysis: v=2.4 cv=JLquIMKb c=1 sm=1 tr=0 ts=6af1834e cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=Hnavqaomymq-nAvSwTcA:9 a=CjuIK1q_8ugA:10
+ a=Fk4IpSoW4aLDllm1B1p-:22
+X-Proofpoint-GUID: foQia3K9RMp-0w3s4QDBPzW_NQheC3ti
+X-Proofpoint-ORIG-GUID: foQia3K9RMp-0w3s4QDBPzW_NQheC3ti
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 adultscore=0 impostorscore=0
+ spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090033
 
-From: Steven Rostedt <rostedt@goodmis.org>
++ Srini
 
-The reader of the ring buffer swaps out a blank sub-buffer with the "head"
-of the writable ring buffer so that it has sole access to the sub-buffer
-and doesn't race with new writes. To do this, when the writer fills the
-ring buffer and needs to overwrite the oldest sub-buffer, it has to mvoe
-the HEAD of the buffer that the reader will take next.
+On Thu, Nov 05, 2026 at 05:42:03PM +0000, Mark Brown wrote:
+> > The sck clock is taken once at i2c probe and held for the lifetime of
+> > the device. On Qualcomm boards it is an LPASS clock exported by the
+> > q6prm clock controller, which lives on the DSP and is unregistered and
+> > registered anew whenever the ADSP is stopped and restarted. fw_devlink
+> > cannot tie pcm1681 to that provider, since the provider node only gets
+> > a device once the DSP is up, so it falls back to the remoteproc device,
+> > which stays bound across a DSP restart. pcm1681 is therefore never
+> > unbound and keeps a clk handle to the dead provider.
+> 
+> This seems like something that ought to be dealt with on the Qualcomm
+> or fw_devlink side TBH, registering the clocks and returning -EBUSY on
+> attempts to use them would be less disruptive to other components in the
+> system.  I don't understand what fw_devlink would be doing with
+> reparenting clocks...
 
-While it is moving the head, the reader is prevented from doing the swap.
-This is accomplished by the writer changing the HEAD flag of the head page
-with the UPDATE flag. It then sets the next sub-buffer to have HEAD flag
-set as well.
+Thanks for the review, Mark! I agree this belongs in the Qualcomm clock
+provider, not in pcm1681, so I'll drop this patch.
 
-The cpu_buffer->head_page points to the last place the reader saw the head
-page. When it needs to acquire a new page from the ring buffer, it will
-start at the cpu_buffer->head_page and search for the sub-buffer with
-either the HEAD or UPDATE flag set. It will only do a swap if the
-sub-buffer has the HEAD flag set, otherwise it waits for the UPDATE flag
-to clear to find the new head page. The problem is that this
-cpu_buffer->head_page can be stale, and if an interrupt happens while an
-event is being written, and the interrupt writes a lot of events, it can
-move the head page several sub-buffers from the original head page. If the
-cpu_buffer->head_page ended up between the original head page that has the
-UPDATE flag set and the new head page with the HEAD flag set, it can allow
-the reader to see the new head page and swap that one out while a commit
-is still in progress. This can corrupt the ring buffer.
+Sorry, my wording about fw_devlink was misleading. No clock gets
+reparented. My point was only that pcm1681 is never unbound when the DSP
+restarts. The q6prm clock-controller device only exists while the DSP is
+up. So fw_devlink links pcm1681 to the remoteproc device instead, which
+stays bound across the restart.
 
-Have the writer update the cpu_buffer->head_page to keep it pointing to
-the old head page before it does the update to make sure that the reader
-will always start its search outside the UPDATE and new HEAD sub-buffers.
+Today the clocks can't stay registered across a DSP restart. When the DSP
+stops, the GPR bus unregisters the q6prm device and its clock-controller
+child, and that unregisters the clocks. The clk core then switches them
+to clk_nodrv_ops, which return -ENXIO. That's where the "Failed to enable
+sck: -6" in my report comes from. The consumer's struct clk handle can't
+be reconnected after that.
 
-Cc: stable@vger.kernel.org
-Fixes: 77ae365eca89 ("ring-buffer: make lockless")
-Closes: https://lore.kernel.org/all/20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org/
-Reported-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- kernel/trace/ring_buffer.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+So I'd like to change q6prm along the lines you suggested:
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index c64e001c3fc0..0d37f8b529d5 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -1494,7 +1494,13 @@ rb_set_head_page(struct ring_buffer_per_cpu *cpu_buffer)
- 	if (RB_WARN_ON(cpu_buffer, rb_list_head(list->prev->next) != list))
- 		return NULL;
- 
--	page = head = cpu_buffer->head_page;
-+	/*
-+	 * Make sure that the start of the search of the head_page does not
-+	 * start between the writer adding the UPDATE and the new HEAD that it
-+	 * moves forward.
-+	 */
-+	/* Sync with the writer moving the HEAD in rb_handle_head_page() */
-+	page = head = smp_load_acquire(&cpu_buffer->head_page);
- 	/*
- 	 * It is possible that the writer moves the header behind
- 	 * where we started, and we miss in one loop.
-@@ -3721,6 +3727,15 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
- 		local_sub(rb_page_commit(next_page), &cpu_buffer->entries_bytes);
- 		local_inc(&cpu_buffer->pages_lost);
- 
-+		/*
-+		 * To prevent a stale head_page from being between
-+		 * the UPDATE and new HEAD pages, set it here to have
-+		 * the reader check always find the update before
-+		 * finding the HEAD page.
-+		 */
-+		/* Sync with the reader setting the head page */
-+		smp_store_release(&cpu_buffer->head_page, next_page);
-+
- 		if (cpu_buffer->ring_meta)
- 			rb_update_meta_head(cpu_buffer, next_page);
- 		/*
--- 
-2.53.0
+- Keep the clocks registered, on a device that is not removed when
+  the DSP stops.
+- While the DSP is down, make prepare/enable return -EBUSY.
+- When the DSP comes back, re-send the requests for clocks that are still
+  enabled, at their last set rate. This also fixes the rate being reset
+  to the 19.2 MHz default.
 
+The part I'm unsure about is which device should own the clocks:
+
+a) A platform device that q6prm creates on its first probe and keeps
+   until the module is unloaded. This needs no DT change.
+
+b) The ADSP remoteproc device, which already survives restarts.
+   It's cleaner, but probably needs a binding change, since the clock
+   controller node is a child of qcom,q6prm today.
+
+Srini, Mark, do you prefer a), b), or something else?
+
+Shawn
+
+> 
+> > +static int pcm1681_component_probe(struct snd_soc_component *component)
+> > +{
+> > +	struct pcm1681_private *priv = snd_soc_component_get_drvdata(component);
+> > +	struct device *dev = component->dev;
+> > +	int ret;
+> > +
+> > +	priv->sck = clk_get_optional(dev, "sck");
+> > +	if (IS_ERR(priv->sck)) {
+> > +		ret = PTR_ERR(priv->sck);
+> > +		priv->sck = NULL;
+> > +		return dev_err_probe(dev, ret, "Failed to get sck\n");
+> > +	}
+> 
+> This is the oppositie of the standard advice for drivers, and we don't
+> deal well with probe deferral from component probes - in particular,
+> nothing will trigger a rebind of the card if we don't probe a new
+> component and that's not going to happen if the CODEC already bound and
+> isn't waiting for the clock.
+> 
+> Also dev_err_probe() will only DTRT from device model probe.
+> 
+> -- 
+> Mark Brown <broonie@kernel.org>
