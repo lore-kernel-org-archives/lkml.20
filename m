@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794256586;
-	b=CAaSgpALDwaG8RW+ZCn2bmza/ly54fwgLhzTtLrYPoLUzrMJsRPe53ArghI1HJx/yaxE
-	 ZcsJwaCdxCpx66dk62e7wymXOvx42tvLrjTKPaZ2xVv4ThJgafiNLoPcVWlbnsy/8Ogn3
-	 IwIInq/nQqNYBWLWkpJgPwZdjHHa10ZhkGAtVwbswwMs3TTaegEZoTjoljc8N9Vb/QRIM
-	 RIv8lJi/FkIb2Js4Eht/6h/vK0xczIufs2oBQkkfaEfIaUMP4aoZsJxGTqq0KFLAyBRnN
-	 ntMi3Rd/7UIfWfa8wOuv25sui7BglzMbtkIYl7XAhwWE+SLlVneLktl3tdeFL1KAV8w==
+	t=1794256587;
+	b=d0sIfkMJYTMWhdgE9NQfnOGNAOE5Pb2bs8tYtRK1IINRwycjBepaZtK1fq3Qf4ZDuJeq
+	 2148pJwU+YiXFktT/SM50VrGyjuCvhihdBN9fmadVnLEYmsTSqXMu08ieY4YZtPgmrwCt
+	 PBuMYmc7qrnWEBSqXZ4o5ag2zCXaCEzE3AdUT317/+TV04o6PHa5dicTVdeth5w8EdkmF
+	 n7trDQCtiagzeHrZ412X4tthcjaQKlp8lRNSKCaQomqTeQrodA++gr5ZPBJFCntZpul4u
+	 j1lwNsp6soOFgonNw4kG3Q3wWosQw574jjLhHXLUeV7hCEGFLHr/5uL5evh4PHexgdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794256586;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794256587;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
 	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID;
-	bh=3em69XCIPb+H+EJhS2TKBVreoizkbCywAkNWCOMD3Ws=;
-	b=OhcarvCDADAar3xfIHp5utn3Bl9xOdJmM0Ld8xGq1EdJgVYreaULCyx8cXkjQHlgYcT0
-	 QZ4ACbQ54+/pHha2z4QqQ9xGkpHc/Jyf23oxCiU2WjJ84sLsLjNdnueiCjO2CF28BurRL
-	 LWaoRo5RimDAPsZmcGNWJy6LeIslFFwalkH33UO+dQvoiyxfKwumjS7V5WtboSjZ1hZMC
-	 Xk0/nSUStL3WjEi66A231oYXki70Uur+G7pg+lNGVQbw7z0sSdUy9f+s46pOGMrELa3Cc
-	 GNnxRHgBsRIMQNMG5t0z2YihCTLp10jfFZc/EfA24lABgBZFBoKZp1TLUUpzeDmUzFQ==
+	bh=sknmdDkQTO5Ldr11UDZTsw2bKwiyFyyJ90PVXDuF9BI=;
+	b=vl60jUfczAz3IR4+Qkx7tCdzNqzrh68wlfPAs603eLelnWrQ7+PTAY308liS066adqgp
+	 uFBZGSo8RdeFyI62GKbUzD7S0LscyiRqjn5LtR6EKULHc8TtiT+uZ+C51dW7IRAojq8ro
+	 O1qZFYg1/ZsqKSB/SVH21J+CkqyjPftesBRmqoDKEhAC6K9M/e5qLdz12dbL9ExjAbP8Z
+	 rNUiYzhHXQe2szi1o7ZqwTv3Ln5SI0LjHKS3yLWzrGDfJ9+H/m4GiqeeO21+YUtmNSGBe
+	 0ttuuXoTEhGLZrPBdqy0h5qGnJm9sFRPekCEyNQxgY6Zb73CxFpgXvroU8us/lxalLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=imgtec.com;
 	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=KT1fe+vS;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=tVzjNwCj;
 	arc=none smtp.remote-ip=185.132.180.163
 Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF69D606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7A2606A33E
 	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:36:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF69D606A325
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF7A2606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=KT1fe+vS
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=tVzjNwCj
 Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id 6A9Jxrvo3422877;
+	by mx07-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id 6A9Jxrvn3422877;
 	Mon, 9 Nov 2026 20:36:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=3
-	em69XCIPb+H+EJhS2TKBVreoizkbCywAkNWCOMD3Ws=; b=KT1fe+vSiY+AJqP4B
-	U+TmnbWekeDmkUsIsoxIHHlvEX+1jBQ+BSeLrt1K3yClUeNAGv1vmFN9Zvj/Qojd
-	vPubskB+5ZlyMgHqw/w4EKeQufZFe1HoHoi1yek8+4KByV5CmucZqiq8Y5+kEonW
-	99mR5FZZ9OFlW5ZvoABR58ib7ZwMC5+qWU96PgaI6iHvb6LdS3FOg4pungrnV7qV
-	OYTgJZRV9TW38BCx2Mp9oD4bfB7wyx5j6Faf7C4hO3362YIPv0yRBfqbNeh3ghw7
-	VU5SAjPUoHV7b/E6w4MpvgGFolPl7JBnj/ECPQtqRXYFlfg04oMwYfJA70W1VhrZ
-	SB7Rw==
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=s
+	knmdDkQTO5Ldr11UDZTsw2bKwiyFyyJ90PVXDuF9BI=; b=tVzjNwCjp//szmtu0
+	1Vfxtba1jt6ehYlHfOZc17aebltk/Mh0XJ0SZpc4UD85/xUCXJtCMZvDy+1mxfPw
+	skDxEYdyK/pmZ+LWrcHsINB+qVkS25SLX5Muylk5g1hcY0h458JxueU+ycZAKFeh
+	u+ceuYa9NVKn/0dU2Zuenejm4V2fQgzCrzHwjeVSHmv3DXe+yfh7P4F/eIjFAjcC
+	hrJyBAIN7MJuRnKYgBlL3hwGizX/UnKmIqvQepmT06IMpUVcs889LVK0+BGSdJbV
+	TkhHB3FZIzbukL8uQv0pWLRY0VbGsGiZy1+MQqZSIVmFXeDqi2AxZF1sTjfbSLNo
+	r9b2w==
 Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hsvxx1tk3-3
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hsvxx1tk3-2
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT key_exchange=secp384r1);
 	Mon, 09 Nov 2026 20:36:06 +0000 (GMT)
 Received: from [127.0.1.1] (172.25.6.177) by HHMAIL01.hh.imgtec.org
@@ -58,8 +58,8 @@ Received: from [127.0.1.1] (172.25.6.177) by HHMAIL01.hh.imgtec.org
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
  2026 20:36:05 +0000
 From: Luigi Santivetti <luigi.santivetti@imgtec.com>
-Date: Mon, 9 Nov 2026 20:35:22 +0000
-Subject: [PATCH v2 2/2] drm/imagination: clamp count of heaps and static
+Date: Mon, 9 Nov 2026 20:35:21 +0000
+Subject: [PATCH v2 1/2] drm/imagination: clamp stride of heaps and static
  areas for legacy UM
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261109-ioctl-query-count-stride-fixes-v2-2-228ea0e28dc3@imgtec.com>
+Message-ID: <20261109-ioctl-query-count-stride-fixes-v2-1-228ea0e28dc3@imgtec.com>
 References: <20261109-ioctl-query-count-stride-fixes-v2-0-228ea0e28dc3@imgtec.com>
 In-Reply-To: <20261109-ioctl-query-count-stride-fixes-v2-0-228ea0e28dc3@imgtec.com>
 To: Alessio Belle <alessio.belle@imgtec.com>,
@@ -86,200 +86,189 @@ CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
         <brajesh.gupta@imgtec.com>,
         Luigi Santivetti <luigi.santivetti@imgtec.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794256564; l=7582;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794256564; l=7072;
  i=luigi.santivetti@imgtec.com; s=20260707; h=from:subject:message-id;
- bh=6iBK6/O7fBcDgOfvs84MkoPo956p4bwVDyK7QfZd7PQ=;
- b=9xS2F3T/uo39afViGQ638Cy97Sc3AOH2DFqoCIRJbsOsYbM8hAUekeKoZCpI9nHhwImYQtnTp
- gfCmlXWVemBBHj5251kH+NAHLUUy2TkfYI/txsluOSmZxX6eprx1Wny
+ bh=BtQCl/jQqu9IlaT2VJeUrDoOjvX4lBlJNJkGp+dN7yk=;
+ b=7ju1YjK1/3lcSqTeOj2iw0gNgWOYNsvw++Kql/nRFdhL7/qszrm21gXJ1QiwFPkdWJDgP7uet
+ BLwHu89k5aJAg+YCFCp18RJpk8hJ0If0xWfLmrcAo+wn3QR3jsOK0Qx
 X-Developer-Key: i=luigi.santivetti@imgtec.com; a=ed25519;
  pk=jS7sCDyWFMopn8iAXVN+AdJi+Z3fZPQKsS5NdQtI+sc=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA4MiBTYWx0ZWRfX/VA5FTEUPQYe
- 2rC7dc35MHb7MEEpNiAEfgtM1gPRoz8H9sIZaqY8C32p27M2MIHjtdxamnB8nqXhH+y99YgVLEv
- UEB3oDyKBfJF8M5v0i/Qo+ZnuNmkO9M=
-X-Proofpoint-ORIG-GUID: D_9hJcviRXYYh19t3A3_ltFtvX3chJTQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA4MiBTYWx0ZWRfX5uiXmvM+giJf
+ 4UoT0zHYicpes2rB4YsP7xdn9OIG/iLatWxd4TV5ydhj/EAH2iQmLK8zDzLCva3nrMs8NaKXJjS
+ aodmGnHzEswOODrpWzpNdAJglA/7ND0=
+X-Proofpoint-ORIG-GUID: yY1bslqMTcTB9JpwFrUUJ3KFGfemKeTy
 X-Authority-Analysis: v=2.4 cv=H+JOUOYi c=1 sm=1 tr=0 ts=6af22eb6 cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=2JH569OHYJkA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=e5mUnYsNAAAA:8 a=r_1tXGB3AAAA:8 a=NjuOHxGiqyyvwl9FGpwA:9 a=QEXdDO2ut3YA:10
+ a=e5mUnYsNAAAA:8 a=r_1tXGB3AAAA:8 a=wk5KyH1tZOMvrzhs76oA:9 a=QEXdDO2ut3YA:10
  a=Vxmtnl_E_bksehYqCbjh:22 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA4MiBTYWx0ZWRfXxY3+tGwXd74d
- I9/2I/mR5dTn4P/k8osoNaQXKTCVAugdC7Hz6N6lzbLj0XYFo/TrbiOXU+SZ0+Kvv95CDY1eys2
- REiradnzOwjoNdyYyrnllW6oqviKwnFdCBLRpR5Dpm5em1JZLUnju8zladN3fFDC9/6nvUaG49O
- FtE15Y+V7kuVD0cawqzeb+4schmLpKYq91O6gAYryAMWgd9BhTL98rzIidDQ15XsXCQHPys40ZV
- y0ZpearO8QjPUjRErW9rqTmDFpMLMsZlLBTlQUzT6wUv6195SCTncL0hnHJDFyhcno6rIqO9IH/
- zSyFLDo1/AgJn7JSRnaSmTIp4r9X/kpWzLAiPI8QIZrq3/eKiDYer+ogQEJxjyDivczZlZJh8Io
- NJZYV+BjiDj2IUvfJu3L5akvUNX2Tbu4HjGznnUqnKyqE2EzsT+MGgzeKgUFg/RmCGoMk/dN4qF
- 4X9yUuiKkqxKq9Akkwg==
-X-Proofpoint-GUID: D_9hJcviRXYYh19t3A3_ltFtvX3chJTQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA4MiBTYWx0ZWRfX2L6O+tfBrm/Y
+ Nb6JUNI7D6y+w3XAW18PwRMszLr/ImpdNRoHp5Y9mwKKyjuD9jjXr8Lex6LJ9mk5zdLGqEfwAo/
+ yo13BFiJ3odtl7rF+QGw10IFJKJnwG0gLri5vbVwTbaoWnl3bb0gKcnP/vZWvMhH8Yf6CIXO202
+ E+qhq0oOBK4uf6ysIeiGyEraaqFR/dbh5rUg/0UOfdn3s0b3rchhHikU7gduJH+hcqUVllAAXxU
+ vMwLrf0yAggzGYmzyF3zbnKeELDPQHUQVh0XwE02PLuNoUN37KBLzTLemdXrQky3L8cRygRXfeo
+ HDDQsi/83HvSBUDo52Wr730eZknZ5WGwucshUqPHtjK9z7xoLZ3ZLcf9p6O1BhTRdDQqmq14wK0
+ J3khUj5QpF8OVLty8+GkKxXJoKKJyuMGbWoZP/GLgjvmvm4ppq7+tskcVk8DgeZvNpbn8ptggrs
+ tv3RlvDmMqVCeEWPOUg==
+X-Proofpoint-GUID: yY1bslqMTcTB9JpwFrUUJ3KFGfemKeTy
 
-Userspace mishandled the count of DRM PVR heaps returned by the kernel in
-the DRM_PVR_DEV_QUERY_HEAP_INFO_GET ioctl call. In particular not taking
-into account that the value of count returned by the kernel can be larger
-than the count defined in userspace. This issue hasn't manifested itself
-so far because no new DRM PVR heap has ever been introduced, however new
-heaps are expected to be added in the future.
-
-Userspace fixed this problem with 2a983a3a in [1]. For the kernel, it is
-possible to be safe with respect to those versions of userspace predating
-the fix and at the same time to preserve backwards compatibility.
-
-After this change, future versions of userspace can keep using the ioctl in
-the exact same way they do now and, in addition, they _can_ use the newly
-introduced pattern for querying the minimum and the maximum value of
-supported heaps by following the documentation that is available in the
-UAPI header.
-
-DRM_PVR_STATIC_DATA_AREA_COUNT_MIN_SUPPORTED was added in order to keep the
+Userspace before 4c18bbc6 in [1] failed to set the stride when doing the
 DRM_PVR_DEV_QUERY_HEAP_INFO_GET and DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET
-ioctls consistent with each other, but there is no known mishandling in the
-latter from userspace.
+query ioctl calls. This isn't a problem as long as the kernel and userspace
+use the same version of struct drm_pvr_heap and of drm_pvr_static_data_area
+and at present this is the case. However, nothing prevents it to change in
+the future, allowing userspace and kernel to run with a different version
+of either of those structures.
+
+In order to protect userspace before 4c18bbc6, change those ioctl calls now
+future proofing the value of the stride that is returned by the kernel.
+This means to take a snapshot of the size of struct drm_pvr_heap and of
+drm_pvr_static_data_area as of today and return it to old UMDs. Since the
+size has never changed so far, we may refer to this size in docs, code and
+comments as version 1, first released version, legacy or minimum supported
+version of the stride.
+
+In order to be safe for userspace, make use of the following properties
+that hold in UM code before 4c18bbc6:
+
+  1. for both DRM_PVR_DEV_QUERY_{HEAP_INFO,STATIC_DATA_AREAS}_GET, it makes
+     two ioctl calls
+  2. it never sets struct drm_pvr_obj_array::stride in either ioctl calls
+  3. it assumes the stride from the kernel to match the stride of userspace
+
+In the second ioctl call the value of the stride is set to what the kernel
+had set it to in the first. Therefore, special case what is returned to UM
+in the first call, so that the value of the stride matches with the one
+userspace uses before 4c18bbc6.
+
+Although backwards compatible, this commit alters the semantics of how to
+retrieve the non-legacy or maximum supported stride going forward. The new
+pattern for interacting with the kernel is documented in the UAPI header.
 
 [1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/44456
 
 Signed-off-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_drv.h | 12 ++++++++++++
- drivers/gpu/drm/imagination/pvr_vm.c  | 18 ++++++++++++++++--
- include/uapi/drm/pvr_drm.h            | 28 ++++++++++++++++++++++++----
- 3 files changed, 52 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/imagination/pvr_drv.h | 21 +++++++++++++++++++++
+ drivers/gpu/drm/imagination/pvr_vm.c  | 14 ++++++++++++--
+ include/uapi/drm/pvr_drm.h            | 33 +++++++++++++++++++++++++++------
+ 3 files changed, 60 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/imagination/pvr_drv.h b/drivers/gpu/drm/imagination/pvr_drv.h
-index db3ffe55af29..31b86286d348 100644
+index 4e058a6fdd5c..db3ffe55af29 100644
 --- a/drivers/gpu/drm/imagination/pvr_drv.h
 +++ b/drivers/gpu/drm/imagination/pvr_drv.h
-@@ -93,6 +93,18 @@ int pvr_set_uobj_array(const struct drm_pvr_obj_array *out, u32 min_stride, u32
- #define DRM_PVR_STATIC_DATA_AREA_STRIDE_MIN_SUPPORTED \
- 	PVR_UOBJ_MIN_SIZE_INTERNAL(struct drm_pvr_static_data_area, offset)
+@@ -72,6 +72,27 @@ int pvr_set_uobj_array(const struct drm_pvr_obj_array *out, u32 min_stride, u32
+ 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_fw_info, _padding_4) \
+ 	)
  
 +/*
-+ * Value of DRM_PVR_HEAP_COUNT in the first released version of enum
-+ * drm_pvr_heap_id for Rogue cores.
++ * Minimum supported values that are fetched by DRM_PVR_DEV_QUERY_HEAP_INFO_GET
++ * and DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET ioctl calls from userspace.
++ *
++ * These values may depend on the GPU hardware and they must not change for
++ * cores that are already supported. However, new cores (and architectures)
++ * may have different minimum values and they should be introduced
++ * respecting the semantics described in the UAPI for Rogue.
 + */
-+#define DRM_PVR_HEAP_COUNT_MIN_SUPPORTED (DRM_PVR_HEAP_TRANSFER_FRAG + 1)
++
++/* Size of the first released version of struct drm_pvr_heap for Rogue cores. */
++#define DRM_PVR_HEAP_STRIDE_MIN_SUPPORTED \
++	PVR_UOBJ_MIN_SIZE_INTERNAL(struct drm_pvr_heap, page_size_log2)
 +
 +/*
-+ * Count of static areas in the first released version of struct
-+ * drm_pvr_static_data_area static_data_areas[] for Rogue cores.
++ * Size of the first released version of struct drm_pvr_static_data_area for
++ * Rogue cores.
 + */
-+#define DRM_PVR_STATIC_DATA_AREA_COUNT_MIN_SUPPORTED 5U
++#define DRM_PVR_STATIC_DATA_AREA_STRIDE_MIN_SUPPORTED \
++	PVR_UOBJ_MIN_SIZE_INTERNAL(struct drm_pvr_static_data_area, offset)
 +
  /**
   * PVR_UOBJ_GET() - Copies from _src_usr_ptr to &_dest_obj.
   * @_dest_obj: The destination container object in kernel space.
 diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
-index 6d11b85e5ec5..e47ee50906da 100644
+index a4d2f4e273f9..6d11b85e5ec5 100644
 --- a/drivers/gpu/drm/imagination/pvr_vm.c
 +++ b/drivers/gpu/drm/imagination/pvr_vm.c
-@@ -927,6 +927,9 @@ static const struct drm_pvr_static_data_area static_data_areas[] = {
- /*
-  * The values given to GET_RESERVED_SIZE() are taken from the last entry in the corresponding
-  * static data area for each heap.
-+ *
-+ * The pvr_heaps array **must** initialize **all** heaps that are enumerated in the UAPI with
-+ * enum drm_pvr_heap_id.
-  */
- static const struct drm_pvr_heap pvr_heaps[] = {
- 	[DRM_PVR_HEAP_GENERAL] = {
-@@ -967,6 +970,8 @@ static const struct drm_pvr_heap pvr_heaps[] = {
- 	},
- };
- 
-+static_assert(ARRAY_SIZE(pvr_heaps) == DRM_PVR_HEAP_COUNT, "Invalid number of PVR heaps");
-+
- int
- pvr_static_data_areas_get(const struct pvr_device *pvr_dev,
- 			  struct drm_pvr_ioctl_dev_query_args *args)
-@@ -985,13 +990,18 @@ pvr_static_data_areas_get(const struct pvr_device *pvr_dev,
+@@ -984,8 +984,14 @@ pvr_static_data_areas_get(const struct pvr_device *pvr_dev,
+ 		return err;
  
  	if (!query.static_data_areas.array) {
- 		u32 *stride = &query.static_data_areas.stride;
-+		u32 *count = &query.static_data_areas.count;
- 
- 		if (!query.static_data_areas.stride)
- 			*stride = DRM_PVR_STATIC_DATA_AREA_STRIDE_MIN_SUPPORTED;
- 		else
- 			*stride = sizeof(struct drm_pvr_static_data_area);
- 
--		query.static_data_areas.count = ARRAY_SIZE(static_data_areas);
-+		if (!query.static_data_areas.count)
-+			*count = DRM_PVR_STATIC_DATA_AREA_COUNT_MIN_SUPPORTED;
-+		else
-+			*count = ARRAY_SIZE(static_data_areas);
++		u32 *stride = &query.static_data_areas.stride;
 +
++		if (!query.static_data_areas.stride)
++			*stride = DRM_PVR_STATIC_DATA_AREA_STRIDE_MIN_SUPPORTED;
++		else
++			*stride = sizeof(struct drm_pvr_static_data_area);
++
+ 		query.static_data_areas.count = ARRAY_SIZE(static_data_areas);
+-		query.static_data_areas.stride = sizeof(struct drm_pvr_static_data_area);
  		goto copy_out;
  	}
  
-@@ -1035,7 +1045,11 @@ pvr_heap_info_get(const struct pvr_device *pvr_dev,
- 		else
- 			query.heaps.stride = sizeof(struct drm_pvr_heap);
+@@ -1024,8 +1030,12 @@ pvr_heap_info_get(const struct pvr_device *pvr_dev,
+ 		return err;
  
--		query.heaps.count = ARRAY_SIZE(pvr_heaps);
-+		if (!query.heaps.count)
-+			query.heaps.count = DRM_PVR_HEAP_COUNT_MIN_SUPPORTED;
+ 	if (!query.heaps.array) {
++		if (!query.heaps.stride)
++			query.heaps.stride = DRM_PVR_HEAP_STRIDE_MIN_SUPPORTED;
 +		else
-+			query.heaps.count = ARRAY_SIZE(pvr_heaps);
++			query.heaps.stride = sizeof(struct drm_pvr_heap);
 +
+ 		query.heaps.count = ARRAY_SIZE(pvr_heaps);
+-		query.heaps.stride = sizeof(struct drm_pvr_heap);
  		goto copy_out;
  	}
  
 diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
-index 9e432f3ad7b4..4ff50dc56c8d 100644
+index 1179c1e7d92d..9e432f3ad7b4 100644
 --- a/include/uapi/drm/pvr_drm.h
 +++ b/include/uapi/drm/pvr_drm.h
-@@ -322,8 +322,13 @@ struct drm_pvr_dev_query_heap_info {
- 	 * @heaps: Array of &struct drm_pvr_heap. To facilitate allocation by
- 	 * the caller:
- 	 *
--	 * - if &heaps.array is NULL, the count will be updated with the count
--	 *   of heaps known to the kernel driver.
-+	 * - if &heaps.array is NULL and &heaps.count is set by the caller, the
-+	 *   count will be updated with the value of @DRM_PVR_HEAP_COUNT that
-+	 *   is known to the kernel driver.
+@@ -319,9 +319,19 @@ struct drm_pvr_heap {
+  */
+ struct drm_pvr_dev_query_heap_info {
+ 	/**
+-	 * @heaps: Array of &struct drm_pvr_heap. If pointer is NULL, the count
+-	 * and stride will be updated with those known to the driver version, to
+-	 * facilitate allocation by the caller.
++	 * @heaps: Array of &struct drm_pvr_heap. To facilitate allocation by
++	 * the caller:
 +	 *
-+	 * - if &heaps.array is NULL and &heaps.count is zero, the count will
++	 * - if &heaps.array is NULL, the count will be updated with the count
++	 *   of heaps known to the kernel driver.
++	 *
++	 * - If &heaps.array is NULL and &heaps.stride is set by the caller, the
++	 *   stride will be updated to the size of &struct drm_pvr_heap known to
++	 *   the kernel driver.
++	 *
++	 * - If &heaps.array is NULL and &heaps.stride is zero, the stride will
 +	 *   be updated with a value that is the minimum supported by the kernel
 +	 *   and this may differ based on the GPU ID.
- 	 *
- 	 * - If &heaps.array is NULL and &heaps.stride is set by the caller, the
- 	 *   stride will be updated to the size of &struct drm_pvr_heap known to
-@@ -332,6 +337,11 @@ struct drm_pvr_dev_query_heap_info {
- 	 * - If &heaps.array is NULL and &heaps.stride is zero, the stride will
- 	 *   be updated with a value that is the minimum supported by the kernel
- 	 *   and this may differ based on the GPU ID.
-+	 *
-+	 * - If &heaps.array, &heaps.stride and &heaps.count are set by the
-+	 *   caller, then the kernel will try to honor the value of count and
-+	 *   this may be clamped to the value of @DRM_PVR_HEAP_COUNT known by
-+	 *   the kernel.
  	 */
  	struct drm_pvr_obj_array heaps;
  };
-@@ -440,8 +450,13 @@ struct drm_pvr_dev_query_static_data_areas {
- 	 * @static_data_areas: Array of &struct drm_pvr_static_data_area. To
- 	 * facilitate allocation by the caller:
- 	 *
--	 * - if &static_data_areas.array is NULL, the count will be updated with
--	 *   the count of static areas known to the kernel driver.
-+	 * - if &static_data_areas.array is NULL and &static_data_areas.count is
-+	 *   set by the caller, the count will be updated with the maximum count
-+	 *   that is known to the kernel driver.
+@@ -427,9 +437,20 @@ struct drm_pvr_static_data_area {
+  */
+ struct drm_pvr_dev_query_static_data_areas {
+ 	/**
+-	 * @static_data_areas: Array of &struct drm_pvr_static_data_area. If
+-	 * pointer is NULL, the count and stride will be updated with those
+-	 * known to the driver version, to facilitate allocation by the caller.
++	 * @static_data_areas: Array of &struct drm_pvr_static_data_area. To
++	 * facilitate allocation by the caller:
 +	 *
-+	 * - If &static_data_areas.array is NULL and &static_data_areas.count is
-+	 *   zero, the count will be updated with a value that is the minimum
-+	 *   supported by the kernel and this may differ based on the GPU ID.
- 	 *
- 	 * - If &static_data_areas.array is NULL and &static_data_areas.stride
- 	 *   is set by the caller, the stride will be updated to the size of
-@@ -451,6 +466,11 @@ struct drm_pvr_dev_query_static_data_areas {
- 	 *   is zero, the stride will be updated with a value that is the
- 	 *   minimum supported by the kernel and this may differ based on the
- 	 *   GPU ID.
++	 * - if &static_data_areas.array is NULL, the count will be updated with
++	 *   the count of static areas known to the kernel driver.
 +	 *
-+	 * - If &static_data_areas.array, &static_data_areas.stride and
-+	 *   &static_data_areas.count are set by the caller, then the kernel
-+	 *   will try to honor the value of count and this may be clamped to the
-+	 *   maximum supported by the kernel.
++	 * - If &static_data_areas.array is NULL and &static_data_areas.stride
++	 *   is set by the caller, the stride will be updated to the size of
++	 *   &struct drm_pvr_static_data_area known to the kernel driver.
++	 *
++	 * - If &static_data_areas.array is NULL and &static_data_areas.stride
++	 *   is zero, the stride will be updated with a value that is the
++	 *   minimum supported by the kernel and this may differ based on the
++	 *   GPU ID.
  	 */
  	struct drm_pvr_obj_array static_data_areas;
  };
