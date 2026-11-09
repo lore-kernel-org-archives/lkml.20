@@ -1,48 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794259898;
-	b=sZkBFTP5+jAjEapqGpk+OcBlR14uqpwW6wqYh/EGD1nT2zX9SpwACxVE4BsABQOqJhbe
-	 DdXubipCq54ZfsxweABprcHU0A2mJDGT6qFPNNyOGM2NDT/hTxroQ6uHW80jW+1A8kYuU
-	 V+F3InkuBHsvXR0W1eJVY8TN62tyxHin3o0DZarUPqrB1ACR7QNQJ9jKwM62HPllXlld+
-	 7N7e7di2gBMXQnoKXJKEc2AHHud1RzfGfwkor/jaf06KSZyOd/7NpwQh1jgNe9JEJNbHM
-	 HcPxXEQkzYkS13bZr73bBMrmF/fCjJH+Y4cpWIembgcIZ3SmDxJ1Yp9aVa1gbMQUwlQ==
+	t=1794259971;
+	b=lIGP+PrdpVEEqVbQf2fDtTB/NJG4ToicOQ7tiV9xdwjTAss/XXZdyfovEnG14e4jJ2Dp
+	 hnuObRkPLAWnc1dCeNQiIGflHTQwyPdHI5vRyadsPbNMwBfYJ+oWhBaXh5SBTSV/P4jpy
+	 gcTqhWthzJOPc+I90wqXdrzvmEsNRCY3xvqdDpVyMR0azac5LHm3cDXI9msOKG0Z8URw/
+	 E8/vzt5ryR5VemVjaQ/YFXeWmq3o4R7hzbHtK1WN7e8fP1Z/aFQMSSGklufKOP7kSOIUK
+	 xH638NFj+R3uXd+llFbVMpkdg2wcAEWgXp7C2vk8mlCrgWkoblZWk5xSpmRSfMGYaRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794259898;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=wfCyDF8grJ9MDlm8Y+vOvvrtCOk9HZamlK1MOtq71NY=;
-	b=kodxMWtmdIc8psOMRxOt45q8vZiPyR1Eh3VAbxIMiJj264iaWG+ZcA5FtES9+jVMoqsu
-	 lFq8ginvXM7oNNX/dmgS82d6+ChFToldrHzhTd5OgN3qCv0A+QWX72AwohrnY8SvFT/Va
-	 8hQ3ujI+V16WqtGgSpO32LVyUVnERiCXPT03JWWDS1SEdNMOCzuXejKKnVAovJZAe3OxN
-	 j0xhVhvtIDWNvZzQs5duf7r3fIQGRPe/jNW/RX5hCz1u6HOI8Yr5rBnAn4r52FIV3JbD6
-	 TQPeTmSRl/e71aaYZIYHgGWguenP/CXnrRxeeGUIpcEwfelWVXbObPswt2E5zmXXA/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794259971;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=6VIOG1/teVwNhzgf7kdnRI9KYVBfFO57TSsxzE6fxYc=;
+	b=F4ZWtX7MtHHGqgnF+a7JI8jYS+Ns5Wv+Oqy5wxuwYXt8ubwkpLcTEqbmIZ5qZP501fBo
+	 QZ0EOYMJoWfDfOAZ9WsM4NiS/aYa62bLp6bo/fm0FPkeHz6FdWyUAk2hWy+KNZSS/S8XI
+	 7LbHu8DaLQ4BcriPkO3okNo/0/VLqo9dHYkWRxeOgY3fhjqwnKxIhGK0fI8OR78HoZoix
+	 5tgIwVGyIQ7R5GoVYNkLu9BHJCHWe0QLOe5TRR3vHfSY1AYzwLNevYAfbS2g7j1XbxXhA
+	 fnILOxFT8oAguKmKLJ89CsyLoGuN6NeSNjtG2SR1ORMtMyuEqLsbTYdLiyVvy97OMCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCzhRyZ+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=X59RtYlp;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58297606A31C;
-	Mon,  9 Nov 2026 21:31:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB435606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:32:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB435606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCzhRyZ+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 507381F0089F;
-	Mon,  9 Nov 2026 21:31:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794259898;
-	bh=wfCyDF8grJ9MDlm8Y+vOvvrtCOk9HZamlK1MOtq71NY=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=mCzhRyZ+wwhJJGibEXRKXuBZtQz4qUFVXIk74vVhWIPQA32tx8NBVYHdT3qb3a5kw
-	 z48+hw4FvLI1fapT7DbV6sWvt2t+9Qe+F1qsa+Mdn3g40jQ0rPBnWsh7aQqtBHsys6
-	 g1ebrARLWRxH/jQWYFGF0GZa5+nG9qWWgSzTqhJTWsAmk8A+StNDuDaAQyMIF7eV8B
-	 5abeOBvCj/VrkMHnLkridb1GLGM5eX0cKEXMgPMdVmBr+/Y0brbwYLgp0h3s3+3/bX
-	 d1U0yMMqUGb4gTmSbe/SMUPiABVuZ2ZBFx1YnDS5YpPHS7HMtfk+vmGkd2ShIqy0dP
-	 eMltTBWWZlacw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 2842C3021B8F;
-	Mon, 09 Nov 2026 21:31:19 +0000 (GMT)
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=X59RtYlp
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=6VIOG1/teVwNhzgf7kdnRI9KYVBfFO57TSsxzE6fxYc=; t=1794259969; x=2109619969; 
+	b=X59RtYlpUFgl84Wxxr3OX0D4qrEA0smQGw17vv1tpvB/20BcBMdDGok9miJlUd+sxoRWq7JWq33
+	zgNgMG8qhAZCtRjvcMfgmVs/x+lZbUW8tULcbLvwpHwRUrJlOugMU6vmxRrcSU6Gj/eIWYckMXRfb
+	BgJExt0kzJh0oweZSSdExU2mhCe7/oMB38X5Wq9H1Y1JCtmHzMxflPZrPTezNE7PyAc8Yv9jgTCcI
+	1LfmOscptNayzhguwv+tXIYCnjylEVIaDlsrflhE46Uu4zO2Tk5WcmjVtarP5W6sMeV3d5zOUh9yy
+	92nypaCz7H8nq0mwiLnf9OHUfhTDQVEWKFag==;
+Received: from [177.172.122.137] (helo=[192.168.15.100])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xQWyh-007keL-T5; Mon, 09 Nov 2026 22:32:36 +0100
+Message-ID: <c9077b39-b7d9-45c7-968a-6bd1b3ab5572@igalia.com>
+Date: Mon, 9 Nov 2026 18:32:43 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,172 +57,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] futex: reject the unused PR_FUTEX_HASH arguments
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Darren Hart <dvhart@infradead.org>, Peter Zijlstra
+ <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
+ Davidlohr Bueso <dave@stgolabs.net>, linux-kernel@vger.kernel.org,
+ Ingo Molnar <mingo@redhat.com>
+References: <20261105003129.3130709-1-brads@mainlining.org>
+ <20261105003129.3130709-3-brads@mainlining.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20261105003129.3130709-3-brads@mainlining.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 2/2] ASoC: airoha: Add support for AN7581 PCM driver
-From: Mark Brown <broonie@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261019232412.516028-3-ansuelsmth@gmail.com>
-References: <20261019232412.516028-1-ansuelsmth@gmail.com>
- <20261019232412.516028-3-ansuelsmth@gmail.com>
-Date: Mon, 09 Nov 2026 21:31:18 +0000
-Message-Id: <179425987829.3711751.2911706702501919873.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4541; i=broonie@kernel.org;
- h=from:subject:message-id; bh=TxbeNRoApeZMXmEGvJ/B2ZT/ZxuqSXWwNg+NhfOldYg=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+WS9X2GcV/NPVyccmmtNmu7PxCv2MNqFJ1n6CsXHfb
- 22ovmfeUcrCIMbFICumyBKXxf2yvuT1Gr6DC9tg5rAygQxh4OIUgImoGzMyvHob0KX0TJa/KWM5
- 71b7ur3cczaw7lN8mRD1QEtY9TuLO8M/Xcew9MiywG1sVeKNqdKMRjN3fEiovPuxqPnKCeXoPZp
- 8AA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> The Airoha AN7581 SoC provides a PCM interface for VoIP applications,
-> supporting playback and capture at sample rates of 8 kHz and 16 kHz.
-> The driver configures the PCM bit clock to 2.048 MHz and supports
-> 8-bit and 16-bit samples, with up to 32 channels.
+Thanks for your patch!
 
-> +config SND_SOC_AN7581_PCM
-> +	tristate "PCM support for Airoha AN7581 chip"
-> +	depends on ARCH_AIROHA || COMPILE_TEST
+Em 04/11/2026 21:31, Bradley Morgan escreveu:
+> PR_SET_MM, PR_SET_MDWE and the shadow stack cases all check that the
+> args they do not use are zero before doing anything.  PR_FUTEX_HASH is
+> the one that does not.  arg5 never even reaches futex_hash_prctl(), and
+> the GET_SLOTS branch never looks at arg3 or arg4, so
+> prctl(PR_FUTEX_HASH, PR_FUTEX_HASH_GET_SLOTS, 1, 2, 3) hands back the
+> slot count.
+> 
+> Once an arg is ignored it is burned, whatever userspace sends there
+> today becomes part of the ABI and we can never use it for anything
+> without breaking whoever already passes garbage.  Take arg5 too and
+> reject the unused args per sub command, same as the neighbours do.
+> 
+> prctl() is variadic, so the two callers under tools/ leave those args as
+> whatever the register holds, they only work today because nothing was
+> checked.  The preceding patch in this series writes the zeros out first,
+> so this does not break them.
+> 
+> Fixes: 80367ad01d93 ("futex: Add basic infrastructure for local task local hash")
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
 
-This needs to select CONFIG_REGMAP_MMIO.
+[...]
 
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/pinctrl/consumer.h>
+>   {
+>   	unsigned int flags = FH_CUSTOM;
+>   	int ret;
+>   
+>   	switch (arg2) {
+>   	case PR_FUTEX_HASH_SET_SLOTS:
+> -		if (arg4)
+> +		if (arg4 || arg5)
+>   			return -EINVAL;
+>   		ret = futex_hash_allocate(arg3, flags);
+>   		break;
+>   
+>   	case PR_FUTEX_HASH_GET_SLOTS:
+> +		if (arg3 || arg4 || arg5)
+> +			return -EINVAL;
+>   		ret = futex_hash_get_slots();
+>   		break;
+>   
+> diff --git a/kernel/sys.c b/kernel/sys.c
+> index 755bfa5ccd92c..c4839c986f5e0 100644
+> --- a/kernel/sys.c
+> +++ b/kernel/sys.c
+> @@ -2885,7 +2885,7 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
+>   		error = posixtimer_create_prctl(arg2);
+>   		break;
+>   	case PR_FUTEX_HASH:
+> -		error = futex_hash_prctl(arg2, arg3, arg4);
+> +		error = futex_hash_prctl(arg2, arg3, arg4, arg5);
+>   		break;
 
-These aren't used.
+By reading kernel/sys.c, it seems like most of PR_ options check for 
+(arg4 || arg5) here, not inside of the function. Any reason why you 
+didn't follow the current pattern?
 
-> +#define     AN7581_PCM_BIT_CLK_1024KHZ		FIELD_PREP_CONST(AN7581_PCM_BIT_CLK, 0x2)
-> +#define     AN7581_PCM_BIT_CLK_2048HZ		FIELD_PREP_CONST(AN7581_PCM_BIT_CLK, 0x3)
+>   	case PR_RSEQ_SLICE_EXTENSION:
+>   		if (arg4 || arg5)
 
-Is this really 2048Hz, not kHz?  
-
-> +static const struct snd_pcm_hardware an7581_pcm_hardware = {
-> +	.info			= SNDRV_PCM_INFO_MMAP |
-> +				  SNDRV_PCM_INFO_MMAP_VALID |
-> +				  SNDRV_PCM_INFO_INTERLEAVED,
-
-The pointer callback works in chunks of descriptors so you want
-SNDRV_PCM_INFO_BATCH as well.
-
-> +	.period_bytes_min = AN7581_PCM_FRAMES_PER_DESC,
-
-This is using a frame count to specify bytes.
-
-> +static int an7581_pcm_setup_time_slot(struct an7581_pcm_priv *priv,
-> +				      int direction, int bit_width)
-
-We don't have anything constraining things so that the slots fit in the
-BCLK.
-
-> +static int an7581_pcm_fe_startup(struct snd_pcm_substream *substream,
-> +				 struct snd_soc_dai *dai)
-> +{
-
-> +	/* On open mask interrupt and disable DMA */
-> +	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-> +		regmap_clear_bits(priv->map, AN7581_PCM_IMR,
-> +				  AN7581_PCM_IMR_TDESC_UPDATE_INT);
-> +		regmap_clear_bits(priv->map, AN7581_PCM_TRDCR,
-> +				  AN7581_PCM_TXDMA_ENABLE);
-> +	} else {
-> +		regmap_clear_bits(priv->map, AN7581_PCM_IMR,
-> +				  AN7581_PCM_IMR_RDESC_UPDATE_INT);
-> +		regmap_clear_bits(priv->map, AN7581_PCM_TRDCR,
-> +				  AN7581_PCM_RXDMA_ENABLE);
-> +	}
-> +
-> +	usleep_range(10000, 20000);
-
-That's a fairly long delay for a digital part?
-
-> +static int an7581_pcm_fe_prepare(struct snd_pcm_substream *substream,
-> +				 struct snd_soc_dai *dai)
-> +{
-
-Note that we redo prepare as part of over/underrun recovery - we should
-reset the hardware position as well as the driver one.
-
-> +static int an7581_pcm_fe_hw_params(struct snd_pcm_substream *substream,
-> +				   struct snd_pcm_hw_params *params,
-> +				   struct snd_soc_dai *dai)
-> +{
-
-> +
-> +	if (priv->users <= 1) {
-> +		/* Setup Descriptor size and number */
-> +		regmap_update_bits(priv->map, AN7581_PCM_TRDRSR,
-> +				   AN7581_DESC_OFFSET | AN7581_DESC_SIZE,
-> +				   FIELD_PREP(AN7581_DESC_OFFSET, sizeof(*desc) / sizeof(u32)) |
-> +				   FIELD_PREP(AN7581_DESC_SIZE, num_desc));
-> +
-> +		regmap_update_bits(priv->map, AN7581_PCM_CHBFOSR,
-> +				   AN7581_PCM_DESC_CHBF_OFFSET,
-> +				   FIELD_PREP(AN7581_PCM_DESC_CHBF_OFFSET,
-> +					      AN7581_PCM_FRAMES_PER_DESC * bit_width / 8));
-
-This is a little confusing, the driver says it does interleaved format
-but the offset programming looks odd for that?
-
-> +
-> +static struct snd_soc_dai_link an7581_pcm_dai_links[] = {
-> +	/* FE */
-> +	{
-> +		.name = "an7581-playback",
-> +		.stream_name = "an7581-playback",
-> +		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
-
-> +			    SND_SOC_DPCM_TRIGGER_POST},
-> +		.playback_only = 1,
-> +		SND_SOC_DAILINK_REG(playback),
-> +	},
-> +	{
-> +		.name = "an7581-capture",
-> +		.stream_name = "an7581-capture",
-> +		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
-> +			    SND_SOC_DPCM_TRIGGER_POST},
-> +		.capture_only = 1,
-> +		SND_SOC_DAILINK_REG(capture),
-> +	},
-> +};
-
-This isn't actually a DPCM driver?
-
-> +static struct snd_soc_card an7581_pcm_card = {
-> +	.name = "an7581-pcm",
-> +	.owner = THIS_MODULE,
-> +	.dai_link = an7581_pcm_dai_links,
-> +	.num_links = ARRAY_SIZE(an7581_pcm_dai_links),
-> +};
-
-This should be const.
-
-> +static irqreturn_t an7581_pcm_irq_handler(int irq, void *data)
-> +{
-> +	struct snd_pcm_substream *substream;
-> +	struct an7581_pcm_priv *priv = data;
-> +	unsigned long flags;
-> +	u32 status, isr = 0;
-> +
-> +	regmap_read(priv->map, AN7581_PCM_ISR, &isr);
-
-> +	if (isr & AN7581_PCM_IMR_RDESC_UPDATE_INT) {
-
-> +	if (isr & AN7581_PCM_IMR_TDESC_UPDATE_INT) {
-
-> +	return IRQ_HANDLED;
-> +}
-
-This unconditionally returns IRQ_HANDLED regardless of if we actually
-found anything, this breaks any potential sharing as well as the debug
-and robustness features of genirq.
-
--- 
-Mark Brown <broonie@kernel.org>
