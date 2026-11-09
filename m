@@ -1,89 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217945;
-	b=YR2XHqEP8LZ1ro5SrL8ZhfmUchE+TPtcM1V2dX6IgDjCLWm4xo3niGsHwtmgpP98phtG
-	 ADi0S71tvbc/Z9/tIG71ArAScufovCX6I0+y+GCj9ip4O/SaHpERoAOpFAz8Ao6jCDTlj
-	 U4thX3Cgi5V7Xp9LfF4qD8KQQ8n9wdVbrav2732KsE2Ko6n/Ts/yUXESQv9jdKJNEZWJw
-	 QaHbMKFDsxF6/uauAK943pflGdDyHl39gNl3SNvTDlW2/T9y/hn1ohYs86SO9ojgKKSv+
-	 GhnJjyuHpgtq+g8SBnIYjYzafTZ3P9xXOrIRCiDU5uIdBbh1drvnWQkKH+9+yoamZmw==
+	t=1794217966;
+	b=04Leyl9PhvACPnCvlTdrF4R9VwCXYNsN6BJtxxBwZtnHg/aZemR/QIu1nxcV4fJ/D5ut
+	 aymMlXqHoqckelU0def8UtBkQ6eo0j5OyFM90x/MK46e6AJYttYplt/9ZHOTFiJ4uwFKc
+	 SGY0Rvbfm8cltMA1b0OXzUxqux2eO/5EmpCTXBvVnjVVcXCWaEtb1tMLEC7yadME4OZdz
+	 mICTvzS4HtzGkwkZWIV88+c+8ZDz+mPRwYyZkdq/Ew9ycokQTOvZ20N+IhcrK7AwNlFoK
+	 AZCFGDX0jNSt42NlnJUxGOKXXQA3kNneBG95WXc+Z2NvlFbVJ7WjL16xRVznXCweFDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217945;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
-	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=wtoCZMcVn2T9YB+j55mhrbVUyFtxMXctjTorVf5q3Y4=;
-	b=2hSPZgDxOoqx6ejpU6MZpJHegVdh4LkjtHMUMn1MINlO76G9rgKa3RZO12x4CatoCNTy
-	 dGzUsS7W/ngt/KhdBexmM5XvrqQvX62f3DpzGuOLveiTxoqh8poKtSX2MZW42zwt4hQDA
-	 bOo/3pzVuTzI/1Qfj94HaRI+LMP7w5ItuvRicF5KmPe2TMaZbRFYQ6SGTYumprPTkzyIx
-	 GkfnG9G7HWpLKpijbr8r/7NknHRsClRcEMzKUMFCzluWn5rKBqipi3F19nDQ4Cb0kF13e
-	 TSryu9MYz5j/v2clBIU/r0SeHdUQkBUkDtWrQ2HWuVY/M0a516qqgkqgr6EU7w3mJtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217966;
+	h=DMARC-Filter:DKIM-Signature:X-Original-From:In-Reply-To:To:Cc:
+	 User-Agent:Subject:Mime-Version:X-Lms-Return-Path:
+	 Content-Transfer-Encoding:Content-Type:From:Date:Message-Id:
+	 References;
+	bh=rMQ7EtDkYDjDl+za8vShzpqCW7ypnaRbeTrLqAXEDl0=;
+	b=pgBaV7l3fQzk+SDcIfgfz3u6cpbaHcuDCfpxvvlppc2q5fFoAWnV685g9/S9pMl2vr6a
+	 Kj2YOUb+pi2CH7kmNZl8WgDUpcaiplkYPsp7UU3kPCqmTy6kS/jS6Qu2aY9p87JzgjC8k
+	 V/EAL2VLiZPHrv97rjKBlQ3MhjObdRCSRUQLCB46R23KD1pxEz1VlxVkgvVWzWnW6SP9Y
+	 urclsy14/kBg96xXNSHv04i9JQ6UZXguz5rXw23Z2N2CNBEfbv7m+HCTOsJt0RYLr4Thl
+	 4TT2pXCwdSjCZo/7/RNTY263pp+ebCC99OkXQ7+C0o2qlnhOqf8E6Se/Op4J65gnp2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=nJ5FeZwy;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b="iCtfqv/o";
+	arc=none smtp.remote-ip=209.127.230.113
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5C8606D802
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:52:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C5C8606D802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6516606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:52:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6516606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=nJ5FeZwy
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e10a70540so377902f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:52:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794217944; x=1794822744; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wtoCZMcVn2T9YB+j55mhrbVUyFtxMXctjTorVf5q3Y4=;
-        b=nJ5FeZwyu5udRK6QHO1ZH8265aQKl07zwAD0rqFlT+v7K7Xz6RSKCyxKTd0SmMc5kw
-         /2IToIaHSYBJJnrp2VaI3L+0SYoF3eNrwzm7exCOhiKOUXgyze/S23B6DFBi3LN/HhW/
-         UoT8P3gl3iGOSTD83jFBhzMufriexVwUB22DlabS/L4RaKSE5EdF6KEthjE9MSw5x8NV
-         12PbHjIRCpMFgRayD3nApzQCtil1dHlSyqpnmQcidgsjC5CAGUsDKwMBFz8lYCwiFLvj
-         4tHoneMTDio9tdnLDTexY+E0QlUAsgWNIqNADu6s9SfzH3fUh/K/Hghgqntn0rqX+bMP
-         QjCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794217944; x=1794822744;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wtoCZMcVn2T9YB+j55mhrbVUyFtxMXctjTorVf5q3Y4=;
-        b=bM1nWkXU+jgkVNU5/oMNotbgjhRuldySC1rppHSGNMGNgkv3SL/gRu7xdJb+38YxVb
-         qoWJaZkajwl//JH94CjlgvTCENwWNFnIhrx0ChhsdFly7F9joIWC4SSXp/BnnwlThc1A
-         phEEVTW4+2k7fwjkaCHOaD7lzC3wTxI78jCJ0z0z01ZJ+G8xiJ3jL51bjMtFYNEwJTOB
-         99RdMe8fD3m1WxSTtBLmGVZ4NiaWwOmQfF6tlslBlBXhBVZH4LOtBf1w5Zu0oGmq8ZXN
-         5mCBkV9iXlRzPvPawWvSrbOSkXBRiW45k4+DK2FGUgLZDTKl3pi5J4asMsUa3gPUtKwE
-         1PFQ==
-X-Forwarded-Encrypted: i=1; AL+hErHaeEB8NJaea+pnWujH4zRnB2hxoHlPWCVCV32oHAa7Y529Ho896bULC/4t7n4aC6r3cVwcrF58wVAaKok=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/5gmfPfGubbnmTc/RdBSVIuE23iKgSWVzvxf/dwP9ZwqVRoyY
-	/WY5TD8uAQIh/+E3cpjuJRDDm2cLWj6EcI982rxTlnDBXOnnBr61mWRHeQcraxxJ5tE=
-X-Gm-Gg: AYBFou2+XzJbTUEMSW/QOFLkjVosRy4eCKjRq2Vpq310eJDielQpGm8OO2E492w1OAc
-	t5RJ4X3o/PtqhZDUyq6cPF/0uJ4+vE37uA4trL0lG+jzb5ItbFiO8IYvI/Dw8OdcE2ytpt+UN9b
-	gst+RFbpG6bBbDWrihEx4h6Zw1Nr5It+1XOyJzzST64jhUukb3YaFpUHrY+aQ2EZZMM+BDDIqze
-	zzyvTRoVnMZ8oFG2N0rfxxxFW/LCfz1X+yRvaRUAs8GQH/Re1tvlXg8FuCtoKwmrlGiGs54lOqz
-	3gKM3ga+BHsIehxZzeTbOp5CoUcqB2JHuQD+/D6RHbBf5sDNM5gu2mxIwIcRS20n2g0v6En8x1T
-	6kY7/tyHdKXWzgA4flJklPm2xYGUNhd6Ghs8AmKYrJeEcWQeKekmW040wu5Hfgdde57tEEb7dCq
-	IOqtlDHYqzD5HZ+bfTTJn5YURjcdoXVetQxjAHjAtTXLhPy/rPmCKfs6QH0jtbqbCr3z7wm7gzl
-	ApszyWDitHseK3UgyzrwGOOnXb4fM3WYQkA38RxecTjAMrI48gc/AqqyMbZOBWKyVRZPK3HDQAp
-	RT4pdiGZDqN4CEbWa0bHj4vUWY/1jIvlZHSxeMRfZI0qgOblq+QPxsS1Q5bTQXi9vdGSLseLwdo
-	hGipLpoM5
-X-Received: by 2002:a05:6000:26c6:b0:48e:66d0:664c with SMTP id ffacd0b85a97d-49582e8e524mr7178441f8f.15.1794217943707;
-        Mon, 09 Nov 2026 01:52:23 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:6762:47bb:1e06:ff70? ([2a01:e0a:106d:1080:6762:47bb:1e06:ff70])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4959011c995sm8903729f8f.0.2026.11.09.01.52.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 01:52:23 -0800 (PST)
-Message-ID: <51eaa37a-9634-42cb-9aac-4c842ab2af07@linaro.org>
-Date: Mon, 9 Nov 2026 10:52:22 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=iCtfqv/o
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794217959; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=rMQ7EtDkYDjDl+za8vShzpqCW7ypnaRbeTrLqAXEDl0=;
+ b=iCtfqv/oPnFwF/AXfhIcnlCd+GyTk0CNAvfoxYr/JjSc/dXsoUkqPdAa57dpSGvsRmBVWd
+ cCGHUDA7vm8Nr35HsTmyhIE4fgLxVYJQU72/3NxPWkE4OiHaAn72r5J6/b1N43RLQe+DmX
+ 4gQdDUmkqQ6YreZyzVVtYQMpe+vtqEu2dd+eH89MmJgeXvUfebp+kVsbpKgtNrJpwUCie9
+ EN7MhdNuHY0wxHdZZnbVypLKyGI0lLzqTr+1U0OS8kQ0zWXSmGUU9WeTKhcCmAwyCcAldp
+ JEQIM5SWJ1HY1Em/PSK8yEf01AjT9DTooSHGFLCi7TQOW7zIXrm1gO1SGJYjDg==
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+In-Reply-To: <avGVNISvj-v8IN3g@kernel.org>
+To: "Mike Rapoport" <rppt@kernel.org>
+Cc: "Balbir Singh" <balbirs@nvidia.com>, <muchun.song@linux.dev>, 
+	<osalvador@suse.de>, <david@kernel.org>, <akpm@linux-foundation.org>, 
+	<apopple@nvidia.com>, <linux-mm@kvack.org>, 
+	<linux-kernel@vger.kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] mm/hugetlb: optimize bootmem hugepage tail vmemmap init
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,125 +61,115 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 0/3] iio: adc: add support for the MAX34417
- Four-Channel High Dynamic Range Power Accumulator
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Michael Hennerich <Michael.Hennerich@analog.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hwmon@vger.kernel.org, linux@analog.com,
- Conor Dooley <conor.dooley@microchip.com>,
- Marius Cristea <marius.cristea@microchip.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>
-References: <20261102-topic-sm8x50-iio-max34417-adc-v5-0-0ffa5e5f2d5c@linaro.org>
- <20261104021700.14e69abb@jic23-hlaptop>
- <01fe2a71-ba6f-470b-b6bf-e536a1013b09@linaro.org>
- <20261107230925.5e66b234@jic23-hlaptop>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261107230925.5e66b234@jic23-hlaptop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26af197e5+b062bd+vger.kernel.org+lizhe.67@bytedance.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Date: Mon, 9 Nov 2026 17:52:19 +0800
+Message-Id: <ea9b76c1-ced7-4ef7-a428-7fb3db5c7f4c@bytedance.com>
+References: <20261105120615.16817-1-lizhe.67@bytedance.com> <20261105120615.16817-3-lizhe.67@bytedance.com> <au2qhlsxQt3SRwIu@parvat> <ca38db3a-a8fe-47c3-8813-5c3b0ac4b7ac@bytedance.com> <3e5a9f27-ea35-4557-95d1-70ce359e4c92@bytedance.com> <avGVNISvj-v8IN3g@kernel.org>
 
-On 11/8/26 00:09, Jonathan Cameron wrote:
-> On Wed, 4 Nov 2026 09:45:02 +0100
-> Neil Armstrong <neil.armstrong@linaro.org> wrote:
+On 11/9/26 5:41 PM, Mike Rapoport wrote:
+> Hi,
+>
+> On Mon, Nov 09, 2026 at 05:22:24PM +0800, Li Zhe wrote:
+>> On 11/9/26 11:01 AM, Li Zhe wrote:
+>>> On 11/6/26 6:23 PM, Balbir Singh wrote:
+>>>> On Thu, Nov 05, 2026 at 08:06:15PM +0800, Li Zhe wrote:
+>>>>> Boot-time HugeTLB allocation has to initialize tail struct pages itse=
+lf
+>>>>> when HugeTLB vmemmap optimization (HVO) is unavailable or fails.=C2=
+=A0 For
+>>>>> gigantic pages, this can cover a large number of tail pages. Most sta=
+te
+>>>>> installed by __init_single_page() and prep_compound_tail() is identic=
+al
+>>>>> for every tail page in the same huge page; only PFN-dependent fields
+>>>>> need refreshing.
+>>>>>
+>>>>> Initialize the first tail page normally, copy it into a local templat=
+e,
+>>>>> then initialize the remaining tails from that template with
+>>>>> memmap_init_page_from_template().=C2=A0 This avoids repeatedly doing =
+the
+>>>>> full
+>>>>> __init_single_page() and prep_compound_tail() sequence for state
+>>>>> that is
+>>>>> identical across tail pages in the same huge page.
+>>>>>
+>>>>> On an arm64 QEMU/KVM guest using 4K pages and 64 boot-time 1G hugepag=
+es
+>>>>> (HVO unavailable on arm64 in v7.4-rc1), the measured fallback tail
+>>>>> initialization time improved by 36.43%, measured with a temporary
+>>>>> jiffies-based printk modeled after the existing timing in
+>>>>> memmap_init_zone_device():
+>>>>>
+>>>>>  =C2=A0=C2=A0 base:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 318.4 ms
+>>>>>  =C2=A0=C2=A0 with this patch:=C2=A0 202.4 ms
+>>>>>
+>>>>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+>>>>> ---
+>>>>>  =C2=A0 mm/hugetlb.c | 23 ++++++++++++++++++-----
+>>>>>  =C2=A0 1 file changed, 18 insertions(+), 5 deletions(-)
+>>>>>
+>>>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>>>>> index da5d04edf7c1..987f16a5ea27 100644
+>>>>> --- a/mm/hugetlb.c
+>>>>> +++ b/mm/hugetlb.c
+>>>>> @@ -3219,19 +3219,32 @@ static void __init
+>>>>> hugetlb_folio_init_tail_vmemmap(struct folio *folio,
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enum zone_type zone =3D folio_zonenum=
+(folio);
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int nid =3D folio_nid(folio);
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct page *page =3D folio_page(foli=
+o, start_page_number);
+>>>>> +=C2=A0=C2=A0=C2=A0 struct page template;
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long head_pfn =3D folio_pfn(=
+folio);
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long pfn, end_pfn =3D head_p=
+fn + end_page_number;
+>>>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int order =3D huge_page_orde=
+r(h);
+>>>>>  =C2=A0 +=C2=A0=C2=A0=C2=A0 if (start_page_number >=3D end_page_numbe=
+r)
+>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
+>>>>> +
+>>>> Can this actually happen?
+>>>
+>>> No, current callers always pass a non-empty range. I kept this to
+>>> preserve the old for-loop no-op semantics for an empty range, but it is
+>>> not needed here. I will remove it in v2.
+>>
+>> I need to correct this. A local Sashiko run pointed out that the bootmem
+>> fallback caller can pass an empty range on SuperH.
+>>
+>> SuperH supports a 64M HugeTLB page size, and with 64K base pages
+>> pages_per_huge_page(h) is 1024. HUGETLB_VMEMMAP_RESERVE_PAGES is
+>> PAGE_SIZE / sizeof(struct page), which can also be 1024 or larger on a
+>> 32-bit SuperH configuration.
+> If the only difference is unnecessary initialization of the template on S=
+uperH,
+> we don't care and you can drop that if.
 
-<snip>
 
->> But for the other reports:
->> - [Medium] iio: adc: max34417: shared accumulators clobbered on CAM power/energy read
->>
->> This is a tough one, today if either we read power or energy, we erase the accumulated
->> power+count in the context, the context accumulator is only here to make sure we don't
->> loose data from other channels, like if we had a single HW channel.
->> This simulates this, if we had a single HW channel, at each UPDATE we would get back
->> to 0 in hardware anyway if we did read the power or energy.
-> 
-> 
-> I'm only half understanding this.  Let me see...
-> 
-> I'd expect userspace to see accumulated values since we enabled the channel
-> rather than since last read.  I think that's the final suggestion from
-> sashiko.
+It is not only initializing the local template. The code first
+initializes one page with __init_single_page(), prep_compound_tail(),
+and set_page_count(), and then copies that page into the template.
 
-Oh this changes quite a lot of things.
-How do we handle overflow in this case ? we disable the channel and enable again to reset the state ?
-
-> 
->>
->> - [Medium] iio: adc: max34417: missing 1 ms delay between UPDATE commands
->>
->> It's unclear if we need to wait 1ms in CAM mode, I think we should but should we block
->> from the read if we are under the 1ms ?
-> 
-> I'll go with probably?
-
-Ack
-
-> 
->>
->> - [Medium] iio: adc: max34417: scale truncation and mJ unit in max34417_read_raw()
->>
->> Ok this one may be real, should we return Joules or milliJoules ? If so we could
->> fix our precision issue.
-> 
-> Units in the ABI are joules, so if you want to return in millijoules you will need
-> scale to incorporate the extra factor of 1000.  Hmm. The comments suggest
-> that today it is using milijoules?  If so that needs fixing.
-> 
-> Our units are a bit messy as many years ago I started with what hwmon had before
-> concluding they were tricky to keep insistent. So what the base units are tends
-> to be dependent on when the channel type was added.  More recent ones are the SI
-> unit in most cases.
-
-Ack
-
-> 
-> 
->>
->> - [Medium] iio: adc: max34417: missing UPDATE before CAM in max34417_setup_cam_mode()
->>
->> It's highly improbable, but I'll fix it.
->>
->> - [Low] iio: adc: max34417: reuse max34417_reset_smm() in max34417_trigger_smm()
->>
->> I'll check if it's worth it
->>
->> Thanks,
->> Neil
-> 
+So if start_page_number =3D=3D end_page_number =3D=3D pages_per_huge_page(h=
+),
+the old loop is a no-op, but without the check the new code would update
+folio_page(folio, start_page_number), which is outside the HugeTLB
+folio.
 
 Thanks,
-Neil
+Zhe
+
+>  =20
+>> In that case the old for loop is a no-op. So I will keep the empty-range
+>> check in v2, before creating the seed template.
+>>
+>> Thanks,
+>> Zhe
