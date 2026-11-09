@@ -1,66 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794204613;
-	b=5Tcw/ggUNV9TPBcn8PhKhpcNvtBI/gDYYLLlciUkgxnglJ1XyMQoZjsf8JjNLl7kRoi9
-	 FT0Md1RtoFdWzd1MHpqk7mI4gvTI2zA7/kWzr93WB4IHqJc7JOzzhMRUk7Atbh0ucMMvJ
-	 XoCyCYGLzPHkpVNA6oSJiTSne03PFtVy8A54Jhmia9+5kJJd1Su+ns4v7skqnCX/5FYXg
-	 jTp4+BDUJWN2xJnTcdrsqm2f8zje5mznDhoW+JbpzB3GucPxFBq5VUhWDLHYTd95oJLjv
-	 IIZOpYKHWNWURPwvqTAoBJYTxIcFSuj08Zn6qqRx9U2KCEhfXBKNDJnpjxLU7rWy8hQ==
+	t=1794204655;
+	b=AmSLsKgtUe9WNJJHMxYWwiohB7SXh/2tH5taWo82tgJLe0ShmYRKum/zQw8/YK41sGoy
+	 X9+L06EWNoPPp5FnuPPvLl/Tz0+9yInSu6/q1FzjSLD54vIb8TA1VCZJu1anWDotbIvz4
+	 XX/BOGv6tMxp3IuSpAqRjo4wsTQ3l4FP2561gw2Su4engkM9JbgE+rFsuQgrKP6r6fagb
+	 jcJkGDL9fiZZLcP1bfRNtsSmfCh07mPHUmMcRVr3BuFYVfRCsE5PINx2TrbSEiFqU6TYp
+	 VcZWGvLGJq9KSb1xmuggLDFirFB/WM+l6UQ4/xdYm6Voy8KDAt3xXGk1LKEIorGmJBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794204613;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kHmCaYxfDHn8K47bQjI+v/3u5wpeXFxvlLdiSYaq980=;
-	b=0JxwI9FVMA4LM22RLVPyaTolmNoi6DRc7FtU+ofaQ076TVUHhfDTfcrIccMWLOsF7IWj
-	 5Mh/mKSa6sXZbVzvdIhsawMcI0dZnAIspmF4Yfz0iuLVMdZkuN35VonPOV9hNZN5o5nd0
-	 VfcIYfmGLYOWWVBm03NCC1J6pL+z9gcZLoYnsSkuuiv02Y5eyXkBs3il9Bx9E4joUeWPe
-	 gD9s9q4ytBmVsfw2HHLDtGre2OO75mILztKAPNckZ5hs9/PAsuhyfj0Jq2NYFldnyJCM9
-	 Dzt1Se/1lQ5uH9LPLnv0rcfeRe0uWF2LQP0qHsy+zLct79gfqxRP3ljQ9tEo/E5bDRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794204655;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=qgra3gkqhHOHEG3xUTJQ6+CkPnU6cD/+HbaneR7Blpo=;
+	b=nVfVkt86+OSgcIJYXRM8wDoAYKSBuLQbvVMizEiLK4F/mRdAl019kEImOF+pYaI93+GD
+	 XdFlAuuktixXPh9oLed/g1l/7lPFqCyvQqZWaXLXa78EF7ikFkDw2Up6rRxXalFLsYUb0
+	 lY260oEHmuBuv1c0MePnDFZV3yKsA561qi6FmLunJcST1PDpo45KaEYjpQVq0jXiwH1A1
+	 eiHoRVWhl2uFceA30FborhZ6BgxPindWhRcqiH/zGo8BQ+oX81Kjp1vDf7XyB597f7g66
+	 AKUFC4V+6fkjSQ7pXcTb4KvkSSRGs6q+oXoW8UOwARXVa9O7qgZH2eA/u+LyYIqLjrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="xVBy4/HL";
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C0055606A31C;
-	Mon,  9 Nov 2026 06:10:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0055606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q8lh35c/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6798A606A31C;
+	Mon,  9 Nov 2026 06:10:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=xVBy4/HL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=xVBy4/HL0A9+2H31cSsWHvQHnP9gbSDrHiAM8fkJn46Knr2s+E3JXEyNiJ+R74/9Yncq8NkdHvvkH
-	 FwT9/mxIchDiYyvh3AmiyN1wmzJJ01DI/omGOyFdbl/WHknMzBBRYjZdL33kB42Pp0libmrTH+qKRN
-	 e3dUBGSkRC6l7c7I=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af163c07b6-c6a40;
-	Mon, 09 Nov 2026 14:10:08 +0800 (CST)
-X-RM-TRANSID:2ee96af163c07b6-c6a40
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af163bfd18-8376f;
-	Mon, 09 Nov 2026 14:10:08 +0800 (CST)
-X-RM-TRANSID:2eea6af163bfd18-8376f
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: Bin Liu <bin.liu@mediatek.com>,
-	linux-media@vger.kernel.org,
-	linux-mediatek@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: mtk-jpeg: fix runtime PM leak in mtk_jpeg_dec_device_run()
-Date: Mon,  9 Nov 2026 14:10:06 +0800
-Message-ID: <20261109061006.1043-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q8lh35c/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BFF71F0089F;
+	Mon,  9 Nov 2026 06:10:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794204655;
+	bh=qgra3gkqhHOHEG3xUTJQ6+CkPnU6cD/+HbaneR7Blpo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Q8lh35c/rz/bSUsGuOpFEPXymlLM1QZW8EDg5uxuTUdlOqFbf7ayxAUpoKMfMVx08
+	 1Vejrx8GVkmQ8jCVfoSx1sz4Czi+lNFo4nDsbezroZ0oIPe0noPujVQLH+CZbq2dHR
+	 x1LPqzo9Zt8qc/9TRA0I/Fd4JQQmwKBrp2ngT4FI9yeLYOi+aci0mrpdM40wvHeM1N
+	 FuKSKR8oRQW0tuQnq+CLHHYy2KsZGRqEMmJXR+mZf/lUnxBockyl8ilBKRRMjKAKON
+	 5hKed9R2e/931HMAipSpMkGsWLWSd4KTFgmZArV3+F5BZoV0/Nel8E4qB/oa5Dke61
+	 gY419N4bLqBag==
+Message-ID: <961e5e97-0692-4642-a0cb-aafdcf7150d4@kernel.org>
+Date: Mon, 9 Nov 2026 15:10:51 +0900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,49 +51,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dm: avoid double-dropping the zone reset submission
+ reference
+To: Yaohan Li <shunsheng1218@gmail.com>, agk@redhat.com, snitzer@kernel.org,
+ mpatocka@redhat.com, bmarzins@redhat.com
+Cc: johannes.thumshirn@wdc.com, mkp@kernel.org, axboe@kernel.dk,
+ dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <179378374219.68809.15920762511563622507@gmail.com>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <179378374219.68809.15920762511563622507@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-mtk_jpeg_dec_device_run() takes a runtime PM reference with
-pm_runtime_resume_and_get() and releases it in mtk_jpeg_dec_irq()
-after the hardware signals completion.  If mtk_jpeg_set_dec_dst()
-fails, however, the function jumps to dec_end without ever starting
-the hardware, so the interrupt never fires and the PM reference is
-leaked, keeping the device runtime-resumed forever.
+On 11/4/26 18:15, Yaohan Li wrote:
+> On an error in __send_zone_reset_all(), the submission reference
+> held by the dm_io can be decremented there and again by the caller's
+> error path. If another clone is still outstanding, the second drop
+> can release the dm_io before that clone completes.
+> 
+> Only drop the submission reference in __send_zone_reset_all() on
+> success. On failure, leave the reference for the caller's existing
+> error handling to release once.
+> 
+> The error path was reproduced under KASAN with an injected GFP_NOIO
+> allocation failure while another zone-reset clone remained in
+> flight. With the change, the same failure was reported normally,
+> without the observed use-after-free, and ordinary zone resets
+> continued to work.
+> 
+> Fixes: 81e7706345f06 ("dm: handle REQ_OP_ZONE_RESET_ALL")
+> Assisted-by: ZCode:GLM-4
 
-mtk_jpeg_set_dec_dst() returns -EINVAL when the component count or
-the per-component plane sizes parsed from the JPEG header do not
-match the destination buffer, so the leak is reachable from
-userspace with a crafted bitstream.
+Drop this please.
 
-Drop the reference before jumping to dec_end.
+> Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
 
-Fixes: 5827e4b14ee7 ("media: platform: Improve power on and power off flow")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
----
-Verified against current upstream master.  The multi-core decode
-worker handles the same failure correctly (setdst_end/clk_end path
-does pm_runtime_put()); only the single-core device_run misses it.
-Not runtime-tested (no MediaTek JPEG hardware).
+Looks OK to me.
 
- drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
-diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
---- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-+++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-@@ -1011,6 +1011,8 @@ static void mtk_jpeg_dec_device_run(void *priv)
- 
- 	mtk_jpeg_set_dec_src(ctx, &src_buf->vb2_buf, &bs);
--	if (mtk_jpeg_set_dec_dst(ctx, &jpeg_src_buf->dec_param, &dst_buf->vb2_buf, &fb))
-+	if (mtk_jpeg_set_dec_dst(ctx, &jpeg_src_buf->dec_param, &dst_buf->vb2_buf, &fb)) {
-+		pm_runtime_put(jpeg->dev);
- 		goto dec_end;
-+	}
- 
- 	schedule_delayed_work(&jpeg->job_timeout_work,
+
 -- 
-2.39.2
-
-
-
+Damien Le Moal
+Western Digital Research
