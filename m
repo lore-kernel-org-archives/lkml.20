@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794232248;
-	b=Jxxeg+kqbFN8mLt5GJ0eyCmkr8issSxM/SLTgdz8Whq1m/iesJaCbBIgHYbVbkWvrxU9
-	 MiUnRsm7tYmHWLxy+2cQugVEDXcbgfAuIGRedn7BwPNwsPQ4ZPTBjmXsa/pKBAW7bIMnu
-	 3YdobKH6jUrPyTzy4MXBCw6PEQXnkhlReGO4eywzKzvkqarF6TfceGNCV96YInVdiD0Un
-	 StLGss3CGEJ9g7zfcIAWLlxeREk5WCVPye5JdactwZEPxr1S3Q5nH564S4VD0YpWi5J40
-	 fQFnLklbn2ztQlzUQUyX0t2PRh9whms73LKVx4zs8qQ/8nUwgxH2NVm7mDcMx+r/Acg==
+	t=1794232253;
+	b=iOLp2BQhzOG5d0qtIIz5tDEmZCAMgtbctAVmua7TD1ob+WSC7Occ3gzbFHvWsjNL+I+l
+	 rEfWohZEDBNm+2bV3MvYkAR+G4neR+VPoEu+VIgNLKcAitLj3kC59ieRNeykmGq0MY9nQ
+	 rnO0PCMbGEqNitu4ck97TlM1EqCpQyc8WR353fQjaliy1IU3jJ3Bnr4I+gBa6AAvGP4Fr
+	 vaJEL0p24By6dY8KLPo1JlGhlRaa0NEN1l3C6wiR41eLDCwitMflAJECFwb2LAdg5HkKu
+	 7YjRaVn8yUYVFMez/+y6iluJtG3CGwlWx84G8wg4wphlbUQ+YpaFZ4oPnNJbcgTOZQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794232248;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794232253;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Subject:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:To:CC:X-Mailer;
-	bh=TSgT6T7A4AJYeCodDAhTvoJ93exX30UmjslAxvNT8Gs=;
-	b=rcnJ2x/2ILVU64dg46eGmFL+2A+Ccpxzio1UHYuNZ9+McGVsHLZvlOc/Nr8nmEuTY21M
-	 YSRecUvO2aVkuaw353rnLqOBQk184QAN5rvR+/PtDJtim8ymUUMdFQmgJlbZRkRrw270I
-	 DEf8U+goKJEK2A+uqottdMPCOiWENH/49cjo3VSxU0YmPvvnrvt3KYV2gLjE3baWYbmas
-	 HsAuqmX2UfzgZCZYjZ21k7FmggS4ZmmWm1Ah/TYjTY1pyDvG/XN9jzreIk+56PPxs9ups
-	 B64Gqa0R1yBaxlXhcLnGnTOYzdQFTJlJe4o0rnFFX6nNl8+PGBeA+qlV+AyI/Mugpgw==
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer;
+	bh=cchdRIXdDH+ZuqONJcFyi585VFaLRrBDFUIV1dNlKj4=;
+	b=SnN9rTST3Do17wMHzTSOhhKrCh7C1LpmVMTYfMt2hMPP7z0I0zaXCkPLwdyfQzbb3rV9
+	 J8s4pOetbuVDUfxM9ki/hQa+Fp9FHxoO2rqPoKKw1LvnoZ5f6AOLofPQfJONERvm3DW8o
+	 2AAnw0nRus4R1dZCZhW/6+OcFZjVL1oGTs+bDzxDnaBQ3KMH/aAftkR0/WxEXUEm/G+lg
+	 X1yCGAzp3dEkSQW3xP67ld4Us/DNkyHmDjIA5DuoE7BzwuinlHhGUJQmvedJB14fT/FAR
+	 W1toznXFzNG62ICmBv4z4sHsHMtVZLT8EvBDHnyvEJ7jxqZlWkEhd5B2Ad2EcVxF7iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=microchip.com;
 	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=lZhFXo+y;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=mA3iwUO2;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868A1606A321;
-	Mon,  9 Nov 2026 13:50:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 868A1606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13897606D805;
+	Mon,  9 Nov 2026 13:50:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13897606D805
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=lZhFXo+y
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=mA3iwUO2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794232255; x=1825768255;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:to:cc;
-  bh=dlQEmgJ8iyz+elWQzgRIaC0oM/qYC6YLbKkqyuV9Q28=;
-  b=lZhFXo+ydgl69I7884D6XJBQAd6qbhkb48bfiDVO1CKi5Mex2EaOCUaJ
-   iwt9C4cf205yvmZqZmPY0XCreQ4uhSNsxibIRMB77Xqd4qtylhaL/eqFD
-   DG7u3n7DSIKUxiz/SAsioaxu/5eOCIoHHHE8XQlbS/JIegFh0/Q+sfotW
-   a92pGI1od17RwZtevKB1bIUczLum4o+0d1mBctPgK5bjlLcLkJAfrbRPz
-   dvQRG5tDHPn44uRY1wmB4IhfcMC1maJvIiZjpXUSNupJg6Pl9geZs/HDY
-   ct7Fu9l4TSKeRspXdZhX76Al4YNZZ72MTNx0a2RLs19PHExJQenrPIr9A
-   w==;
-X-CSE-ConnectionGUID: eBwMAOiVQaqHo3RiXecYPA==
-X-CSE-MsgGUID: leRv61FUTguDGOA4i/uiOg==
+  t=1794232253; x=1825768253;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=KJ7nI+y2+3u6aGJ43OEkoFlybCeTRkkOnnAS1Nj96MM=;
+  b=mA3iwUO2djNe3mAwZhG6ueeIhJYuDZNkCNohgOvvY2iy6YwFuLIjMgbl
+   NaZ/8NOb6+JiMhy/mRI3ZMhJcZbkBQkPkEysRE9eI7NZ9Q0/UsR82g9gz
+   dGRbretDPDQW+qb0tZdaf/bxTAccF8XnoxsumZ4jfPvAxnS7JZBRxOdQ0
+   BtcU/W8p2uX3WA0ixK8CuBkfm5Cw7jQ8AogkQR4TwRnNGMVNI2ty5P/qt
+   BRktLSw2dBbDf/ODdzNBPUr21ztMx5WPGAaJJPr/AN7hBI9HpE4ol2pXi
+   ZiiNd+6SUE7Ul7GUkmsFnskZH/VaPnfB7YLIKAN/Lr/lB8AYCRgSn1QL+
+   g==;
+X-CSE-ConnectionGUID: Is88lAHeTUi8yYLOizdCUw==
+X-CSE-MsgGUID: rwg5ooJCRwCiFFAVrzY3Ig==
 X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="297652651"
+   d="scan'208";a="233294142"
 X-Amp-Result: SKIPPED(no attachment in message)
 Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 09 Nov 2026 06:50:54 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:50:52 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Mon, 9 Nov 2026 06:50:46 -0700
+ 15.2.2562.56; Mon, 9 Nov 2026 06:50:51 -0700
 Received: from [127.0.0.1] (10.10.85.11) by chn-vm-ex01.mchp-main.com
  (10.10.85.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
- Transport; Mon, 9 Nov 2026 06:50:43 -0700
+ Transport; Mon, 9 Nov 2026 06:50:49 -0700
 From: =?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
 	<jensemil.schulzostergaard@microchip.com>
-Subject: [PATCH 0/2] pinctrl: ocelot: fix the GPIO irqchip context handling
-Date: Mon, 9 Nov 2026 14:50:40 +0100
-Message-ID: <20261109-ocelot-pinctrl-irqchip-fixes-v1-0-9d2d8fcd58f5@microchip.com>
+Date: Mon, 9 Nov 2026 14:50:42 +0100
+Subject: [PATCH 2/2] pinctrl: ocelot: do not use the chained irqchip behind
+ a sleeping bus
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,9 +78,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIALDP8WoC/x3MQQqDMBBG4avIrDtggsTaq5QuJP7RAUnSiYgQv
- HtDlx8PXqUCFRR6dZUUpxRJscE8OvLbHFewLM1ke+uM6SdOHns6OEv0h+4s+vWbZA5yofA4ILh
- lsnDhSW2RFf/QDu/Pff8ASPTrNm4AAAA=
+Message-ID: <20261109-ocelot-pinctrl-irqchip-fixes-v1-2-9d2d8fcd58f5@microchip.com>
+References: <20261109-ocelot-pinctrl-irqchip-fixes-v1-0-9d2d8fcd58f5@microchip.com>
+In-Reply-To: <20261109-ocelot-pinctrl-irqchip-fixes-v1-0-9d2d8fcd58f5@microchip.com>
 To: Linus Walleij <linusw@kernel.org>, Sebastian Andrzej Siewior
 	<bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, "Steven
  Rostedt" <rostedt@goodmis.org>, Horatiu Vultur
@@ -94,36 +94,67 @@ CC: Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	<jensemil.schulzostergaard@microchip.com>
 X-Mailer: b4 0.15-dev
 
-Two fixes for the GPIO irqchip of pinctrl-ocelot, where the irq_chip
-callbacks take locks that are not allowed in the calling context.
+Since the driver can use a regmap on a bus that can sleep, as for
+VSC7512 attached over SPI, it still registers the gpiochip as not
+sleeping and adds the chained irqchip when the node has an interrupt.
+The chained handler and the irq_chip callbacks run in atomic context and
+access the registers through that regmap, and consumers may use the
+lines of a gpiochip that is not marked as sleeping from atomic context.
 
-The first makes the GPIO regmap use a raw spinlock. The callbacks run
-with the raw spinlock irq_desc::lock held, where the spinlock_t of the
-MMIO regmap is not allowed on PREEMPT_RT and is reported by
-CONFIG_PROVE_RAW_LOCK_NESTING.
+Mark the gpiochip as sleeping when the regmap can sleep, and do not
+register the chained irqchip in that case.
 
-The second covers the regmap on a bus that can sleep, as for VSC7512
-and lan9645x attached over SPI: the gpiochip is marked as sleeping and
-the chained irqchip, whose callbacks run in atomic context, is no longer
-registered.
+The issue was found by code inspection and reproduced on a lan9668
+board (pcb8385) with a lan9645x attached over SPI, whose pinctrl node
+has an interrupt, by requesting an edge interrupt on one of its GPIOs
+through the GPIO character device:
 
-The two patches are independent of each other. Both issues were
-reproduced and the fixes tested on a lan9668 board (pcb8385), the
-second with a lan9645x attached over SPI.
+  BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
+  in_atomic(): 1, irqs_disabled(): 128, non_block: 0, pid: 420, name: gpiomon
+  preempt_count: 1, expected: 0
+  locks held by gpiomon/420: 3, last CPU#0:
+   #0: 84463cd0 (&gdev->srcu){.+.+}-{0:0}, at: lineinfo_get+0x13f/0x140
+   #1: 838bbd30 (request_class){+.+.}-{4:4}, at: __setup_irq+0xe8/0x5c0
+   #2: 838bbc70 (lock_class){-...}-{2:2}, at: __setup_irq+0x104/0x5c0
+  ...
+  Call trace:
+  ...
+   mutex_lock_nested from regmap_update_bits_base+0x1c/0x80
+   regmap_update_bits_base from ocelot_irq_unmask+0x42/0x80
+   ocelot_irq_unmask from irq_enable+0x1e/0x80
+   irq_enable from irq_startup+0x64/0xc0
+   irq_startup from __setup_irq+0x38c/0x5c0
+   __setup_irq from request_threaded_irq+0x86/0x140
+   request_threaded_irq from edge_detector_setup+0x1d8/0x240
+   edge_detector_setup from linereq_create+0x3e2/0x540
+   linereq_create from gpio_ioctl+0xa4/0x240
 
+With the fix the lan9645x gpiochip is registered as sleeping and
+without the chained irqchip, the request fails with -ENXIO instead and
+without lockdep reports.
+
+Fixes: 181f604b33cd ("pinctrl: ocelot: add ability to be used in a non-mmio configuration")
 Signed-off-by: Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
 ---
-Jens Emil Schulz Østergaard (2):
-      pinctrl: ocelot: use a raw spinlock for the GPIO regmap
-      pinctrl: ocelot: do not use the chained irqchip behind a sleeping bus
+ drivers/pinctrl/pinctrl-ocelot.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- drivers/pinctrl/pinctrl-ocelot.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
----
-base-commit: ff00e5c03e7efe88f7a50a8673b14e8f0d4b45bb
-change-id: 20261109-ocelot-pinctrl-irqchip-fixes-74ef6d92e6f8
+diff --git a/drivers/pinctrl/pinctrl-ocelot.c b/drivers/pinctrl/pinctrl-ocelot.c
+index 06dd49782d74..90a1f859db67 100644
+--- a/drivers/pinctrl/pinctrl-ocelot.c
++++ b/drivers/pinctrl/pinctrl-ocelot.c
+@@ -2367,8 +2367,9 @@ static int ocelot_gpiochip_register(struct platform_device *pdev,
+ 	gc->parent = &pdev->dev;
+ 	gc->base = -1;
+ 	gc->label = "ocelot-gpio";
++	gc->can_sleep = regmap_might_sleep(info->map);
+ 
+-	irq = platform_get_irq_optional(pdev, 0);
++	irq = gc->can_sleep ? 0 : platform_get_irq_optional(pdev, 0);
+ 	if (irq > 0) {
+ 		girq = &gc->irq;
+ 		gpio_irq_chip_set_chip(girq, &ocelot_irqchip);
 
-Best regards,
 -- 
-Jens Emil Schulz Østergaard <jensemil.schulzostergaard@microchip.com>
+2.52.0
 
