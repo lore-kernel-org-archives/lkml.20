@@ -1,87 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.156.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221455;
-	b=YPEFmZ0fC484i9zjw8fkgpROs9hVAB9Btu2nkH9dqepbwbIj56hSjIygtxAObZbF5SyK
-	 VXzKH0251WrATVlUH4nJ32bNyG69+zzBaqkJOqXNrW62KLyf+dI6baQJzywbxKPZd2kro
-	 9s5p0oYUzIql8SQUfBE74P/J/D6cZi9S75bhzZ56QRONRfSAHa8royb6jmmz/IbFLLl94
-	 ZFIt7meO68040a+bMg8mbGXqRTaJ4u09fXCZr2F/abRBMgPQ77aHHjUOmfZhrtlRKHGGZ
-	 VQAUfbamPkkWxJoI3NamcihzQLGvdTEqljaYqRqYsNUPp06wCbtnbUSDPAyIcMj+95A==
+	t=1794221549;
+	b=eYSQMq8WM+CCvVFKnkVFHjwSYBRh3E+iQBwwSizbR9KerlmwDR025QdIm4KzaQ3GRbZL
+	 hH73EhnK01trh9rdcLfHPZvKmytj4he+7QEdwwr3majVDuIHadJ/rlbQ9VDe3kWZfej99
+	 3LcutQwA5GZ/Xuat5oafqe2Ke03TXXl7gq7A5i5MND5/6GkgFET5Oe/XyBWT9ciIa/3ZV
+	 g6wSP7Td4D2JD2nJJ89smDn3R7a26klvV2TpVMKCE34zGE/pczTcFiu4P5LXBOi/RtGn4
+	 L0JdXWxh4qgvWWm/EiixYGJEuZomXLVa3KbruHDhplELIc1NjdEmIzr1Vh6VhKKHaRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221455;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version;
-	bh=dFZKLixWx5KI4GfPbaia5dkgB2QXV/9Y/o90oVOKECw=;
-	b=LMdMZEJcmKLArvZVkuggCa8IeFwaZON1dkc08wz5Tju7eb6G9cyaQY95rEeem81c/n0x
-	 ugS27c8PEkA2M20BsFYhKbWdOb2E1r8MBqFP5T25uNgiqMK3WzOInkVaVymXvGz8QoNIs
-	 rYcT4PaJ0HA17gSO/5SqWEGbuOR/vqVX/IJt8BatYZzgN60DtGK2CTRguqI46Gw2hRfst
-	 dYpAn6C6/5RLBJSN+kKyzOA82Cn0ZrL71JnQkAAKn9Bu4WCYZLFT2jOi9DwpI4uoL1Zes
-	 bmsdQNnrncuAvjxh8hoI+RQM4XYIrfOudD0jl8/1gPtLjO4r+yu4o5OZ3hM/YdBIVVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221549;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:References:Content-Language:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=UxA+Ma786bUcz69UgECYfkbzSxht8/ziVCDZhsC0ABw=;
+	b=DbehCN/nzJXn4AUZThJ1HP90mTWUT5T5EhnL4G53NTZMjUY/ByNbvIroDNpLYlicVr7G
+	 cigrO3IxSWUhWs8ZDt9Bed5fHDoBJZOifedZrrTsBUTrhwOjeQUs1vlW8pk36cA4T6wBG
+	 nOKJB+3Kc1bqNLV8nwnxjKhbUTt9h7l/H7cbdJBydoLdflVeZG3FX28kyt/WvdvFwKqQ+
+	 v2sRKGTOzsMGzmAHZDdzoyviHkrdHCAa95Bw1XYTvmVeHGKpQFsAwr7H6ee7o/wu6HEBf
+	 lqNFkDkvnPG4hw11aRvfxMhFoATE+mw31qG+LR6y2xwZGvhELmij9cW8kG3xcgnBxuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=marvell.com;
-	spf=pass smtp.mailfrom=marvell.com;
-	dkim=pass header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=fqEhttIJ;
-	arc=none smtp.remote-ip=67.231.156.173
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A0E606A31C;
-	Mon,  9 Nov 2026 10:50:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14A0E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Rklr+Ur5;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5ADA0606A31C;
+	Mon,  9 Nov 2026 10:52:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ADA0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.a=rsa-sha256 header.s=pfpt0220 header.b=fqEhttIJ
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A99x5mo4137589;
-	Mon, 9 Nov 2026 02:50:48 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=dFZKLixWx5KI4GfPbaia5dk
-	gB2QXV/9Y/o90oVOKECw=; b=fqEhttIJ24eUSiCxSxkPMIjfVnjJyS4k56Cyyrr
-	IajLfz9j17600FkAwp5dgd2pOwRX1z4pZ+FHdNsVVF9PW9qiay9QEs+cCIPiXSeM
-	WNT5Dsisxkkn0f7jDEtdBKY8VrKESc1dBeod/X6GzmgCbRoNE7QyiZDw3LIyrEyo
-	uhCM0knQnxK+VxM17JeTt5U7Zl5fJDh34KMumo7WL86aShm5YzyzWmtg5FNlYCCT
-	5eRZgSqvEPJ+AZqDJzdHhbh/Q6uZ9Iob21VFR+qUTHw0GFY3A3pOM9ltq8hgXEnl
-	yQJXy2wbs1x46eNVjlracfgcCUhd7I2CN0RGO7rFqm3DC9Q==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4ht4cnnppy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 02:50:48 -0800 (PST)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Mon, 9 Nov 2026 02:50:47 -0800
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Mon, 9 Nov 2026 02:50:47 -0800
-Received: from sjc4ccscust-vm07.sclab.marvell.com (unknown [10.110.24.160])
-	by maili.marvell.com (Postfix) with ESMTP id D31923F708A;
-	Mon,  9 Nov 2026 02:50:46 -0800 (PST)
-From: kmahammadraf <kmahammadraf@marvell.com>
-To: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>
-CC: Sunil Goutham <sgoutham@marvell.com>,
-        Ratheesh Kannoth
-	<rkannoth@marvell.com>,
-        Geetha sowjanya <gakula@marvell.com>,
-        "Subbaraya
- Sundeep" <sbhatta@marvell.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David
- S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>,
-        "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-        Aditya
- Thapliyal <athapliyal@marvell.com>,
-        kmahammadraf <kmahammadraf@marvell.com>
-Subject: [PATCH net] octeontx2-af: Fix keep PF_FUNC match for AF TX rules in rep mode
-Date: Mon, 9 Nov 2026 10:50:43 +0000
-Message-ID: <20261109105043.1986921-1-kmahammadraf@marvell.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Rklr+Ur5
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 907EE1576;
+	Mon,  9 Nov 2026 02:52:24 -0800 (PST)
+Received: from [10.211.55.3] (unknown [10.57.89.2])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B2CD83F632;
+	Mon,  9 Nov 2026 02:52:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794221547; bh=34mglxqPLyxtLt/qr/d0nfS1stLvkhiOWpjKoz/yJEU=;
+	h=Date:Subject:To:References:From:In-Reply-To:From;
+	b=Rklr+Ur5UCmm5rK8HHf3Ge2Aq08PCNTBv6iQja3JpdfngO9dyUS24Xg2Zp2MG6UIV
+	 SfziesRXnsev/c3CaHOQMDugvkwWdSwJdhOGLKorRg8/5bAMfvC8GhvwvzklbnLFVC
+	 moNOU3iLBqzpvc6k8q6P9Z1mn5UXiTwrBQRRD22I=
+Message-ID: <7a8d6a15-5a10-4035-b825-4436cba537ee@arm.com>
+Date: Mon, 9 Nov 2026 10:52:22 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,72 +53,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Authority-Analysis: v=2.4 cv=HpDjiETS c=1 sm=1 tr=0 ts=6af1a588 cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=QXcCYyLzdtTjyudCfB6f:22 a=VwQbUJbxAAAA:8 a=M5GUcnROAAAA:8
- a=L6Q1NjILTR45zA5W52MA:9 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0MiBTYWx0ZWRfX9OO3/dCtkUr5
- jekI0j6sy76RLG9/0jd+Ir3kw98vAR63ZPIoLLTQD4kBOBJWyfhhj6JCZhY6vTXnOkqA5zlVguR
- pjTJ23t/9BZtRu/1ZBrCRzAc1WNc2q8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0MiBTYWx0ZWRfXz/LaBKRilRZ4
- 0MyoFX7E9+uK4tWvslPG5Wg2Ehb6ZEXNETnVp8LRWh1wBm/qxqlPccCbgV5hguUJrxumtDyT1HV
- XVCuIPp3uKuk0vQsSWXGllIqSEdrudixgxed6O6ui0gKmerOF/9LwO0LWiz+JKKZC4S3TiYIP2w
- cXth0fh4mslsTy0ABrvKx6cDQ/U8Ydq4nw2yXrfOQESbPjI7RfsPP6FlCIXrgk51Ci8+I+iZy6m
- aRWI7Q6oR0JzRNT8k+Xf8S680Sa6JsrlHCZJg6U5jZWahmHBdFdByFpUN808Ey7w9sLxK8qK91v
- jexC4eDlAq3g/w2prsnWmjqS8yEV0ic24O8hzLNMZUqOxd3H1L9fAf3tn1KPdP0H/4rVzlaC9s3
- oQ7HYGb1cg5EFIb4ri0iX/5gk52DGqpoeThQ35hmoJTEB21c9UBqLWehrKUG7ynRhwyfmu72wr9
- o0XD8yrl44BFHHArF9Q==
-X-Proofpoint-GUID: -SM8jb4bUgZ4qaoZfGxYqPVwLMqik_YG
-X-Proofpoint-ORIG-GUID: -SM8jb4bUgZ4qaoZfGxYqPVwLMqik_YG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
+User-Agent: Thunderbird Daily
+Subject: Re: [PATCH v2] fs/resctrl: Disallow monitor group rename when the
+ RMID changes
+To: Jinjie Ruan <ruanjinjie@huawei.com>, tony.luck@intel.com,
+ reinette.chatre@intel.com, Dave.Martin@arm.com, james.morse@arm.com,
+ babu.moger@amd.com, corbet@lwn.net, skhan@linuxfoundation.org,
+ rdunlap@infradead.org, zengheng4@huawei.com, gshan@redhat.com,
+ jic23@kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+References: <20261105123524.2282090-1-ruanjinjie@huawei.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20261105123524.2282090-1-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Aditya Thapliyal <athapliyal@marvell.com>
+Hi Jinjie,
 
-In representor mode, AF installs TX MCAM rules for representor traffic.
-These TX rules must match on PF_FUNC to identify the correct target
-function.
+On 05/11/2026 12:35, Jinjie Ruan wrote:
+> From: Peter Newman <peternewman@google.com>
+> 
+> A monitor group can be renamed into the mon_groups directory of another
+> control group to move its tasks to that control group's allocation
+> while keeping their monitoring data. Where the RMID is only meaningful
+> together with the CLOSID, as on arm64 MPAM where the RMID is a PMG that
+> extends the PARTID, this move does not work. The rename succeeds, but:
+> 
+> - The group's monitoring data is reset. Its counters are identified by
+>   the CLOSID and RMID together, so after the move the group reads the
+>   counters of the new CLOSID instead of the ones its tasks used.
+> 
+> - The tasks are not moved. mongrp_reparent() sets the new parent and
+>   CLOSID of the group before rdt_move_group_tasks() looks for the tasks
+>   to update, and the search then matches on the new CLOSID, which none
+>   of the tasks carries yet. The tasks keep the old CLOSID and the old
+>   control group's allocation, and the group does not count them.
+> 
+> The move has never worked on these systems, so rejecting it does not
+> take away behavior that an existing user can rely on.
+> 
+> Reject the move with -EOPNOTSUPP when it changes the RMID index of the
+> group, and document the restriction in resctrl.rst. Where the RMID does
+> not depend on the CLOSID, such as on x86, the move keeps the same index
+> and is still allowed.
+> 
+> Fixes: 3e9b35823aab ("arm_mpam: resctrl: Add rmid index helpers")
+> Signed-off-by: Peter Newman <peternewman@google.com>
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: <stable@vger.kernel.org> # 7.1.x
+> Link: https://lore.kernel.org/lkml/20241205153845.394714-1-peternewman@google.com/
+> Link: https://lore.kernel.org/lkml/20261031101052.1692230-1-ruanjinjie@huawei.com/
+> ---
+> v2:
+> - Drop the Suggested-by tag.
+> - Describe the systems by whether the RMID depends on the CLOSID rather
+>   than by MPAM, in both the changelog and resctrl.rst.
+> - Explain that moving a monitor group is already broken on these systems
+>   because the tasks are not moved, so no existing user relies on it.
+> - v1: https://lore.kernel.org/all/20261104101913.586595-1-ruanjinjie@huawei.com/
+> ---
+>  Documentation/filesystems/resctrl.rst |  7 ++++---
+>  fs/resctrl/rdtgroup.c                 | 13 +++++++++++++
+>  2 files changed, 17 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+> index b52795e03303..9ae34aace0ff 100644
+> --- a/Documentation/filesystems/resctrl.rst
+> +++ b/Documentation/filesystems/resctrl.rst
+> @@ -552,9 +552,10 @@ will automatically remove all MON groups below it.
+>  Moving MON group directories to a new parent CTRL_MON group is supported
+>  for the purpose of changing the resource allocations of a MON group
+>  without impacting its monitoring data or assigned tasks. This operation
+> -is not allowed for MON groups which monitor CPUs. No other move
+> -operation is currently allowed other than simply renaming a CTRL_MON or
+> -MON group.
+> +is not allowed for MON groups which monitor CPUs, and fails with
+> +-EOPNOTSUPP on systems where the RMID depends on the CLOSID. No other
+> +move operation is currently allowed other than simply renaming a
+> +CTRL_MON or MON group.
 
-Currently, npc_update_tx_entry() clears PF_FUNC mask for AF-requested
-rules. In rep_mode, that wildcard can make a TX rule match traffic for
-other representors on the same TX interface, which can steer egress
-traffic through the wrong rule.
+A user may not readily know whether RMID depends on CLOSID. To document
+this properly we need something specific we can point the user too.
+Perhaps this can be a file in the info directory specifying whether the
+move is possible or not, info/moveable_mon_group, as we discussed in v1.
+I suggest a precursor patch adding this file, followed by this patch
+which can then refer to the file.
 
-Fix this by not clearing PF_FUNC mask for AF-installed TX rules when
-rep_mode is enabled.
+Thanks,
 
-Fixes: 683645a2317e ("octeontx2-af: Add packet path between representor and VF")
+Ben
 
-Signed-off-by: kmahammadraf <kmahammadraf@marvell.com>
-Signed-off-by: Aditya Thapliyal <athapliyal@marvell.com>
-
----
-v2: https://lore.kernel.org/netdev/179292714974.3134.12015701378835588497@kernel.org/
-
-    -Drop the channel-handling change from this patch.
-    -Keep this patch focused on PF_FUNC mask handling in representor mode.
-    -Clarify the representor TX symptom in the commit message.
----
- drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
-index ec004ea5154c..4afd4a10cd64 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_npc_fs.c
-@@ -1396,7 +1396,7 @@ static int npc_update_tx_entry(struct rvu *rvu, struct rvu_pfvf *pfvf,
- 	/* If AF is installing then do not care about
- 	 * PF_FUNC in Send Descriptor
- 	 */
--	if (is_pffunc_af(req->hdr.pcifunc))
-+	if (is_pffunc_af(req->hdr.pcifunc) && !rvu->rep_mode)
- 		mask = 0;
- 
- 	npc_update_entry(rvu, NPC_PF_FUNC, mdata, (__force u16)htons(target),
--- 
-2.25.1
+>  
+>  All groups contain the following files:
+>  
+> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+> index e6b64a5c9302..3c002b711024 100644
+> --- a/fs/resctrl/rdtgroup.c
+> +++ b/fs/resctrl/rdtgroup.c
+> @@ -4398,6 +4398,19 @@ static int rdtgroup_rename(struct kernfs_node *kn,
+>  		goto out;
+>  	}
+>  
+> +	/*
+> +	 * Moving the group changes the CLOSID. Where the RMID is only
+> +	 * meaningful together with the CLOSID, the RMID index changes and the
+> +	 * monitor state cannot follow the move.
+> +	 */
+> +	if (rdtgrp->mon.parent != new_prdtgrp && resctrl_arch_mon_capable() &&
+> +	    resctrl_arch_rmid_idx_encode(rdtgrp->closid, rdtgrp->mon.rmid) !=
+> +	    resctrl_arch_rmid_idx_encode(new_prdtgrp->closid, rdtgrp->mon.rmid)) {
+> +		rdt_last_cmd_puts("Changing parent control group not supported\n");
+> +		ret = -EOPNOTSUPP;
+> +		goto out;
+> +	}
+> +
+>  	/*
+>  	 * If the MON group is monitoring CPUs, the CPUs must be assigned to the
+>  	 * current parent CTRL_MON group and therefore cannot be assigned to
 
