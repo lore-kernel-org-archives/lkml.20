@@ -1,88 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242593;
-	b=fdfkGhVHuVDB0Bf84/RfuM37/CMw0gZSAtRedqkiTyEIoHbgoKGsUe9f2PmnZ0TpvquG
-	 vhL/VcJE6KggchWqY+caOSqL+uBTJJk6UbQlo/lbgGCM7Tmv0Xqig/epS/pXX1//gXvkh
-	 HsOS1awDAf+tdqRzDPvNOJQ/XRc8dMZVA8uICzEp/NXW6YZDYFl6coMKnErveK7tfKTvh
-	 LGfdUUPTkwiIfWhDb5Zvk9DqJuQIsWV0f6Je40TYu2sNJr/RuRW8S8A4Zxj8EeZgcZATm
-	 3rjU+kvvOqTfvFNnMeCEClKKyCTXlWt5J3JnCLzRnrAvNTgoQ+wwex4MeihVjToAP/A==
+	t=1794242583;
+	b=buRm5OGkJ3BtrCcgDpCJOq/CfonLDUxNpmKfJHo2XNeSKBEN3PeNHzz6RtZ2G/SEZiRY
+	 c4BR0wsH9E5pMADuXyKnNNhwpkSnR8En13PXkENgvZHneMHjuOL/qHnpn80PpmuNDbLhR
+	 ZwwQnP4qQOhkyY1r7zjzde648stNyQLWACID7ZogzWWteKj1JwH1PQr28taJAUeOq1OM7
+	 9KJDC+mmJBUGJOmTVjb30HFbca8E7+hG2Ec075hJsle/PF5QTSKfXHErLejm4PX2kNSjP
+	 ONf8I+NH09+XUboCRYmIoSQKLXRtDsJoS4rbHBglqqKFNM/K/7jGfb4246aK/hNq4ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242593;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242583;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=HLYen38mKGP677B1oAzbJm7ZesXCZSDjKVwDLOHWtRg=;
-	b=nGDQ87kOedHO/+UG9A32liaP6oT8fzRGOsk00c6U+kHl7PuJsSmVygzFCOFKy8BwdMiD
-	 KdxBQNzbSBH3PHZA1P4YrQfTsWTJIZBBNJTNWLCnH1B8w97F9vTo95kjBY65zN3gMngcp
-	 /AXmpLrE6gGhLixaNCNzASSc0AXoJPLwKoUhbU81nvb0zN/Lts3uDi5NZR6lvSlKj4F3H
-	 AEzCpHaT4WllHkHTHg4LXYlbpmrnfXfZ+ffdo8gMqk0RuL6xohcMa57JuKdvDW61TAQDY
-	 AMi1J2k1vWLHLJB0O+m9RgMsc4Xv/x48Mxd9zwzcNhfmrG7WiRI5m02lIi28jafLUeQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=1p3sNv9U0haI1WuvGOs57nA1tjZY34nraLgEt04/CiM=;
+	b=1sKOTjc5mdq6bmPqd2slGqTAgS0Etmzs7W2SIX/6N6fsoxlw0mzuPjXaqFfmwyQKQE8N
+	 p2WXcksMlLO33ejkOTaOQ6SCSOpCsBmuuM4niIKOQwVtpLGcJ8wVTFEuVHvXYGbE+LGsB
+	 uXKlGEfm/hst9cb4KhnGW2CjZaOrVU4eTBzkwatAdUkEovxKsFe0IGoUrR3MpYe4cjX17
+	 hl23aEis54cR255gqZRtlUglVKcMxmeO/63g9RU1n4GOYvKM5YeFoQoA0HarIER91Z5w0
+	 eZLuJWILN1XM9lkil9MArDTvzuSSv/jrn308/Ac73tB37k+lVBPYpCNBvwkSKB2opyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=YGuhw1oZ;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SXCBCBHs;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE10A606A335
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:43:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE10A606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95090606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:43:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95090606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=YGuhw1oZ
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so13493115e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:43:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SXCBCBHs
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49d05d51553so8209125e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:43:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794242591; x=1794847391; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HLYen38mKGP677B1oAzbJm7ZesXCZSDjKVwDLOHWtRg=;
-        b=YGuhw1oZxUPL/bbx+i0ijosSnISYIbUul/qGq2zAELOacB08dvYDccSx/x9rU6g9gl
-         QyPht0zwbkvD9ejc3WNj6TDVij9KZUrBEQ9Xt5i0q2PMick2I5G7BiPPIhuJ5QsC5cpF
-         Hc9VdS41J2qakEC5kRjP6W1h9qpqNpRyQS76N9UiluO+WrKbrxUc+eHpH3MgwEVU/LBg
-         EKYTjvlmvVcRDnUT5YdBxwyzf6msDAIK2mLzEprKTk57LkQxxSPMwQJzYJo0fRMdPBCc
-         S1EcyuYCyB06Nre1/tH9qJ9dfWqNPjCBc4QnRUd5kWvI+126KhchYL1WWv8hq+Sx8TwT
-         sacg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242591; x=1794847391;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794242582; x=1794847382; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HLYen38mKGP677B1oAzbJm7ZesXCZSDjKVwDLOHWtRg=;
-        b=LSzHwRj35r/DH5z22yCAXqZnzo2QbZ/hxMnyHtPkDnOEkbPpacQJVm768NP73GufLk
-         65yFdXcKjwGQkxXbmk9m3N/8e1IC37gK0Qjf06PAsrNdt/vqHSYy4d6Slz9GTllz4Go0
-         qO5MrhV7npq4CGIXqnsMlX5ULWc7uZErdT8iqfiwR+WhyyWebY8ecvFIu+5OYWl60iWI
-         GQXpYyvht5obQGBwlDK86TIpUbENyJbBlK7hjjiIRgb6Hc/Pg+OmGExZQlj9S3n/RkAN
-         g1bk6N7pD5TXUAjbvag+FlB2WrK0eqm4D9T7ZPq9nHAiOjfB2BpZHzLtRu7Gdu3/fdV1
-         5Ixg==
-X-Forwarded-Encrypted: i=1; AL+hErH1ca/YbB9KS9HX6oX+k1CUeL1BikQEYp+N6sFuWD9t8oKGL3F1hK5tOTmpuG3RIcI/LkpF3dEETgqrr+w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/7N1biLLl1pxzpK7AiQYE4m4fo8NRaGtN477nYwnM5Ty4Iln9F
-	CVNRb2QQGneB1ccGLdlsBPK4ZOAMOeKFTzWpGcoY7xuUH+b1rqMhuy92XHwryNgZm0k=
-X-Gm-Gg: AYBFou0hV1P6Nxu8eH87o9j26tGxDKhkIjTZYcM4kr/+U136UlEpgiDBbmng5Gg/f03
-	SuD+3FJm/YKd1+AGonQxavdbe2mjBdZDKMb6PuA55/qqcEGjtMz7vEPIziuiXtVR7MYBjIg/Qlz
-	8Twj9FSmvLKCLRDHXFHpIdsqqCr6uNMcVCJMS+xCeJ6OITe/o+NUIXpxMblDVpRMRvHDO6yOk0n
-	/tG5gRh9U7xqQysIM5sU2y64FCYuEFIebxrbJ86uRgKOk+dRkmP0vTK8485YtTPGSsm9zO9ST/f
-	qOoWTBTqRQbW+moGKi+eJ4qQ3C6EGUWLQQaZrPVQ5jFPkGVySMTokWM80d7gAV7YZA8tdO3DTb5
-	hV+EjI9uzuMQofRVYCNcVc6qudTfi1W42FJjsCmoHXxPC8DrFCpfqu1syWjbWc/S2RrFfoI4Dzt
-	4VGRadTAl8xXoamR98sAz4Zu6HF/JbP+nqJ1wRiDysKvm2PvvfYGkQYiAteYwcR9Vsof126soSe
-	5eKoOv0WOdlx9TR5x0K0rqKnwySy+zWhEj2tNASZuwpt4+Sa19F4hyVe0f0g0STrDgVLPMTe6Va
-	3mX4gSkuhf5lz0s+1xdBot2gfKU9XJv1hnXfTGdMbPZv2dpeNeR3BC4egmbk7gbo
-X-Received: by 2002:a05:600c:3508:b0:4a2:526b:d40f with SMTP id 5b1f17b1804b1-4ba015b8c6amr1961265e9.0.1794242591012;
-        Mon, 09 Nov 2026 08:43:11 -0800 (PST)
-Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01d8ae9fsm806785e9.3.2026.11.09.08.43.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 08:43:10 -0800 (PST)
-Message-ID: <1dddcf29-36a9-4ffd-999f-54b730c9ea27@suse.com>
-Date: Mon, 9 Nov 2026 17:43:09 +0100
+        bh=1p3sNv9U0haI1WuvGOs57nA1tjZY34nraLgEt04/CiM=;
+        b=SXCBCBHsSo1J3DlH0uGTefaGDiNWDaEN/fnhbLD8gFE+j797GgHng4PCUXhmlz/IwZ
+         Xzf0cqS65Wz1nm33DkPDkGlAXzU2rNlNPHnuqPrtbCo099yQIwByXzcd3gRqQuJMAXtC
+         fKjKxOq/AX/4sfUdAzFjkNSA63Vlp5t2SJgU87Ei8z7TbTIwnaQFq2AdCrXQB1H8T6O3
+         1Fq6Jeau9PjXj8VsM3fc7CDDERRxqAAQUpPqX3ueemsIE+SgEYpSj/WHycpoeb5qGBOF
+         hMAWXtj6H0FIFhuLJZwLzGcchMW936rAoYj6P/6MEEkCtXEfAIYwVYljth/8G9HcYpff
+         7dsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794242582; x=1794847382;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1p3sNv9U0haI1WuvGOs57nA1tjZY34nraLgEt04/CiM=;
+        b=hf74iCJYkYowfnYdovszGb1JPNTRJghOdOwuHOIeqUxpKdZSRdyYRJWhbNOYdqi7/f
+         hI2diRDMxAJEqr/SfH0PHYC5v7pBWUyHquxwI6ZDNRrSJvSF3hZyaZDJQIjdmLHgUEHk
+         DD/b3vjs6fnsMxXJmaTl33jTzpe2SFfElm+nChOxEwBGz+FTk7+KiLojpt/WeJU9KNQ6
+         6H0E6fJJAEqQexnFZqawsfJdNzScyYrVQTaaTZdEk9pt/3EszEA+HwjEBPRLqJi6KOCM
+         YgF3F5uWMTuDM2M4rq9xltAmPHxN9zxZh/A8nVcW6gkZ69wuwBi8C/CDKP1hMhcMZh+w
+         vQxQ==
+X-Forwarded-Encrypted: i=1; AL+hErGWCimd9ydLg3ZSd9dBvb2XNqaZbV8ZTMe1U8t2xp12wi7UffqmU2EasngS3xHTazvsg/fBXZqrWQ4BhpA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VlJ+/KpljUvNlUPXtas9mqZ6s/rZWpo5ViSk/y73DaBXVRgio
+	kFWTRCxvsDkmkRsNCE/GFd4VuXXGUCETZtUP/o0S7uwy3cB2wN41nOk=
+X-Gm-Gg: AYBFou2bttOMtvinRFL6Jev3wui9iNHxyz/oIpr24XxBT+jPNqmJ5GFSm+ZTQcsvDS3
+	gZvm8+bvLqztUXtuJ+4XGmU6WBxyP6c9pYVpo8bhjSXY+jgfDuzODxU6jHRrIpbtLGXMEODZnqM
+	SX8Vs7cUMCoab5pEFM4pl+PtFz9UYtnnXmdiS4WkWxLGKzfORR7XF9QUDiQLDBN5x3V0ziUUNUq
+	Fz4aoFYLhW5Z66Jwcc5moSAj3+S3UwkjVIkni2MLsvnapqhNUx+p866zRMO+ReMq+rh7K4QF4fX
+	PBCEwA1GDWRK3x7FIP15jt8GrUhacaXL+iliWU4sOEoEm5VU+tvLTYscwKfG3m6vOwA4YzNVU4e
+	GLL/pnKC3FasewtvBhdDF9Y99P7JvhG319lyrehLDwdV0oNCPxPtBCyUv1LPhOodty1ikqTBwtC
+	GdYuVPImXGqXa5irMxdgaka+U6TliwVrIi4tbmQSQCyN4htjBjcTQN9RgGvkO36o0gZQ0NxNL/r
+	RJK0fKlrrXjJ9XQtCn7kWiP9FSATE5e7hjbSneOuWCZ8vbwLekw8dv5uapivh1RD6G2KhHnRlom
+	ZyLeou8W9KZWBUbKi9Ic+1U/HbXFEV+5p9s7UPYPu1EXgj/urMyyhsS+lrrxoyBQJa7LHoIkTyH
+	bVVWtznhxqv//3RaSpXLJdZlk1uUxjxGH41AQ/MzdEDrEl4oJoYnDKqw3bDhryuDfUcCvbgediQ
+	==
+X-Received: by 2002:a05:600c:46d1:b0:4a1:7d9b:d4ae with SMTP id 5b1f17b1804b1-4b960d9c486mr96080385e9.5.1794242581971;
+        Mon, 09 Nov 2026 08:43:01 -0800 (PST)
+Received: from chateau ([194.65.85.67])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7efb1547fsm441798645e9.11.2026.11.09.08.43.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 08:43:01 -0800 (PST)
+From: Sergey Zagursky <gvozdoder@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Arpith Alexander <arpith99@gmail.com>,
+	Jake Steinman <j@metarealtyinc.ca>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Lixu Zhang <lixu.zhang@intel.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [REGRESSION] ipu-bridge: HM1092 entry hides IVSC-attached OV02C10 on Dell XPS 16 9640
+Date: Mon,  9 Nov 2026 16:42:49 +0000
+Message-ID: <regression-followup.20261109163952.eaa256f0cc02@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109142140.ov02c10-hm1092-regression.e938253b8516@gmail.com>
+References: <20261109142140.ov02c10-hm1092-regression.e938253b8516@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,73 +107,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 03/11] modpost: cache section relocation mismatch state
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
- linux-modules@vger.kernel.org, rust-for-linux@vger.kernel.org
-References: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
- <20261104-build-speedup-v5-3-0f6018be8dae@kernel.org>
-Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <20261104-build-speedup-v5-3-0f6018be8dae@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/4/26 7:20 PM, Lorenzo Stoakes (ARM) wrote:
-> For every relocation modpost invokes check_section_mismatch() to determine
-> whether there is any kind of mismatch between the source and destination,
-> and if so which classification applies.
-> 
-> Each time it does this it invokes section_mismatch() which iterates
-> through the sectioncheck[] array every time it's called.
-> 
-> When walked a relocation section the source is fixed and there aren't many
-> targets, so the same names are looked up over and over again.
-> 
-> Therefore cache not only mismatch categorisation but also whether a
-> mismatch even exists for a given section and look up the sections in the
-> cache.
-> 
-> Special indices (undefined, absolute, common) take the uncached path as
-> before.
-> 
-> This results in very significant speed ups for allmodconfig incremental
-> builds.
-> 
-> modpost is on the serial tail of every build that links vmlinux.
-> 
-> Whole build, 128-thread Threadripper 9980X, best of N runs:
-> 
->                                          before   after     delta
->                                          -------------------------------
->   x86 defconfig, touch mm/vma.c, gcc        8.5s     8.3s    -0.14s (-2%)
->   x86 defconfig, touch mm/vma.c, clang      7.7s     7.6s    -0.13s (-2%)
->   x86 allmodconfig, touch mm/vma.c, gcc    33.9s    29.4s     -4.5s (-13%)
->   x86 allmodconfig, touch mm/vma.c, clang  31.9s    27.9s     -4.0s (-13%)
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Looks reasonable to me.
+I won't send the patch I mentioned: Arpith Alexander already posted the
+same change on November 4, and I've replied there with my Tested-by:
+https://lore.kernel.org/r/20261103200226.100989-1-arpith99@gmail.com/
 
-Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
+A correction to the revert option: there is no HM1092 driver in
+mainline or linux-next yet, but one is under review on this list,
+including ACPI enumeration for HIMX1092:
+https://lore.kernel.org/r/20261106121907.42745-1-j@metarealtyinc.ca/
 
--- 
+#regzbot monitor: https://lore.kernel.org/all/20261103200226.100989-1-arpith99@gmail.com/
+#regzbot fix: media: ivsc: csi: Add sensor node in bound callback
+
 Thanks,
-Petr
+Sergey
