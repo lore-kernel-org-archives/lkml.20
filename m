@@ -1,58 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794222550;
-	b=UlGF9RDbp1y8t0UXDhXaG0/2l4oFl7NlYbrUZC15LBDQ233mGkguhUka2j/6IRE2Y9fJ
-	 gEZXZEPKjgMOHJMABS53TePcvrqEv8TBRS2sHF/2GLUZb7u2n0mb+0qmuC4oMWjkFsyvf
-	 YEjigSIVbEUDnpz0TibLMS7tPoZdb+tUl1WI1tnc6EFYmkqPbXUUOyuYvGHEU9BrAceyz
-	 hzjj6R8utgyVMAes+za6e8CS6+tKb2d+gkOq25c8xxsFyTfn/bAx4ia8/c4UUFRP/cpdz
-	 YrVHKX8vPyU1XlhmkRLZZsByfpiyYqLi9ybe/gWiPI+MtdrIySRT/reErEmKtHCmLng==
+	t=1794222619;
+	b=Gat5rS24nkmP6u9duHJ7QGDz5o+T0wMby9ykFp58lQuuHreNf9+PrRwEsw8HdjRwshD7
+	 R7tD7mc7EOt1UHsFcsKWGdygc/6ILDQklH6JdMigHhCIEF2jHS7mS3md1gP6qq+KB/N//
+	 pYKejWokoeckSRMFWjwfJFE3rVQe1e2mc3Adk7n4y1CHdZtTOsaYGWUUkL8C5zTbdIJQE
+	 XalfO8HAbYlXkUnvEbAamTZtU8nG41kC0QE/HXWo8ueNzxd/BAg4PUyKJ4dqB4wAZLkz1
+	 /LuZBQtjLUuedT69mbMMb3dtPpN/McvSrFpkCyNcXUj/VAsorXTOfWaV4LruUwWCgVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794222550;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=aOodfZE2ZLJT1tt72r9gxw/AwWXvUZO8hln4ZVGINpQ=;
-	b=oT0VGJEMgO1aFCQLT6MLOiHyhF6UBm11OSy8vzU80uXx/Pe54d7L3henjQOvXQwmBiAN
-	 VPaATArF1LTnNV7aTXzPeHUl91yoUS0eHuNS2xzpX4DI2p9ANS3yQUwXAvVX4aiCak5wO
-	 4S11r+xYP+IbIeVlPcEIZHGjTPQXZnMDiqOYasYGydQyx5JFCbtx7KgvpiEUvuaEy8WXo
-	 uIiIUr1w12wFjQDMOoPnjVG5XHt66uB0/8PihePUhE2k/m6c5pJ4f3G3nzOFQP+WMvyf1
-	 UhomxrrtddeKWcTjQbu29latTY2DC1NWXl8GvOGFi/JA5jvucjxXQryYK9sLE4WmJjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794222619;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=J5dhqbhYXQcY38/MwfGJS4lj6d8vb41ZbZA9Qsq+Ke8=;
+	b=ITxFPtRA45dGUqm92AbgS2A6nXR3jpFMyAFmBr287lMslPEEs8QF2f2B7v/LPyAJ3CEJ
+	 ch53AJgmhr5sIL/b6n/iEZQRHyN3yxuRB89hAu17rxhwGmG705zOkJgggPV+WbarSGqca
+	 5sQbhOxo867Y84sXpaO4PQPGUZFrRJm8kqWWy4fr87Geso4id/0tKVRZPHVfOiBqL17O4
+	 0rY9nhC7GiOx8tC/P2N+lBI/gbkr3exX1j8QQlWmILEcejJbF39JTWzmcJuuCzYc+6ohj
+	 B5ZIMJg1/GsOWcZAaP5FZDiDe612k74bS9Maxe31TxLdoFRRJkphsD2tzdZHvfhVJyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OVy7dpEW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AXJQ05ab;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C20606A322;
-	Mon,  9 Nov 2026 11:09:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86061606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:10:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86061606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OVy7dpEW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314141F0089F;
-	Mon,  9 Nov 2026 11:09:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794222549;
-	bh=aOodfZE2ZLJT1tt72r9gxw/AwWXvUZO8hln4ZVGINpQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=OVy7dpEWlg5/XbJsqYaWzhLgZhXYjImiWD+7BGtQkQS5rpiBB85a1/PQ0PkrxDf5M
-	 wk43LO1COjb2xg+5HPNyr1QkIYNDrIb4eOs7I2Iwq4YwsQMLmMHgC7V6vgkRoLACGI
-	 XWYQ6ahL7CJCsRdAHmQNfr7CCjxQUFxNEKcMeNskzB4OD34KI6XvgWgIHKmydbIRX8
-	 ssM7IQSJdxcajwYHE98J+/58pjYvmhu5SCoPrTsqWhGYHjK4u5Z7GLERW7R5MDTvNp
-	 6EMN6qtTxnTWW04+peDUxv9u1UnMfJDe6DSMt2dITZ31QBgxdt2FcSnef3ArvwiBVi
-	 j3Og+kFrFeKxw==
-Subject:
- Re: [PATCH] nfc: pn533: validate response length before parsing DEP ATR_RES
-From: netdev-bot+sashiko@kernel.org
-To: hj351016@gmail.com
-Cc: david@ixit.cz, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Mon, 09 Nov 2026 11:09:08 +0000
-Message-ID: <179422254869.994134.11688036324201956954@kernel.org>
-In-Reply-To: <20261105105805.1450120-1-hj351016@gmail.com>
-References: <20261105105805.1450120-1-hj351016@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AXJQ05ab
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794222617;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J5dhqbhYXQcY38/MwfGJS4lj6d8vb41ZbZA9Qsq+Ke8=;
+	b=AXJQ05abBEtXTH1sx32oC8cpfj+JrbI3owFdrL3WGduKkDVor0SAJqNbJoRX40rp4e3J75
+	VvDoRdqY5J915n7YMSKEnja5NAsSXbfa6u8ot92nYULK1PNRXS5GOETYcNj4DGJOjWa441
+	UhWEC1BHYEfTqZCQXf7SaIvKkN4ZZzU=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-198-Xslz7O5XNmCcEFKJy99xCg-1; Mon,
+ 09 Nov 2026 06:10:14 -0500
+X-MC-Unique: Xslz7O5XNmCcEFKJy99xCg-1
+X-Mimecast-MFC-AGG-ID: Xslz7O5XNmCcEFKJy99xCg_1794222612
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 13F911955F6D;
+	Mon,  9 Nov 2026 11:10:12 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 7CF551800480;
+	Mon,  9 Nov 2026 11:10:09 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Mon,  9 Nov 2026 12:10:11 +0100 (CET)
+Date: Mon, 9 Nov 2026 12:10:08 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Zhao Gongyi <zhaogongyi@bytedance.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+	ruanjinjie@huawei.com, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] arm64: ptrace: don't warn on missing siginfo in a
+ group-stop
+Message-ID: <avGqEOamCMLjOD8i@redhat.com>
+References: <20261105113051.97810-1-zhaogongyi@bytedance.com>
+ <avDGjYYR6Tj1sVgP@redhat.com>
+ <7fb3d264-ada7-4dfd-be21-05ce370686a0@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,183 +82,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7fb3d264-ada7-4dfd-be21-05ce370686a0@bytedance.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 · Medium: 1 · Low: 2
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The new length check in pn533_poll_dep_complete() and
-  pn533_in_dep_link_up_complete() (drivers/nfc/pn533/pn533.c) runs…
-- [Medium] pn533_activate_target_nfcdep() in drivers/nfc/pn533/pn533.c
-  parses the ATR_RES returned by PN533_CMD_IN_ATR in the same way as the…
-- [Low] The commit message says 'pn533_rf_complete()-style handlers in
-  this file already length-check resp->len before use (e.g. the…
-- [Low] The patch says it fixes an out-of-bounds read whose bytes reach
-  userspace through nfc_targets_found() (netlink), but it has no Fixes:…
-
---
-
-nfc: pn533: validate response length before parsing DEP ATR_RES
-
-This patch adds a resp->len < sizeof(*rsp) check to
-pn533_poll_dep_complete() and pn533_in_dep_link_up_complete(). The check
-runs before the InJumpForDEP response is parsed as a struct
-pn533_cmd_jump_dep_response. The goal is to stop reads of the 17-byte
-fixed header from going past the end of a short frame.
-
-> A valid ATR_RES always carries the full 17-byte fixed header (the
-> general bytes, if present, start at offset 17), so reject any response
-> shorter than sizeof(*rsp) before parsing it. pn533_rf_complete()-style
-> handlers in this file already length-check resp->len before use (e.g.
-> the ATR_REQ_GB_OFFSET check in pn533_init_target_complete()).
-
-[Severity: Low]
-Is this description accurate? pn533_rf_complete() only checks
-IS_ERR(resp), queues poll_work and frees the skb. It never reads
-resp->data and has no resp->len check.
-
-pn533_init_target_complete() does have a real check:
-
-    if (resp->len < ATR_REQ_GB_OFFSET + 1)
-        return -EINVAL;
-
-Other completion handlers in this file read resp->data without any
-length check. One example is pn533_start_poll_complete():
-
-    nbtg = resp->data[0];
-    tg = resp->data[1];
-    tgdata = &resp->data[2];
-    tgdata_len = resp->len - 2;
-
-pn533_tm_get_data_complete() and pn533_data_exchange_complete() do the
-same.
-
-Could this sentence be reworded or dropped, so it doesn't suggest the rest
-of the file already validates lengths?
-
-> Found by code review; not reproduced.
+On 11/09, Zhao Gongyi wrote:
 >
-> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+> On 11/9/26 2:59 AM, Oleg Nesterov wrote:
+> >
+> > ----------------------------------------------------------------------------
+> > But can't resist... The old comment was obviously wrong, the new one doesn't
+> > look clear to me. It correctly explains why info can be NULL, but not why we
+> > should not update orig_x0 in this case. May be it should just say that exit-stop
+> > always comes with info != NULL?
+> >
+>
+> You're right: the comment explains why info can be NULL, but not why we
+> return. The early return is intentional: it keeps orig_x0 unchanged
+> during a non-seized group-stop.
 
-[Severity: Low]
-The commit message says stale buffer contents can reach userspace through
-nfc_targets_found(). Should the patch carry Fixes: tags and Cc: stable?
+Yep, this is what I meant. And this looks confusing to me. Lets suppose that
+the tracee was stopped because of JOBCTL_TRAP_STOP. Why should the behaviour
+of update_syscall_orig_x0_after_ptrace() depend on whether that tracee is
+PT_SEIZED or not?
 
-git blame shows the unchecked parsing came from these commits:
+IOW. To me your V2 looks more understandable to me, I don't understand the
+Catalin's concerns.
 
-  pn533_poll_dep_complete(): 673088fb42d0 ("NFC: pn533: Send ATR_REQ
-  directly for active device detection")
+But then again, I can't really argue, I know nothing about arch/arm64. And I
+do remember that I tried to confuse you when I reviewed your V2 ;) Thanks again
+for correcting me.
 
-  pn533_in_dep_link_up_complete(): 361f3cb7f9cf ("NFC: DEP link hook
-  implementation for pn533"), with the current rsp cast from
-  13003649b1eb
+> I'll wait for Catalin and Will's thoughts on the wording.
 
-> diff --git a/drivers/nfc/pn533/pn533.c b/drivers/nfc/pn533/pn533.c
-> index f5a6a7c20d5af..63b6032692184 100644
-> --- a/drivers/nfc/pn533/pn533.c
-> +++ b/drivers/nfc/pn533/pn533.c
-> @@ -1310,6 +1310,11 @@ static int pn533_poll_dep_complete(struct pn533 *dev, void *arg,
->  
->  	rsp = (struct pn533_cmd_jump_dep_response *)resp->data;
->  
-> +	if (resp->len < sizeof(*rsp)) {
-> +		rc = -EINVAL;
-> +		goto error;
-> +	}
-> +
->  	rc = rsp->status & PN533_CMD_RET_MASK;
->  	if (rc != PN533_CMD_RET_SUCCESS) {
->  		/* Not target found, turn radio off */
+Me too.
 
-[Severity: High]
-Does this check also reject failure responses that worked before? The old
-failure path read only rsp->status (resp->data[0]), so it handled a
-failure frame of any length.
+Oleg.
 
-pn533_send_async_complete() strips the frame header and tail:
-
-    skb_pull(resp, dev->ops->rx_header_len);
-    skb_trim(resp, resp->len - dev->ops->rx_tail_len);
-
-After that, a status-only InJumpForDEP error reply such as D5 57 <status>
-has resp->len == 1. It now takes the goto error path and returns -EINVAL,
-skipping the "Not target found" branch:
-
-    queue_work(dev->wq, &dev->rf_work);
-
-pn533_wq_rf()->pn533_rf_complete() is the only place that re-queues
-poll_work after a DEP poll attempt. pn533_wq_cmd_complete() ignores the
-callback's return value except for -EINPROGRESS. Doesn't the poll loop
-then stop silently?
-
-In that state poll_mod_count stays non-zero and nfc_dev->polling stays
-true. No targets are reported, and a new NFC_CMD_START_POLL fails with
--EBUSY in nfc_start_poll() until userspace stops polling. The one
-exception is when the current modulation is listen mode
-(cur_mod->len == 0). In that case listen_timer eventually moves polling
-to the next modulation.
-
-Once pn533_start_poll_complete() has set poll_dep, this is the normal
-"no peer in range" path, not an edge case.
-
-pn533_in_dep_link_up_complete() below has the same ordering. A short
-failure reply there now returns -EINVAL before reaching this:
-
-    nfc_err(dev->dev,
-        "Bringing DEP link up failed (error 0x%x)\n", rc);
-
-so the chip's error code is no longer logged.
-
-The commit message says "A valid ATR_RES always carries the full 17-byte
-fixed header", but an error reply is not an ATR_RES. The message also
-doesn't mention any change to the failure path.
-
-Would it work to require resp->len >= 1 before reading status in both
-handlers? The resp->len >= sizeof(*rsp) check could then apply only after
-status is PN533_CMD_RET_SUCCESS.
-
-> @@ -1928,6 +1933,11 @@ static int pn533_in_dep_link_up_complete(struct pn533 *dev, void *arg,
->  
->  	rsp = (struct pn533_cmd_jump_dep_response *)resp->data;
->  
-> +	if (resp->len < sizeof(*rsp)) {
-> +		rc = -EINVAL;
-> +		goto error;
-> +	}
-> +
->  	rc = rsp->status & PN533_CMD_RET_MASK;
->  	if (rc != PN533_CMD_RET_SUCCESS) {
->  		nfc_err(dev->dev,
-
-[Severity: Medium]
-Should pn533_activate_target_nfcdep() get the same fix? This patch leaves
-it unchanged, but it parses the ATR_RES from PN533_CMD_IN_ATR in the same
-way:
-
-    rsp = (struct pn533_cmd_activate_response *)resp->data;
-    rc = rsp->status & PN533_CMD_RET_MASK;
-    ...
-    /* ATR_RES general bytes are located at offset 16 */
-    gt_len = resp->len - 16;
-
-rsp->status is read with no resp->len check. With resp->len == 0, that
-read hits the trimmed DCS byte. The u16 gt_len also wraps when
-resp->len < 16.
-
-nfc_set_remote_general_bytes() narrows the wrapped value to u8, and
-nfc_llcp_set_remote_gb() then rejects it. So the gt[] over-read is
-mitigated, as with the two patched handlers. The unguarded status read
-and the wrap are still there.
-
-The same approach would cover this handler: a resp->len >= 1 check
-before reading status, then a sizeof(*rsp) check after the success test.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105105805.1450120-1-hj351016%40gmail.com
