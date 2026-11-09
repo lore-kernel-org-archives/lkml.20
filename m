@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.194
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230805;
-	b=GGgcj8droq7JBz3bZYRKEH2L+5GQU61Yj62+eABBee2VoMbyV7T/3INYPaTrITe2oxZZ
-	 2uXVftYUZOlt0L7EtMGpuvUOIEEcQfexDnag+lQuWot44pFNH7NL+t2L4FV3rgTAabQ89
-	 luVuDJqpHeO0xcifAHR2l7ydVktJPgyo6QcOVie+GJiIQs7PHiGNrvj0kbNLsIl/c63OX
-	 9X/4iyq011uY2qYUmRrrvHEIoIdAEWyJpWYypopT8HCPVQhVqTEHXWpUAgjvK3sI2hFvk
-	 FKlgmnpd7mmpmKrzyzop3kk5M/01hqdT61/8nT+fwoQeG1twZeKM3b+ofAfOuqN8JXA==
+	t=1794230800;
+	b=BfaELweQGIiaNYkOxnDm/DaRR/qRPnmr7qi9gZbZI9p+D7koYXi/C8dZP1gKf+bw20z2
+	 UHbKLxkY97xeb3RXkQ6QBMsL6WUVo+KuyYDBcc0u2S+g0qm/vREtadX3l1/0aMrJD/XHx
+	 dNRu1ZarCcU2pq6bJ9hmV2KawD3PJKw/2MT1GWA+YCPrPElCBAD92qouwOPHBUQLlrXyW
+	 mgNv+N89fD1LdBCgA0136DoTflBLeVRqNI8W36/OaA/V7i+PcsBgilxi5Exp2Z6fSDAc7
+	 znVILVEW0YiQpi4m4Ucejrydmu0TNpIxVJG+Hombs8F6RVnS6TKW9lES/2KxkP32rIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230805;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230800;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Wb36d59tOa1goucfW7M19URtNZys+/DAbWnPAmZ/x54=;
-	b=eS11HWV5vqmTERb9mkcVo7+mdZKF6WDOGi+0ZqbgvxHOCqmVbtnAqwys1beMOB45zSYJ
-	 wuneI5VfYFVSvwIpviU/8DJs9Ph87Y/9GMMvlrBZ8uEUmranryBrs6cu6j75UYoNZJITQ
-	 q8vTuDeBxrgCq6PAoGjkGBQHOeI9ttZ451X0Z2zwmFw8dBsuxAYHoRXFlhbZgSb+qUyMx
-	 LGYkn/WQajiW6+DDqQXKGlqRsGXUv34Vyh/ZgouXqRyfwHMQEAmaaMwDwqEQAUrNhhMuK
-	 wfdVrrExjZedAkG/pjL0qSNXoFbRdI6CuSTIDMTggupfediGdNQItirxDiwwzcWHdLA==
+	bh=zQWBm2KzcjyJTbZ4vsbbDLZy5idG2ggu74AoJJxfV0I=;
+	b=OA2/7TGpsFth5t/iCGeMk3cHVSWHorNZecwOcwfKhmbQUTvLqbhMGP1WLwYdFCc+w/EK
+	 bVbJpxnBDhtvN9Uf8+bpI8NrcdVeeR1OVMzviCnnxISVNLEY1XBwSeF3uWkJoEOgS0BPk
+	 tPqzd/mBqlgaIXN2kUuRS6lmJcxis/M6cmdYoAGxpdOnefoOyiKITzNfDLEZVb3Bs/cOL
+	 BRfW3NUK0gbgtXESlAQPxjpQSxkWbDJu17xZR0ks1B65Vjppl8tUEwB0X01J/9khlGRFz
+	 DVzKhtMQXFjVdvtJD+nMHRnqwTlUKEBjnivaGz3Q/7DLt4bFC7MysHtypesPEhc9Gaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IQoj7NmX;
-	arc=none smtp.remote-ip=209.85.210.177
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vko2xca7;
+	arc=none smtp.remote-ip=74.125.227.194
+Received: from mail-pi2-f2.google.com (mail-pi2-f2.google.com [74.125.227.194])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89187606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:26:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89187606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4294C606A338
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:26:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4294C606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IQoj7NmX
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8b5e5e64494so360910b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:26:45 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vko2xca7
+Received: by mail-pi2-f2.google.com with SMTP id 41be03b00d2f7-cdac05f11bcso263959a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:26:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794230805; x=1794835605; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794230799; x=1794835599; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Wb36d59tOa1goucfW7M19URtNZys+/DAbWnPAmZ/x54=;
-        b=IQoj7NmXTZ+PlHV42kJdLzgYj7aWszNCpuFVutnju9Pptd9nMwXi/+sNM/fQ6kuaMu
-         LeiRDUn8kLwEJ1PzbGr6d2MGUmGoGDWB9y1WdYy/VJonUHVI9l/K1OzJSJ4Ftd8Z7XZZ
-         8IkFjuBbeioJYU+IVBMEWRIVGR9tQ3L2DKvKmt4CFzByIaQuvDo6o0Bjh8tuP3SI/QIc
-         8ew3Y8oxg4FkW+/zBuEjPpmAKmBpGn7qzIYebco5b4qR9KCgN12b1BbT5lLmFDwxZeWb
-         L6SGe1tibHbn/43wi+bfRdCk4TyCQ5zcOLvgw0R+GgnssfTXfIPR1JIFPsFZQ2yztEZB
-         F3Cw==
+        bh=zQWBm2KzcjyJTbZ4vsbbDLZy5idG2ggu74AoJJxfV0I=;
+        b=vko2xca7Rrv4Ura/+Rn744rwlmIpt9E0fqDRA49hHo3KgKWjGw8vhMNlhg3xq4NeAB
+         tOAgvrbPx3VlkNd/Ec8I0bxLuEhm76gW6xlKj1vVAFIGAOfDwe65vun0NTHnjI1+usUj
+         35rGBAMwwTxjUzBO0JjDHdvDArEOE96q82Yp3bdBaNuwGjvVaCgme0EHFDz+6KfjTsB+
+         uKBxkUzjjMauqKMxn+Aiop7AN+JZn+meKkARBr3B42YlICuhFMqn4LC7SKx9L8P3h1la
+         r0lHMkbxHigZJAfny1/LvyQzg8f+C31hPAk2tUV09fqLkGxlZ4SgVlX1fzCPkIOiQz+E
+         hwSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794230805; x=1794835605;
+        d=1e100.net; s=20260707; t=1794230799; x=1794835599;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Wb36d59tOa1goucfW7M19URtNZys+/DAbWnPAmZ/x54=;
-        b=UAngGFZjYOxTCjr7m3lHqGmKc+erxp69qr2OhWmy1fkM3EbUypKtUn/sZ08YbLwA9U
-         mHQzrEoQWmG8dOOL+85d3ItwAauysToFBOlV4NHq4gbg68wd4xu9HVw73fU/SHCdBmZO
-         UzlvTMZ2LQ2sLyzMaXV0Vpj/EmuTiUNxnAfF8/1fiOWRfDVpT3M0pJdN3/FO1V7lcnw8
-         Ac4MU9S8RJkV5XnLXr09QohWiTbGT5cNDWMgQfIkPsfu7GOViDtgcarB83WCIX/kJQZY
-         mxEZF95LduGXF1oGFGBKEf4C4wiDakDBsbMIwX34puL3t5lgt2SmP1c9G8Y4K7YvSPln
-         vA2A==
-X-Forwarded-Encrypted: i=1; AL+hErGTkF8WTCwKyWSly78n6v0/2N/JyBsoEMfKdtIv5Hq3z/E3RcM8160dM7qbECwkUm6zngldccTWJImyJEk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8++EdUrcN7vTQR74ld1WgdjL0KngHVR9MpQAwpW1cnritvAae0
-	clHz5nesM1pP1QNPDNdftzEqjw+xGlFpdYbaURINsWTysH6icHjrhQx0
-X-Gm-Gg: AYBFou12E4VjKxcIFnGKmQIKB/0UfQ5FDs7hOf7iOLGcM6/cb/OeGo10zlXB5ruc+Dh
-	L+mq0Epb1CoDnpC/mfAve+zsDI9D0uLg+gdlD6i2PbsOzUUJIx/kEwktLSZmEVH4/mpV04ltuEq
-	ZTYwtlaQRHpU/QUk+ymGPtTEpa+t9t+QPFeFJAPpIjSzWtHUlmgklYEXHJQi7WNvNTuLAkH8iBd
-	o0sHc9QfK+BBouCPtarGhJ073RN2FE3xZhu0NAiCVMusAcooX2KbqjVGGDcLIC9O6wZmrwVOjbN
-	81/gAItr3Gs12GVEJ5XziyAbh6v8VT+4SQ/tNnIeY9a8SvU/E/Wg7X6qpoKBX5o86z95CX7bSe3
-	dwzln5CiNezdiEyiR421kw2ClwmjnkVcEj2FcCb7g1dn1OSRVJxo9vrDywug42Rbqui4HYTuCyn
-	NusyNhwxHr6OF7CD2KxlnsSexmGnRrsqKGRFmqnDOBXGz25oxWCZYgMqFJdan7ih4hlDoE0b3hE
-	tPyBYIa3BqsA3ZT/060Shgr9CDtG40KePQQH7F9HO3woz0lP5qEYQ+pi9sjSmgpkjLfPc53HdV+
-	vq4VgXOl6//OPfIrMogB/N19eKK5wq291g1iq/x7/FFk5dzCEQjA9OSSsNr7MeRkEE9wWQnOzhd
-	alhB8a2lO
-X-Received: by 2002:a05:6a21:8217:b0:3e1:c716:3a00 with SMTP id adf61e73a8af0-3eed3013545mr4660990637.53.1794230804815;
-        Mon, 09 Nov 2026 05:26:44 -0800 (PST)
+        bh=zQWBm2KzcjyJTbZ4vsbbDLZy5idG2ggu74AoJJxfV0I=;
+        b=psnpQcSk20l8prALtbDv8JhRmmySyaoouy/F/SO1fQW5+u1OL91kv+O7ZLF2gA3cdd
+         9DjCg0xAnfcKDVx1Mz0Rs5iqNkIr2eHig8hTNG85mvC4FiVwI4gmWgvdsLLuEiQqtswm
+         PbedFbUr1uUR7BXjJuxjgd+pHJVByAkFbLzzT8Ykmf69QlwZPGpQx1IH6mtv7g8uRVH3
+         kar+eBmuKQJYDiSuk+cKBNTtWMqvI1E0hw5DYDVwpoFKHlcZdgg0q0W6eT8KVniueTL3
+         F1NAGBdjvNQX81A8WeyAREmqrqosW2pmHoMHvBlRp2psA+wCSuMruKe9VUanxoWY0EQc
+         2ffw==
+X-Forwarded-Encrypted: i=1; AL+hErEt8iCJFS2pRRWsc9aOjV7duVgHHVUsGZoxfBq05fynN/S0Q75JrKPqyJRfXJp4ZpsGnXA7V8YxclaAvo0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/n9DH86Fk/yxZFiG1b0gT0l0JlzvxpzxGMFN5VAxRqCColF+wW
+	R12vnbjfuLYT8SWdeDqvHE+EFx4pxNUePx6Dqvcx7/DZ6ZgoZ0tAt5NI
+X-Gm-Gg: AYBFou07xIABr+k4RhnBqOgKhvi9yHJWcfgJnhU90Io9Whia9OVj6UYqlD5j8U+zg4n
+	JlBhCIrjG7WtvzL7GV10BlIsfEz+do8xNXWSKdNnQwH24ts+jWxDJxgu/wCfaHCmJb01r2GuMIk
+	oug9pXAmXtUcqtw+SzAJZtkOCPVdJSWB5PsZBtGd3sHVfW1MWwFJx4wafrVYWg92njsDe6ofCmI
+	0p8KTJCd1nbQV5PWSdXtk/TrOCs4DJoi8OSfJ6UvHjCfFGZupGRaoB0496IkHNW+YBmwrJuuFYV
+	xtHGt6DttM63Dvzf8Z281djyqJdyJoo7mt0P62f9wSnT9+hefPl08iSqjlG+MvcyNxfYBBKUoGi
+	iukGpyVEHYG3M0R4cicpHu3dxJ3xgI+x3RlRS2JbdABwYrUFtQCx4ilZIrUy2TeCgjA9QUidvnl
+	Veld4RyeJudyzWzv8HpfIG4TEEpGd1RYdytdnxfD0uza07WGuX5iDo97BY7y9MGjMzRQ8A5UyBX
+	MVJ5y3EGT7/bvSmI4E6dXyfdE4a4F33/6mJ8+sc9+qiu5uoP8R7LhoyN4WTSfNIZL2iG4DIbW8G
+	2uP7wxYU8YQjk/yjc1Ps9+tIp79htneWxhLrdtdHMk5ln+/FwAnomFYvciTw/BdBSQZboAPw3QV
+	9GdNqMGP2
+X-Received: by 2002:a05:6a21:488b:b0:3e0:eae8:7525 with SMTP id adf61e73a8af0-3eed3956cc4mr3311188637.64.1794230799422;
+        Mon, 09 Nov 2026 05:26:39 -0800 (PST)
 Received: from r00799764-ThinkCentre-M920t-N000.. ([139.159.170.67])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb969331f0sm1661701a12.18.2026.11.09.05.26.39
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb969331f0sm1661701a12.18.2026.11.09.05.26.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 05:26:44 -0800 (PST)
+        Mon, 09 Nov 2026 05:26:39 -0800 (PST)
 From: Jinjie Ruan <ruanjinjie01@gmail.com>
 To: babu.moger@amd.com,
 	ben.horgan@arm.com,
@@ -96,9 +96,9 @@ To: babu.moger@amd.com,
 	linux-doc@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
 Cc: ruanjinjie@huawei.com
-Subject: [RFC PATCH 2/6] fs/resctrl: Do not update bandwidth from a failed counter read
-Date: Mon,  9 Nov 2026 21:26:17 +0800
-Message-ID: <20261109132621.3862497-3-ruanjinjie01@gmail.com>
+Subject: [RFC PATCH 1/6] fs/resctrl: Avoid division by zero in the MBA software controller
+Date: Mon,  9 Nov 2026 21:26:16 +0800
+Message-ID: <20261109132621.3862497-2-ruanjinjie01@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261109132621.3862497-1-ruanjinjie01@gmail.com>
 References: <20261109132621.3862497-1-ruanjinjie01@gmail.com>
@@ -115,48 +115,47 @@ Content-Transfer-Encoding: 8bit
 
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 
-mbm_update_one_event() reads a monitoring group's counter once per
-second and updates the bandwidth used by the MBA software controller
-through mbm_bw_count().
+The software controller estimates the bandwidth after the next step as
+cur_bw * (control + min_bw) / control and raises the control while the
+target stays above that estimate.
 
-When the read fails, rmid_read::err is set and the accumulated counter
-value stays zero, but mbm_bw_count() runs anyway. Subtracting the
-previous sample from zero wraps to a huge value, which becomes the
-group's bandwidth; the controller then moves the control the wrong
-way. The failure is reachable with assignable counters, where a group
-has no counter for the event once the shared pool is exhausted.
+MPAM allows the control to reach zero: its bandwidth control is a
+16-bit fraction, so 0% is valid, and its step is non-zero. The
+estimate then divides by zero in the MBM overflow worker. On x86 the
+minimum equals the step, so the control never leaves zero and the
+division is not reached.
 
-Update the bandwidth only when the read succeeded. A failed read keeps
-the previous bandwidth; the counter keeps accumulating, so the next
-successful sample spans the failed interval and is larger. The
-controller steps down once and recovers on the next round.
+Take the step up without evaluating the estimate when the control is
+zero. Check first that the target is above the measured bandwidth so a
+zero target does not oscillate.
 
-Fixes: 2c272fadb58b ("x86/resctrl: Compute memory bandwidth for all supported events")
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: <stable@vger.kernel.org> # v6.14+
 ---
- fs/resctrl/monitor.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ fs/resctrl/monitor.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index dbc6770508e6..2319e8e619bd 100644
+index 04e4ea612b7c..dbc6770508e6 100644
 --- a/fs/resctrl/monitor.c
 +++ b/fs/resctrl/monitor.c
-@@ -788,10 +788,11 @@ static void mbm_update_one_event(struct rdt_resource *r, struct rdt_l3_mon_domai
- 	__mon_event_count(rdtgrp, &rr);
- 
- 	/*
--	 * If the software controller is enabled, compute the
--	 * bandwidth for this event id.
-+	 * If the software controller is enabled, compute the bandwidth for
-+	 * this event id. Do not update it when the counter could not be read:
-+	 * that would store a bogus zero sample as the previous bandwidth.
+@@ -749,11 +749,15 @@ static void update_mba_bw(struct rdtgroup *rgrp, struct rdt_l3_mon_domain *dom_m
+ 	 * on a system with 10% granularity steps, check whether moving to
+ 	 * 40% would go past the limit by multiplying current bandwidth by
+ 	 * "(30 + 10) / 30".
++	 *
++	 * A zero min_bw lets the control reach zero, where the ratio is
++	 * undefined. Take the step up without evaluating it.
  	 */
--	if (is_mba_sc(NULL))
-+	if (is_mba_sc(NULL) && !rr.err)
- 		mbm_bw_count(rdtgrp, &rr);
- 
- 	if (rr.arch_mon_ctx)
+ 	if (cur_msr_val > r_mba->membw.min_bw && user_bw < cur_bw) {
+ 		new_msr_val = cur_msr_val - r_mba->membw.bw_gran;
+-	} else if (cur_msr_val < MAX_MBA_BW &&
+-		   (user_bw > (cur_bw * (cur_msr_val + r_mba->membw.min_bw) / cur_msr_val))) {
++	} else if (cur_msr_val < MAX_MBA_BW && user_bw > cur_bw &&
++		   (cur_msr_val == 0 ||
++		    user_bw > (cur_bw * (cur_msr_val + r_mba->membw.min_bw) / cur_msr_val))) {
+ 		new_msr_val = cur_msr_val + r_mba->membw.bw_gran;
+ 	} else {
+ 		return;
 -- 
 2.43.0
 
