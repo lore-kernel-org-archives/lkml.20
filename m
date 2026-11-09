@@ -1,54 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794249728;
-	b=06WjIJCq1/hS3rQG25Ha+zRg1ylrPyipCJQbx858A4913SBxwqTiQ2gjzA0ZXu8McKmx
-	 ygrwxJzMdj/mSxNwkOmE44UvZB3PcMkrxYvOJHFp6Hl76GCjftgg2Mnar9ZAIwSTWpLm3
-	 2w0Zs9C6IDx5x7EfrzlVSz8inHdyrz1I1XLeEWlgm7RPPLg0anLarcGBZLQ2jS7LaKXyO
-	 uRT/2OuoDTxNK00BMJXLorv1p0xO4u/AVwDUf07eUf8dANCQMUT6Y2MyzPiO/GfXWdwac
-	 hMZSIQHz7Fa57M8Ncyk6SwNki7otyFhIekWCJsvLaTwEXEbQqxWOUlMmwsh0ZUw50qQ==
+	t=1794249736;
+	b=gMVocoMDnON8dzbqfkajoct7pLy0jhRMDKj0wmif8OBP9Sto14Oifcpq+v2yQUuozWj2
+	 KYpAL5RKY8983G61W2GlDch1tlG8ArkxltMHCq3+7qDczqMYWIIKAbkTOLD3dhBkjZD2Z
+	 R98ml5nIt7GObOVWc0mZrKUnYhCiDiOQj0SbYxxqQVTQFyEd7GaJ+Ey1DY1QC7oBBKCv3
+	 Rqo+0LRGx7Ep8O3Ta6o7bUXDSoiQ4CHqsXyyFRoAo+nmyBJ3qE073He3e/gu0D1EdmxsL
+	 +KO4xaYwVkyTWR+2sYs1cqXstj4IL2mwecdW9CAh3pMu+x2Q40vHR5LwXGATeMkMxIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249728;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZXH+YyMNiReqnmwo6eRN36nVICxrwgKNR+dw0oAxVeQ=;
-	b=ehpqqe8utoHDiKqBjYsqKuV9ymeWx+R7PlvaQPzZx3jWy3mU7bqVC4QPlxMupDAYqB0p
-	 dyH78+AryJ/nNl9SNocA8/Et5vooN0gbBP8mTz0qoI/0eGp0humpyDMZTFQV4wh8KK7y8
-	 IG1BajtCZalpYgklLYnAZNSlqvXHFIZ5G/CDkiQBX+9bI4W2xeD7hZJRaMR5SoZ0F+XpN
-	 OBMIYYeR98oJjM7Dt4j5zVwDV8g7Kq37QuG0HatJyB1q4iXGElEsoPteOH46YdmrYCHsF
-	 je+nr0jB70Mn32F8Y/bnjYdn0fl0jeL7O9xdSr63DXx83W7L+EQa2kKXUEKNVckpf2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794249736;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=6Nh13piCaLBFueQC0nlxMCXeZfF3rxEmpj5rMvCEqxU=;
+	b=Ugbem73RRjhrgJbHz8b8QgjQzuyA+wZqVc4uxxiToBclCQOcHmff1qyS+j7WhAuyNyYo
+	 VKYycKOAdR1JaeJpDw+6PyzcWpdz+ZLojPcPPqtUaLbpk4RAlHMemRQIFP51DaeG9nGP5
+	 sNx9TzPYROvhZdBdGVMy4kqYzPTWGVc9RMjpBOy6nfy67Lao9W+pCHI5AFup+YTDZzc+0
+	 ATyOoa09x2XcOd1fskWQqU1MlMBEUcOStGwQpxonH+v6QXm48dcaaF4h1EKGgRxR0LFKY
+	 Yih9h06Fn/gryRE8WDKug9CnzZpcVbio5Z2MfuVibb7JtTRCYJ8PNvCP3HvoLnuGNtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LE+9YW3t;
-	arc=none smtp.remote-ip=91.218.175.21
-Received: from mta0.migadu.com (out-21.mta0.migadu.com [91.218.175.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCqB7UIX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57087606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:42:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57087606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 531B5606A338;
+	Mon,  9 Nov 2026 18:42:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LE+9YW3t
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Fb3gh5FjtxZua2Zhsv160igC2ZyXSzhrVml7Sf5bIOE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794249719; v=1; x=1794854519;
- b=LE+9YW3ttsw0bySQ/Mr65ywIFrntYlV28SGL2AQxJ2RDoEhQnehyzswlQ2e66S9C5XOuRbUJ
- LKI3J3/44dNrUW4TzYj+Dy2W1ksN5YnxQ6OCJx83wKEDzLalD0qYFZUIUIjV73dWptPtulIsqpK
- 4e1DyNjgftu8yUJlDOe5zQBA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id ea1b837f0b4245a1;
-	Mon, 09 Nov 2026 18:41:59 +0000
-X-Mizu-Trace-ID: ea1b837f0b4245a1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <002d78a8-e344-45cc-9529-f2dd345a9ee4@linux.dev>
-Date: Mon, 9 Nov 2026 18:41:58 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XCqB7UIX
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 53F101F008A1;
+	Mon,  9 Nov 2026 18:42:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794249735;
+	bh=6Nh13piCaLBFueQC0nlxMCXeZfF3rxEmpj5rMvCEqxU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XCqB7UIX5+smAZhQRWRJVTdtCZLFWm141RXX46p6W5RgdYaJeXE+7KCMOWjVewCMp
+	 41/fI0MwiaC+DjZrIZDVUgMmOKPlXOKBOCK73AaUlTTwkehwL7pZUqn7RHI6+Q1LxQ
+	 ja9Km4nfhSatG+q+PiNM/3EkcG/SEOiVdc4sdobuii4/+/z9muif8KUaciDT4DSwjX
+	 uQGawFktlafxiR/KNmMBjvPu+oZ8CFV5lf0ukdSh7V5MgwRleggPFEtr2gZ+pmqbpZ
+	 k4zi5vQTE19JYiPRlNGqAFQB3dg6YlXFqcvE71jIzsqUYs6K/0KZNV5966jwtA0VVr
+	 FxC2nWcJVMG4g==
+Date: Mon, 9 Nov 2026 20:42:11 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] tpm: acpi: Fix memory leak at tpm_read_log_acpi()
+ error path
+Message-ID: <avIUA2WeE51HVOEa@kernel.org>
+References: <20261109173756.742248-1-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,52 +57,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] block: fail a short atomic bounce in
- bio_iov_iter_bounce_write()
-To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
- Christian Brauner <brauner@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org
-References: <20261107-blkdev-atomic-bounce-v1-0-f66344262096@columbia.edu>
- <20261107-blkdev-atomic-bounce-v1-1-f66344262096@columbia.edu>
- <6bc16c54-a9f1-4c51-ab68-b227eeecaf66@linux.dev>
- <74c7632e-52fa-4378-a15b-f90b492fe613@columbia.edu>
-Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <74c7632e-52fa-4378-a15b-f90b492fe613@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109173756.742248-1-tiwai@suse.de>
 
-On 11/9/26 18:27, Tal Zussman wrote:
->> This looks reasonable, as atomic stable writes are implied to be
->> supported from 3373503df025a ("xfs: use bounce buffering direct I/O when
->> the device requires stable pages"). I am wondering how to test and prove
->> this (change is good and maintained)?
->>
-> I tested this with XFS on scsi_debug (dif=1 dix=1 atomic_wr=1), doing
-> 1M RWF_ATOMIC direct writes and using fail_page_alloc to make the
-> folio allocations in bio_alloc_bounce_folios() fail partway through.
-> I had an LLM make it pretty precise and target bio_alloc_bounce_folios()
-> using the stack filtering mechanism, so I don't think this necessarily
-> makes sense as an xfstest if that's what you were thinking...
+On Mon, Nov 09, 2026 at 06:37:52PM +0100, Takashi Iwai wrote:
+> When devm_add_action() returns an error, tpm_read_log_acpi() clears
+> log->bios_event_log unnecessarily to NULL before calling
+> tpm_bios_log_free(), and it would lead to a memory leak of the
+> allocated log buffer.
 > 
-> Without this patch, the write returns -EINVAL and hits the
-> WARN_ON_ONCE() in iomap_dio_bio_iter_one(). With it, the write returns
-> -EINVAL without the warning.
+> Fix it by simply jumping to the err.
 > 
-> This also happened to turn up a scsi_debug bug: with dif=1 dix=1 it
-> doesn't store the protection information for WRITE ATOMIC(16), so
-> reading back an atomic write fails. I'll send a separate patch for that.
-
-ok, I'll await the patch.
-
+> Cc: <stable@vger.kernel.org>
+> Fixes: a3a860bc0fd6 ("tpm: Change to kvalloc() in eventlog/acpi.c")
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+> v1->v2: minor update of patch description and tags order
 > 
-> Does that answer your question/is that what you were getting at?
+>  drivers/char/tpm/eventlog/acpi.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/drivers/char/tpm/eventlog/acpi.c b/drivers/char/tpm/eventlog/acpi.c
+> index cf02ec646f46..50770cafa835 100644
+> --- a/drivers/char/tpm/eventlog/acpi.c
+> +++ b/drivers/char/tpm/eventlog/acpi.c
+> @@ -167,10 +167,8 @@ int tpm_read_log_acpi(struct tpm_chip *chip)
+>  	}
+>  
+>  	ret = devm_add_action(&chip->dev, tpm_bios_log_free, log->bios_event_log);
+> -	if (ret) {
+> -		log->bios_event_log = NULL;
+> +	if (ret)
+>  		goto err;
+> -	}
+>  
+>  	return format;
+>  
+> -- 
+> 2.53.0
+> 
 
-Yes, this is ok. I am really just getting at whether we can add a test 
-for this scenario.
+Thank you!
 
-Thanks,
-John
+
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+
+Br, Jarkko
