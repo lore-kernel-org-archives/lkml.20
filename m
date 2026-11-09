@@ -1,77 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794241798;
-	b=jiytS2CXYaZ+OvTXEpNa0lF4iv0cDIuP43dWM6I66AkqGaXGwVywzW1ZeUGd9aGhYNOI
-	 wVCyEMuHCpL9P3+750Xlvy9gmAamgZ75bYruraKvBwDR4L0GpAvm9LawFVUd5wph5vEFD
-	 IDKY1P/BUmMHv+jSYRyKqjQH5X0Z3/gHSTM1vZbQAsm1FxF1AI2RI2nngc7A29h0GAud3
-	 ejzj61UVYvAwKp6Hn90I9EddogzBQ0Ayv7KgsjbxK8BNXC/JUyAEqyVn7ZjAiOuBBGB7f
-	 xD/kE6FTsQrF26zAQyWw9LtMiLv4+F8NAZFOeaUQnHUPRMEl8LokYcRZN3FBcafgj5A==
+	t=1794241805;
+	b=QkgHJeE1yutMwpXG8EeGbNBz8EiWAvg9PkIJMk15wiZPTBtXjPH9BUp6AIMyNGLQqs8W
+	 owqV5floMOuz5VnfklU8Cj040Tpt8TB6DwK/2vIkJLt99vZ7Se40+vB+v/b0oN2jQQ/gr
+	 IOysp7q3LKSjRKqSVGt4JEXmqUvirLu8IcBnyMdo8FXIvtfnFUxXG7/Z0kLeM10IUul48
+	 zQ7R+txERLEb5+w5PBY8hUV/gts9DOso8TwRfWvQPCji3pi7VeEDLNyz9IvYSQ03E+qgl
+	 /6vPOyUpX8QxE8AQjGVrnHXBvEHGD7tSr2gpqQvsm6MsPBnbSeVh7oznzAxqq7LgWZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794241798;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=vxG54koDm80HfHxfLyoAWDitBBKRIo2lMZtZZWNg1hk=;
-	b=nM3HQkaWOLC9c8H1dz1jYciMvvpSdZ0kqgglGdnmyhH5zIpweO9YHRfxKFcEJy4o+QHF
-	 Smikk2GYcNdEDGQAnMBSXRRBN3vHkP91t1iFaN0VMsZaWjJCF3LA5gQvG8bp3TYYrygey
-	 Q2XODK3s873/kME30UcB4FuR1XUY7CReFJdEfc59ZiovJRjiK5z4lxT839hREeQqym+c/
-	 oFAJZqWXAweUoQb4WI+xTkvH29ro6GhroGxDIEajv0PqAKlxdsGE71n05PEfmltIgybfu
-	 JuR8WRH8znxBAi2mXr8aamYEVkynaAwBl3osN3odDQaqrcmC7Wk5QSmbGdW/6DEYuAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794241805;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:X-Cookie;
+	bh=PEQGXkq4vrcm+isWdcFyySYlhN70JAS8Bw379MdtbIM=;
+	b=WKyLSX0zVtbhqtPrlV/l7VFttoL2G1d9w7bBsVoG4brb1SckB8OXzwymPyVh9ncaR99d
+	 ggZAzsEfW5Ni+9kr95CQD1TucH7WYReg11rYoK4w3UzZr8oZP7DIFwatmicf3HB1kadXl
+	 vNNwzIqXw0OhbxZgGYrnv5Lt6QsH5Uw42ysUvvpjiBaI2aFptn3QKYN9YCfhr9JADNpWY
+	 rSYGfu5nzOl/BMS9DYVfVxYoQlA5eWQSTPNtObq+ALYJ5MDvuULmDiCbuBlnGS1mAcv1Z
+	 FwdZv2ZKSY7lCk7J3wGkaHDq0vCKoKkxfXF4OwSxuoOnD+epQ5bigKfgccR2n4KSLsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eXfBQd9b;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0mfURRD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1012606A31C;
-	Mon,  9 Nov 2026 16:29:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1012606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5523D606EE88;
+	Mon,  9 Nov 2026 16:30:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eXfBQd9b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794241799; x=1825777799;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=Hnvi9iMKOrVTdH9yUBMXKJCbr7+rERZnZmiBjcI/LVs=;
-  b=eXfBQd9bFU787Vj7VrgL7h7W6pW3oxF8wL5IzB3PQfvWA8gDQXfGXD0D
-   z9Fss6y0rq/LbV7fTR//K+6E/y0M0kZZN3kPopS3F5FVXD2fPZ3Xs4Qnj
-   ty1xt4NBwqLZ8y+0P/S1s/CU3KdX42Cyixi5yUOiYr1yJkCQVJN7pvk/f
-   7j6vaiM+lxg0SVoxRfNmqOSvXjOOgFuI5aYr0RelpX7jAcOHAzky6YCQU
-   6PppnpMNFTE6/B1rmqP1QHS899RmHh8fhewYYE/JS7G0rxPy5A9h5XwTB
-   Te4Pn+3C+G66InfXglbR34Qnt3xxpAY41X++dp4Jc8E5+O70RJyowSuiY
-   A==;
-X-CSE-ConnectionGUID: +4h+wM3NQkGwQruPX/CQbA==
-X-CSE-MsgGUID: cN/aBSM9R0qKxE7d+R4qow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2997422"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2997422"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:29:58 -0800
-X-CSE-ConnectionGUID: tJqy7YSSSeySS9oSR51VAQ==
-X-CSE-MsgGUID: dXqXreHNR8WkZXjXwjcOzg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7780362"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:29:54 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 9 Nov 2026 18:29:50 +0200 (EET)
-To: Tristan Madani <tristmd@gmail.com>
-cc: Hans de Goede <hdegoede@redhat.com>, Anssi Hannula <anssi.hannula@iki.fi>, 
-    Matthew Garrett <mjg59@srcf.ucam.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org, 
-    Tristan Madani <tristan@talencesecurity.com>
-Subject: Re: [PATCH] platform/x86: hp-wmi: validate WMI return buffer
- length
-In-Reply-To: <20261024205519.4029617-1-tristmd@gmail.com>
-Message-ID: <c8985e22-3f00-b32b-3de2-65e486b367db@linux.intel.com>
-References: <20261024205519.4029617-1-tristmd@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O0mfURRD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD1C41F00922;
+	Mon,  9 Nov 2026 16:30:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794241804;
+	bh=PEQGXkq4vrcm+isWdcFyySYlhN70JAS8Bw379MdtbIM=;
+	h=Date:From:To:Cc:Subject;
+	b=O0mfURRDMA+UAXGtCA3g5tnMMR6UzZUmAy1ihoWnjbtckBF9LBTDIhyNfv6H7eclw
+	 wExLD8TS8RQ0LvJZqjL0eRXDZKYiF3Q+3awEvslXLOfUKIUWQlmCEaQbjaJWDfCnUb
+	 EMKhZfXqQWNGd+Zoa/JeU2RYPoUv/FIUlgjUx14CiG7z1NGlydPFo/pCwPjsp7O+Yt
+	 DgsjhlAb9u5m6T95PzMi7FupbAy245EJZ3kqTrxo/rLYWWYCX7UiSuB+l+FNMQs/tU
+	 RQFBh1oos9Wa2VEd6y55lhsWt+KRhOiVp8PNUAYwQ83XC99A56Wz9skssQu4j9ATOv
+	 sCltbCCrmnp3w==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id CE9DB1AC5995; Mon, 09 Nov 2026 16:29:59 +0000 (GMT)
+Date: Mon, 9 Nov 2026 16:29:59 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-next@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: -next status as at v7.4-rc2
+Message-ID: <avH1B9W0Hm3LJSvA@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,59 +56,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7tfTbDE1REvSmlaL"
+Content-Disposition: inline
+X-Cookie: Victory or defeat!
 
-On Sat, 24 Oct 2026, Tristan Madani wrote:
 
-> From: Tristan Madani <tristan@talencesecurity.com>
-> 
-> hp_wmi_perform_query() casts the WMI return buffer to struct
-> bios_return without first checking that the buffer is large enough.
-> If firmware returns a buffer shorter than sizeof(struct bios_return),
-> the subsequent subtraction on buffer.length underflows, causing
-> memcpy to copy a near-maximal number of bytes and crash the kernel.
+--7tfTbDE1REvSmlaL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Where's the crash output then? Please quote it in the changelog for the 
-relevant parts.
+Hi Linus,
 
-> Add a buffer length check before accessing the return data, matching
-> the validation already present in the sibling hp-bioscfg driver.
+The first week of the cycle has been fairly quiet, only the one build
+failure below which will hopefully be addressed soon and a missing
+release on Friday due to poor connectivity on the UK train network.  I
+think there were more conflicts today resulting from Kees' kmalloc_obj()
+treewide stuff than there were in the whole of last week but I didn't
+actually count.  The number of commits going in feels relatively low
+compared to this point in recent cycles, v7.2-rc2 had 3372, v7.3-rc2 had
+3715 but this is only 2367.
 
-More important though, hp-wmi should migrate to using the modern WMI API 
-which would likely allow using WMI core to validate the output sizes.
+Trees being held at old versions:
 
-Somebody tried the WMI conversion earlier but to me that patch looked 
-incorrect (or more like clearly missing pieces) and I had bad experiences 
-with the particular submitter when it comes to converging to something 
-sensible based on given feedback so I've low prioritized that patch.
+  leds-lj        	next-20261104
 
-> Fixes: c3021ea1beee ("hp-wmi: allow setting input and output buffer sizes separately")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> ---
->  drivers/platform/x86/hp/hp-wmi.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-> index 615b4cf6fc451..81c0acc874f8e 100644
-> --- a/drivers/platform/x86/hp/hp-wmi.c
-> +++ b/drivers/platform/x86/hp/hp-wmi.c
-> @@ -697,6 +697,13 @@ static int hp_wmi_perform_query(int query, enum hp_wmi_command command,
->  		goto out_free;
->  	}
->  
-> +	if (obj->buffer.length < sizeof(*bios_return)) {
-> +		pr_warn("query 0x%x returned undersized buffer (%u < %zu)\n",
-> +			query, obj->buffer.length, sizeof(*bios_return));
-> +		ret = -EINVAL;
-> +		goto out_free;
-> +	}
-> +
->  	bios_return = (struct bios_return *)obj->buffer.pointer;
->  	ret = bios_return->return_code;
->  
-> 
+No trees have signoff problems
 
--- 
- i.
+Non-merge commits relative to Linus' tree: 2367
+ 2580 files changed, 92721 insertions(+), 30436 deletions(-)
 
+Top trees adding commits to -next:
+
+  359	amdgpu
+  195	mm
+  189	iio
+  169	drm-xe
+  168	sound-asoc
+  121	drm-intel
+  94	mm-nonmm-unstable
+  88	vfs-brauner
+  70	gpio-brgl
+  60	mm-fixes
+
+Trees adding duplicate commits to -next:
+
+ 144 amdgpu
+  11 drm-intel
+   4 watchdog
+   2 sysctl
+   2 mm-nonmm-unstable
+   1 vfs-fixes
+   1 fs-next
+   1 at91
+
+Thanks,
+Mark
+
+--7tfTbDE1REvSmlaL
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavH1BwAKCRAv73Ows9A4
+iTXkAQCYNeFgLnArEspP1l6GCrOo1pzMabMz0xenx/q1V3zpOgD/VMQs7PYOziZy
+nZ+Z0f9jbuYT1riB7g3tU+84543Ljgo=
+=645n
+-----END PGP SIGNATURE-----
+
+--7tfTbDE1REvSmlaL--
