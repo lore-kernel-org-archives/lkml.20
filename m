@@ -1,78 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231812;
-	b=x2tjOPdE0B300Q9XtOSOCyHCNCgbMG8mZQSb+eMPj6nrZD3xBdD+Q1VICaLhK3Izdp+S
-	 rRhExQt0J2Oai1ZMtlzRW3jVvmnbUHruwAqE4Aa01J8Ccf2eBcBtOZqm4L/7wK3I73qAX
-	 hgGXw1VTVSS0q25mRgnc2UZOmHTb3ym0BThgy5mHXIj3x9kzP5O2IZNEWeoqoOax8qRXa
-	 2BpZf5RYg7Z65TNpyo3jVF7WoYJPuTi/0eUoma2XriL7hHKwk5vyQmmKWNkQz+Aqs2YU8
-	 GrbmvjzjLZRgHKFEMdGuVRcT5ahV6nxYIryuxasS7DFJpCbHeQQrjaN/kNXn0nud4nA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231812;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=5LOD1jU9FVWtN/u7Dr95LgfC3DhNMyl6S5MdxkkX0i4=;
-	b=DqR1RZi7+Lg/LmE507ebchOKOWKSth5IJ8tySUlEeBSiKgNwkwGZQIBaE81rGn9K0wN0
-	 rwtsWvuiIXNVn6o7sU1E/pIeQ6gILpJR+pgzQqYvcd4OhY3fLBnHZVKROHcK7Lu1GwxSB
-	 95R6QRb7ddVviU2ZIq9KIYteG6mQuaigaZt6uRYOGlNLCHH2y2mnumUdU8hEE4FR2Z3gl
-	 i2hvzyo2OgI+6XDYZouLoOo1vwLPliq2YCTO0ZwgREjq5XcNeWsu/wkxjpkG5JnpXY6jk
-	 omNnbAQhNWfRgbkoze4lJylQFWQiXyhX8PRgDg1K5BgUFpuMoGo/SuQ2QHm12PknpzQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MScZTCE+;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794231844;
+	b=o/L6g2pJ3y9+lCDy61/DoDllfy+FoqOdgxaZcedNBcpYtgfvdP3D5JWRO410yxgRTw6j
+	 tdjYUwD1mmZUujums9JFrkZIuqLaDxU+t42Wr5wYot4t+guOvQq2eCM2xCM5CgwQfFVIX
+	 kierzbBsecGg8ZAmOY8xATA5ndtqdVy3rHyxgROqaIjt35LkSaQOuMyODJc96vxVyUvb7
+	 aX/bbs3++wGvAgJcpE4J9U/gQ8FSc9zAYSxthad2pkLn3cVDfhJmad8A3FLAq8kslbRVA
+	 T2ty393yG0kmCORoW3QQwLCrOzMO/WeLVh0khFixfS8FDYEiFRPtO5rTkqoznTAH7bg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231844;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=RRMDM4CM0eRZra1yMGc/VjW1CkLBNg7tdg5qZsQ2+vM=;
+	b=VHEtEoNPPCPmQX+juV3QoU9HtBES57MDkabnNte+Nx2k+EP5lEOWED/Bsyr3qLBnlgVK
+	 zr+OVyh03jkRH7N964MyYdzIz1bwoZlg+4ad9yfMRfxmjKbWdM80dpRd9VV542bPsPUqK
+	 lR21WykNAhTb5w/Ne7czxtSgGbtWo8GP9H2hl2DEIltkS/AzUAAEgf3CdrdgkIUqCkvfQ
+	 5trKagMi4BvX6v7ATaybLF+i+KR5/H4p9grf4KHYPy4UeWSaNC0Fw7qyEDEaLmt1E5DIR
+	 HIh9qxCLZpEVKkmdL7FkcGKAvB9v/hWRuULszne+EmvAIIpEDmCv0yeyFUm2c6PY2Jw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XQQP1utw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.15
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010015.outbound.protection.outlook.com [40.93.198.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC0F606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:43:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDC0F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD06606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:44:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CD06606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MScZTCE+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794231810;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5LOD1jU9FVWtN/u7Dr95LgfC3DhNMyl6S5MdxkkX0i4=;
-	b=MScZTCE+Ld61z03ygTBnj8c94DQESqzIjeOKG9BfbuHWd9+U6x6y7THVSthuUc07diEX0V
-	Ef/cMq0o5B8jydIHvqaNDgIzwkq74q+wT/Pmv9qeFcsadw6y+Kev6v/lRZQHpLJsxpOXYX
-	Rm8XYOkdNiw1CkJxDIRctE4nyd/F9m4=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-492-wmxFZKqpOeOFcD0PdaIabQ-1; Mon,
- 09 Nov 2026 08:43:28 -0500
-X-MC-Unique: wmxFZKqpOeOFcD0PdaIabQ-1
-X-Mimecast-MFC-AGG-ID: wmxFZKqpOeOFcD0PdaIabQ_1794231807
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 75D421955F0E;
-	Mon,  9 Nov 2026 13:43:26 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id B11AC1956089;
-	Mon,  9 Nov 2026 13:43:23 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Mon,  9 Nov 2026 14:43:26 +0100 (CET)
-Date: Mon, 9 Nov 2026 14:43:22 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Will Deacon <will@kernel.org>
-Cc: Zhao Gongyi <zhaogongyi@bytedance.com>, catalin.marinas@arm.com,
-	mark.rutland@arm.com, ruanjinjie@huawei.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: ptrace: don't warn on missing siginfo in a
- group-stop
-Message-ID: <avHN-qWRu--arO8a@redhat.com>
-References: <20261023110710.10145-1-zhaogongyi@bytedance.com>
- <attf9KALBQyOGyco@redhat.com>
- <aus7mMS4tXAzPCSi@willie-the-truck>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XQQP1utw
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c3EU2A2CRH9mj7HVat/rAkg3GivUzJbXfmSbLe5rShAA/3XnNas5Ybz+VuMTnb/lUhrN+DcNtAhiYJNqpVvghi1DL5S2gU/TEWvXSeLqP2Z5g+mQdE5hjSv19D1UgVHdbTVzUqMeuTPA70q6wd00qDJsuerDhkoBhgyRJBuTE15LP2zAqzUfeRX06KuAzA0XQ1RK7ZnZq/g+VeunnNbICQTE9idFi3UctuULfxaBddezkmpGPnqUemFTOkxmKFhPTGUOjKyM64wuqSgpZo5svf6zzVdZ3Rn1K5qVfzl0BomYyfUKhsDieHIekLaXzbcBIpvdSa0MV3Dm0mE+a00t0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RRMDM4CM0eRZra1yMGc/VjW1CkLBNg7tdg5qZsQ2+vM=;
+ b=IBWGfzdFLfy/t0oZxavvq96h3ip8lYdK9DY9f0BmhUAe8gb/yfDZGvX2N3IJfan3S0ABaSn1JQW3sf0wINU/pz7+jCEcI3F7CMIDzJvyBWjWg7LZMc89jnAO5bl2+9baHwIRhNy4X1kCzKcqq9n814x6fEQZB2r+De2Vbacg1GzJpZY59jtBDhnmRzK9yzLx0YQXKu7mk6UyH9z/wk6g9g7Dh3iB1f0l2MkC5q9+bEZf4UgaxZe8U3A00KWMXRDx4pzuIRvY88B6j27WiLvRw61P9Ia1j8eNEK54AeVzf17gXX7FxdGD90tSL7VXjrgIyDiJKdE76vh94bvZ3WxVGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RRMDM4CM0eRZra1yMGc/VjW1CkLBNg7tdg5qZsQ2+vM=;
+ b=XQQP1utwN+GhiAdjyih7U0iqgi9tPyuoQ4sFidCydPTcHiBa+5zNvJ3PKIJI3Cp9OYIcxkySB7VRZZxSHoKwPeanhCSRW3u+hqhwErWx15O0I6Atgymh+9R5RGIMc2vEsvuxkF3r6VPp3RBX3s6T5Cx0Ep2tq27eryj4TVj7Gvg=
+Received: from PH8P221CA0061.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:349::17)
+ by CH2PR12MB4038.namprd12.prod.outlook.com (2603:10b6:610:7b::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 13:43:58 +0000
+Received: from MW3PEPF00001659.namprd21.prod.outlook.com
+ (2603:10b6:510:349:cafe::16) by PH8P221CA0061.outlook.office365.com
+ (2603:10b6:510:349::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
+ Nov 2026 13:43:58 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW3PEPF00001659.mail.protection.outlook.com (10.167.249.203) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.0 via Frontend Transport; Mon, 9 Nov 2026 13:43:57 +0000
+Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
+ 2026 07:43:56 -0600
+From: William Palacek <William.Palacek@amd.com>
+To: <dri-devel@lists.freedesktop.org>
+CC: <intel-xe@lists.freedesktop.org>, <matthew.auld@intel.com>,
+	<arunpravin.paneerselvam@amd.com>, <joelagnelf@nvidia.com>,
+	<sanjay.kumar.yadav@intel.com>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 0/2] gpu/buddy: find range-biased blocks in the free trees
+Date: Mon, 9 Nov 2026 08:43:44 -0500
+Message-ID: <20261109134346.3169162-1-William.Palacek@amd.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,62 +105,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aus7mMS4tXAzPCSi@willie-the-truck>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PEPF00001659:EE_|CH2PR12MB4038:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4eb34394-879a-4d26-5199-08df3e678126
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|11063799006|261021121427099003|56012099006|261021123027099003|261022105027099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	FLPfXNReEMOmvQkVS/i9aQhx1icvlP+CM16+5MUYKwVTSmP4yilcbMzTDlHO6uKHZI8Pc3JPU3XtogZXZweK8KVBlqvauTKOtZmqWQnsfLTOhhv8P+m/vd7QFGCiZAcASPeLlP8Faku83VBgvzL7UuyybtGhCjexf7g2L0XTatKeQcK1QPKiT0WcKheAMBy0TRQlHdsuQskLAgX402mDgBjL9YMDAsgjXdKlS1W5yhV9osSbz9G7YqCfQ3LQvkx1tZyyZudwPZPLU8C6knB7ZQTya8bxDDj5HZZl8hLPy8D5NkQQQnCp4IIdlG3n08BRP63s9SDeCPfanmMRAZMmtqQVkKNoKMRTj7YnF3+8tsBYtCav2GzO3Vi0tChPk8NlqTZiKLyke4oun2JgckzDkBnZudk8MZdvX3NihyA2dbATqJBxm1FgnwIL3SSkiELsn1tva7jNVfcOe6Glf+Hsdt88AWEr9SQqw0PlWoN9shJpVHd79kUpcvAFbxe1iqLO73wtozdBt6uzqWS/hEPsNOJQVlZOIDnE99pGmYuCsyZ4bJPlE+R+MUy3P5rkRebheTomYG/stPsiPcX8nA3hjGH59qTOhnorOKmvRIzBT+Jjua2HbRHg8qx8dpRUmeS/GiN5KZTDvSotz/B6vGtbEA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(11063799006)(261021121427099003)(56012099006)(261021123027099003)(261022105027099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Nxb3kogZjizEfMZH374GpbcQm8gHou/E1QCsLPpvdWMKwBI7EN+0ZHhcHjPOTd4Jr7aSVJvV95Q8l3mUxJgrZDsyXLyV3DWK3o6fK5I+uEqOJzRYU8mHuqCADivlsAzy1w3vrHvHv2uSnYE1v0iPXWdLR3cZjaGIksriCHrkhIz3wfBnKURVDw+GZZUFM0smV6Ga1IWbospUqHQuDG6xmfg7KFik79wuouRZ9sMrngKtykny8kUeVCQWXTei2c1CC5AoLqLNRcIFI71x1h42Y07QK67SLEEBkCqDv1PgMk+FICGqgFbByp7TaDoQhN+UeuvAhJqwUfscuxm48dFqA08VzqU7QROU0jC9jU0vz/ZeTsyj+TmxyMlgwT1q5Ml01MtBuqOmrjVKVVSfPLXKzv6gDDETdaRqCbjIeAjr1nBZF4ZRjMsriAy5r+FqZu4f
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 13:43:57.7870
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4eb34394-879a-4d26-5199-08df3e678126
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW3PEPF00001659.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4038
 
-Will,
+A range-restricted allocation walks every split block in the range, so
+its cost grows linearly with the number of live allocations there.
+amdgpu restricts every VRAM allocation to its memory partition under
+NPS2/NPS4, so on MI300X in CPX/NPS4 KFD allocation latency grows with
+every live BO, under a VRAM manager lock shared by the compute
+partitions.
 
-sorry for late reply, I was on PTO.
+Patch 1 narrows the walk to the highest free block wholly inside the
+range, found in the offset-sorted free trees. Patch 2 adds a KUnit test
+for the NPS4 pattern (range-biased, cleared, top-down, 64 KiB) that
+also checks placement: 1190 ms before, 3 ms after.
 
-On 11/04, Will Deacon wrote:
->
-> > > @@ -588,7 +584,7 @@ static void update_syscall_orig_x0_after_ptrace(struct task_struct *target)
-> > >  	 * Don't update orig_x0 for a syscall-exit-stop, as x0 now contains the
-> > >  	 * return value of the system call.
-> > >  	 */
-> > > -	if ((info->si_code & ~0x80) == SIGTRAP &&
-> > > +	if (info && (info->si_code & ~0x80) == SIGTRAP &&
-> > >  	    target->ptrace_message == PTRACE_EVENTMSG_SYSCALL_EXIT) {
-> > >  		return;
-> >
-> > LGTM, but I don't understand this arm-specific code.
->
-> Welcome to the club :)
+v2:
+- rebased onto drm-misc-next (single free tree) (Arun)
+- take the highest contained block, keeping the walk's top-down
+  placement, including for GPU_BUDDY_TOPDOWN_ALLOCATION (Arun)
+- the test checks top-down placement
+- placement differs from the full walk only for blocks straddling the
+  upper range edge and for clear steering across blocks (see patch 1)
 
-Thank you ;)
+v1: https://patchwork.freedesktop.org/series/176957/
 
-> The original rationale is described in e057b9477232 ("arm64: syscall:
-> Ensure saved x0 is kept in-sync with tracer updates"), so hopefully that
-> helps to set the scene.
+William Palacek (2):
+  gpu/buddy: find range-biased blocks in the free trees
+  gpu/tests/buddy: add range-biased allocation performance test
 
-[...snip...]
+ drivers/gpu/buddy.c                | 35 +++++++++++++++++++++++++++++-
+ drivers/gpu/tests/gpu_buddy_test.c | 27 +++++++++++++++++++++++
+ 2 files changed, 61 insertions(+), 1 deletion(-)
 
-Thanks for your explanations. Yes, I tried to read that and other commits.
-The only result is that I've managed to convinced myself that more or less
-I understand why 88b839ce497c and 5a87e8c7f3702 make sense.
 
-> So that's the mess we're in and I'm all ears if there's a cleaner way to
-> sort it out without breaking anything that relies on the fragile semantics
-> we already have.
-
-No, I can't suggest anything better. I think your patches and the fix from
-Zhao are fine.
-
-----------------------------------------------------------------------------
-Now the question...
-
-So we had CVE-2026-68171 and then it was rejected:
-https://lore.kernel.org/linux-cve-announce/2026081123-REJECTED-f1f0@gregkh/
-
-Now we have another one, CVE-2026-90347
-https://lore.kernel.org/linux-cve-announce/2026091703-CVE-2026-90347-6f2c@gregkh/
-
-Why?
-
-To me the problem looks minor (security wise). Yes, a malicious debugger can
-fool seccomp. So what? What is the real problem from the scurity perspective?
-
-Oleg.
+base-commit: 6f7098738fff3ec7393f924343188cb8e6ebc5d2
+-- 
+2.43.0
 
