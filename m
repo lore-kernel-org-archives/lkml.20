@@ -1,100 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794236018;
-	b=QxV1XB0wiI/vdJ1Buj8a24zL7/PJhrLkQvB6OHOr7LhW4kT0BVGoi920uJv0Fc+Pu+qA
-	 3x50eKD85bFlNrODRQMJmMweVgpFdPKFbKCkrR7c2D3dY8dCHTOMAEdEhZ98+4c2Ke39Y
-	 bKNUQYTNY1NeM1PQ6cKNpPsGAGNb7MEbMp6Qn5vS7TRxtOoTNcomrUlRsr0neGDbogbLW
-	 SBkjQZZEiXpEmf/iJFp5lxGey7v/gX5yApxpUJWHoDhuP5unaOdbaFANFmDNKuvqu4JgJ
-	 k4FlB91uZwcjVIXSnk5z6UOZFoPspz2xdcCqJ3hEC2jYrGQKYsON8HotvdgQ+57u3hQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236018;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=hsgjUWa3q8VRooHlY31LuDCJH+v126xhzf92a/1gL4U=;
-	b=pakMhkci4q8Xy76Bla8tVTOCU/MyLvqVlOP7JWDtiqYXOZbpqdanwXe3ZZK90wlhJCrR
-	 he+64mIVJfj89eXnSWZXKVRqStwRENjeh/qB2WT2lUkCSn8CQ1wSU5sIaIAqHfCx1UjL5
-	 z6bxXXKJ6SLX6JeIZorc+oYKTCF46pvRb8nXuN5+rgKwnnRq3OfnrnmM5ptFH0XdB6PmL
-	 PSk6I3Po6n2Z5XVgoIa1ZsNlKgcR9sPMP3koBD7zqXy929mkItHhmr7qhos6fvuWrJz3K
-	 BriLWeM6FH/1/T8fbNvYLjJdfVC0xTdPDSzOwxMulbciWrbSTsukHdmxxLIhLet1LFg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZBiGfCXt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.49
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.245.251.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794236026;
+	b=fkscNMZFn8UA8HFSO4T52kRuMNdx6ljt+LWBIWDEPGVWz/qNCfvC1Q9G89Uyj0gXf1Ox
+	 WxEtKSA6fZxY/Y3QnNpxe9lgP4m3GTHN26wtM9sD+a7LMoqsdpN29Ki5jVU774hIRH3PD
+	 mn9SnGLEbxQW3C99R28HpdFGYPFIM9S0aWrtFKCqv8tR5XLHceKjPWkYDZIGFRqFsM601
+	 4b3ofa//wmhITIH6m6cgXPvz/4wS1sUS9QYcWkdk8gII9W/9dEFtnuAyXvD1UUJl2FxLO
+	 Za+asid+Lz7JqaSyaB7KD/XqgYTZY6lNuWwsgw8H8MJvT0csw0qjB5p2BqeRLTctyZw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794236026;
+	h=DMARC-Filter:Content-Type:DKIM-Signature:Date:Message-Id:Subject:Cc:
+	 From:To:Mime-Version:Content-Transfer-Encoding:References:
+	 In-Reply-To;
+	bh=ceacrMlp6mw/lN+zsSUJu5X8+9PuN/FPhfrLE5/MHh4=;
+	b=hVJYuGvJQIYOsQNuJgCSXIKaDbHM2P70eCT1B1Lv275dWbWAiXdYJPDOEVzSbqBfUQ6r
+	 r4Qn3CSPkp0cCNwF0JyTUubFivbJZEwKcsCGJBaPWMuq4zkxMqrBq9ypaK6sZdqTw8IOH
+	 NSvzgET5JoUIqV8FhiZUDoShGwUbUKl/mSfULAkIbmFwkdWDpxogI7Xpa+I7cJv5UL2o4
+	 EIVcZtWpCOd4WL3kfiTs47Bc8SgcS+FifmQPtMzX4chPmKM3oaF/TZQbwQ00UqD0QSs2a
+	 i+bhB0jJCln6fPN3pm0N+HO3IbbCytzC4sVZuDAttlh4ZmJ0iuSX5AaaJpBd4b4yGwg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fhannenheim.net;
+	spf=pass smtp.mailfrom=fhannenheim.net;
+	dkim=pass header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=unVqbcq6;
+	arc=none smtp.remote-ip=188.245.251.181
+Received: from mail.fhannenheim.net (mail.fhannenheim.net [188.245.251.181])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A38606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:53:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9A38606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA013606A334;
+	Mon,  9 Nov 2026 14:53:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA013606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fhannenheim.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fhannenheim.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZBiGfCXt
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-85f39332862so368502a34.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:53:37 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794236017; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KnSXrnOMhc1yNhZ1+cmIOfd/9QL1GKkJNjRHhZEABL8l9yZMftL1GBkHaBJuT6wAhF
-         myED6xTMwXoOqwVAJMSLEhbRwcDjLkKie1Goa5muLpv9eGjcFumtLlMIH0tDW/gk/Zln
-         PZp/NN1rR0Fxtlz/0VpEd3+wNyyKXSgFPwQTVnet+O60HKsg9EJicm2rcnP0s71OOAaM
-         seoRmj5Cr99Cd9/a8uKXQ21qUl6uezY4/Z80G1CGx35xlciDYpNSfy5JlIShS5j2Jug8
-         TLM32OpnAMF3nsmuGJwgUG7bL407IHqQmnUh8IqRWopcYZGyTuOSH629kwmJhgT/lueS
-         5iRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hsgjUWa3q8VRooHlY31LuDCJH+v126xhzf92a/1gL4U=;
-        fh=q/Ljoe+dYJPrZMzwr+zNMuVjNSx/8UXN4VvXtgHtHmo=;
-        b=eddFRzqG5iogtTz6pX9qQUsObdVWxOLRWSg9/SFNXwvyARFmAkE5YtRFdm8Jusvvxb
-         ybuKnM0ZKx7tVXhkagNbkDIW5aXGgMaU/gas8GyOGr9b5qSW/4//cm4ocuE//BDiRdJl
-         PiK6LJdYrigbpKCoHSbBZy9ANkYjYI343n0uBu5+LBhA8ocySCoAwC1vezPSbakIovZR
-         P0eB2XGyob/RrRRkQ8MsbGohGfr1/UjFPLghsI3PO7stvwcRgykzlCl/NTt5GSezXsaY
-         0etVFsr6NzO6P/6/Z5xDFEPwimLP0P/HQJ55bveAkHeQlbvgOk48haQDBAOACyVFa8zx
-         Ckfg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794236017; x=1794840817; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hsgjUWa3q8VRooHlY31LuDCJH+v126xhzf92a/1gL4U=;
-        b=ZBiGfCXtJELjQ87H7qyBIDI9PStceN1lNbG5fmuz+cKEZgnrlK77ClbgtgCsW9k1Nt
-         JMHo+xPfzMMTHelIOAiVx5Z8wDXei8yvfZd2Sr8KwsIcRjf7pmk0huuKVXfkuI/8dIhC
-         izLUmSaUTIPkPR8OO8H9ZgUemxnAavQCApZrJ33d8vvVOqjLwHFKOJOGrFYmmXjRDoPc
-         hVs2rTJgHv/YV/ozQc1teQImSfDNi+fF90E+WV4aF8A05WwyC6nG4zuSDa4Sq8/WYMSU
-         PtArih5lwHCCHu/OvoLe4uqbXaFGy3CcxZQQ1vKmCmdwLGbPFGU5mA3CThRyGIX2JyNR
-         BKBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794236017; x=1794840817;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hsgjUWa3q8VRooHlY31LuDCJH+v126xhzf92a/1gL4U=;
-        b=ucvU+TSx+EQp0iI0kO2d9CToVmF2+gj9mGNP+MXUm3gu8ZmXcrtW4Z9ZV1xSA04bX/
-         QbXzC3pyS0O2KTUVMn+jjWVpYv1bhCGmamhuejDdem6CcEbpaZJv+NNWrErFaoYu+mfA
-         /HPd7zd+rfBX3FF7C3htPe3WyWArokQTKNevT8EGmqzrI1sULf++iIAFeX6nT+j6UK/+
-         ju4rG7ZFyQa67L6pMS89gmJDFTT1TGH7UCmH+xfNCNTtkqlFWKIedmxtKfzP4zFYYJLd
-         5MhGj1749vrKbG2Mhwj4pIsid99XT/7/vMa3KqSTKfxK7RlAyT2hzNkgYu2HtyiQrnGP
-         F6eA==
-X-Forwarded-Encrypted: i=1; AL+hErFTY9aeyKmCNnDAih+ivH0tGkJ4EuYFtOfnP0F0MmGLoDT5ZWY/4bxWwIm8ndg+rHdatlWJOiYt54I6T8g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/G49Sh/3kwD0/00FYKhZcOeLVwkvQYba/bL3JkE8F/J63xheLR
-	cZRauT2MMWg3E6d1pMv9H7ZWa9b9tkh0FnC1KzwQbyIiBKn3/wl7HFKZh2dO9C0PMO+yMqll8n3
-	qOq3GmW+pP7duXrtnbQrBWM83kSZgiFs=
-X-Gm-Gg: AYBFou2zC4xRzUbkudR0wJNBQaMTv7Yxg1aOLN2K6qBc3kONRhT/obwHmM11UViS3ks
-	4pa09CXK09l7Sfk4W+7W7seAvwEIITV+H4pE3LcH6tq4+fHJ9cqGBcssFpUHWxopoWd433TFwLA
-	Sh/zSkcsLygDcHr/TUqHhy4npgjb1rVOPLNpNYD38x1zUyarxXX/vTxsJ4vf+//5akyPaOwWmo1
-	KJnBnxajn3b3DyXs/Di1r2W9MWKQu1X0uw3htGww+Sn/sAT7v6VTtN0gnYk9QLXDUOU/nOmS9R3
-	tKQIdqQy+okpJRWnjYE6w0tkRZuuZnuT7HoVTfUQWBB53jJmcAy9PBP6gRx5pbixvSFt6H4k1Yg
-	ajxwqo70weE2cfcmY5MwlvFPClbzIRV1Rmn9B1J/eD0KAYDeLA6lquPt68vLwiedhmMNaA48=
-X-Received: by 2002:a05:6808:4f4c:b0:567:cbf5:bb95 with SMTP id
- 5614622812f47-568141204c5mr3074501b6e.7.1794236016577; Mon, 09 Nov 2026
- 06:53:36 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=fhannenheim.net header.i=@fhannenheim.net header.a=rsa-sha256 header.s=mail header.b=unVqbcq6
+Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fhannenheim.net;
+	s=mail; t=1794236023;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ceacrMlp6mw/lN+zsSUJu5X8+9PuN/FPhfrLE5/MHh4=;
+	b=unVqbcq6rZN9RtkaS3VzwjS/EfmvS/Pod7VHNz/aTJfuSvsjGWhbCoApLoyXRxBWaCuODf
+	qkaBA52g/qCRWWrpLX1+hGV9VHWWn+VOEyj1UNbVy6/PhYKz10ZmtvQDkl16TeHWWSVQHh
+	iHHg1RxYAfvsJvvmzNIJ7zy6pdadcbU=
+Date: Mon, 09 Nov 2026 15:53:42 +0100
+Message-Id: <DMQRL5NXWCTG.3VYYE9QSVOK2U@fhannenheim.net>
+Subject: Re: [PATCH RESEND v4 3/3] arm64: dts: qcom: oneplus-kebab: new
+ device
+Cc: "Robert Oscilowski" <drgitx@gmail.com>,
+ =?utf-8?q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
+ <phone-devel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+From: "Frieder Hannenheim" <mail@fhannenheim.net>
+To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>, "Frieder Hannenheim"
+ <git@fhannenheim.net>, "Bjorn Andersson" <andersson@kernel.org>, "Konrad
+ Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,46 +66,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261109144705.1737460-1-mmyangfl@gmail.com> <179423591750.488859.16025770326702158514@kernel.org>
-In-Reply-To: <179423591750.488859.16025770326702158514@kernel.org>
-From: David Yang <mmyangfl@gmail.com>
-Date: Mon, 9 Nov 2026 22:52:59 +0800
-X-Gm-Features: AclHuK8GlVRWcIBXTah3vZEYSUTseoisYI_J4pmRZs-QyYbT2RYguGW80JIs1pg
-Message-ID: <CAAXyoMP5GRbCoArr2CA__ROs3G_PhpQTNq9cSpsa=3cjk9XrGQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v2] net: dsa: motorcomm: Free the MIB block on
- port teardown
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
-	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+References: <20261105-kebab_dts-v4-0-c6bbe6ded92e@fhannenheim.net>
+ <20261105-kebab_dts-v4-3-c6bbe6ded92e@fhannenheim.net>
+ <c25371d5-1693-4ab6-9b4a-7b17a38a4e09@oss.qualcomm.com>
+In-Reply-To: <c25371d5-1693-4ab6-9b4a-7b17a38a4e09@oss.qualcomm.com>
 
-On Mon, Nov 9, 2026 at 10:51=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote=
-:
+On Mon Nov 9, 2026 at 12:08 PM CET, Konrad Dybcio wrote:
+> On 11/5/26 9:20 PM, Frieder Hannenheim wrote:
+>> Add initial device-tree for the OnePlus 8T. Downstream reference is [1].
+>>=20
+>> [1] https://github.com/LineageOS/android_kernel_oneplus_sm8250/blob/line=
+age-23.2/arch/arm64/boot/dts/vendor/oplus/kona-kebab-overlay.dts
+>>=20
+>> Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
+>> Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
+>> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+>> ---
 >
-> Hi!
+> [...]
 >
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
+>> +&i2c2 {
+>> +	status =3D "okay";
+>> +
+>> +	pm8008: pmic@8 {
+>> +		compatible =3D "qcom,pm8008";
 >
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+> No PM8008 on the other phone?
 
-not a fix - explained in the message
+There's 4 phones in total: 8 (instantnoodle), 8 Pro (instantnoodlep), 8T (k=
+ebab)
+and 9R (lemonades). The OnePlus 8 doesn't have a PM8008. Should I define
+this in -common? It would need to be disabled when a dts for the OnePlus 8 =
+is
+submitted.
+
+>
+>> +		reg =3D <0x8>;
+>> +
+>> +		interrupt-parent =3D <&tlmm>;
+>> +		interrupts =3D <112 IRQ_TYPE_EDGE_RISING>;
+>
+> interrupts-extended =3D <&tlmm 112 IRQ..>
+
+May I ask why? According to the docs interrupts-extended is only useful wit=
+h
+multiple interrupt parents which is not the case here. Or just for brevity?
+
+>
+> [...]
+>
+>> +&vreg_f {
+>> +	status =3D "disabled";
+>> +};
+>
+> I think it may be cleaner to move the definition to the other
+> phone's DT (are there just 2, or more?)
+>
+> Konrad
+
+The f block is used on the 8 and 8 Pro I believe. So I think it's best to k=
+eep
+it this way.
+
+Frieder
