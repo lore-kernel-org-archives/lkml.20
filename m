@@ -1,101 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794247954;
-	b=RfCeWhD59fQyegMyV96vIci4ioISqrCoeFoP29LByu0IjmTFCxPhVXG/JO3nbuSYjO6P
-	 lKqZZhOckKdsMlBZx8QnlALL3rjMPMnKOD9aeId71G6lS9nQ+mkYpS73IZF2+MIfPD7S7
-	 HJ0WPo9BPvkfLSfexm/abo3oE9sMULfFOSMGJmugZ5rUPMSWEI4jdNhF3nxqDywEPnEar
-	 XjvAvohlGBKNkwC0C89gMlwb2MqidGSPqoWOAwCSjYySFt/lKZeFj6+cIsmBl38Y0eXp1
-	 cvfhIXFep8fpy5LeGovCu34A6vedjUP/chRvIvaJi616UqutjTG+Lx++2bMKLHJQm5Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247954;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=dGm8nmvLy6E2sFmoRptp+D8SP6z/MqgZLc9I2o+BU6Y=;
-	b=sgBNEgV8hMLqhHwyw1zGJWqKw3bASGnBDRpF71e+ucS39cC2Wyr8H+mzEkNam67yWJLq
-	 Easn8VtN8eZgVD0ONr8rmuvmluezLA13QUExzpr6FiA4xgGA3bdbWEBGGyVd8omiS/ZeG
-	 yfrURuEdCgxNPzXPQvwj8FU5iIW3UsbELvgUh8+F4L8cP2DV3tUgoSPL08AxTl3bCZNKx
-	 fgkluPVMQknxLZenz1HVDoH0tTilYV+D8c/g0m7Cic/44TOjg/0q7bOtZtcL2jXp1/1MW
-	 Ji7gyWZ3vuQRblZURbf8Wyc6dvAZLJsKdwnBMiwIWm/+IZOsdEa7qcoRmC0DvAEyVvw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PSUh0CjE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794248127;
+	b=fUKDfMEWHNQTxSlEy/LdOXJeMiWeNIxWLPA3Lbn7IeM1CIT73RlRQGVBoVzhl+PYe6Yc
+	 T5ltyJPQekSqBWayYNjGnfqeYKOXcO0MDyR08xktV6LH1nSg3Gi4tSd2GWEEvG0b7XvBG
+	 MUBnllrFIXBS9utVnBKGEoct4BL9vtN/irgXd0eiqF0cbbtxgBueTGNL8W3Wg5OphDyFu
+	 eBgXv68XyCx6+pHhmx6s27A+Ji8GqUE1/lYc5ubfgSX5PZFBY5X4LKnqeYhkNB7tharxt
+	 3ntzq4MqQ3KyzfCgdRZVBBaapCcJXcpiaH5zy/zdVcmBvi51IXJKkiSVI6qZdB2VBHQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248127;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=QOGAxVORIKoSEY+zTHFpf5NJugQeCAGs7Y19X5OX6SQ=;
+	b=4aH7hrYaH8CeN/FntcbuMl+pYgLi7kuwMx0k68/1/8MUcHCmgSrkJgRkRVc6hvQBe3Oe
+	 L5kAmU0UDvRC8DUiM9rdhZETUs038aV7cC+GI1ZZuy7UHiWgfJIKp/vcs3+vTJAa4Jbrz
+	 uUqA38ju4ztfZXxDGtBUkaM4MrGyJ5EUBKC3MhGetfg0O0DQBPWVJO1psn+0ebtGRFUyS
+	 6nQWdLcQqaPoXo3F4cfjOQKdcv4tMkphvglg/NuB5lhHZui10NB+/ndOanAIpOnaxGfyL
+	 8ZRzlaUbZQptd5iScjwfZK+gGbX9Y1xPAQwIk1n/qB7xYKnlH9rE5849uyGaaKLyZ/Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=UzEELR4e;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDBC606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:12:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EDBC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E98606A31C;
+	Mon,  9 Nov 2026 18:15:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13E98606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PSUh0CjE
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5383c97c8cfso6361cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:12:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794247953; cv=none;
-        d=google.com; s=arc-20260327;
-        b=To62IKLC6zDVYCvUHSDdqVLa+Fdbwwdb41H7lHzlzvwDInMOp4q2I9T/url9F2Jucw
-         3KahYtl5Sp5jpXOK72GCfrdEqmZlbzXEZW4TKdjQJFUxfWYpReZABxIOKFqZW2ulyH9v
-         GBGKY2VsweGIUX43iPbArWA76PBZecoRROVP8XxDlFJraXcS1192zqPIu0NpBCf/cF+X
-         gjz0ZDW5xk0nMOQMKHA7HmE9uGaHQMCs7ZrATKNrFXQDNiUc/+hGn3Agih3YTWW/tXpX
-         SuS24pAIvCJ82sVq3Q0+QGRE7ibNkr+NfsMo5BDn2lMfy0Sg4ruG97Vd/WfWM0UXbrhp
-         KbaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=dGm8nmvLy6E2sFmoRptp+D8SP6z/MqgZLc9I2o+BU6Y=;
-        fh=T8aNAvp4EN+wbcQzpzHslBBrgcFoCKNGPMYc5LWnzAA=;
-        b=hdl6bUiWh1CLtPEPjHuBcxQ/CNy9LUku4Cs3IWBLtxwNlubd7EpO8az4GZ2S2HIRFi
-         gYN+rFva2hmPJs350mz2C4m9O8rccM805aXkSVZqSTZME1VipKMnf7sQaCWwawUglM9T
-         y/M4txLKoadP9yn0yIWg4K3zW+lN7UcHuqN7rsCzTIg6M2iie+dCAcg0eChOUv4rDwfV
-         K8IxlJRc5OhjB7H7zwoaExFJqWqs12IBB6FBlzBLzyeEUfYhjACkDYKPXHoRjt2xllfJ
-         LUiIT8XXyf4rJOsIMSBjBamEaRuhpOXUL+JOW4EzcueYUm/3WPkc1ly/a73NkBumwLtH
-         30DQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794247953; x=1794852753; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dGm8nmvLy6E2sFmoRptp+D8SP6z/MqgZLc9I2o+BU6Y=;
-        b=PSUh0CjEMxfsN7BHYMDVYvAEhdCcCyr1A8NrN35WuqIsTR+9oBEIETRFwRAro1JVm3
-         MV1+5v+uMk+26jLTq5uauyK8cGUBpvkuLmmMzmvpKYsVEfLOqM2QWxhNxm1WSDiG39Hc
-         LTAHnyvY/X2rS+nkN/lKmAHpLiddGtkYrHVxvMKhJ1moyY8860W6RLabyNh1z4jjpx9a
-         Lz/KEShc71fQvc5/8eK4Hguy0S8PE5R3o4K2oCTZ3AWeX1mUJLqTjoK1wyGAzD8xoDjv
-         AB3YDwby5q0KbeUR9WvSXdj+JayLNpn2bGQrzWfko+Ha4+FTzwUgMYg6unYT0fWJaxiG
-         CyPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794247953; x=1794852753;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dGm8nmvLy6E2sFmoRptp+D8SP6z/MqgZLc9I2o+BU6Y=;
-        b=n/SZ4Lz9Bobj9BVn61mIsxrexcjMzmFv6NDRrZ2/+acUPC1Eu+uZYOBMWREu8XGGIf
-         eibIfMVRK4OBtDTNmAUqcWMkez1EzjiK4yp2AD1kXz7exmZgCRpujENy3DIbW6VDifgW
-         U7jf76wU9mUPXXZVDmgchSiJcp/4bu48x4eUAxOfnjcQGnb3J3HMf54cAUSgrSmAusPN
-         tT3dG48Glab+wyyslQMIGkqDYIsDMisn0+Z1LIIBildRzaX5QxUfujr1pVZ7yKDR7sHU
-         sA+Fz2LgTDPd7+tprQ4ftZO/OXPJFQMHTePluW5PZ97EcyG09O9l5Wagq65VORotvPJQ
-         TkKw==
-X-Forwarded-Encrypted: i=1; AL+hErE/WMOVujPFGZ59wVh8qRaYyPXSF8xBND7NeIP6vUMYUvBeQHPKqSj4HAe59anL4p9QJjeuf3LkvBB+E6Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+iPiDVcSpj7BNhNnbbA9WhoEQFd1JkldT95i6//l77wLG2dYop
-	iXXOirRiY+UmVXkbgNXlXiDNmQ6c1adaHDqfuYybloMlLtX9pGE36vrESgKIc5WscTrlQIplpAc
-	kyBJc+QNQnFmIJMSy+X3zlAf9bRAp1nu+uPxxPyxe
-X-Gm-Gg: AYBFou0FzDxZbvev1UCvJ/3+mp83icNkdY2mY+3bPWc+3D/Vtgs5RQnu75AVXZSXXAM
-	qAC5mk1wkn9I7Lp5EWmlqHPMKjd8x5K36dl62Zm1XEsFRYTYT2cVJyG+dZ2VUfgYqxdtdCi/2Xb
-	M2k0a2xKn6o40hPDmKMtjHyCYMpRqR03p+Mmd8pd2PoADkhiHwYZXAjcnwQjaEA+Nt9jQxc/naO
-	NOKC5nA0SuRY/ozjnsfdsEJ5y/64nJno3f0+6AMUyfeTAv9Ta0zEsKWAP0g4VXISp+iXshuiXql
-	TJjeg/M+6CT345JjFqOStAwIZwC9o99lRv2uG9P7dSYlJpAaLFzIY1H9P7RFjhXjCVtjQPvbuf/
-	hLiJnUKdGXkE2Sl+QLIcj9wfkyXwJUb5qnI4xrf5Uj5Ty43vSGU5X5X2juQG+juAH1R0JT+U2UR
-	lDGi0ofxQR5Hj5KBCsBmpaVubVS+Y4dBNz/wFM9LFiuwrSUUw=
-X-Received: by 2002:a05:622a:488c:b0:542:fc60:fe23 with SMTP id
- d75a77b69052e-55530d3d62amr54161cf.3.1794247952273; Mon, 09 Nov 2026 10:12:32
- -0800 (PST)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=UzEELR4e
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9HiGHW3000769;
+	Mon, 9 Nov 2026 18:15:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=QOGAxV
+	ORIKoSEY+zTHFpf5NJugQeCAGs7Y19X5OX6SQ=; b=UzEELR4evDP/i9Ih1lNhhe
+	erZR0lwwHlM8c25CS2bgahJ0uDL0nmgt1t5j0A+SFMu1UZlo14Iroi9+ox2TJkSx
+	nkSAc7DpMmTa6tlAbUtFL49ZxJLKdIofXL0Gl86Ngiv8bfHiDgz+fm7zU9g2YdVA
+	aiO2BC5bY/uSc5NcNEu86pYEmnImtdeUNz8hh1L9YEgYPV2ecaiXLCrnSbi231XJ
+	6vXufBlaxxbglljhHTq6o7UQ61esclI+lRbTjW9gMxLYNeQu0NNQtX6rMY1Cm8T1
+	jUtr0+rCa6gcZVnxxDDbiwqiwxyqo7QbPEbqHWAJPFxKo4iwwltyb11dw4JzHqJw
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hstdfyyn6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 18:15:22 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9HKX85482206;
+	Mon, 9 Nov 2026 18:15:22 GMT
+Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hth0y240h-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 18:15:22 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A9IFLdQ27263624
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 9 Nov 2026 18:15:21 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7871B5805F;
+	Mon,  9 Nov 2026 18:15:21 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C46395805D;
+	Mon,  9 Nov 2026 18:15:20 +0000 (GMT)
+Received: from [9.47.158.153] (unknown [9.47.158.153])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  9 Nov 2026 18:15:20 +0000 (GMT)
+Message-ID: <931108a5-e880-4b74-b5e1-8625307af8a9@linux.ibm.com>
+Date: Mon, 9 Nov 2026 13:15:20 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,82 +86,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261110-mtu-probing-series-v3-0-dedfab25d641@gmail.com> <20261110-mtu-probing-series-v3-3-dedfab25d641@gmail.com>
-In-Reply-To: <20261110-mtu-probing-series-v3-3-dedfab25d641@gmail.com>
-From: Neal Cardwell <ncardwell@google.com>
-Date: Mon, 9 Nov 2026 13:12:13 -0500
-X-Gm-Features: AclHuK-E7FZmMgLaCJxXz6hIu0FtIdqq3ijAk57SK8zqY5F6VRotgKBpxs38suI
-Message-ID: <CADVnQykoJWJL+vZ9GC=RqZuiSEypNtmTONBzV7XRQ1jsXy0X_A@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 3/4] selftests/net: packetdrill: add TCP black
- hole detection test
-To: echoowall@gmail.com
-Cc: davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, 
-	shuah@kernel.org, kuniyu@google.com, horms@kernel.org, kuba@kernel.org, 
-	netdev@vger.kernel.org, panweiping3@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] tpm: prolonged stall in vtpm_proxy_fops_release() on Linux
+ 7.3
+To: =?UTF-8?B?6ZOu?= <fengaojigui88@gmail.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>, peterhuewe@gmx.de,
+        Jason Gunthorpe <jgg@ziepe.ca>, linux-integrity@vger.kernel.org,
+        syzkaller@googlegroups.com, linux-kernel@vger.kernel.org
+References: <CAO-4RZ2EzuShr1dNEQt+CEjqan8SSyD=-E9g6RW1oocah+chcQ@mail.gmail.com>
+ <aud4isATIt0JOOL_@kernel.org>
+ <012799b9-aa35-4990-86df-23b012ab94e6@linux.ibm.com>
+ <CAO-4RZ0Od63iUeFkoPznV4vd84Ghjii4CGo+khybQckCv=EXkQ@mail.gmail.com>
+Content-Language: en-US
+From: Stefan Berger <stefanb@linux.ibm.com>
+In-Reply-To: <CAO-4RZ0Od63iUeFkoPznV4vd84Ghjii4CGo+khybQckCv=EXkQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=J+M/fwnS c=1 sm=1 tr=0 ts=6af20dbb cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=x6uE0WptQeE1m4LxGL8A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA3MiBTYWx0ZWRfXyUW3i0RknXUF
+ raS8l3Ry/4dDYEDhyHKllGVJ8d0qda1M8PyaaC6doxsij9JvxJUijq08VH5EqkbP2tD+C7bD0oa
+ WQjV8lRNf9RMHZqEmuBJ0RNFT4L5NRM4NBbFkhikXwjHnQVuGoZoC7dQ6eHiz6QAeb22ZdHkfJh
+ O/hCkDoiHKFUsDZSE9a+vifZA6jEzOevIpbuVpjGsdunDpf49jnt1ZoWfwoFQK8Z8ANPZ5O0yMJ
+ amAdvgCNTqJTgaJ+77uCu22OopFNH5DtEyjYtdubIh8wpfEIadYedy8lHZn63peGCfMAyLvQX44
+ +YnCBgGrToqMUCT2jgLCIvwiypjbYwAmkCyGUYocYC+25CdDOG0lAgd19106wlHuzButF4FZZi2
+ Yci4SRRSynl+rrWFmtmgmMA+JpekT/BIYvwbDu2YMvy3bWrxktVwiO3mz9oGJXaGjAYiXf7PCNY
+ jB0LKXFhGwOJ4S+k7pA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA3MiBTYWx0ZWRfX1czYllJczNuO
+ BaKSdoAj3Oy494CJAX+tYQry16avLSVoac4Qq1cdvX3Uan3sm6dRBZktQRIiIdbfOlCqMTekFfs
+ TVlpt3FcaAXWOfwc+MzplAw7UJBQYxQ=
+X-Proofpoint-GUID: 5ShWpHk0MzBRw9ysdUkXSKbyCK7Hg1zw
+X-Proofpoint-ORIG-GUID: FH1QuUAwHWdD25ZcLNplgbw5Z_bJDo6f
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_06,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 adultscore=0 suspectscore=0
+ malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090072
 
-On Mon, Nov 9, 2026 at 11:44=E2=80=AFAM Yongjian Wang via B4 Relay
-<devnull+echoowall.gmail.com@kernel.org> wrote:
->
-> From: Yongjian Wang <echoowall@gmail.com>
->
-> Black hole detection (net.ipv4.tcp_mtu_probing=3D1) has no selftest
-> coverage.
->
-> Add a test where a full-sized segment keeps timing out without any ICMP
-> feedback. Check that the MSS drops to tcp_base_mss once tcp_retries1 is
-> exceeded, and that the smaller MSS is also used for new data after the
-> retransmission is acknowledged.
->
-> Set tcp_retries1 to 1 to keep the test short, and disable TLP so that
-> every retransmission comes from the RTO timer, which is what
-> tcp_write_timeout() counts.
->
-> Signed-off-by: Yongjian Wang <echoowall@gmail.com>
-> ---
->  .../net/packetdrill/tcp_mtu_probing_blackhole.pkt  | 37 ++++++++++++++++=
-++++++
->  1 file changed, 37 insertions(+)
->
-> diff --git a/tools/testing/selftests/net/packetdrill/tcp_mtu_probing_blac=
-khole.pkt b/tools/testing/selftests/net/packetdrill/tcp_mtu_probing_blackho=
-le.pkt
-> new file mode 100644
-> index 000000000000..f10dbb36dd2d
-> --- /dev/null
-> +++ b/tools/testing/selftests/net/packetdrill/tcp_mtu_probing_blackhole.p=
-kt
-> @@ -0,0 +1,37 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// Test black hole detection with tcp_mtu_probing=3D1: when full-sized s=
-egments
-> +// keep timing out and no ICMP arrives, TCP falls back to tcp_base_mss.
-> +
-> +`./defaults.sh
-> +sysctl -q net.ipv4.tcp_mtu_probing=3D1
-> +sysctl -q net.ipv4.tcp_base_mss=3D1024
-> +sysctl -q net.ipv4.tcp_retries1=3D1
-> +sysctl -q net.ipv4.tcp_early_retrans=3D0`
 
-Thanks for the test! Though because of all these sysctl settings, this
-is testing a fairly non-standard configuration. That's better than no
-test at all, but IMHO it's more important to test the default
-configurations users will be using.
 
-So I'd suggest renaming this case to be something like
-tcp_mtu_probing_blackhole_no_tlp_retries1_is_1.pkt.
+On 11/8/26 12:15 PM, 铮 wrote:
+> Hi Stefan,
+> 
+> Thank you for the patch
+> ("tpm: tpm_vtpm_proxy: Set STATE_OPENED_FLAG before inode is created").
+> We applied and tested it, and we have also reproduced the boot warning
+> Stefan reported and identified a sufficient condition for
+> it (running without KVM acceleration). Two findings first; "Where to
+> look" at the end points to the exact files in our repository.
+> 
+> 1. Your patch does not change the outcome of the hang
+> 
+[...]
 
-Then I'd suggest creating a test like this, but with only the following set=
-ting:
+> 
+> v7.4-rc1 is affected as well: drivers/char/tpm/tpm_vtpm_proxy.c is
+> unchanged between v7.3.0 and v7.4-rc1 (empty diff), and the same
+> reproduction hangs there 1/1 (t=402s, same signature).
 
-`./defaults.sh
-sysctl -q net.ipv4.tcp_mtu_probing=3D1`
+I have a hard time reading these .prog files. Are you closing the server 
+side file descriptor you are getting back via the ioctl to /dev/tpm? 
+Have a look below. If not, that could be the reason why its hanging. If 
+you close it, it should clear the STATE_OPENED_FLAG and wake up any 
+client waiting for a response.
 
-That way we get test coverage for the most important scenarios and
-code paths, and can understand the behavior that users will see if
-they just set net.ipv4.tcp_mtu_probing=3D1 and do nothing else.
+/**
+  * struct vtpm_proxy_new_dev - parameter structure for the
+  *                             %VTPM_PROXY_IOC_NEW_DEV ioctl
+  * @flags:	flags for the proxy TPM
+  * @tpm_num:	index of the TPM device
+  * @fd:		the file descriptor used by the proxy TPM
+  * @major:	the major number of the TPM device
+  * @minor:	the minor number of the TPM device
+  */
+struct vtpm_proxy_new_dev {
+	__u32 flags;         /* input */
+	__u32 tpm_num;       /* output */
+	__u32 fd;            /* output */    <--- this one here
+	__u32 major;         /* output */
+	__u32 minor;         /* output */
+};
 
-Thanks!
-neal
+
+   Stefan
+
