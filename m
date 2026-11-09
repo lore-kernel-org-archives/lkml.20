@@ -1,85 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794243063;
-	b=AkTNpdofo7zzwiFAruhWHvDRDyqR1r1P3rOxWz+mpomSKiV7OB5qcW/krEhylSf6SgFt
-	 yxmuWNGFcCrQ+CgzwG5o0imSkaLsnCv/bEC2GonCWUdaB1Ziv3Pih2LO3YvVLn7Bqoi2R
-	 KDrf2pOOT+nqIUiJCKTgbvqtBwaSCYTwRXKmkF51DNa1VZf8/sKPWnaYHrx3mbSyOxuFE
-	 E1d1WIt6mk1+Cdt3UZTITv3/g3BPyaD/V67LSMeL7X/wFGKC/evt16GbYufWaFa8CL76o
-	 vZArIjmaX5ubvsqTRUsx5AquqXeKToTamgb+1zPPUQM46WLXPzzS2o4Z1QlyyMNTJwg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794243063;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=KWdwoMQXiTShR7rGuGU+FCAUlgJV+S6GbsCQM41btuc=;
-	b=3b16tDzdgobGE5pX8msB98JQqw6YxG1wVdtVHCf7vCg/1ep1Di5kQ6iHK2NglqU3dqea
-	 POm62/ZgUo0o+qJ5IA/dkLsSA/vxSihKaEqv75YShLNMHlHMhaoU548eexYepARfmLpk7
-	 lYgACdVw+8Q02afTE0UYFY8thhaVtiVjTLCCqmPFOn4PZiSdIPs3Sx0kAqUQEqa3B+3+h
-	 ZylZahvZqwALUesVGHQ2Ctz14gNI1Vk1IFjkrbb5KWtugoMh5f776UwkuyN0JhVpESzut
-	 lP9d+3aHYQWr7ETdMUnlPOd+DSCI2Tzdc2i741Cq0crKwqAiyiX4g5vsdpfeNW5/NEg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=eSUzICYL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794243061;
+	b=bgGg2NiGvZB1k4Ga2vlpcHCUDwM0aEV0XyegdKCO3+ltU995OIXXFfkDuK1/CUtzQhvF
+	 DEK1a+PL5uEKt/1PWoY526i5wRZNfxJVbWmV5AyRPPYE00hAQPtTYL9ZyponwSqB3POqj
+	 NQ/ErtOnt/M1ZNEHH4BGxASovkFcWsglrUBuDrAzeaojlkI+4a6Mj75bMHPuIq9fZP3JR
+	 KCovUXFXSACRRJ+i+qn0PmxAllrc9BM6PQLy2G4FJCR0w1ZJHh/V2TO56yduNQPBMEtVs
+	 vq7e3pOTvhhOlCBH7hrKKxH7RfuoiJhJN1aqzetcYDDL2/nz5S6U9JKQEZdT8Te5NyA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794243061;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=IS1Mfm51OXnwhxZbYONc5jZW/Z2yaZ+F6WQ76H4U9Pc=;
+	b=KGt0WN8iUTKbkGl3j+NSrEao4UHqx4tdBCW4mJhwdSfIHZ/W8QMgFowZoyzFz7FPCL4+
+	 NaVY4tjq/E+iq6D3IudBjS6H885yfKZaA6W/RX1TbO+8O5S21b7ZXzGnsDMz/t7X6O4ek
+	 cPExNBqgpbG5HdRnQlMo8sNOKoB1GGgZ0CMLwLOmHvJQkBDaST0x8NjIyq/zuZxvYcbes
+	 90ivL8ZsCg6mx4iPFXH/yRfUGLt9DmE7lvu2fyGttysH8QF/4Kat7uC7Is/Wy4yOdhn8x
+	 32ZbqgNWp0PsHRtWhijj8IiWlrhlqjtQd+xi6HTze2zfkbMW5rNxSHyB9scAE51wy1w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NtHi+5FT;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8420606EE94;
-	Mon,  9 Nov 2026 16:51:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8420606EE94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528DF606EE84
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:51:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 528DF606EE84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=eSUzICYL
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 74B0A202929;
-	Mon, 09 Nov 2026 17:50:53 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794243053;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KWdwoMQXiTShR7rGuGU+FCAUlgJV+S6GbsCQM41btuc=;
-	b=eSUzICYL5Pjk5juWywMwcLKqW/avcVWTQSGTuZ6byUyEY7lv6LcI+XvH5HriOPkAbNA7LH
-	48IXJYxXNuuXi+5IQQQVzJ4JgXl+gtMl2RQb/a2D1jlN4IWHYTw2i8eTCHfeuTLlyo/dTR
-	jxDUgg8I3/u8rxxS9bZ9bSEIZ+H5SzeX0GZbHUbyFlkdHMdPgDwpKKwPPMoDP1KvNjXkiP
-	50ZzFzkCuqLQDAbeIkT9hLPlXxTr3wq/T2VsKPk2JC926Xifr/1YItvXHXFdgvpt3csDk0
-	T865t82RVb36gp1cl4tHuCTmHClKkq+yvP6uXiwrfDF++Xn7lKWCtttwtvz9GQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794243053;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KWdwoMQXiTShR7rGuGU+FCAUlgJV+S6GbsCQM41btuc=;
-	b=A4Ide3cnG/8S+uWkzS/DuvatL8yERG8LOJCBFypT+psvy5UFAldNjxBz2VlAzCQb2nfAJD
-	y3LVhE8LxgxzbkZmo0zj++dwRC2siymLsQlAc7GoNbva9o0izxYL1PUcYcsKwvEhrF2KIJ
-	swmmbLu7prAuNsMOuXVXFSz1I44VpL1WhqwFvT+BCdCDAcmnOVvVoJjKEDUBg8tCBZoSlb
-	wEJ4f+QNowlRWOvyM91F3Uoap0PL4Id7ZeXhk6xzbyB8NO8+gw2wZgUP8rUZR8xU6icKnp
-	THXrthwD1c7MMp1itZc1w4G3MDMgqotCGPU1qbqdDGYz+LhlOXel2w7sWemAFA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794243053; a=rsa-sha256;
-	cv=none;
-	b=cHobY6+Natq80bFXoWs2lwFO/M67RyxEYB91mL4LqjP2LiY+ayfVXvOUnYPGX0br2buHZH
-	jXl/gQxv7kvRA2EWfR7TChYd81m8jEon+LBVN5GErEsLwkNToiUaf3D8YOjFJ0OY8ANWXk
-	FRQ9vVcLuuX/K/fs5j6621sBCRygdNCtBTHPhWWyWbur0EBbL/cbRYvb31d1bDIwr0pmuL
-	Z+sLUSjMK8I7eEpr1PSTkU5AWM2BOrsqVXUoDzjD7FjKpYLgeNfxYSKs5cabIcmxJK8b5O
-	Fek0A7Nm5EE4LkZ+8TNn/Qa5EWJxUwUPZ3tZTXyS8uLgf8vQevPORtFbdplhaA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1xQSa5-003N3i-1F;
-	Mon, 09 Nov 2026 17:50:53 +0100
-From: Philipp Zabel <p.zabel@pengutronix.de>
-Date: Mon, 09 Nov 2026 17:50:48 +0100
-Subject: [PATCH v2 6/8] reset: rzv2h-usb2phy: Use regmap_test_bits in
- rzv2h_usbphy_reset_status
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NtHi+5FT
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so9757695e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:51:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794243060; x=1794847860; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IS1Mfm51OXnwhxZbYONc5jZW/Z2yaZ+F6WQ76H4U9Pc=;
+        b=NtHi+5FT8sSMrqPVn2bfj+WSGVIRPUS81smJI9xvYLMNB9lliq289J9mp1qechVBDq
+         dzRWpDKsuXQ5CnyetVYNEgz6PUwqA2IdHPuDMYFmMwI/H5/0XSTgBjn1qFWDUlcoGfdj
+         fdi58DtsyeQPYXIj6IgX+Zmz8H+uq3tMPIzfSeVk2gNrvp4Ib9bYIwdQz372siJV+9G6
+         O+nKnScnTOyPpjYLvE4y3cofok13SKe/1qQ2sk4IgP8/4yiPWw1R4Vnj2TPvPamLJAbE
+         OgqqSc/4voTWPsLIAnM2U72qVROZJ7wNARrWTCGoa5CldVFshyqlpVlJ+4KOdSBFkl35
+         UYqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794243060; x=1794847860;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IS1Mfm51OXnwhxZbYONc5jZW/Z2yaZ+F6WQ76H4U9Pc=;
+        b=g+AqpyunkQ7CuY3dE+T2Rzbp8dvvJ56gPobASWGU7+C+GyE8e+tRKcCstU6dyoCRGK
+         Jo77RihZwWGMaWmtfWtiNIr4wNUHpfZMpJTszJ+3SbPIGCnq4yPyd3/EkVZwmemXuOsv
+         9CT3PjAHzo8FFgrZQ0LPe8bxi/MaDFf6vhd1bJu6+Q/eDtEJLs+1hyqosovri/qx0812
+         rgeyZnCSQwKmNQgIgFJmp3RlTK8zqMP3OKMaRkjD2naui0zogIEkeyW5uqqVgoiAkd57
+         lSZW3qrhNTAA2DayhEMa+aKBuBS3Jcjot7+qXF7SpD8bKJVrRHGgSJja7V2Uw925rV9s
+         qjQQ==
+X-Forwarded-Encrypted: i=1; AL+hErHYTTkACUvoQafzLFzQEwnjQsocPB+A96VQzu+ApPYlB2QsbCd57wMVGinIiQCOZ6mFeqrkj5BAmZcNLPM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9lOW1iA4XEqi2TVxXQz8N8AJvir5p+ODeeMLN8d3a07OBeTCN6
+	sHzuXDDb9QDMKBslh0+acSVf6acKztcWbC71p16TYFgH3BplyyZ+4CNxtVSgtw==
+X-Gm-Gg: AYBFou0LSxc9dN1PIIzhDkMnt5aZGHZPUb7gFhPL6faxz3p0QPT++IT3T5J4HPA9gBv
+	P10OJCyJXWTYt3XPtg2dKte5/TYmYhHwXmX6xk8kozHYABO4qIHSrkFbcNS44yGnDa66btUXt3f
+	hqd0uguU6ueu1LmUVMO/h3w/6g/2mqeWmh5nApVKl7lw3gKVYhbLRPEXnb6l23Og154J2RmlOvX
+	+1ZeAtpYHVBm9bNpesJeuSN3sk13r27nPgn1ija/fURGS9iTDFq72/uCyuW8bXm5EY/bt91+T6p
+	JyQwUwZ9bBLtw8qdjPNJpwQ/TQDgTiHAIQr+GlRdG85+tRf+dAq8vv6X31gzlMqugAHeAjJr7rC
+	HO6NR04bbRC738hwlNdKx8K4Egy+Z9iObSkM7Jg7srifMocy0SiZw5Yg/GovID3uyY1KC0YbCtp
+	VlWofV5VtvpiUH5fxSeiz/fvGf3MGq5JaCEWjtABPbKcU0MhGXQgl7ln0BqKjUpNi+WBAi9Ar+Q
+	gS19X7P7Obe+0PYcVzYsAYoM5xegZTrp0I0sLv5k60tCHBs0sgATyFNg/V9/PasEbuRGaVSIcYF
+	PxVO7ARHAnIB5eJ8a9WX5vvRnToQP3m8UYL8
+X-Received: by 2002:a05:600c:c16b:b0:4a2:167a:c946 with SMTP id 5b1f17b1804b1-4b963c6754fmr82890925e9.13.1794243059544;
+        Mon, 09 Nov 2026 08:50:59 -0800 (PST)
+Received: from mail.gmail.com ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597b2066esm11035695f8f.52.2026.11.09.08.50.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 08:50:59 -0800 (PST)
+Date: Mon, 9 Nov 2026 17:02:32 +0000
+From: Anton Protopopov <a.s.protopopov@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Alan Maguire <almagui@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Quentin Monnet <qmo@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	KP Singh <kpsingh@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Sasha Levin <sashal@kernel.org>, bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 bpf-next 01/18] bpf: Add BTF ID sets for fmod_ret
+ targets
+Message-ID: <avH8qEQmhj7KhBOD@mail.gmail.com>
+References: <20261106210314.1767267-1-a.s.protopopov@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,53 +110,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-reset-regmap-test-bits-v2-6-c886689bb85e@pengutronix.de>
-References: <20261109-reset-regmap-test-bits-v2-0-c886689bb85e@pengutronix.de>
-In-Reply-To: <20261109-reset-regmap-test-bits-v2-0-c886689bb85e@pengutronix.de>
-To: Damien Le Moal <dlemoal@kernel.org>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Valentina Fernandez <valentina.fernandezalanis@microchip.com>, 
- Daire McNamara <daire.mcnamara@microchip.com>, 
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
- Michal Simek <michal.simek@amd.com>
-Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-renesas-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Geert Uytterhoeven <geert+renesas@glider.be>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106210314.1767267-1-a.s.protopopov@gmail.com>
 
-Simplify rzv2h_usbphy_reset_status() by using regmap_test_bits().
-Now propagates errors.
+On 26/11/06 09:02PM, Anton Protopopov wrote:
+> Add BTF_SET8_FMODRET and the BTF_FMODRET_START() and BTF_FMODRET_END()
+> macros to declare the functions BPF fmod_ret programs may attach to.
+> They work like kfunc sets: each entry is a BTF_ID_FLAGS() line and
+> KF_SLEEPABLE marks targets sleepable programs may attach to.
+> 
+> Teach resolve_btfids to find these sets and tag every listed function in
+> BTF with a "bpf_fmodret" decl tag, plus "bpf_fmodret_sleepable" when
+> KF_SLEEPABLE is set. The sleepable tag never comes without "bpf_fmodret"
+> and readers of the tags may rely on that. Share the set walk with the
+> kfunc collection. Any other flag is an error. Nothing in the code refers
+> to the sets, so keep .BTF_ids in the linker script, or --gc-sections may
+> discard them.
 
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
----
- drivers/reset/reset-rzv2h-usb2phy.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/reset/reset-rzv2h-usb2phy.c b/drivers/reset/reset-rzv2h-usb2phy.c
-index d96042e28cd5..e644092cc2f7 100644
---- a/drivers/reset/reset-rzv2h-usb2phy.c
-+++ b/drivers/reset/reset-rzv2h-usb2phy.c
-@@ -68,11 +68,9 @@ static int rzv2h_usbphy_reset_status(struct reset_controller_dev *rcdev,
- 				     unsigned long id)
- {
- 	struct rzv2h_usb2phy_reset_priv *priv = rzv2h_usbphy_rcdev_to_priv(rcdev);
--	u32 reg;
- 
--	regmap_read(priv->regmap, priv->data->reset_reg, &reg);
--
--	return (reg & priv->data->reset_status_bits) == priv->data->reset_status_bits;
-+	return regmap_test_bits(priv->regmap, priv->data->reset_reg,
-+				priv->data->reset_status_bits);
- }
- 
- static const struct reset_control_ops rzv2h_usbphy_reset_ops = {
-
--- 
-2.47.3
-
+going to send v2 to address robots comments + rebase (latest merge broke CI for me)
