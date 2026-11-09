@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794206470;
-	b=y95wsBEn8Ew9ADFo/UNQ0Wjve6K1Y/nXlyr15UB7If1Yuj8hEeKjgia3zNG3jyRwmDcR
-	 aRRdum8oLdGrNn94hwsxhqd/hLHwwZLtp21ZMnmLJHAo/eOUWe1UIhIMI8WXA4ya7fM/q
-	 wRdNtmVCc8uTZkdbXOxspC9Ex3fqZ3tv8McsGBKa/OjqGTjfyiv23Kh2nzvAB53QbLYQK
-	 SliH4hg42EVFgUv8vVg5olRXqU4C6uUKBROm/yqBWCp9cUVH2JVno8AbtAXgNaGN3JDlR
-	 mWGxIrpEIDlhw3z9XiRCKRfQflTU4sF9JLpC+inYg6srWpc2gzRQO3bFyKRJ6mLD9eQ==
+	t=1794206496;
+	b=QGX/BTAWF2w5Scp/dZT9DeAiRb1xjAyJ/e+tlNYfhRqTeqz2OE4VzF8787MQvx2s5H5/
+	 wshSinYDpNskLaDOEoUeX/SkI6Hgp66z9LofRd4QCV+4sEdSwdvrdiB8P7CkYloYvJvRO
+	 pRNeIQmutJm+iO3OeoQzBZsAdYAOuksTxWjF/Erj74spIhS3Ux4LlgtDTWCLio7vilrw4
+	 o7muTIIWUjro00vFyaOeEMOTWEO4B950uxiwrkBd+YnVT0zqheWgWYGoyRgkgrfZmxRXy
+	 9pL0RbantakHbPNMFMDFfOtb13o3oQjISVb72ny7boOw7Wy8Tsc7h+4rhsiBMHY0Skw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794206470;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794206496;
 	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
 	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
 	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=soqt50K3rw3+soUYivhJF2vTy49ZFgNuuvn5H0S2lRo=;
-	b=Gc1GXi/KsH7tEwBJvb4AUmUNT6KcPl69rmpXKkmwBaOIKTuw50ME7z4g1WUgg3QnEUMg
-	 NCmFCIpGXVyOLnrFt4tAXow0Xg3WMhsOA+fubDc7MVbCPCfEXLLb4N3LnxyX6Pz6CTzJO
-	 0muoZDt0tx0x7ZyHr5CuCWTXV/KDYmtq8fO4lP3X+iLoMHMAqRVeLPcBvXQlVnUBrZPet
-	 3w4yV0LDVI6hn/3EcXgAlSr6wydbh/MFjjXakLxk4Ot5Qy5cpSmHwL9/yQQWPO2tDE+dh
-	 YVQcovJN37vFUvdayFjvid/yKD0pXH2okEh5fKW5ssSgozzBvyBIkZDjmUMYiHgw1Uw==
+	bh=b4NG28+Ff2oTIi9k9M1agvKHdqFEhBLZ2FfrsTN1o5o=;
+	b=UVYb1uEMTp1jHwLr3XkLJFw8Wc40Fdky7OUq/p6U8V/7GtI3l52bCO1E9mJqzzyzKJid
+	 TdOC2evsQLmisAA3lMky4YraAc4wS0YRxmObKonzOH13SJThBFuxPw6Vbw8XzbNf6uMo6
+	 fs/Q7DyMFKKFAkubDXiVJx/Qfw/YEgBW4Sz4fBN0ADCO7qEAnks+523cOfKt3BQNqyf9O
+	 hLPtEIiKZw0/2FutP96I29edeZbN69JaA7sxXXEBucLZfqp+/HW0o+d1zQoRC0V7j5GxM
+	 E3Hjdd6vMg5wa/l6dAOzpKjy1qI1tpmGrRhmr3wjWnIyjXK6kmYRJxbjd/wjWgJGlJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cmss.chinamobile.com;
 	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=JQunonNj;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5E7C1606A31C;
-	Mon,  9 Nov 2026 06:41:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E7C1606A31C
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KSGCgNY7;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 478D8606A31C;
+	Mon,  9 Nov 2026 06:41:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 478D8606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=JQunonNj
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KSGCgNY7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=cmss.chinamobile.com; s=default; l=0;
 	h=from:subject:message-id:to:cc:mime-version;
 	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=JQunonNjB0FhU+PTB8co+UPpaRFyfokDEv8w2n0asMuhORSW5JOpbW9aUTZaLWfe+Hk9fHOt2RQSA
-	 QGQzgw9poK+dIlDC3WtT0qZs2lR8TJ4YtJUs6IvHLNLeHNCjTJf9esfVKP2yF4X3GX34mDwotserYc
-	 +tKl1yrprNvSZhgA=
+	b=KSGCgNY7PLDxRTZGYg34RiQ9JuzV8gwR1bXmFef1QpioYhuQoXOZ/GiX9vILwFqnBXukhE6doHEBK
+	 fsEMi93sKBulcHCBeyn5/0zmjiQZ+VA8e87QQLu2b9UxPF06n5yPBRDLyC0iFsD87c+bNldauGnHPg
+	 UkCk2YrEOIocWck4=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app04-12004 (RichMail) with SMTP id 2ee46af16b00901-616b3;
-	Mon, 09 Nov 2026 14:41:06 +0800 (CST)
-X-RM-TRANSID:2ee46af16b00901-616b3
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af16b1d1e3-9d57a;
+	Mon, 09 Nov 2026 14:41:33 +0800 (CST)
+X-RM-TRANSID:2ee16af16b1d1e3-9d57a
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM-FLAG:00000000
 Received:from openEuler-24.03.03 (unknown[74.82.203.40])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86af16ae9d21-84788;
-	Mon, 09 Nov 2026 14:41:06 +0800 (CST)
-X-RM-TRANSID:2ee86af16ae9d21-84788
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76af16b0cff7-849c3;
+	Mon, 09 Nov 2026 14:41:33 +0800 (CST)
+X-RM-TRANSID:2ee76af16b0cff7-849c3
 From: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>
 To: netdev@vger.kernel.org
 Cc: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>,
@@ -65,12 +65,12 @@ Cc: Haishuang Yan <yanhaishuang@cmss.chinamobile.com>,
 	willemdebruijn.kernel@gmail.com,
 	narcisav.kernel@gmail.com,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net 1/2] net: do not run out of frags in alloc_skb_with_frags()
-Date: Mon,  9 Nov 2026 23:40:36 +0900
-Message-ID: <20261109144038.36055-1-yanhaishuang@cmss.chinamobile.com>
+Subject: Re: [PATCH net 2/2] net: add a KUnit test for the alloc_skb_with_frags() tail split
+Date: Mon,  9 Nov 2026 23:41:06 +0900
+Message-ID: <20261109144113.36600-1-yanhaishuang@cmss.chinamobile.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179419003251.994134.13120616805502524032@kernel.org>
-References: <20261108100617.23840-2-yanhaishuang@cmss.chinamobile.com> <179419003251.994134.13120616805502524032@kernel.org>
+In-Reply-To: <179419003377.994134.4899199888022081447@kernel.org>
+References: <20261108100617.23840-3-yanhaishuang@cmss.chinamobile.com> <179419003377.994134.4899199888022081447@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,25 +82,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 02:07:12AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Can alloc_skb_with_frags() still run out of frags when a high-order
-> allocation fails? The fallback just below this hunk has not changed:
+On Mon, Nov 09, 2026 at 02:07:13AM +0000, netdev-bot+sashiko@kernel.org wrote:
+> Would it help to reference that commit by its subject (or sha once it
+> is merged)?
+
+Yes, v2 names it by its subject.
+
+> Can this assertion fail on a system with fragmented memory, even with
+> the fix applied?
 [...]
-> Would it work to treat the frag budget as a hard limit on every order
-> reduction? For example, lower the order only when this still covers
-> data_len:
->
-> 	(MAX_SKB_FRAGS - nr_frags) * (PAGE_SIZE << (order - 1))
+> Would it be more reliable to call kunit_skip() when the order-3
+> allocations cannot be satisfied?
 
-Yes, this is a real problem, and it comes from the same commit: before
-09c2c90705bb the limit was MAX_SKB_FRAGS pages, so lowering the order
-could never run out of frags.
-
-v2 will only lower the order while the frags left can still hold the
-rest. If they can't, it tries the same order once more with the
-caller's direct reclaim (with __GFP_NORETRY), and fails only if that
-fails too.
-
-pw-bot: cr
+Yes. In v2 the test skips instead of failing when the allocation fails
+and an order-3 page can't be allocated either.
 
 
