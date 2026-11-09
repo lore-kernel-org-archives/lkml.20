@@ -1,52 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794237600;
-	b=2trozRvF0Gww6b+kdJAi8l9hwjqlmHGW/A3WuM2IvslHtd8C5txHqyESowp6KNGPdk83
-	 0BUhuhZizuFtTzaQkZfiyLIBa9XZ+GEqTRJ8Dn+h0KiSpIA+LVwcEpQt0dDIinA1fGOrH
-	 sZzpV3x+hW+Plw9TRva+z6tNpNva5D6erDWjNzdwpOD/dE0d4yJPNhMiwQjuFrPB0Ff03
-	 9UPz0aTu23IIirNgWkHfGgXT9Hx4uuILLRZtztLUP0Iz0fC4bHQHfirdbgO6wPzNtbVwp
-	 CjkjcAa+oJT8LXWObdnV5ud+p2n3YislsQj0h6v7xpEAdS6YtSOvOHapm7h9st+6Ykg==
+	t=1794237624;
+	b=TgfGZrOwFF5nv4N6CzHFroQ/n4YtXVXI5ymkgdfSgacOs0V+9KAghsS93/mtrl/AcYmA
+	 wt5eSrg3H1IJuHwU+4NWiuzJeYZUcmc+VT6rJkrmDSEj0aoNtP1Wwu8TNfiHJuSNsJlqf
+	 Fn3buIYejriE1awHALppbu3l6nJtvQkalZcUzxJXbsoZElNqID58RprTWeCuZy14pyY8m
+	 cQpXwoQC/jx7Mnh71jVsFQoBUPtvP6LPDB+7t6R9bRyZvy3pokyj+9+18EF7q5+DeHmhS
+	 nMqDDwaUm+S9f9wOBdC5894CQEWjQ/EfSd4bZjR9diX4RO78xteVm8S9YAlpRKxbk3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237600;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=qvqUJi1pItpI83LRxCu4hVk1nrPP0WYemL0+nUGEoTg=;
-	b=Kh8HXEwwCTgq0gKX01Yyc8UWRvwQ6oIr++L3DBlkMi1xQfgsaY3Qnkevzg94HA6lt0S3
-	 zszHOEkeioDfoDAG/iacvweKhZ8G2sw5wTyhI8k5BH13kQKCKUV9Lr5vMJSmeRsXwvlWR
-	 U1qrBfgAteotiO33GAlJBN1FqCApC+QxQYi9SDwcbuFp8KqPAiayt1OsHOU4fdaXutTVI
-	 qjJ7nnzzhpa4W9TIgKmScgiJaCN3SNF8HxAuBjysxsiZjaNPk+F4HCLCPvkILFX/ix2My
-	 VEWQ6fHfje/fbJgfkUdFnLRkEn7jV93rxHghz9k5RofwqCTu8xFm0tK/S6YYjZBQ2BA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237624;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
+	 Content-Type:Date:Message-Id:From:To:Cc:Subject:X-Mailer:References:
+	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=vsIPcLDMIXTyEwRreAWLcBzGkN1NpY74ZgulLKfOydY=;
+	b=TjM/WgvovM6/Tg0s2Pf1ttQDF6zaVOyFMZQRLHACwNy9cs0r45WJLudxc5KfDVbMBYXT
+	 DnBjomo8JlUMciZL4zZVABJx/Jnd0GMMQzN5u3Xmd1S7HXNhgsjNZPS+Rb9yMAULfZOat
+	 cOrCLXpR0a2K+sO8N38frI7MnJNBhRYw45sJRDEOpxYvz7mOn+lWjj808lkNrG+wjKCGb
+	 VxK9RVE8rcik44KbMr3iZEQWblHNiouJBSrzWqOi2X4IqMxWWG1rDG03Xv61WdWcGMCh4
+	 ocrEdgU/OCRi7eHLkl5mZZSkTjqBZoyKkrdnTEGys8zx4zBuPIy1MfH9q921skEjjCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMGinqmy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=BuctK3Du;
+	arc=none smtp.remote-ip=54.207.19.206
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE0E606A333;
-	Mon,  9 Nov 2026 15:20:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB361606A330;
+	Mon,  9 Nov 2026 15:20:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB361606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMGinqmy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E13541F0089F;
-	Mon,  9 Nov 2026 15:19:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794237600;
-	bh=qvqUJi1pItpI83LRxCu4hVk1nrPP0WYemL0+nUGEoTg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BMGinqmyNNhf2sLE4SZGpI3cb8Pr6q1qNFUmrSxSLaa/W7Bn8+uhWD3vp1CgKS05a
-	 N/tO+aJjrGdjlFZHN4HH5hsQEdLWlSH5PqsLPb5rS2cVqTt/EH/aEVkCv6GTZiw+c+
-	 xcG6vOpE2SJCWRrzOrXb+OcwmlZt4joJFu0O+lHgpXFB4REAZvYDFkd4zdj6XPr0V9
-	 q0QSE3vj+xpm0g2SQheGI49I/yMxz0DbegiNL5t0XpphXYnhAnWrlsqTwm1FRkEE3m
-	 wsLTKmmIuyZqYHfE6sTBEtdHAG3Sm3JW0ev6wvm3PKVIskGelF9ylPpMwIpxhuRtLe
-	 X7tCPHUeCveTg==
-Date: Mon, 9 Nov 2026 16:19:56 +0100
-From: Niklas Cassel <cassel@kernel.org>
-To: shao.mingyin@zte.com.cn
-Cc: dlemoal@kernel.org, linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ata: ahci_dwc: reject invalid device tree port numbers
-Message-ID: <avHknBRJnZPpAIke@ryzen>
-References: <20261104221318841yKO89PGcSNeaV4KutBOUJ@zte.com.cn>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=BuctK3Du
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794237582;
+	bh=vsIPcLDMIXTyEwRreAWLcBzGkN1NpY74ZgulLKfOydY=;
+	h=Mime-Version:Date:Message-Id:From:To:Subject;
+	b=BuctK3DuIvKekUC2uSyt5xjib4q/GmO0uwTGUHxT/c6/EcpvDNSkWVJmdhWrxz+Jr
+	 c2C0sd5txupCJKleL/ut0ezyjGKHjkKfePU0zqqIWqz6s18BIHB7C9BZX3oci8e6fM
+	 iLPEdzqmyFscqSXqupQv8I9A2uwz5P7zi/IuJ8pI=
+X-QQ-mid: esmtpsz17t1794237576tb0683395
+X-QQ-Originating-IP: Zc/gz7/geC3Mn7EbL4LCmN3uWkfa4QiL7HNG6KBXuGI=
+Received: from = ( [58.254.68.27])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 09 Nov 2026 23:19:34 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 7132004335593761603
+EX-QQ-RecipientCnt: 17
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,74 +58,114 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104221318841yKO89PGcSNeaV4KutBOUJ@zte.com.cn>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=54f102bc4fad2f6519c1e85625df03a1f0d11fed53a9ec5e8b7d6b0e8a4d;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Mon, 09 Nov 2026 15:19:33 +0000
+Message-Id: <DMQS4Y2FACDA.3T8ZB1OUW5HCP@linux.spacemit.com>
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Yao Zi" <me@ziyao.cc>, "Jiayu Du" <duge1256@gmail.com>,
+ <srini@kernel.org>
+Cc: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <dlan@kernel.org>, <troy.mitchell@linux.spacemit.com>, <pjw@kernel.org>,
+ <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+ <p.zabel@pengutronix.de>, <devicetree@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 2/3] nvmem: Add read-only SpacemiT K3 eFuse support
+X-Mailer: aerc 0.21.0-reader-ipc4
+References: <20261106060525.346873-1-duge1256@gmail.com>
+ <20261106060525.346873-3-duge1256@gmail.com> <au6niF5xiqj7cqJ4@pie>
+In-Reply-To: <au6niF5xiqj7cqJ4@pie>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: MvGpJ04VJ1WqcVvjUaJwKh/8a0Sruq22nabdpa4Ch2nhBmsG9191jPHo
+	URs0twg4d4WTWV/hAUKx9RFx9IDZgvvDiyJoCkNXL30Cn/uCbaosYm4sjwM6QNVy+bXTw8v
+	+E2VLca19foQMm97iharwmVSvvAw0HnFehzME/kaM/5wqbb6ffguHuGhGHOWhhs++BBzWtJ
+	WuqTI65StKnZPO/oOlDPpyDnKWeYdS1/4EPovO1zWfSf6QMU98cc3HXjYkE7d1fdxHBjO4C
+	dcEvpScNleFMNOGDr8hEg2DxlmK8SLpece0AgBPfuq/QZRfcOmUR411GD/HFY2Avc/3oMZC
+	/9F0vmA8McswPQkFXeef3UhW7kY5ZFenfuiD97DEczp77/JM2OLoGtuD9HkBvXEqu3La5wE
+	d2qwIoWroWxuE4LMw84fB5aLz1+3Tct+Ex8qc+ZnR1z619/hhl4lIp07x1RHpxY+zAFaHW1
+	Ns7ekr9Hrjx3ZXc/jtPhIrkwvBS0IxM89xnfBhwPlgwEGsn3od1A9ApN0mQLOg/sgrPUsCi
+	gk32gxbQ8ctEk1iwkvi506Pl9cRkYn6J8NZotdNY435mTy5589KxyLviWfazFVGDW2vJN6t
+	ggm7DGpfu5J4n5Yl1Q+fccsma1v+wYYewiTCGNuyLHKKExLpgLYHwwc6hg5kIBSvY33YNxw
+	fm94p5zWDXzEBGQVOR488juE9gHqG/zGcLIbpQRKdz2T+lgPAglj1c/LGW508B/HTwvtr5S
+	dnp6xeED+iqjHWtba8ojixV2aaqkNb4j+IpZiKPCmfFuKj7Cm+P/h/oo8aTrV1nj/r0LWuW
+	gRpi0UW+Fx0FQ3UZRmsw0ylR2xgmNhT8Ztd7mKBV8TiXqabjanUszw2pQfGOe+d/58JMU55
+	taBY/eHOHfiRi805etPbKTjAAe2iJZlWEu7KDGG1mO37AXwErPZQDJLb1bwpIklbzlj2oXu
+	Xl6+TxzRbVPMusX3hOaEBQvp9wSIsgOPhOzrGGopUMAiFth7hx8gcKwHwDUI8i5NCJ79V7U
+	NMurUIMEvgKtbg99uX4r3AK0vMH77AtX3FQt4tzZ9Maijh4uaS7D6vAWZzTRHy5nLZsLFNF
+	/vS+MzqDtfgEqnsnUM3ut7RrpjlrNZhjw==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-On Wed, Nov 04, 2026 at 10:13:18PM +0800, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> ahci_dwc_init_dmacr() reads the "reg" property of every available child
-> node and uses it directly as a port number, both to compute the port
-> MMIO base and as an index into dpriv->dmacr[], which has AHCI_MAX_PORTS
-> entries.  ahci_platform_get_resources(), which runs earlier, checks the
-> same property against hpriv->nports and skips invalid child nodes, but
-> this second walk does not.
-> 
-> A device tree that describes one valid port and one port with a "reg"
-> value above AHCI_MAX_PORTS therefore makes the driver write past
-> dpriv->dmacr[] and access MMIO beyond the mapped region.  Apply the same
-> check as the resource loop and skip invalid child nodes with a warning.
-> 
-> Fixes: 33629d35090f ("ata: ahci: Add DWC AHCI SATA controller support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> ---
-> Tested on 7.3.0-next-20261030 (QEMU/TCG arm64 guest, KASAN) with a
-> TEST-ONLY device tree.  The DT adds a snps,dwc-ahci node with port@0
-> and port@100; the TEST-ONLY printk hook in ahci_dwc_init_dmacr() is
-> applied to both kernels.  mem=512M keeps the fake MMIO window outside
-> System RAM.
-> 
->   unpatched                            patched
->   KASAN: slab-out-of-bounds            no KASAN report
->   in ahci_dwc_probe                    port 100 skipped, boot
-> 
-> diff --git a/drivers/ata/ahci_dwc.c b/drivers/ata/ahci_dwc.c
-> index feb8a8539b8e..9094eb19e19f 100644
-> --- a/drivers/ata/ahci_dwc.c
-> +++ b/drivers/ata/ahci_dwc.c
-> @@ -225,6 +225,12 @@ static int ahci_dwc_init_dmacr(struct ahci_host_priv *hpriv)
->  		if (of_property_read_u32(child, "reg", &port))
->  			return -EINVAL;
->  
-> +		if (port >= hpriv->nports) {
-> +			dev_warn(&dpriv->pdev->dev,
-> +				 "invalid port number %u\n", port);
-> +			continue;
-> +		}
+--54f102bc4fad2f6519c1e85625df03a1f0d11fed53a9ec5e8b7d6b0e8a4d
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Again, this warning is reduntant, as it is already printed by
-ahci_platform_get_resources().
+On Sat Nov 7, 2026 at 4:22 AM GMT, Yao Zi wrote:
+> On Fri, Nov 06, 2026 at 02:05:24PM +0800, Jiayu Du wrote:
+>> Add read-only NVMEM access to bank 0 and bank 7 of the SpacemiT K3 eFuse
+>> controller. These banks contain temperature calibration parameters and
+>> other configuration data.
+>>=20
+>> Snapshot the shadow registers with aligned 32-bit reads and expose the
+>> data in little-endian order at controller-relative offsets. Serve reads
+>> from the snapshot and use keepouts for the remaining register ranges.
+>> Keep the AES_WTM clock enabled and its shared reset deasserted while the
+>> provider is registered.
+>>=20
+>> Signed-off-by: Jiayu Du <duge1256@gmail.com>
+>> ---
+>>  MAINTAINERS                       |   1 +
+>>  drivers/nvmem/Kconfig             |  14 +++
+>>  drivers/nvmem/Makefile            |   1 +
+>>  drivers/nvmem/spacemit-k3-efuse.c | 151 ++++++++++++++++++++++++++++++
+>>  4 files changed, 167 insertions(+)
+>>  create mode 100644 drivers/nvmem/spacemit-k3-efuse.c
+>
+> ...
+>
+>> diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+>> index d2f5bb236663..28d6c59fbd74 100644
+>> --- a/drivers/nvmem/Kconfig
+>> +++ b/drivers/nvmem/Kconfig
+>> @@ -476,6 +476,20 @@ config NVMEM_SNVS_LPGPR
+>>  	  This driver can also be built as a module. If so, the module
+>>  	  will be called nvmem-snvs-lpgpr.
+>> =20
+>> +config NVMEM_SPACEMIT_K3_EFUSE
+>> +	tristate "SpacemiT K3 eFuse support"
+>> +	depends on ARCH_SPACEMIT || COMPILE_TEST
+>> +	depends on OF && HAS_IOMEM
+>> +	depends on COMMON_CLK && RESET_CONTROLLER
+>> +	help
+>> +	  Say Y here to read configuration and calibration data from the
+>> +	  SpacemiT K3 eFuse shadow banks. The boot firmware must have loaded
+>> +	  the shadow registers before Linux starts. Programming and reloading
+>> +	  the fuses are not supported.
+>
+> I didn't read K3's TRM, but is there a reason to depend on the
+> bootloader to do so? We should depend on the state set up by bootloaders
+> as less as possible, I think.
+The GEU hardware loads the shadow after reset. So YES, we don't need to
+rely on bootloader.
 
-Perhaps:
---- a/drivers/ata/ahci_dwc.c
-+++ b/drivers/ata/ahci_dwc.c
-@@ -225,6 +225,10 @@ static int ahci_dwc_init_dmacr(struct ahci_host_priv *hpriv)
-             if (of_property_read_u32(child, "reg", &port))
-                     return -EINVAL;
-
-+            /* Already reported by ahci_platform_get_resources() */
-+            if (port >= hpriv->nports)
-+                    continue;
-+
-             port_mmio = __ahci_port_base(hpriv, port);
+--=20
+Troy Mitchell
 
 
-And please send this as a patch 2/2 with the libahci_platform patch as a
-patch 1/2.
+--54f102bc4fad2f6519c1e85625df03a1f0d11fed53a9ec5e8b7d6b0e8a4d
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-Kind regards,
-Niklas
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavHkhSEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC9AggD+Mnv5Zg61NgXz
+ZDjIUJwrW/PSgOH3CWNzSHDOpq+DrYUBAOfObntacDDKXGuGn1wmRp6Qp8QY8cAv
+pn30xGwgyhMG
+=ZrI5
+-----END PGP SIGNATURE-----
+
+--54f102bc4fad2f6519c1e85625df03a1f0d11fed53a9ec5e8b7d6b0e8a4d--
