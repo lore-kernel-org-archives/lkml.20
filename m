@@ -1,97 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794254302;
-	b=jgpApzpQIKoEfKeE757GBbs41nh1PkLIvFTa8L0sbA1p2tvWUBMdu4VJmQm+FBnaAh9x
-	 BHZTHZxJATlL/9DgaNMqlX62u9lw5Wc1caOJg7RA1QlChgXAbkvcSH+qaAPzjG2fop2eW
-	 ZOb/5tPTJMq9DRh/cAbjKqag1k+WJlIeBLY7gPlXFw9D0g+MMkqW6CHLchLACFdkvIxxh
-	 zfvVz4c4/hJ+clsee/5SDZJqutJ78+juHEmJnIFK88G0zfwgWSae2pBmMfyvCYKX6c4r/
-	 QEmvnpIgSxs/3/lJh758ygM6iy3/XCOidkjGx6/Qmyfvp9AV72BQTJ/ys6Upw2nJWMQ==
+	t=1794254299;
+	b=t1qDPpGiEJ8IcASOpYnDtQp8wN6nZ2+yKKSw1eKxw6yZMa9c4GK/abQO/tHyqT9GH08t
+	 txK0kx8S/bHHoagcQQYPQVcF9sP/uBC0Sb3wECwglxA1cyPzsfPocvUAaapr0+/ucARSj
+	 lVf9jUkB1uCHhOiXJax4Zyap3SVV36O4VwhY188mcQb2AxvsOXbtzN22UVUp4dZELn2H8
+	 bDxkgEOIcx6DqfPLq2+w9jY+KecJW+xq4lkjPYxtJIwpYgzsBJKgL18HU+JwlGnEkw9ym
+	 ITJIBxogTIW9RlOMKQMqGRTmApWPlCMi2BzIiT6GRDEHJVBJlCFfEB69IokMlZTsmAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254302;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LjlIdWOtAx4vgBSOIZMhE9Gxzn2GjEyrd7gwD+Ba4Y0=;
-	b=Fl58cxKJcwdW6iq2O3YH44LkWqM9c4dNS4/pNJu/x2Ml3yrENj11U931ghkzRafI2RPl
-	 pdoqZmjLGZS6e5Q7VTk4U7fOQW4N9sMB+n4DQ0XCFwFp5K1Yo/ttRAWHCTPmahIoJ7sxP
-	 x1o3XpsIq0wuCrtXbYR8Kc+OdBkihKD5uDY5BPeDmOVUH48p/vmYNN38SZUxN+6KGzQlQ
-	 um8XoczjM91hmVqJnAZ1x0J7YHbdfRkESlfFmTAtUSWl1vnLGoGAA8ScjQdZRUn1jhk31
-	 Vj9qUbvxKcZoGDCLa90whLY+T8NYR6umCnb3gwp3Bt7gtDEQ/eCcHu+J6IJuJAricBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254299;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=W4bMQNc+oDgrF+ZAnyEgoNSDSl071SjTbK2SmQPEkiA=;
+	b=Lv07LzlCByxdYCECoVQNcBVeSXSO/K8p+8ktKxJ+XlLKgZdc6kEs0JYGlZXEMMCcuWMI
+	 37grWS3tHml9CyvznQdPL62dIQ3kVCH9MC2dJ+VZs8VRev82DCcWnhAkahTYOFLEDQl8S
+	 DKLoKb14c2/a4N/vgaB0xrUuXE38MEFZtmd07oXR/jalCH9M643JCx8bIYAmpfQjFAeLY
+	 IEYTMi4GG3TK9MkNXyACKkrs3yT5LYih9WqAunXnFi+K2ZGV8DVkWqaipMsxSlWCYASjM
+	 WHbIaDJZAbxSWQad0AqeUzBqEcozRwN7AYhtvKXAmmVbiuyqemsAwA7Y4Ji8ZxCB3iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="R/1WuOAu";
-	arc=none smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FrQ00cIe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E262606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:58:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E262606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4BB606A321;
+	Mon,  9 Nov 2026 19:58:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R/1WuOAu
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cdba1b5ed8dso573538a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:58:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794254302; x=1794859102; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LjlIdWOtAx4vgBSOIZMhE9Gxzn2GjEyrd7gwD+Ba4Y0=;
-        b=R/1WuOAuCnN/JHW6ktRQlo8KATUbKPdmjv9knkQlezuppBKQ2QFjLENs6otezsL2xP
-         eTi11KqJIzewO8F4GEX9Pf6o4wLrfbGRV4H9OSeZy3ikk84qdvC4VMdEMg/MHDhDNLVv
-         yv4ssmwMsCkU4txSd9s/sNEluf8Pigwe2x3/j3/gXS/kK2AAnjAD+0PdFvTVfnpnzLh/
-         fBvyKMdHhUoSFRmcYglCQljvABVmnVeCkXj1NCgIQil7Gk/POjf49qomsOEd0fN8NByQ
-         wbFuKhXBaMycT4NEbjJxj+bT9JfZWmsfDPrZ9S7aOK25smaHJEJaVgMkSFajcl+3hg6B
-         jaCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794254302; x=1794859102;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LjlIdWOtAx4vgBSOIZMhE9Gxzn2GjEyrd7gwD+Ba4Y0=;
-        b=ETBMJbglcuKEeBOKktsIcEXugwEx5j3v0/L1zBpRlfdw4y1pZGEluEl6SK8oaLoEaP
-         qB4TQD3TOCBLIuA/O2eyVxwiWG2d2+bLvkN7MUe4uFrSxeAFbzo9arH8w53rMfAvVoov
-         Aex+2VglDfgNrbnDhouq0nnRtC91/ErwkrZlsxG/GB3rDgzJ1IfLZtQE/dZVSc5YIqjK
-         TZ3y7ZDMxX/rTbXSJNo+cfjkRkAHBKwUeN/fDNYQc554DNj+o0S+uITq6f19eCOc2qLX
-         HQG/KmaNEsn5Dew8msj8MxLFEfVC67PznI/bIgRRLU2cSO4h4vKoAbMMFfV1V4Hjwn2N
-         fpGw==
-X-Forwarded-Encrypted: i=1; AL+hErFexQ21maLDTBvM3v5v4+99Lis5qqsI6W3c2iH6GfdQ2kFRA5xXRHTMXTXQ/mTKMfOYk31S5HpfaFEEbz0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+P1SKazkujI0oYPFB7SqiDq58ihZqSJQH2wOI/hsvtHZRhovkb
-	gzLql5YhDQnJz6T3a6SQgBbhm2osbqTIlSlDSTmzeuaQKOIIf4hsLm8e
-X-Gm-Gg: AYBFou1WkAhLdMK7l1j6AW3dQ9UwduQ6K6YuMwxlJdfUTICjIhNU1bTjIWXn+PX9ojJ
-	1J05UARBRDhGiVHm5uWbIpDvMKIQp0iM3Yp16xaKHRKPaJGndNpRG13MkD3+0+XcS4isdzr1yB4
-	hINR/x2xd0iaMEIvKCgb766WGA2MMnK2hL0nxw6XqxkcTJbMpE1B3tX7wm6A6xEPm4OrKCqb7AY
-	VyQuC8yG7+yp0beOq9App4iqPVbBuv5qfjLOCSb7/6GmbjKAlQXHv/q7mL89LSInIUO5wxnZakz
-	iWxjve7KygQiYzl4cL5VyntHA7YdJEhCZr9H0fRpdO6+5sT6odXAuwpar2mPb8XN31LwftU+Vup
-	hNJnxG7R/2iq8/1q39+UJHkXsBdtHzn3MciHpXwEQtcoRJRS0Mj9JytcVSmb2zYiK4/sCtu9NDz
-	JwlqiRhjfJ0/2K9yyTGKiRwkfrTLSQ96bCOxS98m5FCYfoUqfO1OUtnXBHPw5hDLhr6gvHTFG06
-	nsdKKPifrjP3gb7jB2YCK62eX13Ao41ZV1xJNAyaET8b9v5CLHg8PcFLDbaCmILnlkf1aOV8qNz
-	W2EFpLpZp3eg7W8WchMJyLU3d88iPxIFE1tUCwQgWhLlQspV4rFbFH9toAAWYjRiovU/6hkHGUW
-	FTYLiAATQMojBKlwCZMI60MOEFtAPs9KoqPD//EQmfmoKnvo/lXulcro=
-X-Received: by 2002:a05:6a21:110:b0:3e2:4e6e:6ca3 with SMTP id adf61e73a8af0-3f18fb8127amr165601637.34.1794254301572;
-        Mon, 09 Nov 2026 11:58:21 -0800 (PST)
-Received: from localhost.localdomain (mx-ll-183.88.2-201.dynamic.3bb.co.th. [183.88.2.201])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa2a7fbesm61629b3a.11.2026.11.09.11.58.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 11:58:21 -0800 (PST)
-From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-To: linkinjeon@kernel.org,
-	stfrench@microsoft.com
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FrQ00cIe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EAEA1F0089F;
+	Mon,  9 Nov 2026 19:58:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794254298;
+	bh=W4bMQNc+oDgrF+ZAnyEgoNSDSl071SjTbK2SmQPEkiA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FrQ00cIe2+88b33y7Ds2Z+J7tYdug1uBLhbPwcJZlzj0Ki4B1cikgZXP8PF07i+VG
+	 4uZcGkOg8cJeMbqQDOWjN3+SrtKqZF9PvMuI8QYsqK7XcVKQAVj8PKhhO4I1u+f/j0
+	 nRIY1Cho+igX+mFkOpuuorJhDBmPsLxJdJFIw9tEI96KzzD3A/DPGjDnxGrXoO+MND
+	 JOFz9iKG6DDX6MooAsjmfhvVOqhl4/dpbOx7kn0f+F6H2/qiapAPEXNoYkeBX1u2ui
+	 PO4a9TqlV/mVWXwYuFQGEw012gnuBPdCEaDj0zGERxKNKsIjEtPefeukgR3oCRo/aw
+	 Lge6dgf8Bpd2Q==
+From: Jiri Olsa <jolsa@kernel.org>
+To: Masami Hiramatsu <mhiramat@kernel.org>,
+	Naveen N Rao <naveen@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jason Baron <jbaron@akamai.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Alan Maguire <almagui@kernel.org>,
+	x86@kernel.org,
+	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: refuse reauthentication of an expired session as another user
-Date: Tue, 10 Nov 2026 02:58:13 +0700
-Message-ID: <20261109195813.24238-1-mike.michalo@gmail.com>
+	bpf@vger.kernel.org
+Subject: [PATCH 12/13] x86/kprobes: Use kprobe address iterator in in copy_optimized_instructions
+Date: Mon,  9 Nov 2026 20:58:13 +0100
+Message-ID: <20261109195813.1091366-1-jolsa@kernel.org>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109194916.1089703-1-jolsa@kernel.org>
+References: <20261109194916.1089703-1-jolsa@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,55 +73,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a Kerberos session expires, its owner can reauthenticate it. For an
-NTLM reauthentication, ntlm_authenticate() only compares the new user with
-sess->user when the session is still valid. An expired session is in
-SMB2_SESSION_IN_PROGRESS during the reauthentication, so it takes the
-other branch and simply sets sess->user to the new user:
+copy_optimized_instructions() copies whole instructions until it covers
+the five-byte jump. Pass the iterator's kprobe to instruction recovery
+at each instruction start, avoiding a separate lookup. Other
+__copy_instruction() callers retain the lookup behavior by passing NULL.
 
-- the session's open files, tree connects and other state, created under
-  the original user's identity, now belong to whichever user just
-  authenticated, and a later Kerberos reauthentication is compared
-  against that user rather than the original one;
-- the original struct ksmbd_user is overwritten without being freed.
-
-krb5_authenticate() already refuses a different user in this case, and
-the valid-session branch of ntlm_authenticate() does too. Do the same for
-an expired session: compare with the existing user and refuse a different
-one with -EKEYREJECTED, freeing the newly looked-up user either way.
-
-An AI assistant was used to find and fix this and as an independent
-reviewer.
-
-Fixes: a47634cd729b ("ksmbd: expire SMB sessions when Kerberos tickets expire")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+Signed-off-by: Jiri Olsa <jolsa@kernel.org>
 ---
- fs/smb/server/smb2pdu.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ arch/x86/kernel/kprobes/common.h | 3 ++-
+ arch/x86/kernel/kprobes/core.c   | 6 +++---
+ arch/x86/kernel/kprobes/opt.c    | 9 +++++++--
+ 3 files changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index b084cca8813cc..234439c1526f9 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -2365,6 +2365,17 @@ static int ntlm_authenticate(struct ksmbd_work *work,
- 			return -EKEYREJECTED;
- 		}
- 		ksmbd_free_user(user);
-+	} else if (sess->user) {
-+		/*
-+		 * Reauthentication of an expired session: as for a valid
-+		 * session, and as krb5_authenticate() does, it must be by the
-+		 * same user. Replacing sess->user would also leak the old one.
-+		 */
-+		if (!ksmbd_compare_user(sess->user, user)) {
-+			ksmbd_free_user(user);
-+			return -EKEYREJECTED;
-+		}
-+		ksmbd_free_user(user);
- 	} else {
- 		sess->user = user;
+diff --git a/arch/x86/kernel/kprobes/common.h b/arch/x86/kernel/kprobes/common.h
+index 062746e20c35..c04d01fe075a 100644
+--- a/arch/x86/kernel/kprobes/common.h
++++ b/arch/x86/kernel/kprobes/common.h
+@@ -86,7 +86,8 @@ extern unsigned long recover_probed_instruction(kprobe_opcode_t *buf,
+  * Copy an instruction and adjust the displacement if the instruction
+  * uses the %rip-relative addressing mode.
+  */
+-extern int __copy_instruction(u8 *dest, u8 *src, u8 *real, struct insn *insn);
++extern int __copy_instruction(u8 *dest, u8 *src, u8 *real, struct insn *insn,
++			      struct kprobe **kp);
+ 
+ /* Generate a relative-jump/call instruction */
+ extern void synthesize_reljump(void *dest, void *from, void *to);
+diff --git a/arch/x86/kernel/kprobes/core.c b/arch/x86/kernel/kprobes/core.c
+index 4d63826f6c04..ae6611fdb19a 100644
+--- a/arch/x86/kernel/kprobes/core.c
++++ b/arch/x86/kernel/kprobes/core.c
+@@ -395,10 +395,10 @@ kprobe_opcode_t *arch_adjust_kprobe_addr(unsigned long addr, unsigned long offse
+  * instruction, displacement must be adjust by @real, not @dest.
+  * This returns the length of copied instruction, or 0 if it has an error.
+  */
+-int __copy_instruction(u8 *dest, u8 *src, u8 *real, struct insn *insn)
++int __copy_instruction(u8 *dest, u8 *src, u8 *real, struct insn *insn, struct kprobe **kp)
+ {
+ 	kprobe_opcode_t buf[MAX_INSN_SIZE];
+-	unsigned long recovered_insn = recover_probed_instruction(buf, (unsigned long)src, NULL);
++	unsigned long recovered_insn = recover_probed_instruction(buf, (unsigned long)src, kp);
+ 	int ret;
+ 
+ 	if (!recovered_insn || !insn)
+@@ -735,7 +735,7 @@ static int arch_copy_kprobe(struct kprobe *p)
+ 	int ret, len;
+ 
+ 	/* Copy an instruction with recovering if other optprobe modifies it.*/
+-	len = __copy_instruction(buf, p->addr, p->ainsn.insn, &insn);
++	len = __copy_instruction(buf, p->addr, p->ainsn.insn, &insn, NULL);
+ 	if (!len)
+ 		return -EINVAL;
+ 
+diff --git a/arch/x86/kernel/kprobes/opt.c b/arch/x86/kernel/kprobes/opt.c
+index 9f0af24155ba..058b32564ea0 100644
+--- a/arch/x86/kernel/kprobes/opt.c
++++ b/arch/x86/kernel/kprobes/opt.c
+@@ -201,14 +201,19 @@ NOKPROBE_SYMBOL(optimized_callback);
+ 
+ static int copy_optimized_instructions(u8 *dest, u8 *src, u8 *real)
+ {
++	struct kprobe_iter iter;
++	unsigned long addr;
++	struct kprobe *kp;
+ 	struct insn insn;
+ 	int len = 0, ret;
+ 
+-	while (len < JMP32_INSN_SIZE) {
+-		ret = __copy_instruction(dest + len, src + len, real + len, &insn);
++	addr = (unsigned long)src;
++	for_each_addr_kprobe(iter, kp, addr, (unsigned long)src + JMP32_INSN_SIZE - 1) {
++		ret = __copy_instruction(dest + len, src + len, real + len, &insn, &kp);
+ 		if (!ret || !can_boost(&insn, src + len))
+ 			return -EINVAL;
+ 		len += ret;
++		addr += ret;
  	}
+ 	/* Check whether the address range is reserved */
+ 	if (ftrace_text_reserved(src, src + len - 1) ||
 -- 
 2.43.0
 
