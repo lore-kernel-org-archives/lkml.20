@@ -1,58 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228541;
-	b=jTBC11pGulZmGBXALwOoDW0zSgIUih22pi/N3Cvx7EaajQiFYwvCOQ9eQVr5tfIGPg5x
-	 4ZI6A47k9l9ARzg36DnR0MnyzG561DwCiPJl7D08ND5yrA4X2xUAAIMnUWYbdJaSUdIHX
-	 yLXosp4dzcKtN4LdPHINfRqS7/gNrvoUJCaQcXOgqz1xuusdn3NLjjVfYdSSh4eVUvoC/
-	 mhXoSOG74igr0alwhXf7gTQyFK2O2Asg8+7/XPVXT/Ito5A3xDCdIHbBXD0kSic/hiEph
-	 KLoQULA/xnZUxqGyWuMf7Nl5Xpl7yZpIdq66Zzb1QeeVlRE/1zTXYo/9SCJBh8wMY3w==
+	t=1794228549;
+	b=MYd9lLD+B/JCjcaddJ/xKTBdQNiD0AzmCImxfd4uXCt/Sxh07fx9pGG97faCtSKWaE78
+	 WalD4ZAPeHzPcGbuw5E1D5lfEvczm8peoWuDmwTSbAT+1HvweFXNKEQ9v/xn7O25+OM12
+	 wIGutZXhY+0W2cSTmrkyyCXgn1cVJp0Nck+mvaTfDSbLTbf0G+gqV6sUGNPJYVlUjwl5n
+	 Dm6IzMnJVGijZCbVRVl5Ygn9EPH21Gkxse8Ejuv01zjTOui3WRsQmx8GZ2ofCvu/yHsna
+	 jmpsFNSIWbUrxECuJiw0pQ0M1Z7YcbioZ3l4pMOd8qb5fY5yhVhX4DRRb16qsVtPqLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228541;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=+5Sr3eRHpL/Vy+lNmmnXbTcTwXcKI3UmLCqjvPu63ZI=;
-	b=Ncp4Hhv9inw1XIJ63m7o4P5kVmE4DeqhS9ht0mh8ybpB+5TYLlXkwxi9iQZI1MRH5vqC
-	 cD/092SQI0ZdMS66PfCv9NzsF+Sk6a7Pf7C36oBq+8fadY0Lx7LpGLQmEYai2gCnntI2x
-	 p6r/E1dPj8m2RImrPtmfJSV0KexirUobWfGq/fCfuyqbTXDOqIv870G84EFzEUU5Mee/m
-	 BOHf8IDCy+lN52vVBgAPvB2HHHdQFJNsGfE/HfwxMxLUpN7UQ73F/L1fUz1ms6yZLz8lc
-	 T0jU4W1inUEPdSelLgPmEopiY5Qlvx5BrJLBZljHm3/SlZTmzYF3j3wXK3o1HLx4NMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228549;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding;
+	bh=ZdimBs8pWmGoYVh9QjerFiJiZ83uugLgkFoIX7xZ5r8=;
+	b=aHNmdsGAuGFT8Gdko/kSY+LVsAIaksDA3/ZqOUwZXKfIwJsP3QQGlmZR8NQhUVzZJ65G
+	 zIsIiudVMBVo7Xk2ex4nOxhNy1N89md3c5qsDEVkqueObF9AOsADizsrifJP4kiBOwhxI
+	 ztEdkzOn2Ai5j8209tikDGSSof2F6TRVnH9Gzol4yF2hEIzWF5Nr3FiBUXhiJjrbcGpbG
+	 4L72dsyzhHyTsJRjH5s2x8HBNLAubtqxWk+wGkOQHcPnv3CsQidPUrYoL7yIDvvHZXru2
+	 rw2ZNGNw9RfqKbMF8iovH9U6suvhZD1ZO53XrQOSF3TPzmvIgf2JTNxk3YXEw1CRoNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=P8zrwsDm;
-	arc=none smtp.remote-ip=113.46.200.223
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OVLADJfX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E73606D830;
-	Mon,  9 Nov 2026 12:48:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85E73606D830
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48B3606EEB0
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:49:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=P8zrwsDm
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=+5Sr3eRHpL/Vy+lNmmnXbTcTwXcKI3UmLCqjvPu63ZI=;
-	b=P8zrwsDmUg7aim6xK5jdMRfkcUfwudj89DPN1ZF0iJR5kH/si70DdPU5jxUL5/fttVBKB3h57
-	IBxsGzV3gY7NYklo+0ffRNovwcXdaFZcLwCeIF3z5tP1Dtbbp1cGgXb/TcRbnTglF4fXc4l0buU
-	uiJZQkj6rEtFEWPWh2FTK1c=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jNV2d4LwVzmV7p;
-	Mon,  9 Nov 2026 20:48:41 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 86DA34048B;
-	Mon,  9 Nov 2026 20:48:55 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 9 Nov
- 2026 20:48:54 +0800
-Message-ID: <cd85a946-44f4-4d17-a479-8eb51e39e1cb@huawei.com>
-Date: Mon, 9 Nov 2026 20:48:54 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OVLADJfX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F7FC1F0089F;
+	Mon,  9 Nov 2026 12:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794228548;
+	bh=ZdimBs8pWmGoYVh9QjerFiJiZ83uugLgkFoIX7xZ5r8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OVLADJfXfJiy7me06M1NdVCc5wkTZhsoC/3cnFwZliuJuhU8zEeye6RkfkGCX4zTA
+	 t/HKJfUj73dbw4yqZXkLoN1WjymjqEejaPO2i59pOkMyU6c0Vxd00U8GH3kwgze/+b
+	 FP7HcAP5OiOaK+9QrXPX88zSS7P2y+iLhJ3IKrBW2e8kAPb7KffqFXuRHTFWTVx5Bj
+	 Y3msTPJnd9T4awHfqCQDdgIIyiQ+CCM3oOB9E9vYwt4z/5Vh6lrk/3eNKa3La5D3oL
+	 Rs68Khslr06SetWn9GFa97Fc6svk8k1JwFR/AabSgSokEo8S+Imu39rUTXagBPnTjA
+	 gxOwrpX4x7t4Q==
+From: Thorsten Blum <blum@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Nicolas Schier <n.schier@fritz.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Jan Stancek <jstancek@redhat.com>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	"Pratyush Yadav (Google)" <pratyush@kernel.org>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Andreas Larsson <andreas@gaisler.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kevin Brodsky <kevin.brodsky@arm.com>,
+	Thorsten Blum <blum@kernel.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v4 2/4] x86/boot/compressed: Clean up EFI RSDP lookup in efi_get_rsdp_addr()
+Date: Mon,  9 Nov 2026 13:48:19 +0100
+Message-ID: <20261109124816.61438-8-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109124816.61438-6-blum@kernel.org>
+References: <20261109124816.61438-6-blum@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,148 +76,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] fs/resctrl: Disallow monitor group rename when the
- RMID changes
-To: Ben Horgan <ben.horgan@arm.com>, <tony.luck@intel.com>,
-	<reinette.chatre@intel.com>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
-	<babu.moger@amd.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<rdunlap@infradead.org>, <zengheng4@huawei.com>, <gshan@redhat.com>,
-	<jic23@kernel.org>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>
-References: <20261105123524.2282090-1-ruanjinjie@huawei.com>
- <7a8d6a15-5a10-4035-b825-4436cba537ee@arm.com>
- <599b7b91-f6c8-4a8e-87a0-c023f3fd58ed@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <599b7b91-f6c8-4a8e-87a0-c023f3fd58ed@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3737; i=blum@kernel.org; h=from:subject; bh=C5klqjMwhxq1l5rbMdMwEibUzJp8gxFs108HUxL8Tmo=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkfD4p9YZk+YbrHItcTO9Z9LUzUljSOPPssX8j5N3Puf W22RM3QjlIWBjEuBlkxRZYHs37M8C2tqdxkErETZg4rE8gQBi5OAZhIbwXDX/kth+x5HrYYHVX+ mc3AspmzcRnnqoKp7+6XZMe2/PhUyc7w37fi0OG1l1QXcl+wX11nbWwiJ/7rInuE7LNlb7Mtnv3 OZgEA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+Mark __efi_get_rsdp_addr() as __maybe_unused and remove the unused ret
+variable. In efi_get_rsdp_addr(), remove the unused nr_tables variable
+and use the function return values directly in the conditions.
 
+Since efi_get_conf_table() already calls efi_get_system_table(), drop
+the redundant efi_get_system_table() call and keep a single error path.
 
-在 2026/11/9 19:03, Ben Horgan 写道:
-> Hi Jinjie,
-> 
-> On 09/11/2026 10:52, Ben Horgan wrote:
->> Hi Jinjie,
->>
->> On 05/11/2026 12:35, Jinjie Ruan wrote:
->>> From: Peter Newman <peternewman@google.com>
->>>
->>> A monitor group can be renamed into the mon_groups directory of another
->>> control group to move its tasks to that control group's allocation
->>> while keeping their monitoring data. Where the RMID is only meaningful
->>> together with the CLOSID, as on arm64 MPAM where the RMID is a PMG that
->>> extends the PARTID, this move does not work. The rename succeeds, but:
->>>
->>> - The group's monitoring data is reset. Its counters are identified by
->>>   the CLOSID and RMID together, so after the move the group reads the
->>>   counters of the new CLOSID instead of the ones its tasks used.
->>>
->>> - The tasks are not moved. mongrp_reparent() sets the new parent and
->>>   CLOSID of the group before rdt_move_group_tasks() looks for the tasks
->>>   to update, and the search then matches on the new CLOSID, which none
->>>   of the tasks carries yet. The tasks keep the old CLOSID and the old
->>>   control group's allocation, and the group does not count them.
->>>
->>> The move has never worked on these systems, so rejecting it does not
->>> take away behavior that an existing user can rely on.
->>>
->>> Reject the move with -EOPNOTSUPP when it changes the RMID index of the
->>> group, and document the restriction in resctrl.rst. Where the RMID does
->>> not depend on the CLOSID, such as on x86, the move keeps the same index
->>> and is still allowed.
->>>
->>> Fixes: 3e9b35823aab ("arm_mpam: resctrl: Add rmid index helpers")
->>> Signed-off-by: Peter Newman <peternewman@google.com>
->>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->>> Cc: <stable@vger.kernel.org> # 7.1.x
->>> Link: https://lore.kernel.org/lkml/20241205153845.394714-1-peternewman@google.com/
->>> Link: https://lore.kernel.org/lkml/20261031101052.1692230-1-ruanjinjie@huawei.com/
->>> ---
->>> v2:
->>> - Drop the Suggested-by tag.
->>> - Describe the systems by whether the RMID depends on the CLOSID rather
->>>   than by MPAM, in both the changelog and resctrl.rst.
->>> - Explain that moving a monitor group is already broken on these systems
->>>   because the tasks are not moved, so no existing user relies on it.
->>> - v1: https://lore.kernel.org/all/20261104101913.586595-1-ruanjinjie@huawei.com/
->>> ---
->>>  Documentation/filesystems/resctrl.rst |  7 ++++---
->>>  fs/resctrl/rdtgroup.c                 | 13 +++++++++++++
->>>  2 files changed, 17 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
->>> index b52795e03303..9ae34aace0ff 100644
->>> --- a/Documentation/filesystems/resctrl.rst
->>> +++ b/Documentation/filesystems/resctrl.rst
->>> @@ -552,9 +552,10 @@ will automatically remove all MON groups below it.
->>>  Moving MON group directories to a new parent CTRL_MON group is supported
->>>  for the purpose of changing the resource allocations of a MON group
->>>  without impacting its monitoring data or assigned tasks. This operation
->>> -is not allowed for MON groups which monitor CPUs. No other move
->>> -operation is currently allowed other than simply renaming a CTRL_MON or
->>> -MON group.
->>> +is not allowed for MON groups which monitor CPUs, and fails with
->>> +-EOPNOTSUPP on systems where the RMID depends on the CLOSID. No other
->>> +move operation is currently allowed other than simply renaming a
->>> +CTRL_MON or MON group.
->>
->> A user may not readily know whether RMID depends on CLOSID. To document
->> this properly we need something specific we can point the user too.
->> Perhaps this can be a file in the info directory specifying whether the
->> move is possible or not, info/moveable_mon_group, as we discussed in v1.
->> I suggest a precursor patch adding this file, followed by this patch
->> which can then refer to the file.
-> 
-> On the other hand, that does add an extra dependency for any backporting
-> of this fix.
+Make efi_get_system_table() static now that it has no callers outside of
+efi.c, and remove its declaration and stub from misc.h.
 
-Yes, this "info/moveable_mon_group"  needs to be integrated as a pre-patch.
+Reviewed-by: Jan Stancek <jstancek@redhat.com>
+Reviewed-by: Nicolas Schier <n.schier@fritz.com>
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ arch/x86/boot/compressed/acpi.c | 18 ++++--------------
+ arch/x86/boot/compressed/efi.c  |  2 +-
+ arch/x86/boot/compressed/misc.h |  6 ------
+ 3 files changed, 5 insertions(+), 21 deletions(-)
 
-> 
-> Thanks,
-> 
-> Ben
-> 
->>
->> Thanks,
->>
->> Ben
->>
->>>  
->>>  All groups contain the following files:
->>>  
->>> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
->>> index e6b64a5c9302..3c002b711024 100644
->>> --- a/fs/resctrl/rdtgroup.c
->>> +++ b/fs/resctrl/rdtgroup.c
->>> @@ -4398,6 +4398,19 @@ static int rdtgroup_rename(struct kernfs_node *kn,
->>>  		goto out;
->>>  	}
->>>  
->>> +	/*
->>> +	 * Moving the group changes the CLOSID. Where the RMID is only
->>> +	 * meaningful together with the CLOSID, the RMID index changes and the
->>> +	 * monitor state cannot follow the move.
->>> +	 */
->>> +	if (rdtgrp->mon.parent != new_prdtgrp && resctrl_arch_mon_capable() &&
->>> +	    resctrl_arch_rmid_idx_encode(rdtgrp->closid, rdtgrp->mon.rmid) !=
->>> +	    resctrl_arch_rmid_idx_encode(new_prdtgrp->closid, rdtgrp->mon.rmid)) {
->>> +		rdt_last_cmd_puts("Changing parent control group not supported\n");
->>> +		ret = -EOPNOTSUPP;
->>> +		goto out;
->>> +	}
->>> +
->>>  	/*
->>>  	 * If the MON group is monitoring CPUs, the CPUs must be assigned to the
->>>  	 * current parent CTRL_MON group and therefore cannot be assigned to
->>
-> 
-
--- 
-Best regards,
-Jinjie
-
+diff --git a/arch/x86/boot/compressed/acpi.c b/arch/x86/boot/compressed/acpi.c
+index aed27604c11f..5b2064b9c199 100644
+--- a/arch/x86/boot/compressed/acpi.c
++++ b/arch/x86/boot/compressed/acpi.c
+@@ -21,12 +21,11 @@
+  */
+ struct mem_vector immovable_mem[MAX_NUMNODES*2];
+ 
+-static acpi_physical_address
++static acpi_physical_address __maybe_unused
+ __efi_get_rsdp_addr(unsigned long cfg_tbl_pa, unsigned int cfg_tbl_len)
+ {
+ #ifdef CONFIG_EFI
+ 	unsigned long rsdp_addr;
+-	int ret;
+ 
+ 	/*
+ 	 * Search EFI system tables for RSDP. Preferred is ACPI_20_TABLE_GUID to
+@@ -53,21 +52,12 @@ static acpi_physical_address efi_get_rsdp_addr(void)
+ #ifdef CONFIG_EFI
+ 	unsigned long cfg_tbl_pa = 0;
+ 	unsigned int cfg_tbl_len;
+-	unsigned long systab_pa;
+-	unsigned int nr_tables;
+-	enum efi_type et;
+-	int ret;
+ 
+-	et = efi_get_type(boot_params_ptr);
+-	if (et == EFI_TYPE_NONE)
++	if (efi_get_type(boot_params_ptr) == EFI_TYPE_NONE)
+ 		return 0;
+ 
+-	systab_pa = efi_get_system_table(boot_params_ptr);
+-	if (!systab_pa)
+-		error("EFI support advertised, but unable to locate system table.");
+-
+-	ret = efi_get_conf_table(boot_params_ptr, &cfg_tbl_pa, &cfg_tbl_len);
+-	if (ret || !cfg_tbl_pa)
++	if (efi_get_conf_table(boot_params_ptr, &cfg_tbl_pa, &cfg_tbl_len) ||
++	    !cfg_tbl_pa)
+ 		error("EFI config table not found.");
+ 
+ 	return __efi_get_rsdp_addr(cfg_tbl_pa, cfg_tbl_len);
+diff --git a/arch/x86/boot/compressed/efi.c b/arch/x86/boot/compressed/efi.c
+index f2d08e756e66..93dbf4abb79e 100644
+--- a/arch/x86/boot/compressed/efi.c
++++ b/arch/x86/boot/compressed/efi.c
+@@ -57,7 +57,7 @@ enum efi_type efi_get_type(struct boot_params *bp)
+  *
+  * Return: EFI system table address on success. On error, return 0.
+  */
+-unsigned long efi_get_system_table(struct boot_params *bp)
++static unsigned long efi_get_system_table(struct boot_params *bp)
+ {
+ 	unsigned long sys_tbl_pa;
+ 	struct efi_info *ei;
+diff --git a/arch/x86/boot/compressed/misc.h b/arch/x86/boot/compressed/misc.h
+index 4f86c5903e03..8c9f3283c92e 100644
+--- a/arch/x86/boot/compressed/misc.h
++++ b/arch/x86/boot/compressed/misc.h
+@@ -212,7 +212,6 @@ enum efi_type {
+ #ifdef CONFIG_EFI
+ /* helpers for early EFI config table access */
+ enum efi_type efi_get_type(struct boot_params *bp);
+-unsigned long efi_get_system_table(struct boot_params *bp);
+ int efi_get_conf_table(struct boot_params *bp, unsigned long *cfg_tbl_pa,
+ 		       unsigned int *cfg_tbl_len);
+ unsigned long efi_find_vendor_table(struct boot_params *bp,
+@@ -225,11 +224,6 @@ static inline enum efi_type efi_get_type(struct boot_params *bp)
+ 	return EFI_TYPE_NONE;
+ }
+ 
+-static inline unsigned long efi_get_system_table(struct boot_params *bp)
+-{
+-	return 0;
+-}
+-
+ static inline int efi_get_conf_table(struct boot_params *bp,
+ 				     unsigned long *cfg_tbl_pa,
+ 				     unsigned int *cfg_tbl_len)
