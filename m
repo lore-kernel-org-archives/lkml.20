@@ -1,88 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794225544;
-	b=Zq8TgCXJF9PPApLkT7I0Ub0hYERxiOze0p8S33ug+WcSm9xUBuvHKLmRXZJnOTKIlujM
-	 gsQ9FBnMQf3a7Hdanknid8Xf/V1UOD98Jh7lQaM+Z9nTFtebD8pJxosYknra+DhGf/ufJ
-	 CWzbOmGvQXqXVCNCRghrYwaeA5GPDe6Niw4Z9MapCNndT4oLH02y3Yxx4tnxr/eNcv2KC
-	 mi4wDG1x0Xkv/3Ztd6+N/MhnJVXj/OF12ecLZFXvjE8ED1UrEY9f2LMwY9WRcC2TkT6ax
-	 UuWS81v3FtWagPk7cq5YdfW8fkH1s1eXkGMlgGvcu+V8c9WyT+XfGysk2JEGIKuykDQ==
+	t=1794225548;
+	b=DaHJEtapAIblSC2IIwfafR0Pkq26OKZ4KOQpZd9CHvAYEirkKiaW4arJ3mBnF5ctjdss
+	 CjVcYy+5lzRgMK6UdEdCrItlE1PbQI7GYPp+myIrDJkdTD+e8NUr7rUUQk8iKvrH/wl8v
+	 JRawDuV5SxvhfSAQMv3OwQUwG7T2h1ZT0ljIVyMUc2A91rG1Q+5mu7M5XAYlrksgFBo5X
+	 GqGXzC9+5psgpbZe8C5sBb5zIqDWZnOM8sKTvoBMprbzHq3ESq/+cCQ6OFmdosaZVq9kS
+	 G4Nimltld0tcHQic4Cky4/YjcqWJuwVpRy6iFyLfBQNcmoXlf9Iw/rI14GWt3+oXbGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225544;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=vZZFW3he6Y0yRjddi4hc6tYaRiQUxyF/kAa3QBDlw9I=;
-	b=LGWwZvNZYXAjAq24Xu7pfREUaqXUzzJugvS89/vt5U5JeYIXHAdpztqDIiUSeEmrUKIm
-	 J5I8+5AAnvFNDd354gylKGQBsp8YoABQO8g1YRoLER5GP4SVX5c8kHcWpReYntDhGT+v9
-	 W6hZlTph74DONv1WQzElZs6r6cPH7M5pqDQsM7QBW85WL8mdqs+HIJG0MIjyrcgJe5jYI
-	 Iez4cvUzzVwZmPGrENJPUVUnumYVD0XTOaDnty1OvXUrH8LJWiVgKfyvdCtB5mB79S85b
-	 qPah2yC7NrblR3x/m3ybVBxishaJUORNcFuQjTcblgqJDgO+IGEx93HVaqPhW2R1Uvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225548;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=CjOvZKlvZft8qBVkpgInrkwiduQn9vDLXCRBkO1lIrI=;
+	b=wsNnClv5AwGIfIlq2H5b2tZnKxN93Uxhm1IB1BErwINwvkQfd9ZngHh84Aec1VEN/hg/
+	 EV/hvbMxkOotiMiPRLKdBMTBDaetYmbKBR1mRSVx0Herw4kBkJ6zTX49AfiRHVxfZ1t66
+	 CzS//JZtbmdIdsOzJJzxc9Ux3ug8kWHJ6zrWlWIrja1Swrn/reUS5qAwvDygncy4OYhRF
+	 LArxZgqwy4cyEMnxUwd5RXZUYa63w8iW2DHAadpf7tF+nEm7MzZUywI6JHPyHVMKE+jPT
+	 5hGCPJR0ZEyg/I03otFjwAIC4uJSePgV9KgL3DGk+K/GZxdXtPLsqrgFuQrXWvWd7yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GdsL4bPK;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LqQKiMKn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F39606A331
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:59:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04F39606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6ABB606A31C;
+	Mon,  9 Nov 2026 11:59:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GdsL4bPK
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so11634695e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:59:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794225542; x=1794830342; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vZZFW3he6Y0yRjddi4hc6tYaRiQUxyF/kAa3QBDlw9I=;
-        b=GdsL4bPKUdd08M5DNVOGD9DHJE/yRBBxaeJ/brwPQBmqpKcY76ulrPxu41pndQsfJC
-         MmwE0vXX5BRev5d0uKj9e/Hktg3hZPBcNqGgpdb4VSp5CygpsMXhF7UbEdepcI8sC7wU
-         gJcXQn9F4g7xWB0U9PkFRwoI2NqirC5eAZB9ROfJtCW+94o6eKUhYH4tpKAj/Rf+3nxK
-         1+qezhD4Dvkx4oG+Kr0Cx9u8U8PRSeFDS9qnhCJrSzhpz9WbVBuN/+TVPjPMI5+opp5U
-         OVu5KXNieCXsi7k4Wz5/54TwAdUxEWVTb+xvE4kvdqdbiLPRtgqm2bvIORZQ43Tgx/dC
-         Tv9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794225542; x=1794830342;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vZZFW3he6Y0yRjddi4hc6tYaRiQUxyF/kAa3QBDlw9I=;
-        b=GqI2NQhsmwJgDmI0F+sUP+y5TCsSAf7A/bHjjYB7iSZiHdveaHopwFyely1ddxcWL8
-         6HsRa/8AOPlIi43n+JkFHTugunbvMruCteRWh6yeLJyDKB/sz0IDy5CaIGKtvk28jEtU
-         U0eqdROcq6Dk8ypKijSHrKVEDxJlcFkX45k7mHO+UKqmMg+WCoCX2HvJiCwjK5X383+X
-         QDQbvWsafR4tEaJdH2eDPAMw+Oz/KakLq6hSfJTUs2vA2ZypUxdbKaYzK3ehEplsRLUa
-         CM2kWDKB0+xdv9rf8Ivfklb9CePwoWhseriLnS8ZwmPnHZZkAEbWq4zwzcTvvkjnJ2de
-         mw4w==
-X-Gm-Message-State: APuU4Z9klDtXotRBLHNF//fPz67+8Mgl1cXYl7ZMpn21FZPvFvrjMKcd
-	CnADXJjEKeZTm64aU6TSWEEQNTLyNL0aiaYiLylRIb4AM/j+90Wc6c0g
-X-Gm-Gg: AYBFou0R8UllOiph+TwyqETmNq7IH4gXMMjpG7a1Wqezz0kksRtzfQoSqrvcQ29vAXB
-	mjXTLQZxEx5RURJkkeIHKkbAih1kCpCNvChRfe28Z5udWlHQYv9yzy7RmCG/7RLEZ3UgaY6KP1v
-	iYuXIgcng5ZDwJ11wyfyNzA1CKAYUbBL/NmyZQiZqhcRMLdwRLD/KwDgh5acAqp+ZOqqUFjwrAc
-	ZC8lymBkhboV07oOBnvWF4XISQ8gCYjM0EVukUNi1Yj9CAQInbbvEQL22Q38gyi4N/PvStK498x
-	/5os+5SEnLDB5Tz2EvtANYiQdbOEQoHQPGTRihwDXV/rakoDSnzh0PlnwODZUwWnGHqNIXHQyep
-	fl6RhFTc8eSyzb7nXlz5JHyjHrSzJKkxxmxd6QGuXXgm31ey5SWT4oZe7c4m0zDxVhhIaa693ji
-	TBsJJWCByfGB4cdu48m7Ml7Mdg4Qv3CRap037XxNx76OXoYtKQAFC2gtVINhpSRkuADQubWOQIB
-	U9ibtXBpyGR3+9UvGuS8AqRSWmJYgJ3JCECA+uHS/7rkth5OxVWxJ2sgC3dpoX21xn3ne/Yip+w
-	DiEkw8jGki3iSZ2wDQ==
-X-Received: by 2002:a05:600c:4eca:b0:4a2:5267:3cd4 with SMTP id 5b1f17b1804b1-4b94d762f4dmr67257705e9.3.1794225541502;
-        Mon, 09 Nov 2026 03:59:01 -0800 (PST)
-Received: from averion.play.pl ([2a02:a313:21ec:9380::e204])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-495e725c4ccsm6922419f8f.53.2026.11.09.03.59.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 03:59:01 -0800 (PST)
-From: Daniil Demakov <t3127430@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org,
-	Daniil Demakov <t3127430@gmail.com>
-Subject: [PATCH] staging: sm750fb: make g_fbmode array static const char * const
-Date: Mon,  9 Nov 2026 11:58:57 +0000
-Message-ID: <20261109115857.19492-1-t3127430@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LqQKiMKn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC7F1F008BE;
+	Mon,  9 Nov 2026 11:59:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794225547;
+	bh=CjOvZKlvZft8qBVkpgInrkwiduQn9vDLXCRBkO1lIrI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LqQKiMKnWUnThuvM6vcThPSJ4kddSJeQNoYgTNVLXct71OrwG1zaWznekW2i6hQUc
+	 Qiij5xuYWbfMio9OLPEeDczGJm/cIQf2pqUznQMjIYV0nE4u5+pI9A2W5myaYD/Jxo
+	 MFmFd5XDjv3NoN494RQG9p8eG1ikn8U0xl+MPbmzAIxMlh1ZeBaCPIxSydmJqhfMyi
+	 YR+QZ8MZ0j8OvsHF8V/K5LuPoNAx1ItX3PkYOxrj/r9O4wdBOr2GgN1fY1VmRanX95
+	 owCdLypLmIwjMfpk66ZrSgEbiOgSaoOWq71f8Mo3x6id3ofgn5Ra1+Hz0xFFnYQtcE
+	 iSEKagEMLNbSw==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 79B892D3F6C2; Mon, 09 Nov 2026 11:59:04 +0000 (GMT)
+Date: Mon, 9 Nov 2026 11:59:04 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Cyril Chao <Cyril.Chao@mediatek.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev,
+	Project_Global_Chrome_Upstream_Group@mediatek.com
+Subject: Re: [PATCH v1 0/1] ASoC: mediatek: mt8189: Use AVOUT for DP and HDMI
+ jacks
+Message-ID: <d92ec73b-9a75-4301-a0d3-b849c3184673@sirena.org.uk>
+References: <20261109032424.625004-1-Cyril.Chao@mediatek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,30 +69,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="l+9r/ggjKvtaRv5j"
+Content-Disposition: inline
+In-Reply-To: <20261109032424.625004-1-Cyril.Chao@mediatek.com>
+X-Cookie: Whoever dies with the most toys wins.
 
-Fix a checkpatch warning by adding the second const to the
 
-g_fbmode array. This ensures it is properly marked as read-only.
+--l+9r/ggjKvtaRv5j
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Daniil Demakov <t3127430@gmail.com>
----
- drivers/staging/sm750fb/sm750.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Mon, Nov 09, 2026 at 11:24:08AM +0800, Cyril Chao wrote:
+> This single-patch series declares the MT8189 DP and HDMI jacks as AV
+> outputs, matching the status reported by the HDMI codec and exposing
+> the video-output input switch when jack input devices are enabled.
 
-diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-index 21e310274330..47d2917cc1d6 100644
---- a/drivers/staging/sm750fb/sm750.c
-+++ b/drivers/staging/sm750fb/sm750.c
-@@ -12,7 +12,7 @@
- static int g_hwcursor = 1;
- static int g_noaccel __ro_after_init;
- static int g_nomtrr __ro_after_init;
--static const char *g_fbmode[] = {NULL, NULL};
-+static const char * const g_fbmode[] = {NULL, NULL};
- static const char * const g_def_fbmode = "1024x768-32@60";
- static char *g_settings;
- static int g_dualview __ro_after_init;
--- 
-2.56.0
+Please don't send cover letters for single patches, if there is anything
+that needs saying put it in the changelog of the patch or after the ---
+if it's administrative stuff.  This reduces mail volume and ensures that=20
+any important information is recorded in the changelog rather than being
+lost.=20
 
+--l+9r/ggjKvtaRv5j
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavG1gQAKCRAv73Ows9A4
+iQbeAQDm+zJK/irl1t6ZLB+k5GYfuInzTNEv71Md4KEhZ9z/9gEA1QrY700airU8
+muU3Y6OQLYfWh4wxCJhLygKL+SWfhwY=
+=NFhw
+-----END PGP SIGNATURE-----
+
+--l+9r/ggjKvtaRv5j--
