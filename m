@@ -1,94 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794268105;
-	b=b0RQ2Fj45la+j9k61VYr3Y1Kca8jZqCqycItGr+SgGGFSMNGe1mIUpl3Y5CG/VIRuDWm
-	 ivRcuZcWnBI9d8QfpYFPe3dVw/WhkEd27rSbqiW1Fe960M0e1AngAziONEwisl1PTi67S
-	 S1O0r/LzmQsWOEAkigrdZ9CZO1LyTvPI5Q5YWPzry16/3wYI1sm/Pgp0ft28qKkOW8/La
-	 jGQJ4dUz68kQy9Pv+InlvEhm5jRZdXgrqTkFGk4kFEyai8kkGIj3UyFijHBcBdqQ9aSvg
-	 9kspk5Izn85qDhyCESHeLfa42YL+2bsVtu9uzLq/GH8muaNw9WA8WxV4yG+8R4A+B0w==
+	t=1794268183;
+	b=NrCRViL3skO1x2ty84Jq1gGLdd1xgRjU1E9Gu8n8DIgcZ5RKoRu44HmC7DP7/JuFqh8h
+	 CyREi+gRCKBiQrO8nRu3bEiC9H83Mb+jI8rtrDxsVrrbVy3hgI8IeXuLFtKtKeR326w9R
+	 bQ4q+88Pjs86rYiV49/U7SE8WDVpOQCOE+nIxUCx6D58Mhf/geMrHUZX4ikSSZtgq3LZO
+	 Nh0we+T43AUs72JGNQEGP71GjCUhXbpXuHO9jBSzpa0cY/+1Be/iuczbj0xyJynYlYBXm
+	 zYu0PhqEoTWSyia9faRbWUoOnFBjXBO61asRMXKkyJ7V1Fa8zv2in2sVh0yyY/mvWAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794268105;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=ijwWYpzQDAx+cj1CGF6sEPYVaJ2fNy45DbFhO/CRy14=;
-	b=w8z5lo96gCCGMk0QGIMLaG70alUts5WrckBR4iz+BfM1JBADUQ1R5FZrzwQSbTS6RBp1
-	 +vGaReRvdeI0bvwA6ba9ZfhvAZHwylAHEUelozQ3djtYPIeK4D+FZZ4gVjjtJoiZJmO8o
-	 ZtVGk9241PxPRzJkcOoHpTUCUkPpICa33mP0H4XaOFWZ9kBwoaezySKlWpnVnZ3dNfE1l
-	 zJ18XfL6sCvDrz2tiIODhmZ+ndfXG1at7bj5uN7xTtExQr/r9qOEK7ua5z4tKOJBfCYma
-	 17taHHQti1A9pmpDoRaOImrhqw6c9m7Qy2OQleLcpyXgzBfVsMf3iz6hbvHJq+sjBOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268183;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Jj40YZQ9cVoJSVmwJ5VvTTa+BLK2O7tycUOVE2dxpto=;
+	b=ZW2oSLmJ97XFZWINc3OsaXj5Q9ww2s43C6pjK24bnIK2S5sXqr56SNK2EWr4b2KOzvCv
+	 Luy5ZwOlMQLAbdsEXnq/mTo8x2+/7kb0wf8GkM59vHzsqsVXLnwF4/IgnuLyl/Bd7wODo
+	 K40dCttdDpOwCzoCnlrKBz+mpGA6kVyrEEAlVpkOEshav22DLQbGQHKICddC4PcsxmC+7
+	 NQoYgUPNenrs+CXBhmLCNlPBqXs0YHRt04+d/OHJ3G7GsnqAik2VoF52dhhNAlIqqJm2d
+	 HhFpVqSk0pibJlOS1w+9l1IuHd0W8vTKZUi7ItUYvVWLd9rux93PrPRZ5jeKY1SOXMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Sfc1zqmY;
-	arc=none smtp.remote-ip=209.85.210.179
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Y8TlR4PE;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCCF7606A335
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:48:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCCF7606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E77D606A31C;
+	Mon,  9 Nov 2026 23:49:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E77D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=Sfc1zqmY
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8b904d10882so624585b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:48:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794268104; x=1794872904; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ijwWYpzQDAx+cj1CGF6sEPYVaJ2fNy45DbFhO/CRy14=;
-        b=Sfc1zqmYTKpury5dmrguOwJHgijKhgPSOMtbSLBEkrFjUJoSHyGiUr49zJB6GILDxY
-         hZ/PLdHu5mzLUBwfro/FlqtPwYACld97cwPlNBJUoMEJA5uUxc3ICOmsAk9tV0V01GVf
-         cfl7XL0NeTP/CseHktJUI+RGifg6lTyYZHKTLABejvKsm+kVS84tPODSzpJVRjRyrtjd
-         8JJ5kJrGNR1JAZG8kjkLSOCwkZlYeBvz/SyyJ2kFhXw4UDAs3MxdpPKqt4yzz/semOQY
-         1NpdLTjh4YGA5T6G30F2w43gs6HoBvyC4qxVPRHyv1+QGmdqdVxMj3Ih/3IUVIeeXAwI
-         rnAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794268104; x=1794872904;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:to:from:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ijwWYpzQDAx+cj1CGF6sEPYVaJ2fNy45DbFhO/CRy14=;
-        b=PlzSikaAraFU9Xoc5hlJTZyJURVy1pTE6sori55I0UEx2LTun+xZORsWAXGZwctJfb
-         RQ48yZCY71fxSHRyqd3FHDLVV9GvkeZZNtCN9PAigla43hSGac9twdlX8Ws7QJIDsVt3
-         dRtfAk9HmzELEd2iQDM6onrcbVDJO1cLJYaKoLetQluMuFylcmibCenXMRtkEFYdXrFf
-         IY2Yum8qRYtq2fzaasZxqre6+lAMxHGVYh7Xz10PmRFuiQF/xdeNcwjpQnBbNSEL2Tad
-         qRritjBXWOY8d2agNlfJMRD+Wvlsgc+GHxw3J+LgQF6P4V/WzV6+oZPqPUHuV6OZEnux
-         RVtg==
-X-Forwarded-Encrypted: i=1; AL+hErEbuc+WDqV2S4o8FBlYd9Bf1Wq5oxPrpKNUYam2kM6hmq/9ATgjWVaea97CAtmATMsfaEPzaEFABSwTGwM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/oHQaoUqRx1gKTNcAEhbXotgZp5In2b7AbYNllyu02WJgymrm6
-	4kUHUlEZ/ACwo/SAPgIaBk8fmEOAUWBEb+a8Om3FtXlzhrp51KcYDnn+3BoR5qgBddA=
-X-Gm-Gg: AYBFou3eMqD1ZtKvK7qjcEfBUprqGMVd0LOhDiN5Xy/qc/dW3d2kPYEbaVw9wTBWSIZ
-	pdd6eh7iiL6alr2OFogCF8XfSXmaXVc3cwC0YAHdO0XZIIK0XZPpYw4o/mpTPTFquxozZ56tZU+
-	K4hfTYC+sQSO2O2lPgiBxOg0YxYwdRx7ypJlpiX1vr7dpa/02d7zxrMGl8gnrjHKrBvudm2K4P6
-	cEj7UOMbEjU0GCfaoNc1xgiFKX9OqpxZsBGKDZPwI0M3yHqRcQVjYqOkuqNpdK0RiU+gp3U/HrX
-	4M1jtE/7w396qA4wvMFK9wjYUA3OlBdbQcscTt42snxMwsNVbzjrDU7U6JiWkjRTNAzpU2pCJ8u
-	OQqlRHCxuhbjHCND9nb2iCMoCAhy7m26rgYhCRBSgrI6Uh/0vp1KX59weA9dETkRH6+EMn9yU6I
-	pfOkZ1DKGs6BA6L+pPCivCgJ1Z7Cm48wlfCVeY+hxeF9m+uaOUFndcGQR7gJicqA8BRmOzgkD2+
-	FsiipjxEayG4rG+xxx1KOydvK92q6rFPqXnviqE6mpN0IQEaKqkvm6QKNbSjwGlWWcqtvMOreG7
-	fOE1qUTjzBjRIKHjjcQ97Ce+
-X-Received: by 2002:a05:6a20:4326:b0:3e0:ba43:3d3d with SMTP id adf61e73a8af0-3f18c10ea0cmr750328637.9.1794268104158;
-        Mon, 09 Nov 2026 15:48:24 -0800 (PST)
-Received: from localhost ([97.126.173.69])
-        by smtp.gmail.com with UTF8SMTPSA id 41be03b00d2f7-cdd8d67e52esm204829a12.10.2026.11.09.15.48.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 15:48:23 -0800 (PST)
-From: Kevin Hilman <khilman@baylibre.com>
-To: paul@pwsan.com, aaro.koskinen@iki.fi, rogerq@kernel.org, 
- tony@atomide.com, linux@armlinux.org.uk, linux-omap@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Andreas Kemnade <andreas@kemnade.info>
-In-Reply-To: <20261031120519.655248-1-andreas@kemnade.info>
-References: <20261031120519.655248-1-andreas@kemnade.info>
-Subject: Re: [PATCH] ARM: omap: omap_hwmod: do not WARN() on missing nodes
- for hwmods
-Message-Id: <179426810249.2265990.13290382980271745471.b4-ty@b4>
-Date: Mon, 09 Nov 2026 15:48:22 -0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Y8TlR4PE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794268182; x=1825804182;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JwrY6mPbucJ9MTS6HGIQYNNMZV2qvKzQRfFVtze/HFs=;
+  b=Y8TlR4PEnkyWCXmwZR+fMxxJorRbWoEOsxRwql+Ee+jV8sWSKr2dIrwr
+   p6nMC+WE8dW1ldTr1WuUBgqPP8EnKLufo6vKMj43AnZnPUUgVw1eYTvhd
+   m2kDzXAxDDL80tQlXV81vedNw700JPr+6A2R/rjkB/2bI8jXq5fbU4E3d
+   L4DkNTsnE05HaKWiSf5slOlubkYEp5zrIBnRiE7GfDR2pj20jCYrD/Dm7
+   unlEMhogur8wcD86xQG/PqLFSQ8pw81I+I5DjdUIFoXcUW87KLec9htwG
+   Orlsp3WWhwd0Q/3HUaZEstMTNFVxlm2iT+GTaattf/MEzE77CJcfSMb4e
+   Q==;
+X-CSE-ConnectionGUID: DbXJmKAkQn2Eu3WDBZLQRQ==
+X-CSE-MsgGUID: sCP4N26GSQ+QSGbHUYkKFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2890674"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2890674"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:49:42 -0800
+X-CSE-ConnectionGUID: uwmFmPSZTweSXoMhoi7mng==
+X-CSE-MsgGUID: 1IXFqebVRJKUUA3ki95l6A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="7987234"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:49:40 -0800
+Date: Tue, 10 Nov 2026 01:49:37 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: raffaele.tranfaglia@gmail.com
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] iio: light: adux1020: fix interrupt clear value on
+ SMBus-only adapters
+Message-ID: <avJcESOPo2nGq5wy@ashevche-desk.local>
+References: <20261109-adux1020-measure-fixes-v1-0-fe1ba63f28bc@gmail.com>
+ <20261109-adux1020-measure-fixes-v1-1-fe1ba63f28bc@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,29 +85,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-adux1020-measure-fixes-v1-1-fe1ba63f28bc@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-
-On Sat, 31 Oct 2026 13:05:19 +0100, Andreas Kemnade wrote:
-> If devices are converted from hwmod to ti-sysc, there might be an interim
-> state with the hwmod data still present but the devicetree not referencing
-> the hwmod. In such cases, the hwmod device data is still there,
-> the hwmod infrastructure does ignore that device but prints out a big
-> alarming WARN().
-> Be more silent in that case to avoid needing putting devicetree and
-> code changes into one patch but into one series, only require the
-> hwmod cleanup to come after the devicetree conversion.
+On Mon, Nov 09, 2026 at 11:39:02AM +0000, Raffaele Tranfaglia via B4 Relay wrote:
 > 
-> [...]
+> adux1020_measure() clears the mode interrupt by writing the inverted
+> interrupt enable mask to INT_STATUS. The mask is a u16, but integer
+> promotion makes ~0x00f0 evaluate to 0xffffff0f, which does not fit in
+> the 16-bit register.
 
-Applied, thanks!
+Huh?! Where did you get it from? the mentioned promotion may only happen for
+a signed char which may not hold 0x00f0 in the first place. The above is some
+nonsense.
 
-[1/1] ARM: omap: omap_hwmod: do not WARN() on missing nodes for hwmods
-      commit: 540f8176aaa989b08eb66e4d5c4d4ea9093c1f80
+> On adapters supporting plain I2C, regmap formats the value with
+> put_unaligned_be16() and silently truncates it to 0xff0f. On adapters
+> that only support SMBus word transfers, regmap_smbus_word_write_swapped()
+> rejects values above 0xffff with -EINVAL, so every proximity read fails.
+> 
+> Mask the value to 16 bits so that SMBus-only adapters send the same
+> 0xff0f that has always been written on plain I2C adapters.
 
-Best regards,
+...
+
+>  	ret = regmap_write(data->regmap, ADUX1020_REG_INT_STATUS,
+> -			   (~adux1020_modes[mode].int_en));
+> +			   ~adux1020_modes[mode].int_en & 0xffff);
+
+On top of that regmap should limit the value to 16-bit anyway. If there is a
+problem in regmap to cut the upper bits, it should be addressed rather there.
+
+>  	if (ret < 0)
+>  		return ret;
+
 -- 
-Kevin Hilman (TI) <khilman@baylibre.com>
+With Best Regards,
+Andy Shevchenko
+
 
