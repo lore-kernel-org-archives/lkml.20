@@ -1,135 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794247063;
-	b=tiC/VFf3BUGk1Df55SC/rN/kMKp9FAzhO7WmP4W1cNs9sW44QHbVQCYD+D/YeSJIVVNV
-	 hcmutZZJjiLYpCbRWGa7fjOXM/7afJ2+AU0mdq7KP1+mHvP+m8+smhxU/wyjA87r0v7UM
-	 Z5p+G4Bw3kKlryjMVui/pfW/2P8chworSwAFnsncxTFff/vbKRdKnZhPKsVK2HVoYlaXb
-	 /I8Q1bwUXmCJwxseFWxU6kdyo4BOFTJQs3o6sH8Xd/vghWzYCBp7w5kWpxboh5Ez2HdhR
-	 3Evq5PRnBUOeAkLhw7/jzB86S5hCsIP4fA5kj2tnKjW1KZwQUBu96pbaerzw1plQJjg==
+	t=1794247094;
+	b=i97gfLagkdeuQ5vPiAlHYoIFFKmYQywHfbFFk3f+pG9w673beoc76iQ/kkm4b9/Ojstn
+	 Em1NGra4uBG641lB29U9dfc+XYPV2ZKmCM5uiTNjLBioTDpEKFkGivVT2d8L06lkPJCMP
+	 tE3REoUo/nmptlRKjWKyVGUzUddStIbuTDJHYVNulDUv4sxPjEUqudLVmkA16vx+8NCAQ
+	 q/CCg560lmyYkj30JZMzBr7rr9yE8CxmbrRy5lZGsnQ1A7Ql3jFyd0kUIK5loji6iiYzF
+	 /3ZlmngVEo/2Wfc+X3GixmvJ9gaQ8y6St8lQr74wQd0qkQgMDRXPfpourBuXaI4+39w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247063;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=9Cc+2gtfN2/LHuRHGFLJjMnOZd72QDWhyPb9mjrBQIM=;
-	b=X1gN/k2HEpg8EJv3s+0GEcEAn1pTutt/VrfFrUq9dy/1hdIPQh8U/10aEHTx1IllmHAe
-	 y9OnyXL7W3RsjYg7DZjSMViSl6mnd63UMZxoxcGsTEmKB4iA3B/cgXW93W7sSNCqYuGcD
-	 8ZH407KVCQuBCZ/rLIKzFp5kgdR62dbO3kSou51VkvDtUbrSUKMIf3rx55Q4V+4S+OuQB
-	 EReEfAGQMKVoKRoZWkJpKl4dmgc/btiBxVq8PtJ3zIU1dgBPChbsqR5NbB1nDLWCaWY7d
-	 Duujcv4bi8T+ISXs10jcFZEzm6UoMy6KtV4ck6TtFj5LvIjoaX46rSvbUhT/Xq/+q4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794247094;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=NQFcBegZVinznGcGamAVLxh2DaKy3WmcCJmY9lmdZkM=;
+	b=3rU2NffRQ02veiJZYBbVc7xxcn5GFYG88j2ByV/wyl5Kb2h3VpUfchcTBgASm/1xYip+
+	 XSq/qsJwVsvlAIu5Ftgz/7n8U6v4vNq3PAzQ3C1ZQ3hJV2FnSiSJVlTAUcg1kGu8zpwcu
+	 9uDSiTduNmORxFeVyv2LpW7LBNP+9Zlr0L9DniS5vVM5YaLnDZlWefbr6WJWAMcpRBH4N
+	 fb5+B9DbpUFZ0Lmls5CElebtD8dfKZBjdrU7nlPv72YmBxdUboy01lV4jCgLcPHn1SvGI
+	 kAtIt+I4fDVu+APWen+w2J3bY6gHe3GxD9NxHsto6Qb7IeHtUBTycdpXjsCXLLFL9FA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RYE80E4L;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=luxonis.com;
+	spf=pass smtp.mailfrom=luxonis.com;
+	dkim=pass header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=hVX0AILp;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6DA606A330;
-	Mon,  9 Nov 2026 17:57:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B6DA606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6179F606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:58:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6179F606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=luxonis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=luxonis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RYE80E4L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794247062; x=1825783062;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/GGAxNjyNSTAgb+4GsAIS07jSZ/uzkJHlCxb0K1tUUw=;
-  b=RYE80E4L4jf+eo3yiNmYGvjkREiK14P7tpe2VTbck8ZSyfp/TeAWS5he
-   Ydc1pMWVHQTvD6dqXwK2DCBMJREpZ2FA0BK5yRMiv3HT2aHyRUMQpt/ad
-   0YsiSK6ITcQ6TMxMbD0ojpZZtMh8nej1ULGVuNc4NOQje0LVgQI7V9k1n
-   RwbgmQ1f17yoZnD3BGGoXT+41rwyrOKWFwlc09/3aKQ3FWis09A6urYN1
-   he6mfWqzIbpzf4W+kESQ1CHyspmUeLnmkAMmd5Dc/Eo9K51umHnm+CxzA
-   Rrq7rC/Vq8QK2pdUWOp6cryd3vA2ccLYPwU43a/bRbqxyqnSiLqQvuerk
-   Q==;
-X-CSE-ConnectionGUID: FpfBUQ7BRR2TCnmIZkPejA==
-X-CSE-MsgGUID: o+1uwiCcRj2issQ5Lq+qow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2866556"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2866556"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:57:41 -0800
-X-CSE-ConnectionGUID: wb2AMpMXSwWy17Y7mVRXlA==
-X-CSE-MsgGUID: AJ9NiomKQuqzRxE8oUxCRw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7927416"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:57:29 -0800
-Date: Mon, 9 Nov 2026 19:57:26 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Radu Pirea <radu_nicolae.pirea@upb.ro>,
-	CL Wang <cl634@andestech.com>,
-	Ryan Wanner <ryan.wanner@microchip.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Vladimir Oltean <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
-	Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Alain Volmat <alain.volmat@foss.st.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Laxman Dewangan <ldewangan@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	"open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
-	"moderated list:ARM/Microchip (AT91) SoC support" <linux-arm-kernel@lists.infradead.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE" <linux-rpi-kernel@lists.infradead.org>,
-	"open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
-	"open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
-	"open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
-	"open list:RENESAS RZ/V2H(P) RSPI DRIVER" <linux-renesas-soc@vger.kernel.org>,
-	"open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
-	"open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
-	"moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>,
-	"open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
-	"open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
-Message-ID: <avIJhv7p2v30U8H9@ashevche-desk.local>
-References: <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
- <f1fa853d-1703-411d-b2d2-0fb0b176c2fa@kernel.org>
- <autqC143h7Qf1R9H@ashevche-desk.local>
- <9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org>
- <auuYcS7-YqJKcUbE@ashevche-desk.local>
- <63c24437-4261-4a51-be7e-31ac0759a095@kernel.org>
- <auxGom0XR-Hax9b3@ashevche-desk.local>
- <00390a20-7630-4066-9779-06c8f915a176@kernel.org>
- <auxNmE8yZVP-wL2e@ashevche-desk.local>
- <3dc7277e-2f6b-44a6-9085-2e33d989c1c9@kernel.org>
+	dkim=pass (2048-bit key) header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=hVX0AILp
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-490c1d337d8so848348f8f.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:58:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=luxonis.com; s=google; t=1794247092; x=1794851892; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NQFcBegZVinznGcGamAVLxh2DaKy3WmcCJmY9lmdZkM=;
+        b=hVX0AILpInoPfFisEkn/YXDFkZzXheGdiSemxWWm0t5cmFv4OFi+6aXEbTUaM3mJox
+         h1bQ5xmMku7mNUGnqOyBK+rA6jXs5x3sUZ/+0OACH3kuy/E+2694CldtctlFo2kkqDJf
+         ivyCrJT7ZVn5StfQfVydFKmVHapg05QbPWTzE5ywJs/VQz9zrW/CgHt2asoB6yH0zyz4
+         2+MYYPO7SJMum3X7wnYJ0iC7cR/2xhKqXfm5J49tinJTqSF5Vn+M40KNXAfs6mcGb42w
+         bVK1e7wZrrEYzb3K4jkpGiWL6Bo/kQHZir/pi6QCuwtr3wLOqxIUIUb+u+fgdeCorrgF
+         2ujA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794247092; x=1794851892;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NQFcBegZVinznGcGamAVLxh2DaKy3WmcCJmY9lmdZkM=;
+        b=EZgpbRWL+6WrnDIw+B0cF0/jcruaEEt8/4N3Rj4vE8oMuxY6hPsOwJS1U2fjUPxeiQ
+         qj7Oy1H3NFfc0pTniAXdnH0/A9En5l6GnQbfdCvs3un45JSdgfTrxz5yYEM0gDb8oS4t
+         U1+tct3mUfXWbkyCg2YXJ5q3w0dAApzuQ9X1chhNqI2d7UYs/qSD7U+UeWNPvSOpZIe0
+         ibVRw4dAIHwqHPLroKikWHTleNUalTxDDDsvyaRYdTo2aJ+z/vaTSkyn+oTXklwU+GDB
+         GgN55x2e3eYcxXm4SO8wQiEghWIaUOg9IEp9ouGkqYoTXeLKRbI5H/zyc4RrchH96TaB
+         fIJQ==
+X-Forwarded-Encrypted: i=1; AL+hErHv1ZlAYDagY3K7GTiD6/mKsXrrnAGJnoesyWa56cJCKk6Wx+ZkGbPaWak5NoAvVW43YhEwZSi3k+Ih2e8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8gKae968O9Dfg14ZLLHKp9YmrsrDo/F1C3wlJYRxsJnBlC08kn
+	N9fuMrroC6uMmfuxJbgstzMnU/SHeQ4e+IuBY1ObIK5AMTrsV890SXOXqKrOGxhuZDw=
+X-Gm-Gg: AYBFou3wmcTFvg57MUYLfawnN8vmMLvFABL62V5igMvZF8PPVgqnDaIDnrZ539VogTH
+	xwXae47vdrnS8QoUKz3aatzfKflEN+bDCfwR3WzlAJJa9Ep1OmssmvwEc7clETacdF2Ngu6J08z
+	DiSXszD/bAXJjWU7kDnM/UI/OajdsctY6mUaA0U9jUHMMM+AwS3zQ+5o5HYEx/DZQsw8ZFDEK4+
+	gfyZYbrC1xgCpn9sA/QIAktuRU2SbozrSH/VLjFHgqKzxX7e29sXYblvRu+YhjOVOFYTrE+GHNc
+	f+X28qIfYQsbpnShCf2rQx2xTrIv1+55tmRbZ6nfWEZd5vdtlFGHW7QFKLmYO04nx6ucZqZlrSX
+	K4SyOuhzuCfFKZPWxo3uuBcMvCNy9xVYMr2M9yULF6tHwlXTg24GtkvgtMG8fvWEbpDm2FF6KSv
+	zHYU6t9ydlVlQbG3tZWtisTMEoTAdNMy9BeMiI7YEaBd0IXmIfV/+Vq8DHjIDP16yHxCFiSgcji
+	RwRtyhc7hgugcJmUCQhr27peLPV+z8cfuAo+YGEwSAKFF6c52miQPwugH+yeCkw6pJcJzUHkO/R
+	ub8OreaD4w3RS1p/AkP70BiPkHS6NEjbCbQAem8Mdr1kaByV9Bius2Mm9lIzF75cfk/eNg==
+X-Received: by 2002:a05:6000:29c9:b0:490:a481:7ac8 with SMTP id ffacd0b85a97d-4982eedfb1cmr255737f8f.29.1794247091597;
+        Mon, 09 Nov 2026 09:58:11 -0800 (PST)
+Received: from JureBuildPC (46-150-36-237.static.telemach.net. [46.150.36.237])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835e20327sm238110f8f.26.2026.11.09.09.58.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 09:58:10 -0800 (PST)
+From: Jure Rebernik <jure.rebernik@luxonis.com>
+To: andersson@kernel.org,
+	mathieu.poirier@linaro.org
+Cc: konrad.dybcio@oss.qualcomm.com,
+	mukesh.ojha@oss.qualcomm.com,
+	linux-remoteproc@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jure Rebernik <jure.rebernik@luxonis.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] remoteproc: qcom: pas: Request stop before tearing down GLINK and SMD
+Date: Mon,  9 Nov 2026 18:57:52 +0100
+Message-ID: <20261109175752.793130-1-jure.rebernik@luxonis.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -139,81 +100,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3dc7277e-2f6b-44a6-9085-2e33d989c1c9@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 06, 2026 at 08:20:33AM +0100, Krzysztof Kozlowski wrote:
-> On 05/11/2026 10:34, Andy Shevchenko wrote:
-> > On Thu, Nov 05, 2026 at 10:07:30AM +0100, Krzysztof Kozlowski wrote:
-> >> On 05/11/2026 10:04, Andy Shevchenko wrote:
-> >>> On Wed, Nov 04, 2026 at 11:54:56PM +0100, Krzysztof Kozlowski wrote:
-> >>>> On 04/11/2026 21:41, Andy Shevchenko wrote:
-> >>>>>>
-> >>>>>> But sure, if we want to play such numbers game, I will be sending
-> >>>>>> reviews for single lines.
-> >>>>>
-> >>>>> I'm not playing anything. The problem is that the patch unites the files that
-> >>>>> have distinct maintainers and unrelated to each other code. That's why in the
-> >>>>> subsystems I maintain, I almost always require to split on per-driver basis.
-> >>>>> Yes, exceptions are possible, but has to be quite rare.
-> >>>>
-> >>>> That's independent problem. Patch could be split, but it was not. Since
-> >>>> it was not, receiving end should act accordingly, e.g. when performing
-> >>>> incomplete review of only part of the patch, do not call that entire
-> >>>> patch was reviewed by giving the Rb tag, but give Ack tag.
-> >>>
-> >>> No, (partial) Rb != Ack.
-> >>
-> >> It is, because there is no partial Rb tag.
-> >>
-> >> There is partial review, but not partial Rb tag, please see exactly
-> >> submitting patches. It repeats the same in three separate places:
-> >>
-> >> "Acked-by.... user may not have carried out a technical review of the
-> >> patch,yet they may be satisfied ..."
-> >>
-> >> "Reviewed-by:, instead, indicates that the patch has been reviewed and
-> >> found acceptable according to the Reviewer's Statement:"
-> >>
-> >> Above important: "THE PATCH"
-> >>
-> >> It is not "the patch or its parts"
-> >>
-> >> Further:
-> >>
-> >> "I state that:
-> >> (a) I have carried out a technical review of *this* patch to evaluate
-> >> its appropriateness and readiness for inclusion into  the mainline kernel."
-> >>
-> >> And further:
-> >>
-> >> "A Reviewed-by tag is a statement of opinion that *the patch* is an"
-> >>
-> >> In three places it is THIS or THE patch. Complete (exhaustive) list of
-> >> options what can be reviewed to get the credit and give statement of
-> >> oversight.
-> >>
-> >> Statement of oversight DOES NOT include "part of the patch".
-> > 
-> > So, it means I MUST from now on REQUIRE a split before reviewing.
-> > Right?
-> 
-> Why "from now on"? The reviewer's statement of oversight is worded like
-> that since beginning? Also nothing stops you from reviewing parts. We
-> discuss the statement of oversight and its result: giving Rb tag. The Rb
-> tag is not output of some review, but agreement with statement of
-> oversight and performing what is stated there.
-> 
-> You can review parts, but you do not provide Rb tag.
+A crash of the ADSP that the host reports, for example through the
+remoteproc debugfs crash file, can reset the whole SoC on QCS8550
+instead of restarting the ADSP. The reset was most frequent shortly
+after the ADSP had started: on two QCS8550-based boards, crashing it
+about 4.5 seconds after it was started reset the SoC in 19 of 42
+tries. The serial console showed that the system stopped right after
+the recovery started. Nothing more was logged, and the SoC was reset 6
+to 7 seconds later.
 
-No, I'm not going to review something that I may not put Rb tag on.
-I can NAK or ignore (or Ack without viewing, but it equals to ignore to me).
+Since commit 0ea50486978f ("remoteproc: qcom: q6v5: Request shutdown if
+crash is triggered host-side"), qcom_q6v5_request_stop() also sets the
+SMP2P stop bit for a crash that the host reports, so that the firmware
+takes part in its shutdown. The stop is requested from qcom_pas_stop(),
+which rproc_stop() calls only after all subdevices have stopped. By
+then the GLINK and SMD edges to the DSP have been unregistered and
+their client devices, such as FastRPC, torn down. On QCS8550 the ADSP
+firmware treats the stop bit as a fatal error and runs its error
+handler after these links have gone away.
 
+Add a subdevice whose .stop callback requests the stop, and add it
+before sysmon. Subdevices stop in the reverse order of addition, so the
+callback runs after the SSR BEFORE_SHUTDOWN notification and
+sysmon_stop(), and before SMD and GLINK are torn down. The firmware
+then handles the stop request while its GLINK and SMD edges are still
+registered. qcom_q6v5_request_stop() still skips the request when
+sysmon got a shutdown ack, or when the firmware reported the crash
+itself and the fatal or watchdog interrupt has cleared the running
+flag. It also clears the running flag, so the call in qcom_pas_stop()
+now only sends a request when the subdevices were not started.
+
+With this change, none of 104 host-reported crashes on the same boards
+reset the SoC: 40 ADSP crashes at 4.5 seconds, 20 at 4 to 15 seconds,
+20 while the ADSP was streaming IMU sensor data and 24 CDSP crashes.
+The ADSP or CDSP restarted each time.
+
+The problem was found, and this change was written and tested, with
+the help of an AI coding assistant (Claude Code, by Anthropic). I
+reviewed the change and the test results.
+
+Fixes: 0ea50486978f ("remoteproc: qcom: q6v5: Request shutdown if crash is triggered host-side")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jure Rebernik <jure.rebernik@luxonis.com>
+---
+
+Notes:
+    Tested on Luxonis OAK4-S boards (QCS8550), ADSP and CDSP, with a kernel
+    based on v7.2.6, which has 0ea50486978f as stable commit 0dc9e289bbb5.
+    The crashes were triggered through the debugfs crash file. To see when
+    the system stopped, a test script wrote a kernel log line to the serial
+    console 20 times a second. A crash that the firmware reports could not
+    be injected.
+    
+    Graceful stops through sysfs also reset these boards occasionally, with
+    and without this patch (2 of 300 stops with it, 2 of about 290 without
+    it). That problem is unrelated to this patch, and I am looking into it
+    separately. This patch does not change that case: the firmware
+    acknowledged the sysmon shutdown request, so no stop request was sent.
+    
+    qcom_q6v5_adsp and qcom_q6v5_mss also call qcom_q6v5_request_stop()
+    from their .stop callbacks, after the subdevices have stopped, and
+    qcom_q6v5_wcss does when requires_force_stop is set. I have no hardware
+    for them and left them unchanged. If the approach is acceptable, they
+    could get the same change.
+    
+    Built for arm64 (defconfig, drivers/remoteproc/, W=1) on rproc-next
+    672126dce63c and on v7.4-rc1, without warnings. Not done: sparse and
+    runtime tests with lockdep and the other debug options.
+    
+    Tool use: I asked Claude Code to make our QCS8550 image stable, to
+    stress it on our test boards and to find why a simulated ADSP crash
+    reset the board. It ran the tests, found the ordering problem and wrote
+    a first fix that skipped the stop request for a crashed DSP. I asked
+    for the stop request to be sent before the teardown instead, which is
+    this patch. It wrote the code and this changelog and ran the tests
+    above with the debugfs crash file, the serial console log and a test
+    script on the boards. I reviewed the code and the results.
+
+ drivers/remoteproc/qcom_q6v5_pas.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
+index 57a111a0d..ddbffe45d 100644
+--- a/drivers/remoteproc/qcom_q6v5_pas.c
++++ b/drivers/remoteproc/qcom_q6v5_pas.c
+@@ -138,6 +138,7 @@ struct qcom_pas {
+ 	struct qcom_rproc_glink glink_subdev;
+ 	struct qcom_rproc_subdev smd_subdev;
+ 	struct qcom_rproc_pdm pdm_subdev;
++	struct rproc_subdev stop_subdev;
+ 	struct qcom_rproc_ssr ssr_subdev;
+ 	struct qcom_sysmon *sysmon;
+ 	struct platform_device *bam_dmux;
+@@ -429,6 +430,14 @@ static void qcom_pas_handover(struct qcom_q6v5 *q6v5)
+ 	qcom_pas_pds_disable(pas, pas->proxy_pds, pas->proxy_pd_count);
+ }
+ 
++static void qcom_pas_stop_subdev(struct rproc_subdev *subdev, bool crashed)
++{
++	struct qcom_pas *pas = container_of(subdev, struct qcom_pas, stop_subdev);
++
++	if (qcom_q6v5_request_stop(&pas->q6v5, pas->sysmon) == -ETIMEDOUT)
++		dev_err(pas->dev, "timed out on wait\n");
++}
++
+ static int qcom_pas_stop(struct rproc *rproc)
+ {
+ 	struct qcom_pas *pas = rproc->priv;
+@@ -1012,6 +1021,15 @@ static int qcom_pas_probe(struct platform_device *pdev)
+ 	qcom_add_glink_subdev(rproc, &pas->glink_subdev, desc->ssr_name);
+ 	qcom_add_smd_subdev(rproc, &pas->smd_subdev);
+ 	qcom_add_pdm_subdev(rproc, &pas->pdm_subdev);
++
++	/*
++	 * Subdevices stop in the reverse order of addition. Request the stop
++	 * after sysmon has asked for a graceful shutdown and before smd and
++	 * glink are torn down.
++	 */
++	pas->stop_subdev.stop = qcom_pas_stop_subdev;
++	rproc_add_subdev(rproc, &pas->stop_subdev);
++
+ 	pas->sysmon = qcom_add_sysmon_subdev(rproc, desc->sysmon_name, desc->ssctl_id);
+ 	if (IS_ERR(pas->sysmon)) {
+ 		ret = PTR_ERR(pas->sysmon);
+@@ -1049,6 +1067,7 @@ static int qcom_pas_probe(struct platform_device *pdev)
+ 	qcom_remove_ssr_subdev(rproc, &pas->ssr_subdev);
+ 	qcom_remove_sysmon_subdev(pas->sysmon);
+ deinit_remove_pdm_smd_glink:
++	rproc_remove_subdev(rproc, &pas->stop_subdev);
+ 	qcom_remove_pdm_subdev(rproc, &pas->pdm_subdev);
+ 	qcom_remove_smd_subdev(rproc, &pas->smd_subdev);
+ 	qcom_remove_glink_subdev(rproc, &pas->glink_subdev);
+@@ -1081,6 +1100,7 @@ static void qcom_pas_remove(struct platform_device *pdev)
+ 	qcom_remove_sysmon_subdev(pas->sysmon);
+ 	qcom_remove_smd_subdev(pas->rproc, &pas->smd_subdev);
+ 	qcom_remove_pdm_subdev(pas->rproc, &pas->pdm_subdev);
++	rproc_remove_subdev(pas->rproc, &pas->stop_subdev);
+ 	qcom_remove_ssr_subdev(pas->rproc, &pas->ssr_subdev);
+ 	qcom_pas_pds_detach(pas, pas->proxy_pds, pas->proxy_pd_count);
+ 	device_init_wakeup(pas->dev, false);
+
+base-commit: 672126dce63c94e7897867e4c0e681806c49cf02
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
