@@ -1,83 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227308;
-	b=h4oUAV0+isxQl9/8sK7OMZHdorJ0rmzF5Y1TqElTtt1wuqzvqnpCDwHZTECmZ5jw3hE2
-	 llQDCA/29L+02hSnWLMZOfDhaCzadVMwHyZqhA2thPQjG+orXuTeDpTCjHwto5CSaDmwg
-	 D8WOYcYlxTe72XSbcBoFM6xIvLs3fFVYeYPjFq8E5xmXA2A+0jAYXTt3NzAOvF/Hwph+/
-	 bbOdbyrBYpOeV87mzZXCSTJfKlHs/l4jBg0gDwphNuaPZZFPl6297YqZY7uxb6cBMnd6u
-	 OX2dMU+PAG8P6E9NETCCLQAxM76aNHVDVZBAIy3chv55/E3Sh+a+EY/4Lqt9fpND2IQ==
+	t=1794227351;
+	b=ITUQ6sRmhllsXlYboWfAoBvp4aF0OP7Cov9KbG3dWttkgnMsHsMs3vPwd6CrwTKfa3rF
+	 VzFu+b3L1iMIb5GSIV0DcbCrTj0mWvK9at/0q8RQ2b2BwGS25o64F/nmxaTPqp2l/NqJB
+	 WTFtfunhMrPLO+dOEVt6faaSFg0vUnUm/fZRYmn1S/f1rg8Mp3U6dc+CTv99XICk8Q3bR
+	 opxX0DkpwtbzZAGe4Gq2R0G99Gz6Agbdlo6EWXcEnfYgEhXodRx5b7Y9/BR0mqAv9Swzy
+	 2zPjSYo1pwaCdMInJIHaih1KkyajxPPdyZy14X5ZNWLp7KJhPDvoYwjUubCcOOad7vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227308;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227351;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=TKHJ6/gYBaGflBTD+nmCCKlWSOPEENMW/l/5GYSk9qI=;
-	b=BFieGWzpKgABgD2nu1BRJnBGjLgAbuICl0hPpelCMcO2AVBHnRAEadkQB2vEIZbh8pRb
-	 HGvX7e/UhKb9LA149JcP4Uq4/5TIR7tnB1yFu2fIBkbNYldb5DACP9ipwACBDE6NW9KLi
-	 EOna7OLYbtfS/2Eg0uwx9Oc+XlS8krLpb6GC+WCHzZDdI0snJac0GC3kmP3AbZgq4FJHj
-	 BYGLXL2eXGdGWlToLM9WE25ZChJLp7TktNJTyJlQ9MEBYqJ+n6oykmBGmHnUBPAIhYVKS
-	 QGx42owKQwfJovkmyM9COLlSf4JpkOacSQ3dPxEVylMWaCS5kZRsfKjcAcyNfNWiPpg==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=V0W1Omuc5qLlgrYlj61ga7Sw6NBA0Vf65IbGqtBQXEs=;
+	b=cpst0YhwL7hqtefwCNnc2l7FLkchSFoFDpORdKVgBlpW44iWSqlS3AVYfAgJ3NY7UNr9
+	 iCCYKYEGUTN0/oFwC1lMZ0RhaN3fm5TQlKtfgTspVSf76uOPVuABTQhR77cSDdirPeoI3
+	 15jy2jizovAoijhqZzhOrFNycgGT3SGWIiBy3otp0WsdJ/jEu2hkc0oYKeYLLtpw8Baen
+	 507NpyRYCxTOpW/jTycKvuN0sAoNv48loH3vw8HgrXqeQmEa8xPwFL4f21JIF5ilI3COY
+	 EkBCrSLRB+nfbzEoLPTw7wnam3w9Itc4z3o9o5Gqemt8UWcGnU/G39xwklZ1KntQUgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I+4Piz08;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JniN2JPj;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88FC9606A322;
-	Mon,  9 Nov 2026 12:28:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88FC9606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59BCF606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:29:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59BCF606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I+4Piz08
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JniN2JPj
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794227308; x=1825763308;
+  t=1794227350; x=1825763350;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=xin5qebVZnNrHswSAcjXGRocPNW79QGhq8ix6ABBAU4=;
-  b=I+4Piz08iiIKkmAnzak/C9qjYHR6gMMN3DrzpWyaXfU1u1xzbbGMVqPY
-   hRX+4xmSeMK2Z8Zl+/uqLMOrrXK+vgRCkhHU5kiMlBBkqzKReEivHiO8s
-   kQbvoR5ymCIaJChRpH+hq0gBA4mE1Gv2SnZFMfRdmbwju1AyMzMywGEv0
-   eNJJS7/cP2ugCP5zPvv52kwk6k5xjrUdYi5FbQDWGIdk2inuIJV2jTb1E
-   ma1k+DkIcqnqQCYbjJ+eHAUbOes1p6NCbyxQVk4mrF3CXd/ckq/GWqoLL
-   rVR+qlPeK86i3g0RUbOCfzZi7iVQRxrV2ZzBcQ20tzaCA9octdDoAEQGQ
-   A==;
-X-CSE-ConnectionGUID: 0Bkm4/xjQxev9HyepMToxQ==
-X-CSE-MsgGUID: GY8amjpaTPyP+07sWrSQ4g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2824455"
+  bh=ri+0JSXDDpMzIF/go23y54HD4lk4Q1T33paLw4rI6/A=;
+  b=JniN2JPjUmroKon8XyK37KAnRM2lyWqVRixyUadbUhxldfOCxZkX47cs
+   WRilNTQa7U11U1EQ7bJx+QXOUfzWaSHIdf33BO2hI/KukJ6S9wtSAM1Vs
+   Q2bKSpAYTcQc/LvUahRANuCRT+xRLUB6USyOVWsf7/f3fM3vBVp8VMaVG
+   NtkB34UKytvukqXCeFClVfpajeVCi46O6VpssHZvqr2gKOwl95CsXgnIA
+   TxFbzYnpAglDCC80tEu6Vt3GBosFF13eKAHXydshm7w7s4SOi0tanJM0I
+   5qi/gJTrq1WUjTJ9wPbA/0KL3GH7QaCpKP4ZpddJQ7pBlN9EHxpV+BUI9
+   w==;
+X-CSE-ConnectionGUID: Zx5m1g6WRI+f81FLjmqqeA==
+X-CSE-MsgGUID: UU1x58HnTa+TpngGiM6zFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2972280"
 X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2824455"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:28:27 -0800
-X-CSE-ConnectionGUID: lvti2DBeToCoiYEIAdjSnA==
-X-CSE-MsgGUID: YhC5J2GdQ9yq8z5po+c5VA==
+   d="scan'208";a="2972280"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:29:09 -0800
+X-CSE-ConnectionGUID: YnSFwxRvT2GBX1KbIGpbTQ==
+X-CSE-MsgGUID: B1TdXyuVTu65IJKn7yVtXw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7979214"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:28:25 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3BB02121B96;
-	Mon, 09 Nov 2026 14:28:22 +0200 (EET)
-Date: Mon, 9 Nov 2026 14:28:22 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: tin.posavec04@gmail.com
-Cc: Bingbu Cao <bingbu.cao@amd.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] media: i2c: ov9734: Add power on/off sequencing
- support
-Message-ID: <avG8ZgDPVWCr1pja@kekkonen.localdomain>
-References: <20261017-ov9734-ipu6-v1-0-86eab22ae258@gmail.com>
- <20261017-ov9734-ipu6-v1-2-86eab22ae258@gmail.com>
+   d="scan'208";a="7735109"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:29:04 -0800
+Date: Mon, 9 Nov 2026 14:29:02 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Yuehong Wu <wuyuehong@cmss.chinamobile.com>
+Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Breno Leitao <leitao@debian.org>, David Gow <david@davidgow.net>,
+	Tejun Heo <tj@kernel.org>, Ryota Sakamoto <sakamo.ryota@gmail.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Marco Elver <elver@google.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Kir Chou <note351@hotmail.com>, Lorenzo Stoakes <ljs@kernel.org>,
+	Borislav Petkov <bp@alien8.de>,
+	Kuan-Wei Chiu <visitorckw@gmail.com>,
+	Petr Mladek <pmladek@suse.com>, Eric Biggers <ebiggers@kernel.org>,
+	Guan-Chun Wu <409411716@gms.tku.edu.tw>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Dmitry Antipov <dmantipov@yandex.ru>,
+	Thomas Maarseveen <maarseveent@gmail.com>
+Subject: Re: [PATCH v2] lib/tests: add KUnit tests for the priority sorted
+ list (plist)
+Message-ID: <avG8jvXXkVSA4wkG@ashevche-desk.local>
+References: <20261106-plist-kunit-v2-1-yuehongwu@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,258 +94,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261017-ov9734-ipu6-v1-2-86eab22ae258@gmail.com>
+In-Reply-To: <20261106-plist-kunit-v2-1-yuehongwu@cmss.chinamobile.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Tin,
-
-On Sat, Oct 17, 2026 at 10:31:58AM +0200, Tin Posavec via B4 Relay wrote:
-> From: Tin Posavec <tin.posavec04@gmail.com>
+On Fri, Nov 06, 2026 at 10:18:34AM +0800, Yuehong Wu wrote:
+> lib/plist.c has no KUnit coverage; its only test is the in-module
+> plist_test() under CONFIG_DEBUG_PLIST, which BUG_ON()s on the first
+> violation and does not report results in KTAP format.  The code has seen
+> three regression-class changes since mid-2024:
 > 
-> So far the driver has relied on ACPI to power the sensor on and off. On
-> the Intel NUC M15 (LAPRC710), however, the sensor's ACPI device has
-> neither _PS0 nor _PR0. Its avdd supply and clock are provided by an
-> INT3472 discrete device instead, and as the driver does not enable
-> them, reading the chip ID in probe fails with -EREMOTEIO.
+>   commit c8dab79f9eef ("lib/plist.c: avoid worst case scenario in
+>   plist_add")
+>   commit 95d4b3450ebe ("lib/plist.c: add shortcut for plist_requeue()")
+>   commit 43c91b152243 ("lib/plist: fix plist_requeue() corrupting order
+>   in the last bucket")
 > 
-> Get the dovdd, avdd and dvdd supplies and the optional reset and
-> powerdown GPIOs, and power the sensor on and off in the runtime PM
-> callbacks. Also power it on in probe before identifying it, and off on
-> probe errors and in remove() if it is still powered on. The 2 ms reset
-> assertion time and the 20 ms start-up delay are taken from ov01a10.
+> The last one has no regression test: plist_kunit_requeue_last_bucket()
+> covers exactly that wrap-around, and the other cases pin down the ordering
+> invariants the previous two changes rely on.  KUnit coverage makes such
+> ordering regressions visible in CI, where CONFIG_DEBUG_PLIST is not
+> normally enabled.
 > 
-> Move pm_runtime_idle() after the sub-device registration, so that the
-> sensor is not powered off twice if the registration fails, and drop the
-> comment saying that the I2C core has already powered the device on.
+> Add lib/tests/plist_kunit.c, a KUnit suite that exercises plist_add(),
+> plist_del() and plist_requeue() and validates the invariants documented
+> in include/linux/plist.h after every operation:
 > 
-> Assisted-by: LLM
-> Signed-off-by: Tin Posavec <tin.posavec04@gmail.com>
-> ---
->  drivers/media/i2c/ov9734.c | 125 ++++++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 118 insertions(+), 7 deletions(-)
+>   - node_list stays sorted by ascending numeric priority (descending
+>     priority order) with FIFO order inside a priority bucket;
 > 
-> diff --git a/drivers/media/i2c/ov9734.c b/drivers/media/i2c/ov9734.c
-> index f9280ef0e..feb15de2c 100644
-> --- a/drivers/media/i2c/ov9734.c
-> +++ b/drivers/media/i2c/ov9734.c
-> @@ -4,9 +4,12 @@
->  #include <linux/acpi.h>
->  #include <linux/clk.h>
->  #include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
->  #include <linux/i2c.h>
->  #include <linux/module.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/time.h>
->  #include <linux/unaligned.h>
->  
->  #include <media/v4l2-ctrls.h>
-> @@ -322,9 +325,18 @@ static const struct ov9734_mode supported_modes[] = {
->  	},
->  };
->  
-> +static const char * const ov9734_supply_names[] = {
-> +	"dovdd",	/* Digital I/O power */
-> +	"avdd",		/* Analog power */
-> +	"dvdd",		/* Digital core power */
-> +};
-> +
->  struct ov9734 {
->  	struct device *dev;
->  	struct clk *clk;
-> +	struct gpio_desc *reset;
-> +	struct gpio_desc *powerdown;
-> +	struct regulator_bulk_data supplies[ARRAY_SIZE(ov9734_supply_names)];
->  
->  	struct v4l2_subdev sd;
->  	struct media_pad pad;
-> @@ -878,6 +890,88 @@ static int ov9734_check_hwcfg(struct device *dev)
->  	return ret;
->  }
->  
-> +static int ov9734_get_pm_resources(struct ov9734 *ov9734)
-> +{
-> +	int ret;
-> +
-> +	ov9734->reset = devm_gpiod_get_optional(ov9734->dev, "reset",
-> +						GPIOD_OUT_HIGH);
-> +	if (IS_ERR(ov9734->reset))
-> +		return dev_err_probe(ov9734->dev, PTR_ERR(ov9734->reset),
-> +				     "failed to get reset gpio\n");
-> +
-> +	ov9734->powerdown = devm_gpiod_get_optional(ov9734->dev, "powerdown",
-> +						    GPIOD_OUT_HIGH);
-> +	if (IS_ERR(ov9734->powerdown))
-> +		return dev_err_probe(ov9734->dev, PTR_ERR(ov9734->powerdown),
-> +				     "failed to get powerdown gpio\n");
-> +
-> +	for (unsigned int i = 0; i < ARRAY_SIZE(ov9734_supply_names); i++)
-> +		ov9734->supplies[i].supply = ov9734_supply_names[i];
-> +
-> +	ret = devm_regulator_bulk_get(ov9734->dev,
-> +				      ARRAY_SIZE(ov9734_supply_names),
-> +				      ov9734->supplies);
-> +	if (ret)
-> +		return dev_err_probe(ov9734->dev, ret,
-> +				     "failed to get regulators\n");
-> +
-> +	return 0;
-> +}
-> +
-> +static int ov9734_power_on(struct device *dev)
-> +{
-> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-> +	struct ov9734 *ov9734 = to_ov9734(sd);
-> +	int ret;
-> +
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(ov9734_supply_names),
-> +				    ov9734->supplies);
-> +	if (ret) {
-> +		dev_err(dev, "failed to enable regulators: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = clk_prepare_enable(ov9734->clk);
-> +	if (ret) {
-> +		dev_err(dev, "failed to enable clock: %d\n", ret);
-> +		regulator_bulk_disable(ARRAY_SIZE(ov9734_supply_names),
-> +				       ov9734->supplies);
-> +		return ret;
-> +	}
-> +
-> +	if (ov9734->reset || ov9734->powerdown) {
-> +		/*
-> +		 * Keep reset/powerdown asserted for at least 2 ms on a
-> +		 * back-to-back off-on cycle.
-> +		 */
-
-The comment isn't useful. Please drop it.
-
-> +		fsleep(2 * USEC_PER_MSEC);
-> +		gpiod_set_value_cansleep(ov9734->powerdown, 0);
-> +		gpiod_set_value_cansleep(ov9734->reset, 0);
-
-The sensor appears to need a single GPIO (xshutdown). I wonder what's the
-other one.
-
-> +	}
-> +
-> +	/* Give the sensor time to start up before accessing it */
-
-Ditto.
-
-> +	fsleep(20 * USEC_PER_MSEC);
-
-8192 external clock cycles are required for this.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int ov9734_power_off(struct device *dev)
-> +{
-> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-> +	struct ov9734 *ov9734 = to_ov9734(sd);
-> +
-> +	gpiod_set_value_cansleep(ov9734->reset, 1);
-> +	gpiod_set_value_cansleep(ov9734->powerdown, 1);
-> +
-> +	clk_disable_unprepare(ov9734->clk);
-> +
-> +	regulator_bulk_disable(ARRAY_SIZE(ov9734_supply_names),
-> +			       ov9734->supplies);
-> +
-> +	return 0;
-> +}
-> +
->  static void ov9734_remove(struct i2c_client *client)
->  {
->  	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> @@ -887,7 +981,10 @@ static void ov9734_remove(struct i2c_client *client)
->  	media_entity_cleanup(&sd->entity);
->  	v4l2_ctrl_handler_free(sd->ctrl_handler);
->  	pm_runtime_disable(ov9734->dev);
-> -	pm_runtime_set_suspended(ov9734->dev);
-> +	if (!pm_runtime_status_suspended(ov9734->dev)) {
-> +		ov9734_power_off(ov9734->dev);
-> +		pm_runtime_set_suspended(ov9734->dev);
-> +	}
->  	mutex_destroy(&ov9734->mutex);
->  }
->  
-> @@ -918,11 +1015,20 @@ static int ov9734_probe(struct i2c_client *client)
->  				     "external clock %lu is not supported",
->  				     freq);
->  
-> +	ret = ov9734_get_pm_resources(ov9734);
-> +	if (ret)
-> +		return ret;
-> +
->  	v4l2_i2c_subdev_init(&ov9734->sd, client, &ov9734_subdev_ops);
-> +
-> +	ret = ov9734_power_on(ov9734->dev);
-> +	if (ret)
-> +		return ret;
-> +
->  	ret = ov9734_identify_module(ov9734);
->  	if (ret) {
->  		dev_err(ov9734->dev, "failed to find sensor: %d", ret);
-> -		return ret;
-> +		goto probe_error_power_off;
->  	}
->  
->  	mutex_init(&ov9734->mutex);
-> @@ -944,13 +1050,8 @@ static int ov9734_probe(struct i2c_client *client)
->  		goto probe_error_v4l2_ctrl_handler_free;
->  	}
->  
-> -	/*
-> -	 * Device is already turned on by i2c-core with ACPI domain PM.
-> -	 * Enable runtime PM and turn off the device.
-> -	 */
->  	pm_runtime_set_active(ov9734->dev);
->  	pm_runtime_enable(ov9734->dev);
-> -	pm_runtime_idle(ov9734->dev);
->  
->  	ret = v4l2_async_register_subdev_sensor(&ov9734->sd);
->  	if (ret < 0) {
-> @@ -959,6 +1060,8 @@ static int ov9734_probe(struct i2c_client *client)
->  		goto probe_error_media_entity_cleanup_pm;
->  	}
->  
-> +	pm_runtime_idle(ov9734->dev);
-> +
->  	return 0;
->  
->  probe_error_media_entity_cleanup_pm:
-> @@ -970,9 +1073,16 @@ static int ov9734_probe(struct i2c_client *client)
->  	v4l2_ctrl_handler_free(ov9734->sd.ctrl_handler);
->  	mutex_destroy(&ov9734->mutex);
->  
-> +probe_error_power_off:
-> +	ov9734_power_off(ov9734->dev);
-> +
->  	return ret;
->  }
->  
-> +static const struct dev_pm_ops ov9734_pm_ops = {
-> +	RUNTIME_PM_OPS(ov9734_power_off, ov9734_power_on, NULL)
-> +};
-> +
->  static const struct acpi_device_id ov9734_acpi_ids[] = {
->  	{ "OVTI9734", },
->  	{}
-> @@ -983,6 +1093,7 @@ MODULE_DEVICE_TABLE(acpi, ov9734_acpi_ids);
->  static struct i2c_driver ov9734_i2c_driver = {
->  	.driver = {
->  		.name = "ov9734",
-> +		.pm = pm_ptr(&ov9734_pm_ops),
->  		.acpi_match_table = ov9734_acpi_ids,
->  	},
->  	.probe = ov9734_probe,
+>   - exactly the first node of each bucket is linked on prio_list, and
+>     the headless prio_list ring visits the bucket heads in node_list
+>     order before wrapping back to the first bucket (a single bucket
+>     degenerates to a self loop on the first node).
 > 
+> The fixed cases cover bucket head handover on delete (first, middle and
+> last bucket), the plist_requeue() shortcut with and without a following
+> bucket, requeueing the head of the first and of the last bucket where the
+> ring wraps around, the INT_MIN/INT_MAX extremes, and plist_first_entry()/
+> plist_last_entry().  A deterministic pseudo-random add/del/requeue churn
+> test mirrors the in-module test but draws priorities from a small range
+> so that multi-node buckets actually occur, and every requeue in the loop
+> moves a node (a requeue without a same-priority successor is a no-op).
+> 
+> The suite is wired up as CONFIG_PLIST_KUNIT_TEST next to the other
+> library KUnit tests and is enabled by default with KUNIT_ALL_TESTS.
+> lib/plist.c is built into the kernel and exports none of plist_add(),
+> plist_del() or plist_requeue(), so the test cannot be built as a module:
+> make it built-in only (bool, depends on KUNIT=y), like the other KUnit
+> tests that use non-exported symbols.
+> 
+> The tests were built into an x86_64 kernel and run under QEMU/KVM with
+> kunit.enable=1 kunit.filter_glob=plist*: 17 of 17 tests pass.
+
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202611052109.GqbzRkv1-lkp@intel.com/
+
+New code may not be reported as a regression. There was never the module
+present, nothing to report, nothing to fix.
 
 -- 
-Regards,
+With Best Regards,
+Andy Shevchenko
 
-Sakari Ailus
+
