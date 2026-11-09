@@ -1,62 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=14.137.139.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228610;
-	b=k9TFeF4T3C9OC/6DUDNYd2cL4woDzLNSI2VDK9FiJktHXMviizSoJL9HMNQh6aUKrl0r
-	 ch1V4KoWWXTVAYrRH+ZHHeeTe/KFi4G9+J+Rz8LaJUaOKSjQMuI9BDJnMErpKuEfDdt+h
-	 1WVHVoYW5tXssLRVJWtW5O0AQewhbVMg5rQgcXGQuD5dYGDn6E3oGm9M4mWsFXPUXW3eY
-	 Nrslg1DrSsh8bmZlvOxLDN9j/+YSF8ffRBNZHq6trq/fZL7w3Z8x7AunudW2JIQmkt5LS
-	 oHMSi3+hkz2XiiZpNI1G5NmqP2tLuocHVmWu3aP6TOsUlp/7i+ai3x/Nxg7wdAXzrtw==
+	t=1794228649;
+	b=XQkWN+AlUTgwZOSExttGbMi/fYpY32+ab6j7uEts1I22sLXFu3ahxxNqXVAH1vp2nqNc
+	 Tm3lzxIJZrYV+3baFHPJNjitwt/OeIfXw1XoD4u+6aF6rcuAMeQGyI+nKwhqdfkJFIb5H
+	 ugYvdiEJANv0+gWoE6ThkaiZdXZVLSQhgetel7u/KanFAkZqY2N/OXJ2P8k/1nY9OOfZz
+	 ZwIDR/7A4SMO6JwIG5Vku89M9/S88n0XRIDAcP6630J8q8x3UnQRZKHOXPVPMoOQZUH7D
+	 OnrGBjo6qeLVaH8H/pdYQcPXOeLLuAu8fGTUtGGMlNw9Q+82PjixDjlmYikFGWPhawQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228610;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Subject:From:To:
-	 Cc:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=ruNB7+aZem2nemlQRXcbNJzHv2mj+4H0kv7LrhCTM/0=;
-	b=jcskSHgyF+OF2fm2TOcnssD07LtIF07G5PpaqqPvS+jBBx4goel6RoWwMqlzNDFLlzlf
-	 zsrS1jXSENeuQT/H6DEK4uXdhHUSgX89RAVYI0RoJiqi/mfZ/G9HCNLgvftXIEpBEyN+N
-	 IPfMka1387dQ6EKbUaL+aYoIOUV+aewOzPAwCh+cfiofUfnVhIMLvnmz51QZDpJ2dvhG9
-	 Y4td9PJxiSAFigYCUbdN3eKk9Mm7KpWRqLUg1+F7gY4uzpjMIbuGDli5XhCzWjaCrH9f8
-	 frfcvbH6yZhcW9KGciB8Pnn6fo/sd8ShdycDgcUkmThyW7rfBTOemO/HNrhKbvMbFGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228649;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=JjNSwO4mZ69wgWNuljj9jgcvdRQfwcVoIjX8RvCsKvM=;
+	b=yj9JA2eGqcKrllWdXRwsET4KApHoRgEjakvBNDPNZXt+D3bREB844XnAJzG19TxjDWnp
+	 u3LODZVjyavZugVECIyW355PXQubOFSUotfcqXdkbtk90uoM+8GzNEDxAoR2IWduNFzks
+	 R1IQNH35B6JfJgFx2+MJWweBip9kdXnr/5BriT1QNxY09pjPDDaC21XvNTyx+f+DfJmKg
+	 td1eiL9SnY4Kt+i35jJD/tP4RgFxYNbosCFLjNBsK835RbLH+M1BnRQTcCjWWixA9QZFv
+	 mGb9ecj8oPTDJaLcmX7dY8ccpMQr/ZJq9owfCcrTYxZ/dAnuTPRCwmTJB1Zc87can0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=14.137.139.23
-Received: from frasgout11.his.huawei.com (frasgout11.his.huawei.com [14.137.139.23])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMcdWkPh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF997606D82A;
-	Mon,  9 Nov 2026 12:50:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF997606D82A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.18.224.235])
-	by frasgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jNV3c5rksz1HCKM;
-	Mon,  9 Nov 2026 20:49:32 +0800 (CST)
-Received: from mail02.huawei.com (unknown [7.182.16.218])
-	by mail.maildlp.com (Postfix) with ESMTP id 62B2140558;
-	Mon,  9 Nov 2026 20:49:57 +0800 (CST)
-Received: from [10.204.63.22] (unknown [10.204.63.22])
-	by dep2_app2 (Coremail) with UTF8SMTPA id 2hC2B0CGkU9qwfFqwoQQAA--.6369S2;
-	Mon, 09 Nov 2026 13:49:56 +0100 (CET)
-Message-ID: <95b47e1a0a30022ede9f52ce0e80b0f957097b5b.camel@huaweicloud.com>
-Subject: Re: [PATCH v2] ima: fix races when deleting measurement list entries
-From: Roberto Sassu <roberto.sassu@huaweicloud.com>
-To: Weibin Liu <liuwb@xiaopeng.com>, linux-integrity@vger.kernel.org
-Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg
- <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, James Morris
- <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Steven Chen
- <chenste@linux.microsoft.com>,  stable@vger.kernel.org, Zhu Guanglei
- <zhugl3@xiaopeng.com>
-Date: Mon, 09 Nov 2026 13:49:43 +0100
-In-Reply-To: <20261109123335.432186-1-liuwb@xiaopeng.com>
-References: <20261109123335.432186-1-liuwb@xiaopeng.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 753EC606A322;
+	Mon,  9 Nov 2026 12:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AMcdWkPh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BF081F0089F;
+	Mon,  9 Nov 2026 12:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794228649;
+	bh=JjNSwO4mZ69wgWNuljj9jgcvdRQfwcVoIjX8RvCsKvM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=AMcdWkPhAWKw4Kty4An/ZtOYneJtvpJDr03C4k9f4tW0Mo6sgerdBVpzfABUh/Izz
+	 RkYVqnfH+aQq6TxHIcOTPO9nHVxllQqqI5DJZKjTmZy/zYILGN0a0xlyY4h0Dr8/aa
+	 5EmkN/gp8IT7gS80cbk7N/hnq86JwIN+KeT5TLtD/1Pp8NgR8gNeuWqLWiOxlArV98
+	 lf9ViQfLIxjFbx23pEDq01GJDwvSkGChDztuhHnw56pwxwZMe40GVH5SoxrMhAFFpy
+	 ZdM2Q1b4RIxcK6EUM6ZOYnd80/6fgCvOEJUEB5mFrxshCiSW9wYfunJjU88fCRa7cI
+	 Cw5wlVwLKqaug==
+Subject: Re: [PATCH net] net: spacemit: Hold RTNL lock in emac_resume() and
+ emac_suspend()
+From: netdev-bot+sashiko@kernel.org
+To: alitariq45892@gmail.com
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, dlan@kernel.org,
+ troy.mitchell@linux.spacemit.com, wangruikang@iscas.ac.cn, amadeus@jmu.edu.cn,
+ s-vadapalli@ti.com, tmshlvck@gmail.com, meatuni001@gmail.com,
+ vadim.fedorenko@linux.dev, maxime.chevallier@bootlin.com,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Date: Mon, 09 Nov 2026 12:50:47 +0000
+Message-ID: <179422864754.994134.12281861683384047552@kernel.org>
+In-Reply-To: <20261105123441.2524171-1-alitariq45892@gmail.com>
+References: <20261105123441.2524171-1-alitariq45892@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,295 +67,208 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:2hC2B0CGkU9qwfFqwoQQAA--.6369S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Kr1UWFWfCryUCw4xJryUtrb_yoWDCw15pa
-	9a9a4xCr1kJ3yfXr1xG3Z8Zr4ru395Ka1DWr47G3s7AF15JrnF9FW3Ar12krs5KrW8Jr18
-	ta1YqrZ8uan0yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
-	AFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
-	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
-	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
-	wI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
-	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUF1
-	v3UUUUU
-X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAgASDWrxOrle-AAFsi
 
-On Mon, 2026-11-09 at 20:33 +0800, Weibin Liu wrote:
-> ima_queue_delete_partial() looks up the queue entry at which the
-> measurement list has to be cut without holding ima_extend_list_mutex,
-> and only takes the mutex afterwards for __list_cut_position().  The
-> comment above the cut justifies this with "ima_fs.c enforces
-> single-writer exclusion".
->=20
-> That exclusion only covers cross-process opens.  ima_measure_lock()
-> registers measure_writer at open() time and even lets the same task
-> open the file again by incrementing measure_writer_extra_writes, while
-> _ima_measurements_write() never checks the caller's identity.  A
-> privileged task can therefore open several descriptors for the
-> measurement list and use them concurrently from its own threads.  Each
-> open() creates a separate struct file, so the f_pos_lock taken by
-> fdget_pos() serializes neither these writers nor their readers.
->=20
-> Two racing writers can then resolve the same, or an overlapping, trim
-> position, and the second one dereferences a queue entry that the first
-> one has already detached and handed to ima_queue_delete().  Depending
-> on the interleaving this corrupts the measurement list, reads freed
-> memory in __list_cut_position(), or frees the same entry twice.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Is it still true with the new semaphore?
+Critical: 0 · High: 0 (2) · Medium: 2 · Low: 0
 
-Thanks
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Roberto
+- [Medium] Possible ABBA deadlock between rtnl_mutex and the TX-timeout
+  work, added to the suspend path.
+- [Medium] The new RTNL section does not cover the netif_running() check
+  that decides whether to call emac_stop()/emac_open().
 
-> Reproducer: generate some tens of thousands of measurement records,
-> open() the measurement list for writing several times from one task,
-> then write "20000\n" from that many threads using one descriptor each.
-> KASAN reports a stack-out-of-bounds access in ima_queue_delete(),
-> called from ima_queue_delete_partial().
->=20
-> Move the lookup into the same critical section as the cut, so that the
-> entry stays valid until it has been detached.  Holding
-> ima_extend_list_mutex also excludes ima_extend_list(), so the plain
-> list_for_each_entry() is sufficient and the RCU variant is no longer
-> needed.  Keep the existing error precedence (a short list returns
-> -ENOENT before the suspended check) and keep ima_queue_delete()
-> outside the mutex, since the trimmed list is already private.
->=20
-> The extend mutex alone cannot protect readers: the binary and ASCII
-> file operations call seq_read()/seq_lseek(), which traverse the list
-> without taking ima_extend_list_mutex.  An independent O_RDWR descriptor
-> lets a reader race with deletion from the same task.  Adding a
-> concurrent reader to the writer reproducer triggers a general
-> protection fault in ima_measurements_show(), reached from seq_read().
->=20
-> Introduce ima_measurements_rwsem at the file-operation layer.  Writers
-> take it for write around _ima_measurements_write(); readers take it for
-> read around seq_read() and seq_lseek().  Cover the binary/ASCII and
-> current/staged file operations, since they all expose the same list
-> traversal and deletion commands.  The resulting lock order is rwsem
-> followed by seq_file's lock on the read side, or ima_extend_list_mutex
-> on the write side.  Freeing the private trimmed list remains outside
-> the extend mutex but inside the rwsem write-side critical section.
-> The existing open-time exclusion remains unchanged, so one task cannot
-> delete a staged list belonging to another.
->=20
-> Suggested-by: Roberto Sassu <roberto.sassu@huawei.com>
-> Fixes: fcb0318a2969 ("ima: Support staging and deleting N measurements re=
-cords")
-> Cc: stable@vger.kernel.org # v7.2+
-> Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-> ---
-> Changes in v2:
-> - Add rwsem protection for read and lseek, as suggested by Roberto.
-> - Cover all current/staged binary/ASCII file operations.
-> - Keep the open-time exclusion unchanged.
-> - Clarify the lockless kexec dump protection in ima_measurements_show().
->=20
-> Link: https://lore.kernel.org/all/20261104053705.3967228-1-liuwb@xiaopeng=
-.com/ [v1]
->=20
->  security/integrity/ima/ima_fs.c    | 66 ++++++++++++++++++++++++------
->  security/integrity/ima/ima_queue.c | 20 +++++----
->  2 files changed, 65 insertions(+), 21 deletions(-)
->=20
-> diff --git a/security/integrity/ima/ima_fs.c b/security/integrity/ima/ima=
-_fs.c
-> index 3b8174a91a34..9da881308d52 100644
-> --- a/security/integrity/ima/ima_fs.c
-> +++ b/security/integrity/ima/ima_fs.c
-> @@ -39,6 +39,8 @@ static DEFINE_MUTEX(ima_measure_mutex);
->  static long ima_measure_users;
->  static struct task_struct *measure_writer;
->  static long measure_writer_extra_writes;
-> +/* Lock order: ima_measurements_rwsem -> ima_extend_list_mutex. */
-> +static DECLARE_RWSEM(ima_measurements_rwsem);
-> =20
->  bool ima_canonical_fmt;
->  static int __init default_canonical_fmt_setup(char *str)
-> @@ -161,7 +163,11 @@ void ima_putc(struct seq_file *m, void *data, int da=
-talen)
->   */
->  int ima_measurements_show(struct seq_file *m, void *v)
->  {
-> -	/* the list never shrinks, so we don't need a lock here */
-> +	/*
-> +	 * seq_file callers hold ima_measurements_rwsem.  The kexec dump caller
-> +	 * relies on reboot notifier ordering: measurements are suspended and
-> +	 * staging/deletion are forbidden while it walks the lists locklessly.
-> +	 */
->  	struct ima_queue_entry *qe =3D v;
->  	struct ima_template_entry *e;
->  	char *template_name;
-> @@ -400,32 +406,68 @@ static ssize_t _ima_measurements_write(struct file =
-*file,
->  	return datalen;
->  }
-> =20
-> +static ssize_t ima_measurements_read(struct file *file, char __user *buf=
-,
-> +				     size_t datalen, loff_t *ppos)
-> +{
-> +	ssize_t ret;
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but it is High
+  severity and involves the same work/RTNL pair.
+- [High] This problem wasn't introduced by this patch, but it is High
+  severity and sits in the function the patch modifies.
+
+--
+
+net: spacemit: Hold RTNL lock in emac_resume() and emac_suspend()
+
+This patch takes rtnl_lock() around the emac_open() call in emac_resume()
+and around the emac_stop() call in emac_suspend(). The aim is to silence
+a lockdep "suspicious RCU usage" warning from phy_disconnect(), which
+reads a pointer with rtnl_dereference().
+
+> diff --git a/drivers/net/ethernet/spacemit/k1_emac.c b/drivers/net/ethernet/spacemit/k1_emac.c
+> index 71a80838bffd0..aca25a9e1e9ef 100644
+> --- a/drivers/net/ethernet/spacemit/k1_emac.c
+> +++ b/drivers/net/ethernet/spacemit/k1_emac.c
+> @@ -2033,7 +2033,10 @@ static int emac_resume(struct device *dev)
+>  	if (!netif_running(ndev))
+>  		return 0;
+>  
+> +	rtnl_lock();
+>  	ret = emac_open(ndev);
+> +	rtnl_unlock();
 > +
-> +	down_read(&ima_measurements_rwsem);
-> +	ret =3D seq_read(file, buf, datalen, ppos);
-> +	up_read(&ima_measurements_rwsem);
-> +
-> +	return ret;
-> +}
-> +
-> +static loff_t ima_measurements_llseek(struct file *file, loff_t offset,
-> +				      int whence)
-> +{
-> +	loff_t ret;
-> +
-> +	down_read(&ima_measurements_rwsem);
-> +	ret =3D seq_lseek(file, offset, whence);
-> +	up_read(&ima_measurements_rwsem);
-> +
-> +	return ret;
-> +}
-> +
->  static ssize_t ima_measurements_write(struct file *file, const char __us=
-er *buf,
->  				      size_t datalen, loff_t *ppos)
->  {
-> -	return _ima_measurements_write(file, buf, datalen, ppos, false);
-> +	ssize_t ret;
-> +
-> +	down_write(&ima_measurements_rwsem);
-> +	ret =3D _ima_measurements_write(file, buf, datalen, ppos, false);
-> +	up_write(&ima_measurements_rwsem);
-> +
-> +	return ret;
->  }
-> =20
->  static ssize_t ima_measurements_staged_write(struct file *file,
->  					     const char __user *buf,
->  					     size_t datalen, loff_t *ppos)
->  {
-> -	return _ima_measurements_write(file, buf, datalen, ppos, true);
-> +	ssize_t ret;
-> +
-> +	down_write(&ima_measurements_rwsem);
-> +	ret =3D _ima_measurements_write(file, buf, datalen, ppos, true);
-> +	up_write(&ima_measurements_rwsem);
-> +
-> +	return ret;
->  }
-> =20
->  static const struct file_operations ima_measurements_ops =3D {
->  	.open =3D ima_measurements_open,
-> -	.read =3D seq_read,
-> +	.read =3D ima_measurements_read,
->  	.write =3D ima_measurements_write,
-> -	.llseek =3D seq_lseek,
-> +	.llseek =3D ima_measurements_llseek,
->  	.release =3D ima_measurements_release,
->  };
-> =20
->  static const struct file_operations ima_measurements_staged_ops =3D {
->  	.open =3D ima_measurements_staged_open,
-> -	.read =3D seq_read,
-> +	.read =3D ima_measurements_read,
->  	.write =3D ima_measurements_staged_write,
-> -	.llseek =3D seq_lseek,
-> +	.llseek =3D ima_measurements_llseek,
->  	.release =3D ima_measurements_release,
->  };
-> =20
-> @@ -440,7 +482,7 @@ void ima_print_digest(struct seq_file *m, u8 *digest,=
- u32 size)
->  /* print in ascii */
->  static int ima_ascii_measurements_show(struct seq_file *m, void *v)
->  {
-> -	/* the list never shrinks, so we don't need a lock here */
-> +	/* The caller holds ima_measurements_rwsem. */
->  	struct ima_queue_entry *qe =3D v;
->  	struct ima_template_entry *e;
->  	char *template_name;
-> @@ -497,9 +539,9 @@ static int ima_ascii_measurements_open(struct inode *=
-inode, struct file *file)
-> =20
->  static const struct file_operations ima_ascii_measurements_ops =3D {
->  	.open =3D ima_ascii_measurements_open,
-> -	.read =3D seq_read,
-> +	.read =3D ima_measurements_read,
->  	.write =3D ima_measurements_write,
-> -	.llseek =3D seq_lseek,
-> +	.llseek =3D ima_measurements_llseek,
->  	.release =3D ima_measurements_release,
->  };
-> =20
-> @@ -519,9 +561,9 @@ static int ima_ascii_measurements_staged_open(struct =
-inode *inode,
-> =20
->  static const struct file_operations ima_ascii_measurements_staged_ops =
-=3D {
->  	.open =3D ima_ascii_measurements_staged_open,
-> -	.read =3D seq_read,
-> +	.read =3D ima_measurements_read,
->  	.write =3D ima_measurements_staged_write,
-> -	.llseek =3D seq_lseek,
-> +	.llseek =3D ima_measurements_llseek,
->  	.release =3D ima_measurements_release,
->  };
-> =20
-> diff --git a/security/integrity/ima/ima_queue.c b/security/integrity/ima/=
-ima_queue.c
-> index 67782c004cdf..8c69684abd25 100644
-> --- a/security/integrity/ima/ima_queue.c
-> +++ b/security/integrity/ima/ima_queue.c
-> @@ -427,12 +427,16 @@ int ima_queue_delete_partial(unsigned long req_valu=
-e)
->  	struct ima_queue_entry *qe;
->  	int ret =3D 0;
-> =20
-> +	mutex_lock(&ima_extend_list_mutex);
-> +
->  	/*
-> -	 * list_for_each_entry_rcu() without rcu_read_lock() is fine because
-> -	 * only list append can happen concurrently. No list replace due to the
-> -	 * staging/delete writers mutual exclusion.
-> +	 * The lookup and the cut have to be atomic with respect to other
-> +	 * writers: ima_fs.c serializes open(), but write() can run
-> +	 * concurrently on independently opened descriptors. Holding
-> +	 * ima_extend_list_mutex also excludes ima_extend_list(), so the
-> +	 * plain list traversal is sufficient.
->  	 */
-> -	list_for_each_entry_rcu(qe, &ima_measurements, later, true) {
-> +	list_for_each_entry(qe, &ima_measurements, later) {
->  		size_to_remove +=3D get_binary_runtime_size(qe->entry);
->  		num_to_remove++;
-> =20
-> @@ -441,18 +445,16 @@ int ima_queue_delete_partial(unsigned long req_valu=
-e)
+>  	if (ret) {
+>  		clk_disable_unprepare(priv->bus_clk);
+>  		return ret;
+
+[Severity: High]
+This is a pre-existing issue, not one introduced by this patch. It sits
+in the function being changed, though. What state is the device left
+in when emac_open() fails here?
+
+By this point the unwind in emac_open() has freed the TX/RX rings. One
+of two things has also happened:
+
+- emac_up() failed, and its error path called phy_disconnect() and
+  pm_runtime_put_sync().
+- emac_phy_connect() failed, and ndev->phydev is still NULL from the
+  previous suspend.
+
+The IRQ is not requested and NAPI is disabled. emac_resume() then gates
+bus_clk and returns, but __LINK_STATE_START and IFF_UP are still set.
+
+The next "ip link set down", unregister, or emac_suspend() (which sees
+netif_running() as true) would then run:
+
+emac_stop()
+  emac_down()
+    phy_disconnect(ndev->phydev)   <- phydev is NULL
+      phy_is_started(phydev)       <- dereferences phydev->state
+
+Can this oops?
+
+Past that point, emac_down() would:
+
+- write MAC registers with the bus clock gated
+- call free_irq() on an IRQ that is not requested
+- call napi_disable() on a NAPI that is already disabled
+- underflow the runtime PM usage count
+
+Also, emac_clean_rx_desc_ring() would index the NULL rx_desc_buf, and
+emac_suspend() would call clk_disable_unprepare(priv->bus_clk) a second
+time.
+
+Separately, emac_alloc_tx_resources() and emac_alloc_rx_resources()
+kfree() the buffer array when dma_alloc_coherent() fails, but they do
+not set the pointer to NULL:
+
+	if (!tx_ring->desc_addr) {
+		kfree(tx_ring->tx_desc_buf);
+		return -ENOMEM;
+	}
+
+Could a later teardown free tx_desc_buf (or rx_desc_buf) a second time
+through that stale pointer?
+
+> @@ -2056,7 +2059,9 @@ static int emac_suspend(struct device *dev)
+>  		return 0;
 >  	}
-> =20
->  	/* Not enough records to delete. */
-> -	if (req_value_copy > 0)
-> +	if (req_value_copy > 0) {
-> +		mutex_unlock(&ima_extend_list_mutex);
->  		return -ENOENT;
-> +	}
-> =20
-> -	mutex_lock(&ima_extend_list_mutex);
->  	if (ima_measurements_suspended) {
->  		mutex_unlock(&ima_extend_list_mutex);
->  		return -ESTALE;
->  	}
-> =20
-> -	/*
-> -	 * qe remains valid because ima_fs.c enforces single-writer exclusion.
-> -	 */
->  	__list_cut_position(&ima_measurements_trim, &ima_measurements,
->  			    &qe->later);
-> =20
+>  
+> +	rtnl_lock();
+>  	emac_stop(ndev);
+> +	rtnl_unlock();
 
+[Severity: Medium]
+emac_suspend() checks netif_running() to decide whether to call
+emac_stop(). That check runs before rtnl_lock() and is not repeated
+under the lock:
+
+	if (!ndev || !netif_running(ndev)) {
+		clk_disable_unprepare(priv->bus_clk);
+		return 0;
+	}
+
+	rtnl_lock();
+	emac_stop(ndev);
+
+Can another RTNL holder close the device in between?
+
+Here is one example. The netdev is moved into a netns, and that netns
+is torn down as system sleep starts. cleanup_net runs on netns_wq,
+which is not freezable. It holds RTNL and calls dev_close(), which
+calls emac_stop().
+
+Meanwhile emac_suspend() has already seen netif_running() as true. It
+blocks in rtnl_lock(), then runs emac_stop() a second time. There,
+emac_down() calls phy_disconnect(ndev->phydev) with phydev already
+NULL, and phy_is_started() dereferences it.
+
+emac_resume() has the mirror case. It also tests netif_running() before
+rtnl_lock(), so it could call emac_open() on a device that was just
+closed. That would leak the rings, the IRQ and the PHY attach.
+
+Would it make sense to take rtnl_lock() before the netif_running()
+test, with netif_device_detach() / netif_device_attach() inside the
+same locked section?
+
+[Severity: Medium]
+Does holding RTNL here invert the lock order with tx_timeout_task?
+emac_stop()->emac_down() does:
+
+	cancel_work_sync(&priv->tx_timeout_task);
+
+and the work handler takes RTNL first:
+
+emac_tx_timeout_task() {
+	...
+	rtnl_lock();
+	...
+}
+
+emac_tx_timeout() queues the work with schedule_work(). That uses the
+system workqueue, which is not freezable, so the work can run during
+system suspend:
+
+CPU1 (worker)                      CPU2 (suspend)
+emac_tx_timeout_task()
+                                   emac_suspend()
+                                     rtnl_lock()
+  rtnl_lock()  <- blocks
+                                     emac_stop()
+                                       emac_down()
+                                         cancel_work_sync()
+                                           <- waits for CPU1
+
+cancel_work_sync() goes through __flush_work()->start_flush_work().
+That finds the executing worker with find_worker_executing_work() and
+waits on a barrier queued behind it.
+
+Can this hang suspend? Lockdep may also report a circular dependency
+between rtnl_mutex and the work's lockdep_map, which would swap one
+splat for another.
+
+The ndo_stop path (dev_close() under RTNL, then emac_stop()) already
+has this pattern. This patch adds it to the system sleep path too.
+
+Could the synchronous cancel be kept out of any RTNL-held section?
+Options include cancelling the work before taking RTNL, using
+rtnl_trylock() and requeueing in the work, or a disable_work() based
+scheme.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but it involves the same
+work and RTNL pair. Can emac_tx_timeout_task() wait on itself?
+
+emac_tx_timeout_task()          <- running as priv->tx_timeout_task
+  rtnl_lock()
+  dev_close(ndev)
+    __dev_close_many()
+      emac_stop()               <- ndo_stop
+        emac_down()
+          cancel_work_sync(&priv->tx_timeout_task)
+
+At this point the work is executing, not queued. start_flush_work()
+finds the calling worker itself through find_worker_executing_work().
+It then inserts a barrier that can only run after the current work
+returns, so wait_for_completion() in __flush_work() never returns.
+
+Would every TX timeout recovery leave the worker stuck while holding
+rtnl_mutex? That would block every RTNL user. With this patch, the next
+emac_suspend() would also block forever in its new rtnl_lock().
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105123441.2524171-1-alitariq45892%40gmail.com
