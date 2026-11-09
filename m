@@ -1,94 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794248795;
-	b=dOM0nZ09iAPJIDM4o45Ru3vv4/fS9XvwAdreppELj/jevxmmPEqrAWPLs6OeFP9ePdGi
-	 SyTqnMIJGD1arWjqkr6I3B6jRM3k8deHSjLVVBrgAprPFze/rv+6YfAL+SmwsiEunY1lP
-	 mp0kZiuQL2ue3duS8qafkWalc9D8fvWYXONXKSMvQR4dDSx11yNifg+U3/PArfI+xyMNg
-	 Cm78nLbiGwshrGCxl07wEVqWBBptUTs8TicVyrGP0LIswnLQCJHzHMscGCjRQP5YvTZjj
-	 H1Tta9qqKZrNj8yl4zwnK555SREr3S+9XQJpqxfNK2yAjhdprkYnQ10Uc7icNDhlEeQ==
+	t=1794248802;
+	b=h7/AsSxmYnIdrQVMNhDQ1As3sQr+cCWEjc61g9tV7WAlYNzDshWyWXji5rKGz6m4QlJi
+	 g3NGSIGf7uVJWIxGl+i6xrBgnQH+avz1Agsa3uSE6KrG0ZVBO8fREpDvaajD22DgLyP7I
+	 0X4DwwofwiOijC9v067UFquKVnpbDzdCUlL5yKBFiCOKoFCn5+y8mRvGcMaOA2qTO1LH7
+	 1uDmPwgtjlizGzYyQqmEDVrd6gnBMexTKwrhGaK+7U0dtWOgDSaSil6dpBajRr1Fxxysr
+	 zh2hrFgWU/kM4/Qark8dQ3A10Hoy6aXSmVxH+J9NyUmzHwEH1SCVOm+4TVQW6jTvw9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794248795;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:X-DetectorID-Processed:
-	 Content-Type;
-	bh=T56Z1eCWadKHf7E9bPDcddBvVL5N4FbrdTrJOAapOq4=;
-	b=uSwJG/5gfQjrG8HznIHKiA+hg0Lxu92s9/s2Yts9z5A35e3Led7uRWdJhs7R5j7uz53R
-	 BcufFNk4SiOqBCkOtt62Z9VWa/xakJYxn7wEU9pyMWT3z4wvcTQ4/htw6S4x2NsvRk4UA
-	 WLIjjssNNfHh09ka5fBsYa3aklE8zDza+hYEFKf6cnRT7L6ZjSzB86AL72DtEfUMMDm6F
-	 UJBkOXcpzJJmV72z0rg8KME5JnV0q8xC64L0n2ty0zNVVZNu2dMpZxfEGG9h3l1lKwKNV
-	 xAIAUf3M6XLoKmIsYvVqGyJ3CQz6VN7VO7RC1GJ5kO2I7AN3kbwWRX1DeWkvTCe5qKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248802;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KuWXOr8bdBpcuJfvomt+cRvy3pPxw4DWlc9TpuLSuDc=;
+	b=MBrdsuFRgc2HlhsFLf9VsbfjJwuibkO/dFu8mATNipE0XoHqfM0A1N/l5WUhUtCKAHnM
+	 wbNSzl1DSgWcb4TnfsBnHuXeU7JBFzNBsV9J60R2xkn/2CW1wqxEElZ/8rH1Zq+/aT3Us
+	 h0eN42GIhLQt1vuX9AgEZ2L9s5dvv72dMR2APD5uw7uOlmm2l5Ua98E13oozhIt0R+u1D
+	 IIqrJqaOVVleATbr5MKV8Uj843/LAEHLNVWgB42BEDeiTKZaZdNtACU2N06OLurn3149E
+	 crwNg9P3ew1UtCzh+C2KwOkP5T9ZDxOXvJiIiMytY+i178RQ6GCx/uN8qxEMYvmDPiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=LsUAWELY;
-	arc=none smtp.remote-ip=209.85.215.228
-Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c2Pfn4F9;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B037D606AFC3
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:26:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B037D606AFC3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CBA606AFC3
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:26:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6CBA606AFC3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=LsUAWELY
-Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cc758830601so743205a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:26:34 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794248794; x=1794853594;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=T56Z1eCWadKHf7E9bPDcddBvVL5N4FbrdTrJOAapOq4=;
-        b=w83JiYSm+vly0C2jzPIlNClsSme2cIPTQDV6kQkSZN3T9mVVi7o4niiHDdXin+Vy0B
-         52s6i7WvsB7Vsp2whq3QNYc6zVpuuwN8uYJAjRi6zSuOnMtXCLflzVdgjZvJRxdFeeyW
-         uWf4hb1Y8fEEEbJv5fJ3VljjWEZL7Kj0cAglCsCn/EcNlZBcCkc0C6fxdSRDP4lue/su
-         ZgdNumdxtSZwKFQl350tf+GQ288XejzEn7Gd7rnQ7oDrUs1hWuchMrS3ex3D7ex+DVhE
-         WaZ1Vk7xPDVYB3Ny7Qk0MP1Kq88CMwBHes5RgWagWXqOFOLiJTLapsYk1p4xHJnIwXES
-         ju0Q==
-X-Forwarded-Encrypted: i=1; AL+hErEmwTd/aYR9GC1eN/r88TXf8CNQB0YCr3NEk4xhm3JOdlnhsBNXSNv2d7gnLRz1lls5tyCtjBIHWMloSkE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8hZ0tiaBJQF0mG0mg6KJKxBBkvHqIsfhTZMshytTikujg2KvEU
-	xxa7hKtg531XFXBbyLWFhojwbssFU66G0DijY041fhd5wsKDfsyAuxTcM93Ebcv44Ot6Z3xxnfe
-	3wkQF7Zzpa1tSU+EDq+SQ0MSPivzDYP9i+2SATSMFtQd/f0Sh9zl05ENu+4MJUsnAi1gMVqSf7R
-	JwBi9wn0wvUt7PpgDk0ZigZYImkRJdc2A1DFQzHQ6hBBsgmyihtkvejxkzT3YE9DTB12TAJ4Dcp
-	LmsYh/ZJIBQ9PBoB6Q=
-X-Gm-Gg: AYBFou3ER03GdaiAEGHe5ZP94akVkF/99kBtAO8f0Orcjm0G5wFVrzwP4zJZpyL7NTf
-	dfMfOxURIGUrKrv2w22525YuNMjwH+MawDP9Xl/7ESL1vNxgIV4VJeDFym0+0lfzxtafPyUd3KP
-	fZU/6OCtEMCo3bMnTXhgiTJXofbz2rL12V3TdNKj/yDHAo/V1yP2s9JbJtJ6vGbR3OvGmU4vxPC
-	n1h2MgZ2sNddbEd5yaxLfHfK7CKXSQyM/zMbKFRa84fMkjEf4AewhUGZd+eDMCSv5u8ZUujKN+i
-	QA2RyecWIQ4Ae1uGdQ++QWwGwQCgrM64/2F3VmnL+JnWjUHAa3Qs7oa8doNLh0vifcNu/WT1wnd
-	8+M73R5TIAk7POBjcOxDZetlyUb5Gknjh6oInFHhYDj73+xhC9Q/Xf15BiFQzCUpkVs6vwTwlz5
-	dlykQuYDHKWMID2V+EJZ7mLrwHvIYqgntMaNQ=
-X-Received: by 2002:a17:90a:e7cd:b0:3ac:450b:164c with SMTP id 98e67ed59e1d1-3b166cc770amr480444a91.47.1794248793935;
-        Mon, 09 Nov 2026 10:26:33 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b16700d812sm202129a91.4.2026.11.09.10.26.33
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 09 Nov 2026 10:26:33 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c25501f4aa2so133641066b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:26:32 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c2Pfn4F9
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-372bdb942dbso1664005eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:26:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794248792; x=1794853592; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=T56Z1eCWadKHf7E9bPDcddBvVL5N4FbrdTrJOAapOq4=;
-        b=LsUAWELYIN5/69WgPWYoiQ/A1DBqQ7of6WGxv6wuPwe5kzvPanpdMZNVybzBLU8d56
-         6OdD+NG2YMuViG8MtbeRBH+q2EyPQEBtZL/ycCfvLT2p+MSHyaZMbOSNPFcZg4Yri+mr
-         jJlE0lMdpSMsA0Xn3TLelm5W/C5JwuRubIsWM=
-X-Forwarded-Encrypted: i=1; AL+hErHKJFd4y8RY1mnxAI6dBbprljt0l0jH43EzmgOCgQtG17WcxyyVE51I15iBkPv3jEiD6oxS7yzB3+gq3tY=@vger.kernel.org
-X-Received: by 2002:a17:906:4fd3:b0:c2a:4847:231b with SMTP id a640c23a62f3a-c504971a8e6mr13366266b.24.1794248791993;
-        Mon, 09 Nov 2026 10:26:31 -0800 (PST)
-X-Received: by 2002:a17:906:4fd3:b0:c2a:4847:231b with SMTP id
- a640c23a62f3a-c504971a8e6mr13364466b.24.1794248791591; Mon, 09 Nov 2026
- 10:26:31 -0800 (PST)
+        d=gmail.com; s=20260707; t=1794248801; x=1794853601; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KuWXOr8bdBpcuJfvomt+cRvy3pPxw4DWlc9TpuLSuDc=;
+        b=c2Pfn4F9VQW6nJV5+c+VrOUx9i1qZY0ugouUvigZsKq+kfHnKh2XLNThNmFo48myfw
+         bI2J/EIrAkBxP0+1c9ltDkON2PXfOybEthW/dfOR5ISTUUCdYANR9T3AA+sqBvmWX2XP
+         GUmZcx2fKuVu7/aKDFBr7tWvK7WVnTZ5yTb0WfGYuXIZ5lSsRWWzJMC9lbO7LPzrKclY
+         Wx0tH9xy2bjNxNsO1cUh/78M3HaARwTXqFN1kYzndOjK3BhSJepH8yP2vT8eTyYMaOr9
+         kzL9jI6JFX4Jbj/H0/VEMI0uVVImc0xaPZErH0R7uafkldR/zBvJhmjBPv6rrRl7DqK/
+         RgTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794248801; x=1794853601;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KuWXOr8bdBpcuJfvomt+cRvy3pPxw4DWlc9TpuLSuDc=;
+        b=C3YY8+r2UKSag2KC3pPPxUcZ1RtUjKq3Zk9YOfN5V6Qeed2ivrGZCKcU1UpbA8TM9V
+         wwEKoblbWUiGZ2cHb/FbIP8V8ODZJ5PpXkwFpCmC/2Q1Qz7lPKAtVKl2+M/n2pzZtJqY
+         DPAJJlOtGt9X4vSMVQ3PN+e7Ibbx1/gzVf3GOzBrS4SHwHSRAs9FRt6f/ELyERukStzy
+         85AoTxEduL9jl1e+xDbP7P7yCAx2HT35+8DmhaDI942K/X9A1XXwx8Jkw6j7ZbN0letG
+         wjsOebISySaxiPsiJlMu+CQl9UgaoDPKL1p60yjpFaojw8jdAjKjkjH4qLLZbnE1iwkT
+         dwRA==
+X-Forwarded-Encrypted: i=1; AL+hErGyQqSxetpxocyIXkYU26Nhy16e1Y6ljUldkyPNoyWdrjQJxlc6v+gEN5Pb4EL2ttZQ1QubJ/+/C75aNuA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8uLJToMopdBruoWq1UjjH1hetttGEQMBvVol/juDTaD7H/A/Rw
+	O+WlrkPwQMaFe8tKz+PJLLw4T4cpZnzg5Vmi+pKXxvJQDjmNGao/ON+9cuOu6Q==
+X-Gm-Gg: AYBFou1Xd16Eo2iLWV05w7wTmGBhkpRxbWqivQWnX3lWFpfeZEvqIQUrHB04lIrSkNn
+	UH+5I0WtQmwwakOrROQLb6PqlWnhAVYpwruPZQKlBoX4BH8iQn0KMxu5+CdJ+zQG+YKMP8bKAJI
+	f4zPUsNU42F7Asf+d4VjMtGzhKtqg3TyDS2CzihKSKxDVxQdcpTvLQOGy9wYriDkTmi6o+6SWZf
+	HOlohnj0IS0fIDdfp2S/3P7J6A/U+7zljx8sanJ4nd0mC4g/AW4TiH+ByQrmT0WvaFQyFwT4s8r
+	bHTsxBFZiZQwiMBh6ArqAmSQtpZ6NXpVcbVZz810MyYSboXR53dwxhoFUDPGf0BdRznN/s12WG6
+	p33jEJGDc9qANfQLvpao7Yd8+sRxchQx2IjK2kifAr5vLnWymKzmbMDMjHxRqOMZdvr6RrQCjsJ
+	dKWllKEL6PaTPX9wOLL/wVATo8ElrA8nhbQgP4QqNreLAg4tP+hoEnm3oVlnv95ZnwCMRhVbuIw
+	yrSVzYgxKRjyrx3gkfa8N9STf70zlFfsc++ShrkSVunOCAf77i6ryqcS//XiwpGkMLRtp8lthYa
+	Vo+2bX9h
+X-Received: by 2002:a05:7301:fc81:b0:36a:1e50:e45 with SMTP id 5a478bee46e88-3751ee7be82mr85465eec.9.1794248799721;
+        Mon, 09 Nov 2026 10:26:39 -0800 (PST)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3751fe306e3sm123652eec.7.2026.11.09.10.26.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 10:26:39 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: macro@orcam.me.uk,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] MIPS: SiByte: Update effective IRQ affinity
+Date: Mon,  9 Nov 2026 10:26:22 -0800
+Message-ID: <20261109182627.3517986-1-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,153 +97,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106191423.4194081-2-joe@dama.to> <179408152976.994134.11735257663578231009@kernel.org>
- <avIGzUc6WaGgYBKG@devvm20253.cco0.facebook.com>
-In-Reply-To: <avIGzUc6WaGgYBKG@devvm20253.cco0.facebook.com>
-From: Michael Chan <michael.chan@broadcom.com>
-Date: Mon, 9 Nov 2026 10:26:17 -0800
-X-Gm-Features: AclHuK_S-1r3HvHQhTzNX5vnvw08UgphMWKN8-YDiqeLjNoKJmrz8XXzentSisE
-Message-ID: <CACKFLimsTFE_-1uL5LH9bcoCze=hofB+OukqS4jj5DzY_7eW9g@mail.gmail.com>
-Subject: Re: [PATCH net v5 1/4] bnxt_en: return the RING_FREE status to callers
-To: Joe Damato <joe@dama.to>, netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org, 
-	michael.chan@broadcom.com, pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
-	prashant@broadcom.com, edumazet@google.com, horms@kernel.org, 
-	linux-kernel@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000e6a987065fdc19fb"
+Content-Transfer-Encoding: 8bit
 
---000000000000e6a987065fdc19fb
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Booting an SB1250 kernel with CONFIG_GENERIC_IRQ_EFFECTIVE_AFF_MASK
+enabled reports:
 
-On Mon, Nov 9, 2026 at 9:45=E2=80=AFAM Joe Damato <joe@dama.to> wrote:
->
-> On Sat, Nov 07, 2026 at 07:58:49PM +0000, netdev-bot+sashiko@kernel.org w=
-rote:
-> > By the end of the series, bnxt_hwrm_ring_free() counts stuck rings only
-> > for TX, RX and AGG failures. If a CP or NQ RING_FREE fails, would
-> > bnxt_stop_dma() be skipped, with __bnxt_close_nic() going on to free
-> > that ring's memory in bnxt_free_mem()?
->
-> This also seems possible, but this is not what I observed in the field. O=
-n
-> three hosts, the NQ rings failed alongside the RX/TX ring free failures a=
-nd so
-> if this series were applied DMA would be stopped.
->
-> I suppose it is possible that only the NQ or completion rings fail and th=
-is
-> series do not handle that case.
->
+  genirq: irq_chip SB1250-IMR did not update eff. affinity mask of irq 2
 
-The NQ and CQ free operations differ slightly from the TX/RX rings.
-The TX/RX ring free operation requires a feedback loop from the CQ
-using interrupts, and it may fail after an IOMMU fault.  Your patches
-target this mode of ring free.  Perhaps you can elaborate on this in
-the commit message?  Thanks.
+The interrupt mapper selects the first online CPU in the requested mask,
+but sb1250_set_affinity() does not update the effective affinity mask.
+Returning IRQ_SET_MASK_OK makes the IRQ core copy the requested mask to
+irq_common_data.affinity, but leaves the separate effective affinity mask
+empty, triggering irq_validate_effective_affinity().
 
---000000000000e6a987065fdc19fb
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+Update the effective affinity with the single logical CPU selected as
+the hardware target. Apply the same update to the analogous BCM1480
+callback, and use IRQ_SET_MASK_OK explicitly in both callbacks.
 
-MIIVWQYJKoZIhvcNAQcCoIIVSjCCFUYCAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
-ghLGMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
-VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
-AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
-AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
-NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
-26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
-hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
-ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
-pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
-71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
-G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
-Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
-4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
-x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
-ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
-gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
-1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
-YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
-b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
-c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
-AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
-bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
-IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
-Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
-dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
-nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
-AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
-mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
-5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
-CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
-F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
-bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
-YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
-bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
-LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
-RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
-xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
-jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
-vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
-TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
-sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
-D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
-DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
-BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
-VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
-zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
-tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
-2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
-phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
-a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
-ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
-07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
-SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
-rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGjzCCBHeg
-AwIBAgIMZh03KTi4m/vsqWZxMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
-ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
-MDIzMB4XDTI1MDYyMDEzNDk1NloXDTI3MDYyMTEzNDk1NlowgdcxCzAJBgNVBAYTAlVTMRMwEQYD
-VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
-MDExNzENMAsGA1UEBBMEQ2hhbjEQMA4GA1UEKhMHTWljaGFlbDEWMBQGA1UEChMNQlJPQURDT00g
-SU5DLjEiMCAGA1UEAwwZbWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTEoMCYGCSqGSIb3DQEJARYZ
-bWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB
-AKkz4mIH6ZNbrDUlrqM0H0NE6zHUgmbgNWPEYa5BWtS4f4fvWkb+cmAlD+3OIpq0NlrhapVR2ENf
-DPVtLUtep/P3evQuAtTQRaKedjamBcUpJ7qUhBuv/Z07LlLIlB/vfNSPWe1V+njTezc8m3VfvNEC
-qEpXasPSfDgfcuUhcPR+7++oUDaTt9iqGFOjwiURxx08pL6ogSuiT41O4Xu7msabnUE6RY0O0xR5
-5UGwbpC1QSmnBq7TAy8oQg/nNw4vowEh3S2lmjdHCOdR270Ygd7jet8WQKa5ia4ZK4QdkS8+5uLt
-rMMRyM3QurndiZZJBipjPvEWJR/+jod8867f3n0CAwEAAaOCAd0wggHZMA4GA1UdDwEB/wQEAwIF
-oDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3Nl
-Y3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEF
-BQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1Ud
-IAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIB
-FiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAy
-hjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwJAYDVR0R
-BB0wG4EZbWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNV
-HSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUJbO/Fi7RhZHYmATVQf6NlAH2
-qUcwDQYJKoZIhvcNAQELBQADggIBABcLQEF8mPE9o6GHJd52vmHFsKsf8vRmdMEouFxrW+GhXXzg
-2/AqqhXeeFZki82D6/5VAPkeVcgDeGZ43Bv89GHnjh/Vv0iCUGHgClZezpWdKCAXkn698xoh1+Wx
-K/c/SHMqGWfBSVm1ygKAWkmzJLF/rd4vUE0pjvZVBpNSVkjXgc80dTZcs7OvoFnt14UgvjuYe+Ia
-H/ux6819kbi0Tmmj5LwSZW8GXw3zcPmAyEYc0ZDCZk9QckL5yPzMlTAsy0Q+NMVpJ8onLj/mHgTk
-Ev8zt1OUE8MlXZj2+wgVY+az2T8rGmqRU2iOzRlJnc86qVwuwjL9AA9v4R13Yt8zYyA7jL0NiBNP
-WaOSajKBB5Z/4ZVtcvOMILD1+G+CVZX7GUWERT9NRXw/SyIEMU59lFbuvy4zxe3+RbOleCgp3pze
-q8HE2p9rkOJT3MkCNLxe+ij4RytIvPQXACsZeLdfTDUnjeXCDDJ9KugVhuqMelAZc4NissPz8FOn
-2NK++r5/QamlFqYRhsFxSBIvhkh2Q/hD3/zy4j17Yf/FUje5uyg03FblSBOk2WYpRpXEuCpyn5pb
-bYVIzfhQJgwGfO+L8BAeZIFjO1QL3s/zzn+RBlTl4wdDzh8L9eS+QEDhMcSsqb4fFRDbsoVuRjpx
-R5MunSUzk4GcmmM19m7oHhPGeKwIMYICVzCCAlMCAQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UE
-ChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0Eg
-MjAyMwIMZh03KTi4m/vsqWZxMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3DQEJBDEiBCBJbQJp
-RDtgWh7AMzQpx8NZ2Lnq/D5Cvv/VK+nVFvaBITAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwG
-CSqGSIb3DQEJBTEPFw0yNjExMDkxODI2MzJaMFwGCSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEq
-MAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCG
-SAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQBLeX+FEZUxtunCVJerPmQKDvbbWviVNFz1Uuv7PizF
-6vHc8sxVUvzd8uW+EU75bDxlIv6PZVS7yeF66DwVgDQyPcjz4eZJpa1/nQ7nbytEqMI4XwYvf1rh
-ZFRyVyNokTEaAlA1uc3dvnGMjp2O1DhPjdHKLjGT4SFjfcWLMjFugA0R8FwLCS+pZ7if0xz3XLRc
-nNEWeeVvmxAiZP47KQfRONmjrxYILQM07pGIofUUHQ0leJjZlPea5SBN9xi9Gj/a86wF25g8x5/d
-SpVpOu32CYwrEJoS2yBXkoRmDVTZTreioenB2Fh4NCRoPWXeuoEHexIexGP/Xc8kyg7E2PCD
---000000000000e6a987065fdc19fb--
+The IRQ core already rejects masks without an online CPU for normal
+affinity changes, so no additional mask validation is needed here.
+
+Fixes: 421d1563c662 ("mips: Validate online cpus in irq_set_affinity() callbacks")
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+---
+Changes in v2:
+
+- update commit message
+- cover bcm1480, remove the check on nr_cpu_ids
+
+ arch/mips/sibyte/bcm1480/irq.c | 3 ++-
+ arch/mips/sibyte/sb1250/irq.c  | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/arch/mips/sibyte/bcm1480/irq.c b/arch/mips/sibyte/bcm1480/irq.c
+index 7929bee911eb..4c18a2c755d2 100644
+--- a/arch/mips/sibyte/bcm1480/irq.c
++++ b/arch/mips/sibyte/bcm1480/irq.c
+@@ -113,9 +113,10 @@ static int bcm1480_set_affinity(struct irq_data *d, const struct cpumask *mask,
+ 			____raw_writeq(cur_ints, IOADDR(A_BCM1480_IMR_MAPPER(cpu) + R_BCM1480_IMR_INTERRUPT_MASK_H + (k*BCM1480_IMR_HL_SPACING)));
+ 		}
+ 	}
++	irq_data_update_effective_affinity(d, cpumask_of(i));
+ 	raw_spin_unlock_irqrestore(&bcm1480_imr_lock, flags);
+ 
+-	return 0;
++	return IRQ_SET_MASK_OK;
+ }
+ #endif
+ 
+diff --git a/arch/mips/sibyte/sb1250/irq.c b/arch/mips/sibyte/sb1250/irq.c
+index d7a656cd7ec0..a971bdfac356 100644
+--- a/arch/mips/sibyte/sb1250/irq.c
++++ b/arch/mips/sibyte/sb1250/irq.c
+@@ -108,7 +108,7 @@ static int sb1250_set_affinity(struct irq_data *d, const struct cpumask *mask,
+ 	irq_data_update_effective_affinity(d, cpumask_of(i));
+ 	raw_spin_unlock_irqrestore(&sb1250_imr_lock, flags);
+ 
+-	return 0;
++	return IRQ_SET_MASK_OK;
+ }
+ #endif
+ 
+-- 
+2.53.0
+
