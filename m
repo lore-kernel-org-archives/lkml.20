@@ -1,54 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.202.128.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794195500;
-	b=Z0fo1H8+Pm++iqI/cqEoih1pLaOy2Z4AuenzIs5vy0J9YIrJedRgpq/YJmlriTfvA0Js
-	 HaiiQ8ZQp3UI0AYd4cuIw/FppEx6u+tcSGjV+mmZQGv64uGsfL1PfzYvUvgMbKREB6X5G
-	 Iu6P4DaChmkJuVitjdQslTpQMm0/eMNR28XMuMeaFMr+vZeA2evFKNSxIApZ9y+ZW2rW1
-	 Owqe96szz4VbuFPKokRmeT7QaHioIecfcMhH2waO2soy1vjmWe9bAIgmdktAAeVcwMnS/
-	 /pGPwJi4obLOhESwuH0NDaQ0/Qrc6Phlq1dwIjqhPZlAHkNhrd496WsDccwbXuyqv5Q==
+	t=1794195491;
+	b=ibDKna4yiTzQIrGKIHfiPWbFXP+y70Z6oBlvuXp1xB1pNZC2iBsNyhAKXNQ6Ny0A3UxJ
+	 ugsigRmPwvwLRCr6sAh3pFVDZxin/vv6h0z5hDtLSngnn1ThAyxG3LUzB6CRvFl7xl4Lf
+	 5lxNLBDKAgZSxL/IYmWGR+ggKWRyLK+AAcNqv0k/tcUt279EsELlpaLiBkBhLnEqaW5ls
+	 cD3phcrq7Ilu7ORkbPH3l7X1qs+wG8eC3L1jnTVZxIMOanvoQscA86vpP1kuGZq4APT4m
+	 jCxI05D99xtrVgQA6Wd828LSNYc4Gzejmb/rBRczsjAMcFAihHlxoyslcuLaPw39ARw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794195500;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=r9ZKzXuZtQWjeq42Wbv24eyX0v+3OyYtV/ft7hHMkhQ=;
-	b=PU+Y5MJrTzjkMBbNvnPM3RPjVNUsClNup68mYUZpLtTTKtEY+HBNAjHjgdl/uAd3zFm2
-	 o3QtG1oQ8qilJM90pSXy4IwwQqKIVCXdzOhbkftDZFGj2NBvYJplHpYRfSF5VAGE4Bls6
-	 fWdtW5tgzJuIR6D8f3YBy5zCCYS8MMd80TNVm2d6Lk20iv9ZFFUgfZ4dzvJtWVip7HWEy
-	 K+n2qV6td2+U+7QosH54pN5JOZQIUXiKuVI194GWewb2km8qFSnIrEM9khLRF1XnMfnnf
-	 WQ8smUJh1d0QTabduyEge6OXSrnR01ZVRsnXiVzO/RWlclJyPVnaD4Rj2y5/N36ov+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794195491;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=MXl/e6qu+ioZEUhOUf6hmu+sVC8NFvdMILnBlkoNtSk=;
+	b=h6h4hfF4UauLp2/9phU3P7OHIA7Y77mAr4vZ2NEgN+a+ncK41EOsIMnu50N0VxwgHrUS
+	 5VxTqqqoOehyM3+cSaOvCdZXs+8HYR7jFN+yZS7duHRW0RW9+N/lFOwUf+Yz875uzL/fJ
+	 OgWRahRmSegjaK8QaDNq6wWaXzk86xUvxo9OmgMjnht1vfzqhtOnt/gSK4hmLS/4iaFDn
+	 eluFSbx/Q88B5u+MPET1rFWEHMuyTq5MSl0KstaG7VG9i6TykjLZEi8q8WCaSt0lsZB0w
+	 oyKSihKfaeJqllg2eL+aZ0NM2DCd+1G/xbNtYjcbGDgImOSTTJXpAIAFsLZCY480CkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=freeshell.de;
-	spf=pass smtp.mailfrom=freeshell.de;
-	dkim=pass header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=GMalY5k0;
-	arc=none smtp.remote-ip=116.202.128.144
-Received: from freeshell.de (freeshell.de [116.202.128.144])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=AXazOBAC;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0888606D804;
-	Mon,  9 Nov 2026 03:38:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0888606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=freeshell.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freeshell.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C277606A321;
+	Mon,  9 Nov 2026 03:38:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C277606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=freeshell.de header.i=@freeshell.de header.a=rsa-sha256 header.s=s2025 header.b=GMalY5k0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freeshell.de;
-	s=s2025; t=1794195460;
-	bh=r9ZKzXuZtQWjeq42Wbv24eyX0v+3OyYtV/ft7hHMkhQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=GMalY5k0UDK0UJgj4WPBefvGt7gSR1qoGF3Bcu57NvUhYCAnjfq7rF7JFZ5uBBZpT
-	 Xoie046+rfwvm5AqLWRz5Iw0j/A6NPzVdLJxJI2Y2kuc6dRXGu4neDmZabJ+w4Sx6L
-	 jJu6+RLtvbgieuWeR7fqVxQ63I9EswAqRbrWki0f/7rZfDlWZ4x6xJ3ERgeqAwD4+x
-	 lVChlnpQvjkU+mYttBRzEz6Kh/2aMcx2U8kY3gtra/jzFYudTCqT7Kz7mFztnSNWXx
-	 A8SQAkMUJ17/83EWtbzkQqD1st/4rF9XD24fev2qy1idrMQ1WlcRqEt8zzkFAAezsF
-	 9kdYMLC1Fk08Q==
-Received: from [IPV6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc] (unknown [IPv6:2605:59ca:364f:d400:1b91:6b30:22c2:fffc])
-	(Authenticated sender: e)
-	by freeshell.de (Postfix) with ESMTPSA id 88606B221A6B;
-	Mon,  9 Nov 2026 04:37:36 +0100 (CET)
-Message-ID: <d9f4a750-5f9d-4749-929e-330c8776971e@freeshell.de>
-Date: Sun, 8 Nov 2026 19:37:34 -0800
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=AXazOBAC
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jNFqP1HHHz8Xs6w;
+	Mon, 09 Nov 2026 11:38:09 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794195489;
+	bh=Rk8E2o0iNbGzSlwNucxYoTGYEFkZ7TvQ5Ke2MeoVabw=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=AXazOBACFVNWJt0qO8YaVn1cUqmSs8utj8mwkwguksAWyQ0d7GQ0Z82+780qYpgYF
+	 hlrxuaShg0b+ceFcW4dXD8hgeJ6Ngb7jjWhoIYTdlHdkB0DtL6YumHnCHzjtVtlYIQ
+	 Jwq2rO09texYI3+OwqMm+8MtDaV9qDuZRe3fBk+aTuhtuB0/XW/Wpl/2K+aJy9URm5
+	 NM1Ci5TabC9bqEoSE0xNAI4RSciQYKidvk0cTq6YLLbqgb/ewMR3oO2UmIeC2nDC/S
+	 LE5gB6ATb72kzyxeV9OG6E2KIbcdemvGDqrIVj7uMGFpquBdo2TAG56jwWRboIiI5d
+	 OhzT/+YpSN3iw==
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl2.zte.com.cn with SMTP id 6A93bvBp063731;
+	Mon, 9 Nov 2026 11:37:58 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 9 Nov 2026 11:37:59 +0800 (CST)
+X-Zmail-TransId: 2af96af14017f10-4110a
+X-Mailer: Zmail v1.0
+Message-ID: <20261109113759172RbqS1gfR9Q_8vyZ4_GdUB@zte.com.cn>
+In-Reply-To: <20261109113753774uzCxndU_9x6G5W63TB1hA@zte.com.cn>
+References: 20261109113753774uzCxndU_9x6G5W63TB1hA@zte.com.cn
+Date: Mon, 9 Nov 2026 11:37:59 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,73 +72,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] riscv: dts: starfive: jh7110: Add the RTC node
-To: Owen O'Hehir <oo.hehir@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Philipp Zabel <p.zabel@pengutronix.de>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- Hal Feng <hal.feng@starfivetech.com>, "ziv.xu" <ziv.xu@starfivetech.com>,
- Conor Dooley <conor@kernel.org>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-References: <20261108212826.15890-1-oo.hehir@gmail.com>
- <20261108212826.15890-5-oo.hehir@gmail.com>
-Content-Language: en-US
-From: E Shattow <e@freeshell.de>
-In-Reply-To: <20261108212826.15890-5-oo.hehir@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <mkp@kernel.org>, <linux-scsi@vger.kernel.org>,
+        <target-devel@vger.kernel.org>
+Cc: <James.Bottomley@HansenPartnership.com>, <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDEvM10gdGFyZ2V0OiBjb25maWdmczogcHJlc2VydmUgdGhlIGVycm9yIGZyb20gZmFicmljX21ha2VfbnAoKQ==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A93bvBp063731
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Mon, 09 Nov 2026 11:38:09 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF14021.003/4jNFqP1HHHz8Xs6w
 
-Hi Owen,
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-On 11/8/26 13:28, Owen O'Hehir wrote:
-> Tested on a VisionFive 2 v1.3B.
-> 
-> Signed-off-by: Owen O'Hehir <oo.hehir@gmail.com>
-> ---
->  arch/riscv/boot/dts/starfive/jh7110.dtsi | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> index 82ea63f71..14f92b942 100644
-> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> @@ -1206,6 +1206,20 @@ pwrc: power-controller@17030000 {
->  			#power-domain-cells = <1>;
->  		};
->  
-> +		rtc: rtc@17040000 {
-> +			compatible = "starfive,jh7110-rtc";
-> +			reg = <0x0 0x17040000 0x0 0x10000>;
-> +			interrupts = <10>, <11>, <12>;
-> +			interrupt-names = "ms-pulse", "sec-pulse", "rtc";
-> +			clocks = <&aoncrg JH7110_AONCLK_RTC_APB>,
-> +				 <&aoncrg JH7110_AONCLK_RTC_CAL>,
-> +				 <&aoncrg JH7110_AONCLK_RTC_32K>;
-> +			clock-names = "apb", "cal", "32k";
-> +			resets = <&aoncrg JH7110_AONRST_RTC_32K>,
-> +				 <&aoncrg JH7110_AONRST_RTC_APB>,
-> +				 <&aoncrg JH7110_AONRST_RTC_CAL>;
-> +		};
-> +
->  		csi2rx: csi@19800000 {
->  			compatible = "starfive,jh7110-csi2rx", "cdns,csi2rx";
->  			reg = <0x0 0x19800000 0x0 0x10000>;
+target_fabric_make_np() replaces every error pointer returned by the
+fabric callback with -EINVAL.  Return the original error.
 
-Is status property applicable to SoC rtc? If not, then is 'rtc' label
-appropriate when there's no status applicable?
-
-Note that Mars CM / CM-Lite System-on-Modules may be used commonly with
-board carriers which implement a battery-backed RTC on the I2C bus, and
-so another 'rtc' label may be applicable, something to consider. The
-initial Mars CM / CM-Lite dts ignores this because there is an
-inconvenient I2C bus device address conflict of the SoM EEPROM and some
-carrier boards' RTC, and the SoC RTC driver was not then present;
-problems for a future self.
-
--E
+Fixes: c66ac9db8d4ad ("[SCSI] target: Add LIO target core v4.0.0-rc6")
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+diff --git a/drivers/target/target_core_fabric_configfs.c b/drivers/target/target_core_fabric_configfs.c
+index ab8f81650710..5bd2a042aac9 100644
+--- a/drivers/target/target_core_fabric_configfs.c
++++ b/drivers/target/target_core_fabric_configfs.c
+@@ -479,7 +479,9 @@ static struct config_group *target_fabric_make_np(
+ 	}
+ 
+ 	se_tpg_np = tf->tf_ops->fabric_make_np(se_tpg, group, name);
+-	if (!se_tpg_np || IS_ERR(se_tpg_np))
++	if (IS_ERR(se_tpg_np))
++		return ERR_PTR(PTR_ERR(se_tpg_np));
++	if (!se_tpg_np)
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	se_tpg_np->tpg_np_parent = se_tpg;
