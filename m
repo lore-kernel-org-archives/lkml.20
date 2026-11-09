@@ -1,67 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794267936;
-	b=w5w7E5DS8JVAY2HqtiOtH/XQpNHVib2MTn+71wWWtudP1+U8QvJlXEH5VkQQD+JFHAOD
-	 YauZ4PnqKCqcPzexmNhNTpGnytdWjhYb3SIA2vStUvuGA6s+NHDsqMfhA+mpDwiCtlQYc
-	 yoMgkhcv7LEYSKTIhpALALSMijg/l6o/b02Sgc38TZPY5qK1v27QUvvtAPK0spsLrSELF
-	 sdwxjFUUJVJGn+VCs1BeV9pAnlQr2CIT8CUNzMVx+q0nA+k7Y0bmFysR1/BMcIWjL/MLF
-	 dutNh5EqUlMqg9OukWkExl70Ao+6LbFnwfngmuU/e2YAVorQmCghclouRtrNRT0tjhw==
+	t=1794268090;
+	b=XnvtT8L4qRHsMEoYYKgE6bEX6Aw50IAMILYypfJgKdFvQ+PcUvkw5gf+U7BUuax/TivG
+	 nn2NzerT2Db2znru9WFInPkH63lREF1QG5/FaxvBIoMuSb/TvR6tc4jDrLkK5irNlD5Nv
+	 MXm3yIT4C6/sbbxS8jzW4N4vgoQzN3cIrLlPtepD/nSNkn8QVv1EItmrjknAke6qfKxsj
+	 QNiZkVymQRR5xAKxXyu6e10m6hpR6iF26hyLLC1AuqkwDY7QUYYEQXQMwdB4z6f8aY+sE
+	 +Lg1CUFaywSuZtUYfysbbErjl7ZaWNFj4qczenfUqhPgtPEXBw2EazGoIiEMrmmAPQQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794267936;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=10FbvBDq/04YgyEUghoAbXIiLNNEnt9De+mGX9CvheQ=;
-	b=l2TbgGm2SX0prjzdOwt+ryR8tV8x2jCm+IP9fgu7Yq1ArOn+F2Jb822siccKkHobDshg
-	 SgLrwwGlR7FCYbZv7Vn1epW+/nGqn0A1msR+p8G+Q0OMTyIeM7I4Takndh/6lIloiTOKP
-	 Qmuxm8x+jSrJDjgLQoOpFJWtmOtrIyh8DDZNmiRSXH3gS+oD4IWRPJHMCzpHk5y8hNZPL
-	 Fe68RR+h6TxLUxFm0X53bJmI0s+Zf/gSz9D/X1PwDUtnCOj3G3vAzVkhFNzxLc2TpvgMs
-	 LhiX2PWEHpEbG5Bj97LmD6pP2fcQBK82Pc/U7qIeFUC9PT0kA4Kn1r8ZZSJbvnruZbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268090;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=r/s7nbQdksHktoJTgJZCq4IA437X0Zsh6izfilxtMXs=;
+	b=vUeI4PQ5RhARWS/7+WU29ylT/fk3UZDoexoEqZckOrNkDQPQl1cm/B3XJ6SX1ut186Ba
+	 s9UyLAbhliu4qfriLWDMYaTODCQAD4JAzSXo0QabxVOQ6uATIzK4BSxt2ENy5r7Y8RahR
+	 mFeIVGiQwe60M4PSB6MYF5fEQ1zgZtNP3UJeUimNbqUnXLISq8jjJs/MllG6rh5afQEZc
+	 4Xjs/HZmL9ynaQvnCmiLdW0MSLDJgD/RTFc/Dz9y3ElBtrCg7XP5JBMqu/MRCS81Mb6uV
+	 Bn52Gnb2KD9cfAxTHNPgSrtaAldAhlALMNYoUwQrqKxYT6KWlY6ZhpRV85SNb2vhDCA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=JwyIewsN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W0bqKhkf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2EF0606A31C;
+	Mon,  9 Nov 2026 23:48:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W0bqKhkf
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794268089;
+	b=soTmE42lB7GCd2IP9TcAdWG+faIVAK+PVD7dv7Esm/WqSeSZZGjsBv1mutQsR3WvD9NJ
+	 kqU1nmDU9HMUZyLzF1mfsLznVG+s/XHF7of6bH20T5SgYBLfVH9AuA0GJBioTgENXwFSJ
+	 ex2RiZcZp33111iV8iN/1zaKWpLCXol5YqVGE+Z/zylCLbLgjfWiVu7bzZ7CDrj1KJevi
+	 /lI3tWL6K/612Wyc3QU7ekqSP7kBDHC9E586Afb288qiDGmtaF8aciDCRCO2NfCwcq0GD
+	 kqUyJcni/BxB0UYObxfgCf3vElZA3xMtQZEEB6MXBnvHMUzESHJqI2nVFaOWNDeepgw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794268089;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=r/s7nbQdksHktoJTgJZCq4IA437X0Zsh6izfilxtMXs=;
+	b=KIVm5ITpcNZlAsGtse1oqbqYVkzV4298V+4ck823fThCk0A5/ApzujWaZjCjF2Pd1Lx5
+	 UlDEWQK4K7tLRt0TwYi9Df1u/VvDfTz7Q/HZuc4TPEgVPVsFfBrpp+9DfRz4MDU25as5z
+	 GxKIZSv3eZsm20xJw3bNik5bRY2O2j3eqPCKnmSioxyeY2etVA22z0Wd3jlgYWdS1x89e
+	 277BoUrKbEq4gVedxBmMuKhzsKglNCim2/Qp62463nYl7rU3/uJlvQ6KK+13IniNIzj9o
+	 P6msvdXUjsUK3sCABhoLXrmh32DZbHczJhXwBk3rlrG7Y17w22MzU+mHMguOm5xlQZA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9610D606A326;
-	Mon,  9 Nov 2026 23:45:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9610D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=JwyIewsN
-ARC-Seal: i=1; a=rsa-sha256; t=1794267902; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Jl31lSMvAzs/XqniX+ACHNNgLcxh0n7S+lz+DZr6SyBm3hDpGepwqcOki1h+cJrOeujxCTdmrLR7T0OCQs2HI1Ewjxsa99Slfot431Z6b6fhmzAZTzLVSUUYAdmtY0AfMAqeKTFlSTk8GtLsG7itieQyCU/ebpNF85GyW7uEsWs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794267902; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=10FbvBDq/04YgyEUghoAbXIiLNNEnt9De+mGX9CvheQ=; 
-	b=fZ9ON26zuxGZhARbjFNbVx7i1uAOwOCPl8ewW7Pt2ECgx5HxpZrkoo7eEcXsSlctqO3NMum+6uULgxg/dofrsNkrAUezLlMuke1Vy2gPILXqDy3w0Fb29IJMUbTYSAps1zzrGcKBMock/OR+F28nI5rH+ZfdFY8fsOmNcfx5rM8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=JwyIewsNStZ/Wt2NIM9abY1PQIynbu0eW2uT+bZ2g1vmq1HDPiJTpuRYWNzOr45UWTu18xgfkPJcLBzYOUmfRchjeMwZN5bbkXC9T1tW9paT6zSOP3f1HETZ3NmSaPQmG6F1vCPD6/e5xSakmeNvaMTvIGl/nXAvEcnBfwyHQP0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=10FbvBDq/04YgyEUghoAbXIiLNNEnt9De+mGX9CvheQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794267900917859.4909486908807;
-	Mon, 9 Nov 2026 15:45:00 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id 33B26180313; Tue, 10 Nov 2026 00:44:57 +0100 (CET)
-Date: Tue, 10 Nov 2026 00:44:57 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Daniel Mack <daniel@zonque.org>, 
-	Russell King <linux@armlinux.org.uk>, Sasha Levin <sashal@kernel.org>, linux-input@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Input: apm-power - remove driver
-Message-ID: <avJZ291EhnpqMsbv@venus>
-References: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
- <8560bc0d-5687-4b77-ab07-3d6dda465537@app.fastmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id ACA6C1F0089F;
+	Mon,  9 Nov 2026 23:48:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794268089;
+	bh=r/s7nbQdksHktoJTgJZCq4IA437X0Zsh6izfilxtMXs=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=W0bqKhkfr5WgxopbaN3WlTIEepaF8GvU6BJAeXWgvXJxijV+kSdgNIa35olX3nrFN
+	 V2JVBKUJgHSaYTPlliURoMJXh3a7LEMuHQVQYh31AWdgP3LUlyy9e4cWwsF9hEGkkG
+	 mnlMzZj/C8JtYzDj5sCSiQnD+FkMTUTqO3YS02f0GhlDjrIMbc/IHeO5euV4URWxdA
+	 LtUSEiGbhodx61CpzQjo9jbOMR02atKM0CMMPoBF9GNJV9gxICvcDLm43F5MJdVJ24
+	 4cIfJVQGKwkPWFmtnWs9mbfCpyL7ETZB1W+1I+uHdi+yAmW05GJE/AN8SogLjImLiM
+	 0pHeWlxRy3wGA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 0E4C2486F4;
+	Mon,  9 Nov 2026 23:48:08 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Tue, 10 Nov 2026 00:48:05 +0100
+Subject: [PATCH v3] hwmon: (pmbus/core) Add a vout_command debugfs entry
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,54 +82,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="afsg2feyk35ak5d3"
-Content-Disposition: inline
-In-Reply-To: <8560bc0d-5687-4b77-ab07-3d6dda465537@app.fastmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.259.76
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-for-upstream-pmbus-vout-command-debugfs-v1-v3-1-e3a261fe4342@free.fr>
+X-B4-Tracking: v=1; b=H4sIALRb8moC/52NOw6DMBAFr4JcZyPWSAZS5R5RCn/W4MIY2WAlQ
+ tw9hiY90mvmFTMbSxQdJfaoNhYpu+TCVKC5VUyPchoInCnMeM0FYt2BDRHWOS2RpIfZqzVBDus
+ COngvJwOG1DrYciIISw1p3rQKJSvCOZJ1nzP2ehceXVpC/J7tjMd7KVOGoFtZi4as6lE/bSS62
+ 8iOSObXxbyIFfZGaIOdlPQX7/v+AxldQM87AQAA
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794268087; l=3565;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=2p/itRLjC3fhkJ7j832/F1RjibHZstzgI7xkcvdHOdg=;
+ b=1/y6A3KWu1uBRwEljcagbu6Yh91gnL3RsZ0DJhQMs3H4OTXQ/bvT+5gmaQUF2n2TcumxLa2Vr
+ tg4XKjryLHPD5NcLEZHMCizPAilKz/X8swt4KUvmpwZwLCEGrovFbP0
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
+Content-Transfer-Encoding: 7bit
+
+From: Vincent Jardin <vjardin@free.fr>
+
+The vout hwmon attributes and the regulator get_voltage() callback
+both report READ_VOUT.
+
+On a regulator whose configuration applies a load line (droop),
+READ_VOUT sits below the setpoint under load by design, so user space
+cannot see what the regulator was actually set to.
+
+max20730 already exposes a driver-specific vout_command entry. Add
+vout<page>_command to the PMBus core debugfs, for every page with VOUT
+and a readable VOUT_COMMAND, in millivolts like the in*_input attributes.
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+Changes in v3:
+- Rebase for hwmon-next (Guenter Roeck).
+- Link to v2: https://lore.kernel.org/r/20261108-for-upstream-pmbus-vout-command-debugfs-v1-v2-1-b19d6cd18aae@free.fr
+
+Changes in v2:
+- Use pmbus_vout_command_mv(), simpler (Guenter Roeck).
+- Link to v1: https://lore.kernel.org/r/20261108-for-upstream-pmbus-vout-command-debugfs-v1-v1-1-c7a063efb91c@free.fr
+---
+ drivers/hwmon/pmbus/pmbus_core.c | 41 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 39 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+index 7ce8be840565..b3aa7f1ac479 100644
+--- a/drivers/hwmon/pmbus/pmbus_core.c
++++ b/drivers/hwmon/pmbus/pmbus_core.c
+@@ -3833,6 +3833,30 @@ static int pmbus_debugfs_get_status(void *data, u64 *val)
+ DEFINE_DEBUGFS_ATTRIBUTE(pmbus_debugfs_ops_status, pmbus_debugfs_get_status,
+ 			 NULL, "0x%04llx\n");
+ 
++static int pmbus_debugfs_get_vout_command(void *data, u64 *val)
++{
++	struct pmbus_debugfs_entry *entry = data;
++	struct i2c_client *client = entry->client;
++	struct pmbus_data *pdata = i2c_get_clientdata(client);
++	int rc;
++
++	guard(pmbus_lock)(client);
++
++	rc = _pmbus_read_word_data(client, entry->page, 0xff, entry->reg);
++	if (rc < 0)
++		return rc;
++
++	rc = pmbus_vout_command_mv(pdata, entry->page, rc);
++	if (rc < 0)
++		return rc;
++
++	*val = rc;
++
++	return 0;
++}
++DEFINE_DEBUGFS_ATTRIBUTE(pmbus_debugfs_ops_vout_command,
++			 pmbus_debugfs_get_vout_command, NULL, "%llu\n");
++
+ static ssize_t pmbus_debugfs_block_read(struct file *file, char __user *buf,
+ 					size_t count, loff_t *ppos)
+ {
+@@ -3940,10 +3964,12 @@ static void pmbus_init_debugfs(struct i2c_client *client,
+ 	 * device specific:
+ 	 *	ARRAY_SIZE(pmbus_debugfs_block_data) + 2
+ 	 * page specific:
+-	 *	ARRAY_SIZE(pmbus_debugfs_status_data) + 1
++	 *	ARRAY_SIZE(pmbus_debugfs_status_data) + 2
+ 	 */
+ 	entries = devm_kzalloc_objs(data->dev, *entries,
+-				    ARRAY_SIZE(pmbus_debugfs_block_data) + 2 + data->info->pages * (ARRAY_SIZE(pmbus_debugfs_status_data) + 1));
++				    ARRAY_SIZE(pmbus_debugfs_block_data) + 2 +
++				    data->info->pages *
++				    (ARRAY_SIZE(pmbus_debugfs_status_data) + 2));
+ 	if (!entries)
+ 		return;
+ 
+@@ -4011,6 +4037,17 @@ static void pmbus_init_debugfs(struct i2c_client *client,
+ 						    &pmbus_debugfs_ops);
+ 			}
+ 		}
++
++		if ((data->info->func[page] & PMBUS_HAVE_VOUT) &&
++		    pmbus_check_word_register(client, page, PMBUS_VOUT_COMMAND)) {
++			entries[idx].client = client;
++			entries[idx].page = page;
++			entries[idx].reg = PMBUS_VOUT_COMMAND;
++			scnprintf(name, PMBUS_NAME_SIZE, "vout%d_command", page);
++			debugfs_create_file(name, 0444, debugfs,
++					    &entries[idx++],
++					    &pmbus_debugfs_ops_vout_command);
++		}
+ 	}
+ }
+ 
+
+---
+base-commit: e0fdadf444800610828d01b299743f79ae3bd27f
+change-id: 20261108-for-upstream-pmbus-vout-command-debugfs-v1-6fe3ec237b1a
+
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
 
 
---afsg2feyk35ak5d3
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH] Input: apm-power - remove driver
-MIME-Version: 1.0
-
-Hi,
-
-On Mon, Nov 09, 2026 at 11:00:31AM +0100, Arnd Bergmann wrote:
-> I think we can follow the same logic for drivers/power/supply/apm_power.c
-> and remove that once my board removal lands: the only actual battery
-> that is ever registered with battery_desc.use_for_apm=1 is for the
-> OLPC XO1.5, and that one does not have CONFIG_APM_EMULATION, so that
-> can probably all go away.
-
-Sound good to me.
-
-Greetings,
-
--- Sebastian
-
---afsg2feyk35ak5d3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmryWvUACgkQ2O7X88g7
-+pqI/xAAqeRkQA+UJwRYt5dT8H6Yz6GBLiuHjjMxpo6wHfEaysnnRr0DTXs8O1hw
-XTPbkvWk4iJPLcPe6lV77roXb+mVOYzK3oQLia5iMBo3JsF9SupHHfP/TCdV2fdG
-ag2xTw+nWEawqiRtuSYdetqvv7KZG/LFwswuacMcm0Ab2pYbfAnjL0ppU2hRueaI
-VuUQZGw/hRRIng17OAXcXV3hqW2TMP2xqRjlE/x6G0WNd1qVqg1FyrpVF1ch+cVx
-KtLbtjThTIn+EktcPMS4f8S5VjcBqmItPK+D916Wj3TpX4by10KZerWuM2lwaQTC
-4+SfdiwsrgAwZSKdBO5OxcYd6Oavuk6xCcbK2XyEDu7eCAYJo4kEGR8hj/KnuFMP
-O/WGj9ojFN4W6xR/7f9A+JnxkH1DrWUX7ogH1Q9NKrdGi/niquj1SqMR9LYPFLnE
-euisogiejfT3UfUZekMOH44svDGLHkDOwBXhQV3jYoIgizORSdv+yGNjoptUwhfO
-ziczuPIQh3Q3AOFSvnvv3axZXPGB+qH7P9PAFkFIZL3fpipl3HjzqAkglDP0u4b1
-/5xgy55ItIHIRI0SiXNAWgkwWAtq/cTck0wg5M+eR8PUqih8hYMX7//3gyIQSRZ3
-Nh/khhBn6DIeZoSxMVOBOGShlJeruGksa5EZYV8oFx7vwOM87WE=
-=BZQT
------END PGP SIGNATURE-----
-
---afsg2feyk35ak5d3--
