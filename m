@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.120
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794266992;
-	b=twsL9k/81e1S6/DkKWZhW86xBmwP40sdvKMv8Nm33WXbratWN8bsBE0bJqnTk+Te5w/1
-	 CjsPoLo40923nlf9MgYNr6M1EM4WFog85baTpITFFPSQEvuQzTAmmoXPfY6U9Wu4bUznQ
-	 AvY1EQvve9R4MNxWKamDC2Go7X1EO4TFa9I8dH24eVoHt9uOQliG07Bx1M41HyAHTiuR1
-	 1zdWCvLJ7lszDiWBsJuZuMgSVrOLw6c8mgw4oTQfl+1hySAcuNyKF+PtWQc9P1GMxChfT
-	 btegL20FevLoPK6CK5NU7OotPy47znqIAzqbvmjaoSBrbX+LhXhWH0bDwQbzo1CdU7A==
+	t=1794267022;
+	b=e5CBkLhcpRs+t9boWK3ZstlsCSt/tfXki9wZBcnHGMNohaLdyzvrsSJdSbt5oF8oJUjM
+	 /FR9Kw+FdJD4RA0qpwns6qZ3TxNyZGu6tFEO++nJiy5m2jaBeQOCBYl9b4LdNwoNMe63R
+	 S/IzUxyZmx5eYv2p9a+OvRUYNgOBr0yVnRpG/7RIrgqr+g+w4c9l9FvoVzGECnGpMNg0L
+	 NnYGWmGSaGnxZUA3q30iK+VraryZVZlivCICIkQw8F+5jr/gqAliaPtJGHDNyNtYS4qlf
+	 mBxuPuNEFyA+Dk/YQtuDwjMXROfIE65jlaMg3DsWSBV2GEbeMbXtfmGwlPR5pGok85Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266992;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=hGY7SdMXqd8GDTXOY3teVBrqvVkE+aGkIkZBS3PPz4c=;
-	b=L2EeVQ8aoMSQ22ACs757McZspNkKpNLuWmYhachjz2NXaZVTcMxGjJHzvdc+VOKupVn6
-	 fVsdeXebEmTcDg+R6/ROe/1qU+y/BNWnl+92ZIdcinNmgf2GmzrZ4SLWJyiv48dQ81ToZ
-	 TAgVJlFINW3NERhYpeC3aO0o5wFcPwyjvovnGPAHJpeFGGFoGnT/UZZ/ZLj9q8oSFeGfu
-	 UroV31vnwDbZQ5m0bKsM5E6PXlrXbkC4qRQN4Yghjb8evUEbK3DMri8SBP+EQ7EF+ag8R
-	 /FjL2WrN03AFXcFZ5ALhUW5Y5fz5SkQyKEVxpRGfL9sNU/eC4KUNUAnu0lS9vvbneyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794267022;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=d7flpOWW+EdDVpjqNDQCEwbgE1WjvjabhxU7S+bNa1k=;
+	b=Wt1U+1dWSBgKCciUbLsjD3/pyJ+ZX8xi/XnP6JSrSSIg5JVyW9NNBKDySBDMlAfjj4d3
+	 ifmFzOxeCHNfnfi6NxLdE2gfOteedVI/SPe5q1RMO30u2c4epLvUYbbXNBysr9sO9bUDS
+	 DOwQ1gjcmiLqaa5eIPZ3E2nYj144Roj/fg9UelMQyu1X2rXxd/IeJCvaVnI0yXRlcUS+o
+	 wHo+zluQfyDcCP159o3WfQQFajp63YZMWTMAZqHYYQl2bxzwXj564ET1QOS+1ExWkKNmI
+	 IJvP4/lQNCPXn3tCQGHOejU5ydvRR6SMKcja4dglX2xrCBmK2Glsx0hSax5yvVSUfoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=jblGhNPS;
-	arc=none smtp.remote-ip=79.135.106.120
-Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nH0eA1sB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D01606A334
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:29:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22D01606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FA7606A321;
+	Mon,  9 Nov 2026 23:30:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=jblGhNPS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1794266989; x=1794526189;
-	bh=hGY7SdMXqd8GDTXOY3teVBrqvVkE+aGkIkZBS3PPz4c=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=jblGhNPSV/+x0ztQQQzXx7oBYf8YV+HRMkcxhqx1A5y7FYS50jIK7xpPU6uX9URHc
-	 p0WxlFQTOpAv11QOIS1uCiFnMwirwNeTgtNQXeJMhbbNxdxvRKyHElJht4mwn9NAxe
-	 HNbEYnAF0zV+eazZ8XrdfzA+W2ZZHCA3FCw1FxYEwPPhUOvt290M/6H2dNSAzCcMxV
-	 9V1i2O8XFvCcgFxgonCmo8xbRQhXOjf5Rk8LUbdSIrYZbGQKHr/7M1MkCeth4YqDBr
-	 bJVXaHRBh6Up+mgQPdsNR25nwOOdmlu922T/B8WY08oRSSDaNUdM+NDHJ33c6fDkCg
-	 2Bop3YNTjkEtA==
-Date: Mon, 09 Nov 2026 23:29:42 +0000
-To: netdev-bot+sashiko@kernel.org
-From: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: dsa: sja1110: pull meta timestamps before reading them
-Message-ID: <vR-5YjmFwE38XCIdmhVSSiNb3gCjNtWfogYP02_9WJ-nX1e_FpC-fefQxKI6132LyAq66BxO6Y0i3Mi5vkZoEE740ydFwXTO_ccEaayPS6k=@proton.me>
-In-Reply-To: <179426666660.994134.10642884311879085983@kernel.org>
-References: <mnJ9l2Ebi69wyTB5k6FBEnjRESb0SmEnlqwaQAOEJ1x5qRQJ3ZMVAdX7Bn9-yWEnQ0iv_3KLoI1yUVCc88IJOVGGow9rOyG6Y54sPMeW0zQ=@proton.me> <179426666660.994134.10642884311879085983@kernel.org>
-Feedback-ID: 186545857:user:proton
-X-Pm-Message-ID: 97320a67e324bcbe7192a8906259d898cc5cd010
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nH0eA1sB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2F5E1F0089F;
+	Mon,  9 Nov 2026 23:30:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794267021;
+	bh=d7flpOWW+EdDVpjqNDQCEwbgE1WjvjabhxU7S+bNa1k=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=nH0eA1sBP1mmuUL/NiZB2U6tR8AqFqC1VUc4yEC0XgDbq+/OlqmO83hY2wwD4f0kE
+	 SRVvBzFKjCpFaRrfAMyDAl1qwqChLR6ZfKotz77LNMbr8RgltPhUbok1hkuA6KVthr
+	 Fdw9U27S3VN6VUSZ8RfvNcj1iAkaqXGyQLb1v2WRAWxTGI2WIrQb3u/FxU2wNO16D5
+	 AlnyIipXX4i41jFRVFN0IgAXPp/GpfXuY0MifwXnneutL/ZqOQ42sRNocaZKjpzIdy
+	 bQebz+JbMBAQDNF1/ydGDVCK68K7p9nj4S0hlIkRbMd5t7QlBfhcUvdT60BIM4Oe4s
+	 N+ZL2Do0Qnvfg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D8354391AFA5;
+	Mon,  9 Nov 2026 23:30:21 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,12 +53,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] net: skbuff: preserve fclone lifetime when freeing stolen
+ heads
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179426702076.3543549.4583782076046363502.git-patchwork-notify@kernel.org>
+Date: Mon, 09 Nov 2026 23:30:20 +0000
+References: <20261030042329.74461-1-kylebot@openai.com>
+In-Reply-To: <20261030042329.74461-1-kylebot@openai.com>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org,
+ outbounddisclosures@openai.com
 
-Thanks for the review. Please disregard this version of the patch. Sashiko =
-identifies a possible stale buf pointer after the new pskb_may_pull() call =
-if the skb head is reallocated. I haven't independently tested that finding=
-.
+Hello:
 
-Noah
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 29 Oct 2026 21:23:29 -0700 you wrote:
+> skb_morph() can give an skb from skbuff_fclone_cache a page-fragment
+> head without changing its fclone tag. IPv4 reassembly can produce such
+> an skb, which can subsequently reach the GRO stolen-head path.
+> 
+> napi_skb_free_stolen_head() puts the shell into the ordinary NAPI skb
+> cache without dropping its fclone_ref. If the embedded companion is
+> still live, KASAN poisons it along with the original, and later cache
+> reuse or eviction can overwrite or free the allocation underneath it.
+> A mirrored batman-adv DAT packet retained in a plug qdisc reproduces a
+> KASAN use-after-free in plug_dequeue().
+> 
+> [...]
+
+Here is the summary with links:
+  - net: skbuff: preserve fclone lifetime when freeing stolen heads
+    https://git.kernel.org/netdev/net/c/86706ffa990e
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
