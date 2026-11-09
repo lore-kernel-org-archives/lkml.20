@@ -1,54 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794195203;
-	b=00rhe0MZnnfKHS8BQxDtUU7fY2HZO708TpbVhd0xgFwrXTDctD1fw9PFlqXUsOvWNLE7
-	 w/zFt7bkz4VmISzuQiYTt1uo7Qv9DZwVKgnBhtJi62GntB2VHeJtNKzYD0gDcw1DDk1Fy
-	 fxpuGfEJjyhGfpm5Ge4cjE9Dn8TCZwPCc4inI5cPczGN3wz7g0lz6qraGBRe6vQg2WIEs
-	 /mMm0h2XYGQ0yO2dbLwT/ycSf3rmW1v60U7qPZ4kv1KYq0F7yXOfQkdfkynER0AIAtyn4
-	 +CDlgkWgquEdup0EeSOG2aSOoPYgl0LcKcIyypYwFii3pZV0j8bncXs/xeSpiqKPzrA==
+	t=1794195218;
+	b=qQA1P0pG6xPcndSNCEkNv2P9P07GYnv1O7KlDVzseuZi9dHOO5E/uFQTUSw0j9JvMJCD
+	 EEFA5Lt7uEyL4EBapItgRPUnxOZZe+3SFiudIyNBr6V8HyHiEkPtqh60FeoEJO2WALvci
+	 LDMOeZiLhUe4atUT1R9duaw9mVgeT8GsTLdrRxcfltgrKqRvSOvWeWgoQ+VIP6aQHn+54
+	 mOVY+D2nqsNwkHlqLHxyT1yDHZ/JlUAee/I020LYrW38QpeOKaG8h5OUKeomm1uPOOyGf
+	 uZFCcmIRGKGbAiDPTJgKWsOm8iODem0n+0/K9h4Squ+n7htglnaSfPHLhJAT3u9F3Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794195203;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=fSXkQFvYokTP7/zdJJbPcVi6eQ2VnCwRvk+/9wXmlm4=;
-	b=oM7omaNgc6jTV/ZXN62Iuevh0fTqAfaD2XGCvzfVFKa5SL2prr94Ok0sR7kcFpi5j0FU
-	 +vcizgrfxGeXRnwCe01Gk/3j7b2p4EOEvXFXFouxKOy7DHZBZEvqtLqrKTreQcRaGhwbL
-	 V62TFZJHqI9EGaFsj/fUlwiRKywHl5K0UM32RHaeWg1QiTKUMTFdQr7tBMplzwo4Wh2qc
-	 Uj8EBQAkIeiZaPe76wCR1JN1yC2NtKEf1qjPomnxA8mOv++xmjcTguk3Qm2RQfwCB2sAh
-	 LvozE/ax4RQn5fJN4I3Xbj7B88wa3Ww5SSLBoVl2EETu/ANJH5DzwMnjdwpFHAZQDbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794195218;
+	h=DMARC-Filter:DKIM-Signature:Date:Content-Type:Message-Id:
+	 Mime-Version:Received:Content-Transfer-Encoding:Cc:From:Subject:
+	 X-Mailer:X-Lms-Return-Path:To:In-Reply-To:X-Original-From:References;
+	bh=VBxjSeMIQblJqurQ7NVd7kOa1gruW2oug+/iX2zAqdk=;
+	b=vVMrd15WK3G7Nx7r3zcM0VlCWPohR7CIeEUTXT/53aIzOlm7f63gmWrC37xsnNVUbhkU
+	 ZkSayBIvkRu1emuJKm5bg4sH5qg9tI3Zdo1YUykYJkEEhzSPuDIl9ioPVP5Jk/44521+S
+	 6dt9nRVu1EPfrfBQqsvI1JcPpFeUAu/3ZZGU6Zj5YvWetwmLo8MQoi1rSRs4Y4MMA+a7P
+	 sW5R9d35Yru8AsqKLaekfIv59WZ1K7QEKwKr/1O4L4j8gTmV1Pn5Bk/Yd+qeMnWIJVNI5
+	 mGyKl1/gkYYd+RhPv50nLdyWG4MdcQM7N/co8h9byH2sESESHZlrwvN3zwWRqb0sYDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=r16QktDB;
-	arc=none smtp.remote-ip=95.215.58.197
-Received: from mta1.migadu.com (out-197.mta1.migadu.com [95.215.58.197])
+	dmarc=pass header.from=deepcomputing.io;
+	spf=pass smtp.mailfrom=deepcomputing.io;
+	dkim=pass header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=HnRVv5EA;
+	arc=none smtp.remote-ip=209.127.231.28
+Received: from va-2-28.ptr.blmpb.com (va-2-28.ptr.blmpb.com [209.127.231.28])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81817606A320
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:33:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81817606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090AB606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:33:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 090AB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=r16QktDB
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fSXkQFvYokTP7/zdJJbPcVi6eQ2VnCwRvk+/9wXmlm4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794195200; v=1; x=1794800000;
- b=r16QktDBtgrve2lJtXf+k6gXH2JSF2UEsOe+NTp+H98CZ49wJ1Z7BJczkYK9T6Di3A8RlBwI
- ZmVorwwBFY77q8no22m3Of4AAcVaDARx6SWh9e1i206khZ08QONc2ddINsWniDSlUhMtxdUeT3n
- JGi03KI7efrxXB4Ev5FI0UVQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1b12e287425c2338;
-	Mon, 09 Nov 2026 03:33:19 +0000
-X-Mizu-Trace-ID: 1b12e287425c2338
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <dbdb9385-89cd-4e4f-bfb8-b72510e8801b@linux.dev>
-Date: Mon, 9 Nov 2026 11:33:09 +0800
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=HnRVv5EA
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1794195215;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=VBxjSeMIQblJqurQ7NVd7kOa1gruW2oug+/iX2zAqdk=;
+ b=HnRVv5EAfHTtUtUWqqniKmE6iCWXjTtEMYtt00z+c+gaHSBex+wBK6dbHf7L58Ui9QoEbq
+ gU8lGq8iCt4rqQTXUAtl7+Imei+euBCjI8dWW/BqVYXjcOip9CS18xgKa1sLfH+RtIvL6S
+ ZYIideJAU9dIMKcXSlBh92cOx28BDKm2fItbbVF+1J6FXWocpN8hQlrq/eEtTom+lmjnwc
+ gyfk+WJFp56WLWC8RMm6V2tg+DGieDWpCMwgdvsJVn0se1JAuiu9OLeqQW9vAFP2okPxK+
+ Q/qHfGlQGbRhFNlAtCqwqTXsb0OP/PV39Oq3HTWWGWFB/ZCYdWIPlkfTCjgI4g==
+Date: Mon,  9 Nov 2026 11:33:10 +0800
+Content-Type: text/plain; charset=UTF-8
+Message-Id: <20261109033310.361435-1-sandie.cao@deepcomputing.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,81 +54,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 00/14] net: annotate data-races around sysctl
- knobs
-To: Jason Xing <kerneljasonxing@gmail.com>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
- Phil Sutter <phil@nwl.cc>, Nikolay Aleksandrov <razor@blackwall.org>,
- Paul Moore <paul@paul-moore.com>, Matthieu Baerts <matttbe@kernel.org>,
- Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
- Julian Anastasov <ja@ssi.bg>, Allison Henderson <achender@kernel.org>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Xin Long <lucien.xin@gmail.com>, "D. Wythe" <alibuda@linux.alibaba.com>,
- Dust Li <dust.li@linux.alibaba.com>, Sidraya Jayagond
- <sidraya@linux.ibm.com>, Mahanta Jambigi <mjambigi@linux.ibm.com>,
- Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org, bridge@lists.linux.dev,
- linux-security-module@vger.kernel.org, mptcp@lists.linux.dev,
- lvs-devel@vger.kernel.org, linux-rdma@vger.kernel.org,
- rds-devel@oss.oracle.com, linux-sctp@vger.kernel.org,
- linux-s390@vger.kernel.org
-References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
- <CAL+tcoDvFNAZubOjw9+Z1eyaVeiBzt_Xg3KMNucY879bg-ZLow@mail.gmail.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <CAL+tcoDvFNAZubOjw9+Z1eyaVeiBzt_Xg3KMNucY879bg-ZLow@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Received: from roma-Laptop-12th-Gen-Intel-Core.lan ([218.17.141.187]) by smtp.feishu.cn with ESMTPS; Mon, 09 Nov 2026 11:33:22 +0800
+Content-Transfer-Encoding: 7bit
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>, 
+	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Sandie Cao" <sandie.cao@deepcomputing.io>
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+Subject: [PATCH v4 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller and USB phy support
+X-Mailer: git-send-email 2.43.0
+X-Lms-Return-Path: <lba+26af13f03+6d3b75+vger.kernel.org+sandie.cao@deepcomputing.io>
+To: "Yixun Lan" <dlan@kernel.org>, 
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>
+In-Reply-To: <20261109033154.361399-1-sandie.cao@deepcomputing.io>
+X-Original-From: Sandie Cao <sandie.cao@deepcomputing.io>
+References: <20261109033154.361399-1-sandie.cao@deepcomputing.io>
 
+Add USB device node (b, c, d) to DeepComputing FML13V05 board.
+USB A works on otg mode, it isn't configured currently.
+- 4 USB-C Ports
+     - Port 1: PD 3.0 (65W Max), USB 3.2 Gen 1
+     - Port 2: PD 3.0 (65W Max), USB 3.2 Gen 1, DP 1.4 (4K@60Hz)
+     - Port 3 & 4: USB 3.2 Gen 1
 
-On 11/9/26 11:11 AM, Jason Xing wrote:
-> On Mon, Nov 9, 2026 at 10:55 AM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
->> While testing the recent sysctl range fixes I noticed that a lot of our
->> sysctl knobs are read with plain loads while the handlers update them
->> with WRITE_ONCE() and no lock, so KCSAN reports them as data races. I
->> then used an LLM to go through every ctl_table under net/ and list the
->> readers that were left behind. This series annotates them with
->> READ_ONCE(), and adds WRITE_ONCE() to a few custom handlers and netlink
->> paths that store to the same fields with plain writes. Most of it is a
->> plain READ_ONCE() at each read; where a function reads the same knob
->> twice to make one decision, it now reads it once into a local, so the
->> comparison and the value it acts on cannot come from two different
->> writes.
->>
->> There are no Fixes tags. Done one knob per patch this would be well over
->> a hundred commits, so I grouped them by subsystem and feature instead to
->> keep the review manageable. If maintainers prefer, I can split it up
->> further with a Fixes tag on each one, as several smaller series.
-> Over the last year, I've been thinking about the annotation stuff
-> especially around sysctls, which, I suppose, shouldn't actually affect
-> the real workload but does affect the outcome of the syzbot.
->
-> Out of sheer curiosity, my question would be what is the point of
-> trying to change all of them? Or what kind of benefits can we get from
-> the big series?
+Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
+---
+ .../spacemit/k3-deepcomputing-fml13v05.dts    | 50 +++++++++++++++++++
+ 1 file changed, 50 insertions(+)
 
-
-Three things:
-
-1. A plain load may be emitted twice by the compiler. ip_error() compares
-peer->rate_tokens against ip_rt_error_cost and then subtracts it again;
-if the sysctl changes in between, the u32 wraps. A few readers have that
-shape and now read the knob once into a local.
-
-2. Tearing is not involved here, all the fields are at most word sized.
-
-3. The rest is the memory model: a lockless read of a field written with
-WRITE_ONCE() is a data race unless it is marked
-(tools/memory-model/Documentation/access-marking.txt). That is what KCSAN
-reports, and why most of the series is plain READ_ONCE().
-
-
-I think the benefit is doing it in one pass.
-
-
+diff --git a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+index e061233c15a3..bcd533484a73 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts
+@@ -172,8 +172,58 @@ dldo7: dldo7 {
+ 	};
+ };
+ 
++&combophy {
++	spacemit,apmu = <&syscon_apmu 0x17>;
++	status = "okay";
++};
++
+ &uart0 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart0_0_cfg>;
+ 	status = "okay";
+ };
++
++&usb2_host {
++	#address-cells = <1>;
++	#size-cells = <0>;
++	status = "okay";
++
++	hub@1 {
++		compatible = "usb5e3,608";
++		reg = <1>;
++	};
++};
++
++&usb2_phy {
++	status = "okay";
++};
++
++&usb3b_u2phy {
++	status = "okay";
++};
++
++&usb3b {
++	phys = <&usb3b_u2phy>, <&combophy 2 PHY_TYPE_USB3>;
++	phy-names = "usb2-phy", "usb3-phy";
++	status = "okay";
++};
++
++&usb3c_u2phy {
++	status = "okay";
++};
++
++&usb3c {
++	phys = <&usb3c_u2phy>, <&combophy 3 PHY_TYPE_USB3>;
++	phy-names = "usb2-phy", "usb3-phy";
++	status = "okay";
++};
++
++&usb3d_u2phy {
++	status = "okay";
++};
++
++&usb3d {
++	phys = <&usb3d_u2phy>, <&combophy 4 PHY_TYPE_USB3>;
++	phy-names = "usb2-phy", "usb3-phy";
++	status = "okay";
++};
+-- 
+2.43.0
