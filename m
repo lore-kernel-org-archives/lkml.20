@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794266822;
-	b=jho+kTsoXwg4f8NXcCXg6h/G54hJ0aRHIYcYUs0sdQtaxBJl04WAWt67WmdmXjnLyDgw
-	 IMZQ8Z7Mx9zqGSSd0VNub//K7sMv8BYLO7vKWuctEWeS6rXsgQ9YM1ScEb/sTMUHem2Ug
-	 tEWT77YqJHou7vNXlCy3JzL+aUWvWSw9lTuO7hSdN8grNK5pV94sSDGpgTkY6xPf+/p7h
-	 4F38u4P/bXyipujx07z1D35xAg9rEx5arJ61afX4x+BCsBRqNjkTAUlBk156eMxb+Bad/
-	 TX/jAfGhWFwWHnNXLKWze89R7VjRc6hByV2T+lk9owHDcpEUGnUR+EVpg2HbO3cI6vw==
+	t=1794266873;
+	b=DS4jCVY28YFbu+TmgnKGZCj9KJFS5psivsrk2OSWzG8CMZQt4rWeO5XRiHAXIcdRLTAI
+	 gRV9UC5b/qVGVfuqX2UQ6G1NcXaHWRcZNqoEbqzYxE+4hYPpGcyPoxKRCQ3BS2sJQjhC4
+	 tclVHqNQeyF2pT+zfKhK5Jg1rRcnsYrd++b6JXchIyWRrXNGrUx6kzovZKj57PuJM2K1y
+	 7fMG4UMGo0UzNTEqnjD/S9dH4u8RcCqBwxRmB5/nI9Tb2aDSRBTYYzSo9mMK52a71DT8h
+	 jPM/BerasXSTW6Gxc8mFmz3Q6xNvedDiffYzH+halmInL6A93gxI3+sOJST7EiLvsng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266822;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=5T06KjKh3MrPBKKQKkoAa2wQ1L3CjHdGCtg0p/w53Yw=;
-	b=f9ckntXH9HlO5Tbs0UOuORD26GoQzfMM2MCej/ks/y8/+FUKZWu6v9gl4FKx0ysb8BJH
-	 FT9mJxaGS/C0NSoM7CJgEVFel4FH0xZeIz+Whd3/lExIL3XG58q80exhZ8pWa+ljW+GdE
-	 7ydFYmyizfaR/NgVTdxtzT3FQUlI+BRBtbK1PXX1kcPI9toNZovhePjPU8EcnPVqCuwhx
-	 jpF7qvGXiM/BysNcCmly4ziyBJiGdBszyENVXlfdvxU6ggJcKNP6g6hBFuoGbuD7AX2KV
-	 yBGYDVGPbfjz58MdBiBSg9rwBsZo47dORGC70UOYV8znzxlSpdPgdOABpw3gukGbI1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794266873;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=pxieaRF+DEmHDZqBYUPaxBs1kvnt1y8Mjbqb6MFwtFQ=;
+	b=kecAjHydaGbEwUNxD4LJbwkCSHEYgYunjfy5EHrTYr2ARd05p6TxbAc3Vta3X7gSAaUl
+	 SkffDxEEeyoUyvm9ov+Tdv7RPlunKp8g1EcepixFZlh+BHXWDc2WAmcwxLAFZ0S1SNHx3
+	 PReydcF0KRQhDgErbtKSQeMJadmRMm9SiREpJyG7+oMIkK1p2SGD+F318Pp2GzdmYEiSh
+	 U4RTwUpTAWdHEQuwMaLf5mJ2mfuLqSXC1jZE6fk/3ztmFlbOYGZA089vscd6c4xizt7Jh
+	 OXKH2hQbRb89eNhAG4R3T6BnwGCmowddwr+ODhZXvXB59v/IneUe+CRiWQ53SvrN6fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NGdD74TF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sys5P63d;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D1C606A31C;
-	Mon,  9 Nov 2026 23:27:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5212D606A31C;
+	Mon,  9 Nov 2026 23:27:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NGdD74TF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755FE1F0089F;
-	Mon,  9 Nov 2026 23:27:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sys5P63d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E92E1F0089F;
+	Mon,  9 Nov 2026 23:27:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794266821;
-	bh=5T06KjKh3MrPBKKQKkoAa2wQ1L3CjHdGCtg0p/w53Yw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=NGdD74TFOS5SZwMEeZjGuRSYX7K2YVOZRodbDwe7+e58GU3kCItfqMre0oiWJEt31
-	 bcBwyX0EdWPdxlU2a/jkb22sQrmkp0IvZmAeJQf3fiRUCzA/KAAOKytDwRLRNY2ah8
-	 qQQXLWglsEkndBc8OEx0VBv7iFkQptvD+39jWgr7pTAKEZqGoEcO9qY6QXr7A9rFZF
-	 uC0rkwMIgqDXY9/y7LUYw3iKr3Ko2fnDIVP3IF1jI6pX28poFm8/TP7kQ9Wnlh9tmk
-	 w5dVOgxhecWjbEPw8njHK7nIqS8tKwLhmfT7Dg9QBUTJKp3VZaRS2xm812GjkKSulo
-	 9YlIIz5+PQXYw==
-Date: Mon, 9 Nov 2026 17:27:00 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Cc: Maciej Grochowski <Maciej.Grochowski@sony.com>,
-	Geramy Loveless <gloveless@jqluv.com>,
-	Eric Auger <eauger@redhat.com>,
-	Alexey Fomenko <alexey.fomenko@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
-	Mesih Kilinc <Mesih.Kilinc@sony.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 00/14] PCI: Resource placement algorithm fixes
-Message-ID: <20261109232700.GA345907@bhelgaas>
+	s=k20260515; t=1794266872;
+	bh=pxieaRF+DEmHDZqBYUPaxBs1kvnt1y8Mjbqb6MFwtFQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Sys5P63dPMA9ugIubxhhxprGv7JEAzMdd1Sro4pFmA7+v2xn7f5rzQ7yTXbKlFJuM
+	 Qko3aQuCuf8OmuafbUjLU8gBB7++J8a0bc9hk/oEOfFL9sr9U/yKI+d+S+/m5qrd5i
+	 cs1h7blDbRWPiMd0eirn6wdV7lCwSmiYwAZ7pK8/kTAqPgjEz8ThB4tTlaCidXGW2f
+	 /oyflR5gxEMTg4sNvkk8+nUv025GKZmthsR9/E856CL9k0CfaOE0RQUDMwhwL5wvn/
+	 1JQz6+cYUxWajeBvMzqL2fWeN2Fv0oD5tq5i0+0ui9h0as6tPEc6P0dF5uEwNGXLxC
+	 Km5wwoJBVj4TA==
+Subject: Re: [PATCH net] net: ibm: emac: fix TX skb double free in
+ emac_full_tx_reset()
+From: netdev-bot+sashiko@kernel.org
+To: rosenp@gmail.com
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ david@gibson.dropbear.id.au, jeff@garzik.org, linux-kernel@vger.kernel.org
+Date: Mon, 09 Nov 2026 23:27:51 +0000
+Message-ID: <179426687184.994134.17421592671496655124@kernel.org>
+In-Reply-To: <20261105231516.120321-1-rosenp@gmail.com>
+References: <20261105231516.120321-1-rosenp@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,196 +63,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261106134341.39493-1-ilpo.jarvinen@linux.intel.com>
 
-On Fri, Nov 06, 2026 at 03:43:21PM +0200, Ilpo Järvinen wrote:
-> V4 got quite many comments from sashiko, some of them were a bit
-> sketchy (bogus scenarios such as IOV BARs on a bridge) but there was
-> still good feedback hidden under the clearly flawed facade.
-> 
-> There have been major changes so any retesting is appreciated (the
-> 4 candidates patch is largely the same so I kept the Tested-by tags but
-> everything around has been changing so even that is on the borderline
-> when it comes to the validity of the existing tags).
-> 
-> I ended up dropping the nested window fix which I had anyway realized
-> would not be necessary with the current resource code. I had earlier
-> planned to change the resource side code to only try start addresses
-> that qualify to size+align requirements and had thus kept the nested
-> win fix. But it just makes PCI side more complicated requiring extra
-> tweaks and checks. With that patch dropped, pci_align_resource() can
-> alone decide the placement making the code much simpler.
-> 
-> Second major change is rewriting the gap calculation, which required
-> including pbus_size_mem() refactoring that I was planning on doing
-> anyway.
-> 
-> As with v4, the quirk is not included and one approach should still
-> be selected to solve the Genoa/Zen4 iomem blackhole but that's not
-> likely the one I proposed within my series so I left it out.
-> 
-> This series also does not attempt to address cases where user alignment
-> override does not propagate to window size calculations and thus not
-> into the align given to resource placement code (reported by sashiko).
-> These are pre-existing issues and while they should be fixed
-> eventually, I've no plans on increasing the scope and complexity of
-> this series that is focused on solving real regressions caused by the
-> commit 9036bd0efcb6 ("PCI: Align head space better").
-> 
-> For those who haven't read the previous version intros (no changes
-> from v4 in this):
-> 
-> This series generalizes the resource placement algorithm. The commit
-> 9036bd0efcb6 ("PCI: Align head space better") special cased one
-> composite resource remainder case to fix a regression (in a long chain
-> of regression fixes). Unfortunately, it introduced another regression
-> (or a few, to be more accurate).
-> 
-> Instead of building more special tricks, generalize the PCI resource
-> placement algorithm so it returns placement that gives better chances
-> for the greedy assignment algorithm to find suitable space for
-> subsequent assignments.
-> 
-> In short words, the new approach tries to find a placement for the
-> current resource that blocks as little of the free space range as
-> possible, considering both alignment and continuous free span of the
-> remaining free space.
-> 
-> In addition, the series corrects composite resource sizing to account
-> for gaps that have to be added due to alignment constraints and
-> remainder space not fully connecting (filling space all the way to
-> the bridge window align).
-> 
-> More detailed explanations in the patches themselves.
-> 
-> Unfortunately, this also causes yet another regression due to shuffling
-> resources around. I've left my quirk out of this version as it seems
-> the least likely approach to be used to resolve the issue. Some approach
-> should still be applied but that decision seems largely independent of
-> this series. The main part of the quirk discussion is here:
-> 
->   https://lore.kernel.org/linux-pci/20261013130948.6231-9-ilpo.jarvinen@linux.intel.com/
-> 
-> I find it likely that after this series the resources are packed tight
-> enough to solve also
->   https://bugzilla.kernel.org/show_bug.cgi?id=220016
-> from more than a year back but that remains to be seen (if we can still
-> get the reporter to test it).
-> 
-> 
-> I planning on making another series to properly honor
-> pci=resource_alignment and improve locking as I realized the current
-> approach allows parameter change to race with the fitting and
-> assignment algorithm.
-> 
-> v5:
-> - Reordered series, "simple" patches first
-> - Added patch to skip resource with IORESOURCE_DISABLED
-> - Added patches to fix __ffs*() (__ffs64 & zero handling)
-> - Fix 2 more 1UL -> 1ULL, renamed roundup/down funcs to _u64
-> - Rework considering user/arch min align, always take it into
->   account during placement if present (sashiko)
-> - Rename pci_init_pci_resreq_data() -> pci_init_resreq_data() and make
->   it non-inline func
-> - Drop nested window fix (unnecessary and w/o complexity is less)
-> - Rename .user_align -> .min_align
-> - Use struct to store candidate selection parameters
-> - Rework candidate selection precedence
-> - Calculate odd-multiple starting "2 blocks resource" using both blocks
-> - Add a tie breaker to candidate selection using alignment of the left
->   edge
-> - Do not use candidate logic if there's no full block or
->   rr->min_align > align (the latter is due to pre-existing problems
->   elsewhere).
-> - If no candidate is possible, return right edge of the empty res
->   (not strictly necessary because one of the candidates is at res->start
->    and the caller should use large enough align if user align is present
->    but it doesn't hurt either)
-> - Refactor pbus_size_mem() to support the new gap calculation
-> - Reworked gap calculation entirely
-> - Added debug print to sizing function
-> - Fix many grammar errors / typos / consistency improvements
-> 
-> v4:
-> - Drop my own quirk patch (one approach should still be picked!)
-> - Use 1ULL to not lose bits in 32-bit case (sashiko)
-> - Copy avail flags from full_avail.flags (sashiko)
-> - Always return "resize" from pci_specified_resource_alignment() (sashiko)
-> 
-> v3:
-> - Add roundup/down_pow_of_two64() (new patch) to avoid problems if
->   resource_size_t is 64-bit and unsigned long is 32-bit + use __ffs64()
->   (multiple potential issues mentioned by sashiko)
-> - Do not print res->parent in parisc debug code as the resource is never
->   in the resource tree (found by sashiko).
-> - Do not override user-alignment with the remainder moves (sashiko)
-> - Consider optional sizes properly when sizing bridge window gaps (sashiko)
-> - Move genoa quirk under arch/x86/
-> - Rename quirk's static resource variable
-> 
-> v2:
-> - Add patch to cleanup parisc debug print (do dyndbg conversion)
-> - Add patch to prevent remainder tricks when alignment override is used
->   (found by sashiko)
-> - Do not use PCIBIOS_MIN_IO/MEM but 1U as min align. The former seem
->   address space lower bounds even if parisc arch code misleadingly
->   uses them for ALIGN() call.
-> - Fix res->end + 1 overflow case (found by sashiko)
-> - Tweak debug print formatting
-> - Reworked the iomem black hole quirk (now based on the bridge)
-> 
-> 
-> Ilpo Järvinen (14):
->   resource: Mark free space assigned
->   parisc/PCI: Clean up resource debug print & use dynamic debug
->   PCI: Don't size or assign disabled BARs
->   PCI: Use __ffs64() for resource_size_t typed align
->   PCI: Prevent zero align from reaching __ffs64()
->   linux/log2.h: Add 64-bit roundup/down_pow_of_two_u64() variants
->   PCI: Derive aligns[] array size in a define
->   PCI: Honor alignment overrides
->   PCI: Place resources to either edge of the window
->   PCI: Separate align/raw size calculation from pbus_size_mem()
->   PCI: Calculate bridge window with optional sizes from scratch
->   PCI: Move size/align calculation fully into __pbus_size_mem()
->   PCI: Fix composite resource sizing
->   PCI: Add debug printing to window sizing
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-It looks like the early ones are straightforward and good-to-go.  How
-many could we just apply in order to get them out of the way?
-I'm guessing at least the first six (up to and including "PCI: Derive
-aligns[] array size in a define")?
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-You mentioned "this also causes yet another regression" so I assume
-there's something we're not quite ready to merge yet?  I'd like to get
-the rest in linux-next as soon as we can.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
->  arch/alpha/kernel/pci.c          |   3 +-
->  arch/arm/kernel/bios32.c         |   5 +-
->  arch/m68k/kernel/pcibios.c       |   4 +-
->  arch/mips/pci/pci-generic.c      |   5 +-
->  arch/mips/pci/pci-legacy.c       |   5 +-
->  arch/parisc/kernel/pci.c         |  20 +--
->  arch/powerpc/kernel/pci-common.c |   5 +-
->  arch/sh/drivers/pci/pci.c        |   5 +-
->  arch/x86/pci/i386.c              |   5 +-
->  arch/xtensa/kernel/pci.c         |   5 +-
->  drivers/char/agp/intel-gtt.c     |   5 +-
->  drivers/gpu/drm/i915/i915_gmch.c |   5 +-
->  drivers/pci/pci.c                |   4 +-
->  drivers/pci/pci.h                |   6 +
->  drivers/pci/setup-bus.c          | 263 ++++++++++++++++++++-----------
->  drivers/pci/setup-res.c          | 246 ++++++++++++++++++++++++++---
->  include/linux/log2.h             |  52 ++++++
->  include/linux/pci.h              |  15 +-
->  kernel/resource.c                |   3 +-
->  19 files changed, 510 insertions(+), 151 deletions(-)
-> 
-> 
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> -- 
-> 2.47.3
-> 
+- [High] This patch fixes only one of the two emac_clean_tx_ring()
+  callers, so the same TX skb double free can still happen in…
+
+--
+
+net: ibm: emac: fix TX skb double free in emac_full_tx_reset()
+
+This patch takes netif_tx_lock_bh() around emac_clean_tx_ring() and the
+tx_cnt/tx_slot/ack_slot reset in emac_full_tx_reset(). This keeps
+emac_poll_tx() from freeing skbs a second time after the ring has been
+cleaned. mal_poll() still calls emac_poll_tx() while polling of this EMAC
+is disabled.
+
+> diff --git a/drivers/net/ethernet/ibm/emac/core.c b/drivers/net/ethernet/ibm/emac/core.c
+> index 640618c0a09e9..377755af835cc 100644
+> --- a/drivers/net/ethernet/ibm/emac/core.c
+> +++ b/drivers/net/ethernet/ibm/emac/core.c
+> @@ -745,8 +745,15 @@ static void emac_full_tx_reset(struct emac_instance *dev)
+>  
+>  	emac_tx_disable(dev);
+>  	mal_disable_tx_channel(dev->mal, dev->mal_tx_chan);
+> +
+> +	/* MAL NAPI runs emac_poll_tx() even while polling of this EMAC is
+> +	 * disabled. A cleaned descriptor reads as completed, so clean the
+> +	 * ring under the TX lock or emac_poll_tx() frees the skbs again.
+> +	 */
+> +	netif_tx_lock_bh(dev->ndev);
+>  	emac_clean_tx_ring(dev);
+>  	dev->tx_cnt = dev->tx_slot = dev->ack_slot = 0;
+> +	netif_tx_unlock_bh(dev->ndev);
+
+[Severity: High]
+This covers emac_full_tx_reset(). Can the same TX skb double free still
+happen through the other caller of emac_clean_tx_ring()? That caller is
+emac_close() in drivers/net/ethernet/ibm/emac/core.c, and it still cleans
+the ring without the TX lock:
+
+drivers/net/ethernet/ibm/emac/core.c:emac_close() {
+    ...
+	mal_disable_tx_channel(dev->mal, dev->mal_tx_chan);
+	mal_poll_del(dev->mal, &dev->commac);
+
+	emac_clean_tx_ring(dev);
+	emac_clean_rx_ring(dev);
+    ...
+}
+
+On this path, the only NAPI synchronization is one napi_synchronize() call
+in mal_poll_disable(), reached through emac_netif_stop(). The MAL NAPI
+instance is shared, so mal_poll() can be scheduled again after that. It
+could be triggered by:
+
+  - TX EOB interrupts raised while emac_tx_disable() waits for in-flight
+    frames
+  - another EMAC on the same MAL
+  - mal_poll_enable()
+  - the rotting-packet path
+
+mal_poll() then calls poll_tx for every commac on the list. It does this
+without mal->lock and without checking MAL_COMMAC_POLL_DISABLED:
+
+drivers/net/ethernet/ibm/emac/mal.c:mal_poll() {
+    ...
+	list_for_each(l, &mal->poll_list) {
+		struct mal_commac *mc =
+			list_entry(l, struct mal_commac, poll_list);
+		mc->ops->poll_tx(mc->dev);
+	}
+    ...
+}
+
+mal_poll_del() only does a list_del() under mal->lock, and mal_poll()
+never takes that lock. Nothing waits for an in-progress poll afterwards.
+
+On SMP, this interleaving looks possible. One example is the dual-CPU
+476GTR described in akebono.dts with an ibm,emac4sync EMAC:
+
+CPU1 (emac_close)                  CPU2 (mal_poll()->emac_poll_tx())
+mal_poll_del()
+                                   netif_tx_lock_bh(dev->ndev);
+                                   ctrl = dev->tx_desc[slot].ctrl;
+                                   /* READY clear */
+                                   skb = dev->tx_skb[slot];
+emac_clean_tx_ring()
+  dev_kfree_skb(dev->tx_skb[i]);
+  dev->tx_skb[i] = NULL;
+  dev->tx_desc[i].ctrl = 0;
+                                   dev_kfree_skb(skb);
+
+This is the same "cleaned descriptor reads as completed" double free that
+the commit message and the new comment describe. Neither the commit message
+nor the new comment mentions the close path.
+
+There is also a related issue at the same spot. list_del() in
+mal_poll_del() poisons commac->poll_list.next, and a concurrent
+list_for_each() in mal_poll() may still follow that pointer.
+
+Would it make sense to also take netif_tx_lock_bh() around
+emac_clean_tx_ring() in emac_close()? Another option is to call
+napi_synchronize() after the list_del() in mal_poll_del(). The second
+option would also stop mal_poll() from following the poisoned pointer.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105231516.120321-1-rosenp%40gmail.com
