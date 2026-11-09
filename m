@@ -1,77 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794267944;
-	b=aQWT/aqWEswD1MbqVd/SSMUHnOSg/qknTT/WyrZwV6fWL6VDLiLXZdKQMXQw405fvqnk
-	 WyyFIZEew7s5pBHsfjgH6KnnNkW79vPneonzr7PQwiBPg5gFUIyPBNZgBrMROL22qQ38R
-	 S0eSybz8ryVcvt0bUVgyWeZsx0Dzl0d9qgi3SXQ9UsKZnXwU4OUCO6JnJ3DbNBxI5g6se
-	 ZH/lPxsKm50olx/YccTia75UarE94wmxI/lEhNN4HqldX9JWvHVgX3LiPE4sQoO0J/1ex
-	 5OAeZwtCCC87F2e9RXFv5ZyfRHYxv5l6Qn3hQn8WjHIzubfsF7/kHDHgmIM3K4O+txQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794267944;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=X9fMC0zqN3ETxlJdsyr5ayEq0uPBqTA5dIHIwwyBzMg=;
-	b=b9BC7auUDISmZ/Qq6Qb1UKS6cU6VJhUfTjTIB4rgq0s3ZcduLEAxsTvBu9cAP8n/xS39
-	 r9Xlq6HXzjRQNs7WTkZNkgHkoy70ZDBu2E/nR7ENdphu4kHJv0CwD5I2SJ9BTGlrfkOZP
-	 5g2palj9epGoqunf1REw4AfgbN0rOoNi70x176Y6xIUkYXGbDrIZZ4k7ARCWWaRHx7Bo7
-	 VgcqO1CNCotWj8Uk7JyomckK9IM5oDNuwthXN6vyQ7Yd2fKKqjxH3K80DwqhbkWJREmkv
-	 /QeHG+MReWsVIoX953WH+UtIvhhT2ALtt35M/XqN289ylgvwl23ORHj3eI4WHOzwXgA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=telaak.dev;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.210.177
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794267936;
+	b=w5w7E5DS8JVAY2HqtiOtH/XQpNHVib2MTn+71wWWtudP1+U8QvJlXEH5VkQQD+JFHAOD
+	 YauZ4PnqKCqcPzexmNhNTpGnytdWjhYb3SIA2vStUvuGA6s+NHDsqMfhA+mpDwiCtlQYc
+	 yoMgkhcv7LEYSKTIhpALALSMijg/l6o/b02Sgc38TZPY5qK1v27QUvvtAPK0spsLrSELF
+	 sdwxjFUUJVJGn+VCs1BeV9pAnlQr2CIT8CUNzMVx+q0nA+k7Y0bmFysR1/BMcIWjL/MLF
+	 dutNh5EqUlMqg9OukWkExl70Ao+6LbFnwfngmuU/e2YAVorQmCghclouRtrNRT0tjhw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794267936;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=10FbvBDq/04YgyEUghoAbXIiLNNEnt9De+mGX9CvheQ=;
+	b=l2TbgGm2SX0prjzdOwt+ryR8tV8x2jCm+IP9fgu7Yq1ArOn+F2Jb822siccKkHobDshg
+	 SgLrwwGlR7FCYbZv7Vn1epW+/nGqn0A1msR+p8G+Q0OMTyIeM7I4Takndh/6lIloiTOKP
+	 Qmuxm8x+jSrJDjgLQoOpFJWtmOtrIyh8DDZNmiRSXH3gS+oD4IWRPJHMCzpHk5y8hNZPL
+	 Fe68RR+h6TxLUxFm0X53bJmI0s+Zf/gSz9D/X1PwDUtnCOj3G3vAzVkhFNzxLc2TpvgMs
+	 LhiX2PWEHpEbG5Bj97LmD6pP2fcQBK82Pc/U7qIeFUC9PT0kA4Kn1r8ZZSJbvnruZbA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=JwyIewsN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2655D606A338
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:45:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2655D606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=telaak.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8b4c8b51b58so1009748b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:45:43 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794267943; x=1794872743;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=X9fMC0zqN3ETxlJdsyr5ayEq0uPBqTA5dIHIwwyBzMg=;
-        b=DY7d4NhfVQLM68IoSVYb33OUICHQX12jOd3QK6iXKsyRSzeRs1DwLHc8D9NnDCrdAk
-         gNYUz5I/skhWGwYNE+fTZ4BEkePdG/KGH0veuxjUwTbT6CAyTeg1VOQBnwhbjZXmwXdZ
-         M2pjP7CVyGjaR9ocKn/K0jIvUpD4tavmD+6l9+7LNVrh3h7PELtyCLKJirXAdyMarSLi
-         YuvQD6dEOYRVasas6xqFvzlsO6urU/YPKc7Uo0wcYC9JcGTEZmeTgA6R1LjTBrE5aQSW
-         gThtP3XRuvmmBwpibKQYBiJYSMCvY/IdWyrHKipoum02NTtU03u0kMvyiA/561+wDVeA
-         WNug==
-X-Forwarded-Encrypted: i=1; AL+hErHm+dwnGN65zcOO9hvZcg8UEN8JvCLf4yWUJFNif/RamaqXpMpq1lmIkHbaEE16HdW9/p6EyJDjBs850NI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3VR7DtgomwazjdHGtvstfEXZetzebtVTHm5rmr5hf98nZ9G8z
-	nl34OxbeeJkedxy+b2K6+uYmhd1sCs4A8HpeTXgaDuEqcLp54IQ3BwIg8qFh1i7h
-X-Gm-Gg: AYBFou3bpdaiGTNB7i2YON4hxDYHq2/89SKzZ6XgZochzCd03x+cD0ssF3Fr7GjJWN+
-	C4mq2BYI0x32YPQp/LfMZruaTnbIysgGej9JaydYY14WjmZ0/I59AZsxoCfTpxciC/ifyz3R9JL
-	ZO9fuE3NKBxe6bm4kjw40fPm48XHQ5JMBo9Mw8DFPFtYoWPVyXLQzOwsZqUT5phC7dbmi9+s9L2
-	4M3x03Q8J0BiS5L4RePfniKofwKnodyv2vP+TtFFpq+QX1H3w4PWoRUxoZ6V9n0Xdl8NqMWOZwF
-	hlxlymosAOqymCdtW7J3GFbGTCVemZVAJpAUXvVJ+zcxpg0pd7D5s+jgG0axkgiVk7mYem9IaYb
-	VaYUK6iRwyms3C1YSRxxa5yl8h5YDao24loac620uQUhvuNxQH1pIy9zcPo2Hx32DyV0PF3POsf
-	dP7PysH+CIz65aQOyWOrktftcjNS1fQAkQFQNEkM9EghSZVpR1DsKH2eGfhwcDLUCCR+iRYmsSP
-	a1UVqNnrK9W7lUa4oIfwFXUTi6QEwtkrER6mHphk0sumpDTH0X3/yuBErw5QYHOU7Cc7DL4n0xr
-	+e95FMAugS0nJhrrLf81sKg3AFVQJOd3zw4PBblLIk5aiqCE2UcJJIxLdNcGGd/7voCPzQm38P8
-	y89UK+PRh2uE/YIeMKpx7khkXD1k0exDp/Jy38QHXqLY=
-X-Received: by 2002:a05:6a00:3c84:b0:8ac:2c22:4b79 with SMTP id d2e1a72fcca58-8ba88b946e1mr1191845b3a.18.1794267943318;
-        Mon, 09 Nov 2026 15:45:43 -0800 (PST)
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com. [74.125.82.175])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaad41578sm206170b3a.32.2026.11.09.15.45.42
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 15:45:42 -0800 (PST)
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3282db206d3so2888204eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:45:42 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErF1Fsm7J574PqDljNhbCCgQ/oA9+3OKKP6Tgiw/+V0vJNXd8ch/lXsgDbmSjA3tNsJggk6k/wFVAaec3qo=@vger.kernel.org
-X-Received: by 2002:a05:7301:6790:b0:36a:1904:60a3 with SMTP id
- 5a478bee46e88-3751ef79800mr1511776eec.15.1794267942134; Mon, 09 Nov 2026
- 15:45:42 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9610D606A326;
+	Mon,  9 Nov 2026 23:45:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9610D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=JwyIewsN
+ARC-Seal: i=1; a=rsa-sha256; t=1794267902; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Jl31lSMvAzs/XqniX+ACHNNgLcxh0n7S+lz+DZr6SyBm3hDpGepwqcOki1h+cJrOeujxCTdmrLR7T0OCQs2HI1Ewjxsa99Slfot431Z6b6fhmzAZTzLVSUUYAdmtY0AfMAqeKTFlSTk8GtLsG7itieQyCU/ebpNF85GyW7uEsWs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794267902; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=10FbvBDq/04YgyEUghoAbXIiLNNEnt9De+mGX9CvheQ=; 
+	b=fZ9ON26zuxGZhARbjFNbVx7i1uAOwOCPl8ewW7Pt2ECgx5HxpZrkoo7eEcXsSlctqO3NMum+6uULgxg/dofrsNkrAUezLlMuke1Vy2gPILXqDy3w0Fb29IJMUbTYSAps1zzrGcKBMock/OR+F28nI5rH+ZfdFY8fsOmNcfx5rM8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=JwyIewsNStZ/Wt2NIM9abY1PQIynbu0eW2uT+bZ2g1vmq1HDPiJTpuRYWNzOr45UWTu18xgfkPJcLBzYOUmfRchjeMwZN5bbkXC9T1tW9paT6zSOP3f1HETZ3NmSaPQmG6F1vCPD6/e5xSakmeNvaMTvIGl/nXAvEcnBfwyHQP0=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=10FbvBDq/04YgyEUghoAbXIiLNNEnt9De+mGX9CvheQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794267900917859.4909486908807;
+	Mon, 9 Nov 2026 15:45:00 -0800 (PST)
+Received: by venus (Postfix, from userid 1000)
+	id 33B26180313; Tue, 10 Nov 2026 00:44:57 +0100 (CET)
+Date: Tue, 10 Nov 2026 00:44:57 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Daniel Mack <daniel@zonque.org>, 
+	Russell King <linux@armlinux.org.uk>, Sasha Levin <sashal@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Input: apm-power - remove driver
+Message-ID: <avJZ291EhnpqMsbv@venus>
+References: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
+ <8560bc0d-5687-4b77-ab07-3d6dda465537@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,44 +71,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108-mxl-gsw1xx-reset-v2-2-46c1da093893@telaak.dev> <179426744353.994134.16211561618771955131@kernel.org>
-In-Reply-To: <179426744353.994134.16211561618771955131@kernel.org>
-From: Joseph Telaak <joseph@telaak.dev>
-Date: Mon, 9 Nov 2026 18:45:30 -0500
-X-Gmail-Original-Message-ID: <CAPY4CJ5oMoZoJ9ivcOBe97MmT5t0wa4aj1dc8BS_YXOsbPO0bA@mail.gmail.com>
-X-Gm-Features: AclHuK-cQP4T-VAWBA1r5t7qJjfPj8sdhzoAjpgY1zmdvVatkQxJQLIbryTxlWU
-Message-ID: <CAPY4CJ5oMoZoJ9ivcOBe97MmT5t0wa4aj1dc8BS_YXOsbPO0bA@mail.gmail.com>
-Subject: Re: [PATCH net-next v2 2/2] net: dsa: mxl-gsw1xx: reset the switch
- through reset-gpios
-To: netdev-bot+sashiko@kernel.org
-Cc: hauke@hauke-m.de, andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, daniel@makrotopia.org, 
-	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="afsg2feyk35ak5d3"
+Content-Disposition: inline
+In-Reply-To: <8560bc0d-5687-4b77-ab07-3d6dda465537@app.fastmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.259.76
+X-ZohoMailClient: External
 
-> If CONFIG_RESET_GPIO is disabled, does this lookup silently return NULL even
-> when the switch node has reset-gpios?
 
-Yes, as for every driver that gets its reset-gpios through the
-reset-gpio fallback. A platform that uses reset-gpios enables
-RESET_GPIO.
+--afsg2feyk35ak5d3
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH] Input: apm-power - remove driver
+MIME-Version: 1.0
 
-> Would a gpiod based lookup, or a gpiod fallback, make the documented
-> property work whatever the reset framework config is?
+Hi,
 
-v1 did that; Daniel asked for reset-gpio instead, so v2 uses the reset
-controller API.
+On Mon, Nov 09, 2026 at 11:00:31AM +0100, Arnd Bergmann wrote:
+> I think we can follow the same logic for drivers/power/supply/apm_power.c
+> and remove that once my board removal lands: the only actual battery
+> that is ever registered with battery_desc.use_for_apm=1 is for the
+> OLPC XO1.5, and that one does not have CONFIG_APM_EMULATION, so that
+> can probably all go away.
 
-> Does this full chip reset conflict with the slew rate binding?
+Sound good to me.
 
-It does: a board that adds reset-gpios gets the power-on defaults for
-the slew rates it does not set. v3 will say so in the binding.
+Greetings,
 
-> Does each deferred probe then repeat the full 250 ms + 1 s blocking pulse?
+-- Sebastian
 
-Yes. The switch is not registered at that point, so the cost is the
-delay, and only when the conduit defers.
+--afsg2feyk35ak5d3
+Content-Type: application/pgp-signature; name="signature.asc"
 
-pw-bot: cr
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmryWvUACgkQ2O7X88g7
++pqI/xAAqeRkQA+UJwRYt5dT8H6Yz6GBLiuHjjMxpo6wHfEaysnnRr0DTXs8O1hw
+XTPbkvWk4iJPLcPe6lV77roXb+mVOYzK3oQLia5iMBo3JsF9SupHHfP/TCdV2fdG
+ag2xTw+nWEawqiRtuSYdetqvv7KZG/LFwswuacMcm0Ab2pYbfAnjL0ppU2hRueaI
+VuUQZGw/hRRIng17OAXcXV3hqW2TMP2xqRjlE/x6G0WNd1qVqg1FyrpVF1ch+cVx
+KtLbtjThTIn+EktcPMS4f8S5VjcBqmItPK+D916Wj3TpX4by10KZerWuM2lwaQTC
+4+SfdiwsrgAwZSKdBO5OxcYd6Oavuk6xCcbK2XyEDu7eCAYJo4kEGR8hj/KnuFMP
+O/WGj9ojFN4W6xR/7f9A+JnxkH1DrWUX7ogH1Q9NKrdGi/niquj1SqMR9LYPFLnE
+euisogiejfT3UfUZekMOH44svDGLHkDOwBXhQV3jYoIgizORSdv+yGNjoptUwhfO
+ziczuPIQh3Q3AOFSvnvv3axZXPGB+qH7P9PAFkFIZL3fpipl3HjzqAkglDP0u4b1
+/5xgy55ItIHIRI0SiXNAWgkwWAtq/cTck0wg5M+eR8PUqih8hYMX7//3gyIQSRZ3
+Nh/khhBn6DIeZoSxMVOBOGShlJeruGksa5EZYV8oFx7vwOM87WE=
+=BZQT
+-----END PGP SIGNATURE-----
+
+--afsg2feyk35ak5d3--
