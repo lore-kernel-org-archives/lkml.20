@@ -1,47 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223925;
-	b=1Dj2JJfGg2WaWDNlTuyRRdXW5fEDay5Tr4WmDFsmGbwtZbG8StY7mBPsbo1JCYqb7w3O
-	 uCOR1y0FLXKitLLlnKbY0IOSeUclRSPUmlgomAsgOymOjYM2bT8sKcSGZIY/s4zeJSZdY
-	 lplB97tx5t7/noT++UsEOpB3B4plGTstLAr6qSfRj4jIcGLzGgkyF5FZMRA7ZxoV3sdME
-	 /mtLXDuBu37S2begj4LW5yg7In8vxWLNg7Evq2Mo6ht0ZVNIrQSILXEMryewNS8ObrASJ
-	 UlSn/vzUCLkQpeBv5K6g/qqPtmJTh3aE1NbVzREmua2cr1JNbSGfS5jqDt+wQnU8slQ==
+	t=1794224021;
+	b=bwtsA80xbV5yEGu0sBM48lHbECz1ljLKysyHqx9ceSYiH2qToXLqmdPoZ5uLW8IuhOop
+	 817KIu412llMeH/HsngyLlgABPO+MkJGyLCjaBj+DOPo3+d7WPGvzjuBOtkBvLbRMRRk3
+	 iE8qx5GBYW6mIoL8lu/9bHVQPk+bDO4S3apYZSygKTH8t3dpOCkQb656PQH4fQvd5jEmg
+	 hBMLqaWz5Tq81Uknednqqf20fZuZWjxVSP2jsQmZ1121Y46AuSLyQqaVX1fX/KPBRmg/0
+	 kLdAoWKlk7Ye2b8m0P7ce6u2rw3Sx4qX/OpDrFxUq+puPalLmshHjyg9K6fpK4lJUiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223925;
-	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:DKIM-Signature;
-	bh=jJvrqdQZADrckzsrAbFU3gv/4+MKLvtOfmIfshWTwuU=;
-	b=w1BdgRMPGKyn/1woQHcb/qvYXNt/+bcqtKHRTD0BRBo3j7S7YI+A796ednm44xFJMVO6
-	 iKS9bRds7cXOwEt7spLpdB5PR4w5qfMYcdn2vn7ppkIzXfTa4ZxdhjSfTaeaa0wY137lv
-	 BrcpKDsAZtKdGcZDnISplSjxIWwxB1hndQ21/u3V8V7RLbr0uQhRnuHiHLKQe9WxjaCAI
-	 N5y6VPmLu1+P9Ud2ta4lR5ZiV/Jdy/159Y1tuSZhKnufxSdjnNrfCeOeOUGM6wTvhJGGY
-	 3+b77MxUX3PUhDuMINjfJ6rttunLqZ3kjOqiHKOGadPa9ULv3KrhMxgXhIA1IdGaXiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224021;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=C/IN6KS61ksc0rGNEp6x77vvpUWHuUzbVSpcmOuc7/4=;
+	b=cNEb4p5/KmSkMy6/w7HM4da300XjEYWYf+JgADG4tiB0MyZwDlxI+rEd28CBTrgb86EC
+	 P7WX+vAakjX+/RzgOBbENTPxmuWYek1eF/h0Vuo/C0vBZ37AzPrfCTnrv/VGeMMZq/M6C
+	 hOHeGvBdtaOojNqeuCY8s+xTkAwwCZ+cwRRumg/mKXQIObgX3AYYUqGFAQ+Sf8Yll0nW1
+	 Ky5uVM+doKiMjhhWR0XGXGGPjGZlw4348EeUdGZ+F81F398262ok17nY4CYPlFVXgqCCd
+	 oIIehQGUIDRrGCT9Z5oPejqz82Ziw352ZzM/bMsKVdHinh23NBESz6ZMg9X+FGAp03A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baidu.com;
-	spf=pass smtp.mailfrom=baidu.com;
-	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b="QLiwKn/c";
-	arc=none smtp.remote-ip=180.76.5.236
-Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id 94B2B606A31C;
-	Mon,  9 Nov 2026 11:32:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94B2B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=FoeZkdSx;
+	arc=none smtp.remote-ip=115.124.30.111
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14FB2606A31C;
+	Mon,  9 Nov 2026 11:33:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14FB2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=QLiwKn/c
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Bjorn Helgaas <bhelgaas@google.com>, Philipp Stanner
-	<pstanner@redhat.com>, =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?=
-	<kwilczynski@kernel.org>, <linux-pci@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: Li RongQing <lirongqing@baidu.com>
-Subject: [PATCH] PCI: Fix pcim_iomap_regions() error path rollback and leak
-Date: Mon, 9 Nov 2026 19:31:36 +0800
-Message-ID: <20261109113136.2295-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=FoeZkdSx
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794224015; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=C/IN6KS61ksc0rGNEp6x77vvpUWHuUzbVSpcmOuc7/4=;
+	b=FoeZkdSxuojiMi+sfjdVesGX1MNr25gzlNeATNT2W+2J5qdKy8/iUm0+A74P93/U/Bv0ylepkcNau9bmInyG4BphZa8qxu4kvAo7ijYhw94v6Vnk5qHIwMDjcQ6cjZqtNm2s+f5KDOd5AV7cgC2uzQF8hbzMrdU8wEi623f5fMQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XEO4pLh_1794224013;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEO4pLh_1794224013 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 09 Nov 2026 19:33:33 +0800
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+To: Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] NFS: don't raise i_size for DEALLOCATE in _nfs42_proc_fallocate()
+Date: Mon,  9 Nov 2026 19:32:44 +0800
+Message-Id: <20261109113244.4136089-1-joseph.qi@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3
+In-Reply-To: <20261103061654.2036827-1-joseph.qi@linux.alibaba.com>
+References: <20261103061654.2036827-1-joseph.qi@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,67 +64,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjhj-exc3.internal.baidu.com (172.31.3.13) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1794223918;
-	bh=jJvrqdQZADrckzsrAbFU3gv/4+MKLvtOfmIfshWTwuU=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=QLiwKn/cUH2/YZRuA09QrYcSCSEz0NQ25xm5+SZw9k8+HdE1Mdn5JXgrBv8M04Di+
-	 l+gLeHJ9fPRupbmPP/t8ZolAzldUVBcXi6F5V6DZRwMrc/fd5IOS4BItCt0N6iji1c
-	 xx0EvznP9lsBCo7qXl5ea6vXlxQRSXf1tV+74lfIoxMBLQq2xRIonThtFsAdeQHNCI
-	 2D6qRSRLxuojKZ+buHdznrQRXttOQeo4GgqLb43AGpprrW3PbqwuwYi3Dpq1zhMlp0
-	 Cp6P8TnCD/z61QCkdKC94GNbf5bDnbvUW1w3YvK0tQ8XpN6C8LXgMXla/YxFGsMoQM
-	 Cmvf/UswuexrQ==
+Content-Transfer-Encoding: 8bit
 
-From: Li RongQing <lirongqing@baidu.com>
+_nfs42_proc_fallocate() raises i_size to offset + len on success, so
+that the cached size is not left stale when a delegation blocks the
+post-op attribute refresh.  The helper is shared by all three
+fallocate modes, but DEALLOCATE always carries FALLOC_FL_KEEP_SIZE
+and never extends the file on the server, so punching a hole that
+reaches past EOF now wrongly enlarges the cached i_size.
 
-pcim_iomap_regions() has two problems in its error path.
+The post-op update would normally restore the size from the returned
+attributes, but nfs_update_inode() applies a differing size only when
+no delegation is held, and then only when no write is in flight or the
+new size is larger:
 
-First, the rollback loop walks every bar index below the failing one
-and unmaps it, regardless of whether that bar is in the mask this call
-was asked to map. pcim_iounmap_region() matches devres entries by
-(type, bar) only, so it can release a mapping that an earlier
-pcim_iomap_region()/pcim_iomap_regions() call made. The driver is then
-left with an __iomem pointer that has been unmapped and a legacy table
-entry cleared. Restrict the rollback to bars in mask.
+	if (new_isize != cur_isize && !have_delegation) {
+		if (!nfs_have_writebacks(inode) || new_isize > cur_isize)
+			i_size_write(inode, new_isize);
+	}
 
-Second, when pcim_add_mapping_to_legacy_table() fails, the current
-bar's mapping is not released: the rollback loop starts at --bar, so
-the failing bar itself is skipped, and the mapping stays registered
-until the driver detaches. Release it on this path as well.
+With a concurrent mmap writer (nrequests != 0) or any outstanding
+delegation, the shrinking server size is therefore ignored and the
+client keeps reporting a file larger than the server has, in violation
+of KEEP_SIZE, until some later revalidation without writebacks happens
+to fix it up.
 
-Fixes: bbaff68bf4a4 ("PCI: Add managed partial-BAR request and map infrastructure")
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
+Skip the i_size bump for the DEALLOCATE procedure.  ALLOCATE (mode 0)
+and ZERO_RANGE (which nfs42_fallocate() accepts only without
+FALLOC_FL_KEEP_SIZE) do extend the file when the range reaches past
+EOF, so they keep the update.
+
+Fixes: 35168eb947f2 ("NFS: fix eof updates after NFSv4.2 fallocate/zero-range")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 ---
- drivers/pci/devres.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ fs/nfs/nfs42proc.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pci/devres.c b/drivers/pci/devres.c
-index f075e78..9bdb4de 100644
---- a/drivers/pci/devres.c
-+++ b/drivers/pci/devres.c
-@@ -689,14 +689,18 @@ int pcim_iomap_regions(struct pci_dev *pdev, int mask, const char *name)
- 			goto err;
- 		}
- 		ret = pcim_add_mapping_to_legacy_table(pdev, mapping, bar);
--		if (ret != 0)
-+		if (ret != 0) {
-+			pcim_iounmap_region(pdev, bar);
- 			goto err;
-+		}
- 	}
+diff --git a/fs/nfs/nfs42proc.c b/fs/nfs/nfs42proc.c
+index ab86246fc364f..d76bface87f74 100644
+--- a/fs/nfs/nfs42proc.c
++++ b/fs/nfs/nfs42proc.c
+@@ -84,7 +84,9 @@ static int _nfs42_proc_fallocate(struct rpc_message *msg, struct file *filep,
+ 		loff_t newsize = offset + len;
  
- 	return 0;
- 
- err:
- 	while (--bar >= 0) {
-+		if (!mask_contains_bar(mask, bar))
-+			continue;
- 		pcim_iounmap_region(pdev, bar);
- 		pcim_remove_bar_from_legacy_table(pdev, bar);
- 	}
+ 		spin_lock(&inode->i_lock);
+-		if (newsize > i_size_read(inode))
++		/* DEALLOCATE implies KEEP_SIZE, so don't extend i_size */
++		if (msg->rpc_proc != &nfs4_procedures[NFSPROC4_CLNT_DEALLOCATE] &&
++		    newsize > i_size_read(inode))
+ 			i_size_write(inode, newsize);
+ 		nfs_set_cache_invalid(inode, NFS_INO_INVALID_BLOCKS);
+ 		if (nfs_should_remove_suid(inode))
 -- 
-2.9.4
+2.39.3
 
