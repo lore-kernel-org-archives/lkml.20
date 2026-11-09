@@ -1,128 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794207157;
-	b=FHcOlgv5mD8MxCvdQU2SeWafnlmjPvlSrpaj/mFk9Ww6WYHXpsJ687PTS7HBnBcbuhcK
-	 o6xzmvGZUOi2Do9Wt7etcH0ughmUAfgowfjow6ZnqxninfJuMq1ObQQq4xY37aqIrWK/a
-	 gYeXFbRV0Ggxto94CMKtizQ5VW4SSC2fqqFzyTx6MQZrdYURlKSVpgMc+VebJEzt+uhF1
-	 96cgGXsCN3Vk94rsH2SgYwmM49NE0sXXF6EDKIN8cDgyYmQm7nOs6i68NITXbrm0CAxyf
-	 c78ISz3xBhdSMJIQG8S3ONB1vWuCj/kHznCnvoRnZSukxfnjNrKV3vMNt2QGFOfTF8w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794207157;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=pYBX0T5CKcwvZAIN9tNQTOFk9tmHNlr1/FpalyNCLYA=;
-	b=GqkyJY0rTZRWJFa6jyIw1aAefqCs2sOJ7MYML2Qjo+nipAvLiwyNx1h1G2H6y5Fcu22l
-	 NamUqoobDZE9x2V4CLdi0zdQ4+ZIjqHANWOD1C1Ebw8+Bd9swCIanRF1aXzgoC0+AFPmc
-	 nGguG9xmv2P6lkB4VvxJIdoM4PeIjNxort1404w9jpMf/tIGUVq6Sc7BuRX+fAC1Mf62P
-	 AC/Nz8/asxQ7sCG9gKGiUM3L12EXsLV3wlGxJJF7hLC05S3u1h9dR9UzIZzCctbfmroZV
-	 iJGojD72GjVmecWS9nguPXuV1Ifcas6fihKSCjlk3ZnRRWcehxbcji7a8+Sd2vWQbfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gINNI1pH;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YV6BVpdz;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.167.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794207198;
+	b=LxoePfKNQRL3eEJ2RPdT4OjCLrl7NBWEU3Qb5HBHejxwDERblAfdMIYFZR5qwXyvIN4K
+	 PTEtTfK09JR3/CJNgcz7iA8FbI/l5G9Lz8KYOt9N5pkuzmpv3sKCkk5ZaBLuzvvbVPdoG
+	 QPI1PGbsuXVsRnOcGLapDxhiraX2QZfccZumQuYXQljsTwB6bjeaFGSzVafqkuEQwTYr2
+	 cTNPTp//JSZ1Et0tr8CCcYfzhSWTF2gS+d+NWDWY+mXBpmNb0V0GPsAOHKUtmuSwSiI5k
+	 O50ZsYH5B7PCY+2VCwmJTJOY0Math3uzds2X5hUdfCoSE1TvJZiE/tDcSg98ysT1LCA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794207198;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=kdfSMn5qmUAvXVccrNmls1DypVGRaJ++jbiwGI14+kg=;
+	b=ccLQ0n+Y7bD1peyZMsMg4LRY640XkMRwexSLMnxALHzouq0/aY9IhZuUT8s/uyHglbBO
+	 UQGkAwyK0AsS6bEj02Cm2tVxDddPx2ndvQaWVR/JUZYE/ER9Lq0Tw1EtkwGPjtAjDAhNX
+	 M6VPD68bI6E1VNHs94nuqwqn95qatNxCmFHvPPetL5jgD0EZ5ZRA2w7xQL0FrSTVtL6Rd
+	 5/psO7UlAh7okhWWOwn+p5lOD/W2K9pE3FoQSICKeHWFzwILhJLzPBQyH5ERUIhKj8uYn
+	 wVtpLBynTZJ1aMh97Fq6fHxLd8hhDmYz3Ht8M9iNggOQ84G1rKXyQ9+2N6VSn2qKq6Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sgWujCEB;
+	arc=fail smtp.remote-ip=209.85.167.51
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F309606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:52:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F309606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA12606A32A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:53:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BA12606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gINNI1pH;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YV6BVpdz
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A969w1d2668063
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 06:52:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=pYBX0T5CKcwvZAIN9tNQTOFk
-	9tmHNlr1/FpalyNCLYA=; b=gINNI1pHW9CSMWKrDmmWyRmeTudBSCkqi6vz95iH
-	CRika5aaeka7jG5OOoGFPXtdQFmIcC5vYetU2L4Aj8gwCYWVkt9r3QWMlza+b4mn
-	xUJcHJxK4om9TzDnULvhndId7yWE50tfZo0famGN0tZUQIyjqe82BHN9rXW5Epd3
-	0XlFslXaen/RANdzKp2kcaj7oo3fjemoQj+aNXgvUGItUmSBokbB6+za/REnINHD
-	npfpBU9CW212d4OC3H65KSYhZmFlAsFr24dK3dwNpU4vGTgE6aBVBS1ixrmGwZqn
-	RKEugSn4HljBltNWyJKO/fMQUqSh0FPMrO0j7yHCh2P9+g==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsw99mwcs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:52:36 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36de26cb4b3so703949eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 22:52:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sgWujCEB
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5c14f3dab0cso293181e87.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 22:53:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794207196; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VrMfMy1LdkHRM3uMrNo1+xb+D+Tn0FMf7P5kKo34BrKSRDAh28gl3uzhGLn19zr9qk
+         2vnSirzEdwQsTp2OWNmFyPNrGD/UBZJHcV/vcUQNBI8jpM1+9EyfDolpfKvcTxlmPOYo
+         bKKcXZSN64yerTkofisS3ohBJ8T3MhMGStQHd2zhB4rZPoTz74bYNdRJoYEOmFSSe3Xz
+         RSaCslwvz0HlGGuZJP73RRFNDsAikOkKD7fw3+UW0LJ/vQm1Yt0oGeGjBd4YcNQ1EqKc
+         loA5+pq9hEYN1v3HUOcXXsOFPIb4y3o/jPw/0hEFn31ZvtDW9qnY+SRfUHlKeXEz9AO+
+         k8jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=kdfSMn5qmUAvXVccrNmls1DypVGRaJ++jbiwGI14+kg=;
+        fh=O1KZtkRkNwR62Z50hAQF5ujsq9HCQU6Se+q1Ag7Hr4w=;
+        b=idxF0lu9gYUrtxu5mkAzI87zbSr9fo/DEbQqeKkDZGlCAN8tsFuqOQiaP4xdZPCttU
+         8YD5mpcGKM6BtkfTpsD1BCi4YzEnYayzSSGCL24E4TOeIYhR4gc0v6Kqgrc8E7y58ScR
+         UQeRJQb5dyZ+dRdGrrzuhdbAogHUvHYFb/Kye/IssHdysUcznmI0a/sMWTrYvQx4bLtk
+         LvVb1aYXB6gP3c9/S7MDEXhcLfIpBcs619c4pMbTFFhEwA4cPhYj0U0M+TWQll4mYIE2
+         r+jLA83i7+GVrp2HtItCHI71/MU5hcW8Nf6XQ2qY/DhGG8eAcWNXJQDsUuM7A4Ylc92P
+         2ipQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794207156; x=1794811956; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794207196; x=1794811996; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=pYBX0T5CKcwvZAIN9tNQTOFk9tmHNlr1/FpalyNCLYA=;
-        b=YV6BVpdzL0JyzulYm7zHFxWlCRmqRXo/fpz2ShEk9FF6LFYppayzZpa7NU0YTxX0Qg
-         Zy9yCwk+rJulKxoeX++JUpp2YXXehiW+NJ29xgI30dbyj761PgdxbC3oID0EJkgUPXK+
-         ITiZ2HyuAOQNNZ9e1bUzIW37OKuCyfmFk5V6cbQteNWgHdBnVSXrt/lJDVWyqqdbZ2Dh
-         VJB7wek9yr7/yCxKr8zjUV3aeZSj5nIJLlhydAOA/gsey32e+Y9uYmNOvBjOWEsnKRzi
-         tH8nbrkkxoboRWCNkcONZgBF1h3v1vkXdqyCerjI/nvZ/dBCAQflCaVAANRWkduUDx6/
-         inUA==
+        bh=kdfSMn5qmUAvXVccrNmls1DypVGRaJ++jbiwGI14+kg=;
+        b=sgWujCEBcLnI2rCZx2+HrV0hdHuKHGWZkbP/T95hfWdHOsdro1qJU1Fvk+8OO9MdfB
+         0BqsBZTh492PGUlz+uiD5cFVvZc+vlVmSZhYzi+w/tlD80Sl6tEzuWFCWZhv/N6pbH35
+         rLWt1UHkkGkHK24Z/h6vBhtLRJVzr1jbqDl3LlT+eJtmAmj2BiR6ABZnJcxKkIEwjeuj
+         rKb8qVeksOei/N1ZYTOxCXuIYcRzPS0XXno11fSFmwYvkRxmBZ3+yYmHEczZNKiPx5RZ
+         oHt9g8LUVuNFkbZtPXFWBtwsCaMo3xAJFO6XAxUED9WmEkoDJbCWdP6YC+ZT/ijPGBxT
+         E53A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794207156; x=1794811956;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1794207196; x=1794811996;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pYBX0T5CKcwvZAIN9tNQTOFk9tmHNlr1/FpalyNCLYA=;
-        b=s7VIB31NHSFF/jsCEdBgGLRPy5Poc0Y37SQ8rux7JxkiXy5PHWUpbk6VBe6AliUXXJ
-         87v0SxuuBPYLESbxrJMn/y3ukR+DqQCbbr87wVdlTMci6DqlSq81/9JDjmSBCQ0Zmtkd
-         j2edU3OnOYuxdlRMtSIWTgdcXWgU6fVrBTWlZbhi6ei2lB+ro+N5uBsookUJQaPMFCD3
-         JuaHNW6BTeoI4vQ8m+TdRfxBgHxqhugssr335h2vy4y4M/bschOWi16Y4ojhIHaSZV7i
-         3kHB7Cz5Buqd/48yZ6tYej0Ln88PnjqIPuJtsrUoGBBUhIGcHV/pFzJ9fN40DVodsRtr
-         LWtw==
-X-Forwarded-Encrypted: i=1; AL+hErFiisOgssBkVeIBuLgvoMuclwOWGTfp0bwo5x0EpDI89hBxrbuAI0uAd38e5zWQJRTv0Tpr3EhY9cAesJ4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Mdw+0YwTcRXdD3EcROvdoZ+t8tVvC3PbxnUxYeUqg9LsZkiRn
-	n63GpFQWPmkxRe7fLZzjqobQ/rxD8RCMI0C0d+s81yGcwPOE1feeD8XVesfL0cOvvj+PpXxCpP7
-	SlUPZ9Z8m3MDERJ2oWVxy60EvvW9WyNrEl030nAGlXUWh8jgrQHgoZ2WiKLyjGmdrAao=
-X-Gm-Gg: AYBFou0tNqXshRJUS0FTGhSpmVN+B5Xx7HHGLnaRh6xWXZqDPTtwJ2EJHwjFVqr72Zp
-	2FBqlOu9kHL5OkgOaJsEL9o2mf2huTG49vH8tilaRMolLpbxmhz/XF9kqBqAEHyWzOkLgZr9CYR
-	BqiQ6coydZe9BW6DbMH03U8O3LsI7lxQHWwD26h5EItwfX68b5WUzEE0o5nX+8MDCZaGrt7YjoJ
-	2hi57nqGJNbpa5tbIA8q8i8ug2EMKRG+la3szWONO1A98pc4XUkINwJh6ZLyb08wTMNErCFGZml
-	YP706NTXgRwsyvofZpBpsh/bNJcbGcT9j4eONhCzOFqcRaI7jlgYj9vfArVINmyhAT7yWOfOEgw
-	QQ2x13lfCIgrI8P6QYjzVblnJ6x13RnvCsy8AxFTmqn5DHR6s1NwidQtIgtjJ8m28PFmfst2XPq
-	mP6R4=
-X-Received: by 2002:a05:7301:231e:b0:351:29c8:643 with SMTP id 5a478bee46e88-37256bf5b4amr5850910eec.18.1794207155653;
-        Sun, 08 Nov 2026 22:52:35 -0800 (PST)
-X-Received: by 2002:a05:7301:231e:b0:351:29c8:643 with SMTP id 5a478bee46e88-37256bf5b4amr5850874eec.18.1794207154898;
-        Sun, 08 Nov 2026 22:52:34 -0800 (PST)
-Received: from hu-anantiwa-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265efd2dcsm10502754eec.17.2026.11.08.22.52.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 22:52:34 -0800 (PST)
-Date: Mon, 9 Nov 2026 12:22:27 +0530
-From: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org,
-        Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Shashank Maurya <shashank.maurya@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/6] arm64: dts: qcom: talos-lyra-evk: Add display
- overlays for EVK board
-Message-ID: <avFtq61Hwzjk2f7n@hu-anantiwa-hyd.qualcomm.com>
-References: <20261102-lyra-display-upstream-post-v3-0-7f660c3b622c@oss.qualcomm.com>
- <au_BvH0rEKpgTpc3@zenbook>
+        bh=kdfSMn5qmUAvXVccrNmls1DypVGRaJ++jbiwGI14+kg=;
+        b=E/kH2Z9HPjISe1AUdFQ9Ni8MCoJR1C1cGNQtajAP5yn7tsmOwUHubBDcwg+pTwAw7F
+         lABag1YQQACSiNwzZxzkmsEtC2xah207khR/+huHynhFmENe9TkCAsxPuvieK4yN82yO
+         6NVCaSrQO+BtiAiU8GYyu2wwMmxAEAWEIdyDPVnDBiz/+4ljUwELgAjpS+C+zhG33JtD
+         W0M0PSEePMgxdE1IB/S24CwwmyI6WG5MQjKUGKW5v7rzhZtrVIvH6g977EoPvKjH1rlS
+         dVGQDrb29vqez+Tyu6aclVuqP9Zi/Uh/PqVubZTi+fZ1gnuI8vdNGPVprmTGdB2EjYXR
+         7IhA==
+X-Forwarded-Encrypted: i=1; AL+hErETym2hx2l/EMizywk7wq0P0rx4r3EOdUGePUARDqYEkx9tK5wDnPYbk8Pxghl8Z9dvYTzTULFluOakzug=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/t7CFEeP3oE+Ebg/r+qCE34AUbHT+LdZAbXFuMjTlqMJ2g3/Ak
+	wJW6MRH0W+h5MpmfKzBOZ0X1/6X7/exMM1xx4rC0MavADkodenfsA0PjY8cREm3LjEoMIF8B4L0
+	nJhRMWdQ2+B6DhFe9NDYDDhDtt9oYXFk=
+X-Gm-Gg: AYBFou2drf/93jXsU2mIbs8/G7PbXBGwd/lFvCplN0fCD0zkLrRdS36+BcJuLJVpLM+
+	2Ey+c91ZWA4qzjIobXstL9gfQHCU/YNkM7cJYQjrlnwx4wwhXeMGuUiUT34ESicMIDEshT6kvHe
+	67aWOh/5wnFu2/tpV8Cb1pBNQT6EcW/KzRFn8zYakwZjDQOJLN5KjgZKmQMnpxhOOA5jgOI/Ymf
+	bqnR3psKWBpt1w9MuIXYZeLWm3I1AFFjqPzLpXWVDfHOgetijBaDPtFm/W7zM6yhNgmxFx0Xa8o
+	OhtnbDOHKu3K8MsOtNfxYx0k1oRgSjeGOnjm9EcOUC3T7HN6Xu+AMMQw5BG9MQUzaSQagziovdC
+	R5PRAVYScuqAq8fQvwBRF5M4vp+sJ40av5E0KxVmgpG1F6lZfwCagUxHWDHqCH7zlcdhtYxeNIG
+	fbPG+KeuKqgIDX83htDBQtUrMX8mzW4vwBcz8XKD0fL+Au3+i/GHM=
+X-Received: by 2002:a05:6512:3e1c:b0:5c1:4a48:c2db with SMTP id
+ 2adb3069b0e04-5c14c01f805mr810751e87.43.1794207196170; Sun, 08 Nov 2026
+ 22:53:16 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,154 +105,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <au_BvH0rEKpgTpc3@zenbook>
-X-Proofpoint-ORIG-GUID: 6VRplOcZZC5OZrLdH0aBFsAeWWGnRksN
-X-Proofpoint-GUID: 6VRplOcZZC5OZrLdH0aBFsAeWWGnRksN
-X-Authority-Analysis: v=2.4 cv=CMq/zhrD c=1 sm=1 tr=0 ts=6af16db4 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=Q-fNiiVtAAAA:8
- a=JfrnYn6hAAAA:8 a=YaO7I9Z_RSUIAtd64XYA:9 a=CjuIK1q_8ugA:10
- a=bBxd6f-gb0O0v-kibOvt:22 a=FO4_E8m0qiDe52t0p3_H:22 a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAyNyBTYWx0ZWRfX9TrEUd9cX5N3
- yq6DSBX8s+DEs/auqHFE2o4yDw7QQD3BhjytNsurNWFEgKFD0SwY2fVIAziopxseny8OaPyEVz1
- EmR/GLG1j4TnPRFZkoDQRzWruFOikzxGht+s04dOJHoDgyQuMM3iDpZe0azX8oOW/J7wUncF4Zc
- NZB2vtrzAaLSrVhVIU2cfuRc3lBRyJNi+m+y5BXGa1Mp1mgNz4A5xhXHkGy1sGF9HtTDoLC+UZv
- nWHbWSJIpUx5SQ6CVz9qVKgCHmTom1DUskkRTE8kpMPi/oIpAxRUyA52EPWXABXZZaG698Q9NcP
- 1i6W9o2KV7H6zMqlW3w6tgxWS0EQK11p2n1cpSskf7RDy+JjXOzOsMieVmIFuYUoElB63kP8Nqf
- 7A3BBwB4sdyVZiHRLVJ5Si8qmrP7kaPcmFBpooc143eIK1RatlpWwLgOgp85tkX9halLRbUcM2L
- kQ9awiR7EFgNor3c9/A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAyNyBTYWx0ZWRfXwSAsCx+PCXqQ
- ECs0pL40+NUCgZFoKENdnu5oVpkgfiNaSNUNFqAtOXXricEa2InDGgOubkpYEvJUFLfR27mrxSR
- m2oIe6U/ixZQc/z6Lsd8pBsUfD6sY70=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
- adultscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090027
+References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+ <CAL+tcoDvFNAZubOjw9+Z1eyaVeiBzt_Xg3KMNucY879bg-ZLow@mail.gmail.com> <dbdb9385-89cd-4e4f-bfb8-b72510e8801b@linux.dev>
+In-Reply-To: <dbdb9385-89cd-4e4f-bfb8-b72510e8801b@linux.dev>
+From: Jason Xing <kerneljasonxing@gmail.com>
+Date: Mon, 9 Nov 2026 14:52:37 +0800
+X-Gm-Features: AclHuK9hO_h4FFhel_M7AacjBweA615sygy6vgIfEMNG5ukVHhzyCYoysXzMOxw
+Message-ID: <CAL+tcoA6_gROiprd7YgxvwbaiuzEUPfuWTNMjKu6vDkbUJ5KPw@mail.gmail.com>
+Subject: Re: [PATCH net-next 00/14] net: annotate data-races around sysctl knobs
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>, 
+	Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, 
+	Phil Sutter <phil@nwl.cc>, Nikolay Aleksandrov <razor@blackwall.org>, Paul Moore <paul@paul-moore.com>, 
+	Matthieu Baerts <matttbe@kernel.org>, Mat Martineau <martineau@kernel.org>, 
+	Geliang Tang <geliang@kernel.org>, Julian Anastasov <ja@ssi.bg>, Allison Henderson <achender@kernel.org>, 
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, 
+	"D. Wythe" <alibuda@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>, 
+	Sidraya Jayagond <sidraya@linux.ibm.com>, Mahanta Jambigi <mjambigi@linux.ibm.com>, 
+	Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>, 
+	linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+	coreteam@netfilter.org, bridge@lists.linux.dev, 
+	linux-security-module@vger.kernel.org, mptcp@lists.linux.dev, 
+	lvs-devel@vger.kernel.org, linux-rdma@vger.kernel.org, 
+	rds-devel@oss.oracle.com, linux-sctp@vger.kernel.org, 
+	linux-s390@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Nov 07, 2026 at 06:29:41PM -0600, Bjorn Andersson wrote:
-> On Mon, Nov 02, 2026 at 01:01:30PM +0530, anand.tiwari@oss.qualcomm.com wrote:
-> > Qualcomm Talos Lyra EVK SoC card are mounted on the Lyra carrier card.
-> > The DSI0 interface from SoC card is routed to either the 22-pin DSI
-> > connector on carrier card named as JDISP1 DSI0 or to the DSI0_B2B
-> > connector, through a MUX which can be selected by a hardware DIP
-> > switch. There are multiple daughter cards designed that can be
-> > connected to this B2B connector.
-> > 
-> > The below B2B display interfaces are enabled by default in base DTB:
-> >   - DSI-to-HDMI using the LT9611UXD daughter card
-> > 
-> > Below overlay DTs are added for additional display configurations:
-> >   - talos-lyra-evk-dlc0697: DLC0697 DSI panel for Lyra with DLC
-> >     daughter card
-> >   - talos-lyra-evk-raspberrypi-dsi-7inch: Raspberry Pi 7-inch DSI
-> >     panel with touch via the 22-pin DSI connector for Lyra
-> >   - talos-lyra-evk-waveshare-dsi-8inch: Waveshare 8-inch DSI panel
-> >     with touch via the 22-pin DSI connector for Lyra
-> >   - talos-lyra-evk-lvds-auo,g133han01: AUO G133HAN01 LVDS panel for
-> >     Lyra with LVDS daughter card
-> > 
-> > These overlays are applied on top of the corresponding base board
-> > DTBs.
-> > Link: https://lore.kernel.org/all/20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com/
-> > 
-> > Dependencies:
-> > https://lore.kernel.org/r/20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com
-> 
-> This was rejected 3 weeks ago, so sending this series wasted both your
-> and my time.
-> 
-> Regards,
-> Bjorn
+On Mon, Nov 9, 2026 at 11:33=E2=80=AFAM Jiayuan Chen <jiayuan.chen@linux.de=
+v> wrote:
+>
+>
+> On 11/9/26 11:11 AM, Jason Xing wrote:
+> > On Mon, Nov 9, 2026 at 10:55=E2=80=AFAM Jiayuan Chen <jiayuan.chen@linu=
+x.dev> wrote:
+> >> While testing the recent sysctl range fixes I noticed that a lot of ou=
+r
+> >> sysctl knobs are read with plain loads while the handlers update them
+> >> with WRITE_ONCE() and no lock, so KCSAN reports them as data races. I
+> >> then used an LLM to go through every ctl_table under net/ and list the
+> >> readers that were left behind. This series annotates them with
+> >> READ_ONCE(), and adds WRITE_ONCE() to a few custom handlers and netlin=
+k
+> >> paths that store to the same fields with plain writes. Most of it is a
+> >> plain READ_ONCE() at each read; where a function reads the same knob
+> >> twice to make one decision, it now reads it once into a local, so the
+> >> comparison and the value it acts on cannot come from two different
+> >> writes.
+> >>
+> >> There are no Fixes tags. Done one knob per patch this would be well ov=
+er
+> >> a hundred commits, so I grouped them by subsystem and feature instead =
+to
+> >> keep the review manageable. If maintainers prefer, I can split it up
+> >> further with a Fixes tag on each one, as several smaller series.
+> > Over the last year, I've been thinking about the annotation stuff
+> > especially around sysctls, which, I suppose, shouldn't actually affect
+> > the real workload but does affect the outcome of the syzbot.
+> >
+> > Out of sheer curiosity, my question would be what is the point of
+> > trying to change all of them? Or what kind of benefits can we get from
+> > the big series?
+>
+>
+> Three things:
+>
+> 1. A plain load may be emitted twice by the compiler. ip_error() compares
+> peer->rate_tokens against ip_rt_error_cost and then subtracts it again;
+> if the sysctl changes in between, the u32 wraps. A few readers have that
+> shape and now read the knob once into a local.
+>
+> 2. Tearing is not involved here, all the fields are at most word sized.
+>
+> 3. The rest is the memory model: a lockless read of a field written with
+> WRITE_ONCE() is a data race unless it is marked
+> (tools/memory-model/Documentation/access-marking.txt). That is what KCSAN
+> reports, and why most of the series is plain READ_ONCE().
+>
+>
+> I think the benefit is doing it in one pass.
+>
+>
 
-Thanks Bjorn for letting me know. I missed that the dependency had been 
-rejected. I will resend this series after acceptance of dependencies
+I was curious about the REAL impact. If this thing really matters, we
+have a lot of work to do even not only in the networking subsystem.
+Sorry, I still think none of those points are convincing enough, but
+that doesn't mean I object to this series. Anyway, it's just my
+2-cents.
 
-> 
-> > https://lore.kernel.org/all/20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com/
-> > https://lore.kernel.org/all/20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com/
-> > 
-> > DT bindings:
-> > https://lore.kernel.org/all/20261021-lt9611c-v7-v18-1-4978b94896f1@oss.qualcomm.com/
-> > 
-> > Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-> > ---
-> > Changes in v3:
-> > - Added GP CLK Frequency Dependencies
-> > - Reorder the &tlmm pinctrl nodes in the LT9611UXD HDMI bridge patch
-> > to ascending GPIO number.
-> > - Link to v2: https://patch.msgid.link/20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com
-> > 
-> > Changes in v2:
-> > - Fold in the hdmi_connector port remote-endpoint indentation fix.
-> > - Drop the per-patch Depends-on trailer on the LT9611UXD HDMI bridge
-> >   patch; the dt-bindings dependency is now declared as a series
-> >   prerequisite (see base-commit/prerequisite info below).
-> > - Drop default-on from the DLC0697 backlight node.
-> > - Add the ilitek,ili9881c fallback compatible to the RPi 7-inch
-> >   panel overlay to fix a dtbs_check "too short" binding failure.
-> > - Reword the PWM_CLK defconfig commit message to name Qualcomm as
-> >   the SoC vendor.
-> > - Remove a stray blank line and non-ASCII characters from the AUO
-> >   LVDS panel overlay.
-> > - Link to v1: https://patch.msgid.link/20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com
-> > 
-> > To: Bjorn Andersson <andersson@kernel.org>
-> > To: Konrad Dybcio <konradybcio@kernel.org>
-> > To: Abel Vesa <abelvesa@kernel.org>
-> > To: Rob Herring <robh@kernel.org>
-> > To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> > To: Conor Dooley <conor+dt@kernel.org>
-> > To: Florian Fainelli <florian.fainelli@broadcom.com>
-> > To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-> > Cc: linux-arm-msm@vger.kernel.org
-> > Cc: devicetree@vger.kernel.org
-> > Cc: linux-kernel@vger.kernel.org
-> > Cc: linux-rpi-kernel@lists.infradead.org
-> > Cc: linux-arm-kernel@lists.infradead.org
-> > 
-> > ---
-> > Anand Tiwari (2):
-> >       arm64: defconfig: Enable PWM_CLK for backlight PWM support
-> >       arm64: dts: qcom: talos-lyra-evk: Add AUO G133HAN01 LVDS panel overlay
-> > 
-> > Mohit Dsor (1):
-> >       arm64: dts: qcom: talos-lyra-evk: Add LT9611UXD HDMI bridge support
-> > 
-> > Shashank Maurya (3):
-> >       arm64: dts: qcom: talos-lyra-evk: Add DLC DLC0697 panel overlay
-> >       arm64: dts: qcom: talos-lyra-evk: Add RPi 7-inch DSI panel overlay
-> >       arm64: dts: qcom: talos-lyra-evk: Add Waveshare 8-inch DSI panel overlay
-> > 
-> >  arch/arm64/boot/dts/qcom/Makefile                  |  18 +++
-> >  .../boot/dts/qcom/talos-lyra-evk-dlc0697.dtso      |  77 ++++++++++++
-> >  .../qcom/talos-lyra-evk-lvds-auo,g133han01.dtso    | 133 +++++++++++++++++++++
-> >  .../qcom/talos-lyra-evk-raspberrypi-dsi-7inch.dtso |  88 ++++++++++++++
-> >  .../qcom/talos-lyra-evk-waveshare-dsi-8inch.dtso   |  75 ++++++++++++
-> >  arch/arm64/boot/dts/qcom/talos-lyra-evk.dts        | 101 ++++++++++++++++
-> >  arch/arm64/configs/defconfig                       |   1 +
-> >  7 files changed, 493 insertions(+)
-> > ---
-> > base-commit: 4eb2586bd40db27d77cc5b724ca9386ed0c71d53
-> > change-id: 20261019-lyra-display-upstream-post-24656268a902
-> > prerequisite-message-id: <20261027-talos-lyra-evk-v2-v3-0-658fd5a7ec99@oss.qualcomm.com>
-> > prerequisite-patch-id: 0dfae1e9d0c620866489eecacb4b7201b9333621
-> > prerequisite-patch-id: 94923ba8f57911649364a7e0e5494c7cfd478367
-> > prerequisite-patch-id: 660755293839baa7364b4baf3a2dd6b4018de48a
-> > prerequisite-message-id: <20261021-lt9611c-v7-v18-0-4978b94896f1@oss.qualcomm.com>
-> > prerequisite-patch-id: 49f1e01bb5594ce9c4301ce4b16715834ece7f41
-> > prerequisite-patch-id: 21cfbbfd71515961501a768edad476740336c13c
-> > prerequisite-message-id: <20261016-talos-gp-clk-freqs-update-v1-1-17c9a095063c@oss.qualcomm.com>
-> > prerequisite-patch-id: 37995c88387ff54737dc82eb7c3b4600901ce061
-> > 
-> > Best regards,
-> > --  
-> > Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-> > 
+Thanks,
+Jason
