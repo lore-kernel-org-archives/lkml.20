@@ -1,77 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.155.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794216542;
-	b=ZLByJlD4tFcB11Dg3mED2eAls5bvWEocGjhD7kbUEFxvsXHTGjPmOVfgwqd14pM284hp
-	 hVhKG2k0eZy5r7DrNw3MLvaKC3dX+rhl3ZM8cK0CnogPDYRT5FGEWdT8+HdRmsGPSSsNd
-	 Cd8EElxkVQ4aiodNfzEAfpOqRr5SrEGv7Co5T4RpWvfDSlqev1oG8iwT9/kOo5YmgYHiC
-	 iMbRSKdouJkA0wGIaRoVR1z7ymVA/uEP4e5ZFIvBo6AzIDKvircbHINCyiNqwa/Aujzrt
-	 y26FnbS+P7ILkfRK+tXEkQCU5qPA8/SJ+5e0KEhQSzvY/4TaIRXL6ePq+rouO9yI3Zg==
+	b=bGXe/KN7fP6OHSJnZTJ0jZOB8UTTBPIG48ieQ3gno4WUvGaeUR+ztN9jvEUNILW0tqzj
+	 BWbp3PuSqxmiWquOKfWIMP7yweWO5IPNMB1x3sRHZn9J5T1qRmX9Br8kT/yFJ+XRTqT81
+	 mr3mxujAUFlPZ0dtrIkmHvwihPc04bLlGngOjH6KBgPkwaJIbqcYxwm3XS93wga3T1697
+	 xJFvYL+F1NnC0/eGTTCcnA7Am3/1egkDGFpNXp+qQX9HRE5aZX2shY/AkCTSjD/NkHaN7
+	 HLo5p9I+XiLrQ8/OZwJCXRJMgsu/pcnPjxfaZ1QZR75Xv1hQLWJ/k5Y4/PISZ6jSD3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794216542;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=DtDuV9+DNLMCOx4WI8othldQ2OXDeK3bq3UTOQXllzU=;
-	b=H9MbVgNrDPFbt5licJoczfbwDG069fe01D2DZTwp50S6p5AXrds8eUhJfuCYP0Xh7Xfm
-	 SHCOPkBvoDK3/19zRwuZmMDXRM4m4QsCdEg7giaqbUV+oPgIosfF8KHzZorEMO8dbWIvB
-	 ZMibGF4wCa/ZT8JrWxIQOPR7GnU3ZNowMXzOsmF6NzOtidL+ZjaKFIDzMGraJzaOiX1ge
-	 DByIroZtImPnog/n7SC7ku4Ap8i7U0btpLXOSdaen2jd4RgjKHqNqh5EFVV0f5c6QZ3e4
-	 6ZJguewNUgm0yB8WvJyPQvxH+DIxRQhAfQ/xwx9PTerpBQ7PqPhC0UGcg4Rmcq64aJA==
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CMAE-Envelope;
+	bh=AmrTt/6pipZsJatMJSwh8md75Gn9+pghNgG0yVRFgvs=;
+	b=nNHmY4NDux/T/TCHGfvG1OGw/Q7HH7nNiX2R0bw11WM2oSnxq85xwvq53qbHUVkhfz+L
+	 qyHKNJFvXb/caVhPxhUe2MdfLTC7M7ZUc0BcBEJ0x+92PSGI+vk9OWccE+lL4Q8RdmeYv
+	 BPX7YF0XWEbY8E98SLD9I5n+dfz9klc7hM9YGQwRjEwIsP3BjviM9Rdy7CONnXh46QIXH
+	 VdK8QUQUZNban/cid9kWHZPWQeEPj/BTL1aOoCznNvCvznfiplwGUaoEcUUHJnKwRXRs5
+	 JPA+lLIAaFUuDR8bjJn41SRLfcguvR5Qab5RKgpCjyUMSyJOWvEXsXNJsmYWv15ZQjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=WnO29ofA;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="/4NJubqM";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=enneenne.com;
+	spf=pass smtp.mailfrom=enneenne.com;
+	arc=none smtp.remote-ip=62.149.155.149
+Received: from smtpdh19-2.aruba.it (smtpdh19-2.aruba.it [62.149.155.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A9AD60A2613;
-	Mon,  9 Nov 2026 09:29:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A9AD60A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=WnO29ofA;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=/4NJubqM
-Date: Mon, 09 Nov 2026 09:28:58 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794216540;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DtDuV9+DNLMCOx4WI8othldQ2OXDeK3bq3UTOQXllzU=;
-	b=WnO29ofACIuoX5XXG341quEjI5ZghgC6e1qfOnu7K4PKsNHDCyXJOHmMousbmOCNttUvSS
-	0gP8PiZuwA1QxB2F5JBku14NhjwK0221OVqcHq3faSrYELJriB5RDrLl71g8Z18rpp7e92
-	m4u99qxOPlhhgzzwjmo68zwklThl/CGG9GuPDgh3nqtpRQpMzNCcF9Z0JYskKSy87TR2le
-	L9evIjAQKkwnkHqnLJRWLw9yNjDDiH06mRGwFzuU5yBjH6I0o64Qy+Pn2CcpgULNmccuk3
-	XRUGYL+IRtPiH5qEwdAIFZtMyXjtsMFJO+xslSW5d8ucdK3VPQMOLf276BD6Xw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794216540;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DtDuV9+DNLMCOx4WI8othldQ2OXDeK3bq3UTOQXllzU=;
-	b=/4NJubqMQIEzDDYcu31UWFA65XiU1sO3qIX0z6TJLLW0TBMprR7xD7gw8D7LwjXnKCeQR9
-	BCJ9+XY1GB/8OmAA==
-From: "tip-bot2 for Andrea Parri" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/core] sched/core: Fix cpuset_mutex double unlock in
- __sched_setscheduler()
-Cc: Sashiko <sashiko-bot@kernel.org>, Andrea Parri <parri.andrea@gmail.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Ingo Molnar <mingo@kernel.org>, Waiman Long <longman@redhat.com>,
- Kayra Cizmeci <kayracizmeci@gmail.com>, Juri Lelli <juri.lelli@redhat.com>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261102134606.242743-1-parri.andrea@gmail.com>
-References: <20261102134606.242743-1-parri.andrea@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA4A606A32A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:28:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FA4A606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+Received: from [192.168.0.186] ([101.57.122.26])
+	by Aruba SMTP with ESMTPSA
+	id QLgExbZPWb24ZQLgExoNEC; Mon, 09 Nov 2026 10:28:46 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1794216527; bh=1YKmB4/hQktR4bcr+eVoq+wNWQHNd4+yvTrBNPbK3s4=;
+	h=Date:MIME-Version:Subject:To:From:Content-Type;
+	b=GJthTdsTGTPJ3qj15hERp4Xtmj6TUaxtk+VVh3MqzZ99tlMjXuSNLpN/CXtx9Pppb
+	 kuWRz6WGbvGYtF4br+Os+/552Ut/OxJ+jqQkef4KlnUiIAb1cjwlWkTwZlvRvLE9GE
+	 3vJCkI4nLjKB1wV3pLPqAs5p9bIo+wXKxGD5DlK4Aa76wpThS44hTzKHPLZsRWd3ZJ
+	 dYH8D2faTaClEZ1Z+k2YjLFzSmp+KULNPxUf+K4K2DiMpH6djmBteU4Yg5XLDtLtWl
+	 3vUMCgsH6k0YknwCYqQwf8/rw83oMJ/mddurcvdQ3i7M6F46c9RUfchA96KZn2uIKz
+	 KahtSnve6jLxA==
+Message-ID: <43045fee-e8e8-4f42-a535-8354a53680e8@enneenne.com>
+Date: Mon, 9 Nov 2026 10:28:46 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,180 +53,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421653833.2093942.14995996685714651787.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] pps: require CAP_SYS_TIME to attach N_PPS ldisc
+Content-Language: en-US
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: akpm@linux-foundation.org, linux-kernel@vger.kernel.org
+References: <20261107211753.75932-1-dennylin0707@gmail.com>
+From: Rodolfo Giometti <giometti@enneenne.com>
+In-Reply-To: <20261107211753.75932-1-dennylin0707@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfN2WTzEGkasPswpibo8NNWWx13DaxENherpwgOkzS0ty3n6fr8RDIjVCyFuBh/RHzTi5NXtQ+8JNIpbDEG6mfzxfPzTdID6D3UvO96Rllr99pgHMRFX3
+ kHAo8twBenV/S2F5+0K7ux9H3zEbe9TOYkCqTSNBA6jh1uo8WeoYn2Y0HlT2g8j3PwZlF1MC7NiJTIT81Ipk/O0HC9eG29KEm/ZnG2nY3kqZ35MnaFMmK6+R
+ oOyt+juVEbi7t5z9ChUUkjjmqGpo78SobDx9rpllmXo=
 
-The following commit has been merged into the sched/core branch of tip:
+On 07/11/2026 22:17, Hungyu Lin wrote:
+> Any unprivileged user can attach the N_PPS ldisc to a pty, and every
+> attach registers a PPS source. At most PPS_MAX_SOURCES (256) sources can
+> exist, so such a user can take all of them, after which registering a
+> real PPS source fails with -EBUSY.
+> 
+> Require CAP_SYS_TIME to attach N_PPS, the capability that PPS_SETPARAMS
+> already needs to configure a source.
+> 
+> Fixes: a0880df0ccde ("pps: serial clients support")
+> Cc: stable@vger.kernel.org
 
-Commit-ID:     f7141257dd67d4936f906a6cfd1d0007721f6898
-Gitweb:        https://git.kernel.org/tip/f7141257dd67d4936f906a6cfd1d0007721=
-f6898
-Author:        Andrea Parri <parri.andrea@gmail.com>
-AuthorDate:    Mon, 02 Nov 2026 14:46:05 +01:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Mon, 09 Nov 2026 10:09:18 +01:00
+Are you sure this is stable material? It changes what a user without
+CAP_SYS_TIME can do, also on kernels already in the field.
 
-sched/core: Fix cpuset_mutex double unlock in __sched_setscheduler()
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+>  drivers/pps/clients/pps-ldisc.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/pps/clients/pps-ldisc.c b/drivers/pps/clients/pps-ldisc.c
+> index fa5660f3c4b7..54678f20edd5 100644
+> --- a/drivers/pps/clients/pps-ldisc.c
+> +++ b/drivers/pps/clients/pps-ldisc.c
+> @@ -46,6 +46,9 @@ static int pps_tty_open(struct tty_struct *tty)
+>  	struct pps_device *pps;
+>  	int ret;
+> 
+> +	if (!capable(CAP_SYS_TIME))
+> +		return -EPERM;
+> +
 
-A sched_setattr() with SCHED_FLAG_KEEP_POLICY on a SCHED_DEADLINE task
-unlocks cpuset_mutex twice if the task's policy changes concurrently:
+Did you check whether this breaks existing setups? Today whoever can
+open the serial port can attach N_PPS (e.g. ldattach run by a user in
+the dialout group), and with this change they get -EPERM.
 
-  WARNING: bad unlock balance detected!
-  7.4.0-rc1 #1 Not tainted
-  -------------------------------------
-  repro/126 is trying to release lock (cpuset_mutex) at:
-  [<ffffffff9a17cacc>] __sched_setscheduler+0x9cc/0xc40
-  but there are no more locks to release!
-  ...
-  Call Trace:
-   print_unlock_imbalance_bug.part.0+0xfb/0x110
-   lock_release+0x286/0x2e0
-   __mutex_unlock_slowpath+0x1a/0x400
-   __sched_setscheduler+0x9cc/0xc40
-   __x64_sys_sched_setattr+0xa3/0x1b0
-   do_syscall_64+0x106/0x5f0
-   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+Also, is pps_tty_open() called only from TIOCSETD? If it can also be
+called when the tty is reopened after a hangup (tty_reopen()?), the
+check would be done against whoever reopens the tty, not against
+whoever attached N_PPS. Did you consider that case?
 
-__sched_setscheduler() samples p->policy before taking any lock, and
-restarts from the recheck label if p->policy differs under the rq lock.
-The restart drops cpuset_mutex but leaves cpuset_locked set, so a pass
-that no longer needs the mutex still unlocks it on its way out:
+As you say, the cheap way to take all the sources is a pty. But can
+N_PPS on a pty ever report a pulse? If pps_tty_dcd_change() is never
+called there, wouldn't refusing N_PPS on a pty be enough, leaving the
+real serial ports as they are today?
 
-  CPU 1                                CPU 2
-  __sched_setscheduler(KEEP_POLICY)
-    policy =3D p->policy /* DEADLINE */
-                                       __sched_setscheduler(SCHED_OTHER)
-                                         p->policy =3D SCHED_OTHER
-    cpuset_locked =3D true
-    cpuset_lock()
-    rq =3D task_rq_lock(p)
-    oldpolicy !=3D p->policy
-      cpuset_unlock()
-      goto recheck
-    /* no cpuset_lock() this time */
-    ...
-    if (cpuset_locked)
-      cpuset_unlock()
+>  	info.owner = THIS_MODULE;
+>  	info.dev = NULL;
+>  	snprintf(info.name, PPS_MAX_NAME_LEN, "%s%d", drv->driver_name, index);
+> --
+> 2.43.0
 
-Without CONFIG_DEBUG_MUTEXES, or CONFIG_DEBUG_RT_MUTEXES on PREEMPT_RT,
-nothing warns. The second unlock still clears the owner field regardless
-of who holds the mutex, so another task can lose cpuset_mutex inside its
-critical section. Entering SCHED_DEADLINE needs CAP_SYS_NICE, but a
-racing caller that owns the task does not need it if it samples a policy
-other than SCHED_DEADLINE.
+Ciao,
 
-Clear cpuset_locked when dropping the mutex for the restart. This should be
-safe because the flag is only tested on the paths leaving the next pass,
-after that pass has set it again if it took the mutex.
+Rodolfo
 
-The following program, run as root, reproduces the splat, which no longer
-appears with this applied. On PREEMPT_RT it crashes the kernel within
-seconds, which this also fixes:
-
-  #define _GNU_SOURCE
-  #include <pthread.h>
-  #include <stdint.h>
-  #include <sys/syscall.h>
-  #include <unistd.h>
-
-  struct attr {
-      uint32_t size, policy;
-      uint64_t flags;
-      int32_t nice;
-      uint32_t prio;
-      uint64_t runtime, deadline, period;
-  };
-
-  static volatile int stop;
-  static volatile pid_t target;
-
-  static void set(struct attr a)
-  {
-      a.size =3D sizeof(a);
-      syscall(SYS_sched_setattr, target, &a, 0);
-  }
-
-  static void *sleeper(void *arg)
-  {
-      target =3D syscall(SYS_gettid);
-      while (!stop)
-          usleep(1000);
-      return arg;
-  }
-
-  static void *switcher(void *arg)
-  {
-      while (!stop) {
-          /* SCHED_DEADLINE, 2us every 1s */
-          set((struct attr){ .policy =3D 6, .runtime =3D 2000,
-                             .deadline =3D 1000000000,
-                             .period =3D 1000000000 });
-          set((struct attr){ .policy =3D 0 }); /* SCHED_OTHER */
-      }
-      return arg;
-  }
-
-  static void *racer(void *arg)
-  {
-      /* KEEP_POLICY | KEEP_PARAMS */
-      while (!stop)
-          set((struct attr){ .flags =3D 0x18 });
-      return arg;
-  }
-
-  int main(void)
-  {
-      pthread_t t[5];
-      int i;
-
-      pthread_create(&t[0], NULL, sleeper, NULL);
-      while (!target)
-          usleep(100);
-      pthread_create(&t[1], NULL, switcher, NULL);
-      for (i =3D 2; i < 5; i++)
-          pthread_create(&t[i], NULL, racer, NULL);
-      sleep(30);
-      stop =3D 1;
-      for (i =3D 0; i < 5; i++)
-          pthread_join(t[i], NULL);
-      return 0;
-  }
-
-An LLM helped find the PREEMPT_RT crash and write this patch and its test.
-
-Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Waiman Long <longman@redhat.com>
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
-Cc: stable@vger.kernel.org
-Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
-Link: https://patch.msgid.link/20261102134606.242743-1-parri.andrea@gmail.com
----
- kernel/sched/syscalls.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index 98be11a..0ec401a 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -640,8 +640,10 @@ change:
- 	if (unlikely(oldpolicy !=3D -1 && oldpolicy !=3D p->policy)) {
- 		policy =3D oldpolicy =3D -1;
- 		task_rq_unlock(rq, p, &rf);
--		if (cpuset_locked)
-+		if (cpuset_locked) {
- 			cpuset_unlock();
-+			cpuset_locked =3D false;
-+		}
- 		goto recheck;
- 	}
-=20
+-- 
+GNU/Linux Solutions                  e-mail: giometti@enneenne.com
+Linux Device Driver                          giometti@linux.it
+Embedded Systems                     phone:  +39 349 2432127
+UNIX programming
