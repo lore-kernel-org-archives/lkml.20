@@ -1,63 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.68
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794205316;
-	b=U+Nyb3jw6/hCetufZHl5HYe4C3RUY0CGEhV53mSzT1+sMseTaH++KgAJaxioe4Z/nqSR
-	 Bh3Z4+O7ugM4/Id85ply0jZlN2qDPtG7URM1ZWI9glfH6Xk6HOdIPnkiQDjpK8oU0kh0l
-	 AmkchS0w0oz2Xs/yyQZUmuDbeV2uHg7lp8EEQA49wm3fhZBzgZLtsqbGmOvyyP1EizSGY
-	 Qj+MR73Y/hiwCpoly3IKhtpyh8CVkmnM0czn6mSfsSUCM8woZ9Bj1rK85xMu6Ka7s2+lt
-	 tMgFfx/4U2Uv5+CFNtpmSw7uCdFofysMbkpC8uBOIVyRDXqK4H+B9mvAS8rb9Ynn1ng==
+	t=1794205319;
+	b=nyNdd1MlUJC1e4fqHl3Vg3kxsUPPbDHJ0x9fjOC+rWH7PN1SxHbqayeGwciFdjmL0zg6
+	 jEtHTJlb2aq1/cxEh8oZixptUTBczQTFW0gnyc1ufcm8Sgm/c1WY4wUcmJHAu09iZUZrF
+	 0yyI+RhDke0CQuH3IHVm50Zu7iaFM3T9hj5q7rMlW9wbIhLm18ofa4yc78xhJ5Delgc1n
+	 X4To8tmGDqzAIn3Xt7enynApS2yZ7MyVLka5+Nl/Y5iVerYR9cz81CqFT5KaWAtdJ/lAz
+	 e95TUiSnIIUmsm5xAm+1rZ5bPxtx84IJc++eRjCLwqW9qh0W/6x7Vjoa7uNplNOss6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794205316;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=X4oPqQzUTCF258jLwJeEbnqRkkLBozRE8pL/5tusbYg=;
-	b=e/0f6KoVzyhd7Y+1X/fUHabQPP7LhFawpxjtHEGlNbBaeX1Cmbhq4oShdz0bC4EwHbCe
-	 mpd2wYxL8mwqEVJg8G1HpH2PGQ9Ne/xnKw49D5UmVRzT+tM1RNigmtcZaN9yPaK40obfK
-	 olbpiN31SdsGqQIOQN6xbVGse5iPwsS2hDuNKMkgRdvyDHeGR0bwPF4chMdivamUY5p8/
-	 2qCBenlCP1jevszMT4/j7xYGI/7ZK5YdjxfyAKL8VtUGCkMzV+osW96Vy3FkW+PSa3ayB
-	 JAgsOD34Zibu2mbCIvye34LsYmi73vGFUz97ifg/AIbnz81ZAjmjU3atTgmaJ2d5WBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794205319;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=j96X4UIakiFHOKxgOngYS1UNzbH0JLa5PG4yrQQAi7M=;
+	b=wfGLBaeobXCBZ/s+bo25CQHjbkyG8A0fBKDLY7ve3eSenLHnJkaFUZknQQP/6Ulq68Ph
+	 zamgZRy91tg33x0ItDiWkdMOkXCX8xQBqLyeslnrOa/gUV24hFZegwwkOMimhqvYRyg4i
+	 vndkfUxqErzTY83igiMS4jxnSbRaPNFfZKgUfw0qATdW6Bs0vFfjYDCSxOr0RKPl/7NM8
+	 gf7teOStpOjbgCUyGBdP2TFfvf4WF0h1OniXrH57qUcc1CKuzI8zCVIIGVgtyj2ybCV4X
+	 nQfHmq2UA6SHb1oh1Srs12+X8PUAeJPKRjVZROz+3sZ+bRs9lj/IYOfsvIYUP8f6deg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GoiJvpCp;
-	arc=none smtp.remote-ip=95.215.58.68
-Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83EE6606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:21:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83EE6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=iU4iQnii;
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A636A606A338;
+	Mon,  9 Nov 2026 06:21:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A636A606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GoiJvpCp
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MsYBkJeOLSfLNgzVOHX6M1aMi6+tZkDhL2lyZNSd2Y8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794205313; v=1; x=1794810113;
- b=GoiJvpCpgiAfmSVZlipl4wwZc2ZlBoOjRbb5Xa6TfSjFh9iVnnzFb8HDG1vZ/BmIwubONSyx
- 9NQPdS15fZtT9GN4+ZqUJUt4UYdqfnM+Y6QCmjcDn/8hWY/MObP2CXTnc+6w0slhjdMy1K3dMa9
- AAifiaNTWSJg7gsFUYE4kkw4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1a5b9ee4d79ad13a;
-	Mon, 09 Nov 2026 06:21:53 +0000
-X-Mizu-Trace-ID: 1a5b9ee4d79ad13a
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 09 Nov 2026 07:21:48 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Ping-Ke Shih <pkshih@realtek.com>, Kalpesh Solanki <skalpesh942@gmail.com>
-CC: "kvalo@kernel.org" <kvalo@kernel.org>,
- "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: =?US-ASCII?Q?RE=3A_=5BPATCH_v3_0/2=5D_wifi=3A_rtw88=3A_firmwa?=
- =?US-ASCII?Q?re_recovery_fixes_and_LPS_hang_handling?=
-In-Reply-To: <86803b2c13a74ada92ab73e79f38164d@realtek.com>
-References: <20261108085126.331784-1-skalpesh942@gmail.com> <9fd1c42c5df94629a21c41dd08645b96@realtek.com> <27E9A60D-26F6-41D6-B74F-7DEF998C8498@linux.dev> <86803b2c13a74ada92ab73e79f38164d@realtek.com>
-Message-ID: <B1CD522C-2CC2-4913-8175-05F0D25CF65F@linux.dev>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=iU4iQnii
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=iU4iQnii/lD1wRkQCZGge8sjA5p+MWo1NFE/3JAqaMnHo81Y0Zzwfm6Ai2geDnwwP7TftngeGCfP2
+	 Vzpyo2myHSYcPUKyTfqKaEiBoP4ShwEpLiO97OPN8rs+3+84j0cM3rc3ETaRpKxxTZqZqvKhSU/jbK
+	 Jlx7QQxpuIKKMJJY=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af16683e00-9d193;
+	Mon, 09 Nov 2026 14:21:56 +0800 (CST)
+X-RM-TRANSID:2ee16af16683e00-9d193
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from desktop-c950f82eaac8410e-20260515094303939 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af16680c6d-8374c;
+	Mon, 09 Nov 2026 14:21:55 +0800 (CST)
+X-RM-TRANSID:2ee36af16680c6d-8374c
+From: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+To: mst@redhat.com,
+	david@kernel.org
+Cc: jasowangio@gmail.com,
+	eperezma@redhat.com,
+	xuanzhuo@linux.alibaba.com,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com,
+	stable@vger.kernel.org,
+	Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+Subject: [PATCH v4] virtio_balloon: drain update works on probe error paths
+Date: Mon,  9 Nov 2026 14:21:52 +0800
+Message-ID: <20261109062152.1097-1-zhaimingbing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.53.0.windows.1
+In-Reply-To: <8f914911-8453-4f8f-b02f-384114f9d4ef@kernel.org>
+References: <8f914911-8453-4f8f-b02f-384114f9d4ef@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,53 +77,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On November 9, 2026 7:12:52 AM GMT+01:00, Ping-Ke Shih <pkshih@realtek.com>
-wrote:
->Luka Gejak <luka.gejak@linux.dev> wrote:
->> On November 9, 2026 3:30:58 AM GMT+01:00, Ping-Ke Shih
-><pkshih@realtek.com>
->> wrote:
->> >Kalpesh Solanki <skalpesh942@gmail.com> wrote:
->> >> Changes in v3:
->> >> - Note: v2 patch 1/2 (DMI quirk) is already applied in rtw-next.
->> >> - Add patch 1/2 to clear RTW_FLAG_RESTARTING in rtw_ops_stop()
->> >>   with Fixes tag.
->> >> - In patch 2/2:
->> >>   - Count consecutive failures before triggering recovery
->> >>     (RTW_PS_HANG_MAX_CNT = 3).
->> >>   - Reset ps_hang_cnt on successful LPS leave and in
->rtw_core_start().
->> >>   - Suppress raw register dump on transient failures to avoid log
->spam.
->> >
->> >The patchset doesn't present in [1] nor [2]. Please wait a while to
->send
->> >newer version after it recovered.
->> >
->> >[1] https://patchwork.kernel.org/project/linux-wireless/list/
->> >[2] https://lore.kernel.org/linux-wireless/
->> >
->> >
->> 
->> Hi Ping-Ke,
->> 
->> The linux-wireless list is bugged and nothing is appearing on it since
->> 2026-11-06 15:46 UTC. Aren't patches accessible due to
->> linux-kernel@vger.kernel.org being CC'ed?
->
->I think not. I sent patches to linux-wireless, not including linux-kernel,
->before, and the lore and patchwork of linux-wireless can capture the
->patches. 
->
->
+init_vqs() arms the stats virtqueue callback, so an update work can
+already be queued on the system freezable workqueue while
+virtballoon_probe() is still running.  If a later probe step fails, the
+error unwind deletes the virtqueues and frees vb without stopping the
+works, and the queued work runs after the balloon struct is gone:
 
-We are having this conversation on linux-wireless, aren't we? I don't see
-it and my lei isn't picking it up.
+  BUG: KFENCE: use-after-free read in virtqueue_get_buf_ctx
+   update_balloon_stats_func+0x121/0x300
+   Workqueue: events_freezable update_balloon_stats_func
+
+remove() already handles this via virtballoon_quiesce().  Factor the
+stopping of the update works out of it and run it on the probe error
+path as well, before the queues and vb go away.
+
+The same hole exists when init_vqs() itself fails after
+virtio_find_vqs() succeeded: the stats priming can fail with the queues
+up and the callback armed, yet probe jumps straight to out_free_vb and
+leaks the virtqueues while the queued work still references vb.  Unwind
+inside init_vqs() in that case, stopping the works before the queues
+are deleted.
+
+Also reset the device before del_vqs() on these paths, like
+remove_common() and the virtio_net/virtio_scsi error unwinds do:
+without the reset the queues stay enabled on the device and the next
+probe fails in setup_vq() with -ENOENT.
+
+The drained work takes vb->wakeup_lock in process_wakeup_event() and
+finish_wakeup_event(), so this depends on "virtio_balloon: initialize
+wakeup_lock before virtqueues are set up", which moves that
+spin_lock_init() to the top of probe.
+
+Fixes: 1f34c71afe51 ("virtio: Fix scheduling while atomic in virtio_balloon stats")
+Reported-by: syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=0f659760bac1ecb01812
+Signed-off-by: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
+---
+
+The wakeup_lock dependency is now in mainline (161aa708b02c).
+
+Changes in v4 (from sashiko review):
+- reset the device before del_vqs() on both error paths, like
+  remove_common() and the virtio_net/virtio_scsi unwinds: without the
+  reset queue_enable stays set and the next probe fails in setup_vq()
+  with -ENOENT.
+
+ drivers/virtio/virtio_balloon.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+index 8c1b47ec1..b30a0ca26 100644
+--- a/drivers/virtio/virtio_balloon.c
++++ b/drivers/virtio/virtio_balloon.c
+@@ -554,6 +554,17 @@ static void update_balloon_stats_func(struct work_struct *work)
+ 	finish_wakeup_event(vb);
+ }
+ 
++/* Stop queueing of and drain any pending balloon update works. */
++static void virtballoon_stop_updates(struct virtio_balloon *vb)
++{
++	spin_lock_irq(&vb->stop_update_lock);
++	vb->stop_update = true;
++	spin_unlock_irq(&vb->stop_update_lock);
++
++	cancel_work_sync(&vb->update_balloon_size_work);
++	cancel_work_sync(&vb->update_balloon_stats_work);
++}
++
+ static void update_balloon_size_func(struct work_struct *work)
+ {
+ 	struct virtio_balloon *vb;
+@@ -633,6 +644,9 @@ static int init_vqs(struct virtio_balloon *vb)
+ 		if (err) {
+ 			dev_warn(&vb->vdev->dev, "%s: add stat_vq failed\n",
+ 				 __func__);
++			virtballoon_stop_updates(vb);
++			virtio_reset_device(vb->vdev);
++			vb->vdev->config->del_vqs(vb->vdev);
+ 			return err;
+ 		}
+ 		virtqueue_kick(vb->stats_vq);
+@@ -1075,6 +1089,8 @@ static int virtballoon_probe(struct virtio_device *vdev)
+ 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		destroy_workqueue(vb->balloon_wq);
+ out_del_vqs:
++	virtballoon_stop_updates(vb);
++	virtio_reset_device(vdev);
+ 	vdev->config->del_vqs(vdev);
+ out_free_vb:
+ 	mutex_destroy(&vb->balloon_lock);
+@@ -1115,11 +1131,7 @@ static void virtballoon_quiesce(struct virtio_balloon *vb)
+ 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		virtio_balloon_unregister_shrinker(vb);
+ 
+-	spin_lock_irq(&vb->stop_update_lock);
+-	vb->stop_update = true;
+-	spin_unlock_irq(&vb->stop_update_lock);
+-	cancel_work_sync(&vb->update_balloon_size_work);
+-	cancel_work_sync(&vb->update_balloon_stats_work);
++	virtballoon_stop_updates(vb);
+ 
+ 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
+ 		cancel_work_sync(&vb->report_free_page_work);
+-- 
+2.43.0
 
 
-Best regards,
-Luka Gejak
+
