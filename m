@@ -1,42 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.136.29.106
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239655;
-	b=CUvsKhLmk/W8e7Gq7bXKOE39r4ClOZGOCmPAkDc0AvGBrBILm8F/YGa0HWLMzVpwwVdV
-	 QA/nZD33Gfs9szRRhymSXIUmztSyd5+oMLBB1mvp2jeq/ZEBcUtCbBRcwji2Jga9DBB0m
-	 6cB9J3fbe3Q2gVykyG6d95fytxPtN8yekBzdEarCONjt/aIxcY/0c1t+YBcShOIn1CwJV
-	 9oRgVITplDO4U6KoFqIWxhoh3xFakRseXrO8vsV/401sXdpkqPg1YAgydaUuuwdG5rOTG
-	 2sn8Ak8yya7Thyf1rnatwolJHEQH9SNFrQ9AJ+huWU2U/WPsSZaXvKqX61tYj8XkGgQ==
+	t=1794239669;
+	b=tmzQxnOJT+5LKeRk2pw6ERlvFDDcMwPuK1uhhSgvMyeeiAS52R3JsVtNlOMWL10XHPsJ
+	 lNV+DJiaWJvErG4WebJ5BLqD6EYx3lUdPDjjjp+MaOGJyY9rJxapZ73cvvQTA4/gPhELz
+	 cwAGtW/5PgWfV5qp4seJGlNoYW0+RX0s3RDdrU5lmtx0OVoL4/4rO/qpSFDVWPoh2/6T7
+	 Dm3tdD6AwgBUe7C06bQ8bfbNrzQGexvRUhIKRv+DtqjnJabccAqRs/Qqh6xA94Cv7K/5E
+	 /JVFUvEuo4d2U0/B4G5Z8g5VbE45B2Qy4nb6YUmtnjZoZyzL8ZPKXWuCMt2aMsl+ZyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239655;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Bm-Milter-Handled:X-Bm-Transport-Timestamp;
-	bh=gTMNEF6dJw/O7kf712eKlMX49QBXLH8dHRmAe13jRSM=;
-	b=Ks2E6nwkPxy2GvDtDJOiRFghcauGdzodRcKk9su/ydE3HZN9PPxuU7IwhnbfGNfviI9B
-	 9wvQrLznpKFopx4R4aU3dirv7KXYAcx9dzRzZfmAJoy0xZu4LJYZK5+ExxkUDIJJRrJXr
-	 tz9sJYwlqCD579vsYkFOf2W2xMekktRwv/p+IVjHuwhViV/OVHxyu9427auKQ8vPu1Pgi
-	 S3rpDYySKGdNVlsrDiJc06We0gBlW9P3p/+Qyy3lra9XZxZihzhrdt7a998ZLZ+m4jdyq
-	 t2RjoQGTQ/rgHnQbrtepivQJ7XhmqdcYdUGzgugwMdMHWhwrt87SyQcpwlTG5z7hUEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239669;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=ujVbWQubLASE++avGWW5U3iuvslvg2L/fGbHxKmiOFA=;
+	b=e0n+1pujoakoCOg2R0qekvaU6nm0q1tTCaUjEmBPzwWYm4prrPytZiwbDpTHZzbw1MC+
+	 OWQBw6J0yoSAcrkWEh7GlZY/QmD2u28e+RB4KlhE6MunHMaGs5xODyUoHicE07kJOLgyd
+	 jHfQHnCQm5sqymqDLt1Or4URxTlWDnB2WceknXp/T7vN7co9y1sYR7uu85Np52OMt3y0K
+	 0bargkasTon5W0RKbD4g1Cv90W1Xbi5Rn9ARIqq7VhatWGrea/c5v0ayMRivdJuCQe9LT
+	 EI/j92BF/uQadmzwmuZGl1KoCmx8g5Hh7ESCUeDh7iRgxp46oa7eozbwzHxW+M6oYfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=proxmox.com;
-	spf=pass smtp.mailfrom=proxmox.com;
-	arc=none smtp.remote-ip=94.136.29.106
-Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=lf7omZ+E;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A6A606A31C;
-	Mon,  9 Nov 2026 15:54:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59A6A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
-Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
-	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 1ED9D48124;
-	Mon, 09 Nov 2026 16:54:05 +0100 (CET)
-From: Gabriel Goller <g.goller@proxmox.com>
-Date: Mon, 09 Nov 2026 16:53:08 +0100
-Subject: [PATCH net-next] ipv6: reset all.force_forwarding when disabling
- all.forwarding
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C854D606A331;
+	Mon,  9 Nov 2026 15:54:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C854D606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=lf7omZ+E
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=ujVbWQubLASE++avGWW5U3iuvslvg2L/fGbHxKmiOFA=; b=lf7omZ+EGsTICAxB5HN+fQ1hYr
+	ujKdcGAg4j5qg5iymRJQisgrz/9rbOUJxNzNPcG72PEONaTEIf4smP1Al28UCu4j+V+2g8quOUSjO
+	3Qhw2ny8d2EqKzAGuAIPOH1pbvUzT8KCH75pF7S2beBnqMcMVwaP6DmwCWo/YHypA7OV5x88dSIsQ
+	2by+LhlZcVjBxj+bn/OE2mqVjGNk7jyi/rPvF630PR2xipETxlT+uimeXOjTVmYS+Lh0dEa1qWIKd
+	jHuurlSOiX+7nGhrptDvbI9IE91ghDef6oyLv+By+1WwnjZ9VH1Nxyv1JurYh3o+Z7bHI7rb+2CIi
+	/lFetYcQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xQRhM-00000006u8H-01cp;
+	Mon, 09 Nov 2026 15:54:20 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id AD05D301142; Mon, 09 Nov 2026 16:54:18 +0100 (CET)
+Date: Mon, 9 Nov 2026 16:54:18 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, lukasz.luba@arm.com,
+	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org,
+	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com,
+	sched-ext@lists.linux.dev, qyousef@layalina.io,
+	christian.loehle@arm.com, pierre.gondois@arm.com,
+	sshegde@linux.ibm.com, kayracizmeci@gmail.com,
+	tim.c.chen@linux.intel.com
+Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
+Message-ID: <20261109155418.GL1779021@noisy.programming.kicks-ass.net>
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-9-vincent.guittot@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -46,72 +75,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-ipv6_reset_all-v1-1-815dfd508246@proxmox.com>
-X-B4-Tracking: v=1; b=H4sIAHDs8WoC/yWMUQqDMBAFryL7bcAsKtirFBGrL3VFUsmmIoh3N
- 7WfwzBzkCIIlB7ZQQGbqHx8AptnNEy9f8PImJi44NraojGybnUXoIhdvyzGlhW70XHDVUkpWgO
- c7PfwSR7ReOyR2r/R72vGEH8/Os8L8jjE5HwAAAA=
-X-Change-ID: 20261109-ipv6_reset_all-1452fdf29254
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Gabriel Goller <g.goller@proxmox.com>
-X-Mailer: b4 0.17-dev
-X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
-X-Bm-Transport-Timestamp: 1794239643547
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106151947.3991524-9-vincent.guittot@linaro.org>
 
-Disabling all.forwarding resets force_forwarding on every interface, but
-leaves all.force_forwarding set:
+On Fri, Nov 06, 2026 at 04:19:35PM +0100, Vincent Guittot wrote:
 
-  # sysctl -wq net.ipv6.conf.all.forwarding=1
-  # sysctl -wq net.ipv6.conf.all.force_forwarding=1
-  # sysctl -wq net.ipv6.conf.all.forwarding=0
-  # sysctl net.ipv6.conf.dummy1.force_forwarding
-  net.ipv6.conf.dummy1.force_forwarding = 0
-  # sysctl net.ipv6.conf.all.force_forwarding
-  net.ipv6.conf.all.force_forwarding = 1
+> +static bool __check_pushable_fair_task(struct rq *rq, struct task_struct *p)
+> +{
+> +	if (!task_on_rq_queued(p))
+> +		return false;
+> +
+> +	if (p->se.sched_delayed)
+> +		return false;
+> +
+> +	if (p->nr_cpus_allowed <= 1)
+> +		return false;
+> +
+> +	return true;
+> +}
+> +
+> +static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struct task_struct *next)
+> +{
+> +	if (!__check_pushable_fair_task(rq, p))
+> +		return false;
+> +
+> +	if (next == p)
+> +		return false;
+> +
+> +	return false;
+> +}
 
-Writing 1 to all.force_forwarding afterwards is ignored because the
-value did not change, so the interfaces are not re-enabled.
-
-Reset all.force_forwarding too and notify netconf listeners.
-
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
----
- net/ipv6/addrconf.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index d9d13e78bf13..9007a58039e6 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -905,6 +905,14 @@ static int addrconf_fixup_forwarding(const struct ctl_table *table, int *p, int
- 						     net->ipv6.devconf_dflt);
- 
- 		addrconf_forward_change(net, newf);
-+		/* Disabling all.forwarding also resets all.force_forwarding */
-+		if (newf == 0 && net->ipv6.devconf_all->force_forwarding) {
-+			WRITE_ONCE(net->ipv6.devconf_all->force_forwarding, 0);
-+			inet6_netconf_notify_devconf(net, RTM_NEWNETCONF,
-+						     NETCONFA_FORCE_FORWARDING,
-+						     NETCONFA_IFINDEX_ALL,
-+						     net->ipv6.devconf_all);
-+		}
- 		if ((!newf) ^ (!old))
- 			inet6_netconf_notify_devconf(net, RTM_NEWNETCONF,
- 						     NETCONFA_FORWARDING,
-
----
-base-commit: fa5196392691051963726787944db872420dfa75
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git main
-change-id: 20261109-ipv6_reset_all-1452fdf29254
-
-Best regards,
---  
-Gabriel Goller <g.goller@proxmox.com>
+> +static void fair_remove_pushable_task(struct rq *rq, struct task_struct *p)
+> +{
+> +	if (sched_push_task_enabled())
+> +		plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> +}
+> +
+> +static void __fair_add_pushable_task(struct rq *rq, struct task_struct *p)
+> +{
+> +	plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> +	plist_node_init(&p->pushable_tasks, p->prio);
+> +	plist_add(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> +}
+> +
+> +static void fair_add_pushable_prev(struct rq *rq, struct task_struct *prev,
+> +				   struct task_struct *next)
+> +{
+> +	if (sched_push_task_enabled() && fair_check_pushable_task(rq, prev, next))
+> +		__fair_add_pushable_task(rq, prev);
+> +}
 
 
+Can't we add the 'p->nr_cpus_allowed > 1' condition to rq->cfs_tasks and
+use that, rather than adding yet another list? I mean, its used for
+migration, so excluding all pinned tasks actually makes sense.
+
+Also, I'm still not sure why we need a plist. The rq->cfs_tasks list is
+MRU per set_next_task_fair() moving the current task to the front.
+
+So reserve iterating rq->cfs_tasks, skipping blocked and current and
+such, should get you much the same over-all.
+
+That is, why can't push_task_fair() be something like:
+
+	list_for_each_entry_reserve(p, rq->cfs_tasks, se.group_node) {
+
+		if (!can_push_task(p,..))
+			continue;
+
+		...
+	}
+
+This would result in pushing the task that has not ran longest; which I
+think makes most sense. Hmm?
