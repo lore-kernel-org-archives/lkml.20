@@ -1,111 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794231498;
-	b=e8p9yHT2TRN4y8OwVgSQbvWsOv5rkGe9+JOeoq9M9eM+zETZx1dLwZlbLJHQZxHwSz5V
-	 8lReyUS0Bew59l2gC4w4tq91ySQafLOW+nHxZkd5NgI5EqAOGmJJikslEe8a75Z4n+7OU
-	 v+ZWZrFFl/5u+wSNFO7PrJzMRXePItGxd776Hrl519Jw9QivfLkwPfgJcgT+AydNzaOFv
-	 Azfk778IBauRtxum8Pw9Jq6jhusUYrrCI7uK4NaiIQ5BXkDpMdSPsNUCehxMUaFwIY74F
-	 +vZk/WC8fx7QEXyW/pLDEtLxjYyHSku2W5YSYQ5WiEYZhRdTduVtovzLYPmwL/jnBqQ==
+	t=1794231495;
+	b=ZU+FjUEkBZTX1zckhsKqfjp9MgpU5u2031fCZPCybIoCF17Aw8mG/Rpj4oVjVHg5GN71
+	 42PpXywx5RBbOy1NCyHJobp8VZW/W6IOm4/Knh51ZjnHDGteK1vSUu5tBDpOpN8gSz7yh
+	 Sn2guKlsQLVyHgebV+/7JzAPEdhoRqRAjPt0gVv8l4S1u81PXwFdtaT1wcwdlcWaHkmXq
+	 L3h4412735DykGkNhQhRts58t/QWvjdkL1yzydOOBEWC7pzkfThoWgfQblO899hPKeHIQ
+	 WY5tg/w+aatmNE4LS3ivg1V+BAKPiEA37yp+QCU1NQkYwvlP1Vb3E3v6Pt8wIPvCiXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231498;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=y9yf0pWezKAH9/ruPl8hDWgVQ5poWLQ5Tg6+XvGk1vg=;
-	b=bI30S3ISweijELfqHNWy7FtfhFvTnC2W0g+osB/XejGHpO7CdAfT1nbXU3c+wxoCGU+J
-	 loR6gQsoky1BmJLymH4iiTjUCoGYyz8RQ2plq3uzA0r0NzisvwnTb3n41XT7yYW3UD0hx
-	 B7UrzA4gdOLrNYXNSIw6b3doHIsuLSrmkpTM5RkclYZqDnWkM9jDMPJY1whNqip+Vgs7P
-	 HBsIErzWo8S1dCRQez8ZBpWtgaUJx0sr0GYIuapl5SVA8ot1Z1Gmqz3/x8danqu+A98jE
-	 W3Ol6dRcZGdXbZLET44LCBM/yU3ER12iIsIaHKb2cUzYu12KYEa12es0jEsHNWX+U4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231495;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BGYsCV+6ghrjpGJ3qQugEb8Y0kCPQvn96f3QlByPPhE=;
+	b=NhXJnq5hPb6ZWRp4SZy+6uc6RJGgSOvjTaDM9HiVqPiymZ1pcEKFzNDGkvp6FlBfsEDl
+	 WNKJiUENsp0w89WLHl3GmGkc/ZrDIJvhMNwZyb6cQPWw9RBzPwAfGi/4b96Czg9OdSph2
+	 f3C+CP3+q6u+cYOxl9muOygWOVuwqsE4K3teTE9XlCdcB5xTW+tG5Sny4b+dvXpC6vsbn
+	 T6CJqNWv5tdpnvJxspaiOvfLn2Igk3SOigaiELOktqaDHVqzepl32fjREuDd+U8m3jjBk
+	 ASa3ejWvn1+wrC4mCasloV6wErFD1DovXYfy1/27cLMr1pElMncJ11ubXEKQs8LeZxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="bwlicMj/";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TSGfZmA6;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VUtCOFoi;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HEIAIx1m;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9822C606A33C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:38:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9822C606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C54A3606A331
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:38:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C54A3606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bwlicMj/;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TSGfZmA6
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DF9vf359237
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 13:38:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	y9yf0pWezKAH9/ruPl8hDWgVQ5poWLQ5Tg6+XvGk1vg=; b=bwlicMj/2YBlnHoZ
-	1Xmensz5q/+lmIIm5wQUr2+54155guGT8o4G/p55XGJtuejazP4vR7mwWLkQGYp3
-	eJHVpS/YepBJvBb3VRKfKJIJ7cTnhhKu6hhI/xkXCbkKj1VBvHACZwoRmDDKjAua
-	AWHouNMFdJkglHupEyN7TibakT5sjH2OTpyzVQFIM3r1MdiJF/CJVidtAyG9AGxh
-	Kujk71Yp+oxZBIbahhNJdpWNUhMUk5iMuvMgvWBqQD5eSzU1Pff86L/uQSikpevT
-	XQ7nA6Y+7ptv7zcFDiWCVPn8HDre8rsNw4wThlSPNYhmV++WirCQgXDee0NwDpED
-	TJL4YA==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hu6x2hv1w-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:38:16 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5eae4d7ebd2so28442e0c.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:38:16 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VUtCOFoi;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HEIAIx1m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794231493;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BGYsCV+6ghrjpGJ3qQugEb8Y0kCPQvn96f3QlByPPhE=;
+	b=VUtCOFoin3YsnZlHv1bGq3yzV7qv02AZiKSQEwCqxciMjpsbtAYhunQCGP+3TJqorp8+7s
+	XHva+KGu7ZSpUVy+QsQTGaGCv+s3xM3wiDikmYx+0gUM8sL7j5BEVbS58Ap38Ws2v8NlWY
+	aPRNxjHsXiCuAMXedfUcgPN2MLoOSMU=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-388-U1r7fxNUPFO_xWqz0jm2jQ-1; Mon, 09 Nov 2026 08:38:12 -0500
+X-MC-Unique: U1r7fxNUPFO_xWqz0jm2jQ-1
+X-Mimecast-MFC-AGG-ID: U1r7fxNUPFO_xWqz0jm2jQ_1794231491
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-492d47f142cso682020f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:38:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794231495; x=1794836295; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y9yf0pWezKAH9/ruPl8hDWgVQ5poWLQ5Tg6+XvGk1vg=;
-        b=TSGfZmA6y76x+ltmex6o0Ndx+5jxqAPHCR9vun/c7iySSzQzuxeM6b+iAJv8OWFtJn
-         xTLq8AyERbAddP68IxKc7ofI9ffZ+tHG+RHu2LfB+BbN7ofMQbxI33JxRmmoNP65ICrS
-         NhzvMdTarkUyU/HJHurQiBbNbB3rYEOtNysTdMFwrJlDXYRkguFgVs5vaj4KUlh7iob4
-         UoMwCpL6zGdCwlIbcGE+Zx5T92Z4CiooPIH9YlRfqWu/AqGCTrrPgIMgLu4ywdDd+rJA
-         g6F+vG93qihOIh7nBHxtIEAUZNNi7wJxC/4FcF6FFVcUx5Jf8TkxAXlLY9xpvMoNUchy
-         2doA==
+        d=redhat.com; s=google; t=1794231491; x=1794836291; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BGYsCV+6ghrjpGJ3qQugEb8Y0kCPQvn96f3QlByPPhE=;
+        b=HEIAIx1myBNl8RKtNU2XaCgpu79yU/cswIopgOKAAckX76fZaPPdUZz80jomxlLDwO
+         TKpL5uzkNnDfJql6smhnFjeHPj5toVH6EOsjjQvyTt2TTDk6jGYXTmWBMqt5oJ+OISXZ
+         bNk3+uKL9NKgignHq9zvMKt/kEK8wxGyRNU2KW7txfTsNUrLo2Scc0aQESVh0r4NWCvZ
+         JV+zF0NG9GxdWyiozHCOGj0s/PT/Uj8ExGGkdMxibWPUuFofVzD18pC5GlVDGIqE1EzS
+         VbALQvoq1rBNznrl6Krqrwsni8JvywssTcTmdCSNFkjO7HhJndbap36p2vQswKUuf5GZ
+         bPpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794231495; x=1794836295;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y9yf0pWezKAH9/ruPl8hDWgVQ5poWLQ5Tg6+XvGk1vg=;
-        b=kpPCsCiKnad5p4JpIfeMMj+7dUh0+17/g7nEi2V7lqfi102yNTEwlQvTfsbU+kk2bt
-         80QoShN1sWDWW/aIT3rIvWH8PcOiBtV4NmuidFvEXkurPKQCBhumICvjXh3xkpf1Zvne
-         uL2xlvjlXaCP0wLfm6CI+au0yLmaUpc6khAZOsQLV/bwO9F1GnfMmLyFahLiBo5HgBoH
-         0BSDtWMKE32h9Kvh9XpxpQXUMTCPH665MLOoo1CAOT8k2Dq65a3uleYgJa7PIHieKL5Y
-         ML1TcKeXc5ny/V56SU+Sju/MtFwhzMBouGBw4WFxEx62hLbj3VNiO8IKyNiAoboQiLSQ
-         wj+g==
-X-Forwarded-Encrypted: i=1; AL+hErEdl+2HwSyS4AMUZcupmjIc+cFMaEe5/bIM4XL3nF/9OQkjBYKuFoD5o7Rp/O1VCibTiTZydg0AKqPORg8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91wZ3TeFyLA/HUEgESfcGb87Pk469RBFGyvIGA42iPS2O6q2fU
-	10fXsZdELEmMxfHUX7rRcYaN+E1rz3RLWHVqts+Y4geIf/O8Uhpdea/ZhEgb+GoIhYxHWJE5P+c
-	rlblR5ed8PLKcEouPUMNScGqP36N25eDRFAQloAYwAFu2w4XkMWeZi+OhJ90DhO0yr18=
-X-Gm-Gg: AYBFou26/SBV2kknOYhTMkS/2P+Fos16/MLYk3VIF2yjnVwNtYqDMA5EGhSP2M6GmMQ
-	yCltf78NO9ZyXHPk70Xa9CNTFe1YvDaTpdWn7GQ5kzDK7Lte2g/7OmIWSa+GCjrCnaLyp2htcap
-	jZTmuxCyqukVevhAbLHv944RSpYDAL/1OGm7m+jtDeLmgNsg/e7v/o2ljA7JyK1RYbVhV1W3f2v
-	1cTNtJmNg7Jl+aFzWDJS8er8ZgsJUUz7SnoU9byzKNwZ7ywRrf33EmrvhJvVaGyBOMnk07YtLO4
-	PYxlLyHZLVxhYvd3WxTNsO8OQQFujm8ujeNWNARvGSFnqTYAOqRCVkO+qBHdQY5bHFDDggdhIk3
-	mCTOusOyFbf4uytmzW2oAv0+ZPsZvZ4tZHzI7f9gsQGL6SqnNsJX/r/iX1HfmfU2hCtNoBg==
-X-Received: by 2002:a05:6122:2c2e:b0:5c9:91ba:5d7a with SMTP id 71dfb90a1353d-5ece7149335mr927565e0c.1.1794231495657;
-        Mon, 09 Nov 2026 05:38:15 -0800 (PST)
-X-Received: by 2002:a05:6122:2c2e:b0:5c9:91ba:5d7a with SMTP id 71dfb90a1353d-5ece7149335mr927556e0c.1.1794231495103;
-        Mon, 09 Nov 2026 05:38:15 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a5a460asm166802566b.60.2026.11.09.05.38.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 05:38:14 -0800 (PST)
-Message-ID: <bcea16ba-019f-4fbe-bc70-9f9a29461a30@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 14:38:10 +0100
+        d=1e100.net; s=20260707; t=1794231491; x=1794836291;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BGYsCV+6ghrjpGJ3qQugEb8Y0kCPQvn96f3QlByPPhE=;
+        b=qm4SfAnsV9c+azKk/FWnpQijUxU3WKEe8wizTEz77xsZgDZDru2sKSuhMTZFyrw6ri
+         kQmMlSaNou9xE680o5w2dlCRR+3w+fP63oVvcFleHOcPG8paDiUHT/XvLqCWwZ+f8+1q
+         xvKP6g0u88VXQ2f6mrlGYhAu4cI015hw8G7DyFzU6bw0hktYmvn6pEMmXtvcaooMxPNN
+         l/CozXQegPG4dmG6MB3gWxvVprTFtCsN3+HT5Nd4zOGtFpaHDZZozXeHkISJDdnt1Kih
+         T810CuXWG7E7a7m7wLwbACsDWSpoC7avyQNYEp6vWPorsHyYyl9GMsHvBk/lwhBd5Ght
+         WagQ==
+X-Forwarded-Encrypted: i=1; AL+hErH3G4t0nke+9hKw+wahDWIoQ4h/6aGzZd10OM7v9Pw6Jo5/hDNvuKTQT7+1D410Av6bQRy3aD+yLPsaXAA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/VNwEUFuhh/Cqv19cH5ht9da2rbruOAohcL3vVhJwP+w2hbeLt
+	1blO67bnmOw4sAqEzWMy+239/UHcnObm+vHV9FlJpRsbRzaK8BhO7Mhf7G3xp6sj/K1Fh0cSYH1
+	m3n46buaHYDM7oYJVwi7pjC6BE9v0eIlHrFx01rnAtlrZ+eZSI0vmeVhwE1LLp3RsOw==
+X-Gm-Gg: AYBFou2T9ZZtXpUQ2XFkmtu5x/bYwNb5JH96xIIz/KZkZGotAwFFpAJGPEOSSLXtIfw
+	0MgqFQVATVS99x3PsF13whUq3cW7k5BCaF/TLyUcmwaPVCrymQv5Vm9GgdYvgzRbW+Vh+NK/LCm
+	j1K3CK8n6AZiCmUB1pFW+pyc2z6zrAnivDAJB90iKu9+zHyh4q3+q9hl086neaGOb/viOA18v29
+	f1TDsWxH0LlUVC/vrYuReymCQAjjRXeGBQpqT7MXZI7eYT90TvLEm5F2YvTDTDuTSy23Y+qKXUI
+	bVdwQroIvWoavydEsAloWyY4lEkjc8fr61Lo5lXPzljdMMlYXWGvlXXBrK54oA7Tb04T+WKWtVd
+	3E19XFrHyAfmVOo5I3XSYkG8Vp80S/Ox+EipyR4tm4RD4ke8zCYEisSO4ljZjBuA=
+X-Received: by 2002:a05:6000:240f:b0:48d:f160:efad with SMTP id ffacd0b85a97d-49425566d13mr15141617f8f.30.1794231490574;
+        Mon, 09 Nov 2026 05:38:10 -0800 (PST)
+X-Received: by 2002:a05:6000:240f:b0:48d:f160:efad with SMTP id ffacd0b85a97d-49425566d13mr15141537f8f.30.1794231490148;
+        Mon, 09 Nov 2026 05:38:10 -0800 (PST)
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597652ca7sm10965139f8f.39.2026.11.09.05.38.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 05:38:09 -0800 (PST)
+Date: Mon, 9 Nov 2026 14:38:06 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org, longman@redhat.com,
+	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
+	clrkwllms@kernel.org, parri.andrea@gmail.com,
+	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 04/29] sched: Let a task boosted by a deadline waiter
+ change its policy
+Message-ID: <avHMvpJonTciAtx_@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
+ <20261108185406.1549770-5-mathieu.desnoyers@efficios.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,73 +127,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: mahua-lenovo-thinkpad-t14s-gen7: Fix
- LDO voltages
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261108-t14s-gen7-ldo-voltages-v1-1-e0ad0d528767@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261108-t14s-gen7-ldo-voltages-v1-1-e0ad0d528767@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=TMjQ2Fla c=1 sm=1 tr=0 ts=6af1ccc8 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=M1jp7Co84lAIlnRm40QA:9 a=QEXdDO2ut3YA:10
- a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA1NCBTYWx0ZWRfX51jUmHZamguX
- bxrl119gH4VjB7/4G2e9HD53VP02JPuebmSK9AERcPaOtSvsGmQDWNwmGhI37QXX3FRiQ0AP8s6
- 7pWo+LvWnabpORr02BN+tDeOjJGBlevv+YmBJUN+bg8bDbM1oRtuB7/E1re11oVAw3OG59NvVMe
- MvkrWraoF+flyQwflkFHPN/Q+IvWiSVAAvLV4pszg4UejJkwmSNAeHVUd+z32b86ut9v83EMC0w
- U4o516axEmBPvSeRGuqh7DEUVmystUKu3AJSDFcsjQlII52zDQmPmdNLEOMOUe/hnpDgl5Sg/Pe
- sjYfRzeZlQJNgwy0HO44szUcdiuq9VDYWLryv9dCk1axjjrq+FJ//qL3uiJ90e5v7UfYAR3dZCZ
- 7z0OF+odEcJn/0N6fWjmLhYp7qw0jXLoyIWVBMtqpA5I9MZ/twsqyUn+Gl72QbOJ6gr0Jm6hM6R
- Bq+Mnss/9d268Qik0IA==
-X-Proofpoint-GUID: wBhiSAE3DcbwrxODJkqoakiRMkloMDQV
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA1NCBTYWx0ZWRfXyJNB09nR+J3v
- aTY9QwjLDqc/kh6rRzYp/a8s4Eo5pLp2gFyMGgmuyG9Myt2b+ClBqOz/3bqXpgSG4cgVkllRCb0
- DQ6R2OSw8PXGYM1kiWrHoVQmuyLcp44=
-X-Proofpoint-ORIG-GUID: wBhiSAE3DcbwrxODJkqoakiRMkloMDQV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0
- phishscore=0 priorityscore=1501 spamscore=0 bulkscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090054
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108185406.1549770-5-mathieu.desnoyers@efficios.com>
 
-On 11/8/26 10:01 PM, Abel Vesa wrote:
-> Several LDO voltages do not match what the firmware votes for the
-> consumers of these rails (the PMICVREGVOTE entries in the ACPI tables)
-> nor the schematics:
+Hello,
+
+On 08/11/26 13:53, Mathieu Desnoyers wrote:
+> A SCHED_OTHER or SCHED_FIFO task that holds an rt_mutex can be boosted
+> into the deadline class by a deadline waiter. Then a sched_setattr() or
+> sched_setscheduler() call on it fails with EBUSY, unless it asks for
+> SCHED_DEADLINE. sysrq-n would not reset it either.
 > 
->   L1C E1: 0.832V -> 0.912V (PCIe4/PCIe6 PHYs)
->   L2C E1: 1.144V -> 1.2V
->   L4C E1: 0.72V  -> 0.912V (eUSB2 PHY of the third USB controller)
->   L1F E1: 0.88V  -> 0.904V
->   L2F E1: 0.904V -> 0.88V  (the L1F and L2F E1 values were swapped)
->   L2H E0: 0.832V -> 0.88V  (HS and multiport USB PHYs)
->   L7B E0: 2.79V  -> 3.072V (eUSB2 repeaters)
+> The admission test runs "if setscheduling to SCHED_DEADLINE (or
+> changing the parameters of a SCHED_DEADLINE task)", as its comment
+> says. sched_dl_overflow() then handles three cases, by the task's
+> policy: the task enters, leaves or stays in SCHED_DEADLINE. But the
+> call site tests dl_task(p). That tests the priority, so a boosted task
+> passes it. For such a task and another policy, sched_dl_overflow()
+> matches no case and returns -1.
 > 
-> Fix them and rename the labels to match.
+> Fix this by testing the policy, with task_has_dl_policy(). A boosted
+> task has no bandwidth of its own to admit or release.
 > 
-> Fixes: 300f5c59beb2 ("arm64: dts: qcom: Add Lenovo ThinkPad T14s Gen 7")
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Now sysrq-n can take a boosted task out of the class.
+> normalize_rt_tasks() calls __sched_setscheduler() without pi, so the
+> task gets its normal priority. Nothing then drops the boost. At the
+> unlock, rt_mutex_setprio() sees no change of priority. The pi_se of the
+> task would keep pointing to the waiter, which can exit. So also drop the
+> boost in __setscheduler_dl_pi() when the task leaves the class, as
+> rt_mutex_setprio() does.
+> 
+> The boosted_owner_policy case of deadline_bw_test, added later in this
+> series, fails with EBUSY on v7.4-rc1. It passes with this series. The
+> sysrq_boosted_owner case of deadline_switch_test tests the sysrq-n path.
+> 
+> Fixes: 332ac17ef5bf ("sched/deadline: Add bandwidth management for SCHED_DEADLINE tasks")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 > ---
 
-Merging the power grid consolidation will fix these too and I'm
-hoping Bjorn is eyeing that one, as I would really hate having to
-rebase it..
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
 
-Konrad
+Thanks,
+Juri
+
