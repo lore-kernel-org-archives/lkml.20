@@ -1,79 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794216677;
-	b=bN3/FSysLoo2YGqCTsp7TXDlRDyUdttkOrxoTvkas+XxjwyvIxiz6sI0Lm4srF6MOurx
-	 1VBPiVyexcsriFffi2JCP4DpOFE3HHQFHfdb64do+Rky4h3o8CxczN7imGDq/na0OAUJR
-	 wNWT6NjaGItbbH3IpPVn8KUX/b/0OvvnHDFCMkx9BWdE85XNim3Zn6HXbkILdmy0n//q1
-	 Rq9QAQG+hXDF03u3or4eEjX08VLzEZBR7M9+uU1SV1rMmYCvxRx4cy8aAh0QAMnshXqcQ
-	 h1uQp5FAxv+Q3sQOByiF0DqjNUscKFjweybcU5PThD1w78iCg2rpaEVGLu/s12PW19w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216677;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xGajx3Kaf6RpCk8UQqZEnj64ytIMkPDdnfBierV6780=;
-	b=UGESVZeuP2N4vZJTyOznHTWd2hrbJeqFv/xdIURg+dyON2XPlR69aCFUFYUHtLZ+5pGj
-	 IEQKeV9R9DslSdq+6HafFs/UE/rWqgNXlkx3V7VRk4njUeHmEeh7u0UZRxk8pkRyfkWMP
-	 sWXyW8ytOmtHjyM0kc3zZxPifUd4o2yvkVoXADsUSDASOzZsooM3bL72eDegrLbQEI3wT
-	 YpVWv3pKaQoFi2H4XfKVr9BLlTr13Au2y364OEKw31Ev3hHE57hYH9j4YgsI73o9YuQck
-	 Jii0Zq7iLrza0V0NbZBDaxXQ4NnpiASG10p4mF534Smuz47/WKowWu7preejr2PQndA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YSvdqD67;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C01606D81B;
-	Mon,  9 Nov 2026 09:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794216697;
+	b=tET/eF7e/zDyOODq+uM/DQm88SzB76mF/xAwmuFBCXOfhamZTP6e/kpBAr08kbNdD3vm
+	 Ip9NKCjz4/yvCK/dsZwERf+U6czCcOLPbbyCxBpoGjG4C/drWJ0HCTEzk1krtzYWCS5c4
+	 BHyWcPjQI8N1nTt+jtPJpNRqz3hG5DqZqBvJbKnZv1XCs657eyu2XMQZBFCUVLAHFpJ4Q
+	 79ULIEJylTCbzAYnT5iQqrYVGJ7noGFiBflPlqL8QDFwZ4ECNHIs6qGHbxuACHiQg2z9p
+	 RZHixJ80RYWHd24uu+VGmPnDCXSLJTayMc9o6UWBxn5wbtfDhrOfBTR9atI5yqo4zYw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216697;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UEkoYDZOcVKxuoW8wOq3CEGN4rx1+YBHcmQ67dl9SYg=;
+	b=hDNziVLgApCF0b2vXwECl6oqYWm+qRxApubob0WUiuIXTEcIbJwgnFcEYJupZAi2GCj3
+	 g/yh65352Tkr0Pf+sKTakGPwDKJ9SCNO7ozFBAKJapaDMkyJ/lOx2cPJiMv6WONKj2m5y
+	 ipmRVEOF6PHhq7pZZcvS0wCm8kPg65ofjltokHIXDFAxyp0zgwKTBJQ2YYdgumnk4AXVY
+	 ZWXn95VJp/mlJ9KekxRuL9yT/0UsL2+kIetNQtR9VSgYBYioexU3XB+BwpDBN44DK3RWT
+	 JKM+LWM7HxTFBuVlPDLDXW43s4XqCw7n6f0NK4oom7Q9u7Nws6+NK+FSJwJKtaMHVxw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=NToRjnAf;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28C2C606A32A;
+	Mon,  9 Nov 2026 09:31:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28C2C606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YSvdqD67
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794216676;
-	b=BJ+Pdf/MotVkZpx2FUCbaTNVus8aHPX1S9GqcA/JvRHb7yloa5IH/Ao1wilbc/5S2a2u
-	 qBR3o7j5CIZrC94r6BEl4mX0kF9Rv68sOvv2TFk645QmIlYyR8RgBKpGNSby1jAaT9Ozp
-	 DrY1ISXwbvr/LzrfxEDJv09LX1QFTErxXRdup+2mnUVLaSRDezVWQaDSxwnuFXLKklCkn
-	 2t63AdFiH22hD3SZwnXDmvliY4fTgLvZI45vMBAg6Mro1HT8vS7ZDKYuQl2upCOQHQEdJ
-	 bVflIABL1SZDW5Unlp6aSECSMAuC+RGZCnZt139JVDKl3ApzXdjQ6U4dMTeJa6XIeeA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794216676;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xGajx3Kaf6RpCk8UQqZEnj64ytIMkPDdnfBierV6780=;
-	b=suc7lBVUcseKsTrCkH+miLn/uOHA2+pM+UmnSbarYVtMFhXgs7xEhVE84OFZQiO4pWkZ
-	 nZgADMQZAJYBRhzxtwNCkWxjgo4UR1uveZRLuMxy63eTvFpeoNOYJBJtGOROnkvXQp9bL
-	 gtnkN1HZvmn07hceRJFnis+E+2PJijqOVtRFp/kfwXrmbWBQituvmWqVI53R95YbeVwLK
-	 YW1IfzdZs6686oNiMymWYBLxW3fwDTzQ5K83XdxIWqHcvQ1cei3VAzrxBe4bil7TVUhLH
-	 Scd9+JPURiAShE5OE1hJrmPNjR/3KHQVZ8BXrNI1voud55Y3DGKcYPppIP/TeARDeow==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B7D381F0089F;
-	Mon,  9 Nov 2026 09:31:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794216676;
-	bh=xGajx3Kaf6RpCk8UQqZEnj64ytIMkPDdnfBierV6780=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=YSvdqD67nLgoRCBV4qx1ILkMNICucVW5vzR5S6jEEm/U7Ef3uPGwwVesqMhOzgMt7
-	 irzjLMvX1108wtb/o9BuakCMrYvCS3zSFGMB/c7hXtxVRccVUtzRl9SoDiFTYaimIA
-	 4xwbZD/JX5TYBdikXCzKi/LW6UsHIIjF0SWAHtjVjy7jjmTvTG9W12XxPsgOMBmo9v
-	 M2s6IenLvZ8DKDrykScGEGvpg6oQe0k1Wih1frlZ0nynW8BrpkdxvJK0SUHt+wo6Yr
-	 dyJahhV9LmZkVbUlY5DVcRHhTWuQYArqxOxf7p5ijWaIZAeR4bIUIfHbMQPVybM6VE
-	 qBmcR0AEgZxEw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2FB1B483A5;
-	Mon,  9 Nov 2026 09:31:15 +0000 (UTC)
-From: Geoffrey Beausire via B4 Relay <devnull+g.beausire.criteo.com@kernel.org>
-Date: Mon, 09 Nov 2026 10:31:13 +0100
-Subject: [PATCH nf-next] netfilter: nf_socket: avoid UDP socket refcounting
- in socket match
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=NToRjnAf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=NToRjnAfXn401e/HdHQ93ymD6kEQfMgpkz84eqgEZv4HB0jBRMidO4GICFPez3V9GYQdYPOp5H7k7
+	 XVNxTJOVHsqsRsvGy2kRuHRweSpiFhVZMVLnFZriiRVG5xlnDYdfHrRHK0rSTpVrP0XmzO4ApZNccf
+	 rzFqknGzqurOlQ9M=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af192f3032-90783;
+	Mon, 09 Nov 2026 17:31:34 +0800 (CST)
+X-RM-TRANSID:2ee36af192f3032-90783
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af192f5d6d-8a83f;
+	Mon, 09 Nov 2026 17:31:34 +0800 (CST)
+X-RM-TRANSID:2ee66af192f5d6d-8a83f
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: r.marek@assembler.cz
+Cc: linux@roeck-us.net,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhujun <zhujun2@cmss.chinamobile.com>
+Subject: [PATCH] hwmon: (w83793) Prevent underflow when removing voltage offsets
+Date: Mon,  9 Nov 2026 17:31:32 +0800
+Message-ID: <20261109093132.5347-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,343 +69,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-udp_rcu_b4-v1-1-1103f12d0a04@criteo.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yWMQQrCMBQFr1Le2kBTpIpXESlN/ot+F7EkjRRK7
- 95Ul8MwsyIzKTNuzYrEr2b9xAr21MC/xvikUamMru16a9veFJmG5MvgzkZ4ucoYgggdajAlBl1
- +sztiMJHLjMdf5OLe9POxwrbt7H8xF3cAAAA=
-X-Change-ID: 20261106-udp_rcu_b4-de78daffddeb
-To: Pablo Neira Ayuso <pablo@netfilter.org>, 
- Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, geobeausire@gmail.com, 
- Geoffrey Beausire <g.beausire@criteo.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794216674; l=11285;
- i=g.beausire@criteo.com; s=20261106; h=from:subject:message-id;
- bh=Bxs85xPWmCulUnJklXbG79UXIkW/V7342donIrEKj8E=;
- b=iUS53Y2/3T+3To7xQAkbvkwv1FGa57XbfswA23zIxk3uEMzOdwpZqhsPjQogpLQbc3fmFPMkw
- lQQyVhqr58iBrab6fd7oHm5UhPmvrkPExM5ucxKoS/Fsk4S0sr2Ehvk
-X-Developer-Key: i=g.beausire@criteo.com; a=ed25519;
- pk=/sNso7Ag23yofC+89g8V5KjCpFJry4fQAZIzaohF0VU=
-X-Endpoint-Received: by B4 Relay for g.beausire@criteo.com/20261106 with
- auth_id=1434
-X-Original-From: Geoffrey Beausire <g.beausire@criteo.com>
-Reply-To: g.beausire@criteo.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Geoffrey Beausire <g.beausire@criteo.com>
+From: zhujun <zhujun2@cmss.chinamobile.com>
 
-Similar to commit 08842c43d016 ("udp: no longer touch sk->sk_refcnt in
-early demux") and after commit ca065d0cf80f ("udp: no longer use
-SLAB_DESTROY_BY_RCU"), the socket match no longer needs to grab a
-refcount on UDP sockets, as xt_socket and nft_socket only use the
-socket inside the netfilter hook, which runs under rcu_read_lock().
+The 5VDD and 5VSB limit conversion subtracts the voltage offset from an
+unsigned value. A requested limit below the offset wraps and is clamped
+to 255. For example, writing zero to in7_min selects the highest limit
+instead of the lowest.
 
-The release path is shared with TCP, where sockets are still returned
-with a reference. Add a refcounted out-parameter to
-nf_sk_lookup_slow_v4() and nf_sk_lookup_slow_v6() and put the socket
-only when it is set, as commit 3b24d854cb35 ("tcp/dccp: do not touch
-listener sk_refcnt under synflood") did for TCP listeners.
+Limit the subtraction to the converted input so that values below the
+offset select register zero.
 
-nf_socket no longer calls udp4_lib_lookup() and udp6_lib_lookup(), so
-drop CONFIG_NF_SOCKET_IPV{4,6} from their #if.
-
-The impact of the change was measured with a simple UDP load generator
-aimed at a single UDP socket. It was tested on a host with dual Intel
-Xeon 6787P sockets, where the RX was spread across all NUMA nodes and
-both packages.
-
-+--------+------------+------------+-------+
-| Family | baseline   | patched    | Gain  |
-+--------+------------+------------+-------+
-| IPv4   |  4.47 Mpps | 27.22 Mpps | +509% |
-| IPv6   |  4.19 Mpps | 25.27 Mpps | +503% |
-+--------+------------+------------+-------+
-
-This was seen in production when routing traffic through Cilium's
-VXLAN, where all of the server's traffic goes through a single UDP
-socket. Softirq threads spent most of their time in udp4_lib_lookup()
-and sock_gen_put(). Softirq were saturated at 2M UDP packets/s. After
-this patch, the servers were able to handle the full production traffic
-of 5M UDP packets/s with headroom left. This patch has been deployed on
-the wider fleet of servers for the last 2 months without issues. The
-synthetic benchmark above models the extreme case where the CPUs only
-process UDP traffic.
-
-Signed-off-by: Geoffrey Beausire <g.beausire@criteo.com>
+Fixes: ddca933bd554 ("hwmon/w83793: Remove the description of AMDSI and update the voltage formula")
 ---
- include/net/netfilter/nf_socket.h   |  6 ++++--
- net/ipv4/netfilter/nf_socket_ipv4.c | 14 +++++++++-----
- net/ipv4/udp.c                      |  2 +-
- net/ipv6/netfilter/nf_socket_ipv6.c | 14 +++++++++-----
- net/ipv6/udp.c                      |  2 +-
- net/netfilter/nft_socket.c          | 12 +++++++-----
- net/netfilter/xt_socket.c           | 12 ++++++++----
- 7 files changed, 39 insertions(+), 23 deletions(-)
+Validation: x86-64 and i386 driver objects built with W=1.
+Source-extracted boundary tests passed on 32-bit and 64-bit;
+the corresponding test fails on the base revision. I/O is mocked.
+No physical sensor hardware or booted-kernel test was available.
+OpenAI Codex assisted analysis, code, tests and changelog drafting.
+The human submitter must review and add their Signed-off-by.
 
-diff --git a/include/net/netfilter/nf_socket.h b/include/net/netfilter/nf_socket.h
-index f9d7bee9bd4e..5a5ddf4e820a 100644
---- a/include/net/netfilter/nf_socket.h
-+++ b/include/net/netfilter/nf_socket.h
-@@ -5,9 +5,11 @@
- #include <net/sock.h>
- 
- struct sock *nf_sk_lookup_slow_v4(struct net *net, const struct sk_buff *skb,
--				  const struct net_device *indev);
-+				  const struct net_device *indev,
-+				  bool *refcounted);
- 
- struct sock *nf_sk_lookup_slow_v6(struct net *net, const struct sk_buff *skb,
--				  const struct net_device *indev);
-+				  const struct net_device *indev,
-+				  bool *refcounted);
- 
- #endif
-diff --git a/net/ipv4/netfilter/nf_socket_ipv4.c b/net/ipv4/netfilter/nf_socket_ipv4.c
-index f9c6755f5ec5..0609f31e4082 100644
---- a/net/ipv4/netfilter/nf_socket_ipv4.c
-+++ b/net/ipv4/netfilter/nf_socket_ipv4.c
-@@ -67,21 +67,23 @@ nf_socket_get_sock_v4(struct net *net, struct sk_buff *skb, const int doff,
- 		      const u8 protocol,
- 		      const __be32 saddr, const __be32 daddr,
- 		      const __be16 sport, const __be16 dport,
--		      const struct net_device *in)
-+		      const struct net_device *in, bool *refcounted)
- {
- 	switch (protocol) {
- 	case IPPROTO_TCP:
-+		*refcounted = true;
- 		return inet_lookup(net, skb, doff, saddr, sport, daddr, dport,
- 				   in->ifindex);
- 	case IPPROTO_UDP:
--		return udp4_lib_lookup(net, saddr, sport, daddr, dport,
--				       in->ifindex);
-+		return __udp4_lib_lookup(net, saddr, sport, daddr, dport,
-+					 in->ifindex, 0, NULL);
- 	}
- 	return NULL;
- }
- 
- struct sock *nf_sk_lookup_slow_v4(struct net *net, const struct sk_buff *skb,
--				  const struct net_device *indev)
-+				  const struct net_device *indev,
-+				  bool *refcounted)
- {
- 	__be32 daddr, saddr;
- 	__be16 dport, sport;
-@@ -94,6 +96,8 @@ struct sock *nf_sk_lookup_slow_v4(struct net *net, const struct sk_buff *skb,
- #endif
- 	int doff = 0;
- 
-+	*refcounted = false;
-+
- 	if (ntohs(iph->frag_off) & IP_OFFSET)
- 		return NULL;
- 
-@@ -146,7 +150,7 @@ struct sock *nf_sk_lookup_slow_v4(struct net *net, const struct sk_buff *skb,
- #endif
- 
- 	return nf_socket_get_sock_v4(net, data_skb, doff, protocol, saddr,
--				     daddr, sport, dport, indev);
-+				     daddr, sport, dport, indev, refcounted);
- }
- EXPORT_SYMBOL_GPL(nf_sk_lookup_slow_v4);
- 
-diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
-index 303d0102519a..c8966b755cd0 100644
---- a/net/ipv4/udp.c
-+++ b/net/ipv4/udp.c
-@@ -770,7 +770,7 @@ struct sock *udp4_lib_lookup_skb(const struct sk_buff *skb,
- /* Must be called under rcu_read_lock().
-  * Does increment socket refcount.
-  */
--#if IS_ENABLED(CONFIG_NF_TPROXY_IPV4) || IS_ENABLED(CONFIG_NF_SOCKET_IPV4)
-+#if IS_ENABLED(CONFIG_NF_TPROXY_IPV4)
- struct sock *udp4_lib_lookup(const struct net *net, __be32 saddr, __be16 sport,
- 			     __be32 daddr, __be16 dport, int dif)
- {
-diff --git a/net/ipv6/netfilter/nf_socket_ipv6.c b/net/ipv6/netfilter/nf_socket_ipv6.c
-index 893f2aeb4711..4f5bd635fd4a 100644
---- a/net/ipv6/netfilter/nf_socket_ipv6.c
-+++ b/net/ipv6/netfilter/nf_socket_ipv6.c
-@@ -79,22 +79,24 @@ nf_socket_get_sock_v6(struct net *net, struct sk_buff *skb, int doff,
- 		      const u8 protocol,
- 		      const struct in6_addr *saddr, const struct in6_addr *daddr,
- 		      const __be16 sport, const __be16 dport,
--		      const struct net_device *in)
-+		      const struct net_device *in, bool *refcounted)
- {
- 	switch (protocol) {
- 	case IPPROTO_TCP:
-+		*refcounted = true;
- 		return inet6_lookup(net, skb, doff, saddr, sport, daddr, dport,
- 				    in->ifindex);
- 	case IPPROTO_UDP:
--		return udp6_lib_lookup(net, saddr, sport, daddr, dport,
--				       in->ifindex);
-+		return __udp6_lib_lookup(net, saddr, sport, daddr, dport,
-+					 in->ifindex, 0, NULL);
- 	}
- 
- 	return NULL;
- }
- 
- struct sock *nf_sk_lookup_slow_v6(struct net *net, const struct sk_buff *skb,
--				  const struct net_device *indev)
-+				  const struct net_device *indev,
-+				  bool *refcounted)
- {
- 	__be16 dport, sport;
- 	const struct in6_addr *daddr = NULL, *saddr = NULL;
-@@ -108,6 +110,8 @@ struct sock *nf_sk_lookup_slow_v6(struct net *net, const struct sk_buff *skb,
- 	struct nf_conn const *ct;
- #endif
- 
-+	*refcounted = false;
-+
- 	tproto = ipv6_find_hdr(skb, &thoff, -1, &fragoff, NULL);
- 	if (tproto < 0 || fragoff) {
- 		pr_debug("unable to find transport header in IPv6 packet, dropping\n");
-@@ -160,7 +164,7 @@ struct sock *nf_sk_lookup_slow_v6(struct net *net, const struct sk_buff *skb,
- #endif
- 
- 	return nf_socket_get_sock_v6(net, data_skb, doff, tproto, saddr, daddr,
--				     sport, dport, indev);
-+				     sport, dport, indev, refcounted);
- }
- EXPORT_SYMBOL_GPL(nf_sk_lookup_slow_v6);
- 
-diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
-index 59f9872c3552..bd2abfd00271 100644
---- a/net/ipv6/udp.c
-+++ b/net/ipv6/udp.c
-@@ -432,7 +432,7 @@ struct sock *udp6_lib_lookup_skb(const struct sk_buff *skb,
- /* Must be called under rcu_read_lock().
-  * Does increment socket refcount.
-  */
--#if IS_ENABLED(CONFIG_NF_TPROXY_IPV6) || IS_ENABLED(CONFIG_NF_SOCKET_IPV6)
-+#if IS_ENABLED(CONFIG_NF_TPROXY_IPV6)
- struct sock *udp6_lib_lookup(const struct net *net, const struct in6_addr *saddr, __be16 sport,
- 			     const struct in6_addr *daddr, __be16 dport, int dif)
- {
-diff --git a/net/netfilter/nft_socket.c b/net/netfilter/nft_socket.c
-index 52d892e04261..23b7a66c2b57 100644
---- a/net/netfilter/nft_socket.c
-+++ b/net/netfilter/nft_socket.c
-@@ -80,7 +80,8 @@ static noinline int nft_socket_cgroup_subtree_level(void)
- }
- #endif
- 
--static struct sock *nft_socket_do_lookup(const struct nft_pktinfo *pkt)
-+static struct sock *nft_socket_do_lookup(const struct nft_pktinfo *pkt,
-+					 bool *refcounted)
- {
- 	const struct net_device *indev = nft_in(pkt);
- 	const struct sk_buff *skb = pkt->skb;
-@@ -91,11 +92,11 @@ static struct sock *nft_socket_do_lookup(const struct nft_pktinfo *pkt)
- 
- 	switch (nft_pf(pkt)) {
- 	case NFPROTO_IPV4:
--		sk = nf_sk_lookup_slow_v4(nft_net(pkt), skb, indev);
-+		sk = nf_sk_lookup_slow_v4(nft_net(pkt), skb, indev, refcounted);
- 		break;
- #if IS_ENABLED(CONFIG_NF_TABLES_IPV6)
- 	case NFPROTO_IPV6:
--		sk = nf_sk_lookup_slow_v6(nft_net(pkt), skb, indev);
-+		sk = nf_sk_lookup_slow_v6(nft_net(pkt), skb, indev, refcounted);
- 		break;
- #endif
- 	default:
-@@ -114,12 +115,13 @@ static void nft_socket_eval(const struct nft_expr *expr,
- 	struct sk_buff *skb = pkt->skb;
- 	struct sock *sk = skb->sk;
- 	u32 *dest = &regs->data[priv->dreg];
-+	bool refcounted = false;
- 
- 	if (sk && !net_eq(nft_net(pkt), sock_net(sk)))
- 		sk = NULL;
- 
- 	if (!sk)
--		sk = nft_socket_do_lookup(pkt);
-+		sk = nft_socket_do_lookup(pkt, &refcounted);
- 
- 	if (!sk) {
- 		regs->verdict.code = NFT_BREAK;
-@@ -159,7 +161,7 @@ static void nft_socket_eval(const struct nft_expr *expr,
- 	}
- 
- out_put_sk:
--	if (sk != skb->sk)
-+	if (refcounted)
- 		sock_gen_put(sk);
- }
- 
-diff --git a/net/netfilter/xt_socket.c b/net/netfilter/xt_socket.c
-index 811e53bee408..a4232744c13e 100644
---- a/net/netfilter/xt_socket.c
-+++ b/net/netfilter/xt_socket.c
-@@ -51,12 +51,14 @@ socket_match(const struct sk_buff *skb, struct xt_action_param *par,
- {
- 	struct sk_buff *pskb = (struct sk_buff *)skb;
- 	struct sock *sk = skb->sk;
-+	bool refcounted = false;
- 
- 	if (sk && !net_eq(xt_net(par), sock_net(sk)))
- 		sk = NULL;
- 
- 	if (!sk)
--		sk = nf_sk_lookup_slow_v4(xt_net(par), skb, xt_in(par));
-+		sk = nf_sk_lookup_slow_v4(xt_net(par), skb, xt_in(par),
-+					  &refcounted);
- 
- 	if (sk) {
- 		bool wildcard;
-@@ -79,7 +81,7 @@ socket_match(const struct sk_buff *skb, struct xt_action_param *par,
- 		    transparent && sk_fullsock(sk))
- 			pskb->mark = READ_ONCE(sk->sk_mark);
- 
--		if (sk != skb->sk)
-+		if (refcounted)
- 			sock_gen_put(sk);
- 
- 		if (wildcard || !transparent)
-@@ -112,12 +114,14 @@ socket_mt6_v1_v2_v3(const struct sk_buff *skb, struct xt_action_param *par)
- 	const struct xt_socket_mtinfo1 *info = (struct xt_socket_mtinfo1 *) par->matchinfo;
- 	struct sk_buff *pskb = (struct sk_buff *)skb;
- 	struct sock *sk = skb->sk;
-+	bool refcounted = false;
- 
- 	if (sk && !net_eq(xt_net(par), sock_net(sk)))
- 		sk = NULL;
- 
- 	if (!sk)
--		sk = nf_sk_lookup_slow_v6(xt_net(par), skb, xt_in(par));
-+		sk = nf_sk_lookup_slow_v6(xt_net(par), skb, xt_in(par),
-+					  &refcounted);
- 
- 	if (sk) {
- 		bool wildcard;
-@@ -140,7 +144,7 @@ socket_mt6_v1_v2_v3(const struct sk_buff *skb, struct xt_action_param *par)
- 		    transparent && sk_fullsock(sk))
- 			pskb->mark = READ_ONCE(sk->sk_mark);
- 
--		if (sk != skb->sk)
-+		if (refcounted)
- 			sock_gen_put(sk);
- 
- 		if (wildcard || !transparent)
+ drivers/hwmon/w83793.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
----
-base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-change-id: 20261106-udp_rcu_b4-de78daffddeb
+diff --git a/drivers/hwmon/w83793.c b/drivers/hwmon/w83793.c
+index e1f2708b5db6..b1d390904fe4 100644
+--- a/drivers/hwmon/w83793.c
++++ b/drivers/hwmon/w83793.c
+@@ -991,7 +991,7 @@ store_in(struct device *dev, struct device_attribute *attr,
+ 	if (index > 2) {
+ 		/* fix the limit values of 5VDD and 5VSB to ALARM mechanism */
+ 		if (nr == 1 || nr == 2)
+-			val -= scale_in_add[index] / scale_in[index];
++			val -= min_t(unsigned long, val, scale_in_add[index] / scale_in[index]);
+ 		val = clamp_val(val, 0, 255);
+ 	} else {
+ 		val = clamp_val(val, 0, 0x3FF);
 
-Best regards,
---  
-Geoffrey Beausire <g.beausire@criteo.com>
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.51.0
+
 
 
