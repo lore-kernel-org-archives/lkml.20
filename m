@@ -1,75 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242687;
-	b=EEpJgnkYQBNHWe9nvc8jIj7HMs2PEHSj8/1LySj4J/20jeve5USOT/8dt0EVyxIttqyp
-	 coNoTRPOGSt/grEamCmgL1MvzbvaOc55BUdreZam9ULqh/mycfCfmIIpMxn8TG251nj0M
-	 LRcLRkzOCRe9E7x7Nu6BKVy5kp8NTmbnR/EIjG4+cttxXKkGMqSm/UZPwzwxpvT3//J6t
-	 fyKcy2gnbZe1YbETI/UpVIuV/nnP4SEOBMCLurX/2qSYowzZmBq4ryDsRsWjfjoRkGBch
-	 QJygsrSLUuTUMao6kikhvJhZpeaOjO2m/OBxZuT7X7ysFwSxdg4vo26RVt4F1bQEqiQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242687;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=7vmLERfGD76whB6hILQUqqQo9S4q4ZlcNJ1AUlRZ+Ms=;
-	b=dHtAhHsL3xGCGqLKWUHIW8fmiwJPTw0zJAcUt8AgEDFzjXsyyx3q29U0hgMx7zznPWvs
-	 HUV7ZCWBaUV8UBnB1AYhR7gN6IBJHW+FWIs9TaNIFJXxClCZE0M8kbhMEjCqAxuUgDenc
-	 6KnNuU9S1G/b4RYK8HDwLCLsqd8+oEYU+0DMbojdGDke0kVwPDnwNjZThe5x3w0TA3av8
-	 UPetu3fzzIzDu0GaVUBQevIVzd6c4NuRK9vfDYGr2hZyznax+y4RLpEHemOa9yEKLfHsN
-	 cpgNTiI9X61N5BqKAxENGkW4zES9aTUs9giIUkCB2WJWpNkzGVAAQWBDkn9KD/hlJuw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Bf5BsZQm;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794242680;
+	b=NDuKUgHM1gv7jSfBWyoc7VRmCISYD1oUc20LrpDc+7f0jcIA8uiAHyYHDdxr0p5PVlKI
+	 QUmdSxPrpGoMsjN/UgesjRLTTGdeXmcB7rcPWmKCPKhEaZa1eG8IQrojv3OwsLYqn60He
+	 UtxSbblvptvtyECMKdvYuUEQv3AsBxWe29MrcvqArg/EQ1VnEnYfc/7mKZOV24tpAB9TP
+	 YpHTiDFYfOJ9MP45rcYn0lRe/Phm90uB2iQunRMH/yBb/U/CksoN4o2T0ucz5UbySNfBB
+	 XyPTbU8nM9LAXK0TrLZaZLwqDiwSD1M21T/1oFPTNJA0Oj8wiSrIpP2C9EQPgqK5LqA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242680;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=NIiRj2RlfhuVRBMzB30J6neNTajQNxPn7bfacS8JNPM=;
+	b=g9v7Ir7a5eNtcen/e6X8YQTNi9Xiy3AfaT0BXam0cTO0MBF1Zr+6VmkKkIkrmR9oNQPW
+	 zvefruQPJo4Tp8635mxiI3eNz0shUKYA2xkDESAzBUYUJpYYYz76uCgnyV3HgQ3VrBnLT
+	 g0ZneD0aO3eQThLYY6Bi2CkRKhpXljyFb98GargCJg7u/TDjVD0I4T9o8rppoMF+E6UWE
+	 9uVLx3zphshpPIw7QtNYEYvMVKx79mwdU0LlQveIXiyj6SwCIY5JuHaSuNaN9CxMPyVw2
+	 f0U4q2eSogSOJa8rehuqpXw49ZgMGKuXPADrYptmSc3/6wScpJG28DgyVepps5GKO0A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3eEBvHD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541D060A2636;
-	Mon,  9 Nov 2026 16:44:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 541D060A2636
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD86606A33B;
+	Mon,  9 Nov 2026 16:44:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Bf5BsZQm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=7vmLERfGD76whB6hILQUqqQo9S4q4ZlcNJ1AUlRZ+Ms=; b=Bf5BsZQmw7kqkyNLaJy36LCu6O
-	DuhqQq7rkrdUnaBAunpnrOgxBv0C9mefE+kILiW6fL//AERC4l6xRx6Ba6r8SXrSjRRekPdlIFNZ2
-	SDsQsGKykzUAWSke3vbYsnUlX5d1s9cqi7kAYXbzDvQ4E4E87HA1wicoTm/AbIlgncEXt8r5GOhko
-	hTfkMTLUCBJJwdBTiv1gLH1xWheXezX+xSXJ4Ub6kneYYRaxmZWrIyRZgWBakyuBaEZtBhA6HdwFV
-	wBiuwgR2QKGQyrEfeeLR4phfZwK4JAXGDAAB/64pZacvnNmiB6IfGcpXKz8ukSibwZ0aMl8rWEnj2
-	YQ1YssTg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xQSTo-00BlId-2m;
-	Mon, 09 Nov 2026 16:44:25 +0000
-Date: Mon, 9 Nov 2026 08:44:17 -0800
-From: Breno Leitao <leitao@debian.org>
-To: Jan Kara <jack@suse.cz>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Julian Sun <sunjunchao@bytedance.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	cgroups@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH 4/4] writeback: report a slow writeback wait once per
- timeout
-Message-ID: <avH2FWw6-N8s03Zb@gmail.com>
-References: <20261106-writeback_stall_report-v1-0-bf0c3b9023a5@debian.org>
- <20261106-writeback_stall_report-v1-4-bf0c3b9023a5@debian.org>
- <ysxh2sfvjikoh6cw2qmk2i6p7xripwnqxkx43jj7unxop5tkiw@gws5wezjt34g>
- <au3w4xiaYbEYLTru@gmail.com>
- <xehz3f62chf5ivwbh7f5chapypp5md5vasdtsnxfwzsebontf3@roqs5cwjk2va>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3eEBvHD
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794242679;
+	b=1TVkXNyZelOlv6peAw/dKj5NrIJUONuRfoZQeVty2/OwtFLYDgpA+8ZxYAuxedZPsCf3
+	 RKqWI8z53KdjmbU4lWwvDca+XABZtaC8cJqKacqQ11pQ3ZmIQQuY6gbr1jCb0r73q+xKY
+	 OOR9DnvDGjUe8qT54p8QoF3RH7tR4yBvpk6a4YQ9VwWG6Ttby765VGeggPVHh9Pv+W5wc
+	 7BkWN7YnbPYFlburcip4p/T3xnjHpo1WJxy7duZuLUhClJ/ox6H3TfWBEjkT9p8JfzGUA
+	 TFc1GTtWWeuemu+41ihQ8UlB74Oe9c+CNb9auf3SafQC9WYxjttCWrIEh/B1T7b/c9Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794242679;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=NIiRj2RlfhuVRBMzB30J6neNTajQNxPn7bfacS8JNPM=;
+	b=MlnuEKkxvAndOOFiA1t+alhYVKFWQcgILE1GmsuTdMsZ9F7vwJKDJ02fZnRClPX5u9WH
+	 hmrdz8fL/FqOS0Jcf5Cn4eX/heXP4ZnvlD7KpU1tF4xVdEkvxw2Qdnnnqvek7njO2yRgL
+	 U6SLx569RluSrKXvsBeG9gCA6mjSDAN11pxvKISgRbfct1eVYk2dvZeKXJ0fWU2FfGHYQ
+	 t9mQGpvjvMTxgrOKaKWy2VyLuqqcYqS8+zC8VvGKpWgmo/JhWlVtvQZfpo7ybr3A9DkV3
+	 TH0mhwlgKdLHeAxhtgqOL0PB4XXY5pSEhQ767YN0MhDflzjlBJYrtf9R8x5U4IVlSWw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9492D1F008BC;
+	Mon,  9 Nov 2026 16:44:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794242679;
+	bh=NIiRj2RlfhuVRBMzB30J6neNTajQNxPn7bfacS8JNPM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=I3eEBvHDf9vidJt9SrivJwObNYLyFEQ4DKFLfEjfyVRCDM74sNPlD2NgAeYiL8lo+
+	 Jqo2XJAFEBxAg+3tOWIiwc0tenHGpseFZuU3a2iC9DJ/uNeurJDgB83XMcL1eMhNR8
+	 Q23Z9W0B6SjFYthbbdKIr0se6IUNxU6wZtTxLwBlvNNmnhrlCExdfyxQWqUN4iujDG
+	 /HSx1w9DkV4BG2HJlwupSd1t5vkH+G+KMkPZVt0ZIodlW4lD6dk6ddCx2MBqeafGt9
+	 PxfKrf1CBvPbyEuNlgMFKujwHPSNCLezb2y6n5vAcoOFWCoY1zw3Lin5wIKXVlRnPD
+	 c7TiZm4+dSe5Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2561D48549;
+	Mon,  9 Nov 2026 16:44:37 +0000 (UTC)
+From: Yongjian Wang via B4 Relay <devnull+echoowall.gmail.com@kernel.org>
+Date: Tue, 10 Nov 2026 00:44:35 +0800
+Subject: [PATCH net-next v3 1/4] tcp: initialize MTU probing before syncing
+ MSS at connection setup
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,49 +83,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <xehz3f62chf5ivwbh7f5chapypp5md5vasdtsnxfwzsebontf3@roqs5cwjk2va>
-X-Debian-User: leitao
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261110-mtu-probing-series-v3-1-dedfab25d641@gmail.com>
+References: <20261110-mtu-probing-series-v3-0-dedfab25d641@gmail.com>
+In-Reply-To: <20261110-mtu-probing-series-v3-0-dedfab25d641@gmail.com>
+To: davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, 
+ shuah@kernel.org, kuniyu@google.com, horms@kernel.org, ncardwell@google.com, 
+ kuba@kernel.org
+Cc: netdev@vger.kernel.org, panweiping3@gmail.com, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ Yongjian Wang <echoowall@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794242675; l=3191;
+ i=echoowall@gmail.com; s=20261026; h=from:subject:message-id;
+ bh=dheRlUn7XAqkq1CdSHyUrNsJDtsi4JPPCVAWaWCPNZs=;
+ b=vA4c2zdS27JqROPN10pJMy5VSqbgq2gP+93UQGmEPJfvwSqis580F4ytRmOMhK6iMVnhku4yU
+ JMiQKa2HeG7C+FUTBHRK4SPirJqHg2OLNQUmqG6Lg4LaQkV7SyyysTf
+X-Developer-Key: i=echoowall@gmail.com; a=ed25519;
+ pk=9XP6JhqjjPsHCF6UZZZTeqTRnXIa4+ufggnxXtTJ+no=
+X-Endpoint-Received: by B4 Relay for echoowall@gmail.com/20261026 with
+ auth_id=1323
+X-Original-From: Yongjian Wang <echoowall@gmail.com>
+Reply-To: echoowall@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hello Jan,
+From: Yongjian Wang <echoowall@gmail.com>
 
-On Mon, Nov 09, 2026 at 03:12:16PM +0100, Jan Kara wrote:
-> > Once per timeout is also how often the hung task detector checks by
-> > default, and patch 3 logs the total once the wait ends, so maybe that is
-> > exactly what people need? Not sure.
-> 
-> I was mostly making jokes here. I agree reporting once per hung-task
-> timeout makes more sense.
+With tcp_mtu_probing=2, a passive connection starts at the full MSS
+rather than tcp_base_mss. The IPv4 and IPv6 syn_recv_sock() paths
+call tcp_sync_mss() before tcp_init_transfer() enables MTU probing.
+With tcp_base_mss=1024, the first successful probe can therefore lower
+the MSS from 1460 to 1242. On a black hole path, the first reduction
+skips 1024 and goes straight to 512.
 
-you got me here. ;-P
+The issue surfaced while developing packetdrill coverage for MTU
+probing and comparing the initial send MSS on active and passive
+IPv4 connections.
 
-> > > Is this change substantially different from
-> > > writeback_sb_inodes() waking up done->waitq less frequently?
-> > 
-> > You mean the ->progress_stamp field? That is not used for reporting
-> > purposes, right? Should it be?
-> 
-> So my thinking was: If we change the wake up condition in
-> writeback_sb_inodes() to use HZ * timeout as a limit instead of HZ *
-> timeout / 2, then we should get one report per timeout, shouldn't we?
+Commit 4d83e1773031 ("tcp: delete redundant calls of tcp_mtup_init()")
+removed tcp_mtup_init() from the passive setup paths.
+Commit 27204aaa9dc6
+("tcp: uniform the set up of sockets after successful connection")
+later moved MTU probing initialization into tcp_init_transfer(),
+away from tcp_sync_mss().
 
-I think so. Let me hack it up and respin.
+Initialize MTU probing immediately before the existing tcp_sync_mss()
+calls in the IPv4 and IPv6 passive setup paths and when processing
+a SYN-ACK for an active connection. Remove the late initialization
+from tcp_init_transfer(). This lets tcp_sync_mss() apply tcp_base_mss
+without adding another MSS calculation to connection setup. The
+crossed-SYN path already uses this order.
 
-> > It could drop the duplicates: a wakeup with work left runs the
-> > wait_event() condition twice (since 84654c7f4730, it is checked right
-> > after schedule() and again after prepare_to_wait_event()), and the
-> > second check would find ->progress_stamp just refreshed by the first.
-> > 
-> > But the waiter refreshes ->progress_stamp on every wakeup, so it cannot
-> > space the reports further apart than the wakeups, and those have to
-> > come more often than the hung task timeout.
-> 
-> Why do we want to wake up more often than hung task timeout? We evaluate
-> the condition after each inode so the error shouldn't be that big?
+Fixes: 4d83e1773031 ("tcp: delete redundant calls of tcp_mtup_init()")
+Suggested-by: Kuniyuki Iwashima <kuniyu@google.com>
+Suggested-by: Neal Cardwell <ncardwell@google.com>
+Signed-off-by: Yongjian Wang <echoowall@gmail.com>
+---
+ net/ipv4/tcp_input.c | 2 +-
+ net/ipv4/tcp_ipv4.c  | 1 +
+ net/ipv6/tcp_ipv6.c  | 1 +
+ 3 files changed, 3 insertions(+), 1 deletion(-)
 
-Yeah, I don't think we want to wake up more often than the hung task
-timeout. That should be enough here, honestly.
+diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
+index 3fd0e215324d..2b54b99f1f45 100644
+--- a/net/ipv4/tcp_input.c
++++ b/net/ipv4/tcp_input.c
+@@ -6763,7 +6763,6 @@ void tcp_init_transfer(struct sock *sk, int bpf_op, struct sk_buff *skb)
+ 	struct inet_connection_sock *icsk = inet_csk(sk);
+ 	struct tcp_sock *tp = tcp_sk(sk);
+ 
+-	tcp_mtup_init(sk);
+ 	icsk->icsk_af_ops->rebuild_header(sk);
+ 	tcp_init_metrics(sk);
+ 
+@@ -7020,6 +7019,7 @@ static int tcp_rcv_synsent_state_process(struct sock *sk, struct sk_buff *skb,
+ 			tp->tcp_header_len = sizeof(struct tcphdr);
+ 		}
+ 
++		tcp_mtup_init(sk);
+ 		tcp_sync_mss(sk, icsk->icsk_pmtu_cookie);
+ 		tcp_initialize_rcv_mss(sk);
+ 
+diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+index 0dc3b087665d..fb968798be36 100644
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -1740,6 +1740,7 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
+ 
+ 	tcp_ca_openreq_child(newsk, dst);
+ 
++	tcp_mtup_init(newsk);
+ 	tcp_sync_mss(newsk, dst4_mtu(dst));
+ 	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), tcp_dst_advmss(dst));
+ 
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index b1dec5d86d63..8ea1ae1ad2b2 100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -1490,6 +1490,7 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
+ 
+ 	tcp_ca_openreq_child(newsk, dst);
+ 
++	tcp_mtup_init(newsk);
+ 	tcp_sync_mss(newsk, dst6_mtu(dst));
+ 	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), tcp_dst_advmss(dst));
+ 
 
-Thanks for the review,
---breno
+-- 
+Git-157)
+
+
