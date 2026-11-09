@@ -1,60 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794200718;
-	b=uvZ8V9+Zlb5wsGDpN42IZCAc9gTxWWCb4sxFAodZL4T+iVKrar8xvamhJnZCGl93h/FY
-	 qOdKdJUYNSYBPh7NillVQb/7SxRjQnZKFVtsd0m3fltdjkafVKaTFjrCCq0MYZ0sJSSs0
-	 n7uU82wsA9q8fuOsbCxadziuR78k8E1aRtas6MhaNa+NARV5SLpB+RLM7JxPByFN3x6eS
-	 zlNxcxoTxiweEDBio8mgrChmNU9DYBNCVHyXORxGibwMMOqSRD6FGy1nlSp7ITp9IVY6P
-	 QFYLyUqwvUnzZWYw3zsTw9YmzgCEnDHsQmTQ1o1fL5lXmAaT7anOMML8cFEDuJfc5UA==
+	t=1794200762;
+	b=LrG+DEEu60gJ62vzns+suZGrmEKRK0YtqaHn5WXr5tf1yY7yw2FGKosUn4N+BWIWmOzs
+	 8YH/Z6kAKOq4DRdwxOIEF0uum3MNQ6sCiYT0Fw65sBfM4bp/fX8HEACI+pycPrG3ANgmF
+	 0e10FM85Y90n9GEZcqj87xUzIjkfQ/2fgrRTTZEIXUQNyHeEJpNXiahk1rg7KYhStQ9op
+	 YLCUgBffpmj2YMNgfPSXl3fGEOwwhzwTt0uQ206cqbDieW5ZiklOrT9pcbyG39aXWuNZx
+	 VvAsG/FBocSTQw9IdspRDLu10fZf/+qpupZfv4YzTLCI7UtjDMFiAtdlH9J7SNs3TFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794200718;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=YhDYB9VCD0yrPWZ2fcw1r0wfo4j7xSr05dSXAefrmpI=;
-	b=Q47Eb5JMlv3/yvUw363mYR2EozTYAfinbfnvQYox63VenQpRNTTkFnQgXdn7RCqC067x
-	 l6ai559wXQDPG9lCkv2oIQfRpYJ1qIxkqytIz6zpBs9yedHyyDsgQOuYulo7WAYil9ACF
-	 wfWe2I6tJt047GUzCowDOlvnu+ByyQ9h6KQBFdIGzSI9bParLs7mLS5P/c8yLxp07Ju5v
-	 pJQslg4s3DWjWxFs7in3e20GFwk4Vs4i9fSl5OxzHkgA64yR/YYx0PzbU/2sHOhwVMLA1
-	 sXKqAqdQyd/ZkYY7T2L3uCW7wfyQ01u4C/HfKM8DNmZx1CKyAuHWZZmGEqEIvUBTKAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794200762;
+	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
+	bh=+UmCB5muc9jAh5/NVu2M6h8Lcfrpgge2sRUuegusfl0=;
+	b=0OuLEIAgKXU7KAvFozkBBa3f1Mv708ZV/mV7AuEqlv+uNv4RQQ6oxLuRg70CaAlrcQda
+	 kU+/oTwNmCk/zqSL6WGacdL2KhGdhRBP6iAjFnQhUyBufPVmyVo9NSydGNXPPqZidzbqi
+	 rRT5RxlkRrYqJHI5/17JfeD3gW4i53LeqT0Re6P4C2VxMjHeIXqA+pU6csayT4bFkvyt4
+	 s5t29sErJRBTR2rzX/A9fzsDpt6mOW6cR2LBeiVOQFpMyu9K53GhNNVYS7dh5dhlWNz11
+	 w9LLnBMkuA51LXElSj1oFDY8oQxhCWOlue9fVSB2NQO3QDlefZUvazzMdeLxRtRqsDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RT0uoa9D;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD5D606A31C;
-	Mon,  9 Nov 2026 05:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RT0uoa9D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78401F0089F;
-	Mon,  9 Nov 2026 05:05:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794200717;
-	bh=YhDYB9VCD0yrPWZ2fcw1r0wfo4j7xSr05dSXAefrmpI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RT0uoa9Dmej4PB7jnw7+6GHBmV2aqp8rxLzZhCFTSlPlfvfdPDiHGIEslZ17OZREG
-	 hL1FF+CPSSwwWWTYAE56jq+ewwJN7Ud1U/tOmFeTWXN8xEkGqTwFlM2BNuhiJv4h4S
-	 +48eRoTtr7bgOl4RvDB0Z1Os00GK6z6qo+GflBLwJ99Ab+1gjrAAmlXUdHE0YiAhWn
-	 AsV3E7XJOaAxQ4jU/8k84EtCXndx6hqBYY+GC68HS64vPE6esEScmPpMuDzT2389Nq
-	 EzEAxiIRQIfGsLIjj4lyhT9eWN4Jj7KIr+uXrTeoRFkyBHiXtJ7FIKCgnAsQvFobJi
-	 poDZv/d6ltbYw==
-Date: Sun, 8 Nov 2026 21:05:15 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: lirongqing <lirongqing@baidu.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Alexander Antonov <alexander.antonov@linux.intel.com>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf iostat: Release the port list if command allocation
- fails
-Message-ID: <avFUi_R0dzVEaT2X@z2>
-References: <20261106021840.2186-1-lirongqing@baidu.com>
+	dmarc=none header.from=orcam.me.uk;
+	spf=none smtp.mailfrom=orcam.me.uk;
+	arc=none smtp.remote-ip=78.133.224.34
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 187C9606A322;
+	Mon,  9 Nov 2026 05:05:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 187C9606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id B42DD92009C; Mon,  9 Nov 2026 06:05:57 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id B0D2992009B;
+	Mon,  9 Nov 2026 05:05:57 +0000 (GMT)
+Date: Mon, 9 Nov 2026 05:05:57 +0000 (GMT)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: David Laight <david.laight.linux@gmail.com>
+cc: Christian Brauner <brauner@kernel.org>, 
+    Geert Uytterhoeven <geert@linux-m68k.org>, linux-fsdevel@vger.kernel.org, 
+    Linus Torvalds <torvalds@linux-foundation.org>, 
+    Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+    Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+    NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+    Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+    Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+    Greg Kroah-Hartman <gregkh@suse.de>, 
+    Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+    Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+    linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+    linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+    linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+    linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+    linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+    ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+    coreteam@netfilter.org, kexec@lists.infradead.org, 
+    linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+    netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+    ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+    linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+    linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+    linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+    linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+    sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+    linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+    linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+    linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+    linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+    linux-debuggers@vger.kernel.org, Chuck Lever <cel@kernel.org>
+Subject: Re: [PATCH RESEND v2 14/23] proc: let procfs copy in writes before
+ pinning the entry
+In-Reply-To: <20261108185953.28054fb3@pumpkin>
+Message-ID: <alpine.DEB.2.21.2611090504170.17804@angie.orcam.me.uk>
+References: <20261104-work-procfs-core-v2-14-76ace653a773@kernel.org> <CAMuHMdVfakapgBK6TBhO1iWX8qzvLDk8jzRS=t2MVa5G=MCUeg@mail.gmail.com> <20261107-akteur-gemieden-eckdaten-21304d085e35@brauner> <20261108185953.28054fb3@pumpkin>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,55 +80,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261106021840.2186-1-lirongqing@baidu.com>
+Content-Type: text/plain; charset=US-ASCII
 
-Hello,
+On Sun, 8 Nov 2026, David Laight wrote:
 
-On Fri, Nov 06, 2026 at 10:18:40AM +0800, lirongqing wrote:
-> From: Li RongQing <lirongqing@baidu.com>
+> > > While at it, I think it would be good to use this conversion as an
+> > > opportunity to replace "char *" by "void *", which will probably let
+> > > you drop several casts from users.  
+> > 
+> > So I tried that too. The thing is it drops exactly one u8 * cast in
+> > ntfs3's label write. 
 > 
-> The event-group builder takes ownership of the root port list and frees
-> it on its normal and parsing-error paths. If allocation of the event
-> command fails, however, it returns directly without releasing the list,
-> its pointer array or its ports.
-> 
-> Use the existing cleanup path for this allocation failure too, before
-> any port has been transferred to an event.
-> 
-> Found while testing the iostat fixes with allocation fault injection.
-> 
-> Fixes: f9ed693e8bc0 ("perf stat: Enable iostat mode for x86 platforms")
-> Signed-off-by: Li RongQing <lirongqing@baidu.com>
+> Since char is now unsigned that one isn't even needed...
 
-This patch doesn't apply.  Can you please rebase onto the current
-perf-tools-next?
+ Please excuse me missing the context, but what circumstances does your 
+claim refer to?
 
-Thanks,
-Namhyung
-
-> ---
->  tools/perf/arch/x86/util/iostat.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/perf/arch/x86/util/iostat.c b/tools/perf/arch/x86/util/iostat.c
-> index 2dc5ac6..f8b4939 100644
-> --- a/tools/perf/arch/x86/util/iostat.c
-> +++ b/tools/perf/arch/x86/util/iostat.c
-> @@ -342,8 +342,10 @@ static int iostat_event_group(struct evlist *evl,
->  	struct perf_cpu cpu;
->  	unsigned int cpu_map_idx;
->  
-> -	if (!iostat_cmd)
-> -		return -ENOMEM;
-> +	if (!iostat_cmd) {
-> +		ret = -ENOMEM;
-> +		goto err;
-> +	}
->  
->  	for (idx = 0; idx < list->nr_entries; idx++) {
->  		sprintf(iostat_cmd, iostat_cmd_template,
-> -- 
-> 2.9.4
-> 
+  Maciej
