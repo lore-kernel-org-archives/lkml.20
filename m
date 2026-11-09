@@ -1,99 +1,165 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794189255;
-	b=o79s59dcRKW9Kgs98XTIEiK1YUfpbyFjjouchuHx7IcyTik73I+FE2Qc2OodiMGJVwIU
-	 PKigF+eo/z8U5MlK5zCfFORh5nmjuBisJCXgQ6ol1DG6elKU/OItpc4LdReTq9Py6zmq/
-	 xoZi9KbDEMHUMBd20J47SeAiYRgmle7NC61zAhnBass5EVlpFv1SDWUA8q1lEw7she6rh
-	 mjeeCQFqrprCgZoo/SvOEhY4RFHdPLbFEnyb2sdsi0QxK49H0pzHU824DbKXNH1w6C4JA
-	 6C5TWbDHvS1EN4GLl2kBxfHtVbDIE/w0NxN6L7oiyMBqMILzTGYviWffTM93WxTnwoQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794189255;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=HHqibTCR5wIYV/KIN13s6UP28CbCL+8jKFmB5ThhWLk=;
-	b=VfeuaYQvD4mMtuyeuQEmtKpcVDKIxZh9FuIkYL+BiF+rBq0g0fGPsZ0LNZNTsey3QKzY
-	 vveKGixKIJfHiR/YXL9PCfgOzxqmzT59AIuS3Sid7dnhhS7QeMOxBzoGV/1b7vGXSOqmC
-	 Ho+V2fuWi15dhSsarUPTsHS2VmFfw3DZKXD4a+pg2Vs+ImJxgaMI80qWQpfagpaUtDJHI
-	 oWKLiUucovUItsns/9QvJcjqro1jcBSyI8qxqBls4App2esqK9fLfmNsOYq5aK8Wa2KEP
-	 sK8Hywcs3iOGQpbhRHw6eXXUOzt1B6Iym1jjfJv3GtWf8noWWpWxa32rLdzIDrrEf6g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="IsQ/XDT9";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.44
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.153.120
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794189274;
+	b=Ii9Svl44c0h+XYQVf09GhGva0Dz6LJpcvRd74XSjHm9VXlUJ+hEU/0iaovgTGdI57qlo
+	 ORloZU+pMGb2PVDYD8RPGHOHEGkacnfQV3H4Y0qHYTmPog0jY5K5t2AiTjkqi3k7MbXjg
+	 8x5MBf6l86MlMBhcMhkreq5XNugWfHKuLpbGRtugYZW6sZo/2qPX99zoLeOO0exEma95t
+	 u/bSUxA7CGuKhvq2WAk0PBH74s2ozdTUJ/q+bGbDGwG75ZlSdtFrRwzllsv1Ks9Cmyk3v
+	 liSbRzB1Z2BM0KYd0vCmkR/CDHf4d16iAzFbpcfFKsV/nEBZ2b5GSkM8s0/aKVfYvyg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794189274;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:
+	 Content-Language:Content-Type:Content-Transfer-Encoding;
+	bh=4Ce2Opq+3cRum1feb4ndeygKjow9mzh4NOCsEVYyi5E=;
+	b=MJTWRCS1GDrTrsYzxAy/rZt5Zfu8FTzpxKSw/QwO0/s5x6I8jDilSJySVw/wlQ1LmoaW
+	 qoWFbppVxrs/Jc0WkTCZ+Jgj9prGPx2RyIKeT7wyHVz/f7bE0wUwlDeWg/PHimUPF1z0O
+	 8rNa19YjZ9iKhqZmxMs44we48bk7GVM7ZXz4UNlfc1MPqu+e2Zq6sHKlehuLemDTjnPi6
+	 e87TbzEA4csspZViGaZkAaNO66YbEZq0aso4K3quvc5uQw1U0dQrR29gpj0nwu4fzMFjs
+	 XhSroW+5j/H9PyybfB22uLEFoFFtpvw9wnX5d8JEX6xVtZcrdIA2H6ZUmN28/HcQz+Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=onsemi.com;
+	spf=pass smtp.mailfrom=onsemi.com;
+	dkim=pass header.d=onsemi.com header.i=@onsemi.com header.a=rsa-sha256 header.s=mimecast20250127 header.b=Ibq9EC03;
+	arc=none smtp.remote-ip=170.10.153.120
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620D5606A320
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:54:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 620D5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFDD606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:54:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CFDD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IsQ/XDT9
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-833e671ee9fso393151a34.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 17:54:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794189254; cv=none;
-        d=google.com; s=arc-20260327;
-        b=q0vA+ubdqSd9HrI2dg1EmHxQZnL+VhprAnOCAdmLdIDJz/oBixSMXU2vPJjRZNTLII
-         +QHzIQqa95dvF1zptQwJ27IPszxRnsvzfwMuA2mCg/jxPPYpKoWTjkF8O4iAWWThK/Cj
-         LNZfb4xYWeDI1cSYVoh2WVlCsDl9eI6c3AVsOoRyA/MFdnCwVlwYFIFTBcD7YEa1m1Er
-         aTB8yR7VgbB5HRgjaStFSaMoi+UXnApyxKRqpnAUFbsIQODkMzG9IMUaWI6u0TYdVoFj
-         iYichRmIkgJLlJa8PerObu/dYlFfHyzm+VMOUKdhdfnpX1FeYO3SQsCiq+X2lKb4BKIx
-         b1TQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=HHqibTCR5wIYV/KIN13s6UP28CbCL+8jKFmB5ThhWLk=;
-        fh=wVFoy+X1uoMDkLDwK6trmE4yH5EqOZ3yEniLhBeJnKY=;
-        b=Y1OMqu2K8oLjzHxJkupwpDyL41LZFk4MomoIExGbLs/av91SGEXaziHsH3zJRcfMIa
-         sZ2ef/iAcZvjfhGccJoHdSjeRmdwSfi9nCD0rRwfA1UeqUjz4ghkHDsdxcfZWbQnAYRv
-         y0ttyuzTUCCcKUPxnLNrRy8tc/oykGT+zsnED1Yff7HFOlFfS50GHKHDDl+0Q3wyvh6W
-         AeNVGHZvlJ4TCkgSeJNgZO68zcv+Av2L/t/2Ql1KMu9adivHXPwQj4BMCfUNw+dPmlcO
-         JLmJ26hGjSOwSCxCIL+D0Ho4kDFDK+8JWiGUkSoGPeoYlAU2CdFSsuolaSVm/et4Xwg6
-         TiIg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794189254; x=1794794054; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HHqibTCR5wIYV/KIN13s6UP28CbCL+8jKFmB5ThhWLk=;
-        b=IsQ/XDT9i/AwgbBrEU5Ic0at//FpqdtsuFmjeJ3b51SEhgN7283yobP6GYKLRL2Nh8
-         bkZ/zTIz2R2XyajRzUKvWwS+fr0wrrmZsGuAFIwxiz3JyPnHwXQrDM45ynQHE37mIKYZ
-         WKXgH0ZGkYWNf94DhpBt+CTl/uRKTbxRD09FtyWNwUg0UyZWPbsIzPKuLDndCBY36nd1
-         9DiLfUmSaDO8trl49w3iCHwKXVqGFwNHHPxHSaTdkGMS86y6mfpBzwt1gA/vFKSMb2WI
-         Qw7gpNA/95m26aYzlhmr8GlFpAJKTVkoWFCZtRnB2geKXGB/4HLoDbWtxd4/PymBU6Bl
-         8ipA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794189254; x=1794794054;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HHqibTCR5wIYV/KIN13s6UP28CbCL+8jKFmB5ThhWLk=;
-        b=bLxS4bqiv14gg9tgHZVki+q17mQa/xInzWHIJiSJb49WYIvI1v+KbVwsDioEQlEZdZ
-         1MFmHRww6g4UEMs3Nz0C9aUJQOj0BHIU994UmDrDrXHp/EOsAjBUuRfdLUmlDWO7c8mc
-         UQ6ZhN+aj3kPcABc9hUAtxl6Dd9qMJx6vYoKnLkF6Co8KdylMRaF4tsoBK+5eteIL+tI
-         1KKYQERrP6rvsT+eKnLRHHbsSMmf69hxrJR7dllaEnwpNEt8KTps1w2IMbEt3l7NSPpv
-         KzrsBtkoXcSf7H3jfQ3soM+WuUFLqYuTa1KcrDpO8LTnx/9LSyKILThg3Qkvdt2zAZLV
-         S/xQ==
-X-Forwarded-Encrypted: i=1; AL+hErFVD64UYDqJV+Hk2CApYgLuN1junwpOU+nZh4hQoRdGDjVf3KJidaRS0Ycaf/AHvDk4vLsI5pFcNt3xBeE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+GXtEJbudoV1rDjhVFZA+NUpU8W6e7NpnT1Ibf0PSaVlJ4Oy6g
-	JsNimCy1Ai7l2L7eh5jJiA8jJL9aCgUiFhuHG39FoKo0TA7+iOpsNPNSyqHf5aGa/T7GL440aYd
-	iFiu86iQGz4ZKbMRT4zOn4BEgAP5UvKo=
-X-Gm-Gg: AYBFou3mj7rUmYVOZjM7YdXtEWltDs+KTdSAWszterKTzfp7IK8MO3jIDBmEGAzCCAG
-	SjDUFDsmR1CjCpLrervWALBXtEpjsdwBAFnfrVM8YDvo9JqpC3pQpqTlEelBaO85mWepNpw59yS
-	UDvlhvDUULicbrogmfoi6l2Fj83JI2pvFKbGZ1zi3IL3e7AzwM8ynbd4cuKnSRjZaXlp7X1OTXW
-	MYwvwBwK3EFtR0Sg7JucKp2xKGqt1r2t5VhjplCv28oqDVozFhctIoJDPz0xYSz0XM24svKFtRN
-	/YgigL0pJnW4K3w6kMWFs9zZXCeC+ww8kS7vz9Y2BuBOsHhc4/KqssrqAam3xUBWLX6tOcwI3o/
-	gT0QR/A48tj+fVivK3otTva1/rmXre8sOYy4JAxBx+r4gAsPL50GQNukGpebh4BoSoNZk
-X-Received: by 2002:a05:6820:83c7:10b0:6b6:c0bc:365c with SMTP id
- 006d021491bc7-7170f2b844cmr994551eaf.22.1794189254232; Sun, 08 Nov 2026
- 17:54:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.a=rsa-sha256 header.s=mimecast20250127 header.b=Ibq9EC03
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1794189273;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4Ce2Opq+3cRum1feb4ndeygKjow9mzh4NOCsEVYyi5E=;
+	b=Ibq9EC03Rt3pWJA87LhT7BdSi8a/uIVXrgU6O2bFqdfOqlWZy4eAxtDnpHwAvJSEaAxDgo
+	/1h8+pTJUP4oZFKVLoi4+P1rALzIn9gDEQ5vmmlBIfY7RtBMBqf1sn5qdUahThTv4P3UA8
+	D4pGtVzOHhAj55znv3FsVjl8n+BtpU7ytPbYP9K2Sl9rUxKPQKxojk0Meua7c9q1mNRd9T
+	qcny1kF6sP9pk18MrrqJTIjN0E+wXREMFk4gfpXCdRyXWZ4lacay98gaY6mNdSBLMuRt2T
+	2TwVsNdEuP90EHCjvUaG0E0QpcPfbm+pfMBLvb0vUUVY4XzbfZMLeD+78CCp4g==
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010031.outbound.protection.outlook.com [52.101.46.31])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id usb-mta-58-Lk60vyD2MOyqDmZIGEriAQ-1; Sun,
+ 08 Nov 2026 17:54:08 -0800
+X-MC-Unique: Lk60vyD2MOyqDmZIGEriAQ-1
+X-Mimecast-MFC-AGG-ID: Lk60vyD2MOyqDmZIGEriAQ_1794189241
+Received: from CH0PR02MB7867.namprd02.prod.outlook.com (2603:10b6:610:110::22)
+ by SA0PR02MB7209.namprd02.prod.outlook.com (2603:10b6:806:da::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
+ 2026 01:48:56 +0000
+Received: from CH0PR02MB7867.namprd02.prod.outlook.com
+ ([fe80::d722:d686:a9cb:6c2e]) by CH0PR02MB7867.namprd02.prod.outlook.com
+ ([fe80::d722:d686:a9cb:6c2e%6]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 01:48:55 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>
+CC: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "parthiban.veerasooran@microchip.com"
+	<parthiban.veerasooran@microchip.com>, "horms@kernel.org" <horms@kernel.org>,
+	"corbet@lwn.net" <corbet@lwn.net>, "skhan@linuxfoundation.org"
+	<skhan@linuxfoundation.org>, "rdunlap@infradead.org" <rdunlap@infradead.org>,
+	"richardcochran@gmail.com" <richardcochran@gmail.com>, "andrew@lunn.ch"
+	<andrew@lunn.ch>, "hkallweit1@gmail.com" <hkallweit1@gmail.com>,
+	"linux@armlinux.org.uk" <linux@armlinux.org.uk>, "edumazet@kernel.org"
+	<edumazet@kernel.org>, "piergiorgio.beruto@gmail.com"
+	<piergiorgio.beruto@gmail.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>, "jerry.ray@microchip.com"
+	<jerry.ray@microchip.com>, "ciprian.regus@analog.com"
+	<ciprian.regus@analog.com>
+Subject: RE: [PATCH net-next v10 11/11] net: phy: ncn26000: Support for
+ loopback
+Thread-Topic: [PATCH net-next v10 11/11] net: phy: ncn26000: Support for
+ loopback
+Thread-Index: AQHdbkU6i9E79EVvikCnHNGf/9UL4LcjUA6AgAF3bdA=
+Date: Mon, 9 Nov 2026 01:48:55 +0000
+Message-ID: <CH0PR02MB7867732FC15ED54183BAAB0783732@CH0PR02MB7867.namprd02.prod.outlook.com>
+References: <20261106-s2500-mac-phy-support-v10-11-31b5a69b85b7@onsemi.com>
+ <179409694533.994134.4523797133943252048@kernel.org>
+In-Reply-To: <179409694533.994134.4523797133943252048@kernel.org>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH0PR02MB7867:EE_|SA0PR02MB7209:EE_
+x-ms-office365-filtering-correlation-id: fbf5158d-91a7-40f3-07d5-08df3e039d88
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|38070700021|10067099003|11063799006|4143699003|56012099006|261022105027099003|261009221227099003|261009221727099003|261009223027099003|261009223327099003|261009220027099003|261026140227099003|261028144727099003|261026121527099003|22082099003|18002099003
+x-microsoft-antispam-message-info: rVwCPDQJnDozJAnSGW+MmTxS9t3iqg2Dhf+O+q/4LqFJ/ErWbwDJc5N4hMDJgP7obrm84WdSI5gYSr2llAjYmqpj1lclOvRI5yguo4LplyLwhm82THPj7aRZTU1tTf8/iXp7ByfzoOyGaXy9xDY+ZL1npSU1VWDY7YNEhaXlxZ3xAiCtsL4SzbMQBULWzj179eqTsVkuNPEVA2VuPUuXo8ous9Uu7Z8sQn9d4+TYbEZxDRGUHXOdHKbTEaUzvhA5UT+FiRkndcw/TiV3Q7m/Pbb7EhPVjhkyQptJ60zx1ObPnSPiIhQ9bLfCifDcIyYd4l7oLhfAel8Pvp0mJ8Gmf7l8FPz+9XLSBmVuFSXHlaVhE4v2CpG+RYAfM/uintsa/MG/jVU5LYzfJJCZvQfvoF86sUVmpG+dv8oOhw0fXWBSW3n2T2pzISgZFc3jdvQ23xFgYXzbqKWoiGoCRrjaZ0XUC7+/nFHyBAARff/0T/+NUSudi7sKJVBbG8nvYSA6PKprmGYO9kwu4dhp3QwwGpdssu8TpWzggym4SsElo5Y93hStU7ex2gukao8Zx24KCshUCWpaYubH7eq4YKwdsLQ7RehskIO4ve6GX/+2vWH8/dLdr1gJXv3Kc7mWCxFmca+q27iKuk2fPbvyb3QLlB0qHCB4cOIsVF49gzzmA1s=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR02MB7867.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(38070700021)(10067099003)(11063799006)(4143699003)(56012099006)(261022105027099003)(261009221227099003)(261009221727099003)(261009223027099003)(261009223327099003)(261009220027099003)(261026140227099003)(261028144727099003)(261026121527099003)(22082099003)(18002099003);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QjZIOFVJSHM3Tm9NTkwzOWVSOVltL1BJV0dCL1dXaVdyakVKeFZHZ3JwRUVY?=
+ =?utf-8?B?RVlUb2REQi9NYmcrT1NVcDAyanJKZzQ0eDV1QTh4ckFxaHdqTVlkckJvNG45?=
+ =?utf-8?B?UWdZckNKdE5SVFJWZm9UbVdwQ29YdHlHVlJMZ0U4dVhGTXQzd3ZZV0J3WStr?=
+ =?utf-8?B?eEtPblJQYkNZVm1SYjNncEJabnh6dFB0bThtY0FVamdMeHZ2SDJ6Ynd3dXE1?=
+ =?utf-8?B?Tnppb3JtU0p5MUdUSlRJZUFTL2VBeVBXQTA4c0JPZnJYL3VjRzFXNnpQdWhJ?=
+ =?utf-8?B?THVEUXdvV0hLSE9SZlhtaWxVK08xaGhpK1ZCQjV0UjZaWEEyeWs0eW9xWkMz?=
+ =?utf-8?B?dEl5Vm16ODdBYnMwdytpMHpJNWZSdGRsbHpFR2o4elVBMEJBeG9QWE96Unlq?=
+ =?utf-8?B?K1B4U0ZQUVR0M1VCeHhnWHExQzhnTkZkdGRUenlZYVZlTkRJRksvVXMxUUdz?=
+ =?utf-8?B?RFROZEpkZDQwYSsxNlorZHg5VUxuaVArb0tjWG40R1JHZlhFTnJpeUtYYi9Q?=
+ =?utf-8?B?OThlMHdSbGpla1hBQnBvY0s5dUVNcFF3TzlRMFEwNnJ5OE12YWhnWFBtdHVY?=
+ =?utf-8?B?OXI5c0xoeWc3M1JQbDRPeGhhYzNtbUNpdlpMa3F3V3dsRlBIYmNaRWMvOWc5?=
+ =?utf-8?B?UXJNaTNXV0pwZWZTU1dtWEwvRTk0OEw1L0dJVG4vNEtHQ2ExdmVzbW03aCtk?=
+ =?utf-8?B?TkpsSERrcDhaRmZKcmVNcUJzeFVQcHVZd3pMVWlNN0FKSHhjTUx2dEFpVXVN?=
+ =?utf-8?B?TnpGc2U5U0t1TU44ZHRMcklTZFcvZTUveXNGdDROdm9mRVdkaDZXLzJTbG1h?=
+ =?utf-8?B?N1owT3NwMExkcEZ3dEFQVkFRVWRqVU9NQ2xZVFN4akYrdUh6NU5WcDFLcjJm?=
+ =?utf-8?B?V1EvQ2Z1bGFDWk9XZnAyVFRSYzV5L3ZpNkNoYjZrNjdtYTRHK0Z1cG83MmxL?=
+ =?utf-8?B?aURTVmVKek5Qb2lPZlJLbnhMaEdjSzFOaU1HN2M1bHRSckhiM210UVRhOUZ6?=
+ =?utf-8?B?QWpEMm9iaENpcmlHRFRPSEpTZWtzdVF6SS9BNGVrLzg3c3NJcDEwQ0cxQTJt?=
+ =?utf-8?B?Rlg5ZmZmdk00U1Zwa1NQbWIyUm1hbDlLbUZOT1VZSExtUjkxMElzOTZLRVVp?=
+ =?utf-8?B?aHM2eE1qWlNLMkJpaHhjUHc3bXRQemFZdFpEK2oxREYvMXBBNm9wRWlyUzJ4?=
+ =?utf-8?B?NTI0NjI1RjNnb3kzUFFuSzNoeVlXQlhMd3FoVG9rRG1zNFc0aVVxSXpNV1FN?=
+ =?utf-8?B?emI2OWdjRitEVUs4b1VEUE5jb1pTdnFLNHZLK0FjYWsyckpMTVhEejcwOUpW?=
+ =?utf-8?B?TE56d0NRdGVxejZlTEl3MGtXRGc0NSthQVdKelUrTkdUcjJ0bFg4T0kydFpi?=
+ =?utf-8?B?UEF2NVh3SUhuNHZDa1BTdFgvLzVlYWxveDkyb0RGVDF2VXpPWFFFTWEzUTFy?=
+ =?utf-8?B?UndidkcyMUl5ZFVZaWd5OWp5aEQ3ekt4aVBKYmk5VE1WTi9GNXN5K2thUG5B?=
+ =?utf-8?B?V2dyK3FPUWhhRVdTbHRUUCtla0g3NFkvbUlXbTArNEZ0WXlTYy8razg5Qjcz?=
+ =?utf-8?B?RzFDVE1UMXBhanhyT3AweWRnV2ZYSFlxVjEwMUZlTUx4VzhITG1FOGc5RDZI?=
+ =?utf-8?B?YUVKUi9zdFBzbXVsQ3pTY1JERnhCVWpvdko3TlJtZkxvOTE2WUpCd3hHS1VH?=
+ =?utf-8?B?WGhGdWdaSjZSN3k5ZnRXZk5PWFk5WmhSak8yNC9yK2tvVzhJN2dnYXhBMWJh?=
+ =?utf-8?B?c21kSkRzVHlZek9qQXJkM0JCR3YxaitNUzhHVHJvN3V4TzZORU9hNjVkTG9Y?=
+ =?utf-8?B?aVRwcDZPWk5IUHJuM1hqWFQ5QUVGWEZhWjVHalVkQTBmWSswcS9vbUZ6K3Rs?=
+ =?utf-8?B?RFpxTUZTREswbWFWRWZSemExT1JaNlJiSkZRVnJUMXRVYWdwYmFSQkFXTWFC?=
+ =?utf-8?B?aldEbHdUV3l3SWN0ZFlJSjV3Qko1SFhiN0ozSjFHSEZLekRWMlVuV3ZPUlVp?=
+ =?utf-8?B?bHFrUy8rZDk5MXFBcTY1aDVrdzdhaHJldHl0c2x0UDZuZnFsL1JMQmV4b1Fr?=
+ =?utf-8?B?VGxXZlZzcEM0STI0WHkxbGorSEw0L0VaZ3BFbDViUkRLUW9IZngzZkpFSzFi?=
+ =?utf-8?B?eituOHh6R2cxTktZeUFpdzJGellkSm5jWEUvTUVLSHlNVW1jdHhIdHJ1KzVl?=
+ =?utf-8?B?M3RYZTQwT3k5YkFOTnJnOGdaT01ZQXp1R1JVdFBLU1lBSkNjZURUSS9MaWpP?=
+ =?utf-8?B?ekdvbEhlelA2bkNCNEQybDl4U0ZnRTg2Z1orc09qZ0NMZXFXV1lwSmRyRUla?=
+ =?utf-8?B?ZGhlOFdlM0V3OEtPU0xNeUhtVTFGWEF3YkhuUWk3OStnU3g2TmV4dz09?=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,91 +169,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103095256.949327-1-hjf3108@gmail.com> <20261103095256.949327-5-hjf3108@gmail.com>
- <e826d25ce74e4d839f2719509494c129@realtek.com>
-In-Reply-To: <e826d25ce74e4d839f2719509494c129@realtek.com>
-From: Jie Feng <hjf3108@gmail.com>
-Date: Mon, 9 Nov 2026 08:53:37 +0700
-X-Gm-Features: AclHuK9Kg-B18Wze4SmrNfYZu_MVp6DLqT-Zh7gXPblkHjY1rijIvegMp2DIiys
-Message-ID: <CABOQOSXX=3ZPfGmXBLfHPcGK11dqMRZ8vAC05OtstQtWS7Un6A@mail.gmail.com>
-Subject: Re: [PATCH rtw-next 4/5] wifi: rtlwifi: rtl8192du: enable USB RX aggregation
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, 
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Exchange-RoutingPolicyChecked: PTJLim1RQZ25ErDKXonQosjEhLsSwKrxjEV6QDQP8QZp899U+OPxhliiSRT1TwYbWBgRwAODpqvFh9X5tt4WXSm5slEokSu73HJMKjUMxdz/g5HQlyrLKyROnoNwgTYN7j5O8rds2FwW/8W37W0UK0hlCCHaXRnbS0q7kAz6HWduCyhBFnI5GEZ62Y2wUuVS88hj1LJalXpKymkRIIPBZZ3hz3pRp2AU9VVtEy5iyrnYgTbGDSL65XujtPFBrQUY4H2FH72gNKvV6DTaK2rj8lHtisiKD33pA3rBjK+Q/gc9mKjfn8J1akdIvsW22ApfYuaJn8tH6v0n9QF9XFpFJA==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH0PR02MB7867.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbf5158d-91a7-40f3-07d5-08df3e039d88
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Nov 2026 01:48:55.7729
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: J1eI5WFd/BygPzShLY6WkTqdtdsY8CgBuFrw0WnV/gRihxo2sAwNmDwKZRWSrzvCNvcT6As3//dSRlHM3WRYsxg0crQhFBGl2L8S6pW4k0g=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR02MB7209
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: wnUZUvf56z-RFLvnNeJ8kPXZBR-4li-HG0BPChkblHk_1794189241
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-On Mon, 9 Nov 2026 at 08:44, Ping-Ke Shih <pkshih@realtek.com> wrote:
->
-> Ho Jie Feng <hjf3108@gmail.com> wrote:
-> > Allow RX aggregation of up to 48 pages of 128 bytes or 24 with two MACs.
->
-> You can describe a little bit how you build separate skb, especially
-> the last one.
->
-> >
-> > Test results (2.4 GHz):
-> >    before after
-> > TX 5.2    6.4
-> > RX 27.1   32.0
-> >
-> > Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
->
-> Acked-by is given, but some minor comments.
->
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
->
-> > +void rtl92du_rx_segregate_hdl(struct ieee80211_hw *hw, struct sk_buff *skb,
-> > +                             struct sk_buff_head *queue)
-> > +{
-> > +       struct rtl_priv *rtlpriv = rtl_priv(hw);
-> > +       unsigned int offset = 0, pkt_size;
-> > +       struct sk_buff *new_skb;
-> > +       __le32 *rxdesc;
-> > +
-> > +       while (skb->len - offset >= RTL_RX_DESC_SIZE) {
-> > +               rxdesc = (__le32 *)(skb->data + offset);
-> > +               pkt_size = RTL_RX_DESC_SIZE +
-> > +                          get_rx_desc_drv_info_size(rxdesc) *
-> > +                          RX_DRV_INFO_SIZE_UNIT +
-> > +                          get_rx_desc_shift(rxdesc) +
-> > +                          get_rx_desc_pkt_len(rxdesc);
-> > +
-> > +               if (get_rx_desc_pkt_len(rxdesc) == 0 ||
-> > +                   pkt_size > skb->len - offset) {
-> > +                       rtl_dbg(rtlpriv, COMP_RECV, DBG_WARNING,
-> > +                               "bad frame at %u of %u, size %u\n",
-> > +                               offset, skb->len, pkt_size);
-> > +                       break;
-> > +               }
-> > +
-> > +               /* The last frame keeps the original skb. */
-> > +               if (ALIGN(pkt_size, RTL92DU_RX_AGG_ALIGN) >= skb->len - offset) {
-> > +                       skb_pull(skb, offset);
-> > +                       skb_trim(skb, pkt_size);
-> > +                       __skb_queue_tail(queue, skb);
-> > +                       return;
-> > +               }
-> > +
-> > +               new_skb = dev_alloc_skb(pkt_size + RTL92DU_RX_HEADROOM);
->
-> What is the purpose of RTL92DU_RX_HEADROOM ?
-This is for the radiotap header, like in usb.c.
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBuZXRkZXYtYm90K3Nhc2hpa29A
+a2VybmVsLm9yZyA8bmV0ZGV2LWJvdCtzYXNoaWtvQGtlcm5lbC5vcmc+DQo+IFRvOiBTZWx2YW1h
+bmkgUmFqYWdvcGFsIDxTZWx2YW1hbmkuUmFqYWdvcGFsQG9uc2VtaS5jb20+DQo+IFN1YmplY3Q6
+IFJlOiBbUEFUQ0ggbmV0LW5leHQgdjEwIDExLzExXSBuZXQ6IHBoeTogbmNuMjYwMDA6IFN1cHBv
+cnQgZm9yIGxvb3BiYWNrDQo+IA0KPiANCiANCj4gQ3JpdGljYWw6IDAgwrcgSGlnaDogMCDCtyBN
+ZWRpdW06IDEgwrcgTG93OiAyDQo+IA0KPiANCj4gW1NldmVyaXR5OiBNZWRpdW1dDQo+IENhbiB0
+aGUgUzI1MDAncyBvd24gY29uZmlnX2FuZWcgY2FsbGJhY2sgc2lsZW50bHkgY2xlYXIgdGhlIGxv
+b3BiYWNrIGJpdA0KPiB0aGF0IHRoaXMgc2V0cz8gZ2VucGh5X2xvb3BiYWNrX25vX3NwZWVkKCkg
+ZG9lcyBhIHJlYWQtbW9kaWZ5LXdyaXRlIG9mDQo+IEJNQ1JfTE9PUEJBQ0sgb25seS4gbmNuMjYw
+MDBfY29uZmlnX2FuZWcoKSBvdmVyd3JpdGVzIHRoZSB3aG9sZSByZWdpc3RlcjoNCg0KQWdyZWUu
+IEFkZGluZyBzMjUwMCdzIG93biBjb25maWdfYW5lZyBjYWxsYmFjayBzbyB0aGF0IGV4aXN0aW5n
+IFBIWSdzIGJlaGF2aW9yIHdvbid0IGNoYW5nZQ0KYW5kIGNhdXNlIGFueSByZWdyZXNzaW9uLg0K
+DQoNCj4gLS0NCj4gU2FzaGlrbyBBSSByZXZpZXcgwrcgaHR0cHM6Ly9uZXRkZXYtYWkuYm90cy5s
+aW51eC5kZXYvc2FzaGlrby8jL3BhdGNoc2V0LzIwMjYxMTA2LXMyNTAwLQ0KPiBtYWMtcGh5LXN1
+cHBvcnQtdjEwLTAtMzFiNWE2OWI4NWI3JTQwb25zZW1pLmNvbQ0KPiA8aHR0cHM6Ly9uZXRkZXYt
+YWkuYm90cy5saW51eC5kZXYvc2FzaGlrby8jL3BhdGNoc2V0LzIwMjYxMTA2LXMyNTAwLW1hYy1w
+aHktc3VwcG9ydC12MTAtMC0zMWI1YTY5Yjg1YjclNDBvbnNlbWkuY29tDQo+IGV0ZGV2LWFpLmJv
+dHMubGludXguZGV2Pg0KDQo=
 
-I could drop it, or add comments or a commit description to describe it?
-
-https://github.com/pkshih/rtw/blob/rtw-next/drivers/net/wireless/realtek/rtlwifi/usb.c#L582
-> > +               if (!new_skb)
-> > +                       break;
-> > +               skb_reserve(new_skb, RTL92DU_RX_HEADROOM);
-> > +               skb_put_data(new_skb, rxdesc, pkt_size);
-> > +               __skb_queue_tail(queue, new_skb);
-> > +
-> > +               offset += ALIGN(pkt_size, RTL92DU_RX_AGG_ALIGN);
-> > +       }
-> > +
-> > +       dev_kfree_skb_any(skb);
-> > +}
-> > +
->
->
