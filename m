@@ -1,54 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794236930;
-	b=WYcjl0hvRuXdvzdBZbSWQ/WEf+2VVLoMcRKyyipy48uThkrTXWDFFye54jMKof5YnhKc
-	 Zc7XdaniA2XWrF3XSj+tUVNoCQpM79nyslzV6ClfYvR5JSzE7MZkXZBQVfdRHsgQi3L2U
-	 WDnb2HejFouijUyrcWxesEI+kTli6Nykdqkj5NizdI7p7afJyVLWULNGxXm6cKPsieG3U
-	 UeUbGAANPBBF3Aj20ikr5mqcDxPRYB+mGA32WEVB6KiFhcbPJLEV5XS2ApF0DpzDl7Vi7
-	 lE5G2zS/BbLYiC0j20X1NKw98rEH7REj4K0P5v1eWYFnzMfksinTkxzXwQSsu3bRgig==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236930;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=R8sE85I3kWcWg2MaBpVdjh2qMLTFtvwwxKtfpDZvQOg=;
-	b=2opDY4V8ZKNZ7fMZ9SCokZy1TsvP8p2ik6gaOsNuAzyppYzVbo9PmhMbCz3xeG5Fnr1a
-	 2EWR6LqUMpRH/h2jzkGG7vZ/+St2uomxvC+pxirH69vxuCDyNmKlmImAO5CJ5Jzen3bhj
-	 xKXeZxFSVBylhXIi6LlHAsOtEwvMCMDXIpEULLYyoy/ZF0nLTbTcn/hJ20Ypg7y5C+DXT
-	 THBoFGW3aq+I+Sd+lFlSk+Gzafxo0NA723+yUtuijT4IZl1WMjfDO27vk61AUACgN7j3I
-	 qhOjrIjeAyE5lleFLG56Oy4NSOzk5V6roaZhdqaw2/6bcxroed86OkvO67vFo7wd1YQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=efl5Gv0m;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794236931;
+	b=yfOCM/CZB4MsPaIGX9JrQfEywj/oywWTqzuXli0tv2mGhoBNY755lPSp39kR5rS7rVZD
+	 4GL5p2Lx5hi4ZI2kV5iMqsiae3XwuaSqSnKmVbEYNHp6GA+BjEKwfFqumR43rC4cC9MPp
+	 ouOOS+rqfghwjQT/gJGm/p+KyKB7oAFnwvvnd/JTBKa+pFRSSofi0X3qKohpnWuiYAa8q
+	 /5DeLWak0qA/+wxAJ5S0BDNiEu6Nj21VjPuUbLfV2YHjBrG2l3WjFo+Ejqz7Uujkp1Bz6
+	 s+Qz2i4PScGAVTZSmt1HEK/Mqv8gUnraRpMuvGrDj9vXb62nwt8siCx80Hqe8uMydnw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794236931;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=0XR4AmvsTRJDk2bL63haNEu1dkC2FBPTHHfjz2SdTGM=;
+	b=bXHxoL5NjXqow5ZZmNX+YwGuj4Niwr9uf+HDN5KfnJSteZwxsvyLJfXztZGNKphzqIbB
+	 qP1DL662ZOq5uG2Mr4fQaj6YCrrkM0VhLNviJF4c3Qk1UvhAxvn2Lm0EMOwhR3IvdZGjR
+	 g6BnZqnduGaNCiBTJmncllliItaRtGra1EfOWeau9L7rrLyxSzD15NPj80CIy5yhMEE5D
+	 wPCic7znJ26tktQeB2/531TMTHQthO+AmHyMRyqp2JVvNz2RokeGJ0BXAzxNeXOmUETBO
+	 PKAWWACc60PSTGwybl/wno1BCXCr47H+tGtFTG8JR15/wMq1G+AFim/iBzwHghiQ7Vw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=SNnuC0Iu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 78798606A330;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE419606A323;
 	Mon,  9 Nov 2026 15:08:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE419606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=efl5Gv0m
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3AFB91F0089F;
-	Mon,  9 Nov 2026 15:08:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794236930;
-	bh=R8sE85I3kWcWg2MaBpVdjh2qMLTFtvwwxKtfpDZvQOg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=efl5Gv0mbFPPoLSWZXOLQhJPsvU69QnI6l3Mqzrvfunc4KegKUjmmbKH8l47VI1tj
-	 suwx62bm3cdUxkC/m48qAmxaHeWlp03v2wqAuqNJcpHSrhUgf0tWvFftK79TnsX+pH
-	 9QvW1X5Jh8sg017fyv4S+qWvraiH2SDAsOaBAHayTZ0lbCQu7VbOzfjGzxcPKLMs87
-	 G8FmsUK1cHwoDMTXprKXl1bAVy3LO+6lhBQZkAYwVSswFylTfo2yK7L2u7Xxl3aR9h
-	 xdq359cLbTFQZfGv2RbUwWRNraakkx2SqrCI4VzT1mwZgtrHm93eO8qVpVR7dKvvw9
-	 0yWM4ICPJoV5Q==
-Date: Mon, 9 Nov 2026 16:08:46 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: Andi Shyti <andi.shyti@kernel.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] i2c: dev: fix blocked adapter deregistration
-Message-ID: <xkcyszlk7ce6rdfsbfihlu4gyi52kgimeftruspl4tdingjc74@llcpfjzkwbis>
-References: <20260827102043.673273-1-johan@kernel.org>
- <20260827102043.673273-2-johan@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=SNnuC0Iu
+ARC-Seal: i=1; a=rsa-sha256; t=1794236909; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=SjvsT2i9i0PcMSCVpJe85xMuEM3O1P+91U+lvfYncEXPwAjvw1E3WivFF1L8pl2D2oKObnWA93u9Km20+t5h3iZE/NTYfvWjeAKu4kB0U2w10JpFeU+y6JHLhUcCm8GkYwuvCFYsbqvtrA5zq0RTGpglG2jOiAahyWNSfF8+dxg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794236909; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=0XR4AmvsTRJDk2bL63haNEu1dkC2FBPTHHfjz2SdTGM=; 
+	b=eHvn9XBTX1yqYFrIBQ9a9yzGkMkIvHnk141qNRFqiwYpRl5Mb/rRczjnqws4RflwfcSxL5AcObMM1kNdb0/w6GRw2iSKeCx3EDkQioLa+URAXo/PikrHhSr6vx/qR7IG7bghLiVcsGPXWQHj33hLArCiTnGe/VdzH+y3iQheVz0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=SNnuC0IuJSBPxLfttVXB0x29XpSsGyc6Yhf1nNKY0rGzc2mtxXWH4uVMi+Gvk70SCM8JCwnYyLJ0HaFC31oD2XHOWLvb3wTOa2Xw0YBBE7/RzW3KJQ9gNaTPYmT9KUcwtEX+LwP9886rTzlAcITuu5JKOIVG2pJ1l/4rnLcedimIIX2kT5wn+OgSQMOh/Bdj08i8LhY1Sjt6PkH1MeW8Qe4WPzktVWBspUlcjZF3OXRQ2dUfrAd1rSe8Sr7fG0O6SBr5YJ78bOpXSwzQ5IjII5NauFwEyu16kvMtVNIWXl5dP6Zj4SOxgh4xsb6bU3G0M9wJxNZjLMzDSGA6rDIFPg==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=0XR4AmvsTRJDk2bL63haNEu1dkC2FBPTHHfjz2SdTGM=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794236908207191.62924220581942;
+	Mon, 9 Nov 2026 07:08:28 -0800 (PST)
+Message-ID: <7d44c7e901c44558fc656440078cd869b06cc2a4.camel@rong.moe>
+Subject: Re: [PATCH] platform/x86: tpacpi: Mark charging LEDs as safe
+From: Rong Zhang <i@rong.moe>
+To: Josh Triplett <josh@joshtriplett.org>
+Cc: Mark Pearson <mpearson-lenovo@squebb.ca>, Henrique de Moraes Holschuh	
+ <hmh@hmh.eng.br>, "Derek J. Clark" <derekjohn.clark@gmail.com>, Hans de
+ Goede	 <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=	
+ <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, 
+	ibm-acpi-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org
+In-Reply-To: <b2ca4d95-7b66-4a8a-8e47-84ab0e052bd1@app.fastmail.com>
+References: 
+	<a14640f58be48d4912ce5808faea1402ad7f7ad0.1793906572.git.josh@joshtriplett.org>
+	 <19f5b65e494ed710a65927311cb68535c87953d3.camel@rong.moe>
+	 <au5nUp4extfupCpS@localhost>
+	 <20d824152b1a889b636ef9877b4d1a8e06dcf460.camel@rong.moe>
+	 <au-O9sHQNnHxla_e@localhost>
+	 <5219f8fbd637a3b2603ffcca3e6cd624db982aba.camel@rong.moe>
+	 <b2ca4d95-7b66-4a8a-8e47-84ab0e052bd1@app.fastmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Nov 2026 23:02:18 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,100 +77,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827102043.673273-2-johan@kernel.org>
+User-Agent: Evolution 3.62.1-3 
+X-ZohoMailClient: External
 
-On Thu, Aug 27, 2026 at 12:20:41PM +0200, Johan Hovold wrote:
-> The I2C subsystem allows controllers to be used by non-child devices
-> that may remain registered after an adapter goes away.
-> 
-> To handle this, adapter deregistration blocks until the last reference
-> to the adapter is released. Albeit unorthodox, this is mostly fine for
-> the vast majority of controllers but can cause some trouble when
-> controllers reside on hotpluggable buses.
-> 
-> Specifically, userspace can prevent an adapter from being deregistered
-> indefinitely by holding an i2c-dev character device file open. And with
-> USB attached controllers this prevents further hub events from being
-> processed by the parent hub until the file is closed.
-> 
-> Fix the i2c-dev implementation by dropping the additional reference
-> taken at open() and using an rwsem to make sure the adapter is only
-> accessed while registered.
-> 
-> Note that before commit 611e12ea0f12 ("i2c: core: manage i2c bus device
-> refcount in i2c_[get|put]_adapter") an adapter going away would instead
-> have resulted in a use-after-free.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-> ---
->  drivers/i2c/i2c-dev.c | 95 ++++++++++++++++++++++++++++++++++---------
->  1 file changed, 76 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/i2c/i2c-dev.c b/drivers/i2c/i2c-dev.c
-> index ccaac5e29f90..0940070c0317 100644
-> --- a/drivers/i2c/i2c-dev.c
-> +++ b/drivers/i2c/i2c-dev.c
-> @@ -28,6 +28,7 @@
->  #include <linux/list.h>
->  #include <linux/module.h>
->  #include <linux/notifier.h>
-> +#include <linux/rwsem.h>
->  #include <linux/slab.h>
->  #include <linux/uaccess.h>
->  
-> @@ -41,11 +42,17 @@
->   */
->  struct i2c_dev {
->  	struct list_head list;
-> +	struct rw_semaphore rwsem;
->  	struct i2c_adapter *adap;
->  	struct device dev;
->  	struct cdev cdev;
->  };
->  
-> +struct i2c_dev_data {
-> +	struct i2c_dev *i2c_dev;
-> +	struct i2c_client client;
-> +};
-> +
->  #define I2C_MINORS	(MINORMASK + 1)
->  static LIST_HEAD(i2c_dev_list);
->  static DEFINE_SPINLOCK(i2c_dev_list_lock);
-> @@ -92,6 +99,11 @@ static void put_i2c_dev(struct i2c_dev *i2c_dev, bool del_cdev)
->  	spin_unlock(&i2c_dev_list_lock);
->  	if (del_cdev)
->  		cdev_device_del(&i2c_dev->cdev, &i2c_dev->dev);
-> +
-> +	scoped_guard(rwsem_write, &i2c_dev->rwsem) {
-> +		i2c_dev->adap = NULL;
-> +	}
-> +
->  	put_device(&i2c_dev->dev);
->  }
->  
-> @@ -134,10 +146,16 @@ ATTRIBUTE_GROUPS(i2c);
->  static ssize_t i2cdev_read(struct file *file, char __user *buf, size_t count,
->  		loff_t *offset)
->  {
-> +	struct i2c_dev_data *data = file->private_data;
-> +	struct i2c_client *client = &data->client;
-> +	struct i2c_dev *i2c_dev = data->i2c_dev;
->  	char *tmp;
->  	int ret;
->  
-> -	struct i2c_client *client = file->private_data;
-> +	guard(rwsem_read)(&i2c_dev->rwsem);
+Hi Josh,
 
-I think sashiko is correct in its comment and you should limit the
-critical section to until right after i2c_master_recv(). Same elsewhere.
+On Sat, 2026-11-07 at 13:42 -0800, Josh Triplett wrote:
+> Rong Zhang wrote:
+> > On Sat, 2026-11-07 at 12:49 -0800, Josh Triplett wrote:
+> > > If that is the primary concern, would you accept a DMI-identity-based
+> > > allowlist?
+> >=20
+> > I don't think you need this if we take the module parameter approach.
+> > Usually we don't want to introduce a infinitely-growing DMI quirk table
+> > for some niche use cases.
+>=20
+> The module parameter approach seems fine, as long as it doesn't taint the
+> kernel to use.
 
-Looks good otherwise.
+I will go ahead with the taintless module parameter approach as long as
+Mark is not opposed to it.
 
 Thanks,
-Bartosz
+Rong
 
-[1] https://sashiko.dev/#/patchset/20260827102043.673273-1-johan%40kernel.org?part=1
+>=20
+> > Meanwhile, I can't totally trust your LLM's conclusion.
+>=20
+> Extremely valid.
+>=20
+> > The ACPI part may
+> > be correct as understanding decompiled ASL code is not hard for an LLM,
+> > while reverse-engineering EC firmware is completely on another dimensio=
+n.
+>=20
+> As it turns out, the EC firmware appeared to be unencrypted ARM Thumb cod=
+e,
+> and LLMs are pretty good at disassembling these days, too. But still, ful=
+l
+> support for "can't totally trust". The ideal solution would be if someone
+> from Lenovo could confirm the conclusion.
