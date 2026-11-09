@@ -1,58 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.63.66.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794249905;
-	b=ZkOO1PhdAhJB9iygfWY0y3m3yuOtcZ6WbmPQN8HD+9ar6OnCsonnmd8u+tVBw/MLNhNA
-	 8dDnI8KPLvAPrGGOzDJ2amWeYHfAm2wekdcUzUOCcmLebmzgg3+s3LoNeP06gQlEkOPKM
-	 FngQMYmLF+BH3Ej6tfCprgBB2rqdJe+mJXPSIjU1NsuduTCkdgXs/3HnvPRmrkv+2d4Lp
-	 GAKCYVentJ43Oe0TvOsqSM7D6uO4gVMHT4HZp4YASHtAKHCrGWsuzS23yka6yUZKs8W2p
-	 kfW0k1C+r3nR6vdMQRH24g4U/Lh/o5Y2nbshRMGc8dBo64MmhgaH8UKWGBa3MsO3GMQ==
+	t=1794249997;
+	b=S7P9Uxc4Qp2o+Bq64yjXlGh169WMIpt8Pdg5PzQN53qNJdEEha1IiJt6nBMxcY/O+Chs
+	 ltkN5wvchH4FCR1H0wscfpQdcRWBJS2FaFLrGKlZNU+ikKQQA6QDapVhNH9b/bN3Nrwdv
+	 7CcRSX1rTmQvp4ZmrUW7Q8ITOh4x8isRNX8Ibk3VsQxCLzB8rwzZxnC+6qlsK5ohR3ISu
+	 rlXqmranyRHE6Qh4rOp7sWrs6j0bSROwGx8hE1g8x2XM/IhdMB4n3/Ci/DEMPDD/8IAIT
+	 j1FhjGs0q3tseI4Qgimpa+FcSIgAZZaxI0jpRqdejb8rm5xT3rdcUCaq/IWAY/s8IrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249905;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=bEdb1aqtr3kgW3GLcjmKjP4faluOT4/pgNlM7Hd0DHI=;
-	b=jDJOoA8OPfmbMQ53a7JgOKOybs8JDVhdeq8V9oUgqaJdirxKZCY+VuHluJPW28kjxbeK
-	 5l6rH8TVq7LlhgWw+7OdRjSxbzu3Fmifb/MjVj1khsPH6hmRUuEWEv7woapOrgeKg3Ybc
-	 U+H4XIKWu4uULC6KenBvFzP92NXGaFHnKAFQ9PNwyLnftPR/DKNXXhOYrAnLAi5vRS34Y
-	 uSW0FMhJYFAsGdizOBFsHHkdYncRvKVdlLwH7u3fLOJNsbAqUNDPtXG2GwUcWLRBGEu1K
-	 VoY8jhtfFy1EkCCyTe6IFX704GvzJJt4UmO2kiBo7DAZRJp3JRrJD9nLdY7/cHVfFfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794249997;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=ruyz/2K4wlVY4cyIFsxKJQ+uv+8W7GCsg6g5SZEw66U=;
+	b=ViM17cQVDaS0UPO0PBh5zvx5qMJXMxj/E0Me1uPSt4/Y9sE5bFcC31lHJZpIQ2EKbRbF
+	 DwrND+nIgrIkvJH7//9RhpPftdREbIl6POA0LQoNZ3p1aRFplh8JBTm2ogq0ZdaiaB0kR
+	 fASQkeQqRsqWnCQyehfW8vufAwjfEdkjoYbzjQPciD3eifWfOcI5mlAIMfEnNzSy1EcmL
+	 mQ7yDj9PMWgxKQ7MDt3MQ5aSkLQSIDep2IdsK64tl5lrHR9/krVhRt0FmxdHwinsYhFcL
+	 M4Dr95IBe8EG4raOsuo1ZEpHhrP7+yOa4QbEgpLXZZ1NvCJp7oKZqCIAvKvyuxp/x/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Djr5FASI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=hallyn.com;
+	spf=pass smtp.mailfrom=hallyn.com;
+	dkim=pass header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=R9+SjjOM;
+	arc=none smtp.remote-ip=178.63.66.53
+Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C24B606A321;
-	Mon,  9 Nov 2026 18:45:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1C5606A325;
+	Mon,  9 Nov 2026 18:46:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD1C5606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Djr5FASI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67C0E1F0089F;
-	Mon,  9 Nov 2026 18:45:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794249904;
-	bh=bEdb1aqtr3kgW3GLcjmKjP4faluOT4/pgNlM7Hd0DHI=;
-	h=From:To:Cc:Subject:Date;
-	b=Djr5FASIrZokbAR07zxKHRKGrVo0/+EC2r2qpovpyp+MRe9z3Ud25xUTQtUTfQfM6
-	 hnUd8klLrSn3YYUAJpHueczC6poMq9teoNnAcmM+Unk+XAPRikBTgDE+MEiip6hANZ
-	 Ep3PIIo3czMQISTGCm0fbcAfjukq9ka8jIY4SYHO0Iw/HmAlGuU0drdx+U4b7YVaBD
-	 9xRAp/6MecTYMjvRvL3pvynyFv10JkoJHeqokOcXVSRkrllasBRPhBadVXYtbtNDm/
-	 DXuw4zAckartT8GTvGx/mDvm+R1zimhqjmHCDkOq9mNg7VX9aHrm5YwnnfQkh0BV8p
-	 SIdtcPnDRlTpw==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wei Xu <xuwei5@hisilicon.com>
-Cc: linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dt-bindings: clock: Convert hisilicon,hi3519-crg to DT schema
-Date: Mon,  9 Nov 2026 12:44:52 -0600
-Message-ID: <20261109184453.449141-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=R9+SjjOM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
+	t=1794249993; bh=6kVwTzI1/KcDLMSc20Gf48sZcIqocBBJVzv0nSohHRs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=R9+SjjOMzRhZ05/CIvcJT2p8lmE7XRQKOFIX21zFe9O5hD12H4H1DPMPqDz6CGn/d
+	 +EN7gyBWrcbWHdu58Xgors8T+iHxqYvDpaZLBwZMTV4nKMlOE0JPbIUhUGoav+LpIJ
+	 4cWNeeCAhiLPpXPydpgjO9eowbgGlBdMYCxUUO6GJrf0QUOcyCqBPqWWw3U9/FvmCh
+	 +VJHBAoRWzpOeVcQzbvtlOA/rXPpFxHBCRh1S/bXcX1SbMjIl1MfaCK+LR8WIOMGO5
+	 I5/3Ksz0FyorAPpSh5U4f171zLiOwSWYne3a2fHuMlXz0y1gnhPhbfQErGurC/IGJP
+	 AbMtvKAc199jA==
+Received: by mail.hallyn.com (Postfix, from userid 1001)
+	id 8DAE69CE; Mon,  9 Nov 2026 12:46:33 -0600 (CST)
+Date: Mon, 9 Nov 2026 12:46:33 -0600
+From: "Serge E. Hallyn" <serge@hallyn.com>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: kees@kernel.org, akpm@linux-foundation.org, david@kernel.org,
+	Jinjie Ruan <ruanjinjie@huawei.com>, ljs@kernel.org,
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+	surenb@google.com, mhocko@suse.com, mingo@redhat.com,
+	peterz@infradead.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com, paul@paul-moore.com,
+	jmorris@namei.org, shuah@kernel.org, brauner@kernel.org,
+	alexjlzheng@tencent.com, jannh@google.com, jaime.saguillo@gmail.com,
+	elver@google.com, blbllhy@gmail.com, bvanassche@acm.org,
+	pjw@kernel.org, broonie@kernel.org, debug@rivosinc.com,
+	tglx@kernel.org, aleksey.oladko@virtuozzo.com,
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org, morgan@kernel.org
+Subject: Re: [RFC PATCH v2 2/3] security: Add PR_CAPBSET_DROP_MASK for
+ process-wide bounding-set drops
+Message-ID: <avIVCf1ok6Xyfii0@hallyn.com>
+References: <20260929130200.1638343-1-ruanjinjie@huawei.com>
+ <20260929130200.1638343-3-ruanjinjie@huawei.com>
+ <atjN3JX7sWx9kpQ5@hallyn.com>
+ <avHfm5/mVtuN/oPW@hallyn.com>
+ <avIKUzCKAkfC-wuk@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,145 +80,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avIKUzCKAkfC-wuk@redhat.com>
 
-Convert the HiSilicon CRG binding to DT schema format.
+On Mon, Nov 09, 2026 at 07:00:51PM +0100, Oleg Nesterov wrote:
+> On 11/09, Serge E. Hallyn wrote:
+> >
+> > Hi Oleg,
+> >
+> > please see below.  Do you have any issues with this use of sighand?
+> 
+> Hi Serge,
+> 
+> I already tried to look at this patch, but sorry, can't really comment.
+> 
+> I'll try to take another look, but can't promise much, I don't understand
+> the problem space (I could never reallly understand capabilites in details).
 
-The allowed compatibles was not very accurate, so update them to
-match the users. Drop the hi3516cv300 compatibles as the platform
-has no DT and only a few drivers (pending removal) upstream.
-
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- .../devicetree/bindings/clock/hisi-crg.txt    | 50 ---------------
- .../bindings/clock/hisilicon,hi3519-crg.yaml  | 61 +++++++++++++++++++
- 2 files changed, 61 insertions(+), 50 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/clock/hisi-crg.txt
- create mode 100644 Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
-
-diff --git a/Documentation/devicetree/bindings/clock/hisi-crg.txt b/Documentation/devicetree/bindings/clock/hisi-crg.txt
-deleted file mode 100644
-index cc60b3d423f3..000000000000
---- a/Documentation/devicetree/bindings/clock/hisi-crg.txt
-+++ /dev/null
-@@ -1,50 +0,0 @@
--* HiSilicon Clock and Reset Generator(CRG)
--
--The CRG module provides clock and reset signals to various
--modules within the SoC.
--
--This binding uses the following bindings:
--    Documentation/devicetree/bindings/clock/clock-bindings.txt
--    Documentation/devicetree/bindings/reset/reset.txt
--
--Required Properties:
--
--- compatible: should be one of the following.
--  - "hisilicon,hi3516cv300-crg"
--  - "hisilicon,hi3516cv300-sysctrl"
--  - "hisilicon,hi3519-crg"
--  - "hisilicon,hi3798cv200-crg"
--  - "hisilicon,hi3798cv200-sysctrl"
--
--- reg: physical base address of the controller and length of memory mapped
--  region.
--
--- #clock-cells: should be 1.
--
--Each clock is assigned an identifier and client nodes use this identifier
--to specify the clock which they consume.
--
--All these identifier could be found in <dt-bindings/clock/hi3519-clock.h>.
--
--- #reset-cells: should be 2.
--
--A reset signal can be controlled by writing a bit register in the CRG module.
--The reset specifier consists of two cells. The first cell represents the
--register offset relative to the base address. The second cell represents the
--bit index in the register.
--
--Example: CRG nodes
--CRG: clock-reset-controller@12010000 {
--	compatible = "hisilicon,hi3519-crg";
--	reg = <0x12010000 0x10000>;
--	#clock-cells = <1>;
--	#reset-cells = <2>;
--};
--
--Example: consumer nodes
--i2c0: i2c@12110000 {
--	compatible = "hisilicon,hi3519-i2c";
--	reg = <0x12110000 0x1000>;
--	clocks = <&CRG HI3519_I2C0_RST>;
--	resets = <&CRG 0xe4 0>;
--};
-diff --git a/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml b/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
-new file mode 100644
-index 000000000000..c0b7a5521fe3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/hisilicon,hi3519-crg.yaml
-@@ -0,0 +1,61 @@
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/hisilicon,hi3519-crg.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: HiSilicon HI3519/HI3798CV200 Clock and Reset Generator (CRG)
-+
-+maintainers:
-+  - Wei Xu <xuwei5@hisilicon.com>
-+
-+description:
-+  The CRG module provides clock and reset signals to various modules within the
-+  SoC.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - const: hisilicon,hi3798cv200-crg
-+          - const: syscon
-+          - const: simple-mfd
-+      - items:
-+          - const: hisilicon,hi3798cv200-sysctrl
-+          - const: syscon
-+      - items:
-+          - const: hisilicon,hi3519-crg
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#clock-cells':
-+    description: >
-+      The identifiers for the cells can be found in:
-+
-+        dt-bindings/clock/hi3519-clock.h
-+        dt-bindings/clock/histb-clock.h
-+    const: 1
-+
-+  '#reset-cells':
-+    description:
-+      A reset signal can be controlled by writing a bit register in the CRG
-+      module. The reset specifier consists of two cells. The first cell
-+      represents the register offset relative to the base address. The second
-+      cell represents the bit index in the register.
-+    const: 2
-+
-+  reset-controller:
-+    type: object
-+    properties:
-+      compatible:
-+        const: ti,syscon-reset
-+
-+    additionalProperties: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - '#clock-cells'
-+  - '#reset-cells'
-+
-+additionalProperties: false
--- 
-2.53.0
-
+Thanks.  I'm mainly wondering about the storing of this pending capability
+bounding mask in signal_struct, whether that might have any unexpected
+side effects.
