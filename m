@@ -1,88 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253771;
-	b=C7Bfa4BnopVO2yRzZwt9+XfwoVFoelz/nVsW8nOeEL5VsAMUlLCTFtOEsgBprPm3E/N+
-	 dXwX1OPz0Sg7ti0lI22R/v4DwyPLdybIGvlEACobNONqSat7u8TpFDNmuj3T1dnZyK8Nf
-	 C+sARRB/HcbHyolvAp/D/lh8HvVGxlqkgM3i96f1Xod9HUn/0sNfk3SkWhJ+K+KGKCmk6
-	 9VqC9Yg57sznsoNAPcHKKKW36CCfCBW6O/4SFf2b8RZHSA/Wd8/gTvBxgPMpe9O03a9i9
-	 nevcn1QZzi1Lu+xgxmu0qhyNAHlIkUoUFnaPPO9g3q4rmU0NEFoS8K9GNnyjABGAWaw==
+	t=1794253785;
+	b=tCjmAxk2N+XFjXgX1H2/Jel9uHF6tOLxp9hTLs0jtkMmWJsCZxVwrRsEduoU5ui+iGUh
+	 Yu2QXbNLIBDVT30HLjVWspGFbELRZKdWishv0n6HTCpjeVX7OSV8iEPqRb++bNRgMvbGb
+	 P5qohoLqcBS0BpkUD31TEKSWg+T1T29ooIZZEgES2hg3F6t5PiI30aIRZtx6JF6ikUBBC
+	 AZg7gAPCNjdO6zpOKBFRwyDyR3P8itDl63i0qUzMlPzr6JvHFX5suCEnqVY2CA/jRP+U0
+	 FVt0cFk1ZXtTlswaUv/sr+8va1EVrZZ9GV4/a8ojsxt7KHhNmEBb5RlBzOy+eKfPM7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253771;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=S7QCKovtSRmz2zqep4Ju41CT+lBr0nj7AVsN7jaK33I=;
-	b=xvh+7RpWrfmOgCFf+5ynw9t3AcBI9fGnpgMjbuHZ/zAIRrG9NgWmSIlSWTvDpVmfCAee
-	 5b9S2GqLpLuQNyAM32SWFLfPiYBmnmqP/IosvUO6UQi1w7WNkBviyTkDDAg3AVPEbRn5V
-	 v+GAUqzjBqDVbOvwFCU/WcKXAjeBzktFfa5NUf6XtBp8duL4imIqbzrdOcSHaSZaVmSfQ
-	 CNt6bfRj79JGajxFUeYa/MsbURuO3z8R8n/++zmzVE67LS6pfdX6//p3oo2fq2VqZKOz4
-	 JTaeQ1tcNmNzwpqTFpvg+dhyMOsn4qLh3DBvaulcyrsLTj4V2mXflI2NZoNEnrmbHjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253785;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=M8CHeRKzRhc8Z/RcnT9AUUayDTie+d/p213vXc4rCPs=;
+	b=5tjoQkbDpwTCV+uMu8Mgookr3g0+kb9jvgmAhdPBwdwXerjJazez6FNY/zmFIrDJvb/f
+	 l8ELoM3VIo43KNXLm3pTwyPMgnkM50IORDkMSZK5eIR0h2OtMfaCSUNGs1C3GfUkXG1S5
+	 9wFMCKcslgBNxgkHmNQpz6pseJTUslSUE+r8mysoVIOR81su+AR/jGQ2KZBAsfyJN1T9p
+	 l4a0Rdbr0ZduZW2yJJBs13hmHU/DLPyVzRUuO675a3VN4OgRwAyKWNQl8usVpfkdKVU7O
+	 DkYB8thpioPd1pEO680G0Z6VFMF69bBTV8li/iLu5W4y5DSkaNp6uqH+tXd7Qeny3yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=dnsh+z96;
-	arc=none smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iusaTTqz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35CB606A33E
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:49:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F35CB606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45584606A33E;
+	Mon,  9 Nov 2026 19:49:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=dnsh+z96
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-945ae2daa66so118116785a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:49:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1794253769; x=1794858569; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S7QCKovtSRmz2zqep4Ju41CT+lBr0nj7AVsN7jaK33I=;
-        b=dnsh+z96MhkHoxK/3+cgCXE2K7av8U/waEdp4BPWbPltsVOV9WICfQ90cMdOCEsRnV
-         HgL3afFrLi1/LJgWhmavusyfO2vN2R6qLm86fmja+GOMaT+eS7fWBnht0A8B5BGI3pu4
-         0mkG+CBTw84Ra6RyucKNgyDvSThrLqgDidSqZQU4hyQU3QoLTnIKHbvya7ioa92/f2bZ
-         8XLPrI09ZxQa5l/dLe5SgdyFuUv3Zfa0hso8KXLU8dV+7pg0HaOVXtP3Rh9wfmH6jTNn
-         kzh4YjmzBJ1UEayLAtzjHZegRAgVMqlVVdNMWxaUADtMGKRv9D1hyk8BvWWRtfFvr2aT
-         4DGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794253769; x=1794858569;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S7QCKovtSRmz2zqep4Ju41CT+lBr0nj7AVsN7jaK33I=;
-        b=U024vjgSm4viKzcJR+oNC7y3HdZw1/LRJKObsxldAyNX1nBIdn7oNIxGOcjll55mxJ
-         VmVx/QdpqtunsKzB39AANE8J7iFhZDWAcwRP70jHfM7JyUG7UtDnL1k1Ic560TMzEXIW
-         twIWoflrhN0uzY/AXM0Y7DfwmZGMYqwGlyQ84jwLo1tRicBMM6pd6nCheMEaOWVvn9s0
-         5+wtz/IIpib5u+whfN4yZrHca6o4sZXn2/adMX5ovvyq3SD05ST5DdASnyqND76rhnJt
-         dpQiwoqNKhdK0Q6Y4W+SpJZpmyN+Wuqd1zSnXpZAD32PBfpmEnQfoRO/uEURw0OfndBq
-         JDHA==
-X-Forwarded-Encrypted: i=1; AL+hErGd7ENZqxBBjHrlplJjT/pSFC7ESGTded8uczcZwgJkByQTp5K/F4X/mjzVpbgm6K/N81zZI7Q7j7Pxamc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/j6GLzKJ353e1CHpPTDMbLlt+NXXFqTrlsHweyKnMpy4w10yfC
-	2lZr/uKZJXodKsKjuHFdy5+ewLfEhZYIoGyfI5e+B0ZUQkGdjm//XK4siVOncUpGd6E=
-X-Gm-Gg: AYBFou29PobmO4mvasl8Rjkmb/+9B1YJUzF7bnkGbu9MzNlr8ihM4Gi0v8W1z88i4Nz
-	2z/lOQWoyZxe08fGNdZXZW6qLS8YyZbATR4xX/tyN5RfWQk8uhWLGCcJPEpnOCVKb/LPTiv1NB8
-	VWyeS0Vt+S1hiae0O1xc8IU5Ki9hotSOaPQDAcOywrahGhuV95R/0q92f5o3MYgU2eOn8giSQgr
-	Dp+PWvyeVzm1rO2WxkxSFtsradjsNk729F/BOjuuhLZJ/yQzXgltzuZbcCkTrwqHgGAYRi6nJNP
-	sgutgShVJd6aCYxaix2uPInnMh7T3A5OBraTw6Pd9JRE0H88X2yKBm6ytWHZq3UDyKXS/zyP2aP
-	Sspx+2iwYrf5X8yNihbzJxPgOTo6LZERYZOEwIluOG2fZmOzkbDlO4Z6cUpAtLdnLGoRiDdZItB
-	oh+f0jJUyAONr59MgDR0vb3p0/3o/5EznzYrFI6KVzR3UX/S9r4N19sN6iEM6udMXE/aVBJC/PK
-	XLysXlf+C4vl7V52RZGsV0wLES49vga2FcO6LOh+No7DxgKXAAiEU8UIeHm4k0sbbRrMlnmPJLB
-	RrIXFx89bW+2YHvizV683oDuMoa88DRaHcaCjUQLouKzuQ==
-X-Received: by 2002:a05:620a:2687:b0:943:faab:a15b with SMTP id af79cd13be357-9479f31c515mr87878885a.32.1794253768911;
-        Mon, 09 Nov 2026 11:49:28 -0800 (PST)
-Received: from toxicpanda.com ([153.61.196.251])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e73ab4bsm50511785a.14.2026.11.09.11.49.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 11:49:28 -0800 (PST)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Mon, 09 Nov 2026 19:49:10 +0000
-Subject: [PATCH v9 1/3] userns: don't let setns() lend CAP_SETFCAP
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iusaTTqz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E525D1F008BC;
+	Mon,  9 Nov 2026 19:49:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794253784;
+	bh=M8CHeRKzRhc8Z/RcnT9AUUayDTie+d/p213vXc4rCPs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=iusaTTqz1Na7CJKZFJquB0SwxpTtCdzBF9H99sfdDdiFhc0OZtg0g8BhetnSGwlex
+	 6blLbl9sREAQmjav8D/D+ARm9OckdY3U+8r2XvmzUVpzVXqs2s9gsJdBHCeFQ4bjyA
+	 EwDx3+TbjN9aeXd7LXLuMJvVZNjO851NRt+mGDjfASLU/1yqAQA8CDEAPbocxprMTN
+	 AUB6ASJ8R175Wy7OCXduDxcAsDcBm9Mv395Mw0lVIEWl+R9er6FFzescE+EoPyCbvs
+	 D1nqcVVdMcbMVuN2+ivOZQsmK5A2Gq2ERJl9OyUDeaX0SxjOte5XThlpmVayK9KNgy
+	 vXL+aYY98vHBA==
+From: Jiri Olsa <jolsa@kernel.org>
+To: Masami Hiramatsu <mhiramat@kernel.org>,
+	Naveen N Rao <naveen@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Jason Baron <jbaron@akamai.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Alan Maguire <almagui@kernel.org>,
+	x86@kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org
+Subject: [PATCH 02/13] jump_label: Index text reservation lookups
+Date: Mon,  9 Nov 2026 20:49:05 +0100
+Message-ID: <20261109194916.1089703-3-jolsa@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109194916.1089703-1-jolsa@kernel.org>
+References: <20261109194916.1089703-1-jolsa@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,146 +71,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-b4-setfcap-userns-v9-1-0d3f00976ce2@toxicpanda.com>
-References: <20261109-b4-setfcap-userns-v9-0-0d3f00976ce2@toxicpanda.com>
-In-Reply-To: <20261109-b4-setfcap-userns-v9-0-0d3f00976ce2@toxicpanda.com>
-To: Serge Hallyn <serge@hallyn.com>, Paul Moore <paul@paul-moore.com>, 
- Christian Brauner <brauner@kernel.org>
-Cc: James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, "Andrew G. Morgan" <morgan@kernel.org>, 
- Serge Hallyn <sergeh@kernel.org>, linux-security-module@vger.kernel.org, 
- linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, Shuah Khan <shuah@kernel.org>, 
- linux-kselftest@vger.kernel.org, Bradley Morgan <brads@mainlining.org>, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1794253763; l=4765;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=MyoI12J2mS6a6d5ICXvJmRkK2bMGU7JBMjtmZLyO6gY=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QGSqonFJbbSZ2NZMQQ+dnrbmFs4WNW7xsdPuq7j31htqLMJlL5iWw6jhY5KJWRmspfONjO1v8tf
- e21CpO1x36Q4=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Content-Transfer-Encoding: 8bit
 
-A uid 0 task that gave up CAP_SETFCAP can get it back by joining a user
-namespace that another root task created.  Commit db2e718a4798
-("capabilities: require CAP_SETFCAP to map uid 0") keeps such a task
-from mapping uid 0 into a namespace it creates itself, because tasks in
-that namespace could then write file capabilities for its root user.
-setns() gives a joiner a full capability set in the namespace too, so
-it can do the same there:
+Text reservation checks scan every jump entry. Build an index sorted by
+code address for core entries and use binary search to find the starting
+point near the requested range. Keep the original table sorted by
+static-key address for updates.
 
-  task A: uid 0, full caps          task B: uid 0, no CAP_SETFCAP
-  unshare(CLONE_NEWUSER)
-                                    setns(A's user ns)
-                                      allowed, euid == ns->owner
-                                    write "0 0 1" to /proc/self/uid_map
-                                      A had CAP_SETFCAP -> allowed
+Module reservation checks continue to use a linear scan, avoiding
+per-module index allocation and teardown complexity.
 
-If A's namespace already maps host uid 0, at any uid, B can set
-security.capability on a file right away.  Either way uid 1000 can then
-run that file with CAP_SYS_ADMIN, which the selftest at the end of this
-series shows on an unmodified kernel.
-
-The check doesn't look at the joiner's uids, which it can change while
-keeping its other capabilities.  Containers that don't map the joiner's
-root user, tasks with CAP_SETFCAP and unprivileged users are not
-affected.
-
-Fix by refusing setns() when the joiner has no CAP_SETFCAP and tasks in
-the namespace can write file capabilities for the root user of the
-joiner's namespace.
-
-Suggested-by: Serge Hallyn <serge@hallyn.com>
-Link: https://lore.kernel.org/all/fd159e68-c613-4c7d-bfba-8af0a3f3a96e@hallyn.com/
-Fixes: db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Jiri Olsa <jolsa@kernel.org>
 ---
- include/linux/capability.h |  3 +++
- kernel/user_namespace.c    |  4 ++++
- security/commoncap.c       | 30 ++++++++++++++++++++++++++++++
- 3 files changed, 37 insertions(+)
+ kernel/jump_label.c | 115 +++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 114 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/capability.h b/include/linux/capability.h
-index 622137f66f09..9ebcdab56937 100644
---- a/include/linux/capability.h
-+++ b/include/linux/capability.h
-@@ -34,6 +34,7 @@ struct cpu_vfs_cap_data {
- #define _USER_CAP_HEADER_SIZE  (sizeof(struct __user_cap_header_struct))
- #define _KERNEL_CAP_T_SIZE     (sizeof(kernel_cap_t))
+diff --git a/kernel/jump_label.c b/kernel/jump_label.c
+index ab6b774bcfd7..64467b971efe 100644
+--- a/kernel/jump_label.c
++++ b/kernel/jump_label.c
+@@ -8,6 +8,7 @@
+  */
+ #include <linux/memory.h>
+ #include <linux/uaccess.h>
++#include <linux/cache.h>
+ #include <linux/module.h>
+ #include <linux/list.h>
+ #include <linux/slab.h>
+@@ -22,6 +23,18 @@
+ /* mutex to protect coming/going of the jump_label table */
+ static DEFINE_MUTEX(jump_label_mutex);
  
-+struct cred;
- struct file;
- struct inode;
- struct dentry;
-@@ -222,4 +223,6 @@ int get_vfs_caps_from_disk(const struct mnt_idmap *idmap,
- int cap_convert_nscap(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		      const void **ivalue, size_t size);
- 
-+bool cred_borrows_setfcap(const struct cred *cred, struct user_namespace *ns);
++struct jump_entry_index {
++	struct jump_entry *base;
++	unsigned int nr;
++	u32 entries[];
++};
 +
- #endif /* !_LINUX_CAPABILITY_H */
-diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
-index 50c374ed4687..34becacaccd6 100644
---- a/kernel/user_namespace.c
-+++ b/kernel/user_namespace.c
-@@ -1390,6 +1390,10 @@ static int userns_install(struct nsset *nsset, struct ns_common *ns)
- 	if (!ns_capable(user_ns, CAP_SYS_ADMIN))
- 		return -EPERM;
- 
-+	/* Don't hand back CAP_SETFCAP to a root task that gave it up. */
-+	if (cred_borrows_setfcap(current_cred(), user_ns))
-+		return -EPERM;
++/*
++ * Index jump entries by code address for text reservation lookups. The jump
++ * table itself is sorted by static-key address, then by code address per key.
++ */
++static struct jump_entry_index *jump_entry_index;
 +
- 	cred = nsset_cred(nsset);
- 	if (!cred)
- 		return -EINVAL;
-diff --git a/security/commoncap.c b/security/commoncap.c
-index d47ab3022343..0ece141c68a6 100644
---- a/security/commoncap.c
-+++ b/security/commoncap.c
-@@ -131,6 +131,36 @@ int cap_capable(const struct cred *cred, struct user_namespace *target_ns,
- 	return ret;
+ void jump_label_lock(void)
+ {
+ 	mutex_lock(&jump_label_mutex);
+@@ -381,6 +394,81 @@ static int addr_conflict(struct jump_entry *entry, void *start, void *end)
+ 	return 0;
  }
  
-+/**
-+ * cred_borrows_setfcap - Check whether a userns gives back CAP_SETFCAP
-+ * @cred: The credentials of a task that joins @ns or traces a task in it
-+ * @ns: The user namespace
-+ *
-+ * A task without CAP_SETFCAP can't map uid 0 of its namespace into a user
-+ * namespace it creates, see verify_root_map(), as tasks there could then
-+ * write file capabilities that are honoured for that root user.  Tasks in
-+ * @ns can do that for every kuid @ns maps.  While @ns has no uid_map yet,
-+ * they can still map uid 0 of the parent if the creator of @ns had
-+ * CAP_SETFCAP, and other uids of the parent without it.
-+ *
-+ * Return: true if @cred doesn't have CAP_SETFCAP and tasks in @ns can write
-+ * file capabilities for the root user of @cred's namespace.
-+ */
-+bool cred_borrows_setfcap(const struct cred *cred, struct user_namespace *ns)
++static int jump_entry_index_cmp(const void *a, const void *b, const void *priv)
 +{
-+	kuid_t root = make_kuid(cred->user_ns, 0);
-+	uid_t id;
++	const struct jump_entry *base = priv;
++	unsigned int ia = *(u32 *)a;
++	unsigned int ib = *(u32 *)b;
++	unsigned long ca = jump_entry_code(base + ia);
++	unsigned long cb = jump_entry_code(base + ib);
 +
-+	if (cap_raised(cred->cap_permitted, CAP_SETFCAP))
-+		return false;
-+
-+	if (READ_ONCE(ns->uid_map.nr_extents))
-+		return kuid_has_mapping(ns, root);
-+
-+	id = from_kuid(ns->parent, root);
-+	return id != (uid_t)-1 && (id != 0 || ns->parent_could_setfcap);
++	if (ca < cb)
++		return -1;
++	if (ca > cb)
++		return 1;
++	return 0;
 +}
 +
- /**
-  * cap_settime - Determine whether the current process may set the system clock
-  * @ts: The time to set
-
++static struct jump_entry_index *
++jump_entry_index_alloc(struct jump_entry *start, struct jump_entry *stop)
++{
++	unsigned int i, nr = stop - start;
++	struct jump_entry_index *index;
++
++	if (!nr)
++		return NULL;
++
++	index = kvmalloc_flex(*index, entries, nr, GFP_KERNEL);
++	if (!index)
++		return NULL;
++
++	index->nr = nr;
++	index->base = start;
++	for (i = 0; i < nr; i++)
++		index->entries[i] = i;
++
++	sort_r(index->entries, nr, sizeof(index->entries[0]),
++	       jump_entry_index_cmp, NULL, start);
++	return index;
++}
++
++static int jump_entry_index_text_reserved(struct jump_entry_index *index,
++					  void *start, void *end, bool init)
++{
++	unsigned long start_addr = (unsigned long)start;
++	unsigned long end_addr = (unsigned long)end;
++	unsigned int low = 0, high = index->nr, i;
++
++	/* Find the first entry after @start. */
++	while (low < high) {
++		unsigned int mid = low + (high - low) / 2;
++		unsigned long addr = jump_entry_code(index->base + index->entries[mid]);
++
++		if (addr <= start_addr)
++			low = mid + 1;
++		else
++			high = mid;
++	}
++
++	/* The preceding entry may start before @start and overlap it. */
++	if (low)
++		low--;
++
++	for (i = low; i < index->nr; i++) {
++		struct jump_entry *entry = index->base + index->entries[i];
++		unsigned long addr = jump_entry_code(entry);
++
++		/* Later entries cannot overlap once this address is past @end. */
++		if (addr > end_addr)
++			break;
++		if ((init || !jump_entry_is_init(entry)) &&
++		    addr_conflict(entry, start, end))
++			return 1;
++	}
++
++	return 0;
++}
++
+ static int __jump_label_text_reserved(struct jump_entry *iter_start,
+ 		struct jump_entry *iter_stop, void *start, void *end, bool init)
+ {
+@@ -869,8 +957,16 @@ early_initcall(jump_label_init_module);
+  */
+ int jump_label_text_reserved(void *start, void *end)
+ {
++	struct jump_entry_index *index;
+ 	bool init = system_state < SYSTEM_RUNNING;
+-	int ret = __jump_label_text_reserved(__start___jump_table,
++	int ret;
++
++	/* Pairs with the release in jump_entry_index_build(). */
++	index = smp_load_acquire(&jump_entry_index);
++	if (index)
++		ret = jump_entry_index_text_reserved(index, start, end, init);
++	else
++		ret = __jump_label_text_reserved(__start___jump_table,
+ 			__stop___jump_table, start, end, init);
+ 
+ 	if (ret)
+@@ -909,6 +1005,23 @@ static void jump_label_update(struct static_key *key)
+ 		__jump_label_update(key, entry, stop, init);
+ }
+ 
++static int __init jump_entry_index_build(void)
++{
++	struct jump_entry_index *index;
++
++	/*
++	 * Build the index in an initcall so normal memory allocation is
++	 * available; jump_label_init() runs before that.
++	 */
++	index = jump_entry_index_alloc(__start___jump_table, __stop___jump_table);
++
++	/* Publish the initialized index to jump_label_text_reserved(). */
++	smp_store_release(&jump_entry_index, index);
++
++	return 0;
++}
++late_initcall(jump_entry_index_build);
++
+ #ifdef CONFIG_STATIC_KEYS_SELFTEST
+ static DEFINE_STATIC_KEY_TRUE(sk_true);
+ static DEFINE_STATIC_KEY_FALSE(sk_false);
 -- 
-2.55.0
+2.43.0
 
