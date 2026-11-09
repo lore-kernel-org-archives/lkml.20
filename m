@@ -1,78 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794263927;
-	b=XiDMbAEU6s29v1kmlpW8SIuk0G/YkNLwY/k2GcMIL2ByK1NAOuGsUPXEzPemBNQHQeup
-	 CVWXsGSrU+tnbb4DL8fLuh0Cy5gfDgZIvuMnRlB5yoAiwts6AzJJIGXMXmSVm73cWHs6V
-	 hqVd6o4wMLASNUt99NkKIfC3AMqSS6+mP99tnklGv6HayQ4f4gtP9PguZVP2oN67I1arN
-	 KlxLBgm8ygIb6A8n5Fw4xu7nYYDwgY/1ovnHW2jF1gEC27lk6Qa/CkA0WEWlopVybkExc
-	 xpkobjamcGa932QxF4NXfACGcP1MWv4M2QenS4yiPQtr3Ng0rQEd7kNxOQIsOY/p6ag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263927;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=UUnkF88SYqETkC4BdMz/lkhCQqBQI0CsMU7QxmF3Fso=;
-	b=Ul/0c/jNR5e+OelX4Me8pqaeLC1tdfYbGFjWBnJEy8UDNKIziGWQok2WsL2NKwEsx6S2
-	 sucnVxtSqKLyjeDn8O7qgdMqNDYBHh+sVRmnC6UgXHFb3kjJMQ7GefPhWIqaNp7DMVQrM
-	 uAsV4PXbAPDBinZyy0kYVdFPjdwqsp5yED6DlW2cz4xs8LVRy784XiCMfSq+tH/BDI9Ht
-	 fkJpUyLDKhPo7Mh66WqqMnUc3UMXlAYnVPZdFYYo82NlMRfjhGkOqEtfjSkZPc21kKjgy
-	 nT/0RvHWkk40YfUhHRpqgeskqKOO1AyITDzXojc0zwsY0XGqax/C8jeYs1PMDTkoyew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nS2uFI+b;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794263967;
+	b=bbk+EAJ1WzG9eXWeVcdO7qhScBn+GUSYv5+NS3Y6xXIAixRcccfz38pQsU6An7K1nF75
+	 /b4eLVt/FsvcXwDqvWcgSmheFeIUooMl8RKruGY4OKBM6c8bKKN3JWhMhJEldieFV6OLg
+	 wMx2yxpAwRa0Mo/4ml3uk5bMfh4S8/PBC/f21sDY9lUPGWWMX3FoILFPPAX/mwNoceSBk
+	 BYMCxz96oGUbYlANYzns12GobFCv9ACyX+iUexjNVJ4Fp9vqMwPNxnPiW0L0pAF3O4XWC
+	 kewtapT9heaCEXZaYq4reGFGt6gdjDfHZbBUZlRGxl2SjL14WDHd+ncOeTsci/ESHlw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263967;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=7KQzhLEYfZ3UTyImk4Ei6SfTdbOYpgx2jn/YsGzXETM=;
+	b=ehE2FLtA6CKwSwiF5DgjqoEqQEvpKsWAhhSbmnimwQsO/kZosbGFdbBaPa2kCq+p+zVC
+	 FZZTt4puJ25U5QGe92UfUNAsaQY0bLMCmI85td7wF7zc38YE9HmmmH3RcMAwlL7GkEC6E
+	 MnRjskdGfFbC5qPbMrUsyZfCuM3mheWN8y5TUXedIOGaEbuiJXyM8n99M7JeQBWqMMxD1
+	 zM1kY94BOvpqsE9Af9lbI3GygN1t/C7pcydw6Y6A3tBhOYKIIh3Z+kKwN8hEPwW0sV8Em
+	 jFc7x6S3tY4sPYphtRT1mXiXDRQaGOl0oqee8H5JFxBHx+5m3Smn8yqKdzUtF3r3WjQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axZRn+iI;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CEE606A334;
-	Mon,  9 Nov 2026 22:38:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E2D606A321;
+	Mon,  9 Nov 2026 22:39:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nS2uFI+b
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794263926;
-	b=XiVUkwHWJzY2+fW9A2i7kXeSRji/p6wwjpVJLr18wSem1zdLdABNRcB1gA/BaYmr1dD3
-	 mmwdMoVWfcFtbsdWtTq2g5G4cSSDRfU8FFB7xyphc1sQCqvt9Nj2eH+YAHtEY0m50ArC/
-	 nwXwk7bsbmzAu22uYAs1LFamZc+K2eNauGMX6ZU97x9xZ/neJdKJDEghM28JY0AuSU70V
-	 mRBDelZPpJ47uzRnrkCFMdkCU8L+vqttBAW2RQFTq+SlgpXS+2nXrr1HXHmQCPo+JL7Uw
-	 DQNWu/CN8qtA0gq1QX/VJGoMWB5SfQ3WwDI/+eHVmefB7kZ8HlGV3bxjPCvp9hEYuDA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794263926;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=UUnkF88SYqETkC4BdMz/lkhCQqBQI0CsMU7QxmF3Fso=;
-	b=biq2ZSIyINVaeMrFu0FWLrf2FjO0RpcVGysThRJb18I9xgNOuROf6B8njU8tLRhFy0XE
-	 5hmEqjIyU0KabjImiJdUyF6SEzfnFFPxsRXlC3klq4B0N+fYx4ilwoppGdxSRSFB/a1Tu
-	 gWcQ16+uB1cjXsqlCo1yjMGZ6pftwDvICoAffZJ41Deelko6wa2QQsB9qQh9VWIJ/X7+N
-	 +pyefc2m7E8jBlTco/2oqN/T1m6DW1Bk9OnVhff0YNcVCBCYhrS/S2eJEiMztVaFsVmdY
-	 4mmbVdpPVrEdEsDtcW3ygxcJTLu+2jJzCyw6iQI0V8DlnyUC7Isg5RBbVrhXm/U1SFg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D00101F008A4;
-	Mon,  9 Nov 2026 22:38:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=axZRn+iI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F2061F0089F;
+	Mon,  9 Nov 2026 22:39:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794263926;
-	bh=UUnkF88SYqETkC4BdMz/lkhCQqBQI0CsMU7QxmF3Fso=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=nS2uFI+bwTzWEBOegOSCfmKJu7pAkjFqlGksQQnUXnE9629jkAnb+yOUPy7tToxDm
-	 gKYFi1o7elmOZ4KBVyxleV+IZYcbFEPmJj3vy21cxMGgIeIbHu6wA+IhiXiVDgio5M
-	 Hl/OUVL8Uy4APISZj5kzLgJ11nWmkcnK/9tThGXIfHGvPZMcxCIpmqmcfuwBKAzjx3
-	 FJMQ1ZS0hbkWu8umYaV5Pbc3ZG1Nidr+y4NaZpZVqj3JIbtgE/2nK321rkdxRYUzAb
-	 3tFV5tvRV+j9/hxV13qHLadQUaIaFsm9siNK7FlgCD7uJc7KhHmaKH5B/f9WP4rkMi
-	 wJuR6TpQ7CXTg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 582B0486CF;
-	Mon,  9 Nov 2026 22:38:43 +0000 (UTC)
-From: Gaurav Suman via B4 Relay <devnull+gauravsuman007.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 22:38:22 +0000
-Subject: [PATCH 4/8] media: i2c: Add Samsung S5K3M3 image sensor driver
+	s=k20260515; t=1794263967;
+	bh=7KQzhLEYfZ3UTyImk4Ei6SfTdbOYpgx2jn/YsGzXETM=;
+	h=From:To:Cc:Subject:Date;
+	b=axZRn+iIAkcWcRSNoewJyRH5jRKITnRtugGmgXnn9b5g3Zak8iCP1dOn+ckZpOUs8
+	 4aWwYB2LVQ3sgu/7jsJWl9L2MBcW41PaQ4PhRgFdaISERLsbBkyXOFa5GWkalsHjBm
+	 HTH+DUsHhF1/XvTAHzip5FvedLjIawq+TCeFt4ofzlie6BTK5Ean91G56H/PglF6kh
+	 zFtEt1ZZH/VIUjy0GQiIblIYIN4OpP6Drqe5i+kB0kt/anyrGvLETbmrW+doLA5wG9
+	 HVNY0dSFGYs769jK0EW4ASzmfkMf73bwrBTTjzyJjcQnrUOe7zMn12fi7tEdw8WcHJ
+	 JMTUuIiQJw6ng==
+From: Thorsten Blum <blum@kernel.org>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Emmanuel Gil Peyrot <linkmauve@linkmauve.fr>
+Cc: linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thorsten Blum <blum@kernel.org>
+Subject: [PATCH 1/5] rtc: gamecube: Propagate address translation error
+Date: Mon,  9 Nov 2026 23:39:03 +0100
+Message-ID: <20261109223902.84918-6-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,650 +60,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-sm8150-camera-v1-4-3d2e7b407516@gmail.com>
-References: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
-In-Reply-To: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
-To: Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Gaurav Suman <gauravsuman007@gmail.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794263921; l=19255;
- i=gauravsuman007@gmail.com; s=default; h=from:subject:message-id;
- bh=MW/lZB2d9J59/nvTYnlHrxgm88h2+wER5oo/XbcwUgA=;
- b=zpUjyDTa0aksSkQ0+4jgYxBfNJkq5mIhywPWnyePIGgn5q1RqcgpaB3u2JC8EdhaN408LqgLR
- WuGNufJqEccBdRNXttTbVp+rnA4ULXQth4r7lpej/gRFC7Lx/dlcch8
-X-Developer-Key: i=gauravsuman007@gmail.com; a=ed25519;
- pk=lnUC0mQfc0KyA0LE73pQ4+QWYVRaCD8Sd3XWxLZO+JY=
-X-Endpoint-Received: by B4 Relay for gauravsuman007@gmail.com/default with
- auth_id=1467
-X-Original-From: Gaurav Suman <gauravsuman007@gmail.com>
-Reply-To: gauravsuman007@gmail.com
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=793; i=blum@kernel.org; h=from:subject; bh=E1SEg9MyBpLtn01dLDiAnt1Z0aEgdAcMGkMbgVQqDzw=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmfvNtO8/od5u6eab10qtcFlXsqazM3zjNrv/d6/xL+v v2O1gf8OkpZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAiM58xMvwSWx1fn3Lrr1uf tWLP8vWOFmFntla7VyyVT326UizhmhQjw8MpW9c0GC05q5S01MJHcrnQDp+c7a6TfR0cpzh2qSj 8YAAA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-From: Gaurav Suman <gauravsuman007@gmail.com>
+If of_address_to_resource() fails, propagate its error code instead of
+returning -1 from gamecube_rtc_read_offset_from_sram().
 
-Add a V4L2 sub-device driver for the Samsung S5K3M3 13MP sensor. It
-supports one mode, 4160x3120 RAW10 at 30 fps on four CSI-2 lanes at
-1190.4 Mbps per lane, from a 19.2 MHz MCLK, with exposure, analogue
-gain, vertical blanking and test pattern controls.
-
-The register settings come from the LG G8x ThinQ vendor camera
-module data (com.qti.sensormodule.s5k3m3.bin): a short initialisation
-sequence (soft reset, then 3 ms) and the full-resolution mode. The
-S5K3M5 driver's settings make the sensor stream but nothing reaches
-the CSI receiver, so a separate driver is used for now; folding it
-into s5k3m5.c as a variant could be done later.
-
-Tested on an LG G8x ThinQ (SM8150, CSIPHY1).
-
-This was written and tested with the help of an AI coding assistant
-(Claude Opus 5.5, Anthropic); I reviewed the change and the results.
-
-Signed-off-by: Gaurav Suman <gauravsuman007@gmail.com>
+Fixes: 86559400b3ef ("rtc: gamecube: Add a RTC driver for the GameCube, Wii and Wii U")
+Signed-off-by: Thorsten Blum <blum@kernel.org>
 ---
- MAINTAINERS                     |   8 +
- drivers/media/i2c/Kconfig       |  10 +
- drivers/media/i2c/Makefile      |   1 +
- drivers/media/i2c/s5k3m3-regs.h |  71 +++++++
- drivers/media/i2c/s5k3m3.c      | 451 ++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 541 insertions(+)
+ drivers/rtc/rtc-gamecube.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index aa647f5d37ddbe68343b59eac64fe7831e219f04..fb12d4c0c22e957c6babb9d4b22105fa06047772 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22009,6 +22009,14 @@ S:	Maintained
- F:	include/linux/delayacct.h
- F:	kernel/delayacct.c
+diff --git a/drivers/rtc/rtc-gamecube.c b/drivers/rtc/rtc-gamecube.c
+index 3fd562d3526a..0299f27106c0 100644
+--- a/drivers/rtc/rtc-gamecube.c
++++ b/drivers/rtc/rtc-gamecube.c
+@@ -238,7 +238,7 @@ static int gamecube_rtc_read_offset_from_sram(struct priv *d)
+ 	of_node_put(np);
+ 	if (ret) {
+ 		pr_err("no io memory range found\n");
+-		return -1;
++		return ret;
+ 	}
  
-+SAMSUNG S5K3M3 CAMERA DRIVER
-+M:	Gaurav Suman <gauravsuman007@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k3m3.yaml
-+F:	drivers/media/i2c/s5k3m3-regs.h
-+F:	drivers/media/i2c/s5k3m3.c
-+
- TASK DELAY MONITORING TOOLS
- M:	Andrew Morton <akpm@linux-foundation.org>
- M:	Wang Yaxin <wang.yaxin@zte.com.cn>
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 11c30252540e9ceb0bef6c60f1d4a89a9e5928f4..9f797ab00fe7ef0b28080d1fd2b07c4f5d19402d 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -836,6 +836,16 @@ config VIDEO_S5C73M3
- 	  This is a V4L2 sensor driver for Samsung S5C73M3
- 	  8 Mpixel camera.
- 
-+config VIDEO_S5K3M3
-+	tristate "Samsung S5K3M3 sensor support"
-+	select V4L2_CCI_I2C
-+	help
-+	  This is a V4L2 sensor driver for Samsung S5K3M3 13MP raw
-+	  camera sensor.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called s5k3m3.
-+
- config VIDEO_S5K3M5
- 	tristate "Samsung S5K3M5 sensor support"
- 	select V4L2_CCI_I2C
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index 59e31af457cd3e8bcc5c015b7a0ca9f3be0cff4f..2ecb65cf4fd036d9109abdf450f8ebe4b945de42 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -133,6 +133,7 @@ obj-$(CONFIG_VIDEO_RDACM20) += rdacm20.o
- obj-$(CONFIG_VIDEO_RDACM21) += rdacm21.o
- obj-$(CONFIG_VIDEO_RJ54N1) += rj54n1cb0c.o
- obj-$(CONFIG_VIDEO_S5C73M3) += s5c73m3/
-+obj-$(CONFIG_VIDEO_S5K3M3) += s5k3m3.o
- obj-$(CONFIG_VIDEO_S5K3M5) += s5k3m5.o
- obj-$(CONFIG_VIDEO_S5K5BAF) += s5k5baf.o
- obj-$(CONFIG_VIDEO_S5K6A3) += s5k6a3.o
-diff --git a/drivers/media/i2c/s5k3m3-regs.h b/drivers/media/i2c/s5k3m3-regs.h
-new file mode 100644
-index 0000000000000000000000000000000000000000..d21b6c9074e8e4f2cc18d57a6d0048bb0864d8a9
---- /dev/null
-+++ b/drivers/media/i2c/s5k3m3-regs.h
-@@ -0,0 +1,71 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Register settings from the LG G8x ThinQ vendor camera module data
-+ * (com.qti.sensormodule.s5k3m3.bin). 16-bit address and data; the third
-+ * column is a delay in microseconds after the write.
-+ */
-+static const struct cam_reg s5k3m3_init_regs[] = {
-+	{ 0xfcfc, 0x4000, 0 },
-+	{ 0x6010, 0x0001, 3000 },
-+	{ 0xfcfc, 0x4000, 0 },
-+	{ 0x6214, 0x7971, 0 },
-+	{ 0x6218, 0x7150, 0 },
-+	{ 0x0300, 0x0004, 0 },
-+	{ 0x0302, 0x0001, 0 },
-+	{ 0x0304, 0x0006, 0 },
-+	{ 0x0308, 0x0008, 0 },
-+	{ 0x030a, 0x0001, 0 },
-+	{ 0x030c, 0x0004, 0 },
-+	{ 0x3644, 0x0060, 0 },
-+	{ 0x0216, 0x0000, 0 },
-+	{ 0xf496, 0x0048, 0 },
-+	{ 0x1118, 0x43c8, 0 },
-+	{ 0x1124, 0x43c8, 0 },
-+	{ 0x3058, 0x0000, 0 },
-+};
-+
-+static const struct cam_reg s5k3m3_mode_regs[] = {
-+	{ 0xfcfc, 0x4000, 0 },
-+	{ 0x6214, 0x7971, 0 },
-+	{ 0x6218, 0x7150, 0 },
-+	{ 0x0136, 0x1333, 0 },
-+	{ 0x0306, 0x0096, 0 },
-+	{ 0x030c, 0x0003, 0 },
-+	{ 0x030e, 0x005d, 0 },
-+	{ 0x0344, 0x0020, 0 },
-+	{ 0x0346, 0x0008, 0 },
-+	{ 0x0348, 0x105f, 0 },
-+	{ 0x034a, 0x0c37, 0 },
-+	{ 0x034c, 0x1040, 0 },
-+	{ 0x034e, 0x0c30, 0 },
-+	{ 0x0340, 0x0cbc, 0 },
-+	{ 0x0342, 0x1328, 0 },
-+	{ 0x3000, 0x0001, 0 },
-+	{ 0xf440, 0x002f, 0 },
-+	{ 0xf494, 0x0030, 0 },
-+	{ 0x3604, 0x0000, 0 },
-+	{ 0xf4cc, 0x0029, 0 },
-+	{ 0xf4ce, 0x002c, 0 },
-+	{ 0xf4d0, 0x0034, 0 },
-+	{ 0xf4d2, 0x0035, 0 },
-+	{ 0xf4d4, 0x0038, 0 },
-+	{ 0xf4d6, 0x0039, 0 },
-+	{ 0xf4d8, 0x0034, 0 },
-+	{ 0xf4da, 0x0035, 0 },
-+	{ 0xf4dc, 0x0038, 0 },
-+	{ 0xf4de, 0x0039, 0 },
-+	{ 0x0200, 0x0618, 0 },
-+	{ 0x0202, 0x0d27, 0 },
-+	{ 0x021e, 0x0400, 0 },
-+	{ 0x021c, 0x0000, 0 },
-+	{ 0x0900, 0x0011, 0 },
-+	{ 0x0380, 0x0001, 0 },
-+	{ 0x0382, 0x0001, 0 },
-+	{ 0x0384, 0x0001, 0 },
-+	{ 0x0386, 0x0001, 0 },
-+	{ 0x0400, 0x0000, 0 },
-+	{ 0x0404, 0x0010, 0 },
-+	{ 0x309c, 0x0001, 0 },
-+	{ 0x0114, 0x0300, 0 },
-+	{ 0x0216, 0x0000, 0 },
-+};
-diff --git a/drivers/media/i2c/s5k3m3.c b/drivers/media/i2c/s5k3m3.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..5436178c5e35538ab2bb8b162f4c2beb769a9c07
---- /dev/null
-+++ b/drivers/media/i2c/s5k3m3.c
-@@ -0,0 +1,451 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Samsung S5K3M3 13 MP sensor (LG G8x rear wide camera).
-+ * Only the full 4160x3120 @ 30 fps 4-lane RAW10 mode is supported.
-+ * Register tables come from LG's vendor CamX sensor module (see
-+ * s5k3m3-regs.h); the sensor runs from a 19.2 MHz MCLK.
-+ */
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regulator/consumer.h>
-+#include <media/v4l2-cci.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-fwnode.h>
-+
-+struct cam_reg { u16 addr, val, delay_us; };
-+#include "s5k3m3-regs.h"
-+
-+#define S5K3M3_REG_CHIP_ID	CCI_REG16(0x0000)
-+#define S5K3M3_CHIP_ID		0x30d3
-+#define S5K3M3_REG_MODE_SELECT	CCI_REG16(0x0100)
-+#define S5K3M3_REG_GROUP_HOLD	CCI_REG16(0x0104)
-+#define S5K3M3_REG_EXPOSURE	CCI_REG16(0x0202)
-+#define S5K3M3_REG_AGAIN	CCI_REG16(0x0204)
-+#define S5K3M3_REG_FLL		CCI_REG16(0x0340)
-+#define S5K3M3_REG_TEST_PATTERN	CCI_REG16(0x0600)
-+
-+#define S5K3M3_MCLK		19200000
-+#define S5K3M3_LINK_FREQ	595200000LL	/* 1190.4 Mbps per lane */
-+#define S5K3M3_WIDTH		4160
-+#define S5K3M3_HEIGHT		3120
-+#define S5K3M3_LLP		4904
-+#define S5K3M3_FLL		3260		/* 30 fps */
-+#define S5K3M3_PIXEL_RATE	((u64)S5K3M3_LLP * S5K3M3_FLL * 30)
-+#define S5K3M3_FLL_MAX		0xfff0
-+#define S5K3M3_EXP_MARGIN	8
-+#define S5K3M3_AGAIN_MIN	0x20		/* 1x */
-+#define S5K3M3_AGAIN_MAX	0x200		/* 16x */
-+#define S5K3M3_MBUS_CODE	MEDIA_BUS_FMT_SGRBG10_1X10
-+
-+static const s64 s5k3m3_link_freqs[] = { S5K3M3_LINK_FREQ };
-+static const char * const s5k3m3_supplies[] = { "vddio", "vdda", "vddd" };
-+static const char * const s5k3m3_tp_menu[] = {
-+	"Disabled", "Solid Colour", "Colour Bars", "Fade to Grey", "PN9",
-+};
-+
-+struct s5k3m3 {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	struct v4l2_subdev sd;
-+	struct media_pad pad;
-+	struct clk *mclk;
-+	struct gpio_desc *reset;
-+	struct regulator_bulk_data supplies[ARRAY_SIZE(s5k3m3_supplies)];
-+	struct v4l2_ctrl_handler ctrls;
-+	struct v4l2_ctrl *exposure, *vblank;
-+};
-+
-+static inline struct s5k3m3 *to_s5k3m3(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct s5k3m3, sd);
-+}
-+
-+static int s5k3m3_write_table(struct s5k3m3 *s, const struct cam_reg *t, size_t n)
-+{
-+	int ret = 0;
-+	size_t i;
-+
-+	for (i = 0; i < n && !ret; i++) {
-+		cci_write(s->regmap, CCI_REG16(t[i].addr), t[i].val, &ret);
-+		if (t[i].delay_us)
-+			fsleep(t[i].delay_us);
-+	}
-+	return ret;
-+}
-+
-+static int s5k3m3_power_on(struct device *dev)
-+{
-+	struct s5k3m3 *s = to_s5k3m3(dev_get_drvdata(dev));
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(s->supplies), s->supplies);
-+	if (ret)
-+		return ret;
-+	ret = clk_prepare_enable(s->mclk);
-+	if (ret) {
-+		regulator_bulk_disable(ARRAY_SIZE(s->supplies), s->supplies);
-+		return ret;
-+	}
-+	usleep_range(1000, 1500);
-+	gpiod_set_value_cansleep(s->reset, 0);	/* out of reset */
-+	usleep_range(10000, 12000);
-+	return 0;
-+}
-+
-+static int s5k3m3_power_off(struct device *dev)
-+{
-+	struct s5k3m3 *s = to_s5k3m3(dev_get_drvdata(dev));
-+
-+	gpiod_set_value_cansleep(s->reset, 1);
-+	clk_disable_unprepare(s->mclk);
-+	regulator_bulk_disable(ARRAY_SIZE(s->supplies), s->supplies);
-+	return 0;
-+}
-+
-+static int s5k3m3_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct s5k3m3 *s = container_of(ctrl->handler, struct s5k3m3, ctrls);
-+	int ret = 0;
-+
-+	if (ctrl->id == V4L2_CID_VBLANK) {
-+		s64 max = S5K3M3_HEIGHT + ctrl->val - S5K3M3_EXP_MARGIN;
-+
-+		__v4l2_ctrl_modify_range(s->exposure, s->exposure->minimum, max,
-+					 1, min(s->exposure->val, (s32)max));
-+	}
-+	if (!pm_runtime_get_if_in_use(s->dev))
-+		return 0;
-+
-+	switch (ctrl->id) {
-+	case V4L2_CID_EXPOSURE:
-+		cci_write(s->regmap, S5K3M3_REG_EXPOSURE, ctrl->val, &ret);
-+		break;
-+	case V4L2_CID_ANALOGUE_GAIN:
-+		cci_write(s->regmap, S5K3M3_REG_AGAIN, ctrl->val, &ret);
-+		break;
-+	case V4L2_CID_VBLANK:
-+		cci_write(s->regmap, S5K3M3_REG_FLL, S5K3M3_HEIGHT + ctrl->val, &ret);
-+		break;
-+	case V4L2_CID_TEST_PATTERN:
-+		cci_write(s->regmap, S5K3M3_REG_TEST_PATTERN, ctrl->val, &ret);
-+		break;
-+	}
-+	pm_runtime_put(s->dev);
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops s5k3m3_ctrl_ops = { .s_ctrl = s5k3m3_set_ctrl };
-+
-+static int s5k3m3_init_ctrls(struct s5k3m3 *s)
-+{
-+	struct v4l2_ctrl_handler *h = &s->ctrls;
-+	struct v4l2_fwnode_device_properties props;
-+	struct v4l2_ctrl *c;
-+	u32 vb = S5K3M3_FLL - S5K3M3_HEIGHT, hb = S5K3M3_LLP - S5K3M3_WIDTH;
-+	int ret;
-+
-+	v4l2_ctrl_handler_init(h, 10);
-+	c = v4l2_ctrl_new_int_menu(h, &s5k3m3_ctrl_ops, V4L2_CID_LINK_FREQ, 0, 0,
-+				   s5k3m3_link_freqs);
-+	if (c)
-+		c->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	v4l2_ctrl_new_std(h, &s5k3m3_ctrl_ops, V4L2_CID_PIXEL_RATE,
-+			  S5K3M3_PIXEL_RATE, S5K3M3_PIXEL_RATE, 1, S5K3M3_PIXEL_RATE);
-+	s->vblank = v4l2_ctrl_new_std(h, &s5k3m3_ctrl_ops, V4L2_CID_VBLANK, vb,
-+				      S5K3M3_FLL_MAX - S5K3M3_HEIGHT, 1, vb);
-+	c = v4l2_ctrl_new_std(h, &s5k3m3_ctrl_ops, V4L2_CID_HBLANK, hb, hb, 1, hb);
-+	if (c)
-+		c->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	/* start at full-frame exposure, software AGC converges from there */
-+	s->exposure = v4l2_ctrl_new_std(h, &s5k3m3_ctrl_ops, V4L2_CID_EXPOSURE, 4,
-+					S5K3M3_FLL - S5K3M3_EXP_MARGIN, 1,
-+					S5K3M3_FLL - S5K3M3_EXP_MARGIN);
-+	v4l2_ctrl_new_std(h, &s5k3m3_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
-+			  S5K3M3_AGAIN_MIN, S5K3M3_AGAIN_MAX, 1, S5K3M3_AGAIN_MIN * 4);
-+	v4l2_ctrl_new_std_menu_items(h, &s5k3m3_ctrl_ops, V4L2_CID_TEST_PATTERN,
-+				     ARRAY_SIZE(s5k3m3_tp_menu) - 1, 0, 0, s5k3m3_tp_menu);
-+	ret = v4l2_fwnode_device_parse(s->dev, &props);
-+	if (!ret)
-+		v4l2_ctrl_new_fwnode_properties(h, &s5k3m3_ctrl_ops, &props);
-+	if (h->error)
-+		return h->error;
-+	s->sd.ctrl_handler = h;
-+	return 0;
-+}
-+
-+static int s5k3m3_enable_streams(struct v4l2_subdev *sd, struct v4l2_subdev_state *st,
-+				 u32 pad, u64 streams)
-+{
-+	struct s5k3m3 *s = to_s5k3m3(sd);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(s->dev);
-+	if (ret)
-+		return ret;
-+	ret = s5k3m3_write_table(s, s5k3m3_init_regs, ARRAY_SIZE(s5k3m3_init_regs));
-+	if (!ret)
-+		ret = s5k3m3_write_table(s, s5k3m3_mode_regs,
-+					 ARRAY_SIZE(s5k3m3_mode_regs));
-+	if (!ret)
-+		ret = __v4l2_ctrl_handler_setup(&s->ctrls);
-+	if (!ret)
-+		ret = cci_write(s->regmap, S5K3M3_REG_MODE_SELECT, 0x0100, NULL);
-+	if (ret) {
-+		dev_err(s->dev, "stream on failed: %d\n", ret);
-+		pm_runtime_put(s->dev);
-+	}
-+	return ret;
-+}
-+
-+static int s5k3m3_disable_streams(struct v4l2_subdev *sd, struct v4l2_subdev_state *st,
-+				  u32 pad, u64 streams)
-+{
-+	struct s5k3m3 *s = to_s5k3m3(sd);
-+
-+	cci_write(s->regmap, S5K3M3_REG_MODE_SELECT, 0, NULL);
-+	pm_runtime_put(s->dev);
-+	return 0;
-+}
-+
-+static void s5k3m3_fill_fmt(struct v4l2_mbus_framefmt *f)
-+{
-+	f->code = S5K3M3_MBUS_CODE;
-+	f->width = S5K3M3_WIDTH;
-+	f->height = S5K3M3_HEIGHT;
-+	f->field = V4L2_FIELD_NONE;
-+	f->colorspace = V4L2_COLORSPACE_RAW;
-+	f->ycbcr_enc = V4L2_YCBCR_ENC_601;
-+	f->quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+	f->xfer_func = V4L2_XFER_FUNC_NONE;
-+}
-+
-+static int s5k3m3_set_fmt(struct v4l2_subdev *sd,
-+			  const struct v4l2_subdev_client_info *ci,
-+			  struct v4l2_subdev_state *st,
-+			  struct v4l2_subdev_format *fmt)
-+{
-+	s5k3m3_fill_fmt(&fmt->format);
-+	*v4l2_subdev_state_get_format(st, 0) = fmt->format;
-+	return 0;
-+}
-+
-+static int s5k3m3_enum_mbus_code(struct v4l2_subdev *sd, struct v4l2_subdev_state *st,
-+				 struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->index)
-+		return -EINVAL;
-+	code->code = S5K3M3_MBUS_CODE;
-+	return 0;
-+}
-+
-+static int s5k3m3_enum_frame_size(struct v4l2_subdev *sd, struct v4l2_subdev_state *st,
-+				  struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	if (fse->index || fse->code != S5K3M3_MBUS_CODE)
-+		return -EINVAL;
-+	fse->min_width = S5K3M3_WIDTH;
-+	fse->max_width = S5K3M3_WIDTH;
-+	fse->min_height = S5K3M3_HEIGHT;
-+	fse->max_height = S5K3M3_HEIGHT;
-+	return 0;
-+}
-+
-+static int s5k3m3_get_selection(struct v4l2_subdev *sd,
-+				const struct v4l2_subdev_client_info *ci,
-+				struct v4l2_subdev_state *st,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:		/* analogue crop of the mode (0x0344..0x034a) */
-+		sel->r.left = 32;
-+		sel->r.top = 8;
-+		sel->r.width = 4160;
-+		sel->r.height = 3120;
-+		return 0;
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:	/* active pixel array */
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r.left = 0;
-+		sel->r.top = 0;
-+		sel->r.width = 4224;
-+		sel->r.height = 3136;
-+		return 0;
-+	}
-+	return -EINVAL;
-+}
-+
-+static int s5k3m3_init_state(struct v4l2_subdev *sd, struct v4l2_subdev_state *st)
-+{
-+	s5k3m3_fill_fmt(v4l2_subdev_state_get_format(st, 0));
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_pad_ops s5k3m3_pad_ops = {
-+	.enum_mbus_code = s5k3m3_enum_mbus_code,
-+	.enum_frame_size = s5k3m3_enum_frame_size,
-+	.get_fmt = v4l2_subdev_get_fmt,
-+	.set_fmt = s5k3m3_set_fmt,
-+	.get_selection = s5k3m3_get_selection,
-+	.enable_streams = s5k3m3_enable_streams,
-+	.disable_streams = s5k3m3_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_video_ops s5k3m3_video_ops = {
-+	.s_stream = v4l2_subdev_s_stream_helper,
-+};
-+
-+static const struct v4l2_subdev_ops s5k3m3_ops = {
-+	.video = &s5k3m3_video_ops,
-+	.pad = &s5k3m3_pad_ops,
-+};
-+
-+static const struct v4l2_subdev_internal_ops s5k3m3_internal_ops = {
-+	.init_state = s5k3m3_init_state,
-+};
-+
-+static int s5k3m3_check_hw(struct s5k3m3 *s)
-+{
-+	struct fwnode_handle *ep;
-+	struct v4l2_fwnode_endpoint bus = { .bus_type = V4L2_MBUS_CSI2_DPHY };
-+	u64 id = 0;
-+	int ret;
-+
-+	ep = fwnode_graph_get_next_endpoint(dev_fwnode(s->dev), NULL);
-+	if (!ep)
-+		return -EPROBE_DEFER;
-+	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus);
-+	fwnode_handle_put(ep);
-+	if (ret)
-+		return ret;
-+	if (bus.bus.mipi_csi2.num_data_lanes != 4)
-+		ret = dev_err_probe(s->dev, -EINVAL, "need 4 data lanes\n");
-+	v4l2_fwnode_endpoint_free(&bus);
-+	if (ret)
-+		return ret;
-+
-+	ret = s5k3m3_power_on(s->dev);
-+	if (ret)
-+		return ret;
-+	cci_read(s->regmap, S5K3M3_REG_CHIP_ID, &id, &ret);
-+	if (!ret && id != S5K3M3_CHIP_ID)
-+		ret = -ENODEV;
-+	if (ret)
-+		dev_err(s->dev, "chip id 0x%llx, error %d\n", id, ret);
-+	return ret;
-+}
-+
-+static int s5k3m3_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct s5k3m3 *s;
-+	unsigned int i;
-+	int ret;
-+
-+	s = devm_kzalloc(dev, sizeof(*s), GFP_KERNEL);
-+	if (!s)
-+		return -ENOMEM;
-+	s->dev = dev;
-+	v4l2_i2c_subdev_init(&s->sd, client, &s5k3m3_ops);
-+	s->sd.internal_ops = &s5k3m3_internal_ops;
-+
-+	s->regmap = devm_cci_regmap_init_i2c(client, 16);
-+	if (IS_ERR(s->regmap))
-+		return PTR_ERR(s->regmap);
-+	s->mclk = devm_clk_get(dev, NULL);
-+	if (IS_ERR(s->mclk))
-+		return dev_err_probe(dev, PTR_ERR(s->mclk), "no clock\n");
-+	ret = clk_set_rate(s->mclk, S5K3M3_MCLK);
-+	if (ret)
-+		return ret;
-+	s->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(s->reset))
-+		return dev_err_probe(dev, PTR_ERR(s->reset), "no reset gpio\n");
-+	for (i = 0; i < ARRAY_SIZE(s5k3m3_supplies); i++)
-+		s->supplies[i].supply = s5k3m3_supplies[i];
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(s->supplies), s->supplies);
-+	if (ret)
-+		return ret;
-+
-+	ret = s5k3m3_check_hw(s);
-+	if (ret) {
-+		if (ret != -EPROBE_DEFER)
-+			s5k3m3_power_off(dev);
-+		return ret;
-+	}
-+
-+	ret = s5k3m3_init_ctrls(s);
-+	if (ret)
-+		goto err_power;
-+	s->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	s->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-+	s->pad.flags = MEDIA_PAD_FL_SOURCE;
-+	ret = media_entity_pads_init(&s->sd.entity, 1, &s->pad);
-+	if (ret)
-+		goto err_ctrls;
-+	s->sd.state_lock = s->ctrls.lock;
-+	ret = v4l2_subdev_init_finalize(&s->sd);
-+	if (ret)
-+		goto err_entity;
-+
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+	ret = v4l2_async_register_subdev_sensor(&s->sd);
-+	if (ret)
-+		goto err_pm;
-+	pm_runtime_idle(dev);
-+	return 0;
-+
-+err_pm:
-+	pm_runtime_disable(dev);
-+	pm_runtime_set_suspended(dev);
-+	v4l2_subdev_cleanup(&s->sd);
-+err_entity:
-+	media_entity_cleanup(&s->sd.entity);
-+err_ctrls:
-+	v4l2_ctrl_handler_free(&s->ctrls);
-+err_power:
-+	s5k3m3_power_off(dev);
-+	return ret;
-+}
-+
-+static void s5k3m3_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct s5k3m3 *s = to_s5k3m3(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	v4l2_subdev_cleanup(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(&s->ctrls);
-+	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev))
-+		s5k3m3_power_off(&client->dev);
-+	pm_runtime_set_suspended(&client->dev);
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(s5k3m3_pm_ops, s5k3m3_power_off, s5k3m3_power_on, NULL);
-+
-+static const struct of_device_id s5k3m3_of_match[] = {
-+	{ .compatible = "samsung,s5k3m3" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, s5k3m3_of_match);
-+
-+static struct i2c_driver s5k3m3_driver = {
-+	.driver = {
-+		.name = "s5k3m3",
-+		.of_match_table = s5k3m3_of_match,
-+		.pm = pm_ptr(&s5k3m3_pm_ops),
-+	},
-+	.probe = s5k3m3_probe,
-+	.remove = s5k3m3_remove,
-+};
-+module_i2c_driver(s5k3m3_driver);
-+
-+MODULE_DESCRIPTION("Samsung S5K3M3 image sensor driver");
-+MODULE_LICENSE("GPL");
-
--- 
-2.49.1
-
-
+ 	hw_srnprot = ioremap(res.start, resource_size(&res));
