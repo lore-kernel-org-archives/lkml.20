@@ -1,130 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794267781;
-	b=aWZAcK7ZpXYOpI3jhSKgnn2vI+Su7SITUgXj6Bd+kS3ubBqPBYc/9ddRCl2j71vu//HR
-	 oHgH7/7CDwwuy1/UfGxKf/hb1XKdbUwmgneGCqCqaphLV21MR3AUQnCG6jmsT8dUBmS8F
-	 uVLFtqgc3vxlLwWRxRfwR0hHR6bgVb3wCsf/oi0UpMALLCph8BFH0q7dRaV2CaAprGcYw
-	 lyfzPM/xVzVuZcM/bExfwcnsTlijttYLP/FDeoWYnM3RjhXmYh7p2mQ4PcHgqyRbW03rn
-	 d9PBc8Tx/QD/nA8xpAQ/VrU49UUqjIDG8QIEZYkREfd0asErHeDPq2BvJuAGBKvt+SQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794267781;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794267838;
+	b=lBgKNMdh8TwuSsH+ZY2vQdlp4Thh1Ssul1n/xlt9j+3OUakyH4pC4iVkOsJMchYCTJMJ
+	 Gsft5omFlgqb3H8x0SYk+Wp36syJuMfNlfCaoQt7wsK9U2H3+x3jm4BlKF/ehEFRwIZcm
+	 gmCQchVttUUCjsF/eA4FtNpZEhxi+bCGoPyb3RM6HaS2Kr3xI+MSOs0NSTaDfSNs1bdSv
+	 9CsnijVE8I0os9pYqtEGqee6ruHS1OaptpEH2jDF4CBNnDqOiUMxGbBiGu1OVb9yDCPns
+	 avMZSdNRf5ZtNlEwxuZyz0k9u04aWJoCEZN1L6Qo6VYEKpyC+iYmZI/1XNMuPtkO0cw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794267838;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=sa2+WBgF5hKTZoECa+jNwUyW/NRKAyVaKXS151Xizdw=;
-	b=3oZZwpD3/Lrnyy/rWf+3iii05+NfOSpeb8CVut5vNYMioNnJmr5eTOM/lLKiddMj75+f
-	 dum4GrbnUqhroavgudYbP9TWvNV0zxc+7uu5LrkOvVSSwusEf3GRFlkROTpj5SnZSlqS1
-	 070jqrCdm7uRrex54xc95+NdEXNxpBpoL+ZfMvrgQNERpSknYAE8cY5S0R9CnAjJhCKKd
-	 jlTHfYlE4JzovNT6ZOSiAlU97KwibTlQSHyNfQLW8BA9on/UEGD5sDif8qWeZwS7TclXv
-	 fK5LRtPPJ/EhfTtKfVmHaJpIrQfvkUlQL4YfzBBFyV6WwDice+bnrM1YVGS1WfHbNJg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	arc=none smtp.remote-ip=209.85.222.182
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=qbotr9HsG4F8SOuvQwl9pplgEz/kcu/6H9npIEXtgH8=;
+	b=XyQRBNaa2geCvZJKNLbrmGfj1MP8wHt+VWmPAlWs2W/nwf2dbKTuIPmiA0MvOdsqKQsF
+	 2FaaVPsxUFluQPmhfn/NL+PJwayx1QW26N0KCzC0WT2T3pd4g1HJr1Eip28/ophuWotm9
+	 VcSR+2UhkG2GLem8ymZrQGjiclASW9FObEjN6yTGjv8aQcbbsdNgeRJZxt9fwfmPvmRux
+	 +Z31G0VQFv1Pe2UuVhbRBjk4RhgRpRNNeObj3RIpdxe2l7Fo3G9HcFR4QEFN5kY00QqIC
+	 YQRHtP8IDmDLU3ZMlxvIe61ZSuJ74EZ1nPo2SKRRBoJYtJAqARK8/JCF2AVqtWF/4dQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p8G+mgms;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B5B606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:42:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4B5B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93e635220b4so130689385a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:42:55 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13FC606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:43:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F13FC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p8G+mgms
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e8da6ef7ddso8629395ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:43:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794267837; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XWZExCnuflBmFmrQW3DzIks0mLp3xYE+WhoEw6JRAbkK1kL5hSD8kXcikcCSebCZ55
+         M/0DR4O/lUW36bEswbuiqq3HB/7G8g3fWc8eRTSUywbf5GmBoLwBAFwmGDU9nkyWu2pA
+         +TK204mT9qMF5dM1gLn0VKyVYB2T9m4rE1BT7UA1AyjV0j56TreDDE4hYX/+pcwiLkNh
+         +1p/qHSKA7NNhkj3yeOdVkvpcHiKxZ5D7+UPZukmrLLlA9wnyOYy1HfeuZlnfF6Wyevz
+         hYVjznVnWWIb/PnULnnnPNhU4OmFvLEKd75eO1pOX2l6vnEI4z1QJijuvTtGP4EnSYzW
+         UjZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=qbotr9HsG4F8SOuvQwl9pplgEz/kcu/6H9npIEXtgH8=;
+        fh=EPOoXIk8xGkHPdo9ZTM3RdLaTVwVcSebzomvkJBO7iw=;
+        b=lgLooBO6u6d8WWI7AdwD/90Ue+LmqUsgqQVLHmxrh2ydfW9JUEddJ7AqmA50is2lF5
+         8GBULzvPxIxUOqlLwASh1h/XDaEXaYtSqcJn0tLpQuGE0/wWVaM/OH6jcMxVhy3IlC3f
+         UxzW99Zkx0QhL7zLmbrzB6sPt0t+gdEn+l2jeRf4xDZgqRhLZly+NXaITWslJl5Ju30K
+         zvKnmgE+Rtw2yEX6cHi98m+v9buixJgdWqnInd2/b2K3GqeP4Ykw2k9IYPxgfNLYDiOR
+         7J3SRGtTMxzSrZbJXQG2sCRaFEYooZZl7fpuhRe4DA3zNAivBG79Ysmjy8meZsqtJPGE
+         0rEw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1794267774; x=1794872574; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sa2+WBgF5hKTZoECa+jNwUyW/NRKAyVaKXS151Xizdw=;
-        b=eyKmq1RFBX1cY34faaTMzv+/jmqnlovGkEDQpCZQqhyzSEO/Mh4Ah+2/XemgZcilwx
-         r7QXK4z9UnKSByvGCN92EOz4EBespGnJaamquIv7w1SsCgShVQQfMrfnlYV1tEgeK6HV
-         2B5o8kdrBIYe6QPc5lyMukLOCQdNn6gBE55kDgEvfddkM7zX4OUho5lEDRsvrmLP0Q1i
-         PpB05POLoChpg3yyFe9/zbzhb6mjvSg4kazE7vfNzIkd3uTssiSXOj0qE/K00STYbiNd
-         x+UX5n2+IWg0I+ugcD6ZhpacgkAm95jl9HqxBcjjLp/HHNC4nBc2R1vdlwOg2DeM5YRn
-         58bg==
+        d=gmail.com; s=20260707; t=1794267837; x=1794872637; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qbotr9HsG4F8SOuvQwl9pplgEz/kcu/6H9npIEXtgH8=;
+        b=p8G+mgmsN+1+yeTonrlxR+6dJybCBUs9uYgHeZROgvnKgAHjEsg9S5W4Ej6nai3GJB
+         j4fXFMRB+8ualdi4CI19VsIgnnDaCVJPQCdc90tpI26tE0XdaIAmv9rlFrCAOhWsmgCY
+         tBU+3PR3rdsxWKnnvUU5aysyDghmJs4y9UzCxqU8iq09FakGCC4RfzmqBF9PMppDk92s
+         YwaKfYHx/h9ggzQ4l8XJgHKlcuU0bPJnC043mpB8gMFdS6PVOv3IjP9WaQyOL/6oVfj7
+         FRNFaoP+10Geai+I92YXUQz8Sw9spNE0q2ExXdAcPN+wax+MXkESfQcmtDhhLOdUTg3D
+         2tyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794267774; x=1794872574;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=sa2+WBgF5hKTZoECa+jNwUyW/NRKAyVaKXS151Xizdw=;
-        b=FbC+t5QDHgQ5gri35FQC08HzBN8hIqljaoXdihrdftDzNGJuT5EtpJOFxru6XqTEW0
-         53Tb7/FejiXFXXkLn8Cy0cVdP6kUVwOYqBWY+wLPhvlQwdR2Ecgme13HUQwzwbKKWjrH
-         tpcr4cOrSnH4melDjxpdpmytkGiYaoo/9QiTK5kMlSJdv2siQsEMa66NO7glmVgfn9YE
-         Wmyk4lQhb+EsbbNbuJ/Ws/aF4xf7wrwneatJ2RlZBHn5SYiZuebELe4ldr5VNQHIofP4
-         +OT+D5oBE3ZSPpUwZZRj0hOtO8RStw4IVQcqCxeWDkOUWr1vkB8vPAg3AMMhVA0xaAJB
-         dUVw==
-X-Forwarded-Encrypted: i=1; AL+hErFAi4ajDQoFMa8NbIewrmz7EGmuzSMh/SbPO2c9lYKK5hp58NEmDh2Df2skAmmeNuz5lAo9GlcfYIlh8a4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Y2B5X1jyf4kJuf6zG9jX32WfsiKbL4cSwwigdqQTtNsSA7w5U
-	3Iwa8WZmi4n1s8wp27T9bM9salw5TVpSlfxMSC/W99S88msnljMfFVWJkUXEuxkfAi8=
-X-Gm-Gg: AYBFou1juu9MEb/IUbyr24ImO7dZxAIbGiR1x9gZNVdYjTSBzX7A10WN5sxwbrMjufz
-	1S18WNLm5Rm+vuN/JlCrqXrATgrFk9M2PlFs/WKd0NgkH0gnlhOxYAyRLbxJM26JUl/4jI9bmeK
-	y5ar9LV9u6SZCmGhgQNQHDjkSmoJSosbQCwX3Q/2hnvuSU4WahLP9tM6mwqZTXZfqnP5G53ZR8X
-	+7SoBZlXCW4p5gXbmO4ItDuYdMbW/gQH+wsqNn3dGyP4a0Oyai56kWxLdYv0Fax1JywNdY7pStY
-	itVJ3tShSad680D2AIUaBPL5xP4dtM3CTKjHEVkaL7EX7pBXo53E0NH/U9guFwycBwz6m0T4Si9
-	fmQt9yU3arUGZTIBUWI08AwBlY5QM7sHl01Fyf2gojx1F2JZR+eJOXVPVFD1N3zH45D+OKrxd4f
-	LytN09zCANuPsxfGCU6xRTVGS6EXzhSjC99iqNJzip0J065XGZArcEOv2NGpwzm+7o8CvwMXali
-	DB0oWygOLFwNkkr+gEIQfmX4qVhdK/SMzTsdO7R3dF06mZchBKZSNyFJX6rH6nYO8yoFGNyqcGo
-	8t9kwHbi6et6tRVIbPcxSropJDu1FgTcT5JBkMSkqx3U0oJL6MaOXHAhX5+IJ8QzRA2CY4EHZZc
-	YshT/2tOJKA==
-X-Received: by 2002:a05:620a:2725:b0:93f:4cfb:2a8a with SMTP id af79cd13be357-9479f2fa688mr176463985a.26.1794267774479;
-        Mon, 09 Nov 2026 15:42:54 -0800 (PST)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9479e784b90sm91815285a.22.2026.11.09.15.42.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 15:42:53 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xQZ0m-000000033Ka-0GQE;
-	Mon, 09 Nov 2026 19:42:52 -0400
-Date: Mon, 9 Nov 2026 19:42:52 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "Fang, Peter" <peter.fang@intel.com>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"drdeeglaze@gmail.com" <drdeeglaze@gmail.com>,
-	"James.Bottomley@hansenpartnership.com" <James.Bottomley@hansenpartnership.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"Xing, Cedric" <cedric.xing@intel.com>,
-	"alistair.francis@wdc.com" <alistair.francis@wdc.com>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"Reshetova, Elena" <elena.reshetova@intel.com>,
-	"ankita@nvidia.com" <ankita@nvidia.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"jiri@resnulli.us" <jiri@resnulli.us>,
-	"kas@kernel.org" <kas@kernel.org>,
-	"Jiang, Dave" <dave.jiang@intel.com>,
-	"Quigley, David" <david.quigley@intel.com>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"qinkun@google.com" <qinkun@google.com>,
-	"jpiotrowski@nvidia.com" <jpiotrowski@nvidia.com>,
-	"suzuki.poulose@arm.com" <suzuki.poulose@arm.com>,
-	"lukas@wunner.de" <lukas@wunner.de>,
-	"Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
-	"jic23@kernel.org" <jic23@kernel.org>,
-	"ksinyuk@kernel.org" <ksinyuk@kernel.org>,
-	"sameo@meta.com" <sameo@meta.com>, "aik@amd.com" <aik@amd.com>,
-	"sathyanarayanan.kuppuswamy@linux.intel.com" <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	"pgonda@google.com" <pgonda@google.com>,
-	"x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCH RFC 20/20] attestation: Add the TDX family implementation
-Message-ID: <20261109234252.GR663069@ziepe.ca>
-References: <20261015145053.3664509-21-jiri@resnulli.us>
- <ed52bb6d48c87ab8023bf2165cadffa259e21725.camel@intel.com>
- <20261023141218.GD3977851@ziepe.ca>
- <343e4a12f2fdbb4e9a19c4afe49cf2b8908d6739.camel@intel.com>
- <20261023220030.GM3977851@ziepe.ca>
- <7843a833723e3aad40f8fc4de3a83f5a5059280f.camel@intel.com>
- <20261103005851.GH3889730@ziepe.ca>
- <au5LCE1jau0yDo5S@intel.com>
- <20261109171236.GP663069@ziepe.ca>
- <cbef9bda9241ffe98652172edb67fab3eb1c35ee.camel@intel.com>
+        d=1e100.net; s=20260707; t=1794267837; x=1794872637;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qbotr9HsG4F8SOuvQwl9pplgEz/kcu/6H9npIEXtgH8=;
+        b=wmOiPQlv1w3O+1lJ+2tI8Q9EdZ6FMQ/KtaszauqKvUFOVkYJK1Q84Rn3sQtLBgnppk
+         tjQTXTYM53vUH/KJmMDd0jg5as1aDOI7itgtAbLAz1+rK6LfkEkCCOE5gvOQzuCmoQkh
+         7iG9XlGgNyfbR7Q+YSuVTqZJ7CWOImIvKdubcLxeptOFo3+PUruWjzEfGq4NgCYc8W6a
+         YDmwTR4ChBj8H5H6q7MyQfP7JoOpXuuZEEf71E812kqgvBPUsihJSn7kbx/jxJ+zCUhg
+         JdKgP6UdQixUNZXTyow5IQaxER5qkgSouVwd/pQuTv6aZarW9YKpnCOB1ffl4ZFJuaGq
+         ldFA==
+X-Forwarded-Encrypted: i=1; AL+hErEFQwX/dkgND7nyKIvbehyeA//xhL2OngxCOiAMm0ep1hyCms4rZXBMtRgggSiO0wZKm1CYyE8dDFt3Agw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+P3gPT9lgQ7PtfORlI1H/VHGQlBptt1Oewoahcxx9dH5B4w7J6
+	i9YrIt5jBJ8c6oOrAC7cxvu334UZUKOmTyFtdLNxYukiRp0yfpA/2xICtYVbVf9he5HZMK0P472
+	GRHsHbm6pos8mW3vVHd73mhRMJY6JIgg=
+X-Gm-Gg: AYBFou1OAZwxQDFgZCTJbfezR5UddMWTCUFsyaJc0VLhtBRtACYmdCFO0SxL2qkJNiF
+	5oJXMYIUq/AW0N1NzipV2JLiczdD5FK5mjyal0vu7YIFbQjmDwsoj8d5My0ayWz8JXHRxSxcO7p
+	zDS2yC8Cw+hWU04NtXvo4jb4F1f1CEJuBlVS8X4gld3qCcJBx6yEQoGrsTv3Ucfwe6afMeat4b0
+	B8w23KYPV5KoH/NslgfQx3+IsUzs1bVFZntxy8k+qadiSEYbfcwEbFzZGYqodhfr7JrcADm3Vwv
+	qJdSjZ/G8V3kevItqb3ZN0aWcX4INzdP3BTQPSf49kSsoC9k99fPUlFpgO9oFMIuI/51XyQzdG9
+	PibnLGQX3FjwBedySCfIctJNMflLCEqSSukB84u4F5iT6rdXXUk+CLdUbMQv55XUAznGFn4vQCT
+	0houZG+oUTO9C88+s=
+X-Received: by 2002:a17:903:3708:b0:2ed:4c7a:31e4 with SMTP id
+ d9443c01a7336-2edb8f95b9fmr6762265ad.1.1794267837146; Mon, 09 Nov 2026
+ 15:43:57 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -134,71 +104,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cbef9bda9241ffe98652172edb67fab3eb1c35ee.camel@intel.com>
+References: <cover.1785183549.git.allen.lkml@gmail.com> <cover.1786384168.git.allen.lkml@gmail.com>
+ <auv5LFaju515uVLM@parshuram>
+In-Reply-To: <auv5LFaju515uVLM@parshuram>
+From: Allen <allen.lkml@gmail.com>
+Date: Mon, 9 Nov 2026 16:43:44 -0700
+X-Gm-Features: AclHuK_IjqiX83c1DJy_vDMRHUU25ZAygSTNNSWEu7_KJWWcXOL9A8rZkK2Xack
+Message-ID: <CAOMdWSKMJXPHoKosF6HrGd5o0CbdxeQF5qgCMSvnZqjuNMJubw@mail.gmail.com>
+Subject: Re: [PATCH v3 00/34] dmaengine: migrate channel tasklets to WQ_BH
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, Kees Cook <kees@kernel.org>, 
+	Andy Shevchenko <andy@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Nov 09, 2026 at 11:20:22PM +0000, Edgecombe, Rick P wrote:
-> On Mon, 2026-11-09 at 13:12 -0400, Jason Gunthorpe wrote:
-> > I would be very happy if Intel came with some plan, documented in the
-> > ABI comments around their labels down the road.
-> > 
-> > What I would like is that given a specific label any userspace can do
-> > a verification and full dump of that data, including signature
-> > validation, without need of any further external information.
-> > 
-> > Ie it is entirely self describing under that label.
-> > 
-> > So if someone has to say externally 'oh this was a legacy VM' to make
-> > parsing work then that needs to go in the label.
-> > 
-> > Think of it this way, you should be able to run a command, lets imagine:
-> > 
-> > $ attestctl dump report0
-> >    intel TDX A:
-> >      - Field 1
-> >      - Field 2
-> >    Signature VALID
-> >    Certificate chain
-> >       A
-> >       B
-> >       C
-> > 
-> > It must not be something like:
-> > 
-> > $ attestctl dump report0 --kind tdx_legacy
-> > $ attestctl dump report0 --kind tdx_dice
-> > 
-> > Does it make sense?
-> > 
-> > Whatever labeling you choose has to follow these goals, and there is
-> > some trade off between making thing self describing forever into the
-> > future and exposing protocol details into the guest kernel driver.
-> > 
-> > The future scares me so I would always design to include a description
-> > of the blob from TDX module to the guest driver :)
-> 
-> So we have this SGX based quote format that is fixed because it already exists
-> in the wild. Going forward we are moving to DICE, but that is a standard format.
-> So also somewhat fixed. I guess the question is: is there some combo of bits in
-> each blob we could check that could deterministically distinguish between the
-> two? To do this we would need to analyze the quote formats.
+HI Vinod,
 
-You guys really didn't make it discoverable when you added DICE? :( :(
 
-> If there isn't, I'm not sure what we could do at this point. There is a library
-> Intel publishes (right Peter?) that can verify the quotes. I'd guess it must
-> have some way to distinguish between the two. Can you check how it does it
-> Peter?
+> Hey Allen,
+>
+> Any update, I am looking to pick updated patchset for this. Can you post
+> v4?
+>
 
-See this is exactly what I'm talking about, I don't want to repeatedly
-get into this situation down the road over the next decade.
+ Almost ready, will have it posted early tomorrow.
 
-> Another option would be to teach the whole stack to request specific
-> quotes types from the guest. Then this new component could only
-> request DICE and never be surprised by SGX quotes.
-
-Is that an existing option? It seems OK?
-
-Jason
+Thanks,
+ Allen
