@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794249704;
-	b=TZUYwd6lESXWyF6qtmmYggWzWhzkXCdsqD/i4QdPxiJSDl9D4iUyFbcSI7dzdDurcOtt
-	 fna3LUYPmollbwcXA1YKYjoxwxOum2BjJUTUKwLSIrhcO9gqIb15RBp1lW6DIwNbmoiLj
-	 SW5nfHmW/DeZ+w5p+s7/SC8ZF6oXNFHZImwhDVefVPI0+SAN1KL66eLu/dClpDWVtIvfn
-	 k8OJAnFQf2o7OlZc3/DtCuufSwmj6hxlUXneve9Pm8hSTM8QFFeBolu9x1/QVEAeJh2SQ
-	 rHvB+K7tcM4Gt38ElMZaifLDgZd9c8n1uUdziEFSzSSlhlYMMhrw+rjVOgOZPR5PqoQ==
+	t=1794249728;
+	b=06WjIJCq1/hS3rQG25Ha+zRg1ylrPyipCJQbx858A4913SBxwqTiQ2gjzA0ZXu8McKmx
+	 ygrwxJzMdj/mSxNwkOmE44UvZB3PcMkrxYvOJHFp6Hl76GCjftgg2Mnar9ZAIwSTWpLm3
+	 2w0Zs9C6IDx5x7EfrzlVSz8inHdyrz1I1XLeEWlgm7RPPLg0anLarcGBZLQ2jS7LaKXyO
+	 uRT/2OuoDTxNK00BMJXLorv1p0xO4u/AVwDUf07eUf8dANCQMUT6Y2MyzPiO/GfXWdwac
+	 hMZSIQHz7Fa57M8Ncyk6SwNki7otyFhIekWCJsvLaTwEXEbQqxWOUlMmwsh0ZUw50qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249704;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0HgPsE/yzQvxRg/VPiLYa1EQNmt4HkXJrFJ8j7/ZIqg=;
-	b=A9ZHDsH69zySbcIraKy0HisAiRkhUYgktr5KDouQMdjna5rLboAwrWNDF+hnHJ0+YgY+
-	 iTCKycwP6eFOneCYHDbLBthD0UlW57JuyeDZeYGSVMsj0fzhupI3HblLNj8Unwl0FRYf9
-	 UhkT2EnkH9t2nOAxzOvzk01NW7+yreTBlgYCZUR6eDoaqRvDfJfBSROp1Q36FJHr+1HxN
-	 stZOUyF39P9VoiIGLwNPckihwrkYx1pLzLsxp4PyOjUI+vtOnMabHFp+Spps+RlCw6pUn
-	 w+fqhz0v9k1t3WY4Znr0Kbg0slzib3xegy/fzPel4Mf7TsmXGcSPRchxuI/MjteZvSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794249728;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ZXH+YyMNiReqnmwo6eRN36nVICxrwgKNR+dw0oAxVeQ=;
+	b=ehpqqe8utoHDiKqBjYsqKuV9ymeWx+R7PlvaQPzZx3jWy3mU7bqVC4QPlxMupDAYqB0p
+	 dyH78+AryJ/nNl9SNocA8/Et5vooN0gbBP8mTz0qoI/0eGp0humpyDMZTFQV4wh8KK7y8
+	 IG1BajtCZalpYgklLYnAZNSlqvXHFIZ5G/CDkiQBX+9bI4W2xeD7hZJRaMR5SoZ0F+XpN
+	 OBMIYYeR98oJjM7Dt4j5zVwDV8g7Kq37QuG0HatJyB1q4iXGElEsoPteOH46YdmrYCHsF
+	 je+nr0jB70Mn32F8Y/bnjYdn0fl0jeL7O9xdSr63DXx83W7L+EQa2kKXUEKNVckpf2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RKE1YbOH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LE+9YW3t;
+	arc=none smtp.remote-ip=91.218.175.21
+Received: from mta0.migadu.com (out-21.mta0.migadu.com [91.218.175.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6433606A31C;
-	Mon,  9 Nov 2026 18:41:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57087606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:42:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57087606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RKE1YbOH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F3B1F008A1;
-	Mon,  9 Nov 2026 18:41:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794249703;
-	bh=0HgPsE/yzQvxRg/VPiLYa1EQNmt4HkXJrFJ8j7/ZIqg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=RKE1YbOHt98e6Oi+JFCzGCun50I+F/tGbM7H58hOMPlSWKgSnkjYczqaaOzkG73/b
-	 tKP/OyUSsfaoWcNJAHw1mw1wP322eEBipOy6fMSb1vzCbF9kZTZlU2EDYy+5DvdWqg
-	 7MIjJ7WqoKX0HWA3RSYUlmygl727Be7X7qJGU4WU4jkgQ0QypxU9gSvhH0T6FVXHBq
-	 kaOn51XXRe/OU3Wb4XtGqOhOQAJk3RwUrWQ0nwXE8vPJFFSxrOzQVeo63LIvMgo2p0
-	 FJa1UB9sG/XwC4b3tTZ8t5WGism29+QfPfKocPQZrPKXYXqzgeJAUjb0X2VS45U+2h
-	 P26V/iWYwwFuQ==
-Date: Mon, 9 Nov 2026 10:41:42 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Jeff Garzik <jeff@garzik.org>, Stephen Hemminger
- <stephen@networkplumber.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: cxgb: Fix skb reference leak in
- espibug_workaround_t204()
-Message-ID: <20261109104142.238b55e1@kernel.org>
-In-Reply-To: <20261108101000.2147805-1-vulab@iscas.ac.cn>
-References: <20260917105425.2147804-1-vulab@iscas.ac.cn>
-	<20260917073655.5d7c9ecb@kernel.org>
-	<20261108101000.2147805-1-vulab@iscas.ac.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LE+9YW3t
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Fb3gh5FjtxZua2Zhsv160igC2ZyXSzhrVml7Sf5bIOE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794249719; v=1; x=1794854519;
+ b=LE+9YW3ttsw0bySQ/Mr65ywIFrntYlV28SGL2AQxJ2RDoEhQnehyzswlQ2e66S9C5XOuRbUJ
+ LKI3J3/44dNrUW4TzYj+Dy2W1ksN5YnxQ6OCJx83wKEDzLalD0qYFZUIUIjV73dWptPtulIsqpK
+ 4e1DyNjgftu8yUJlDOe5zQBA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id ea1b837f0b4245a1;
+	Mon, 09 Nov 2026 18:41:59 +0000
+X-Mizu-Trace-ID: ea1b837f0b4245a1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <002d78a8-e344-45cc-9529-f2dd345a9ee4@linux.dev>
+Date: Mon, 9 Nov 2026 18:41:58 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,15 +58,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] block: fail a short atomic bounce in
+ bio_iov_iter_bounce_write()
+To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
+ Christian Brauner <brauner@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org
+References: <20261107-blkdev-atomic-bounce-v1-0-f66344262096@columbia.edu>
+ <20261107-blkdev-atomic-bounce-v1-1-f66344262096@columbia.edu>
+ <6bc16c54-a9f1-4c51-ab68-b227eeecaf66@linux.dev>
+ <74c7632e-52fa-4378-a15b-f90b492fe613@columbia.edu>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <74c7632e-52fa-4378-a15b-f90b492fe613@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Sun, 08 Nov 2026 10:34:46 -0000 Wentao Liang wrote:
-> The cxgb patch is a small reference leak fix in an old T2 driver. A v2
-> that also covers the single-port timer callback with the same pattern is
-> ready; I will send it separately as one patch rather than in this reply.
-> If you would rather I drop it, please tell me and I will.
+On 11/9/26 18:27, Tal Zussman wrote:
+>> This looks reasonable, as atomic stable writes are implied to be
+>> supported from 3373503df025a ("xfs: use bounce buffering direct I/O when
+>> the device requires stable pages"). I am wondering how to test and prove
+>> this (change is good and maintained)?
+>>
+> I tested this with XFS on scsi_debug (dif=1 dix=1 atomic_wr=1), doing
+> 1M RWF_ATOMIC direct writes and using fail_page_alloc to make the
+> folio allocations in bio_alloc_bounce_folios() fail partway through.
+> I had an LLM make it pretty precise and target bio_alloc_bounce_folios()
+> using the stack filtering mechanism, so I don't think this necessarily
+> makes sense as an xfstest if that's what you were thinking...
+> 
+> Without this patch, the write returns -EINVAL and hits the
+> WARN_ON_ONCE() in iomap_dio_bio_iter_one(). With it, the write returns
+> -EINVAL without the warning.
+> 
+> This also happened to turn up a scsi_debug bug: with dif=1 dix=1 it
+> doesn't store the protection information for WRITE ATOMIC(16), so
+> reading back an atomic write fails. I'll send a separate patch for that.
 
-Do not send revised versions of your patches.
+ok, I'll await the patch.
 
-They are all worthless slop.
+> 
+> Does that answer your question/is that what you were getting at?
+
+Yes, this is ok. I am really just getting at whether we can add a test 
+for this scenario.
+
+Thanks,
+John
