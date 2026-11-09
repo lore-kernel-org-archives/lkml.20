@@ -1,67 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794215238;
-	b=jlUWtuGYrNLLU5dRHwd8l4QzcFTAr1FCvfH+TELV5r3ChW5MKvBUwx4nhxBoxtt5aF2u
-	 maqmUvr1DkxC5ocmLQGOKN91uJ1DcLtN+BO64qnIX/bzrD6pDHFazgXIUAcHAtLXIr0IK
-	 ZZrA001AjuCgm+I6bCqfYQs5plBWC79IKtM2zGcPPFOly7JdaFyAS3Pwx+hH+Ft360Zg8
-	 MwfRwsxCHU86/qxZJCE6UI8n8d/VGcF42ySIug28YAzzYg6DeR6gm/bhxnjptzrddGnAY
-	 aUAK6+Z4/r4CO9iYk5itZ+ftXQa2ZniRdiW/YVEb4p0n4oi0WgjZdRYmVb0dJVaJWyg==
+	t=1794215283;
+	b=y0qu2eQobQi8AshrzgenS8tx/IvVTLGsW8R25pXAz0o3v7WBUptfeMt1Vou2XclMOmMm
+	 oB4xxofxKVlq9NH/hqZ6/7Znt2/wbVG70CDJBS3EdLdBTqjrPZBrnHBRvp6nQMXt+yGra
+	 hAUks0dQgR1CA1vgkQKdAuAIRikOeKq4ZCCSYGFHgiG7klX6O0DAsufJfFFFSCuoCl3ni
+	 YfcDqZq5Pb1q1J1gb00Th8jrkVD6Ryitv7pYq04iTMsA7xdYFMkFOUEiTWi/xazEhQyxb
+	 vjDosagF4k9w6Zo6CyYdKYnkDG+N0BTkq5Q8tE+nZq4R7HTerrErtGj9fjBZTzeVwnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794215238;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=whC+VMiXAPUTUgOglDxaMp+60RaaaVmq7RPmjGD/+W8=;
-	b=hMXaeDfqaYHqF9/bhmqiLrv8N2f9+CmwZNR2vIoj5TRmgEmlXDha4oEUFfUgwCKXCqdC
-	 h4aF3cD0t8hL1tQuipZL6fd9NHeyD2uskZr51u6wr/uj2q/l+X0bHhsOT7QIPXk1q/SvL
-	 pS1H2bjp5UZelRJtbBpxGLPsx+Un0JsoXltvCJaPiPuadX06ZI3jMqV38UlOgiFuRx69v
-	 IjZu+D5YGEhmNhgkXPJsGkP20t1IBulDg5xsNACfWL5az9izUp0Qp64uPkHPuBU7Fh24e
-	 j3z8XX7y8DFR+isOI9uhZhqOI/J9fiCQqFBYc7P9fl/qvh1WBEHt1CsMPWIz1WxtQww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794215283;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=gGH5WQC7n7vzUXd0nfa+o5hb82329Xqqb8HkiaIbfeg=;
+	b=UmZBwx0dX6kw4dslt5gSRazbwepjekwenj8jirkhDaW6CjI+pRUhchrT9QciuSuBi0s3
+	 d8Bh6EBVu2PzpY5oQRFpn4s02ffPqKqlk6UgS/+ijLBBDgXKvGW9eaaHAYvbouDjXPpxt
+	 RH4O2chYHu0Xul3BizQyLA4O+oaubyEIm4i6uySCPpqJeLFi86b2TRq4fQJ5ejj3SOJ4E
+	 e1EXJHh+GtkJUltcfs4Vv/q1bWfod5yV0dXHa3VSrdJR8c4pP6uvxLQcVYJ3pViF1MicJ
+	 ZD8SMdLxXNzO+JEFC6D6SPo1wHBi/IQ/5NCn/1KFp38CHAtHCUHl23ST+9IijUFxr8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XySRePvY;
-	arc=none smtp.remote-ip=54.243.244.52
-Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YDjrwnhm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90903606A323;
-	Mon,  9 Nov 2026 09:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90903606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A98DD606A31C;
+	Mon,  9 Nov 2026 09:08:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XySRePvY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794215213;
-	bh=whC+VMiXAPUTUgOglDxaMp+60RaaaVmq7RPmjGD/+W8=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=XySRePvY/WdXCsKXDE4GTwSgfLioSXbO6yedslgJuUQgEXHa/URvYh5d8cYuNGj95
-	 ASOIJ5IN3iZAps90sbELj2bk2Weu99K56Z+yIjEnlpfPnYTQKYWFn68vvXmjTzQhMU
-	 x5OExMIeeO5zSubILctVRpgmoPV9zxabSVeqM8Co=
-X-QQ-mid: zesmtpgz6t1794215197t346d00b5
-X-QQ-Originating-IP: WQqp4mf3MsnLgBQ3+XZfeZNdYNfI8ePL6pA5y8Z2lEY=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 09 Nov 2026 17:06:35 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2241864079019500270
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: lgirdwood@gmail.com
-Cc: broonie@kernel.org,
-	robh@kernel.org,
-	mka@chromium.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] regulator: vctrl: Calculate OVP delay before updating selector
-Date: Mon,  9 Nov 2026 17:06:34 +0800
-Message-ID: <4B7D8523DA6FC75F+20261109090634.3762484-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YDjrwnhm
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id ABF381F008A4;
+	Mon,  9 Nov 2026 09:08:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794215283;
+	bh=gGH5WQC7n7vzUXd0nfa+o5hb82329Xqqb8HkiaIbfeg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YDjrwnhmbacmI5fskK6AS3ZEpwjytE3KXrchjoeaDbZE+sOZQAilUs5pBxcCa8YjH
+	 rJ9ksUtWme5yLQqrnBZbENKvj/3hl2fCf2Qayd9GicQObgrjZXTIVS9Xkzbb3TUGTL
+	 3lJAB6e7r7uI1JryroKSteSDvabFEjE7wmb3PVi+d7foBw/XyIG3gMd0v5UYn7Wu19
+	 jUrYate4BoPlQhuCoMe42av71fNcY1tA3Vem8/oSE4CnYHXtsRt1NotJCwAkPIVOXM
+	 8JCaCzBQhWCCONDCNy0FhDK++gFkJfBJHIDbMB3kDJZ7I8+6VgteiLUMT0HfpnH0mR
+	 zw3b1TPaUJavg==
+Date: Mon, 9 Nov 2026 10:08:00 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Dan Carpenter <error27@gmail.com>
+Cc: Jiawen Liu <1298662399@qq.com>, Andreas Kemnade <andreas@kemnade.info>, 
+	Markus Elfring <Markus.Elfring@web.de>, kernel-janitors@vger.kernel.org, 
+	Grygorii Strashko <grygorii.strashko@ti.com>, Santosh Shilimkar <ssantosh@kernel.org>, 
+	Kevin Hilman <khilman@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-omap@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpio: omap: handle clk_prepare failure in probe
+Message-ID: <7bv2kqb4accxf54nma2hm766tlk3cwocpi3rypgwfaqpe33274@ibz3poncjkqj>
+References: <tencent_B4F504456790E8BA3C4EAB80F4BFB6954E08@qq.com>
+ <20260820154323.0a7c7929@kemnade.info>
+ <tencent_A1BF4495D1F5E54524907BBA2A4ED480FC08@qq.com>
+ <avFeZWgJgID5XA43@stanley.mountain>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,73 +62,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MTGYztYhR5ETyfZumcjdLN4B0Gr1nGsZ158O6UAHnTEKwg1ZOp3occ02
-	4LKD6aO1ERSsNwXO18OeYozD6gFob5QsAiSujnXMIYSAUP1DDpR/qFwoPtZrJkey9TMba+w
-	gAnr05GW+dGp+ycMhmCCIEkCQxO3xeyqdZeq34vF94XB7Q/czl5psCOjlWdbsfrrL1qytGW
-	kcCT/YDnrXILnsnTrvc+JvVY6TLKVfYzdkAB0g1FNKcQ2CHmg8RQOCXGaPl7Oa1YH4S/cCA
-	/dPcY8knq9WI9yqAu+rSQch+WMAUBgVqgklGMIy5FEDlKBBFyXGlYwhpWuMSqQTTOa0aCp7
-	MS7ikw7gll+MpZzK1myT72cVkaJMUlh3djZsQXD0h9S0Js56HVd8/ciZVEJKeoFeizCXEZe
-	hnImSk9stoRxmvdUN5A1giBdLaDVxH2xB2IgzBo6r5x/M3gLqVzPZmkohQjVkglYwiZOCcY
-	BbhJKC42KwEQAqwAMu/2pjcevAutz0dKPhiNMoYLXdtZdd/WvC9t0W0r5rTHfww/XjZY0Bo
-	NZbYo4wrLKqi8MHbmh/9T7p5PQCep2x2nXG2Umvh5V4bSGjF/WWAPrF2LvgWFfeLauMcWB2
-	MDwmahH7NBprAl1ts6JuXDb3GAvY4YH5+AyNquZgBxoROyYpFtuD+Zl/f7dMLmjoarV9f9F
-	6Cuk49Z8nys1qAO+nOIB8DaSsdulidlb2xGCW4JpY5lk1aNHFYwOSlpKiBntX6mCca8Ln2S
-	eLeTTUzt6Bv5Kf/T2RRB7PCvv2FjEH1SQyWLPMxVOJMSzLnh9aBZ+81IvAg/E0oFubXrICA
-	eLfrvjl5adQi2rEUTNxmuWQUx7X8kpeFKVXaXjPRetQIbyprdANfXnYC901TBrHv1TpAUh6
-	RAXAUPMOsSIkE3tgqzBbBwumXF5RSML3IFVgqWnvoys/+EHNjfDJrvBKu7JwlqSiHU8XLFg
-	l++EPmltxlDoA3XsxYuXDbulttN6c1n2Hq/0Q11zlNFvAXoCeJM5TbQRqnzqyFQLAB3ZZAL
-	4LCsHb0nJSJdPmGlyw9fdbGeVHZSNeUNrcNcpV9zg9K60Jj0nDQJVGyuvRxfQ=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avFeZWgJgID5XA43@stanley.mountain>
 
-From: Xu Rao <raoxu@uniontech.com>
+On Mon, Nov 09, 2026 at 08:47:17AM +0300, Dan Carpenter wrote:
+> Andreas is the expert in this context, not Markus.  His suggestion to
+> use devm_clk_get_prepared() was a good idea.  Add a Fixes tag but a
+> CC to stable is not required.
+>
 
-When lowering the voltage with OVP enabled and a discrete control
-regulator, vctrl_set_voltage_sel() splits the transition into steps
-and waits for the output voltage to settle after each step.
+Yes. Please don't spend time discussing with Markus, he's well known for
+nonsensensical comments and you're wasting your time.
 
-However, it assigns next_sel to vctrl->sel before calculating the
-voltage drop. Both voltage table lookups then refer to the same entry,
-so the calculated delay is always zero. Consecutive downward steps
-can therefore outpace the output voltage decay and trigger an unwanted
-OVP shutdown.
+Add the Fixes: tag as it is - after all - a fix.
 
-Calculate the delay before updating vctrl->sel. The voltage difference
-in microvolts divided by min-slew-down-rate in microvolts per microsecond
-gives the settling time, as documented in the vctrl regulator binding.
-This matches the continuous-voltage path and preserves selector tracking
-for subsequent steps and error recovery.
-
-The supplied fix was reviewed and this commit message prepared with
-OpenCode AI assistance.
-
-Fixes: 9dee7a72d0c7 ("regulator: Add driver for voltage controlled regulators")
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Cc: stable@vger.kernel.org
----
- drivers/regulator/vctrl-regulator.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/regulator/vctrl-regulator.c b/drivers/regulator/vctrl-regulator.c
-index 2796580a3a3c..d585eaae0433 100644
---- a/drivers/regulator/vctrl-regulator.c
-+++ b/drivers/regulator/vctrl-regulator.c
-@@ -197,11 +197,11 @@ static int vctrl_set_voltage_sel(struct regulator_dev *rdev,
- 				vctrl->vtable[next_sel].ctrl);
- 			goto err;
- 		}
--		vctrl->sel = next_sel;
-
- 		delay = DIV_ROUND_UP(vctrl->vtable[vctrl->sel].out -
- 				     vctrl->vtable[next_sel].out,
- 				     vctrl->min_slew_down_rate);
-+		vctrl->sel = next_sel;
- 		usleep_range(delay, delay + DIV_ROUND_UP(delay, 10));
- 	}
-
---
-2.50.1
-
+Thanks,
+Bartosz
