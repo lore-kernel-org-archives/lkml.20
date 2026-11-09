@@ -1,90 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217706;
-	b=rcf2iaLvuxJSLPMKilKezvqxL6qtJ71cJthgZSu88DU6Qs8sh03lsIOFhVBTUp+MCzt5
-	 FA3AhdUKh510bZbVDvf7B1J+YZZvgOFl28RQ0E9JmtTukSSh9xIJ7QreWkNRSvxphouX0
-	 ac0Ws8y08k6c3LSZEaULOE5tsPF4WHcNLSal4MHc1KDH6nvQCbqfEB2FXjURIaAMmp1sn
-	 k7e8Rx3wPLeluI1SAE7gU62zvwQd2WtBJBo641lkc5Xh/43eQy/s6phEPOuSmWOsYBCnc
-	 BND24agkcxXpAirmMxkeMWaacsj4KSsGjuO3NwIymt/WoMGmM7sF21VLXmakM1eh80g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217706;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=2a609L2GphDQlVfX0YuvfIMKjC+LWixKm2AkfX7MOhg=;
-	b=xE5j5yFzhUSma8t6fraZRO8oMFb61MsRzzifU1oTS01lKB+/0BbirfiCkzVSY2PDL1Ee
-	 1ZNb4+p7PbiWbtG4x87X/w4q+CJT5FcpGIpShp8N3Evf9PEQK2hpedLh+6I/oK/IoeJhu
-	 2MlLa9CfUa2SDz8Bq4pF98uzs0CioqyDv0mFoVUqoLv5ehKTePa08LwqrncxERhHcm9/k
-	 osmNyv1XiCmpx372BAmj7/a2aCaLrfPyssRkM5cgauRPQ4qmmpDR2XZndMXl7DqxR0yFt
-	 R09BaEgCfZ82hQ88KVhvdKz2psfyBDvQKmscupFckpQAYr3Dtbst3l21PtnCbahf6ew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=kdsit4xV;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794217791;
+	b=KZuMQ58L1QuAnst3xGYYursiw2ZV4jR0HKhA4fmePEXWPhA/9B6h/tKgPzTCY7RdHgnj
+	 5LpHLjcm0y+cQuVgz9uxOhQdDXHt3q4QDf1qTubHfenwAwMvXsijHcma1c2ZZ+1K1lRxB
+	 z8xoPTNhsNMQUdzxuWPFg90ITlexkbmH1DKbf+ycsUYtgSyqWXfPeEpJqmC26Xp3VvUsl
+	 K0hG4UVeEle+qt+J30GdrooR5ERjxhcrswIMPQlXSu3p+lrK4HxWbMgSHOqfE34vjNCLN
+	 9NQ0qWx/ioOtzyHvteGrwdOP8TkRRYvuk0xs2kgXKmI7IQmEWP0zk01kwtCy/wh5AUw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217791;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=A43LRLlfY1VoB7l3hvfT1w2+7RbYPuRRkaKzPxORuaA=;
+	b=H+p3lOsxjYOVa9sfnYUxSPBp1J9rTuzdVt6GVGmnD9/iC06u8SV7yBlvKIW6vt01widW
+	 x/1ZezSkf1O7pyLzfDoazn8o7ca/gLlY3I9OwhB/w+1ypLwEZc+qRSQJrzQ4RsZgeh5Bl
+	 /FfOqScg2aQaEtHBMWZADzj92ATYpeZzXH1CBUsjxT0Yf5PBFyBGTOto+hd1PQ7UeQG6w
+	 Uds2SwSuxsG5lZG3Lhl09cDktJtt66mpkEMZZaAdcUf4kyHJqVdRNt5urqOnmDXhc6ggJ
+	 R0mjB1ejUhb7ZKuZp0G3OmM0EnT7n8LIrK99Bobobh7b3XxeO90Q6qxBCDl8/7+PiSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QbKCSmbc;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="F9QP+O/y";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016C7606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:48:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 016C7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E024B606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E024B606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=kdsit4xV
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ace1f3897cso298540a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:48:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QbKCSmbc;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=F9QP+O/y
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96A1Nk3298157
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 09:49:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	A43LRLlfY1VoB7l3hvfT1w2+7RbYPuRRkaKzPxORuaA=; b=QbKCSmbcHpe5rKjR
+	rn3Xi+QvzRzQ2oF/FbmooC6A8nmvPTqEG7BQu7XTYi+KHxes482WuUVJMcyNkcb4
+	eCARzrZYFPpXt04RhyY7s1FsCO8YVJ4h2pAtnWumCUhtjBdZ6kz5pVC13MAM9wTo
+	K9u2Aqm9BXloz1Syerp2dztmAOr/Ts/awudO/PA6st/r0/ebvYAAS8xCkF+BK5Wc
+	0NqWlM0622MT27w9vsypZDFSu/YQRXgR9F2rcHxOpw1BoNP0zGcJO01cUizPwGuQ
+	ZPX/JvdTVW7H9qlkRFOkDENoE89Dxs9MgoiOeAUkopN9jB/rrfRzshT7nFXwBaal
+	1n+yLQ==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsuagwtp9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:49:49 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5338ff2cf14so14490661cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:49:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794217789; cv=none;
+        d=google.com; s=arc-20260327;
+        b=C87fYIRRopCpuiKgn9gKn8kjwVw7DmgAjg0OyBLWCBjZfLubMl2nxQxZyAMEl+l4g3
+         lVX9UpYnz/ajmfEYMz9urFhwPXxHEnoV6ZMElCT+AQISSmttxb5g4O+pcwc4OJW+GAoT
+         MOQxBnmePcLursytVgAhmrRnrkPE20mPzKUlzkf4zwnwsYGsQUvMK8Yby3BjQTFrE++p
+         8nDquLNhRa+U9isYMdt18aTnwr/9P0jxf0BR9Z+/tINSrFD6HEZlu45Lo7tiumOlYUmJ
+         9yiS+U0mZyG8QYX3tEpyYWvow61h0ZAg/MuPlrh2iFut5oH1AS8GRjAtQ1aK5bI4uGNc
+         QUIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=A43LRLlfY1VoB7l3hvfT1w2+7RbYPuRRkaKzPxORuaA=;
+        fh=CmhnOohECeDLazwzVxa5LvQ02XXkDh1spv6KC8UYK6s=;
+        b=RyGO7BVPC9oyw4xRELjZY5xCDa5hnvGhhDsR5GxW4mWOt7QtjXPS6yAoAOPAfEOQjt
+         a7GoK1ellQd6zGbdd07+YSolm9fDcfHNVwcuLhqAx9cVFH9/OaZyXM2ZpmXlrZ1KiZXn
+         Ciq7Ar4wixaqkGT25BWyiHW2BwvVboI877liNTAW5g1qMHoC6/DCh0ZeamrRKE1p0qd7
+         RVLczSbWu5bbEDcEHTFwzBSFM4pBlCsvr2YlKNGq+DWQXt7H45YkwAot3pcxMM/M7IDG
+         wYwneR3mMtYI1zREVm8qvjNQ26gr1JTSORXJuOC0L4G7CWzsG2w6aKvadzvVLvYEC4eE
+         7WUQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794217705; x=1794822505; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1794217789; x=1794822589; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2a609L2GphDQlVfX0YuvfIMKjC+LWixKm2AkfX7MOhg=;
-        b=kdsit4xVw8UCR22i6wFqANj0/AuOwo67AZ9gjP/UR8Kscd4RqKpysFl1wpS1CDktaB
-         +NlpElN21VNoeQ12zoMnmhtf+G7OErR63pky1GeGdekPGDmUoblvBzmLYCpbhxVNguEB
-         2eZONBKkwjEPa81idKM71kxGpZ2zWKD//gyAI=
+        bh=A43LRLlfY1VoB7l3hvfT1w2+7RbYPuRRkaKzPxORuaA=;
+        b=F9QP+O/yS9iVqZevv379hLgKHHKukW7Dpl2CZ0z6vCwnZV8C4tB2gZfhuXjvIgVO+6
+         Lki271XuK+VVv/3gWDrIh29puxB/AiJitkgVjDq0qDPQB7xRI0QhlTG0nTQBYVY/VsUB
+         JaheFo8XIgSeapbDZ6u2JfDKvrh6fFEdG25+egX6TJg1kRwTCZa4O1PDGdyl3r6aYLtr
+         ddqA/hN9BS6fmeUnmBihSUhIgjt972iSxV4Dl03AIjW3jZ5OUmuDvGor3lpIK9L1k2Vi
+         WhAvl+yZsDTIOtIC4AOYp2NHPpDjACdQVw1IQdvexI4xvddnzhwG6rcJeK60Yp0pEmhw
+         ylGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794217705; x=1794822505;
+        d=1e100.net; s=20260707; t=1794217789; x=1794822589;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2a609L2GphDQlVfX0YuvfIMKjC+LWixKm2AkfX7MOhg=;
-        b=s5b6+Tl1KX/RsL0wcZcCl1FK5ogGfAJleAEP8zNn1if7xAhV7lnjvEdz/Bf8yiv5ya
-         A+uLmhhqO8ycPtkZrx1hJ1MA8okCJ0SlsGNzT9ZYVsZDtXZ1Ieei5xCVir0DkvcNKeQs
-         +MsODwUTRDD+o8Xdei7W0oHEPjfcHBnWVkGnv9AGQ7AhxLCMS468MiZ+dwLK1olM/QCv
-         RY4Klgug0CbfM19mHZDrY7LVxVOmVousVbHvqjDzQpXE4xkRPORTcLWcVfhy6uITBtOI
-         i3K/NXTxWtMpMZRJ1PfKcHJbMsdwhN4RWjX8jZSTTofiKttal9XJSpJqAwZmT7OjYLbr
-         qROg==
-X-Forwarded-Encrypted: i=1; AL+hErGeWK1b2dFN18LgKLt0zvZWTGeyvVINaVUOJaUFRRkIAqutzDu/Ij0qST3TEGdVGb9tSLWjv3X3VmP4gh8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WCq2OX4kvdURNws/IJLUseujOeqekYmS5zhqBYX8uH5+5dO76
-	aTXyfofmJJK7WZ5JfambKlZuMdRmebNMAGPFknBg/XRGbv5z9cH4CNK3FGPKgBKHorI5J9lHsOO
-	RODR/Cw==
-X-Gm-Gg: AYBFou0StK49gJY9gn4RpRcwCxE/3dEYjOoOmNCzzv4UZX1uPsA5tV5whoNE1V5Up6S
-	GHnNwjHj8nNCLVd6HwpiyZKmKBbKn32r8f0OcXbw8AEGW72JIKmKK4Dh5Ywyc+lBPqFJuGDpH04
-	rpRUjfU53yG78Kr5pjhuPFc4wIRAytNRv66tkPu7lqaGWx+y8pZP7FH0KpMjO0YAn6L1EuxxqVg
-	gf1KH5LLFp7NTXKJ5c5Bquj5MFybcNyjGGc5RVsrLc31Jb/POaRScR/Kv5POu5Q6/3Hxmz26unL
-	LsetrQQM2LO6mgDlgbUJ7Vi79ZWadmLiAkoLeTqQFdcxSYdJXJZIBWzS9MkrP+DFRo8qIaHEZ2P
-	EXgUWd628Om/VwA0xxqNSlBe5cDqhgf6SY4OYwNHTU95U5Om+d0HiQQvvI7Npb0HkTLN2LacU95
-	VMMLb0UhOWrp8udCChws/WeWIAoWr6X7Kx/ydM45fUS1lFXUh8Mlu5PvDXDVbFEA8Bk+N7i8lk9
-	zmHQKzzbCLp6zYXRKoQYGiehIkD0LKYHcB8vAZnkciaGJuB41jh05LNzohcSIJg6nuOL7nFaXIe
-	6hdJK+kaPQxpdu8I/hGdtIVnqYgo1/9FWjcslyUxN/3EJ4ioFEqEu5UmS6vR4jWPlQ==
-X-Received: by 2002:a17:90b:53cb:b0:3b0:8947:fad2 with SMTP id 98e67ed59e1d1-3b12d39ed40mr3354791a91.53.1794217705223;
-        Mon, 09 Nov 2026 01:48:25 -0800 (PST)
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com. [74.125.82.174])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b105904951sm10335900a91.16.2026.11.09.01.48.23
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 01:48:24 -0800 (PST)
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3712b6d9843so298986eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:48:23 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFyuCDbJ7+4mO/A23uz59FEP4d5Fzrwh9q//+Gb8JcAp8bnuGMUyajRQmPmfrKcwMJaHNBOvTUFFkgv1jE=@vger.kernel.org
-X-Received: by 2002:a05:7300:ce86:b0:35e:f1a5:9ba6 with SMTP id
- 5a478bee46e88-37252b4c091mr6436576eec.5.1794217702332; Mon, 09 Nov 2026
- 01:48:22 -0800 (PST)
+        bh=A43LRLlfY1VoB7l3hvfT1w2+7RbYPuRRkaKzPxORuaA=;
+        b=iAiEiZwdbq5L1OBhX76aNofo75TRgw1DyrYw9Kp+SzeUNloRSOPzGxPf7b5FRMlWgK
+         VQ7ThFzb09E2J0E3xBIRnpW9KplBkKnR6wMjMfLlpNUYHu35hWcNhHCHi5d8nISzAQrK
+         ezNS0GrS+h2/GHkGHy5DnAAeL5APGEp7oSyip/1ejCpIyI4hGQrPYuZceNu5WBu9UAD6
+         Z4R6xYO4H1My1e1mqpOHIfpBNWh8G4lBoxBcFWobJ0HKIKw6tOjpK4Y0PCiJ2+jNvNvh
+         FLqmKdgrbPZ+6jrA8NS/TnDOxCvJTlU4sJ2sDf4CISC1uC7sKTP0F8L9Hu9zw/34s73N
+         NGFA==
+X-Forwarded-Encrypted: i=1; AL+hErGzACB4taNr9MohH3hb3nUi/i3TxjI1qggPPPjdG7WaU0Waoh4PU16MffsNI5gtUvJcxMtSm4ZqR7v5PZ8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8B93Dw+lms6NytC/PbAvdkllqdEqfSAwpVojaseiGYd8pzv8sw
+	yAwueU13tbTXPqFNSFyRsweIBiWPNI9GYOfTSOTg+E3EMWy8fLp6XRR6LN0xv1UfoVCb3aP+oXB
+	X+0kC7V4uhUjRaaLXjPkeyAfNoOw6i8MpBdZjHFmQ7DpJNs44tunMoATF/M5rE0ZJ5JNJ34JSkY
+	ftSmGpW9WW7dBVe457Grgai/tylKMh2a72Tzi/EgbF0Q==
+X-Gm-Gg: AYBFou1NQAIqbyTWBZoYTa4D2y5d2C6JVxzz7h1MbCccJkZph1HXT9Nsx8tIWGts7lA
+	PJZOxbCft5vwNgGgD/hzKW6lMP7aFYCf9fgn8sixBg1aWfrr0wHoerYycq0VXrxEjCxaVJFJdJY
+	0NBwxj3GPP/xCsY1Q/3BcD/GA+1s6TyU8QENcNuMJ1/hXDS/9DXhhmhw1K8nNGJyo4W0UiDY8a3
+	hlocR26VHnJxXL5KrEqw/Uos3Pt2d/jKpXQVLrrgk3oHuwQxwqbFbwUzXxbJAO+WjuFGqPVfkU=
+X-Received: by 2002:a05:620a:46a7:b0:93f:2bca:2cd8 with SMTP id af79cd13be357-947842757dcmr470394785a.57.1794217788938;
+        Mon, 09 Nov 2026 01:49:48 -0800 (PST)
+X-Received: by 2002:a05:620a:46a7:b0:93f:2bca:2cd8 with SMTP id
+ af79cd13be357-947842757dcmr470392785a.57.1794217788415; Mon, 09 Nov 2026
+ 01:49:48 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,140 +128,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com> <20260714114414.184512-10-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260714114414.184512-10-angelogioacchino.delregno@collabora.com>
-From: Fei Shao <fshao@chromium.org>
-Date: Mon, 9 Nov 2026 17:47:43 +0800
-X-Gmail-Original-Message-ID: <CAC=S1ng1U7XK2SvM+2Tvb7z2nHiDEvLhVP75JHdwzkV7GiaiKA@mail.gmail.com>
-X-Gm-Features: AclHuK_kbp2RlyhWxo_Xx4hVQaPPUEY10kfNvYs17nATUWr47nBdslkFDfWhjSg
-Message-ID: <CAC=S1ng1U7XK2SvM+2Tvb7z2nHiDEvLhVP75JHdwzkV7GiaiKA@mail.gmail.com>
-Subject: Re: [PATCH v2 09/46] drm/mediatek: De-duplicate internal component checks
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
-	simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
-	tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
+References: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org> <20261107-v4l2-frame-sync-v3-3-e5bf7073a35d@kernel.org>
+In-Reply-To: <20261107-v4l2-frame-sync-v3-3-e5bf7073a35d@kernel.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 9 Nov 2026 10:49:37 +0100
+X-Gm-Features: AclHuK_y07fkzKo1YjXS7RBfNxjVDAed2Q4BKv9GuNKAjF7-rmkOWA5Yh4RIhYU
+Message-ID: <CAFEp6-1tMwheRKaN=sEgF9abzNZOLS79OePq1GOwtm8JGXjSug@mail.gmail.com>
+Subject: Re: [PATCH v3 03/11] media: qcom: camss: Use SOF sequence tracking
+ for vb.sequence
+To: bryan.odonoghue@linaro.org
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, "Bryan O'Donoghue" <bod@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzOCBTYWx0ZWRfX/6woa/eaHx1W
+ 9ipTkkw2HcnMNhzFuYwPiswGDP+Wx5JwampvPYzst+TFKyU1iWZOJUXsKbh0a9ENATDTup2n07I
+ rSE2azx3rytUejKj2HNWbAv9/0GzVym8Acns2z2/hJWFCIsi02LNxtvuMjLkJlZhqyPD8NbaUEO
+ elCt+wftuXO4mIi7X934kfc3kyoReQII3xjLSgfYEv6sVBdeRwy8/a9nHtcJQFcrgaept9qlKNC
+ I/wohGLYBPkJLES/1wfsZus6EEOvnLC9DRnX18X9xCtXKBO6ui+SFE6X4Sy6+tz4Nr+4DKjzw1/
+ Ifp450ZhVvepR3B/FSCvoukwJLPbBZb0xmc5yFLyG3KnW2DZvYb9YOE0RyIXQYccGtw26mpHNgi
+ LT17BCDdu/uMDV15g1aVBSho7Xc1OTUi9eLfsM90Potl9ptz0YGOVvOIyuKadzT8TY303Wnchw7
+ Gugv8szah0WkcXn9aTg==
+X-Proofpoint-ORIG-GUID: GdHFxusA_ny528_aHodTzCfvJEy805RL
+X-Proofpoint-GUID: GdHFxusA_ny528_aHodTzCfvJEy805RL
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzOCBTYWx0ZWRfX5UOlO85LJWwt
+ VvhPyUH+1OKNvVUhmbtECPjpZ9ljiC9mQsvYtaYejADRmnHJoz9THD/dgjGoOZ5E4F2PFXKRc3v
+ 9O1S0VtxISeytTeiHicoB8i8Q9NKg+M=
+X-Authority-Analysis: v=2.4 cv=V8LoQuni c=1 sm=1 tr=0 ts=6af1973d cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=AFkX6LJAiSV6nzPqyhcA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 malwarescore=0 bulkscore=0 impostorscore=0
+ phishscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090038
 
-On Tue, Jul 14, 2026 at 7:45=E2=80=AFPM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
+Hi Bryan,
+
+On Sat, Nov 7, 2026 at 2:02=E2=80=AFAM <bryan.odonoghue@linaro.org> wrote:
 >
-> Both mtk_ddp_comp and mtk_drm_drv are performing similar checks
-> to distinguish components that have an external driver from ones
-> that don't - with the exception of mtk_ddp_comp also checking if
-> the component is related to a backlight driver.
+> From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 >
-> Create helper functions in the main component management driver
-> mtk_ddp_comp, one to check if the currently checked component is
-> internal/simple, and one (static, internal to mtk_ddp_comp only)
-> to check if it is a backlight related one.
+> We want to correlate statistics buffers with data-buffers. To do that we
+> will need to have a sequence number driven by the SOF signal.
 >
-> Since the amount of internal/simple components is lower than the
-> amount of ones having a specific driver, and since it is expected
-> that most of (if not all) of any new hardware support will need a
-> specific driver as well, the helpers are doing an inverted check
-> compared to what the code was doing before, as both mtk_ddp_comp
-> and mtk_drm_drv were checking for external component explicitly,
-> while now they're doing the same, but checking if NOT internal.
+> Rather than incrementing vb.sequence when data arrives, we should increme=
+nt
+> when SOF happens.
 >
-> Also, while at it, for the OVL_ADAPTOR components case, instead
-> of checking for MTK_DISP_OVL_ADAPTOR, call the already provided
-> mtk_ovl_adaptor_is_comp_present() function to check for this type
-> of component.
->
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 > ---
->  drivers/gpu/drm/mediatek/mtk_ddp_comp.c | 46 ++++++++++++++-----------
->  drivers/gpu/drm/mediatek/mtk_ddp_comp.h |  1 +
->  drivers/gpu/drm/mediatek/mtk_drm_drv.c  | 16 ++-------
->  3 files changed, 29 insertions(+), 34 deletions(-)
+>  drivers/media/platform/qcom/camss/camss-csid.c    | 14 ++++++++++++++
+>  drivers/media/platform/qcom/camss/camss-csid.h    |  9 +++++++++
+>  drivers/media/platform/qcom/camss/camss-vfe-17x.c |  5 ++++-
+>  drivers/media/platform/qcom/camss/camss-vfe.c     |  9 ++++++++-
+>  drivers/media/platform/qcom/camss/camss-vfe.h     |  1 +
+>  5 files changed, 36 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c b/drivers/gpu/drm/me=
-diatek/mtk_ddp_comp.c
-> index 2ba2123238b3..a9c3e29fb340 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_ddp_comp.c
-
-[snip]
-
-> @@ -700,26 +720,12 @@ int mtk_ddp_comp_init(struct device *dev, struct de=
-vice_node *node,
->         if (ret)
->                 return ret;
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/med=
+ia/platform/qcom/camss/camss-csid.c
+> index 7f33fb81ca8cc..588122beec854 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csid.c
+> @@ -1356,6 +1356,20 @@ static int csid_subscribe_event(struct v4l2_subdev=
+ *sd, struct v4l2_fh *fh,
+>         return v4l2_event_subscribe(fh, sub, 0, &csid_frame_sync_ops);
+>  }
 >
-> -       if (type =3D=3D MTK_DISP_AAL ||
-> -           type =3D=3D MTK_DISP_BLS ||
-> -           type =3D=3D MTK_DISP_CCORR ||
-> -           type =3D=3D MTK_DISP_COLOR ||
-> -           type =3D=3D MTK_DISP_DSC ||
-> -           type =3D=3D MTK_DISP_GAMMA ||
-> -           type =3D=3D MTK_DISP_MERGE ||
-> -           type =3D=3D MTK_DISP_OVL ||
-> -           type =3D=3D MTK_DISP_OVL_2L ||
-> -           type =3D=3D MTK_DISP_PWM ||
-> -           type =3D=3D MTK_DISP_RDMA ||
-> -           type =3D=3D MTK_DISP_WDMA ||
-> -           type =3D=3D MTK_DISP_DPI ||
-> -           type =3D=3D MTK_DISP_DP_INTF ||
-> -           type =3D=3D MTK_DISP_DSI)
-> -               goto end;
-> -
-> -       ret =3D mtk_ddp_comp_init_internal_comp(dev, comp->dev);
-> -       if (ret)
-> -               return ret;
-> +       /* If there's no external driver for this component, allocate and=
- init now */
-> +       if (mtk_ddp_comp_is_internal_comp(type) || mtk_ddp_comp_is_backli=
-ght_comp(type)) {
+> +atomic_t *csid_get_sof_seq(struct media_pad *pad)
 
-If I understand this correctly, MTK_DISP_BLS and MTK_DISP_PWM are
-bound by the standalone pwm-mtk-disp driver. Initializing them as
-internal components requests the same exclusive MMIO region and fails
-with -EBUSY on whichever driver probes second.
+I would go with a `const atomic_t *` to preserve explicit ownership
+within the CSID.
+This is also what atomic_read is using, so that should work.
 
-Drop `mtk_ddp_comp_is_backlight_comp()` here so backlight nodes skip
-internal init as before.
-
-> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
-iatek/mtk_drm_drv.c
-> index e956e1966b86..18683aee61ff 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> @@ -1166,20 +1166,8 @@ static int mtk_drm_probe(struct platform_device *p=
-dev)
->                  * blocks have separate component platform drivers and in=
-itialize their own
->                  * DDP component structure. The others are initialized he=
-re.
->                  */
-> -               if (comp_type =3D=3D MTK_DISP_AAL ||
-> -                   comp_type =3D=3D MTK_DISP_CCORR ||
-> -                   comp_type =3D=3D MTK_DISP_COLOR ||
-> -                   comp_type =3D=3D MTK_DISP_DSC ||
-> -                   comp_type =3D=3D MTK_DISP_GAMMA ||
-> -                   comp_type =3D=3D MTK_DISP_MERGE ||
-> -                   comp_type =3D=3D MTK_DISP_OVL ||
-> -                   comp_type =3D=3D MTK_DISP_OVL_2L ||
-> -                   comp_type =3D=3D MTK_DISP_OVL_ADAPTOR ||
-> -                   comp_type =3D=3D MTK_DISP_RDMA ||
-> -                   comp_type =3D=3D MTK_DISP_WDMA ||
-> -                   comp_type =3D=3D MTK_DISP_DP_INTF ||
-> -                   comp_type =3D=3D MTK_DISP_DPI ||
-> -                   comp_type =3D=3D MTK_DISP_DSI) {
-> +               if (!mtk_ddp_comp_is_internal_comp(comp_type) &&
-> +                   !mtk_ovl_adaptor_is_comp_present(node)) {
-
-And here, pwm-mtk-disp isn't a component driver and never registers a
-component. Adding a backlight component may prevent the DRM master
-from ever binding on SoCs.
-
-Add `!mtk_ddp_comp_is_backlight_comp()` here, and in
-`mtk_drm_register_sibling()` in patch 40/46.
-
-Regards,
-Fei
+> +{
+> +       struct csid_device *csid;
+> +
+> +       if (!pad || pad->index < MSM_CSID_PAD_FIRST_SRC)
+> +               return NULL;
+> +
+> +       csid =3D v4l2_get_subdevdata(media_entity_to_v4l2_subdev(pad->ent=
+ity));
+> +       if (!csid->res->frame_sync_en)
+> +               return NULL;
+> +
+> +       return &csid->sof_seq[pad->index - MSM_CSID_PAD_FIRST_SRC];
+> +}
+> +
+>  void csid_sof_event(struct csid_device *csid, unsigned int id)
+>  {
+>         struct v4l2_event event =3D {
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/med=
+ia/platform/qcom/camss/camss-csid.h
+> index a9d88909d37fc..8edb258b0ae58 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid.h
+> +++ b/drivers/media/platform/qcom/camss/camss-csid.h
+> @@ -260,4 +260,13 @@ u32 csid_src_pad_code(struct csid_device *csid, u32 =
+sink_code,
+>   */
+>  void csid_sof_event(struct csid_device *csid, unsigned int id);
+>
+> +/*
+> + * csid_get_sof_seq - Get a pointer to the SOF frame sequence variable.
+> + * @pad: Remote pad of a consumer's sink pad
+> + *
+> + * Return the counter or NULL if @pad isn't a CSID or the CSID doesn't s=
+upport
+> + * SOF tracking.
+> + */
+> +atomic_t *csid_get_sof_seq(struct media_pad *pad);
+> +
+>  #endif /* QC_MSM_CAMSS_CSID_H */
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-17x.c b/drivers/=
+media/platform/qcom/camss/camss-vfe-17x.c
+> index 62c2405359a06..4972d3ab65078 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe-17x.c
+> @@ -491,7 +491,10 @@ static void vfe_isr_wm_done(struct vfe_device *vfe, =
+u8 wm)
+>         }
+>
+>         ready_buf->vb.vb2_buf.timestamp =3D ts;
+> -       ready_buf->vb.sequence =3D output->sequence++;
+> +       if (line->sof_seq)
+> +               ready_buf->vb.sequence =3D atomic_read(line->sof_seq);
+> +       else
+> +               ready_buf->vb.sequence =3D output->sequence++;
+>
+>         index =3D 0;
+>         output->buf[0] =3D output->buf[1];
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
+a/platform/qcom/camss/camss-vfe.c
+> index 2680a9914765f..da373024c847e 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> @@ -474,7 +474,10 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
+>         }
+>
+>         ready_buf->vb.vb2_buf.timestamp =3D ts;
+> -       ready_buf->vb.sequence =3D output->sequence++;
+> +       if (line->sof_seq)
+> +               ready_buf->vb.sequence =3D atomic_read(line->sof_seq);
+> +       else
+> +               ready_buf->vb.sequence =3D output->sequence++;
+>
+>         index =3D 0;
+>         output->buf[0] =3D output->buf[1];
+> @@ -508,6 +511,7 @@ int vfe_enable_output_v2(struct vfe_line *line)
+>         struct vfe_output *output =3D &line->output;
+>         const struct vfe_hw_ops *ops =3D vfe->res->hw_ops;
+>         struct media_pad *sensor_pad;
+> +       struct media_pad *csid_pad;
+>         unsigned long flags;
+>         unsigned int frame_skip =3D 0;
+>         unsigned int i;
+> @@ -523,6 +527,9 @@ int vfe_enable_output_v2(struct vfe_line *line)
+>                         frame_skip =3D VFE_FRAME_DROP_VAL - 1;
+>         }
+>
+> +       csid_pad =3D media_pad_remote_pad_first(&line->pads[MSM_VFE_PAD_S=
+INK]);
+> +       line->sof_seq =3D csid_get_sof_seq(csid_pad);
+> +
+>         spin_lock_irqsave(&vfe->output_lock, flags);
+>
+>         ops->reg_update_clear(vfe, line->id);
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/medi=
+a/platform/qcom/camss/camss-vfe.h
+> index ae9dad353a378..0e2dfa58421ad 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.h
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+> @@ -94,6 +94,7 @@ struct vfe_line {
+>         struct vfe_output output;
+>         const struct camss_format_info *formats;
+>         unsigned int nformats;
+> +       atomic_t *sof_seq;
+>  };
+>
+>  struct vfe_device;
+>
+> --
+> 2.56.0
+>
