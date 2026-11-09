@@ -1,111 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221011;
-	b=t97pTuMEWobgBvb9f6x6W0KPa7Bp5QYQ3J7GlN7VcGNfThJhpH3pmEd1raNNNsmmIixF
-	 tfO2jF2MEt/qdiPmIj3rhDH2a5J7HU3AnotHPcWNf/pL10Zx8Ffu/CClenAVGaLkyDUdy
-	 qgVMS64Z6vHs3uMN2P8GvDbIT0P+eE/9kpABAtInQ87lG78ITUGtHASPmDrUBFEUqzTJe
-	 FtybK+yuYwLp8T8GzaYPr3Ss1UNW6gp+jPVtI7frlryZE+dEz4VZ2IrbKnCe9EIcz0vms
-	 gVH0WpMq+mG8dZLhn04B01AFzuhwVB4hmqVdGS4X5JhspkCVNxQ2qbwul5o/9KHD24A==
+	t=1794221066;
+	b=yvls/31K5KKYg9zvzRR2ov2ZKwraze6XoQtct5UV6nhSh9QZu3uGKvgSsNGnczIsOIvI
+	 j+aDyo6XqwbC6NvdU89HodALEklIjbmqGLro2voj75uE/2aJf6DEiOOQtrSRo7pMrXhOh
+	 XtmNSLua2y9qbNQ3teWqxhz9y79COsDG+FhNbPsYgLgqQmUFUDuT7mjWYHh6ZIKqBXsFX
+	 hgsAr+932RAsP2eHY1u6dwXqnxIQevmsvicTCwLsphKiHEoFFNt7DEYd+cEzi9Vw9CQL6
+	 0AiuiNrojiKg8C5Y20Yh2jyFFsqlPw4CX7Pd5BnHT1UpXM1oWjdsqqMzMoA9817ESPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221011;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=UDca6BQDSujzYN3iXgd+k/sP2oPa3lW0EYEkVXMqZGI=;
-	b=BdOGP8MkMRbGOsOWcJMnpsyeXI7/8tsP6ICUdCJU5VSghLR+uvbYHq5ezwYMkI6FgBBP
-	 aLvEyt2mE8mNGIqqHa7xbw1B46YKd+a0G5ziRBCFtW356trTkCT5gOVIV/j1Sd+cjsMNP
-	 /7SlymzaPEZEpLNEolsRs5buB8v5tu+6vpYIqdKPBr6spEyHZKdQNrFJKPVDELTcwPPIV
-	 AnDDD+MIDxJeN2FkMYaGN5E6icnu78Wy0FQvbw9d9g+8oBkNIcptcxYVkLjirbGvK/oyC
-	 M/gzzNaNw+ye+92xatvyRUbRlylubkndGtIYc4U4JFgMu7etjuLba7U32QlWErhZpPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221066;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=TXr2TKEYrIDqnyQ+02ZfHnpl8vf7msiDB6kAkQN1rZM=;
+	b=YbAVNSbzV1Q0G6YrutAEgs/EmYlf6QrVaqPDBh12Y9NmLhs7t2vYVnhwLOMzPVJn1F6u
+	 e4wTYf/jj/MAfRJvEoLP3d9Y1p0A8cYn98vxrXYUfg/95V6A9JljgG3lnotScOyjOjgkn
+	 4+Bqo9+JbjWnbs9AEtqlGqDYWdBpsSwIWKWkgMuSuv3BDCO/cfmMcWf77TeemzruzDql5
+	 Lgx9Dxq0a5gvH7UfMCULgW+f8SZx2r5KjbMQX32fxbF7OP/mFvP1Cid30uWveYLKgejSG
+	 EcQZOGRIXKTaYp00lKDK95qhGF9pmDHiy7h1KhLrMX4u0FJOdKHns/dMpV84VpiNeDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="bQZO/4ow";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cju391Pb;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="bQZO/4ow";
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cju391Pb;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mfOpr55J;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347A8606A321;
-	Mon,  9 Nov 2026 10:43:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 347A8606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F1D606A31C;
+	Mon,  9 Nov 2026 10:44:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bQZO/4ow;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cju391Pb;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=bQZO/4ow;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cju391Pb
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 68CC51F7DC;
-	Mon,  9 Nov 2026 10:43:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794221008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UDca6BQDSujzYN3iXgd+k/sP2oPa3lW0EYEkVXMqZGI=;
-	b=bQZO/4ownfo2yOHaR61k0wnNVBUfekWvdGFDswdi15wmEuCR8Z1/p2ZL6dN64g69FEIkRO
-	PRKrz4vmmMvnPAsZqEGUjbVs1ChGiH4/NjYgeZ09IW9q6Jhz1ig9kodd9g/i2I5zKjXx5F
-	3FFvH4zSFyFct0dpFcx+NtASgf+YDdk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794221008;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UDca6BQDSujzYN3iXgd+k/sP2oPa3lW0EYEkVXMqZGI=;
-	b=cju391PbLRfEBl3XJCGRIWAIkQf+7o/Sl/VZ1cZw2D761PRg10H9FTP02kRQSC/0Gj8nUX
-	skSOEkBupJ8pXyBA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794221008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UDca6BQDSujzYN3iXgd+k/sP2oPa3lW0EYEkVXMqZGI=;
-	b=bQZO/4ownfo2yOHaR61k0wnNVBUfekWvdGFDswdi15wmEuCR8Z1/p2ZL6dN64g69FEIkRO
-	PRKrz4vmmMvnPAsZqEGUjbVs1ChGiH4/NjYgeZ09IW9q6Jhz1ig9kodd9g/i2I5zKjXx5F
-	3FFvH4zSFyFct0dpFcx+NtASgf+YDdk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794221008;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UDca6BQDSujzYN3iXgd+k/sP2oPa3lW0EYEkVXMqZGI=;
-	b=cju391PbLRfEBl3XJCGRIWAIkQf+7o/Sl/VZ1cZw2D761PRg10H9FTP02kRQSC/0Gj8nUX
-	skSOEkBupJ8pXyBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E1B3313319;
-	Mon,  9 Nov 2026 10:43:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id BRLeLsuj8WpadwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 09 Nov 2026 10:43:23 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 6B4BD21DA3; Mon, 09 Nov 2026 11:43:19 +0100 (CET)
-Date: Mon, 9 Nov 2026 11:43:19 +0100
-From: Jan Kara <jack@suse.cz>
-To: Huang Shijie <huangsj@hygon.cn>
-Cc: axboe@kernel.dk, viro@zeniv.linux.org.uk, brauner@kernel.org, 
-	zhongyuan@hygon.cn, fangbaoshun@hygon.cn, yingzhiwei@hygon.cn, jack@suse.cz, 
-	agruenba@redhat.com, mic@digikod.net, gnoack@google.com, paul@paul-moore.com, 
-	jmorris@namei.org, serge@hallyn.com, aleksa@amutable.com, legion@kernel.org, 
-	david@kernel.org, sandeen@redhat.com, ebiggers@kernel.org, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	gfs2@lists.linux.dev, linux-security-module@vger.kernel.org, sunjunchao@bytedance.com
-Subject: Re: [PATCH 1/3] vfs: add inode iteration method super_iter_inodes
-Message-ID: <symrqnxn6tkrahynz7rm5b7n3tolkifpbubmwfd3y6q4q2xnt2@vhh7plsok3kh>
-References: <20261015093854.2082600-1-huangsj@hygon.cn>
- <20261015093854.2082600-2-huangsj@hygon.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mfOpr55J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34E151F0089F;
+	Mon,  9 Nov 2026 10:44:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794221066;
+	bh=TXr2TKEYrIDqnyQ+02ZfHnpl8vf7msiDB6kAkQN1rZM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mfOpr55JSOEAKsYIRwZlPYVVji4xFQLSCZnYgYFBPvHuYw5tqPT6lpcFI9qJa0aep
+	 VERbNONOWWRfHvh/4pt0kOHo5GTHTckTKsADwINYHKcBPYIEykbTiHYKFVvv6Iayco
+	 P56iKD/4w8gwEuVziu3200TNGNO+AhB2cOwaCB72Mkz71mMNHxSY5o0Mp5g7LawzBY
+	 /hqT65DQ7N9EF/R0bmufgMI1JGQVXsKSu8+Hb/tg6OQ6csPirqc+IoZQPamOaOwii6
+	 nfY5lMRBzsqXWKW0jlB2p3CN9fmRVT3ZMcVZGIxc577QjbgavPnbuP3Z9CnA+a/9r1
+	 tz7C6CPoEbMHA==
+Date: Mon, 9 Nov 2026 11:44:22 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Andrew Gigena <mail@andrewgigena.dev>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Andi Shyti <andi.shyti@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH v3 2/7] dt-bindings: media: qcom,sm8150-camss: Add SM8150
+ CAMSS
+Message-ID: <20261109-slick-transparent-ostrich-28ddad@quoll>
+References: <20261106-sm8150-v7.4-rc1-camss-v3-0-0103e8a0bbcd@andrewgigena.dev>
+ <20261106-sm8150-v7.4-rc1-camss-v3-2-0103e8a0bbcd@andrewgigena.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,158 +67,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261015093854.2082600-2-huangsj@hygon.cn>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[25];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,hygon.cn:email]
-X-Spam-Score: -12.80
+In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v3-2-0103e8a0bbcd@andrewgigena.dev>
 
-On Thu 15-10-26 17:38:52, Huang Shijie wrote:
-> This will be used to replace the explicit sb->s_inodes iteration,
-> with the caller supplying a callback function and a private data
-> pointer that is passed to the callback along with each inode that is
-> iterated.
+On Fri, Nov 06, 2026 at 06:35:34PM +0000, Andrew Gigena wrote:
+> Document the Qualcomm SM8150 Camera Subsystem. The IP integrates four
+> CSIPHY, four CSID (two full and two lite), two VFE and two VFE-Lite
+> instances, with 19 clocks, 8 interrupts, eight IOMMU streams, four
+> interconnect paths and three power domains.
 > 
-> A single iteration function, super_iter_inodes(), is provided, with
-> the iteration mode selected by the INO_ITER_F_UNSAFE flag. The
-> INO_ITER_F_REFERENCED flag can additionally restrict the iteration to
-> inodes that still have a reference.
+> The CSIPHY I/O spaces are not part of the CAMSS container device: each
+> CSIPHY is driven by the dedicated qcom,sm8150-csi2-phy driver, so this
+> binding only describes the VFE and CSID resources. Each CSI input port
+> is described with data lanes starting at 1, as required by the CAMSS
+> PHY mode.
 > 
-> Without INO_ITER_F_UNSAFE, the callback is called with a valid,
-> unlocked and referenced inode, so any inode operation, including
-> blocking operations, is allowed. The iterator is responsible for
-> inode lifecycle management, so the callback only needs to implement
-> the operation it wants to perform on all inodes.
+> Describe SM8150 in a dedicated schema instead of reusing another SoC's
+> schema.
 > 
-> With INO_ITER_F_UNSAFE set, the inodes are iterated without taking a
-> reference and the callback is run in an atomic context that must not
-> block. This mode is for internal VFS use only and runs under a RCU
-> read lock so that the VFS inode is not freed from under the callback.
-> It is needed for operations that require tight control over the state
-> of the inodes they operate on.
+> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
+> ---
+>  .../bindings/media/qcom,sm8150-camss.yaml          | 285 +++++++++++++++++++++
+>  1 file changed, 285 insertions(+)
 > 
-> This mechanism allows the existing sb->s_inodes iteration models to
-> be maintained, providing a generic implementation for iterating all
-> cached inodes on the superblock.
-> 
-> Signed-off-by: Huang Shijie <huangsj@hygon.cn>
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
+> new file mode 100644
+> index 000000000000..371ff1ce0bd2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
+> @@ -0,0 +1,285 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/qcom,sm8150-camss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SM8150 Camera Subsystem (CAMSS)
+> +
+> +maintainers:
+> +  - Andrew Gigena <mail@andrewgigena.dev>
+> +
+> +description:
+> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,sm8150-camss
+> +
+> +  reg:
+> +    maxItems: 8
+> +
+> +  reg-names:
+> +    items:
+> +      - const: vfe0
+> +      - const: csid0
+> +      - const: vfe1
+> +      - const: csid1
+> +      - const: vfe_lite0
+> +      - const: csid_lite0
+> +      - const: vfe_lite1
+> +      - const: csid_lite1
 
-Some more comments after seeing more conversions:
+Seems you ignored my last review, so repeating:
 
-> +static bool super_iter_iget(struct inode *inode, int flags)
-> +{
-> +	bool ret = false;
-> +
+From which binding did you copy such order of entries?
 
-Here I'd do a lockless icount_read_once(inode) check if INO_ITER_F_REFERENCED
-is set to avoid unnecessary i_lock round trip.
+Best regards,
+Krzysztof
 
-> +	spin_lock(&inode->i_lock);
-> +	if (inode_state_read(inode) & (I_NEW | I_FREEING | I_WILL_FREE))
-> +		goto out_unlock;
-> +
-> +	if ((flags & INO_ITER_F_REFERENCED) && !icount_read(inode))
-> +		goto out_unlock;
-> +
-> +	__iget(inode);
-> +	ret = true;
-> +out_unlock:
-> +	spin_unlock(&inode->i_lock);
-> +	return ret;
-> +}
-> +
-> +static int generic_iter_inodes(struct super_block *sb, ino_iter_fn iter_fn,
-> +			       void *private_data, int flags)
-> +{
-> +	struct inode *inode, *old_inode = NULL;
-> +	int ret = INO_ITER_RET_DONE;
-> +
-> +	spin_lock(&sb->s_inode_list_lock);
-> +	list_for_each_entry(inode, &sb->s_inodes, i_sb_list) {
-> +		if (!super_iter_iget(inode, flags))
-> +			continue;
-> +
-> +		spin_unlock(&sb->s_inode_list_lock);
-> +		iput(old_inode);
-> +
-> +		ret = iter_fn(inode, private_data);
-> +
-> +		old_inode = inode;
-> +		if (ret == INO_ITER_RET_ABORT) {
-> +			ret = INO_ITER_RET_DONE;
-> +			goto out_loop;
-> +		}
-> +		if (ret < 0)
-> +			goto out_loop;
-> +
-> +		cond_resched();
-> +		spin_lock(&sb->s_inode_list_lock);
-> +	}
-> +	spin_unlock(&sb->s_inode_list_lock);
-> +out_loop:
-> +	iput(old_inode);
-> +	return ret;
-> +}
-> +
-> +/*
-> + * Unsafe iteration for internal VFS use only: @iter_fn runs in atomic
-> + * context with only an inode existence guarantee, so it must not block
-> + * and must perform its own inode state checks. Return INO_ITER_RET_ABORT
-> + * to stop the iteration early.
-> + */
-> +static int generic_iter_inodes_unsafe(struct super_block *sb, ino_iter_fn iter_fn,
-> +				      void *private_data)
-> +{
-> +	struct inode *inode;
-> +	int ret = INO_ITER_RET_DONE;
-> +
-> +	rcu_read_lock();
-> +	spin_lock(&sb->s_inode_list_lock);
-> +	list_for_each_entry(inode, &sb->s_inodes, i_sb_list) {
-> +		ret = iter_fn(inode, private_data);
-
-After some thought, I'd probably make this function inline in some VFS
-internal header. That way the compiler can inline everything and avoid the
-extra costs of indirect function calls, etc. These iterators tend to be
-rather lightweight so it would avoid performance regressions from the
-conversion.
-
-I was considering the same for the generic iterator as well but there I
-don't have so strong opinion as the function is already relatively big and
-the callbacks are usually more heavy. Might still be worth some more
-detailed investigation and performance measurements...
-
-> +		if (ret == INO_ITER_RET_ABORT)
-> +			break;
-> +	}
-> +	spin_unlock(&sb->s_inode_list_lock);
-> +	rcu_read_unlock();
-> +
-> +	return ret;
-> +}
-
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
