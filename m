@@ -1,66 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193517;
-	b=E7VemG6Oj2YiYPQPHYTzunQzKuI6+B7ZlFK1kvS7dooIzoK8r6FkFxtHgQXl9Mir2Cei
-	 6WWDURJGF20iSkEPS8MShh7mG9VrtuTQ1+lJMl/+jNrwQbt6B4LsSqWjkY40p0pPcf9Dp
-	 +WbUfrYVma4SBDi/o+kTqAKDDFIteZmBVCyM8Tx0yqQDSalSfh3vGdYghb3+zn2ruQQit
-	 QeryjfVov3s6eo/h4ttR9gCW9o0Wahqw2DbZGlKK2ysf7ubpGmYrluZWAAxEZnv1ZJ5BA
-	 o7xygs1ad+FsPNUyEMGJarHZhiCgbsNQV9nidA7QKX9gPdrA5jz1EIXzoH6ASjAhtRA==
+	t=1794193561;
+	b=W6kLQmYNnfPBji2WZK8RefF/WQ/RbSIMURRJng1gM+CWDOjgaOAE2oahKnu1GnDtKuXI
+	 J9V0mh6iWkZ/IwT+9o+WU+wraRx9pcVhosC+CVh78Q5rOUGzWQAC3hrg/x/tsTCjs83Zs
+	 pUwigHAEjbeuSTAhvFLFIJhC5tlRkZfKSFWLGTvzcI6fCSJSOBpNsbLVaRAjVfGEHxXFO
+	 v2+8WAm2WS4I80gJujMUkxkmvqhVuyXAa6j+uJALcKPFiDl7afnKCqobZk4QysJb12Loe
+	 wL44z3zZJl1okBCoPzWfj50crndqS0+ti57sYSAAU53p+TBmD2lBYfH3sn7hlPTHzOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193517;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=jzgKfvc+gCMyeJegNnCCdCmwPfxrXP8BnCLwAgAaGdA=;
-	b=UCyljvxRpryoW24xaUqTPxeadwePV2wCPT/S2nyn8qZsYGoyIdEFrjDp4iUtPJMRN/2j
-	 +irS43iKnm0y21HpKXsVhxSvs6tECkZNb5GYzF+CNT1phJm+ZGmLmrYjBRbJOjA7U9mwP
-	 1eQgOwV59h5bI0LFrKtHViRwaNb51tB7FTXAFrdyfrVarLjLuY6C1W1YxbHSMmET0vthP
-	 5uTYsgcu/YxU79ix6eHHAby46yRTfzhVQViotqa/7TzGEkB1KanjMGYtYVd7er7luqEtz
-	 vCvkNgtzUE4T6luKnVVwPa2ZX/lWvC6UUFiC6UHxAi26Q22Dq3pj0Q5Dd565uJQN51g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193561;
+	h=DMARC-Filter:DKIM-Signature:Date:Content-Transfer-Encoding:
+	 User-Agent:Content-Type:Message-Id:Mime-Version:References:To:Cc:From:
+	 X-Original-From:In-Reply-To:Subject:X-Lms-Return-Path;
+	bh=qQS78PCj6FfdbwzR1JAthRgqg3Mq39AopQfbYGKHtWw=;
+	b=MaE1MeU3dd41E5MC4eNhmoSKMfYX99N4jldBF10Amp7UzG43JK4Stt5LgLo4n4zTsNTC
+	 wDS1bl50uUjeijMW33i0+4U9Nwl/X6vilj4RNa8DjxIRH8akoDP7IYxtSnPDnRV7bxxPe
+	 X0dQCAnhbWJ6Fgv5W7HsgnPA9uq3Hdaxgo8RPFP1xqPWvqAlKZznE7Vi1TVDL3OA9jXWw
+	 zFaMo89mDwk1fNYCPI8RuW92pSh3GgoOFalCT7I62oFnXLi8y2UtPTtMg51U9Kg+tpn9u
+	 4ZKb56pZ4QXgoT+Y2w5Gyd98um5kJyhYO8JHzRfHYs4pNJnweKa+BRpsPlV/d7sMUag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Yiy20rE3;
-	arc=none smtp.remote-ip=113.46.200.226
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=I0ZzmwaZ;
+	arc=none smtp.remote-ip=209.127.230.112
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48D23606A321;
-	Mon,  9 Nov 2026 03:05:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48D23606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB79606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:05:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCB79606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Yiy20rE3
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=jzgKfvc+gCMyeJegNnCCdCmwPfxrXP8BnCLwAgAaGdA=;
-	b=Yiy20rE3tUxvNjQUXWrkWgEM6W3ZOutKcLH5hrKwXqvKR23Spyf1RzTqdQOf4gvzCNQR7edm+
-	B8gVqcwnVCC+u8GvcK7sX6dbCoxn2Eudx3PWzZw0f39jKptY1klaUKgNxQwH3iHmC0Kuget5fOO
-	lXiPLyf4hNwQHgQDgzejRXM=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jNF5629JpzKm8j;
-	Mon,  9 Nov 2026 11:04:58 +0800 (CST)
-Received: from dggpemr200001.china.huawei.com (unknown [7.185.36.96])
-	by mail.maildlp.com (Postfix) with ESMTPS id E4EA940565;
-	Mon,  9 Nov 2026 11:05:06 +0800 (CST)
-Received: from huawei.com (10.50.85.155) by dggpemr200001.china.huawei.com
- (7.185.36.96) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 9 Nov
- 2026 11:05:06 +0800
-From: Ran Hongyun <ranhongyun1@huawei.com>
-To: <agk@redhat.com>, <snitzer@kernel.org>, <mpatocka@redhat.com>,
-	<bmarzins@redhat.com>, <song@kernel.org>, <yukuai@fygo.io>
-CC: <dm-devel@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<linux-raid@vger.kernel.org>, <ranhongyun1@huawei.com>,
-	<chengzhihao1@huawei.com>, <yangerkun@huawei.com>, <yi.zhang@huawei.com>
-Subject: [PATCH] md: validate raid_disks range before loading personality
-Date: Mon, 9 Nov 2026 10:56:21 +0800
-Message-ID: <20261109025621.2031722-1-ranhongyun1@huawei.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=I0ZzmwaZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794193555; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=qQS78PCj6FfdbwzR1JAthRgqg3Mq39AopQfbYGKHtWw=;
+ b=I0ZzmwaZdQJGUoREKpE01kWH0DO5tLxj29dcLpp32kmORQyTXAo9P82ty2OqtLTEjQe7Z9
+ s2hONUeDfi/oI13aA8z18eEPurp70CnbVhlYnQ3lGETYaApjcxVFR6FvJufBzMOydTIN3V
+ A6ixzMrm9S9FgfGWZcFadGACnk5dVNvRyaH6EgcTCFMHyvRVfGZ57846vIWm9WaoVih7aw
+ sZIL6VOB/BVwFrV30YdG1rfuzY7OlziJlSrPBaPYWYx7PPwmxbjdCHtkIAsKdJbvqmdz0e
+ Kl06AXneBuO1g9DAkndd/4J33wsSg8mFy3RnV4bETlWKLUwAzAFaMfGmDdh81A==
+Date: Mon, 9 Nov 2026 11:05:36 +0800
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Content-Type: text/plain; charset=UTF-8
+Message-Id: <2f9730df-fade-4c5f-a4fe-fd3d43eb8bba@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,87 +56,192 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- dggpemr200001.china.huawei.com (7.185.36.96)
+Mime-Version: 1.0
+References: <20261105120615.16817-1-lizhe.67@bytedance.com> <20261105120615.16817-2-lizhe.67@bytedance.com> <au2tQaaMBg3umthq@parvat> <25a188bf-05e4-4f0e-b670-a9dc88195b21@bytedance.com> <f062d92e-a016-447f-926f-bd1b1ce7f106@linux.dev>
+To: "Muchun Song" <muchun.song@linux.dev>, 
+	"Balbir Singh" <balbirs@nvidia.com>
+Cc: <osalvador@suse.de>, <david@kernel.org>, <akpm@linux-foundation.org>, 
+	<rppt@kernel.org>, <apopple@nvidia.com>, <linux-mm@kvack.org>, 
+	<linux-kernel@vger.kernel.org>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+In-Reply-To: <f062d92e-a016-447f-926f-bd1b1ce7f106@linux.dev>
+Subject: Re: [PATCH 1/2] mm/mm_init: factor out memmap_init_page_from_template()
+X-Lms-Return-Path: <lba+26af13891+09eb16+vger.kernel.org+lizhe.67@bytedance.com>
 
-md_set_array_info() accepts raid_disks from user space without any
-range check. The value is stored directly into mddev->raid_disks and
-flows unchecked into md_run(), which only tests for zero. A negative
-or excessively large raid_disks then reaches the personality ->run()
-callback, where it scales several allocations:
+On 11/9/26 10:57 AM, Muchun Song wrote:
+>
+>
+> On 2026/11/9 10:51, Li Zhe wrote:
+>> On 11/6/26 6:34 PM, Balbir Singh wrote:
+>>> On Thu, Nov 05, 2026 at 08:06:14PM +0800, Li Zhe wrote:
+>>>> ZONE_DEVICE memmap initialization already uses a reusable struct page
+>>>> template when initializing compound tail pages.=C2=A0 The template mos=
+tly
+>>>> contains invariant state, but a few fields still depend on the target
+>>>> PFN and must be refreshed before copying the template into each
+>>>> destination struct page.
+>>>>
+>>>> Factor that operation into memmap_init_page_from_template() so other
+>>>> boot-time memmap initialization paths can reuse the same helper.
+>>>>
+>>>> No functional change intended.
+>>>>
+>>>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+>>>> ---
+>>>> =C2=A0=C2=A0 mm/mm_init.c | 29 +++++++++++++++--------------
+>>>> =C2=A0=C2=A0 mm/mm_init.h |=C2=A0 2 ++
+>>>> =C2=A0=C2=A0 2 files changed, 17 insertions(+), 14 deletions(-)
+>>>>
+>>>> diff --git a/mm/mm_init.c b/mm/mm_init.c
+>>>> index 2a0e782a151d..495e20fbdec0 100644
+>>>> --- a/mm/mm_init.c
+>>>> +++ b/mm/mm_init.c
+>>>> @@ -625,6 +625,17 @@ void __meminit __init_single_page(struct page=20
+>>>> *page, unsigned long pfn,
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vmemmap_optimization_verify_zone(=
+page);
+>>>> =C2=A0=C2=A0 }
+>>>> =C2=A0=C2=A0 +void __meminit memmap_init_page_from_template(struct pag=
+e *page,
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long pfn, unsigne=
+d long zone, struct page *template)
+>>>> +{
+>>>> +=C2=A0=C2=A0=C2=A0 set_page_section_from_pfn(template, pfn);
+>>>> +#ifdef WANT_PAGE_VIRTUAL
+>>>> +=C2=A0=C2=A0=C2=A0 if (!is_highmem_idx(zone))
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_page_address(template,=
+ __va(pfn << PAGE_SHIFT));
+>>>> +#endif
+>>>> +=C2=A0=C2=A0=C2=A0 memcpy_nontemporal(page, template, sizeof(*page));
+>>>> +}
+>>>> +
+>>> Can we make the template a const? Why can't we do
+>>>
+>>> void __meminit memmap_init_page_from_template(struct page *page,
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long pfn, unsigned =
+long zone,
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const struct page *template)
+>>> {
+>>> =C2=A0=C2=A0=C2=A0=C2=A0memcpy_nontemporal(page, template, sizeof(*page=
+));
+>>>
+>>> =C2=A0=C2=A0=C2=A0=C2=A0set_page_section_from_pfn(page, pfn);
+>>> #ifdef WANT_PAGE_VIRTUAL
+>>> =C2=A0=C2=A0=C2=A0=C2=A0if (!is_highmem_idx(zone))
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_page_address(page, __va(=
+pfn << PAGE_SHIFT));
+>>> #endif
+>>>
+>>> That way we don't update template once it is set, if template is r/o,
+>>> then we don't need both first page and template in the caller to
+>>> be different.
+>
+> I used to think that too.
+>
+>> I kept it this way to preserve the memcpy_nontemporal() write pattern:
+>> update the PFN-dependent fields in the template first, then copy the
+>> final state to the destination page once.
+>>
+>> If we copy first and then update the destination page, the hot loop
+>> would do a non-temporal copy followed by normal stores to the same
+>> struct page. That is the pattern this helper avoids.
+>
+> After thinking it through, that should be the reason. To prevent
+> similar confusion for others, I suggest adding a comment here
+> explaining why this specific order is used.
 
-  raid0:  kvzalloc(array3_size(..., raid_disks)) in create_strip_zones
-  raid1:  kzalloc(array3_size(..., raid_disks, 2)) for mirrors and
-          mempool_create_kmalloc_pool(offsetof(r1bio, bios[raid_disks*2]))
-  raid5:  kzalloc_objs(disk_info, max_disks) and alloc_page() loop
-  raid10: kzalloc_objs(raid10_info, raid_disks + ...) for mirrors
+Agreed, thanks. I will add a short comment in v2.
 
-cf5963d6781dd ("md/raid0: validate device count before allocating
-devlist") already fixes the raid0 warning. However raid1/5/10 still
-hit the MAX_PAGE_ORDER WARN, and simply switching their kzalloc_objs
-calls to kvzalloc_objs does not help because kvmalloc_node rejects
-sizes above INT_MAX. The proper fix is to validate raid_disks before
-any allocation takes place.
+Thanks,
+Zhe
 
-Add a MAX_RAID_DEVICES (253) bounds check in md_run() before
-pers->run. This is the single choke point covering ioctl RUN_ARRAY,
-dm-raid ctr, and reshape paths. Move the existing dm-raid private
-definition to md.h so both subsystems share the same limit.
-
-Signed-off-by: Ran Hongyun <ranhongyun1@huawei.com>
----
- drivers/md/dm-raid.c | 1 -
- drivers/md/md.c      | 7 +++++++
- drivers/md/md.h      | 3 +++
- 3 files changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
-index ac019a0f5a92..29c41a04773e 100644
---- a/drivers/md/dm-raid.c
-+++ b/drivers/md/dm-raid.c
-@@ -18,7 +18,6 @@
- #include <linux/device-mapper.h>
- 
- #define DM_MSG_PREFIX "raid"
--#define	MAX_RAID_DEVICES	253 /* md-raid kernel limit */
- 
- /*
-  * Minimum sectors of free reshape space per raid device
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 03e35386a802..7b202b483e98 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -6703,6 +6703,13 @@ int md_run(struct mddev *mddev)
- 			return -EINVAL;
- 	}
- 
-+	if (mddev->raid_disks <= 0 ||
-+	    mddev->raid_disks > MAX_RAID_DEVICES) {
-+		pr_warn("md: %s: raid_disks %d out of range [1, %d]\n",
-+			mdname(mddev), mddev->raid_disks, MAX_RAID_DEVICES);
-+		return -EINVAL;
-+	}
-+
- 	if (mddev->level != LEVEL_NONE)
- 		request_module("md-level-%d", mddev->level);
- 	else if (mddev->clevel[0])
-diff --git a/drivers/md/md.h b/drivers/md/md.h
-index 6440da292105..75d7f4b14d39 100644
---- a/drivers/md/md.h
-+++ b/drivers/md/md.h
-@@ -22,6 +22,9 @@
- #include <trace/events/block.h>
- 
- #define MaxSector (~(sector_t)0)
-+
-+#define MAX_RAID_DEVICES	253 /* md-raid kernel limit */
-+
- /*
-  * Number of guaranteed raid bios in case of extreme VM load:
-  */
--- 
-2.52.0
-
+>
+> Thanks.
+>
+>>
+>> Thanks,
+>> Zhe
+>>>> =C2=A0=C2=A0 #ifdef CONFIG_NUMA
+>>>> =C2=A0=C2=A0 /*
+>>>> =C2=A0=C2=A0=C2=A0 * During memory init memblocks map pfns to nids. Th=
+e search is=20
+>>>> expensive and
+>>>> @@ -1073,17 +1084,6 @@ static void __ref=20
+>>>> __init_zone_device_page(struct page *page, unsigned long pfn,
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>>>> =C2=A0=C2=A0 }
+>>>> =C2=A0=C2=A0 -static void zone_device_page_init_from_template(struct p=
+age *page,
+>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long pfn, struct =
+page *template)
+>>>> -{
+>>>> -=C2=A0=C2=A0=C2=A0 set_page_section_from_pfn(template, pfn);
+>>>> -#ifdef WANT_PAGE_VIRTUAL
+>>>> -=C2=A0=C2=A0=C2=A0 if (!is_highmem_idx(ZONE_DEVICE))
+>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 set_page_address(template,=
+ __va(pfn << PAGE_SHIFT));
+>>>> -#endif
+>>>> -=C2=A0=C2=A0=C2=A0 memcpy_nontemporal(page, template, sizeof(*page));
+>>>> -}
+>>>> -
+>>>> =C2=A0=C2=A0 /*
+>>>> =C2=A0=C2=A0=C2=A0 * With compound page geometry and when struct pages=
+ are stored=20
+>>>> in ram most
+>>>> =C2=A0=C2=A0=C2=A0 * tail pages are reused. Consequently, the amount o=
+f unique=20
+>>>> struct pages to
+>>>> @@ -1136,8 +1136,8 @@ static void __ref memmap_init_compound(struct=20
+>>>> page *head,
+>>>> =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Initialize the re=
+maining tail pages from template. */
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for (pfn =3D head_pfn + 2; pfn < =
+end_pfn; pfn++)
+>>>> - zone_device_page_init_from_template(pfn_to_page(pfn), pfn,
+>>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 &template);
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memmap_init_page_from_temp=
+late(pfn_to_page(pfn), pfn,
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 ZONE_DEVICE, &template);
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 prep_compound_head(head, order);
+>>>> =C2=A0=C2=A0 }
+>>>> =C2=A0=C2=A0 @@ -1192,7 +1192,8 @@ void __ref memmap_init_zone_device(=
+struct=20
+>>>> zone *zone,
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for (; pfn < end_pfn; pfn +=3D pf=
+ns_per_compound) {
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 page =3D =
+pfn_to_page(pfn);
+>>>> =C2=A0=C2=A0 -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 zone_device_p=
+age_init_from_template(page, pfn, &template);
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 memmap_init_page_from_temp=
+late(page, pfn, ZONE_DEVICE,
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 &template);
+>>>> =C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 cond_resched();
+>>>> diff --git a/mm/mm_init.h b/mm/mm_init.h
+>>>> index 0034e37dbabd..22c465122b47 100644
+>>>> --- a/mm/mm_init.h
+>>>> +++ b/mm/mm_init.h
+>>>> @@ -111,5 +111,7 @@ void memblock_free_all(void);
+>>>> =C2=A0=C2=A0 =C2=A0=C2=A0 void __meminit __init_single_page(struct pag=
+e *page, unsigned=20
+>>>> long pfn,
+>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long zone, int nid);
+>>>> +void __meminit memmap_init_page_from_template(struct page *page,
+>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long pfn, unsigne=
+d long zone, struct page=20
+>>>> *template);
+>>>> =C2=A0=C2=A0 =C2=A0=C2=A0 #endif /* __MM_MM_INIT_H */
+>>>> --=20
+>>> Balbir
+>
