@@ -1,108 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794260403;
-	b=iUAZ4OtLm/HOAanlQSqy+gDHXjJCpxYqLIaLy0mtnB5A49qdBjkoBg9n+qMi8FfWBYLO
-	 F8EKC0KfJgjAMyKLCdKxZXwPivh4nvslHzmMCZeRcAxA8wxmdHsbTjq7dGcN8lsiVJ29x
-	 a8uqu075TfFwz7GbktEFlhd8TnPD7V1nyc6vhm6hTnhajAZAkAW0hhd8qGB0R8W+Qnpzi
-	 rPejmCM8P5bfIpjHETR/n+ROVZkF9exUT9r7Rf7ia4+oD1QEBZ5mNbcbqvdzeVHdxVmhL
-	 GTcey/y9pwDsXTDTK47hlDLvugYtC4XyeJFmk0ilvdKNaOE4wX5QCR6aImVGd//DQjw==
+	t=1794260413;
+	b=N8/sE0G8L3LDkDzNuCq5SzwL2V4O/Ssfnu3arblvEl9gfbJGsEGI6E4PEMswMU1wgfxE
+	 mfCUM7ARvPd0CQaPiVP8yW82KOQeUya3A4CsUonsf9OtNMJfS6yYO3dQDGxXlSUBbfFUV
+	 VcR+cns4KAaVWxjewTbd3XjynaX2b4mpd9gEZ3oNoeax1Xpo7mVzuQAuG2jhpNbBSjFml
+	 SDOEnLZk3FQOgLtzdv+BI4BfkrhoJv/0CQbYEwWcerhC93bReMhAJackWr45QES+GgPx/
+	 doQr4g4dnZpzSjEsuwi7FOe/Ag2k6jX2CrjeqzJmy7dWBQO69TJOtYf7/MS2I1pxbig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794260403;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=5Q+rFNtyMHkZBc3pYDUut4vgFs8/RjHebMEBZvgFrds=;
-	b=kuYefGjIGEUXJWBl0W7AZMgkRo1I2lZrivTpWu0CWRfA039odAwtS36ixbY7qzKvD58H
-	 epZKmez0vMOqgAFEiKGc/ZJJYgCe1DFyfmEMBCHkGemYhCKD302qzIAcQScCWY2xx8Vqu
-	 CXbm63twF7YPafhpcGBIVxefvLZuGcL/6U2gsm3LHZarnF/Rt4iWqRRlkpu6nlHx0Vc7O
-	 knS4+aCXkZm/JZviKtsddNUkDioAph2fNlASBdbTd0ryq5ooHSs1r8Zivqa8YhA6GY5+s
-	 +PoeFrfObngpyOhBQS28wP5ArTqbOFYQgX5lZNWN0oNFQgK7xHFKQxclWYmcGN6qFKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794260413;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=eUnUJ6fMsa+SK3hUNyUAZu2gmdqYdOP/pDefbHCAe7Q=;
+	b=Ndg8HVlpBMzAAcbYGh90bipkQbT2PbqqtF1EVmkqo6PyYhl/9yOVPCafgC81KO3azctK
+	 rIhvxE6vQKdYGJgc7tHRTT3pH130XfASRwzsReQ9gNMh3kZYBXcNLZk6+49LJLw6HuXCQ
+	 j5JYc4k1yqX9/RKwo5D/LXgfQpoXa3/uH9QWoQM0lKYkzJR1pEr0X+UMAT5RAvLFrYW4D
+	 UI0qQ5TY6SxYIj1fXlJ7HUBDZw8tjDagjhSeC348u60tGc9LeJ5nLFH1Og1la2CJHM4Ph
+	 1nh4eYbbLbzBX911XXmucFY3cQXeCa72kmGs/VBGL5qdl5RTCr8r7hgiMbNb4aC01oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rm1hpY8g;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	dmarc=pass header.from=packett.cool;
+	spf=pass smtp.mailfrom=packett.cool;
+	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=l1KYVv5K;
+	arc=none smtp.remote-ip=91.218.175.65
+Received: from mta0.migadu.com (out-65.mta0.migadu.com [91.218.175.65])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241D9606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:40:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 241D9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2016C606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:40:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2016C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Rm1hpY8g
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cdba1bbde0bso494481a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:40:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794260401; x=1794865201; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Q+rFNtyMHkZBc3pYDUut4vgFs8/RjHebMEBZvgFrds=;
-        b=Rm1hpY8gfEyINhOtkOgrnAEGiQcAPiOZVGm75x9VWge/E/iDN+H2/6iGPRTgC0Wi1B
-         CiSPqwv9uCF+dlnTtodztBTiayhTBF6J4Ddo7XF/TmZuZi/Ct56f6GIH7ViEqAJT6PrR
-         nXJ6qs4d6SzzkeTohqRoKK9V7CgYd07edhPJ18kqyKpKbLTf23WgKkPdA1HCSiWUNATH
-         LDqs1lvM4OI+lAqlr0jpvs2g35wFthNthACDgUpaBe09yW6GVjTiwMRu0sn8db5zUlLS
-         jiTYl5EElbHN5jI1+P+dvLAMtOW5Tb5HQujODbHnpVEE3V1yxuo/gS1MnG2913GsLxsp
-         3zAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794260401; x=1794865201;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Q+rFNtyMHkZBc3pYDUut4vgFs8/RjHebMEBZvgFrds=;
-        b=lZTHM7++oMeev0nse7IJHcX8mjR86UQ1VzgRyUDtCyeEKIkh3MRQFElnUx7oN5y6mR
-         ROFavdf6SI+Hg/xVf+TRcR4dt42ucqxQ4PQnOfl42ksVRqvgKGoYp9UBNxloUsYdCIN3
-         jxyT1kPnhB5TMoGL94AkhNt0eqYbSMEDblj0wAxX9dX66qFPNyIrmHhS/FuQ3J2DRh2k
-         gHtO1xS6YiyjUYts2HVSYTqvkEddamEaCgJXU+Nqd185hgXM9H2QkSlxeAVnRzjrAr5w
-         QJDDrbxX0L4Y0iIsH6IgqU/Em8zYtRDqp16wykxf9YcQeO9r1kEEEdW8FzygWVHWS5k4
-         FFFg==
-X-Forwarded-Encrypted: i=1; AL+hErET1iC3glh35o293VJdG6cM7r6Dmrl/FTqkvwexqXCihMZFpApLSKuPpcm46ZiV3p6Ho+3eAr4akfW/lfM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bwd+su6jzMWFB+CErxFOLsNyrSHiljoFSPG8wDeiapPZLCUBr
-	L0Vln1wLpeNz7BEuuHp/9sJMNpJK/OJIqGoO/eyygI7U12bb6Dul0vU5
-X-Gm-Gg: AYBFou3GeQjpICWHO6PffhQh1uX6V7X9we5zdf2V8+LlFA4gNC9wbxKYZmV/YpJKGEZ
-	5NveGQClDClwwnC1zYlWUz83N//DbL5rtsMW/4XLwmL/qTV+DlNJSPbbR5eBFcPaxNvGk100AIr
-	iAn0oByNYCODWwbSoQ8LWuoEFjEEXYycViy7RZ6frEKvomuWGFs4RvsjBAWBq2GqxzUtW5TJxxF
-	02XeWnuH0iRrnVure+Uro0wppPmh1uLE6x7EG9cMM76tDLXsjaPcqQwGonpJmDLJWBafNl8IDBO
-	kzmuy1ySPyU26vwP+7RToI2n0TYtQxOTOz0eudKYe+bdpkiscT/+HWjsWnq2e33gYr9hfLQfilV
-	LUSWtobZq/g5hX/YtwVzZue5STKXEKnW2OsUzGkGXUnDdRFkDaiijDFXtZmhBquyYl9PfQ5pbXI
-	AQrAgxwlmukX/4CdE+HCLHxFDyJ/3I1YqeLcDH6YxmYeFJdJcAgKMFNUiLvLukTxe8cQ93OdARl
-	iGggqu93DF9tkmaYaV9SCG2e4h3KNhAw9XgEGqJgAndrPWMMgo0n70YAHkSA3Rm2CFhhJyAz/QQ
-	zZLBtfCH5vxaHcT20gsdhO2B/bKns/ToEZykNJi+R7VSTgJTPJu+HZ5HyfYc7Cn2S3due6qXSEE
-	BXVKXOX6bFbRzBv4b1fivVUjL8P6yPObzfvCPj9nWqT46qzz3jYD0ZsmW
-X-Received: by 2002:a17:90b:37c8:b0:3a0:4668:4cb0 with SMTP id 98e67ed59e1d1-3b166d1efc2mr878855a91.47.1794260401094;
-        Mon, 09 Nov 2026 13:40:01 -0800 (PST)
-Received: from localhost ([153.61.198.246])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16708f533sm1059428a91.2.2026.11.09.13.40.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 13:40:00 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 09 Nov 2026 21:39:59 +0000
-Message-Id: <DMR088J2OR6L.9TOD4IDBHTZ8@gmail.com>
-Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, "Giuliano Procida"
- <gprocida@google.com>, "Neill Kapron" <nkapron@google.com>,
- =?utf-8?q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>, "Maxime Ripard"
- <mripard@kernel.org>
-Subject: Re: [PATCH RFC bpf-next 0/7] bpf: Support struct_ops in light
- skeletons
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Siddharth Nayyar"
- <sidnayyar@google.com>, "Daniel Borkmann" <daniel@iogearbox.net>, "John
- Fastabend" <john.fastabend@gmail.com>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
- Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
- <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Quentin Monnet" <qmo@kernel.org>,
- "Shuah Khan" <shuah@kernel.org>
-In-Reply-To: <f5a22a46-0fd8-4739-bf11-a20e0b3a443b@linux.dev>
-References: <20261106-lskel-struct-ops-v1-0-a4486ffc79cb@google.com> <f5a22a46-0fd8-4739-bf11-a20e0b3a443b@linux.dev>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=l1KYVv5K
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Y3CmxKJ4TKlJACzMuZuQE+pA/o7Ia4zpMq+sD48qZJQ=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794260408; v=1; x=1794865208;
+ b=l1KYVv5KTKvcHOjwvN3W7JsS0pOm5zqUWVadjvc/DlH+SplFrv95reXJBAayASZyCi9NslyX
+ e//S9+Ts3oSM9uA5pZw8YVDwgQUEmSc0hmf4Tca8jGoLuPaoNkCngN1oDa6v5owBoAYUu+CasNT
+ UIiN+w0KU5PpLGpGie8ld8QUVv1LF9g92QF1NRjBJP4hswLgHJHOninV/Gz1nP277uoVCqDBYfV
+ lvBqNin+K1SzQI10eTy5oYfs7l5Jo+qeamCRbRD1yBlMcyDOPyupL5QxY1nDCvNR0w2Wkejtx5N
+ 76OsAiANQRJJ/JOH1EV5FI8k1a8wbscKKD8KcA8W4qDGA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 91629022a1c960c4;
+	Mon, 09 Nov 2026 21:40:06 +0000
+X-Mizu-Trace-ID: 91629022a1c960c4
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <25204208-5fcc-4b00-b359-86fc5f124700@packett.cool>
+Date: Mon, 9 Nov 2026 18:40:00 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,639 +60,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] remoteproc: qcom: pas: Request stop before tearing down
+ GLINK and SMD
+To: Jure Rebernik <jure.rebernik@luxonis.com>, andersson@kernel.org,
+ mathieu.poirier@linaro.org
+Cc: konrad.dybcio@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+ linux-remoteproc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261109175752.793130-1-jure.rebernik@luxonis.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261109175752.793130-1-jure.rebernik@luxonis.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 11:46 AM Ihor Solodrai <ihor.solodrai@linux.dev> wrote:
+Hi,
 
-> Andrii, Alexei, wdyt? Any other ideas?
+On 11/9/26 2:57 PM, Jure Rebernik wrote:
+> A crash of the ADSP that the host reports, for example through the
+> remoteproc debugfs crash file, can reset the whole SoC on QCS8550
+> instead of restarting the ADSP. The reset was most frequent shortly
+> after the ADSP had started: on two QCS8550-based boards, crashing it
+> about 4.5 seconds after it was started reset the SoC in 19 of 42
+> tries. The serial console showed that the system stopped right after
+> the recovery started. Nothing more was logged, and the SoC was reset 6
+> to 7 seconds later.
 
-The loader asks the kernel for ids, sizes and offsets only to pass them
-back in the next three commands:
+I've been seeing crashes in sensorspd like
 
-  the loader asks                   and passes it back in
-  --------------------------------  ------------------------------------
-  id, size of bpf_struct_ops_<t>    BPF_MAP_CREATE
-  id of <t>, index of the member    BPF_PROG_LOAD
-  offset of data, of every member   BPF_MAP_UPDATE_ELEM
+qcom_q6v5_pas 3700000.remoteproc: fatal error received: 
+EX:kernel:0x1:SNS_SEE_I_0:0x10000025:PC=0xf00280b8:LR=0xf001f>
 
-the kernel can match by name instead.
+on a Kodiak device (sm7325-motorola-dubai) also cause a whole-SoC reset 
+right after logging that, when trying to restart the ADSP.
 
-The kernel has both BTFs. BPF_MAP_CREATE of a struct_ops map demands
-btf_fd of the object already, and bpf_struct_ops.c doesn't use it.
-The kernel can find its struct_ops and the members by name,
-like btf_parse_kptr() finds the type of a kptr.
-Then the loader passes what bpftool knows when it generates
-the skeleton:
+Those are somewhat random and not too frequent, like once every couple days.
 
-  command              the loader passes
-  -------------------  ---------------------------------------------------
-  BPF_MAP_CREATE       btf_fd, btf_value_type_id and value_size of the
-                       struct in the BTF of the object
-  BPF_PROG_LOAD        attach_btf_obj_fd = btf_fd, attach_btf_id = that
-                       struct, expected_attach_type = index of its member
-  BPF_MAP_UPDATE_ELEM  that struct with the prog fds in it
+I'll test this patch and see if I no longer end up with my phone 
+randomly showing the u-boot menu when I pull it out of my pocket :D
 
-The kernel rejects such BPF_MAP_CREATE and BPF_PROG_LOAD today.
-Nothing changes for existing users.
-The BTF of the object is in the blob, so the signature covers the names.
+> Since commit 0ea50486978f ("remoteproc: qcom: q6v5: Request shutdown if
+> crash is triggered host-side"), qcom_q6v5_request_stop() also sets the
+> SMP2P stop bit for a crash that the host reports, so that the firmware
+> takes part in its shutdown. The stop is requested from qcom_pas_stop(),
+> which rproc_stop() calls only after all subdevices have stopped. By
+> then the GLINK and SMD edges to the DSP have been unregistered and
+> their client devices, such as FastRPC, torn down. On QCS8550 the ADSP
+> firmware treats the stop bit as a fatal error and runs its error
+> handler after these links have gone away.
+>
+> Add a subdevice whose .stop callback requests the stop, and add it
+> before sysmon. Subdevices stop in the reverse order of addition, so the
+> callback runs after the SSR BEFORE_SHUTDOWN notification and
+> sysmon_stop(), and before SMD and GLINK are torn down. The firmware
+> then handles the stop request while its GLINK and SMD edges are still
+> registered. qcom_q6v5_request_stop() still skips the request when
+> sysmon got a shutdown ack, or when the firmware reported the crash
+> itself and the fatal or watchdog interrupt has cleared the running
+> flag. It also clears the running flag, so the call in qcom_pas_stop()
+> now only sends a request when the subdevices were not started.
+>
+> With this change, none of 104 host-reported crashes on the same boards
+> reset the SoC: 40 ADSP crashes at 4.5 seconds, 20 at 4 to 15 seconds,
+> 20 while the ADSP was streaming IMU sensor data and 24 CDSP crashes.
+> The ADSP or CDSP restarted each time.
+>
+> The problem was found, and this change was written and tested, with
+> the help of an AI coding assistant (Claude Code, by Anthropic). I
+> reviewed the change and the test results.
+Try not to provide the free advertisement right in the commit msg btw, 
+and to make it sliiightly less verbose.
+> [..]
+> +	 * Subdevices stop in the reverse order of addition. Request the stop
+> +	 * after sysmon has asked for a graceful shutdown and before smd and
+> +	 * glink are torn down.
+> +	 */
+> +	pas->stop_subdev.stop = qcom_pas_stop_subdev;
+> +	rproc_add_subdev(rproc, &pas->stop_subdev);
+> +
+> [..]
 
-Then no need for a helper or a kfunc. The 4k buffer, the fds of module
-BTF and the offsets at run time go away.
-map->def.value_size, prog->attach_btf_id and prog->expected_attach_type
-don't hold offsets into the blob.
+It looks a bit funny that "stop is a device" but well, it's not like I 
+can think of a more elegant solution…
 
-The diff below replaces patches 1-5. Patches 6 and 7 stay.
 
-Something like this (compile tested only):
+Thanks,
+~val
 
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index 520fd72e21fd..4adf8efeb990 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -2434,6 +2434,8 @@ void bpf_struct_ops_put(const void *kdata);
- int bpf_struct_ops_supported(const struct bpf_struct_ops *st_ops, u32 moff);
- int bpf_struct_ops_map_sys_lookup_elem(struct bpf_map *map, void *key,
- 				       void *value);
-+u32 bpf_struct_ops_map_update_size(const struct bpf_map *map);
-+int bpf_struct_ops_resolve_attach(struct btf **btf, union bpf_attr *attr);
- int bpf_struct_ops_prepare_trampoline(struct bpf_tramp_nodes *tnodes,
- 				      struct bpf_tramp_node *node,
- 				      const struct btf_func_model *model,
-@@ -2511,6 +2513,14 @@ static inline int bpf_struct_ops_map_sys_lookup_elem(struct bpf_map *map,
- {
- 	return -EINVAL;
- }
-+static inline u32 bpf_struct_ops_map_update_size(const struct bpf_map *map)
-+{
-+	return map->value_size;
-+}
-+static inline int bpf_struct_ops_resolve_attach(struct btf **btf, union bpf_attr *attr)
-+{
-+	return -ENOTSUPP;
-+}
- static inline int bpf_struct_ops_link_create(union bpf_attr *attr)
- {
- 	return -EOPNOTSUPP;
-diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
-index 62de0919db72..e0f7ec984c64 100644
---- a/include/uapi/linux/bpf.h
-+++ b/include/uapi/linux/bpf.h
-@@ -1598,6 +1598,13 @@ union bpf_attr {
- 						   * struct stored as the
- 						   * map value
- 						   */
-+		/*
-+		 * BPF_MAP_TYPE_STRUCT_OPS takes one of the two ids.
-+		 * btf_value_type_id is a struct in btf_fd, e.g. tcp_congestion_ops,
-+		 * and value_size is its size. The kernel finds its struct_ops and
-+		 * the members by name. BPF_MAP_UPDATE_ELEM takes the struct of
-+		 * btf_fd. BPF_MAP_LOOKUP_ELEM returns the struct of the kernel.
-+		 */
- 		/* Any per-map-type extra fields
- 		 *
- 		 * BPF_MAP_TYPE_BLOOM_FILTER - the lowest 4 bits indicate the
-@@ -1685,7 +1692,13 @@ union bpf_attr {
- 		union {
- 			/* valid prog_fd to attach to bpf prog */
- 			__u32		attach_prog_fd;
--			/* or valid module BTF object fd or 0 to attach to vmlinux */
-+			/*
-+			 * or valid module BTF object fd or 0 to attach to vmlinux.
-+			 * BPF_PROG_TYPE_STRUCT_OPS takes the BTF of the bpf object too.
-+			 * Then attach_btf_id is a struct in that BTF and
-+			 * expected_attach_type is the index of its member.
-+			 * The kernel finds its struct_ops and the member by name.
-+			 */
- 			__u32		attach_btf_obj_fd;
- 		};
- 		__u32		core_relo_cnt;	/* number of bpf_core_relo */
-diff --git a/kernel/bpf/bpf_struct_ops.c b/kernel/bpf/bpf_struct_ops.c
-index 7c5cd6086e27..eb1144ca5c11 100644
---- a/kernel/bpf/bpf_struct_ops.c
-+++ b/kernel/bpf/bpf_struct_ops.c
-@@ -14,6 +14,7 @@
- #include <linux/rcupdate_wait.h>
- #include <linux/poll.h>
- #include <linux/bpf-cgroup.h>
-+#include "../tools/lib/bpf/relo_core.h"
- 
- struct bpf_struct_ops_value {
- 	struct bpf_struct_ops_common_value common;
-@@ -42,6 +43,12 @@ struct bpf_struct_ops_map {
- 	void *image_pages[MAX_TRAMP_IMAGE_PAGES];
- 	/* The owner moduler's btf. */
- 	struct btf *btf;
-+	/*
-+	 * Like in CO-RE "local" is what the BTF of the bpf object has.
-+	 * When local_type is set map_update_elem() takes this struct.
-+	 */
-+	struct btf *local_btf;
-+	const struct btf_type *local_type;
- 	/* uvalue->data stores the kernel struct
- 	 * (e.g. tcp_congestion_ops) that is more useful
- 	 * to userspace than the kvalue.  For example,
-@@ -724,8 +731,136 @@ static void bpf_struct_ops_map_free_ksyms(struct bpf_struct_ops_map *st_map)
- 	}
- }
- 
--static long bpf_struct_ops_map_update_elem(struct bpf_map *map, void *key,
--					   void *value, u64 flags)
-+static const struct btf_member *find_member(const struct btf *btf, const struct btf_type *t,
-+					    const char *name)
-+{
-+	const struct btf_member *member;
-+	u32 i;
-+
-+	for_each_member(i, t, member)
-+		if (!strcmp(btf_name_by_offset(btf, member->name_off), name))
-+			return member;
-+	return NULL;
-+}
-+
-+/*
-+ * 'id' is a local struct, e.g. tcp_congestion_ops or tcp_congestion_ops___v2.
-+ * Find bpf_struct_ops_tcp_congestion_ops in the BTF of vmlinux or of a module.
-+ * A module can have it for a struct of vmlinux. The caller does btf_put(*kern_btf).
-+ */
-+static const struct bpf_struct_ops_desc *
-+find_desc_by_local_type(const struct btf *btf, u32 id, struct btf **kern_btf)
-+{
-+	const struct btf_type *t = btf_type_by_id(btf, id);
-+	const struct bpf_struct_ops_desc *st_ops_desc;
-+	char name[KSYM_NAME_LEN];
-+	const char *tname;
-+	s32 value_id;
-+
-+	if (!t || !__btf_type_is_struct(t))
-+		return ERR_PTR(-EINVAL);
-+	tname = btf_name_by_offset(btf, t->name_off);
-+	if (snprintf(name, sizeof(name), VALUE_PREFIX "%.*s",
-+		     (int)bpf_core_essential_name_len(tname), tname) >= sizeof(name))
-+		return ERR_PTR(-EINVAL);
-+	value_id = bpf_find_btf_id(name, BTF_KIND_STRUCT, kern_btf);
-+	if (value_id < 0)
-+		return ERR_PTR(value_id);
-+	st_ops_desc = bpf_struct_ops_find_value(*kern_btf, value_id);
-+	if (!st_ops_desc) {
-+		btf_put(*kern_btf);
-+		return ERR_PTR(-ENOTSUPP);
-+	}
-+	return st_ops_desc;
-+}
-+
-+/*
-+ * attach_btf_id is a local struct and expected_attach_type is the index of its
-+ * member. Replace them, and the BTF, with what the kernel has under the same names.
-+ */
-+int bpf_struct_ops_resolve_attach(struct btf **btf, union bpf_attr *attr)
-+{
-+	const struct bpf_struct_ops_desc *st_ops_desc;
-+	const struct btf_member *member;
-+	const struct btf_type *t;
-+	struct btf *kern_btf;
-+
-+	st_ops_desc = find_desc_by_local_type(*btf, attr->attach_btf_id, &kern_btf);
-+	if (IS_ERR(st_ops_desc))
-+		return PTR_ERR(st_ops_desc);
-+	t = btf_type_by_id(*btf, attr->attach_btf_id);
-+	if (attr->expected_attach_type >= btf_type_vlen(t)) {
-+		btf_put(kern_btf);
-+		return -EINVAL;
-+	}
-+	member = btf_type_member(t) + attr->expected_attach_type;
-+	member = find_member(kern_btf, st_ops_desc->type,
-+			     btf_name_by_offset(*btf, member->name_off));
-+	if (!member) {
-+		btf_put(kern_btf);
-+		return -ENOENT;
-+	}
-+	attr->attach_btf_id = st_ops_desc->type_id;
-+	attr->expected_attach_type = member - btf_type_member(st_ops_desc->type);
-+	btf_put(*btf);
-+	*btf = kern_btf;
-+	return 0;
-+}
-+
-+u32 bpf_struct_ops_map_update_size(const struct bpf_map *map)
-+{
-+	const struct bpf_struct_ops_map *st_map = (const struct bpf_struct_ops_map *)map;
-+
-+	return st_map->local_type ? st_map->local_type->size : map->value_size;
-+}
-+
-+/*
-+ * 'data' has the layout of the local struct. Copy every member to the place
-+ * of the member with the same name in the struct of the kernel.
-+ */
-+static void *local_to_kern_value(const struct bpf_struct_ops_map *st_map, const void *data)
-+{
-+	const struct btf_type *t = st_map->local_type, *kern_t = st_map->st_ops_desc->type;
-+	const struct btf *btf = st_map->local_btf, *kern_btf = st_map->btf;
-+	const struct btf_member *member, *kern_member;
-+	struct bpf_struct_ops_value *value;
-+	u32 i, size, kern_size;
-+	int err = -EINVAL;
-+
-+	value = kvzalloc(st_map->map.value_size, GFP_USER);
-+	if (!value)
-+		return ERR_PTR(-ENOMEM);
-+
-+	for_each_member(i, t, member) {
-+		const void *src = data + __btf_member_bit_offset(t, member) / 8;
-+
-+		if (__btf_member_bitfield_size(t, member) ||
-+		    IS_ERR(btf_resolve_size(btf, btf_type_by_id(btf, member->type), &size)))
-+			goto err;
-+		kern_member = find_member(kern_btf, kern_t,
-+					  btf_name_by_offset(btf, member->name_off));
-+		if (!kern_member) {
-+			/* This kernel doesn't have the member. That's fine when it's not in use. */
-+			if (!memchr_inv(src, 0, size))
-+				continue;
-+			err = -ENOENT;
-+			goto err;
-+		}
-+		if (__btf_member_bitfield_size(kern_t, kern_member) ||
-+		    IS_ERR(btf_resolve_size(kern_btf, btf_type_by_id(kern_btf, kern_member->type),
-+					    &kern_size)) ||
-+		    size != kern_size)
-+			goto err;
-+		memcpy(value->data + __btf_member_bit_offset(kern_t, kern_member) / 8, src, size);
-+	}
-+	return value;
-+err:
-+	kvfree(value);
-+	return ERR_PTR(err);
-+}
-+
-+static long __bpf_struct_ops_map_update_elem(struct bpf_map *map, void *key,
-+					     void *value, u64 flags)
- {
- 	struct bpf_struct_ops_map *st_map = (struct bpf_struct_ops_map *)map;
- 	const struct bpf_struct_ops_desc *st_ops_desc = st_map->st_ops_desc;
-@@ -960,6 +1095,23 @@ static long bpf_struct_ops_map_update_elem(struct bpf_map *map, void *key,
- 	return err;
- }
- 
-+static long bpf_struct_ops_map_update_elem(struct bpf_map *map, void *key,
-+					   void *value, u64 flags)
-+{
-+	struct bpf_struct_ops_map *st_map = (struct bpf_struct_ops_map *)map;
-+	long err;
-+
-+	if (!st_map->local_type)
-+		return __bpf_struct_ops_map_update_elem(map, key, value, flags);
-+
-+	value = local_to_kern_value(st_map, value);
-+	if (IS_ERR(value))
-+		return PTR_ERR(value);
-+	err = __bpf_struct_ops_map_update_elem(map, key, value, flags);
-+	kvfree(value);
-+	return err;
-+}
-+
- static long bpf_struct_ops_map_delete_elem(struct bpf_map *map, void *key)
- {
- 	enum bpf_struct_ops_state prev_state;
-@@ -1022,6 +1174,7 @@ static void __bpf_struct_ops_map_free(struct bpf_map *map)
- 	bpf_map_area_free(st_map->ksyms);
- 	bpf_struct_ops_map_free_image(st_map);
- 	bpf_map_area_free(st_map->uvalue);
-+	btf_put(st_map->local_btf);
- 	bpf_map_area_free(st_map);
- }
- 
-@@ -1056,11 +1209,53 @@ static int bpf_struct_ops_map_alloc_check(union bpf_attr *attr)
- {
- 	if (attr->key_size != sizeof(unsigned int) || attr->max_entries != 1 ||
- 	    (attr->map_flags & ~(BPF_F_LINK | BPF_F_VTYPE_BTF_OBJ_FD)) ||
--	    !attr->btf_vmlinux_value_type_id)
-+	    (!attr->btf_vmlinux_value_type_id && !attr->btf_value_type_id))
- 		return -EINVAL;
- 	return 0;
- }
- 
-+/*
-+ * btf_value_type_id and value_size are of a local struct. Replace them with
-+ * btf_vmlinux_value_type_id and value_size of the struct_ops with the same name,
-+ * so that everything but map_update_elem() sees a regular struct_ops map.
-+ * Return the local BTF. A module that has the struct_ops is pinned.
-+ */
-+static struct btf *local_to_kern_attr(union bpf_attr *attr, const struct btf_type **local_type,
-+				      struct btf **kern_btf, struct module **mod)
-+{
-+	const struct bpf_struct_ops_desc *st_ops_desc;
-+	struct btf *btf;
-+
-+	if (attr->btf_key_type_id || (attr->map_flags & BPF_F_VTYPE_BTF_OBJ_FD))
-+		return ERR_PTR(-EINVAL);
-+	btf = btf_get_by_fd(attr->btf_fd);
-+	if (IS_ERR(btf))
-+		return btf;
-+	st_ops_desc = find_desc_by_local_type(btf, attr->btf_value_type_id, kern_btf);
-+	if (IS_ERR(st_ops_desc)) {
-+		btf_put(btf);
-+		return ERR_CAST(st_ops_desc);
-+	}
-+	*local_type = btf_type_by_id(btf, attr->btf_value_type_id);
-+	if (attr->value_size != (*local_type)->size)
-+		goto err;
-+	if (btf_is_module(*kern_btf)) {
-+		*mod = btf_try_get_module(*kern_btf);
-+		if (!*mod)
-+			goto err;
-+	}
-+	attr->btf_value_type_id = 0;
-+	attr->btf_vmlinux_value_type_id = st_ops_desc->value_id;
-+	attr->value_size = st_ops_desc->value_type->size;
-+	/* The module holds its BTF. The BTF of vmlinux doesn't go away. */
-+	btf_put(*kern_btf);
-+	return btf;
-+err:
-+	btf_put(*kern_btf);
-+	btf_put(btf);
-+	return ERR_PTR(-EINVAL);
-+}
-+
- static u32 count_func_ptrs(const struct btf *btf, const struct btf_type *t)
- {
- 	int i;
-@@ -1079,13 +1274,17 @@ static struct bpf_map *bpf_struct_ops_map_alloc(union bpf_attr *attr)
- 	const struct bpf_struct_ops_desc *st_ops_desc;
- 	size_t st_map_size;
- 	struct bpf_struct_ops_map *st_map;
--	const struct btf_type *t, *vt;
-+	const struct btf_type *t, *vt, *local_type = NULL;
-+	struct btf *btf, *local_btf = NULL;
- 	struct module *mod = NULL;
- 	struct bpf_map *map;
--	struct btf *btf;
- 	int ret;
- 
--	if (attr->map_flags & BPF_F_VTYPE_BTF_OBJ_FD) {
-+	if (attr->btf_value_type_id) {
-+		local_btf = local_to_kern_attr(attr, &local_type, &btf, &mod);
-+		if (IS_ERR(local_btf))
-+			return ERR_CAST(local_btf);
-+	} else if (attr->map_flags & BPF_F_VTYPE_BTF_OBJ_FD) {
- 		/* The map holds btf for its whole life time. */
- 		btf = btf_get_by_fd(attr->value_type_btf_obj_fd);
- 		if (IS_ERR(btf))
-@@ -1158,6 +1357,8 @@ static struct bpf_map *bpf_struct_ops_map_alloc(union bpf_attr *attr)
- 		goto errout_free;
- 	}
- 	st_map->btf = btf;
-+	st_map->local_btf = local_btf;
-+	st_map->local_type = local_type;
- 
- 	mutex_init(&st_map->lock);
- 	bpf_map_init_from_attr(map, attr);
-@@ -1173,6 +1374,7 @@ static struct bpf_map *bpf_struct_ops_map_alloc(union bpf_attr *attr)
- 	__bpf_struct_ops_map_free(map);
- errout:
- 	module_put(mod);
-+	btf_put(local_btf);
- 
- 	return ERR_PTR(ret);
- }
-diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-index 9004f2673ccf..d8d5a700c98f 100644
---- a/kernel/bpf/syscall.c
-+++ b/kernel/bpf/syscall.c
-@@ -1896,6 +1896,8 @@ static int map_update_elem(union bpf_attr *attr, bpfptr_t uattr)
- 	}
- 
- 	value_size = bpf_map_value_size(map, attr->flags);
-+	if (map->map_type == BPF_MAP_TYPE_STRUCT_OPS)
-+		value_size = bpf_struct_ops_map_update_size(map);
- 	value = kvmemdup_bpfptr(uvalue, value_size);
- 	if (IS_ERR(value)) {
- 		err = PTR_ERR(value);
-@@ -3040,12 +3042,14 @@ static int bpf_prog_load(union bpf_attr *attr, bpfptr_t uattr, struct bpf_log_at
- 				goto put_token;
- 			}
- 			if (!btf_is_kernel(attach_btf)) {
--				/* attaching through specifying bpf_prog's BTF
--				 * objects directly might be supported eventually
--				 */
--				btf_put(attach_btf);
-+				/* only struct_ops can name its target in the BTF of the object */
- 				err = -ENOTSUPP;
--				goto put_token;
-+				if (type == BPF_PROG_TYPE_STRUCT_OPS)
-+					err = bpf_struct_ops_resolve_attach(&attach_btf, attr);
-+				if (err) {
-+					btf_put(attach_btf);
-+					goto put_token;
-+				}
- 			}
- 		}
- 	} else if (attr->attach_btf_id || multi_func) {
-diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
-index 62de0919db72..e0f7ec984c64 100644
---- a/tools/include/uapi/linux/bpf.h
-+++ b/tools/include/uapi/linux/bpf.h
-@@ -1598,6 +1598,13 @@ union bpf_attr {
- 						   * struct stored as the
- 						   * map value
- 						   */
-+		/*
-+		 * BPF_MAP_TYPE_STRUCT_OPS takes one of the two ids.
-+		 * btf_value_type_id is a struct in btf_fd, e.g. tcp_congestion_ops,
-+		 * and value_size is its size. The kernel finds its struct_ops and
-+		 * the members by name. BPF_MAP_UPDATE_ELEM takes the struct of
-+		 * btf_fd. BPF_MAP_LOOKUP_ELEM returns the struct of the kernel.
-+		 */
- 		/* Any per-map-type extra fields
- 		 *
- 		 * BPF_MAP_TYPE_BLOOM_FILTER - the lowest 4 bits indicate the
-@@ -1685,7 +1692,13 @@ union bpf_attr {
- 		union {
- 			/* valid prog_fd to attach to bpf prog */
- 			__u32		attach_prog_fd;
--			/* or valid module BTF object fd or 0 to attach to vmlinux */
-+			/*
-+			 * or valid module BTF object fd or 0 to attach to vmlinux.
-+			 * BPF_PROG_TYPE_STRUCT_OPS takes the BTF of the bpf object too.
-+			 * Then attach_btf_id is a struct in that BTF and
-+			 * expected_attach_type is the index of its member.
-+			 * The kernel finds its struct_ops and the member by name.
-+			 */
- 			__u32		attach_btf_obj_fd;
- 		};
- 		__u32		core_relo_cnt;	/* number of bpf_core_relo */
-diff --git a/tools/lib/bpf/bpf_gen_internal.h b/tools/lib/bpf/bpf_gen_internal.h
-index 206adf28793d..caad131b0452 100644
---- a/tools/lib/bpf/bpf_gen_internal.h
-+++ b/tools/lib/bpf/bpf_gen_internal.h
-@@ -75,6 +75,9 @@ void bpf_gen__prog_load(struct bpf_gen *gen,
- 			struct bpf_prog_load_opts *load_attr, int prog_idx);
- void bpf_gen__map_update_elem(struct bpf_gen *gen, int map_idx, void *value, __u32 value_size,
- 			      __u64 flags);
-+void bpf_gen__struct_ops_update_elem(struct bpf_gen *gen, int map_idx, void *value,
-+				     __u32 value_size, const __u32 *fd_offs,
-+				     const int *prog_idxs, int cnt);
- void bpf_gen__map_freeze(struct bpf_gen *gen, int map_idx);
- int bpf_gen__func_ptr_map_create(struct bpf_gen *gen, const char *map_name, int obj_map_idx,
- 				 void *value, __u32 value_size, const __u32 *ptr_offs,
-diff --git a/tools/lib/bpf/gen_loader.c b/tools/lib/bpf/gen_loader.c
-index 555d4757a898..f496071a01f4 100644
---- a/tools/lib/bpf/gen_loader.c
-+++ b/tools/lib/bpf/gen_loader.c
-@@ -1113,6 +1113,10 @@ void bpf_gen__prog_load(struct bpf_gen *gen,
- 	/* populate union bpf_attr with btf_fd saved in the stack earlier */
- 	move_stack2blob(gen, attr_field(prog_load_attr, prog_btf_fd), 4,
- 			stack_off(btf_fd));
-+	if (prog_type == BPF_PROG_TYPE_STRUCT_OPS)
-+		/* attach_btf_id is a struct in the BTF of the object */
-+		move_stack2blob(gen, attr_field(prog_load_attr, attach_btf_obj_fd), 4,
-+				stack_off(btf_fd));
- 	if (gen->attach_kind) {
- 		emit_find_attach_target(gen);
- 		/* populate union bpf_attr with btf_id and btf_obj_fd found by helper */
-@@ -1221,6 +1225,36 @@ void bpf_gen__map_update_elem(struct bpf_gen *gen, int map_idx, void *pvalue,
- 	emit_map_update_elem(gen, map_idx, &attr, attr_size, key, value, value_size);
- }
- 
-+/*
-+ * pvalue is the struct as the object has it. The kernel moves the members to
-+ * where it has them. The fds of the programs prog_idxs go to fd_offs.
-+ */
-+void bpf_gen__struct_ops_update_elem(struct bpf_gen *gen, int map_idx, void *pvalue,
-+				     __u32 value_size, const __u32 *fd_offs,
-+				     const int *prog_idxs, int cnt)
-+{
-+	int attr_size = offsetofend(union bpf_attr, flags);
-+	int value, key, zero = 0, i;
-+	union bpf_attr attr;
-+
-+	memset(&attr, 0, attr_size);
-+	value = add_data(gen, pvalue, value_size);
-+	key = add_data(gen, &zero, sizeof(zero));
-+
-+	/* see bpf_gen__map_update_elem() */
-+	if (!OPTS_GET(gen->opts, gen_hash, false))
-+		emit_copy_initial_value(gen, map_idx, value, value_size, 0);
-+
-+	for (i = 0; i < cnt; i++) {
-+		emit(gen, BPF_LDX_MEM(BPF_W, BPF_REG_0, BPF_REG_10,
-+				      stack_off(prog_fd[prog_idxs[i]])));
-+		emit2(gen, BPF_LD_IMM64_RAW_FULL(BPF_REG_1, BPF_PSEUDO_MAP_IDX_VALUE,
-+						 0, 0, 0, value + fd_offs[i]));
-+		emit(gen, BPF_STX_MEM(BPF_DW, BPF_REG_1, BPF_REG_0, 0));
-+	}
-+	emit_map_update_elem(gen, map_idx, &attr, attr_size, key, value, value_size);
-+}
-+
- void bpf_gen__populate_outer_map(struct bpf_gen *gen, int outer_map_idx, int slot,
- 				 int inner_map_idx)
- {
-diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
-index 0e2a93a42908..3a0cabddb987 100644
---- a/tools/lib/bpf/libbpf.c
-+++ b/tools/lib/bpf/libbpf.c
-@@ -1459,6 +1459,24 @@ static int bpf_map__init_kern_struct_ops(struct bpf_map *map)
- 	return 0;
- }
- 
-+/* The kernel finds its struct_ops and the members by the names that they have in obj->btf */
-+static void bpf_map__init_gen_struct_ops(struct bpf_map *map)
-+{
-+	struct bpf_struct_ops *st_ops = map->st_ops;
-+	__u32 i, vlen = btf_vlen(btf__type_by_id(map->obj->btf, st_ops->type_id));
-+
-+	map->mod_btf_fd = -1;
-+	for (i = 0; i < vlen; i++) {
-+		struct bpf_program *prog = st_ops->progs[i];
-+
-+		/* The kernel rejects a prog that two maps use for different members */
-+		if (!prog || prog->attach_btf_id)
-+			continue;
-+		prog->attach_btf_id = st_ops->type_id;
-+		prog->expected_attach_type = i;
-+	}
-+}
-+
- static int bpf_object__init_kern_struct_ops_maps(struct bpf_object *obj)
- {
- 	struct bpf_map *map;
-@@ -1474,6 +1492,11 @@ static int bpf_object__init_kern_struct_ops_maps(struct bpf_object *obj)
- 		if (!map->autocreate)
- 			continue;
- 
-+		if (obj->gen_loader) {
-+			bpf_map__init_gen_struct_ops(map);
-+			continue;
-+		}
-+
- 		err = bpf_map__init_kern_struct_ops(map);
- 		if (err)
- 			return err;
-@@ -5609,7 +5632,8 @@ static int bpf_object__create_map(struct bpf_object *obj, struct bpf_map *map, b
- 		map->btf_value_type_id = 0;
- 		break;
- 	case BPF_MAP_TYPE_STRUCT_OPS:
--		create_attr.btf_value_type_id = 0;
-+		if (!obj->gen_loader)
-+			create_attr.btf_value_type_id = 0;
- 		break;
- 	default:
- 		break;
-@@ -9761,6 +9785,46 @@ static int bpf_map_prepare_vdata(const struct bpf_map *map)
- 	return 0;
- }
- 
-+/* The loader keeps the fds of the programs in the order of bpf_object__load_progs() */
-+static int bpf_program_gen_idx(const struct bpf_program *prog)
-+{
-+	const struct bpf_program *p;
-+	int idx = 0;
-+
-+	for (p = prog->obj->programs; p != prog; p++)
-+		if (!prog_is_subprog(prog->obj, p) &&
-+		    p->load_strategy == BPF_PROG_LOAD_STRATEGY_AUTO)
-+			idx++;
-+	return idx;
-+}
-+
-+static int bpf_map_gen_struct_ops_update(struct bpf_map *map)
-+{
-+	struct bpf_struct_ops *st_ops = map->st_ops;
-+	__u32 i, cnt = 0, *fd_offs = st_ops->kern_func_off;
-+	struct bpf_object *obj = map->obj;
-+	const struct btf_type *type;
-+	int *prog_idxs;
-+
-+	type = btf__type_by_id(obj->btf, st_ops->type_id);
-+	prog_idxs = calloc(btf_vlen(type), sizeof(*prog_idxs));
-+	if (!prog_idxs)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < btf_vlen(type); i++) {
-+		if (!st_ops->progs[i])
-+			continue;
-+		fd_offs[cnt] = btf_member_bit_offset(type, i) / 8;
-+		/* struct bpf_program * doesn't go into the blob. The loader stores the fd here. */
-+		memset(st_ops->data + fd_offs[cnt], 0, sizeof(__u64));
-+		prog_idxs[cnt++] = bpf_program_gen_idx(st_ops->progs[i]);
-+	}
-+	bpf_gen__struct_ops_update_elem(obj->gen_loader, map - obj->maps, st_ops->data,
-+					type->size, fd_offs, prog_idxs, cnt);
-+	free(prog_idxs);
-+	return 0;
-+}
-+
- static int bpf_object_prepare_struct_ops(struct bpf_object *obj)
- {
- 	struct bpf_map *map;
-@@ -9775,7 +9839,10 @@ static int bpf_object_prepare_struct_ops(struct bpf_object *obj)
- 		if (!map->autocreate)
- 			continue;
- 
--		err = bpf_map_prepare_vdata(map);
-+		if (obj->gen_loader)
-+			err = bpf_map_gen_struct_ops_update(map);
-+		else
-+			err = bpf_map_prepare_vdata(map);
- 		if (err)
- 			return err;
- 	}
