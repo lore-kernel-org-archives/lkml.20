@@ -1,86 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794252567;
-	b=Nj9ahdJg+CFba8cMVbaJHkPCcftDMUXJyE0wA/FyeBw3qRAHwUGbSlGSYLq5PX0x3NY1
-	 /Qzm991N2Ekpu8dBtAIUaif1fJF1C/6P1mZzj6p9MDNz2rAiQuZdvhS1AxrdUj3Irqd83
-	 KkyjMhVMfuc8KtORY6S2b9xXGQMvbtQ6ZbmnsOV9ke7icB2o8FTDmMS45Lx5NaVfhXjzz
-	 E3U9QkwPVmHnzLTuxdWUmIfF+CTgISF8Z2WHvH+K4wBT9nLvrtIbsPKyIgkiwipHnz22H
-	 jJ8QeoRCxXA2lvPQA1hZNmmIC6+VPV6nyG1Kiye2mImGyX+0/ch1JRMUfqlMjHc53pA==
+	t=1794252604;
+	b=XayTeDPLoZw1NyUR75+gQ5KglUFZ11X7fjHGHBFA9InAczXbHVPrMmDS6kxfMMv2xBno
+	 kIBZHBFuKTop8ceI4+hSke5FcApPHvRJeB1iaSMjTY6xjDQ41hWmTguo1V9it3G4gHh4S
+	 9gkInJe+D06N+kuUxIIscojF3K8lf2ExxNdaIQcYfQUe8KW0OIERfitkrwNSBB6AMC3BQ
+	 QP0iLq8nIxHRLBsqUhqS0r92ge+501FoQj/6kgvHBMWLV0ZQ43207I4pHmKSXHVNea5nV
+	 kAp5N5RTmWUdKGkzzqkdiTw/tfWuX2ok5Fbj/B2BWGaZPsWdL2od+VMwZT90zwy0MRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794252567;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=jVCGfkX1RIb2wLuptqR9bvcqrBU7RikfXXwk8aiHdtg=;
-	b=K9ZreCqy3sHLDnRVC2Foy/ufmZyT8UU7Bc5y+qBhBFm9dVoU9/LwavYtVGlKGA4KH9o3
-	 Xnkb5w1v/7anTjP5a4dZ2jJYmZ3qn+Olm+Yyp0ISdxri4AMLQcg8lnfVTkfjah/4AhpBO
-	 ouQY9CUFhUS9E38OQPyeVL+kxCsJsVTT+YHjM6NqFloiSe5JtQhfi7CzpYKeofdpUkoP3
-	 TWUGsuJV64LePhK/NDSam6lNKjj2XQgsCWh1p2v8kIaeaqI22xuhgeRoLs8/5bEUEw9sY
-	 vxKFqXBC2u159wGO5Nx5lUAt0zAhOAtlef2ihP9CGALwAH4SQVO2+vXF/ul3EKCyI8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794252604;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7f0x77VxeyFJGw1qnk2bYiIJYFod8edED4Dubqc7evo=;
+	b=wum6FZa7EIXSHII99Sy4l6SxL3m+9VoX7dKUlf3PZDLT0wUdc+pG2P8kO+2fuRKOhW03
+	 17grci1Z0cIc3hM2VVAUs6lrLij6eW8b/6UthZLpuWsbb49PT7NZBpPCHmgdKZ7mRvIJu
+	 ncf1CcJkOK4JHvuo5Nq6RuFBKS5eXdsJnXHPbSDh6r/92nOF0Amo+Xm00BKlyhA6oijaq
+	 /kUDz6/sfVzqNAEu0yOODpiuvDkdsIL/Xi1/GuoJXwceaaZVajxVkqWAs6nrd3Z+07xIF
+	 NhQk7dzltkfzgiaSr5jSmbBHQfImD1hwIPC2dO8cl7pL9oVp7oduaTo3uLqsrfElS6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="fjLY/+VF";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=1tdcC3gh;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ia90E7Tz;
+	arc=none smtp.remote-ip=74.125.224.139
+Received: from mail-yx2-f11.google.com (mail-yx2-f11.google.com [74.125.224.139])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72564606A31C;
-	Mon,  9 Nov 2026 19:29:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72564606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C688606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:30:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C688606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=fjLY/+VF;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=1tdcC3gh
-Date: Mon, 9 Nov 2026 20:29:22 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794252564;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jVCGfkX1RIb2wLuptqR9bvcqrBU7RikfXXwk8aiHdtg=;
-	b=fjLY/+VFMKmkJECS8BA54MKsiBaEKQwVQWNOJhtiDteQpWvrbKIrqkHjf5zblWYIJiPtkK
-	lgeQwEvwE16OLyJkLnEGw8qyR5KBNy0Aqu61bSVGcpcJ9ny61pf/mBRbVgaq+mjJbrm5Q8
-	0a2EdCPWcnn91A3QXhzTwMyEuhk7IMqglSF+vTYv6jHHXb9Us0HgMPxr94hSE7wqjJC50r
-	UwIZFFiNDM8Lv9umbs+iuQ1YFmaGkFucGqiJ94vNSvocyG0jVy+zqh6LTyEgMHOkKFgt93
-	f3iBY2d0+u7vb/kv3oJRZerE83lnc/rVeK8fFvRCFltXdAqqeBg7dk915ZHX3Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794252564;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jVCGfkX1RIb2wLuptqR9bvcqrBU7RikfXXwk8aiHdtg=;
-	b=1tdcC3ghJ0UbmhHHYclN2HiCG2v+MZMzGS2Afnr4k5ZSGRPcyZG7Dyz1gxXuElCVKArA8U
-	u+t1w64Wk1JdLHAQ==
-From: "Ahmed S. Darwish" <darwi@linutronix.de>
-To: sashiko-reviews@lists.linux.dev
-Cc: Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	John Ogness <john.ogness@linutronix.de>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
-	Daan De Meyer <daan.j.demeyer@gmail.com>,
-	Luca Boccassi <luca.boccassi@gmail.com>,
-	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 03/10] kconfig-checker: Add the configuration checker
- code
-Message-ID: <avIfEhE83UkF9g_Y@lx-t490>
-References: <20261106091922.7560-1-darwi@linutronix.de>
- <20261106091922.7560-4-darwi@linutronix.de>
- <sashiko-outbox-202758@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ia90E7Tz
+Received: by mail-yx2-f11.google.com with SMTP id 956f58d0204a3-67a51292ce3so929394d50.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:30:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794252603; x=1794857403; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7f0x77VxeyFJGw1qnk2bYiIJYFod8edED4Dubqc7evo=;
+        b=ia90E7TzzP4W5ewEYifnFu4Vw/60EETCRbZ1ZN7zCjQZ9DwOY+zShtE01dTpFZ7F7l
+         cgIc+GzVKY+S5kb3SCYdk2/enTfBeLArxcHEJuOv5tqq1TtxlF04qlkD55xJAnIpCTRk
+         RbE3mdO//ZpZtgSF9n4H8mEcWpPO30yFMMaQAUfV/Wl3D52Mxrp80wLAE3Q1zv1Ho8cv
+         DFhNxCLhp9m0/EsU6IPbiRCl9ZPCmdcMcOnKLAgwekPkN6m1+4PqfMl/VjL/LFkwh26M
+         CAYxs/pt36j43RB44IdtSXWxsioiRBrhBl5zp1y1vaxzOCnWaU22Lvla2lZhHqFNKvha
+         HtoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794252603; x=1794857403;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7f0x77VxeyFJGw1qnk2bYiIJYFod8edED4Dubqc7evo=;
+        b=g0YfdFp11IBhRRr5mZtRpErEmLOGeLEftVoWolp+kRivF466Ozl+nzqCfIevIXKCWK
+         xkEracGldLJYhTkoQZR74G14xWjEX4wLRFgm2ueIaJspbdXrTtjMFZgIpeEfk6VDVvoj
+         a748FHwIGwVVbfvJR1hhEvjgPDau69loUbEQv6E7TgZgT6YnnBNHWFdSeivbtO6dwp6J
+         FlNx8UyZXghPDyw8cVQsEEahG5uTELdl6m7yr7TtHtNiZLX9GuRMpm6zswcqr+CI4ICL
+         MwxNQsewF6S78sph3x303b3dp1senYpFkwm348iqMbKl2OXmK+lPne6m2aI48KV8BKsd
+         wXUg==
+X-Forwarded-Encrypted: i=1; AL+hErHudC5wwWIOQ323z1gq1wBbQtLlogRReofBxxZ9Bh1ncSHKxrk1+ysi9wZ1zlU3v/T70XKlG/+6UBtO9Vk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SIzQiudp0qVk7My3iofNpmDCtRFLn7UggwI8XdjDymwK0GEtp
+	0lRZT2D6IjOGaEZQUNndg8Jm90O1e+HkLnfsl7lB21jCn2sADkwfjVoa
+X-Gm-Gg: AYBFou1BVg/BjyVHKT9UXtPypvZYM0jrl5R3zGDNbUhJ2GE92Lb5HqcQ/Zji5qqXXYe
+	dzeiMdjzgk0bZBX54Nbspq0bDdu5ypqSVQzcSnuUeJNn1ZRCa3xUBdmSbXngIKCC9t+GBy9E3Dp
+	ZQIi9O2z16ugKN+T0NOXcLEX41AQWxUtte+8HChR3K3C6GsBg2m2BOE54MfHNhXyJ98DKh3WpF6
+	+okBHsUzC+wuMzEd9kOyuw7900Xz3TRBsz2SJlaakLaOqB3EbbWwfohtBB8bibXs52+qLTFjW+S
+	cAIvjEG7e1l1C51P0nmgS3D9JqULfiJDZJRMRklDWv8hKCMLsVdadZiawUywLTYVAVxIjDDNr87
+	qZ/gU9cXmKrGv/L2hWk7WclTdL3qTxethkoBxzDiw1Cdq42qkVHLCBr6YIHw/IwA+IRjuKP060p
+	L5QN/eL6xWpjT9TXj6A3nVcnzWGjOyLx404zl6Df6P+mE1smOOs5uSzpRzcF7akNGn8PE2vcjhS
+	l4vVKwR3FhhWEoo95TNgpqdxqaEFplyNzmfWg9IotzGKFmbeTlbRA/x3WH0KOYHioATfgH4akKy
+	fWEaJnECak7wqXo3BIlOY63kCgfGDSWnH90=
+X-Received: by 2002:a05:690e:438d:b0:67b:e862:e228 with SMTP id 956f58d0204a3-67c568d26fbmr214564d50.86.1794252603311;
+        Mon, 09 Nov 2026 11:30:03 -0800 (PST)
+Received: from [10.0.0.48] ([71.69.222.122])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c58a201ddsm39422d50.21.2026.11.09.11.30.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 11:30:02 -0800 (PST)
+Message-ID: <ee61d52b-e8bb-4504-a893-f9dc4036d615@gmail.com>
+Date: Mon, 9 Nov 2026 14:30:01 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,112 +92,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-202758@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] nvme-tcp: move the TLS record read loop into a helper
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-nvme@lists.infradead.org, Keith Busch <kbusch@kernel.org>,
+ Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>, Hannes Reinecke <hare@kernel.org>,
+ linux-kernel@vger.kernel.org
+References: <20261109-nvme-tcp-live-ctrlrec-v1-0-47ba61670e65@gmail.com>
+ <20261109-nvme-tcp-live-ctrlrec-v1-1-47ba61670e65@gmail.com>
+ <sashiko-outbox-205465@kernel.org>
+Content-Language: en-US
+From: Martin Belanger <martin.nvme.dev@gmail.com>
+In-Reply-To: <sashiko-outbox-205465@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, 07 Nov 2026, sashiko-bot@kernel.org wrote:
-> >
-> > + def _find_issue_pattern(self, pattern_rule: PatternRule) -> Optional[PatternIssue]:
-> > +	  """Check the .config against a pattern rule. Return found issues, if any."""
-> > +	  if pattern_rule.expected == ExpectedValue.allowed:
-> > +	      return None
-> > +
-> > +	  violation_type = 'unset' if pattern_rule.expected == ExpectedValue.y else 'set'
-> > +	  docs_url = self.rules.get_docs_url_for(pattern_rule)
-> > +
-> > +	  violating_symbols = []
-> > +
-> > +	  for symbol in self.kconfig.get_matching_symbols(pattern_rule.symbol_regex):
-> > +	      symbol_value = self.kconfig.get_symbol_value(symbol)
-> > +
-> > +	      if pattern_rule.expected == ExpectedValue.y and symbol_value == 'n':
-> > +		  # Exclude the config symbol if it's explicitly disabled elsewhere
-> > +		  symbol_rule = self.rules.get_symbol_rule(symbol)
-> > +		  if symbol_rule and symbol_rule.expected == ExpectedValue.n:
-> > +		      continue
-> > +
-> > +		  violating_symbols.append(symbol)
-> > +
-> > +	      if pattern_rule.expected == ExpectedValue.n and symbol_value in ('y', 'm'):
-> > +		  # Exclude the config symbol if it's explicitly allowed elsewhere
-> > +		  symbol_rule = self.rules.get_symbol_rule(symbol)
-> > +		  if symbol_rule and symbol_rule.expected in (ExpectedValue.y, ExpectedValue.allowed):
-> > +		      continue
-> > +
-> > +		  violating_symbols.append(symbol)
->
-> [Severity: Low]
-> Should _find_issue_pattern() skip any symbol that has an explicit
-> SymbolRule, regardless of symbol_rule.expected?
->
-> Only checking for opposing expected values causes two issues: when
-> pattern_rule.expected is ExpectedValue.y, a symbol with a SymbolRule of
-> ExpectedValue.allowed is not exempted and is falsely reported as unset,
 
-I think you misunderstand what 'allowed' means.
 
-'expected: allowed', means that an option is permitted. Quoting the schema:
+On 11/9/26 14:11, sashiko-bot@kernel.org wrote:
+> [Severity: Medium]
+> This problem wasn't introduced by this patch, but can passing the
+unaligned
+> char cbuf[] array as msg_control [1] cause unaligned struct cmsghdr
+> accesses?
 
-        #
-        # Expected value for the matching kernel configuration option.
-        #
-        # Values:
-        #
-        #   y        option is expected to be enabled (built-in or module).
-        #   n        option is expected to be disabled or unset.
-        #   allowed  option is permitted and must not be reported as a violation.
-        #            This is to be used either by overlays, or to exempt a specific
-        #            symbol from a broader `name_pattern` rule  with `expected: n`.
-        #
-        expected:
-          type: string
-          enum: [y, n, allowed]
+The report is correct. The char cbuf[CMSG_LEN(sizeof(char))] pattern
+gives the buffer 1-byte alignment, and put_cmsg() and
+tls_get_record_type() access it as a struct cmsghdr. The pattern exists
+since commit 2837966ab2a8 ("nvme-tcp: control message handling for
+recvmsg()"), and this series copies it into the two new receive paths.
 
-So, for below policy:
+v2 will add a first patch that declares the host buffers as a union
+with struct cmsghdr, as sunrpc does in svcsock.c and xprtsock.c. The
+new code in this series will use the same declaration. I will wait for
+review of v1 before I post v2.
 
-  - name_pattern: CONFIG_DEBUG_.*
-    expected: n
+nvmet-tcp uses the same pattern in four places. I will fix it in a
+separate patch.
 
-  - name: CONFIG_DEBUG_ATOMIC_SLEEP
-    expected: allowed
-
-having a CONFIG_DEBUG_ATOMIC_SLEEP=y should not trigger an audit warning.
-
-But for below policy:
-
-  - name_pattern: CONFIG_DEBUG_.*
-    expected: y
-
-  - name: CONFIG_DEBUG_ATOMIC_SLEEP
-    expected: allowed
-
-having CONFIG_DEBUG_ATOMIC_SLEEP=y should trigger no warning, but having
-'CONFIG_DEBUG_ATOMIC_SLEEP is unset' should definitely trigger a warning,
-even with the second 'expected: allowed' rule.
-
-TLDR; the pattern expected: y / symbol expected: allowed case is not a bug.
-
->
-> and when a SymbolRule has the same expected value as the PatternRule (for
-> example, to give a specific symbol its own severity or rationale), the
-> violation is reported twice—once by _find_issue_symbol() and once by
-> _find_issue_pattern().
->
-
-Hmm, the tool does not handle below case:
-
-  - name_pattern: CONFIG_DEBUG_.*
-    expected: n
-    serverity: medium
-
-  - name: CONFIG_DEBUG_ATOMIC_SLEEP
-    expected: n
-    severity: fatal
-    rationale: Danger! must disable! Danger!
-
-But on a second look, maybe it should... I'll think about it.
-
-Thanks,
-Ahmed
+Martin
