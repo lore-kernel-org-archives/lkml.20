@@ -1,133 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242897;
-	b=2wXzsGoCdZQnx2mE/rtu0CwVMAnnHKoVj1B4ekb9RB/05TZXO/iUaJH3FHcHv9OdqZgh
-	 EEBKQ8kdY4eDpl6RL2d15My/SzJ3YxVS/g+wZpEELhLN0ZwVHHXG6nYshEe+qQXH9JoVc
-	 bBRjPGkqveRX22o6cFuf1dLGmfDWELB0caspyFEkXP8PLElIEzSrNVtqjalnY2kqxGsA4
-	 Y5ICl2sqFHASe8cHdqBMN3lgGoSFEE7AARgRsII/tPAt6jD9s2wogEU+SuTNx8D8ZnAhn
-	 pqyRDieBQNbp8fbOFuJpBg//uHCr/y8qFzqiSijcMxgEFDaT8vRVRrUQtV1J32wloug==
+	t=1794242906;
+	b=SnS2O+i6gLfgyhjehxzGF2C0jdjmV7OVpLrknDvcoLvv//RZ6axJlY3DSCV+fB+60mG8
+	 NDBD929+nOu06Pb+jZWM0PU5X7AJgoMlEMAu2gt4CCTnBRiNHqdm4qO99vI+6XV52YPI0
+	 jm+5uwtU0V02sdWsnFnuQgHNsoLG+JR4yn57rk1rAbT9N6rFb1QfzEKXtYsHr2gM8k9jy
+	 N0K7to4mIKGCqRHRjShx5YSvWintZCC1EEuum41jOc+69PSc/zYqtx6KrtLFdpFJ/U9Az
+	 hawbbk9AEIfi+qzZTyfQdFNC5rAsqTG2FvtgyHtbC/mt90Vsd5cvFNHIrXpiFGExg2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242897;
-	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=RDsgpKCF0aALEYg8+ww+MJfTOTF9VXr/jtsKgrcT8LU=;
-	b=SwSIn4ccBMSgX8XaFnOCd5CbH8MRSpLFtmgZXyVIgvEJOaitGhe4QVXBPK3SH5gH/2GV
-	 41N79HLixqDOp6OrrkGTGbcjX/w6BgnpQjObjlJrO+YyACNV0EnvQI1YrQhu5YDH2HL6R
-	 +lSub2LYbHKkCcWlIyZAqT36XL/4X9FE5spW/wJKQKQnm6Y4dORfLhUsymc7UcRmy2zeF
-	 FKylhXUPadJEet+0PU7MVh3Vvo5Gv5I2hR5ZZY1L8ILDBtK/HS7DpTk+hfeeE7hBdeHqt
-	 GvRGS970/Kgu7q1hkhVXZFYV5GsC3yW5Ak+7AZyu6pJPE3E1WiKjTcKiO2HqEjdXA+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242906;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Organization:Content-Transfer-Encoding;
+	bh=4tR+ehDvVyFIOFeVVHpw2Y8x4xoprlSnCCtIrDbASRg=;
+	b=DGDGsxsnC1L0RTvR5RlxQauKXhMYyO3DuQk5HtvCmwNcNIwMVrHODMu2ZUnsWDrB4geW
+	 BoZM2gO07AR8Dx+6I5mdm34++4c10hbnKCW/+gmJNmFKxedvDDs7/labDZpLftuumNYUd
+	 bpCgI+K7bFXRj9MV6JD5jDxUAfbrenNGqQSlnPWhUuVjH/m9V6NJ5YrcA6LE+HpvlNiHM
+	 J/dOExl8IOEldtVgXtrttZ3svh45uhhXvvgWJMEubK5Y+qpQc0aY8DU1ansak20Ilrpa7
+	 y0s2hPrw+jRe9v7HOF2yvfxClMSMZy9EnKEagpumH9blITe80DcUuCPCWuUDwUnqtYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a2sXyRUd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="VFy/dkjt";
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABA04606A325;
-	Mon,  9 Nov 2026 16:48:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA23606A333;
+	Mon,  9 Nov 2026 16:48:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BA23606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a2sXyRUd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF0A61F008A1;
-	Mon,  9 Nov 2026 16:48:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794242896;
-	bh=RDsgpKCF0aALEYg8+ww+MJfTOTF9VXr/jtsKgrcT8LU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=a2sXyRUdWxQ+oJJKkV1HCXnSVKn8EJ5Lujpp8TZ36LqL908U4NuyPVgZnjIqDeqS6
-	 hyl1VRJ0C583CrvHEuIs5dheBpSR41Jq6xTaEmPemlcghIxWKL+t6K+Q5dyUi74LMO
-	 XPUeCytec9gpexswyqNb3OXdOK94MwFsBYRSCm9/JdY7g2V9gocpMCloAg82Q7HGvB
-	 1jRy07clM9rYUx0W+yJW/0/P/dZdg/vqRi1vtz/Auo0wLFEzaP/XtUXdQIjAQcA/Ei
-	 Bw+zsCWFjYZnjyfoTJIL1X0p7vXMI/gzZ9LvyRrWwiU/4qCtvlolC2InHrffX6x5mR
-	 dQ1ubuPaxUrTA==
-Message-ID: <ceec68acafcec5d598a47bac4e065e762641c25e.camel@kernel.org>
-Subject: Re: [PATCH 0/4] btrfs: fix FMODE_NOCMTIME handling in btrfs
-From: Jeff Layton <jlayton@kernel.org>
-To: dsterba@suse.cz
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, Chuck
- Lever <cel@kernel.org>, linux-btrfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 09 Nov 2026 11:48:12 -0500
-In-Reply-To: <20261109161019.GC4186782@twin.jikos.cz>
-References: <20261105-delegts-btrfs-v1-0-a42a2b93cdc2@kernel.org>
-	 <20261109161019.GC4186782@twin.jikos.cz>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VFy/dkjt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794242906; x=1825778906;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=die3M4O+TPYDaHilQoIGSeEmNbQvcNDe1aNtXq0T9eE=;
+  b=VFy/dkjtwtcfk0CknG85R8/aH94074D+FExybi7eixvUFGjnqdeaiXEX
+   7Grs//6J0BR794Ijaqul/MHXpNxMLPf7Ml5DpwdzTNglFS6sy50ZHxUdd
+   Z+Jbmcz1w4pDLsL7qhsEIBS/jaghWABstDA5PQKzCEPFZ1iGZAs/Ib/2A
+   5+q7houxiRW4b53LUZEAiXVfqfAl/VBhx/BwCv0q1GF5MoXE1TuP9jcci
+   Y8+LknPTSW8TZ+wmnHbGWpLrQ073XP2jKjucbnUu5yJmcuqqogvx9Tkxd
+   r5H4F8JoDSwgdyvvn+XmNgaauWpBzecd1vPo1fiAHVgiGMRmGojNgCmdY
+   g==;
+X-CSE-ConnectionGUID: sfBxStmdR5Ogu0ygS62fRQ==
+X-CSE-MsgGUID: RK1Qs1r+TTKtgCJGX0jE4w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3010714"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3010714"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:48:25 -0800
+X-CSE-ConnectionGUID: 8Zj/AG1/Tc2svsBquhUFWQ==
+X-CSE-MsgGUID: pv3l8w1OQs+6y+9G/lY+NA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8481248"
+Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:48:22 -0800
+From: Dawid Glazik <dawid.glazik@linux.intel.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	dawid.glazik@linux.intel.com,
+	maciej.lawniczak@intel.com,
+	Andrew Lunn <andrew@lunn.ch>
+Subject: [PATCH v5 2/3] ARM: dts: aspeed: Add Intel AVCRP BMC
+Date: Mon,  9 Nov 2026 18:41:49 +0100
+Message-ID: <ee6958ba4b93cde4719fbac89c4027964c2236bc.1794242015.git.dawid.glazik@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1794242015.git.dawid.glazik@linux.intel.com>
+References: <cover.1794242015.git.dawid.glazik@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -137,53 +89,380 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2026-11-09 at 17:10 +0100, David Sterba wrote:
-> On Thu, Nov 05, 2026 at 03:07:41PM -0500, Jeff Layton wrote:
-> > I tested the delegated timestamp support in nfsd recently. That support
-> > relies heavily on FMODE_NOCMTIME, and I found several places where btrf=
-s
-> > didn't handle that flag properly. This series seems to fix them for me.
-> > I tested mostly with the git regression testsuite, because it is very
-> > sensitive to subtle bugs in timestamp handling.
-> >=20
-> > Please consider for v7.5.
-> >=20
-> > Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> > ---
-> > Jeff Layton (4):
-> >       btrfs: honor FMODE_NOCMTIME in btrfs_write_check()
-> >       btrfs: honor FMODE_NOCMTIME when punching holes
-> >       btrfs: honor FMODE_NOCMTIME in fallocate
-> >       btrfs: honor FMODE_NOCMTIME when cloning
->=20
-> There's a comment from sashiko for patch 4 regarding the unconditional
-> i_version update but this is mentioned in patch 3 as intentional. I
-> can't tell if it's a problem, it seems more like a suggestion for
-> cleanup. I'll add the series to for-next, please check if the question
-> is valid. Thanks.
+AVCRP is an Intel x86 server platform equipped with an ASPEED
+AST2600 BMC. The BMC is used for out-of-band management, platform
+monitoring, and system control.
 
-Thanks, I think the suggestion from sashiko is a false positive and we
-should just merge this set as-is. That said, the kernel _is_
-inconsistent in how it treats i_version under FMODE_NOCMTIME:
+Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+---
+v5:
+  - Removed bootargs from the chosen node
+  - Added a description of the platform to the commit message, written
+    in the style of other boards upstream (Facebook, Lenovo, Ampere)
+  - Rebased onto the current aspeed/arm/dt
+  - Capitalised the first word of the subject
+v4:
+  - Rebased onto aspeed/arm/dt of bmc/linux.git, no other changes
+v3:
+  - Sorted nodes alphabetically
+  - Sorted properties per dts-coding-style
+  - Removed lpc-snoop label
+  - Removed &i3c_global since it's enabled by default
+  - Removed GPIO line names for pins claimed by pinctrl
+  - Restored Reviewed-by from Andrew Lunn, dropped by mistake in v2
+v2:
+  - Reviewed-by: Andrew Lunn for nodes: &mdio1, &mac1
+  - Replace bootargs console=ttyS4,115200n8 with stdout-path = &uart5
+  - Remove the unreferenced video_memory reserved-memory node
+---
+ arch/arm/boot/dts/aspeed/Makefile             |   1 +
+ .../dts/aspeed/aspeed-bmc-intel-avcrp.dts     | 321 ++++++++++++++++++
+ 2 files changed, 322 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
 
-The generic VFS layer (so ext4, tmpfs, etc.) suppresses i_version
-updates when FMODE_NOCMTIME is set.
+diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
+index 6874b621deb4..1e4154f12228 100644
+--- a/arch/arm/boot/dts/aspeed/Makefile
++++ b/arch/arm/boot/dts/aspeed/Makefile
+@@ -57,6 +57,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-ibm-rainier-4u.dtb \
+ 	aspeed-bmc-ibm-sbp1.dtb \
+ 	aspeed-bmc-ibm-system1.dtb \
++	aspeed-bmc-intel-avcrp.dtb \
+ 	aspeed-bmc-intel-s2600wf.dtb \
+ 	aspeed-bmc-inspur-fp5280g2.dtb \
+ 	aspeed-bmc-inspur-nf5280m6.dtb \
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+new file mode 100644
+index 000000000000..eb73d6441222
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+@@ -0,0 +1,321 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++// Copyright 2026 Intel Corporation
++
++/dts-v1/;
++
++#include "aspeed-g6.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++
++/ {
++	compatible = "intel,avcrp-bmc", "aspeed,ast2600";
++	model = "Intel AVCRP BMC";
++
++	aliases {
++		serial4 = &uart5;
++	};
++
++	chosen {
++		stdout-path = &uart5;
++	};
++
++	memory@80000000 {
++		device_type = "memory";
++		reg = <0x80000000 0x40000000>;
++	};
++
++	reserved-memory {
++		ranges;
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		video_engine_memory: jpegbuffer {
++			compatible = "shared-dma-pool";
++			alignment = <0x01000000>;
++			reusable;
++			size = <0x02000000>; /* 32M */
++		};
++	};
++};
++
++&fmc {
++	status = "okay";
++
++	flash@0 {
++		label = "bmc";
++		spi-max-frequency = <50000000>;
++		spi-rx-bus-width = <4>;
++		m25p,fast-read;
++
++		status = "okay";
++
++#include "openbmc-flash-layout-64.dtsi"
++	};
++};
++
++&gpio0 {
++	gpio-line-names =
++		/*A0-A7*/ "", "", "", "", "SMB_CPU_PIROM_SCL", "SMB_CPU_PIROM_SDA",
++				"SMB_IPMB_STBY_LVC3_SCL", "SMB_IPMB_STBY_LVC3_SDA",
++		/*B0-B7*/ "", "", "", "FM_CPU1_ERR2_LVT3_N", "", "",
++				"FM_BMC_BMCINIT_R", "FP_ID_LED_N",
++		/*C0-C7*/ "FM_FORCE_BMC_UPDATE_N", "RST_RGMII_PHYRST_N",
++				"FM_TPM_EN_PULSE", "", "", "",
++				"FM_CPU1_ERR0_LVT3_N", "FM_CPU1_ERR1_LVT3_N",
++		/*D0-D7*/ "CPU_ERR0", "CPU_ERR1", "CPU_ERR2", "PRDY_N",
++				"FM_SPD_SWITCH_CTRL_N", "", "", "",
++		/*E0-E7*/ "FM_SKT1_FAULT_LED", "FM_SKT0_FAULT_LED",
++				"CLK_50M_CKMNG_BMCB", "ID_BUTTON", "", "", "", "",
++		/*F0-F7*/ "", "FM_DUAL_PARTITION_MODE_N",
++				"FM_STANDALONE_MODE_N", "FM_4S_8S_N_MODE",
++				"FM_NODE_ID0", "FM_NODE_ID1", "", "",
++		/*G0-G7*/ "FM_SMB_BMC_NVME_LVC3_ALERT_N", "RST_BMC_HSBP_MUX_N",
++				"FP_LED_STATUS_GREEN_N", "FP_LED_STATUS_AMBER_N",
++				"PS_PWROK", "FM_PARTITION_SEL",
++				"FM_BMC_CPU_FBRK_OUT_R_N", "DBP_PRESENT_IN_R2_N",
++		/*H0-H7*/ "", "", "", "", "PLTRST_N", "CPU_CATERR", "", "",
++		/*I0-I7*/ "", "JTAG_ASD_TDI_R", "JTAG_ASD_TCK_R", "JTAG_ASD_TMS_R",
++				"JTAG_ASD_TDO", "FM_BMC_PWRBTN_OUT_R_N",
++				"FM_BMC_PWR_BTN_N", "",
++		/*J0-J7*/ "", "", "", "", "", "", "", "",
++		/*K0-K7*/ "", "", "", "", "", "", "", "",
++		/*L0-L7*/ "", "", "", "", "PREQ_N", "TCK_MUX_SEL", "", "",
++		/*M0-M7*/ "", "", "", "", "", "", "SPA_SOUT", "SPA_SIN",
++		/*N0-N7*/ "", "", "", "", "", "", "SPB_SOUT", "SPB_SIN",
++		/*O0-O7*/ "", "", "", "", "", "", "NMI_BUTTON", "SPEAKER_BMC_R",
++		/*P0-P7*/ "RESET_BUTTON", "RESET_OUT", "POWER_BUTTON", "POWER_OUT",
++				"", "", "", "LED_BMC_HB_LED_N",
++		/*Q0-Q7*/ "", "", "", "", "", "", "", "",
++		/*R0-R7*/ "", "", "", "", "", "", "", "",
++		/*S0-S7*/ "RST_BMC_PCIE_MUX_N", "FM_BMC_TRUST_N",
++				"FM_BMC_FRU_WP_N", "", "PWRGD_CPU0_AUXPWRGD",
++				"A_P3V_BAT_SCALED_EN", "REMOTE_DEBUG_ENABLE", "",
++		/*T0-T7*/ "", "", "", "", "", "", "", "",
++		/*U0-U7*/ "", "", "", "", "", "", "", "",
++		/*V0-V7*/ "SIO_S3", "SIO_S5", "", "SIO_ONCONTROL",
++				"SIO_POWER_GOOD", "", "", "",
++		/*W0-W7*/ "LPC_LAD0_ESPI_R_IO0", "LPC_LAD1_ESPI_R_IO1",
++				"LPC_LAD2_ESPI_R_IO2", "LPC_LAD3_ESPI_R_IO3",
++				"CLK_24M_66M_LPC0_ESPI_BMC", "LPC_LFRAME_N_ESPI_CS0_BMC_N",
++				"IRQ_LPC_SERIRQ_ESPI_ALERT_N", "RST_LPC_LRST_ESPI_RST_BMC_R_N",
++		/*X0-X7*/ "", "", "PCH_BMC_THERMTRIP", "", "", "", "", "",
++		/*Y0-Y7*/ "FM_BMC_CMOS_CLR_R_N", "", "FM_BMC_SAFS_EN",
++				"IRQ_SML1_PMBUS_BMC_ALERT_N", "", "",
++				"", "",
++		/*Z0-Z7*/ "", "", "", "HW_STRAP_5", "HW_STRAP_6", "HW_STRAP_7",
++				"HW_STRAP_2", "HW_STRAP_3";
++};
++
++&i2c5 {
++	multi-master;
++
++	status = "okay";
++};
++
++&i2c6 {
++	multi-master;
++
++	status = "okay";
++};
++
++&i2c7 {
++	multi-master;
++
++	status = "okay";
++};
++
++&i2c8 {
++	multi-master;
++
++	status = "okay";
++};
++
++&i2c9 {
++	multi-master;
++
++	status = "okay";
++};
++
++&i2c10 {
++	status = "okay";
++};
++
++&i2c11 {
++	status = "okay";
++};
++
++&i2c12 {
++	multi-master;
++
++	status = "okay";
++};
++
++&i2c13 {
++	multi-master;
++
++	status = "okay";
++};
++
++&i2c15 {
++	status = "okay";
++};
++
++&i3c2 {
++	i2c-scl-hz = <400000>;
++	mctp-controller;
++
++	status = "okay";
++};
++
++&kcs3 {
++	aspeed,lpc-io-reg = <0xca2>;
++
++	status = "okay";
++};
++
++&lpc {
++	lpc-snoop@80 {
++		snoop-ports = <0x80>;
++
++		status = "okay";
++	};
++};
++
++&mac1 {
++	clocks = <&syscon ASPEED_CLK_GATE_MAC2CLK>,
++		 <&syscon ASPEED_CLK_MAC2RCLK>;
++	clock-names = "MACCLK", "RCLK";
++	phy-handle = <&ethphy1>;
++	phy-mode = "rgmii-id";
++	pinctrl-0 = <&pinctrl_rgmii2_default>;
++	pinctrl-names = "default";
++
++	status = "okay";
++};
++
++&mdio1 {
++	status = "okay";
++
++	ethphy1: ethernet-phy@0 {
++		compatible = "ethernet-phy-id001c.c916";
++		reg = <0>;
++		reset-assert-us = <10000>;
++		reset-deassert-us = <50000>;
++		reset-gpios = <&gpio0 ASPEED_GPIO(C, 1) GPIO_ACTIVE_LOW>;
++	};
++};
++
++&rtc {
++	status = "okay";
++};
++
++&sgpiom0 {
++	bus-frequency = <2000000>;
++	gpio-line-names =
++		/*A, 0-7*/ "CPU1_PRESENCE", "", "CPU1_THERMTRIP", "",
++				"CPU1_VRHOT", "", "H_CPU0_MON_FAIL_LVC1_N", "",
++				"CPU1_MEM_VRHOT", "", "CPU1_MEM_THERM_EVENT", "",
++				"FM_CPU0_PROC_ID0", "", "FM_CPU0_PROC_ID1", "",
++		/*B, 8-15*/ "CPU1_MISMATCH", "LED_CPU1_CH1_DIMM1_FAULT", "",
++				"LED_CPU1_CH1_DIMM2_FAULT", "CPU2_PRESENCE",
++				"LED_CPU1_CH2_DIMM1_FAULT", "CPU2_THERMTRIP",
++				"LED_CPU1_CH2_DIMM2_FAULT", "CPU2_VRHOT",
++				"LED_CPU1_CH3_DIMM1_FAULT", "H_CPU1_MON_FAIL_LVC1_N",
++				"LED_CPU1_CH3_DIMM2_FAULT", "CPU2_MEM_VRHOT",
++				"LED_CPU1_CH4_DIMM1_FAULT", "CPU2_MEM_THERM_EVENT",
++				"LED_CPU1_CH4_DIMM2_FAULT",
++		/*C, 16-23*/ "FM_CPU1_PROC_ID0", "LED_CPU1_CH5_DIMM1_FAULT",
++				"FM_CPU1_PROC_ID1", "LED_CPU1_CH5_DIMM2_FAULT",
++				"CPU2_MISMATCH", "LED_CPU1_CH6_DIMM1_FAULT", "",
++				"LED_CPU1_CH6_DIMM2_FAULT", "", "LED_FAN1_FAULT", "",
++				"LED_FAN2_FAULT", "", "LED_FAN3_FAULT", "",
++				"LED_FAN4_FAULT",
++		/*D, 24-31*/ "", "LED_FAN5_FAULT", "", "LED_FAN6_FAULT", "",
++				"LED_FAN7_FAULT", "", "LED_FAN8_FAULT", "",
++				"LED_CPU2_CH1_DIMM1_FAULT", "", "LED_CPU2_CH1_DIMM2_FAULT",
++				"", "LED_CPU2_CH2_DIMM1_FAULT", "",
++				"LED_CPU2_CH2_DIMM2_FAULT",
++		/*E, 32-39*/ "", "LED_CPU2_CH3_DIMM1_FAULT", "",
++				"LED_CPU2_CH3_DIMM2_FAULT", "", "LED_CPU2_CH4_DIMM1_FAULT",
++				"", "LED_CPU2_CH4_DIMM2_FAULT", "",
++				"LED_CPU2_CH5_DIMM1_FAULT", "", "LED_CPU2_CH5_DIMM2_FAULT",
++				"", "LED_CPU2_CH6_DIMM1_FAULT", "CPU1_CPLD_CRC_ERROR",
++				"LED_CPU2_CH6_DIMM2_FAULT",
++		/*F, 40-47*/ "CPU2_CPLD_CRC_ERROR", "", "CPU1_CATERR_IERR", "",
++				"CPU1_CATERR_MCERR", "", "CPU2_CATERR_IERR", "",
++				"CPU2_CATERR_MCERR", "", "", "", "", "", "", "",
++		/*G, 48-55*/ "MAIN_PLD_MINOR_REV_BIT0", "", "MAIN_PLD_MINOR_REV_BIT1", "",
++				"MAIN_PLD_MINOR_REV_BIT2", "", "MAIN_PLD_MINOR_REV_BIT3", "",
++				"MAIN_PLD_MAJOR_REV_BIT0", "", "MAIN_PLD_MAJOR_REV_BIT1", "",
++				"MAIN_PLD_MAJOR_REV_BIT2", "", "MAIN_PLD_MAJOR_REV_BIT3", "",
++		/*H, 56-63*/ "", "", "WMEMX_PWR_FLT", "", "WCPUX_MEM_PWR_FLT", "",
++				"PWRGD_P3V3_FF", "", "WPSU_PWR_FLT", "", "", "",
++				"", "", "WPCH_PWR_FLT", "",
++		/*I, 64-71*/ "FM_CPU0_PKGID0", "LED_CPU1_CH7_DIMM1_FAULT",
++				"FM_CPU0_PKGID1", "LED_CPU1_CH7_DIMM2_FAULT",
++				"FM_CPU0_PKGID2", "LED_CPU1_CH8_DIMM1_FAULT",
++				"H_CPU0_MEMTRIP_LVC1_N", "LED_CPU1_CH8_DIMM2_FAULT",
++				"FM_CPU1_PKGID0", "LED_CPU2_CH7_DIMM1_FAULT",
++				"FM_CPU1_PKGID1", "LED_CPU2_CH7_DIMM2_FAULT",
++				"FM_CPU1_PKGID2", "LED_CPU2_CH8_DIMM1_FAULT",
++				"H_CPU1_MEMTRIP_LVC1_N", "LED_CPU2_CH8_DIMM2_FAULT",
++		/*J, 72-79*/ "", "", "", "", "", "", "", "",
++				"", "", "", "", "", "", "", "",
++		/*K, 80-87*/ "FM_BOARD_REV_ID0", "LED_CPU0_CH9_DIMM1_FAULT",
++				"FM_BOARD_REV_ID1", "LED_CPU0_CH9_DIMM2_FAULT",
++				"FM_BOARD_REV_ID2", "LED_CPU0_CH10_DIMM1_FAULT",
++				"FM_BOARD_SKU_ID0", "LED_CPU0_CH10_DIMM2_FAULT",
++				"FM_BOARD_SKU_ID1", "LED_CPU0_CH11_DIMM1_FAULT",
++				"FM_BOARD_SKU_ID2", "LED_CPU0_CH11_DIMM2_FAULT",
++				"FM_BOARD_SKU_ID3", "LED_CPU0_CH12_DIMM1_FAULT",
++				"FM_BOARD_SKU_ID4", "LED_CPU0_CH12_DIMM2_FAULT",
++		/*L, 88-95*/ "FM_BOARD_SKU_ID5", "LED_CPU1_CH9_DIMM1_FAULT",
++				"FM_BMC_VAL_EN", "LED_CPU1_CH9_DIMM2_FAULT",
++				"FM_SERIAL_BOOT", "LED_CPU1_CH10_DIMM1_FAULT", "",
++				"LED_CPU1_CH10_DIMM2_FAULT", "S0_PWROK",
++				"LED_CPU1_CH11_DIMM1_FAULT", "", "LED_CPU1_CH11_DIMM2_FAULT",
++				"", "LED_CPU1_CH12_DIMM1_FAULT", "",
++				"LED_CPU1_CH12_DIMM2_FAULT",
++		/*M, 96-103*/ "", "FM_SURPRISE_RESET_N", "",
++				"FM_CPU1_INTR_CLK_CONFDONE_N", "", "FM_GLOBAL_RESET_N",
++				"FM_1200VA_OC", "BMC_BOOT_DONE", "", "IRQ_BMC_CPU_NMI_P0",
++				"", "IRQ_BMC_CPU_NMI_P1", "", "", "", "",
++		/*N, 104-111*/ "", "", "", "", "", "", "", "",
++				"", "", "", "", "", "", "", "",
++		/*O, 112-119*/ "R1S_PRESENCE", "", "", "", "", "", "", "",
++				"", "", "", "", "", "", "", "",
++		/*P, 120-127*/ "", "", "", "", "", "", "", "",
++				"", "", "", "", "", "", "", "";
++	ngpios = <128>;
++
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&uart3 {
++	status = "okay";
++};
++
++&uart4 {
++	status = "okay";
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&uart_routing {
++	status = "okay";
++};
++
++&vhub {
++	status = "okay";
++};
++
++&video {
++	memory-region = <&video_engine_memory>;
++
++	status = "okay";
++};
+-- 
+2.43.0
 
-XFS keeps incrementing it. This is because i_version behavior is a bit
-different there (historical reasons). IIRC they more or less keep it in
-lockstep with the LSN.
-
-btrfs is mixed -- the write path suppresses it (like the generic VFS
-does) but hole punching, fallocate, clone, etc. bump i_version anyway.
-This is probably accidental.
-
-In practice, it's harmless for nfsd. While there is a delegation
-outstanding, it doesn't consult i_version anyway, and i_version is
-updated when the delegation is released.
-
-It might be worth making this more consistent at some point just for
-neatness sake though, or in case we want to use i_version some other
-way. I'll think about it.
---=20
-Jeff Layton <jlayton@kernel.org>
