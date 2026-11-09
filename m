@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794236104;
-	b=RK3+7v7TfHAGi+h6Ltjdt8OHbE8RX86gmlapAPllJREwhc8ARo/MarE1Eu0HEt9/Sdg8
-	 jw0mx3vzUdveudSmUVYEn39rD8aTN0XYsUjxnHGsYUBpGqPKWBhr+iAQxkzfIQISBDAGr
-	 NUJ1s9H8+9AJ9Cp0Xt0eGOzHD/862C+icJBs8Em2onfTzosE845MGJO23IlrSRGTm2EQL
-	 7fsSXM8wasyyZp5yPTrvlidyu4TiZsXjsr+6w6TVWrYDXK1HkizEsRjxSojXNfhrWaZ0V
-	 wJuT1E5L/RMv83GdPbQZljeC/TNV4yI5zz+z3+gAdSoTbSHAr8nm8CXphpT44Qatl4w==
+	t=1794236139;
+	b=FviIVjnxxhuvBt0aQknsdKZkU2ZCgjaontK8QDqZsz4oKnPWSDCuG2cSCYNTari33O0J
+	 Vngs59JziGMpR0DvvFpKdVAlTsG0pkVDsmEKpLThtpoi8fAWmers6wcr8eTNNyrH6RI7H
+	 tQ2FbY72hYfTxHCeWGQk0c02CRKTSlbT9zR1xrcpzCAot2M8CVmcuzWsndal74c1heaDH
+	 bDVfUjqXaq8MgfahctDQgxYn9yyT9bq+wZ/Ka+GEiRxZ76jdI8EpjHSShqpF4NdcclM9B
+	 K/m8rimIX5CsmtottLWEEyUGtu6J+VmGTWd0IfKa81y+1q8DDHmhY6fCU8i9CUBn22A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236104;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=kT8Z5Z2kEUrWcaYC02QsMolEzPrRweOdy0UnfYbn9q8=;
-	b=vsAcHLS6r9xn84EatlCkbUJbBKbM1PUu19G4hKjDHWZZ2BfdulL6c9MqJ5OXEXGr+CBW
-	 wAX23Q2OZeuX0e3R+G9H5A4FMfASvsW9QhHubghURp4rWxRLSB5Ob3zUqhtuv/PwwUSJL
-	 23K+j/H7OL/jXrCMC2f2MmK8CqquwQCb1V4THjzG5rimyXi7FhbJze1/fG5IQxGE25U2E
-	 VKbxZOnSM629rQlCm+npt6XfME2njoiipYGeS1t1/DhTk/+Sqz/ecq0UJYPhvr6zTMrDr
-	 XnxFI7UCRJJxJTFg7Fb44mOkMMU/af4ZdYd+yvxEaakjlVfucX6uACUa9hh0OgcqKzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794236139;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=OPMTYrIv7U1UWYQ/ULbovNNC49g7R/EbhbaHljblfH8=;
+	b=AjF1XlLuYwMtjvkbbeaBwJnfUSRS8vDHpOnojBRdrvRo0ZPuWTaYWabFIjTslXQ83VOw
+	 Ft+NWWhKwfhFUUTYFfe7a5i72zN097g4vDwLjLW2ZIZLaEJXarSgvP5x8n1c6gyKX+nnE
+	 1zTCfcxYkizfHzfLSTSqfJeHy4GhvicuJM2Sn+a50acYu0YA3iz7OiDUAASlJy6DwAtIh
+	 vxBU6mTg3GqWA9CBGJIfkAIdCR0QgVpZuFfv9v0iUDXxhIdxd7RUtx+vrzjY0KAFnYVwv
+	 rJPOLEMUqn7Qil+ju6b5pO+hO5eT9nqyaSWySXMhrXL5CIDNjrxL3urTrKHQaOcyZAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=if5RIomV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Fu0lbhZg;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 42506606A322;
-	Mon,  9 Nov 2026 14:55:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2270C606A31C;
+	Mon,  9 Nov 2026 14:55:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2270C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=if5RIomV
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3AF0E1F0089F;
-	Mon,  9 Nov 2026 14:55:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794236103;
-	bh=kT8Z5Z2kEUrWcaYC02QsMolEzPrRweOdy0UnfYbn9q8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=if5RIomVFKJ/Q0ZjrIuubxQc5fTA4fT6J7xUoZLDmFxadcZVMAcycD72a/gWkTv97
-	 pWUn/qMUzlxJhKEFfUEWqQVIoTMtcIbzIuPvESh+9pkLczuaI2RXKcHZEIcrv5T6E7
-	 hejzBLWit392pSBkFx1HfIvtDfrL+mRy+4vsgAoF2ZiK2guxUITtPg5FUwAtays43v
-	 jZdXtV6ZA6aIs7iqEpQJdSrLizoUw7kfePCVd2b45r3w8l2C6thzeqEuZR4DZ91xer
-	 sqYRgDMpshTJDRTypF+xApaYTlApsALEzWQpm3cegJkdEKmhy6+sr9m+5RCHKTc7PH
-	 xmniK/Cxf3w9Q==
-Date: Mon, 9 Nov 2026 16:55:00 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Guo Zihao <guozh23@xiaopeng.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Ashley Lai <adlai@linux.vnet.ibm.com>,
-	Kent Yoder <key@linux.vnet.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] tpm: ibmvtpm: check the response size against the
- buffer size
-Message-ID: <avHexCvi3-9Z8pgU@kernel.org>
-References: <au3w4NDX1Uqz-iqd@kernel.org>
- <20261109014957.2777790-1-guozh23@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Fu0lbhZg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794236140; x=1825772140;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=rVCjiIFvC6E3quo9l3R3aM1S43mCGLdSCsEF+O0+dgI=;
+  b=Fu0lbhZgErFZSYNw/jumzy+GMcGtVgBCmnERJ5MztOSZHy6dJVqjE1J8
+   v5jO/liCvzsUmIkEOD9ffNNOOwVt+9NLKvUi1gcNy6FvDQvFLbr9U8nze
+   mdMildCk7k6vEaL6JfVcmjjLNQY+yRbo8eS1Kja0j1M+cvtn59GQlAZO2
+   pzw1Fh+hFEmRAgU51FdqF9+ZfOQeP2mnJ510zw5ZqjN7meZgrZ5wKiTKb
+   aCYAWYfURHtjULoHIzB0HdEgude8C7pq5XqBLB0Lto3XVvFDz+7INWoOp
+   ONjxXDDGZZ9j9P4rLfAo4ClF1yWveaHkmDTzZtqZnY5DicWWJh0ZCjJYH
+   w==;
+X-CSE-ConnectionGUID: GsMHZaj3RvmiP7MqBPmQgw==
+X-CSE-MsgGUID: ejQi+zAoTEOBee5T2FoTPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2838443"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2838443"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:55:39 -0800
+X-CSE-ConnectionGUID: 3vrj6c/cR9C6/ZvLjx0OWg==
+X-CSE-MsgGUID: CYuhuV9PRZqMOFS1UElLLQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8218137"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:55:35 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 9 Nov 2026 16:55:31 +0200 (EET)
+To: =?ISO-8859-2?Q?Kry=B9tof_=C8ern=FD?= <cleverline1mc@gmail.com>
+cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+    LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+    Miroslav Ondra <ondra@faster.cz>
+Subject: Re: [PATCH 1/2] serial: 8250: Add RX trigger levels for U6_16550A
+In-Reply-To: <20261109-8250-select-u6-64bit-v1-1-04bc8332fa34@gmail.com>
+Message-ID: <469362ef-f0c5-45f2-746a-b4a3c51876a4@linux.intel.com>
+References: <20261109-8250-select-u6-64bit-v1-0-04bc8332fa34@gmail.com> <20261109-8250-select-u6-64bit-v1-1-04bc8332fa34@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,79 +83,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109014957.2777790-1-guozh23@xiaopeng.com>
+Content-Type: multipart/mixed; boundary="8323328-656436369-1794236131=:1181"
 
-On Mon, Nov 09, 2026 at 09:49:57AM +0800, Guo Zihao wrote:
-> The send path validates the transfer size against the size of the
-> RTCE buffer:
-> 
-> 	if (count > ibmvtpm->rtce_size) {
-> 		dev_err(ibmvtpm->dev,
-> 			"Invalid size in send: count=%zd, rtce_size=%d\n",
-> 			count, ibmvtpm->rtce_size);
-> 		return -EIO;
-> 	}
-> 
-> The receive path has no such check: the response length is whatever
-> the hypervisor reported in the completion CRQ, and it is only
-> compared against the size the caller asked for before being used to
-> copy and clear the RTCE buffer:
-> 
-> 	len = ibmvtpm->res_len;
-> 
-> 	if (count < len) {
-> 		...
-> 		return -EIO;
-> 	}
-> 
-> 	spin_lock(&ibmvtpm->rtce_lock);
-> 	memcpy((void *)buf, (void *)ibmvtpm->rtce_buf, len);
-> 	memset(ibmvtpm->rtce_buf, 0, len);
-> 
-> A response length larger than the RTCE buffer makes the memcpy read
-> past the buffer and the memset clear past it.
-> 
-> Reject a response that does not fit in the RTCE buffer, mirroring
-> the check the send path already performs.
-> 
-> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323328-656436369-1794236131=:1181
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
+
+On Mon, 9 Nov 2026, Kry=C5=A1tof =C4=8Cern=C3=BD via B4 Relay wrote:
+
+> From: Kry=C5=A1tof =C4=8Cern=C3=BD <cleverline1mc@gmail.com>
+>=20
+> PORT_U6_16550A has a 64-byte FIFO but no rxtrig_bytes table, so the
+> rx_trig_bytes sysfs attribute is not registered for ports of this type
+> and the RX trigger level cannot be read or changed from userspace.
+>=20
+> Add a table with 1, 16, 32 and 62 bytes, i.e. 1 character, FIFO 1/4
+> full, FIFO 1/2 full and FIFO 2 less than full. These are the levels the
+> Synopsys DesignWare UART uses for a 64-byte FIFO, and they match the
+> existing PORT_ALTR_16550_F64 table.
+>=20
+> The default FCR value of the type is unchanged, so the trigger level a
+> port starts with stays at 1/2 full. The only visible change for ports
+> already detected as U6_16550A by autoconfig is the new sysfs attribute.
+>=20
+> This prepares for 8250_dw selecting PORT_U6_16550A for DesignWare UARTs
+> with a 64-byte FIFO.
+>=20
+> Co-developed-by: Miroslav Ondra <ondra@faster.cz>
+> Signed-off-by: Miroslav Ondra <ondra@faster.cz>
+> Signed-off-by: Kry=C5=A1tof =C4=8Cern=C3=BD <cleverline1mc@gmail.com>
 > ---
-> 
-> v2: Drop the Fixes and Cc: stable tags, as suggested by Jarkko
-> Sakkinen: a hypervisor reporting an oversized response is not
-> known to violate the architecture, so this is hardening rather
-> than a bug fix. No code changes.
-> 
->  drivers/char/tpm/tpm_ibmvtpm.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/char/tpm/tpm_ibmvtpm.c b/drivers/char/tpm/tpm_ibmvtpm.c
-> index 6fb4d30eb6f6..bfef4bc14767 100644
-> --- a/drivers/char/tpm/tpm_ibmvtpm.c
-> +++ b/drivers/char/tpm/tpm_ibmvtpm.c
-> @@ -121,6 +121,13 @@ static int tpm_ibmvtpm_recv(struct tpm_chip *chip, u8 *buf, size_t count)
->  		return -EIO;
->  	}
->  
-> +	if (len > ibmvtpm->rtce_size) {
-> +		dev_err(ibmvtpm->dev,
-> +			"Invalid size in recv: res_len=%d, rtce_size=%d\n",
-> +			len, ibmvtpm->rtce_size);
-> +		return -EIO;
-> +	}
-> +
->  	spin_lock(&ibmvtpm->rtce_lock);
->  	memcpy((void *)buf, (void *)ibmvtpm->rtce_buf, len);
->  	memset(ibmvtpm->rtce_buf, 0, len);
-> -- 
-> 2.50.1
-> 
+>  drivers/tty/serial/8250/8250_port.c | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/825=
+0/8250_port.c
+> index 36b2b0a2c05c..a7acede62f40 100644
+> --- a/drivers/tty/serial/8250/8250_port.c
+> +++ b/drivers/tty/serial/8250/8250_port.c
+> @@ -163,6 +163,7 @@ static const struct serial8250_config uart_config[] =
+=3D {
+>  =09=09.fifo_size=09=3D 64,
+>  =09=09.tx_loadsz=09=3D 64,
+>  =09=09.fcr=09=09=3D UART_FCR_ENABLE_FIFO | UART_FCR_R_TRIG_10,
+> +=09=09.rxtrig_bytes=09=3D {1, 16, 32, 62},
 
-Thank you.
+Reusing U6 entry for DW UARTs seems misleading.
+
+We've better mechanism coming up for defining rxtrig in a one pending=20
+series so this constant friction with the uart config types can be put=20
+into rest.
+
+Please build on top of that other series and help in testing and reviewing=
+=20
+it.
 
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+--=20
+ i.
 
-Br, Jarkko
+--8323328-656436369-1794236131=:1181--
