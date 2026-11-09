@@ -1,67 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794254206;
-	b=YrwaXQxZ9tr8aeTsXyPm6dHCrCE9QpEu393pes0fkXmO3EZYRTke+VX7NuDYFxi++SQq
-	 bJ866PMsBB/GhpvOdUqZgqoxisqYFtizIt5FvSpaJLcqGmlmZv1gVTqNWt6HyhtdAlJTq
-	 Rw6Q94bt7aNTl2Uc3ZM1RYjWyHakTSbJXLB4tg0CvHHVnon720GfIpIw5NFn2DO3A/G52
-	 2LmoMVLu6jYAVGTWY/ChFMefbVmHIzuSGs4/uQyh3C+dSl8M3tEh+JL496mPExZ0fDoNK
-	 0FW+h1ecMh1r6UCnyLVTZ4sZ0O74Di1UdVxuFBT9wEl6Qt0V7Ia5cRQbUHEhGMNpBIw==
+	t=1794254213;
+	b=DlvaB3wP/nNeSvq2ZkdtR7xvVcFQrR8JC01jC7iHC/4CljwKwjsowh8Ou7Uu33JEMfnQ
+	 4KD4+RDbfA4X6sGK6a9eeqpVeQpjw1G9Ow/WxAcZiQmRFnsYX7SN2SAD24y2wAx6GYJt9
+	 v9J0xGeOrrAzkOHm4+Ol1bFcHfYYR06R2Z4g0PcTotNXzDcGNI+Pgty5fLCChkFGs+IQA
+	 19HPAHJS0sWFdi2Rl9U1BQ2ml83FITP033BwHOkAiARdygwajNEu9lS8av/7k9u8xsTjp
+	 TW3ekUQfO83ceiV5u9WVOzaVMx6R4LV23RG7Uql/aUHWmWwI6WKuxd1A8KyFzK2nlFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254206;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CX1ZQ/SXOCJl59w5aaPyU1PjDQvonYT/BDKqMcqwHk0=;
-	b=s3+otp1dut3DIi0zHCJ1rTGHPdpyENkgI/sVKUzM7L+5651Np42r7FuQN66tTNnUxWwN
-	 qSTS5MzWO0eYk4/+g+JFan/pSusth6/+W/kFAIH8vDkVniyZfvhuUdAiE+nW267sPQR9x
-	 TXqMqZG8Zwm4ajIwwb8YG3ADAgF40+wgE32frw7alR/YAigooubE6QG5nL5d9g8VK8wqa
-	 9vmcJJISn5IJiVy6yIAdW/zLeUx+bAoiJCmBsCWQ5tmRqvWpshiODESpkB4tOAigIhLlR
-	 xK3xEdo+g+oRPosgMGeyvLmrreCUtV4J7hzleKoQpMpJfVEIAPiLE+SvCrNetd62p+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254213;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=AulTc+7aMDrCASo72l0rDbdbs0JFBylHHohbdkBGPUU=;
+	b=dmgkKWH1ClEscNaUEjQ5PhDfZh7o6JSh3ImDYcK+7lY8tpk0g+K2mVF8ZeLpLnLgA5vM
+	 G/8TjsFWaO3qytT/sxzBhcU3wo7idfu5XE5UETzg/3uc9eWqy24rS+H5hKsMTmLa6Z+Zn
+	 h5gmoCWFar522zLYo8xiBzNL0jMt/GmOzi8cI/AhG40fvsOmKNJLxWCL9kvZgFt6Sm2Nt
+	 20oN22a9pLvYha9U35RVH2aHEQZ3Kpd5+lsL41yIxS5PJ9B09wYJtMWvMIjOUVF8cB5/w
+	 WkeC5RuXcTec60DEv98bib7eTYAkndCfuiK3DGInX4RaYmWz54uLqW6BG0mg4QvUKEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlteXObd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gentwo.org;
+	spf=pass smtp.mailfrom=gentwo.org;
+	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=pIm4igkS;
+	arc=none smtp.remote-ip=62.72.0.81
+Received: from gentwo.org (gentwo.org [62.72.0.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BE1606A31C;
-	Mon,  9 Nov 2026 19:56:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184CF606A325;
+	Mon,  9 Nov 2026 19:56:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 184CF606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlteXObd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DE551F0089F;
-	Mon,  9 Nov 2026 19:56:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794254206;
-	bh=CX1ZQ/SXOCJl59w5aaPyU1PjDQvonYT/BDKqMcqwHk0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IlteXObdY+iVSYguCPjptZBRit83o72MMO+WDd7davSZpaE4dt9/sq8gfkIdNX/lS
-	 T7I3OsltFxjduDxUlGaKh4ph4dbBeLM0G6ozJ2pNUCUJyI9ej0MjLk8NhdDT73MAnk
-	 V8O5a5piNcq8MMmJS7ZFnIAADcNWEdoe/kaZgFwOXHQvAqpW/UEebhUX0UqQzViMbC
-	 CMLMLpGc7/25N6/tILwiqLh7UF5Gb/JxE65zNZeuiS/c/ulLMAe++kLD/gqur4vEwz
-	 yqqp9fd8dljKKOXhMtq+qp0HXbCn21a+UWnTIrnAKhoS663cmy63PR2nfBRWfEyUZu
-	 /JNceTYpdvGTA==
-From: Jiri Olsa <jolsa@kernel.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>,
-	Naveen N Rao <naveen@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Jason Baron <jbaron@akamai.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Alan Maguire <almagui@kernel.org>,
-	x86@kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH 06/13] kprobes: Add an address iterator for probe lookup
-Date: Mon,  9 Nov 2026 20:56:40 +0100
-Message-ID: <20261109195640.1091059-1-jolsa@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109194916.1089703-1-jolsa@kernel.org>
-References: <20261109194916.1089703-1-jolsa@kernel.org>
+	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=pIm4igkS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1794254211;
+	bh=bpr7UtPwjBcvbcojcp8LkbSViju1iljgbkaWoE/iLtc=;
+	h=From:Date:Subject:To:Cc:From;
+	b=pIm4igkSIcvJOA/M+ksCtBgqpE+I+SRacOOeDOnBDpe69UTVqwXqOlfv4WkYQob27
+	 0o4XcWFRDeIZnAYUlPEFCfstBioy4SxOIOSRL4VLLbOTmc2eSX+eVOL8V3Oy3bOEop
+	 i6HRGZnx0Cc95/oqxrtbSkc+in+7rcKDifbWWpdI=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id 0961F402BC;
+	Mon, 09 Nov 2026 11:56:51 -0800 (PST)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Date: Mon, 09 Nov 2026 11:56:03 -0800
+Subject: [PATCH v3] net/sched: sch_cake: skip redundant cake_mq rate
+ updates
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,84 +56,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261109-cake-sch-cake-v3-v3-1-249ced20a1d4@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIAFMl8moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNL3eTE7FTd4uQMCKPMWDct1dw40SApycLSKFkJqK2gKDUtswJsZHR
+ sbS0AeRmqXWIAAAA=
+X-Change-ID: 20261109-cake-sch-cake-v3-fe73a0bb892c
+To: =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>, 
+ Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, 
+ =?utf-8?q?Jonas_K=C3=B6ppeler?= <j.koeppeler@tu-berlin.de>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ "Christoph Lameter (Ampere)" <cl@gentwo.org>
+Cc: =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>, 
+ cake@lists.bufferbloat.net, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794254210; l=2855;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=bpr7UtPwjBcvbcojcp8LkbSViju1iljgbkaWoE/iLtc=;
+ b=RATTLGkvkOqitjgxCS6fSZ+BFCz6+Ijz5uutioz6eTknCGYDsVZYBjC2XPPXOJXqQjMa+ssLa
+ RplpbfNqMAXCCGLVX2A9cCYefHuGQZPbEVTcIxNByTGjsI/vSuDnddJ
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-Add kprobe_addr_iter_start() and kprobe_addr_iter_next() to look up
-probes at nondecreasing addresses while retaining the next candidate
-in the range iterator.
+cake_mq periodically counts active child qdiscs in cake_dequeue() and
+derives an effective per-child shaper rate. cake_dequeue() currently
+reconfigures every tin after each scan, even when that effective rate
+is unchanged.
 
-Provide for_each_addr_kprobe() for callers that advance the address
-in the loop body. Return NULL for addresses without a registered probe
-and require kprobe_mutex to remain held during iteration.
+The dequeue-time call chain is:
 
-Signed-off-by: Jiri Olsa <jolsa@kernel.org>
+  cake_dequeue()
+    -> cake_configure_rates(..., true)
+      -> cake_config_*()
+        -> cake_set_rate()
+
+With rate_adjust=true, cake_set_rate() only refreshes rate-derived
+state. Tin 0 records the unscaled rate argument in every supported
+CAKE tin mode, so its installed rate identifies whether this call chain
+would change any state.
+
+Skip the reconfiguration when the effective rate is already installed,
+while continuing to update the activity-sampling timestamp and
+active-queue statistic.
+
+Acked-by: Toke Høiland-Jørgensen <toke@toke.dk>
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
 ---
- include/linux/kprobes.h | 10 ++++++++++
- kernel/kprobes.c        | 25 +++++++++++++++++++++++++
- 2 files changed, 35 insertions(+)
+Tested on an 80-core SMP, non-SMT Ampere Altra system:-
 
-diff --git a/include/linux/kprobes.h b/include/linux/kprobes.h
-index bdba893cc0b2..30d0de29ceb5 100644
---- a/include/linux/kprobes.h
-+++ b/include/linux/kprobes.h
-@@ -394,11 +394,21 @@ struct kprobe *get_kprobe(void *addr);
- struct kprobe *kprobe_iter_start(struct kprobe_iter *iter,
- 				 unsigned long start, unsigned long end);
- struct kprobe *kprobe_iter_next(struct kprobe_iter *iter);
-+struct kprobe *kprobe_addr_iter_start(struct kprobe_iter *iter,
-+				      unsigned long start, unsigned long end);
-+struct kprobe *kprobe_addr_iter_next(struct kprobe_iter *iter,
-+				     unsigned long addr);
+The test used a 32-TX-queue veth pair, with cake_mq bandwidth 2gbit
+on the transmit side and the peer in a network namespace. The workload
+was:
+
+  iperf3 -c 198.18.0.2 -P 32 -t 30
+
+Against mainline commit a32e63a613aa80, the patched kernel reduced
+cake_configure_rates() calls by 99.99% (2,477,627 to 206) and aggregate
+helper time by 99.986% (3.477 s to 0.498 ms), while retaining
+approximately 1.91 Gbit/s aggregate throughput (baseline:
+1.91-1.92 Gbit/s). A separate per-child trace observed no
+same-effective-rate calls on the patched kernel (@unchanged: 0).
+Changing cake_mq bandwidth from 2Gbit to 1Gbit and back invoked
+cake_configure_rates() 64 times, matching all 32 child CAKE qdiscs
+updated for each of the two control-plane changes.
+
+Changes in v3:
+- Rebased onto current net-next
+- Drop the Fixes tag, as this is an optimization rather than a
+  regression fix.
+- Add Toke Høiland-Jørgensen's Acked-by tag.
+
+Link to v2:
+https://lore.kernel.org/r/20261026-net_sched_sch_cake-v2-1-cb1d4e6ed990@gentwo.org
+---
+ net/sched/sch_cake.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/sched/sch_cake.c b/net/sched/sch_cake.c
+index aa4043d662c1cc18858d3f9c80f9d9b281f26f72..3faccdbc03f765164e9695a42e4658467183294b 100644
+--- a/net/sched/sch_cake.c
++++ b/net/sched/sch_cake.c
+@@ -2052,7 +2052,8 @@ static struct sk_buff *cake_dequeue(struct Qdisc *sch)
+ 		if (num_active_qs > 1)
+ 			new_rate = div64_u64(new_rate, num_active_qs);
  
- #define for_each_kprobe(iter, p, start, end)			\
- 	for ((p) = kprobe_iter_start(&(iter), (start), (end));	\
- 	     (p); (p) = kprobe_iter_next(&(iter)))
- 
-+/* The caller holds kprobe_mutex and initializes and advances addr. */
-+#define for_each_addr_kprobe(iter, kp, addr, end)			\
-+	for ((kp) = kprobe_addr_iter_start(&(iter), (addr), (end));	\
-+	     (addr) <= (end);						\
-+	     (kp) = kprobe_addr_iter_next(&(iter), (addr)))
-+
- /* kprobe_running() will just return the current_kprobe on this CPU */
- static inline struct kprobe *kprobe_running(void)
- {
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index bbd51e0fab7e..6655c24bb66f 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -477,6 +477,31 @@ struct kprobe *kprobe_iter_next(struct kprobe_iter *iter)
- 	return kp;
- }
- 
-+/* Address iteration retains the candidate in iter->next until addr passes it. */
-+struct kprobe *kprobe_addr_iter_start(struct kprobe_iter *iter,
-+				      unsigned long start, unsigned long end)
-+{
-+	iter->next = kprobe_iter_start(iter, start, end);
-+	return kprobe_addr_iter_next(iter, start);
-+}
-+
-+/* Addresses must be nondecreasing; return NULL at addresses without a probe. */
-+struct kprobe *kprobe_addr_iter_next(struct kprobe_iter *iter,
-+				     unsigned long addr)
-+{
-+	struct kprobe *kp = iter->next;
-+
-+	lockdep_assert_held(&kprobe_mutex);
-+	while (kp && (unsigned long)kp->addr < addr) {
-+		kprobe_iter_next(iter);
-+		kp = iter->next;
-+	}
-+	if (!kp || (unsigned long)kp->addr > iter->end)
-+		return NULL;
-+
-+	return (unsigned long)kp->addr == addr ? kp : NULL;
-+}
-+
- static int aggr_pre_handler(struct kprobe *p, struct pt_regs *regs);
- 
- /* Return true if 'p' is an aggregator */
+-		cake_configure_rates(sch, new_rate, true);
++		if (new_rate != q->tins[0].tin_rate_bps)
++			cake_configure_rates(sch, new_rate, true);
+ 		q->last_checked_active = now;
+ 		WRITE_ONCE(q->active_queues, num_active_qs);
+ 	}
+
+---
+base-commit: fa5196392691051963726787944db872420dfa75
+change-id: 20261109-cake-sch-cake-v3-fe73a0bb892c
+
+Best regards,
 -- 
-2.43.0
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
 
