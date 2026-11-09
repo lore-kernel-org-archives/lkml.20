@@ -1,54 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794189926;
-	b=4M6gtsDfFHXN/lXBQ7npHQjiEHj+PUOfzCTYOFBaK8lGuox06FD+mS4IqOJT7EKaKjWB
-	 UnZn49DGl0NHbuHdH3O2WBFlUNf3Y0mcIlm/7df+9CkgIuoV+aMg4O3rF3hJSEDDl2Bu+
-	 pYNvzPxXrwx5/kE3FZoYtyFgHKSpCdVn5HOccVa6DVB3a20yKlfZ2kFQtvb1T/3Tih+jO
-	 ikOnWPKRR4oekX00gSY9hfd93AinbY9ndoWzviafVvAIalMYvaW+wzggLuduOMVKi2any
-	 zDWk/WjC9hz/PvQ+3gm9vq35yVcG2B4dKXiWfjP+qAh3coZA/SSzLWpUJZ5s5gRJPyQ==
+	t=1794189961;
+	b=2McJpUjGR66BRZ3eUPs2wciY1cL0rRjtkwXHvwS6EY5MkhLi+naWRSo6Kr2S7ccU2FXa
+	 91rrJ6dNejomRuH1vO3hPdYIkm8YIawOE5wa3bFBWqbh4ZOMxRfXZLflip1NK5V4Uu8aS
+	 +Nsb8XCkzkmdqFf95p3tkfKwZXP0jRsrCuBXW364fizICH0rJJYZaawsCOy+iS/AMMQin
+	 U6XwbgF1tUyz1ZNnFwNASds6h9ioAhG9ul2FqISRp9DsN6RFx1iNYMd6iy4RCsDdb02ld
+	 FxKwHB/UkUDjHVD/935mfLWlcap231iyC6Wcn//a+oqWPCgpCJUqnOY7cKqX7792kjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794189926;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=QVukf7r+qSvPyCCZ7Q4kemGsEJniEb0Fh/dt9c4kYRc=;
-	b=fHVYT7zv/awjRbcy6nv1e7IIHasRcdZdq0cEoBw98OWWaB4kdeCSl7t/Lt3srCDKYbuv
-	 sHSNxnQX22oIFaWU9EKwgC3wcXyozlfHZLAYcjvRk0b11sAU/J6aIFh8aSIqlsRr7sM99
-	 7hkrmsE+3jMh2pfP0uehAB8ROHYVQTdaBvn3c+tfNo4DixOQ2NO8edCSk8mlEpbXpLifc
-	 v8AGCf/HaRjCsM1twla/xDLtz1m6GZC3FnpOO4gX5i7I+NCqADv0KiF6GCimmNXXaz5Ju
-	 9gsIkA5VVd9gto59ABW9WwX6VQ7jj9KbnR0mP/WElF3pdxHJ16lqaQyYsQEA4qMrCAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794189961;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=aj9oR9Ww8FoQrbaajKI3tgdOoEt+pimjjkjSqzvb7B0=;
+	b=OH3oYZAEQjAmfXqHS2DCQOhkKNxFQonGcEYz6x3Pgtjr3CEj4DmBvcuM+FE6I990OykR
+	 WdSWbLmZ9wpsb98BTM2hJNzJnfinYDuE3+pHvFoPoe0YbgDdtq9wQZN6deSrahjsnB5jQ
+	 0kPTQqkUDGVuTnObhjFMlYgWVh5aCVmsN+mO54qMKQZo6ULaXWzXNmszhRz3NaeeAdhDc
+	 pmFCaF1qKlvFyP+q3ACw2aAmD6XVKy7fOb6VDfxMg7d8VQOQgRBVnoRa9uKFkwGiurT3Q
+	 QYRA/lTJr1Xl7dwjkauB4Pd71956qZZvylfHEndyM7hYJep3jS9ANvUJT4d93Ns9gaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvE3WVTz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uv0OdyJq;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBEF606A323;
-	Mon,  9 Nov 2026 02:05:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47379606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:06:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47379606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvE3WVTz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BE4E1F0089F;
-	Mon,  9 Nov 2026 02:05:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794189925;
-	bh=QVukf7r+qSvPyCCZ7Q4kemGsEJniEb0Fh/dt9c4kYRc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CvE3WVTzlKhxY7BtYplP8zSimQAi8yDep8y8R0cetZ4aXbuOKHTyAwGPnhOlaV/o8
-	 fH5WYeZjRIDpk/Nj0LKzJGz6+AtYhWbT7QQQAGKLRMZOuwlPUPM2NNvYF3k3gbu/jX
-	 OMz397VBS/HtafPENpv2Tnbwxcc6J4dIXduh4aEmf6bqpOqosIN42XnzKU9x+qtv/J
-	 oHBL0iR8eNOSLSbtcPLlJdJkrrt0wjaxokQAZkeO7OOwPceuTNo+OUYzHCCwDRJN1m
-	 gMHz/4ec77vBpwGZQ7jBb0aGq9OFwCRsyA7DwGnraUc7od6YSTDojFH2FprDPult7T
-	 DjhTbp9hl50kA==
-Date: Mon, 9 Nov 2026 02:05:22 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Daniel Balint <dbalint@google.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Benson Leung <bleung@chromium.org>,
-	Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
-	chrome-platform@lists.linux.dev, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH v1 0/3] Introduce cros_ec power monitoring
-Message-ID: <avEqYjEp6ohwfmO2@google.com>
-References: <20261106193129.43493-1-dbalint@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uv0OdyJq
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1aefd1bf74aso298481c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:06:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794189959; x=1794794759; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aj9oR9Ww8FoQrbaajKI3tgdOoEt+pimjjkjSqzvb7B0=;
+        b=uv0OdyJqexO4HHQPX7ing3MyQxnuXcDSupkfl2rTn8US3X0SGCLZkZ39UdnAlHBQ7k
+         iBnIYmncCRRgY9gbfDvdpGMJzYza0k7K55fZLI6u50bqLcffxkyBh4lnSUh5Qt9afOJP
+         Mb9QLeHc988GsncdPodk8Rmt/khqaj3BVkbW+SLaKTZmPOcvIgcAhJcYMeEfTqsVdDU2
+         CMSBsNyUQdeT4VmWFgGtQoRNdMEMR58WRJyq9qHc2Ak37aJQwzaqZIT/kf8kympEGyx4
+         iIwURrAtBSbMZ4Yy78P8asAmSpPsU3H5Y4Q0p+h8lhHASbvabth/61+hVFcJU3WEZhjM
+         wwNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794189959; x=1794794759;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aj9oR9Ww8FoQrbaajKI3tgdOoEt+pimjjkjSqzvb7B0=;
+        b=n+V//F7MYh39wuhAtLNGj/RtMlBWZdL76iL/V6E/meT6icKY5ujV0S3AssjaeFU9is
+         5d0Y0RBZ+4bmO917sNiyckaFP7y5l44p8QN2QfjC6eHzu4nRH8pJc43CoxwRBseQw05g
+         UMTE8cWftz6RFsHwdC2SNzGS93Zz0QVhbJMgf9lMqTaQaEjc7n4aJz9yNA2PacadV7Ze
+         s1dr/lkFKqjVFVIUm1YBtTS9eeyZjQfW+gT4uJGpnYERb6PeBFP4mO5LKJklEQA2YKiv
+         U0FVuN2uTgu9EWo8TiV3t8ZYhIUhw4WIxBMne+1tKfLyV57FVfnPTLGYYmfYxI0utUCt
+         T/pw==
+X-Forwarded-Encrypted: i=1; AL+hErH345s4nEMZe3UbPGGaz0hpL4e0/WAG5rE3tUpXzzsB4YBv/lw9wg9+8Ngs6M73Iu8Tsrce7gU4ZjuVEYE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/U3NgiCSYncxMv3M/3NlPvdQT+sn7X8MLIL96xOn1jicm9rFp
+	pplIqWT8+V4E2uUTJiuhR1gIezMrrJkBwCHit+5Wui/eHCQvL1Q7jUVi6gW+4g==
+X-Gm-Gg: AYBFou3mNwW2xzU7mlUV/cf+eddnqcEP+wkNdM7mhaZzB1eFO1VRZS07k1suIhYwXaS
+	1P6Kaoc9DBrlkLBF7Q/IyBF7SileTiHhhQig8I65zB5oElloSF+S8FbIad1rUA+Vn5tH03AUtdQ
+	uoe5OpVWzCznVxABOzbulNJCmliRnRyWKvBiww+Wz/itwrp3wTeHdhC1C7lv8oP63CyxzGnckV/
+	jtPo1uSLFVshrLkvZvKsxNOHjBbgbQMV5IKnmLhdYFgWPX4kbRpZCL07pOm1NUXD6WqaOAeYMnT
+	YwJX0SLsv255QclW6a1RGCM4zqcA+FupEScsfhW2BxmdaS/jJ65T4lLzT/nwoENC9YZ0kgWWp0J
+	iO168J2ajAC2JebHz0cbeO/1GJ3cJm6gXAIYqXTnZMrKDKpS4SRVDUBr721X3oMb+MekaLFOROG
+	3LSxk86l32p5B4roxugAyX6xT55t1B9o6AxeegtsPR54PFrX6BTgiu4XtCB3wqcC24+u3FqsgQ0
+	u7fS48Dc9nAVl0UTJAA1MRxCI9yh/bpQ2VcpFQjLMgorRp5xXpsVvu4GYOce2SSfmka8De8SU+r
+	JsRuXn7YyEGN/cbJSw==
+X-Received: by 2002:a05:7022:108d:b0:17a:a3d4:8b17 with SMTP id a92af1059eb24-1b39fea5ca7mr4535840c88.12.1794189958972;
+        Sun, 08 Nov 2026 18:05:58 -0800 (PST)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771f833esm9042336c88.21.2026.11.08.18.05.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 18:05:58 -0800 (PST)
+Date: Mon, 9 Nov 2026 11:05:55 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: xkeyC <xkeyc@qq.com>
+Cc: Namjae Jeon <linkinjeon@kernel.org>, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] ntfs: don't let a fatal signal interrupt metadata reads
+Message-ID: <avEqgxgLl17nq8SU@hyunchul-PC02>
+References: <tencent_2859327A0C68D0D0429ED90F931234059808@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,36 +96,344 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261106193129.43493-1-dbalint@google.com>
+In-Reply-To: <tencent_2859327A0C68D0D0429ED90F931234059808@qq.com>
 
-On Fri, Nov 06, 2026 at 07:31:14PM +0000, Daniel Balint wrote:
-> This series adds the ChromeOS EC On-Device Power Monitoring 
-> (cros_ec_pwrmon) driver to read onboard power-monitoring ADCs,
-> such as PAC194x, wired through the embedded controller (EC).
+Hi xkeyC, 
+
+On Sat, Nov 07, 2026 at 05:41:23PM +0800, xkeyC wrote:
+> read_mapping_folio() returns -EINTR when the caller has a fatal signal
+> pending while it waits for the read it submitted. ntfs reads its metadata
+> through it and treats the failure as a volume error, so killing a task
+> that waits on a metadata read turns the volume read-only with
+> errors=remount-ro. A read that is part of an update also stops the update
+> half way: killing an rm can leave clusters allocated in $Bitmap, an MFT
+> record in use without a directory entry, or a directory index with
+> entries that point to freed records.
 > 
-> Several ChromeOS platforms are equipped with onboard ADCs that are
-> connected to the EC via I2C bus. The driver interfaces with the EC
-> via the existing EC_CMD_PWRMON host command API (and EC_MKBP_EVENT_PWRMON
-> events) to manage ADC accumulation and expose accumulated per-rail energy
-> through an IIO sysfs attribute.
+> Add ntfs_read_metadata_folio(), which waits for the read uninterruptibly,
+> and use it for metadata reads. Mount-time checks, compressed data and
+> named stream contents keep using read_mapping_folio(). A killed task now
+> waits for its metadata read to complete, as it does on filesystems that
+> use the buffer cache.
 > 
-> The driver is only loaded when the underlying hardware feature is present.
-> The series also fixes alignment padding in EC_CMD_PWRMON definitions.
+> Closes: https://github.com/namjaejeon/linux-ntfs/issues/98
+> Fixes: 11ccc9107dc4 ("ntfs: update runlist handling and cluster allocator")
+> Fixes: 115380f9a2f9 ("ntfs: update mft operations")
+> Fixes: af0db57d4293 ("ntfs: update inode operations")
+> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: xkeyC <xkeyc@qq.com>
+
+Could you double-check the Fixes tag and Could you confirm that
+xkeyC is your known identify for the sign-off?
+
+> ---
+> Reproducers and logs: https://github.com/xkeyC/linux-ntfs/tree/eintr-repro
 > 
-> Daniel Balint (3):
->   platform/chrome: cros_ec: fix alignment of ec_params_pwrmon
->   iio: adc: add cros_ec_pwrmon driver
->   mfd: cros_ec: load cros_ec_pwrmon on supported ECs
->
-> [...]
+> In QEMU (KASAN, lockdep, reads throttled), killing rm, ls -l, fallocate
+> or dd partway through turned the volume read-only within a few runs
+> without this patch, and ntfsck found damage after rm. With it, 20 runs of
+> each stayed read-write and clean. Index inserts were not reached.
+> 
+> Developed with an AI coding assistant (Claude Code), which wrote the
+> change and the reproducers and ran the tests.
+> 
+>  fs/ntfs/aops.c     | 58 ++++++++++++++++++++++++++++++++++++++++++++++
+>  fs/ntfs/attrib.c   |  2 +-
+>  fs/ntfs/bdev-io.c  |  2 +-
+>  fs/ntfs/bitmap.c   |  4 ++--
+>  fs/ntfs/dir.c      |  4 ++--
+>  fs/ntfs/inode.c    | 12 +++++++---
+>  fs/ntfs/lcnalloc.c |  2 +-
+>  fs/ntfs/mft.c      | 20 ++++++++--------
+>  fs/ntfs/ntfs.h     |  4 ++++
+>  9 files changed, 88 insertions(+), 20 deletions(-)
+> 
+> diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
+> index ad781674f..767aecf42 100644
+> --- a/fs/ntfs/aops.c
+> +++ b/fs/ntfs/aops.c
+> @@ -7,6 +7,7 @@
+>   * Copyright (c) 2025 LG Electronics Co., Ltd.
+>   */
+>  
+> +#include <linux/swap.h>
+>  #include <linux/writeback.h>
+>  
+>  #include "attrib.h"
+> @@ -304,6 +305,63 @@ static int ntfs_swap_activate(struct swap_info_struct *sis,
+>  			&ntfs_read_iomap_ops);
+>  }
+>  
+> +/**
+> + * ntfs_read_metadata_folio - read a metadata folio, ignoring fatal signals
+> + * @mapping:	address space of the metadata inode or block device
+> + * @index:	page cache index to read
+> + *
+> + * Like read_mapping_folio(), but the wait for the read cannot be interrupted,
+> + * so a fatal signal cannot fail a metadata read in the middle of an update.
+> + * The caller must not hold the lock of the folio at @index.
+> + *
+> + * Return: the uptodate folio with a reference held, or an ERR_PTR().
+> + */
+> +struct folio *ntfs_read_metadata_folio(struct address_space *mapping,
+> +				       pgoff_t index)
+> +{
+> +	struct folio *folio;
+> +	bool read_failed = false;
+> +	int err;
+> +
+> +	folio = filemap_get_folio(mapping, index);
+> +	if (!IS_ERR(folio)) {
+> +		if (folio_test_uptodate(folio))
+> +			goto out;
+> +		folio_put(folio);
+> +	}
+> +repeat:
+> +	folio = __filemap_get_folio(mapping, index, FGP_LOCK | FGP_CREAT,
+> +				    mapping_gfp_mask(mapping));
+> +	if (IS_ERR(folio))
+> +		return folio;
+> +	/* $MFT updates clear uptodate under the folio lock, so check it locked. */
+> +	if (folio_test_uptodate(folio)) {
+> +		folio_unlock(folio);
+> +		goto out;
+> +	}
+> +	if (read_failed) {
+> +		folio_unlock(folio);
+> +		folio_put(folio);
+> +		return ERR_PTR(-EIO);
+> +	}
+> +
+> +	/* ->read_folio() unlocks the folio when the read completes. */
+> +	err = mapping->a_ops->read_folio(NULL, folio);
+> +	if (err) {
+> +		folio_put(folio);
+> +		if (err == AOP_TRUNCATED_PAGE)
+> +			goto repeat;
+> +		return ERR_PTR(err);
+> +	}
+> +	folio_wait_locked(folio);
+> +	read_failed = !folio_test_uptodate(folio);
+> +	folio_put(folio);
+> +	goto repeat;
+> +out:
+> +	folio_mark_accessed(folio);
+> +	return folio;
+> +}
+> +
+>  const struct address_space_operations ntfs_aops = {
+>  	.read_folio		= ntfs_read_folio,
+>  	.readahead		= ntfs_readahead,
+> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+> index 800e53df5..cf73fa4c3 100644
+> --- a/fs/ntfs/attrib.c
+> +++ b/fs/ntfs/attrib.c
+> @@ -2323,7 +2323,7 @@ int ntfs_attr_set(struct ntfs_inode *ni, s64 ofs, s64 cnt, const u8 val)
+>  
+>  	index = ofs >> PAGE_SHIFT;
+>  	while (cnt) {
+> -		folio = read_mapping_folio(mapping, index, NULL);
+> +		folio = ntfs_read_metadata_folio(mapping, index);
+>  		if (IS_ERR(folio)) {
+>  			ret = PTR_ERR(folio);
+>  			ntfs_error(VFS_I(ni)->i_sb, "Failed to read a page %lu for attr %#x: %ld",
+> diff --git a/fs/ntfs/bdev-io.c b/fs/ntfs/bdev-io.c
+> index 4f27eed3b..afb1d1df3 100644
+> --- a/fs/ntfs/bdev-io.c
+> +++ b/fs/ntfs/bdev-io.c
+> @@ -99,7 +99,7 @@ int ntfs_bdev_write(struct super_block *sb, void *buf, loff_t start, size_t size
+>  	for (; idx < idx_end; idx++, from = 0) {
+>  		u32 len;
+>  
+> -		folio = read_mapping_folio(sb->s_bdev->bd_mapping, idx, NULL);
+> +		folio = ntfs_read_metadata_folio(sb->s_bdev->bd_mapping, idx);
+>  		if (IS_ERR(folio)) {
+>  			ntfs_error(sb, "Unable to read %ld page", idx);
+>  			return PTR_ERR(folio);
+> diff --git a/fs/ntfs/bitmap.c b/fs/ntfs/bitmap.c
+> index af86fb1c1..1002d9c98 100644
+> --- a/fs/ntfs/bitmap.c
+> +++ b/fs/ntfs/bitmap.c
+> @@ -203,7 +203,7 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
+>  
+>  	/* Get the page containing the first bit (@start_bit). */
+>  	mapping = vi->i_mapping;
+> -	folio = read_mapping_folio(mapping, index, NULL);
+> +	folio = ntfs_read_metadata_folio(mapping, index);
+>  	if (IS_ERR(folio)) {
+>  		if (!is_rollback)
+>  			ntfs_error(vi->i_sb,
+> @@ -267,7 +267,7 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
+>  		folio_unlock(folio);
+>  		kunmap_local(kaddr);
+>  		folio_put(folio);
+> -		folio = read_mapping_folio(mapping, ++index, NULL);
+> +		folio = ntfs_read_metadata_folio(mapping, ++index);
+>  		if (IS_ERR(folio)) {
+>  			ntfs_error(vi->i_sb,
+>  				   "Failed to map subsequent page (error %li), aborting.",
+> diff --git a/fs/ntfs/dir.c b/fs/ntfs/dir.c
+> index 9fb5bb3d3..ce87799a2 100644
+> --- a/fs/ntfs/dir.c
+> +++ b/fs/ntfs/dir.c
+> @@ -327,8 +327,8 @@ u64 ntfs_lookup_inode_by_name(struct ntfs_inode *dir_ni, const __le16 *uname,
+>  	 * of PAGE_SIZE and map the page cache page, reading it from
+>  	 * disk if necessary.
+>  	 */
+> -	folio = read_mapping_folio(ia_mapping, vcn <<
+> -			dir_ni->itype.index.vcn_size_bits >> PAGE_SHIFT, NULL);
+> +	folio = ntfs_read_metadata_folio(ia_mapping, vcn <<
+> +			dir_ni->itype.index.vcn_size_bits >> PAGE_SHIFT);
+>  	if (IS_ERR(folio)) {
+>  		ntfs_error(sb, "Failed to map directory index page, error %ld.",
+>  				-PTR_ERR(folio));
+> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+> index 62dd5bd5b..9bf7957af 100644
+> --- a/fs/ntfs/inode.c
+> +++ b/fs/ntfs/inode.c
+> @@ -3773,8 +3773,14 @@ s64 ntfs_inode_attr_pread(struct inode *vi, s64 pos, s64 count, u8 *buf)
+>  
+>  	index = pos >> PAGE_SHIFT;
+>  	do {
+> -		/* Update @index and get the next folio. */
+> -		folio = read_mapping_folio(mapping, index, NULL);
+> +		/*
+> +		 * Update @index and get the next folio.  The contents of a named
+> +		 * stream are user data, so a fatal signal may still stop that read.
+> +		 */
+> +		if (ntfs_inode_is_named_stream(ni))
+> +			folio = read_mapping_folio(mapping, index, NULL);
+> +		else
+> +			folio = ntfs_read_metadata_folio(mapping, index);
+>  		if (IS_ERR(folio)) {
+>  			err = PTR_ERR(folio);
+>  			break;
+> @@ -3926,7 +3932,7 @@ static s64 __ntfs_inode_non_resident_attr_pwrite(struct inode *vi,
+>  				break;
+>  			}
+>  		} else {
+> -			folio = read_mapping_folio(mapping, index, NULL);
+> +			folio = ntfs_read_metadata_folio(mapping, index);
 
-Applied to
+The read when writing to non-resident stream should remain
+interruptible.
 
-    https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-next
+>  			if (IS_ERR(folio)) {
+>  				ret = PTR_ERR(folio);
+>  				ntfs_error(vi->i_sb, "Failed to read a page %lu for attr %#x: %ld",
+> diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
+> index 3ebcac4c2..7e00016f4 100644
+> --- a/fs/ntfs/lcnalloc.c
+> +++ b/fs/ntfs/lcnalloc.c
+> @@ -340,7 +340,7 @@ struct runlist_element *ntfs_cluster_alloc(struct ntfs_volume *vol, const s64 st
+>  		if (vol->lcn_empty_bits_per_page[index] == 0)
+>  			goto next_bmp_pos;
+>  
+> -		folio = read_mapping_folio(mapping, index, NULL);
+> +		folio = ntfs_read_metadata_folio(mapping, index);
+>  		if (IS_ERR(folio)) {
+>  			err = PTR_ERR(folio);
+>  			ntfs_error(vol->sb, "Failed to map page.");
+> diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
+> index 89288b794..3601f77ee 100644
+> --- a/fs/ntfs/mft.c
+> +++ b/fs/ntfs/mft.c
+> @@ -143,7 +143,7 @@ static inline struct mft_record *map_mft_record_folio(struct ntfs_inode *ni)
+>  	}
+>  
+>  	/* Read, map, and pin the folio. */
+> -	folio = read_mapping_folio(mft_vi->i_mapping, index, NULL);
+> +	folio = ntfs_read_metadata_folio(mft_vi->i_mapping, index);
+>  	if (!IS_ERR(folio)) {
+>  		u8 *addr;
+>  
+> @@ -549,8 +549,8 @@ static int ntfs_sync_mft_mirror_unit(struct ntfs_volume *vol,
+>  	if (unit->folio_ofs + unit->len > folio_size(source))
+>  		return -EIO;
+>  
+> -	mirror = read_mapping_folio(vol->mftmirr_ino->i_mapping,
+> -				    mirror_file_ofs >> PAGE_SHIFT, NULL);
+> +	mirror = ntfs_read_metadata_folio(vol->mftmirr_ino->i_mapping,
+> +					  mirror_file_ofs >> PAGE_SHIFT);
+>  	if (IS_ERR(mirror))
+>  		return PTR_ERR(mirror);
+>  
+> @@ -1023,7 +1023,7 @@ static bool mft_reserved_is_free(struct ntfs_volume *vol,
+>  	if (!m)
+>  		return false;
+>  
+> -	folio = read_mapping_folio(vol->mft_ino->i_mapping, index, NULL);
+> +	folio = ntfs_read_metadata_folio(vol->mft_ino->i_mapping, index);
+>  	if (IS_ERR(folio))
+>  		goto free_m;
+>  
+> @@ -1199,8 +1199,8 @@ static s64 mft_bitmap_alloc_free_rec(struct ntfs_volume *vol,
+>  		 * for a zero bit.
+>  		 */
+>  		if (size) {
+> -			folio = read_mapping_folio(mftbmp_mapping,
+> -					ofs >> PAGE_SHIFT, NULL);
+> +			folio = ntfs_read_metadata_folio(mftbmp_mapping,
+> +							 ofs >> PAGE_SHIFT);
+>  			if (IS_ERR(folio)) {
+>  				ntfs_error(vol->sb, "Failed to read mft bitmap, aborting.");
+>  				return PTR_ERR(folio);
+> @@ -1392,8 +1392,8 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
+>  	 * to us.
+>  	 */
+>  	ll = lcn >> 3;
+> -	folio = read_mapping_folio(vol->lcnbmp_ino->i_mapping,
+> -			ll >> PAGE_SHIFT, NULL);
+> +	folio = ntfs_read_metadata_folio(vol->lcnbmp_ino->i_mapping,
+> +					 ll >> PAGE_SHIFT);
+>  	if (IS_ERR(folio)) {
+>  		up_write(&mftbmp_ni->runlist.lock);
+>  		ntfs_error(vol->sb, "Failed to read from lcn bitmap.");
+> @@ -2207,7 +2207,7 @@ static int ntfs_mft_record_format(const struct ntfs_volume *vol, const s64 mft_n
+>  	}
+>  
+>  	/* Read, map, and pin the folio containing the mft record. */
+> -	folio = read_mapping_folio(mft_vi->i_mapping, index, NULL);
+> +	folio = ntfs_read_metadata_folio(mft_vi->i_mapping, index);
+>  	if (IS_ERR(folio)) {
+>  		ntfs_error(vol->sb, "Failed to map page containing mft record to format 0x%llx.",
+>  				(long long)mft_no);
+> @@ -2725,7 +2725,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
+>  	index = NTFS_MFT_NR_TO_PIDX(vol, bit);
+>  	ofs = NTFS_MFT_NR_TO_POFS(vol, bit);
+>  	/* Read, map, and pin the folio containing the mft record. */
+> -	folio = read_mapping_folio(vol->mft_ino->i_mapping, index, NULL);
+> +	folio = ntfs_read_metadata_folio(vol->mft_ino->i_mapping, index);
+>  	if (IS_ERR(folio)) {
+>  		ntfs_error(vol->sb, "Failed to map page containing allocated mft record 0x%llx.",
+>  				bit);
 
-[1/3] platform/chrome: cros_ec: fix alignment of ec_params_pwrmon
-      commit: 346739bcdf6577fb5f10845ce339e34e855aae78
+Other paths still using interruptible reads include $LogFile and
+$MFTMirr checks, $AttrDef and $Upcase loading, bitmap scans through
+ntfs_get_locked_folio(), and ntfs_bitmap_check_used().
 
-Thanks!
+> diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
+> index fac72d40f..f33df986f 100644
+> --- a/fs/ntfs/ntfs.h
+> +++ b/fs/ntfs/ntfs.h
+> @@ -294,6 +294,10 @@ static inline int ntfs_ffs(int x)
+>  	return r;
+>  }
+>  
+> +/* From fs/ntfs/aops.c */
+> +struct folio *ntfs_read_metadata_folio(struct address_space *mapping,
+> +				       pgoff_t index);
+> +
+>  /* From fs/ntfs/bdev-io.c */
+>  int ntfs_bdev_read(struct block_device *bdev, char *data, loff_t start, size_t size);
+>  int ntfs_bdev_write(struct super_block *sb, void *buf, loff_t start, size_t size);
+> -- 
+> 2.56.0
+> 
+
+-- 
+Thanks,
+Hyunchul
