@@ -1,55 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239682;
-	b=dAXZhNAUVT5IvVDO4ah8RKfKdZEihdza7KRRKf2MV4cOwwgkEtKtrRyQrDHU4Q0k78/K
-	 riAO1jkuT7YT/cBuZMB/bgwA16ka3XPNZ/Ls8djG727TVFEt9P7NreTA3boi4Oliic6TJ
-	 W53rLP2FPMbBj8IlyPLZFui24kIhLHkUutlVGaPEBiY74mgS+VQVcSeT1bRmQN+2sYiD6
-	 s7oYRRhL4HEnWVG8S9McYMujtcSJRiayAyfcr4oe201xmLcr2sMY+4JodcrSzGn0qvJXr
-	 xzMqbkMQwob0w4qok4btp6M4GIiQA0PkahYXjTOxantlcYFIEvsS4N8g8laqNnNB8vg==
+	t=1794239707;
+	b=QGvLDvpLxjMm24WBmdJpn9Z6LEYeyKhE00VjD1BwJ8pkwMwZRlS91/ITTjISozfVmR90
+	 aW4d6Tsj7sCbjc1H03GBvgyrEhW6P3ATrgwiydAZBw9G2Dt32cyZGpFclZjFzYYl6y2LD
+	 QMIzx9xcSQK4DjKvh9y4l8q75t8KTQ3lgrHhf9geKEjV0V8EwKeEjle7Kn3ORwRDHbeYW
+	 82ttTrqOqzJ00CzmaJZ1AbgGfdOwC4JuB5PTQTFBqidr6wM9PMtdEd3RygbYWf9fvjeGA
+	 9sOjIBjiZrS4XoF1vLp0lKBaR/iLdk3dh1IzNv1TCVYbJG1fnmofoqBw24BfEJxk0ww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239682;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+VkAVcjgFq8xZaM7uRYAgPL6bY7r/rKvNqG7d8ZK/lk=;
-	b=3qi3IwLOR4+d/gpddalWS8QWA8cY8Bwsv9MWhhDsqoKk+ZbKp4Ibu8EXE/WB9hPJ/dYK
-	 AShfKHQvkUXRPWQ8JB6HfoR4O/qYFivKFWg5GTUoZustAb8/OV/rKYEci0jCmxUi9kVEY
-	 1DrjTcD61HchN0tpgEg/24ggEiLJ4KmcdNsDgzviT2Pd/wlKuU8ANfdT4OOmmbjK468s0
-	 Dj7a1kaA2Vf9RK/2lZLU78MAdKQ9/t/zpNgbM1DtAoEONpuw7fVI+P+KyNPY0fUjg0iUu
-	 LXmgTUHEE1+VNekHWmDyWU6xr1wjb0w8Zb+NsF1PGY9ppAiFOycWnrb/a1MiqtNKzJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239707;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=Q0X+iS3Yev6GJQ7IG+vLyH9URNbzXi7MgDFOd5gJdEo=;
+	b=geFcEtZYHep1bpqk6fxQdpMtlFOAzv1szoQDfW7vp5jcAlsmf4EKQxDf5vbO4lxUIHz0
+	 FrhhgfExYiB5XdxDpRkfX/Z7QNNhwGajhMp2fMO95xW1xNMiZTX8+Mjy7fWeNRJdUkpB1
+	 OIZHmF36MMIj0kbxdO3ofHiPVDFItmmteEQJefSGd96yeh/ZbgWPPnCnAacx1Yu2FUfCO
+	 DfmrP0rg9irWIMB2jpZJ65MnaiGct1j3808SUcUubVZD6L9Qn47Xuu85kZSQg9v16txPj
+	 B1OMj2RhwS3pte7OeA44eIRvAyDbuyS+O8KKmUN5MElodVPBJxqZ8sZwPpMzqADbQDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmAaDPkO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pOD2KVdw;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vQHZJnfR;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pOD2KVdw;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vQHZJnfR;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26876606A331
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:54:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44654606EE91;
+	Mon,  9 Nov 2026 15:55:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44654606EE91
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bmAaDPkO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02FF21F008A2
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:54:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794239682;
-	bh=+VkAVcjgFq8xZaM7uRYAgPL6bY7r/rKvNqG7d8ZK/lk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bmAaDPkOZa0ZSi7e9ZpJWBnMUZ4gQG6mkynC2XqbpAZ9X3FVulSF23WS7jWKAPxrR
-	 V9MKrMwN+NvWc+ll5JUwpGL84XIbula2U1zeQs+pDHzY7jqwZ51Kj+JDm2yiuTLXCc
-	 p97tWG9hIvER9vmcnkBKf6iqjQ7+lZfBZgQwtvWb5R3YWlIQO6jy10qrL/UafGQx27
-	 l+Lwi4fbq1Rytz3l85fmL09KSm0sPmJaKT+1tbRAk7t0XjOoGc3+HRibcFWGPWEI8R
-	 kqjrtmXKSOf6o3Fi/d3wuKVQTA4U4KydpTCuOPKUoQzjQF0vbeSXwhCHxYC1RkfLV3
-	 sPDQqEjBDGOog==
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3adfe77d336so7597001fa.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:54:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErH9PKQhgmkaPDhmFW27ObMMEYOnpC90TzMKVUro3S9DYDXk+j/mmS10w6bzTawWGJh2Cj8tCgt3kYxYiKo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+RvKDOIGYZSpN0Zuf8CVRMS8jwbwDIYvN0i1hIV1cZ/S0cYK/W
-	tNyEVtHYrFncU44ed1MJ2PH05Zdz4ybHHWBN1o/B9eNxox2zdbgfovUj/14Fyp2OgGnUQgFNAKj
-	cvgUpcajnJ8OpEOSXzOLxXVYdd5ePJn0=
-X-Received: by 2002:a05:651c:150d:b0:3a6:10d4:61c4 with SMTP id
- 38308e7fff4ca-3adfa48f107mr11733841fa.28.1794239680276; Mon, 09 Nov 2026
- 07:54:40 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pOD2KVdw;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vQHZJnfR;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pOD2KVdw;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vQHZJnfR
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 5E14E1FB06;
+	Mon,  9 Nov 2026 15:55:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794239704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0X+iS3Yev6GJQ7IG+vLyH9URNbzXi7MgDFOd5gJdEo=;
+	b=pOD2KVdwtMpgJK2i4gXXynpyfeSL2/wHQ7ILt/gRflE7Szrj4IUXmGk4tUWW7z0FjL89c8
+	VwmyrXpHYbmMbEsmkfMLUpPirAe5UqGqoxO6dOSaYknz0tLSrP6nijIg0URHlns6lfpwz+
+	6BvW5gpidUrhGcHTtaqSTKkwtXlUwtQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794239704;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0X+iS3Yev6GJQ7IG+vLyH9URNbzXi7MgDFOd5gJdEo=;
+	b=vQHZJnfRHvNzMnHVnh3EAbONDaDKmKWpenGtmYnTdCY3Cie503EEcCoTh7P6+7i0L90ydp
+	PEw0gtoijB+5h4BA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=pOD2KVdw;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vQHZJnfR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794239704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0X+iS3Yev6GJQ7IG+vLyH9URNbzXi7MgDFOd5gJdEo=;
+	b=pOD2KVdwtMpgJK2i4gXXynpyfeSL2/wHQ7ILt/gRflE7Szrj4IUXmGk4tUWW7z0FjL89c8
+	VwmyrXpHYbmMbEsmkfMLUpPirAe5UqGqoxO6dOSaYknz0tLSrP6nijIg0URHlns6lfpwz+
+	6BvW5gpidUrhGcHTtaqSTKkwtXlUwtQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794239704;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Q0X+iS3Yev6GJQ7IG+vLyH9URNbzXi7MgDFOd5gJdEo=;
+	b=vQHZJnfRHvNzMnHVnh3EAbONDaDKmKWpenGtmYnTdCY3Cie503EEcCoTh7P6+7i0L90ydp
+	PEw0gtoijB+5h4BA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0EEA513319;
+	Mon,  9 Nov 2026 15:55:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id f+7uN9fs8WqZRgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 09 Nov 2026 15:55:04 +0000
+Date: Mon, 09 Nov 2026 16:55:03 +0100
+Message-ID: <87mrriuhig.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] tpm: acpi: Fix memory leak at tpm_read_log_acpi() error path
+In-Reply-To: <avHl-WoBP73QjInD@kernel.org>
+References: <20261109082527.541901-1-tiwai@suse.de>
+	<avHl-WoBP73QjInD@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,302 +114,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261106125814.1112331-1-saranya.gopal@intel.com>
-In-Reply-To: <20261106125814.1112331-1-saranya.gopal@intel.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 9 Nov 2026 16:54:26 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jTx2jZ2j3bKCcYxPpWVWtOQu+RWpeV8Zp6mmCt1Ys9iQ@mail.gmail.com>
-X-Gm-Features: AclHuK9isenKf0n6872RcaroQP2S1n3PV8buEVL_VTJNfINW60Ut6WFslnN2qOI
-Message-ID: <CAJZ5v0jTx2jZ2j3bKCcYxPpWVWtOQu+RWpeV8Zp6mmCt1Ys9iQ@mail.gmail.com>
-Subject: Re: [PATCH v3] ACPI: s2idle: Handle shared _Ixx GPEs without an EC
-To: Saranya Gopal <saranya.gopal@intel.com>
-Cc: linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rafael.j.wysocki@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmx.de];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.de,gmx.de,ziepe.ca,vger.kernel.org];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 5E14E1FB06
 
-On Fri, Nov 6, 2026 at 1:59=E2=80=AFPM Saranya Gopal <saranya.gopal@intel.c=
-om> wrote:
->
-> When first_ec is NULL, acpi_ec_dispatch_gpe() previously treated any
-> active GPE as a wake source. On platforms where an _Ixx GPE is shared
-> by user-wakeup and background events, that can cause unnecessary
-> wakeups.
->
-> Make acpi_ec_dispatch_gpe() return an int and return -ENODEV when no
-> EC instance is available so that acpi_s2idle_wake() can handle that
-> case: on x86, treat the first GPE armed for wake via an _Ixx method
-> like the EC GPE, mirroring acpi_ec_dispatch_gpe(). That is, report a
-> wakeup if the status bit is set for any enabled GPE other than the
-> _Ixx one. Otherwise, cancel the SCI-related wakeup and dispatch the
-> _Ixx GPE if its status bit is set, so the events behind it can be
-> processed. Drivers handling genuine wake events are expected to
-> report them via pm_wakeup_event(), which the common s2idle path will
-> catch after synchronizing event processing.
->
-> If no _Ixx GPEs have been armed, and in the non-x86 fallback, the
-> previous any-GPE status check is retained. If GPEs are armed via more
-> than one _Ixx method, the first one is used as the wake indicator and
-> the remaining ones are treated as regular wake sources.
->
-> Fixes: 46767b17fda3 ("ACPI: PM: s2idle: Add _Ixx GPE wake indicator suppo=
-rt")
-> Signed-off-by: Saranya Gopal <saranya.gopal@intel.com>
-> ---
-> Changes from v2:
->  - Restructured ret checks in sleep.c as per Rafael's suggestion to
->    cover !CONFIG_ACPI_EC case that returns -EOPNOTSUPP (Sashiko report)
->  - Drop the open-coded scan over acpi_current_gpe_count that conflated
->    sequential GPE indices with raw GPE numbers (Sashiko report)
->  - Mirror acpi_ec_dispatch_gpe() with the first GPE armed via an _Ixx
->    method playing the role of the EC GPE, so the existing single-skip
->    acpi_any_gpe_status_set() is sufficient and no ACPICA changes are
->    needed.
->  - Follow acpi_ec_dispatch_gpe() for the status check and dispatch of
->    the _Ixx GPE as well, which also drops the error paths that
->    requested a system wakeup in v2 (questioned by Rafael).
->  - Add a comment describing acpi_x86_s2idle_check_ixx_gpes(), including
->    the role of pm_system_cancel_wakeup().
->  - Preserve the previous any-GPE behavior when no _Ixx GPEs have been
->    armed for wakeup.
-> Changes from v1:
->  - -ENOTSUP replaced with the correct -EOPNOTSUPP for !CONFIG_PM_SLEEP
->    case
->
->  drivers/acpi/ec.c         | 10 +++----
->  drivers/acpi/internal.h   |  6 ++--
->  drivers/acpi/sleep.c      | 11 +++++--
->  drivers/acpi/sleep.h      |  8 +++++
->  drivers/acpi/x86/s2idle.c | 61 +++++++++++++++++++++++++++++++++++++++
->  5 files changed, 86 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/acpi/ec.c b/drivers/acpi/ec.c
-> index 64ad4cfa6208..8be572af4115 100644
-> --- a/drivers/acpi/ec.c
-> +++ b/drivers/acpi/ec.c
-> @@ -2155,19 +2155,19 @@ static bool acpi_ec_work_in_progress(struct acpi_=
-ec *ec)
->         return ec->events_in_progress + ec->queries_in_progress > 0;
->  }
->
-> -bool acpi_ec_dispatch_gpe(void)
-> +int acpi_ec_dispatch_gpe(void)
->  {
->         bool work_in_progress =3D false;
->
->         if (!first_ec)
-> -               return acpi_any_gpe_status_set(U32_MAX);
-> +               return -ENODEV;
->
->         /*
->          * Report wakeup if the status bit is set for any enabled GPE oth=
-er
->          * than the EC one.
->          */
->         if (acpi_any_gpe_status_set(first_ec->gpe))
-> -               return true;
-> +               return 1;
->
->         /*
->          * Cancel the SCI wakeup and process all pending events in case t=
-here
-> @@ -2195,7 +2195,7 @@ bool acpi_ec_dispatch_gpe(void)
->         spin_unlock_irq(&first_ec->lock);
->
->         if (!work_in_progress)
-> -               return false;
-> +               return 0;
->
->         pm_pr_dbg("ACPI EC GPE dispatched\n");
->
-> @@ -2212,7 +2212,7 @@ bool acpi_ec_dispatch_gpe(void)
->                 spin_unlock_irq(&first_ec->lock);
->         } while (work_in_progress && !pm_wakeup_pending());
->
-> -       return false;
-> +       return 0;
->  }
->  #endif /* CONFIG_PM_SLEEP */
->
-> diff --git a/drivers/acpi/internal.h b/drivers/acpi/internal.h
-> index 40f875b265a9..d5435338d6ca 100644
-> --- a/drivers/acpi/internal.h
-> +++ b/drivers/acpi/internal.h
-> @@ -236,7 +236,7 @@ void acpi_ec_register_opregions(struct acpi_device *a=
-dev);
->
->  #ifdef CONFIG_PM_SLEEP
->  void acpi_ec_flush_work(void);
-> -bool acpi_ec_dispatch_gpe(void);
-> +int acpi_ec_dispatch_gpe(void);
->  #endif
->
->  #else
-> @@ -256,9 +256,9 @@ static inline void acpi_ec_remove_query_handler(struc=
-t acpi_ec *ec, u8 query_bit
->  static inline void acpi_ec_register_opregions(struct acpi_device *adev) =
-{}
->
->  static inline void acpi_ec_flush_work(void) {}
-> -static inline bool acpi_ec_dispatch_gpe(void)
-> +static inline int acpi_ec_dispatch_gpe(void)
->  {
-> -       return false;
-> +       return -EOPNOTSUPP;
->  }
->
->  #endif
-> diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
-> index 132a9df98471..09bd661187b6 100644
-> --- a/drivers/acpi/sleep.c
-> +++ b/drivers/acpi/sleep.c
-> @@ -761,6 +761,8 @@ bool acpi_s2idle_wake(void)
->                 return pm_wakeup_pending();
->
->         while (pm_wakeup_pending()) {
-> +               int ret;
-> +
->                 /*
->                  * If IRQD_WAKEUP_ARMED is set for the SCI at this point,=
- the
->                  * SCI has not triggered while suspended, so bail out (th=
-e
-> @@ -789,11 +791,16 @@ bool acpi_s2idle_wake(void)
->
->                 /*
->                  * Check non-EC GPE wakeups and if there are none, cancel=
- the
-> -                * SCI-related wakeup and dispatch the EC GPE.
-> +                * SCI-related wakeup and dispatch the EC GPE.  If there =
-is no
-> +                * EC to consult, check the GPEs armed for wakeup via _Ix=
-x
-> +                * methods instead.
->                  */
-> -               if (acpi_ec_dispatch_gpe()) {
-> +               ret =3D acpi_ec_dispatch_gpe();
-> +               if (ret > 0) {
->                         pm_pr_dbg("ACPI non-EC GPE wakeup\n");
->                         return true;
-> +               } else if (ret < 0 && acpi_x86_s2idle_check_ixx_gpes()) {
-> +                       return true;
->                 }
->
->                 acpi_os_wait_events_complete();
-> diff --git a/drivers/acpi/sleep.h b/drivers/acpi/sleep.h
-> index 9c3cb109c5d2..955e9c22bf0d 100644
-> --- a/drivers/acpi/sleep.h
-> +++ b/drivers/acpi/sleep.h
-> @@ -20,6 +20,14 @@ extern int acpi_s2idle_prepare(void);
->  extern bool acpi_s2idle_wake(void);
->  extern void acpi_s2idle_restore(void);
->  extern void acpi_s2idle_end(void);
-> +#if defined(CONFIG_X86) && defined(CONFIG_SUSPEND)
-> +extern bool acpi_x86_s2idle_check_ixx_gpes(void);
-> +#else
-> +static inline bool acpi_x86_s2idle_check_ixx_gpes(void)
-> +{
-> +       return acpi_any_gpe_status_set(U32_MAX);
-> +}
-> +#endif
->
->  extern void acpi_s2idle_setup(void);
->
-> diff --git a/drivers/acpi/x86/s2idle.c b/drivers/acpi/x86/s2idle.c
-> index c278ea14c0b3..b79bf0fa9a7f 100644
-> --- a/drivers/acpi/x86/s2idle.c
-> +++ b/drivers/acpi/x86/s2idle.c
-> @@ -24,6 +24,13 @@
->
->  #ifdef CONFIG_SUSPEND
->
-> +/*
-> + * First GPE armed for wake via an _Ixx method, U32_MAX if none.  On
-> + * platforms without an ACPI-enumerated EC, this GPE plays the role of
-> + * the EC GPE in acpi_ec_dispatch_gpe().
-> + */
-> +static u32 acpi_s2idle_ixx_gpe =3D U32_MAX;
-> +
->  static void acpi_setup_ixx_gpes(void)
->  {
->         acpi_handle gpe_root;
-> @@ -47,11 +54,65 @@ static void acpi_setup_ixx_gpes(void)
->
->                 acpi_mark_gpe_for_wake(NULL, i);
->                 acpi_set_gpe_wake_mask(NULL, i, ACPI_GPE_ENABLE);
-> +               if (acpi_s2idle_ixx_gpe =3D=3D U32_MAX)
-> +                       acpi_s2idle_ixx_gpe =3D i;
->
->                 pm_pr_dbg("ACPI: GPE0x%02x armed for wake via %s\n", i, g=
-pe_nr_str);
->         }
->  }
->
-> +/*
-> + * acpi_x86_s2idle_check_ixx_gpes - Handle an SCI wakeup without an EC
-> + *
-> + * Called to decide whether or not to wake up the system when an SCI has
-> + * triggered during suspend-to-idle on a platform without an EC instance=
-,
-> + * mirroring acpi_ec_dispatch_gpe() with the first GPE armed for wake vi=
-a
-> + * an _Ixx method playing the role of the EC GPE.
-> + *
-> + * Report a wakeup if the status bit is set for any enabled GPE other th=
-an
-> + * the _Ixx one.  If no _Ixx GPE has been armed, acpi_s2idle_ixx_gpe is
-> + * U32_MAX and this amounts to checking all of the GPEs, which is the
-> + * previous behavior.
-> + *
-> + * Otherwise, cancel the pending SCI-related wakeup, so it does not caus=
-e
-> + * the pm_wakeup_pending() check in the caller to succeed by itself, and
-> + * dispatch the _Ixx GPE if it is active, so the events behind it can be
-> + * processed.  If any of those events turn out to be genuine wake events=
-,
-> + * the drivers handling them are expected to call pm_wakeup_event() and
-> + * the caller will catch that via pm_wakeup_pending() after synchronizin=
-g
-> + * the event processing.
-> + */
-> +bool acpi_x86_s2idle_check_ixx_gpes(void)
-> +{
-> +       acpi_event_status status =3D 0;
-> +
-> +       /*
-> +        * Report wakeup if the status bit is set for any enabled GPE oth=
-er
-> +        * than the _Ixx one.
-> +        */
-> +       if (acpi_any_gpe_status_set(acpi_s2idle_ixx_gpe))
-> +               return true;
-> +
-> +       if (acpi_s2idle_ixx_gpe =3D=3D U32_MAX)
-> +               return false;
-> +
-> +       /*
-> +        * Cancel the SCI wakeup and dispatch the _Ixx GPE in case there =
-are
-> +        * any wakeup events behind it.
-> +        */
-> +       pm_system_cancel_wakeup();
-> +
-> +       acpi_get_gpe_status(NULL, acpi_s2idle_ixx_gpe, &status);
-> +       if (status & ACPI_EVENT_FLAG_STATUS_SET) {
-> +               pm_pr_dbg("ACPI _Ixx GPE 0x%02x dispatched\n",
-> +                         acpi_s2idle_ixx_gpe);
-> +
-> +               acpi_dispatch_gpe(NULL, acpi_s2idle_ixx_gpe);
-> +       }
-> +
-> +       return false;
-> +}
-> +
->  static bool sleep_no_lps0 __read_mostly;
->  module_param(sleep_no_lps0, bool, 0644);
->  MODULE_PARM_DESC(sleep_no_lps0, "Do not use the special LPS0 device inte=
-rface");
-> --
+On Mon, 09 Nov 2026 16:25:45 +0100,
+Jarkko Sakkinen wrote:
+> 
+> On Mon, Nov 09, 2026 at 09:25:24AM +0100, Takashi Iwai wrote:
+> > When devm_add_action() returns an error, we do NULL-clear
+> > log->bios_event_log unnecessarily before calling tpm_bios_log_free(),
+> > and it would lead to a memory leak of the allocated log buffer.
+> 
+> I don't understand this. "NULL-clear" is gibberish when the actual
+> bug is just spurious clear of log->bios_event_log.
 
-Applied as 7.4-rc material, thanks!
+It's not "spurious", but rather ill-behaving.
+Because it sets NULL before calling tpm_bios_log_free(), the actually
+allocated buffer won't be freed at all.
+
+
+Takashi
