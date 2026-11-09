@@ -1,74 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794203866;
-	b=bUMT61+6AuyovmN4ZtLHht1Luoqn8sYLGxcHMHggH1x5MW7uOcRmVssuP4LfvQfj5nF/
-	 BuAh6hmIWsbLNUd6mfNskFylau8ssqEUxrMGtujm1ktgYibj5iHngDNXc3zjVAD7JrRF5
-	 c5cvDpfltFfao/shVZ4SRT4incH+nzyDlDg0iQZfl6vJov+iqBYpHRjbQym4+I0ccgxzi
-	 pN0aJGsbIphh08MwdVqEo1FVijMk43LYw08uHahH/chnF6FLE9hJZWC/istj6q0p2py1R
-	 WSdlSZEKEq1dB+c4TRitx/nfiDZHNiQH9+sZXp2xcpMBf7LAa1V6g3oJgoX2mywRMNQ==
+	t=1794203858;
+	b=UrFqL9mOZVTTr1eyDvFgr8AF6AC8i0OCW9TbcDwjyZW4nQ2lNH0SZ7G5ChkrFPbp5H18
+	 VbhFtsiyr1dplVJ4xcjQDOS9g9c4bA+IaVJ4+9fQGAAfeE/6D47Y++OQi4Tqi2zme70oY
+	 Y6RaszgEd/MJWzdZrDFalNEIPH7JugAvQP1d1G1CyjOuO+n4oAZT8eTeajSdnZbpbUKSR
+	 Xc3E4iATs8zBrHq4Yd37lg2lHE3yDDNfV+P9lNVnkyrtTBhkBXDqmmqQb+73IhDwBqkBs
+	 Spw1EtLBVJoJDQiorDxqB2uJd0L3ZYt1FDaSQkEmSR6VZi6kwmqDKbsfm/OqZ+h7NQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794203866;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-type:
-	 Content-Transfer-Encoding;
-	bh=ebB8Hm9YJhqZLTIB/BIU80u2OvfAEgQxHB5v4VkTido=;
-	b=iuZ81XDUuJ6UdrsAAOTAEB1ij/U1NlF/guA1++/dtppynej7bpPqBbAB454UB+OzpCc0
-	 evaCXxgyErcsl0AVCjMNaZ7bAv5doE2/rQ01Z73uwho1tvDm9qBAF2vo7+GLA2O0TPGBm
-	 BKQLPfKh1TLPT4KC9+8Vci88+dNAL/BNcmvYlsFJenx4OwYzlMGq5QN5HdXkwsjkIgH6Q
-	 nfIJx5AEuwMGZaxLQjjNL2XJ7n7kyM6tAm4fEp7nupVuSmhk2/sKIPt/lD6banHUJa7CM
-	 HKbgKTISloblhlUWMaYJr8mwltZCdauM/FIkqc/6EbbsmdMeNAkSoDQTSw3SCD8kl9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794203858;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=qx9aWHtRKDksa1LYmyxdr/qfWKsVTfaXl6OZkFxlBxLLubE1HKnO7iUziOGEKm4J1Gul
+	 tlSQi9V7yrmn11Wroxmjc5e4R2+iHHXT5nTpTL7FX7UhT0lmZ1xe8EkN8ZvISxVW5Amzg
+	 gBge6/rdMNVShdgpjFwBnjskF0VzA0LiWijx8D1RrFR57iIU35Utu5wxWDdeLIV/3LoeR
+	 lf/55THsaAS5uELU7hz8r79EXM5NfJwmK9eMKz6cg9jGi3E/gYR3gW2dhRiB8o2JOAtdC
+	 kMxZ3R5wtKmh1aOte1dMlGp0lDFSXc7jtUlO+gSsm6aQJA+YVph/VVMLpKhoKNWmKKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ITSh4BjZ;
-	arc=none smtp.remote-ip=95.215.58.57
-Received: from mta1.migadu.com (out-57.mta1.migadu.com [95.215.58.57])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lUzcq5n4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDD1606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:57:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DDD1606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61058606A323;
+	Mon,  9 Nov 2026 05:57:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ITSh4BjZ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZTeW0ziV8/P/g9Y3o2HU3l2GCGlpCYxshzszGc/a3ck=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794203863; v=1; x=1794808663;
- b=ITSh4BjZZSuTXFFlpt+NaWm8E8akqoztRa1SQh93VFJQaGTU9vGGyTXp2ywBWMIzooNC8buM
- 4vs4ZadBTkhm2Pm8wOowr2iJIrbrne5Zx77MK/CyB+Wp8vkGFT2MWhW1NnpRqJbFO7QpDV3qDRV
- 7LC8fHWUn7t/KC19+9BYyNMQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 80b09a951c8e8f3b;
-	Mon, 09 Nov 2026 05:57:43 +0000
-X-Mizu-Trace-ID: 80b09a951c8e8f3b
-X-Migadu-Flow: FLOW_OUT
-From: Baoquan He <baoquan.he@linux.dev>
-To: linux-mm@kvack.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	nphamcs@gmail.com,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	corbet@lwn.net,
-	hannes@cmpxchg.org,
-	chengming.zhou@linux.dev,
-	kunwu.chan@gmail.com,
-	klarasmodin@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v5 19/19] mm, swap: skip the overcommit probe when removing xswap
-Date: Mon,  9 Nov 2026 13:54:55 +0800
-Message-ID: <20261109055455.536925-20-baoquan.he@linux.dev>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261109055455.536925-1-baoquan.he@linux.dev>
-References: <20261109055455.536925-1-baoquan.he@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lUzcq5n4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AD6E1F008A4;
+	Mon,  9 Nov 2026 05:57:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794203858;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lUzcq5n4Q/JFEV8CHjhcN0NYJ5nQMLbsAaXlM+q706Sn+8Fr4uqU1sqltwlZ8mw04
+	 TB/jSL5yn4Tu2DCyHMNbGynjUTotqIlinTDHIMaA77ElnC+ajKFh8YRG79t7/6ScMq
+	 EKvdZJH3imxVFYMbXpxXZOb6WwX/oGeU+jPLJcx4tHX20zbZbpeRb85zzOteV6d7nM
+	 dbdPoI8nuQ065P6g2ZJlfdcaF+Z+FF9T0mpGnrW7a/lrCvlYJwOzDknsb2KGQST8M6
+	 uf/pSX2ot/is1IrnOBYhwR5giywVB+t5AHBxQGc/XAStOoLbXKUmB7vv046Q4FIw6S
+	 +piiMzbHP99EQ==
+From: netdev-bot+sinfo@kernel.org
+To: luoqing <l1138897701@163.com>
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
+ Phil Sutter <phil@nwl.cc>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Patrick McHardy <kaber@trash.net>, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH nf-next v3 1/2] netfilter: conntrack: avoid
+ secs-to-jiffies overflow in SIP helper
+Date: Mon, 09 Nov 2026 05:57:36 +0000
+Message-ID: <179420385683.488859.10258396166182419513@kernel.org>
+In-Reply-To: <20261109055309.512876-1-l1138897701@163.com>
+References: <20261109055309.512876-1-l1138897701@163.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,51 +66,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-type: text/plain
-Content-Transfer-Encoding: 8bit
 
-From: Baoquan He <hebaoquan@kylinos.cn>
+Hi!
 
-swap_info_remove() probes whether Committed_AS still fits under the
-commit limit left after the device's pages are subtracted. An xswap
-device's pages are its address space, not backing storage, but they
-raised the commit limit at creation. A workload can commit into that
-headroom, after which the probe refuses to destroy the device.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Skip the probe for xswap until the overcommit accounting for it is
-settled. Real swap devices keep the existing protection.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
----
- mm/swapfile.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index efb48ef71611..84b9a8dddff2 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -3736,10 +3736,17 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
-  */
- static int swap_info_remove(struct swap_info_struct *p)
- {
--	if (!security_vm_enough_memory_mm(current->mm, p->pages))
--		vm_unacct_memory(p->pages);
--	else
--		return -ENOMEM;
-+	/*
-+	 * The device's pages are its address space, not backing storage.
-+	 * The commit limit it added may have been committed against, so
-+	 * skip the probe until the limit stops counting that space.
-+	 */
-+	if (!(p->flags & SWP_XSWAP)) {
-+		if (!security_vm_enough_memory_mm(current->mm, p->pages))
-+			vm_unacct_memory(p->pages);
-+		else
-+			return -ENOMEM;
-+	}
- 
- 	spin_lock(&p->lock);
- 	del_from_avail_list(p, true);
--- 
-2.54.0
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
