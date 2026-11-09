@@ -1,56 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794257274;
-	b=2DspxKZa3N1wSD1uiwXjbE/lXVaFVgqAGUchUf8hWmOt+rO0ctf//Fh+FkR/WrpenfPM
-	 tuym2hBHeR4QrLptO2aOJk69XKjfbw/3/k7BDrbBJSqFxuoQSjpncis2TWr0Sgv4BiFN/
-	 GH/ju9WSX1KMi4Aq2S+y6Jv3gwpe7gs7mFJPThi7xJpQHxY/8chjCZd60S6oBr1TZ9zMG
-	 Wf/jfRkH8kRLkpYh9sbS40SahElo5Xc9xpvNscvWT38kZX4mWC5+mrcsz/oEPtQ4wNpxV
-	 p7InPXuIw9WFR7o8M51jGWwWjJWE4GpAg0PZ0so2o05WxyYbuQLKE1egQVoTUloD2zg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794257274;
-	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
-	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=Qjc3lND2Szj+ZbTboPnK/vG9bXC4WbRqnD1x9RUtNhU=;
-	b=MR7XC1sL4AKaIqE6eHNbbzsiHqwWmjNRgQ7XIvkvva7CReepKARQYm86XcXxXJG81luo
-	 YppJSCUDEdQb8mPQVF5ApCaj4l6EW49DmIxhZZm704uD6BpOA0u63DzIMmf6vcH6BgELd
-	 SeRj48Khb91Vap0p/ZyEmD5RxxjANIcNZzTFdCTC9j6x0WVZYIP/WzD9XIrVcPQHkyu50
-	 AFT/9Q9m0eUxwVzxWUYI5NRG0tTY4hlw33GJbv7QNC2pMshJz9pELpjxf3w5Zy7KgzHF/
-	 4nTTD4LZeAqX9go4j5XZMMXxhz5S2yfmWeOjyREf9QT6//jHRgXD0fsdYVoSoUvqCug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=mpG5CXlN;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794257289;
+	b=Ld9uiPwVlJyRgyd9dcHbFm4UFHYH7LSDpt0c1UW22gqTEfVnjY92Aj6C5qrEeURkbOtV
+	 SdyoHVhE9p49jKM96FHbAQP5fbhmiEdRu92flySirVbKf2o7xBf+ih4PU91eJKqL1NmE3
+	 MMCs60WjgQdDn+GK1FsHWbsM15WRyY3cdD3f+hxkG42QmO4aAj/qvgy1HnDRt9xYQZmAO
+	 3TyzOuaJPzkjXvEbXgzWNuk5wYhWFROjhvvn44mnB0qc20U3judu8Npohq34vF6DsmQ64
+	 BCMyuiDnFBTuvLua5MUDP8X9kbRWez6N5cMfWQtwk0VMM9tXwq7Ye8Lw3V1MQQApCWg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794257289;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=hAko9zGkmi9niJtZOL71kVVVwwbmLc2t5MHh5r5eE0o=;
+	b=HmUl+hmzIIhor4pwwb0ADJaDjXAOaTINeOPNfoytG9+xYQc74p7LNYJ1lOngtYXH2xQd
+	 7DideO+1Q5KYIxeDj1je2U1egvKNx6zBPGvc6/xN8KVrT3T8CA24BFtjh1yQ1alsojVAr
+	 9Q4ltHtyBqPKoR+4L3zLV/IyWYm5SKL67Jl4ZywB/X6jfaNQlwuYHR3IoflJUUHJVjMMz
+	 ouQu1O4cs7TBmm0q4RUNutSIor9QbpJP1IJMqInNIcE5NCdJaQ4cjMlAhjJ9sD0fLlgUJ
+	 2o14qFqXVvszWId/A+Jk83gUwj8HH3YgQOXmf4nA9L6WQn5+HNM6OPbAEDiFjb0mA1g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iav.lv;
+	spf=pass smtp.mailfrom=iav.lv;
+	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b="IFFVSli/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.17
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A3D606A321;
-	Mon,  9 Nov 2026 20:47:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0A3D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7540606A321;
+	Mon,  9 Nov 2026 20:48:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7540606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=mpG5CXlN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=Qjc3lND2Szj+ZbTboPnK/vG9bXC4WbRqnD1x9RUtNhU=; b=mpG5CXlNlPYFghudAsxPbpQbhu
-	pZ5GpX195PfyZU6zwJ6KgrFHVBQF6c+n198g/P2cqQtXWngP/N2UZKbT9X5eQCLcrUcTUtb4xn/+i
-	nW/jN3Dr0hOhIpNsX8zyXz1zuG5U0z9uLPkOkWXCEJpRQCBWsszSg7x9kKeAdGmWY+VnvzRpPdknh
-	Z3lBLXE4riqv24BSRCAv611VqjSK7y8lBC9cRXewdv/k4jJiv1RofEzjXCNHJPLNwhrRlYtEPfHWH
-	OMOC+l4wKsjbu2h2whj2C83inIlw3bgxCkPq4W34IGT5VcenhqQbVv5hZ+ereRJ/+pTxxGPfPN0hZ
-	XUZLyNZA==;
-Received: from [::1] (port=46436 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xQWHQ-0000000DrgI-1qSY;
-	Mon, 09 Nov 2026 21:47:52 +0100
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=IFFVSli/
+ARC-Seal: i=1; a=rsa-sha256; t=1794257262; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=E98HJo4M9xbxdr894U55ndlMxcGrMXf4IZiUI2186xilrWWrK+VG5p6micoS1kwGVPTtS1zJ9bY8NWcxbw3wI2SNFk4sc55tc07qaWYSLlrW+hKrtLnW3dNtBxR7zfyEKqJDFRYw/Oar7zOV6kut8Zb1sp8rAhaSV7vkK3LIXNc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1794257262; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=hAko9zGkmi9niJtZOL71kVVVwwbmLc2t5MHh5r5eE0o=; 
+	b=LyaXY6Obyfmz9ip0+Slx4XjSlVg8teruIXtc4tnbM9WBqTXeFsQoIolV7T85UOvBFFBIzSldbXnO1ia1qbFxL7mwI2RGQAtFsvLKuuUaDncb/cgsWOXPmjoBuejRtnUgMzj4FYVO2ArARKNqpCBPIOrfXaCqF7vmjfmFF3TTlVI=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: a=rsa-sha256; b=IFFVSli/fpGgICQj52Xp3TckmHGAzWCHrwGBi2PqqOm2PEHLoPZqCOCANftleC+kptSgcc0ElcHEuqoJIhlT5DN4piVmO0yIxB7SYiLNjUkn9LegPLlZu3GLs7sjAwhO39SYvwRc3IfyGYAbvT0fwrev/fZ+l4+aqp3IOrnCF7U=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=hAko9zGkmi9niJtZOL71kVVVwwbmLc2t5MHh5r5eE0o=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.eu with SMTPS id 1794257260723543.4215096609604;
+	Mon, 9 Nov 2026 21:47:40 +0100 (CET)
+Date: Mon, 09 Nov 2026 22:47:39 +0200
+From: Igor Velkov <iav@iav.lv>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Shawn Lin <shawn.lin@rock-chips.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+	linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Igor Velkov <iav@iav.lv>
+Subject: Re: [PATCH] PCI: rockchip-host: Enable async probe by default
+Message-ID: <20261109204122.async-probe-reply@iav.lv>
+In-Reply-To: <20261109202202.GA265423@bhelgaas>
+References: <20261103-rockchip-pcie-async-v1-1-4dcadb94af64@iav.lv>
+ <20261109202202.GA265423@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,53 +73,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 09 Nov 2026 21:47:51 +0100
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Jan Kara <jack@suse.cz>
-Cc: tytso@mit.edu, Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li
- <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh
- Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>,
- linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: fix OOB write in fast-commit replay
-In-Reply-To: <idqh5j5m3rhjsdu77h7dchk5vxj47fcsls7tcdhu4wdf75cthu@sxwipa7u2hyl>
-References: <20261108204345.1423203-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <idqh5j5m3rhjsdu77h7dchk5vxj47fcsls7tcdhu4wdf75cthu@sxwipa7u2hyl>
-User-Agent: Roundcube Webmail/1.6.20
-Message-ID: <038be9b9541cbcc43ed35cf7950b9361@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-On 2026-11-09 14:19, Jan Kara wrote:
-> On Sun 08-11-26 20:43:46, Jérémy Jean wrote:
->> Fast-commit recovery checks record bounds and lengths during scan.
->> Replay reads the records again without these checks. A corrupt 
->> filesystem
->> can make an earlier replay operation overwrite a later record. Its new
-> 
-> This fact looks like the real problem. I think we should validate the
-> replay does not corrupt the journal. How does this happen? Otherwise we
-> have to fully redo the validation of each record done in
-> ext4_fc_replay_scan().
+On Mon, Nov 09, 2026 at 02:22:02PM -0600, Bjorn Helgaas wrote:
+> I don't know what the SD card has to do with PCIe.  Seems like there's
+> some SD issue, and making PCIe async happens to avoid it?  Sounds
+> fragile to me.
+>
+> Other changes like c0e1eb441b1d justify it by allowing other drivers
+> to load in parallel to reduce boot time, which is a good reason.  But
+> apparently here it makes a functional difference as well, which feels
+> sketchy.  E.g., what other drivers need to use async probe to avoid
+> similar issues?
 
-The replay can corrupt the journal because a corrupted image can make
-metadata blocks used during replay overlap with fast-commit blocks. I
-agree that making sure that replay does not corrupt the journal would
-be a stronger fix, but I'm not sure I see a simple way to fix this
-properly. Rechecking bounds as I proposed fixes a memory issue but it
-indeed does not address the root cause.
+You're right that the real problem is ordering: nothing makes dw_mmc wait
+for the RK3399 io-domain driver, which sets the 1.8 V level of the SD
+pins. [1] tried to add that dependency and was not merged. Async probe
+only stops this driver from holding the deferred-probe worker for ~0.7 s;
+any other slow probe in that window breaks UHS the same way.
 
-Regards,
-Jérémy
+Is there a way to express this dependency that you would accept?
+
+[1] https://lore.kernel.org/all/20230904115816.1237684-1-s.hauer@pengutronix.de/
+
+--
+Igor Velkov
