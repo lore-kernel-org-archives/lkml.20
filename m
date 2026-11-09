@@ -1,78 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794247717;
-	b=NLLhd0+aaMcmsDqvBMukFidR/5eFkYsICfYPZv1LfbJYUb5dmZDrpUtiRxYJpe3BOGbV
-	 zFln5e0COwzmm8fHq3EYInIeg6V/I+61z4brDVVvfYrplhdHotQH6+Hc/6TwBxCjJUUVU
-	 TzibfTfQWZo5MhI7LVzwVGbKQCS+TBLhizb3DA2nlQ5yuwYN+uG+y/HuDDZHLfVNxvl94
-	 ZgJx1pPnRHCIr5hAzIaaVzdnVthTFXgHwzIFZxM2djd8Yxi7tydPizrB25PlKHH8NBmPg
-	 goS9cT8RQD7UNSPBCR+ZZYYH77HCPKK5EWSVJBsZvLuuyRYy1fV78uqrMxBK3vFtRJw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247717;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MwztoYOv1J7zSH3DASjV2LVgTwtMR/2kc1J+u7Xr418=;
-	b=j7KzrQLeMIfpWAMKyhO7BTP2z3NJimXgHs8eVSc+noZF8j6EWPXuESZOpfyxh8HjRDjL
-	 srR6njwqqWLREHNa73HuANaueS0EH/ow7ZPYjvUwZ1fJ/3d3zrd4FvVyG+VsiqJtQ90/8
-	 e9NcXDQPgtHGpZ0lOhrhHQdvlF4C8lEe1O9vyH3GRNUbLZQyFyegEW0lIo/q043bJMHiq
-	 WCkPOfmt18TNfYijZ/zpOP49ftoE7XaB2QKBPuOYeaBA3VnhJkgBwV+UVe+cW41s8IM2o
-	 3t9uS3I4TZZyIjURiG0a3AFRWCEygWjG1ZEKK6C/4+t7w3V7Z6QMKddF8UR5YBHssXQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jQ7nGnBQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849AD606A326;
-	Mon,  9 Nov 2026 18:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jQ7nGnBQ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794247717;
-	b=piHM9qYpQxc1z6i8WitYGzPskgPP3i1A5Yqm9HNI/ImPFZkYO8Sj6VouDO+3pGysNr4u
-	 Oq/L7EKslB5EGrzJBZ09K6fbMAweepC5fDb4Z3frLcnKRspKGPwbIrxZ+hpAvma58TEsz
-	 dxNHgzew80cWaXHz3kjooORG6jjyJbG5iLbE9i3RSoB1SoyrXQTzvTo3F/q6mdgnsGzwH
-	 3X5JmN5TnOznlOoLB1QaC7afXPiIDmJ3asKgCJ3toOrMgcFKfuCXa/BxkF5M/rkzIQi46
-	 UC7C3hoor3YwZnDhcYG1m+ba0XVu+UswyzAt0nCn14Gob8VL59DOk1DnM5BHbBOeaWw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794247717;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MwztoYOv1J7zSH3DASjV2LVgTwtMR/2kc1J+u7Xr418=;
-	b=j7oekuo7U1f24vZArPDCfvhsmvVgyju/O3fll/MT7cTuV0KKCFZ3hBnQVkYrMYgL5qXC
-	 HDoeM521oy1M5yEC6eawKqUz3m64mfftPjmrxMoG1GloYs4M5icJEtqWWw2scNe4UcyvP
-	 l7bzqQ/poVpZP1aA1nKxuK9VPQMtaMs8pgu7Y9Crf64WcSnbiA/l/8y3edukdXV1zlivi
-	 F5HX1vcYK0dqwZliA/y6lZhhZPNyboAxHRGl14jM32ZV328r/dEw+nYeNCkZnrdpknhac
-	 jr0hhSivRj+YH/O2CpfyeR1hh90Az5YjmmXQYZFMQkg2gEsWlF6XdXEetKWXy2ZPskQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.156.171.147
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794247746;
+	b=P+Y3kMOZelhF5qBur4hDelwm9Z1nKhVCXU5QqAn96zIfd5Uw1PRssmYnZHQNrf90YmI8
+	 +ULzt94kWJ6SCZ7bOWT5oSbEuIfAZLDpmkP0zkWzS8MgJz0hMPDOPP5QrXb9WDTVItFbW
+	 dJJ4yNLu1aMa9Tvt9EZPCYV2I6mQha5muvUFCVeIWqftwBGpZ7kYQoK4rZn5kgc4bXjrv
+	 PoIUFM9xr/I/qz6VbN8iC/Z3UWrLdl5Jap/9EurSdvUd59IatkH+e+dcKrIhf8Xw+7y8T
+	 mpez8nYRoAaFFFV1XAVVc09+WSmgtkbG0ebxQXH7BrzlXPrcN7jd07qf8wHOwy8M9tw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794247746;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
+	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:X-PPP-Message-ID:X-PPP-Vhost:X-Virus-Scanned:
+	 X-Virus-Status;
+	bh=cwiXIseu1tU968JiDtE3CP1qovA+L9Xqa6a2ybeurAw=;
+	b=n18jvwqHik0xkg8xuhGRNe1ePlArnGQqcIRkqzPvR0yXBM0sKttnKD4/TOR47K7n4+px
+	 atmKeK2nOBxGA8RhmsgXFPVGTu+wLwuVOj/spsOdN/QXOpt4J2nGiF4QB3PwOzf2YAtUb
+	 O3uWlAd/St7QL/jrD9SUckjWgMnvrShlCe9GqnW73/cknWSuFU9OYTC/plctBD/BNIiey
+	 G93wwpR6CKyJiwLZdKh+dbD4nT+is8qGdgmvINgD5rr+KThUKJnGGaBwaj54lyOsnP236
+	 HJPTDZU3VGetBAFvYrMe6W9P9UrskNpWKI3RRA95EPIOYkQp4wGf2Y8pYBCfwTzo80g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=antheas.dev;
+	spf=pass smtp.mailfrom=antheas.dev;
+	dkim=pass header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=Ka84qEpp;
+	arc=none smtp.remote-ip=178.156.171.147
+Received: from relay13.grserver.gr (relay13.grserver.gr [178.156.171.147])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8CA881F0089F;
-	Mon,  9 Nov 2026 18:08:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794247717;
-	bh=MwztoYOv1J7zSH3DASjV2LVgTwtMR/2kc1J+u7Xr418=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=jQ7nGnBQ2ePWQXquOfhEXf+j1cGzcx5gdDp6MsgshMjYn/km4ZZoM96nIFlAYADlo
-	 HO79bxvhyIS8fS3xZFL4XvXqgSKpclGZCq4ViidoXjmwfvku50PEM9EuOhLurv9UEl
-	 5c6lZX83RMJ06ImOZA97RFyf/DD25IpseSp9Liv4O4QTNQxgSi3IL5v3+NRgvw6Q6D
-	 1DhwEiRUwde2tjkm4ivg3KH7hLTzOExZTOhhe+v6rAEhaFqXabto6xw32gCqWOVKPI
-	 dWvCKYY+2D/re9GkBCsyuX3Y1ZuqDaG7HeMLpsqB1lmRp/ZlLtaPb3TedyPYE1EumE
-	 efeAvycrts50Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 184D548598;
-	Mon,  9 Nov 2026 18:08:36 +0000 (UTC)
-From: Michael Baikov via B4 Relay <devnull+manpacket.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 13:08:35 -0500
-Subject: [PATCH] net: sfc: run all the packets through GRO
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3B8606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:09:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D3B8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=Ka84qEpp
+Received: from relay13 (localhost [127.0.0.1])
+	by relay13.grserver.gr (Proxmox) with ESMTP id 7E30A5E4D8
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:08:57 +0200 (EET)
+Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by relay13.grserver.gr (Proxmox) with ESMTPS id 849CE5E4C5
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:08:56 +0200 (EET)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	by linux3247.grserver.gr (Postfix) with ESMTPSA id F05D01FDFEF
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:08:50 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
+	s=default; t=1794247735;
+	bh=cwiXIseu1tU968JiDtE3CP1qovA+L9Xqa6a2ybeurAw=;
+	h=Received:From:Subject:To;
+	b=Ka84qEppK1wa83AXv8kW7+cpuUbyo7esSkWs+s0NE8bYXRZiPMQA6OjmkJlmkLtE/
+	 uYHBEZzKH4DfFddX9gJisJ2itCJmVlywmW+3fvpDeMCkQ/jfCktQVYh2SIcfeCXJyf
+	 SEm2V7eVfo+5xozoZtEDED2zdTNK4N/ey/o2/xxLRrT/ID2+aXmJf+ucCE2ye5+YwV
+	 qtYO9T3NHXi4QrxeAnwSSmuW/dfaPNeDMx15ZiHIKphe6pChlU8/KY4WkufoJUo2Fi
+	 /+YKAo+8oEKtIj4SEJmbv/XI8YWziZ+snCqzmWSXJFU5PL4q14ktSIkgjC8wAFsbVA
+	 TH6DgTcrMjCDg==
+Authentication-Results: linux3247.grserver.gr;
+        spf=pass (sender IP is 209.85.216.52) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pj1-f52.google.com
+Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-3b155f50c24so668438a91.3
+        for <linux-kernel@vger.kernel.org>;
+ Mon, 09 Nov 2026 10:08:50 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErG5GZgLCtwFaXS3mnCD6tQa27VpqkOyzzNcJKJcUt+o/hn+nUaJ3cjvrugnHNBAUKE5L7OTxf2l22kK1W4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+KQeKB/BoNVVmM70pgHiflJw5pVrDBMEOXda62DOOHp/U3oKup
+	5D4L+lvX1KdD5nbZPIO6BGNPPtzoefUQ/fKT2gxv73HrvCKF4pVRmukvq71+9Yy2993URbZMKdN
+	Nz5TM6rFNm/a3jjX0shw2Ovnm/fwB/1k=
+X-Received: by 2002:a17:90b:54c3:b0:3ac:c024:b275 with SMTP id
+ 98e67ed59e1d1-3b166ae44eamr497272a91.9.1794247728146; Mon, 09 Nov 2026
+ 10:08:48 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,87 +82,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-sfc-udp-gro2-v1-1-025d385f007f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avIrBtQM6GuEi1CR5uNhVIE4t2Tl
- m/xf4VCmanAIipkerjwmTrUIMAde4qE7LtBS22VkjOW4PD2F8Z8ajST9cGNwRmroSdXpsDvv1u
- 31j4fSpf2XgAAAA==
-X-Change-ID: 20261109-sfc-udp-gro2-456dfc3fc462
-To: Edward Cree <ecree.xilinx@gmail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-net-drivers@amd.com, 
- linux-kernel@vger.kernel.org, Michael Baikov <manpacket@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794247715; l=2263;
- i=manpacket@gmail.com; s=20261015; h=from:subject:message-id;
- bh=0rd7K8H1ssa2d09oUpAQlHIjcPRA+ZoTgwxPqrVR7J0=;
- b=M6QcjD2zL+tYeQHO/aGWNAsCfzpoTvIoK02dBnEqGiVReRDgxClyyVRmtPynCI4SvPUlORNGL
- xJyVjCkKUOUDCNOkECX1efjh7M7nZqO3V2F7iD+murSrNAjxKQ1tNKJ
-X-Developer-Key: i=manpacket@gmail.com; a=ed25519;
- pk=OljyhmMnK5zdnRB5D/BzDCrh2eycv9FSkJB+r1/MtzM=
-X-Endpoint-Received: by B4 Relay for manpacket@gmail.com/20261015 with
- auth_id=1197
-X-Original-From: Michael Baikov <manpacket@gmail.com>
-Reply-To: manpacket@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261109-asus-wmi-kbd-readback-v2-1-c048fc53d8ee@proton.me>
+In-Reply-To: <20261109-asus-wmi-kbd-readback-v2-1-c048fc53d8ee@proton.me>
+From: Antheas Kapenekakis <lkml@antheas.dev>
+Date: Mon, 9 Nov 2026 19:08:37 +0100
+X-Gmail-Original-Message-ID: 
+ <CAGwozwHtY9KU7vdsqqmXxnq4=eJtoMzt39DXYXYOVoEfi0gVkw@mail.gmail.com>
+X-Gm-Features: AclHuK88t3Crb0NgSMFK1GDnzs_chBsT6_eAPi911nkNap2DTu5Yk6bYt-dwsYw
+Message-ID: 
+ <CAGwozwHtY9KU7vdsqqmXxnq4=eJtoMzt39DXYXYOVoEfi0gVkw@mail.gmail.com>
+Subject: Re: [PATCH v2] platform/x86: asus-wmi: Ignore unusable kbd backlight
+ WMI device on ROG Strix G814FP
+To: tarrihmoad@proton.me
+Cc: Corentin Chary <corentin.chary@gmail.com>,
+ "Luke D. Jones" <luke@ljones.dev>,
+	Denis Benato <denis.benato@linux.dev>, Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+ Sercan GOKMEN <gokmensercan@gmail.com>,
+	Burak Goncu <burakgon12@gmail.com>, Denis Benato <benato.denis96@gmail.com>,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-PPP-Message-ID: 
+ <179424773396.131906.7531749219015073578@linux3247.grserver.gr>
+X-PPP-Vhost: antheas.dev
+X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
+X-Virus-Status: Clean
 
-From: Michael Baikov <manpacket@gmail.com>
+On Mon, 9 Nov 2026 at 09:17, Moad Tarrih via B4 Relay
+<devnull+tarrihmoad.proton.me@kernel.org> wrote:
+>
+> From: Moad Tarrih <tarrihmoad@proton.me>
+>
+> On the ASUS ROG Strix G18 G814FP, writing a level to the keyboard
+> backlight brightness in sysfs works, but reading it back always gives
+> 0, and the read makes the Fn brightness keys misbehave.
+>
+> The firmware reports the keyboard backlight WMI device as present but
+> doesn't implement it. DSTS(0x00050021) always returns 0x50000, which
+> is level 0 regardless of what the actual level is, and every
+> DEVS(0x00050021) write is rejected as an unsupported method. The
+> keyboard backlight is actually driven by hid-asus. asus-wmi saves the 0
+> as the current level on every read, and the brightness keys step from
+> the saved level. So after any read, for example by the desktop or by
+> systemd-backlight, the brightness-up key sets the keyboard to the
+> lowest level instead of one step higher.
+>
+> Add a kbd_led_no_wmi quirk that makes asus-wmi treat the keyboard
+> backlight WMI device as absent, and set it for this board, matched on
+> the DMI board name. asus-wmi then keeps the LED registered for hid-asus
+> and no longer reads from or writes to the WMI device. The entry also
+> sets wmi_backlight_set_devstate which the board currently gets from
+> the default quirk_asus_unknown, so nothing else changes for it.
+>
+> As a side effect, the kbd_rgb_mode and kbd_rgb_mode_index attributes are
+> no longer created on this board, they never worked here since the firmware
+> rejects those writes as well.
+>
+> This patch was written with the help of an AI coding assistant (Claude
+> Code, Claude Opus 5.5). I reviewed it and tested it on my affected laptop.
+>
+> Fixes: fac55d29581f ("platform/x86: asus-wmi: Add support for multiple kbd led handlers")
+> Suggested-by: Antheas Kapenekakis <lkml@antheas.dev>
+> Suggested-by: Denis Benato <denis.benato@linux.dev>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Moad Tarrih <tarrihmoad@proton.me>
+> ---
+> Tested on an ASUS ROG Strix G18 (board G814FP, BIOS G814FP.317,
+> keyboard 0b05:19b6) on 7.2.14, built as DKMS modules. The keyboard
+> backlight is still registered and driven by hid-asus, the attribute
+> reads back the level that was set, the brightness keys step from the
+> real level, and the level survives suspend/resume and reboots.
+> Build-tested with W=1 against pdx86 for-next (c339f4010dea): no
+> warnings. checkpatch --strict is clean.
+>
+> The kbd_rgb_mode and kbd_rgb_mode_index attributes are no longer
+> created on this board. They never worked here: writes to kbd_rgb_mode
+> are rejected by the firmware with -ENODEV, like the brightness writes.
+>
+> To answer Denis's questions on v1, the bug this patch fixes happens on
+> the latest BIOS for this board as of writing, which is version 317.
+> I only have the G814FP, so I don't know if other 2025 G814 models
+> are affected, the quirk only matches G814FP.
+>
+> This no longer depends on Sercan GOKMEN's kbd_led_no_readback patch.
+> Both patches add a field to struct quirk_entry and a DMI entry, so
+> whichever lands second may need a trivial rebase.
+>
+> AI assistance: Claude Code was used to trace the keyboard backlight
+> code in asus-wmi, run the debugfs DSTS/DEVS probes, write the patch and
+> draft this message. Testing and final review were done by me on the
+> hardware.
+> ---
+> Changes in v2:
+> - Add a quirk that makes asus-wmi skip the keyboard backlight WMI
+>   device on this board instead of detecting rejected writes at
+>   runtime (Antheas), so no more WMI writes that are known to fail
+>   are issued (Denis).
+> - Link to v1: https://patch.msgid.link/20261108-asus-wmi-kbd-readback-v1-1-bf38f6400ade@proton.me
+> ---
+>  drivers/platform/x86/asus-nb-wmi.c | 14 ++++++++++++++
+>  drivers/platform/x86/asus-wmi.c    |  3 ++-
+>  drivers/platform/x86/asus-wmi.h    |  6 ++++++
+>  3 files changed, 22 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
+> index 3b0f3346dc60..fbdb00248be5 100644
+> --- a/drivers/platform/x86/asus-nb-wmi.c
+> +++ b/drivers/platform/x86/asus-nb-wmi.c
+> @@ -93,6 +93,11 @@ static struct quirk_entry quirk_asus_unknown = {
+>         .wmi_backlight_set_devstate = true,
+>  };
+>
+> +static struct quirk_entry quirk_asus_g814fp = {
+> +       .wmi_backlight_set_devstate = true,
 
-This commit partially undoes changes made by the commit e79255de8581
-("sfc: Do not pass non-TCP packets into GRO code"). Those changes made
-sense back then, but now GRO can help with more message types. Now, when
-GRO is enabled - pass all the messages though GRO subsystem.
-Tested on SFC9250 with a UDP_GRO socket.
+Make sure that wmi_backlight_set_devstate is needed
 
-Signed-off-by: Michael Baikov <manpacket@gmail.com>
----
-Problem I'm trying to solve: I'm dealing with high data rate, small
-message size multicast UDP traffic - uniform size, addresses - a perfect
-candidate for UDP Generic Receive Offload (GRO). Made a prototype - it
-worked as expected on the desktop during development, but wasn't
-producing any GRO coalesced messages on the server.
+> +       .kbd_led_no_wmi = true,
+> +};
+> +
+>  static struct quirk_entry quirk_asus_q500a = {
+>         .filter_i8042_e1_extended_codes = true,
+>         .wmi_backlight_set_devstate = true,
+> @@ -167,6 +172,15 @@ static int dmi_matched(const struct dmi_system_id *dmi)
+>  }
+>
+>  static const struct dmi_system_id asus_quirks[] = {
+> +       {
+> +               .callback = dmi_matched,
+> +               .ident = "ASUS ROG Strix G18 G814FP",
+> +               .matches = {
+> +                       DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
+> +                       DMI_MATCH(DMI_BOARD_NAME, "G814FP"),
+> +               },
+> +               .driver_data = &quirk_asus_g814fp,
+> +       },
+>         {
+>                 .callback = dmi_matched,
+>                 .ident = "ASUSTeK COMPUTER INC. Q500A",
+> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+> index b33ebdb21aa2..51fea21ff247 100644
+> --- a/drivers/platform/x86/asus-wmi.c
+> +++ b/drivers/platform/x86/asus-wmi.c
+> @@ -2165,7 +2165,8 @@ static int asus_wmi_led_init(struct asus_wmi *asus)
+>         asus->kbd_led.brightness_set_blocking = kbd_led_set;
+>         asus->kbd_led.brightness_get = kbd_led_get;
+>         asus->kbd_led.max_brightness = ASUS_EV_MAX_BRIGHTNESS;
+> -       asus->kbd_led_avail = !kbd_led_read(asus, &led_val, NULL);
+> +       asus->kbd_led_avail = !asus->driver->quirks->kbd_led_no_wmi &&
+> +                             !kbd_led_read(asus, &led_val, NULL);
+>         INIT_WORK(&asus->kbd_led_work, kbd_led_update_all);
+>
+>         if (asus->kbd_led_avail) {
+> diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
+> index b45f81b38a47..9f3769fc82f7 100644
+> --- a/drivers/platform/x86/asus-wmi.h
+> +++ b/drivers/platform/x86/asus-wmi.h
+> @@ -41,6 +41,12 @@ struct quirk_entry {
+>         bool wmi_force_als_set;
+>         bool wmi_ignore_fan;
+>         bool filter_i8042_e1_extended_codes;
+> +       /*
+> +        * The keyboard backlight WMI device reports itself as present, but the
+> +        * firmware does not implement it: reads return level 0 and writes are
+> +        * rejected. Leave the backlight to hid-asus.
+> +        */
 
-The server uses SFC9250 and turns out its driver only allows GRO for TCP
-packets. Change was made back in 2013.
+See how the other quirks do not have comments? This one should not either
 
-Expected user impact:
+Other than that, it looks fine to me
 
-1. GRO will start working for UDP
-2. It might add a slight overhead for UDP traffic for e10 drivers.
-   (this bypass only exists for e10 drivers, for e100 (ef100_rx.c:140)
-   packets are passed to GRO unconditionally
+Reviewed-by: Antheas Kapenekakis <lkml@antheas.dev>
 
-First version of this patch tried to pass only UDP and TCP messages
-though GRO, but since it's unlikely to have a high volume traffic that
-is neither of those two - this version simply drops "is TCP?" check.
+Use b4 to automatically carry the tag to v3
 
-Link: https://lore.kernel.org/all/20261018-sfc-gro-udp-v1-1-f7bf378178f8@gmail.com/
----
- drivers/net/ethernet/sfc/rx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Best,
+Antheas
 
-diff --git a/drivers/net/ethernet/sfc/rx.c b/drivers/net/ethernet/sfc/rx.c
-index ffca82207e47..9874093944f8 100644
---- a/drivers/net/ethernet/sfc/rx.c
-+++ b/drivers/net/ethernet/sfc/rx.c
-@@ -401,7 +401,7 @@ void __efx_rx_packet(struct efx_channel *channel)
- 	if (unlikely(!(efx->net_dev->features & NETIF_F_RXCSUM)))
- 		rx_buf->flags &= ~EFX_RX_PKT_CSUMMED;
- 
--	if ((rx_buf->flags & EFX_RX_PKT_TCP) && !channel->type->receive_skb)
-+	if (!channel->type->receive_skb)
- 		efx_rx_packet_gro(channel, rx_buf, channel->rx_pkt_n_frags, eh, 0);
- 	else
- 		efx_rx_deliver(channel, eh, rx_buf, channel->rx_pkt_n_frags);
-
----
-base-commit: fa5196392691051963726787944db872420dfa75
-change-id: 20261109-sfc-udp-gro2-456dfc3fc462
-
-Best regards,
--- 
-Michael Baikov <manpacket@gmail.com>
-
+> +       bool kbd_led_no_wmi;
+>         int key_wlan_event;
+>         enum asus_wmi_tablet_switch_mode tablet_switch_mode;
+>         int wapf;
+>
+> ---
+> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+> change-id: 20261108-asus-wmi-kbd-readback-236245e82de8
+>
+> Best regards,
+> --
+> Moad Tarrih <tarrihmoad@proton.me>
+>
+>
+>
 
