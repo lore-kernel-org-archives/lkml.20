@@ -1,66 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.15
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794263433;
-	b=ANNhLX5Gkiw3GXQyaBgNrF5hSrEnLNxgb5mdU0II6Qerw+DTWK3PNTokqM4/+wX2pH5y
-	 01DBKteDTthzwIRD+LQeqB61Eb8XLMo+3MsK9THgMJxOGRUIqnNm3HE2p9crXu51FdpcF
-	 TGbSPQWw98f+mrdyHZL67FBt7HrWz+Wp3fSPEiVvVk6WfrmejaI+O+XkQKllDQrIyCgzO
-	 Uqk5DVMBq3vUCvNPWWNpB91Lx60BR21TkYFfnLwKDSrpBd4Kb16KaU/W3DlrGZ+RhUZe4
-	 AtcPcmmREPcZvDfXUkOV22gR2EZbpOnE5F4NKkacrV+5b+FmO0R58YNHr0KLA7DyEJA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263433;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Provags-ID:X-Spam-Flag:
-	 UI-OutboundReport;
-	bh=A3/tX5Js/EQc5Bx1i87PU/tdcMaCJa9fE4LFfvSfHdU=;
-	b=kAEe2fcEuqLAjdzno95Twk1MDpFqVgQksE2aqcAL6X1Rjg7XFE7h4SXQr52Nm/n1AF7Q
-	 6NNdUSAz0Jz+UdmH8gu7MPkREUiQF5WTxkDmZcfNSohAVKiJIwcUTzFD/lU6AJf4WWfiV
-	 CNmoL0YZcOP8Q13vlxJAwJx53kFlZ7PJ32mhi7ByzgOBCnyr3GtcaJiQ9h9cfIC0X5hTb
-	 Yf6E+EtfrnkRLJh6i1Q0OBDAWD7jPCPk5pM+0bdm8AWPi7kWrL51bOSLZLECZOhF9JhAs
-	 wrRGdwyvGdcqv9YHEsVE9IBm4RqxUX8kXgVGl76MOPPVTyPxozI/SP/KiC4O/PDjWKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.li;
-	spf=pass smtp.mailfrom=gmx.li;
-	dkim=pass header.d=gmx.li header.i=arc@gmx.li header.a=rsa-sha256 header.s=s31663417 header.b=QLgR2+d2;
-	arc=none smtp.remote-ip=212.227.15.15
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794263462;
+	b=m3/Npzz5ZlOd6Qhkh87XeOyHkCuNh94b2XnKo38qFC6VgnXG5n3+e8SbMmoUh06qumx+
+	 v5fwp7yZjol9ZbpXdAMghQ5tIJlBk/ybaivyHnehM8/Z8JUIWbuHYUMBj+9H3TCHUGDju
+	 g9DnQ2jex3mRiw0nWnOvD8pAYBAPtpaoT+SsNhopSbwH6bN+4NgQBJ58+Q1ZuavKrf1P3
+	 tOS9bmjx8By/jwQyFJHgF2MPrRAjtqGB0RqqtDkNv9UChfzIJ+/SztYRZkHaRSZkxZJdm
+	 He6NhNgEyFjTasqGC0Yi0DP/Fx9AD9EKo7ehpc9ECgQ8dPrFsad4HvHKhTboAouQxIA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263462;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=WOTFv6VJX6Xsjhv76PyixKH+T28COjVb1Ygxx/2pcso=;
+	b=RMAdD3rRbu6nPuSIOVKcCqvxD9P1rsbP7UUk1CSErakZy6/hW9qUxSP5Odru5frSRke0
+	 KywexiAqW0wGsbT3+W8D7sYUpqV/unvBKLdJJEsVkywo9LSwJcD6GjgUevAouEEjaISIy
+	 Q2F+DMY4hkFzsYJ2yeKIUkJN1Yolttv3PXY+o1nBxWPEYgZSTIK4+EpuNZhbNZd4spyPz
+	 oTs0tKlH4FKoZrjChTTSvxmOHwXXMFE+NT0bZpI6MqFY/EMsago6CWlLFfdxZ3Z97jVMM
+	 XkBta+ytKntfZ0oBfM7FX0jtJAn8PgBm+eyjv3/vXXz3NuHLIz6kqgEcszAf+rIcl9Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hTIw2MTj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.19
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012019.outbound.protection.outlook.com [40.93.195.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE91E606A32A;
-	Mon,  9 Nov 2026 22:30:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE91E606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.li
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.li
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0648606A325;
+	Mon,  9 Nov 2026 22:31:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0648606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmx.li header.i=arc@gmx.li header.a=rsa-sha256 header.s=s31663417 header.b=QLgR2+d2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.li;
-	s=s31663417; t=1794263429; x=1794868229; i=arc@gmx.li;
-	bh=A3/tX5Js/EQc5Bx1i87PU/tdcMaCJa9fE4LFfvSfHdU=;
-	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:In-Reply-To:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=QLgR2+d2AK8bYD3OGshx6jYcasqVlzwdy0uV/5wrcO12ydcJY+cL7PwTmFhSycgT
-	 K9Di4LeOfTVDXG2HhwoxYjoRIoT3JMJbmOG7WMqZN2K3+gCfdKksDo4kwBKeZBhAd
-	 jzq483DePyKU5P0KW10B0m+7583Jpb4ENYwTJXOCDaTGMKKOPYbqSX/BnieJMo7eK
-	 XlOl68Kst1pWUzg1IQzU7vW42UyKveuVSgteibfrkx3evnBxrXu4PTq0kQbSMVKWR
-	 uUcRZldmiYD8s7XjWbgpI2uTX254eaNTbMwTRLX9DTehchfqXDXSExiKb96o9APqE
-	 PGvOr1s+ghvcfqcMSg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1N1wlv-1wTW9c1cHx-00ws2K; Mon, 09
- Nov 2026 23:30:29 +0100
-Date: Mon, 9 Nov 2026 23:30:28 +0100
-From: Christian Ruppert <arc@gmx.li>
-To: Will Porter <mrwillporter@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Neil Andrews <neil@androos.io>
-Subject: Re: [RFC PATCH 13/16] ALSA: mixer_audient: Add enumerated controls
-Message-ID: <avJJgGbAVnVrUlPM@khmer.arcnet>
-References: <sashiko-outbox-201869@kernel.org>
- <20261106202943.1034941-1-mrwillporter@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hTIw2MTj
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vPB8V8CFDDMqcIWa+bYQb1M35AAaZI6ImQf/gEDy9Ca5dkVdjPwF/GVLkKGOREGMOcY52ADsUMpaJQxgZma4nqCJSaaitP8UpG2aNmMdefRgJWuohrsMdTXr6t3NjlUJjwqWA9CxPK2fhQnjwC9krKmlYDIIkgeXL3b0ehxNWiPeAcs4m2yHKXaKZZGpDaiM1+UcouAMqBldUJkfC4QD00q3Ofvh1eGiBfivYCN+ARdqqF9pomlVq6VNweVJ4FetURTQZqhf1WpnEAfjpSWtuDCxRY5Qtzr+gDNciE5P+JJqj9uyHFUCecq4B6Lr1IsDFWLXiK+H9UCpRkyh6JYZ/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WOTFv6VJX6Xsjhv76PyixKH+T28COjVb1Ygxx/2pcso=;
+ b=isEyNOpPLwPiQFqoXYCZekJJQzPOyx7fRBG6x0UwTBzldhH6+GEUCksjS8K4dFLzU48MWsGx1PX7N0CtrXCBfjHEuRv/TKilWisatdbbzw5sgoUm66dGOaA8r1jahIK6TEb+mOs7YWqnSGA2BufVSHYUQe89f/b4YAZLJbZXO8ytsUJpDDOkEUyaE7L1Txd7qGSeesYB9yqTSF/DOBcrRs5QlWwmzBbBE6onRFFmPvoj6VMVag3rymuFM6Ip3RiAyWRKtnDIBXKyE0Q600/GTC+/QIqK2ha5IzhjA64HteTxeeBhc5E/NoRpmnacTl/MfisubYH8QBIqXpjQPx4nFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WOTFv6VJX6Xsjhv76PyixKH+T28COjVb1Ygxx/2pcso=;
+ b=hTIw2MTjba/OAHoneV+Se0kqpLcwle7Z9kPvKFUzDDHdqXg9ExGy5a+SlTZHouYl/v0e6i0cX3kMlxEzQSRa7yCq/1CyfsbaIcMbDoWWo3T+CbdECDWcTGAlwYWJPDf1GbFVdaF93dhT59zB4hpwhTpF7/nnWWnGaxat/Ol3xn7ZLQen0Z6HOV2igKDGMDUJDgInab4l1mHPooSiKMBH1FqoDKrmQ+ifbqgsCnuswpOOOzK4SlLwE92d3B/BKBYqI1xFzsVGKHpjnaRWtcHMjDSaJ114BgGnxkVrWZlC25ul2dIG1oLyIANYq7Q4McoEkbOySjXtlPpn6QL56j1l/A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14) by SN7PR12MB8170.namprd12.prod.outlook.com
+ (2603:10b6:806:32c::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
+ 2026 22:30:57 +0000
+Received: from SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777]) by SA3PR12MB598757.namprd12.prod.outlook.com
+ ([fe80::e206:100:5946:a777%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 22:30:57 +0000
+Date: Tue, 10 Nov 2026 09:30:52 +1100
+From: Alistair Popple <apopple@nvidia.com>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Dan Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, John Groves <John@groves.net>, 
+	Miklos Szeredi <miklos@szeredi.hu>, "Darrick J. Wong" <djwong@kernel.org>, 
+	Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/truncate: unmap DAX entries before invalidating them
+Message-ID: <avJEEEL-9L-ycVW9@nvdebian.thelocal>
+References: <20261106-fix-dax-invalidate-mapped-v1-1-292ce5958d67@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261106-fix-dax-invalidate-mapped-v1-1-292ce5958d67@nvidia.com>
+X-ClientProxiedBy: SY5P300CA0036.AUSP300.PROD.OUTLOOK.COM
+ (2603:10c6:10:1fd::8) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,447 +101,280 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="92xufW9v+mMevMAY"
-Content-Disposition: inline
-In-Reply-To: <20261106202943.1034941-1-mrwillporter@gmail.com>
-X-Provags-ID: V03:K1:nlnjFu/zCLpQVoomO768MNLuvxZ6NMEiTw9Q3yXSRWzW7BTL7MJ
- 6Sf5+/VqegqAjrpVMYBULTBEm0uovi8bnNLJtD2yRkw8XEUjxvXJyRxW+3rIqh9MXofN0Vr
- 7uopw1Ymb8q2zEpZcQZjUUXxgefDkUEK1cWUt2lOpB4pcsJIfu5qE5u/AFnVwmRvlRXui+1
- Xndtvti2/r5DHgNs43ilg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:/fYI/Hy5Mrc=;vQI6E0j+JOfONd9cYzlEWJ4NmxY
- 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
- ELaxuR5GrQ==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA3PR12MB598757:EE_|SN7PR12MB8170:EE_
+X-MS-Office365-Filtering-Correlation-Id: 07faa934-f6b7-40bf-fbdd-08df3eb11fa8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|366016|1800799024|376014|5023799004|11063799006|56012099006|261021121427099003|261021123027099003|261022075727099003|261028144727099003|261009223027099003|261026140227099003|261026121527099003|261102130727099003|261102123227099003|261022105027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	xqitOJy98/CS34PvzGwEqkm2dczp3ddybnveZ1TNhRgl1a8v0aWreGZFGoT/CpIX60xem2K6MGyRzXQkuh9BIRwoGugwscCGX85K00XNLGMTieXNvLQ7sEywDWV1KLg0v1Zf66x3BlaaUhJlS16WCtKaB8wuJ28opxwfSjta5hsEHOeWXRalerWfsr+n1tiVq6xkv2+cuVZq+9MJKsxyph4+KgKTIRm2HZtDQDVuqqlY6vtumZuYpFi1qCk+Fk5rWL6pT6q+wYqVNgriSmUNFNEbrdyhh9FiXkLDkm2vhtnoKB0Iz0/UgPLCd8SEHYu51EbMtYgSXS7c1wPGFIVE5MfvgHGPrUiwChWF2IlU3xQCHF5Fmt+7JiD3UaiHJHv0xqQzqFHv3upzmWZx4D/hTtrai+SDngLjb17GGs4g36EZ4q+INdSot2qp2Rr9BgPyGCDco1YFPzxlh7Carj4xHm95RpD7fYby6RWbsp8oPU71AV+M36/+P8Wkdd1wt8lLoVTFaIJ63r1k2Oc7tJ5+KhFEsZXRWNgf0R0L7a7DTicEqQAl6DjIlDSeo+PI1xdOfJ8OmF8/N0wOJkZMvNlikTdKyOKnscj19jYBU2vzC1sxU1sNlcbe8yeQpbD5L4RF0oWGhQ9xy/fW2KwN96C5KQaiITdOsiAx2uGliKHXI8g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR12MB598757.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(1800799024)(376014)(5023799004)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261022075727099003)(261028144727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261102130727099003)(261102123227099003)(261022105027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?2MJl2VcuWxf0z5OBdVHA6qp/xik/pLNER/4fS+bBfP0sVfzPxekSBgTBVPJM?=
+ =?us-ascii?Q?jncCQPh7MZkaYQVW0/87JqQ3uNJ6BkaxLdlvKMSYdx5jYrz1SNCYMQkM/jZm?=
+ =?us-ascii?Q?XRCAczeRdGS1N2wvrth618zPI+UgfWp1jTkH4COGH2DJ2pX2v0x07yhZjnhf?=
+ =?us-ascii?Q?4zXHT949omXkwvmBU4vZzd1nUOZIY6V9CdMV2yuR6ohKAa6Nb6GKGFyHHH+B?=
+ =?us-ascii?Q?4E1ZN2XgOBiVUIyNMvZR5//Eoq1DVnxJlLX4N8kwE6s1F+GaPKwAugUO5w9R?=
+ =?us-ascii?Q?djLxofptfHDC8HU6+rlBBBy5SkkrrGtNvFd+xa+N5wwKlB/1ojAfS1tpx/dt?=
+ =?us-ascii?Q?WkseI1LRFhcRzhPkmWyLA3foqaO3xsEjzOzJj5Xo0B3zh9MhdO+MxQlcwGO7?=
+ =?us-ascii?Q?hYb3//Y1bCu+8Kx3Ywnj6zMxdh5c4bn1D0FmSeqxnqmE41T3Z7wa9XMHKzdI?=
+ =?us-ascii?Q?8goBsnS7sJAarTSmigB/oVykAT+qwKd3tR/n6jGHsm+ZKftE//+b1+TuNPdI?=
+ =?us-ascii?Q?JFvq0A0KeMD5+rq7SL/BEBNcIWzxtaFNs6Up1IXYdOBCQe213gY6SOBX6afx?=
+ =?us-ascii?Q?j/DgB/dDs5r2dDvbtZoxXH7sTw19CbdznRuaU3aaXYPu6SjHnqzar6kNywRP?=
+ =?us-ascii?Q?K0qgfdiJjxKyWxaeCfPuIr5JiMv2tKQJC4ujVcAEB0cPig4mOn5BArB71Dq/?=
+ =?us-ascii?Q?jYt3hdH46ZHJtsXQ1F2tBQX6gXQkePWn3n0ii1eqW9zTWlzicF0lF+OZwX5z?=
+ =?us-ascii?Q?bE6qv5tvzs9Xya79MOcxSNKlEV/ywrjK140DXGEJIold/1CyyEmF84acMy2J?=
+ =?us-ascii?Q?H53HxqTjL4DwowT46OlN1ebrlOLsVjVC8/kKtwWoOgXhkEa1D2vnbFgFvSE4?=
+ =?us-ascii?Q?vI+5AO2nUNATiF7Rl/VxzhZD+WPoyGoIqI0+g1recd7IyVi2IJldKZSxf4Ci?=
+ =?us-ascii?Q?GQ3K/aKrMv3JB8ELUvsRvOllfpwy5lq5AF9otgz4nxgErGQHDrrgYsrUybKt?=
+ =?us-ascii?Q?7+rq9+pxei2ufD3U/UaHjHw6TnObfncy9XHJam3ky8c0SW7VekOX9yXqE1ng?=
+ =?us-ascii?Q?1xRkHplskFoZHm2uVZdhkX4GqLHmcPQ0tyNNj7HNxW4Xke3JIhtb/XNpchG7?=
+ =?us-ascii?Q?DKTHsg4TfcJ3Y1Nj+StWSVCIBuA6uqyra1QzRg45Xg6I8w37aTdBQy2G17hN?=
+ =?us-ascii?Q?SOEah/M/CwwgXTr6KrJ1lgrC0pMd7cl2HHYl3gZstbtQ7WAnqaMh6wVdXfWu?=
+ =?us-ascii?Q?3JF0ZyBCGGGMYsR2ZOwwjoFz4BMJfMux1gyiRuTTm6gqo9kQgPTY73tJeRQR?=
+ =?us-ascii?Q?Q0Ub3cKIzB9C/sCTU4tq1vTsmyOI67YUQ6IxoryxnTwXORhBXh9x7oRSKv/r?=
+ =?us-ascii?Q?NNSO8BXipKXLAPqOzqDzEaBdFKPlMA4W/yKxKxcn0xi5nIWsnm8pxuBedMhz?=
+ =?us-ascii?Q?herlBje3NJDlvfdP1CtUenbgRedmmc9rFCb2hITWkoUU1PI1fWqjt3Uiy4yd?=
+ =?us-ascii?Q?Ky52bX/t9E1EcvrfxoAzm5c4LFAzfONQ0UwH7+rJshlilOHTIhPe4X1fU3qz?=
+ =?us-ascii?Q?ui3S6B6lKnkSfzJvUHy8ZfhNO/fHt1PRo5IVNxcghehChfu6CzZWRlvzFT3y?=
+ =?us-ascii?Q?PLdmVXgJDV3mXoahgGhSZkHGxGPB5ByY4wQ4DkPGw5tRzVSs383xt+qYuT0F?=
+ =?us-ascii?Q?zUtgzvpGkRH/3gAzHRiJeLcV1YJiBw8Uu8/vuUUETSRQFM7Ktc0XarJv0yqU?=
+ =?us-ascii?Q?n3dGSN/oMg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 07faa934-f6b7-40bf-fbdd-08df3eb11fa8
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 22:30:57.1918
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UToODkYNpBpxmUI5J/x6PXhd+rHvkGem9o1RVDAHCebcsUh+sGQQLeeJ3jJzvXgyd+a3vqyOrg76xHzgTaAbKg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8170
 
---92xufW9v+mMevMAY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 2026-11-07 at 08:43 +1100, Zi Yan <ziy@nvidia.com> wrote...
+> invalidate_inode_pages2_range() invalidates the clean DAX entries in the
+> range through dax_invalidate_mapping_entry_sync() and only unmaps the range
+> afterwards. Dropping the last association of an entry releases its folio
+> by dissolving the folio into order-0 ones. If the entry is still mapped,
+> 1. dax_folio_put() warns;
+> 2. if the folio order is PMD, folio_remove_rmap_pmd() during the unmap
+>    afterwards operates on an order-0 folio (the original head page) and
+>    corrupts the original first tail page metadata.
+> 
+> This is reachable from userspace with a copy-on-write write to a mapped
+> reflinked file on XFS with DAX:
+> 
+>   WARNING: fs/dax.c:452 at dax_disassociate_entry.isra.0+0x147/0x1c0
+>   Call Trace:
+>    __dax_invalidate_entry+0x106/0x320
+>    invalidate_inode_pages2_range+0x3ce/0x830
+>    dax_iomap_rw+0x421/0xcc0
+>    xfs_file_dax_write+0x252/0x9e0
+>    vfs_write+0x53a/0xe70
+>    __x64_sys_pwrite64+0x195/0x250
+>    ...
+>   WARNING: ./include/linux/rmap.h:351 at folio_remove_rmap_pmd+0x8b2/0xaf0
+>   Call Trace:
+>    split_huge_pmd_locked+0x751/0x2350
+>    __split_huge_pmd+0x1bb/0x310
+>    ...
+>    unmap_mapping_pages+0x133/0x150
+>    invalidate_inode_pages2_range+0x700/0x830
+>    dax_iomap_rw+0x421/0xcc0
+>    ...
+> 
+> To fix it, unmap DAX ranges before invalidating them, as the page cache
+> path does for mapped folios. In __dax_invalidate_entry(), when
+> invalidating, skip an entry if the code is dropping its last association
+> but its folio still has outstanding references. -EBUSY is returned for the
+> skipped entries. The unmap before invalidation works because any remap of
+> the folio between the unmap and invalidation will bump the folio refcount.
 
-Hi Will,
+A quick check of callers of invalidate_inode_pages2_range() either ignore
+the return code or produce a WARN_ON if the invalidation fails. For example
+xfs_fs_commit_blocks(). I don't think anything makes that inherently safe
+against COW for example.
 
-Thanks for this update. I squashed it into patches 13 and 15 before
-reviewing. I also tested everything on 7.3.3 and could not find any
-issues. Here are my comments about the code, most of them are minor:
+That's pre-existing of course - but this patch does increase the likelihood of
+error. Overall though I think this patch is still an improvement, and based on
+code comments my AI agent concluded that these kind of issues are somewhat known
+anyway.
 
-patch 12:
-- I would declare snd_audient_int_max, snd_audient_int_min and
-  snd_audient_int_from_ctl as inline, they are little more than macros.
+> Fixes: 38607c62b34b ("fs/dax: properly refcount fs dax pages")
 
-patch 13:
-- I would have snd_audient_enum_item return the negative errno instead of
-  e->items and then propagate it. This seems more coherent with the
-  convention applied almost everywhere else in the kernel.
-- I wonder if it would make the code more readable if we refactor all the
-  if-statements snd_ctl_audient_info has grown into something like DIFF 1
-  below?
+I suspect this issue actually preexists my changes here. Prior the page
+meta-data was still getting modified on disassociation even if the folio was
+referenced. In some ways proper refcounting just made it easier to catch these
+kind of problems, which was partly the point of doing it :-)
 
-patch 15:
-- snd_ctl_audient_enum_get uses ctype->init which is not set by the
-  ID14_ENUM() macro. Is this intentionally always constant 0? In this
-  case, could the logic be removed?
-- Not sure if this is relevant for the iD14 but we might want to apply
-  something like DIFF 2 to make update events work on the replaced
-  controls 11 and possibly 60 (in case somebody fiddles with the buttons,
-  please check if it actually works with the device). BTW: I'll see if we
-  can somehow also get update events for the new controls of the EVO4 on
-  the occasion. The events the generic mixer driver generates don't work
-  for those so I didn't bother initializing the ID until now.
-- In mixer_quirks.c: Fallthrough case statements seem to be used almost
-  everywhere else, I suggest to replace the repeating call to
-  snd_audient_controls_create with a fallthrough as well.
+But I think it makes sense to use this as the "Fixes" tag - backporting this to
+anything prior would be difficult and a rewrite of this fix anyway.
 
-patch 16:
-- can we rename 'create' to something which makes it obvious from the name
-  that the callback is optional, e.g. 'extra_init' or similar?
-
-  Christian
-
----- DIFF 1 ----
-diff --git a/sound/usb/mixer_audient.c b/sound/usb/mixer_audient.c
-index 4180d7d8b325..212a2156087c 100644
---- a/sound/usb/mixer_audient.c
-+++ b/sound/usb/mixer_audient.c
-@@ -1002,22 +1002,25 @@ static int snd_ctl_audient_info(struct snd_kcontrol=
- *kctl,
- 	const struct snd_audient_ctrl_type *const ctype
- 						=3D snd_audient_kctl_type(kctl);
-=20
--	if (ctype->type =3D=3D SNDRV_CTL_ELEM_TYPE_ENUMERATED)
--		return snd_ctl_enum_info(uinfo, snd_audient_kctl_channels(kctl),
--					 ctype->enumeration->items,
--					 ctype->enumeration->texts);
-+	switch (ctype->type) {
-+		case SNDRV_CTL_ELEM_TYPE_ENUMERATED:
-+			return snd_ctl_enum_info(uinfo,
-+					snd_audient_kctl_channels(kctl),
-+					ctype->enumeration->items,
-+					ctype->enumeration->texts);
-+		case SNDRV_CTL_ELEM_TYPE_BOOLEAN:
-+			uinfo->value.integer.min =3D 0;
-+			uinfo->value.integer.max =3D 1;
-+			break;
-+		default:
-+			uinfo->value.integer.min =3D snd_audient_int_min(ctype);
-+			uinfo->value.integer.max =3D snd_audient_int_max(ctype);
-+			break;
-+	}
-=20
- 	uinfo->type =3D ctype->type;
- 	uinfo->count =3D snd_audient_kctl_channels(kctl);
-=20
--	if (ctype->type =3D=3D SNDRV_CTL_ELEM_TYPE_BOOLEAN) {
--		uinfo->value.integer.min =3D 0;
--		uinfo->value.integer.max =3D 1;
--	} else {
--		uinfo->value.integer.min =3D snd_audient_int_min(ctype);
--		uinfo->value.integer.max =3D snd_audient_int_max(ctype);
--	}
--
- 	return 0;
- }
-=20
-
----- DIFF 2 ----
-diff --git a/sound/usb/mixer_audient.c b/sound/usb/mixer_audient.c
---- a/sound/usb/mixer_audient.c
-+++ b/sound/usb/mixer_audient.c
-@@ -1083,6 +1083,7 @@ static int snd_audient_add_ctrl(struct usb_mixer_inte=
-rface *mixer,
-                return -ENOMEM;
-=20
-        elem->head.mixer =3D mixer;
-+       elem->head.id =3D ctype->unit;
-        elem->channels =3D ctrl->channels;
-=20
-        if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE)
-
-
-
-
-
-
-On Fri, Nov 06, 2026 at 02:29:43PM -0600, Will Porter wrote:
-> Hi Christian,
->=20
-> The bot found a real problem in my patch 13:
->=20
-> > Does advertising ctype->enumeration->items + 1 items in
-> > snd_ctl_audient_info() while rejecting item index e->items with
-> > -EINVAL in snd_ctl_audient_enum_set() break the ALSA control UAPI
-> > contract for writable enumerated controls?
->=20
-> Yes. mixer-test writes every advertised item, and alsactl restore
-> fails on a value that store saved as the extra item.
->=20
-> The diff below drops the extra item from every enum:
->=20
-> - A device value outside the list makes get return -EIO. I chose an
->   error over a fallback item: an unknown routing value shown as Main
->   Mix could hide a route that bypasses the speaker volume, cut and
->   dim. The device is not known to report such a value.
-> - A write-only value that no transfer has confirmed (only after a
->   failed probe write) reads as its init value, as a write-only switch
->   reads off.
->=20
-> Tested on the iD14 (stable 7.2.15) with the diff applied, with a
-> script that does the enum writes of mixer-test on this card only:
-> get returned every advertised item after its put (from the cache for
-> the write-only controls), and the item past the end was rejected.
-> alsactl store and restore of the card succeeded. I did not run the
-> full mixer-test, because it writes the controls of every card.
->=20
-> Does -EIO from get look right to you here? If the diff looks good,
-> I'll fold it into patches 13 and 15 in the next version.
->=20
-> Thanks,
-> Will
->=20
-> -- >8 --
-> From: Will Porter <mrwillporter@gmail.com>
-> Subject: [RFC PATCH] ALSA: mixer_audient: Advertise only selectable enum =
-items
->=20
-> Every enumerated control advertised one item more than a put accepts.
-> mixer-test writes every advertised item, and alsactl restore fails on
-> a stored value of that item. Advertise only the real items.
->=20
-> A get of a device value outside the list now returns -EIO: an unknown
-> routing value shown as Main Mix could hide a route that bypasses the
-> speaker volume, cut and dim. After a failed probe write, a write-only
-> value reads as its init value; this does not confirm the device
-> state.
->=20
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Will Porter <mrwillporter@gmail.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
 > ---
-> Proposed change to patches 13 and 15.
->=20
->  sound/usb/mixer_audient.c | 41 +++++++++++++++++++----------------------
->  1 file changed, 19 insertions(+), 22 deletions(-)
->=20
-> diff --git a/sound/usb/mixer_audient.c b/sound/usb/mixer_audient.c
-> index e65c62e1eac4a..4180d7d8b325c 100644
-> --- a/sound/usb/mixer_audient.c
-> +++ b/sound/usb/mixer_audient.c
-> @@ -67,10 +67,8 @@ static const DECLARE_TLV_DB_MINMAX_MUTE(snd_audient_tl=
-v_mixer, -12800, 600);
->  #define SND_AUDIENT_CTYPE_FLAGS_CACHE		BIT(3)
-> =20
->  /*
-> - * An enumerated control: item i sends values[i]. The texts have one item
-> - * more than the values. A put cannot select that last item: a get shows=
- it
-> - * for a device value outside the list ("Other"), or for a write-only va=
-lue
-> - * that no write has confirmed ("Unknown").
-> + * An enumerated control: item i sends values[i]. A get of a device value
-> + * outside the list returns -EIO; it does not show a wrong item.
->   */
->  struct snd_audient_enum {
->  	const char *const *texts;
-> @@ -85,7 +83,7 @@ struct snd_audient_enum {
->  		.values =3D name##_values,				\
->  		.items =3D ARRAY_SIZE(name##_values),			\
->  	};								\
-> -	static_assert(ARRAY_SIZE(texts_) =3D=3D ARRAY_SIZE(name##_values) + 1)
-> +	static_assert(ARRAY_SIZE(texts_) =3D=3D ARRAY_SIZE(name##_values))
-> =20
->  /*
->   * iD14 MkI units. The monitor controller, output routing, headphone lev=
-el,
-> @@ -126,7 +124,7 @@ static const DECLARE_TLV_DB_SCALE(snd_audient_tlv_id1=
-4_vol, -12800, 100, 0);
-> =20
->  /* Mono mode: one-speaker sum (Left, Right) or phantom centre */
->  static const char *const snd_audient_id14_mono_mode_texts[] =3D {
-> -	"Left", "Centre", "Right", "Other",
-> +	"Left", "Centre", "Right",
->  };
->  SND_AUDIENT_ENUM(snd_audient_id14_mono_mode,
->  		 snd_audient_id14_mono_mode_texts, 1, 0, 2);
-> @@ -139,10 +137,10 @@ SND_AUDIENT_ENUM(snd_audient_id14_mono_mode,
->   * mute still act on every headphone source.
->   */
->  static const char *const snd_audient_id14_route_main_texts[] =3D {
-> -	"Main Mix", "Cue Mix", "DAW Thru (full scale)", "Other",
-> +	"Main Mix", "Cue Mix", "DAW Thru (full scale)",
->  };
->  static const char *const snd_audient_id14_route_hp_texts[] =3D {
-> -	"Main Mix", "Cue Mix", "DAW Thru", "Other",
-> +	"Main Mix", "Cue Mix", "DAW Thru",
->  };
->  SND_AUDIENT_ENUM(snd_audient_id14_route_main_l,
->  		 snd_audient_id14_route_main_texts, 0x14, 0x10, 0x00);
-> @@ -156,12 +154,10 @@ SND_AUDIENT_ENUM(snd_audient_id14_route_hp_r,
->  /*
->   * iD key function: the value is the monitor controller selector the key
->   * toggles. ScrollControl (0xffff) toggles nothing: the knob then scrolls
-> - * through the HID interface. The last item of a write-only enum shows a
-> - * value that is not known.
-> + * through the HID interface.
->   */
->  static const char *const snd_audient_id14_id_key_texts[] =3D {
->  	"ScrollControl", "Mono", "Mono + Polarity", "Dim", "Talkback",
-> -	"Unknown",
->  };
->  SND_AUDIENT_ENUM(snd_audient_id14_id_key, snd_audient_id14_id_key_texts,
->  		 0xffff, ID14_MON_MONO, ID14_MON_POLARITY, ID14_MON_DIM,
-> @@ -170,13 +166,13 @@ SND_AUDIENT_ENUM(snd_audient_id14_id_key, snd_audie=
-nt_id14_id_key_texts,
->  /* Talkback source: the routing source number of the input; none =3D 0xf=
-f */
->  static const char *const snd_audient_id14_talkback_texts[] =3D {
->  	"None", "Mic 1", "Mic 2", "Digi 1", "Digi 2", "Digi 3", "Digi 4",
-> -	"Digi 5", "Digi 6", "Digi 7", "Digi 8", "Unknown",
-> +	"Digi 5", "Digi 6", "Digi 7", "Digi 8",
->  };
->  SND_AUDIENT_ENUM(snd_audient_id14_talkback, snd_audient_id14_talkback_te=
-xts,
->  		 0xff, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
-> =20
->  static const char *const snd_audient_id14_optical_texts[] =3D {
-> -	"ADAT", "S/PDIF", "Unknown",
-> +	"ADAT", "S/PDIF",
->  };
->  SND_AUDIENT_ENUM(snd_audient_id14_optical, snd_audient_id14_optical_text=
-s,
->  		 0, 1);
-> @@ -933,22 +929,23 @@ static int snd_ctl_audient_enum_get(struct snd_kcon=
-trol *kctl,
->  	guard(mutex)(&mixer->lock);
-> =20
->  	for (i =3D 0; i < hwchan; i++) {
-> +		unsigned int item;
->  		u32 val;
->  		int ret;
-> =20
->  		ret =3D snd_audient_raw_get_one(mixer, ctype,
->  					      snd_audient_cache_slot(elem, i),
->  					      base + i, &val);
-> -		if (ret =3D=3D -ENODATA) {	/* unknown write-only value */
-> -			ctl_val->value.enumerated.item[i] =3D
-> -				ctype->enumeration->items;
-> -			continue;
-> -		} else if (ret < 0) {
-> +		if (ret =3D=3D -ENODATA)	/* unknown write-only value: init */
-> +			val =3D ctype->init;
-> +		else if (ret < 0)
->  			return ret;
-> -		}
-> =20
-> -		ctl_val->value.enumerated.item[i] =3D
-> -			snd_audient_enum_item(ctype->enumeration, val);
-> +		item =3D snd_audient_enum_item(ctype->enumeration, val);
-> +		if (item >=3D ctype->enumeration->items)
-> +			return -EIO;
+> I found this while auditing the paths that map pages into user page
+> tables. invalidate_inode_pages2_range() releases the folios of DAX
+> entries that are still mapped. For a PMD-mapped folio this corrupts what
+> used to be its first tail page, and a copy-on-write write to a mapped
+> reflinked file on XFS with DAX is enough to hit it.
+> 
+> In QEMU with emulated NVDIMMs and XFS on an fsdax namespace:
+> 
+> - Copy-on-write with the script below, PTE- and PMD-mapped, with only a
+>   mapped and with a and b mapped. Before this patch, the WARNs in the
+>   commit message and a corrupted first tail page in the PMD case. With this
+>   patch: the mapping of a sees the new data, b keeps the old data, and
+>   nothing warns, except for item 4 below.
+> 
+>   mkfs.xfs -f -m reflink=1 -d su=2m,sw=1 /dev/pmem1
+>   mount -o dax=always /dev/pmem1 /mnt && cd /mnt
+>   xfs_io -f -c "extsize 2m" -c "pwrite -q -S 0x5a 0 4m" -c fsync a
+>   xfs_io -f -c "reflink a 0 0 4m" b
+>   (echo "mmap -r 0 4m"; echo "madvise -h 0 4m"; echo "mread 0 4m";
+>    sleep 4; echo "mread -v 0 16") | xfs_io a &
+>   sleep 2; xfs_io -c "pwrite -q -S 0xa5 0 8k" -c fsync a; wait
+
+Ideally I think this should be added to the xfstest suite - that was extremely
+useful during some of the refcounting reworks and found all sorts of interesting
+corner cases.
+
+> Open issues that this patch does not address. They are races or
+> already exist without it.
+> 
+> 1. A refault, or a short-term or speculative reference, between the
+>    early unmap and the invalidation keeps a last association in place,
+>    and invalidate_inode_pages2_range() returns -EBUSY.
+>    dax_iomap_iter(), dax_unshare_iter() and dax_zero_iter() ignore that
+>    and write the new extent anyway, which leaves a stale entry. Without
+>    this patch the same race tears down the referenced folio. Should
+>    these paths retry, or fail?
+> 
+> 2. XFS device pre-removal ignores the result as well, so an entry kept
+>    because of a short-term reference is not revisited before the
+>    memmap goes away.
+> 
+> 3. folio->share is updated under each file's i_pages lock, so the
+>    shared-count check here, like dax_folio_put() itself, can race with
+>    another file dropping its share.
+> 
+> 4. With reflink, after a copy-on-write write, a PTE fault can associate
+>    an order-0 entry with a shared folio that another file still maps
+>    with a PMD. That trips WARN_ON_ONCE(dax_entry_order(entry) !=
+>    folio_order(folio)) in dax_associate_entry(), with and without this
+>    patch.
+> 
+> Based on an LLM's analysis, 1 and 2 can be fixed by holding the invalidate
+> lock and breaking DAX layouts in the callers; 3 needs a per-folio lock
+> for ->share; 4 needs a way to share a folio at different granularities,
+> or no PMD mappings of shared extents as a simple fix.
+> 
+> LLMs were used to analyze the issue, write the patch, and review the code.
+> ---
+>  fs/dax.c      | 28 ++++++++++++++++++++++++++--
+>  mm/truncate.c | 16 +++++++++++-----
+>  2 files changed, 37 insertions(+), 7 deletions(-)
+> 
+> diff --git a/fs/dax.c b/fs/dax.c
+> index 94ba41273347c..e448552d8080d 100644
+> --- a/fs/dax.c
+> +++ b/fs/dax.c
+> @@ -527,6 +527,24 @@ static struct page *dax_busy_page(void *entry)
+>  		return NULL;
+>  }
+>  
+> +/*
+> + * Determine if an entry can be disassociated. It cannot be if it is its folio's
+> + * last association and the folio still has a reference.
+> + */
+> +static bool dax_can_disassociate(void *entry)
+> +{
+> +	struct folio *folio;
 > +
-> +		ctl_val->value.enumerated.item[i] =3D item;
+> +	if (dax_is_zero_entry(entry) || dax_is_empty_entry(entry))
+> +		return true;
+> +
+> +	folio = dax_to_folio(entry);
+> +	if (dax_folio_is_shared(folio) && folio->share > 1)
+> +		return true;
+> +
+> +	return !folio_ref_count(folio);
+> +}
+> +
+>  /**
+>   * dax_lock_folio - Lock the DAX entry corresponding to a folio
+>   * @folio: The folio whose entry we want to lock
+> @@ -853,9 +871,14 @@ static int __dax_invalidate_entry(struct address_space *mapping,
+>  	entry = get_next_unlocked_entry(&xas, 0);
+>  	if (!entry || WARN_ON_ONCE(!xa_is_value(entry)))
+>  		goto out;
+> +	/*
+> +	 * Removing the last association of a folio releases the folio, so make
+> +	 * sure the folio has no reference.
+> +	 */
+>  	if (!trunc &&
+>  	    (xas_get_mark(&xas, PAGECACHE_TAG_DIRTY) ||
+> -	     xas_get_mark(&xas, PAGECACHE_TAG_TOWRITE)))
+> +	     xas_get_mark(&xas, PAGECACHE_TAG_TOWRITE) ||
+> +	     !dax_can_disassociate(entry)))
+>  		goto out;
+>  	dax_disassociate_entry(entry, mapping, trunc);
+>  	xas_store(&xas, NULL);
+> @@ -1017,7 +1040,8 @@ void dax_break_layout_final(struct inode *inode)
+>  EXPORT_SYMBOL_GPL(dax_break_layout_final);
+>  
+>  /*
+> - * Invalidate DAX entry if it is clean.
+> + * Invalidate DAX entry if it is clean and dropping it would not release a folio
+> + * that is still in use.
+>   */
+>  int dax_invalidate_mapping_entry_sync(struct address_space *mapping,
+>  				      pgoff_t index)
+> diff --git a/mm/truncate.c b/mm/truncate.c
+> index 9e9bf029635cf..b03cd99c4bba8 100644
+> --- a/mm/truncate.c
+> +++ b/mm/truncate.c
+> @@ -732,6 +732,15 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
+>  	if (mapping_empty(mapping))
+>  		return 0;
+>  
+> +	/*
+> +	 * Invalidating a DAX entry can release its folio, so unmap DAX entries
+> +	 * before invalidating them. dax_invalidate_mapping_entry_sync() skips
+> +	 * the last association of a folio that still has references, e.g.
+> +	 * because it was faulted in again in the meantime.
+> +	 */
+> +	if (dax_mapping(mapping))
+> +		unmap_mapping_pages(mapping, start, end - start + 1, false);
+> +
+>  	folio_batch_init(&fbatch);
+>  	index = start;
+>  	while (find_get_entries(mapping, &index, end, &fbatch, indices)) {
+> @@ -787,11 +796,8 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
+>  		cond_resched();
 >  	}
-> =20
->  	for (; i < nchan; i++)
-> @@ -1007,7 +1004,7 @@ static int snd_ctl_audient_info(struct snd_kcontrol=
- *kctl,
-> =20
->  	if (ctype->type =3D=3D SNDRV_CTL_ELEM_TYPE_ENUMERATED)
->  		return snd_ctl_enum_info(uinfo, snd_audient_kctl_channels(kctl),
-> -					 ctype->enumeration->items + 1,
-> +					 ctype->enumeration->items,
->  					 ctype->enumeration->texts);
-> =20
->  	uinfo->type =3D ctype->type;
-
---=20
-  Christian Ruppert                                             <arc@gmx.li>
-
-This message is digitally signed with GnuPG.
-GPG/PGP Key fingerprint =3D 4492 2196 75F0 EAA0 981E  B661 1476 F17A 975F 5=
-87B
-
---92xufW9v+mMevMAY
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAEBCAA5FiEERJIhlnXw6qCYHrZhFHbxepdfWHsFAmrySYAbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEBR28XqXX1h7zfsQAI2P7ZAZSUw4pMqBM5sr
-yiOC5y1R1wxUrPLYzSrNE3v+VFVjIL0D8Azn1mKWvkxI0rQbPI4EKV8/RTB2YrM+
-19s2raeTrJZBp4FsMfzcX/mSrhOX4K7n/8A4ySzHbW5BOMYdP9Y99tojClLPMzoi
-zFZb0gGTxJILJoHZqwdtMo6aT3LenaOKth32WW4blxxnt0yA9Gbtl2u7kwE+0yP+
-N1vhkyBdLemGWgzsj3D1Z65MP9yjfPNF4LA0j+CA5VHZZ+BEyBplOvtIufHZSnAK
-DgnvcKahBWGNQTL0kmScd0SMlPGGISNfWxTvISTa14UTvLxUQ2YDej0xonaeQiSY
-fKOyeaQvflMbaN8Kta9Hm4JDTFavFjJ0/uNz8Mfp/P6l/YY36VLxbEbCAi2qdqul
-PAMSQUN5pZiczVaw9ksQuPR7wzm03C0c40AG2GHEIMScl2gV6lZcM5d3yYj8bmuH
-5c+/8OTf5VgvYxobLLnisxDgjf7So2fjZQTEnc+Ua5RH6en/emk/NzvOqpkGM3Ks
-uR5tpuKNfG9UR9fatqiWExVCPnqWDiWbZNSxtfiUYf+qosyYk6ew+69ncutJ/M4J
-6OJb3t2FN52mRbJfPkfMbcj6XudBvyZVajJRi/O1KhzTZRxpI/Y76gUzttUdohEh
-YlQoExY9+ZrrRmeZG8Ey93wS
-=QYac
------END PGP SIGNATURE-----
-
---92xufW9v+mMevMAY--
+>  	/*
+> -	 * For DAX we invalidate page tables after invalidating page cache.  We
+> -	 * could invalidate page tables while invalidating each entry however
+> -	 * that would be expensive. And doing range unmapping before doesn't
+> -	 * work as we have no cheap way to find whether page cache entry didn't
+> -	 * get remapped later.
+> +	 * For DAX, also zap the mappings that were faulted in while we were
+> +	 * invalidating.
+>  	 */
+>  	if (dax_mapping(mapping)) {
+>  		unmap_mapping_pages(mapping, start, end - start + 1, false);
+> 
+> ---
+> base-commit: 63919467fb5239ab824de6a7a128b882055b24af
+> change-id: 20261103-fix-dax-invalidate-mapped-d0c2296f5543
+> 
+> Best regards,
+> --  
+> Yan, Zi
+> 
