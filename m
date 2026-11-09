@@ -1,67 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794235989;
-	b=G7N9SuVf5DjV1kz0mMf9tij2j+B37uO9ZInk24xKq3VLWdjlq6TObtGa3e0QLf6Scwva
-	 aIrSPGDq00a5DMO46i/kdoDKKPwjC2vyifGMlhSAgvTJ8gHElRHQBEa/Ii+pv7blnkseR
-	 7Ou5Tl8+xKhhAt/lQB6AgQZM6DbRKeRiqH9yOZ6KxS/fe+IPLYd14RKq6CXgy97hMVV1R
-	 EVms5HRqBRF1z2HFGBt1JVpAmonWdTNOmzVFX50CDFAb2m4VF/+vNhWITMMvA1lSRzRfC
-	 SLO83uht1t7Ie/hiIw/Y7x7FeSnq4S0RJAR+6BWAtod6fjMPnmZMtCQyqamDqf6vI3w==
+	b=NskCxU/1q2GRMazaqHTmjXTih4o3frTQGzz4IZC7K9Legv0uwQaYbK8vuIAZw8XcfvnD
+	 BVm1Y5rsyeQE5wYeJQyoD6rYQvvPKjvSJ9QLyx511QB49nq6PIw8AV4052QUqd+DXzGgx
+	 cwXbEIDKnzc+mh89P+uPHyACsALgJNyyFFBigCpyUKciLo1UYpuRw0N2A3L9vSP1q8l/0
+	 Zr5vhUXTd8NiyXLWY4hkQcz8ZlwjdR/QPYYa4qVHDoOWY8hgNs7DjsWLIgNOETI7age+u
+	 rQAt53+LzWd5tWZfxkFNSK5Crb3LsHrV2VXt7m0ihYjZXNgaetGgy56RQAaLEgAFfWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794235989;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=+3ccHp+dxclpMhI+JAx+vBwHB1pqGCZbz+PjeLxKEeI=;
-	b=hbJhhtpYSMeRPi3uZdX2/3fb3gb8gojxHkmy5e1klmyHMiymdje9Pcv32IFRqsSMz4un
-	 agywKjgXsrbrNM5y+OWqYNu7j8TbA6iUtLtkCJMWZw/80MjiXTE8TOwv06qA0UIa99RMC
-	 ZTt5pqIbmXEcbDce59kyaCusvouVmzefF5N1TqncisCfVGdI4k8D5+XbyriVytBmsMFrH
-	 f02JU26bMyTZF5ziCIYF1uEDjc8KJPxmSue0J2rXk+f3uxhqC/PZG6APQPyF73Qsd0p60
-	 s7Db9J/r4vvNdUdYi+nJtrPPNyOA4JfIqm9g7zYmZCtRxXKttSxuxP6xlAzFLsS5dCQ==
+	h=Received:DKIM-Signature:Date:From:List-Id:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9cRdiyFE5hmtMw4CHCQv9a9kkD9YdZDXT5dVOPNTVYE=;
+	b=mb2fttXDw1yKtG/N9duu5C/NfhVhPOLrTt97aR957zTbk8WsT5PxcnxU8shDMXvNaQe4
+	 QYA+zz4cHH7A+1X6kU9hyaZRLJunEb2hSVzmgHznjIxOJ95wR0lVhbCfhUFY3M2NP62TN
+	 4R1Am2P88MHuBheCiijkaOQxvkF/i/oEsoo6NjefZlSZ6ITSRYzvuYt30swI8BxFjq+up
+	 8AFyncR2LEA7Rkm0VNVZd68Sxf7qu1v5EWte+P/RusI/HCZS8amij61reBzwJnkrqNRyr
+	 o2tAovWjtd78UyYrf8Q/zA/KKaUKFrkJRJmG6P5vfTFp4YcB+5k1hEvthXI9yzNCCqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Us9yBEc5;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YuxPP/j0";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B8A606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:53:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24B8A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 0C1B6606A323;
+	Mon,  9 Nov 2026 14:53:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Us9yBEc5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794235988;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+3ccHp+dxclpMhI+JAx+vBwHB1pqGCZbz+PjeLxKEeI=;
-	b=Us9yBEc5XQicLhpGh7lT3OcP28iiEwZOO+FTpfqNuuIah7VAB2vCQJzXZkRkhUH2gKWYmZ
-	CrCY+mKjuo0mo7nxXcT2T7jMc8ZltdrZj/NSpBH8UxDUi81TpwT0gsPxtdLl8/epbmwUlU
-	sCVIae66oixb4LSKktMxa5RNlNEg0BA=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-158-dE37GRRrPZWD6X8PdWHeeQ-1; Mon,
- 09 Nov 2026 09:53:03 -0500
-X-MC-Unique: dE37GRRrPZWD6X8PdWHeeQ-1
-X-Mimecast-MFC-AGG-ID: dE37GRRrPZWD6X8PdWHeeQ_1794235981
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 762FA19560A7;
-	Mon,  9 Nov 2026 14:53:00 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 06EB718004F5;
-	Mon,  9 Nov 2026 14:52:57 +0000 (UTC)
-Message-ID: <d37903cd-21bc-4a07-835f-aa074c85660c@redhat.com>
-Date: Mon, 9 Nov 2026 09:52:57 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YuxPP/j0
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7E35B1F008A3;
+	Mon,  9 Nov 2026 14:53:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794235988;
+	bh=9cRdiyFE5hmtMw4CHCQv9a9kkD9YdZDXT5dVOPNTVYE=;
+	h=Date:From:List-Id:To:Cc:Subject:References:In-Reply-To;
+	b=YuxPP/j0nyZ7lI64277PyW95OHzNOPlKOeQapmneAUMfEjIkfUY2op9J/3OpOCmNn
+	 wJkGZbqmAQRU6jDVK9SKmA6lKnaCcEuDxpmKIh4lT6YZ8JlGuKaKdUyW+kKtssXhGw
+	 FGNjoiWySjjJlq2MgZLVtqrRdQsRi6nPAELJKWtKNPYPX9t3uhW1Kp6IilP6BwH+D+
+	 7eASem1dY4qjBDHEpcI5j6xefRNUJ9Z+ZhouQUGDdJOK7KPKGJJWWBAqW9azqvz2kr
+	 VWq28TUA4eJmMhMaTQKCtxPJyreO7SlWCb+hZ7x8xh8X45jk5EKwOW9W3DBKK7Nf1K
+	 8lbuawWI/Op+w==
+Date: Mon, 9 Nov 2026 15:53:04 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Daniel Scally <djrscally@gmail.com>, 
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 4/9] device property: provide fwnode_property_get_names()
+Message-ID: <llvzidb4mkbx2wbhmvd2mmjmsf7ft6s6h6wbv72v2r3sacy3z4@5sxktqh2mzi4>
+References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
+ <20261104-fwnode-for-each-prop-v1-4-6e28fe1c72c4@oss.qualcomm.com>
+ <auug8QoQ62ETGg1D@ashevche-desk.local>
+ <lmib6742yptkwh7mzduw5xqid6h6rsqchs6aot3usjkcocmxqs@cvcpkwqag6nz>
+ <avG8MITPLRuFcZdO@devuan>
+ <6b7uxzbhrce55f5bgkvmg2r2h4ax4xg7le6vxkhzezbsef23gq@ojm3wm33v3xn>
+ <avHXwL53ClRQptIh@devuan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,216 +71,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] cpuset: generalize the validate_partition()
- interface
-To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>
-Cc: Chen Ridong <chenridong@huawei.com>, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, Guopeng Zhang <zhangguopeng@kylinos.cn>,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20261107120100.3587595-1-ridong.chen@linux.dev>
- <20261107120100.3587595-5-ridong.chen@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <20261107120100.3587595-5-ridong.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avHXwL53ClRQptIh@devuan>
 
-On 11/7/26 7:01 AM, Ridong Chen wrote:
-> From: Chen Ridong <chenridong@huawei.com>
->
-> Refactor validate_partition() to take the parent partition, the new
-> partition root state, the new effective exclusive CPUs and the CPUs to
-> be deleted, instead of a trial cpuset. A NULL parent stands for a
-> remote partition, whose CPUs come from top_cpuset. This makes the
-> interface flexible enough to handle both local and remote partition
-> validation.
->
-> The no CPU left for tasks check now uses the given parent instead of
-> parent_cs(cs), and top_cpuset for a remote partition, as that is where
-> its CPUs are taken from. The cgroup parent of a remote partition does
-> not give it any CPU.
->
-> The housekeeping conflict check is folded into validate_partition(). It
-> is skipped when the parent is not a valid partition root, as @cs can't
-> be a valid local partition in that case.
->
-> Use the new interface for local partition enablement in
-> update_parent_effective_cpumask() and in partition_cpus_change(),
-> replacing the open-coded checks there. The order of the checks is now
-> the same for both paths: empty CPUs, housekeeping conflict, then no CPU
-> left for tasks.
->
-> Signed-off-by: Chen Ridong <chenridong@huawei.com>
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
->   kernel/cgroup/cpuset.c | 119 ++++++++++++++++++++---------------------
->   1 file changed, 59 insertions(+), 60 deletions(-)
->
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index fc9de6e16ff5..0ec20412b3ce 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1414,6 +1414,48 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
->   	return res;
->   }
->   
-> +/**
-> + * validate_partition - Validate a cpuset partition configuration
-> + * @cs: The cpuset to validate
-> + * @parent: Parent partition of @cs, NULL for remote partition
-> + * @new_prs: The proposed new partition root state
-> + * @new_excpus: The new effective exclusive CPUs mask to validate
-> + * @del: exclusive CPUs to be deleted from @cs, can be NULL
-> + *
-> + * A remote partition gets its CPUs from top_cpuset, so top_cpuset is used
-> + * as the parent when @parent is NULL.
-> + *
-> + * The housekeeping check is skipped if @parent is not a valid partition
-> + * root as @cs can't be a valid local partition in that case.
-> + *
-> + * Return: PRS error code (0 if valid, non-zero error code if invalid)
-> + */
-> +static enum prs_errcode validate_partition(struct cpuset *cs,
-> +					   struct cpuset *parent, int new_prs,
-> +					   struct cpumask *new_excpus,
-> +					   struct cpumask *del)
-> +{
-> +	int parent_prs;
-> +
-> +	if (new_prs == PRS_MEMBER)
-> +		return PERR_NONE;
-> +
-> +	if (cpumask_empty(new_excpus))
-> +		return PERR_INVCPUS;
-> +
-> +	if (!parent)
-> +		parent = &top_cpuset;
-> +	parent_prs = parent->partition_root_state;
-> +	if (parent_prs > 0 &&
-> +	    prstate_housekeeping_conflict(new_prs, parent_prs, new_excpus, del))
-> +		return PERR_HKEEPING;
-> +
-> +	if (tasks_nocpu_error(parent, cs, new_excpus))
-> +		return PERR_NOCPUS;
-> +
-> +	return PERR_NONE;
-> +}
-> +
->   /*
->    * cpuset_update_sd_hk_unlock - Rebuild sched domains, update HK & unlock
->    *
-> @@ -1934,18 +1976,10 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->   	if ((cmd == partcmd_enable) || (cmd == partcmd_enablei)) {
->   		new_prs = (cmd == partcmd_enable) ? PRS_ROOT : PRS_ISOLATED;
->   
-> -		/*
-> -		 * Enabling partition root is not allowed if its
-> -		 * effective_xcpus is empty.
-> -		 */
-> -		if (cpumask_empty(tmp->delmask))
-> -			return PERR_INVCPUS;
-> -
-> -		if (prstate_housekeeping_conflict(new_prs, parent_prs, tmp->delmask, NULL))
-> -			return PERR_HKEEPING;
-> -
-> -		if (nocpu)
-> -			return PERR_NOCPUS;
-> +		part_error = validate_partition(cs, parent, new_prs,
-> +						tmp->delmask, NULL);
-> +		if (part_error)
-> +			return part_error;
->   
->   		/*
->   		 * This function will only be called when all the preliminary
-> @@ -2424,32 +2458,6 @@ static int parse_cpuset_cpulist(const char *buf, struct cpumask *out_mask)
->   	return 0;
->   }
->   
-> -/**
-> - * validate_partition - Validate a cpuset partition configuration
-> - * @cs: The cpuset to validate
-> - * @trialcs: The trial cpuset containing proposed configuration changes
-> - *
-> - * If any validation check fails, the appropriate error code is set in the
-> - * cpuset's prs_err field.
-> - *
-> - * Return: PRS error code (0 if valid, non-zero error code if invalid)
-> - */
-> -static enum prs_errcode validate_partition(struct cpuset *cs, struct cpuset *trialcs)
-> -{
-> -	struct cpuset *parent = parent_cs(cs);
-> -
-> -	if (cs_is_member(trialcs))
-> -		return PERR_NONE;
-> -
-> -	if (cpumask_empty(trialcs->effective_xcpus))
-> -		return PERR_INVCPUS;
-> -
-> -	if (tasks_nocpu_error(parent, cs, trialcs->effective_xcpus))
-> -		return PERR_NOCPUS;
-> -
-> -	return PERR_NONE;
-> -}
-> -
->   /**
->    * partition_cpus_change - Handle partition state changes due to CPU mask updates
->    * @cs: The target cpuset being modified
-> @@ -2463,33 +2471,24 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
->   				  struct tmpmasks *tmp)
->   {
->   	enum prs_errcode prs_err;
-> -	int parent_prs = is_remote_partition(cs)
-> -		       ? PRS_ROOT : parent_cs(cs)->partition_root_state;
-> +	struct cpuset *parent = is_remote_partition(cs) ? NULL : parent_cs(cs);
->   
->   	if (cs_is_member(cs))
->   		return;
->   
-> -	prs_err = validate_partition(cs, trialcs);
-> -	if (!prs_err && (parent_prs > 0) &&
-> -	    !cpumask_empty(trialcs->effective_xcpus)) {
-> -		int prs = cs->partition_root_state;
-> -
-> -		/*
-> -		 * Check for housekeeping conflict by passing the whole
-> -		 * effective_xcpus as well as those CPUs that are to be
-> -		 * removed from cs as delmask.
-> -		 */
-> -		if (prs > 0)
-> -			cpumask_andnot(tmp->delmask, cs->effective_xcpus,
-> -				       trialcs->effective_xcpus);
-> -		else
-> -			cpumask_clear(tmp->delmask);
-> -
-> -		if (prstate_housekeeping_conflict(prs, parent_prs,
-> -						  trialcs->effective_xcpus, tmp->delmask))
-> -			prs_err = PERR_HKEEPING;
-> -	}
-> +	/*
-> +	 * Check for housekeeping conflict by passing the whole
-> +	 * effective_xcpus as well as those CPUs that are to be
-> +	 * removed from cs as delmask.
-> +	 */
-> +	if (is_partition_valid(cs))
-> +		cpumask_andnot(tmp->delmask, cs->effective_xcpus,
-> +			       trialcs->effective_xcpus);
-> +	else
-> +		cpumask_clear(tmp->delmask);
->   
-> +	prs_err = validate_partition(cs, parent, trialcs->partition_root_state,
-> +				     trialcs->effective_xcpus, tmp->delmask);
->   	if (prs_err) {
->   		WRITE_ONCE(cs->prs_err, prs_err);
->   		trialcs->prs_err = prs_err;
+On Mon, Nov 09, 2026 at 03:30:08PM +0100, Alejandro Colomar wrote:
+> Hi Bartosz,
+> 
+> > Date: 2026-11-09 13:59:05+0100
+> > From: Bartosz Golaszewski <brgl@kernel.org>
+> >
+> [...]
+> > > > > > +int fwnode_property_get_names(const struct fwnode_handle *fwnode, char ***props)
+> > > > > 
+> > > > > Triple indirection is rare. Do we really need it?
+> > > > > 
+> > > > 
+> > > > I don't have a better alternative. Having two functions: one for
+> > > > counting the names and another for retrieving them into a
+> > > > caller-provided array is IMO the worse alternative, so I'd keep it.
+> > > 
+> > > Would it be possible to return the pointer, and then pass the count as
+> > > a parameter?
+> > > 
+> > 
+> > Is this really better? I think it's less intuitive than just passing a
+> > pointer to an array of strings.
+> 
+> Returning allocated pointers has a benefit for static analysis: the
+> function could be marked with __attribute__((__malloc__(deallocator))).
+> 
 
-Again, this code change looks good to me. Similar to previous patch, it 
-includes both code restructuring and bug fixes.
+I had a comment under a different patch in this series, where I
+suggested that returning the number of properties could be used to
+simply count the properties with props == NULL. This would make the
+function future-proof in case we need that functionality.
 
-Cheers,
-Longman
-
+Bart
