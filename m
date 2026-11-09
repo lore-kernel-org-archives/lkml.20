@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794183665;
-	b=hirSO0QmEXnIuw08sXC2GYR9eJXM70VXGkqhPOjN5vHalyNib61a78IemmHp8AZsqcOE
-	 BhYVMqRkWASQQK8SOp7YG/Jr32E6+yUfN1GFkkUPD2gMNhwv+Q2PXz6V6nKz3hdc0BGQW
-	 HX/x3DZTuHjygTtGCpgkVoT4lNMDwo8KHodWXQ3Rpo+PnOxg1ZKhSK+TD4LiM1vDiB6RO
-	 6h1G+8nIjxxAZ/BIbZM97eGOWt2ns+qQiIR+U+w4O49QTR+PP2PuUB6TWwKxl5T5MxAX7
-	 67eRfaL7ha7n/VpAYKpMRvylUFDTfj56uU3ziztF6oAbGnv354xTV9lHyYKV3O80waw==
+	t=1794183749;
+	b=Ec88aBDUe6xegc7Al/EsdCgBnR2QicHTktFDm9J0K4WMfnb2h7k74I1r0Kv41MRxUuEQ
+	 KYEtf1aYeoRKxbHsh6TYYMRVjOT57DkADEHkwUkrCCjD9uc0ZuAEGNDj6Kl8mPTcZfXqZ
+	 9WRazEZ6jD8PAKoFKz/I8buFvkTASAJ9lyHRhKZFwa4KFLEF+tu0X6m0iK8V4RYPzFHSS
+	 RPUYm7IwgxQsdaJVUyIDs/v/31DMLSVMCt8JD4IeRZM0FOecoPT0Sf3yg71W64Jqz6J7r
+	 7lfHE9DBoN4les3AGFYCi+SDP+VQudzCXNU3tiRKZMmOMtRYDumHF/Q2WO9HGUuM8nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794183665;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794183749;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=GeBJObAnqhNEGePn+mfWF29BOCD0obOgEYIt4FeXOvI=;
-	b=h8wywWb8KKM/7rROveRbW9+WelNUntNwIlihXiXPFHWAZH4pC1V22pZ8+gDdp8bs2y7d
-	 ajJCxqyemkKos8P0tGnr8N8yAYcAloRmKyiUKXCOzwpi3ruK4UKkzvvLpm+4DVPZA1S/9
-	 2ymp3uz0kRRiMUMu0Q43x84QquiMsLL9g7/R//OhvLHnKZDXWkB+xQ/DYTqud3NZAp1s3
-	 Smogv/4e+IMflz/iAbzbe2fcnbHEBVXbj6KBepm3bj44+groCysTvJUHYDC8+ETuUvBKp
-	 4wk5fuFDmptwbc2SHIH3w7CpMZtuvza0xihfCC2PdTaPvx2gqnfiNfLq6sqAG9qSNYA==
+	bh=r0Wktv3qg84AghHEx+Ox2jLbCSIyBPFOaRI1XPUgVtY=;
+	b=pqUh1WTc3P2434FJKu264bJBPKo7svt1+tuz8hvYs7YwaU2JdQ/guitPqVV2U8rgiSnT
+	 2/9xTfTfbgm5L4mDcxrKobc3Ql/CsSWjILJgQ0Wv4BmxZfCv2NnC0SpT9XbasaHFZ4+Nh
+	 nfEVjQqO3ux3Pl7DBDqehXCd/RGS1xx02jJbl14tPk/dhl59yjCgIayf/VNqMC+WgKwf9
+	 Zu3pNMiBuMUxb9Fih6rx17w6rbvuCepldKmPs9GKDRU3UwE701J7XcOCWPEmIZIL+e7aa
+	 54Q4J1o2hqDAX5jCsIFPZpLtbnJ7RB9A0EBAMOYrSAAymQFRmd9V5zNv/+kF+z0X6SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TErODvE9;
-	arc=none smtp.remote-ip=209.85.161.50
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hVe79pf7;
+	arc=none smtp.remote-ip=209.85.160.46
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36020606A320
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 00:21:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36020606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27EC3606A320
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 00:22:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27EC3606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TErODvE9
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-706113e92f9so188555eaf.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 16:21:04 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hVe79pf7
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-4a77dcc4ca0so209572fac.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 16:22:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794183663; x=1794788463; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794183748; x=1794788548; darn=vger.kernel.org;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=GeBJObAnqhNEGePn+mfWF29BOCD0obOgEYIt4FeXOvI=;
-        b=TErODvE91a25YyxDD4pdTWA6d1isfYiXbLBk6ESYrVvMnDhz3kygoaubhfo5QoZhEa
-         wAEtB7/53EqglPpfHHc6UEuQpftxO7KuqfuiTHtPYPeC3melo46Xs3kpiuWmKb+ytONL
-         8q+m12f4Tw8F2ybBNidO54nIO3uneGqUH5oeEKPPhGQBGba4mVIbL8Yvg/1qjvCAy3A5
-         eDSAAh2sCA3o5R5/bz2+g0MUMsV0AfHItrRcCiTgr2NT5ELJkb0kEUGvROyIe7fSzJO6
-         EkT/IgQa0i4e1Rdrbfgm/U7TVkDGPaBmP4ZulFdnMCuBK7DW6NJH2DDeampXXEOQfKBv
-         oByA==
+        bh=r0Wktv3qg84AghHEx+Ox2jLbCSIyBPFOaRI1XPUgVtY=;
+        b=hVe79pf7qZunrOPvh93Q+cZ3FrNrGPfQ8E6XG6FVcZbq+kXWRWo9Jz4+TKfUFNtuvX
+         eqYANthGPNk+0PYTuxLlb5plLWd4eJR7UQSgo46ZZvuhT23ql8xVBtwd7jOywsonQ5wQ
+         gDzKveQPb61+ehoEmLl12tiZSUg7MvxhOFTVY5WJ0LaiwqKehgymQmADtE/eZ/Q/qb3W
+         K0CNkU8AkudDAKz/O5GQ0bMXUqvgMCHi0U/IC1BNoxsKygzDPTKwZ1WTmDp+e4o0Zz3y
+         mRNB7LOa/Z/AsHia+rCb+0adeJJyuQ3hSd33zq1zNNqLXux/91AJJ11oxRZyiJU2KsFN
+         K1ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794183663; x=1794788463;
+        d=1e100.net; s=20260707; t=1794183748; x=1794788548;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=GeBJObAnqhNEGePn+mfWF29BOCD0obOgEYIt4FeXOvI=;
-        b=z66nGswM0R2xSQt2r9R6FcMgf+g1Gmlf9QoWjolTwxUZ1efB4fjZCixmwErxihNvCX
-         +fGHqLHbYccqaht2H0SVQK38PjGLhYVcWdgylxyd1/Jq9Lm0PHI/ai+sTDyvB9ojGFaB
-         IqbVJjmgIKGpkz86TukEt/aU/EICz1OikNmz41i4chHhrcLODQtFVUWJjal/kg/rAut6
-         9HPXDFkci2t/3Y2lqVo7mvaC/lIHkrFKUxvneEFTw1wP+j8BofP/lWl/gJRtM87FFylb
-         oYrsH83ufCshXiBksbnDzIogm4rKB0w6fRxt1eCFSCJYWnbO8q2aYF1w6y7/fS6f2MiA
-         i8vA==
-X-Forwarded-Encrypted: i=1; AL+hErHag9X7akax2fz7kyl7sNa9MYbF8DEHy7CTkz65hN10jaGNm8Ao3q36bE97OhXJWzHpD4fT7A9zLt4Vn8k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/W4xhdzQz/5RxwxbgfbnjU7WuEsHw/HR4floKbpusDUAxK3Too
-	T3pPgns5K2AALHZyqGU1PeGGagiO98vafzdiH2T5GuVGHsZz3Js+dKas
-X-Gm-Gg: AYBFou07oZbwraLMMZh8uD/gvFg+ah5frBTPXz2qUSPL9QLKzYybeKI6Q5mKfCls622
-	S7gSnRuLDCGcxLYi7OE2ZrgHzCwuUu594ghwHAuj/BEUklECOWWz1I1wJeQqDxn5Sd85kVXanCS
-	8a3VJeAfmtTUvvfDqrPKNwN3XT3uviQ82Ti5sRKlpdDLvth8lLr/Gcvz7lWqX42+nmxAf2FjJX/
-	fPk5ZAnAQthmcs2LdRzGEoJr2XRDXw7XJ95o5cUFU7cMn/EyZbvwaWiNT1rARfBF8C5EdAnznFA
-	Q/ZvXkaA5NdQHbkZH74DYYG6DsNlrvmOam7BOhzXiGyxnVBca5iqzoeQnRruzGeH41KZiZ8tRb3
-	lLxeVNls19PHEIYvZQ+Rw7vK8r/prcggKpGaghkuWi4utptG7MHa6lM2WJKRev5vXFRA2QZqqhh
-	pgOw65gVlIXpAPL0ubMRHuKcGRl7VDSW4Ezezh7UZDqRcpTItNMCImDc6FdvSr1w8Vs3J54+WJQ
-	78sH8pK5xyYMA/wOhAjS8a4jWWGIeyvgq+5yEE725WpNhW3WspxRKmONhV9LBJt8nWcieTXP3z9
-	NpplxPQlBFind8AcW4QyaFdw6mgEd4xqwAjECtg+5sh1X0Joo1Yv7Q2sGYEN/sKaNpFhTa6tmi0
-	FkKNVBS0/WPeBYhtRZQEZgZ28eZM7Thmab2PsOEyNM7N6mooYQVOzYC2KjrKa4Zr1/lvstGC8lw
-	tUwxcdj3hjhDl5HnX0m9/5RNwiKreGsvMTmhsJUC9p1Mxr4FHerJSb3j3vF2AGjAr9XQ8ck79D
-X-Received: by 2002:a05:6820:1356:b0:6de:aeea:5c89 with SMTP id 006d021491bc7-7170f2b53ccmr1343158eaf.23.1794183663143;
-        Sun, 08 Nov 2026 16:21:03 -0800 (PST)
+        bh=r0Wktv3qg84AghHEx+Ox2jLbCSIyBPFOaRI1XPUgVtY=;
+        b=UvNaE0RzZ/j+Cb9yHqTMTSSNfuLRQsgx13ljaAzZdMliU9/Grc3j3spZ0VaXG3bbdY
+         pvvVUavu7cx54fmQaAmv1znm4RPzcVpG4SbfVsKdl4+goNMxTBh15mmzdXrznavw64Kr
+         l0MW2KU83JMJky7m/VaAbCbS5ZwH3NTHj0owito67Gd0O50VbO8ps91fbBIyf82VKAd+
+         tcPKoPl6yNajUJh1wiKxNHQI+7fRYEZ0fXi1YF+cTQe9bPIQtEy9y8/n/rssYmw6zQY1
+         yQ9CTKjO0/mXW8Rc5xpH/OwhXuj9QRYeORZCUsumZDVNIFZCozxgjWnjlwkTDTNBzuug
+         ljeg==
+X-Forwarded-Encrypted: i=1; AL+hErFLirp/YmhbnE/JN0L6Wzig/TBsFVajEV2+w3yoADivEcWYoLjDx6SToV6cLxadZTa2rrxxkpudFMqucbo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8vAIhCh0GKqoFiPEAej50S87ITIsrPQ+NZ92cBSNmOzKJ4N2F6
+	fK0KSgb9fYjxX8BSa1XHDEj3oRDxqGf/FYphrOT+NrJX3ay5BgIeCgPc
+X-Gm-Gg: AYBFou2iAPc7RIXDANuGhcSgtQ4FxPa+eKs5SSoJCdSqvqQBc9pZbwRUV4j4b4WUAfM
+	sJICm4qKhM9noHUpyMLOaga4eEUzmyge5Nrt+C+gEsgbyadfdDc7CQLkD7l8RUmkkUdU0edUc4r
+	3tOQvXQjpj3QOSsiATKKIaeYqSa+5jG4UspJTyznjOXlYT+kzEPpDhWW6aKBv09rmhtUeJDTOKf
+	rByoLRw+N2V9JYDrQZjX0rFthy1aaD4UNyqRIz7qrf7b9hHVOtV9raUyaRejxyx3Pf3qy9Ke9se
+	eZ4aQOepqbN0GV5Vane0vCpqutPiU61mFYmRmcY/GsCMBtakFpwpHV0zA7GuSVAWKqEpvNVMGXq
+	HrW7IHlHnZ3qN/ZY3zq0IN0DTPTwHjWtvbWUod973uFu2g0trL0lZUrNznNSmf8UAAsxNDnJnyy
+	4uYXUt3kwG1aTHJls/uAhAsNtVbmg30At38/Fc9Fhgw0w7yAChI1/wJZCNLmJLHtOoE8Fq9lYxV
+	8y2+7Tt2GUGZB7p0vvK4W7LaE0tiBsTKPgLW00xWmJQ4PYZpSDzIFr41FsIU8oko3TOv+4+Z268
+	AjBIUBrtTeMZ8J9fZwJPqUk0IsCoqeQ+LCJop7NMGrBU2z/rit0oWB777LXSowDveiK4z8ipWUQ
+	O9/mQXUc4RtXejBl50jUkr3pYQA/vONiUzKWcIAFFeuewQmXGoXuPoQOYAIa5y2oev0OuWFCfFc
+	WEikaMpgoA8Z3VMoofe/ZQWVOVtBiIFkeq+RLhEhhms8pe1iPr5CCGQQ==
+X-Received: by 2002:a05:6808:5088:b0:53b:6f4e:5176 with SMTP id 5614622812f47-568147aab31mr1788815b6e.66.1794183748050;
+        Sun, 08 Nov 2026 16:22:28 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-7170f8cbcb9sm2219207eaf.6.2026.11.08.16.21.01
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56813e54ff0sm3091574b6e.16.2026.11.08.16.22.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 16:21:02 -0800 (PST)
+        Sun, 08 Nov 2026 16:22:27 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 08 Nov 2026 17:20:55 -0700
-Subject: [PATCH] mtd: rawnand: r852: disable the engine when card
- registration fails
+Date: Sun, 08 Nov 2026 17:22:18 -0700
+Subject: [PATCH v3] mtd: rawnand: r852: preserve card changes during
+ detection work
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,12 +95,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261108-submit-r852-registration-unwind-v1-v1-1-e54be2c652c2@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWN0QqDMAxFf0XyvLBW1in7lbGHtkbNwGyk1Qniv
- 69uL4Fzufdkg0TKlOBWbaC0cOKXFLCnCuLoZSDkrjDUpr5aa1pMc5g4o7auRqWBU1afywhn+bB
- 0uFh0sYnUX4LzjYEieiv1vP6e3B9/LpYnxXyYj0bwiTColzge0ZS7s3gph9YM+/4F+PqjvqYAA
- AA=
-X-Change-ID: 20261108-submit-r852-registration-unwind-v1-5c7cef4b5a70
+Message-Id: <20261108-submit-r852-card-detect-lock-v1-v3-1-ea9e5411314d@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOSw7CMAxEr1JljaFJSFtYcQ/EIh/TBtoUJaECo
+ d6dpGxYgmRZmrH9PC8S0FsMZF+8iMfJBju6JPiqILqTrkWwJmnCSlZRWjYQ7mqwEXwjGGjpDRi
+ MqCP0o77CRKGmXJ2FNjtWKZIoN49n+1g+HE8fnRCXdJKxeUPJgKC8dLrL1hDNxkmXGj5innc2x
+ NE/l4gTzZzf06SiIATdYi22nJW7QztI26/1OJCcZmJ/8ljiIWeCKs2rppTfvHme34OJmnRQAQA
+ A
+X-Change-ID: 20261108-submit-r852-card-detect-lock-v1-713bf5cd926b
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
  Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
  Maxim Levitsky <maximlevitsky@gmail.com>
@@ -108,43 +109,203 @@ Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-r852_register_nand_device() enables the NAND engine before scanning and
-registering the card. If sm_register_device() or device_create_file()
-fails, the error path leaves the engine enabled while card_registered
-remains clear.
+r852_update_card_detect() reads and writes the card interrupt enable
+register without holding irqlock. A card interrupt can mask detection
+interrupts and mark the card unstable between those accesses, only for
+the worker to overwrite the mask with its saved value.
 
-A subsequent removal work item sees no registered card and skips
-unregistration. The device removal path also returns immediately from
-r852_unregister_nand_device() in this state, so neither path disables
-the engine.
+The worker also calls this helper before and after registering or
+unregistering a card. An interrupt between these calls starts a new
+debounce interval, but the second call clears card_unstable and enables
+interrupts again before that interval has elapsed. The interrupt can
+also change card_detected between the worker's registration checks and
+its media-property update.
 
-Disable the engine in the common registration-failure path after any
-required NAND cleanup.
+Hold irqlock across the interrupt mask update and leave the mask alone
+while the card is unstable. Move the transition to stable state into
+the locked card sample, and return that sample for both of the worker's
+registration decisions. Sample the write-protect and media-type fields
+there as well when a present card is not yet registered, so a later IRQ
+cannot make registration use properties left over from a previous card.
+Keep the properties of an already registered card unchanged.
+
+Keep registration failure from overwriting a newer interrupt's card
+state, so the next delayed work invocation can process that change.
 
 Fixes: 67e054e91924 ("mtd: nand: Add driver for Ricoh xD/SmartMedia reader")
 Cc: stable@vger.kernel.org
+Closes: https://lore.kernel.org/r/sashiko-outbox-204068@kernel.org/
+Closes: https://lore.kernel.org/r/sashiko-outbox-204135@kernel.org/
 Link: https://lore.kernel.org/r/sashiko-outbox-204169@kernel.org/
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/nand/raw/r852.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v3:
+- Sample media properties with card presence under irqlock.
+- Keep registered-card properties unchanged and log the sampled decision.
+- Link to v2: https://patch.msgid.link/20261108-submit-r852-card-detect-lock-v1-v2-1-e3251bc3680a@gmail.com
+
+Changes in v2:
+- Keep new debounce events pending until the next card-state sample.
+- Use one presence sample for the worker's registration decisions.
+- Protect the registration-failure update from newer IRQ events.
+- Link to v1: https://patch.msgid.link/20261108-submit-r852-card-detect-lock-v1-v1-1-5514e7543209@gmail.com
+---
+ drivers/mtd/nand/raw/r852.c | 78 ++++++++++++++++++++++-----------------------
+ 1 file changed, 38 insertions(+), 40 deletions(-)
 
 diff --git a/drivers/mtd/nand/raw/r852.c b/drivers/mtd/nand/raw/r852.c
-index 92c47d351c27..073f96f73be3 100644
+index 92c47d351c27..dbee043e6d8d 100644
 --- a/drivers/mtd/nand/raw/r852.c
 +++ b/drivers/mtd/nand/raw/r852.c
-@@ -656,6 +656,7 @@ static int r852_register_nand_device(struct r852_device *dev)
- 	WARN_ON(mtd_device_unregister(nand_to_mtd(dev->chip)));
+@@ -554,18 +554,28 @@ static void r852_engine_disable(struct r852_device *dev)
+ }
+ 
+ /*
+- * Test if card is present
++ * Sample card presence and the properties needed for registration
+  */
+ 
+-static void r852_card_update_present(struct r852_device *dev)
++static bool r852_card_update_present(struct r852_device *dev)
+ {
+ 	unsigned long flags;
+ 	uint8_t reg;
++	bool present;
+ 
+ 	spin_lock_irqsave(&dev->irqlock, flags);
+ 	reg = r852_read_reg(dev, R852_CARD_STA);
+-	dev->card_detected = !!(reg & R852_CARD_STA_PRESENT);
++	present = !!(reg & R852_CARD_STA_PRESENT);
++	dev->card_detected = present;
++	dev->card_unstable = 0;
++	if (present && !dev->card_registered) {
++		dev->readonly = reg & R852_CARD_STA_RO;
++		reg = r852_read_reg(dev, R852_DMA_CAP);
++		dev->sm = (reg & (R852_DMA1 | R852_DMA2)) && (reg & R852_SMBIT);
++	}
+ 	spin_unlock_irqrestore(&dev->irqlock, flags);
++
++	return present;
+ }
+ 
+ /*
+@@ -574,8 +584,14 @@ static void r852_card_update_present(struct r852_device *dev)
+  */
+ static void r852_update_card_detect(struct r852_device *dev)
+ {
+-	int card_detect_reg = r852_read_reg(dev, R852_CARD_IRQ_ENABLE);
+-	dev->card_unstable = 0;
++	unsigned long flags;
++	int card_detect_reg;
++
++	spin_lock_irqsave(&dev->irqlock, flags);
++	if (dev->card_unstable)
++		goto out;
++
++	card_detect_reg = r852_read_reg(dev, R852_CARD_IRQ_ENABLE);
+ 
+ 	card_detect_reg &= ~(R852_CARD_IRQ_REMOVE | R852_CARD_IRQ_INSERT);
+ 	card_detect_reg |= R852_CARD_IRQ_GENABLE;
+@@ -584,6 +600,8 @@ static void r852_update_card_detect(struct r852_device *dev)
+ 		R852_CARD_IRQ_REMOVE : R852_CARD_IRQ_INSERT;
+ 
+ 	r852_write_reg(dev, R852_CARD_IRQ_ENABLE, card_detect_reg);
++out:
++	spin_unlock_irqrestore(&dev->irqlock, flags);
+ }
+ 
+ static ssize_t media_type_show(struct device *sys_dev,
+@@ -599,32 +617,6 @@ static ssize_t media_type_show(struct device *sys_dev,
+ static DEVICE_ATTR_RO(media_type);
+ 
+ 
+-/* Detect properties of card in slot */
+-static void r852_update_media_status(struct r852_device *dev)
+-{
+-	uint8_t reg;
+-	unsigned long flags;
+-	int readonly;
+-
+-	spin_lock_irqsave(&dev->irqlock, flags);
+-	if (!dev->card_detected) {
+-		message("card removed");
+-		spin_unlock_irqrestore(&dev->irqlock, flags);
+-		return ;
+-	}
+-
+-	readonly  = r852_read_reg(dev, R852_CARD_STA) & R852_CARD_STA_RO;
+-	reg = r852_read_reg(dev, R852_DMA_CAP);
+-	dev->sm = (reg & (R852_DMA1 | R852_DMA2)) && (reg & R852_SMBIT);
+-
+-	message("detected %s %s card in slot",
+-		dev->sm ? "SmartMedia" : "xD",
+-		readonly ? "readonly" : "writeable");
+-
+-	dev->readonly = readonly;
+-	spin_unlock_irqrestore(&dev->irqlock, flags);
+-}
+-
+ /*
+  * Register the nand device
+  * Called when the card is detected
+@@ -632,6 +624,7 @@ static void r852_update_media_status(struct r852_device *dev)
+ static int r852_register_nand_device(struct r852_device *dev)
+ {
+ 	struct mtd_info *mtd = nand_to_mtd(dev->chip);
++	unsigned long flags;
+ 
+ 	WARN_ON(dev->card_registered);
+ 
+@@ -657,7 +650,10 @@ static int r852_register_nand_device(struct r852_device *dev)
  	nand_cleanup(dev->chip);
  error1:
-+	r852_engine_disable(dev);
  	/* Force card redetect */
- 	dev->card_detected = 0;
+-	dev->card_detected = 0;
++	spin_lock_irqsave(&dev->irqlock, flags);
++	if (!dev->card_unstable)
++		dev->card_detected = 0;
++	spin_unlock_irqrestore(&dev->irqlock, flags);
  	return -1;
+ }
+ 
+@@ -684,23 +680,25 @@ static void r852_card_detect_work(struct work_struct *work)
+ {
+ 	struct r852_device *dev =
+ 		container_of(work, struct r852_device, card_detect_work.work);
++	bool present;
+ 
+-	r852_card_update_present(dev);
++	present = r852_card_update_present(dev);
+ 	r852_update_card_detect(dev);
+-	dev->card_unstable = 0;
+ 
+ 	/* False alarm */
+-	if (dev->card_detected == dev->card_registered)
++	if (present == dev->card_registered)
+ 		goto exit;
+ 
+-	/* Read media properties */
+-	r852_update_media_status(dev);
+-
+ 	/* Register the card */
+-	if (dev->card_detected)
++	if (present) {
++		message("detected %s %s card in slot",
++			dev->sm ? "SmartMedia" : "xD",
++			dev->readonly ? "readonly" : "writeable");
+ 		r852_register_nand_device(dev);
+-	else
++	} else {
++		message("card removed");
+ 		r852_unregister_nand_device(dev);
++	}
+ exit:
+ 	r852_update_card_detect(dev);
+ }
 
 ---
 base-commit: 30daaf3e7897b4a8d9b72e5b0c86dd6e2a4d7d85
-change-id: 20261108-submit-r852-registration-unwind-v1-5c7cef4b5a70
+change-id: 20261108-submit-r852-card-detect-lock-v1-713bf5cd926b
 
 Best regards,
 --  
