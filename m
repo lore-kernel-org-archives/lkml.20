@@ -1,59 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794196549;
-	b=qxIBYDFm0exYu2+ywAeteCQQlKSfVq0DhYgn5X3QHriaIAXTdvMuqtnYlgNTxD6mCJUZ
-	 uKIsPgmfQMBFdW2rDGIlBYyE7gnBGpqR/mAk/65V9V4vDayUYmZUKgkL2fHCv7K+aD3N6
-	 EPSJJ/hlw65V8Ve3R+1TlY4n3lBED2MF9sem/QJiQDFU3guyh7epiHyPUHhEs22TS7spI
-	 XBhHas/MvfMpmyOaUHk71rFS77C/Dw10iGhg7GswxNTONDDjPFZ0RUfoe+ayeDYlzhBSG
-	 345LfQMT5hF4QZNeOwQlusP89bLPYjjXAqc2PM7Z1smnOzYZ7T/w+Puipe1PpNXXO9g==
+	t=1794196616;
+	b=K8aDRwQSy05mdgVy83hx/a/7i/wai+sAOFfMWwJnawWn+AzClQxgmI+7/WjLa8GgBDmk
+	 A3zAN73wNqGv3lGENuXHh68uM62dobPokdQ69wNxtqmdheW75Og8RfYq9czfxwxZ7YoDO
+	 TIfgH6R+lJwrgvYaJGqiHLH5KsQsyq5wn4ljt+sd0dvAR02SMrfJVG83/hjURm7Q7JYNl
+	 EUKi2yg3Q8ImE7bA1Fp8kq12EN6n8IQdHgDPpFbi0FEcQyWds8MNLOvqmRGEE+RQLihcM
+	 b3h+K+c3oxnyII++JaClbiz/Z9JTRYXn03KxpZDTEJqu75ARD4jIjyjfzLcSPVOSwVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794196549;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ROdqwXcZpsSHl4ybTWbGmZ5YKrRrEnDl4wILqeiJeh8=;
-	b=cr5DS/AjroziO9WiYseSuLhFJVBLa9i5ugFKT92dQ1472KoDaf4eNAkY1rlMPl0aZkvF
-	 SA6t4UMpfGZxNqToQXVhOlyI/3J+V4wp8ZoHaEs3Z5zl679YiLsYHmSRujH8QKwztJiOc
-	 9NNCXYUGY2rd41/jP3r4vwczfPMn2D+Avh5VsOSR9QqDT3hcXr83nIt2IgniDrHhO6PdZ
-	 HS6VvvJmpsXfAIirlJGETYHvYbs85TjBN63YYVgqHEqbs/n6Jz4pAm6L47cSY2FaSCFFR
-	 dvpr1TzhbZv3znDdCUOyIhJFy15MTG5J3tXKQhSjJXPZaeAj4lP4YPb6PdqoAAEU9bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794196616;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=IpoxAai+pl1QF/TuFGqG7saRnVQYdTl5R9HquRiLLjA=;
+	b=xgSkbLQqvdkGVRm8Plc8EHIhlCZS7HwYStwP0UWs0XLjszC7acNZscayzldfGkiRsEC3
+	 yQHKzjjsnrr6YP05ctfDg9tAwMUukyiCTG4CZ+6OLD4BoIxEW8Tw1HvSoDy5SZJbCZkPW
+	 MhQNpca/8ZR7Xwo33VUxw0dTUQ1b1L65yl/VfU0XoGrLeitTGr0mucdIp0Y0JCav5udvK
+	 TBggWk4halYc7UfDvLRkgTjWsowYfkDBsAqwfqvzmjX5+Hdg6m1m2wrclMmNngG4qiltF
+	 dxmEKjLBOmiMzcHagrVf0jLVjaYhP+2YbqaaspMqmsern+A1YjBTrqhT/lksgDvRg/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5eQhuGe;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=CFd8lFUg;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F18606D809;
-	Mon,  9 Nov 2026 03:55:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658FE606A31C;
+	Mon,  9 Nov 2026 03:56:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 658FE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q5eQhuGe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D15991F008BE;
-	Mon,  9 Nov 2026 03:55:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794196548;
-	bh=ROdqwXcZpsSHl4ybTWbGmZ5YKrRrEnDl4wILqeiJeh8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q5eQhuGesij01f+WYvWSG24n9WuTLhTWMNwv0MCQbwf33TSCPnoAXlRuoIopF/16b
-	 +i2TGdElLLxEl2/u6TZKhTMDo8oxLG9y3l1YNskufmsFwXVizcV1iZIZbTpKNWRbFF
-	 I/VlKx2AKdjpQ0hsSzTr8FR94KGBJ1cVjcVOJHhAzjyFckcmcg7xD7W23F6DBY4bpl
-	 orPsdtZVu2nIIgS4taI6stl6AfPQEdimZUDu2TNtbxfA6ygCZ94OrbmhZ0K0Q2yPSP
-	 iZumP4p5+lPGVJ95I6eoyTAehmEwmkNlceZVfrcI877OS2DzR6xtaIasffGkgGXs2F
-	 KljDkEPnb8E+w==
-From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: target-devel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	shao.mingyin@zte.com.cn
-Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	michael.christie@oracle.com,
-	bvanassche@acm.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] scsi: target: Fix NULL pointer dereference in core_alua_do_port_transition()
-Date: Sun,  8 Nov 2026 22:55:29 -0500
-Message-ID: <179419615235.1941224.10228625629108243932.b4-ty@b4>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261026195133237y2UxJLoV1FK6aD1zrFbIU@zte.com.cn>
-References: <20261026195133237y2UxJLoV1FK6aD1zrFbIU@zte.com.cn>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=CFd8lFUg
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=IpoxAai+pl1QF/TuFGqG7saRnVQYdTl5R9HquRiLLjA=; b=CFd8lFUg6lfA9BwHYqZzMDZ46+
+	/gGpSh/U3Yql7d+php4hyouKf1OXKFLzh+WFLBLHDu6Z4ZEf7Lb8XIAAWf8Vm5kq2aFG2QHnMColN
+	5Nx1/mr3CJWCsffKhpN3aKW03QfOCMxRe05IX+jqcKoA6xOkV9NNpofpoIUcDGDJzn6o=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xQGUi-00FBUi-Vg; Mon, 09 Nov 2026 04:56:32 +0100
+Date: Mon, 9 Nov 2026 04:56:32 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Anthony Pighin <anthony.pighin@nokia.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Xiangqian Zhang <zhangxiangqian@kylinos.cn>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: mii: Accept link settings read back while
+ the link is down
+Message-ID: <910e9272-a85e-4a71-9980-43a1b5160356@lunn.ch>
+References: <20261107210236.721901-1-anthony.pighin@nokia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,28 +66,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107210236.721901-1-anthony.pighin@nokia.com>
 
-On Mon, 26 Oct 2026 19:51:33 +0800, shao.mingyin@zte.com.cn wrote:
+On Sat, Nov 07, 2026 at 04:02:36PM -0500, Anthony Pighin wrote:
+> Since commit f6f2e946aa4d ("net: mii: Fix the Speed display when the
+> network cable is not connected"), mii_ethtool_get_link_ksettings()
+> reports SPEED_UNKNOWN whenever the link is down.
 
-> core_alua_do_port_transition() assumes that the device has an ALUA LU
-> group member and that the member is associated with an LU group. Neither
-> is guaranteed: internal-use HBAs never allocate dev_alua_lu_gp_mem, and
-> the association with an LU group is dropped when "NULL" is written to the
-> device's alua_lu_gp attribute.
-> 
-> The configfs path can reach the second case. After clearing the LU group
-> association, writing the implicit ALUA access state of a target port
-> group calls core_alua_do_port_transition(), which dereferences the NULL
-> lu_gp in atomic_inc(&lu_gp->lu_gp_ref_cnt).
-> 
-> [...]
+mii.c is old deprecated code. So i would prefer not to change it.
 
-Applied to 7.4/scsi-fixes, thanks!
+I would say your first stop is to port the driver to phylink.
 
-[1/1] scsi: target: Fix NULL pointer dereference in core_alua_do_port_transition()
-      https://git.kernel.org/mkp/scsi/c/c0bb6614132c
-
--- 
-Martin K. Petersen
+  Andrew
