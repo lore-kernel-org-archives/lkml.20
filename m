@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794224266;
-	b=o6Twq0hs2sIqjk3xA7J2QJC066THdPlOibG/TWghmeBPA7o0pHtHE3YudH8hGQXDAj4E
-	 VnQRLfrYmznlV3tpGHI2KUmj+Wgc/F2SEcg/y+y+qFqC/AYldHNy/ebPYdHLefAXp2L/E
-	 D2FCWhnvp7tk8JodpYHEA6rf7TwHzDyvGCpjE5wOYVSJmgfk6iNNFpX2acfNd4MrRt+Mt
-	 ztZDcdZTpkxFwqSIXKR9lMDYHGfF0FsYkHSrQLhqSh0eyxc04kAQII/XIoWPye8Zn5Vlq
-	 iA1M/IE2+7SHo0iUQG3o+uHyPFWsinbpBRX6BF23SXZWjzyM+mH54rnpojv+v3zKdbA==
+	t=1794224273;
+	b=EDizFNsl29ItOByQpRbdOgo0c54CDnTsUd+Umn1uNGdkWKRlv0m03BBVqfeRa6oU+NBt
+	 yPHHJ3Bfc5cPiCAfVYW8dKHKQXoGMjGDgbcbK9X2QLuffRuOJeL04VHj43hjpaA2UJmMe
+	 OtXAV6wgqc3Bc7C/eCtLuloahl4j9kTRWLDDgjRHcgM+0ilZoIZNomWHEsXon8hsR7Fqf
+	 ijslIJOcqeOJcrfxEBUzVh+PT5f+5uhUWmZbV9fEmVqGhefltvhBj5yGX5HMiEpWDSt+5
+	 n0C0GAIHLRJnfdnAUB7Aak35rf0wgX42E6oku2w9Fmc4X3sPo5Jteeqp5++zw4GR2mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224266;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224273;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=2ViT3Yo4M3SsUpvja1R5K7/sF1YFo5i6DucfxLblQBU=;
-	b=Cj2OwRhU39mQR75Ur2nN9z8GWlmAjSs7m0rNcJI8XLsPzM2g+d0J2lGPkCUe+syG+MHc
-	 EOKwJcjhGqtdDI1ObdeBeGxnbp0VAHCrrVyW5tVgcZ3PsdY59pGvmQ8LctYbQhrh8MlrC
-	 r5Ec3j90qr0DcUL0WyCHbEq40LIEkug1rdDeYRD72sQUSXuYOYVV+reE5C7WeyDZDBDJw
-	 MXvJI8HtmGBD8yiPSHOnrE/3WpWvXlcH1seLJ3TIrMIXjVTTBR5nBfC9f6yUltcxMwmFB
-	 NEdlQzknJG47I296wCA3/Uoxo6bQ3C0DEDkGnQ8zNcXsTSigaIvRuix2o2h2WmnkYHQ==
+	bh=Y3RNcp4pnRlKxAjxnzkLeSDjNbMJzP30RaISr73JjaU=;
+	b=zCAV/5fFwkghedoTo8zexcWS8YGI8/K04yfvfss00dBErGYk8QQK//MAnc8HYvrpTYE/
+	 HP9DLT1d9UCOI9p05j+Xy1/mgO9G5rw7pRL5lKQTM85TtPXZHOUuIugxj2yZ+MZibP38A
+	 7ksKU7yzzT0bY4AlsGjO7ANPVQPW9yo8k/h/N3JppGeW0OHa6pY87psknAy990ydvK6iR
+	 Igmzqa65nb+8JLf3N557cXJvC1wnJUFm278mGm1EtsX2pSN3dUcqO+rCKp5apCryRRvaw
+	 uHZ2ToR/PM+FKru9zR+d/EmsJphIIt7Kyd1PcrJescjOnaJ6E4bkP2XM9luJRcTWF7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BsNl7ZDe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7UoJ4qU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499A6606A330;
-	Mon,  9 Nov 2026 11:37:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66EA606A33E;
+	Mon,  9 Nov 2026 11:37:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BsNl7ZDe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D21341F0089F;
-	Mon,  9 Nov 2026 11:37:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7UoJ4qU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54AE21F008A4;
+	Mon,  9 Nov 2026 11:37:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794224265;
-	bh=2ViT3Yo4M3SsUpvja1R5K7/sF1YFo5i6DucfxLblQBU=;
+	s=k20260515; t=1794224272;
+	bh=Y3RNcp4pnRlKxAjxnzkLeSDjNbMJzP30RaISr73JjaU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BsNl7ZDeGyPFQKK2Sj1fAO+4RkRF1uiZ6sP5hR44G7QzyBrQ44q9NwfvOW/fxL2n6
-	 1GgkdTCTfIHUWTTx+NhQtw/CVAybuER3+EHRhrGsmvVzn14YrIP9RG2aOMLXDapPfB
-	 FTcDrtf/1N9pKXuB+yw2ztzN8T96RVDxGQnnzftygYfPR6rhvkqUEyUgtq2PKSUkvR
-	 zkKXPatfQr+bwb57/ifJYEpOR9/QZqsHtrXWmEdCCHNZPT9JNCB6SY/bThhSbCYMbK
-	 i8P762UuS7STpaLKdWxNs40zTEM5U939heEyAKA/tqh6mf9b9LN5u7HKTI45OKXUFm
-	 CfMbFacbIj/wg==
-Subject:
- Re: [PATCH net v8 03/10] can: rockchip_canfd: retry the outstanding TX buffer
+	b=e7UoJ4qUmetFXicfvMj8lPo0PrvfWYyqNGOclNmOE61ADo7Ev5ENGKxyb2g0mBSxj
+	 x5CS7Gpx7hTutSFF1uRljrxkOvT+sGm9RAo2PofvivVJOa4ofl64azJqvqPELGIEAd
+	 jSjfSjG688iFxZ4gTfAPOScmUOzaDq5oUFvhloVmXgVXwlf0XHO6bmGnhi6TcMLpgS
+	 ultz0EvbSLsISi6FIL6lm2jCR3MjXWIkoWkuESbElTkf2T5lv447srR0jWBNX8Q+Bv
+	 3YU+PgFi46QH7giBAc4jZI0wRxYZCMLbEgoq9XJp+VlRUNAf8WyV4v0RbYjk5lo6TM
+	 sBAEqO3v4mQ/Q==
+Subject: Re: [PATCH net v8 09/10] can: rockchip_canfd: prevent timestamp work
+ from rearming after bus-off
 From: netdev-bot+sashiko@kernel.org
 To: 1579567540@qq.com
 Cc: mkl@pengutronix.de, kernel@pengutronix.de, mailhol@kernel.org,
@@ -52,10 +52,10 @@ Cc: mkl@pengutronix.de, kernel@pengutronix.de, mailhol@kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
  linux-doc@vger.kernel.org
-Date: Mon, 09 Nov 2026 11:37:44 +0000
-Message-ID: <179422426444.994134.7825659732864102594@kernel.org>
-In-Reply-To: <20261108-rockchip-canfd-restart-close-v8-3-3e7a23fd9eae@qq.com>
-References: <20261108-rockchip-canfd-restart-close-v8-3-3e7a23fd9eae@qq.com>
+Date: Mon, 09 Nov 2026 11:37:50 +0000
+Message-ID: <179422427089.994134.14595272665034265410@kernel.org>
+In-Reply-To: <20261108-rockchip-canfd-restart-close-v8-9-3e7a23fd9eae@qq.com>
+References: <20261108-rockchip-canfd-restart-close-v8-9-3e7a23fd9eae@qq.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -75,71 +75,144 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The commit message for "can: rockchip_canfd: retry the
-  outstanding TX buffer" states the user-visible failure ("the pending…
+- [Low] The patch is tagged Cc: stable but does not say that it depends
+  on the preceding commit "can: rockchip_canfd: serialize TX with bus-…
+- [Low] The commit message gives only one consequence: the worker can
+  "keep polling while the controller remains bus-off".
+
+Pre-existing issues:
+- [Medium] Concern: in this commit, rkcanfd_skb_set_timestamp() reads
+  priv->tc through timecounter_cyc2time() from hardirq context without…
 
 --
 
-can: rockchip_canfd: retry the outstanding TX buffer
+can: rockchip_canfd: prevent timestamp work from rearming after bus-off
 
-This patch changes rkcanfd_xmit_retry() so the erratum 6 retransmission
-uses tx_tail instead of tx_head to pick the TX buffer. The goal is to retry
-the frame that is still pending rather than the next free buffer. It is
-tagged for stable with a Fixes: tag pointing at a5605d61c7dd.
+This adds timestamp_lock and a timestamp_active flag to rkcanfd_priv.
+With them, the timestamp worker reads the timecounter and requeues itself
+only while timestamping is active. The start and stop helpers set or clear
+the flag under the lock, and the work is cancelled outside it.
 
-> Use tx_tail to retry the outstanding buffer. Otherwise, the pending echo
-> entry can remain incomplete and leave the TX queue stopped.
+> The bus-off IRQ cancels timestamp work asynchronously. If the worker
+> is already running, it can requeue itself after cancellation and keep
+> polling while the controller remains bus-off.
 
 [Severity: Low]
-The tx_tail indexing looks correct. The stable justification is harder to
-check, though, because the stall described here depends on how the
-hardware handles TX_REQ(n), and the commit message doesn't say.
+Can the commit message name a user-visible consequence of this polling?
 
-The controller has one TX frame register window (RKCANFD_REG_FD_TXFRAMEINFO,
-RKCANFD_REG_FD_TXID, RKCANFD_REG_FD_TXDATA0..) and two request bits. Every
-frame is written into that shared window in rkcanfd_start_xmit() before
-TX_REQ(tx_head) is issued.
+The only trigger is the bus-off path:
 
-rkcanfd_xmit_retry() has one caller, rkcanfd_rxstx_filter(). That caller
-only gets that far when the nominal frame echo_skb[tx_tail] is EFF:
+rkcanfd_handle_state_error_int()
+  rkcanfd_chip_stop()
+    rkcanfd_timestamp_stop()
+      cancel_delayed_work()
 
-drivers/net/can/rockchip/rockchip_canfd-rx.c:rkcanfd_rxstx_filter() {
+As far as I can tell, every way out of bus-off already stops the worker
+synchronously:
+
+- Restart through rkcanfd_set_mode() calls rkcanfd_timestamp_stop_sync()
+  before rkcanfd_chip_start().
+- Close goes through rkcanfd_chip_stop_sync().
+
+In both cases cancel_delayed_work_sync() handles a work item that requeues
+itself.
+
+Runtime PM is held until after rkcanfd_chip_stop_sync() in rkcanfd_stop().
+That means the stray worker never reads a clock-gated controller.
+
+Anything it adds to priv->tc is thrown away when rkcanfd_timestamp_start()
+runs timecounter_init() again.
+
+Given the Cc: stable tag, could the message either describe a concrete
+consequence or say that this is a hardening change?
+
+> diff --git a/drivers/net/can/rockchip/rockchip_canfd-timestamp.c b/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
+> index ad582afbbd682..1d2a122770dc8 100644
+> --- a/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
+> +++ b/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
+> @@ -30,18 +30,27 @@ static void rkcanfd_timestamp_work(struct work_struct *work)
+
+[ ... ]
+
+>  void rkcanfd_timestamp_work_init(struct rkcanfd_priv *priv)
+>  {
+> +	spin_lock_init(&priv->timestamp_lock);
+> +	priv->timestamp_active = false;
+>  	INIT_DELAYED_WORK(&priv->timestamp, rkcanfd_timestamp_work);
+>  }
+>  
+> +/* The caller must quiesce IRQs and timestamp work before reconfiguration. */
+>  void rkcanfd_timestamp_init(struct rkcanfd_priv *priv)
+
+[Severity: Low]
+Should the commit message say that this depends on the preceding commit,
+"can: rockchip_canfd: serialize TX with bus-off and restart"?
+
+That commit added rkcanfd_timestamp_work_init() and its one-time call from
+rkcanfd_probe(). It also moved INIT_DELAYED_WORK() out of
+rkcanfd_timestamp_init().
+
+Before it, the work is initialized on every rkcanfd_chip_start(), which
+means on every open and every restart:
+
+rkcanfd_timestamp_init() {
     ...
-	if (!(cfd_nominal->can_id & CAN_EFF_FLAG) ||
-	    (cfd_rx->can_id & CAN_EFF_FLAG))
-		return 0;
-    ...
-	rkcanfd_xmit_retry(priv);
+	priv->work_delay_jiffies = div_u64(work_delay_ns, 3u * NSEC_PER_SEC / HZ);
+	INIT_DELAYED_WORK(&priv->timestamp, rkcanfd_timestamp_work);
     ...
 }
 
-While the tail frame is EFF, no further frame can be queued:
+The new comment on rkcanfd_timestamp_init() also relies on code from that
+commit: the synchronize_irq() and rkcanfd_timestamp_stop_sync() calls in
+rkcanfd_set_mode().
 
-drivers/net/can/rockchip/rockchip_canfd-tx.c:rkcanfd_get_effective_tx_free() {
+On its own, this patch won't apply to stable trees. An obvious manual
+backport would put spin_lock_init() next to the old INIT_DELAYED_WORK().
+That would re-initialize timestamp_lock on every restart, while an old
+worker may still hold it.
+
+Other patches in this series have a "Backports must include ..."
+paragraph. Would a similar note help here?
+
+[ ... ]
+
+> diff --git a/drivers/net/can/rockchip/rockchip_canfd.h b/drivers/net/can/rockchip/rockchip_canfd.h
+> index 3664124a8da25..078876769a05d 100644
+> --- a/drivers/net/can/rockchip/rockchip_canfd.h
+> +++ b/drivers/net/can/rockchip/rockchip_canfd.h
+> @@ -477,6 +477,8 @@ struct rkcanfd_priv {
+>  
+>  	/* Serialize TX submission/completion with bus-off and restart. */
+>  	spinlock_t tx_lock;
+> +	/* Protects timestamp_active and worker reads/requeueing. */
+> +	spinlock_t timestamp_lock;
+
+[Severity: Medium]
+This is a pre-existing issue, not one introduced by this patch.
+priv->tc still has a reader that does not take the lock.
+rkcanfd_skb_set_timestamp() calls timecounter_cyc2time() from hardirq
+context without timestamp_lock:
+
+rkcanfd_skb_set_timestamp() {
     ...
-	if (priv->devtype_data.quirks & RKCANFD_QUIRK_RK3568_ERRATUM_6 &&
-	    rkcanfd_tx_tail_is_eff(priv))
-		return 0;
+	ns = timecounter_cyc2time(&priv->tc, timestamp);
     ...
 }
 
-So whenever the retry runs, exactly one frame should be pending, and it
-should be the last frame written into the shared window.
+Meanwhile, timecounter_read() in rkcanfd_timestamp_work() and
+timecounter_init() in rkcanfd_timestamp_start() now change tc under
+timestamp_lock.
 
-If writing TX_REQ(n) latches the current window into buffer n, wouldn't the
-old TX_REQ(tx_head) have resent the correct frame? The echo would then
-match echo_skb[tx_tail] and completion would go ahead normally.
+If a conversion on another CPU races with the worker, can it combine a
+new cycle_last with an old nsec? That would give wrong or non-monotonic
+hardware timestamps on RX, TX-done and error frames.
 
-As far as I can tell, the stall only happens if buffer n keeps its old
-contents and TX_REQ(n) resends them without reloading from the window.
+The last patch in the series fixes this: "can: rockchip_canfd: serialize
+timecounter timestamp conversion". It takes timestamp_lock around
+timecounter_cyc2time() in rkcanfd_skb_set_timestamp(). It also updates
+this comment to "Protects tc, timestamp_active and worker requeueing."
 
-Was the stall actually seen on hardware, or is this mainly making the slot
-indexing consistent with the echo_skb[tx_tail] model? The Erratum 6 comment
-in rockchip_canfd.h has a canfdtest reproducer, and a5605d61c7dd carries a
-Tested-by for the depth-2 change.
-
-Could the commit message say which TX_REQ(n) behaviour the fix relies on,
-or add a Tested-by or reproducer, so stable backporters can judge it?
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108-rockchip-canfd-restart-close-v8-0-3e7a23fd9eae%40qq.com
