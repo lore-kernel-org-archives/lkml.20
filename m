@@ -1,78 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.25
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794200287;
-	b=ShhttCYVAMe2wTUJ/AyNkpOso5S8jGXJ8E9gndRCfAy7i0r4RFOr0pC3b86bfQRwrc44
-	 C2CpcxjXSLfAis2R9vBP8+Jvq9QMsJ105feCBOLYSlRpVY5oHFouKXRgGQGTiWpQfaQAm
-	 gsnrIP32tc3eWnZfxpHnjPipkQ6tUhqgVh5Dtp+JkX0i+Qyj/cNjBUuKAEfYZoYTqjZyx
-	 nADXzTYdACKDgau3F6OVdi1pNxdev/D7vMRsykzpcWeUHiMkzqw9h7lglCA3pYuyizHMv
-	 BAljTs5p9ijchz4TXeUrIqGAWrITfq7OOEyrPFYNJEf+E+p1rBYl6CRnPGV9lCZ0WeA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794200287;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:
-	 X-Msg-Generator:Content-Type:X-Sendblock-Type:CMS-TYPE:X-CPGSPASS:
-	 X-Hop-Count:X-CMS-RootMailID:References;
-	bh=hJGdgt492bpGMsWySAoBQPxndMzVOyfJANErPbzuzA8=;
-	b=1YyeL9h+Fax/7QTq/lU5P261IoN/hAb7YdRpNYpF2F6E2RcUdiLNBXykk8EhkAl1DDLr
-	 GFSIWerb0xdnEtDc+9qXH9bqCUZoEGJ1EQYSm/4C0KPazmD4+lrOc8jNAu5EKEZWybPMu
-	 uZZGyfkQKcqjaNRc/70QQ5Kh59L1vU+JT9/j38LOQy4rGgJiPCaGfNak7xR68kdfzEmV4
-	 CLSF0Vm5Rdy1TydXsA3qDGtEgS0OYsI1JifGOmCZEq7/l7ixZJNfh3ojCIE3+7SUu479K
-	 7OafHM3Nzvvh33vqO/qDA05TQVgFShE40/o7iqajrSePr0F4WCrOS9bN4/DjftG43gQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b="X/PIKzHl";
-	arc=none smtp.remote-ip=203.254.224.25
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794200410;
+	b=4HDHPRvgcYcAnLzrMSlLoi1ARc0dyK6ayw0MeBR9MMdBINRFbPN0dw3Fgv8967bN91X/
+	 bO96OhN68nNM3Z+c8Zd8V3FmKOgOi/FJM59hhEA2lF6y/OM2Td9a0nTaAXuoRAGvAbPHn
+	 qrD4NyEInS1XBEJKUTbZDqzJ+79M6A8OlnmtISewLq6eLZHBe/+PwAmwHXVMf4TdsNnVo
+	 AS20/87OrwD2cgTEFQLl3HGSG6jIkGyWlDpxrEhidtnYbxDs/DuJpIbJLU1JZijQwwn6q
+	 yZiSqXR9zr95w7zTFFBwcGNwEicZlN2TT3DQiujP6FkSFwSReEa7PlQosTr0pQLnz6Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794200410;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uxGjObtYoW99nm/rq4iOabAySmOJTuJplk9hgJ6mUXA=;
+	b=ffo+K2bm+BPkdg3QN8IT+Nth2W7wQO5ZhlZf8CsApsJ4SUuXova3LDcdEA6empJczYJF
+	 38yR8s6vFzL54GVhfk7PWVcpZ6SGDFSaXGdaZAmOQP0UuCawHFwm2R+kxWR2AAWMfmwHu
+	 6nxtcAvCq8IduexTl09cBlvHLVeZN6VtItwrmsQP4XhX5wSc3TDHnKn9HOTOJyQNTS5/5
+	 0rPdM4mzLh19DAO//MC+jyvnOBRG4ucW+/UmptzTnsBRCCW4uEjp3jSkR4/jdP3OLnInu
+	 bxIV39m7D6EarS4EYEOW8U3NE+JO7Yfm5gkz3dNHc8lBVHDDq4chQFVcYzmxYldaeXA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gdRljo7Q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.50
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012050.outbound.protection.outlook.com [40.107.209.50])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A042F606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:58:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A042F606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E9D606A31C;
+	Mon,  9 Nov 2026 05:00:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86E9D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=X/PIKzHl
-Received: from epcas2p4.samsung.com (unknown [182.195.41.56])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261109045803epoutp02b1f8ac882335d52cf47233cc008bfef6~mR6bXk_Lb0792707927epoutp02G
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:58:03 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261109045803epoutp02b1f8ac882335d52cf47233cc008bfef6~mR6bXk_Lb0792707927epoutp02G
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794200283;
-	bh=hJGdgt492bpGMsWySAoBQPxndMzVOyfJANErPbzuzA8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=X/PIKzHlnghW+esBclYI48qhc+QKPP5Cw6O69HdcVpZYKRZ1w6x2Lo85cQ2qi5N5e
-	 HwCrqFUIkfE3WnL3IKY8txnhJW7Xd1w0OGrGbyGWlk4pIK0W5hJTKbggiata89K05V
-	 SsR0YYh6e9xNGeRDX/T4jg/ZzE4vOSnY5fWqp8wk=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPS id
-	20261109045802epcas2p1a532ac5e9960b5d11566befbe207590f~mR6a1DuXQ1665916659epcas2p1D;
-	Mon,  9 Nov 2026 04:58:02 +0000 (GMT)
-Received: from epcpadp2new (unknown [182.195.40.142]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4jNHbZ5zWZz6B9mF; Mon,  9 Nov
-	2026 04:58:02 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261109041347epcas2p17b5c0fd7b693f92eb2af35b12a24de31~mRTxrjBTr2701327013epcas2p1U;
-	Mon,  9 Nov 2026 04:13:47 +0000 (GMT)
-Received: from ubuntu.dsn.sec.samsung.com (unknown [12.81.221.204]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261109041347epsmtip1d584ccfa64ae0209e71bb4ef7356335b~mRTxmLGZZ2834428344epsmtip1t;
-	Mon,  9 Nov 2026 04:13:47 +0000 (GMT)
-From: HOYOUNG SEO <hy50.seo@samsung.com>
-To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	bvanassche@acm.org, mkp@kernel.org, martin.petersen@oracle.com,
-	stanleyjhu@google.com, peter.wang@mediatek.com, alim.akhtar@samsung.com,
-	kwangwon.min@samsung.com, kwmad.kim@samsung.com, cpgs@samsung.com,
-	h10.kim@samsung.com
-Cc: HOYOUNG SEO <hy50.seo@samsung.com>
-Subject: [PATCH v8 2/3] scsi: ufs: core: Hold host_sem in
- ufshcd_wl_poweroff()
-Date: Mon,  9 Nov 2026 13:09:16 +0900
-Message-Id: <973576304.21794200282836.JavaMail.epsvc@epcpadp2new>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1794196863.git.hy50.seo@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=gdRljo7Q
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bOvOEjdJqowbP4WyVeFZ+zYXuVIVmR+p8ryx7XbFOruGM8kVVve1FAjBKRo6AtgAE5x4qQ9khqjxx8cV/0EFs5a2bwIDinkcG4hmK04JrU447HGQ/9xA+Dj1V+fsUkeP+5UiZE1Yc8+pTBZSvvu5pqdU/HmHFPghTosm3wnwmTQTyviZHnXelzD/W6Prm4StwNKd+sT/dpD7pBpbONMBOQo/YLplh5dM3/P7zlwGRywe+C5RfITEeHzRrdylP8A/AQwE1ES+JEc1SCdjCQfUl4xdJeGutmCizsNgzNAzpvyWYXc+7VMrQCuSnyilwQhltqcJw0h0tb3wxYFBC3JZ7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uxGjObtYoW99nm/rq4iOabAySmOJTuJplk9hgJ6mUXA=;
+ b=DiloV8UExgHlYARyG4AGc1iTtCGclW3OfLgV/++zH3qux2bNarQ462OvO0oe0qkTMq1CiXxatjL5dONCpVUvzwltpLnavq1M8jKYc0kEhDew81q1pkuq8Jyov+KPrUseubzaFwKYfwOjzxgQVL5HdrrSapVGI5/fqX7KVMbn1o8M1JaK23X5dfwy3T8KMopkt60lruF3DMwwPsdQH8s/KKaN3fN7yNTkuZSC4mseuPnd/ZZy9i1SEButijkDSylMmtyVDz+/XecrMxP8nPOGOI/Gp8/+MRaqHrEUEwjKioNWmaOtyhDrg+nPD8BcHGPaADwp9vJJLcff/So6KkPHsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uxGjObtYoW99nm/rq4iOabAySmOJTuJplk9hgJ6mUXA=;
+ b=gdRljo7QfO/LTLOcrtR2oouNHn+74rqk9zHY2+0jt6N09RAtmR6VU6bSbLYApRsGHKlC7ItQgs7I7P0Ih3ISsvVmOEbHRQAHn9VcOA6fhnYhC3h0pT1H5AqWi2WQSe4mHkINy41GlJlfQCoqGKdu0T+M4njVduVEdZnfkKQRLaN3G0V9JPJo8Te5NGOyhpIph0hoGGyw5zZb0GvnvZonB+rbdZIH166DuGRDgJtGdzVMZOrnNHlHG0SgPaFC9MqNuAHlrSC3MDSfA/ffKykAj3E1oMPI4+r7m2PHcLHSC5lvfuhvd9DsCSTF5gKm5knKABx/vboWQjDsVsjBA+b+Sg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ DS7PR12MB6264.namprd12.prod.outlook.com (2603:10b6:8:94::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.12; Mon, 9 Nov 2026 05:00:02 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 05:00:02 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 09 Nov 2026 13:59:58 +0900
+Message-Id: <DMQEYK7VS9ZJ.4C8KRV94NLQ9@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 05/12] gpu: nova-core: run the generic bootloader
+ from its own type
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261107-r000-fw-v2-0-fb37cc5b20cd@nvidia.com>
+ <20261107-r000-fw-v2-5-fb37cc5b20cd@nvidia.com>
+In-Reply-To: <20261107-r000-fw-v2-5-fb37cc5b20cd@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0180.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c6::13) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,58 +103,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261109041347epcas2p17b5c0fd7b693f92eb2af35b12a24de31
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-Hop-Count: 3
-X-CMS-RootMailID: 20261109041347epcas2p17b5c0fd7b693f92eb2af35b12a24de31
-References: <cover.1794196863.git.hy50.seo@samsung.com>
-	<CGME20261109041347epcas2p17b5c0fd7b693f92eb2af35b12a24de31@epcas2p1.samsung.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|DS7PR12MB6264:EE_
+X-MS-Office365-Filtering-Correlation-Id: 309eb214-a1fc-4c43-4b4e-08df3e1e5020
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|23010399003|376014|366016|1800799024|11063799006|4143699003|56012099006|261021121427099003|261022105027099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	SmZKZyqoiMF3vigagvBG7rkA0EO5F5ykrVSO8Yu5FkhzZn/JfUYNtiq2LXbpySKbGZ5CoUuTF4Ukk/42SmlOvbfyDQRgUzXGZpEVfG+iIIH0ElbrJNcjn2PoBQD/VsBevPzz/TdKLe5yrburORDUjz5DKox8a44zpToELdgCS+XZ7foqIy7twI4gFqHRwnLYNuYiLtGlaPGG6NKXqVJsyvwN9ECwoUlLb/2vaYZMM+CeAhPq7V/AP5u5FjJcT17qBVPo8L6+re/Voda2Gho0dVh/TTb5j0c4raiUK7NDcEN03tZ96KA8nNP0v0irE7m6hgyYUAfXoa2Lg3+BZ4bqws/1dPJunhz8IfpXL0ZpkforAHypeCAiiF6vgIMMWHHauli3JeuqOQu9+K+ifDCvAmNUDkQYshu4x24in+DgYrYu0Djs3LhcjpPApXH3STwkN+Tsoi1s+FDf1PDB+zo9H+UHycihS/Iba8eACayYnkZF0ypK+7X39CAVX++w8fuvUDlW2qykJvytTVIzoNd3C2L7LSBle5xsV9begtsxlMzJekjc2o/uy46vd9cxUbXG7QIFTxvbgWSuvIwvkQqH1vgb0uG3TaKu46mmCrV9DGFumfB02szUdGPZxA6wyJcm6q8361MjFToj3JcAxmB8ulVm6UjJfMlcBaYkW+BL4oQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(376014)(366016)(1800799024)(11063799006)(4143699003)(56012099006)(261021121427099003)(261022105027099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MWtkK0tKL3ZJTTZZWWVrZXpKcUlxT0hzZXVvZlVOMFFIRFNhSUVuTDAyQnlk?=
+ =?utf-8?B?NUtwWVhrYjcxQXR3ZHY5c3dOK3ZXcnVSa08reDNoa2FQc3lMNmN1ZUpVTlAx?=
+ =?utf-8?B?dUpKbzRkbmorRUhBaXEyamx3N0lNdTYxUFZkSHorcEJyNFdTUUcyS3ZUOGFN?=
+ =?utf-8?B?RDBOQnZyblRDYklGUndaa3o0bFdneFZtWDIwTFZ5aXhnR2pCYnpTbXhJQ0dt?=
+ =?utf-8?B?WXpHMVFYcGFqWGh3YVplcnVvU0FkcTkrbWRUbUZBNldSeUpDcUJSMjFSNVJ4?=
+ =?utf-8?B?S0dlMFA0cnFGRzBEZ1o0cWVGRG45bFZSSW9QR1Q0Ykc3OHBsbkRsTFRlM2ZR?=
+ =?utf-8?B?UExWVmxyRFYwQXZpNVh5dEtyV3N5ZnB1aTExeFBKOFhCLy84cmxTQmY2N3Ns?=
+ =?utf-8?B?MVBRUnNDSjEzMFk2cXVuU2k0RW9uOWtod2w2cHVGQVpqQXh6VjhUd0Y3TTV6?=
+ =?utf-8?B?eWhDTUo0cFlhK3JoNC8yaTA4S0VDcnRBVTlnWnRwSlhUR2tGeTNaR3p2eHNi?=
+ =?utf-8?B?aEV0M2NHRXBWVWxQbnVpcDVPUW1yYWM5dVZkT2VaU0xtSWgxYXdPODR1NVJS?=
+ =?utf-8?B?b2ZkTXR2UUNKMUNWYTVpNGZwd1B4VWhHV2NkK3phWTErQjhDT3pXVS91Ni9j?=
+ =?utf-8?B?ZXc3QWZjVGViQjlqaXQ0NTRVYXh4TE83Nmowb0sxaFpBcW55cE9Yb3NtZE9v?=
+ =?utf-8?B?OE82ZVNDNnpnc1kxY2FTNHRoRmpjY3JVVmVqd2xjV01sRW16dHJkemFZSStn?=
+ =?utf-8?B?bnJaTS9vYWtVRE5HSS8yM05mTWNWYjRtV1VuQUNhdUNqUFk4QkVHa1UwdWFx?=
+ =?utf-8?B?MHFhdzRGUjVsbDdpaUQ2NjVUNjlFU1VtMTdBY0IzajI2TVVwVktWanJMdHlX?=
+ =?utf-8?B?NDZ2aXZiMzdOeVZ3alFQVnFoZWlOV3NyVTZPcjZCb1VBV1Y0bGU4SEVhdFZn?=
+ =?utf-8?B?eWV1Y0FCSE9CcUo0QVZzU3Z4WS9CUnFpeXdzdEJXYWlZQlQ2b0YweUJ6ZExL?=
+ =?utf-8?B?RWhwSlgrR1lxSVIzMDZadHNxbWp3WDFYYWJXb0RMbW5qZTB3c1RFeGoxcVIv?=
+ =?utf-8?B?ZnkwU3B4dElQVVh4N2J5YTQ4L2pndUdUNGN3YzBwcXdrZUV6eTAvRnRzZDJv?=
+ =?utf-8?B?NHpmSmdMdk5UeGpNYnE1RjVmOWd3bmhWVVE4QVdRSjkvRGVYRVlCMGJka29Z?=
+ =?utf-8?B?UjI0S2ZEV0hnejM3eGUrUjl0Y2RQVldpenpRUjR2MWI4RmxFRjFnZ0tQWFdn?=
+ =?utf-8?B?UUNPS2xjRzhvRzduK1htdmQwVHhLVmJudlBxbzZZSDY0SUg1akhJYkN3aWoy?=
+ =?utf-8?B?Y1gyaGVjRDNDOVI5UDlTMk1lM0tPeUdHZU5adVBxVEFJRDJUUjB6c0l4Wmhv?=
+ =?utf-8?B?dWJPQnBxdnhBem5VbjJTVG5yTk5UNUFXclExQmtGMlUybC9GbmV2ZFVFa3VP?=
+ =?utf-8?B?bWJtbnIwUDZSb3I1bmFFWm4wVlU4NmYya0NUNVY1dC9tbmVya0ljVHFxNnNT?=
+ =?utf-8?B?enhlOS81L0pqNGVkcGdDbjcwN0FCL1duSzBqc24yeVJORGcvTEJIRDlOUHZh?=
+ =?utf-8?B?K0NBYjhoSlBXM3B1S0tteFRza0xNbDJoNGVJZjl5NEdBZjNCRGNHSlZxZWpD?=
+ =?utf-8?B?allrellHVUhWaFNkeEVRWEFrQ1NLK0lMVDYrL0VJaGFROW15a3lrNjZSY2dr?=
+ =?utf-8?B?dU8zYzByUXN3VkNUMmJDbVBzV0QwclpjTFg0M0I3TWc2Wmt6M3lUMit3dW9n?=
+ =?utf-8?B?dnRmb3dacVNIMldGcWFDOE5rL29VVndBYnBPeks1bmRRVUcrMEE2N0FiVjRH?=
+ =?utf-8?B?NUJWQTB5eWhzenlMakYwc2hjL2FKaW5zT0U5dTlrRFM5bGRwVm9sRWtkZ09x?=
+ =?utf-8?B?WExhQnJ5cXRsYm45STRPdVZWUHg1S1hpMzdGejJJQVo3eHdsZFg1Qy9wU0Jy?=
+ =?utf-8?B?N2ZsY0lsSTFvT05XYmFxRktYdDhRNFkzSkpHUEp6dnZuU0lKbDRpZEhScGdz?=
+ =?utf-8?B?b2pPQm4rYkhVYTNJQ2g5NXA0VEJOZkZiVTZhc1NydmV5dWcxamlQaG1CWmRu?=
+ =?utf-8?B?YWRET1ByM0pQampxQXNJc2xiQ25XN1YxWUIyeTgwd1F2VDVwRUNBV0E2Qloy?=
+ =?utf-8?B?aS8rYlBVNmtRcE92RWptOW9GRnV2ZERibTRBMzhMLzVvcjJwNkppNDdjeSt3?=
+ =?utf-8?B?ZkxuaGhka29JSmFxOXY0cmQ4N2F1S2lvZVdHd3d0dUpMSlFDSFhRcUZFbFBE?=
+ =?utf-8?B?QkVDbk5raXpyV0xQcUZBb3IzaFZKYS96ZGZheHlwY3c4Z2tpOU9qWkt5VWZl?=
+ =?utf-8?B?eGk0aGFlOC90SnZEanNhZmk2c1h1dVZEMm55QW0zcm5JaEc4Y0E1em8zdis1?=
+ =?utf-8?Q?HqkUbcKQ884iUH8XLUB6lQfurNa3OdyWxv5z30OM93lVg?=
+X-MS-Exchange-AntiSpam-MessageData-1: 2g50Yk8acVjOjA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 309eb214-a1fc-4c43-4b4e-08df3e1e5020
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 05:00:02.5723
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hwxCyTdXCMMjIRWpPXXfP5PXu9ou3Y4uhrvfkfeo3uIlUK8FbVbYyw9kon/alZWmuS1ja/Ec7Ro6/8GduhCQ+Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6264
 
-ufshcd_wl_suspend() takes hba->host_sem and ufshcd_wl_resume() releases
-it, which serializes the error handler against system suspend and
-resume. ufshcd_wl_poweroff(), the hibernation poweroff callback, also
-suspends the device with UFS_SHUTDOWN_PM but does not take host_sem. An
-error handler that runs in the meantime can reset the link concurrently
-with __ufshcd_wl_suspend().
+On Sat Nov 7, 2026 at 6:48 PM JST, Alexandre Courbot wrote:
+> From: John Hubbard <jhubbard@nvidia.com>
+>
+> The generic falcon bootloader needs a descriptor in DMEM to know what to
+> load, so loading it into a falcon means loading the two together by PIO
+> and starting the falcon. The FWSEC wrapper did that through its own
+> implementation of the PIO loading traits. The r000 load-and-execute
+> bootloader event will need to do the same thing.
+>
+> Give the generic bootloader a run method, which pairs it with the
+> descriptor that it receives, loads the pair by PIO, starts the falcon
+> with the given MAILBOX0 value and returns the mailboxes once the falcon
+> has halted. This will allow the FWSEC and r000 load-and-execute
+> bootloader event to share the same code.
+>
+> No functional changes.
+>
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
 
-It also leaves host_sem unbalanced: if hibernation is aborted after
-ufshcd_wl_poweroff() has been called, ufshcd_wl_resume() is called as
-the .restore callback and releases host_sem, which was not acquired.
+[...]
 
-Make ufshcd_wl_poweroff() behave like ufshcd_wl_suspend() and keep
-holding host_sem. It is released by ufshcd_wl_resume() if hibernation is
-aborted. Do not use hba->shutting_down here: it makes
-ufs_mtk_system_suspend(), which is also the .poweroff callback of the
-MediaTek host controller, fail with -EBUSY, and nothing clears it when
-hibernation is aborted.
+> diff --git a/drivers/gpu/nova-core/firmware/gen_bootloader.rs b/drivers/g=
+pu/nova-core/firmware/gen_bootloader.rs
+> index f769b2b277c0..1fecb6a5f80e 100644
+> --- a/drivers/gpu/nova-core/firmware/gen_bootloader.rs
+> +++ b/drivers/gpu/nova-core/firmware/gen_bootloader.rs
 
-Fixes: b294ff3e3449 ("scsi: ufs: core: Enable power management for wlun")
-Suggested-by: Bart Van Assche <bvanassche@acm.org>
-Signed-off-by: HOYOUNG SEO <hy50.seo@samsung.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
----
- drivers/ufs/core/ufshcd.c | 2 ++
- 1 file changed, 2 insertions(+)
+nit: ctx_dma() accessor can be removed now
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 3b5580ac390c..1c935a8d016d 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -11574,6 +11574,8 @@ static int ufshcd_wl_poweroff(struct device *dev)
- 	struct scsi_device *sdev = to_scsi_device(dev);
- 	struct ufs_hba *hba = shost_priv(sdev->host);
- 
-+	/* Released by ufshcd_wl_resume() if hibernation is aborted. */
-+	down(&hba->host_sem);
- 	__ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
- 	return 0;
- }
--- 
-2.34.1
-
-
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
