@@ -1,62 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=94.231.106.230
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794214365;
-	b=qs9ZkIOWe8D+7EYtNaXP0cWVqQnRQRXBIEZcZX04uYb+tra98JFfso4dNuxAHZKFUHFJ
-	 pQF04v8B3aGVw6ZyHzKvHi3L7IJT4qFcCTktroJ/fbcEldClkxj3wQWbf1HasH6BMqv4a
-	 gJQFB7Q6YY37l3mYe/0fV1vVhB0qigltRi0Ro8/jpbzj7k1ZohCC4enwQAAVutYl6S+N0
-	 URZsyvnUJtEKz0p4KJWdSX6Egm4/SB1EpLGKnuS+2QHy5nsB4XJP0Z4abWEIcJ9qrnxnK
-	 bLQHe1q6+/aEYwW9KcNhRk0jam6AQL0CWceVpWbmYLlCcTKVD3HtiSJlTpyU2RP1BDA==
+	t=1794214392;
+	b=teKQorEbQJbQFmPpFbhgOnGdk6bqSvtOodvOvvAFxg2Flc/SYiivcisSeubFyRqfodiI
+	 eG+WWRd+Izwx8cJyYrxWec994FE1ytHyQMEsTXLamYUm83Xuve03M01dTpo1V8HBOy7A/
+	 kFWaIuIillh94oXlD11b2jJHpn7GVmoThnIDXROSo9f6O+GSn1XUno2X4W53or2HjyHAd
+	 Rlqio5IGviHAjhUuku1ehuQOVzMrvfH1g9Q6vxiknATnkfm7nnnC8UGvajsSesGTEU1jL
+	 zagHPwe5EQmu9BCuzFUTbsZChfDOmKW1ntEl33qqRgmtP9G7a89XNz5IQ3LfI7RVxhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214365;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=z/b0JCeHd4giR3CDPQxMDvXhf6SqEu80D1hSwgPctUI=;
-	b=mRP38G5/UWvDdKdeAFL/AN9bKgy/YJmonoSDSIaDQsYdcFv4gDD43SEA7FZYgtCIo7mh
-	 whGY+4fKs/MjFHCQcGfPZH9wCAK2VSiklvQ6W11bedzL99lNtbr372Fuq3bQwifiuocxt
-	 XuNX8+VjvgJTBQ3IMreBgSL4bcCoyEUJR7ZOiZpWi+bpTvAeoNvU2fsqbAmWuw/3sklq4
-	 ChtCL0TpLKQ17qKKISepNZ8Pd6E4LraQ1jR22sUlibnLTf9YAOSGJkBVT0Ckj6/DeRJzo
-	 rvlZZaLV0fejiSi+loGDvHxBhwOWSZBKrdwgCaWbwKJWbrDdWIPrLT6D4m3rqFk8MRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794214392;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ZKf2DBGb+N2gDS9fHvgM+A7zfG0IQY/8ss3YlANSh/w=;
+	b=OclcIS0oaVJ4XXMCBDnh4z47+UnTuVipM8R6Ne/Q9sQSFpsLTv9qMKbtbLngiBVjIHda
+	 FliE5Pc0WLMT0UMRnQGejUNxueNeWe5+4ErlqlSSFD++somA5/knrkjHoez5C+YmZB2D0
+	 O3G4CQvuB1DnoB8lhQlfRiwnjiqjgBlTXjyu/nSzCdIdV5kLhnP03rlv9YwKwPqPUkxSo
+	 UCxpxEakd71EMPvx+6AR7YvpD2IeO9dwKEOWqVNAkVNvVFa5wslUR8ax2TXR1ZzRJ7lpb
+	 AymsBXHjrHZ5/ieyGIOTiLq5N0hpmhaD+NNhx/51suI7w1bD1h07TbxEXrAUN9lNNxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vlk6CKgb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=klattorp.se;
+	spf=pass smtp.mailfrom=klattorp.se;
+	dkim=pass header.d=klattorp.se header.i=@klattorp.se header.a=rsa-sha256 header.s=simplycom2 header.b=PdC0AioF;
+	arc=none smtp.remote-ip=94.231.106.230
+Received: from smtp-out2.simply.com (smtp-out2.simply.com [94.231.106.230])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B27C6082BC9;
-	Mon,  9 Nov 2026 08:52:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474A560735C9;
+	Mon,  9 Nov 2026 08:53:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 474A560735C9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=klattorp.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=klattorp.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vlk6CKgb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB52A1F008A2;
-	Mon,  9 Nov 2026 08:52:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794214364;
-	bh=z/b0JCeHd4giR3CDPQxMDvXhf6SqEu80D1hSwgPctUI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Vlk6CKgbI0SXgj6m96VeKgIX5VY74Ze+pg0jxLjmXFkKScvWLD+HpaDZybYGSUGPk
-	 x5wtUIg4hUGOENJD2g7o1Rp8oo4etVeqBago+jqNzs5pWJIh6oTRaGd6zL82aY0R9N
-	 XXPwTHks9iSXEMo2lqihlI4Q1DDU1kym7+8+a74UeKnkC+yIeR6XNYjYRZmGHzX4aT
-	 dLAk9XsjTy5ms6DyEEP76sUnKmbP7gwCd6GZi+Pptsr18S5tdVHjqTqiy3/HqMntsG
-	 unV871D9WXD62XRL2KW4OysoProAqo0DrKBLCtN66LYxGzrQlx09hfl/MuDOqRmXK3
-	 w0B+YLYCPJnWQ==
-Subject: Re: [PATCH net-next v9 04/11] net: dsa: realtek: rtl8365mb: set RGMII
- mode for family D
-From: netdev-bot+sashiko@kernel.org
-To: namiltd@yahoo.com
-Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- linux@armlinux.org.uk, luizluca@gmail.com, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- alvin.sipraga@analog.com, gusfmora@gmail.com, kuncy7@gmail.com,
- fabianotassotti@gmail.com, gabonpivovich@gmail.com, contact@c127.dev
-Date: Mon, 09 Nov 2026 08:52:43 +0000
-Message-ID: <179421436328.994134.5244949005980013878@kernel.org>
-In-Reply-To: <9a9da3fd-2c1c-4911-aa6e-8a2100843bb8@yahoo.com>
-References: <9a9da3fd-2c1c-4911-aa6e-8a2100843bb8@yahoo.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=klattorp.se header.i=@klattorp.se header.a=rsa-sha256 header.s=simplycom2 header.b=PdC0AioF
+Received: from [192.168.1.45] (81-228-203-110-no2102.tbcn.telia.com [81.228.203.110])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.simply.com (Simply.com) with ESMTPSA id 4jNNpq3fWTz1DQqk;
+	Mon,  9 Nov 2026 09:53:07 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=klattorp.se; s=simplycom2;
+	t=1794214387;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZKf2DBGb+N2gDS9fHvgM+A7zfG0IQY/8ss3YlANSh/w=;
+	b=PdC0AioF2fohvlmAvsbaoBURs17nOU1vxanKjwgtkWcobgVFm6x7MOVxvAdN3+JzEghKYx
+	orHPk3FzHn6QApUr3wRDspdeQjEV6Tsl/muUd/i/rrCZ56wAkG1oaBTYOZEADyGwrSFlrZ
+	09wZqCS0emuOKp/tHOVlTIGLHKrfAMm/CuGG8gVXDwbk483k/mZ1iVtHHQxIXctnXBn/6r
+	IYl1TJYraVxwiPLvE/PQ0Lcd2lJKdm+hqYrwFYvIaKIIShC5CfjftXC/t5Jm7j9Ph1edZu
+	HG9BmIfjYEuKQCw0c3G2uZQOKbluYHOBg+9RvgSVzC598VX+IiayqDTm6NsSew==
+Message-ID: <b7672bea-edea-40e2-a4b9-b06d026265a1@klattorp.se>
+Date: Mon, 9 Nov 2026 09:53:06 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,115 +62,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND PATCH 1/3] power: supply: max17040: pass the device
+ fwnode to the power supply core
+To: Krzysztof Kozlowski <krzk@kernel.org>, sre@kernel.org
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ matheus@castello.eng.br, me@iskren.info, m.szyprowski@samsung.com,
+ clamor95@gmail.com, sebastian.reichel@collabora.com
+References: <20261108154241.198160-1-huggek@klattorp.se>
+ <20261108154241.198160-2-huggek@klattorp.se>
+ <3b4d9f8a-2b5b-49c6-a2fa-666548029975@kernel.org>
+Content-Language: en-US, sv-SE
+From: Hugo Karlsson <huggek@klattorp.se>
+In-Reply-To: <3b4d9f8a-2b5b-49c6-a2fa-666548029975@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+ > Please run scripts/checkpatch.pl on the patches and fix reported
+ > warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+ > patches and (probably) fix more warnings.
 
-Low priority / nit picks for your consideration:
+Thanks, sorry in regards to that. I ran both, the only findings are
+for the "Assisted-by: " line, which checkpatch does not recognise
+("Non-standard signature" and "Unrecognized email address"); --strict
+reports no checks on the code itself
 
-- [Low] On family D (RTL8367S-VB), rtl8365mb_phylink_get_caps() in
-  drivers/net/dsa/realtek/rtl8365mb_main.c does not advertise RGMII for…
+It seems it was removed in 1e035297ffda at the 13 October as Sebasation 
+could just drop it on the applied series, but that´s maybe something I 
+need to do myself and send a patch v2? Or is that just cosmetic?
 
---
 
-net: dsa: realtek: rtl8365mb: set RGMII mode for family D
+Hugo
 
-For family D, this patch clears the EXT1 RGMII TX clock delay field in
-EXT_TXC_DLY. It binds the RGMII/MII pins to MAC7 in TOP_CON0 and disables
-SerDes 1 before RGMII is selected. In phylink_get_caps(), RGMII is no
-longer advertised on port 7 when TOP_CON0 shows that MAC4 owns
-extension 1.
-
-> diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-> index 0d87d6bbe15a7..0b7c124abb1e7 100644
-> --- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-> +++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-
-[ ... ]
-
-> @@ -1799,8 +1847,26 @@ static void rtl8365mb_phylink_get_caps(struct dsa_switch *ds, int port,
->  	 * which remain unimplemented.
->  	 */
->  
-> -	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_RGMII)
-> -		phy_interface_set_rgmii(config->supported_interfaces);
-> +	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_RGMII) {
-> +		/* On family D the EXT1 pins are shared with MAC4 (UTP port 4).
-> +		 * If MAC4 owns them, RGMII on this port cannot work.
-> +		 */
-> +		if (rtl8365mb_is_d(priv) && extint->id == 1) {
-> +			ret = regmap_read(priv->map, RTL8365MB_D_REG_TOP_CON0, &data);
-> +			if (ret)
-> +				dev_warn(priv->dev,
-> +					 "failed to read TOP_CON0, RGMII on port %d disabled: %pe\n",
-> +					 port, ERR_PTR(ret));
-> +			else if (data & RTL8365MB_D_MAC4_SEL_EXT1_MASK)
-> +				dev_warn(priv->dev,
-> +					 "port %d: EXT1 is owned by MAC4, RGMII disabled\n",
-> +					 port);
-> +			else
-> +				phy_interface_set_rgmii(config->supported_interfaces);
-
-[Severity: Low]
-Is a warning the right log level here? Port 7 may end up with no usable
-interface at all.
-
-In the RTL8367S-VB chip table entry added later in the series, port 7 is
-described as MII | TMII | RMII | RGMII. RGMII is the only one of those
-modes the driver implements. When either branch above skips
-phy_interface_set_rgmii(), config->supported_interfaces stays empty, and
-phylink_create() rejects that:
-
-drivers/net/phy/phylink.c:phylink_create() {
-    ...
-	if (phy_interface_empty(config->supported_interfaces)) {
-		dev_err(config->dev,
-			"phylink: error: empty supported_interfaces\n");
-		return ERR_PTR(-EINVAL);
-	}
-    ...
-}
-
-When port 7 is a user port, dsa_tree_setup_ports() falls back to
-dsa_port_setup_as_unused(). When port 7 is the CPU port (the series
-supports an RGMII CPU port there), the whole tree setup is aborted:
-
-net/dsa/dsa.c:dsa_tree_setup_ports() {
-    ...
-		if (dsa_port_is_dsa(dp) || dsa_port_is_cpu(dp)) {
-			err = dsa_port_setup(dp);
-			if (err)
-				goto teardown;
-		}
-    ...
-}
-
-In that case the switch fails to probe. A warn-level "RGMII disabled"
-message suggests the port keeps working in a degraded state.
-
-In the regmap_read() failure branch, the real I/O error is only shown at
-warn level. The probe then fails with a generic -EINVAL from phylink.
-
-The commit message says:
-
-  "so the configuration is refused before any EXT1 register is touched"
-
-and:
-
-  "The driver logs a warning naming the conflict."
-
-Could the commit message mention that the port, or the whole switch if
-port 7 is the CPU port, will fail to set up? Should these messages be
-dev_err() and say that the port cannot be used?
-
-> +		} else {
-> +			phy_interface_set_rgmii(config->supported_interfaces);
-> +		}
-> +	}
->  
->  	if (extint->supported_interfaces & RTL8365MB_PHY_INTERFACE_MODE_SGMII &&
->  	    mb->sds_supported)
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/9b73858d-fc09-4988-8bab-fd7b88db9412%40yahoo.com
+On 09/11/2026 08:30, Krzysztof Kozlowski wrote:
+> On 08/11/2026 16:42, Hugo Karlsson wrote:
+>> Since commit f4b782af61ae ("power: max17040: pass status property from
+>> supplier") the driver forwards POWER_SUPPLY_PROP_STATUS to its supplier,
+>> and the DT binding documents a power-supplies property for naming that
+>> supplier. The driver never passes its device node to
+>> devm_power_supply_register(), however, so the power supply core cannot
+>> parse power-supplies and the battery never gets a supplier from
+>> firmware. The status lookup then always returns -ENODEV and userspace
+>> sees POWER_SUPPLY_STATUS_UNKNOWN.
+>>
+>> Set psy_cfg.fwnode the way max17042_battery and cw2015_battery already
+>> do.
+>>
+>> Fixes: f4b782af61ae ("power: max17040: pass status property from supplier")
+>> Assisted-by: Claude:claude-opus-5-5 [Claude Code]
+> If you are resending, then at least you could run checkpatch.
+>
+> Please run scripts/checkpatch.pl on the patches and fix reported
+> warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+> patches and (probably) fix more warnings. Some warnings can be ignored,
+> especially from --strict run, but the code here looks like it needs a
+> fix. Feel free to get in touch if the warning is not clear.
+>
+> Best regards,
+> Krzysztof
