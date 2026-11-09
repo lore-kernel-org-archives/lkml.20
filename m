@@ -1,83 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794233372;
-	b=ReVAB3H6kkRXuAxQY+VW458IZI+99Zfwrfz6MFRwmuASBgXvDnOgweTk7e4d0iQhhW3Y
-	 sgDepfYpAq16DXs+as6y2cuNaJBw/28UXjsFqbSzZSfhFF6N/LFoMvG7VEcTLxbl8SdIA
-	 DV014EoKC9oe128n/EeofvqztFVcMZ/Ku5lws/I3eVqxTzw0fts8WdTzjIIOSRciCrUBB
-	 NxyNHMH2J/NjkCHF8Q2cPSF3ua5dfIJsRYTqZrzdRHbCZZJn7ztcucx/6Lytq+HBr94Uk
-	 /Z9vo2bXNFCExs/h7oRDV2jxBnI1TsVGAOkwBmADx+Fb7BThdAltyad8rXNyV94Zl8g==
+	t=1794233378;
+	b=rHDw1wkW5H/YxcYADBsdbh8s9CGjoV0y7vDVGiHIapMqBN5M+PhwcWrMF1L4z+LaOqqG
+	 yBBetMfqMWV3yahTJh9k4aDQ0m0c/cHPQG6Nt9+b+Nci4dkwap9PtOVNCH8g5fHCjjanR
+	 h/7ZyjT54OGFz98RPBOG+pIGOPfOJzF0F++Sv1dBVcjk2bfaLnFOZkvLCyuLhKdN6z/T7
+	 4NXZxLVT1mXgMGUa4kNhrRR7Wz43cqAOIYoYebdmJn4gQ/by9elvCQqA40aYmzwGhxR1U
+	 sPOz9nLYVAwF8ehv8wzsN1XXk39EBY7QrThrLOMH+MK2HAMUQCboAoX8QmRvbpURbtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794233372;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/awfiZZk7QPGufy8TRdN1/JQqHmSNpfJagJzHwdZqbY=;
-	b=QwVmBt/f5azlWTBQ3lDCTK/azsUabbtOS+y6cPMjV5iOVUUzsCWcoWczWiuwQXcBYo6n
-	 7S614F5RSzx5EUnw4o5eW/5RKqGIzb/tSTFM1mpYvMcEmjIygRcGl97TuSssc/8XNMFzT
-	 9kW+fFwdyCzzvNCGhCQ5J4acXJ/Ff+jq84n3ide5if+IzjK72VGMBUn+kXi+rE1cukWbh
-	 rdIcNrUGjPowENponXllRfPb4hzCdHK0qTMl2daxL28cvq7qQqUID9jdBmZAZbY+aGdZ0
-	 AnjgE7587aIjj06OjAo9N5b4UMI5e2UZzenDY8uPxIZd5fo6UvWOjvSaa+pmcK4Ek0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794233378;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=2H+AVH2q7EhcjSyHMuWAQKmHIf+eX/uuzTxGhvydkL0=;
+	b=dvLjvsfwMJEjHU4mng+J8PjitTU5huTVRcR0DcSuO0WDF9Ct4D0VPD7B/EvEDKN1z1s/
+	 qo8MCPrQFEuhpdp+ouO78rzeituuvR+7tcePDcTZHXGVcw/lKQCoSMpPBw818C9RP32R7
+	 tsR3gFlAdcPTobT9t0AWGk2KVFHM/BPdKzRAOM2Z5VEna3AkFhfK8TAtTwxVX5h444ixm
+	 N+8QG/6GrEdnJgvsa7VB++Iz0N2yljIOLpk3WyY80JsYBzZetI7AuFeakIhkNxe3l8rr1
+	 6uiVBvi64wIvcSGpzGGTAK70L9pUlbJnipSRBdz7WE9SWPHwh+n7kTpDjoKlkazv2+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oRczrJXs;
-	arc=none smtp.remote-ip=95.215.58.148
-Received: from mta1.migadu.com (out-148.mta1.migadu.com [95.215.58.148])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hpn85cwv;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F699606EE8F
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:09:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F699606EE8F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FEBE606EEB1
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:09:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FEBE606EEB1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oRczrJXs
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=i9yHM4eoQyP1lSutaH5lL/yiuOISfz8NsblbFKDkohI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794233369; v=1; x=1794838169;
- b=oRczrJXs2W37oRRvJJFJIhizM9UNScQreK1xGJA+ezjA40mb8CcXdZsCq7/Re5xFXtfPDpn4
- qcWmxULuvqZlP6gYc0BlolQZsyDfUI22mzWBXJ0+kN9Ywv0qX6PnVbzWfujRiOFYmpRqcEX21fI
- IAsz8Ja8GWZpET6HUAePF6Yo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d5b5477812c6c27f;
-	Mon, 09 Nov 2026 14:09:29 +0000
-X-Mizu-Trace-ID: d5b5477812c6c27f
-X-Migadu-Flow: FLOW_OUT
-From: Leon Hwang <leon.hwang@linux.dev>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	KP Singh <kpsingh@kernel.org>,
-	Matt Bobrowski <matt@bobrowski.net>,
-	Shuah Khan <shuah@kernel.org>,
-	Leon Hwang <leon.hwang@linux.dev>,
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=hpn85cwv
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7105CC79A80;
+	Mon,  9 Nov 2026 14:09:34 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8680660051;
+	Mon,  9 Nov 2026 14:09:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4E343103293DD;
+	Mon,  9 Nov 2026 15:09:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794233368; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=2H+AVH2q7EhcjSyHMuWAQKmHIf+eX/uuzTxGhvydkL0=;
+	b=hpn85cwv7AffrRaT4le9iTRnVGyJo3Z8o8GZlCH3mg5MKIWRAsA9vGsmgtQqtv4+Y/BXE4
+	lYXwPw685Ys7y0tfO7PwhQp9uPkOQJcr3WpwB4y0MTW7eM3EIbF2pMlmnmp87M6b5ZsKsy
+	vrqjhQIetHTuIEQFxB20sI+9VqiFTteEvp5+Za3WEnwujbOCWQZ5hgN8C2+UiAzoyEqJy7
+	4wiPyL0k1pm8oxyurXk0cyWN+76HvjPAcQrbEwjcb/XjWfUYkpfoM3vIWlRRby1Ia/2jdN
+	FWbIP8LvwNS1uqiUAuFNXPiAnDFU0fOtE6wB8bGhNlHGoC5b4gKekgtkq8I45A==
+From: Herve Codina <herve.codina@bootlin.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Kalle Niemi <kaleposti@gmail.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Johan Hovold <johan@kernel.org>
+Cc: driver-core@lists.linux.dev,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH bpf-next 7/9] selftests/bpf: Verify tracing_multi link_create logs
-Date: Mon,  9 Nov 2026 22:08:14 +0800
-Message-ID: <20261109140816.5196-8-leon.hwang@linux.dev>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261109140816.5196-1-leon.hwang@linux.dev>
-References: <20261109140816.5196-1-leon.hwang@linux.dev>
+	Allan Nielsen <allan.nielsen@microchip.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>
+Subject: [PATCH v9 0/4] lan966x pci device: Add support for SFPs, simple-bus part
+Date: Mon,  9 Nov 2026 15:08:38 +0100
+Message-ID: <20261109140916.90625-1-herve.codina@bootlin.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,133 +83,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Check the error code, log message, and reported log size for a zero or
-excessive count, missing IDs, invalid flags, and a nonzero target FD.
+Hi,
 
-Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
----
- .../selftests/bpf/prog_tests/tracing_link.c   | 102 ++++++++++++++++++
- 1 file changed, 102 insertions(+)
+Previously, I sent a big picture series adding support for SFP ports
+available on the LAN966x PCI device [0].
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/tracing_link.c b/tools/testing/selftests/bpf/prog_tests/tracing_link.c
-index 1b64cb3e9983..6f22a21be946 100644
---- a/tools/testing/selftests/bpf/prog_tests/tracing_link.c
-+++ b/tools/testing/selftests/bpf/prog_tests/tracing_link.c
-@@ -5,6 +5,7 @@
- #include "priv_freplace_prog.skel.h"
- #include "xdp_dummy.skel.h"
- #include "kprobe_write_ctx.skel.h"
-+#include "tracing_multi_fail.skel.h"
- 
- static void test_fentry_link_create_log(int target_fd, __u32 target_btf_id, int cookie,
- 					enum bpf_attach_type attach_type,
-@@ -273,3 +274,104 @@ void test_tracing_link_log(void)
- 	if (test__start_subtest("invalid_kprobe_write_ctx"))
- 		test_log_invalid_kprobe_write_ctx();
- }
-+
-+static void test_tracing_multi_link_create_log(int target_fd, __u32 flags, const __u32 *ids,
-+					       __u32 cnt, int err_exp, const char *msg)
-+{
-+	struct tracing_multi_fail *skel;
-+	char log_buf[128] = {};
-+	int err, fd, prog_fd;
-+	LIBBPF_OPTS(bpf_log_opts, log_opts,
-+		    .buf = log_buf,
-+		    .size = sizeof(log_buf),
-+		    .level = 1,
-+	);
-+	LIBBPF_OPTS(bpf_link_create_opts, opts,
-+		    .log_opts = &log_opts,
-+		    .flags = flags,
-+		    .tracing_multi.ids = ids,
-+		    .tracing_multi.cnt = cnt,
-+	);
-+
-+	skel = tracing_multi_fail__open();
-+	if (!ASSERT_OK_PTR(skel, "tracing_multi_fail__open"))
-+		return;
-+
-+	bpf_program__set_autoload(skel->progs.test_fentry_s, false);
-+	err = tracing_multi_fail__load(skel);
-+	if (!ASSERT_OK(err, "tracing_multi_fail__load"))
-+		goto out;
-+
-+	prog_fd = bpf_program__fd(skel->progs.test_fentry);
-+	fd = bpf_link_create(prog_fd, target_fd, BPF_TRACE_FENTRY_MULTI, &opts);
-+	if (!ASSERT_LT(fd, 0, "bpf_link_create")) {
-+		close(fd);
-+		goto out;
-+	}
-+
-+	ASSERT_EQ(fd, err_exp, "err");
-+	ASSERT_STREQ(log_buf, msg, "log_buf");
-+	ASSERT_EQ(log_opts.true_size, strlen(msg) + 1, "log_size");
-+
-+out:
-+	tracing_multi_fail__destroy(skel);
-+}
-+
-+static void test_multi_log_zero_count(void)
-+{
-+	const char *msg = "tracing_multi.cnt cannot be zero.\n";
-+	__u32 id = 0;
-+
-+	test_tracing_multi_link_create_log(0, 0, &id, 0, -EINVAL, msg);
-+}
-+
-+static void test_multi_log_missing_ids(void)
-+{
-+	const char *msg = "tracing_multi.ids must be set.\n";
-+
-+	test_tracing_multi_link_create_log(0, 0, NULL, 1, -EINVAL, msg);
-+}
-+
-+static void test_multi_log_excessive_count(void)
-+{
-+	const char *msg = "tracing_multi.cnt is too large.\n";
-+	__u32 id = 0;
-+
-+	test_tracing_multi_link_create_log(0, 0, &id, INT_MAX, -E2BIG, msg);
-+}
-+
-+static void test_multi_log_invalid_flags(void)
-+{
-+	const char *msg = "Invalid flags.\n";
-+	__u32 id = 0;
-+
-+	test_tracing_multi_link_create_log(0, 1, &id, 1, -EINVAL, msg);
-+}
-+
-+static void test_multi_log_invalid_target_fd(void)
-+{
-+	const char *msg = "Invalid target_fd.\n";
-+	__u32 id = 0;
-+
-+	test_tracing_multi_link_create_log(-1, 0, &id, 1, -EINVAL, msg);
-+}
-+
-+void test_tracing_multi_link_log(void)
-+{
-+#ifndef __x86_64__
-+	test__skip();
-+	return;
-+#endif
-+
-+	if (test__start_subtest("zero_count"))
-+		test_multi_log_zero_count();
-+	if (test__start_subtest("missing_ids"))
-+		test_multi_log_missing_ids();
-+	if (test__start_subtest("excessive_count"))
-+		test_multi_log_excessive_count();
-+	if (test__start_subtest("invalid_flags"))
-+		test_multi_log_invalid_flags();
-+	if (test__start_subtest("invalid_target_fd"))
-+		test_multi_log_invalid_target_fd();
-+}
-+
+In this series patches touch several parts and sub-system in the kernel.
+Reviews have be done and it makes sense to split the series and send
+parts separately.
+
+This current series is the extraction of patches related to the
+simple-bus driver. It has to be seen as a continuation of the big
+picture series but related to this specific simple-bus part.
+
+Patch 1 fixes an already existing issue reported by Sashiko.
+Patch 2 removes the no more useful remove() function.
+
+Patch 3 depopulates devices populated at probe() when the driver is
+unbound.
+
+Patch 4 makes the simple-bus driver compatible with fw_devlink
+expectation consisting in creating its child devices at probe.
+
+[0] https://lore.kernel.org/all/20260325143555.451852-1-herve.codina@bootlin.com/
+
+Best regards,
+Hervé
+
+Changes:
+
+v8 -> v9
+  v8: https://lore.kernel.org/all/20260630102717.413501-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.4-rc1
+
+  - Patch 1 (new patch in v9)
+    Fix an issue reported by Sashiko related to possible inconsistencies
+    between operations done at probe() and the ones done at remove().
+
+  - Patch 2 (new patch in v9)
+    Fully remove the remove() function.
+
+  - Patch 3
+    Changed the way depopulate is performed and use devres feature.
+    Took into account a pm_runtime possible issue (reported by Sashiko)
+    related to async pm_request_idle() triggered when all child devices
+    are removed from the bus.
+
+  - Patch 4
+    Use devres feature.
+
+v7 -> v8
+  v7: https://lore.kernel.org/all/20260511155902.34534-1-herve.codina@bootlin.com/
+
+  Rebase on top of v7.2-rc1
+  No nother changes
+
+v6 -> v7
+
+  Rebase on top of v7.1-rc1
+
+  - Patch 1
+    No changes
+
+  - Patch 2
+    Fix conflict due to device_has_driver_override() introduction.
+
+Older iterations:
+  Patches 4 and 5 in the big picture series
+  https://lore.kernel.org/all/20260325143555.451852-1-herve.codina@bootlin.com/
+
+Herve Codina (4):
+  bus: simple-pm-bus: Avoid inconsistencies between probe() and remove()
+  bus: simple-pm-bus: Remove the remove() function
+  bus: simple-pm-bus: Remove child devices when the bus is unbound
+  bus: simple-pm-bus: Populate child nodes at probe
+
+ drivers/bus/simple-pm-bus.c | 90 +++++++++++++++++++++++++++----------
+ 1 file changed, 67 insertions(+), 23 deletions(-)
+
 -- 
-2.55.0
+2.56.0
 
