@@ -1,71 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794235442;
-	b=vFQm/LqABn7DZg+rN75sDXYbuyAHEvvxZdjSt9xpvCLB1pO0nO3rqfraALPi1LiO/+F6
-	 NGcQEqXm/GZDWd04ubmJ4dKeAS5MqaDrktLkQFQlF3X540DVnGqkiAjrWz7QzKCx6aQph
-	 HMSvRLi+AWiQuogZ7Zh1kN8Z3CyXP3BOEvPUWfuHfBVbXR9KmN9lU6mOnNUijyCvogOYC
-	 yl80rDK2zYNXzP1mDsbmqEpsfuugz6+WqgvoF8wzZMOQhXUPq0Vvz6Dx+/D34WpPjk1Oj
-	 YeM8q4ZMcXxNpZb5jg2GU4+EN1G36AYd0xrpJZ0o0NRrjw8aBo17g2Sf/u6aqIcIBGQ==
+	t=1794235444;
+	b=5ibBWGP1HHmGN498bjnt9tGIc95ln0SLvh/CkHYCQHeCC4f+uJ98XORWjQx9czW2Xifz
+	 9EVeIdkMdjHG31D9jdvvLDzDVENGNHZwZmOY99p9k/TiwmxdCWXtYY1dfsdNQlx9Xwg0y
+	 63PbblmNYXExHMgcuevmqFUIGTIRFTaCPChh05lINAXRpPa9tiWB8mDR3gTxXzv1R86Wr
+	 3/LxYQrFEga85bcBtN7HfC+Kz0voOVeIwLWS59Yl2Jx6L2FviFJV/i08BELkawVY1UJ5n
+	 uQ/PowOFe1FKk8goR+kxInUDv7s8BowdPcNp6Dhx5akU5arzbjqdMT5VTUkIaGmkR+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794235442;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=mDNWue9FIgVDE1X2GCvFbr+hhY2JH4nVUA0rACmRVSs=;
-	b=0T/wcIZhxgQzTZ6XVkr7+8GuppSGLOaVslEYECwqXrJ+rkITFNHfB4yUtM3+d+kasd1e
-	 5ttEPv4Jn+KfLq/0AGPgXKPg3xBxlhXzruz0Hiar7RKCSJ0CWexUj1fBHpbF1HvuOl2SG
-	 enZ8HRMeAenLcCj4F+UHzusJUGipT1QxVETiMa2FgbMLZIC0+7LrTSQt4M0zDH0bfwD7u
-	 1kCoNg2xMnkwWP4npbd5v0seMe6CPighZeZMCcx01OSIgLs0Ay1lTylo4bOf2R8gql/S4
-	 7vVCsTrgWFgQGNvtTzVs/D68oXWJ4154cmujwd/MllVCl0woIxHcYyw8/dbjsBF0Fsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794235444;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=4pMvd1l4T13uSfMYfT1jWLTbI72Rr7AzPKNwi+AYM5w=;
+	b=WNTzAbhjGo8Ncgcxo1ZAanieBc7bl/Jd2NRPnW1KH2KB+rGU4L2+7LgpcLXgsuzLxKBv
+	 EQF3irk75DHrXrfEzbKq56qf7KgKVoCMKZBAnnoEeTMXEPR6b48lSYj6GOhwAYnWBpi8f
+	 BHGcQM3+Z52+w9+DOlcvzNSgKrqeRmkxzlUKw5/Ey07X105s+Kg3pX+mquGaswlR8aAFa
+	 Rq7zKl7zvh4FFgZPjs2Fp011AybUe05BHEzj72CjN+6TabouM/NPZTgG5wwNUIfx7T3Gt
+	 UuJi7CnCdgXcloa+Uj0rms1gAFSpvHG26fFG7WLPS4w5YuXqPV+2xKXH7qY7nUPMqlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=bMmLia1z;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pm5tDzYV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82EB5606A333;
-	Mon,  9 Nov 2026 14:44:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82EB5606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC568606D804;
+	Mon,  9 Nov 2026 14:44:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=bMmLia1z
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=mDNWue9FIgVDE1X2GCvFbr+hhY2JH4nVUA0rACmRVSs=; b=bMmLia1z+0PuSzXtLr7FBPN6h2
-	K9wfL+h8SXCUo4LbaH41WB/K4Z/FtrlEd7n24SCOnXnyzF1M8croamhwDvJ1/InVRVcpw9IIbJ2Pv
-	fqhkAvRuRrX2Y0Y0eFJ7ycMQJ0w2/TjjXNe9YBEN4hFat+NnDn4FrH17c2QsBH0n3KtN2dzEWu5a9
-	NyvJX7PTn6mHoPV1Y+hm/U4TRNkIcBbTs1gVCcd7S2ve/3ePjwFvmh4n/BSdTFZTEhbt5vo8dKAxq
-	uzwvGo3JZnWmDT9NspnO6JJnGnGCAPWBRpHGcAJdbHjw9uhk9g6cfAe+PNrD6SYzddrImeDpXLMMF
-	zyhjyPvQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xQQb9-0000000FSnz-0U6h;
-	Mon, 09 Nov 2026 14:43:51 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id A4DA6300910; Mon, 09 Nov 2026 15:43:50 +0100 (CET)
-Date: Mon, 9 Nov 2026 15:43:50 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, lukasz.luba@arm.com,
-	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org,
-	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com,
-	sched-ext@lists.linux.dev, qyousef@layalina.io,
-	christian.loehle@arm.com, pierre.gondois@arm.com,
-	sshegde@linux.ibm.com, kayracizmeci@gmail.com,
-	tim.c.chen@linux.intel.com
-Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
-Message-ID: <20261109144350.GD2668564@noisy.programming.kicks-ass.net>
-References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
- <20261106151947.3991524-9-vincent.guittot@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pm5tDzYV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FBF41F0089F;
+	Mon,  9 Nov 2026 14:44:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794235443;
+	bh=4pMvd1l4T13uSfMYfT1jWLTbI72Rr7AzPKNwi+AYM5w=;
+	h=Date:From:To:Cc:Subject;
+	b=Pm5tDzYVWu3+Zuy3MeOG9GapBMLVFbCr+/tXW7Gqn2AP1Lbc5oL9vMkfwZQnkfleS
+	 6FpukMbHQpSAEeg3HQAuHNRwasdRKX+v9qJJucFv3hStZ79Od0Y1PhF0fTj/WoKyjT
+	 MQ6B13Tx6H3TemOUbAVPOTKQOK1y7g68xRZ+x2oi4vUOcfjdqgLVQxc3SxB/IiWcda
+	 OJIfnCd/4DkgLsF3wNdNKqjL29O2FXzcKDWsx5qkm49wWUKnaSu7hMqqBt8F4EHjTB
+	 NpOzgSdRjNxcnC4m5pAfOxjyPPi0DFecv/z7AEPC7gd8iXMWQqskgK/3Gjq0+UVsCR
+	 WVykTCm0S8Oig==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id C3A7E1AC5995; Mon, 09 Nov 2026 14:44:00 +0000 (GMT)
+Date: Mon, 9 Nov 2026 14:44:00 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Bartosz Golaszewski <brgl@bgdev.pl>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Peng Fan <peng.fan@nxp.com>
+Subject: linux-next: manual merge of the gpio-brgl tree with the origin tree
+Message-ID: <avHcMEBaKg7ms_44@sirena.co.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,37 +60,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Nqj5qEduRwNrTKPJ"
+Content-Disposition: inline
+
+
+--Nqj5qEduRwNrTKPJ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106151947.3991524-9-vincent.guittot@linaro.org>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 06, 2026 at 04:19:35PM +0100, Vincent Guittot wrote:
-> +static struct task_struct *pick_next_pushable_fair_task(struct rq *rq)
-> +{
-> +	struct task_struct *p;
-> +
-> +	if (!has_pushable_tasks(rq))
-> +		return NULL;
-> +
-> +	p = plist_first_entry(&rq->cfs.pushable_tasks,
-> +			      struct task_struct, pushable_tasks);
-> +
-> +	WARN_ON_ONCE(rq->cpu != task_cpu(p));
-> +	WARN_ON_ONCE(task_current(rq, p));
-> +	WARN_ON_ONCE(p->nr_cpus_allowed <= 1);
-> +	WARN_ON_ONCE(!task_on_rq_queued(p));
-> +
-> +	/*
-> +	 * Remove task from the pushable list as we try only once after that
-> +	 * the task has been put back in enqueued list.
-> +	 */
-> +	plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
-> +
-> +	return p;
-> +}
+Hi all,
 
-This means a task will only be pushed once? After which it needs to be
-re-enqueued on the runqueue?
+Today's linux-next merge of the gpio-brgl tree got a conflict in:
 
-So if it was found during migrate_disable(), its thereafter stuck? --
-this seems a little weird.
+  drivers/gpio/gpio-mxc.c
+
+between commit:
+
+  4dd10fbbeb9c3 ("treewide: Convert devm_kmalloc() family to the devm_kmall=
+oc_obj() family")
+
+=66rom the origin tree and commit:
+
+  569d0a6f57fc1 ("gpio: mxc: use local dev variable")
+
+=66rom the gpio-brgl tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc drivers/gpio/gpio-mxc.c
+index 7dabe8073dc65,1fdbbc9617aa9..0000000000000
+--- a/drivers/gpio/gpio-mxc.c
++++ b/drivers/gpio/gpio-mxc.c
+@@@ -425,7 -479,7 +479,7 @@@ static int mxc_gpio_probe(struct platfo
+  	int irq_base;
+  	int err;
+ =20
+- 	port =3D devm_kzalloc_obj(&pdev->dev, *port);
+ -	port =3D devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+++	port =3D devm_kzalloc_obj(dev, *port);
+  	if (!port)
+  		return -ENOMEM;
+ =20
+
+--Nqj5qEduRwNrTKPJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavHcMAAKCRAv73Ows9A4
+ibeCAQCKNi6klM7Ngx0PM4SjvC98l7M1wzCv5fYPbTL9+4uq1wEA1eS2T+bQUk6R
+q987JsXesQKm4q9kp5gdZtKMZ9GAgAM=
+=37YA
+-----END PGP SIGNATURE-----
+
+--Nqj5qEduRwNrTKPJ--
