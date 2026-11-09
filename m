@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794215784;
-	b=jfnfhtcBbiBBPiFcOJhcDmxMt8vMFfdyw77Kb9Cjya40yxuzIVLUKS2BbQx6lB2ymrKb
-	 GA2R4eNSytGy6sG3DoMPbA+LavcnJ5rwU92Jy49qKQSm8MSfxHQNO7mvrwB5VwbmRPsVK
-	 vATVUDHUfViOspYHdArS7DDnMRui9Gleki2iVSXHdvesbAaH7mtYCmfGco57yKmxMWTpD
-	 wXcxUqIuWvdnox9RuImoqdyeb6LIUdIkwzmYhz2+VB4vwQMIEDZzWoFyRYd1F0nu9f0g4
-	 7YjAU//Ixm7kYt/lsPZkmUYy0T3yjgx2bq/iJut8hlw6igEVzVzkzQfe8hJUzHcpb0Q==
+	t=1794215797;
+	b=d3+L+80R5hnTL5QNA3ciBVFBU88vn3IKhHICaYenncpGEyAj2fz+tZ9Hm0yX0vkgkbKd
+	 NlqBgA3FZFAUaCzGN+Ihtmhp542m4I+96/k3iMthl2CXAGN3YsgE1fFXOHgfYePFXW8ef
+	 fVbMPQwFf3ObneOg/NV0dY8rz9qiwhOXAW5+oQmjIxtTnDtrFTVLSZjNWcj5Rj1ZMh5kq
+	 JJK9QMlimFOFClSIOAtauDmzAdqYVCagyVCp0kK82gN6JJtw6FaIIqrHEEzHpzxBDiiGn
+	 GWH3dxGCIvnqBjTbKmZvG5b303W0X+ECsr+HhKFlQPEhZCuvEGvXsQZQKk7W46z3WTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794215784;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794215797;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=gwmVsT6d+s3J8UMWsgOxymVjfIHMLolJGT/dAoN7VJM=;
-	b=QvIdSl9BvpeGW406AhPItCdMOm56e6jamG1pzWTPnkiLjcQTGAleF9fI5i8aYuyvLtqm
-	 NWJfgOiLTSwKpo93+KIBvM6zGdYRAy/BjY0HIxAhHm4trdNM+xGs9fglpcjN6W0Ek8dPU
-	 385AWMFzMYIHOXx9DMFYcyTvQHA6JVy6vvMGC03jUOvlThrgNrNqWn5K7iN6ZXPL+KCxt
-	 nnhfUYuro021UKhdxilBh23qip7T9mmi+FuxfjTelyGX5YkzVefu22g1fg+Aov1iDgdJI
-	 WfltftyhcSefxwF0AxxmqsR1hxwdyKK70gosGdN8oTCH3MQjhFZW4OapR3y7IR9XM7w==
+	bh=ybksNdKGZwcUybmuPou+wEJRhGtFCZ9Lfc93sClRt68=;
+	b=LH5qp8rSTZ205qr82eYzKQnUnKvy1jyUrbw6/w8weotzHVO0xLWUpnAebgQ34MIxT/A/
+	 T9hWJiGGtuSsn45gTQT52VOLtfV7fTYmV6zbdnqQy/LNjN7PWVb5rjEM2JeeQui1qH5b3
+	 onQKEcSw2VTyrPZZmOiSS5rRnu8FdCo3fScMx0fSG17bctxhmIETm715OG1iT7cx37BTD
+	 nrzCLazn1Hpg/OnVch/rY3maRDKuLRNIKZrsSTXnAVIkyJezz33PgRGSul4k337XBygMd
+	 KKcxckcbgbg4dzZdoxyT9o5fOmFI1oj5hSCV2vFyyxSFDlMGZCE6w1xgUXi3COtfW5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YXYpwLXP;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Zpl5MBkk;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C2F9C60A382E;
-	Mon,  9 Nov 2026 09:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2F9C60A382E
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C002360A5BD2;
+	Mon,  9 Nov 2026 09:16:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C002360A5BD2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YXYpwLXP
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Zpl5MBkk
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 557B614BF;
-	Mon,  9 Nov 2026 01:16:20 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 21CA815A1;
+	Mon,  9 Nov 2026 01:16:33 -0800 (PST)
 Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6F4BF3F85F;
-	Mon,  9 Nov 2026 01:16:20 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3C9873F85F;
+	Mon,  9 Nov 2026 01:16:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794215783; bh=UDN+6/6nfh9N9nunu9RXX3MZNyhWSWo4Ujj1piGZyZw=;
+	t=1794215796; bh=XLIQNLKLqBN+XK89CZJOMck4z1OnlpSdMf9XcQtFphE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=YXYpwLXPv3MGnoexxp2/NyvIDUhIEMrlnEYAQPg8ybwQaQ8FbXcGr03vpNjTRb/0N
-	 4ucpXnnc3oL42fJuDIBqKIY/ehSZYcm1H8ARXwUogshoxUQVVb+VjqDKe1BzJhqIdl
-	 qq2/KXoXm/94nDL821JpV32j846X+ELznfTp0DbQ=
+	b=Zpl5MBkkdUwHlGy2vO236ngwip4+RGSLCsfgNX7kiddzQWkfmTYMxbkmobNvuEbVS
+	 LN+191Gbi5/FLsCEM+yTseBwhv/k5hNZT1tkoGaHL9254CV95++B+kv+cCYC4LzRbi
+	 XHzf6hxMX5uRLlQ2Ajp6WSQA21sSypFba8vS8uJc=
 From: Cristian Marussi <cristian.marussi@arm.com>
 To: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
@@ -67,9 +67,9 @@ Cc: sudeep.holla@kernel.org,
 	usama.arif@linux.dev,
 	kernel-team@meta.com,
 	Cristian Marussi <cristian.marussi@arm.com>
-Subject: [PATCH v15 27/35] firmware: arm_scmi: Expose per-instance identifier
-Date: Mon,  9 Nov 2026 09:12:13 +0000
-Message-ID: <20261109091221.2532706-28-cristian.marussi@arm.com>
+Subject: [PATCH v15 31/35] firmware: arm_scmi: Enable autoloading for System Telemetry driver
+Date: Mon,  9 Nov 2026 09:12:17 +0000
+Message-ID: <20261109091221.2532706-32-cristian.marussi@arm.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261109091221.2532706-1-cristian.marussi@arm.com>
 References: <20261109091221.2532706-1-cristian.marussi@arm.com>
@@ -84,59 +84,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When multiple SCMI instances are configured, the SCMI stack probes and
-it is initialized multiple times: one core stack for each defined instance.
-
-Each istance is simply identified internally with a number and such number
-is already exposed to the user to name the root of the per-instance debugfs
-subtree, if enabled.
-
-Expose such unique identifier to the SCMI drivers so that they can use
-that same identifier when in need to name their per-instance resources.
+Add the SCMI System Telemetry driver and related protocols to the list of
+standard protocols whosw devices are created automatically, so enabling
+module autoloading.
 
 Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
 ---
-v7 --> v8
- - fixed Doxygen 'non-negative' integer
----
- drivers/firmware/arm_scmi/driver.c | 1 +
- include/linux/scmi_protocol.h      | 5 +++++
- 2 files changed, 6 insertions(+)
+ drivers/firmware/arm_scmi/bus.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/firmware/arm_scmi/driver.c b/drivers/firmware/arm_scmi/driver.c
-index 8a4664165a64..015dc8473161 100644
---- a/drivers/firmware/arm_scmi/driver.c
-+++ b/drivers/firmware/arm_scmi/driver.c
-@@ -3483,6 +3483,7 @@ static int scmi_probe(struct platform_device *pdev)
- 	idr_init(&info->rx_idr);
- 
- 	handle = &info->handle;
-+	handle->id = info->id;
- 	handle->dev = info->dev;
- 	handle->version = &info->version;
- 	handle->devm_protocol_acquire = scmi_devm_protocol_acquire;
-diff --git a/include/linux/scmi_protocol.h b/include/linux/scmi_protocol.h
-index ed3eaa1482a3..4fa32d629e7a 100644
---- a/include/linux/scmi_protocol.h
-+++ b/include/linux/scmi_protocol.h
-@@ -1133,6 +1133,10 @@ struct scmi_notify_ops {
- /**
-  * struct scmi_handle - Handle returned to ARM SCMI clients for usage.
-  *
-+ * @id: A unique non-negative natural integer identifying the SCMI Instance
-+ *	associated with this handle to be used across all drivers for
-+ *	naming purposes: same identifier used internally as the root for
-+ *	the debugfs per-instance tree.
-  * @dev: pointer to the SCMI device
-  * @version: pointer to the structure containing SCMI version information
-  * @devm_protocol_acquire: devres managed method to get hold of a protocol,
-@@ -1153,6 +1157,7 @@ struct scmi_notify_ops {
-  * @notify_ops: pointer to set of notifications related operations
-  */
- struct scmi_handle {
-+	unsigned int id;
- 	struct device *dev;
- 	struct scmi_base_info *version;
+diff --git a/drivers/firmware/arm_scmi/bus.c b/drivers/firmware/arm_scmi/bus.c
+index 25197197db8e..32002fd9d843 100644
+--- a/drivers/firmware/arm_scmi/bus.c
++++ b/drivers/firmware/arm_scmi/bus.c
+@@ -546,6 +546,7 @@ static const struct scmi_device_id scmi_std_id_table[] = {
+ 	{ SCMI_PROTOCOL_POWERCAP, "powercap" },
+ 	{ SCMI_PROTOCOL_PINCTRL, "pinctrl" },
+ 	{ SCMI_PROTOCOL_PINCTRL, "pinctrl-imx" },
++	{ SCMI_PROTOCOL_TELEMETRY, "telemetry" },
+ 	{ },
+ };
  
 -- 
 2.54.0
