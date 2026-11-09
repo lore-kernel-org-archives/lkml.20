@@ -1,75 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213844;
-	b=olP8hgorL7O2WhO4FO35tspPhFe9Q6ekts5ov7guDS+Q0aWXHqG7R2CaAzC+iZn1NrLN
-	 JIdsNFtODctB0DOJrkc0qaivRKJaQJYmAYKITjngHH04ZhKKguLYlQcV+T965XXCXGcbt
-	 4Kv3sqdzZXqw7wQEHl6Ogi9pzaDWif+4XybxSXCXcYXFw40T+nQYanfAxm+N3Gy65KQ0S
-	 YnMslu/5LA0NTrXsfFslGr4tw0QmW1rQV2Ykv1jnebbgF0Z94jGv0gh2vKHQiWDEiK+BG
-	 V9VXEOguy2OE9RD6oDIgwI7mYHexDhfiYcxGN9FZVVgpT4JsLhR+qOYd+3T+Y1EM3ZA==
+	t=1794213870;
+	b=DbHKvyq2LF1Kg15OH1bEwl6rGVnvbMY+cxjZKWt0xon14xC5H6u3PjfNOn+IKsLIVTrV
+	 CSAB6gVaBXklD2jmOapmIZx+JdiFtB649uMuHei7xxVrV7b723dK1QrhAAWdGqkjDuwP5
+	 cVGke87Gzp/YDDqpyJU2UAAWYt798LPNgpLP/mTB8Nrhnb7oxYGx4BnYH4Qp8LavT0DPf
+	 n/dQUTcjmv7C4YmwvDiB2ynqTZlRX8j2f9S/r1dxxiBD/0s+rLRwedet0+oV/kl0hOFU8
+	 56Mp9jh+qyKt3AJv4onJebbuecjvFdq8Dn987YZFgBsV2HdPQZKzbQRq4EPb/zn0HrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213844;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=82PkIr9oWh+9WEvQCbRpd/yKOBCqCdVoFSxvqu/3IqQ=;
-	b=UaSbUwZeJiGDCuA81l4HcgFMQuLXTA8oenzXPonnpPVIkmNpeLh5mILh4tPa4aL196yI
-	 L0RXbd1anragSO+kj7xAFOPJ3r0sJPB4yJmsVvgGPD2P16vk36aH+XJUPthTZDZwHZz13
-	 W0vCEf8ihW439vNx3k78aKMM7d402yj9iq/JX+t3SarVQI7EO+1BYJ4RS0rh4G3DQrgcm
-	 q/j4Zfv2A213tqTANf2tgUY9MrUJRCJdz5wnZ9/Bivhh7ueXhZelCpWJgHX7mlAABUOsr
-	 o+DToHD9mpd+P2ubtLucCbYDD+jxm5rMltpq1GlNcZwVkfnT8bI8/oTdYyaMt/OUbtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213870;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=kSWF2kuv83msu0L1SOhEm6iVW6rIPqvCwEF2UoZ5xlg=;
+	b=wf+CwNGwXX2sqlGRQkll+cHG/tPX/Mq6BhDJYS8lat39wjIEpzcasq7fMExSrc/pDXk4
+	 qbUh2zmDN8EL7zn9I0yLeWHIp4vHDawSMe1xvabwSvXCrdaamE5o3XrPmwFb+NxkNN1M/
+	 67O7ehAsf9iSaZrjIeEMaObnm9vYpsCufwS130TKAj/IlOxSlb6xfwX9J6NHZrWH6NuVF
+	 hOZCxVK4d7mdEiQtMWSPPnBjqPIKTksDzasu4/T7tdSCiyvL62NFoFrsT7262s1DUgoYZ
+	 3rPHaRl9jHyEvrLef832UiDNGm5Dm2GbhOHW9NqwjoAAHFRJvMiY142/GxRI0Fnw8pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=EvxTS9k0;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=3VoO1AHa;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x6cNtGK3;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5A3606EE96;
-	Mon,  9 Nov 2026 08:44:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E5A3606EE96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5CC1606A33C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:44:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5CC1606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=EvxTS9k0;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=3VoO1AHa
-Date: Mon, 09 Nov 2026 08:44:01 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794213842;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=82PkIr9oWh+9WEvQCbRpd/yKOBCqCdVoFSxvqu/3IqQ=;
-	b=EvxTS9k0/TXKKW+ZS9VGUysNKO/84IWJsNzQ9cybyHjuK7bYjY2h3sZy0RPqkdgwpmNEGB
-	BF+cEYqr31X68c1c3Lqa57OyIaApvDAUwWXfXsX6J/leE2mctx2JHzA3Fuov78XzVqYCIE
-	X4FTYkqD6KDDl1Ug5gbwMMREsFzjrK6XAH+7PR/AuLdcdJTSuBNfSTUaWD/kySzRxbZ6uR
-	Z2OEMuVgOdtRXve3YQS50XkO5mBZ8j9SNnqpcpUmA/S+MaIag03JmDqH+6jhim+5ZyeR+E
-	mdhZjSZqF705/Pmm86CK5Awuvq8rTBNZUBki2Pgr7N9/yBszdFzK7qkMAvhpMA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794213842;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=82PkIr9oWh+9WEvQCbRpd/yKOBCqCdVoFSxvqu/3IqQ=;
-	b=3VoO1AHamJyQ+P+kpSRkIFBnNtE94OQlpujA3u93C38Tn1jVZWBUZVy6q4lb/yFs/MGHjT
-	DCZuEVk+H43EszAw==
-From: "tip-bot2 for Aaron Tomlin" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/core] sched/debug: Protect lockless rq->rd access in
- print_dl_rq()
-Cc: "sashiko-bot" <sashiko-bot@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261030151307.768523-3-atomlin@atomlin.com>
-References: <20261030151307.768523-3-atomlin@atomlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x6cNtGK3
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a06e79e152so256588b3a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:44:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794213869; x=1794818669; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kSWF2kuv83msu0L1SOhEm6iVW6rIPqvCwEF2UoZ5xlg=;
+        b=x6cNtGK3ePw318rIzwt0OFqFCFA9OEIncfFgZbuEzg9b59N1TYpAW/T1mmJGvPgwjl
+         FvNInd8U5QKUU5MUilph0RK9qxp4mSv67cyA110sKrj352y7h8cHRK5utB9KSSbhB6VW
+         xuWFx5eogWt0BNbTE0fsTkDwRaDPvssAPArt+88W/dFqqlBm5obog40uWk9xwndFS6H7
+         a6f0TKy4NHYQnLEWHfy876tISXw/+mJzbNTsQDqXva9pQGfV/9ZqRBwp0k01eTzKyGej
+         KwCbRYFLmDnjtSRHrMtDKFO2JNTlNsWgORSojOapdzfUKgZDY0EduxArBcSEwLng5Yiu
+         gFGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794213869; x=1794818669;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kSWF2kuv83msu0L1SOhEm6iVW6rIPqvCwEF2UoZ5xlg=;
+        b=MfwKWnlqGNZ31eAnHvDprzPZtlfTyZ8PqhfQv+N4RGGsxK0bY6F1ghclA+VDo5nO39
+         Ofey8HMtvF0C6j+zmVVOdnfiAjuZZ1my5YtPt91zMbTcRjGM6vzn854+mv4dgN+uC1VC
+         4vqe6xqTazCqJkZhAcmRFEpWRgz59mgYJ8TB17M10HVa9i6AonPMyjb23PAkeKQcrG0M
+         YxCB63dxbi4Z+jLMdTLJpx+czwOW3vdQ8x1KcIemX0FbbTI0BbDXVTUsqRbbjHScm28E
+         lzXQDxYd8XKb7/LKKAnK/8vOWoVaIVxv4WhKibbakFNqbw/6jS4cLlUSlI7KlgbvsnWd
+         24gA==
+X-Forwarded-Encrypted: i=1; AL+hErEUkRsqpS+BHzVSdNGjejYug01cRtXGWuTI3yAjx421sD0mRxq4f/R0CDCYrcUFLZvAxVtUClGf9z3jdBU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++83fgmF41OPxw8Cb5+wC7GxElfBNnSXndkRTy15vPWL2eThZ/
+	sn/wc4OnoDFXRWPu+UUzDcNp9mqtz5u4XC5YbZDQX6J0KnxS5NzbtPOQ
+X-Gm-Gg: AYBFou1n1Rp6Kl1ZAfsZ3DVEzR60TWfezG4xKjTk/ZFTiTvwRtd4EM0tStNr02VUtDS
+	Qbo2qZQcYfANR00RIj90rgSv04lBn2zdKBvFFCVfu2KMkkrWeIkcAe851SXFzipFx0gtvVcLSPg
+	Fx3pb2uwYQxxyoaamHIXYYYaJNyujDKKXdQkm3nMD8Eik6qm7IKC26BbNHisyHdirf2ie8azU0/
+	ey1Opb2u9qF6JcdOQYXmqO66zQQPd+KOVCSjvT4ElNA7MaNe/hm4aGllGChiZqhRNrDVQA67gzB
+	17naWHxc9eM8RnmGOwtPNSo2FMsI4ss+r+6DEFx0gy4Hl5FzaOfo1LIntGwrn99IvpWJXqDii69
+	Hw+M+MCRfDtkOBXLcx9UsPyCPC1EjBq8okbZNRwUvAyXODxenVSNHQF7liU93Wt9zvIn4lokwz5
+	Hl6jqq3yHuARH0sTMyT+ulOScafMqr2SmLTLjH/zoam9NSMJtE0qEz1XKZIAvwnM9Qq2ABDwosn
+	XWSgOYphF26IvEgA5qwJNA5CULm+LyGW22OKA1KCEbwSNXPUqA5IYh4ygA3/JGjLo0mTxb0fvot
+	rmXVHm7CHAOPvsj6hTDajq8VETbID3peIenFfiF4gaVXeZ08IQcH/GMSdCYR8tRAgv3aP9Sg9w0
+	5kCOsSyPUBNiH1UVFjVL8uGd58o4LBntsu5fPREabVQkj
+X-Received: by 2002:a05:6a21:e58c:b0:3eb:a628:1095 with SMTP id adf61e73a8af0-3eed2c07761mr2906916637.20.1794213868862;
+        Mon, 09 Nov 2026 00:44:28 -0800 (PST)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb96816fc6sm1413751a12.5.2026.11.09.00.44.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 00:44:27 -0800 (PST)
+From: phucduc.bui@gmail.com
+To: wbg@kernel.org,
+	andriy.shevchenko@intel.com,
+	David Lechner <david@lechnology.com>
+Cc: andy@kernel.org,
+	dlechner@baylibre.com,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	m32285159@gmail.com,
+	nuno.sa@analog.com,
+	phucduc.bui@gmail.com,
+	sozdayvek@gmail.com
+Subject: [PATCH v4 0/2] counter: ti-eqep: Fix runtime PM leak and use devm_counter_add()
+Date: Mon,  9 Nov 2026 15:43:40 +0700
+Message-ID: <20261109084342.51865-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,74 +103,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421384104.2093942.980541513220914052.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the sched/core branch of tip:
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Commit-ID:     340928ba43ca1a57eb9ae5b2a301cc0ef44cfd47
-Gitweb:        https://git.kernel.org/tip/340928ba43ca1a57eb9ae5b2a301cc0ef44=
-cfd47
-Author:        Aaron Tomlin <atomlin@atomlin.com>
-AuthorDate:    Fri, 30 Oct 2026 11:13:03 -04:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Mon, 09 Nov 2026 09:39:57 +01:00
+Hi,
 
-sched/debug: Protect lockless rq->rd access in print_dl_rq()
+This series picks up Stepan's v3 [1], which had no follow-up since
+May, with William's agreement [2].
 
-In print_dl_rq(), cpu_rq(cpu)->rd is dereferenced locklessly to display
-deadline bandwidth statistics.
+v4:
+ - Reword commit message of patch 1 as suggested by Andy
+ - Add patch 2 to use devm_counter_add() and drop ti_eqep_remove()
+   as suggested by William.
 
-During CPU hot-unplug or cgroup cpuset repartitioning events,
-partition_sched_domains() calls cpu_attach_domain(), which executes
-rq_attach_root() to detach the CPU from its root_domain. When the
-reference count of the detached root_domain drops to zero,
-rq_attach_root() calls call_rcu(&old_rd->rcu, free_rootdomain) to
-schedule memory teardown after an RCU grace period.
+Link v3: 
+https://lore.kernel.org/all/20260529095834.2561-1-sozdayvek@gmail.com/
+Link v2: 
+https://lore.kernel.org/all/20260525152137.7428-1-sozdayvek@gmail.com/
+Link v1: 
+https://lore.kernel.org/all/20260523184448.7609-1-sozdayvek@gmail.com/
 
-However, rq_attach_root() previously updated rq->rd using a plain C store
-without an RCU publication barrier (i.e., rcu_assign_pointer()). Without a
-release memory barrier on the writer side, CPU or compiler reordering could
-allow the new rq->rd pointer store to become visible to other CPUs before
-the initialization writes to rd->dl_bw are committed.
+[1] https://lore.kernel.org/all/20260529095834.2561-1-sozdayvek@gmail.com/
+[2] https://lore.kernel.org/all/20261106193208.4136410-1-wbg@kernel.org/
 
-Furthermore, because print_dl_rq() did not hold an RCU read lock while
-dereferencing cpu_rq(cpu)->rd, an RCU grace period could elapse
-concurrently while debugfs is reading the file, allowing
-free_rootdomain() to execute kfree(old_rd) and causing a use-after-free
-race condition when print_dl_rq() reads dl_bw->bw.
+Compile-tested only.
 
-Resolve this by using rcu_assign_pointer(rq->rd, rd) in rq_attach_root() to
-guarantee a release memory barrier when publishing a root_domain.
-Finally, fetch rq->rd using guard(rcu)() and rcu_dereference() in print_dl_rq=
-().
+Best regards,
+Phuc
 
-Fixes: 02968ccf7b80 ("sched: add /proc/sched_debug file")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20261030151307.768523-3-atomlin@atomlin.com
----
- kernel/sched/debug.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Stepan Ionichev (1):
+  counter: ti-eqep: Fix runtime PM leak on probe failure
 
-diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-index e6a3b51..439e59b 100644
---- a/kernel/sched/debug.c
-+++ b/kernel/sched/debug.c
-@@ -1166,7 +1166,8 @@ void print_dl_rq(struct seq_file *m, int cpu, struct dl=
-_rq *dl_rq)
- 	SEQ_printf(m, "  .%-30s: %lu\n", #x, (unsigned long)(dl_rq->x))
-=20
- 	PU(dl_nr_running);
--	dl_bw =3D &cpu_rq(cpu)->rd->dl_bw;
-+	guard(rcu)();
-+	dl_bw =3D &rcu_dereference_root_domain(cpu_rq(cpu)->rd)->dl_bw;
- 	SEQ_printf(m, "  .%-30s: %lld\n", "dl_bw->bw", dl_bw->bw);
- 	SEQ_printf(m, "  .%-30s: %lld\n", "dl_bw->total_bw", dl_bw->total_bw);
-=20
+bui duc phuc (1):
+  counter: ti-eqep: Use devm_counter_add()
+
+ drivers/counter/ti-eqep.c | 38 +++++++++++++++++++-------------------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
+
+-- 
+2.43.0
+
