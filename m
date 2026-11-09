@@ -1,108 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794243298;
-	b=ZW6XdD1+Oor8/OS1F1+/aGrz8FKgJtBMmBzIRGmcQjbJ5ETzxrq2d74gCqnlbMr1yNXA
-	 O+gIFAnM7QGDsxLqiV7AgNfRnoqIFkUijp+qI9T2ZzyfmMGR+c6A8wLvPUBSqIjNa8NY4
-	 JfrTmT5seyrkrckGZEkYEzO5hTfM5D8wEjezZ7cLsi2WE58DcNDWjfD3oS/rhFZS1I2fa
-	 lx11sgBw8Rb6ZYfahkKdHkzUbK1X5zZrU5ud7IvhZs71wG+peorDEVT35RH8Fr9RMCCfS
-	 buSwbuRivlJudBNqQn1h683Rvk2Jn0X84vGi7X9pp1AQC7ucR0golY6i2KDbIHbbsgA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794243298;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794243304;
+	b=v3A9Jf24j3gvZKQoHFBEwIQdAFbCSMtcRVknSNXTv66QXXZAJwLAJONmI0ePepDcZeAa
+	 7SwpBFfHow4/Xew8OcoPgI+bAxHWX4rEvEKzu/rZGrahIi60kicAXrM6M4MMg2C6/zquN
+	 hDp07X4Ilp1rCUBLSPqWGnxcv3pK2CZAnuHUXY5fOKQtC/EiIf0Odc4wLt/5DsxZNzgfb
+	 u2bF9XVtYketIpRK/bnu/lx+Dlhs13uQyl0n4Ig70WYjIL7t09Oq1XP9980jDfhzNLEtH
+	 GcqOzw7r8HJ0PAMZ77mfHg1oh/4ork2Qb1xptYLZQ/Fe7s26I7Komq7XZ7u0/kto1Tw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794243304;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ilvmL95xJlpNSKLk5utHXZ1bIs/yE6trPAs8lvP1p2U=;
-	b=itQLtrQh0ABtOO57TmZySDC2JirC6AKzI2ybFPsT7ScgL55AnfCA/XmIyvt+ApdGYvlV
-	 FNIVjtlt3Imj4ppwykjMmlbeCgQmxlJu0AeWCW/zC7VNubEy2F+fV98X5SirbhkK23ngW
-	 q/aC4a7b8flQF50qHEVi8ACVZ+/ET830xeZIU+vtgR+5FLwbk6RhB6jY5lN5dbm2C8Fvq
-	 B0ZkjuISWqqhQkx/yK3PthY+l1Z0K3ZBVXqfWzAu0sQEn9r0Rh/tpNcYPaywZrwDBViOq
-	 eb+hc2hOtVotPp6PNSOrytB+/vas9mD0ii0nuVpJbVn9P1u+1Xr8WP+kLlNgtnt+eFw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wz4f5GFlzpgFeRAMcKCd/VPFtcaIvfSeX5hY9+feV80=;
+	b=ssdHfhQV1wQDwAUAlYqGDzdT4ZWWN3fHI2NcTZpaDmtBgOltoXB4B3jUpht8yfJnhGqO
+	 BKEq+z5FDF4558uO9pYYjeAU6/Ed66RukmO37EO4NTI1DwZZcnAAQNn7p5zuCdr7kcKfn
+	 zbEq/n3xnlQ+n62CH6bhS9NEa/Yel4ZxagLHb8S7gLtIjbb2JWtjooozmoWN4l8pJhWG2
+	 orAMBiA/s0wPf+RtSZnZ2lKnTMmw0ApyWLQPxUtUhfgj461QSc0np5NJSUL6D20Kr6LkE
+	 nlSj+ba+Z1woEonBK+8k5o0PiRNXCEdgEoMiCxSAwOqIt2GvhrBCLro7cnJmSiCiAbg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wLEpFTx8;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bFdEGxdd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.42
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E937B60A6F76
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:54:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E937B60A6F76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13399606A8BF
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:55:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13399606A8BF
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wLEpFTx8
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4922dbcee23so587155f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:54:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bFdEGxdd
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5c151178f0cso713829e87.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:55:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794243302; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KDUeczP2hcIATPZ6QZsx5ewoI7K+VpXcrJI7PUQSmH9Vea9EwXa9BuVteEt4DgbJzI
+         d7FXRE+9GlhwaQfJyBn7gJba3CIStEHQGxAje1jWe0EBwYaREEoI9TT9eCg9t7n5OBiT
+         UevqxUZa9jjYeijcNTmc7uYpljIjRzPn++xvb1V06HC+Pl3sIFo+ng7fNKl28QJX28dU
+         RtNjHWGdHYJS5SuqEYXOPGq4VqibRkEaewOWioPg3oLErjTUg3Ggl3mXpp0dX7xTg4pN
+         MAELkD0MwijISoU2Qy3YsghHs59zO/pfyJBTuNRuamc4HH1egUoLEyxtF7ZO20F9GKnG
+         N8Tg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wz4f5GFlzpgFeRAMcKCd/VPFtcaIvfSeX5hY9+feV80=;
+        fh=nornPS1ByJJ2awNXl74RVgzqGGAViBGYCouVGBjEo70=;
+        b=E7fk2bNc9mU5z5ErYLfV1v8DKS2ozztBeDtUCPUC4F1Mpqr04qyO0+3ElNaxRWKYIn
+         oW+SrtKtBY5DlL7Y0LT+WegoGghIuXn9mzpSe/flm17DJ/pn7ukBYqbKoURbqnvH07aj
+         ZXuM4dUYCrUQFrTElHENn9QQ4/HMyT1OP24f/8ONGZfkfb2qA0sjsdtgzGZg44zP+SZ6
+         jvsyXqcz0vTQmBuyNvQxx8jZphN6hnm35YF4/KYDacIrm0g/9jIKoxTbEgBAuVRA41Ae
+         k+EoTRWw5gRXIw9AvKtd6WVdg0rmHIAZSrht+7rjAo6ydMaQje5b7gy1sb2wBU2byrxS
+         R4nQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794243296; x=1794848096; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ilvmL95xJlpNSKLk5utHXZ1bIs/yE6trPAs8lvP1p2U=;
-        b=wLEpFTx8Q7bDBbLEqKvn6LXr1ciTiCO9eaB/5CyiWkOI/4qthAM7bvwvYaT4FDXltq
-         qGo8P/D2hcSG9ZZWLJS3VJhibPT+AQSTipfDZSrKhwRv0aJqCAgMUCUcrmALpbURDJrD
-         0lS8w1YOdMtV/MRrZ3YrQUhbZYeMYP/hmQDQzoQrGKu4fRnJNCMZ1jdhypzq+rIGYvze
-         f2WNn7IVEPVeWLIqEj5/ygoQQ0vy/aydkb3TzFTGYR/y7pohBg+t3lO1Tcky5MzZdYJb
-         HBb7ifPVevhFJRWBjzsKMMReD92H2a/W2X7GNhQI0UQe543KLFz1ZR/Ww6Yndt3h6qlP
-         Y7uQ==
+        d=gmail.com; s=20260707; t=1794243302; x=1794848102; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wz4f5GFlzpgFeRAMcKCd/VPFtcaIvfSeX5hY9+feV80=;
+        b=bFdEGxddJqX5BX4pwqZuaRc/MfV48JNSBFpxk4lB1VmYqCeTysCvS9snhTAQODDh6J
+         5D+Wea3NHEWipZKvkX4e/EjeTlhKaw4Xh3bqaw9QtRRAmQ9l6897uN/53suAnXBC1ie5
+         o/s2W0ShbqiPSDJbs9QbPejS6A9g6icC8el1xJKwMScdoIslwfHhJscdHN7byv1kjjKn
+         7TVgMUqPcG7wyThIoSBew9QegAcvonf7aJ9TF2dD7p3a/KG4HYOlvHmAjwid8lN0P2k8
+         cRaSGgq5SlfleS2oTNBm8zUjZgS8UvgNSHpExuIlf6wlBlZQ7fq8u7a8w0s+Xvx1uXhq
+         CRXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794243296; x=1794848096;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ilvmL95xJlpNSKLk5utHXZ1bIs/yE6trPAs8lvP1p2U=;
-        b=2rlnn6yHIrWkWrMVVpfNyiMXPlAwna2IYxKwP0tUcM+9ftoWbU6dP2hveD9u9yceYZ
-         u1m9eOC1CARwZ8ahDd/rZcY0xt6N9tQBf/sToDs62/6TZrQX8hku+Tkw6vXMUr617hRT
-         ryUVyh98phMo+X0MGIe7ryjfmqtSZp9nYT8ziBGAxmjDq5XZ/zKNKHmW9y43SoTmihc1
-         Ckb0UOzAw0ODKnwSUsE97UsgBEM08A3g+UQsODU8ZRcoBwooSTPHVvelj5RYGxeXsZ3k
-         xM3G2ISRZ5kyCatFBnDDbKobN4Hn3BGP/L6g5RWe58+6UwM2UkUlNxWhZZCxMvg1LPpV
-         R8xg==
-X-Forwarded-Encrypted: i=1; AL+hErGOa1cgSqNJYNwRxOP8ZnbUVs35h4Xf06WpNjiWf0nfF+zEhCOjdEJUyDuJV9ROqVCeHsQZFbLsPFnf7qc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Cmtbmq3HF8wbsxZR61sKjyOhBwk1Pl54t/0SF2vD4+NuH2f3M
-	Gl6eDCachG16o7aQ/AB7C4tYqk4OlQcLuFPb/G+mkxCsZZpE034tt/Wa
-X-Gm-Gg: AYBFou0HV0aDpx41lZfslj0Uo3oUAF8HHtXjwKNKa8MQ4YviHpLeYKgfinypI5ErLPT
-	Gy8aPO4DdKcjsPDfgnH4xMC1hhV9v/pdIbAY/epKbKXA2vxmZIp3lJ9Efs2VUY2wJmE07U+wWMw
-	2ZkZzqqRGDmbej2qID2VU3cFfFs5LXGJ6OTxYuy+BocMuKVE6/PR66j3+aKm5YyzqoV7REQSsh9
-	x5CvD7v72lbOqmH3K9jivpWeNx8x6loKXRaQqAdEc2EeWZ6FwrhWekr1wkctafocXKocnmMFiti
-	OX3xAHL2/ArNYH+bTq7k8KK5AHnlAuSLVwavn6GfpB6Rwl85V6mEYmW4W4cY+rjoruxEVsCWIbk
-	g+KVM46jWNin/RlTCHXRIWcUlgKvhX3da1QCdST5Q1/tXvj7gG/WiBBLxmklcKfsTIPNR1F1ggS
-	mgskNEFAYPc6IWW8Q4lW6rknXjvz0hNDux2fLhzTFiE8f/PWEDS8a3drH3yrB409wM/1jO73GNW
-	427js3H35r3OnP9CeyPiZx7oERTJc9xueReVdQarYQb343UkT8le5P+sUKUssRE+Z9lc6W30FCJ
-	es/VNLCgLOjiMzaUqT44lZMpzB8HsDDWGJZAi6WC8TywRdI=
-X-Received: by 2002:a5d:64e4:0:b0:48d:f470:6b3e with SMTP id ffacd0b85a97d-4982f77eee1mr88084f8f.13.1794243296305;
-        Mon, 09 Nov 2026 08:54:56 -0800 (PST)
-Received: from localhost.localdomain ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4959783fd04sm11392369f8f.47.2026.11.09.08.54.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:54:54 -0800 (PST)
-From: Anton Protopopov <a.s.protopopov@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Alan Maguire <almagui@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Quentin Monnet <qmo@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	KP Singh <kpsingh@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Sasha Levin <sashal@kernel.org>,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Anton Protopopov <a.s.protopopov@gmail.com>
-Subject: [PATCH v2 bpf-next 09/18] bpf: Find fmod_ret candidates in bpf_scan_ir
-Date: Mon,  9 Nov 2026 17:05:29 +0000
-Message-ID: <20261109170550.141443-10-a.s.protopopov@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109170550.141443-1-a.s.protopopov@gmail.com>
-References: <20261109170550.141443-1-a.s.protopopov@gmail.com>
+        d=1e100.net; s=20260707; t=1794243302; x=1794848102;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wz4f5GFlzpgFeRAMcKCd/VPFtcaIvfSeX5hY9+feV80=;
+        b=vA1JtRlTa5ZXBGgyXRM2IA6YyAxY72xvYz12tx1NnnP50YQcgiS931Aszwfqzm+hs6
+         oRVqATDXiFrceqnQPwvZNdCl9gdx/i/Hjfw47Jrk0dfXFtGMDrdn9daedgijELgMsqZI
+         9cnDz7FIYN409/xlVed7AWfoxPzJm1POSoBVEKvHeCIG+4ZcVm9PiraLTUz5PvYcehvc
+         8J79ZCboqbnH/3Ve7z5dref1EHzKVLkMkJGMpCOZMfZYnIrRvMKfclwPOy6yXJNsx20p
+         0O3HRIU7k+fomP0W5qOLROBsHvgAU4pobS37Pec4RBkkL1nzV38Y/wrxa0E7cV8dRkJ2
+         b95w==
+X-Forwarded-Encrypted: i=1; AL+hErFNqGPL6dsE4IQwBnpJSQ+knyMV+MZwDC+KBCnV+5jBs9qZWQyyldlz24wW0VFfH6qUOP+FOAHZ4DDJlR8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9AiNdlGEZTtBQmTUN0a9N75NG/oGEzxH/05bJ1pY89AEGj7RRj
+	ctXEFIEiXwsJ30H+5T/IOJpm++qgdoIX1ADuevnDljcPeT8Xcb1TpAcHT6aWC9xcT+91G3bnI/e
+	WOjr8r4YNhFSfyGAOBxroonUWmlt563c=
+X-Gm-Gg: AYBFou0wL0rujRTKjCHkrUrFGmUIk5xy9SW4isGs08zck1CIGJSJhHcqtP0bUHmFMSg
+	MTJutvQlQYy2QoOTKtWtiw6tV9tScFyWeLuk+/w72R95d48AUud6Z6j/nZE6eMSCe9ctlGsp6pa
+	ZPkmam2LSZR0NtQgGPZsWYAneCHAS3joVq3bxHyrINqFCDnap0QGtNykRJR06OfttWJjMzY4Lyh
+	sqhp3PnwWB6GKWvDCzRYrIWxOfgkjYA9y04cShoZnSHtLuTHm6XptqBby0jir63EIM7+awGHmlZ
+	BgREEPowS2Q8T8z+LL6TThGX/erpSYn31iyrl8Y+jOx9PjlENzig+ehKXfxBBscJ+3dN+BER0n0
+	2BToJTHPL3a9oXtCrbFERGu5znwMChCary2DZ4zm3uRP5RtVwoFFBfUrMGtD3HEHWyf5wfQQkN9
+	WM+4q5HwCnykfz32r+6fwQxbHPmhxt/SPRmY0Njv0eMMnATB8r4HyZ
+X-Received: by 2002:a05:6512:39d1:b0:5bf:d54c:1fb6 with SMTP id
+ 2adb3069b0e04-5c14c0269fcmr1310915e87.44.1794243302053; Mon, 09 Nov 2026
+ 08:55:02 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,178 +105,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261106160432.2552507-1-nphamcs@gmail.com> <20261106160432.2552507-3-nphamcs@gmail.com>
+ <CAKEwX=PiM8vc27jOVdinOGO9AdCOpbKozu=Hj_b55y10-ynFyA@mail.gmail.com> <CAMgjq7BuAKZ1BjTmdTmXHV+SZCpGMT2YL+q1qvbDOSeqYA==Tw@mail.gmail.com>
+In-Reply-To: <CAMgjq7BuAKZ1BjTmdTmXHV+SZCpGMT2YL+q1qvbDOSeqYA==Tw@mail.gmail.com>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Mon, 9 Nov 2026 09:54:50 -0700
+X-Gm-Features: AclHuK-YPpD4TepwOXmHYRcmkMcbFS6VvgciVhmro5ByiYQtUy7Yf8RUTGbR0xc
+Message-ID: <CAKEwX=O_wiq-iYhLrw_zVFuO-cMigoSF_zmKYAQtcGFVj2BmKg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] mm/swap: publish cluster tables after reacquiring
+ allocator locks
+To: Kairui Song <ryncsn@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	akpm@linux-foundation.org, axelrasmussen@google.com, baohua@kernel.org, 
+	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, brauner@kernel.org, 
+	chrisl@kernel.org, david@kernel.org, hannes@cmpxchg.org, ljs@kernel.org, 
+	mhocko@kernel.org, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
+	shikemeng@huaweicloud.com, weixugc@google.com, willy@infradead.org, 
+	youngjun.park@lge.com, yuanchu@google.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Find the functions which can become fmod_ret targets: functions which
-return a 32 or 64 bit integer and have a path from the entry without
-observable side effects (a clean path) which returns an error. A
-fmod_ret program which returns this error instead of calling the
-function then behaves like the path. List the errors in the record of
-the function, sorted and unique.
+On Sat, Nov 7, 2026 at 11:03=E2=80=AFAM Kairui Song <ryncsn@gmail.com> wrot=
+e:
+>
+> On Sat, Nov 7, 2026 at 3:59=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrot=
+e:
+> >
+> > On Fri, Nov 6, 2026 at 9:04=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wr=
+ote:
+> > >
+> > > Under memory pressure, swap_cluster_populate() can publish a table
+> > > while its locks are dropped for a sleeping allocation. A cached
+> > > allocator can consume and free that table before the populating
+> > > allocator resumes, leaving the resumed scan with a NULL table.
+> > >
+> > >     CPU0                           CPU1
+> > >     swap_cluster_populate()
+> > >       drop local/global/ci locks
+> > >       allocate and publish table
+> > >                                    swap_alloc_fast()
+> > >                                      consume the table
+> > >                                    charge failure cleanup
+> > >                                      free the table
+> > >       reacquire local/global/ci
+> > >       return ci
+> > >     alloc_swap_scan_cluster()
+> > >       read the missing table
+> > >
+> > > Keep the count table, cgroup table and zero bitmap private until
+> > > swap_cluster_alloc_table() restores all allocator locks. Install them
+> > > under the cluster lock and retain it through the scan. Initial bad-sl=
+ot
+> > > setup takes only the cluster lock because the device is unpublished.
+> > >
+> > > A stale reclaimer can return the isolated cluster to allocation while
+> > > its locks are dropped. Abandon installation if the list state changes=
+ or
+> > > a table appears, freeing only private allocations. Restore locks on
+> > > allocation failure too, so the caller can return a still-isolated
+> > > cluster to its free list.
+> > >
+> > > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > > Link: https://lore.kernel.org/all/sashiko-outbox-181084@kernel.org/
+> > > Link: https://lore.kernel.org/all/sashiko-outbox-181086@kernel.org/
+> > > Co-developed-by: Kairui Song <ryncsn@gmail.com>
+> >
+> > I think I need a
+> >
+> > Signed-off-by: Kairui Song <ryncsn@gmail.com>
+> >
+> > here as well...
+> >
+> > (Kairui - up to you if you feel like Co-developed-by + Signed-off-by
+> > or Suggested-by + Acked-by is more appropriate here. I just filled in
+> > the sketch you gave me.)
+>
+> Let's go with Suggested-by then :), I didn't even check if that sketch
+> actually works, so thanks for taking care of that!
 
-Take only the blocks which no dirty path reaches: after a dirty path
-joins a clean one, a branch may depend on what the dirty path did. Only
-the block of the return may also be reached by dirty paths, as it
-returns the same constant on all paths.
+Okie dokie - will update that in v2. Sashiko picked out another issue,
+so I'll use this opportunity to fix it too :)
 
-For now an error must be a constant returned by a clean path. The
-following changes find more of the errors.
-
-Signed-off-by: Anton Protopopov <a.s.protopopov@gmail.com>
----
- scripts/llvm-plugins/bpf_scan_ir.cpp | 117 ++++++++++++++++++++++++++-
- 1 file changed, 113 insertions(+), 4 deletions(-)
-
-diff --git a/scripts/llvm-plugins/bpf_scan_ir.cpp b/scripts/llvm-plugins/bpf_scan_ir.cpp
-index 6700896749d4..6828fa73717d 100644
---- a/scripts/llvm-plugins/bpf_scan_ir.cpp
-+++ b/scripts/llvm-plugins/bpf_scan_ir.cpp
-@@ -3,11 +3,17 @@
- 
- #include "../bpf/fmodret_metadata.h"
- 
-+#include <algorithm>
-+#include "llvm/ADT/SmallPtrSet.h"
- #include "llvm/ADT/SmallVector.h"
- #include "llvm/Config/llvm-config.h"
- #include "llvm/IR/Analysis.h"
-+#include "llvm/IR/BasicBlock.h"
-+#include "llvm/IR/CFG.h"
- #include "llvm/IR/Constants.h"
- #include "llvm/IR/GlobalVariable.h"
-+#include "llvm/IR/Instructions.h"
-+#include "llvm/IR/IntrinsicInst.h"
- #include "llvm/IR/Module.h"
- #include "llvm/IR/PassManager.h"
- #include "llvm/Passes/PassBuilder.h"
-@@ -22,9 +28,114 @@ using namespace llvm;
- 
- namespace {
- 
-+static constexpr int MaxErrno = 4095;
-+
- /* The errors which clean paths of a function return */
- using ReturnValues = SmallVector<int64_t, 8>;
- 
-+/* Return true and set N if V is an errno constant */
-+static bool errnoConstant(const Value *V, int64_t &N)
-+{
-+	auto *C = dyn_cast<ConstantInt>(V);
-+
-+	if (!C || (C->getBitWidth() != 32 && C->getBitWidth() != 64))
-+		return false;
-+
-+	N = C->getSExtValue();
-+	return N >= -MaxErrno && N < 0;
-+}
-+
-+static bool cleanInstruction(const Instruction &I)
-+{
-+	if (auto *Intrinsic = dyn_cast<IntrinsicInst>(&I)) {
-+		switch (Intrinsic->getIntrinsicID()) {
-+		case Intrinsic::assume:
-+		case Intrinsic::lifetime_start:
-+		case Intrinsic::lifetime_end:
-+		case Intrinsic::invariant_start:
-+		case Intrinsic::invariant_end:
-+			return true;
-+		default:
-+			break;
-+		}
-+	}
-+	return !I.mayHaveSideEffects();
-+}
-+
-+static bool cleanBB(BasicBlock *BB)
-+{
-+	for (Instruction &I : *BB) {
-+		if (!cleanInstruction(I))
-+			return false;
-+	}
-+	return true;
-+}
-+
-+/* Add the errors which clean paths of F are known to return to VALUES */
-+static void cleanReturnValues(Function &F, ReturnValues &Values)
-+{
-+	SmallPtrSet<BasicBlock *, 32> CleanBBs;
-+	SmallVector<BasicBlock *, 32> Worklist;
-+	bool Changed;
-+
-+	/* The clean blocks which the entry reaches through clean blocks */
-+	if (cleanBB(&F.getEntryBlock())) {
-+		CleanBBs.insert(&F.getEntryBlock());
-+		Worklist.push_back(&F.getEntryBlock());
-+	}
-+	while (!Worklist.empty()) {
-+		BasicBlock *BB = Worklist.pop_back_val();
-+
-+		for (BasicBlock *Successor : successors(BB)) {
-+			if (!CleanBBs.contains(Successor) && cleanBB(Successor)) {
-+				CleanBBs.insert(Successor);
-+				Worklist.push_back(Successor);
-+			}
-+		}
-+	}
-+
-+	/*
-+	 * Keep the blocks which only clean paths reach: after a dirty path joins
-+	 * a clean one, a branch may depend on what the dirty path did
-+	 */
-+	do {
-+		Changed = false;
-+		for (BasicBlock &BB : F) {
-+			if (!CleanBBs.contains(&BB))
-+				continue;
-+			for (BasicBlock *Pred : predecessors(&BB)) {
-+				if (!CleanBBs.contains(Pred)) {
-+					CleanBBs.erase(&BB);
-+					Changed = true;
-+					break;
-+				}
-+			}
-+		}
-+	} while (Changed);
-+
-+	/*
-+	 * The returns of the clean blocks which only clean paths reach or which
-+	 * one of them branches to. Dirty paths may also reach the latter, but
-+	 * the returned constant is the same on all paths.
-+	 */
-+	for (BasicBlock &BB : F) {
-+		auto *Return = dyn_cast<ReturnInst>(BB.getTerminator());
-+		bool Entered = CleanBBs.contains(&BB);
-+		int64_t N;
-+
-+		if (!Return || !Return->getReturnValue() || !cleanBB(&BB))
-+			continue;
-+		for (BasicBlock *Pred : predecessors(&BB))
-+			Entered |= CleanBBs.contains(Pred);
-+		if (!Entered)
-+			continue;
-+		if (errnoConstant(Return->getReturnValue(), N))
-+			Values.push_back(N);
-+	}
-+	llvm::sort(Values);
-+	Values.erase(std::unique(Values.begin(), Values.end()), Values.end());
-+}
-+
- struct FunctionDescription {
- 	Function *Fn;
- 	unsigned Flags;
-@@ -86,10 +197,8 @@ public:
- 				Flags |= FMODRET_FN_WEAK;
- 			if (Ret->isIntegerTy(64))
- 				Flags |= FMODRET_FN_RET64;
--			/*
--			 * Nothing finds the values yet. A weak definition always
--			 * has a record, see fmodret_metadata.h.
--			 */
-+			cleanReturnValues(F, Values);
-+			/* A weak definition always has a record, see fmodret_metadata.h */
- 			if (!Values.empty() || (Flags & FMODRET_FN_WEAK))
- 				Descriptions.push_back({&F, Flags, std::move(Values)});
- 		}
--- 
-2.43.0
-
+If something sticks out as obviously wrong to you though please let me know=
+!
