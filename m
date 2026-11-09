@@ -1,88 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218843;
-	b=Fl4GcZWx6xeull0fGGAAteqrxQ2WGWjFaovTqZ/flFGB6I32hLyf76EI+sXsmQJqydk6
-	 RFxcVjFI4m1F/2yAjquqlqokwAI6MBGjm9KlW8Y474VjD+tRHlP8+UN1TfGe5OEQ1mLKF
-	 WfniJrNT0QwUpwTB9qdIOXHKNpOn67/ctzRAl/2nvKWFceVOFfjV9zUBNKyNHUuIgFki2
-	 Vxe6aUa0i2jcxhvrHHHEh/bPi/WZH0bma6m7aVYxLXGmKhNDvFMTd9lWDY1P6v2tRsXbB
-	 0I9IJPA+oHRo2iA0SZ/fLRYps+y3m2sE8vzS8X/MlIQWGUjs7YDLT/PSdZJ0kIGowcA==
+	t=1794218851;
+	b=NibD3c3ahdx7qyKIQ6bmfHjSfVITNGPAWFzoh82kEOIOqy09ceFUM0ZixFuoZ+RdtNfN
+	 5vcJLjUol0DpOf9WONr5s4ZOBPyeSf5gT6auedPwmidGBUVHmZQKEBw8PnT01Dc2SgXsV
+	 IW40Bdb0hWkyADCjDjaS6RT4k9iQ2LaxRwhBo/UVMKXeZ0eLQBvMo6pymt1MDOdZ6UOb1
+	 7FgbWxIef/vTY8sgGnG4YhI9KqJ61P/ZOfSLbjfBLXRzReuka1EKFWFME0RHmzQ0bGA4a
+	 jmqQXty6cXnEBxF5KvSwBQwjW81SDU6QRrX2sWMGEsHuMVI1TaqaC6EgeyE+4IkE4Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218843;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=BCv0Nnsjb1CATtKd+NoK/9Eh7t2jtA8IE/DMvxos3og=;
-	b=3ONTUNK1ydHkkUZvzTUlpvgRiJ2mxLIw0PlsuPvnlNR/h0w9eLMAv5hbV/wIYOGX0twH
-	 j4s/+tKAmnjdwqJserL0NO0om29v0wSXsFqeP/yJpvJOZ1MeM20ItH8f2ErtyLBOeTHXr
-	 JSxeuRM8hNNqNHH/x52cvtbEoD++owY/wA4+83qfA/J5nVMjwFDc5TwWbMqJIq8obo3Gq
-	 GpKhxoEHNsS6ghPeMVtofgbJ25AY2axOguY4c+hyY45AOaBgFIcDNalMMrzJ90wtocDiK
-	 KttBzzfbSb6IiIvsOvYhEXUHtslnQCF1PgOCwAH7eqx00PdlyD3ztXxTrasUabW0ICQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794218851;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=AjrhCINlUbKIbvCUMy8NACyvmSbvDdLn5Ljj7rMFcZY=;
+	b=veetWpzvB3Y0G3E9peNqr6GxE49TasfxVcSaqmZUVyRS5vPGeJqwovgTDP1YBSNnSOUT
+	 ovKOW8iY0oZGduXN4WEwsipy08mEq2yqdtY3xm94uRXmTijMWg7p6Osxw0FsqS9AuaKTN
+	 UQtSdYnGv6p+q5u7G8LYRupWbG5epxXbCB1Rn1DKX0QF4AV21vmK7UkZjLi/KtTlJvhd3
+	 eC5KIWpQyzj3VGiz2k+ooCcy7ZE1rYncUybc7H7kTrxwiGQ/Qgbjjt1JDOqFIW2gzYJxQ
+	 fH8nVQMTJxBeOiU6BQoYPXZWLpLlBolU8SeH8BhmrI/5gup+bW72k70URgITr56tQFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cjgaEr7m;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qb863sBI;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=diHyuIW4;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6179606D801
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:07:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6179606D801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165B4606EE89
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:07:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 165B4606EE89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cjgaEr7m
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso7181585e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:07:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Qb863sBI;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=diHyuIW4
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A99ur0x3163807
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 10:07:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	AjrhCINlUbKIbvCUMy8NACyvmSbvDdLn5Ljj7rMFcZY=; b=Qb863sBIHPMRDAn0
+	hes8I7xH7m4yMwSRxsNLe/4HAEiM+QtaDNVayXp9m0sO1myCv43xXTfSyHo0UfZ6
+	XOgdTP9+inmJQdkuOan2FHy+EW3bo+ccojW+OIiW/UjB2oLXXPFJ1KRChj9WRS9a
+	4ZvldPqTgTLeLnHnojOY+PTMFnMVBu0VAOa1mVf4jDlB7CxQAKGlY+DsFlnjfXgx
+	mgzko6BcUp844bHQwbRmDDfNVTVXeaEsBh0skLlXH+tJuhYtIPa9c2e2QH81h/dO
+	c8zFafIkUW4TZ+0h1HZ7sz/K8r0P52vsI7LXpuqxjTMSTzwHJOEN0ZGCGAiXSimf
+	qyP1SQ==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsw99nkpe-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:07:29 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae1d132d52so699496a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:07:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794218841; x=1794823641; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BCv0Nnsjb1CATtKd+NoK/9Eh7t2jtA8IE/DMvxos3og=;
-        b=cjgaEr7mn0aEP7wTMLCAEdgMC8qpGXxO/avg+exKuuXYvTm9BSGOPuOPzkRJFHA9yL
-         cKZctyNtqWTiWhjEief30FaL9nmIkwMYN3umzN9RM3GrS2tv+Ime7tZoSW76EJ9ohMWS
-         zrJhCXISjUxM6Wc15ZCTWRBXpy5LpKLxTajxvgnV/k+KZrJXwev+pd9YGFeUhJj3vNZz
-         5xnWSFxqURGCXJbT6N83tpbyfT0Q1n/l2c/O4xWlU7mfTerHS74v6W3tUVxMhvf/IPI8
-         94/wWztpRVgJLYvCD4MMbWUQAG4JoI31Kyd+YVyxBROLkSb831+CQJ+94166oBa5pnSz
-         BSBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794218841; x=1794823641;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1794218849; x=1794823649; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BCv0Nnsjb1CATtKd+NoK/9Eh7t2jtA8IE/DMvxos3og=;
-        b=1XjuanxzFigV1sRR9TflIowoRjgHxa36cS01jWeNGYuWdTviuZS5jV32zZBmRI/6qc
-         y5FaRfG9HqxW2YVLk+HCshnszOGAkaeW0UPf2wbMKaqtyPY2jNIUeHRyEZGA7GFX0GOL
-         9Hg0eDqcIZw18wSE3gwtKoYSbVPnMahOg24XHplJp0+uNXWZ1rQyVdw2ZQ+bk3gXFgZ7
-         ugKwyAKAGgg9v9sukMBg6nLkSu2UjrDvzAXv5FrQ48/Lpjrfjo4WRaVS3XaDqBzeEP+i
-         3hxMi8GXCUGZcZaJV/6T+0uyeI2Cg3CiwU2CWoVmkp0Al5RkEuj3hvdgUnXaX66SJ016
-         ZAhQ==
-X-Forwarded-Encrypted: i=1; AL+hErFXpM70cKRpKPs+Ya569eD+QeiZYndNxBcSMrMeMpLfza5U7D0Ens7KuKplNiGH0ru+UU7j7SKZ/FlNBHQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/GXn8ldbYQ0iAwUTCJC6FkXo/VnfOsHLoyu1t69AOGuz7lgEDP
-	piST/orxoaH4HZbyouRinImed3lLkW+Z6INkL8Kv+XnV/obgzU8hThZA
-X-Gm-Gg: AYBFou1bl7Lf30QAALld4/Im5AY2z+taac0ad1+sgoXalxuffKUVRp1V6tL+5/E9bL+
-	m0aiJQWt8nV6QaWOSFIIUvqciTerin7ZCFQeYuwx2pVnbYgllB28Msi7JYkloPeTItrJDmRA6Ek
-	zHsOj1a4OG8X5W6B5ytbh9qUXnWXU4/M3L3eBnGg8rkQf2h/1TeLXik/p921mV/UaZ/U/m/E/52
-	IJBdDp/gfU3MDkyzphjjAvI93P/CF7MfQuCIKuGgdQLDXB8QMsclU0/3BlXVkKm/paT3TdFmvQz
-	rp5YPT1H8hkJzjQ5WXh2WOepbNTsvG74qw0eIele84kcTtYZ/ljXGrPBI+LpdCml7ds4aBUQMRV
-	H/yWDeju4sMdWaC8RDkHrcCq4ofpmbPN5nbh3dW6jmqczHihdolISC7L0KApmJhzMhFfZg9/wOU
-	hYPluq69yFX7WhZ/VwhMQH8S1uVDO1ScuWBapRMZD9kXinQmJ99L+oC27gWAlol27V5KrL/iB8T
-	kbHPfkuSlQf5mt42lKV5N2Wa1spVG48JCUl5FUIykR0r6mMqqSf24/gYKdl+AysUF4pAl6vlb84
-	hroqYbItq3+zbL/lF8Is7G0=
-X-Received: by 2002:a05:600c:46cb:b0:4a1:6992:f861 with SMTP id 5b1f17b1804b1-4b94d762ec2mr69628225e9.1.1794218840912;
-        Mon, 09 Nov 2026 02:07:20 -0800 (PST)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4959783f1d6sm8829668f8f.46.2026.11.09.02.07.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 02:07:20 -0800 (PST)
-Message-ID: <bb6fa14e-0a98-4b31-899d-0b1c883d0608@gmail.com>
-Date: Mon, 9 Nov 2026 11:07:17 +0100
+        bh=AjrhCINlUbKIbvCUMy8NACyvmSbvDdLn5Ljj7rMFcZY=;
+        b=diHyuIW4x2u7X8upjj5uTywyfsgc0XCeivLftd47HHXlBapYMrm0PHpD6Kci/XQnLT
+         E/gsVMwjotuF92x/CTFuQKSqazjWxULXOKTOtC3Z5hCUsH24VbcTMknTplyyfwiUnaoc
+         9NjrMIxUARFKin4tIF1qo4exI0Y2LaxrCPqJ27J65Nwg1kdo+hcdYIzAO2xbjbpyhAfz
+         lCr9uhhxuF+sNM/TFiq+DTrWPEGZiZvP9Tr8L0ta9bF899YA6x1GL/84gH2mnXGN2Z2k
+         R1mmW4lHuqsmAYovVQ13TUoNBldD6oNKgkiybYTZ2AEnn49S3goGkA4fiR3Lj55Lm1IS
+         n1UQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794218849; x=1794823649;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AjrhCINlUbKIbvCUMy8NACyvmSbvDdLn5Ljj7rMFcZY=;
+        b=0WFhVzXBi8CdkbJLY5fn0Si+9uBNYqTKv8rGL2gFiGTbZ8pW2P6dsrDD/Nusj3FOUt
+         GE9pEx9s5IkuWV87BNahPbihkCMDcK/ogWpPAc5HYlvMUI8zhlIeI1q5sVcOYOJrvb19
+         5xtNZxgBVNpYyS++CzYdqTiL2ty0AFwwyN1ZaAu7qPLb7Mzj+jbDTIG+Ncn+6pn2Z/Ui
+         7PdzhZL+/R8jrGjN/sZDgrfCyRAj2K+rJQX0mDJnxLqzV6sPHXYDfZ6jNOCaALUiBwXd
+         1FtCQSBlnmQLfuq3QPL7B+/sLzV78yF2JuMl5xFwrjgqjg25pOxZi2H3PKnt7JHW0gYp
+         Bi6g==
+X-Forwarded-Encrypted: i=1; AL+hErFNC7ZRNjEAc8vM+WocEUhqDfD13N4clfF9mbfcaDXWXdIGgWQGmK4R2GYRJm2JjmMj5IA0GC/ZfsEjT+c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Y5Uk5GIpNdcWt/jJmqXzqC+MmeUWBdtzUjbrO0ro//ejS6E+j
+	C/pSmoPgE7S+Iw3XE/k3C8iEAtQAbyYq9m698QBf2+GH/YK1cxDkoGqgrqju3l1lgeTfJqmIcJn
+	qTIcxEprXVkQqHhqlFslp1qeS7JIMsboR+JVVaHey4N+AgW6s5NO/AEuyy4VPb9C/GLc=
+X-Gm-Gg: AYBFou1uRLUR2Ahlz49JBsax3uwOztBonzLOg9Xa78JwQs3F7EdgURkQLGw0mOy+seA
+	xZ8GSc9PKVkdUHWhfxCURJBGPI7I/Aa5RSwZ2cc2ogxkEpiMyBoGis+HIYW9r04i5088hrTGA8Z
+	6nZb4tDZjfPSGy5Mxrw7tm92KE74lcU9oYYxeaUa+1e7nAZsnBGdoIy1Ik+NGSweK27a2jYFSHr
+	u9FctvU+9n/XYvxoZi4TxlX7jKaOAYIJNp0yywpoATiNy3rUKGvpL8h8VNzl+xFrzwHG4IGwkSe
+	kDBuLX4phLtkoiAIsUuNe4ZqRzEHQLxVaX8ktcgzudXXisDPoOPikk14UXsvf8gFlloHwj6zBCd
+	/PzQo5KrbzQNYuDDl2C+lZkhYK7/E49ht48Tha80ZkTbcVLoWv8jFQY8na9dq8aVJ7VKSMhQh+p
+	QXcLlOJHiSOLr7PmJakNoPZ0/puoAH
+X-Received: by 2002:a17:90b:53cb:b0:3ab:5758:3757 with SMTP id 98e67ed59e1d1-3b12d5ef7f7mr3152448a91.61.1794218849140;
+        Mon, 09 Nov 2026 02:07:29 -0800 (PST)
+X-Received: by 2002:a17:90b:53cb:b0:3ab:5758:3757 with SMTP id 98e67ed59e1d1-3b12d5ef7f7mr3152416a91.61.1794218848687;
+        Mon, 09 Nov 2026 02:07:28 -0800 (PST)
+Received: from yli42-gv.qualcomm.com (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1054a53e4sm10034531a91.0.2026.11.09.02.07.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 02:07:27 -0800 (PST)
+From: Yin Li <yin.li@oss.qualcomm.com>
+Date: Mon, 09 Nov 2026 18:05:34 +0800
+Subject: [PATCH v5 2/7] arm_mpam: Fix MSC MMIO window size off-by-one with
+ resource_size()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,147 +117,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] mm: limit pagecache folio refcount when splicing
- into pipes
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Song Liu <songliubraving@fb.com>, Rik van Riel <riel@surriel.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Hugh Dickins <hughd@google.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Arnd Bergmann <arnd@arndb.de>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Steve Sistare <steven.sistare@oracle.com>, John Hubbard
- <jhubbard@nvidia.com>, Josef Bacik <josef@toxicpanda.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, fuse-devel@lists.linux.dev,
- linux-arch@vger.kernel.org, iommu@lists.linux.dev, stable@vger.kernel.org
-References: <20261107-refcount_overflow_stable-v2-0-c38f6809b106@kernel.org>
- <20261107-refcount_overflow_stable-v2-2-c38f6809b106@kernel.org>
- <a9fb2d3c-d518-49d3-9479-a25fa2cfc5b3@gmail.com>
- <8d23b1eb-72aa-479d-9486-dbfd86d8414c@kernel.org>
- <43fc45ff-8636-4961-a80a-29844c15d7a1@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <43fc45ff-8636-4961-a80a-29844c15d7a1@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261109-mpam-resctrl-dt-knp-support-v5-2-150335a79381@oss.qualcomm.com>
+References: <20261109-mpam-resctrl-dt-knp-support-v5-0-150335a79381@oss.qualcomm.com>
+In-Reply-To: <20261109-mpam-resctrl-dt-knp-support-v5-0-150335a79381@oss.qualcomm.com>
+To: James Morse <james.morse@arm.com>, Rob Herring <robh@kernel.org>,
+        Shanker Donthineni <sdonthineni@nvidia.com>,
+        Ben Horgan <ben.horgan@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Reinette Chatre <reinette.chatre@intel.com>,
+        Fenghua Yu <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
+Cc: Yin Li <yin.li@oss.qualcomm.com>, Andre Przywara <andre.przywara@arm.com>,
+        Drew Fustini <fustini@kernel.org>,
+        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+        ganapatrao.kulkarni@oss.qualcomm.com,
+        Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+        Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+        devicetree@vger.kernel.org, Ping Li <leeonion.muyu@gmail.com>,
+        stable@vger.kernel.org, kernel test robot <lkp@intel.com>,
+        Jinjie Ruan <ruanjinjie@huawei.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794218815; l=1979;
+ i=yin.li@oss.qualcomm.com; s=20260811; h=from:subject:message-id;
+ bh=M5HKKySRXJjebPuf/KLcSrGcy+Dr1wAQmzTykz+vO0Q=;
+ b=Q4QHKXfPyNxTfeRfp19balrlzMk5OdUU4eKG1aMyyqKAydxt1uebl+7SdXXRpbAEmQKQ5kN5Z
+ 6b+fSzkJixxCQwVFnssHT0MQsX9Umf3yTmY82A8IiSaPn1rVqaz8JAS
+X-Developer-Key: i=yin.li@oss.qualcomm.com; a=ed25519;
+ pk=e/2LM97aSWGBMrxY240URBi9Zi8/kL5hXgB+VHkYvW0=
+X-Proofpoint-ORIG-GUID: 7R_HpRbXomVs3hfJDW2kvM_sTVp1kYoq
+X-Proofpoint-GUID: 7R_HpRbXomVs3hfJDW2kvM_sTVp1kYoq
+X-Authority-Analysis: v=2.4 cv=CMq/zhrD c=1 sm=1 tr=0 ts=6af19b61 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8
+ a=i0EeH86SAAAA:8 a=s3E7sL18FQBPR4dFS-QA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0MCBTYWx0ZWRfXzR/qM/6REHmt
+ zuEqp+pLRmftdvQYleJWDa23nL+yoynZLri9ePAJu3VRb2/6MynJdNqrrZjSAcUvnEuk1Tlbz37
+ 629L5YiTFWrb+6ElWBiD8NlvvV8OyZTKzuCGZUKfljp+RByfGi4dEnJp6saJMhcGa3jtsWiZH1q
+ vMjkNN0nrH8jvTXlQvQIDqOgFVxaJgZXTTFWHOmJjiDQ5mM1Gfirfg5IQ9P+Mfh0mJ5TD4D9/2g
+ cBL9FqgN/zL01MtYGumJNtYe5qnr5/tx2sgohoCDo8ZWVqEQcAsyDjZWsiExRgAcE+GPGRyhhLM
+ RBzyA0N67+R/foptHSUljT6Q3YKfF28RY6Y24nmnGTYpiHK/pvGbKpY3V1j+CzoUpV33MosxlYb
+ Cmomd9B+KA/ZS3Cu/cW8prdm0vJeIGFRHbQHs2+1O9AjQhtEWssNuCHjFRzo4ny0/Sw9cQ1Tr+x
+ 2/6RTF9sXkWGH4wynjg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0MCBTYWx0ZWRfXzDFSCZl8sSus
+ v0Jr2VMELDAKnYqvLV3HUODO1r0mE1++Oqb/Yl7xZ/SoaOsFqAttGTSvM+oI6M5iKeA1J03axxx
+ +MYzmafLywkcnsG+J9tZVJM+Hn835Xw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
+ adultscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090040
 
-On 11/9/26 10:49 AM, David Hildenbrand (Arm) wrote:
-> On 11/9/26 10:30, David Hildenbrand (Arm) wrote:
->> On 11/9/26 09:57, Jose A. Perez de Azpillaga wrote:
->>> On 11/7/26 11:23 PM, David Hildenbrand (Arm) wrote:
->>>> Similar to mapping pagecache folios into page tables, let's reject
->>>> additional references when splicing folios into a pipe if the refcount
->>>> is at its limit, similar to how we handle it during GUP.
->>>>
->>>> This will prevent more cases of possible folio refcount overflows with
->>>> large pagecache folios.
->>>>
->>>> Let's keep it simple and check in the two callers of
->>>> splice_folio_into_pipe(). Return -EOVERFLOW if the limit prevents any
->>>> progress, so do_splice_read() can fall back to copy_splice_read() when
->>>> read_iter is available. This keeps sendfile() and other splice users
->>>> working when ordinary reads would still succeed.
->>>>
->>>> Also fall back to copying in FUSE when taking another reference through
->>>> fuse_ref_folio() would exceed the limit.
->>>>
->>>> Also check in try_get_page() to cover pipe-buffer duplication by tee()
->>>> and partial pipe-to-pipe splicing.
->>>>
->>>> Fixes: 800d8c63b2e9 ("shmem: add huge pages support")
->>>> Fixes: 99cb0dbd47a1 ("mm,thp: add read-only THP support for (non-shmem) FS")
->>>> Fixes: 793917d997df ("mm/readahead: Add large folio readahead")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
->>>> ---
->>>>  fs/fuse/dev.c      |  5 +++--
->>>>  fs/splice.c        |  8 +++++++-
->>>>  include/linux/mm.h |  9 ++++++---
->>>>  mm/filemap.c       | 11 ++++++++---
->>>>  mm/shmem.c         |  4 ++++
->>>>  5 files changed, 28 insertions(+), 9 deletions(-)
->>>>
->>>> diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
->>>> index 3641abb90d6bb..4f6b7b42bfd3e 100644
->>>> --- a/fs/fuse/dev.c
->>>> +++ b/fs/fuse/dev.c
->>>> @@ -1265,9 +1265,10 @@ int fuse_copy_folio(struct fuse_copy_state *cs, struct folio **foliop,
->>>>  		if (cs->write && cs->pipebufs && folio) {
->>>>  			/*
->>>>  			 * Can't control lifetime of pipe buffers, so always
->>>> -			 * copy user pages.
->>>> +			 * copy user pages. Also copy folios at their refcount limit.
->>>>  			 */
->>>> -			if (cs->req->args->user_pages) {
->>>> +			if (cs->req->args->user_pages ||
->>>> +			    unlikely(folio_ref_count_over_limit(folio))) {
->>>>  				err = fuse_copy_fill(cs);
->>>>  				if (err)
->>>>  					return err;
->>>> diff --git a/fs/splice.c b/fs/splice.c
->>>> index e6d43329ed3f0..df73a4e65118b 100644
->>>> --- a/fs/splice.c
->>>> +++ b/fs/splice.c
->>>> @@ -956,6 +956,7 @@ static ssize_t do_splice_read(struct file *in, loff_t *ppos,
->>>>  			      unsigned int flags)
->>>>  {
->>>>  	unsigned int p_space;
->>>> +	ssize_t ret;
->>>>  
->>>>  	if (unlikely(!(in->f_mode & FMODE_READ)))
->>>>  		return -EBADF;
->>>> @@ -977,7 +978,12 @@ static ssize_t do_splice_read(struct file *in, loff_t *ppos,
->>>>  	 */
->>>>  	if ((in->f_flags & O_DIRECT) || IS_DAX(in->f_mapping->host))
->>>>  		return copy_splice_read(in, ppos, pipe, len, flags);
->>>> -	return in->f_op->splice_read(in, ppos, pipe, len, flags);
->>>> +	ret = in->f_op->splice_read(in, ppos, pipe, len, flags);
->>>> +
->>>> +	/* Fallback to copying when hitting folio refcount limits. */
->>>> +	if (unlikely(ret == -EOVERFLOW) && in->f_op->read_iter)
->>>> +		ret = copy_splice_read(in, ppos, pipe, len, flags);
->>>
->>> here it can't tell where the -EOVERFLOW came from, if another file
->>> returns -EOVERFLOW (i.e. tty_fops uses copy_splice_read, and
->>> n_hdlc_tty_read() returns -EOVERFLOW after dropping the frame), it now
->>> gets a second read.
->>
->>
->> That's what claude told me during review, and when asked whether that actually
->> happened in practice it said no ;)
->>
->> So is that actually a problem?
-> 
-> Double checked, claude managed to confuse itself.
-> 
-> n_hdlc_tty_read() can indeed return -EOVERFLOW.
-> 
-> I should just have let splice keep failing, dealing with copy fallback starts to
-> get annoying.
-> 
-> I guess switching to -ETOOMANYREFS should work (and might be a better fitting error)
+struct resource uses an inclusive end address, so the window size is
+end - start + 1. do_mpam_msc_drv_probe() computed it as end - start,
+which is one byte too small.
 
-I agree with that :)
+mapped_hwpage_sz is used by the register access bounds checks, which
+have the form "offset + width > mapped_hwpage_sz". With the size one
+byte too small, an access to the last register in the window is
+incorrectly flagged as out of bounds: for a 0x1000 window, a 4-byte
+access at offset 0xFFC (bytes 0xFFC..0xFFF, legal) computes
+0xFFC + 4 = 0x1000 > 0xFFF and falsely warns.
+
+Use resource_size() so the size is correct. The ">" bounds checks are
+correct as-is once the size is accurate and are left unchanged.
+
+Fixes: f04046f2577a ("arm_mpam: Add probe/remove for mpam msc driver and kbuild boiler plate")
+Cc: stable@vger.kernel.org
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202609030809.ObirDhR3-lkp@intel.com/
+Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Reviewed-by: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+---
+ drivers/resctrl/mpam_devices.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index 05f785328dc2..bea231dac7e6 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -2506,7 +2506,7 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
+ 			dev_err_once(dev, "Failed to map MSC base address\n");
+ 			return ERR_CAST(io);
+ 		}
+-		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
++		msc->mapped_hwpage_sz = resource_size(msc_res);
+ 		msc->mapped_hwpage = io;
+ 	} else if (msc->iface == MPAM_IFACE_PCC) {
+ 		u32 mpam_fb_msc_id;
 
 -- 
-cheers,
-jose a. p-a
+2.34.1
+
