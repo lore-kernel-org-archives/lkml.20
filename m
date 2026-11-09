@@ -1,77 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794249014;
-	b=Vbhk2QEflaU5ozt0U2Te2KijM14jApM+P7stLIjyBrmEeHzNKM7E/UL2ynQURZMOHFPL
-	 YUhqvlp/Y/lrNZb2jQA6Gf/6ZFJwDPBpxb4wLH6Aj8iZD8AhWFCmhtMHBYKgCYSkCr0tq
-	 ImWANoakJFz7XpeanQAD9XhKgZTdIsM93i8llUULT9sivCsEPCrVIJtPjloBn4iAeYXVA
-	 pm/rSgj0R5nlfQLoSMBlyBZiVCFKyg1BKH0wTH2BX20K/fCHu5wxZPSsalv4hg3y0kYaH
-	 GCIanu7wZz/W+NRVnx6hkeqJjY+TiNWoP2gmwVRWitK8uDqqh1IDLolDHJEMQ3HCJsA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249014;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=JO7i2PbvJxkMBIYytW43lBbqQOqbXp9HMNMYIEmTY34=;
-	b=B3j9nuVdJPqzgOkyb3wJFSleH+xF9DaPO8E+1y8pEgr87lLkyqv0dfjWUcb0hkOz9F7A
-	 5XoDxP1eO1Nt09GbvR7hyyplpwvCTS/YI3RQ8zrjf0CtxHN2o5qhKcR3IYuWtXWaUVbmx
-	 EO/bd6n/uPLrP1/OD8MznLA2lSwra1A6Jb8sYbUQJrCjWIWesmK/i3zxcQE1QeGO2uUPd
-	 oUWi0+9gYQVWo/BZzDqJCpw1/B1dJ7ek97jotdv344JneGddh0EALuxg6cf9JhFWYLF5k
-	 wiWaMw4q1YTAmKmwTtaxbZkPoJYoxygOkt/pEcGr6TjckhOQ+dyvSg1rAANXMupTHlA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=T5XNXGIn;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.23
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794249109;
+	b=pDXJCFI4FpAqBd6vkb7c0Te5IP4H/5A0UXbLk6cZmY5uzYtjobBca5hgHT0X3z9CnueP
+	 oVC9AShUu4psvV0hauapEOuyBKfVNsqRvfuI9JlxZtWoZzd+C8d9AHqpCyFejrhQBLE68
+	 cY1d5GMgAR/Bd/eaUJyS24lK9T3Y8/GxO3Wo+a3xyo/ptL0Ns1iLK98tNf7lE2GCRsJ+x
+	 IirZk6bk2DlgZK1IQfQbpzindAEmBjYnB0A6q+Ybmh74pWMoJVsBFn6x2M7ReTvca3ciF
+	 evLB/FRLyiBM7UEYY4U5TmmpsWmfX+vDH5K7Txe+bJ8768LR/LGWGMbPVQrSepWyTig==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794249109;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Phq5SwoDigGOZkjtYLB7SD/VZKgvUkSAOzM8080ST5A=;
+	b=cuEld83ippj6P9PzZaRrxNuxGNPwr8bhXi6ui8+pQBOtvlWjmjps+LMkvEEBb36jPYJ9
+	 u8GgAGHWw10IWgnQcCRI3dUYPzwi+RlXIckvDrxCr8jHJjTV0FfS/8eoWxiZu3xYM5Wxs
+	 uXDOH+kLYHgc2qkmDSXPi85p3eiUZah0FM3FvnFd43nOP7jlNjG8WaG+FMWOCW3E3xJDO
+	 0AXJzMGzsWqGz9wjVWqi9dvQcpHWimAhdXBSSl4NhbZMbtkQLtzIK2nXOsGCMeq7rzpqp
+	 eml2tzhh6BC61Oi+ItypxphyeCcoTiB5kQzJyAifVygFxe+SWod2fiSDV87K5kQVd7A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZoEeYRxk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.23
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013023.outbound.protection.outlook.com [40.93.196.23])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66B8606E12A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:30:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D66B8606E12A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A095606A32A;
+	Mon,  9 Nov 2026 18:31:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A095606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=T5XNXGIn
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id Q9zfxLMYRAR1iQU8DxXk9Q; Mon, 09 Nov 2026 18:30:13 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id QU8Cxeq6JYskhQU8Dxct9M; Mon, 09 Nov 2026 18:30:13 +0000
-X-Authority-Analysis: v=2.4 cv=CKMqXQrD c=1 sm=1 tr=0 ts=6af21135
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=pGLkceISAAAA:8
- a=vQ2Orosr4Im1LJnRkBgA:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=JO7i2PbvJxkMBIYytW43lBbqQOqbXp9HMNMYIEmTY34=; b=T5XNXGInbjcJ0sMEsiLiHSXCc6
-	YEUuIIETs63w++wr9RPCW6k6UZ8XZds36fWdd/chQkjyO+V+UZxcxNliJJT3umNmi0+aLCfpDGblB
-	uRJv9Tk1WEJRNm20TiJZ+QXgrj+xQ3UudgrKIbuI5PbgVgtztGvRzRCG+GGzUWHndmlczTvuDBfz1
-	0LSYX5mzUUF1TbMqe9N7VcKvYoh//n9m2F3I8zfStmR4PxDu3UM6oufH//79dnLmK1d5XZLcR317p
-	z0nx3/s4OUZ73Z6KtKJdqFMBc6COklnmcdYZ5uS7nJXhvevAEJ8XmNaGABcrxJA9//Nv1zXVe5wQH
-	pqReo8Ng==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:33840 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQU8C-00000002stQ-1d8y;
-	Tue, 10 Nov 2026 00:00:12 +0530
-Date: Mon, 9 Nov 2026 10:30:11 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: "Johannes Cornelis Draaijer (datdenkikniet)" <jcdra1@gmail.com>,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (aht10) Fix update_interval overflow on 64-bit
-Message-ID: <c77461f5-5d19-4482-9c6d-da6b3d52b69b@roeck-us.net>
-References: <20261108172651.220121-1-zoone.rupert@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ZoEeYRxk
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ajMSLLt3O+/Ea6xpk+xUx3D55wcUZa4xzwyomM1R+zJpY6MSnwszWq/jZQ8TXNnKRo03+K2VAwb/SUELssuTWTCt8oQ0/Yma8wKTFFChPTiThI4AYOxDjFgaEgYBQw4JjQiDbjDdG5+oWfsOJkhP1lKnK5f7YpzuFW1RJI7WsuPFTT/8McgtxomMKK3z7Quxqjd2vMC9C34DTSUhzE9KGpHdIPsMUzgrGgu0OTpO15U6Yj+kpwBv4lL228MDJxcqupXlBbJJ8BsJoOtKuDae9+gjnHlEdECamJIf17yTxfiTquj7FncJtEm7kxIUZkVS8jLNYgYAtUVBM0lulrs8Mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Phq5SwoDigGOZkjtYLB7SD/VZKgvUkSAOzM8080ST5A=;
+ b=yYMc7/9RoeruMI8/DO+vffVwpC23Rk3y/Dc7F2GfpVQR457UL52B0oJlYqhM8TCrmZKg/p5zAm1dB0CIm2yYQVdni4UIFoVjuR6057HMbzna5I3MzGvKi3CWGxDYDCyIkCQvbKExhov0xo9wMbGouOcVASLMErJ+aoR/NiYqRO2VUrgZtwJNOBBVra4Uzc7dtrTnlyYuYPJaC8hjleqHgNDLQMciqysMf9pOBunGqZCtkWuiX3vn0Nj+SvQWba2d5tHqJ2DtDYLaxZf0WTvtmu/wI9Xb421f9rELsd9IVXezUFFrN6xiY4XMf1/ern0Oi79LElrRQxgDu48YxAy5fQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Phq5SwoDigGOZkjtYLB7SD/VZKgvUkSAOzM8080ST5A=;
+ b=ZoEeYRxkxW+gSFLuNJwqKVjRKcEbgTMhAu4gB7DwXO4ettwggz62qzAAxAKC4DeqU+ri/2Luz6uNzVtV2ockSy4MZgO/IEb7QFWxi3LZTDujbuSBmDuOOQngd4qtaYJ7De2+WaNddVfeXdfp56Fpm/e2oYYMTCL0Cp29+ik18EIxGO/nY8UWzg88W7waL1M7iMzhMvfmHcFNRFNYkDC97D1nkCJbK/yBgW6N6+IOtQWbr29xZGt14Y4ds1qRUnH5RS9HPmzQ5sY2RgrmbDhzGZrrpCM4pE3D2/dgNKkHc72njVeok2648xRbVy+Vb0bfUbjUTvmdibTPKgzF0SWeYw==
+Received: from MN2PR01CA0052.prod.exchangelabs.com (2603:10b6:208:23f::21) by
+ IA4PR12MB187965.namprd12.prod.outlook.com (2603:10b6:207:105::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 18:31:45 +0000
+Received: from BN3PEPF00022BC8.namprd05.prod.outlook.com
+ (2603:10b6:208:23f:cafe::9f) by MN2PR01CA0052.outlook.office365.com
+ (2603:10b6:208:23f::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Mon, 9
+ Nov 2026 18:31:45 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN3PEPF00022BC8.mail.protection.outlook.com (10.167.248.214) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 18:31:45 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
+ 2026 10:31:13 -0800
+Received: from [10.221.197.41] (10.126.231.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
+ 2026 10:31:04 -0800
+Message-ID: <8a521a4d-2b05-4c9a-a8d7-ddd0ea465f81@nvidia.com>
+Date: Mon, 9 Nov 2026 20:31:01 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,42 +104,219 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108172651.220121-1-zoone.rupert@gmail.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQU8C-00000002stQ-1d8y
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:33840
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 10
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfEZnkTgYpmGbnqHnHQTPi+ImaHC1c3wDthtEH/qnk236Jmj7xd5hh0yW+iZcneGo8LolUBGXwHahxc0IkKQapHDkr9URVsGkcpmAptr1EcG6WQU/lRoA
- BzkyO1X7oTXSMx/F5N25zYAeg6sMxiPpWsW/o0k0Ka2zn+VqJlkG4z49F1D6sUG72BrK3bOvvh7HHmcCV2033k2eBE1FC9q2QZ8eM3HoSw6oCcEXpB62INVs
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 10/15] net/mlx5: LAG, do not add a device to an
+ already-active LAG
+To: Tariq Toukan <tariqt@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>
+CC: Akiva Goldberger <agoldberger@nvidia.com>, Carolina Jubran
+	<cjubran@nvidia.com>, Cosmin Ratiu <cratiu@nvidia.com>, Edward Srouji
+	<edwards@nvidia.com>, Gal Pressman <gal@nvidia.com>, Leon Romanovsky
+	<leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+	<linux-rdma@vger.kernel.org>, Mark Bloch <mbloch@nvidia.com>, Moshe Shemesh
+	<moshe@nvidia.com>, Or Har-Toov <ohartoov@nvidia.com>, Patrisious Haddad
+	<phaddad@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>
+References: <20261103171009.563034-1-tariqt@nvidia.com>
+ <20261103171009.563034-11-tariqt@nvidia.com>
+Content-Language: en-US
+From: Shay Drori <shayd@nvidia.com>
+In-Reply-To: <20261103171009.563034-11-tariqt@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC8:EE_|IA4PR12MB187965:EE_
+X-MS-Office365-Filtering-Correlation-Id: 97ffab8a-7450-40ac-d079-08df3e8fb548
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|5023799004|11063799006|4143699003|261022105027099003|56012099006|261021121427099003|261022075727099003|261022113327099003|261026140227099003|261028144727099003|261026121527099003|261009223027099003|261102123227099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	x6FDnAfVmKUNRX1D/wmLjXQ1wV6vH3m587uSwNr2L7Eu7GYO1/WBse+6/mogBLiR40W5zfEZ84u60y64/Mbh3ymbRW/rNALqss/hyCk7i5UvHv6bddY74fA/pdyP19eUujBTtEmhtEvXAInXZmx6XBkQlRmVS7SillFvrBFfdv0qhXChix2qvU6/2PxWXY9iIdbUjQasQAhkK69CziIn3n9FrM3MEBy/61hagdulpvZDvEzntI5tiB7RJKPyELjg5+UhPWVlZn+ot1ft4EmGFgIbQcA9dOglnBGmjjL6ir3WrvfjZk6VmQNRs98gdOZj60vUtzA4D/1GZAqlC1QQxB31rcVz4yj+IocyCJTppthmTzQbSiAQ/MNoTl3kxDwRRmlCdnxcyPp2/Odycq9EH3l1C7sXMC/mxfiMvLmcm3sedLtt+iPWWYxXL+BQfqBHsB+evmcB3vbLHYxJ2u88W9R/IpGmGDUZakKUEDsprhEnj7G4s8Cc+JWsac2tTwZlYhwnzzPXTZfsa13JcnSP1eQKfqkpNV8ODhB9h8oYL/jPCSSV9xKqO2zC4c/JY/e3XWAxR0lHUggDW5bcjum/xlvrS7eKui0g4fp6+jlCii5QPP40dCbIkbXWO2jttRA8cGNceaFo30woxTD72WdaGQSw3dIuQnZL7wGh9HJFH4bar02JrfPZnpg/VrVt0KYZknVfd/jRD/eC24FoVsaulA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(5023799004)(11063799006)(4143699003)(261022105027099003)(56012099006)(261021121427099003)(261022075727099003)(261022113327099003)(261026140227099003)(261028144727099003)(261026121527099003)(261009223027099003)(261102123227099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	H4+JgnNJ4fMq5zMyL/DcXpZOY1ftZeTnhPS20uu/S2RoXjU74c9vsPhYFe4EVYHqdXwJ6UOQSNuC4slXASDx5vYgdnsI5eclm2d1OFaHXyZeK85Pa5Jorf57yiGK9DhNtw0llFMNCkIgAniCq50agVQdRV+R+bJlBvNZfcAe7JAE7I4mG+0Jm2Ve/5n1CYlV3ptbdKR9uCc2LPAU/2M7aJhpCxwmuKcqmp0a09nGMmmooU2zpDyhLB5r7YwO2V8ihMv+dd2O4XwZXlE2e2V4WlPJbXBBNXWg166liSct7Ql9IqHtLKiANJy2uXa56kE+CoZTiGfuKkuyvP8hUoBXIbsDZa/gHGLTgGyrlk+0vwHgka9ds+liowaKFwpe9GrMTFE9KgzAvvURLKgW9SeowMM1Kh68h3UI5BDbDfpCoRJTFOWdPOvoU9cvSWlfyLQc
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 18:31:45.0629
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97ffab8a-7450-40ac-d079-08df3e8fb548
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB187965
 
-On Sun, Nov 08, 2026 at 07:26:51PM +0200, Rupesh Majhi wrote:
-> On 64-bit, update_interval writes are clamped to LONG_MAX ms, but
-> ms_to_ktime() overflows above 9223372036854 ms and the interval wraps.
-> LONG_MAX becomes -1 ms, so every read starts a new measurement and
-> update_interval reads back -1.
+
+
+On 03/11/2026 19:10, Tariq Toukan wrote:
+> From: Shay Drory <shayd@nvidia.com>
 > 
-> Clamp to INT_MAX like sht4x, so the limit is the same on all platforms.
+> mlx5_ldev_add_mdev() would add a newly probed device to the LAG even
+> when the LAG is already active, mutating membership while getters may be
+> iterating it and while the active mapping assumes a fixed member set.
 > 
-> Fixes: 8c78f0dee437 ("hwmon: Add AHT10 Temperature and Humidity Sensor Driver")
-> Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+> Reject the join when the group's LAG is active:
+> __mlx5_lag_dev_add_mdev() returns -EOPNOTSUPP, and mlx5_lag_add_mdev()
+> treats that as terminal - unregister the HCA devcom component and leave
+> the device standalone, rather than the -EAGAIN retry used for the
+> bounded mode-change window.
+> The device stays out of the LAG until it is reprobed.
+> 
+> This keeps LAG membership stable while active. It is a no-op for
+> existing configurations, where no device is added to a LAG once it is
+> active.
+> 
 
-Applied.
+answers to net-dev sashiko
 
-Thanks,
-Guenter
+Sashiko (Low):
+This isn't a bug, but the commit message describes a broader rule than
+the code implements. The subject says "do not add a device to an
+already-active LAG", and the body says:
+   "Reject the join when the group's LAG is active"
+   "This keeps LAG membership stable while active."
+The check here only fires when mlx5_virt_lag_is_supported(dev) is true,
+which means multi_uplink_eswitch and lag_master are set and
+num_lag_ports < 2. A device that is not virt LAG capable can still join
+an active ldev through this path.
+sd_lag_init() in lib/sd.c, the other caller of mlx5_ldev_add_mdev(),
+also adds SD secondaries to the primary's ldev without checking
+__mlx5_lag_is_active():
+     err = mlx5_ldev_add_mdev(ldev, pos, sd->group_id);
+Could the commit message say that the rejection applies only to virt
+LAG capable functions, or explain why the other join paths are safe?
+
+[SD] The other join paths are safe. A LAG of PFs is activated only
+once all the PFs of the card are members, so there is no further PF that
+could join it, and SD secondaries join at load, before MPESW can be
+enabled. A LAG of VFs/SFs is the only one whose members come and go
+independently of the activation, which is why the check is for virt LAG
+capable functions only.
+
+In case of v2, The commit message will be fixed.
+
+
+> In addition, do not register the eswitch devcom component of such a
+> device, so it does not pair with the eswitches of the LAG members.
+> 
+> Signed-off-by: Shay Drory <shayd@nvidia.com>
+> Reviewed-by: Mark Bloch <mbloch@nvidia.com>
+> Reviewed-by: Moshe Shemesh <moshe@nvidia.com>
+> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+> ---
+>   .../net/ethernet/mellanox/mlx5/core/eswitch_offloads.c   | 4 ++++
+>   drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c        | 9 +++++++++
+>   drivers/net/ethernet/mellanox/mlx5/core/lag/lag.h        | 5 +++++
+>   3 files changed, 18 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+> index c712848b202d..70e6dd9561a6 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/eswitch_offloads.c
+> @@ -3573,6 +3573,10 @@ void mlx5_esw_offloads_devcom_init(struct mlx5_eswitch *esw,
+>   	xa_init(&esw->offloads.peer_flows);
+>   	mutex_init(&esw->offloads.peer_mutex);
+>   
+> +	/* do not pair a virt LAG capable VF/SF that is not part of a LAG */
+> +	if (!mlx5_core_is_pf(esw->dev) && mlx5_virt_lag_nonmember(esw->dev))
+> +		return;
+> +
+>   	if (!MLX5_CAP_ESW(esw->dev, merged_eswitch))
+>   		return;
+>   
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
+> index 9bc4a929cef3..d73bac8441f7 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.c
+> @@ -2449,6 +2449,11 @@ static int __mlx5_lag_dev_add_mdev(struct mlx5_core_dev *dev)
+>   		mutex_unlock(&ldev->lock);
+>   		return -EAGAIN;
+>   	}
+> +
+> +	if (mlx5_virt_lag_is_supported(dev) && __mlx5_lag_is_active(ldev)) {
+> +		mutex_unlock(&ldev->lock);
+> +		return -EOPNOTSUPP;
+> +	}
+>   	mlx5_ldev_get(ldev);
+>   	err = mlx5_ldev_add_mdev(ldev, dev, 0);
+>   	if (err) {
+> @@ -2537,6 +2542,10 @@ void mlx5_lag_add_mdev(struct mlx5_core_dev *dev)
+>   	err = __mlx5_lag_dev_add_mdev(dev);
+>   	mlx5_devcom_comp_unlock(dev->priv.hca_devcom_comp);
+>   
+> +	if (err == -EOPNOTSUPP) {
+> +		mlx5_lag_unregister_hca_devcom_comp(dev);
+> +		return;
+> +	}
+>   	if (err) {
+>   		msleep(100);
+>   		goto recheck;
+
+
+Sashiko (Medium):
+After this change only -EOPNOTSUPP is final. Every other error from
+__mlx5_lag_dev_add_mdev() is retried with no limit. Can this loop
+forever on an error that waiting will not clear?
+__mlx5_lag_dev_add_mdev() returns the mlx5_ldev_add_mdev() error
+unchanged, and mlx5_ldev_add_mdev() does:
+     err = xa_alloc(&ldev->fns, &idx, fn, XA_LIMIT(0, U8_MAX - 1),
+                GFP_KERNEL);
+     if (err) {
+         kfree(fn);
+         return err;
+     }
+xa_alloc() returns -EBUSY once all 255 slots are in use. Two earlier
+commits in this series make that reachable:
+   "net/mlx5: LAG, decouple iteration end-of-walk from MLX5_MAX_PORTS"
+   raised the limit from MLX5_MAX_PORTS - 1.
+   "net/mlx5: LAG, enable LAG over functions that do not represent a
+   physical port" lets virt LAG capable VFs and SFs join.
+mlx5_sw_guid_sf() and mlx5_sw_guid_vf() return a constant marker. So
+all such SFs (and likewise all such VFs) on the same HW share one
+devcom key, and they end up in the same ldev when they share a netns.
+With 255 members already present and the LAG inactive, the next probe
+would see:
+   mlx5_load()
+     mlx5_lag_add_mdev()
+       __mlx5_lag_dev_add_mdev()
+         mlx5_ldev_add_mdev()
+           xa_alloc() returns -EBUSY
+       msleep(100); goto recheck;
+Membership does not change while it waits, so mlx5_load() would never
+return. Because the thread sleeps in 100ms steps, the hung task detector
+would not report it, and unbinding that device would block behind the
+probe thread. The final state of the series still has this loop.
+It is not clear whether firmware actually exposes that many virt LAG
+capable functions in one group. Would it make sense to retry only on
+-EAGAIN and give up on other errors?
+
+[SD] This is pre-existing: mlx5_lag_add_mdev() retried every error
+before this series as well. for example future HW can return -EBUSY.
+The fix will be sent as a separate patch.
+
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.h b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.h
+> index cbe380ae8bf9..385c767e24ae 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.h
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/lag/lag.h
+> @@ -280,6 +280,11 @@ static inline bool mlx5_virt_lag_is_supported(const struct mlx5_core_dev *dev)
+>   	return true;
+>   }
+>   
+> +static inline bool mlx5_virt_lag_nonmember(struct mlx5_core_dev *dev)
+> +{
+> +	return mlx5_virt_lag_is_supported(dev) && !mlx5_lag_dev(dev);
+> +}
+> +
+>   static inline bool mlx5_lag_is_supported(struct mlx5_core_dev *dev)
+>   {
+>   	if (!MLX5_CAP_GEN(dev, vport_group_manager) ||
+
