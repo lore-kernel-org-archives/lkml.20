@@ -1,93 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794265429;
-	b=FS9EHjf57iqWEDWYXGpd3MritdYUuQrTv3juOmeqRsDYqSSNWb2FOPQoFY7tYQV8m7W7
-	 foLJC6oVC3U3eJ2so5BbHVor/FWPzDzKKOY2AAH+BDhKD4Zg9XE62rXtZYhbUDqFqfhkI
-	 9cr+pknSAqtVfl5h+YAvjeRqGB4/JFWwUu22ws9EgvaERaIiefJPeK8uqBNFzW4yeLJva
-	 gBHmzN4lsUUOglTvUxWcEKsnIaaFikZ8CAGOz79+aoyyidDpoUInhQ6ro2iPZnt5gQFO4
-	 y1W9NC7NSGUKX5hJ51dS8GDwY6/qsnEG4et+v3pQQtSRJzGVTEbddsQSY2ksv8BG9ug==
+	t=1794265530;
+	b=K+q3gFRJfVqKLmbPcIjYEg0qkpJGWVYozPPXlfA7CiwAINSzYP7CTz2zFAlYbWBtt69l
+	 GLMC/JPpBWQn2J4+/xD3vJn1SssysX4i+sXIeEOXS7vfNRoj1ZGbsIZ6EwNEOTaG/rQIw
+	 R0DyBEeFgbX59tvFWS1/05aSoJioP1SOwEHAJMZEmNzEJtyQncs5Asa6nP7mnGMYGrzCc
+	 7jtQSiHcMkZ4nQt/dMH0PZC9fkRPKr18n35CdpbLF5EevTuEC163fBgJouVCNa2HdLTaY
+	 WRFPUxc4ccfrQ49E5BuhfHHvSrqp/EkoYZEiW4LF++AdK6CuSi3YefyagIZs8kzLpCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794265429;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=av3WRFVIfYOqlxtYCbtCUVyRZTi6ahIEMlQGBL6IcHk=;
-	b=YOGjt792bhUy2mINYu1qCsZoSaVMQMKEk+VKN55JaBbV+LfM0xWI4dPlaAjmIUNC8UtH
-	 4pk4wVosUoTtwu1DGTf0PNbFp28veb/tSqF1ipqKAGvYy4fxnTVHsReddJ9a6G2zPBOq/
-	 Hrv7bax6VRiPzcaoDHRGJDEsVGY1ynf/7zUvTjI86fF5uij/QE1Nu0KSPpfE20WK0kORi
-	 UGgaSXJhKOXc5aOF4xO+llJNtfGFMCnorAX8TzCBQUBI0Xv5M9fZZeSBHPT2m2kKU3pZQ
-	 ZhjQyr7nKpXcAqlT6FmCm61zYXwtuoq28OLIcU2HA/4D1Kfu5I5UAbt5Xi/CNptxqDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794265530;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=4FhdLPD0grYX+522WudA2QHSLtTJRmqNQOiiL/At1p0=;
+	b=nZbN3JxnUtADvMLh5VQ8G6YablnR2ed5GUxCE1oaiHCMLGEjAg5U/CNkXrZZk0b3pDWs
+	 684OwrYxZQ+Yc0FdEnn4u2mt8WwTwI9DPLWwtkzEFvWOJV88kmOaXjwoAQc7s7gWtii0j
+	 SCSQJh7nLzgdUd/ClTTy1ysEAGjS3aBV5kCeg6ccW/zLJtvYTglPBVPMg8p30FYh9VhmW
+	 CdPTnpDY+NUeWhsruABg/RsnTgTFEOzC9c9t1p3L33Xu0xd/Zpzs/FFDFCp5xza7YgpOD
+	 /iyiaSRG8J2GH+1GTv9sgvpJN0SyNYWpmkKjttGzIhV1n4XXDETpI/G/LjZEXxUhZ3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Ul2/H7PT";
-	arc=none smtp.remote-ip=209.85.160.181
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cDog95Vw;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38544606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:03:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38544606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1216606A321;
+	Mon,  9 Nov 2026 23:05:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1216606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ul2/H7PT
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5365e86c939so1119401cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:03:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794265428; x=1794870228; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=av3WRFVIfYOqlxtYCbtCUVyRZTi6ahIEMlQGBL6IcHk=;
-        b=Ul2/H7PTQHZU4/4J3TdO9pgaWgdh9x5pgKCAmfi1bvLen4mPg1gEyDDN2b/VoFf+fx
-         /wByzrCct5JucAi55IogVhtPjf57rIDiTsZHt24dH5NLLmTR0OR/PBv1rOxY+dcGvhgM
-         Mpco9DO5l55ewLEKpLR+el31jYdBNWWW1IONhJ9f5sFqk/dMI8lLBsreRe/JEdTu9hO4
-         bETthDF4S4QM4S/XnsDvvCyEDezaPHNvT3OF9y0XVz7jD4VjV/fn+F9jEFjQbH8MXD5o
-         HZ64as2+rKOgEbd69TqAQrhLqvbPG42NiR3EcgLvY++gdnuHHWAKRNwzSDLpLCG/e+gn
-         LnQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794265428; x=1794870228;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=av3WRFVIfYOqlxtYCbtCUVyRZTi6ahIEMlQGBL6IcHk=;
-        b=MFXvWctf3AHpXk/3BmBSRLpXRkeKK9rqMcGtAaP+a580cppU6u25aZPXig9446css3
-         ZVGMM/Tbrnn5cfVIqyg1mn3JfXQnN6qb4WcIAGIeXo1BtnlQptsvNmqNgTnHYdqTWjU9
-         q/HU3XyIZ5X2YcJjoUb++r7PsFzvP30gLH5nBNUPiYv67cGyPMkcvfY2cYfZUwi1GojB
-         RD+3XGaucHYrRqHalp+tWSult6k4am0f4CAXNriasSo006q5NtkHCfVQlecXzDFPhtkn
-         iCUR6WFmifwQR3/kYJSkJCthCKUkNyzvhOfME851mlPH9TGJtIKNV4wi44GXsKYII+Xu
-         hNUQ==
-X-Forwarded-Encrypted: i=1; AL+hErElwGGCH52F6Nn3SEO4WAwpz1vugbAUIZo26c5bn8tGORu01HWEi2S+8HfXu5AxrH7K6d0UosYOUyixJqg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/8ELvmpoX6LAXLPKjR6FKsDTu0HnyE+zsyvsUTTjCVAqgyK69Q
-	ILezUMzWY/Tu0pzAMQwnUsFlXCqfl64vvL0qt94QIusOjQNjWNxPt2Rk
-X-Gm-Gg: AYBFou3eFoVpeyHVCqH/9DGADhFBei82SvCxgPssPplgyT4lq2NVNtjx2iEliLX25So
-	CGMvCeSBNfehtAk8AlUAZgBbBBToGc2c/XXvnnON0iIHSIvFRvb3xPHd2vDdiq2ZRHtDkZHGszD
-	konyl5eGt5At601P1h3jlDa0hdLX8vHUG2tK2ZLOUS/2VgE6kkduHceEG90PJfieOvYK2RRS9Aw
-	ULu1lxWSGx5Cchyc+urEttqjtjePgBo6XFCRWQ/E5mOUvLIYuCTB+HdRXwX1GmkBNC+wep970/i
-	WpgJIvZRw6wW9Iv946oNiQiVSG6WNt/xIyChgyrJ/ERogzjsX7c9CweKKeEsYK9CySghPlMs4HK
-	DHSAxoEcrr53bK50jZEasaKsuVSAPf2ki8VKUYQQVhx0UmXgaWi95s3BRvHI4ET8FsA57gs/Dp/
-	Wj96g+caH5xPi8W2Mlye6BemuNWqgckH5DkrAZROYi9H0Y7TDaj+E9QxrRz+vDnggrgwy5TxLGr
-	+FQXveOPKdHO6nJD8lAJf90EEvPrbgV7peQKyPb0s8DtAJiE8T9yVGgccs2pu7RSkQBv8jhcC/c
-	GE0kJEN0Ic+2X/sfRUI7Sly0yQSkzJHxlJY1uEdca4Pe/Q==
-X-Received: by 2002:a05:6214:d6f:b0:91e:81a3:d459 with SMTP id 6a1803df08f44-91eef96b9e5mr23941996d6.3.1794265428066;
-        Mon, 09 Nov 2026 15:03:48 -0800 (PST)
-Received: from yaozhao-prestige14a10sc ([198.58.190.97])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef051dc53sm7031306d6.32.2026.11.09.15.03.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 15:03:47 -0800 (PST)
-From: Yao <dragonlinux@gmail.com>
-To: peterz@infradead.org,
-	mingo@redhat.com
-Cc: mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	yao <dragonlinux@gmail.com>
-Subject: [PATCH perf] perf annotate: fix annotate crash for fused instructions
-Date: Mon,  9 Nov 2026 18:03:14 -0500
-Message-ID: <20261109230314.627013-1-dragonlinux@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cDog95Vw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794265530; x=1825801530;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fA/YuYOZqr8nX95JQI9ayGBQbBahOSJO/lfwcBjsiT4=;
+  b=cDog95VwMtwqTZNfRxKUH2i74IhEEGM0vN/T/6svPCn2qc3CFEZ1P2w6
+   Ed8g+pa37ROwgiqavvWEUARqsQ3D+rYMk4uaDZyty8tWaxgEZ6e6iUiVb
+   DbxKKQMOkbawPCLLeU5ok7cDAcMdBq9N2YhAHWxwPTELA2Bm3cTfPNkBv
+   K5rsP5tNjp1Wgm60Tf62lH1hGDJvST5PDKRCJBCUzbhJfHyL/EZQAGUpG
+   in1i8Vlv5S8znI6gXBFjTPiD8lYuCmZ2QAY/eS1OOpkutLlPGX5moqZiz
+   MSVH+QsL41316pYSKWtFFWhD5iIJd2zoRKQFHlREgTw060+/LU1ntnHG2
+   A==;
+X-CSE-ConnectionGUID: NUEuXk9AT/2kg4UHPKzLZg==
+X-CSE-MsgGUID: NpPTSRPDRy60frr9uzp8iQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3029789"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3029789"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:05:29 -0800
+X-CSE-ConnectionGUID: O1fhqldaSzi1N7PVHOdtOg==
+X-CSE-MsgGUID: XivK/JkIRVmktnl1NeCaEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="9845093"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:05:24 -0800
+Date: Tue, 10 Nov 2026 01:05:22 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v8 01/11] serial: 8250_dw: allow port setup to report
+ errors
+Message-ID: <avJRsij5P7Ch3tqE@ashevche-desk.local>
+References: <20261105-submit-h616-uart-fifo-v1-v8-0-14024d2b184b@gmail.com>
+ <20261105-submit-h616-uart-fifo-v1-v8-1-14024d2b184b@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,63 +87,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105-submit-h616-uart-fifo-v1-v8-1-14024d2b184b@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: yao <dragonlinux@gmail.com>
+On Thu, Nov 05, 2026 at 01:52:02PM -0700, James Hilliard wrote:
+> Return a status from dw8250_setup_port() and propagate failures through
+> the DW and LPSS probe paths before registering the UART. Use the existing
+> LPSS cleanup path to release board resources and IRQ vectors on failure.
+> 
+> Keep the current setup behavior by returning zero on both successful
+> paths. This separates error propagation from the configuration validation
+> that will use it.
 
-Function is_fused tries to find the previous fused instruction with
-the current conditional jump instruction in the annotate_line list.
-disasm_line is the container of annotate_line.
-The annotate_line list uses list_head and the head is in
-annotated_source: notes->src->source which is not an annotate_line,
-so it couldn't walk without checking the list_head.
-If so it will read annoted_source neighbour memory mistakenly and most
-likely cause crash.
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+after addressing below piece.
 
-Fix the case where current instruction is a conditional jump and it is
-the first instruction in the disassembled list, the original code will
-walk to the head and treats it as disasm_line which is not.
+...
 
-Signed-off-by: yao <dragonlinux@gmail.com>
----
- tools/perf/ui/browsers/annotate.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+> -	if (!data->skip_autocfg)
+> -		dw8250_setup_port(p);
+> +	if (!data->skip_autocfg) {
+> +		err = dw8250_setup_port(p);
+> +		if (err)
+> +			return err;
+> +	}
 
-diff --git a/tools/perf/ui/browsers/annotate.c b/tools/perf/ui/browsers/annotate.c
-index cf36b5347f72..07449944fa2e 100644
---- a/tools/perf/ui/browsers/annotate.c
-+++ b/tools/perf/ui/browsers/annotate.c
-@@ -155,17 +155,26 @@ static void annotate_browser__write(struct ui_browser *browser, void *entry, int
- 
- static int is_fused(struct annotate_browser *ab, struct disasm_line *cursor)
- {
--	struct disasm_line *pos = list_prev_entry(cursor, al.node);
-+	struct annotation *notes = browser__annotation(&ab->b);
-+	struct list_head *node = cursor->al.node.prev;
-+	struct disasm_line *pos;
- 	const char *name;
- 	int diff = 1;
- 
--	while (pos && pos->al.offset == -1) {
--		pos = list_prev_entry(pos, al.node);
-+	/*
-+	 * backwalk to the nearest neighbour instruction till the list head
-+	 * instructions/non-insn are ordered from head to tail
-+	 * head is not a annotate_line/disasm_line
-+	 */
-+	for (; node != &notes->src->source; node = node->prev) {
-+		pos = list_entry(node, struct disasm_line, al.node);
-+		if (pos->al.offset != -1)
-+			break;
- 		if (!annotate_opts.hide_src_code)
- 			diff++;
- 	}
- 
--	if (!pos)
-+	if (node == &notes->src->source)
- 		return 0;
- 
- 	if (ins__is_lock(&pos->ins))
+No, don't change it here, the return value will be simply ignored until the
+change that will make use of it.
+
 -- 
-2.56.0
+With Best Regards,
+Andy Shevchenko
+
 
