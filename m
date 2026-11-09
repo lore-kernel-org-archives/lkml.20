@@ -1,90 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794247282;
-	b=WITTGFrXhUbkCiurtlQV05I+9ZnBMzUjnvaIQqlPCv30ta9Yt0JfOcg9eQ4r6jlyk3Vt
-	 DL73VgvoZK/6DJj88IAzjejFg/3yv1IPeNENh3jjZTuhT8cFCgXpu2wukS2B29OVWB6dW
-	 xOayEgJ/DwvkNid2bAXFSOpcEi2ewxCQpMet+ZR6dRgntw1nzxbQHxAeMQcRrkO7YoWKS
-	 edstMi6uS5awDBRfHHdqZ53hRdHlZIAga4T/+sQKq7uKnoBMiS3JYTOVoLPk7mxUEB3ld
-	 kB+FVZcmgaiouS4hF/ZbENZuYuBvrVC8nNad63ocC0g15ZjR3Mh0+F/lNzRIb9/wbxg==
+	t=1794247329;
+	b=UHc8YSu3el+rUv1QhxoivZYsFstsuYEgu/ff5FE/aa+umi0R0aOQR8uu6ZK5HCQ6Wqme
+	 ZrO93Da563+ArgMRMUjMsEwRHep8NoxW1mjrKlknjVpsh+KXLO5sMxY7EIFirCwq+Bdg7
+	 VpkxXjF/94ut47XQN65TH9nfwS7mrZP7lDoD79+wlNlzP8KjLmiSaaBS5sempUkcnJ0pD
+	 Xm+J9+RQcA20OmyYEVltrVPbXXafDund7xSMZ8B4htgaTkSuIUIzPVj8MQ7ml2D3siTP0
+	 1fyjaUfqNU6FdBjHUsBcBU9P6GUJ5+iiRxA3n9zN1gbVGnzy/Z74pivCLrGmtrXmqBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247282;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=Gt4VMnvmrWa2nAQLESYVbnrfaPMYEizAsDM6TBhtRVk=;
-	b=a7mTBqIHwdRkWPDQMJDZ9AIxl4CNy8HNIZt9/unlVH9FkQBNeYUG9Q1qDKBwnQquEtFs
-	 Ys5XtPzU1xw2zIGOSBGy+NkUOecrf8Qs2Xs6phc77T4yh2HmIA0h2FxwdcQZcgxhGQEiI
-	 dteuyJ8AfLMvMAzybRYnuOuzq3oGcDEA7LVYZ5qPblwEGSF1i5ks9TRcH1E12jlY2654Y
-	 1+3Ls9R9RQHG/tGr6oMsUD59U5DoDPz6WBO91dQ4MGqQLy5QA5tK47VDHhyJED8h7z1Y+
-	 laDMBTGpwYm4Ks9WbfHVVvFmgIkwtUvuCBp+JyYd3cJe5q3/eFgvY8YISwvmcSwnVRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794247329;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=KxWYw93Pi5kViZyP3dyIySxBB9d/7DBTkBkUxzwtrZE=;
+	b=koSIubITW+NdQ88H0isQ4V8BB41v0Umy7JBEJwbsPcdHDovCnwc3FnsfrngZSKeTDqr/
+	 tVz9Q03eacc8M2UoqIrn51aQBRplUqVaJHeiEHOhVfCsJsxebnNtw32xEZrAUeF4KIPcE
+	 U6LJnAds7eVtU0fKvBCjhhX5Lfm5/k8QBZbQLBCMZ84bB1iKq4TGxmSmwuhtlFUsTSc8n
+	 F5spKdgN8SNb0KhhpaC37crp+6bjrcflvOgw+FMqW2rJi++P3R32osgesDp9Waks8xVA3
+	 Jvde+AjNX3rT5qbE5hvuM8zcRJn4CX9Dy5RjVHdS/VfT5UwCY616LVgAsLkzwFri/PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=BJ1V9n2A;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="J4Q4/Q4v";
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3965D606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:01:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3965D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FB3606A321;
+	Mon,  9 Nov 2026 18:02:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40FB3606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=BJ1V9n2A
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4d5cb1b181so159853566b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:01:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1794247280; x=1794852080; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gt4VMnvmrWa2nAQLESYVbnrfaPMYEizAsDM6TBhtRVk=;
-        b=BJ1V9n2AfADpR7dsa3wDijiT851F6urrq6crD7eUpAMOKrYZADJ+K4ih3waAiAG6fL
-         EAjk0herI9n34LsL4j8P74jeW1R8C8fQc1gGBi5OGvEDKNwnwYvFvw+6P+2N2QQ7AO0m
-         DgHGiDYRiOX09JRBbDZ/VYprdS1OJCYEPl2Ag=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794247280; x=1794852080;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Gt4VMnvmrWa2nAQLESYVbnrfaPMYEizAsDM6TBhtRVk=;
-        b=zBlRv7SQYNZCcAPzdoPIfX+rtuXe9obcQ3bnTzixIAXq4dcAM/Ahx3knYZyD9NHbFV
-         47Q4v5S/W3Yy17SL9lOtK0i/wTprLYA1Hwh04mhFsGqshRinHpwVbHsrZHMEVp/8hzff
-         +1cMkiT38SelhPPO3b2YIPCJHYbrAKYlwFbNfvrX5m+N0LnoDHmJP4Js2ENapHVDwr3h
-         AIUTiubSosNYDQYy4yjfZLj4LzaPrgTwXk1N0OzxCYIxMhHuwa3b2u5+4dMnduaFipP0
-         OPEjJGcHae3YG0tBCL5OPb9z03otbT7QC5n2TCypzbWbtv2YN//BU4n/77yRyO/wRuwX
-         KiZg==
-X-Forwarded-Encrypted: i=1; AL+hErFU2Ak25jmwYEXouCwKNZGAgGN8icVljQOxgI6Btmft0IJYa+2hPo+4usxRJEJJWwZcuEDRvDtbs1kjS/E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xj5GW7gqe/kebAixNrCh2/9ZbNaen6M399wVgh7TNdaCVqm8o
-	UjYFB+JZYWcEpktV7+NpXDRy+r9VG+jLvH5qpZafs78Pm1dA0OjyhuQFuI3QvEG0ghNKPqQJhSa
-	5mO/+g+9YPQ==
-X-Gm-Gg: AYBFou0BHXE1EgGKVsrYrju/OxxyIrkzhR6aq3j6yUfHdUK75bQzAWVzpR+SaaPYSyB
-	30JJtFYmrrzGU9PgGCMvDwIqjQ+Hwm+T2LAljj5kxVQ/bGu4gxlwyxl0LIEoYizeIjaCknMz7C4
-	0ICpXfROIckMjQY6jI3aYBEQs1vZyiJ+cevOxCXQLD/u/M9WHylCjRndIxXvR68u7o/QHASzqW+
-	7ZruAfx5RrSuRdmnp1CmNA0NRQAGt/GRbn06vxxQEH9LnVt1pOUi+1/9ZZMHYVPdRW7d1xMLVju
-	ntDprISi+pfVcQZPTSXQv8QB7nv37GbG5OEx2CG+/alNCo366r1jJ1Z9RvZ3AFrY0+Tsu1G/vFK
-	hVEiGhaRl0ugpd56Tx+eRpfwsnPI26k3xRaTaWp5WSdUurTSIrS2KEXEJ2yVzjl/OMsoGSVqrpX
-	5KYsxhL3zcfJgyqsrPwPGjbuEOw5SseTvwoXwxO7ly1JZddSIR9XF3qc8womky2YU3zrQiE6Mi1
-	4zzxheXcxN3/1AgUdGVjFm7ySM78k85pXI1hZpCX7ifzmaRPZ0+FSo2beN/0eh2McwFhhO+vjjB
-	Yl6mJsMZDHv1V7gXJExrPM3imnU8lPN60KyPwTRk2WMuELIQ0eE+pm1WAW4CpzYfU0hw7ltEZJT
-	yFQ==
-X-Received: by 2002:a17:906:c0c3:b0:c41:a5da:1511 with SMTP id a640c23a62f3a-c50495f2fe9mr6864466b.25.1794247279605;
-        Mon, 09 Nov 2026 10:01:19 -0800 (PST)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com. [209.85.218.42])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a4ae089sm200790266b.53.2026.11.09.10.01.18
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 10:01:18 -0800 (PST)
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c445c95d553so158447566b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:01:18 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErG7CUBa3aIFgZz+mhUsQQIeFOyE2oAlLCnyWdiT44ukokFsm5XA5tvaCBNr0Cfz6ZK4ksxz6IeFFlg0xh8=@vger.kernel.org
-X-Received: by 2002:a17:906:478c:b0:c41:b94c:4538 with SMTP id
- a640c23a62f3a-c504973c481mr7202666b.47.1794247278274; Mon, 09 Nov 2026
- 10:01:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=J4Q4/Q4v
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794247329; x=1825783329;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=iISDovYgQ4NqAviSm7T6rjP49if52la9bOu9h+thNkc=;
+  b=J4Q4/Q4vH6jlMr61TaP0M2gVZxn0vKA530yKtW8EuhS9iddcpeH0SMrl
+   cuR79d5cLnH+txwvLBleIKzjPTxt5yMbuma0Wd8E/oTAjrkdB9F4WmgPH
+   R/XyOTC2o0fqDi4+O4Bv4KouRZLBH67NwuVQKyJhfc9xVaNpr08yk1rrN
+   jhEgjWwrF64P/qzRIzaAkEGncwnVi83iSIhYshvOHzZ7VTfyg4mGIIqqE
+   vlhJpIRdzZwghr2OftUXd1fxG1AJ2YcCCYtXfU8q2cHNr6d7g0P4/7JGE
+   vuXAV1PZh/SivCT0b7MHoriHwiMADtzk7O5yLPpHGjDQogn4LeQe3+kS4
+   g==;
+X-CSE-ConnectionGUID: gdq7Ymd3TJWB2orgwWa6UQ==
+X-CSE-MsgGUID: hC7z61xoQQyP7CJgp1SZFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2877003"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2877003"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 10:02:08 -0800
+X-CSE-ConnectionGUID: ez1J/oyfQg+dH56aKfCRNw==
+X-CSE-MsgGUID: 0v/iqMgBSEmlC2I5T/Z33A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8115454"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 10:02:04 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 9 Nov 2026 20:02:01 +0200 (EET)
+To: Bartu Alev <bartualev@gmail.com>
+cc: Corentin Chary <corentin.chary@gmail.com>, 
+    "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
+    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, linux-api@vger.kernel.org, 
+    Denis Benato <benato.denis96@gmail.com>
+Subject: Re: [PATCH v4 1/2] platform/x86: asus-wmi: add TUF keyboard RGB
+ readback support
+In-Reply-To: <20261029-asus-tuf-rgb-v4-v4-1-0d3b877d2c30@gmail.com>
+Message-ID: <cc9c8655-6f7c-05f9-ad09-4ea30f1dda95@linux.intel.com>
+References: <20261029-asus-tuf-rgb-v4-v4-0-0d3b877d2c30@gmail.com> <20261029-asus-tuf-rgb-v4-v4-1-0d3b877d2c30@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,103 +82,182 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104130118.2507513-1-kas@kernel.org> <20261104130118.2507513-2-kas@kernel.org>
- <ecad7b3c-7244-425a-9413-04d49f221057@kernel.org> <au2lsbDkyWt-To0C@thinkstation>
- <aa2a1e32-9b1d-4545-b2e0-03d213593023@kernel.org> <CAHk-=whnH5qLJH3Wd3bOxv--Ei6674Jo4iifGD_MqzyJg2Jm4g@mail.gmail.com>
- <8504e28f-faeb-41e3-842e-0cb74d1a25ad@kernel.org>
-In-Reply-To: <8504e28f-faeb-41e3-842e-0cb74d1a25ad@kernel.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 9 Nov 2026 10:01:01 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wihE=ioLKrwzz=WQSJg6HhB-syu4hqZ2QFwgnwYmmLEgg@mail.gmail.com>
-X-Gm-Features: AclHuK-A_qW69_o6tagKDJ1G6Q8E_NGG5rYMm4wqMXtGYWO1MbLxTJtWgkQTGLI
-Message-ID: <CAHk-=wihE=ioLKrwzz=WQSJg6HhB-syu4hqZ2QFwgnwYmmLEgg@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 01/18] mm: free PG_rcu_free folios only after an
- RCU grace period
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Matthew Wilcox <willy@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Jan Kara <jack@suse.cz>, Hugh Dickins <hughd@google.com>, 
-	Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Harry Yoo <harry@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
-	"Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, "Paul E. McKenney" <paulmck@kernel.org>, 
-	Pedro Falcato <pfalcato@suse.de>, Luis Chamberlain <mcgrof@kernel.org>, 
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>, Jaegeuk Kim <jaegeuk@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	fuse-devel@lists.linux.dev, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 9 Nov 2026 at 09:24, David Hildenbrand (Arm) <david@kernel.org> wrote:
-> >
-> > I think trying to corral it into some special case is the last thing
-> > we want to do. It only makes things less potentially useful and more
-> > fragile.
-> Let me wrap my head around how this would look when we decouple pages from
-> folios, where pages might not have a ->lru anymore, or not even a refcount.
+On Thu, 29 Oct 2026, Bartu Alev wrote:
 
-So for an example of a place that already does RCU freeing of pages -
-*not* folios - look at the TLB shootdown.
+> The TUF keyboard RGB attributes kbd_rgb_mode and kbd_rgb_state are
+> write-only, so userspace tools keep their own copy of the lighting
+> configuration and lose track of it whenever the EC changes state on its
+> own: after a firmware reset or a boot into another operating system the
+> tools show a stale configuration until the user rewrites every field.
+> 
+> DSTS device 0x0010005B evaluates the DSDT method EC0.KBLS(), which
+> snapshots the EC's host-visible keyboard state into a 16-byte buffer:
+> lighting mode, red, green and blue levels, animation speed, and the
+> four power-state flags.  The first byte is a constant 1 written by the
+> AML, which distinguishes a KBLS reply from any other object the method
+> could return.
+> 
+> Add kbd_rgb_read_status() to evaluate and validate that buffer, parse
+> it through a packed struct, and convert both attributes to
+> DEVICE_ATTR_RW.  The read returns the write format with "n/a" in the
+> command position: the command word belongs to the write verb (apply
+> now or save to flash) and both verbs update the EC mirror the same
+> way, so there is no state to report there.  The three EC speed codes
+> map back to the sysfs indices 0 to 2.
+> 
+> Readback was verified against the EC firmware: the status bytes mirror
+> EC RAM at 0x0B22 to 0x0B2E, and the speed codes 0xe1, 0xeb and 0xf5
+> select animation step thresholds of 30, 20 and 10 ticks per phase,
+> which matches the slow, normal and fast labels.  Tested on a TUF
+> Gaming A15 (FA507NV).
+> 
+> Suggested-by: Denis Benato <denis.benato@linux.dev>
+> Signed-off-by: Bartu Alev <bartualev@gmail.com>
+> ---
+>  drivers/platform/x86/asus-wmi.c            | 83 +++++++++++++++++++++++++++++-
+>  include/linux/platform_data/x86/asus-wmi.h |  3 ++
+>  2 files changed, 84 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+> index b33ebdb21aa2..054d1d684bb0 100644
+> --- a/drivers/platform/x86/asus-wmi.c
+> +++ b/drivers/platform/x86/asus-wmi.c
+> @@ -1062,6 +1062,65 @@ static DEVICE_ATTR_RW(gpu_mux_mode);
+>  #define TUF_KBD_RGB_SPEED_SLOW		0xe1
+>  #define TUF_KBD_RGB_SPEED_NORMAL	0xeb
+>  #define TUF_KBD_RGB_SPEED_FAST		0xf5
+> +/* TUF keyboard RGB status readback *******************************************/
+> +struct asus_wmi_kbd_rgb_status {
+> +	u8 signature;
+> +	u8 mode;
+> +	u8 red;
+> +	u8 green;
+> +	u8 blue;
+> +	u8 speed;
+> +	u8 state;
+> +	u8 unused[9];
+> +} __packed;
+> +
+> +static int kbd_rgb_read_status(struct asus_wmi_kbd_rgb_status *status)
+> +{
+> +	int err;
+> +
+> +	err = asus_wmi_evaluate_method_buf(ASUS_WMI_METHODID_DSTS,
+> +					   ASUS_WMI_DEVID_TUF_RGB_READ_STATUS,
+> +					   0, (u8 *)status, sizeof(*status));
+> +	if (err)
+> +		return err < 0 ? err : -ENODEV;
 
-It's very round-about and hard to tell, but it's using
+What do you (or Denis) think on sashiko's mention about 
+asus_wmi_evaluate_method_buf() casting integer.value to int which might 
+end up aliasing high-bit on return values with errnos?
 
-  tlb_remove_table_free
-    call_rcu(&batch->rcu, tlb_remove_table_rcu);
+The other caller seems to also return that value directly out of _store 
+function().
 
-and that then does
+-- 
+ i.
 
-  tlb_remove_table_rcu ->
-    __tlb_remove_table_free ->
-      __tlb_remove_table ->
-        pagetable_dtor_free ->
-          pagetable_free ->
-            __pagetable_free ->
-               __free_pages(page, compound_order(page))
-
-(and I might have messed this up - this really is a rats nest of
-nested inline functions).
-
-And in order to do this all, it sets up *another* page just to contain
-the batching (which is also RCU-free'd)
-
-Now, the batching is probably a very good thing in that context, so
-I'm not actually suggesting this should be converted to some common
-RCU-freeing thing.
-
-Rather, I'm pointing out that we have existing hacks in this area that
-have grown up over time and would have been a *lot* less hacky if we
-had had a proper RCU-freeing page allocator back when that whole TLB
-freeing code was written.
-
-So I'm not saying "we should unify this". But I *am* saying "look, RCU
-freeing of pages is _already_ a thing, and we have complicated hacky
-things in place for it".
-
-And they are complicated not because they necessarily should be
-complicated, but because we solved the TLB shootdown after we already
-had tons of complex architecture-specific code in place, and we
-basically ended up adding that RCU phase on top of that existing
-per-architecture complexity and abstraction.
-
-*NOW* it would be actually fairly painful to try to convert the TLB
-shootdown to a new order. But originally, it would have been very nice
-if we had just had a "Oh, mark this page for RCU freeing".
-
-(In all fairness, we also did it that way because some architectures
-don't need the RCU delay simply because they have some other hardware
-page walking infrastructure than the actual page tables the kernel
-builds up. Not that those architectures *matter* today, but some of
-that per-architecture inline function stuff is required to basically
-isolate these kinds of decisions from the MM code - that deep inline
-function indirection has a reason that is entirely independent of the
-freeing side).
-
-                    Linus
+> +	/* The AML writes a constant 1 here; anything else is not a KBLS reply */
+> +	if (status->signature != 1)
+> +		return -ENODEV;
+> +
+> +	return 0;
+> +}
+> +
+> +static ssize_t kbd_rgb_mode_show(struct device *dev,
+> +				 struct device_attribute *attr, char *buf)
+> +{
+> +	struct asus_wmi_kbd_rgb_status status = {};
+> +	u32 speed;
+> +	int err;
+> +
+> +	err = kbd_rgb_read_status(&status);
+> +	if (err)
+> +		return err;
+> +
+> +	switch (status.speed) {
+> +	case TUF_KBD_RGB_SPEED_SLOW:
+> +		speed = 0;
+> +		break;
+> +	case TUF_KBD_RGB_SPEED_FAST:
+> +		speed = 2;
+> +		break;
+> +	case TUF_KBD_RGB_SPEED_NORMAL:
+> +	default:
+> +		speed = 1;
+> +		break;
+> +	}
+> +
+> +	/* The command word belongs to the write verb, so report n/a. */
+> +	return sysfs_emit(buf, "n/a %d %d %d %d %d\n",
+> +			  status.mode, status.red, status.green, status.blue,
+> +			  speed);
+> +}
+> +
+>  static ssize_t kbd_rgb_mode_store(struct device *dev,
+>  				 struct device_attribute *attr,
+>  				 const char *buf, size_t count)
+> @@ -1114,7 +1173,7 @@ static ssize_t kbd_rgb_mode_store(struct device *dev,
+>  
+>  	return count;
+>  }
+> -static DEVICE_ATTR_WO(kbd_rgb_mode);
+> +static DEVICE_ATTR_RW(kbd_rgb_mode);
+>  
+>  static DEVICE_STRING_ATTR_RO(kbd_rgb_mode_index, 0444,
+>  			     "cmd mode red green blue speed");
+> @@ -1135,6 +1194,26 @@ static const struct attribute_group kbd_rgb_mode_group = {
+>  #define TUF_KBD_RGB_STATE_AWAKE		BIT(3)
+>  #define TUF_KBD_RGB_STATE_SLEEP		BIT(5)
+>  #define TUF_KBD_RGB_STATE_SHUTDOWN	BIT(7)
+> +static ssize_t kbd_rgb_state_show(struct device *dev,
+> +				  struct device_attribute *attr, char *buf)
+> +{
+> +	struct asus_wmi_kbd_rgb_status status = {};
+> +	u8 state;
+> +	int err;
+> +
+> +	err = kbd_rgb_read_status(&status);
+> +	if (err)
+> +		return err;
+> +
+> +	state = status.state;
+> +
+> +	return sysfs_emit(buf, "n/a %d %d %d %d\n",
+> +			  !!(state & TUF_KBD_RGB_STATE_BOOT),
+> +			  !!(state & TUF_KBD_RGB_STATE_AWAKE),
+> +			  !!(state & TUF_KBD_RGB_STATE_SLEEP),
+> +			  !!(state & TUF_KBD_RGB_STATE_SHUTDOWN));
+> +}
+> +
+>  static ssize_t kbd_rgb_state_store(struct device *dev,
+>  				 struct device_attribute *attr,
+>  				 const char *buf, size_t count)
+> @@ -1166,7 +1245,7 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
+>  
+>  	return count;
+>  }
+> -static DEVICE_ATTR_WO(kbd_rgb_state);
+> +static DEVICE_ATTR_RW(kbd_rgb_state);
+>  
+>  static DEVICE_STRING_ATTR_RO(kbd_rgb_state_index, 0444,
+>  			     "cmd boot awake sleep shutdown");
+> diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
+> index 66c7ab35d6c8..393fd3c5949a 100644
+> --- a/include/linux/platform_data/x86/asus-wmi.h
+> +++ b/include/linux/platform_data/x86/asus-wmi.h
+> @@ -166,6 +166,9 @@
+>  /* TUF laptop RGB power/state */
+>  #define ASUS_WMI_DEVID_TUF_RGB_CMD	0x00100057
+>  
+> +/* TUF laptop RGB keyboard status readback */
+> +#define ASUS_WMI_DEVID_TUF_RGB_READ_STATUS	0x0010005B
+> +
+>  /* Bootup sound control */
+>  #define ASUS_WMI_DEVID_BOOT_SOUND	0x00130022
+>  
+> 
+> 
