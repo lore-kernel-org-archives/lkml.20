@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794268103;
-	b=gb+HBexgWp+00Xh1fi1ZFgtXPsqbs/fRpdBjiTH50WFDarAxPZAta4kNO3mw/Rk2q9Wj
-	 u79VGHCXWSqdqjcM6JJyZrAI2GSOqwsVevXznG6Sxlht6r9uNL964VAwwcGJtCZIi4qf6
-	 wlylFViLZ04ySwBx7w+k2HN3RaM8X8V/cYhQcsB9qPmLh6M5gK+9oXZJcMrlY072giD9Y
-	 jTOZiQdM5ktffJFcIDLXU9RFlUYovFKTYCD7xInbvuUiLeoZ7J7UPqhIR7yj28Jp7c9NB
-	 cggHj150NSR+0Vp/v5h0i+ojAmub+p6CPs+JU7IXcvf5J/smYNzYzCpXRB0sRiG0hyA==
+	t=1794268114;
+	b=HfyS9bgV4msVOMFhGenORh2Sn15iTML21A2Unq/waMC2P6M1bfB0eH79mqth465d16Kk
+	 HarxaMiDEHBYgV2bmwd5OSyAAtlKiintsgePxR3UD2u9BxSHFSFqx3nocvmFZoIGa6yGS
+	 clv/OM8c6TXmfs+rwtxFVYRYzHOW/qZpgAgQGTLuusLLJ6MXR5uFleXBQ49M0niRYjk8n
+	 57VaNKWMq+LfBdwso9y115Z/rA+CcvktaoQDzeGeeOB97rqkEMWnh45R22ed987aejqNh
+	 4Tudi2E7gGYP/2Amkzbc7hFpy1hjMnfukVOn88iFCnYjhAVXK0oc22+uCVDcdOI/Ihg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794268103;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268114;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=+skd4ReZXdp3+ybDH7k1AcOUqtthV7E8Fkq0B8eZiX8=;
-	b=F5XfWzeWMuYHtu/UOVR6qnpLg8HrKmXyqKsuoVSCBpEmWRYOQOGKpzHSXE8VjiXkWhpi
-	 f95YMIpiupobj4RTQdhMeKJdbY3xbge7QBMbcaoDKnxxkF5EacoE5XND/yM+XEi38AiUk
-	 MtG0MGBNGKlVIzPTyV1izuvCPa7mz7gc0rcCWarUMIEuw6RO5iKxX55KszT3dEOKzn4tb
-	 3Ul3W8A6IJtHNPqJ6HOKInPVn6piclJBd/A5Uy2nX4RkXMv9YZzRImzVi0JQSyf6/4IFH
-	 vS1HCTIoGWM0Ogx15stopkqjDDXnVLYYVoIvxetxDhjmlY2lGtGpnrtA3wgHBXp1AnQ==
+	bh=6QvI65ANWFLjHGTYP+BpY9IO0Q+Q4tp1M4hrdUa1hfU=;
+	b=VebaU6skYEGDFHwEtuaQ/mtjoNvisXcHovMak6oOPSP/rEm3fkaIV9GQy8o5nhoAHOOv
+	 ITDUIbv9po06g9/koMGhKPHOx9/0QWescBFCOyVx5uwoEwqZXikbrthG6RDVBwaHei9+h
+	 ADx+qLwPSQGBAbJeSnkVMnLF41Yhuarz2EmiMW13ipA+2BBBTUR74QodQbDkqUCNZxia0
+	 LiKGJcod8jnqnzg6sz9hrkB08HkK4j4lCRTA7OcjL5jMXsAZ4HPCBSuldE0waHp2bipaR
+	 AFip08wvGXYSrYrVhtu0VvLnTA589hnvO2rz9WRRd1UpgyU7fTzacyuQmqtVLYOUwHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PyWZKKGz;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=IaJnxcRe;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E782A606A32A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:48:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E782A606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788F560A2626
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:48:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 788F560A2626
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PyWZKKGz
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e985106c0cso11259145ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:48:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=IaJnxcRe
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3adac5c10e3so853206a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:48:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794268102; x=1794872902; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1794268108; x=1794872908; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+skd4ReZXdp3+ybDH7k1AcOUqtthV7E8Fkq0B8eZiX8=;
-        b=PyWZKKGzuA82zaPBN5BfGWkb7P7ViZ+nEmaWr5iv0VQfpoB2ZZTTtIS3L5TAHM1gsF
-         5i+mRxqj10Z+rCVaq8x7AhIp8P4SpwpIdx/KLZ1n9JXeQh5baf911uZbK/8NDuYzXWyc
-         oVCGSyrSTCWr9C3gj3pScM2g7gRiF8nVJ/b9wiRLgnQzRtulS9lF8Rx7eXkFewAM13Qb
-         IuJg+zNhGeFA1BVqdaX1Aqe2tXZS8Yj1Maztma9fLuyHPiIranj5f8rlte4tKozM/j6X
-         +UL1tXrxLrc6M9dNb/h75mbi0oGENyVrMACWegcp8mQZ6H6v0lnZmZ+rofUa6SwuTxwk
-         CrsQ==
+        bh=6QvI65ANWFLjHGTYP+BpY9IO0Q+Q4tp1M4hrdUa1hfU=;
+        b=IaJnxcReFcjgbLmRyjeMXGhrxzGN74eb4PUsd7TeEF4qhGuPX54MQ1RvR3Y2zlSAcR
+         Bqs3BrDRIVjRzaL7NOmAoXjdP+97pne+H6IRbI8gRC1uXqOynbhDXoZoDYRcorIcMklz
+         07VcOB6zx7//NaAfc0sCO8UE53sSnRa/AJjxLQhEE6sTwMW2PZzJ6YsOVB2NuybiA6i1
+         BPUdWXlnFMNFL3sDgXArYIDsPMBu5YK2QmPKRKnkGR1YN3YjmSlF7PoQSzZK7bNj6Vd1
+         XDPczPdNIBJ2vjhNM7o5eI/8zwNvid8O8caSdNg8BLRvW0I81Od0l0iCYPd4Zzxbx5+6
+         5uDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794268102; x=1794872902;
+        d=1e100.net; s=20260707; t=1794268108; x=1794872908;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+skd4ReZXdp3+ybDH7k1AcOUqtthV7E8Fkq0B8eZiX8=;
-        b=1MoLQQX4t8d+vUJbrVwAiiU2pXC1umm4f+nNcXvMpAd9//1LcH0RtdYHrp71i+E1Ml
-         ZXBwb90FuFiHb9dV5Vw82F2Hgw9FHnjC9JMd5SsaZlmxqnFBebPRjbUJkv/NLmTLzTP4
-         x41dlVLfZYpO3SvS5UV05T4m/3OX60uQUAHyPOjNyfg1+he3TnXxe7U5Wwec0rmyzxUz
-         I3uVHvZEZDIk+QF5lvNKjAdmgtGwPWkmcxgtk1tyQnX+HqqO7lF1SKm+Tkvii+NSrqUn
-         jyjdKrOErXb3wwn28nrXBf0acYEM3Im0euTp6kj76vc424bbMPB34hYMSHCrz7RXQkll
-         JfrQ==
-X-Forwarded-Encrypted: i=1; AL+hErGKs7ZCyhKTHb08fOiO0LJUN2QRNixmugw5d7VgaVfrv9nUAQWRNyw8QEGm4nRZx+QoRkHPxlybR11j5E0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lBxckiV9TtkoLPAvuBnIS7ydDh6s4pWdbuvnOnaTMSYVkmmuv
-	3JLOM+17QcHsqt5VWqFkRG/9WsVoty+JtSXUfDNWhUIBWUFUp6fxJDvz7venvu6qQ/0=
-X-Gm-Gg: AYBFou1EoxeaEwcctEWImUXUiPMEiMlk5L10LYLZKxdzeobJtmw7uaAPbrL/i3He5sE
-	UDOWztNmBaoXPBIMOpA6ePqSZwex0Z3kVlbPPcM1McvgCJ00YbS1R7UPBPaEK2XSOkeSaEIfXp4
-	E7HBXvLEw7dvMxcXPr1clPmDK5UVnGQsAXNt46jKedCuUJNf730QnjmsPbHfuvuCvGaKeSNhs/o
-	BW0znJulyShejdJoTpyiWLrFIAG7Ki8PZXP6jooqcPRf6yTO5Z32fQX/XvxB36CqiRiBv0F7GPh
-	2juRsksC/4LVAi8VG1Uy3pN2GfbDyA6bokW5wN8N/Y5qEZMPPBMUcvIj67qCf/u7B9UrEzCyZnW
-	Zc1BU3LagZ1JPGMSZDpF/4kpyAYabTJ6TASzOzjxW2oMD9In4nnBxAl0rCYy7YQDs5xNsx2nAHP
-	9sZdjtTmyDagseRTaLmAojtiTO58uTG/5veAmSgZJW7Rwc7SNzKW4OQA+C2ssJgD0oxiSIX9v5v
-	lpXchSPhkOqsrGPaUlFUZHbeScY/M17DCr0E4Axzb0wuyLlycj09lzkPziQVvMr0y05PNeNDOMB
-	OF4qT4f1bQHTiKaVV5Egmr0P
-X-Received: by 2002:a17:903:3c6d:b0:2dd:ad73:c93a with SMTP id d9443c01a7336-2edb9246e43mr6572065ad.27.1794268102310;
-        Mon, 09 Nov 2026 15:48:22 -0800 (PST)
+        bh=6QvI65ANWFLjHGTYP+BpY9IO0Q+Q4tp1M4hrdUa1hfU=;
+        b=JRczguijUbcG6OfgPT9JpnhyMe6Nf1LOc2X5ss93J7jIIff4H0LsKpmUdYI6JXAUIr
+         /gwPFB+2hGwrbf/beX6wlvR/XaLtf5IdpU/k//SBu1rHFgWPMT90/RFgnv0f/NeX6/p2
+         EwCO9XjlmbeHnPNHt/6kSpp02pFurlVBnHnKB6gNxbo4xpg6DDmxas/BzNFXrKDZBU2X
+         7VHYlnbZY/68h8vOkl5hK4/QCFvonG3Y9d3Gm7f+FkhGRgfrWqunbnfOpwWlRdDi+ohv
+         IrUAtO+hPHCAIM/BXBHTKmneItLEbbcazpIwdNnCp6QjAfx/7x0BtLVfNVS0k1UeL+xS
+         4fEw==
+X-Forwarded-Encrypted: i=1; AL+hErF6Fr1fwaYaHLHM0SHL65tfcPFchNIxcwPnrTbOYpoRznmkW85DISffXygx1ruTjyKLSClC9PyFcsxjQDI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8MgkiKASk8hGAdgK73EQvJIYnDMx/NhEmVxmptF2Ynx703G9Db
+	HP7mZamndZVZ/LydzYbGIwP9YpdXOhy8G0/G8XFeNYWaTUJFuaTDRJSEYRLbMZ/U8IUHHdCUgaq
+	GYgnYqC4=
+X-Gm-Gg: AYBFou2WSBzB4e01orhStfeJ3Pi2dgoKK9ZnVMWMobI09OPBBDqTq7eY3H6sBuOmiAz
+	STjCjlotdXWddAq9/jkbID5oNIMjyYsA3YVzPD6bSvov90Ttm1EsHn6bTI7atYecyI4ySaqUqHU
+	71pJVqdINBJAt0iMSJWGUxjwpmdFP7X5s4sTfsaW0wA6F8mC4OCfQjvnt7t4d/YBN/vPtl5Gu50
+	xpAbu03JkIWwQT98lgQYRor+V5jrDYupdnYL3+24xyXg3OJse6dD1GAdwJgLk8lg8YfgaoI/xye
+	c1yKkVbn+tGEU2h9Xu8PXGIhccU5ScrKDjDDku7M2KyPBJmIOjp/QWoZ94ALbeO5U+zOzsQjNNs
+	MA99wy9WV35vBAVMweQn5i3KMffG3jgWxX/+kigBlpsyI13m8QHCD8hZXN11gb8zw2EIJitpa+D
+	sZqVzQG4e2/dyOY10tdZ78bk6lmY23g+iGpLbkDQ4D2/2Zu4snfsKr8RvGxt0QUyYte5sJb04AC
+	n+2tBklJ4I1qllOoK2bvJLVFr72SLlVXeT3HaYDcum3cwQVP/1lMFxvxW1bPLLMeKEwSQAZNtF8
+	+DtLIZXHO0PgYkl7pJ/XfdjF
+X-Received: by 2002:a17:90b:1fc8:b0:3ac:9a5e:9ce9 with SMTP id 98e67ed59e1d1-3b166ca430cmr1173151a91.29.1794268107865;
+        Mon, 09 Nov 2026 15:48:27 -0800 (PST)
 Received: from localhost ([97.126.173.69])
-        by smtp.gmail.com with UTF8SMTPSA id d9443c01a7336-2edb6e108bfsm2626145ad.76.2026.11.09.15.48.21
+        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3b1676e2974sm1411179a91.9.2026.11.09.15.48.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 15:48:21 -0800 (PST)
+        Mon, 09 Nov 2026 15:48:27 -0800 (PST)
 From: Kevin Hilman <khilman@baylibre.com>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
  Andreas Kemnade <andreas@kemnade.info>, Roger Quadros <rogerq@kernel.org>, 
- Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>, 
- Andrew Goodbody <andrew.goodbody@linaro.org>, 
- Rouven Czerwinski <rouven.czerwinski@linaro.org>, 
- Ettore Chimenti <ettore.chimenti@linaro.org>
-Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261030-patch-ektor5-dm81xx-vd-v1-1-8ba90608c25b@linaro.org>
-References: <20261030-patch-ektor5-dm81xx-vd-v1-1-8ba90608c25b@linaro.org>
-Subject: Re: [PATCH] ARM: OMAP2+: ti81xx: use non-scalable voltage domains
-Message-Id: <179426810111.2265990.13077488859947627237.b4-ty@b4>
-Date: Mon, 09 Nov 2026 15:48:21 -0800
+ Tony Lindgren <tony@atomide.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Mithil Bavishi <bavishimithil@gmail.com>, linux-omap@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: stable@vger.kernel.org
+In-Reply-To: <20261106073219.59785-2-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20261106073219.59785-2-krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH] ARM: dts: ti: omap: espresso-common: Fix magnetometer
+ interrupts
+Message-Id: <179426810659.2265990.750430446710445234.b4-ty@b4>
+Date: Mon, 09 Nov 2026 15:48:26 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,22 +110,15 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
 
-On Fri, 30 Oct 2026 11:40:30 +0100, Ettore Chimenti wrote:
-> TI81xx SoCs reuse omap3xxx_voltagedomains_init(), which registers the
-> OMAP34xx/36xx voltage domains for every SoC except AM35xx. Those
-> domains are marked scalable and reference OMAP3 Voltage Controller and
-> Voltage Processor instances, which do not exist on DM814x/DM816x, and
-> no PMIC data is registered for these SoCs either.
-> 
-> As a result, omap_voltage_late_init() tries to set them up on every
-> boot and bails out early with:
-> 
-> [...]
+On Fri, 06 Nov 2026 08:32:20 +0100, Krzysztof Kozlowski wrote:
+> Interrupts property takes a number, not a phandle.  Passing the gpio
+> controller phandle made most likely the interrupt as broken, which could
+> affect magnetometer driver operation.
 
 Applied, thanks!
 
-[1/1] ARM: OMAP2+: ti81xx: use non-scalable voltage domains
-      commit: ed20363e55aa1ea0dcf865f6776354f1628f5375
+[1/1] ARM: dts: ti: omap: espresso-common: Fix magnetometer interrupts
+      commit: b76bf201e56a9c7df1a64bb9388b654cb6a168f8
 
 Best regards,
 -- 
