@@ -1,89 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794220725;
-	b=iu7GH46hCSBPgaKObboS2IWppEBLWiNohW4PEyUvc4mTf0EinVRa5x479tnEB/yaI4yG
-	 Rf44ao2GpLD5tFZf91niW3+6r3Xa+th1NykTyEYiM24F8NhuckhxWae8dJMg+qkW4ik6i
-	 y+FSiceWHtnsRH4ZEjOnwy5XzCe9OXimnpSdNPySEBmZw+X5GBkJGgKw3S+e1pQNZSPQT
-	 twNw95JN+lDJ6RoMWLwEBW306iP3YRpbcPxEzs+voa0X6oyJ1x8vMC65dJ71gJ73bHonQ
-	 qy77gu6aBP5bAXaKUDjRLK5KFrqfXQBg7AYAlzNzFVCo0emAvAc94n5rG3bCim3/4Ww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794220725;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794220749;
+	b=bfykz5YQ4XRa6+SVIGgH3cbqTTBfYAqvEP7O3dQWFNNblb+xfwLaxIlWRslYHEzNcvIn
+	 /flxqEn9fW05qXzaAieUFlaKOplZhYLn61deyl+D1cImgIsZojOcrOByGnsmVWQdSHwzW
+	 AqF+ucN4NGYgrV/sF0a6SqQa6cq2l2fD+nTaonn9Frm9ScEilBNmb7fVLfP6vUGTU2MQo
+	 NyIytQ2otJUeSo0JTKDDM6KRT4pSMazWFEoOp/gqGyALSDi/ot3ABUELoQsV5la2+0Gal
+	 eo+CgxfFN8BTycVSp2zd9Z3eGSJhL3BJrZFl1VQLf2Gs4gci5k3fg9+njk/fu67ITXA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794220749;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=r83k1cNkUhctdhSteH8YPD8rm/QpmvN7geVl+a5ebSw=;
-	b=t8oiVyoosDKnpYQtm3npyOFyL/urI2xsUzEFrJoC/DSmXI1RrnJHE0ueh1to6l2u9a4i
-	 VsXNQMk8b89MZK4pbxOtFWzNGzyksf7gbri58+AWKPc4ystw+Xzja2MdQWP0lnDBA3nt8
-	 +fAa0h3CdiuS0qC7oPF2OYB1gUS3A93uDxx5zFy/AnB9Pmcn0mk98FdlkI7Ysp7vQ5k5y
-	 DaV+pCIZMrSCgI699dolHj7uG+vvwKW10OOEHlLH549KK2dOVj4jNik3PNGMHMThC/V2U
-	 HLDuuhdXS9YpXbtwjcHLBcF7B4gcgp3LueRSIm6/EXNSiBfY8Wd5F9OF20iRoPECf9A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=g7gP5FZ7;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=/eIsMAaHkqwUQsjvZEXSAGpGx27AZeYfKjqTpQ4IRgM=;
+	b=PDRq9gbbkfJRhPue/2mTvyDcRVPWwBElZTbGpZmDX0hPkTDRhHpU2AwTr8PIY+fQS2r4
+	 d3ZO2nTrWlADlqHlFXY5zQf6yw2EIUOXmm/uMCaIEJdOOCeWav0awCKqncIfDZolqM4tf
+	 00DgO6h+mCj6U/Bul0kSwwTMFlYst36dAa5C574bTGRMx0Ywf6+OrkGMaOXHD/AX7lmyA
+	 h1Eue+xNlLCW/kx6oHuFbEIc/nwL6VZDKRlXoXdwZOjO2gp7BLYnpqVwhT0DsgORTbISq
+	 Zksli8lbevnhdTn4ux80UbOYiSOETzyIfYI+m841Da3CZaqXrV+eUrkRzR/INqt6RAQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VGIbVNvV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE966606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:38:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE966606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B1F606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:39:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57B1F606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=g7gP5FZ7
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4910b863b84so437521f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:38:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VGIbVNvV
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c450ab1483cso109349366b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:39:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794220748; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UcRJUtXrg8nvwIZJLMtbW3B/ckFLt7H9xmvX+AI6LwIb9rXf8Kj/7ewnCckuEYhcNJ
+         YmUF4dKsgt7CPhKaL/r8S3JdpkzCxPTq/5hBzf12TJ6AcLOmdNASGNm72pdHs0E0xx5S
+         qhgv2xdXNyBfoo4/LDJUmbVJ3dXEBdU3Jw8R1iq40EesjSTelhcFs8VpaMPqna2tlBw1
+         oEvjoxiXNMpwycwsPF7t2lCrEIq343y+8a6tfkT4jjn/Xhpbr9kZOhBygEqCrusy5VOl
+         TqvkErM8TkZifCusEtZh6eio18pviL54JyhKDGGVWmB4FuJN8SvseAmplcHar0xhMzpd
+         Ul1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/eIsMAaHkqwUQsjvZEXSAGpGx27AZeYfKjqTpQ4IRgM=;
+        fh=eD9sm3ECTS5s76ebY/KJqoLTTX7e3cZY9VAE9g474QU=;
+        b=OdIM6hcj36V7rWGmZbjV6LIIGgSAotOmd0KhQ99sIwZ39Yv2QGEGI8PCEXNtc+KHOX
+         bet+1TDsHFScKR7QsMuO75UYsgiXKJSRHbFNi+cwVCnRFWGvvR5BsCZXY1aP7TtCeLnY
+         85kv7q8ObL2UrRBEMK//RE5QgXl2eVYJxhxEyDPNHvWOV1JGX2xwiIHFmLNKTGUzIm+u
+         HRBt2qtF1qt/3pF5ehwr3mTgnulDI94OdjLPzSxAzJuF431xxqbu3Sf4XpxyV5huvE37
+         fAl/EE0GQlNPhyUGUJWssZKTBZk87N2rGYQ9o7bCjhTbjI816p21Uxwj+K9XS1E72xPj
+         WJTQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794220723; x=1794825523; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r83k1cNkUhctdhSteH8YPD8rm/QpmvN7geVl+a5ebSw=;
-        b=g7gP5FZ7qPU8Y0uamg558uVZqf+5bTWZ3TKSe/r8HE9IZD8bbk3wcWkk/ey8VTHOje
-         mOP8vTI7Pzd72NMZWv92l/IdyST5thPqHX/yfp8MyNkT+BVEk1xfsZrq8LS7mua/sKcu
-         0WM8ytUr/FdLbDmhi9NQJnSvVd7P7v0RZ/EWjHjpzSFk7NIAmBuZ7dASadJjmVmH/398
-         4PwCjdlF8dwKBbPZosOHYPEQdYG2xWTnDq7oCQGrMKaJCg2ln0az1zcIAbkNKklar6lA
-         DcRPtTdO7vbjA5aew1ns90wJsfUGlT5U4MkuDg5CeB8SJgc39s5chO6xmN1ipf1+r3MR
-         ixWQ==
+        d=gmail.com; s=20260707; t=1794220748; x=1794825548; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/eIsMAaHkqwUQsjvZEXSAGpGx27AZeYfKjqTpQ4IRgM=;
+        b=VGIbVNvVsyFdyVGxvWFvdEUXU1j6X8yC5ogwXQcUWLwRi0U9lHYmqXEsUYPuAlp8IE
+         tX+t/SUgLN3XLG6z2p2Y/lZqWVsJqLoB+7rxDdsmvFc2rsI+l8CeRW3vgQ3IIhg3buuy
+         e9aMj4HGkKDv/xKUX0xE0euqGfMqCGdFUEAncaoEvuuz0d7EfKO9Grr/YwcxY3UFajqw
+         qVZyWvAb1DIIGDKzkH4t+2BbXnLJJA3ZvaqSzh3C3CYPOCkvEW8aroj/z8imrx1Qc3EP
+         4EVVVvlKA3EoKi/EWIWnnWylWMObmqaKWWnTNOdbBja5jmcrKvNdZq4Ikntm8wmrB2Lc
+         08Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794220723; x=1794825523;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r83k1cNkUhctdhSteH8YPD8rm/QpmvN7geVl+a5ebSw=;
-        b=i6COPrwtOuwmRSRsdZr9Ib/eo7zUYuGJLCW1IOhGspPqZlYWSLbbF8D+sGoxOjVI5u
-         6PD+bs3ifXVdFVvXohOOtXxC+QXDuA1h8QPrfOlbhGyBn7FWyUZtgpcB/hHfholEYslb
-         afbLS3EA2EZs0/DRQ5YmDOb/nEGLoeno0nEEHoJjjox5ziFbTQNIrcXWAJ5wo5UkPRnA
-         ivnvnLJi+PqsBQfiN203CVS1HkmWmAdFZkXXLEspGxwBPeYmPUPVTFpQzxbBdQLPnN30
-         a2qCKhQ3LzAIEo7FM61+jOGO6A7x9PmNCr9YXL66eySuw6G8z1+iiTB9izRoyMeUO8Pc
-         Unxw==
-X-Forwarded-Encrypted: i=1; AL+hErHP+zfuCeM+Vjyh2yDt/+EPwb66iQhVlEsSYMXf2PY15rM4Qsfme8pKOyXcoO/KjvW44hE9GrKEE/ew2fw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9sXFq/dqlG6CIf3j4wXbjnmPYJFIUqoFa24H1/ETTXK2K4WWtm
-	MpnfzSxUpUrPRoM810d9i29myPML5e7v9XGwai/tqiKPx/Xiz2d1cFQyKG8vrxZ04ht4mbSTa1P
-	Y2oBCeoo=
-X-Gm-Gg: AYBFou0icKZy0EmCNON5exKkKl96D47C+j5mpxHIVLoknn6z6/Lw8cagyl5eEGHq068
-	xqa/VaxB8NLgU7MCE0jsTzjko6tif+HFDJts9ApNuZKTStRtwWuB2fDCjQCqu8j/MQXwbvqZnQG
-	8LDn9tBrteN4vkJnDAu6hOuZg7biRwvHNYgbesKij8dzeIBXOVloCFI9OvwqbfTUtoZULyh8FsL
-	hzJfevuiEN6sXxZnMMnF9ui+lxThFLMN25onr5/OmlLoHaLmZOnz1BhLOBQ7eG1bDufzPsvdc2D
-	D6HcPmsVQMlr8IxtHC5Mcy1QR4bQ2wDlTdlC6Bg+Z8qvXJKY5fvFfcZ1G5r9MZylkwWsxznH3dI
-	4dvu2xUj6dKaeneWZCICybk05K98VE/uluJhOOTyvAQ5SmA+ICZNOGDIEB+zOffMerYremcTqRM
-	xyP3BdDcfZqT2eJsCDD9EakHjyoft5la/p2QBy+5EyCXI3LlLePIADnPP9r27ljaqbRxJi3E3Qk
-	PlailM3e+nNZlV1bZW3sUykkfxTvX170UztQXHrsjR6AwuVRguIqTs7/q3RzJxs4Ilujhy/MBPG
-	ydEC1ABEFaEm+aVhLskNf9aVO0gMgLpo
-X-Received: by 2002:a5d:5f47:0:b0:48e:6669:fefb with SMTP id ffacd0b85a97d-4958b62ee80mr7635031f8f.22.1794220723287;
-        Mon, 09 Nov 2026 02:38:43 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49596ea5008sm9181122f8f.26.2026.11.09.02.38.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 02:38:42 -0800 (PST)
-Message-ID: <3e75a65e-0dab-4c7c-8d2d-264c31ecd985@linaro.org>
-Date: Mon, 9 Nov 2026 10:38:42 +0000
+        d=1e100.net; s=20260707; t=1794220748; x=1794825548;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/eIsMAaHkqwUQsjvZEXSAGpGx27AZeYfKjqTpQ4IRgM=;
+        b=XE7Nj18Q5VMZclJgQDcIWZSgS/zciabt1ACRk5NAckhiyS4pd50rwO6ZnCKefN/45g
+         P+4GoKM0qlOSWJT4zz8sF163K/S7HQ1jVdlJQXrlS00ux+FxNIXagO8XemxIvQcjUblL
+         5sfN2zaQQZvSiEYoVc9GtbJ2L5eQPopyy6x6MfaFw6G9fbs905pq5ptSIvGWOjSYujpn
+         +DYFD1JRKN0PFzsGbWlB/VDEsX48tRWARwYWIq35byvEDwDt0QvPcGA5hw9thlABt3A+
+         3j58+ytleHbDFRY5EDQuegS996l3HZf7l4UyTLZIJ31lEUljLc+mgfsHBfXRVfwYOXhS
+         s6ag==
+X-Forwarded-Encrypted: i=1; AL+hErERvIYmhy6/JyTULbWGRPoOBF9ZOfIUjG2gBwEYaXn6QqoiA0zTkux32VEsnwfbvp984RQJ5gQdj2NpKUA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+eiOwJx4+YhZge+mYFwvkzaR2EkD9UoP5xN4BcbMOe2rtts1Xn
+	FgchhmK5rOq0VW2bpJonlUExmRhEdM8e82cNwxybBNUn6MrVRvBXbewhKca43k0Hjn3av0zTSyW
+	tn7QKOVVDxMjHh8VXdls3a7/47c2aZWQ=
+X-Gm-Gg: AYBFou0NTGiGqqd7Qzw0d3/MGbhZeYVl4pwkfYuGxPKFXROhv3aHpzf2YUmlmIxmbBq
+	TsJ52HVRrPhqsoWGs2WfJNGF2uxw8i3xyFdfrDt0d9EXglxzGqAcyI6utyz7IIB6ZGRR7r36Bm6
+	Nt85G2tWwrvpMSNfiC4GpfpWuWokC7/Qa99nB3yezyXTjlzgbX4S6c6cdLv0Ywg0yw+i45IP+gj
+	6Nfmt8nomlq26QGgEsn0uxNbosb6pq3jkAqa+VsiJQMAm9owbQ5xGlmJPfNaZ95farTWXaHjUE9
+	wAv0uKLfvlCUuEAVGua3xfxlJfJbufm2g0g1bbU666G1q/0+j7xtHbOioMrq39xstu94tCRdQ0l
+	4+aQGbrm12eJ7bgWoFv/E4OnG8T+1OWtxFH+WDoOBufUf4m5Kd9zVfCB3f2gofne4YtortA==
+X-Received: by 2002:a17:906:dc90:b0:c2d:c800:d797 with SMTP id
+ a640c23a62f3a-c4d6d993cedmr266362666b.6.1794220747418; Mon, 09 Nov 2026
+ 02:39:07 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,55 +104,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] [v2] coresight: funnel: inport schedule by priority can
- not take work
-To: Chao Xu <xuchao066@163.com>
-Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, suzuki.poulose@arm.com, mike.leach@arm.com,
- leo.yan@arm.com, alexander.shishkin@linux.intel.com
-References: <20261027151457.5713-1-xuchao066@163.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261027151457.5713-1-xuchao066@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261104222558.863948-1-christian.aurichzm@gmail.com> <avGSispr9aIXliex@google.com>
+In-Reply-To: <avGSispr9aIXliex@google.com>
+From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+Date: Mon, 9 Nov 2026 07:38:55 -0300
+X-Gm-Features: AclHuK8ccQMojETpg1jmz4EAo_aPaizrS86AeflgjE514t4iJOlZFDHwUpAXimg
+Message-ID: <CAPDkpGre=z=RCS_ffBKTKV_GsQn4ejyknVwNPFmjkhGTORZy5g@mail.gmail.com>
+Subject: Re: [PATCH] ring-buffer: Do not WARN when trace_rb_cpu_prepare()
+ fails to allocate
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Thomas Gleixner <tglx@kernel.org>, 
+	linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+fbe07bcf949966f3c00f@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Thanks Vincent. I took that reply as Steven explaining where the warning
+comes from, but I may have misread it.
 
+Steven, the same si_mem_available() check fails silently for the current
+CPU in alloc_buffer(), so whether mkdir WARNs or just returns -ENOMEM
+depends on which CPU runs out first. If you'd rather keep the WARN I'll
+drop this.
 
-On 27/10/2026 15:14, Chao Xu wrote:
-> The CoreSight SoC-600 TRM, section 10.11.2, PRIORITYCONTROL, a funnel
-> rejects priority register writes whenever any port is enabled. The
-> current sequence therefore prevent the configured priorities from
-> taking effect. Write the priority register before enabling the
-> first port.
-> 
-> Signed-off-by: Chao Xu <xuchao066@163.com>
-> ---
->   drivers/hwtracing/coresight/coresight-funnel.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-funnel.c b/drivers/hwtracing/coresight/coresight-funnel.c
-> index 0abc11f0690c..500ff72a83c8 100644
-> --- a/drivers/hwtracing/coresight/coresight-funnel.c
-> +++ b/drivers/hwtracing/coresight/coresight-funnel.c
-> @@ -62,13 +62,15 @@ static int dynamic_funnel_enable_hw(struct funnel_drvdata *drvdata, int port)
->   		rc = coresight_claim_device_unlocked(csdev);
->   		if (rc)
->   			goto done;
-> +
-> +		/* Update priorities while all ports are disabled */
-> +		writel_relaxed(drvdata->priority, drvdata->base + FUNNEL_PRICTL);
->   	}
->   
->   	functl &= ~FUNNEL_HOLDTIME_MASK;
->   	functl |= FUNNEL_HOLDTIME;
->   	functl |= (1 << port);
->   	writel_relaxed(functl, drvdata->base + FUNNEL_FUNCTL);
-> -	writel_relaxed(drvdata->priority, drvdata->base + FUNNEL_PRICTL);
->   done:
->   	CS_LOCK(drvdata->base);
->   	return rc;
-
-Reviewed-by: James Clark <james.clark@linaro.org>
-
+Em seg., 9 de nov. de 2026 =C3=A0s 06:29, Vincent Donnefort
+<vdonnefort@google.com> escreveu:
+>
+> On Wed, Nov 04, 2026 at 07:25:58PM -0300, Christian Aurich Zanettini Mart=
+ins wrote:
+> > Creating a tracing instance allocates the buffers of the other CPUs
+> > through trace_rb_cpu_prepare(), which WARNs if the allocation fails.
+> > But __rb_allocate_pages() bails out on purpose when si_mem_available()
+> > is too low or the task gets killed, so a mkdir in instances/ with a
+> > large trace_buf_size is enough to trigger it:
+> >
+> >   WARNING: kernel/trace/ring_buffer.c:8094 at trace_rb_cpu_prepare+0xf1=
+/0x100
+> >
+> > The same failure for the current CPU, or in ring_buffer_resize(), just
+> > returns -ENOMEM. Use pr_warn() here instead.
+> >
+> > Fixes: b32614c03413 ("tracing/rb: Convert to hotplug state machine")
+> > Reported-by: syzbot+fbe07bcf949966f3c00f@syzkaller.appspotmail.com
+> > Closes: https://lore.kernel.org/all/6a707c4f.13bfb6d0.1ecdd5.027e.GAE@g=
+oogle.com/
+> > Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@g=
+mail.com>
+> > ---
+>
+> I do not believe Steven is keen on this change [1]
+>
+> [1] https://lore.kernel.org/all/20260806174638.6012fa24@gandalf.local.hom=
+e/
+>
+> >
+> > Notes:
+> >     Tested in QEMU on 05441d697f7f (4 CPUs, 1G, trace_buf_size=3D350M):=
+ mkdir
+> >     in instances/ WARNs every time before and only prints the message a=
+fter.
+> >     Same with a mkdir killed during the allocation.
+> >
+> >  kernel/trace/ring_buffer.c | 3 +--
+> >  1 file changed, 1 insertion(+), 2 deletions(-)
+> >
+> > diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> > index 1fd28a72e6ee..c018559ad61a 100644
+> > --- a/kernel/trace/ring_buffer.c
+> > +++ b/kernel/trace/ring_buffer.c
+> > @@ -8091,8 +8091,7 @@ int trace_rb_cpu_prepare(unsigned int cpu, struct=
+ hlist_node *node)
+> >       buffer->buffers[cpu] =3D
+> >               rb_allocate_cpu_buffer(buffer, nr_pages, cpu);
+> >       if (!buffer->buffers[cpu]) {
+> > -             WARN(1, "failed to allocate ring buffer on CPU %u\n",
+> > -                  cpu);
+> > +             pr_warn("failed to allocate ring buffer on CPU %u\n", cpu=
+);
+> >               return -ENOMEM;
+> >       }
+> >
+> > --
+> > 2.43.0
+> >
+>
+> --
+> Vincent
