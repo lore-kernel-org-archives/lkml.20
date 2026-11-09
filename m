@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242748;
-	b=daPag/k2LWQ4EdR1zcxLofaKVGv+bad533FILV9XYY1LqZPeB/fSELNBjpu289W9Q7pQ
-	 VtV1MZIc4R9SVaDct3X7dM/bXQ2tOJUhP1nQ2AFk1arp1MK/wuTXKuY47wfzovcRS51CZ
-	 H/dwPyP+Vm8AwHQfecueGXMXiVvDySbBmJYf2frEW8Vz1vS4HC3FIHETUVrl/qHpsuDk6
-	 QD6t19F9fjoxd4PvU7c+BpRCid2ie1424FBYyzHgw7CA1ar8YCd+T0KIokQ61pvuEq0mQ
-	 scWcgTvDkFGQADEKgo2qqBI3Ot5w48GcR/mwDY3bBOWL3AiRa5d/RD47uauIwpSUeWw==
+	t=1794242830;
+	b=oiV1jvhfOp3EdgbJcZPgs4KxJwn1MlkG6m0Ea0t5oQX5hG8PyzCoZcK3XybcENL5U1l1
+	 7vobm6xh+d4yr8AZhNcD9nRR0VP6BRHUrjAWPoOn45g30bVzT6btJ/QdBHDrKoEmXByIn
+	 JPH6Q0jTxfOF31b87cuMMLEdi/YPsPUgJ4B8CeNVAcH6qJYuHNu8HXMTbNzPG7YOUiOLR
+	 uTURF5hQ/KXgHEGdiB5ffdXeRKmKqJCnjkeA9kRPF1svv0SEe7ZtFFsqLOVwK3e1bG0kb
+	 05Ly86cjjaGJ9vt68+bVN4AezJnIEjcHX1Crf4k9UKwCkrX0YQVpn3YMt2qPyoKok5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242748;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=KaxLEDS88ItrKwFFpF3PUgaqHFKPv05h6XZaeYQUHW0=;
-	b=dMaubssZYNAingCu+ESQExICV96/Vhp6zis4q2fOE7D9v0CRwsnmyaTcCNe14jcT7v/C
-	 W8j11QVYwiOIaYG5jsRxFSfzpbibQ77N33zHub5WjJ9f7zwHMCOPdhcM17ke3p1gQ/b0O
-	 uJJcke9SGyxYtqPjnbjGYJ9wQsPj+e31+DOKIiD7VinkX5ClKzZdNuVXqwL1MfF9an22A
-	 QXoEjOYu8n9MrXVCspVaGW6UGRAYBZT1A48GqChFBg8fV3j9JxtPzeO6mBCYjfUPYPfoz
-	 QqlB0xFHXerpZN5GOrjuTtD/QaFipXlncMXLEbtxRZPqr7ru87IK0HOUgTKuU8+yvsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242830;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=jQV5c6NkatZ0Eses+bAi+sUwiAR6q3hhUXHWX3VdAdw=;
+	b=1awYYJRB3pfxgTYNWKLOPPEWvQhpPNxKz8aY1Hz9U2axHWzdC4e3D+fCqgTdM6DsYuIx
+	 EjwgGkNdAtfwzYmXs8vEZRDsY/vls2N2PEnd5ngSPT1sDctUsOAwG8uIClB4unw9gPo/1
+	 0hZlgojZNm5TBoaq+L3D5HfaS1k5GcfE8LPXifIfGvKzhs/ruccMElSkGhOCfK9fZSqiT
+	 +R7HzUOmDZOzFguTI43A/7xxPUd9VJf76M5hNaDynDMCQRTdemp6Vi18SVOMc7u+3WQ7q
+	 RQEswxOhUjRkx0sFo3Dls5pfYsbS9Nogrw5GIePuTphSvlOP7U1+WqdM8nnvumhOKLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=IVc4xmHR;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeQUAB+K;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D55B60A2606
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:45:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D55B60A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39989606A330
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=IVc4xmHR
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-492fcbfaa88so793664f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:45:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794242746; x=1794847546; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KaxLEDS88ItrKwFFpF3PUgaqHFKPv05h6XZaeYQUHW0=;
-        b=IVc4xmHRUI7l0d1aI01B1bf0TgxhgAWqtMAsztsXJDiGo9QYkOa5VcjnsqiEUEW094
-         +obdWRcpaN+j/B14EgCb1KFG4LUdRJV+GvcaWubRrOtQazg82Ix3i4nQYf/jMIEHX2tU
-         ObAWnI3isjfiH/yuAvxeUlSdxCVgZvZqsNiqWudHZdY1CeA0GDvuzZKyEo07VSJB5Ahb
-         AkgMpN2gR8U3WlRYJOmZsZme0ERrSqL4LiPSZuS2JprQ1rmSLrAT4/GHrebv/GqHlMzY
-         v6V4vdWFB2UPahEWWeEq02QTnTWgioPULqgClxAVoK/PJ41XSdFU191pmOOCiiUzrCYI
-         QHHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242746; x=1794847546;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KaxLEDS88ItrKwFFpF3PUgaqHFKPv05h6XZaeYQUHW0=;
-        b=ogeHq4WkQLzxYmkM/wyL9atC0hal0jz1NFTrUdoDhBplO5UP1CxFEOK66DLpTEY2ao
-         xA+vMx2/EeWBDMGiF/6OBm1hapmbgJZ13082Xp7k/g74BLlgRfWObM+kSzSGHwOstS93
-         FTZRPceJx2KDOclvS4Bjni/tnjF9H6CWo709fbvd7oWzdE4yLf5ogQjKtZ9itidwzFaa
-         aUnZeBjNUueXizd2BMlHzpgpPFPEIfFOOQ8a7F1PhyBqeVc8MlsLzwm+XZzW0TTzwjiv
-         zDb/dsPjXFkXGZOXhdEMasnKyV54kSg2eNfk9A7/V6zOPV9QneWYNGGDK/njHsknJUCg
-         29iQ==
-X-Forwarded-Encrypted: i=1; AL+hErGAh5aIEFGv0MtCI1rSfAbGG4xzJrVWS13ADPhh1gPVJ+kztFIMylRXw9lYp2oIgNXsUhT11O76yhyjhpQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3GIuh1EgBr+nw6yKSbCxi8kQcJ8sUgREr6GU//87NWo4BweDy
-	fmXjaMQjyRIXaFksZkIzO4A0vr2vdJrojcQq/IJUdhcqIaoiPVACIzHaqgVYpuHFG88=
-X-Gm-Gg: AYBFou2+ljrjHrptrldRgfsSKx7RFyMSjn5BAsiiklRe7gFF37ZdLt6OxQSlv+W/xeq
-	1L6ScNl9tBX4kHx0Umr92oyTNkohUvPTXabx6UqfByvIVVobmhpJeVrbANiWsGOxyHT0mqlwOnu
-	kGNb2TkF/FTaj14ePMsY8Cb/Ei34Xt6ZnqxoTjgiUUk4FyRbL09zat4Ou2QWN5XB7euNRM3DQk0
-	z9Aaaea6tDiGsQQiG9/xFNFnbF4aiQ8GDY0pyT5UEe76VCVBt6snllXp+KbcU5ALu9cf1J2lBMC
-	TxCmepf75rVgwsv6rEIUUcPhjFA7mztsqUndgI/V8A3yjyCKpBnWYPpRr9evevCECfwb3D25tu0
-	qXGBjC2iZX8qvcLYzdSGXYv+BNE6asxBr9mnGwBohG2mQlebvzuKRyS1tpgfMxgMJv3QDsYz3a2
-	A8LbnC4W9CN20o7srMF/kcFsiJRcjzjbVVDHkMsW4la9IoMYpeLJ5s4LHP2q+/RSpYcFqAwD6hf
-	wRY8oTz0EZlOVpNzJP+jn8v2VrRbqxNd1d+c7c/bkKUoR8hgOdgjyYAiQv94kPfQFPcXEyO5yMf
-	eFuQlfuuLSuaxDZectZxz5c04R1k1poRsewL/oL1h0h+Dff9SIc7n4jygvmj7TKv
-X-Received: by 2002:a05:6000:2389:b0:491:8462:20cc with SMTP id ffacd0b85a97d-49830d8186fmr7425f8f.37.1794242745831;
-        Mon, 09 Nov 2026 08:45:45 -0800 (PST)
-Received: from ?IPV6:2a07:de40:8100:0:89a9:fd0e:583d:4a53? ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597187162sm11283249f8f.34.2026.11.09.08.45.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 08:45:45 -0800 (PST)
-Message-ID: <b5abb55f-202d-458b-ba6d-92af16f80137@suse.com>
-Date: Mon, 9 Nov 2026 17:45:44 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeQUAB+K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A74801F00907
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:47:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794242829;
+	bh=jQV5c6NkatZ0Eses+bAi+sUwiAR6q3hhUXHWX3VdAdw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EeQUAB+K3o2BE8CbM/vq5tKHXRrU4LpEjh/A6Yib0XkNa37hhWL0a40OO6Z9gghlU
+	 3Q43aK76v9HNzOzOdx72/7s09xK15YM7wORJpbB/F3e1auWN+gFtw+l4MIdOW3Akmz
+	 yqtB60eUQDwLBugC5y1pbdslO8C7R2fgAMA76imZtBOX0WU+f0vEafdvGh0Wg7Apcl
+	 KmH3s7nMBtfmJy1+ipDOJzS1SL1dQ5cDiokbJsXSdAaLfPNorj/j2zASgF8dx7j8Lk
+	 C1anCPZ04lJLBu8tJJJKuBZN+N1NSxvMavO0ruqozawapkAp0DFScTVWdziyDIjaTy
+	 tMquGJkhmjCSQ==
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5ec6f271883so621666e0c.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:47:09 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEBHTaENBiZ7IAfcSvPN13MOzxGdVHxaxdzW6lNeW3iwOGvTnswZpQhSSJQEmD1scb8RejgzzMOatASpd4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9xtwbJ8Emy+vN+JRzwOThA8fpoohAgbQVpgSfSe2gc50PNCA8r
+	WYwLaoys/gAtwqloyqqMArAYbvSWO7keAcXw+9x1+khMKrPUmiLHz5hrV2Plycl6YdJDdcOJNYP
+	pIn/IwATdCUgZIFxcd0H3jvBZ5IVdNWg=
+X-Received: by 2002:a05:6122:298a:b0:5ec:4653:2431 with SMTP id
+ 71dfb90a1353d-5ece73577efmr1865906e0c.15.1794242828771; Mon, 09 Nov 2026
+ 08:47:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,174 +59,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/11] modpost: emit module descriptors as assembly
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
- linux-modules@vger.kernel.org, rust-for-linux@vger.kernel.org
-References: <20261104-build-speedup-v5-0-0f6018be8dae@kernel.org>
- <20261104-build-speedup-v5-4-0f6018be8dae@kernel.org>
-Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <20261104-build-speedup-v5-4-0f6018be8dae@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261024223501.1420953-1-daniel.lezcano@oss.qualcomm.com> <ed4aac63-ac58-4e2a-ae45-ebf4da158228@oss.qualcomm.com>
+In-Reply-To: <ed4aac63-ac58-4e2a-ae45-ebf4da158228@oss.qualcomm.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 9 Nov 2026 17:46:53 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0gGeKEqMWvP3cQrXztZt-faFZJF+yNfygcBPT57f-a8Lw@mail.gmail.com>
+X-Gm-Features: AclHuK_21pB0sZBLQgS6pGtnjP6yV12ddWqNvd6v3npp0rwykw62-EY_ITW-xpY
+Message-ID: <CAJZ5v0gGeKEqMWvP3cQrXztZt-faFZJF+yNfygcBPT57f-a8Lw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] Make platform profiles firmware independent
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Maximilian Luz <luzmaximilian@gmail.com>, Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+	Lukasz Luba <lukasz.luba@arm.com>, Armin Wolf <W_Armin@gmx.de>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jack Wu <jackbb_wu@compal.com>, 
+	"Mario Limonciello (AMD)" <superm1@kernel.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-pm@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/4/26 7:20 PM, Lorenzo Stoakes (ARM) wrote:
-> modpost generates a descriptor for every module in the form of a
-> <module>.mod.c file with .modinfo strings, the __this_module descriptor,
-> exported symbol tables and (with CONFIG_MODVERSIONS set), the CRC of
-> imported symbols.
-> 
-> These files are compiled like any other kernel C file with all of the
-> -include preamble, as well as including linux/module.h, header dependencies
-> generated by fixdep of a few hundred headers, an objtool run and if LTO is
-> being performed, a link is performed to generate native code.
-> 
-> On an x86-64 allmodconfig build 11,189 *.mod.c files are built, each
-> taking ~0.24s of CPU time to compile, and module finalisation as a whole
-> 6,300 CPU seconds, or 64 seconds of wall time when run over 128 threads.
-> 
-> It also generates ~1.3 GiB of *.mod.o.cmd files that every subsequent build
-> has to read back.
-> 
-> Avoid all this by emitting the descriptors as assembly instead.
-> 
-> The layout required (size and alignment of struct module, struct
-> modversion_info, the module's name offsets, init, and exit fields and
-> whether the architecture uses PREL32 ksymtab references) can all be derived
-> from scripts/mod/module-offsets.h.
-> 
-> The fields of __this_module are emitted in offset order rather than
-> declaration order, as CONFIG_RANDSTRUCT shuffles struct module so the name,
-> init and exit fields can land anywhere.
-> 
-> An assembly file avoids all of the issues previously mentioned so this
-> conversion results in a very significant performance win on kernel build.
-> 
-> As a consequence of this change, since module-offsets.c includes
-> linux/module.h, scripts/mod is now built after the generated headers in
-> prepare0, rather than before.
-> 
-> Also update .gitignore and make clean to handle .mod.S files, but keep
-> .mod.c files there to ensure that users do not end up with untracked
-> changes/dirty trees after the change takes effect.
-> 
-> The sections were confirmed to be byte-for-byte identical to the C version
-> produced - each of .modinfo, .gnu.linkonce.this_module, __ksymtab*,
-> __ksymtab_strings, __kcrctab*, __kflagstab*, __versions,
-> __version_ext_crcs, __version_ext_names and their relocations - for all
-> 8,135 modules of a clang allmodconfig build with CONFIG_COMPILE_TEST off
-> and CONFIG_MODVERSIONS, CONFIG_EXTENDED_MODVERSIONS and
-> CONFIG_MODULE_SRCVERSION_ALL on, and for a sample built with gcc.
-> 
-> What differs is what the compiler added around them: the __UNIQUE_ID_*
-> locals, the KASAN constructor for the .mod.c globals, and on x86 a
-> .note.gnu.property that the linker already drops from any module containing
-> an assembly file and the loader never reads.
-> 
-> None of these have any impact on the build, however.
-> 
-> The assembly carries no debug information, so in order to keep describing
-> __this_module in each module's debug information, define it weakly in
-> module-common.c too, in a section which the module link discards.
-> 
-> Nothing initialises struct module::arch from C any more, so
-> MODULE_ARCH_INIT is removed from include/linux/module.h and from m68k, the
-> only architecture that defined it.
-> 
-> x86_64 kernels built with gcc and clang, with CONFIG_MODVERSIONS,
-> CONFIG_EXTENDED_MODVERSIONS and CONFIG_MODULE_SRCVERSION_ALL, were booted,
-> every module and an external one loaded and unloaded, and the srcversions
-> checked against modinfo, i386 and arm64 defconfigs (gcc and clang) and a
-> ThinLTO build were also built as part of testing.
-> 
-> An x86_64 CONFIG_RANDSTRUCT_FULL build with clang, which places the name
-> field after init and exit, was checked the same way and produces the same
-> .gnu.linkonce.this_module sections and relocations as the C version.
-> 
-> On the x86_64 allmodconfig with clang 22, "make modules" with every
-> *.mod.o and *.ko deleted goes from 64.5s (6,306 CPU-s) to 28.5s (518
-> CPU-s).
-> 
-> A consequence of this change is that the make jobs are now so small that
-> make cannot dispatch them quick enough, however the next commit in the
-> series addresses this issue.
-> 
-> This impacts clean and no-op builds with a large number of modules most
-> noticeably.
-> 
-> Whole build, 128-thread Threadripper 9980X, best of N runs:
-> 
->                                          before   after     delta
->                                          -------------------------------
->   x86 allmodconfig, no-op make, gcc        12.7s     2.3s    -10.4s (-82%)
->   x86 allmodconfig, no-op make, clang      13.9s     2.8s    -11.2s (-80%)
->   x86 allmodconfig, clean, gcc            342.6s   306.6s    -36.0s (-11%)
->   x86 allmodconfig, clean, clang          340.1s   290.2s    -49.8s (-15%)
-> 
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+On Mon, Nov 9, 2026 at 5:37=E2=80=AFPM Daniel Lezcano
+<daniel.lezcano@oss.qualcomm.com> wrote:
+>
+>
+> Hi,
+>
+> sashiko validated this series
+>
+> Is there any other comments for these changes I should take care of ?
 
-Looks ok to me from a modules perspective.
+I'd love to see some feedback from someone having a vested interest in
+this interface.  Mario?  Mark?
 
-Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
-
-> +/* The equivalent of KSYMTAB_FUNC()/KSYMTAB_DATA() and SYMBOL_FLAGS(). */
-> +static void add_asm_ksymtab(struct buffer *buf, const struct symbol *sym)
-> +{
-> +	const char *name = sym->name;
-> +
-> +	/* The name and namespace strings the entry refers to. */
-> +	buf_printf(buf, "\t.section \"__ksymtab_strings\",\"aMS\",%%progbits,1\n");
-> +	buf_printf(buf, "__kstrtab_%s:\n", name);
-> +	buf_asciz(buf, name);
-> +	buf_printf(buf, "__kstrtabns_%s:\n", name);
-> +	buf_asciz(buf, sym->namespace);
-> +	buf_printf(buf, "\t.previous\n");
-> +
-> +	buf_printf(buf, "\t.section \"___ksymtab+%s\", \"a\"\n", name);
-> +	buf_printf(buf, "\t.balign %d\n", KSYM_ALIGN);
-> +	buf_printf(buf, "__ksymtab_%s:\n", name);
-> +	add_asm_ksym_ref(buf, sym->is_func ? MOD_FUNC_PREFIX : "", name);
-> +	add_asm_ksym_ref(buf, "__kstrtab_", name);
-> +	add_asm_ksym_ref(buf, "__kstrtabns_", name);
-> +	buf_printf(buf, "\t.previous\n");
-> +
-> +	buf_printf(buf, "\t.section \"___kflagstab+%s\", \"a\"\n", name);
-> +	buf_printf(buf, "__flags_%s:\n", name);
-> +	buf_printf(buf, "\t.byte 0x%02x\n", get_symbol_flags(sym));
-> +	buf_printf(buf, "\t.previous\n");
-> +}
-> +
-> +/* The equivalent of SYMBOL_CRC(). */
-> +static void add_asm_crc(struct buffer *buf, const struct symbol *sym)
-> +{
-> +	buf_printf(buf, "\t.section \"___kcrctab+%s\",\"a\"\n", sym->name);
-> +	buf_printf(buf, "\t.balign 4\n");
-> +	buf_printf(buf, "__crc_%s:\n", sym->name);
-> +	buf_printf(buf, "\t.long 0x%08x\n", sym->crc);
-> +	buf_printf(buf, "\t.previous\n");
-
-Nit: add_asm_ksymtab() and add_asm_crc() emit unnecessarily .previous
-directives.
-
--- 
-Thanks,
-Petr
+> On 10/25/26 00:34, Daniel Lezcano wrote:
+> > Make platform profile selection independent of ACPI firmware.
+> >
+> > The provider API already uses struct device, profile enums and callback=
+s;
+> > it does not require an ACPI handle or firmware node. However, the core =
+is
+> > built under drivers/acpi/, its Kconfig symbol depends implicitly on ACP=
+I,
+> > and initialization fails when ACPI is disabled, preventing non-ACPI
+> > providers from using the existing firmware-independent class interface.
+> >
+> > This series moves the core to drivers/platform/profile/ and introduces
+> > CONFIG_PLATFORM_PROFILE, updating all existing provider selectors. It
+> > retains the tristate configuration and platform_profile module name.
+> > Firmware-specific discovery and profile operations remain with provider=
+s.
+> > The core can also be selected directly through its Kconfig prompt.
+> >
+> > An optional ACPI adapter obtains the legacy sysfs kobject and is linked
+> > into the same module. The generic core contains no ACPI types or symbol=
+s
+> > and initializes without ACPI support or with ACPI disabled at boot.
+> > The existing /sys/firmware/acpi/platform_profile and
+> > /sys/firmware/acpi/platform_profile_choices attributes remain available
+> > on active ACPI systems.
+> >
+> > CONFIG_PLATFORM_PROFILE_LEGACY controls the backwards-compatible aggreg=
+ate
+> > sysfs interface. It defaults to enabled to preserve existing userspace.
+> > Disabling it omits the legacy sysfs callbacks and ACPI adapter while
+> > retaining class devices and kernel profile cycling. New userspace shoul=
+d
+> > discover and control individual class devices instead.
+> > The interface is deprecated, with removal intended after the 2028 LTS
+> > kernel once userspace migration is complete. A shared pr_notice_once()
+> > warns on legacy attribute access rather than on merely loading the core=
+.
+> > The default remains enabled while userspace adopts released class-devic=
+e
+> > support; this series does not claim that ecosystem migration is complet=
+e.
+> >
+> > The existing firmware-independent interface remains:
+> >
+> >    /sys/class/platform-profile/platform-profile-X/name
+> >    /sys/class/platform-profile/platform-profile-X/choices
+> >    /sys/class/platform-profile/platform-profile-X/profile
+> >
+> > Non-ACPI userspace controls providers individually through these class
+> > devices. Aggregate selection remains available through the legacy ACPI
+> > attributes, and aggregate profile cycling remains available to kernel
+> > callers. No new sysfs directory or userspace ABI is introduced.
+> >
+> > The original first patch, "Separate handler locking from sysfs lifetime=
+",
+> > fixing the handler access race and sysfs teardown locking issue, has be=
+en
+> > sent separately as a standalone v3 fix. It is not included in this seri=
+es.
+> > The base tree used here already contains that fix.
+> >
+> > Patch 1 extracts the core and initializes it before built-in consumers.
+> > Patch 2 completes class-device notifications and registration cleanup.
+> > Patch 3 documents firmware-independent profile selection through class
+> > devices. Patch 4 makes the legacy ACPI aggregate sysfs interface option=
+al
+> > and documents its deprecation.
+> >
+> > Validation performed during development (before this rebase):
+> >
+> >    - ARM64 built-in core with CONFIG_ACPI=3Dn: W=3D1 build and sparse.
+> >    - x86 modular core with CONFIG_ACPI=3Dy: W=3D1 object build and spar=
+se.
+> >      Both CONFIG_PLATFORM_PROFILE_LEGACY=3Dy and =3Dn are covered.
+> >    - Full x86 kernel link and QEMU boot with lockdep and list debugging=
+,
+> >      with active ACPI and with acpi=3Doff.
+> >    - Firmware-less providers exercising common and hidden choices,
+> >      profile reads/writes, invalid input, mixed profiles, cycling,
+> >      partial callback failures and POLLPRI on the class and legacy ACPI
+> >      interfaces. With acpi=3Doff, class get/set, notifications and kern=
+el
+> >      cycling are exercised. Both runs check that no new aggregate sysfs
+> >      directory is created.
+> >    - Concurrent sysfs I/O with two persistent providers while a third
+> >      provider is registered and removed 200 times, last-provider attrib=
+ute
+> >      removal and repeated provider module reloads.
+> >    - QEMU with active ACPI and CONFIG_PLATFORM_PROFILE_LEGACY=3Dn: veri=
+fy
+> >      the legacy attributes are absent, class get/set and notifications
+> >      work, and kernel cycling and registration/removal stress pass.
+> >
+> > The provider API and profile names are unchanged. Aggregate writes reta=
+in
+> > their sequential, non-transactional behavior: a failing callback does n=
+ot
+> > roll back providers already updated.
+> >
+> > Changes in v3:
+> >    - Send the original first patch fixing the handler access race and
+> >      sysfs lifetime locking separately as a standalone v3 fix, includin=
+g
+> >      the requested profile_lock protection comment and Fixes tag.
+> >    - Reduce this series to the four remaining patches and renumber them=
+.
+> >    - Rebase the remaining changes onto the current base, which already
+> >      contains the separately submitted locking fix.
+> >
+> > Changes in v2:
+> >    - Add the Fixes tag to patch 1 and explain how the mutex-guard conve=
+rsion
+> >      reintroduced the teardown deadlock previously fixed in 041142d7d25=
+2,
+> >      and how class-device support subsequently extended the affected pa=
+ths.
+> >    - Drop the proposed /sys/kernel/platform_profile/ aggregate interfac=
+e
+> >      and its ABI documentation. Use the existing firmware-independent
+> >      /sys/class/platform-profile/platform-profile-X/ devices instead.
+> >    - Preserve aggregate selection through the legacy ACPI attributes an=
+d
+> >      retain internal aggregation for kernel profile cycling.
+> >    - Refocus patch 3 on class-device notifications for direct writes an=
+d
+> >      restoring aggregate visibility after failed registration.
+> >    - Update the Kconfig help and documentation to describe the existing
+> >      class interface and distinguish it from ACPI aggregate selection.
+> >    - Revalidate class controls and notifications with acpi=3Doff, legac=
+y
+> >      aggregation with ACPI active, and the absence of a new aggregate A=
+BI.
+> >    - Add CONFIG_PLATFORM_PROFILE_LEGACY (default y) to make legacy aggr=
+egate
+> >      sysfs code optional, independently of class devices and kernel cyc=
+ling.
+> >    - Mark the legacy ABI deprecated and describe removal after the 2028=
+ LTS
+> >      kernel, conditional on userspace migration. Emit one shared notice=
+ on
+> >      legacy attribute access; retain the enabled default during migrati=
+on.
+> >    - Move the legacy ACPI ABI documentation from testing/ to obsolete/,
+> >      document the replacement class attributes and update MAINTAINERS.
+> >
+> > Changes in v1:
+> >    - Initial series extracting the core from ACPI, separating handler
+> >      locking from sysfs lifetime operations and retaining the legacy AB=
+I.
+> >    - Proposed a firmware-neutral aggregate sysfs interface alongside th=
+e
+> >      existing per-provider class devices (removed in v2).
+> >
+> > Daniel Lezcano (4):
+> >    platform profile: Extract the core from ACPI
+> >    platform profile: Complete class notifications and registration
+> >      cleanup
+> >    platform profile: Document firmware-independent profile selection
+> >    platform profile: Make legacy ACPI aggregate interface optional
+> >
+> >   .../sysfs-platform_profile                    |  12 ++
+> >   .../ABI/testing/sysfs-class-platform-profile  |   2 +-
+> >   .../userspace-api/sysfs-platform_profile.rst  |  55 ++++++--
+> >   MAINTAINERS                                   |   5 +
+> >   drivers/acpi/Kconfig                          |   3 -
+> >   drivers/acpi/Makefile                         |   1 -
+> >   drivers/cpufreq/Kconfig.x86                   |   2 +-
+> >   drivers/platform/Kconfig                      |  35 +++++
+> >   drivers/platform/Makefile                     |   2 +
+> >   drivers/platform/profile/Makefile             |   5 +
+> >   drivers/platform/profile/acpi.c               |  15 +++
+> >   .../profile/core.c}                           | 122 ++++++++++++++---=
+-
+> >   drivers/platform/profile/profile.h            |  17 +++
+> >   drivers/platform/surface/Kconfig              |   6 +-
+> >   drivers/platform/x86/Kconfig                  |  10 +-
+> >   drivers/platform/x86/amd/pmf/Kconfig          |   2 +-
+> >   drivers/platform/x86/dell/Kconfig             |   4 +-
+> >   drivers/platform/x86/hp/Kconfig               |   2 +-
+> >   drivers/platform/x86/lenovo/Kconfig           |   6 +-
+> >   drivers/thermal/intel/int340x_thermal/Kconfig |   2 +-
+> >   include/linux/platform_profile.h              |   3 +
+> >   21 files changed, 255 insertions(+), 56 deletions(-)
+> >   rename Documentation/ABI/{testing =3D> obsolete}/sysfs-platform_profi=
+le (70%)
+> >   create mode 100644 drivers/platform/profile/Makefile
+> >   create mode 100644 drivers/platform/profile/acpi.c
+> >   rename drivers/{acpi/platform_profile.c =3D> platform/profile/core.c}=
+ (88%)
+> >   create mode 100644 drivers/platform/profile/profile.h
+> >
+> >
+> > base-commit: 8244dc8f69f0e73cb1789355260b7d68bf5494e7
+>
