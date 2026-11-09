@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.193
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794206296;
-	b=VlgL6XR5BpLqLl3ew7AGTl/cYz3APqQpPatIst09JT9JIyMl8WciNGEHNakbs3hx6mFV
-	 DquVimd4eTS6gjD0WYoDOI5dLVbMkIugcetZO+X3/xH4bFjvDKhaoD6WEx+hjhWw5deTm
-	 TfQxORrucs+vhKq5pKAPe0dXnlmHO4+InyAE2y5TcXiqBHkN5dYgGW1MQSSItr4AImh77
-	 VYcdU+I6PgaclXWp7dH29chWSNfR0dsI44wyVxu929ZQBCZQldDSNcTWJ5EfHaKibUsAa
-	 Hoaax0OKyrmDszwjQmfvyRrS+jCj3Tkz4t363qb09G7f90KkyooBWnvcKR1h77QWA2Q==
+	t=1794206376;
+	b=SPsFAI8ZqkMF4LRF4x7G6CYryXWhXlwsns4ktZytLgdQv1u6Vh7p0xLJwWbuMej/Nuoj
+	 PatHTUUCZI5gvS/4Cbv7fZL+TDQz4xyAIgzVDIf3S+uFenFKjeliA1M61uwfBHUQbMEzs
+	 ObE7i1PB8GYun2v5taoT0FFfHDDuD/841mpDCMxOy7/cnr+ETebBp+zYjKZ7qfCNDolgB
+	 jDmAXB5yd5vGn9cXeJRUw3zJG6SEBBj1nb3tNvro/XSKIm/fSoU+faHMJdzadi3slMwLq
+	 /6pSJlwLb+SCjAVEIFojCpc3DyM/hCxB8KTwW5StwFJNh1jxMpi7RLVOToBAmoIZb5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794206296;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:From:To:Cc:Subject:X-Mailer:References:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=CR3tvAfi/vhuKX2kubcVJ3VNLkta73TBFdrMFqobo34=;
-	b=eOjSUY7D1w5lpV1RXO1SmIa+1DnnRol8MiMVCQDv/ScnUl8wenvpqlRTWj7dYRXZO5GW
-	 LcZg8N3H1yw+ljnN2yMYKMSkbPRGFSjo2wRYz8gWDO7uLSyVN496KMaVwbRdVpcNZBdBt
-	 h2392IEEvEMqOERk/X7gtSdt2Uihn3nW/azeRZBtsJQe7L5dNU+LkUv1IyQl3KfsvOK5C
-	 JHMCAEE+Czp58i8HmXJzWy2V42F962iIj4QR1pDsFOw2BCYIGdtnyJGc+C2EwOYnrcJfj
-	 ZyBqauv+LUv9Iap+h/xtCErMbweWHn35+10lO+e7gpp0XkoZbOXq8Kioeui4OXGDZIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794206376;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=dYiYEdpZoBCk/m+9m0NoamFhEFSafaE8QHgqSYW70HI=;
+	b=vTbMArMwZStP+zUxDLKu9dEPpunKViVfU4/4Qdwyhs77b/E4gAh8aCLjilPSpcc+fL4k
+	 NgXEYESkQUJ014zcwvrK3bQeafFYPEndkogHL0k/57bhA+4IWq2ZqlLNGM4b8oN1J55hM
+	 sOapZj8CwqbqYlAa9E+lOPdcftdl3nIZJlsbVtmsNOvFueNmXsr1KJtB7MiKGJwSs8FOa
+	 5QRRlP0szLr+Lgov3cCkLCBTfD0g3fDSMYBQjwQGpakDZtCQR47nuo0XQPocwPGWbNSEx
+	 FIURAZyf+gXpFNgDkcA2tOdjwMXSyUQ5qLCFegtcFIzUbCIWFhIpuG8eBwK3A9FyhqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Uc5YasCA;
-	arc=none smtp.remote-ip=54.207.19.206
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=i84quMsR;
+	arc=none smtp.remote-ip=91.218.175.193
+Received: from mta0.migadu.com (out-193.mta0.migadu.com [91.218.175.193])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010F7606A31C;
-	Mon,  9 Nov 2026 06:38:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 010F7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ECE1606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:39:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ECE1606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=Uc5YasCA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794206286;
-	bh=CR3tvAfi/vhuKX2kubcVJ3VNLkta73TBFdrMFqobo34=;
-	h=Mime-Version:Date:Message-Id:From:To:Subject;
-	b=Uc5YasCA9pnYq/k3nXtz0WOFRPWqrjPmW/9Lv7LecXbjQIU/RxtvMZOjxY8vKyarA
-	 yP/VghtGjVLUt9Nj8SKqXnG89AF1socEpFVdJoI4djMbA8DqvsyBJN2ZlrRrigRpXm
-	 h9VqCWhl/q0rYgDdME5scvArbDxzd+7hzDmHVDLQ=
-X-QQ-mid: zesmtpgz9t1794206285t825dde49
-X-QQ-Originating-IP: IwUfJm6QB9d8NP+i4b6UrZEEoyyhvenPAmFqfQ3k46w=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 09 Nov 2026 14:38:03 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 15929030815488421648
-EX-QQ-RecipientCnt: 14
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=i84quMsR
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MU0CJ6RC8bf8Bdd4IOlFxpmM1i6C8HxAoRfmw4Mt6r0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794206372; v=1; x=1794811172;
+ b=i84quMsRuLJYop7oepd5gPfqt+J7kJJDjapa5Ge51muaG+1VTtGoRYF9q+HmgouRVo/ZfbCu
+ xdc/BAIoAuwtO6lMgs7pUeQrNJzrAij1mL0zsAJ0G0jJ9RtRIkXB0XHIrD28hZ3ATw2e5xCAfEe
+ rrqVbvLS18iwIW4G8SXtFQWY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ef5496e26729f04f;
+	Mon, 09 Nov 2026 06:39:32 +0000
+X-Mizu-Trace-ID: ef5496e26729f04f
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 9 Nov 2026 06:39:24 +0000
+From: Akhilesh Patil <akhilesh.patil@linux.dev>
+To: jic23@kernel.org, andy@kernel.org, akhilesh@ee.iitb.ac.in
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	akhileshpatilvnit@gmail.com
+Subject: [PATCH] MAINTAINERS: Update Akhilesh Patil Email address
+Message-ID: <20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,76 +61,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=a45515cc26bb2c3e16f7ddb138529dcefe17028f2f8a02fc6d43a5237aa2;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Mon, 09 Nov 2026 06:38:02 +0000
-Message-Id: <DMQH1N9VV1IY.2Q1NMMIKR2MIN@linux.spacemit.com>
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Sandie Cao" <sandie.cao@deepcomputing.io>, "Yixun Lan"
- <dlan@kernel.org>, "Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
- "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 1/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
- add P1 PMIC regulator tree
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261109033154.361399-1-sandie.cao@deepcomputing.io>
- <20261109033240.361416-1-sandie.cao@deepcomputing.io>
-In-Reply-To: <20261109033240.361416-1-sandie.cao@deepcomputing.io>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NNBDHPWljGq3kZDWZpYvuOgD63xfOxUqXXPmJ2z12Z52oSqe5fWQQ9HD
-	Usv+CSd59oItI6TuTBdraG0vkWqoH1MeZbYVGd6FHgbclOft3Xk8mf2ouwTE7F6/6uhSEpo
-	UH4dgglEs5HzKPeK+6XyrfNdwPmyfNfgUMh0JlTLgvAK85VNvxFhGcPIikuM5qrIsI74NDv
-	uIJmR6JZ6x0Qqls2SCCefz9V1b5TLA8JKU2MKD6Tmqx5feb8CdPbmyhp4m6c1f+2LN4OcHM
-	nlqKrYYMFKY3Xsq7+2YREzKACIJ+6S/EOJ9+Zy8ILZVRgvTviHWDTND8n1YRx3aGyJ1Z+SY
-	4Fa46j88exh2nRhSoSLly11TcassfhuNAfCh1dYyZMgTO6k9wie/CRnIQFq6dJdemyUnK0S
-	5tONXhDJum/nhnJsAA4FELoi6Afdx53OYYsfT93C53FUx4GUjbVSQpsdbKJYntfdLvarqnz
-	kTcojHDJH3AVAd2WYowsvJeKX/ljSnNksq62N6HMnS6LaUB7B+2klTWq5vQvYMhZMcrVPh+
-	TQ58JEPZFF+EKOckoWHrexA5GKPISbEg+FyDdgpVtA6uWhPjGy3TITRt6oi+1X9IHULq8am
-	VG5Pi4Ztwi7EyarXcCF5Pn7+4nE9Sw7ztIrQf+eZxTDL/mJlaqAYnTpKcqCPfp6b7Zb7eIB
-	1Y5ISSLqNZMos+t1KLq4h5SNbq8lMiWUOYpEALDMDyOXZO20cf011Wvn9R7TsEZhR6+K84y
-	9pz1rmDBMKn9+CDf9m357K7jlGWPkTGfaJ3L7ymYyLpdeXTc5cUi5mMZJUVdikLyjgH+YmT
-	/UwnMu0SIdeJ5AN0u6NL0ZupIYdTkEXmnz7Isgwjh11psk2Lp0+AZaC37bBmaApqq/bvOJ2
-	kqW0E5J+57yGmudUIpvjmvdFpGuA4/kTLeKs50o2/f3Pkdq45xG7fTgB7o09uLfD3CCjj0f
-	Eqb9QDaiEadpyMtw4xfqVBcagHWC/bcKT1FM+qDgRK0Dc0wBXOQldWp+HqdftQKCDVD+ani
-	AuA9NrYo4UgH9DIfKNI2hhUdiL0vQFegzmavWwHP+v/l2MkYm4IQasczTmOd+mODZHSbWi4
-	ZwP+GFPDMVwvB6H6N2bi8IJQmpyPbgyc2h39FJiGJ7x
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
---a45515cc26bb2c3e16f7ddb138529dcefe17028f2f8a02fc6d43a5237aa2
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Move to my new linux.dev email address akhilesh.patil@linux.dev
+I plan to use this email for kernel development going forward.
 
-On Mon Nov 9, 2026 at 3:32 AM GMT, Sandie Cao wrote:
-> Add the P1 PMIC's regulator topology tree for DeepComputing FML13V05 boar=
-d
->
-> Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>
+---
+ .mailmap    | 1 +
+ MAINTAINERS | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/.mailmap b/.mailmap
+index 7fb33babc931..54238d2f04dd 100644
+--- a/.mailmap
++++ b/.mailmap
+@@ -1030,3 +1030,4 @@ Zhu Yanjun <zyjzyj2000@gmail.com> <yanjunz@nvidia.com>
+ Zijun Hu <zijun.hu@oss.qualcomm.com> <quic_zijuhu@quicinc.com>
+ Zijun Hu <zijun.hu@oss.qualcomm.com> <zijuhu@codeaurora.org>
+ Zijun Hu <zijun_hu@htc.com>
++Akhilesh Patil <akhilesh.patil@linux.dev> <akhilesh@ee.iitb.ac.in>
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 222b7fc2c3aa..3aa8fa3c068f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4095,7 +4095,7 @@ F:	Documentation/devicetree/bindings/iio/chemical/aosong,ags02ma.yaml
+ F:	drivers/iio/chemical/ags02ma.c
+ 
+ AOSONG ADP810 DIFFERENTIAL PRESSURE SENSOR DRIVER
+-M:	Akhilesh Patil <akhilesh@ee.iitb.ac.in>
++M:	Akhilesh Patil <akhilesh.patil@linux.dev>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/iio/pressure/aosong,adp810.yaml
+-- 
+2.34.1
 
---=20
-Troy Mitchell
-
-
---a45515cc26bb2c3e16f7ddb138529dcefe17028f2f8a02fc6d43a5237aa2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCavFqSiEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC+cawEAmuTbJIBqSbKS
-j8uuHL7iWjyMcnsLj7MKWkndH8HZa/IBANz9W4bE/oiXueScqETBLZGFyktM9kC8
-/G7QkwtLUPUD
-=s9s9
------END PGP SIGNATURE-----
-
---a45515cc26bb2c3e16f7ddb138529dcefe17028f2f8a02fc6d43a5237aa2--
