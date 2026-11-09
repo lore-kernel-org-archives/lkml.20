@@ -1,68 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794209096;
-	b=Ty2wDvCCIahS0WxYRtBWkShNY0xWCE7Ppq9KvddB3F3irNfvW3z+9hrN/bndYwXiutmx
-	 Tqe09+OHGvtGLYS38pI2eTkGMzgTBZhwLAn79sMpoZKP6zAh0nA/HZRR605V2l3GtPRIE
-	 uNVm9+GddxoJ/ke3sQHU22QhM5RE20faYA+pn9Xkw+z/oLqp2wU18EAEzeV01p4MsbzSN
-	 4d27XCGwA23ZflpuUiXPzhXTdgq6iNl1WL7B72lObO0fjQF/L0YSiyM/iUqw4XhfTsY0h
-	 pFUUmf90TyYLd86QNvy5ZYs0+cEajzbfD34Tpl+CCm0FySFlhNMFYxUY3jsC8ntPYRQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209096;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MhW0Q23ZVys8O5dvOlmOPxvunp1nU92KAQ/DMofhkqg=;
-	b=nFIjjYpGbEW6oQ8gB/5So6fd0nOLry8uwM00zfQO7+wpKrDiufokqqgMJCP0mggpTjip
-	 WT8YXBdhtiJAZrmkm2pSWVC+CewYZCD9OtL6yf9Y3+by5vQ3fvyp0Wp+Z8fgvxPs0PMi8
-	 K0iwY5OeetrNMcUVlcHFHUDZ9vDXskdbLPndtgtQaorhyjVbHmcgym2FOaQ2dITawGoIr
-	 NVG1ew/AUZmI1eiQq6nFF9nFq6Ejb51pojtbBDIkd6IOs00UwbdZvBK4xem0QOE8u8VjK
-	 Mg81jMMChN4+9kjiFzcRlw21I6HbH37tci1ab99VOPY4BlTUk6JU/5M0Cf6laRI2zHA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=B5sgBt1K;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 40200606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:24:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40200606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.25
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794209102;
+	b=KAPpfg6EtMUsiOMC34Q7DBk7T9DOTP5yAg3LWnb/IFMn7ASCwU4/xj1pspWCAUe0UjIr
+	 xT7K+HJMUkgOuYFDHFYOSdw+YRqCLeaCgV1hSf35jdFcbBCMt5OjSurb1VhE8UIjJKvxp
+	 Gyfjws/oCQQ94tkCZpiwgyWgtjtd0Gb0mFgedAV1DcHUcYKa+D030mT14LQdYiyR7g1Oi
+	 8VL6rkv1Onc4A7bK9qLoR7Ibwix3Y4fqbv186A1gae04Xmmln4mqDwfnc1jZxLnUTquzn
+	 JJMJTFfsW1AWrwpKtDx1T0Lrio2blBfDVTRB7omTXTnMBx9sMWyvrUNqYHa9bsUuNIA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209102;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=OniamSoiC4pNmvoO0MMzOGCB71d5ogmVrG9Zu8VEEX0=;
+	b=Y6BxJWc+KdOC11L71gTnaqwTcU7kaPocMzgx2HDbligJZjawpAjhsTS5eIrflR+eQIxq
+	 uvUMhB2ro0pqYMWzuJQXGMWDAHQznM16AQePLBzX4bURwYXX3WYgJybhfYa+DG9C3b41S
+	 u0TEmS94i/Xllw0InRhsyQCkgJ5ctNvuq9uul891eWDwBcBK+BBosvmeoK1PrHiLdLpzX
+	 4EcG8xHJYozV4ZugKsBXsqmI8Ysz08YtGbPe59b1iEUBabBqx10Fm5mJ8qZDUdxvdyWdF
+	 VzezVY7I7hf3Vt8RUt1B4Y3/GLVtngMeUC/TvU3RwMTtCOXGWpZdjTFTC3yN/OrLwhg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dLqzRDlU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.25
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010025.outbound.protection.outlook.com [52.101.201.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4F79606A31C;
+	Mon,  9 Nov 2026 07:25:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4F79606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=B5sgBt1K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=B5sgBt1K6hlOjrNziZXLsOA/OmDv8aWDdRUsc+keAVKutHXlsYv732ugGQnibE53xuDrS9h+6AfRV
-	 mVEuOa4y8wv1+ky7inzk957J8lXjbGStQdw8jB0RDGjfqfQiEl45FN3GwOARzRwhmeZ8IunHXNfhqB
-	 6FToYJ4aM3fnSr0Y=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af17543f5d-8e698;
-	Mon, 09 Nov 2026 15:24:52 +0800 (CST)
-X-RM-TRANSID:2ee36af17543f5d-8e698
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56af17541290-860be;
-	Mon, 09 Nov 2026 15:24:52 +0800 (CST)
-X-RM-TRANSID:2ee56af17541290-860be
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	linux-phy@lists.infradead.org
-Cc: Johan Hovold <johan@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Miaoqian Lin <linmq006@gmail.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-Subject: [PATCH] phy: ti: omap-usb2: fix OF node leak at probe
-Date: Mon,  9 Nov 2026 15:24:49 +0800
-Message-ID: <20261109072450.1005-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dLqzRDlU
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G8LOMOLDhSMt2nmnpg9oXFpAIhCVOyOfXXeDzu0wjcq21C9X3vx1bqE+K3mCzjs7sqOWA+vMi2iuh5s3S7GPTRj9lDj/HLIJ1rd/nbw5WdpIYX60e+jQD5s8CJr3nJRnERRsGPxDP1M2OOB+FyiAnnoAIV2mkFlpOWjoxynyeDPZmz5Qg+/JbL2AL+QAysGAt7qHKfAesqRrYtwzuVWTDrykcFOO0CACl96LlaZ+gBP+JXQP8XeeUz65qdFIsxgqiPOX3EMfOccu7tpYmtg1qMY5FknxecWRYBUr9taBr7kFNp3RJGwijPRdszwCPDvsUCDAublD4REfF1/FRa350g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OniamSoiC4pNmvoO0MMzOGCB71d5ogmVrG9Zu8VEEX0=;
+ b=jU0KU/jubQj0CurOLVztfnUKAb6yJim3EfwRagr8T6eCcjzYDDVPMw+P8uuYTQ9JOSWYZdvvxJWJUL48oLNt4yw6CVA+14XrA5Id74PxAKxh8a7WJB7lbCr2VDFYOcuxkxG4IK08WlGJeFB0KQlnBL6MB8L4nNw+Pogs0sYj7B6Wuv+z5sCCyWaMcNwuEQ8bJjjh81b+kxk01gnuUUEWqKnJ4tYUJQd9kAgJsKzJFVtEsOD6EhNB1C9w+WCfPVg5seJkK6bYkYkmH2qWASt/r3S/1EDa4nHay6Z0j2M69eVuj3Pf/OpC5jAtux+ct6tRIC10YDLb9noJImWzyhPX0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OniamSoiC4pNmvoO0MMzOGCB71d5ogmVrG9Zu8VEEX0=;
+ b=dLqzRDlU+gMBpcqlMahucMlVMoINzzAc9Gq/0fg2442pHiRIFuR5Gd2WkMWtfiOizcbDzVYocUjiEU48txmbv3Xl0p0L+ioJyTyBsga+MuGYd8lWf5TI368JXhR5BV0/OXru2kmlarkr9KDv7sQ7MaEI6ZYP28CCzQtNv1Yd8radVyWsOp00Dfx7Rw4cpjDpQzF7LxL6Yr9K+UrU2xqix6cv840cez6v+dLc7Mz+Rzoyr9qqqJCzm2Mqbxd1ZCEDyMeLARDY4jODcxBPXM2t1xWuvmKOfqrGJwbkcM0o/j7/qr+RBivQQF2er34YCaLxHw5NNyJkHrA9yQoTFxnk7g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
+ BN7PPF34483F4BA.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6cb) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 07:24:59 +0000
+Received: from DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
+ ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 07:24:59 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 09 Nov 2026 16:24:55 +0900
+Message-Id: <DMQI1JOOBX33.1L8BGHI7ZVR1I@nvidia.com>
+Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 12/12] gpu: nova-core: falcon: program the
+ FBIF_TRANSCFG register in dma_wr
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261107-r000-fw-v2-0-fb37cc5b20cd@nvidia.com>
+ <20261107-r000-fw-v2-12-fb37cc5b20cd@nvidia.com>
+In-Reply-To: <20261107-r000-fw-v2-12-fb37cc5b20cd@nvidia.com>
+X-ClientProxiedBy: TY4P301CA0125.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37e::18) To DS0PR12MB6413.namprd12.prod.outlook.com
+ (2603:10b6:8:ce::10)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,50 +104,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|BN7PPF34483F4BA:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0685f1b9-675e-4a5d-988a-08df3e328faa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|10070799003|23010399003|11063799006|4143699003|56012099006|261026121527099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	52mTCI//o4oPqOUc07RGYIuK16EAbxem+EoVf8H1YGEcWorit2N28Oo2SVnDfUt1ViUEIPdWtej4+oapNCP3SclrcINseEh4zrScx8VvdaGJz60gFL/wrsKRyM+CiWbgWh3lPlMvP/5d6WrPKRbrXk/Ef4H3286UmiZiFx+waiyDHOVcUtIf1B+xhbrDUtH68CDHXuD7E/fY2EnJVPttfmWFTIiSUFwp1d+XJcL7SDbfOaRIW06F8UctGw0/ZpYDiqfsg15RoFOhqW53fX+rBEg+Jr6JA4MSIr7ZYvfcQEp9M5yQJi/Ipz1pmTuiPLVFdJlqjRtKvqrwUBB/e38RLWpq/qUdDGM9Ta4ECk1LtxFdJcqwmyvXNIOFW9Hzcvl80TM+bdWK8dtgnoWsPEb8X8vZJAvvE/CMmw990FNuKwmKMmXrprdpvpcTHKFJvCFhErdnuNN/eUecorbHPRSgMHKtkz/uyzwSWRgDJJfmHJe1MTEcvOoeuMxcw2H+c/xEkS51rj/6cIS3TzEK0OZOqtSP73ordF1u/lXIbrClHF5z5q+Gs//ZaHSkfBpDajxhIWiAvc8ol+KgZBiswL22RjapW37zqV84+EIamk9F7xbu+92oSBIBIrriX0WT/tVi45lTc8Pj8qD1Jo1uul8GPZD1Efh/iwn6cfmpoh8l/ak=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(23010399003)(11063799006)(4143699003)(56012099006)(261026121527099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WFVPWEVjTm81akU0elYySEUvOTVGcWE0N2VMVXNxd2hyeEVPS3hTVmgyQytn?=
+ =?utf-8?B?QWsvaElqLzRZU2hKYlZsRkdodjlIbnNZdVZ4MUdQeEFJdE1wUmV6SlNxL3Vh?=
+ =?utf-8?B?SGRuYkFNWHVOSjcvcTdnK3ZkQXplVWt0MEZvb3RSM3E5NnBjckJBZ3h0bXlv?=
+ =?utf-8?B?UTlqMG5pckJNajZ4bVJoamtmV3ZjSWRhblJBTzBqczQ2YjVsdDJpR0p3Y0dr?=
+ =?utf-8?B?Y01aUk9HbDdxZStOTklZQXJndVd0MTZnbktyWk5HdFlCZ2FRdThiRjVab3lv?=
+ =?utf-8?B?c2tyVzlpYXdLbC9PZUVHYTB2cG5hVnBSbTRwbHZVVWYwRmhtYTUrbnhyalM1?=
+ =?utf-8?B?U0pWSUoxN3pKeHV1VFdSeWZSR1h4NEJGUkl5UllYTmJrNm9XZ2ZSNktpR2RT?=
+ =?utf-8?B?YVU5WkFzZ2JCZUgzdFNSTW5ZaHV0NWNoNXBBSXZNTk9Jb2dVaHhIMEllVTdH?=
+ =?utf-8?B?Y0JneGxaR1B6SGpibTdoTVhRK1JRUVpNeURRWWh6YlBTUldmTFlXY0RTVVp0?=
+ =?utf-8?B?N0oxMEJ2WFFZYkRuM3E4QjRCZWdlTFdocmZ4NjViNW9SYWhDdEhxRFdzbUxD?=
+ =?utf-8?B?NTdNYWFyZEZrMWdNaUliTzhBWWM3VVNlRys4dmVOUXoxU1RuS0dOK1YrYkhN?=
+ =?utf-8?B?cTIvYXFNWnF4K21JVjJQb0hDVnNjc1dDMHRhSkRWOEhneVpIbStUMUd5c2Fi?=
+ =?utf-8?B?cEVaWVpjYXBHTWs2RWRxKzJtQ2hia0Mya05BWExacE1zVVBUaGRkSGZYT3NC?=
+ =?utf-8?B?QU5TSHlsWjlPN1VDTWhDUWRvd0h1V2t6T3U2RTZzWEpXQmwyOERmTzA5RE1n?=
+ =?utf-8?B?MlBaaGlPTktPdEtLMW1rVXRLZEZDT3ZldU1IbUgzSnJIUm9GTUxoZXhaVmUz?=
+ =?utf-8?B?M2Z1UUZmbWlieVFKaEZRV0lWbis2L3dSaWg3Ti9hVDlpcmoreXpETWVyZ2ZH?=
+ =?utf-8?B?M2dRUG5DMFJTZit1R2R3bTI2WVhCVmdLMVpPR3pMbUVFeVJxbTJGTzNzTGJQ?=
+ =?utf-8?B?QkkwTFoxb3pSSW9jVWxBcUVWdGVOZlI0Ym5sOGJUcVNXQ1NBc2RXQVFNeWNY?=
+ =?utf-8?B?TEdUM2w4OHF0dG5pbERFV2VyRjBsU25NaVkveVhNdTlxSnpISS91KzNmQ2dN?=
+ =?utf-8?B?Q1hnWC9SandqNDFaT3VWNTg4RnkvTEZKb2wyMjNrc0R6TGxwVDllOVp0Z1R4?=
+ =?utf-8?B?NmhYQ0FZZTVoYWpwOEY5VVpSRHRzNkFBNGJONmMyWUVNVi9zUTMwWEwyelFG?=
+ =?utf-8?B?bDV4bTk2dzR6QVRDK1YzQ3Z0VkYrcVBycGZ3cHVsbWxDMVBmOTU1cXpIR0dF?=
+ =?utf-8?B?NDFONlVKQndyTFdubXcvejZtVTBUSncreXVwYlFoK1VpblcycFhSU3lBOU1W?=
+ =?utf-8?B?QlV6ck00SDBQSnYxZXJKYzVIK3FFWDdUa3dESW80SnFUWXdBRkprZkdiMUxm?=
+ =?utf-8?B?MnY4KzV5QXlQb3NFQWFaQVdZcjNkWjRlSm5LK01MUldlSFhraE5mRWM1VUxY?=
+ =?utf-8?B?M0FhZng1SnZQMHVxVHJNNUtJNUdhS01lcEd6aTRIL0xyeDRUVWN5Z256M2J4?=
+ =?utf-8?B?a1M0b0w4ZzRwWDNpRjNtR1MwTlRFNTByYkpsWHRzRGozWksrYWlqcndvMkg4?=
+ =?utf-8?B?UnM5VWxMMjBCT0JwQ3V3QjhFcDVtWG5leVkzOXp4aEZUYVIrOFprRlNlN05t?=
+ =?utf-8?B?MnJIS1ByTTRnVFViUXZqV3U3NjMwWnFmcmsxeHlUdEcxN2pRUjF2OUZPNnlK?=
+ =?utf-8?B?VU1xZU1BRHAwRGFYeFhxN0hiTTcveURBUFBza1NzUThmTmZZUy8reUZURVNV?=
+ =?utf-8?B?YWlEYTVnSDd1WjVQYmlvRDZYcUJDV1BUbHJWTlVuVzlLNVFORHdKR3NidThi?=
+ =?utf-8?B?Nk9JcDNOeHJSQzlDNGZQWXoyTjJJNzhQMVpsTDN0RzRhUnBRcXYwNnZGN0Z4?=
+ =?utf-8?B?THhUV0lHUzFRcy93TFdiT1VhdWpNNjlaMTdiMlBkZGE0Z2cxRDd4aWJLUCtk?=
+ =?utf-8?B?blVCZk5PNWpXRXpFektPVFdzS053OVM2RExHUkU1UEM2RTdmQjU1LzVic0Np?=
+ =?utf-8?B?aUpsb0xuSE5GNGR3alAxcXNYMUJzTG9HSElxOFhWSkJ0dU80OHE3aU9lSUdF?=
+ =?utf-8?B?YncrZS83OUVMbDRPT2VwVGloT2dESVFFRnBlbXhZYjVIQTZYUmIzd1hjY05j?=
+ =?utf-8?B?dTBXVXJjZ0VxK09BREFVbHdZaDFUUk1QcU9yRXo4WFdzaDZqbHZwMGNpcFZy?=
+ =?utf-8?B?SFk4QllVN09aMDZlZHFXZDgzbkpxVUNoeFRJSG45QUdSbmlSMVNSd1dxUXZ3?=
+ =?utf-8?B?OS9xdEp1blltN1RIcnhvbC9sU3hkaHFsMXdTOUI2NENQYXhtcEJFQnZiLzFo?=
+ =?utf-8?Q?/JRAjo1M/PplXvSivEXmSlqiWR3PO8yM0KEkU8yFInUEe?=
+X-MS-Exchange-AntiSpam-MessageData-1: Kg+KOP1i3+JRcA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0685f1b9-675e-4a5d-988a-08df3e328faa
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 07:24:59.0927
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: duRHomkxyeLUYekNlGea6RYCHG5iEPWdOSPcCUcfQM8YMDDNgbFAnmmzIuiFiKhLD4IKfp7iDcDpGJmkoYSDug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF34483F4BA
 
-omap_usb2_probe() obtains a reference to the ctrl-module device node
-with of_parse_phandle() and never drops it, on either the successful
-path or the !control_pdev error path.
+On Sat Nov 7, 2026 at 6:48 PM JST, Alexandre Courbot wrote:
+> `dma_wr` takes the source of the transfer as a parameter and can derive
+> the value of the `FBIF_TRANSCFG` register from it. Do it so the caller
+> does not need to program this register beforehand, which could leave the
+> door open to bogus setups.
+>
+> Suggested-by: Eliot Courtney <ecourtney@nvidia.com>
+> Link: https://lore.kernel.org/all/DMNWO08EFJD8.D2G9X082FUKN@nvidia.com/
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
 
-Drop the node reference right after of_find_device_by_node(); the
-device reference taken by of_find_device_by_node() keeps the platform
-device alive and is released at unbind by the devm action registered
-below.
-
-Fixes: 478b6c7436c2 ("usb: phy: omap-usb2: Don't use omap_get_control_dev()")
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
----
-This is a resend of an identical one-line fix that stalled twice:
-
-- Miaoqian Lin, 2025-10-28, with the same Fixes tag, which collected
-  Reviewed-by: Johan Hovold <johan@kernel.org> with the only remark
-  that Cc: stable should be dropped (done here), but was never applied:
-  https://marc.info/?l=linux-kernel&m=176163256031244
-- Guangshuo Li, 2026-07-08, which got review feedback from Manivannan
-  Sadhasivam on 2026-09-26 (wrong Fixes tag, cut-off commit message)
-  and was never respun:
-  https://marc.info/?l=linux-kernel&m=178349844443656
-
-Verified against current upstream master, which still leaks the
-reference.  Not runtime-tested (no OMAP hardware).
-
- drivers/phy/ti/phy-omap-usb2.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/phy/ti/phy-omap-usb2.c b/drivers/phy/ti/phy-omap-usb2.c
---- a/drivers/phy/ti/phy-omap-usb2.c
-+++ b/drivers/phy/ti/phy-omap-usb2.c
-@@ -427,6 +427,7 @@ static int omap_usb2_probe(struct platform_device *pdev)
- 
- 		control_pdev = of_find_device_by_node(control_node);
-+		of_node_put(control_node);
- 		if (!control_pdev) {
- 			dev_err(&pdev->dev, "Failed to get control device\n");
- 			return -EINVAL;
- 		}
--- 
-2.39.2
-
-
+Reviewed-by: Eliot Courtney <ecourtney@nvidia.com>
 
