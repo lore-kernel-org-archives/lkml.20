@@ -1,81 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794262701;
-	b=Rxa8nrfLVZKMPi4O4bALBqSx4TbBC+9biTFllh8N8mz9GV1DVrM7QU3Y13aXQ/c0adQe
-	 ZMkuAJYjgwwRHLsRDtBrgQqYl/S0vNLWC4c+UYuVBROKaLG8VcjrVDmp9kRwVhPBD400v
-	 WTD79BJd9jlhNU7GfQ1mIyKWgb3IuxD+cJGW0HqPrt0K+OHCy9FbdaJ8z4udngwfJDZqd
-	 ImaCJy+bbYMt5Ly+y88DFcyz4XX/2bZhXPU7hwk35cWqOwfp3p7HeuJOfzd6cGosNn1Rk
-	 R77/FU6F2Qwx7H61EqxfJRvABDt3CqjWekUGL7aW/wvGhqBEv7h2eomwA4kfuw4HdhQ==
+	t=1794262725;
+	b=JxLnB2F1JGJKIz3vYaeCS1v6EXRtmdNAa8ziNGG5pDpyYwuZOz0Z0wwcYcLJb9xkWWmf
+	 vAOcqApkDy+rJLjoMghbrY5+Qj9YAtuLXcHGrhS7rREYMAF6TSXi/QP3dNAbqnb3sjYVn
+	 +ibwJKdnySmSiXVFGpgvPz4dAJFMcbWInt/mTj1AB2B7oxP+sgjWOFtDz5R2nVSlHPJTX
+	 cD+GzIkZ56XJQGpjHfKPBLNy665DrnrqzTQmlSbCjLQsihbAW6EoiM0BphjRlasHuK2uX
+	 6TS4BdUO3Al1NLwDxgjnvhH3bbTmGMoSyndWtjXL7nEy6Rd+tPLN2Rm1vQ6xNmjMRYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794262701;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=c9eJFkB1A2V/YM9JwIyEGfv/PGOIESHseQrXfeJUqyE=;
-	b=HD1Wa2OGitCLNk1wx14yUOeO/985aova7romkNJXk0NgF5jMpZxHhKKySmKyJEcj5JJ3
-	 Iz0ES+qAa66rk5+k8EGBpU8UMNQNgJ92aRdB0aISiLXju1vJcSOP0acOLC9KIPpJxj9Re
-	 rmMbuHIgH64C5AhJQtkt+9YR0aUgSHgziuAzdk8jVbnDA/OzuIKf6dGtW2/U4G6mO9pt2
-	 GSM1lDwLKhupsABpjgX9LVGoM5lvEyseQPF6w4CB5auwXe8IY8FIcVRW/akFTK2iohRWN
-	 miEGAGTAlXwePlepesGfaKHIye5cKcJU9vnyj735vx3bKXkbc6BMEJCXrl01I3XMfJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794262725;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To;
+	bh=PqUsSI/pBW0rMqLjhQm3/UP4yO+Dz7g7JjNH+6EZEDY=;
+	b=fFBZyXw6P6H3SHxkAKcPcJxFNrObgrOSx0wUZS1gT8G0pLRGMHAKJx3xHyhZdp1o4EJj
+	 kM4Os4yIQJekdyJFatudCMFaAvM4VXuq7V2OySEdKMIJY+NC+E+Wu2wzvuetp2+w2DdHD
+	 oFfTlfFO3VvMPfLARVwNq5DvoSyAY+ViRN/vWpIFwNckkRmjQA9nHRY+YfJR5NeMQ/a8C
+	 tBP7C4m7X3xebHQmaXYLSYk39CEa/4B79KSr3TZJl1dF8+6V/1090rqfzl5flx1HhKlIB
+	 o5gjSb6xLAMSv+UZJBND0x/BkTXYMPvtZNsOrQA0NW0Rma1ErMkpq1Ug4jgLWImzTEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fqs0Wigu;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aFPEv7h6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB7F606A325;
-	Mon,  9 Nov 2026 22:18:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AB7F606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FCC8606A31C;
+	Mon,  9 Nov 2026 22:18:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fqs0Wigu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794262701; x=1825798701;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=aK30euBbuDTMMaEp6ls7Vv/1SJLD5Mq+6g69iv5YITc=;
-  b=fqs0Wiguve1RNqiD28X1sK8POY3mt/rL89mAUGJTZk37AC6koc1xT4pb
-   +Hx7p1S1X5PrfrGe/bUjUGXCxXiILBHtP6JiCDZR8N6nL5Yjp7Ex1l6EH
-   27D5XCXWWCOO/kUKnC2TfklY8TA6HrScKX+C1bovXjvyYTu02wZSYh4zs
-   IJuFBFk+hIrBffrx/9muz7lYw1tscOR8+DsiYVYKbstODssVJp13zCIKA
-   7qLsKg6w7OLYzxetp25G1tKhXxP/D2NqhlTJDZZ/JtcDYHgB0eddInqTo
-   EheFYf3mGutaLw8WyVXAjOJ0BRA5SB864SCdbB0WJZYnvtw+QlSz5Np2f
-   g==;
-X-CSE-ConnectionGUID: g3WeQ/92Tq+gT6s3KG2qFw==
-X-CSE-MsgGUID: yOF/G8iXTDOps3QRhog+7A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2891784"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2891784"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:18:20 -0800
-X-CSE-ConnectionGUID: uRWsm7i9QwiwhY7dhOj8yA==
-X-CSE-MsgGUID: sRE96BBBQGe1ftnOsgoHNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7851116"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 09 Nov 2026 14:18:18 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQXgs-00000000vQl-3fQU;
-	Mon, 09 Nov 2026 22:18:14 +0000
-Date: Tue, 10 Nov 2026 06:17:59 +0800
-From: kernel test robot <lkp@intel.com>
-To: Chenghai Huang <huangchenghai2@huawei.com>, herbert@gondor.apana.org.au,
-	davem@davemloft.net
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
-	liulongfang@huawei.com, qianweili@huawei.com,
-	wangzhou1@hisilicon.com, linwenkai6@hisilicon.com
-Subject: Re: [PATCH 2/4] crypto: engine - add acomp support
-Message-ID: <202611100606.eXBh5Nlt-lkp@intel.com>
-References: <20261109073556.2517351-3-huangchenghai2@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aFPEv7h6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A7471F0089F;
+	Mon,  9 Nov 2026 22:18:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794262724;
+	bh=PqUsSI/pBW0rMqLjhQm3/UP4yO+Dz7g7JjNH+6EZEDY=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=aFPEv7h6r7yMyqPCdYuvWZeoCafV4GMiKfXZ8i/fnK9zNF9PScUH0IbWVczxKBG6D
+	 HS9IpMwORTUxGo13ghNVXq28enxfRb0ZliuziNYNRBpQqsNewztyqV0uTxNdAc4E17
+	 oydVSDTRWuK657KGrVDTICg/DXrLBTW2iasXqusiOS0ac0ZhPuKfeJh130Goep/qN3
+	 TV8tUNnhmW/Bdth4nHudVjoznxgGs3MBP8gP/hHRdaQsG9VxAoE31juenTlQLeVliM
+	 6yqKgkNuio4ZUSfLkXZbXvT72WqiYWcYyg5DKxoV4SenSHcbzS2KFAHf+//hJgejXG
+	 RA4evd+EM6Nxw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,39 +48,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109073556.2517351-3-huangchenghai2@huawei.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 09 Nov 2026 23:18:34 +0100
+Message-Id: <DMR11RZ87ZS1.36616ZBZT4MVE@kernel.org>
+Subject: Re: [PATCH v2 03/12] rust: pci: allow drivers to manage DMA
+ ownership
+Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>, <alex@shazbot.org>, <jgg@nvidia.com>,
+ <yishaih@nvidia.com>, <skolothumtho@nvidia.com>, <kevin.tian@intel.com>,
+ <airlied@gmail.com>, <simona@ffwll.ch>, <ojeda@kernel.org>,
+ <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>, <gary@garyguo.net>,
+ <bjorn3_gh@protonmail.com>, <lossin@kernel.org>, <a.hindborg@kernel.org>,
+ <aliceryhl@google.com>, <tmgross@umich.edu>, <jhubbard@nvidia.com>,
+ <ecourtney@nvidia.com>, <cjia@nvidia.com>, <smitra@nvidia.com>,
+ <kjaju@nvidia.com>, <alkumar@nvidia.com>, <ankita@nvidia.com>,
+ <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <zhiw@nvidia.com>,
+ <boqun@kernel.org>, <daniel.almeida@collabora.com>, <tamird@kernel.org>,
+ <work@onurozkan.dev>, <jgg@ziepe.ca>, <bhelgaas@google.com>,
+ <kwilczynski@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <peter@colberg.org>
+To: "Simon Song" <xinmengs@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261023154009.2246627-1-xinmengs@nvidia.com>
+ <20261023154009.2246627-4-xinmengs@nvidia.com>
+In-Reply-To: <20261023154009.2246627-4-xinmengs@nvidia.com>
 
-Hi Chenghai,
+On Fri Oct 23, 2026 at 5:39 PM CEST, Simon Song wrote:
+> diff --git a/rust/kernel/pci.rs b/rust/kernel/pci.rs
+> index 10864ffda4e..a156927e23d 100644
+> --- a/rust/kernel/pci.rs
+> +++ b/rust/kernel/pci.rs
+> @@ -108,6 +108,7 @@ unsafe fn register(
+>              (*pdrv.get()).probe =3D Some(Self::probe_callback);
+>              (*pdrv.get()).remove =3D Some(Self::remove_callback);
+>              (*pdrv.get()).id_table =3D T::ID_TABLE.as_ptr();
+> +            (*pdrv.get()).driver_managed_dma =3D T::DRIVER_MANAGED_DMA;
+>              #[cfg(CONFIG_PCI_IOV)]
+>              if T::HAS_SRIOV_ENABLE {
+>                  (*pdrv.get()).sriov_configure =3D Some(Self::sriov_confi=
+gure_callback);
+> @@ -345,6 +346,9 @@ pub trait Driver {
+>      /// The table of device ids supported by the driver.
+>      const ID_TABLE: IdTable<Self::IdInfo>;
+> =20
+> +    /// Whether the driver manages DMA ownership instead of using the de=
+fault DMA domain.
+> +    const DRIVER_MANAGED_DMA: bool =3D false;
 
-kernel test robot noticed the following build errors:
+The problem with this is that it doesn't prevent drivers from calling into =
+the
+safe dma::* APIs and hence is unsound (the IOMMU core relies on this contra=
+ct
+AFAIK).
 
-[auto build test ERROR on herbert-cryptodev-2.6/master]
-[also build test ERROR on linus/master v7.4-rc2 next-20261109]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+This completely goes away once we implement the InitTokens and dma::Setup t=
+oken
+idea [1] from Alex and me.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Chenghai-Huang/crypto-engine-clear-busy-and-recheck-running-in-the-retry-pump-loop/20261109-153553
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/herbert/cryptodev-2.6.git master
-patch link:    https://lore.kernel.org/r/20261109073556.2517351-3-huangchenghai2%40huawei.com
-patch subject: [PATCH 2/4] crypto: engine - add acomp support
-config: riscv-defconfig (https://download.01.org/0day-ci/archive/20261110/202611100606.eXBh5Nlt-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project fc9576e3b179738d99c5babe5cd9d6c1f883e0db)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261110/202611100606.eXBh5Nlt-lkp@intel.com/reproduce)
+I.e. you'd have something like this passed to probe():
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611100606.eXBh5Nlt-lkp@intel.com/
+	#[non_exhaustive]
+	pub struct InitTokens<'bound> {
+	    /// None when the driver manages DMA ownership.
+	    pub dma: Option<dma::Setup<'bound>>,
+	}
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+In order to not make this a blocker for this series, we could also do somet=
+hing
+like this in the meantime:
 
->> ERROR: modpost: crypto/crypto_engine.ko: symbol 'crypto_register_acomp' undefined!
->> ERROR: modpost: crypto/crypto_engine.ko: symbol 'crypto_unregister_acomp' undefined!
+	pub struct DriverManagedDma<D: ?Sized>(
+	    PhantomData<fn() -> *mut D>,
+	);
+=09
+	impl<D: ?Sized> DriverManagedDma<D> {
+	    /// # Safety
+	    ///
+	    /// The caller must ensure that devices bound to `D` are not used
+	    /// for DMA allocations or mappings through the kernel DMA API,
+	    /// directly or through helpers.
+	    pub const unsafe fn new() -> Self {
+	        Self(PhantomData)
+	    }
+	}
+=09
+	pub trait Driver {
+	    const DRIVER_MANAGED_DMA: Option<DriverManagedDma<Self>> =3D None;
+	}
+=09
+	impl pci::Driver for MyDriver {
+	    // SAFETY: This driver never uses the kernel DMA API for its devices,
+	    // directly or through helpers.
+	    const DRIVER_MANAGED_DMA: Option<pci::DriverManagedDma<Self>> =3D
+	        Some(unsafe { pci::DriverManagedDma::new() });
+	}
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+[1] https://lore.kernel.org/all/DLUTSDP614AJ.2JU6SDKECJOCU@nvidia.com/
