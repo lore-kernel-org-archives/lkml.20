@@ -1,88 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794226273;
-	b=dsolViZsFn3mS29m0atH+QWYZneOzoJMv61J+q/bg2tfohJuPHVXBU0GF//BOPaRXwPU
-	 GkxIdHxsyqRUGNnw9KLKvlmR34p7CY8gh6It+OC8RFwXq77BcjNDXpomXCD7XKoqQu7AX
-	 KJpayGX1urWjXrHlV7KpwnfwuHjtHjMUO4RMppFn2blZrrml/KA2LufgqbSWJf+DTgbp6
-	 x/g+wcxGqbtfS5ydDznXq8nGskXO93nOHVnBctcBwyXLhvXyMQuuQiDim//QOTx5wNwY0
-	 Eh/+rMvGk/KwLDr6gU2a8O+AQDwsI38UpZ1D7p5k75EdGQjAeHm+eFHo9e/X8XJ4htg==
+	t=1794226316;
+	b=QpSWoKpk8G8DGdQh5WPHy6+PApGec5IToluufQMs2WZwcuSBMqCZoiWdRh7Tvg+89l26
+	 H2EpgPdSFIMnHThgKLcP7uo4TQWL4Mur2EYOFpg6vq9lGVFYepLDokwVRyMbIwKhYZcO+
+	 mGhRv01r5PKuSrkYnVfDySPY8swrnqtTPgjcm7+G4QFCsSUulnONZNpkq4F1KPCQBAq54
+	 F6nUKp2khpAH+AgvrbGLCGlPjRyvdHYKzjkf0/4BcBrD/a2CCAYHdFVY85pEJVsne7ns5
+	 dJabirAxWtoJWQqrtTJxfPFALN2DkgRmjNfQDge97Zc82ls4pTFElWl1Dqfe+uykitw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794226273;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794226316;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=tgxmkN4SDhT3DVX1MkqJXs2K3p5W6sK2g9lAo+MIV18=;
-	b=jGmnxXSsbFOi4eslBPgqws25t4XH5BAv/950+bNH2u+Pt8A/HcVvURYq4uwBs/d6Z8Fo
-	 D4KQepQc3OdGLVOzVKGl7fFCyIWWRcvrDk4C079Wl1hilIh4wt88aCQzXtYHXwTV3M/eS
-	 q9+KpUSD2uAtEzFdhvW4cWixy/9u+0vqIRMDYLnwvKUZ1S/IGMEgkHgHTL8hG8jT4mhZg
-	 GLyFaZK9E8MUqB+Md6TURjYPo568lODLtT4vwbghhUVtEBCiNnrzBo0r3LtjUBEzj6EJf
-	 s5P3rq+b9ErD1yq67EEXs0xje01PgtxLvQdHDo5zZPmOTUlgMRdjIkuDC9fNEWYZgtg==
+	bh=rOoAO/cKnojQ1mjIUDSYzy80JHx2s+cP2ZxIueKDKk0=;
+	b=gChbJ0xeZ2aVrk02cVfyElvbyEYnMgMR0WFL8NsAt2R4XQBHrivbExM0eUMoeK5chZl8
+	 iH3y28EPc9HC/duwPzk4Y+l9F3fPBD/F/aRidIKPQr/OhxlisWXlp6fBzNSgRhJyWGvyG
+	 9ABXCl9Gr3ZhM5hYKXAjArD7UELkwx5PqGJE/8q2xg3jIiH2vj7U3bv4OT133Vm3mJJl+
+	 glDZnXNk/ceYwwxoywzWJoMM8hn4dDMkEF1jLNAgi0afRQf3uHgzKsb249Iv7aDpJ5bZY
+	 NncVDFa9ddD047ltSwsIiq2CPSzFhGfQm4nMXqI+4Pu5U4KVxKvZ/qYh+YBULGG6cow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=MW0YKzdX;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RbR8YWVO;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43A0B606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:11:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43A0B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F509606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:11:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F509606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=MW0YKzdX
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so6357765e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 04:11:12 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RbR8YWVO
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1438d9363fbso439368c88.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 04:11:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794226271; x=1794831071; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tgxmkN4SDhT3DVX1MkqJXs2K3p5W6sK2g9lAo+MIV18=;
-        b=MW0YKzdX88e0qiRGhc2GPKOo9KUhLdFdfcW9GCF7jSYRzx/wX2+BmX6r5f75wna+ey
-         4AqDkEY3PnOF6EwLkUzwtFytC0yvy8OrPa0lh0+EoTIi3NQHr2Uhb1BVo0mxIAmt+Tkd
-         6kEkZhpkw4FpdczlMOWnMNWTzlyrrc0RptPGw9E9umKVUTSN85qO17JVjnaOj6OqVIhV
-         n/CBhaFSM8b6oAIC0Fvx1ee6PO7ek/uSkBV6E0KA92fAxN4BBanXPeWIdOF3fHpX29OO
-         7gjG5CtNG7vyhc07jKxQhAwXSpWiUr8tk0sFh3rS4T3os0rBcf0h7rmoMH09L+PQrs70
-         M6qA==
+        d=gmail.com; s=20260707; t=1794226315; x=1794831115; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rOoAO/cKnojQ1mjIUDSYzy80JHx2s+cP2ZxIueKDKk0=;
+        b=RbR8YWVOz+jr23GxOq782kbhyAEaDpRxtqVXfsCdQqajVBjiYCGIuNunab9XcHqNa9
+         hpjj8tofVmUn7EGJmKlPlS5HCSUMjeG+ex+YIaPlvtRTo95MycqCwnfv78gEPLHLd84a
+         UuyslXsJBwWYO8hKZpgi6iNmFZx6Kr7k8hEYIOjOFD9O2nyj9948zVTTMViN475b+i3t
+         jwbm+yJKPUzDuL8FlZ03c676Z+S3VicHWIv+yZmx0+hb0kWc3TbwIwYGXfCVkoM6fk+N
+         hNV8jeDkbWyUc1iR44AAaGsAYOzVMboResO2FuJy97Lt80Trq/eMIhpqmiD1mOXn5LSj
+         ZPqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794226271; x=1794831071;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1794226315; x=1794831115;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tgxmkN4SDhT3DVX1MkqJXs2K3p5W6sK2g9lAo+MIV18=;
-        b=sEhhezECMCIankh68e+k73ClcRhEoviq2kzPnLfbYua+BIAiWso9PDpwhk1yXP4Xjx
-         4CAv266CebK/QOJKrXied+iHOWUX1Mc8oK/XIET8+TXGPMurOfksApGjFGS7VArCFW0e
-         oI7l8hExcb++Rvpj4vkOnK2zQWIkMo6q3DHLjMfaSduTfo7w5pa177wdRItDLKEcZ3AO
-         5T8dR2BE2Todvur1efZLjNUU0QbWvsXFwCnurAk7NkM93ij4sx0JWX9yjnFhR2cymRJi
-         IJOOG6PfDabwpfDnw47rWBQ2cvT3JWd1WTKC0hyy0vZ+yWPyls1CoeA7QVQr3YwlZlNO
-         /jpQ==
-X-Forwarded-Encrypted: i=1; AL+hErFpFxEXtEPosGhBRGr2iOkUM0LYlBodDsFP5T6O5hVmQn3SExIQ03NlcxYx8rqzuKSCXOig+ovG0TiLTks=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+sHuiTPCmbQEcYo0hTqvgi3mnSEtvJvZ7FxIpQmft9y4lGp+eI
-	WTAwWOvqqpVyHQbEeD1RuvzZclRq7NG/NGecxYv8lBvcX9daA3TY6QQ0hU6I0GmesrQ=
-X-Gm-Gg: AYBFou055YtcnP84pEW1qEVKXu3DDQBRv2cpPYlke2PpvW/fXJOyNaee/ht5do81BqR
-	qzUgT5i5AAO3asnfwj9kuUfk9U0EWBufpy+TKVpn9e4JK0HoOs6XrBP2m8+dBY5Cl9jQnXhnrZ/
-	UY+2zl41nA77Wd10kRgp6nlhaWk4V8CpxOGYA4dGtgb0pYPeO0rhiXUt5JKPC4rY4CxF67c11cA
-	P9bRq70mOgU10RSlvwIYyDFP2MPPbQ5Lgy+7Ala5TPbhQCnq/2Ky1qCJRGvSGWOHxANTUE3nbUS
-	F4zxv/ues5sGuDUjbPLzVjG6XBrnvzkQKoLG/U6LAIrNoGfadEeqmvNJdWfKABH1dcB6ABddqii
-	CdYi815zv5/4Zk2q6DCHFAo5T93AqDrIU0nmTJ/koeWzoF3uXiGh5sj+kyAhdepojd97cyVnrWV
-	8wSt49MH5tx3I7CjYBEGWGia9Ta2kaZefoaRPowduRaKgeoNJSUddJ7r5JWzBLp/6/dpm6QWj1z
-	Wr3LO9R4tzQcBiE3AE1JK87Whi2gZYFdoqcU1cIoTdty2SdHKvi/dMhFCKAhaet7t567NMNe19j
-	HLyJt92pvtoQ7DFcWnzDMBQ3Yxs206Ld
-X-Received: by 2002:a05:600c:6209:b0:4a3:5a98:c279 with SMTP id 5b1f17b1804b1-4b960da4963mr67152385e9.8.1794226271331;
-        Mon, 09 Nov 2026 04:11:11 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90ee2b8c0sm149263015e9.9.2026.11.09.04.11.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 04:11:10 -0800 (PST)
-Message-ID: <ecd60873-644e-4b8b-a786-ec84276a99c4@linaro.org>
-Date: Mon, 9 Nov 2026 12:11:09 +0000
+        bh=rOoAO/cKnojQ1mjIUDSYzy80JHx2s+cP2ZxIueKDKk0=;
+        b=LXSdGH/rVA8iDQ1WCcMFFgtXcj19zGqUsDDeP+MmVZs5h9ZC0Y3ThGfQsS0N+f6GVA
+         kmSAMjEPn+SflkT1ShT3qlQyx4k5LSJSKY7s1+ffPdahlTaHIp9pBjVbRo5+dGzQfkk4
+         Iv62ap9FZ2hp2KnAK841BwJM6Iv9ZDBtLJPo48vaE/TH1yOWjBlCmPal1FesbJ3utrv6
+         nyUIjpta7eapzaNHFVC+Ulo5U1BjMuznn06uDkwwq1ssYnjNmypXvjGGZ+48Zgd3M9yv
+         CFZlFUn21dpS/nClHBMvALijjGesFYnC3fgjNjZxtU+UW2sN9jCKITexFfP4k9OEtZnS
+         /VWQ==
+X-Forwarded-Encrypted: i=1; AL+hErFv2JJTtB8fHf3pe1h/4n66Y8xaV3sH+aFEOLVIJzFAyYGMVmUJDzF4ynyP/KR0GGBEzMqUnuzFtVvq46c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+I4UP2zzV6Lxy81+XGg9SJmBLJ51CgzSJ5N9whf/7O6XHC178T
+	SmdBv/sDT3V0rEdwUmG/wRAbGRdqhByvqF3GvCquonWEY5fgcsP+qihq
+X-Gm-Gg: AYBFou2+otZoFh+EW7gCMnZUx2ly6Y5ueRUOjMAT3puHQFWA2B5PnPAASr56LObzC06
+	yLUdBaLRjAbKpEswF0hnVBgld7SVJyK6TsDkan9aOToBO6u98TAO9NDslKpr1Ts2v/p4mpqzQqE
+	cBGxMAus2YSfXzFqQAjR4Iz3I8b8TGdG9dVTaJfBojJ6MBQ/eRqjTpeo+4tbIJFf7FxOCf0Gqq5
+	KHqeXz0GbOCXNRYnK8wpa3pDWxBsKbJhpc2QJhJEaVYsrJg5crswUVFAPYSb/286mOn4NBuuTqJ
+	kOhSiTtTmKCYFOcgMZDXbQBwVguwu+vTocnT45atYmfXLuPYyjQeHC+dkOqMN6y1JZz2ikg9zV7
+	MW/ZTs40c4gYoPs9YL9uRDpgaLqZo2ctP4Rsjjf5Zk/PEWolOFtqrxXwrb1HfFSYeGtTA0uBc4Q
+	wupndlbq/K1vXfNepDsJrZC3ObmSf41wZGHyKs/pf/bk1M1z0CAUklGQ6btpFTgONElqwNnRDxn
+	K2CVU2g5NJaiOXEzzEUgQvvOvisLmQkDM7uz0m6qKDI7mZjA0tp/JMwl8xhAQzEro+gNPWIcYyr
+	ciiCIOJjT/bbQKX1ONB22SdjW29tWjwNDUkAftJe8ql1
+X-Received: by 2002:a05:701b:260d:b0:181:8948:f022 with SMTP id a92af1059eb24-1b39fed1e46mr5037953c88.21.1794226315281;
+        Mon, 09 Nov 2026 04:11:55 -0800 (PST)
+Received: from evo.www.tendawifi.com ([103.98.7.211])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375604109sm16188496c88.10.2026.11.09.04.11.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 04:11:54 -0800 (PST)
+From: Archit More <architmore303@gmail.com>
+To: Juerg Haefliger <juergh@proton.me>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Archit More <architmore303@gmail.com>
+Subject: [PATCH] hwmon: (dme1737) Use str_yes_no() helper in dme1737_init_device()
+Date: Mon,  9 Nov 2026 17:41:27 +0530
+Message-Id: <20261109121127.10937-1-architmore303@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,93 +96,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] perf test probe_vfs_getname: Fix missing debuginfo
- detection
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Jakub Brnak <jbrnak@redhat.com>,
- Leo Yan <leo.yan@arm.com>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>
-References: <20261109-james-perf-test-fixes-v3-0-e8d0a65e618a@linaro.org>
- <20261109-james-perf-test-fixes-v3-3-e8d0a65e618a@linaro.org>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261109-james-perf-test-fixes-v3-3-e8d0a65e618a@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Replace open-coded ternary string choices ("yes" / "no") with the
+standard str_yes_no() helper from <linux/string_choices.h>.
 
+Signed-off-by: Archit More <architmore303@gmail.com>
+---
+ drivers/hwmon/dme1737.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-On 09/11/2026 10:17, James Clark wrote:
-> skip_if_no_debuginfo() looks for the errors that 'perf probe' prints when
-> there is no debuginfo in the output of add_probe_vfs_getname(). But since
-> commit 92b664dcefab ("perf test probe_vfs_getname: Skip if no suitable
-> line detected"), add_probe_vfs_getname() returns early without adding a
-> probe if 'perf probe -L' doesn't find the line, which is also what
-> happens when there is no debuginfo. The error from 'perf probe -L' is
-> discarded, so the debuginfo errors are never found.
-> 
-> This causes the debuginfo dependent subtests of the
-> "perftool-testsuite_probe" test to fail instead of being skipped on
-> kernels without debuginfo, because test_adding_kernel.sh calls
-> skip_if_no_debuginfo() unconditionally. The other users only call it
-> when add_probe_vfs_getname() returns 1, so they aren't affected.
-> 
-> Fix it by doing a dry run of a probe that needs debuginfo instead. This
-> works without libdw too, where 'perf probe -L' isn't available, and also
-> avoids adding a real probe just to check for debuginfo. This fixes the
-> "perftool-testsuite_probe" test:
-> 
->    $ sudo perf test -vvv "perftool-testsuite_probe"
->    ...
->    -- [ FAIL ] -- perf_probe :: test_adding_kernel :: listing added probe :: perf probe -l (output regexp parsing)
->    ...
->    -- [ FAIL ] -- perf_probe :: test_adding_kernel :: wildcard adding support (command exitcode + output regexp parsing)
->    ...
->    -- [ FAIL ] -- perf_probe :: test_adding_kernel :: non-existing variable (output regexp parsing)
->    ...
->    ## [ FAIL ] ## perf_probe :: test_adding_kernel SUMMARY :: 3 failures found
->    ...
->    189: perftool-testsuite_probe : FAILED!
-> 
-> Fixes: 92b664dcefab ("perf test probe_vfs_getname: Skip if no suitable line detected")
-> Signed-off-by: James Clark <james.clark@linaro.org>
-> ---
->   tools/perf/tests/shell/lib/probe_vfs_getname.sh | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/perf/tests/shell/lib/probe_vfs_getname.sh b/tools/perf/tests/shell/lib/probe_vfs_getname.sh
-> index 57a59ae7d4ae..98cfb02cf7c6 100644
-> --- a/tools/perf/tests/shell/lib/probe_vfs_getname.sh
-> +++ b/tools/perf/tests/shell/lib/probe_vfs_getname.sh
-> @@ -64,7 +64,11 @@ add_probe_vfs_getname() {
->   }
->   
->   skip_if_no_debuginfo() {
-> -	add_probe_vfs_getname -v 2>&1 | grep -E -q "^(Failed to find the path for the kernel|Debuginfo-analysis is not supported)|(file has no debug information)" && return 2
-> +	# Dry run a probe that needs debuginfo.
-> +	perf probe -n -v 'getname_flags $params' 2>&1 | grep -q \
-> +		-e "^Failed to find the path for the kernel" \
-> +		-e "^Debuginfo-analysis is not supported" \
-> +		-e "file has no debug information" && return 2
->   	return 1
->   }
->   
-> 
-
-Hi Namhyung,
-
-This patch causes a shellcheck issue with certain versions. Not sure if 
-you applied it already, but I'll send another version anyway:
-
-   In tests/shell/./lib/probe_vfs_getname.sh line 30:
-add_probe_vfs_getname() {
-^-- SC2120 (warning): add_probe_vfs_getname references arguments, but 
-none are ever passed.
-
+diff --git a/drivers/hwmon/dme1737.c b/drivers/hwmon/dme1737.c
+index b1bd3682c5fb..c3bf5f4ef941 100644
+--- a/drivers/hwmon/dme1737.c
++++ b/drivers/hwmon/dme1737.c
+@@ -17,6 +17,7 @@
+ #include <linux/module.h>
+ #include <linux/init.h>
+ #include <linux/slab.h>
++#include <linux/string_choices.h>
+ #include <linux/jiffies.h>
+ #include <linux/i2c.h>
+ #include <linux/platform_device.h>
+@@ -2316,13 +2317,13 @@ static int dme1737_init_device(struct device *dev)
+ 
+ 	dev_info(dev,
+ 		 "Optional features: pwm3=%s, pwm5=%s, pwm6=%s, fan3=%s, fan4=%s, fan5=%s, fan6=%s.\n",
+-		 (data->has_features & HAS_PWM(2)) ? "yes" : "no",
+-		 (data->has_features & HAS_PWM(4)) ? "yes" : "no",
+-		 (data->has_features & HAS_PWM(5)) ? "yes" : "no",
+-		 (data->has_features & HAS_FAN(2)) ? "yes" : "no",
+-		 (data->has_features & HAS_FAN(3)) ? "yes" : "no",
+-		 (data->has_features & HAS_FAN(4)) ? "yes" : "no",
+-		 (data->has_features & HAS_FAN(5)) ? "yes" : "no");
++		 str_yes_no(data->has_features & HAS_PWM(2)),
++		 str_yes_no(data->has_features & HAS_PWM(4)),
++		 str_yes_no(data->has_features & HAS_PWM(5)),
++		 str_yes_no(data->has_features & HAS_FAN(2)),
++		 str_yes_no(data->has_features & HAS_FAN(3)),
++		 str_yes_no(data->has_features & HAS_FAN(4)),
++		 str_yes_no(data->has_features & HAS_FAN(5)));
+ 
+ 	reg = dme1737_read(data, DME1737_REG_TACH_PWM);
+ 	/* Inform if fan-to-pwm mapping differs from the default */
+-- 
+2.34.1
 
