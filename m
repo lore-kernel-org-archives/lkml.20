@@ -1,47 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.245.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192192;
-	b=X7di1LzQwjx/r4zw1XltUaPPy5NBPeI4HJwvkZg4TLrghHMBnlqt+Dye8CpddkPY+XzD
-	 N7jt9hFJ2MRUV1NTvfAZU7hRRp++ugifgszlmrvtUGa1dIlHBeejQNJ3PoSDFWTUofQCM
-	 89DycRE8ShvZfkC28uxg/PwejW+6bLFkvk9QCfhk8XeBjoBr2cXbnWXSPKyKy9y13Fugw
-	 +8EbbshcTUfLEGZ9q5lO9djS3/zGmQ/H2trqQ2PKpcpXsshjmmnxiUor56lvT06dj+ocx
-	 TDSfydL5pAYc92XK3ibI6lQw2rdW4fmNDvm+YVlWhZSTF9GCDngh2xnIcKrMbXQx4dQ==
+	t=1794192232;
+	b=mW5Oc4bY9XCgxjQWoKzIj2IbuBrx0Ky4L2tuaoyfWE0cpU9F0RtnlyK4yiyLY6cm3RJZ
+	 +egVUk+koKZtkz2RL4YeBL13xj1uuC9kMT8w2eNK6xwGPDulN6Oz4Z0FlgEK2RE/ZCQa7
+	 hidETe+aMjJLqbz2dEPW6y5gkYmrY8vfqCU+0UlDJ74bz5tqQ7TsbJsfbUIzOwJVy2lY6
+	 tA/GkrQ+96zrT7cRWdbHbzhFLwA0xBeUaMAkWxfrya4seAsopAyVw3PaA0yWDkSAFEio7
+	 h4F2yMPtr32ZVlPhBaSvfzie6mq96rIeSiJBGRmXRKXzDGzpqTvZtEE0a2UsXxERHCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192192;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=NiHIrQhN1EZBJeOzVcCEIjXlI/nm5F+3CXiAQu+5P7k=;
-	b=OPd0Hvt/66blieMZ6kUzgSn+obd8kJzZl88Wam4lkUxVUL9UWelqSDT79XtiNED8I20n
-	 Rhv5web8tBKG/3dy0cuqf3lPXWApKhIp8XlzKWMda8FipxExQ2/FTGctgWb6NNcY9rjff
-	 YbkzeBZLMbHywkA8sLHuIqKOBugz3gOy9Hyx44twTa9fDW42uq/55M/KV1q5cdC8Ll6LX
-	 jdQ66LxC04z+YGwPOOzBueIyP/EejibrPo+KM2Gyoz/DXU6oDMp9jhETFbnbZxEu86kGp
-	 whHyb3FUmFJ0C8rmEZt20OibhDK2ZTvke1Cz9PPTkxoyS2IqDrBpD059Fb3xNeTG2aQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192232;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Yq6Wg8dZm4uB3bJQCmf1miWvm1ABWBJ7TTfz/AA487Q=;
+	b=SRQxhbhiNLbVIpejxgYM4WgAKRKzyP7cyoxplK+brXlQIcvtjzI0zenkdpBGFKSq7lcq
+	 8ovwmuO9GC5dylTfysCmqMsqKC3LZblIXtgcZ+StCnm09WbBdoMQsgYE3m0HmQW3DczpH
+	 doNnpBbPK9Jtv1SeMkFLlZoQ8T2eP3yqswcr/gG5Vb3Yq2MycZKgdAEr9uZEzhEjCPcvb
+	 sWijfn+IuAWoW68rcnR+/2qoCOXuEEu2p2INYLLNiAts9+FsYvbySsNZUBq90BSVF6ZnR
+	 kj7+3ZD8PjHsA5jDS3NwODa7wLGBkS9Qar39RaQ/YGMH/Iy4+3c5D9TQi4Qu3cMN+Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=strlen.de;
-	spf=pass smtp.mailfrom=strlen.de;
-	arc=none smtp.remote-ip=91.216.245.30
-Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="n1/628eM";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF369606A334;
-	Mon,  9 Nov 2026 02:43:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF369606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
-Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
-	id 3D46A60490; Mon, 09 Nov 2026 03:43:09 +0100 (CET)
-Date: Mon, 9 Nov 2026 03:43:08 +0100
-From: Florian Westphal <fw@strlen.de>
-To: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: "pablo@netfilter.org" <pablo@netfilter.org>,
-	"kadlec@netfilter.org" <kadlec@netfilter.org>,
-	"netfilter-devel@vger.kernel.org" <netfilter-devel@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] netfilter: ip_tables: propagate compat_table_info() error
-Message-ID: <avEzPLSvi6meDDXv@strlen.de>
-References: <YEo_4lnonRc0-_Jotuzk7hOaWl3QockF3xDwJ4cE5v8uBvy1KW27Eku0fWDJycuoZ9AgGFxsxgtSWI6SE2kNJ38eVnLx-HtApOhBw0wxXGg=@proton.me>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44532606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:43:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n1/628eM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD5B91F008A2
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:43:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794192231;
+	bh=Yq6Wg8dZm4uB3bJQCmf1miWvm1ABWBJ7TTfz/AA487Q=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=n1/628eMuF0qPAkqesisYQ6yKWJ7AmwnuO4vlBh18h6Mj36/7w+FGaj+I60SWAPhH
+	 D0OAPqOPz7kbkmrxpEYoORTdfBel351gZLiQfi4B+tzWMqcHNafX/L5Zft/yGhttMj
+	 hvy96X4MxRcGm8b9ek2TMXliumh9cbCxqBzsD1ic0KGJbQJ6GPBUTjERr4M4TcnPsD
+	 eNbcW8kuACQkLpReDZ8FF4IhhBR9QChQfZq5cRyy8XMZzuks9w2tPEqYdiIBFYr2uL
+	 bPV32hAroVDL3cyKi2ybGo26vdrvfs5T3ZpfwA9favWSGpR+lypSfipGx+pSu9Z6Mu
+	 SuD1iF8Duahyg==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b4bd3d98bfso433952a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:43:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHdimZ5v/ikcUJ2Vyw8S8A06Rfz6vo/yfn9v6tkUX5gsMW99C1VDVCGT6eWTdlyU1QErHQEhuDWM/L8Sok=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3u1G9oVDnWyaW6L/MOIymwTpjRgJtDBLBQHajK4AtpHnJ9d1s
+	VCTYWE7Xo2ggdHI9R1dVja7OYQOYqLPr9xiy7TOZjMf/0Hi9YEhB+4VkBN7zLkv+rrev6YwTQoj
+	cYpWOgwhwm1AiGSNEJP0fWhHGg8AshKY=
+X-Received: by 2002:a05:6402:4487:b0:6b5:7de8:87cd with SMTP id
+ 4fb4d7f45d1cf-6b72249a189mr1729932a12.42.1794192230805; Sun, 08 Nov 2026
+ 18:43:50 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,35 +59,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <YEo_4lnonRc0-_Jotuzk7hOaWl3QockF3xDwJ4cE5v8uBvy1KW27Eku0fWDJycuoZ9AgGFxsxgtSWI6SE2kNJ38eVnLx-HtApOhBw0wxXGg=@proton.me>
+References: <20261106084034.1579494-1-songwei.chai@oss.qualcomm.com>
+ <au2UzljzfMaiL7F6@hovoldconsulting.com> <5df6771c-a440-45cb-bdb9-ca25b42287fa@oss.qualcomm.com>
+In-Reply-To: <5df6771c-a440-45cb-bdb9-ca25b42287fa@oss.qualcomm.com>
+From: Saravana Kannan <saravanak@kernel.org>
+Date: Sun, 8 Nov 2026 18:43:39 -0800
+X-Gmail-Original-Message-ID: <CACRMN=d8OnSHZ=4DOmfWafwYL+8ZTGggrxdWV2-iTptEJmd19A@mail.gmail.com>
+X-Gm-Features: AclHuK83znKgPlPm3mYNg-jihIjo0y5-ZXz-onGQXWzrK1htisLXcdgRQNPmioU
+Message-ID: <CACRMN=d8OnSHZ=4DOmfWafwYL+8ZTGggrxdWV2-iTptEJmd19A@mail.gmail.com>
+Subject: Re: [PATCH v1] driver core: Demote "Fixed dependency cycle(s)"
+ message to debug level
+To: "Songwei.Chai" <songwei.chai@oss.qualcomm.com>
+Cc: Johan Hovold <johan@kernel.org>, gregkh@linuxfoundation.org, rafael@kernel.org, 
+	dakr@kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	songchai@qti.qualcomm.com, linux-arm-kernel@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org, 
+	devicetree@vger.kernel.org, Saravana Kannan <saravanak@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Noah Weinberger <NoahWeinberger2003@proton.me> wrote:
-> In the IPT_SO_GET_INFO compat path, the return value of
-> compat_table_info() is ignored: on failure (vmalloc ENOMEM in
-> xt_compat_init_offsets()), private = &tmp is used anyway, and ret is
-> overwritten with 0 after a successful copy_to_user - so a 32-bit caller
-> gets stale or partially adjusted 64-bit-layout size/hook_entry/underflow
-> values instead of an error. The follow-up GET_ENTRIES then fails with
-> -EAGAIN. tmp is fully initialized, so there is no disclosure; this is a
-> robustness fix. The same pattern exists in ip6_tables.c; both are
-> patched.
-> 
-> Affected version/commit: mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07), net/ipv4/netfilter/ip_tables.c:968-987, net/ipv6/netfilter/ip6_tables.c:989-1008.
-> Longstanding code.
-> 
-> This was found during an assisted (AI-supported) static source review of
-> mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); every code path cited below was re-verified by the
-> reporter against that tree. The patch below has NOT been compiled and has
-> NOT been runtime tested, and no reproducer was produced - the triggering
-> conditions are described above instead. Please treat this as a report for
-> verification rather than a battle-tested fix.
+On Sun, Nov 8, 2026 at 6:08=E2=80=AFPM Songwei.Chai
+<songwei.chai@oss.qualcomm.com> wrote:
+>
+>
+> On 11/6/2026 4:50 PM, Johan Hovold wrote:
+> > [ +CC: Saravana ]
+> >
+> > On Fri, Nov 06, 2026 at 04:40:34PM +0800, Songwei Chai wrote:
+> >> fw_devlink detects and relaxes dependency cycles automatically, so thi=
+s
+> >> is not an error condition requiring user action. On complex DT
+> >> topologies (e.g. CoreSight), this message can fire for many node
+> >> pairs and adds noise to the boot log, even though it's primarily
+> >> useful for debugging. Switch pr_info() to pr_debug() so it stays
+> >> available via dynamic debug when actually needed, without cluttering
+> >> default boot logs.
+> >>
+> >> For example, on sm8750 this produces 125 such lines in the boot log in
+> >> total, 80 of which are CoreSight-related, e.g.:
+> >>
+> >> [    0.057190] /soc@0/funnel@10041000: Fixed dependency cycle(s) with =
+/soc@0/stm@10002000
+> >> [    0.057211] /soc@0/stm@10002000: Fixed dependency cycle(s) with /so=
+c@0/funnel@10041000
+> >> [    0.057229] /soc@0/funnel@10041000: Fixed dependency cycle(s) with =
+/soc@0/tpda@10004000
+> >> [    0.057249] /soc@0/tpda@10004000: Fixed dependency cycle(s) with /s=
+oc@0/funnel@10041000
+> >> [    0.057254] /soc@0/tpdm@1000f000: Fixed dependency cycle(s) with /s=
+oc@0/tpda@10004000
+> >> [    0.057260] /soc@0/tpda@10004000: Fixed dependency cycle(s) with /s=
+oc@0/tpdm@1000f000
+> > I reported this elsewhere a while back:
+> >
+> >       https://lore.kernel.org/all/Z6t45aOGDkotqM4Z@hovoldconsulting.com=
+/
+> >
+> > Are you sure it's not the coresight bindings that should be fixed?
+>
+> No, Johan, I don't think this is a Coresight bindings issue.
+>
+> This is the mechanical result of the standard bidirectional graph
+> binding + fw_devlink's direction-agnostic phandle scan =E2=80=94 it will =
+appear
+> on any SoC/CoreSight topology using the standard binding, and there's no
+> alternative binding syntax that avoids it.
 
-8-(
+You can add the post-init-providers property so Linux/OSes can know
+which dependency is not a probe time or initialization time
+dependency.
 
-net/ipv4/netfilter/ip_tables.c: In function 'get_info':
-net/ipv4/netfilter/ip_tables.c:992:1: error: label 'unlock' defined but not used [-Werror=unused-label]
-  992 | unlock:
+A lot of cycles can be broken by adding just a few of these. It'll
+make sure the coresight stuff gets probed in the right order, and more
+importantly also does suspend/resume, etc in the right order too.
 
-8-(
+-Saravana
