@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794196395;
-	b=XTDxCJpgAwY2XBsxzL3C9oM5D2rkQid1q69kIZw8LIgPxtsmzQ7JTJ6u150zmgonza/m
-	 xf+TpPZ5ICxAR+APfm1OG69D3kP5L46BKl7t7I20kYXr7gf0vHGr2ZuEmy26ynSeSJN6l
-	 x4TvZhPxDAgcsNwn23lAtQ9Anqtz4Ly9/m/uwLOB4Dipgwp9NJBoq9itZnjD0qoO5wa1X
-	 wPA413ycC8KROvBeuclnj9FcreI5tQL+ypT0T0KzHizZsCim9wtEcRArATf6QxJlfZCGF
-	 Nw0HChpV7tYk8oGQzjdQ+20EU8dhFaQ6tYLU9eqYvMSJ09wGOwTO994HVr5z4pHiQSQ==
+	t=1794196398;
+	b=CtO6kARQ/iwMT/a8zOaDu6QkZSuOGZQjaS5QK0u8RHe9sF9J0vlFgMjctaW3mFASKZJC
+	 PM5P7exlaPebSzZ4XQKs5UpOlxQKcq9f3fALk+LIe9ZwcHGgIa8npOaTi1Z/qXbLmhaAW
+	 B7teyiik0ziOx72jC9Gn92nQLZtr/V5Q5HFje/4sOVxzV6Uxql2Oi3ch4TPH7SAjmaCui
+	 koljNiLu6o6kh3yUaAD5JH8BPuP5RETPpnuyTYFDwrev0JbGxAlcXpWtqEmrxFqO3C2RO
+	 w6SWl97237sHj96ouUblpx3LpbCMyO+svZuO/ZZKvZvF0NnXXWu//C2Xd2sDAAZUUgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794196395;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794196398;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=+vNJkoFdRV0hile3s0HC3gFTuex7879BN3APjkn7jbs=;
-	b=tUHlRLdEvZhoWd3w1tKL5AYyecZn71KRmtpBFwAKLc0cGJiY0/Oi07d8DPf+y8QwI8Ww
-	 ToloQRx2joJ4KLqqw7BPfjbsiESBpFC7v8FoeXbD0wLfqbqYfvmPdHQ6nSc0v9exM3vac
-	 68SUx2uzUHYsJ1rhzyKkkGwI1C46cehRtiZG981IYdH43RxC8vuZMBS2nTy+5rV4Mgpgk
-	 +WCV7i8db86chbo+h4/TMWnUoQRB6ohCtESilSrgmYVg8Y95AydrribIq5LpmSHNc3Wvt
-	 Bb4fabkkMpBauAWcYTFUXUuIXwFWPi0vIR7lsRRz1mNfDgqpLvG+pELNJFtwdZpn3+g==
+	bh=NTgwcRzUf32MacA5MXJuOZ03d/Y16YM755ndq/T6KZQ=;
+	b=lVrobRt8fcqeVrIB4QrvTskCZS7Lun3oon8IIjSy1v4o+U936H85Xx4ELtbw7gd2xLlr
+	 2vdMlFoLMg2CgRv3+JwEInB/pQlLH/zy5oyNK4T9C9nkbJFi7p231kIoFwPXtRcwzX8/L
+	 eXsHVbtTPE2/oI0vFhjvXH9Orgq+Anxw/nZfRaFsLJ2lBOdf2SwFWbc7nfBzwKdN79Ykd
+	 moOxYbz3R1Xg8jNsDajnezBQLCLGJd4ZaZLHVvvwgZRh3rlSy8q0yp+jkJiOQdwvt7PNR
+	 LXpfyjLIOnQuqUBtxs082XXBJJR/fuYQojeUv4yznRxdWT8JSKD8cVfwAwX+FFa50gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ktL4ZkIf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OUqlkRAG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C85606D818
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:53:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D49606D830
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:53:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ktL4ZkIf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA2111F008BD;
-	Mon,  9 Nov 2026 03:53:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OUqlkRAG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 457F11F00901;
+	Mon,  9 Nov 2026 03:53:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794196395;
-	bh=+vNJkoFdRV0hile3s0HC3gFTuex7879BN3APjkn7jbs=;
+	s=k20260515; t=1794196397;
+	bh=NTgwcRzUf32MacA5MXJuOZ03d/Y16YM755ndq/T6KZQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ktL4ZkIflPj7K3WoQl+5ry6SHK90P2zIQ9mMIpNFEJ7RU1ld+a/7qOsDf8tSoVcpS
-	 EiZpVHH4sLF2hlQ37rPdGi4QTdbHnQTmuyjU/B3eFR31Tx9f0nMsPHS/AC3hM0sksP
-	 xR6+q8526CzBfXG8YMCCN84fpbyUcQQB3eLXJwJXnJOuy+hYJ0/Vk73GWC4+qcS2TD
-	 Zsl4vMB1PTfcEqDnyAKZc7zjx1UCd8YWYkcSfcNTeL9ilH6Wxka2MFlHm+3VUP6wuC
-	 lLgZ7PnhkqD7BfgHDts1ZEmxzNU+D7SMpLS4H8YJjsQPrbFcWaCRPE8EZlNH41gSbK
-	 0peSM3PJWJDoQ==
+	b=OUqlkRAGFZ/RMIWVZXDniGJJh11ExwQFPILdSTmiqW/eUJLyqOTFB0K/4eAayiwVQ
+	 bR8/ybESSba47UaZveoREIbTMa4ETG6y5/KK6r6OZexifD02xboCY8qlohJr3qod2l
+	 M3bYJGZQGVmzm0vbJZEzJrBU3wzgyaBUfjlxLofB0qnkYeJguttGlpx+Lu+h5mVsYM
+	 IwWLl/0WMX6f1cfiKgkogNtFXXa1plkLwf0zjHxCQXcehTbTLXJd7ErNfFNu60KofL
+	 l0kBPZTQRljAsih+ypn1dqu7h+pWDAkneN60yEFhkcfWgdcqsEczf/hy88TFMzLJ0Y
+	 HoZGG9ABEGm8w==
 From: Jonathan Cameron <jic23@kernel.org>
 To: iio@vger.kernel.org,
 	Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -56,9 +56,9 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	Andy Shevchenko <andy@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [PATCH 07/14] iio: light: vl6180: poll own trigger from interrupt handler
-Date: Mon,  9 Nov 2026 03:52:45 +0000
-Message-ID: <20261109035252.1295926-8-jic23@kernel.org>
+Subject: [PATCH 08/14] iio: proximity: vl53l0x-i2c: poll own trigger from interrupt handler
+Date: Mon,  9 Nov 2026 03:52:46 +0000
+Message-ID: <20261109035252.1295926-9-jic23@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109035252.1295926-1-jic23@kernel.org>
 References: <20261109035252.1295926-1-jic23@kernel.org>
@@ -75,25 +75,24 @@ Content-Transfer-Encoding: 8bit
 
 From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-Poll data->trig from vl6180_threaded_irq() rather than indio_dev->trig.
-The poll is only reached with the buffer enabled, which is only possible
-with the driver's own trigger as iio_validate_own_trigger() rejects any
-other.
+Poll data->trig from vl53l0x_threaded_irq() rather than
+indio_dev->trig. vl53l0x_validate_trigger() only accepts the driver's
+own trigger, so with the buffer enabled that is the trigger in use.
 
 This removes a dependency on the trig field of struct iio_dev, which
 is to become private to the IIO core.
 
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/light/vl6180.c | 2 +-
+ drivers/iio/proximity/vl53l0x-i2c.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/light/vl6180.c b/drivers/iio/light/vl6180.c
-index aef8a5333442..44fd0446b583 100644
---- a/drivers/iio/light/vl6180.c
-+++ b/drivers/iio/light/vl6180.c
-@@ -525,7 +525,7 @@ static irqreturn_t vl6180_threaded_irq(int irq, void *priv)
- 	struct vl6180_data *data = iio_priv(indio_dev);
+diff --git a/drivers/iio/proximity/vl53l0x-i2c.c b/drivers/iio/proximity/vl53l0x-i2c.c
+index 173e69753df7..6c595e647d75 100644
+--- a/drivers/iio/proximity/vl53l0x-i2c.c
++++ b/drivers/iio/proximity/vl53l0x-i2c.c
+@@ -107,7 +107,7 @@ static irqreturn_t vl53l0x_threaded_irq(int irq, void *priv)
+ 	struct vl53l0x_data *data = iio_priv(indio_dev);
  
  	if (iio_buffer_enabled(indio_dev))
 -		iio_trigger_poll_nested(indio_dev->trig);
