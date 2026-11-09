@@ -1,40 +1,40 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227495;
-	b=5stgj6gAuvA7FNLrMhP+PZjkFCm38gjyDtfDC/GlWTUHIsBsZkLJV3fo8uZr9WYoAGyd
-	 dw1yTFUt2SNinssdcDRKednMfOocLOii+XNbNFLv9bhJ8m77oAh0xJT1nXWaWZnde1AMU
-	 hMFCCsRZNvMdPpD8enGPbStlGEznFp8Yae/AQjeyE7vd5zF/Coc/GRFbgcg33Jsg/QxXO
-	 GRJDnmFtpmVbA66Z1fra24+1SiSD6KNt4p0mSUmOSZcOIo7+l/V0Z045cSP2nOfCnTbwO
-	 HHyEHGo4SOjfVKj1GEafQtxKoBdhottVBg4KFMeYBgiuL8J0QAL06V6TXwIv2Ak4cHA==
+	t=1794227494;
+	b=dYH6UHFAo2fm7dfohq0uy12SL6AJqaE5Oy+jE3fQ5xXtWYPOM5Kz4kQUyV20Ii4CMHGO
+	 BxdAtAk857QXAN+3PsFmDl0uON76iCg00j4Xc0AjwC3qUqWH72oeT8r8TB1STZlx29SHi
+	 TpazC4+vzc8S5Xel6hIsP9gsBjN2cbJedbhV9/B6gMPZ2cuPzIz+fO9O9ZF9IUO3dok+Q
+	 R6K0NJtq90My0KI8GZia6WxAjGRHRK+9T5MqAI4NVFiFWjzcVqujZLt4m/3//qmA7+5C4
+	 cl0WuYrjE3H65QmOY7h7RdYqEMdLiR8dMo+AbMxm0mzj8pDtG4ZHEUa2IItq+DbC+Qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227495;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227494;
 	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=U+Dj0snY+kfTXfG+VRMdB3cQPdoVXWSwHQgeJoQUXLU=;
-	b=UzT/hdAOQP+ksuIUkmlQ28go7qLxeNVidrG4jmMAHRtx+fNd58PMfaRHoj3UGuHCCNwx
-	 Ntl6eQTdSJ4LBqkPSpCQwTjyuFWckwz0k8IFSDUu+hml1As0FGJ4yV+Gzzn/WuT8OH2fO
-	 Di+AQVuFFUcw9D52LU0UIkAuM+SA1Xf9K4SomIhCXjQeXS5nL6wYSkzWHNUkuGCHCue+D
-	 LpFvmBhbtzBHu5DQbf/oRduhcZTgitPjGmVWO3bgvwokvZc4lu82qaMwBEY34uTNn3Lge
-	 tI1CCTXyxVm0iVgPo6cfNYVmyFy1OTIxaDkrQ+ybiGjHxZc4KaKF5+veXciVw9KTJYQ==
+	bh=QGPGgmuQu2fufOLJfGHUvsRMzAjWcvAMNtZA8gm+nvI=;
+	b=l4dfniM71jOgpSfxpa5xJqdtXdqZP9ZVnqy7Ld4fgYSOk6B952T0eInjqMbFNN4vGWvk
+	 r0Q/eE7RI+GCbYS9TUAsaKBsJz2A1dT4Qdh254tGZgXzGq/9Z2UHKm2OprUp5KFJAhmWR
+	 hzeJaeh4y/zT7/hMdqg4llGAMS+fMCyA6RrByJAAzih0H2p9J3D3O9SuHdqnY7wSBIzfZ
+	 nt5GGPRVY/cwYiocjUQ/bhQ2q99EK09mlZCt4Sp2E/dSvGrIVCjEQOqDja01xW/rorIs1
+	 calwAVDgiiHdHs8k/yVGIEAk/hwbcb4jiJz53c6PnyD3aaCrA7UsZ9x8WqZHRCZ9fNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linutronix.de;
 	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=YGDzl48j;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=6xr7PFmf;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=dWCwP9LI;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=TOK70ySp;
 	arc=none smtp.remote-ip=193.142.43.55
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23941606D817;
-	Mon,  9 Nov 2026 12:31:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23941606D817
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2D7606D809
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:31:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D2D7606D809
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=YGDzl48j;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=6xr7PFmf
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=dWCwP9LI;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=TOK70ySp
 From: John Ogness <john.ogness@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020; t=1794227492;
@@ -42,21 +42,21 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=U+Dj0snY+kfTXfG+VRMdB3cQPdoVXWSwHQgeJoQUXLU=;
-	b=YGDzl48jYxHNdQWqwzNV5+QEK5o2Kg+YtE6I5R275wGjN0HYtjQdCgRd5ky/lY+rhD0Qeo
-	tHw/E1efPQUfsZ/jlNeTR1oxqYCbkOZGnVg+Uq5Vv8wfKDDtqGaZn/WrDTF9WeWxAURlEB
-	pcZqWoViGMQFsNmPlbCpu+DOuuflw21r0Gnh9BIpQbVgawuzs5a3FXsauNOmusnTnQ70u7
-	GgNqniIODXVigg0MAmdDaZbxdtD9DtTMXx3naSCdTZlXFr2nCt4AKRzJaVPU8/roKKBt6k
-	gzvy1JaX2Opas0XDVcwX4MkVopbyv50xHXVqg7JKBGjAWakNamPG8CMCDsKaEg==
+	bh=QGPGgmuQu2fufOLJfGHUvsRMzAjWcvAMNtZA8gm+nvI=;
+	b=dWCwP9LIP0FfMZO0Sr35ZuGCo+VAH9IXCEV+8Cu5RfqAt+MflGIngtFBsnr/SIABYMIk5x
+	tWRBuEhfWoBAIAvtIqFTAlat7UO42/H9F4KmyYU3UnAmWGaKWk9CDjwrPYWp/ZkN0yf0kB
+	zesBIuOJHG2WyKNdHbfhU//ExSeNe+oXAnWz5B0gJiPXNyqPsAcU6p4wveuw9vGGeZYooq
+	efHJNUhUO2PIImz4irTE9oQepnv95VY/OOVboLqnEZ3nexnFa7T//sGzvykckv9Tlf8vbI
+	7S5vvhz1xRZO0iwv6e7ziIbOfXVhVmV6MEMukLDDjyN49UUS/Wpy0Y6re5+csw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020e; t=1794227492;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=U+Dj0snY+kfTXfG+VRMdB3cQPdoVXWSwHQgeJoQUXLU=;
-	b=6xr7PFmfvnfZEgJrYF2lOI1GpwHyCQZKyXHko+03Y4661Q1+t74W76iQkYV+5jIqHY/Wc4
-	2HCIiZcLDXSmuJAA==
+	bh=QGPGgmuQu2fufOLJfGHUvsRMzAjWcvAMNtZA8gm+nvI=;
+	b=TOK70ySpMFiIv8oWkfah1Ca9CjsT7PkF+cx7DzYQGjib/YDAuyeYj5pZ8S9MJ69wF7agG8
+	raecUvWJCv16QoDA==
 To: Petr Mladek <pmladek@suse.com>
 Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
 	Steven Rostedt <rostedt@goodmis.org>,
@@ -64,16 +64,16 @@ Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
 	Breno Leitao <leitao@debian.org>,
 	printk@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Gustavo Luiz Duarte <gustavold@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org
-Subject: [PATCH printk 6/6] netconsole: Always perform unsafe flushing on panic/kdb/restart
-Date: Mon,  9 Nov 2026 13:37:23 +0106
-Message-ID: <20261109123127.489676-7-john.ogness@linutronix.de>
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Dave Young <ruirui.yang@linux.dev>,
+	kexec@lists.infradead.org
+Subject: [PATCH printk 5/6] printk: Add panic+kexec flush point
+Date: Mon,  9 Nov 2026 13:37:22 +0106
+Message-ID: <20261109123127.489676-6-john.ogness@linutronix.de>
 In-Reply-To: <20261109123127.489676-1-john.ogness@linutronix.de>
 References: <20261109123127.489676-1-john.ogness@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -87,43 +87,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As a legacy console the netconsole would perform unsafe flushing
-during panic/kdb/restart. With commit 7eab73b18630 ("netconsole:
-convert to NBCON console infrastructure") the netconsole is now an
-NBCON console, however it uses the CON_NBCON_ATOMIC_UNSAFE flag and
-this prevents unsafe flushing except for at the very end of panic().
+During panic, nbcon consoles transition to atomic printing. However,
+there are consoles that do not support safe atomic printing
+(CON_NBCON_ATOMIC_UNSAFE). Such consoles will only flush during
+panic if their unsafe flush policy allows them to do so.
 
-Enable unsafe flushing policies to allow the netconsole to perform
-unsafe flushing during all panic/kdb/restart variations, just as it
-did when it was a legacy console.
+The unsafe flush policy NBCON_PANIC_FLUSH only allows unsafe
+flushing when particular flushes are explicitly invoked. Call
+printk_trigger_flush(PR_FLUSH_RESTART) before performing the kexec
+in order to give such consoles a chance to perform an unsafe flush.
 
 Signed-off-by: John Ogness <john.ogness@linutronix.de>
 ---
- drivers/net/netconsole.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ kernel/crash_core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
-index 267254f046de9..6c1587958e915 100644
---- a/drivers/net/netconsole.c
-+++ b/drivers/net/netconsole.c
-@@ -2695,6 +2695,8 @@ static void free_param_target(struct netconsole_target *nt)
- static struct console netconsole_ext = {
- 	.name = "netcon_ext",
- 	.flags = CON_ENABLED | CON_EXTENDED | CON_NBCON | CON_NBCON_ATOMIC_UNSAFE,
-+	.unsafe_flush_flags = NBCON_PANIC_FLUSH | NBCON_PANIC_PRINTK | NBCON_KDB |
-+			      NBCON_NORMAL_NOTHREAD,
- 	.write_thread = netconsole_write_ext,
- 	.write_atomic = netconsole_write_ext,
- 	.device_lock = netconsole_device_lock,
-@@ -2704,6 +2706,8 @@ static struct console netconsole_ext = {
- static struct console netconsole = {
- 	.name = "netcon",
- 	.flags = CON_ENABLED | CON_NBCON | CON_NBCON_ATOMIC_UNSAFE,
-+	.unsafe_flush_flags = NBCON_PANIC_FLUSH | NBCON_PANIC_PRINTK | NBCON_KDB |
-+			      NBCON_NORMAL_NOTHREAD,
- 	.write_thread = netconsole_write_basic,
- 	.write_atomic = netconsole_write_basic,
- 	.device_lock = netconsole_device_lock,
+diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+index d0bd2d0cf8990..064b0af903c38 100644
+--- a/kernel/crash_core.c
++++ b/kernel/crash_core.c
+@@ -140,6 +140,7 @@ void __noclone __crash_kexec(struct pt_regs *regs)
+ 
+ 			crash_setup_regs(&fixed_regs, regs);
+ 			crash_save_vmcoreinfo();
++			printk_trigger_flush(PR_FLUSH_RESTART);
+ 			machine_crash_shutdown(&fixed_regs);
+ 			crash_cma_clear_pending_dma();
+ 			machine_kexec(kexec_crash_image);
 -- 
 2.47.3
 
