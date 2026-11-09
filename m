@@ -1,136 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.16
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794187877;
-	b=zrvpoHIsK5e0wED/9DyXPOfgt4+9Z2WepfoITm0JQ0v3L/HgivlYBcLRaMDzS95TcOwy
-	 gAsThZpuZQjrzvfpK/olkLlfSpINdsL0hc5ltjsG/S6ZiBNPOamXV4xn8+xmavzSjWWLP
-	 r6DVCbni4sWYauUw7A3Rq1QWjjgHcMT4JNaM0t8atsLYg6lYgDNkFEpXcHhZZZ6T/7wKU
-	 s5OeIr+iS12eoAmFd2mU8xBQ5zNouVWpUS4PbgjBnOYXcDEl/SscxxUXs+/hPt7eOPhND
-	 9i1abt3sgebPNckbeRAeHTlp21QBimHCUjme/aVvTiI2LqQfN8aEbP7+RfqKAIIhK2g==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794187902;
+	b=n872s/MxsyJaYLNdyWk9X46+UWpX12p3lc4cgD2VqYXj8+mavEtAyZJMoK1qVyMECvyR
+	 VRA4pVWHbYhdKRMg+83n5TLVVZ6U+dE6h2VuHQtlOy4MjjObotibzQ6J4vUY86qzOe95P
+	 sAxhZ/X1BJaHAbdfoUg2Uw8Uevf6Rwm91LYmqFs71DPjM9K+g7QngnKj0RYuDBrMo90OU
+	 LQbK4KtL4IVC9S8qfGQgTIaOgdo/MxDkvCfSuj7z0EfuOfeqg6yF9fvs4YD7KGLUIwo37
+	 SDxr/342vjVQRU5ZgR2D3Fj+zlKSl5ZBH/012UyxlgbJq1xMfAhMpfsmTwsFmer1dbg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187877;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
-	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=HX0EvMI85+bMM3QmE0m7JOatE5aIM+ZejDgTspYYHgY=;
-	b=jcB0DDMx0Zb1/15/G2mBD4QD2USkGZncp5C47NR5Iq1kZSQWTu/cq9u0nEE2qt5Gd7zA
-	 4gjAMzXHq1qyXey8gC4UtK9U8Se8GysnJO+46xaRktfVNAB/pN4pmenl4QkopnGKWDdKD
-	 rXq98lQsWqz/Qmtu6wxU+Upadr1moMxg00sY0q9flaDlBUZX1+pVEgRQTNDkH998kVbeX
-	 9L75wI2c9NFCOfoqH/MP3cPSNa7QcGDrcLwIkzGKd8auv+AkSoNXU45WypIF/9MoUXsOm
-	 Ma62hX1wQ4u2OD8Y+/oKzKxSYGw1LMp7ml6lmpduBxC3F0wFQZhKpzQkX6wca/BhPkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187902;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=8BIGtN0edeJ4AHaRHTPlYTsz9LtH9rZv7+zpPDlG/eE=;
+	b=bInC3GnTodd1+uy9lDrx6g7++Ga9ZnYSA/U07rKJ1sN0XXpAkLLedgiHxkCgaTHxabNB
+	 9DtdvN2Ikad9Gd0KUkvu2wMhYtqdTzUlnE8sQmQbJo3QauCfjS118PedanEMkUNC4CN5x
+	 5HHpfQ2yXNLarN3moqsDkpYd9pSx5D/0ZaaRkveQlVBcqCT9X1nCffJOFZ8S4SHi2zI0y
+	 tAE3JvyJbjJglKbuc7Y79+QQdWD1rO/RK4OBp9rz8exU1XyYmkuzGpIe65FNzXbkwppOk
+	 Y2VU8kToUAY3BVI3ncfR2qiOziv8EzcrBQhu5jQ4z6BbUM/Zp2GrdxvDgIL+Sk1uc5w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nemcV2FA;
-	arc=fail smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ge+LOS3W;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373B1606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:31:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 373B1606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E0E606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:31:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6E0E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nemcV2FA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794187876; x=1825723876;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=9JIl8KWKFWgLkMQ98MbGCLVhG8lvI56AOtD0Ogm+LSE=;
-  b=nemcV2FAaL1hiz7Uvbege9KSpdfUrAYYac+vLJVcqu8EF6qx1JAceoJH
-   7WwSr7OtC5ERwTVEjQ5eFkIRhoMiHGZOU9RLVog0OHzesKX5af2lFFkJn
-   r/CQk3VpSneRawQaD2hbtcoi07XtR5rGDuViQOgbgYyiK3idSX/0HFscT
-   nmanQIcElh/R+SU4I5iGpsFsrUY3LhiLoagOZ5nYsMC7n3hCZvPMvLoDS
-   V/fYVhc5gQ7+rAiE4HCS4fhApnp3gBf/Mj0+Qnn0yPOo//DkDsEHJf3Yn
-   XFUGMMQf+PNiwN9Wb0oVk/pj3LJANJi9WSuZiGyslzNhH4WrQPkVEKLPM
-   w==;
-X-CSE-ConnectionGUID: kpFeaH4lR3iXiBSQnzFv2w==
-X-CSE-MsgGUID: XtJkjGcNQq2plUWzpd10nw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2940617"
-X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
-   d="scan'208";a="2940617"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 17:31:16 -0800
-X-CSE-ConnectionGUID: aLREjqAfRrGSqDeC/TEoiA==
-X-CSE-MsgGUID: 35ziJt0vQqWN3PzMhkVh5g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
-   d="scan'208";a="8091058"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 17:31:16 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 8 Nov 2026 17:31:15 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Sun, 8 Nov 2026 17:31:14 -0800
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.71) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 8 Nov 2026 17:31:14 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cJq9Ji1tD8UZliyaBL0mQq82pyuvIknUGyF9lFgL98Xc6Fr+sOnJr3/V7Z16TFlN9hisi4hic5b7dbTrvO9ZyiXZxqatX1/PlbUB9Hgp0eK2pgfTdWIUPXLKizhc4QDLFnAEQ3Kl3Yz1pL1KLlYgczL9V8yiFRw/ilKP/eg6iz6robGFbQ4aCqWxGVvSpZ3R9xHG9kuMXWIRujKPzywb9P1MAGMy0AH6lO0l0CJzEbVyO+WC3LID3qEEmcUlSY3zRshQUSceSCek777dRajOSHrZP+gqzHoyP8nlAAKB5qvpoyF6C0Tx3bnpzgA1SYVS9n+ri6uIPi6vCanWaqV8dw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N7I99l1TbfMrV4fqz1RlbSqZtsx2G6mEutKInT2zuKk=;
- b=ybyBMPdQOR7kkH8QhTGsMkeiOtwIPHcE+kUQAnOujntaCkk5BGO5M2sOPAa3FLMTVa2yi+zYq8HHxFX/0bgCdRSAmRezpgeu1AUb1HdLDpnIW+DEg67aNfxV4/uS/zVYaTJr3OU4DNbzcFhpov76JOImsrvw7bbe+exEBVTNMyCK/n/tyhQn+ccGFGrSAJsRDK8D9+wGRgoWTA58eVGjcDCnSc/TGLLc42A5EuuuQDd+Tl2xZFC+mriy7IY/cmYhoKNENxeoKKgGveOKSX6PEv/CPZ1Wwxi41qvOURXw3Scx9F1h8AHtYPig8n2MgeATxO06iZsMoy482VtSb+IIYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
- by DS7PR11MB6294.namprd11.prod.outlook.com (2603:10b6:8:96::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
- 2026 01:31:10 +0000
-Received: from MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
- ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 01:31:10 +0000
-Date: Sun, 8 Nov 2026 17:31:07 -0800
-From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
-To: Matthew Brost <matthew.brost@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
-	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
- =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH v3 22/33] drm/xe: Add Kconfig.profile options for BO
- defrag configuration
-Message-ID: <avEiW3AKOAi8Gy3C@nvishwa1-desk>
-References: <20260711025619.2540575-1-matthew.brost@intel.com>
- <20260711025619.2540575-23-matthew.brost@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260711025619.2540575-23-matthew.brost@intel.com>
-X-ClientProxiedBy: SJ0PR13CA0006.namprd13.prod.outlook.com
- (2603:10b6:a03:2c0::11) To MW3PR11MB4684.namprd11.prod.outlook.com
- (2603:10b6:303:5d::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ge+LOS3W
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4d427836e9so47691566b.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 17:31:41 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794187900; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ia6VNy/jpNiofKknefZHQSFLAqaQafddqzKpwSjXq6E0J26/OsYgVSbuV/GBwZRhWB
+         f5W/g+XIqA3RR/Z9C9CAiJBNKyHY2b1spUdvh2svj7AxTyhuiHIaQLlfoKHyMUeVB5Zf
+         031xXKgbKsFZUlM61f4qvUMsAnAi67ia940csHhc+QXf6jbuVnNoxyjqqkyNHeh+uyvF
+         3BeNUR7oApfVBF3BAnECufQEBPZEad0sKgok+quOfiCJ0lTWq5qq9f6+42JjK3fD9iNS
+         CQaMNSilfa6hpVlmwvbk06QswJaGUs7KveUGxJuJwAKgVkYY9DYOMIFA2ity8MTXo7k/
+         N8TQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=8BIGtN0edeJ4AHaRHTPlYTsz9LtH9rZv7+zpPDlG/eE=;
+        fh=ReKUEf8Z85xnz23eUZYjulYeoM5jIetnNBhdLfewhQQ=;
+        b=sCN33Jm76JGX/IxKxZRw9preQkncdhlFi5jmTN2ARFNt0KCwryX0J32Vds9WLHUIFZ
+         0Xj77PHbaSfJbytkQlAeEcH3N7lgOtjwX1Nd0q1fX+gOmmh0zd0yz9ZudD/MiZ+jr9wG
+         ZtGmpufTJnFbLpdTAaPFIBZXyFlNT5YpRxc6LN/jDTzm4Fv/Ti7uvBQVpzxQb8OVwKU7
+         xA0cYWO8lzssj8uZvgXtoAng4/ZCQZrQWTUuxwFms1iQVuhJan/0t/i5VTB6qYmjdmkt
+         3+6ZXcB9ifxHRj2QcNPzo+ZtaQ5MSe3Acg5LcoJO5kUL0eXgoK/qMUwj3ojkPFG3nodW
+         GQdQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794187900; x=1794792700; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8BIGtN0edeJ4AHaRHTPlYTsz9LtH9rZv7+zpPDlG/eE=;
+        b=ge+LOS3WxfnHTEwdhQ6dKX1jbsxpegXgckUlJ6y01orTMKd+m5sibi7bInvWsMo78h
+         C2/zNnXG1VC3f5bz80QMZyKB6evOJV/x+PbT8cXasMtrkA4aJNuXmv3LGwDVlLh8tzPY
+         6dB1QX+GBwsRxNZAxp9dR+31OSw8XboQB4H57FnJUu9epdoHupDM9ZrWSLdL6eC9izuj
+         libw1te3jgL/ek9dbuZNL5DUuTP600NCQmYIt8o8ah1beX49iSO/BryQbq99vZ49+fme
+         xUis1ENCn9E5ote723ny+P/OTkxlK/ydftsYyzkal0mxjNOX4mdY6GBVYEabWs8M+rs4
+         Jpmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794187900; x=1794792700;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8BIGtN0edeJ4AHaRHTPlYTsz9LtH9rZv7+zpPDlG/eE=;
+        b=NCv711xTrDvWpd/4c7VHblroR8BrGqy/7v6+xevkd3UJFyoVkhRsi9Y1cX+xy7vCZ9
+         iL9Ry6rmtGF3/4cTCv3SnVzrSCuk8bgD+HwBSETMgCrCVeeheayccgCfL58VjVaAkR8M
+         D2fTBMLZE6FfzH9twIfKUrZPeM4rc0ETKL5LfURvweN3XcuROSj9RMLc7MArbEGS6Gqe
+         hn6QQf2Bx88ndyhKMOjCnxf7E/gaBb/Gnva9j0lxQ2dnFeT5XbYF/022oHDAlwv/YvfT
+         XfX/fc/8PSHl+iHNee0/3QLaVgOdNkYc0kuswjXQG6T+1HtT4mijF99Ik5NL4Ti1kKFf
+         hKnA==
+X-Forwarded-Encrypted: i=1; AL+hErGB/aAWhkZVBvSB2ECl84Ak+F74uksztiBALTMWI+Xg9oZ0jIHdf3ZLYtsGev1S/Irq0vUoHUpfdOUNAOM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SY4x9H4ylw5EUEB7mHlsEZydWqj9Du0NbzO98/Ql6xjdjlnvo
+	a1zJuFQEcUFWuV/WHMRPM5q4pJ1xMb4Ys5gf5OLwv08a+j0cDP/DMY7zW4ka8HQWxMqANH7kBhu
+	TicW4vgW4zSpyyVZSioLd4chX4kCSER4=
+X-Gm-Gg: AYBFou3GfSsxq8ZPKPIPecyoZgwf37RrK8sM4uoDGzgKi9TZ64ICvu+fgmTiqCw1dil
+	vdSZZpcF0kger5h88l0d9lwh4/+SZNVL9alCRC+k+cbn0nqHDuVQeryySaCuY5sHYYrPpzUh1Cx
+	7S7/5MBoBZiXLGZ3+AZhMwQ9gCxrLEL5kNwSbM2TwAdnvs17frLn0aYPi9fX/gVpNx9gFOOnTrk
+	nxR5Y9KAGr7I7owmaNSoLm9V2v3PP51jDy2SehDDanJQs7m78rd2ATJMWi24hsuRePMwveSQoTK
+	eap1Rh/7jI+4uekU/6ZKLpTKaWWmoZyDHtknf0cRdJnLuJ6egLhCmDA45XpPG+n/XcFJhAIabVq
+	piKulZxtnTWtmaUfGYgBvTi18c66DJLxR76yo+VQ59yTYrs2RfFxXPa5KEUudcaP30ox9NA==
+X-Received: by 2002:a17:906:9c86:b0:c40:4320:de2c with SMTP id
+ a640c23a62f3a-c4d6db2544dmr166233166b.15.1794187899962; Sun, 08 Nov 2026
+ 17:31:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -140,262 +103,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|DS7PR11MB6294:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53c6b9cc-d182-438e-d5cb-08df3e012248
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|260925022911599003|260925021911599003|260925021311599003|5023799004|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261009221227099003|261009221727099003|261009223027099003|261009223327099003|261009220027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: Jr9v/1Q5WaCuXjc7MBM861QEzgYun0Ni2aIlT0zT1C1nm0AH2KhE/VvzaHetqx+lbYw+bfm6tNYPPdDHavdnFt2KcEgboo5zFC3Qeg8ItSAqOW/+2LSgLkuItPdUbYVnV7nJIkMPTT0b3X6i30b7WE/AEUJNk9btG6T5YsrVD2ORk5Oo9hg81iK5YkK3w1SEPmAh2rdC/O51XUk36gC8jtBouqoU0p26DHSCa4DoJatb2u1JNh1M9J78kQx4nxrgV6LbVgI5C4dYhOaZuvUKNUP4pUU0vHDySGJgrJuDZgbYQsRTE5cY4NC/UmFPFZ4WNeCB1Td/F/XMLfprn27UorVkjSWplIZVQD3EhPH44QVakV5Vgz65uuJYuJusU+R3WxsqaoQ8WcPPP0AVWm7MEOFvCoyaD3vOQHTmoldJaS3dX3sd5hlsaexgurnLQI/TUGsQT5I8EY4dUNejDE3W/IxncHQpCBmwlRLQIs9FVFg/X3AmTRS0RVFSFjBhPSPGnX4o2+5+uzyU4N6dxRzjL4xKmaJIfEOMFuxdMVdluhGnDr8bizYuWR4sVOUF6EirXO7HK3gWuSmZkrmIUI2VM0IfO6iUTzhDukV6PvgDTieW2HaR60mhy5Si/aZNuoninYLVOrCJopgzaWImDBTUsoVx0K6OtSHpSGV1rmqmmL0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(260925022911599003)(260925021911599003)(260925021311599003)(5023799004)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009221227099003)(261009221727099003)(261009223027099003)(261009223327099003)(261009220027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?hZYGzxdoFq9ou6CP7g8YUqDV1n9pklRBMqiKbUnWtLXjTAbUgXuBXuDyZS?=
- =?iso-8859-1?Q?nR9LaUGnrZmNktMxCnAdUvqWMQz7ey1ONJzxn4Z/C4cGehQW9raouM4hdG?=
- =?iso-8859-1?Q?rjuRZnpG8OOsrdiEFTejlBU8nohMNGGv15yMjUcMsDcNni3/4uvmL0FKLh?=
- =?iso-8859-1?Q?OyVH9oMDetGFb4hmahqLtBhGgvkFZ8eFEYtBDonXC4iCqnHIUsQewc6Gt9?=
- =?iso-8859-1?Q?iCs+kkecRQ9YkMfLVFyp1nqeTWg8wCwA4gWXXOiYjQ9mocRt3DJrG/k1gZ?=
- =?iso-8859-1?Q?+p/vbnpkEIS/1VbxyzKBtQ6yAOk0gLlkUYUnFXC1s9kcmKffizEL9a0eNT?=
- =?iso-8859-1?Q?PkYkxmkgyKNhxS2/oS2FYC6TMRQRghalbZRujDfU84ESbWAyiHx0mwwkA9?=
- =?iso-8859-1?Q?ZXD0fZ+FvLqFmf6Cqvs5rxeWd5qvAnkMofBWX7bVpdgM2N+e1D9omsLWBQ?=
- =?iso-8859-1?Q?MSjA/rRo4AXNfTjGSklLuP4Fnhy+eUSH8u3k0iR9G20eO80MYieEePvSsb?=
- =?iso-8859-1?Q?gWxNaY4YyekuA1Nmowkmphqa+Rxq97KqyUVLW8VQylkKiIppMcXTWns0sN?=
- =?iso-8859-1?Q?77GBJxI4WsmqJ6kxyW/gTOc249isjOI93oBi1AFex4OqMppazQd5WDZFwP?=
- =?iso-8859-1?Q?65SV6wNpS5a1WwPJzl+nkEF8ABc0zwCC13LpNKbKdCdt/Wcob4j2HAcfk3?=
- =?iso-8859-1?Q?6aA0zCAXhbFu1wUNmM1wjhXOVnhYSuDg1BJ4WUkz7nJxjqXZW0SbLQJYZ+?=
- =?iso-8859-1?Q?84KCpYMGILW+/ko20AzTKDoc5jkbxbflcBYZqNJ3f0u4UV4EtPRYezfpT4?=
- =?iso-8859-1?Q?4QbiScM2Wye0Ylx88rc/sezsgy+qJ8rO2Erp6pr7vF06kcV2+ou+9nj38j?=
- =?iso-8859-1?Q?/cnqroTdApD4KpKw/eIZ5uJa1OIzDrp6eezlZmx87c15j4rCg9Cv1DT8HL?=
- =?iso-8859-1?Q?KWs//Py/xDYz8j6UZAxAGDeAgEIv1m1Mf4TPpYXmxM9u+bh/y+yf9Ax6sV?=
- =?iso-8859-1?Q?j9cy9kpawGjI0vYQh5HpEhcb/Rd++NMqHlDzvb2GXX28wC/Fzld3L6w4me?=
- =?iso-8859-1?Q?H63QiN5V3kL1ObIYoBWeu81JWeBmZfmuREn3dNeMjB/Tbq1eYQ8KVX8tM7?=
- =?iso-8859-1?Q?UX31nCnVKIZOBkGGj4ATMzoPvkN6YrhiQ7EwCNKy94eUWkmpPK2XzvWGZg?=
- =?iso-8859-1?Q?HwvYhl7epvhmGrxE9Hm2XIRa97IZt005dsTHrqmXc+1ZB6UoQs0IO2ESVD?=
- =?iso-8859-1?Q?cyg3eT6Pn5pF7dOzVYmMV6RfUe4ufAh42+GEtFH4WybIaF8/Nx8abghRVV?=
- =?iso-8859-1?Q?tdWCacaePPzYi6AYzUYKiBvqSdEIhA/s8miBuRhWFwmCvmjtINC2wxDZpN?=
- =?iso-8859-1?Q?yYNgY9ib+oGKLfL1DjsNcFZCeIyLOnBrYwF3ZyzTPtSN5iUOb1XKclkiYl?=
- =?iso-8859-1?Q?dUu0y3ObsdHD056FBtRtQfc+/H0INQxJNlYr3lC4sUTyTaTINod+NX/bNH?=
- =?iso-8859-1?Q?J37BuZCtrCns0Avbqg3Oxvm4SuUkfWfkkGph8nyuI2cZ4+0k5GIuScnr3K?=
- =?iso-8859-1?Q?DxsDnZvEy4aQDzXiaxBQc4pqSvLou9Ef/Bg47GC9Nk90WSM4ggx/ZR8vBs?=
- =?iso-8859-1?Q?lpnpN2skmOi8dtAlKqicrQ8RD7coHOP+xhKh2TmLlZwxjvUngnJdCk1lnC?=
- =?iso-8859-1?Q?xSGubrXNe2DEeQ/l517IR/gd2XgNaaVAFIMkOaPk4DCJWGxcmWcC4JFB0F?=
- =?iso-8859-1?Q?9Hp1qOie2XR7VwsYMaSD0EIFF1GelybgkkFpvjjHs3Oq2YS/XY8yZaND2N?=
- =?iso-8859-1?Q?aDSERO54Ki3WAx4XQ/fhxTtq3CiszdhODgbSLIUn6N70vOQytuJK?=
-X-Exchange-RoutingPolicyChecked: Lbqb2dUQG+g+IZpK3KDlhjMTacxbE4hyR+QZoZjdaHJF49wDL/XxtLz1FOdgvbV0xndEH5hAMcCv81CLe9wzSmlRpFueCfXUHGWtWxGv6CnXWMioivgvH9UC6CYrXDOqZvGSxeLdsnhwcbTScmrmICBMOTBL2Ubee3TbY74RaCXg3DuHpQRj0V9OYR0ZsRkQ7d4vvYg4mV4i+EyOYnvSW2YjdbGZlhzWjqi+2KXYulEv6iy7bLp+2dF6QYRCsqGxi8SfKYwUPS8LAPMye673ROJCJx2FLTLS+L+sa7m5kpfFJUOgm2o3xwNzr/tPW+LUZ85rAf8oyxfFl1fPaG6RvA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53c6b9cc-d182-438e-d5cb-08df3e012248
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 01:31:10.2962
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 86s7xNDzYg6x2wXWo5FDUaiAvcOYvPU8R+GZanh/G3Sfma9jccGbcPcqRVYJ8QN32n7N6GJsogsgtedgbx9mPasMzDrMHIb+W6KO/j0ZAL+9WLKCFYvFDLYu8dI+t5DT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB6294
-X-OriginatorOrg: intel.com
+References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com>
+ <1ccb6acc-0809-4abe-8443-576f6727a6d5@yahoo.com> <ausoMS5PcpEFz02i@analog.com>
+In-Reply-To: <ausoMS5PcpEFz02i@analog.com>
+From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
+Date: Sun, 8 Nov 2026 22:31:27 -0300
+X-Gm-Features: AclHuK8yR5gI4v3iGi6WeBIKPSmMJ43uWzE0QqErM0CadYyGtJ6MIzDVMxKV56Y
+Message-ID: <CAJq09z7djw7MAbjc8jZuNsj12JhNCUOsGj-Ve73XwRjjHHO=JQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v7 05/10] net: dsa: realtek: rtl8365mb: set and
+ get vlan 4k for family D
+To: =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>
+Cc: Mieczyslaw Nalewaj <namiltd@yahoo.com>, linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, 
+	kuba@kernel.org, davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, 
+	linux@armlinux.org.uk, maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Jul 10, 2026 at 07:56:08PM -0700, Matthew Brost wrote:
->Add Kconfig.profile options to make XE_BO_DEFRAG_* defines configurable:
->- DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD: Threshold for TTM reclaim
->  backoff
->- DRM_XE_BO_DEFRAG_SIZE_LIMIT: Maximum number of bytes to defrag per
->  work run
->- DRM_XE_BO_DEFRAG_INTERVAL_MS: Default delay before defrag worker runs
->- DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS: Upper bound for defrag worker
->  interval
->
+> Don't you think it's better to just split out into family C/D variants
+> for these ops? If you do so, then I think relabelling the old macros for
+> the C family with RTL8365MB_C_ prefixes will also be appropriate.
 
-Assisted-by: LLM
+Adding a `C` prefix is a clean way to organize the code, and it avoids
+scaling issues with `is_d` checks as more families are added.
 
-NIT...Would runtime knobs be useful than these compile time knobs?
+Splitting the logic into subfunctions handled via a family enum switch
+(or eventually function pointers) is much more maintainable. Using a
+switch statement also has the advantage of compiler warnings if a new
+family is added and forgotten.
 
->Update xe_bo.c to use these Kconfig options as defaults via #ifdef
->guards, maintaining backward compatibility with hardcoded values when
->not configured.
->
->Additionally, disable defrag completely when XE_BO_DEFRAG_SIZE_LIMIT is
->set less than 2M by returning early from xe_bo_defrag_update() (and
->xe_bo_defrag_remove()) so BOs are never added to the defrag list or the
->worker kicked; xe_bo_defrag_add() and xe_bo_defrag_schedule() assert the
->limit is at least 2M.
->
->Cc: Carlos Santa <carlos.santa@intel.com>
->Cc: Ryan Neph <ryanneph@google.com>
->Cc: Christian Koenig <christian.koenig@amd.com>
->Cc: Huang Rui <ray.huang@amd.com>
->Cc: Matthew Auld <matthew.auld@intel.com>
->Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->Cc: Maxime Ripard <mripard@kernel.org>
->Cc: Thomas Zimmermann <tzimmermann@suse.de>
->Cc: David Airlie <airlied@gmail.com>
->Cc: Simona Vetter <simona@ffwll.ch>
->Cc: dri-devel@lists.freedesktop.org
->Cc: linux-kernel@vger.kernel.org
->Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
->Assisted-by: GitHub_Copilot:claude-haiku-4.5
->Signed-off-by: Matthew Brost <matthew.brost@intel.com>
->---
-> drivers/gpu/drm/xe/Kconfig.profile | 40 ++++++++++++++++++++++++++++++
-> drivers/gpu/drm/xe/xe_bo.c         | 26 +++++++++++++++++++
-> 2 files changed, 66 insertions(+)
->
->diff --git a/drivers/gpu/drm/xe/Kconfig.profile b/drivers/gpu/drm/xe/Kconfig.profile
->index e07517d120e0..e0aade41f53e 100644
->--- a/drivers/gpu/drm/xe/Kconfig.profile
->+++ b/drivers/gpu/drm/xe/Kconfig.profile
->@@ -74,3 +74,43 @@ config DRM_XE_ENABLE_SCHEDTIMEOUT_LIMIT
-> 	  to apply to applicable user. For elevated user, all above MIN
-> 	  and MAX values will apply when this configuration is enable to
-> 	  apply limitation. By default limitation is applied.
->+
->+config DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD
->+	int "BO defrag reclaim backoff threshold"
->+	default 2
->+	range 1 1000
+Here is a revised version of your response, keeping it professional,
+concise, and clear:
 
-Is the value of 1 intended here? As mentioned in patch 16, this will
-reinforce the self backoff loop.
+---
 
-NIT...Also the max value of the range here and below seems too higher
-than the default value. Not sure if that is intended.
+> Don't you think it's better to just split out into family C/D variants
+> for these ops? If you do so, then I think relabelling the old macros for
+> the C family with RTL8365MB_C_ prefixes will also be appropriate.
 
->+	help
->+	  Once this many BOs are tracked on the device defrag list (i.e. were
->+	  backed with a sub-optimal page order), request that the TTM pool backs
->+	  off from aggressive reclaim at the beneficial order during populate,
->+	  so that allocations make forward progress instead of stalling.
->+
->+config DRM_XE_BO_DEFRAG_SIZE_LIMIT
->+	int "Maximum bytes to defrag per work run"
->+	default 33554432
->+	range 0 1073741824
->+	help
->+	  Maximum number of bytes the defrag worker will process in a single run
->+	  before yielding and rescheduling itself. Set to less than large page
->+	  size (2M) to disable defrag. A defrag move synchronously reallocates
->+	  and re-copies a BO's backing store, which is not free. If a large
->+	  number of BOs become eligible at once, processing them all in one
->+	  worker run would hold things up for a long, unbounded stretch.
->+	  Instead, cap the work done per run and requeue, spreading the defrag
->+	  effort out over time.
->+
+Adding a `*_C_` prefix is a good way to organize it. It will get a bit
+messier when I submit the RTL8367R support, which I arbitrarily named
+Family A, but extra macros won't increase the final binary size. We
+might need to duplicate some macros once we have a register used by
+more than one but not all families.
 
-The disable mechanism is confusing (0 to 2MB). May be add a separate runtime
-knob for enable/disable and change the range here to start from 2MB?
+As Alvin mentioned, splitting into subfunctions when each family has a
+distinct implementation is much cleaner. In my WIP tree
+(https://github.com/torvalds/linux/compare/master...luizluca:linux:realtek_families_wip),
+I handle it like this:
 
->+config DRM_XE_BO_DEFRAG_INTERVAL_MS
->+	int "Default delay before defrag worker run (ms)"
->+	default 25
->+	range 1 1000
->+	help
->+	  Default delay before (re)running the defrag worker, in milliseconds.
->+
->+config DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS
->+	int "Upper bound for defrag worker interval (ms)"
->+	default 15000
->+	range 100 1000000
+static void rtl8365mb_l2_data_to_uc(struct realtek_priv *priv, const u16 *data,
+                                    struct rtl8365mb_l2_uc *uc)
+{
+        switch (rtl8365mb_get_family(priv)) {
+        case RTL8365MB_FAMILY_A:
+                rtl8365mb_a_l2_data_to_uc(data, uc);
+                break;
+        case RTL8365MB_FAMILY_C:
+                rtl8365mb_c_l2_data_to_uc(data, uc);
+                break;
+        }
+}
 
-The range here overlaps with that of DRM_XE_BO_DEFRAG_INTERVAL_MS and it
-accepts value lower than that of DRM_XE_BO_DEFRAG_INTERVAL_MS.
+This is how I'm structuring it now, though it might migrate to
+function pointers later. A family check inside a shared function only
+makes sense for very localized differences. Since family A is shaping
+up well and family B sits conceptually between A and C, `is_d` doesn't
+scale well for future variants. Using an enum with a switch statement
+also ensures the compiler warns you if a new family case is missed.
 
->+	help
->+	  Upper bound for the (exponentially backed off) defrag worker interval,
->+	  in milliseconds, so repeated failures don't push the retry arbitrarily
->+	  far out. 15000 ms = 15 seconds.
->diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
->index 073d926ef9ac..0bdd1c920404 100644
->--- a/drivers/gpu/drm/xe/xe_bo.c
->+++ b/drivers/gpu/drm/xe/xe_bo.c
->@@ -49,7 +49,11 @@
->  * aggressive reclaim at the beneficial order during populate, so that
->  * allocations make forward progress instead of stalling.
->  */
->+#ifdef CONFIG_DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD
->+#define XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD	CONFIG_DRM_XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD
->+#else
-> #define XE_BO_DEFRAG_RECLAIM_BACKOFF_THRESHOLD	2
->+#endif
->
+Best regards,
 
-Looks like The 'ifdef's are redundent here as the config params without any
-dependency take the default value and hence will always turn out to be true.
-
-> /*
->  * Maximum number of bytes of newly (re)allocated backing the defrag worker will
->@@ -65,17 +69,31 @@
->  * Only pages a move truly reallocates are charged; pages harvested from the old
->  * backing are free, so an object larger than the budget is upgraded in
->  * budget-sized slices across runs.
->+ *
->+ * Set to 0 to disable defrag completely.
->  */
->+#ifdef CONFIG_DRM_XE_BO_DEFRAG_SIZE_LIMIT
->+#define XE_BO_DEFRAG_SIZE_LIMIT			CONFIG_DRM_XE_BO_DEFRAG_SIZE_LIMIT
->+#else
-> #define XE_BO_DEFRAG_SIZE_LIMIT			SZ_32M
->+#endif
->
-> /* Default delay before (re)running the defrag worker, in milliseconds. */
->+#ifdef CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MS
->+#define XE_BO_DEFRAG_INTERVAL_MS		CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MS
->+#else
-> #define XE_BO_DEFRAG_INTERVAL_MS		25
->+#endif
->
-> /*
->  * Upper bound for the (exponentially backed off) defrag worker interval, in
->  * milliseconds, so repeated failures don't push the retry arbitrarily far out.
->  */
->+#ifdef CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS
->+#define XE_BO_DEFRAG_INTERVAL_MAX_MS		CONFIG_DRM_XE_BO_DEFRAG_INTERVAL_MAX_MS
->+#else
-> #define XE_BO_DEFRAG_INTERVAL_MAX_MS		15000	/* 15 seconds */
->+#endif
->
-> static void xe_bo_defrag_worker(struct work_struct *w);
-> static void xe_place_from_ttm_type(u32 mem_type, struct ttm_place *place);
->@@ -1126,6 +1144,7 @@ int xe_bo_defrag_init(struct xe_device *xe)
->
-> static void xe_bo_defrag_schedule(struct xe_device *xe)
-> {
->+	xe_assert(xe, XE_BO_DEFRAG_SIZE_LIMIT >= SZ_2M);
-> 	schedule_delayed_work(&xe->mem.defrag.worker,
-> 			      msecs_to_jiffies(xe->mem.defrag.interval_ms));
-> }
->@@ -1152,6 +1171,7 @@ static void xe_bo_defrag_add(struct xe_bo *bo)
->
-> 	xe_bo_assert_held(bo);
-> 	xe_assert(xe, xe_bo_needs_defrag(bo));
->+	xe_assert(xe, XE_BO_DEFRAG_SIZE_LIMIT >= SZ_2M);
-
-xe_bo_defrag_init_early and xe_bo_defrag_init still runs if defrag is
-disabled which can be avoided.
-
-Niranjana
-
->
-> 	scoped_guard(spinlock, &xe->mem.defrag.lock) {
-> 		if (list_empty(&bo->defrag_link)) {
->@@ -1185,6 +1205,9 @@ static void xe_bo_defrag_remove(struct xe_bo *bo)
-> {
-> 	xe_bo_assert_held(bo);
->
->+	if (XE_BO_DEFRAG_SIZE_LIMIT < SZ_2M)
->+		return;
->+
-> 	if (list_empty(&bo->defrag_link))
-> 		return;
->
->@@ -1204,6 +1227,9 @@ static void xe_bo_defrag_update(struct xe_bo *bo)
-> {
-> 	xe_bo_assert_held(bo);
->
->+	if (XE_BO_DEFRAG_SIZE_LIMIT < SZ_2M)
->+		return;
->+
-> 	if (xe_bo_needs_defrag(bo))
-> 		xe_bo_defrag_add(bo);
-> 	else
->-- 
->2.34.1
->
+Luiz
