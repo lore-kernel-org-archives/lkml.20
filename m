@@ -1,73 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794262350;
-	b=Q7UG/d/afISKMz9fM7I3IPvgOBo5N55LUDE/A2Y2bAy1UZ6mmna+eTpMG8idQyrtEwXe
-	 SNT5yMg3VivD82fzP16lE7e5PtGCbi5ct1CMAXcp0eoy94uYxSCPS/mockWxOD52ZOkE9
-	 iAl3VqOJim4Gwjz0uFRK8Y6Uvh16q2AsuvgrV4ouIx/I8lyv9hTHxyqCT2nQ+0rs96osm
-	 8v/D70d1IDBnCHovTzSbQ3Qvc1b/+VhpvmrnvwiKa7rBlAj30YhAP7suHCaH6oiLf7zG+
-	 rEwemn6lxtBUElzaFhLdjNl0Gyd0/rrNIx8SXOZ2Ecpc2ke1qWGko2mILbHBxagXvzg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794262350;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=xgvmP0yR+MtGh0RmcZ6t9qcDIy0KV5BDdf5DZR4AHIw=;
-	b=d3FT5HrVJli0HQtS2X3NOdchhThtDIdkcvdhEoqXfj56DlF7b1JvkYd05keOP5aN+qhu
-	 5KI/+g4I3ZQyhUtEa7PR+K/q+6NdeloRE614/PxYBjY0bccsKdl59QXsY3CdKHXhU4rcL
-	 stqVmEjBiCHTYtlqiSejDFYh82whkdwL0JxvwTHJg8vUvYycgApd49w7orjBWTKEaQ5MO
-	 PH2hdrxpipHGWtssiJANsRQ5Gdu8Yvj0Gsqgtfc1LuH5siDSH+xyxKkSkm5EVdSbCL+bm
-	 jZVjmarZ80rmkJOx8K81ubRXwiGu9ZjJ3vCdIPn37NrBmYJLI7LIHY6nwepYX4LucQg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=kDuLzLVs;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794262416;
+	b=P4b8tz65nQ8Su3iL9EfXaP9HGtVRb3PNKzqqQnWNHegmlgMOfrSU9eLe5u5YSacESlns
+	 ZOq6mLHfgya2VMxdkf42PzcxHqRxRj6IJxyeDQWQt8SDvGWJmlYN2vxmbRXrW7m1P2iVu
+	 YOqAN5tNZwZdB5HQpcVaJW8n1Baxap8wRk7Oycyy34GAWI2PAtjiDt6AmsWP79j1bzd/3
+	 +0PExDQm+kVGbP7iie/ZgHomEo0/uNrHP5sZCDUqaxfpcdcdAT1bW35A2xFB/AaPSVB3F
+	 zmfDakn55tFbx1bfpSH8EDjsl9es6c+Y3pv++siS+tyxwb95HdWcDdFN6Eg3V1JxCUw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794262416;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=zMpIc7KG/FgM26D6oZ4QsYgjHL/cVuDmS1tSg0YoPmc=;
+	b=iM1TF+wtbTUe3Tfog1r0YAf3bt5tYFZ10eHZA/rglp694PpWlbsC27nj1uzd9hQds2o6
+	 EL2ve74X3XROW4Z6DGUzKUCQOzdb6Sadexrj4+WslGc8xvqGs1meP1o8a85La2CvDqWqk
+	 S1UDjytxWk6xxlFDKTSTM0iFmEdQ0QM8pHzwnXzHTEExdMHAvh2mawnYYjDuCaagq+G9A
+	 HDx8AGo8vs9GHmOWuxqkTlirS0EEkKTd7A1RUDenbemmWyXcz08O/ozZxmAcoqWEzzp4Y
+	 9Xhi+UzdFGzsnAIyXjvdGrpSqgiuNSCtn/VVbX96iIy2cAh/53bJ7egtzDunULdj/oQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DfS0M4+Y;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16CA606A325;
+	Mon,  9 Nov 2026 22:13:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DfS0M4+Y
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794262415;
+	b=pHi84+L54K1Vq4xh+7zc6Z/zTosjXuFBfxduY4GlA03THOSs9Qao2OX18LfcZjBOt1Yh
+	 0AE6xShkA69UsvXDt5Gr/Tim2KRMES7SEDl1cz5VylfdHEYtVHp8bpg3oWikvZXdnS8gS
+	 bw/6t1X5RXuiQS9ZaxhdLq17lj4GSxm/Wuzhi8uGcPQ27eh1Km+p24tCXyQJvYsqnlZ1x
+	 ZwyU+vasbjXBbyg9KYuHa0JmJeQnr8GJqrx7idVABdNsGJ7x4cFZ0kQYBapVd1U5arvRc
+	 uuXiC55H8TnGxEz2C6pSRDZxq5Cdqou+/EkZeUumHsma0/cYz4YNnesvZnJDwZxE3zQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794262415;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=zMpIc7KG/FgM26D6oZ4QsYgjHL/cVuDmS1tSg0YoPmc=;
+	b=hch1pQtPaUevVdJ7SfyCjP4fF/BSL+s4eNQYZkHkuRshVWXXYI28RI6Y7acAMtMGa+y7
+	 Pjh3Ruucb2EIWYf6X0eooQEbjPFyPQYNGNq/qNzpy/WNvifLHtT+TgSUGlyaPNODlJPA8
+	 5xyUPNvoroeFKLoq+Of/RihR3m+0Md9afZzeH78VfyRKADXJhZtzTaf6kvvy0JYFbn4XK
+	 eeIwYZT7rnFZ8glRX1dtJtv46F5D0ZH2NpvySqsLFKOuGeQJRmGknmbPgyrLzSw0FpT8v
+	 1Na0NsfXbYnwuQIY51JIo8nrsZixE0uzPkBoeL07gn0e+CXUeMMgt5SuOEWM4SuVTcw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4AE4606A31C;
-	Mon,  9 Nov 2026 22:12:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4AE4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=kDuLzLVs
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=xgvmP0yR+MtGh0RmcZ6t9qcDIy0KV5BDdf5DZR4AHIw=; b=kDuLzLVsQ0SFzAPM9Ea2q4LIjk
-	vOzPZU1P42riJ4bh3CEQzzhWqmWlE8C90zzmPuR94gS3HF3ctAWwG0oDsOunwVTvjd3pWBvVmkkdP
-	9OZJPdERN+A31guqceVx7K/fMvGTgjIZkUEuMiDAKU6NCnCzM1U4hr9qK4TH3+oFJbEGbnJW14LLu
-	AstqSGR/uqWDjLOiMqIqAAAewUhCUvDBWjEYJSO7EpoZsXnJ8wj2ROFpnXzSub82/kl7P68Z8Mphf
-	7dyjl/DQpdHO6Fv23HNbPjTk2jb9cG0LLlrb3qsAf5LUfV/L7HGctBErU2fjrtd2rVgXOrC5o3Ksb
-	ZNaLvvLw==;
-Received: from [151.115.150.205] (port=59320 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xQXbI-0000000GC1M-02Ej;
-	Mon, 09 Nov 2026 23:12:27 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: tytso@mit.edu
-Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	"Ritesh Harjani" <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@kernel.org
-Subject: [PATCH v3] ext4: validate extent root during fast commit replay
-Date: Mon,  9 Nov 2026 22:12:11 +0000
-Message-ID: <20261109221211.1793790-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	by smtp.kernel.org (Postfix) with ESMTPS id E04ED1F0089F;
+	Mon,  9 Nov 2026 22:13:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794262415;
+	bh=zMpIc7KG/FgM26D6oZ4QsYgjHL/cVuDmS1tSg0YoPmc=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=DfS0M4+Y96JLRXbiiIVBdrdhXkBMom5jOJNYVs1CoAgDRtXwW0R548L8MtmegXFRV
+	 cnMFlZS7budk8xx3liy5LhO35ZWtb/p2in97zuOa/SDdmsOCer21XmwWk13cDsFYBc
+	 X3nSVez1GZeKV/g2y22L98M0AP9Nx2fGnO+fnYzsc0sDHwCMBkq1v62iN7ipzK+yeS
+	 BCqjkUUb5YYksCOS+P37B572+A5eBhMo9ayObk/rk8vGezwknoovpNuPJC0rev5LJG
+	 m6rGGkXo240S8qtW2lPFa0VOZ2uCwnBYN4M4BMpongm/ns8c+pkAF6hu9CNVbCeQQv
+	 03IkJyEZEElmQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3B78E48690;
+	Mon,  9 Nov 2026 22:13:34 +0000 (UTC)
+From: Xuheng Li via B4 Relay <devnull+xuheng.cs.columbia.edu@kernel.org>
+Date: Mon, 09 Nov 2026 22:13:35 +0000
+Subject: [PATCH v3] KVM: arm64: Don't replace a valid hyp block mapping
+ with a table
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,122 +83,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-hyp-block-map-v3-1-bd70e67eb0bf@cs.columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNL3YzKAt2knPzkbN3cxAJdg2RDyzSLVEsTI5MkJaCegqLUtMwKsHn
+ RsbW1AAtSsWxfAAAA
+X-Change-ID: 20261109-hyp-block-map-0c19f8e9424b
+To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>
+Cc: Vincent Donnefort <vdonnefort@google.com>, 
+ Fuad Tabba <fuad.tabba@linux.dev>, Quentin Perret <qperret@google.com>, 
+ Will Deacon <will@kernel.org>, Mostafa Saleh <smostafa@google.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Joey Gouly <joey.gouly@arm.com>, 
+ Steffen Eiden <seiden@linux.ibm.com>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Zenghui Yu <yuzenghui@huawei.com>, kvmarm@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Xuheng Li <xuheng@cs.columbia.edu>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794262414; l=3910;
+ i=xuheng@cs.columbia.edu; s=20261028; h=from:subject:message-id;
+ bh=RIFjoI85KP24Rv3faoa4T6ksq6aQB6AW6n6O+fZ4Jw8=;
+ b=j9SVzqCiLPkNYh1JWfLZitE9GNR+YyVV3Ivtx30mdQziJtNsmwtvPjrAxpTl0xi4hvgf6t9DV
+ V55yyGreT2AB+KHnSiw9xKu79OZs9NymAKLF9eebBOAkIIPPYE1xU6K
+X-Developer-Key: i=xuheng@cs.columbia.edu; a=ed25519;
+ pk=L1HVV+goqxYmEMO/OXakL6uf9isSpgk2QrLlFqyZ2Qs=
+X-Endpoint-Received: by B4 Relay for xuheng@cs.columbia.edu/20261028 with
+ auth_id=1349
+X-Original-From: Xuheng Li <xuheng@cs.columbia.edu>
+Reply-To: xuheng@cs.columbia.edu
+Content-Transfer-Encoding: 7bit
 
-Fast commit replay skips extent tree validation in ext4_iget(). The
-replay code then reads and updates the extent root stored in i_data
-without validating its header.
+From: Xuheng Li <xuheng@cs.columbia.edu>
 
-The root has space for four extents. A corrupt header with eh_entries
-set to 4 and eh_max set to 5 lets replay insert a fifth extent past
-the end of i_data, which overwrites other fields in struct
-ext4_inode_info.
+When kvm_pgtable_hyp_map() is asked to map part of a range that a valid
+block mapping already covers, hyp_map_walker_try_leaf() declines, as the
+request cannot be a leaf at the block's level.  hyp_map_walker() then
+allocates a zeroed table and stores it over the valid block entry.  The
+walk descends into the new table and maps the requested pages, but the
+rest of the block is now unmapped, and the valid block was replaced
+without break-before-make.
 
-Check the root in ext4_find_extent() during fast commit replay. Skip
-extent replay helpers for non-extent inodes and clear the replay state
-before loading the root inode.
+No in-tree caller maps into an existing hyp block mapping today, so this
+cannot be triggered in mainline.  Fail such a request with -EEXIST
+instead, so that a future caller gets an error rather than silently
+losing the rest of the block.
 
-Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
-Cc: stable@kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+The same check now catches a conflicting remap of an existing leaf, so
+drop the WARN_ON() from hyp_map_walker_try_leaf(): every caller checks
+the error, and a WARN is fatal at EL2.  Do the check before the
+last-level WARN_ON(), which is kept for internal errors, and update the
+kernel-doc of kvm_pgtable_hyp_map() to match.
+
+Signed-off-by: Xuheng Li <xuheng@cs.columbia.edu>
 ---
+This is patch 3/3 of v2, sent alone: 1/3 is superseded by Mostafa's
+"KVM: arm64: Use consistent type for pool size" [1], and 2/3 is dropped.
 
+With the WARN_ON() gone from hyp_map_walker_try_leaf(), a conflicting
+remap through the EL1 path (__create_hyp_mappings()) also returns
+-EEXIST without a warning, where it used to warn and return -EINVAL.
+
+[1] https://lore.kernel.org/r/20261106172750.2678873-1-smostafa@google.com
+---
 Changes in v3:
-- Skip extent replay helpers for non-extent inodes.
-- Clear EXT4_FC_REPLAY before loading the root inode.
+- Drop the WARN_ON() from the new check and from
+  hyp_map_walker_try_leaf(), and update the kernel-doc of
+  kvm_pgtable_hyp_map() (Vincent, Fuad).
+- Do the check before the last-level WARN_ON(), so that a conflicting
+  page-level mapping returns -EEXIST instead of reaching it.
+- Link to v2: https://lore.kernel.org/r/20261105-hyp-pool-and-map-v2-3-44a6ca90190b@cs.columbia.edu
+---
+ arch/arm64/include/asm/kvm_pgtable.h |  2 +-
+ arch/arm64/kvm/hyp/pgtable.c         | 10 +++++++++-
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
-Changes in v2:
-- Validate replay roots regardless of EXT4_INODE_EXTENTS.
-- Rebase on fa4ad798f6f6.
-
-v2: https://lore.kernel.org/all/20261108201906.1417129-2-Jeremy.Jean@oss.cyber.gouv.fr/
-v1: https://lore.kernel.org/all/20260821100559.3612643-2-Jeremy.Jean@oss.cyber.gouv.fr/
-
- fs/ext4/extents.c     | 8 +++++++-
- fs/ext4/fast_commit.c | 4 ++--
- fs/ext4/super.c       | 3 +--
- 3 files changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index ad0d80e33f609..aec75a680bcc7 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -905,6 +905,12 @@ ext4_find_extent(struct inode *inode, ext4_lblk_t block,
- 		ret = -EFSCORRUPTED;
- 		goto err;
- 	}
-+	/* ext4_iget() skips extent validation during fast commit replay. */
-+	if (unlikely(EXT4_SB(inode->i_sb)->s_mount_state & EXT4_FC_REPLAY)) {
-+		ret = ext4_ext_check(inode, eh, depth, 0);
-+		if (ret)
-+			goto err;
-+	}
+diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
+index 1c9c57cd6..6d6ed8596 100644
+--- a/arch/arm64/include/asm/kvm_pgtable.h
++++ b/arch/arm64/include/asm/kvm_pgtable.h
+@@ -508,7 +508,7 @@ void kvm_pgtable_hyp_destroy(struct kvm_pgtable *pgt);
+  * If device attributes are not explicitly requested in @prot, then the
+  * mapping will be normal, cacheable. Attempts to install a new mapping
+  * for a virtual address that is already mapped will be rejected with an
+- * error and a WARN().
++ * error.
+  *
+  * Return: 0 on success, negative error code on failure.
+  */
+diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
+index 9c83837b1..94a59f29a 100644
+--- a/arch/arm64/kvm/hyp/pgtable.c
++++ b/arch/arm64/kvm/hyp/pgtable.c
+@@ -414,7 +414,7 @@ static bool hyp_map_walker_try_leaf(const struct kvm_pgtable_visit_ctx *ctx,
+ 		return true;
+ 	if (!kvm_pte_valid(ctx->old))
+ 		ctx->mm_ops->get_page(ctx->ptep);
+-	else if (WARN_ON((ctx->old ^ new) & ~KVM_PTE_LEAF_ATTR_HI_SW))
++	else if ((ctx->old ^ new) & ~KVM_PTE_LEAF_ATTR_HI_SW)
+ 		return false;
  
- 	if (path) {
- 		ext4_ext_drop_refs(path);
-@@ -6391,7 +6397,7 @@ int ext4_ext_clear_bb(struct inode *inode)
- 	int j, ret = 0;
- 	struct ext4_map_blocks map;
- 
--	if (ext4_test_inode_flag(inode, EXT4_INODE_INLINE_DATA))
-+	if (!ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS))
+ 	smp_store_release(ctx->ptep, new);
+@@ -431,6 +431,14 @@ static int hyp_map_walker(const struct kvm_pgtable_visit_ctx *ctx,
+ 	if (hyp_map_walker_try_leaf(ctx, data))
  		return 0;
  
- 	/* Determin the size of the file first */
-diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-index 0cac890cf3702..b883ce015c303 100644
---- a/fs/ext4/fast_commit.c
-+++ b/fs/ext4/fast_commit.c
-@@ -2002,7 +2002,7 @@ static int ext4_fc_replay_inode(struct super_block *sb,
- 	 * crashing. This should be fixed but until then, we calculate
- 	 * the number of blocks the inode.
- 	 */
--	if (!ext4_test_inode_flag(inode, EXT4_INODE_INLINE_DATA))
-+	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS))
- 		ext4_ext_replay_set_iblocks(inode);
++	/*
++	 * A valid entry here is a leaf that conflicts with the request.
++	 * Replacing a block with a table would need break-before-make, and
++	 * would leave the rest of the block unmapped.
++	 */
++	if (kvm_pte_valid(ctx->old))
++		return -EEXIST;
++
+ 	if (WARN_ON(ctx->level == KVM_PGTABLE_LAST_LEVEL))
+ 		return -EINVAL;
  
- 	inode->i_generation = le32_to_cpu(ext4_raw_inode(&iloc)->i_generation);
-@@ -2334,7 +2334,7 @@ static void ext4_fc_set_bitmaps_and_counters(struct super_block *sb)
- 		}
- 		cur = 0;
- 		end = EXT_MAX_BLOCKS;
--		if (ext4_test_inode_flag(inode, EXT4_INODE_INLINE_DATA)) {
-+		if (!ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS)) {
- 			iput(inode);
- 			continue;
- 		}
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 9cae52471dee9..8dac2c1cea78a 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -5660,6 +5660,7 @@ static int __ext4_fill_super(struct fs_context *fc, struct super_block *sb)
- 	 * The jbd2_journal_load will have done any necessary log recovery,
- 	 * so we can safely mount the rest of the filesystem now.
- 	 */
-+	ext4_fc_replay_cleanup(sb);
- 
- 	root = ext4_iget(sb, EXT4_ROOT_INO, EXT4_IGET_SPECIAL);
- 	if (IS_ERR(root)) {
-@@ -5699,8 +5700,6 @@ static int __ext4_fill_super(struct fs_context *fc, struct super_block *sb)
- 			goto failed_mount4a;
- 		}
- 	}
--	ext4_fc_replay_cleanup(sb);
--
- 	ext4_ext_init(sb);
- 
- 	/*
+
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261109-hyp-block-map-0c19f8e9424b
+
+Best regards,
 -- 
-2.47.3
+Xuheng Li <xuheng@cs.columbia.edu>
+
 
