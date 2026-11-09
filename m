@@ -1,74 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794203858;
-	b=xRZdrxU9TYmszX1NGBup7V+lJHbCbDhdgFhlrg5lYyTYzon9SJ/6ryovWSD4PwEMSGLs
-	 hd8oSdThjGj09ciWASQFzGGU7QN9UgXxhqU2wEnZ1vEoLAQXRS7Oc1y5As/bZ8Mb+LQrF
-	 NbWWpMpypom8z1pLISLKW9GADpnkcT+7MDxzhfZDwKn70dGe5KmiVju6yBeluhotd9V1K
-	 mAELDB35+WWuOUMXP9Fv0iayg5+zZKNu0Gd29B0ioVLzRSKgNjEs/5661GaZKLzf9cDkL
-	 82DnbK6T9pIpqB6Tqp0xQMpsENPsrqLf4ahg8VSBji/+VeGLxTTId4gtAJc9Culb7aA==
+	t=1794203907;
+	b=Vxgm7VDxKPlwoFBIPnmnj/YAWqjGqH9+Qmp+ndvbi9CTjc6nUGXryXVBDHhxnyfMXwlV
+	 qfa5nB+n1pQ/7Gl41Bq5syhK2NyXeCbw+7DBNJvLAzLZmt3bpDqto31PyzUcpWDnDlLVP
+	 fUN+8WsuiAjURV1JQb2VwgeRuEPSYBHGKHGdtxW1bFPQztyLLbUrwlN4t9Bc1p5diXe88
+	 rKH/MaOPV5qi8vZo+WGDtCx3VTZhLic/a0G1LytIxg32pMXlf8yABtCGJMP9XHuj60WHY
+	 akMk05ItK0Fj+hfndQLZ5AW4NYtQqkAaCeBo+P+ayl+72NvfoemPrVh6NU4ZQMHcQow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794203858;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-type:
-	 Content-Transfer-Encoding;
-	bh=BH70BivN2GD0Klusjco0YU6q3vc8ILOcQiEUMI9oss8=;
-	b=Tb1BnXZ3cdhD/li42YEbvpQSh9/7YRJbvb+YBTKEBtYqWKTNlev+Og9kLCZjC5i743ib
-	 T6YEF2C3e61l2KzcyGiiNCtB1dp679kSFfAmlekGSqfkAARG2EIEZh5LE8UXHPEMFtrf0
-	 2hUbRqCUuZ6tBW4TnHV1Hy2s7obyqDqMj67ZLTfJJ4SnT0+M3C/2sc26uVROr/fDORNHp
-	 KhoNNwpjH/9JHXQkKx9G68dwe0bUdnoIN8KvFOU8i+QhPXAqfe2FsgBdW2dsMleXym6p2
-	 a1dHKo1q0ARet24GzGHKfhUuhwKcZqllwt7/JMDYVAQpez1LhL0dlX2SVasnKhM/DTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794203907;
+	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
+	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=ycZFYUK9Sq+liOsi4MTVoR/c8j8LTqcyDLHHKuP5SiM=;
+	b=AP6opR1QD6mUF637+3y4iYH91PPFYZ4EC3u+XeFdmdOpe0YZNSGyzAsc+E7rLeFBPWsZ
+	 pNJ0gYbAxrTQfOOhl2InxwbymsYfnLSJjF1AQkOK2LzfeJkQZBeptTgSkMNL62YTsaNQ0
+	 fXMqANCKlDixRbBEsxdH6QuI5UkRYC0Y/5rVV5Cr6TOqhAyuIJjXuIHAlDYblp0vYrRsY
+	 fjisg8SWsyPayZyep3PsbudHCIYwfQxDaYBfx2m6vYIbeUBy3JgBhqgEUWfwaB63DLjRw
+	 Cr7o+TV0+XGIzxQTohKNQIIHJghfw30fjr8VUKKFQFp1DgZF3jur+NSKdhixzr2ldnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wgpy0rlx;
-	arc=none smtp.remote-ip=95.215.58.46
-Received: from mta1.migadu.com (out-46.mta1.migadu.com [95.215.58.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=mucse.com;
+	spf=pass smtp.mailfrom=mucse.com;
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57949606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:57:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57949606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=wgpy0rlx
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=uVlH/XHtAK1ioth7PG9F5K6yxSpZvO+5NShBYbVvhrM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794203855; v=1; x=1794808655;
- b=wgpy0rlxBY6e+IZWaoZIW4ozpKOvTFuebcNV2pV7IvwteCpy2jsJvnOELBgtZB8BlONknUbX
- 7YCrp8S9kAUDxZ7GNnnLT/4XzoJIp9GOIp192zezQ1IGpZ98VJgSNxJWFkIJOFAZtrDhcaa3M5t
- BY9uH+YULhknLDAD4IhE1cxs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id be7ce9f4d596a11c;
-	Mon, 09 Nov 2026 05:57:35 +0000
-X-Mizu-Trace-ID: be7ce9f4d596a11c
-X-Migadu-Flow: FLOW_OUT
-From: Baoquan He <baoquan.he@linux.dev>
-To: linux-mm@kvack.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	chrisl@kernel.org,
-	kasong@tencent.com,
-	nphamcs@gmail.com,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	corbet@lwn.net,
-	hannes@cmpxchg.org,
-	chengming.zhou@linux.dev,
-	kunwu.chan@gmail.com,
-	klarasmodin@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v5 18/19] mm, swap: do not give an xswap slot to a cgroup that cannot zswap
-Date: Mon,  9 Nov 2026 13:54:54 +0800
-Message-ID: <20261109055455.536925-19-baoquan.he@linux.dev>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261109055455.536925-1-baoquan.he@linux.dev>
-References: <20261109055455.536925-1-baoquan.he@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715F1606A31C;
+	Mon,  9 Nov 2026 05:58:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 715F1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
+X-QQ-mid: zesmtpsz7t1794203850tc03b9236
+X-QQ-Originating-IP: ey/P3VmyPwt/7VocnGrP0yVNH8IO4ZpzeeN5gi3fOKA=
+Received: from localhost ( [203.174.112.180])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 09 Nov 2026 13:57:28 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 7978584010437446865
+EX-QQ-RecipientCnt: 10
+Date: Mon, 9 Nov 2026 13:57:28 +0800
+From: Yibo Dong <dong100@mucse.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	yaojun@mucse.com
+Subject: Re: [PATCH net-next 2/5] net: rnpgbe: Report link settings through
+ ethtool
+Message-ID: <DC15754D4AADBCCC+20261109055728.GA286191@nic-Precision-5820-Tower>
+References: <FB722C2F25FE9005+20261106112420.43050-1-dong100@mucse.com>
+ <BB3F0BAB3B9947AF+20261106112522.43965-1-dong100@mucse.com>
+ <228e8fd8-4f1d-40d7-aca6-fc8a304b9906@lunn.ch>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,193 +62,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-type: text/plain
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <228e8fd8-4f1d-40d7-aca6-fc8a304b9906@lunn.ch>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
+X-QQ-XMAILINFO: OGRTx1KypL8CmvoyuQkiV8iTvYFTPIVMpa8CEJKa0tcFrJjTw7jA259m
+	/LXNbt6dF92EbTLdvGBdXxD50AdkW2DxUmxjk/eFxLK6hFoPpe7O8mzJ2P5JfMGwpx8EJTQ
+	fct+X0G/5hD6Rg1o6bnudxSKVsghG0QrSH+zC0WSpJMXX5To5SIdi4rEWRdOFQ2FzJDiDVv
+	hrBvZi0PKZCYusw2ttBZam+kSeOPbniRxesBQSa5/TRMEVjG8I1zy9UIWsf9uUOVzjag4Ix
+	F+8wpJEWjL+xQhhAcTjjl6aSRILmrsaJF8Kl47bLMEzghbpkFN8RW8iahZB1MEcK3N/jGWL
+	Uif17eZ9RtF8+YiYgOuVx+YBKP6Da6LlkmpPIUHAouxz79Y3wr2F/c6U0xBXTzU/wbgl7EK
+	8wtTIHrEEfQexBQO7gYMibdrZrIjutA9XNfw70DMd9AtLwSY+rmR2HBxNxrfX8Sbyq3xUxV
+	SHn+xH8iDy5ckDxxNJ5UuPDyHViFQxoGHLlNGYhVKArXstX+rvE4mE/bKnqAvgYXtT1d6HQ
+	KKxoiQettrsTZB4WRfH/wygdLqOtRZcxcy32BC1aG/k9u2o+H3R38q9dRxS5rPXT/UBcF6r
+	JlsQBa3mAC2+hFACvZfJEgPUZeAL9RyA1wqdT0CmKkP8y20hxPvXFZACX7p46P4EhinuqQA
+	CM18ixSYz7FOsAL/vrhbSXQzcISTmTZwwXZRdiQhmkIhmAwVexg8ZtHZx4BCRI88cPnQdPu
+	7sytOn2+XwrtqRLcazFIjWvyt5fUlkUCJUtZzS9MIxA4hxLFfCKJTZOGgvQxoPMliqOF1AV
+	qJVHC1hnQjfTogI3tj25MTLosfVm6VKObPp3RUdH2XM1UTE5lSWP11DopplptDf51kd9n73
+	sbvUsB/hWvmxng0zmgaNL6FizVMQzNJkKtXJs1ujPCAMBDUgQhTOsZiSzLGM8zW+yRSzYk0
+	3/LAe3V6Ps/6ztPYwX2n+It7CFCgSZ0mXAU9tPjL6h1iN7L70rOU6c0P6R0DwEGe7UlKNLv
+	WAW9nf+4KwIURAYb3WEEAVOO81yMzCI4B+iEg5zA==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-From: Baoquan He <hebaoquan@kylinos.cn>
+On Sat, Nov 07, 2026 at 06:57:45PM +0100, Andrew Lunn wrote:
+> > These devices support autonegotiation only on TP ports. Configure TP
+> > ports with autonegotiation enabled and fibre and backplane ports with
+> > fixed 1 Gb/s full duplex.
+> >  int rnpgbe_setup_default_link(struct mucse_hw *hw)
+> >  {
+> > -	return mucse_mbx_set_link(hw, RNPGBE_DEFAULT_ADV, true, 0, 0,
+> > -				  ETH_TP_MDI_AUTO);
+> > +	u32 advertising = hw->link_config.supported & RNPGBE_DEFAULT_ADV;
+> > +	bool autoneg = hw->link_config.status & MUCSE_LINK_TP;
+> > +	u8 duplex = DUPLEX_UNKNOWN;
+> > +	u32 speed = SPEED_UNKNOWN;
+> > +	int err;
+> > +
+> > +	if (!autoneg) {
+> > +		advertising &= RNPGBE_FW_ADV_1000_FULL;
+> > +		speed = SPEED_1000;
+> > +		duplex = DUPLEX_FULL;
+> > +	}
+> > +
+> > +	err = mucse_mbx_set_link(hw, advertising, autoneg,
+> > +				 autoneg ? 0 : speed, autoneg ? 0 : duplex,
+> > +				 ETH_TP_MDI_AUTO);
+> 
+> This looks odd. If autoneg is off, you expect user space to indicate
+> how the MAC should be configured. 10, 100, 1G, full or half.
+> 
+This function sets the initial configuration during probe. It does not
+handle an ethtool configuration request.
+For the supported fibre and backplane configurations, the link operates
+at fixed 1 Gb/s full duplex without autonegotiation. TP ports default to
+autonegotiation, and the subsequent patch adds support for user-selected
+forced 10/100 Mb/s speed and duplex settings.
+The port type is fixed by the device firmware. TP, fibre and backplane
+are mutually exclusive configurations, and the driver cannot switch a
+port between them.
+> > +static int rnpgbe_get_link_ksettings(struct net_device *netdev,
+> > +				     struct ethtool_link_ksettings *cmd)
+> > +{
+> > +	struct mucse *mucse = netdev_priv(netdev);
+> > +	struct mucse_hw *hw = &mucse->hw;
+> > +	u32 supported, advertising;
+> > +	unsigned long flags;
+> > +	u16 status;
+> > +	int mode;
+> > +
+> > +	status = hw->link_config.status;
+> > +	supported = hw->link_config.supported;
+> > +	advertising = hw->link_config.advertising;
+> > +	ethtool_link_ksettings_zero_link_mode(cmd, supported);
+> > +	ethtool_link_ksettings_zero_link_mode(cmd, advertising);
+> > +	ethtool_link_ksettings_zero_link_mode(cmd, lp_advertising);
+> 
+> Do you have access to the LP advertisement value? It is useful for debugging.
+> 
+Firmware manages PHY configuration, autonegotiation and reading the link
+partner advertisement. However, the mailbox response currently used by
+this driver only exposes the local capabilities and advertisement.
+> > +	} else {
+> > +		if (status & MUCSE_LINK_BACKPLANE) {
+> > +			mode = ETHTOOL_LINK_MODE_1000baseKX_Full_BIT;
+> > +			ethtool_link_ksettings_add_link_mode(cmd, supported,
+> > +							     Backplane);
+> > +			ethtool_link_ksettings_add_link_mode(cmd, advertising,
+> > +							     Backplane);
+> 
+> Does it actually advertise Backplane?
+> 
+> 
+> > +			cmd->base.port = PORT_NONE;
+> > +		} else {
+> > +			mode = ETHTOOL_LINK_MODE_1000baseX_Full_BIT;
+> > +			ethtool_link_ksettings_add_link_mode(cmd, supported,
+> > +							     FIBRE);
+> > +			ethtool_link_ksettings_add_link_mode(cmd, advertising,
+> > +							     FIBRE);
+> 
+> Again, does it advertise fibre? What happens if the LP wants to do TP?
+> 
+These bits were added based on the fixed port type, rather than an
+advertisement reported by firmware. I agree that this does not establish
+that they are actually advertised.
+A fibre port cannot switch to TP based on the link partner's capabilities.
+The firmware-selected port type remains fixed.
+Maybe I should revise the reporting for the fixed non-TP configurations?
+retain the port type and supported link mode in supported/base.port, Andrew
+leave advertising empty since these configurations do not use autonegotiation.
+> You probably want to look at phylib, it figure out the correct way to
+> to implement ksetting set/get.
+> 
+The current design leaves PHY management with firmware, with the driver
+using mailbox commands to configure and query the link.
+I will use phylib as a reference for validating user settings
+and reporting link capabilities and configuration, while keeping PHY
+management in firmware.
+I will correct the advertisement reporting for fixed non-TP ports.
+> 
+>     Andrew
+> 
+> ---
+Thanks for your feedback.
 
-At this point, an xswap slot holds only a zswap-backed page. It has no
-storage of its own. If the folio's cgroup cannot take another zswap
-page, giving it an xswap slot is wasted: zswap refuses the page and the
-slot cannot hold it.
-
-Skip xswap devices when the cgroup cannot zswap, and try a physical swap
-device instead.
-
-The check is obj_cgroup_may_zswap(). It is false when memory.zswap.max
-is 0 anywhere in the hierarchy, or when the hierarchy has already
-reached that limit. So the routing follows how much the cgroup has in
-zswap, not only how it is configured. zswap_store() uses the same check,
-but it first tries to shrink the memcg. The allocation-time check does
-not try to shrink, so it is stricter.
-
-Count active xswap devices, and do the cgroup lookup only when one
-exists. Update the counter when the device is enabled, before a full
-device can skip the avail-list insert, so a full device is still counted.
-
-A device can appear between that read and the allocation. So if the
-slot the allocator picked is on an xswap device, check the cgroup
-again; when it cannot zswap, drop the slot and retry without xswap
-devices.
-
-Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
----
- mm/swapfile.c | 69 ++++++++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 63 insertions(+), 6 deletions(-)
-
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 2e5383036fdc..efb48ef71611 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -326,6 +326,8 @@ static DEFINE_SPINLOCK(swap_lock);
- static unsigned int nr_swapfiles;
- atomic_long_t nr_swap_pages;
- atomic_t nr_real_swapfiles;
-+/* Active xswap devices, as in nr_real_swapfiles. */
-+static atomic_t nr_xswap_files;
- /*
-  * Some modules use swappable objects and may try to swap them out under
-  * memory pressure (via the shrinker). Before doing so, they may wish to
-@@ -1519,7 +1521,9 @@ static void del_from_avail_list(struct swap_info_struct *si, bool swapoff)
- 		lockdep_assert_held(&si->lock);
- 		si->flags &= ~SWP_WRITEOK;
- 		/* Count active devices, not merely those on the avail list. */
--		if (!(si->flags & SWP_XSWAP))
-+		if (si->flags & SWP_XSWAP)
-+			atomic_sub(1, &nr_xswap_files);
-+		else
- 			atomic_sub(1, &nr_real_swapfiles);
- 		atomic_long_or(SWAP_USAGE_OFFLIST_BIT, &si->inuse_pages);
- 	} else {
-@@ -1558,7 +1562,9 @@ static void add_to_avail_list(struct swap_info_struct *si, bool swapon)
- 		 * Count the device here, not after adding it to the list: a
- 		 * full device is still active and skips the add below.
- 		 */
--		if (!(si->flags & SWP_XSWAP))
-+		if (si->flags & SWP_XSWAP)
-+			atomic_add(1, &nr_xswap_files);
-+		else
- 			atomic_add(1, &nr_real_swapfiles);
- 	} else {
- 		if (!(READ_ONCE(si->flags) & SWP_WRITEOK))
-@@ -1682,7 +1688,7 @@ static bool get_swap_device_info(struct swap_info_struct *si)
-  * Fast path try to get swap entries with specified order from current
-  * CPU's swap entry pool (a cluster).
-  */
--static bool swap_alloc_fast(struct folio *folio)
-+static bool swap_alloc_fast(struct folio *folio, bool may_zswap)
- {
- 	unsigned int order = folio_order(folio);
- 	struct swap_cluster_info *ci;
-@@ -1722,6 +1728,11 @@ static bool swap_alloc_fast(struct folio *folio)
- 		}
- 	}
- #endif
-+	if (!may_zswap && (si->flags & SWP_XSWAP)) {
-+		put_swap_device(si);
-+		rcu_read_unlock();
-+		return false;
-+	}
- 
- 	ci = swap_cluster_lock(si, offset);
- 	if (cluster_is_usable(ci, order)) {
-@@ -1738,13 +1749,19 @@ static bool swap_alloc_fast(struct folio *folio)
- }
- 
- /* Rotate the device and switch to a new cluster */
--static void swap_alloc_slow(struct folio *folio)
-+static void swap_alloc_slow(struct folio *folio, bool may_zswap)
- {
- 	struct swap_info_struct *si, *next;
- 
- 	spin_lock(&swap_avail_lock);
- start_over:
- 	plist_for_each_entry_safe(si, next, &swap_avail_head, avail_list) {
-+		/*
-+		 * Do not rotate a skipped device: the walk follows the
-+		 * rotation and would spin forever.
-+		 */
-+		if (!may_zswap && (si->flags & SWP_XSWAP))
-+			continue;
- 		/* Rotate the device and switch to a new cluster */
- 		plist_requeue(&si->avail_list, &swap_avail_head);
- 		spin_unlock(&swap_avail_lock);
-@@ -2067,6 +2084,17 @@ static int swap_dup_entries_cluster(struct swap_info_struct *si,
- 	return err;
- }
- 
-+/* Can the folio's cgroup take another zswap page? */
-+static bool folio_may_zswap(struct folio *folio)
-+{
-+	struct obj_cgroup *objcg = get_obj_cgroup_from_folio(folio);
-+	bool may_zswap = !objcg || obj_cgroup_may_zswap(objcg);
-+
-+	if (objcg)
-+		obj_cgroup_put(objcg);
-+	return may_zswap;
-+}
-+
- /**
-  * folio_alloc_swap - allocate swap space for a folio
-  * @folio: folio we want to move to swap
-@@ -2083,10 +2111,23 @@ int folio_alloc_swap(struct folio *folio)
- {
- 	unsigned int order = folio_order(folio);
- 	unsigned int size = 1 << order;
-+	/* True unless the gate below finds an xswap device to route away from. */
-+	bool may_zswap = true;
-+	bool zswap_checked = false;
- 
- 	VM_BUG_ON_FOLIO(!folio_test_locked(folio), folio);
- 	VM_BUG_ON_FOLIO(!folio_test_uptodate(folio), folio);
- 
-+	/*
-+	 * A folio that zswap will not take must not get an xswap slot. With
-+	 * no xswap device to route away from, skip the lookup; a device that
-+	 * appears before we pick one is handled after the allocation.
-+	 */
-+	if (atomic_read(&nr_xswap_files)) {
-+		may_zswap = folio_may_zswap(folio);
-+		zswap_checked = true;
-+	}
-+
- 	if (order) {
- 		/*
- 		 * Reject large allocation when THP_SWAP is disabled. Check below
-@@ -2107,8 +2148,8 @@ int folio_alloc_swap(struct folio *folio)
- 
- again:
- 	local_lock(&percpu_swap_cluster.lock);
--	if (!swap_alloc_fast(folio))
--		swap_alloc_slow(folio);
-+	if (!swap_alloc_fast(folio, may_zswap))
-+		swap_alloc_slow(folio, may_zswap);
- 	local_unlock(&percpu_swap_cluster.lock);
- 
- 	if (!order && unlikely(!folio_test_swapcache(folio))) {
-@@ -2116,6 +2157,22 @@ int folio_alloc_swap(struct folio *folio)
- 			goto again;
- 	}
- 
-+	/*
-+	 * The xswap gate was skipped because there was no device when we
-+	 * looked. One may have appeared since; check before keeping the
-+	 * xswap slot the allocator may have picked.
-+	 */
-+	if (unlikely(!zswap_checked && atomic_read(&nr_xswap_files) &&
-+		     folio_test_swapcache(folio) &&
-+		     (__swap_entry_to_info(folio->swap)->flags & SWP_XSWAP))) {
-+		zswap_checked = true;
-+		may_zswap = folio_may_zswap(folio);
-+		if (!may_zswap) {
-+			swap_cache_del_folio(folio);
-+			goto again;
-+		}
-+	}
-+
- 	/* Need to call this even if allocation failed, for MEMCG_SWAP_FAIL. */
- 	if (unlikely(mem_cgroup_try_charge_swap(folio))) {
- 		swap_cache_del_folio(folio);
--- 
-2.54.0
-
+> pw-bot: cr
+> 
