@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794232110;
-	b=AoHmNQOBpTkzNQxqw6wZwM+wJrs++WgnyxvgcXJOzrYRqF9smJoWee7MQUs+bVxwL3ZF
-	 Dxj/1K26QQ3N6650t6Br2nzsXNKkbbA0TUzr0BidjDsUYVde6SgvynrF//ok2tiKvD5Oe
-	 2y+ReoxPJITZr3y53Ib7kHcQSV96V8xItX34kdbg47zLN2leWRkcTdH4mEKj3/9KvRC7G
-	 W6+J5nR94vLFrLmlvziDr287JX7dN7IWqcusfesHvWSGsetCl6eaZijpP+brXciMBp2rk
-	 QhBybxihAw6SnjYLwxWZF4+Q1ke3N0ER4dCNVP3hCDodolfcvILNsFFMG3xVswU/i1Q==
+	t=1794232152;
+	b=R8T54sdABQdjV+C5xJdmxAJgWyUOe8G80Tcy3kim3mE2efrpSnphWySaPmEGGiTNLTM5
+	 iFnjDRUU1yH6e9WN9QZp5EjHJKvJp5aHFawa85fQAJJ7GSdz602VwsZb1a7uxyVGhaUY+
+	 rmnrs2y8K1eFKV67RuUphQilhezOl6VZwEopEVDMqXU6oCWuY/Sasqh/++RQ84PMPeQKk
+	 AI2Pf5Qh1LYcYZISne88r0QiE6Xq6y84I3PbnGRZeRcuhksEHL3nc7xgfwm3UWB+ZEXwS
+	 jaP0e9OUswir3Ryik3vZ8jRZg5H5XRuxbZ4GUqeGSSqEof9l4R6HtpO3WREgFIdofVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794232110;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=WIaieGGBZ//QGoNLj878zCBnNschlkTQti7AhZ3wdkI=;
-	b=AE/VzgsuMoSWFOXllVHgZQDxCv9fRD3WFgUFOumeZ5H6Qi/0O00TEEpaPmCGG9WeOjJY
-	 V3I1FTomWKgl8Yp5v8KwnItjXhyXE0t7Ia/DkOzgSVO5gSzeMVZiSnZlbP4cUq2yCZJxP
-	 +eAF7PySakZA6Ymq83l2krQzFdXGnJlX/txdTSukyHHvExfaQkSgtwR4Jo9chPsEunQE7
-	 izm7kbd1IiI3S1E2ZRpRAA2nYnIlN7jYnbv4vkMbQqjumCl4GPHFXne66N6731jJUAaYM
-	 ZGydcIvzJhOI7QFQg1h8WHoIC9dwDehaOav5E9P/oNWZl3SS7ppUpMf6b2JELNrK5Ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794232152;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=8PFZkQCD6ILn1s8X2AxhNNZGgEneoc7HoQXfmR+1pTg=;
+	b=oZ10KMTkpRs+TdDFoooudwRsEmnevCe50jJogBjyjF6qALaDCzfxLq+B3QqPU5deg7Gn
+	 Q7mWX5upjKmjUBPnWkViZDFuYQ96dc0ntX3hJK7H9/QvPWlNeT4VJV2CsBxkxpNu8q8gw
+	 +RSvTjVxhSNkR5Rqj0z+Las2U8nE7KCUbjiucoH4Fu0RmTKPvwYgyzVb3cQswZprzN+IX
+	 +ktrq4bzLaz+l5xCLjZ++ew/wQX5mG68uedkMQmPL0/NYC7s91U04Hepq/xymLErJZS1H
+	 iBP+uWwfkxFQ4Bx5g2LLugxvfrtJGlE/8uwU/7zEstBKvXiLvFxN9XxLJ644oAYcReg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ePFmRO2P;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YrvuAWsn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE248606D82B
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:48:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE248606D82B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF61D606A31C;
+	Mon,  9 Nov 2026 13:49:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ePFmRO2P
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so5756395e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:48:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794232108; x=1794836908; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WIaieGGBZ//QGoNLj878zCBnNschlkTQti7AhZ3wdkI=;
-        b=ePFmRO2PzqoskyTr5nfoHyPN26NaKc33xYWQaKs/0oQaOVgZlgqxcfsE0DQA42xS19
-         lCEuU0cvWs8k6J9vlRVB5i58lkd8JVAT/KkXCHIj7VejyNWsyxOErkC5x++T6bMLuCQD
-         ffpPbMrhdMnIYH7ZB/lmSPQ+p1elqIK8R/jNJaOhT7xZfQrMnz8HoVoEV32X1FnCUyUL
-         S3EITV+8qf7EEjvGg5p4gbQTQqB/tlqcsY8aIB0y8PeiXiWFtJjQA81jr607q9JcnM6b
-         gHGky26+s/mYEXpmFObIBVaK4Bnq0PcA0SBrx3ioQXJEhGebg6ovBTfjh4kDp3X7sdtM
-         2Eig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794232108; x=1794836908;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WIaieGGBZ//QGoNLj878zCBnNschlkTQti7AhZ3wdkI=;
-        b=C2PlEoLqjLQQgf2ql3uLgfImQLiPIcHh8LRdy3jrvjv3IlEA1MrOMB/C2TEEwu1wHp
-         aIrTrp0DnFep9mJJz36JUiiCU8l99I26Yy5BvYrqBiIVyhsUmRAVyJhzbNq1qCI6ocq5
-         w3KzwGMxTsERrOI+1UoHD+hPC2lofp3ioyJLhy/GsYIRRrNOBHulR7NLShuGezC8niRi
-         BxVUqHUSiHtRV1h+lG+EOTUfnF8uk9nE0shqwAEbllgJ7sX+W2NfEWRhzewx+w4rsPEr
-         2QXYvd15bZIVUcgBSsS8O08TBpOQQF8YDqHTomxDhUcxuQcvu8js1wzsyODDCexgjtJZ
-         2g/A==
-X-Forwarded-Encrypted: i=1; AL+hErGeRhrBv9lFEKMqI2/bswaCfc29+cTJIAaayUXk8L2edRkdEjhBEokVLTja1H5kNVHISms9nXqwDHtQ2f0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+8kxjtXzkMyLw6y8c6qJ9Qq/6lJ0mvtplFrmFq8nWnbxx7KLZg
-	rXMonw7G8BL5N+hB7pX1RAa976lyvmXE2+PaXFJSi87KZymKccMBsDXJbR6TGn8ZPU4=
-X-Gm-Gg: AYBFou1yZUniMpBkIUyBZBqfhRWVCNFFxbPwoZTkpUyK58e13PG1FDKaWW8VJpw/CYL
-	Dg1Uo1KcrfUGMZu4irAW2+Ja11PIlRh3dGvJZfn1scxdwIOtQKYqFM7aW4UIcYgs3H+eMV0+hZg
-	cC+EoC/pxtVYfD/OlTQvFvaX4hNTbcQNPHc9N0C7/2DUfQIXnF2E8wjvzyPuB8S3SNVUzQbLenN
-	AYsLy/Y7jx4xXvxTI2aM6+Zwm2rLoMeoSBOZZ9nQL1gAlSX07p5R9gtKgMiv7A/Zohim4LioDod
-	fEF79ebXlW20NZXYUBjWs8B9TqaHtlc5WjR5dHmd0T6IjerB20ALaITdVxBmQ6NJ/32lL6/8lX+
-	Jbqu/H2bZZiy1AkQf+VnJsBtrvMeB9pomRYiukBTCzq/g7IfnnuX1FDpwMv0429y4TKV1VeGkJN
-	zrbtRpCctyAGrWL10UxS3PshtGRBv+KRvjvtZINFv4CD//MH+njBxCusvcZ4c4kgR2UoX3rp8n0
-	kh/qMFoOnK0hv2zDokSV27737tdrIH9tAOggFZ0f1WMJfe2kuEnJCK/8ejy0cRMh3tfCmY6iShl
-	c3BdAsxgcf2seHzVxrddasUW+fKxsrZw
-X-Received: by 2002:a05:600c:3111:b0:4a2:180a:3417 with SMTP id 5b1f17b1804b1-4b94d75ec90mr80947465e9.1.1794232108132;
-        Mon, 09 Nov 2026 05:48:28 -0800 (PST)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7bb101537sm98522045e9.0.2026.11.09.05.48.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 05:48:27 -0800 (PST)
-From: James Clark <james.clark@linaro.org>
-Date: Mon, 09 Nov 2026 13:48:11 +0000
-Subject: [PATCH v4 4/4] perf test: Don't starve per-process tests with
- system-wide events
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YrvuAWsn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C6041F008A1;
+	Mon,  9 Nov 2026 13:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794232151;
+	bh=8PFZkQCD6ILn1s8X2AxhNNZGgEneoc7HoQXfmR+1pTg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YrvuAWsneTIpjPHVpdFdeFQ/vyNnkHZbq2gfydvtaRDQdYQE/9TRnu35Iu02xiTZC
+	 5rcxFWeHs2xSn/AyZocNZXfDdlpBYe7YSzVNwVnQ1oJKK9yos8XekgXDK4ClVldt7O
+	 Iw6O0BEJOs1WRBDy7Z8c0ek7hTrKA2eKC8BKFWgMUvjJrDPf1OsN9MbohC/miY3ZUi
+	 GhJPpP9CppeUNFay6CcFwwhQdF7RhqPbJzJP+m5RDXJbOOcYNJUdDwcooCYoC+J0Dz
+	 lqVDmT6VwL9HFAG4oqM0UiTQIm4Ugo2uW2ei6IL652kF11UVpPsrd5x0Jp/n/VG4nj
+	 OFXaILSt2gpfQ==
+Message-ID: <f6f843ea-1ab2-45fc-b844-7fbb646c686e@kernel.org>
+Date: Mon, 9 Nov 2026 14:49:08 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,130 +51,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] HID: lg-g15: G15 v2 LCD and game-mode support
+To: Torstein Eide <torsteine+linux@gmail.com>, Jiri Kosina
+ <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: Maoyi Xie <maoyixie.tju@gmail.com>, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261109094426.1432465-1-torsteine+linux@gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261109094426.1432465-1-torsteine+linux@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-james-perf-test-fixes-v4-4-355ee6b81917@linaro.org>
-References: <20261109-james-perf-test-fixes-v4-0-355ee6b81917@linaro.org>
-In-Reply-To: <20261109-james-perf-test-fixes-v4-0-355ee6b81917@linaro.org>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, Jakub Brnak <jbrnak@redhat.com>, 
- Leo Yan <leo.yan@arm.com>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- James Clark <james.clark@linaro.org>
-X-Mailer: b4 0.15.2
 
-Some tests intermittently fail when run in parallel, for example "Check
-branch stack sampling" fails with no branches recorded at all.
+Hi,
 
-The default event is cycles:P which there may only be 1 or 2 HW counters
-for on Intel because it's precise. System wide or per-core precise
-events hog the HW counter leaving other per-process tests with no
-samples. Rather than make all the tests that use default record commands
-run serially, just make the system wide ones use a software event which
-has the greatest possible compatibility. They don't need precise
-sampling or HW counters anyway. The per-process tests can be left alone
-as their events/processes never run concurrently on any one core.
++To: Benjamin Valentin <benpicco@googlemail.com>
 
-The LBR filter is another resource shared by all events on a CPU, and
-the system-wide LBR test uses different filters to the per-process
-branch stack test, so mark the LBR test as exclusive.
+Who also just submitted a G15 LCD HID framebuffer driver:
 
-This fixes the "Check branch stack sampling" test and other flakes when
-a system-wide record from another test runs at the same time, for
-example:
+https://lore.kernel.org/linux-input/20261108173920.424072-1-benpicco@googlemail.com/
 
-  $ sudo perf record -a -o /dev/null -- sleep 30 &
-  $ sudo perf test -vvv "Check branch stack sampling"
-  ...
-  Testing user branch stack sampling
-  ERROR: Branches missing ^brstack_bench\+[^ ]*/brstack_foo\+[^ ]*/IND_CALL/.*$
-  ...
-  Testing user branch stack sampling [Failed]
-  ...
-  Testing branch stack filtering permutation (call,CALL|SYSCALL)
-  Testing branch stack filtering [Failed empty script output]
-  ...
-  ---- end(-1) ----
-  138: Check branch stack sampling : FAILED!
+On 9-Nov-26 10:44, Torstein Eide wrote:
+> This series adds support for more of the Logitech G15 v2 hardware to
+> hid-lg-g15, plus a fix for the remove path.
+> 
+> Patch 1 exposes the GamePanel LCD contrast as a g15::lcd_contrast LED.
+> 
+> Patch 2 adds an optional fbdev framebuffer (HID_LOGITECH_G15_FB) for
+> the 160x43 monochrome LCD, updated through deferred I/O, so userspace
+> can draw on the LCD or bind fbcon to it without libg15/g15daemon.
 
-Signed-off-by: James Clark <james.clark@linaro.org>
----
- tools/perf/tests/shell/record.sh          | 6 +++---
- tools/perf/tests/shell/record_lbr.sh      | 2 +-
- tools/perf/tests/shell/record_sideband.sh | 4 ++--
- 3 files changed, 6 insertions(+), 6 deletions(-)
+Ok, so both of you are trying to turn this into a /dev/fb# device, which
+I can understand but I'm not sure this is the best idea.
 
-diff --git a/tools/perf/tests/shell/record.sh b/tools/perf/tests/shell/record.sh
-index 01dc3e22fa73..e4789e2bcf43 100755
---- a/tools/perf/tests/shell/record.sh
-+++ b/tools/perf/tests/shell/record.sh
-@@ -388,7 +388,7 @@ test_system_wide() {
-   echo "Basic --system-wide mode test"
-   local ret=0
-   perf_record_with_retry "${perfdata}" "check_system_wide" "perf test -w thloop" \
--    -aB --synth=no || ret=$?
-+    -aB --synth=no -e cpu-clock || ret=$?
-   if [ $ret -eq 2 ]; then
-     echo "System-wide record [Skipped not supported]"
-     return
-@@ -471,7 +471,7 @@ test_cgroup() {
-   echo "Cgroup sampling test"
-   local ret=0
-   perf_record_with_retry "${perfdata}" "check_cgroup" "perf test -w thloop" \
--    -aB --synth=cgroup --all-cgroups || ret=$?
-+    -aB --synth=cgroup --all-cgroups -e cpu-clock || ret=$?
-   if [ $ret -eq 2 ]; then
-     echo "Cgroup sampling [Skipped not supported]"
-     return
-@@ -491,7 +491,7 @@ test_uid() {
-   echo "Uid sampling test"
-   local ret=0
-   perf_record_with_retry "${perfdata}" "check_uid" "perf test -w thloop" \
--    -aB --synth=no --uid "$(id -u)" || ret=$?
-+    -aB --synth=no --uid "$(id -u)" -e cpu-clock || ret=$?
-   if [ $ret -eq 2 ]; then
-     local logfile="${PERF_RECORD_LOGS[${#PERF_RECORD_LOGS[@]}-1]}"
-     if grep -q -E "libbpf.*EPERM|Access to performance monitoring" "$logfile" || \
-diff --git a/tools/perf/tests/shell/record_lbr.sh b/tools/perf/tests/shell/record_lbr.sh
-index 8d51afeb437b..6b6af59db871 100755
---- a/tools/perf/tests/shell/record_lbr.sh
-+++ b/tools/perf/tests/shell/record_lbr.sh
-@@ -1,6 +1,6 @@
- #!/bin/bash
- # SPDX-License-Identifier: GPL-2.0
--# perf record LBR tests
-+# perf record LBR tests (exclusive)
- 
- set -e
- 
-diff --git a/tools/perf/tests/shell/record_sideband.sh b/tools/perf/tests/shell/record_sideband.sh
-index 2182551873be..f16889e3fa9a 100755
---- a/tools/perf/tests/shell/record_sideband.sh
-+++ b/tools/perf/tests/shell/record_sideband.sh
-@@ -22,7 +22,7 @@ trap trap_cleanup EXIT TERM INT
- 
- can_cpu_wide()
- {
--    if ! perf record -o ${perfdata} -BN --no-bpf-event -C $1 true > /dev/null 2>&1
-+    if ! perf record -o ${perfdata} -BN --no-bpf-event -e cpu-clock -C $1 true > /dev/null 2>&1
-     then
-         echo "record sideband test [Skipped cannot record cpu$1]"
-         err=2
-@@ -39,7 +39,7 @@ test_system_wide_tracking()
-     can_cpu_wide 1 || return 0
- 
-     # Record on CPU 0 a task running on CPU 1
--    perf record -BN --no-bpf-event -o ${perfdata} -C 0 -- taskset --cpu-list 1 true
-+    perf record -BN --no-bpf-event -e cpu-clock -o ${perfdata} -C 0 -- taskset --cpu-list 1 true
- 
-     # Should get MMAP events from CPU 1
-     mmap_cnt=`perf script -i ${perfdata} --show-mmap-events -C 1 2>/dev/null | grep MMAP | wc -l`
+The /dev/fb# API is sorta deprecated in favor of the /dev/dri/card#
+kernel-mode-setting (KMS) interface. Note this is not an invitation to
+turn this into a KMS driver instead. Please do NOT tell your LLM agent
+to turn this into a KMS driver.
 
--- 
-2.43.0
+Regardless of /dev/fb# vs KMS the problem is that userspace code
+like GNOME/KDE will try to treat this as an actual display / an extra
+monitor and that userspace code will now need some special code to not
+treat it as such and may break without special handling added to it.
+
+And we *never* break userspace so using a userspace API which is
+intended for normal (extra) monitor / LCD panel  display output
+is not really appropriate IMHO.
+
+Which brings us to the question, why handle this in the kernel at
+all. I realize that libg15/g15daemon are no longer maintained and
+are obsolete. This is part of why I wrote the drivers/hid/hid-lg-g15.c
+driver to move handling of the key-presses into the kernel.
+
+But while handling key-presses is typically always done in the kernel
+so far these kind of small status displays (again not a full blown
+monitor / display output) has typically been done in userspace.
+
+There are several projects for this, e.g. lcdproc, which is still
+actively developed on github:
+
+https://github.com/lcdproc/lcdproc
+
+This works more or less out of the box with the G15 display, it does
+still rely on the libg15render library. But that can easily be fixed
+as shown by these kernel patches which in essence integrate a copy of
+the relevant libg15render bits.
+
+So maybe instead of writing a kernel driver you can write a PR for
+lcdproc to remove the dependency on the unmaintained libg15render,
+instead folding the render bits directly into the lcdproc code.
+
+Note that on Fedora (you can try by booting a F45 livecd) after
+installing lcdprod "sudo dnf install lcdproc" just replugging
+the G15 keyboard will trigger a udev script which automatically
+creates a lcdproc conf file to use the keyboard if no lcdproc.conf
+exists yet. So this pretty much works plug and play without any
+kernel changes...
+
+> Patch 3 binds the G15 v2's second interface (046D:C226), which is
+> currently handled by hid-generic, and exposes the Super-key-lock
+> ("Game Mode") state as a read-only g15::game_mode LED. Normal key
+> input on that interface is left to hid-input.
+
+Patches 1 and 3 do sound potentially interesting although I wonder
+how these interact with e.g. the existing lcdproc support which
+uses this interface directly in hidraw mode.
+
+Note again we never break userspace. So existing lcdproc setups
+must keep working with these changes.
+
+> Patch 4 fixes a use-after-free on remove: the LED work can be
+> rescheduled by a key press between cancel_work_sync() and
+> hid_hw_stop(). The bug predates this series, but the patch is
+> written against the remove path as changed by patches 1-3, so
+> it does not apply to the current tree on its own.
+
+I'll reply to this patch seperately.
+
+Regards,
+
+Hans
+
+
+> 
+> The LCD wire format and contrast commands follow libg15, hence the
+> Based-on-work-by tags for its authors.
+> 
+> All patches were tested on a Logitech G15 v2.
+> 
+> Torstein Eide (4):
+>   HID: lg-g15: add LCD contrast LED
+>   HID: lg-g15: add LCD pixel-content framebuffer
+>   HID: lg-g15: report Super-key-lock state on G15 v2's keyboard
+>     interface
+>   HID: lg-g15: cancel LED work only after stopping the hardware
+> 
+>  drivers/hid/Kconfig      |  13 +
+>  drivers/hid/hid-ids.h    |   1 +
+>  drivers/hid/hid-lg-g15.c | 599 ++++++++++++++++++++++++++++++++++++++-
+>  3 files changed, 606 insertions(+), 7 deletions(-)
+> 
 
