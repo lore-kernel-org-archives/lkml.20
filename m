@@ -1,67 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217422;
-	b=yjjlrcoUBd69BL0vAlNlLa4z1TaSPpuONGHUHleUf3BTdOL5JbA4hb1gCLz18Zlr9T6q
-	 RGS5s/ek5TwuYOgFIFb1LOceoeDJmQQajG2LbuvD7EwI/1mbYEIQaLDS+q6C+dx3NOLOK
-	 /mtyY4AzHxnvr/yeRjaDTh4KtovmwgDlpDVFI8yzetqLgMrTJvwbNRI6Z0B68NYhWtznQ
-	 Qcmt9UJKOs+D5j2lxane+zumcRyCXtqrca2hhSa+lGtWr4FXaTC90pKNmanQh5XrV1uYi
-	 XwKIEKn4evuoJ2nvrMB+B5fwpo8STl7FjdIO5cv9tX/FfloM+tUPAVuh2fmNfpM5/HQ==
+	t=1794217479;
+	b=SQbt8vJ3c0bJFT+zGcv0DW7fJAs4UBgDm1Y2PZcHCgo+k9jqtu6tevjNi9zBH0PGiNL4
+	 ZankDwTXiUjvBXlYbReExgYbC4/VWTeHIWAsS7JEzkUNW+/l6n+F4n1wcEdC6Lrk0uTDz
+	 MCbSua/NkErexDf1AyMlVMZufX+xQiG69pqzqj5tGDgx8KWLi3WnsieuW7p0RC4MwqvUN
+	 6gYnRiMq9XiL3DQsTwn7baV+Nih/ld6l34e0qMYVcKCTstytM5smaaeXzCHjs7KyD5eo0
+	 dmPVWIGRQOv2xzWd//5gvahCLOA1ZhQFwEkSOuyvPEaXnzPKrCny9891wZRlgg++lLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217422;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=X3no4rhRBLwR+s1F99TECEwct/nFZ4Xb+FSwo1OAE4M=;
-	b=1cykN/K8wIjnH1UfiiuRS955KmrDoClIhvqPWlktYwQbX7jrM8ts6DvBA4YRCYUQCBf4
-	 8kL1qdtMcs6BxLArhc828ZxpZdxO2RPuRHOkkbpumnTKTItbT29KmsLYeC/oEIBuBJck6
-	 XdH6WCoBsDHT+h7882o1tvefQ/pQ42f3LBkt29wu8fZCr62CNVoAJ2JHczvG1IlijPud3
-	 hlWwDVSNWlyThl5Xey8qt5wisVMNgMnoG56XoZPek2JNfsk2w0n3A3zQHnxqPUNV4ap3Q
-	 KgeCnIrZF8MKbSTpwpADHORd5GMICHgkCIpfjop2qOHR+J9IBiYFVJ5UOOOHFflLXfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217479;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=oj3EKNGG17sqpOqktYRe++Wt7Nxr9RGMT3w7eUeplg8=;
+	b=d7YKV4VyMYteRvbtMGoIqNifSZ0KILbciOJk+vYDCGq4vTMROAQaLBY1zG05YqH81m3n
+	 X2opeF02jiiypo7ZKoiqZg2z2/ETRANH5KyK70f1UyJ5N31YKw4CDtlugHzR40VCBbMNF
+	 UKjHPdKvH3EWVkw0udajspgOggov3ElEFjx0X4kCR1uEZsnBsVAV1GdVA6fz2aYZmRf2x
+	 +fohjhPsnaD5LO1RkHkj8kPKNYSg2eCC5JBGwk2bZ4X/LY1qXJRwivJBAq1OK5TMlE+9C
+	 1EchSrqn+Pra2p/Bieyk/j6IKZCsbxRYGQHrpcaQsf/ivJyVxGVsgzouiKG+1xfeelw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=Or10fogX;
-	arc=none smtp.remote-ip=54.206.16.166
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QxEawyRe;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B61EC606A31C;
-	Mon,  9 Nov 2026 09:43:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B61EC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65785606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:44:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65785606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=Or10fogX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794217382;
-	bh=X3no4rhRBLwR+s1F99TECEwct/nFZ4Xb+FSwo1OAE4M=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=Or10fogXCO0pmNftiL0piJuUzesuy9c1Cgp9BSiekQpvLT5f+5Ks9cVwVYgKerfrD
-	 ZvLYeAYzsQRUrETMrA69ElISuxq5A0ejDAyIfJhpuRURfiUtSfU5R7p+mv4Xs+ecp2
-	 qVzHWol9w35CPzcMg/LVodXr058AeMt48xQhjYs8=
-X-QQ-mid: esmtpgz15t1794217364tc6710433
-X-QQ-Originating-IP: P0dnXr+JG4T4lzEZSen4qEVvFKsIsadQAKCqDVMiyDE=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 09 Nov 2026 17:42:43 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 12239275079439126609
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: lee@kernel.org
-Cc: andriy.shevchenko@linux.intel.com,
-	mika.westerberg@linux.intel.com,
-	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] mfd: intel-lpss: Clamp latency tolerance to the register value mask
-Date: Mon,  9 Nov 2026 17:42:42 +0800
-Message-ID: <82545EC5E5ABC9F0+20261109094242.3783672-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QxEawyRe
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4d2b741ed9so97937466b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:44:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794217478; x=1794822278; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oj3EKNGG17sqpOqktYRe++Wt7Nxr9RGMT3w7eUeplg8=;
+        b=QxEawyRePq1HxiXwiY9Gxec4QQmFKhN3WPgDg1Tb57J24N0FNdOJ0f70p1Q+VINtki
+         UiJIhugZ0ITyGaBXN3tfcymhEQNwJ5h3UE76spHbI6Yece0a0Dwm/2SoMLh8vG2ItRaA
+         2YXHeWZatEdJsKv+/mdxxIvqZcL0OJlc6J/dsr6tQXk+Z50mCMbVaYAhkEMcoxdd9BpP
+         Q+mrFj4PUkmLV1/Ci0MITaGqYfGZ15yba274xjsJ3kUfzohGiGraWdt1hOAPgidRZ5o6
+         OQmBa96obqWpiuMGB7iRbVPwOhaHydBite5W6pxh3ycxhQ4pvLlhN9zuT9YgX4C7flVl
+         ic2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794217478; x=1794822278;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oj3EKNGG17sqpOqktYRe++Wt7Nxr9RGMT3w7eUeplg8=;
+        b=HOwbS/ECyPPMnQKHLtp/JCCHcSnm6lkatJ6V+zn1qKkFEU6A0gemEhJkK+ci9AFrYq
+         c9Nc1X5bO4IGL4/JKY+Y30oasxB+uzssyZjuK7J+JeHWNwzzA3ER+HKAKAK8x/163E5I
+         Awxc0S/KaZ9GrJojIeotpp2pCoqq71/kg3vGLFNuTPuCshV5Y9xeCSmnFKb6ocS7vrOj
+         4rutWIiod9RLMUGifxZAox8T1q2NJwaNTCGoKb2cIpt5sWBt/AwXF9lWyJhe2dTXLz+7
+         Jt8lNolQdj9lYFKFGs8fbXzBSDONKD8aYz338vpAqHnjJ5chCZi01jK+IK5Bg//VkDKI
+         UdkQ==
+X-Forwarded-Encrypted: i=1; AL+hErH+cLOI+eJd7s+EDEB4VQJs0WyqYW9nbpOeNFLzu8UmScCcQWZ+IfoMBLUFsy4rzNPTSDQbaIGGRabDN0M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z87hYE5Fl8lZD/pA1wJiZo1DNTd7sz3JGE4TqaxICEQtWVWo6uE
+	MHQUQJufrVa6DwJFGtkcMwCV83raBhssq7zgU/IqSBkUUzdcSgLXCSIe
+X-Gm-Gg: AYBFou0F8PQ0+/Crolyf2S9MJEIBtOirXXMusH2XQVdDwbcHhyxAag86wBO3ywqOyyj
+	hkd7ZEguN2xnfjgyDQFQeA0lC9OoPNxN2eFhblAj6lb+IAsPpOn+3VvwQ++AYUExx5eSdLv0Qbb
+	pKKVCdD9JrBAkB8uELUEi37frQBHRgrEAew1LAhF9h3gLJw5sASyBXNIOx9BVJfdvT1UavtukXD
+	djbBdhyY3xcQwhvXBoKCGmcqvnLjMgEhPOCkOvknvyDNXcFrQke382uSek5IJWznc6a0AHmGVhB
+	1fi4omDifiIIdRC4+4LkWJD+fcWOvMyj5OddHMjqFFJ21uGTmUhWRt38FzQws550xyFfovGzUp5
+	E95FX28K7FRD4Dj+hdRF/hbEywvEhB5CpF7lk5kYjvqFYPAStgfT8vzkKigXp/FNPeqxid5UX/l
+	L2PbX89WjH5DeG1UiZCQppfgTisYyF9/+VzgCmf6TQrvVfG1iVAQdLXjgyuJeoRUMaIfCyprd4n
+	Msdk70t7gcbQ6M8447XvJFkSHyvzyrTEArUxmWUHSLeDWoSDHNyeJ3gbCzdCkyfF03+oN5F9MEX
+	UQXoYEXKu18WvJwhYrPpPK0e7EiYmIrEeuof+ywJKoEP7etkH5eg5SwP
+X-Received: by 2002:a17:907:3da4:b0:c49:cd37:177e with SMTP id a640c23a62f3a-c4d6db58574mr238659066b.48.1794217477322;
+        Mon, 09 Nov 2026 01:44:37 -0800 (PST)
+Received: from torstein-desktop.internal ([2a01:799:3a1:9700:6e3a:d704:53e2:f00e])
+        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c4d6a4753aasm137786866b.45.2026.11.09.01.44.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 01:44:36 -0800 (PST)
+Sender: Torstein Eide <torsteine@gmail.com>
+From: Torstein Eide <torsteine+linux@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Maoyi Xie <maoyixie.tju@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/4] HID: lg-g15: G15 v2 LCD and game-mode support
+Date: Mon,  9 Nov 2026 10:44:22 +0100
+Message-ID: <20261109094426.1432465-1-torsteine+linux@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,77 +100,44 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MgRO26CFjEybQMBXp1qWv6NdK5NnRWXIQdRB5R0BsRKjsStbbh4o0z3U
-	Hz13Hnk60NCRo4GQiVJBptQLcgAZLHOw6gf0GBOXpxvlVxGGdlOgx+M92ywCf8pxK4dHLFd
-	jHmIpHfQKs7o19eXtdjk34YatuJ7or4w0aP1fTkXreM9KXhidw5cHtNqL59VtqyZrDRueLG
-	ow92OQWllBnHcmYBDQkgg9cOgBtl1lnxD4zc+y3kAKnsIYdm8UYami9dexDHrjGjKEfOcAS
-	5UwqDKb3S8M9CWgHuAo7HvacGqfwR/mgL7BbxMhWaU9jij23PtKx0Jjlx+fZIuN0kPC5QBM
-	/b4tph6RV9u6CQSbTtFPmSdMP7KUCqn5Mc1rlRnKfrzRBXAA2DYKilixcA9mMfarez3dWP5
-	xqyyX2x/9f5xyGD81yrzFofvDphvJF4NQ/hi8s66tvtDhlO5LqdTAzOQMv9+T/4S0QDCE9O
-	5kwSSdGmG+BtLfSftEp2icp2SDm1VYTgGFW0Ak+HHJmMD1LNK894djNLmpOR6MDYCOHT9FN
-	EDf8obz2TFRfg0moSm7OIskiO0anYwgvDs2WBtc/f5d35OeRWLnsTCY0KWFFTIz+zjLydQ1
-	54zVBBrY9YSywAGYiy0ZQLg25YMHpl7meD2nsw0taN2EEKhRS8nJqJC/oraevxGu+tZN+yA
-	wuQ2fjDgoohbrvOvgdRVVLdzWHdgeNb/+Uo2xeulTZvNJCNFpGSpBBsqys1aOkiksTlpLjR
-	oCT/xeaiKSnC97HNBqYI0/2dnh6Vx1oBlr77H7aii84YbXBehuaD6EFwXn81ItwsUJuyvLa
-	NqQAIqTDpmHcIHxgyPV6t0YROGr4rHa1qXKysCvpjur92whN/UHZzf8viJnDhG9B7KTS/Wp
-	yGFXnxRSV/nDsgJimzaJu7TkQvcbV2C/liwxL5wmYWf+bMWA5l0Bv+sRu+Dv7wMYoUtiqaX
-	g/dnpXKyQgi5cLNyo9JjPyNAyuzQ95MvNBnaI5/TcfMOqCa+pMgNxorzGFWnYR41ZTnaNta
-	oon4SVZrFALRBcMNvM4c/yd0cXkbpr0zlLnvUeKeZ4z04UU36CAcJVq3xspYg=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
 
-From: Xu Rao <raoxu@uniontech.com>
+This series adds support for more of the Logitech G15 v2 hardware to
+hid-lg-g15, plus a fix for the remove path.
 
-The PM QoS latency tolerance interface accepts non-negative s32 values,
-but the LPSS active and idle LTR registers have only a ten-bit value
-field. intel_lpss_ltr_set() selects the larger scale for requests above
-1023 us and ORs val >> 5 into the register without limiting its width.
+Patch 1 exposes the GamePanel LCD contrast as a g15::lcd_contrast LED.
 
-For a request of 32768 us, the shifted value is 1024 and the latency
-value field becomes zero. A request of 100000 us leaves only 53 in the
-value field. Still larger requests can set bits outside both the value
-and scale fields. Thus a relaxed latency request can produce a much
-stricter tolerance and unnecessarily restrict power saving.
+Patch 2 adds an optional fbdev framebuffer (HID_LOGITECH_G15_FB) for
+the 160x43 monochrome LCD, updated through deferred I/O, so userspace
+can draw on the LCD or bind fbcon to it without libg15/g15daemon.
 
-Clamp the shifted value to LPSS_PRIV_LTR_VALUE_MASK before combining it
-with LPSS_PRIV_LTR_SCALE_32US. This saturates oversized requests instead
-of wrapping the field, matching the Intel LTR handling in sdhci-pci.
-Negative values and PM_QOS_LATENCY_ANY retain their existing handling.
+Patch 3 binds the G15 v2's second interface (046D:C226), which is
+currently handled by hid-generic, and exposes the Super-key-lock
+("Game Mode") state as a read-only g15::game_mode LED. Normal key
+input on that interface is left to hid-input.
 
-The supplied fix was reviewed and this commit message prepared with
-OpenCode AI assistance.
+Patch 4 fixes a use-after-free on remove: the LED work can be
+rescheduled by a key press between cancel_work_sync() and
+hid_hw_stop(). The bug predates this series, but the patch is
+written against the remove path as changed by patches 1-3, so
+it does not apply to the current tree on its own.
 
-Fixes: 4b45efe85263 ("mfd: Add support for Intel Sunrisepoint LPSS devices")
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Cc: stable@vger.kernel.org
----
- drivers/mfd/intel-lpss.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+The LCD wire format and contrast commands follow libg15, hence the
+Based-on-work-by tags for its authors.
 
-diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
-index 29f30ef0da99..3c3e75c23720 100644
---- a/drivers/mfd/intel-lpss.c
-+++ b/drivers/mfd/intel-lpss.c
-@@ -23,6 +23,7 @@
- #include <linux/io.h>
- #include <linux/ioport.h>
- #include <linux/mfd/core.h>
-+#include <linux/minmax.h>
- #include <linux/module.h>
- #include <linux/pm.h>
- #include <linux/pm_qos.h>
-@@ -179,7 +180,8 @@ static void intel_lpss_ltr_set(struct device *dev, s32 val)
- 		ltr &= ~LPSS_PRIV_LTR_VALUE_MASK;
+All patches were tested on a Logitech G15 v2.
 
- 		if (val > LPSS_PRIV_LTR_VALUE_MASK)
--			ltr |= LPSS_PRIV_LTR_SCALE_32US | val >> 5;
-+			ltr |= LPSS_PRIV_LTR_SCALE_32US |
-+			       min_t(u32, val >> 5, LPSS_PRIV_LTR_VALUE_MASK);
- 		else
- 			ltr |= LPSS_PRIV_LTR_SCALE_1US | val;
- 	}
---
-2.50.1
+Torstein Eide (4):
+  HID: lg-g15: add LCD contrast LED
+  HID: lg-g15: add LCD pixel-content framebuffer
+  HID: lg-g15: report Super-key-lock state on G15 v2's keyboard
+    interface
+  HID: lg-g15: cancel LED work only after stopping the hardware
+
+ drivers/hid/Kconfig      |  13 +
+ drivers/hid/hid-ids.h    |   1 +
+ drivers/hid/hid-lg-g15.c | 599 ++++++++++++++++++++++++++++++++++++++-
+ 3 files changed, 606 insertions(+), 7 deletions(-)
+
+-- 
+2.53.0
 
