@@ -1,112 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230353;
-	b=jqfFRm7Dp+9ph1QfkJhAbSRx0ldZ0HGJsoKpkEdgS2ABYW+YO3SAAoVSk1eRrTcaaSdk
-	 ZvxMBxbMsXsR3l5evKWAebACClxxQn1nALm8gqGulqY71HfRTNcaadd9RHc/YBkTAli75
-	 EYUmz1kg4bacFAllc3st3cWwmsP3IItAl2QvU5ezRTozqKxpRiGhAzd3usXXEdHWBmebG
-	 VqYs2vxEp/Ui2TxCS1elYMmwGeawPYngmilaxRGcaSCZ2kMD7B5M4NlLadNMHla+D4Wrq
-	 sNR4a8+b1T64EcuYWxbLTn1W93hpzfJoTtSOtgOGnIn86e12vRS0q1s+5MWyhLKDJ9g==
+	t=1794230373;
+	b=SABEB23UgC4cZ6DSveEjiKRap6hxgcdKYUtpHpjummopMQZeLuSWsSZ7wHKCUdGDR4UM
+	 cRwhF/cehqIwK44e/GGVViW6s2d4OdQog4sa8kIUlkMvCmE/NWkytjTaVpd+6Eom7lvbC
+	 8OQim42bacx62t0d/4T8KBAAdWkCMGwA9B2uB8yo2brE8a4/Ph4M6Ij4sObDWy0/HSSVX
+	 KB/+ZIIxExaSBRYd8Y2nt9sxetVmxtyteIXZHWBGhzeiHID9VBXKpO2P0hzOZHlErzfC1
+	 eOGNF5s4kRcMI6RblVb4uDXqE7gbV8L4inGqU+OboIub12OApWKVFjYZ6V1e+5EHq1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230353;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-Spamd-Result:X-Spam-Score:
-	 X-Spam-Level:X-Spam-Flag;
-	bh=zZ0zO0/b7wndx/eaqJPYaM6mjbvdFeSUXnPsfh8vP0o=;
-	b=TjbNOVSVUwuy3I5+iesBtTMVEJL6vHiFv5zl4BBujCCJBw1Jy4DkcYl3meUNL35p+OTu
-	 cpEGjnm7vf+QcFW7g6vILiNvwbYd5+M2sQpjt6J2N0z2ASmf+JvHW64CUBCpkm3KafEVf
-	 JxYjd/hmWYLbu/rEtn2sE2XDP2KGtvAtd6idUOLKIMhK17XrylE6vSVWBZ1iTb1NoK3zv
-	 Iv8YUoO0zFnVLOLOjxi/chYEfys8zxAaTv4qYl6AGB5z9AMV+FEz+V5d+M+Ydat3aMMSz
-	 yjAoOp55pjJ0jVzNwXsm/jc5dTx0n8hmeRV1pp5AbSivA69Jd9t7aIazGZpnt53jVlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230373;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Uv5bO6AUKJsHIPdwpCyD14HCM2d7u5JJeW1iJ7y05Go=;
+	b=IrOZANetdq1LnhmOGlBAc5HhBkQkVTaeVohUS4qeRgbdcbHfDHZFn2Uqz8FJUqsLvDYV
+	 IMXaIOvhT0eOjabWqjcrB3EGx0VaowlQLaUN1f7mJqd8HA/zcrvIZFXSWiZFIwMLhwUes
+	 4MSTd543F3RrWDmQc8yKZF6KRgDdQV5z39VbzlEpCkfiZxm/6J/O9pAwQ/GvOosRSmMw/
+	 mES8CwOw39QqhJbWsmYhsRKY7cflABy5ICdLLiXisVLQZOt9jMFZjNrZY4StKRX4aAoA2
+	 6sC7AFYG2UZlzLNGIAWNWlbIjoHoPSr5AFcj/SxUkXTVkQrBig14sOXaNIJ3idGuEFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=YLtTBCe2;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Zkv3GbjD;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=1bYJFOGE;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lgr+KkFf;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HXFEuxO1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8D1606A31C;
-	Mon,  9 Nov 2026 13:19:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA8D1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B73606A31C;
+	Mon,  9 Nov 2026 13:19:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=YLtTBCe2;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Zkv3GbjD;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=1bYJFOGE;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=lgr+KkFf
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 88D321F385;
-	Mon,  9 Nov 2026 13:19:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794230350; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zZ0zO0/b7wndx/eaqJPYaM6mjbvdFeSUXnPsfh8vP0o=;
-	b=YLtTBCe2qgNs5qeH8zUqz/liXIuxtUPSWOUsu66zsoaPhX/FZkrXMw4H/QukSt1s6Va5lF
-	IBU9d6ZWTo4F0n0fpXuD05Fk4wpc0seOh1a3mDsudJL6pb9Inpl7qn9Tv3D0ktJ/nJofKk
-	fI/F3PrSlN0SX/O7xNuVN6FRO769y8U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794230350;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zZ0zO0/b7wndx/eaqJPYaM6mjbvdFeSUXnPsfh8vP0o=;
-	b=Zkv3GbjDQ2dquxRtsim22JGFG/Lv08xHvBPOlG9eEqf6M+AvQoFbpNlRYz1Qhbt6ru5VYr
-	vnCYf9MJi6MlEmBA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794230349; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zZ0zO0/b7wndx/eaqJPYaM6mjbvdFeSUXnPsfh8vP0o=;
-	b=1bYJFOGE1l8zV7hfr4g6l4TpFPxI8CTzo8ml77c6F6XZDwS3lYT0YNqdDhQvhY59TXOwej
-	oZysffTHL/NzgC5TUjgPvT5MINhTmCb6cbIkmPa4fM5MteolYeHky+JIFpuicIQEvOjmq5
-	H7sVUGbSLPjkS0mIePZi0JMOSDslYWQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794230349;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zZ0zO0/b7wndx/eaqJPYaM6mjbvdFeSUXnPsfh8vP0o=;
-	b=lgr+KkFfGKmPc1OL5HPninA4AvfOQ5/XGr9uqxNEx/CCwgCX58FxaSEI915VBI+UKtE0gp
-	zeX9ve//ibU7liCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5E81213302;
-	Mon,  9 Nov 2026 13:19:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id WjZ8Dk3I8WqRIAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 09 Nov 2026 13:19:09 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id DF4442201C; Mon, 09 Nov 2026 14:19:04 +0100 (CET)
-Date: Mon, 9 Nov 2026 14:19:04 +0100
-From: Jan Kara <jack@suse.cz>
-To: =?utf-8?B?SsOpcsOpbXk=?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: tytso@mit.edu, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	Ritesh Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: fix OOB write in fast-commit replay
-Message-ID: <idqh5j5m3rhjsdu77h7dchk5vxj47fcsls7tcdhu4wdf75cthu@sxwipa7u2hyl>
-References: <20261108204345.1423203-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HXFEuxO1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 832431F0089F;
+	Mon,  9 Nov 2026 13:19:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794230372;
+	bh=Uv5bO6AUKJsHIPdwpCyD14HCM2d7u5JJeW1iJ7y05Go=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HXFEuxO1iviPKj4y+W2QeyM8UemUDAKPU+dMccpBYqxAqYS+EMfrxDzmzUetlwl7F
+	 NrXh+o9u2nGMVC9OqH+LY49kVLO7hMHHpBMNbXUdXlBchaBGSGgVLwEcCjypgSpG2f
+	 rE+1aaRH5ckRAPETBAiu/sVr4H+1xH0V+HZQLnWftgcS+Vl5A9kHCfOCktbuZ30JNC
+	 T823VhkEKYUtsV9ssJwRlQCsDcvw5iRJ/yNHsLqeBGT+b2PpkZLjWu0uKNZ5GZv8L2
+	 7BYmemoFNhxUsIT4OhSoFVvxSo4zAL1HBhCHTXGhDEqwemBNHX/JhKM+A8L8OgoPKN
+	 c6h1/QbcGYukQ==
+Date: Mon, 9 Nov 2026 14:19:28 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Demeter Barna <me@fromdisposition.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: crypto: qcom,inline-crypto-engine: Add
+ SM8350
+Message-ID: <20261109-tested-finch-of-trust-48febb@quoll>
+References: <20261105-b4-sm8350-ice-v1-0-f55e6ea8e1ca@fromdisposition.org>
+ <20261105-b4-sm8350-ice-v1-1-f55e6ea8e1ca@fromdisposition.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,91 +62,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261108204345.1423203-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Spamd-Result: default: False [-11.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
-	MISSING_XM_UA(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Score: -11.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+In-Reply-To: <20261105-b4-sm8350-ice-v1-1-f55e6ea8e1ca@fromdisposition.org>
 
-On Sun 08-11-26 20:43:46, Jérémy Jean wrote:
-> Fast-commit recovery checks record bounds and lengths during scan.
-> Replay reads the records again without these checks. A corrupt filesystem
-> can make an earlier replay operation overwrite a later record. Its new
-
-This fact looks like the real problem. I think we should validate the
-replay does not corrupt the journal. How does this happen? Otherwise we
-have to fully redo the validation of each record done in
-ext4_fc_replay_scan().
-
-								Honza
-
-> length can make ext4_fc_replay_inode() copy past the end of an inode buffer.
-> The OOB write can trigger KASAN, which reports it as a UAF:
+On Thu, Nov 05, 2026 at 03:29:30PM +0000, Demeter Barna wrote:
+> SM8350's UFS host has an inline crypto engine, version 3.2.0, with a
+> hardware key manager behind it, clocked by the UFS ICE core and AHB
+> clocks and powered by the UFS PHY GDSC. Document the compatible and
+> require the power domain and clock names for it, as for SM8450.
 > 
->   BUG: KASAN: slab-use-after-free in ext4_fc_replay+0x1725/0x2de0
->   Write of size 200 at addr ffff888008598f64 by task busybox/62
->   Call Trace:
->    __asan_memcpy+0x3c/0x60
->    ext4_fc_replay+0x1725/0x2de0
->    do_one_pass+0x113c/0x2370
->    jbd2_journal_recover+0x528/0x7e0
->    jbd2_journal_load+0x7c/0x810
->    ext4_fill_super+0xaa54/0xc270
-> 
-> Check record bounds and lengths again before replaying each record.
-> 
-> Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+> Signed-off-by: Demeter Barna <me@fromdisposition.org>
 > ---
->  fs/ext4/fast_commit.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-> index 0cac890..9edd26a 100644
-> --- a/fs/ext4/fast_commit.c
-> +++ b/fs/ext4/fast_commit.c
-> @@ -2613,6 +2613,11 @@ static int ext4_fc_replay(journal_t *journal, struct buffer_head *bh,
->  			ext4_fc_set_bitmaps_and_counters(sb);
->  			break;
->  		}
-> +		if (tl.fc_len > end - val ||
-> +		    !ext4_fc_value_len_isvalid(sbi, tl.fc_tag, tl.fc_len)) {
-> +			ret = -EFSCORRUPTED;
-> +			break;
-> +		}
->  
->  		ext4_debug("Replay phase, tag:%s\n", tag2str(tl.fc_tag));
->  		state->fc_replay_num_tags--;
-> -- 
-> 2.47.3
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>  Documentation/devicetree/bindings/crypto/qcom,inline-crypto-engine.yaml | 2 ++
+
+And a comment "do not extend that list" did not ring a bell? If you do
+something against clear guideline, at least document why.
+
+Best regards,
+Krzysztof
+
