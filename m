@@ -1,53 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239018;
-	b=dyTTCa1m/hPNDk+Z7JkKADW/ks6hLGKXv6LIEYU6w2p4F1ws4x+S1teSXTfh9B19i92w
-	 h/jYgrXnR/8B2Ub18gJKldZEvnNu/B3r6TlbyfYtnaq4rM2YBqbkBIgD6pe9R3ilQpB4Z
-	 6/l2UdFeSrQX8zlG5J9tnMJP2uV/Z1lEKoqiDg9FxnMLd8j4mylMyEZi7+Q3Ls4uLx1tv
-	 kX5Ji7E5bu6MZu+kB9JPM7APe6OvnBfVOzTpCx+YyDGUtl6htQglWFA/jN45raquW2f+x
-	 bG6frH4NBi5YBCUHpmklX5aq/j149oo7t0xeKxW9fj4HGWMsW1prANwhtyzoxkqM1Ng==
+	t=1794239069;
+	b=J8P4tJxwMp7P+XfLFMDiwnHtPvMFCJm8yanfxHjTcx7Q+iu1ZZHEfLfxbS6KKkR8gJgV
+	 7hPwxL/Y1YHqlhyss+jkVR6Hpm4nsQH9yfIk4ryj2V2c202a2LY6tvtZW4AV87XEKwu/S
+	 3/ot2Z7j1l+8cUv1xRcDCCVjY/QVqx81rasUXHjviorPXee6+wEPec7507FYYezJS1RWq
+	 7N2jGb3WCvxe3YcfRlxOUN6fBYSINY7RElJrSN0q43O8W/mIxc3I3Z1dhUNhCTWcYVcSN
+	 MQYKLajbTGexa7jMUWZJ5gT5QIe38vy+gle7BsQkTWcE2RcSuZgdDmYe+GiE0a5ZamA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239018;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=wU1ifyjtBHXzPL8O1JAUpouGxPg8mwJS5MT55/0wkts=;
-	b=2ofN3rypyqt5t8mqg0Z6ynHvrH0iJT0GMLZHJxgUcF+P/ZMilqQJ/2RisqPG8u3zeKx/
-	 rFyvoPrqcu8Pq35oL9kW3/AS0ArQedIG1jiDLSGZ/Erv76YUwf7ND0XN1uJpzCVSdnbVC
-	 tzi2tTuknA8+kTlDGbGyvhTUGBjvn/5wpXIDz/iBjGGIha6DpJbYvYF8wjmI79feE72cE
-	 C7lYaa7a3xITQKZTvCLqchVX1peQPoMr82nh86aS/wmBj89q+0/ND8ABukMVAfaEqMAQu
-	 FGg/HpyzNOIt4SMgxa8PpvXJ+t7S2O0/n41hHoFiTi3qB28hXNJ65GFBtkToC9bcZPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239069;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:Content-Type:
+	 X-RootMTR:X-EPHeader:X-CMS-RootMailID:References;
+	bh=KeAlv0EKtTaDGrW0uWisjEOMXQElHFsb7+RWr717ehA=;
+	b=pFV6CLFpFof1kW/nQt4QMxY3TCBFAJ//oW5IX7QPFmawfDnWXMsmR/TNhjK5BUdLOrhz
+	 41ooSKXXfchTcDQyOeeUD0fPCWQFeB0hOX0888bCMxNK6UC5JEdavkFTECY8ySiArMBwq
+	 H2qFIE13rYMnbnFxVjEoZxW1YLD/MFFgf+2aqxJp4DZmaaSIcUAa7eNNjD96zRghTN2S+
+	 GG+Z3KlxfXOMFZ7kS3+3P8BDaItMTPOz4Gj8JnrVhYkjwgkq0a42G92IOsBgMTLT/cCEb
+	 45LLMk8BX6cxe3gnZp2EOY8FS2YGoFd6wlXbNMGRSEjpOpTOskvD5KYEZ5I+kloHyYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UyxFsy5j;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=cfWwherg;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2A0606A31C;
-	Mon,  9 Nov 2026 15:43:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAEE606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:44:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EAEE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UyxFsy5j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AAAD1F0089F;
-	Mon,  9 Nov 2026 15:43:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794239017;
-	bh=wU1ifyjtBHXzPL8O1JAUpouGxPg8mwJS5MT55/0wkts=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UyxFsy5j1uexnMSXrnWEqLslhhH0CGTrpUNXtaJTFYNOhnN/7dWCA3huzZo/1zWgw
-	 o8ymlQoJFHCJloqJEPTKAyabLAwSbDevxBPr/35tfSMrGJNSoWqmvsli4ng6t1Z7Rc
-	 YksbunXIId3fAAGQvqiZoyzVkQ5NYXr5xodbdmfnUoafUMgB6+vDkQUtWGoYf3iyv9
-	 +vyZoBlMeSYqFB2G5fhXw22XGNnOF9zy6u4rctcmy+1lnJpB8U+YIoYAKCUg8ZnkAF
-	 Mhmhbn/eWpog5qz9Pb0/+iMkdkIiEn+d/r2Wn5nRbWbzOwrX7S8p+H8VWhRpTU/5GC
-	 YTAQcn+/ugMew==
-Date: Mon, 09 Nov 2026 05:43:36 -1000
-Message-ID: <91fa9a5de005245ed3c1bde305fc6778@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Chris Down <chris@chrisdown.name>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, Serge Hallyn <serge.hallyn@ubuntu.com>, driver-core@lists.linux.dev, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
-Subject: Re: [PATCH] kernfs: Build paths in linear time with respect to depth
-In-Reply-To: <au_pnu4s141ylqHD@chrisdown.name>
-References: <au_pnu4s141ylqHD@chrisdown.name>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=cfWwherg
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261109154426euoutp019a679dce181ff8bd806081b7c884a9eb~mauy-NRQF0915109151euoutp01i
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:44:26 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261109154426euoutp019a679dce181ff8bd806081b7c884a9eb~mauy-NRQF0915109151euoutp01i
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794239066;
+	bh=KeAlv0EKtTaDGrW0uWisjEOMXQElHFsb7+RWr717ehA=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=cfWwherg5xV/imeqUEdIped3MaPG1NuUPvyBgrjFQB1oTqeOWq7cwJdirDBQIAJ9r
+	 9B80VmYk9yQhj9eClieup3vi6TAxX4rUU1eruemkXI3rOzl9qPkEq4L6qnAmC5Tq+T
+	 Q0OleEfl3fFvaIpTqHegraH4WmJks+hSX8fVao7c=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261109154426eucas1p28dad751a60e6a8cd490b178bbf0400fb~mauymrWwt2987329873eucas1p2O;
+	Mon,  9 Nov 2026 15:44:26 +0000 (GMT)
+Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261109154425eusmtip193b43893c43c7e8e86cb65ae041eec36~mauyQBYnB0739507395eusmtip1G;
+	Mon,  9 Nov 2026 15:44:25 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy
+	<robin.murphy@arm.com>, David Rientjes <rientjes@google.com>, Jason
+	Gunthorpe <jgg@ziepe.ca>, "Aneesh Kumar K . V" <aneesh.kumar@kernel.org>
+Subject: [PATCH] dma-pool: decrypt pages before creating the shared remap
+Date: Mon,  9 Nov 2026 16:44:01 +0100
+Message-ID: <20261109154403.384434-1-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,46 +70,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261109154426eucas1p28dad751a60e6a8cd490b178bbf0400fb
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261109154426eucas1p28dad751a60e6a8cd490b178bbf0400fb
+X-EPHeader: CA
+X-CMS-RootMailID: 20261109154426eucas1p28dad751a60e6a8cd490b178bbf0400fb
+References: <CGME20261109154426eucas1p28dad751a60e6a8cd490b178bbf0400fb@eucas1p2.samsung.com>
 
-Hello, Chris.
+atomic_pool_expand() creates the pgprot_decrypted() remap of the pool
+pages before calling set_memory_decrypted() on them. The error path
+when gen_pool_add_virt() fails does the reverse: it re-encrypts the
+pages and only then tears down the decrypted remap. In both cases there
+is a window where a decrypted (shared) kernel mapping points at a page
+that is still private, i.e. encrypted, to the guest.
 
-On Sat, Nov 07, 2026 at 07:16:46PM -0800, Chris Down wrote:
-> kernfs nodes only point to their parent. To build a path top-down,
-> kernfs_path_from_node_locked() walks back up from the leaf for each
-> name, so the work grows with the square of the depth. Reading
-> /proc/<pid>/cgroup does this with IRQs off and css_set_lock held, so a
-> read from a deep delegated subtree can hold up fork and exit elsewhere
-> on the machine, which is certainly suboptimal.
-...
-> In terms of operations, with a 15,000 deep path chain and a 4 KiB
-> buffer:
->
-> 1. Parent and name pointer reads go from 112.6 million to 75,003 with
->    this change
-> 2. On my machine the second read of /proc/self/cgroup takes 99.86% less
->    time.
+dma_direct_alloc() gets this right: it converts the pages first, then
+creates the remap, and on error removes the remap before re-encrypting.
+Do the same in atomic_pool_expand(). The pages are now converted before
+arch_dma_prep_coherent() and the remap, and the error path unwinds in
+reverse order.
 
-I don't think a 15,000 deep cgroup chain makes much sense as a use case.
-A lot of other stuff in the controllers will break down at five-digit
-depths, and quadratic isn't that expensive when the base number is
-small. Did you see this overhead in more realistic scenarios?
+If set_memory_decrypted() fails, the page state is unknown, so the
+pages are still leaked rather than freed. No remap exists at that point
+any more, so nothing else needs to be undone.
 
-> +	/*
-> +	 * We can only walk towards the root. Fill from the end and wrap
-> +	 * so that if the path is too long we keep its first bytes.
-> +	 */
+Closes: https://sashiko.dev/#/bug/linux-9212d9b5-4a56-43e2-bc00-6e69b724078b
+Fixes: 76a19940bd62 ("dma-direct: atomic allocations must come from atomic coherent pools")
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+---
+The patch was prepared with LLM assistance.
 
-Even if it is worth doing, the implementation looks too convoluted. Most
-of the complication seems to come from supporting wrapping to keep the
-head of an overlong path. The only callers that care about what the
-buffer holds on overflow are debug outputs. How about changing the
-contract so that on overflow the buffer keeps the tail end of the path
-instead of the head, which is more useful anyway, and the function
-returns -E2BIG rather than the length?
+Best regards
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+---
+ kernel/dma/pool.c | 39 ++++++++++++++++++---------------------
+ 1 file changed, 18 insertions(+), 21 deletions(-)
 
-Thanks.
+diff --git a/kernel/dma/pool.c b/kernel/dma/pool.c
+index 381b3cb28368..3c67728a2471 100644
+--- a/kernel/dma/pool.c
++++ b/kernel/dma/pool.c
+@@ -106,6 +106,17 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
+ 	if (!page)
+ 		goto out;
+ 
++	/*
++	 * Memory in the atomic DMA pools must be unencrypted, the pools do not
++	 * shrink so no re-encryption occurs in dma_direct_free().
++	 */
++	if (dma_pool->cc_shared) {
++		ret = set_memory_decrypted((unsigned long)page_to_virt(page),
++					   1 << order);
++		if (ret)
++			goto out;
++	}
++
+ 	arch_dma_prep_coherent(page, pool_size);
+ 
+ #ifdef CONFIG_DMA_DIRECT_REMAP
+@@ -117,41 +128,27 @@ static int atomic_pool_expand(struct dma_gen_pool *dma_pool, size_t pool_size,
+ 	addr = dma_common_contiguous_remap(page, pool_size, prot,
+ 			__builtin_return_address(0));
+ 	if (!addr)
+-		goto free_page;
++		goto encrypt_pages;
+ #else
+ 	addr = page_to_virt(page);
+ #endif
+-	/*
+-	 * Memory in the atomic DMA pools must be unencrypted, the pools do not
+-	 * shrink so no re-encryption occurs in dma_direct_free().
+-	 */
+-	if (dma_pool->cc_shared) {
+-		ret = set_memory_decrypted((unsigned long)page_to_virt(page),
+-					   1 << order);
+-		if (ret) {
+-			leak_pages = true;
+-			goto remove_mapping;
+-		}
+-	}
+-
+ 	ret = gen_pool_add_virt(dma_pool->pool, (unsigned long)addr,
+ 				page_to_phys(page), pool_size, NUMA_NO_NODE);
+ 	if (ret)
+-		goto encrypt_mapping;
++		goto remove_mapping;
+ 
+ 	dma_atomic_pool_size_add(gfp, pool_size);
+ 	return 0;
+ 
+-encrypt_mapping:
+-	if (dma_pool->cc_shared &&
+-	    set_memory_encrypted((unsigned long)page_to_virt(page), 1 << order))
+-		leak_pages = true;
+-
+ remove_mapping:
+ #ifdef CONFIG_DMA_DIRECT_REMAP
+ 	dma_common_free_remap(addr, pool_size);
+-free_page:
++encrypt_pages:
+ #endif
++	if (dma_pool->cc_shared &&
++	    set_memory_encrypted((unsigned long)page_to_virt(page), 1 << order))
++		leak_pages = true;
++
+ 	if (!leak_pages &&
+ 	    !dma_release_from_contiguous(NULL, page, 1 << order))
+ 		__free_pages(page, order);
+-- 
+2.43.0
 
---
-tejun
