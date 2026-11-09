@@ -1,73 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794191579;
-	b=mtuTMKLZZzNoT6k5Dtup5gNukIC+mBrxuCAFngvMQFrq/qW6T+lVwJbJnjnY7DQc1eNk
-	 Vam3jaCRMv8IxPBGYfGuq+7VQk+uO3ks/VdH1aYk2bT1OWxLwXLNSgd1FOw1i1GQhjzOx
-	 ZFg7dDD8xvuVUzt4jhZneok3zV6KeeSm/6Qg2G63KCfHTRyaC2BSv1kg9OwtJDOw/3xbs
-	 J+G/LTWY1zf9/wqfHnYFQDYOW5nKTqN6cDAeA8iAacnZWI2ixZK6V1KpBZK6ZiTXJNkjq
-	 /N+w2pVEo4VcW0HYQ+F19efBYvNcnzYHhG9fvVXmGjMK2j43O0FmMfdLD+BpZiDLgVg==
+	t=1794191586;
+	b=fEQTTOJNjd4/xXKOKNmCg1W/UWCiAfRgEqH65dEPACP3G/KC+yWs8l7HNr1ZWn1HibSe
+	 NG9qaLhJBbmHqr/DYGIW2BPiic7qdWASS14ILwf95pGS09Y0FMS0FzOX8ghBF5+5lV7ZG
+	 yT6JIBaguMvj4gNZBMI5766dT9YdhuHA7PI/STacGkoPTmNaBDHV4j5nTCyiG3eZDJAt+
+	 kiXmipM8RC+64NzQqUlU5gOhN7kyHXcmTpFWtUg5vpnQeigtrEC+Cd3fMfXa4YzUW5wCD
+	 en+BAnDaAK0NIlI7CwKQdUFkx3xtuVJ447sH5QbznDLNfuWgLirc7xTMpb70D1ATsSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794191579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794191586;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=NTJQRFg4ZLfC+WrQK17Fwq2xbU+TlVAHwMAwagSHegE=;
-	b=p/WQs80HvTVu1SERkB3pzUbhHxuHTDyfAxxJPOATcYWYsUUzRZdL7so69AVExHOybpV1
-	 +kn7dMdSs0mKXgAhsCVFOyJ+zxkRh24x7SilK008Khbmk7vBpQO0PucHo/nyy5Ndf7lcM
-	 PPYSh+uE68d7r3KgtqZIjRTeiuU4GUKKM8y2UThH2OA8Px6DljxFEPMe6p+pR/l9BvNQZ
-	 sRyFB24k2oetk5KVTLEzbZ7mCNnCFq/xbI4ui/FAlj6LGF8scLqg8AsThPlP39Basg4Mc
-	 Bs9C2Njqepx8lCgRMrt52t9A317QmFdoF8IBvfFNBcFiJlvMYErnseWZm4fdQtb5KDg==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=kB3IFpQ0ZIO1cp7bsYqiegxOLRHS/D0OEp5d5P2E9bs=;
+	b=OhJ+kzV0RUHs5rusiZ71Ug8XJbKo3ffy0LOCKUD5ogsGVO+dA/3uVjuF4EWt4NwdVsa6
+	 B0Cjrx87UW/cSjMy04dVaHy6cOVD+GY0lFO88UO0xmqVlCA/e5VlGYB+PaaOa5AZOCxXu
+	 tfkrxCYhA/TuecnPXwaakzRZi6oaRRgbfoH4TRzXb1qVmPl3UJYpEcKUQVVmU2GWljT+h
+	 WR6VyBLamBDnrmia2zFQimRTEW1ivvg/iR3m8924zk9bvZZp74Mck0QzYsFWwej1FbRMc
+	 +PpGVsMgj7w+KMcAYG9uQJc29VqnzkYtON3bEH34NVN/NJAVgdPvOV7KVYhxJfpyBlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F2gaGqHO;
-	arc=none smtp.remote-ip=95.215.58.157
-Received: from mta1.migadu.com (out-157.mta1.migadu.com [95.215.58.157])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ojX0EpIo;
+	arc=none smtp.remote-ip=95.215.58.169
+Received: from mta1.migadu.com (out-169.mta1.migadu.com [95.215.58.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63EE7606A320
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:32:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63EE7606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1818606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:33:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1818606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F2gaGqHO
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ojX0EpIo
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+0SMLJkywubB1aX8z8chXAoTRSPPEPx3GuRAB7UvFQQ=;
+DKIM-Signature: a=rsa-sha256; bh=nmqRaiM/EiJNizjn79AmK4k2MmWrkYTwEz2GWquosKA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794191576; v=1; x=1794796376;
- b=F2gaGqHOZ1AzwzNGFTyHvBkAEUf7G89vTgOoeIwbAckvPxfQhqVMkBB2kH3sUGFDcjEKtIGH
- twNceq0jMlUWbbHmoP6jAGAwuYbnLtgfqPYgo0/JatIYj8+eAiR7KbcPZVs8NZG0Za0JiFI4uze
- 3JZQGOjOtF/5i7JjuUMbxc6w=
+ t=1794191583; v=1; x=1794796383;
+ b=ojX0EpIoXW4Q3WWoKTSHFyYfVB5/NGKPMoZkCmCbZqBScUyhu6sLm3yjkz3APWW4PPjlGsGs
+ 08BhfDJF0/bIs+cEwtmQZ/pXWdCFPiZK/kLkGbfQD3yI047xH2MZMmKuO4QwBQXVhNIdwf/A+O3
+ H3ZmjPkz0bDxno5X6rlhxv2w=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 87ec61e94bf44d6f;
-	Mon, 09 Nov 2026 02:32:56 +0000
-X-Mizu-Trace-ID: 87ec61e94bf44d6f
+Received: by smtp.migadu.com with ESMTPS id fa418301c63af391;
+	Mon, 09 Nov 2026 02:33:03 +0000
+X-Mizu-Trace-ID: fa418301c63af391
 X-Migadu-Flow: FLOW_OUT
-Date: Mon, 9 Nov 2026 10:32:45 +0800
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Stefan Roesch <shr@devkernel.io>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 4/5] selftests/mm: move waiting for KSM full scans
- into a helper
-Message-ID: <avEwza7YqonhwgO+@dgvxl46587.localhost.localdomain>
-References: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-0-86be8fe77e7a@gmail.com>
- <20261108-bug-mm-ksm-smart-scan-align-skips-v4-4-86be8fe77e7a@gmail.com>
+Message-ID: <c6bf9ef4-5a61-4f4f-ab39-11d1ddf59d64@linux.dev>
+Date: Mon, 9 Nov 2026 10:32:01 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,103 +58,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-4-86be8fe77e7a@gmail.com>
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, akpm@linux-foundation.org, dgilbert@interlog.com,
+ mkp@kernel.org, loberman@redhat.com, jmeneghi@redhat.com, kraxel@redhat.com,
+ vivek.kasireddy@intel.com, mst@redhat.com, jasowangio@gmail.com,
+ eperezma@redhat.com, stefanha@redhat.com, sgarzare@redhat.com,
+ rostedt@goodmis.org, vdonnefort@google.com, mhiramat@kernel.org,
+ jgg@ziepe.ca, kevin.tian@intel.com, axboe@kernel.dk, linux-mm@kvack.org,
+ James.Bottomley@hansenpartnership.com, sumit.semwal@linaro.org,
+ phasta@kernel.org, joro@8bytes.org, will@kernel.org,
+ linux-scsi@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, virtualization@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bobbyeshleman@meta.com, mathieu.desnoyers@efficios.com,
+ robin.murphy@arm.com, mason@kernel.org, aesteve@redhat.com,
+ harry@kernel.org, vbabka@suse.cz, cuitao@kylinos.cn
+Subject: Re: [PATCH 2/7] dma-buf/udmabuf: account the page array metadata to
+ memcg
+To: "T.J. Mercier" <tjmercier@google.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <20261106131829.3228926-1-cui.tao@linux.dev>
+ <20261106131829.3228926-3-cui.tao@linux.dev>
+ <1e18fcfd-785d-43cc-afd6-d181bf8305eb@amd.com>
+ <CABdmKX0nCB2hT+iMh=BB-nC=fUBPof8YvjvO-gtEw+zcHZgvZA@mail.gmail.com>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <CABdmKX0nCB2hT+iMh=BB-nC=fUBPof8YvjvO-gtEw+zcHZgvZA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 08, 2026 at 08:22:53PM -0500, Qiliang Yuan wrote:
-> ksm_start() enables ksmd and then polls full_scans until two more full
-> scans have completed, so that any merging that can happen has happened.
-> 
-> There is no helper to wait for a number of full scans while ksmd is
-> already running, so a test that needs one has to copy that loop.
-> 
-> Move the loop into ksm_wait_full_scans() and make ksm_start() call it
-> after enabling ksmd. The count is now read after ksmd starts rather than
-> before, which can only make ksm_start() wait longer.
-> 
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> Tested-by: Andrew Morton <akpm@linux-foundation.org>
-> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Hello，Christian，T.J.
 
-Reviewed-by: Xu Xin (vivo) <xu.xin@linux.dev>
+在 2026/11/7 01:25, T.J. Mercier 写道:
+> On Fri, Nov 6, 2026 at 5:23 AM Christian König <christian.koenig@amd.com> wrote:
+>>
+>> On 11/6/26 14:18, Tao Cui wrote:
+>>> From: Tao Cui <cuitao@kylinos.cn>
+>>>
+>>> udmabuf pins the pages of a memfd and hands them out as a dma-buf.  The
+>>> data pages keep the accounting of the memfd they were instantiated in,
+>>> but the bookkeeping around them does not: the page pointer array and
+>>> the pinned_folios array, both sized by the buffer page count, plus the
+>>> transient folios array sized by the memfd folio count, are plain
+>>> GFP_KERNEL.  A 1GB buffer costs about 4MB of uncharged SUnreclaim
+>>> memory, and size_limit_mb defaults to INT_MAX.
+>>>
+>>> Charge the three kvmalloc allocations so the creator pays for the
+>>> metadata it induces.  The system heap in the same subsystem already
+>>> accounts its buffer allocation;
+> 
+> Only if the mem_accounting param is set to true. We (Android)
+> currently depend on it being disabled because system heap buffers
+> don't have a single owner for their entire lifetime (ownership often
+> changes immediately after they are allocated), and the kernel doesn't
+> have the ability to switch who is charged for the buffer memory quite
+> yet. Albert is working hard on it at the moment.
+> 
+> Could you update the message to note the mem_accounting param pls?
+> 
+>>> the data pages here stay with the
+>>> memfd.
+> 
+> memfd / udmabuf is a little special because it uses shmem for the
+> backing store, which is already tracked by memcg under all conditions
+> (except hugetlb). We don't currently use udmabuf, so the lack of memcg
+> charge transfer for udmabuf is not an issue. But once we get charge
+> transfer working for the system heap it'd be good to follow up with
+> udmabuf.
+> 
+>> T.J. needs to take a look here, but I fear that this might break uAPI.
+> 
+> Thanks for looping me in Christian. The buffer allocations cost
+> gigabytes, but these metadata arrays are only 4MB per 1GB of buffer,
+> so I don't expect charging them to break anyone. Leaving them
+> uncharged is an accounting gap though, since someone could spam many
+> udmabufs from the same memfd and only pay for the memfd pages once. So
+> this change is ok with me.
+> 
+>> A lot of the DMA-buf resources are intentionally not charged against memcg.
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> 
+> With the commit message updated to mention the mem_accounting param:
+> Reviewed-by: T.J. Mercier <tjmercier@google.com>
+Thanks, Christian，T.J.
 
-> ---
->  tools/testing/selftests/mm/vm_util.c | 31 ++++++++++++++++++-------------
->  tools/testing/selftests/mm/vm_util.h |  1 +
->  2 files changed, 19 insertions(+), 13 deletions(-)
-> 
-> diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-> index caea045fa7d46..8184691211acc 100644
-> --- a/tools/testing/selftests/mm/vm_util.c
-> +++ b/tools/testing/selftests/mm/vm_util.c
-> @@ -992,35 +992,40 @@ int ksm_use_zero_pages(void)
->  	return ret == 1 ? 0 : -EIO;
->  }
->  
-> +int ksm_wait_full_scans(long nr)
-> +{
-> +	long start_scans, end_scans;
-> +
-> +	start_scans = ksm_get_full_scans();
-> +	if (start_scans < 0)
-> +		return start_scans;
-> +	do {
-> +		end_scans = ksm_get_full_scans();
-> +		if (end_scans < 0)
-> +			return end_scans;
-> +	} while (end_scans < start_scans + nr);
-> +
-> +	return 0;
-> +}
-> +
->  int ksm_start(void)
->  {
->  	int ksm_fd;
->  	ssize_t ret;
-> -	long start_scans, end_scans;
->  
->  	ksm_fd = open("/sys/kernel/mm/ksm/run", O_RDWR);
->  	if (ksm_fd < 0)
->  		return -errno;
->  
-> -	/* Wait for two full scans such that any possible merging happened. */
-> -	start_scans = ksm_get_full_scans();
-> -	if (start_scans < 0) {
-> -		close(ksm_fd);
-> -		return start_scans;
-> -	}
->  	ret = write(ksm_fd, "1", 1);
->  	close(ksm_fd);
->  	if (ret < 0)
->  		return -errno;
->  	if (ret != 1)
->  		return -EIO;
-> -	do {
-> -		end_scans = ksm_get_full_scans();
-> -		if (end_scans < 0)
-> -			return end_scans;
-> -	} while (end_scans < start_scans + 2);
->  
-> -	return 0;
-> +	/* Wait for two full scans such that any possible merging happened. */
-> +	return ksm_wait_full_scans(2);
->  }
->  
->  int ksm_stop(void)
-> diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-> index b5d59729d4327..7e00030077d2f 100644
-> --- a/tools/testing/selftests/mm/vm_util.h
-> +++ b/tools/testing/selftests/mm/vm_util.h
-> @@ -162,6 +162,7 @@ void *sys_mremap(void *old_address, unsigned long old_size,
->  long ksm_get_self_zero_pages(void);
->  long ksm_get_self_merging_pages(void);
->  long ksm_get_full_scans(void);
-> +int ksm_wait_full_scans(long nr);
->  int ksm_use_zero_pages(void);
->  int ksm_start(void);
->  int ksm_stop(void);
-> 
-> -- 
-> 2.43.0
-> 
+I'll update the commit message to clarify the mem_accounting parameter
+and pick up your Reviewed-by tag in v2.
+
+Tao
+
