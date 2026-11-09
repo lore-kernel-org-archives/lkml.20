@@ -1,96 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.36
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794251802;
-	b=qMFLLR18+BGZtSP0Qr/YavCcBUXBfo2VJM5ddqj6zHAR9nbotRNvKIpu9BHflwvkJhcd
-	 el9vwj6yCxtpJE2BMF9zAp24FYmxu3dO0Go4H5/B9MEvl1CyNKK8ovQ3AHvdeqRVIgu48
-	 TLI4mKXEjx0lAQAzuOZrHYU4cqzHO3HF5Lv3hKrLVrK7y3RygQuu2R6eGWnbfwKMkjU7w
-	 NzIPLd19BNwPIRMILEx+drMpI+AtNI3N5S8MqtoZhcbKN9xbz7jmoTSRasua7TQ4RHfiD
-	 ptduiKItHVNFZu59Zvir5ST+SBGXy3OCXcCtAgYyNE7xm5tvNdR0QR4Ozipfxonc+NA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794251802;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=8u5w95cAT4AqylY2+SjrdhHAzOziXGL/qgoxF07FL6w=;
-	b=yN9XFN311LAwJdsM8daqbbGiXzedT6bPFnqkJawLZv1JMB/k1q+J8m5BpSrdeidZlvyb
-	 2jmqKiDSgbJvUX3CxDccBq++jNCtPyQjkEi6JyuBFmC5XlK0Zeggj0DLKbbqz3b9msZCY
-	 L+z5Pe0nbcbsC7B40+cnDZQvNf3t0JmUT26T3xHmMoQecPBsquTRGBoskDovvTbXZtIsH
-	 kM9oYV/PronrYOmGMWGwjAQj9umrsHYVyHdTAVlNJffHNocAw3doNK2dPg0SqOu6u8AIY
-	 LBjESmWmXo8MGMYqIkRS5s0GHiWaRijKoUcWa7eHtT1vncdGWmb9C0lFe57qwSjX/8A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gvu1A139;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.36
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013036.outbound.protection.outlook.com [40.107.201.36])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.228
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794251803;
+	b=rbX2AfPD68AijfrG/cubKDfqeub0YFYzN4+CbE9+LQ++ZYa4f8Cz2pbNuHt0nqMyUGC1
+	 Z3/oMgS8ATQDb1eVk9QxYv/1El1Jt4qgi2Tt+XlIarG5mnbDYpkzzj+GGxFwlWrlBH9xL
+	 4L9a0OkSDNea9hd2y3R+niWibniQCkgjLScdFozYqDTHg8OVgi5rLUGxG3ftnSus530yi
+	 802KHPRMsriiLgobpJiP2lNt6Ra35riaeDgo7ppsUp5MpWp8wyFiiijkxfiv0uGH0qBcU
+	 ybE3zHy9E0HYkMYCqu/unAAMukuo2Bu7uoYRCKp+nh7vxuS26r/ks3lDTe6wWKoKbfw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794251803;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
+	 Content-Type;
+	bh=wiybFfTYl5VMYIHjcvTA3nN62R8sK5NoOzaLMokyrfQ=;
+	b=xcRmQyvtnvc/ZZ4oqrJ0FPxcUIanYzjNer5H6FFNAspJCGpyIwEhRYcUveo34Kmhfv0j
+	 R5Gl9mzmpHhgQQIU0luK7oxss/YitUElNNLfsv/Q0ojDLqb33IznmQbtFgK20j1FU7YFl
+	 YMRRk+8WUodMGV/kzRyGmkgLWCQrWe2hXLo4Hwhv3AppR5M7t4EBuQuBCl4VxU2wWsQzF
+	 TXB4fY4S+nqpB9xls2/Cn0oXjtWLX4dIKaR0KbKhiiWhL4Ly6Ny9fUKcmX1amoALoj1i4
+	 21A6UeW+1nrqM7CVFWUzWRcgSxXyytanKdqUyBtU02+bUBlyBUbpE6f+lh3b3pj8Ubg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZJnYio1P;
+	arc=none smtp.remote-ip=209.85.215.228
+Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5606C60A2601
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:16:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5606C60A2601
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338FF60A2604
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:16:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 338FF60A2604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=gvu1A139
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RDwECN/4n476MBjSN71dm6fsiWVxjlROKw78exYdiAXkhlqqTs1TwGKLs3A6pnHu8IuUcUbVw+4lPmBt7kwuS92rSlE1e0O1iK3opCEzvKIV7wEMkPV2s9044Kebm9HtHDnVPdrdUcmAtG0LewNwTboJqe4jY+DiJarXWPfQ65wpNPW0tv4kV/30bNEHxzOws6RJ3mZkHsSAWFJzjC8z2uov/fit5OVYgQ+BX5vcBlmh8hgnRAGi1s19uQ67j6lgoqa9/NNQUIZi2zSMd8WsCaIxrGyjiDOLhgNzv4yg1MdutFEEyV7/AAYe17C/hFvo7qWtI+hJb9q1MumlziqpLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8u5w95cAT4AqylY2+SjrdhHAzOziXGL/qgoxF07FL6w=;
- b=dLFO25Zg1Dx1Dmx68puaiusU/NzrfSDupCwqIUbJ9nCOtzd8AZerg5vz1dL8pptcBUqJ93HCrjioBNPAt1iRMY7lf7itx3/q+Md1eE78suv9vCBGeQWvF/amu4KsLBF9JlqxF8ESzLfvuKj07yZHs6OFDW3w0qA2VFi/Zow/U/DLoYiKXYdA8T6rs1eKg0Jab8WpUQP+rKPgC25b4cgp+fU7a8I1IbuXgDYTFe+iGlJgHPTnvSotBFzYKMdSA/iviSWap+d22i4CrpBDIhd3h6WaAlgD/4WZDIXpnxKEchwZPwZa4EivCNXOJUB8pc2BbwziCmrxkeVsWMw2clEYmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8u5w95cAT4AqylY2+SjrdhHAzOziXGL/qgoxF07FL6w=;
- b=gvu1A139lv3CLP+txip+pdTSVUptAzcTmKfelL0AbhvUNB1CvbK0YARn/InC+j2Kd2Q++wbX5MahoDol66G/JZUCyqXa/6ziti3Aq3gmDYH4hrvJmRssWyh402XmV7twi4y2Xl0iVkwXH+pg9KEf4snUP3hNAWtSUIDhRFCeS/E=
-Received: from BN9P220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::17)
- by BL1PR12MB5970.namprd12.prod.outlook.com (2603:10b6:208:399::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 19:16:16 +0000
-Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
- (2603:10b6:408:13e:cafe::7f) by BN9P220CA0012.outlook.office365.com
- (2603:10b6:408:13e::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
- Nov 2026 19:16:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 19:16:15 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
- 2026 13:16:10 -0600
-From: Shivank Garg <shivankg@amd.com>
-Date: Mon, 9 Nov 2026 19:15:51 +0000
-Subject: [PATCH v3] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ZJnYio1P
+Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-ccca948203aso588535a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:16:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794251802; x=1794856602;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wiybFfTYl5VMYIHjcvTA3nN62R8sK5NoOzaLMokyrfQ=;
+        b=yjvBWmGRjwqb7w9m6sWnJs3tGhMiy+GgCssjGMf+HeFWnO/IsESDRQfT0tnDr4WmOB
+         X8X/ggisocdO0rUSVlZyvLQmq0ODBdItt2O9w9l9KwhH4YwOR+XbprfAOC4rfV5hRgZV
+         4OIBZ+YYNhUXYjujaGd6VwTiZFTPowPWB3f/VYn9VQFvUey0yDYW3jZqb8yNFczEinu7
+         vE+GTAfTvG9cTuqkNQfSxshcwAdPmbqVsc6qxbwYXvv35jlC95aLbXyb/U2L5gRzRzqI
+         1hFxBWMXy0WCnSTgbkBSLId9ilpaehEp9vHbMrTY8dYTG8PRHnxWDmIKBJTJVHvr/kW1
+         o0Kg==
+X-Forwarded-Encrypted: i=1; AL+hErHsM8R0ITGjpYbhLCSW4cZRuyYay4eZqhUj9uq1Q4M8C7Ohq/DVTG9+RfdTQTRmOcEL5zvQdo8cdOYLywA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9apHjYz2VLbxXgMwFKA6fp0gOV2CI/7OaocBzFzBo/5N7CaChw
+	Hlr9YWCwdPtSjyB5mhTG4VN3Mm6dS9+4aIj9U025KjNJwlH1KaBuTe3xI8vO9HqbIHw2hqnlkFm
+	UdaTkkTG7vNqPf8QQn9BFmY9x3w+3DZTsvpYncpCphD6wL4i6LzzuKEe57BGn1TPUQ0YbZO0Y/S
+	YHmUKEXBTIYKGWEKB9trL4fvk1seARuZp7syDveYhH3PjCADHlsUjTXYFKmgyOIm6JHtpf4yoei
+	OB6jsqvBTpYKMjyLlU=
+X-Gm-Gg: AYBFou0PN4FQ4H/yu2DfvD4ARClO+fNFIp7JObOQ+Ja0y4Pex28W7ErPBh9Esv95v3L
+	+jANrSANyWbTIAr16RaPdDJz8zo4N0LI6bEpFcrMjpBXzYTnoIIeZ0C01TOowPkXcbb1gJq0gd+
+	tzALIxZ0JNP+ZHSrdss628aNniru6PabM1z85SNH5hqgmQU3UgdpBApTEfonGf5z3f4OgTE4hNv
+	jtsqjNSjzWlCQeC/Ix7eERMRVYLQxGUDEb+ii+8fBZv6CA8TCfHZH37QK1aMFAV6E+CVnN4XIKa
+	iA49iZiD/zRQh/SzZue54CZ0D56xVvR0XR803lJIw10kTiatMLrfy7lzAaMNXVokyfWYg4jLfNC
+	KgHSgv2Mf6VM1+o3prGqcTnDGyZVfL1w+GNNq7PZez8BKGiR2nCshCvAi24UzTNLXEwDgtKNl15
+	QzPc7+/wYgLlT1Mkig0hl3aNuemWho5hCgUQg=
+X-Received: by 2002:a17:90a:ec8c:b0:3ac:6e91:3f22 with SMTP id 98e67ed59e1d1-3b166d273ddmr444902a91.52.1794251802402;
+        Mon, 09 Nov 2026 11:16:42 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1678cedb8sm255714a91.3.2026.11.09.11.16.41
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 09 Nov 2026 11:16:42 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c504991a35eso8633366b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:16:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1794251800; x=1794856600; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wiybFfTYl5VMYIHjcvTA3nN62R8sK5NoOzaLMokyrfQ=;
+        b=ZJnYio1P4354d59CSqaTTT+bs1NNggsUWGMOptbJdBxXJwAYHh6Atvd32Y3KPv35JV
+         Lzzif+7Gfc+J/vVWS/t3vRGintbXUkxjNiAx3TH+RBjg16YdSHyYv81gzzvaOJu9gYsW
+         L3Hb7YDlQJzAXukDzNLV2FUUKPJcppgKFGCNI=
+X-Forwarded-Encrypted: i=1; AL+hErHHEHfcRRMniEu1ai0nC8t5NCazGA8vjtHymVlCEsHueCzP89zecUU7RPmO0SJ3ZJA34dAusO8RYHh2en0=@vger.kernel.org
+X-Received: by 2002:a17:906:fb91:b0:c2e:2baa:a642 with SMTP id a640c23a62f3a-c50495990demr17486966b.30.1794251800220;
+        Mon, 09 Nov 2026 11:16:40 -0800 (PST)
+X-Received: by 2002:a17:906:fb91:b0:c2e:2baa:a642 with SMTP id
+ a640c23a62f3a-c50495990demr17485966b.30.1794251799745; Mon, 09 Nov 2026
+ 11:16:39 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,212 +98,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261109-clear-pages-batch-v3-1-6693efe18dff@amd.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NzQrDIBAGXyV4rkU3Ek1PeY/Sg9E1EZofNEhLy
- LvXBEouYU/zwcyuJGLwGMmjWEnA5KOfxgzlrSCm12OH1NvMBBhUnAGn5o060Fl3GGmrF9NTKZ0
- EdIopFCR7c0DnP0fz+crc+7hM4Xu8SHxf/zW4qCVO85W2bC1rlayw0YO9m2kgeyvB6XNWX/mQf
- cAKjHBKuFqc/rZtP65fSTPwAAAA
-X-Change-ID: 20261021-clear-pages-batch-77f72ef808e4
-To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
-	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
-	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
-	<mhocko@suse.com>, Ankur Arora <ankur.a.arora@oracle.com>, Pedro Falcato
-	<pfalcato@suse.de>, Peter Zijlstra <peterz@infradead.org>, Borislav Petkov
-	<bp@alien8.de>, Bharata B Rao <bharata@amd.com>, Hrushikesh Salunke
-	<hsalunke@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>
-CC: <x86@kernel.org>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
-	Shivank Garg <shivankg@amd.com>
-X-Mailer: b4 0.15-dev-47d62
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794251770; l=6052;
- i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
- bh=Bb5seka6xNYsOmYAJp2YNJ60p2VRS1KfZvZfUsEUQBs=;
- b=EcUWwczM/eMwNTCxsByYAirBsxAtvCZLIaalTzmen3dn0lvU0Q7nkwCVT/EtoYc9+NsTzRto+
- HiPrGJv2LGwCu1+703ZO5sIWz0EbAZ7fy7JczygdWFDoTVW3u27cGkN
-X-Developer-Key: i=shivankg@amd.com; a=ed25519;
- pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|BL1PR12MB5970:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea5bf661-6d4a-42e1-bcd9-08df3e95ecf1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|36860700016|82310400026|23010399003|921020|260925022911599003|260925021311599003|260925021911599003|10067099003|5023799004|11063799006|56012099006|261021123027099003|261022075727099003|261021121427099003|261009223027099003|261026121527099003|261102123227099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	ooTzTUXhiaMI4v4F58fKC1u+z6O9CQHEzlL9kPzCMebSWy/a9/ydMXYnIyqy/Ya8hhd5+Lo+xmcMZBKl2W3RDGQTQT93ei34yRbRyt2/45NfVwz45U9gDmp2W5qqlfQ2gppleM7EpNso7lpgrFTiEfrN4QoqpW7t5PHjMhba0DKAebwISqaYPtO8V1PkkkZT4Em+cpIRLZ3iZ2sEd7ux151bJOISYieGzCJJMUwGvvuSRx7e0eV4UKa1ykm+eaddepEV46ZPh9pp/QAmzCC9k+Y+Abhkme6x8f4VKMGvu/f9TWO7FKN5FvAcuE62f1X2c7u53TXFIQ0NXk8eFUwegLGPkZFk0SHOuULSaAlI/Ug6/gsAvN0XnKdc3gBUdadudZrOhyolRf8tOpxkOOzbWbZtH0OtzDRhFvoSCeUeOca00vSnYIc8CvG1Mco7p4mtC/TkKa21wvJFJ77MDvWJCRnASyLvd70IdMyI6yeU476Hx63ncFu7g2K6X7Qo4SRnohLAuAnnd8mpZue4qQk26+8L5+6tM1IZYvx6PmymLTejgEDU1Gldc59wGIPE/2iWxx4GE8I/k9uQfFsOfdevUIHo6+qWwB7ZgnkqG56Em6a6rO3XwZMo+qV6c6ng74QQCYJiBWOkCYm3c7EvhraOgpmdNx1YfKLyTMeyOmWimQvJMb+VKeYPwPp6ip0019JUfF5OAktVJZc4OVVAzHaYVw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(36860700016)(82310400026)(23010399003)(921020)(260925022911599003)(260925021311599003)(260925021911599003)(10067099003)(5023799004)(11063799006)(56012099006)(261021123027099003)(261022075727099003)(261021121427099003)(261009223027099003)(261026121527099003)(261102123227099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jkRIKvL7oFAFwGgybgjzNvwkBeLwkJYuBcRJg0DS3VmlhtOlF2lN0O0yHTkjfxgAciOkrHYNdzmWqPD69PlxgnHFtg3ATCe39xZ3GUO1Yt28sCVLZgaCxyKgFcXtDh5hP8wY4QKd7UVAn14YwcI6M9ItDKcBCTCe2ubnWm5kWdH2b9Z1c1FrD1VA7nKtPILZDHI1eL5IcZfHODjsb5jlFbdoy/pi2CHqpi3565RAcsmRYgZDG7toGluvK1H2DCImKeXlFtfghhuEbrqMC8eq00PDMJSh7w98WL1sPeLOGj4LfJFwS+QFS1OingydlPGSuwDNZ/hRjUyeMlZpRprQOpkszYarJ17+HGMD4QtAFWsRTJ/0IzCzlnlcuWG9dMbQsXes2c/9xQXlD9Ea2yYjH8FXNd2r/NopWle5bsHCHkOmXIDzdNPGWxBX9lOkQVnx
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 19:16:15.5765
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea5bf661-6d4a-42e1-bcd9-08df3e95ecf1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FBA.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5970
+References: <20261108222942.1233295-1-bcochrane@google.com>
+In-Reply-To: <20261108222942.1233295-1-bcochrane@google.com>
+From: Michael Chan <michael.chan@broadcom.com>
+Date: Mon, 9 Nov 2026 11:16:28 -0800
+X-Gm-Features: AclHuK9F4oHp-3lINBrOFrQNC4YdvTSTxqVCJNhImGxebjQGBiNGxus0RCZRHhE
+Message-ID: <CACKFLi=ezg_i8fEhncGmT4wqhJSy2S7dkkWDDkohHAL6GnzXvg@mail.gmail.com>
+Subject: Re: [PATCH net v4] bnxt_en: Take RTNL before netif_close() when
+ aborting FW reset
+To: Bryan Cochrane <bcochrane@google.com>
+Cc: Pavan Chebbi <pavan.chebbi@broadcom.com>, netdev@vger.kernel.org, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Joe Damato <joe@dama.to>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="00000000000035dd53065fdccd56"
 
-clear_contig_highpages() clears the whole range at once under
-preemptible models. Otherwise it clears PROCESS_PAGES_NON_PREEMPT_BATCH
-pages at a time, with a cond_resched() in between. The batch is 32MB if
-the architecture defines clear_pages(), and one page otherwise.
+--00000000000035dd53065fdccd56
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since commit 7dadeaa6e851 ("sched: Further restrict the preemption
-modes"), architectures that support lazy preemption only offer the
-full, lazy and RT preemption models, also with PREEMPT_DYNAMIC. x86 is
-one of them, and it is the only architecture that defines
-clear_pages(). So the 32MB batch is never used: whenever
-clear_contig_highpages() runs under a cooperative model, the batch is
-one page.
+On Sun, Nov 8, 2026 at 2:29=E2=80=AFPM Bryan Cochrane <bcochrane@google.com=
+> wrote:
+> v4:
+>  - Return to the synchronous close in bnxt_fw_reset() from v2, using
+>    netdev_unlock() + bnxt_rtnl_lock_sp() as suggested by Michael Chan,
+>    and guard BNXT_STATE_IN_SP_TASK in bnxt_[rtnl_]lock_sp() and
+>    bnxt_[rtnl_]unlock_sp() with current_work() =3D=3D &bp->sp_task. Defer=
+ring
+>    the close to bnxt_fw_reset_task() in v3 still hung when entered via
+>    bnxt_fw_recover(), raced with bnxt_hwrm_if_change() clearing
+>    fw_reset_state, and marked the reporter SEVERITY_FATAL (reported by
+>    the netdev Sashiko review).
 
-Make that explicit. Clear the whole range when CONFIG_PREEMPTION is
-set, and one page at a time with cond_resched() in between otherwise.
-Drop PROCESS_PAGES_NON_PREEMPT_BATCH, which has no other users.
+v4 looks good to me.  Thanks.
+Reviewed-by: Michael Chan <michael.chan@broadcom.com>
 
-PREEMPT_DYNAMIC kernels also have CONFIG_PREEMPTION set, and
-cond_resched() does nothing on any of these kernels. So a build-time
-CONFIG_PREEMPTION check is enough, and preempt_model_preemptible() is
-not needed.
+--00000000000035dd53065fdccd56
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-No functional change intended.
-
-Suggested-by: David Hildenbrand <david@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Signed-off-by: Shivank Garg <shivankg@amd.com>
----
-This came up in review of the copy_mc_highpages() series [1]. Pedro
-pointed out that most architecture run with full or lazy preempt, so mm
-does not need to check the preemption model at runtime or batch the copy
-for cond_resched(), and a simple per-page fallback is enough for
-non-preemptible models.
-David suggested doing the same for the zeroing path, and this patch
-does that.
-
-[1] https://lore.kernel.org/all/20261019-batpagecopy-v2-1-d75e7d0dfaae@amd.com 
----
-Changes in v3:
-- Use clear_user_highpage() in the per-page loop (Pedro).
-- rebase on mm/core.git/for-next.
-- Link to v2: https://lore.kernel.org/r/20261109-clear-pages-batch-v2-1-2e62c4f84f94@amd.com
-
-Changes in v2:
-- Rebased on mm/linux.git/for-next, and drop RFC tag.
-- Link to v1: https://lore.kernel.org/r/20261022-clear-pages-batch-v1-1-13d3bd0b876e@amd.com
----
- include/linux/mm.h | 28 +---------------------------
- mm/memory.c        | 29 ++++++++++++++++-------------
- 2 files changed, 17 insertions(+), 40 deletions(-)
-
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index e6da76fbe8e8..8d14e45fcf24 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -5250,7 +5250,7 @@ static inline void clear_page_guard(struct zone *zone, struct page *page,
-  *
-  * When running under preemptible models this is not a problem. Under
-  * cooperatively scheduled models, however, the caller is expected to
-- * limit @npages to no more than PROCESS_PAGES_NON_PREEMPT_BATCH.
-+ * clear one page at a time and call cond_resched() in between.
-  */
- static inline void clear_pages(void *addr, unsigned int npages)
- {
-@@ -5261,32 +5261,6 @@ static inline void clear_pages(void *addr, unsigned int npages)
- }
- #endif
- 
--#ifndef PROCESS_PAGES_NON_PREEMPT_BATCH
--#ifdef clear_pages
--/*
-- * The architecture defines clear_pages(), and we assume that it is
-- * generally "fast". So choose a batch size large enough to allow the processor
-- * headroom for optimizing the operation and yet small enough that we see
-- * reasonable preemption latency for when this optimization is not possible
-- * (ex. slow microarchitectures, memory bandwidth saturation.)
-- *
-- * With a value of 32MB and assuming a memory bandwidth of ~10GBps, this should
-- * result in worst case preemption latency of around 3ms when clearing pages.
-- *
-- * (See comment above clear_pages() for why preemption latency is a concern
-- * here.)
-- */
--#define PROCESS_PAGES_NON_PREEMPT_BATCH		(SZ_32M >> PAGE_SHIFT)
--#else /* !clear_pages */
--/*
-- * The architecture does not provide a clear_pages() implementation. Assume
-- * that clear_page() -- which clear_pages() will fallback to -- is relatively
-- * slow and choose a small value for PROCESS_PAGES_NON_PREEMPT_BATCH.
-- */
--#define PROCESS_PAGES_NON_PREEMPT_BATCH		1
--#endif
--#endif
--
- #ifdef __HAVE_ARCH_GATE_AREA
- extern struct vm_area_struct *get_gate_vma(struct mm_struct *mm);
- extern int in_gate_area_no_mm(unsigned long addr);
-diff --git a/mm/memory.c b/mm/memory.c
-index c9d64170e47a..fcc7ea2a00d1 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -7650,27 +7650,30 @@ static inline int process_huge_page(
- }
- 
- static void clear_contig_highpages(struct page *page, unsigned long addr,
--				   unsigned int nr_pages)
-+		unsigned int nr_pages)
- {
--	unsigned int i, count;
-+	unsigned int i;
-+
-+	might_sleep();
-+
- 	/*
- 	 * When clearing we want to operate on the largest extent possible to
- 	 * allow for architecture specific extent based optimizations.
- 	 *
--	 * However, since clear_user_highpages() (and primitives clear_user_pages(),
--	 * clear_pages()), do not call cond_resched(), limit the unit size when
--	 * running under non-preemptible scheduling models.
-+	 * clear_user_highpages() (and primitives clear_user_pages(),
-+	 * clear_pages()) do not call cond_resched(). That is fine on
-+	 * preemptible kernels, where the scheduler can preempt the clearing
-+	 * at any point, so clear the whole range at once. Otherwise, clear
-+	 * one page at a time and reschedule in between.
- 	 */
--	const unsigned int unit = preempt_model_preemptible() ?
--				   nr_pages : PROCESS_PAGES_NON_PREEMPT_BATCH;
--
--	might_sleep();
-+	if (IS_ENABLED(CONFIG_PREEMPTION)) {
-+		clear_user_highpages(page, addr, nr_pages);
-+		return;
-+	}
- 
--	for (i = 0; i < nr_pages; i += count) {
-+	for (i = 0; i < nr_pages; i++) {
- 		cond_resched();
--
--		count = min(unit, nr_pages - i);
--		clear_user_highpages(page + i, addr + i * PAGE_SIZE, count);
-+		clear_user_highpage(page + i, addr + i * PAGE_SIZE);
- 	}
- }
- 
-
----
-base-commit: 2683df3b7eac1d91380194955ad0c9751454610c
-change-id: 20261021-clear-pages-batch-77f72ef808e4
-
-Best regards,
--- 
-Shivank Garg <shivankg@amd.com>
-
+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
+DPVtLUtep/P3evQuAtTQRaKedjamBcUpJ7qUhBuv/Z07LlLIlB/vfNSPWe1V+njTezc8m3VfvNEC
+qEpXasPSfDgfcuUhcPR+7++oUDaTt9iqGFOjwiURxx08pL6ogSuiT41O4Xu7msabnUE6RY0O0xR5
+5UGwbpC1QSmnBq7TAy8oQg/nNw4vowEh3S2lmjdHCOdR270Ygd7jet8WQKa5ia4ZK4QdkS8+5uLt
+rMMRyM3QurndiZZJBipjPvEWJR/+jod8867f3n0CAwEAAaOCAd0wggHZMA4GA1UdDwEB/wQEAwIF
+oDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3Nl
+Y3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEF
+BQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1Ud
+IAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIB
+FiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAy
+hjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwJAYDVR0R
+BB0wG4EZbWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNV
+HSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUJbO/Fi7RhZHYmATVQf6NlAH2
+qUcwDQYJKoZIhvcNAQELBQADggIBABcLQEF8mPE9o6GHJd52vmHFsKsf8vRmdMEouFxrW+GhXXzg
+2/AqqhXeeFZki82D6/5VAPkeVcgDeGZ43Bv89GHnjh/Vv0iCUGHgClZezpWdKCAXkn698xoh1+Wx
+K/c/SHMqGWfBSVm1ygKAWkmzJLF/rd4vUE0pjvZVBpNSVkjXgc80dTZcs7OvoFnt14UgvjuYe+Ia
+H/ux6819kbi0Tmmj5LwSZW8GXw3zcPmAyEYc0ZDCZk9QckL5yPzMlTAsy0Q+NMVpJ8onLj/mHgTk
+Ev8zt1OUE8MlXZj2+wgVY+az2T8rGmqRU2iOzRlJnc86qVwuwjL9AA9v4R13Yt8zYyA7jL0NiBNP
+WaOSajKBB5Z/4ZVtcvOMILD1+G+CVZX7GUWERT9NRXw/SyIEMU59lFbuvy4zxe3+RbOleCgp3pze
+q8HE2p9rkOJT3MkCNLxe+ij4RytIvPQXACsZeLdfTDUnjeXCDDJ9KugVhuqMelAZc4NissPz8FOn
+2NK++r5/QamlFqYRhsFxSBIvhkh2Q/hD3/zy4j17Yf/FUje5uyg03FblSBOk2WYpRpXEuCpyn5pb
+bYVIzfhQJgwGfO+L8BAeZIFjO1QL3s/zzn+RBlTl4wdDzh8L9eS+QEDhMcSsqb4fFRDbsoVuRjpx
+R5MunSUzk4GcmmM19m7oHhPGeKwIMYICVzCCAlMCAQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UE
+ChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0Eg
+MjAyMwIMZh03KTi4m/vsqWZxMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3DQEJBDEiBCBcEoZ0
+n7QhTxiU5yxiCKG5x2JTeuuIGO3iZdD5i9uq3DAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwG
+CSqGSIb3DQEJBTEPFw0yNjExMDkxOTE2NDBaMFwGCSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEq
+MAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCG
+SAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQCcsjgDdIQd0Rv6CxrA8CVPshL/F8VF/QNNe7C2t6bk
+lIiFLdBq3nhmB1XCA0Fq0xQgK3gj1Juk5cF5TFbhjvbIJpVmR7uaYcZGKb1pRH9EF7H8agsw5bc7
+QLG1+sCc0Xzn/9+8kcu05kwuJujKDkFGV6dpvJ4IHGXDYaf+UxBNR3RKnyviMiPIVEi1Bdhae1aD
+ls6VHP5u6iDQZR+ZzL/v3l7AlvPfpZmsxAU6CE7+ycaj+xsoY0y8ubCkyUYXSvSyu8e/zIO37wzh
+DGf6N899JvKf4oCL2Ble/ZqAAenAY6ylnXeo8ydakt+acReVAK2o0QpKvjxB+U6yDTSBIg1w
+--00000000000035dd53065fdccd56--
