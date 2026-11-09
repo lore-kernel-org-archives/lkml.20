@@ -1,76 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794226695;
-	b=NX+otcGSTxWGiv2UaXkOGoXHO+MkmB05dkgJckr3An7Or0Uu+2sZHqR01IgBrMA8Y/Pp
-	 dLcjakZNdOPXOqsxuNqvjSzfwQYZeFSDI7mdsHN41lXyHiChGF/P04dTpWdQGO5cNLLr/
-	 L4ssw0bnQXvII9ilDzpwTYVhvwLSpft0CEXjH74bb8B9+YtNCv7mr928rAfJhoT9JPp74
-	 msAor41NLLIdKncsd+RYy7u9WXMwYo10peozN5qQ1qBLB5tWf1XvfpAkUcoujXTxVy1Ku
-	 gd3IYD9foswWIk7POg4eQptaIf9Yh/s0t0WgiRiVrovQTYcspWboyLtJ1kCyTpJBJcg==
+	t=1794226709;
+	b=2JUFb8xNET8SgaXtMOzbiyaw14fahOPiyEYTOcknqaVOpIj27mTgQyRc+lfZGLivVyNv
+	 /2bjbU8a5qlNL7RpJqi7OUhNLRkm6JJx5iT+S5e0uIBYSyDnVciYiyxPig/zhdN3ik17V
+	 3ngYVfweOuJ8zBlMnMfr/0xGjl4/ErZYxOGVg0Dpm5PfMyAYu0DtcKDC71wKlS46HrVPd
+	 aBr1i3+s5MwiOlFw+7/MO1vdjid3DRAE4MmIgTPaCygqgT6Zh6f9jkWuU3TyThNzRCn0P
+	 NBsoKT6QDY63TTo8MQwaoZhWuCGN69luXp2KZMCVNDadKbuK+aMM7TNHwKqBkoBq/lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794226695;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:cc:Subject:
-	 In-Reply-To:Message-ID:References:MIME-Version:Content-Type:
-	 X-Scanned-By;
-	bh=OBdiK9l8kFT4f0yo7evXfhDN4v7F5oYM4pE8DacBPJ8=;
-	b=jgXXkJrOT/ZgpJ9V1RoVAsrQiA/e4kDv4GRacMMukXZewwD8mVo9tpemLutuCs0gyXqN
-	 CGWro2iBMw8gN+l3nGDJ0susj5k15kKBKptakG/B+HFsTIo8d+pUPk+R283ZAzSceh3fz
-	 B04RfqoU9I8y7Y2LMoF+V29a9hv7o/sOFXiKenHblhvRYdyhuMtMKN6UpF6hHTEvuWEQJ
-	 8pdF0dCeJ5AmRqUfZbbOJYclIXC3MH76Ez9OvXcFBmxanC3qQ4bzZzJbSxqYdbXmdtVFx
-	 6DJTwG46VlgPox9p4YTTO6gegd8BtAh0jGVF08t3FF2FE/oHF1Hew3oAYz151Gcxc2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794226709;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YkOkSbGUSIfuMJtzJo2IhRv4GYV0LpiKAv0cetuHcf0=;
+	b=Lqub55nAKBc3orYRz+g1Wp+eGTQQd++5VhQkF150XXDkL2m8BJk+x6fLa3WPMDn5aaqt
+	 p2mWFnTpO4PqrLsq8kPkDAZOgq1ZCCVmxqClDCdIsLjZWrwuAylqbmjjSYcRwS8lcmKhz
+	 1iF+OgYRo1sBpYvzoZPrXEUVgiE1H1Bo/rxW4AtqQjM15KcG8MpHQCZ3xdXKmVgC6EW7D
+	 f303C5oJQIUsCXBX6l3QyhrqTUzh5TmCbY38bzgbc2Bt2DQATd4Arj5y4GD3w9meXzRhf
+	 9Ie+m2o30j6BbrjC8WmNmNzewJu1wLKE6MszFkac2DdNVL95qWK+3ZJaK2w3D9edFuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QUqnVNko;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=WxKrjVq5;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24DF606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:18:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F24DF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4632E606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:18:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4632E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QUqnVNko
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794226693;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OBdiK9l8kFT4f0yo7evXfhDN4v7F5oYM4pE8DacBPJ8=;
-	b=QUqnVNkoj/hEsfX/d7XUkrG5grDJAtqJiwpx70vdWbA/rPJrjov7X1HihBSMtOvr3aj9K1
-	ySwxtpYDSx0cvR2UmTKS0+wLIcEHVoKa1kdBNQxKLu9o7QCeezyJBUyAx2lLmmFg/Kg4Zi
-	cl2znRKxrcu5F/wxBrg/Bncr0f77OQw=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-219-B2yFbfMxM02T4zTZ50vSbA-1; Mon,
- 09 Nov 2026 07:18:11 -0500
-X-MC-Unique: B2yFbfMxM02T4zTZ50vSbA-1
-X-Mimecast-MFC-AGG-ID: B2yFbfMxM02T4zTZ50vSbA_1794226690
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=WxKrjVq5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794226701;
+	bh=A9c8wLk68pTshZQz/4EWbcWbZwqzl037mBD3rbXZZpg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=WxKrjVq5KYnun6DyV+jsyo2vBe/kngIrZyr83nVUeDPwVNYAu2E6PKVi+jkytPvNM
+	 aOqzGmw85JvBGfoZWUXn7RNH17+L/9vRNaMXtBA7gw+HCXUkQOsFbqr1NeqttdpuDY
+	 sBB3DuMCFrA6yUm5OJ2IPqIyzukeiEQOYkWC6I9OlpbbNeOZhZbkDJLiczKlnA95kN
+	 FDxmzaKW2SQ1c/n/r6FUF5iF0A8yhJzc1HBzlH2nMhIYZLR9839XAZzWekEouwX+bU
+	 7ymL3dfbVhRCYESLkyg5q7xlF4b1ygCTg/FmvWtiU3+UeyMPS1rDg23AgPeWEy2MTw
+	 FMnySmbmQIf6A==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 12EC3180055F;
-	Mon,  9 Nov 2026 12:18:10 +0000 (UTC)
-Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 23EDA18004F5;
-	Mon,  9 Nov 2026 12:18:06 +0000 (UTC)
-Date: Mon, 9 Nov 2026 13:18:04 +0100 (CET)
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: Damien Le Moal <dlemoal@kernel.org>
-cc: Josef Schlehofer <pepe.schlehofer@gmail.com>, 
-    Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
-    Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-    Ignat Korchagin <ignat@linux.win>, Milan Broz <gmazyland@gmail.com>
-Subject: Re: [PATCH] dm-crypt: defer async write submission to write thread
-In-Reply-To: <0197be1d-1257-4597-aea2-1a065fe0a1d5@kernel.org>
-Message-ID: <4093292e-1fa1-dc18-b185-18dff61a32bf@redhat.com>
-References: <20261105072708.30722-1-pepe.schlehofer@gmail.com> <0197be1d-1257-4597-aea2-1a065fe0a1d5@kernel.org>
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9214217E0564;
+	Mon, 09 Nov 2026 13:18:20 +0100 (CET)
+Message-ID: <280e4024-f1b1-47d0-980c-4d6f067e33d4@collabora.com>
+Date: Mon, 9 Nov 2026 14:18:19 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,33 +61,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/9] drm/vc4: hdmi: Convert to common HDMI 2.0
+ scrambling infrastructure
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20261014-vc4-common-scramb-v3-0-c68d58d959a2@collabora.com>
+ <20261014-vc4-common-scramb-v3-6-c68d58d959a2@collabora.com>
+ <45ea1610-360f-4f6b-9ea6-30b28fbe8514@igalia.com>
+ <8b1b7d8d-9656-4b3b-9f83-1526c8110ab7@collabora.com>
+ <b60a42bb-b48b-434a-a306-3ac9189027a5@collabora.com>
+ <e532cc6a-21d0-4021-9854-08963331223e@igalia.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <e532cc6a-21d0-4021-9854-08963331223e@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hi Maíra,
 
-
-On Mon, 9 Nov 2026, Damien Le Moal wrote:
-
-> On 11/5/26 16:27, Josef Schlehofer wrote:
-> > With no_write_workqueue, kcryptd_crypt_write_io_submit() submits the
-> > bio directly, even when called from kcryptd_async_done(). An async
-> > cipher may run this callback in softirq or with BH disabled, where
-> > submit_bio_noacct() must not be called because it can sleep.
-> > 
-> > Submit inline only when async is false. Async completions are sent to
-> > the write thread, as is already done for submit_from_crypt_cpus. Use
-> > the async flag rather than in_interrupt(), since callback context
-> > depends on the cipher driver. Sync ciphers still submit inline.
-> > 
-> > Tested with cryptd in QEMU (x86_64 and arm64) with
-> > CONFIG_DEBUG_ATOMIC_SLEEP, and on a P2020 running 6.18.55 without it.
+On 11/9/26 1:53 PM, Maíra Canal wrote:
+> Hi Cristian,
 > 
-> Originally, this was added to avoid write reordering for zoned block devices.
-> So did you test this change with that (scsi_debug or null-blk) ? You can also
-> use an emulated NVMe ZNS device in QEMU.
+> On 04/11/26 17:08, Cristian Ciocaltea wrote:
+>> On 10/28/26 11:44 PM, Cristian Ciocaltea wrote:
+>>> Hi Maíra,
+>>>
+>>> On 10/27/26 3:35 PM, Maíra Canal wrote:
+>>>> Hi Cristian,
+>>>>
+>>>> On 13/10/26 22:03, Cristian Ciocaltea wrote:
+>>>>> Replace driver local scrambling logic with the newly introduced common
+>>>>> HDMI 2.0 scrambling support:
+>>>>>
+>>>>> - Advertise source-side scrambling capability by setting supported HDMI
+>>>>>     version based on the variant's max_pixel_clock.
+>>>>>
+>>>>> - Provide minimal .scrambler_{enable,disable} connector callbacks that
+>>>>>     only toggle the VC5 HDMI_SCRAMBLER_CTL register, while delegating
+>>>>>     sink-side SCDC programming and periodic status monitoring to
+>>>>>     drm_connector_hdmi_{enable,disable}_scrambling().
+>>>>>
+>>>>> - Drop vc4_hdmi_reset_link() and vc4_hdmi_handle_hotplug(), switching
+>>>>>     the .detect_ctx() path to drm_atomic_helper_connector_hdmi_hotplug()
+>>>>>     which internally calls drm_connector_hdmi_sync_scdc() to trigger a
+>>>>>     CRTC reset on reconnection.
+>>>>>
+>>>>> - Drop the local scrambling_work delayed workqueue and scdc_enabled
+>>>>>     flag, now tracked by the common drm_connector_hdmi layer, as well as
+>>>>>     the now unused output_{bpc,color_format} driver data members.
+>>
+>> [...]
+>>
+>>> I'm going to test both fixes and send them out as a separate series, so we're
+>>> not blocking on it.
+>>
+>> I submitted the fixes earlier today:
+>>
+>> https://lore.kernel.org/all/20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com/
+>>
+>> I'm waiting for Lucas' scrambling patches to land in drm-misc-next so that I can
+>> rebase this series and send v4.
+>>
+> 
+> I believe Lucas' patches landed today in drm-misc-next.
 
-So, should we disable asynchronous crypto operations for zoned devices? 
-Would you send a patch for that?
+Indeed, they weren't there when I checked earlier today, so thanks for the quick
+notice.  I'll prepare the next revision.
 
-Mikulas
-
+Kind regards,
+Cristian
