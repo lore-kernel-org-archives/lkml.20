@@ -1,60 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794248740;
-	b=maUwyATnn5t0fMNqDK4MEzAABURiKkyXccM6dM5DRx9IzQZtTmVm5hGycofHN052OkOe
-	 IpPVS7pD48wAEzwBf4R6Hpqe1fOJMeZWmByFDV3NcB5hSOOUMGC35o2Laq1364xQFCMuy
-	 7znchKXnTvhRK1FU7yVA8OuAIhBThzJEomLWgBb3aBm6ybQKdewz4mUf7kBKazaSDxEtb
-	 J9cu1OzDMYUMGLhFoHzQUIS+7mAoVVPOOBlDeiHK10sVRxHFnpsUhQDN+19bkYUBcQMmO
-	 qYoYp2/30DkGQZ1Rz26Ns6cwkXLYT8HSF/q5u6JczOWo6eJYgUAfwlZFymeh7lTr5gg==
+	t=1794248749;
+	b=hzGyb/YzjRx5Q5dVJj5D0UFUwT9OaZNevHhRiblopBAMjKgvCMmSHTqSQ9Clf74GZQo9
+	 ZBdM1n0rwVuV0oQUGNMkJIA6kD15Fq4ICgyOfcq+mLVSSic6c1pE8B1AdrJpoSdXj/2NA
+	 ctjSRuY6r0EX9s5GGnOGHdiTj3+11AWyT3THuIUWD6AJjK/Hg3O/AfQpH99LGN9KBeLFA
+	 tbNZPDrRuRN/MmXRvg3wROagIPUpgYVyO8VjX9kZ7op7yskr/OrbeR/ZqbJt1PvhZOTWf
+	 b8O/7+j8GxlzTgeZDIvkL4JxVQbdgNAvwGaFrYFqq1B0tfoHl60hicXGyqVBjH5x3GA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794248740;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=vrr3J9jDAWoXxoZTgAde8TMfIdLINczImmqo7qPCG5k=;
-	b=f1RjlJWK/Rx/G+fHBBRXUmfOBinDj6RxuU7Gr9ys+ZYpgjE48Ljm+008sAtTFue9izWk
-	 Yz6p5JQfr477LIsxWRn4EQQJr5sAbep2QQ7bVHaVDskVA5cJmhAJngSDFTLSZpTulUyWP
-	 L9U7IHvc1OHNZPcvu+b5CV1OAEg32cOReEq2i+LIGdgMHpjeqYVON5Dfpdnl4IyPlMSla
-	 57ikLN9MzORIfF6NPqn3kEOKG7sf/EC5XXpWTRs6IozZU3KNE/Ry4HTv4S9JcHnSUBTdV
-	 9Id5C51J1TbDKmVeLhmjhgOTwE1++6XPjtT5MgXFYBxQzXxaLmSf3NaZPFQmwKJaNQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248749;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=nKbnCwTfLzajXiNpupOHjxARAnB6qVXNJxTLmCpPRqc=;
+	b=Jn0CFqWJFypUucYY2xEZQyfnJ4sLLWdtDVaBS38clKPFIRgOQqjhOPrVgDW8dql9fFBE
+	 ANjQ12n+Zr8vOvzVm1Ck08cJWHv45s4D0AzBMPGYhGQeY2AWibfCj4ndmRjQssFeqaB2L
+	 GXJs2pa4C3zeVxpEc3kAqShi5faNfFM+/es9eb14YbWOoWeQUno/kjIW/3OJvRlPsMorE
+	 Gg2xHMvRAZlUlwViC5q+s0LjORXyxSVXsZ+ugBY7ubcpTkHGfZoIkvH4sW83D+8ddGmuV
+	 u63NuSZ41eFOZQJ3MpbDwm/DmuAmB4e5225bK3ULePi/Bjo9wpsy9wxP3L7A/obCXlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=cAH0VmGV;
-	arc=none smtp.remote-ip=185.70.43.18
-Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CBOfCFW9;
+	arc=none smtp.remote-ip=209.85.218.70
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D099A606A330;
-	Mon,  9 Nov 2026 18:25:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D099A606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0256460A6F71
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:25:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0256460A6F71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--lrizzo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=cAH0VmGV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1794248736; x=1794507936;
-	bh=vrr3J9jDAWoXxoZTgAde8TMfIdLINczImmqo7qPCG5k=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=cAH0VmGVfZUyJQFNTm5B6ui1k0DcPTiXyIcojdtuTA92cKAIH7rjzOSRxBxs9wA+y
-	 UibHcKk87hShMTrz9orYeKJy3vJAw68hWr3YdlS27c6qcDLYPB7H3l7MA7R2gpfPgr
-	 bipA8iL/+Qkacef9Nn5ZcNrfJ+2JMEtX1ntWFnY8dOnqrLZ1rS8BrySyqsv3VRdlTo
-	 vqUkMh7nmk+1ALYfkqftuY4ZqMYlrubdCQIIZbfa1KcV3yR30Gdbf+0uaNOFmSAoR2
-	 agflVbUn3lVRZKN60Z8hZ2JMoFyIISgYYhB+I3OQ+9VDsX4SRHYGmMgIK8CgROil4s
-	 oqp3ybM3tOMoQ==
-Date: Mon, 09 Nov 2026 18:25:31 +0000
-To: Jinmo Yang <jinmo44.yang@gmail.com>, Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, alhouseenyousef@gmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH] HID: hidraw: fix use-after-free and double free on disconnect
-Message-ID: <20261109182524.743597-2-ca@modelmiser.com>
-In-Reply-To: <20261010230108.107272-1-jinmo44.yang@gmail.com>
-References: <20261010230108.107272-1-jinmo44.yang@gmail.com>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: 25868f462026df30b04c5f654ce7c6d3272adeea
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CBOfCFW9
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c4d28d38d79so124867466b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:25:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794248747; x=1794853547; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nKbnCwTfLzajXiNpupOHjxARAnB6qVXNJxTLmCpPRqc=;
+        b=CBOfCFW9BCHBjXQAG41PvKQQ+STG811+rxmPzoybSMJ426P0wW0koSykG9DfcxuF/J
+         QLdlfIJ/ih4Lr0Uo8ZCkjWxtOsvi4vdKRnG5ffdmcUvG6idNr9qfZdL/0yykC3Yjgz8E
+         ifDH9z18sncJt3nhxsebM8+bOMXVBExjZ1tHWQYLlYe2AtIMV59zSyqZpRJmrpuCyeIM
+         jcHK+FVEUKPaHwwGZhQhwXCIm6KH1FiO743dLJUtujdKTSFf18OIEWlZoRN6qBWAYCEO
+         SQJUeYL+4cxPfCtwb1UinB/8PI4GJ6Ldj9gOuWCVDn02G+4nclNwLH0pxTaDwPfb3JqW
+         fejg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794248747; x=1794853547;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nKbnCwTfLzajXiNpupOHjxARAnB6qVXNJxTLmCpPRqc=;
+        b=DTlNLIyFpnF9HEMeFnzFzxbA+Wz50euPSRlfu7eipCuVv7RRCb4bIN6raFfx1k+KEq
+         3NScGQucJXnzy+m+qTv3sxYIcLQ7FhW31jFGTrs+SoZGNOfy65iXkgCDY8bnLV3mzfeC
+         I7UjCvW4q2K1NlDAPgMo5zmye3ucSXrnoeRU0Xpe3qo1YLiMWD+gjcmW0jv/fsQErHXi
+         y1jZn/7bGK2dWBVI1bmieUlt9ct41um4k6shDZ/eJ8tvuh6GYkBR/nItOVfq2tOykTeg
+         hUqYHz9xOsBfk/8UZeIOIx8bimIk2slCDrB2iqmMSIaAOyGRZZlg2N5585M2V9IhyOGD
+         gw7A==
+X-Forwarded-Encrypted: i=1; AL+hErEo/LWk02ffVtlNncF/R4YoqpywDhmud5Qd2Oad3SVyMAne6oVC6EK/3WVVdOpiJLwZFsElQouMwbDY6yA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WT1pus1HjsAVhYhE7Pvhjvle2WokBwDmNTLtUm4wv2DtoMt6h
+	/Pjyo4bnRhkTYFWFUcbrQDHPtSkZ7i3Wzot3jkYtLaHi59Us6UBiKAXV8KncnAGYA2PgrVfR32J
+	fPxK1rw==
+X-Received: from ejdlt8-n1.prod.google.com ([2002:a17:907:c648:10b0:c2e:34bc:d4b1])
+ (user=lrizzo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:3e20:b0:c41:64c1:cc2d
+ with SMTP id a640c23a62f3a-c50491bd62emr17857866b.2.1794248747203; Mon, 09
+ Nov 2026 10:25:47 -0800 (PST)
+Date: Mon,  9 Nov 2026 18:25:18 +0000
+In-Reply-To: <20261003212241.3432303-1-lrizzo@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,56 +78,428 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+References: <20261003212241.3432303-1-lrizzo@google.com>
+X-Mailer: git-send-email 2.56.0.542.g3ef89b7020-goog
+Message-ID: <20261109182533.3594984-11-lrizzo@google.com>
+Subject: [RFC PATCH v2 10/25] iommu/dma: Use PISA for coherent DMA allocations
+From: Luigi Rizzo <lrizzo@google.com>
+To: Luigi Rizzo <rizzo.unipi@gmail.com>, Joerg Roedel <joro@8bytes.org>, 
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, David Hildenbrand <david@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Matthew Wilcox <willy@infradead.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Willem de Bruijn <willemb@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Joshua Washington <joshwash@google.com>, 
+	Harshitha Ramamurthy <hramamurthy@google.com>, Alexander Lobakin <aleksander.lobakin@intel.com>, 
+	iommu@lists.linux.dev, netdev@vger.kernel.org, linux-mm@kvack.org, 
+	linux-block@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Luigi Rizzo <lrizzo@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, 11 Oct 2026, Jinmo Yang wrote:
-> hidraw_report_event() dereferences hid->hidraw with nothing keeping the
-> object alive, and hidraw_disconnect() frees it without clearing the
-> pointer:
+Coherent DMA allocations (e.g. TX/RX descriptor rings allocated via
+dma_alloc_attrs() / dma_alloc_coherent()) are long-lived and accessed
+on every packet or I/O operation, so they benefit from sharing 2MB IOMMU
+leaf mappings.
 
-Tested on mainline d48723711bae (v7.4-rc1-672), on x86_64 in QEMU (4
-vCPUs) with KASAN, lockdep, DEBUG_LIST and kmemleak, and without a
-window-widening patch. A test program creates two uhid devices with the
-Wacom vendor ID that bind hid-wacom as generic pen and touch siblings.
-The pen device's descriptor has the WACOM_HID_WD_MODE_CHANGE usage, so a
-report that toggles it schedules wacom_mode_change_work(), which stops
-and restarts both devices.
+When dev->pisa_coherent is enabled, serve coherent DMA allocations up
+to 2MB from the device's per-NUMA-node order-0 read-write PISA
+allocator.
 
-Without the patch, toggling that bit about every 2 ms for 20 s (about
-9,400 reports, nothing else sent) gave slab-use-after-free reports
-reached from hidraw_report_event() in every run (5 of 5; 31 to 61 KASAN
-reports per run, which looks like 2 to 4 hits of about 15 reports each),
-on an object freed by hidraw_disconnect() <- hid_disconnect() <-
-hid_hw_stop() <- wacom_mode_change_work(). The free path matches your
-trace, and it reproduces without any window-widening delay.
+Signed-off-by: Luigi Rizzo <lrizzo@google.com>
+---
+ drivers/iommu/dma-iommu.c  |  10 +++
+ drivers/iommu/pisa-alloc.c | 146 +++++++++++++++++++++++++++++++++++++
+ drivers/iommu/pisa-kunit.c |  67 +++++++++++++++++
+ include/linux/pisa.h       |  30 ++++++++
+ kernel/dma/direct.c        |   9 +++
+ 5 files changed, 262 insertions(+)
 
-With the patch, 11 runs of the same (220 s in all) had no KASAN, lockdep
-or DEBUG_LIST reports. kmemleak listed unreferenced objects after 2 of
-those 11 runs, and after 3 of the 4 unpatched runs that got as far as
-the scan; I have not looked at what they are. About 18 million pen and
-touch reports over 20 s without any mode changes gave no KASAN, lockdep
-or DEBUG_LIST reports with or without the patch.
-
-Sending pen and touch reports while the mode is toggling oopses the
-kernel within seconds with or without the patch. In every such run the
-first fault is the same NULL pointer dereference in wacom_wac_event(),
-called from wacom_wac_report(), and the later reports are on a tainted
-kernel. That is in hid-wacom, in a function your v4 NULL-input series
-does not change, and after it those runs say nothing about hidraw.
-
-Not tested: the double-free hunk (I never saw two teardowns of the same
-device overlap), the NULL check on its own without the RCU change,
-reading an open hidraw node during teardown (attempted, but the
-hid-wacom fault above comes first), transports that deliver reports from
-interrupt context, real hardware, arm64, and module unload (everything
-was built in).
-
-The harness and this report were produced with an AI assistant (Claude
-Opus 5.5), which also did the earlier runs, including the unpatched
-comparison. I ran the final version on the patched kernel myself and got
-the same results. The harness is available on request.
-
-Tested-by: Chad Aldreda <ca@modelmiser.com>
+diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+index eb920ad77c783..a0c5ddab7a8b6 100644
+--- a/drivers/iommu/dma-iommu.c
++++ b/drivers/iommu/dma-iommu.c
+@@ -1658,6 +1658,8 @@ static void __iommu_dma_free(struct device *dev, size_t size, void *cpu_addr)
+ 	} else {
+ 		/* Lowmem means a coherent atomic or CMA allocation */
+ 		page = virt_to_page(cpu_addr);
++		if (pisa_free_coherent(page, alloc_size))
++			return;
+ 	}
+ 
+ 	if (pages)
+@@ -1716,6 +1718,7 @@ void *iommu_dma_alloc(struct device *dev, size_t size, dma_addr_t *handle,
+ 		gfp_t gfp, unsigned long attrs)
+ {
+ 	bool coherent = dev_is_dma_coherent(dev);
++	struct iommu_domain *domain = iommu_get_dma_domain(dev);
+ 	int ioprot = dma_info_to_prot(DMA_BIDIRECTIONAL, coherent, attrs);
+ 	bool is_alloc_cc_shared = attrs & __DMA_ATTR_ALLOC_CC_SHARED;
+ 	struct page *page = NULL;
+@@ -1727,6 +1730,12 @@ void *iommu_dma_alloc(struct device *dev, size_t size, dma_addr_t *handle,
+ 
+ 	gfp |= __GFP_ZERO;
+ 
++	if (domain) {
++		cpu_addr = pisa_alloc_coherent(&page, dev, domain, size, gfp, attrs);
++		if (cpu_addr)
++			goto map;
++	}
++
+ 	if (gfpflags_allow_blocking(gfp) &&
+ 	    !(attrs & DMA_ATTR_FORCE_CONTIGUOUS)) {
+ 		return iommu_dma_alloc_remap(dev, size, handle, gfp, attrs);
+@@ -1744,6 +1753,7 @@ void *iommu_dma_alloc(struct device *dev, size_t size, dma_addr_t *handle,
+ 			return NULL;
+ 	}
+ 
++map:
+ 	*handle = __iommu_dma_map(dev, page_to_phys(page), size, ioprot,
+ 			dev->coherent_dma_mask);
+ 	if (*handle == DMA_MAPPING_ERROR) {
+diff --git a/drivers/iommu/pisa-alloc.c b/drivers/iommu/pisa-alloc.c
+index b0d968aa9181c..25e4645310678 100644
+--- a/drivers/iommu/pisa-alloc.c
++++ b/drivers/iommu/pisa-alloc.c
+@@ -10,6 +10,8 @@
+ #include <linux/bitops.h>
+ #include <linux/cache.h>
+ #include <linux/device.h>
++#include <linux/dma-direct.h>
++#include <linux/dma-map-ops.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/pisa.h>
+ #include <linux/export.h>
+@@ -697,6 +699,150 @@ unsigned long pisa_alloc_bulk(struct pisa_alloc *pa, gfp_t gfp,
+ 	return i;
+ }
+ 
++/* Find and reserve @nblocks aligned contiguous blocks in @meta under @pa->lock. */
++static struct page *pisa_take_contig(struct pisa_meta *meta, unsigned int nblocks,
++				     unsigned long align_mask)
++{
++	DECLARE_BITMAP(busy, PISA_MAX_BLOCKS);
++	struct pisa_alloc *pa = meta->pa;
++	unsigned int bpp = PISA_BLOCKS(0), i;
++	bool poisoned = false;
++	unsigned long off;
++	struct page *page;
++
++	if (pisa_meta_avail(meta) < nblocks)
++		return NULL;
++
++	bitmap_or(busy, meta->clean_bitmap, meta->dirty_bitmap, bpp);
++	bitmap_complement(busy, busy, bpp);
++
++	off = 0;
++	for (;;) {
++		off = bitmap_find_next_zero_area(busy, bpp, off, nblocks, align_mask);
++		if (off >= bpp) {
++			if (poisoned) {
++				if (meta->on_list == PISA_LIST_IDLE_CLEAN ||
++				    meta->on_list == PISA_LIST_IDLE_DIRTY)
++					pa->num_idle_pages--;
++				pisa_place_meta(meta);
++			}
++			return NULL;
++		}
++
++		page = pfn_to_page(pisa_meta_to_pfn(meta) + off);
++		for (i = 0; i < nblocks; i++) {
++			if (!pisa_block_poisoned(pa, page + i))
++				continue;
++			if (__test_and_clear_bit(off + i, meta->clean_bitmap))
++				meta->nr_clean--;
++			else if (__test_and_clear_bit(off + i, meta->dirty_bitmap))
++				meta->nr_dirty--;
++			__set_bit(off + i, busy);
++			poisoned = true;
++			off += i + 1;
++			break;
++		}
++		if (i == nblocks)
++			break;
++	}
++
++	if (meta->on_list == PISA_LIST_IDLE_CLEAN ||
++	    meta->on_list == PISA_LIST_IDLE_DIRTY)
++		pa->num_idle_pages--;
++
++	for (i = 0; i < nblocks; i++) {
++		if (__test_and_clear_bit(off + i, meta->clean_bitmap)) {
++			meta->nr_clean--;
++		} else {
++			__clear_bit(off + i, meta->dirty_bitmap);
++			meta->nr_dirty--;
++		}
++		pisa_block_prep(page + i);
++		page_ref_unfreeze(page + i, 1);
++	}
++	pisa_place_meta(meta);
++	return page;
++}
++
++/*
++ * Specialized memory provider for iommu_dma_alloc() and dma_direct_alloc():
++ * allocate a zeroed, naturally aligned contiguous range of order-0 pages for
++ * @size bytes (<= PISA_SIZE) from @dev's per-node coherent allocator into
++ * *@pagep and return its kernel virtual address, or NULL.
++ */
++void *pisa_alloc_coherent(struct page **pagep, struct device *dev,
++			  struct iommu_domain *domain, size_t size,
++			  gfp_t gfp, unsigned long attrs)
++{
++	bool should_release = false;
++	struct list_head *lists[3];
++	unsigned long align_mask, flags;
++	unsigned int nblocks, i;
++	struct pisa_meta *meta;
++	struct pisa_alloc *pa;
++	struct page *page = NULL;
++
++	size = PAGE_ALIGN(size);
++	if (!pagep || !dev || !READ_ONCE(dev->pisa_coherent) ||
++	    !dev_is_dma_coherent(dev) || !size || size > PISA_SIZE)
++		return NULL;
++	if (min_not_zero(dev->coherent_dma_mask, dev->bus_dma_limit) <= DMA_BIT_MASK(32))
++		return NULL;
++	if ((current_gfp_context(gfp) & ~(__GFP_ZERO | __GFP_NOWARN)) != GFP_KERNEL ||
++	    (attrs & ~DMA_ATTR_NO_WARN))
++		return NULL;
++
++	if (domain) {
++		struct pisa_window *win = pisa_dma_window(domain);
++
++		if (!win || pisa_window_declined(win) || !(domain->pgsize_bitmap & PISA_SIZE))
++			return NULL;
++	} else if (is_swiotlb_for_alloc(dev) ||
++		   force_dma_unencrypted(dev) ||
++		   !dma_coherent_ok(dev, PFN_PHYS(max_pfn) - 1, 1)) {
++		return NULL;
++	}
++
++	pa = pisa_node_pa(dev_to_node(dev), 0, false);
++	if (!pa)
++		return NULL;
++
++	nblocks = size >> PAGE_SHIFT;
++	align_mask = (1UL << get_order(size)) - 1;
++	lists[0] = &pa->partial;
++	lists[1] = &pa->partial_dirty;
++	lists[2] = &pa->idle;
++
++	spin_lock_irqsave(&pa->lock, flags);
++	for (i = 0; i < ARRAY_SIZE(lists) && !page; i++) {
++		list_for_each_entry(meta, lists[i], list) {
++			page = pisa_take_contig(meta, nblocks, align_mask);
++			if (page)
++				break;
++		}
++	}
++	if (!page) {
++		spin_unlock_irqrestore(&pa->lock, flags);
++		meta = pisa_alloc_split_page(0, gfp, pa->nid);
++		if (IS_ERR(meta))
++			return NULL;
++		spin_lock_irqsave(&pa->lock, flags);
++		meta->pa = pa;
++		meta->prot = pa->prot;
++		WRITE_ONCE(meta->flags, meta->flags | PISA_ACTIVE);
++		page = pisa_take_contig(meta, nblocks, align_mask);
++		if (unlikely(!page))
++			should_release = pisa_place_meta(meta);
++	}
++	spin_unlock_irqrestore(&pa->lock, flags);
++
++	if (should_release)
++		pisa_schedule_reclaim();
++	if (!page)
++		return NULL;
++	*pagep = page;
++	return memset(page_address(page), 0, size);
++}
+ 
+ /**
+  * __pisa_free_page - Recycle a freed block back into its PISA allocator
+diff --git a/drivers/iommu/pisa-kunit.c b/drivers/iommu/pisa-kunit.c
+index ab64657ad5c58..72ee8986b4802 100644
+--- a/drivers/iommu/pisa-kunit.c
++++ b/drivers/iommu/pisa-kunit.c
+@@ -352,6 +352,72 @@ static void test_map_and_domain_lifecycle(struct kunit *test)
+ }
+ #endif /* CONFIG_IOMMU_DMA */
+ 
++static void test_coherent_alloc_and_free(struct kunit *test)
++{
++	struct device dev = { .init_name = "pisa_kunit", .numa_node = NUMA_NO_NODE,
++			      .coherent_dma_mask = DMA_BIT_MASK(64),
++			      .pisa_coherent = true };
++	struct page *p1, *p2, *p3;
++	void *v1, *v2, *v3;
++#ifdef CONFIG_IOMMU_DMA
++	struct pisa_window *win;
++	dma_addr_t d1, d2;
++#endif
++
++	dev.dma_mask = &dev.coherent_dma_mask;
++	/* NUMA_NO_NODE would follow the node of the CPU the test runs on. */
++	set_dev_node(&dev, first_memory_node);
++#if defined(CONFIG_ARCH_HAS_SYNC_DMA_FOR_DEVICE) || \
++	defined(CONFIG_ARCH_HAS_SYNC_DMA_FOR_CPU) || \
++	defined(CONFIG_ARCH_HAS_SYNC_DMA_FOR_CPU_ALL)
++	dev.dma_coherent = true;
++#endif
++	KUNIT_EXPECT_NULL(test, pisa_alloc_coherent(&p1, NULL, NULL, SZ_4K, GFP_KERNEL, 0));
++	KUNIT_EXPECT_NULL(test, pisa_alloc_coherent(&p1, &dev, NULL, SZ_4K,
++						    GFP_KERNEL | __GFP_ACCOUNT, 0));
++	KUNIT_EXPECT_NULL(test, pisa_alloc_coherent(&p1, &dev, NULL, PISA_SIZE + SZ_4K,
++						    GFP_KERNEL, 0));
++
++#ifdef CONFIG_IOMMU_DMA
++	/* Uninitialized domain has no DMA cookie/window yet. */
++	KUNIT_EXPECT_NULL(test, pisa_alloc_coherent(&p1, &dev, &fake_domain, SZ_4K,
++						    GFP_KERNEL | __GFP_NOWARN, 0));
++
++	KUNIT_ASSERT_EQ(test, fake_domain_setup(test), 0);
++	win = pisa_dma_window(&fake_domain);
++
++	v1 = pisa_alloc_coherent(&p1, &dev, &fake_domain, SZ_64K, GFP_KERNEL, 0);
++	KUNIT_ASSERT_NOT_NULL(test, v1);
++	KUNIT_ASSERT_EQ(test,
++			pisa_map_phys(&d1, &dev, &fake_domain, page_to_phys(p1), SZ_64K,
++				      IOMMU_READ | IOMMU_WRITE | IOMMU_CACHE), 0);
++	KUNIT_EXPECT_TRUE(test, is_pisa_iova(win, d1));
++
++	v2 = pisa_alloc_coherent(&p2, &dev, &fake_domain, SZ_64K, GFP_KERNEL, 0);
++	KUNIT_ASSERT_NOT_NULL(test, v2);
++	KUNIT_EXPECT_PTR_EQ(test, v2, v1 + SZ_64K);
++	KUNIT_ASSERT_EQ(test,
++			pisa_map_phys(&d2, &dev, &fake_domain, page_to_phys(p2), SZ_64K,
++				      IOMMU_READ | IOMMU_WRITE | IOMMU_CACHE), 0);
++	KUNIT_EXPECT_EQ(test, d2, d1 + SZ_64K);
++#else
++	v1 = pisa_alloc_coherent(&p1, &dev, NULL, SZ_64K, GFP_KERNEL, 0);
++	KUNIT_ASSERT_NOT_NULL(test, v1);
++	v2 = pisa_alloc_coherent(&p2, &dev, NULL, SZ_64K, GFP_KERNEL, 0);
++	KUNIT_ASSERT_NOT_NULL(test, v2);
++	KUNIT_EXPECT_PTR_EQ(test, v2, v1 + SZ_64K);
++#endif
++
++	/* Freeing p1 returns its 16 order-0 pages; next 64K alloc reuses them. */
++	KUNIT_EXPECT_TRUE(test, pisa_free_coherent(p1, SZ_64K));
++	v3 = pisa_alloc_coherent(&p3, &dev, NULL, SZ_64K, GFP_KERNEL, 0);
++	KUNIT_ASSERT_NOT_NULL(test, v3);
++	KUNIT_EXPECT_PTR_EQ(test, p3, p1);
++
++	KUNIT_EXPECT_TRUE(test, pisa_free_coherent(p2, SZ_64K));
++	KUNIT_EXPECT_TRUE(test, pisa_free_coherent(p3, SZ_64K));
++}
++
+ static void kunit_check_pisa_attr(struct kunit *test, struct device *dev,
+ 				  const char *name, bool *field)
+ {
+@@ -431,6 +497,7 @@ static struct kunit_case pisa_meta_test_cases[] = {
+ 	KUNIT_CASE(test_window_helpers),
+ 	KUNIT_CASE(test_map_and_domain_lifecycle),
+ #endif
++	KUNIT_CASE(test_coherent_alloc_and_free),
+ 	KUNIT_CASE(test_dev_pisa_attrs),
+ 	KUNIT_CASE(test_reservoir_and_scrubber),
+ 	{}
+diff --git a/include/linux/pisa.h b/include/linux/pisa.h
+index 92482fce943e9..a6556aa403a09 100644
+--- a/include/linux/pisa.h
++++ b/include/linux/pisa.h
+@@ -13,6 +13,7 @@
+ #include <linux/rcupdate.h>
+ 
+ struct device;
++struct iommu_domain;
+ 
+ #ifdef CONFIG_PISA
+ 
+@@ -78,6 +79,21 @@ static inline bool pisa_free_page(struct page *page)
+ 	return ret;
+ }
+ 
++void *pisa_alloc_coherent(struct page **pagep, struct device *dev,
++			  struct iommu_domain *domain, size_t size,
++			  gfp_t gfp, unsigned long attrs);
++
++static inline bool pisa_free_coherent(struct page *page, size_t size)
++{
++	unsigned long count = PAGE_ALIGN(size) >> PAGE_SHIFT;
++
++	if (!page || !is_pisa_page(page))
++		return false;
++	while (count--)
++		__free_page(page++);
++	return true;
++}
++
+ unsigned long pisa_alloc_pages_bulk(gfp_t gfp, unsigned int order,
+ 				    int preferred_nid, nodemask_t *nodemask,
+ 				    int nr_pages, struct page **page_array,
+@@ -109,6 +125,20 @@ static inline bool pisa_free_page(struct page *page)
+ 	return false;
+ }
+ 
++static inline void *pisa_alloc_coherent(struct page **pagep,
++					struct device *dev,
++					struct iommu_domain *domain,
++					size_t size, gfp_t gfp,
++					unsigned long attrs)
++{
++	return NULL;
++}
++
++static inline bool pisa_free_coherent(struct page *page, size_t size)
++{
++	return false;
++}
++
+ static inline unsigned long
+ pisa_alloc_pages_bulk(gfp_t gfp, unsigned int order, int preferred_nid,
+ 		      nodemask_t *nodemask, int nr_pages,
+diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+index 25e9a86835fd3..11052b65e573b 100644
+--- a/kernel/dma/direct.c
++++ b/kernel/dma/direct.c
+@@ -15,6 +15,7 @@
+ #include <linux/slab.h>
+ #include <linux/pci-p2pdma.h>
+ #include <linux/cc_platform.h>
++#include <linux/pisa.h>
+ 
+ #include "direct.h"
+ 
+@@ -244,6 +245,12 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+ 	if (attrs & DMA_ATTR_NO_WARN)
+ 		gfp |= __GFP_NOWARN;
+ 
++	cpu_addr = pisa_alloc_coherent(&page, dev, NULL, size, gfp, attrs);
++	if (cpu_addr) {
++		*dma_handle = phys_to_dma_direct(dev, page_to_phys(page), false);
++		return cpu_addr;
++	}
++
+ 	if (dma_direct_use_no_mapping(dev, attrs))
+ 		return dma_direct_alloc_no_mapping(dev, size, dma_handle, gfp);
+ 
+@@ -424,6 +431,8 @@ void dma_direct_free(struct device *dev, size_t size,
+ 
+ 	if (is_vmalloc_addr(cpu_addr)) {
+ 		vunmap(cpu_addr);
++	} else if (pisa_free_coherent(virt_to_page(cpu_addr), size)) {
++		return;
+ 	} else {
+ 		if (IS_ENABLED(CONFIG_ARCH_HAS_DMA_CLEAR_UNCACHED))
+ 			arch_dma_clear_uncached(cpu_addr, size);
+-- 
+2.56.0.542.g3ef89b7020-goog
 
