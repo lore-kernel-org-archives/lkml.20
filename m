@@ -1,126 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794236960;
-	b=wHFh+/9m8FnJIuVvmDmIm/2/VU6q/iw8K1F3tTXT2XL0ZZ17dyGrOA0r7/cOsK7U7g8b
-	 6/qdHVowV4TkaIF1fBwoHLylb5f0/GaQ9zF7VMECHBo4yyzELqbNdlQBgVH6v+Ea4R7tU
-	 4x6BCVSsDgpocjT1FR1HvD65PJ8kIB54KvRtQrQiXHxQM9z1EZZdBwOmYudoXSOOM9AI9
-	 xN+f8myShLfMJNVSkPg05KOSdTUOda5snrbYKaMmrEKgYsMwVWpmWiZxhSlD3pKacU7Es
-	 luaLEF2WO5BO6fTwSia3uoE8VPJFWMvpPDjUU/2S6YzpayeO5b9GkKQNgLtJQcfsUzA==
+	t=1794237001;
+	b=aYptLA32jN3bjiTm52vqD0U/CiDIOP5ZkfEPk6tPiUUqIiGueABJycmXK/AltJUYLzxo
+	 r3q8xiakHa1bm4yeZXhMDwLmR4T5ZYkOgxePDQ98hYgZ/04d8reRSZlJIIj6HyQqHdGgk
+	 4XUlZjFfAvZfSUA1iyetGtfPt7Hd6F/65InEOmguyIEFVrOkRkCbV3qD25WHt6MM+cAtD
+	 Epa3DMfg9W+1AHHwPW0BI1/erAyPAY4O9UNzX0ULzQfhpyXvGUsSE64YiBWpbtTK9WrVE
+	 /9rY70d+Dp1M2ic14F4EMH0DZMhYdNvYef4FIDnMF2QL6SoDbnQL+BIxdoZmqa/Uuzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236960;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ehk/Gi0k4ynJUIsecQ39iaSJWX96HxZZqDpEX10WpqA=;
-	b=sZiltR+4LxLqqNd6KJMDtuxYQ8FJnMK7eigwT1c9Ke9vFK1Mj4puqvrMs1mVYyYNV5Xz
-	 a68XGORr1oea4FcOGxveyBOZ88kz5QN8AfqZtsVP1+BQfWSW6F6KezKuDBY5E/V/WYt69
-	 rg9D+Z2tb+AyLnIyiBrVqhT//JSHijk+r66EfX+LWQnXDoDUl960aFuJIH3IQiY5LcyQO
-	 CWeU8mkwJaP6bt2/JKBjWLfqLHMS787LNPemTZyVh2yKoOMyyD2qQJbbEcIAxhTNaiICW
-	 qhducFE5iHs5mq1YO38H4u8Pbyr8V/10PHRTmByMfntTAMoBevVN/0oreXrvPkSu5GA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237001;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=lZQni7749kY6di5K85y+7kMNZ7RgyRVrDwfii0NID74=;
+	b=zKQDxNYpCvSuHPzac/TkO+vKic28ghB1xg0lHvdxdIPZi0CNR3LbzNoqFNTCeRG9tfPX
+	 nkLsmB9MaF1I7eVA6VnjfODOpbVfXptn8xE7ipHBYTnkV/dFsbscdSO7RXhrHkPzVjs73
+	 Pe7qnhNWyoC36tOtqFcm+E3VDbl5enBztydXjejyWZq9LXSdmRSJ6FFwvKTI1CA36+6uY
+	 bh/i7nWneWQzlwvY0vGao/fKVrHsVP/KlgVFfUpIMuo/11Ww8TSmBgXYs2I7jKFU2SYoR
+	 VUyiqsH791LTB/BaBxUlRIFrfc8umejYEhT2DgcHspE4GbvpfJ1yDOgDNe82Eqk1m/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NBPytV81;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=LTIsuBLa;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bJOPBrqP;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25B6606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:09:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B25B6606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A830606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:10:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A830606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NBPytV81;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=LTIsuBLa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794236958;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ehk/Gi0k4ynJUIsecQ39iaSJWX96HxZZqDpEX10WpqA=;
-	b=NBPytV81+7IQ1bsURrkG9p3gBWD4pBjXPu9W1Zpig2qF91IchzVeWY2UaFkJ5ZYL17VDcL
-	wa7qbofyx6q56Epg4YDYYC88bo1P9d2EurOueQ0Ie9CTj4+si1qdoXJJ/RE9MGsiWUt8ut
-	YS6EcLvqonfgwrKtcrKGXAyADl4coHM=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-684-OOZyCfK0Nga47YKA5zyesg-1; Mon, 09 Nov 2026 10:09:17 -0500
-X-MC-Unique: OOZyCfK0Nga47YKA5zyesg-1
-X-Mimecast-MFC-AGG-ID: OOZyCfK0Nga47YKA5zyesg_1794236956
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1fdde384cso5805435e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:09:17 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bJOPBrqP
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-496aa002966so24909f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:10:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794236956; x=1794841756; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794237000; x=1794841800; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ehk/Gi0k4ynJUIsecQ39iaSJWX96HxZZqDpEX10WpqA=;
-        b=LTIsuBLaTJuFbm754tSh3DeL+OrbAxHo5FnRP/90ZuKvbnEDj7v8rOVgTVoP9+/9c8
-         CQPD2ixbWQqhUKx/pDu4v6PA/pMkf1xzvIUn/bez4yFIkpU8JnNoULhad5PSW/2DGP1L
-         FKiNt9gOjCE2HOGezsfk3wZnGVm3JdxxSurhkZNUbmdTbL57/knVw7gvuEcmp/xyfq76
-         4OCeBZPwWgTINF0Vpr0y6QgI1eUSkJfPivCYwlt4AgEAmtR6vPZR4no3b5R30BzYkdI0
-         nVrDG9rmcrdpPzOLAgziSE4torSay4ZfeVzjGKJAjFYJ8yCI7ABuD4Y6MsOBGO2W0Q1Q
-         l13Q==
+        bh=lZQni7749kY6di5K85y+7kMNZ7RgyRVrDwfii0NID74=;
+        b=bJOPBrqPxgvh8unCpa6M/ONU+benRZ9sQ3lR+0vN+7Agp9Gkfb1f2hGrM1sSt8fqae
+         44lOCT1YTDoJ3bvfvknd/pYunQGIyo41vwVtNNTdAywd+TaVf/Cl+xL9ITeMINs457XK
+         HcmFmC+zRtuo5tL/uVSqa3JudeKQfK8jBl1bnrAdh16fuKLf45VywHmi0zc4Xwu2vBiT
+         tUks2cgUhNCjuw1Oz9O006Tqmozdi5UIyRycugO+R6WtzDyC7lAQXRM5XJVfspMCOLZ0
+         I6uOBL5Ik4On0F3VT+IPN6Gd2yIxwX4CS3q4bZuRUpUZ9ze1dIjWTeCol5IDOec2BkPJ
+         wr9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794236956; x=1794841756;
+        d=1e100.net; s=20260707; t=1794237000; x=1794841800;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ehk/Gi0k4ynJUIsecQ39iaSJWX96HxZZqDpEX10WpqA=;
-        b=S9LDlQu0iPVVnNsCr9ByfNOlDjMHAkxpVYj5Oi6nUXnMg7rfFKHl8HCv0MUmtQS697
-         VgSPnha9gpPennDBikMBTbG6WVpqFHWOIrVKp5m3h55C0SzKR1SKwrORnQo8rgEMZTf2
-         XnphGitvDqDlUOhbcu2iVcMrTwihjnqPiZrzbi54aqr4Oz9u9DvmIyce+yEUwLDuDpl4
-         4yX+pC02R74JMPmpgq6D+YNuNXjmcSafSsc2P6th6rPeJlrsPH6OATG1jEpEMa3yff5u
-         iKjmbI5KlVQpKHyHRX6/4LJhVDOzO3toaxLAlab758Jt0u/ZqYRyu2eRj4tKVnWjhalR
-         ZJOg==
-X-Forwarded-Encrypted: i=1; AL+hErGw8ikj9jMKhndfoMh1zwmumNfqf1LCvmBtYe9Xi0SBbKIzJ3T9BTL0RgCUMOXm+QHi8G3/fLCk1zRoF+c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9YIAyCyg3YiXYSKJTOfeBADjVFX2DpDVXdZ3FJxGitBKlHWmRJ
-	/Va/nzPxsdg/F/nbJ0ozztnr4Ll62S09cxNk/9d5bNh+ThoaZ+qutMoV8cNsRlgGnTv70nR8jjv
-	ERRjjHfumIrjbpWxffrX+aMmD/2sU/qdrcrdCTpH60x+IhvXtAluy1lyCP9CV7P5cRw==
-X-Gm-Gg: AYBFou3/SGd9tTSoXjhw+hOa1eNeOJUQLoJFPPsu7A1m69ghuz0LUfKCT7bt5HJBsLD
-	ZPE88eU293zg0LKlpH7GqCilcsvSJbnj5m/V48eoXdvtOb1BycfHM2PkvBY7jht1RRYIiexJziH
-	ZQOw/njFT1gpp3puwtMEftAltFCQjjytpqTpv8JHfFl+tqNiEJITMc4im65UNVYv1f4owFQq0Sw
-	3VtoUZzjglOrCkXr5S9aKCimPvtnStEE/4ZPidXy8lEzUAk5vcOLAyBkWWCSHu/OEhdMHkfv3uW
-	84hIBtezIfmNJ0KIoDKLwvWrOS3kBF1nhMJBfSYNOnjf8xCCVnPRsBPhmeVg6oSMB9zAYmLgnR8
-	xSOd+MaDM/61dEnFzzDrctnyTha40hYk9bxMmdX6admUH+x2aQc1Q4QKrm5wNfOw9oGbdZgXQ41
-	97Yg==
-X-Received: by 2002:a05:600d:82ea:b0:4a7:7f3f:6f8e with SMTP id 5b1f17b1804b1-4b943f76d81mr96595495e9.0.1794236956037;
-        Mon, 09 Nov 2026 07:09:16 -0800 (PST)
-X-Received: by 2002:a05:600d:82ea:b0:4a7:7f3f:6f8e with SMTP id 5b1f17b1804b1-4b943f76d81mr96594555e9.0.1794236955393;
-        Mon, 09 Nov 2026 07:09:15 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7e32ad4d1sm255269375e9.5.2026.11.09.07.09.13
+        bh=lZQni7749kY6di5K85y+7kMNZ7RgyRVrDwfii0NID74=;
+        b=CZ5RBuU6o62sz222dr4z149qV4c1QVXavJCfvJYNfnrcLTloW85IJwImeQDFcDVXUH
+         vQUnra8Z+9ZmnIzqKZBD8ciMfZUyr6v8TNCwi0iOoswYgRvxG7WVATvudX4OSOX5FtHj
+         eTi2QtC1WYJMESXFk6HvCnAEuHAxDphP+Odp7rRHnj25kCUGab2stIqbKd4uU5yqghA2
+         /5NiiWkENVgUSXrO1uU12Mu66gYEezjzX3+RxXzCdWg3UvLpaWi98JSeTspvuZqEmMKv
+         aTRbv0A4cvD3gciYYzKm6+yvWlg+UveEKdXXOAomPxOAy/xhUCAuDf00KGeGiD9QtL6Z
+         O1gA==
+X-Forwarded-Encrypted: i=1; AL+hErG7ZBWypDMfrSft0GTNoyg5KfqOkEH0XRECeCgR4kTB3z6XvD2DbExR+Mm9iIMMhP8009HTKrLksrX6nV4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+AIBzDO6WYWqNJSJa5vgpxXmqLZKptHj06hyEArjnfvZlBeZuw
+	RhqA9sDkE2SNwNwKuNkpXXDBICrfpN8qJLCAbEZsNBouryON7ILGa20D
+X-Gm-Gg: AYBFou0CHB0INDpikey9/920rhE4YwOk/8xu+6oOg4rpE4zDNL9u2C7Rb2y12rf2fkF
+	uGUpIOxQqSrtG5NRhyoqgrZGUA5tIO9jUaKUfuzCmAKJaQXdu7zu2vWYsqTbgXxZhxLQRwJyJkb
+	Or4NUASV93e7yn1AJ7KJ7/c0IkXJNR5kROFUri3pyn3uxeVL1jjrbfxCGkzjZGxj7KJGTxNI//d
+	raSOBnjQqzjX9B60umiD7TCikN64SBz6xt1wVcdIwrnryGM99iBfnWqZclVrOgSnUrdJAYW6jCo
+	mU1LxXX4BvYJhFxGxpLriXeS3wG5rmeRkj2Lw5GQFaGSqZ0S2kfu3j9eAKi84pRaY45698f6RSP
+	dIDNncjZQbz96IC2hptO54BI96uj0uyYEupkhYYoXcY0VHDK3KWVAKaF7v1+O1OOWsrm2Z6FUqv
+	+dv7BePXUMEsZ9549VJDvQlQqWXhty3GjepqGqg1d/ize77uWgjI2AjlwheEZdRZryIO7WvrUZT
+	5A93BvmpH8TECX7zhvtTcVNK39Opu/mDHEmo/Ih8YbOxOOL5ykMA7nkX0LmgVN23roZZCL9eSar
+	SSR1iKDeSx8fTA6LbiUWQKNcUp157J11+7kvDSrilbqqKP2PDK3zCfTrsMBaFot7WocryQWGVWr
+	d
+X-Received: by 2002:a05:6000:290a:b0:48d:f4e6:7b2 with SMTP id ffacd0b85a97d-49583545a31mr8438110f8f.3.1794236999592;
+        Mon, 09 Nov 2026 07:09:59 -0800 (PST)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597e005e6sm10111112f8f.56.2026.11.09.07.09.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 07:09:14 -0800 (PST)
-Date: Mon, 9 Nov 2026 16:09:12 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5 05/29] sched/deadline: Do not divide by zero active
- CPUs of a root domain
-Message-ID: <avHiGH_4WBizEaBJ@jlelli-thinkpadt14gen4.remote.csb>
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-6-mathieu.desnoyers@efficios.com>
- <avHY7oNeuvjsLT4I@jlelli-thinkpadt14gen4.remote.csb>
- <3e6677a8-b972-4081-a080-e925fe1df3b0@efficios.com>
+        Mon, 09 Nov 2026 07:09:59 -0800 (PST)
+Date: Mon, 9 Nov 2026 18:09:56 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Srikar Dronamraju <srikar@linux.ibm.com>
+Cc: Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	LKML <linux-kernel@vger.kernel.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	Ben Segall <bsegall@google.com>, Juri Lelli <juri.lelli@redhat.com>, 
+	K Prateek Nayak <kprateek.nayak@amd.com>, Mel Gorman <mgorman@suse.de>, 
+	Steven Rostedt <rostedt@goodmis.org>, Valentin Schneider <vschneid@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>
+Subject: Re: [PATCH] sched/fair: Skip sched-domain traversal when wake affine
+ is disabled
+Message-ID: <avHZrLRHmIgRu-a7@scheduler.schedules>
+References: <20261109120522.1704752-2-srikar@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,29 +102,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <3e6677a8-b972-4081-a080-e925fe1df3b0@efficios.com>
+In-Reply-To: <20261109120522.1704752-2-srikar@linux.ibm.com>
 
-On 09/11/26 09:57, Mathieu Desnoyers wrote:
-> On 2026-11-09 09:30, Juri Lelli wrote:
-> [...]
-> > This 2nd hunk complements and tightens 4043f54984161 ("sched/deadline:
-> > Reject debugfs dl_server writes for offline CPUs") which has Fixes:
-> > d741f297bcea ("sched/fair: Fair server interface"). Do we need both
-> > fixes (if that is allowed) or maybe we need to split this change in two
-> > (as this second part won't apply to old kernels w/o dl-servers)?
+
+Hi!
+
+On Mon, Nov 09, 2026 at 05:35:22PM +0530, Srikar Dronamraju wrote:
+> In select_task_rq_fair(), TTWU wakeups for which wake_wide() returns
+> true, or where the waking CPU is not in the task's allowed CPU mask,
+> want_affine is set to false.
 > 
-> Good point. I will split it in two in the next version:
+> For these wakeups, the scheduler does not perform wake-affine placement.
+> The existing code already treats this as a fast-path by exiting the
+> sched-domain walk before locating an SD_BALANCE_WAKE domain, ultimately
+> falling through to select_idle_sibling().
+
+Not before locating. If it doesn't locates SD_BALANCE_WAKE in the first
+check it just leaves.
+
+AFAICT SD_BALANCE_WAKE is not set anywhere tho.
+
+So if you wanna do this, maybe you can do something like:
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index d4cc0caee626..b40b2eb5e577 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -10016,6 +10016,9 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+ 		}
+ 
+ 		want_affine = !wake_wide(p) && cpumask_test_cpu(cpu, p->cpus_ptr);
++
++		if (!want_affine)
++			return select_idle_sibling(p, prev_cpu, new_cpu);
+ 	}
+ 
+ 	for_each_domain(cpu, tmp) {
+
 > 
-> - __dl_sub() and __dl_add() skip the division when the root domain has
->   no active CPU. Fixes: daec57983670. This alone removes the divide
->   error, on the debugfs path too.
-> - The debugfs write is refused while the runqueue is offline. Fixes:
->   4043f5498416, which it completes for the hotplug windows. It only
->   applies where that commit is.
+> However, select_task_rq_fair() still enters the sched-domain traversal
+> only to break out almost immediately. Avoid this unnecessary work by
+> jumping directly to the existing fast path when want_affine is false.
+> 
+> As part of this cleanup:
+> 
+>   - Move want_affine into the WF_TTWU block where it is used.
+>   - Skip the sched-domain traversal entirely when want_affine is false.
+>   - Remove the now redundant want_affine test from the
+>     SD_WAKE_AFFINE check.
+>   - Remove the corresponding !want_affine loop termination logic.
+> 
+> This preserves existing wakeup placement behavior while avoiding
+> unnecessary sched-domain iteration for TTWU wakeups that cannot make
+> use of wake-affine placement.
+> 
+> Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
+> ---
+>  kernel/sched/fair.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 3ebec186f982..58ff55e093cb 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -8832,7 +8832,6 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+>  	struct sched_domain *tmp, *sd = NULL;
+>  	int cpu = smp_processor_id();
+>  	int new_cpu = prev_cpu;
+> -	int want_affine = 0;
+>  	/* SD_flags and WF_flags share the first nibble */
+>  	int sd_flag = wake_flags & 0xF;
+>  
+> @@ -8841,6 +8840,8 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+>  	 */
+>  	lockdep_assert_held(&p->pi_lock);
+>  	if (wake_flags & WF_TTWU) {
+> +		int want_affine;
+> +
+>  		record_wakee(p);
+>  
+>  		if ((wake_flags & WF_CURRENT_CPU) &&
+> @@ -8855,6 +8856,8 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+>  		}
+>  
+>  		want_affine = !wake_wide(p) && cpumask_test_cpu(cpu, p->cpus_ptr);
+> +		if (!want_affine)
+> +			goto fast_path;
+>  	}
+>  
+>  	for_each_domain(cpu, tmp) {
+> @@ -8862,7 +8865,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+>  		 * If both 'cpu' and 'prev_cpu' are part of this domain,
+>  		 * cpu is a valid SD_WAKE_AFFINE target.
+>  		 */
+> -		if (want_affine && (tmp->flags & SD_WAKE_AFFINE) &&
+> +		if ((tmp->flags & SD_WAKE_AFFINE) &&
+>  		    cpumask_test_cpu(prev_cpu, sched_domain_span(tmp))) {
+>  			if (cpu != prev_cpu)
+>  				new_cpu = wake_affine(tmp, p, cpu, prev_cpu, sync);
+> @@ -8878,8 +8881,6 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+>  		 */
+>  		if (tmp->flags & sd_flag)
+>  			sd = tmp;
+> -		else if (!want_affine)
+> -			break;
+>  	}
 
-Hummm, I'm not sure we can say it fixes 4043f5498416, which was a
-correct, but only incomplete, fix for d741f297bcea (which the second
-hunk fixes properly).
 
+This just changes the behavior.
+
+Old Code WF_FORK 1, WF_TTWU 0:
+
+want_affine = 0, so we skip the first if block in the loop then leave
+once we find a domain without our flag. And go with slow path.
+
+
+New Code:
+
+want_affine is moved away and early exit is removed. So we enter the if
+block and try to find a domain with prev_cpu. Because WF_TTWU 
+is 0, we just return new_cpu. Or if we can't fimd the domain with
+prev_cpu, slow path.
+
+
+Cheers,
+
+Kayra
