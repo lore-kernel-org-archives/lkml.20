@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230798;
-	b=yZuPc47VKHndFPQypF+Z3y7p7aydQai6k2C2HcR17xoUtRAPLUWP2vQimVNqW1FVvl4E
-	 lqyR4L6rEQRsblHqR+Q79iViM3kCV64JKqjuAx4DhP0iWpvafHWcMRAzGFr3wXhuhDLnr
-	 qIMGfht+d3AcUmD1tlko7YSIdoE4wFEoYcf+Q7P/qOgrzReRoISSR5XdHywW9KklghMUW
-	 M0luGWvO/hOwsJuDNLW60CE4olQlAXv0RwGWSfjGMtX1GHNISUwPhl+QaWnG7NZYxi59e
-	 FcSIgOD8i/G3KV5qGgcRDH6DG1zRq4AVGRfjJhsTD4ViBkZH59yfrAM7hZ5mah+4NUA==
+	t=1794230805;
+	b=GGgcj8droq7JBz3bZYRKEH2L+5GQU61Yj62+eABBee2VoMbyV7T/3INYPaTrITe2oxZZ
+	 2uXVftYUZOlt0L7EtMGpuvUOIEEcQfexDnag+lQuWot44pFNH7NL+t2L4FV3rgTAabQ89
+	 luVuDJqpHeO0xcifAHR2l7ydVktJPgyo6QcOVie+GJiIQs7PHiGNrvj0kbNLsIl/c63OX
+	 9X/4iyq011uY2qYUmRrrvHEIoIdAEWyJpWYypopT8HCPVQhVqTEHXWpUAgjvK3sI2hFvk
+	 FKlgmnpd7mmpmKrzyzop3kk5M/01hqdT61/8nT+fwoQeG1twZeKM3b+ofAfOuqN8JXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230798;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230805;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=r5X9nZN7OKy8JBdYtqD0PaiACZ3x6osyA60EJf0K3SQ=;
-	b=4bnV3ZA7qLVg1MKa5nKyDmlnJp5046lPdV1dHWpiQU072YE8OdIwK/3c23XqoMo2o7ot
-	 C+rprBD6lmK8eYsQC6ObuU+Kq9R0bNHUHMXSxofg9Lz5cYEbpGBi99kB5d6hSOyzatxnZ
-	 uM68GFQ5bjqUowIJwtM0OuoeN4Y9lVztpz3KcEkw3vSZ3A55UbL7whO/b13dXFmSYWM5X
-	 ovkFTLTrRVjoqlaOXlLom1NF7ymlRcmH6s/Scg0GsDVYV9J7nvplFUbMNM+OKysMy9E2b
-	 8Se91tBu+Dlp0DM5zqj9UnXYEdCH0XZu/YPlX3p6PISt9WpBXh4AQn4h1aDTb310JPg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Wb36d59tOa1goucfW7M19URtNZys+/DAbWnPAmZ/x54=;
+	b=eS11HWV5vqmTERb9mkcVo7+mdZKF6WDOGi+0ZqbgvxHOCqmVbtnAqwys1beMOB45zSYJ
+	 wuneI5VfYFVSvwIpviU/8DJs9Ph87Y/9GMMvlrBZ8uEUmranryBrs6cu6j75UYoNZJITQ
+	 q8vTuDeBxrgCq6PAoGjkGBQHOeI9ttZ451X0Z2zwmFw8dBsuxAYHoRXFlhbZgSb+qUyMx
+	 LGYkn/WQajiW6+DDqQXKGlqRsGXUv34Vyh/ZgouXqRyfwHMQEAmaaMwDwqEQAUrNhhMuK
+	 wfdVrrExjZedAkG/pjL0qSNXoFbRdI6CuSTIDMTggupfediGdNQItirxDiwwzcWHdLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XWAnA9Lq;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IQoj7NmX;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287EE606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 287EE606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89187606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:26:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89187606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XWAnA9Lq
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cd8ba7c2694so297653a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:26:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IQoj7NmX
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8b5e5e64494so360910b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:26:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794230797; x=1794835597; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r5X9nZN7OKy8JBdYtqD0PaiACZ3x6osyA60EJf0K3SQ=;
-        b=XWAnA9LqdM0p1McSygOHFQi1k4/3YKYdEv0qzWF/05pBFysKR/RI+uf1GN99jAvJLr
-         gZbyJIRx4Qn1eiW/GWZZdQtBk4cEpyROHQuSJglfa1n0AMCSwTgQ22vR8lAUGr/m1hxo
-         udUIW2jqu434G6xbb7BVjXSL17FymUnxFbr4rcBpi2LKYztw5Uo5qGMT+4dBVqSzw2qO
-         7XdRSCBE8GvEldkRmjif9rlOARg051T8bmHEOacq7gUCNjNempC5JzHF8efFW247E4l9
-         UayMykSMdMMOt1LGM+igMZIvOYrR3EOZvjksVGdXACrxbT3mTPXnZiufyNsd6fEASWxD
-         C20w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794230797; x=1794835597;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794230805; x=1794835605; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r5X9nZN7OKy8JBdYtqD0PaiACZ3x6osyA60EJf0K3SQ=;
-        b=23CWCIOhDwSOI6mVBs07DNaT9yR86oEVL5JGh1AFlVCPVj1Y5xIkTtSdnoYitg+wc5
-         tLmSyuMWWrMIThzedwDxXiKfKpyIETRFY0TUaVm/dE4N94H0U8BRqH8D9UbmXkH54On+
-         rzb5aKTVnHF62JzBms7Zyr5IvV5zb+eUwNMfvd2pfwcRb9arNkviv2Px8XW0FgTdU0nO
-         xs3N9Jh2PeG23b3ern2hORwAkvVRcV19uT74Egp6GV3dLXwnFQ0C1phzwGxyegRDIpfq
-         zbnVWMhJpnUSIBORmAPSPZIJhjP0vmW+7h/aDY6jPKupDICSnVwH027N5ZT6o25+u4Xy
-         yb/w==
-X-Forwarded-Encrypted: i=1; AL+hErF+I6otcuaiFQjlSb1H1bKw3ujSubL/dF+s7ykWh1Ybve0pynPhHTaE7kdIy6N0bIDBgD4HmlDea+Qf3Ec=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8w9tT55yyUV3jwNJO03+kpvqN1fAftgLVbUcy58ArnFGCkj/8n
-	8djpF8kHezCNC+42YOHTKyQ8yODje29fY7rj/Z0ZdzsB7FtqRwcMQkny
-X-Gm-Gg: AYBFou0zrqnOrryZ0Z8rOtCIzUnk/FUtY9K/riiKCzns7b6rTbBZrVQDMBVoLeXczTj
-	mbGK0Rq2epvPq+e1geHyx0glGL8CaPUPaJA4jV1OMedgVseXaeWFv+vfVLPriwOoLEzLNGjTFAE
-	83ri0OajUS1vPvOV9z+swmC45a5D3Ln1qd6aLTWXruHpHG23pxeogEmN8eT2Ry64piiDu1GEAIV
-	cwk8LG1piyveCDkC0alnowtOiKhjSIL7eMqhh0FOaJqLqvuURyhqSJ5HV37I4KNN1FLlesni8it
-	aA6hIS7+wYLfDappsm6G6VYj2hZBEk80cYcdpS53VtR9mAdMuhxN2z7jZq5Pw34FW+/ouWRS7Ox
-	luka4NbKTFo2ruN/8e8cCo9SmFur4K4kj2S109FAwx6p9U2t0hWcvpIu6HIj/uBSqi4Gm2QVCau
-	ZdMCEPxhYGwyGR0j6jUaMmdh80eT2RD26Q/p+BDj/TIp+AyWudb+eFtwxH+LN1ggeG3CGojXM4q
-	O2pQH3q5vjuSvp/+YoVgtN5BZv9EYcCpPeUgkBZpWmAAILJ627Rfj4hBiJGIEhF/Y8kqm/v6axn
-	41Id5pBqjQX1WqqjGyevQr2G+cQsVjwGJn2sfXQOomsYasB+qQs4E1k+Q75NukdZDbigfqhW/eG
-	rJDIcYKcp
-X-Received: by 2002:a17:90b:57ee:b0:3ab:b39f:41c8 with SMTP id 98e67ed59e1d1-3b12d564a3emr3973293a91.46.1794230794140;
-        Mon, 09 Nov 2026 05:26:34 -0800 (PST)
+        bh=Wb36d59tOa1goucfW7M19URtNZys+/DAbWnPAmZ/x54=;
+        b=IQoj7NmXTZ+PlHV42kJdLzgYj7aWszNCpuFVutnju9Pptd9nMwXi/+sNM/fQ6kuaMu
+         LeiRDUn8kLwEJ1PzbGr6d2MGUmGoGDWB9y1WdYy/VJonUHVI9l/K1OzJSJ4Ftd8Z7XZZ
+         8IkFjuBbeioJYU+IVBMEWRIVGR9tQ3L2DKvKmt4CFzByIaQuvDo6o0Bjh8tuP3SI/QIc
+         8ew3Y8oxg4FkW+/zBuEjPpmAKmBpGn7qzIYebco5b4qR9KCgN12b1BbT5lLmFDwxZeWb
+         L6SGe1tibHbn/43wi+bfRdCk4TyCQ5zcOLvgw0R+GgnssfTXfIPR1JIFPsFZQ2yztEZB
+         F3Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794230805; x=1794835605;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Wb36d59tOa1goucfW7M19URtNZys+/DAbWnPAmZ/x54=;
+        b=UAngGFZjYOxTCjr7m3lHqGmKc+erxp69qr2OhWmy1fkM3EbUypKtUn/sZ08YbLwA9U
+         mHQzrEoQWmG8dOOL+85d3ItwAauysToFBOlV4NHq4gbg68wd4xu9HVw73fU/SHCdBmZO
+         UzlvTMZ2LQ2sLyzMaXV0Vpj/EmuTiUNxnAfF8/1fiOWRfDVpT3M0pJdN3/FO1V7lcnw8
+         Ac4MU9S8RJkV5XnLXr09QohWiTbGT5cNDWMgQfIkPsfu7GOViDtgcarB83WCIX/kJQZY
+         mxEZF95LduGXF1oGFGBKEf4C4wiDakDBsbMIwX34puL3t5lgt2SmP1c9G8Y4K7YvSPln
+         vA2A==
+X-Forwarded-Encrypted: i=1; AL+hErGTkF8WTCwKyWSly78n6v0/2N/JyBsoEMfKdtIv5Hq3z/E3RcM8160dM7qbECwkUm6zngldccTWJImyJEk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8++EdUrcN7vTQR74ld1WgdjL0KngHVR9MpQAwpW1cnritvAae0
+	clHz5nesM1pP1QNPDNdftzEqjw+xGlFpdYbaURINsWTysH6icHjrhQx0
+X-Gm-Gg: AYBFou12E4VjKxcIFnGKmQIKB/0UfQ5FDs7hOf7iOLGcM6/cb/OeGo10zlXB5ruc+Dh
+	L+mq0Epb1CoDnpC/mfAve+zsDI9D0uLg+gdlD6i2PbsOzUUJIx/kEwktLSZmEVH4/mpV04ltuEq
+	ZTYwtlaQRHpU/QUk+ymGPtTEpa+t9t+QPFeFJAPpIjSzWtHUlmgklYEXHJQi7WNvNTuLAkH8iBd
+	o0sHc9QfK+BBouCPtarGhJ073RN2FE3xZhu0NAiCVMusAcooX2KbqjVGGDcLIC9O6wZmrwVOjbN
+	81/gAItr3Gs12GVEJ5XziyAbh6v8VT+4SQ/tNnIeY9a8SvU/E/Wg7X6qpoKBX5o86z95CX7bSe3
+	dwzln5CiNezdiEyiR421kw2ClwmjnkVcEj2FcCb7g1dn1OSRVJxo9vrDywug42Rbqui4HYTuCyn
+	NusyNhwxHr6OF7CD2KxlnsSexmGnRrsqKGRFmqnDOBXGz25oxWCZYgMqFJdan7ih4hlDoE0b3hE
+	tPyBYIa3BqsA3ZT/060Shgr9CDtG40KePQQH7F9HO3woz0lP5qEYQ+pi9sjSmgpkjLfPc53HdV+
+	vq4VgXOl6//OPfIrMogB/N19eKK5wq291g1iq/x7/FFk5dzCEQjA9OSSsNr7MeRkEE9wWQnOzhd
+	alhB8a2lO
+X-Received: by 2002:a05:6a21:8217:b0:3e1:c716:3a00 with SMTP id adf61e73a8af0-3eed3013545mr4660990637.53.1794230804815;
+        Mon, 09 Nov 2026 05:26:44 -0800 (PST)
 Received: from r00799764-ThinkCentre-M920t-N000.. ([139.159.170.67])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb969331f0sm1661701a12.18.2026.11.09.05.26.29
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb969331f0sm1661701a12.18.2026.11.09.05.26.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 05:26:33 -0800 (PST)
+        Mon, 09 Nov 2026 05:26:44 -0800 (PST)
 From: Jinjie Ruan <ruanjinjie01@gmail.com>
 To: babu.moger@amd.com,
 	ben.horgan@arm.com,
@@ -95,10 +96,12 @@ To: babu.moger@amd.com,
 	linux-doc@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
 Cc: ruanjinjie@huawei.com
-Subject: [RFC PATCH 00/6] resctrl: Support mba_MBps on MPAM
-Date: Mon,  9 Nov 2026 21:26:15 +0800
-Message-ID: <20261109132621.3862497-1-ruanjinjie01@gmail.com>
+Subject: [RFC PATCH 2/6] fs/resctrl: Do not update bandwidth from a failed counter read
+Date: Mon,  9 Nov 2026 21:26:17 +0800
+Message-ID: <20261109132621.3862497-3-ruanjinjie01@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109132621.3862497-1-ruanjinjie01@gmail.com>
+References: <20261109132621.3862497-1-ruanjinjie01@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,85 +115,48 @@ Content-Transfer-Encoding: 8bit
 
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Resctrl offers two ways to describe an MBA policy:
-- The percentage interface writes a fraction of the maximum bandwidth
-  into the hardware control register
-- The MBA software controller (mounted with -o mba_MBps) takes
-  an absolute target in MiB/s and adjusts that percentage based on
-  the MBM counters sampled once per second.
+mbm_update_one_event() reads a monitoring group's counter once per
+second and updates the bandwidth used by the MBA software controller
+through mbm_bw_count().
 
-The problem is that a percentage alone isn't enough. How much bandwidth
-a percentage actually corresponds to depends on the memory frequency,
-the channel count, how many threads are generating traffic, the access
-pattern, and the traffic of other groups. Neither MPAM nor x86 resctrl
-reports the maximum bandwidth in MiB/s. So an administrator who wants
-to enforce an absolute budget (a tenant SLA, a noisy-neighbour limit)
-has to measure and re-tune the percentage on every machine. x86 resctrl
-has had this software controller since 2018; MPAM has never been able
-to use it. This series makes it work on MPAM.
+When the read fails, rmid_read::err is set and the accumulated counter
+value stays zero, but mbm_bw_count() runs anyway. Subtracting the
+previous sample from zero wraps to a huge value, which becomes the
+group's bandwidth; the controller then moves the control the wrong
+way. The failure is reachable with assignable counters, where a group
+has no counter for the event once the shared pool is exhausted.
 
-What this series does
-=====================
+Update the bandwidth only when the read succeeded. A failed read keeps
+the previous bandwidth; the counter keeps accumulating, so the next
+successful sample spans the failed interval and is larger. The
+controller steps down once and recovers on the next round.
 
-MPAM refuses mba_MBps in two places:
-- Its MBM counters are assignable, and supports_mba_mbps() refuses
-  the option when they are.
-- Its maximum bandwidth control is a soft limit by default, which
-  can't hold a single requester down to the target.
-  MPAMF_MBW_IDR.MAX_LIM reports whether the hard limit exists.
+Fixes: 2c272fadb58b ("x86/resctrl: Compute memory bandwidth for all supported events")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: <stable@vger.kernel.org> # v6.14+
+---
+ fs/resctrl/monitor.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-MPAM also makes two generic defects reachable:
-- Writing the control register sleeps (smp_call_on_cpu()), while
-  the worker runs under the RCU read lock
-- A 16-bit fraction lets the minimum control value reach zero, which
-  divides by zero in the estimator
-
-The patches:
-
-- Patches 1 and 2 fix the two generic defects.
-- Patches 3 and 4 make the loop runnable on MPAM: the worker takes the
-  CPU hotplug lock around the sleeping control update, and assignable
-  counters are accepted with a fixed assignment mode.
-- Patches 5 and 6 handle the maximum: the driver sets HARDLIM and
-  records the MAX_LIM behaviours, and mba_MBps is refused where only
-  the soft limit exists.
-
-x86 has no assignable counters in the mode where the controller is
-allowed, and does not set the soft-limit flag, so its behaviour is
-unchanged.
-
-Testing
-=======
-
-With the MPAM MSC model in QEMU:
-
-- From a 9606 MiB/s baseline, a 7000 MiB/s target converges to
-  6888 MiB/s and a 9000 MiB/s target to 8766 MiB/s.
-- The memory-side MSC register shows MBW_MAX.HARDLIM set.
-- A modelled MSC that implements only the soft limit refuses the
-  mba_MBps mount, while a plain mount succeeds.
-- With mbm_assign_on_mkdir forced on while the controller is in use,
-  a write of 0 is refused, and the user's value is restored after
-  unmount.
-- The KUnit tests for the MPAM driver pass.
-
-Jinjie Ruan (6):
-  fs/resctrl: Avoid division by zero in the MBA software controller
-  fs/resctrl: Do not update bandwidth from a failed counter read
-  fs/resctrl: Take the CPU hotplug lock for software controller updates
-  fs/resctrl: Allow mba_MBps with assignable MBM counters
-  fs/resctrl: Reject mba_MBps when the maximum is only a soft limit
-  arm_mpam: Program the hard limit for the software controller
-
- Documentation/filesystems/resctrl.rst | 13 +++-
- drivers/resctrl/mpam_devices.c        | 55 +++++++++++++----
- drivers/resctrl/mpam_internal.h       |  4 ++
- drivers/resctrl/mpam_resctrl.c        |  9 +++
- fs/resctrl/monitor.c                  | 86 +++++++++++++++++++++------
- fs/resctrl/rdtgroup.c                 | 48 ++++++++++++---
- include/linux/resctrl.h               |  5 ++
- 7 files changed, 179 insertions(+), 41 deletions(-)
-
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index dbc6770508e6..2319e8e619bd 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -788,10 +788,11 @@ static void mbm_update_one_event(struct rdt_resource *r, struct rdt_l3_mon_domai
+ 	__mon_event_count(rdtgrp, &rr);
+ 
+ 	/*
+-	 * If the software controller is enabled, compute the
+-	 * bandwidth for this event id.
++	 * If the software controller is enabled, compute the bandwidth for
++	 * this event id. Do not update it when the counter could not be read:
++	 * that would store a bogus zero sample as the previous bandwidth.
+ 	 */
+-	if (is_mba_sc(NULL))
++	if (is_mba_sc(NULL) && !rr.err)
+ 		mbm_bw_count(rdtgrp, &rr);
+ 
+ 	if (rr.arch_mon_ctx)
 -- 
 2.43.0
 
