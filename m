@@ -1,77 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794259598;
-	b=fGD8dBz9GL4ESYRCz28F7w0qQKM7NgrkKSyFqZq/OeVE59vGUcmUrBEmPNou+s6k1cBy
-	 x0LGZ5Y6biBwEq0h7TLr1ptjuOp6nnpPMTdwkI3v1f8brZqjUYt0D+tBk6zjbFfMSLF2s
-	 n6dm6kcWZZDmy4LmGlvNhQ4v3TFNywyD9OZWGhj5IymMDbwNDzgfD78zw+pUPcHq2H/8a
-	 LnOfZMlJyQszaHlhmIWQjMpboG7CIzCnD7rJ/91yHH4IydtRusSYrF4GA0J2mZUbuE6eM
-	 4tmTfh6jRgB3p6L8+ZLLRfMLh5tZfy1yvTGjt2VytlwJuSy1yVzuxSXzGZRPgd/ACMQ==
+	t=1794259606;
+	b=5VpuwRjLzI6opdVkGLuBSGyhpo3WdMe4TQBl6x7HitG9uU1Z7Ez4dX1+H8duzWrqPMJt
+	 tChup1ocUyaUBXSZUsqNbxOTV34O6ZlBXKyOSY6A6V6pM2/UZZXTeg+6y9ddJaSpvccMi
+	 u2l9Svv13hiiJNLtPIq0VTfo4/Rkgv6LHtbUOrnq24Slf0fy6CDnc+K2vDY/vk9hApT0y
+	 pe8A5TCnp/AErrJgBf7NLHc8JCt31d09PzBfX6InW3QcdAui2cOYF3bzbhIkpYBwBKqmE
+	 5rVrkCq+tDbyuUOxJ138rfmKzJ90Xr6ntdBga7UgfVmEuiBaftqlLlE/oK66OVGYmPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794259598;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=duwJk/Wws+rRjMwG7vuzmSHDUb/pQjF+eqiv4bEhbhM=;
-	b=hFXzEmAHd2HJz+X4fCqB+DxWfb+g3w912jebHuUl/b245jH2v0n4sFxWnu7zDrITRMDH
-	 WerRSbUpmDSOZ3CutqQJ2bUDMXTc5SJ9xsvJqQ3mrSUrvfEpYHwUQt41gbtMM3p7ct5Ba
-	 WTJ6AWFfWLFN/bIP8IDDZzo3vNZHizd+xqQX5vdMKh7C1mZB8ECx8EtGN9NtkY6txbZiF
-	 jnvlQfuFkuPOjIJFs8selRw9QWzDbML7cSiTE4MJ5ZKNv2t5BgYvvM8x+Yv0HmK8npbah
-	 RgUPCDX/Jci5D1m0rCGX9gZaWAOpLof9yKN636j2bXvVQedFj3PBDQhzp8bHD6AmmOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794259606;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=IeL20zffwri2QEDJY4S8vD79Aj6Kzet8Q6gkziCyfEI=;
+	b=fh2s9jGfNbwT0UwROos5Xb8DQB0KoX2pf9qprwEDHdDK6+1wPepYAFE268sQzikB9tKq
+	 X8GuNzMHyEuSTgoD6WzI25rdiAShw9cOKQooHJsvYwHIfoc5GIu02zzsnHbHpcnn035L+
+	 7GR9hc61WOP9lgyMUXVEzEVfHiaW+yPpZFKsHvg1gX5vi37XRkR1xKIwna8BVBZX0YMsI
+	 ntPFnIyPOo2N7NCL82mI1+xcdTYYVlcTYdvmaNzAqB4E169KaiHEtDXbq2SRx8ekRz486
+	 qzroHD1la7W1+jxzJgfVxLvF4nnDHUoa7DXzKraTr9d2oJqELh9LDRJt0XJJ7nNrQKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=L6pFJPBk;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=puUFlHFK;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJE843tZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7822C606A331;
-	Mon,  9 Nov 2026 21:26:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7822C606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A08CB606A331;
+	Mon,  9 Nov 2026 21:26:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=L6pFJPBk;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=puUFlHFK
-Date: Mon, 09 Nov 2026 21:26:33 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794259595;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=duwJk/Wws+rRjMwG7vuzmSHDUb/pQjF+eqiv4bEhbhM=;
-	b=L6pFJPBkcboIV/FtIibZlIbG3oJ87Ks20CcRunH2gir7yc0wsdzwa9ayXsq2HhkGRrKVUM
-	JLAZZpM210dqdHHIq1mhX1g0+3t1E2u2PjnASlYn/uPnDS7QzryAPFn1S8tkR6YJEgKEXc
-	smQZ2c+MfJJkbJjiELYNLrppEeNl9XohgHMq21dVw4kBxlPiHyq2aR+ocfMmmb1bhpUgUw
-	Tls8SNuOBJQBftkEywA1WVMfp+7oieR0Ioa2ccVHhUdrbrkiplMmDFalzUpzGtZyETMGPl
-	k1KbBJQgkCUmxUibPH0Hz2pfqEEwU1M7Jeq+JGPKMX9zUrQDQQrTdIivdEMdVQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794259595;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=duwJk/Wws+rRjMwG7vuzmSHDUb/pQjF+eqiv4bEhbhM=;
-	b=puUFlHFKebZSvoNw2WjbMnKBeySPefs7sZesKz0gkiwLTtYcHj8yLsLhodBNA6NOyDibTE
-	wVx0+f3sQ8PJ8lBw==
-From: "tip-bot2 for Reinette Chatre" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/cache] fs/resctrl: Drop unnecessary is_mba_linear() helper
-Cc: Reinette Chatre <reinette.chatre@intel.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Chen Yu <yu.c.chen@intel.com>,
- Ben Horgan <ben.horgan@arm.com>, Jinjie Ruan <ruanjinjie@huawei.com>,
- Tony Luck <tony.luck@intel.com>, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: =?utf-8?q?=3C493995284247554d05dc3813722168fb053d5d10=2E1793834?=
- =?utf-8?q?224=2Egit=2Ereinette=2Echatre=40intel=2Ecom=3E?=
-References: =?utf-8?q?=3C493995284247554d05dc3813722168fb053d5d10=2E17938342?=
- =?utf-8?q?24=2Egit=2Ereinette=2Echatre=40intel=2Ecom=3E?=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TJE843tZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01BF21F00906;
+	Mon,  9 Nov 2026 21:26:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794259606;
+	bh=IeL20zffwri2QEDJY4S8vD79Aj6Kzet8Q6gkziCyfEI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=TJE843tZMJvDkZkZhzeFMq7/WzZ2ynMba7QxPwSHivmYkbarlQTo5KItiqeEc2k0p
+	 udFUN+U07fO9+WrHHqg+dtHxiXmggEZKE6ALV6HPs/GLa2XayOSyyhTRYSAcU0z+rf
+	 Hnmdw3BkT41PwyO9U5cPu5UX9gvd/6Z06z07ckrpk30k3G/OHObgyH7g8uJU/+X5KD
+	 cUO2w33HslzPuTT+1fbz14H5KKowu8IFG1eJj4wJDS9VlJPjXa0ppCUmWRr8PcGCia
+	 5oLywuD3V6NrsseuIomYdUWC7yc65xPUYyy9jyBUnmNCgo15rlJW9VZjEg87ZKbB51
+	 RohhXsfG6J09w==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id AD2C83021AF7;
+	Mon, 09 Nov 2026 21:26:32 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: jbrunet@baylibre.com, lgirdwood@gmail.com, perex@perex.cz, 
+ tiwai@suse.com, Jude Gyimah <jude.gyimah87@gmail.com>
+Cc: neil.armstrong@linaro.org, khilman@baylibre.com, 
+ martin.blumenstingl@googlemail.com, linux-sound@vger.kernel.org, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261109154120.592392-1-jude.gyimah87@gmail.com>
+References: <20261109154120.592392-1-jude.gyimah87@gmail.com>
+Subject: Re: [PATCH v2 0/4] ASoC: meson: fix missing REGMAP_MMIO
+ dependencies
+Message-Id: <179424961953.3711751.2485850214120950980.b4-ty@b4>
+Date: Mon, 09 Nov 2026 18:40:19 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,68 +66,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179425959390.2093942.8201170258762923576.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1703; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=scQ/NZ7UXcdBK6jHeXkafGF4axf0CmZWt+PDuXO6Y38=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+WXXsii9b+2z6OU22tW4s/7teGs9908busUvKOj79/
+ cwvdxS9O0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRW0sZ/hmoF4jft13BuGaD
+ Usft6Rxn+D3zpPUmtc+sd593sSNH/D8jQ2PStxgjn5g3uxa3Hq8vWRH4f06Jjs7GL8muwgeVZkq
+ d4QMA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-The following commit has been merged into the x86/cache branch of tip:
+On Mon, 09 Nov 2026 16:41:16 +0100, Jude Gyimah wrote:
+> ASoC: meson: fix missing REGMAP_MMIO dependencies
+> 
+> Each of these drivers can be built into vmlinux while the code
+> providing a symbol it calls is a module, which fails to link.  The
+> same shape in 4 drivers, so they are here as one series.
+> 
+> Affected: aiu, axg-pdm, axg-spdifin, axg-spdifout.
+> 
+> [...]
 
-Commit-ID:     79d147bbc7e3e4d99fc3e460fbb671c87a0453e1
-Gitweb:        https://git.kernel.org/tip/79d147bbc7e3e4d99fc3e460fbb671c87a0=
-453e1
-Author:        Reinette Chatre <reinette.chatre@intel.com>
-AuthorDate:    Wed, 04 Nov 2026 16:13:32 -08:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Sun, 08 Nov 2026 18:55:42 -08:00
+Applied to
 
-fs/resctrl: Drop unnecessary is_mba_linear() helper
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
 
-is_mba_linear() assumes it operates on the MBA resource and returns whether
-the resource's delay values are linear. There is only one caller that
-separately makes the same assumption.
+Thanks!
 
-Avoid duplicating the resource assumptions and let the only caller access
-the needed property directly.
+[1/4] ASoC: meson: aiu: select REGMAP_MMIO
+      https://git.kernel.org/broonie/sound/c/cc2f13940cee
+[2/4] ASoC: meson: axg-pdm: select REGMAP_MMIO
+      https://git.kernel.org/broonie/sound/c/12d753e6ca1d
+[3/4] ASoC: meson: axg-spdifin: select REGMAP_MMIO
+      https://git.kernel.org/broonie/sound/c/4603b51f1dad
+[4/4] ASoC: meson: axg-spdifout: select REGMAP_MMIO
+      https://git.kernel.org/broonie/sound/c/10ac156211d2
 
-Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Reviewed-by: Tony Luck <tony.luck@intel.com>
-Link: https://patch.msgid.link/493995284247554d05dc3813722168fb053d5d10.17938=
-34224.git.reinette.chatre@intel.com
----
- fs/resctrl/rdtgroup.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index 57ab090..443b41a 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -2577,11 +2577,6 @@ out_destroy:
- 	return ret;
- }
-=20
--static inline bool is_mba_linear(void)
--{
--	return resctrl_arch_get_resource(RDT_RESOURCE_MBA)->membw.delay_linear;
--}
--
- static int mba_sc_domain_allocate(struct rdt_resource *r, struct rdt_ctrl_do=
-main *d)
- {
- 	u32 num_closid =3D resctrl_arch_get_num_closid(r);
-@@ -2621,7 +2616,7 @@ static bool supports_mba_mbps(void)
- 	struct rdt_resource *r =3D resctrl_arch_get_resource(RDT_RESOURCE_MBA);
-=20
- 	return (resctrl_is_mbm_enabled() &&
--		r->alloc_capable && is_mba_linear() &&
-+		r->alloc_capable && r->membw.delay_linear &&
- 		r->ctrl_scope =3D=3D rmbm->mon_scope &&
- 		!rmbm->mon.mbm_cntr_assignable);
- }
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
