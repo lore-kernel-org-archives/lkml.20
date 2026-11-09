@@ -1,79 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794236139;
-	b=FviIVjnxxhuvBt0aQknsdKZkU2ZCgjaontK8QDqZsz4oKnPWSDCuG2cSCYNTari33O0J
-	 Vngs59JziGMpR0DvvFpKdVAlTsG0pkVDsmEKpLThtpoi8fAWmers6wcr8eTNNyrH6RI7H
-	 tQ2FbY72hYfTxHCeWGQk0c02CRKTSlbT9zR1xrcpzCAot2M8CVmcuzWsndal74c1heaDH
-	 bDVfUjqXaq8MgfahctDQgxYn9yyT9bq+wZ/Ka+GEiRxZ76jdI8EpjHSShqpF4NdcclM9B
-	 K/m8rimIX5CsmtottLWEEyUGtu6J+VmGTWd0IfKa81y+1q8DDHmhY6fCU8i9CUBn22A==
+	t=1794236206;
+	b=kVuBr3FiXHJ7rus9PukupAhPUAvwzpV0OmeI/bMTYWg0eeVGMdRbJgQ1gCORoTfsBARF
+	 /5n4ckMxZHOb6LYKqXZfswKC44hfdEhPs+JGkaZuravXDTxU0IhuoNfuspmmBI05UIK5n
+	 +9ejeuWoipg10DNqAOWxjPZT3Yd3ikO/5/gcfbQySzjpK+c6Zqfb7Bdf0MZHtWUB6F+GS
+	 v1bMFAe7UCnfa+ye+EVEcx1UNsKsyxhIQFv0Kd0gL7i1ekpehz0ZjrK4ZO6R7rniWF9kj
+	 o0+ZH0ppo19blNrHztdlb9V8PTHFAYXMsZ351gI9Pu23jS0GDA1wFt0E7tx7PlIwHeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236139;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=OPMTYrIv7U1UWYQ/ULbovNNC49g7R/EbhbaHljblfH8=;
-	b=AjF1XlLuYwMtjvkbbeaBwJnfUSRS8vDHpOnojBRdrvRo0ZPuWTaYWabFIjTslXQ83VOw
-	 Ft+NWWhKwfhFUUTYFfe7a5i72zN097g4vDwLjLW2ZIZLaEJXarSgvP5x8n1c6gyKX+nnE
-	 1zTCfcxYkizfHzfLSTSqfJeHy4GhvicuJM2Sn+a50acYu0YA3iz7OiDUAASlJy6DwAtIh
-	 vxBU6mTg3GqWA9CBGJIfkAIdCR0QgVpZuFfv9v0iUDXxhIdxd7RUtx+vrzjY0KAFnYVwv
-	 rJPOLEMUqn7Qil+ju6b5pO+hO5eT9nqyaSWySXMhrXL5CIDNjrxL3urTrKHQaOcyZAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794236206;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=SemDBtKLwrfbPZLwR+LX5x5eoAOLCTArAvt1XOzS2hs=;
+	b=d8T2BCaEWwf9dphT7b9Zn1vMDTiuCAyRtYENjj8mXzchmMCoymTXlK2uQDSkSynIBdbv
+	 XfFFYPiFeY7a7AdC5X92PzFbslWLcPtEDIjXKAKo6w1wUVAjI8E7yisQvOgjP7cQj40Pl
+	 qunVpX5R59xc0bcLADVFWlf6/oFVlIhB4Ogjr9IPes50rhaeq8gYAPPW1NcpIxtEHTWDo
+	 lhc0AiR+r00ufPE4zvTdOUK5aZRgZ4dq5tDkk0+vmGLsaQcDNjtuTGAQQYAupc/wXb39S
+	 cUgaT9N4lhInodfGhOVnfVLMDjRR8no8vheQ8J2uDX/RF4Gcj8bCyniBnQ9ZLcIYZ6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Fu0lbhZg;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQXDyNKB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2270C606A31C;
-	Mon,  9 Nov 2026 14:55:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2270C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04377606A31C;
+	Mon,  9 Nov 2026 14:56:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Fu0lbhZg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794236140; x=1825772140;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=rVCjiIFvC6E3quo9l3R3aM1S43mCGLdSCsEF+O0+dgI=;
-  b=Fu0lbhZgErFZSYNw/jumzy+GMcGtVgBCmnERJ5MztOSZHy6dJVqjE1J8
-   v5jO/liCvzsUmIkEOD9ffNNOOwVt+9NLKvUi1gcNy6FvDQvFLbr9U8nze
-   mdMildCk7k6vEaL6JfVcmjjLNQY+yRbo8eS1Kja0j1M+cvtn59GQlAZO2
-   pzw1Fh+hFEmRAgU51FdqF9+ZfOQeP2mnJ510zw5ZqjN7meZgrZ5wKiTKb
-   aCYAWYfURHtjULoHIzB0HdEgude8C7pq5XqBLB0Lto3XVvFDz+7INWoOp
-   ONjxXDDGZZ9j9P4rLfAo4ClF1yWveaHkmDTzZtqZnY5DicWWJh0ZCjJYH
-   w==;
-X-CSE-ConnectionGUID: GsMHZaj3RvmiP7MqBPmQgw==
-X-CSE-MsgGUID: ejQi+zAoTEOBee5T2FoTPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2838443"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2838443"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:55:39 -0800
-X-CSE-ConnectionGUID: 3vrj6c/cR9C6/ZvLjx0OWg==
-X-CSE-MsgGUID: CYuhuV9PRZqMOFS1UElLLQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8218137"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:55:35 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 9 Nov 2026 16:55:31 +0200 (EET)
-To: =?ISO-8859-2?Q?Kry=B9tof_=C8ern=FD?= <cleverline1mc@gmail.com>
-cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-    LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, 
-    linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-    Miroslav Ondra <ondra@faster.cz>
-Subject: Re: [PATCH 1/2] serial: 8250: Add RX trigger levels for U6_16550A
-In-Reply-To: <20261109-8250-select-u6-64bit-v1-1-04bc8332fa34@gmail.com>
-Message-ID: <469362ef-f0c5-45f2-746a-b4a3c51876a4@linux.intel.com>
-References: <20261109-8250-select-u6-64bit-v1-0-04bc8332fa34@gmail.com> <20261109-8250-select-u6-64bit-v1-1-04bc8332fa34@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JQXDyNKB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63C7E1F0089F;
+	Mon,  9 Nov 2026 14:56:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794236205;
+	bh=SemDBtKLwrfbPZLwR+LX5x5eoAOLCTArAvt1XOzS2hs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JQXDyNKBNRqHNLoZgiIEi2j10l3uSHijHbnXRdkZO4eolUWQmHto641HSSV057+Q6
+	 510Mow01Gmk0d+VNLO9dkxsnDoJktmGd3bD2ItDcv9LrznVct1xYWxfDRkrBcXmNAH
+	 6qAKQnHq1U+w0jYfeZFb2x0FnlAhmielDCDaJiOx6Rv645rP7o/PirTjclOeCfs+wA
+	 Bcqgz96NeRtXrt4aulnJ0f5faaogo2AoDxp2AuARb8a/rWt8Y1uoCkbYLcHQ/ul9GS
+	 3iiuLzskV56ja/lGHM++PwpewhbrRFbTtFKipMUg9K70deT/rbujjnn/Lvn5urTwBO
+	 /VCHbOwiyVv0w==
+Date: Mon, 9 Nov 2026 15:56:41 +0100
+From: Niklas Cassel <cassel@kernel.org>
+To: Tobias Kriebisch <tobias.kriebisch@tecbeast.gmbh>
+Cc: Damien Le Moal <dlemoal@kernel.org>, linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] ata: libata-core: Add NO_NCQ_TRIM quirk for Samsung
+ PM893 (MZ7L3)
+Message-ID: <avHfKaY-skamodEr@ryzen>
+References: <20261109134541.3766394-1-tobias.kriebisch@tecbeast.gmbh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,66 +57,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-656436369-1794236131=:1181"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109134541.3766394-1-tobias.kriebisch@tecbeast.gmbh>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hello Tobias,
 
---8323328-656436369-1794236131=:1181
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-
-On Mon, 9 Nov 2026, Kry=C5=A1tof =C4=8Cern=C3=BD via B4 Relay wrote:
-
-> From: Kry=C5=A1tof =C4=8Cern=C3=BD <cleverline1mc@gmail.com>
->=20
-> PORT_U6_16550A has a 64-byte FIFO but no rxtrig_bytes table, so the
-> rx_trig_bytes sysfs attribute is not registered for ports of this type
-> and the RX trigger level cannot be read or changed from userspace.
->=20
-> Add a table with 1, 16, 32 and 62 bytes, i.e. 1 character, FIFO 1/4
-> full, FIFO 1/2 full and FIFO 2 less than full. These are the levels the
-> Synopsys DesignWare UART uses for a 64-byte FIFO, and they match the
-> existing PORT_ALTR_16550_F64 table.
->=20
-> The default FCR value of the type is unchanged, so the trigger level a
-> port starts with stays at 1/2 full. The only visible change for ports
-> already detected as U6_16550A by autoconfig is the new sysfs attribute.
->=20
-> This prepares for 8250_dw selecting PORT_U6_16550A for DesignWare UARTs
-> with a 64-byte FIFO.
->=20
-> Co-developed-by: Miroslav Ondra <ondra@faster.cz>
-> Signed-off-by: Miroslav Ondra <ondra@faster.cz>
-> Signed-off-by: Kry=C5=A1tof =C4=8Cern=C3=BD <cleverline1mc@gmail.com>
+On Mon, Nov 09, 2026 at 02:45:41PM +0100, Tobias Kriebisch wrote:
+> Samsung PM893 SATA SSDs (model prefix MZ7L3), the successor of the PM883
+> (MZ7LH), misbehave during trim on an AMD 600 Series chipset AHCI
+> controller (1022:43f6). The drives are three SAMSUNG MZ7L37T6HBLA-00A07
+> with firmware JXTC304Q, and the kernel reports "Features: Trust
+> NCQ-sndrcv" for them.
+> 
+> During a full-device trim, queued DSM TRIM commands are aborted:
+> 
+>   ata3.00: exception Emask 0x0 SAct 0x40e0740 SErr 0x0 action 0x0
+>   ata3.00: irq_stat 0x40000001
+>   ata3.00: failed command: SEND FPDMA QUEUED
+>   ata3.00: cmd 64/01:88:00:00:00/00:00:00:00:00/a0 tag 17 ncq dma 512 out
+>   ata3.00: status: { DRDY ERR }
+>   ata3.00: error: { ABRT }
+> 
+> In the same time windows, queued reads and writes time out and the link
+> is hard reset:
+> 
+>   ata2.00: exception Emask 0x0 SAct 0x4 SErr 0x0 action 0x6 frozen
+>   ata2.00: failed command: READ FPDMA QUEUED
+>   ata2.00: cmd 60/08:10:c0:82:f0/00:00:d4:02:00/40 tag 2 ncq dma 4096 in
+>   ata2.00: status: { DRDY }
+>   ata2: hard resetting link
+> 
+> Both kinds of errors occur on all three ports. In one case the system
+> hung and panicked shortly after the trim started.
+> 
+> Booting with libata.force=noncqtrim,nolpm makes the same full trim
+> complete without any ATA errors.
+> 
+> Add an entry for "SAMSUNG*MZ7L3*" with the same quirks as the existing
+> PM883 entry, which was added in commit ead089577e0f ("ata: libata-core:
+> Disable READ LOG DMA EXT for Samsung MZ7LH") for SEND FPDMA QUEUED
+> failures on AMD controllers.
+> 
+> Only ATA_QUIRK_NO_NCQ_TRIM and ATA_QUIRK_NO_LPM_ON_ATI_AND_AMD (the
+> equivalent of noncqtrim and nolpm on this controller) were tested.
+> ATA_QUIRK_ZERO_AFTER_TRIM and ATA_QUIRK_NO_NCQ_ON_ATI mirror the PM883
+> entry. ATA_QUIRK_NO_NCQ_ON_ATI only applies to ATI (1002) controllers,
+> which were not available for testing.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tobias Kriebisch <tobias.kriebisch@tecbeast.gmbh>
 > ---
->  drivers/tty/serial/8250/8250_port.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/825=
-0/8250_port.c
-> index 36b2b0a2c05c..a7acede62f40 100644
-> --- a/drivers/tty/serial/8250/8250_port.c
-> +++ b/drivers/tty/serial/8250/8250_port.c
-> @@ -163,6 +163,7 @@ static const struct serial8250_config uart_config[] =
-=3D {
->  =09=09.fifo_size=09=3D 64,
->  =09=09.tx_loadsz=09=3D 64,
->  =09=09.fcr=09=09=3D UART_FCR_ENABLE_FIFO | UART_FCR_R_TRIG_10,
-> +=09=09.rxtrig_bytes=09=3D {1, 16, 32, 62},
-
-Reusing U6 entry for DW UARTs seems misleading.
-
-We've better mechanism coming up for defining rxtrig in a one pending=20
-series so this constant friction with the uart config types can be put=20
-into rest.
-
-Please build on top of that other series and help in testing and reviewing=
-=20
-it.
+> 
+> Notes:
+>     The patch itself was only build-tested (defconfig,
+>     drivers/ata/libata-core.o on top of for-7.4-fixes) and has not been
+>     booted. The runtime test was the equivalent
+>     libata.force=noncqtrim,nolpm on 6.18.60.
 
 
---=20
- i.
+6.18 was released a year ago.
 
---8323328-656436369-1794236131=:1181--
+Please boot the latest kernel, 7.4-rc2, and verify that the problem still
+exists.
+
+If the problem still exist on the latest kernel, apply the minimal set of
+quirks needed to fix the problem.
+
+And yes, build and boot a kernel with your patch to verify that the problem
+is actually solved. (Don't take for granted that your patch will behave the
+same as libata.force.)
+
+
+Kind regards,
+Niklas
