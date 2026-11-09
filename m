@@ -1,83 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.12.242.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794245529;
-	b=XvKjRgzNwzpQ6aTpkOKyRkzlpUZK6Bkde+FuEQ8tQ9+2U0xVduwTghwQukJL3Xlhu441
-	 dtNnXVcmGyWXp4GAD/8dAGnLOnVLxtALhUmFiK5tRUzAV9LzSd7OXZni4kUfJpSz6lBZJ
-	 pxvdrsCnOWinpZm9p8lnbUAn1R5sxUxH2aLURJB6vjqL5Ny4qAuPyNrkEEuPDHFpfdBiO
-	 nTbHm8nLowNbcgn0ErzmAxiFcJOCJkPInb7loSChlwHpAFa86CrPIRR/K1R51ZDvEVUWP
-	 cIBdwXjnrFFO2y+vxDoZEoOG5yZ/pLnYubVkBIC2oYtqgptqMBJrXKek5B7d1ADhtOA==
+	t=1794245548;
+	b=1cI2cKVJg5H+yb/s31vstGzMSKL1fNKhWYddGTtkt9ixLdX0WhPnI3P1vtjaYVqDPoAg
+	 kNsNoJh+DztAMqpOiqw8yP0IHF3dnsnEn2duR/LL9q8C7YWY5s7lZOuiU5g6oslX8qi6Q
+	 fYEjQVoMKr7CyNFrS/qxcwm1LMOfu8buCFMSQJCY/aY1+G2AlVlETe2DoDDAv3N2hG/og
+	 eihFJa1jcfV4mEfJAJkj99j2CThyfk9KpBDld0RkP48xTi9ArX2ZU/5nwWpN+w2z0L4Rk
+	 oqxLwiBrOjSMnQP5Bj4dR/0w0c44b1QB6czrDOkdX2MsOnVY7RNAkXhaVB49SxxZeHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794245529;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794245548;
+	h=DMARC-Filter:Received:DKIM-Signature:X-ME-Helo:X-ME-Auth:X-ME-Date:
+	 X-ME-IP:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=laPTWEeOMkqqJhTVFNclKrXvQRYEuFctNHFtqsZtQ1E=;
-	b=Lg7pJ/eTE6hZwf1x/73kZF2eQKBzUMvrhmDIh7DLRfGwd5c99futMyhvbYXpwmg516E1
-	 B6FHJQ/qDklRDnaMNiYhoLLCxJ+zmTYtAX/GYhSkfVVFiXOKvwxNffu4OJ4Zym+pkHUsl
-	 27PWlf+lpA+IXf83LJIpB3VSO84JpLNnwmwXNpTFQp7VhMqUfuPG6j4/AEVkuPPYMSi2o
-	 j02rL37DSsU2wjTHvNwJuTigi5YPg2dVbfT9Hm/lzY5VRH2gSoA/LmIupgfLHJPBA6luw
-	 wX1gjHqf71hT0AC577bh8XKLhV4dOKwFwkI4tmMBxu0UoGEhPzz37KdWDhDXy067sfA==
+	bh=7QL9J6CBq19v2RGmF50V0Q+Cl8oBUhK0P7ZMvBkglAI=;
+	b=B/J3WiUdI8hpkoCMR4sQifPcW2rlf4JxFW31nNABkKodaopig3H1mwkDSykxgxOhnuTD
+	 3afLLb2DVERQ5aFX6Tft3d7gXLHlE1rvVqVV5GJXl5jtFluD8UYjeT2fIjjUL4XdBf+iA
+	 JdX4HTefgqwBZ2vPApv5ftzKTU9FnZaIKHWlGyUP1JEM++SQYh2GRG1/J/eNRrvNSVpls
+	 Gtz7vnwvBH+889R2ObBQMSRBwyGpJCCXjyh1D42A08p9/yWzChWPEamwVkJ1yTy8in85l
+	 tU8I8LdcVrUwwLuHCes3Vau8Jor0qBYOtaka2W9duRjF2/Lu1OGRqfgz+y8GcIPmB6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=USfmsDgn;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=wanadoo.fr;
+	spf=pass smtp.mailfrom=wanadoo.fr;
+	dkim=pass header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=esOoyups;
+	arc=none smtp.remote-ip=80.12.242.15
+Received: from smtp.smtpout.orange.fr (smtp-15.smtpout.orange.fr [80.12.242.15])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C537F606EE82;
-	Mon,  9 Nov 2026 17:32:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C537F606EE82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80884606A332;
+	Mon,  9 Nov 2026 17:32:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80884606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=USfmsDgn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794245528; x=1825781528;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=0qhldAf3Kz8tAv8CXuMf60nPqWBEcP1A+zW7wWEmvCo=;
-  b=USfmsDgn5e+SMrQAbajk7S/BG5l2ZNsMaYZaJrDIzSze4HSsfdbjhIOK
-   QB256gP+6FMFQPC6jeIKROSasRR1EKAJobRpBh0hfDIzSguhhvfYe67Hw
-   NlWl3+h5v2M7Le412LiQS5dLVt93RYlB2SD3b2ztdlDdDUXuA1we3am7J
-   GdHq3WhhxoDYWPeRaoZGilH8hL93h59OKWolcw35ieBX/AvF4bCt0Ycta
-   P7vArIaheOFS4UrRNVOxnMpFl9XYdlNOibjRt5Woi3bA0DCdUcSijwVyj
-   t2NViaAIQA6ahm03fCxB6jJv5R0JMKhLiiPGe4XCRrWY0q4X7xnsur+gG
-   w==;
-X-CSE-ConnectionGUID: OF+DHG4bTi6dqfXTb/etgA==
-X-CSE-MsgGUID: XfpSmtU6TpKswc736w1/KA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2876036"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2876036"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:32:08 -0800
-X-CSE-ConnectionGUID: 32+QGz9EQvOWxu6dK+yJQg==
-X-CSE-MsgGUID: nV7pX+njRwOrl1wXb9n4Kw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7970224"
-Received: from unknown (HELO WEBAPTLH032.iind.intel.com) ([10.66.250.231])
-  by orviesa001.jf.intel.com with ESMTP; 09 Nov 2026 09:32:05 -0800
-From: Ajay KV <ajay.k.v@intel.com>
-To: linux-bluetooth@vger.kernel.org
-Cc: chandrashekar.devegowda@intel.com,
-	kiran.k@intel.com,
-	linux-kernel@vger.kernel.org,
-	luiz.dentz@gmail.com,
-	marcel@holtmann.org,
-	stable@vger.kernel.org,
-	chethan.tumkur.narayan@intel.com,
-	lakshmipathi.k@intel.com,
-	Ajaykv <ajay.k.v@intel.com>
-Subject: [PATCH v1 2/3] Bluetooth: btintel_pcie: Add yoyo configuration for debug region
-Date: Mon,  9 Nov 2026 19:31:53 +0200
-Message-ID: <20261109173154.8576-2-ajay.k.v@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109173154.8576-1-ajay.k.v@intel.com>
-References: <20261109173154.8576-1-ajay.k.v@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=esOoyups
+Received: from [IPV6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e]
+ ([IPv6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e])
+	by smtp.orange.fr with ESMTPSA
+	id QTE8xNlmxWwOoQTE8xiBMe; Mon, 09 Nov 2026 18:32:19 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1794245539;
+	bh=7QL9J6CBq19v2RGmF50V0Q+Cl8oBUhK0P7ZMvBkglAI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=esOoyups8EzKSSW67WCtqR9QmAwhB8YFRdPv2JTJuBSMed/1rHDWnypYoULw2/REv
+	 54rLfSG8/Y8utcL4UOyEZWbgsPDEsupl/Y0kXfPAFlpr98RpEBM+dmnDAE4jQ1wGuz
+	 PwNEw+KfnJDvbp4wJjoktnSxJhT9v77rDBJlreMmm+Uj42Ms5PO8NY/hP4/K4unoo9
+	 vqnA5B/HHHzAs+zFxF2XIFiFghBbLdOnlbX+gSKSp94JvWEm1zWQDhoi9Hj+kSr5TS
+	 nmu1r4y3H76gq9AyL/H4H0s7S7SOxRFDoIE02L1/70pIkI7nA1pLviE/W03bSMCi5j
+	 qbP7IFRUzlmYw==
+X-ME-Helo: [IPV6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e]
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Mon, 09 Nov 2026 18:32:19 +0100
+X-ME-IP: 2a01:cb10:785:b00:26fb:aefb:6cd2:db0e
+Message-ID: <2727df26-9f09-48c9-90b5-2d1416c3b2b1@wanadoo.fr>
+Date: Mon, 9 Nov 2026 18:32:15 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,377 +63,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] rcuscale: Constify struct rcu_scale_ops
+To: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, "Paul E. McKenney"
+ <paulmck@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ rcu@vger.kernel.org
+References: <3f546f8e102ef271e7d5ac6d8b6a1f44d0fb20cb.1794085327.git.christophe.jaillet@wanadoo.fr>
+ <20261108230623.GA3148953@joelbox>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Content-Language: en-US, fr-FR
+In-Reply-To: <20261108230623.GA3148953@joelbox>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Ajaykv <ajay.k.v@intel.com>
+Le 09/11/2026 à 00:06, Joel Fernandes a écrit :
+> On Sat, Nov 07, 2026 at 10:02:25PM +0100, Christophe JAILLET wrote:
+>> 'struct rcu_scale_ops' is not modified in this driver.
+>>
+>> Constifying these structures moves some data to a read-only section, so
+>> increases overall security, especially when the structure holds some
+>> function pointers.
+>>
+>> On a x86_64, with allmodconfig:
+>> Before:
+>> ======
+>>     text	   data	    bss	    dec	    hex	filename
+>>    45585	  24946	   2816	  73347	  11e83	kernel/rcu/rcuscale.o
+>>
+>> After:
+>> =====
+>>     text	   data	    bss	    dec	    hex	filename
+>>    46545	  23986	   2816	  73347	  11e83	kernel/rcu/rcuscale.o
+>>
+>> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+>> ---
+>> Compile tested only.
+> 
+> rcuscale is a test kernel module, is it worth adding boilerplate for
+> non-production code sighting security reasons?
 
-Add parsing of the YoYo DEBUG_REGION TLV. A region TLV defines
-a named, addressable debug region and registers it by region ID;
-it does not trigger a dump by itself. A later trigger TLV
-selects regions through a 64-bit region ID mask, and the dump
-for each selected region is dispatched based on its stored
-region type.
+Oups, now I better understand Bradley Morgan comments.
 
-Each region TLV is validated for domain, version, region ID,
-region type, address list and size. Invalid entries are skipped
-with a warning. Valid regions are stored in the region list of
-the YoYo context, replacing any existing entry with the same
-region ID, and are freed when the YoYo context is cleaned up.
+I didn't notice it was a test module.
+My patch makes no more sense, as it is not hardening runtime, so feel 
+free to just drop it.
 
-Signed-off-by: Ajaykv <ajay.k.v@intel.com>
----
- drivers/bluetooth/btintel_pcie_debug.c | 144 +++++++++++++++++++++++++
- drivers/bluetooth/btintel_pcie_debug.h | 133 +++++++++++++++++++++++
- 2 files changed, 277 insertions(+)
+Sorry for the noise and not seeing it by myself.
 
-diff --git a/drivers/bluetooth/btintel_pcie_debug.c b/drivers/bluetooth/btintel_pcie_debug.c
-index c52ef24dd0b0..d132214dcc8c 100644
---- a/drivers/bluetooth/btintel_pcie_debug.c
-+++ b/drivers/bluetooth/btintel_pcie_debug.c
-@@ -503,6 +503,140 @@ static int btintel_pcie_yoyo_parse_config_set(struct btintel_pcie_yoyo_ctx *ctx,
- 	return 0;
- }
- 
-+static int btintel_pcie_yoyo_parse_region(struct btintel_pcie_yoyo_ctx *ctx,
-+					  const struct btintel_pcie_tlv_region *tlv,
-+					  u32 len)
-+{
-+	struct btintel_pcie_yoyo_region *old_region, *region, *tmp;
-+	u32 addr_count = 0, addr_offset = 0, domain, version;
-+	u32 addr_bytes, alloc_id, size;
-+	u16 region_id;
-+
-+	if (len < sizeof(*tlv) - sizeof(struct btintel_pcie_tlv_hdr)) {
-+		BT_WARN("YoYo: region tlv is too short or Invalid");
-+		return -EBADMSG;
-+	}
-+
-+	domain = get_unaligned_le32(&tlv->dbg_hdr.domain);
-+	version = get_unaligned_le32(&tlv->dbg_hdr.tlv_data_version);
-+	if (domain != BTINTEL_PCIE_DOMAIN_BT ||
-+	    version != BTINTEL_PCIE_REGION_TLV_VERSION) {
-+		BT_WARN("YoYo: unsupported region domain/version (%u/%u), skipping",
-+			domain, version);
-+		return 0;
-+	}
-+
-+	region_id = get_unaligned_le16(&tlv->region_id);
-+	if (region_id > BTINTEL_PCIE_REGION_ID_MAX) {
-+		BT_WARN("YoYo: invalid region_id %u, skipping", region_id);
-+		return 0;
-+	}
-+
-+	if (tlv->region_type <= BTINTEL_PCIE_REGION_INVALID ||
-+	    tlv->region_type >= BTINTEL_PCIE_REGION_TYPE_MAX) {
-+		BT_WARN("YoYo: invalid region type %u, skipping", tlv->region_type);
-+		return 0;
-+	}
-+
-+	/* Any trailing bytes after the fixed region structure are an address
-+	 * list, regardless of region type, mirroring the reference parser.
-+	 */
-+	addr_offset = sizeof(*tlv) - sizeof(struct btintel_pcie_tlv_hdr);
-+	addr_bytes = len - addr_offset;
-+	if (addr_bytes % sizeof(__le32)) {
-+		BT_WARN("YoYo: invalid region addr_bytes length %u", addr_bytes);
-+		return 0;
-+	}
-+
-+	addr_count = addr_bytes / sizeof(__le32);
-+
-+	/* Types without a size field default to a valid dword size. */
-+	size = sizeof(u32);
-+	switch (tlv->region_type) {
-+	case BTINTEL_PCIE_REGION_DEVICE_MEM:
-+		size = get_unaligned_le32(&tlv->conf_params.dev_addr.size_bytes);
-+		fallthrough;
-+	case BTINTEL_PCIE_REGION_PERIPH_MAC:
-+	case BTINTEL_PCIE_REGION_CSR:
-+		if (!addr_count) {
-+			BT_WARN("YoYo: region id=%u type=%u has no addresses, skipping",
-+				region_id, tlv->region_type);
-+			return 0;
-+		}
-+		break;
-+	case BTINTEL_PCIE_REGION_DRAM_BUF:
-+		alloc_id = get_unaligned_le32(&tlv->conf_params.dram_alloc_id);
-+		if (alloc_id < BTINTEL_PCIE_ALLOC_ID_DBGC1 ||
-+		    alloc_id > BTINTEL_PCIE_ALLOC_ID_DBGC3) {
-+			BT_WARN("YoYo: region id=%u invalid dram alloc id %u, skipping",
-+				region_id, alloc_id);
-+			return 0;
-+		}
-+		break;
-+	case BTINTEL_PCIE_REGION_INTERNAL_BUF:
-+		size = get_unaligned_le32(&tlv->conf_params.internal_buf.size_bytes);
-+		break;
-+	case BTINTEL_PCIE_REGION_SPECIAL_DEV_MEM:
-+		size = get_unaligned_le32(&tlv->conf_params.special_dev_addr.size_bytes);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	if (!size || size % sizeof(u32)) {
-+		BT_WARN("YoYo: region id=%u type=%u invalid size %u, skipping",
-+			region_id, tlv->region_type, size);
-+		return 0;
-+	}
-+
-+	region = kzalloc(sizeof(*region), GFP_KERNEL);
-+	if (!region)
-+		return -ENOMEM;
-+
-+	region->region_id = region_id;
-+	region->dump_policy = get_unaligned_le16(&tlv->region_dump_policy);
-+	region->type = tlv->region_type;
-+	region->sub_type = tlv->region_sub_type;
-+	region->sub_type_ver = tlv->region_sub_type_ver;
-+	memcpy(region->name, tlv->region_name, BTINTEL_PCIE_REGION_NAME_LEN);
-+	memcpy(&region->conf, &tlv->conf_params, sizeof(region->conf));
-+
-+	if (addr_count) {
-+		const u8 *addr_data = (const u8 *)tlv +
-+				      sizeof(struct btintel_pcie_tlv_hdr) + addr_offset;
-+		u32 i;
-+
-+		region->addrs = kmalloc_array(addr_count, sizeof(*region->addrs),
-+					      GFP_KERNEL);
-+		if (!region->addrs) {
-+			kfree(region);
-+			return -ENOMEM;
-+		}
-+
-+		for (i = 0; i < addr_count; i++)
-+			region->addrs[i] = get_unaligned_le32(addr_data +
-+							     i * sizeof(__le32));
-+	}
-+	region->num_addrs = addr_count;
-+
-+	/* Swap into list if duplicate region_id exists, otherwise append */
-+	list_for_each_entry_safe(old_region, tmp, &ctx->region_list, list) {
-+		if (old_region->region_id == region_id) {
-+			list_replace(&old_region->list, &region->list);
-+			kfree(old_region->addrs);
-+			kfree(old_region);
-+			goto out;
-+		}
-+	}
-+
-+	list_add_tail(&region->list, &ctx->region_list);
-+
-+out:
-+	BT_DBG("YoYo: region id=%u type=%u name='%.32s'",
-+	       region->region_id, region->type, region->name);
-+	return 0;
-+}
-+
- /*
-  * Parse the optional YoYo firmware TLV stream and validate each record.
-  * This is the entry point for the runtime debug configuration payload.
-@@ -547,6 +681,8 @@ static int btintel_pcie_yoyo_parse_tlv_buffer(struct btintel_pcie_yoyo_ctx *ctx,
- 			ret = btintel_pcie_yoyo_parse_config_set(ctx, (const void *)tlv, len);
- 			break;
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_REGION:
-+			ret = btintel_pcie_yoyo_parse_region(ctx, (const void *)tlv, len);
-+			break;
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_TRIGGER:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_HCMD:
- 		case BTINTEL_PCIE_TLV_TYPE_DBG_PRESET_OVERRIDE:
-@@ -611,6 +747,7 @@ EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_init);
- void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
- {
- 	struct btintel_pcie_yoyo_config_set *config_set, *config_tmp;
-+	struct btintel_pcie_yoyo_region *region, *region_tmp;
- 
- 	if (!ctx)
- 		return;
-@@ -627,6 +764,13 @@ void btintel_pcie_yoyo_cleanup(struct btintel_pcie_yoyo_ctx *ctx)
- 		kfree(config_set->pairs);
- 		kfree(config_set);
- 	}
-+
-+	list_for_each_entry_safe(region, region_tmp, &ctx->region_list, list) {
-+		list_del(&region->list);
-+		kfree(region->addrs);
-+		kfree(region);
-+	}
-+
- }
- EXPORT_SYMBOL_GPL(btintel_pcie_yoyo_cleanup);
- 
-diff --git a/drivers/bluetooth/btintel_pcie_debug.h b/drivers/bluetooth/btintel_pcie_debug.h
-index a9ecc7462d4e..f13107994fcf 100644
---- a/drivers/bluetooth/btintel_pcie_debug.h
-+++ b/drivers/bluetooth/btintel_pcie_debug.h
-@@ -60,6 +60,8 @@ bool btintel_pcie_fatal_err_testmode_active(struct btintel_pcie_data *data);
- #define BTINTEL_PCIE_DBG_INFO_TLV_VERSION	2
- #define BTINTEL_PCIE_BUF_ALLOC_TLV_VERSION	1
- #define BTINTEL_PCIE_CONFIG_SET_TLV_VERSION	1
-+#define BTINTEL_PCIE_REGION_TLV_VERSION		3
-+
- /* Debug Info TLV */
- #define BTINTEL_PCIE_CONFIG_NAME_LEN		64
- #define BTINTEL_PCIE_DOMAIN_BT			0
-@@ -69,6 +71,9 @@ bool btintel_pcie_fatal_err_testmode_active(struct btintel_pcie_data *data);
- #define BTINTEL_PCIE_MAX_BUF_FRAGS		16
- #define BTINTEL_PCIE_MIN_BUF_SIZE		(32 * 1024)
- #define BTINTEL_PCIE_MAX_BUF_SIZE		(4 * 1024 * 1024)
-+/* Region Tlv */
-+#define BTINTEL_PCIE_REGION_ID_MAX		63
-+#define BTINTEL_PCIE_REGION_NAME_LEN		32
- 
- enum btintel_pcie_image_tlv_type {
- 	BTINTEL_PCIE_IMAGE_TLV_TYPE_EXTERNAL	= 0x1,
-@@ -129,6 +134,42 @@ enum btintel_pcie_dbg_timepoint {
- 	BTINTEL_PCIE_TP_MAX_NUM,
- };
- 
-+/* Region types */
-+enum btintel_pcie_dbg_region_type {
-+	BTINTEL_PCIE_REGION_INVALID		= 0,
-+	BTINTEL_PCIE_REGION_TLV		= 1,
-+	BTINTEL_PCIE_REGION_INTERNAL_BUF	= 2,
-+	BTINTEL_PCIE_REGION_DRAM_BUF		= 3,
-+	BTINTEL_PCIE_REGION_DEVICE_TXFIFO	= 4,
-+	BTINTEL_PCIE_REGION_DEVICE_RXFIFO	= 5,
-+	BTINTEL_PCIE_REGION_LMAC_ERROR_TBL	= 6,
-+	BTINTEL_PCIE_REGION_UMAC_ERROR_TBL	= 7,
-+	BTINTEL_PCIE_REGION_FW_RSP_OR_NOTIF	= 8,
-+	BTINTEL_PCIE_REGION_DEVICE_MEM		= 9,
-+	BTINTEL_PCIE_REGION_PERIPH_MAC		= 10,
-+	BTINTEL_PCIE_REGION_PERIPH_PHY		= 11,
-+	BTINTEL_PCIE_REGION_PERIPH_AUX		= 12,
-+	BTINTEL_PCIE_REGION_VM			= 13,
-+	BTINTEL_PCIE_REGION_CSR			= 14,
-+	BTINTEL_PCIE_REGION_DRAM_IMR		= 15,
-+	BTINTEL_PCIE_REGION_PCI_IOSF_CFG	= 16,
-+	BTINTEL_PCIE_REGION_SPECIAL_DEV_MEM	= 17,
-+	BTINTEL_PCIE_REGION_DBGI_SRAM		= 18,
-+	BTINTEL_PCIE_REGION_TYPE_MAX
-+};
-+
-+/*
-+ * Region dump policy flags for OS dump-size limits.
-+ * @BTINTEL_PCIE_REGION_POLICY_NO_LIMIT: OS has no dump-size limit
-+ * @BTINTEL_PCIE_REGION_POLICY_MAX_600KB: Wi-Fi LKD dump request
-+ * @BTINTEL_PCIE_REGION_POLICY_MAX_5MB: Microsoft BSOD/LKD dump request
-+ */
-+enum btintel_pcie_dbg_region_policy {
-+	BTINTEL_PCIE_REGION_POLICY_NO_LIMIT	= BIT(0),
-+	BTINTEL_PCIE_REGION_POLICY_MAX_600KB	= BIT(1),
-+	BTINTEL_PCIE_REGION_POLICY_MAX_5MB	= BIT(2),
-+};
-+
- /* TLV header */
- struct btintel_pcie_tlv_hdr {
- 	__le32 type;
-@@ -209,6 +250,84 @@ struct btintel_pcie_tlv_config_set {
- 	struct btintel_pcie_addr_value addr_pair[];
- } __packed;
- 
-+/* Device address for region conf params */
-+struct btintel_pcie_tlv_dev_addr {
-+	__le32 size_bytes;
-+	__le32 addr_offset;
-+} __packed;
-+
-+/* Special device address */
-+struct btintel_pcie_tlv_special_dev_addr {
-+	__le16 special_addr_type;
-+	__le16 struct_version;
-+	__le32 base_addr;
-+	__le32 size_bytes;
-+	__le32 addr_offset;
-+} __packed;
-+
-+/* FIFOs */
-+struct btintel_pcie_tlv_fifos {
-+	__le32 fifo_ids[2];
-+	__le32 skip_data;
-+	__le32 addr_offset;
-+} __packed;
-+
-+/* Error table */
-+struct btintel_pcie_tlv_error_table {
-+	__le32 struct_version;
-+	__le32 base_addr;
-+	__le32 size_bytes;
-+	__le32 addr_offset;
-+} __packed;
-+
-+/* Internal buffer */
-+struct btintel_pcie_tlv_internal_buf {
-+	__le32 alloc_id;
-+	__le32 base_addr;
-+	__le32 size_bytes;
-+} __packed;
-+
-+/* Region conf params union */
-+union btintel_pcie_region_conf_params {
-+	struct btintel_pcie_tlv_dev_addr	dev_addr;
-+	struct btintel_pcie_tlv_special_dev_addr special_dev_addr;
-+	struct btintel_pcie_tlv_fifos	fifos;
-+	struct btintel_pcie_tlv_error_table	error_table;
-+	struct btintel_pcie_tlv_internal_buf internal_buf;
-+	__le32				dram_alloc_id;
-+	__le32				tlv_output_bitmask;
-+} __packed;
-+
-+/*
-+ * struct btintel_pcie_tlv_region - YoYo debug region TLV
-+ * @hdr: Common TLV type and payload length
-+ * @dbg_hdr: Debug TLV version and domain
-+ * @region_id: Identifier used to select this region for a trigger
-+ * @region_dump_policy: Policy flags controlling dump size limits
-+ * @region_type: Region storage or access type
-+ * @region_sub_type: Region-specific subtype
-+ * @region_sub_type_ver: Version of the region subtype data
-+ * @reserved: Reserved for future use
-+ * @region_name: Fixed-size region name
-+ * @conf_params: Type-specific fixed configuration parameters
-+ *
-+ * Describes a debug region in the packed firmware TLV. Address-based region
-+ * types may append a variable-length address array after @conf_params.
-+ * Multi-byte fields are stored in little-endian format.
-+ */
-+struct btintel_pcie_tlv_region {
-+	struct btintel_pcie_tlv_hdr hdr;
-+	struct btintel_pcie_dbg_hdr dbg_hdr;
-+	__le16 region_id;
-+	__le16 region_dump_policy;
-+	u8     region_type;
-+	u8     region_sub_type;
-+	u8     region_sub_type_ver;
-+	u8     reserved;
-+	u8     region_name[BTINTEL_PCIE_REGION_NAME_LEN];
-+	union  btintel_pcie_region_conf_params conf_params;
-+} __packed;
-+
- /* Parsed buffer allocation entry in the YoYo context */
- struct btintel_pcie_buf_alloc {
- 	u32	alloc_id;
-@@ -229,6 +348,20 @@ struct btintel_pcie_yoyo_config_set {
- 	struct btintel_pcie_addr_value	*pairs;
- };
- 
-+/* Parsed region entry */
-+struct btintel_pcie_yoyo_region {
-+	struct list_head	list;
-+	u16			region_id;
-+	u16			dump_policy;
-+	u8			type;
-+	u8			sub_type;
-+	u8			sub_type_ver;
-+	char		name[BTINTEL_PCIE_REGION_NAME_LEN];
-+	u32			num_addrs;
-+	u32			*addrs;
-+	union btintel_pcie_region_conf_params conf;
-+};
-+
- /*
-  * struct btintel_pcie_yoyo_ctx - Runtime state for YoYo debug configuration
-  * @enabled: Whether the loaded YoYo configuration passed validation
--- 
-2.53.0
+CJ
 
+> 
+> Do you mind runtime testing it too if you still feel we should do it (and
+> provide reasons why)?
+> 
+> thanks,
+> 
+> Joel Fernandes
+> 
