@@ -1,142 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.46
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794247847;
-	b=Ej99vn6EoTVcfmm2S8B9osmXIGdur5vZi4cBt7TPvkIf0X66Mb+J78+WdBBNUX0d+PtZ
-	 OaJQcWbHGC51EGRDtnPCw+h4QGr3nYBaqz/G++4ds43DNQi8M8dv6iJWWOQjQOUblBmdW
-	 6S5qdjvrjQS2SNPxoR+AJrVIT3vTlLHr/MbexKR8kMkGVAGfJVbiUQtF3dbfAGQJH219R
-	 Mgb20RE1h4vrhRsisaZVWOEdQwkAmnpaQAF8sO3xusMOrd8L7T9XY9GP/4Yi8u5cOwz6S
-	 d/Q6tuQX/BLN20Nak3vXD9URDVX5zQMZQJm3mVuKl/n7BUnui7rvWTKWaZu5BkLEosg==
+	b=S1xsF1cfXMaBsiEqGPyXndYhB5Zs1s2DaP18u2aef/APhE5FPApNY1eLitJhPLuOCSeB
+	 LSzBez6wqK7aaXMP5hLYCS37R48W29xNTAA6ASlUxJfYof04SIKZdvb6zIc8OYCiyjI37
+	 09L2xsLAY7x1TtHUnLIhdrpD2d0iA7eKxsEggNM9D3b+DXIklxSYZEWLoWee8qXGN9n14
+	 yqIXoJ34Pb6wLGr3sgp3QOI8e6bjULOL52MAq3y8A2ThSWrZCaunvYz1oK4ev+iOc9QdA
+	 bPMhNce2eF/i0F9XthYRL6fuiXTgtTPXLu+THaVmTM80X5DKPVAcWGDjQgYsfVkuLtA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794247847;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-Id:
 	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=lk5CK7v3OXIXkpwh4FyZqK8/9kAHGQdjRRoiI106noo=;
-	b=Ym8PZxQxcWgZmjzb3TGCctOjHb7BuYnnHF3RX1dbqdF7lw3eh3lvEtBnuq5StcWrS1+0
-	 diyG6d3JPK2VvQpJAVcyAbJpsJL5dzXzwoo3EMSAHEVqgAYlnSfWxnxdRlBVu2sL1tIXV
-	 15BJcWomRp/B+1DHMjZV3BKTgErl94PGelKg67Kp2oScPU1Nj40HEtHtvWrFVicLr+ClS
-	 mbUOOufS85vIWRZU1vGYDAGCFl8MQOIKbxHUNKX7vsvuORPu13G0M/O+2yDyji0+YOZEn
-	 RVlNcEMaiunb6iS5aYAwnP97HwcaNGrnvLEYEL2Xt3+yLPJyToaxyHeb7vrirNgEXRQ==
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Fgkn9AHlN6gwFIIGU374NMd/dlA034vmi8G2DiX/V1o=;
+	b=nrEXBSLD34Krxh0m1HB95SXHhG6/QVlsiVOv18Udc0Z3GMyoqY3cQFuSFFtxGBU7NASz
+	 rfALhgXDKr84sYNTkVwfotD+LWCUBnDMRRV8d9W0VgNwMr+uZ+EOJYWaC/T/e+Vi3T8oz
+	 1QXN+w3XywA/blTmYPmsOr3HS1GCotp3I1A6rYgrhcfziiQsUa8QmDHBI2T28ANz9MMES
+	 e1dUhTBxwXvXRTTvDOfSu4E4+Onix86PM0QsL2ZEPCR+obGBmaIXyuEOLEqTdZCjeh2dE
+	 Bac5osZ7j67ZVfKfq9nqf3B3U2Ka6cczo1Ke+OKo3tB07sLkOW3BsKlDJ1iFCOhcmZQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=R035Kuyy;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=O+yBTOsC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=AnO8W+J3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.46
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010046.outbound.protection.outlook.com [52.101.61.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531BA606A325;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D10606A330;
 	Mon,  9 Nov 2026 18:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 531BA606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90D10606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=R035Kuyy;
-	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=O+yBTOsC
-Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9HISCv3961842;
-	Mon, 9 Nov 2026 12:10:30 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=lk5CK7v3OXIXk
-	pwh4FyZqK8/9kAHGQdjRRoiI106noo=; b=R035Kuyy2cRbqZoMbh2eru/JkVrp/
-	HkRHoDB30t9PMqsDtVt9dtT5pFTg/g1r5bfqNUp1jsPcAByaQwyrM0mATK57bxtA
-	1kylCsddfoRVo6PMxSy1q5P/le/wIvKAk5T0bLDap4wBSchZ5Gir5guwzC+Jtfko
-	NN9cAQkOEIac67mUfNKVOASvjl3U+qjahbnztyyzOyQdo4wgJNkYfe7a2PQALUNE
-	FkkEWoA4M97MANC+hxuFRm+5T3TkkVm5xVc1zLJjKxbGEHtdTW5Ewd9KnVOoK/xH
-	CBO2RayC5JeF4LruhboV2IdS77uUEnc54DHA/Gfr1bQTQ8rgrZaJ48tCQ==
-Received: from ch5pr02cu005.outbound.protection.outlook.com (mail-northcentralusazon11012039.outbound.protection.outlook.com [40.107.200.39])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4htm89qvb1-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 12:10:29 -0600 (CST)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=AnO8W+J3
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yEY1rcl1wAtb+rvNzkJjiZCnUUsyUYQ7LFb7iTS5iKEBdzVpU/X9cq4TaHv9CQiCB/gh/mNcSXPSoHr1PyWOFBQDa9Ejk520aPv8vJXxnZQkxq4Pd0S0qxRoxqZmp5vrYBPk3a9zKKEuuieGepW/hsf8qD4PO8CxzMebhHxd/eqIvAZIZa1LwNKhutN/2178uvjSPYZgkbLfIygrWsm2rawYiGSmLWjM58SSP9OmX5O9j8Bt/s7jsABDPkHlYMJFVn1FVdWuW39NGpCMRBgPYPZynowuXT7zoTU+iOIg6H3F6GjSID+nrg1XwBQ5NpJ8QESraajlu1MbqaK7GaABpA==
+ b=AwulYk5Txb6072EgiJielBe/FpOHOnkUUk9GwN+ZZyoAOfZubkCBTVnHSyiIjEAIRwxUSTSDqQ2shqeedtkaS4yHLNSk7xiICEF4x7EAbRxgO3svhDw1EDQmK+5py8N9t9v5b0KH+OY3lRoEWNf8N6d3oe7BWu9hZt0tA/w9Jl/6z3Nln007xDWhzEcMaFA4GVTCaJgemJXJKUYhsxC+5lGE7yYva3KMmr+WVv6FQF9Yq+VGVdgypbwT6ovXea2MXxUnYAHzNG6WTUwn8IECvW/jlUWVOhFiWDPqOjQON4j4IAOQoQispxAzwW5bxAGy5ujn4AvCkuUz4ZqFEOZwvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lk5CK7v3OXIXkpwh4FyZqK8/9kAHGQdjRRoiI106noo=;
- b=saNQoq2cDr6K/zo6M1F74mbVbr+dh7fU/iOrsXDdL6/g6RsBrWD5b6Rc3OnZRA1ISp3sO0AVWVJGe9p3dPltMEM7S40voNg/JeeXEf9Oby1Dn7zA+etQ5ZllNjL1IffLHRiJ3k/v9NM5aqZ4gO4AayCjQpx12HjJ+OYo1JBPwfx7bGSzlQqynWH/CQjMlgCWY/EqrdR+JAePMs1ADps1PQDGr8Ftol7iwWS6yqOd5uktYjrr3usKIzfyhSNoxhEL9QMGW27cfbJkvOaw07OMdKfyZidXH01rwlzH/R1P1Howa2erWELiGnl0mAF1886px3V3hsTvbvv8NETkG2p3JQ==
+ bh=Fgkn9AHlN6gwFIIGU374NMd/dlA034vmi8G2DiX/V1o=;
+ b=ZCTVF8SGxOAexvhggtCJnygopzCYixAz75eGtvo8pMLrnSvowpgTTnCIGub8p/TByld1iwH7912/aPkFfZyoEMai5/KEPelx4ndkB+DcRag/89+FEko3rrYxc6ddkxiVjuvOMV2LTxi0rTyPoYq+xfXeKIxSjiQKWPah5focyRHOrQKm+kOg4neKdB2M1HIe8RxjMP/t13bfmjFIqzVWnbaqu0chKx+r9tl3My/ZMn//P7EZBTGgPNHtZD1fhjrmaofTJPNtgENF/+M1UZtcntIm+hWYlt30B1IhZttk/+fqWyVxd5VCkk+lDjTrsAw/yUbiz+BvUaJsOtrU4iPVDA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
  dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lk5CK7v3OXIXkpwh4FyZqK8/9kAHGQdjRRoiI106noo=;
- b=O+yBTOsC6CXI8YF0hDHqTAO4mucINu4zjj12vjqUQMcwNuuEewKH8m29veDVIOglV1WpC4bzVyZ6s/Z1Jw12BQ2T4M5nw6CPjaEsLkWkf3An2r4rYQi86pQsoNjDoY30VD/oJlC0Gd6TkVhOoSulO7X6irqQoMCv+/VsWSgAHwo=
-Received: from BN0PR04CA0064.namprd04.prod.outlook.com (2603:10b6:408:ea::9)
- by EAYPR10MB997901.namprd10.prod.outlook.com (2603:10b6:303:2d2::17) with
+ bh=Fgkn9AHlN6gwFIIGU374NMd/dlA034vmi8G2DiX/V1o=;
+ b=AnO8W+J3aC2OAk89lY6K8s/XI2LPD63ljzRc+7Qzo8I6iPXnqsYFy7msudeY9j5UEkQ9G73dwklLbKMhefR2EDY/o8l46+Zd5h4OUoyNJzCgxxNcZm2cslObEiornCTLhHge6uw7VIUFNRA2032aCWl/bSoWSg25BStLQuLG8+gB3pA+CSdK9lwue6+RKzsQuDGxf2QCiCWISswxXN1OA/XZTsE1+EjmQjfU5UKu0XwuJK+OQ4ZeM5B3nt/4pTVgd8VVSwZ2rtn+eL988NpwhBmic65voyd/XAhGrZbXBnsUfrBpREiLQw8EqZYROGN3HfxUHzZD7w4YQNkIX5HWjQ==
+Received: from PH7P223CA0027.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:338::18)
+ by CY8PR12MB7659.namprd12.prod.outlook.com (2603:10b6:930:9f::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 18:10:27 +0000
-Received: from BN5PEPF0004698C.namprd02.prod.outlook.com
- (2603:10b6:408:ea:cafe::63) by BN0PR04CA0064.outlook.office365.com
- (2603:10b6:408:ea::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Mon, 9
- Nov 2026 18:10:27 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 9 Nov
+ 2026 18:10:11 +0000
+Received: from SJ1PEPF000037A7.namprd04.prod.outlook.com
+ (2603:10b6:510:338:cafe::87) by PH7P223CA0027.outlook.office365.com
+ (2603:10b6:510:338::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
+ Nov 2026 18:10:11 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BN5PEPF0004698C.mail.protection.outlook.com (10.167.245.41) with Microsoft
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ SJ1PEPF000037A7.mail.protection.outlook.com (10.167.244.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 18:10:26 +0000
-Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 9 Nov
- 2026 12:10:08 -0600
-Received: from DLEE207.ent.ti.com (157.170.170.95) by DLEE213.ent.ti.com
- (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 9 Nov
- 2026 12:10:08 -0600
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE207.ent.ti.com
- (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Mon, 9 Nov 2026 12:10:08 -0600
-Received: from udba0500997.dhcp.ti.com (udba0500997.dhcp.ti.com [128.247.75.222])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6A9IA8xI3363147;
-	Mon, 9 Nov 2026 12:10:08 -0600
-From: Thorsten Lannynd <t-lannynd@ti.com>
-To: <linux-arm-kernel@lists.infradead.org>
-CC: <b-brnich@ti.com>, <praneeth@ti.com>, <r-donadkar@ti.com>,
-        <devarsht@ti.com>, <kieran.bingham@ideasonboard.com>,
-        <jai.luthra@ideasonboard.com>, Nishanth Menon <nm@ti.com>,
-        "Vignesh
- Raghavendra" <vigneshr@ti.com>,
-        Tero Kristo <kristo@kernel.org>, Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: [PATCH 1/3] arm64: dts: ti: k3-am67a-beagley-ai: Add orientation to IMX219 sensors
-Date: Mon, 9 Nov 2026 12:08:57 -0600
-Message-ID: <20261109180859.4139929-1-t-lannynd@ti.com>
-X-Mailer: git-send-email 2.34.1
+ 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 18:10:11 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
+ 2026 10:09:48 -0800
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
+ 2026 10:09:47 -0800
+Received: from dgx-1v-42.nvidia.com (10.127.8.11) by mail.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Mon, 9 Nov 2026 10:09:47 -0800
+From: Jamie Nguyen <jamien@nvidia.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+CC: Len Brown <lenb@kernel.org>, Tony Luck <tony.luck@intel.com>, "Punit
+ Agrawal" <punitagrawal@gmail.com>, <linux-acpi@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 2/2] ACPI: sysfs: Expose BDAT data region
+Date: Mon, 9 Nov 2026 10:09:45 -0800
+Message-ID: <20261109180945.2438349-3-jamien@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109180945.2438349-1-jamien@nvidia.com>
+References: <20261109180945.2438349-1-jamien@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -148,117 +118,137 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN5PEPF0004698C:EE_|EAYPR10MB997901:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d004b5e-3ac8-4a55-c76a-08df3e8cbb63
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A7:EE_|CY8PR12MB7659:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16ddff53-5e1f-49d9-06b7-08df3e8cb1fa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|18002099003|6133799003|10067099003|56012099006|261009223027099003|261028144727099003|261102123227099003|261022105027099003|261022075727099003|261021121427099003|261026140227099003;
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|261009223027099003|261021130227099003|261021123027099003|261022115727099003|261021133027099003|261021121427099003|261021135927099003|261022075727099003|56012099006|261028144727099003|261022105027099003|261022113327099003|11063799006|261026130827099003|261026121527099003|261026140227099003|261026135527099003|18002099003|261102123227099003|10067099003|22082099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	JpcbJWEW/9pxObUaceRroJDyxALywKUk/li00D1ZOO1Px7mjOrInSUjn6ngqCbe5xS8PB0rT+MPi+U5+CMkz6YyWiSRSn4QEekfxOtuv4hP9HXbuJUIK9hKLLvdX5w8IAdLBfTXef5V9jO7GZg2JkgHThLa0v5OTz4U0IoovkAq4sC+a0/wSO6RpyphF+sXAUhqmKCe9PzzWL0slsGsbmwXGZBZJ50PqF/LrBcF5Ux5tRfapnxHqM9IgLiXEMmKzHZHHnZs48/WV37ZaoGjxJxUOqDv0NDwCDeRCp1bsdE+Tm2wwfauzv1x3PdSaEYNkuB0doxbfRrl6BNr4spQLnUSMQwMnle0xksfsZzUrkCCO/BaUxWG4a7zNS3sZsEcshMI1aoo0hak023jiofecO4NCHQuvRhjqw7apbhS3RpGtzLyxph3vrYYMY9bdeQ1PTYifWYpIWvk5A7reuNQDXg9Ic2K+VKu+EKThSqmh7uzv1WidOq7nU7OmUshFYDeCqypVeQxrT4KRFn56D8UOULWc8Z6Ey1abNYXWZ3oAKFLSNGTXKyjggDvoSoOG1eHS4C95Xe68/1aQFl8/83Wp/iwP0mjz09yJbdSF78AmtGetZZGTVeYd/mZZZrlbSy6jN0/aGZ36F/69kGzSqkY1LtL19CeOFr1k92wl+ll2qhoMvWqLMymj0ROlfMsi9XmOnvDZr4uvtpL+itc75WlRUQ==
+	tGhFIRKuumIijOnonUGEeRKihjjn9ZRavLZINA6SnFzIyy60AZ/g0Y4TOtI/AS4JS4Q2wq9JdL6M44EML0ZKdHutOesXptRYSDqK1gfHT5HXPePQjCuWM3+36Dl7JVtQwgIPkbu5OrdETBfPs3R5G3PTFoEvpusILouSTwqOGc6WHJrv0g7w/3+l2B6Gz50cU+TKoXa+f/tPCCZ2eJCIdvaEeyc9YZpAv+kDNi4AEW5SZzxWup1JSpbl4I5TZieYbYI7eQ4Lrwp4kUTIFrBJQQQp0q52UYyUC0oZ7j+WR9ufqAEMmvf93mOcKeZEjMcP0TbLfS2MnpLr5O7AlcquhTUTscRvRiadZn/8JY4hcqm399kH8mv4z3IzFBNZeT37+S9oofXnp4q1o6K/MtUo23iCfdKI82tkhMpO3g6WFGtvbD+c4DD3N/kI0UYGLtgEHBR+gQv1xiUXnPGF+QuD4NkXZqzAFw6MAIX7wWjvEl6TorZnt1O3uqVXijFBN8JmuT8YTlGCg0jqoq5cjDYD2ev04avqA8dSupaLS9VF6QO/6nP7Ah8eCgqtKQASfdyqbK6KZQ0PxC0uvqrqUdqwF1texdWoQ1luEPVFYGkhrjVEJA7hhZwUWwJ+V9n97WxgMzj76n1CIeI4dhcwP99TUZifkZNyRfXF/vrnHY4EuUBETuHJJHC2IA+usTD3CxG2vEYLRGTbaE529dl5X5VPMw==
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(18002099003)(6133799003)(10067099003)(56012099006)(261009223027099003)(261028144727099003)(261102123227099003)(261022105027099003)(261022075727099003)(261021121427099003)(261026140227099003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(261009223027099003)(261021130227099003)(261021123027099003)(261022115727099003)(261021133027099003)(261021121427099003)(261021135927099003)(261022075727099003)(56012099006)(261028144727099003)(261022105027099003)(261022113327099003)(11063799006)(261026130827099003)(261026121527099003)(261026140227099003)(261026135527099003)(18002099003)(261102123227099003)(10067099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	cqtWVzlbedXB3blsNja63JE9hwXSG+rnSYEWoZXe07dygM8QuKabt+drVW9ZGIHLd62CtWrjVXPpBlPLD8ZIDuOyTo1OaidF9j2xb18xV0ZIIFbrfNoibvTlEnRuyKdEyM6hfNhX1MLj8GRvhxs1JHn2kNl565CYMUHyhttF4vM4ShMthYSPg9tdrAbjr7PktqtaaUhcQQRxVg0OPtzggmwmgmUQL0W8AVR9RksC8+7TgJs4cKgZdEmuGHPCH15c2SmZ/Enfh7kNEN86sGJFemv5vC1c2SvMn0eSB18fSXDjqkLlpuK5sFJgw/NNMSnnd9S+2I4u91YCSZTb+7BM9hO7fll0qqKmCA+LrZ8yITvSckrrvtmaoOEYYKIhetv7jJhgHMV2C8ci3Aiz7L4DIxZNm2r2mHV9dV5pOzEayoOkoIxFJTeMw5IsWaHnS5cs
-X-Exchange-RoutingPolicyChecked:
-	iP0jBQJa46Mkw4p/8mfxrovqJ8KLWJYUW0x5YOSCyqiP7MbPI8m1aBDpDjsFpw5FNOUIyoAO+UqN/GDO8fPcBF7KUzgR98/xG3pT8oePKXzo7juEN5uh/ok6oSFhZ90H+hCME/ljBNJRORaEMP45rjVrYTQJ9Ez0/fdUn8wjsLTXsodB0+D5XeR5pPENgtuSs8EdnvBN3LRMCRjFodicpnuvRTcmenAisN361Oa/8z8JrWLjgBatJ86Iyv7CDX2AP1ydG6wiN5QFnnMX68sTn5uCuEzIEvAvQcRSVreWVblZQqp6zqOIJ2tH9D3GeEiawAqmUtH2RpVTpHRjYfW/pg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 18:10:26.9022
+	mX/XSsF641i4RI7SHDDkbV0SUXuxX+MC7L+8VQrkvYn9ee/9J3mGR4FiF5m3/oWUNZq2tVV6v3VHWN8id4cB9y31WHvultkg0RQY3Otvof4UDEDuE0bnthmmzRVDEEpqldmaheuQvSmYzcgmocscuil2smcyHsai0Yjih5tA7YGm4H5KYwOvJmiiDZZsIwtvRptea1FQozr/xH4Z4tmcJUkcDUxpNPqtKi+Vl/J45pU6xpc3dUFI9lXLy6kcWWD6+WGJL6fRy/dJD8nds2/DJiTCHcl3It0Vy7s/R9X+SEfBBt8r47LaSnxCLuFsIDAoAWVodjF46DKmHPPX8vLIhkXng3FWvUix/KQR/wBvz+hgk3PDBR4uSBEWhXNPmO8KY7dzB9Q3KZBC7WJusCme8nzz/JB1iwszAh2nkIguWsKGDauRRZESiMXvtk5nMOTh
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 18:10:11.1644
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d004b5e-3ac8-4a55-c76a-08df3e8cbb63
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16ddff53-5e1f-49d9-06b7-08df3e8cb1fa
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN5PEPF0004698C.namprd02.prod.outlook.com
+	SJ1PEPF000037A7.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR10MB997901
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA3MiBTYWx0ZWRfX3WjpD/tCZnle
- BejKkyC0DnZ4zvx7CUTiP/UNjNcwORLaiEJ8FGRc5bIWOsHUSV0YxS9Q+Eu2SwSD8F6gLykwT37
- hIkDWQpJZdtpB2OglNOpr2r3gm4vo2jG3M5IAdUWBbmPh32i4fHsRBed9RpIJ0BuEv+/X/z6luw
- EwY5ivI8wJifHdi0Lzl8gHjskH0q6mZAjRJEsjuVD4KgQ78VtgUT9YMYYXo/0uKg+BqehzQxrg5
- 8e6ZR5yNplFEby06NBTpOy+tAk+MdxRk19SOJBmLD1QZlbeAhMWJqsCYogeZIvQzI44dqXuc3eC
- t3XwEu/i1zudNjADiek+UrO+tAdOVklnvfNELCbk1dE8vgpThLyLuXG485XXl/RszResv5DW+4v
- 8WTAMYXPOwFcvJlp7CfgElHx23+Ap/en9sCC9lE+CA2mDdiQPPFXxk7ylkYcDLd2ZmWUrXApho1
- c1U+KLwuWhE9FnMoi5Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA3MiBTYWx0ZWRfX3DtpaG4Zasd3
- wBGG0n3DRI04NBFQ82CAdAo12F18wMHeP3Z+I1v7KE1O8BNXugXJzBaa9CRuya8TbI3Ze4txY3C
- VM7N5fbz6k5DvtXwgGNTiIMxqSo3a1U=
-X-Proofpoint-ORIG-GUID: brM-JLa8G_taXZ7HzBDc44nFp_-J--WA
-X-Proofpoint-GUID: brM-JLa8G_taXZ7HzBDc44nFp_-J--WA
-X-Authority-Analysis: v=2.4 cv=bpDZl0ai c=1 sm=1 tr=0 ts=6af20c96 cx=c_pps
- a=gX+0JOXwNCEsWCXnQOdOsg==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=zJRp6_cAMcgA:10 a=s63m1ICgrNkA:10
- a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=fPAWb5peG099m5CrUpKH:22 a=sozttTNsAAAA:8 a=-km-e86kKVgzOD7pSK8A:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_06,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
- bulkscore=0 clxscore=1015 phishscore=0 suspectscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090072
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7659
 
-The IMX219 CSI2 expansion modules are externally attached. Without the
-orientation property, V4L2_CID_CAMERA_ORIENTATION (0x009a0922) is not
-exposed and libcamera fails with:
+The BIOS Data ACPI Table (BDAT) points to a firmware data structure that
+carries memory training results and other boot-time data. The table is
+only a pointer: /sys/firmware/acpi/tables/BDAT holds the ACPI header and
+a Generic Address Structure, and the data itself lives in reserved
+memory.
 
-  ERROR CameraSensor camera_sensor_raw.cpp:465 'imx219 4-0010':
-  Mandatory V4L2 control 0x009a0922 not available
+Expose the data as /sys/firmware/acpi/tables/data/BDAT, as is already
+done for BERT and CCEL. Unlike those tables, BDAT carries no length, so
+check the "BDATHEAD" signature at the start of the data structure and
+take the size from its BiosDataStructSize field. Reject sizes smaller
+than that header, and document the new file in Documentation/ABI.
 
-Set orientation = <MEDIA_ORIENTATION_EXTERNAL> on both CSI0 and CSI1
-sensor nodes to fix this.
+The BDAT specification is published by the UEFI Forum [1].
 
-Signed-off-by: Thorsten Lannynd <t-lannynd@ti.com>
+Link: https://uefi.org/sites/default/files/resources/BDAT_Spec_v4_0_9%20%282%29.pdf # [1]
+Signed-off-by: Jamie Nguyen <jamien@nvidia.com>
 ---
- arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi0-imx219.dtso | 2 ++
- arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso | 2 ++
- 2 files changed, 4 insertions(+)
+ Documentation/ABI/testing/sysfs-firmware-acpi | 12 +++++
+ drivers/acpi/sysfs.c                          | 45 +++++++++++++++++++
+ 2 files changed, 57 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi0-imx219.dtso b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi0-imx219.dtso
-index 1b1c68f23cc3..c4c906f0000c 100644
---- a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi0-imx219.dtso
-+++ b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi0-imx219.dtso
-@@ -9,6 +9,7 @@
- /plugin/;
+diff --git a/Documentation/ABI/testing/sysfs-firmware-acpi b/Documentation/ABI/testing/sysfs-firmware-acpi
+index fa33dda331f2440..5fb50a72d468f5c 100644
+--- a/Documentation/ABI/testing/sysfs-firmware-acpi
++++ b/Documentation/ABI/testing/sysfs-firmware-acpi
+@@ -275,3 +275,15 @@ Description:
  
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/media/video-interface-devices.h>
- #include "k3-pinctrl.h"
+ 		remote_region_id: ID associated with access by agents
+ 		non-local to this range of addresses.
++
++What:		/sys/firmware/acpi/tables/data/BDAT
++Date:		October 2026
++Contact:	Jamie Nguyen <jamien@nvidia.com>
++Description:
++		The BIOS data structure referenced by the ACPI BDAT (BIOS Data
++		ACPI Table). It starts with a "BDATHEAD" header and holds data
++		published by firmware, such as memory training results. The
++		file size is the structure size given in that header.
++
++		The format is defined by the BDAT Interface Specification,
++		published by the UEFI Forum. The file is readable by root only.
+diff --git a/drivers/acpi/sysfs.c b/drivers/acpi/sysfs.c
+index 4182627eeafd2f8..0748a1d4fd515d3 100644
+--- a/drivers/acpi/sysfs.c
++++ b/drivers/acpi/sysfs.c
+@@ -477,12 +477,57 @@ static int acpi_ccel_data_init(void *th, struct acpi_data_attr *data_attr)
+ 	return 0;
+ }
  
- &{/} {
-@@ -78,6 +79,7 @@ imx219_0: sensor@10 {
- 		pinctrl-0 = <&cam0_reset_pins_default>;
++/*
++ * The BDAT table only holds the address of the BIOS data structure. Its
++ * size is in the structure's own header ("BDAT Interface Specification"
++ * v4.0, section 4).
++ */
++struct acpi_bdat_data_header {
++	char signature[8];	/* "BDATHEAD" */
++	u32 size;		/* whole structure, including this header */
++	u16 crc16;
++	u16 reserved;
++	u16 primary_version;
++	u16 secondary_version;
++	u32 oem_offset;
++	u32 reserved1;
++	u32 reserved2;
++} __packed;
++
++static int acpi_bdat_data_init(void *th, struct acpi_data_attr *data_attr)
++{
++	struct acpi_table_bdat *bdat = th;
++	struct acpi_bdat_data_header hdr;
++	void __iomem *base;
++
++	if (bdat->header.length < sizeof(struct acpi_table_bdat) ||
++	    bdat->gas.space_id != ACPI_ADR_SPACE_SYSTEM_MEMORY ||
++	    !bdat->gas.address)
++		return -EINVAL;
++
++	base = acpi_os_map_iomem(bdat->gas.address, sizeof(hdr));
++	if (!base)
++		return -ENOMEM;
++	memcpy_fromio(&hdr, base, sizeof(hdr));
++	acpi_os_unmap_iomem(base, sizeof(hdr));
++
++	if (memcmp(hdr.signature, "BDATHEAD", sizeof(hdr.signature)) ||
++	    hdr.size < sizeof(hdr))
++		return -EINVAL;
++
++	data_attr->addr = bdat->gas.address;
++	data_attr->attr.size = hdr.size;
++
++	return 0;
++}
++
+ static struct acpi_data_obj {
+ 	char *name;
+ 	int (*fn)(void *, struct acpi_data_attr *);
+ } acpi_data_objs[] = {
+ 	{ ACPI_SIG_BERT, acpi_bert_data_init },
+ 	{ ACPI_SIG_CCEL, acpi_ccel_data_init },
++	{ ACPI_SIG_BDAT, acpi_bdat_data_init },
+ };
  
- 		reset-gpios = <&mcu_gpio0 15 GPIO_ACTIVE_HIGH>;
-+		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
- 
- 		port {
- 			csi2_cam0: endpoint {
-diff --git a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso
-index cf3729f5ae60..32305f46e58d 100644
---- a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso
-+++ b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso
-@@ -9,6 +9,7 @@
- /plugin/;
- 
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/media/video-interface-devices.h>
- #include "k3-pinctrl.h"
- 
- &{/} {
-@@ -78,6 +79,7 @@ imx219_1: sensor@10 {
- 		pinctrl-0 = <&cam1_reset_pins_default>;
- 
- 		reset-gpios = <&main_gpio1 24 GPIO_ACTIVE_HIGH>;
-+		orientation = <MEDIA_ORIENTATION_EXTERNAL>;
- 
- 		port {
- 			csi2_cam1: endpoint {
+ #define NUM_ACPI_DATA_OBJS ARRAY_SIZE(acpi_data_objs)
 -- 
-2.34.1
+2.43.0
 
