@@ -1,89 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253537;
-	b=Y0YB8SirCDtNalEXFBCCOK1YHOE3K1uiAs9Mc5EVsLdFo3lLWkhtUyYksEhrR2JCjGNu
-	 O7loGR3UUrXT0oL9oYZBANB65WtNbMRnGZNV43n+HFs/+y4CpMOMbM3INKUNSBlDl45zX
-	 ALLPZsCRfgx93v7JDwvkKG/lssn0D8ANG2OUFerg7rGiOamHtVTdqoMuCCxUh9PeYjg6N
-	 +BVMdBG+pbO1YYJdOrQaWK3QcSzC6FsdZofpeysTYmxaF0wsaiI+TTr1qkgzDIhnozc7G
-	 cS9FBbub+IlGzNF70KCvwmifOS9yeyBlkv2ueN1xNxwGeU0uCgtMaPv1E/X+uqGNU0A==
+	t=1794253554;
+	b=gCM358I7mdUMPBnXzrx8rUyv99XlqShdEn25/7+WctKSRAqOw0sGfLnFPrDyJEb13yCv
+	 80HdOuw/HAiqcjbgn/T7pYikng9kZUhRb0aWxqnLT5eWIKUzyfoHSCCrJ/Hnw2rby4x1J
+	 /PgFUn3ayqYiYtOqIYZXp730b8zartH2f0G8Gvzwov8YBrQ6Bt6RrjmZcSJp/FD+J0XvP
+	 E+oUh1I7ZHUhiMfBLSftMonf8NR8tS2ZLxYuJt51G1Bryr+84zLbWpky/2/6BMJdBTOqk
+	 qZLjXxWxBir0LJsyavF704wCVKsOQCoUHUxDoIyFrFRWoxLYuF7162AqN4ONcpQlX0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253537;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Q4lNPn/UK40kisCgS/o/tQFd2nFoymjIVtaW1cQeiCw=;
-	b=rJq1WlclWWlYd7DVcTCb8HIniS2Ui5SKktVERwVIKcwHJtUxs/fPZL25MugNC9RF+07j
-	 0tjLM/Fv5uBePz6hamijxWUsQLqF+vGlS5Duo3ytKFK4Ndmxfy+0nKM2Kyzy9D3yNKy23
-	 CbP7IlUZnPssE5XnW96Atxm7iFiA+FLKGjCZ8edQ+qjh2ctvRHkMXSyTtNN2YbUwR9V2S
-	 tph27iBwl0rqN7v+U8Lf1nNQaMHX4Y8QKOYZh3BcEMFOM/aZYjNv0nEPMLKPgW4xe7xRv
-	 p5J8biRV/kL0aY7UUxEMQiaLVd7cmXEZo9G/1QeWzxDv+s+77sbe1Qdb0YV1j2XEDlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253554;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=REA9zYS3lDwM4a+NO/u7pA9WoH35x7u2DKZsMlZFiio=;
+	b=a0rPgeS++gbck+HYTLR5KfMGBt08afhxin0G9EDvUov6crmxEuCl16KFPmDZHI+RLgrR
+	 fNvVz7rQPt4Za51m/TwZq16oNh2TDvMyOgblbhq4He35zSCrXJd0RzL7p07UuV9xPmp3P
+	 JWthAhfyi02GUSxiHDCgN4/hzTAjQaT5dFukE3OqsyY5s+zpv5EcsREafueyVgHhTfo4V
+	 uBQrEG7qLpGhViFVmD0PUwO7QQKpsHTfL9AY2twT7SEljimXY7kpaael+0wunOm04IiFW
+	 ASqf4DFaUk4HrH1haIeDvVSo6QL3SwOmFx5FpEfqxwvG8iLwnE+WiFre00FgFy8d/jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FsVMDLq+;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UgmynCVR;
+	arc=none smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9306606A31C;
-	Mon,  9 Nov 2026 19:45:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9306606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DAE606A33A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:45:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62DAE606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FsVMDLq+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794253537; x=1825789537;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=dmur0JcSjI2h2Sn4a6LIR095JVkgSSE5Iw2d6Hhzk9U=;
-  b=FsVMDLq+Mdg+QVKbt+CSMo6Sq+5KSUyoTO4shsrZSlV1LkhqsQs69Prs
-   cCj1NNM6n19THfymMJdgmTegwFmjfjsPcnDya9f6EJaomAjkqXPY+q9EV
-   BMAIccnBzg/Y7aKGkw2ouRKFxdocxLTUdyRv5cKK3WjLn1SJNIh6zDkWh
-   hSO/XSA/x22ZXQeVrD1JcPGMdlRqcarQHMQ+igrVRH+vnO3lIz63pFnsH
-   JjdgptXz6sgtpUw4tnyhqEupeNmkt0fDqutcdKcLtMwZxjqPCinveQcEU
-   q+eTPHcJWpuGKRaste5TFrsdoSfa9GUb37D5D2KQ/VclyaF0cqMO3T1qk
-   A==;
-X-CSE-ConnectionGUID: 9/HKqxbaTeW2/Fk7GwzrGg==
-X-CSE-MsgGUID: sKPmDPxsTPysgk8aTRqTQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3015817"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3015817"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:45:37 -0800
-X-CSE-ConnectionGUID: kViXZNE9R2ico6E4XGQLrA==
-X-CSE-MsgGUID: ymLHrCHYTDuxbi0VO1H2QQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8285756"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:45:33 -0800
-Date: Mon, 9 Nov 2026 21:45:30 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "Mahapatra, Amit Kumar" <amit.kumar-mahapatra@amd.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	"Simek, Michal" <michal.simek@amd.com>,
-	"Potthuri, Sai Krishna" <sai.krishna.potthuri@amd.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"amitrkcian2002@gmail.com" <amitrkcian2002@gmail.com>
-Subject: Re: [PATCH 2/6] iio: adc: versal-sysmon: validate temperature
- hysteresis
-Message-ID: <avIi2pDCcaKDx3Ro@ashevche-desk.local>
-References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
- <20261102122112.1723130-3-amit.kumar-mahapatra@amd.com>
- <aumyreagvU6zewKI@ashevche-desk.local>
- <DS7PR12MB9503E787CBD5E9292B5637CEDC762@DS7PR12MB9503.namprd12.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UgmynCVR
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so10015ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:45:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794253554; x=1794858354; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=REA9zYS3lDwM4a+NO/u7pA9WoH35x7u2DKZsMlZFiio=;
+        b=UgmynCVRiJZuJ67iWctpMTAZHaQwYKR6tzKsgkrcAG/rv1oglwJdEN0B8DsgDNnkGc
+         BFIfsICxYcxSQarrveN9Rmx7vvN+pQLamaWPZusjCXWeJUhyz80eZEamVKcwGKM4dXOH
+         URZQUeCTt7hYbXOvdCZqCM8R6aCfV25UjHVBOUMH4ue/0ABUuUX2FDUfr40nqCqF7WVC
+         61Pa9s+VUle9A49kV1GOqijFcJ2H8kzwv9nHnoJEoLwQUXaVBxP1z+BNXN32qG2KlFf4
+         dLglm1QL0NM5uW4r0VHXUhB4FdOe54Owf9IGs0PjWjtpb18d/XSjXBS4D9LZ14uczp7t
+         fixQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794253554; x=1794858354;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=REA9zYS3lDwM4a+NO/u7pA9WoH35x7u2DKZsMlZFiio=;
+        b=D37JRgB6FngkAYZ8CUdv0vZtpC7I8Fg9JQ2ijP4C44QE+fD34NlJAgYfKQFs6+tJG4
+         7gw/wm+lSIPKHHrwVPfXZxoHT7oXbGc9+Jr+nQDcSzB5ReYv2g6WISmD5Sp+dTOVWGYW
+         tPi8IGEgAT02M9R2kbJ6rXL2RGtbKkLs7DsmPeRZ1P+Krj0LJN7nLJtSkScoDieCW1Qp
+         55dW+aH88Z5+PFd7KkiiGTc9AYdAL87vCJIk27hGvxSFgwMCUhBK6QyCMn1SlScn1YLi
+         v9fBkmJF5iWhRuvlaQfIw65OSvGbKMq4xnTNwHGVPNzYZCVLPDcCQKWgLP3gSOO9vkN3
+         9A6A==
+X-Forwarded-Encrypted: i=1; AL+hErEbG9vbOEUvEYe51eOfKRSH9OP/D8K8KXU+bQEj9t5mSqH0T7xl5KnUfKFegxMIap5cHN02XOuyeJlDP1A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8QtPu87tnc7lt79SN34uvc5MDWKOfUrq7+zS/t08R/vDxMNjmQ
+	56UB4bfytEoG+XYAWdU9XcITuvEHRSCYEoMi20NlFaxA2Z59xcns3QsB2rTffoJwD0lvb01TbEn
+	prSUjow==
+X-Gm-Gg: AYBFou2tfuSAnAFp2KL3hNnMVAYtC/6uSFfLtTAQX/1jYv9VXgeRqQyTaiNYObtSyHb
+	i30oMX2nwIazKTbGIJcyJiyajTubTIyPSlBejPNJEYP3qAl49nhiex/MuM4cvzfLD3YVCr5U27o
+	Ea1Jm3gRYRMKGJhnz91455ab+sJOLXzBlbc6ZRTwzAu4VzkRYoIMFiaq+6w3KpOLFUDBO0ehuzT
+	l+I+qsCVJdMiAgHe/Y3pdbOcngmEKpiEIKEk+RNzOfORudQM8/lypEZcrZ2tm6WKyAj4rNcCJ9N
+	GMlnDIIFhq2ZGGHGdEkPViJhxW2drU2zqbGiMPaQGFbKH3az3Vf8TGtD2bFffhSI0JtAo04x1Gs
+	pWQQMSdoQM+Q1Jw92c0tN18sojK/jYLS8Yxcz/Sv9j8AkhCodohHa/ZBhuE0MEcV8aqrUEzY7hv
+	AYquCWLepugbdV3rTmYe9IJDjrzYonmreCQhrdganmcEkH58YTfB1ynPpBAijFdbY9NlzkBPV6k
+	dy433uD+hNAehUU5AO5qgq1DOtyh2CjiBRYxGYoktQ0RwQsGylhjA7HsnkTpaQdD9NsKzgZ7qi+
+	hxiClVFjUX5bL6+Bxa9Rpnp8oW+/rcfeCk8xz3LA72gXmZXq8pu/bfb62/ifpWz8qOrNehO60rW
+	l1DzziSpy+g3JRVUdSWPfn0ZQY+66AXlYCCX7udEWh3GUOctgQ0RYpiy8hgtvu8DeVSg0uvVTD1
+	LR6HS2gRsq1JPXi01NFQ1ANz+5BmAsrZ2nu8vseH2hijs3+cG3nVwP9MEOBJWeuIQzwK7Dn6EFW
+	tn02qWxOq+J9Q==
+X-Received: by 2002:a17:902:fd86:b0:2e6:1735:f645 with SMTP id d9443c01a7336-2edb812a739mr621795ad.4.1794253553217;
+        Mon, 09 Nov 2026 11:45:53 -0800 (PST)
+Received: from google.com (25.229.125.34.bc.googleusercontent.com. [34.125.229.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b167973294sm674397a91.15.2026.11.09.11.45.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 11:45:52 -0800 (PST)
+Date: Mon, 9 Nov 2026 19:45:48 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: Adhyansh Verma <adhyanshverma2010@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
+	Todd Kjos <tkjos@android.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rust_binderfs: fix minor number leak on binder-control
+ creation failure
+Message-ID: <avIi7IPY5bVbxxw8@google.com>
+References: <20261102144532.123432-1-adhyanshverma2010@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,36 +106,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DS7PR12MB9503E787CBD5E9292B5637CEDC762@DS7PR12MB9503.namprd12.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261102144532.123432-1-adhyanshverma2010@gmail.com>
 
-On Fri, Nov 06, 2026 at 11:35:00AM +0000, Mahapatra, Amit Kumar wrote:
-> > -----Original Message-----
-> > From: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > Sent: Tuesday, November 3, 2026 3:39 PM
-> > On Mon, Nov 02, 2026 at 05:51:08PM +0530, Amit Kumar Mahapatra wrote:
-
-...
-
-> > >     sysmon_q8p7_to_millicelsius(upper_reg, &upper_mc);
-> > >     sysmon_q8p7_to_millicelsius(lower_reg, &lower_mc);
-> > > -   *hysteresis = upper_mc - lower_mc;
-> > > +   *hysteresis = max(upper_mc - lower_mc, 0);
-> >
-> > But you can use abs_diff() and let it make the problem of the supplier.
+On Mon, Nov 02, 2026 at 08:15:32PM +0530, Adhyansh Verma wrote:
+> In binderfs_binder_ctl_create(), a minor number is reserved using
+> ida_alloc_max(). If d_alloc_name() subsequently fails (e.g. under memory
+> pressure), the function jumps to the error path.
 > 
-> I went with max() because an inverted pair (lower above upper) doesn't
-> really describe a hysteresis, so treating it as zero seemed the safest
-> reading. With abs_diff(), an inverted 80/90 pair would be read as
-> 10 degrees, and the next threshold write would then set the lower
-> threshold to 70.
+> However, the cleanup path only calls kfree(device) and iput(inode).
+> Because inode->i_private has not yet been set to device, the eviction
+> handler binderfs_evict_inode() returns early without freeing the minor
+> number. Consequently, the reserved minor number is permanently leaked
+> from the global binderfs_minors IDA.
+> 
+> Fix this by introducing proper error unwind labels so that the allocated
+> minor number is released via ida_free() under binderfs_minors_mutex if
+> dentry allocation fails.
+> 
+> Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
+> Signed-off-by: Adhyansh Verma <adhyanshverma2010@gmail.com>
+> ---
+>  drivers/android/binder/rust_binderfs.c | 15 ++++++++++-----
+>  1 file changed, 10 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/android/binder/rust_binderfs.c b/drivers/android/binder/rust_binderfs.c
+> index 5f020226720d..3f7ff0fdbdb9 100644
+> --- a/drivers/android/binder/rust_binderfs.c
+> +++ b/drivers/android/binder/rust_binderfs.c
+> @@ -400,7 +400,7 @@ static int binderfs_binder_ctl_create(struct super_block *sb)
+>  	ret = -ENOMEM;
+>  	inode = new_inode(sb);
+>  	if (!inode)
+> -		goto out;
+> +		goto out_device;
+>  
+>  	/* Reserve a new minor number for the new device. */
+>  	mutex_lock(&binderfs_minors_mutex);
+> @@ -411,7 +411,7 @@ static int binderfs_binder_ctl_create(struct super_block *sb)
+>  	mutex_unlock(&binderfs_minors_mutex);
+>  	if (minor < 0) {
+>  		ret = minor;
+> -		goto out;
+> +		goto out_inode;
+>  	}
+>  
+>  	inode->i_ino = SECOND_INODE;
+> @@ -427,7 +427,7 @@ static int binderfs_binder_ctl_create(struct super_block *sb)
+>  
+>  	dentry = d_alloc_name(root, "binder-control");
+>  	if (!dentry)
+> -		goto out;
+> +		goto out_minor;
+>  
+>  	inode->i_private = device;
+>  	info->control_dentry = dentry;
+> @@ -436,9 +436,14 @@ static int binderfs_binder_ctl_create(struct super_block *sb)
+>  
+>  	return 0;
+>  
+> -out:
+> -	kfree(device);
+> +out_minor:
+> +	mutex_lock(&binderfs_minors_mutex);
+> +	ida_free(&binderfs_minors, minor);
+> +	mutex_unlock(&binderfs_minors_mutex);
+> +out_inode:
+>  	iput(inode);
+> +out_device:
+> +	kfree(device);
+>  
+>  	return ret;
+>  }
+> -- 
+> 2.56.0
+> 
 
-Bu where did it come from? HW or DT? If the latter, we may just reject
-the wrong values at probe time, no?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Is this patch any different from this one? :
+https://lore.kernel.org/all/tencent_8D7B76C623DA3A29EE73D38217ACB08AFB09@qq.com/
