@@ -1,55 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.255.12.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794251502;
-	b=M2K2nwxP3+RieI4NBxgQ6c3o6aQKMORl+oARj0vwrom8GfUypugfaFDpN+FcZYnkmh41
-	 EfuBFic85coM2Fy9nUg+rcTqFAhObA+K+qD95jdE7z0RafxgCjf2utGNVnvsM8jL5ps0N
-	 DJY4EmNlOWyVCFqelGngMgFsP/CcyDq2UoS3AFWGolFUvpaD+drZV0apdosfLWxOJ30eC
-	 GkWYvqEXkOgQi4B4Gj+b6RMIbB6zz9j5dR3c+m8xK9l+2StKNiB2ebRPCztxXC1Qq7bH1
-	 w9EObJvRBwBDcRMBewqIT0yzsSpsIcbbeqwOA/8emQNTUvl/b9LpQyCLqyhBUBEJKVA==
+	t=1794251547;
+	b=H3Vf0NL6ZsX8rKbzjadRkJ0hLFK885oeUaH+UxRtgPJieAQH1bmi+kZfA5Gj3kuepDjK
+	 XPHADQJy9h9vSfIv/3fb9VisMli0l/72OTqgoj4bA4eRz4BMzF2g2NT1EZqijeoeimPHN
+	 ynfTduDzQR6wlIYF3Tznp2F2aHXjMzIcWnsqEA5SowHED89v3ywQ3+wPb7uyamqF09qB7
+	 LRydwqt1ZYUjvJwhIjDS95ylpKXO2XEHSD2ojrWnuW44TaVCXSQ7+edxu3ZgSboRPaYwA
+	 A1RWCLBONog3vwzOQD+AYuVFWSGqVZrRyMoC6hiaPrWfB7TxfSB8b7FDS8DQwH/ct+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794251502;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DJss7vF018jxE3CgpbZ29VThuXk5wnx614xdus0Glzc=;
-	b=zE5+gXfqTza3PJAZjzlUmRmXt5pi7yKbBvjGA00bCfNAghdvLuFB7RshvEkN4GWmS/Ns
-	 YVycSeNgh0Xba16YpnytgZY9KMoT8kCpwOvPahHyVc+nUamxfR+pN8XFAMqAA7WmxbZuy
-	 Bi6kjHOmtt+aVHNG/okkcNCpqi9p9FrWhc3z3Iin4nx0tS+6iOROBPct9TnEGxHLCMdIw
-	 qGjV/jA6Ka5OGxUQBVeo8X0mBvfYwDsOIwVZAtg51HcX/24h+rA2u7/e/8kZ+dmHK/dsV
-	 c1kuAzKYy7Qw4V1IRIuzFhJl4TZpf6souJDOlhW9mdZ0/SMkWK2M4tczWF83coodH5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794251547;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=iDbXTgguYxJP6pzU6QfRyBYR+dcD++wKGFFljJ+0QiQ=;
+	b=Po+1PX9+wpVwdiqDt1SDxVXh0YAhYPDTR/FYDcMwb4XLFYSG9EjwyhLZOHFdV0DaBTxH
+	 vGZB00MkEC2X0Tr70BP15Bg351ZsQfjO3HY1Fw17hpnj6mTNKDiR6DKpWI6zCbuP3NSrP
+	 M4PIUO+aU6+4dPyTxM5xTCLAznG4uN8oYnu0KndgO4FgaokrENgyvTV08vNqGakmg7ma2
+	 ypA3xkffzUtUjTUUPIW/pEb4LsdLlUaWFC1YgFmQznuRS46QKWwNsWInc+SAoEiH5Oogv
+	 gnDYCGCym6nO5h4ewlS0R3WnLjwdiXb8YR0LM6J9uXg7ROz9/f4L/Cqmex79d2/FUfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4Sv859R;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=manguebit.org;
+	spf=pass smtp.mailfrom=manguebit.org;
+	dkim=pass header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=hVhgVGxD;
+	arc=none smtp.remote-ip=143.255.12.172
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B89606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:11:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76110606A31C;
+	Mon,  9 Nov 2026 19:12:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76110606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f4Sv859R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3661E1F008A1
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:11:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794251502;
-	bh=DJss7vF018jxE3CgpbZ29VThuXk5wnx614xdus0Glzc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=f4Sv859R4DrgEnPEvT/I04GNwFNGnCcO3NcpXc8kUtbt60Qhv1icbO0TP4o8vvczu
-	 k2XqYObS6IP2A3mXna8+uvL4qx7UhzDFQiWCEpkAzzpM+4H01Pe4cLIpMTwWQugkDc
-	 oei0/01C+5zeWS8Ag/LeQ99C+0/mBpZFWnqA3591x3xpNVj6Vg/CzAXm3J84jSA3Pf
-	 gv3t39V8v1hzyKeDpn9kvZJCW7TavFEuz8isvqdzvgL6uCxBFXjPLarLAq0KNIsOvn
-	 a1pwwpcgBaYLEuSjJjn/an4gksWOqvQUQVrfbCwM+EZfG95qOw8ASe46dfmC26THOk
-	 APBe1L6mSTWSA==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so1076668e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:11:42 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFjgk1ZN0EktDYZmnB4u5clUP67kDnR77VtS5LoUs2guc60tWIiiH0+s0mS4NYFnM1foF0DDHMhHPlrwTQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CAq9r+sMqb75l60GOe+IkKImZjvyNu5fkRU30ZvL5bdTldY/f
-	l+itvPLiPA/7oucI7XvMUQngXwwdAsrnrMUo1bI8D0JHjMjvUW6RtmcFWCE+70GncO38e5h1Pme
-	VHM2X8n5wG+TaTInh8dvXJeFZ4zEmqts=
-X-Received: by 2002:a05:6512:1286:b0:5c1:4bb4:a6bb with SMTP id
- 2adb3069b0e04-5c156ea28ecmr81403e87.36.1794251500588; Mon, 09 Nov 2026
- 11:11:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=hVhgVGxD
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Date:References:In-Reply-To:Subject:Cc:To:From:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description;
+	bh=iDbXTgguYxJP6pzU6QfRyBYR+dcD++wKGFFljJ+0QiQ=; b=hVhgVGxDFLF41YpCLUNWrS+PTg
+	1tJrqObdJa5xerjSzXGPt4RxI/Tw2kkhLZstFXuJjqi7V4JgySG6m9yHuQiWSW1yhXMS5/4Mu1N+j
+	c9SCcZqCErA63BtwwmhYz5p7QAnrxXl863eGvBk/wlve7GbDyBNcreSp8C7Uxa6yof43gqeHaUeqw
+	vJGBncDk+nVMaI/U4lNFrX8yqwrz8PORmTclLTA3kmMQAY6aLCeUrGEw0ROHrEi3j7ooKbFU9lSEb
+	6E4W1n5axGd0UsmjrvIUQl4syh2FXj/wOgBUjCvod+wX3Wg9+2jV2hBUifctAfAvOYsmmgolc6S/8
+	Xm9iD4IA==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
+	id 1xQUmt-00000001HIj-0qH6;
+	Mon, 09 Nov 2026 16:12:16 -0300
+Message-ID: <b0fecf98c80a78b4b40488e44dd73ebe@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: =?utf-8?Q?Iv=C3=A1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>, David
+ Howells
+ <dhowells@redhat.com>, netfs@lists.linux.dev
+Cc: Shyam Prasad N <sprasad@microsoft.com>, Steve French
+ <stfrench@microsoft.com>, linux-fsdevel@vger.kernel.org,
+ linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH netfs v2 1/2] netfs: preserve prepare_write errno on
+ reissue
+In-Reply-To: <20261102150656.207612-2-ivanrwcm25@gmail.com>
+References: <20261028181229.1408342-1-ivanrwcm25@gmail.com>
+ <20261102150656.207612-1-ivanrwcm25@gmail.com>
+ <20261102150656.207612-2-ivanrwcm25@gmail.com>
+Date: Mon, 09 Nov 2026 16:12:15 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,124 +70,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016141440.2794000-1-yaojiale02@163.com> <7192d240.1879.1a148c7d925.Coremail.19888972804@163.com>
-In-Reply-To: <7192d240.1879.1a148c7d925.Coremail.19888972804@163.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 9 Nov 2026 20:11:27 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0h_oa2zguxw=5E5w9Jhc-m2cnbOfvFdPJoXerBhFmeh5Q@mail.gmail.com>
-X-Gm-Features: AclHuK_BUF-fAHbf6jyj3Z7UKdsM4Q5zT5fl2jVdiFMvd9z0XP0bfa11sJk1W4Q
-Message-ID: <CAJZ5v0h_oa2zguxw=5E5w9Jhc-m2cnbOfvFdPJoXerBhFmeh5Q@mail.gmail.com>
-Subject: Re: [PATCH] ACPI: processor: validate CPU mapping entries
-To: jiale yao <19888972804@163.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 17, 2026 at 9:33=E2=80=AFAM jiale yao <19888972804@163.com> wro=
-te:
+Iv=C3=A1n Ezequiel Rodriguez <ivanrwcm25@gmail.com> writes:
+
+> prepare_write() may call netfs_prepare_write_failed() (FAILED + errno)
+> before write_retry calls netfs_reissue_write().  Clearing subreq->error
+> to 0 for a clean I/O reissue (82e8885bd763) then makes
+> netfs_do_issue_write() terminate with 0.  The collector copies
+> front->error into stream->error and mapping_set_error(), which ignores
+> 0, so writeback failure is silent.
 >
-> At 2026-10-16 22:14:40, "Jiale Yao" <yaojiale02@163.com> wrote:
-> >CPU physical ID lookup walks MADT subtables directly and also accepts
-> >records returned by _MAT. Both paths can pass a truncated typed record
-> >to a CPU-specific mapper, and the MADT walker can be stalled or moved
-> >outside the table by an invalid length.
-> >
-> >Validate generic record bounds and the minimum size required by each
-> >supported CPU record before dispatching it on both provider paths.
-> >
+> Skip clearing error when NETFS_SREQ_FAILED is already set;
+> do_issue_write() already terminates FAILED subrequests.
 >
-> Fixes: 78ed8bd2944b ("ACPI: processor: move acpi_get_cpuid into processor=
-_core.c")
+> Fixes: 82e8885bd763 ("netfs: when subreq is marked for retry, do not chec=
+k if it faced an error")
+> Cc: Shyam Prasad N <sprasad@microsoft.com>
+> Cc: Steve French <stfrench@microsoft.com>
+> Signed-off-by: Iv=C3=A1n Ezequiel Rodriguez <ivanrwcm25@gmail.com>
 
-So please resend.
-
-Also, is it possible that some systems currently in the field will not
-pass this new validation and stop booting as a result?
-
-> >Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> >---
-> > drivers/acpi/processor_core.c | 48 ++++++++++++++++++++++++++++++++++-
-> > 1 file changed, 47 insertions(+), 1 deletion(-)
-> >
-> >diff --git a/drivers/acpi/processor_core.c b/drivers/acpi/processor_core=
-.c
-> >index 3bf076c150fa..4d5ff53f27ab 100644
-> >--- a/drivers/acpi/processor_core.c
-> >+++ b/drivers/acpi/processor_core.c
-> >@@ -157,6 +157,47 @@ static int map_core_pic_id(struct acpi_subtable_hea=
-der *entry,
-> >       return -EINVAL;
-> > }
-> >
-> >+static bool madt_cpu_entry_is_valid(struct acpi_subtable_header *entry,
-> >+                                  unsigned long end)
-> >+{
-> >+      unsigned long start =3D (unsigned long)entry;
-> >+      size_t length, min_length;
-> >+
-> >+      if (start >=3D end || end - start < sizeof(*entry))
-> >+              return false;
-> >+
-> >+      length =3D entry->length;
-> >+      if (length < sizeof(*entry) || length > end - start)
-> >+              return false;
-> >+
-> >+      switch (entry->type) {
-> >+      case ACPI_MADT_TYPE_LOCAL_APIC:
-> >+              min_length =3D sizeof(struct acpi_madt_local_apic);
-> >+              break;
-> >+      case ACPI_MADT_TYPE_LOCAL_X2APIC:
-> >+              min_length =3D sizeof(struct acpi_madt_local_x2apic);
-> >+              break;
-> >+      case ACPI_MADT_TYPE_LOCAL_SAPIC:
-> >+              min_length =3D sizeof(struct acpi_madt_local_sapic);
-> >+              break;
-> >+      case ACPI_MADT_TYPE_GENERIC_INTERRUPT:
-> >+              min_length =3D offsetofend(struct acpi_madt_generic_inter=
-rupt,
-> >+                                       arm_mpidr);
-> >+              break;
-> >+      case ACPI_MADT_TYPE_RINTC:
-> >+              min_length =3D offsetofend(struct acpi_madt_rintc, uid);
-> >+              break;
-> >+      case ACPI_MADT_TYPE_CORE_PIC:
-> >+              min_length =3D sizeof(struct acpi_madt_core_pic);
-> >+              break;
-> >+      default:
-> >+              min_length =3D sizeof(*entry);
-> >+              break;
-> >+      }
-> >+
-> >+      return length >=3D min_length;
-> >+}
-> >+
-> > static phys_cpuid_t map_madt_entry(struct acpi_table_madt *madt,
-> >                                  int type, u32 acpi_id)
-> > {
-> >@@ -172,7 +213,8 @@ static phys_cpuid_t map_madt_entry(struct acpi_table=
-_madt *madt,
-> >       /* Parse all entries looking for a match. */
-> >
-> >       entry +=3D sizeof(struct acpi_table_madt);
-> >-      while (entry + sizeof(struct acpi_subtable_header) < madt_end) {
-> >+      while (madt_cpu_entry_is_valid((struct acpi_subtable_header *)ent=
-ry,
-> >+                                     madt_end)) {
-> >               struct acpi_subtable_header *header =3D
-> >                       (struct acpi_subtable_header *)entry;
-> >               if (header->type =3D=3D ACPI_MADT_TYPE_LOCAL_APIC) {
-> >@@ -251,6 +293,10 @@ static phys_cpuid_t map_mat_entry(acpi_handle handl=
-e, int type, u32 acpi_id)
-> >       }
-> >
-> >       header =3D (struct acpi_subtable_header *)obj->buffer.pointer;
-> >+      if (!madt_cpu_entry_is_valid(header,
-> >+                      (unsigned long)header + obj->buffer.length))
-> >+              goto exit;
-> >+
-> >       if (header->type =3D=3D ACPI_MADT_TYPE_LOCAL_APIC)
-> >               map_lapic_id(header, acpi_id, &phys_id);
-> >       else if (header->type =3D=3D ACPI_MADT_TYPE_LOCAL_SAPIC)
-> >--
-> >2.34.1
+Applied with R-b from Dave.
