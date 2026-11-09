@@ -1,101 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794238759;
-	b=mr3YUYDyvsF30AooliVGnYMIUMKWC9QGOB7T6cHewpVufCBLZiAMCiFPXHzTyqOwTik8
-	 ad4O1zzaIzddz4xIp3uCNVZYai/V6Pci9hpI50jT7z91TGxrYw/11SxgFi5qS+OJ+kIBx
-	 gGDZTbmdoQM2UhLZZKC0frM4h+n3v88VUXIdHNzBlv25N0ja0xPlNONdKIJds980ajVu+
-	 MxbCcivPdphpd9Wt+++Cu33lpbvmi9KxUUmN9l5POQBHZvMvwJCipC8L72liz8EdqrJ8q
-	 SLhiM9wM1zJSAy6tXBf3E1uo307QU+uOp3EG973eqL3MFCo0fiNYddM/THZLlgarMCA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794238759;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794238763;
+	b=33SfHOrcNH0PpOReMSwnoXPrEhGdKnMEf0EZTIJXV3srQZ5Lk2GtkJti6QUYwGqpAQ4l
+	 QgTBSoWphCid4p4sd4IzSC4ixmuraKWXtsSUwl83TGL0gG05rRzU8BZb6/ro59FZ44PXh
+	 c3+n2LpKta33ppPhgfh2iyFV+hj2yrKretg8TKykSlvXWwsUNuaOOM+QvMJK4sKvJ0Jtf
+	 aw2gM1557FfBGrJ5v7EQejd49ZLKQPPQcUocF5uy48jlyena/MJkuizMd36Li9RaizaKM
+	 DyjjwFTwZlEK5/haohQ4hqiJ7NWgoj5DEhuXZeAOIlAdWCz3WwJkxANH2PeyzMH6/ZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794238763;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=lbJdCjOY+01b1axWJs3AoThngpScmqw8BY9LTUexfVI=;
-	b=4XDePMuNGMrYjsZC+r6pJ3vth9iJ+ynaKKQb5YvjCKOrWbtiSVQxCfi0oReu2k+jixdF
-	 aBH7BfgxcOcN71r/krtRBx02kP4tqhL/sIRr2Rd2nR9oIysmXD7p6yWhTb6oRmJvFeKkP
-	 GGfer/Lk6gh+W561GfPzpshqnw+vZ48KPWtBA5nNjWRJUa1rCxzkAOmB6m4ytBxNOoivN
-	 eoZF8Vb/DKOwJUym/PUAJOm350R2c7NLQ1fYJWLpNNS9hBFzXG6PARQDVactPqSytBRiB
-	 LyiatIOnkdOEapyhLIxQwiNJknD5wphoEaox1V3UTbvejySkqvHGtJeJLNvG1TasFYw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=nL0IF/YmuAg98DBAGyGyZcFLc0hJUD80Dr2gsrocgZo=;
+	b=JWA3rPx27/VG1Cqiz73fiS2tBjz1vaIkKVOGTfb7OoeGolGbIBcrDBd2BRlsG0lqkazp
+	 M3dAVvJ9AgErNcrElRSzFEumylgrTv48OPYmY5gcqx8E01x3fyd3X3Qkk+b2rcd22/4Ag
+	 KRQoM8c/G6pbYw2kca0C05NM5M15ZFejKnhwVKGN3/WNP6tvGWUZFt3qTHQt8c1lwUnHT
+	 I0m8qGdRLhhCkwmV6V3oIX0HlwVOfrw2kxPKN5nZzjEp7F3UUJPxmrWAnobnCzOy0u1KD
+	 g8KDAw+TiuE9+AJ0/YaPf+SAqZXwRGALbMcugn2xwtqhJzq3jx93W9erTgZHwBNRIDA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ytwBNeN7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RdSDdijr;
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6776B606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:39:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6776B606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87A8606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:39:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E87A8606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ytwBNeN7
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-67be5d0e9cbso623612d50.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:39:19 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794238758; cv=none;
-        d=google.com; s=arc-20260327;
-        b=e4yi/AvBO/8vWZFPefHTTQ6hJsHapoAst/yboro3YDzv/SD5ko6siwb3UobWXFNBP6
-         FNqNRaNqsFsf4lbOt+VG87odIc1sEbev1cNFEPiFiUrfzNpPu117fMS++AhtsYozB4bK
-         ETqLJ9u+Qcy3iRSJI9+695bmSzFUJJVDk2iKCHGTreKOVxE+nRGkHn84IXrPcpJBc+6S
-         I5gNv1QlDppsnl1/M7hqzs4rbVLpNWVgb4JfDG0QT1vaVQQepGDm5h83rW2pg+6HZCCX
-         Q7JG1Qnw3xfGA5WkkBXqHVRXm4Dsfx8LonC8zMW+LlA+1XI0Mjqvb389P9nOlBEtBlpN
-         dbbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lbJdCjOY+01b1axWJs3AoThngpScmqw8BY9LTUexfVI=;
-        fh=kCDh/IQq5ZPTkrqCkcpvN4D1POtt5GrrHKvYF8EdByQ=;
-        b=Zyrh139LTyGS544FhGUfzK1Eoz0LC7MkpGy7alTbDePelNcRbRRB3np6601ebCxZST
-         fAZ+Cjj5f2l8eFsNXzMDC8vuBx182gar3eaYBOwnZucndJMVFT4nKWE9wUXAPtI3Z3eV
-         y9gPH0UflET8gE96fDXxvEbnGOWISNsCLF+eYKH+caLa73cSs965Ei6BCFiyuZXrJToA
-         6dtEuOAJqYWzLRIDVvx+XEdIgF3I+BNleHApJzT7cAJ77WRUbWWVoONNJH0emSLkQayp
-         uyEX6h9xHJqqyuD2FK8TbTD9MpqBeykp+R9tvlPZzFDC3QRqWm4TIsveaEKi6Z1L8pIA
-         eV7A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RdSDdijr
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3b09a83d12aso669003a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:39:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794238758; x=1794843558; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lbJdCjOY+01b1axWJs3AoThngpScmqw8BY9LTUexfVI=;
-        b=ytwBNeN7wbjgQasK/cp68ykE4ApLVCcKuFbLLHwCkl54MABT3j+plNsMU4DsOZdfk6
-         T9u/KiSrVmFEXgbyUdFs5Qgo7pWIEDbsY6nALmyRDuOcJQKmZ3sM/Je0mcHHayJ4X4va
-         AYoTlbCqCgzTZ9jm5E4Z+pCPFJfd6L/FUBNEB9yAW/lhowi6ORhyvV6yFluLNtxBP82r
-         bB8h6Ad06aY18qidec709RCdopVIZkWtvr9AsQcr5LlSN7DAKCru0o3b3pYL23U+gIy9
-         NppakJ8EDT+CRmYqYs/NcSHEK/d2NZioH1lDEynvMvnCi4ItVrM5rNm94USHpj5xXTZZ
-         aaqQ==
+        d=gmail.com; s=20260707; t=1794238762; x=1794843562; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nL0IF/YmuAg98DBAGyGyZcFLc0hJUD80Dr2gsrocgZo=;
+        b=RdSDdijrqnnbq00rXmYWS2nQclZ6+qsK7Tlab49IqOye5Ua9a4IsOT+wI4KPwGh5Rv
+         LHc+JKi4Woj+R3KvYNsAG7U+UshdKFar6LKClaIptGVdojiB95Vt5gZGx78aclcTRavs
+         mpBeTMd+Fl5qgRhKdrZ5R4/E18K9RGFJO+UyIHHUyR9WAgX1Exs/r2mS+VCfwt22hqsS
+         0H7UWtQ/+zI6w4yd0/V3MBtj+G8M/SRiWOa2hgSfiTdgiVyProfNaiVW7IKvkM01Bs9l
+         7L8EG+reC6uZPH+qN46R8C/X1FEkO/CtIpH6QIEKN9UKYKxmfLx10WTlWZxIVexoTrpe
+         8gvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794238758; x=1794843558;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lbJdCjOY+01b1axWJs3AoThngpScmqw8BY9LTUexfVI=;
-        b=skpf23dDkFc2GFgLn+2aOYMz9S7TDJgIsHd6UMyr2tsnUvsHi+FkSUmCkGV5KYRLa7
-         J1RaxFoLePQ/5KAWACgloG0oEjPA9NT28MWs6CK/fZTx+bmf1nqqmqoH13ihces4xrFn
-         8BY17JHTBuVJhMIwm4zQxy9x2CwnrElticswgd7VyIEh/Lqxlb8XB9677pmqIPGErjzs
-         nrlBiZG/bV8u9enQMwod1IRGe1HQVJh7xKYahE8r5o6KBeLwXekFsSTiMVm35ahr21rY
-         dV4dkHEND6XHTuYHfNPbpUDXtgQ/bB5Eqvj3/y4Y966lpbMWnSmtzG36vwljL1ZX6wN2
-         IC2g==
-X-Forwarded-Encrypted: i=1; AL+hErFa8qhjTePC5Yo4vyErNdRSp2T29/2QuJxn8WcLzELoeIYdqCFC9I/ovizaQWbd/vjSO06inVvT4DFjX/0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+l3ejkGo6lr7XbUn6hV19N4oIUu9HWaF6F4UtMk6dgZduJiYlO
-	4i2oaz7IS7BdlGQqBPY8hIT0Ur7BMIicwJAXFeiPBD69IiE9sb6YV3G/X04mNAFue7eWiJUrLKC
-	OxB1G15WuPy2+Gk732dVwC8oJaPbKEEsjyQ==
-X-Gm-Gg: AYBFou0nX0FBiSbUOTcsdnL2aa2VyNW4LcoM8o3rfAxaEJM467q2Z8W2KNF9ujk+5ZL
-	qu4qixkT+zefSST3bBDrvhkq+tQf4rcQ1RnUQbGeOxJzZevKvlFJx4cr2+z89nAPukTi9lkbM3A
-	CWrOFfWd0c+/qDAKI3SAJyo2fyA5hc7bUSeeiIzpyPwnIMS1861G3L1vUNI7AFes8wO1bzRVR8U
-	/EdBHK+tVxlQhulPKpHNbeYk+bHzn/03yG31erLv/CBTK2/KY6cVql9y+n1ZNvBN3P2GumO2ZlT
-	M9xWwpHHAX2n30lX8UcNdDVF9I0aM4s2uXXYxQEfRGXpv2dQwRpAuSA/Qh/qwgb1Ens+5JlWCPM
-	Rtv2g2RGT0u74Rt68jRtnrkZx8QV3h8vlagroWbDMps5GzOR+yGrQCiJg+MRLxi03Y7zQjzuNVi
-	dZATPoKFX9yqwQCLuGDaaJFo+38oZSYHTv/IQnBM37ponLExuyqXEKDkEP
-X-Received: by 2002:a05:690e:1381:b0:679:a943:7da4 with SMTP id
- 956f58d0204a3-67c3da0f652mr1782262d50.85.1794238758509; Mon, 09 Nov 2026
- 07:39:18 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794238762; x=1794843562;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nL0IF/YmuAg98DBAGyGyZcFLc0hJUD80Dr2gsrocgZo=;
+        b=ruvrruaySKQ91nt7AFqPs15apSDJIgXGNFLHdTwkDPLOB9r9l6g/9VRvbi0MNDiLsA
+         SStmICcoEBLKOUSGsZEuUpbKsBUfUJTDiC/52UonmiDVBpabMrmJdyAUGBu9u168Tkck
+         3OAR2y6Wt2J9egtMCybiFlTKHosD4mfh2YYjaLu624Bcn/3RzV9h3+AAW68mzLXmRFXO
+         3F2Wh0lNZpOeRnAeCXjwe7BL+HriXz4LDG79I/ojoT5/lHsE601zUQOQrF0SOXXBllzu
+         cVSVJoVO8fJmdVjyjAS6XEFW0skmezY54HanY8CWdiU1ffhE2GNwFVsEuBt53WclQjW5
+         FAOg==
+X-Forwarded-Encrypted: i=1; AL+hErEL74Mq+SuOQHZQ8k+uzBACDM1Z7Kqn+jj8/xzevuInOBloN0U2WV4+X9QFvh9bC5oXEJ2mV5JFTdHU3N0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZVmZpvWwmHrWe0sG9htmFOzRwcIUIXrq4CwDslLj5S1wJd1zo
+	Ua65ZWBctvqRtVeevWA1TFD3BZvXnmHpYkhk1mj+h9W9tbbwVAAChcKI
+X-Gm-Gg: AYBFou0rOivEcYDuJiFZNZhb5aXfBJuNLBWq/r1htvVoObxxH61qxSOZRmAS/32mUzG
+	cBWQhyNnmuOkMXloDJr7Ht/ePna1CmBo8ow1ml5pJwHuZ4ndLWlyKJfezhNNndh7kmgBJD3Vq8U
+	t+EtE1D/R11LhT1rm5r/+eWtyIMTwVFXJamESJHWewdRIyopt9C4fke4nq0ptboIaJ7rYAte3FY
+	7yyYxg4e3tIdXbX5+/DHif90lsZ9LAwo8k5/HTUwg2MjjVHDdoo9NJZwdqtQG7/CLCZyF2hQaJJ
+	Ld/lay8PAhYXuqcBdDCtNkXQXp8uV7TYauD5GULmnVcQGQzYbH/mqdXsta3yhjUT89YMgFNWG/p
+	dYYqIj1HPhxMyk2ZKviEbSPJqhq5kefN1zE49LK1Lbcym7DeBCDmtvyRYt5jxSWadapl/Q5Vb8M
+	1r/iA9xf4LwI7aWrnPUJP7TFgga7wOoUK0KdVVbuJ5vtJspawr8PXdoPL1nBLYcV1VmWkHD35JK
+	ioFbUxC66rX14+fq2R23V5kdAI6RauR6jG7J96EViNOBZLqbUXusHmmJOTRIX4njVFX2fDznPoS
+	1kfxpGpeu+o+PZRCY0YKsGWTVG6vxZmNyryNduKoFj/vutOIOV9GzdqElook7LAKehveHqsCe3S
+	6YfCrC/vFieSnVB2lvgcpLk5L
+X-Received: by 2002:a17:90b:554f:b0:3a8:10e2:ad08 with SMTP id 98e67ed59e1d1-3b12d51f0b3mr4293568a91.48.1794238761542;
+        Mon, 09 Nov 2026 07:39:21 -0800 (PST)
+Received: from 0.0.4.7.1.0.4.2.ip6.arpa ([2401:7400:c804:b668:b272:9904:c32b:2ee5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1054a53e4sm11062029a91.0.2026.11.09.07.39.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 07:39:21 -0800 (PST)
+From: Ho Jie Feng <hjf3108@gmail.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Maxim Levitsky <maximlevitsky@gmail.com>,
+	Alex Dubov <oakad@yahoo.com>,
+	linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ho Jie Feng <hjf3108@gmail.com>,
+	Maoyi Xie <maoyixie.tju@gmail.com>,
+	Yifei Gao <gyf161023@gmail.com>,
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 5/5] memstick: ms_block: add the missing newline to the parallel switch error
+Date: Mon,  9 Nov 2026 23:38:04 +0800
+Message-ID: <20261109153832.7377-5-hjf3108@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109153510.7161-1-hjf3108@gmail.com>
+References: <20261109153510.7161-1-hjf3108@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,93 +105,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108042008.226295-1-hex@freenixos.com> <b83e0172-2f64-4e28-9750-1a5fb3dd6b41@oss.qualcomm.com>
- <CABBYNZLJpDXTPmE_=rJ=J3oUMWRzybHhut4y1kPTEU8y2AKKiQ@mail.gmail.com>
-In-Reply-To: <CABBYNZLJpDXTPmE_=rJ=J3oUMWRzybHhut4y1kPTEU8y2AKKiQ@mail.gmail.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Mon, 9 Nov 2026 10:39:07 -0500
-X-Gm-Features: AclHuK8Ua3BvW7Ntl2pXTSvYx8bjEsraiOh6exVKsi3Zf5C_AVV5uG4LIDs4_gE
-Message-ID: <CABBYNZJdeHXP1XjYcTwUdCe_SFfxMETpSQbF7t0FHyxY4YfZQQ@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: btusb: Use DECLARE_FLEX_ARRAY() for memdump
- segment data
-To: Zijun Hu <zijun.hu@oss.qualcomm.com>
-Cc: Hex Lindqvist <hex@freenixos.com>, Marcel Holtmann <marcel@holtmann.org>, 
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Zijun,
+Allow printk to finalize the record immediately instead of waiting
+for the next message with a newline.
 
-On Mon, Nov 9, 2026 at 10:35=E2=80=AFAM Luiz Augusto von Dentz
-<luiz.dentz@gmail.com> wrote:
->
-> Hi Zijun,
->
-> On Mon, Nov 9, 2026 at 8:21=E2=80=AFAM Zijun Hu <zijun.hu@oss.qualcomm.co=
-m> wrote:
-> >
-> > On 11/8/2026 12:20 PM, Hex Lindqvist wrote:
-> > > struct qhci_vse_memdump declares segdata as a zero-length array in a
-> > > union. Zero-length arrays are deprecated [1], so use DECLARE_FLEX_ARR=
-AY()
-> > > instead.
-> > >
-> > > No functional change: segdata is only used with offsetof(). With debu=
-g
-> > > info stripped, btusb.o is byte-for-byte identical before and after,
-> > > built with GCC 16 and Clang 21 on x86_64 and GCC 16 on arm64, with
-> > > UBSAN_BOUNDS and FORTIFY_SOURCE enabled.
-> > >
-> > > An AI assistant helped find and check this change and drafted this
-> > > message.
-> > >
-> > > Link: https://docs.kernel.org/process/deprecated.html#zero-length-and=
--one-element-arrays [1]
-> > > Signed-off-by: Hex Lindqvist <hex@freenixos.com>
-> > > ---
-> > >  drivers/bluetooth/btusb_qcom.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/bluetooth/btusb_qcom.c b/drivers/bluetooth/btusb=
-_qcom.c
-> > > index cc4cfcde2afa..97be9078e045 100644
-> > > --- a/drivers/bluetooth/btusb_qcom.c
-> > > +++ b/drivers/bluetooth/btusb_qcom.c
-> > > @@ -533,7 +533,7 @@ struct qhci_vse_memdump {
-> > >       __le16 seqno;
-> > >       u8     subsys;
-> > >       union {
-> > > -             u8 segdata[0];
-> > > +             DECLARE_FLEX_ARRAY(u8, segdata);
-> > >               struct {
-> > >                       __le32 dump_size;
-> > >                       u8 first_segdata[];
-> >
-> > NAK. Please keep this as-is. since:
-> >
-> > 1) segdata[0] is a familiar GNU C idiom and, since it is only used as a=
-n offsetof() anchor, is more straightforward than the
-> >   DECLARE_FLEX_ARRAY() expansion.
+Fixes: 0ab30494bc4f ("memstick: add support for legacy memorysticks")
+Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+---
+ drivers/memstick/core/ms_block.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Maybe not DECLARE_FLEX_ARRAY, but [0] is not recommended for vla see
-the Link tag, in fact the first_segdata[] does follow it so this needs
-to be fixed anyway.
+diff --git a/drivers/memstick/core/ms_block.c b/drivers/memstick/core/ms_block.c
+index 66672235a4584..7237a6789e0ca 100644
+--- a/drivers/memstick/core/ms_block.c
++++ b/drivers/memstick/core/ms_block.c
+@@ -778,7 +778,7 @@ static int msb_switch_to_parallel(struct msb_data *msb)
+ 
+ 	error = msb_run_state_machine(msb, h_msb_parallel_switch);
+ 	if (error) {
+-		pr_err("Switch to parallel failed");
++		pr_err("Switch to parallel failed\n");
+ 		msb->regs.param.system &= ~MEMSTICK_SYS_PAM;
+ 		msb_reset(msb, true);
+ 		return -EFAULT;
+-- 
+2.56.0
 
-> > 2) I guess this kind of isolated cleanup may not be welcome.As noted in=
- Documentation/process/maintainer-netdev.rst, simple cleanups outside
-> >    the context of other work are discouraged
->
-> While this maybe true if the above code does produce new warnings then
-> it needs to be fixed anyway, from the commit message it doesn't
-> mention any build warning but that perhaps is because it is enclosed
-> into a union which mask it or something, anyway trainling variable
-> length should be accompany with __counted_by; so the compiler can do
-> bounds checking.
->
-> --
-> Luiz Augusto von Dentz
-
-
-
---=20
-Luiz Augusto von Dentz
