@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794251741;
-	b=1S30+nSFg0K0D85xvABOkKwHqa/pc7ZOWDB3UAAFayI/4azYDMXSTmJqhMYVOG9l2i/W
-	 q3pQiIu92smnKD9V9dudPsd9yU1OR3aJXn1D8tAzNmIz00NoLINeiU6yZUo/6VDPeg/Eo
-	 Xk08R53AHHRM3p3sMIIvBWg6gwfRPXGMN1CGFSs5r4YHayN7XidHm+LkFEz95SuVsL4mr
-	 2X27ObTSJBIIHu4ftjUyLRwdwI8MTveSWuzUE6GFUP0zdR048R9hToATQeHM3ni8/qBUW
-	 DPfrsomNuh/dS83X2qE7ChwyjHuCZe4L1schuw4kN2gZwJgXwMxO84W8UBR3w5qnZeA==
+	t=1794251798;
+	b=oNnL5p72mbqveXku3/OYDYG1NoC3zX2bUM7xhEjra5Jkof/qMy4vq/5/1v7hVkQSxu1t
+	 szJ8mJwF73l/Wq1CgmKxbyDr84XrXZ4TkwyhonDbjtktux7XfUBNwH8DYFMFv3K6hdcjs
+	 GCSr7gUYADzuOAQeSA/xxJOtwgQ1UEEZSsvHLEYZaB+PAoBkklipQ3HLSQJljIIoyY5s+
+	 wSE+K6RHQiQZFTWmQUUkc5z/Yqs9MXGFYvJG9+5lGvxenrHN4q2JDsD6xIE98SMBL6/Mo
+	 vZLm2bYbWXmbsBl541kTWGJPcKbaT78Jy0+pbuizKHChn5xTwt87pCU5v5Vlfcmqipw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794251741;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=GrUZJVeF5sY/cVx8v9rGUseT6GRoFxsf2dttb4YQUgo=;
-	b=KpkQ2qvMZX/1rJEi8Vrh+WxLOnLqXbN134UAoEqR+Oh+mVl4FDbNkNWcbi2+DM0gGzcI
-	 rXFNbxyEbACul5k1rzXM0WjzR7Dl6L7w+hUBI25qTtfZrv+e5Zjaz/sMwvesS3J7KDUza
-	 WFt3YQaVyJTKpfbiMr7GtaSkXIIfHsbrZCjpGuWfesusVKCvEDmtSzYCRfXBfqUYhyoq4
-	 yNYVLfjmBopZfSNRV4ZAMSFx8sfskuDtcQHIBaFOiYZOby8BL58tN8sty1mJZYiKJGOrs
-	 5mGjMBJLlZ9t/ZQaDMcnIxv1B9nzrhqmpa9CUS6Qe9DuEs0u1w1KneD1MNdwPfwUwFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794251798;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=hKAQdA3xa/ca1jx07L9rSksx5n8SHXVGckAyI+PNUn4=;
+	b=VzYn5czKXT83Zl4kr7hwlh6PoHLgo4KmV08virEDgu2X+PGxWXmKuN88KXne5R1obPqi
+	 BLo6+1Fm7RcAMDFR0yWcI7SpI4vs2YzHZWf+qvWlPI4hhrW/IqAGIb+U2RbucvILQm7Nf
+	 eiI51YgwCcvnKDgoWrD+pfDWdcbIlOYrSrCoNfquR/oeAgsYw5TC5VtRIgGbIsuKJGtX9
+	 WnyfnuVUZ1SGOg0+Bbu078qoitXDz3K+beR8SQMgz7cTsmI7Ig2wYHzAiNhmpR6Kz9bAW
+	 EhqSwxssULEUETgpBC4XpUOEHANSrR+kXM11ObMUvbV6vvuS+mMD0gVO1YCr9CXKi7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=b62pqDy1;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YK+1B2jN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B737B606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:15:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B737B606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C9B5606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:16:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=b62pqDy1
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e9f6a16afcso6865ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:15:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794251740; x=1794856540; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GrUZJVeF5sY/cVx8v9rGUseT6GRoFxsf2dttb4YQUgo=;
-        b=b62pqDy14TCopaQGk/31fAvQW+KtHpoxHJYVFGmy4VkgmFW22BQfHeqxcaHnOvTP/7
-         DLyXJKDQNu9FZTmJz37+rIhB6QrbnmmWWvlWmKCl8coLZ3G1pTDu7OArewcQn8E5msyp
-         8HAKr3kzn0sLvBxZXiDcp8hevGxqyLPW5Qe9ckWIc8RG4mVwhWl5eA7oYqF3lBy3Z01Z
-         NLTxAnu0DdgAjHzNxkt9MuFiIx1e6TvsIZJgRHvCp1aPyOQAsBpLdZh1yPt7IwejWOFA
-         Z/dxDOda403RAJA7zfZKVKKtOqtLkwC7ZRyrWEvEP4Vquu0j2qwb9qBYjYflyF+Q8KCP
-         7vcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794251740; x=1794856540;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GrUZJVeF5sY/cVx8v9rGUseT6GRoFxsf2dttb4YQUgo=;
-        b=Rm+O1H6ZAK/t65gUiIo+Ap3A+b6nt2YQ7vbKD8pUpNgqKU7usZiCoPaS/Kew8cZcu5
-         0C+HSTFajZmarFAE7mDvumV0m8jlCW0pY9OZHf8KROBsTFv6A0W98BIjHytVmGptQY7m
-         iC0n9qA0vr0iOmCIALe4N+A1D2ynCcGzgCh2naMYAwIM8iuUxc7XBGbGxTSODsz7YCLW
-         DKPnLH+rz7HjbkrzibP6q8Lvek2fjAvSvgqhNI+ZDFIP+j1nTnwrD7rNSwgw3EOaFF1I
-         GoPNlT/HcKn4ft7JqkGpDh4+4E8Bx10FaYlaZu2OrIj1Ud1UcS+DNl9x0enptAOLj8YP
-         KNfA==
-X-Forwarded-Encrypted: i=1; AL+hErEwdAsvvOUkOM2oJ22u4PrXqg+0VyC7RK+S266m5cHbQitZUa1aE65GBZScJ4yb9e7hV/t1eyWdxHtEmmQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+FDIQOpgtIC0I6CuCmogkjI6z2BkIIpomBdBPAehHTh8UQ6XRJ
-	1LAqXoRWPeQROi15yvmRec0V7pEp2ilLShC8wflDkjKMnjIwQ7On6lc8pFKYmMsXyA==
-X-Gm-Gg: AYBFou12bPBd64zW9TClERc/NZGz8Bf4EhTFrJViRGRh5NbwgEdTYwLLediPYdB2bYq
-	Pj3QUNL2L/raT+DTVGQ0EiZYxaKAI+jydpYkcvS6MjnxcLmSa7xvMA39gEg7J+wF/9lFg6WyIxd
-	ih0XrLKEasELDCgNb2ohC04HenBbvpUIf4z24iHfvgQGIxjBM7Cak8EvaANHoHi75mMcDQhaH6H
-	KlcwYCswOuU+H0U93i979rYzRQ4oOQGZ37B7FFKpqVvzTowDWinnIzilgJ/AfOLXSfyhkIsw+iB
-	pi/jGFwE+Tl2X2J5DulYNp/b3gkxwpsSymNE8YXa71P/Z+HkCXq8G1nIbiRfBHq2dixzXQEKMYz
-	eqg+3LKo5T4Ns0RBUIFFmKl+j/jIoCGesGYU3mH3XEPzksTX/2CfkbzhDwtuILUfLKA7FlppUUR
-	QT3pLNPAhsru+2XbUiPugkKLQVxDWpagvSPNshh0ENVSNwDUyIjKANTvDzvCPbWUMaJrQ0pK9c8
-	myhun05Ddtqu5VopEzbHFPoVEXwwAZME7CG4Opmfd4k+UyuIr5KdioiDl0HiLiMCIFMpjIUJ1yI
-	vaZQ35buay/PAmmDWOfhnmEgm4V7KAI39+5tjoXhVvbf1RnOlnad0mY0+S+xOQyWmdmsq1TpuQu
-	zU7oBvGMR6XbBQWYxqNYgfH/6GjpQLbU4rH2+XOHMuVDs1bexFjDnAnXxCt9yPFZXSNWIxTVvJx
-	XqYBv9RrKYQERNlYnCXh9MZ3nACLY9Vwg3qNTf9CDXXDTCe3S4QNGWoAadLilF6DiL
-X-Received: by 2002:a17:902:e80d:b0:2d5:db38:8013 with SMTP id d9443c01a7336-2edb70335bemr923045ad.18.1794251739421;
-        Mon, 09 Nov 2026 11:15:39 -0800 (PST)
-Received: from google.com (25.229.125.34.bc.googleusercontent.com. [34.125.229.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaae3e9dasm35868b3a.34.2026.11.09.11.15.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 11:15:38 -0800 (PST)
-Date: Mon, 9 Nov 2026 19:15:34 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Chris Wiseman <chriswiseman@google.com>
-Cc: Alice Ryhl <aliceryhl@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
-	Todd Kjos <tkjos@android.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] rust_binder: reject sync transaction with pending
- sync work
-Message-ID: <avIb1n3zk7KKdFfj@google.com>
-References: <18e61a85b0d13e9c.3137322e32332e3235332e313736.9c152.0000sendgmr@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YK+1B2jN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4A5D1F008A2
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:16:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794251797;
+	bh=hKAQdA3xa/ca1jx07L9rSksx5n8SHXVGckAyI+PNUn4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YK+1B2jN/k2S/q7Bau/EZiMetHzk9oLZCRIcrM3auKnbLWOAT+uelMatzkdXaNTod
+	 3/dwKhVfpiTNHxxfZvjURrOhvpc5AbUzyqqL8lOHAoAA6OVoFGpFRops19+rBopTao
+	 wkotyM0DgerObW4nQ8u4GN5rm7l3bW1GdSjkitXKdGBTzYyP+sKBd3dTdmEf2Wjk7i
+	 mXXGeu/GLhCtwiK6TCaD42k7Riw66oNIheWDAh0zrktbe1br/RUgOmOvG/a1+s5KbB
+	 9cbvlRIuQVdHpdGyGL9n7FaULAQOXjCPuQFPLcOaNN845Uc8b6e/79pmkWYavPRrBa
+	 F05TrVdqFRVXA==
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3acd523a802so10710641fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:16:37 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGx1/s/gupopudysOaFltgFKR70rrX3+eaoZmdKH2wERZL7plmc17V7gwoIwIkeVSSQx/0MCSYa2Nta9tM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9pn4b9LTBglIHmD3dI+P0a8m42/FvHH2q1k2Qh93EAZ2PpPcsU
+	Zx1NnAHz1T4+92uvDhtMnV5twHm49pXdVNEkzJTEcTJyn7+cokSoycW41aXtyylDcsFex5g5H4S
+	lz4T88NxcCFrr7WWj7OJHXHWk+1gXdmM=
+X-Received: by 2002:a05:651c:1612:b0:3ac:e5ef:1b8c with SMTP id
+ 38308e7fff4ca-3ae0961fc0cmr447841fa.11.1794251796214; Mon, 09 Nov 2026
+ 11:16:36 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,82 +59,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <18e61a85b0d13e9c.3137322e32332e3235332e313736.9c152.0000sendgmr@google.com>
+References: <20261020-acpi-sbs-serialize-v1-1-913abf8ed30c@gmail.com>
+In-Reply-To: <20261020-acpi-sbs-serialize-v1-1-913abf8ed30c@gmail.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 9 Nov 2026 20:16:23 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0gaTgn-L8R8X_XWesxDNJsCybM6-Wyj4eo6CbOa16ueOw@mail.gmail.com>
+X-Gm-Features: AclHuK8KPeR5AAr78YhZ8OA-lcxrUTleUxc9Kx9JKlQhl_Z6Cxy6hVNYGjEtgQs
+Message-ID: <CAJZ5v0gaTgn-L8R8X_XWesxDNJsCybM6-Wyj4eo6CbOa16ueOw@mail.gmail.com>
+Subject: Re: [PATCH] ACPI: SBS: Serialize battery state refreshes
+To: balthasar978@gmail.com
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, linux-acpi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 08, 2026 at 03:11:01PM +0000, Chris Wiseman wrote:
-> When a thread replies to a transaction with TF_DEFER_COMPLETE, its
-> BR_TRANSACTION_COMPLETE work item stays in inner.work_list while the
-> next blocking read waits in Process.ready_threads. A new incoming
-> synchronous transaction can then be queued behind that deferred
-> completion in inner.work_list. If the thread's read buffer only has
-> room for the deferred completion, the ioctl returns to userspace with
-> inner.current_transaction cleared while the incoming synchronous
-> transaction remains queued in inner.work_list.
-> 
-> If that thread sends an outgoing synchronous BC_TRANSACTION before
-> draining its work queue, Thread::transaction_inner sets
-> inner.current_transaction to Some(t_out), and the read phase of the
-> same BINDER_WRITE_READ ioctl pops the pending incoming transaction and
-> overwrites inner.current_transaction with Some(t_in). This orphans
-> t_out from the sender's transaction stack so
-> Thread::unwind_transaction_stack aborts on exit, leaving a permanent
-> Arc<Thread> <-> DArc<Transaction> reference cycle that pins both
-> Arc<Process> instances and their mapped ShrinkablePageRange pages
-> after the processes exit.
-> 
-> Resolve the TODO in Thread::transaction_inner by rejecting outgoing
-> synchronous transactions with EINVAL when inner.work_list contains any
-> item where DeliverToRead::should_sync_wakeup() is true. Checking
-> should_sync_wakeup() matches C Binder's BINDER_WORK_TRANSACTION check
-> and ignores Node or NodeWrapper BR_INCREFS/BR_ACQUIRE items pushed
-> onto inner.work_list when Transaction::new translates flat binder
-> objects.
-> 
-> Fixes: eafedbc7c050 ("rust_binder: add Rust Binder driver")
-> Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+On Tue, Oct 20, 2026 at 12:58=E2=80=AFPM Penkacelsus via B4 Relay
+<devnull+balthasar978.gmail.com@kernel.org> wrote:
+>
+> From: Penkacelsus <balthasar978@gmail.com>
+>
+> acpi_battery_get_state() refreshes the battery state at most once per
+> cache_time (1 s), but the check and the update are not serialized:
+> callers that arrive together all see a stale cache and each read all
+> seven state registers over SMBus.
+>
+> On T2 MacBooks (MacBookPro16,1: SBS battery behind the EC's SMBus host
+> controller) every SMBus word read takes about two dozen EC GPEs. A
+> desktop shell that reloads ten BAT0 attributes in parallel every 2 s
+> drove the EC GPE to ~680/s, which kept irq/9-acpi near 16% of a CPU.
+> Readers of a single attribute file each get their own thread in such
+> shells, so the race is the common case, not a corner case.
+>
+> Serialize the refresh with a per-battery mutex taken in
+> acpi_battery_get_state(), so that the power supply readers and the
+> SMBus alarm callback share it. The first caller does the SMBus reads;
+> the others wait and then find a fresh cache. Use a new lock rather than
+> sbs->lock: acpi_sbs_remove() holds sbs->lock while it unregisters the
+> power supplies, which waits for sysfs readers to drain.
+>
+> With ten parallel readers of state attributes every 200 ms, SMBus reads
+> drop from 26-29/s to 6/s (the cache floor) and EC GPEs from 600-670/s
+> to ~140/s.
+>
+> Signed-off-by: Penkacelsus <balthasar978@gmail.com>
 > ---
->  drivers/android/binder/thread.rs | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
-> index f5965e838a96..3ca5c95695e4 100644
-> --- a/drivers/android/binder/thread.rs
-> +++ b/drivers/android/binder/thread.rs
-> @@ -1393,8 +1393,6 @@ fn transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResu
->          info.to_pid = node_ref.node.owner.task.pid();
->          info.to_node_debug_id = node_ref.node.debug_id;
->          security::binder_transaction(&self.process.cred, &node_ref.node.owner.cred)?;
-> -        // TODO: We need to ensure that there isn't a pending transaction in the work queue. How
-> -        // could this happen?
->          let top = self.top_of_transaction_stack()?;
->          let list_completion = DTRWrap::arc_try_new(DeliverCode::new(
->              BR_TRANSACTION_COMPLETE,
-> @@ -1407,7 +1405,9 @@ fn transaction_inner(self: &Arc<Self>, info: &mut TransactionInfo) -> BinderResu
->          // it with the new transaction.
->          {
->              let mut inner = self.inner.lock();
-> -            if !transaction.is_stacked_on(&inner.current_transaction) {
-> +            if inner.work_list.iter().any(|w| w.should_sync_wakeup())
-> +                || !transaction.is_stacked_on(&inner.current_transaction)
-> +            {
->                  binder_debug!(UserError, "got new transaction with bad transaction stack");
->                  return Err(EINVAL.into());
->              }
-> -- 
-> 2.56.0.317.g454f8302e1-goog
-> 
+>  drivers/acpi/sbs.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/acpi/sbs.c b/drivers/acpi/sbs.c
+> index f10bbf13c..861739b18 100644
+> --- a/drivers/acpi/sbs.c
+> +++ b/drivers/acpi/sbs.c
+> @@ -55,6 +55,7 @@ struct acpi_battery {
+>         struct power_supply_desc bat_desc;
+>         struct acpi_sbs *sbs;
+>         unsigned long update_time;
+> +       struct mutex state_lock;        /* serializes state refreshes */
+>         char name[8];
+>         char manufacturer_name[ACPI_SBS_BLOCK_MAX];
+>         char device_name[ACPI_SBS_BLOCK_MAX];
+> @@ -355,6 +356,13 @@ static int acpi_battery_get_state(struct acpi_batter=
+y *battery)
+>  {
+>         int i, result =3D 0;
+>
+> +       /*
+> +        * Callers that find the cache stale at the same time would each
+> +        * re-read the whole state over SMBus. Serialize them so that onl=
+y
+> +        * the first one does; the others then find a fresh cache.
+> +        */
+> +       guard(mutex)(&battery->state_lock);
+> +
+>         if (battery->update_time &&
+>             time_before(jiffies, battery->update_time +
+>                                 msecs_to_jiffies(cache_time)))
+> @@ -367,9 +375,8 @@ static int acpi_battery_get_state(struct acpi_battery=
+ *battery)
+>                                          (u8 *)battery +
+>                                                 state_readers[i].offset);
+>                 if (result)
+> -                       goto end;
+> +                       break;
+>         }
+> -      end:
+>         battery->update_time =3D jiffies;
+>         return result;
+>  }
+> @@ -530,6 +537,7 @@ static int acpi_battery_add(struct acpi_sbs *sbs, int=
+ id)
+>
+>         battery->id =3D id;
+>         battery->sbs =3D sbs;
+> +       mutex_init(&battery->state_lock);
+>         result =3D acpi_battery_read(battery);
+>         if (result)
+>                 return result;
+>
+> ---
 
-If the issue happens when there is already a pending transaction, would
-it be better to relocate the new check to top_of_transaction_stack(),
-before we execute Transaction::new()? If possible, we can skip all the
-unwinding associated with this. If not....
-
-Reviewed-by: Carlos Llamas <cmllamas@google.com>
-
-Thanks
---
-Carlos Llamas
+Applied as 7.5 material, thanks!
