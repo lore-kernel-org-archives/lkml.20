@@ -1,59 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794212471;
-	b=Hjds3sFy6xpu75eGMcvW3vdtceWQU9TqzU8Yd2ZLw04G6G11l0OZ9nfU4m4MKbziO/I/
-	 IdF9xz3syAg4N8FwSRxgdPZtWmViroWxQrZ4JKG6nIoXsE0eh8JkfxzQS2GbokMlMFgu8
-	 Mxd705NFMs/POmhiAeV35RFjB1+x3vpPuRvbp42aeFd1aV4REe/RZYDp0z3BD0vsQJhOW
-	 K0xz4oIuIUzt+s1Uc2WM29oR2Vb7GpnhGlWPiSeNSYYeWbXVdjLQZo226wq3ShOr+ZMHq
-	 2t7KrAJHhISplkq1guK6ZFcDGoc2+G8IbarGYUm9AocIkj6q90bKXbco9yImTwPbn1w==
+	t=1794212578;
+	b=VUUMP3njJaS1ZtwVyRDvNA3Q7MedGugG/YmkTqGGy7sHLQiiXBeYo4pneOvDXp14Loq5
+	 mKJwcO/YRKXVvvHy4lAVLPvv1Ytx6uedEyUMDnkTJuHpni5sX3KU/zxN3kgdEPQtmiDH6
+	 q43fmiU3QEY8qcnPX+qarfw3J6RVqpwc0naLE0BP8Ga1koqEtINlyYicDFvqSZrfy8RaR
+	 DO7F3WLQiJUQfeaWZgjcm+Wd05DhPJ0vPllNAX+xuwYRlxyShVcb0QWQYigcgVM/BzhyV
+	 SfQzVSeNW97oSNLJN8GGYyitzE2QhDR7mkkfMkryGLTFsFJDpx6WgsyjZ3GrYKyaMoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212471;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=8NvrWGProADlBL0hduI2bypI4c8PVT8WdHWktb2NGuo=;
-	b=0nDr4INiOEyzaV1KBKZSViKA0rjbaQtzAT7/GWHEaPOIVHvRhWoUXk7oW177C5jvbsXg
-	 DO+qrL2E6egqps75gxtwabKbLfj7qrLiKHUqku5uKrPmV1sFw//g8Yx6I566GICH8XyJ8
-	 9PJbVHaOs4nQlq6/eKsy1hGgP5TSYnpr97rmhxbuPknAyQpwybjZFo0kVJhw81csqJbdG
-	 q4gQd8c7/Qv+r7gNdukep2UsoBY+pKzEq8wgThu8+PaNsXfe2ZyIAZiRQz5wVu7yotG/9
-	 OPT5vEOdBP4MB5W6fUhWzCQfIwraS7w+d7Z1yJi0zF7tTCVg5Cb5el09wsPSD00ST4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212578;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=NxG/u4u9BGu7G5Ao9Bh0a6rRDz42atbNH5H/yOM96FE=;
+	b=YJiLImhCH1NLOLgZLlukog51KOIQ5WxNKVklryEQ3MZvnfAfBC0NcIGioyhr3kbetxa6
+	 esL6SwzyRrFC+x+pP3yujkqjhYyjLJpfxA4xr06TAdIrUns2rOtNXp1ExRAC4PQDmpssy
+	 KQy6VtzIrjfF3+/8rv3sf4i5AwvPnPeOQsTDKgI4g30uLuLRgU8kH0011GQjw+CuvCIlr
+	 onTR0AxNGC6dMch+l2IJ+PLnqApwayLvxVA96MDBThjBo7snW6ln9jyqOT2mcf88I+XFV
+	 FWuF/54g6cC5rfibKETtp2RNUmtVdrGVUG+5/yw84/pcokUvjEQiSkKzTo+uK//lVsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMCp3BRU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=e1+BlNEK;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8CC606A31C;
-	Mon,  9 Nov 2026 08:21:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0571B606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:22:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0571B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lMCp3BRU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB9E91F0089F;
-	Mon,  9 Nov 2026 08:21:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794212470;
-	bh=8NvrWGProADlBL0hduI2bypI4c8PVT8WdHWktb2NGuo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=lMCp3BRUqUrrj+jb5Q2NHm0QikcHJ4w3URKUiP6Q/4drqvgvXbFytXTMJfIlZhPGR
-	 NOfNOf9VychSzn1U63DPpe8iw8i89X2DUZxd3kiG6pGogMFwlmOj2R8lpqRwTEqKJ7
-	 gt46qs47liLJOHiXfN+oza+bJUbXVHNb4L1QAyRx0A0DIdtttSkpCHQbiKrUJb2yyn
-	 leQvIk+1vOxwfDyP/u8gJBZEetgM2klT3RKravPHAEu3R03ttCnFnAUjqP3KpiOQqR
-	 XWQs3n2xqFi/0ndlLKwu5dCelovgiywTFbJKvSdyxfsuoXP0a1y3IKybtsNnnE1UFx
-	 b5+QohUMn4ssA==
-Subject: Re: [PATCH net v2] net: ti: icss-iep: fix deadlock when disabling PPS
-From: netdev-bot+sashiko@kernel.org
-To: hj351016@gmail.com
-Cc: danishanwar@ti.com, rogerq@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 09 Nov 2026 08:21:09 +0000
-Message-ID: <179421246928.994134.4691531527341185507@kernel.org>
-In-Reply-To: <20261108074733.248784-1-hj351016@gmail.com>
-References: <20261108074733.248784-1-hj351016@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=e1+BlNEK
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so3512935e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:22:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794212575; x=1794817375; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NxG/u4u9BGu7G5Ao9Bh0a6rRDz42atbNH5H/yOM96FE=;
+        b=e1+BlNEKoOVHMw6ZSYrl81mAyS7B2vn/1v0q7Gf7iW/Bx9KkfVzP7lP3NzS+NntQKt
+         vbAFvzpbBBpYbln2KjMEu0tDc3qFDoQLypFkc7AKbCrVUXK9g3karlx/nA4xxV/s8Wv6
+         xFZ6xqijOIkjuVxXCCpQXPVq6UFjp3m4BskCESh+D9/JW807grXeyGsSKMrKVumI7DDc
+         ecGK5jMnZkGCRlZZ6KekOWwpeTa36+34iSLv7FkdO6oOOGcTjJA6J2XpeKZKuFjnMNaE
+         5+OMU+vpRJa8GmLErJY84EIsp1bZrulLwbRaGGcrf/4qMnvH291rP+xxoydSxscspelp
+         Dr4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794212575; x=1794817375;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NxG/u4u9BGu7G5Ao9Bh0a6rRDz42atbNH5H/yOM96FE=;
+        b=PwcmBDW5BICAkTiMi6avJ2MuMTgaDarno056U7a2UIN+QEV7GGdi4BM5s+VgY6tNaU
+         PQnfZYPbM872raF33qQQN5oHwAukj6hv6coQog0MVY8/7ohj++flJQRG3Qy6Q4CvsOUU
+         FzrL6NvDUqXZ+xa6/BoPJicCiPsA748iO4CvIQmDlV/SlHkdfo10reCwqE7RKSnq76dF
+         nzf/KZmqDLbp4R8QtZ3WSdU0xn4NcfzNTFA/IPOAh4NoKmzbbJ4by/X2APuBkOuuE/yr
+         vlqDG/Iu0fVvl3Vk9+RLDEBqQdRfyFXNHml9OP4oyV8ruWYoni6+9vNQRNybIqqAnlwR
+         mTAg==
+X-Forwarded-Encrypted: i=1; AL+hErH/Uw/bNdjqYreAKnnvEtBDPbgVmgCZIEN3Irxb5y8C/u8Bda0182EV5dnFirCHQJIY0RvdgJroW1JBtZI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+rEBR3+P7a7STV1KjGtzFNPkcysyc3saOrSoGHWq9LWqG/HSTM
+	8QJErzaOMSfiMxqEVv+cmcwHcbrLPJqgDx7MQgQ5Zve4it6MlSwLkls3qfdoT/4klJk=
+X-Gm-Gg: AYBFou3FOqFSy2qak6uA5QyLLVFc0SfBCz4vcTgtbJ1rYKmr9qBrLF7Fv5fEALgGczU
+	CzPILuTd55JVl4YQd6mQhhsINwCiLwDFfhkrNk2AmRiJOduhrBj5UI70/iM1V/IMRgMuSje8Vg1
+	pBgPZGWPg1/x5CtFYFNoa31HkcXw7vDFq4xaWaN8uU3x6WJB5tkWPEPh/2ziMKjE0fO6V4QtR9P
+	+DEyXN/dH4HbncfOuKuufd/7R8PPKKYH9NGVduYtVP3Pb6x/df+K2KXAO5F/jTHKZEBf0RMzOvO
+	MfELARMADqISebdGaLMOeUG9MICeJVcmhYrwPovV3HAY5l5Y6BILgZfKhXGSjQ6cTqqPj0LR9ot
+	SqOnwlyolE6xpEUZiTdx1AUkVq8CRoxn3DJi5sW6ZCpifYxZ+FZ5o7fORu+Pfu3LnZ7HaRA3Ia8
+	PFq7V507ugtbEvwP9akJUpH2wxPKyY7AD/DSKu5L0sSp993Re5aQw8QVWasVaSHJoT6+XsSGf0+
+	yYev2bH83DEYjA1Ms+axjWCQrqh68ddNL/KQ6rF0q6dV8TwqbU8tEr8zV5I1R6xu35jGU9cvvDv
+	Yga3aESIERhohpiSTlFNb83ylP8=
+X-Received: by 2002:a05:600c:1c23:b0:4a1:f736:79f3 with SMTP id 5b1f17b1804b1-4b960da4ad3mr74504955e9.5.1794212575442;
+        Mon, 09 Nov 2026 00:22:55 -0800 (PST)
+Received: from [127.0.1.1] ([151.61.248.197])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90f1117fasm139701265e9.13.2026.11.09.00.22.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 00:22:54 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,172 +89,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 0/4] ASoC: meson: fix missing REGMAP_MMIO dependencies
+From: Valerio Setti <vsetti@baylibre.com>
+To: Jude Gyimah <jude.gyimah87@gmail.com>
+Cc: jbrunet@baylibre.com, lgirdwood@gmail.com, broonie@kernel.org, 
+ perex@perex.cz, tiwai@suse.com, neil.armstrong@linaro.org, 
+ khilman@baylibre.com, martin.blumenstingl@googlemail.com, 
+ linux-sound@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261107165527.576383-1-jude.gyimah87@gmail.com>
+References: <20261107165527.576383-1-jude.gyimah87@gmail.com>
+Date: Mon, 09 Nov 2026 09:22:49 +0100
+Message-Id: <179421256915.10992.15316919043567627727.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=502; i=vsetti@baylibre.com;
+ h=from:subject:message-id; bh=N6o2biIKf/6AqsgDmShn74SQm8T8RQuwU2MQPtShIl8=;
+ b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFkfm27vnJKjU7tJrMtO/JTW7R3vjztV9PvXdLJdz0vgi
+ 7l76NTmjlIWBjEuBlkxRRaW6fd+F5SqPTROOFkAM4eVCWQIAxenAEyk8QbDf/9y36b1mSGnD2qF
+ cz/nW+su0sFV6up2+uSmkEVTsmLTPzMyXK6okvrTo34y7vq6ezOrj8iF6VfY8HHHl3BErQ31aPH
+ gAAA=
+X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
+ fpr=0497DEFB707526E13360C970DE4B936DD13A0100
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Sat, 07 Nov 2026 17:55:23 +0100, Jude Gyimah <jude.gyimah87@gmail.com> wrote:
+> ASoC: meson: fix missing REGMAP_MMIO dependencies
+> 
+> Each of these drivers can be built into vmlinux while the code
+> providing a symbol it calls is a module, which fails to link.  The
+> same shape in 4 drivers, so they are here as one series.
+> 
+> Affected: aiu, axg-pdm, axg-spdifin, axg-spdifout.
+> 
+> [...]
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] This patch moves cancel_work_sync(&iep->work) in
-  icss_iep_pps_enable() out from under ptp_clk_mutex.
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but it is a use-
-  after-free / NULL dereference in the teardown path that the new guard…
-
---
-
-net: ti: icss-iep: fix deadlock when disabling PPS
-
-This patch changes icss_iep_pps_enable() so that cancel_work_sync(&iep->work)
-runs after ptp_clk_mutex is dropped. This avoids a deadlock with
-icss_iep_cap_cmp_work(), which takes the same mutex. It also makes
-icss_iep_cap_cmp_work() return early when neither pps_enabled nor
-perout_enabled is set.
-
-> diff --git a/drivers/net/ethernet/ti/icssg/icss_iep.c b/drivers/net/ethernet/ti/icssg/icss_iep.c
-> index ec085897edf09..3b2a88c2dad88 100644
-> --- a/drivers/net/ethernet/ti/icssg/icss_iep.c
-> +++ b/drivers/net/ethernet/ti/icssg/icss_iep.c
-> @@ -534,6 +534,17 @@ static void icss_iep_cap_cmp_work(struct work_struct *work)
->  
->  	mutex_lock(&iep->ptp_clk_mutex);
->  
-> +	/*
-> +	 * PPS/perout may have been disabled (and the compare hardware
-> +	 * cleared) while this work was queued or waiting for the mutex.
-> +	 * Bail out rather than re-arm CMP1 and emit a stale PPS event once
-> +	 * the event source is gone.
-> +	 */
-> +	if (!iep->pps_enabled && !iep->perout_enabled) {
-> +		mutex_unlock(&iep->ptp_clk_mutex);
-> +		return;
-> +	}
-
-[Severity: High]
-This is a pre-existing issue, but does this check cover teardown when perout
-is enabled instead of PPS?
-
-icss_iep_exit() unregisters the ptp clock before it disables perout:
-
-icss_iep_exit() {
-	if (iep->ptp_clock) {
-		ptp_clock_unregister(iep->ptp_clock);
-		iep->ptp_clock = NULL;
-	}
-	icss_iep_disable(iep);
-
-	if (iep->pps_enabled)
-		icss_iep_pps_enable(iep, false);
-	else if (iep->perout_enabled)
-		icss_iep_perout_enable(iep, NULL, false);
-	...
-}
-
-Inside ptp_clock_unregister(), ptp_disable_all_events() only sends
-PTP_CLK_REQ_PPS. icss_iep_pps_enable(off) then returns -EBUSY because
-perout_enabled is set. So CMP1 stays armed and the work is never drained.
-
-ptp_clock_unregister() then unregisters ptp->pps_source and calls
-put_device() on the ptp device, which can free the ptp clock. After that,
-iep->ptp_clock is set to NULL without holding ptp_clk_mutex.
-
-Later, icss_iep_perout_enable(iep, NULL, false) clears perout_enabled. It
-never calls cancel_work_sync().
-
-During this window icss_iep_cap_cmp_irq() can still queue the work.
-icss_iep_cap_cmp_work() gets past the new check because perout_enabled is
-still 1, and then reaches:
-
-	ptp_clock_event(iep->ptp_clock, &pevent);
-
-For PTP_CLOCK_PPSUSR, ptp_clock_event() calls pps_event(ptp->pps_source, ...)
-without a NULL check. Can this touch a freed pps_source or ptp clock, or
-dereference a NULL iep->ptp_clock?
-
-On am654 with icssg_prueth (clockops perout_enable), this looks reachable.
-Enable perout with PTP_PEROUT_REQUEST, then bring the interface down, which
-goes through prueth_emac_common_stop()->icss_iep_exit().
-
-[ ... ]
-
-> @@ -607,7 +619,7 @@ static int icss_iep_pps_enable(struct icss_iep *iep, int on)
->  	} else {
->  		ret = icss_iep_perout_enable_hw(iep, &rq.perout, on);
->  		if (iep->cap_cmp_irq)
-> -			cancel_work_sync(&iep->work);
-> +			drain_work = true;
->  	}
->  
->  	if (!ret)
-> @@ -616,6 +628,15 @@ static int icss_iep_pps_enable(struct icss_iep *iep, int on)
->  exit:
->  	mutex_unlock(&iep->ptp_clk_mutex);
->  
-> +	/*
-> +	 * Drain the capture-compare work only after dropping ptp_clk_mutex.
-> +	 * icss_iep_cap_cmp_work() takes ptp_clk_mutex itself, so cancelling it
-> +	 * under the mutex deadlocks against a handler instance already running
-> +	 * and waiting for that same mutex.
-> +	 */
-> +	if (drain_work)
-> +		cancel_work_sync(&iep->work);
-
-[Severity: Medium]
-Now that the drain runs outside ptp_clk_mutex, is the disable still ordered
-before a following PPS or perout enable?
-
-The chardev ioctls hold ptp->pincfg_mux around ops->enable(). In
-drivers/ptp/ptp_sysfs.c, pps_enable_store() and period_store() call
-ops->enable() without it. That means a second writer can take ptp_clk_mutex
-between the mutex_unlock() and the cancel_work_sync() above:
-
-CPU1                                  CPU2
-icss_iep_pps_enable(iep, 0)
-  icss_iep_perout_enable_hw(off)
-  iep->pps_enabled = 0
-  mutex_unlock()
-                                      icss_iep_pps_enable(iep, 1)
-                                        icss_iep_perout_enable_hw(on)
-                                        iep->pps_enabled = 1
-                                        mutex_unlock()
-  cancel_work_sync(&iep->work)
-
-Two outcomes look possible.
-
-In the first, a stale work item from the old session gets the mutex after
-CPU2. It may have been queued by a CMP1 IRQ just before the disable, or it
-may already be waiting in mutex_lock(). The new check in
-icss_iep_cap_cmp_work() only looks at the flags, so the item gets through.
-It reads the new start value that icss_iep_update_to_next_boundary() wrote to
-CMP1. It writes start + iep->period back, then reports a PPSUSR event for an
-edge that has not happened yet.
-
-Would the first pulse of the new session be skipped, with a bogus timestamp
-sent to userspace?
-
-In the second, CPU1 is delayed until the new session's first CMP1 match.
-icss_iep_cap_cmp_irq() queues the new session's work, and CPU1's late
-cancel_work_sync() removes it before it runs.
-
-In the non-clockops path, this work is the only code that advances CMP1 by
-iep->period. icssg_prueth_sr1 is one example, since it calls
-icss_iep_init(iep, NULL, NULL, 0).
-
-Could PPS stop for good here while pps_enabled is still true?
-
-Before this patch, ptp_clk_mutex serialized the disable, the drain and the
-next enable.
-
-> +
->  	return ret;
->  }
+Reviewed-by: Valerio Setti <vsetti@baylibre.com>
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108074733.248784-1-hj351016%40gmail.com
+Valerio Setti <vsetti@baylibre.com>
