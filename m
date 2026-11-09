@@ -1,77 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794263695;
-	b=DR8yl4BI0Uuh4B68iFkXYfKPS8Xx2giCNKf/vctDRPWGsqbi4TC/8J50S0EMlKIXg9he
-	 83oyr0aTAF2XzQUN5c5w4bCrcuLrwNQEGJEJriQultFs0Fi82b8igwNWA7vc049TQQG8Z
-	 l+0O4+eWUtzzHknaYd4XTSYX3tMG6VipgsDXJAKfI7VK9fPZotbuzhSt6pbToXB1AcW+x
-	 mXTtZtUq8OfI7S5CB8zwX/Pz1wnl1DxMyc/QedKXcm7OgVhO5EOvgOQx3Wyp/57Cc/k7I
-	 WwD/Dt8m/FwPTDIqYqa16Gp22ZDian1rXu3vWwfoqX8BQTsJLeLU9D7klUksv2G/YmQ==
+	b=HKRsnFXvtU1ItR3/BiWwaAoO8h32oyRMsGOy/Jjr/IwhJnWC0K91pGAT+ItYX4ZAt0aE
+	 p3YsOBuMu5Gg3kGifUMqLmXnLJgwQY/ckATlRu2zSSwcQCCNfAHOhvGhDomo0PWZ5W3R6
+	 bH7E4ASYDj1c+Q0d7EmRbRTmBuvCNTFRHfrRkCxSE6iq1s8gQALJQ82kvcIufNsa62ZNI
+	 ZbOScoforJtY4AKpFDwITMjRxPwHSNxzzJWBO5gVgepyKQWz29CKbSGDD+ZWqPU9+f9Nd
+	 r6SeWb0aVWnyh3cXefkxdUYnKOzKj5jysF6Rtt43T2N1TB6o2VybKwsMEX93oykB1TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794263695;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=np9M+pJSbds5rnylGSQybj0eEL70g3jA5yLzRpW6CGY=;
-	b=1mZp6rWktuc96b0Q52FOGDyue6SgyabqfGwZa9R3JbSwm4wugWaSFHeDPmBBVt/xO90C
-	 0Yic5fl+kIhMf2D5xagJM0EsFLXI5zulc5m2Q7di065aDA8Xotel7TwQhL/i2hiSsri1+
-	 0QhIlaavQRS1ADic83I1dAMZaypq+wLW2kSpkcU9rxJ0E5UeyJbBN1IATdb5ZysGKR08c
-	 CsPAi2E82SS15ZcgfLYz5DEOCsqpg5Z98qaqU4rVtx/H9nS8fZkjF5eojHjXUiB1jv8Es
-	 bEgdm4jZs50N7UUw9IYR/xO3dCD9H9bNc24CwFz49l3Ni/wjyorCH75NDkjz01tR/dA==
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
+	bh=D6844LC31L9zlOKuCcaoHPe7f6+6dn+GOw7C9drPaCA=;
+	b=kUk9kv1JfwQzc3mKqnWlMVFABg1IOxoUgE+FpzIRQcsaChTVvaLDqw1Cxs5B+XRl9xbJ
+	 zujs784cM0EAAV/01Qyce3I0hRGHiV29eFDViP66MMMB4m5ORPyJmSixuP/M79/q69LS+
+	 7IbITNqMLCYqRgDTQTZOKb0gOOrbrgH8vwdr0XYLw8N9vMXgajiYT9NVA2WKRfQe8R9LD
+	 BpXpgERXbBAWgsf+K4N/uu4lmm5+s8GJNQiim9WNAbW2opS7bEwXNS7+3U+m94FdS4cgk
+	 vxLxcVE7/7DiGkkL/XXtilE015LAuS/eVMlGIKO3Vl5qAZ9I48fFHBDoNdUiXkWo0GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=czYgiVEF;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bojanowski.me;
+	spf=pass smtp.mailfrom=bojanowski.me;
+	dkim=pass header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=lttgd1e4;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB49606A331;
-	Mon,  9 Nov 2026 22:34:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AB49606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6BFB606A325;
+	Mon,  9 Nov 2026 22:34:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6BFB606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bojanowski.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bojanowski.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=czYgiVEF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794263694; x=1825799694;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MRTklrICT1+xSptLDu/+oVKKPOOhfN35osx6RAortbA=;
-  b=czYgiVEFcgl6tnLUxdQ8kVbqGst9PVsDaCDkj67Nunp+aF/+Yne25QG+
-   cZ/HOBGTiNoroJngjwFW9e/PCGOLcUWyRygsWETg8NGqZ9s2ZoVsSUQWl
-   +mHanRHUBQn32+DmBFNLsIdSvtRuchZ5mW6p9SGPsN9y5pescrqQVoVDv
-   aD9Vay/+PFQiE+izAhN9ZWyUPF2e2O8COoStVgAbByuSH0/NNVYPQJJFB
-   bBig0LeSWT+cgr9HRyyiaDm15aRFzLPWTtHVGYWZdDGzNA3nsUaqMHpDu
-   ee5L/QVkUeraTIY8gH4quxOL7PTH2FkZUGLnhJYnOhbvtSnU0DtQWlhH1
-   w==;
-X-CSE-ConnectionGUID: NHDSAVdUQ+itFFn7NF5fUw==
-X-CSE-MsgGUID: ehButblCSIWh64lyBo6ngg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3024255"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3024255"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:34:53 -0800
-X-CSE-ConnectionGUID: OPyoT2rxQQmorsssOHL9FA==
-X-CSE-MsgGUID: cZEl2ZO0Tm+iBpPw0W+jqw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="7974861"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:34:52 -0800
-Date: Tue, 10 Nov 2026 00:34:49 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Brian Masney <bmasney@redhat.com>
-Cc: Paul Cercueil <paul@crapouillou.net>, Linus Walleij <linusw@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-mips@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] pinctrl: intel: convert to subsys_platform_driver()
-Message-ID: <avJKiYtczueslNSQ@ashevche-desk.local>
-References: <20261106-pinctrl-subsys-v1-0-f17582f32aaf@redhat.com>
- <20261106-pinctrl-subsys-v1-2-f17582f32aaf@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bojanowski.me header.i=@bojanowski.me header.a=rsa-sha256 header.s=MBO0001 header.b=lttgd1e4
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jNl2s1bBwz8txj;
+	Mon, 09 Nov 2026 23:34:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bojanowski.me;
+	s=MBO0001; t=1794263685;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D6844LC31L9zlOKuCcaoHPe7f6+6dn+GOw7C9drPaCA=;
+	b=lttgd1e4nCdfLYYFwgMi/ZzAB1j6e1BCG+GnW+OouM9BP3ErUuAysgXmL/LO+qYGDXNuLd
+	zzesMvdojdDSk6JvO3GFqlh0Qg83UnmsOokgcULZtmrHD/BztDbZtXLHxEaP6V2XDCj5xc
+	6tWxMCdnZL+NNXosawg9nSwq1XOakc1+OgFPZADvMb550BNyS1thFd8Mw7KcI076cT2m0Z
+	dTxrs9E0qcwI5sJ+Lrp0ZFk+zEAHN1R3eOOZWHVSCDC+UAyiraYNMrdwRMoicN8Y/P0+54
+	tRQg5G8bwDPlyYvtNlDACyqSd9uBO6JzntF6MkdTCH8pGQacco97dFHrOP90cg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of tomasz@bojanowski.me designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=tomasz@bojanowski.me
+From: Tomasz Bojanowski <tomasz@bojanowski.me>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	Hamza Mahfooz <someguy@effective-light.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] hwmon: (nct6683) Factor out the NCT6687D-R fan configuration transaction
+Date: Mon,  9 Nov 2026 23:34:41 +0100
+Message-ID: <20261109223442.509238-2-tomasz@bojanowski.me>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109223442.509238-1-tomasz@bojanowski.me>
+References: <20261109223442.509238-1-tomasz@bojanowski.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,20 +78,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-pinctrl-subsys-v1-2-f17582f32aaf@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jNl2s1bBwz8txj
 
-On Fri, Nov 06, 2026 at 07:27:13PM -0500, Brian Masney wrote:
-> Reduce boilerplate code in these drivers and convert them over to use
-> the macro subsys_platform_driver().
+Move the configuration phase and its retries out of
+nct6683_fan_ctrl_update() into a helper which calls back for the
+register writes, so that the next patch can use it for writing the fan
+curves.
 
-Look at 20261104113343.1634218-1-peng.fan@oss.nxp.com.
+No functional change: the EC accesses and the returned errors are the
+same.
 
+Signed-off-by: Tomasz Bojanowski <tomasz@bojanowski.me>
+---
+ drivers/hwmon/nct6683.c | 56 +++++++++++++++++++++++++++++++----------
+ 1 file changed, 43 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/hwmon/nct6683.c b/drivers/hwmon/nct6683.c
+index de5b0194c256..ce22f1e06600 100644
+--- a/drivers/hwmon/nct6683.c
++++ b/drivers/hwmon/nct6683.c
+@@ -1025,28 +1025,22 @@ static int nct6687dr_fan_cfg_finish(struct nct6683_data *data)
+ }
+ 
+ /*
+- * Select manual or automatic mode for a fan channel and, if cmd is not
+- * negative, set its duty cycle for manual mode.
++ * Change fan configuration registers in a configuration phase. fn() is
++ * called once per attempt, with the phase open.
+  */
+-static int nct6683_fan_ctrl_update(struct nct6683_data *data, int ch,
+-				   bool manual, int cmd)
++static int
++nct6687dr_fan_cfg_transaction(struct nct6683_data *data,
++			      void (*fn)(struct nct6683_data *data, void *ctx),
++			      void *ctx)
+ {
+-	u16 mode_reg = nct6683_mode_reg(ch);
+-	u16 cmd_reg = nct6683_cmd_reg(ch);
+-	u8 mask = BIT(ch % 8);
+ 	int attempt, err;
+-	u8 mode;
+ 
+ 	for (attempt = 0; attempt < 3; attempt++) {
+ 		err = nct6687dr_fan_cfg_start(data);
+ 		if (err)
+ 			return err;
+ 
+-		mode = nct6683_read(data, mode_reg);
+-		if (cmd >= 0)
+-			nct6683_write(data, cmd_reg, cmd);
+-		nct6683_write(data, mode_reg,
+-			      manual ? mode | mask : mode & ~mask);
++		fn(data, ctx);
+ 
+ 		/* Retry if the configuration phase was lost or rejected */
+ 		err = nct6687dr_fan_cfg_finish(data);
+@@ -1057,6 +1051,42 @@ static int nct6683_fan_ctrl_update(struct nct6683_data *data, int ch,
+ 	return -EIO;
+ }
+ 
++struct nct6683_fan_ctrl {
++	int ch;
++	bool manual;
++	int cmd;
++};
++
++static void nct6683_fan_ctrl_write(struct nct6683_data *data, void *ctx)
++{
++	const struct nct6683_fan_ctrl *fc = ctx;
++	u16 mode_reg = nct6683_mode_reg(fc->ch);
++	u8 mask = BIT(fc->ch % 8);
++	u8 mode;
++
++	mode = nct6683_read(data, mode_reg);
++	if (fc->cmd >= 0)
++		nct6683_write(data, nct6683_cmd_reg(fc->ch), fc->cmd);
++	nct6683_write(data, mode_reg,
++		      fc->manual ? mode | mask : mode & ~mask);
++}
++
++/*
++ * Select manual or automatic mode for a fan channel and, if cmd is not
++ * negative, set its duty cycle for manual mode.
++ */
++static int nct6683_fan_ctrl_update(struct nct6683_data *data, int ch,
++				   bool manual, int cmd)
++{
++	struct nct6683_fan_ctrl fc = {
++		.ch = ch,
++		.manual = manual,
++		.cmd = cmd,
++	};
++
++	return nct6687dr_fan_cfg_transaction(data, nct6683_fan_ctrl_write, &fc);
++}
++
+ static int nct6683_set_pwm(struct nct6683_data *data, int ch, u8 val)
+ {
+ 	int err;
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
