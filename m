@@ -1,91 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794194190;
-	b=WiYDJHGhwShDbpkh2xHvGXvtAfkoOoCpudnLGWeA/8axo9GExRb5TS5WIrKbHJhRvcwP
-	 RBuTLS8Kf3jyVFc9A1h3XxEp6yuME8+Zfh71vyV3ChkKiEiDH89/Ogvc8LC9NkOqRBF4h
-	 rfcfvl0kEKW0LJEjgXmYyrnqla/IJD1LMcmQu8txXgCoIc7+7l3CVpMAp1WrpCYD3IGKR
-	 H6YSpiV2UfRDkoQPrtVjicYsmVDULhea4dAp0rYvwJ/HWRZ9Iu48Lg+RihJYRBdjW2UCv
-	 Bh0JMpjjRqnW39//Dq/FzoBCbf5p/eneWciyNABEQSesea1O3BtdnqwQNfkSxSZZAtA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794194190;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=QG/YViCulpD98ruZqL38gu6q9b5BGoW3iloIHaWKka8=;
-	b=4f9R3MjEM+2eFgrrG14seGUTii5kHadIJY7bpTJOnRRXq5elaOnFwb/+rjlaIqBFnxz3
-	 I0z3/h8AE3x3DsvEMIr0b2Y0TF9TfP8v5NJ+utqbzc3G95U3djVXDZ3JviEyLpfroj3hq
-	 yUZVo5u4IrhSaoledAamvAwbmcXr/c87XIUH+4AIlKkx3KPwuRp2BFJMeGYfjUK0YiMl0
-	 dSGsX7xewcV/pODHkVp31zsgTOnv+Dzr6+onIS955qPo3KJ3NyO4Fz4ggeXtdP4p/aAYy
-	 xCOCGq7KAoqRGjQoSrVMnCuS0m+RzWayhQHutKJOjJfB+QcEaBg9z+ArP28t47w8Bbw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EoyjVPHX;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794194236;
+	b=FzUMp4WtR5AIGVLN3X7lxDwEJk3kqhzBOVBjy7Cv2UQyTsHeHmhd6sglk2k58kjaSWew
+	 XB7tAI//8qr69b2ZZYxm+7sGonjZQNIYbeXLzlSGWG+P/Vi7mvV74lIzMxbV7qGmFZtkO
+	 xfV5HW74lMm2SG2FE8QFWu/6HfrQcipaLVOgIvb62z57cjVgs7GNv/KAExT7bsYMQz1Ef
+	 lbZqQTQtW88Jlc/jMZVl+CDqoAh3UvMK313u7BZAUm1aWbo3RBRy+jD4pFalsERYASPHj
+	 R8K3uS6wqutxZSkrwApx/HUpewp97ob3YHMDhk8KPNDPc9oSq8w7Yhkwvs7UgtH5Auw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794194236;
+	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-ZohoMailClient;
+	bh=wkPpP6AwZpMNKZU0R11NpMOQrwHOhcED5088KBtaDHA=;
+	b=BcqcSN+Fkcvr+NEMj+7GboLqQNOIRCuF9Nr/KiSFB+BbQAxWcGnySVuEOPln5RcUGzrX
+	 XDORbj4Vd2a7N1QfJVZVLW7e/rupge1EC17MIuoAchfhPCKaZPk+Sl4fjy6jUuUkvEz5p
+	 2acPlZAamU6d4kPYELkptkiTxZYC56q+UUWDgU/8h/sx5ly6AjZHI1O2zt/HmeuVwGkRW
+	 nMC3AJUBiEASpwfr+9dmGzaXhG3qDV2d/fkXE6udeeeQ+54SzQWrD2gKr9sGkQ783QG6/
+	 +HSSVBj9vjUCJIEndnzpnNx1jzAlW8MSCo7DldQgEoz+wWuUkzd/OTYoihvYdQSyv+g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pigmoral.tech;
+	spf=pass smtp.mailfrom=pigmoral.tech;
+	dkim=pass header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=E4aXrlQ4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.12
+Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBA0606A320;
-	Mon,  9 Nov 2026 03:16:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BBA0606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B401606A320;
+	Mon,  9 Nov 2026 03:17:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B401606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EoyjVPHX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794194190; x=1825730190;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=LDsJ1RS4OFWocg9FvUohCPmS/HPExmi5n3dL7SUfHpw=;
-  b=EoyjVPHXJIl5M66V5myAu3u9lFIppn/aumf/ADcnhVWeAMR+mu1oHOQZ
-   wS178ybnoGNsQ8BzmxCZvtunjsNNMW7hTqJFkdv1D8I1YIs6hF+namyFO
-   s7vfPM/D9Q0ePW+Pj2eCy6CQUGnZ3PCgKTZbtyTKS86r8cDeu2YZQXh4x
-   DsQB6nq6f5GSyoFJAIdhudX62aTqAtLWtYd8vna1vU+UApWPy3UKi4e4J
-   b8ZgMHX8OiQiO5ijVippsJ3N1454YUt6sqJJ1gNThsr3YDG6iKzDP9o8+
-   UO4d/UDvG6nn1A6AVO95vDkREzSp7cAubSeGEFyGY+wd/QIptnE490f0r
-   Q==;
-X-CSE-ConnectionGUID: gcldZ2E7THWg76l/dI/qwA==
-X-CSE-MsgGUID: XnWuo2VcTJmXSpXKTaUR+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2783750"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2783750"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 19:16:29 -0800
-X-CSE-ConnectionGUID: TVSUkc7ARu2CxnpJwVMtYQ==
-X-CSE-MsgGUID: 27e0+9G9TYOxzG3mRlyEjw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7646984"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 08 Nov 2026 19:16:24 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQFrp-00000000tmt-0auN;
-	Mon, 09 Nov 2026 03:16:21 +0000
-Date: Mon, 9 Nov 2026 11:15:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Syed Saba Kareem <syed.sabakareem@amd.com>, broonie@kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Sunil-kumar.Dommati@amd.com, vijendar.mukunda@amd.com,
-	Mario.Limonciello@amd.com, venkataprasad.potturu@amd.com,
-	Syed Saba Kareem <Syed.SabaKareem@amd.com>,
-	Siva Subramanian Ravi Saravanan <sravisar@amd.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	"open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 3/6] ASoC: soc-acpi: move common function topology
- helpers
-Message-ID: <202611091156.3kHcYO5O-lkp@intel.com>
-References: <20261108193119.2308421-4-syed.sabakareem@amd.com>
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=@pigmoral.tech header.a=rsa-sha256 header.s=zmail header.b=E4aXrlQ4
+ARC-Seal: i=1; a=rsa-sha256; t=1794194189; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=L0MjgcqXPJitlOVyDqAKTd5p+9n9JBhQ+dGSFjhfNlVdklM9BiPhXCsr0Nc4SJrK76EzvVfdE9QeJrPXYS6Z/EV9n+YyRJVAskDgnwcVs0knngMBwCriIn4bt5ojg5RiwyVa8qcwj2PfzPI3ocxId48jDBcRXW900Z951pdo2qc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794194189; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=wkPpP6AwZpMNKZU0R11NpMOQrwHOhcED5088KBtaDHA=; 
+	b=n5RjKUI4/T8o/eLGpOfchAZ9Xusey+v+/5oWqXYbsV1HXGH34vH//WqWreXqa+lrIxXEfZfAxxSNHohcvJo3pkW42s0Jjvcd/19wdDIPlpI/+Sdn8JFV/Ahr8KzSaNKDk8Oh++yLyVwcFKJOkVfr+uOLDlhLYpe8jVHLN56mrwg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: a=rsa-sha256; b=E4aXrlQ4V6gCj/NHcpw5zGo8qbS90mcj/GoM4hGCu8r8HhWeiKaagUo7Rth+K1/nQVg0UWV1ak3XKCiW8w8JPCnqxJptgCQ0vFWhEoP9bDXguXxDyCOTuc3Afk0puDsGvj8yBS0QMYi2evneze7XziX+9qqNc+AM+48Ow3x317U=; c=relaxed/relaxed; s=zmail; d=pigmoral.tech; v=1; bh=wkPpP6AwZpMNKZU0R11NpMOQrwHOhcED5088KBtaDHA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794194187174866.5006536015394;
+	Sun, 8 Nov 2026 19:16:27 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,126 +55,562 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108193119.2308421-4-syed.sabakareem@amd.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 09 Nov 2026 11:16:17 +0800
+Message-Id: <DMQCR64N88M9.GCX83LKYT3IE@pigmoral.tech>
+Cc: <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <netdev@vger.kernel.org>, "Jerome Brunet" <jbrunet@baylibre.com>, "Enzo
+ Adriano" <enzo.adriano.code@gmail.com>, "Norman Herms"
+ <dockseed@proton.me>, "Vinicius Pedrosa"
+ <vinicius.eduardo.pedrosa@gmail.com>
+Subject: Re: [PATCH v6 6/8] clk: sunxi-ng: a733: Add mod clocks support
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: "Andre Przywara" <andre.przywara@arm.com>, "Junhui Liu"
+ <junhui.liu@pigmoral.tech>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
+ Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
+ <richardcochran@gmail.com>
+X-Mailer: aerc 0.22.0
+References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech>
+ <20261009-a733-clk-v6-6-ae8178fce7e8@pigmoral.tech>
+ <30e43e84-e6e8-4024-b415-dedf67070c4f@arm.com>
+In-Reply-To: <30e43e84-e6e8-4024-b415-dedf67070c4f@arm.com>
+X-ZohoMailClient: External
 
-Hi Syed,
+Hi Andre,
 
-kernel test robot noticed the following build errors:
+Thanks for your patient review.
 
-[auto build test ERROR on broonie-sound/for-next]
-[cannot apply to linus/master v7.4-rc2 next-20261105]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Besides the issues you pointed out, I also found a few other places that
+don't match the manual. I'll fix those in the next version as well.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Syed-Saba-Kareem/ASoC-amd-acp-add-SoundWire-speaker-quirks-for-Dell-platforms/20261109-010030
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20261108193119.2308421-4-syed.sabakareem%40amd.com
-patch subject: [PATCH v3 3/6] ASoC: soc-acpi: move common function topology helpers
-config: s390-randconfig-1001-20261109 (https://download.01.org/0day-ci/archive/20261109/202611091156.3kHcYO5O-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261109/202611091156.3kHcYO5O-lkp@intel.com/reproduce)
+On Mon Nov 2, 2026 at 11:32 PM CST, Andre Przywara wrote:
+> Hi,
+>
+> judging from the "fun" this is to review, I very much appreciate your=20
+> efforts in putting this together ;-)
+>
+> On 10/9/26 17:52, Junhui Liu wrote:
+>> Add the module clocks found in the Allwinner A733 SoC, including video,
+>> storage, interfaces and others. While most of these clocks are similar
+>> to those in the A523 SoC, this implementation accounts for changes in
+>> register offsets and introduces support for new modules.
+>>=20
+>> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
+>> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+>> ---
+>>   drivers/clk/sunxi-ng/ccu-sun60i-a733.c | 1103 ++++++++++++++++++++++++=
+++++++++
+>>   1 file changed, 1103 insertions(+)
+>>=20
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611091156.3kHcYO5O-lkp@intel.com/
+[...]
 
-All errors (new ones prefixed by >>):
+>> +
+>> +/* Undocumented, taken from the vendor kernel. */
+>> +static const struct clk_parent_data avs_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .fw_name =3D "hosc" },
+>> +};
+>
+> Those two parents appear two more times below (usb01_ref_parents and=20
+> hdmi_sfr_parents). Please rename this array to something more generic=20
+> and reuse it below.
 
-   sound/soc/soc-acpi.c:36:1: error: redefinition of 'snd_soc_acpi_find_machine'
-      36 | snd_soc_acpi_find_machine(struct snd_soc_acpi_mach *machines)
-         | ^
-   include/sound/soc-acpi.h:40:1: note: previous definition is here
-      40 | snd_soc_acpi_find_machine(struct snd_soc_acpi_mach *machines)
-         | ^
->> sound/soc/soc-acpi.c:60:29: error: call to undeclared function 'acpi_fetch_acpi_dev'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      60 |         struct acpi_device *adev = acpi_fetch_acpi_dev(handle);
-         |                                    ^
-   sound/soc/soc-acpi.c:60:29: note: did you mean 'acpi_match_acpi_device'?
-   include/linux/acpi.h:1003:44: note: 'acpi_match_acpi_device' declared here
-    1003 | static inline const struct acpi_device_id *acpi_match_acpi_device(
-         |                                            ^
->> sound/soc/soc-acpi.c:60:22: error: incompatible integer to pointer conversion initializing 'struct acpi_device *' with an expression of type 'int' [-Wint-conversion]
-      60 |         struct acpi_device *adev = acpi_fetch_acpi_dev(handle);
-         |                             ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> sound/soc/soc-acpi.c:66:18: error: incomplete definition of type 'struct acpi_device'
-      66 |         if (adev && adev->status.present && adev->status.functional) {
-         |                     ~~~~^
-   include/linux/device/bus.h:222:8: note: forward declaration of 'struct acpi_device'
-     222 | struct acpi_device;
-         |        ^
-   sound/soc/soc-acpi.c:66:42: error: incomplete definition of type 'struct acpi_device'
-      66 |         if (adev && adev->status.present && adev->status.functional) {
-         |                                             ~~~~^
-   include/linux/device/bus.h:222:8: note: forward declaration of 'struct acpi_device'
-     222 | struct acpi_device;
-         |        ^
->> sound/soc/soc-acpi.c:82:12: error: call to undeclared function 'acpi_extract_package'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-      82 |                 status = acpi_extract_package(myobj,
-         |                          ^
-   sound/soc/soc-acpi.c:97:6: error: redefinition of 'snd_soc_acpi_find_package_from_hid'
-      97 | bool snd_soc_acpi_find_package_from_hid(const u8 hid[ACPI_ID_LEN],
-         |      ^
-   include/sound/soc-acpi.h:46:1: note: previous definition is here
-      46 | snd_soc_acpi_find_package_from_hid(const u8 hid[ACPI_ID_LEN],
-         | ^
-   sound/soc/soc-acpi.c:111:27: error: redefinition of 'snd_soc_acpi_codec_list'
-     111 | struct snd_soc_acpi_mach *snd_soc_acpi_codec_list(void *arg)
-         |                           ^
-   include/sound/soc-acpi.h:53:41: note: previous definition is here
-      53 | static inline struct snd_soc_acpi_mach *snd_soc_acpi_codec_list(void *arg)
-         |                                         ^
-   8 errors generated.
+Okay, I'll rename it to sys_24M_hosc_parents and reuse it for those
+clocks.
 
+>
+>> +static SUNXI_CCU_MUX_DATA_WITH_GATE(avs_clk, "avs-clk", avs_parents, 0x=
+880,
+>> +				    24, 3,		/* mux */
+>> +				    BIT(31),		/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_hw *de_parents[] =3D {
+>> +	&pll_de_3x_clk.common.hw,
+>> +	&pll_de_4x_clk.common.hw,
+>> +	&pll_periph0_480M_clk.common.hw,
+>> +	&pll_periph0_400M_clk.hw,
+>> +	&pll_periph0_300M_clk.hw,
+>> +	&pll_video0_4x_clk.common.hw,
+>> +	&pll_video2_4x_clk.common.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(de0_clk, "de0", de_parents, 0xa00,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    CLK_SET_RATE_PARENT);
+>> +
+>> +static const struct clk_hw *di_parents[] =3D {
+>> +	&pll_periph0_600M_clk.hw,
+>> +	&pll_periph0_480M_clk.common.hw,
+>> +	&pll_periph0_400M_clk.hw,
+>> +	&pll_video0_4x_clk.common.hw,
+>> +	&pll_video2_4x_clk.common.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(di_clk, "di", di_parents, 0xa20,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    CLK_SET_RATE_PARENT);
+>> +
+>> +static const struct clk_hw *g2d_parents[] =3D {
+>> +	&pll_periph0_400M_clk.hw,
+>> +	&pll_periph0_300M_clk.hw,
+>
+> My copy of the manual puts the 300MHz clock first, then the 400 MHz one.=
+=20
+> Can you please check this?
 
-vim +/acpi_fetch_acpi_dev +60 sound/soc/soc-acpi.c
+Yes, I checked the manual, and the first parent is indeed 300MHz.
 
-8ceffd229f0ef1 sound/soc/intel/common/sst-match-acpi.c Vinod Koul           2016-02-08  56  
-7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  57  static acpi_status snd_soc_acpi_find_package(acpi_handle handle, u32 level,
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  58  					     void *context, void **ret)
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  59  {
-ff4865b3c8cd74 sound/soc/soc-acpi.c                    Rafael J. Wysocki    2022-01-26 @60  	struct acpi_device *adev = acpi_fetch_acpi_dev(handle);
-59ce3233a538fc sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2021-04-16  61  	acpi_status status;
-7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  62  	struct snd_soc_acpi_package_context *pkg_ctx = context;
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  63  
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  64  	pkg_ctx->data_valid = false;
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  65  
-ff4865b3c8cd74 sound/soc/soc-acpi.c                    Rafael J. Wysocki    2022-01-26 @66  	if (adev && adev->status.present && adev->status.functional) {
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  67  		struct acpi_buffer buffer = {ACPI_ALLOCATE_BUFFER, NULL};
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  68  		union acpi_object  *myobj = NULL;
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  69  
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  70  		status = acpi_evaluate_object_typed(handle, pkg_ctx->name,
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  71  						NULL, &buffer,
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  72  						ACPI_TYPE_PACKAGE);
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  73  		if (ACPI_FAILURE(status))
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  74  			return AE_OK;
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  75  
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  76  		myobj = buffer.pointer;
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  77  		if (!myobj || myobj->package.count != pkg_ctx->length) {
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  78  			kfree(buffer.pointer);
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  79  			return AE_OK;
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  80  		}
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  81  
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12 @82  		status = acpi_extract_package(myobj,
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  83  					pkg_ctx->format, pkg_ctx->state);
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  84  		if (ACPI_FAILURE(status)) {
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  85  			kfree(buffer.pointer);
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  86  			return AE_OK;
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  87  		}
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  88  
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  89  		kfree(buffer.pointer);
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  90  		pkg_ctx->data_valid = true;
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  91  		return AE_CTRL_TERMINATE;
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  92  	}
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  93  
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  94  	return AE_OK;
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  95  }
-3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  96  
+The last parent should also be pll_video2_4x rather than pll_video1_4x.
+I'll fix both.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+[...]
+
+>> +
+>> +/*
+>> + * GPU_CLK =3D ClockSource * ((16 - M) / 16)
+>> + * Here we use a div_table to select M values that result in integer di=
+visors.
+>> + */
+>> +static struct clk_div_table gpu_div_table[] =3D {
+>> +	{ .val =3D 0, .div =3D 1 },
+>> +	{ .val =3D 8, .div =3D 2 },
+>> +	{ .val =3D 12, .div =3D 4 },
+>> +	{ .val =3D 14, .div =3D 8 },
+>> +	{ .val =3D 15, .div =3D 16 },
+>> +	{ /* sentinel */ },
+>> +};
+>> +static const struct clk_parent_data gpu_parents[] =3D {
+>> +	{ .hw =3D &pll_gpu0_clk.common.hw, },
+>> +	{ .hw =3D &pll_periph0_800M_clk.common.hw, },
+>> +	{ .hw =3D &pll_periph0_600M_clk.hw, },
+>> +	{ .hw =3D &pll_periph0_400M_clk.hw, },
+>> +	{ .hw =3D &pll_periph0_300M_clk.hw, },
+>> +	{ .hw =3D &pll_periph0_200M_clk.hw, },
+>> +};
+>> +static struct ccu_div gpu0_clk =3D {
+>> +	.enable		=3D BIT(31),
+>> +	.div		=3D _SUNXI_CCU_DIV_TABLE(0, 4, gpu_div_table),
+>> +	.mux		=3D _SUNXI_CCU_MUX(24, 3),
+>> +	.common		=3D {
+>> +		.reg		=3D 0xb20,
+>> +		.features	=3D CCU_FEATURE_UPDATE_BIT,
+>
+> Just a heads up: in my A523 CPU clocks series, I reworked the update bit=
+=20
+> handling, so depending on the order of merging this might need some rewor=
+k.
+
+I've seen that. I'd prefer to keep this series independent of your A523
+CPU clocks series for now. Once your series has settled, I'll send a
+separate patch to adapt the A733 update bit handling, or update this
+series if yours lands first.
+
+>
+>> +		.hw.init	=3D CLK_HW_INIT_PARENTS_DATA("gpu0", gpu_parents,
+>> +							   &ccu_div_ops, 0),
+>> +	}
+>> +};
+>> +
+>> +static const struct clk_parent_data dram_parents[] =3D {
+>> +	{ .hw =3D &pll_ddr_clk.common.hw, },
+>> +	{ .hw =3D &pll_periph0_800M_clk.common.hw, },
+>> +	{ .hw =3D &pll_periph0_600M_clk.hw, },
+>> +	{ .hw =3D &pll_de_clk.common.hw, },
+>
+> Should this be pll_de_3x instead?
+
+You're right. The second and third parents should also be periph1 rather
+than periph0. I'll fix them together.
+
+[...]
+
+>> +
+>> +static const struct clk_parent_data irtx_parents[] =3D {
+>> +	{ .fw_name =3D "losc"},
+>
+> I think this clock should be sys_24M_clk.
+
+You're right. I'll fix it.
+
+>
+>> +	{ .hw =3D &pll_periph1_600M_clk.hw },
+>> +	{ .fw_name =3D "hosc"},
+>> +};
+>> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(irtx_clk, "irtx", irtx_parents, 0=
+x1008,
+>> +				      0, 5,	/* M */
+>> +				      24, 3,	/* mux */
+>> +				      BIT(31),	/* gate */
+>> +				      0);
+>> +
+>> +/* Undocumented, taken from the vendor kernel. */
+>> +static const struct clk_parent_data sgpio_parents[] =3D {
+>> +	{ .fw_name =3D "losc"},
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +};
+>> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(sgpio_clk, "sgpio", sgpio_parents=
+, 0x1060,
+>> +				      0, 5,	/* M */
+>> +				      24, 3,	/* mux */
+>> +				      BIT(31),	/* gate */
+>> +				      0);
+>> +
+>> +/* Undocumented, taken from the vendor kernel. */
+>> +static const struct clk_hw *lpc_parents[] =3D {
+>> +	&pll_video0_3x_clk.common.hw,
+>> +	&pll_video1_3x_clk.common.hw,
+>> +	&pll_video2_3x_clk.common.hw,
+>> +	&pll_periph0_300M_clk.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(lpc_clk, "lpc", lpc_parents, 0x1080=
+,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_hw *i2spcm_parents[] =3D {
+>> +	&pll_audio0_4x_clk.common.hw,
+>> +	&pll_audio1_div2_clk.hw,
+>> +	&pll_audio1_div5_clk.hw,
+>> +	&pll_periph0_200M_clk.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm0_clk, "i2spcm0", i2spcm_pare=
+nts, 0x1200,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm1_clk, "i2spcm1", i2spcm_pare=
+nts, 0x1210,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm2_clk, "i2spcm2", i2spcm_pare=
+nts, 0x1220,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_hw *i2spcm2_asrc_parents[] =3D {
+>> +	&pll_audio0_4x_clk.common.hw,
+>> +	&pll_audio1_div2_clk.hw,
+>> +	&pll_audio1_div5_clk.hw,
+>> +	&pll_periph0_300M_clk.hw,
+>> +	&pll_periph1_300M_clk.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm2_asrc_clk, "i2spcm2_asrc", i=
+2spcm2_asrc_parents, 0x1224,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm3_clk, "i2spcm3", i2spcm_pare=
+nts, 0x1230,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(i2spcm4_clk, "i2spcm4", i2spcm_pare=
+nts, 0x1240,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_hw *spdif_tx_parents[] =3D {
+>> +	&pll_audio0_4x_clk.common.hw,
+>> +	&pll_audio1_div2_clk.hw,
+>> +	&pll_audio1_div5_clk.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(spdif_tx_clk, "spdif-tx", spdif_tx_=
+parents, 0x1280,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_hw *spdif_rx_parents[] =3D {
+>> +	&pll_periph0_200M_clk.hw,
+>> +	&pll_periph0_300M_clk.hw,
+>
+> The manual I am looking at says those two muxes are "Reserved". So are=20
+> those parents from the BSP? Can you please add a comment about it then?
+
+Yes, I took them from the vendor BSP. I'll add a comment explaining that.
+
+[...]
+
+>> +
+>> +static const struct clk_parent_data usb01_ref_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .fw_name =3D "hosc" },
+>> +};
+>> +static SUNXI_CCU_MUX_DATA(usb01_ref_clk, "usb01-ref", usb01_ref_parents=
+, 0x1340, 24, 3, 0);
+>> +
+>> +static SUNXI_CCU_MUX_DATA(usb2_u2_ref_clk, "usb2-u2-ref", usb01_ref_par=
+ents, 0x1348, 24, 3, 0);
+>
+> Don't these two clocks miss the gate at bit 31? So it should be=20
+> SUNXI_CCU_MUX_DATA_WITH_GATE instead?
+
+Oops, I missed them. I'll add them.
+
+>
+>  > +
+>> +static const struct clk_parent_data usb2_suspend_parents[] =3D {
+>> +	{ .fw_name =3D "losc" },
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +};
+>> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(usb2_suspend_clk, "usb2-suspend",=
+ usb2_suspend_parents,
+>> +				      0x1350,
+>> +				      0, 5,	/* M */
+>> +				      24, 1,	/* mux */
+>> +				      BIT(31),	/* gate */
+>> +				      0);
+>> +
+>> +static const struct clk_parent_data usb2_mf_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .hw =3D &pll_periph0_300M_clk.hw },
+>> +	{ .fw_name =3D "hosc" },
+>> +};
+>> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(usb2_mf_clk, "usb2-mf", usb2_mf_p=
+arents,
+>> +				      0x1354,
+>> +				      0, 5,	/* M */
+>> +				      24, 3,	/* mux */
+>> +				      BIT(31),	/* gate */
+>> +				      0);
+>> +
+>> +static const struct clk_parent_data usb2_u3_utmi_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .hw =3D &pll_periph0_300M_clk.hw },
+>> +	{ .fw_name =3D "hosc" },
+>
+> Aren't those parents exactly the same as the usb2_mf_parents[] above?
+
+Yes, I'll reuse the array.
+
+[...]
+
+>> +
+>> +static const struct clk_hw *edp_tv_parents[] =3D {
+>> +	&pll_video0_4x_clk.common.hw,
+>> +	&pll_video1_4x_clk.common.hw,
+>> +	&pll_video2_4x_clk.common.hw,
+>> +	&pll_periph0_2x_clk.common.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(edp_tv_clk, "edp-tv", edp_tv_parent=
+s, 0x1640,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>
+> There is a second divider range from bits [12:8].
+
+Okay, I'll switch this to SUNXI_CCU_DUALDIV_MUX_GATE.
+
+>
+>> +
+>> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(hdmi_cec_32k_clk, "hdmi-cec-32k",=
+ pll_periph0_2x_hws, 0x1680,
+>> +				      BIT(30),	/* gate */
+>> +				      36621,	/* pre div */
+>> +				      0);
+>> +
+>> +static const struct clk_parent_data hdmi_cec_parents[] =3D {
+>> +	{ .fw_name =3D "losc" },
+>> +	{ .hw =3D &hdmi_cec_32k_clk.common.hw },
+>> +};
+>> +static SUNXI_CCU_MUX_DATA_WITH_GATE(hdmi_cec_clk, "hdmi-cec", hdmi_cec_=
+parents, 0x1680,
+>> +				    24, 1,	/* mux */
+>
+> Even though there are indeed only two choices, the manual still=20
+> specifies the mux bits as ranging from [26:24] (as for many other clocks)=
+.
+
+Okay, I'll update the mux width.
+
+>
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_parent_data hdmi_tv_parents[] =3D {
+>> +	{ .hw =3D &pll_video0_4x_clk.common.hw },
+>> +	{ .hw =3D &pll_video1_4x_clk.common.hw },
+>> +	{ .hw =3D &pll_video2_4x_clk.common.hw },
+>> +	{ .hw =3D &pll_periph0_2x_clk.common.hw },
+>> +};
+>> +static SUNXI_CCU_DUALDIV_MUX_GATE(hdmi_tv_clk, "hdmi-tv", hdmi_tv_paren=
+ts, 0x1684,
+>> +				  0, 5,		/* M */
+>> +				  8, 5,		/* N */
+>> +				  24, 3,	/* mux */
+>> +				  BIT(31),	/* gate */
+>> +				  0);
+>> +
+>> +static const struct clk_parent_data hdmi_sfr_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .fw_name =3D "hosc" },
+>> +};
+>> +static SUNXI_CCU_MUX_DATA_WITH_GATE(hdmi_sfr_clk, "hdmi-sfr", hdmi_sfr_=
+parents, 0x1690,
+>> +				    24, 1,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static SUNXI_CCU_GATE_HWS(hdcp_esm_clk, "hdcp-esm", pll_periph0_300M_hw=
+s, 0x1694, BIT(31), 0);
+>> +
+>> +static const struct clk_parent_data ledc_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .hw =3D &pll_periph0_600M_clk.hw },
+>> +	{ .fw_name =3D "hosc" },
+>> +};
+>> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(ledc_clk, "ledc", ledc_parents, 0=
+x1700,
+>> +				      0, 5,	/* M */
+>> +				      24, 3,	/* mux */
+>> +				      BIT(31),	/* gate */
+>> +				      0);
+>> +
+>> +static const struct clk_parent_data csi_master_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .hw =3D &pll_video0_4x_clk.common.hw },
+>> +	{ .hw =3D &pll_video0_3x_clk.common.hw },
+>> +	{ .hw =3D &pll_video1_4x_clk.common.hw },
+>> +	{ .hw =3D &pll_video1_3x_clk.common.hw },
+>> +	{ .hw =3D &pll_video2_4x_clk.common.hw },
+>> +	{ .hw =3D &pll_video2_3x_clk.common.hw },
+>> +};
+>> +static SUNXI_CCU_DUALDIV_MUX_GATE(csi_master0_clk, "csi_master0", csi_m=
+aster_parents, 0x1800,
+>> +				  0, 5,		/* M */
+>> +				  8, 5,		/* N */
+>> +				  24, 3,	/* mux */
+>> +				  BIT(31),	/* gate */
+>> +				  0);
+>> +static SUNXI_CCU_DUALDIV_MUX_GATE(csi_master1_clk, "csi_master1", csi_m=
+aster_parents, 0x1804,
+>> +				  0, 5,		/* M */
+>> +				  8, 5,		/* N */
+>> +				  24, 3,	/* mux */
+>> +				  BIT(31),	/* gate */
+>> +				  0);
+>> +static SUNXI_CCU_DUALDIV_MUX_GATE(csi_master2_clk, "csi_master2", csi_m=
+aster_parents, 0x1808,
+>> +				  0, 5,		/* M */
+>> +				  8, 5,		/* N */
+>> +				  24, 3,	/* mux */
+>> +				  BIT(31),	/* gate */
+>> +				  0);
+>> +
+>> +static const struct clk_hw *csi_parents[] =3D {
+>> +	&pll_video2_4x_clk.common.hw,
+>> +	&pll_de_4x_clk.common.hw,
+>> +	&pll_periph0_480M_clk.common.hw,
+>> +	&pll_periph0_400M_clk.hw,
+>> +	&pll_periph0_600M_clk.hw,
+>
+> My manual lists two more parents: video0_4x and video1_4x.
+
+I missed them. I'll add them.
+
+>
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(csi_clk, "csi", csi_parents, 0x1840=
+,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static const struct clk_hw *isp_parents[] =3D {
+>> +	&pll_video2_4x_clk.common.hw,
+>> +	&pll_periph0_480M_clk.common.hw,
+>> +	&pll_periph0_400M_clk.hw,
+>> +	&pll_periph0_600M_clk.hw,
+>> +	&pll_video0_4x_clk.common.hw,
+>> +	&pll_video1_4x_clk.common.hw,
+>> +};
+>> +static SUNXI_CCU_M_HW_WITH_MUX_GATE(isp_clk, "isp", isp_parents, 0x1860=
+,
+>> +				    0, 5,	/* M */
+>> +				    24, 3,	/* mux */
+>> +				    BIT(31),	/* gate */
+>> +				    0);
+>> +
+>> +static SUNXI_CCU_GATE_DATA(res_dcap_24m_clk, "res-dcap-24m", hosc, 0x1a=
+00, BIT(3), 0);
+>> +
+>> +static const struct clk_parent_data apb2jtag_parents[] =3D {
+>> +	{ .hw =3D &sys_24M_clk.hw },
+>> +	{ .fw_name =3D "losc" },
+>> +	{ .fw_name =3D "iosc" },
+>> +	{ .hw =3D &pll_periph0_480M_clk.common.hw },
+>> +	{ .hw =3D &pll_periph1_480M_clk.common.hw },
+>> +	{ .hw =3D &pll_periph0_200M_clk.hw },
+>> +	{ .hw =3D &pll_periph1_200M_clk.hw },
+>> +};
+>> +static SUNXI_CCU_M_DATA_WITH_MUX_GATE(apb2jtag_clk, "apb2jtag", apb2jta=
+g_parents, 0x1c00,
+>> +				      0, 5,	/* M */
+>> +				      24, 3,	/* mux */
+>> +				      BIT(31),	/* gate */
+>> +				      0);
+>> +
+>> +static SUNXI_CCU_GATE_HWS(fanout_24M_clk, "fanout-24M", sys_24M_hws, 0x=
+1f30, BIT(0), 0);
+>> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(fanout_12M_clk, "fanout-12M", sys=
+_24M_hws, 0x1f30,
+>> +				      BIT(1), 2, 0);
+>> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(fanout_16M_clk, "fanout-16M", pll=
+_periph0_480M_hws, 0x1f30,
+>> +				      BIT(2), 30, 0);
+>> +static SUNXI_CCU_GATE_HWS_WITH_PREDIV(fanout_25M_clk, "fanout-25M", pll=
+_periph0_2x_hws, 0x1f30,
+>> +				      BIT(3), 48, 0);
+>
+> Where do those parents come from? My manual just lists the frequencies.
+> Is that matching the 0x1f3c register sources?
+
+Yes, these match the sources listed in CCMU_FAN_REG (0x1f3c).
+
+The current definitions fold the intermediate fixed dividers:
+PERI0_160M / 10 becomes PERI0_480M / 30, and PERI0_150M / 6 becomes
+PERI0PLL2X / 48.
+
+I'll use PERI0_160M / 10 and PERI0_150M / 6 in the next revision to match
+the documented clock tree more directly.
+
+>
+> The rest seems to be correct, as far as my mostly manual comparison goes.
+>
+> Cheers,
+> Andre
+>
+
+--=20
+Best regards,
+Junhui Liu
