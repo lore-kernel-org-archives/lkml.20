@@ -1,111 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187461;
-	b=e6wkYPZQvZLQiQPFY5vggB75zOdFJfer9D1oTFxwjEMlyRvHvixtuOqXTXvyuPUpx9Wx
-	 uw5LzwB3bZmHEHAwwz9KsTbcNzPMsYBmtmSy6OF8Qj/SEcan5M1zTqdPPTpvhvj4QKrLL
-	 i9Ly8+EE0E0B/tVoXL7LATeqslZ0REd1iDTXIbwm2+DXDgp9tddVUzxbSkbB4HRD8tMW7
-	 HwnzG9Bldhru8+cRgZmjynRSyrhHmTnivB4F2SMy+HIFTn4IYN1T7APmW9bw0k1rqCRCG
-	 5C0AE7v9ngx9mygjzpHraks0UM1wV6YUiuLqm8nsbHfTM3s0oAA/C4WYN9lpRXEpgPA==
+	t=1794187465;
+	b=YELHHS5kBIvNTOl9CzKJxhkbvkD761jsQTcZpycPnh2QUei/VEaiY3KlLMwUgGfWMssT
+	 SW4XdmxYC608uc+AoaHMNkdIb1A3CAWnlk1h/NSnZJvwkIsQD2oxpNdRTxBDL+ft9Gs7r
+	 n0s670XAQ1UWiuBWuCh87TobMKnBMsPO6M3r48y9T5Hn+0ptzCeXTifa63ioeRHjRUJYU
+	 LJ+iUxuxVcX/dDgofSJMwV+ZugtR8GeYD7g/P0HfoHZ+o90Vsn0Ej98aER0DMnyWy1X9o
+	 Ha4muRo19Z2/OI3LiuCzTdbjFuuxe1m2i+jVwUl/n8x9I1kNm24s5OTfxLChMR7Mu+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187461;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=+ILPUVvAEQQSiOWe9jx3J0bcp/Cobg7swKrB6drhfuU=;
-	b=BG/2VONARTUn6uQPGfXnWCwNw7aCMXza0lu/Rz485KTuafIX8Xmp5ex3O5Bh0K0luobw
-	 iVUddijDNvOQBuH629Az8bQHl2HjDTJgaprSLl1Va5ntNVGZHgWxd97+KJwzE5xaIUCPb
-	 ICTcxJNn+qv81Jsj9lY4nCKyqlNVlSagk+IczMvdCzLrZRZZBrSVUTkqy+HnRTMk1b9cp
-	 rkenVx0pJ81d0clajtwULoA6QkcdBTAwK4Qemu9rr0EiAjSNJjCQSCGIvWp3Db0hiCgSQ
-	 gRxcsZDW62H2Io/retnzrFu757QJ0Wf8JL/TkThkqcJNXVGgYp0Kkz6aHnWs/WaeVlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187465;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=C6WAnG6C57/4S/ClZcKNQvEzcKWrj3k46UumMgJ1YCg=;
+	b=bKvO/+IbmxBwTEEpROn6uiJZfZJkIl61wEnnS+AZRhD2h/MFYk24CJDUgPROt/6UOyil
+	 Tnszk//fTLQEiCpUbIj5vsNkNrpmEylHr+Oj5vPKVxbvdbHoaeHqovrr32bhKr7es0knP
+	 luZqxU80oNAE+Qr+EExWeKlJOXK5oEBZ1RAsuagcoYaX24NjOezFWu7Jycs+NaIgso9ws
+	 9rZ5xV8tb7XUevI/ygxbrjLLmOWbJ+lmHKB5eW50mecj2rKD3WbuyAfS3uXuyil30YSSa
+	 nEgL65SOLy2aLtzGQoFGHvIRCk7GGF/LnmZGFQpOxqs1deRnvpQFEV4cybaElGkEPlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KpXnbPrN;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YNei2wpV;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Okzr2CCo;
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834CB606A332
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:24:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 834CB606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3487606A78C;
+	Mon,  9 Nov 2026 01:24:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3487606A78C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KpXnbPrN;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YNei2wpV
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A90HKlu3850716
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 01:24:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+ILPUVvAEQQSiOWe9jx3J0bcp/Cobg7swKrB6drhfuU=; b=KpXnbPrNVJl4QvjK
-	rlGzMaWKm3CSKs196LRbnPDmc2qspCM67ktzROtfMR/mbwec/1QuIB9qiUsohtRo
-	sbo3Vluy7VZh8T5rrUiBHzB73s/B9ZRhJO4uvogDZmmDSVZcdgz78jQF2oEaUYoB
-	xryip/TdwRDdb9lRIwciS8qv2fIztRIm//jQPrmqxaOdSnHUoQ70U+Dl8jBb5Rff
-	VSrGhpzeCwPevUPLmAOTRS/kKHb6WgKc0TCX8LvD9390z813BXUfANKErIQGnrar
-	Bz56yOBKyZIdas9E7q9X5lMNvt7MZ5OC1h6yuFZeS9rB+xdANGPninYLhVqP3YvC
-	jt7DNg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsspf4fte-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:24:19 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cdd48746a49so194325a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 17:24:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794187459; x=1794792259; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+ILPUVvAEQQSiOWe9jx3J0bcp/Cobg7swKrB6drhfuU=;
-        b=YNei2wpVQoFDtE2t+q9bbaDlOjo8oEDsPoTOPQlV2Ce4650lwZQ6THVYoJedstAbz3
-         D4jppZQdu7EmfEie2sSOLC3q0+3kC4DxxLoWaW/l64mg9fxwAnymP3NYvefiiTrnrgeV
-         dohlj623hOnsjuwUY9eIGTZGhTT9nHh7yGw9zhVRLWRPn+cX6+Vsc2dnoGx6iM+M62zc
-         askDLiqiFfbMuB/oRc2Q6bu2Pb1ef3UCJebfVe1eNviKeHgEywrkrLjHOqUecMaYdxWs
-         9xOeMWamniddZgRpNdvzSV9I/ivZZn7ixduyRTnkPAa1dXWtWzvMUcEAdoZS07VdGFbb
-         xrbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794187459; x=1794792259;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+ILPUVvAEQQSiOWe9jx3J0bcp/Cobg7swKrB6drhfuU=;
-        b=QVQFvwRGdoSyM99v9o6F6JRnGSxyvcmAeXiX5I8G55vvnzPF2tkglq/AfNmexjLUCH
-         8/EJmHcfgHJvw+FdF72j5sGRji8TH3SRuuOgVIBWnCyyQdD42xk2sSpRVQXAJ4VzP3jv
-         rRXXGyrVtCq9gTDIuBT6YHiKQ2YXSIrQprw4pilzOKPs4F20B6dl7qg3niKu7UX6cngx
-         vjT5ThKGo+ev30TVwjVYWnVK4JYynStWSTOnFWS2CrAVv7imq8vuVrjFBP3YnmF7kR24
-         Q6ckAW3N1MbWjTeOtvj+kinYkd/WIThd0zavUXijao4NZc5M2i4V8vrt1WOwrv9lAvgY
-         n/Xg==
-X-Forwarded-Encrypted: i=1; AL+hErE8PYjkRXkNty0BJL0yu6as0sOb2UYW65UWBZmnNxDXQBiAQ79k42XeUGlj6i6Xfv2nqAqGn2UM/1QIeGU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8nTZ64wYZE0lZOHpivfNVirGH9kbI2qQZ4KKCi2VQmK9Xh16hN
-	aXfUJA7M9gviwGX7Q4cRxhl8RnD6vs3tk42Fc5JqJcEudCrc6XqmYX1287yIZQ7SOxRFOAPjbBk
-	UXWGuL4Fvu08CPivvuDZZBizs+BN4ndN1uooerO4ZzYZ3jTk3g1feRchKfNRZk5B+sio=
-X-Gm-Gg: AYBFou09O9ec43UXl0DeatH+Up/V2r9pLv4MiRmMJqeBNcMxBUWBcCgP1epH6gFi01e
-	RxmpjP3pec/UhMU++6tMBe0AeNMz7YRypkYcan/QP8UiZuQ84c/MAO+M/o6Aeuz4yJ2Vc4pP9VV
-	vy768SVTEBoKfoqwd0zieVnpqG9jFptN9PYbUl9GeLsYsosTDFQnBYpS1g/eI6yEyZbLwCZ6BPT
-	avH6n9pe5Yo02hkZ5rf7iStYeRb5ECVFuSLyk+1QZrL1DZ8dFgwjc88ycYly5erP2dHKboU5ecA
-	kdtKdPXUciWjKZ5VPkzjr1wDcvFNfxnI0Pq30k9s4qWmtlsWNKktLmtNUM47nxYaUV3PZFjAYbr
-	F0anEJUrEafOYmIjxZVVh1rSUCJprpA6qjPDS3y2bWZjc3qc5QiRmD/WuqL6Rb2cGcR3R
-X-Received: by 2002:a05:6a20:748b:b0:3e1:3178:8d62 with SMTP id adf61e73a8af0-3eecf984101mr2597302637.9.1794187459022;
-        Sun, 08 Nov 2026 17:24:19 -0800 (PST)
-X-Received: by 2002:a05:6a20:748b:b0:3e1:3178:8d62 with SMTP id adf61e73a8af0-3eecf984101mr2597285637.9.1794187458501;
-        Sun, 08 Nov 2026 17:24:18 -0800 (PST)
-Received: from [10.64.68.243] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb96a73344sm1072893a12.30.2026.11.08.17.24.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Nov 2026 17:24:17 -0800 (PST)
-Message-ID: <51a86fe7-95b8-4f49-96bc-2245c334b7f6@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 09:24:13 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Okzr2CCo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794187463; x=1825723463;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kJ1QYogniBbEVXeRE/4mGGKLhvULHaZWXSTHyisVbmw=;
+  b=Okzr2CCoqM2vxWIA1QJGv4W/wEETB4Kko2Cex/vXF2aNS5Y4lSE2+65x
+   3lCQ5OpJB1J1EL8ZC1HfFm3fvNDXv9GAyYDdwnzMm1N0hqvgPDRo706UY
+   2pClT1T4nB8ZdNQlnoHP0LVzGKgOT4FPKU4dw9hx4TeIOVgQoPAYo3bT3
+   g0idj7z9AtfSVo1JODq5Pbs+u37a/4vqD8RTYT53q2DwtoxdNjgBQVUjG
+   7FMrXL4ZmW7A1tABHCNtCDIQji3XiB4pd0Wb6YsvJqfQS9YyK7L46KEu1
+   UkcLCV746aoaWXFHCRfgG9SDdFQpHNJk2/qQiEFX2s1kBZBZKIQavxEXn
+   w==;
+X-CSE-ConnectionGUID: pv5Frxg4SIaVVySVFa6FfQ==
+X-CSE-MsgGUID: g2keCEW0QOeFLLdiwN0TEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2913838"
+X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
+   d="scan'208";a="2913838"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 17:24:23 -0800
+X-CSE-ConnectionGUID: rWy1vsjHSOSRuM0/Ko87nQ==
+X-CSE-MsgGUID: mZzSNmlrQNeYNrB5/mx0VA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
+   d="scan'208";a="7785511"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 08 Nov 2026 17:24:18 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQE7K-00000000tfL-4Az2;
+	Mon, 09 Nov 2026 01:24:14 +0000
+Date: Mon, 9 Nov 2026 09:24:08 +0800
+From: kernel test robot <lkp@intel.com>
+To: Syed Saba Kareem <syed.sabakareem@amd.com>, broonie@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Sunil-kumar.Dommati@amd.com,
+	vijendar.mukunda@amd.com, Mario.Limonciello@amd.com,
+	venkataprasad.potturu@amd.com,
+	Syed Saba Kareem <Syed.SabaKareem@amd.com>,
+	Siva Subramanian Ravi Saravanan <sravisar@amd.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	"open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..." <linux-sound@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 3/6] ASoC: soc-acpi: move common function topology
+ helpers
+Message-ID: <202611090919.XXJ8jSiT-lkp@intel.com>
+References: <20261108193119.2308421-4-syed.sabakareem@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,115 +95,199 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] coresight: fix resource leaks on path build failure
-To: Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Mike Leach
- <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
-        Leo Yan <leo.yan@arm.com>,
-        Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-References: <20260513-fix-memory-leak-issue-v1-1-49822d7bc7d4@oss.qualcomm.com>
-Content-Language: en-US
-From: Jie Gan <jie.gan@oss.qualcomm.com>
-In-Reply-To: <20260513-fix-memory-leak-issue-v1-1-49822d7bc7d4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAwNSBTYWx0ZWRfX2bk0nRVfkk0+
- xpMZyrQPv8V6mBxQS2oMdgkcA/Thn+BwHZR35Bq/7SCkJjsw2HKnb8BT67Fr3vlPgDuDuMWJGj0
- 4hF9Fll07BBqJBoykeCr99TRYXI6Izo=
-X-Authority-Analysis: v=2.4 cv=LJzz05W9 c=1 sm=1 tr=0 ts=6af120c3 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=IIRFHugnNVJhAGNuPQwA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-GUID: 2s8lfgsvHDrU75Mu5eYtbb_5eW2Fie7j
-X-Proofpoint-ORIG-GUID: 2s8lfgsvHDrU75Mu5eYtbb_5eW2Fie7j
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAwNSBTYWx0ZWRfX7cng/dDone3h
- X4PEPv0cAUS8cI72VDAlCijVLHhzkHcCow7J3iZwPMQQQd48hpKqwcYAIIgwrD+pONV8opmTiZd
- yOh0jppR4h+1d05G02nFVcav0xGvedpNg70WWeyd+yy+oYoH+Wax+eyNk1x7orb7LucYLrpDE9q
- gbHorJrx8a6O3JrBEPBYQbLxr7SgGLyMmZkkUEagtP2YJdAy+DUE60IBwMdfuvx4UPMVQToI5LO
- i785bfd4sWh9Cs/VPfsQcGyVxOfmNU4UM2Q4G8kLqDCP8bHUovJXNGJOcpcBxwe5jTTTP14RtlA
- oGdKPX4KWKAcaEXyyg53VcxMy89exxMx8O4sBNMS+NXIuVAK+tEeBJ262icw4d56621MvDux+7m
- oFCs7gSTE66VbVcEqCIhhINSp4rDG6Jupwa4abNyeKdsrNbr529FQQ011cgPxr7bfLHlUfGhz28
- LGLK7eLJJ5l8NoyfLxg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_01,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 lowpriorityscore=0 clxscore=1015
- priorityscore=1501 phishscore=0 bulkscore=0 suspectscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611090005
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108193119.2308421-4-syed.sabakareem@amd.com>
+
+Hi Syed,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on broonie-sound/for-next]
+[cannot apply to linus/master v7.4-rc2 next-20261105]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Syed-Saba-Kareem/ASoC-amd-acp-add-SoundWire-speaker-quirks-for-Dell-platforms/20261109-010030
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+patch link:    https://lore.kernel.org/r/20261108193119.2308421-4-syed.sabakareem%40amd.com
+patch subject: [PATCH v3 3/6] ASoC: soc-acpi: move common function topology helpers
+config: sh-randconfig-1000-20261109 (https://download.01.org/0day-ci/archive/20261109/202611090919.XXJ8jSiT-lkp@intel.com/config)
+compiler: sh4-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261109/202611090919.XXJ8jSiT-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611090919.XXJ8jSiT-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> sound/soc/soc-acpi.c:36:1: error: redefinition of 'snd_soc_acpi_find_machine'
+      36 | snd_soc_acpi_find_machine(struct snd_soc_acpi_mach *machines)
+         | ^~~~~~~~~~~~~~~~~~~~~~~~~
+   In file included from sound/soc/soc-acpi.c:11:
+   include/sound/soc-acpi.h:40:1: note: previous definition of 'snd_soc_acpi_find_machine' with type 'struct snd_soc_acpi_mach *(struct snd_soc_acpi_mach *)'
+      40 | snd_soc_acpi_find_machine(struct snd_soc_acpi_mach *machines)
+         | ^~~~~~~~~~~~~~~~~~~~~~~~~
+   sound/soc/soc-acpi.c: In function 'snd_soc_acpi_find_package':
+>> sound/soc/soc-acpi.c:60:36: error: implicit declaration of function 'acpi_fetch_acpi_dev'; did you mean 'acpi_match_acpi_device'? [-Wimplicit-function-declaration]
+      60 |         struct acpi_device *adev = acpi_fetch_acpi_dev(handle);
+         |                                    ^~~~~~~~~~~~~~~~~~~
+         |                                    acpi_match_acpi_device
+>> sound/soc/soc-acpi.c:60:36: error: initialization of 'struct acpi_device *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+>> sound/soc/soc-acpi.c:66:25: error: invalid use of undefined type 'struct acpi_device'
+      66 |         if (adev && adev->status.present && adev->status.functional) {
+         |                         ^~
+   sound/soc/soc-acpi.c:66:49: error: invalid use of undefined type 'struct acpi_device'
+      66 |         if (adev && adev->status.present && adev->status.functional) {
+         |                                                 ^~
+>> sound/soc/soc-acpi.c:82:26: error: implicit declaration of function 'acpi_extract_package' [-Wimplicit-function-declaration]
+      82 |                 status = acpi_extract_package(myobj,
+         |                          ^~~~~~~~~~~~~~~~~~~~
+   sound/soc/soc-acpi.c: At top level:
+>> sound/soc/soc-acpi.c:97:6: error: redefinition of 'snd_soc_acpi_find_package_from_hid'
+      97 | bool snd_soc_acpi_find_package_from_hid(const u8 hid[ACPI_ID_LEN],
+         |      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/sound/soc-acpi.h:46:1: note: previous definition of 'snd_soc_acpi_find_package_from_hid' with type 'bool(const u8 *, struct snd_soc_acpi_package_context *)' {aka '_Bool(const unsigned char *, struct snd_soc_acpi_package_context *)'}
+      46 | snd_soc_acpi_find_package_from_hid(const u8 hid[ACPI_ID_LEN],
+         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>> sound/soc/soc-acpi.c:111:27: error: redefinition of 'snd_soc_acpi_codec_list'
+     111 | struct snd_soc_acpi_mach *snd_soc_acpi_codec_list(void *arg)
+         |                           ^~~~~~~~~~~~~~~~~~~~~~~
+   include/sound/soc-acpi.h:53:41: note: previous definition of 'snd_soc_acpi_codec_list' with type 'struct snd_soc_acpi_mach *(void *)'
+      53 | static inline struct snd_soc_acpi_mach *snd_soc_acpi_codec_list(void *arg)
+         |                                         ^~~~~~~~~~~~~~~~~~~~~~~
 
 
+vim +/snd_soc_acpi_find_machine +36 sound/soc/soc-acpi.c
 
-On 5/13/2026 9:32 AM, Jie Gan wrote:
-> Two related leaks when _coresight_build_path() encounters an error after
-> coresight_grab_device() has already incremented the pm_runtime, module,
-> and device references for a node:
-> 
-> 1. In _coresight_build_path(), if kzalloc_obj() for the path node fails
->     after coresight_grab_device() succeeds, coresight_drop_device() was
->     never called, permanently leaking all three references.
-> 
-> 2. In coresight_build_path(), on failure the partial path was freed with
->     kfree(path) instead of coresight_release_path(path).  kfree() only
->     frees the coresight_path struct itself; it does not iterate path_list
->     to call coresight_drop_device() and kfree() for each coresight_node
->     already added by deeper recursive calls, leaking both the pm_runtime,
->     module, and device references and the node memory for every element
->     on the partial path.
-> 
-> Fix both by adding coresight_drop_device() in the OOM unwind of
-> _coresight_build_path(), and replacing kfree(path) with
-> coresight_release_path(path) in coresight_build_path().
-> 
-> Fixes: 32b0707a4182 ("coresight: Add try_get_module() in coresight_grab_device()")
-> Fixes: b3e94405941e ("coresight: associating path with session rather than tracer")
-> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+95f098014815b3 sound/soc/intel/common/sst-match-acpi.c Vinod Koul           2015-11-05    6  
+78d8db3cfe9439 sound/soc/soc-acpi.c                    Syed Saba Kareem     2026-11-09    7  #include <linux/device.h>
+261e90829fe2f0 sound/soc/soc-acpi.c                    Paul Gortmaker       2019-04-13    8  #include <linux/export.h>
+78d8db3cfe9439 sound/soc/soc-acpi.c                    Syed Saba Kareem     2026-11-09    9  #include <linux/firmware.h>
+261e90829fe2f0 sound/soc/soc-acpi.c                    Paul Gortmaker       2019-04-13   10  #include <linux/module.h>
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  @11  #include <sound/soc-acpi.h>
+95f098014815b3 sound/soc/intel/common/sst-match-acpi.c Vinod Koul           2015-11-05   12  
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   13  static bool snd_soc_acpi_id_present(struct snd_soc_acpi_mach *machine)
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   14  {
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   15  	const struct snd_soc_acpi_codecs *comp_ids = machine->comp_ids;
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   16  	int i;
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   17  
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   18  	if (machine->id[0]) {
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   19  		if (acpi_dev_present(machine->id, NULL, -1))
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   20  			return true;
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   21  	}
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   22  
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   23  	if (comp_ids) {
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   24  		for (i = 0; i < comp_ids->num_codecs; i++) {
+28c916ade1bd42 sound/soc/soc-acpi.c                    Hans de Goede        2021-11-18   25  			if (acpi_dev_present(comp_ids->codecs[i], NULL, -1)) {
+28c916ade1bd42 sound/soc/soc-acpi.c                    Hans de Goede        2021-11-18   26  				strscpy(machine->id, comp_ids->codecs[i], ACPI_ID_LEN);
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   27  				return true;
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   28  			}
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   29  		}
+28c916ade1bd42 sound/soc/soc-acpi.c                    Hans de Goede        2021-11-18   30  	}
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   31  
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   32  	return false;
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   33  }
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   34  
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12   35  struct snd_soc_acpi_mach *
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  @36  snd_soc_acpi_find_machine(struct snd_soc_acpi_mach *machines)
+95f098014815b3 sound/soc/intel/common/sst-match-acpi.c Vinod Koul           2015-11-05   37  {
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12   38  	struct snd_soc_acpi_mach *mach;
+a3e620f8422832 sound/soc/soc-acpi.c                    Keyon Jie            2018-11-16   39  	struct snd_soc_acpi_mach *mach_alt;
+95f098014815b3 sound/soc/intel/common/sst-match-acpi.c Vinod Koul           2015-11-05   40  
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   41  	for (mach = machines; mach->id[0] || mach->comp_ids; mach++) {
+cafa39b650ec3b sound/soc/soc-acpi.c                    Brent Lu             2021-10-30   42  		if (snd_soc_acpi_id_present(mach)) {
+a3e620f8422832 sound/soc/soc-acpi.c                    Keyon Jie            2018-11-16   43  			if (mach->machine_quirk) {
+a3e620f8422832 sound/soc/soc-acpi.c                    Keyon Jie            2018-11-16   44  				mach_alt = mach->machine_quirk(mach);
+a3e620f8422832 sound/soc/soc-acpi.c                    Keyon Jie            2018-11-16   45  				if (!mach_alt)
+a3e620f8422832 sound/soc/soc-acpi.c                    Keyon Jie            2018-11-16   46  					continue; /* not full match, ignore */
+a3e620f8422832 sound/soc/soc-acpi.c                    Keyon Jie            2018-11-16   47  				mach = mach_alt;
+a3e620f8422832 sound/soc/soc-acpi.c                    Keyon Jie            2018-11-16   48  			}
+a3e620f8422832 sound/soc/soc-acpi.c                    Keyon Jie            2018-11-16   49  
+7827d66946ad3a sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15   50  			return mach;
+7827d66946ad3a sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15   51  		}
+7827d66946ad3a sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15   52  	}
+95f098014815b3 sound/soc/intel/common/sst-match-acpi.c Vinod Koul           2015-11-05   53  	return NULL;
+95f098014815b3 sound/soc/intel/common/sst-match-acpi.c Vinod Koul           2015-11-05   54  }
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12   55  EXPORT_SYMBOL_GPL(snd_soc_acpi_find_machine);
+8ceffd229f0ef1 sound/soc/intel/common/sst-match-acpi.c Vinod Koul           2016-02-08   56  
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12   57  static acpi_status snd_soc_acpi_find_package(acpi_handle handle, u32 level,
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   58  					     void *context, void **ret)
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   59  {
+ff4865b3c8cd74 sound/soc/soc-acpi.c                    Rafael J. Wysocki    2022-01-26  @60  	struct acpi_device *adev = acpi_fetch_acpi_dev(handle);
+59ce3233a538fc sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2021-04-16   61  	acpi_status status;
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12   62  	struct snd_soc_acpi_package_context *pkg_ctx = context;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   63  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   64  	pkg_ctx->data_valid = false;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   65  
+ff4865b3c8cd74 sound/soc/soc-acpi.c                    Rafael J. Wysocki    2022-01-26  @66  	if (adev && adev->status.present && adev->status.functional) {
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   67  		struct acpi_buffer buffer = {ACPI_ALLOCATE_BUFFER, NULL};
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   68  		union acpi_object  *myobj = NULL;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   69  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   70  		status = acpi_evaluate_object_typed(handle, pkg_ctx->name,
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   71  						NULL, &buffer,
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   72  						ACPI_TYPE_PACKAGE);
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   73  		if (ACPI_FAILURE(status))
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   74  			return AE_OK;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   75  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   76  		myobj = buffer.pointer;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   77  		if (!myobj || myobj->package.count != pkg_ctx->length) {
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   78  			kfree(buffer.pointer);
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   79  			return AE_OK;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   80  		}
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   81  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  @82  		status = acpi_extract_package(myobj,
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   83  					pkg_ctx->format, pkg_ctx->state);
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   84  		if (ACPI_FAILURE(status)) {
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   85  			kfree(buffer.pointer);
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   86  			return AE_OK;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   87  		}
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   88  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   89  		kfree(buffer.pointer);
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   90  		pkg_ctx->data_valid = true;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   91  		return AE_CTRL_TERMINATE;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   92  	}
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   93  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   94  	return AE_OK;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   95  }
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   96  
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  @97  bool snd_soc_acpi_find_package_from_hid(const u8 hid[ACPI_ID_LEN],
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12   98  				struct snd_soc_acpi_package_context *ctx)
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12   99  {
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  100  	acpi_status status;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  101  
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  102  	status = acpi_get_devices(hid, snd_soc_acpi_find_package, ctx, NULL);
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  103  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  104  	if (ACPI_FAILURE(status) || !ctx->data_valid)
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  105  		return false;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  106  
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  107  	return true;
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  108  }
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  109  EXPORT_SYMBOL_GPL(snd_soc_acpi_find_package_from_hid);
+3421894765a345 sound/soc/intel/common/sst-match-acpi.c Pierre-Louis Bossart 2016-11-12  110  
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12 @111  struct snd_soc_acpi_mach *snd_soc_acpi_codec_list(void *arg)
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  112  {
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  113  	struct snd_soc_acpi_mach *mach = arg;
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  114  	struct snd_soc_acpi_codecs *codec_list =
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  115  		(struct snd_soc_acpi_codecs *) mach->quirk_data;
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  116  	int i;
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  117  
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  118  	if (mach->quirk_data == NULL)
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  119  		return mach;
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  120  
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  121  	for (i = 0; i < codec_list->num_codecs; i++) {
+0d5ea120abc020 sound/soc/soc-acpi.c                    Jeremy Cline         2018-01-05  122  		if (!acpi_dev_present(codec_list->codecs[i], NULL, -1))
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  123  			return NULL;
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  124  	}
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  125  
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  126  	return mach;
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  127  }
+7feb2f786a46d3 sound/soc/soc-acpi.c                    Pierre-Louis Bossart 2017-10-12  128  EXPORT_SYMBOL_GPL(snd_soc_acpi_codec_list);
+54746dabf770eb sound/soc/intel/common/sst-match-acpi.c Naveen M             2017-05-15  129  
 
-Gentle ping.
-
-> ---
->   drivers/hwtracing/coresight/coresight-core.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/coresight/coresight-core.c b/drivers/hwtracing/coresight/coresight-core.c
-> index 46f247f73cf6..c1354ea8e11d 100644
-> --- a/drivers/hwtracing/coresight/coresight-core.c
-> +++ b/drivers/hwtracing/coresight/coresight-core.c
-> @@ -825,8 +825,10 @@ static int _coresight_build_path(struct coresight_device *csdev,
->   		return ret;
->   
->   	node = kzalloc_obj(struct coresight_node);
-> -	if (!node)
-> +	if (!node) {
-> +		coresight_drop_device(csdev);
->   		return -ENOMEM;
-> +	}
->   
->   	node->csdev = csdev;
->   	list_add(&node->link, &path->path_list);
-> @@ -851,7 +853,7 @@ struct coresight_path *coresight_build_path(struct coresight_device *source,
->   
->   	rc = _coresight_build_path(source, source, sink, path);
->   	if (rc) {
-> -		kfree(path);
-> +		coresight_release_path(path);
->   		return ERR_PTR(rc);
->   	}
->   
-> 
-> ---
-> base-commit: e98d21c170b01ddef366f023bbfcf6b31509fa83
-> change-id: 20260513-fix-memory-leak-issue-034b4a45265e
-> 
-> Best regards,
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
