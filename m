@@ -1,92 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223708;
-	b=hDh7HhaOVHLjOLi0PrIJkn3C1Q+ejUoARzK/EISXRgZF0bfUKMdpZmpKuUOXCDf9jGo9
-	 yJG2+tcbLxyKspKJgoi11lcWs+vyTeSAplIxImRUogMx+9+VoA1OGWG6DJMOGMO3Om/v0
-	 zsHbJei8T0q7sYKVabrOvLd7OYJ47NA0zM/JM1m+yrSvvMhfoGX3iZsL6D3x7CNbxG8f4
-	 4r7Pt/TqZOShTNpQvXJlTbN1n5TxqULxwl0CHT0UPkTbSSgNrC3wDUfX7Q5FT1oJ5VUr+
-	 gK112rGF6tt8Hs9TrQCc6kC2Fc0YtufMdWxpVG3P7QPgXJmMeUdVhU7klmzeAj2g+ag==
+	t=1794223760;
+	b=rjILe2x3nCf9C8GbGDob56E8fbV1ewwEGwQM8/33Mvo1ZFviXGX7CE3N/m8JwF5KqdpB
+	 pl5a7fW/TlC/YaEKsJCPezlDBYS4DivJIiBx9dKBk3/PF00yex2yTStLwGkNtEM5bKpH3
+	 ABqRHiOihRW/v7CfxsWza5x8QFzraEGnfBCMHKWSKyRCO1XGJe6+tHXljFTZmzuq9Tut0
+	 mtkec9BZrPUY9RTQi6juQGUtMnUm6JztYDTD4xgzgJ8dJERjfuvRKmzTgpXlkPNPAKPgf
+	 A4wvJEjDd/C35XnD11RnJnxUMRA+SU6hRwN5fhYZ/La4sy9nKUQgCK5VClY7oKkIeTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223708;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References;
-	bh=jLCvOPUWajhThgaPDP1pombl5VcBQ+A9YkbtJC1lMWo=;
-	b=jzAtbOBvQ5UTgZWKBg1VK7FfZD8OvL6N5yDGS/W8m5XZIAlvIHlpU7k5SgVqDorB9xeU
-	 OGCWn/3O5wEcraWLh4FMC6jPXybw5jZtF6oI7K619CV8q9tAoGgSXn/FUXDkUItN6x16I
-	 J43daC7UFqYSu77mX375jwbhe6t2JO+NlnqOS9nKDQiXCTlHjRI1ao6U1lkadx9KCvxQu
-	 FZZ45KuTVhVLImY3FAUdXLu2xaaKSJh3Fr1OnkIfvMvvJIuK3EVYJPVG5pd/vJtXrCztg
-	 VsPbFqFanPUvDLw0eVUGs2pwBR3MEpGjHQ87S/Of0jpQ5QnlEEA+Qg09KS28La4PnfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223760;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Language:Content-Transfer-Encoding:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=iNIQPzmiHA+Cn4QbV05J8JBQ0a9SblQ7mMLGrBWZZV8=;
+	b=VOo+Q6Dk/Q2d6bgQbMpCNaBJFgnyb3OUA0cqrf7I1SoW4ZyiIgOPn5xEDl6djDGTXUiK
+	 4jnaNCaNLqYN9FNsZfHW6eDEdzRxcWs6wtcAYlTCD3EebODgngYFXR1G4MAzlpIrfUyeZ
+	 QDP+QCwcSNMDFyaTMOeA7cUmg9HZay18SVn589ddj6n/+YX/PjLbIYw1iUKSyFhSBJl1I
+	 vpRyRw8efCiw1NdO7EgCBE97846XO5xbwyzjOjiMiu4MWCw9OybKCQUyvMkyABiVNb6tg
+	 6UuVRXYP0YFhJuHmalTiPbs5kCe675DjESwgfFAgdix2MN1H2Z+LFXw4zJAp044EpFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tETUzaEG;
-	arc=none smtp.remote-ip=209.85.167.41
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qrhop0Mo;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9511E606EE8A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:28:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9511E606EE8A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4A1606A322;
+	Mon,  9 Nov 2026 11:29:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE4A1606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tETUzaEG
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5c126f80426so494670e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:28:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794223706; x=1794828506; darn=vger.kernel.org;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=jLCvOPUWajhThgaPDP1pombl5VcBQ+A9YkbtJC1lMWo=;
-        b=tETUzaEG3mj7rTFlgpwUHl1jhUfjwqJvpSAR9Wa5irmw/PoC/Olz2rY791nQ7uevDB
-         cIGnzQUJPLfc2UocILVTM1wBPWNLit28jL2pTohyt1H2fdpJ3rFFTdUTAC/0r9ngz0/F
-         gLFRpiGoOM5voh+sJhTJW+Uu85ZSY8wW0Y5vQ6ph6efwXSCLswMcOqALpWSxTojOtr4h
-         j1Wg9XMxt4al4j66JRNWiZsmO2fnEcIklSy1CIuQ3f+MQPO2GqBX3LRbpK9M60S3VGID
-         5bjO0hrvCXwh4pa+kXYtD08ugCVfo/RbeF3SOKkR91ku6eDeTfNwhOFRjNTDo+evuwZz
-         1jLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794223706; x=1794828506;
-        h=references:in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jLCvOPUWajhThgaPDP1pombl5VcBQ+A9YkbtJC1lMWo=;
-        b=lDUgRucTCHGL9aAN0M5P7HrGhBqlDZSEi1HYEJtWjpQcSJggQgH8TI767YuRXTSb95
-         rhltRe8mBySUgrAPzN6MZcNqfkIHPQ9/+FF42L40qwXimI5N3mgUd2TOuLTq9fMoTn7C
-         0yxg+EpHerhrUbovb0eU9OayHfH/jTBefejMKoeqkY9Y1TZipRPiyV7nqrQwqleBQL/v
-         JKw5lQSbgNASgYs+j253pZM1qCBpGKylD+yCnTCYR5ffMH+htOltBqzthSQ+LUsSX+Nx
-         JxWPXVWqsOueUOYNMKF8tWaq7b0z9cFEjc+fWFKq5xS6NvQvAkgB78hm1GBYmCU6huAa
-         9lhA==
-X-Forwarded-Encrypted: i=1; AL+hErEhPcUK83WhXUbWsmFsZDAug2f3iuOCmPLRq2iitCpzxtT34LGcoxX9vlH8CUwK94lTE8W1c3VrRmr2qiY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8vrV69gc+1ulDu1CbetaFyv276M8sy9/jjsgXWJoxXtp71zZru
-	4P2/bDhjgxvXLWPkx653p6yPnEK5x8Kw8+DNNN3rp8HwljAk73n+5IDtK9gTPw==
-X-Gm-Gg: AYBFou1q1+36DcDz4uBdGxCtCu8/EoPra+qz7uyU4+jubnlkC3dZdAN8mdVlxStNhh8
-	cUIoFTW2c06GlNYMha7bDtENJwD9qiyYpjY3wveS95jSJMbUrTfcYeEtMzIlVpiNSB8aHbBDOGd
-	KPm4EPf4VzXeN0y048CWp3IRaqvb3IQukfL7RCyD30II2n5nYre0wXKt4/scVF8Z3wYWqZP8PkR
-	KRM7tzLYN1HtP+rA2xg6tvtO3RrS+cEFbLUZtfOgI4cQl5jkuiaEIp0mBlCdK+GrnPwiUQEAA/y
-	Om53SQCVxqimrYAQaCcWw1b8d5bwMf0zwwfWqt8/T+Uj43lcAjEAobTpEkRGJ37g2goHpH2TKv1
-	nxcb2KGFh/GmPwJmksYa5tA0x24UfChROZrC54tEALbMaYYMtjSOE6YmuyozGkHLb3pjpBb01m5
-	yeA32o7IEcPta9N2aIFJ55XlyA2T7kHt9igzTJGySOtVd8qTYMNQYwRwmP1fXlGq1id17QZUpTt
-	BAcRelOolLLTyV3MK2ayWOgs9D0g06MSagqqgaxNrQHC+/y2aX9KTTZX7dcXnJ8uc/xn0hupYxc
-	WbccsrRxxLIc3+9kO9CW4SJ208UyWoKwun9tSYi1sRH1XR+wm0SBr55RCQ==
-X-Received: by 2002:a05:6512:1288:b0:5bf:9f5e:a1f0 with SMTP id 2adb3069b0e04-5c14c02f98fmr1142664e87.63.1794223705612;
-        Mon, 09 Nov 2026 03:28:25 -0800 (PST)
-Received: from localhost (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c14b7fc4d7sm789737e87.15.2026.11.09.03.28.24
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Mon, 09 Nov 2026 03:28:25 -0800 (PST)
-From: Eli Billauer <eli.billauer@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: arnd@arndb.de,
-	linux-kernel@vger.kernel.org,
-	Eli Billauer <eli.billauer@gmail.com>
-Subject: [PATCH 5/8] char: xillybus: Refactor flush function
-Date: Mon,  9 Nov 2026 12:27:57 +0100
-Message-Id: <20261109112800.48663-6-eli.billauer@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20261109112800.48663-1-eli.billauer@gmail.com>
-References: <20261109112800.48663-1-eli.billauer@gmail.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qrhop0Mo
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=iNIQPzmiHA+Cn4QbV05J8JBQ0a9SblQ7mMLGrBWZZV8=;
+	b=qrhop0MopnJVqAeskNwKNdYuRqPtbihLXMLRYIvTQfbbKX4d3ZoxmOtC3A3uAe98KjQWlk3yG
+	xZLWHWKjPTsN97vIoeLnnNeAN1zOfV7Tvm2k3+yivN1NceqcDzNFEnRup/D6Lq8ZB5U/mnBS8kO
+	a72qU2TTcukkQfRT4927994=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jNSGg5qBzz1cySJ;
+	Mon,  9 Nov 2026 19:28:59 +0800 (CST)
+Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 1941F40586;
+	Mon,  9 Nov 2026 19:29:14 +0800 (CST)
+Received: from [10.173.125.21] (10.173.125.21) by
+ whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 9 Nov 2026 19:29:12 +0800
+Subject: Re: [PATCH v3] mm/memory-failure: set PG_hwpoison of a non-hugetlb
+ page under hugetlb_lock
+To: Andrew Morton <akpm@linux-foundation.org>, <mt4022@columbia.edu>
+CC: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>, Muchun
+ Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, David
+ Hildenbrand <david@kernel.org>, Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport <rppt@kernel.org>, Matthew
+ Wilcox <willy@infradead.org>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <tz2294@columbia.edu>,
+	<stable@vger.kernel.org>
+References: <20261106-hwpoison-hugetlb-ro-v3-1-c11186963647@columbia.edu>
+ <20261106143914.16a42b8cdf7436d045b85aa6@linux-foundation.org>
+From: Miaohe Lin <linmiaohe@huawei.com>
+Message-ID: <82a31bee-983e-bd22-a162-7c708c8ad475@huawei.com>
+Date: Mon, 9 Nov 2026 19:29:11 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,197 +76,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+In-Reply-To: <20261106143914.16a42b8cdf7436d045b85aa6@linux-foundation.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemk100004.china.huawei.com (7.152.185.74)
 
-Previous flush_downstream() looped on wait_event_interruptible() and
-wait_event_interruptible_timeout() without returning if an interrupt
-occurred. Replace these with non-interruptible counterparts and use
-wake_up() instead of wake_up_interruptible() on the relevant wait queue.
+On 2026/11/7 6:39, Andrew Morton wrote:
+> On Fri, 06 Nov 2026 11:09:50 -0500 Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org> wrote:
+> 
+>> From: Mani Tofigh <mt4022@columbia.edu>
+>>
+>> memory_failure() checks under hugetlb_lock that the page isn't part of
+>> a hugetlb folio and sets PG_hwpoison only after dropping the lock.  The
+>> page can become a tail page of a new hugetlb folio in the meantime.
+>> With hugetlb_free_vmemmap=on its struct page then lives in the tail
+>> page that all such folios in the zone share, so the flag lands on tail
+>> pages of every one of them:
+>>
+>>   Task A (memory_failure)              Task B (nr_hugepages write)
+>>   get_huge_page_for_hwpoison()
+>>     /* P not hugetlb */
+>>                                        alloc_fresh_hugetlb_folio()
+>>                                          /* P becomes a tail page */
+>>                                          hugetlb_vmemmap_optimize_folio()
+>>                                            /* P's struct page now in
+>>                                               the shared tail page */
+>>   TestSetPageHWPoison(P)
+>>
+>> The error on P itself is ignored, while healthy pages of other folios
+>> stay marked and are never reused once their folio is freed.  After
+>> freeing the pool, /proc/kpageflags shows them as hwpoisoned.
+>>
+>> This is the allocation side of the race that commit 32c877191e02
+>> ("hugetlb: do not clear hugetlb dtor until allocating vmemmap") fixed
+>> for freeing.
+>>
+>> Set the hugetlb flag of a new folio under hugetlb_lock and set
+>> PG_hwpoison of a non-hugetlb page inside the locked check, so that the
+>> vmemmap can't be optimized in between.  The retry path clears it under
+>> the same lock, unless the page has become part of a hugetlb folio in
+>> the meantime and its struct page isn't in the first vmemmap page of the
+>> folio, which HVO doesn't share.  The retry then knows the flag is its
+>> own.  With the fix, no healthy page gets marked anymore.
+>>
+>> This bug was identified and confirmed with the help of a deterministic
+>> hypervisor currently under development.  The C reproducer below however
+>> hits it within about 35s.
+> 
+> Thanks.
+> 
+> So as I understand it, if a single 4k page turns bad at just the right
+> time, we can mark a lot of healthy 4k pages as bad (hence lost until
+> reboot) while the bad 4k page remains in use?  But that race is very
+> unlikely?
+> 
+>> Fixes: f41f2ed43ca5 ("mm: hugetlb: free the vmemmap pages associated with each HugeTLB page")
+>> Cc: stable@vger.kernel.org
+> 
+> I'm hoping we don't need to backport, because the race is so unlikely,
+> the consequences aren't world-ending and the backporting story is
+> messy.
+> 
+> But I don't think I'll get my hope, because the consequences of this
+> race are worse in older kernels:
+> 
+> In 6.6.162 HVO maps shared tail metadata read-only, so the misplaced
+> PG_hwpoison write can cause an oops.
+> 
+> Also in 6.6.162 memory_failure() still has a ClearPageHWPoison(p) in
+> its PageCompound retry block so with HVO enabled and
+> CONFIG_TRANSPARENT_HUGEPAGE=n, its compound retry can still reach
+> read-only tail metadata.
+> 
+> Miaohe, wdyt?
 
-In addition, flush_downstream()'s @interruptible argument is removed.
-Instead, this function either waits with a timeout only, or with an
-interruptible wait. This is what the callers of this function requested
-anyhow.
+Yes, even though the probability is very low, it can still happen, and
+it may cause the kernel to crash or something like that, so I guess we
+have to backport it.
 
-Assisted-by: Sashiko-0.2.5:gemini-3.1-pro-preview
-Link: https://sashiko.dev/#/patchset/20260724094302.50761-1-eli.billauer@gmail.com
-Signed-off-by: Eli Billauer <eli.billauer@gmail.com>
----
- drivers/char/xillybus/xillyusb.c | 89 +++++++++++++++-----------------
- 1 file changed, 41 insertions(+), 48 deletions(-)
+Thanks both.
+.
 
-diff --git a/drivers/char/xillybus/xillyusb.c b/drivers/char/xillybus/xillyusb.c
-index 73e26f254693..3afd9bd38a1a 100644
---- a/drivers/char/xillybus/xillyusb.c
-+++ b/drivers/char/xillybus/xillyusb.c
-@@ -604,7 +604,7 @@ static void wakeup_all(struct work_struct *work)
- 
- 		mutex_unlock(&chan->lock);
- 
--		wake_up_interruptible(&chan->flushq);
-+		wake_up(&chan->flushq);
- 	}
- 
- 	mutex_unlock(&xdev->process_in_mutex);
-@@ -923,12 +923,12 @@ static int process_in_opcode(struct xillyusb_dev *xdev,
- 
- 	case OPCODE_REACHED_CHECKPOINT:
- 		chan->flushing = 0;
--		wake_up_interruptible(&chan->flushq);
-+		wake_up(&chan->flushq);
- 		break;
- 
- 	case OPCODE_CANCELED_CHECKPOINT:
- 		chan->canceled = 1;
--		wake_up_interruptible(&chan->flushq);
-+		wake_up(&chan->flushq);
- 		break;
- 
- 	default:
-@@ -1130,11 +1130,13 @@ static int xillyusb_send_opcode(struct xillyusb_dev *xdev,
-  * chan->flushed is there to avoid multiple flushes at the same position,
-  * in particular as a result of programs that close the file descriptor
-  * e.g. after a dup2() for redirection.
-+ *
-+ * If timeout == 0, no timeout is applied and the wait is interruptible,
-+ * otherwise a timeout is applied but the wait is non-interruptible.
-  */
- 
- static int flush_downstream(struct xillyusb_channel *chan,
--			    unsigned long timeout,
--			    bool interruptible)
-+			    unsigned long timeout)
- {
- 	struct xillyusb_dev *xdev = chan->xdev;
- 	int chan_num = chan->chan_idx << 1;
-@@ -1159,21 +1161,22 @@ static int flush_downstream(struct xillyusb_channel *chan,
- 			return rc; /* Only real error, never -EINTR */
- 
- 		/* Ignoring interrupts. Cancellation must be handled */
--		while (!chan->canceled) {
--			left_to_sleep = cancel_deadline - jiffies;
-+		left_to_sleep = cancel_deadline - jiffies;
- 
--			if (left_to_sleep <= 0) {
--				report_io_error(xdev, -EIO);
--				return -EIO;
--			}
-+		rc = 0;
- 
--			rc = wait_event_interruptible_timeout(chan->flushq,
--							      chan->canceled ||
--							      xdev->error,
--							      left_to_sleep);
-+		if (left_to_sleep > 0)
-+			rc = wait_event_timeout(chan->flushq,
-+						chan->canceled ||
-+						xdev->error,
-+						left_to_sleep);
-+
-+		if (xdev->error)
-+			return xdev->error;
- 
--			if (xdev->error)
--				return xdev->error;
-+		if (!rc) {
-+			report_io_error(xdev, -EIO);
-+			return -EIO;
- 		}
- 	}
- 
-@@ -1194,40 +1197,30 @@ static int flush_downstream(struct xillyusb_channel *chan,
- 	if (rc)
- 		return rc; /* Only real error, never -EINTR */
- 
--	if (!timeout) {
--		while (chan->flushing) {
--			rc = wait_event_interruptible(chan->flushq,
--						      !chan->flushing ||
--						      xdev->error);
--			if (xdev->error)
--				return xdev->error;
--
--			if (interruptible && rc)
--				return -EINTR;
--		}
-+	if (timeout) {
-+		left_to_sleep = deadline - jiffies;
- 
--		goto done;
--	}
-+		rc = 0;
- 
--	while (chan->flushing) {
--		left_to_sleep = deadline - jiffies;
-+		if (left_to_sleep > 0)
-+			rc = wait_event_timeout(chan->flushq,
-+						!chan->flushing ||
-+						xdev->error,
-+						left_to_sleep);
- 
--		if (left_to_sleep <= 0)
-+		if (!rc)
- 			return -ETIMEDOUT;
-+	} else {
-+		rc = wait_event_interruptible(chan->flushq,
-+					      !chan->flushing || xdev->error);
-+	}
- 
--		rc = wait_event_interruptible_timeout(chan->flushq,
--						      !chan->flushing ||
--						      xdev->error,
--						      left_to_sleep);
--
--		if (xdev->error)
--			return xdev->error;
-+	if (xdev->error)
-+		return xdev->error;
- 
--		if (interruptible && rc < 0)
--			return -EINTR;
--	}
-+	if (rc < 0)
-+		return -EINTR;
- 
--done:
- 	chan->flushed = 1;
- 	return 0;
- }
-@@ -1335,7 +1328,7 @@ static int xillyusb_open(struct inode *inode, struct file *filp)
- 		 * This can't go wrong unless there's a serious hardware error
- 		 * (or the computer is stuck for 500 ms?)
- 		 */
--		rc = flush_downstream(chan, XILLY_RESPONSE_TIMEOUT, false);
-+		rc = flush_downstream(chan, XILLY_RESPONSE_TIMEOUT);
- 
- 		if (rc == -ETIMEDOUT) {
- 			rc = -EIO;
-@@ -1629,7 +1622,7 @@ static int xillyusb_flush(struct file *filp, fl_owner_t id)
- 	 * the user pressed CTRL-C, that interrupt will still be in flight by
- 	 * the time we reach here, and the opportunity to flush is lost.
- 	 */
--	rc = flush_downstream(chan, HZ, false);
-+	rc = flush_downstream(chan, HZ);
- 
- 	mutex_unlock(&chan->out_mutex);
- 
-@@ -1699,7 +1692,7 @@ static ssize_t xillyusb_write(struct file *filp, const char __user *userbuf,
- 	}
- 
- 	if (chan->out_synchronous) {
--		int flush_rc = flush_downstream(chan, 0, true);
-+		int flush_rc = flush_downstream(chan, 0);
- 
- 		if (flush_rc && !rc)
- 			rc = flush_rc;
-@@ -1836,7 +1829,7 @@ static loff_t xillyusb_llseek(struct file *filp, loff_t offset, int whence)
- 
- 	if (chan->writable) {
- 		chan->flushed = 0;
--		rc = flush_downstream(chan, HZ, false);
-+		rc = flush_downstream(chan, HZ);
- 	}
- 
- end:
--- 
-2.17.1
+
+> 
+> .
+> 
 
