@@ -1,83 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794224586;
-	b=1P7IouJToH7OnlTvpejuGedrIZ9HKMOKrz8j2NLg4nB5m0gKPNq2dvYINcAlTP8Bu/1A
-	 OkReVTCaJKRjQORBjO6c+mJn6E5kw5Ny4cBwVl6QAsmfZjo6pQ5clxMiV0TTsPmREYn5I
-	 EjOfEAab4JdOAnn+fY35NiUnOF9B/LPV8iVCKxAF1ngP+axAGagAjpjVJg9L+R9PGS6QK
-	 Y/DkcN5WQ5zy7RLVInMSUX1YjV7/FnyG1nUBDCqZOxIl172LwmWGJBIA/u648Vz5A6bfv
-	 BL9xxEbN0CUJ3/cbKUJMiZ5PvFrcxkNAOL6VqHA0wZp+eadvQS0KXxOjAksPuz+vnyQ==
+	t=1794224669;
+	b=jIi1r9pJXI2FWs/4CAHygrODHu3ND5ZMOr8e/QC/l0f+ZKsO20ZadVC/Fg6vJFEoTXEY
+	 D+lS5A8VZZYO6dy+HJpGam2/quM3yrWzZF+N2YB9Ge+UFzpdXfOIm199BnuQ9fBkF7R81
+	 OLkMWznpIAykzpd3krHbA3DV373Wsfu7JnriV0Ahg7uHRRAVIFt2xkVGQEr+IV2bnpSrn
+	 EFwu+qxrE4ArVrbumBpoLH6FeDeWJyobNXSUoCl8O/EGikMXPNtogXlTJJ3Yl82KLPMSr
+	 bHbCgDBxio6SdPmjGTGxepQB7hY0TYDUcWsCBUJo6RFissj3nOu2spqIKzK9KERtnSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224586;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=KmBZRsciR8DPhlZqPxESh6IpeTD/hkndOkOwZa7ckLo=;
-	b=o6jVtB7hLs5wVexXrqgUtl5uttzK31TJeS7NmuI2MnMIB9nGQWhP3r4OrABGNe6Z1omQ
-	 CCj/dBRQMVWuB4nLmWBm4sGi0U57NawsLeRYNEyf8Y+jrBCq5+5hqwjM+mLa5UBBDjtD4
-	 sC7t2xtP0xeJz5/1SLyS2iH41b4fcTb4VOlbZKd/BC2xmc3migNSlU71NzPYM6killT0x
-	 y3MwOdHTBw6Dp/HrFGo8v9SbOnDzgmAgd1Mf/9jJNqFJiOQmVe9kCmdqALWZOCaknfOOS
-	 qZjjBRr0Uj+8aMeWtiwLiaLDvjjJYksKwfilAilHjbnZj5PgM1XZQfdhIBxmei53k1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224669;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
+	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=TUIOjmzBlQxfdwjHftiwHU+LF7dk3gDF7kPQW6Gje5E=;
+	b=q1GBY8De0r26LzIa/dimexAzktjoC9q0WaqD1Bke6RaC/9Sd2d3gjleH67p8Qc6bEiTI
+	 FHflZl+OWgKJFufY82DdCP70BWYWByeXmHYxSiBV3FV9MwM+KvqhUrAMmM6ntf3i+EBr9
+	 4HheYM5nu7OIB3POE9OJdMeFxFrxls3SSupXrIyNNlKO63K3f6706ysRBUR33hD7DG7fL
+	 T5lyXYb7TyvRB3PYggnNnOhzvfkcgQeAgrkInINV309ix3QpwKfky9230PSJR3tft+xPP
+	 U37uZVtZiUjyrRVKS6fbdn02UtHnOD6e8SlEXNCcvvY9X/hasVEanctCrwUANY8vx6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Aw01t8gt;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xqEuKWhE;
+	arc=none smtp.remote-ip=209.85.208.45
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175C0606A325;
-	Mon,  9 Nov 2026 11:43:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 175C0606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442DC606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:44:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 442DC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Aw01t8gt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794224586; x=1825760586;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cTGzfwzQVoiq9hsl0Sc5mq1pROanVaVZp3VqGiIUImQ=;
-  b=Aw01t8gt292nCZN/SVzuUPO085ai0WerStmwRq4bwdS9RwgvQaKVGbUt
-   hrGicbMj9cjkCISYIkq8pQgk5599MfOFjCT/FGlYgDdHZLl6MEzqGk3PZ
-   aHV4ULCyTiizCo5sGrFnb3OeVQSWY94WsMAwIk8VOexyyu2UgAdQX+9nt
-   10Zu09iWCLwV7JdMHZboAhJNxtV8BB77FkKxqA1ugI3LkGBjYUed+ILpN
-   NS45FKMrPBtxWLurhbqGbCK8nq+10FeK0IUHZtI5oVpgzqKhkOvrwu4zl
-   2g6vIiZGDaSdFg2EaN3bmHWLd+Eu8j5Q562bsgP9OQjC1tIe/E11mha0B
-   Q==;
-X-CSE-ConnectionGUID: 5OtIJPy4RsuPnvXNMsHN6A==
-X-CSE-MsgGUID: wiSN13ArTMOXqZWawBAohQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2976523"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2976523"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:43:05 -0800
-X-CSE-ConnectionGUID: mTkSe0LDRhu0+2X+gxR/XA==
-X-CSE-MsgGUID: ZAnfzOVLSSWAbwl7ayJrgg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7726200"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 03:43:03 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id D2103121B96;
-	Mon, 09 Nov 2026 13:43:00 +0200 (EET)
-Date: Mon, 9 Nov 2026 13:43:00 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: "D. Manresa" <dmanresa@gmail.com>
-Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] media: ipu-bridge: don't reference the module
- image from software nodes
-Message-ID: <avGxxCtAsVYKFxSq@kekkonen.localdomain>
-References: <20261010155626.2766298-1-dmanresa@gmail.com>
- <20261010155626.2766298-2-dmanresa@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xqEuKWhE
+Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b58cb69927so1263227a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:44:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794224668; x=1794829468; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TUIOjmzBlQxfdwjHftiwHU+LF7dk3gDF7kPQW6Gje5E=;
+        b=xqEuKWhEubSRYm9cPGcvDBUNSMiBaxMCVF2Co9vgHEEsJijOwKyFhf0BNcawkj6ZYA
+         U1saTLAnUDDpKqXyVvYsd4gN+hZx1lyqXguoiwQiQbdk2Fr6cTrz8PfMTD/lVpn/kKi3
+         u8IgYVnDGKwZGmAH8rLo+KSRKJC3U6QGHBX8aAtOpWlPKxTndnbwYINHhTkZVXeVcNXa
+         jAakjW49pScqXtHdisUszHSRlsnoEOSKgDg0S5OvVE/FF/dDJUw6UiTlA11RPdibzwSP
+         ZWxUql9X24OubHJve/e6Bak9W7aULb2pSukQmHlO0XGXawYRgtaQXc200baK1XnRliir
+         qAGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794224668; x=1794829468;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TUIOjmzBlQxfdwjHftiwHU+LF7dk3gDF7kPQW6Gje5E=;
+        b=AP7FI4hvXQViVsL674lx2NRO6vsnzrP/e/aIPhOoWkyMjY9g0XKFDuY2KW8MotBxfa
+         /a9jH51re0DDTOFeWfRB4oPwbig2Y5Wkkvlx2fxQ4S2sRi/jkbBq3jEsQiMDT69EGQJc
+         pldUEONYGA/EXA2VOKrjOOCd/GBDJF8Nw2Qf5JABcgGT7MbUBGpuzDGZxsN6QT3TOtnC
+         vYvj0qUbmf/juW04yuP9sXH2347JzYrxkFTx2NRMoshFqZcF9+l89ayFsYVH3pkoOe8U
+         NJZBIbTT/QoYqe0wby818D2vjBSPUVGFlUlasMMkHJNRwydZi5yYlpvhNWDbEWNiDoQg
+         lxig==
+X-Gm-Message-State: APuU4Z+s96EDIOdcXUhri+3cQFgZXltynJrKXbZvHVZU1wcWmbu73Rxr
+	hVGkCRrVdD3Wt65gFnKDtpV6JZ7s402pDLNTnjvSJIp//UwrzbdzA+YFZych66u7
+X-Gm-Gg: AYBFou0k7Orsis4kSpx4iU0pctbdgQgFeews+C33I5koSXHMhRm9SX8+0ZPFlXeBjPM
+	+G43XEEHZ7ATV8Xs6vpnG/i90z6SFWHY+oiKhEBKgSez1SXb9MiFLEQmxpW51Xb5ouizqd8gVPo
+	uony3JnFhlJbbGsjzQG5j//0AOtAWvyt/EBmmtdvvAKQLgB0/kOrzUZDe7iG2I6xgK28vs2dq6d
+	vxFOUh1b2m2Lu3w0Ht2XcBBDQkBRX6xxaSrzdMG5RB08cUV55uHoGcMn+ln55NPhEV87zVLcylA
+	HVHPHjfW20ay0RzShHJuDS6dALWwtAYob6umM97MndGBmr5IxVoIyf6rPRgbnZmw8y/CdMZFn5e
+	uQZgldTQScz0L8KezXUHrucAkq0osdetq7wCwFQ322AxjDjbqSMI6ZAz1CZVa9HDhgMnc0pYYSk
+	99sHYPL+owZdGWy1RXKgYgYfcSQJ149AKS7hGfSNwKnWhN+LjAVNaTBPr/sUxwLqmrbaFRN3aJ+
+	ZNbxO4RXjGO/0615p2BhlIA6Yn84pqn9sjoXMzvxRu93lg880cUdI9sdFtf7LcwgzN/4saeqncS
+	0/o7ccxpwTMQ3BACUAmsSc+JOOaVYBTi11lsy4Z6YfGwrD2+ZgnUnCnlK87s+WO5wTbhFoRI99E
+	FOimQHJEhZfUE5N4MFQ9ljV9AWmT1I21io+5gfPpsR9GI0WcSPixFkJqJM6Tmk4gAXwFeFQnNlL
+	8aK9wQW/1757Q=
+X-Received: by 2002:a17:907:3fa1:b0:c42:6632:a369 with SMTP id a640c23a62f3a-c4d6db7d76bmr283531266b.21.1794224667461;
+        Mon, 09 Nov 2026 03:44:27 -0800 (PST)
+Received: from linux-laptop.dynamic.ziggo.nl (2001-1c03-0884-3400-503b-37c4-84e0-7f98.cable.dynamic.v6.ziggo.nl. [2001:1c03:884:3400:503b:37c4:84e0:7f98])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a4b0245sm156584666b.62.2026.11.09.03.44.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 03:44:27 -0800 (PST)
+From: Laurijssen <lauserve@gmail.com>
+X-Google-Original-From: Laurijssen <laurijssen@protonmail.com>
+To: linux-kernel@vger.kernel.org,
+	pjw@kernel.org,
+	akpm@linux-foundation.org,
+	jannh@google.com,
+	brauner@kernel.org
+Cc: Laurijssen <laurijssen@protonmail.com>
+Subject: [PATCH] SYS: add utsname_set_field to reuse code in setdomainname and sethostname
+Date: Mon,  9 Nov 2026 12:44:21 +0100
+Message-ID: <20261109114421.8414-1-laurijssen@protonmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <AE97EF84-F9EB-403E-B2A5-E75A4C329179@mainlining.org>
+References: <AE97EF84-F9EB-403E-B2A5-E75A4C329179@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,36 +102,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261010155626.2766298-2-dmanresa@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi D.,
+Changes after review, cleanup of duplicated code in sethostname and
+setdomainname. Moved reusable code to utsname_sysctl.c
 
-On Sat, Oct 10, 2026 at 05:56:25PM +0200, D. Manresa wrote:
-> The software nodes the bridge registers are deliberately never
-> unregistered, so that a later rebind can reuse them. Nothing reachable
-> from them may therefore point into the module image, but two properties
-> still do: the "link-frequencies" values point at cfg->link_freqs in
-> ipu_supported_sensors[], and the "lens-focus" property name is a string
-> literal.
-> 
-> Both dangle once the module is unloaded. Re-probing sensor drivers then
-> read poisoned link frequencies from the surviving nodes and fail:
-> 
->   ov5693: supported link freq 419200000 not found
-> 
-> Copy both into struct ipu_sensor, where the other property names and
-> values already live.
-> 
-> Assisted-by: LLM
-> Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
-> Fixes: 68b9bcc8a534 ("media: ipu3-cio2: Add support for instantiating i2c-clients for VCMs")
-> Signed-off-by: D. Manresa <dmanresa@gmail.com>
+- add utsname_set_field to utsname_sysctl.c
+- call utsname_set_field from sethostname/setdomainname
+- moved uts_proc_notify from .h into utsname_sysctl.c and turned static
 
-Could we have a real name here, please?
+Signed-off-by: Laurijssen <laurijssen@protonmail.com>
+---
+ include/linux/utsname.h | 10 ++----
+ kernel/sys.c            | 46 ++-----------------------
+ kernel/utsname_sysctl.c | 75 ++++++++++++++++++++++++++++++++++-------
+ 3 files changed, 66 insertions(+), 65 deletions(-)
 
+diff --git a/include/linux/utsname.h b/include/linux/utsname.h
+index dc5594ffffcc..409261d5381f 100644
+--- a/include/linux/utsname.h
++++ b/include/linux/utsname.h
+@@ -18,14 +18,6 @@ enum uts_proc {
+ 	UTS_PROC_DOMAINNAME,
+ };
+ 
+-#ifdef CONFIG_SYSCTL
+-extern void uts_proc_notify(enum uts_proc proc);
+-#else
+-static inline void uts_proc_notify(enum uts_proc proc)
+-{
+-}
+-#endif
+-
+ static inline struct new_utsname *utsname(void)
+ {
+ 	return &current->nsproxy->uts_ns->name;
+@@ -38,4 +30,6 @@ static inline struct new_utsname *init_utsname(void)
+ 
+ extern struct rw_semaphore uts_sem;
+ 
++int utsname_set_field(char __user *name, int len, enum uts_proc proc);
++
+ #endif /* _LINUX_UTSNAME_H */
+diff --git a/kernel/sys.c b/kernel/sys.c
+index 755bfa5ccd92..688c5e9e222f 100644
+--- a/kernel/sys.c
++++ b/kernel/sys.c
+@@ -1421,28 +1421,7 @@ SYSCALL_DEFINE1(olduname, struct oldold_utsname __user *, name)
+ 
+ SYSCALL_DEFINE2(sethostname, char __user *, name, int, len)
+ {
+-	int errno;
+-	char tmp[__NEW_UTS_LEN];
+-
+-	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
+-		return -EPERM;
+-
+-	if (len < 0 || len > __NEW_UTS_LEN)
+-		return -EINVAL;
+-	errno = -EFAULT;
+-	if (!copy_from_user(tmp, name, len)) {
+-		struct new_utsname *u;
+-
+-		add_device_randomness(tmp, len);
+-		down_write(&uts_sem);
+-		u = utsname();
+-		memcpy(u->nodename, tmp, len);
+-		memset(u->nodename + len, 0, sizeof(u->nodename) - len);
+-		errno = 0;
+-		uts_proc_notify(UTS_PROC_HOSTNAME);
+-		up_write(&uts_sem);
+-	}
+-	return errno;
++	return utsname_set_field(name, len, UTS_PROC_HOSTNAME);
+ }
+ 
+ #ifdef __ARCH_WANT_SYS_GETHOSTNAME
+@@ -1475,28 +1454,7 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
+  */
+ SYSCALL_DEFINE2(setdomainname, char __user *, name, int, len)
+ {
+-	int errno;
+-	char tmp[__NEW_UTS_LEN];
+-
+-	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
+-		return -EPERM;
+-	if (len < 0 || len > __NEW_UTS_LEN)
+-		return -EINVAL;
+-
+-	errno = -EFAULT;
+-	if (!copy_from_user(tmp, name, len)) {
+-		struct new_utsname *u;
+-
+-		add_device_randomness(tmp, len);
+-		down_write(&uts_sem);
+-		u = utsname();
+-		memcpy(u->domainname, tmp, len);
+-		memset(u->domainname + len, 0, sizeof(u->domainname) - len);
+-		errno = 0;
+-		uts_proc_notify(UTS_PROC_DOMAINNAME);
+-		up_write(&uts_sem);
+-	}
+-	return errno;
++	return utsname_set_field(name, len, UTS_PROC_DOMAINNAME);
+ }
+ 
+ /* make sure you are allowed to change @tsk limits before calling this */
+diff --git a/kernel/utsname_sysctl.c b/kernel/utsname_sysctl.c
+index 6c1522201e39..026e5c877a8b 100644
+--- a/kernel/utsname_sysctl.c
++++ b/kernel/utsname_sysctl.c
+@@ -5,6 +5,7 @@
+  *  Author: Eric Biederman <ebiederm@xmision.com>
+  */
+ 
++#include <linux/capability.h>
+ #include <linux/export.h>
+ #include <linux/uts.h>
+ #include <linux/utsname.h>
+@@ -12,6 +13,9 @@
+ #include <linux/sysctl.h>
+ #include <linux/wait.h>
+ #include <linux/rwsem.h>
++#include <linux/uaccess.h>
++
++static const struct ctl_table uts_kern_table[];
+ 
+ #ifdef CONFIG_SYSCTL
+ 
+@@ -67,10 +71,68 @@ static int proc_do_uts_string(const struct ctl_table *table, int write,
+ 
+ 	return r;
+ }
++
++/*
++ * Notify userspace about a change in a certain entry of uts_kern_table,
++ * identified by the parameter proc.
++ */
++static void uts_proc_notify(enum uts_proc proc)
++{
++	const struct ctl_table *table = &uts_kern_table[proc];
++
++	proc_sys_poll_notify(table->poll);
++}
+ #else
+ #define proc_do_uts_string NULL
++
++static inline void uts_proc_notify(enum uts_proc proc)
++{
++}
+ #endif
+ 
++int utsname_set_field(char __user *name, int len, enum uts_proc proc)
++{
++	int errno;
++	char tmp[__NEW_UTS_LEN];
++
++	if (!ns_capable(current->nsproxy->uts_ns->user_ns, CAP_SYS_ADMIN))
++		return -EPERM;
++
++	if (len < 0 || len > __NEW_UTS_LEN)
++		return -EINVAL;
++	errno = -EFAULT;
++	if (!copy_from_user(tmp, name, len)) {
++		struct new_utsname *u;
++		char *field;
++
++		add_device_randomness(tmp, len);
++		down_write(&uts_sem);
++
++		u = utsname();
++
++		switch (proc) {
++		case UTS_PROC_HOSTNAME:
++			field = u->nodename;
++			break;
++		case UTS_PROC_DOMAINNAME:
++			field = u->domainname;
++			break;
++		default:
++			WARN_ON_ONCE(1);
++			field = u->domainname;
++			break;
++		}
++
++		memcpy(field, tmp, len);
++		memset(field + len, 0, sizeof_field(struct new_utsname, nodename) - len);
++
++		errno = 0;
++		uts_proc_notify(proc);
++		up_write(&uts_sem);
++	}
++	return errno;
++}
++
+ static DEFINE_CTL_TABLE_POLL(hostname_poll);
+ static DEFINE_CTL_TABLE_POLL(domainname_poll);
+ 
+@@ -122,19 +184,6 @@ static const struct ctl_table uts_kern_table[] = {
+ 	},
+ };
+ 
+-#ifdef CONFIG_SYSCTL
+-/*
+- * Notify userspace about a change in a certain entry of uts_kern_table,
+- * identified by the parameter proc.
+- */
+-void uts_proc_notify(enum uts_proc proc)
+-{
+-	const struct ctl_table *table = &uts_kern_table[proc];
+-
+-	proc_sys_poll_notify(table->poll);
+-}
+-#endif
+-
+ static int __init utsname_sysctl_init(void)
+ {
+ 	register_sysctl("kernel", uts_kern_table);
 -- 
-Regards,
+2.53.0
 
-Sakari Ailus
