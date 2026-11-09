@@ -1,81 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794258457;
-	b=OZg8HjpA6Ip9MSBzE9WmK/59qLvxbc5LMcES0nRfVQ5b18gc2TVq2HSNm0fdxI2tE3ev
-	 PMaTYBJJmyWEkYof6zpVuh1uos1qVcswYOao3vxL5AESOs1QAlmROjWpKNNL0NpNNJJwR
-	 R5EMR7m6QLHaE9+qOUjjMLubh/DMEk/gdPe3BV+v97At+f4G2cYDJGxYbhNnBBXR2e5LP
-	 AFnkeT6U1ks8fM2OemICnXdVxpymYYS3DKnn09HgYRAbirt9/3bt27+cEmbX/LYMx1Ozc
-	 UeL4UNiNMonIQA/VZao7GPSJfg4Ct+GAnaYOqJ8fJ+l0q6ERmhGCo7LtXSCWeS+JQRQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794258457;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=zx8SxsoSV8Yyw8L+yqTj4SC0QqJPLNX7j1xl6sOh8vY=;
-	b=vtAp5avnzZYUcMa4/0G5cbiYnRuqqUh3HkTfJkaQuWu8J0MByYZymtqJSwHCW1b/beqn
-	 SC1DHEkmP2Sol0Ia+twHPXUITqW7n3vnb0gaHGoIWXBylIYWs5Rtw9/02EPfd/V5X9ycv
-	 HNxAttePMgeIt5Vt+lliOt9EaLqVtxrhjaOA5fvkmngJoGY0VFvliB9SnPs7z3H23ay5x
-	 d3OxhucmmHaM9lRsRioozI9VsredZu5wswPekvCYru7ewSQUG4DN2OajhZiA4kf1zWwRg
-	 sxl5EldRTScPWsNK1/f2r4Mb98mXF7bRuucQZ69bfAgyTlMgm64+dsG9sJG1Gb27sqg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nx06CGd+;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=136.143.169.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794258467;
+	b=gZkiXcXilitjHsxRutoyRj8FCnl1i+Ky2Lnk1kNbI/kiwDk4XFhezgkJyyaTZvQE6jtl
+	 8j4Ha3jSWoqUBkV5VXj1YYDRy3XkeXVGP77tJG9QhWCgxf29B67FX31u2Kpcd4/3i8qze
+	 uLPXAl09360krSoE45Rl7Yfln2PHJtRDjVA2OctQmN5OMKGCY0nAbuSGAPNdCGcuvAyZI
+	 +Cv9kxRZiIemd0ZsPtSl51/JnfFWdosnQEEdctDzwL8wNtUGNd4nmkpaykm3wYXFJTvPq
+	 fp2HSVwQvOKXRNxpLcYgmn+LmygcfotdTv0oIhziTA4/J32p3q/eMyBMAogB7ZGrghg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794258467;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=b9nkg0bUgrEInPraZfEB6T4z0np0Vi/eCDyRJD4LyDU=;
+	b=WaA78P4+nd8mv5OnjKeW1PpfnFbCj/rnf/zaFsP0WN/snDjIqfg/Tl09feulSbLwJkOd
+	 zRfNx1tmV8lVb7c1UD+YsphPK5fVhhAz0RFAGg2cPnL5fQ55ire/9GOAolp7iAs3/G5+2
+	 AqKZGoOJOxgtRPZNHbAwcfwFsphO06cxRghHc0gk1wNg1cXehbWVdzQI7uPH6FUimidjh
+	 xJAR6GvygeoTy95gasxvGN9IJicGtEqdCzDqSuY17QxQm63UemIbM5OiNVeZSpmZRGZNw
+	 +3deATWk4d89cpmTATWRym9CfEKJyijtaPWOK8PRK+HiAnHNJQ8ZCxJk4H3r+tgv68Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iav.lv;
+	spf=pass smtp.mailfrom=iav.lv;
+	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=Fu4LFQih;
+	arc=fail smtp.remote-ip=136.143.169.17
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15188606A330;
-	Mon,  9 Nov 2026 21:07:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15188606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36444606A321;
+	Mon,  9 Nov 2026 21:07:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36444606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nx06CGd+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794258457; x=1825794457;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=JrfVxP3ZXPNoalDGXIJscDnrfmmTUh2X1Ow9zB8A+Qg=;
-  b=nx06CGd+DMqCbSk83je7Ga0vSpr8Ya19MY8wNVk841l49fVD/Xo1wCwZ
-   qH23mKtp8m8llSNOHn5DRbFyzIqkBuXl3ecvChreFqqFJ5wxiNRAyg5pB
-   tlybliDo4qD7w5BV7HjblvQ6Vbb0Lzj0elimJvnm5LiK6u35SutSKOW5D
-   dLqimto/DA7b3KjnKous9QnvJLwQ9pslIAZp8OXmX2z1Y1Veo79NwP2SP
-   ZFFL/4MYZzlNtUpgHI4XzIB9K+tH/tXs13TtcfbxR+gzkmc+7RgusZYOC
-   wZFgQa1o5ak3z8R+XG19NiofziFc9ANmS6tjPnQ41wiz/Mft0vufkfSFp
-   A==;
-X-CSE-ConnectionGUID: JXfoJbgLSwaedkyTqlgetQ==
-X-CSE-MsgGUID: dNxWQH4CTz6wbXieAUEthA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3029290"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3029290"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:07:37 -0800
-X-CSE-ConnectionGUID: mAzsME0/QRKbF5+XhEa2Eg==
-X-CSE-MsgGUID: 0oWM0/+NTDeoAnuxyaLp3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8399045"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:07:33 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=Fu4LFQih
+ARC-Seal: i=1; a=rsa-sha256; t=1794258449; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=jz2EsnWewn02NaUWxMIIzv828qC5NmQF/a2pqF9dSuaxddqeIKD/4RwjQk1/dM4/VC0lJnVWV13dIoUXcnt3l5w7dSWKjJ0O0AsMFmXuw7IQoHl7RE8RkYK+FzuBRejjkX6hKR3Ho2UN4bPKKPVy411FJRJHZNnVcKJ/pyOBEtM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1794258449; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=b9nkg0bUgrEInPraZfEB6T4z0np0Vi/eCDyRJD4LyDU=; 
+	b=G9aE4h3l/2wbrIFodBIzxz2en43ztWTrsGsATJTLYJfStp9Eb+yVqztWXk0X6M1RL2eaImEUXszjnHCjT25CCUsRv3zRwniR2nuLRBS8UqgSO4ZLewdROsXJMs7dCYKlslBcNTRAOpFG9VOyW2TueyFF54IJFJNfptKKc6QL6lA=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: a=rsa-sha256; b=Fu4LFQihBYem2cDlZ7W70Wp7j+nPLzwfZ/1NsdCJZtStypacGZSEjrXauIIvlMpdmXQax/DbjmAsokRpC2SPkDBpmn6hWmp9xWQXD32+DCxav/lVABVjXTaLar3ojHTNzndmPh091NJB1P2I5AE4+JXZPWcDE5X8xT2eriAKMHc=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=b9nkg0bUgrEInPraZfEB6T4z0np0Vi/eCDyRJD4LyDU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.eu with SMTPS id 1794258448226804.6244202787284;
+	Mon, 9 Nov 2026 22:07:28 +0100 (CET)
+Date: Mon, 09 Nov 2026 23:07:27 +0200
+From: Igor Velkov <iav@iav.lv>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Shawn Lin <shawn.lin@rock-chips.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
 	Bjorn Helgaas <bhelgaas@google.com>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Kay Sievers <kay.sievers@vrfy.org>,
-	Greg Kroah-Hartman <gregkh@suse.de>,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 01/11] PCI: Free device name when pci_setup_device() fails
-Date: Mon,  9 Nov 2026 23:07:01 +0200
-Message-ID: <20261109210714.3862-2-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109210714.3862-1-ilpo.jarvinen@linux.intel.com>
-References: <20261109210714.3862-1-ilpo.jarvinen@linux.intel.com>
+	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+	linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Igor Velkov <iav@iav.lv>
+Subject: Re: [PATCH] PCI: rockchip-host: Enable async probe by default
+Message-ID: <20261109210800.async-probe-reply-2@iav.lv>
+In-Reply-To: <20261109205911.GA292554@bhelgaas>
+References: <20261103-rockchip-pcie-async-v1-1-4dcadb94af64@iav.lv>
+ <20261109202202.GA265423@bhelgaas>
+ <20261109204122.async-probe-reply@iav.lv>
+ <20261109205911.GA292554@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,51 +78,16 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-pci_setup_device() calls dev_set_name(), which allocates the name, before
-it can fail on an unknown Header Type. Its callers then free the device
-with kfree() because device_initialize() has not yet been called, so the
-name is never freed.
+On Mon, Nov 09, 2026 at 02:59:11PM -0600, Bjorn Helgaas wrote:
+> Mani's already applied it, so I think it's fine.  I'm just trying to
+> understand the commit message and figure out what the merge commit log
+> and the eventual pull request should say.  It sounds like "this makes
+> SD cards work better" is somehow part of it, but it just feels kind of
+> hand-wavey.
 
-Free the name in the error path of pci_setup_device().
+For the merge log, maybe: "Probe rockchip-host asynchronously so link
+training on an empty slot doesn't stall other drivers' probes for
+~0.7 s". The SD card is just where we noticed the stall.
 
-Fixes: 1fa5ae857bb1 ("driver core: get rid of struct device's bus_id string array")
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: stable@vger.kernel.org
----
-
-CardBus disabled case will reuse the same label after the move, thus
-add the rollback path in this patch.
-
- drivers/pci/probe.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 9a178e0e5f7f..1c2caf3ce664 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -2194,8 +2194,8 @@ int pci_setup_device(struct pci_dev *dev)
- 	default:				    /* unknown header */
- 		pci_err(dev, "unknown header type %02x, ignoring device\n",
- 			dev->hdr_type);
--		pci_release_of_node(dev);
--		return -EIO;
-+		err = -EIO;
-+		goto free_name;
- 
- 	bad:
- 		pci_err(dev, "ignoring class %#08x (doesn't match header type %02x)\n",
-@@ -2205,6 +2205,11 @@ int pci_setup_device(struct pci_dev *dev)
- 
- 	/* We found a fine healthy device, go go go... */
- 	return 0;
-+
-+free_name:
-+	kfree_const(dev->dev.kobj.name);
-+	pci_release_of_node(dev);
-+	return err;
- }
- 
- static void pci_configure_mps(struct pci_dev *dev)
--- 
-2.47.3
-
+--
+Igor Velkov
