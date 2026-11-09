@@ -1,99 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794243517;
-	b=4wxNVJHEB7TDjym44MJZLklzelr7HNdDa6fjYGT2N4p4Cw0FrhT3aYlvIlAt+V4zWPdB
-	 VLvmUSi6qQIYLd+EULa/ickE0aLdvRuC4y9aWnzjHeYFGZ82AM4Pjwqy9CRx2U+rgGLzC
-	 NWJfi9mPeYPagrrTeJBliM8eazjqNumet7vuACK6ejbtGkRfqwawUAhtzq662gIFaD7g+
-	 BKwbvNRdpwX96ez/UlqxEm7ZEj8apwPC1rp21WMf+GPfcbbdXU1yF+Y/G/XTSrHE156nj
-	 JMyY2pcDjS5DTKfakNM1Ti/pQ71XNWPykmO03n5jzRWpNChn5gRmvnbPUj+31+gc8YQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794243517;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mnYSdfRu+c56LQgrzrZ7H2MZoKEnk1Re1+H57vWpHJU=;
-	b=VR7NuWtTIi1TCwTfe32RcytUfUL+XDTyo5u8pB9QxQcNtht/EyrdLm05q/IBrv4rgMRQ
-	 +yybWKZ7KDW4aFRoB/lsvgXQgQkK1q5M1V08K9T4Q+ZpPcKI5HHGJLNdCpDIMeIz0JlJJ
-	 U603ccOyAgsCTtLU/7rfvYv9GwfuKRGhFzRklJ1/sJq/gt/fqf22LZoysEAkwqWHIJh2o
-	 MX0qUcANamTDQoOct0PFUyXiycAc2bjiSSmAFdgaGJk9ctzzgiovEc0DUfGyxzakCPt1L
-	 DJT3C/QMqS9YGdUwoT0CdnozeNEuB4GzWGg8OBb1ekRuOhAVqKPM85BhjUekdibX79g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JQ7SOrBJ;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794243499;
+	b=H2Ybi0ZW3aT/8gKJfBwTe4rhkSzbEvk4d530LNc8mtzDdKnM4EZJaHq7AU8gnZAzPVDj
+	 m2EndbHs81HvI/fDvjRabXKMBHqqfc/EAoBD3PFZ6j6zDkh1nO2nsnV/55b6u/LME/s0S
+	 YE7Q7YAWc/KH1ZIMTZElWuJ9yU3pUypIk50AZyW0TRvZYQXIWspLHSVBItLhEYXZaYAfF
+	 FIwaBBZugzBDHqk1ErtqpGj/l954RT5CSFHZUksFEcfxKRATKGrpTF4WZBYTHJphQwFoK
+	 7w4oNKAttuqHMmSICGrB6ziZ9DsNKzavEGSvFuZdi1asTJUVZlGpHBnh/xMjJvoB6Nw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794243499;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=04wIlAZbBBFLI1pA4/Ovc7MOg/six0fgzdXInH7VT0c=;
+	b=aZamLma4KTNdk8iM1oXZSV6AYIoH1GOsXlR705XH03YuiTynjxnPe7DezjeRkf9ylE3l
+	 Dx9f/GoKZQgLNOvDvPJHC/OD78TcpttzTkxwlVoY9CAVRdTne21+HxoTtLk7A9ld68eaD
+	 EFKNRkKyPnWhuavbJzcKI1DaS5VqIJVCGTf3ZVS2d/MMxf4kyLdFI6oezF/IlWaxp37DI
+	 IIUEdSGil2JFocK0cDs5K4CdiIxGOQ8nRB/WN7zfRTpxx0vVE84kAXGaiTCZ+hX9yQCJ2
+	 b0lqn6LU2TBkMjku8VBOH+GYwkFGH1IgQlr06onk4ViXyhi1Zmi9JsuHKga9c75H4wQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oK8pr/6H";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A260E606A42B;
+	Mon,  9 Nov 2026 16:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oK8pr/6H
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794243499;
+	b=pI+ZnuNCKpntsuE6pArlg8hOOa1LyKtngxd+y8/xKV5axXimOUJgBLlN1aBLVAKbI4RL
+	 Wx2uRSeHkpArNeecnF2k9+r2ZDfN2YG5UfsEsMSXdFfDnEwDHpLI0wZelBLgcFNatuF0J
+	 5ggYmw8YjqV3UagbrNUXOKL17MZwB61xakLWz1h1S8Ry3fncWfTLZkdtYHafA0Pv7G5T1
+	 Z56+FJeTOtwo3ETGhJwb4B6oN0qF63QmVbAPflZvs6i6eBM9YBwal6j4SFJM1elwR7WS3
+	 gqL1HIENeY7B/PaWcqWLHdNDCBDWvgjGlokd7GuBmLJuIsYdH7QrDF0bdHsiqbNpi2A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794243499;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=04wIlAZbBBFLI1pA4/Ovc7MOg/six0fgzdXInH7VT0c=;
+	b=cP8dFBE1DrFpxIK6h1xM3EcrdGgq377q2epItrzV05Qh3QGuJSeYCgu5nfgiMPqkgU96
+	 Ew+Me+nd6mWuICULB016T+Zy4HNMVh2ALTUkjt7JwuFWhX3qucYZCfBWIqqatjNLzyMs8
+	 3a17h4dtf8gjxCLFNLN/fmnznbDlgwDKIOcg7ncYzfDAyxQaf4R7Hhjjl+BzgyE3Z/GDe
+	 joNQxFNl3YdQiSJNNen/gxHF/acKju93Onety9rkXjq3bzSQwtYJsyfpOmlPzYu3Lp0s+
+	 0RkLHmhH1or4crOB8DdwHtbrmfubo5BRgULiLTMvqucNxbkKfKoNM1v7KJjF/3lkq7w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329AE606EEB5
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:58:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 329AE606EEB5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JQ7SOrBJ
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3b09a65c76dso801822a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:58:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794243517; x=1794848317; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mnYSdfRu+c56LQgrzrZ7H2MZoKEnk1Re1+H57vWpHJU=;
-        b=JQ7SOrBJWjn5bTTRuIVBEckh51beyH3mtLx4icnHVXiOagftE+COtGGrPJqpeEshF3
-         Uirlwz4+YJ5Luo4HtnsL5+YWC23ILkRt0QSEEdZhV8/p1+IYy9Yp1C19HrLAItxLS90D
-         brYC+sbErOamxKsmakGbSqeYj4KZzwC8ORigViuGSCKo4IrNiLFuOVxVJD1oSNV4JVO1
-         d6l9G35iYCqZ6dsz7Mv0+PTJE74v9N3CvtBebw8OpAxe3LTjWqBAKKK+cgAoW2yBzOl3
-         w6F/sih23fW9e5X+4jhIgyZO7WSBOVgvsEEVV5qorFFvbswg3hJATS5EepqOyTm9HECv
-         SjnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794243517; x=1794848317;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mnYSdfRu+c56LQgrzrZ7H2MZoKEnk1Re1+H57vWpHJU=;
-        b=ikfQNMEkSDdE4kg40iKoIsuNr26j+bn2OqkVcAEg3YY851XToyY6vHOmAviAKQJ89O
-         0rrurheDxw1OOM3XKu8rcn13MeBgrfmiefdCqPkwT1sLZswIz6RZfXRhcHwYFI/Yx22Q
-         pG/4YGezdMDF3LSpLi1VJujgbnYalKSjAiPTeJTnIBEByy4B3cAAt/lAxNLy+wIFE6oj
-         s4MM78VNy3Cy5jiePeG2J3gi3RW7ecK1mbe3qSWLtXjy76iAj3HJJ0QJ8WjdP9/+gK7w
-         b7Lf+lpnrjB7utNcHrOew/erUquPYLq0C7mT2ijPyyc072BDQY8Mliw+KTJjyDxx6nd4
-         POQg==
-X-Forwarded-Encrypted: i=1; AL+hErFTgeRLZgWOZk5wP2ou5Dt7MChtold7MkXIdy8+sFbNgRc1eNIn5vdqRyYYxI0VUIMdevphNCGAfjQDTtI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ofQ2eYfUxJyl9c2eLcoupk4z9SrXccAFTFAF/Ib8/Zr4nRTgi
-	wOwIAJWHD66Funi5V2SKaE8ejm38h59FWrQmQ/MFx3q6Ju/nVOnhhAkb
-X-Gm-Gg: AYBFou2OaxRU9zTXD+9zlrQ/a7Cb8Zd1QCDNQEur2/WLQeRctavUF6TVzoiSwqgCHpt
-	UuubYRfG67l++D2k/1GIXT95gATNvy3TPE2u8hyMffzGTOUCeyrMyMQYt8n5eiepsO0b24GRVg4
-	D9obNYrP1F6CgfC+JeSv6iAPEKTFet9BC8x0y5UeP3kqSpNnGDPAntmOuPkP1/1CH5i1NgqEwEJ
-	ITGdNSvK3YWeXhWwkv0v27UWQZBqXhkTPcyo6jgB7/NLuA2wF6KqvcEZpn1oiDBjhBG9fn2nn45
-	my4PcivPCQOEzfZrSE08TbNeJ6qrCRpjiGAvI+1TW4NyXU1335QClRzEHbsE5W4l0DmoJ69S4U+
-	SRhujRytvMjiNZUDvNdVkvAgGxM8fJCeNdby14Jiw4KPtzTVDiToD8VnxB1ziNPl38VtqDn8ao6
-	JNavgYtPga0mCN7cpmRbETDJTJ0mnz8onCuJJVKKZMMpHjqC0Fd3fPv1YaYqcAq6YHQQVLeyfMj
-	rEzzI9x7bPVApIQ7hCZY8vxJy6+6zxD/QG3zwMaWq31uieT/Qn+IfzGVZ7pX+3VGeU8IYjm4B8v
-	Ic2W+Rmr17+WwNQdmTQTjv/y3VaHMO3v2ewMVa4Gz56Yz1O30mnkV79RW+wy7KTq+GcukyH9RAr
-	dFmwP2THqn5F9IJxpATGCR5K61A==
-X-Received: by 2002:a17:90b:5101:b0:3a4:b0f3:6597 with SMTP id 98e67ed59e1d1-3b1669da216mr358991a91.0.1794243516607;
-        Mon, 09 Nov 2026 08:58:36 -0800 (PST)
-Received: from debian.ari ([152.56.156.124])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16779cf05sm138766a91.3.2026.11.09.08.58.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:58:35 -0800 (PST)
-From: Archit Anant <architanant5@gmail.com>
-To: jic23@kernel.org
-Cc: dlechner@baylibre.com,
-	andy@kernel.org,
-	nuno.sa@analog.com,
-	u.kleine-koenig@baylibre.com,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	joshua.crofts1@gmail.com
-Subject: [PATCH v6 09/11] iio: adc: ti-ads1015: use managed runtime PM setup
-Date: Mon,  9 Nov 2026 22:28:03 +0530
-Message-Id: <20261109165805.31160-4-architanant5@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261109165805.31160-1-architanant5@gmail.com>
-References: <20261109165805.31160-1-architanant5@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 98C671F0089F;
+	Mon,  9 Nov 2026 16:58:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794243499;
+	bh=04wIlAZbBBFLI1pA4/Ovc7MOg/six0fgzdXInH7VT0c=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=oK8pr/6HljH8ktY2RK8fjE+m+xekvFRuwnJj2YTb7j+2Cul0gCe3bPBqjwp/Mj1mP
+	 JxQ43pDi6ghAMiz1mlLinJ118NS84gV/JqDbUdgr3tfzl0O2AAsJ9cuLxjENingGUL
+	 Bw3Scde8oJabjH9f41d1kRzIHGrBrxr8ofVlUHj197wB4i+tHbjEOUzphdtqjdLNuZ
+	 ynvLfHZWubAyyuOesbmwK9W9vE96MpiDprAExsv/FShKubwHGPpnf//aABsptuMgSg
+	 E3JI0xScB4glfcliatw55aiI6Qpj1W1Yjp6gdfE5pyviUe76eZMXwXmVwfPUL9iLno
+	 Q8ZnMR3KS7kmQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2CA1E4853A;
+	Mon,  9 Nov 2026 16:58:18 +0000 (UTC)
+From: Blake Alexander via B4 Relay <devnull+blake.alexander.airbus.com@kernel.org>
+Date: Mon, 09 Nov 2026 17:56:30 +0100
+Subject: [PATCH net-next] net: usb: name usb ethernet mdio buses reliably
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,45 +82,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-net-usb-mdio-naming-v1-1-f4cca6737784@airbus.com>
+X-B4-Tracking: v=1; b=H4sIAD378WoC/yWNQQqEMBAEvyJzdiCJbHD3K+JB46hzcNQkiiD+f
+ aMei6K6TwjkmQL8shM87Rx4lgQ6z8CNjQyE3CUGo4zVWn1RKOIWWpw6nlGaiWVA1xamt6X6uMJ
+ CKhdPPR/PagV3IHREqF/jad3STXx1fV1/74gEGYQAAAA=
+X-Change-ID: 20261109-net-usb-mdio-naming-cb32f6805c36
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Thangaraj Samynathan <Thangaraj.S@microchip.com>, 
+ UNGLinuxDriver@microchip.com
+Cc: linux-usb@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Blake Alexander <blake.alexander@airbus.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794243402; l=3082;
+ i=blake.alexander@airbus.com; s=20261109; h=from:subject:message-id;
+ bh=Aq+iM0Hh6B0JDL8TaEt+jovCKbEtmkgqtg3fnPSTJ7g=;
+ b=zQtsDUC3IQ/9zbR59Oke/23oXkcipe+Aoo0hYfR0yshRy6+pJHAYpnxqU6DhpgCnfUZ9j4sO6
+ creHUuquyHCC2m7dmNf0wVECO2+pfqkrStd6/TlvRj0bQ5/4SNqnNdh
+X-Developer-Key: i=blake.alexander@airbus.com; a=ed25519;
+ pk=cfpa2FQbYHF1zxIJuHbr8W+NR9T4DK/baAknnTv2I68=
+X-Endpoint-Received: by B4 Relay for blake.alexander@airbus.com/20261109
+ with auth_id=1461
+X-Original-From: Blake Alexander <blake.alexander@airbus.com>
+Reply-To: blake.alexander@airbus.com
+Content-Transfer-Encoding: 7bit
 
-Use devm_pm_runtime_set_active_enabled() to combine setting the device
-active and enabling runtime PM.
+From: Blake Alexander <blake.alexander@airbus.com>
 
-Previously, probe explicitly called pm_runtime_set_active() followed by
-devm_pm_runtime_enable(). The managed helper changes the teardown
-semantics by associating runtime PM enablement with the device-managed
-lifetime.
+Embedded systems may utilize fixed USB ethernet controllers (such as the
+LAN78xx series) which are soldered directly onto the board. Currently,
+the MDIO bus names for USB ethernet devices are non-deterministic as
+they rely on the USB bus and device numbers (e.g.
+"usb-${bus_num}:${dev_num}").
 
-The runtime suspend and resume callbacks only update the conversion-mode
-bits through regmap. They do not manipulate runtime-PM usage counts or
-other shared resources such as regulators or clocks, so this change does
-not introduce an additional runtime-PM reference or resource-balance
-operation in this driver.
+For hot-pluggable devices a stable MDIO bus name cannot be assumed.
+However, for systems using fixed devices, user-space configuration
+scripts and tools require predictable bus names.
 
-Signed-off-by: Archit Anant <architanant5@gmail.com>
+Use usb_make_path() to generate the MDIO bus name instead, ensuring a
+predictable and deterministic bus naming scheme when attached at the
+same position within the USB hierarchy.
+
+Signed-off-by: Blake Alexander <blake.alexander@airbus.com>
 ---
- drivers/iio/adc/ti-ads1015.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/net/usb/asix_devices.c | 5 ++---
+ drivers/net/usb/ax88172a.c     | 5 ++---
+ drivers/net/usb/lan78xx.c      | 3 +--
+ 3 files changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
-index a65da3742bec2..93a8318e950e2 100644
---- a/drivers/iio/adc/ti-ads1015.c
-+++ b/drivers/iio/adc/ti-ads1015.c
-@@ -1064,12 +1064,9 @@ static int ads1015_probe(struct i2c_client *client)
+diff --git a/drivers/net/usb/asix_devices.c b/drivers/net/usb/asix_devices.c
+index 293ef80c4e30..c752fa3868b8 100644
+--- a/drivers/net/usb/asix_devices.c
++++ b/drivers/net/usb/asix_devices.c
+@@ -680,9 +680,8 @@ static int ax88772_init_mdio(struct usbnet *dev)
+ 	priv->mdio->write = &asix_mdio_bus_write;
+ 	priv->mdio->name = "Asix MDIO Bus";
+ 	priv->mdio->phy_mask = ~(BIT(priv->phy_addr & 0x1f) | BIT(AX_EMBD_PHY_ADDR));
+-	/* mii bus name is usb-<usb bus number>-<usb device number> */
+-	snprintf(priv->mdio->id, MII_BUS_ID_SIZE, "usb-%03d:%03d",
+-		 dev->udev->bus->busnum, dev->udev->devnum);
++
++	usb_make_path(dev->udev, priv->mdio->id, MII_BUS_ID_SIZE);
  
- 	data->conv_invalid = true;
+ 	ret = mdiobus_register(priv->mdio);
+ 	if (ret) {
+diff --git a/drivers/net/usb/ax88172a.c b/drivers/net/usb/ax88172a.c
+index f5036451f086..9f050de0cddb 100644
+--- a/drivers/net/usb/ax88172a.c
++++ b/drivers/net/usb/ax88172a.c
+@@ -73,9 +73,8 @@ static int ax88172a_init_mdio(struct usbnet *dev)
+ 	priv->mdio->read = &asix_mdio_bus_read;
+ 	priv->mdio->write = &asix_mdio_bus_write;
+ 	priv->mdio->name = "Asix MDIO Bus";
+-	/* mii bus name is usb-<usb bus number>-<usb device number> */
+-	snprintf(priv->mdio->id, MII_BUS_ID_SIZE, "usb-%03d:%03d",
+-		 dev->udev->bus->busnum, dev->udev->devnum);
++
++	usb_make_path(dev->udev, priv->mdio->id, MII_BUS_ID_SIZE);
  
--	ret = pm_runtime_set_active(dev);
--	if (ret)
--		return ret;
- 	pm_runtime_set_autosuspend_delay(dev, ADS1015_SLEEP_DELAY_MS);
- 	pm_runtime_use_autosuspend(dev);
--	ret = devm_pm_runtime_enable(dev);
-+	ret = devm_pm_runtime_set_active_enabled(dev);
- 	if (ret)
- 		return ret;
+ 	ret = mdiobus_register(priv->mdio);
+ 	if (ret) {
+diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
+index d73002b2c21a..153aa56b8e68 100644
+--- a/drivers/net/usb/lan78xx.c
++++ b/drivers/net/usb/lan78xx.c
+@@ -2117,8 +2117,7 @@ static int lan78xx_mdio_init(struct lan78xx_net *dev)
+ 	dev->mdiobus->name = "lan78xx-mdiobus";
+ 	dev->mdiobus->parent = &dev->udev->dev;
  
--- 
-2.39.5
+-	snprintf(dev->mdiobus->id, MII_BUS_ID_SIZE, "usb-%03d:%03d",
+-		 dev->udev->bus->busnum, dev->udev->devnum);
++	usb_make_path(dev->udev, dev->mdiobus->id, MII_BUS_ID_SIZE);
+ 
+ 	switch (dev->chipid) {
+ 	case ID_REV_CHIP_ID_7800_:
+
+---
+base-commit: fa5196392691051963726787944db872420dfa75
+change-id: 20261109-net-usb-mdio-naming-cb32f6805c36
+
+Best regards,
+--  
+Blake Alexander <blake.alexander@airbus.com>
+
 
