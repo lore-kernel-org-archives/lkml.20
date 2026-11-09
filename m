@@ -1,57 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.194.8.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239882;
-	b=vhVsNMQbRL5LN7Ln2GJzj0WDPLzklS/pydtkZNi6WSke1WocWfFGvIUysmyNBVih1n/G
-	 jZKODdM9nyb49gdOyG2/aTmX96qEd/xtZBYzAhtmfLaNwaEbaQHWMiG8/JJJQvGG4QNRN
-	 74TzM+fXdikkj2CnFm4f8eHpWjOceaUsQkkDeyAQCd3K9ONH0xHhPDeRQyxzRVWu1gcYd
-	 pm7pBXzg9frxOV4yv6AByWBPcNfr26wBZ24i0yCDDjxVaX20FysA0rm8k546VdnXyVQO9
-	 6ueK1AdOVzEVPWk5eqaQUG9mlJgsUMN1xKyC3WAvfTGKlUNcWUQsPHf9qW/WBOFIFGw==
+	t=1794239890;
+	b=Tw++7KMU3fX3O2s6CWwxjZPqp//UKCvDXy3foGwJOD1TWTIO0EGZHelV7MDGlEbnpQTG
+	 9iWeOC/l/qm7WOc+YzJ9X5eWe9OByz+wh0QA1JmgE0ICX0GdTHYdL84ra2PPJ49ZdEKXw
+	 eJgf6FPMJ6kkPs3S0YK7YC1TLcQqM5sZ3ylAqQlpRvMuRk0WV59gRFIKWe8d6E07dx+vu
+	 4XvGPS6XtBmZMEchA2wlXXy0UKl40u1o6xLrz3fl36OmEpFleeHvbMMSC1HfSwtI8ar6Z
+	 sH4FF3v1u+yQfNSUB/pu+Jg20tISmf/bDpRpEhRUB08GlZuecwU7rPgSu1oCkr0IHxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239882;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QetFUXmQTvTi5GhM8dae69LgbFNxC2nIrR2jqhJISIs=;
-	b=gxO0bPzxMOKYxwWmCbQBtFHYn7ZCf2/j72AbH719J1SuAgx06zjE+BfONYj7O4yIxZCD
-	 L6SvabNV41foslykHgo4W+PcB8dQNYJd3/6HZVQANGxKo/ZVHn+h52FBctyUWSMXIibB8
-	 bCFTlf5wWx1YCjNjP4nFU5m1K9u+7OHGVK2yP9X4EgAMlip8RtYT2OlpWtmXhvrPcihzj
-	 UuQC/UJ12W/y5qXMOofAh8PZlCMkJULMTCy6Qr+1xYr3dAHjmkX8qkpsLeZhGMGuL2nXF
-	 1SCsU9QtFBV/Esdi++LMSEfMemkFVvIIlyNQAJVIoC5juWGg5zA8lHtlo/mWn9fShew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239890;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5eiyLfLU1C/h+uo8NWvQpDmBybxx9guSvIRHTGKQvZY=;
+	b=E8vNB6jA47JDtEOW9B9H3TsxfOwZS0O7yabxbIDCdMCtiB3EvstoiuGlBv/9u3yRpi20
+	 vTKkrnZWRNE4bVkTmEDwPknbQoR2U4pIfpy2jZxl21PqjtqQrLCxi6xS6SUhxjgTnssBA
+	 fqHShpVdmH/q73tCn/zLwsCYnEncrTTMoQ2RNCl0cfFKzd+plgt0bdaXJnPcxyRoTdWqC
+	 NpWUqRns4qVb/pl93NQ16j+JSBjResDoJQY/AH2ahEBgM+QjQ2n73Jss8EHAYqhkfxiF1
+	 BuGqC7oEMXSnhoUU2Od0oRC1U9SwENmPQr40A8B5SKte9C+cG11um3wxWIEytajilDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KW6NHFkd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=dolcini.it;
+	spf=pass smtp.mailfrom=dolcini.it;
+	dkim=pass header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=o3rrfrAV;
+	arc=none smtp.remote-ip=217.194.8.81
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73361606A326;
-	Mon,  9 Nov 2026 15:58:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6427B606A33F;
+	Mon,  9 Nov 2026 15:58:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6427B606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KW6NHFkd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6BF31F00921;
-	Mon,  9 Nov 2026 15:58:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794239882;
-	bh=QetFUXmQTvTi5GhM8dae69LgbFNxC2nIrR2jqhJISIs=;
-	h=From:To:Cc:Subject:Date;
-	b=KW6NHFkdw/EK4toqHu1A9mnBCL4CdufpHWuxD3BbYCLyGBzZH8KLacD5kGPZzNGn2
-	 vqfXoe/tCUS0BCE/2hlMC3+sxCFncHwzxSKRYmClmob6Y19v9C5CpLLzI37uz8HygM
-	 pjrQ03d7z2mEZGaUpTNx5gb1idd/YwliON+aaewYpo2oRcUJt1OQVbwtHUWd5zdqry
-	 zNKtvERBphHQttvFYnfLNWnoygjtER+Dl0i2lb+/XCknrmNxbJLLuz/9tRpGHAZfpp
-	 OFd3np5L56z3n7dxVoCkrxnHg3A9kuL0HWBTitR/YKnYRjPXJ86EiwDIC0uo+87WEL
-	 uB/67u5LzdhLw==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Tom Zanussi <tom.zanussi@linux.intel.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=dolcini.it header.i=@dolcini.it header.a=rsa-sha256 header.s=default header.b=o3rrfrAV
+Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
+	by mail11.truemail.it (Postfix) with ESMTPA id DBD3C26666;
+	Mon,  9 Nov 2026 16:57:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1794239880;
+	bh=5eiyLfLU1C/h+uo8NWvQpDmBybxx9guSvIRHTGKQvZY=; h=From:To:Subject;
+	b=o3rrfrAVutK4DGQTNT/1JoyZsiFVehOyTq3z9xWExy5RUgP9sllWaTWJq5azGhxP/
+	 ibFkcMM7gAVv+eb2Vn4/x1mX+z2AUtTqgmfiHZOIBfx7ncjyI5IzncTz5AhQASA0b6
+	 zBULwe3Ga50LpJg0a3KFJks8tNVv5wqt7CHgBf2rdyv98oBRQ73IhPjV13N49Ws7W5
+	 TyAu0Mjmx16I0o4Ns5q/uDX0WQAjK4BII0ac54V4jM/UvPAr5dcqiUmIK2ROJo36Ql
+	 quXTNNvh+Zyz7xANAaTSdHMhTc2mWvN4q4xNRB1mDdIfl0poWZyRHJRxvF6NN/UFwI
+	 oYcK7k8r7M/qQ==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [RESEND] tracing/synthetic: Handle dynamic string read faults
-Date: Mon,  9 Nov 2026 15:57:49 +0000
-Message-ID: <20261109155758.3330810-1-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
+	linux-bsp@toradex.com,
+	x86@kernel.org,
+	linux-coco@lists.linux.dev,
+	kvm@vger.kernel.org
+Subject: [PATCH v2 2/8] ARM: dts: imx7d-colibri-emmc: Add missing touch display overlays to dtb-y
+Date: Mon,  9 Nov 2026 16:57:42 +0100
+Message-ID: <20261109155751.475875-3-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109155751.475875-1-francesco@dolcini.it>
+References: <20261109155751.475875-1-francesco@dolcini.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,83 +82,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 0934ae9977c2 ("tracing: Fix reading strings from synthetic
-events") switched synthetic event dynamic strings to use
-fetch_store_strlen() and fetch_store_string(), relying on commit
-2e9906f84fc7 ("tracing: Add "(fault)" name injection to kernel probes")
-to reserve and store FAULT_STRING when a string address faults.
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-When commit 4ed8f337dee3 ("Revert "tracing: Add "(fault)" name injection
-to kernel probes"") and commit 797311bce5c2 ("tracing/probes: Fix to
-record 0-length data_loc in fetch_store_string*() if fails") later
-reverted FAULT_STRING injection in favour of recording a 0-length
-data_loc on fault, synthetic events were left unchanged.
+The Capacitive Touch Display 7" Parallel with Touch Adapter and the
+Resistive Touch Display 7" Parallel overlays are only built as a
+dependency of the combined Eval carrier board DTBs and are not listed in
+dtb-y, so the standalone .dtbo files are not installed by dtbs_install.
 
-Consequently, a faulting kernel string address causes get_field_size()
-to add a negative error code (-EFAULT) to fields_size, under-reserving
-the trace buffer entry, while trace_string() casts the negative return
-value to an unsigned length and passes it to fetch_store_string() and
-write_synth_entry(), corrupting the ring buffer.
+Add them to dtb-y like the other Colibri iMX7 eMMC overlays.
 
-Skip non-positive lengths in get_field_size(), record a 0-length
-dynamic field in trace_string() when fetching a dynamic string fails,
-and print FAULT_STRING in print_synth_event() when a dynamic string has
-zero length, matching trace_probe.
-
-Fixes: 4ed8f337dee3 ("Revert "tracing: Add "(fault)" name injection to kernel probes"")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
+Fixes: 64e7d6ba2037 ("ARM: dts: imx7d-colibri-emmc: Add Toradex Capacitive Touch Display 7" Parallel with Touch Adapter")
+Fixes: 392bbdb0357b ("ARM: dts: imx7d-colibri-emmc: Add Toradex Resistive Touch Display 7" Parallel")
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
- kernel/trace/trace_events_synth.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
+v2: no changes
+---
+ arch/arm/boot/dts/nxp/imx/Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/kernel/trace/trace_events_synth.c b/kernel/trace/trace_events_synth.c
-index dc15658a887c..7506e2e1f64a 100644
---- a/kernel/trace/trace_events_synth.c
-+++ b/kernel/trace/trace_events_synth.c
-@@ -376,7 +376,9 @@ static enum print_line_t print_synth_event(struct trace_iterator *iter,
- 				union trace_synth_field *data = &entry->fields[n_u64];
- 
- 				trace_seq_printf(s, print_fmt, se->fields[i]->name,
--						 (char *)entry + data->as_dynamic.offset,
-+						 data->as_dynamic.len ?
-+						 (char *)entry + data->as_dynamic.offset :
-+						 FAULT_STRING,
- 						 i == se->n_fields - 1 ? "" : " ");
- 				n_u64++;
- 			} else {
-@@ -438,11 +440,20 @@ static unsigned int trace_string(struct synth_trace_event *entry,
- 	if (is_dynamic) {
- 		union trace_synth_field *data = &entry->fields[*n_u64];
- 
--		len = fetch_store_strlen((unsigned long)str_val);
- 		data->as_dynamic.offset = struct_size(entry, fields, event->n_u64) + data_size;
--		data->as_dynamic.len = len;
-+
-+		ret = fetch_store_strlen((unsigned long)str_val);
-+		if (ret <= 0) {
-+			data->as_dynamic.len = 0;
-+			(*n_u64)++;
-+			return 0;
-+		}
-+
-+		data->as_dynamic.len = ret;
- 
- 		ret = fetch_store_string((unsigned long)str_val, &entry->fields[*n_u64], entry);
-+		if (ret > 0)
-+			len = ret;
- 
- 		(*n_u64)++;
- 	} else {
-@@ -522,6 +533,8 @@ static __always_inline int get_field_size(struct synth_event *event,
- 			len *= sizeof(unsigned long);
- 		} else {
- 			len = fetch_store_strlen((unsigned long)str_val);
-+			if (len <= 0)
-+				continue;
- 		}
- 
- 		fields_size += len;
+diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+index a0ad7ee583e8..f22abbd01434 100644
+--- a/arch/arm/boot/dts/nxp/imx/Makefile
++++ b/arch/arm/boot/dts/nxp/imx/Makefile
+@@ -472,6 +472,8 @@ dtb-$(CONFIG_SOC_IMX7D) += \
+ 	imx7d-colibri-emmc-eval-v3-panel-res-touch-7inch-parallel.dtb \
+ 	imx7d-colibri-emmc-eval-v3-vga.dtb \
+ 	imx7d-colibri-emmc-panel-cap-touch-7inch-parallel.dtbo \
++	imx7d-colibri-emmc-panel-cap-touch-7inch-parallel-touch-adapter.dtbo \
++	imx7d-colibri-emmc-panel-res-touch-7inch-parallel.dtbo \
+ 	imx7d-colibri-emmc-vga.dtbo \
+ 	imx7d-colibri-eval-v3.dtb \
+ 	imx7d-colibri-iris.dtb \
 -- 
-2.56.0.506.g506a7eabc5-goog
+2.47.3
 
