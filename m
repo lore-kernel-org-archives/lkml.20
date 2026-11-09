@@ -1,85 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229248;
-	b=ePgE6VEXW5KCwWcvsfXtwmR0AeOnO5BSEUzW0KLDNbm6abcVqAgPtzOeHWACAFv16X+/
-	 cUDj1PM9mwJRO+EVOhJtrWjGv+/2y6nDnQOW1dYgYLjZs5/cW64e0egzKkAW5BLZCOg0O
-	 h6aKkGeCt/WvROG07/Uq1d8fqwondNIDuu9o2VbO3ntPgL2Zjdg0wiVvUCUj+HuvMXi6S
-	 EzICO+PpfQGu9QA4ks1jQHQ56+McI/l95mId9qc59dVo+nSO5sBUzGXEuyfUZlVml9Twg
-	 VjJqbz3iNqJ++CVuDCkBU9RzD+mvoBybB3SCAP4pZMYI41BpiY+Dqk2qRge++Xhbkng==
+	t=1794229271;
+	b=ejODD76+ZQRpK/Hd8c2gbFqh3RVIwmzFHJq+Dt08v+kET6UfPt+P1MTXdyd7WlNYIHgM
+	 t2rG29ona8uPAziPM8HdClRHmViw9+pnm+3OAaspQum2A3iujlb0Yf5Nv3ju9SLDj2aAq
+	 O7EciEtPcYW7F3BN88K965STp0MjidCi6kSJE+HQtZgbiemyzZ4xfF/qLfjnxv1A6xXrW
+	 p+e+ETraE04IHGDU6TrLkt6UPL9gLLbVzoyq9FykY9YEp2T8O0bdroVVuMHyqV0zDCqqU
+	 ARXVgAu+m6AGCHscWM+YKg+DKEupNSJiAAUBXuNr2wLRKArSDL1InKKG8yLPHt/8jtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229248;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=WH6vONAUZCDa/nrW45QhpFZ/1YVe1V2n6dO6VBPl2/U=;
-	b=weSMZe5ntlVRNkulBoPLE7+mkK6B05+KuMtFrZz4HXcn7MrpA62FiOwe+960SbhrjSHW
-	 pmXfECrvs/omaj5CaQXFem1i8Y5DxydDRIN/JjZqAhsC5bRIQznkZsNfcHGsVzWNWG4Up
-	 tVnobi8w7WLarLFGQHB/nYeAw7KCysORnu2R4GRuKTBV1njXHl0r8VVdk4uLu81cDtHTU
-	 QtnABS01zEetagcfrTK9fgeNXXzx4VAKC9mzAN3es53wScGU7swBka7/OORIGNHVW94Cp
-	 GMsarlDcHBN2EcNfm+7FyaTm03Rb/6CGpoYhmSgEgSLtugMnGBjT5LqXgh98OYBv3mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229271;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Date:Message-ID;
+	bh=E1GGOvtBlaTsUmYtmvnwqkByifPIkOREx0MBTWn/Tmk=;
+	b=5N8xKo20r3w5XulvnAYfUGtyMG/JYsKsH6XgTqM1bihQGzMQhKtqZT06DZr4z+Aq9sMn
+	 pQwt8BhfMSYs41Unaw0xkLSid05kAISuBxB5VMWo52zpuBlneX8N+9ntQMSNEvMHwGzzq
+	 268J0piGCDHSmiD6U14J+TMlcC34Ss2f2/c793HchjnC8yVjAYSQ1ovls0wOp1eU/qLqj
+	 N1zbeUvOCi2qcrZpc9Ntuu/w7O2BctygUQDeohAR2hXmXFQbBJPC85nwIw28dV4DAq/Cp
+	 Gs4I2S5skM3ip9mroiBjJS0oeg/hQusNRGN1b8bfF/ID0i1fan/1qe5Ceq2X32z3fsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=antO0PN7;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="U2zhFn/d";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=cRi9kA5s;
+	arc=none smtp.remote-ip=115.124.28.218
+Received: from out28-218.mail.aliyun.com (out28-218.mail.aliyun.com [115.124.28.218])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C438B606A323;
-	Mon,  9 Nov 2026 13:00:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C438B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA96606A321;
+	Mon,  9 Nov 2026 13:01:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FA96606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=antO0PN7;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=U2zhFn/d
-Date: Mon, 9 Nov 2026 14:00:43 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794229245;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WH6vONAUZCDa/nrW45QhpFZ/1YVe1V2n6dO6VBPl2/U=;
-	b=antO0PN74enTHsEQP8fXrva5841B8kYJm3f/8g4WiNUDMEHnkHrqQcbV16doRVkV6t0nGR
-	wNbTi7RkTZGvikTR/Oprvgns5g1GVnTcSe6Sszl7a5/AE5a7aPnmmrzQQ4HFULeaC80aCD
-	bgYPqLN6S9hgtHUS5f6LN7lTHKm6zQIsouUUe3TziYVQkdH8LYSWLOifz3k4G1lUramJF3
-	4CnWQp3ATGFR0ewBicGlPeEcgjtByezao9+8/oKoK7Ppf/+Lx9aK4YomdAnV6tD4ZQmZRk
-	X0kJGfXk45h+K4kf0z1VV31B8pt+7qWLKiVaqKZb4vFqKxPkCp3TW4XrlznalQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794229245;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WH6vONAUZCDa/nrW45QhpFZ/1YVe1V2n6dO6VBPl2/U=;
-	b=U2zhFn/dp4n9V/CkFWblCRclJtuI2mdyDqWDdZOArcG8iZM6Fkc/RpReGQJQ+HEPA9SfQq
-	IxbL4o8rbuu2EMAQ==
-From: "Ahmed S. Darwish" <darwi@linutronix.de>
-To: Julian Braha <julianbraha@gmail.com>
-Cc: Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	John Ogness <john.ogness@linutronix.de>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
-	Daan De Meyer <daan.j.demeyer@gmail.com>,
-	Luca Boccassi <luca.boccassi@gmail.com>,
-	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
-	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, arighi@nvidia.com
-Subject: Re: [PATCH v1 03/10] kconfig-checker: Add the configuration checker
- code
-Message-ID: <avHD-3JwbQofpJdH@lx-t490>
-References: <20261106091922.7560-1-darwi@linutronix.de>
- <20261106091922.7560-4-darwi@linutronix.de>
- <9729a4c6-22f9-4102-b62f-c76a75488240@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=cRi9kA5s
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1794229260; h=From:To:Subject:MIME-Version:Content-Type:Date:Message-ID;
+	bh=E1GGOvtBlaTsUmYtmvnwqkByifPIkOREx0MBTWn/Tmk=;
+	b=cRi9kA5sFS6J+a7FaRlbDo68s5P7YCoHdnukMM2Ee5hS+12hixfHA/J0V3F/L3gL3Dskx5B7KRmEkpf/G0XK4iL7KTt8LulY7bX9sC3LMuS5JStdE9t0NKpK9jAcuXeLHrMLEmd7eLk+IeN6l4jfPWNadLVgm6t39RQNFU/qNWQ=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2289389|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0211135-0.00440467-0.974482;FP=13103200845358019423|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=liuwb@xiaopeng.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.k-FCRfd_1794229257;
+Received: from 127.0.0.1(mailfrom:liuwb@xiaopeng.com fp:SMTPD_---.k-FCRfd_1794229257 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 09 Nov 2026 21:00:58 +0800
+From: Weibin Liu <liuwb@xiaopeng.com>
+To: Roberto Sassu <roberto.sassu@huaweicloud.com>,
+ linux-integrity@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Mimi Zohar <zohar@linux.ibm.com>,
+ Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+ Eric Snowberg <eric.snowberg@oracle.com>,
+ Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Steven Chen <chenste@linux.microsoft.com>,
+ stable@vger.kernel.org,
+ Zhu Guanglei <zhugl3@xiaopeng.com>
+Subject: Re: [PATCH v2] ima: fix races when deleting measurement list entries
+In-Reply-To: <95b47e1a0a30022ede9f52ce0e80b0f957097b5b.camel@huaweicloud.com>
+References: <20261109123335.432186-1-liuwb@xiaopeng.com>
+ <95b47e1a0a30022ede9f52ce0e80b0f957097b5b.camel@huaweicloud.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,51 +70,14 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9729a4c6-22f9-4102-b62f-c76a75488240@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Date: Mon, 09 Nov 2026 21:00:57 +0800
+Message-ID: <179422925743.761920.15976497107095793440@xiaopeng.com>
 
-On Sun, 08 Nov 2026, Julian Braha wrote:
->
-> On 11/6/26 09:19, Ahmed S. Darwish wrote:
-> > +
-> > +class KernelConfig:
-> > +    """.config file parser"""
-...
-> > +
-> > +    def _parse_symbols(self) -> dict[str, str]:
-> > +        """Extract CONFIG_* symbol assignments from .config"""
-> > +        symbol_set = re.compile(r'^(CONFIG_[A-Za-z0-9_]+)=([ym])$')
-> > +        symbol_unset = re.compile(r'^# (CONFIG_[A-Za-z0-9_]+) is not set$')
->
-> What does this do for Kconfig's int, hex, and string options?
->
+On Mon, 2026-11-09 at 13:49 +0100, Roberto Sassu wrote:
+> Is it still true with the new semaphore?
 
-So far, the tool only supports stating whether an option is enabled,
-disabled, or have a neutral 'allowed' policy.
-
-But there's nothing stopping us from supporting something like:
-
-- name: CONFIG_PANIC_TIMEOUT
-  expected: int
-  expected_value: 10
-
-- name: CONFIG_MAGIC_SYSRQ_DEFAULT_ENABLE
-  expected: hex
-  expected_value: 0x1
-
-- name: CONFIG_NLS_DEFAULT
-  expected: string
-  expected_value: "utf-8"
-
-In v2 of this series, I'll make the schema explicitly versioned.  This way,
-new features like the above can be cleanly added.
-
-P.S.,  I can definitely implement such support, but I'm a bit hesitant to
-adding features that are not yet needed by the existing mainline policies.
-
-Thanks!
-
---
-Ahmed S. Darwish
-Linutronix GmbH
+No. That paragraph describes the unpatched code. The patch serializes
+writers with ima_measurements_rwsem and protects the lookup and cut
+with ima_extend_list_mutex.
