@@ -1,58 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794201983;
-	b=X29u7OxGHHqr4lyLYE1CqmbY4E4gDkHz59wX9AuxwHJBJAbYOKcE1RG2owemu3BcQw8p
-	 c08IE+JO7DcBSzJC81ywZcrL0nEBdNZuViyVCbHMoCSeHLNk1d7tmR6a7Iorb02lzqo3o
-	 tf020rd4MZHUSwWCC1HPsxx21ZlUHvJAx+A6Z59HBw6lIsrwsQWF/g45BtUElEByuZc/2
-	 UehPUyJZMl0Kv+5zrE3fVHEEEZO1O450xxf4nh6UNBgTq/B+ln4wnkqzUuiZWbVSuptUU
-	 ERo8V5T5ZvrC6RKVf5V5xq/XtfIGt2ofDAmqwlYysl7MZGjRzfeCbNEqkrhnKl25ekA==
+	t=1794202050;
+	b=ox0lyv4D0bCSZVfumb+InGrh0P9z7o4sKCxTgljHtmy/WikexzbwOdJarU9BV0I45ux1
+	 iMzBPTve86jSrwd83KEJ58RuiKXB9lZ8kJDwTz0xoGk9WuBUOSPodXDXrccSa+O7DmNX4
+	 yIEe1OtktUCQWCSPOV4L+Xf05WwK4KZrRES//fqn6k7WaAwEspktDwi/cvUpom1ZeL88M
+	 jHlowKeE6WbwcrAOMFrtNAsMwOEnuBeWQXuaGlODKoE4zu8DeCl/fElNuiEuu2kA9bvDR
+	 lvLKDmrEfaR0qn3xH/+80ua0tlzVTGbrXnSoQIMd/yjOBYN87OtZftUURfCHNOQbK8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794201983;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Uy6ZibXC/S+TPzv6yEZDSpvw02UsW0HIsbZ/ZeOvYfg=;
-	b=0ccaxOpgHtNEEHZy08wG8A+m5FoV5Pjw7KX95arHXkN6AJ9oi0C1W8itGIhJ19I2ZvG6
-	 M3eW0wpA+kNhoHLID9vnbNxP3hhI2WEf+WZGZVcgrvHw2x+sSm3Nm69679/VCoL7p442E
-	 fJ9ftJGswm9okJ8rez6Wlg/fO6lvwMftekM6QRST1VJjiAU9P0ge5a4SzU6y6dHg/eb+Z
-	 EI4SDQoksOyQMHBKZILbICFwyz3bWURxT1RXKbj2SRDnwuXMigsME9z3Qzb+Ijl044LGl
-	 wOroGMcRy/SNvrlkulYlXIaGM1jVIRoYhAuWJCxn9IsXEbFD/jgSbgIgjdPqVtddwZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794202050;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LG1zeG/FAVWOYlqtmLmw2tMQraUdVSd/sMBgbfFTC7c=;
+	b=z7y1lHTpfZGpmPQNuiSwnbTczcPD9t8WKKiZ7DqJs8nUQ6miVbCPvP6wRhq+/hRxAfOB
+	 XOvZLyWlgbzIvG/T50gba/XDHLXxL1Tr35Ye/9NUgv/e3m8FUBbBTusHgjSwn9qWbJ79V
+	 kflhMP/o8TSfhgyXiUJy/rJ4++oBnPY/6JG52UTQ0VdM4M4zGLm3Dn5x7zqwq13p1kAax
+	 2YTsXa2dXpc68bSfaRMFnM9pa8kL9CCVMHHigU3/SlDEVm67vJizRi2FqWjqD1acsS3Qk
+	 lXHBCqTtdsgQDd2KjIgECa4Q3j1FjaAhTyJgIL1MLk4MP1KPMf/XbaS114HJqikpMRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eNJTK4Il;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6C0606A31C;
-	Mon,  9 Nov 2026 05:26:23 +0000 (UTC)
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="u/sm3hVH";
+	arc=none smtp.remote-ip=111.22.67.139
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A148A606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:27:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A148A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eNJTK4Il
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E75651F0089F;
-	Mon,  9 Nov 2026 05:26:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794201983;
-	bh=Uy6ZibXC/S+TPzv6yEZDSpvw02UsW0HIsbZ/ZeOvYfg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eNJTK4IlJicAgAYrOlvdIYd0JOY304zSG2g1l+1Sxg/5xyzlW7N2rivl2fOEda5z9
-	 xFfImnAgHPS9UERr8kpB0exXpowczvc0kR+8vBbF3wBp3SNfYI5TfxtQbizZha13vb
-	 +XwY/h4d1VHS2E/QlDhbjyExdAEPGbUE74U3QwrmYPZ6kpB6EwdGGTPPrmEyJU3tpo
-	 2bvG+1HfdpMYwRIa/2USCMPRVhes224KNPkpXgOdhnaYvMF2mR8pl3RD1TeMQdFuyP
-	 Qium/17It8gAX6gRG4XnFi+2a31lXC1/spFJfYT79Is/CEB5cvKTCUjrby4xYQbzDb
-	 S+MBXdQEb8gtw==
-Date: Sun, 8 Nov 2026 21:26:21 -0800
-From: Namhyung Kim <namhyung@kernel.org>
-To: lirongqing <lirongqing@baidu.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf iostat: Do not compute interval deltas a second time
-Message-ID: <avFZfcWDPD3eXW-w@z2>
-References: <20261105080429.2472-1-lirongqing@baidu.com>
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=u/sm3hVH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=u/sm3hVHsIY7j7xtk4fqcT79pyDFhJzz1y7EduPO7aO5ujUVZlK5UFYgBIBrzFoOvqJLvUQfr0WTN
+	 rO3hsu7pAXT89FYRzm7h1tqEqQZejZzBeSKX6KsQlL+m0H53iceFool/RIoNndMHXXBmVjJYqUALvN
+	 wDvJSjamnSY8a/v0=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af159b7776-9caf6;
+	Mon, 09 Nov 2026 13:27:27 +0800 (CST)
+X-RM-TRANSID:2ee16af159b7776-9caf6
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from Z04181456177947 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86af159bcc11-82633;
+	Mon, 09 Nov 2026 13:27:27 +0800 (CST)
+X-RM-TRANSID:2ee86af159bcc11-82633
+From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+To: linux-mtd@lists.infradead.org
+Cc: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	michal.simek@amd.com,
+	linux-kernel@vger.kernel.org,
+	Zhao Feng <zhaofeng2@cmss.chinamobile.com>
+Subject: [PATCH 0/2] mtd: rawnand: fix GPIO CS descriptor leaks
+Date: Mon,  9 Nov 2026 13:27:22 +0800
+Message-ID: <20261109052724.1032-1-zhaofeng2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,61 +70,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261105080429.2472-1-lirongqing@baidu.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 05, 2026 at 04:04:29PM +0800, lirongqing wrote:
-> From: Li RongQing <lirongqing@baidu.com>
-> 
-> process_counter_values() now computes deltas directly in evsel->counts
-> for global aggregation too. It saves the current cumulative raw count in
-> prev_raw_counts before iostat prints the interval.
-> 
-> Subtracting prev_raw_counts again can therefore underflow the count.
-> Worse, replacing the saved raw count with the interval delta corrupts
-> the baseline used to calculate the next interval.
+Two related fixes for GPIO chip-select descriptor leaks in the raw
+NAND core helper and its in-tree user, the Arasan controller driver:
 
-Can you share example output before and after this change?
+- patch 1 rolls back the already-acquired GPIO descriptors when
+  rawnand_dt_parse_gpio_cs() fails midway through the cs-gpios array;
+- patch 2 releases the parsed CS array on the arasan probe error
+  paths (invalid DT layout and anfc_chips_init() failure), factoring
+  the remove-time gpiod_put() loop into a shared helper.
 
-Thanks,
-Namhyung
+Both issues date back to the gpio-cs support merged in 2021 and are
+still present in current master.  Not runtime-tested (no hardware).
 
-> 
-> Use the already computed delta and leave prev_raw_counts untouched.
-> 
-> Fixes: f976bc6b6bfc ("perf stat: Aggregate events using evsel->stats->aggr")
-> Signed-off-by: Li RongQing <lirongqing@baidu.com>
-> ---
->  tools/perf/arch/x86/util/iostat.c | 10 +---------
->  1 file changed, 1 insertion(+), 9 deletions(-)
-> 
-> diff --git a/tools/perf/arch/x86/util/iostat.c b/tools/perf/arch/x86/util/iostat.c
-> index 0cf0f93..fac6b4a 100644
-> --- a/tools/perf/arch/x86/util/iostat.c
-> +++ b/tools/perf/arch/x86/util/iostat.c
-> @@ -434,20 +434,12 @@ void iostat_print_metric(struct perf_stat_config *config, struct evsel *evsel,
->  			 struct perf_stat_output_ctx *out)
->  {
->  	double iostat_value = 0;
-> -	u64 prev_count_val = 0;
->  	const char *iostat_metric = iostat_metric_by_idx(evsel->core.idx);
->  	u8 die = ((struct iio_root_port *)evsel->priv)->die;
->  	struct perf_counts_values *count = perf_counts(evsel->counts, die, 0);
->  
->  	if (count && count->run && count->ena) {
-> -		if (evsel->prev_raw_counts && !out->force_header) {
-> -			struct perf_counts_values *prev_count =
-> -				perf_counts(evsel->prev_raw_counts, die, 0);
-> -
-> -			prev_count_val = prev_count->val;
-> -			prev_count->val = count->val;
-> -		}
-> -		iostat_value = (count->val - prev_count_val) /
-> +		iostat_value = count->val /
->  			       ((double) count->run / count->ena);
->  	}
->  	out->print_metric(config, out->ctx, METRIC_THRESHOLD_UNKNOWN, "%8.0f", iostat_metric,
-> -- 
-> 2.9.4
-> 
+Zhao Feng (2):
+  mtd: rawnand: fix GPIO descriptor leak in rawnand_dt_parse_gpio_cs()
+  mtd: rawnand: arasan: fix GPIO CS leak on probe error paths
+
+ drivers/mtd/nand/raw/arasan-nand-controller.c | 26 +++++++++++++++----
+ drivers/mtd/nand/raw/nand_base.c              | 12 +++++++---
+ 2 files changed, 27 insertions(+), 11 deletions(-)
+
+-- 
+2.39.2
+
+
+
