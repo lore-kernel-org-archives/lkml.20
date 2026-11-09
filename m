@@ -1,93 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.17
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794206158;
-	b=cYgDXE+D/AOLuhs9K2glZJAzv5+b9RpItxK0wczrOWv9/8rl0JNbeEC8Em0+4ANoIGea
-	 4Ab8HtVAWQzKHdDqXZH3RL0G98H4ydyLnLqR0Vymoagx9OVwTPCGVQ7GOXCoBVT8z8pAe
-	 +5uIcvJyOIc13/Lqe4PJGp/W+1sCo1uWPP82ogWKkJYwH8/GB5tzUJRz5WSLLQ33VSUJs
-	 +JvCk6CBwmO/11CVC/TzkOztaAfgF+mZ6EvG7cgrHMDXP62XAGXZGTYuxsJMKVDDVWG8c
-	 0bJKC+SB0msya/DeC+GMXK5XFH7uEDFQVe3CUU9N8wZCOzq9QiwF0frL/dLUB87s23g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794206158;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:CC:Subject:Content-Language:
-	 To:References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=TGKKN+hTUqo0yRzfVcAoq3xc/2NXn5d292XI5ounf8U=;
-	b=fKRZB+taIf05z+cWZOmUZtzscCXLeAYcDZZzF49kr6MZZCpP4Q6kFtsJSvZ0fQeFbrGf
-	 BU2EdE6bP/rVwGXogAWf+2W43Dv5ZO1CRUYLgVkGTNP2mInNNFZ1GyoQoGLaac1Rt5bEc
-	 UCuKjEvSXiFlJjUQLHoIa/Bxb9Jq3pvrQ9jwTB2rs6lrhRBPuD+MT6zRloQlZBRagE7JH
-	 EXNHll1ZxlLv4Q1PC19v7by4JMuTmZxBBGEK2OhtFDA0ZZqdvk2CHok2nftWf9wwj91qm
-	 v6H8t4L8Wzvu+LEwZdZt7aQ3Meza+xk0mujgSsh5VLb4JL5zLXzaprZrzFCd7HGqtTA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=q3uO3mV0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.17
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012017.outbound.protection.outlook.com [40.93.195.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.249
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794206177;
+	b=CZPhbGAFW94xHkxbxQKfk3kRH5erxMGBcJU5Srk9Lofrbmhp9b15UjCZhViq+CUfhzYc
+	 x6b4X3VqWIBFm9tQufE/HSx0uhWX3EA7QlGuMdORwnoWoR0s4HakSXvfbGB3kV3ni6r4V
+	 3Lad1B10m0XBBxH4/QetHMH6Qb6GB7YrA9gQbC6RIm1Ytcvzx0AhID1RYsDZuRyU1SIJs
+	 /h48kMyn2J5XTYtxw1ZNpRQQnwkboWQMa73iL1oWmyJK9JIVWqTeAaubevymtUtjYVNtc
+	 3+d459JOXqni8pO3VOPGdd2tcf1OjepbI5JpEEVRDspFVQoVbsT5nhJpBi5Bx1Tl9fQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794206177;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ubVAfROa20NibdINJspeiownyQQhZxWkDLzw1XkPqbw=;
+	b=xki+O+Q29OnQk4B5jxwuR+UxrJW0BfttTqFYqEANNSLN5p/jC+zbFzQIIUNadve/GpLC
+	 cedjKSSE83bHPj1QNAdajtvUyi9doG5v1gF/QWuOwSVNYxCSle8iOHMadGVfbAxnGVqzs
+	 HyL7OSY+yAdDE3LiIO1+FDArD0r1h5VN3EhZcMVK0d2s/k2C/wXYczP/z5orW/bDFPyjE
+	 n8yDhL8cHWwMOUEJYYbuIUICpP0O3R29+P0w2KQkPo5lpCpmrpjtU2JitxEOe/QWLZNpe
+	 r6ib/1tOnZ5uMuSpwzUfsPkf8TPHA6EDquxXV3dGh5hJmem3CwclcUKzDhY9Hwdqo8w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QdpOdgjt;
+	arc=none smtp.remote-ip=95.215.58.249
+Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48AB2606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:35:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48AB2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A85606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:36:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42A85606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=q3uO3mV0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X+UE+z0Tuc7U/xV8OiMrIPk3jp+nZPqWesPah8CONtouiIFLHCGo2HKfWJtbkzTW8xlG+IXcXlw8JzhqeFseHsv2DjKq6QvFDwEkBbmXuDaw7d9YAlUD/jXSy3F04X1a5hXUzMz5+jVlzZcZySbh1GLsexDU7CQeAT5jJZDH6eR57ApCaz63dynsdgY0HTijBgCQqdUDFRY50U275b/f0ZeLIhqVfXlDO/8rL0BqYX5YWNIq0r0agONUcOZbOWVUNMNdUjf2uItGqLpdPA2LJ+GhKNFlyYhJRut/jdL+SG31fw7S+4L6wA0APgNFsf+rtuMxzvNFW5ivGGKWr8cPDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TGKKN+hTUqo0yRzfVcAoq3xc/2NXn5d292XI5ounf8U=;
- b=cn4omE4EhjdzfrDjHukth4MZt4RTl/R5UwmAErQBBwEzSe6MgxZll9e3PMxbBOPuvJCmrBZD/mS60kwlqLKVVNA7rykSCujd7ClyqLUU5BODzQtRQirZIO8RAKA8uMH6Ko0tr22pups2aYBHRYyD9TWXz6AVeovJAoqPYkURRMByePads+fATd5pXxZFA9zT+G88GJyxkbhhbOul1XnBm7A8VBTBcHnTpwQ9xlZqY1w2VKxdQn1INqrSS7muqnVMacTYcFuIag6pgawLdTR7LvM0al/SusAmG792bRCHfLLA76xcZkC0XMBPSZA46E2hXNQ1xWzm+ahgOQPtUntb5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=8bytes.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TGKKN+hTUqo0yRzfVcAoq3xc/2NXn5d292XI5ounf8U=;
- b=q3uO3mV0HQ4JEDnBzX5aX+YznGACUbpgnDH6ERM8w5RAfqshqLEdeAygxAjese3HxFtTZbbnwo8dzFdIreZzNh1UxOmGaXFz8zCZBlwwycW1EOBefExKCaTi32N4sIWrPRpDCvzW5HbS/37Vv+w5obpXc5chOwO6k0FJDN/kqgs=
-Received: from MN2PR01CA0063.prod.exchangelabs.com (2603:10b6:208:23f::32) by
- CY8PR12MB7491.namprd12.prod.outlook.com (2603:10b6:930:92::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.13; Mon, 9 Nov 2026 06:33:53 +0000
-Received: from BN2PEPF000055DF.namprd21.prod.outlook.com
- (2603:10b6:208:23f:cafe::af) by MN2PR01CA0063.outlook.office365.com
- (2603:10b6:208:23f::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Mon, 9
- Nov 2026 06:33:53 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000055DF.mail.protection.outlook.com (10.167.245.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.0 via Frontend Transport; Mon, 9 Nov 2026 06:33:53 +0000
-Received: from [192.168.0.108] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
- 2026 00:33:48 -0600
-Message-ID: <046279e0-2022-4b43-8cd4-b32cf4a8c584@amd.com>
-Date: Mon, 9 Nov 2026 12:03:45 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=QdpOdgjt
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nED5IjRRVS9zufEnMoKY+EwjY9VykfLJN7/PFD533sk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794206174; v=1; x=1794810974;
+ b=QdpOdgjtixd+BcIyK5mIaHhCDj9c/ugMSlX1jNERO8LlPu/V4HArcZCYA7T+6Ykl1kNR26Dn
+ hZsduDFXMVasRteUT6mWP33Wxo9y6EW9SjOr6fCTCgR7RxsCyCyVk7w+xstHC7WQe5q9663Iu5e
+ Nw0wHL0a2/D9DLHE6BeKxUXo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 30777b2291c593d7;
+	Mon, 09 Nov 2026 06:36:13 +0000
+X-Mizu-Trace-ID: 30777b2291c593d7
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 09 Nov 2026 07:36:08 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Ping-Ke Shih <pkshih@realtek.com>, Kalpesh Solanki <skalpesh942@gmail.com>
+CC: "kvalo@kernel.org" <kvalo@kernel.org>,
+ "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: =?US-ASCII?Q?RE=3A_=5BPATCH_v3_0/2=5D_wifi=3A_rtw88=3A_firmwa?=
+ =?US-ASCII?Q?re_recovery_fixes_and_LPS_hang_handling?=
+In-Reply-To: <39750c895e3b4dfa8ef98a28503f25fd@realtek.com>
+References: <20261108085126.331784-1-skalpesh942@gmail.com> <9fd1c42c5df94629a21c41dd08645b96@realtek.com> <27E9A60D-26F6-41D6-B74F-7DEF998C8498@linux.dev> <86803b2c13a74ada92ab73e79f38164d@realtek.com> <B1CD522C-2CC2-4913-8175-05F0D25CF65F@linux.dev> <39750c895e3b4dfa8ef98a28503f25fd@realtek.com>
+Message-ID: <1AF1A633-859B-42BA-9B2E-4B8081BF09C7@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,250 +67,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-CC: <sarunkod@amd.com>, Baoquan He <bhe@redhat.com>, Jerry Snitselaar
-	<jsnitsel@redhat.com>, Adam Pelka <adampelka26@gmail.com>
-Subject: Re: [PATCH v3 2/3] iommu/amd: Do not convert IVMD exclusion range to
- unity range
-Content-Language: en-US
-To: "Jindal, Akshay" <Akshay.Jindal@amd.com>, "Joerg Roedel (AMD)"
-	<joro@8bytes.org>, Adrian Huang <ahuang12@lenovo.com>, Joerg Roedel
-	<jroedel@suse.de>, Robin Murphy <robin.murphy@arm.com>, Suravee Suthikulpanit
-	<suravee.suthikulpanit@amd.com>, Vasant Hegde <vasant.hegde@amd.com>, "Will
- Deacon" <will@kernel.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>
-References: <20261106041650.24076-1-sarunkod@amd.com>
- <20261106041650.24076-3-sarunkod@amd.com>
- <74c0a0d2-e728-4b6c-ad7a-0ea76f4ddd9e@amd.com>
-From: Sairaj Kodilkar <sarunkod@amd.com>
-In-Reply-To: <74c0a0d2-e728-4b6c-ad7a-0ea76f4ddd9e@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DF:EE_|CY8PR12MB7491:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97132d67-7938-4b46-738a-08df3e2b6c44
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|82310400026|36860700016|921020|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261022113327099003|261022105027099003|261022075727099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	ZPtRD2EdQnKi8sPpJ9kUrIxivEq+gl1YTgBIKpHQ8fINFr5Xn7RilnQoj63RSq1qM38iJr+FFWESH0lGuh82jXuCL8T+Pw24HcRjdq/EZYxPMIJVSn7VPWJV73Nt8hJfqZ/dpv0GP1g998w8D6vl+MYhGG5//cKvDRkh6jHBoLFkMRG3Ovpt+m9dcrUQRXdiDuj4v6A6E7o96Ezj/3jIL/MPW2Zn7fOUxB8xz4kehIpRpKjmcFWmiqb4LzFUHjYwZ81UKBN4ueP3AJh+bXaVWF0Cz55nlk/fAQc00qslcEomSP9pGoCxCIw+shkKWSYcAyHHO1WcB8jnwui8Ko1hthKt2dAwNVNUTGn8lRwrmJxxJc/SkadJPBD4EwlVfjnsSY89///eH6XAoIJrviRlltzm9SBb1bxumvcmveliYUbBWPTxJZ6bRc5W3HrHaQrs5TTKoNZAm5HMd7wvYr8FMk97mnbx1TnyvoPtNd0xQryq5PTnN6QK5O8C+NLQggOUws9x2hhH6n5xXVTAWRJB75G06veyktUU51qYEKJjgrD5QkOPS3GG1ZjDSw0SbpH/Nw8Cd356DTXfpH6mXKNMoOpqWWTEvvjylQeVXKi1a5fy6f9bFzOW0uOx1Wfleh+tiFxEgu225PLFmxTNarqMwJjD2HA63qIaVZ3dhRO57kMJe9W/2Uaa+wuJRhN4EyLgXKVRvVTIekJFJdimaMigPk5ieNfHuIqdNM4lcdQsbIuvbmUQjz2d9YpBzXMHORL8
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(82310400026)(36860700016)(921020)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261022113327099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Sb0A7iihz0a8lKDsABsLcwhbFWNVlx6xY1iW4AKV27W915OA+V7dYDcpHFB+O6A2+qqp7aN+ZDlzfAKdu2wzxoDLZp0jvmRr7XMQj72W3yvEfLihzEfrQ+UF/2QryEvQ8snm/NgAQx5AaGW3JKnbcTb8uqosz92Z3sCPv1Jx2xiHhbcJ+lOs4GQHBSGbOv5XKWjfJ3hIKUeZUAlOS0V5Quru2Z2qVdXNUXhfn7SYucMjykpT7uzgNFllOU/CgbMxHulme33hQKWgdmswBujHtS6G0fPq0mKYGWItnkjXBsvSaOWtsN2ITHmG7T+qLVpG/qJXsFvE+9opFDuJFhkoLv5RXYeFUuM6EayWDtOHTZ4ZNEFAPKGKKN3JGGlm9DfHTRuqvvCfGzAfVOzmuYG7Nnrlt1bz6GRMAh8weoM75cwt55T+rjoQxBtwyJt7Z6FZ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 06:33:53.0442
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97132d67-7938-4b46-738a-08df3e2b6c44
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DF.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7491
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+On November 9, 2026 7:30:52 AM GMT+01:00, Ping-Ke Shih <pkshih@realtek.com>
+wrote:
+>Luka Gejak <luka.gejak@linux.dev> wrote:
+>> On November 9, 2026 7:12:52 AM GMT+01:00, Ping-Ke Shih
+><pkshih@realtek.com>
+>> wrote:
+>> >Luka Gejak <luka.gejak@linux.dev> wrote:
+>> >> On November 9, 2026 3:30:58 AM GMT+01:00, Ping-Ke Shih
+>> ><pkshih@realtek.com>
+>> >> wrote:
+>> >> >Kalpesh Solanki <skalpesh942@gmail.com> wrote:
+>> >> >> Changes in v3:
+>> >> >> - Note: v2 patch 1/2 (DMI quirk) is already applied in rtw-next.
+>> >> >> - Add patch 1/2 to clear RTW_FLAG_RESTARTING in rtw_ops_stop()
+>> >> >>   with Fixes tag.
+>> >> >> - In patch 2/2:
+>> >> >>   - Count consecutive failures before triggering recovery
+>> >> >>     (RTW_PS_HANG_MAX_CNT = 3).
+>> >> >>   - Reset ps_hang_cnt on successful LPS leave and in
+>> >rtw_core_start().
+>> >> >>   - Suppress raw register dump on transient failures to avoid log
+>> >spam.
+>> >> >
+>> >> >The patchset doesn't present in [1] nor [2]. Please wait a while to
+>> >send
+>> >> >newer version after it recovered.
+>> >> >
+>> >> >[1] https://patchwork.kernel.org/project/linux-wireless/list/
+>> >> >[2] https://lore.kernel.org/linux-wireless/
+>> >> >
+>> >> >
+>> >>
+>> >> Hi Ping-Ke,
+>> >>
+>> >> The linux-wireless list is bugged and nothing is appearing on it
+>since
+>> >> 2026-11-06 15:46 UTC. Aren't patches accessible due to
+>> >> linux-kernel@vger.kernel.org being CC'ed?
+>> >
+>> >I think not. I sent patches to linux-wireless, not including
+>linux-kernel,
+>> >before, and the lore and patchwork of linux-wireless can capture the
+>> >patches.
+>> >
+>> >
+>> 
+>> We are having this conversation on linux-wireless, aren't we? I don't
+>see
+>> it and my lei isn't picking it up.
+>
+>I think the mailing list still works, but lore/patchwork got wrong.
+>
+
+Possibly, now sure why lei is affected though(I am not sure how lei works).
 
 
-
-On 11/6/2026 3:32 PM, Jindal, Akshay wrote:
-> 
-> 
-> On 06-11-2026 09:46, Sairaj Kodilkar wrote:
->> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
->>
->>
->> From: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
->>
->> Original problem was there could be multiple IVMD exclusion entries
->> conflicting over a single exclusion range supported in older Linux
->> kernel. The fix was first introduced in commit 387caf0b759a ("iommu/amd:
->> Treat per-device exclusion ranges as r/w unity-mapped regions") and in
->> commit 0bbe4ced53e3 ("iommu/amd: Fix the overwritten field in IVMD header")
->> , where IVMD exclusions are converted to separate unity_map_entry objects
->> in pci_seg->unity_map so amd_iommu_get_resv_regions() treated every such
->> entry as IOMMU_RESV_DIRECT with R/W.
->>
->> The driver no longer programs the exclusion base/limit registers and
->> relies on the kernel to keep the IOVA ranges named by exclusion IVMDs
->> unmapped. Stop forcing exclusion entries to RW-unity. Store the raw
->> IVMD flags in struct unity_map_entry instead of a pre-shifted
->> protection value, and derive the reserved region from those flags.
->> Exclusion entries are now reported as IOMMU_RESV_RESERVED with no
->> read/write permission.
->>
->> Reject unity entries that grant neither IR nor IW with a FW_BUG
->> message, and warn about invalid flag combinations and unknown flag bits
->>
->> Fixes: 0bbe4ced53e3 ("iommu/amd: Fix the overwritten field in IVMD header")
->> Cc: Baoquan He <bhe@redhat.com>
->> Cc: Adrian Huang <ahuang12@lenovo.com>
->> Cc: Jerry Snitselaar <jsnitsel@redhat.com>
->> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
->> Signed-off-by: Sairaj Kodilkar <sarunkod@amd.com>
->> Reviewed-by: Adrian Huang <ahuang12@lenovo.com>
->> Tested-by: Adam Pelka <adampelka26@gmail.com>
->> ---
->>  drivers/iommu/amd/amd_iommu_types.h | 12 +++++++-----
->>  drivers/iommu/amd/init.c            | 26 +++++++++-----------------
->>  drivers/iommu/amd/iommu.c           | 21 +++++++++++++++++++--
->>  3 files changed, 35 insertions(+), 24 deletions(-)
->>
->> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
->> index 678ceddd711c..bcb88b476167 100644
->> --- a/drivers/iommu/amd/amd_iommu_types.h
->> +++ b/drivers/iommu/amd/amd_iommu_types.h
->> @@ -368,9 +368,11 @@
->>  /* DTE[128:179] | DTE[184:191] */
->>  #define DTE_DATA2_INTR_MASK    ~GENMASK_ULL(55, 52)
->>
->> -#define IOMMU_PROT_MASK 0x03
->> -#define IOMMU_PROT_IR 0x01
->> -#define IOMMU_PROT_IW 0x02
->> +#define IVMD_FLAG_UNITY                BIT(0> +#define IVMD_FLAG_IR           BIT(1)
->> +#define IVMD_FLAG_IW           BIT(2)
->> +#define IVMD_FLAG_EXCL         BIT(3)
->> +#define IVMD_FLAG_MASK         GENMASK_U32(3, 0)
->>
->>  /* IOMMU capabilities */
->>  #define IOMMU_CAP_IOTLB   24
->> @@ -880,8 +882,8 @@ struct unity_map_entry {
->>         /* end address to unity map (including) */
->>         u64 address_end;
->>
->> -       /* required protection */
->> -       int prot;
->> +       /* IVMD flags for the entry */
->> +       u8 flags;
->>  };
->>
->>  /*
->> diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
->> index 13c96feed64f..1f0ca675df1c 100644
->> --- a/drivers/iommu/amd/init.c
->> +++ b/drivers/iommu/amd/init.c
->> @@ -70,11 +70,6 @@
->>  #define IVHD_FLAG_RESPASSPW_EN_MASK     0x04
->>  #define IVHD_FLAG_ISOC_EN_MASK          0x08
->>
->> -#define IVMD_FLAG_EXCL_RANGE            0x08
->> -#define IVMD_FLAG_IW                    0x04
->> -#define IVMD_FLAG_IR                    0x02
->> -#define IVMD_FLAG_UNITY_MAP             0x01
->> -
->>  #define ACPI_DEVFLAG_INITPASS           0x01
->>  #define ACPI_DEVFLAG_EXTINT             0x02
->>  #define ACPI_DEVFLAG_NMI                0x04
->> @@ -2636,6 +2631,13 @@ static int __init init_unity_map_range(struct ivmd_header *m,
->>         struct amd_iommu_pci_seg *pci_seg;
->>         char *s;
->>
->> +       if ((m->flags & IVMD_FLAG_UNITY) &&
->> +           !(m->flags & (IVMD_FLAG_IR | IVMD_FLAG_IW | IVMD_FLAG_EXCL))) {
->> +               pr_err(FW_BUG "IVMD type %#x devid %#x range %#llx+%#llx: Unity set without IR/IW, ignoring\n",
->> +                      m->type, m->devid, m->range_start, m->range_length);
->> +               return -EINVAL;
->> +       }
->> +
->>         pci_seg = get_pci_segment(m->pci_seg, ivrs_base);
->>         if (pci_seg == NULL)
->>                 return -ENOMEM;
->> @@ -2665,17 +2667,7 @@ static int __init init_unity_map_range(struct ivmd_header *m,
->>         }
->>         e->address_start = PAGE_ALIGN(m->range_start);
->>         e->address_end = e->address_start + PAGE_ALIGN(m->range_length);
->> -       e->prot = m->flags >> 1;
->> -
->> -       /*
->> -        * Treat per-device exclusion ranges as r/w unity-mapped regions
->> -        * since some buggy BIOSes might lead to the overwritten exclusion
->> -        * range (exclusion_start and exclusion_length members). This
->> -        * happens when there are multiple exclusion ranges (IVMD entries)
->> -        * defined in ACPI table.
->> -        */
->> -       if (m->flags & IVMD_FLAG_EXCL_RANGE)
->> -               e->prot = (IVMD_FLAG_IW | IVMD_FLAG_IR) >> 1;
->> +       e->flags = m->flags;
->>
->>         DUMP_printk("%s devid_start: %04x:%02x:%02x.%x devid_end: "
->>                     "%04x:%02x:%02x.%x range_start: %016llx range_end: %016llx"
->> @@ -2702,7 +2694,7 @@ static int __init init_memory_definitions(struct acpi_table_header *table)
->>
->>         while (p < end) {
->>                 m = (struct ivmd_header *)p;
->> -               if (m->flags & (IVMD_FLAG_UNITY_MAP | IVMD_FLAG_EXCL_RANGE))
->> +               if (m->flags & (IVMD_FLAG_UNITY | IVMD_FLAG_EXCL))
-> the original names were more descriptive, suggest keeping
-> IVMD_FLAG_UNITY_MAP/IVMD_FLAG_EXCL_RANGE rather than shortening them.
-> if you insist on rename, may be send in seperate patch?
-> 
->>                         init_unity_map_range(m, table);
->>
->>                 p += m->length;
->> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
->> index 56262f6b1f70..699b5f530f11 100644
->> --- a/drivers/iommu/amd/iommu.c
->> +++ b/drivers/iommu/amd/iommu.c
->> @@ -3120,12 +3120,29 @@ static void amd_iommu_get_resv_regions(struct device *dev,
->>                 if (devid < entry->devid_start || devid > entry->devid_end)
->>                         continue;
->>
->> +               /*
->> +                * IVMD_FLAG_UNITY, IVMD_FLAG_IR, IVMD_FLAG_IW are ignored if
->> +                * IVMD_FLAG_EXCL is set.
->> +                */
->> +               if ((entry->flags & IVMD_FLAG_EXCL) &&
->> +                   (entry->flags & (IVMD_FLAG_UNITY | IVMD_FLAG_IR | IVMD_FLAG_IW)))
-> Here EXCL & UNITY are flagged as invalid combination
-> Above UNITY & !EXCL are also flagged as invalid.
-> Suggesting revisiting these conditions.
->> +                       pr_err(FW_BUG "%s: Invalid IVMD flags combination: %#02x for sbdf=%#x. Ignore IW/IR/Unity flags\n",
->> +                              __func__, entry->flags, sbdf);
->> +
->> +               if (entry->flags & ~IVMD_FLAG_MASK)
->> +                       pr_err("%s: Unknown flags: %#02x for sbdf=%#x\n",
->> +                              __func__, entry->flags & ~IVMD_FLAG_MASK, sbdf);
->> +
->>                 type   = IOMMU_RESV_DIRECT;
->>                 length = entry->address_end - entry->address_start;
->> -               if (entry->prot & IOMMU_PROT_IR)
->> +               if (entry->flags & IVMD_FLAG_IR)
->>                         prot |= IOMMU_READ;
->> -               if (entry->prot & IOMMU_PROT_IW)
->> +               if (entry->flags & IVMD_FLAG_IW)
->>                         prot |= IOMMU_WRITE;
->> +               if (entry->flags & IVMD_FLAG_EXCL) {
->> +                       type = IOMMU_RESV_RESERVED;
->> +                       prot = 0;
->> +               }
-> Since in case of invalid flag combinations, we are going ahead with region allocation,
-> will it be beneficial to add a pr_debug emitting relevant details passed on to the
-> iommu_alloc_resv_region()?
-
-Sorry I made a mistake here,
-
-Here's summary of what I wanted to do,
-1. Reject UNITY mapping if IR and IW flags are not present
-2. Reject exclusion mapping if either UNITY / IR / IW flags are present
-
-Thanks for pointing it out. I'll update it in the next version and move
-all the firmware related checks inside init_unity_map_range(). I'll also
-reject this condition as it does not make sense to add the region with
-invalid flag combination (a region cannot be both UNITY and EXCL).
-
-Thanks
-Sairaj
-
->>
->>                 region = iommu_alloc_resv_region(entry->address_start,
->>                                                  length, prot, type,
->> --
->> 2.34.1
->>
->>
-
-
+Best regards,
+Luka Gejak
