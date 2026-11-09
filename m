@@ -1,97 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.38.221.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794279089;
-	b=kZkqSSFgw15VbQtTCxybGU18y2RqhTyuxbOXrm05GQqeCw+PolYFpNdr59m3kCtCiEzb
-	 fAcL44yuBlp+JOpsZsWFZKi9hVit0fe0U7ibLLehpF8CuI1gh01HBH3s2RreCEWX0JKOz
-	 k/RgvZfAyzNaHMwxg3bNwHLH/oCxhbjGUr8l6q7BGsKN8A+Q3GTUR8bI0Az8rESxNi7Bf
-	 zF1IYNRXBrNTkURktyx7J8nDGx2vz8ksN6VI6P/51F1sAW9cDZuo8WmD1AsfLR8HEFP58
-	 0I/9LwrUOvfEUTFJWsWMZRkgh/XYf9JGBQLuKH5O1fWFBSl5+IBhZN7dGCuc3zlsmFw==
+	t=1794279101;
+	b=knzC+n/WnzHjzL7mgRwNZVHDu5ieMTDkoGOzF+C62HPlUP9h8ETaTedkssEaR0+YqqCc
+	 n24XORE3ZQHlZprxqqWGwBM5GfXiCG5W9Pex7BqeBlvd9skNZ559bS3L0/nlh9F14po/f
+	 aHfc5XpsE++RDNH/gEd7RfArVlh2WtnsJunodnPugOGZalqj/vgndNBiy3fgvq8MJZRth
+	 4MAzMhqT6EKPhvGqIWzrB9lGEAOQoAziqjoKBA2FBOMu8rqpNlOkgTJBtlJksVy56bVkJ
+	 GnPtWTGVh3uYdTCOkXtfi7xrGl3hKexQETRogwMk9yBNmixzdfOFHhTALpCMmdrtonw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794279089;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=rbLMU1pYfk4pMCO3YrPvND96KRltx8I0UXJznwRM32s=;
-	b=b3xDDCEPrcQ6/0A5tx/szqQeL7X/745PSjmj8WtylbY72aWYtg+gyfEBsuwEdnJqjPGI
-	 gJjYqC6lAQLRmpxuhr+y4Xgwb2eo36HCd2IUxsPNafwB92fN4gltKaxS3o349ZDKsyQpk
-	 esOKqr5PKXD00AE82/xPjk+tVYl+jrgS0gAVzXpq6aONd0mi+aKu/+U1sDfBX87SPZIDL
-	 mNIB8aSp4CTtx3DJtR79eLXI1vd2mEqpQEwkijkPL22Dbc7qeoP9MJl22Klf0JSosEtPp
-	 PbHse5kCtcSDSztvLhJHmRAPPTqIirK3MdqHlK/souMfAX8/0xUP2FuDvPsZ1IVZ8Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794279101;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=/3YVe9+UPTEY5+fwkaIb6HFpSrRXYqaEguXCXE4LZ7E=;
+	b=2GLdR9ZDSdfF2pZkjFyLaHXIpEASgveoGcp36LM1lCi0jRy6I/W2/w3TxgRVuA0ExMxg
+	 1VfYOdrp7HVvcYXxqXg0Yfs7LgZr06IfgEwXzQBwq1FeHnua2bZhRjUVfuO96i7+OSlxu
+	 fIRUIucJeDUvmz8EaIw0gb671r6QAYssxxAV0Ph/wqf5fpqAD52D98Q2NMsD3i8qWt7Eq
+	 NZmz90ieREEbilYi4xgBZfkAn9LV/2jbhxaR5tMKS4xksuSzNjwVO02cyJlKBUdhNcGM8
+	 HRS8NYCpJQL3iYBYaXtgs+p1dc0brM65KbhnkD2bejmKgDdJZAD1VV1DDVwluzK37lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="Um6f0w/5";
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=loljews.com;
+	spf=pass smtp.mailfrom=loljews.com;
+	dkim=pass header.d=loljews.com header.i=@loljews.com header.a=rsa-sha256 header.s=mail header.b=iYXmpWAB;
+	arc=none smtp.remote-ip=54.38.221.178
+Received: from mnc015mcc432.ss7-reroute.local (unknown [54.38.221.178])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA37606A321
-	for <linux-kernel@vger.kernel.org>; Tue, 10 Nov 2026 02:51:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DA37606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1511D606A31C;
+	Tue, 10 Nov 2026 02:51:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1511D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=loljews.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loljews.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Um6f0w/5
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b68e59ab33so1094349b3a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 18:51:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794279088; x=1794883888; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rbLMU1pYfk4pMCO3YrPvND96KRltx8I0UXJznwRM32s=;
-        b=Um6f0w/5hrpraY4UHnRm7NaUyIZEMqFGBKFeCU0z9+K+iCAOJKPih79teU+6bqvobp
-         pAeaKB0EiZ4TWOu11jB2PyY6JcUGKXCWSih/aIkR6yVb0Q3yaDm8NG7sxE1UZZ3qU/bf
-         p/aMjEnZsM6IyzOU7mvKHCm5Jj2ikfcstijEI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794279088; x=1794883888;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rbLMU1pYfk4pMCO3YrPvND96KRltx8I0UXJznwRM32s=;
-        b=bODOWnI1V0eYoHWbENoWwxUMAf/8zBYTYr4xlhMq+N8MW8PMXrQ0zjUOYTzYaFk+84
-         Bq/tDb/IKm3Mv40jQg1rYHHny0abZKT/+s+nnwag7Lv8Ai9pkq6QWEGNk3hZNtAw5tmo
-         lzyJkKJ+jNdeK+ab//eDRi7VqJRcp+keas/3WvJbceM3zTNBbM24uolKImD7V2j9NE2K
-         XOV1mQpRd5eSAgQwGyQBG00YiSmAPRT2dTY1ELSgxUdN6+TCV4oTLH5aYR3aLfAe/yjv
-         vuhRIptfm4fsjlLqBwFoXTFGfjFklsJpMMWmxZJ9YX80ByzqyuWLugUXEBaTBW3Xsv1K
-         RSHw==
-X-Forwarded-Encrypted: i=1; AL+hErHzJ/CAVctjbdkq+b00AVR3uGAzLwTTMvvJymmeezbsEHB+zsTz8z/ylr3kVHUOI7bFMHXaUt6fUFUN5Sw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/5nf0LrWo/272UGQ9XBEq07RPk25NxFqAVmF/h6xg+9558G/2p
-	lTIXdwwrC4+ESv2fJv6bCYRbbnJNrm3/W7SFyAEijFhTdCacy8nyJQFCjZEii2FSjA==
-X-Gm-Gg: AYBFou35z0W5XjiQof8ym1axXwLMw2bu7Tex+zGgKNeykU4RHBG6pGSJ4UhPW+NvGnt
-	h1LGdNYWMCVnF6v8dRpoqB1H3Bo5ATBh9RGQ2A1SIaX+edw4fgsR/tWciHgIy8fZ7ko5xPPEDIb
-	wHivYFSOnQsyY7rLEwf/BcJMdtl+TpI0PDuEjhDr1DThp9pH8UIQCE5KzEo36joqLZMIgAuQgtW
-	twCYeTp1uWUOz7cOZkBawvr1pjgy1X4JBsvFlnluMhfaUuxTth8WaSZCSe2EJGSV7Yn7xc7fuy1
-	ZPlLdRJumuJG3p0VWPzBPCYaTx9PB+U2u8aepobgTasjEZ+aqxa7vccNK8HPTaRg02x/gXYaUu6
-	SjCGiscFxWebbRQGc3rgTpLfqK0T94T1rsc9pWyBR0Liua3j/tISghWt/37JYyHjHglm0AKMMSW
-	YcktWyAOMUvy3uZ0EBt6pGyMVif1Lpo/lVDCVahpjs7ohwMJS7gf+W/RssnLwIiBjVk4U+u8aqc
-	HHCHerBZ9y41X5A+wqeN1Oa6lZCw1pwDL5MCJNMbgDFdC3HzELGJipgKKr1cZL3IiHoNUvxjOQb
-	NcngG0jciWdiLDqLW9MdfS34Ezg1pDOxokK94KG9ujz6Q4u8Os7AG6pDY7h89ADd5pqvpAEy+QO
-	yY8w8WZz/0MrfQ5s=
-X-Received: by 2002:a05:6a00:1249:b0:89f:3053:9af2 with SMTP id d2e1a72fcca58-8ba860cdac1mr1637379b3a.12.1794279087731;
-        Mon, 09 Nov 2026 18:51:27 -0800 (PST)
-Received: from google.com ([2a00:79e0:2031:6:e137:9384:7cd8:6e40])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa2a7fbesm298559b3a.11.2026.11.09.18.51.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 18:51:27 -0800 (PST)
-Date: Tue, 10 Nov 2026 11:51:21 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Yosry Ahmed <yosry.ahmed@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
-	Richard Chang <richardycc@google.com>, linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, 
-	linux-mm@kvack.org
-Subject: Re: [PATCH 5/7] zsmalloc: embed struct zs_handle into zram and zswap
- entries
-Message-ID: <avKFc82JS4R9yU-N@google.com>
-References: <20261105044752.1997895-1-senozhatsky@chromium.org>
- <20261105044752.1997895-6-senozhatsky@chromium.org>
- <auy22TkX0ADxP9WR@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=loljews.com header.i=@loljews.com header.a=rsa-sha256 header.s=mail header.b=iYXmpWAB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=loljews.com; s=mail;
+	t=1794279090; bh=/3YVe9+UPTEY5+fwkaIb6HFpSrRXYqaEguXCXE4LZ7E=;
+	h=From:To:Cc:Subject:Date;
+	b=iYXmpWABDDqwJ9pv+q08Uer9uMIgyEB97WHWpTrT+8ICmkFlvlwfsbM1eRFJhamEV
+	 pkO7+zHStZ/nZfFn/+JIPY7LiHh/8PH8aCE5iPzengadxIIlv9gOrP8mH7GaN7sB1C
+	 hVvjDGdd/mMF+KozvQNyrXiYjGYYxQFR4rswtzXB9kUP6f9UeV4Q45Y2ic7svTjjpD
+	 70sapImH6LXzKNE+PkACqzD+PJj7epH0JfDZJ4mVCazEulaDjXSpFFR3rlDFDOvCbe
+	 X7ESbSOdXVgbNQuJghqcjuYEbH1MF6hF+//clnpPNph3RF/BO+2Y4P44tqK4mUzy3v
+	 W7+Gfh+TOtCsQ==
+Received: from loljews.com (localhost [127.0.0.1])
+	by postfix (Postfix) with ESMTP id EA39D27A3593;
+	Tue, 10 Nov 2026 04:51:29 +0200 (EET)
+From: Sandeep Haemoon <sandeeph@loljews.com>
+To: netdev@vger.kernel.org
+Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Russell King <linux@armlinux.org.uk>, Mason Chang <mason-cw.chang@mediatek.com>, Frank Wunderlich <frank-w@public-files.de>, linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v4 0/3] net: ethernet: mtk_eth_soc: 9K jumbo frame support
+Date: Tue, 10 Nov 2026 01:59:11 +0200
+Message-Id: <patch-fc08a7ef40667bf3017366e452e6d3c0@loljews.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,152 +59,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auy22TkX0ADxP9WR@google.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On (26/11/05 17:19), Yosry Ahmed wrote:
-[..]
-> >  Additionally, zs_malloc() does not return a dereferenceable pointer.
-> > -Instead, it returns an opaque handle (unsigned long) which encodes actual
-> > -location of the allocated object. The reason for this indirection is that
-> > +Instead, it stores the encoded location of the allocated object in the
-> > +provided ``struct zs_handle``. The reason for this indirection is that
-> 
-> Should we explicitly call out that zsmalloc will keep a back pointer to
-> the handle and update it asynchronously, so the owner shouldn't modify
-> it, and should keep it allocated until zs_free() (or rebind)?
-> 
-> Probably somewhere in the code comments too?
+This series makes the MediaTek SoC ethernet driver support 9K jumbo
+frames on the 10G XGMII MACs (MT7988).  The driver advertises a 2030-byte
+max_mtu and programs the MAC max-rx field for at most 2048 bytes, so
+MTU > 2K is rejected and 9K frames are not usable.
 
-Yeah, perhaps.
+Patch 1 fixes a pre-existing 36-bit DMA bug in mtk_poll_rx() that the
+review of v3 found: a descriptor released without a new mapping is
+handed back with the previous buffer's high address bits.  It is
+independent of the rest of the series and carries a Fixes: tag for the
+commit that introduced the bug, so the maintainers can route it to net
+directly if they prefer.
 
-> >  zsmalloc does not keep zspages permanently mapped since that would cause
-> >  issues on 32-bit systems where the VA region for kernel space mappings
-> >  is very small. So, using the allocated memory should be done through the
-> > diff --git a/include/linux/zsmalloc.h b/include/linux/zsmalloc.h
-> > index 693c9484b638..6c76fd10344e 100644
-> > --- a/include/linux/zsmalloc.h
-> > +++ b/include/linux/zsmalloc.h
-> > @@ -14,6 +14,7 @@
-> >  #ifndef _ZS_MALLOC_H_
-> >  #define _ZS_MALLOC_H_
-> >  
-> > +#include <linux/compiler.h>
-> >  #include <linux/types.h>
-> >  
-> >  struct zs_pool_stats {
-> > @@ -21,16 +22,39 @@ struct zs_pool_stats {
-> >  	atomic_long_t pages_compacted;
-> >  };
-> >  
-> > +/*
-> > + * zsmalloc writes object location into the handle and updates it when
-> > + * the object moves (compaction, page migration), so the handle must not
-> > + * be on the stack and must not be copied.  Use zs_rebind_handle() to
-> > + * move an object to another handle.
-> > + */
-> > +struct zs_handle {
-> > +	unsigned long __private obj;
-> > +} __aligned(sizeof(unsigned long));
-> 
-> Is alignment guaranteed even if this is embedded in a packed struct? I
-> wonder if we should have an explicit alignment check in
-> zs_malloc()/zs_store(), and probably rebind too?
+Patch 2 gates the page_pool on the ring's descriptor length: the pool
+hands out order-0 pages and maps at most MTK_PP_MAX_BUF_SIZE, so a ring
+whose descriptor length is larger has to use the
+netdev_alloc_frag()/mtk_max_buf_alloc() path.
 
-I guess only run-time check will work.  I can add those.  I wonder
-if we actually need to worry about this, neither zram nor zswap use
-packed entries, but I think it's cheap enough to make sure in run-time.
+Patch 3 adds the MTK_NETSYS_RX_9K capability, advertises 9K max_mtu on
+the XGMII MACs (from the DT phy_mode at probe, so DSA can raise the
+conduit MTU before the netdev is opened), programs XMAC_RX_CFG2 and the
+PDMA RX SDL, derives the shared RX buffer length from the largest MTU,
+sizes the RX rings from it and keeps the MAC max-rx limits in sync with
+it.  A runtime MTU change that needs larger buffers is rejected with
+-EBUSY while DMA is running; shrinking is allowed.  GMAC1, the built-in
+switch port, keeps its MCR bucket programming (the largest the field
+encodes is 2048), written after the MAC_MCR_FORCE_LINK_DOWN reset so it
+survives every mac_config(); whether the internal switch path enforces
+that field at all is a hardware property the commit message documents.
 
-> > +
-> > +static inline void zs_handle_init(struct zs_handle *handle)
-> > +{
-> > +	ACCESS_PRIVATE(handle, obj) = 0;
-> > +}
-> > +
-> > +static inline bool zs_handle_is_allocated(const struct zs_handle *handle)
-> > +{
-> > +	return READ_ONCE(ACCESS_PRIVATE(handle, obj)) != 0;
-> > +}
-> 
-> Can this ever give a false negative?
+This work is a forward-port of the MediaTek downstream jumbo work: Mason
+Chang's "change default rx buffer length" and "add 9k jumbo frame
+support" (MediaTek OpenWrt feed 999-eth-30/31, carried in
+frank-w/BPI-Router-Linux), plus Frank Wunderlich's "try to fix crash the
+right way".  The runtime reallocation of Mason's "dynamic rx buffer
+adjustment" (feed 999-eth-33) is not included and will be sent
+separately.  Attribution is prose plus Link: tags: Co-developed-by
+requires the original authors' own Signed-off-by lines, which we do not
+have, and the port diverges from the downstream implementation (2K
+buffer floor, per-ring pool gate, the -EBUSY rule, the XDP checks and
+the truesize fix are not in the downstream patches).
 
-That's a very good question.
+The equivalent change was tested on a BPI-R4 Pro 8X (MT7988, 10G lan6 /
+MxL86252) on the 6.18.60 backport: with both ends at MTU 9000, 8K ICMP
+passes and iperf3 with MSS 8900 reaches ~9.87 Gbit/s (vs ~2.57 Gbit/s at
+MSS 1460); the DSA conduit is raised to 9004 at boot.  This v7.3 series
+is compile-tested with CONFIG_NET_MEDIATEK_SOC=y and COMPILE_TEST=y; no
+hardware run of this exact tree yet.
 
-> I believe that's only possible with pfn=0, I don't know if this can be the
-> case on any architecture. Should we use something like OBJ_ALLOCATED_TAG?
+Once any MAC's MTU needs more than ~3.5K, every RX buffer becomes a
+16 KiB compound page; with the 9K ring size that pins around 64 MiB
+while DMA is up and makes the refill a high-order GFP_ATOMIC
+allocation.  That cost is inherent to the downstream design and is
+called out in the commit message; skb->truesize now reports the
+allocation that was actually made.
 
-Yeah, I don't know, I guess would be better to not rely on "pfn cannot be
-0".  Let me look into this.
+Changes in v4 (both v3 reviews, in full):
 
+- XDP admission (High): the attach check now uses eth->rx_buf_len, the
+  length the live rings were actually built with.  It is recomputed
+  from the current MTUs whenever the rings are not live, or when the
+  attach itself tears them down, so a program can neither attach while
+  the rings have no page_pool nor be rejected on a closed device over a
+  stale ring length; the dead dev->mtu clause in the same check is
+  removed.
+- the MAC max-rx rewrite in mtk_mac_config() and the new value in
+  mtk_hw_init() are gated on MTK_NETSYS_RX_9K, so the other SoCs keep
+  their per-device MCR buckets exactly as before this series.
+- the PDMA RX SDL write is described as the new register write it is
+  (the message no longer claims it replaces OR-ing).  The field layout
+  (bits 16-30, frame length offset by MTK_PDMA_LRO_SDL) is the MediaTek
+  downstream layout, validated on MT7988 hardware; the write is
+  read-modify-write so every other RX_CFG bit keeps its value, and it
+  now happens only in mtk_dma_init(), which runs at every DMA start.
+- GMAC1 (the internal switch port) keeps its MCR bucket programming
+  (largest encodable bucket is 2048); XMAC_RX_CFG2 is not used for it,
+  matching the downstream reference.  The write in mtk_mac_config() now
+  runs after the XGMII setup, whose MAC_MCR_FORCE_LINK_DOWN write is a
+  full-register write that previously reset GMAC1's max-rx field back
+  to the 1518 bucket on every mac_config().  Whether the internal path
+  enforces the MCR field for switch-side 9K frames is a hardware
+  property and is documented in the commit message: the downstream
+  reference programs no limit for GMAC1 and jumbo frames pass the
+  switch on the reference hardware, but if the field is enforced,
+  switch-side frames above 2048 bytes are dropped and no driver write
+  can lift that.
+- XMAC_RX_CFG2 is always programmed from the shared buffer length
+  (2K minimum), which includes 802.1Q headroom at every MTU, so the
+  limit is the same value no matter which path ran last.
+- skb->truesize reports the size of the compound page that was actually
+  allocated, not the smaller frag_size.
+- the -EBUSY rule's consequence for DSA (a user port MTU can only be
+  raised with every MAC down) is now spelled out in the commit message.
+- the stale comments above the pool gate and in mtk_dma_init() are
+  rewritten to describe the code as it stands.
+- patch 1/3 fixes the pre-existing 36-bit DMA descriptor corruption in
+  mtk_poll_rx() found by the review of patch 1; it is small, sits in
+  the file this series touches, and the introducing commit was
+  identified upstream, so the Fixes: tag is included.
+- patch 2/3 is retitled to say when the pool is skipped and its message
+  no longer implies a frag_size gate existed before it.
 
-> > -struct zs_handle *zs_malloc(struct zs_pool *pool, size_t size, gfp_t flags,
-> > -			    const int nid);
-> > +int zs_malloc(struct zs_pool *pool, struct zs_handle *handle, size_t size,
-> > +	      gfp_t flags, const int nid);
-> >  void zs_free(struct zs_pool *pool, struct zs_handle *handle);
-> > +#ifdef CONFIG_ZSMALLOC_REBIND_HANDLE
-> 
-> FWIW, I don't think this is buying as much. It's one function that is
-> only called by zram anyway.
+Simon Horman's Reviewed-by is kept on patch 2 only: patches 1 and 3 are
+new or changed materially since his review of v1.
 
-Ack.
+Previous versions:
+https://lore.kernel.org/all/patch-aad4cfa8d9522d1f7dbc9893ea12e813@loljews.com/ (v3)
+https://lore.kernel.org/all/patch-2793186c653124c4c0b3d463bde2ea3a@loljews.com/ (v2)
+https://lore.kernel.org/all/patch-4f863a941889f0bceca1c082f2d79624@loljews.com/ (v1)
 
-> > +void zs_rebind_handle(struct zs_pool *pool, struct zs_handle *dst,
-> > +		      struct zs_handle *src);
-> 
-> A few comments in zsmalloc.c mention zs_free() reading the handle
-> locklessly, do these apply to rebinding as well?
+Sandeep Haemoon (3):
+  net: ethernet: mtk_eth_soc: reset RX DMA address each poll iteration
+  net: ethernet: mtk_eth_soc: skip page_pool for RX rings whose buffers
+    do not fit
+  net: ethernet: mtk_eth_soc: add 9K jumbo frame support
 
-Let me take a look.
+ drivers/net/ethernet/mediatek/mtk_eth_soc.c | 284 ++++++++++++++++----
+ drivers/net/ethernet/mediatek/mtk_eth_soc.h |  12 +-
+ 2 files changed, 238 insertions(+), 58 deletions(-)
 
-> > +#endif
-> >  
-> >  size_t zs_huge_class_size(struct zs_pool *pool);
-> 
-> [..]
-> > diff --git a/mm/zswap.c b/mm/zswap.c
-> > index 397b06c9f33b..f28a46cae1e1 100644
-> > --- a/mm/zswap.c
-> > +++ b/mm/zswap.c
-> > @@ -215,7 +215,7 @@ struct zswap_entry {
-> >  	unsigned int length;
-> >  	bool referenced;
-> >  	u8 pool_idx;
-> > -	struct zs_handle *handle;
-> > +	struct zs_handle handle;
-> >  	struct obj_cgroup *objcg;
-> >  	struct list_head lru;
-> >  };
-> > @@ -769,6 +769,7 @@ static struct zswap_entry *zswap_entry_cache_alloc(gfp_t gfp, int nid)
-> >  	entry = kmem_cache_alloc_node(zswap_entry_cache, gfp, nid);
-> >  	if (!entry)
-> >  		return NULL;
-> > +	zs_handle_init(&entry->handle);
-> >  	return entry;
-> >  }
-> >  
-> > @@ -787,7 +788,7 @@ static void zswap_entry_free(struct zswap_entry *entry)
-> >  
-> >  	zswap_lru_del(entry);
-> >  	if (!WARN_ON_ONCE(!pool)) {
-> 
-> This check is mostly defensive, and if the pool was ever NULL it
-> prevented a NULL deref, and potentially leaked the underlying zsmalloc
-> object, which is mostly fine as the pool being NULL points to a larger
-> problem (e.g. corruption).
-> 
-> However, if that happens now, the handle pointer in zsmalloc would point
-> at the zswap entry after it's freed by zswap_entry_cache_free() below,
-> potentially causing a UAF. It's arguably fine as it's just a cascade of
-> corruptions, but I wonder if we should just bail early and skip all
-> cleanups below if the pool is NULL.
-> 
-> We'll leak the cgroup charge, stats, and the zswap entry itself -- but
-> that's arguably the safer option if we already have a corruption
-> problem.
-> 
-> We can also just delete the NULL check, but it's cheap to keep and I'd
-> rather have it tbh.
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+-- 
+2.53.0
 
-Sounds good, let me reshuffle the code a bit.
