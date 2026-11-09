@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242184;
-	b=mCEy9Ms8uoldNqTEFG7z3njnMSeLC0qkstF2yBPqme2nGrJkI5pgyACGfJgSCiS71y04
-	 pFS86HTN5BuE1h5CBETogwwUzBrhwBeADZbzJ3EaN1tXGL0iKxVjPsOblsrs9gpi5YD+0
-	 9VaPpIa3mhVHKmvJRDjiVWoAVQn7xFTU9ijYHWFMxg6UnSrGyMVksOT8GEzga9qOESIHw
-	 h19Dx1DReuxLlQJPMIk+SJwtLdoisRw2Whoy7JSneiNw2wgaDIgMb5K9CLwfWuJ8tz6rA
-	 38vKcIbjDIGyWRbftgh92cz3WrpUtISqGnCgwupVaFelYN3UlJgWlWaEZLlVa/qfXqg==
+	t=1794242187;
+	b=LwIU4IkT7lu8aaalhA6Tieub1yHnhqNoIx5LW10+BA5DwsRglGJYxPzp8jXIW89yTxeR
+	 ZcfCXdTYO7llKvOH86gOfxAgdQV5Ionco1iXcA7aDoHyaWiO3HMnJ05tnmVs2XByTeAfV
+	 w+KQaTYl9vkLs5JtdrPD7P9MjF29/V9wtoHSW4yoXkbb+xtAbz+JO/92kCqDwUyoratfw
+	 DuR5rrClPxj0JaoVDM7xxHjVBMGDuVD5vyyfHeUizCM+R5WA4cGWUNe55SGvwMf1AOL4L
+	 EHWNqNwd7pf44VpzkVHfxHPzxY5P32BAQdUr9ilzYt35/ZTZ50fHbG9a2DaZyKRYuBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242184;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242187;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=SpFA5SgbZJhb9ponpVrLzGNwdHqcbHvWyklpgw1Qw5A=;
-	b=qYO5jQEb6MWPc2Ev6nmJRS+D99q1KN5x5s9Fd5CC3pJcP3efwEqcMjrgl72dkY0Hp88k
-	 PZanvwRcBdVmjS9ML4J+TW2WEU+uZVdMXGqrGC7SuUwwXbw5T3F61Iy6hnoU7UKXonU1V
-	 YITp65wlRpDm6jHay+STKFoAKiU8eE9VQkoA4pSaWyFv2S/qyuv953VZ4biYoq6BNpDYK
-	 pGi7dJwiEFtLQBzH7v6c18J5znx7qH/vPiWNVNp66ytwE6P1iucZiAuNjgcB0/kNuuOGb
-	 mPt1tg9i/i0RbMKMkoOION9m8K2/zsKrmnaVcf32wrXuve1BiqtKx1IvhEl7MDWZqXw==
+	bh=ZrkVR5mXFjugKxMsS6+5gUfgoZd/TSJdYFOiJryJnwY=;
+	b=r4plkGEvsrK9l5s5Wmn+dIyrCo8X6V47bP0lHnLAIlMUk989MeeDRRoEzKz62/TA0zVa
+	 YUhEEWSDTPN2Tdt6tS2KAeTLLhQSE4l0FHX2HuWX/eUxQx9ZnNlBQDQeqX+HE2FlviSpK
+	 ZLTKsHUhlJDJQ231eLSOhoP0dZ3MtiRJnqWVDiqalZs3qbOHw1JMaEU9LMrYOQJ+BUUUy
+	 PMyXeJvLss6V7b1LKdQd5ZbxeuIINKRL/60nRyGEE7If+wfKurrSaw/Np0NhfoRhcXqEF
+	 eXJA7yJwZgemlzezGt9nJ9Et2DpPBMUTESmTLf2PppmpHSDdomDkEj1XQJuz61Hlgwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E5SJX+2f;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MoGq4ijb;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFAD0606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFAD0606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FAA606EE88
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5FAA606EE88
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E5SJX+2f
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a208d93758so11586995e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:23 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MoGq4ijb
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4b7252a32c8so11776775e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242182; x=1794846982; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794242185; x=1794846985; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SpFA5SgbZJhb9ponpVrLzGNwdHqcbHvWyklpgw1Qw5A=;
-        b=E5SJX+2ff3/h5onmzPB9GjihmE2+6WLp9hzZVK2hbtsAvbPrD7WJIJTpgNbLJycJ8t
-         j3MBBCvHxsQRvltiTSiGyf2ajMBRLmuTAL22CUZZwLOaxn4TZ48N7ieg8yc+jN2O0Ci9
-         pYl4B4s/t5Erxyx56M0KuaEX7NOLFw5AM9xLQplgrFcFJhLrCDsCtSgmTZPh6ohVOkuR
-         XgQZYDizOplKlNqjDfoKwuGZRxaixXGBP+l+RpiVefC6J04bHRAULMt9HLSe7PwH2Yxe
-         H4rAgut2QvQB/qiGo8/cHuI+O/uxgunk0Rj4846WBCQrEKIchLyZRmSY9fmigmL+VGDm
-         chUw==
+        bh=ZrkVR5mXFjugKxMsS6+5gUfgoZd/TSJdYFOiJryJnwY=;
+        b=MoGq4ijbYVarJ9kFWIv73DFei5kldJDcuv4Nu0Qvyur+JN+Sn7Gv3zWKCzG8kMEZ+W
+         tL0CItmuB3KLCDikHZPTSjr33SI9Veyz6SiqfYUWOT8Gf9pljWHRc3XKi/j0HaQJbuYo
+         P/Ure7T1fgayzzFXTxa4KaCkfrCMNl5nak1M1ogRvPlRzr/zEleqknwZonzC6EFzWFpq
+         ovsXQX9ia5VLwJLk858SIX36S3s2a4h+/HZ2llCag2LOsdfT66drY4PNgqSgGXw66pEI
+         iO6x2wXzSt2CtEG2nDp/Dp9BvDmujtbjbW5ALxMTYwjOCwemdlt0lbeL9d53WYwc+CMj
+         B5vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242182; x=1794846982;
+        d=1e100.net; s=20260707; t=1794242185; x=1794846985;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SpFA5SgbZJhb9ponpVrLzGNwdHqcbHvWyklpgw1Qw5A=;
-        b=JVDIg+2Wix+UtIzjcmGCAwwww7uiOTCv7cgpFa019kXdtOb6En7xfNmtlVW6Zh2K+s
-         VU5euNQOPpeCHtxxF5vC5RFj4ytl3DxRTf/T4vy+QHYhROFGA6mNY6nL2YwY7m2FEiDi
-         AU/8LZgCxFgtNc6gL2bNaGzi3vXOZ0ZfOLrKbQPnO+lGabxB7li7avgbka4vkJQyPEFV
-         TzT5GA9p6P44UkC9F/BAQZ2e/WwWOjtLjzF2PAwtGiP1iL0K1+alq34t4cc21YUcfyb6
-         gZCwAkCwHbvc3qtGHYkgDD/UmL2L3/IYW7fuZf/0UYbr1XHLywpN+yh4y9zQ2tnP12CS
-         ZV6g==
-X-Forwarded-Encrypted: i=1; AL+hErHYWpQ+azJfHjvvlN6porwiX1NY+xXXC710q83kAnRzi7SJk0ntxX3TuSc/6lul71I6FaIaMrAMP8qETS4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9JPnR2e7SuyAee734cJaJXDMl5IPLeWSm/TKOW+FssS0Pj74vf
-	AVdMIjQDojXwgrH+U4GK5JHzMCOEW6G1ec21SB43yYNJC/tdbbjAEA+U
-X-Gm-Gg: AYBFou0W+ZDndDbC4ZOLS8hDVnIuLhs9sokdUzs5KN4h8Vf4bEg+OI+dntkWXtZFsVz
-	5r/nL9GBzLHbJ1H1ZYtqcsm6hisbQoY4Nslszl/WttosX1r0eznFuDB7X7fES+IY1+/DPzfuXPz
-	3VTGU6uTM0Ek6JgIhgNZ1Xb9DAqq5K4zuQV63D/eFJJ9Za+FsAm8zwcisAyYInKZRTsSBldfsZD
-	Bc9hbNTgfGq7Ey2mYId9rB0tRexcz66DuEwP5T4BwZzvAowhR96gusyWPV95au7cBmaSGIAwvsh
-	j2kWbQAhQ/XbnPTkyqk9YZAk4daAWxWrNTJDir6jtAAOo6Pz5kYmSYxJZd0O1Gbojyn0BiowvGg
-	aRkT8E5KdHNUXOTMggDnaQc24KfjP+2qvKySIo2vof94fmgPZWy9ibuHwUs73vpuSLnqDGLMi+w
-	6yNQTc/G54z6FH1YJX8EyyhnmBBkirk1j+fURlLPi4WFAOnzTpu2agYUmqIN9pFZ5YS6IclF3gG
-	cc7OgFWvlOYgkQ2gYipzweYmSyBQeoCP61zE/jIIUo+t76LVh6Iaz9QfMRgXq0VjLeeQQNXm0O0
-	EM0tEoIdq4yZjrZR9dDjot9t2xnbrFn7h80iUBs6td6AgXk=
-X-Received: by 2002:a05:600c:8712:b0:4b1:2026:6b41 with SMTP id 5b1f17b1804b1-4b963c9de56mr86531255e9.30.1794242182232;
-        Mon, 09 Nov 2026 08:36:22 -0800 (PST)
+        bh=ZrkVR5mXFjugKxMsS6+5gUfgoZd/TSJdYFOiJryJnwY=;
+        b=rkdsy/Cn4DfjNTZX8A7RsFBnljhLfCKsluYjSILnjVchZcIUxfQGU8dWLyP1EeA4Lb
+         TUeUw+L5j5dxmg1Sc3FtDoArtCh/kWjBh/pZ9RKH1wswj+V55aV4F4tu+q9eDXsow/U5
+         geX8lR0zeUFJ6oReLOUzpMR1lYnhh4bfQLp7tYIrGEzpf4PAVLpIXnqE7l4qCN7v+W0c
+         P49uPIBiPVjYhkqLAeRmgBOc2IbDlNck0LG7jshS3vBeh2rZSHIUy4xmFsWA5Kz/RNmW
+         PMzPJ0gS8GptYWLz1OV79afTznIGkaTO0e1sCzK4YyPl17jCrvsHjAw0XhPC5KzZF840
+         3XdA==
+X-Forwarded-Encrypted: i=1; AL+hErG8A5kmAK5WCA+fO00JXICzke6B7aC7OqifPi8z7FBVfxPTQIjvS14VgdnSkAv5mGew22y5AolmadV0ilE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+To8opXYpmzv+Zqf2lofIlzQad0UI9+oOh56NKHgy//G27DA+J
+	pyHi2QMK3HdDHapsu87JdWUsYoUcgBBoOVywMDlbz2DFPjhFHK+orVQF+6DuMA==
+X-Gm-Gg: AYBFou3OaSdw7ZF6mYVs5WOzxbvsMTOv+IhnjPGuSfb9aa9+ZUMtVJv8wXl/nFushHc
+	SbY1V6PIgzkTE8MUmPKIY+u9jEdDQW/vAPhm1To6peoRNJ4QVp9pRfqJpfnYrd4SuDO26li3l3i
+	ZZGDLydeTXTClZ5MA06sM8qnxCh5Y9iH3cXVmz2q5HucpYP70yk4THADSUVveE8+NIprQN0y/wq
+	i4qq7I2G/7OQxZHQEp5Jqk3S5/LC4TsXl0bTUH9TOT9Gjb4S392XuX0qMxotXJA8FuGM73RVCeS
+	E3RoHmKPvzpWgRJHSTPdowb+qiRRx/V5ndUpNAV855MzEa5XLxrVPzGEppa+g2mp9I0Y7O7CkUk
+	lms8KF103aAd8hkXWeGgBM/+2zRadbp+mujXO+helNbR+80BJDu4HQtLzwK59QvJ8rettj7Jw/n
+	MUM3dFXLKhgrrCI7BEIU62X2qgBXDi4n/NJB+mBFZddclTXmekD2bHH2rmGWNscs+oqlkoQa1DM
+	buK3polya5ghG1jsy8PE+n82oMEDCQuo9VeH1vH75bDEmlyiE4VJXEpq/4MtwfRHvk5zg4Z8uqO
+	wekEHhmu49uUhgQ8BkZlKKX5T+4yfmT8iKFpnNYGgEH4zJc=
+X-Received: by 2002:a05:600c:8b8c:b0:4b3:9540:47a6 with SMTP id 5b1f17b1804b1-4b963c9b6e2mr84346175e9.28.1794242185031;
+        Mon, 09 Nov 2026 08:36:25 -0800 (PST)
 Received: from victus-lab ([193.205.81.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.21
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:36:21 -0800 (PST)
+        Mon, 09 Nov 2026 08:36:24 -0800 (PST)
 From: Yuri Andriaccio <yurand2000@gmail.com>
 To: Ingo Molnar <mingo@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -96,9 +96,9 @@ Cc: cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Luca Abeni <luca.abeni@santannapisa.it>,
 	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: [RFC PATCH v7 01/29] sched/deadline: Introduce dl_freq_invariant flag for fair/ext servers
-Date: Mon,  9 Nov 2026 17:35:47 +0100
-Message-ID: <20261109163616.195264-2-yurand2000@gmail.com>
+Subject: [RFC PATCH v7 03/29] sched/deadline: Distinguish between dl_rq and my_q
+Date: Mon,  9 Nov 2026 17:35:49 +0100
+Message-ID: <20261109163616.195264-4-yurand2000@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109163616.195264-1-yurand2000@gmail.com>
 References: <20261109163616.195264-1-yurand2000@gmail.com>
@@ -113,81 +113,164 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The fair/ext servers are by design frequency and capacity invariant, i.e. their
-maximum allowed runtime is fixed, regardless of the frequency the CPU is
-running. (See also https://lore.kernel.org/all/20250702021440.2594736-1-kuyo.chang@mediatek.com/)
+From: luca abeni <luca.abeni@santannapisa.it>
 
-This inevitably broke non-fair dl_servers, which would want to instead scale
-their execution time to be consistent with CBS and GRUB-PA.
+Split the single runqueue pointer in sched_dl_entity into two separate
+pointers, following the existing pattern used by sched_rt_entity:
 
-The newly added flag allows deadline servers to adopt the frequency invariance
-behaviour as fair/ext servers.
+- dl_rq: Points to the deadline runqueue where this entity is queued
+         (global runqueue).
+- my_q:  Points to the runqueue that this entity serves (for servers).
 
+This distinction is currently redundant for the fair_server and ext_servers
+(both point to the same CPU's structures), but is essential for future RT
+cgroup support where deadline servers will be queued on the global dl_rq while
+serving tasks from cgroup-specific runqueues.
+
+Update rq_of_dl_se() to use container_of_const() to recover the global rq from
+dl_rq, and update fair.c and ext.c to explicitly use my_q (local rq) when
+accessing the served runqueue.
+
+Update dl_server_init() to take a dl_rq pointer (use to retrieve the
+global runqueue where the dl_server is scheduled) and a rq pointer (for
+the local runqueue served by the server).
+
+Signed-off-by: luca abeni <luca.abeni@santannapisa.it>
 Signed-off-by: Yuri Andriaccio <yurand2000@gmail.com>
 ---
- include/linux/sched.h   | 4 ++++
- kernel/sched/deadline.c | 5 ++++-
- 2 files changed, 8 insertions(+), 1 deletion(-)
+ include/linux/sched.h   |  6 ++++--
+ kernel/sched/deadline.c | 17 ++++++++++++-----
+ kernel/sched/ext/ext.c  |  4 ++--
+ kernel/sched/fair.c     |  4 ++--
+ kernel/sched/sched.h    |  3 ++-
+ 5 files changed, 22 insertions(+), 12 deletions(-)
 
 diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 1c93da75226e..b78ca828f694 100644
+index b78ca828f694..febc03b02fa4 100644
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -706,6 +706,9 @@ struct sched_dl_entity {
- 	 * contributes to the root domain's total_bw. Only meaningful for server
- 	 * entities (@dl_server == 1). Allows toggling the reservation on/off
- 	 * without losing the configured @dl_runtime/@dl_period.
-+	 *
-+	 * @dl_freq_invariant tells if this server's runtime must NOT be scaled
-+	 * by the CPU's frequency and capacity.
+@@ -742,9 +742,11 @@ struct sched_dl_entity {
+ 	 * Bits for DL-server functionality. Also see the comment near
+ 	 * dl_server_update().
+ 	 *
+-	 * @rq the runqueue this server is for
++	 * @dl_rq the runqueue on which this entity is (to be) queued
++	 * @my_q  the runqueue "owned" by this entity
  	 */
- 	unsigned int			dl_throttled      : 1;
- 	unsigned int			dl_yielded        : 1;
-@@ -718,6 +721,7 @@ struct sched_dl_entity {
- 	unsigned int			dl_defer_running  : 1;
- 	unsigned int			dl_defer_idle     : 1;
- 	unsigned int			dl_bw_attached    : 1;
-+	unsigned int			dl_freq_invariant : 1;
-
- 	/*
- 	 * Bandwidth enforcement timer. Each -deadline task has its
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index c0ebdcde5fe5..57c7a8802d8e 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -1432,7 +1432,7 @@ static void update_curr_dl_se(struct rq *rq, struct sched_dl_entity *dl_se, s64
- 		return;
-
- 	scaled_delta_exec = delta_exec;
--	if (!dl_server(dl_se))
-+	if (!dl_server(dl_se) || !dl_se->dl_freq_invariant)
- 		scaled_delta_exec = dl_scaled_delta_exec(rq, dl_se, delta_exec);
-
- 	dl_se->runtime -= scaled_delta_exec;
-@@ -1862,6 +1862,7 @@ void sched_init_dl_servers(void)
-
- 		dl_se->dl_server = 1;
- 		dl_se->dl_defer = 1;
-+		dl_se->dl_freq_invariant = 1;
- 		setup_new_dl_entity(dl_se);
-
- #ifdef CONFIG_SCHED_CLASS_EXT
-@@ -1873,6 +1874,7 @@ void sched_init_dl_servers(void)
-
- 		dl_se->dl_server = 1;
- 		dl_se->dl_defer = 1;
-+		dl_se->dl_freq_invariant = 1;
- 		setup_new_dl_entity(dl_se);
-
- 		/*
-@@ -3957,6 +3959,7 @@ static void __dl_clear_params(struct sched_dl_entity *dl_se)
- 	dl_se->dl_defer			= 0;
- 	dl_se->dl_defer_running		= 0;
- 	dl_se->dl_defer_armed		= 0;
-+	dl_se->dl_freq_invariant	= 0;
+-	struct rq			*rq;
++	struct dl_rq                    *dl_rq;
++	struct rq                       *my_q;
+ 	dl_server_pick_f		server_pick_task;
 
  #ifdef CONFIG_RT_MUTEXES
- 	dl_se->pi_se			= dl_se;
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 00f584c7bbd5..d24a1e14dd21 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -65,10 +65,12 @@ static inline struct rq *rq_of_dl_rq(struct dl_rq *dl_rq)
+
+ static inline struct rq *rq_of_dl_se(struct sched_dl_entity *dl_se)
+ {
+-	struct rq *rq = dl_se->rq;
++	struct rq *rq;
+
+ 	if (!dl_server(dl_se))
+ 		rq = task_rq(dl_task_of(dl_se));
++	else
++		rq = container_of_const(dl_se->dl_rq, struct rq, dl);
+
+ 	return rq;
+ }
+@@ -1819,11 +1821,14 @@ void dl_server_start(struct sched_dl_entity *dl_se)
+
+ void dl_server_stop(struct sched_dl_entity *dl_se)
+ {
++	struct rq *rq;
++
+ 	if (!dl_server(dl_se) || !dl_server_active(dl_se))
+ 		return;
+
+-	trace_sched_dl_server_stop_tp(dl_se, cpu_of(dl_se->rq),
+-				      dl_get_type(dl_se, dl_se->rq));
++	rq = rq_of_dl_se(dl_se);
++	trace_sched_dl_server_stop_tp(dl_se, cpu_of(rq),
++				      dl_get_type(dl_se, rq));
+ 	dequeue_dl_entity(dl_se, DEQUEUE_SLEEP);
+ 	hrtimer_try_to_cancel(&dl_se->dl_timer);
+ 	dl_se->dl_defer_armed = 0;
+@@ -1832,10 +1837,12 @@ void dl_server_stop(struct sched_dl_entity *dl_se)
+ 	dl_se->dl_server_active = 0;
+ }
+
+-void dl_server_init(struct sched_dl_entity *dl_se, struct rq *rq,
++void dl_server_init(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq,
++		    struct rq *served_rq,
+ 		    dl_server_pick_f pick_task)
+ {
+-	dl_se->rq = rq;
++	dl_se->dl_rq = dl_rq;
++	dl_se->my_q  = served_rq;
+ 	dl_se->server_pick_task = pick_task;
+ }
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index f74ffb3b1aca..3dd7d8998924 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -4099,7 +4099,7 @@ ext_server_pick_task(struct sched_dl_entity *dl_se, struct rq_flags *rf)
+ 	if (!scx_enabled())
+ 		return NULL;
+
+-	return do_pick_task_scx(dl_se->rq, rf, true);
++	return do_pick_task_scx(dl_se->my_q, rf, true);
+ }
+
+ /*
+@@ -4111,7 +4111,7 @@ void ext_server_init(struct rq *rq)
+
+ 	init_dl_entity(dl_se);
+
+-	dl_server_init(dl_se, rq, ext_server_pick_task);
++	dl_server_init(dl_se, &rq->dl, rq, ext_server_pick_task);
+ }
+
+ #ifdef CONFIG_SCHED_CORE
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index cfc982205b98..a8e547c144af 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -10311,7 +10311,7 @@ static struct task_struct *
+ fair_server_pick_task(struct sched_dl_entity *dl_se, struct rq_flags *rf)
+ 	__must_hold(__rq_lockp(dl_se->rq))
+ {
+-	return pick_task_fair(dl_se->rq, rf);
++	return pick_task_fair(dl_se->my_q, rf);
+ }
+
+ void fair_server_init(struct rq *rq)
+@@ -10320,7 +10320,7 @@ void fair_server_init(struct rq *rq)
+
+ 	init_dl_entity(dl_se);
+
+-	dl_server_init(dl_se, rq, fair_server_pick_task);
++	dl_server_init(dl_se, &rq->dl, rq, fair_server_pick_task);
+ }
+
+ /*
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 6c7c5633524a..1b04b4c40ae9 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -412,7 +412,8 @@ extern void dl_server_update_idle(struct sched_dl_entity *dl_se, s64 delta_exec)
+ extern void dl_server_update(struct sched_dl_entity *dl_se, s64 delta_exec);
+ extern void dl_server_start(struct sched_dl_entity *dl_se);
+ extern void dl_server_stop(struct sched_dl_entity *dl_se);
+-extern void dl_server_init(struct sched_dl_entity *dl_se, struct rq *rq,
++extern void dl_server_init(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq,
++		    struct rq *served_rq,
+ 		    dl_server_pick_f pick_task);
+ extern void sched_init_dl_servers(void);
+
 --
 2.56.0
 
