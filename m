@@ -1,76 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213501;
-	b=ZbXVQZASSLek47B0WkvExYniY0RLK1TxNBHT0ODSGoBd1Y8gqYIb/fXtBhlzTC0yfcNy
-	 j7mUw7c8maL7bmCADmVn1HPL1fRPGNEJwKnH0wDZNGVsL4kUKbBAPZ7D2LSGjjoW9NI0X
-	 jN97UBlLN+1J35RVWMHLlZ1nq5S4GgMqFn+9Ls4iXywrCdG4e8pjyCuugeiWXwM30U9SE
-	 xM8MXznRwtMMS2y1M7QOmcGL0XunyLy87kY42X/jIFg77cXcZpB3sNln7Sl6xLygh7CKq
-	 l2kKFCG0cxO7oaLWP95ZIdRMbV0vM0cswD7lSnnQ7PjyYnO2Q6HVLxdEDtXIG57WoOw==
+	t=1794213565;
+	b=wKgglnivVUCHFEgLxldsRJgN+eA4gFoF5KBBvzT1rcszqtrpwD5oyMSMVjqiZkPf1qm9
+	 rs2oHr5zszjJvf8Y5M57HDBl6YsWb5MuLwEehgdXIaJFuIrv9E4huvsQNn5aULoB1gfoN
+	 Wjkt8YV1RZpNYezCXvCwg7Tbhn9W92XbL6nJU4v3IiDs2K/TVR5R3k456N9mtd7CIUklD
+	 sunRnnuUa/LkYTjGT00++83SEDDbFfReSqgXGXGhpiTKHl0RbCSLdbc1EYsHCX/7ezG0k
+	 R3iS6RJ6MbJsGA4uX/Xqq7VeTQFsH5rL9w0wxZuD8t35eFiJbuRwQ+OWmOVbPyUO0Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213501;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=GF/UXLZB93QI4FOeXnZFKqyRgXfDe86kIWZK8QxzUcI=;
-	b=kkSU5RSn/IgL0O5uF7NYmqHMkfkhpdeTYx9OxZR7QqZ3lr6dwUwdjVgi2VVWXgwm+G5L
-	 wSkmBa4M4ihGeFOPNjNBZhqv0KDSg/U5HJqyYlyd/rPHvvM8O5hVCUzCMzOVr88g5wzaO
-	 IhTbJM+p6SQvHdjChZzHmhwq9neH3RSmhr0ntSQHRNCc/0AXnRzC8GNf9vcxNajr1RjIJ
-	 Ba+v9+An5viusMCNcL+7SJ5w9QE8T+g/UczN6yZwRbdXTm3Mp4vizq0hAH01SlUWlv52F
-	 2qu02dNHHXEHG1id6UfpzKbSZuCb1LcyCFJuxm+Ol4uj7IE6+WIEOo7P/qOQj+rg5Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213565;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=j4woioPd4Id4Xef47oA/Wr7zADMsvizCLXWTEMGbhN0=;
+	b=cxSFOrQpQfaapQQrEnVrqrmDlQUM3agbyAWEQ8FTo9IRnDkyg5zYx0ovezNESFEPFheC
+	 b4s4pxiAbt6KH6TYWf8ULl3L3feGMkHgtdydqbImfZ7Um7Yq5JDhPHTQPTySN8CxllVvM
+	 ZuNNCit1NA0tyvb2xn3puWPmCvqFU6HU51+wN7hKObAEr0gecr+t4TwS53NaAj0oFq8Kh
+	 8G+kV/6RS6BMM87DpV55HNJm8CviEZF5uCp4ttnP3w5goRbfEN2xMa2mXXzBMLWvEp5o8
+	 H/OD+e717eR62Bgl7M2rfAefFrM/qynVDIVeEZURzlbQGYeiq7FEj6uBuT7OL0da3qQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=dbHhSDUb;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=3vzS6oXX;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733346082BD7;
-	Mon,  9 Nov 2026 08:38:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 733346082BD7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=dbHhSDUb;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=3vzS6oXX
-Date: Mon, 09 Nov 2026 08:38:17 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794213498;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GF/UXLZB93QI4FOeXnZFKqyRgXfDe86kIWZK8QxzUcI=;
-	b=dbHhSDUbR2Xwkh/FtTqF0HSl8TXEEaxS6yF6v9JcQXiqyYnSoQix2XS39uNuoDTqt5uR0f
-	fl7Kw358SXUThnDFjfj04KpcXcch+gcTet8m/zrBNHOXvG2Mvt1yFiAW22QEZG+OWipOkL
-	yctGexU03sZSlJW33d4uqHrBvgtd+ayfVlGz3aKb5Gxwb/fJr/VzdTef5aUcDeBEpuic0q
-	XYDjw/wxx6mHldq0hJevARg+JZTzzePr546J+ekfOMkunp0xAnuB/KYdMKddCr7yUdjQPS
-	NBoggPcy4CUVJwzmwHcK6ulgj2U48yrr2igZBtEr6y03m8x8HOY+GWR+3Bfp4g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794213498;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GF/UXLZB93QI4FOeXnZFKqyRgXfDe86kIWZK8QxzUcI=;
-	b=3vzS6oXXdE1tUcCHJEOX7RZSpQ/AG4OlkyJ6n0DKkqqzH3+SpjYsBflBU3ayExmLTI3JBc
-	xKd6jRkd6kj1f0DA==
-From: "tip-bot2 for Andrea Parri" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: sched/urgent] sched/uclamp: Reject clamp values above
- SCHED_CAPACITY_SCALE
-Cc: Sashiko <sashiko-bot@kernel.org>, Andrea Parri <parri.andrea@gmail.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,
- Vincent Guittot <vincent.guittot@linaro.org>, stable@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261102134831.243255-1-parri.andrea@gmail.com>
-References: <20261102134831.243255-1-parri.andrea@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE45606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:39:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BE45606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 0b18689adc1911f19a56ed5b684f684d-20261109
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:ccdf3466-bade-4e70-bdde-89a7f4e8e66a,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:e99da3f601251e9ecbe5f7153963cfa0,BulkI
+	D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,A
+	V:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0b18689adc1911f19a56ed5b684f684d-20261109
+X-User: jiangwang@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <jiangwang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 577905332; Mon, 09 Nov 2026 16:39:14 +0800
+From: jiangwang@kylinos.cn
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	linux-kernel@vger.kernel.org,
+	Wang Jiang <jiangwang@kylinos.cn>
+Subject: [PATCH] drm/amdgpu: Clear HDMI audio descriptors for sinks without audio
+Date: Mon,  9 Nov 2026 16:39:08 +0800
+Message-Id: <20261109083908.903757-1-jiangwang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,178 +72,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421349704.2093942.6710700509880950896.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the sched/urgent branch of tip:
+From: Wang Jiang <jiangwang@kylinos.cn>
 
-Commit-ID:     0c07ea075182bf8cb1048dbc6baa337908ee0bbe
-Gitweb:        https://git.kernel.org/tip/0c07ea075182bf8cb1048dbc6baa337908e=
-e0bbe
-Author:        Andrea Parri <parri.andrea@gmail.com>
-AuthorDate:    Mon, 02 Nov 2026 14:48:30 +01:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Fri, 06 Nov 2026 11:45:17 +01:00
+EDID without SAD left stale AZ descriptors; emulated ATI ELD faked
+audio capability. Clear them.
 
-sched/uclamp: Reject clamp values above SCHED_CAPACITY_SCALE
+The legacy implementation refers to ce9778b7a027,
+"ALSA: hda/hdmi: Consider ELD invalid when no SAD is present".
 
-sched_setattr() accepts sched_util_min and sched_util_max values that do
-not fit in uclamp_se::value. A single thread can do:
-
-  sched_setattr(max =3D 800)		returns 0
-  sched_setattr(min =3D 0xfffffffe)	returns 0
-  sched_getattr()			min=3D2046 max=3D800
-
-which leaves the minimum above both SCHED_CAPACITY_SCALE and the task's own
-maximum.
-
-The range check in uclamp_validate() relies on the + 1 wrapping -1, the
-reset value, to 0:
-
-	if (util_min + 1 > SCHED_CAPACITY_SCALE + 1)
-
-That only works for an unsigned type. util_min and util_max are int and
-SCHED_CAPACITY_SCALE is a long, so every negative value passes the check,
-and so does INT_MAX, whose + 1 wraps.
-
-uclamp_se_set() then truncates what got through to the 11 bits of
-uclamp_se::value, but computes the bucket from the full value. A minimum
-of 0xfffff800 is stored as 0 in the top bucket, where uclamp_rq_max_value()
-takes it for the highest active clamp once a higher value leaves the rq.
-The rq clamp falls below what the remaining tasks requested, and emptying
-their bucket trips the WARN_ON_ONCE() in uclamp_rq_dec_id(), without any
-privilege:
-
-  WARNING: kernel/sched/core.c:1862 at dequeue_task+0x2a3/0x2b0, CPU#0: repro=
-/126
-  Call Trace:
-   __schedule+0x933/0x1320
-   schedule+0x36/0x100
-   do_nanosleep+0x61/0x190
-   hrtimer_nanosleep+0xb5/0x1d0
-
-Make util_min and util_max unsigned int, so that -1 is the only value that
-wraps. The pair check below is unaffected, since it skips -1 explicitly and
-anything else is at most SCHED_CAPACITY_SCALE by then.
-
-Requests that were only accepted because of this now fail with -EINVAL.
-
-The following program triggers the warning when run by any user outside
-a child cpu cgroup. With this applied, its 0xfffff800 request fails with
--EINVAL and the warning no longer appears:
-
-  #define _GNU_SOURCE
-  #include <pthread.h>
-  #include <sched.h>
-  #include <stdint.h>
-  #include <sys/syscall.h>
-  #include <time.h>
-  #include <unistd.h>
-
-  struct attr {
-      uint32_t size, policy;
-      uint64_t flags;
-      int32_t nice;
-      uint32_t prio;
-      uint64_t runtime, deadline, period;
-      uint32_t util_min, util_max;
-  };
-
-  static volatile int stop;
-
-  static void set_min(uint32_t v)
-  {
-      /* KEEP_POLICY | KEEP_PARAMS | UTIL_CLAMP_MIN */
-      struct attr a =3D { .size =3D sizeof(a), .flags =3D 0x38, .util_min =3D=
- v };
-
-      syscall(SYS_sched_setattr, 0, &a, 0);
-  }
-
-  static void burn(long us)
-  {
-      struct timespec s, n;
-
-      clock_gettime(CLOCK_MONOTONIC, &s);
-      do
-          clock_gettime(CLOCK_MONOTONIC, &n);
-      while ((n.tv_sec - s.tv_sec) * 1000000 +
-             (n.tv_nsec - s.tv_nsec) / 1000 < us);
-  }
-
-  static void *bogus(void *arg)
-  {
-      set_min(0xfffff800);
-      while (!stop)
-          burn(1000);
-      return arg;
-  }
-
-  static void *worker(void *arg)
-  {
-      long v =3D (long)arg;
-
-      set_min(v);
-      while (!stop) {
-          burn(v =3D=3D 800 ? 300 : 1500);
-          usleep(100);
-      }
-      return arg;
-  }
-
-  int main(void)
-  {
-      pthread_t t[3];
-      cpu_set_t c;
-      int i;
-
-      CPU_ZERO(&c);
-      CPU_SET(0, &c);
-      sched_setaffinity(0, sizeof(c), &c);
-      pthread_create(&t[0], NULL, bogus, NULL);
-      usleep(50000);
-      pthread_create(&t[1], NULL, worker, (void *)500L);
-      pthread_create(&t[2], NULL, worker, (void *)800L);
-      sleep(15);
-      stop =3D 1;
-      for (i =3D 0; i < 3; i++)
-          pthread_join(t[i], NULL);
-      return 0;
-  }
-
-An LLM helped find the warning and write this patch and its tests.
-
-Fixes: 480a6ca2dc6e ("sched/uclamp: Allow to reset a task uclamp constraint v=
-alue")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
-Link: https://sashiko.dev/#/patchset/20261016062629.2102883-1-sh_def%40163.com
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261102134831.243255-1-parri.andrea@gmail.com
+Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
 ---
- kernel/sched/syscalls.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 7 ++++++-
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 7 ++++++-
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 6 +++++-
+ 3 files changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index fb8f332..98be11a 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -318,8 +318,8 @@ static inline void __setscheduler_dl_pi(int newprio, int =
-policy,
- static int uclamp_validate(struct task_struct *p,
- 			   const struct sched_attr *attr)
- {
--	int util_min =3D p->uclamp_req[UCLAMP_MIN].value;
--	int util_max =3D p->uclamp_req[UCLAMP_MAX].value;
-+	unsigned int util_min =3D p->uclamp_req[UCLAMP_MIN].value;
-+	unsigned int util_max =3D p->uclamp_req[UCLAMP_MAX].value;
-=20
- 	if (attr->sched_flags & SCHED_FLAG_UTIL_CLAMP_MIN) {
- 		util_min =3D attr->sched_util_min;
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+index f2977fe6d824..f967ee505271 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
+@@ -1341,8 +1341,13 @@ static void dce_v10_0_audio_write_sad_regs(struct drm_encoder *encoder)
+ 	sad_count = drm_edid_to_sad(drm_edid_raw(amdgpu_connector->edid), &sads);
+ 	if (sad_count < 0)
+ 		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
+-	if (sad_count <= 0)
++	if (sad_count <= 0) {
++		/* sink has no audio capability: clear stale descriptors */
++		for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++)
++			WREG32_AUDIO_ENDPT(dig->afmt->pin->offset,
++					   eld_reg_to_type[i][0], 0);
+ 		return;
++	}
+ 	BUG_ON(!sads);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+index c68de0fe1d7d..18c171c533de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
+@@ -1320,8 +1320,13 @@ static void dce_v6_0_audio_write_sad_regs(struct drm_encoder *encoder)
+ 	sad_count = drm_edid_to_sad(drm_edid_raw(amdgpu_connector->edid), &sads);
+ 	if (sad_count < 0)
+ 		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
+-	if (sad_count <= 0)
++	if (sad_count <= 0) {
++		/* sink has no audio capability: clear stale descriptors */
++		for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++)
++			WREG32_AUDIO_ENDPT(dig->afmt->pin->offset,
++					   eld_reg_to_type[i][0], 0);
+ 		return;
++	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++) {
+ 		u32 value = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+index c3906270f25e..62922736d569 100644
+--- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
+@@ -1313,8 +1313,12 @@ static void dce_v8_0_audio_write_sad_regs(struct drm_encoder *encoder)
+ 	sad_count = drm_edid_to_sad(drm_edid_raw(amdgpu_connector->edid), &sads);
+ 	if (sad_count < 0)
+ 		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
+-	if (sad_count <= 0)
++	if (sad_count <= 0) {
++		/* sink has no audio capability: clear stale descriptors */
++		for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++)
++			WREG32_AUDIO_ENDPT(offset, eld_reg_to_type[i][0], 0);
+ 		return;
++	}
+ 	BUG_ON(!sads);
+ 
+ 	for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++) {
+-- 
+2.25.1
+
