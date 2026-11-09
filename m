@@ -1,97 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.88
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192998;
-	b=4zaPdv9Iqq+wyT0JcABWTgUUDaaiHd6ijF6Ne+dh13tOa+QdaMC1QAOSAU16z/9FzdJP
-	 xdn3GPJfi/Akksld0bOO6dfuM2Y7Tumq3hheO92aWHeWKm8a5SaXAEirm7o6v5ct/uyk8
-	 UYJ1U7TDcgF1GJjA9LWjzE1cZ7OeXVWVgnJ1F81+E1fGAtdcg+zX/xpMyQq67gekA4/1x
-	 GyKf4qrgNcfe+qrSRDnnWT7oV+TNiRzzoDyy5WszUsvtlJ09SA2ZvWncme7lBAGrGwHqH
-	 +vKhSZkOZgb8qWtqYS3c/fav2tihKjSoog9Uru2nQW+6ypIfONCyOX51HAYHgFZRBWQ==
+	t=1794193001;
+	b=P1iRQ4JePwd1BVs3VMwe761mZcXagi5ORJcoJPPAuEpXGpT+SDYxjN9VqifuaR8IctAR
+	 34KxvKgTPAi+JTMJH7dTSOdB2Vc3myYyre3Zu4ghqSj+Vc13pDULwUH+U8fdxP9hW/h5l
+	 ohEb+Yy7mFLE/VJphlC6uKtyi9/FrACkiwdZVds2kGoGyykeJ+2EOsFXVhOxrES5/wVow
+	 jHTqmZCVi/hfd4yqH67IXNaoHbMM4VK/SobsofgIg8maALmXU1+AOI1Q46A8heyy0zGqj
+	 6KT+0GWFJShA4THXfKT/HcIn6fcaSq9ei6rYaLQx+NFcyjHDp9qIGVjitwLMMXP0PdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192998;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193001;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=x0JDGtGCXd7TffH/+d34YMn2ktB/SOhkBO9QkKhS8XA=;
-	b=1i0Kx7K09x77lieamIczcn9twR28xGtOHg+q6S4ggavhEetFGXeMBoUIsChCzEQAWWFm
-	 2SCu1VWJYTQvQn4vOkiTmfosBj+zbwutLO0DRd99fGnKqr8xP+9q0Q9Yo7IpzRlMPBL88
-	 tZgwhxO7ruEL+69QOdWf+8h8j5DoWAtPSCiKq6ziBgU63oiS1OlMm+tnlzICmv2dMKKEB
-	 18gmzaJxiF5SiExl5akZKSKYgeZUArkLk3uISG1dpNSQt3XqoyEraRtRAO0WEPvwIYCVk
-	 pqM95bY3oMKqRsKCGifZm6JYPpAeVVrE/9271P1t6qGahRG9/MGevw37RlqYhOyLv8g==
+	bh=l0N+1tV51NomvRw2YSGSJFWSnM5g2H6wDnWRUKkQHIM=;
+	b=2HpLl5K6mbt8+kP/arOVJ6oKkoVr0Da2u+x7z8GE94Ebf7VG4brgA1HJ9+2OjXgzZB6X
+	 I6ZHQgIzWScqqAZyb99xcxHuVahHuzr7ur9mTNQnsDjSn9LtoB2cGJpJvbdD6rlWVcW8h
+	 0PMMlBxrFw6Xw3iXGbLI9GkDWznY/J6EE5kLwAyqI/f+eK1pOTp780302JABI6IKZRURM
+	 keefhC/WrYM7r4BeJiz2P1/f3FhbyGYcg0JX9w5EYwvqX/oMXILJC1RyFh+9d9okrOWR7
+	 gcN5kJRFpSv1qgnGvkyRZI5BHF2W7726bOvdFFloNWTfeZm2QwvIC5DDElVQCelAVew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g1lDsqiR;
-	arc=none smtp.remote-ip=91.218.175.88
-Received: from mta0.migadu.com (out-88.mta0.migadu.com [91.218.175.88])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYIhfkD9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E54606A334
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:56:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5E54606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09CB606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:56:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g1lDsqiR
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=oYQ00QqKoEkMvDxebrBIGfEKZ3Gcw97sYPD1Al7A4CY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794192995; v=1; x=1794797795;
- b=g1lDsqiRSINm9ZEaABG2qZP+5s1BctYSAflnusynK6Z5qrpASmJlxemvHGJdiLbPOrJM/oqh
- 5SaPhl/akgvJyGDPWjhE2TSBoU16VCsh2818YLzaAa/6Qwy4bisPFL0ifMLGzfAk+HdqPuqX7xB
- nIPVjw5vYODGgnpVoPCItWVs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bb9a3d38076780ee;
-	Mon, 09 Nov 2026 02:56:35 +0000
-X-Mizu-Trace-ID: bb9a3d38076780ee
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Paul Moore <paul@paul-moore.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	Julian Anastasov <ja@ssi.bg>,
-	Allison Henderson <achender@kernel.org>,
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	"D. Wythe" <alibuda@linux.alibaba.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Tony Lu <tonylu@linux.alibaba.com>,
-	Wen Gu <guwen@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	bridge@lists.linux.dev,
-	linux-security-module@vger.kernel.org,
-	mptcp@lists.linux.dev,
-	lvs-devel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
-	linux-sctp@vger.kernel.org,
-	linux-s390@vger.kernel.org
-Subject: [PATCH net-next 03/14] ipv6: annotate data-races around addrconf sysctls
-Date: Mon,  9 Nov 2026 10:52:02 +0800
-Message-ID: <20261109025425.328445-4-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109025425.328445-1-jiayuan.chen@linux.dev>
-References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UYIhfkD9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 319AD1F00906;
+	Mon,  9 Nov 2026 02:56:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794193000;
+	bh=l0N+1tV51NomvRw2YSGSJFWSnM5g2H6wDnWRUKkQHIM=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=UYIhfkD9walzJNcw1CtF72FNggb/O18A9/J88GjCyydkiJwBXnkZHjFlrHati2lmc
+	 3fLmd5hxkoBb9bDEr3tNX6/FYE2eQMWUOBpyqZ8VyuTk7cpoCaug1ZE2TofhBGInif
+	 nFV6mxujD37LusJxKjNAdUAOl3lq47kV6r4QpH6m4MtKGIbU8TD08TwpwlOPWFMqDf
+	 NSl+ia83MMEqMXdVgrxK0uoQHfyQtuEGrQxeH9ebIugn+v2bkXd7ujTp5/vXPJuAde
+	 NRq0BsFBEEg+iIM6NX99O+XcB0JRWqBZL6f4nAZhekNFtMXATjUGkRg1CHkp0td4HZ
+	 IAdZK6buYi46g==
+Message-ID: <f53843e5-7dc5-49f2-b551-9ce5273b278d@kernel.org>
+Date: Mon, 9 Nov 2026 10:56:37 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,192 +51,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>
+Subject: Re: [f2fs-dev] [PATCH 15/20] f2fs: support subpage blocks in atomic
+ writes
+To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
+References: <20261102193952.3002018-1-daeho43@gmail.com>
+ <20261102193952.3002018-16-daeho43@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261102193952.3002018-16-daeho43@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The forwarding setting of conf/all, the per-device autoconf, accept_ra,
-accept_ra_min_lft, addr_gen_mode, ra_defrtr_metric, disable_ipv6 and mtu6
-settings, and the per-netns idgen_retries and idgen_delay, can be read
-concurrently with the sysctl handlers that update them with WRITE_ONCE().
-Add READ_ONCE() to the readers.
+On 11/3/26 03:39, Daeho Jeong wrote:
+> From: Daeho Jeong <daehojeong@google.com>
+> 
+> Writeback already writes dirty blocks to the COW inode per block. Make
+> write_begin of atomic files reserve and read COW blocks per block as
+> well, and remove the -EOPNOTSUPP checks. Skipping the read of the
+> blocks that a write fully covers also applies to large folios when the
+> block size equals PAGE_SIZE.
+> 
+> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> ---
+>   fs/f2fs/data.c | 24 ++++++++++++++++--------
+>   fs/f2fs/file.c |  5 +----
+>   2 files changed, 17 insertions(+), 12 deletions(-)
+> 
+> diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> index a23fd4b01a4c..4e4d1b0d6004 100644
+> --- a/fs/f2fs/data.c
+> +++ b/fs/f2fs/data.c
+> @@ -4624,7 +4624,7 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
+>   		}
+>   
+>   		if (f2fs_has_subpage_blocks(sbi) &&
+> -		    (f2fs_compressed_file(inode) || f2fs_is_atomic_file(inode))) {
+> +		    f2fs_compressed_file(inode)) {
+>   			WARN_ON_ONCE(1);
+>   			mapping_set_error(mapping, -EOPNOTSUPP);
+>   			folio_clear_dirty_for_io(folio);
+> @@ -5247,7 +5247,7 @@ static int prepare_large_folio_write_begin(struct inode *inode,
+>   	int err = 0;
+>   
+>   	if (f2fs_has_subpage_blocks(sbi) &&
+> -	    (f2fs_compressed_file(inode) || f2fs_is_atomic_file(inode)))
+> +	    f2fs_compressed_file(inode))
+>   		return -EOPNOTSUPP;
+>   
+>   	/*
+> @@ -5359,13 +5359,16 @@ static int prepare_large_folio_atomic_write_begin(struct inode *inode,
+>   	/* Inline data must have been converted before reaching here. */
+>   	f2fs_bug_on(sbi, f2fs_has_inline_data(inode));
+>   
+> -	start = folio->index + (ori_off >> PAGE_SHIFT);
+> -	end = folio->index + ((ori_off + len - 1) >> PAGE_SHIFT);
+> +	start = f2fs_folio_lblk(sbi, folio) + (ori_off >> sbi->log_blocksize);
 
-KCSAN reports it when net.ipv6.conf.<dev>.autoconf is changed while
-Router Advertisements are received on the device:
+F2FS_BYTES_TO_BLK(sbi, ori_off)
 
-  BUG: KCSAN: data-race in addrconf_prefix_rcv / do_proc_int_conv
+> +	end = f2fs_folio_lblk(sbi, folio) +
+> +		((ori_off + len - 1) >> sbi->log_blocksize);
 
-  write (marked) to 0xffff8d7250116df4 of 4 bytes by task 767 on cpu 2:
-   do_proc_int_conv+0xa9/0xd0
-   proc_vec_conv+0x21/0x40
-   proc_vec+0x21e/0x6f0
-   proc_dointvec+0x16/0x30
-   proc_sys_call_handler+0x282/0x3a0
-   proc_sys_write+0x13/0x20
-   ...
+F2FS_BYTES_TO_BLK(sbi, ori_off + len - 1)
 
-  read to 0xffff8d7250116df4 of 4 bytes by interrupt on cpu 1:
-   addrconf_prefix_rcv+0x474/0xf00
-   ndisc_router_discovery+0xf4f/0x1f80
-   ndisc_rcv+0x2a2/0x3c0
-   icmpv6_rcv+0xb46/0xd40
-   ip6_protocol_deliver_rcu+0x787/0x9a0
-   ip6_input_finish+0xb0/0x1b0
-   ip6_input+0xa8/0x250
-   ip6_mc_input+0x249/0x780
-   ipv6_rcv+0x1b1/0x1c0
-   __netif_receive_skb_one_core+0x8f/0xe0
-   ...
+Thanks,
 
-  value changed: 0x00000001 -> 0x00000000
-
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- net/ipv6/addrconf.c | 22 ++++++++++++----------
- net/ipv6/ndisc.c    |  2 +-
- net/ipv6/route.c    |  8 ++++----
- 3 files changed, 17 insertions(+), 15 deletions(-)
-
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index d9d13e78bf13b..40f94124641d4 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -1104,7 +1104,7 @@ ipv6_add_addr(struct inet6_dev *idev, struct ifa6_config *cfg,
- 		goto out;
- 	}
- 
--	if (idev->cnf.disable_ipv6) {
-+	if (READ_ONCE(idev->cnf.disable_ipv6)) {
- 		NL_SET_ERR_MSG_MOD(extack, "IPv6 is disabled on this device");
- 		err = -EACCES;
- 		goto out;
-@@ -2215,7 +2215,7 @@ void addrconf_dad_failure(struct sk_buff *skb, struct inet6_ifaddr *ifp)
- 			.scope = ifp->scope,
- 		};
- 
--		if (retries > net->ipv6.sysctl.idgen_retries) {
-+		if (retries > READ_ONCE(net->ipv6.sysctl.idgen_retries)) {
- 			net_info_ratelimited("%s: privacy stable address generation failed because of DAD conflicts!\n",
- 					     ifp->idev->dev->name);
- 			goto errdad;
-@@ -2248,7 +2248,7 @@ void addrconf_dad_failure(struct sk_buff *skb, struct inet6_ifaddr *ifp)
- 		spin_unlock_bh(&ifp2->lock);
- 
- 		if (start_dad)
--			addrconf_mod_dad_work(ifp2, net->ipv6.sysctl.idgen_delay);
-+			addrconf_mod_dad_work(ifp2, READ_ONCE(net->ipv6.sysctl.idgen_delay));
- 		in6_ifa_put(ifp2);
- lock_errdad:
- 		spin_lock_bh(&ifp->lock);
-@@ -2706,8 +2706,10 @@ static void manage_tempaddrs(struct inet6_dev *idev,
- 
- static bool is_addr_mode_generate_stable(struct inet6_dev *idev)
- {
--	return idev->cnf.addr_gen_mode == IN6_ADDR_GEN_MODE_STABLE_PRIVACY ||
--	       idev->cnf.addr_gen_mode == IN6_ADDR_GEN_MODE_RANDOM;
-+	u32 mode = READ_ONCE(idev->cnf.addr_gen_mode);
-+
-+	return mode == IN6_ADDR_GEN_MODE_STABLE_PRIVACY ||
-+	       mode == IN6_ADDR_GEN_MODE_RANDOM;
- }
- 
- int addrconf_prefix_rcv_add_addr(struct net *net, struct net_device *dev,
-@@ -2735,7 +2737,7 @@ int addrconf_prefix_rcv_add_addr(struct net *net, struct net_device *dev,
- #ifdef CONFIG_IPV6_OPTIMISTIC_DAD
- 		if ((READ_ONCE(net->ipv6.devconf_all->optimistic_dad) ||
- 		     READ_ONCE(in6_dev->cnf.optimistic_dad)) &&
--		    !net->ipv6.devconf_all->forwarding && sllao)
-+		    !READ_ONCE(net->ipv6.devconf_all->forwarding) && sllao)
- 			cfg.ifa_flags |= IFA_F_OPTIMISTIC;
- #endif
- 
-@@ -2857,7 +2859,7 @@ void addrconf_prefix_rcv(struct net_device *dev, u8 *opt, int len, bool sllao)
- 		return;
- 	}
- 
--	if (valid_lft != 0 && valid_lft < in6_dev->cnf.accept_ra_min_lft)
-+	if (valid_lft != 0 && valid_lft < READ_ONCE(in6_dev->cnf.accept_ra_min_lft))
- 		goto put;
- 
- 	/*
-@@ -2928,7 +2930,7 @@ void addrconf_prefix_rcv(struct net_device *dev, u8 *opt, int len, bool sllao)
- 	/* Try to figure out our local address for this prefix */
- 
- 	ignore_autoconf = READ_ONCE(in6_dev->cnf.ra_honor_pio_pflag) && pinfo->preferpd;
--	if (pinfo->autoconf && in6_dev->cnf.autoconf && !ignore_autoconf) {
-+	if (pinfo->autoconf && READ_ONCE(in6_dev->cnf.autoconf) && !ignore_autoconf) {
- 		struct in6_addr addr;
- 		bool tokenized = false, dev_addr_generated = false;
- 
-@@ -3434,7 +3436,7 @@ static int ipv6_generate_stable_address(struct in6_addr *address,
- 
- 	if (ipv6_reserved_interfaceid(temp)) {
- 		dad_count++;
--		if (dad_count > dev_net(idev->dev)->ipv6.sysctl.idgen_retries)
-+		if (dad_count > READ_ONCE(dev_net(idev->dev)->ipv6.sysctl.idgen_retries))
- 			return -1;
- 		goto retry;
- 	}
-@@ -3805,7 +3807,7 @@ static int addrconf_notify(struct notifier_block *this, unsigned long event,
- 			 * when the interface up, the changed MTU must be
- 			 * reflected in the idev as well as routers.
- 			 */
--			if (idev->cnf.mtu6 != dev->mtu &&
-+			if (READ_ONCE(idev->cnf.mtu6) != dev->mtu &&
- 			    dev->mtu >= IPV6_MIN_MTU) {
- 				rt6_mtu_change(dev, dev->mtu);
- 				WRITE_ONCE(idev->cnf.mtu6, dev->mtu);
-diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
-index 0ed1a619372bf..b69e6d66e8b1a 100644
---- a/net/ipv6/ndisc.c
-+++ b/net/ipv6/ndisc.c
-@@ -1375,7 +1375,7 @@ static enum skb_drop_reason ndisc_router_discovery(struct sk_buff *skb)
- 		}
- 	}
- 	/* Set default route metric as specified by user */
--	defrtr_usr_metric = in6_dev->cnf.ra_defrtr_metric;
-+	defrtr_usr_metric = READ_ONCE(in6_dev->cnf.ra_defrtr_metric);
- 	/* delete the route if lifetime is 0 or if metric needs change */
- 	if (rt && (lifetime == 0 || rt->fib6_metric != defrtr_usr_metric)) {
- 		ip6_del_rt_reason(net, rt,
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 04098cf32eabe..91a003417697c 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -2065,7 +2065,7 @@ static bool rt6_mtu_change_route_allowed(struct inet6_dev *idev,
- 	if (dmtu >= mtu)
- 		return true;
- 
--	if (dmtu == idev->cnf.mtu6)
-+	if (dmtu == READ_ONCE(idev->cnf.mtu6))
- 		return true;
- 
- 	return false;
-@@ -3666,7 +3666,7 @@ int fib6_nh_init(struct net *net, struct fib6_nh *fib6_nh,
- 	if (!dev)
- 		goto out;
- 
--	if (!idev || idev->cnf.disable_ipv6) {
-+	if (!idev || READ_ONCE(idev->cnf.disable_ipv6)) {
- 		NL_SET_ERR_MSG(extack, "IPv6 is disabled on nexthop device");
- 		err = -EACCES;
- 		goto out;
-@@ -4533,7 +4533,7 @@ static void __rt6_purge_dflt_routers(struct net *net,
- 		struct inet6_dev *idev = dev ? __in6_dev_get(dev) : NULL;
- 
- 		if (rt->fib6_flags & (RTF_DEFAULT | RTF_ADDRCONF) &&
--		    (!idev || idev->cnf.accept_ra != 2) &&
-+		    (!idev || READ_ONCE(idev->cnf.accept_ra) != 2) &&
- 		    fib6_info_hold_safe(rt)) {
- 			rcu_read_unlock();
- 			ip6_del_rt(net, rt, false);
-@@ -5075,7 +5075,7 @@ static int fib6_nh_mtu_change(struct fib6_nh *nh, void *_arg)
- 			return 0;
- 
- 		if (mtu >= arg->mtu ||
--		    (mtu < arg->mtu && mtu == idev->cnf.mtu6))
-+		    (mtu < arg->mtu && mtu == READ_ONCE(idev->cnf.mtu6)))
- 			fib6_metric_set(f6i, RTAX_MTU, arg->mtu);
- 
- 		spin_lock_bh(&rt6_exception_lock);
--- 
-2.43.0
+>   
+>   	for (index = start; index <= end; index++) {
+> +		loff_t block_start = F2FS_BLK_TO_BYTES(sbi, index);
+> +		loff_t block_end = block_start + F2FS_BLKSIZE(sbi);
+>   		block_t blkaddr = NULL_ADDR;
+>   		bool node_changed = false;
+> -		size_t off = (index - folio->index) << PAGE_SHIFT;
+> +		size_t off = f2fs_folio_byte_offset(sbi, folio, index);
+>   
+>   		err = prepare_atomic_write_begin(sbi, inode, index,
+>   						&blkaddr, &node_changed,
+> @@ -5373,12 +5376,17 @@ static int prepare_large_folio_atomic_write_begin(struct inode *inode,
+>   		if (err)
+>   			return err;
+>   
+> +		/* Skip read if the write covers the entire block. */
+> +		if (pos <= block_start && pos + len >= block_end)
+> +			goto balance;
+> +
+>   		if (f2fs_ffs_test_blk_uptodate(folio, index))
+>   			goto balance;
+>   
+>   		if (blkaddr == NEW_ADDR) {
+> -			folio_zero_segment(folio, off, off + PAGE_SIZE);
+> -			f2fs_ffs_mark_subrange_uptodate(folio, off, PAGE_SIZE);
+> +			folio_zero_segment(folio, off, off + F2FS_BLKSIZE(sbi));
+> +			f2fs_ffs_mark_subrange_uptodate(folio, off,
+> +							F2FS_BLKSIZE(sbi));
+>   			goto balance;
+>   		}
+>   
+> @@ -5436,7 +5444,7 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+>   	}
+>   
+>   	if (f2fs_has_subpage_blocks(sbi) &&
+> -	    (f2fs_compressed_file(inode) || f2fs_is_atomic_file(inode))) {
+> +	    f2fs_compressed_file(inode)) {
+>   		err = -EOPNOTSUPP;
+>   		goto fail;
+>   	}
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index 1c440b5fa9bd..91f792cf879f 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -2299,7 +2299,7 @@ static long f2fs_fallocate(struct file *file, int mode,
+>   	}
+>   
+>   	if (f2fs_has_subpage_blocks(F2FS_I_SB(inode))) {
+> -		if (f2fs_is_atomic_file(inode) || f2fs_compressed_file(inode)) {
+> +		if (f2fs_compressed_file(inode)) {
+>   			ret = -EOPNOTSUPP;
+>   			goto out;
+>   		}
+> @@ -2553,9 +2553,6 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
+>   	loff_t isize;
+>   	int ret;
+>   
+> -	if (f2fs_has_subpage_blocks(sbi))
+> -		return -EOPNOTSUPP;
+> -
+>   	if (!(filp->f_mode & FMODE_WRITE))
+>   		return -EBADF;
+>   
 
