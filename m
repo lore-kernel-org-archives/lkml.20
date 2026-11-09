@@ -1,51 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213132;
-	b=Szcn0suUwQEXXd6kYJ1wAtQANvOM/adys2akAqjqcmYIdTVH8vsiEVK2ftyvemg0N8zk
-	 ipciSHyDQdLD4Y0Pg4U8YEBIPTeM6/D2ZQcG7fo12EK+USdGf5xbqQBhU2OETRrM1OgpV
-	 u9d/EnTznNCpJ8ouX1eHyyxHLi0Adxx5PRws6PDk/650L5bGeduPQ9qHl9zHmbttKwINc
-	 8VFD+x7LzyHIaX8TGu66ddsdbqiBubdDFImcQVNEZN6JUoQvoIYUoK3QKJeUzmPnHoowk
-	 29Md0dns9VPDjS1HrkquS2Ztt3RFZTP7IFynC0f86OAJowFaBKeWdbt56hfhjaiG1cw==
+	t=1794213130;
+	b=zD0c76iQRmFlNi6tg9KvEp8haqLPnlAPh903I5dIpXr7GV8dEgcMI41DeU446lzZC/bN
+	 TBVYWPHSy9KbRbUu+A0f+v2ynuFhVskLj6Feglb845np4wdlMFa3KfPJx8owH8k/5MVw/
+	 fm+OwkmXwBj9p7hGhJDYtmaKAUbQ5iOniRNXt7GiJgkNvsd/gd6yOTFHdEVXiJ2/Me66e
+	 2mNv9QHbqFxnMLEiH9tB15Cp7bnWiZlTpTp9OK/c5kABzbTZy2YTTd9uhO2U2PakM6zUs
+	 DwpPMl9e861qX/3lYm04Rc8xnE1QFroCPp87fCq8QZ3hJWIWuGHjCVlX5SDMT+h5Jlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213132;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213130;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dC8Nvk9HltS2WjAbMa049oqSzt2wkzwJPoICcDtsLEQ=;
-	b=p9Fe7CG6wgLbkzSjIBY03K52WxEWvN0IG4+/DNJE7NI91SEVjfArklDRlupDGvTBgULG
-	 CAY6HEsFoERb0BkuSfx1P+CC/Ke85aQB7XwNnO64UxVKZh0bgyli9cAyGlsAVRTB1eAl2
-	 pS8klO4DTCRilK+T8IckDc2FbRzZi49tXwe7XxGL4DMUXccHYsNu2L71aHpaC3E8g7iyr
-	 HnjXJiBDBi69SIbtNuvb1/lgP5vFQNArRdXEpRvjNmsmwNz6qrJoFYdBm94cjS0elDzU9
-	 1zOiw3jKFXK/FaJYJO3OBgDrYsOIuG1Uvgvz3K12ossigMUzsN1jPR9R7Y3zwj3g/ug==
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=XjEaU5iZiIoWZWXI3lEp1cSCckG214xKlxFgGMZy1WQ=;
+	b=u9Efy32rU3QBQzvttEiWfxGyMNDGs9L4LpHVNd+4OvsV7jJXdw1KSjcH5wSsJ9mIcnNl
+	 JSazsEgIVbFoXwMce430uymps4cAGGV2JNQumz9kuscfBVSXJv7qpMHtJUpfRj0D5QdD8
+	 vlF7H9aqk1gcWkQDz8NC9p7Gxu6gbzjHESqGaQh7ke8b2xiwPoL1+cQKmfMFhqGQeYmQ3
+	 sJViRmJEeWRSRb6oFeLzcBSqXkwzddl9u7HEtXRrhlssMiKgZEhvTjwYZrL3G8ZwJoRME
+	 1ntVU+elOOFXp/YOOt91rUlLLL6nCzYgwaxtuCDIWQneseD16N/mZXM8f7kITEFIC4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eDjHT7gS;
-	arc=none smtp.remote-ip=91.218.175.177
-Received: from mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
+	arc=none smtp.remote-ip=91.218.175.161
+Received: from mta0.migadu.com (out-161.mta0.migadu.com [91.218.175.161])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F301606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:32:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F301606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E0F606A323
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:32:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48E0F606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eDjHT7gS
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AKowbsDDlbP2ukyZY0i+b+DKnxhMeynrWxp0nn++TZ4=;
+DKIM-Signature: a=rsa-sha256; bh=jOYOI4w8TbsJs0zAnXNNJjeqeD+Qjc1ew2XDbtbhPHw=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794213129; v=1; x=1794817929;
- b=eDjHT7gSMZPH+tYcIA7/5vAbPqHMfcMR5lYgcrNEPv1QCgt9m5PQXmVSyGgmcJ3QRq1t3rBj
- TLqPW589bmL0u7oPQ4aV7Ps9tA/WC/jXNj6dnFAeWiZm7mL+5ssB3ke2L7k7DumvcXH7xL+91mn
- tX4y4W1PXKjREa+k+2TnNEJY=
+ t=1794213126; v=1; x=1794817926;
+ b=xWIBD2E5ZBBxrWG2maINOHIlhOiCExOHoCbbM2GDJVzs2YXRXLJJTQ3wkNuKzkwR0PpP6fn+
+ ko4oWadVomYI4XLsmODJSbw9bDMYM7yOx+l8W38cGxUIwJEDvxSYZvn6x1joWARSDO02NcAaxIF
+ e7Kxk+B7tIHIA2BnpfKjon1o=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b71c7a4035c1e0dd;
-	Mon, 09 Nov 2026 08:32:09 +0000
-X-Mizu-Trace-ID: b71c7a4035c1e0dd
+Received: by smtp.migadu.com with ESMTPS id b213c8f6249ab49b;
+	Mon, 09 Nov 2026 08:32:05 +0000
+X-Mizu-Trace-ID: b213c8f6249ab49b
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -63,12 +59,10 @@ Cc: Joey Gouly <joey.gouly@arm.com>,
 	Fuad Tabba <tabba@google.com>,
 	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 03/16] KVM: arm64: Allocate a protected vCPU's SVE state at EL2
-Date: Mon,  9 Nov 2026 08:31:52 +0000
-Message-ID: <20261109083205.806619-4-fuad.tabba@linux.dev>
+Subject: [PATCH 00/16] KVM: arm64: Support debug, SVE, MOPS, PIE/POE, FPMR and more in protected VMs
+Date: Mon,  9 Nov 2026 08:31:49 +0000
+Message-ID: <20261109083205.806619-1-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109083205.806619-1-fuad.tabba@linux.dev>
-References: <20261109083205.806619-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,176 +74,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-For a vCPU with SVE, EL2 pins the buffer the host allocated at
-KVM_ARM_VCPU_FINALIZE and saves the guest's SVE registers there. The
-host can still read and write that buffer, so it can't hold a protected
-vCPU's state.
+Hi folks,
 
-Allocate a protected vCPU's SVE state from the hyp heap instead, and
-free it with the vCPU. When EL2 resets a protected vCPU, zero its SVE
-state and ZCR_EL1, as KVM does for a non-protected one. The host still
-allocates its own buffer, which KVM_{GET,SET}_ONE_REG access before the
-first run, but EL2 doesn't use it.
+With most of the groundwork now merged, bringing protected VMs up to
+the features we support for them in Android turns out not to be a big
+series. So this folds self-hosted debug [1] and SVE [2], which I posted
+separately last week, into one series with the rest. Both are small,
+and keeping them apart would only leave a few conflicts where they add
+neighbouring lines to the pVM ID-register code. The debug and SVE
+patches are unchanged from those postings.
 
-For a protected vCPU, the host's sve_max_vl now sizes an EL2 allocation
-and is the guest's maximum vector length on every CPU. Give EL2 a copy
-of kvm_sve_max_vl, the largest length all CPUs can give a guest, and
-check every vCPU's sve_max_vl against it rather than clamping it to the
-host's own maximum. set_sve_vls() already keeps the host's value within
-that bound.
+  01:     Self-hosted debug.
+  02-05:  SVE, with EL2 owning a protected vCPU's SVE state.
+  06-07:  Compute a protected vCPU's fine-grained traps at EL2.
+  08-16:  Advertise TCR2, SCTLR2, S1PIE, S1POE, MOPS, FPMR and the
+          features EL2 already handles for non-protected guests.
 
-Tested-by: Vincent Donnefort <vdonnefort@google.com>
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
- arch/arm64/include/asm/kvm_hyp.h   |  1 +
- arch/arm64/kvm/hyp/nvhe/pkvm.c     | 41 ++++++++++++++++++++----------
- arch/arm64/kvm/hyp/nvhe/sys_regs.c |  1 +
- arch/arm64/kvm/reset.c             |  2 ++
- 4 files changed, 31 insertions(+), 14 deletions(-)
+Tested on QEMU, in hVHE and nVHE, and on FVP for S1POE and the fields
+QEMU doesn't model (CLRBHB, RPRFM, ECBHB, LSFE, LSUI, HAFT, ETS3 and
+F16MM). v2 of the pKVM selftests series [3] will cover debug, SVE,
+MOPS, PIE, POE and FPMR.
 
-diff --git a/arch/arm64/include/asm/kvm_hyp.h b/arch/arm64/include/asm/kvm_hyp.h
-index 9a785a341090e..22601a4e36f4e 100644
---- a/arch/arm64/include/asm/kvm_hyp.h
-+++ b/arch/arm64/include/asm/kvm_hyp.h
-@@ -158,6 +158,7 @@ extern unsigned int kvm_nvhe_sym(kvm_arm_vmid_bits);
- extern enum mitigation_state kvm_nvhe_sym(spectre_v2_state);
- extern enum mitigation_state kvm_nvhe_sym(spectre_v4_state);
- extern enum mitigation_state kvm_nvhe_sym(spectre_bhb_state);
-+extern unsigned int kvm_nvhe_sym(kvm_sve_max_vl);
- extern unsigned int kvm_nvhe_sym(kvm_host_sve_max_vl);
- extern unsigned long kvm_nvhe_sym(hyp_nr_cpus);
- extern unsigned int kvm_nvhe_sym(hyp_gicv3_nr_lr);
-diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-index 1d484da274c0e..fba8dfe6389d6 100644
---- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-+++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-@@ -30,6 +30,7 @@ unsigned long __icache_flags;
- /* Used by kvm_get_vttbr(). */
- unsigned int kvm_arm_vmid_bits;
- 
-+unsigned int kvm_sve_max_vl;
- unsigned int kvm_host_sve_max_vl;
- 
- /*
-@@ -479,7 +480,7 @@ static void unpin_host_vcpu(struct kvm_vcpu *host_vcpu)
- 		hyp_unpin_shared_mem(host_vcpu, host_vcpu + 1);
- }
- 
--static void unpin_host_sve_state(struct pkvm_hyp_vcpu *hyp_vcpu)
-+static void teardown_sve_state(struct pkvm_hyp_vcpu *hyp_vcpu)
- {
- 	void *sve_state;
- 
-@@ -487,8 +488,10 @@ static void unpin_host_sve_state(struct pkvm_hyp_vcpu *hyp_vcpu)
- 	if (!sve_state)
- 		return;
- 
--	hyp_unpin_shared_mem(sve_state,
--			     sve_state + vcpu_sve_state_size(&hyp_vcpu->vcpu));
-+	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu))
-+		hyp_free(sve_state);
-+	else
-+		hyp_unpin_shared_mem(sve_state, sve_state + vcpu_sve_state_size(&hyp_vcpu->vcpu));
- }
- 
- static void unpin_host_vcpus(struct pkvm_hyp_vcpu *hyp_vcpus[],
-@@ -503,7 +506,7 @@ static void unpin_host_vcpus(struct pkvm_hyp_vcpu *hyp_vcpus[],
- 			continue;
- 
- 		unpin_host_vcpu(hyp_vcpu->host_vcpu);
--		unpin_host_sve_state(hyp_vcpu);
-+		teardown_sve_state(hyp_vcpu);
- 	}
- }
- 
-@@ -546,18 +549,25 @@ static int pkvm_vcpu_init_sve(struct pkvm_hyp_vcpu *hyp_vcpu, struct kvm_vcpu *h
- 		return 0;
- 	}
- 
--	/* Limit guest vector length to the maximum supported by the host. */
--	sve_max_vl = min(READ_ONCE(host_vcpu->arch.sve_max_vl), kvm_host_sve_max_vl);
--	sve_state = kern_hyp_va(READ_ONCE(host_vcpu->arch.sve_state));
--
--	if (!sve_vl_valid(sve_max_vl) || !sve_state)
-+	sve_max_vl = READ_ONCE(host_vcpu->arch.sve_max_vl);
-+	if (!sve_vl_valid(sve_max_vl) || sve_max_vl > kvm_sve_max_vl)
- 		return -EINVAL;
- 
- 	sve_state_size = sve_state_size_from_vl(sve_max_vl);
- 
--	ret = hyp_pin_shared_mem(sve_state, sve_state + sve_state_size);
--	if (ret)
--		return ret;
-+	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
-+		sve_state = hyp_alloc(sve_state_size);
-+		if (!sve_state)
-+			return hyp_alloc_errno();
-+	} else {
-+		sve_state = kern_hyp_va(READ_ONCE(host_vcpu->arch.sve_state));
-+		if (!sve_state)
-+			return -EINVAL;
-+
-+		ret = hyp_pin_shared_mem(sve_state, sve_state + sve_state_size);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	vcpu->arch.sve_state = sve_state;
- 	vcpu->arch.sve_max_vl = sve_max_vl;
-@@ -646,7 +656,7 @@ static int init_pkvm_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu,
- done:
- 	if (ret) {
- 		unpin_host_vcpu(host_vcpu);
--		unpin_host_sve_state(hyp_vcpu);
-+		teardown_sve_state(hyp_vcpu);
- 	}
- 	return ret;
- }
-@@ -1018,7 +1028,7 @@ int __pkvm_init_vcpu(pkvm_handle_t handle, struct kvm_vcpu *host_vcpu)
- 	ret = register_hyp_vcpu(hyp_vm, hyp_vcpu);
- 	if (ret) {
- 		unpin_host_vcpu(host_vcpu);
--		unpin_host_sve_state(hyp_vcpu);
-+		teardown_sve_state(hyp_vcpu);
- 		goto unclaim;
- 	}
- 	goto unlock;
-@@ -1246,6 +1256,9 @@ int pkvm_reset_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
- 			    PSCI_0_2_AFFINITY_LEVEL_ON) != PSCI_0_2_AFFINITY_LEVEL_ON_PENDING)
- 		return -ECANCELED;
- 
-+	if (vcpu_has_sve(&hyp_vcpu->vcpu))
-+		memset(hyp_vcpu->vcpu.arch.sve_state, 0, vcpu_sve_state_size(&hyp_vcpu->vcpu));
-+
- 	kvm_reset_vcpu_core(&hyp_vcpu->vcpu);
- 	kvm_reset_pvm_sys_regs(&hyp_vcpu->vcpu);
- 	kvm_load_pvm_debug(&hyp_vcpu->vcpu);
-diff --git a/arch/arm64/kvm/hyp/nvhe/sys_regs.c b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-index e7148254ec5b8..7a0aed1d8b0b3 100644
---- a/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-+++ b/arch/arm64/kvm/hyp/nvhe/sys_regs.c
-@@ -783,6 +783,7 @@ static const struct sys_reg_desc_reset pvm_sys_reg_reset_vals[] = {
- 	RESET_UNKNOWN(MAIR_EL1),
- 	RESET_ZERO(AMAIR_EL1),
- 	RESET_ZERO(MDSCR_EL1),
-+	RESET_ZERO(ZCR_EL1),
- 	RESET_ZERO(CNTV_CTL_EL0),
- 	RESET_UNKNOWN(TTBR0_EL1),
- 	RESET_UNKNOWN(TTBR1_EL1),
-diff --git a/arch/arm64/kvm/reset.c b/arch/arm64/kvm/reset.c
-index 10eb7249aa9e8..aaaa1b8634ba4 100644
---- a/arch/arm64/kvm/reset.c
-+++ b/arch/arm64/kvm/reset.c
-@@ -52,6 +52,8 @@ int __init kvm_arm_init_sve(void)
- 		if (WARN_ON(kvm_sve_max_vl > VL_ARCH_MAX))
- 			kvm_sve_max_vl = VL_ARCH_MAX;
- 
-+		kvm_nvhe_sym(kvm_sve_max_vl) = kvm_sve_max_vl;
-+
- 		/*
- 		 * Don't even try to make use of vector lengths that
- 		 * aren't available on all CPUs, for now:
+Based on Linux 7.4-rc1 (6628e7d4c6b25); it also applies to 7.4-rc2
+(7475ea8b58616).
+
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/20261102093950.2922035-1-fuad.tabba@linux.dev/
+[2] https://lore.kernel.org/all/20261105130456.1617185-1-fuad.tabba@linux.dev/
+[3] https://lore.kernel.org/all/20261104084842.132944-1-fuad.tabba@linux.dev/
+
+Fuad Tabba (16):
+  KVM: arm64: Add support for self-hosted debug in protected guests
+  KVM: arm64: Remove redundant kern_hyp_va() calls from the pKVM FP sync
+  KVM: arm64: Allocate a protected vCPU's SVE state at EL2
+  KVM: arm64: Advertise ID_AA64ZFR0_EL1 to protected VMs
+  KVM: arm64: Allow protected VMs to use SVE
+  KVM: arm64: Move the VM's FGU initialisation into config.c
+  KVM: arm64: Compute a protected vCPU's fine-grained traps at EL2
+  KVM: arm64: Advertise TCR2, SCTLR2, S1PIE and S1POE to protected VMs
+  KVM: arm64: Advertise MOPS to protected VMs
+  KVM: arm64: Advertise FPMR to protected VMs
+  KVM: arm64: Advertise HBC, CLRBHB, RPRFM, CSSC and LUT to protected
+    VMs
+  KVM: arm64: Advertise FAMINMAX, LSFE, LSUI and FPRCVT to protected VMs
+  KVM: arm64: Advertise AFP and RPRES to protected VMs
+  KVM: arm64: Advertise ECBHB, TIDCP1, TTST and LVA to protected VMs
+  KVM: arm64: Advertise FP8 and F16MM to protected VMs
+  KVM: arm64: Advertise ECV, HAFT and ETS3 to protected VMs
+
+ Documentation/virt/kvm/arm/pkvm.rst    |  13 +-
+ arch/arm64/include/asm/kvm_host.h      |   2 +-
+ arch/arm64/include/asm/kvm_hyp.h       |   6 +
+ arch/arm64/include/asm/kvm_pkvm.h      |   1 +
+ arch/arm64/kvm/arm.c                   |   5 +
+ arch/arm64/kvm/config.c                |  32 ++-
+ arch/arm64/kvm/hyp/include/nvhe/pkvm.h |   1 +
+ arch/arm64/kvm/hyp/nvhe/Makefile       |   1 +
+ arch/arm64/kvm/hyp/nvhe/hyp-main.c     |   6 +-
+ arch/arm64/kvm/hyp/nvhe/pkvm.c         |  51 ++--
+ arch/arm64/kvm/hyp/nvhe/switch.c       |   1 +
+ arch/arm64/kvm/hyp/nvhe/sys_regs.c     | 349 +++++++++++++++++++++++--
+ arch/arm64/kvm/reset.c                 |   2 +
+ arch/arm64/kvm/sys_regs.c              |  17 +-
+ 14 files changed, 413 insertions(+), 74 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
 2.47.3
 
