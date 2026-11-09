@@ -1,58 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794203907;
-	b=Vxgm7VDxKPlwoFBIPnmnj/YAWqjGqH9+Qmp+ndvbi9CTjc6nUGXryXVBDHhxnyfMXwlV
-	 qfa5nB+n1pQ/7Gl41Bq5syhK2NyXeCbw+7DBNJvLAzLZmt3bpDqto31PyzUcpWDnDlLVP
-	 fUN+8WsuiAjURV1JQb2VwgeRuEPSYBHGKHGdtxW1bFPQztyLLbUrwlN4t9Bc1p5diXe88
-	 rKH/MaOPV5qi8vZo+WGDtCx3VTZhLic/a0G1LytIxg32pMXlf8yABtCGJMP9XHuj60WHY
-	 akMk05ItK0Fj+hfndQLZ5AW4NYtQqkAaCeBo+P+ayl+72NvfoemPrVh6NU4ZQMHcQow==
+	t=1794203941;
+	b=FcmTKgqKB+3evTGdCqgHO7AnmcwupTCd/A0hW8vIW3XJ2MKB8K5EdGgOssDs2KhBfdUg
+	 2ZAJe/xJqVq8W7C9GQTOOVoK+2fbmbzMl8eSUrKZ5TcmnWrQ7TuPQsptYxwc7oysnYl6W
+	 6nByZGLwLB9AxXWr+L17CO3HE6sm1wWWZ9KLDDDAgOnuNHxysrNq5oFsSfB+41HbiZRYP
+	 lonr9j7IEKWxCqZVbGpm8zdszN5CWaoc/ulbggy7zZO0vUreCMnJD+8MCOIXHul+u908m
+	 GX1Q8D6UJOWDzJNv0BlTdcKrdr3EM+8UXQvJaN/KvT/3xde0xkwFqMbHvul1fWpNXWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794203907;
-	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
-	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=ycZFYUK9Sq+liOsi4MTVoR/c8j8LTqcyDLHHKuP5SiM=;
-	b=AP6opR1QD6mUF637+3y4iYH91PPFYZ4EC3u+XeFdmdOpe0YZNSGyzAsc+E7rLeFBPWsZ
-	 pNJ0gYbAxrTQfOOhl2InxwbymsYfnLSJjF1AQkOK2LzfeJkQZBeptTgSkMNL62YTsaNQ0
-	 fXMqANCKlDixRbBEsxdH6QuI5UkRYC0Y/5rVV5Cr6TOqhAyuIJjXuIHAlDYblp0vYrRsY
-	 fjisg8SWsyPayZyep3PsbudHCIYwfQxDaYBfx2m6vYIbeUBy3JgBhqgEUWfwaB63DLjRw
-	 Cr7o+TV0+XGIzxQTohKNQIIHJghfw30fjr8VUKKFQFp1DgZF3jur+NSKdhixzr2ldnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794203941;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=/E3ZtH8ojoi/vmsGrVMl6AMo0m24rPSDyRXvjqgo+0c=;
+	b=mHm2/eAFQ6tKBFgbrCdKdM9dWlCYgNOQMpVeRaPvSlj49m7qzt7BJFX8i8jXwhBxU6tv
+	 0rWJdNtHZSltmTlMInPxFg7gU6tF0BpNu3YKJkSBRME/IEg43zPBtV9pUHk8DHQN9Jfi2
+	 +UQWzMeAVXJgHSOfHIhvpJpMyO9DfbQnGn3KkMtcgpZ348XIucXaBD8iAkm0uRKOwImAi
+	 9NTvJUZW4g21nl4M6pcseh6ycsj7pcI9xeGhi6/Unm5B4uvdqR2cYR1/cwXczIruUEetX
+	 oqVez3yFVQOyNM2bbrRCZu2gMggmEPlpi9ibUCiOHyOdqxWRMoPHxz1fiiWBSyFTLYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mucse.com;
-	spf=pass smtp.mailfrom=mucse.com;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=n8s+c+Xs;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715F1606A31C;
-	Mon,  9 Nov 2026 05:58:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 715F1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
-X-QQ-mid: zesmtpsz7t1794203850tc03b9236
-X-QQ-Originating-IP: ey/P3VmyPwt/7VocnGrP0yVNH8IO4ZpzeeN5gi3fOKA=
-Received: from localhost ( [203.174.112.180])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 09 Nov 2026 13:57:28 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7978584010437446865
-EX-QQ-RecipientCnt: 10
-Date: Mon, 9 Nov 2026 13:57:28 +0800
-From: Yibo Dong <dong100@mucse.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	yaojun@mucse.com
-Subject: Re: [PATCH net-next 2/5] net: rnpgbe: Report link settings through
- ethtool
-Message-ID: <DC15754D4AADBCCC+20261109055728.GA286191@nic-Precision-5820-Tower>
-References: <FB722C2F25FE9005+20261106112420.43050-1-dong100@mucse.com>
- <BB3F0BAB3B9947AF+20261106112522.43965-1-dong100@mucse.com>
- <228e8fd8-4f1d-40d7-aca6-fc8a304b9906@lunn.ch>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADB5606A31C;
+	Mon,  9 Nov 2026 05:59:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6ADB5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=n8s+c+Xs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794203941; x=1825739941;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=OGKuaFtpJu/00zUw78GQThfCA7h7SYaZtzIWG6Z/hag=;
+  b=n8s+c+XsSLhKKjFbsklhOU6U+BeJe+3SW+GghvcCYq47gh0iHgB4uXuH
+   18vd3diU8jINCdayagu5+oQDK2/nU0MkSCPL3T6ZNcOUjQ56CS1c0jDOP
+   MOnZsU6rXhY8GlDB0dwBbQ4mX6ElxoxK0CLtrIEw6VKxKuCtYGhylI717
+   Nx/7SLg9LSLWs9R23boFZcKRKBW9lV99/RRsctXYCg0R70CnU7aQHXXIx
+   +L9cxTpGAVXuSxHBi24raF6hGPgV4h0Wx/I13ek51QE6CXiBnxpJBP3A6
+   mE//q1CZ7zyKzvj2EYGusOJZyru7sbVY2MDHnsnUmttgAUYc74xOmWeoD
+   A==;
+X-CSE-ConnectionGUID: pQb27N7WQxG6A0I+q/IJkw==
+X-CSE-MsgGUID: ZjEghJfXThyIxTuQhwwqyQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="3022706"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="3022706"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 21:59:00 -0800
+X-CSE-ConnectionGUID: tjo2rXZDQNSnB4+x8NjlaA==
+X-CSE-MsgGUID: wjgjw2klTIuEErLWbS1uLA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="7789063"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 21:58:53 -0800
+Message-ID: <d28422d6-7ac6-48ad-a28b-553ba724581b@linux.intel.com>
+Date: Mon, 9 Nov 2026 13:58:51 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,131 +72,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <228e8fd8-4f1d-40d7-aca6-fc8a304b9906@lunn.ch>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
-X-QQ-XMAILINFO: OGRTx1KypL8CmvoyuQkiV8iTvYFTPIVMpa8CEJKa0tcFrJjTw7jA259m
-	/LXNbt6dF92EbTLdvGBdXxD50AdkW2DxUmxjk/eFxLK6hFoPpe7O8mzJ2P5JfMGwpx8EJTQ
-	fct+X0G/5hD6Rg1o6bnudxSKVsghG0QrSH+zC0WSpJMXX5To5SIdi4rEWRdOFQ2FzJDiDVv
-	hrBvZi0PKZCYusw2ttBZam+kSeOPbniRxesBQSa5/TRMEVjG8I1zy9UIWsf9uUOVzjag4Ix
-	F+8wpJEWjL+xQhhAcTjjl6aSRILmrsaJF8Kl47bLMEzghbpkFN8RW8iahZB1MEcK3N/jGWL
-	Uif17eZ9RtF8+YiYgOuVx+YBKP6Da6LlkmpPIUHAouxz79Y3wr2F/c6U0xBXTzU/wbgl7EK
-	8wtTIHrEEfQexBQO7gYMibdrZrIjutA9XNfw70DMd9AtLwSY+rmR2HBxNxrfX8Sbyq3xUxV
-	SHn+xH8iDy5ckDxxNJ5UuPDyHViFQxoGHLlNGYhVKArXstX+rvE4mE/bKnqAvgYXtT1d6HQ
-	KKxoiQettrsTZB4WRfH/wygdLqOtRZcxcy32BC1aG/k9u2o+H3R38q9dRxS5rPXT/UBcF6r
-	JlsQBa3mAC2+hFACvZfJEgPUZeAL9RyA1wqdT0CmKkP8y20hxPvXFZACX7p46P4EhinuqQA
-	CM18ixSYz7FOsAL/vrhbSXQzcISTmTZwwXZRdiQhmkIhmAwVexg8ZtHZx4BCRI88cPnQdPu
-	7sytOn2+XwrtqRLcazFIjWvyt5fUlkUCJUtZzS9MIxA4hxLFfCKJTZOGgvQxoPMliqOF1AV
-	qJVHC1hnQjfTogI3tj25MTLosfVm6VKObPp3RUdH2XM1UTE5lSWP11DopplptDf51kd9n73
-	sbvUsB/hWvmxng0zmgaNL6FizVMQzNJkKtXJs1ujPCAMBDUgQhTOsZiSzLGM8zW+yRSzYk0
-	3/LAe3V6Ps/6ztPYwX2n+It7CFCgSZ0mXAU9tPjL6h1iN7L70rOU6c0P6R0DwEGe7UlKNLv
-	WAW9nf+4KwIURAYb3WEEAVOO81yMzCI4B+iEg5zA==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 03/20] KVM: selftests: Initialize the TDX VM
+To: Lisa Wang <wyihan@google.com>
+Cc: Andrew Jones <ajones@ventanamicro.com>,
+ Ackerley Tng <ackerleytng@google.com>, Chao Gao <chao.gao@intel.com>,
+ Chenyi Qiang <chenyi.qiang@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>,
+ Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+ linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+ "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>,
+ Sagi Shahar <sagis@google.com>, Sean Christopherson <seanjc@google.com>,
+ Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>,
+ Oliver Upton <oupton@kernel.org>, Jeremiah McReynolds <jmcrey@google.com>,
+ kvm@vger.kernel.org, linux-coco@lists.linux.dev,
+ linux-kernel@vger.kernel.org, x86@kernel.org
+References: <20261105-tdx-selftests-v16-0-2024e8fa517a@google.com>
+ <20261105-tdx-selftests-v16-3-2024e8fa517a@google.com>
+From: Binbin Wu <binbin.wu@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <20261105-tdx-selftests-v16-3-2024e8fa517a@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Nov 07, 2026 at 06:57:45PM +0100, Andrew Lunn wrote:
-> > These devices support autonegotiation only on TP ports. Configure TP
-> > ports with autonegotiation enabled and fibre and backplane ports with
-> > fixed 1 Gb/s full duplex.
-> >  int rnpgbe_setup_default_link(struct mucse_hw *hw)
-> >  {
-> > -	return mucse_mbx_set_link(hw, RNPGBE_DEFAULT_ADV, true, 0, 0,
-> > -				  ETH_TP_MDI_AUTO);
-> > +	u32 advertising = hw->link_config.supported & RNPGBE_DEFAULT_ADV;
-> > +	bool autoneg = hw->link_config.status & MUCSE_LINK_TP;
-> > +	u8 duplex = DUPLEX_UNKNOWN;
-> > +	u32 speed = SPEED_UNKNOWN;
-> > +	int err;
-> > +
-> > +	if (!autoneg) {
-> > +		advertising &= RNPGBE_FW_ADV_1000_FULL;
-> > +		speed = SPEED_1000;
-> > +		duplex = DUPLEX_FULL;
-> > +	}
-> > +
-> > +	err = mucse_mbx_set_link(hw, advertising, autoneg,
-> > +				 autoneg ? 0 : speed, autoneg ? 0 : duplex,
-> > +				 ETH_TP_MDI_AUTO);
+On 11/6/2026 7:46 AM, Lisa Wang wrote:
+> From: Sagi Shahar <sagis@google.com>
 > 
-> This looks odd. If autoneg is off, you expect user space to indicate
-> how the MAC should be configured. 10, 100, 1G, full or half.
+> Add tdx_init_vm() to handle the mandatory VM-level initialization
+> sequence required for Intel TDX.
 > 
-This function sets the initial configuration during probe. It does not
-handle an ethtool configuration request.
-For the supported fibre and backplane configurations, the link operates
-at fixed 1 Gb/s full duplex without autonegotiation. TP ports default to
-autonegotiation, and the subsequent patch adds support for user-selected
-forced 10/100 Mb/s speed and duplex settings.
-The port type is fixed by the device firmware. TP, fibre and backplane
-are mutually exclusive configurations, and the driver cannot switch a
-port between them.
-> > +static int rnpgbe_get_link_ksettings(struct net_device *netdev,
-> > +				     struct ethtool_link_ksettings *cmd)
-> > +{
-> > +	struct mucse *mucse = netdev_priv(netdev);
-> > +	struct mucse_hw *hw = &mucse->hw;
-> > +	u32 supported, advertising;
-> > +	unsigned long flags;
-> > +	u16 status;
-> > +	int mode;
-> > +
-> > +	status = hw->link_config.status;
-> > +	supported = hw->link_config.supported;
-> > +	advertising = hw->link_config.advertising;
-> > +	ethtool_link_ksettings_zero_link_mode(cmd, supported);
-> > +	ethtool_link_ksettings_zero_link_mode(cmd, advertising);
-> > +	ethtool_link_ksettings_zero_link_mode(cmd, lp_advertising);
+> For TDX, the VM's CPUID configuration must be "sealed" during
+> KVM_TDX_INIT_VM before any vCPUs are created. This is necessary because
+> the TDX module does not allow the host to create and initialize any
+> vCPUs before the VM's CPUID configuration is accepted and sealed into
+> the TDCS.
 > 
-> Do you have access to the LP advertisement value? It is useful for debugging.
+> Additionally, to satisfy the strict requirements of the TDH.MNG.INIT
+> SEAMCALL, the helper masks the KVM-supported CPUID
+> (kvm_get_supported_cpuid()) against the "directly configurable" bits
+> reported by KVM_TDX_CAPABILITIES.
 > 
-Firmware manages PHY configuration, autonegotiation and reading the link
-partner advertisement. However, the mailbox response currently used by
-this driver only exposes the local capabilities and advertisement.
-> > +	} else {
-> > +		if (status & MUCSE_LINK_BACKPLANE) {
-> > +			mode = ETHTOOL_LINK_MODE_1000baseKX_Full_BIT;
-> > +			ethtool_link_ksettings_add_link_mode(cmd, supported,
-> > +							     Backplane);
-> > +			ethtool_link_ksettings_add_link_mode(cmd, advertising,
-> > +							     Backplane);
-> 
-> Does it actually advertise Backplane?
-> 
-> 
-> > +			cmd->base.port = PORT_NONE;
-> > +		} else {
-> > +			mode = ETHTOOL_LINK_MODE_1000baseX_Full_BIT;
-> > +			ethtool_link_ksettings_add_link_mode(cmd, supported,
-> > +							     FIBRE);
-> > +			ethtool_link_ksettings_add_link_mode(cmd, advertising,
-> > +							     FIBRE);
-> 
-> Again, does it advertise fibre? What happens if the LP wants to do TP?
-> 
-These bits were added based on the fixed port type, rather than an
-advertisement reported by firmware. I agree that this does not establish
-that they are actually advertised.
-A fibre port cannot switch to TP based on the link partner's capabilities.
-The firmware-selected port type remains fixed.
-Maybe I should revise the reporting for the fixed non-TP configurations?
-retain the port type and supported link mode in supported/base.port, Andrew
-leave advertising empty since these configurations do not use autonegotiation.
-> You probably want to look at phylib, it figure out the correct way to
-> to implement ksetting set/get.
-> 
-The current design leaves PHY management with firmware, with the driver
-using mailbox commands to configure and query the link.
-I will use phylib as a reference for validating user settings
-and reporting link capabilities and configuration, while keeping PHY
-management in firmware.
-I will correct the advertisement reporting for fixed non-TP ports.
-> 
->     Andrew
-> 
-> ---
-Thanks for your feedback.
+> Co-developed-by: Isaku Yamahata <isaku.yamahata@intel.com>
+> Signed-off-by: Isaku Yamahata <isaku.yamahata@intel.com>
+> Co-developed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> Signed-off-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+> Signed-off-by: Sagi Shahar <sagis@google.com>
+> Signed-off-by: Lisa Wang <wyihan@google.com>
+> Reviewed-by: Ira Weiny <ira.weiny@intel.com>
 
-> pw-bot: cr
-> 
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
