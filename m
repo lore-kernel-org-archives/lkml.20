@@ -1,103 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239328;
-	b=LraRtx+xA8p0ZMVT+DIMU+uvdFw7iFCJxGtWx1w94owlBG/S2nLEzrsHfeKasl4Copj4
-	 bmOg/vNoWbGqdYQh2MDj4D80YlseRVb4DT5LVKZht/tCb4W84ZjXabCQEh9Xo35HjVfZ2
-	 7vN5cI48Qs5rfLSKJ9ia0SJz1M29SZiWE5Na5yhMsnCxbWYh9g2xZI/Tl0UBIqXJ/Bt3I
-	 F/RW/X7HPTK7QCN4AvdlR77JZPA/d4u5uVB9IXCvusiiiD6QMC/k7Cu1gCM3Y4lvqy9to
-	 ajraVoBVxbog8v5OJ5rQPPVIJEKb5tdRNe3cWLIcijiN+lgQcNZnjJIkIYRBGBodqgA==
+	t=1794239345;
+	b=uPVSfa7bHHUvOYKWoUmx+4UwBTdpAJsZYIb7NMs79FtlfsbDKhWtos5Ji6XlaNXCeQKm
+	 EG9Mw1GmsmIG00d95zS8Bsc3GRrOI2J7zK499ySABZ5LSyo5RHsyrEi3wBreA92RNGnQX
+	 bgibvgo4hG4EePwu9MqEmRAGecxpNdkxgyLpXlxoT1FU0VkkSNfGTisuzVGYN+B3qnIqW
+	 tla9ZlcCB8BUCUm6J7YIk5Rc9f2zHE6ZkXJ9c57QFJZF1S+DY+f/Xj0rdqvfilYMML3+7
+	 aexY4rLs44euJnzJecrPeRU1AE3mvyZhPceaPVYea4lLFGwP2dYYxDEKaIHHugksi3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239328;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=mw5sGlo+sYSIwlVNPbD+avONLlNpfVW3zWxwZsVrLa4=;
-	b=CwpFV0fIrLbVMhTIP8jbChZ7VRFIc6rOkn2bnVn3toAIkioMib+NAuG4kIuo2Ar1srlG
-	 L0iepNhf3rq91xVtnjwSR03cv9HdwO1Wrrb3brNKrC+c5C0fhjktvjreX/NKGLSq5HXs8
-	 E+zAVmRxDyw1IXwwZhvzHib2Zdjz4hTQkgZazqCPI9Jk8/N9cpm5nCu5GpG5AWhbyJqKg
-	 6ERKKBvf3DDLKYQKXhtxyB4zy2b26wuBIZx0TG8ehViPQbq3UED4qi09Yb+UKIX2YZccW
-	 v2xL7GtKql6WOFNlut9TsZT5x/4F3KxgW62bgu3RlDzbhWlDuxY+WvG2gknzPdXv/fQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239345;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=raBij4qEhPxjWCEZowqML0scqr3lOT8uQMEhUh4pvtg=;
+	b=l9UH43W826Bs07mvjzp6r4avxsRkEfERo0JG6uGLUVRFnxO6bmN9cUdEHxUc+ck+7+hS
+	 vwE4FC4745klt7iGwSFHAqlEE45bTwYFslnuPXjYByZHYg0JJSyvCD0R35MZcFUAMlQmM
+	 fkupwqNAe91cpR1hfMJ7slDAzvoGGmWYppKGd/6wAm+jTtSKIdJ9QAORpWJbY54yHs0t9
+	 bYUgRO/5E2zIPGJdTC9QtNLpgNm4n5HuIFRoXGnU7zFbIZTtnHyI+UAcRItqLtp4cs/is
+	 /WPn+vZlAoKgyBT9jmgAWFILuQbBRmrdIK6WG50itUXOClhwwUP19Fc1CMrrkbrdaeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=SIW0ISNM;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2rCxtPX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7EE606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:48:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E7EE606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F3C9606A31C;
+	Mon,  9 Nov 2026 15:49:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=SIW0ISNM
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso8497305e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:48:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794239326; x=1794844126; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mw5sGlo+sYSIwlVNPbD+avONLlNpfVW3zWxwZsVrLa4=;
-        b=SIW0ISNMv2fl1sjufrOFIA6++IPG6f2Tmf9tjvcyL05Y6fdt2IcA1t4pIJelOHchwW
-         diLqIkj29FloZ8IiecwCSTRm2dlZ6stxIS5ri80IfFOx1fBKZIClWuuqyI6HzbNJRISc
-         LW1P/b7VlxZ+CGq20/avNR8GvQDXk+GEbK2UIwsKsYWRs1+l1iZmeYb5S7oyNdQ/wH69
-         DnbA9IM8dtnBvs/BWT4/Eu7/CX+t4HHeJDOb4kfxeeDLS804strMgSsbGtcHBYRj6oA6
-         LA5SVoccT5ulZdka0FauV5N+Dk6TgpVQS88oV7pcBQr9uFdxT5RItZUQCw2IdRaw1Kpa
-         Ylfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794239326; x=1794844126;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mw5sGlo+sYSIwlVNPbD+avONLlNpfVW3zWxwZsVrLa4=;
-        b=Fkwdq4bfHX0LZ7k27L2yNFMFc+F+QWVShHiVTWorqSLl+8+2yaSjz8hV8OrCeZN047
-         d1HnbYXCE1sZocVsrVda4JbOpfJrFnzyA4guxZmsPWlkqoJWcjnQ+GIqHyrnbaw2qboV
-         35VlCm7s8WfOcejlPVMZ4tGvSSInk6hIPE2vxUzPAKKUymD8fEOsWcbfIud4xqhCpc2U
-         LQJ7xyEtqSkF1e/CdwTz2jw3aonAacRYDKjmmqycB1ercfRl60F9WEAH8QK9hhKjiSRp
-         rm01UB6G+R1S4H0Z9So7GRpyV5nHcR9v+D+bGyaoeF7AgGWv4c/7BlvK6FJWqYFMQ3FH
-         PZVg==
-X-Forwarded-Encrypted: i=1; AL+hErEqmY34OfB2ye/EBjsUZ3/Zhm7zSd3e7T9nwKqXxbKYi8azgBaR1hn5qziilZ7ytT6Pcu42V5TpLqMt24A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91z83E6rS8DGNLjY2E+L0UVl2geS+hhTKkya1CC4p248w2Q47/
-	iq/AEWPlQ4WWWodKMiI+1QPM2FxoJC18iItEJq8IJ7GczGXETqy0QB/RINzLlqyJw6i4UpVaHtY
-	CjXoXrHs=
-X-Gm-Gg: AYBFou0ccHC3aZjQ7sjDBhevrzLFZo1t2Qdc9id4vzZ5WIvesxcTcrDkOw5RlvfsHWU
-	HzYymk7nRPuX85m7esDs78zIXeD2vXuDUvCLeM2ebAmKdOj1rAR+F71/slor/Fvlc5r+WpZNS2s
-	0W23sk7iSi6rt3ALoSD7OiTE3stkJdEPLxZe87JbCF6crqv8UTKtSEDseDJDWzkW5c2tWlvzIpc
-	WaPz8FAOGWozJ8b2eTfFp7TMH+L3MWjZ6jr4WCIUwpzmxqjGAzwwC7zo5nbIqz7TpHQbmuJJH5Z
-	9qRVJjdvBeCXVoV+JnBsjR2VEYTowtnJACcX9VlWzVgUWhdKJzQ9eI/qTapRiuMglblVGL+56dr
-	taWeDdSWc/plMlRekim1Sq2fiwRvIpAtyHXJ9JDxeLr7JisarofZQkseFVxMe7OvZTW1kQ9z491
-	H/ZUA9wpPwgYKIGOc00ZtFNevwQWi8Kw6To5BShVQ8fRxFnbIhYpF42XLs8TxyZ/XsSs+tVi19/
-	MZGaPsMlJ2z1+3xicTgMJ5d0JFKniplGg5ZUHNAaUNA9VI0toRTkTEvHHorYKz3qEUIIiy18Xxm
-	cNIKK9TWy4DrNYcPAYleU0I6vtywD+vqks3RESJ4zKFjj/8ZCUwv4ZI0xzhcRNzPL8O8bfB6jjD
-	pEe4Nm8+V2iRvAg==
-X-Received: by 2002:a05:600c:1c02:b0:4a2:74f:46c1 with SMTP id 5b1f17b1804b1-4b9633cee71mr101104485e9.8.1794239325803;
-        Mon, 09 Nov 2026 07:48:45 -0800 (PST)
-Received: from localhost (p200300f65f19a90407b2ef73b14b6bb2.dip0.t-ipconnect.de. [2003:f6:5f19:a904:7b2:ef73:b14b:6bb2])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4b96cd012e1sm136079025e9.8.2026.11.09.07.48.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 07:48:45 -0800 (PST)
-Date: Mon, 9 Nov 2026 16:48:44 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Nicolas Schier <nsc@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Harald Freudenberger <freude@linux.ibm.com>, Holger Dengler <dengler@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Huacai Chen <chenhuacai@kernel.org>, 
-	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	linux-kbuild@vger.kernel.org, linux-s390@vger.kernel.org, loongarch@lists.linux.dev, 
-	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	"kernelci.org bot" <bot@kernelci.org>
-Subject: Re: [PATCH 1/2] s390/pkey: Include <linux/device-id/ap.h> for struct
- ap_device_id
-Message-ID: <avHpQIREsJRjpD3R@monoceros>
-References: <cover.1792144769.git.u.kleine-koenig@baylibre.com>
- <179416565740.60865.16102443399828949110.b4-review@b4>
- <66e4ee9c7f9b4bc48fcee92a94b6bb6d92fe1ad2.1794233316.git.sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2rCxtPX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FE8E1F0089F;
+	Mon,  9 Nov 2026 15:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794239344;
+	bh=raBij4qEhPxjWCEZowqML0scqr3lOT8uQMEhUh4pvtg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=T2rCxtPXhIZX26HoJu/nFrUYRkxj85C42oxGcE/v+M0q2+MM8xJOD3hJ2U+kaZAIw
+	 HYaCvCPl7Y9pDFmM1lCEGxCGh+0dpY6UniED+mtyT6uM9O1FsWKQcn2T5CFvIoUE+s
+	 hXNZnjgTME7NvzT6925zJHPbxJezv2gS0ln54xsOoU0jZDQBE4E/AIsuc36WMh/O1d
+	 3A3SkM/k9M1u5LyBGPJUFhw2G3CjQOeyI88ACGcsD/afINB9K5RIxeQmzp4DRhVa0a
+	 LMbpUxDq8cLbUsPsMs1gaNxB2O6xuw9MA/+YvCsmdMfcRddVlH1smHDffRlJBMc6Rq
+	 L9Ve0s7W+bZOw==
+Message-ID: <8616d39e-738f-49f1-9ea0-3482d3f27d5e@kernel.org>
+Date: Mon, 9 Nov 2026 15:49:01 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,97 +51,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="u6xfg7yl6qbdwrvq"
-Content-Disposition: inline
-In-Reply-To: <66e4ee9c7f9b4bc48fcee92a94b6bb6d92fe1ad2.1794233316.git.sashal@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/11] media: qcom: camss: csid-340: Enable RDI SOF
+ tracking
+To: bryan.odonoghue@linaro.org,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org>
+ <qN79eFMjTmrURojfTgPvCGv_WrYLw4ASWwvs-Lb1O-Awx7xgiFaMVMHGoYcKn8yHjp_5RQMItil0aSONLJcbIA==@protonmail.internalid>
+ <20261107-v4l2-frame-sync-v3-7-e5bf7073a35d@kernel.org>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261107-v4l2-frame-sync-v3-7-e5bf7073a35d@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 07/11/2026 01:01, bryan.odonoghue@linaro.org wrote:
+> From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> 
+> Add silicon specific changes to get SOF triggering V4L2_EVENT_FRAME_SYNC on
+> the '340' CSID. Covers QCM2290.
+> 
+> Unlike gen2 the 340 CSID has a per-interface IRQ block at
+> 0x030 + 0x10 * iface, so the SOF mask and status have to be handled per
+> interface rather than globally. Run the existing csid_port_iface_map[]
+> through it so that PIX and RDI0-2 are all covered.
+> 
+> The spurious interrupt warning needs to account for the new per-interface
+> status too, otherwise every SOF would be reported as spurious.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
 
---u6xfg7yl6qbdwrvq
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 1/2] s390/pkey: Include <linux/device-id/ap.h> for struct
- ap_device_id
-MIME-Version: 1.0
-
-On Mon, Nov 09, 2026 at 09:14:40AM -0500, Sasha Levin wrote:
-> pkey_cca.c and pkey_ep11.c got struct ap_device_id from
-> <linux/mod_devicetable.h> by way of <linux/cpufeature.h>. Commit
-> cdfdbc11552b ("Move struct cpu_feature to <linux/cpufeature.h>") dropped
-> that include, so s390 defconfig no longer builds:
->=20
->   drivers/s390/crypto/pkey_cca.c:22:28: error: array type has incomplete =
-element type 'struct ap_device_id'
->   drivers/s390/crypto/pkey_ep11.c:23:28: error: array type has incomplete=
- element type 'struct ap_device_id'
->=20
-> Include the header that defines it, as the other AP drivers do.
->=20
-> Reported-by: kernelci.org bot <bot@kernelci.org>
-> Closes: https://d.kernelci.org/i/maestro:7baaa311bc9c30a8ad43f42c24225ab2=
-fead866a
-> Fixes: cdfdbc11552b ("Move struct cpu_feature to <linux/cpufeature.h>")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  drivers/s390/crypto/pkey_cca.c  | 1 +
->  drivers/s390/crypto/pkey_ep11.c | 1 +
->  2 files changed, 2 insertions(+)
->=20
-> diff --git a/drivers/s390/crypto/pkey_cca.c b/drivers/s390/crypto/pkey_cc=
-a.c
-> index e8dc2f77c137b..f95d61fd5b090 100644
-> --- a/drivers/s390/crypto/pkey_cca.c
-> +++ b/drivers/s390/crypto/pkey_cca.c
-> @@ -10,6 +10,7 @@
->  #include <linux/init.h>
->  #include <linux/module.h>
->  #include <linux/cpufeature.h>
-> +#include <linux/device-id/ap.h>
-> =20
->  #include "zcrypt_ccamisc.h"
->  #include "pkey_base.h"
-
-that makes me wonder why there is an ap MODULE_DEVICE_TABLE in
-drivers/s390/crypto/pkey_cca.c while that file doesn't seem to contain a
-driver for these device IDs.
-
-> diff --git a/drivers/s390/crypto/pkey_ep11.c b/drivers/s390/crypto/pkey_e=
-p11.c
-> index f99c19323f3d7..f66fc97ad5adc 100644
-> --- a/drivers/s390/crypto/pkey_ep11.c
-> +++ b/drivers/s390/crypto/pkey_ep11.c
-> @@ -10,6 +10,7 @@
->  #include <linux/init.h>
->  #include <linux/module.h>
->  #include <linux/cpufeature.h>
-> +#include <linux/device-id/ap.h>
-> =20
->  #include "zcrypt_ccamisc.h"
->  #include "zcrypt_ep11misc.h"
-
-Same here.
-
-But anyhow, as a regression fix the change looks fine.
-
-Acked-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-
-Thanks
-Uwe
-
---u6xfg7yl6qbdwrvq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrx61kACgkQj4D7WH0S
-/k7BLwf+KHOasy6UJ5/4WPYsMNz61VCTi/ApkQtjeGFvJZN8nJOMNkjXZZ2m6o/9
-v6sXIzuel/mee5ClAKlKfK7LsU6rkl8v5zvt4AUHd5FZ+bcPr+FTgq89uVV7oQ0d
-2k8GO1XQsb5tYu13Aq/aVsDMaP3vIVc7F8mx5MLT/kcA4euiH3PcSxMrKoReU11Y
-MvhCmuYJdWtaOMURKdiU4wt8gTnC3cSnwRKxt12D7Sx4QwdOA8kGqfzB8n5as7kf
-coKuS3VS6T60nd9cjqG8Iz/zF5HdiGqtjXTKP8FyMD0uPwfgu1b0TsZudm5c1lLX
-FvCSeYh/1tP74frJy0yYDBJ+tCWQfA==
-=JUgK
------END PGP SIGNATURE-----
-
---u6xfg7yl6qbdwrvq--
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
