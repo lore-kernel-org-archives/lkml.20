@@ -1,104 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.35
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794256542;
-	b=s1RvdStsh79e6G8WO/3YF4c5XHwpN5E76OL5DZAEabviJ247KE8KXDpS6m3OMM1VcXmn
-	 6v90IUTf2UnTL2LPyvvnaHXp9obX3+iEZrH26qQy4bN/uG/CnzL7v23kBTgSI2hGee+Nk
-	 Am3+bqZgKHiIl5HD9d74lARc3lhb34f36pFnK/EkHEYwQnmMp+LcbGc7M/4x+j9fNZfQv
-	 bwVe0t07i7bchFAjj7LVFOaru1x1Xf7i3LTYm+IHngIx6eXHbdOkXvrb5TBzsBKoEY+Ux
-	 VHQWpPVjA+Ct235DUwVekgUpWULPUzJzCWrbCkCvb61kTbZBpOwSlOXFiMFiYMwGw/Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794256542;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=AvxEkNz+R0EKBMy/ZPWOUuzXEa7ygYF+AOyw0TJPs28=;
-	b=z7o+G4me0SlrqFLWWggOkkgQvR+UEkRAK/voPCzBuUjza007e+fYsAtLgnzuY9DziSDm
-	 oFxECVGWnJwzqZ+E++ym8PWu0b7S5hQg6ybimoVuZq+mCxa4SAn1ZOX9paQkuL5dlXBNs
-	 X9ugl7hVBOUtNCDsN0wnKcSvr8UWBTk/F+boqzHvoCN/onRcZhZI6jphTrdvaFvZKup90
-	 jDTGbTDs20cwxFjHzxS6VKVGnOUEC7S9W7gQQXdTcUdScbYwOyV4Js8IF6d2vj9MV0q4y
-	 rnbxMpWsKLVH8UzNifhKaD1JExd4t4nM0rTSrggAVsEQAL6JoNdC8P4G/h574ZYSYvQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ttObC6Dt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.35
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011035.outbound.protection.outlook.com [52.101.52.35])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794256543;
+	b=bAerrWrmNUR0bRjijSaGPBgT8WqBb65lJnIPcXM3ScV8KP05X4yp0/9xxRvwvgA2j7jh
+	 UI6IlqkaIyazMIqz6/gmwezA/yC7n/6lQxwQ0LwPqvIw9MJ01v/MRSiIwTGc0kifFIMaX
+	 kRh94joVj4bL8w380om0B4b4o1+552dIjKar5LTej2z7fXUKqtjUbamXCe0k/vWO/bGFk
+	 RYzsoQCQD2CULvsAvChxB60bArsl4mbQtjaYtWveSnxuaQ7oTW1jFQNJhOF5xJCzTLzxT
+	 SzTf8+apXKbStqif8TXgxEnEPLECAoDOJ6BVXvPzwkT1a3pgJmlTAO9rRKWyg/MIQww==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794256543;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=4S0ZASTCxuNpF4rd1cySC3wOXo2N6s1iGqE54udrluA=;
+	b=Vi/P+ARoEVr7QPPRdzUViXssk0lV8DAIUMbDlgBYQUZwE+Ic4OZEl2oO7WAIU/am3eBT
+	 XSkdql7EPzzk4wde5q4YeSdJw5ViNXCiOqoRQaW31rfbXtRhJBGNtcHgwDKZxuJ/hRF03
+	 dhphV+h8s+tj4147h1spP9h7vRLnlT0U4BxJvHO6VPWWxy5qc9tjtwqI/rtQAQCbfPpXp
+	 rJ65ohyFmr4O+FjHxqTcSy4Z0nX9hm5wA/liQDuX+LuXtHy3G3O6284THWp7RefnvwJ01
+	 VusVEiWNM/qA2p0cW9CDwpkrvaD/G/U9zZ3PG3FwZ/zFOOXt1pv1iBYokL4jedMXWeQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4sw6wQ3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7009E606A31C;
-	Mon,  9 Nov 2026 20:35:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7009E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBB1606A321;
+	Mon,  9 Nov 2026 20:35:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ttObC6Dt
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zAwFqWeFLuZdIe9hE8M8gnPX+qn7p3jhSKMiXalH+psgwbAvAgaiA6bPPMAKupOZxAfDmSmse4A6X2bs8XnMuI3hco8NoW5AxPO/yi2TcyHic6vFB/XzgpwCZcgIT0mkn/FhSivVFEhnlTaTuGJT8OUaIq2uMyZSDX5sPjMLbwFMWz+gsuwO9Xv+GC74xbA62VBH04/8ZqdyVCtkWtTpKY9UsqaSCjNyd3W8/uxMWex9R9eZ6so3/Vv4/bKYBmr1LsfhF1uCAbOAo5cUeYOjE8r2A1775JkEFTZ67beGq1zLr79EtJT5nD8/FxOZatlrkT1LAz/hsgND/PGXTYtJmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AvxEkNz+R0EKBMy/ZPWOUuzXEa7ygYF+AOyw0TJPs28=;
- b=AvG3dpOXdGWQfKCxeh12guqDGF7ml5wMaH18sKKQwPhX8E55ig8s3/A0UcJ67xp9RUxleB5524GpYpN2z30GhhtaxowA9res+irTHLoN9Rgx6iAzCcQLOmyWQ1fqEygL+CUsRFAYs/6gkvTh5Epnsu5z3Uknmo6/iNHtDIGLlPT9505Vzn20wBKDYrK4x0lfrfNSzx7LCYt+JWWoJzyRyGXIoQ8xoYXnV2sl+FO/gf4JRISrxIQwIaUjIAosiSLVlVUL8MkvxWOBiasqlU2bN12UC46R6uqOHvT+o6w8jeZARR0W6pkdQqtlq1TPM14IOb4VJADVO11HaRGdcanHnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AvxEkNz+R0EKBMy/ZPWOUuzXEa7ygYF+AOyw0TJPs28=;
- b=ttObC6DtivS1dWzzpyxU7YN5ww4Bxl3Feg991lKlzTuTtOuOGrjfzzbbBcf5+mwHzggdLpjrOLW0P/3RZpRQel6jQ6B4MG8FZaS4MSV/TI5xcsPvRE7cqwYLDd2BkmgOHfQN9LclxNRiW2obXsilOWxzZvFPK0wubCcdmtpdbhU=
-Received: from CY8PR10CA0033.namprd10.prod.outlook.com (2603:10b6:930:4b::28)
- by DS0PR12MB999287.namprd12.prod.outlook.com (2603:10b6:8:424::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 20:35:37 +0000
-Received: from MWH0EPF000D894E.namprd05.prod.outlook.com
- (2603:10b6:930:4b:cafe::7d) by CY8PR10CA0033.outlook.office365.com
- (2603:10b6:930:4b::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
- Nov 2026 20:35:37 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000D894E.mail.protection.outlook.com (10.167.249.214) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 20:35:36 +0000
-Received: from speedway8455host.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
- 2026 14:35:36 -0600
-From: "Pratik R. Sampat" <prsampat@amd.com>
-To: <kvm@vger.kernel.org>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <seanjc@google.com>, <pbonzini@redhat.com>,
-	<thomas.lendacky@amd.com>, <kim.phillips@amd.com>, <nikunj@amd.com>,
-	<michael.roth@amd.com>, <ashish.kalra@amd.com>, <prsampat@amd.com>
-Subject: [Patch v4 1/4] KVM: SVM: Re-queue events that were never injected
-Date: Mon, 9 Nov 2026 20:35:11 +0000
-Message-ID: <a523c8930e82f897d6fdfb4f05a283a6e2649414.1794244450.git.prsampat@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794244450.git.prsampat@amd.com>
-References: <cover.1794244450.git.prsampat@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4sw6wQ3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87BE31F008A3;
+	Mon,  9 Nov 2026 20:35:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794256542;
+	bh=4S0ZASTCxuNpF4rd1cySC3wOXo2N6s1iGqE54udrluA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=P4sw6wQ3f4dx6u4pFALkqAd21ksXEckvh8fTjSyAtPK7pCZ5oCMgj9geo1WMAb8Zy
+	 T3WPTAqBAfrjyOIGwG13GeeN3JYJDQ0p0EnAA+3SeB7wR5mcK6LoOA4Lu6t6CzmY36
+	 2VQiGF1vIwZSWSmDUN9g9kebIsNKZ6E22tSOaeIO94SWxGBVGJ3qOC1yPcnVsH/Cn0
+	 UZ5K32bWw2VUooDNxET6m7PVp4kstgbO6IwT0nw08/ddOnnD9tbaGGmpT3knr++bkh
+	 7m8kKDrBrff07mDjClfAY1zac5v1ooNQvpK1hlOKoCgLMNjgZlX5N8FMDDhhJGVMAI
+	 B6ihb0Ustt8og==
+Message-ID: <88a96126-11be-41cc-ab0d-372d32189e79@kernel.org>
+Date: Mon, 9 Nov 2026 21:35:26 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,146 +51,319 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000D894E:EE_|DS0PR12MB999287:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d42f1e1-8927-481d-be7c-08df3ea102dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|18002099003|22082099003|6133799003|10067099003|11063799006|261102123227099003|261026140227099003|261021121427099003|261022105027099003|261021123027099003|56012099006|261026121527099003|261022075727099003|261028144727099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	Htk1srT/L5Gm4Ip9YNXvUvJLDPAyl/t+lYtzzIXEBYzrZFC3uhPt/hZWEa4utrkjqq83oETbglVoUFitssHLAXzCdjNZ6Uq79WOUwpWfG8ae5G+7CgYnmj8gIkjDLvqx2JgTt/hrSReO6YiWpO9xsxZaa/7Ons3Bhw2hXT9umtk+EMo2RVLzUYNhSQPOajd1H7A+vZKOwbV/wk1GtPcVENW9U6qrUul38+NFVTJK1cvbWUCJGjb8el5Sd+udBwCoqr4xc8J5+ziEgd0GJCPP7g7+Rx3AWOSHHqZupciLIE/wYb/fi6UoWxV5sq+JsBio0Oqs+Ok704AKBcOquyoI/bpXLoke2LXYi3oSjv16rN7G1LoOb+x6voYhgLykR9RweD/JjhNPYWKyjCGN6VBesdz9mGhzCayqAMyINVyW0Ha94w71pTj9rBvUml4ET2CBvw5+Fih8MDEjOd5DIoAo81LSuPGDkh/XCWM8/9WsG70AE3ywmhfvF4tr8XO4MigLftnM8P1MPBurL8REdGGo05WvpkMIB1PkyELBKZNEBlSJ5gIG0J4ceZzHE7GcURP+rxrZbzf14o/myMyWwLM/Mp1o4dJb8m5lm3eHgCWKuzXqAkK50eOb8qJyPNOWNNsiameRZOVcVcZwFtTc9ziL0lVpHUBgtV29tjd2RHljTcvTiiwlqeTF5faJk/oQzQhq
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(18002099003)(22082099003)(6133799003)(10067099003)(11063799006)(261102123227099003)(261026140227099003)(261021121427099003)(261022105027099003)(261021123027099003)(56012099006)(261026121527099003)(261022075727099003)(261028144727099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	12U+RljakTsy2axzugOrnAfFRTXcK4U26Yz4pLkqbsGCK9PBBPYVRa8kf4637pHnQ4yQryDvvK5+D3+BPG5t7gSqdp//lKE/Af2E16vkqnFApa4OD0guP6KN9Kgp1xDENwhXn5OSp8ysW6wT3VioBho6iuo3rLamjUD4T36YAAOkSpnsUwEDN7IHzA25Gr6MXAcYWTma8x1c3IWh/xZsZjpz33i3hvgAdoYWWGU9ICgIkmucWS74sb5ie453EZcGXDnT3cmZTJgOzLBoECaeRK9KJoMWinf3ETDDNqzvSOEa/fBLhtw7Scq51DbSsrdJoaK0yGuIoY4FKhIF2BMb0nWWfP0BAfmW+0fpv+V0AKThJfzROrfpIjh+S28hPJCb500eOFCoyeA42UcuJ7EUtlaa2JPNGTjQvePFJXVe72equOwWHwYCDZeLQlXR8uqX
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 20:35:36.7481
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d42f1e1-8927-481d-be7c-08df3ea102dc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000D894E.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999287
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v24 00/10] Hierarchical Percpu Counters for RSS
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: linux-kernel@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Martin Liu <liumartin@google.com>, David Rientjes <rientjes@google.com>,
+ christian.koenig@amd.com, Shakeel Butt <shakeel.butt@linux.dev>,
+ SeongJae Park <sj@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Sweet Tea Dorminy <sweettea-kernel@dorminy.me>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Christian Brauner <brauner@kernel.org>,
+ Wei Yang <richard.weiyang@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Al Viro <viro@zeniv.linux.org.uk>, Yu Zhao <yuzhao@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>, Mateusz Guzik
+ <mjguzik@gmail.com>, Matthew Wilcox <willy@infradead.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Aboorva Devarajan <aboorvad@linux.ibm.com>,
+ David Carlier <devnexen@gmail.com>, Andrew Morton
+ <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
+ Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, Ben Segall
+ <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+ Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>, Kees Cook <kees@kernel.org>,
+ linux-trace-kernel@vger.kernel.org, Jan Kara <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>
+References: <20261105203639.1459524-1-mathieu.desnoyers@efficios.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261105203639.1459524-1-mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When injecting an event into the guest via the event_inj field, a
-non-zero event_inj value on #VMEXIT means that the hardware was not able
-to inject the event into the guest.  This used to only occur for the
-VMEXIT_INVALID intercept code, which was a fatal error and resulted in
-the guest being torn down.
+On 11/5/26 21:36, Mathieu Desnoyers wrote:
+> Hi David,
 
-Enhanced SMT Protection (ESMTP) invalidates that assumption.  When ESMTP
-is enabled, VMRUN doesn't enter guest mode immediately; it stalls at a
-synchronization point until every sibling thread is either idle or has
-executed VMRUN for a legal sibling vCPU.  If an ESMTP timeout / illegal
-sibling exit / interrupt arrives while VMRUN is stalled, VMRUN can now
-terminate with the corresponding #VMEXIT intercept code, without
-entering guest mode, and thus without injecting the event.
+Hi!
 
-For example, on a 2-way SMT core running vCPU0 on thread 0 and vCPU1 on
-thread 1:
-  Thread 0 (vCPU0)                         Thread 1 (vCPU1)
-  ----------------                         ----------------
-  Interrupt A injected to the guest             in host
-  VMRUN                                           |
-    |                                             |
-    v                                             |
-  Stall waiting for sibling                       |
-    |                                             |
-    |  host INTR arrives on thread 0              |
-    |  while it waits                             |
-    |                                             |
-    v                                             |
-  #VMEXIT                                         v
-  Interrupt B injected to the guest              idle
-  VMRUN
+> 
+> Here is the hierarchical per-cpu counters series for the RSS counters,
+> based on v7.4-rc1.  It is an RFC because of the questions at the end,
+> and because of the significant changes since v22 [1], notably the
+> per-cpu counter size (long -> byte), the configuration heuristics, and
+> the lazy activation introduced by patches 6 and 7.  v24 fixes the bugs
+> found by the Sashiko review of v23 [2], including a NULL pointer
+> dereference in patches 3 to 5 on sparc64.
 
-In this case injecting interrupt B clobbers the last event. Interrupt A
-is never delivered and lost forever.
+I think we discussed other possible applications (IIRC Michal expressed concern
+if a single user is sufficient motivation for these additional LOC). Did
+anything result from that discussion that is relevant to v24?
 
-Therefore, in preparation for ESMTP support, accommodate for potentially
-lost interrupts by detecting an undelivered injected event and
-re-queuing it so as not to lose the event.
 
-svm_cancel_injection() already recovers a staged event this way and
-becomes redundant, so fold it in.
+> 
+> The problem
+> -----------
+> 
+> Since commit f1a7941243c1 ("mm: convert mm's rss stats into
+> percpu_counter"), the RSS counters are struct percpu_counter with a
+> batch size of max(32, 2 * nr_cpus): their approximation error grows with
+> O(nr_cpus^2), up to 1.1GB per counter at 384 logical CPUs.
 
-Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
----
-v3..v4: No Change
----
- arch/x86/kvm/svm/svm.c | 33 +++++++++++++++++++++++++++++----
- 1 file changed, 29 insertions(+), 4 deletions(-)
+Okay, so that's a per-MM problem, not a per-system problem. On a large system
+with many CPUs I'd have said "likel we don't care" :)
 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 581bc3a23c95..61e798d02db8 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -4459,6 +4459,7 @@ static void svm_complete_interrupts(struct kvm_vcpu *vcpu)
- 	struct vcpu_svm *svm = to_svm(vcpu);
- 	u8 vector;
- 	int type;
-+	struct vmcb_control_area *control = &svm->vmcb->control;
- 	u32 exitintinfo = svm->vmcb->control.exit_int_info;
- 	bool nmi_l1_to_l2 = svm->nmi_l1_to_l2;
- 	bool soft_int_injected = svm->soft_int_injected;
-@@ -4466,6 +4467,27 @@ static void svm_complete_interrupts(struct kvm_vcpu *vcpu)
- 	svm->nmi_l1_to_l2 = false;
- 	svm->soft_int_injected = false;
- 
-+	/*
-+	 * Hardware clears EVENTINJ field when it injects an event.
-+	 * A non-empty EVENTINJ on #VMEXIT means the vCPU never entered guest
-+	 * mode, and thus that the event was never delivered.  Migrate the event
-+	 * to EXITINTINFO so that it's requeued instead of being dropped.
-+	 *
-+	 * An undelivered event doesn't imply a fatal VMEXIT_INVALID. With
-+	 * Enhanced SMT Protection, VMRUN may exit with an ordinary #VMEXIT
-+	 * without having injected that event into the guest.
-+	 *
-+	 * Clobbering EXITINTINFO is safe precisely because the vCPU never
-+	 * entered guest mode.
-+	 */
-+	if (control->event_inj) {
-+		control->exit_int_info = control->event_inj;
-+		control->exit_int_info_err = control->event_inj_err;
-+		control->event_inj = 0;
-+
-+		exitintinfo = control->exit_int_info;
-+	}
-+
- 	/*
- 	 * If we've made progress since setting awaiting_iret_completion, we've
- 	 * executed an IRET and can allow NMI injection.
-@@ -4529,11 +4551,14 @@ static void svm_complete_interrupts(struct kvm_vcpu *vcpu)
- static void svm_cancel_injection(struct kvm_vcpu *vcpu)
- {
- 	struct vcpu_svm *svm = to_svm(vcpu);
--	struct vmcb_control_area *control = &svm->vmcb->control;
- 
--	control->exit_int_info = control->event_inj;
--	control->exit_int_info_err = control->event_inj_err;
--	control->event_inj = 0;
-+	/*
-+	 * EXITINTINFO is stale as it holds the event from the previous #VMEXIT
-+	 * (or from the last time the current VMCB was run).  Invalidate it so
-+	 * that svm_complete_interrupts() requeues if and only if KVM staged an
-+	 * event in EVENTINJ.
-+	 */
-+	svm->vmcb->control.exit_int_info = 0;
- 	svm_complete_interrupts(vcpu);
- }
- 
+> /proc/PID/status, /proc/PID/statm and the OOM killer moved to precise
+> sums (commits 82241a83cd15 and 5898aa8f9a0b), but the other readers
+> still use the approximation: the RSS high watermark (VmHWM, the
+> ru_maxrss reported as "Maximum resident set size" by /usr/bin/time -v,
+> taskstats), /proc/PID/stat (ps, top, monitoring agents), the taskstats
+> RSS-time integral (coremem, sampled at each tick), NUMA balancing and
+> the mark_victim tracepoint.  On the test machine below, the
+> /proc/PID/stat RSS of a test process was off by 17MB while
+> single-threaded, and by up to 134MB with 64 threads.
+
+What's the resulting impact of that (temporary) imprecision?
+
+> 
+> Precise sums cannot fix the high watermark or the RSS-time integral:
+> update_hiwater_rss() samples the RSS on every unmap path, and the
+
+As a side-note, I absolutely hate update_hiwater_rss() on the unmap path.
+
+> integral at each tick, while a precise sum reads every possible CPU,
+> about 4us per counter at 384 logical CPUs.  A smaller struct
+> percpu_counter batch takes the counter spinlock on every carry: at batch
+> 32, an update of the counters of a shared mm costs 4.4 to 69us with one
+> thread per CPU, compared to 26ns to 1.2us with this series.
+> 
+> The series
+> ----------
+> 
+> Patches 1 to 5 replace struct percpu_counter for the RSS counters with
+> hierarchical per-cpu counters: per-cpu bytes carry into a tree of atomic
+> counters shaped at boot from nr_cpu_ids, with a fixed batch of 32, an
+> error bound in O(n*log(n)) and no global lock.  
+
+How does this interact with CPU hotplug?
+
+> Each level carries only
+> once its residual reaches the batch in either direction, so updates
+> going back and forth around a boundary do not climb the tree.  The
+> comparison functions have no user in this series; a follow-up will use
+> them for a faster OOM killer task selection.
+> 
+> Patches 6 and 7 keep the RSS counters of single-threaded processes exact
+> and without per-cpu memory: until a second thread shares the mm, the
+> task running on the mm adds to the bias of each counter without atomic
+> instructions, and other tasks add to its atomic bias, both read in O(1).
+> Creating the second thread allocates the per-cpu counters and tree
+> items, and activates the tree.  struct percpu_counter cannot do this as
+> is: its count is an s64 under a raw spinlock, which the remote updates
+> (reclaim, khugepaged, remote GUP) would then take.
+
+What was the particular reason to special-case single-threaded apps? Do we
+expect them in practice to really be that RSS heavy+dynamic such that it would
+matter?
+
+> 
+> Patches 8 to 10 are the tools to tune the tree shape on other hardware:
+> the percpu_counter_tree.arity= and rss_stat_batch= boot parameters, and
+> a KUnit benchmark.  The default shapes were measured on one machine,
+> with up to 384 logical CPUs, so results from other hardware are welcome.
+
+Hm, so that means one might have to fine tune these toggles to get the best
+performance? That's a bit unfortunate.
+
+> 
+> Results
+> -------
+> 
+> 2-socket AMD EPYC 9654, 192 cores, 384 logical CPUs with SMT (the CPU
+> counts in this letter are logical CPUs, as in nr_cpu_ids), tree 8,8,8,
+> batch 32, whole series; details in patches 3 and 7.  The bare-metal
+> results were measured on v7.3: the rebase onto v7.4-rc1 had no conflict,
+> and the hpcc update costs of the series as sent, measured in a pinned
+> 384-vCPU guest, match the bare-metal ones within 2%.
+> 
+>   Accuracy per counter: bound, and largest |approximate - precise| seen
+>   by get_mm_counter() while a process hops across all CPUs doing
+>   mmap/munmap of 1 to 16 pages (384-vCPU KVM guest pinned to the host):
+> 
+>                                         hpcc   upstream
+>     bound                            158.5MB      1.1GB
+>     measured, single-threaded      0 (exact)      841MB
+>     measured, with a second thread      96MB      845MB
+> 
+>   Update cost, ns per update per thread, one thread per CPU, bare metal
+>   (mm: the 4 counters of one mm; private: one counter per thread; batch
+>   32: local change of the benchmark, bound 46.5MB):
+> 
+>                                               upstream   upstream
+>                                        hpcc  batch 768   batch 32
+>     mm, +1                               26        288       4370
+>     mm, random +-32                     135        385      69171
+>     mm, random +-512                   1174      20229      69186
+>     private, random +-32                 31         20          -
+> 
+>   /proc/PID/statm read with 1000 to 16000 processes, bare metal:
+>   5.3-6.5us vs 16.5-19.0us for single-threaded processes, on par for
+>   multi-threaded ones (14.4-16.0us vs 14.5-17.1us, guest).  fork + exit
+>   of a single-threaded child: 116us vs 139us.  will-it-scale
+>   page_fault1, 2 and 3: no regression (-0.6% to +5.1%, one boot each,
+>   the upstream one on the previous day).
+> 
+>   Memory per mm, counting the slab objects of mm_struct and of the tree
+>   items, and the per-cpu memory of the RSS counters, in bytes (guest,
+>   v7.4-rc1):
+> 
+>                   single-threaded   threaded   upstream
+>     16 CPUs                  1820       1948       2076
+>     384 CPUs                 1928       8145       8072
+>     1024 CPUs                2185      17204      18569
+> 
+>   The tree items are allocated with the per-cpu counters when the second
+>   thread is created, and the mm_struct slab object keeps its upstream
+>   size.
+> 
+> Behavior changes
+> ----------------
+> 
+> - The allocation of the per-cpu counters and tree items moves from
+>   fork() to the second thread (clone() with CLONE_VM, without
+>   CLONE_VFORK), which can then fail with -ENOMEM.
+> - mm_struct gains rss_owner, the task running on the mm, compared with
+>   current and never dereferenced, and rss_stat_mutex, which serializes
+>   the activations of the tree, as mm_cid.mutex serializes the mode
+>   changes of mm_cid at fork and exit.
+> - The precise sums (/proc/PID/status, /proc/PID/statm, the OOM killer)
+>   take no lock: under concurrent updates of a multi-threaded process,
+>   they can miss a carry on its way up the tree, where upstream counts
+>   each concurrent update either whole or not at all.  They are exact for
+>   a process at rest.
+> - The rss_stat tracepoint reports the approximation (patch 5): exact for
+>   single-threaded processes, within the bound otherwise.
+> - Like struct percpu_counter, the tree is sized at boot and not
+>   reshaped on hotplug; its shape and bound depend on nr_cpu_ids, while
+>   the default upstream batch follows the online CPUs.
+> 
+> Caveats
+> -------
+> 
+> - From 33 to 39 CPUs, up to 1.37 times less accurate than upstream.
+> - The tree is shaped for the number of CPUs rounded up to a power of 2:
+>   just above a power of 2, the RSS counters of a threaded process, with
+>   rss_owner and the mutex, use up to 1.50 times the memory of upstream
+>   (129 CPUs, 1.28 times at 65 and 1.38 times at 257), compared to at
+>   most 0.90 times at a power of 2, and 1.02 times at 384 logical CPUs.
+> - Private counters with random +-32 updates: 31ns vs 20ns, the price of
+>   a 7 times tighter bound.
+> - A multi-threaded process which ran on few CPUs can hold more error
+>   than upstream: 2047 pages per CPU path vs 767 at 384 logical CPUs.  A
+>   follow-up could index the counters by concurrency ID (mm_cid) instead
+>   of CPU, so the accuracy bound and the precise sums would scale with
+>   the concurrency the process uses.
+> - Before activation, concurrent remote updates of a single-threaded
+>   process contend on one atomic per counter.
+> - The second thread allocates per-cpu memory, which the per-cpu
+>   allocator serializes, as it does upstream at every fork: with 384
+>   threads at once, init + destroy of 4 counters takes 874us per
+>   operation (1004us upstream, 6.0us alone).  Tree item slab objects
+>   owning their per-cpu counters, with slab destructors, could avoid it.
+> - The accuracy was measured in a guest, with a debug patch and a test
+>   program which are not part of the series.  The bound is analytic and
+>   tested in both directions.
+
+[...]
+
+> 
+> Questions
+> ---------
+> 
+> 1. Is mm->rss_owner acceptable, or would you prefer current->mm == mm
+>    (without PF_KTHREAD) and an "activated" flag?
+
+I'm afraid I'm the wrong person to ask that question. I'd have to look into the
+details. If it's just a simple member, we likely don't care about the addition
+memory footprint (if that's your main concern).
+
+> 2. Is moving the -ENOMEM from fork() to the second thread acceptable?
+
+I'd assume that's not a problem.
+
+> 3. Would you rather take the single-threaded mode first, on its own?
+
+Again, the question is how much we care in practice, I guess.
+
+> 4. Should the rss_stat tracepoint report the approximation, stay
+>    precise, or report both?
+
+No strong optinion on that. Do we know who uses these and for which purpose?
+
+> 5. Should the tuning tools be merged, built only with the benchmark
+>    config, or dropped later?  Who could run them on non-AMD, 4-socket,
+>    arm64 or POWER machines?
+
+Is there some way to have it be an auto-tuning instead of requiring this tooling?
+
+> 6. Is tools/testing/hpcc the right home for the topology test?
+Good question, I'd assume so.
+
 -- 
-2.43.0
+Cheers,
 
+David
