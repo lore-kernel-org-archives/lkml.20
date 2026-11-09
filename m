@@ -1,83 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.54.127.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794203313;
-	b=oKiN97sLX4oLUdL004Lec7MpE1SYi8X20hold/tS1SGQeuKY8hBNOcZ3sv5QgCtBrsXo
-	 AUNL5gZpH272r44N12mbspm/+VndC0WZKCAY3LUjBDpAawhCD0/9WySUQL/3kKmbzzVbB
-	 M+HrkBbRn1YpCu+049nMSXts7jFrSh8ZkWQN/EfTOndB4q97NVFNYaR8EPR3qj0Gd3MlU
-	 4vIK8dLkqZHrFi1zY/XJETSzZIyLFSDJ+FJiJwcb/mKCdWa2h+9m6rl5fereMwXd7OWf8
-	 JZC8oepqiCMP7ENEJb208wF22pgd840PKk3M5ATDGq/tUIUQbapBuvSyNAf037OLGaQ==
+	t=1794203357;
+	b=z9SirqWhWwBLT9hyHTEI5fsZuyoEg0XvGR4KLFNSmFERk0gm2+wLPtAcieb3TcG2Ihx7
+	 YrvJ9BLd1JYX3hQA+YQ3awdOSQmq5C4tDg3cmGCVRR8ZGr/GcsM9V6zdanTnpE2SrKLHW
+	 OSvAcLt3hXn81lQ8i8oKF6sFMWfbIYvLpmsb1W7xqdxD3hvIY1s+OBGUK6CK7sq0zxiK+
+	 GiJ0PFCUvQYLjdG1XU7ihcjrDx2ro6BnTXx9FyAzTjY8YEt2iNZoYLy+PRPNIOrVMRAEa
+	 yxdcSU6r17MVoCStOkJYBz6USUg+41eAVG5CqpZBMjh3/W4O1A9RqCw52m4ZffKp4Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794203313;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JSOyM4K5zrqmDFF61CwIn14s5ShEHbu2alo+0Cxugro=;
-	b=WiP8RTYkUVyPrVuAWURRK9N7jGeEZ5E12CqFdMqQs/zBLLh4DFd1uFu0c4Ed7nbB60M7
-	 I1pi/rmmqSP+1LruXn6S/gAotAPYNoP0I6kV7QLWxmrPHBl6tP5TpKiuEroVKvUYjaBvZ
-	 tIhmLm4kXOzMhp1vO5jsHBFxPxA2iI7tQsjNKkZufZcY9+ET5nK2hmOaxvKraY4yptS0T
-	 jSX3WcMhjGFpaXJL7jD/p60ssg7fBXVJQABljpX3gBEyOX2g2hbbLgkOjUinujx11Qejk
-	 sblSsgu+B3QqPG5bnriUhfJgNBkq1C5rKCRW4RzOZj5O+8iQJbcW5rs2Y0W3eLp3OJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794203357;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Envelope-From;
+	bh=a4y9k64X3ripBhNIvMZWY+s0weNkhwdUrJaAz4Av5CY=;
+	b=ST9MaHADIjR6V5BnzJ24Jp+ngLSwGITl8OF6f4pn/cJcUh76qbKGzQpeODG/KXnDcjzj
+	 0Axtsae+EVH5AVDcGiInAoPCPlaQeDcKJ5WTQdX68r7f8UvnimfTruT7CcvxIXMu1rWBQ
+	 xpjQyBASo8t+W9oU3SlGweNhZHkXRS5o2TMvVdIWpQqSJ2WeFijMoavSEyb6lF/DLQFfj
+	 70karBa13j1p+Onzq6+wTWPDLNx9/n/BipBqU7y3/eZvWhj5TCiUzd3F0NMPGfb3ISCVg
+	 m5+bA9mzBBMvev9K3AjtiXLb7wqY/wPKuXO/21OdzHVz+7adOHo2Sn3NE8IMenk5ypA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MMq0OsFY;
-	arc=none smtp.remote-ip=95.215.58.180
-Received: from mta1.migadu.com (out-180.mta1.migadu.com [95.215.58.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=chrispinetinega.com;
+	spf=pass smtp.mailfrom=chrispinetinega.com;
+	dkim=pass header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=fcp+R9wc;
+	arc=none smtp.remote-ip=198.54.127.139
+Received: from out-2z4y-a139.jellyfish.systems (out-2z4y-a139.jellyfish.systems [198.54.127.139])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5BA606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:48:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB5BA606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFADA606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:49:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFADA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chrispinetinega.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrispinetinega.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MMq0OsFY
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JSOyM4K5zrqmDFF61CwIn14s5ShEHbu2alo+0Cxugro=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794203309; v=1; x=1794808109;
- b=MMq0OsFYOeDFfLKeanMq/JRW5emG22N+JN82VeucMQQPT+M2lExIrVamS+c7q+asXdJ1pdl2
- 1X0kSw1FOEdPQI/obnIvW1WVZJsWlAMtC3SyfA526L1kdBXP241tfsR5N7B2uuz87yZGgwPpUpd
- dE+PwLyiJkXRbdzGAO40uSAY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bae7ce2de6921a50;
-	Mon, 09 Nov 2026 05:48:29 +0000
-X-Mizu-Trace-ID: bae7ce2de6921a50
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: songmuchun@bytedance.com
-Cc: david@kernel.org,
-	maddy@linux.ibm.com,
-	rppt@kernel.org,
-	akpm@linux-foundation.org,
-	lance.yang@linux.dev,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	osalvador@suse.de,
-	qi.zheng@linux.dev,
-	muchun.song@linux.dev,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	linux-mm@kvack.org,
-	linuxppc-dev@lists.ozlabs.org,
+	dkim=pass (2048-bit key) header.d=chrispinetinega.com header.i=@chrispinetinega.com header.a=rsa-sha256 header.s=default header.b=fcp+R9wc
+Received: from mail.privateemail.com (unknown [62.8.90.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4jNJkL1L84z8sWP;
+	Mon, 09 Nov 2026 05:48:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chrispinetinega.com;
+	s=default; t=1794203341;
+	bh=a4y9k64X3ripBhNIvMZWY+s0weNkhwdUrJaAz4Av5CY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=fcp+R9wcC8no4+xve8HyKaNXALhyUPRhYxY25aWBrZAyknY2orDL+bFL3DhBSQtuP
+	 AImZ3M4mXVKUcziwuS99HXAQWZY/MPWZrFFWI5XjVSmtZ0Y88QKs1GgegR2hq8U2cm
+	 UpuqnLOKdwafXFXyWiTYf8SOF1tZYRFyaL1UvOCHNPk7MF5gyOwenzfWkD4dM9wSo6
+	 vr0NwEo7XxtCvF9GYQ+VkG5X3dFTQaiemVEuJnFEMsTLb9c5AbyM1yql2aC29HzdUq
+	 tHez1CyuqdHwLNsCcZEMuvcdMYt29Tb89rwdAvIpeMEsVm3y7ALUNm+O7k4KmhLOag
+	 x5KPE9CGP3eGQ==
+From: Chrispine Tinega <dev@chrispinetinega.com>
+To: andersson@kernel.org,
+	mathieu.poirier@linaro.org
+Cc: linux-remoteproc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	x86@kernel.org,
-	loongarch@lists.linux.dev,
-	linux-s390@vger.kernel.org
-Subject: Re: [PATCH v3 4/5] mm/sparse-vmemmap: drop vmemmap_can_optimize()
-Date: Mon,  9 Nov 2026 13:48:23 +0800
-Message-ID: <20261109054823.45056-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261107043122.25650-5-songmuchun@bytedance.com>
-References: <20261107043122.25650-5-songmuchun@bytedance.com>
+	Chrispine Tinega <dev@chrispinetinega.com>
+Subject: [PATCH 1/2] remoteproc: k3: Report a remote crash to the remoteproc core
+Date: Mon,  9 Nov 2026 08:48:29 +0300
+Message-ID: <20261109054830.42715-2-dev@chrispinetinega.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109054830.42715-1-dev@chrispinetinega.com>
+References: <20261109054830.42715-1-dev@chrispinetinega.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,22 +70,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Envelope-From: dev@chrispinetinega.com
 
+A K3 remote core that faults can send RP_MBOX_CRASH over the mailbox,
+but k3_rproc_mbox_callback() only logs it. The remoteproc core never
+learns of the crash, so its recovery never runs, the crash is not
+counted, and the core stays halted with every rpmsg channel to it dead.
 
-On Sat, Nov 07, 2026 at 12:31:21PM +0800, Muchun Song wrote:
->section_vmemmap_optimizable() can already decide whether a section uses
->vmemmap optimization based on the section compound order. The DAX-specific
->vmemmap_can_optimize() helper duplicates that policy, so remove it to
->simplify the code.
->
->Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->---
+Call rproc_report_crash(), which may be called from atomic context. The
+core then moves to RPROC_CRASHED and the crash is counted. Where the
+driver leaves recovery enabled, recovery stops the core and boots it
+again. Where recovery is disabled, the core can still be stopped and
+started again through sysfs.
 
-With the arch fallbacks handled by the previous patches, we can just drop
-vmemmap_can_optimize() now ;)
+Signed-off-by: Chrispine Tinega <dev@chrispinetinega.com>
+---
+ drivers/remoteproc/ti_k3_common.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-Nothing jumped out at me, so:
+diff --git a/drivers/remoteproc/ti_k3_common.c b/drivers/remoteproc/ti_k3_common.c
+index 4b6da3363..d799f377b 100644
+--- a/drivers/remoteproc/ti_k3_common.c
++++ b/drivers/remoteproc/ti_k3_common.c
+@@ -60,11 +60,8 @@ void k3_rproc_mbox_callback(struct mbox_client *client, void *data)
+ 
+ 	switch (msg) {
+ 	case RP_MBOX_CRASH:
+-		/*
+-		 * remoteproc detected an exception, but error recovery is not
+-		 * supported. So, just log this for now
+-		 */
+ 		dev_err(dev, "K3 rproc %s crashed\n", rproc->name);
++		rproc_report_crash(rproc, RPROC_FATAL_ERROR);
+ 		break;
+ 	case RP_MBOX_ECHO_REPLY:
+ 		dev_info(dev, "received echo reply from %s\n", rproc->name);
+-- 
+2.53.0
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
