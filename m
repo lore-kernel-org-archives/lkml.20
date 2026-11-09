@@ -1,70 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.50
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794240474;
-	b=Kz+D7GZnWmnm4a0CgJL9VPydiUN66+6PNAjn76gxgIJYAZeMEewjJjRhJIwt51V6Elj1
-	 V+UPnxtOwW1mkOPNixV3U1XxDFa3WBcVVG858wb5UYKAHj0QjvuQAB7519HeBdUMhapn2
-	 daiEPewT8u++sbFvF/3YQ44gawyFIja925LAnZIolyKznggd9nrHIb0qwANKKddVz/+rU
-	 Q9hg7XmdgWsVfBoXtM+YP2gfxn3w9xlTY7f9Q5ROqkJPMZskHDjhrRTu4U8srHCxyhnpI
-	 AvhAWPud6CSfZ4O/6KIfK2OSwsw/knEk4REjHRhEX1ZeEd7njt4AjvuOZexEoQ4Tt9Q==
+	t=1794240475;
+	b=pfLUMtP6fwAjd9OL5whECJb3IRtrhlAHB4p2TRH7hYyr1OUL4Kvt0FSbhKkEzfSs0UaF
+	 3uMv2Aihd7VBAb3E9+9VCOcJHXaFMIT+lLnkdLUKIgjO9jMFFwcJ5YYYnXPysdF943AqH
+	 zQqdu8hYmHDKrmPXZCNSabu2Y4bNuy4fdFomqLOlQGdVuCr+mhJj5t3PPSlD6LpADmT4Z
+	 Uzt39kF47G/EA8NlkGCamCvpC957rKJQYrpJLveXCEOpcVRsWhn4kdfMRxrQTRszMKDzp
+	 nSTtwWhBZ3sx0Sa3ohkM9q2G1Mebntgc0vH5zdZHK7Z6a7FyLskBN7R6QRCM0TzNU/A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240474;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=ISKGLUpt1UYNERR6aHgvOeEKzjBVTU3SFzokM3arU+A=;
-	b=oJtEKumJRarJCpWLO0gboJqLYvj0/oYvYiIbsc5kM7pfxorjqUE1n8XQ+i8vxAfpJELH
-	 45cRrWnbquNPg4tI4qnq+FYGD5fnRxEl7BIi8GHegxf52oyO5AxpMGCTWxhZLEjTS4OJ7
-	 BlN8w8f3KhBVgPuRqMHfd/33fSooWmqBhblDzUDWfxT4I7a1+xWITmfjX0Qxdfc8BiJAh
-	 qd2yIROSWcLmGouPwvpNJVu556apYrpeWSg2ArTZlK2kylGwhUc3NIk3mDo/tSl6Itlag
-	 fld8fOT9JaPNECsHGPOnaYVk/El2XfDmzF3dheG2MS82pe4uhnmlLMyh+GlX2+POn8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240475;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=MbwONemvQTwiYEvnpJlP+l9rrcIEBnFd/b+PD1QFDBQ=;
+	b=1ievvVToMFOd5OJTCjdVwGcoW8s3WDvFntQ9q99ipyrorFIuaA1qM5zPRo9eK7L0IVe2
+	 AHvbsiDh9jbSuG02F+x4Rsy57rjtYqYLGSbmzNDEhJ6DV3mbw7aNCd5VFT/GUXaZ4CBEJ
+	 kjwijNrCUodJ0Rq+IiKzp8jKYSWZ5sgQ4zKH74KnV6IkzgNJsO3Hw75COfg79Y9QCwc3P
+	 S4ZkSVdlOC0ogMc0tfCyN7NHwrTqpFbfVvf9oDUlp15+tw5jk3yQnbTnkseuWJF5R7wdq
+	 79LX9AnwhUnNSMbVN9OHWxikGhWPUm4KjRwVQ+PEHlgrY74HfX2Vd3i9hkJp//UFq6w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=h4lwjvwm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bqGE6uj9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE848606A334;
-	Mon,  9 Nov 2026 16:07:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE848606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DBC606EE84
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:07:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1DBC606EE84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=h4lwjvwm
-ARC-Seal: i=1; a=rsa-sha256; t=1794240453; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=FQ0Ou5TertaLNyixvqyYcdZGcyrMnpO2d6bsnzYtVML7BGebRRs5q4SK2y2cif7T+sTe8Gip0uAWkiD8xeIta2vbZcA3jD5tmAEPqZCBHzC/WfN2/AwmtoaM6oSW4zw/dWAUxCxymqHYl7IXLASPSDnL52wNsaxJYdq3Ami1yAk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794240453; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ISKGLUpt1UYNERR6aHgvOeEKzjBVTU3SFzokM3arU+A=; 
-	b=CdwpQl4U+6gQ+8IX/Mv7nT0b9BtWKGJNUZobqSxn1qIG+5BR5u68e9vqZNddIOGeAZOg1+BOddwu4TLdExr2TXx00jdyWpHvOrpjR4seH4gqa1KApCVNDhijLaP8Zr17dRzIS/AeAgCIOZxRFh3ZjGS/w18U/0NyqeqOreJfGm0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=h4lwjvwmOASGTjovwixB1KTUzCTtwPXl+BDlY4Sd+VUkW/oovwsEi+HhWQsXm2mv/TdmrQUW9fAwT/iJnWHyYYRlihGIyVAyLdthcoJSHbN95Z6S4sndPvMu1lm2wMsAcOogz7BerUJXB203rW8EkYV7o2J93G11V9odGzTkHG/1SMhOOpQ5FMKGCYcpHFl2iWIU+3KkCgwfGEixJv76Eg4GeavuzW+c/g2ZYQu98LDyKQn4P1MojkwbXj/eMVUU0Ua2L1NH3sWSLsJKdr667qgbpER8AZ/DolTo+kx2vQA1YETnu7SC+x860CHx7eU36+eO5nfiWGXB5hp8Makgig==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=ISKGLUpt1UYNERR6aHgvOeEKzjBVTU3SFzokM3arU+A=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794240451784126.75966880679846;
-	Mon, 9 Nov 2026 08:07:31 -0800 (PST)
-Message-ID: <3d762fda1656de26395b6b875465e1dd4a2b23b1.camel@rong.moe>
-Subject: Re: [ibm-acpi-devel] [PATCH] thinkpad_acpi: Add Auto mode support
- with dynamic max_brightness
-From: Rong Zhang <i@rong.moe>
-To: Qiling Zhu <kmatzkaczor244@gmail.com>
-Cc: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>, 
-	mpearson-lenovo@squebb.ca, Derek John Clark <derekjohn.clark@gmail.com>, 
-	hansg@kernel.org, hmh@hmh.eng.br, ibm-acpi-devel@lists.sourceforge.net, 
-	ilpo.jarvinen@linux.intel.com, linux-kernel@vger.kernel.org, 
-	platform-driver-x86@vger.kernel.org, vishnuocv@gmail.com, vsankar@lenovo.com
-In-Reply-To: <avEuoeuFSwDUbbgL@ThinkPad>
-References: 
-	<CAENjc+w0Rqy=kDSew7XtNJCSvyPiXPJ5faWdmCr5RGYFhpunCA@mail.gmail.com>
-	 <a21d1b534d4b7c8cd27811e1c1f5c8be790cbdeb.camel@rong.moe>
-	 <avEuoeuFSwDUbbgL@ThinkPad>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 10 Nov 2026 00:01:20 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bqGE6uj9
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1931ff67a29so2785528c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:07:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794240474; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W7q0yHtEwXxyseBmk2Ht+Qh9pK1sGhlejtBCYwA33tBNFaP4G31sGcoBo0Gqy4ZYpp
+         71kPuIsCLtpSNe/vtdtSIZ0sooAi5nTBa1jghm4TUz5N+xeguXBc4ZsRfUXw87a7Z5Na
+         z6W6nFXY+6KCxTOUExBbx3VfML/zyIUi2bd4ZXo9NeooNVKmwk1goFYfRaHIkR3xXFao
+         xV4nYh0sJGkPo1p9jwyhD7LOoIQcxCf2NI10gsQORP+X/rGM65MDMRcUsfD7yDK0zGWA
+         43Vn7mXBWsu+Lyff8bAu1vxofKuQcbYL3Y2DvK93t4C9DdPI5E+WDioVEeEmogezhw7P
+         ivMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=MbwONemvQTwiYEvnpJlP+l9rrcIEBnFd/b+PD1QFDBQ=;
+        fh=8crguad2bb7hziGmSdo2T6icWAP1+BU5UlK88/wDzI4=;
+        b=gNXxKMqMLAmknhyVoC1iZG+7ZijHWdd0t9xZ2Aqpq4u5z9jvRVFYTzpQp/heXSWQ6M
+         JCzPFyqHwK13cTWvABXJjkZCLx65gfyDvM/WfkmY0n2G8Ad9DUoCxp0hTQTnpcVAcJcV
+         flmddkakeJ2zWCFxxAL7mE1yCByabQJBd9fzc0fMnHPsC99zMVoG3R5gvtfut75Pf+TW
+         oMFRa4r8D8Ao3Q6m/pUqtGPveupHcn6I+AO3nkQq7gJn/9la/tZGbaSzRQyYXdIU7nwC
+         j3yvJ7NelsRt8F6guQMe1CxN9DH2OHPG3vr9EU0+KQBqPukao7emFLHG98n1rXrsVmtD
+         CIeA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794240474; x=1794845274; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MbwONemvQTwiYEvnpJlP+l9rrcIEBnFd/b+PD1QFDBQ=;
+        b=bqGE6uj9fKNrG3w60stdKMh4HkVt8FhOYmdsnCe4TVSocwnXywOb+5yHbPTKcgBfcB
+         24sIIhOCRIpBIAHL8ykVKY6f1y9oj6FVgZNKihX+p7xXKXhf2hd9n18VlVZRd5UEK2TC
+         360/o11TUVm8T2JwYmSC9DN7xhrMXgjAf3UzdZ5LwFHaNXt/ewz9OrucTI1Kq47o6hpj
+         zb83MyoEqsO0ZR05PKUu5U10cJr2zvZO5ICX+FlyUxmtUdMikqYc5HxQ0hSaqc8rFk2z
+         /oVTW00zFJcwb3FEQQiz06zNvurrx5ypDVuEpVFB0joXKVBkl9pD8dr5TxhzRVPGQlmg
+         ne2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794240474; x=1794845274;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MbwONemvQTwiYEvnpJlP+l9rrcIEBnFd/b+PD1QFDBQ=;
+        b=ffGylF0TlW3Mpx5J3zcmmeTxsWoaBAtPmKWa1JqxIDpPcOZ9F9imxknYIPPN9AogGC
+         jmU59BF4RteaKo1+LCRtTFkov7EeoHUOaAlZzMxjE4Q5XDQv6BgqRzBCQv4UuO7WTWKh
+         H7xMhzGj+hlzxDWyP3LUDRjWNUFS0lzyWMs2QTycVs0kbl9xPYk5eF7GIjOFqRAV9Pqd
+         iO9TJ4gqoF+qDef51a7AFDrHpsBeXY5BYqD/8G/QRvA864vdmx6MG0z+5GZKPV8wgrSq
+         U1SdBqZSwO9Z0X9oREv/DVYMTevP46GRK20nXP1kgmWFJALEyBa7pXkJRjFMM3dPugng
+         w46w==
+X-Forwarded-Encrypted: i=1; AL+hErE6RHrsVeV4KefyGIauGLvtR0xqweB9IA7aLkjjEHwZZUoG4Y2mnrmPApPokJuxqbVxc9exYI57lmoqgvk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/iATeztGAnpfEJk/f6yXoprvJYt2ucj8/tAXP68pEzyx3p4vJe
+	xdjVp+kbzvDTgGoWVp6x4OGhb5XjgkY7DERsyZX59WvnWOsddbRuVj0SMyDFn8t/TcRA1WHXRcS
+	CtpKfKD4UQMrf9e11DmmY9knO8m8Zy8JxfpJHXGIKjg==
+X-Gm-Gg: AYBFou0jHuUgUtwJpLGnr3jI9occUnvFZvkfJep7RqwlNTBCkcVfubCP3lp3DDeMJMs
+	e79Ui1U+CGtcieijxsk/fe8m1nLI6K/uw3qxEUh8i/hy/444HF/Zq6XvG2ramRtKHpN/bcZloOj
+	gc8nI3f6lwMZj4WJLhI+/1FvnTHBWr4DRcpCBA+P0R4DYqDAZXOPgln9FyVGuhu5HkvDLzWsDXT
+	XXmM26GgqvaD8vXkIDt71EaQ2HdUw5559OldrTnk5lfywKpvFlRMPzwGE5wuHwbIhfVTpOdrznF
+	9lEJKaU5EuoohB2kFvs3HebU4ptxvsluhP2X7t5kWfnwFlaJJrry+MqLCPKn4ejddQ/WM3IjH4s
+	uR4bFcYfKXG8+idoKb40/yQr5dEAbwesYapb8f715yXcmyCVKXUoBLQ4sqe8EdqS58zaO6xc=
+X-Received: by 2002:a05:701b:4284:10b0:194:3a84:e67a with SMTP id
+ a92af1059eb24-1b39ff06096mr7491026c88.41.1794240473701; Mon, 09 Nov 2026
+ 08:07:53 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,99 +103,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-9-vincent.guittot@linaro.org> <20261109144350.GD2668564@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261109144350.GD2668564@noisy.programming.kicks-ass.net>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Mon, 9 Nov 2026 17:07:31 +0100
+X-Gm-Features: AclHuK8HkNgfirok1D7dYwfSows5oKF3C-rSYYm8dDteUYYcSG8yjSHtd3IxClM
+Message-ID: <CAKfTPtDcu6HS-G75bG7xp10t-n-XceneFtqxa_cAd+B96zCJiw@mail.gmail.com>
+Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, lukasz.luba@arm.com, 
+	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org, 
+	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, 
+	sched-ext@lists.linux.dev, qyousef@layalina.io, christian.loehle@arm.com, 
+	pierre.gondois@arm.com, sshegde@linux.ibm.com, kayracizmeci@gmail.com, 
+	tim.c.chen@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Qiling,
+On Mon, 9 Nov 2026 at 15:43, Peter Zijlstra <peterz@infradead.org> wrote:
+>
+> On Fri, Nov 06, 2026 at 04:19:35PM +0100, Vincent Guittot wrote:
+> > +static struct task_struct *pick_next_pushable_fair_task(struct rq *rq)
+> > +{
+> > +     struct task_struct *p;
+> > +
+> > +     if (!has_pushable_tasks(rq))
+> > +             return NULL;
+> > +
+> > +     p = plist_first_entry(&rq->cfs.pushable_tasks,
+> > +                           struct task_struct, pushable_tasks);
+> > +
+> > +     WARN_ON_ONCE(rq->cpu != task_cpu(p));
+> > +     WARN_ON_ONCE(task_current(rq, p));
+> > +     WARN_ON_ONCE(p->nr_cpus_allowed <= 1);
+> > +     WARN_ON_ONCE(!task_on_rq_queued(p));
+> > +
+> > +     /*
+> > +      * Remove task from the pushable list as we try only once after that
+> > +      * the task has been put back in enqueued list.
+> > +      */
+> > +     plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> > +
+> > +     return p;
+> > +}
+>
+> This means a task will only be pushed once? After which it needs to be
+> re-enqueued on the runqueue?
 
-On Mon, 2026-11-09 at 11:47 +0800, Qiling Zhu wrote:
-> Hi Andrea,
->=20
-> Thanks for the detailed report! I actually noticed that the keyboard
-> backlight OSD started working in KDE after applying my patches,
-> whereas it hadn't appeared at all before. I didn't look into it
-> at the time, so thanks for pointing out the likely reason behind
-> this behavior.
->=20
->=20
->=20
-> On Sat, Nov 07, 2026 at 11:11:08PM +0800, Rong Zhang wrote:
-> > Hi Andrea,
-> >=20
-> > ...
-> >=20
-> > +CC Qiling
-> >=20
-> > Oops, this indeed needs a fix patch for backporting.
-> >=20
-> > Qiling, while you series will fix this, it may be better to add a fix
-> > patch CC'ing stable@vger.kernel.org to the very beginning of the series=
-,
-> > so that the fix can be easily backported.
-> >=20
->=20
-> Thanks, Rong. I'll split out a minimal, self-contained bug fix
-> before the refactoring and feature addition, as you suggested.
->=20
-> I'm still learning the upstream and stable backporting process,
-> so I'm wondering whether it would be better to=C2=A0
->=20
+Yes, my goal is to keep the list small to avoid ending up with many
+tasks to push. So I only check if prev could be pushed somewhere else
 
-> submit the fix separately or=C2=A0
->=20
+>
+> So if it was found during migrate_disable(), its thereafter stuck? --
+> this seems a little weird.
 
-This is preferred when:
-
-- you have to postpone the full series for a long time (say, a month or
-so)
-- the fix is very urgent
-- the series is far from being ready, i.e., still needs a lot of review
-and revisions
-
-> keep it as the first patch of the next revision.
-
-This is preferred as long as the next revision will soon be available.
-
-> Submitting it separately could get the fix merged and backported
-> sooner, though I'm not sure how urgent this particular fix is.
-
-I don't think it's urgent or far from being ready. Thus, as long as you
-don't need to postpone the series, you can take the second approach.
-
-Thanks,
-Rong
-
->=20
-> I'd appreciate your guidance on which approach would be more
-> appropriate, and I'm happy to follow your suggestion.
->=20
-> >=20
-> > My opinion:
-> >=20
-> > If auto mode disables keyboard backlight most of the time, it should
-> > report 0. For example, when the auto mode if backed by an ALS sensor, i=
-t
-> > should disable keyboard backlight most of the time, because most users
-> > seldom use the laptop in dark environments.
-> >=20
-> > Same for proximity- or activity-based control, as it only illuminates
-> > when the user touches the keyboard.
-> >=20
-> > The ideapad-laptop driver and Qiling's series have already taken this
-> > strategy.
-> >=20
-> > Thanks,
-> > Rong
-> >=20
->=20
-> I agree that mapping Auto mode to 0 makes more sense. Besides
-> the reasons you mentioned, the Fn+Space cycle on my ThinkPad
-> is 0 -> 3 -> 1 -> 2 -> 0, as Andrea also observed on the X9.
->=20
-> Mapping Auto (3) to 2 would make the reported brightness jump
-> from 0 to 2, then back to 1 and up to 2 again, which seems
-> rather misleading, especially since Auto mode does not represent
-> the maximum fixed brightness level.
->=20
-> Regards,
-> Qiling Zhu
+If a task is migrate disabled while we are about to look for a
+possibly better CPU, it will have to wait until after the next time it
+becomes current. This is a simple way to pace the number of tasks to
+push in one callback
