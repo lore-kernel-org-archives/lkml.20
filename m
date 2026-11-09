@@ -1,58 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794267026;
-	b=s9U0O43g5NNNQ0L0fs2BDR+FiCXj/VyNarqPaESO/+GSPPGXbZ5odv8dx/ERPteNdkuK
-	 OXb1c2omKcI64x6QkRa/24i+KuMB+Ch2cKfR79uiwChsThpbR4D9pRD+0k4xmX4uehyDb
-	 tOhZ0c2Mopp/4xLoQapdOXcv+t6SklOnAJhc7+c0XvGp6IDYGUgjPijFLMiljTMTYIu0W
-	 nxoDmZAp/KpCSvzF8agX+0ygexLnl7Xo6AQgir10AVTpQFM6FRDPfxrTWkroiP1qA2JmL
-	 rshJWUi1popbtUqCiEjbu9jp6sFu0vCLFdYRBGrMu6LBqyghJSp5+Flu2joJoxrUi7g==
+	t=1794267030;
+	b=P62bo795oxwEfITpbZm7frNoOkP7zuloNhipql8lrAAw1LNtYY4Y2HeIadD1dGjmXlh1
+	 qmCr/g78UU2L+2Rr1lvXNoaNNA710JolNnnKWovYDYpArj1KAHPSzQ+Nzb+zzHRUu8CyF
+	 DIBNDTdjxriskvG3N5V5BhPOiEBHiFaWjAQtNGbBhoh/60zKlDnBKujgH7JgE8a51H9p6
+	 Ue47LxyUw1UiT9XkV/0d+K6ZUS6ujcDkC2WBgMUNjOIeQBMJpDIBcazLZa7E7GMcMrBTe
+	 sOKbEaaa8KgY1OkIwSWhYwlEh3tHMYRE1UNT8Ud1tdxmyqJBCCQpL25HbJBPTeqIJMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794267026;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=rDufbgU9DjjArVg6LYOFxMbFtdAImCMn0ES8uFPgnOQ=;
-	b=zttjgnDfBjKidSt8IFDoQNdeqZfz9CQODlYteJiDHCvHrrSUrkC0ANQxPv8+8A3BnY0s
-	 JBGdwTHbBoySwwS6pCnvsy7T04tgJz2YRcst84idTufCwq4nMFqlMR/dmX79thM52Ha1I
-	 kuNBZHZDMR8S9Ghn4LiZND2Mnx4WQL8Ib5l54ErcmdxThwqN6Bmw82XPTHL8MNYkBEnVI
-	 WrBsX8Ws/j6MKOPi+bQRrLl5+7+3iXLBn9xfNs4t9AQF7O7wL62ONklW04w8OomNjT+qc
-	 ZMx9HiYIqaYhoODFd6SgpR5c/CjvlyOrCo6SPlTTgHpiVDWlTtSACWl13updi0sxhsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794267030;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=JmASC/2ykPTmrP4QNaDXpA3LsM8BcZdtf8jvbdaN/YE=;
+	b=ODiHY5fROJmbms+86k8VI9bqH/SnFSqkb9kzY2PcsFEzLlF7b8OW08bhw00QMMeL2ydd
+	 JTmzUB02RNPAMnmdSoCB5Xx/Ox3JXPAz3vW+b02CCvqFMhoMOIWkNPho7PgJ1hh+UH04D
+	 1ImssZWLjTOpAJgd3ODrV9vsQKlGFYyCAedGS/zLsM0GRvdoMWdh2kFBwjk/cr35zAsmq
+	 yRzmD06+trGac1y7Z9JonyXNILC2RvNwYclin4CnvW7CoVdtXA5sva7q0e80s+/FhcyoL
+	 N5wgUJ/szmvE/pByZj1PDcUS1slc95hrMVZ5oPmqncBh+RE5T7HZxZtXqkdGnSAT7oQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdYmwMWM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJkJYljb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49D4606A339;
-	Mon,  9 Nov 2026 23:30:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B789606A326;
+	Mon,  9 Nov 2026 23:30:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kdYmwMWM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 230851F008A5;
-	Mon,  9 Nov 2026 23:30:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJkJYljb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4BA91F008AB;
+	Mon,  9 Nov 2026 23:30:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794267025;
-	bh=rDufbgU9DjjArVg6LYOFxMbFtdAImCMn0ES8uFPgnOQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=kdYmwMWMJqLuN46lAKr0eK2PIu6P70TX7SXz6Dq0517amU8TLpmYy+Z3D+PyD3WVQ
-	 zwxxWsVOoxuSUfQ/hPX8FcKGwkbM7dfmIQ5ERc2h73BFWy5np83tn4llj6qrv7Oe4r
-	 pi4mj0Rt0M9eeCEjIJZk6z43LupQR7m3U+L1AYQ6tShotAwHrJIbz9xg+9DlkFEBE+
-	 pt4qZTJ6YwzZ1eDEnYhw7nxmo/YuzrjakdBQ2NCKhmIl7mypQMV+FwrfQIO9Rb1WX7
-	 rzVgpUWWdgoLxBkwFn22DgM7HGez6fsdeoWC0aGTtjX0j8yiHPDE63x342w7TPAbdK
-	 Q/MzJbbg9YpVQ==
-Date: Mon, 9 Nov 2026 17:30:24 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Cole Leavitt <cole@unwrap.rs>, Lukas Wunner <lukas@wunner.de>
-Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] thunderbolt: Don't resume the software CM if the
- host controller is gone
-Message-ID: <20261109233024.GA346916@bhelgaas>
+	s=k20260515; t=1794267029;
+	bh=JmASC/2ykPTmrP4QNaDXpA3LsM8BcZdtf8jvbdaN/YE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=XJkJYljbRx9yqJVdE8hLep9GsGmSyaYObPKs3ZnLfiITnHXC03hfsbWZtS80Y5Op8
+	 jjTaTRWn8+GZ0/4l1zI9uuQ14/51ceSctblK6uJ0/2NvZIa7oOcRqEBQmsrKAbQf4k
+	 E1+Q+H1m8Gt4xhN6Yz3Ohhr6Q867/oGrzfdB/PfXQrwr5SzUB2FQPSvOMBE8FZTWae
+	 T9HSn6EHYY7IpiimaZnPgx6k0gFy0Dmnqg/LWjw9qdvmzXgku6c5BcgyjbPxtAQDlH
+	 mLQ38qSrkS6r0fsLS3tq1fXmk7/qq0wuchFsExGOMqfyIwNpAMC9mKhDNk2zO4BkUl
+	 wXZwkKOp0BYUw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id AB847391AFA5;
+	Mon,  9 Nov 2026 23:30:29 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,40 +53,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108051829.152803-1-cole@unwrap.rs>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next] rust: netlink: remove unnecessary bitfield
+ transmutes
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179426702842.3543549.289908194176999743.git-patchwork-notify@kernel.org>
+Date: Mon, 09 Nov 2026 23:30:28 +0000
+References: <20261102023301.206989-3-blum@kernel.org>
+In-Reply-To: <20261102023301.206989-3-blum@kernel.org>
+To: Thorsten Blum <blum@kernel.org>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, ojeda@kernel.org, boqun@kernel.org,
+ gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
+ a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
+ dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org,
+ acourbot@nvidia.com, work@onurozkan.dev, netdev@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
 
-On Sun, Nov 08, 2026 at 12:18:29AM -0500, Cole Leavitt wrote:
-> Hi Mika,
-> 
-> On Mon, Oct 19, 2026 at 06:29:20AM +0200, Mika Westerberg wrote:
-> > This is not supposed to happen with SW CM systems. I've seen a couple of
-> > times Lenovo BIOS has the PCIe root port hotplug enabled and that's against
-> > what the Barlow Ridge BIOS configuration checklist says. Please check if
-> > there is newer BIOS (Lenovo has been fixing these) and of not report it to
-> > Lenovo.
-> 
-> Thanks, and sorry for the slow reply. You were right. Every oops I
-> captured was on BIOS N4FET30W (1.11), where pciehp was bound to the
-> Barlow Ridge root port (0000:80:1b.4, "pciehp: Slot(25)"). The machine
-> now runs N4FET52W (1.33), and that root port no longer gets the hotplug
-> service: only PME, AER and bandwidth control are bound to it. So the
-> slow-link "replacement" that started all of this cannot happen there
-> anymore.
-> 
-> Please drop this patch.
-> 
-> For 1/2: the trigger on this machine is gone with the new BIOS, but the
-> ordering problem is in pciehp itself. A device replacement detected in
-> pciehp_resume_noirq() still starts the removal from the IRQ thread in
-> the middle of the noirq phase, unserialized against ->resume_noirq() of
-> the drivers below the port (on today's mainline, fa4ad798f6f6,
-> pciehp_core.c:310 calls pciehp_request(), and pciehp_ctrl.c:145 wakes
-> the IRQ thread directly unless pciehp_poll_mode is set). Bjorn, Lukas:
-> if that is not worth changing without a reproducer on correctly
-> configured hardware, I will drop 1/2 as well.
+Hello:
 
-It sounds like there may still be an ordering issue in pciehp, but I
-would want a Reviewed-by from Lukas before applying patch 1/2 ("PCI:
-pciehp: Defer device replacement handling until ->resume()")
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Mon,  2 Nov 2026 03:33:03 +0100 you wrote:
+> Use __BindgenBitfieldUnit::new() to build the bitfield.
+> 
+> Since the generated type implements PartialEq, compare the bitfields
+> directly in test_family_flags_bitfield().
+> 
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next] rust: netlink: remove unnecessary bitfield transmutes
+    https://git.kernel.org/netdev/net-next/c/ce8659b5c8ac
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
