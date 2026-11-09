@@ -1,105 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.222.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794254141;
-	b=T5Ad8sm/fJFdC6uOuPzVivqRD+xJlgNKkaccTOa4fTgLVWwwjfg3UM+3d4NPgnVF6tQl
-	 sYqNhXXiqGYSrUNfsBffF7g1f0nfN0i/KX5p7kyAqWzU6C+arkCrX+uWlvGg4VNrdxV6i
-	 OYIjOx9a8Ous7dzVjJ27yc43IM7j9TqxDGW/TzhO8RtGvHhbIHogGlTw6DPGXGBohZCJO
-	 hRIAaShCpbyKpaVLmIoAvhYOIbThc/trgrBrEBWzREXKhEheyoqXNLD+BJJF3oiZPobpN
-	 0+3NnEOQ4T24SWT7PyWtWuNrGMXsJFUwUCnltbNDqSUOht5gHDDs8aJc153/8nfO6Pg==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794254154;
+	b=Hh6fEVHEz408LP+8rNl5v6X3sEn9my+Hx2D6LFDb6cvCa/NIasHz+vD/8M/sjrDlwLUX
+	 urRMuUmKFp/zhVHiUDvFDVa/EV4IMxCY7AOF/dKR88lpjc9MdglXoZutb12rDYXrnKVPS
+	 PQq0rJx5iyPsGDZr8fQ0jH3FfQ5v4IKBMYvjzsaGSNcgMeNkcNj0CBinHIVGbGsYayQIu
+	 6Ch8xdY8M4enaoOWAShX+RWsIiVfRyTrOZoxkorehVVpxAT3TNKNoe8E+OPSQgI+HSxrD
+	 JHwOvsLb1ZZDOC9Ct+ipDJAbPCJt0egoRzRpEMLC9TlvZPMnQyW2HGiJZ4UruIB1A+g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254141;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=vsEcZqtV2lv2QZR9DYMmC/AF0mepkP+kQ617u7eTRdo=;
-	b=jpefuGN5YvEcdyY1gM+etmmOk5rxqWfew6wuWKRXzhBpe/OCL3HmgWywgKSWki+gElC1
-	 aDZ2UIgfplJhx+waRcvUMxlR8H9RCVdEBZii3d9wZs9EfmsEp9d8X8GRPdAIo+KSBiOJY
-	 hEYQlWUUHfVMPCk6O3T7cgkatjRJB1GVBbSrVPHQpaIbmV9hOCzBXNMloxjMaawi1h228
-	 HNjCYbSATNjKCydUzz3wOdT+KorpFKQ50jh+YHaKd9sGtf1DeQp7h5VwQOKQnfAtbUOdp
-	 w3kILpfisrBKwVvz7Nm5GEsVDael0iSrIJTCfOtJzTZS64AYDz4f4TVog7kvu302iZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254154;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=o6NBk1r/AAcE17Atzf9StQ8uJWcg2yKOH1Jf0XPY8vU=;
+	b=QcoQN/dJKouw+gQyuT3xBtdRC1z3vJPZcmvjPz5SJ+mmc/R6JWcd8+w7XtlS7Eyc7mnf
+	 d6C5/RMR6bnpFQ936JlIYpyMJtd9JtTEyXipSnwAyjTngPLLxA+28+ZEJsvPVAH0dU6gN
+	 /1HvN+VxrRaQcbtO+lzo5x8VWWlwFFZ82KQSK0PLwJdgm7mwuULSvzS764bk1NVKKxQRR
+	 niQN5sS+mg4yG+vcttYRHoi0r7qKH19YyEdWebT03WzBUoRtX4ycg9qCZVHaIhYOz5XVf
+	 3CNpkmA2LvJBFyglWaBM3K8XEFXX5XbEIFLl4HY2HzzMa/iniHEAbUobNnhTG5S98sA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nNuGxWm8;
-	arc=fail smtp.remote-ip=209.85.222.182
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fed6f0XB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3472C606A321;
+	Mon,  9 Nov 2026 19:55:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fed6f0XB
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794254153;
+	b=DO7GDenKUZnpI/P31dPed0NZOlokQR3OpCBpqFpXP7lhtVSvQTM6pkjqLZuEPT7HB4Uv
+	 rrEIZu2sLkAowh33mQth7u0vgLZOTpWf0zo7CDL7VO9VN0n/RNBQeSX7FBfaK5hmFoC6Y
+	 rzX8rDO6i3r95cPG29aw2aiLD2frXe/RbOGqZV+Di8hS9WJTr6Ml0MkFV16diWK0vn+0x
+	 VHO4GiTY/fS2CFbdmZPOCkClvtB7FLFzWQk8gQ5uJVQej7YnRujRoy8CoqwY7sRUzd4mI
+	 KJdKPwccEUwPD335R3U+O19470rVohM47bp3oYToULLA+wcNkwCmLnf5xTyB/ESGYLg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794254153;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=o6NBk1r/AAcE17Atzf9StQ8uJWcg2yKOH1Jf0XPY8vU=;
+	b=CWHg5djVtf25B1rfG25yZvrQ4Xsj9LMSIp2IC8Xdio7ih6JouLCgIgCLaN5j9Vt1MARg
+	 LoJZMdFBhpnjz+wylQFHWBTukhX3qkV6lvA2VlCmsUcX0PYheuqhAuF0Z4+0yLDL4CBBq
+	 w665M4kElmmv2egLeB8FYnk8SbAI5jBxAWJLeTw7XJ8sZIH3zXRoPXmWAVhtq2tPrVsmV
+	 wAwvWeORHanEiTL8jugx7dc1/VTBdWJG0Vaso3qjrQJeJWRua/1TlzlYyCwIxnpaTl/+a
+	 MocCtP4tPbeJEgcEygTYb5cLRZfd5gBFoRyN5CB464qB+GrwPBKPRncLQBpLLHAFNFw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D38606A33C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:55:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98D38606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nNuGxWm8
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93f3c8958d5so139710885a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:55:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794254139; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eT/L9Cg8IxQO+7KxbW0lXHjAsuG5UWkcTyjTwwfe/bTtt/6ty/IC6VKX1tkiju4z9y
-         T9fxZlnKBpiii3Vbgbzhx0GB/kWEReU1BVTS7BOVKXncNo0ZO4BHVhhfMqSCQjbvqLDr
-         NmWoyQB8C54/lcFKUz0PpRvUmovlZlbk9dmDRDYixiAdbk+0qs0kQNynWBMehKyxn3tr
-         xbOLQLhx5JpvsCWEw6XeeELYVZtf8az082SpnxAnG2KhByfwocS3vxRoG88jK/jTFBQq
-         DKrD2T2LLwQPwd+vnIGcK+S7EiGA3WkbDMKFCjdgwh1jAEth/EdL9645eb6Z1mEIYxCs
-         vChA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=vsEcZqtV2lv2QZR9DYMmC/AF0mepkP+kQ617u7eTRdo=;
-        fh=QJRahQoyNThESY4lXlYpXZAF2lYJ2xRMQTz0KOiBALI=;
-        b=o3zJ+s9dxcikOP9rowwJvqKtoC51kgL00t4Q0iIBfABV11sXB06D0s58H3d3ImrjyF
-         h1WWvv7goupDUfvmahq1DDBtPuIu8RxMaD6MqIFdleOcNG87rEhxtU29Pk56EGw2mnkQ
-         ddiPEjWQHLmkdQ8slX6m4kfcry/fby4IYfJ7eUeg1VXrFquSJ4QKyGBhyt2hKJMZ6bws
-         z8HCVyPZhB2q0kasBgaC5z51dYn4W+lRa+1Gj+5+VXmaL/PcP7IvJIhWjzgQGyWKfDQN
-         e5vIHLI3mGpRTSBJ9p+jhm4DYTzscm4Srv9bjBul13LmCvbw6qpYNOJIayq1AGPK+/zy
-         qePg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794254139; x=1794858939; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vsEcZqtV2lv2QZR9DYMmC/AF0mepkP+kQ617u7eTRdo=;
-        b=nNuGxWm8Llt4wMSkTawrXFCtJ01glbLkTUhNNxKxqyXsBD0dSWALjhimvqMhO2OxRn
-         QVdVQipKx5PjIzJEQQr/sF8toDoGfl0PguXQ/4OZetVUxLVDejmRRFUvTHUI/MQDaUm6
-         8xQcLCMRsZ/aD7IQSLJ8XJcnm66ipa+y/gsifit5VlukaYh7OimEPUbRz2bBDAJ2WA0s
-         jsSVMH6GELppwjZ5ZNBP0ONytHjT/rt0/OInzCOvGgAOh7rMmMb0lM1H77QtAB/hxoyt
-         ZF/DPHqsC6C3PkbWztg92OZJdOSd2fcopjzCFlKGZ6+neC1XBI7g0tv5xX/u8f5p6+/k
-         UDxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794254139; x=1794858939;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vsEcZqtV2lv2QZR9DYMmC/AF0mepkP+kQ617u7eTRdo=;
-        b=bLUYIMOWMdUaEOPufDoKMbLNvf5rGva/ZXRdTtnTlsACG6ZlS/nsxWEy7BlehAR4pH
-         hNHpC60u+8M8oxnYsS9sFucXSwgx8HlP8JaRloU4sgyfvjEAOvjx0xm5q0j+8BMSeR0L
-         DcRNkQZ60z6r0LmbtU7C9fRq4udbqT1JXMbioc9Ct2himfmGqQIK77YgiVuBeDG6YfrI
-         ywHOBDf3yzMV6aIZxjd/NHI7UtzcK6U9Sij/GB6KXkpD6UAyP1K7i0v84XgdUaKOg2rX
-         HpoP6JgFVacrHCXlHYr0BbxY1SMLh3sMg8j+dxHN1P7vy2IPrwJQD7jpVqtqOtCLSqLa
-         BleA==
-X-Forwarded-Encrypted: i=1; AL+hErEnrOCpsW7QWTdWOcEVe2a+mt+WqO1hEQxkhrDeUWJwu6JCI3q0XY52E2zhrVs6xypMil//4+SStgli1fA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9CjL0Yh+kCh0hLoU9mTENxl/SNlTclljPBOs1gIjus1SwmmkID
-	XzDx8SzZDSyogzy63cQ+IpbDzik9mLR54PxYOU++cRsacHQqsT3x1IDjZdmUFc4r3cAQe41jYg4
-	ElfQDQ2nNWi69EbKqtPiUyseE5Jw63OpS5wuP+Ret
-X-Gm-Gg: AYBFou3TykXD6Brt5mouoUL0y7HHIjVztFzqmNqE0iFYztR8OtIRq+w38RN31dlR49Y
-	ujfQk2i39f40ZZVFuwnYKdfXthLDZjr1LDxClfxoK8xqZBp/uetaVvlWKAM/+5PEnD0htEkEzM9
-	RQzKsCzcCc1BA22jWr8i1eWMVH+YQQG5NrNCu+OjQRUUhO4vY+K6lfRPfn0LjiEcwERp7gKdH5p
-	3lADXlCE7ezspWGMm8h3CU1SGxQ8sk3l19PtgpOUJTDF/rnyp3IJkWpykvzYFm4WhOqIxiRnsE7
-	CwV1BqHXAqjuZD1KzznrmldXDEqih364ZNw+EapK0sU/+xuo8/4XP4ST1OP19VC21ulsUcortyR
-	zT0dUPiKfuLj1B84RpxmyYv1BIVnFmNzm08KqahU9LjKKQEEu+GJKKdFXjGDsmRMBgk+PdBJKy0
-	btFkmQqyS7qm2lQn/RRvFqxtE=
-X-Received: by 2002:a05:620a:710b:b0:93e:49eb:a274 with SMTP id
- af79cd13be357-9479f2fa7d5mr94788085a.23.1794254138721; Mon, 09 Nov 2026
- 11:55:38 -0800 (PST)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 9 Nov 2026 11:55:37 -0800
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20261105-tdx-selftests-v16-9-2024e8fa517a@google.com>
-References: <20261105-tdx-selftests-v16-0-2024e8fa517a@google.com> <20261105-tdx-selftests-v16-9-2024e8fa517a@google.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 2D6901F008A1;
+	Mon,  9 Nov 2026 19:55:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794254153;
+	bh=o6NBk1r/AAcE17Atzf9StQ8uJWcg2yKOH1Jf0XPY8vU=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Fed6f0XBhHTF0T2HKf5ocCn/H9fr8e/rD02uvKRJSZOIKSaiUJEhGmv9bkcVOLYgq
+	 lDUZkjNSGQlT5KkC0N7ChErnX9k/U6nDh6YHo2Snyho7cRYhSo6cQVy213ZqoeHMLv
+	 bYfh9S5HOF2s9pG2WAtU1pa+m1CNlcc56iHgRqPfdeHES3KknRimG51ZLHqJN2fhs/
+	 /crkSvJxAqbpilyQTTpoi3yf6TOBgoO6JVdbggN66ITxNxqMWMOimnFjjbM9npyXwj
+	 ij3O1fbB2v8avlW6pKdodCWa3yb8Psm4o/Ma2dGpc5d/yPdCMOM0HALZqUyePYNsJB
+	 KD2ab6cZ+No/A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id AFA0F48626;
+	Mon,  9 Nov 2026 19:55:52 +0000 (UTC)
+From: Andreas Claesson via B4 Relay <devnull+andreas.aclaesson.com@kernel.org>
+Date: Mon, 09 Nov 2026 19:55:52 +0000
+Subject: [PATCH] HID: corsair: cancel LED work again after unregistering
+ the LED
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,100 +83,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Mon, 9 Nov 2026 11:55:37 -0800
-X-Gm-Features: AclHuK-fw27NEX4WLMeH0MQEMu23wQjUHEw6LG3xIqCQa_4vVj4k3LjJhmBS0EU
-Message-ID: <CAEvNRgFvkWCM_JDxiamzQW=stgOnY0Xum5aphVv-Zo941zx2sg@mail.gmail.com>
-Subject: Re: [PATCH v16 09/20] KVM: selftests: Set up TDX boot code region
-To: Lisa Wang <wyihan@google.com>, Andrew Jones <ajones@ventanamicro.com>, 
-	Binbin Wu <binbin.wu@linux.intel.com>, Chao Gao <chao.gao@intel.com>, 
-	Chenyi Qiang <chenyi.qiang@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Erdem Aktas <erdemaktas@google.com>, Ira Weiny <iweiny@kernel.org>, 
-	Isaku Yamahata <isaku.yamahata@intel.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	linux-kselftest@vger.kernel.org, Paolo Bonzini <pbonzini@redhat.com>, 
-	"Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, Reinette Chatre <reinette.chatre@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Roger Wang <runanwang@google.com>, 
-	Ryan Afranji <afranji@google.com>, Sagi Shahar <sagis@google.com>, 
-	Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	Oliver Upton <oupton@kernel.org>
-Cc: Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-hid-corsair-k90-uaf-v1-1-0621c2c5c451@aclaesson.com>
+X-B4-Tracking: v=1; b=H4sIAEcl8moC/yXMQQqDQAxA0atI1gYmCpXpVUoX0xg1LWhJtAji3
+ R3r8i3+38DFVBzuxQYmP3WdxgwqC+Ahjb2gttlQhepGFCIO2iJP5kkNPzHgkjoM3BBRbFhqgVx
+ +TTpd/9fH87Ivr7fwfK5g3w9+suEldwAAAA==
+X-Change-ID: 20261109-hid-corsair-k90-uaf-0c711197ce3e
+To: Benjamin Tissoires <bentiss@kernel.org>, 
+ Chen Changcheng <chenchangcheng@kylinos.cn>, Jiri Kosina <jikos@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794254152; l=4132;
+ i=andreas@aclaesson.com; s=20261109; h=from:subject:message-id;
+ bh=OH06v+FHNPldYATurhUtH3EMaR24kIgI5PheNIJyWHI=;
+ b=67wwBo9EE2Opk/wXvX8JtEQkwIRYSLop3Kp9pZzHqtgd7u7iJhkdVOeRUZNfR/gzfDBAxFa7v
+ LusorGfeDgZARwBhZRjKpYuWTAqJa1UuWRwA6PPNg3FwV53Q3grBdpN
+X-Developer-Key: i=andreas@aclaesson.com; a=ed25519;
+ pk=oC+38UX0rqcrEjNMgnKAF1zmrTUMbQ2aH/P5Z4TZOIQ=
+X-Endpoint-Received: by B4 Relay for andreas@aclaesson.com/20261109 with
+ auth_id=1465
+X-Original-From: Andreas Claesson <andreas@aclaesson.com>
+Reply-To: andreas@aclaesson.com
+Content-Transfer-Encoding: 7bit
 
-Lisa Wang <wyihan@google.com> writes:
+From: Andreas Claesson <andreas@aclaesson.com>
 
->
-> [...snip...]
->
->  /* Leave marker so size of td_boot code can be computed. */
->  .globl td_boot_code_end
-> diff --git a/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c b/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
-> index 564144c40f0a..b4a7089b3636 100644
-> --- a/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
-> +++ b/tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c
-> @@ -1,8 +1,46 @@
->  // SPDX-License-Identifier: GPL-2.0-only
->
-> +#include <linux/sizes.h>
-> +
->  #include "processor.h"
-> +#include "tdx/td_boot.h"
->  #include "tdx/tdx_util.h"
->
-> +/* Arbitrarily selected to avoid overlaps with anything else */
-> +#define TD_BOOT_CODE_SLOT	20
-> +
-> +#define X86_RESET_VECTOR	0xfffffff0ul
-> +
-> +void tdx_vm_setup_boot_code_region(struct kvm_vm *vm)
-> +{
-> +	const size_t total_size = TD_BOOT_CODE_SIZE;
+Commit eb51c9f8cb4f ("HID: corsair: cancel worker before unregistering
+LED to fix use-after-free") moved cancel_work_sync() in front of
+led_classdev_unregister() in k90_cleanup_backlight() and
+k90_cleanup_macro_functions().
 
-This caught my attention because it wasn't quite reverse-fir-tree
-ordering.
+led_classdev_unregister() turns the LED off unless
+LED_RETAIN_AT_SHUTDOWN is set. That calls k90_brightness_set(), which
+unconditionally does schedule_work() on the same work item. The work is
+therefore queued again after it was cancelled, and the structure that
+embeds it is freed right afterwards:
 
-Naming is confusing here since there's both TD_BOOT_CODE_SIZE and
-boot_code_size, so which is the boot code and what is the right size?
+  k90_cleanup_macro_functions()
+    cancel_work_sync(&k90->record_led.work)
+    led_classdev_unregister(&k90->record_led.cdev)
+      led_set_brightness(LED_OFF)
+        k90_brightness_set()
+          schedule_work(&led->work)        <-- re-queued
+    kfree(k90)                             <-- frees the queued work_struct
 
-If the only use of TD_BOOT_CODE_SIZE is here then maybe we could just
-directly memcpy (td_boot_code_end - td_boot) and not have the macro.
+When the work later runs, the workqueue dereferences the freed
+work_struct and k90_record_led_work() reads led->removed from freed
+memory. A USB device that enumerates as a K90 and is then unplugged
+triggers this reliably. With CONFIG_DEBUG_OBJECTS_WORK it shows up as:
 
-> +	const size_t boot_code_size = td_boot_reset_vector_trampoline - td_boot;
-> +	const gpa_t boot_code_gpa = X86_RESET_VECTOR - boot_code_size;
-> +	gpa_t alloc_gpa = round_down(boot_code_gpa, PAGE_SIZE);
-> +	size_t nr_pages = (SZ_4G - alloc_gpa) / PAGE_SIZE;
-> +	u64 gmem_flags = 0;
-> +	gpa_t gpa;
-> +	u8 *hva;
-> +
-> +	if (kvm_has_gmem_attributes)
-> +		gmem_flags |= GUEST_MEMFD_FLAG_INIT_SHARED | GUEST_MEMFD_FLAG_MMAP;
-> +	vm_mem_add(vm, VM_MEM_SRC_SHMEM, alloc_gpa, TD_BOOT_CODE_SLOT,
-> +		   nr_pages, KVM_MEM_GUEST_MEMFD, -1, 0, gmem_flags);
-> +
-> +	gpa = ____vm_phy_pages_alloc(vm, nr_pages, alloc_gpa,
-> +				     TD_BOOT_CODE_SLOT, true, false);
-> +	TEST_ASSERT(gpa == alloc_gpa, "Failed vm_phy_pages_alloc");
-> +
-> +	virt_map(vm, alloc_gpa, alloc_gpa, nr_pages);
-> +	hva = addr_gpa2hva(vm, boot_code_gpa);
-> +	memcpy(hva, td_boot, total_size);
-> +
-> +	hva += boot_code_size;
-> +	TEST_ASSERT(hva == addr_gpa2hva(vm, X86_RESET_VECTOR),
-> +		    "Expected RESET vector at hva 0x%lx, got %lx",
-> +		    (unsigned long)addr_gpa2hva(vm, X86_RESET_VECTOR), (unsigned long)hva);
+  ODEBUG: free active (active state 0) object: ffff88803b8772c8 object type: work_struct hint: k90_record_led_work+0x0/0x1e0
+  WARNING: lib/debugobjects.c:632 at debug_print_object+0xec/0x230
+  Workqueue: usb_hub_wq hub_event
+  Call Trace:
+   debug_check_no_obj_freed+0x2e3/0x450 lib/debugobjects.c:1201
+   kfree+0x13e/0x650 mm/slub.c:6923
+   k90_cleanup_macro_functions drivers/hid/hid-corsair.c:547 [inline]
+   corsair_remove+0xfd/0x260 drivers/hid/hid-corsair.c:602
+   hid_device_remove+0xc5/0x1c0 drivers/hid/hid-core.c:2897
+   ...
+   usbhid_disconnect+0x9f/0xc0 drivers/hid/usbhid/hid-core.c:1486
 
-TEST_ASSERT_EQ would work here, same for the == assertion above.
+(with ODEBUG enabled, work_fixup_free() cancels the work and hides the
+use-after-free. Without it, the freed work item is executed.)
 
-Not a huge issue,
+Keep the existing cancel_work_sync() before unregistering, which waits
+for a worker that may already be past the 'removed' check, and cancel
+the work once more after led_classdev_unregister() so the work queued
+by the LED-off request is gone before the memory is freed. A re-queued
+work that manages to run before the second cancel still sees
+'removed == true' while the structure is alive and returns early.
 
-Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+Fixes: eb51c9f8cb4f ("HID: corsair: cancel worker before unregistering LED to fix use-after-free")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andreas Claesson <andreas@aclaesson.com>
+---
+Found with syzkaller (USB emulation, KASAN + ODEBUG) on mainline
+f66469d9905b. Both the record LED and the backlight paths reproduce
+(hint: k90_record_led_work / k90_backlight_work); a minimised
+3-call syzkaller reproducer is available on request. With this patch,
+200 probe/removal cycles per path gave no ODEBUG or KASAN reports,
+against ODEBUG on roughly half of removals without it.
+---
+ drivers/hid/hid-corsair.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> +}
-> +
->  static const struct kvm_tdx_capabilities *tdx_read_capabilities(struct kvm_vm *vm)
->  {
->  	static struct kvm_tdx_capabilities *tdx_cap;
->
-> --
-> 2.56.0.455.g6c5a503b38-goog
+diff --git a/drivers/hid/hid-corsair.c b/drivers/hid/hid-corsair.c
+index 278c6efb565d..75c862f5f783 100644
+--- a/drivers/hid/hid-corsair.c
++++ b/drivers/hid/hid-corsair.c
+@@ -526,6 +526,8 @@ static void k90_cleanup_backlight(struct hid_device *dev)
+ 		drvdata->backlight->removed = true;
+ 		cancel_work_sync(&drvdata->backlight->work);
+ 		led_classdev_unregister(&drvdata->backlight->cdev);
++		/* unregister turns the LED off, which re-queues the work */
++		cancel_work_sync(&drvdata->backlight->work);
+ 		kfree(drvdata->backlight->cdev.name);
+ 		kfree(drvdata->backlight);
+ 	}
+@@ -542,6 +544,8 @@ static void k90_cleanup_macro_functions(struct hid_device *dev)
+ 		k90->record_led.removed = true;
+ 		cancel_work_sync(&k90->record_led.work);
+ 		led_classdev_unregister(&k90->record_led.cdev);
++		/* unregister turns the LED off, which re-queues the work */
++		cancel_work_sync(&k90->record_led.work);
+ 		kfree(k90->record_led.cdev.name);
+ 
+ 		kfree(k90);
+
+---
+base-commit: f66469d9905b39d2c260a15d7d6db450f4db67c1
+change-id: 20261109-hid-corsair-k90-uaf-0c711197ce3e
+
+Best regards,
+--  
+Andreas Claesson <andreas@aclaesson.com>
+
+
