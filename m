@@ -1,86 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794254902;
-	b=WqzpDI4UrDxtvAy+aIl2nem853uuz6PjaMB0cMqbkLYx+Ml3ksG7n9lukJnhSOKRBX+H
-	 4x71iA+mly9TD7i85Fk8TRAnp003t1U5NjkbXoGBH8sf1/hYbO7H4yyVje4KtT/Yndmqz
-	 OM7LMrsw9nTExtFS0RU4c6SJ9YaNmNGIRm/QMy2sKmbYlQqTUEnLZslH1G9+zwNOKJnHy
-	 Qat3iasRsPRB9ttXT7EY+xL2pgU1qrr2yZBFUO89E1VFbb35ixz439cLqrLjl7JoNTwDb
-	 4xDhvtRihNVxNxvojuO7CXTQzPui0nVrh9Pm/aXeFRpItEM09m7UFHuw6PZsYqRFcSg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254902;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=/d1U0A2dfiNuwij3Ofh6GUJRUsPvJzrc8bAF4ywOpeQ=;
-	b=TjHOQB2OtNDG33kTkC9wShWCIyliEuHGuy4+n53btxSLhLBKUxGrvlo0apLZBdr2liIr
-	 lUoI5w+f9Mk2Yc2gFmNQjvN+Ig491AdQ1juH3dnb7phQ46AAhH0YKQGR3f2gUa7IwrLU4
-	 CeU0+Kj9iYMc0TmmuTyYh/aTfWodTq7PGcSL+GK5AyBNa6VJgZGhyYkII4HfL29GzcYxV
-	 TGrH5KYCz8LOj4expTGc5ZCbjyrvCsn7ugOvKQowHozO5E5DyRCqHVbGgdfvlN6cJO/Fs
-	 hwH0aPOf0GAsE1KPlHj/r5SFMDtxFiQhI9Fn1lBJRl7GM4uTm1gASkGvHr4dS8C+utA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qnB8jfVk;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794254911;
+	b=unGeR5rjn3BzpSXnNcfJpUfWRo/ECkooHRmRqwSywWf6+SLF/Mu3FW7UEe2thKJD2tvn
+	 sgZsh29Ukmid9s3I1tC6o+Z4coBxtYmkk0fHyEU+Mkj/msjl9CJnOv06IcVYCgLF4s8/X
+	 kMSwcwO6FgotKIqIB+IDPeu1l04EXUB2J9ewUuhTA+8oRS7cHrzyCE2fCNm2ANaTXj8KZ
+	 A8zUwTCrkv53oyvnXBzhA6bhX+ZXJoL6ISbn7DToGkkz8Vcgk1A22kfNLGopuHZixk5ee
+	 c9gpahHsFHfIGjIQyIBw/MGRm5qdCaaedj9xXiymWhWVnA/JmLi6z9sW62JPU7wWH5w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254911;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=OWULWeROBq9QHKGDrZtJVZFqDXu9makIQwCeo4uR55Y=;
+	b=reijL5MAWROdQ9Ca7c3iyRu3tlGl07jUma7GDVDJLwKX5WpylFh+y4DrenCY9zArVDnh
+	 /Z91bSU1akhDL88YYwSLAMZLwGvn4LDzhifABpJDCwY3RTQaLqcuUN9jEYC/1HIk3B2MH
+	 +igm9sd7o1puezO6LyI0PMvcDeZs+KKuAEiEd4bxSM8cGboArGhwrkPzm4mAP2kx/+qnc
+	 dggWcQdd5iXbVRL11pWj2kJozbkwAk7eshTgNHVx2fXLAPJbnGXHhULZ4GO2UOfp2JCxS
+	 MiLIaTRYk3+t2j36hUCueMCSdaTtZtokBeVfS7WVuruOxqdqvLt0kXSOLzApTPVoaqg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebfIBqRO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDF5606A321;
+	Mon,  9 Nov 2026 20:08:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebfIBqRO
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794254910;
+	b=yHLccIuQmJPWYHOtcIEc5bIKeRxIfm4l18ovjHGuSiyiIzWHrlGgNMNhtSXXm5YgZm7C
+	 E24cYB/5m2u/WBCFbkJo53dttQV68hBhCrH3z6wzwYVhEbeRKD99Hf8G/WbR6pg9A7a+a
+	 2rf6mPQIInlKt2ZWS9VbRZX/Duvu3tE1MkFqHOEfkElffCqPpLChr7qJksBUdiOfJFtbi
+	 Qwajp2T2QtVuSJqW53bdn4P0I6ELtOQ9fkZgPYLLCH6G+TXe92IZL0koPP1g/PvPAjRwj
+	 chneViDlhSOTUT7mCJ5ZcaXP3AoRxWPNlPUgcQyyIR6lmAHOrHjZEYDNJaDPCLG2C/A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794254910;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=OWULWeROBq9QHKGDrZtJVZFqDXu9makIQwCeo4uR55Y=;
+	b=qB7ieS30qaawhMex0PT2K7XOd1hga4zJL3iz71tcNFik1SYIMeg73Br+TykVCOXS0IqC
+	 JmEd8XVaaYQywUqGcihDyZsym/dLciVwojUCgUB8BCnQ10RoIcyh0p5DIpYNyQMuq+8nx
+	 BYXoy9rr1ieyR9oSlPRhSoLCbDYevfdF/lvqj9TvjCagunCHC7+AgrdNEt/4UtAm9FxrF
+	 C0ULI7lFzxPS7ZkpKhFOqiaCr58/cruG+ArDc/csJiV3tSTW3AgYvGri5/E5IzPgh+AK1
+	 iJeMZm0hovRx7w+87ico1NNpZXhT9A9HMwRmb8xZ5rm0sMFZxii6hfaYTbcbUlsEVyw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09BB606A331
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:08:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F09BB606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qnB8jfVk
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4919a880834so834543f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 12:08:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794254900; x=1794859700; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/d1U0A2dfiNuwij3Ofh6GUJRUsPvJzrc8bAF4ywOpeQ=;
-        b=qnB8jfVkeZYYccJoKtIqJ09VJv1yZXeB6rIB9m3cs87DC3US96MwhSnbj6EPNBkxkp
-         4dbQcF/Pi1o05d1tCaQPFhaX12qn1dgeFlgfNKom/qjLuVIhOgu3YKpg81oNYGAY3mIQ
-         CLUcpbmLwrf4leFZZLL4UvZhyuZmHb0vBUExsGzL+Hg3XPtgdq8PLep3XpDVGtQd6XTW
-         xH1I71fkDTyQM4g2H3Qqm/LHxCJzXKutZq+BMtBpF7EEssPp8bOjuc7xxycI/MiA47iy
-         oyFzKmV/9tHkE79I1JJIFyGOa3EIf0mipU2dT17JNx72nNdmRQNcMyp37WWZ/evaCBQ+
-         gA4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794254900; x=1794859700;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=/d1U0A2dfiNuwij3Ofh6GUJRUsPvJzrc8bAF4ywOpeQ=;
-        b=0OJPYyTyNBThh4hAYkAKLBew+/ae9q6HOKooDDhO6LW2QlN08Nu+GJuhjF9gNZVz61
-         dn7hTHX2fzuh5Jq1XlaVvRBPyy9pHv9vU6mdFLePyoFj2TJT51zNcqIkt70LOuMkuBjn
-         dH856PJkh5HLcrfKD11z/kXRkNb1pEBlBGrIJeqIHE6bdUmNkrBgWr6yoPytEgPB6kj4
-         JPQ+CCd3i9eiOgEYArvP6im2MFNNrbT0dX45AcVZDz/0gOrRQyVGZiRoqcsku5uvJsb7
-         idCeazeJllcvOSh6pWFeO6UYsGHnr9N/UEhuwZ085TD7PRVaV6naQr2SS273GzOc0Hem
-         bH+A==
-X-Gm-Message-State: APuU4Z8t/xCezMD62E6vuwuUAeRyPh2I2Wcy9l5Duu2XW7Io7V6++e9z
-	OSSDWiiXZ5KusIBIKGmCdWFpC5ksjoDxLrSlVjg197IEHIvjkQxj9DsvLk+kGyaM3ro=
-X-Gm-Gg: AYBFou32gdQQ8QZZCM9GBXc+8vpf/Sp/9sq6EucKm5aSAEGT6pLD3RKXbzL4ywbInD9
-	Z8fqq8G+fcQjitfGYlPvZlcVoUFTPOQ5dbZCG0ZhkohRSnb16ZDwg8WnqNzBF13g/pfCnSyR9M3
-	nqHJTXO0F6rc82lH9p9e63ILl1HBi48Nys7xg6dohetjtdT3wYMerkPG+U2B3VZWbY/3+LTYomw
-	Smrz/1kJkfaZXGsJ+wPEZmvXzKc4EAiCgPC7w0bB2m3LT0w+5rqjPcDzI7nl/wpgS5zbxlsnw+Q
-	aa3Y9VZJPSCfqnpp0guXIt0p2A6WNkgdqoK56QlLSaXRXYyIsgitBMcTkl3YEWEyl/3JRnBJ31z
-	+AkzXkE32/4xyx/39VgCNSwZBwl0eT3qHi7JckQa4JXhp5B8qIzE/PPHKpdAMeNVshWhx620vo5
-	b8suPCSJ30ZgYTF6oKhrwhOI81vJOlUi1j9V9fzipk2+71r/UajOXopwkEhrAtQzVZykN7F3eYl
-	TScpGtl2DlyPELU4lTxSU6v5beQ9Ub1n7hrpE7Bs1H4cDJIIh4KKL2EtL+0F8arTnkE0/hpEK9T
-	Ta8pa62DIPgPaOkW0Vj8jcB+UcxBkPiKSjoa78bt
-X-Received: by 2002:a05:6000:18a3:b0:493:c0a:5087 with SMTP id ffacd0b85a97d-49830e767fdmr972903f8f.51.1794254900091;
-        Mon, 09 Nov 2026 12:08:20 -0800 (PST)
-Received: from [192.168.0.2] ([197.250.160.144])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49835859080sm1003909f8f.19.2026.11.09.12.08.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 12:08:19 -0800 (PST)
-From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Date: Mon, 09 Nov 2026 23:08:04 +0300
-Subject: [PATCH v14] reset: zte: Add a zx297520v3 reset driver
+	by smtp.kernel.org (Postfix) with ESMTPS id D46901F008A1;
+	Mon,  9 Nov 2026 20:08:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794254910;
+	bh=OWULWeROBq9QHKGDrZtJVZFqDXu9makIQwCeo4uR55Y=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=ebfIBqRODot7wOSzMTZg5MD9ozpqRtBARsY21u3s2GmfRN9iIl/sKm2WCpB4S2rDM
+	 t51epgmb2erF4nAKJ8Wdt5VL1zLoCjUEzzVm4YVCEp5REcSoXsrHWDLRMeK6EWeiBe
+	 L0amVa53SEGZtQOTmnFkHZY2tetvw+kqgXo4Rou4X5NMALcGNwfWdVXG7hOrhW13vk
+	 Qwd64P8TBFy3v1uUR10l/CiCiw2puwgE7G3VtMWA5oYcp3D8r26D0dA6Zy818BSndS
+	 XFqtok7+Ja0enXKm+MqcS8smpC46Tt2IXk5zsjQl4WF2I3v2p5iqYLoGHI5xHca4Bc
+	 tZ5nZdXa1+Ylg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5FE0C48626;
+	Mon,  9 Nov 2026 20:08:29 +0000 (UTC)
+From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
+Date: Mon, 09 Nov 2026 21:08:29 +0100
+Subject: [PATCH net v5] vsock/bpf: release sock lock while waiting for data
+ in recvmsg
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,366 +84,182 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261109-zx29reset-v14-1-1a05aaa7309a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ5AMBAAvyJ71kSrEXxFHFq2rAPSRUTj74rjT
- CYTgNETMtRJAI8HMS1zBKnTBLrRzAMK6qMAlalCyqwS16kqj4ybyF1htNPW9qWB2K8eHZ3frGl
- /5t1O2G3vAO77AQWijM9uAAAA
-X-Change-ID: 20261109-zx29reset-3f6a4f4bbd8a
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+Message-Id: <20261109-kbh3-1-022-fix-v2-v5-1-4d9af04f0fad@eldare.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NTU7EMAwF4KuMssbIdtK0nRX3QCzy49IA6qCkR
+ KBR706mLBihEctnP38+qyI5SVHHw1llqamk09JCd3dQYXbLs0CKLStGtoRI8OpnDQTIDFP6hMo
+ geiLDI1pDTrW79yxts5uPapFVPf0My4d/kbBetEttTmU95a/9c6W9/M+TSi2HycnYDY7G3j7IW
+ 3RZ7qPsftVXAg+3BA0IPmDfseeoo/8rmF+B0N4STBNCH7XtUQ9k4rWwbds3J8/vrk0BAAA=
+X-Change-ID: 20261001-kbh3-1-022-fix-v2-e3f14290641a
+To: Stefano Garzarella <sgarzare@redhat.com>, 
+ Bobby Eshleman <bobbyeshleman@meta.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
+ Alexei Starovoitov <ast@kernel.org>
+Cc: Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13429;
- i=stefandoesinger@gmail.com; h=from:subject:message-id;
- bh=snZfNSAC20sZnLBmUI69XM4PLRaPCMcGcxywFTp19Qc=;
- b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBq8igy0yQgqmTxgtDAI9aP+ifSpl2uvHBxs4brL
- Z7xWGsJOm+JAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCavIoMhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiK++g//YTpcUxJ/uZJW+HzsLewaMwlbaIyaSN/
- svfqBNRQC22MyZDp9RQvlpJzY8/0Lz9a51+2Oy1cu/9YgJkSJ7nGXmD/rW2sGEZ4jQXPY7MFh2c
- BKahDISAqAPxjsACaIG8wa8hmo1WYXSV2AN0oZdW0JhvI9my3lmU4RTV426zw899ccKY9LHegQR
- 07pRS8Plut9GyslHYSeYKcM+cdtW1vnZrssmydYkPUAgw6TDiB64Jp7N1LGQxv+QJZrZDSMZlW4
- gP1h21YaLw/MEfpL1tNXVtrvq2lWcK2Nggr9Xgabi1G9+lsde0RfxDYiFZCQovkvSvoRio48TT0
- jNR/s4t/LjpAHcedzaI4lSC4SB9Sc/njh1nTOtH4B30y+si7hSK7H2Fi9QAr4KpO8zmnFn8wVp5
- ezw4oYZm14Ou529lhk5hewNbwLv05y8UvB+QVKWSx1OIlYOQ7Bk4fJvddsbk3Im2p/Pl6905cog
- 82WrAST/JRsjdqO0Vc+mVCWRDwmrBwSo38dTlFMkkM4gm6XWYCsWreTK4DG8YFNPYjTn9UVRbxE
- OJGPENxh/i7+XuLXVbeC8/3IgJAWHuXVzlsRz2Lk9k3MwHKoz4aIj3tQnkpvCCR8JllJhkntWOi
- uv4SLnnZZUXlqcUTyk5KJmjdxu8geAbzfWpAmz5hudOeGBePt748=
-X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
- fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794254908; l=5966;
+ i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
+ bh=gAMP05v48lA79FLWFALXd9zeaNzA0SUA1TvaXrc531E=;
+ b=MuAaoC1faU7y/6OsXRinifDWmeyjxYlifpBjeMeeVMCUz5e3BmcfGP4S3n/tMEixejmsuZtB6
+ 4LMrBMbv0c2BKMjd1OG1HqhbS0uPowujNLWIg2eCPSTIa1QrJh4yRPu
+X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
+ pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
+X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
+ auth_id=1075
+X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Reply-To: jrmmhm.kernel@eldare.de
+Content-Transfer-Encoding: 7bit
 
-This drives the MFD child devices created by the zte-zx297520v3-crm
-driver.
+From: Jerome Mohm <jrmmhm.kernel@eldare.de>
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
-Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+vsock_bpf_recvmsg() sleeps in vsock_msg_wait_data() with the socket lock
+held, so the virtio delivery worker, which needs that lock, deadlocks
+with the reader and all vsock rx on that worker stops.
+
+Release the lock around the wait. The reader can then wake without
+data, so the wait loops until data arrives, the timeout, a signal
+(wait_woken() returns at once while one is pending), or a state in
+which __vsock_recvmsg() would not wait. Those states, and zero-length,
+MSG_OOB and MSG_ERRQUEUE reads, go to __vsock_recvmsg(), as Alexei
+suggested; a non-blocking read now sees them before -EAGAIN. The loop
+and the zero-length check belong to the fix (without them the reader
+returns early or spins with the lock held), so this is one patch;
+MSG_OOB and MSG_ERRQUEUE just share that path. One tested difference
+remains: a reader asleep at a virtio transport reset gets -ENOTCONN,
+where a native socket gets -ECONNRESET (0 on seqpacket).
+
+The deadlock and the MSG_ERRQUEUE case were found with the help of
+Anthropic's Claude, the rest by the netdev Sashiko reviews and Alexei.
+Each was reproduced in a VM without kernel changes or error injection
+(the resets unbind the guest's virtio-vsock device), except one Sashiko
+case that was checked in the code; with this patch they behave as on a
+native socket apart from the reset case above. The vsock vmtest.sh
+single-VM tests and the BPF sockmap selftests still pass, though they
+never sleep in this wait.
+
+Fixes: 634f1a7110b4 ("vsock: support sockmap")
+Suggested-by: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
 ---
-v14: Stand-alone submission of the reset driver for inclusion. The DT
-bindings are already upstream, so the driver builds as-is.
+Changes in v5:
+- One patch, using Alexei's approach: in the states where
+  __vsock_recvmsg() does not wait, and for zero-length, MSG_OOB and
+  MSG_ERRQUEUE reads, fall back to __vsock_recvmsg() instead of
+  copying its return values (Alexei).
+- So after a reset, recv(), a zero-length read and MSG_OOB return
+  -ENOTCONN, and a peer shutdown with SO_INQ reports SCM_INQ, as on a
+  socket outside a sockmap. A reset while the reader sleeps now
+  returns -ENOTCONN instead of -ECONNRESET.
+- This also covers the netdev Sashiko review of v4: SEQPACKET after a
+  reset, MSG_OOB on a closed socket and SCM_INQ on a zero-length read;
+  SHUT_RD with a pending sk_err by code reading only. A SEQPACKET
+  reader asleep at a reset still gets -ENOTCONN (native 0).
+- Don't cite the selftests as coverage of the wait (Alexei).
+- Link to v4: https://patch.msgid.link/20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de
 
-I have removed the line from MAINTAINERS because it will conflict with
-the patch submitted to the MFD tree for the MFD driver linked below:
+Not tested: virtio-mmio, repeated runs, a sockmap delete while a
+reader sleeps, a signal arriving in the same wakeup as the timeout
+(returns -EAGAIN, native -EINTR), and the vmtest.sh ns_* tests.
+Still left for separate patches, as in v4: data that sits only in
+psock->ingress_skb, and READ_ONCE()/WRITE_ONCE() for the lockless
+accesses.
 
-https://lore.kernel.org/mfd/20261108-zx29clk-v14-1-48694e5a9d10@gmail.com/
-
-v12: Correct SSC reset from bit 24 to bit 28 in matrix+0x94.
-
-v10:
-Add ZSP reset in matrixcrm
-
-v9:
-Remove HSIC and USB PHY resets, the phy driver will access them through
-the shared regmap directly
-Sort include files alphabetically
-Depend on HAS_IOMEM due to "select MFD_SYSCON" (Sashiko). This has some,
-but not consistent, precedent in the same file
-
-v8: Select MFD_SYSCON for COMPILE_TESTing this driver without the MFD
-parent driver.
-
-v7:
-Add MODULE_DEVICE_TABLE (Philipp)
-Add DDR control and LSP resets
-
-v6:
-Add a comment wrt checking all bits in .status() (Philipp)
-include cleanup (Philipp, Sashiko)
-
-v5:
-Make top and matrix MFD children instead of aux devices
-Split USB PHY reset into its own reset ID
-Remove USB reset wait code - this will be handled via syscon from a
-future minimal phy-zx29-usb driver
+Changes in v4: comments, one data <= 0 check and message changes
+(Stefano); rebase; retest with a new dataless-wakeup reproducer.
+Changes in v3: split into two patches (Michal); end the wait after a
+reset read with SO_ERROR, and MSG_OOB returns -EOPNOTSUPP (Sashiko).
+Changes in v2: loop in the wait, len == 0 guard (Sashiko); MSG_ERRQUEUE
+to the native path.
 ---
- drivers/reset/Kconfig                |  13 ++
- drivers/reset/Makefile               |   1 +
- drivers/reset/reset-zte-zx297520v3.c | 237 +++++++++++++++++++++++++++++++++++
- 3 files changed, 251 insertions(+)
+ net/vmw_vsock/vsock_bpf.c | 43 ++++++++++++++++++++++++++++---------------
+ 1 file changed, 28 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-index eda9c698a95f..e68e33a35fec 100644
---- a/drivers/reset/Kconfig
-+++ b/drivers/reset/Kconfig
-@@ -438,6 +438,19 @@ config RESET_UNIPHIER_GLUE
- 	  on UniPhier SoCs. Say Y if you want to control reset signals
- 	  provided by the glue layer.
+diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
+index 9049d2648646..c0c9e69860dc 100644
+--- a/net/vmw_vsock/vsock_bpf.c
++++ b/net/vmw_vsock/vsock_bpf.c
+@@ -34,24 +34,35 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
+ 	return vsock_sk_has_data(sk, psock);
+ }
  
-+config RESET_ZTE_ZX297520V3
-+	tristate "ZTE zx297520v3 Reset Driver"
-+	depends on HAS_IOMEM
-+	depends on MFD_ZTE_ZX297520V3_CRM || COMPILE_TEST
-+	default SOC_ZX297520V3
-+	select MFD_SYSCON
-+	help
-+	  This enables the reset controllers for ZTE zx297520v3 SoCs. The reset
-+	  controllers are required for booting this board and are part of the
-+	  clock and reset management controllers on this board, so you will also
-+	  need MFD_ZTE_ZX297520V3_CRM. Enable this if you are building a kernel
-+	  for a ZTE zx297520v3 based board.
-+
- config RESET_ZYNQ
- 	bool "ZYNQ Reset Driver" if COMPILE_TEST
- 	default ARCH_ZYNQ
-diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
-index 489fafd6bbe3..8cff33919b29 100644
---- a/drivers/reset/Makefile
-+++ b/drivers/reset/Makefile
-@@ -53,5 +53,6 @@ obj-$(CONFIG_RESET_TI_TPS380X) += reset-tps380x.o
- obj-$(CONFIG_RESET_TN48M_CPLD) += reset-tn48m.o
- obj-$(CONFIG_RESET_UNIPHIER) += reset-uniphier.o
- obj-$(CONFIG_RESET_UNIPHIER_GLUE) += reset-uniphier-glue.o
-+obj-$(CONFIG_RESET_ZTE_ZX297520V3) += reset-zte-zx297520v3.o
- obj-$(CONFIG_RESET_ZYNQ) += reset-zynq.o
- obj-$(CONFIG_RESET_ZYNQMP) += reset-zynqmp.o
-diff --git a/drivers/reset/reset-zte-zx297520v3.c b/drivers/reset/reset-zte-zx297520v3.c
-new file mode 100644
-index 000000000000..6a5711446502
---- /dev/null
-+++ b/drivers/reset/reset-zte-zx297520v3.c
-@@ -0,0 +1,237 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2026 Stefan Dösinger
-+ */
-+#include <dt-bindings/reset/zte,zx297520v3-reset.h>
-+
-+#include <linux/bits.h>
-+#include <linux/err.h>
-+#include <linux/errno.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/reset-controller.h>
-+#include <linux/types.h>
-+
-+/* Most devices on the zx297520v3 SoC have one reset bit per clock line. As a rule of thumb, the
-+ * lower bit disconnects the device from the bus, similarly to turning off PCLK - registers read 0
-+ * or hang indefinitely. Unlike PCLK, this reset may have a lingering effect after deasserting.
-+ * E.g. timers will be disabled, but retain their counter value.
-+ *
-+ * The other bit resets the actual device registers.
-+ *
-+ * For some devices, e.g. GMAC, both reset bits behave in the same way: They disconnect the device
-+ * and registers will have their default state after deasserting. For devices that have two reset
-+ * bits, both need to be deasserted for the device to function.
-+ */
-+struct zte_reset_reg {
-+	u32 mask;
-+	u16 reg;
-+};
-+
-+struct zte_reset_data {
-+	const struct zte_reset_reg *resets;
-+	unsigned int num;
-+};
-+
-+struct zte_reset {
-+	struct reset_controller_dev rcdev;
-+	struct regmap *map;
-+	const struct zte_reset_reg *resets;
-+};
-+
-+static inline struct zte_reset *to_zte_reset(struct reset_controller_dev *rcdev)
-+{
-+	return container_of(rcdev, struct zte_reset, rcdev);
+-static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
++/* __vsock_recvmsg() doesn't wait in these states and knows what to return. */
++static bool vsock_rx_done(struct sock *sk)
+ {
+-	bool ret;
++	return sk->sk_err || sk->sk_state != TCP_ESTABLISHED ||
++	       (sk->sk_shutdown & RCV_SHUTDOWN) ||
++	       (vsock_sk(sk)->peer_shutdown & SEND_SHUTDOWN);
 +}
 +
-+static int zx29_rst_assert(struct reset_controller_dev *rcdev, unsigned long id)
++static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock,
++			       long timeo)
 +{
-+	struct zte_reset *rst = to_zte_reset(rcdev);
++	int ret = 0;
+ 
+ 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
+ 
+-	if (sk->sk_shutdown & RCV_SHUTDOWN)
+-		return true;
+-
+-	if (!timeo)
+-		return false;
+-
+ 	add_wait_queue(sk_sleep(sk), &wait);
+ 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+-	ret = vsock_has_data(sk, psock);
+-	if (!ret) {
+-		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
+-		ret = vsock_has_data(sk, psock);
++	while (!vsock_has_data(sk, psock) && !vsock_rx_done(sk)) {
++		if (!timeo) {
++			ret = -EAGAIN;
++			break;
++		}
++		if (signal_pending(current)) {
++			ret = sock_intr_errno(timeo);
++			break;
++		}
++		release_sock(sk);
++		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
++		lock_sock(sk);
+ 	}
+ 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+ 	remove_wait_queue(sk_sleep(sk), &wait);
+@@ -80,6 +91,9 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+ 	struct vsock_sock *vsk;
+ 	int copied;
+ 
++	if (unlikely(!len || (flags & (MSG_OOB | MSG_ERRQUEUE))))
++		return __vsock_recvmsg(sk, msg, len, flags);
 +
-+	return regmap_clear_bits(rst->map, rst->resets[id].reg, rst->resets[id].mask);
-+}
-+
-+static int zx29_rst_deassert(struct reset_controller_dev *rcdev, unsigned long id)
-+{
-+	struct zte_reset *rst = to_zte_reset(rcdev);
-+
-+	return regmap_set_bits(rst->map, rst->resets[id].reg, rst->resets[id].mask);
-+}
-+
-+static int zx29_rst_status(struct reset_controller_dev *rcdev, unsigned long id)
-+{
-+	struct zte_reset *rst = to_zte_reset(rcdev);
-+	int res;
-+
-+	/* Devices with two reset bits need both deasserted to work. So only report them as
-+	 * deasserted if both bits are set.
-+	 *
-+	 * assert()/deassert() will always clear/set both. The only reason a device might be in a
-+	 * hybrid state is an unexpected handover state from the bootloader.
-+	 */
-+	res = regmap_test_bits(rst->map, rst->resets[id].reg, rst->resets[id].mask);
-+	if (res < 0)
-+		return res;
-+
-+	return !res;
-+}
-+
-+static const struct reset_control_ops zx29_rst_ops = {
-+	.assert		= zx29_rst_assert,
-+	.deassert	= zx29_rst_deassert,
-+	.status		= zx29_rst_status,
-+};
-+
-+static const struct zte_reset_reg zx297520v3_top_resets[] = {
-+	/* This bit is set by ZTE's cpko.ko blob, it looks like a reset bit for the LTE DSP
-+	 * coprocessor. Clocks for it are in matrixcrm.
-+	 */
-+	[ZX297520V3_ZSP_CORE_RESET]  = { .reg = 0x13c, .mask = BIT(0)            },
-+
-+	[ZX297520V3_UART0_RESET]     = { .reg =  0x78, .mask = BIT(6)  | BIT(7)  },
-+	[ZX297520V3_I2C0_RESET]      = { .reg =  0x74, .mask = BIT(8)  | BIT(9)  },
-+	/* Only one reset. Bit 5 is settable but does not do anything observable */
-+	[ZX297520V3_RTC_RESET]       = { .reg =  0x74, .mask = BIT(4)            },
-+	[ZX297520V3_TIMER_T08_RESET] = { .reg =  0x78, .mask = BIT(4)  | BIT(5)  },
-+	[ZX297520V3_TIMER_T09_RESET] = { .reg =  0x78, .mask = BIT(2)  | BIT(3)  },
-+	/* Only one reset. Bit 0 is settable but does not do anything observable */
-+	[ZX297520V3_PMM_RESET]       = { .reg =  0x74, .mask = BIT(1)            },
-+
-+	/* I haven't found any clocks for GPIO. It probably wouldn't make much
-+	 * sense anyway. Only one reset bit per controller.
-+	 */
-+	[ZX297520V3_GPIO_RESET]      = { .reg =  0x74, .mask = BIT(3)            },
-+	[ZX297520V3_GPIO8_RESET]     = { .reg =  0x74, .mask = BIT(2)            },
-+
-+	[ZX297520V3_TIMER_T12_RESET] = { .reg =  0x74, .mask = BIT(6)  | BIT(7)  },
-+	[ZX297520V3_TIMER_T13_RESET] = { .reg =  0x7c, .mask = BIT(0)  | BIT(1)  },
-+	[ZX297520V3_TIMER_T14_RESET] = { .reg =  0x7c, .mask = BIT(2)  | BIT(3)  },
-+	[ZX297520V3_TIMER_T15_RESET] = { .reg =  0x74, .mask = BIT(10) | BIT(11) },
-+	[ZX297520V3_TIMER_T16_RESET] = { .reg =  0x7c, .mask = BIT(4)  | BIT(5)  },
-+	[ZX297520V3_TIMER_T17_RESET] = { .reg = 0x12c, .mask = BIT(0)  | BIT(1)  },
-+	[ZX297520V3_WDT_T18_RESET]   = { .reg =  0x74, .mask = BIT(12) | BIT(13) },
-+	[ZX297520V3_USIM1_RESET]     = { .reg =  0x74, .mask = BIT(14) | BIT(15) },
-+	[ZX297520V3_AHB_RESET]       = { .reg =  0x70, .mask = BIT(0)  | BIT(1)  },
-+
-+	/* USB reset. 0x84 returns the USB device status (0x1 for HSIC up, 0x2 for USB up, but
-+	 * all 3 bits (PCLK, WCLK, PHY) need to be deasserted for the device to report ready.
-+	 * Thus polling the status is the responsibility of the USB PHY driver.
-+	 */
-+	[ZX297520V3_USB_RESET]       = { .reg =  0x80, .mask = BIT(4) | BIT(5)   },
-+	[ZX297520V3_HSIC_RESET]      = { .reg =  0x80, .mask = BIT(1) | BIT(2)   },
-+};
-+
-+static const struct zte_reset_data zx297520v3_topreset_data = {
-+	.resets = zx297520v3_top_resets,
-+	.num = ARRAY_SIZE(zx297520v3_top_resets),
-+};
-+
-+static const struct zte_reset_reg zx297520v3_matrix_resets[] = {
-+	[ZX297520V3_CPU_RESET]       = { .reg =  0x28, .mask = BIT(1)            },
-+	[ZX297520V3_ZSP_BUS_RESET]   = { .reg =  0x3c, .mask = BIT(0)            },
-+	[ZX297520V3_DDR_CTRL_RESET]  = { .reg = 0x100, .mask = BIT(10) | BIT(11) },
-+	[ZX297520V3_EDCP_RESET]      = { .reg =  0x68, .mask = BIT(0)            },
-+	[ZX297520V3_SD0_RESET]       = { .reg =  0x58, .mask = BIT(1)            },
-+	[ZX297520V3_SD1_RESET]       = { .reg =  0x58, .mask = BIT(0)            },
-+	[ZX297520V3_NAND_RESET]      = { .reg =  0x58, .mask = BIT(4)            },
-+	[ZX297520V3_PDCFG_RESET]     = { .reg =  0x94, .mask = BIT(20)           },
-+	[ZX297520V3_SSC_RESET]       = { .reg =  0x94, .mask = BIT(28)           },
-+	[ZX297520V3_GMAC_RESET]      = { .reg = 0x114, .mask = BIT(0)  | BIT(1)  },
-+	[ZX297520V3_VOU_RESET]       = { .reg = 0x16c, .mask = BIT(0)            },
-+	[ZX297520V3_LSP_RESET]       = { .reg =  0x80, .mask = BIT(0)            },
-+};
-+
-+static const struct zte_reset_data zx297520v3_matrixreset_data = {
-+	.resets = zx297520v3_matrix_resets,
-+	.num = ARRAY_SIZE(zx297520v3_matrix_resets),
-+};
-+
-+static const struct zte_reset_reg zx297520v3_lsp_resets[] = {
-+	[ZX297520V3_TIMER_L1_RESET]  = { .reg = 0x04,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_WDT_L2_RESET]    = { .reg = 0x08,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_WDT_L3_RESET]    = { .reg = 0x0c,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_PWM_RESET]       = { .reg = 0x10,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_I2S0_RESET]      = { .reg = 0x14,  .mask = BIT(8)  | BIT(9)  },
-+	/* 0x18: Not writeable */
-+	[ZX297520V3_I2S1_RESET]      = { .reg = 0x1c,  .mask = BIT(8)  | BIT(9)  },
-+	/* 0x20: Not writeable */
-+	[ZX297520V3_QSPI_RESET]      = { .reg = 0x24,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_UART1_RESET]     = { .reg = 0x28,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_I2C1_RESET]      = { .reg = 0x2c,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_SPI0_RESET]      = { .reg = 0x30,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_TIMER_LB_RESET]  = { .reg = 0x34,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_TIMER_LC_RESET]  = { .reg = 0x38,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_UART2_RESET]     = { .reg = 0x3c,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_WDT_LE_RESET]    = { .reg = 0x40,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_TIMER_LF_RESET]  = { .reg = 0x44,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_SPI1_RESET]      = { .reg = 0x48,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_TIMER_L11_RESET] = { .reg = 0x4c,  .mask = BIT(8)  | BIT(9)  },
-+	[ZX297520V3_TDM_RESET]       = { .reg = 0x50,  .mask = BIT(8)  | BIT(9)  },
-+};
-+
-+static const struct zte_reset_data zx297520v3_lspreset_data = {
-+	.resets = zx297520v3_lsp_resets,
-+	.num = ARRAY_SIZE(zx297520v3_lsp_resets),
-+};
-+
-+static int reset_zx297520v3_probe(struct platform_device *pdev)
-+{
-+	const struct platform_device_id *id = platform_get_device_id(pdev);
-+	struct device *dev = &pdev->dev;
-+	struct device_node *of_node = dev->parent->of_node;
-+	const struct zte_reset_data *data;
-+	struct zte_reset *rst;
-+
-+	if (!id)
-+		return -ENODEV;
-+	data = (const struct zte_reset_data *)id->driver_data;
-+
-+	rst = devm_kzalloc(dev, sizeof(*rst), GFP_KERNEL);
-+	if (!rst)
-+		return -ENOMEM;
-+
-+	rst->resets = data->resets;
-+	rst->rcdev.owner = THIS_MODULE;
-+	rst->rcdev.nr_resets = data->num;
-+	rst->rcdev.ops = &zx29_rst_ops;
-+	rst->rcdev.of_node = of_node;
-+	rst->rcdev.dev = dev;
-+
-+	rst->map = device_node_to_regmap(of_node);
-+	if (IS_ERR(rst->map))
-+		return dev_err_probe(dev, PTR_ERR(rst->map), "Cannot get parent syscon regmap\n");
-+
-+	return devm_reset_controller_register(dev, &rst->rcdev);
-+}
-+
-+static const struct platform_device_id reset_zx297520v3_ids[] = {
-+	{
-+		.name = "zx297520v3-topreset",
-+		.driver_data = (kernel_ulong_t)&zx297520v3_topreset_data,
-+	},
-+	{
-+		.name = "zx297520v3-matrixreset",
-+		.driver_data = (kernel_ulong_t)&zx297520v3_matrixreset_data,
-+	},
-+	{
-+		.name = "zx297520v3-lspreset",
-+		.driver_data = (kernel_ulong_t)&zx297520v3_lspreset_data,
-+	},
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(platform, reset_zx297520v3_ids);
-+
-+static struct platform_driver reset_zx297520v3 = {
-+	.probe = reset_zx297520v3_probe,
-+	.driver = {
-+		.name = "reset-zx297520v3",
-+	},
-+	.id_table = reset_zx297520v3_ids,
-+};
-+module_platform_driver(reset_zx297520v3);
-+
-+MODULE_AUTHOR("Stefan Dösinger <stefandoesinger@gmail.com>");
-+MODULE_DESCRIPTION("ZTE zx297520v3 reset driver");
-+MODULE_LICENSE("GPL");
+ 	psock = sk_psock_get(sk);
+ 	if (unlikely(!psock))
+ 		return __vsock_recvmsg(sk, msg, len, flags);
+@@ -102,10 +116,9 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
+ 	while (copied == 0) {
+ 		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
+ 
+-		if (!vsock_msg_wait_data(sk, psock, timeo)) {
+-			copied = -EAGAIN;
++		copied = vsock_msg_wait_data(sk, psock, timeo);
++		if (copied)
+ 			break;
+-		}
+ 
+ 		if (sk_psock_queue_empty(psock)) {
+ 			release_sock(sk);
 
 ---
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261109-zx29reset-3f6a4f4bbd8a
+base-commit: 6d2cf411aba2aa0bd641b49be5b1964ac5097a50
+change-id: 20261001-kbh3-1-022-fix-v2-e3f14290641a
 
 Best regards,
 --  
-Stefan Dösinger <stefandoesinger@gmail.com>
+Jerome Mohm <jrmmhm.kernel@eldare.de>
+
 
