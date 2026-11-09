@@ -1,100 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.21
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794209018;
-	b=HVVdLyBAMGeUwB83ut91dh3d0/A/0Fa+PK/qyCzB5+MXB8X3UFuINUzBvtLoUskzPAdU
-	 cYg8K4mvtV/VB3XDas+N+WkawGcnq8v7venBorw3JvQDIqU2X/1oFaBpZ966pVMdLz4Po
-	 1G/N2g+w1emNJwgEON5Mw7TtAe3949s9vReGVKQyRMbbxZ61ouKR+AIFU8YYNpirehOnI
-	 s5njYdU1fglcD+xanIOemRC504nTmo0jz2pYLLT7XC/mzyqgNUGPGn1RWkt+AHLG4pH4T
-	 f+lQVhqI9sYxLkIjWtveI1D1K2ai7o1D7pcyZXLpNdKCSuMCsLW8gNRqWYIH0/cCgXw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209018;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1QrWikTQvzrvGrHmovZnhk2EwQVBDZv6IO/+tgWarOk=;
-	b=NupyEtKBBzXH7GVsIUFTJNlfZYYTglHi2UrT/uQqBLrRaFj0VR7DgRgp1HNOowOVvFBA
-	 HgylqgQ7DctK7J2O1lXoSiUsTacoImqepgl2iBVIdjYBaknw7A2QYWQgErFqkPzEZs4cJ
-	 1VLy7nyWMSW5PiE6MYMw2ARvvund5TIaZQI+cMFEKALdPzIiCmwO6Hm08lHaPtShAuTSp
-	 n9DqP865recKuPzPA4MtXfcPQzNlRzJYbyY03ckspW5oVs2A/s4OKoMtwR9FSGCCYThE5
-	 xNZKvghgZkwAW/d+iH9R8zeMzGSwgU+GnatqUKEMtX0yI5QVjM7wZKWxtKhwDzHwJBA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VjQw+tUk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.21
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010021.outbound.protection.outlook.com [52.101.56.21])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.163.59.82
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794209036;
+	b=OAs5L7oX0O2SC0IxRNvFltbl6TKrrF+4YOiua0zeEekFNxjyf9nvAe9wDOoh/ExQleBF
+	 6tQpXs9Pvz3Tuh356OpGuPOWD3UY/buP6vtSOi+YjNbBO7GrtyBeOo9WYyfohsCXn0mnP
+	 hYMU9kXFnMMilCLsWNQlIPT5A94Z/QcsOi5dlIUGGP1gUtAxTA4YSdre3cm5H6qyPSSO8
+	 yumkdmXS6lBspzkZW7ngcECn2Wksb/nAbNaJWLOyqT1QYXi2diI7ciVbKnh3uRVEIEL9t
+	 gwC0yu2lFLgXHdfQaUoAHyTuIu1EDmi05e4CjeKLxmkosYFvZ1o2bFQlEDRULhITVPw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209036;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Mailru-Src:X-4EC0790:
+	 X-7564579A:X-77F55803:X-7FA49CB5:X-C1DE0DAB:X-C8649E89:X-D57D3AED:
+	 X-Mailru-Sender:X-Mras;
+	bh=KbJMtHB4hTqjKNye1Zsjk/iARD9OK7OnZL6o3WrmGXY=;
+	b=fNNL5EImYeXXizqyKwKeFmwuIC5RT5wKCnaiIC3BS6Wzna7872D+1PYq/B0n5ARGFdXH
+	 wR0qu609eFmrJRSro/0uNsdQp2BwEhqsV1gKTb7UTstqZbBNNeKp0IPBSHMT26aXAGM95
+	 zmJHCKKqqM5UOEUOrhnLTQntp2CC0JIoH25+5wVDTJsjaGSPX90X2Eowv7F7NXRRV79c5
+	 psPwx3cVogyVapjQQRvuMQi/96lJmXp/oCdsbc62tUn4P79yD/oTGrpvvOlURWVg9KqUh
+	 7/TEUHe2wL9TOq4uxf40nr6dzCv60AFdM/lx1rWJR2zgIBLRXGIrSpePhQEjl4RfBqg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=inbox.ru;
+	spf=pass smtp.mailfrom=inbox.ru;
+	dkim=pass header.d=inbox.ru header.i=@inbox.ru header.a=rsa-sha256 header.s=mail4 header.b=oBdCtnN7;
+	arc=none smtp.remote-ip=95.163.59.82
+Received: from send243.i.mail.ru (send243.i.mail.ru [95.163.59.82])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61851606A31C;
-	Mon,  9 Nov 2026 07:23:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61851606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36B3606A326;
+	Mon,  9 Nov 2026 07:23:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F36B3606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=inbox.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inbox.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=VjQw+tUk
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tMLWPg8LIfh1tlNwZF35FF/xfIKTmEQL0HunWARPtlp+Q54Ol/35sRkiNV0RoBQZvOtTpYElGT7+fifws/Px2nC7bVHvHxzkZ+GmPxbI1ZOYMGti305WsPEtRR7/lUKpGkeRADYF1kU9ux5/A10Vs/Z1LYN0tN2RUwh2jhwDx0SxD1WaiwcvJ4FloouiivYLb1ZMpS48JkgBN0h6uXOOUtMVx5iba2MEjhqQGx2D1OPw9qv+B1hNro8ZSpUVuPMQFsGbYBgUCcb0FwTrY9t67LFE3kSNOh/0XIozLprRaK8kNHVdMbM+1DtZVoamvzESHAcoQYYuILqRE5XMHI1DXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1QrWikTQvzrvGrHmovZnhk2EwQVBDZv6IO/+tgWarOk=;
- b=JUtgK3aQVvMWZmAQdGZ9LXyuUHaGSbGs8FPiNm7m8HC/XOmGzn72LvV7BjCJSD37CR0OPPfBigDfNlsh5Ck5lZs/NhKo7IuOzDIjAzitM9ieLfDkG2SPuEnEiQyOSKpQ49e77kscNFGgLOmRVq7d9vkksMCMdh7hHcxAdf7DLmXqyGhIe87F2Uw3ZR4xWknyMbrZnwodCkiT9MiNIqLPrRQyBtSA3XjhUkFhY51VvAwag5fJICO8Ucr5amkhtXSlTBTA7zfYYsUwGts1r2jQu7c9RBatP2PiLaO/2isXqS7uQQZPg7pGKbgX0Fnnjhh5JAX1UdahnP8zVRgYAVD+YQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1QrWikTQvzrvGrHmovZnhk2EwQVBDZv6IO/+tgWarOk=;
- b=VjQw+tUkbruBNKdZtrjCSzQSJ57utaWKRpW7ckxL5ensfaa2sD09IMfhl4U/C2ntJoQU+G09Zh7zUf3msC+LZ3Gv/7ODbBRIBGkpS+vVnPjapeVPeBm9R2cFymkEy6GM73GrWpAw88+5jjPkQ4PcaDchYlNSZ+G4Z3Qppcx7CsEpkTHSXlLCpU8CcP3ntgZxI69dbD3XkWNa6kSp+OyOOUM2Xoq8c84RoLkcWIXAM0OQ92PO7FDaj8FN9kMbQBeoZWKnSu6w53zgXHGdlkB8tPtRlUR0VZyVWV/5/TG4G59c1JD6dw5vfPNeMtsa3QKaU4ugtkCzFAXnqfPwkBm9Mg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- BN7PPF34483F4BA.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6cb) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 07:23:34 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 07:23:34 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 09 Nov 2026 16:23:29 +0900
-Message-Id: <DMQI0G2K6Z3B.1YEH6D2ZILRBI@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 10/12] gpu: nova-core: falcon: allow DMA transfers to
- read from a framebuffer address
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261107-r000-fw-v2-0-fb37cc5b20cd@nvidia.com>
- <20261107-r000-fw-v2-10-fb37cc5b20cd@nvidia.com>
-In-Reply-To: <20261107-r000-fw-v2-10-fb37cc5b20cd@nvidia.com>
-X-ClientProxiedBy: TYCP286CA0052.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b5::13) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key) header.d=inbox.ru header.i=@inbox.ru header.a=rsa-sha256 header.s=mail4 header.b=oBdCtnN7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=inbox.ru;
+	s=mail4; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References
+	:Cc:To:Subject:MIME-Version:Date:Message-ID:From:Sender:Reply-To:To:Cc:
+	Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+	List-Archive:X-Cloud-Ids:Disposition-Notification-To;
+	bh=KbJMtHB4hTqjKNye1Zsjk/iARD9OK7OnZL6o3WrmGXY=; t=1794209034; x=1794299034; 
+	b=oBdCtnN74Y/43fL1mY5BIk0NvnNGLssgI3uu7PC6A0ngeaT6MAdsJN6O1fEpeEKlgTfcHZ3kwn8
+	U6goOIrcfASywc7vEdqNGRVEmVDgOfueDzXgFArkkmufGHBh6IgKmVt0lly+G98MM+epN5yx0yVsS
+	+HRL8c0u4LRhjZ2n5oTKNmTdmxUT666P/hnYeiJTYVletQsmLC0xJAT73I3pO6YJygqdrU16irwS3
+	TH+uG4I/EFUMKvuP9hFxac8FjkhtsW+dS4KcTBAvCEzW8CjPsskgpEyv9JWRJ1ihxBjkKAwUyHdc1
+	Zv2C+pNNwofS+pxG5L4A5PggDXV/XDPde/xw==;
+Received: by exim-smtp-5cc8b577fd-kf29j with esmtpa (envelope-from <fido_max@inbox.ru>)
+	id 1xQJj8-00000000P4c-2k9y; Mon, 09 Nov 2026 10:23:39 +0300
+Message-ID: <d711ade9-7a6f-4495-8080-69097645b3c6@inbox.ru>
+Date: Mon, 9 Nov 2026 10:23:37 +0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,251 +61,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|BN7PPF34483F4BA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e3f0e53-0f06-47f3-481c-08df3e325cb5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|10070799003|23010399003|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261022115727099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	FGJ41r8Ij0uv68WVz29oRsPe9EP5P8BpXveI9nRcgIqlF7snW+Tgwg8lNbKD8E6LtdlNnr0XvUl2bLPxqUxcbJqT+BQnlM+11HgYwbNhjuYkPUtNcnZMSneOn+2TbIFnudSCBfj3MMTUYy+smdneyMbMEas7zD+yThJcIlPJ2LhnWZ9LjpBYb/D1SeN6+3dssK60uvRQ6RIUYtrxCDUyPoGrLJePGsMXuSiWt6D9W0R9+0KIt96+PF+KLrSbGnVGzpMux+oNykqNBttyugB6dc5nG8bC5roCMBAMLkaBmqiuNMCUjS1wAa3E22RgACfmnnh5VyrcE6ho0lJQRCnrC4uv19V43rRCnlWSC2FMo086XaM+jtwADnBuciiS/YS+qHsm+/QapOIhTI9QiXqKbNjxkeWWu8HRjSK4f1X3Tr/gE6whI0HjFrMjxYUqQ3TiiUOKW0hgS2/ucLxR37jrb7yQ5WIo31MB68l7z8MmVRDPDxpZXN9DKrIpEf+fyjVehTtDY1dds8Vj88sy5ftFd31tVqczRpWXDSgiQKUWhL01J44WG2l6TnHjjrjTAaaNXjKIny2c7bKf+dxGg/J+HOsGTTMk5w0QjYuu+LjqCa1VlqSoiCgJeH+wLpQCKlUv0cP5SsZVne1045DNWFBTIQKG21rEBCDvk4y/C8jn+5w=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(10070799003)(23010399003)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261022115727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VUErVVlsL095STJLMkVtZmN1RUpHNStjQ04rem9sVFZWaW5YZW1RRkdHRnZk?=
- =?utf-8?B?NUxMTjlmU3lqdmM5MlNHL3FoVlFGbTJIMHpMdlNUa3grSXg4ZmNNM3lROGpM?=
- =?utf-8?B?UmlwQU9RTnJYbWNMYzNGaG5Ya3ZaYk5LVUtpRXlRRFQzOFQyL0trVTlCUEF4?=
- =?utf-8?B?ZTB0dngxblk4Ky9SSFZiU3BoeEJqdFRzdmxjNFM3eksrYlJzT2I5OWI0Qjlr?=
- =?utf-8?B?SlRxcXNpbEw2NnZzYkIvcEozUmNtTXZmMUs5c1pkNWtBaEFMcE5aRysvT0hs?=
- =?utf-8?B?c3VZSGhqRGI5V2phWDJmNHZZVHU0R3Y0MVc3cUJodnByTjN1VXdmYnlvSGFk?=
- =?utf-8?B?SDBqN0R2akVSczJzSWRBTlVEYVpER2dmV3daR056TkVMb0grUnY5OVdCMW12?=
- =?utf-8?B?MEZBQ0xvaGl5TklScGR6TUZkY2kvUWxnTU1wTXdpWmx2REJJTkxxNHg0NGFZ?=
- =?utf-8?B?dDI1MEZzbTJoRE10RTJ3SlYrczFjQk55SkV2REppNGNvVTVIMDIzc2pad3Fi?=
- =?utf-8?B?MXNEaVR1Zm95UTd1RThFKzl0Nk9EektmQUdIUGlEaEhVK3NzWTVreCtWVUpt?=
- =?utf-8?B?K3ZJcTk1eEhIbXkvVTVhRkRzemYybmdRVFNWNUFuSHVNNldLaE50Y2x6SXN3?=
- =?utf-8?B?MWk2ZU1hU3pDaTFmMHIwRitORGdrZWtHci80eXFxdFlUSW5aeXNRSXFJdEhU?=
- =?utf-8?B?UkE4VkZzOUZ3YU1Vc3NLaDVUQkFMMmk3K0duNmxjTm5UYnF3SGEwYm9aWDVn?=
- =?utf-8?B?SHRrUERscFlDM1hxNFVvbzZXY1c3T2Vid3ZIbzFXK3pVRUErdlVia0FDRlN2?=
- =?utf-8?B?MDBwUnR1ZUdlRmEvTGJJN0R5eUhBRUxRV09KRW41WUhaMGs2ZFViQlQ3em5j?=
- =?utf-8?B?VXBMbXlqM1F4c0hjeXdtWng4S2VoZEZZUTFMUENiUUJnNXRtbHl1VWp3SmRr?=
- =?utf-8?B?eWNYdlp3eVp2Vklyb29GZ3FZcEFOKzRiWHgxQVBUK2JpZEMrajVxNTlzTVF6?=
- =?utf-8?B?VStLbzN3VkpmenYrSHY2d0x1R3BnVTFVbWIzNDlMUWRZZG84S2xLUm5tVysy?=
- =?utf-8?B?MlBxK2RWcFRodmgxZDVXYUN6TFB4QnVhWVoxNnl2U1F0bGZxV2pSWEdWTzRx?=
- =?utf-8?B?QTBCVjlDeFBDUThzUW44Um1OWUFBOTd0b3pLUENIbHRhNUlleldPcVdsVWFH?=
- =?utf-8?B?b1lPY3luQXlsQnloYmU1Tnd3QkV6VjR5MTJvMG92QVI0Z1owSXdCMUZkVDJ2?=
- =?utf-8?B?MWFoRlFmYWppWHdrdHNEOE9hYVJZTG0ramRJWjZtQTVXVExPWS9hSU1ibmFu?=
- =?utf-8?B?QkMxcXdpWmNwQm9tdnk1a3pxUUJ1L0hVcmZzbHB0V0FwNVNBMzRkczdyZkRX?=
- =?utf-8?B?SS9LUmRTUnVWZUc4VTUxY28zNGt4d1E1VmhiUjh4YmJrQXZnU1Vibmw4bW5U?=
- =?utf-8?B?cjU5OTZaZk1vZmorUzdKMFVWV1BZaEVlMVhFSVpRNDMwQXgwWUFaSFJMeHJk?=
- =?utf-8?B?S25SSXBIVEx0YWg3Q0Q5ZklyOUg2S1lXYnVoL1ZmMndsU0c4ek94VndCTE9K?=
- =?utf-8?B?L09RMUNkL2FJb0srWC91YkRyeW5Ra2ZUU2UzcHU3aUtLV05DMGRJTW9JUDBV?=
- =?utf-8?B?di9mQTF6ckllS1NWaU8zOFJpLytpajY1YU8wQndHdnBMOHg0QzBPWG9KeVVC?=
- =?utf-8?B?b21vUzdHQ2dMMGpBQ0c3UlJpOGZxYXFPNGIzSS9uY2w0ZS9xSXQ1WFN1Rmk5?=
- =?utf-8?B?WmpqWDVQK01WekxEdCt4Z1lNdFd5R3k5WCtZbGd5TmNsTnM5M0VKTWlvckQw?=
- =?utf-8?B?UjA3enNDL09FVWFpcmZxaXFkdUZFMklpSElrbU40WmhEeHdydDliUjBYVHNl?=
- =?utf-8?B?a0NWM2ovdnNsbGp5MVdRd3ZVTys4S2ZJRkNNMzZpYkhQZFRiTS8xVEYwZk9R?=
- =?utf-8?B?ZnU3dGtiR2txQit3RXlPMlFMdkVuSmZ1T1orS3QxUWFBNkxIRjN0NFlIR3Bm?=
- =?utf-8?B?Zmp0SnNrbGZXNnNRTE96OUc4cVVIMDVHaUtSdmo0VHlkRzFLc0VOYWZYdnZo?=
- =?utf-8?B?aUxMTHh5SDB2WlQ4UUJpNzIrbGhWczF3QnVvTEVpbnVodzhlR0tQUE9zUHYx?=
- =?utf-8?B?UExuSFY1eWhIcms5N3BLZWNwNVI4bXVFQ1N1Q1dUNXNFVXhEWkpDdmVRYUpz?=
- =?utf-8?B?MjZ2TUJTOG92NlRYWTBwak9nYUlQL0dkWkJwMjBTditOd0VMbDMyT1hPVzRV?=
- =?utf-8?B?dXNDQ0dCcXJCTU1aZ2Z6bVk0OXZHZHZvaFVlUGk4MjdEaGJwUFhOeFhUb09h?=
- =?utf-8?B?ckdsWEE1aHZHR0VRR0xSOWxYcEJZOGlCbnBwTlNRSHVqbEZqUVduNjlDTVZO?=
- =?utf-8?Q?JPcLEBazG0msFq52jfJPGJRCSzqQwuArLWlF44MJYD5fu?=
-X-MS-Exchange-AntiSpam-MessageData-1: R9C16zNp0TfB6A==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e3f0e53-0f06-47f3-481c-08df3e325cb5
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 07:23:33.6689
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MXy9Q0Zfk4D7UBu4Gw6FVppoQ4Spw9djPOOhFWvbilpDQWPQWhS7E5kCzzxeq24CF+ME3MUCJ3uLNvjjpwRBpA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF34483F4BA
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] ASoC: dwc: Fix channels_max derived from COMP_PARAM_1
+To: phucduc.bui@gmail.com, Andrew Jackson <Andrew.Jackson@arm.com>,
+ Mark Brown <broonie@kernel.org>, Xingyu Wu <xingyu.wu@starfivetech.com>
+Cc: Tim Bird <tim.bird@sony.com>, Yuri Zaporozhets <yuriz@vodafonemail.de>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261106112940.53550-1-phucduc.bui@gmail.com>
+ <20261106112940.53550-4-phucduc.bui@gmail.com>
+Content-Language: en-US
+From: Maxim Kochetkov <fido_max@inbox.ru>
+In-Reply-To: <20261106112940.53550-4-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Authentication-Results: exim-smtp-5cc8b577fd-kf29j; auth=pass smtp.auth=fido_max@inbox.ru smtp.mailfrom=fido_max@inbox.ru
+X-Mailru-Src: smtp
+X-4EC0790: 10
+X-7564579A: 646B95376F6C166E
+X-77F55803: 4F1203BC0FB41BD96F2D5E088614A237C5E69FFFE1025F7981BB62FAD0F4B4B1182A05F5380850406471935388696B223DE06ABAFEAF670519D472224837D98AF8191B625B30BF7CBDDFA93EA4B3182B
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE7492D3E4238663367EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637FE9EFE935CD7C6AE8638F802B75D45FF914D58D5BE9E6BC1A93B80C6DEB9DEE97C6FB206A91F05B24C3ADB3BE56C0BF22E070BE324C7D3C4FEA34EBBCBB4AB9DBB0A4F435E46E6718B35066C979671628AA50765F79006370BDB19F53EE528DD389733CBF5DBD5E9D5E8D9A59859A8B64854413538E1713FCC7F00164DA146DA6F5DAA56C3B73B237318B6A418E8EAB86D1867E19FE14079C09775C1D3CA48CF3D321E7403792E342EB15956EA79C166A417C69337E82CC275ECD9A6C639B01B78DA827A17800CE7588D3C263EAE74EA731C566533BA786AA5CC5B56E945C8DA
+X-C1DE0DAB: 0D63561A33F958A51C3F2A4848E2886B5002B1117B3ED696D900A0DFC1350899715D9AB585B0EB04823CB91A9FED034534781492E4B8EEADA3A806F356AF31D6
+X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE1918E10F71CB4DF9F96AB70F9BE574AE9C625B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D659696D115A6A79CA56D8527BEC8467BB8235610F99A3C57AC62F4F461849865040A115FC1FDB408B7AB8341EE9D5BE9A0AE81DA86367F5203A231A328384AF61E21A984BFA3DA8EA9052EE4E5D9E54FDA4F44A2BDFCEC9DBD87F602240D6CCBEE5D3DA9480BB1E7B08C654B4D7A83FC0F143082AE146A756F3
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXOcIETfglQORZ0zpDET4Zrk3igikrdHlWB2fK3uE5TX5OphDQ8QPJMA=
+X-Mailru-Sender: 689FA8AB762F73937C9FA53A4753B313C135150924F87E409CA4D03C3A8A2C3057BEABFDD5EEBB9190DE4A6105A3658D481B2AED7BCCC0A49AE3A01A4DD0D55C6C99E19F044156F45FEEDEB644C299C0ED14614B50AE0675
+X-Mras: Ok
 
-On Sat Nov 7, 2026 at 6:48 PM JST, Alexandre Courbot wrote:
-> The r000 boot protocol has a load-and-execute event in which GSP-RM asks
-> the driver to load a Heavy-Secured binary from framebuffer memory into
-> the GSP falcon's memory by DMA in order to run it.
->
-> Nova-core's falcon DMA loading method currently only supports loading
-> from a DMA object that the driver has allocated, so there is no way to
-> copy an image from framebuffer memory that an event supplied.
->
-> Address this by making the source of a falcon DMA transfer an enum,
-> which can be either a DMA object, or a GPU framebuffer address.
->
-> The framebuffer address source has no user yet, but will be used by the
-> r000 boot protocol.
->
-> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
-> ---
->  drivers/gpu/nova-core/falcon.rs | 65 ++++++++++++++++++++++++++---------=
-------
->  1 file changed, 42 insertions(+), 23 deletions(-)
->
-> diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falc=
-on.rs
-> index 00da664887fc..b63265abd263 100644
-> --- a/drivers/gpu/nova-core/falcon.rs
-> +++ b/drivers/gpu/nova-core/falcon.rs
-> @@ -140,6 +140,15 @@ pub(crate) enum FalconMem {
->      Dmem { tag: bool },
->  }
-> =20
-> +/// Where a falcon DMA transfer reads from.
-> +pub(crate) enum FalconDmaSource<'a> {
-> +    /// A DMA object in system memory.
-> +    Sysmem(&'a Coherent<'a, [u8]>),
-> +    /// GPU framebuffer memory at physical address `base`.
-> +    #[expect(dead_code)]
-> +    Framebuffer { base: u64 },
-> +}
-> +
->  bounded_enum! {
->      /// Defines the Framebuffer Interface (FBIF) aperture type.
->      /// This determines the memory type for external memory access durin=
-g a DMA transfer, which is
-> @@ -544,13 +553,10 @@ pub(crate) fn with_fbif_transcfg<R>(
->          Ok(result)
->      }
-> =20
-> -    /// Perform a DMA write according to `load_offsets` from `dma_obj` i=
-nto the falcon's
-> -    /// `target_mem`.
-> -    ///
-> -    /// `sec` is set if the loaded firmware is expected to run in secure=
- mode.
-> +    /// Perform a DMA write according to `load_offsets` from `src` into =
-the falcon's `target_mem`.
->      fn dma_wr(
->          &self,
-> -        dma_obj: &Coherent<'_, [u8]>,
-> +        src: FalconDmaSource<'_>,
->          target_mem: FalconMem,
->          load_offsets: FalconDmaLoadTarget,
->      ) -> Result {
-> @@ -563,23 +569,32 @@ fn dma_wr(
->          // For IMEM and tagged DMEM, we want to use the start offset as =
-a virtual address tag for
->          // each page, since addresses in the firmware (and the boot vect=
-or) are virtual.
->          //
-> -        // For untagged DMEM, the start offset is folded into the DMA ba=
-se.
-> -        let (fb_offset, base_offset) =3D match target_mem {
-> -            FalconMem::ImemSecure | FalconMem::ImemNonSecure | FalconMem=
-::Dmem { tag: true } =3D> {
-> -                (load_offsets.src_start, 0)
-> +        // For untagged DMEM in a DMA object, the start offset is folded=
- into the DMA base. For a
-> +        // framebuffer address, the DMA engine adds the start offset to =
-the address.
-> +        let (fb_offset, dma_base) =3D match src {
-> +            FalconDmaSource::Sysmem(dma_obj) =3D> {
-> +                let (fb_offset, base_offset) =3D match target_mem {
-> +                    FalconMem::ImemSecure
-> +                    | FalconMem::ImemNonSecure
-> +                    | FalconMem::Dmem { tag: true } =3D> (load_offsets.s=
-rc_start, 0),
-> +                    FalconMem::Dmem { tag: false } =3D> {
-> +                        (0, usize::from_safe_cast(load_offsets.src_start=
-))
-> +                    }
-> +                };
-> +
-> +                // Upper limit of transfer is `(num_transfers * DMA_LEN)=
- + load_offsets.src_start`.
-> +                let dma_end =3D num_transfers
-> +                    .checked_mul(DMA_LEN)
-> +                    .and_then(|size| size.checked_add(load_offsets.src_s=
-tart))
-> +                    .map(usize::from_safe_cast)
-> +                    .ok_or(EOVERFLOW)?;
-> +
-> +                (
-> +                    fb_offset,
-> +                    io_project!(dma_obj, [try: base_offset..dma_end]).dm=
-a_address(),
-> +                )
->              }
-> -            FalconMem::Dmem { tag: false } =3D> (0, usize::from_safe_cas=
-t(load_offsets.src_start)),
-> -        };
-> -
-> -        let dma_base =3D {
-> -            // Upper limit of transfer is `(num_transfers * DMA_LEN) + l=
-oad_offsets.src_start`.
-> -            let dma_end =3D num_transfers
-> -                .checked_mul(DMA_LEN)
-> -                .and_then(|size| size.checked_add(load_offsets.src_start=
-))
-> -                .map(usize::from_safe_cast)
-> -                .ok_or(EOVERFLOW)?;
-> -
-> -            io_project!(dma_obj, [try: base_offset..dma_end]).dma_addres=
-s()
-> +            FalconDmaSource::Framebuffer { base } =3D> (load_offsets.src=
-_start, base),
->          };
+06.11.2026 14:29, phucduc.bui@gmail.com wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
+> 
+> The I2S_TX_CHANNELS (bits 10:9) and I2S_RX_CHANNELS (bits 8:7) fields
+> of I2S_COMP_PARAM_1 encode the number of hardware channels minus one,
+> i.e. values 0..3 mean 1..4 channels. In I2S mode each hardware channel
+> is one serial data line carrying a left/right pair, so the maximum
+> number of audio channels is 2 * (N + 1).
+> 
+> The current code uses 1 << (N + 1), which only produces the correct
+> result for N < 2. For N >= 2, it overestimates the maximum number of
+> audio channels.
+> 
+> Use 2 * (N + 1) for both playback and capture.
+> 
+> Fixes: b226efe5818b ("ASoC: dwc: Read I2S block configuration from registers")
+> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 
-I think this code is simplifiable. The `Sysmem` branch computes some offset=
-s
-based on `target_mem`. But I don't see why this has to be specific to that
-branch. What we could do (and what openrm does afaict) is just split that o=
-ut,
-for example:
+Reviewed-by: Maxim Kochetkov <fido_max@inbox.ru>
 
-```
-let (fb_offset, base_offset) =3D match target_mem {
-    FalconMem::ImemSecure | FalconMem::ImemNonSecure | FalconMem::Dmem { ta=
-g: true } =3D> {
-        (load_offsets.src_start, 0)
-    }
-    FalconMem::Dmem { tag: false } =3D> (0, usize::from_safe_cast(load_offs=
-ets.src_start)),
-};
 
-let dma_base =3D match src {
-    FalconDmaSource::Sysmem(dma_obj) =3D> {
-        let dma_end =3D num_transfers
-            .checked_mul(DMA_LEN)
-            .and_then(|size| size.checked_add(load_offsets.src_start))
-            .map(usize::from_safe_cast)
-            .ok_or(EOVERFLOW)?;
 
-        io_project!(dma_obj, [try: base_offset..dma_end]).dma_address()
-    }
-    FalconDmaSource::Framebuffer { base } =3D> base
-        .checked_add(u64::from_safe_cast(base_offset))
-        .ok_or(EOVERFLOW)?,
-};
-```
 
-Alternatively I think the following is simpler where you just always pass t=
-he
-base of the DMA region and use the offset param
-(NV_PFALCON_FALCON_DMATRFFBOFFS), but it's not what openrm does. That is,
-tag=3D=3Dfalse case it doesn't matter (?) how the offset is split between
-`fb_offset` and `base_offset` is so might as well make it match the other c=
-ases:
-
-```
-let dma_base =3D match src {
-    FalconDmaSource::Sysmem(dma_obj) =3D> {
-        let dma_end =3D num_transfers
-            .checked_mul(DMA_LEN)
-            .and_then(|size| size.checked_add(load_offsets.src_start))
-            .map(usize::from_safe_cast)
-            .ok_or(EOVERFLOW)?;
-
-        io_project!(dma_obj, [try: 0..dma_end]).dma_address()
-    }
-    FalconDmaSource::Framebuffer { base } =3D> base,
-};
-let dma_offset =3D load_offsets.src_start;
-```
