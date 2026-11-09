@@ -1,57 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794265351;
-	b=0zf4Dpi0ZhdjAUyRHbK+5RFAi2vCJmpeIYmgr/YoAf8bE7znXKkYq8h7qnVbgQw4rVWk
-	 w3ZLmpOHfBzdqnd1JDKSDj+3MbHT/J4Y3MlExJ6PetUwf2qLPAC9TFKMdMxrmIB/5uuWm
-	 VH52gZb8G51UjBXMT5PfRNuVO6UkruCNcQqPs4fvgsfd9Wp5LtEiBOmuwUzIG+KcwYNp4
-	 Bvh0Yvf6lb3FGb5It8H0jClQzATopFRIUusSkyrQW5xg2jCpX6Rajcxirc89RAlFhq+5M
-	 7tzx0NbrAF+/50wV6d/4E8AQVeQFB+6wHUdOHh+yi1oNIv6pnWFJEm/jMzk5wXpP2vQ==
+	t=1794265388;
+	b=5eMtX3RUjK7kxApc+r2bU/FrH/lcGAO68hl7OMXj0+z2Zjk63X6FW7xpwALF0tBiDrH1
+	 2vVMEBKdILmIB5POzHfIMOCJTFDmfibVbekhMngBF2lVIlgQdIyJgmmeS077PeBUmXBaj
+	 8o5K8UzwvpgeAmo4ByojTYyqCAyDOauqEntEf1y1DKgr5+illh+dlxR/a9q2EsR0Kg3KQ
+	 UmG8gDATlB+9me3szQPgoToOFugIQLZ5tK3w8n2Wder9qbyyx+NhAxOOXJaTFBrpNAxhp
+	 U1Yno2TLAKc+7aoq0KOo+zVyMd57+Z3gWUF2E2c+vjgthDtvA9geKcI5RCuNRJsiTKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794265351;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=46y7602YTfhoa+pZNU3EQ9THKts6U3FC1YzFDGUGHTc=;
-	b=aPtUaopIBq7hsDW3L5EjzmUu0x51SOjaUMaliGDQj11COU8yaWKiL8GrXjYhElSyAxoQ
-	 4GDJhUGF22I51qYfW3hwd3+VBjDFXxahJdi3I1LvbTmXYA28DHECI2qzybx/1QKkfkaKc
-	 ZeAYbqpmzt1FXhTEw1EPfKF2mcyAzo35f2qdlAuqbZ7ZlC+EzNq2CdfLpaMbflZ75waCR
-	 1VqIbDblf2yij1aWLMQpgXVTSvh1pjhkTHyFDsea8b366XP4jwM+gunTfiGEE9ppNv9pL
-	 aH2yBh9FLsc78G6d/ID9c1QDmzfOyGoF9BtPM20SOJCsMDueaofuHxKqV1QIX3VrwIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794265388;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=1UKK/To0jM4MQHkafo2SrDtvaNxDgEoLg2sNhgA3Yik=;
+	b=Ua0VIUUQ1EIsrW0jGCDQSA92+yo9KAKmY2mEgZbEDVGn8eviAnTKA1Gznwo8kX4oN0CW
+	 3/fBKcShjqV/HwmF8Nyug980Ix7SMO7DhBtlu6usrsCxe8eKW6U8DboqP3Q+8TEW8dmeR
+	 zWz9dwwjYje/48pMVtSHiRlUbf6vIzG8fZTvR/iLBdLnWxu90hYt8KjVR/0ju/nMMldXT
+	 1AbrigdJ01zQPXzijtPyFq1OZRIdTtj/k9XYW3Jks4uaUl8LMxxZ/69uOxIp4WdmYTRC7
+	 TWOdPWRz6Qeit3eG/la9UgMnn3lBxgtch2tLFAOqezhB8nzi4Mz8o1fRsM8Y+7tgu8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlAsxvae;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q+6CMvPt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B195E606A31C;
-	Mon,  9 Nov 2026 23:02:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C913606A31C;
+	Mon,  9 Nov 2026 23:03:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FlAsxvae
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 256CA1F0089F;
-	Mon,  9 Nov 2026 23:02:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q+6CMvPt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FF1C1F0089F;
+	Mon,  9 Nov 2026 23:03:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794265350;
-	bh=46y7602YTfhoa+pZNU3EQ9THKts6U3FC1YzFDGUGHTc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=FlAsxvaeMDArxHIG/5wJJHfkfp6cWYTGd6orowChaqxjdPh0oNkTaBW+wdBYMnyvJ
-	 QhWuW0G6AbHhVuZ+tAQtv1VdeZ/rteLzU0AfMIdHz5EM5VMOPXOlq0sOATfXxJl6Jl
-	 ClGt1EZY3+heaT0G0rf9Fmd4ogukJ7CaVwjrQNnF5alYsKFgX84o1KjUBk/4fdc6r1
-	 SD5/Pa5A+FPGnDYABZ2zD7Tg6hmfvMq2WrTyFlkhZtZQagHeh3DN1T3Ed2/V6lWDU1
-	 eztxJXzQlIypPHhdk0+AMTmos9dWoGOhffa6mDs3vXzG3uFzMxh35yy613YvQUC30m
-	 Jfd05qHiCLihQ==
-Subject: Re: [PATCH] nfc: llcp: pull DM reason byte before use
-From: netdev-bot+sashiko@kernel.org
-To: NoahWeinberger2003@proton.me
-Cc: david@ixit.cz, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 09 Nov 2026 23:02:29 +0000
-Message-ID: <179426534967.994134.7609721697490865811@kernel.org>
-In-Reply-To: <mcyWWpY9VDnsb1o6EnHOMwEinRkPRORIx9_O6DMiKhWHsDIrbITdgbL2PkFkJKgxIIs_0euqmOIT9eCZVFZ9-F8y_g_dFysV8EEOHP6UxmY=@proton.me>
-References: <mcyWWpY9VDnsb1o6EnHOMwEinRkPRORIx9_O6DMiKhWHsDIrbITdgbL2PkFkJKgxIIs_0euqmOIT9eCZVFZ9-F8y_g_dFysV8EEOHP6UxmY=@proton.me>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794265387;
+	bh=1UKK/To0jM4MQHkafo2SrDtvaNxDgEoLg2sNhgA3Yik=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=Q+6CMvPtTEa5ooGZ0LRTuFm7iZpknWqErWir64A1nMY4IYMfb7/uEwJWXvkPIs7sG
+	 663kZF7grqmS0QdIIiKqrx8cULyjw53Mfa30yBU863nL8/g1yvjA5gXzTP7v70fr5t
+	 C46b5Mu5VPKzC4FczI8dbse+IVZ9nVoKKNhsJuO9URGBo1wgxnL9KTYlh4s6D2XYXT
+	 jrobO3ddWxbJPC/IP2sHrcE3gMjivU/wyHN91HFZ/Fzao1y4vJbLDe4xNTRE6SJ9Zh
+	 cf1MugsqIniq5H8Zuxx97viV3kvYpoMeLUQKOQMwmm7SkuoEa+2vU4aYdielV3J0cQ
+	 dqzuIKOmT21WA==
+Date: Mon, 9 Nov 2026 17:03:06 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: shao.mingyin@zte.com.cn
+Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
+	ilpo.jarvinen@linux.intel.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] PCI: Reject negative resource alignment order
+Message-ID: <20261109230306.GA339915@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,127 +56,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261109185515838mOfBTIYMU1_4vygdxd-Gg@zte.com.cn>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Mon, Nov 09, 2026 at 06:55:15PM +0800, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> pci_specified_resource_alignment() parses the pci=resource_alignment=
+> boot parameter and rejects only orders above 63.  A negative order, such
+> as "pci=resource_alignment=-5@...", passes that check and later reaches
+> "align = 1ULL << align_order" with a negative shift count, which is
+> undefined behavior; on x86 the 64-bit shift count is masked to six bits,
+> silently producing a 2^59-byte alignment that mis-aligns (or fails to
+> align) the affected IOV resources.
+> 
+> align_order is a bit order, so parse it with %u.  vsscanf() does not
+> accept a sign for %u, so a negative order no longer converts: the
+> parameter is reported as invalid and no alignment is applied.  Orders
+> above 63 are still rejected and fall back to the page-size alignment.
+> 
+> Fixes: 6534aac198b5 ("PCI: Bounds-check command-line resource alignment requests")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 2
+Applied to pci/resource for v7.5, thank you!
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I included this diff based on Ilpo's comment:
 
-- [Medium] The commit has no Signed-off-by: trailer.
-- [Low] The patch fixes an uninitialized read that a remote NFC peer can
-  trigger in nfc_llcp_recv_dm() (net/nfc/llcp_core.c), but it carries no…
-- [Low] The commit body is written as a cover letter or bug report, not a
-  changelog.
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b603d5c5596b..f8968f3be0f5 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -6511,10 +6511,9 @@ static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
+ 							bool *resize)
+ {
+ 	unsigned int align_order;
+-	int count;
+ 	resource_size_t align = pcibios_default_alignment();
+ 	const char *p;
+-	int ret;
++	int ret, count;
+ 
+ 	spin_lock(&resource_alignment_lock);
+ 	p = resource_alignment_param;
 
---
-
-nfc: llcp: pull DM reason byte before use
-
-This patch adds a pskb_may_pull() check for the LLCP header plus one byte
-at the top of nfc_llcp_recv_dm(). With it, the DM reason code in
-skb->data[2] is only read when that byte is actually present. Until now,
-__nfc_llcp_recv() pulled only the two-byte header before dispatching.
-
-> nfc: llcp: pull DM reason byte before use
-
-[ ... ]
-
-> Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
-
-[Severity: Medium]
-There is no Signed-off-by: in the trailer block. The only trailer is a
-Reported-by: that names the commit author.
-
-Documentation/process/submitting-patches.rst requires a Signed-off-by: for
-the Developer's Certificate of Origin. A Reported-by: for yourself doesn't
-replace it.
-
-Could this be resent with a Signed-off-by: so it can be applied?
-
-> diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-> index 74bf817007cf2..733e643e02234 100644
-> --- a/net/nfc/llcp_core.c
-> +++ b/net/nfc/llcp_core.c
-> @@ -1276,13 +1276,16 @@ static void nfc_llcp_recv_cc(struct nfc_llcp_local *local,
->  }
->  
->  static void nfc_llcp_recv_dm(struct nfc_llcp_local *local,
-> -			     const struct sk_buff *skb)
-> +			     struct sk_buff *skb)
+> ---
+> This supersedes 1/5 of the v1 series; 2/5-5/5 are unchanged.
+> 
+> v2:
+>   - parse the order with %u instead of %d, as Ilpo Järvinen suggested; a
+>     bit order is unsigned, and this also removes the explicit < 0 test
+>     added by v1
+>   - pr_err() prints the order with %u as well
+>   - note the resulting behaviour: vsscanf() does not accept a sign for
+>     %u, so a negative order fails to parse instead of being clamped
+> v1: https://lore.kernel.org/all/20261107002311316z2o2PFtFGoXh-VbqXtTGg@zte.com.cn/
+> 
+> Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the
+> pci=resource_alignment= boot parameter and a QEMU e1000 NIC; no extra
+> hardware is needed.
+> 
+> Booting with pci=resource_alignment=-5@pci:8086:100e, the unpatched
+> kernel parses -5 and "align = 1ULL << align_order" shifts by -5 (masked
+> to 2^59 on x86-64); the e1000 BAR is resized to 2^59 bytes, which cannot
+> be assigned, and the e1000 fails to probe.  With this patch "-5" does not
+> convert and the parameter is rejected:
+> 
+>   unpatched                            patched
+>   requesting alignment to              PCI: Can't parse resource_alignment
+>   0x800000000000000                    parameter: -5@pci:8086:100e
+>   e1000 probe failed, no eth0          e1000 eth0 probes
+> 
+>  drivers/pci/pci.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index bca3a5d84cd9..e3f701ff9881 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -6585,7 +6585,8 @@ static DEFINE_SPINLOCK(resource_alignment_lock);
+>  static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
+>  							bool *resize)
 >  {
->  	struct nfc_llcp_sock *llcp_sock;
->  	struct sock *sk;
->  	u8 dsap, ssap, reason;
->  	bool connecting = false;
+> -	int align_order, count;
+> +	unsigned int align_order;
+> +	int count;
+>  	resource_size_t align = pcibios_default_alignment();
+>  	const char *p;
+>  	int ret;
+> @@ -6602,11 +6603,11 @@ static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
 >  
-> +	if (!pskb_may_pull(skb, LLCP_HEADER_SIZE + 1))
-> +		return;
-
-[Severity: Low]
-This early return now drops truncated DM frames without logging anything.
-Before this patch, a two-byte DM still looked up a socket and moved it to
-LLCP_CLOSED, using whatever byte happened to be in skb->data[2].
-
-Should the commit message mention this change in behaviour?
-
-Other malformed PDU paths in this file log a message. For example,
-nfc_llcp_recv_agf() does this:
-
-	pr_err("Malformed AGF PDU\n");
-
-Would a pr_debug() or pr_err() be useful here too?
-
-A separate point: the commit body reads more like a cover letter than a
-changelog. It opens with:
-
-  "Hello,"
-
-It also includes the notes about the AI-assisted review and the tree it
-was done against, and says the patch has not been compiled or runtime
-tested. It ends with:
-
-  "Please treat this as a report for verification rather than a
-  battle-tested fix."
-
-Could this text go below the --- separator so it doesn't end up in git
-history?
-
-> +
->  	dsap = nfc_llcp_dsap(skb);
->  	ssap = nfc_llcp_ssap(skb);
->  	reason = skb->data[2];
-
-[Severity: Low]
-Should this carry a Fixes: tag and a stable Cc? The unchecked read of
-skb->data[2] goes back to the commit that added DM handling:
-
-Fixes: 5c0560b7a5c6 ("NFC: Handle LLCP Disconnected Mode frames")
-
-A remote peer can reach this read in two ways. The first is a plain
-two-byte DM:
-
-__nfc_llcp_recv()
-    pskb_may_pull(skb, LLCP_HEADER_SIZE)    /* only 2 bytes */
-  -> nfc_llcp_rx_skb()
-    -> nfc_llcp_recv_dm()
-         reason = skb->data[2];
-
-The second is a DM sub-PDU inside an AGF. nfc_llcp_recv_agf() accepts any
-sub-PDU with pdu_len >= LLCP_HEADER_SIZE. It allocates a new skb with
-nfc_alloc_recv_skb(pdu_len) and copies only pdu_len bytes into it, so
-data[2] is uninitialized tailroom.
-
-That byte decides whether nfc_llcp_connecting_sock_get() or
-nfc_llcp_sock_get() is called. That in turn decides which socket gets
-sk_err = ENXIO and is moved to LLCP_CLOSED.
-
-Without a Fixes: tag, stable backporters may not pick this up.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/mcyWWpY9VDnsb1o6EnHOMwEinRkPRORIx9_O6DMiKhWHsDIrbITdgbL2PkFkJKgxIIs_0euqmOIT9eCZVFZ9-F8y_g_dFysV8EEOHP6UxmY%3D%40proton.me
+>  	while (*p) {
+>  		count = 0;
+> -		if (sscanf(p, "%d%n", &align_order, &count) == 1 &&
+> +		if (sscanf(p, "%u%n", &align_order, &count) == 1 &&
+>  		    p[count] == '@') {
+>  			p += count + 1;
+>  			if (align_order > 63) {
+> -				pr_err("PCI: Invalid requested alignment (order %d)\n",
+> +				pr_err("PCI: Invalid requested alignment (order %u)\n",
+>  				       align_order);
+>  				align_order = PAGE_SHIFT;
+>  			}
