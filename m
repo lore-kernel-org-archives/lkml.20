@@ -1,81 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794234146;
-	b=H+DRwm1pz66yfQpw8boMMDVtsYAPVFrhBEiYWPlRWXIOGEs7ERyAiCurvrrlnjV8HUw+
-	 SqqAnXEBCL3DJIWYDJs/DPdMTlRCZ2uzggBbqHdNFeiRV6kWeFgx0yjScw/C7HEHJbQGR
-	 BZ8evCPUC4mP3JVzhG9wDSeRjf+MvG1zmBuutu1WWFAB1dvfE2VJEICA4BUQ7OHEkR+9t
-	 6W2ONqKvvmXYRevkzyzIWaehywPHRCrWwfmI1iNRN/7K6hlxRzg+DB+z8JwKvR+WsK2cy
-	 LkGYHXe/pFnPdn+cE7cyflTI4OkP3xZsl6x6N6h3p37WXGz2NxaOVUgM/GcHu4dr40Q==
+	t=1794234175;
+	b=VT4mTbOuskIA75OAdS6c8edymiTuJPkjpVyfn0WrttX8V8PCl5MDaaSZ+LzMDyVur06l
+	 N/gLk9R+1jtFs1/BUesz3OHQVh34NYT44+sybmSuomgHPzIVv2r2A6YmsfrRz31wFroy9
+	 ncAG5Od3ZrW5mWYE2mVQoKy707pvHv/JKKLU7rFTZFCZEn8O1Dx/2BC6ExD29dTZ9+RIu
+	 RRcdDOLfSt4ILZk7rFlEfG+hMZdyUZlqKhflgczLyUupDV2QNYymYoe0seJc8AcB//OOz
+	 aiUhamq0UT85CszQVY+mME+UrQtgl/r4tw6ja+4G8/6edjbzUye9k6t45dg6oUFOUzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794234146;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=/FFBn2dwDGy30bW7pC/STm/BnbsRXnLnjWa4elBrin8=;
-	b=b9olKtnTgKRYfPsJ/+A0Am+8/SqUsmJdXcD3mXuYmJ5UzOv3R6gqADnnNku0qP2OS98D
-	 eEjoF8RCr6g+V+objmZ1CFXKPeOz7JZI/38Gri7cH8RVV3JfeHx8C6iYLfZqHPKVbXJGF
-	 lnZcsNsYWw6K8Orw35Li4j3XWvBqZMp0A4yF0qhi0OXBE/Gh9HYCa6DBd2cCMnMELhkkP
-	 l3CsZxynRWYXj8usyZ21OhO9mVDDoJugDl0WvpWneK7MLRbdkTy3VAy9Id5kM04L+tpNA
-	 x/bnxGwl7UwmhD1TXguMHtF6GS/JOP4THhuo/mqh+UuUpnIcisvpwzHzUcXKkpEFRiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794234175;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=eEbY3NrYal9RWarIUs9d6k0Mc1apNEcXcrU9HAM6OU4=;
+	b=MjJDMBw4MPpdc+OYrqwRE24DFhnApLOV/My2RlTIpZNmzHmBZdfyfe+J82uqJFZZxsiE
+	 RZ/5noOyzxDwf+cNv1JBUrJ8gXl1kxGoFx7cS2Pv+g2XXq9zUc4MNG6r4CO8YEa2Uu+QS
+	 ZbNH4MMaKpqHT1vH9lr4jMr4wqvt1+9Ikb/hW/GI1xHIUxTkP3+osgPffz1GSfAVkBuEf
+	 RDOFCGwtVRiczJ9NBJGCOZYrI+L0/aPtCEA64rxQQDTo6eJ7TmujqX7lj9i5FyN4lxeOJ
+	 vZRl8bhgJYvc+rGzmZ8hR+n7nJXajexjJvrecqnlN1j0xJbvcAmZ75Xcdox4PmQLiYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L9LS0HyT;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ymp93usH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1379C606A322;
-	Mon,  9 Nov 2026 14:22:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1379C606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1848A606A334;
+	Mon,  9 Nov 2026 14:22:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L9LS0HyT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794234146; x=1825770146;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=uW9ERfhz0aj5tIVSlWOPP4t3UQtEwRMzJ695iyFthtI=;
-  b=L9LS0HyTUt46KxaHQDSp/V/exEoVr+X0KkW24tjdUqgJnh1JClxcG8KN
-   L+EJwjjaG913P7qg07SidnKqnf/JT73xhOYkydLJRZxxos44v8TtLSXe4
-   jkKrOajmi/bK/sLkcFQl43n/raNE7vPcP5vaRK9/EGWZgTSzv4n6M2IAi
-   E+wa6XlE84k0IaabK8LugEDY1HDrZGFp1QMHw5ChZUeEOCVQxkqv7fEjm
-   BI3BL//aZUHkA6smRYu3WnZjxIX9ST9huRE0TgoCbVUh2xD4MJwmLk6Dl
-   IjcZeUKcDQKMtjgeIi+fUJjDeQkYtN152bqO03WZMsdFmxG/H+losROR6
-   g==;
-X-CSE-ConnectionGUID: GuutUR7TQKGPA+zLoa61BQ==
-X-CSE-MsgGUID: dKo6eP5lQaSVB3OaF55vQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2856000"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2856000"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:22:25 -0800
-X-CSE-ConnectionGUID: EpUVzpEKSPmngmecXdcaQA==
-X-CSE-MsgGUID: ejVI2dVDRpWefpIhL+z+0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="9624422"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa012.fm.intel.com with ESMTP; 09 Nov 2026 06:22:24 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id A794299; Mon, 09 Nov 2026 15:22:22 +0100 (CET)
-Date: Mon, 9 Nov 2026 15:22:22 +0100
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
-	Mauro Lima <mauro.lima@eclypsium.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Pratyush Yadav <p.yadav@ti.com>,
-	Tudor Ambarus <tudor.ambarus@linaro.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] spi: intel: only check locked opmenu for SW sequencer
- operations
-Message-ID: <20261109142222.GT176724@black.igk.intel.com>
-References: <20261108203728.25735-1-rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ymp93usH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884A31F0089F;
+	Mon,  9 Nov 2026 14:22:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794234174;
+	bh=eEbY3NrYal9RWarIUs9d6k0Mc1apNEcXcrU9HAM6OU4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Ymp93usHP/3tcyizmeqQgBsoBVH96Cn7sX+Vez2LgJxlWZRrm3aXeJ23Fkun3j7ZK
+	 YOs06ecETQ4tVqu8QsyGGwkxA+DtFrTqjLC3rajaIbuWpJc/B/0jTPYqSIeoDek7b4
+	 S2ATaayZg/Fp4oJ3K+BPncncpxqvBDXFRdVyNkPLPqEmGzE0IlzG+ZO/w3f41cVUOF
+	 l+aHm14KiWo9E+DhtWtW2GCdHv3yXl7aRqsE0TwIU43RcSsKyFArv8pjIceWcZ5vah
+	 HyMi11CFMxarrCvNHJUa9YWJtiTb8nFA9FlEiss2lImRUZO7aUdzZ2BUUWa3pgrsoG
+	 D4BEaTSM2Ztlw==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 2C9C82E9F6D3;
+	Mon, 09 Nov 2026 14:22:51 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: linux-sound@vger.kernel.org, 
+ Michael McAllister <me@michaelmcallister.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261021204202.43738-1-me@michaelmcallister.org>
+References: <20261021204202.43738-1-me@michaelmcallister.org>
+Subject: Re: [PATCH] ASoC: qcom: q6asm: Reset PCM positions when preparing
+ a stream
+Message-Id: <179422611102.3711751.15137943245271806219.b4-ty@b4>
+Date: Mon, 09 Nov 2026 12:08:31 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,45 +66,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261108203728.25735-1-rosenp@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1148; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=gX8fuDjiLA5FI7KIzch8pW0anre/Wf5DFE7FFfiqYBM=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+Xre+9mxnxjn+vYd+u7eYP/s2c+q5qtSQh6U9FV7PV
+ fyWTHGd0VHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJlM9j+Cut/z1EIeOtg1/J
+ 3K/uGVkVgl+MirwYhQK+Ljl2U/pvz1KGvyKe66vb9qx59nen1+TZ2ln3l3nzqmhezZpRnJimI35
+ ejBkA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi,
+On Wed, 21 Oct 2026 21:42:02 +0100, Michael McAllister wrote:
+> ASoC: qcom: q6asm: Reset PCM positions when preparing a stream
 
-On Sun, Nov 08, 2026 at 12:37:28PM -0800, Rosen Penev wrote:
-> On controllers that use the software sequencer for register access (LPT
-> and BYT), intel_spi_supports_mem_op() rejects any operation whose opcode
-> is not in the BIOS-locked OPMENU. However the check is applied to every
-> operation, including normal data reads and writes which are always
-> executed by the hardware sequencer and never consult the OPMENU.
-> 
-> On a Dell Precision M4800 (Lynx Point) the BIOS locks OPMENU to
-> {02, 3b, 20, 05, 9f, 9f, 00, 00}, which lacks both READ (0x03) and
-> FAST_READ (0x0b). As a result every read op is rejected and spi-nor
-> fails to probe both flash components:
-> 
->   intel-spi intel-spi: 0x3 not supported
->   intel-spi intel-spi: 0xb not supported
->   spi-nor spi0.0: can't select read settings supported by both the SPI controller and memory.
->   spi-nor spi0.0: probe with driver spi-nor failed with error -22
-> 
-> Only enforce the OPMENU check for operations that actually go through
-> the software sequencer: register reads/writes when swseq_reg is set and
-> erase when swseq_erase is set.
-> 
-> Write Enable (0x06) and Write Disable (0x04) are excluded as well, even
-> though they are register writes. WREN is never issued from the OPMENU:
-> intel_spi_write_reg() verifies it is in PREOP_OPTYPE and uses it as the
-> atomic preopcode of the next cycle. WRDI is not sent to the flash at
-> all. Rejecting them whenever they are missing from the OPMENU, as on the
-> M4800 where 0x06 is only in PREOP_OPTYPE, makes every program and erase
-> fail with -EOPNOTSUPP.
-> 
-> With this both flash chips (W25Q64 and W25Q32) probe and read back
-> correctly.
-> 
-> Fixes: e23e5a05d1fd ("mtd: spi-nor: intel-spi: Convert to SPI MEM")
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Applied to
 
-Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+
+Thanks!
+
+[1/1] ASoC: qcom: q6asm: Reset PCM positions when preparing a stream
+      https://git.kernel.org/broonie/sound/c/54e89fab723d
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
