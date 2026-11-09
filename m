@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218780;
-	b=RvcHv2cvH5+/DPgNnSLl70cadDuTkuKtQdCI9eH9ifK4AC0CJmUgpne9n4RAXSdphvci
-	 suUcqXYRsTXj+veQfWKsV7exsraFgSR/MWL+qPxekSnaK0EaUwPDiQ79zsjNNXE5uMNcg
-	 wNmJmPsGhQaIw4U08DfAOSXQWdABeXCQ+QV4COD1cZ5id/CnzKmBQ6LlrC/+D71Xr8bOF
-	 1ltWpDL9t/sC0jfgr2v3LUnUKVqs2cw8nBaZPs6TwjRxHJr4VOOGvzBMIPzjXGBR+/mTk
-	 FRIsim+uDGkfmh4MK9GjrJHTJnNpbHyYEV63J0SHhYqtEIuVErEL+Ak6J9pUYauQ+AQ==
+	t=1794218805;
+	b=TPHPdzifQ7vZ23WA+gf1bNVGsFaXibfmVPT164BvRTHATTBcw8E7GLRuZdyyk0VTuiUe
+	 3CG9HD41343YlhLkzSRTh9I9d3/rFYF+0OFB1o9cf2cN+MpGQKG8Qn5PaL1mzJvx/G2kP
+	 DdQdWMHzadgg5sn1ZBS/gFpxB91KPyS1TPHFdja6dY2aohnb+FHUpgRBbM43KPX/TvnlR
+	 egs0diFm0CKbpjc7yPx/VgBYkP3V1JeVV8EP2cZOjsS9F9Hwv6HgtlaQe9BuH/EBRNoPD
+	 KRdNpAzSXzrqDNACSplE8OYz+3k1+v+EIXJjtKEVhHomuJhmQYCfL0FW+70vYmgIEuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218780;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794218805;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=fqL3XZWn3lvBGMeKYBjMwhAK+S83Rh/mZ3ulvhUUoZc=;
-	b=pxpMNv///+iWN+aP8y8npJuQ5m8OouNCicMTepMkD6sZ5dvB0EZHnNEVI5vg4r6CMlHj
-	 Qu4sjhT0MDm/m0DFQ5/12EjTdWVewSMqnFJkYIQBU2ptg601FPIppgNRtoRSGq6SQSXdb
-	 /jPXdj7Jt0CKI3teX6m7lpltIZu0wx5wb4faJwMP0Q5tg0ikE6Hz8mBmptkXryiCY/kqY
-	 R1b5d5O2+KolYbZ2J+5bwp9QEYbu4VDKMyfkZr6pquLReBarryKsoGl53r9FbXWjX3160
-	 8qeOF12jAioOY6EeTG7KzxMhzkghxMKCUyM4DQ6RgqaFYkrG5wKmq09HPK2JEpnIUVQ==
+	bh=8w4ouvn8GAV3fcHokFzFm1nhmbZuRMSblkfq3Ny21VM=;
+	b=wGvUcMBPXRzt7ZQLPo2Mv+zz0vU8VVvYa6bST4cK9yBnuh7+E8+k/KCrVf2SRVH3HXhD
+	 wEOfIfN5sxeIUaqWiI1qL/vvPPAkHabxLFberg7lZ/OOycrG7N68VvALSLY3wmwZ1zyif
+	 YnVhUBQNcFHhNO+yNvmqv3PrDdemhrYIvw8pbLryaQorvjLprBEd0mZQOE0FAZZOOZUQE
+	 Q3vuZxh0DGWmYLUYNM7dCbRhkEg5qILHv+jVB0VejjucWC2CgyTs3z9ULFueAXtXGoCuE
+	 JPh0vg7Dvpocg+q4SZ711oqHzN5iuwBsEDB4wAh/MA6U9SSejIVojUrigRNcrt5Lw0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QeR+6g3S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ozGw+CCs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63693606A31C;
-	Mon,  9 Nov 2026 10:06:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D51606A321;
+	Mon,  9 Nov 2026 10:06:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QeR+6g3S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69CA01F008A1;
-	Mon,  9 Nov 2026 10:06:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ozGw+CCs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70FB91F0089F;
+	Mon,  9 Nov 2026 10:06:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794218780;
-	bh=fqL3XZWn3lvBGMeKYBjMwhAK+S83Rh/mZ3ulvhUUoZc=;
+	s=k20260515; t=1794218804;
+	bh=8w4ouvn8GAV3fcHokFzFm1nhmbZuRMSblkfq3Ny21VM=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QeR+6g3S0TV9qVSPqEdHHEmTHAVELzEzqqppre92gYckO+0IXIujO+9E+X6ZyIgx1
-	 RbakYZcJ6MVG3Fw/cD3NzTzJQLXNsfGaemAsGuLB5+5r30MWSIVT2iQZ5D7IEFNJ1H
-	 8TDDrnyHhk43amxbIFAbzlYacU5FZM5NN/amwszqTuCpnVKYZ8AEUBHzkospHV5jLr
-	 dX0iJ6MxddjbQeKkgCiQhMIB0L6fD+S82etBLyzf7orgvMK3LKOVim6HhlBuG70Yt+
-	 VtHCXi5uSS04FDkMGTnBMJ6yEzxGZoNFKMQ8HDboWvOkMTX287oTOBmeivwo18tPhD
-	 ZS8PempQb2NAQ==
-Message-ID: <87cfa24d-7855-47d1-89d4-463d8a47cc17@kernel.org>
-Date: Mon, 9 Nov 2026 11:06:12 +0100
+	b=ozGw+CCs2dwrEqQXpZ6bC52PnXO0aaKwY0bVubxDrDy/7IGPG3nuFY8sg1V4ELuGX
+	 tqExMyCubR8D8Pu6Djc5xNYXblC0emOLA6FxMqkrFj5KcsW6RTmHmSFbeB2+oSV7eK
+	 V68U07qFmhkvTR8YDUq8FFP/X8AHDp5UDQf+HlP9t/xymhpDWYSTr5xLsnJJDZZzTQ
+	 dA6zz4VGVef0hCvfnm1UH2MO0YsNm+6QHjVBFpLxvLop39Z2QNRVvXhy6HxCe5RYxC
+	 3auwWQTi7V0LsVynqdiIo/4e0rHX+FGrl3QkLqg28cKrGqavCdL0vAkWY49ot7Qwrr
+	 wYApfAIv+3zvA==
+Message-ID: <d16585cc-44bb-4f8d-9853-a67cb63d49b3@kernel.org>
+Date: Mon, 9 Nov 2026 11:06:39 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,19 +52,16 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 3/4] arm64: dts: imx8mp-skov-revc: convert to overlays
-To: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- =?UTF-8?Q?S=C3=B8ren_Andersen?= <san@skov.dk>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-References: <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-0-0906e57486a3@pengutronix.de>
- <20261012-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v10-3-0906e57486a3@pengutronix.de>
- <20261013-musical-brown-mamba-ff87a8@quoll> <87v774j0z8.fsf@pengutronix.de>
+Subject: Re: [RESEND PATCH 1/3] power: supply: max17040: pass the device
+ fwnode to the power supply core
+To: Hugo Karlsson <huggek@klattorp.se>, sre@kernel.org
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ matheus@castello.eng.br, me@iskren.info, m.szyprowski@samsung.com,
+ clamor95@gmail.com, sebastian.reichel@collabora.com
+References: <20261108154241.198160-1-huggek@klattorp.se>
+ <20261108154241.198160-2-huggek@klattorp.se>
+ <3b4d9f8a-2b5b-49c6-a2fa-666548029975@kernel.org>
+ <b7672bea-edea-40e2-a4b9-b06d026265a1@klattorp.se>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -110,68 +107,25 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <87v774j0z8.fsf@pengutronix.de>
+In-Reply-To: <b7672bea-edea-40e2-a4b9-b06d026265a1@klattorp.se>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14/10/2026 07:38, Steffen Trumtrar wrote:
+On 09/11/2026 09:53, Hugo Karlsson wrote:
+>  > Please run scripts/checkpatch.pl on the patches and fix reported
+>  > warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+>  > patches and (probably) fix more warnings.
 > 
-> Hi,
+> Thanks, sorry in regards to that. I ran both, the only findings are
+> for the "Assisted-by: " line, which checkpatch does not recognise
+> ("Non-standard signature" and "Unrecognized email address"); --strict
+> reports no checks on the code itself
 > 
-> On 2026-10-13 at 09:31 +02, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> 
->> On Mon, Oct 12, 2026 at 08:30:32AM +0200, Steffen Trumtrar wrote:
->>> The i.MX8MP Skov RevC jutouch 10" and Tian 7" variants are pretty
->>> similar, apart from the Display and touch controller.
->>>
->>> Move the common bindings to imx8mp-skov-revc-touch.dts and convert both
->>> variants to use overlays applied on this base version.
->>>
->>> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
->>> ---
->>>  arch/arm64/boot/dts/freescale/Makefile             |  5 ++
->>>  .../imx8mp-skov-revc-jutouch-jt101tm023.dtso       | 38 ++++++++++
->>>  .../dts/freescale/imx8mp-skov-revc-tian-g07017.dts | 81 ----------------------
->>>  .../freescale/imx8mp-skov-revc-tian-g07017.dtso    | 40 +++++++++++
->>>  ...h-jt101tm023.dts => imx8mp-skov-revc-touch.dts} | 26 +++----
->>>  5 files changed, 91 insertions(+), 99 deletions(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
->>> index 475e1ad9116e1..7c1b61249778e 100644
->>> --- a/arch/arm64/boot/dts/freescale/Makefile
->>> +++ b/arch/arm64/boot/dts/freescale/Makefile
->>> @@ -707,6 +707,11 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-lt6.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revb-mi1010ait-1cp1.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-bd500.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
->>> +
->>> +imx8mp-skov-revc-jutouch-jt101tm023-dtbs += imx8mp-skov-revc-touch.dtb \
->>> +	imx8mp-skov-revc-jutouch-jt101tm023.dtbo
->>> +imx8mp-skov-revc-tian-g07017-dtbs += imx8mp-skov-revc-touch.dtb \
->>> +	imx8mp-skov-revc-tian-g07017.dtbo
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
->>>  dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev.dtb
->>> diff --git
->>> a/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dtso
->>> b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dtso
->>> new file mode 100644
->>> index 0000000000000..33ddd08a7adb5
->>> --- /dev/null
->>> +++ b/arch/arm64/boot/dts/freescale/imx8mp-skov-revc-jutouch-jt101tm023.dtso
->>
->> I do not understand this. This is a board, so not an overlay.
-> 
-> yes, that's what I did up until v4. New board with new dts.
-> 
-> - Link to v4: https://patch.msgid.link/20260706-v7-0-topic-imx8mp-skov-dts-jutouch-7inch-v4-0-dfc0c8827c02@pengutronix.de
-> 
-> The boards are all very similar apart from the touch panel, but they are all "real" boards and don't share a SOM, so dtsi is also not correct.
-> 
+> It seems it was removed in 1e035297ffda at the 13 October as Sebasation 
+> could just drop it on the applied series, but that´s maybe something I 
+> need to do myself and send a patch v2? Or is that just cosmetic?
 
-Then it is not an overlay.
-
-Please wrap your email replies to standard mailing list style.
+It's cosmetic, please drop assisted-by if you send v2.
 
 Best regards,
 Krzysztof
