@@ -1,128 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213823;
-	b=jvhq1hsL89WcQVwWyHbihHEsAGXsEgBtKwRriocAB1TWPV+hKOk+4YLpmzm5WN1xTh3p
-	 2s4BsnOWx5uxpPFvZsFbUPTS+kCXvULCCTh8qZhg1mxevc7wy79A9iPmjVeLECBjfwIH7
-	 19Igp6t3S5UQr3hqJJcyy3Wsw8SjOp2WGfNBF67I3Rvi+E4xv2XSBFgN1F/en6Az9I//G
-	 ldk6wt45FhzQoI8RlJU+yT3+666R4xnA2ChBEFJwEXz3JxCS9LEzkDIIiAHhgzejQosiL
-	 9b25VTyJmoY7BN+lK+K/Mh6zv4CQAdAt9N8A4E4u9+IwFaB/znAMDM51VnPt09YqOOA==
+	t=1794213834;
+	b=0fCPVq4sC4S/UpnBV7B9tOrx+jbFLvjrsG4ZMQN+uxuIaDJmjvfUPFeXxrBKLNl8n+bR
+	 PEQgff/THs8eUs+fl7Z8XlNhunWyn21DWx2vVnwiPMfNF7wXsp+p7Tm7Sn2xquQ+VQdfX
+	 ldVG1eZsCGD7WKC309rjrU265OoZWlhsXhAS6IZ1JKYjXgO93TFFPKzX8cs9pVdCmrwDf
+	 Ad2ijpfx8j26cEKQyOAaVEmy31KaAKUYIiF0nGQWKC+LxH0jDETmpJBkzcindkxGJ1sYp
+	 bniVIrxXX29eTwbgUIjJTrRZ2K9RPVRcKvaK3dVGT3D1pgw7dKttJYN9Mlw0Vdouq+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213823;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=QZinr1IAPmVW7r84wj/qNINxqSVY9URVBnEwGBpoonE=;
-	b=ZZMgDc2mh0ezbqoD1ICzFJ/45MRjMH81GHfHD6bdt1yaSX3AO1wzGie2T8nSf+AqIZZg
-	 PyErGaj8PAoOCFQHXEOcTu2Kmm/hXE9H62qDVqdcBpybQIJyIUZgVWE4DmDhtwRKeQi/O
-	 ECYlsCdB3CkY6PNw0C7SiXsRaHegZ/hLX0SMLIrdGFckgAonOgtc9ndFj9tdT6qIAKL/R
-	 Y7ulr5eAKVbrgj7RU0F9aMGGJn+P0qaR5UyaTiqewCkg8AFqMzk92cJ3/X1nZPKiWhz8t
-	 h2pOU6Z37w6uqeaYcv6wMrL9kt1gnu9QjBAAS0R6ONltYiM7C6xMg1h0/Pr1W+V586w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213834;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=vbqVCqNP2xkMWB5E6uTwpQNKviSd8ef0MnOVGgQ8eq8=;
+	b=ocuo5TC19qegR1P+B/h3LdIDymhhHtxhpKX+N4vFPyaywhNb95oO67AWhgvgurbqIJ2r
+	 MrOfh+jeeDNLPjcnZ5R8+02CE2bUrF+j4mgtjRrGNEffN4vMN5TfeLSHlWhHbZL1gGuHx
+	 DynOObFOW2ZPOIhza1XDuyBXUhWLhunpdKs/zHH87AJPpyeTJeVE6jCO1AJnwD8JdjYaL
+	 elKqM5OMZcqqiYn+LV0iOzr8CPCwMyP2k7NR0tJl/xGRx12npFJcZXRHBVMhu4FLmB+8E
+	 V61cZbKyPQA6EkhLJlWbHXhs+bTH52zaaqlTE7foodUG2/96F82pwVQUIz9rVSlFElQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VvGR+y+0;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SOGy5zDI;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=1QEfGJ4i;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=NhxdU+W8;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D593606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:43:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D593606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E49606A31C;
+	Mon,  9 Nov 2026 08:43:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9E49606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=VvGR+y+0;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SOGy5zDI
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A969wn32539896
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 08:43:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=QZinr1IAPmVW7r84wj/qNINx
-	qSVY9URVBnEwGBpoonE=; b=VvGR+y+0j8b0rhQLb0HVC4mSOI+FUqfuaAEz/Qot
-	axbIu+LIoxtWGQMG7NMBK2wqU/Zg12WJ2L/eOBsviPDqCh2xbQonaFtAXHPdXrYR
-	PwE3/DphKE5hepLXvAN+Tj5xf1iZAdAMlj3EQikKBa8vn5alDS2T+7eaIXOhC0iT
-	0ZTAZCaTgW/N3Fqjs6c/JMWNZtQBRz34MjrAIz3R7wSMnakEv8NX0RyOvjIo4e4L
-	9P6a2QVx3POhffcGv/RXdje5F/MwAcunv9j1CA6GOcgcpdlY+rjDbxCUf01sAv9S
-	i4UvFFYJIpdo0x+Jx7OcfA36tAl71VPMy1/mFy6+ZY856Q==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsvc6nea1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:43:41 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9308eafb465so49501785a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:43:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794213821; x=1794818621; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QZinr1IAPmVW7r84wj/qNINxqSVY9URVBnEwGBpoonE=;
-        b=SOGy5zDIrjS42khZEbmK4fz9VuLy7/WxjHA8vDZB6HHNH43vt0sQztxXAq7BnELLzD
-         cJk4PwQBWcDj9e5kQuzljlpaW3bK/ZNSmGhfXYb4V2Aa9h/KKCSe6T3+G44b3Cm7CKM4
-         2J0fDj2wg8DePiyjyvbfx9UyMuLT89YPtZuazFHEjck2yv8lOREdPxIXz/suRmjqKiT0
-         Vrg3SuH5/ez+WG+1ZhYgJN4XU9ftlPWnAb3zm75BmvWGaR6wbz58kjKPJYG94iJbETZW
-         wm9rIYeiVefHLt6RoiMJuwDLy62RHxAaee2Bsidz3Z8MiwydDkoYhG3JICuvdquz+IpI
-         eiMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794213821; x=1794818621;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QZinr1IAPmVW7r84wj/qNINxqSVY9URVBnEwGBpoonE=;
-        b=vBZxbaUDTyecDcxt4GffXIm1V8OPoIvl7vFpmKejleB6Pp3L7PQ7bWlt1G7k6ipPWx
-         ifs2EkqZbtrvjKPuR8wpnNH9hFXN2KiJ74bFB0dsWOWQ2S6uZQqegg806UDL/dZv0jdU
-         f7y+qiP2O06Gc4FJme63YEcgxFj/zhg36kYQEbDCSXYnoC12DanIhr7GxbSp4la/uJ34
-         UQLYCVWJM11id8tdEnw6JYiICFBPlNrZ865LczJ3zhYHT1X/n2Ida0LfKPYI3FhnqpEt
-         bJFWq4pDJMwqV2t+IZXyF2gYA5H2q8LijFG2p0L+K86Jol2UqjsNuJ3B1cCnCV5V7/9g
-         Qrdg==
-X-Forwarded-Encrypted: i=1; AL+hErEFmAdJ3RiPGG+kCDoYdRSuoSSknWCbng8NVLd+EpY4UzXfRfqRFUf9AqRnjQPGSZmRpMFh0AlruOC8lIw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WLDHivk1wXP+3c+5ZnLqEojXtqpDzv5c14YDEnZsLWugP927V
-	jWQBttV7sSEjlRpyv9k4ix0jIySIdW/sHKOu/7aQUTCyka0xc0VaTg3YF0PK+4X93d02lKBBmrg
-	Z27X8BQ7GPq6atoUSrHM9ZGrUp/Plzz8nsheJUhccXlwuPQbSRGEtHjWlbfIV1yDp/eg=
-X-Gm-Gg: AYBFou0Kbh9X6cB5V4DeirAZnOZ0nDm7Us4Jn7gJUFaRoOAJ9309gPyUlno9o4t7RW/
-	MIXrbNi4EK1MUGxfLz23LA1q63wguB9LfGnn0uQqTpsYOMN+1fhl3jfaDn2HxmW+4DQlEhhJ+m/
-	Gx5g/mTgiXwZ0fP+dWdu6VykFT2qUwXiKiNj1eweUz7AXwyBbHz/7xjPpQM11B1p3zmVNyRgtxy
-	6LkTtiaxRVivEDS8K0cHWIK4AgS0D0Uzzq/lRDHExkw4FCK5udvbNYvHlhkPwaJztzFfZl8ACNo
-	evguwgmet5P177C4rwAyvvd2V8N18MiEERWnYBarBJYqnMBe8icm+70oqYrLUu7jXl09rOuqmWx
-	4s/ko64LoIVujauSpRX9LxSkI4X2Q0Zp/8RVeAyj4ZWpbn4rnbmdt2OXOXvFri+8=
-X-Received: by 2002:a05:620a:6601:b0:93e:c12c:fbbf with SMTP id af79cd13be357-947842c578fmr423491085a.76.1794213820769;
-        Mon, 09 Nov 2026 00:43:40 -0800 (PST)
-X-Received: by 2002:a05:620a:6601:b0:93e:c12c:fbbf with SMTP id af79cd13be357-947842c578fmr423489285a.76.1794213820190;
-        Mon, 09 Nov 2026 00:43:40 -0800 (PST)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm111001085e9.8.2026.11.09.00.43.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 00:43:39 -0800 (PST)
-Date: Mon, 9 Nov 2026 10:43:37 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Qiang Yu <qiang.yu@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>,
-        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-        Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-Subject: Re: [PATCH v3 2/8] arm64: dts: qcom: Consolidate Glymur CoB power
- grid
-Message-ID: <643lhglqyf6322f3jmioy7xwl5uuqgy5m36wfh7okny67zxz4q@ommxzt73cwkj>
-References: <20261106-topic-sip_cob-v3-0-52cd3826ab49@oss.qualcomm.com>
- <20261106-topic-sip_cob-v3-2-52cd3826ab49@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=1QEfGJ4i;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=NhxdU+W8
+Date: Mon, 09 Nov 2026 08:43:50 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794213831;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vbqVCqNP2xkMWB5E6uTwpQNKviSd8ef0MnOVGgQ8eq8=;
+	b=1QEfGJ4i5oQfwMVjQYCKa4hT36eFZHUQZOpCqreMS8c+8rMsIRbEbXzhbHLHEmZe7etyk1
+	e7s5rEFHtoHj+9RvQUemtnnodhd2aePUWjJoo99b8rOBFPuUhr2MsnkpID1qnHLXVT3pLQ
+	XNEdr2teAuGp0DVO7vpN9bZ9y1XoRlp9cE+gihPMqezO3JbO8I8Rye4w2d2aJw+YI7XE8q
+	Ysw4MR8JxfpKNcZfU1G4JkHEH9mw4w7Lw7xbbH6qJM/5eO/WmdHoMt/8UOeZPE3EtNcJQ+
+	iD+m2lvzZhUPgLnjWcRqMQbcv0cCIdl0XjqyyHb6GfMckjenEk6W9h4KVo4cGQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794213831;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vbqVCqNP2xkMWB5E6uTwpQNKviSd8ef0MnOVGgQ8eq8=;
+	b=NhxdU+W8Gnbk0Y7XDOiCulgacP5jzUAQhxoFJbiETBwocDOTCMQsFzfZmLPRQ0xM9FjWHk
+	OFJp/hPPaAnFcMAw==
+From: "tip-bot2 for Mete Durlu" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: sched/core] sched: Decouple PREFERRED_CPU from PARAVIRT
+Cc: Peter Zijlstra <peterz@infradead.org>, Mete Durlu <meted@linux.ibm.com>,
+ Yury Norov <ynorov@nvidia.com>, Shrikanth Hegde <sshegde@linux.ibm.com>,
+ x86@kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261106-preferredcpu-v1-1-3f0ca4944f8b@linux.ibm.com>
+References: <20261106-preferredcpu-v1-1-3f0ca4944f8b@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,53 +78,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-topic-sip_cob-v3-2-52cd3826ab49@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzNCBTYWx0ZWRfX9cJl6LLmMKE7
- oD6znnmdtINMV5UPYvxkuhbe+w+iO77LRkbRVV6jmWLKkV2+SgsF9GdBoOL8gVmcG+LVo4O4Cwi
- 0B+PRYZxbjvJcFA4f09/zokbd0zx4/Mt6zgdgIU0QvDW50fFxlOI1tip3JRn+V1YndTLYvWBBk1
- s9WfRekm3SA9sk7p1W64roJnv5EwBmaRJuI1N2KI/i56dlkgzfmQnAhWTKJ/uSbHTilCk7OX3RY
- kr9PoDxsUJrvdvko+4XE+OuT8EpVQzXiYHJmb/hv6vjUstUIcT5pOKJ7OyUIhJ25kiPVSixIogz
- f8zv+rqkgS0VIGVmCkJEMbbC/jxh/8DoXOOSLgaIag4Nir+tX4sLnb3gPl+zHxymdP0ORyhNt8B
- 5/Qy92WIr5v/TpPdnw8KGZ0G19mPsNfWfODG/0nD0EHtw+LedDf+Bl92K2Qpm5I4BtVWADoy9YM
- GD1QIXzpRRXIGbhlsWA==
-X-Authority-Analysis: v=2.4 cv=WOjqzXsR c=1 sm=1 tr=0 ts=6af187bd cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=WbsCytHUCBBKkCb54EYA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzNCBTYWx0ZWRfXwm5W/DHM1KjE
- leReAgLZ3Up89Uc9KE2Xbr4PH55q5RR6gb9Zr7CusPlSqJrMKCP5MhvyUxArvHFtDHOaoMYozfU
- pZAIYiGS7GQB2UPwCfL8NqNBv9jov9A=
-X-Proofpoint-ORIG-GUID: TxoTW2d2Kv2ZJ3_1oa43e-iKzhn7mLoe
-X-Proofpoint-GUID: TxoTW2d2Kv2ZJ3_1oa43e-iKzhn7mLoe
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 phishscore=0 priorityscore=1501 clxscore=1015
- lowpriorityscore=0 bulkscore=0 spamscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090034
+Message-ID: <179421383012.2093942.931338502436883055.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26-11-06 10:29:03, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> The power grid is partly defined by connections to the on-SoC
-> peripherals, which (due to various reasons, electrical and practical)
-> are well-defined for each PMIC configuration. Factor out the common
-> bits for Glymur CoB devices.
-> 
-> Because some DTs (mostly the CRD) disagreed about certain values, I
-> made sure to look up the desired one for each of these common rails,
-> they are now set as expected.
-> 
-> This enables one to take care of most required vreg settings with a
-> single #include.
-> 
-> Tested-by: Sivansh Gupta <sivansh.gupta@oss.qualcomm.com>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+The following commit has been merged into the sched/core branch of tip:
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Commit-ID:     ae7ff8b29958143b4f23169a5598c860334db2fa
+Gitweb:        https://git.kernel.org/tip/ae7ff8b29958143b4f23169a5598c860334=
+db2fa
+Author:        Mete Durlu <meted@linux.ibm.com>
+AuthorDate:    Fri, 06 Nov 2026 13:35:12 +01:00
+Committer:     Peter Zijlstra <peterz@infradead.org>
+CommitterDate: Mon, 09 Nov 2026 09:39:59 +01:00
+
+sched: Decouple PREFERRED_CPU from PARAVIRT
+
+PREFERRED_CPU mechanism does not rely on any feature introduced by PARAVIRT
+but PREFERRED_CPU still gated behind PARAVIRT. Any architecture that
+would like to enable PREFERRED_CPU mechanism has to also enable PARAVIRT
+and bring additional changes to accommodate PARAVIRT's requirements.
+
+As an example, s390 doesn't enable PARAVIRT config for hardware virtualized
+Logical Partitions (LPAR). The steal time is accounted for the LPARs via
+architecture's own steal time accounting mechanism instead of the common
+steal time infrastructure PARAVIRT supplies.
+For s390 to enable PREFERRED_CPU, PRAVIRT and its required stubs are
+just unncessary.
+
+Based on the discussion between Yury Norov and Peter Zijlstra over
+Yury's original patch [1]:
+
+Introduce a new config flag HAVE_CPUTIME_STEAL to indicate that the
+architecture has steal time measurement capabilities already implemented
+and to signal that PARAVIRT is not required.
+Remove PARAVIRT gating from CPU_PREFERRED and add HAVE_CPUTIME_STEAL
+instead.
+Select HAVE_CPUTIME_STEAL for s390 and powerpc-pseries configs.
+
+[1] https://lore.kernel.org/all/20261101192203.6979-2-ynorov@nvidia.com/
+
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Signed-off-by: Mete Durlu <meted@linux.ibm.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Reviewed-by: Yury Norov <ynorov@nvidia.com>
+Reviewed-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+Link: https://patch.msgid.link/20261106-preferredcpu-v1-1-3f0ca4944f8b@linux.=
+ibm.com
+---
+ arch/Kconfig                           | 8 ++++++++
+ arch/powerpc/platforms/pseries/Kconfig | 1 +
+ arch/s390/Kconfig                      | 1 +
+ drivers/virt/Kconfig                   | 2 +-
+ kernel/Kconfig.preempt                 | 2 +-
+ 5 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/arch/Kconfig b/arch/Kconfig
+index 1163736..01b8251 100644
+--- a/arch/Kconfig
++++ b/arch/Kconfig
+@@ -1080,6 +1080,14 @@ config HAVE_IRQ_TIME_ACCOUNTING
+ config HAVE_PV_STEAL_CLOCK_GEN
+ 	bool
+=20
++config HAVE_CPUTIME_STEAL
++	bool
++	default y if HAVE_PV_STEAL_CLOCK_GEN
++	help
++	  Selected directly by config PARAVIRT through HAVE_PV_STEAL_CLOCK_GEN
++	  or directly by architectures that have their own CPUTIME_STEAL
++	  accounting.
++
+ config HAVE_MOVE_PUD
+ 	bool
+ 	help
+diff --git a/arch/powerpc/platforms/pseries/Kconfig b/arch/powerpc/platforms/=
+pseries/Kconfig
+index 7d125e2..3c49baf 100644
+--- a/arch/powerpc/platforms/pseries/Kconfig
++++ b/arch/powerpc/platforms/pseries/Kconfig
+@@ -41,6 +41,7 @@ config PPC_SPLPAR
+ 	depends on PPC_PSERIES
+ 	select PARAVIRT_SPINLOCKS if PPC_QUEUED_SPINLOCKS
+ 	select PARAVIRT_TIME_ACCOUNTING if VIRT_CPU_ACCOUNTING_GEN
++	select HAVE_CPUTIME_STEAL
+ 	default y
+ 	help
+ 	  Enabling this option will make the kernel run more efficiently
+diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
+index 7138d92..39379e7 100644
+--- a/arch/s390/Kconfig
++++ b/arch/s390/Kconfig
+@@ -204,6 +204,7 @@ config S390
+ 	select HAVE_BUILDTIME_MCOUNT_SORT
+ 	select HAVE_CMPXCHG_DOUBLE
+ 	select HAVE_CMPXCHG_LOCAL
++	select HAVE_CPUTIME_STEAL
+ 	select HAVE_DEBUG_KMEMLEAK
+ 	select HAVE_DMA_CONTIGUOUS
+ 	select HAVE_DYNAMIC_FTRACE
+diff --git a/drivers/virt/Kconfig b/drivers/virt/Kconfig
+index eeb84e5..a3721d3 100644
+--- a/drivers/virt/Kconfig
++++ b/drivers/virt/Kconfig
+@@ -43,7 +43,7 @@ config FSL_HV_MANAGER
+=20
+ config STEAL_GOVERNOR
+ 	tristate "Dynamic vCPU management based on steal time"
+-	depends on PARAVIRT && SMP
++	depends on SMP && HAVE_CPUTIME_STEAL
+ 	select PREFERRED_CPU
+ 	default m
+ 	help
+diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
+index edc067a..ffd2cb2 100644
+--- a/kernel/Kconfig.preempt
++++ b/kernel/Kconfig.preempt
+@@ -197,4 +197,4 @@ config SCHED_CLASS_EXT
+=20
+ config PREFERRED_CPU
+ 	bool
+-	depends on SMP && PARAVIRT
++	depends on SMP && HAVE_CPUTIME_STEAL
