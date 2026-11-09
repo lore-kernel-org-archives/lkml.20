@@ -1,96 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794211778;
-	b=3/BlKfD9YybuPc8LfRY3Ad4KpNyUmBqUSAbkWVxRPQv4Xe5FKbMIxWMaysOS48FSImLv
-	 pFrydZBU8AfhBX1EkEpfKDMSMFMuYU3E9ghJkqG2U319HWADKY4a2LiV233Ki38MZc4pG
-	 tQG2jdBNSv1QfqFcr6q4EnDZBPYYFIpiRAAC3cyop/Q6HSWYpyw8OLU4LhQ2AHm+8OdBk
-	 YHiklcKTQovKadMZNHW3xtoaKThUVHLOMr9HZLgGT9FGQhzzjNfzmcMsWCXCYZNUQrn2F
-	 qJU58skhhEKRtGv6CORtd3N3h20I9NL1KkpaJk9vIj1aaeBxcVLPfZZ+jJxjpEB8H+Q==
+	t=1794211790;
+	b=baYOXumxsV7fmOJZDoU/Rim6ghH+R68XgloS4/4ehCBLMHa4iwIJLUlVUdCp/f5qU0ni
+	 jH7x920deb4znj8nYj9bfuvuYwBa8rbZHU32tWeN1qdpbLHtT0T1a4rtl2gHH90YesAhW
+	 4fAc1xVxT3BZ8TsBLw5xl4l7RO3WgOp0k/xLWtn5JAeM1mNM1KkCcihuB9xF4RXsQ7c9j
+	 w7AWO8Xa8KycMb3Qva1f3GJRz8/G4dN/O9A4IWHUFIltpVzjvHtoajNWSqGcoO2h3sVK/
+	 0ICjUnNu/dDZ0ETXAXGI2NrT0gmk7mY9rvJVJd9dZaiPmFEdk5OIbvXdUfIjiNrDl4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794211778;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794211790;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type;
-	bh=7WgP2xkUAyLjKpFzwzFZYmyYY1jkU6o9DJTWgp1SX/A=;
-	b=aub8kJZr6Nd5euVr0yHh8kQoBwCCKMEN51uMz5EecCUWiRQlVzTJ1XyiLsonRxwInSoM
-	 vAbzkXNlxGdwcEd6rAUczUEbkkuQd79uu9e+/OYf5aZCjivEi5BgczOgSI8QnjLfBjdZV
-	 6TB9dqR+KvObaOcy38gSbA31O/Ki8hfxkhUj4rqM6BwCHmJdnQerwydE3W20ZNA+CD0i9
-	 Lvq4ZE4K4kcPQQEsrYG+ZlN7YK0/Hu8YHw4fgzaeFtUBRRoATFCWH1Jz/RPApXkW8IRM1
-	 kBdr85f+cAEceBgakSivzAnl8hpR6Pxp5ZLrID8gXxtqtVp9I49wdUCKpdeFg3hc+Ug==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=N2keICUbCE9LxNGMu98kwwmZ1JbmLwrSlbYRImcv3Tw=;
+	b=Axc/HGszhU8JDsUVN8MgK5lzfIuS8Gp9EuL5T3TonxYaQ3zSdddlYTd3qdNO11IYd5Xi
+	 +IGSUxq1y07ipkbeFzbb9Dr30HIrss+klBzHiuOaxg3Q1Gr2s9OZwd7+RFHpsuYlMySox
+	 z9v8zyf6//f0Ar6uHGcXjUfRFTenLgg3AK3Cyj96DdAwRscJZvvDx0xMu4JKEBdixc1W3
+	 cax0h2YuPilRqDR8Ro9lNXdJXpll93uhqvH1BsOwlDTs6hTjB/biz6L/VShj59DPnOr5O
+	 EZfxIp9EKFDvKStiZIbYmp4+eSNQNC7fRs5f3opNhMvmpMZKO1KKoIpfUX47xigJ9zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=S8Tk0nNo;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=syyn0Bb3;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3392F606A337
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:09:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3392F606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85852606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:09:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85852606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=S8Tk0nNo
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso333261f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:09:36 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=syyn0Bb3
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-37071c0f42aso1186391eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:09:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794211775; x=1794816575; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7WgP2xkUAyLjKpFzwzFZYmyYY1jkU6o9DJTWgp1SX/A=;
-        b=S8Tk0nNoY0maepYWmlS7C2sFzi+1aC0IBEIvaWcskQHbTJpM7hyPwl1ZF7mkVp3veC
-         OdVMuwzBQmRwg9N3Cu69n21v/xaAmbOwFyAl2wyht10VAOUa8XEGxDQty4gx1vvGGRB1
-         bZPTJHgqRu53HnL6T6kAefTWdnHtWdMNK8CqDV1deR/SFghUzJE9rfhbGI+h1PxA/xaL
-         Dizr1Zc6Ns1LhZstTyHRy5z/kHmnQJagcwu23jNbIBtWVtEH+guHHcfGApsHEgDz3Gen
-         4PbzSLlnhrJaPjngxF3ucCCbvyreRU7DFXjlWuK6R+sBhihB1IjQF318nn0Gc022YwUo
-         EyYg==
+        d=gmail.com; s=20260707; t=1794211789; x=1794816589; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N2keICUbCE9LxNGMu98kwwmZ1JbmLwrSlbYRImcv3Tw=;
+        b=syyn0Bb3WujsQqKe3RBqM1Su4zL2bjghtLPkK16Z+lJGmfLOWaOQXvXu2pwJcxK1Gg
+         N9qBnEHjCWpW528StzFRqsGBW4pQ9Hd2FBQXwQai4NkJQHHfkgBQdVNBrtZ2KeLHwbI3
+         CMp4Qpuqw65Wmbds1tMj3Rj5LcuZxHbnpQiTdTJguZscXXawYWUQdBqKeLihlg6XHA+q
+         3O58ICrykanbfd5dRZB4Pk2++Nr9Y93LKjVwWVrTFsi1XiUVAb+a/au/w4ro4BeJaeKo
+         d6pHXRFJHuR4gPhxfUyliWM5pXV2mLvwE08faqJ/AnX+L0DBM4zaBosn+YZuPaJx521N
+         ispQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794211775; x=1794816575;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7WgP2xkUAyLjKpFzwzFZYmyYY1jkU6o9DJTWgp1SX/A=;
-        b=2M8SZcZO1eg8sV/wMst+ELDmzuysG+8+7t6kMrhWf8PGdmVg5qmuhS4P3HP3TffZbj
-         oaGGKp0m0iYBM/fkjWaK9/78/cTNeE38qr9P2lXs6Mp9HPTEbwmgR5aSwTBzY5vP54Ur
-         9+NiI0HNg2on8lx9e/g+87MwG5Dr3P+D4Eev1voU/Sb7mBLZnM6x2DwMG2DCGCIHdl3m
-         kvHV4Qt1ZpcGKGNE2SpFjdG9XO2rAkpL6Tl5A8GD9ixNAlBPZCQjfyM/YzbiRcrZeHq4
-         38vHqX/9FKqUbF4MhAY/c7cXj3mFEMu/w0ORljdfE9aj5xVNPGkJANJwG9ooXki40JCT
-         i9Qg==
-X-Forwarded-Encrypted: i=1; AL+hErGCKeFzXFVXVI0OVtGaDe+Lo7zZwGfcdr7mcoMAlP05lSoAw7izpEe7dmykKCOhyU2cc3/2EzLrgt/WfQY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lq/GbwY0j2LNXU1j/mpLQy4DG5yzYvPa9E3FrF1PAmMQmxmvq
-	l37uhHqSXb1P0dDec1ttEBvzSUGNmze6p/NtUcOUd+TZWgzZ66zUEM8K2dsLPNQS+UiU280vloz
-	Nkp6y
-X-Gm-Gg: AYBFou3wpdKhCvFYG5TIA8bFHweHAczD4/mhLLrhL3F2SU3QHNH7fxN0rQX/YqLvmGo
-	MEVUWylVbmMEa0Zj05rbxeTdG6eZOAXFKujSH8LqzBhqAOmY6JCkm6dJK0Tj//BGBD4Ij6Z1LMR
-	iilqZpHBZkjLRnZdXgbi77zEmjrN3UNvbd5R3tM4gOQmzd/OrvF3T+zzrC/o4fiJLpPbrzCvFdK
-	Ft+I9VnzEU7SGP+y+11bNcC1Fe+MCJiV8DIjKggglEoMhThgqbcdJwFPJOr4Rjh+dSuJkjUgJMX
-	MNWykKmwhMTGjAm0kcNqKsWJFTFGexxkdWu8io9BOb6um0d7T3peOEa3CP5IHGl2rFqjnEvABxO
-	HS60bjLSevJS8bqjYO1z8OmdTdzREKPwzbwryr3OWDWX9BdMMzOf9JxgQlHTjQUk0zblUC5NZC6
-	Ne05+FG2EhoP70AKffoxgqzaPn14+tPkWuHZhZ+NZp7x0IZFRGZxarr300URgWkd+NuGmtTj4g/
-	npwvr0c+CStMhRbuvzQ8Kv//SohzblQnIl9MaJXmy36yrpB4R0gSLL7h5e5npZlT4fuf3I4dWA7
-	Rqw4E/EBohbBTLHzG72ShrXmyRB+PNYb1ZhSDvPxl7z2tETj
-X-Received: by 2002:a05:6000:5c6:b0:490:5521:f24f with SMTP id ffacd0b85a97d-4941f667da5mr10718282f8f.3.1794211775492;
-        Mon, 09 Nov 2026 00:09:35 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597187162sm8595813f8f.34.2026.11.09.00.09.34
+        d=1e100.net; s=20260707; t=1794211789; x=1794816589;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N2keICUbCE9LxNGMu98kwwmZ1JbmLwrSlbYRImcv3Tw=;
+        b=idxia2bPSwXY3y1T6jWaIihfHN27C9MlU2YK5QFGZX0GmAtULKULAUC0AUkFzevBTp
+         MinJdt2fgdx2ecL9jtkTT9LcQPXTbYeEtVv05qpEJtE2uetdH6doQTKnqjTuWKUBUg6e
+         pe+iiOTFuc/QdxpBYuRDz1PGeiwWzByC9v/L/f7vW/PSTWoGU+HeRI38RkgdkQCg6oHH
+         gruWQ+NtpP4rXvfqb8sUR1s3uv3R42XAErXHzZppt6UGKrXxb0txZnoKk3fPPuC1lyfe
+         eGnRFC/EK2D2sD+3LUNpDFpy0F/HOa3ESwb9yi2NGzhly1Nun8L+mrbezhm5HGI6tz3z
+         +Q+A==
+X-Forwarded-Encrypted: i=1; AL+hErHExQU/UlpIh9m4Tj8gTztwtabgDlbP7RBMc5fJGXaBNWpjk6dTF5PhRtPKR6NYcbIiMb1YlAMEP/tgigQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9EJZGWARcClTSuaMmfQ9WC7uwkbYnqxSZoJtzz4nofkYAFJqFm
+	6JxkO0OdHsaNmw6DYqTSsuU/J32jj2YurYxjPCTv6v0jpWcNF1b8gAYU
+X-Gm-Gg: AYBFou3a3KTLe+4chQpxsrLD6WJsQF5/NQbFpBS0U0FKR7Zor9DJS9Wn7sZ0ZAt59/P
+	aXjgA+48gGpFf1HBdGLwu6NnAfX7ImZsyp/kl/GJv/oLmBEXtoA00194rGiFWrEcq4IQimqHkVn
+	GPJygAWwZNoreGroWKmkVyOdZG+dln00HR3EQVwrZTDpwDkdc8/S5MiQAQNPkLNoXg1zESWBZLc
+	ZCQXga1UmvpBQEqX3kLSUmzgtvVgw+WkHHD2Y43nusEcvncTNKpAKZz6002qg185vVkyNFVsFII
+	HeaRRtp3y2jVDleJqfKXjbiHq7UgRfreRXzVJhgkNZlYJVsvHG/qTLjxTGMECna1QBzKZwq1/L7
+	Jdx9PKkjzF0OVywhtPr60ZvL2dW0h5/aJWuX0gOYTpLdZ9oII3xAZndWVGVC02+GcX0biBAC7St
+	Qrsfv/WPX/zETZba7pQUvWJ4/CKLger/Ox2+3DssTLB5wPq3f9T2fC/J6OwJGRWf/79V9JKUfNn
+	ogE93l97k5WWBaB7S50+RbJvXJXwrvvl9o8gXUvi0N2Ra80xPcS3QRUIxfO0odKCKNvwZXn3+Cv
+	adVhbPXt2GHBvx4ZQ17vRDCv7bhM0ni1d4ZTrkH7UNivDvixBfxoeNdSs1dIJi67+lm2/aM6AMi
+	JEt/UM7KQtsoUuxSTF8KWqX75rIEtuA9HaPnyAA==
+X-Received: by 2002:a05:7301:e0a:b0:373:d25b:8cf0 with SMTP id 5a478bee46e88-373d25b9033mr3417937eec.29.1794211788472;
+        Mon, 09 Nov 2026 00:09:48 -0800 (PST)
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:3588:b56:78bf:db5e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372669d2826sm12000389eec.29.2026.11.09.00.09.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 00:09:34 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Jude Gyimah <jude.gyimah87@gmail.com>, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com
-Cc: neil.armstrong@linaro.org, khilman@baylibre.com,
- martin.blumenstingl@googlemail.com, linux-sound@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jude Gyimah <jude.gyimah87@gmail.com>
-Subject: Re: [PATCH 0/4] ASoC: meson: fix missing REGMAP_MMIO dependencies
-In-Reply-To: <20261107165527.576383-1-jude.gyimah87@gmail.com>
-References: <20261107165527.576383-1-jude.gyimah87@gmail.com>
-Date: Mon, 09 Nov 2026 09:09:33 +0100
-Message-ID: <1jmrri1l4y.fsf@starbuckisacylon.baylibre.com>
+        Mon, 09 Nov 2026 00:09:47 -0800 (PST)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>
+Cc: Daniel Mack <daniel@zonque.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Sasha Levin <sashal@kernel.org>,
+	linux-input@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] Input: apm-power - remove driver
+Date: Mon,  9 Nov 2026 00:09:44 -0800
+Message-ID: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
+X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,50 +102,216 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On sam. 07 nov. 2026 at 17:55, Jude Gyimah <jude.gyimah87@gmail.com> wrote:
+The apm-power input handler solely listens for EV_PWR KEY_SUSPEND
+events to queue APM_USER_SUSPEND via legacy APM emulation. The only
+in-tree platforms generating those events are legacy Sharp Zaurus ARM
+machines (spitz/borzoi/akita and collie), none of which were converted
+to Device Tree. Both mach-pxa board files and mach-sa1100 were marked
+deprecated in v7.3 by commit cc7852314abd ("ARM: PXA: mark remaining
+board files as deprecated") and commit 7d92e50ceacd ("ARM: mark
+mach-sa1100 as deprecated"), and are queued for removal in v7.5. None
+of the remaining ARM platforms or other APM_EMULATION targets
+(MIPS_ALCHEMY, PMAC_APM_EMU, and SH_HP6XX) emit EV_PWR input events or
+enable CONFIG_INPUT_APMPOWER, and arch/arm/configs/pxa_defconfig
+already dropped CONFIG_PXA_SHARPSL at the same time, leaving its
+CONFIG_INPUT_APMPOWER=m entry inert.
 
-> Each of these drivers can be built into vmlinux while the code
-> providing a symbol it calls is a module, which fails to link.  The
-> same shape in 4 drivers, so they are here as one series.
->
-> Affected: aiu, axg-pdm, axg-spdifin, axg-spdifout.
->
-> The fix is a select rather than a depends on: the providers have no
-> prompt of their own and are only ever enabled by a select, so a
-> depends on would leave these drivers unselectable.
->
-> Each was reproduced on v7.3, arm64 by a vmlinux link that failed on the
-> named symbol, and each links once the select is added.
->
-> Found with kreach, a static check that compares what Kconfig allows
-> against the symbols the compiled objects actually reference.
->
-> The checker is at https://github.com/JGyimah/kreach, and the
-> reproducer configuration for each finding is published with it
-> under results/.
->
-> Jude Gyimah (4):
->   ASoC: meson: aiu: select REGMAP_MMIO
->   ASoC: meson: axg-pdm: select REGMAP_MMIO
->   ASoC: meson: axg-spdifin: select REGMAP_MMIO
->   ASoC: meson: axg-spdifout: select REGMAP_MMIO
+Normalizing dashes and underscores in scripts/modules-check.sh for v7.5
+exposes a module name collision (apm_power) between
+drivers/input/apm-power.ko and drivers/power/supply/apm_power.ko.
+Remove this obsolete input bridge to resolve the collision rather than
+renaming a module whose last target platforms are going away in the
+same cycle.
 
-With the change sashiko requested
+Reported-by: Sasha Levin <sashal@kernel.org>
+Closes: https://lore.kernel.org/r/20261108225808.1809266-1-sashal@kernel.org
+Link: https://lore.kernel.org/r/20261109-apm-power-input-rename-v1-1-0609e7b91825@kernel.org
+Link: https://lore.kernel.org/r/e4da2f9d-d3b9-4267-9b64-b0f2cb43402a@app.fastmail.com
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
+ arch/arm/configs/pxa_defconfig |   1 -
+ drivers/input/Kconfig          |  12 ----
+ drivers/input/Makefile         |   2 -
+ drivers/input/apm-power.c      | 122 ---------------------------------
+ 4 files changed, 137 deletions(-)
+ delete mode 100644 drivers/input/apm-power.c
 
-Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
-
-The re-spin is necessary because the description does not match the
-change, even if the change is correct.
-
->
->  sound/soc/meson/Kconfig | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> -- 
-> 2.43.0
->
-
+diff --git a/arch/arm/configs/pxa_defconfig b/arch/arm/configs/pxa_defconfig
+index e7a7ed2b7ef7..e70d2789d1f6 100644
+--- a/arch/arm/configs/pxa_defconfig
++++ b/arch/arm/configs/pxa_defconfig
+@@ -224,7 +224,6 @@ CONFIG_INPUT_MOUSEDEV_SCREEN_X=640
+ CONFIG_INPUT_MOUSEDEV_SCREEN_Y=480
+ CONFIG_INPUT_JOYDEV=m
+ CONFIG_INPUT_EVDEV=m
+-CONFIG_INPUT_APMPOWER=m
+ CONFIG_KEYBOARD_ATKBD=m
+ CONFIG_KEYBOARD_QT1070=m
+ CONFIG_KEYBOARD_GPIO=m
+diff --git a/drivers/input/Kconfig b/drivers/input/Kconfig
+index 88ecdf5218ee..064beedf5558 100644
+--- a/drivers/input/Kconfig
++++ b/drivers/input/Kconfig
+@@ -162,18 +162,6 @@ config INPUT_KUNIT_TEST
+ 
+ 	  If in doubt, say "N".
+ 
+-config INPUT_APMPOWER
+-	tristate "Input Power Event -> APM Bridge" if EXPERT
+-	depends on INPUT && APM_EMULATION
+-	help
+-	  Say Y here if you want suspend key events to trigger a user
+-	  requested suspend through APM. This is useful on embedded
+-	  systems where such behaviour is desired without userspace
+-	  interaction. If unsure, say N.
+-
+-	  To compile this driver as a module, choose M here: the
+-	  module will be called apm-power.
+-
+ comment "Input Device Drivers"
+ 
+ source "drivers/input/keyboard/Kconfig"
+diff --git a/drivers/input/Makefile b/drivers/input/Makefile
+index 2cd6e1c9a778..7d2af8dfd17e 100644
+--- a/drivers/input/Makefile
++++ b/drivers/input/Makefile
+@@ -27,6 +27,4 @@ obj-$(CONFIG_INPUT_TOUCHSCREEN)	+= touchscreen/
+ obj-$(CONFIG_INPUT_MISC)	+= misc/
+ obj-$(CONFIG_INPUT_KUNIT_TEST)	+= tests/
+ 
+-obj-$(CONFIG_INPUT_APMPOWER)	+= apm-power.o
+-
+ obj-$(CONFIG_RMI4_CORE)		+= rmi4/
+diff --git a/drivers/input/apm-power.c b/drivers/input/apm-power.c
+deleted file mode 100644
+index 028fcaf4c142..000000000000
+--- a/drivers/input/apm-power.c
++++ /dev/null
+@@ -1,122 +0,0 @@
+-// SPDX-License-Identifier: GPL-2.0-only
+-/*
+- *  Input Power Event -> APM Bridge
+- *
+- *  Copyright (c) 2007 Richard Purdie
+- */
+-
+-#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+-
+-#include <linux/module.h>
+-#include <linux/input.h>
+-#include <linux/slab.h>
+-#include <linux/init.h>
+-#include <linux/tty.h>
+-#include <linux/delay.h>
+-#include <linux/pm.h>
+-#include <linux/apm-emulation.h>
+-
+-static void system_power_event(unsigned int keycode)
+-{
+-	switch (keycode) {
+-	case KEY_SUSPEND:
+-		apm_queue_event(APM_USER_SUSPEND);
+-		pr_info("Requesting system suspend...\n");
+-		break;
+-	default:
+-		break;
+-	}
+-}
+-
+-static void apmpower_event(struct input_handle *handle, unsigned int type,
+-			   unsigned int code, int value)
+-{
+-	/* only react on key down events */
+-	if (value != 1)
+-		return;
+-
+-	switch (type) {
+-	case EV_PWR:
+-		system_power_event(code);
+-		break;
+-
+-	default:
+-		break;
+-	}
+-}
+-
+-static int apmpower_connect(struct input_handler *handler,
+-					  struct input_dev *dev,
+-					  const struct input_device_id *id)
+-{
+-	struct input_handle *handle;
+-	int error;
+-
+-	handle = kzalloc_obj(struct input_handle);
+-	if (!handle)
+-		return -ENOMEM;
+-
+-	handle->dev = dev;
+-	handle->handler = handler;
+-	handle->name = "apm-power";
+-
+-	error = input_register_handle(handle);
+-	if (error) {
+-		pr_err("Failed to register input power handler, error %d\n",
+-		       error);
+-		kfree(handle);
+-		return error;
+-	}
+-
+-	error = input_open_device(handle);
+-	if (error) {
+-		pr_err("Failed to open input power device, error %d\n", error);
+-		input_unregister_handle(handle);
+-		kfree(handle);
+-		return error;
+-	}
+-
+-	return 0;
+-}
+-
+-static void apmpower_disconnect(struct input_handle *handle)
+-{
+-	input_close_device(handle);
+-	input_unregister_handle(handle);
+-	kfree(handle);
+-}
+-
+-static const struct input_device_id apmpower_ids[] = {
+-	{
+-		.flags = INPUT_DEVICE_ID_MATCH_EVBIT,
+-		.evbit = { BIT_MASK(EV_PWR) },
+-	},
+-	{ },
+-};
+-
+-MODULE_DEVICE_TABLE(input, apmpower_ids);
+-
+-static struct input_handler apmpower_handler = {
+-	.event =	apmpower_event,
+-	.connect =	apmpower_connect,
+-	.disconnect =	apmpower_disconnect,
+-	.name =		"apm-power",
+-	.id_table =	apmpower_ids,
+-};
+-
+-static int __init apmpower_init(void)
+-{
+-	return input_register_handler(&apmpower_handler);
+-}
+-
+-static void __exit apmpower_exit(void)
+-{
+-	input_unregister_handler(&apmpower_handler);
+-}
+-
+-module_init(apmpower_init);
+-module_exit(apmpower_exit);
+-
+-MODULE_AUTHOR("Richard Purdie <rpurdie@rpsys.net>");
+-MODULE_DESCRIPTION("Input Power Event -> APM Bridge");
+-MODULE_LICENSE("GPL");
 -- 
-Jerome
+2.56.0.506.g506a7eabc5-goog
+
