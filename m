@@ -1,82 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794184826;
-	b=KZ/DjfQ5BHPmKOX6MoKTcFNObIfQEKlAogPTSP0Py0sxvKJ4vtcFImwuU7cIeTBgTrOa
-	 I7IJuqwLjDfNk+o6DyzyK+vW2W/9tP2slF1MJQcT3wuSmWzJ8/ig3Z/XA85iXgwG0cpRA
-	 GewRxeuxWq7ordioDDRZmZ/uAI6WU5Yr6XHO2tuRvv2sULjszqkXB40uAeuFIdbneCwhw
-	 OoEokGR4asn8L2pME1TRWmjFwNQ41JLb6dW0MIHXjITeh74X5CmtrqFD9SyQ2tcxsIHk4
-	 Ulzs1cEzL3kM1B7KmLwopBhiiqC4zv/EFj/vwh+JioasptDi33fLBqUb3ja7KwPAjnA==
+	t=1794185064;
+	b=LVsjglRnYVYrXe9wpNFs4FJwbiBU739iRhxjZ6G1ZrVHKARfQYn0Sk2PQqr2S/vl8aFJ
+	 UuPofM8o+otwE1FTNtfRkY0Q2T/ywJH7M61qce43HU0TADNLlDOWsjYQ1Zoq/CIgC+Sz0
+	 0GaRmFk/ylpOcsPbr9z2UWhVSIL8/K7VaSFp7q+1++I44LNVYl6nwAH9EUnM870s/3MHW
+	 qBsRnv0vuWvaW18hXfHdaZP3Ki/qKmBnI5HSo8jD227b++GDKd3qno64Ko1B28B+KE0XY
+	 L5YDq6J67aS4fW4N3SF3s6fa680dnl2Vml1grOahSf/sjN94423XkRlJ3wb71npZFBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794184826;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=Z5410FcRl90lti0FF+4on2X3OCr6eStq5XnIeOt7CdY=;
-	b=Q2pLXO2t5A6dV7VsRd8J76LJaXDwdTn7cGqwHuAznRNCn0nHdhALLCphgX5K18TRqMW/
-	 4wB+9dV72QzlsHMp5ZsWy6Jo8C58+8pj1YR6I96QUfLTie6+/wqBQ04vWOzOR91Vk1yA8
-	 UkytRNt3DaP1BAHRr/RuBnC+yMvzrBGGgO6bjQ1RqBWJ4AFzxTra06j3sZq+jfUMPCk53
-	 QbVECdji+9waUznKUBLDmYOrsceL5tPQYy3Y+1jOH0qJoqqHMEbhnLViOu/xpLKkg3UUQ
-	 vVnqWj/EQ9b4yVxRb3mYXd9yMGP7ATYVtllrmgQOhRPHUaq4Xc+mS/6rE5y5HUErmnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794185064;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=WVK9754AbhaserE7pDTK8lkgwdfKH+RPdCklp4kneDY=;
+	b=1a1NGaP06VOZG8XTFOPI4A7o6z1kRLVFovUz2p1eJ8sKV8u6/sMtRbIZIy70rA0SupwG
+	 I/gpGrYo+ZU99IQ1t6tPr2nyIFNu1zLKLQBGHUjHO3jtxptuG40SLndaeSCLVhec1WKa0
+	 K/YccFr/H7r/5iAgq5tU7zaKMAnTvM34hYteOl7pU5XcNqAOeRtFg2O3xsBxo7BSYSU2K
+	 UH4O7c1y4/bqKmtRegMGmcnVfKEJGqab3ZNqQ+GAQe8+o5t+c//EuuE3m1MNf7F/DdY8n
+	 Dp3gQf0/FEjNphVrcQbgyqdcoXAs8rDQdsil7Qm6kd8ok5Hhsz1CmHVIM2BAHtiHXbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=PWxocnDr;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=wyuan.org;
+	spf=pass smtp.mailfrom=wyuan.org;
+	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=gJpOUVfi;
+	arc=none smtp.remote-ip=95.215.58.125
+Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E95606A320;
-	Mon,  9 Nov 2026 00:40:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76E95606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1CA8606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 00:44:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1CA8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=PWxocnDr
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A90eJ4H13825802, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794184819; bh=Z5410FcRl90lti0FF+4on2X3OCr6eStq5XnIeOt7CdY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=PWxocnDr6zUOTCadttfhv4dgZtFnMz5aDjJ0OtHUd3ug0N2Btmm6C63bDsYXVX9ms
-	 iHI+G0k1II0z4UMTkzgAo9QpFb+8NcqjuoBlcIdrlPIqbjEoadiXTJhBZIuh72uYPp
-	 X77Q3k64wdlorH6/Waf7VW8J85uy0GopC30N7bYCEYctNwelDPZgnkqyl3hnG1G1W6
-	 E4x4AkXVeD4achqfCeOKREFaprU4dacNJjX/JH3WmpKmawUaP17R1vZJxh68P30hrP
-	 rwazbxiuZB5LZr/c9DwheZbFSjMfh2oJEEMwNi4FmebxEePSwIdj/fix2z9vQMQRHm
-	 60SOpUVqTKmCg==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A90eJ4H13825802
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 9 Nov 2026 08:40:19 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 08:40:20 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 08:40:19 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Mon, 9 Nov 2026 08:40:19 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Ho Jie Feng <hjf3108@gmail.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>
-CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next 3/5] wifi: rtlwifi: usb: unify the RX code path
-Thread-Topic: [PATCH rtw-next 3/5] wifi: rtlwifi: usb: unify the RX code path
-Thread-Index: AQHda3lJQ5elRG4B+EepDSbwCkWrv7ck7r7Q
-Date: Mon, 9 Nov 2026 00:40:19 +0000
-Message-ID: <5371f205934a4dfd86cae13ffeebcf7c@realtek.com>
-References: <20261103095256.949327-1-hjf3108@gmail.com>
- <20261103095256.949327-4-hjf3108@gmail.com>
-In-Reply-To: <20261103095256.949327-4-hjf3108@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=gJpOUVfi
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Iw62ApeDmEE/KzKDeztGmiVXNKB2w6E2fDgNhkDlzUs=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794185053; v=1; x=1794789853;
+ b=gJpOUVfi1+tNTZEqSMbwZ76uDzzljwqCqC7KEaKt4nI2ODxj5hxzhS442AzoSloRE1KkflYD
+ yMib4AmV3ZdPbJm0qDtwZvKMANQnNZlNFx2TktQ6nwYCiqql/TM5WWvA83qhMyTWsuFc/nLFHPU
+ 4R7dfByZbDtywUab56VlduFDeOmO7DbNivjbusytyeNchE4OtYDB/BPa/SdT/5oq8QSI3agD5Ap
+ M+fW/eaGsL96bhIGQ/FOYbkRApXsgr4m+QwcuQ7tI54//LYsikdk4A947fY8S5YtH1YyfbeUdlL
+ HHX3is2F9e5/Ljvs4PHCjKtUukkk/4fjCcmVOwMF8VfYg==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 15d0d0b0133836ed;
+	Mon, 09 Nov 2026 00:44:13 +0000
+X-Mizu-Trace-ID: 15d0d0b0133836ed
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 9 Nov 2026 08:44:10 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Dongliang Mu <dzm91@hust.edu.cn>
+Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
+	Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] docs/zh_CN: translate AI-related process guides
+Message-ID: <avEXWkPrGugQSQX-@wyuan.org>
+References: <cover.1794153793.git.dzm91@hust.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,16 +67,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1794153793.git.dzm91@hust.edu.cn>
 
+Dongliang Mu <dzm91@hust.edu.cn> writes:
 
-Ho Jie Feng <hjf3108@gmail.com> wrote:
-> _rtl_usb_rx_process_agg is a copy of _rtl_usb_rx_process_noagg
-> except without the tail end. The noagg function can be used for
-> aggregated frames, so drop it and rename _rtl_usb_rx_process_noagg
-> to _rtl_usb_rx_process to unify the code path.
->=20
-> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+> Add Chinese translations of the process guides for coding assistants,
+> generated content, and the kernel threat model. The final patch updates
+> the coding-assistants guide to link to the new translations.
+> 
+> Dongliang Mu (4):
+>   docs/zh_CN: translate coding-assistants.rst
+>   docs/zh_CN: translate generated-content.rst
+>   docs/zh_CN: translate threat-model.rst
+>   docs/zh_CN: link AI guide to translated documents
 
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+The last three patches seem to be missing.
 
-
+Thanks.
