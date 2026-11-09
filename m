@@ -1,53 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794265191;
-	b=nB4yiFPBKpe/GXGkXY8U0NWhPk3KHjvG/YLzYbZm63jFmfrLSirc/kz0yzUiCHLL1G+w
-	 e6S8sKXdPka2G6rBMQOVl3v4Bvc1dtNQYvSOrAvj9f7aw/jYh5vUWTrqPkF/54xFRAip4
-	 eVW3+DOcpkjYfoK/wja+bx8WXGpGJAcp1zNcJp+dVcFRfsLAtgQducBkhaNA4UM5aTzUm
-	 25Co+MMvSXTyFPtt4cPrO8+dy+BGvz8lk398tVjJBAatCC7kYzrxnYZQGi2CkcFJ/eDoE
-	 3AeK7NUoWPAZXjH9SU2a2F/4O9UHLWmZNMe2i00uwqkBsTq1gtUhEqYFI+KSg5Ryscg==
+	t=1794265221;
+	b=j/sjTPs7ZPu8Nd3bOgWKHTtUdRQvregiQAl8xm7xHF558NQD2Ztxsl+NxdguCKIoESzr
+	 eV43qAU3YX2yNOvPju4nG6Atx9Xl6Iu4HFvizrkyVOLYx9GSoY/DIGFp8Qm8r/vBMnhMg
+	 u0n8NouxmBtm4UpTydzlBEY+uDSqbWK761OYUt2Vytnc1M95MFdMidoDOwzthzErjQs7y
+	 0OGg6mnQwNE+xy4rzrDebZJdia7qVNrEfNzUeKHXDWqonMU8XQj8goANRsp/pzBq1cuYg
+	 2u0fWlmGGjLCSQzc1KhxvpfJe5DoDxoJlpM2yi+hB+Qt7dhfjjPeLmQOoHmw1mOdqbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794265191;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=OI+RsE2umMR3YB2hYIUmxpHG29qgfx8lgFFz0ZwqeNQ=;
-	b=ISTKOzkwUmCPEnLP7Z0nIhkvYYPHr4xSrWcHuP/woObDDpPcBrFMAqg627utWSEMx3cx
-	 wEIzFS4Y1Fij/emVmhU0+pSZdLP+cG0Ih6CnTHbEx7cuVdPiHMaCvZ3YptxyXb6impZRU
-	 Im62VbC48mVNngNqsISTNgZvxaifwSY5tIuRstwwZWDu85tPCR5etSgn4At/bee3/9QZn
-	 yyuhlBWBwYjYYijYWJRoXrTN6MpwK2alyMSpab76IfHv+kvPAGzwkce5F9wxhupJF1XYE
-	 3EA2LaaroiHQXbkN2JVoeDoAncy2+oPWueQZSTXXsrmt5tCJBo9LtAZWo1iOGU4kOdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794265221;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=xP8ew6Frff+/BgNF15w/pTjba+R+cyPPWe1Whyg7LzM=;
+	b=uE5d6+Oh2VZFU1NNQaYoGVnnJ4NHHAWhGs2Ta6vmaqV0ueFC6WwG8kSWiNeUv/JibQrK
+	 Mia7wjQ+o19Nby6AUqZVh0K+j41xpOX4hFkLPPpOIpnONz75nhrOs6iGHId8R0k6XY5bx
+	 hFlq25PeZ4REJMTfk4BToXCYImGpuooljO5lWExcv14D3ako1wjcKhtpPb3AQqpT3sdCh
+	 3TljXBJdopFCcgJJq2uB+2Qi+wTREbXgeBaMvzZLyI9QiCA7MuKcxINaRh5Oq7lw+L1v4
+	 Lp/wgYOHskcCXsRuOL8SlEQMrjhh4in94JcGo6fBNWYa06yHl86RKZ8J8HHdFox7+BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQfdl9f5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bslUQkU0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B73606A31C;
-	Mon,  9 Nov 2026 22:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 177BC606A321;
+	Mon,  9 Nov 2026 23:00:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQfdl9f5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F8F1F0089F;
-	Mon,  9 Nov 2026 22:59:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bslUQkU0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A636B1F008A1;
+	Mon,  9 Nov 2026 23:00:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794265190;
-	bh=OI+RsE2umMR3YB2hYIUmxpHG29qgfx8lgFFz0ZwqeNQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=eQfdl9f5IELEpTiJZLYa5IWrbsjGZ1rb7rRK+pY/AY196vQa8f9A2VrQdPHDnxLky
-	 2K5qARnyCRpvLPc/5ntXmqkWIKYVOOpBxQZnwVt7qUlHpkNQYBtx+Z23s0kPmLYrur
-	 TY8u5adNVwT1LUYPI8K4Q5fYj7KtYHQ2tsrt3TJf48UPnyie2tr9ErEjlpVoOLMbdA
-	 APSDOYeNJbEINQRJGE0W26UXtvVkttBoJWX5G6Xf0zAJ1eytrp9lL7bySkaxtdp9XN
-	 p/yl/rycT0JFdp1ovSSWS8XxZqyNlht7AeOxu89PWXlfiwPYqmIVjwWd4wKPbC1UVU
-	 VEPfPIaphWtnA==
-Date: Mon, 9 Nov 2026 16:59:48 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] PCI: Fix hotplug memory distribute
-Message-ID: <20261109225948.GA337688@bhelgaas>
+	s=k20260515; t=1794265220;
+	bh=xP8ew6Frff+/BgNF15w/pTjba+R+cyPPWe1Whyg7LzM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=bslUQkU0K77KXmQ4PDjtPOPiTNarh29DG3/JpDXBhLYM/5Fd2vlu1x59XrKxLOzfQ
+	 0mrVLDcLZQd+nEyizzMIOFKwDAubSdXeSgOyMmKX98j5viNim6G7L5vCHGPahXtn1o
+	 BPH6S2Z624fN0nuvyXOogpKbcjtRrYxdo7jce/yqm+ZJR5oDqCoxU4fG6Hfu7aBp0e
+	 q5t/+N/BwcdMQSI/8fs87eHWHCfhMlkomenmp6Ubn+4XBOfd/57lukpYYUZ1wvgRgO
+	 QsW8v7T3bvaCyA3hxWjVTAWc/uykCoC5kaXDkUdFCY3neBa4gJfEsxFWZSJQX1Sh0/
+	 DGv8Cha9yWDzA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9B1D2391AF99;
+	Mon,  9 Nov 2026 23:00:20 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,24 +53,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261109144553.2516-1-ilpo.jarvinen@linux.intel.com>
+Subject: Re: [PATCH] Bluetooth: L2CAP: Keep recvmsg from resuming a closed
+ channel
+From: patchwork-bot+bluetooth@kernel.org
+Message-Id: 
+ <179426521925.3532311.18366530853288738368.git-patchwork-notify@kernel.org>
+Date: Mon, 09 Nov 2026 23:00:19 +0000
+References: <20261109132143.94305-1-enderaoelyther@gmail.com>
+In-Reply-To: <20261109132143.94305-1-enderaoelyther@gmail.com>
+To: Zhao Li <enderaoelyther@gmail.com>
+Cc: marcel@holtmann.org, luiz.dentz@gmail.com, martineau@kernel.org,
+ gustavo@padovan.org, security@kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-On Mon, Nov 09, 2026 at 04:45:50PM +0200, Ilpo Järvinen wrote:
-> There are a few simple to fix issues within the code distributing the
-> available iomem (and ioport) space to bridges (to allow using it during
-> hotplug). The worst issue results in violating window granularity
-> (usually 1M for mem windows).
-> 
-> Ilpo Järvinen (3):
->   PCI: Fix NULL dereference when shrinking window without optional size
->   PCI: Fix start of available space for the next bridge during
->     distribution
->   PCI: Honor window granularity during resource distribution
-> 
->  drivers/pci/setup-bus.c | 22 +++++++++++++++++++---
->  1 file changed, 19 insertions(+), 3 deletions(-)
+Hello:
 
-Applied to pci/resource for v7.5, thank you!
+This patch was applied to bluetooth/bluetooth-next.git (master)
+by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+
+On Mon,  9 Nov 2026 21:21:43 +0800 you wrote:
+> Reading buffered ERTM data after ACL link loss can clear local busy and
+> send a supervisory frame after l2cap_conn_del() has destroyed the HCI
+> channel, which oopses on a NULL pointer in hci_send_acl(). The socket still
+> owns its L2CAP channel, so its lifetime does not protect the underlying HCI
+> channel.
+> 
+> Require BT_CONNECTED before clearing local busy in recvmsg. The socket lock
+> already held here serializes this check and send with teardown, which
+> closes the socket before the HCI channel is destroyed. Continue to allow
+> buffered data to be read after disconnection.
+> 
+> [...]
+
+Here is the summary with links:
+  - Bluetooth: L2CAP: Keep recvmsg from resuming a closed channel
+    https://git.kernel.org/bluetooth/bluetooth-next/c/1f2ac56137c5
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
