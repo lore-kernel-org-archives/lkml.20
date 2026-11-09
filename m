@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221590;
-	b=occZus7LedZrVf0zrHViVcXuth10pPK4hjME8SAFPFXoX6D9oXEJplBLaZz1MROqWEHd
-	 gkRWwRo6015gX61sTaVicEhiu9Qsa7Id0GWPkEduX/d0NouM/zHNUKSe6JWwU8scNyzcS
-	 WKANcvMDP3jSxQ7Vu7g/MzVuD+EKjJqpFrVEU/LwVoMEm3UnybObq1fSk5pA6e/WV8AlX
-	 xvQitQw18oHaa66KUel84rvS4hk/LnaXirJTWyN6Z0e9wjU1EDCymnqLWhJRxI1Cl02VL
-	 hyevPT1RalgZZs/OoAZg0A74nr0LWtjU3Rux24lwyvJQiQLC9vmL704YqZIX6SfdzAw==
+	t=1794221601;
+	b=MEss6bsfXeAAdpMZAiRYN8e/E6OTQ1R2HS8c7G/ohRXT1VimOe5EY5mUisxBNLtkf4dy
+	 sYtBzXqavJdePunLr3SqKqOgKSUdh8GhPKPp1CD2ApBur6YYDPcQnGhNKiAMMoZss8yXS
+	 488jIQ5zlj895WdwU8FEzGJ15C2Uojueij0nwM3U7WVfGktoV1U9cLs4aHCfkOF/xQQJ9
+	 ZqnI6A3/jPtaYASjKC11JQMp7ttKOw81ID6B9TxCZTWW2Z/FwgRqFQT9NWYA9/U5pMksp
+	 lqLlHch8KrEcLyWHvbrChLjm12Y0W27nhYwevBKx5ty4lh6emOziSe0qSLqcnKa3x0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221590;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221601;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=B8wcRySJd/dlTtht6qCP4yFXYl/Td0vFc8lSf/i1WTo=;
-	b=AqWm0oA+N34z3qryiB6PbMcJ08wk/lA5Q6yaMbIT4ByvUBpo/iyw7uw7I03JUXM8/EO0
-	 AWA+IiBGCyFKBoWg26XYDpYW43t9lOhwJl+7ppQWafUJthYnY8/aR2+IrYIjvVbgsODaO
-	 lXBElNoYflrL0q8GPXL246hS2aP1NVgwX+cIDR+j4ld4fIoVHxwszY4BXmyjx74Bsftc3
-	 /DXsrLZ5jMyMAF8/xgqva7WcOodSnjW48mUHNStQHmq6Qe4N+0Xe4TvlOyn2jej9MAEo4
-	 j1GddLpdTpYtFBlvBHthwgp5rphCt8VhPfKdvpqHCg7lulE64XKAi8ZRbns9B2FnYIg==
+	bh=yRJunyFxJTxNbMZ/8F4LlLR5Z3XEUtdXwi3weUw7flA=;
+	b=sfKXCQB1AQz/NN6esu3Vy+60n8UFWeFxzQQYdV1er30jaK/vp4peIyxiIXQLkzMyYl+b
+	 vR3IyiJUyRAsRXHnB/2DQCY1IkKzcfPZBpIRSroqawSp6J93VVToWS83ME55a9VKaxJlR
+	 Fx3tGPjeD0ZorJ2Tg1BVTg3DN0usyCEsKoaf6tUm+ObD9BybVgyFgz/7Ie27pG1FEVJEd
+	 BeAtnUulzRqKIV3/+g8lV6cH/irKgus+QzPUsVdgF4F7EMdIflJXQQbwgyp7yKe4kUzv+
+	 ELM2e5GSzLNJxTW3w/TcraXzfiWbX4YYUm+lp9VJ7YbHoB3IqMcdW+yRHzwOhY0ZIbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=is.s.u-tokyo.ac.jp;
 	spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp;
-	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=ag8s8wnN;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b="WbYUcye/";
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B3E606A33C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:53:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29B3E606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00142606A337
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:53:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00142606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=is.s.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=ag8s8wnN
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso1097207c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:53:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=WbYUcye/
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso1097139c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:53:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=is.s.u-tokyo.ac.jp; s=google; t=1794221589; x=1794826389; darn=vger.kernel.org;
+        d=is.s.u-tokyo.ac.jp; s=google; t=1794221586; x=1794826386; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=B8wcRySJd/dlTtht6qCP4yFXYl/Td0vFc8lSf/i1WTo=;
-        b=ag8s8wnNbir+9Lof0homx1DDFO7cebbc0V5YP8kmlt9OiSkDrztC71N+5LloWADaSB
-         MIREdddFLzjBCDaU0rAYi4jtosvgp8pMYdFoMEU1ZNPxC2goflR2DxIb3I9Cx+gb8a9n
-         JVE5kUuWlyy1Pf24t6JML2CRYGzkC77vA3Q0zTWoy4dHb8TELmrSXj0P6SBBTQ8CqBx2
-         dmAWpkESG9SEXIpJJYKsap5/hJgXdaMdE7I69eWpbbm3+ww6WEfftwIVKPOxXSJ3eRSe
-         WDQDkcbTey3ZsEiVlEaOdKz3mo7VVHjP51GUND/XC0H0BWt1eztty6c0/ddDZCK6DL0n
-         VXnA==
+        bh=yRJunyFxJTxNbMZ/8F4LlLR5Z3XEUtdXwi3weUw7flA=;
+        b=WbYUcye/Wh3eUMwCeeB4zvCzv5J0SJTJ55IKpmHb6ll0m6Af03Q5QwAVIjMy/uOg9L
+         vpqPrOeXXV5jdlOgEZuWTy7M0BjTKh3qmeuI72hr3S3wf+EZi7WirUd0KhQL7Uxv44O5
+         O5UlLGn36bket41zt9POfOI1J8kaFMG4J1gxSvR/z6dMo/baR0Z42MDVqZoEiwb1JzW7
+         tJTcjyuIRU8OOh/Bby3eLsvEkJwWfAb7R4oUuMfh75Cv2QqI8wCcDCCQmB5OlAuPNZ1h
+         ClK1FM8uY6BJDJvHj5TFG9jjM/r5nBvLl5r63vk/dJImAQe7x2/Aj98FRE5z8RwzG6UM
+         k3hQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794221589; x=1794826389;
+        d=1e100.net; s=20260707; t=1794221586; x=1794826386;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B8wcRySJd/dlTtht6qCP4yFXYl/Td0vFc8lSf/i1WTo=;
-        b=beE6cWYJ1/HjwlE4mAXR8RObzQGehISAYOBp83M5XkhzVztLrPxYy1FIYmyHwIilt2
-         ismhidoZkKRxg89nfGlALYQktQpCiaen+t2f7Wn4BxzCDyrjcyoWGcaWP2+R7p2ykMka
-         JsHPmiKAMNIwbvCM3HskU063RpuQ2SMCF+0PX2VvmP2OYwsz3sTWqKDxgqIjtfPX0y6y
-         cwJAaRKGnmGkNKfcVDwH8h0OatkelfL80Ba/YZ4aEi3/9C0DCPLzQK6ThfP/nuC+S528
-         V9VlyrhFXpz9LAchpEl8C9hEKEX8y6bInCQFLbmyugrmd2v8jZwxuiFQVodn9l6oMmMl
-         5T4w==
-X-Forwarded-Encrypted: i=1; AL+hErGtRU63VTpKJdTRO/25rnzcLUHc+VV0M0NTM7NjpHuwkgqdWDwEqB0dk/rrYj2f1+Q07ulMfTGD0qhbGuI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93JTXuWM3GMpssTPeM+ny0vx11LNIVjv6utLS54nfXS7faer9R
-	RgXVNGQ/esh72i0x9U191o79z06no8XourNkG96wLkt4Uk4v0Pk/N9HRY0+t/Hjszw==
-X-Gm-Gg: AYBFou1OFu+ecavbrHZ5EF4HVdeWiQ1t5WXr4BMJojThqemWeIsbgqyIwIc++Z0hyAH
-	Tiko2co1H4ok1nZ26Hutp0+7eXlXlq2YSrTJo6ZIiOVV0PPMz5iYbALItSUgfQPXQ6pYMa7rVp/
-	zGh3FSzn5Tb4Ll9qa8/CzYaesnQ+liTD0F6LAb6iAD9GpZpHQaubJ6QwI5l5vyARR33n+tREnTL
-	lm1BQB11ndWIzoZrwEwyupK/enCqoJVugQVnT6VUZByvVErCVQlfBPwNib3EobFF/owYxbKMl8c
-	BTMamJ58oVW7Ia79FInHWcGvwFO8TUHWPiDl1oVwnCNyj+WQiEUWw82BvaWCvjUeeQJZ9i9JvcX
-	3gmZizIqGDBCIALC6MST2JOw3deVVagHPyX/pjqAtTNOqUEKHjy9AisWkF2ttmW1Twgxxba3nEb
-	AH8eYhW3gPnU74KQ3jJqxc0J1XQqNijw4ofZq5wTK+xpKEXXjGdspKR70oJCXg9wPLryTg1hcM7
-	q3DGiroHj1tFX7ZwGyFfq44npzlnXXtwu8P/t/MWlI24IwQDUrlbn0ZKlWMD+JbUQAo0Dm/jNKl
-	k8HEE240zQxkrFSd2WKJaWxko6bNmEFx1EB+tA==
-X-Received: by 2002:a05:7022:150e:b0:151:6e80:baa9 with SMTP id a92af1059eb24-1b39fe7f403mr6653083c88.12.1794221589238;
-        Mon, 09 Nov 2026 02:53:09 -0800 (PST)
+        bh=yRJunyFxJTxNbMZ/8F4LlLR5Z3XEUtdXwi3weUw7flA=;
+        b=CZ0o44myEKeFKoKpTIrEl3FRibl3f+lkoZiPUkdeQSf995Rhkpu1gQCF+ajyDFaHoy
+         2c1onUXsjUiPQQ0k4nx2TfiYTONxTX63nTbg9qA1DBHomeUPFdTQD0FRkUbpat6uYrGt
+         FrEgeYPxQVpvkN/ndX5oWv5CIP1v32BIvOlQXw/yIceCDe/UsQjfk6WKbEdh9jiKFVzd
+         LWc3462QvO/PpYrRkoFrbPq18bj0KD3v4C45B5yqtHmOztiTA4s9ikSIUYqaUIVI8Str
+         +Aae3sX/xSdEoTuzpB1+eGMku7OmLZS4ufev6wyN7wCu4Ih4EYe/JghSb3Hj9TIQLECW
+         /KGQ==
+X-Forwarded-Encrypted: i=1; AL+hErHxdKvi7WcMBslPeVyfzlf+mm6xFR38Z4bV6f44KMuzCRcVuTvuJX1jcz7r76QY7Oiz8Nwu/OQIvNKcssY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/RLA9Qi5lrD/BAcCGY/VMqHsZkFyqTDAk0aBLjxdnXG6/VQJtk
+	j6LaaRhcD6AFjA6v0lc6UUPRtv07LHQ6k/1fH9qkOqiUmasoUz5WPnpqew9juQtyEw==
+X-Gm-Gg: AYBFou0wipqlfXJLAj4LoXM1kCVmRhL4T5nzpj2aQu3kR5174KHVDwhY8xgGrlT7P+k
+	8c5r/ypyluLXdEUaA6sYZpcFtTu9AbCJJz7wIoKB15Ogg9d3/hcVZ/xBfTMvNk1CLFv4D/dWTbk
+	zk6CN45U9+v3H5FjchqQB0Awo3WuK2USi+I5sokVTWPL71RcDSfU080HB6R/SFfbCE7BOg7tAuO
+	3gfea7CPp7Y/mKKQ/l7SImp/zQnmAMRAFpdzGhm/pEump9yAC4jscvYkzUfEbiGZiaVIvSy4X6l
+	UVZIJFtxuj81F/OTNdiddpxDA+ZXaSajqD//271/asvdHmb2f9QqLpKQgpAOD5rqGpYlRyNqf6y
+	eOfR6yCgJBBqJgLUDwkH5BimU+giizw3PO7alUShMezg09vbunOEQmgXpM1z0/vqadzMn9vPfAV
+	3VWGVLGjUtv5q7pHv2mFScJYHVj1T6fmQzbkV8epQVuRQ2OKuEjyIJGfvZx8ZopsU92NtWBhimJ
+	ebSghwb3MHhQy2lAKTYbH9Vj0PwcglN8+VNwt5qUn43KQ3ZcXIvBI7+1obvzh3HeC26WZhBOGax
+	PyBSsaMRgxIbwOs3nUFFy6NWrtnkr5/bWNXpvQ==
+X-Received: by 2002:a05:701b:2705:b0:189:d6bf:7ec7 with SMTP id a92af1059eb24-1b39fe946b5mr6255466c88.19.1794221586094;
+        Mon, 09 Nov 2026 02:53:06 -0800 (PST)
 Received: from wang0.localdomain ([133.11.33.33])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375726fd1sm12228744c88.14.2026.11.09.02.53.06
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375726fd1sm12228744c88.14.2026.11.09.02.53.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 02:53:08 -0800 (PST)
+        Mon, 09 Nov 2026 02:53:05 -0800 (PST)
 From: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
 To: Eric Van Hensbergen <ericvh@kernel.org>,
 	Latchesar Ionkov <lucho@ionkov.net>,
@@ -99,9 +99,9 @@ Cc: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>,
 	linux-kernel@vger.kernel.org,
 	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
 	stable@vger.kernel.org
-Subject: [PATCH 4/5] 9p: take the tag of a flushed request from the request
-Date: Mon,  9 Nov 2026 19:52:50 +0900
-Message-ID: <20261109105251.2545764-5-lian@is.s.u-tokyo.ac.jp>
+Subject: [PATCH 3/5] 9p/virtio: keep a request until the device returns it
+Date: Mon,  9 Nov 2026 19:52:49 +0900
+Message-ID: <20261109105251.2545764-4-lian@is.s.u-tokyo.ac.jp>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109105251.2545764-1-lian@is.s.u-tokyo.ac.jp>
 References: <20261109105251.2545764-1-lian@is.s.u-tokyo.ac.jp>
@@ -116,44 +116,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-p9_client_flush() finds the tag of the request to cancel by parsing the
-header of oldreq->tc. For a zero-copy TWRITE, however,
-p9_virtio_zc_request() adds the payload length to the size in the header
-after marshalling, so p9_parse_header() fails on the mismatch with
-tc.size and no TFLUSH is sent. As a result, a zero-copy write
-interrupted by a fatal signal returns without waiting for the RFLUSH,
-and the server can still write the data after the writer is killed,
-overwriting a later write to the same file.
+When the RFLUSH of a pending request arrives, p9_virtio_cancelled()
+drops the virtio transport's reference to it. However,
+p9_virtio_zc_request() has already dropped that reference if a fatal
+signal ended its wait for room in the ring, since the request then never
+reached the device. Such a request is still flushed, so the reference is
+dropped twice. This can happen when concurrent requests fill the ring
+and a waiting process is killed:
 
-Use the tag in oldreq->tc.tag and drop the parse, so a TFLUSH is sent.
+  refcount_t: underflow; use-after-free.
+  WARNING: lib/refcount.c:37 at refcount_warn_saturate+0x84/0xd0, CPU#3: dd/293
+  Call Trace:
+   p9_req_put+0xe5/0x190
+   p9_client_zc_rpc+0x52e/0x970
+   p9_client_read_once+0x237/0x6c0
+   p9_client_read+0x9d/0x140
+
+Additionally, a misbehaving device can return the request after the
+RFLUSH, so req_done() writes into the freed request:
+
+  BUG: KASAN: slab-use-after-free in req_done+0x1d9/0x280
+  Write of size 4 at addr ffff88800392d758 by task swapper/1/0
+  Call Trace:
+   req_done+0x1d9/0x280
+   vring_interrupt+0x32a/0x540
+  The buggy address belongs to the object at ffff88800392d708
+   which belongs to the cache p9_req_t of size 136
+  The buggy address is located 80 bytes inside of
+   freed 136-byte region [ffff88800392d708, ffff88800392d790)
+
+Fix this by dropping the reference in req_done() for a buffer without a
+reply as well, since the device can return a flushed request without
+one. p9_virtio_cancelled() is no longer needed.
 
 This patch is assisted by Claude Opus 5.5.
 
-Fixes: d28c756caee6 ("9p/net: Fix zero-copy path in the 9p virtio transport")
+Fixes: 728356dedeff ("9p: Add refcount to p9_req_t")
 Cc: stable@vger.kernel.org
 Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
 ---
- net/9p/client.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ net/9p/trans_virtio.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/net/9p/client.c b/net/9p/client.c
-index 66980ad52bca8..15bb939087165 100644
---- a/net/9p/client.c
-+++ b/net/9p/client.c
-@@ -477,12 +477,7 @@ p9_client_rpc(struct p9_client *c, int8_t type, const char *fmt, ...);
- static int p9_client_flush(struct p9_client *c, struct p9_req_t *oldreq)
- {
- 	struct p9_req_t *req;
--	s16 oldtag;
--	int err;
+diff --git a/net/9p/trans_virtio.c b/net/9p/trans_virtio.c
+index 53046668c16b1..68c3457bec401 100644
+--- a/net/9p/trans_virtio.c
++++ b/net/9p/trans_virtio.c
+@@ -145,6 +145,9 @@ static void req_done(struct virtqueue *vq)
+ 		if (len) {
+ 			req->rc.size = len;
+ 			p9_client_cb(chan->client, req, REQ_STATUS_RCVD);
++		} else {
++			/* No reply, so put the ref that p9_client_cb() puts */
++			p9_req_put(chan->client, req);
+ 		}
+ 	}
+ 	spin_unlock_irqrestore(&chan->lock, flags);
+@@ -195,13 +198,6 @@ static int p9_virtio_cancel(struct p9_client *client, struct p9_req_t *req)
+ 	return 1;
+ }
+ 
+-/* Reply won't come, so drop req ref */
+-static int p9_virtio_cancelled(struct p9_client *client, struct p9_req_t *req)
+-{
+-	p9_req_put(client, req);
+-	return 0;
+-}
 -
--	err = p9_parse_header(&oldreq->tc, NULL, NULL, &oldtag, 1);
--	if (err)
--		return err;
-+	s16 oldtag = oldreq->tc.tag;
- 
- 	p9_debug(P9_DEBUG_9P, ">>> TFLUSH tag %d\n", oldtag);
- 
+ /**
+  * pack_sg_list_p - Just like pack_sg_list. Instead of taking a buffer,
+  * this takes a list of pages.
+@@ -806,7 +802,6 @@ static struct p9_trans_module p9_virtio_trans = {
+ 	.request = p9_virtio_request,
+ 	.zc_request = p9_virtio_zc_request,
+ 	.cancel = p9_virtio_cancel,
+-	.cancelled = p9_virtio_cancelled,
+ 	/*
+ 	 * We leave one entry for input and one entry for response
+ 	 * headers. We also skip one more entry to accommodate, address
 -- 
 2.56.0
 
