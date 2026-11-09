@@ -1,48 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794237302;
-	b=Dn/QwlX/GRaMyxIG8eqYg5uPh8iBOU8NSK5MAlG4kXoOCexI/zh4lj+CPXSxpDJVtMnU
-	 2u3rG1+8hPj4gtvhbcfvrV7QDm5Zx9AD3CqWzSWqeG4l/AkwJNOn46S+POC5NjkEmubfL
-	 ZAu85SehdbRd5ytvBv2zpTpB1vVo6k1dbOvjVLyxqyq2dUpNZiXkNZDGVq6PLkyQ5qlN8
-	 tRWyYQ7XY6TSsNYa1YhpG6UnNMM7E/w83rA62+nG4ShsM755s0H2x8PMFRfJVgGTNtIwI
-	 TflJOQ622bt6+4rduDnd+Nr77c3vTMGr7LYXe5r8aZV/z8SC8iC0IPS06yVT/TokgSA==
+	t=1794237336;
+	b=oZWWhJjqtT8LrZNoSgFhwqcayR1JAf0wH4ln+3GpWWq8irEP8HTa6Y/16ihbiN8n/euA
+	 RApsrX6seRFSRQKRead8xBNvNBNXWcOENlMcA5pFsgp6vtCql0jMpafbtmQR/VZYm/+g+
+	 YaLP+wEzFHJW8FCwVr9VYEEOf6AvNWNKB7KxfDvQW9tTRFVtKUYXc36Ke/XKBmWl1y9wb
+	 8PNKkcrvFd1SyJ6OcLnBmYJjbSToyheoCt8fFYqicUjXAx561GSUeC+FfukPr1ieBFTWK
+	 Dq502wZHCiZjJvYFo+89eLBEd8FKnz8GGY3hwZZkhD9dUCgm950B+Zns+LgoAK9wWDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237302;
-	h=Received:DKIM-Signature:Content-Type:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:From:To:Cc:References:Content-Language:
-	 In-Reply-To;
-	bh=r3s6B+lr7DDGsEVLcxfwZIs+LqrgTCXcoBGn2S7+mTY=;
-	b=P8ztxwvTjjjUnRLEpboCAPvzQ48GCx5Fdsw3aV2bm4yk2FGG0eq/PafZqQz8i9+jh5E0
-	 L0KhO4JsmmLYeIeiWlRwK6hYClaZ57E01xVMn2wg4V93IWlEzN4QAhvMl+FUZ7hDhDM0V
-	 hjnb+ReAkm86X7zyfL7B63eVg+gObGVRWshbM5FTseO09paT8devA981KmnDIFmhDYeJ6
-	 bjJLeDPYXstJ54EhiBUHcU6E61NRAKLb1zk6V5SO2jIa+dOJkWBU3NIsKQZz4EQzyNUo3
-	 ohaOZpWish9a4PQrS8+glHI9UYfrIgJ+NYPLmD2cAv9EnmtDU+hJS3SBVMtIAgIA8pQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237336;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=5XMjs81cwwebad2l/0/G1kSqG6DSPbx7k/K5ppMrACc=;
+	b=d7WR9dEzUEbkAl8K5YiMD/khCJhx8Fo6NctdmjHiOyS0/GPHHzs49Oa2TLABDUCtwlnz
+	 H5FJlLn7i43JblCCeRDMXhe6FFNPJf8kU3f9wiyh34dCQxSIHDlq6tRLHy6n1a5awrSwj
+	 ha+ZoIwRBjojNQcD1Hzq84p2k+BTJXfIG9JgYVvAuJO8llDTNMaFKePhuWcneKmD9yxRM
+	 x+5QVxtFUTB8kXZyyzs5OtUbqc1N68ZfSD5hFY1aQTdSaXnCKvH2pYmgkHLn1ep138wxA
+	 apSw8fTHwMIEnWphh0coREw78T7Ce2a2aWyNMZJFEdrgTvc0e1Kxj20H02/5g3qkjiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jql0wb5F;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B8f8wn6E;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD5D606A321;
-	Mon,  9 Nov 2026 15:15:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47F0606A31C;
+	Mon,  9 Nov 2026 15:15:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jql0wb5F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0441F0089F;
-	Mon,  9 Nov 2026 15:14:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B8f8wn6E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B4A01F0089F;
+	Mon,  9 Nov 2026 15:15:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794237301;
-	bh=r3s6B+lr7DDGsEVLcxfwZIs+LqrgTCXcoBGn2S7+mTY=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=Jql0wb5FdQBgaubXklkMxxM2+hIuloAEBDDY5xV4MceP/23CLg3OxpwYk5kGCzO2Z
-	 wVIgBIxTTlnMzbnySk6WVaPYlFQuSxkPqRiVhroWy1LRQ8OkyOUwBrz4PyRPQWapD8
-	 3s3dnUyOzA1Ue42frHhWaKLF+lt19KNGo6eAl0b/0OgGkj9W4E/Vk6ojuUEDtLB2B6
-	 x1SVsCs0ovAmv8OrcDZLHjusedWhQibvyRLGILfChjSe9kwnUw9DS76igz43n9RotX
-	 dCqJ4QUtW9rw/53VcT+qGOClaE3w4KodRTE9Ok5aJwXRTVbtW5Y9ikW+OOO0Y3Sneh
-	 UKXUgWR9prqgQ==
-Content-Type: multipart/mixed; boundary="------------A7xi0RJFcpUI0V6Z0A5xWgA2"
-Message-ID: <0c75e1b8-db5b-4512-9aa7-f0cb84606ce5@kernel.org>
-Date: Mon, 9 Nov 2026 16:14:57 +0100
+	s=k20260515; t=1794237335;
+	bh=5XMjs81cwwebad2l/0/G1kSqG6DSPbx7k/K5ppMrACc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=B8f8wn6EGcaPgbFkwh6lbFDJmPHUcDGKBWQnE821H4mxH94kWWQ70wKTZrTQDy1EM
+	 paputTixCpRd7qtDHlWeAcaPn0EkWecWXfsHiTED5ViYWDFQlXk+QlxQl1+icwUPAo
+	 sOTL9PGG326CG+lkiUfH17LKqYwWye9h8Zp4NDtLwvy8mMRLWhohq5r9+5byIac618
+	 qb+DixpKOCUonlAYkYJiiPk/qBLmPKGRanSYTELFgnAM2aTlW2lswvfDgwxtNiUtg6
+	 XCZDvAXog24/rceQEG+pxJwhmdY0p3QehtwYiZUau0Pbyj2qOKGK7LyH/yzZ1vG6iu
+	 ksK1vfdjB2JBg==
+Message-ID: <c1dc47d0-676e-4b88-b904-34d193e61808@kernel.org>
+Date: Mon, 9 Nov 2026 15:15:27 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,147 +52,141 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] platform: arm64: lenovo-thinkpad-t14s: Add Gen 7 EC
- support
-From: Hans de Goede <hansg@kernel.org>
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>, Sebastian Reichel
- <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v6 v6 3/9] ASoC: qcom: lpass-rx-macro: Add shikra
+ compatible
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20261107-t14s-gen7-ec-v1-0-f4a8edaac447@oss.qualcomm.com>
- <20261107-t14s-gen7-ec-v1-2-f4a8edaac447@oss.qualcomm.com>
- <44e4ede9-3eb8-418a-b1f1-7e9dc75e2e75@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <44e4ede9-3eb8-418a-b1f1-7e9dc75e2e75@kernel.org>
-
-This is a multi-part message in MIME format.
---------------A7xi0RJFcpUI0V6Z0A5xWgA2
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+References: <20261106-add_shikra_support-v6-0-2cda302237cc@oss.qualcomm.com>
+ <20261106-add_shikra_support-v6-3-2cda302237cc@oss.qualcomm.com>
+From: Srinivas Kandagatla <srini@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20261106-add_shikra_support-v6-3-2cda302237cc@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Abel,
-
-On 9-Nov-26 15:52, Hans de Goede wrote:
-
-<snip>
-
-> For easier review by you I've split the improvements into 4 patches (attached):
-
-<snip>
-
-> 4: Cleanup: has_kbd_bl2_and_standby and mic_mute_led_generic checks are
-> really just checks for the original (gen6) support vs gen7 support
-> drop the bools and directly check which variant ec->variant points
-> at instead.
-
-I accidentally left some debug code in patch 4, attached is a new version.
 
 
-<snip>
-
-> So about these differences:
+On 11/6/26 12:33 PM, Mohammad Rafi Shaik wrote:
+> Add shikra RX macro compatible data and hook it into the LPASS codec
+> v4.1 flow.
 > 
-> 1: For the spk / mic mute LEDs, on a hunch I tried using std LED controls
-> with a LED idx/id of 15 for the spk mute LED and that also works.
+> The RX macro register layout of LPASS codec v4.1 matches the v2.5+
+> layout, so reuse the existing v2.5 register access helpers, controls
+> and widgets for it.
 > 
-> I did not find either way (REG_AUD vs REG_LED) for the spk mute LED in
-> the DSDT, instead the DSDT ends up sending an ACPI notify event, relying
-> on some windows driver to handle this.
+> v4.1 additionally requires the FS counter to be bypassed before it is
+> enabled during MCLK enable. This is a property of the codec version and
+> not of the board, so key it off the version detected by the VA macro
+> rather than off match data.
 > 
-> How did you find that REG_AUD still works, did you just try the gen 6
-> method ?
+> Reviewed-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> ---
+>  sound/soc/codecs/lpass-macro-common.h |  3 +++
+>  sound/soc/codecs/lpass-rx-macro.c     | 14 ++++++++++++++
+>  2 files changed, 17 insertions(+)
 > 
-> 2: For the kbd backlight, again the DSDT ends up sending an ACPI notify event
-> and does not access the EC itself at all.
+> diff --git a/sound/soc/codecs/lpass-macro-common.h b/sound/soc/codecs/lpass-macro-common.h
+> index 573b2145e1c4..b52665b11e35 100644
+> --- a/sound/soc/codecs/lpass-macro-common.h
+> +++ b/sound/soc/codecs/lpass-macro-common.h
+> @@ -30,6 +30,7 @@ enum lpass_codec_version {
+>  	LPASS_CODEC_VERSION_2_7,
+>  	LPASS_CODEC_VERSION_2_8,
+>  	LPASS_CODEC_VERSION_2_9,
+> +	LPASS_CODEC_VERSION_4_1,
+>  };
+>  
+>  struct lpass_macro {
+> @@ -70,6 +71,8 @@ static inline const char *lpass_macro_get_codec_version_string(int version)
+>  		return "v2.8";
+>  	case LPASS_CODEC_VERSION_2_9:
+>  		return "v2.9";
+> +	case LPASS_CODEC_VERSION_4_1:
+> +		return "v4.1";
+>  	default:
+>  		break;
+>  	}
+> diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
+> index c59c746fb638..5fe06ce6b960 100644
+> --- a/sound/soc/codecs/lpass-rx-macro.c
+> +++ b/sound/soc/codecs/lpass-rx-macro.c
+> @@ -60,6 +60,7 @@
+>  #define CDC_RX_FS_MCLK_CNT_ENABLE	BIT(0)
+>  #define CDC_RX_FS_MCLK_CNT_CLR_MASK	BIT(1)
+>  #define CDC_RX_FS_MCLK_CNT_CLR		BIT(1)
+> +#define CDC_RX_FS_CNT_BYPASS		BIT(7)
+>  #define CDC_RX_CLK_RST_CTRL_SWR_CONTROL	(0x0108)
+>  #define CDC_RX_SWR_CLK_EN_MASK		BIT(0)
+>  #define CDC_RX_SWR_RESET_MASK		BIT(1)
+> @@ -652,6 +653,7 @@ struct rx_macro {
+>  	bool is_ear_mode_on;
+>  	bool hph_pwr_mode;
+>  	bool hph_hd2_mode;
+> +	bool fs_cnt_bypass;
+>  	struct snd_soc_component *component;
+>  	unsigned long active_ch_mask[RX_MACRO_MAX_DAIS];
+>  	unsigned long active_ch_cnt[RX_MACRO_MAX_DAIS];
+> @@ -1613,6 +1615,7 @@ static bool rx_is_rw_register(struct device *dev, unsigned int reg)
+>  	case LPASS_CODEC_VERSION_2_6:
+>  	case LPASS_CODEC_VERSION_2_7:
+>  	case LPASS_CODEC_VERSION_2_8:
+> +	case LPASS_CODEC_VERSION_4_1:
+>  		return rx_2_5_is_rw_register(dev, reg);
+>  	default:
+>  		break;
+> @@ -2045,6 +2048,11 @@ static int rx_macro_mclk_enable(struct rx_macro *rx, bool mclk_enable)
+>  					   CDC_RX_CLK_MCLK2_ENABLE);
+>  			regmap_update_bits(regmap, CDC_RX_CLK_RST_CTRL_FS_CNT_CONTROL,
+>  					   CDC_RX_FS_MCLK_CNT_CLR_MASK, 0x00);
+> +
+> +			if (rx->fs_cnt_bypass)
+> +				regmap_set_bits(regmap, CDC_RX_CLK_RST_CTRL_FS_CNT_CONTROL,
+> +						CDC_RX_FS_CNT_BYPASS);
+> +
+>  			regmap_update_bits(regmap, CDC_RX_CLK_RST_CTRL_FS_CNT_CONTROL,
+>  					   CDC_RX_FS_MCLK_CNT_EN_MASK,
+>  					   CDC_RX_FS_MCLK_CNT_ENABLE);
+> @@ -3652,6 +3660,7 @@ static int rx_macro_component_probe(struct snd_soc_component *component)
+>  	case LPASS_CODEC_VERSION_2_6:
+>  	case LPASS_CODEC_VERSION_2_7:
+>  	case LPASS_CODEC_VERSION_2_8:
+> +	case LPASS_CODEC_VERSION_4_1:
+>  		controls = rx_macro_2_5_snd_controls;
+>  		num_controls = ARRAY_SIZE(rx_macro_2_5_snd_controls);
+>  		widgets = rx_macro_2_5_dapm_widgets;
+> @@ -3837,8 +3846,10 @@ static int rx_macro_probe(struct platform_device *pdev)
+>  	case LPASS_CODEC_VERSION_2_6:
+>  	case LPASS_CODEC_VERSION_2_7:
+>  	case LPASS_CODEC_VERSION_2_8:
+> +	case LPASS_CODEC_VERSION_4_1:
+>  		rx->rxn_reg_stride = 0xc0;
+>  		rx->rxn_reg_stride2 = 0x0;
+> +		rx->fs_cnt_bypass = (rx->codec_version == LPASS_CODEC_VERSION_4_1);
+
+This does not look great, can we move this to of data?
+
+--srini
+
+>  		def_count = ARRAY_SIZE(rx_defaults) + ARRAY_SIZE(rx_2_5_defaults);
+>  		reg_defaults = kmalloc_objs(struct reg_default, def_count);
+>  		if (!reg_defaults)
+> @@ -3951,6 +3962,9 @@ static const struct of_device_id rx_macro_dt_match[] = {
+>  	}, {
+>  		.compatible = "qcom,sc8280xp-lpass-rx-macro",
+>  		.data = (void *)LPASS_MACRO_FLAG_HAS_NPL_CLOCK,
+> +	}, {
+> +		.compatible = "qcom,shikra-lpass-rx-macro",
+> +		.data = (void *)LPASS_MACRO_FLAG_HAS_NPL_CLOCK,
+>  	},
+>  	{ }
+>  };
 > 
-> How did you find that T14S_EC_REG_KBD_BL1 also works on gen 7?
 
-One more remark about the kbd-backlight the new mode which reports itself
-as brightness 3 is an auto mode with brightness 2, but it turns off
-the backlight after not using the keyboard for a while (and back on again
-on the next keypress).
-
-Newer x86 Thinkpads also have this and a whole new userspace API has just
-landed to support this. Here is a patch adding support for this auto
-mode to the x86 thinkpad_acpi driver:
-
-https://lore.kernel.org/platform-driver-x86/20261101100123.28749-1-kmatzkaczor244@gmail.com/
-
-Regards,
-
-Hans
-
-
-
---------------A7xi0RJFcpUI0V6Z0A5xWgA2
-Content-Type: text/x-patch; charset=UTF-8;
- name="0004-fixup-platform-arm64-lenovo-thinkpad-t14s-add-Gen-7-.patch"
-Content-Disposition: attachment;
- filename*0="0004-fixup-platform-arm64-lenovo-thinkpad-t14s-add-Gen-7-.pa";
- filename*1="tch"
-Content-Transfer-Encoding: base64
-
-RnJvbSAwZTc3YzM2ZWQyYzlhYmE0OTg3MjM0NjVmMDFmZjZiYjIxN2FiYWRhIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBIYW5zIGRlIEdvZWRlIDxqb2hhbm5lcy5nb2VkZUBv
-c3MucXVhbGNvbW0uY29tPgpEYXRlOiBNb24sIDkgTm92IDIwMjYgMTQ6Mjk6MzcgKzAxMDAK
-U3ViamVjdDogW1BBVENIIDQvNF0gZml4dXAhIHBsYXRmb3JtOiBhcm02NDogbGVub3ZvLXRo
-aW5rcGFkLXQxNHM6IGFkZCBHZW4gNwogRUMgc3VwcG9ydAoKRHJvcCB0aGUgeGZlcl9sb2Nr
-IG11dGV4IGFuZCBpbnN0ZWFkIHVzZSBpMmNfbG9ja19idXMoKSBsaWtlCnRoZSBleGlzdGlu
-ZyB0MTRzIGdlbjYgc3VwcG9ydCBkb2VzIGZvciBtdWx0aS1tc2cgdHJhbnNhY3Rpb25zLgoK
-QWxzbyBkcm9wIHRoZSBmc2xlZXAoNTAwMCkgaW4gdDE0c19nZW43X2VjX2NtZF9yZWFkKCkg
-dGhlIERTRFQgY29kZQpoYXMgbm8gZGVsYXkgYmV0d2VlbiB0aGUgdHJhbnNmZXJzIHNvIHRo
-aXMgaXMgbm90IG5lY2Vzc2FyeS4KClNpZ25lZC1vZmYtYnk6IEhhbnMgZGUgR29lZGUgPGpv
-aGFubmVzLmdvZWRlQG9zcy5xdWFsY29tbS5jb20+Ci0tLQogZHJpdmVycy9wbGF0Zm9ybS9h
-cm02NC9sZW5vdm8tdGhpbmtwYWQtdDE0cy5jIHwgMzAgKysrKysrKystLS0tLS0tLS0tLQog
-MSBmaWxlIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyksIDE3IGRlbGV0aW9ucygtKQoKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvcGxhdGZvcm0vYXJtNjQvbGVub3ZvLXRoaW5rcGFkLXQxNHMu
-YyBiL2RyaXZlcnMvcGxhdGZvcm0vYXJtNjQvbGVub3ZvLXRoaW5rcGFkLXQxNHMuYwppbmRl
-eCBhMjRiZjk1MjY4ZGMuLjQ1YjVjZGU2OWUzZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9wbGF0
-Zm9ybS9hcm02NC9sZW5vdm8tdGhpbmtwYWQtdDE0cy5jCisrKyBiL2RyaXZlcnMvcGxhdGZv
-cm0vYXJtNjQvbGVub3ZvLXRoaW5rcGFkLXQxNHMuYwpAQCAtMTMyLDggKzEzMiw2IEBAIHN0
-cnVjdCB0MTRzX2VjIHsKIAlzdHJ1Y3QgcmVnbWFwICpyZWdtYXA7CiAJc3RydWN0IGRldmlj
-ZSAqZGV2OwogCWNvbnN0IHN0cnVjdCB0MTRzX2VjX3ZhcmlhbnQgKnZhcmlhbnQ7Ci0JLyog
-c2VyaWFsaXplcyB0aGUgbXVsdGktbWVzc2FnZSBHZW4gNyBFQyB0cmFuc2FjdGlvbnMgKi8K
-LQlzdHJ1Y3QgbXV0ZXggeGZlcl9sb2NrOwogCWVudW0gbGVkX2JyaWdodG5lc3MgbWljX211
-dGVfY2FjaGU7CiAJc3RydWN0IHQxNHNfZWNfbGVkX2NsYXNzZGV2IGxlZF9wd3JfYnRuOwog
-CXN0cnVjdCB0MTRzX2VjX2xlZF9jbGFzc2RldiBsZWRfY2hyZ19vcmFuZ2U7CkBAIC0yNTAs
-MjQgKzI0OCwyOCBAQCBzdGF0aWMgaW50IHQxNHNfZ2VuN19lY19jbWRfcmVhZChzdHJ1Y3Qg
-dDE0c19lYyAqZWMsIHU4IGNtZCwgdTggYXJnLCB1OCAqdmFsKQogCXN0cnVjdCBpMmNfY2xp
-ZW50ICpjbGllbnQgPSB0b19pMmNfY2xpZW50KGVjLT5kZXYpOwogCXU4IHJlcVsyXSA9IHsg
-Y21kLCBhcmcgfTsKIAlzdHJ1Y3QgaTJjX21zZyBtc2dzWzJdID0gewotCQl7IC5hZGRyID0g
-Y2xpZW50LT5hZGRyLCAuZmxhZ3MgPSAwLCAubGVuID0gMSwgLmJ1ZiA9ICZyZXFbMF0gfSwK
-KwkJeyAuYWRkciA9IGNsaWVudC0+YWRkciwgLmZsYWdzID0gMCwgLmxlbiA9IDIsIC5idWYg
-PSAmcmVxWzBdIH0sCiAJCXsgLmFkZHIgPSBjbGllbnQtPmFkZHIsIC5mbGFncyA9IEkyQ19N
-X1JELCAubGVuID0gMSwgLmJ1ZiA9IHZhbCB9LAogCX07CiAJaW50IHJldDsKIAotCWd1YXJk
-KG11dGV4KSgmZWMtPnhmZXJfbG9jayk7CisJaTJjX2xvY2tfYnVzKGNsaWVudC0+YWRhcHRl
-ciwgSTJDX0xPQ0tfU0VHTUVOVCk7CiAKLQlyZXQgPSBpMmNfbWFzdGVyX3NlbmQoY2xpZW50
-LCByZXEsIHNpemVvZihyZXEpKTsKKwkvKiBTZW5kIGNtZCArIGFyZyAqLworCXJldCA9IF9f
-aTJjX3RyYW5zZmVyKGNsaWVudC0+YWRhcHRlciwgbXNncywgMSk7CiAJaWYgKHJldCA8IDAp
-Ci0JCXJldHVybiByZXQ7CisJCWdvdG8gb3V0OwogCi0JZnNsZWVwKDUwMDApOwotCi0JcmV0
-ID0gaTJjX3RyYW5zZmVyKGNsaWVudC0+YWRhcHRlciwgbXNncywgQVJSQVlfU0laRShtc2dz
-KSk7CisJLyogUmVzZW5kIHRoZSBjbWQgYnl0ZSArIHJlYWQgdGhlIHZhbHVlICovCisJbXNn
-c1swXS5sZW4gPSAxOworCXJldCA9IF9faTJjX3RyYW5zZmVyKGNsaWVudC0+YWRhcHRlciwg
-bXNncywgMik7CiAJaWYgKHJldCA8IDApCi0JCXJldHVybiByZXQ7CisJCWdvdG8gb3V0Owog
-Ci0JcmV0dXJuIHJldCA9PSBBUlJBWV9TSVpFKG1zZ3MpID8gMCA6IC1FSU87CisJcmV0ID0g
-cmV0ID09IDIgPyAwIDogRUlPOworb3V0OgorCWkyY191bmxvY2tfYnVzKGNsaWVudC0+YWRh
-cHRlciwgSTJDX0xPQ0tfU0VHTUVOVCk7CisJcmV0dXJuIHJldDsKIH0KIAogc3RhdGljIGlu
-dCB0MTRzX2dlbjdfZWNfd3JpdGUodm9pZCAqY29udGV4dCwgdW5zaWduZWQgaW50IHJlZywK
-QEAgLTI3OCw4ICsyODAsNiBAQCBzdGF0aWMgaW50IHQxNHNfZ2VuN19lY193cml0ZSh2b2lk
-ICpjb250ZXh0LCB1bnNpZ25lZCBpbnQgcmVnLAogCXU4IGJ1ZlszXSA9IHsgVDE0U19HRU43
-X0VDX0NNRF9XUiwgcmVnLCB2YWwgfTsKIAlpbnQgcmV0OwogCi0JZ3VhcmQobXV0ZXgpKCZl
-Yy0+eGZlcl9sb2NrKTsKLQogCXJldCA9IGkyY19tYXN0ZXJfc2VuZChjbGllbnQsIGJ1Ziwg
-c2l6ZW9mKGJ1ZikpOwogCWlmIChyZXQgPCAwKQogCQlyZXR1cm4gcmV0OwpAQCAtNzMyLDEw
-ICs3MzIsNiBAQCBzdGF0aWMgaW50IHQxNHNfZWNfcHJvYmUoc3RydWN0IGkyY19jbGllbnQg
-KmNsaWVudCkKIAlpZiAoIWVjLT52YXJpYW50KQogCQllYy0+dmFyaWFudCA9ICZ0MTRzX2Vj
-X3ZhcmlhbnQ7CiAKLQlyZXQgPSBkZXZtX211dGV4X2luaXQoZGV2LCAmZWMtPnhmZXJfbG9j
-ayk7Ci0JaWYgKHJldCkKLQkJcmV0dXJuIHJldDsKLQogCWkyY19zZXRfY2xpZW50ZGF0YShj
-bGllbnQsIGVjKTsKIAogCWVjLT5yZWdtYXAgPSBkZXZtX3JlZ21hcF9pbml0KGRldiwgZWMt
-PnZhcmlhbnQtPnJlZ21hcF9idXMsCi0tIAoyLjU1LjAKCg==
-
---------------A7xi0RJFcpUI0V6Z0A5xWgA2--
