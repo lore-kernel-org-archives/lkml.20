@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.190
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794212273;
-	b=18kMTR9Rmm4Id9U6/bkpKadRG5rJ17GwZXU/O1QDHoIxUrv8pmPp+cqalPp9BOkXMAVE
-	 iH1l7j19JLeVXUH5kgu5C8B/Qw5qyQsNNZB3E6ltR4NDnO8D57LtH08OolpIeWC3u3mfH
-	 Kx8bG7aDtTInD2f2QqhyDZ50mK+OgroTGRQRsANfrZxfGxtrR5rp53s34TuyCLXN2Y1bS
-	 jgS5H0eSTrfnl04UzJLYpD5sGsCCokXNJ7dCvamZ7ysFFRbOQukTiUpSpsM1EJvm6xukr
-	 tF8Wd2g6cuhv4EknDjaeg6w4wSRlEx84xEL6la361uc0sEca+JyXJyGvxuPeOzvCyCA==
+	t=1794212305;
+	b=0ujGEtsSUkRAmCn0GvySCBGRIIVA0S/ody2JnaTPL1df3WKkbSPL54m7UKpxQ9qubdLQ
+	 he4bKNL2yANbcCf42UpsCJT12ww4FmU2i7tW/rlja11K+H0yQCT9K5/Jszu0mixUv7wWU
+	 UYYFkedQNJ2b+V3J/1WeWgvjDZWLi/u+s+xEz2UhXSzZU0XEIo68GG18ISo0YweyUlGBL
+	 Ulv9bJW5Zdv/OqEqhtMWGIAJ5LdXQ2PHpcN5YYZPvVEFVIKM22P+FEolXcuo0Q8G1bruu
+	 TrWaEzTY+LyDAc0m6jQjysTxvEvQxvp+l08XKxAnvfyjfNQebgdBp14jzhxL+upypeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212273;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=b+9X6T2J+3RyQAnAuQX9Fg8kfH/4OEFG3vx3P/BfQ/w=;
-	b=CYzvpewAn00EjcUKr5u5ZDzjLd59itmsWBMUuv7NFyYVBmaDVmunxO8I/T1B7hf2la5L
-	 VpdFX7DYeeMe27R8YzMuT+eMM1wZZGDDqM9wTOtLn//zeoWxeLS4R5Wp86O3S4ncVlmD0
-	 LgDXLdj+hNH3Wnf0aoGUVgORf+bAwRw1rM9Cpv71NeyqFFH0MYYTi+z856HpJdshB5tMG
-	 /+HUjkJFjsZu0K/fVyaKXDtfLUEzIrlr5vhH0bIuztF6eMOsfBjx85ClC80tWMATJtshe
-	 4PUAKX0ZrkxN++zogfCu1QpqfxubxvxFpX2vl7cxIDnIs/B/Jc3DVvRqeD5+bXKmA9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212305;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:To:
+	 Cc:X-Mailer;
+	bh=o4oe6gDa9O6+CfgBCBBo/NwzOUax1uYWt/w2Plp/5ig=;
+	b=Ju+z3tEqXMzDbDB3lFQfVBnZ8EoB0KGSC+E7nyde6IHuVwGDu0qowynuVNUdtjDxFoVo
+	 okBNhVwF7wQ19nLU320ZXPqs0ZAAx6sbXC2y0DtZeAPq+H0I5FPtuqWW3ny2RfSn2HNV+
+	 4BP3+G8uJybyoBpQ+wD9IcvgAhSl+LQeZ4MrUlxDca0ZBkU4/6L1GSFOku7dVHXVJmd6a
+	 egBvhiUkKRcHfCW9VXQ3cwVYXPpXNplKzAtjClPUVSCVnbpNruUpSq8KzAMmZOSFXYhtC
+	 vI0C3l7y0/cuQgNFzDmPMZ8JeHjbwOXEfkYZPUU3MxNtFXVmaUcCComRATBXttZzL7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cNwUGG0A;
-	arc=none smtp.remote-ip=209.85.167.43
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GdOI5m2R;
+	arc=none smtp.remote-ip=95.215.58.190
+Received: from mta1.migadu.com (out-190.mta1.migadu.com [95.215.58.190])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8B2F606A331
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:17:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8B2F606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB43606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:18:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFB43606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cNwUGG0A
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bccb867d6fso689555e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:17:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794212270; x=1794817070; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b+9X6T2J+3RyQAnAuQX9Fg8kfH/4OEFG3vx3P/BfQ/w=;
-        b=cNwUGG0AArH5cx4a7e4MD+zCA+4QMWJrHBWL/IlUWzR/olJz6Z7EpQtiN/14oRMwkD
-         rd6nx0nV3z0cl+SnMQhZdJNyT+0f8OS0XEsW+KkRYvWwNr6xL04201nbK7SNCyIQSnc9
-         fEVP9PLwBw7ZYua+6T2/5CHi9UHXhFQChTrMBNbYfNi1v+hqyK1vC7psID22gZnTnKri
-         z1YToM3BT+/6iaaVtPlFd8l7Rk6iOKhJledwFe/caQwXuEPPzetJaa0/BL/y0+sphj2g
-         7AKY6ekf2i1xGjO7DSq0KbHBXex6XyxQ0g7epXQcWQ1TbL6+rlT+5TDd4qLjz5BC+G7K
-         b5bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794212270; x=1794817070;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b+9X6T2J+3RyQAnAuQX9Fg8kfH/4OEFG3vx3P/BfQ/w=;
-        b=QWfpMDs975YLkpJow2QSJAdW0xw5BSlUAdQMdQtxW7eziycTWNgMqr23gczs6P2+wQ
-         CeRbFZ0hjCm+TS2BAiolB1hJZIDWVfFfEvzwb7VlonWSsjUmQ8mTCnXRrTuVgumQHhsz
-         C7S/xpRcytCBB2rRp+1SYyC3EX1JoWvCIIt2IlzB7y7KvhbSC+Kt5raUdMFnz2Ms8TTc
-         34YZlyi4msnGRatjse9cI4PnIFyGAdMKnLm9rxSMvMSPdL/5UJ1G0GIFMvHkE9+eC8E8
-         NtWSGHN+Cgm/lG8TJdzPzw0QQJeC48UxMGIiGhkozYbR76K1Ct2WQLJ43Y+CV3grTZff
-         Anfg==
-X-Forwarded-Encrypted: i=1; AL+hErGKXPwbN7IEroJ37voOfH/kRyS5TE7fKfmZUtc3U/27EDX2aGOJJw4YGcKPzEazjmZtDwsRndAlEHlObDI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9JxT+0ynyPG+fRT85iFnKZJrW2sajv0TKr+UPHDL+i4vg4e637
-	+GehhT1r0q8ohrLit4mole6r3h9oTox3vRnDOM+BMTWb4NVtUlWLcziV
-X-Gm-Gg: AYBFou0A2byFUb1piOPEUs4GEq2Zx3XT5c0Cc8JC1BdAxfPY9lNdvXl+pV3zdfSbonK
-	alhBXArsmeU09geDRNYAi25drk0rx7MJWKFPOvZeOvRFCAC33uc2XCSIpTs3Cq8ZcLi16VHxfap
-	2Uy32hzJuPDzVjegBLDSjoiu/SOk7z0GufZxfHHWBkbOPUg4J2xwhD6sR8oF4YQBAhzRtX2Kbg1
-	HEvh/qEknX63wWsmH2kZ77FGo525AEZsxa17/VEoHMhk1g7aqWcKUhmMBmoyWgTtuJjX6OnHOZ7
-	souYq+iaJ2B/LMyE2zpnV1MBBO8Gq2DO8rZnFGOIfQ7DbBM7z2mECDyfnUr3M63XLkk3cozpL4Y
-	08Iir60Y8jMBNvgI26cKCGPq69N0J24r8X2VKoIbx/gDKXbjG+uIaDR/b9ca5JO33HXk6TzCR95
-	G0EMJ4I1yGe1ToepzFpTvFag0lZE1dCqglUejt4bDSxP79ltDKK8moDllkPlmEyTp5oo/I+XeOK
-	qc/AJsufT7Lbi2xZNlGA559lialSWZOxeJaAA/7SkyIG5IV8s4t2Ub9XB6tSJJpKGyO62Xtih1c
-	3kVp1JBWOgQjgcSuONluZXAGchxIJRAA7TUD05W0vQfAkTQ5gW6Ym4F1jhBHwBnvUYf9
-X-Received: by 2002:a05:6512:3ca9:b0:5bf:a209:f81f with SMTP id 2adb3069b0e04-5c14bffe580mr794288e87.37.1794212269955;
-        Mon, 09 Nov 2026 00:17:49 -0800 (PST)
-Received: from zephyrus-g16 (89-179-242-53.static.corbina.ru. [89.179.242.53])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c14b81d098sm726770e87.67.2026.11.09.00.17.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 00:17:49 -0800 (PST)
-From: Evgeny Volferts <eugene.wolferz@gmail.com>
-To: corentin.chary@gmail.com,
-	luke@ljones.dev,
-	denis.benato@linux.dev,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	i@smmh.dev,
-	eugene.wolferz@gmail.com
-Subject: [PATCH v2] platform/x86: asus-nb-wmi: Ignore spurious 0xe5 events
-Date: Mon,  9 Nov 2026 11:16:44 +0300
-Message-ID: <20261109081644.2790549-1-eugene.wolferz@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261015163029.107250-1-eugene.wolferz@gmail.com>
-References: <20261015163029.107250-1-eugene.wolferz@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GdOI5m2R
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Nj39I8pNFtdvwT74hw4UvzUD7EsW6ZkkjkhPcP0ojFQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794212301; v=1; x=1794817101;
+ b=GdOI5m2RYI/5Wk+7ZwW5A+hyrKIsaa90TG3ItxsTu9qBBQEdhRLTcO8z9YLp9CZBdfQKCAuq
+ tQDKOeOCsyQZOliBR8hCOKx08XzcCg+kkJZeng0fOM1w3faCSRX+9Dfht7qgrWBJq4mrM5gYG0A
+ 4KRw2SAPUycl/zu16sVnnO4U=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6e3faf30fe813c37;
+	Mon, 09 Nov 2026 08:18:20 +0000
+X-Mizu-Trace-ID: 6e3faf30fe813c37
+X-Migadu-Flow: FLOW_OUT
+From: Qiliang Yuan <qiliang.yuan@linux.dev>
+Subject: [PATCH net-next v3 0/4] net: make moving a device to another netns
+ cheaper
+Date: Mon, 09 Nov 2026 03:18:11 -0500
+Message-Id: <20261109-bug-net-netns-move-rcu-barrier-v3-0-6084b02610b3@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,45 +61,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMOB8WoC/43NvQ6DIBQF4FcxzL0NoPLTqe/RdBBEJanSgBIb4
+ 7uX0sWtHe5wcnK/s6FgvDUBXYoNeRNtsG5KoTwVSA/N1BuwbcqIYsoIJgzU0sNk5s9NAUYXDXi
+ 9gGp8cjy0UgrNSlmLEqOEPL3p7JoHbuj7t87onprBhtn5V16OJPf/jkQCGCpS85ZLwWrRXfuxs
+ Y+zdmOmIz1y8idHE6eYUZwLrCtJj9y+72/WEVnjJQEAAA==
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
+ Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Kuniyuki Iwashima <kuniyu@google.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Qiliang Yuan <qiliang.yuan@linux.dev>
+X-Mailer: b4 0.13.0
 
-Some ASUS laptops periodically emit WMI event 0xe5, which is not
-associated with a supported key or action.
+Moving a device to another netns waits in rcu_barrier() with RTNL held.
+Container and sandbox managers move one end of a veth pair for every
+new network namespace, so this barrier limits how fast such namespaces
+can be created on the whole system, to under 80 per second in a 4
+vCPU guest however many threads create them.
 
-On the ROG Zephyrus G16 GU605MY, this event occurs approximately
-every 12 seconds and is reported as KEY_UNKNOWN. When the session
-is locked, it repeatedly wakes both the internal display and an
-external monitor connected through a Thunderbolt dock.
+The barrier was added for NETDEV_UNREGISTER_FINAL, which is long gone,
+but it still keeps cached IPv4 routes through the moved device from
+being accepted in the old netns, and it lets the RCU callbacks of the
+nexthops removed with the device flush their IPv6 route exceptions
+before the move. Routes through nexthop objects are not fully covered by
+it: their cached dst entries are released by an RCU callback queued from
+another RCU callback, so a socket in the old netns can still send
+through a device that now belongs to another netns whenever the route
+generation numbers of the two netns happen to match.
 
-Ignore event 0xe5 globally to prevent these spurious input events.
-The same event has also been observed on other ASUS laptop models.
+Patches 1 and 2 draw the IPv4 rt_genid and the IPv6 fib6_sernum bumps
+from sequences shared by all netns, so a cached route no longer matches
+another netns. Patch 3 flushes the cached routes of a nexthop group when
+one of its members is removed, instead of leaving the IPv6 exceptions
+through that member valid until it is freed. With these, nothing relies
+on the barrier, and patch 4 removes it. Patches 1 to 3 fix bugs that
+exist today and can go to net on their own if preferred.
 
-Signed-off-by: Evgeny Volferts <eugene.wolferz@gmail.com>
+Without patch 3, removing the barrier lets a socket keep sending through
+a moved device that carries no IPv6 address and is a member of a nexthop
+group, until its exceptions are flushed. Datagrams a socket in netns A
+sent through such a device after it moved to netns B, 10 trials:
+
+                   patches 1, 2, 4     patches 1-4
+  datagrams               561-6525               0
+
+Creating 400 netns, each with a veth pair whose host end is moved back
+to the initial netns, a tap device, addresses and routes, in a 4 vCPU
+guest, median of 5 runs:
+
+                   before      after
+  1 thread        46 /s       56 /s
+  4 threads       58 /s       84 /s
+  16 threads      75 /s      146 /s
+
+Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
 ---
-Changes in v2:
-- Replace the GU605MY-specific DMI quirk with a global KE_IGNORE
-  entry for event 0xE5, following review feedback.
-- Remove the DMI quirk and associated key filter logic.
+V2 -> V3:
+- Add patch 3: flush the cached routes of a group when one of its
+  nexthops is removed. Without it, patch 4 lets a socket keep sending
+  through a moved device that has no IPv6 address (Sashiko review)
+- 1/4, 2/4: say that cached routes carry values drawn from the sequence
+  because inserting a route bumps it, not because NETDEV_UP does, and
+  that this holds until the sequence wraps (Sashiko review)
+- 1/4, 2/4: add Kuniyuki's Reviewed-by, the code changes only in comments
+- 4/4: commit message only, keep Eric's and Kuniyuki's Reviewed-by
+- Rebase onto net-next and remeasure in another guest, where the barrier
+  costs about 4 ms per move instead of about 10 ms, so the gains are
+  smaller than in v2
+- Send from my linux.dev address
 
-A similar global fix was independently submitted by
-Seyed Mohammad Mahdi Hosseini:
-https://lore.kernel.org/r/d3871d83ee3f5eea3900d8bc0da1de764a8fc2ec.1791672579.git.i@smmh.dev
+V1 -> V2:
+- 2/3: keep the initial fib6_sernum of each netns and never hand it out
+  from the shared sequence, instead of drawing a value at netns creation
+  (Eric Dumazet); 1/3: do the same for rt_genid
+- 2/3: note that fib6_sernum is no longer monotonic per netns (Eric
+  Dumazet); 1/3: likewise for rt_genid
+- Drop Kuniyuki's Reviewed-by from 1/3 and 2/3, which changed
+- Rebase onto net-next and remeasure
 
- drivers/platform/x86/asus-nb-wmi.c | 1 +
- 1 file changed, 1 insertion(+)
+v2: https://lore.kernel.org/r/20261019-bug-net-netns-move-rcu-barrier-v2-0-b6eb7780c492@gmail.com
+v1: https://lore.kernel.org/r/20261016-bug-net-netns-move-rcu-barrier-v1-0-4157d798658f@gmail.com
 
-diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-index aeb461b1644d..6e784a4909a0 100644
---- a/drivers/platform/x86/asus-nb-wmi.c
-+++ b/drivers/platform/x86/asus-nb-wmi.c
-@@ -662,6 +662,7 @@ static const struct key_entry asus_nb_wmi_keymap[] = {
- 	{ KE_KEY, 0xCB, { KEY_F14 } }, /* Fn+noise-cancel */
- 	{ KE_IGNORE, 0xC6, },  /* Ambient Light Sensor notification */
- 	{ KE_IGNORE, 0xCF, },	/* AC mode */
-+	{ KE_IGNORE, 0xE5, }, /* Periodic EC notification */
- 	{ KE_KEY, 0xFA, { KEY_PROG2 } },           /* Lid flip action */
- 	{ KE_KEY, 0xBD, { KEY_PROG2 } },           /* Lid flip action on ROG xflow laptops */
- 	{ KE_KEY, ASUS_WMI_KEY_ARMOURY, { KEY_PROG3 } },
+---
+Qiliang Yuan (4):
+      ipv4: draw rt_genid from a sequence shared by all netns
+      ipv6: take fib6_sernum from a sequence shared by all netns
+      nexthop: flush cached routes when a nexthop leaves a group
+      net: remove rcu_barrier() from __dev_change_net_namespace()
+
+ include/net/net_namespace.h |  5 +----
+ net/core/dev.c              |  1 -
+ net/ipv4/nexthop.c          | 10 ++++++++++
+ net/ipv4/route.c            | 21 +++++++++++++++++++++
+ net/ipv6/ip6_fib.c          | 16 +++++++++++++---
+ 5 files changed, 45 insertions(+), 8 deletions(-)
+---
+base-commit: fa5196392691051963726787944db872420dfa75
+change-id: 20261016-bug-net-netns-move-rcu-barrier-d998c6395830
+
+Best regards,
 -- 
-2.56.0
+Qiliang Yuan <qiliang.yuan@linux.dev>
 
