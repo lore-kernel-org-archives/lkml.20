@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242670;
-	b=3oW/ytBEvnndUJxhAbVNEKR8a2iYeRaBa6mmdPTFvJmD4RrbUj35Nzqm764pUOkJEnQJ
-	 xjPa1SDDGKTxtZk7jiw8Jo3YEDUW39rY2PDJ/xykGN0dypPEFO3pAkUHFAsJlDl7khrpV
-	 PoY1AOAhJFHHUSsDSZLnB6icdA7ipseWbrkuapsEXaTxY3RxpVKQQCrRj7i51T0XzQIRe
-	 jHv5HYbJOWeQZi+cyNcDAW0gCq/8ebi6+xFAVby/Vk02QeGE+R1a+8tyJLaBXBuKckdu1
-	 OheJEz7tLT7qRmUq+GOzs+sJSi5iU1yo5efbLvakHZP24bHG8bZcjrtX931rIlU6uCA==
+	t=1794242681;
+	b=w6CK8EwLWU07O7a3B08kzSxe/6MBgNK24Buv0iyAnj9NbwLtqX+jXd4YRTKJr32zqXaQ
+	 YNBiSw7wd4QVUQjTJLq9Yiua9kR4CNw3jGvCrqXTWEttSUGlUtTiP3O1TLGyIfNU/xuxC
+	 JeCr3/NEKbokYEreFIyA+3BL4AFpK14iV+FR5Dga/wWxeCrZaO7tsvZynf8vCtvT7BvU8
+	 J01HjT+/mfBr52sfDuBxiFIprWoAEgVu6/rtKkcr5Vyw/AQK+sSdg1zVg3uIEcDXsOJVj
+	 mSxDjeksp1pNa9iRKLZl8WUEasmW/ZkLTeTTZk/D9oerLNl4EKvy5GXhBs3VaTRclUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242670;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242681;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=pqc2L1WzcvzIZX23ze7NEAQi3S+/FWCxRg0BqVfI6Vg=;
-	b=3GciM4Uj6saNxWVSQ7zh52Mm5pwxA5sbcZONF06Ht1k1/V+OfjmfaAp25OdgO8oDgXUS
-	 4fRmikOcvdGgtxPaud5LZBHpgUKYqSpEyDP7YQXS4OUyIvUMOGiGj1Dts2SN28Bjwp6we
-	 QHVJiBAnzrjOBE+HXr1/2kshM3MnRTOwz2Yc5I97j6RhJD4Y6l6z1xBzXBLTwwVFlHogk
-	 vfBbvZdJUvOMvIKMZ4+8aWeRV/GTsT7Wl5C/h9EA7d7DGrNwoE2pPwszaMz0LzLMTyqWY
-	 2K1U0LA41833FvhplIPgTIYONGZ7crJWQcxEFZ5hwoRRWk1KfkkItZ5tXhXQfFLWx4Q==
+	bh=3ZKKJe+TMQhqlFtkFBZY3aVq6wo+pAjEtwAbIxqWOnE=;
+	b=NzCbVPAOMS1sLmGHTrssewIhDUCWMdwyez9BnP7/FeaOOAqxJaJarxy+5/4tOI8RH5mf
+	 QAd0LQbxQOrMYxHxtKaqHsaxo+/dm4M8DZ748/AzqdnQUXO/bDX+47PQj5Xvu+BvAPvUJ
+	 sn2kOLOXCumQ6Q+LB7xdSqZSt6cXY5ycBl48UAme8+aeLeNBTs45PcQ4DQmgK0FUVXoVd
+	 +R/+oxzWOFjRc8SERP4Fi0fC3fc471bqNpou0uZEZokawkZ0efXOgisNatWFapWvOe8Mr
+	 f9tIHiRl64eweY7uwFUPaIDI4T2uenLDFni4ijmwBjxZhZQ+OUw/axEisSS9gnGeDbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwYrWyq9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GPvLnlKz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C29606A321;
-	Mon,  9 Nov 2026 16:44:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 38E39606EEB0;
+	Mon,  9 Nov 2026 16:44:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwYrWyq9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB6DB1F0089F;
-	Mon,  9 Nov 2026 16:44:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GPvLnlKz
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 85D3E1F0089F;
+	Mon,  9 Nov 2026 16:44:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794242670;
-	bh=pqc2L1WzcvzIZX23ze7NEAQi3S+/FWCxRg0BqVfI6Vg=;
+	s=k20260515; t=1794242681;
+	bh=3ZKKJe+TMQhqlFtkFBZY3aVq6wo+pAjEtwAbIxqWOnE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RwYrWyq9onaHDWrzcgUAnNT+SCoruSQGm9pYpLkASnNzt+eJw6UaP/20lLzCx53Tg
-	 Wq/fzGQuKca+BL62LT2ecyreaIjmIcz1jp30nfdV++sUhfKFKT63PaTdjKFfDyafEr
-	 98bjeO0KYM4XsracQeh3hGCrUI4SmuGqKunKrLyeAPTyqW9tfaZxcRwJL5ATMQ9lQa
-	 XMSohEDAX5THIp9B+tYk3akCt1kk3PX4zT3DVK50IjlwwQLynszpFmdpQ9R/SUmz4V
-	 uy8S+96lC7Ed1ISDIhV4df+jGQMzks7Ar7XQ/Qm3powg856/HDIl9f5zyAz6yLg+84
-	 zi8dbhTRQ83cw==
-Date: Mon, 9 Nov 2026 11:44:25 -0500
-From: Nathan Chancellor <nathan@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Nicolas Schier <nsc@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Daniel Mack <daniel@zonque.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Sasha Levin <sashal@kernel.org>, linux-input@vger.kernel.org,
-	linux-kbuild@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Input: apm-power - remove driver
-Message-ID: <20261109164425.GB1608140@ax162>
-References: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
+	b=GPvLnlKzxQ/HU9hAZI8YCeXA1Ybh/kAhH78Bl+hqZQ5zqc49vibUsgIi/Fh+93w6x
+	 YxXkhk97gBOtSlPoWkn2WkkkJeEiHDP7oJjR3wg8cNbCjLhxXsiwEgv0nATDcAKPV+
+	 FCvmX5yfLUAX0XrlhJpN7GeEnoMOA5OL/X06d/W3IlH17GeNjk7/4NUEF6twDwm9KY
+	 gY4CT0akV3KQtQqSwpargElvFNZOb7a3AK9nqhvLjA6hCS3EUJfC1hafFUnuMlUJZy
+	 QjQBj/ZQUpj+Ha9bj+/sv3s771dCduYV7GG7bqLOe4D3WACCfADVhJDfvFxAlC6QnO
+	 tknJNXqRiQNYA==
+Date: Mon, 9 Nov 2026 18:44:37 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] tpm: acpi: Fix memory leak at tpm_read_log_acpi() error
+ path
+Message-ID: <avH4dX38CWW3IOAg@kernel.org>
+References: <20261109082527.541901-1-tiwai@suse.de>
+ <avHl-WoBP73QjInD@kernel.org>
+ <87mrriuhig.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,45 +61,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109080944.3802916-1-dmitry.torokhov@gmail.com>
+In-Reply-To: <87mrriuhig.wl-tiwai@suse.de>
 
-On Mon, Nov 09, 2026 at 12:09:44AM -0800, Dmitry Torokhov wrote:
-> The apm-power input handler solely listens for EV_PWR KEY_SUSPEND
-> events to queue APM_USER_SUSPEND via legacy APM emulation. The only
-> in-tree platforms generating those events are legacy Sharp Zaurus ARM
-> machines (spitz/borzoi/akita and collie), none of which were converted
-> to Device Tree. Both mach-pxa board files and mach-sa1100 were marked
-> deprecated in v7.3 by commit cc7852314abd ("ARM: PXA: mark remaining
-> board files as deprecated") and commit 7d92e50ceacd ("ARM: mark
-> mach-sa1100 as deprecated"), and are queued for removal in v7.5. None
-> of the remaining ARM platforms or other APM_EMULATION targets
-> (MIPS_ALCHEMY, PMAC_APM_EMU, and SH_HP6XX) emit EV_PWR input events or
-> enable CONFIG_INPUT_APMPOWER, and arch/arm/configs/pxa_defconfig
-> already dropped CONFIG_PXA_SHARPSL at the same time, leaving its
-> CONFIG_INPUT_APMPOWER=m entry inert.
+On Mon, Nov 09, 2026 at 04:55:03PM +0100, Takashi Iwai wrote:
+> On Mon, 09 Nov 2026 16:25:45 +0100,
+> Jarkko Sakkinen wrote:
+> > 
+> > On Mon, Nov 09, 2026 at 09:25:24AM +0100, Takashi Iwai wrote:
+> > > When devm_add_action() returns an error, we do NULL-clear
+> > > log->bios_event_log unnecessarily before calling tpm_bios_log_free(),
+> > > and it would lead to a memory leak of the allocated log buffer.
+> > 
+> > I don't understand this. "NULL-clear" is gibberish when the actual
+> > bug is just spurious clear of log->bios_event_log.
 > 
-> Normalizing dashes and underscores in scripts/modules-check.sh for v7.5
-> exposes a module name collision (apm_power) between
-> drivers/input/apm-power.ko and drivers/power/supply/apm_power.ko.
-> Remove this obsolete input bridge to resolve the collision rather than
-> renaming a module whose last target platforms are going away in the
-> same cycle.
+> It's not "spurious", but rather ill-behaving.
+> Because it sets NULL before calling tpm_bios_log_free(), the actually
+> allocated buffer won't be freed at all.
+
+I agree. That was wrong choice of the word from my side :-)
+
+Since in this case it simple, I'd just want to apples and oranges
+pointed out, that's all.
+
+
 > 
-> Reported-by: Sasha Levin <sashal@kernel.org>
-> Closes: https://lore.kernel.org/r/20261108225808.1809266-1-sashal@kernel.org
-> Link: https://lore.kernel.org/r/20261109-apm-power-input-rename-v1-1-0609e7b91825@kernel.org
-> Link: https://lore.kernel.org/r/e4da2f9d-d3b9-4267-9b64-b0f2cb43402a@app.fastmail.com
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> 
+> Takashi
 
-Thanks a lot for helping with this.
-
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-
-Nicolas, do you prefer taking this via kbuild-next directly or having
-Dmitry take it via the input tree and giving us an immutable branch? I
-assume the chance of conflicts or follow-ups are low, so we can probably
-just take it directly but I don't want to assume your preference.
-
--- 
-Cheers,
-Nathan
+Br, Jarkko
