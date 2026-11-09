@@ -1,105 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253326;
-	b=RGmCzL9sdAn53EL10wuG1OR5saMDqyIESlr7Lu0uT9rwgz8YdKkwBzdwey8G27g0jRRi
-	 E56roCub0KB7Dwx9TUo8XTJfBv/VfKUQ2oOlYvY8D8taL+WjOU0XTOX2oAr5G5bg0D6or
-	 ne7GChdxUneG/xh2E+UlQ+I5GlibAY2ByO27/eBEytP4aYWZwA405F3Bb3m5+hyWoUF+R
-	 FrUNPxXZWkZll0QkN/LABImp9Xnqg5UpECdc6ltkQkVnoW2OM7x82ERv0maFl59J93AwH
-	 no8P2sPO4+Q1r5mdEzaRdh3JeNPfGk0Xv8ef16D1h1OzDZE/CUWUqpiVRQQbMyuH8xw==
+	t=1794253328;
+	b=bIl5rwuwKSiEt4jK9QXGx8OR7RmJi4OX1p2GKMUGlfIMgUt/osr66I6t2RfxnqjJmWes
+	 xU3TbXFsFnUSKXc5DxyBW6p5xFlIWli3fAa/ptju6OANq/qkXYcle2sWwr07teXF4LWgw
+	 QRB8Cy8mbVfZP+CyPGxGjKf8BSg0XztjFdYKiBcsIMPmHk5QIOf1PG+FAP2bDGnjb69Ra
+	 UbB8zHkf6BaL96nSCofIZQnqxdYzpPsnbW8hf7LzUlTsmZG6BmKfAc8jCX7r/wcBfwAQe
+	 b9rF4GmH4y9RMd1WoC0ZNldwT2YhwwnKI8S3+Jhv8rjllpCgbq7/S+w96mjcvw70NnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253326;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253328;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=TgBUS/DQ/xz4w+M5djBfi/qc8Y4BNVRQioLu9MZffZY=;
-	b=RPTK112ELd+hGjDUvvMJDBTb8/G0ma8i3O50Nz8KenY9I+mkDsDfazCzthWCsZoS7PUH
-	 YJ23wDkFWA1KGL1/3Ah9d2YsLgiYq7DPF4HwFWv9YFlufxEz+rvZTguoY9qWvxpx8FOCX
-	 X7IO+rPy5dKMzWldhWjJcfB+6Elee6T0LCCPMSUd2qphgxs8f1F7mSzjkQnQlh/mH2XtT
-	 YvqUJgcbEZ/cJBb+fLueykBcQroToRnvhDV2EbMDGdDH92C9cEUT7jiImCq61AQgQCALh
-	 jIQPYQpXFyYB2ILmTaqSPFEXel8hPmJ7v13DqyuodEOiVaCVOFOQROe06O7saFBbPdw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=1pthWRdK4ZkZ8eTK2zEDjJYumkGRyHppHsESDoMnS7Y=;
+	b=VGtP/DcW6+dr5LhZ+JpAK/L2aWqq+XDfWRfkvHpG1rhuAh8JX/Lgcjr5u3mWJlXU0Ajk
+	 ApxxxKeg4IWO7xy977/KXuq+RAE6SWIzA07Ned8CDRfe/+De9sM9SFCqc79MUic5X+RLA
+	 JqN5KkXOBAnhwhiSoGZsF16/Nndo6t7yH8IXQGzUZs9nZJPv89WDEy64JCMhAWx+hS8Ek
+	 We0AXUq0oE9bf4YOf/tUryXqfocPcBVMt/8Np/KVDeZN81MLlazNEr6XiCnq6G5Tq5tOO
+	 6RjHVeR358LEWAjEx6KagV52CZBaee7uy49PVNdEHY4Z8AbPLQ6TAc3TwsyMiQdPYdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N95TO9ZW;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=myk6mMl4;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6A9606A32A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:42:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E6A9606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB3C606A33C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:42:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBB3C606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=N95TO9ZW
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e987a2ba0cso7208535ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:42:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=myk6mMl4
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so9565ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:42:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794253326; x=1794858126; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TgBUS/DQ/xz4w+M5djBfi/qc8Y4BNVRQioLu9MZffZY=;
-        b=N95TO9ZW6w/Ki0cdwvvyuBW9Ql0PqB223WLUwTmK6vCqdpYt2TINSRNYAa8+Z68VYn
-         LwFm3rWj+y71CkOJXCMKSDlUsUwKNnzGvDWnFPEWur2Ow6HLxurcKiWG8eqBFyRXF3C/
-         7NcwJpCjZyGfCxhFB7MO8/FTS91f3Bq/ucgkYT+R4t2AQREMz6ithJtIN1QRvAtOf1MS
-         UlDvOCmumkOXvpzNRQdtQlpddUBsodanqcY+1x8FcU+dJ4jDviAmo5hEGMlVGHLoXpUU
-         8SIrLHcpi0nfOn7mk53MrX3prHblUwUNaUrIc1gPpWahNfkDz7Gc0kzipAnQOBMhsD1y
-         OtbA==
+        d=google.com; s=20260707; t=1794253327; x=1794858127; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1pthWRdK4ZkZ8eTK2zEDjJYumkGRyHppHsESDoMnS7Y=;
+        b=myk6mMl4KE86xxvQLPdHMiS/I4VRjPrLwDaHQ63euM4WNvXJiD//eeBQhgyfaD0Tty
+         CP6lF1SrS02MDV9OR4c17Rb7y5raWXhS8BBA2OcGB6ePGOfYFn83j1hmTvv0woUWPkJQ
+         6Aoh7yR9Dr7VPBfMXkekZeh4CsnuiclIvtGL9jajDiX2h78ivVYzsagcCM/HN3OI/t5a
+         2xEvyD68SmAK97S0gUHOM1P6SInNOZLExv1wP7veGmJbyTY6+t59R5+puHOuft0N1R71
+         h4E+BegJnBmxCSDxs5J5Xa2L1KqyOwExi685dcAzHrfkVHMeFxcgkGEwz4uJnj94Rhbq
+         dv4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794253326; x=1794858126;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TgBUS/DQ/xz4w+M5djBfi/qc8Y4BNVRQioLu9MZffZY=;
-        b=NELTMD28iqvE9NZIg6ljEup2JGSYjkNGNqbNS/jhsqlVl+5lRrM770pWPFsylkvoQH
-         DUf/ZZAnwuLNJ2JYedvrAxmUuv7ftgLe4z7g4bftvmR36VkGJ7lPPDDIF4qtX++AMcJr
-         xYSsND/WKxP3PPt6K91BYTPQxms8D6lcOy6Pc4G/GlWbb5NBmTvJtRCR2zzRhkf39ZJD
-         49QZ+UYF7MEhuNo1OArkyLnyoUR1RgmhX52kopuNdaZ8arXnYYejxMPM3pcO47ef8Jko
-         cl/sd1EnO6hXbs17nNLgbZV+QDOW2nqKkQcX5QEZcfhqxuJfWl47sHfJ6tQyJMYhoIb1
-         nXeg==
-X-Forwarded-Encrypted: i=1; AL+hErEXG34pOGKqE8p/zZfiGc6qcPop8GhaXjLz5SYgn74WkgEmZhpx1WVtFIVDi/ZVZ5M6gJ+CFDjMZ0GbP6c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9N7Rx6TjyGQxyXjm19ljYGcIgHdftbhANzAqW3TGTNWz8c9HWk
-	yH3IdNT/gddFlr+7GHsp+KrWUWCAfEAUdK9m7RCDhebIv1EIcKQ4KQ2u
-X-Gm-Gg: AYBFou2eMTeuDDZjaWO9KfAL2Sk8PztdkuxYU1MuKYgYLSew6dmX0OMl87ki/H4NnMP
-	DyI9B0hZWsywehLMsq7tUFDsQFL/JW6KTPVzi0p4QJ2z2jkyjbcWs8mO+iy31bhesTVN4wOmBUk
-	4isNVfe5glem33faKrFrIC879qFFjYzRvCcmw4PGnTVinqIQ7G0owzKXiMdZiyNFi2GLBs/Y0Bi
-	RHKmHWII69/OGEXvI7XLxQEB7GmsDpwfCvj32nIyxLq2LZHtb0Fa3HQ2VTsRZZr7l0s6nWcXl9o
-	jBAgfGiwMZ+eab41dPHyOuK+iXypRu2KLucOd5y2lPplEkk5HUgP14QLQcF7PFSF5tMDSg60zhQ
-	9MLO0xRw8O0IMUgZO7K9U2tqVSqO8CbFFnCZ/jQiyWW72sYIqa70rVDsx6nUQB+Ur+x8OpL4cQw
-	2ErH40MRhsr+LKq6h/Sj3jQEhfqx7Vlw1/VEFrad5A3zCI+Go4s7pcbc2R6rrvql2KzSR4lrvzZ
-	S1HBuWnNf3hkQJGlze4rhQfks0CUoAnU2gP4HYG8FE8AafhMHwnPjDLeA3IWhllq4tvaQTLPF4M
-	i+hirwY/nKj4k+8L5jbVAPH+QRCyz75NgLqwV19WMy04TgeAvY8oVCgLB/Q97ktN4U1qfdvgNyE
-	JQ//T+90PP8df9NbOTKcNz/WuZA4gkuDhlF4h7kEBSDl8nwv/jEvendY=
-X-Received: by 2002:a17:903:2f45:b0:2ed:1c15:ffc0 with SMTP id d9443c01a7336-2edb91be092mr1607515ad.30.1794253325888;
+        d=1e100.net; s=20260707; t=1794253327; x=1794858127;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1pthWRdK4ZkZ8eTK2zEDjJYumkGRyHppHsESDoMnS7Y=;
+        b=FBzVrEZFMJoS7fgkitT0AuKgSv/3bdPK6th1qmtIcz5vn/HeuR8U/u/zWLf9ZgZJG+
+         EuobxYI8tnW8JRPkN8H9bjqtUUHBjW37AmwbhdGJlPwHa3WOjrq7SHcox9qfFkU4cN6Y
+         oyroHTDJqXtR6D6aktL6gZ0y8tSH6ZoGqqCNj1/Vwuynp3lPcfrWtG9Axh5/uilxzNu9
+         EXDTxDxMZi6991oRZfGoendefLbUAsMmM3raMz0t447lBoYUaUUnIBFds1RWlyTAlCb3
+         9t4vj1rtjiOeled11eu55ww6Ouhe3JDxryDb5xnpBsL9owasbWfCJNPAzOl6g3WnsOMa
+         UFTA==
+X-Forwarded-Encrypted: i=1; AL+hErFRTh0PFou6KcUg+NMU9hhr/91R53EhHlHEkFjOOUb8T3E0BhFf0lcfn7VCsGbUM2M9e8n6lf0RCCXz0vA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/gp4cZn+dmQlN+kGMvz+RNbgZPHNQdEL0QA+ITdV8XTOZafapp
+	0n1+u05rK4lpRubK5suPtZcnbD9c5ICcvC25Db+8g4OnPMJriSfTKo5mDcRjNK/YsQ==
+X-Gm-Gg: AYBFou2LbxrPu0zImPRM/dPJis2fUOSQrTeqkpQODf4PA8KmLLP8Ch7ikFW6DcZ0KIn
+	AB+FaykAUlGbYiruv9Qd3JRElw29p7i6tmcAZQSWl2DM3y8enQoqjjr77vNA9LKNxhsAdO5y85w
+	j/vvzMVlXXtknVQ12ijA4mS+lpiEwtT36K2Jm9j5b4W7VT8UFKF+yNA8VNzdmleYNdsJSoWe7xB
+	vD5cScpUxGz6er0aherinN2/9Xsfr5/+TSm0HnbIesbIbm6JUIIzMGuE0J7eChcMwkEgGXfFWOv
+	4UFkXbFwTl6LfKvNi2rVP+avhu71pmp8LGgdYmPUZF9FXLJk7RNsSwlew/TjZVvvdZBDGkm8DNO
+	3gf5oOlgoZkvvi5K/Ptd1/6lvwXNDzIw0tCJR/iIc4HAZVUW/a4Aa8J1YN33zZUTBQzwP2qtfft
+	wzRZBSAZt45GXhc7mdSmqGvjfcojri7gKQp6WolxNzpIiBc17jtBl2yJndJmJeidEKMUR8qjTc2
+	7Xmser64p3opCd16lRBHIftPmCr8lrjZuVgsewlFTiE/qWWEz2I7kdmQT3snPlsVviTInOStHy3
+	zAQlw7XSHlJ3AGP6MDarjQ+lu5YuSBBLe0EUGJcjHuOeDUDFExIjiMdePssCOvjdu5NkC1hcaPO
+	+VDXxvbYe0GjWLwd8Lpf2bkKG4LB9NT93zcDhpsX7XMxGxWkUdEAycRVxA4wiRIzYprCbmDISB+
+	2Dsf5T6Ads92XbdA7PBK91BP7eMjAEh8SQpnLlCBB61CKHaiNUdsj2OnqYO8uJ5n+0bRfMA11j9
+	Qy8xJSRwJL63g==
+X-Received: by 2002:a17:902:ce84:b0:2ea:4a1:e8a4 with SMTP id d9443c01a7336-2edb81c5bc3mr547825ad.13.1794253326553;
+        Mon, 09 Nov 2026 11:42:06 -0800 (PST)
+Received: from google.com (25.229.125.34.bc.googleusercontent.com. [34.125.229.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa2a6d79sm55957b3a.10.2026.11.09.11.42.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 09 Nov 2026 11:42:05 -0800 (PST)
-Received: from localhost.localdomain (mx-ll-183.88.2-201.dynamic.3bb.co.th. [183.88.2.201])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d4b950sm1388585ad.13.2026.11.09.11.42.01
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 09 Nov 2026 11:42:05 -0800 (PST)
-From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
-To: linkinjeon@kernel.org,
-	stfrench@microsoft.com
-Cc: icb@fastmail.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	ematsumiya@suse.de,
-	lsahlber@redhat.com,
-	hyc.lee@gmail.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/6] ksmbd: sign with the negotiated SMB 3.1.1 signing algorithm
-Date: Tue, 10 Nov 2026 02:41:40 +0700
-Message-ID: <20261109194144.22814-3-mike.michalo@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109194144.22814-1-mike.michalo@gmail.com>
-References: <CAKYAXd-Jo-ObBDs-AdGfaM+QmDsot3gj1g0oJiyDKczoUDg2TA@mail.gmail.com>
- <20261109194144.22814-1-mike.michalo@gmail.com>
+Date: Mon, 9 Nov 2026 19:42:02 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: Chris Wiseman <chriswiseman@google.com>
+Cc: Alice Ryhl <aliceryhl@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
+	Todd Kjos <tkjos@android.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] rust_binder: account for deferred work size in
+ Thread::read()
+Message-ID: <avIiCpJ3ctbQaExK@google.com>
+References: <18e61a85b0d13e9c.3137322e32332e3235332e313736.9c152.0000sendgmr@google.com>
+ <18e61a8cb2ff887c.3137322e32332e3235332e313736.9d011.0000sendgmr@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,223 +106,229 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <18e61a8cb2ff887c.3137322e32332e3235332e313736.9d011.0000sendgmr@google.com>
 
-decode_sign_cap_ctxt() stores the algorithm picked from the client's
-SMB2_SIGNING_CAPABILITIES context in conn->signing_algorithm, but it
-runs before init_smb3_11_server(), which then overwrites it with
-AES-CMAC. As a result the negotiate response always selects AES-CMAC,
-even for a client that only offered HMAC-SHA256, and every SMB 3.1.1
-connection is signed with AES-CMAC.
+On Sun, Nov 08, 2026 at 03:11:32PM +0000, Chris Wiseman wrote:
+> When a looper thread replies with TF_DEFER_COMPLETE, its 4-byte
+> BR_TRANSACTION_COMPLETE work item is queued via push_work_deferred() in
+> inner.work_list without setting inner.process_work_list. On the next
+> blocking BINDER_WRITE_READ ioctl, inner.should_use_process_work_queue()
+> returns true and Thread::read() checks only whether the remaining output
+> buffer can fit a single transaction (4-byte command code plus
+> size_of::<uapi::binder_transaction_data_secctx>()).
+> 
+> If userspace provides a read buffer with 76 bytes remaining after the
+> initial 4-byte BR_NOOP placeholder (read_size = 80), Thread::read()
+> calls Self::get_work(), sleeps in Process.ready_threads, and receives an
+> incoming synchronous transaction queued behind the deferred
+> BR_TRANSACTION_COMPLETE in inner.work_list. Iteration 1 of the loop
+> writes the 4-byte BR_TRANSACTION_COMPLETE, reducing writer.len() to 72
+> bytes, and iteration 2 exits the loop without delivering the incoming
+> transaction, leaving it stranded in the thread-local work_list.
 
-Keep the negotiated algorithm and sign with HMAC-SHA256 when that is
-what was negotiated.
+ok, so if userspace is setting TF_DEFER_COMPLETE, the read buffer size
+should reflect the possiblity of a BR_TRANSACTION_COMPLETE no? I'm not
+sure this is a driver issue. Maybe I'm missing something?
 
-Since connections of the same session can now use different
-algorithms, each signing key also has to be used with the algorithm it
-was created for. The session signing key belongs to the connection
-that set up the session, and MS-SMB2 3.3.5.5 requires a binding
-request on a new channel to be verified with it. Store that
-connection's algorithm in the session and use it together with the
-session key, while channel keys keep using their own connection's
-algorithm.
+I guess we are trying to match the behavior we have without the
+TF_DEFER_COMPLETE and using a smaller read buffer e.g. 65-bytes. I
+suppose this makes sense.
 
-An AI assistant was used to draft the patch and as an independent
-reviewer. Testing is described in the cover letter.
+> 
+> Add a size(&self) -> usize method to DeliverToRead returning the maximum
+> number of bytes that do_work() may write to the user read buffer, and
+> sum the sizes of all deferred items in inner.work_list when
+> use_proc_queue is true. Include deferred_size on the right-hand side of
+> the while condition in Thread::read() so the thread does not wait for
+> global events when the output buffer lacks room for both its deferred
+> work items and an incoming transaction, and subtract work.size() as each
+> item is popped so subsequent loop iterations do not double-count items
+> already written to writer.
+> 
+> Suggested-by: Alice Ryhl <aliceryhl@google.com>
+> Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
+> ---
+>  drivers/android/binder/freeze.rs           |  4 +++
+>  drivers/android/binder/node.rs             |  8 +++++
+>  drivers/android/binder/node/wrapper.rs     |  4 +++
+>  drivers/android/binder/rust_binder_main.rs |  8 +++++
+>  drivers/android/binder/thread.rs           | 34 ++++++++++++++++------
+>  drivers/android/binder/transaction.rs      |  4 +++
+>  6 files changed, 53 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/android/binder/freeze.rs b/drivers/android/binder/freeze.rs
+> index 69e058e6d818..5103bfac781f 100644
+> --- a/drivers/android/binder/freeze.rs
+> +++ b/drivers/android/binder/freeze.rs
+> @@ -152,6 +152,10 @@ fn should_sync_wakeup(&self) -> bool {
+>          false
+>      }
+>  
+> +    fn size(&self) -> usize {
+> +        size_of::<u32>() + size_of::<BinderFrozenStateInfo>()
+> +    }
+> +
+>      #[inline(never)]
+>      fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+>          seq_print!(m, "{}has frozen binder\n", prefix);
+> diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
+> index efdafc202e27..4f4c892cba58 100644
+> --- a/drivers/android/binder/node.rs
+> +++ b/drivers/android/binder/node.rs
+> @@ -754,6 +754,10 @@ fn should_sync_wakeup(&self) -> bool {
+>          false
+>      }
+>  
+> +    fn size(&self) -> usize {
+> +        2 * (size_of::<u32>() + 2 * size_of::<u64>())
+> +    }
+> +
+>      #[inline(never)]
+>      fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+>          seq_print!(
+> @@ -1149,6 +1153,10 @@ fn should_sync_wakeup(&self) -> bool {
+>          false
+>      }
+>  
+> +    fn size(&self) -> usize {
+> +        size_of::<u32>() + size_of::<u64>()
+> +    }
+> +
+>      #[inline(never)]
+>      fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+>          let inner = self.inner.lock();
+> diff --git a/drivers/android/binder/node/wrapper.rs b/drivers/android/binder/node/wrapper.rs
+> index edfbccf6e6da..37826349eafb 100644
+> --- a/drivers/android/binder/node/wrapper.rs
+> +++ b/drivers/android/binder/node/wrapper.rs
+> @@ -93,6 +93,10 @@ fn should_sync_wakeup(&self) -> bool {
+>          false
+>      }
+>  
+> +    fn size(&self) -> usize {
+> +        2 * (size_of::<u32>() + 2 * size_of::<u64>())
+> +    }
+> +
+>      #[inline(never)]
+>      fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+>          seq_print!(
+> diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
+> index 56c786475237..361f3a987235 100644
+> --- a/drivers/android/binder/rust_binder_main.rs
+> +++ b/drivers/android/binder/rust_binder_main.rs
+> @@ -163,6 +163,10 @@ fn do_work(
+>      /// Generally only set to true for non-oneway transactions.
+>      fn should_sync_wakeup(&self) -> bool;
+>  
+> +    /// Returns the maximum size in bytes that [`DeliverToRead::do_work`] may write to the read
+> +    /// buffer.
+> +    fn size(&self) -> usize;
+> +
+>      fn debug_print(&self, m: &SeqFile, prefix: &str, transaction_prefix: &str) -> Result;
+>  }
+>  
+> @@ -279,6 +283,10 @@ fn should_sync_wakeup(&self) -> bool {
+>          false
+>      }
+>  
+> +    fn size(&self) -> usize {
+> +        size_of::<u32>()
+> +    }
+> +
+>      fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+>          seq_print!(m, "{}", prefix);
+>          if self.skip.load(Relaxed) {
+> diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
+> index 3ca5c95695e4..af7a340adcb3 100644
+> --- a/drivers/android/binder/thread.rs
+> +++ b/drivers/android/binder/thread.rs
+> @@ -1599,13 +1599,20 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
+>              UserSlice::new(UserPtr::from_addr(read_start as usize), read_len as usize).writer(),
+>              self,
+>          );
+> -        let (in_pool, has_transaction, thread_todo, use_proc_queue) = {
+> +        let (in_pool, has_transaction, thread_todo, use_proc_queue, mut deferred_size) = {
+>              let inner = self.inner.lock();
+> +            let use_proc_queue = inner.should_use_process_work_queue();
+> +            let deferred_size = if use_proc_queue {
+> +                inner.work_list.iter().map(|w| w.size()).sum()
+> +            } else {
+> +                0
+> +            };
+>              (
+>                  inner.is_looper(),
+>                  inner.current_transaction.is_some(),
+>                  !inner.work_list.is_empty(),
+> -                inner.should_use_process_work_queue(),
+> +                use_proc_queue,
+> +                deferred_size,
+>              )
+>          };
+>  
+> @@ -1630,15 +1637,20 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
+>  
+>          // Loop doing work while there is room in the buffer.
+>          let initial_len = writer.len();
+> -        while writer.len() >= size_of::<uapi::binder_transaction_data_secctx>() + 4 {
+> +        while writer.len() >= size_of::<uapi::binder_transaction_data_secctx>() + 4 + deferred_size
+> +        {
+>              match getter(self, wait && initial_len == writer.len()) {
+> -                Ok(Some(work)) => match work.into_arc().do_work(self, &mut writer) {
+> -                    Ok(true) => {}
+> -                    Ok(false) => break,
+> -                    Err(err) => {
+> -                        return Err(err);
+> +                Ok(Some(work)) => {
+> +                    let work = work.into_arc();
+> +                    deferred_size = deferred_size.saturating_sub(work.size());
+> +                    match work.do_work(self, &mut writer) {
+> +                        Ok(true) => {}
+> +                        Ok(false) => break,
+> +                        Err(err) => {
+> +                            return Err(err);
+> +                        }
+>                      }
+> -                },
+> +                }
+>                  Ok(None) => {
+>                      break;
+>                  }
+> @@ -1798,6 +1810,10 @@ fn should_sync_wakeup(&self) -> bool {
+>          false
+>      }
+>  
+> +    fn size(&self) -> usize {
+> +        size_of::<u32>()
+> +    }
+> +
+>      fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
+>          seq_print!(
+>              m,
+> diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
+> index 48ac942bb75a..6909d7a8a219 100644
+> --- a/drivers/android/binder/transaction.rs
+> +++ b/drivers/android/binder/transaction.rs
+> @@ -762,6 +762,10 @@ fn should_sync_wakeup(&self) -> bool {
+>          !self.flags.is_oneway()
+>      }
+>  
+> +    fn size(&self) -> usize {
+> +        size_of::<u32>() + size_of::<BinderTransactionDataSecctx>()
+> +    }
+> +
+>      fn debug_print(&self, m: &SeqFile, _prefix: &str, tprefix: &str) -> Result {
+>          self.debug_print_inner(m, tprefix);
+>          Ok(())
+> -- 
+> 2.56.0.317.g454f8302e1-goog
+> 
 
-Fixes: 378087cd17ee ("ksmbd: add support for negotiating signing algorithm")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
----
- fs/smb/server/auth.c              | 14 ++++++++++++--
- fs/smb/server/auth.h              |  4 ++--
- fs/smb/server/mgmt/user_session.c |  1 +
- fs/smb/server/mgmt/user_session.h |  2 ++
- fs/smb/server/smb2ops.c           |  4 +++-
- fs/smb/server/smb2pdu.c           | 20 ++++++++++++++++++--
- 6 files changed, 38 insertions(+), 7 deletions(-)
+It seems sashiko has found a legit issue, see:
+https://sashiko.dev/#/patchset/18e61a85b0d13e9c.3137322e32332e3235332e313736.9c152.0000sendgmr%40google.com
 
-diff --git a/fs/smb/server/auth.c b/fs/smb/server/auth.c
-index 0c51ca0cb14db..78e35f2174603 100644
---- a/fs/smb/server/auth.c
-+++ b/fs/smb/server/auth.c
-@@ -504,19 +504,29 @@ void ksmbd_sign_smb2_pdu(struct ksmbd_conn *conn, char *key, struct kvec *iov,
- /**
-  * ksmbd_sign_smb3_pdu() - function to generate packet signing
-  * @conn:	connection
-+ * @signing_algorithm:	signing algorithm the key was generated for
-  * @key:	signing key
-  * @iov:        buffer iov array
-  * @n_vec:	number of iovecs
-  * @sig:	signature value generated for client request packet
-  *
-  */
--void ksmbd_sign_smb3_pdu(struct ksmbd_conn *conn, char *key, struct kvec *iov,
--			 int n_vec, char *sig)
-+void ksmbd_sign_smb3_pdu(struct ksmbd_conn *conn, __le16 signing_algorithm,
-+			 char *key, struct kvec *iov, int n_vec, char *sig)
- {
- 	struct aes_cmac_key cmac_key __cleanup(aes_cmac_zeroize_key);
- 	struct aes_cmac_ctx cmac_ctx;
- 	int i;
- 
-+	if (signing_algorithm == SIGNING_ALG_HMAC_SHA256_LE) {
-+		u8 mac[SHA256_DIGEST_SIZE];
-+
-+		ksmbd_sign_smb2_pdu(conn, key, iov, n_vec, mac);
-+		memcpy(sig, mac, SMB2_SIGNATURE_SIZE);
-+		memzero_explicit(mac, sizeof(mac));
-+		return;
-+	}
-+
- 	/* This cannot fail, since we always pass a valid key length. */
- 	static_assert(SMB2_CMACAES_SIZE == AES_KEYSIZE_128);
- 	aes_cmac_preparekey(&cmac_key, key, SMB2_CMACAES_SIZE);
-diff --git a/fs/smb/server/auth.h b/fs/smb/server/auth.h
-index 7ce9c42d58f1e..5a10482678ee4 100644
---- a/fs/smb/server/auth.h
-+++ b/fs/smb/server/auth.h
-@@ -59,8 +59,8 @@ int ksmbd_krb5_authenticate(struct ksmbd_session *sess, char *in_blob,
- 			    char *sess_key);
- void ksmbd_sign_smb2_pdu(struct ksmbd_conn *conn, char *key, struct kvec *iov,
- 			 int n_vec, char *sig);
--void ksmbd_sign_smb3_pdu(struct ksmbd_conn *conn, char *key, struct kvec *iov,
--			 int n_vec, char *sig);
-+void ksmbd_sign_smb3_pdu(struct ksmbd_conn *conn, __le16 signing_algorithm,
-+			 char *key, struct kvec *iov, int n_vec, char *sig);
- int ksmbd_gen_smb30_signingkey(struct ksmbd_session *sess,
- 			       struct ksmbd_conn *conn);
- int ksmbd_gen_smb311_signingkey(struct ksmbd_session *sess,
-diff --git a/fs/smb/server/mgmt/user_session.c b/fs/smb/server/mgmt/user_session.c
-index 15662fd745abb..87aba04a8cbdd 100644
---- a/fs/smb/server/mgmt/user_session.c
-+++ b/fs/smb/server/mgmt/user_session.c
-@@ -557,6 +557,7 @@ int ksmbd_session_register(struct ksmbd_conn *conn,
- 	int ret;
- 
- 	sess->dialect = conn->dialect;
-+	sess->signing_algorithm = conn->signing_algorithm;
- 	memcpy(sess->ClientGUID, conn->ClientGUID, SMB2_CLIENT_GUID_SIZE);
- 	ret = xa_err(xa_store(&conn->sessions, sess->id, sess,
- 			      KSMBD_DEFAULT_GFP));
-diff --git a/fs/smb/server/mgmt/user_session.h b/fs/smb/server/mgmt/user_session.h
-index 5f0f6276e3168..931ca102b8392 100644
---- a/fs/smb/server/mgmt/user_session.h
-+++ b/fs/smb/server/mgmt/user_session.h
-@@ -48,6 +48,8 @@ struct ksmbd_session {
- 	u64				id;
- 
- 	__u16				dialect;
-+	/* Signing algorithm of the connection that created the session */
-+	__le16				signing_algorithm;
- 	char				ClientGUID[SMB2_CLIENT_GUID_SIZE];
- 
- 	struct ksmbd_user		*user;
-diff --git a/fs/smb/server/smb2ops.c b/fs/smb/server/smb2ops.c
-index 747276b171bd1..c5b3cf34494e7 100644
---- a/fs/smb/server/smb2ops.c
-+++ b/fs/smb/server/smb2ops.c
-@@ -320,7 +320,9 @@ int init_smb3_11_server(struct ksmbd_conn *conn)
- 	conn->ops = &smb3_11_server_ops;
- 	conn->cmds = smb2_0_server_cmds;
- 	conn->max_cmds = ARRAY_SIZE(smb2_0_server_cmds);
--	conn->signing_algorithm = SIGNING_ALG_AES_CMAC_LE;
-+	/* Keep the algorithm chosen from the client's signing capabilities */
-+	if (!conn->signing_negotiated)
-+		conn->signing_algorithm = SIGNING_ALG_AES_CMAC_LE;
- 
- 	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB2_LEASES)
- 		conn->vals->req_capabilities |= SMB2_GLOBAL_CAP_LEASING |
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 129a4c5c74f44..af1e7aac4ded1 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -1858,6 +1858,8 @@ static __le32 deassemble_neg_contexts(struct ksmbd_conn *conn,
- 	bool posix_ctxt_seen = false;
- 
- 	ksmbd_debug(SMB, "decoding %d negotiate contexts\n", neg_ctxt_cnt);
-+	/* A previous, failed NEGOTIATE must not leave its algorithm behind */
-+	conn->signing_negotiated = false;
- 	if (len_of_smb <= offset) {
- 		ksmbd_debug(SMB, "Invalid response: negotiate context offset\n");
- 		return status;
-@@ -12956,6 +12958,7 @@ int smb3_check_sign_req(struct ksmbd_work *work)
- {
- 	struct ksmbd_conn *conn = work->conn;
- 	char *signing_key;
-+	__le16 signing_algorithm;
- 	struct smb2_hdr *hdr;
- 	struct channel *chann;
- 	char signature_req[SMB2_SIGNATURE_SIZE];
-@@ -12975,8 +12978,14 @@ int smb3_check_sign_req(struct ksmbd_work *work)
- 		len = get_rfc1002_len(work->request_buf) -
- 			work->next_smb2_rcv_hdr_off;
- 
-+	/*
-+	 * A key must be used with the algorithm it was generated for: the
-+	 * session key with the one of the connection that created the
-+	 * session, which can differ from this connection's when binding.
-+	 */
- 	if (le16_to_cpu(hdr->Command) == SMB2_SESSION_SETUP_HE) {
- 		signing_key = work->sess->smb3signingkey;
-+		signing_algorithm = work->sess->signing_algorithm;
- 	} else {
- 		chann = lookup_chann_list(work->sess, conn);
- 		if (!chann) {
-@@ -12984,8 +12993,10 @@ int smb3_check_sign_req(struct ksmbd_work *work)
- 			    !(hdr->Flags & SMB2_FLAGS_SIGNED))
- 				return 0;
- 			signing_key = work->sess->smb3signingkey;
-+			signing_algorithm = work->sess->signing_algorithm;
- 		} else {
- 			signing_key = chann->smb3signingkey;
-+			signing_algorithm = conn->signing_algorithm;
- 		}
- 	}
- 
-@@ -12999,7 +13010,8 @@ int smb3_check_sign_req(struct ksmbd_work *work)
- 	iov[0].iov_base = (char *)&hdr->ProtocolId;
- 	iov[0].iov_len = len;
- 
--	ksmbd_sign_smb3_pdu(conn, signing_key, iov, 1, signature);
-+	ksmbd_sign_smb3_pdu(conn, signing_algorithm, signing_key, iov, 1,
-+			    signature);
- 
- 	if (crypto_memneq(signature, signature_req, SMB2_SIGNATURE_SIZE)) {
- 		pr_err("bad smb2 signature\n");
-@@ -13024,6 +13036,7 @@ void smb3_set_sign_rsp(struct ksmbd_work *work)
- 	u16 command;
- 	int n_vec;
- 	char *signing_key;
-+	__le16 signing_algorithm;
- 
- 	hdr = ksmbd_resp_buf_curr(work);
- 	command = le16_to_cpu(hdr->Command);
-@@ -13031,12 +13044,14 @@ void smb3_set_sign_rsp(struct ksmbd_work *work)
- 	if (command == SMB2_SESSION_SETUP_HE &&
- 	    (!work->session_setup_binding || hdr->Status != STATUS_SUCCESS)) {
- 		signing_key = work->sess->smb3signingkey;
-+		signing_algorithm = work->sess->signing_algorithm;
- 	} else {
- 		chann = lookup_chann_list(work->sess, work->conn);
- 		if (!chann) {
- 			return;
- 		}
- 		signing_key = chann->smb3signingkey;
-+		signing_algorithm = conn->signing_algorithm;
- 	}
- 
- 	if (!signing_key)
-@@ -13047,7 +13062,8 @@ void smb3_set_sign_rsp(struct ksmbd_work *work)
- 
- 	iov = smb2_get_sign_rsp_iov(work, hdr, &n_vec);
- 
--	ksmbd_sign_smb3_pdu(conn, signing_key, iov, n_vec, signature);
-+	ksmbd_sign_smb3_pdu(conn, signing_algorithm, signing_key, iov, n_vec,
-+			    signature);
- 	memcpy(hdr->Signature, signature, SMB2_SIGNATURE_SIZE);
- }
- 
--- 
-2.43.0
-
+--
+Carlos Llamas
