@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794268636;
-	b=p55R1uzDHGRJU5/4w2UuMUDRtS6bMD6dEBreVDrChbOpYp2FbtZ2MY1Pglfyf9qRtjtA
-	 4llIM9MUkksOcWVG7UXZfRRZb7Mek6NmQdHixJr3VtfGReyjnkUx0hTWcF2oiABBJHAcZ
-	 sbMg+BLpSdc9sXaATuwT40hUHew3rf4rs6LWmU0I6Sgj5W60KEPtNZzkqIUQtQ4pW4K6j
-	 MWeWzg+q1YR39AdsqZcSnSb7OQ1z7L3cTIeG7Hs1f6cc3hBeN8q05QwJZp/irs9jRo7Nu
-	 C3ChBmTXXBAPDY0K9jjWahB/02DWMxRdshOGDbHzt/nD9sRLMlhl2TmCr7Qum9E4t/w==
+	t=1794268633;
+	b=5BsbCPImL4Bsl0attxmtDyHCSgaqW/M0qLSVjqvvUz4ZAIT7SGCcAgdavfKM4kxBb6I9
+	 tK0x+YkPlGwLu62IQOD6MK9/uy1rY+qNk4hKMo4IKr1kR/1pJ6vhTBSB9MeA9VTP5z2Md
+	 coyMmQvxnMfgrZ8yxLoKD7CCvtFHnJKz/RSMKBg/aGHs8TjcKCmrf60j0ofiEpTN72cZQ
+	 NPtFbP4FwjEM5sUH6Mq5JEN0FsNO9a/rqW9Hs27wCcw6RWJypz0mvC7pHBXJ9VWJmCwuG
+	 AZQp23rLywyr63NuNQgDf1ko70qVwOpe3qeCiQIEC0RSK88tew5FhE6WQuBrD5bv8sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794268636;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268633;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=/ZB/vPr2FZoQD53j4mXH80SNVxv2c4eMTKKs+9xQEfc=;
-	b=fvulo4d873JxwPkOW5Q1ZLlAKOI6YzDjlWzMxY+2fRcI+zAFTw2JeIrnPGrokZfX7vnq
-	 NMsoheMKd8ksG82jQOJRb+QjiV7ViH2Kcf1F/igxoL0efgywi0XaCmS/dLVFq3rYU6XAU
-	 sqac970Or5C3oa+yr4i1Sd9adBZxGc/4I5gnZDmEUueTWdyAkaLjaUpw+D7rjbYfccpQY
-	 A+OHLIcZzuytOurPMyzhnQfs6kMqlonLZaf01inhqPX8lYFR5A6fa7eoj1PMqqiA79rh3
-	 X+vSuiKpTe1ohJakUMkse5GeubzHKv7wkAjdLf6Mzqiqbuun68HlwH0jVGrrs6+No0w==
+	bh=O8eQPRbmSM0PxKcsSe9CO6QxZj9GQ3yxigAUlLTkIWA=;
+	b=IW4Cdu9G1u3fkntK005tIy1GVCTNzIaSi0mHrNH33iGgrP3Mh6yODA43Lro6SqTBSv3Z
+	 k4c/hc9HRCtWPT+wJYgXpuEZhim/xez7bfTkFls3MdsHnc7dAOpWsurA0agGQlCZu7pLL
+	 F+18ywlMXa8HbSn3t+wq1M6ecgFqHFT+WO1JsKtmFQMdxsoKG4Buceb1YTJAUXnje3okI
+	 Iub5aazrFbqFFJX3qvx6zzZoYC/xqpa3PIgApBnrC8vkeSMXQYhXuX/xmWq6z9e4d9vlp
+	 bS0QeLjHBAGDM039oTEaguKGu9HnIUOPUjlSA4ghj/F52eqQHzHojG9EojfHVIDkArA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P4xY8f9+;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="At/u6aRN";
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11ED860A3830
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:57:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11ED860A3830
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10F2606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:57:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C10F2606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P4xY8f9+
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4d28f75d62so193198566b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:57:15 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=At/u6aRN
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so213782966b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:57:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794268634; x=1794873434; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794268631; x=1794873431; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/ZB/vPr2FZoQD53j4mXH80SNVxv2c4eMTKKs+9xQEfc=;
-        b=P4xY8f9+42UusvTWn3hlEAHq18vsf1pEJ4g7cBxH9lamOwOlfEwNFyya8J+PcDZJiv
-         TP7hkoykehSdcnLFnEFjFln3P0LVYBMz55FVv+JWGgQpPjOht/lyNWVGtHTLhqed1dYM
-         jshVInNlM+HdVFGC9F5C7Q5AuwWKU/VMSdIPExxmakQMRGo39jSY5ezho0FcwUOZds5W
-         G4iOZWD339/E3VSqg1crq5jsu+hIJntvFUCNmti39NH1aqO0aAeidxR1U+zjuWwyLHwd
-         P9BiYY6pCGmEgMZqrJoZrGjsWR1uJKt1GnigWQrDLSORIQJdBziOmIG1rc+C+EmK4Pm9
-         sSFw==
+        bh=O8eQPRbmSM0PxKcsSe9CO6QxZj9GQ3yxigAUlLTkIWA=;
+        b=At/u6aRNyBVweiy0zcEZwIIjIwwRPUKr7TZTlhF3hR/w6ck5wyxNzvcf0y6+Q6CMpT
+         xGPHXBQKyv1NG/g94tG7dSS8v2pn62qVUMLZN5U1mHQSSZW3UkW4wTvciQG/qSf9c2HF
+         Gb/XUFNbnEqSY0whRhrU2A1YnXSdzHT1WcMhnMwuUbmT5ZyfAqVA5EMY9GSSobU+/Z+4
+         /3YXWVTz9VA3x4eu6gT/m/7dodNNNgKuZJkKpTKWBi3GXQihbMwLinydfE6VDUnWIcpC
+         2alfIvukef/cqDoL7FDKWYsPC9ZoWJWOJJfVWNNWxBn47E0cJ/wI2lht2lxW2Qhp2TyL
+         eYEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794268634; x=1794873434;
+        d=1e100.net; s=20260707; t=1794268631; x=1794873431;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/ZB/vPr2FZoQD53j4mXH80SNVxv2c4eMTKKs+9xQEfc=;
-        b=KMQAQip0jVCg8GwAT2Ewq8dsW2s/x64fAGso2eQ0VkG8t4uNUNHezqDMvHxlUaHO5W
-         RxwYSkZHnf9aZPnxrWW935/eacedZf6V2D8l8WX2s6NiilpQpiW91WvWzEPnauJ2diwt
-         EhgDjNNANfq3eiAun6H7ZkbRCA1jz4W4LXbZKnZb7dpkQ7TC+TPrQLQH2eA0OELhdbKm
-         VPJOe5/QK2Qz6rsrd+LuX9S67U/LmsX0BLCou5WfokwKo4Gm9fwDhAbgQ9x8UYNRgUXb
-         GLAWVDH4MfLbKFMDK3E+zTxiLP4eqjTYnTXc97KnmsGgIj6hZ5s5+H5OXX3tLM8Ee6g/
-         Hgmw==
-X-Forwarded-Encrypted: i=1; AL+hErGwC72OvcvP9gSlcdTjyj3OZxjRsjr0vgZlByb6GHj0ebvL35Ql7cY0rshL4RfGXsCn5LvRpo5yqR2p1rg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8JDdZJJUgRuGelKFQ/mxuFCRS0Y+ChWdD9R5Ld4Nso2wwSRtJy
-	UBjed8d/DiT77cXhiVFxzOOsJpk5LMqrlaHMlse5PC5ZwSyPlLQy1Kxj
-X-Gm-Gg: AYBFou2Anj7x8GAwY02+TExkiaqRc110oHUFyGjkugKOAfJO7kEkJvMrLDlPzY7w3tm
-	OGcNdSv5Q3WAiT7dkgAa9pW+AfeHgIhG0kCN8ReBrvaM7MjtsKlQXG/yniobJZny37rVtNrwZlL
-	BYLZytrtVWy3QmFZEVMYZhKUcbenjPFN35bHt6dUXhBelFCzVSwR+UiszWJ7r5aMWWVWaInf6vO
-	+zawHN1GCNGEFkDPi1n4WmdMwzrTy2/BMWxK/EcXZSNJqlUv1HKMXCXGb8iawhlhTz7v+7BaphC
-	RrHViY5b+qw3hwQ1vz+EdlyPJZuSi8U9Rbeut4tvGlPP/v8bzooGByc/aCOQnWD8Sz/pbFvHJVM
-	+eYVW7VTcFpXOxFthjlP5WuhMpHTDOYqhykXrLCvKd9micSfLk9w3a7gRgWhj5DEpIt3WT2Dcw+
-	u8AYap+HJEoK5/Ne/m17zwpS/Q8V5chsKVnhSDuNj+3EI517WJAA6Ba1J1RGOEliQ4xjxvCUbWm
-	ZZCZEBPv8GMwHRBBjJ9NNNdV1KKcyytyy+gLFD6t4VpLz83GR6f3je7DDXSKpT0pH6DThugYGGQ
-	VgSuzXyprRQ9VhxxLHXpIV9w1Q9BHj7xt4gdNrsJUpkg0GDbj7hwC18=
-X-Received: by 2002:a17:906:4804:b0:c41:9228:baef with SMTP id a640c23a62f3a-c504952c10emr55099366b.8.1794268634080;
-        Mon, 09 Nov 2026 15:57:14 -0800 (PST)
+        bh=O8eQPRbmSM0PxKcsSe9CO6QxZj9GQ3yxigAUlLTkIWA=;
+        b=LZGEdfyIWbqs9UDo0WOzxcENRMmb2nrr+zU7bktZ5YwXi1tmoq2gN0eXTWq7HT2z7e
+         c6r/mcqRFlGG2fEtNkXqCv/JaFpK8BWk5ImKCS//gmYU3wY+aKBTyGVTp/T5zLx2H38d
+         aNP6DyVRE8akcsxeFhxUydFKDQUaNbk+5KSav+yfa9qUTtdzv9Uf4aGQE4qdMiGjMvxC
+         /uu4hsZTcRhSv45SRtyw1SWMl1OIrNfQd8qshV91oppN80G6VFq8DuB/3gZwdHWRcH+m
+         R/SWUv3bOpjPjtr6oHybwYOMCZ3mL7ulJlPkAFd1f1J66SdcxjK8D7v9TlBLUtcvhc2N
+         FKfw==
+X-Forwarded-Encrypted: i=1; AL+hErF82dKtObEBSISY+JR3x1IxUr2BBL0NUEHpz3UvsikmCcd8tRXq3WVQ+cCzcI92saWGnE/S9hgdbVmNqx0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+gX3JOknNOImFgivcYSXiOLAKwp8RFPG2etl/cwgGsVgfy+U2d
+	/UX6EZge40A6BA/ZKUmqYIVcWYqBzrXSBwybMJ1fnTFSIFRLqFFObKk7
+X-Gm-Gg: AYBFou3vZE91yfFqI2tjRcGwOpyEO1iDcTMovzdlmfz6trSNTcoq1wvT7kgWM7bkJqZ
+	awaChY2frvgjjIv3NOVvosXLlV5hEjnQphRvDslw5E3K7cqVoc7VBp7A1IKFD2GuDKquZmK++Ht
+	UFw4IpjJrFzMdhkjLHOVCIzXZb3vyOolNR3D8SkEsX1BR3YumLQyfANzyknyL1wv3EQFJyP8h7N
+	xHkUYn3UwP2rqHXw5d477VCwg24ddpaLAI0RfTW+GPxp/S0nLmeay4X8sKDYbNjK26DnP6t+Nq4
+	ZVLn+wF86yf7f4N6xYlMXYSeNAzLzW8aAx8kMKSTg+D/AVRwMeUiF80EmS8miejg4SFjzS5G2S9
+	Z3IcUgIT5yWBG5G0YLJD4SHsivGDPGQW7bCWe4qMH/JaKSc5aSoYusA82t40zt92dKzPikSBPuS
+	1vbxmj0HynYkBZgTPVJ//bgrPL7yXaOkBDUQQ9tUzpeAffJUXrdm8/j8Sanp5myrhDTuSueK1oq
+	8E0ggaFTHwkZ4Si676k59MSKNOTU4O6oTFgLWWXHiDEV/K2B2EqTCaMqWtLO/9KjKuLPeJ6kF5P
+	q2mTTJ/rGT3MdOCQIj2eV09drNHvK81whTKSoWX9l5UPddXx8QDF6Z5athkCzDnxs/QtsqYkU8b
+	q
+X-Received: by 2002:a17:906:3db:b0:c3f:c878:7c1d with SMTP id a640c23a62f3a-c50494f374emr55535466b.9.1794268631110;
+        Mon, 09 Nov 2026 15:57:11 -0800 (PST)
 Received: from localhost.localdomain ([2a13:e746:396c:c600::8fa])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a56b772sm33725066b.16.2026.11.09.15.57.13
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c504a56b772sm33725066b.16.2026.11.09.15.57.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 15:57:13 -0800 (PST)
+        Mon, 09 Nov 2026 15:57:10 -0800 (PST)
 From: "Kordian Chmielewski (mlody1212)" <kudzo51@gmail.com>
 To: netdev@vger.kernel.org
 Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
@@ -88,9 +89,9 @@ Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net 7/7] net: bcm4908_enet: drop RX frames longer than the buffer
-Date: Tue, 10 Nov 2026 00:57:00 +0100
-Message-ID: <20261109235700.2586821-8-kudzo51@gmail.com>
+Subject: [PATCH net 3/7] net: bcm4908_enet: release the TX ring on stop
+Date: Tue, 10 Nov 2026 00:56:56 +0100
+Message-ID: <20261109235700.2586821-4-kudzo51@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109235700.2586821-1-kudzo51@gmail.com>
 References: <20261109235700.2586821-1-kudzo51@gmail.com>
@@ -105,39 +106,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-poll_rx() takes the frame length from the DMA descriptor and passes it
-to skb_put() unchecked, so a length larger than the buffer ends in
-skb_over_panic() from the NAPI poll. It was seen on a BCM4908 with the
-RX channel's MAX_BURST raised to 32, where the DMA reported a length of
-3388 bytes, more than twice the size of the buffer; with the default
-burst length it has not been seen. Drop such a frame like any other bad
-one and count it as a length error.
+bcm4908_enet_stop() disables the TX DMA but leaves the ring as it is:
+the skbs of frames not completed yet stay mapped and are never freed,
+and their descriptors keep DMA_CTL_STATUS_OWN. The next open starts
+the indexes from 0 again over those descriptors, so the DMA can send
+from a buffer that has been freed, and start_xmit() finds OWN set on a
+slot it is about to use.
+
+Unmap and free the skbs left in the TX ring on stop, clear slot->skb
+once poll_tx() has freed it, and clear the TX descriptors when the ring
+is initialised.
 
 Fixes: 4feffeadbcb2 ("net: broadcom: bcm4908enet: add BCM4908 controller driver")
 Signed-off-by: Kordian Chmielewski (mlody1212) <kudzo51@gmail.com>
 ---
- drivers/net/ethernet/broadcom/bcm4908_enet.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/broadcom/bcm4908_enet.c | 23 ++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
 diff --git a/drivers/net/ethernet/broadcom/bcm4908_enet.c b/drivers/net/ethernet/broadcom/bcm4908_enet.c
-index ea4a9eb98..b2debdfa0 100644
+index 727ad1e96..8008b44a4 100644
 --- a/drivers/net/ethernet/broadcom/bcm4908_enet.c
 +++ b/drivers/net/ethernet/broadcom/bcm4908_enet.c
-@@ -660,10 +660,13 @@ static int bcm4908_enet_poll_rx(struct napi_struct *napi, int weight)
+@@ -312,6 +312,10 @@ static void bcm4908_enet_dma_ring_init(struct bcm4908_enet *enet,
+ 	enet_write(enet, ring->st_ram_block + ENET_DMA_CH_STATE_RAM_BASE_DESC_PTR,
+ 		   (uint32_t)ring->dma_addr);
  
- 		len = (ctl & DMA_CTL_LEN_DESC_BUFLENGTH) >> DMA_CTL_LEN_DESC_BUFLENGTH_SHIFT;
++	/* A descriptor the stopped DMA never completed still carries OWN */
++	if (ring->is_tx)
++		memset(ring->cpu_addr, 0, ring->length * sizeof(*ring->buf_desc));
++
+ 	ring->read_idx = 0;
+ 	ring->write_idx = 0;
+ }
+@@ -495,6 +499,23 @@ static int bcm4908_enet_open(struct net_device *netdev)
+ 	return 0;
+ }
  
--		if (len < ETH_ZLEN ||
-+		/* A length past the buffer would make skb_put() panic the kernel */
-+		if (len < ETH_ZLEN || len > ENET_RX_BUF_DMA_SIZE ||
- 		    (ctl & (DMA_CTL_STATUS_SOP | DMA_CTL_STATUS_EOP)) != (DMA_CTL_STATUS_SOP | DMA_CTL_STATUS_EOP)) {
- 			dma_unmap_single(dev, slot.dma_addr, ENET_RX_BUF_DMA_SIZE, DMA_FROM_DEVICE);
- 			skb_free_frag(slot.buf);
-+			if (len > ENET_RX_BUF_DMA_SIZE)
-+				enet->netdev->stats.rx_length_errors++;
- 			enet->netdev->stats.rx_dropped++;
- 			break;
- 		}
++static void bcm4908_enet_tx_ring_clean(struct bcm4908_enet *enet)
++{
++	struct bcm4908_enet_dma_ring *tx_ring = &enet->tx_ring;
++	struct device *dev = enet->dev;
++	int i;
++
++	for (i = 0; i < tx_ring->length; i++) {
++		struct bcm4908_enet_dma_ring_slot *slot = &tx_ring->slots[i];
++
++		if (!slot->skb)
++			continue;
++		dma_unmap_single(dev, slot->dma_addr, slot->len, DMA_TO_DEVICE);
++		dev_kfree_skb_any(slot->skb);
++		slot->skb = NULL;
++	}
++}
++
+ static int bcm4908_enet_stop(struct net_device *netdev)
+ {
+ 	struct bcm4908_enet *enet = netdev_priv(netdev);
+@@ -510,6 +531,7 @@ static int bcm4908_enet_stop(struct net_device *netdev)
+ 	bcm4908_enet_dma_rx_ring_disable(enet, &enet->rx_ring);
+ 	bcm4908_enet_dma_tx_ring_disable(enet, &enet->tx_ring);
+ 
++	bcm4908_enet_tx_ring_clean(enet);
+ 	bcm4908_enet_dma_uninit(enet);
+ 
+ 	free_irq(enet->irq_tx, enet);
+@@ -686,6 +708,7 @@ static int bcm4908_enet_poll_tx(struct napi_struct *napi, int weight)
+ 
+ 		dma_unmap_single(dev, slot->dma_addr, slot->len, DMA_TO_DEVICE);
+ 		dev_kfree_skb(slot->skb);
++		slot->skb = NULL;
+ 
+ 		handled++;
+ 		bytes += slot->len;
 -- 
 2.56.0
 
