@@ -1,62 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794218105;
-	b=bzuQvW5vZxtlAaQb28MyewXsRCU215m41VYiVXYguvc6OXlOqKB4e+nyGS1avO62//YD
-	 6Q9uRV9+X9HJw5mv5yC28GLwIni5jPV/s9tRVR5dWBt2EMVehhB9QA5rCNi8ARUHvZ3QE
-	 PCyBe77Z7pMoP55fc63s6/6/tazJ+zTWTCCg4qbdsMUUbv081+yTeEpKgGK0gElVoT6uP
-	 QHpjBvtPft3sIVfa3Bfv3Rj3Du5+T32mShTsa2bQMZ4zRPR8hSN9ULaBDxw6YpXXJ7RdF
-	 rp1hq+mMrLZEeCWRjQBrIVbvmVIzhSwvFiKt5+jvXayfFsoJNw5Qi0Uq1+aTeYPs+oQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794218105;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=vn7V5zWgWjR2AxhbbXtzmU81jhYCCnS3gbGv+/5Hh8Q=;
-	b=0Y6HPO73VTxjV//8dJz/Bigt1Fyd1rUuRCrCaFbEI02VtaKNbSNLH6oxjIZ/TUQaBlRV
-	 Mr42kTFCpzFHvqG8I7HqPpdpFaIT5EPdZWvHLSnJQCIILY2xBfPC9Fbl2N19HAJDmIqPq
-	 7svkm/6Xlv0a0hI+/Hha3cMjMjj0b7qrc58UYMxn0tz2BdeVaYKIYPOKmyDMJsDNtUA7F
-	 mAF5boMuBpCQMxXQZsjG6Q+yhWfzjNhCXsm3zbRljCoBpzh4bKXx2w+4trIpTi37U5xMP
-	 baL3urGhtdwyLAytZe6UDPbmdw1uVockTZtXAt5zByGYnpZmg1oFgs9yrZQ/yUVtn8w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWUG4zbF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794218111;
+	b=fMzFMSwgJEpz0pf5LgJ+L4QbR8ilhp4Du4LtD3AwOWQr5BkfxGOC/6r1DuUa/9r4G0oU
+	 9AKxuKcrj0mnpjBdQJ1BC6J7WXgDxnkrxi+Q8iRFl0mhCI3vm9whaL8soVaVn2/3mCOxv
+	 IhQqLm6lmfJsXXSFbh1DnADRL2lIpR41HyQme13oUmd4I6AqemTGB5u8cETglShjyedzo
+	 yU4XjF0se92QN3Ag2gf+qURXMbFltDk6gYca3g3J/dR5kzqZJAsOxJFEkq112TMYZx/Q7
+	 GENn/naHGr9UINf6tS8rtQ2poJMVn511SArsCzv+4IR7OkUe+w+7IRADJy88GOubZOA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794218111;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6+yKcd34YBJDbehP0dz+di+4vqNJ4KlYRH/PR+seNMI=;
+	b=XidqK1AX3C6S6bUJhu7moXa9Hhv5RqxZKEgaEy74JwrH7pGTezsbiwdFIJAN14NcoWNv
+	 RFpeXdyJrBKdp280sq2SdmbGJf03c+5No86m3bRzRnb+hbp/zTvpoAyHiNlaJPzIpeX0u
+	 doGQsdzN9IsiAB3BJMquyrE4nAjF1sS9uvjBKlP0icwFkQerhDJ7X2WNSTa8bs66JpAfs
+	 vdLGK5MPBOJw8JMqRCEZVss7e22iDBV/y5euyDL9BGliGSNMSMREzzO0TgUCem8LlO7Ug
+	 qEDq2nxN18uPJmbJIDJCtYkvjlzPsaP8A/nu7mUpt8MsYO9jx8onokpDiOYa5mgPW/w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=diaSaGqU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60437606A321;
-	Mon,  9 Nov 2026 09:55:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC06606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:55:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BC06606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FWUG4zbF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A6D1F0089F;
-	Mon,  9 Nov 2026 09:55:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794218105;
-	bh=vn7V5zWgWjR2AxhbbXtzmU81jhYCCnS3gbGv+/5Hh8Q=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=FWUG4zbFrGPjlsUUYCS7eLB+wVTHdqvhSomjjUrLfHGzs5DcZBo9eyCdYxfcGEsvu
-	 X5IxtbOs5IYFl/GCUOzLWBj3k2p6nVnYd/AymccQWV24NifCdO7c9yJhJQL81xQogJ
-	 wAVtB7QA01+tbqeIHkc2di1H2cdvdes2y6PRZMpEtnCKiF3o6g+f7NJJYcxWiq9/ZR
-	 FxOJO5TmB+BXtCuw7lCtZ0OND8xswpgssUpfPSPRtkjjifGdBi91tjF3Bhyz46DhJs
-	 CPhnfSz5trwWRiz8yevWh95WLjWhYsrAmZ8WPNxCqqt4xjTb0A73Cc4OeD+TB+RDr7
-	 y20yyMsf/kVYw==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Gregory CLEMENT <gregory.clement@bootlin.com>, Vladimir Kondratiev
- <vladimir.kondratiev@mobileye.com>, =?utf-8?Q?Beno=C3=AEt?= Monin
- <benoit.monin@bootlin.com>, =?utf-8?Q?Th=C3=A9o?= Lebrun
- <theo.lebrun@bootlin.com>, Radu
- Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Thomas
- Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Gregory CLEMENT <gregory.clement@bootlin.com>
-Subject: Re: [PATCH v2 2/4] irqchip: irq-eyeq5-msi: add EyeQ5 PCIe MSI
- controller driver
-In-Reply-To: <20261102-eyeq5_msi-v2-2-4aa3d3608064@bootlin.com>
-References: <20261102-eyeq5_msi-v2-0-4aa3d3608064@bootlin.com>
- <20261102-eyeq5_msi-v2-2-4aa3d3608064@bootlin.com>
-Date: Mon, 09 Nov 2026 10:55:01 +0100
-Message-ID: <87v766uy6i.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=diaSaGqU
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-67bf27f179aso584487d50.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:55:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794218110; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CkNnrBh2oBFB7XXFhS14AgUg8GBe7+dBh4fE35fGwF46TGb20l8wRX58YcwWrqAY6a
+         E4/ANPF8xPWC9mv1G4hOt/bkEEttbL+PFCre1tiSx7cqNKZqWCckzilHwqSf9musFhEL
+         aWjRkNKWJvz+HVkYePUu9FKQdqIvRXa3GVKmIQxngpI9nmUnNIBF2o9K1u0AKr+oZCRx
+         1dH3C8rd783rVVgsRfBGn6kfFshkvYnBK8l3XL9vUNS7GWs8gfw6xrFGp0FXr20K4Uh9
+         fbYotJ0zKl1g2w5pFt+GrPLomdtQJb88UKnxO7qGaM/m1Xt4IkJgN2VA/d7g5jnyGfiT
+         AGMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6+yKcd34YBJDbehP0dz+di+4vqNJ4KlYRH/PR+seNMI=;
+        fh=9OPWVJ7aPa+nfF7TytGyG63l1YxoCVODj79XY5xnSS0=;
+        b=SXrD5fM+rpVdEDg8q/a4U2/W9kscJFGvP6A2roAXuJMsUbV7fauJtL6oRicz6HcgPB
+         /DmXTnbrlWEXPqZHEiWCvNldmRbOpp1wV6GhHK5JGeq+QmwFxixml+FzGJzckPt1wY4x
+         kzAwNICbjVYHzNjqNqR68UR/+3YTaFZiKlnIrCJEyxTyAnVXl7BXIbGPcO69qIqYudMY
+         qzjk3oMRbYLuOuk2J7QKVDPQMR7Fm10Zc1rmj59tKq7TBamK4Tb0NhnMwD8ww78DOHun
+         xT8/CRjuT2bRqOfzqiwF85dqkGzGwsBXEdsDhpSeemcy1mcvKyFxW4kTM7Cz4das55an
+         f91Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1794218110; x=1794822910; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6+yKcd34YBJDbehP0dz+di+4vqNJ4KlYRH/PR+seNMI=;
+        b=diaSaGqU6y00ZmSXdj/WhM8ViNbnXUVMV1BQtk7Ev/Ctv8zsTsnmR09ghmL5OnuASY
+         m/hN6lDzlbYzrUlIkImjiO7Qd8T9b5kqA9XqtnXJiKsbCPSq/Hih1/Fx9huoAQm3XmqQ
+         9ORWnJuSDFrDNDzni/FLlR6alEp0l9cBZU2sQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794218110; x=1794822910;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6+yKcd34YBJDbehP0dz+di+4vqNJ4KlYRH/PR+seNMI=;
+        b=2ix71P21g1YJpo75P9vuyybe46iWGXUSQxfbYWvDzZ388K/Y1I/nijNt0ZdrRA6MYH
+         VbirL22JISFta58dudR3t88R7jVMYJXrfFX95gYkdYS8kKbOvlD9TdjQzH8rTEiJKjK/
+         heQL3cJuIJjJkuKrCPtBXi2AQxqtEyfZOCmzTvTEf4HzLGe+8Ng95Y9ryuqciXFw+yeT
+         NeAPEMgJaMXET/+/P8jqZIaT3pPYZjMhWvpFS2YKfKPiEmV5oN3w+tkW6Hzu6SfKlQCB
+         cFW3weIQJdtEE3KmNilFxQdjMySx8X+3KBUutxLkiV/c1B0Ax4njVaI58FzXtsPDZSy1
+         WR1g==
+X-Forwarded-Encrypted: i=1; AL+hErGrfFRjOfELcGaHKnbP9dZiiTFbtNwKH/pynt7tvOwGXVBIN+OABgwGYA84CxlM0d6eqTD6Bc7jVgEBg0A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z92nNihEKFBvh/xdy75Clz529xnnlIKrol3OQakXN4sA9NCJska
+	kE0NKXy8DsyyMt6xwL4cZS8Hu6klJRpyb0lJqh2PWv9fdZRk3mKS0tOQ+0zwI3Eca+hKbLQWOdT
+	LjdGRZ17imwZaVrPEdVdW370Uxdg1uxCP5p4oSVsx
+X-Gm-Gg: AYBFou2Mabil+cevPfPcmJMO9vlRx1u/ZxDuU3SeanGk24kfONG540R3ZgOYaZspHaq
+	v126NXHkT/5RTHeM8kKq7nz5jLnJ9l2Z7Ird5az+z3duA5uHrR4hs9Vwr7QhG33anIqyaRqGLdZ
+	EVhmwOl+nynZr+uBIB90c2SsMHIZf1y05tokL+GgddTX+MOCQDNnPWHSoqbfTdOKwfoj/vdLqbp
+	WoD7lwJxxIXN++kBmz4pq3JqKAQnmmRloip0y/E7VqGwo8ASa/Kv5XupWHnymeALP1EQqRSCJOU
+	0PFvshFAk/htd6bT/twoxsOLLWMj4NouLIN2RgnwFOvNbMdfoD/Oc2eLA75UCyd7NTni+fwPxwB
+	0DpFGKxsCnTtkSjpf2ElrZEHNgzAfQH/xBr6a3A==
+X-Received: by 2002:a05:690e:304:b0:679:9ad9:b103 with SMTP id
+ 956f58d0204a3-67c3da632ffmr1254960d50.136.1794218110297; Mon, 09 Nov 2026
+ 01:55:10 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,132 +101,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261103-timer-mediatek-gpt-irq-order-v1-1-6d1ddf977224@gmail.com>
+In-Reply-To: <20261103-timer-mediatek-gpt-irq-order-v1-1-6d1ddf977224@gmail.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Mon, 9 Nov 2026 18:54:59 +0900
+X-Gm-Features: AclHuK-bIXuY3rwirQbdsttFwHYyj6lmMzuR08wUI0ixSLbLjL_ihv4G533qIVU
+Message-ID: <CAGXv+5FSG5P3-4-eijurDA68NzcFOXJN5k12WV9SJ+_3wmTjPQ@mail.gmail.com>
+Subject: Re: [PATCH] clocksource/drivers/timer-mediatek: Enable the GPT irq
+ before registering
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Luca Leonardo Scorcia <l.scorcia@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02 2026 at 17:50, Gregory CLEMENT wrote:
-> +static void __eyeq_msi_mask_irq(struct eyeq_msi *msi, unsigned int bit)
-> +{
-> +	u16 value;
-> +
-> +	lockdep_assert_held(&msi->lock);
-> +
-> +	value = readw(msi->gcsr_base + GCSR_IRQMASK);
-> +	value &= ~FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
-> +	writew(value, msi->gcsr_base + GCSR_IRQMASK);
-> +}
-> +
-> +static void __eyeq_msi_unmask_irq(struct eyeq_msi *msi, unsigned int bit)
-> +{
-> +	u16 value;
-> +
-> +	lockdep_assert_held(&msi->lock);
-> +
-> +	value = readw(msi->gcsr_base + GCSR_IRQMASK);
-> +	value |= FIELD_PREP(GCSR_IRQMASK_MASK, BIT(bit));
-> +	writew(value, msi->gcsr_base + GCSR_IRQMASK);
-> +}
-> +
-> +static void eyeq_msi_mask_irq(struct irq_data *data)
-> +{
-> +	struct eyeq_msi *msi = irq_data_get_irq_chip_data(data);
-> +
-> +	guard(raw_spinlock_irqsave)(&msi->lock);
+On Wed, Nov 4, 2026 at 8:18=E2=80=AFAM Ryan Brue <ryanbrue.dev@gmail.com> w=
+rote:
+>
+> Since the driver probes as a platform device, the GPT clock event is
+> registered late in boot, when PSCI CPU idle may already have put CPUs
+> into a state that stops their local timer. Those CPUs wait in the
+> oneshot broadcast mask on the hrtimer broadcast, and
+> tick_install_broadcast_device() arms the new broadcast device to expire
+> at once so that it wakes them.
+>
+> mtk_gpt_init() sets the timer's bit in GPT_IRQ_EN only after
+> clockevents_config_and_register(). The forced event fires while the bit
+> is clear, nothing is latched in the status register, and the waiting
+> CPUs are never woken. On an MT8173 tablet with the CPU_SLEEP_0 idle
+> state in use, this hung the boot in 20 of 40 boots, and in none of 16
+> with this change.
+>
+> Enable the interrupt before registering the clock event. The IRQ line
+> stays disabled until enable_irq(), so the handler still can't run before
+> the clock event is set up.
+>
+> Fixes: 7a097aba7255 ("clocksource/drivers/timer-mediatek: Convert to OF p=
+robing")
+> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 
-What's the reason for ...irqsave() here? The mask/unmask callbacks are
-invoked with the interrupt descriptor lock held and interrupts disabled,
-so a plain raw_spinlock() is sufficient, no?
+This seems to have fixed the cpuidle related stalls I was seeing. I
+didn't do that many rounds of boot tests though.
 
-> +static void eyeq_msi_isr(struct irq_desc *desc)
-> +{
-> +	struct irq_chip *parent_chip = irq_desc_get_chip(desc);
-> +	struct eyeq_msi *msi = irq_desc_get_handler_data(desc);
-> +	void __iomem *status_reg;
-> +	unsigned long pending;
-> +	unsigned int bit;
-> +
-> +	chained_irq_enter(parent_chip, desc);
+Tested-by: Chen-Yu Tsai <wenst@chromium.org> # on Hana (Telesu)
+Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
 
-https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/commit/?h=irq/drivers&id=6cf0d999a18e799965cf2cf4a0157e257c805946
+I do think we should expedite this into the kernel, as a 50% chance
+of stalling is not great. It was even higher for me and somehow I
+had to do a hard power cycle by rebooting the EC to get it unstuck.
 
-> +static int eyeq_msi_domain_alloc(struct irq_domain *domain, unsigned int virq,
-> +				 unsigned int nr_irqs, void *args)
-> +{
-> +	DECLARE_BITMAP(reserved, EYEQ_MSI_MAX_VECTORS);
-> +	struct eyeq_msi *msi = domain->host_data;
-> +	unsigned long bit = 0;
-> +	unsigned int i;
-> +
-> +	bitmap_zero(reserved, EYEQ_MSI_MAX_VECTORS);
-> +
-> +	scoped_guard(raw_spinlock_irqsave, &msi->lock) {
-> +		for (i = 0; i < nr_irqs; i++) {
-
-This does not support MULTI_MSI, so nr_irqs is always 1. That allows to
-simplify both alloc() and free() by a lot, no?
-
-> +#define EYEQ_MSI_FLAGS_REQUIRED			\
-> +	(MSI_FLAG_USE_DEF_DOM_OPS |		\
-> +	 MSI_FLAG_USE_DEF_CHIP_OPS |		\
-> +	 MSI_FLAG_PCI_MSI_MASK_PARENT)
-
-Just a cosmetic nit:
-
-#define EYEQ_MSI_FLAGS_REQUIRED		(MSI_FLAG_USE_DEF_DOM_OPS |	\
-					 MSI_FLAG_USE_DEF_CHIP_OPS |	\
-					 MSI_FLAG_PCI_MSI_MASK_PARENT)
-
-is easier to read. But no strong opinion.
-
-> +#define EYEQ_MSI_FLAGS_SUPPORTED		\
-> +	(MSI_FLAG_PCI_MSIX |			\
-> +	 MSI_GENERIC_FLAGS_MASK)
-> +
-> +static const struct msi_parent_ops eyeq_msi_parent_ops = {
-> +	.required_flags		= EYEQ_MSI_FLAGS_REQUIRED,
-> +	.supported_flags	= EYEQ_MSI_FLAGS_SUPPORTED,
-> +	.bus_select_token	= DOMAIN_BUS_NEXUS,
-> +	.bus_select_mask	= MATCH_PCI_MSI,
-> +	.prefix			= "EYEQ-",
-> +	.init_dev_msi_info	= msi_lib_init_dev_msi_info,
-> +};
-> +
-> +/*
-> + * In endpoint mode the snooper is a platform MSI controller: the host writes
-> + * the doorbell and the snooper raises a local interrupt. Expose it as a
-> + * platform MSI parent so endpoint functions can allocate doorbells.
-> + */
-> +static const struct msi_parent_ops eyeq_msi_platform_parent_ops = {
-> +	.required_flags		= EYEQ_MSI_FLAGS_REQUIRED,
-> +	.supported_flags	= EYEQ_MSI_FLAGS_SUPPORTED,
-> +	.bus_select_token	= DOMAIN_BUS_NEXUS,
-> +	.bus_select_mask	= MATCH_PLATFORM_MSI,
-> +	.prefix			= "EYEQ-",
-
-It might be sensible to use a distinct prefix here, e.g. 'EYEQ-P-' or so.
-
-> +static int eyeq_msi_create_domain(struct eyeq_msi *msi, struct device_node *node, bool is_rc)
-
-__init ?
-
-> +static int eyeq_msi_parse_vector_region(struct eyeq_msi *msi, struct device_node *node)
-
-__init ?
-
-> +static int eyeq_msi_parse_dt(struct eyeq_msi *msi, struct device_node *node)
-
-__init ?
-
-> +static void eyeq_msi_program_hardware(struct eyeq_msi *msi, bool is_rc)
-
-__init ?
-
-> +
-> +static int __init eyeq_msi_of_init(struct device_node *node, struct device_node *parent)
-> +{
-
-Also please check the sashiko response vs. handle_simple_irq() and the
-affinity mechanism.
-
-Thanks,
-
-        tglx
+> ---
+> Since v7.4-rc1 the MediaTek timer probes as a platform device, and on
+> MT8173 with PSCI CPU idle the boot then hangs about half the time: the
+> broadcast device is armed at once to wake CPUs that are already idle,
+> and that event is lost because the GPT's interrupt is enabled only after
+> registration. Traced on the board with prints in
+> tick_install_broadcast_device() and mtk_gpt_init().
+> ---
+>  drivers/clocksource/timer-mediatek.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/t=
+imer-mediatek.c
+> index 842d6ee4259e..1b2cbcc2795a 100644
+> --- a/drivers/clocksource/timer-mediatek.c
+> +++ b/drivers/clocksource/timer-mediatek.c
+> @@ -339,10 +339,10 @@ static int mtk_gpt_init(struct platform_device *pde=
+v)
+>
+>         /* Configure clock event */
+>         mtk_gpt_setup(&to, TIMER_CLK_EVT, GPT_CTRL_OP_REPEAT);
+> +       mtk_gpt_enable_irq(&to, TIMER_CLK_EVT);
+>         clockevents_config_and_register(&to.clkevt, timer_of_rate(&to),
+>                                         TIMER_SYNC_TICKS, 0xffffffff);
+>
+> -       mtk_gpt_enable_irq(&to, TIMER_CLK_EVT);
+>         enable_irq(timer_of_irq(&to));
+>
+>         return 0;
+>
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261103-timer-mediatek-gpt-irq-order-a878ed869f84
+>
+> Best regards,
+> --
+> Ryan Brue <ryanbrue.dev@gmail.com>
+>
+>
