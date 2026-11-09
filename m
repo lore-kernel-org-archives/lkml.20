@@ -1,78 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794204884;
-	b=HPXYAhwruejeABK0uzRcYqhpHkFVzqcmTk7qfKQK0jjuVqP1RXk7YJHWZwnGe9+V4a1B
-	 0bfMMFISKnec8Ewtvv8pu2FW/cQ0WvYv6ynFT6EzJCywYEMMtnXzjVetebz5ui8pTyDLq
-	 3+6VeNu+UCz5PhX9bBZM25zH/HK9dyqi0cfIRxUafv2LegsLi2aI8bCLB429PyDz2A5Wo
-	 6DQM7aVU6YeQsAKgOfwzs84ivHI6Z3ucnICdHMYjuf8XO2mjzf30BXhIgSHsTWWHy4nEr
-	 W5rp1JCR/QJ0FLCPHw/I3GRZz5y+oON0tB8U70kFllq5SsBovCK0xWwlmj7jmU1qaAw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794204884;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=Yq6fm90zyBh35dPgkHdlaUry16t4AFhxwtgIpcQnqDw=;
-	b=XU8ovoZqtAOnc9BzVoKJHmGdB5IYq1Di5Sqg0JTHpebV56YZ3ilwUPUIILvCkpKlCxve
-	 NtfgVS+S1Bx5RCahzaxyt4XBJQ73054FYUiAtT7HfXucUextyBhoVBuWHjwJG2R+KbzCd
-	 qxOchQLDXPSv/+Ib18O/Mz5We9ry+4DSoVgvnH12hVfvxjfo/Jo0jrYj6W3DESpkcL8ZV
-	 apIN7aBSVV+4lcB5emcAoKY7x4f4n2b67jKpDFsFB+wR9QFnZtfFcqNsyR6zzBqy1i8Ez
-	 hM3Bf3wYykwMuIOca1nUe6S3NzCJe3vDNeBDFHiWNGJ+YzITzWSw0n7kGlJ1Gwxdjew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VmFf7zdD;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794204926;
+	b=Sy4KhEMeulyejsjUC39Zj5dSSI7taLyijw2Sb8nQUtirDad3cEndIoz+gn06ThASlt3v
+	 QauzDAbsOMtP+/LYWXSn+rWeMUyTJswPeEAAQwTwNZNJ6oG73rhhhuGxtpCOpbGspE3+b
+	 bk+HRYm1mTjC2hKWWDM+xNk+/5iUaD9MI6c1INl4H8tTkbm6fMJmnaG/R+ta82FAqJH+n
+	 +B9fIQBEb9dCEbuSfFEkRZr4psNgoBxhWEoarfb8NAap5djAsIyAfux+ePYLJwsQE1vFv
+	 q4/oft8Os6vZMoGhIuaruqrS7nrffkgtt/pR4t3smU3SisSPOgHmy13gfp7mk6Q1GkQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794204926;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=1OirEdYPjNWlGy7xmMe0PuTtLR8bBFzhH374tYnu7hI=;
+	b=MLoJFeOTJJBoC0ijwKzkrMsXA3vZ+RoyXkMckvVfGCcFzO3vcrP6iAH4pA/QuWSdOCG9
+	 5pgzBFJ+Cd0GKCPB23jYI42yuy5I8Bndy9ne9fq2PkXItoWdg2xMEA6+kM8FyXWmoJH3F
+	 Tki2sHlb4js9FpouXBWZPkvjTYGn41ne6aRY54zpHkKLtwMchhwjg7TYirF8j6LKj9PKw
+	 lSdP5fT9PhRY+1wBdJGq9Z7ARqZ+6iuqcmS0GYdQrNYezhM4DyWK9YaahSIUWbFYs1V5l
+	 Sc/FQXPSUtJo2mCZ0RLDoGVPg6a0SE8aBlrPXcYANxCxRcG4h96DLn5Eh9hK7ZQ7Fng==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VnjAxhbN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B60606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:14:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86B60606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17BE0606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:15:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17BE0606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VmFf7zdD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794204881; x=1825740881;
-  h=date:from:to:cc:subject:message-id;
-  bh=RUxPa83DhGOa8uX5NTt/M+3+a5MHotjjwt3ZLAiPkFk=;
-  b=VmFf7zdDKNdk93inVhbihS6A/QvUOvXBJMyVhFn5l0CZRi372Mizl4hM
-   5MNuKx8He/KpvKgi6zVCQ1yPbJWT9tc+BxeDsJZHzSF2O+H89zN72F2QH
-   V75b7V9tfroFw3Y7wGIYmlWfbQT9u79hhhMngU5hMY1fqeebevtbX6uWv
-   hae66uikGzJRhrl3d2SAl3f65Qsoo1R7lPgjs8GylZedErwpImbA1aMGV
-   YQppgPoH94QR1vpy5lXkSPZojgGgBEf6WDbEJPc4Ths+Q8V9vL/gJFvlo
-   3EXNllbL6mhAKAGbBOgwlQwL/QpY4kgftg/CvV8I5wHs5ogUoe1j1+l4t
-   g==;
-X-CSE-ConnectionGUID: 6Ko3WqwKRva3pIpvaB9x/w==
-X-CSE-MsgGUID: ruiPFvXMScexwPdIB9zsLA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="3012771"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="3012771"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 22:14:39 -0800
-X-CSE-ConnectionGUID: +/AzPuqyRzGQn1dEAJn+1w==
-X-CSE-MsgGUID: ku7s7HgsTX2hv9e8UzXvWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7671890"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 08 Nov 2026 22:14:37 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xQIeI-00000000u0l-0esk;
-	Mon, 09 Nov 2026 06:14:34 +0000
-Date: Mon, 09 Nov 2026 14:13:46 +0800
-From: kernel test robot <lkp@intel.com>
-To: Zhipeng Wang <zhipeng.wang_1@nxp.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org, x86@kernel.org,
- Thomas Gleixner <tglx@kernel.org>, Frank Li <Frank.Li@nxp.com>
-Subject: [tip:irq/drivers 7/11]
- drivers/irqchip/irq-imx-irqsteer.c:269:1: warning: unused label 'out'
-Message-ID: <202611091438.4MIapT02-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VnjAxhbN
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b6e8b6d424so702031a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 22:15:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794204924; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rdMEZywTruDo2Z7GA0LlGKHNPO9L9d+D1nEB37CcbAl6tnAbLEqhxmNurEGSvYFR9C
+         3N1q/kMyXICv8DH76eb2Kn8SHushn+K9/zzaIHg0nvJBqFQKNlYaDoz6KhFer7gMwten
+         W+9aqBlzeFu3TlALIRR5q1U7TRk+noMfp1HRMehIiAZv6RomZOwBwiTRRHDoe/3xvDz6
+         oQKS4zCezGm7FOU4WgU1lUoj+YOz2CI1BgrySsKNNugecu8R/45cMX2zojiW3a70EopE
+         U4DpmuGENqJqoFH+fSc/JSBtF9ElCHRRnCpEcTsf3yNV/gKH6tUNcNqLCf0FKC2NTc/Y
+         QCjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1OirEdYPjNWlGy7xmMe0PuTtLR8bBFzhH374tYnu7hI=;
+        fh=XnuVgw5ztP64Hxk0s6pA6DgSyXBk6GzGs0Swc5djqis=;
+        b=shSYQX50ZvyXRkVAncRtWJSf7wwke1fVzxF6a1M3nEPMT5q4zNQugzOSnIgwNkKkPd
+         1AwfflywUP+JkU0dazhVOz03UuDngOoGeUXG5lfVAaTLf5n2LnmSVXaZIjRkYb9PB1fF
+         o1QiDc+LxYT02aaX94MWvVuAzcZ9dOZUJ7vf7InTQOWBIKSQn4q67kn582CeocAwDpDF
+         sXpXlTcKGczGbKvCM0o7IrkYP9HZF5KO49W+8u8D42NOS4rtrtP/90dxDIsE3oaldPUJ
+         X1QwQKVX+HDEaulGVNR4EbEiK1Vpou32w+dAYn3PQabcZQmfWwZ1hAvZaQaHpwUUag6e
+         YKeg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794204924; x=1794809724; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1OirEdYPjNWlGy7xmMe0PuTtLR8bBFzhH374tYnu7hI=;
+        b=VnjAxhbNIjKY+l3FrLTmF03OxcKJy99I711bzC3orIvQ/IyAT8tKQ1hKmQCwmbXoPR
+         NGkudxmIUppfph+Fay5VwyDK8YO6d5x4aT7B195TrKrr5HfSwfg3KS7Q+PAYuhNhEPiZ
+         IRenmIGzDopf4rYBDPbHVT/JQiS+FFrkbVxUynpEC1iK/+YOcP6QSwUx1yCz23ybDlcZ
+         Y0fYXmWkLUJ0pXjH0yv1XqMBAArtkh8qyC5x2xrKIwOCmyiDeMmIfSUS/ABWouNZWEaa
+         H12QVsoGGcFF3yvgGG+8UzKvr2Y9RB3LSzfnt0J6ZOp0TL3PJ3H1uIJuyrSmZaRtmYi4
+         Y3wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794204924; x=1794809724;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1OirEdYPjNWlGy7xmMe0PuTtLR8bBFzhH374tYnu7hI=;
+        b=Q0WUJpXwwv1yaXAziYRI5WFyRAmjxBCq7ercxRJFXAFU2bvBBwXpaYoIf7W5UDpF/s
+         ndVG+OBbwRZsPGT+vdRAoIRXDlKLSwDsNKGFV80pcTIMJGEi2B0zPicY2kr5XnNk2Sxy
+         9laSmTd5zrNBlmvbrGQyFQAvP7Q+OYkDmzYJBYiLcdFrZPBAQFNwy5xz6iHY0p4RBE2W
+         rvxyGgpBItRBTiXwotlAz7hghxeXbJSMMIE1ISSDLDiEn9KidA3TO6ZHR7Fmy91Qhvv2
+         AjufpMvDe0mgXXpw8IiCQPgiITuy1/e9yfjeJjjyXtLkIm17/Jp5gE+WbG4pI/YxaQDM
+         K0fQ==
+X-Forwarded-Encrypted: i=1; AL+hErHGz+3+bNzP7FvmkkQ/mYrICkVAEaSynTyjibN21bxyX1Bhd6/HVg6pPxQOA8xxKvi8cWmYWQcH39bznss=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8n+MAj6/uC+Ahhs3KW4Hp4bt39kJEWi9eZGfR5DTZMCSZH+mPp
+	H+nKGFcSIij2BFYu3Hvx1EMQfRqATIh/HQ3RpPveN68sleM/4AMTU5G3j4fHPp0eMRvy//Y8HnZ
+	boh4v48719MIId3bBdZATqks1bggrXGg=
+X-Gm-Gg: AYBFou316u4BfsPCXgSHaHk05qvq0e9/UshsKCDE/+XQkR65h89dQpmGkizgQV9Q/MA
+	uuBYGFke2mpgBOYKOCSrPxiq4edEhDuJQBfps7CABhx4zz3V6V9TR2MnGZwFw2bXDftQnunWaFA
+	Wib5YcHxwemXd40dvBtGEoSPqTntASXX39aiXKnfwmQAZq54SL5NLjChD+E/4G8KLuvdKN1j1e1
+	WV4JiN6SOzi2mnx/lqgWa/OPufVuDKYynx4NW2S5pn+OCVGOD8JVznLKhrXmYls9FBxHlKTlghf
+	HZp6GKXWu2ywxVSgSxwwkd0XW20SrINghTKFMKdd/7mIGTUuS3q06dktArKzY407EKtvFOqTVYa
+	tqCI5S3qFWeKZoLZAsOmzbZ9EefeKi4SRw2ft2QLl4lIMMErHFQax2ecn/tAvn2wriXw3xS48W1
+	AH2CBxcemi3f2Pd+ssHyPvoQDZCzmAoP0nRnXsRCTFehWSZL7+onE=
+X-Received: by 2002:a17:907:3ea1:b0:c2b:4142:2db1 with SMTP id
+ a640c23a62f3a-c4d6d842e53mr191712566b.40.1794204924269; Sun, 08 Nov 2026
+ 22:15:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,132 +104,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261108095634.100517-1-clamor95@gmail.com> <20261108095634.100517-3-clamor95@gmail.com>
+ <20261108205143.134d6aa0@jic23-hlaptop>
+In-Reply-To: <20261108205143.134d6aa0@jic23-hlaptop>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 9 Nov 2026 08:15:10 +0200
+X-Gm-Features: AclHuK8Qn06eeEYq6AauLfpWkIVYBvVrCQiH0heTOHXTTI9POYlOkAaf0cbYYK8
+Message-ID: <CAPVz0n3uRoQAN=rk1dHyHMFxueK8Ry0UsDxkxA=jzgGP7Ykceg@mail.gmail.com>
+Subject: Re: [PATCH v1 2/4] mfd: max8907: Add ADC client support
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-iio@vger.kernel.org, mfd@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq/drivers
-head:   0c0da722d7839e5250999416404d4a4055afb300
-commit: 54ac29cd11115edd9f72f17aa4551658735f919d [7/11] irqchip/imx-irqsteer: Let devres own the clock
-config: arm-defconfig (https://download.01.org/0day-ci/archive/20261109/202611091438.4MIapT02-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project fc9576e3b179738d99c5babe5cd9d6c1f883e0db)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261109/202611091438.4MIapT02-lkp@intel.com/reproduce)
+=D0=BD=D0=B4, 8 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 22:51=
+ Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sun,  8 Nov 2026 11:56:32 +0200
+> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+>
+> > The Maxim MAX8907 has an 8-channel ADC at a fixed location. Add client
+> > support for it along with its regmap and interrupts.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+>
+> > diff --git a/include/linux/mfd/max8907.h b/include/linux/mfd/max8907.h
+> > index 35b2ede54f856..cf304afc782d6 100644
+> > --- a/include/linux/mfd/max8907.h
+> > +++ b/include/linux/mfd/max8907.h
+> > @@ -153,6 +153,51 @@
+> >  #define MAX8907_REG_MPL_CNTL         0x1E
+> >
+> >  /* ADC and Touch Screen Controller register map */
+> > +#define MAX8907_REG_TSC_STA_INT              0x00
+> > +#define MAX8907_REG_TSC_INT_MASK     0x01
+> > +#define MAX8907_REG_TSC_CNFG1                0x02
+> > +#define MAX8907_REG_TSC_CNFG2                0x03
+>
+> ....
+>
+> > +/* Regulator stride */
+>
+> I'm not sure what this means. Stride of what?  Seems to
+> be some offsets in the register address.
+>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611091438.4MIapT02-lkp@intel.com/
+Regulator register offsets.
 
-All warnings (new ones prefixed by >>):
-
->> drivers/irqchip/irq-imx-irqsteer.c:269:1: warning: unused label 'out' [-Wunused-label]
-     269 | out:
-         | ^~~~
-   1 warning generated.
-
-
-vim +/out +269 drivers/irqchip/irq-imx-irqsteer.c
-
-0136afa08967f6e Lucas Stach           2018-12-17  178  
-0136afa08967f6e Lucas Stach           2018-12-17  179  static int imx_irqsteer_probe(struct platform_device *pdev)
-0136afa08967f6e Lucas Stach           2018-12-17  180  {
-0136afa08967f6e Lucas Stach           2018-12-17  181  	struct device_node *np = pdev->dev.of_node;
-0136afa08967f6e Lucas Stach           2018-12-17  182  	struct irqsteer_data *data;
-28528fca4908142 Aisheng Dong          2019-02-20  183  	u32 irqs_num;
-28528fca4908142 Aisheng Dong          2019-02-20  184  	int i, ret;
-0136afa08967f6e Lucas Stach           2018-12-17  185  
-0136afa08967f6e Lucas Stach           2018-12-17  186  	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
-0136afa08967f6e Lucas Stach           2018-12-17  187  	if (!data)
-0136afa08967f6e Lucas Stach           2018-12-17  188  		return -ENOMEM;
-0136afa08967f6e Lucas Stach           2018-12-17  189  
-33b1c47d1fc0b5f Shenwei Wang          2024-07-03  190  	data->dev = &pdev->dev;
-358b9d248a026d7 Anson Huang           2019-04-01  191  	data->regs = devm_platform_ioremap_resource(pdev, 0);
-0136afa08967f6e Lucas Stach           2018-12-17  192  	if (IS_ERR(data->regs)) {
-0136afa08967f6e Lucas Stach           2018-12-17  193  		dev_err(&pdev->dev, "failed to initialize reg\n");
-0136afa08967f6e Lucas Stach           2018-12-17  194  		return PTR_ERR(data->regs);
-0136afa08967f6e Lucas Stach           2018-12-17  195  	}
-0136afa08967f6e Lucas Stach           2018-12-17  196  
-54ac29cd11115ed Zhipeng Wang          2026-11-04  197  	data->ipg_clk = devm_clk_get_enabled(&pdev->dev, "ipg");
-e0c45b107fc94c5 Anson Huang           2020-08-11  198  	if (IS_ERR(data->ipg_clk))
-e0c45b107fc94c5 Anson Huang           2020-08-11  199  		return dev_err_probe(&pdev->dev, PTR_ERR(data->ipg_clk),
-e0c45b107fc94c5 Anson Huang           2020-08-11  200  				     "failed to get ipg clk\n");
-0136afa08967f6e Lucas Stach           2018-12-17  201  
-0136afa08967f6e Lucas Stach           2018-12-17  202  	raw_spin_lock_init(&data->lock);
-0136afa08967f6e Lucas Stach           2018-12-17  203  
-7d3a5eb78e3614b Arnd Bergmann         2019-03-04  204  	ret = of_property_read_u32(np, "fsl,num-irqs", &irqs_num);
-7d3a5eb78e3614b Arnd Bergmann         2019-03-04  205  	if (ret)
-7d3a5eb78e3614b Arnd Bergmann         2019-03-04  206  		return ret;
-7d3a5eb78e3614b Arnd Bergmann         2019-03-04  207  	ret = of_property_read_u32(np, "fsl,channel", &data->channel);
-7d3a5eb78e3614b Arnd Bergmann         2019-03-04  208  	if (ret)
-7d3a5eb78e3614b Arnd Bergmann         2019-03-04  209  		return ret;
-0136afa08967f6e Lucas Stach           2018-12-17  210  
-5e72917802dd65a Ciprian Marian Costea 2026-03-11  211  	data->devtype_data = device_get_match_data(&pdev->dev);
-5e72917802dd65a Ciprian Marian Costea 2026-03-11  212  	if (!data->devtype_data)
-5e72917802dd65a Ciprian Marian Costea 2026-03-11  213  		return dev_err_probe(&pdev->dev, -ENODEV, "failed to match device data\n");
-5e72917802dd65a Ciprian Marian Costea 2026-03-11  214  
-28528fca4908142 Aisheng Dong          2019-02-20  215  	/*
-28528fca4908142 Aisheng Dong          2019-02-20  216  	 * There is one output irq for each group of 64 inputs.
-28528fca4908142 Aisheng Dong          2019-02-20  217  	 * One register bit map can represent 32 input interrupts.
-28528fca4908142 Aisheng Dong          2019-02-20  218  	 */
-28528fca4908142 Aisheng Dong          2019-02-20  219  	data->irq_count = DIV_ROUND_UP(irqs_num, 64);
-28528fca4908142 Aisheng Dong          2019-02-20  220  	data->reg_num = irqs_num / 32;
-f99f3c4acaff0df Fabio Estevam         2026-11-04  221  	if (!data->irq_count || data->irq_count > CHAN_MAX_OUTPUT_INT)
-f99f3c4acaff0df Fabio Estevam         2026-11-04  222  		return -EINVAL;
-deb904e45b4e325 Aisheng Dong          2019-02-20  223  
-4730d2233311d86 Lucas Stach           2022-04-06  224  	if (IS_ENABLED(CONFIG_PM)) {
-0136afa08967f6e Lucas Stach           2018-12-17  225  		data->saved_reg = devm_kzalloc(&pdev->dev,
-deb904e45b4e325 Aisheng Dong          2019-02-20  226  					sizeof(u32) * data->reg_num,
-0136afa08967f6e Lucas Stach           2018-12-17  227  					GFP_KERNEL);
-0136afa08967f6e Lucas Stach           2018-12-17  228  		if (!data->saved_reg)
-0136afa08967f6e Lucas Stach           2018-12-17  229  			return -ENOMEM;
-0136afa08967f6e Lucas Stach           2018-12-17  230  	}
-0136afa08967f6e Lucas Stach           2018-12-17  231  
-0136afa08967f6e Lucas Stach           2018-12-17  232  	/* steer all IRQs into configured channel */
-5e72917802dd65a Ciprian Marian Costea 2026-03-11  233  	if (irqsteer_has_chanctrl(data->devtype_data))
-0136afa08967f6e Lucas Stach           2018-12-17  234  		writel_relaxed(BIT(data->channel), data->regs + CHANCTRL);
-0136afa08967f6e Lucas Stach           2018-12-17  235  
-f98835ded6dcbb9 Zhipeng Wang          2026-11-04  236  	/*
-f98835ded6dcbb9 Zhipeng Wang          2026-11-04  237  	 * Mask all interrupts before wiring up the chained handlers. CHANMASK
-f98835ded6dcbb9 Zhipeng Wang          2026-11-04  238  	 * has inverted polarity (a set bit enables the interrupt), so writing
-f98835ded6dcbb9 Zhipeng Wang          2026-11-04  239  	 * zero masks the source.
-f98835ded6dcbb9 Zhipeng Wang          2026-11-04  240  	 */
-f98835ded6dcbb9 Zhipeng Wang          2026-11-04  241  	for (i = 0; i < data->reg_num; i++)
-f98835ded6dcbb9 Zhipeng Wang          2026-11-04  242  		writel_relaxed(0, data->regs + CHANMASK(i, data->reg_num));
-f98835ded6dcbb9 Zhipeng Wang          2026-11-04  243  
-95cb660c28dcecf Zhipeng Wang          2026-11-04  244  	platform_set_drvdata(pdev, data);
-95cb660c28dcecf Zhipeng Wang          2026-11-04  245  
-95cb660c28dcecf Zhipeng Wang          2026-11-04  246  	ret = devm_pm_runtime_set_active_enabled(&pdev->dev);
-95cb660c28dcecf Zhipeng Wang          2026-11-04  247  	if (ret)
-54ac29cd11115ed Zhipeng Wang          2026-11-04  248  		return ret;
-95cb660c28dcecf Zhipeng Wang          2026-11-04  249  
-93174c05dd2e9b0 Jiri Slaby (SUSE      2025-06-11  250) 	data->domain = irq_domain_create_linear(dev_fwnode(&pdev->dev), data->reg_num * 32,
-0136afa08967f6e Lucas Stach           2018-12-17  251  						&imx_irqsteer_domain_ops, data);
-0136afa08967f6e Lucas Stach           2018-12-17  252  	if (!data->domain) {
-0136afa08967f6e Lucas Stach           2018-12-17  253  		dev_err(&pdev->dev, "failed to create IRQ domain\n");
-54ac29cd11115ed Zhipeng Wang          2026-11-04  254  		return -ENOMEM;
-0136afa08967f6e Lucas Stach           2018-12-17  255  	}
-4730d2233311d86 Lucas Stach           2022-04-06  256  	irq_domain_set_pm_device(data->domain, &pdev->dev);
-0136afa08967f6e Lucas Stach           2018-12-17  257  
-28528fca4908142 Aisheng Dong          2019-02-20  258  	for (i = 0; i < data->irq_count; i++) {
-28528fca4908142 Aisheng Dong          2019-02-20  259  		data->irq[i] = irq_of_parse_and_map(np, i);
-7db5fd6b751fbca Shengjiu Wang         2025-03-05  260  		if (!data->irq[i])
-7db5fd6b751fbca Shengjiu Wang         2025-03-05  261  			break;
-28528fca4908142 Aisheng Dong          2019-02-20  262  
-28528fca4908142 Aisheng Dong          2019-02-20  263  		irq_set_chained_handler_and_data(data->irq[i],
-28528fca4908142 Aisheng Dong          2019-02-20  264  						 imx_irqsteer_irq_handler,
-0136afa08967f6e Lucas Stach           2018-12-17  265  						 data);
-28528fca4908142 Aisheng Dong          2019-02-20  266  	}
-0136afa08967f6e Lucas Stach           2018-12-17  267  
-0136afa08967f6e Lucas Stach           2018-12-17  268  	return 0;
-28528fca4908142 Aisheng Dong          2019-02-20 @269  out:
-28528fca4908142 Aisheng Dong          2019-02-20  270  	clk_disable_unprepare(data->ipg_clk);
-28528fca4908142 Aisheng Dong          2019-02-20  271  	return ret;
-0136afa08967f6e Lucas Stach           2018-12-17  272  }
-0136afa08967f6e Lucas Stach           2018-12-17  273  
-
-:::::: The code at line 269 was first introduced by commit
-:::::: 28528fca4908142bd1a3247956cba56c9c667d71 irqchip/imx-irqsteer: Add multi output interrupts support
-
-:::::: TO: Aisheng Dong <aisheng.dong@nxp.com>
-:::::: CC: Marc Zyngier <marc.zyngier@arm.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> >  #define MAX8907_CTL                  0
+> >  #define MAX8907_SEQCNT                       1
+> >  #define MAX8907_VOUT                 2
+> > @@ -165,6 +210,8 @@
+> >  #define MAX8907_MASK_OUT5V_ENSRC     0x0E
+> >  #define MAX8907_MASK_OUT5V_EN                0x01
+> >  #define MAX8907_MASK_POWER_OFF               0x40
+> > +#define MAX8907_MASK_RST_CFG_INT_REF_EN      0x01
+> > +#define MAX8907_MASK_NREF_OK         0x10
+>
