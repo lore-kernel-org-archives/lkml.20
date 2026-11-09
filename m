@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794212734;
-	b=dZXfIHvITrQIvLAGI/AWZfT7VPhyMGlRJ4FhlbxNVPQIdkY1YdOUso4vbfGEnahbIFhV
-	 9c/6HM5GOMTD00IQr4pc57xk+b/STlPQsquOEhiBp2e5qkOzsvM0xstJg9QIOAP6mE04+
-	 2F9/1b10DXnx5qak1/rJf7v6RBOin2elWJ3imoDynfohLC/8uVHpb2o05gBMmBr+DnDpW
-	 59lz2uR43n4lo07pwCbBz6mfDPRYWRqk4fpXL8M6eUdVDBuGVwRFRvaltejqSZ8Yy7weY
-	 R3uPDbHyBZIIrtVhe/zoqzpkxst4VVMfiqa8JW6DV7UF3aYK7zudXPg+T0Sx9/nMDyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794212734;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Spam-Flag:
-	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=A4oUi5vp/2emtE9Fr/c3cwsOuJmCimuvjbyahDedgBM=;
-	b=XU7JEzrQpP8ophZQouugTxQ71IVBsE3zmYt+9XtVQNt0H4yeC2ITNvVOzMfzZITYvnyG
-	 Tdipj82YBV1HgVs0uaAvB5qXIW/qOapmOf7J4x7PYra3UItaYnYGGijc23KOp5h2n7i3U
-	 tUvymTXDFSAn3xWIasRxRZDuzBNeCrwleXIhU16u1g+AIwaY6x3ckdDlAhIh4aNud6XRM
-	 2N4uCSAwxA6cZIAyMQXSVK1O7GgRDSVeHvQah7C7ftM86kvhQJWI/phKmI1UBa5nUnyh7
-	 81xRjbuqwhze41SEJpk/y+1UHw5DdqRbwrYLnpGhE8cn2CnC8G5z2O1wjKfumpWHrYA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=faZahCnb;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PQ4F9vJe;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=qAFMvgdc;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vxHSxg6+;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794212745;
+	b=5m3srQ5c5yn2twPK+kDcCnUFPfoB0fH9cgI7xZ9Ie77X72zICMlKY26jwvZ7cSG8F+Cj
+	 q9wllaohoKfmxW4T8JhVmY4XyyMb8llIt7CppdPekC/CFHesMkuJKSzVJ6w951VkqYJYq
+	 i8RBEw0KANISFl9Hm0hblQCM0Es9uQ7k7IdNhw7LBSVDl/188wELyvM8VtkHlbJvilD84
+	 e2sobY4jmI6PqXe/QkU9HmwLHaDGvqcujeFOil4aPZhs9taDgNEHyXXxfUBw9mS0h/Q66
+	 L/S+rPfnaPeA84buV84AdINQvJY6TvpzTDq/Fw1RpojQ+XZS/dLDpnswySsHSbAVkjA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794212745;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0X4LhfmP/kb8JXQdJU0Iyockx0Jve4fj4xU5jma0V/8=;
+	b=Rs+7ODpPe9H/xc5ASx80/fgVLXcEiuf1acEB65oscErbNOewg2yz5MfBRJNIUvK3c3j8
+	 qguTVJFmr0wWJfGJcbYkyj4hgk7JuJH1nR5mIeZWAHc5Sir4eyfG7nPmPh6jb63Ur32Ci
+	 HCqcKxvDodOQ40g+1VhVjrMHlT5xxB2AqxBP0qKIGrXr4qZBT51qp1N8VRKUZqIcvrn+V
+	 OCM9vE/NKypo7oabCwnYoBWIodv6Y4SM0MP8efckIDMebaEiDNPSQG6ICdy7HgvSy95q1
+	 t//UY/27FKyjHKUEbPu+yWpgwzV34Pq0HBYp9ANifvCJNlA17Xm4oXutto4l6sW2Q+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eCt6kjnM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49E2606A31C;
-	Mon,  9 Nov 2026 08:25:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E49E2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF77606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:25:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BF77606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=faZahCnb;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PQ4F9vJe;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=qAFMvgdc;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=vxHSxg6+
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id D458F2217D;
-	Mon,  9 Nov 2026 08:25:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794212732; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=A4oUi5vp/2emtE9Fr/c3cwsOuJmCimuvjbyahDedgBM=;
-	b=faZahCnbv+T2hWi3ztV9rljCL41+ZO9ySPETSV3cqB/IZwXJ0nyNr/GZ23YYXSCpe/jmGd
-	jTiQEnk9A4X5/7NzbJ1/wcSVbe/JlBA8/LFSOwxlLVR+yJP4lojdchqlddUYOgY/AM2Y/o
-	QawCtBhnEhj0eQT/uzU+aYb28mt3P7Y=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794212732;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=A4oUi5vp/2emtE9Fr/c3cwsOuJmCimuvjbyahDedgBM=;
-	b=PQ4F9vJe9cSNP9BjDWlUA53CM7wCM1ZJzVDGp+TA3G1DhSrGlMRgZAQSoi5hdFwnDxINBH
-	VsffLtIaMvVta9Dg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794212730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=A4oUi5vp/2emtE9Fr/c3cwsOuJmCimuvjbyahDedgBM=;
-	b=qAFMvgdc/kSzIvkUXKr5AIws2s9zRqx60KZ6y9asdE9TE5iHc7ZR61Xh517p5F333QNgWp
-	45PPJURT1MD9iV9xFZZDAhboIWcFxOT8d1QUqKpa1lft9pBIwYt7aHvLYt4xgVyyPDPi2Q
-	ZLuIbXii2VgsoGcBDN4E4Wfat2VqBqI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794212730;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=A4oUi5vp/2emtE9Fr/c3cwsOuJmCimuvjbyahDedgBM=;
-	b=vxHSxg6+xLdPLIcD0v8xKJVkEp9VGGIqhbdSEUoYDExfGH+MUXKt83NPyov1tnyLsgcc3q
-	9JC3IiGhqRzTrODQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 847E013302;
-	Mon,  9 Nov 2026 08:25:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id kMjXFnqD8WqEaAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 09 Nov 2026 08:25:30 +0000
-From: Takashi Iwai <tiwai@suse.de>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] tpm: acpi: Fix memory leak at tpm_read_log_acpi() error path
-Date: Mon,  9 Nov 2026 09:25:24 +0100
-Message-ID: <20261109082527.541901-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eCt6kjnM
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso1197849eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:25:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794212744; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GRXWk6SFZyxS1EnnZGoSnqm1uBxZHEZXVBIH9bhEPrgb/98cHwPb/MhvRToD0TaC8/
+         PELSh/Y/kKYDUcFDNX2eL6PSWqoVOD2bwmUk9F3tYXGS2pqSE+6ofx4MP7F0bMl7zgxj
+         axZRoHnLUxYFY9QbQmKdaRwC6Yhp4mDkK1c9i53iTWsBQLxsqDPHUfBFDfPKSHx6Kqxs
+         OnXjkY4lc+1Y8/FsV+jyR6759VxNVg4NJXxBKGRy+QapIMcfJGIAX3xLxXF5QP9LxKdA
+         xTrqHdc4BWtZWn1a+9jsfWT0f2oujBtJvsSBpHEOBb82N/tx93zpB/ijZCdsb0dyRPGa
+         RrGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0X4LhfmP/kb8JXQdJU0Iyockx0Jve4fj4xU5jma0V/8=;
+        fh=0jAhIGTrlwLOU7UVwcHmmH7788GbTwal7SX3xHhC3zg=;
+        b=r47aT05Ta6Li6sZ6Mzap6doh6Vu4GWclMNKUVFpKVpqw7ngzGpwsXt76Sq6UWOxk6/
+         3jPWYc7siQf2bTBTMyWOHtSWxNW3F5L/HVa+96aD7qzsLTbtN86lFE3GFFk2fgAINdnJ
+         7/uXDYO1jPDnI40TAlQEE8WGOev5QvX4eLorb2oCbaCw7VI8UniGZ1SqLQsCNc65EaX5
+         EIyjbIx7Uvvsm5d6pds+z/nMMz6nj/5wNGoVPu6NDbkkzz5nRCRg1u2wDnEb3MitVBvg
+         +iJxgdhjtG0FpcPQJX09LooNqOnh1FETJ6PRbefL35K938md76cIsY160eY0sSWJAbpl
+         nTcA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794212744; x=1794817544; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0X4LhfmP/kb8JXQdJU0Iyockx0Jve4fj4xU5jma0V/8=;
+        b=eCt6kjnMpDgG1ATD22usmrbzNUIUJfC4+/3SSzvAnI0ltHHz2VtJgZYny9zPt6p6Cf
+         VmEMQhU+zbc9ggs/CYP2QkM8fWx+Te2VDOAJq9LN6MZR55qN/5Z+2OjIPsy7ZF9QhYlq
+         VMsqj86BaopIctP72SraDac9FY1MdhSuijcv0NrK+BZ6Jg3e7fG83wJOSugK2LRK5uQn
+         6SohutqnizbdfYf1KCSZM3Tq2d8XsCXvzXCrVMIXJcXnoUC1vUKCZ0OxKWL/MDd2dTaR
+         DOhsDYVpIn1/2Q2RzSfjnaaeWno5AmjoNNhOCfr3qkg3cJic2KvoyL87Shn2Y4CNhyra
+         wkpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794212744; x=1794817544;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0X4LhfmP/kb8JXQdJU0Iyockx0Jve4fj4xU5jma0V/8=;
+        b=UPnq/eacpUqnBsiaUD0P71Be2sBvQKMw/lSChAqvzg7snaMF7RPqZgkxvTG1qX8/7D
+         OtVobfXizyJetXS1j+qzVjeeMRspHsQZO8MWmegOKMwMqvsm8pehBQ6ruA7icqntvZ4E
+         fjPkjqKpTfRNPcmxNeb3fKv93Ef9zPTAshMkrWj7qLL/UqpCUVRpmoiBgLaEriE1hD5T
+         SnNOLQsqNJ07rDLTy6TD23/T2pfcJmfy82mpWA7rHqMxzAdoacUo9sbEBdYFLTiZ5CZr
+         jqVVDshEyquGWxabdeKdkxsxFNpUdzpmbPaFcWEtFAFtmtC/jBB5XMjhqOksMLhEe/q4
+         OdAw==
+X-Forwarded-Encrypted: i=1; AL+hErHTVIiHKz5cdrmC5IVWV9dHCK2ZdVGIfvzfMK2nVFeRVnaZc6oa4/EVTDIxEu/3jP8eiHjM4dtUwbjYFsI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+W/q0gOlzn4zSajkniyp1Lx/AYc4wmJO1tVGIZP/TPj0QN34Gi
+	4WawGOBl7uQBZfC0POpeSsj50RJJmQCy98goHMtLt1SKjvole7ZoT7Z2sgenPfT5sDH+Vj9YemG
+	G9DTd2bEq4lytjMTkpfSu1d6CjICyXfQ=
+X-Gm-Gg: AYBFou0HrNJ8LCqtYCbS1wM/Y77ovCUVzlQz915trnxq4xfB+RW14zGene7uB30R5AO
+	oiEqhU52I4DNMF1cPdcE2EZmgKISHmN2bXh/7pf+1/c/buCmhgKyqxACsQMKBp95UGG29Obn5BO
+	ErjWIFPvbdGsbATM9kMgAL1jmkJ0szf7jNH6jxrN6MCaXS+xSNkV197yQlcFrO95m0o+lLh8kKy
+	TtDzomSopvpd1YtgCjHHudkFB7O59kSlC1SVuvW79pg70nvyVpTjiVZlI+C+OrQt/Q18EH9u+kj
+	e1XDo3/pf9KK7UA3C44xNfYr3loxFjO+zvlqm3yWAMKQt8WcUAexDv4m61WJNfwReN2YcSl3c5k
+	l3kRxgNvh8HYIQOKpN1JxZ6DWZY0gY3gYnO9d+MUSfP7vQmrtJBL8Z2N5J7bVBUQnK2kW
+X-Received: by 2002:a05:693c:8941:10b0:36d:f004:ae6e with SMTP id
+ 5a478bee46e88-372571d8680mr6442806eec.34.1794212744367; Mon, 09 Nov 2026
+ 00:25:44 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,62 +104,245 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-11.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[gmx.de,ziepe.ca,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FREEMAIL_ENVRCPT(0.00)[gmx.de]
-X-Spam-Score: -11.80
+References: <20261108074733.248784-1-hj351016@gmail.com> <179421246928.994134.4691531527341185507@kernel.org>
+In-Reply-To: <179421246928.994134.4691531527341185507@kernel.org>
+From: khj <hj351016@gmail.com>
+Date: Mon, 9 Nov 2026 17:25:31 +0900
+X-Gm-Features: AclHuK9eAUiDtMPLiXAXqngFp10UUm9BXsLJcVw65tcB1NHPhojqGG_5DdAb4cA
+Message-ID: <CAGr5VtOkBt1duzjEMtgP-0OUiuxRzfTDz_BC9K=uuZtrK0ZLfQ@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: ti: icss-iep: fix deadlock when disabling PPS
+To: netdev-bot+sashiko@kernel.org
+Cc: danishanwar@ti.com, rogerq@kernel.org, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When devm_add_action() returns an error, we do NULL-clear
-log->bios_event_log unnecessarily before calling tpm_bios_log_free(),
-and it would lead to a memory leak of the allocated log buffer.
+Thanks for the careful review =E2=80=94 both are fair.
 
-Fix it by simply jumping to the err.
+On the [Medium]: agreed. Draining outside ptp_clk_mutex is what breaks
+the deadlock with icss_iep_cap_cmp_work(), but it does weaken the
+enable<->disable serialization that the mutex used to provide, so a
+concurrent sysfs enable can now race the disable's drain as you
+describe. The deadlock and the ordering are in tension and a clean fix
+needs a small restructure rather than just relocating the
+cancel_work_sync().
 
-Fixes: a3a860bc0fd6 ("tpm: Change to kvalloc() in eventlog/acpi.c")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- drivers/char/tpm/eventlog/acpi.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+On the pre-existing [High]: agreed, and thanks for spotting it =E2=80=94 it=
+ is
+a separate bug from the deadlock this patch targets. icss_iep_exit()
+unregisters (and can free) the PTP clock before the perout path is
+torn down, and icss_iep_perout_enable(off) never drains iep->work, so
+a late icss_iep_cap_cmp_work() can reach ptp_clock_event()/pps_event()
+on a freed or NULL iep->ptp_clock. That deserves its own fix (drain
+the work in the perout teardown path / order the unregister after the
+disable), which I'll send separately rather than fold into this
+deadlock fix.
 
-diff --git a/drivers/char/tpm/eventlog/acpi.c b/drivers/char/tpm/eventlog/acpi.c
-index cf02ec646f46..50770cafa835 100644
---- a/drivers/char/tpm/eventlog/acpi.c
-+++ b/drivers/char/tpm/eventlog/acpi.c
-@@ -167,10 +167,8 @@ int tpm_read_log_acpi(struct tpm_chip *chip)
- 	}
- 
- 	ret = devm_add_action(&chip->dev, tpm_bios_log_free, log->bios_event_log);
--	if (ret) {
--		log->bios_event_log = NULL;
-+	if (ret)
- 		goto err;
--	}
- 
- 	return format;
- 
--- 
-2.53.0
+Since this is hardware I cannot test (am654 icssg PRU) and the clean
+fix touches the PPS/perout teardown and the ptp_clk_mutex discipline,
+I would appreciate the maintainers' preferred direction before I
+respin =E2=80=94 in particular whether to re-serialize the
+enable/disable/drain differently or to move the drain into
+icss_iep_exit()/perout teardown.
 
+pw-bot: cr
+
+2026=EB=85=84 11=EC=9B=94 9=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 5:21, <=
+netdev-bot+sashiko@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 (1) =C2=B7 Medium: 1 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] This patch moves cancel_work_sync(&iep->work) in
+>   icss_iep_pps_enable() out from under ptp_clk_mutex.
+>
+> Pre-existing issues:
+> - [High] This problem wasn't introduced by this patch, but it is a use-
+>   after-free / NULL dereference in the teardown path that the new guard=
+=E2=80=A6
+>
+> --
+>
+> net: ti: icss-iep: fix deadlock when disabling PPS
+>
+> This patch changes icss_iep_pps_enable() so that cancel_work_sync(&iep->w=
+ork)
+> runs after ptp_clk_mutex is dropped. This avoids a deadlock with
+> icss_iep_cap_cmp_work(), which takes the same mutex. It also makes
+> icss_iep_cap_cmp_work() return early when neither pps_enabled nor
+> perout_enabled is set.
+>
+> > diff --git a/drivers/net/ethernet/ti/icssg/icss_iep.c b/drivers/net/eth=
+ernet/ti/icssg/icss_iep.c
+> > index ec085897edf09..3b2a88c2dad88 100644
+> > --- a/drivers/net/ethernet/ti/icssg/icss_iep.c
+> > +++ b/drivers/net/ethernet/ti/icssg/icss_iep.c
+> > @@ -534,6 +534,17 @@ static void icss_iep_cap_cmp_work(struct work_stru=
+ct *work)
+> >
+> >       mutex_lock(&iep->ptp_clk_mutex);
+> >
+> > +     /*
+> > +      * PPS/perout may have been disabled (and the compare hardware
+> > +      * cleared) while this work was queued or waiting for the mutex.
+> > +      * Bail out rather than re-arm CMP1 and emit a stale PPS event on=
+ce
+> > +      * the event source is gone.
+> > +      */
+> > +     if (!iep->pps_enabled && !iep->perout_enabled) {
+> > +             mutex_unlock(&iep->ptp_clk_mutex);
+> > +             return;
+> > +     }
+>
+> [Severity: High]
+> This is a pre-existing issue, but does this check cover teardown when per=
+out
+> is enabled instead of PPS?
+>
+> icss_iep_exit() unregisters the ptp clock before it disables perout:
+>
+> icss_iep_exit() {
+>         if (iep->ptp_clock) {
+>                 ptp_clock_unregister(iep->ptp_clock);
+>                 iep->ptp_clock =3D NULL;
+>         }
+>         icss_iep_disable(iep);
+>
+>         if (iep->pps_enabled)
+>                 icss_iep_pps_enable(iep, false);
+>         else if (iep->perout_enabled)
+>                 icss_iep_perout_enable(iep, NULL, false);
+>         ...
+> }
+>
+> Inside ptp_clock_unregister(), ptp_disable_all_events() only sends
+> PTP_CLK_REQ_PPS. icss_iep_pps_enable(off) then returns -EBUSY because
+> perout_enabled is set. So CMP1 stays armed and the work is never drained.
+>
+> ptp_clock_unregister() then unregisters ptp->pps_source and calls
+> put_device() on the ptp device, which can free the ptp clock. After that,
+> iep->ptp_clock is set to NULL without holding ptp_clk_mutex.
+>
+> Later, icss_iep_perout_enable(iep, NULL, false) clears perout_enabled. It
+> never calls cancel_work_sync().
+>
+> During this window icss_iep_cap_cmp_irq() can still queue the work.
+> icss_iep_cap_cmp_work() gets past the new check because perout_enabled is
+> still 1, and then reaches:
+>
+>         ptp_clock_event(iep->ptp_clock, &pevent);
+>
+> For PTP_CLOCK_PPSUSR, ptp_clock_event() calls pps_event(ptp->pps_source, =
+...)
+> without a NULL check. Can this touch a freed pps_source or ptp clock, or
+> dereference a NULL iep->ptp_clock?
+>
+> On am654 with icssg_prueth (clockops perout_enable), this looks reachable=
+.
+> Enable perout with PTP_PEROUT_REQUEST, then bring the interface down, whi=
+ch
+> goes through prueth_emac_common_stop()->icss_iep_exit().
+>
+> [ ... ]
+>
+> > @@ -607,7 +619,7 @@ static int icss_iep_pps_enable(struct icss_iep *iep=
+, int on)
+> >       } else {
+> >               ret =3D icss_iep_perout_enable_hw(iep, &rq.perout, on);
+> >               if (iep->cap_cmp_irq)
+> > -                     cancel_work_sync(&iep->work);
+> > +                     drain_work =3D true;
+> >       }
+> >
+> >       if (!ret)
+> > @@ -616,6 +628,15 @@ static int icss_iep_pps_enable(struct icss_iep *ie=
+p, int on)
+> >  exit:
+> >       mutex_unlock(&iep->ptp_clk_mutex);
+> >
+> > +     /*
+> > +      * Drain the capture-compare work only after dropping ptp_clk_mut=
+ex.
+> > +      * icss_iep_cap_cmp_work() takes ptp_clk_mutex itself, so cancell=
+ing it
+> > +      * under the mutex deadlocks against a handler instance already r=
+unning
+> > +      * and waiting for that same mutex.
+> > +      */
+> > +     if (drain_work)
+> > +             cancel_work_sync(&iep->work);
+>
+> [Severity: Medium]
+> Now that the drain runs outside ptp_clk_mutex, is the disable still order=
+ed
+> before a following PPS or perout enable?
+>
+> The chardev ioctls hold ptp->pincfg_mux around ops->enable(). In
+> drivers/ptp/ptp_sysfs.c, pps_enable_store() and period_store() call
+> ops->enable() without it. That means a second writer can take ptp_clk_mut=
+ex
+> between the mutex_unlock() and the cancel_work_sync() above:
+>
+> CPU1                                  CPU2
+> icss_iep_pps_enable(iep, 0)
+>   icss_iep_perout_enable_hw(off)
+>   iep->pps_enabled =3D 0
+>   mutex_unlock()
+>                                       icss_iep_pps_enable(iep, 1)
+>                                         icss_iep_perout_enable_hw(on)
+>                                         iep->pps_enabled =3D 1
+>                                         mutex_unlock()
+>   cancel_work_sync(&iep->work)
+>
+> Two outcomes look possible.
+>
+> In the first, a stale work item from the old session gets the mutex after
+> CPU2. It may have been queued by a CMP1 IRQ just before the disable, or i=
+t
+> may already be waiting in mutex_lock(). The new check in
+> icss_iep_cap_cmp_work() only looks at the flags, so the item gets through=
+.
+> It reads the new start value that icss_iep_update_to_next_boundary() wrot=
+e to
+> CMP1. It writes start + iep->period back, then reports a PPSUSR event for=
+ an
+> edge that has not happened yet.
+>
+> Would the first pulse of the new session be skipped, with a bogus timesta=
+mp
+> sent to userspace?
+>
+> In the second, CPU1 is delayed until the new session's first CMP1 match.
+> icss_iep_cap_cmp_irq() queues the new session's work, and CPU1's late
+> cancel_work_sync() removes it before it runs.
+>
+> In the non-clockops path, this work is the only code that advances CMP1 b=
+y
+> iep->period. icssg_prueth_sr1 is one example, since it calls
+> icss_iep_init(iep, NULL, NULL, 0).
+>
+> Could PPS stop for good here while pps_enabled is still true?
+>
+> Before this patch, ptp_clk_mutex serialized the disable, the drain and th=
+e
+> next enable.
+>
+> > +
+> >       return ret;
+> >  }
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20261108074733.248784-1-hj351016%40gmail.com
