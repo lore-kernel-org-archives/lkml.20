@@ -1,62 +1,94 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794225833;
-	b=xLmVgehzpbcT9FSW3IUZfHVkbOF7MsbAAbrApkH2GVoZmMGMFneYcMXK76qJ4EOhanNo
-	 8Q0F7L+36Kg++Ht9f+Tvey5NR56TNWJXIDIJBuWdCvTSA3yWWsnwHNOg7lWngmXKJkUr7
-	 wBoGG9nqTztesC8MQSpFUsaMJDHj5h/ugAytxwKPvhVpYqXJo1+/bUSIg/aaT0unxIw6+
-	 ApOsMtPS33LEX4wdjFA4yH3pC9qUrC7Zw3KLd0G05HSl9cvDIWFa8cf4nTQTazfxTaobK
-	 rV48yozrwz6rJCGdSE1HrTHzDnjxj22kTDzBwPkXF0QnEeEwvmAUie85wfTLjGjUlJA==
+	t=1794225851;
+	b=XD6D1vChjjDz/kV793uvtSNPra3lGUmhwKUgO1CSuRSl0V2wZUhqIrHpz71kasZM/SNr
+	 Y+qA8YixmocDVBGdKz3HaV2Xnybmk4AZnM2ttWALa5DrAtsd2za5y/EAEN08d4sv+Y+X3
+	 bZIbEtt8OyCZ2F4XmJSqjDHkp/ScKk5ly0ePHJfWJMXUVVZHzwfCzvhSDbKVcPZG3tAQI
+	 mW1mDWJqjsOeHCaxGltX64TwzXfEwQoUxC8lPg1+fMLoSNXKw7Z3QcyEh+Il2sXcyGWEJ
+	 hZNvF15UcLlSnRvXoWJ+vfeYkKnDWQwIzMxbnPlPNqYgp+B8jqu+uj94ppDVxT8c0RQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225833;
-	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
-	 Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=wMtSYrvIc4h6USEC7xnaUKnHEtbCErLUvfEfWz0PR+o=;
-	b=N8JirjvoGOFv383Jz0HwhLmjJb3IoLGeAuNudoRsZ50urjg0ZfEzk7rngcR1cEWw9q/z
-	 y2nxvU76FjVC2MOwBwgV+Uy6mdHjyyrjKpbEV4vBb5dxsUORtSTeRINSjMPq8gWqjTv72
-	 FkJZ7KoXVQ7uufZuIeIMBJl7VHtvx2bSzNXQITIAinB6nYv7GCKZs6SYaTkQyazJEIOQP
-	 UoOAXpyOWpC6xBfMLqLpA4x6tw7iPwIUlikUiaTVPNo9ZvIfGw36XOnV6fDxlT91KrulB
-	 GcGyc5aIA2xGtBIsm1I2FvCWk2wFhST9ss9c1+Wc4lynuj1xK7u+jRujuKZPJpI2lSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225851;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=WjpWwRoUxqORiuW5H8xBd+5jmlpNuL8fp0DqP1kmC84=;
+	b=qD74yo1Ik0pAgKIebStl8zBEnVFeFdfgve4VFz5EMaeXcd56a6HrsEMpFaFumwZX8JC+
+	 VQcwQJ6+HoXulx+BgncHJuDeUqEgYsvIf5BZGtxD+DoJgz0FBiHSnfsa55ZSc7PNaEXDC
+	 Ld1+XsytUDjZhIHQvW8evYxMJCRal0hvWRMgTqLcBTL36l9b30auc++0VFunvGqUGBXid
+	 B5GkLzyhGjx9XycyIOGcupfjf9Zbo3Rh2x5ktUHvfwprbDgUZywj1Z+lwt0dCPSx78DpM
+	 P/L4/2zOWGuQ3gZVYZ1iJfNEhuu9vWPZ06FbjkNbsziAyL1NwnKgtyBrnGPDEsl4auA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L70ClGoV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETwjozXJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A8E606A322;
-	Mon,  9 Nov 2026 12:03:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E97606A31C;
+	Mon,  9 Nov 2026 12:04:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L70ClGoV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB461F008A1;
-	Mon,  9 Nov 2026 12:03:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETwjozXJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843F81F008A1;
+	Mon,  9 Nov 2026 12:04:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794225833;
-	bh=wMtSYrvIc4h6USEC7xnaUKnHEtbCErLUvfEfWz0PR+o=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=L70ClGoVofngmEXKMSxA5TIWaEqCyQfwyRt4NsM06gjrYYqPuDZzJQpg6ULpzyrJl
-	 g7Y884d6CMPwzAJMEx07ShAulnx5SKf7ONsnzUbuJikmSRgArLj0Dl5EX98CfywkLz
-	 HGdrrt4OZhNZN6UBWsDvIhW9Wq1L99VLLT4qW+YVjpxTSjHHsrReFhPJN9eWNL3YgI
-	 MD/Y1a6kNoVSiVJZHMsIJsBpX68O7oGQ1Z009mnXT5wYxsAoOlObW0K0dFtenobA4A
-	 KVS3tayXrhn1cQbawILDy9CuDU01/sWfnH8vhOG/5QsOz4u6M4g99YDqgIbVOFxpn1
-	 QZlsD0XHvhoDg==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 993CD2D3F7F6;
-	Mon, 09 Nov 2026 12:03:50 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Peng Fan <peng.fan@nxp.com>, linux-kernel@vger.kernel.org, 
- driver-core@lists.linux.dev, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Johan Hovold <johan@kernel.org>, 
- Victor Chernyakin <chernyakin.victor.j@outlook.com>
-In-Reply-To: <20261105103533.1426533-1-andriy.shevchenko@linux.intel.com>
-References: <20261105103533.1426533-1-andriy.shevchenko@linux.intel.com>
-Subject: Re: [PATCH v1 1/1] regmap: Add REG_FIELD_GENMASK() helper macro
-Message-Id: <179414263152.3630016.3105370657040522784.b4-ty@b4>
-Date: Sun, 08 Nov 2026 12:57:11 +0000
+	s=k20260515; t=1794225850;
+	bh=WjpWwRoUxqORiuW5H8xBd+5jmlpNuL8fp0DqP1kmC84=;
+	h=From:To:Cc:Subject:Date;
+	b=ETwjozXJSSOvcdyCj2pca63oXADmvVfEFkctq61Ao83RAD/OLMfK4ujCSerswmmUC
+	 7yrrrWzyxUUyROaKUdklIZlLvFq6Un3l/CFpU0GUvSk17zZw627jgxlyt0Zb1cLnrw
+	 X1BEVKKCfTe4IufBNBnifE9/xTCLmUpFlwxVGULaQ6Y8ov3f3jsYFfJhGwJC5EuP1m
+	 yshAEdCUITxALtPt7SUgK99yws/hv9UKS/pDwBvccgSRYzCetiq7n8/FmHFMhw7OVu
+	 BNHi6LxiY+rsBPzCf88iUQhyl0BJjdIbykvSGIxzqEalKwnfhvb/a/fVHDef542/08
+	 guRWu66IZ77IQ==
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 9AAC8198003A;
+	Mon,  9 Nov 2026 07:04:06 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Mon, 09 Nov 2026 07:04:07 -0500
+X-ME-Sender: <xms:trbxatRLoPBG1NeqH7ioJIPFldkF3zaIzKST2oagIS7LoKeDw494ug>
+    <xme:trbxagINNwnSDYYW55zgX8WRGGtQUsABhIs683B7DptccrfUYs9eyG7Onc78lF0lu
+    Ij59lrev_QNpryq_bRAtmKsAqF4cPVzUbcSa_xMuUm4mN-hD-otI7Q>
+X-ME-Received: <xmr:trbxarWT9-sax744EaZlXii62cem9i0gq81u8oa8W1-2zG6nMaMR4g0QW3M>
+X-ME-Proxy-Cause: dmFkZTEHeVVHUfqtfb1dOm5TRDKriBPa5Y3nL88tgXPkdBA7ZkCSLFFLB1zgEH9NW+5VLm
+    BnGFV8AzpWanjsQgMjRDtL18fRWfmrbvT9Kq2tGBzg4BxhKbogbw/s4weXCjKe6qd3bpN+
+    19tWGmXIt8/jlzlfW5T01rycYM+poyjxXPXXvUkQYbyyIhx8zEwqLRbSHzFk5BNOfeJBWw
+    6Dl6gN+UoYmUlwHIklPkb8ESWEeArFhT7NLRcBXkc+cGkaj8QFVR7LTs1IsTKBSDnLo4Kg
+    0Sw5chq6FO3hykb7WRjq/pROrmX7qm/w1Xuuvh5P8ajT/IOdb6norFFHtza+dsflcYBEi0
+    rHd+hAfE+D3SpifmKvOcV0vpU2e2B+fG/49SFeZhLZZ/3y1Veg4VpgTa+D6sKgITEWbZ28
+    OrXMDHgZucK2dnv9fp09KHyltF+ipGp2B25beRSmKMVY55TCwle4C9Nly1OKuwOVfLsxwo
+    5iwKlE7K6H6xeS/ra1r74DJwxeoYQoGW1K7EylVfeMTVunyt1A5xqLpIHX2S0ZJ/nI56PA
+    0hbe3pcCWwppcAAp8pHGoGkE8ylIUFsIpHMSlsmhnFi8unnwl+ive3I4kVsU+yasZ2jhcq
+    aA30ViCngLwfiAk4dTU3uerJP00sHIwdzWeN4ZrT+8DqmcLNSC/P1bMSahZw
+X-ME-Proxy: <xmx:trbxakgAM0RPlCx0UdziTwvAftHHjQWxkKNsDX4anSOpzz0GuV0qRw>
+    <xmx:trbxanvUBG0bMZ3ZxIborj2NynTjwa75DUlEFlGlnEMsrGg8s1LpwQ>
+    <xmx:trbxakzE2vpwa_nS6ssxfVBVllD97ylsl4VgTmZdp4XReaqDh4rG0Q>
+    <xmx:trbxasZ-h_Pv52opcJWwwTzQXd_pU7eIZQpotN4gsiQDBz7TnepZ7w>
+    <xmx:trbxajWdY0gr-VitKbxAqKwY09yE4ClbQYMp03R_4-U3auKAW62XfCji>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 9 Nov 2026 07:04:05 -0500 (EST)
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Hugh Dickins <hughd@google.com>,
+	Chris Mason <mason@kernel.org>,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH v2 0/2] mm/memory: refuse to map page cache folios that are not uptodate
+Date: Mon,  9 Nov 2026 12:04:00 +0000
+Message-ID: <20261109120403.82361-1-kas@kernel.org>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,46 +98,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1111; i=broonie@kernel.org;
- h=from:subject:message-id; bh=jKSZJDE6GqUtCks2pcewI8YqyDLOdEI2/I/ufXaxSzA=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+blsWX1men9aWI/eoU8BVq+t+62W2BLm88/wH5c7sO
- nC79rZqRykLgxgXg6yYIktcFvfL+pLXa/gOLmyDmcPKBDKEgYtTACZipcbwV0is6PIsnfgHRWqP
- cg0mJTlw6b6LbY4t67DY+25lV2CBKMP/6F8ifmxhnkkHTl1Jnb03/e02Vgfz7mUZ6l/vmCS+kpr
- KCgA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Thu, 05 Nov 2026 11:34:54 +0100, Andy Shevchenko wrote:
-> regmap: Add REG_FIELD_GENMASK() helper macro
+A page cache folio that is not uptodate holds data that was never read
+in or cleared. Each path that maps page cache checks for this itself,
+and a path that misses the check leaks stale memory to userspace.
+MADV_COLLAPSE did exactly that with fallocated shmem THPs.
 
-Applied to
+Patch 2 adds a backstop: warn and refuse the mapping in __do_fault()
+and do_set_pmd().
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git for-7.5
+Patch 1 fixes a race the backstop would trip over. do_shared_fault()
+unlocks the folio around ->page_mkwrite(), and a writeback error can
+clear PG_uptodate in that window. The fault goes on to map the folio,
+and stores through the mapping can be lost when it is read in again.
+Retry the fault instead.
 
-Thanks!
+v2:
+ - New patch 1: recheck PG_uptodate after ->page_mkwrite() (Sashiko)
+ - Check in __do_fault(), before the folio is unlocked, instead of in
+   finish_fault()
+ - WARN_ON_ONCE() without a message
+ - Rebase on current mm-new
 
-[1/1] regmap: Add REG_FIELD_GENMASK() helper macro
-      https://git.kernel.org/broonie/regmap/c/cbd74ec34c06
+v1: https://lore.kernel.org/all/20261106144323.3634477-1-kirill@shutemov.name/
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Kiryl Shutsemau (Meta) (2):
+  mm/memory: recheck PG_uptodate after ->page_mkwrite()
+  mm/memory: refuse to map page cache folios that are not uptodate
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+ mm/memory.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Range-diff against v1:
+-:  ------------ > 1:  632ab50e643d mm/memory: recheck PG_uptodate after ->page_mkwrite()
+1:  af1dd44c0e1b ! 2:  1e329f330c41 mm/memory: refuse to map page cache folios that are not uptodate
+    @@ Commit message
+         leaks stale memory silently. MADV_COLLAPSE did exactly that with
+         fallocated shmem THPs until recently.
+     
+    -    Warn and refuse the mapping in finish_fault() and do_set_pmd().
+    -    finish_fault() checks the folio ->fault() returned rather than the one
+    -    it maps: for CoW, do_cow_fault() copies the page cache folio and maps
+    -    the copy. do_set_pmd() covers MADV_COLLAPSE, which maps without a
+    -    fault.
+    +    Warn and refuse the mapping in __do_fault() and do_set_pmd().
+    +
+    +    __do_fault() checks the folio ->fault() returned while it is still
+    +    locked. do_shared_fault() unlocks it for ->page_mkwrite(), and a
+    +    writeback error can clear PG_uptodate after that; that case retries the
+    +    fault instead. For CoW, __do_fault() sees the page cache folio that
+    +    do_cow_fault() copies from. do_set_pmd() covers MADV_COLLAPSE, which
+    +    maps without a fault.
+     
+         The fault gets SIGBUS, as for a folio that fails to read in.
+         MADV_COLLAPSE fails and leaves the range to be faulted in.
+    @@ Commit message
+     
+      ## mm/memory.c ##
+     @@ mm/memory.c: static vm_fault_t __do_fault(struct vm_fault *vmf)
+    + 	else
+    + 		VM_BUG_ON_PAGE(!folio_test_locked(folio), vmf->page);
+    + 
+    ++	if (WARN_ON_ONCE(file_folio_not_uptodate(folio))) {
+    ++		folio_unlock(folio);
+    ++		folio_put(folio);
+    ++		vmf->page = NULL;
+    ++		return VM_FAULT_SIGBUS;
+    ++	}
+    ++
+      	return ret;
+      }
+      
+    -+/*
+    -+ * A page cache folio that is not uptodate holds data that was never read in
+    -+ * or cleared, and mapping it leaks stale memory to userspace. The callers are
+    -+ * expected to check, so treat a hit as a kernel bug and refuse the mapping.
+    -+ */
+    -+static bool file_folio_not_uptodate(struct folio *folio)
+    -+{
+    -+	if (likely(folio_test_uptodate(folio)))
+    -+		return false;
+    -+	/* Driver pages from ->fault() never get PG_uptodate */
+    -+	if (folio_test_anon(folio) || !folio->mapping)
+    -+		return false;
+    -+	WARN_ONCE(1, "refusing to map a page cache folio that is not uptodate\n");
+    -+	return true;
+    -+}
+    -+
+    - #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+    - static void deposit_prealloc_pte(struct vm_fault *vmf)
+    - {
+     @@ mm/memory.c: vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
+      		return ret;
+      	page = &folio->page;
+      
+    -+	if (file_folio_not_uptodate(folio))
+    ++	if (WARN_ON_ONCE(file_folio_not_uptodate(folio)))
+     +		return VM_FAULT_SIGBUS;
+     +
+      	/*
+      	 * Just backoff if any subpage of a THP is corrupted otherwise
+      	 * the corrupted page may mapped by PMD silently to escape the
+    -@@ mm/memory.c: vm_fault_t finish_fault(struct vm_fault *vmf)
+    - 	unsigned long addr;
+    - 	bool needs_fallback = false;
+    - 
+    -+	/*
+    -+	 * Check the folio ->fault() returned. For CoW that is the source of the
+    -+	 * copy; DAX CoW has none.
+    -+	 */
+    -+	if (vmf->page) {
+    -+		folio = page_folio(vmf->page);
+    -+		if (file_folio_not_uptodate(folio))
+    -+			return VM_FAULT_SIGBUS;
+    -+	}
+    -+
+    - fallback:
+    - 	addr = vmf->address;
+    - 
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+base-commit: b95f8bb86713c860ce8536d22a988b949b884d5f
+-- 
+2.54.0
 
