@@ -1,54 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=103.117.158.91
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794255373;
-	b=POrS7dP2tyz6/X1tWi0MHsFuz1zWR+N8t8FHOBBhr2T7DMokjf73udrBuEo/0xUm2frY
-	 MiEeIeirNIbjFA8AHhM81LwnseBxC5aMa0YXq6TDoLMVZPT1TwUjbouO7+Gtr0dDyyXl1
-	 9LSBNguXXbbw5+j/g/MRMiwX5pcTI2OHDXxTgs3fo9mMWEauevwfy9VApzWh4ERco75t5
-	 jKr0RpbpmCuo8AIbPc0FzgysqH11YHi6Ckvx+qgE8L8dHB27k93z+ZDkwunCTrGEaOr+f
-	 zFvarKkh7GtLyxKfevlyWWdzMRjOLbg1cN83SpyqDk+//yJGfPNu5KRB2XQKWEYHddQ==
+	t=1794255376;
+	b=odFQUOksScm60V0A6XhCQX+QpIOIBFnkogfbSN7pssNePkw0N8lJLKDgpIk18h5uX58c
+	 fwCMzS5cJigMYgwQckG3MmlDf7hhtrmdK+2X6K4cb/feY7u9QKRzhelIGwv1EMUtvyK9V
+	 Y2Rtb8P/QjAwNR9ShKXjYMjNHSx0ROMWr0LW9X4XcEI6yfU9sS8KrEQavV6JHrxfiOwdr
+	 5p7L/5pue23IBnvn106S8DtAjwiXm/wLEJ5e7ebnDj5MWJxnPvy8oY5rkzajSs0uujMu7
+	 /2pAgL9AafhsohPQJYeByYtYsnxIPQ5IxduGiZM2Tnwpn5fj5rJxQth2x8AlzYHttJw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255373;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=NiNGA3mEEis6nXV+E7BAIEjBtF0Ivfk/UEX6Eg2U/Zo=;
-	b=fBbJg7nW6KCWi+DCJc/U4FfUN3nBzh9mTTHHOAG42BxKoflR5WeyQQVcGkRnORJkbNdT
-	 zJIvATY/0sjLwYj7pABNPkHzjXZ90IHA28dbQwt5a5E1z8TEo8BCtmy/+KAbgZnb3+sJ+
-	 Kpv4CjUuZCADVuhn/Ist8k/x8AVMRzx4jni1g/Iryl491tKi8MarIXhoGyPmn+SPr4zwi
-	 Cp2FKamakm2Mzcv7VZowBRUfyUlEizCUYD8NY+fBwJXbebJA6gmwau+94Hv1L3OEik1gi
-	 GtVuh+WOgflNDIwdyQKZoH3xfzf6/eTpjosf5POobN4YyTyIuuPCI7en9lTyvY/XMqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794255376;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=2C2a0rTZmMb1b8kfl4y39LCIMoVYqOlFcBQYRTbTISM=;
+	b=LAKSriy5My6OYbjnqlvs0b9yoFKVjqaQzl52kFh8foFr4vpgC+ufDQjBCj7e5/GqtGqq
+	 qZAS0m1rsj3fO601Itel+ZNBLAHp8QWXEvx7IimDlxCrfSLYPc03D/RufnEx38q7ENTZt
+	 usgv2NZ2Fk0PvUxUd16qAqOMxEvqMChIzRtKbFSAwMtE6W4n63UtjQ33gndear6bAP777
+	 cclpmyexKPu2TSgIrcBxDbmcmjIdRmHhISMBojP+81GFkueoZuhTc16x+WSoAXwHmBGZw
+	 Qjvnd+THaXAOm4uiypUFTP7H1sij43Hr12zBPFn1uaf2ctl/jLpTrduHxr0Ececn7Wg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zohomail.in;
-	spf=pass smtp.mailfrom=zohomail.in;
-	dkim=pass header.d=zohomail.in header.i=@zohomail.in header.a=rsa-sha256 header.s=zoho header.b=Rwtmn6Ow;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=103.117.158.91
-Received: from sender-pp-o91.zoho.in (sender-pp-o91.zoho.in [103.117.158.91])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GytkJLah;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6E1606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:16:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E6E1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E06A606A33D
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:16:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E06A606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zohomail.in header.i=@zohomail.in header.a=rsa-sha256 header.s=zoho header.b=Rwtmn6Ow
-ARC-Seal: i=1; a=rsa-sha256; t=1794255338; cv=none; 
-	d=zohomail.in; s=zohoarc; 
-	b=erZCLL66+1fQWRpIBiKg7j2TY+gkw0XD9MSe3JsdLfzxr3QrarZlJxkbEExc7Gx4NHRhYJ8tvkucNf1feY22oo+QhL/WuTc8AZF1U+dizXT6YdrccE6nAy/44tt1B5YOiDp+apVnJg2tvzQ6p7mWj0ow3sW7O8YoHS0E1v8LMLA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
-	t=1794255338; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=NiNGA3mEEis6nXV+E7BAIEjBtF0Ivfk/UEX6Eg2U/Zo=; 
-	b=MNLBKj+29IHllT8rF0ru1Yj3gzXURUaFibyJCUEZ8dXEBORGGIL95Y7GYvlcLqKKeNIse7Yky7gp0Mxsyi0C6yFOAnZmXSsuhrI3a4FNTmdu+Ki77XMAKYTadLLYYOmkK706CTjcC7rWYcjjVyW/lqSlBnQDHZ8gmQazjHEr/Dk=
-ARC-Authentication-Results: i=1; mx.zohomail.in;
-	dkim=pass  header.i=zohomail.in;
-	spf=pass  smtp.mailfrom=shivamkalra98@zohomail.in;
-	dmarc=pass header.from=<shivamkalra98@zohomail.in>
-DKIM-Signature: a=rsa-sha256; b=Rwtmn6OwsUENniwoHLto46EAP445ByULk+e8+bpaVkbyd6d6LRJvz8Xc5ZJcoNHc5PoqZuJj/ZOVP9BWtinIgWs5Afr2JeVUvDSJGW/r0/YOMCiEgv46MBQa1sefpkaXaUJg63rwLtyUqSVnpYOCHotLVmvjxI9HpcLlRNEJ/u4=; c=relaxed/relaxed; s=zoho; d=zohomail.in; v=1; bh=NiNGA3mEEis6nXV+E7BAIEjBtF0Ivfk/UEX6Eg2U/Zo=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.in with SMTPS id 1794255336648577.8557176644065;
-	Tue, 10 Nov 2026 01:45:36 +0530 (IST)
-Message-ID: <2caf9f85-8d5d-482a-8479-dd682cbf96fa@zohomail.in>
-Date: Tue, 10 Nov 2026 01:45:35 +0530
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GytkJLah
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-53639b8903bso16401861cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 12:16:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794255375; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WLqPYHAFPP3FI0xoSbzrEsdF9ZhkIb3Q7Kxp1uobtPAIQKz1huSyyi0hTwQue+YEjr
+         dFsbLK/GNPGlmzkyV8FmDMITsWvAmXR6q+sUtwLHGbOSqztu4dieIRU57030YuBEf0Lm
+         kFmwe9J1jrHFbLnyWQIC+4izOR4LdRwXUMh/eQ2GZrODP+X9ZgA+0m4PiHshGLdpjigO
+         7YpldeFM/fAvNahymaDmZWWHejgoG+NGM5fQn9XDW85uEIhEvvYoXQ7YNakq8mwl5jgm
+         UWVDYCHwCNC2lLFmFNEDLB+Pio/7tG9ab8mmihvgE9tvfM8wEARLSvJRmhG4gzPC/fJL
+         FXNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=2C2a0rTZmMb1b8kfl4y39LCIMoVYqOlFcBQYRTbTISM=;
+        fh=jOMzWlLnHj8j/f63R+BdGUhSpP/KmNXLOSBFbZ4NQy8=;
+        b=mbLbJGqw5tf+tDm22sgpO02mve1Se3+u8hf/cD5c1CQLfYIo4IXBnuB+p42/ygsr4s
+         NOUQo1SWso2KoBmWc1C5V67P+IFsxT58Ln0jzZ/PpXAvFTkRwq3VoXuvHzxIHW+tfmYC
+         q9ec95n/HIFBU3wUYiT0GJRuO92fwAWS+VjRdonOZntIpoCor9WuaDN1O+dVUESY47aa
+         Rdgq5HS08goQCGbgViFH0ZfoXHBVtPfi+DKN85OEz9bGGN5xcOgedSDpn3AjG9RK4pHn
+         nkOb+clRAuHmFep/Fv7z7M1Jztkia82+pmSBZo32i+pmTOmJNe8pUhoRH81u2xDhhzYN
+         diqQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794255375; x=1794860175; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2C2a0rTZmMb1b8kfl4y39LCIMoVYqOlFcBQYRTbTISM=;
+        b=GytkJLahaC5gSknC2BeSaYjuS5OWPS9Q9faIFwuTOzFH91EGiGs85BgjFUJTt7Eo1k
+         D8CmJqn431qFGnTi0GyFc3ATFK2ttZuCbLbe/3KL11Umhp1wO/COoFsseNvtoyIsQqyn
+         Zae02ZVx3+j6flUP2At7E7YiGNc19tk8PZtWLEDAPiZ5VdBg/e8jfArsWaeTXlG705xs
+         0GdW24ngyMXP9qi/6z+xXenxH563KQe7yhP+3/gRRkr88AHiRxrgnmm29tPrbs2sdLqT
+         +yCEBMMmg8OjGyf3ljZFT0B5Z2rQEUOXoGzYU9eMpH6fMqpZZIjaoFj+ruOaUAsI/N7q
+         PVmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794255375; x=1794860175;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2C2a0rTZmMb1b8kfl4y39LCIMoVYqOlFcBQYRTbTISM=;
+        b=iQY5OVMTERC7xIjv7srqrIv72WrFZec79tbbQHg91XGzn5SeH9OUdOSo5uJaVqCW1g
+         JSC6B9jhlp6uoNmnhtjl/emHYlmULSUBII+yHFW5h21OmBo/+zKYoLd0eqNLNTugsT31
+         as+vTQmgqH+tijVr/JYWf+K/4hACdFQllAKWLuajV67vwd69wTgUmLtIhjySVPEw2cvr
+         uFp9k2VhW+A1cFb8gEspKiuFl650rVfOCZeQwAos1O+d9mYEyrY4CycDmd8Z9J8XPDfd
+         YsZqs9ovelAXj+nEVIdb+geLubHf7VLTfOr0r8lI5NhZs+xaLyWm68OtmPlUxDL1JCIP
+         qIgQ==
+X-Forwarded-Encrypted: i=1; AL+hErEhOFsWL7Q55XhaloYt79Iz9BIQoCLQtjCK9Nejah62ItfBcov7WWop8DSUdwly+RDnbE2ZMsyeZuSpf5I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9pvta94+ANSTt3zwBjcEJIU/M9keWI/0XCRVrBySvTm/ccVmcG
+	QNX23Q9l9iPtXGxWUxqAyElMDz8uMrdMakStCeohcH8KVJEZYxW4Mt/y5AZD30qvFWRWdNqadC/
+	gkplAA1X7eKP0kiBQe/ypA+mUFrltwXAoNPq/U+1F
+X-Gm-Gg: AYBFou26g5CWV9nqzeoi1w4IlTN4jXeenJk9BX7D90xweNdiW+ozNPLgvGz1QeqIzyb
+	o3aLNeqnth4+ynESbYP9Nd8rOm8qQuVXr91Xk1Ma+c83OvHAsTv50tnOVm7ppyt3nUnVfhwMnIS
+	0uMr4Zoc9ZNFOabEya6Ut6KHva6EUMmYksdMbDUn8yeNDaZ0f5WNZCNGAwfaoQ6w7GZVCBEzpqv
+	lTfQLuzrnvClBRLzsdtagwjaFlB/sDnDwWJLEGVb8ACDYFE5gfv43peVW/vecSRr51XUZL7x77Z
+	vPRjmJ79gj3uc7xl+zqNRUL1uKBoi5b09xajwgl8/lIX84hELfiNt8LSbs0sQRXtSWN7RJQYWXa
+	X2o4iqcFDfsXYr/1jQFAcIHQwDCPfiw+s/s4xdLBMVhRyXl/vv0RQRRa24XhmPAMWqziDIZKh4x
+	BJK7+6byYDiOZs1g9rCV1hlbxm
+X-Received: by 2002:a05:622a:54a:b0:533:9381:760d with SMTP id
+ d75a77b69052e-555171314d3mr10861961cf.2.1794255374567; Mon, 09 Nov 2026
+ 12:16:14 -0800 (PST)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 9 Nov 2026 12:16:13 -0800
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20261106164732.3939387-1-seanjc@google.com>
+References: <20261105-tdx-selftests-v16-18-2024e8fa517a@google.com> <20261106164732.3939387-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,45 +109,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: use atomic commit for panel power
- savings
-To: Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Weber <weber.aulendorf@gmail.com>,
- Wayne Lin <Wayne.Lin@amd.com>
-References: <20261031-abm-sysfs-atomic-v1-1-a99068f3b49c@zohomail.in>
- <7aec0ed4-1a4d-446b-8971-580770e3de09@amd.com>
-Content-Language: en-US
-From: Shivam Kalra <shivamkalra98@zohomail.in>
-In-Reply-To: <7aec0ed4-1a4d-446b-8971-580770e3de09@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Date: Mon, 9 Nov 2026 12:16:13 -0800
+X-Gm-Features: AclHuK-l_4iDwO9BiIG7gu2Le8y5Qhu8OB2s6COZZNFQz6VTbcgN6FM9G3ViSYk
+Message-ID: <CAEvNRgGHUL4-KSMCsOHznKK3fpvwh=D-H7OwSaqk2A2T0nL6ww@mail.gmail.com>
+Subject: Re: [PATCH v16.1] KVM: selftests: Add support for TDX ucalls, via TDVMCALL_REPORT_FATAL_ERROR
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sagi Shahar <sagis@google.com>, Lisa Wang <wyihan@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 06/11/26 03:15, Alex Hung wrote:
-> 
-> 
-> On 10/30/26 15:58, Shivam Kalra via B4 Relay wrote:
-> 
-> Hi Shivam,
-> 
-> Thanks for the patch. Moving this to an atomic commit is the right direction, but as it stands every write still ends in a full modeset.
-> 
-> In amdgpu_dm_atomic_check(), any abm_level difference between the old and new connector state sets new_crtc_state->connectors_changed = true. That makes drm_atomic_crtc_needs_modeset() true, and commit_tail skips the abm_changed / stream_update.abm_level fast path. Users would see a blank/flicker on the eDP panel on every power-profile change.
-> 
-> Could you try keeping drm_atomic_get_crtc_state() and setting connectors_changed only for scaling? ABM would then go through the existing stream update with no modeset, like David's [PATCH 2/2] drm/amd/display: Avoid modeset for ABM changes - https://lore.kernel.org/amd-gfx/20260813112634.11455-3-weber.aulendorf@gmail.com/
-> 
-> Please run IGT amd_abm, including abm_gradual, before v2.
-> 
-> Also see inline comments.
-> 
-Thanks for review! I will send out v2 shortly.
+Sean Christopherson <seanjc@google.com> writes:
 
+>
+> [...snip...]
+>
+> diff --git a/tools/testing/selftests/kvm/include/x86/tdx/tdx.h b/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
+> index d41a1efc8a63..9982aaaba885 100644
+> --- a/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
+> +++ b/tools/testing/selftests/kvm/include/x86/tdx/tdx.h
+> @@ -4,6 +4,13 @@
+>
+>  #include <linux/types.h>
+>
+> +/* TDX hypercall Leaf IDs */
+> +#define TDVMCALL_GET_TD_VM_CALL_INFO		0x10000
+> +#define TDVMCALL_MAP_GPA			0x10001
+> +#define TDVMCALL_GET_QUOTE			0x10002
+> +#define TDVMCALL_REPORT_FATAL_ERROR		0x10003
+> +#define TDVMCALL_SETUP_EVENT_NOTIFY_INTERRUPT	0x10004
+> +
+
+No objection, just surprised you'd add all the others that aren't used
+in this patch.
+
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+
+>  u64 __tdvmcall(u64 fn, u64 r12, u64 r13, u64 r14, u64 r15);
+>
+>  #endif /* SELFTEST_KVM_TDX_TDX_H */
+>
+> [...snip...]
+>
