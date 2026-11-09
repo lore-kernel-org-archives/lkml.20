@@ -1,78 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794266609;
-	b=xbYKBENNgzc/bmTqg0LKT3r/bCrYCw+qE4y82vD/eP4jkoXonKHodU/XDYCO2VUi/wdK
-	 Z7F8M0/6rIenCvdVfC4levSUaSareKRhNU4nI1VVZfOuSuIepJ93aIaliCV+HmsvJeL+U
-	 NVL2luXbKxirauagqgONMkcwFc8oGds8VssmT2RTjuVQuSTTOcIovxkgaIed3ERpmxKhl
-	 USB8QuDEW2PMZu1Ss52ToBQWkY9kjuzfF//K/dS/ZnJzNXH0Q/vGA8kxCZQU2yPTQsYo3
-	 S7qyeyIsScbaZOmvIrG3EvnuZgNZnZ9w4UWd1bc/4SahjXwOLkUe4apzJOCwrPYNAtA==
+	t=1794266668;
+	b=4/JtazDacM2DwaZYHw0bqvnY8aChpcLQMUKEWNY4CBEnMBhiOOy7NPACERH3QV5FdknH
+	 AmaD6l15I/xcncbsnulXIdEYUTYeBiNPr23pNGS3JCgh9Sxa9y7ZQ/v5BSmbKwMuADeN3
+	 XPc4P2L3ypRXQSVMMY68awiWVQN2YcbBCruKHHX09yDUwTkiuk4QTgBfq2Yl+1L5FezTZ
+	 3U+IhYVcK4JSeCf9SuE+Uqr3O4x7XjYVJXJ381638PbfXYOSlqeRuC1eJ+PhVMVa0cKPE
+	 FsGbslWzqNelQs2OC9bFEu9uGz66eoPtChRS+SpoCfpzyK5//UKuNjjHx6mqep6GpGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266609;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=e48Nzbt7T7vOsDzpRwzz0Hu8bipDj10FGiC6Sxdi1sY=;
-	b=i2xlrwAWp/K0hyJgz6KpyT/Bb02fS9YJn6iafnMs+1Nig/LDiLh4MeKsW56OaK8SXfa6
-	 BCSX08wgrzYNwxTLedOa7h99ssWZiZ3l/qT4ROqyqskExseCJ9uNKkweT6I91ig0RTBef
-	 bQSJ2uPvfDckWIPAlMve29PiDFjN9cgThAg+dPtsmcXR5jbdwBFaPGlxMSHjuhkpMKt6B
-	 5CI7k58DYyN1hKbI9hkDVzdjVENMX3jRqA0OrECroCdMTqrusSecGLbeKNSTj6Yc1q/Ix
-	 87wX+JURtXj4UaxrSlqPts/16IIN5pLUGA/rMMlqQxnlzz1T80DjjmuvyKPD+sLPKpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794266668;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=9C2s1QNFolN3kugJfyD+5SXr39r+c73y9g8wz+xyicY=;
+	b=OqfbjLyswy3xDGykIlKjO12XM5/lhnNvwjH8+OnbYBwd8OqoMtkffaOHt/ZerMLEtDO7
+	 cvWwr8M/SmbYGE6q/lavNi+PSHNaT5OaDKK9pSXT0Sd1F8aN1+MaaZ/vreLpI5tzm2+fa
+	 N3WYicZunAEdZS8UIkbMapNXX9oJ/2stcC98XzmDCemTjK79sk2gaacFR0YbA/a4gJUfB
+	 fiz1KJRk8FiJ3M+xNpfzVu1/KQqPqAIczf2H8HUpYpsFFzVOc8l7KAcdLsSy54fre2RWE
+	 oxvR9xPWNHku6SWcRxNQAMNQ5wRk+/WBnx0LP0t4CNdYhVBb1hMvQaXYqf1f5jDDIpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Dq0NYGHA;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPLbb08n;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2096606A330;
-	Mon,  9 Nov 2026 23:23:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2096606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03675606A335;
+	Mon,  9 Nov 2026 23:24:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Dq0NYGHA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794266609; x=1825802609;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=m6P+ds4Bbd1GKkcp8yY0sONyxOaaxZa2C99Yj8FwDus=;
-  b=Dq0NYGHAK1iPyxsG7O4jZM0y6b9ZyyYUJQvvoG672eNvWbJsywtka64I
-   NrcQApTAl6QRK+tZ/Zatbx21ejH5AoxF+9HkADj//h7yoTaoz51GZJQVF
-   vj/HlYzTxl2MuJ+DeXmIoM08vixBdXiIsaRublVSP2baET3lBEzTDZoNr
-   9qXDMln61l6qR8b+SZf3tUBMIIJcLqBMMU0Jz17RPVSXzq90OND9WQqQJ
-   FXK3vcomFIFZxT2lyWkexgJjBNKdzv6l7Y4B6cuHuvRwltWuUanjxNLCQ
-   qIsCZYwszQoNZ25K2dgtNOep8JsMf0ntzavIQoxjjD1HHfqcYVILBwVsJ
-   w==;
-X-CSE-ConnectionGUID: WKTDsA00QOypYlEGIa4cwg==
-X-CSE-MsgGUID: +eHJXsBaR2G5vuRmKeUQUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2990874"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2990874"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:23:29 -0800
-X-CSE-ConnectionGUID: dQSypIkGR3eJtkqx53WGJQ==
-X-CSE-MsgGUID: kWadeLQRRxK2HX51fQdeGg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8129706"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:23:26 -0800
-Date: Tue, 10 Nov 2026 01:23:23 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: phucduc.bui@gmail.com
-Cc: wbg@kernel.org, David Lechner <david@lechnology.com>, andy@kernel.org,
-	dlechner@baylibre.com, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, m32285159@gmail.com,
-	nuno.sa@analog.com, sozdayvek@gmail.com
-Subject: Re: [PATCH v4 1/2] counter: ti-eqep: Fix runtime PM leak on probe
- failure
-Message-ID: <avJV68gHL_jvZ6dZ@ashevche-desk.local>
-References: <20261109084342.51865-1-phucduc.bui@gmail.com>
- <20261109084342.51865-2-phucduc.bui@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nPLbb08n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 163241F0089F;
+	Mon,  9 Nov 2026 23:24:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794266667;
+	bh=9C2s1QNFolN3kugJfyD+5SXr39r+c73y9g8wz+xyicY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=nPLbb08nvVW6XhAA6j6TFjx5qGvOTysLNsJ4VUEvCFvfWGI2OXHUkwV1IYxzv5evH
+	 P5WQcHNgiCW+I4ymWmmeiiSt95Bayyxztxu1FdU3gTsEdyS4ZcmQTExHqbeLWhGvh6
+	 H6i4Jl88zJcyPrYFaj4DwVQKXCoxBE8OCp66sxXz9ToJvi+zSY1VJHm27Qwg/te16a
+	 QsIfovLs/zUtP+YWvkCa4cr1IEjshv9Povp29f9wwnOsMJC1PpT+aYudFXcHLtFhZu
+	 dpI7KXuzoOjvUFVpeyYUPrF7PUMDEbqjAuPN+mDrl0JmnceXWbjj3sLPomeFpdjcin
+	 cSdS3ewM4ZOuQ==
+Subject:
+ Re: [PATCH] net: dsa: sja1110: pull meta timestamps before reading them
+From: netdev-bot+sashiko@kernel.org
+To: NoahWeinberger2003@proton.me
+Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Mon, 09 Nov 2026 23:24:26 +0000
+Message-ID: <179426666660.994134.10642884311879085983@kernel.org>
+In-Reply-To: <mnJ9l2Ebi69wyTB5k6FBEnjRESb0SmEnlqwaQAOEJ1x5qRQJ3ZMVAdX7Bn9-yWEnQ0iv_3KLoI1yUVCc88IJOVGGow9rOyG6Y54sPMeW0zQ=@proton.me>
+References: <mnJ9l2Ebi69wyTB5k6FBEnjRESb0SmEnlqwaQAOEJ1x5qRQJ3ZMVAdX7Bn9-yWEnQ0iv_3KLoI1yUVCc88IJOVGGow9rOyG6Y54sPMeW0zQ=@proton.me>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,36 +63,173 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109084342.51865-2-phucduc.bui@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 09, 2026 at 03:43:41PM +0700, phucduc.bui@gmail.com wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-> ti_eqep_probe() enables runtime PM and takes a usage reference manually,
-> then returns directly via dev_err_probe() if devm_clk_get_enabled()
-> fails, leaking both.
-> 
-> Manual cleanup via goto would mix managed and unmanaged resources,
-> which leads to the wrong release order. Instead, use
-> devm_pm_runtime_enable() and pm_runtime_resume_and_get() with a devm
-> action for the put, so every probe error path unwinds in the correct
-> reverse order. As a side effect, a runtime resume failure now aborts
-> the probe instead of being ignored.
-> 
-> ti_eqep_remove() no longer needs to touch runtime PM. While at it,
-> report counter_add() failures with dev_err_probe().
+Critical: 0 · High: 1 (1) · Medium: 0 · Low: 1
 
-I'm confused. Why the PM runtime is used (and announced) in this driver at all?
-Do we have upper layer (like a bus driver) disable power before handing over to
-the device driver?
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-TL;DR: what's the point in runtime PM here?
+- [High] In sja1110_rcv_meta() (net/dsa/tag_sja1105.c), the patch adds a
+  pskb_may_pull() but leaves `buf` stale.
+- [Low] The commit message is not fit to apply.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the trailer
+  branch of sja1110_rcv_inband_control_extension()…
+
+--
+
+net: dsa: sja1110: pull meta timestamps before reading them
+
+The patch adds a pskb_may_pull() to sja1110_rcv_meta(). The pull covers
+the (n_ts + 1) ten-byte timestamp records before they are parsed. The goal
+is to harden the SJA1110 meta frame parser against truncated or non-linear
+skbs.
+
+> net: dsa: sja1110: pull meta timestamps before reading them
+>
+> Hello,
+
+[ ... ]
+
+> This was found during an assisted (AI-supported) static source review of
+> mainline fa4ad798f6f681031775266044ba1b0cf3c670bd (v7.4-rc1, 2026-11-07); every code path cited below was re-verified by the
+> reporter against that tree. The patch below has NOT been compiled and has
+> NOT been runtime tested, and no reproducer was produced - the triggering
+> conditions are described above instead. Please treat this as a report for
+> verification rather than a battle-tested fix.
+>
+> Reported-by: Noah Weinberger <noahweinberger2003@proton.me>
+
+[Severity: Low]
+This isn't a bug, but the changelog has a few problems for an applied
+commit.
+
+There is no Signed-off-by: line. The only trailer is a Reported-by: that
+names the author.
+
+The "Hello," greeting, the AI-assisted review note, the "has NOT been
+compiled" disclaimer and the reference to the reporter's tree read like
+cover letter text. Should they go below the --- line?
+
+The message calls this "Longstanding code" but has no Fixes: tag. The meta
+frame parsing seems to come from commit 566b18c8b752 ("net: dsa: sja1105:
+implement TX timestamping for SJA1110"). The buf initialization was later
+reworked by commit 5d928ff48656 ("net: dsa: create a helper for locating
+EtherType DSA headers on RX").
+
+The changelog also says the non-linear skb read is fixed. See the comment
+below on buf: that claim may not hold.
+
+> diff --git a/net/dsa/tag_sja1105.c b/net/dsa/tag_sja1105.c
+> index bfe1f746f55be..caa66596a0840 100644
+> --- a/net/dsa/tag_sja1105.c
+> +++ b/net/dsa/tag_sja1105.c
+> @@ -537,6 +537,12 @@ static struct sk_buff *sja1110_rcv_meta(struct sk_buff *skb, u16 rx_header)
+>  	struct dsa_switch *ds;
+>  	int i;
+>  
+> +	if (!pskb_may_pull(skb,
+> +			   2 + (n_ts + 1) * SJA1110_META_TSTAMP_SIZE)) {
+> +		kfree_skb(skb);
+> +		return NULL;
+> +	}
+> +
+
+[Severity: High]
+Can buf end up pointing into freed memory after this pull? buf is set at
+the top of sja1110_rcv_meta(), before the new check, and is never
+reloaded:
+
+	u8 *buf = dsa_etype_header_pos_rx(skb) + SJA1110_HEADER_LEN;
+
+If the meta payload is not fully linear, pskb_may_pull() calls
+__pskb_pull_tail(). When there is not enough tailroom, that function
+reallocates the head:
+
+	if (eat > 0 || skb_cloned(skb)) {
+		if (pskb_expand_head(skb, 0, eat > 0 ? eat + 128 : 0,
+				     GFP_ATOMIC))
+
+pskb_expand_head() copies the data into a new head and frees the old one
+with skb_free_head(). The kernel-doc for both functions says header
+pointers must be reloaded after the call.
+
+The loop further down still reads through the old pointer:
+
+		ts_id = buf[0];
+		source_port = (buf[1] & GENMASK(7, 4)) >> 4;
+		dir = (buf[1] & BIT(3)) >> 3;
+		tstamp = be64_to_cpu(*(__be64 *)(buf + 2));
+
+Those values then go to tagger_data->meta_tstamp_handler().
+
+dsa_switch_rcv() calls skb_unclone_full() before ->rcv(), so skb_cloned()
+should not trigger the realloc. The eat > 0 case still can, for example
+on a conduit that builds small fixed-size heads and puts the rest in
+frags.
+
+In the non-linear case the commit message describes, would this turn the
+out-of-bounds read into a use-after-free read?
+
+In sja1110_process_meta_tstamp(), a garbage ts_id that matches nothing
+hits WARN_ON(!skb_match). A ts_id that does match would pass 8 bytes of
+freed memory to skb_complete_tx_timestamp() as the TX timestamp.
+
+Would it work to recompute buf after the pull succeeds, or to move the buf
+initialization below the pskb_may_pull() check?
+
+>  	cpu_dp = conduit->dsa_ptr;
+>  	ds = dsa_switch_find(cpu_dp->dst->index, switch_id);
+>  	if (!ds) {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the commit message's threat
+model ("buggy or compromised switch silicon" and "short-skb conduit
+paths") also applies to the caller, sja1110_rcv_inband_control_extension().
+Its trailer branch looks like it can reach BUG() on a malformed header.
+
+start_of_padding comes straight from the 12-bit header field and is never
+checked:
+
+	if (rx_header & SJA1110_RX_HEADER_HAS_TRAILER) {
+		int start_of_padding = SJA1110_RX_HEADER_TRAILER_POS(rx_header);
+		u8 *rx_trailer = skb_tail_pointer(skb) - SJA1110_RX_TRAILER_LEN;
+		...
+		if (pskb_trim_rcsum(skb, start_of_padding - ETH_HLEN)) {
+			kfree_skb(skb);
+			return NULL;
+		}
+	...
+	/* Advance skb->data past the DSA header */
+	skb_pull_rcsum(skb, SJA1110_HEADER_LEN);
+
+If start_of_padding is between 14 and 17, the trim leaves skb->len at 0 to
+3 and returns success. The unconditional skb_pull_rcsum(skb, 4) would then
+hit BUG_ON(len > skb->len) in skb_pull_rcsum(). Should start_of_padding be
+checked against ETH_HLEN + SJA1110_HEADER_LEN and skb->len?
+
+The same branch reads the 13-byte trailer from skb_tail_pointer(skb) with
+no check on skb->len or linearity. On a non-linear skb, would that parse
+the end of the linear area instead of the real trailer?
+
+In VLAN-filtering mode the taggers accept hardware-stripped VLAN tags. If
+a conduit strips the 802.1Q tag from a front-port frame whose inner
+EtherType is ETH_P_SJA1110, could rx_header contain bytes from the wire?
+That has not been confirmed.
+
+sja1105_meta_unpack() has a similar issue. It reads 8 bytes from
+skb_mac_header(skb) + ETH_HLEN without a pskb_may_pull() or length check:
+
+	u8 *buf = skb_mac_header(skb) + ETH_HLEN;
+
+Should these sites be hardened as well?
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/mnJ9l2Ebi69wyTB5k6FBEnjRESb0SmEnlqwaQAOEJ1x5qRQJ3ZMVAdX7Bn9-yWEnQ0iv_3KLoI1yUVCc88IJOVGGow9rOyG6Y54sPMeW0zQ%3D%40proton.me
