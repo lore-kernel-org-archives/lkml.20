@@ -1,81 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794224468;
-	b=dhFsgAy5DpuXYiGYdjIsLm8JuPVWMHca8NPFkB+eN47VA1BuvTLvp10Pj3JG64zGpwTV
-	 Et5AlDaDmbDWa8PRS8Ny5EeakgZfRnc2eyzUVll2KVwkRal+hu+J8X1WG9GGAOt8vYxQD
-	 Ej89is6W8fNWjK62Fy7mLCPQvPzlqg7Y7I7H5S0UAJ0iQa4rBbO5pnX9CzkdYlNx6GSFL
-	 ZcUgN8TEGpQVbbIF36lV3AkwKdL6b+HhYN+m5acqRRkLewnypFQiGF4EfjlPBfTpmvvAc
-	 I+yM8+67+TQLQMg6oY4c2ARRTXmTUDwZthoJCJLDmKGw6etDQPrkYQwGy1PbQjNMJbg==
+	t=1794224469;
+	b=R2lK4ARGOcPGRwo4tP9xWLQU42aSHV5huTDAPiGzV6DOaoYMw57JkwA9HmhpoSaQbqyV
+	 I2axe9bJNdp3D0EBI+LiiXSYcwp1D1ECNpR+bRZK+me+D/04DQkeQ8E/3XV5yGcvEtVw8
+	 YZqUzu9W4ozhS8r1NscLSfGrTOuFV7py0ydu+oG7wepAPH4JElPwdY4u2MGtt4I3B+RD0
+	 lu6qm4cRa55IB85TPIU2LE0HL8J+Yei/POpXCGarJtLVdlSxEMGsCWbnVdPFBT1zB73an
+	 9ui3W/3b9lE89F/8QbcBRtt6Xsl278IaSd8h5dW6yEvBSSBsp4i4cxOmvwMl3TSIW9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224468;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=FYEJ9KHekUaIW8m17zKmXcjo7ZmwQ0L5S9brJ4Eud8Q=;
-	b=d4DCXCyc9Qx7ClXUe74enFphhpANBNs3Te99RyBtN0Ve6NNLuoHt8aBq+1TkWg1+wPFz
-	 c2vz09QxIcXx72P6VmeuUnA7k9sL2ud9xvI3H6GykhZiy9j4kzMY6IldIUab+WlkxuMKd
-	 Xy4qKGKiI3y2MEzfa3cH/wthOq+Xe0pZOiFxv0vLJ0I7Kwnm+Zl/tamRBOchoOP/Yt5ra
-	 OfA4kf8oCdWVyG1v83i7l3t1x5F0+fHh0H072LFB1SGevjOn4efh/qP6z243nTiZbUTE4
-	 XnfiFDtVJ6Ejc+trfo1a6hEOSvFVZ7NqVGYv9Nkk+JVq41hmem5ISxHI7HImpXGez8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224469;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=BgN8f4X1rFQQNpw4mms3ar1LtMgOkGdHPy4uMQFUrdQ=;
+	b=bfwLh+oD+QZ6Rvv1xuz2/nfOIlUUUEiVNpATOW0UG3ymBZuypvBmQ4qQmqN+XHe575L3
+	 2aiAmzN4yV+h7kbhpR1Misi4pD/Lpdut0bUKpa4uL8DNSIjMpXXswTbz87BLOwKLr/VKR
+	 fvuJnqPUkOuzb6yeaORdIxnQARGJBB6O4Oy8s9zu0siYfFEIjyK1jgO3AypMoqHtXF3ka
+	 g7yeBPYVJ/yuwFxZPtvScrWEI+YWecY2nXv+UnP1ZvvBDnBv0bQVrGq39N/lFpwluftBs
+	 +w0yYJoLKDGwt+cIPbIhtUow5L9ti/mmaxH4Ebeq8REkPQDREBnPOZCqoanbGqWTDEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="nG/svqOg";
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xr1HlMXk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C8F4606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:41:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C8F4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D871606A330;
+	Mon,  9 Nov 2026 11:41:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=nG/svqOg
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9AEAmC1915846;
-	Mon, 9 Nov 2026 11:40:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=FYEJ9K
-	HekUaIW8m17zKmXcjo7ZmwQ0L5S9brJ4Eud8Q=; b=nG/svqOgtAY9yge9FFJmLO
-	Yufh9J/0BjaNSAISRuvTRPHhr/P5iKFMi2GjucZlrV1SkU8h3tll1zj0g6mq2YXM
-	XUxX/zvEQHJ5pMoZ4pggx1qEjl4oWet6x9s7Key+AlfSS0okrUm5/44RrYU2TFDm
-	NUhbac/lRRB5sBWqVr8wP1Tgm+G5Wt5dn5a/IjrodTbeuCRypyhvKc7niZ6yGCih
-	rAxJHw0PesEXllb0EwZq9KCinyqt+RXhQ7meyLyvH/RCaaJ8ejCIxhtvnmsiYmme
-	oMlgq0qKRMDHsw0jcEysIuvEtgm/pp/tuYg3wlNIz5ppfAS6WNYi95GKUVzB+bBw
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hstdfvnfc-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 11:40:55 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9A4ufg2923995;
-	Mon, 9 Nov 2026 11:40:54 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4htghfy7pp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 11:40:54 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A9Berjq28181210
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 9 Nov 2026 11:40:53 GMT
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C040558058;
-	Mon,  9 Nov 2026 11:40:53 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 797E658057;
-	Mon,  9 Nov 2026 11:40:47 +0000 (GMT)
-Received: from [9.61.101.130] (unknown [9.61.101.130])
-	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  9 Nov 2026 11:40:47 +0000 (GMT)
-Message-ID: <16cf83a9-d147-4a4b-ae67-93ca07923f85@linux.ibm.com>
-Date: Mon, 9 Nov 2026 17:10:45 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xr1HlMXk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 012E91F0089F;
+	Mon,  9 Nov 2026 11:41:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794224469;
+	bh=BgN8f4X1rFQQNpw4mms3ar1LtMgOkGdHPy4uMQFUrdQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Xr1HlMXkvGQnr8zkwhZZCTYvLVet7H499ZZhB+GIXrYCWot7NXR3oxvy4P6oOyn6v
+	 D+Q/Um349p1UoldFfEanXP9gpM2XUbnj1oq/tCnHuKflgx03YT4AVENDzURG7eiBPr
+	 AGPMIzeG+/9GcznJ4bG62GzxOax7y2YUUOMb7IadidrwpSyNqKHztOLIaJJAdegFxx
+	 3b5HuwbkOr1XPnOEDpJ7wl1a3TPG847aa6hmoOSOy85zARM5LZHOj2xx5Tzp0N8ffQ
+	 CjD41y5AYVWrU47RN5oZjSA33CV7f4u4x10I8J5CzOOQL8moRpWlKVxjvTDC86Vkdv
+	 zEZu0Bc6c46Bg==
+Subject: Re: [PATCH net-next] net: dsa: motorcomm: Add LAG FDB callbacks
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ linux-kernel@vger.kernel.org
+Date: Mon, 09 Nov 2026 11:41:08 +0000
+Message-ID: <179422446851.994134.17711680552032129131@kernel.org>
+In-Reply-To: <20261108105012.1326929-1-mmyangfl@gmail.com>
+References: <20261108105012.1326929-1-mmyangfl@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,92 +62,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/2] nvme-tcp: allow setting per-queue io_cpu through
- sysfs
-To: Saravanan D <saravanand@crusoe.ai>, linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org, hch@lst.de, sagi@grimberg.me, axboe@kernel.dk,
-        dwagner@suse.de, sgogte@purestorage.com, hare@kernel.org, hare@suse.de,
-        linux-kernel@vger.kernel.org, iyamahata@crusoe.ai, kiyer@crusoe.ai,
-        ganbalagane@crusoe.ai, sjpark@crusoe.ai, bchen@crusoe.ai
-References: <cover.1794015622.git.saravanand@crusoe.ai>
- <394e47d486979175bc5ebb94c789db8bfacb1736.1794015622.git.saravanand@crusoe.ai>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <394e47d486979175bc5ebb94c789db8bfacb1736.1794015622.git.saravanand@crusoe.ai>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=J+M/fwnS c=1 sm=1 tr=0 ts=6af1b147 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=gnRofaAz8YiOwmkHck4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0NCBTYWx0ZWRfXw8vTRiF3l863
- iruyBWNlb7q+z6Q72qOZ3WCfi6EsSnNgF3vFw7Rs8uaI1Q5PCHlM5XQ96YcxBcCZqQR6sjP2hBY
- 00TTAO2XczdFrztZePDZKkEYFZlgAbYebqNAVTsb8IuIsYVmgDP4LnAcmEK8ZiI3aFKvsep9ybK
- 8Cmv7xPFjWE4YTRY9CPdqBglOd8v58boMonedPDKmCdHELucBuSoA4xlIxWc8x6JQj3tSRHSfYW
- 12luT9VS8CHxBGY2fL85aETGcOfdxDKhb0/UdN3jFJDSnx8UcXMW6V68BSLcjZ1kZrLRVK+iqKp
- 9k7YVFJcYmPkBD0A8cGkVaTA9RxHYjtfyzIR8B4cpKDKgxoJYCefSKg/PKAUCq12c+XgCqNoz8m
- BewgIFfecLCslbpcO8JKRBtDtf6COEgvy/rKyVOV0pvpitdEuWQupZlh/5tJ8H8Wjd3qPuQlecm
- wlIMVEWQHpwlBntDTow==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0NCBTYWx0ZWRfX6oFUwWxORQ3K
- RsVKsG9MTIy6lB5ciYTuQjt14csSQGndEXT/Pul3E9DfCcXpdayeJaWPBHmCuTl622c8o3GfZwd
- DpKkPI52m+aioTNwQQ3X2A4cCwwrrow=
-X-Proofpoint-GUID: DSOO9okzoSCkkc1dHLWgo3xqnEXa3yM6
-X-Proofpoint-ORIG-GUID: DSOO9okzoSCkkc1dHLWgo3xqnEXa3yM6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 adultscore=0 suspectscore=0
- malwarescore=0 clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090044
 
-On 11/7/26 3:23 PM, Saravanan D wrote:
-> nvme_tcp_set_queue_io_cpu() picks each queue's io_cpu at connect time
-> as the least loaded CPU in the queue's blk-mq map group, and all socket
-> work runs there for the connection's lifetime. This decision falls
-> short when the host partitions its CPUs after connect time. On a 384
-> cpu multi tenant host with 128 queue controllers, blk-mq folds three
-> CPUs into every map group, some groups straddle two tenants' cpusets,
-> and 9% of nvme_tcp_io_work executions ran outside the submitting VM's
-> cpuset, seen by the neighbor as steal time.
-> 
-> Expose the io_cpu in each I/O queue's directory
-> 
->    /sys/class/nvme/nvmeX/queues/<qid>/io_cpu
-> 
-> so a control plane that owns CPU placement can set it directly instead
-> of relying on the driver's heuristic. The attribute accepts a decimal
-> cpu number, -1 or "unbound". A user assignment, unbound included, is
-> marked in the queue flags, persists across reconnects and is never
-> reselected by the driver. The read-only managed attribute reports 1
-> while io_cpu is driver managed and 0 once the user assigned it. The
-> accounting of nvme_tcp_cpu_queues applies regardless of who set the
-> io_cpu.
-> 
-> A queue's directory is added once the connect time selection has set its
-> io_cpu, so readers never see a placement that is about to change, and
-> removed when the queue is freed, before it is torn down, so a sysfs
-> store never runs on a freed queue. All io_cpu writes, from
-> sysfs and from the driver, serialize with the accounting under
-> nvme_tcp_cpu_queues_lock, while the I/O paths read io_cpu locklessly.
-> The queue stop now clears NVME_TCP_Q_IO_CPU_SET under that lock, since a
-> sysfs store may move io_cpu in between.
-> 
-> nvme_tcp_free_queue() now clears NVME_TCP_Q_IO_CPU_SET and drops its
-> count, because a queue can still be counted when it is freed. A sysfs
-> store may have run after the queue stop, or the connect may have
-> failed, and the setup error path frees such a queue without calling
-> nvme_tcp_stop_queue(), where the count is normally dropped.
-> 
-> Suggested-by: Sagi Grimberg<sagi@grimberg.me>
-> Link:https://lore.kernel.org/linux-nvme/13c160d0-0657-47ce-9a16-58d348267ab0@grimberg.me/
-> Assisted-by: Claude:claude-opus-5-5 [Claude Code]
-> Signed-off-by: Saravanan D<saravanand@crusoe.ai>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Looks good to me:
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The new yt921x_dsa_lag_fdb_add() and yt921x_dsa_lag_fdb_del() in
+  drivers/net/dsa/motorcomm/chip.c write a one-time snapshot of the…
+- [Medium] net: dsa: motorcomm: race on dp->lag in
+  yt921x_dsa_lag_fdb_add() and del()
+
+--
+
+net: dsa: motorcomm: Add LAG FDB callbacks
+
+This commit adds lag_fdb_add and lag_fdb_del callbacks to the yt921x
+driver. Each one builds a bitmap of the current LAG member ports with
+dsa_lag_foreach_port() and passes it to yt921x_fdb_join() or
+yt921x_fdb_leave().
+
+> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+> index 33e5fc127244d..f73eed06437b9 100644
+> --- a/drivers/net/dsa/motorcomm/chip.c
+> +++ b/drivers/net/dsa/motorcomm/chip.c
+> @@ -883,6 +883,52 @@ yt921x_dsa_port_fdb_add(struct dsa_switch *ds, int port,
+>  	return res;
+>  }
+>  
+> +static int
+> +yt921x_dsa_lag_fdb_del(struct dsa_switch *ds, struct dsa_lag lag,
+> +		       const unsigned char *addr, u16 vid, struct dsa_db db)
+> +{
+
+[ ... ]
+
+> +	ports_mask = 0;
+> +	dsa_lag_foreach_port(dp, ds->dst, &lag)
+> +		ports_mask |= BIT(dp->index);
+> +
+> +	mutex_lock(&priv->reg_lock);
+> +	res = yt921x_fdb_leave(priv, addr, vid, ports_mask);
+> +	mutex_unlock(&priv->reg_lock);
+> +
+> +	return res;
+> +}
+> +
+> +static int
+> +yt921x_dsa_lag_fdb_add(struct dsa_switch *ds, struct dsa_lag lag,
+> +		       const unsigned char *addr, u16 vid, struct dsa_db db)
+> +{
+
+[Severity: Medium]
+Is it safe to walk the LAG membership here without rtnl_lock?
+
+lag_fdb_add and lag_fdb_del are reached from
+dsa_user_switchdev_event_work(). That runs on dsa_owq and does not hold
+rtnl_lock. On that path, dsa_switch_do_lag_fdb_add() and
+dsa_switch_do_lag_fdb_del() only take lag->fdb_lock before calling into
+the driver. In both new callbacks the loop also runs before
+priv->reg_lock is taken, so nothing in the driver serializes it either.
+
+dsa_lag_foreach_port() does not only visit the members of this LAG. It
+walks every port in ds->dst->ports and calls dsa_port_offloads_lag()
+on each one, which goes through dsa_port_lag_dev_get():
+
+	return dp->lag ? dp->lag->dev : NULL;
+
+At the same time, under rtnl_lock, dsa_port_lag_join() sets dp->lag
+via dsa_port_lag_create() before DSA_NOTIFIER_LAG_JOIN is sent.
+yt921x_dsa_port_lag_join() can then reject the port, for example when
+there are more members than YT921X_LAG_PORT_NUM or the hash mode does
+not match. In that case the err_lag_join rollback calls
+dsa_port_lag_destroy(). That clears dp->lag and kfree()s the dsa_lag
+once its refcount reaches zero. dsa_port_lag_leave() also calls
+dsa_port_lag_destroy() before DSA_NOTIFIER_LAG_LEAVE.
+
+So an FDB work item for one LAG can see another port's dp->lag as
+non-NULL and then read ->dev after that dsa_lag has been freed, for
+example when that port tried to create a new LAG and was refused. Even
+when nothing is freed, the loop can include a port that the driver has
+just refused, or a port that is halfway through leaving. That port then
+ends up in YT921X_FDB_IO2_EGR_PORTS of a static entry.
+
+Only CAP_NET_ADMIN can trigger the join and leave, so this is not a
+security boundary. It can still crash the machine or misprogram the
+FDB while a bridged bond is being reconfigured.
+
+Could the driver keep its own record of LAG membership instead? It
+would be updated in yt921x_dsa_port_lag_join() and
+yt921x_dsa_port_lag_leave() under priv->reg_lock, and ports_mask would
+be computed from it after reg_lock is taken here. That would also give
+a natural place to reprogram existing LAG FDB entries when membership
+changes. Or is there some DSA core serialization against dp->lag
+changes on this path that I am missing?
+
+[ ... ]
+
+> +	ports_mask = 0;
+> +	dsa_lag_foreach_port(dp, ds->dst, &lag)
+> +		ports_mask |= BIT(dp->index);
+> +
+> +	mutex_lock(&priv->reg_lock);
+> +	res = yt921x_fdb_join(priv, addr, vid, ports_mask);
+> +	mutex_unlock(&priv->reg_lock);
+
+[Severity: High]
+What happens to this FDB entry if the LAG's membership changes after it
+is installed?
+
+The FDB destination is a plain physical port bitmap
+(YT921X_FDB_IO2_EGR_PORTS_M is GENMASK(28, 18)). So ports_mask records
+which ports were members when the call was made, and nothing updates it
+afterwards.
+
+DSA core refcounts LAG FDB entries per LAG. It only calls the driver on
+the first add and on the last delete:
+
+net/dsa/switch.c:dsa_switch_do_lag_fdb_add() {
+    ...
+	a = dsa_mac_addr_find(&lag->fdbs, addr, vid, db);
+	if (a) {
+		refcount_inc(&a->refcount);
+		...
+		goto out;
+	}
+    ...
+}
+
+net/dsa/switch.c:dsa_switch_do_lag_fdb_del() {
+    ...
+	if (!refcount_dec_and_test(&a->refcount)) {
+		...
+		goto out;
+	}
+
+	err = ds->ops->lag_fdb_del(ds, *lag, addr, vid, db);
+    ...
+}
+
+yt921x_dsa_port_lag_join() and yt921x_dsa_port_lag_leave() only
+reprogram the LAG group through yt921x_lag_set(). They don't touch FDB
+entries.
+
+Take bond0 = {swp1}, bridged, with "bridge fdb add X dev bond0 master
+static". The hardware entry gets EGR_PORTS = {swp1}.
+
+When swp2 joins bond0, the replayed add only bumps the refcount. The
+entry stays {swp1}.
+
+When swp1 leaves bond0, dsa_port_pre_lag_leave()->
+dsa_port_pre_bridge_leave() replays the delete, and that only drops the
+refcount. The entry still points at swp1. swp1 is now standalone and
+yt921x_bridge_leave() has isolated it. Unicast to X is blackholed or
+misdirected, and swp2 never gets this traffic.
+
+On the final delete, yt921x_dsa_lag_fdb_del() rebuilds the mask from the
+current members ({swp2}). Then yt921x_fdb_leave() does this:
+
+	ctrl2 = val2 & ~YT921X_FDB_IO2_EGR_PORTS(ports_mask);
+	if (ctrl2 == val2)
+		return 0;
+	if (!(ctrl2 & YT921X_FDB_IO2_EGR_PORTS_M)) {
+		ctrl = YT921X_FDB_OP_OP_DEL | YT921X_FDB_OP_START;
+		...
+	}
+	...
+	return yt921x_fdb_add_index_in12(priv, index, ctrl1, ctrl2);
+
+It either returns 0 without deleting anything, or rewrites the entry as
+STATIC with the leftover bits. Doesn't that leave a STATIC hardware FDB
+entry that DSA no longer tracks?
+
+port_fast_age wouldn't remove it either, because
+yt921x_fdb_flush_port(priv, port, false) leaves static entries alone. So
+the entry would use an FDB slot and misforward X/vid until the chip is
+reset.
+
+Before this patch, lag_fdb_add and lag_fdb_del were NULL, so
+dsa_user_fdb_event() returned -EOPNOTSUPP and this state could not
+happen.
+
+ocelot, the other lag_fdb_add implementer, keeps track of LAG FDBs and
+reprograms them when membership changes, in ocelot_migrate_lag_fdbs().
+Does this driver need something similar, called from
+yt921x_dsa_port_lag_join() and yt921x_dsa_port_lag_leave()?
+
+There is also a hardware question that can't be answered from the code.
+When a unicast FDB lookup hits an entry with several egress ports, does
+the ASIC pick one using the LAG hash, or does it send the frame to every
+listed port? If it does the latter, every frame to X would be duplicated
+across the LAG members even with no membership changes.
+
+> +
+> +	return res;
+> +}
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108105012.1326929-1-mmyangfl%40gmail.com
