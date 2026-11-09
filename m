@@ -1,94 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794260292;
-	b=FUye9Ub6luF5Uv6huNrpDjRYsfESB/NQEkUehdRtDcjt3Ss+uiXRJDkjiiHo2N+zjEX/
-	 sXzj46MI7LYXhnSe29E8KdWREcO2GFZ7ugSRr/JeW4zpvQp0ENsEuLV2oYWqoWBuVrcTP
-	 1GqygJ2fDXXTaAhKWj32yaCvHh8C+6WRXUzEjfoiwgv1LNGtdhgwjF9fgqUnOyZDfAgFz
-	 N0uot08SGQNk0jtaaSSuAqPgcV2511xG6iRZaBBiDCWy0LrKbuIIL4ZCW6gbh3DeAKWK2
-	 Cjx1ABm0QTLFOHMTT1vFRQCmcroPmyISIz76Bqt+wPMNFIX0WYAunrlihRA+GZen7Jg==
+	t=1794260325;
+	b=ap/y4ecGq7e0j8dRKj0ATp/Nq09y1jMoOZtMnE95UgchDGJlsZ4ye5FtebE20+v/CN98
+	 M4tG0fKHVQzrFJqO16QKfimfI13BUnffsOFEHsniwEKZQ1noKOpWZxoUhD31I4mxs7sk1
+	 q/W5V45avitI9cWQGuMjkrlkFFRZ8en9vspeqmXh3hryfo1ZLxtbvCRkZq9KsSHTnEHQv
+	 hTyT9BsKf7iUMmiMBU5t+3Bb3yVGsuilSnJPTK7LOvizEowxE7NRqJpRLkbVJeRqAHPHL
+	 tH8Qkr4BKcZgeMWq21SiwuZvhZXllF5vMTztqwiw+G9/iccbGa2j/sy0lI3vJKCjQpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794260292;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=YNEvUZEqZIDnSORqnBcviTGCY1xg9Q2qeRZLzfoHA6g=;
-	b=bN1wyEGTEtxD07CBzbhKxt1v4weyQtQsOaRTMkDtOqBJ42wqRpRUelHbFiDqasBsuMq0
-	 1h7Qjbs5BYu2OYHC4eAdqzKZ9vVn76kygC6Rs5KmxC/bSa+NB0BAol02fT7BtJbN7PHy6
-	 Ozs/pRVCMaRvNovyVsrJDMl9U4OG6xtt1H/hJ67VKbfnVo3AUorYZI++B2T8MCQZ4y4Jp
-	 +Jz/brJ5lnRVU9pr1sAMvCTcSKMr1XTAImYCJ0x+8czQAG5uLJKGO8GM9bvpu/eAqajGW
-	 0cpj2dW10VrmNQw3XUe198VcgpMVy/76Ow7IvTWkyqX64V+3VMjiK66kbyOqq+ozymw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794260325;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=k7Wh9srWpnIpNuXMJqXefydfIgxiTocR4gjfGUw2Pb8=;
+	b=zTMYAwX3toTBD3sy886Mu9u/Q31JCcCX97oYsu+93yxxOQXPjLe01u7nGrxLyU+B5omK
+	 p55O/sfYraZv9pcM9R+kkCGDGLGyyZqbScv2xTMTNOhv9UI7a2S7G68fSLapH03s0aCd+
+	 caCF/1kof/KUkFnkU4ZNEB4ne++eNkATkGGLcYA+W4LWKQC7fIM19e3tYhLmDtFdxjT8I
+	 CXDOQsej4B+AMny/snfWlEYLGFaW5i0qrbk8yqEjmqTLI8116KgBbCmcPZbgnuinW4rIL
+	 18U5eWwKIvlVj4B7K358mf1JYGfbRwrdr0VuYYO517dvdIS3zSUU33sda8650bG4Z0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OmRE7iJ8;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=J6hvdKHR;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A703606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:38:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A703606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE4A606A325;
+	Mon,  9 Nov 2026 21:38:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDE4A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=OmRE7iJ8
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-ccca948203aso653317a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 13:38:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794260291; x=1794865091; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YNEvUZEqZIDnSORqnBcviTGCY1xg9Q2qeRZLzfoHA6g=;
-        b=OmRE7iJ8GchwzEl+lpjoRy945h+CAdg5qgHqtLYnp7up2SRzATrr69XR+jA+S6sGYQ
-         LzI9lvChaXl3ZQ7IwP0tGDe/HfNPmEKRb+rvnckTjZj6m0OjLZm2RGrHOegwfetLzoUo
-         jk07+FS6uM0zuUMUykRO88eIOu9UmqCorktI2y2/bf3GW9r6Y6Us8JweLw8nctgF4BAN
-         ouRy0ZKuKu3PzBWWa2xfhMG1Ct4wcWqp6XBMl9E8QuSGa2+gVIlSwoB55IfIC2YRlpAc
-         VQh7/KVZPGKCcJ7KoGl0MSlU8uzzIoVlhaI17E/Sij+44yUprA1EmkliMpunzoVshJnK
-         j1SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794260291; x=1794865091;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YNEvUZEqZIDnSORqnBcviTGCY1xg9Q2qeRZLzfoHA6g=;
-        b=yiqKb+mhJPBSbYje0nzPINtdTRpVyBHrY5EQl43yhqa5zITfk9rjeBEeiru3CSUbO9
-         qKXyTdnSl//bkeHKjSINsBJKkLmt0rzEP1Nn7PkqnQaesMgS22zhBriJ4gkcv8taSnMz
-         5R4kyn1aEs1IN7Cy6n7ooD89P3gBHyndmmd5HT0ATOh253NWjM6EH10Y1QleuNlc3wLs
-         Zs6YVUyEjYPw86bWzIZtEiZVyo0ydhTbd2ZMxD0DJWRjLaiPNcDyst2HSQK6I6u/wwNp
-         pJiyWq59ocVDyGscQlnR6Ts84h2xFQvCHetGuAe9l99W+ZKoZfHwDprfgCc+HzIJNNfS
-         16qg==
-X-Forwarded-Encrypted: i=1; AL+hErHNgtuty/1oCEpuFMolnv+LoG2mhG4kFxhRNc6gD8HWLBC/+THB3yPGLM8bdWvdTVKUG1dAi29APyjAdxU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/pj21yc4KKFc9J+0woWNrH3k1pC6b35PBSYcijG9gNJyKATg7l
-	TBDZHZgKE5tfZd2p8zcUmcqF2DxR6QzxyoxBmA69ntTreUwc1jgm47MV1eIJ5/ogLJCHEnNa66D
-	V2jGr
-X-Gm-Gg: AYBFou2yv8Mi2QxeyCOcYTaf5ARIDrxYww+sXaLeD5dXadnHXpi9WOQHjR4VXRPybVo
-	091e1nZ357kIT0UMCDYDRYsE6ed1sAiB/UxJnmslK3f3NWuGo9/8/vTN7sKxnmunbOgd116bktJ
-	/LWBGS3PuJcDh7x1xPr4JVe2nSfUZtPHhXoMDDcZYB1VRt9+bBJyD0+/aYiNNhNsaBJ/oT0A3aV
-	WUeEJnb240J/XwIZaiZJYZwsJ+ZKZLLlovx6F3U0hyIITy5IL1U0kJqR+SIVtHqh53aI0xclrT0
-	/k6iaNf1b0SYhFRHGeRHeeg3MZAWof3lR58syn2vlQK0MezIYdvNvYjZBtJ9hIi9q05GCh4RXV3
-	N9SEVPmxHYN+wEhJmYiLwgZksk1AvRfQzNmhDI9ONhO5sOJdLs2XBsglayawCYxQBxasLGb+ML2
-	MgeWUcDKIhUJTq+Evp0Xj4h3TMC0xTgxClF2wqF+YK4137AS3L398gze9aD4YscZVHMJGkv5aYY
-	BQqYJLyqXQSmW3ySb8SoYgO0ylbmxOG0UjTujaXw9+g73dL2eIjxsiKozpv/XZentWAmSJU1unh
-	xhTx0Au0avsEr9JRIFeHDy6iLZr7qft0s+hF/angpywSn37YTQUknsOoAF97RFWpc26SOnCZJ5w
-	nUNiBg5eLduON
-X-Received: by 2002:a17:90b:4a0f:b0:3ab:f38:2b43 with SMTP id 98e67ed59e1d1-3b166cf450cmr914186a91.34.1794260290895;
-        Mon, 09 Nov 2026 13:38:10 -0800 (PST)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16774309bsm1024629a91.14.2026.11.09.13.38.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 13:38:10 -0800 (PST)
-From: Jens Axboe <axboe@kernel.dk>
-To: Caleb Sander Mateos <csander@purestorage.com>
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261103211031.592745-1-csander@purestorage.com>
-References: <20261103211031.592745-1-csander@purestorage.com>
-Subject: Re: [PATCH 0/4] io_uring: improve alloc_cache branch prediction
-Message-Id: <179426028968.141878.17464468753491452535.b4-ty@b4>
-Date: Mon, 09 Nov 2026 14:38:09 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=J6hvdKHR
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=k7Wh9srWpnIpNuXMJqXefydfIgxiTocR4gjfGUw2Pb8=; b=J6hvdKHR9wXW/u+g9iSF4bPcaE
+	wCVzFZiWVOMkxE6lu5YRgzXa8QfzUfgek5/6tq9cHzP5G3uF8xpA4k78few0UK5pSq7h5gs1NWwFd
+	+IDU54RdEra8wntUNiL8gv2Cy6MLzOsYlE5LVpia9Ijv0CpXVjyNV9+N9R/wRBNzXRJisXWtrGwLP
+	U9PQpjOkVrcJk7Nld/rHYLkNRvjWE5JpInmYaScQOjTvnDrGCLMzTnMmXWRDydixAu5dy9Arbx766
+	F/W5Q4Q7Hn6N0V1pp+gmW3Clbf5H6JD36IzVQFcdMmLiUVm0D5QrrSkZMZXG38cEcvxN/SPEgBK97
+	i6H3BOcQ==;
+Received: from [151.115.150.205] (port=40012 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xQX4d-0000000FGXi-1Bs7;
+	Mon, 09 Nov 2026 22:38:42 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Steffen Klassert <steffen.klassert@secunet.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: [PATCH net v4 0/2] xfrm: fix IPv6 atomic fragment policy handling
+Date: Mon,  9 Nov 2026 21:38:01 +0000
+Message-ID: <20261109213803.1785516-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,37 +74,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
+This series fixes two IPv6 fragment issues in XFRM session decoding.
 
-On Tue, 03 Nov 2026 14:10:27 -0700, Caleb Sander Mateos wrote:
-> A call to io_uring_alloc_async_data() that provides a struct io_alloc_cache
-> currently has 2 unnecessary NULL checks in the fast path:
-> - Of the struct io_alloc_cache *, even though it points to a struct io_ring_ctx
->   field
-> - Of the void * entry popped from the cache, even though all cache entries are
->   non-NULL
-> The compiler also incorrectly assumes the success path in io_alloc_cache_get()
-> is the unlikely one because it's written as an early return.
-> 
-> [...]
+Patch 1 restores upper-layer protocol decoding for IPv6 first
+fragments.
 
-Applied, thanks!
+Patch 2 builds on Patch 1 and restores ports, ICMPv6 type and code,
+and GRE keys for atomic fragments, while leaving them unset for real
+fragments.
 
-[1/4] io_uring: split io_uring_alloc_async_data()
-      commit: 5b1d75482ccbc6483336d16cec609da2706981ab
-[2/4] io_uring/alloc_cache: mark cache success paths as likely
-      commit: 2c4f39b09b031c94465e945bea50df5c781fafd4
-[3/4] io_uring/alloc_cache: assume io_alloc_cache_get() doesn't return NULL
-      commit: e10a5108ae01eb9e166b0c7bc04fad6b0001095c
-[4/4] io_uring/futex: avoid ifd NULL check in io_futex_wait()
-      commit: ddcc50dd41d331dc66e0e5793492c3fa09941ff9
+Changes in v4 after a review from Sashiko:
+- Patch 1: unchanged.
+- Patch 2: Use skb_header_pointer() and remove the XFRM pull to fix
+  local input decoding and avoid stale header pointers.
 
-Best regards,
+v1: https://lore.kernel.org/all/20261101230745.2043474-2-Jeremy.Jean@oss.cyber.gouv.fr/
+v2: https://lore.kernel.org/all/20261103225842.3204446-2-Jeremy.Jean@oss.cyber.gouv.fr/
+v3: https://lore.kernel.org/all/20261106202910.723098-2-Jeremy.Jean@oss.cyber.gouv.fr/
+
+Jérémy Jean (2):
+  xfrm: fix IPv6 first-fragment protocol decode
+  xfrm: fix selector matching for IPv6 atomic fragments
+
+ include/net/ipv6.h      |  1 +
+ net/ipv6/exthdrs_core.c | 25 ++++++++++----------
+ net/xfrm/xfrm_policy.c  | 51 ++++++++++++++++++++++++++++++-----------
+ 3 files changed, 51 insertions(+), 26 deletions(-)
+
 -- 
-Jens Axboe
-
-
+2.47.3
 
