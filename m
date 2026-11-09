@@ -1,62 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794250265;
-	b=hyePBj6DkTW8swnMkhwkTAeYDqu0gACrto4+k58FEksqGsjwIAMRKqoGwvf60bwS5k7V
-	 3NTYm34/0kCcau4Z+74MDMt0h44ANJSd69+7WhqV8xE5VvyAwr52hdaYKHpWlI1QF1cWI
-	 gkPFtidM0/Eeafjp2IsRSfJTtRFjUqJ+dFs0oBPdqEfiktWjR8Wf5hxgjfeHfJ/JR6qWm
-	 EmAoFnFZvbgni4cmg/veWnH/3UPrgvlDcKMqz7MwiCegCBV+mw3mhy4UhGUe898iDlszz
-	 emJq17wninM9KWE/Yw/Qf17RUxJTou5xlHHSMVRgzc8tvu6u6wNcn4wXnRaBUMu1CZQ==
+	t=1794250274;
+	b=1LVFdZ+KFl1486ZpH3mtJ7nebRs09XSx31SNYuy22yi4H0wp7f1bPGra/4nSigkv+jzs
+	 o6LBHZuj9qLQ6jygc+uBOe8nq5z4qyvHWoGyg/nJ7LERafj63cdqaKNxOG6QVSWbPnrBV
+	 GWnprMuPgyPvC0XnPnpAJ7Mg4rduY/SoRA4SMjHILHvAetH4mPBKE7V/j4Fr/OmI0bagm
+	 YY7q+u2WAh/CSyeTKmZ0NsQFckHKEvI7E/4F3qWPZLkYlw7FXkuePWmJz/tX6kh1tFdjf
+	 J7FlYhcZNr/Pu+4v0iiWN4HxFv1dkDruPQbqhU1LwNog4bgW3atzeudX4ZppFiMvFoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794250265;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794250274;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=2EN+tTTIpDfdpX+0xh2EG/Yy+J4hcSlHuMdhAeyfdzM=;
-	b=nHYA5f8nZBGA9i/oc3lOnNVMP4uYryvYD4IErZB8s3bIfNMSriiy9RS8j9yQCytmaaeJ
-	 jtZIb7FClKsWdTD6lw6Ws/7gmE+Y3XQbLSwBPnK7tzOzZz3NIOxD+n/cNxNumhA+cUaWU
-	 eJH5r6c/GMDgMdtb3o59Z6BlMOpZDq6sIAMq3XGQmwBLzryvE1zzNJKF14ny4ykoODq0I
-	 QG1nLT2WvrGbjgBK+ypuuJbmrK7Xc9431/O/JA1oHxR1IhJLBfui/lspab/tQmBWXMuOK
-	 65EtCR5DIw4lRQEyBw5MtyyueScr+plEchfrwsBu8NA51MSznxSXxqf2PDyuAGQumcA==
+	bh=04MCtVZmlwiBs9vcUce/ObNuwxitxH4kYS6YKmZb4Gc=;
+	b=T49oDwBXZd2lyb5m8NwIC2xAoxVlg1gc15LRAWcJMz3IeDorBQBNWI+3MXhS7TKCtO1I
+	 wsQ9itiwXNU9m3lKJQ1wCm/fAUrAqht5Pq6Af/a2gbD/Pp/qp9cZW+JnQagccZlEzYuHI
+	 0VL2rG9QoYjXmqTqUnHI3XWZQgDR5PgHlRGcvyh8x8Wd2lWXAjuk62iRhxun0mezVTonW
+	 Jm9OttrZfUU47FjeF5MTATx3ftDAm5Ko1/1gUiQwgZCbHwjAcdOzNyBeIkPShhAUWuBnL
+	 3iWYhTwYAXYEwSA3Uz8X50iX7QyGNN7ILTL8om266iZ41Lp5S9s6mnDmAevtOuTxyBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P3csON0n;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d8veV+sm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46699606A31C;
-	Mon,  9 Nov 2026 18:51:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B8960A260A;
+	Mon,  9 Nov 2026 18:51:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P3csON0n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96CD11F0089F;
-	Mon,  9 Nov 2026 18:51:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d8veV+sm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 985B11F008A1;
+	Mon,  9 Nov 2026 18:51:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794250265;
-	bh=2EN+tTTIpDfdpX+0xh2EG/Yy+J4hcSlHuMdhAeyfdzM=;
+	s=k20260515; t=1794250273;
+	bh=04MCtVZmlwiBs9vcUce/ObNuwxitxH4kYS6YKmZb4Gc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=P3csON0n9TTOme8oVPC7d6fbm+/Fo8NQIIi0n3P2pG90etvYPsbHR4NLqvyBGfg5J
-	 yL6elRi/RVM4/T7m+XdFbYJw81wRsp3jy1ya8QTHdozwLOL+hDTyuJMPWB8YWLdwJZ
-	 5nOEgqmXSGNyyNtskEnM2Z6T269hi7P4uOAiNC7UNEjQ1hv7c/mUC/+6u7RP7erTiZ
-	 Lit5rd6OC859L87f/sCFV2uNuQCUg7vcVAP5R6Ui6sknNF5Pu9Z3pidYhXxvg6Yc9J
-	 61rTeCMrhOUTzvFNyaqCTyIMQaMn3rFPS1Fg1IruxNDinPCCBKTmYgi+G2BmLCBp7r
-	 FVYPv352TxzGw==
+	b=d8veV+smqgRDY2qvU6Op9/CWZdLUa7sLQFe8thMfU8j7JpTS3XIpYvacf+PJUxM8L
+	 tWS2S+MBjVbz17OU7C7tvtq8bli0Wr8Hdm/38c67HqXqQzPnRxPI1sW9s5a8b3d/Dp
+	 gVA7qzmIH0JBPwuJykppspgKyT9y4jAKuqIAEkwywwvXGhLGSKqoCmAh8bsBUOkvmO
+	 lOB+HbJS6XCKpIxYZ6tY687kF8Tzt+AstzfcmsGwx9WHA68p3Q22M7d20SHHBVau2C
+	 SUQpheOXC4xJ61pxiOEUCv7lOb8m1gRipRrll+QHJVIhdR0f0EC9cKQ32tj+nWvGYn
+	 UC52+ARXsDrlw==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 0027D2F535B8;
-	Mon, 09 Nov 2026 18:50:48 +0000 (GMT)
+	by traversing.sirena.org.uk (Postfix) with ESMTP id E87A22F535A8;
+	Mon, 09 Nov 2026 18:50:34 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: linux-sound@vger.kernel.org, shao.mingyin@zte.com.cn
-Cc: lgirdwood@gmail.com, heiko@sntech.de, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, 
- linux-sunxi@lists.linux.dev, kuninori.morimoto.gx@renesas.com, 
- linux-renesas-soc@vger.kernel.org, srini@kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261107160815352Q4eO0zXOX0KF5AwEbOJ6f@zte.com.cn>
-References: <20261107160815352Q4eO0zXOX0KF5AwEbOJ6f@zte.com.cn>
-Subject: Re: [PATCH 0/5] ASoC: fix error-path leaks and a NULL dereference
-Message-Id: <179422704338.3711751.5250666353519171392.b4-ty@b4>
-Date: Mon, 09 Nov 2026 12:24:03 +0000
+To: =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Shengjiu Wang <shengjiu.wang@gmail.com>, 
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
+ Nicolin Chen <nicoleotsuka@gmail.com>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Sen Wang <sen@ti.com>, 
+ Frank.Li@oss.nxp.com
+Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-renesas-soc@vger.kernel.org, imx@lists.linux.dev, vkoul@kernel.org, 
+ Frank Li <Frank.Li@nxp.com>
+In-Reply-To: <20261106-dma_sound_cleanup-v1-0-5eb8a7b81e87@nxp.com>
+References: <20261106-dma_sound_cleanup-v1-0-5eb8a7b81e87@nxp.com>
+Subject: Re: [PATCH 0/4] ASoC: Use dmaengine API instead of
+ chan->device->dev
+Message-Id: <179422835746.3711751.8137830978577011930.b4-ty@b4>
+Date: Mon, 09 Nov 2026 12:45:57 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,23 +76,27 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2046; i=broonie@kernel.org;
- h=from:subject:message-id; bh=d0vv4//pkezbLMeZ5UdIe8F87X35XBtLtvhU5Eo8fAE=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+iXE8X3RtX+3aK9OD187eeSyWKYwvYGtQ5KF/qWcUV
- r9RfSv0sqOUhUGMi0FWTJElLov7ZX3J6zV8Bxe2wcxhZQIZwsDFKQATuVbO8L+u9eHMpsfmwt+P
- LnO6NvG7yvWdtdeSTuwVzdmtfnk670k9RoaPgR0vL0alLby+SXr1wcmMpV4CD3qT2l/9ip7Of9P
- xXR4DAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2033; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=Dr9RhZEz40c3IT2UO7hdspYOyzkFqwQqUdbRqgdf+l0=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+iX4LexY0TcB2UobJ81PrtwTUFv3+N9lx/9Nzp4/rT
+ iifknHlXUcpC4MYF4OsmCJLXBb3y/qS12v4Di5sg5nDygQyhIGLUwAmsvsaI8N357WnxbJUo725
+ C2fKPOV57MnzLvbjxYt3Mr+duhjwZnccI8MKCU47ZWnnVTfVBO9+mLRy2sX1C39s8ZBuyLKpO/H
+ s01sGAA==
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sat, 07 Nov 2026 16:08:15 +0800, shao.mingyin@zte.com.cn wrote:
-> ASoC: fix error-path leaks and a NULL dereference
+On Fri, 06 Nov 2026 15:13:44 -0500, Frank.Li@oss.nxp.com wrote:
+> ASoC: Use dmaengine API instead of chan->device->dev
 > 
-> Five error-path defects in ASoC drivers, found while reviewing against
-> linux-next next-20261030.  Four of them leak a reference or a clock, or
-> drop one twice, on a path that is easy to miss; the fifth dereferences
-> a NULL remote port while parsing an audio graph.  The patches are
-> independent and can be reviewed, applied and backported separately.
+> Replace open-coded chan->device->dev accesses in ASoC drivers with
+> the proper dmaengine accessor APIs:
+> 
+>   - dmaengine_get_dma_device(): returns the device used for DMA
+>     mappings; may return a per-channel device if the dmaengine
+>     supports per-channel IOMMU mapping.
+>   - dmaengine_get_provider_device(): returns the dmaengine provider
+>     device that carries the of_node, used for device-tree based
+>     channel filtering.
 > 
 > [...]
 
@@ -95,16 +106,14 @@ Applied to
 
 Thanks!
 
-[1/5] ASoC: rsnd: fix NULL dereference when remote port has no endpoint
-      https://git.kernel.org/broonie/sound/c/ea3277e4a3d9
-[2/5] ASoC: wcd9335: fix SLIM interface device double-put on error paths
-      https://git.kernel.org/broonie/sound/c/b5aa000ab9f4
-[3/5] ASoC: rockchip: rk3399_gru_sound: fix codec node reference leak
-      https://git.kernel.org/broonie/sound/c/1ae5920938f2
-[4/5] ASoC: sun8i-codec: fix bus clock leak in runtime resume error path
-      https://git.kernel.org/broonie/sound/c/a32aac41b8ae
-[5/5] ASoC: rsnd: fix SSIU node reference leak in rsnd_dma_of_path
-      https://git.kernel.org/broonie/sound/c/e64753959a3e
+[1/4] ASoC: apple: mca: Use dmaengine_get_dma_device() instead of chan->device->dev
+      https://git.kernel.org/broonie/sound/c/69d9cfe10445
+[2/4] ASoC: fsl: asrc: Use dmaengine API instead of chan->device->dev
+      https://git.kernel.org/broonie/sound/c/5aacfc0388c4
+[3/4] ASoC: renesas: rcar: Use dmaengine_get_dma_device() instead of chan->device->dev
+      https://git.kernel.org/broonie/sound/c/77c4d4f760d3
+[4/4] ASoC: ti: davinci-mcasp: Use dmaengine_get_provider_device() API
+      https://git.kernel.org/broonie/sound/c/2a2c53477627
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
