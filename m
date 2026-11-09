@@ -1,82 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193118;
-	b=FtqGDrSoX1nr9qUIkMTKTZLObTKHUlJsD4trkEv4sQQyyS+FQ4xrix7Wi2qvfKv8euBv
-	 bz+UvMpq2K9MGt30zIxbdTal1DsO7HFeyvUpv/g/V9u+mc7ylf3dpQ5j+ygfA5vyMSd67
-	 xImvJGWeXmuHhJAhnOzcrUMD7PprO1JtFuJU9KqoG+cRdtPHVP/5umglusNFPhn3qXR82
-	 6Q3F1eJN48OwF/LvSXirgNSJqIsfsaVGQx7/8FvcwfId5BlUW0toS4Glig1nqkG/+Z3Zq
-	 G27UHNs6Y00sLSvArbQQ304FL9BGJDY0QeSG/azvx5uUWRBNPbL2TB7bCaRLecF3GZw==
+	t=1794193124;
+	b=WSjXUNSEKD9Y0O1jq1uh4KuxSEd9GDQwLbLEzW/PdiBrpACJPIdTL0opUkrryjlwGJ9y
+	 qq2q6pLXLpGo6BNjeok01lrHlWYOcTkHb5BNztPhbiFegYL37p8ckH/MOsg8aWVQlV7Bq
+	 3oKtEBR1P34RMEJ0s7r6GPbIAM7fre1nHNLxeuijV+hfjmSHngItVsslQNfMkD7wI3eBJ
+	 N6iEVSYkfRRsiVQFUiIEvY3OM4k4F0s7+M0tPYZoEoX5jQ/hFr+ArPkR7cBLnMX8IPsE8
+	 eT/ZU22Kl1NY0MNOHwLLgd3fZQq7Oe9+5g9padaP4AgqIO7ICxem3pCsH4RDxTbxLzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193118;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=EZjE/JK3/R7shkaCTiy2m7At7WNjnN07YK5DWmAePew=;
-	b=kv138iwmA25CLzsNhmD4X+dtAQkqJajdYYQATlV5Po1tdMfDi2gQP5kS1MeKQRf1UtWE
-	 0Li0wJqg2WXD1nXCgJQ0FEUlrcsCRyJRKwh0YSBh3OALWSYumD51g6DWP3znPb3iolPDh
-	 s8R8MAfLMse5lqZSM5OnRGlZuWzaO1JKs7ooz6s+NjZAghHlJaWCh4L4ewQMBDZMPlLVd
-	 E82icYO0/Zv5GHJAOnD0SkMuRHQsxZKGpM8aFzhjq+TWR3XPg3Uqe/ZGRtHhDqHunZuOY
-	 7O6ne0orYnFc9b0mbBEzsYe25eD9rufG6fGby1GM4XI0q8xN1R6UfseRcT3VhGQIxcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193124;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yphr/xiIDRgmCIjQY3JvfmHV8o2HtJ/A7EORNX9HaRg=;
+	b=v377giXyjlxpFWMiK7MvkVDlA7g/MxQajnRs8QtelAQbolM3NR8JZnUVEZkj7+1A4hKR
+	 a0TLwa8FLPb+TUulr6LLQAfqW0r7zk5u/g2VhoF4eNeFEg48i7P9rwQIs3itMGDHwMPsm
+	 icROtw4cykSVThRWo8giB2WbZbSfjM0FOg23t9mhbVBGdMx56o8DaeuKC3ZLdxxNxScNh
+	 XhTH9xtG/0/XUCT04w8inEUKiZEdy3F7B4T/7cYCurOT7vRf/XaeFu6/N2GumBkUFoh5F
+	 eqxROTO0j5nm86rt5gSgtIng3Nj7OhyYUIoNoA54GaNF2q4FaCoGfs/tGW+M0fka4Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=EqhObOSN;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FSPwdPT5;
+	arc=none smtp.remote-ip=95.215.58.151
+Received: from mta1.migadu.com (out-151.mta1.migadu.com [95.215.58.151])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EC0606A31C;
-	Mon,  9 Nov 2026 02:58:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7EC0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46689606A323
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:58:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46689606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=EqhObOSN
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A92wW7F13966444, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794193112; bh=EZjE/JK3/R7shkaCTiy2m7At7WNjnN07YK5DWmAePew=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=EqhObOSNEO5puUUsRIGI8WZdD+ExKsRfaYhoCJQ2vuWzRncbBd5/BYLSN+S2MaNl5
-	 NjARlTqK9bqxh7/IzODT/96dCqn2GxPFbeyOhpOPAkLlFZAWR75YsZm6ZgFAP/jVRI
-	 2x4R+y3Jj7iWqo57rRKtX1VNKjZ/BxYjuR5WG94XJzK2R9yDNcpIxo+5DFM2vF9Nq1
-	 vgR9L1EJKGoGUGhpkWIc05pWPcMDfn52Jxwwqgwly6Xhllfrx2N3g9GckBWes5BR6h
-	 eay6iBjc+R0CCOjNMStcldwV2nOk5HO59NMNtH6vy1Ah7X1UW38pcYYcETRr2b+IgO
-	 EBhWH/R5VCS2w==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A92wW7F13966444
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 9 Nov 2026 10:58:32 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 10:58:32 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Mon, 9 Nov 2026 10:58:32 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Jie Feng <hjf3108@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next 5/5] wifi: rtlwifi: rtl8192d: let the firmware
- use all rates
-Thread-Topic: [PATCH rtw-next 5/5] wifi: rtlwifi: rtl8192d: let the firmware
- use all rates
-Thread-Index: AQHda3lMjeHUYZEd20CIBb6M95IYCLclAbug//+JqICAAIiU4A==
-Date: Mon, 9 Nov 2026 02:58:32 +0000
-Message-ID: <fcba3b4d22e5441691f8c0fc71e1c71c@realtek.com>
-References: <20261103095256.949327-1-hjf3108@gmail.com>
- <20261103095256.949327-6-hjf3108@gmail.com>
- <8fbf3fbba7d94b55b7510a57ff376e8d@realtek.com>
- <CABOQOSWLNQC3SHj1AUEQ8SmUAig-8xHGm=GO6w8EN-nSzy-7=Q@mail.gmail.com>
-In-Reply-To: <CABOQOSWLNQC3SHj1AUEQ8SmUAig-8xHGm=GO6w8EN-nSzy-7=Q@mail.gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FSPwdPT5
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=96rAeUWmnzHN6yth5vv/wCTrXAV8exvh1VkI3YdM/T0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794193122; v=1; x=1794797922;
+ b=FSPwdPT5dTGic4pY9LBjBaB5dut9cna9HmtiO4CIZPwehWLvelm8KsWiqfsq46ib8/amyH3N
+ S5K02wwnFyCe9vXoO6pP4N5M8gOSfmuS/Top0M1Ygjap+sLL6gVo5nVxLr4c6cS6Wd6jzr68HJy
+ AajJzFBXp/hmjxu2X2Ykgi+I=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 95288f8eb6e1ae45;
+	Mon, 09 Nov 2026 02:58:42 +0000
+X-Mizu-Trace-ID: 95288f8eb6e1ae45
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Paul Moore <paul@paul-moore.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Julian Anastasov <ja@ssi.bg>,
+	Allison Henderson <achender@kernel.org>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	bridge@lists.linux.dev,
+	linux-security-module@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	lvs-devel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-sctp@vger.kernel.org,
+	linux-s390@vger.kernel.org
+Subject: [PATCH net-next 08/14] rds: annotate data-races around core rds sysctls
+Date: Mon,  9 Nov 2026 10:52:07 +0800
+Message-ID: <20261109025425.328445-9-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,35 +101,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-SmllIEZlbmcgPGhqZjMxMDhAZ21haWwuY29tPiB3cm90ZToNCj4gT24gTW9uLCA5IE5vdiAyMDI2
-IGF0IDA4OjU2LCBQaW5nLUtlIFNoaWggPHBrc2hpaEByZWFsdGVrLmNvbT4gd3JvdGU6DQo+ID4N
-Cj4gPiBIbyBKaWUgRmVuZyA8aGpmMzEwOEBnbWFpbC5jb20+IHdyb3RlOg0KPiA+ID4gVGhlIHJh
-dGUgbWFzayBpcyBjaG9zZW4gYmFzZWQgb24gcnNzaV9sZXZlbCwgaG93ZXZlciByc3NpX2xldmVs
-DQo+ID4gPiBpcyBhbHdheXMgMCwNCj4gPg0KPiA+IFNob3VsZCB3ZSBmaXggaXQgPw0KPiBUaGUg
-dmVuZG9yIGRyaXZlciBmb3IgcnRsODE5MmR1IGFsc28gZG9lc24ndCBkbyB0aGUgcnNzaV9sZXZl
-bCB1cGRhdGUNCj4gSXQgaXMgbm90IGNvbXBpbGVkIGR1ZSB0byB0aGUgI2lmIDANCj4gaHR0cHM6
-Ly9naXRodWIuY29tL2x3ZmluZ2VyL3J0bDgxOTJkdS9ibG9iL21hc3Rlci9oYWwvcnRsODE5MmRf
-ZG0uYyNMMjYyNA0KPiBUaGVyZWZvcmUsIEknbSBub3Qgc3VyZSBpZiBpdCBpcyBva2F5IHRvIHBv
-cnQgaXQgb3Zlci4NCg0KQWRkIHRvIHlvdXIgdG9kbyBsaXN0LiBUbyBmaW5lIHR1bmUgdGhyb3Vn
-aHB1dCwgeW91IG5lZWQgYSBzZXQgb2YgcGxhbiB0bw0KdmVyaWZ5IHRvIGVuc3VyZSB5b3VyIGlt
-cGxlbWVudGF0aW9uIGlzIGdvb2QuDQoNCj4gDQo+ID4gPiBzaW5jZToNCj4gPiA+IC0gZm9yIHJ0
-bDgxOTJkZSwgY2FsbCB0byBydGw5MmRfZG1fcmVmcmVzaF9yYXRlX2FkYXB0aXZlX21hc2sgaXMN
-Cj4gPiA+ICAgY29tbWVudGVkIG91dCBhbmQgZnVuY3Rpb24gaXMgbm90IGltcGxlbWVudGVkDQo+
-ID4gPiAtIGZvciBydGw4MTkyZHUsIGl0IGlzIGFsc28gbm90IGNhbGxlZC4NCj4gPiA+DQo+ID4g
-PiBUaGlzIG1ha2VzIHRoZSBicmFuY2ggYWx3YXlzIGNob29zZSBsZXNzIHRoYW4gb3B0aW1hbCBh
-bGxvd2VkIE1DUyByYXRlcy4NCj4gPiA+IEVuYWJsZSBhbGwgdGhlIHJhdGVzLg0KPiA+ID4NCj4g
-PiA+IFRlc3QgcmVzdWx0cyAoMi40IEdIeik6DQo+ID4gPiAgICBiZWZvcmUgYWZ0ZXINCj4gPiA+
-IFRYIDYuNCAgICAxMi42DQo+ID4NCj4gPiBIb3cgYWJvdXQgdGhlIHJhdGUgYmVmb3JlL2FmdGVy
-PyBJIHRoaW5rIHRoZSBoaWdoZXN0IHJhdGUgd2lsbCBiZSBzaW1pbGFyDQo+ID4gb3IgdGhlIHNh
-bWU/DQo+IEhpZ2hlc3QgcmF0ZSB3aWxsIGJlIHNpbWlsYXIsIGJ1dCBJIHNhdyBpdCB1c2luZyBt
-b3JlIGludGVybWVkaWF0ZSByYXRlcy4NCg0KV2l0aCBsb25nZXIgdGVzdCB0aW1lIChlLmcuIDEw
-IG1pbnV0ZXMpLCB3aWxsIHRocm91Z2hwdXQgYmVjb21lIHNpbWlsYXI/DQoNCj4gDQo+ID4gPiBS
-WCAzMi4wICAgMzkuMQ0KPiA+DQo+ID4gWW91IGNoYW5nZSBtYW55IHJhdGUgbWFza3MgZm9yIGRp
-ZmZlcmVudCB3aXJlbGVzcyBtb2Rlcywgc28gcGxlYXNlIHByb3ZpZGUNCj4gPiBtb3JlIGV4cGVy
-aW1lbnRzLiBFc3BlY2lhbGx5IHlvdSBuZWVkIHRlc3RzIGZvciBhIGNsZWFuICYgbm9pc3kgZW52
-aXJvbm1lbnRzLg0KPiBTbyB0aGlzIHBhdGNoIGJ5IGl0c2VsZiBpcyBtb3JlIG9mIGFuIFJGQywg
-YW5kIEkgbWlnaHQgZHJvcCBpdCBpbiB2Mg0KPiBpZiBpdCBjaGFuZ2VzDQo+IGJlaGF2aW91ciB0
-b28gbXVjaCBpbiBkaWZmZXJlbnQgY2lyY3Vtc3RhbmNlcy4NCg0KWWVzLCBJIHRoaW5rIHNvLiAN
-Cg0KSWYgeW91IGNhbiBtYWtlIHBsYW5zIHRvIHZlcmlmeSBpdCBmdWxseSwgSSBjYW4gYWNjZXB0
-IHRoZSBjaGFuZ2UuDQoNCg0K
+reconnect_min_delay_ms, reconnect_max_delay_ms, max_unacked_packets,
+max_unacked_bytes and ping_enable are read without any lock while their
+sysctl handlers update them with WRITE_ONCE(). Add READ_ONCE() to the
+readers.
+
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ net/rds/recv.c    | 2 +-
+ net/rds/send.c    | 8 ++++----
+ net/rds/threads.c | 4 ++--
+ 3 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/net/rds/recv.c b/net/rds/recv.c
+index 00ab60f2d9969..daccbfc8cb8a2 100644
+--- a/net/rds/recv.c
++++ b/net/rds/recv.c
+@@ -370,7 +370,7 @@ void rds_recv_incoming(struct rds_connection *conn, struct in6_addr *saddr,
+ 	}
+ 	cp->cp_next_rx_seq = be64_to_cpu(inc->i_hdr.h_sequence) + 1;
+ 
+-	if (rds_sysctl_ping_enable && inc->i_hdr.h_dport == 0) {
++	if (READ_ONCE(rds_sysctl_ping_enable) && inc->i_hdr.h_dport == 0) {
+ 		if (inc->i_hdr.h_sport == 0) {
+ 			rdsdebug("ignore ping with 0 sport from %pI6c\n",
+ 				 saddr);
+diff --git a/net/rds/send.c b/net/rds/send.c
+index f38967f65af18..66e75a382bcc7 100644
+--- a/net/rds/send.c
++++ b/net/rds/send.c
+@@ -87,8 +87,8 @@ void rds_send_path_reset(struct rds_conn_path *cp)
+ 
+ 	cp->cp_conn->c_map_queued = 0;
+ 
+-	cp->cp_unacked_packets = rds_sysctl_max_unacked_packets;
+-	cp->cp_unacked_bytes = rds_sysctl_max_unacked_bytes;
++	cp->cp_unacked_packets = READ_ONCE(rds_sysctl_max_unacked_packets);
++	cp->cp_unacked_bytes = READ_ONCE(rds_sysctl_max_unacked_bytes);
+ 
+ 	/* Mark messages as retransmissions, and move them to the send q */
+ 	spin_lock_irqsave(&cp->cp_lock, flags);
+@@ -380,9 +380,9 @@ int rds_send_xmit(struct rds_conn_path *cp)
+ 				set_bit(RDS_MSG_ACK_REQUIRED, &rm->m_flags);
+ 
+ 				cp->cp_unacked_packets =
+-					rds_sysctl_max_unacked_packets;
++					READ_ONCE(rds_sysctl_max_unacked_packets);
+ 				cp->cp_unacked_bytes =
+-					rds_sysctl_max_unacked_bytes;
++					READ_ONCE(rds_sysctl_max_unacked_bytes);
+ 				rds_stats_inc(s_send_ack_required);
+ 			} else {
+ 				cp->cp_unacked_bytes -= len;
+diff --git a/net/rds/threads.c b/net/rds/threads.c
+index 639302bab51ef..115fcff0a5b13 100644
+--- a/net/rds/threads.c
++++ b/net/rds/threads.c
+@@ -137,7 +137,7 @@ void rds_queue_reconnect(struct rds_conn_path *cp)
+ 
+ 	set_bit(RDS_RECONNECT_PENDING, &cp->cp_flags);
+ 	if (cp->cp_reconnect_jiffies == 0) {
+-		cp->cp_reconnect_jiffies = rds_sysctl_reconnect_min_jiffies;
++		cp->cp_reconnect_jiffies = READ_ONCE(rds_sysctl_reconnect_min_jiffies);
+ 		rcu_read_lock();
+ 		if (!rds_destroy_pending(cp->cp_conn))
+ 			queue_delayed_work(cp->cp_wq, &cp->cp_conn_w, 0);
+@@ -156,7 +156,7 @@ void rds_queue_reconnect(struct rds_conn_path *cp)
+ 	rcu_read_unlock();
+ 
+ 	cp->cp_reconnect_jiffies = min(cp->cp_reconnect_jiffies * 2,
+-					rds_sysctl_reconnect_max_jiffies);
++					READ_ONCE(rds_sysctl_reconnect_max_jiffies));
+ }
+ 
+ void rds_connect_worker(struct work_struct *work)
+-- 
+2.43.0
+
