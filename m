@@ -1,76 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.199.235.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794246975;
-	b=pnNph+WdQIACQDKWKYl2K8NEzdDDXEVubYOYG/XX7NQT6iHU2qdRKw+B8Fbclf8knhB3
-	 E+zVQGemYgMvdkxl36UAztjU6IsfmX2DA7hEGg6pgpN7VZuOKSg+Y5Ey0SvA75pjIb2QF
-	 gs2oGp3Fk1x0TcZAwRFOtbWMbJQ0YKCuy9MdAJvMJo0Nshoj+7nNyCUoApx31vNLosxW4
-	 NFAYeJG4vNqk5uGlc9Wy7S6hdQtoZ/u1ZOdn1mhCqN2iPBYRpupKPrKNOWMeGR+7AbW5f
-	 F6sSErKygcRci+GOBRqepT0oNHStcvahkK438LFfkB8Zr1a08AtOt/gRvMp1POcpvcg==
+	t=1794246974;
+	b=NsrxmCxrwxqFW+j+L2A/wL93iWp6jPVeu0r2LT1fsOnAYCc0Lv/6bHvFfQdxH/pL0buo
+	 ISV+A0s4X2w/b27YVDb5o9mmxGavHx3NJQGBS2KzSUOCM7nxM1O2KHP9L6ndMlSNDMSfZ
+	 h+ROz4A0lVwD5sABizlsPxdHFPW4nx4jYGCiDFTZEpT//kZwv4tAEGt/l1xS8eh6B9jSM
+	 Bo9P5QMp1/m0ffhMwPxuUP4Ie2Vkcg9xhPw1DGCBOnvbrkgWXKC8RIFNqTB9ThZaffo4h
+	 2RTuFjHaYj0NdRy+OHeGotuP7RWqtWOp8oK+Jezej627yvuLRHziv/iJKe8vdBYK9FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246975;
-	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:
-	 X-Virus-Scanned:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=if0cEUuJl6s7o+37uuaoQnPEf1nh2eR1DDff4vzhVvw=;
-	b=UuNsZBCuJHaXm3kCF350oQBkyzViRPQHuN9UEHZ1OKvuF0DlRucHWKMqenDYv5lVUgOZ
-	 VqoVTHZr+SMMrqvlBokvLTZ1dbO6cvSpQ5daPL75ysKaFSi2LWCDrv15ZJIT2UD/RwgOt
-	 voJUTtKRqD9LNvL4XDLaB4E6wXJG2ud7j0/TirqHnZGLEHgAgWFR9ev8SH8yCl9SLuZZc
-	 0eZ5dz+dPu72lkvZK6x8eLXALxZrvY10b5gqXGMua/y1IzTPaF3FS5wPK2qKx/p5uR1B8
-	 4PCL7Y9/a7k+3deK/f5hax/4KS8w7+fthk/CdFY5XN3rScTaPzm4DBIzFld63L366KQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246974;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=iTmx0r81EUOeW+G7ZIvHemmzWYbW35OLP9Cl9c4f2Wk=;
+	b=btOjMJkoPBy0OJaBGEqMxie6sE0uoEcvH3gOA78eq1orQTc8U2q6vGkPou9EqRlA1b2/
+	 0MBkRMHpUn8gR4ND5TWBEkfPOoXO3GHmpNWGm9k1dx2gJ8A+brphMbAceikOCeN5QvLP9
+	 kIIV+KLux6TiDHIIUOVMXjVDH2HgrOkiM9tjMbbZpdIBJciOrec3q/wpn3wZ/OsqO1Wwy
+	 MCt9abc7VKqbrDmumwuBKyl1NTSbuYApnEYMm6ubj/lQOXMZ78qNeRhuIgS2vZ4CmrECW
+	 mYB41Hrwllh4jhYBlth83kkYGgfexvkwMGi7cfFNCObQE9h8KZ6qH+KjzsZ2ORvXFxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cirad.fr;
-	spf=pass smtp.mailfrom=cirad.fr;
-	dkim=pass header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=oYDVBy24;
-	arc=none smtp.remote-ip=194.199.235.221
-Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bcpFB+Wg;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C9D4606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:56:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C9D4606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cirad.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cirad.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 800AB606A31C;
+	Mon,  9 Nov 2026 17:56:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 800AB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=oYDVBy24
-Received: from retz.cirad.fr (localhost [127.0.0.1])
-	by retz.cirad.fr (Postfix) with ESMTPS id E539B20D174F;
-	Mon,  9 Nov 2026 18:56:11 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
-	by retz.cirad.fr (Postfix) with ESMTP id CA90220D1763;
-	Mon,  9 Nov 2026 18:56:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr CA90220D1763
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
-	s=573E3878-7916-11F1-BF4B-F68474317960; t=1794246971;
-	bh=if0cEUuJl6s7o+37uuaoQnPEf1nh2eR1DDff4vzhVvw=;
-	h=From:To:Date:Message-ID:MIME-Version;
-	b=oYDVBy24embrLcOhPvc9Soom3Wb65A7jOH7HnOfsg25PrEG3kA9kjALksaYLGTVFN
-	 tXhemg5Ep+rY8ADfNrM5Af6yYCG6kO0qgQ1t0CdApljhd2Zfsb4ghSQERIis1mTttn
-	 dqkBnOIqcruJvOnGG4VsTKUSOd0o59qwY1phmkGT9YAwdDSGe99EGCf/LIS/sqeMpQ
-	 9HJIRj2n/2l8txgZBH9PxyNgn17Aebx83JMa2cY9xmCqh5STI47qlb/NhQwwzzHBH0
-	 L8j66/G2oFEG/YmQ6l/Xx5tupok6+anikzA/UGQzmLM7C5DZKjhNab8PQhJRNASYYn
-	 O2HozvcdvJwwA==
-X-Virus-Scanned: amavis at retz.cirad.fr
-Received: from retz.cirad.fr ([127.0.0.1])
- by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
- id Gr6o4wC3rV3i; Mon,  9 Nov 2026 18:56:11 +0100 (CET)
-Received: from localhost.localdomain (78-196-243-100.subs.proxad.net [78.196.243.100])
-	by retz.cirad.fr (Postfix) with ESMTPSA id 5236220D174F;
-	Mon,  9 Nov 2026 18:56:11 +0100 (CET)
-From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] riscv: defconfig: enable onboard USB hub support
-Date: Mon,  9 Nov 2026 18:55:49 +0100
-Message-ID: <20261109175555.323067-1-frederic.mahe@cirad.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bcpFB+Wg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794246974; x=1825782974;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=iNokIAKhN+qj5LNCCEgSOCO90w6ZjTzjUxKkKV8ujyc=;
+  b=bcpFB+WgejPfonEeHdqFda93e/RJ5yl2zMkdjPodNUlUZhrKwVmnzCj0
+   6RTZpq7KIhv1ZRvoQsh7yKuhKDL96GukFaxb3laIu28V0zQjVe6JzTsyP
+   yOFuN/OLENAoeQZNWVXqzMfXqQwkIncCWFKpTCsJOqjYwnbowuDLIOEtZ
+   Y8vf497A3MsjLxDV5Q3o7eFPXNN96gRk9k7RTyHgXd5RHLk376+naSpUh
+   PNuBtBKP65GAi4n3ZWEdevR9c3FyOm8n/3RUN4MI9yP9M9z23uC0mms08
+   Rr6NkJxWW2+RElTAAeCRLFfEeNfd1eg/IkmVX7cfJTnDWMPOg+GAFKHVO
+   A==;
+X-CSE-ConnectionGUID: nWIuLS7aSAyDBBQyiOi/vw==
+X-CSE-MsgGUID: vlMJEdAyQQmNIpAOpb46Mg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2878718"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2878718"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:56:14 -0800
+X-CSE-ConnectionGUID: rEdqlWe8TiaPKz4X5TA2Dg==
+X-CSE-MsgGUID: QHfD0ympSZac0swZMJTAUw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8249114"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.184.228]) ([10.122.184.228])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:56:13 -0800
+Message-ID: <31278ce8-77ed-4bd2-a237-815cbcc5b489@intel.com>
+Date: Mon, 9 Nov 2026 11:56:11 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,43 +72,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 04/18] KVM: x86/pmu: Add PMC bitmap accessor helpers
+To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>, Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ kvm@vger.kernel.org, Jim Mattson <jmattson@google.com>,
+ Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>,
+ linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
+ Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
+ Xudong Hao <xudong.hao@intel.com>
+References: <20261106013927.166209-1-zide.chen@intel.com>
+ <20261106013927.166209-5-zide.chen@intel.com> <au4kyULjUYdqbfIq@google.com>
+ <531bd088-dc5e-4b2e-953a-6d9d6f14b61e@intel.com>
+ <CAO9r8zMs+aBPN-w7L3nZxwVV-Dr2f0tBYBjicDsdYVp_Mc2AWg@mail.gmail.com>
+ <2aeaac02-368c-40b4-9b2d-feef5e9d9ea8@linux.intel.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <2aeaac02-368c-40b4-9b2d-feef5e9d9ea8@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The Banana Pi BPI-F3 (SpacemiT K1) has a VL817 USB 3.0 hub behind its
-DWC3 controller. The hub's power and reset come from the
-"usb2109,2817" and "usb2109,817" nodes in the device tree, which need
-the onboard_usb_dev driver. Without it, the hub regulator (USB30_HUB)
-stays off and the board's four USB-A ports are dead.
 
-Enable USB_ONBOARD_DEV as a module, as arm64 defconfig does.
 
-Tested on a Banana Pi BPI-F3 with v7.4-rc1 (dwc3 enabled as a module):
-the module autoloads, the hub comes up on both buses and a USB mouse
-on a USB-A port works. Without it, only the root hubs are seen.
+On 11/9/2026 1:53 AM, Mi, Dapeng wrote:
+> 
+> On 11/7/2026 6:35 AM, Yosry Ahmed wrote:
+>> On Fri, Nov 6, 2026 at 2:19 PM Chen, Zide <zide.chen@intel.com> wrote:
+>>>
+>>>
+>>> On 11/6/2026 1:09 PM, Yosry Ahmed wrote:
+>>>>> diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+>>>>> index b8875ed5502c..4f192429ed93 100644
+>>>>> --- a/arch/x86/include/asm/kvm_host.h
+>>>>> +++ b/arch/x86/include/asm/kvm_host.h
+>>>>> @@ -595,7 +595,10 @@ struct kvm_pmu {
+>>>>>              DECLARE_BITMAP(reprogram_pmi, X86_PMC_IDX_MAX);
+>>>>>              atomic64_t __reprogram_pmi;
+>>>>>      };
+>>>>> -    DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
+>>>>> +    union {
+>>>>> +            DECLARE_BITMAP(pmc_exists, X86_PMC_IDX_MAX);
+>>>>> +            u64 pmc_exists64;
+>>>> __pmc_exists would be more consistent with __reprogam_pmi above.
+>>> I used the *64 suffix and without '__' to match the cntr_mask/cntr_mask64
+>>> and fixed_cntr_mask/fixed_cntr_mask64 pattern in struct x86_pmu_capability
+>>> (patch 7), whereas __reprogram_pmi used '__' because it is an atomic64_t
+>>> rather than a scalar mask.
+>> I don't follow why the '__' prefix is specific to atomics, but anyway,
+>> I will leave this up to you and Sean.
+> 
+> Per my understanding, '__' prefix hints this function/variable should not
+> be accessed directly, it should be accessed via some wrapper helpers. So I
+> think it depends on if we hope the variable pmc_exists64 should be accessed
+> directly.
 
-This patch was prepared with the help of an AI assistant (Claude),
-which also ran the build and boot tests.
-
-Signed-off-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
----
- arch/riscv/configs/defconfig | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
-index 04ae305..8fb6d7f 100644
---- a/arch/riscv/configs/defconfig
-+++ b/arch/riscv/configs/defconfig
-@@ -222,6 +222,7 @@ CONFIG_USB_CDNS3_HOST=3Dy
- CONFIG_USB_CDNS3_STARFIVE=3Dm
- CONFIG_USB_MUSB_HDRC=3Dm
- CONFIG_USB_MUSB_SUNXI=3Dm
-+CONFIG_USB_ONBOARD_DEV=3Dm
- CONFIG_NOP_USB_XCEIV=3Dm
- CONFIG_USB_GADGET=3Dy
- CONFIG_USB_CONFIGFS=3Dm
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
---=20
-2.53.0
-
+Agree, I vote for pmc_exists64 over __pmc_exists.
+> Thanks.
+> 
