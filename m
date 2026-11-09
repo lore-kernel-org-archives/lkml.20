@@ -1,84 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228006;
-	b=K2jSn3qCwCKJCubHksJx5GslcyU/jRuCnHzWyBhBl9KZHTSr6FFYQFpxwDjzeFsP7Y7h
-	 hIn8t4zRQ2zHB10JVMtCDqzlp46QvPkBQDU8E4uIEEzZtAuDZmSJh/TlGoz/SxmdEmL6k
-	 Md+kGO8+QW5lcBtGoJcLxXv2ixJegOFHmCM6410dXEKy/W3x5svnikcAwr+4WtQvp32g8
-	 XWqz5GXaIUkyt8qsvBuPyvxEGShfSRZeCjGqYNTBg2ocjFwX41ur3QVGp+mBk7FmSu2FP
-	 Kk11qpPisMt86jy/GYA9+6/z0ZRFUlE/bw5brAvT42FEDKA0qEwjMyGxgbnIM0WqUZw==
+	t=1794228021;
+	b=HgQ6RwvFZhlkPqZWdb8Q37lOAw+pDX+CW/Wv5J3S6s2vYVMFcKhfazIoGAn0WWXm378B
+	 sD+lFGJl/m/8P9Oj81pbAYVVKSjDv5sd3sAyuN4OGHmN6dqhrF2jYHPySVEeyG/dchlv1
+	 KEP6bI0BBO8bboKCcL2h/2jwxSZVe7DAGsEL1AiIcjVSJReIPtZVLzLokSdnQJcqP2EK0
+	 q7022v4Ppy6pLTeRfWENZTfvzeMWcvjuDmMT8XQJnD0ogCgPtEPxMsbIGcHsMWt4IRIew
+	 JLOLOrJP6bG9b+7+Bs51qLuwPwlIOL6aRTwgja0L1DtzEwjGRhziVKwQ0nfA1A7AHuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228006;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=WWb056gPipccz0Z+Rf2etpC3VqitL7tkSZ//q9NzwZQ=;
-	b=LPKor4IURZilap0aDUMsN6nUqVOt1o17woLuTebYTQOKclpuXQEAU7mMWooajfma8Mep
-	 Z9s5Fd0SEnGz2vES5zN6J3t4qNS4L0P9D+39lgL83lTZc5Pzmu/z4UQ/ajcIRwCwpccCz
-	 8XPptmX+OxA9SfG2mlH1lxJHp3P0yEdMfzEY3Ul9k6pqfuh+PVr+6PcII2efydUcVWsxZ
-	 ZwilhNIeN13HRIwrsvOjp4ehLxBnBRbfs3JNB7SKEbRTGpYJtk+RcEp/uCBTJ8/vkMTIm
-	 FtQU6HGmjiJ/NbwKT2LIyVaQ0wdGFSFE2IlrPtD7Sz6IUnJyb677U0/al26JKHcktVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228021;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=E8rh+A8iUf9NcUV78g/qTQWXpMrMp374iBAZJigpqcI=;
+	b=LREUWiG9Vf/9HO/YHh6cTpHHOsLDelE7INKg0UW/BDzTsp07emG+Wco2A+mzTyjchiZs
+	 Km+Wc/xouOZWdeDIk4GjnMAdbJ2alnH+AP1OLjdewtkDhPgdWJ8jIYmi1iC606Xucch/7
+	 Nn0LIJUjJpgCO+k8+i49Qy4mwxPCs1YhLekxJL6d/dFhKvN1BcscpBnr2E1/MfIuxRo5c
+	 MfEG4FYTNHhsg/RpeVsyrJd+9UBsIKYjeKT6UFca4/ZliRtMNYMNh0Pl/MwEYWKDqxDOb
+	 RE5mnRwjHd7VHi9FmaEBUpA0fDvywCmjO+aaOHUy/MykqmWx8vBfVpCtYX10i59blTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=NgpkRXhN;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9piDjCwH;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IXpQjYCc;
+	arc=none smtp.remote-ip=95.215.58.14
+Received: from mta1.migadu.com (out-14.mta1.migadu.com [95.215.58.14])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DB6606A321;
-	Mon,  9 Nov 2026 12:40:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89DB6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7271606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:40:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7271606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=NgpkRXhN;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9piDjCwH
-Date: Mon, 9 Nov 2026 13:40:01 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794228003;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WWb056gPipccz0Z+Rf2etpC3VqitL7tkSZ//q9NzwZQ=;
-	b=NgpkRXhNAxzUdTG5+1ErHI4Bdi3xz5RF4IbE05z4lhqW3Dim5Co5HVJWuOmL4qpjo+eQ9k
-	UDKTieCgat9zt9axBKLg3dPvNHHYVDQ0uajk3f+rt5lypdGnp3WMbxxPy9dPvuh01B7CTO
-	n6NqxcShKB73869PlhdU91rB0oKSDeLBaJ5xVnZm5X/ekrpMEsQgKrULUQ4cdMCupYtwhX
-	D8JR7mArn4pBSmI+hXrVP3eE8BSWZlbf4Uu8+KARHwce4MceN/BHgJ6VwEFUEgc9yX5+9U
-	YIw3Pq9M7dQmp5bWDatkHW0kvPMHT8H6wGP+6k2cjpSeRCH60CQNDHEzRfz8Rw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794228003;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WWb056gPipccz0Z+Rf2etpC3VqitL7tkSZ//q9NzwZQ=;
-	b=9piDjCwHPumPCCOarJvE9FW/bdj5Kujx5ekmk8xq7Wv01NAeZeA2TLCtygQfXf1LNGDyrD
-	6XWvkZp3iiNuC4CA==
-From: "Ahmed S. Darwish" <darwi@linutronix.de>
-To: Julian Braha <julianbraha@gmail.com>
-Cc: Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	John Ogness <john.ogness@linutronix.de>,
-	Derek Barbosa <debarbos@redhat.com>,
-	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
-	Daan De Meyer <daan.j.demeyer@gmail.com>,
-	Luca Boccassi <luca.boccassi@gmail.com>,
-	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
-	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 01/10] kconfig-checker: Add schema for rule files
-Message-ID: <avG_IXPcRY7njMgP@lx-t490>
-References: <20261106091922.7560-1-darwi@linutronix.de>
- <20261106091922.7560-2-darwi@linutronix.de>
- <e0ffecfe-8c4f-457e-ae8d-32a9601e69e5@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IXpQjYCc
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AKZh4nPPHH+Z+tE3EwhpBYD5fzfCHy+nEnXWG119NSE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794228017; v=1; x=1794832817;
+ b=IXpQjYCcDFyFubs7q5Cm2oZ88M/Kw3pGcxyHIhIVF0rq3C+ucPwERlz2AVyE4kkUMXNIF/ZK
+ c7fN9xOQ7EHaIOp1kmmzkSHzcWarnANbzsQepXVgy3MTOHjlvD0Rcp87g4nzctQRKibUfsbbMkr
+ 4gskPFnzqbldwYMKkMy/8AAA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3d236e2422131cd7;
+	Mon, 09 Nov 2026 12:40:16 +0000
+X-Mizu-Trace-ID: 3d236e2422131cd7
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b2c7d556-a6f2-4b3c-b141-49c3b558da87@linux.dev>
+Date: Mon, 9 Nov 2026 12:40:14 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,94 +58,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e0ffecfe-8c4f-457e-ae8d-32a9601e69e5@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH can-next v5 6/6] can: gs_usb: fix hardware timestamp state
+ for mixed channels
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+ Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>,
+ Eric Evenchick <eric@evenchick.com>,
+ Maximilian Schneider <max@schneidersoft.net>,
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+ stable@vger.kernel.org
+References: <20261108-gs_usb-fixes-v5-0-d52dd4940d46@pengutronix.de>
+ <20261108-gs_usb-fixes-v5-6-d52dd4940d46@pengutronix.de>
+Content-Language: en-US
+From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+In-Reply-To: <20261108-gs_usb-fixes-v5-6-d52dd4940d46@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Julian,
+On 08/11/2026 20:47, Marc Kleine-Budde wrote:
+> From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+> 
+> For hardware timestamping, the driver manages the
+> infrastructure (cyclecounter/timecounter) for the entire USB interface,
+> assuming that all channels share a common time base, even though each
+> channel individually indicates support for hardware timestamping via the
+> GS_CAN_FEATURE_HW_TIMESTAMP flag.
+> 
+> Currently both initialization and shutdown of the HW timestamping
+> infrastructure is tied to the flags of the first channel opened
+> respectively closed. This leads to problems if the first channel opened
+> doesn't have the timestamping feature, but the second channel has.
+> 
+> Keep the initialization of the HW timestamping infrastructure in
+> gs_usb_timestamp_init(), and move initial time init and the initial
+> scheduling of the delayed worker into gs_usb_timestamp_start().
+> 
+> Initialize the HW timestamping infrastructure in gs_usb_probe() using
+> gs_usb_timestamp_init() if at least one channel has the
+> GS_CAN_FEATURE_HW_TIMESTAMP flag set.
+> 
+> Extend the functions gs_usb_timestamp_start()/gs_usb_timestamp_stop()
+> to track the number of active timestamp channels. Enabling or disabling the
+> delayed worker prevents concurrent rescheduling while
+> gs_usb_timestamp_stop() is running.
+> 
+> Call gs_usb_timestamp_start()/gs_usb_timestamp_stop() based on the
+> channel's GS_CAN_FEATURE_HW_TIMESTAMP flag, rather than relying on the
+> number of active channels.
+> 
+> Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+> Closes: https://sashiko.dev/#/bug/linux-b39360f9-6cd8-4f47-83bb-f0f78331f308
+> Closes: https://sashiko.dev/#/bug/linux-5f8ecd4e-344e-4ceb-9b46-886f4942a5f6
+> Fixes: 5886e4d5ecec ("can: gs_usb: fix time stamp counter initialization")
+> Cc: stable@vger.kernel.org
+> Cc: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+> Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+> Co-developed-by: Marc Kleine-Budde <mkl@pengutronix.de>
+> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+> ---
+> Changes in v4:
+> - switch to enable_delayed_work()/disable_delayed_work_sync()
+> - move starting from gs_usb_timestamp_init() into gs_usb_timestamp_start()
+> - polish ref-counting/locking
+> - Link to v3: https://patch.msgid.link/20260720184042.1712217-1-shuangpeng.kernel@gmail.com/
+> 
+> Changes in v3:
+> - Drop Suggested-by tag.
+> - Move active_timestamp_channels management into the timestamp init/stop
+>    helpers.
+> - Protect active_timestamp_channels with tc_lock, and keep it zero until
+>    timecounter_init() has completed.
+> - Make RX timestamp conversion and the delayed work skip the timecounter
+>    while no timestamp-capable channel is active.
+> - Initialize the shared timestamp lock and delayed work once during probe.
+> 
+> Changes in v2:
+> - Count active timestamp-capable channels instead of tracking only whether
+>    the shared timestamp worker has been started.
+> - Stop the shared timestamp worker when the last timestamp-capable channel
+>    closes, even if non-timestamp channels remain open.
+> - Unwind the timestamp-capable channel count on gs_can_open() failures.
+> 
+> ---
+> 
+> Picking up Shuangpeng Bai's work, I've ported it on top of other fixes for
+> problems identified by sashiko.
+> 
+> Marc
+> ---
+>   drivers/net/can/usb/gs_usb.c | 54 +++++++++++++++++++++++++++++++-------------
+>   1 file changed, 38 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+> index 6327069f63c9..0a1cd14c940c 100644
+> --- a/drivers/net/can/usb/gs_usb.c
+> +++ b/drivers/net/can/usb/gs_usb.c
+> @@ -337,6 +337,7 @@ struct gs_usb {
+>   
+>   	unsigned int hf_size_rx;
+>   	u8 active_channels;
+> +	u8 active_timestamp_channels;
+>   	u8 channel_cnt;
+>   
+>   	unsigned int pipe_in;
+> @@ -481,18 +482,35 @@ static void gs_usb_timestamp_init(struct gs_usb *parent)
+>   	cc->mult = clocksource_hz2mult(GS_USB_TIMESTAMP_TIMER_HZ, cc->shift);
+>   
+>   	spin_lock_init(&parent->tc_lock);
+> -	spin_lock_bh(&parent->tc_lock);
+> -	timecounter_init(&parent->tc, &parent->cc, ktime_get_real_ns());
+> -	spin_unlock_bh(&parent->tc_lock);
+>   
+>   	INIT_DELAYED_WORK(&parent->timestamp, gs_usb_timestamp_work);
+> +	disable_delayed_work(&parent->timestamp);
+> +}
+> +
+> +static void gs_usb_timestamp_start(struct gs_usb *parent)
+> +{
+> +	scoped_guard(spinlock_bh, &parent->tc_lock) {
+> +		parent->active_timestamp_channels++;
+> +		if (parent->active_timestamp_channels > 1)
+> +			return;
+> +
+> +		timecounter_init(&parent->tc, &parent->cc, ktime_get_real_ns());
+> +	}
+> +
+> +	enable_delayed_work(&parent->timestamp);
+>   	schedule_delayed_work(&parent->timestamp,
+>   			      GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
+>   }
+>   
+>   static void gs_usb_timestamp_stop(struct gs_usb *parent)
+>   {
+> -	cancel_delayed_work_sync(&parent->timestamp);
+> +	scoped_guard(spinlock_bh, &parent->tc_lock) {
+> +		parent->active_timestamp_channels--;
+> +		if (parent->active_timestamp_channels > 0)
+> +			return;
+> +	}
+> +
+> +	disable_delayed_work_sync(&parent->timestamp);
+>   }
 
-Thanks for all the feedback!
-
-On Sun, 08 Nov 2026, Julian Braha wrote:
->
-> On 11/6/26 09:19, Ahmed S. Darwish wrote:
-> >
-> > --- /dev/null
-> > +++ b/tools/kconfig-checker/schema.yml
-...
-> > +
-> > +        #
-> > +        # Expected value for the matching kernel configuration option.
-> > +        #
-> > +        # Values:
-> > +        #
-> > +        #   y        option is expected to be enabled (built-in or module).
->
-> Kconfig's tristates use 3-state logic. It seems like you're
-> approximating 'm' as 'y'?
->
-
-You're correct.
-
-'y' is deceiving, even with the comment beside it saying that it implies
-either a built-in or a module.
-
-I guess it would be better to have the expected values like:
-
-   expected:
-      type: string
-      enum: [enabled, disabled, allowed]
-
-As a bonus, 'enabled' and 'disabled' rhymes well with 'allowed'.
-
-So the policies can be:
-
-  - name: CONFIG_PREEMPT_RT
-    expected: enabled
-    ...
-
-  - name: CONFIG_NO_HZ_FULL
-    expected: disabled
-    ...
-
-  - name: CONFIG_DEBUG_FS
-    expected: allowed
-    ...
-
-I think that's much cleaner.
-
-> These are meaningfully different values :/
-
-I wrote some policies beside the PREEMPT_RT one, and the main requirement
-was always that a certain kernel feature is either enabled or disabled.
-
-In the future, I can add;
-
-    expected:
-      type: string
-      enum: [enabled, disabled, allowed, builtin-only, module]
-
-But so far, there was no need for that.
-
-> > +        #   n        option is expected to be disabled or unset.
-> > +        #   allowed  option is permitted and must not be reported as a violation.
-> > +        #            This is used to exempt a specific symbol from a broader
-> > +        #            `name_pattern` rule  with `expected: n`.
-> > +        #
-> > +        expected:
-> > +          type: string
-> > +          enum: [y, n, allowed]
->
-> What if a user wants to specify that the value can be 'n' or 'y', but
-> not 'm'?
-
-Is this a real-world use case?
-
-I did not encounter a need for making the expected values that complex
-before.
-
-Thanks!
-
---
-Ahmed S. Darwish
-Linutronix GmbH
+That's quite defensive code. You have both disable/enable delayed_work
+and active_timestamp_channels counter just to be sure to schedule
+timestamp worker only once. Just wonder cannot we keep this worker
+running regardless of channels?
