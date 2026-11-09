@@ -1,59 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794234285;
-	b=r3EbXNTRzfsd+jWjhta6/0guLhDQJDBjZ4r8SvLE4p4lAvpV+9fvSzavUK4tT0QjLbje
-	 /N2sLbWugaPJtuRi6QGwxcLbzDPqbrLljRO6sY3UwPKQHhytFY7YGEWBuiN+bMxuGPlrM
-	 iYtVwW6K4VZfLfF6EFw1b3LkFk2zeARydUxEgKDk7rRM274LssPNW9tbP3Uno+sNvF+pJ
-	 PrZlOqe09l6smHJsjc+OxosJY3L4ph9v3wSS7ITHPF3riAkFvI9tgRpxn52amZooJIXiB
-	 YcHrU+r3/iVw8umE44EAUhq5t7FZ1NUqJOrODevvuVTMmufMoWUq7OUZe7h9/bWIUpg==
+	t=1794234304;
+	b=cjBEsVCHcmm7+w2SudM9/+sD0LAl7aoAYkvAPQ/e2Qv6GVlOxvyfmKrJMasesHoDUs8v
+	 eKQUAVS7TvbtOoVDyp6sY6lIIPt9+oZM3AwqGYB7H7i3NiHceC3z3LbsAcOoi7P0s0Mpx
+	 lfBg1Vv7zgH15a5V+LkwZxm6ZUFV3xpYfC6tAWCEVCwe8E3MjJITNSH/+v8IjJtUAvF+S
+	 PbRS+H6Op49iG/bEFfXUT0Uip7GCKHIvAUSj6xgwb+mEplm76FDAlLEikDYve35A+NScJ
+	 YeahdIwkVlNlmVAw5JtBj4OUQ+VrFvhgDEP9vHXVWroRVlUarDQRYnDuxMS8lT6fKYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794234285;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=HZwCReN5TfpP/7UgtdfoNSUQJuUtcpW5E6BDQOlTEDs=;
-	b=B0iWdYqTpAsBuwTNOUyupkzfSX0RVLrRwrid40C6eaFg6Pb3k+kL+8jyqGhTWtXXaN6F
-	 MJnVjVmFx1JXnqa+joeupCy70axbsN2+W3pV9jq9I9UAffOLP0B7zeZr62Y9GtkeFEVzt
-	 B8nEXdA4Pnp6uIrN/zOungwApVfgI3Fl/sKDfp+tu8reMKjDcINWsPMhLjnvhQgRm+A/N
-	 F11LhECayajcfExErM/BqhXchN2/kc537Sp2+RYySzEldh+IAf1fXW5e1XcfFjKkbuIdD
-	 LHGowkIQ7MApyUoPU+fWI5aNzARDf40NtAJD/RmHWWU+wWVDHq2M/oh2rSCJrgDLcJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794234304;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GbH9hEkRxL7poVnfKttfcF7GkxvjJPt+uCTzdn29ebA=;
+	b=aFfjGQTY8KL1DfhUwvMbckPsBOUiakj0jyzXIHX+yZ0B7UWfDtOYSah9FZL4ImVuiHGz
+	 saMpXza6YqjaRKR5ZN+zpktLre2KJ7DrPEmy5HLC/ZSD8DD9551S58RPNHpKpwOHSJmV0
+	 xn7XDjX0GdhpiBDCQUf+VRDY+aQ+pbf66SN4Jf3QXUWysUsMU6kKlO4cxc6Ud1d7Z/AJA
+	 bsD3WhBI2FWeVpuHi4bIVsq9KiUHE89s5ql7Fr9gZzxInwe/qt58K68Z1RqTQZJrtlXVc
+	 0FHlNoAnHxMW/fia8+qa2A0CP0UVPDo0/XqZgTOfzLYbSXWLkTNVvxzwpiTUNRdhNbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bTHQe6Wy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Z84m/HJC";
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67332606D80F
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:24:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CB0606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:25:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8CB0606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bTHQe6Wy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3FCB1F0089F;
-	Mon,  9 Nov 2026 14:24:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794234285;
-	bh=HZwCReN5TfpP/7UgtdfoNSUQJuUtcpW5E6BDQOlTEDs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bTHQe6WyCD2PN76oe0NakU0wWJ2SzDnnyBIriO3GtdG8dAuwkvpkzLT8Au2tc3Zra
-	 l+e0fl3klvXSGzI3ledA34/J5QrRg7NvhDLfHX+rSdVDLJsij9gTrGSKtL/AnCMHzq
-	 sct3pUvwsTTfKs04OD3Y6LQg+QwC/1tCTPTzf6ZnTd50ZDWZLp7vRqfjKx7dpzGjPf
-	 W2DG2NIM1AONa6X+1p36NAU0++m8gD7TBUf+ObQnFe6LJD4q08OdF6iry87HHYvFJJ
-	 ACwNeI3btAPjLfQui/yiZP2AQPSrZaoVvS9XLJo9/wknE1VS1TD/7ziiW6dePJnwq7
-	 735BUxH12B20A==
-Date: Mon, 9 Nov 2026 04:24:43 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	kernel-dev@igalia.com,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Chia-I Wu <olv@google.com>, Liviu Dudau <liviu.dudau@arm.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Steven Price <steven.price@arm.com>
-Subject: Re: [PATCH v8 5/6] workqueue: Imply strict CPU affinity for WQ_RT
-Message-ID: <avHXq1lK7m_Sfz2j@slm.duckdns.org>
-References: <20261104095225.32654-1-tvrtko.ursulin@igalia.com>
- <20261104095225.32654-6-tvrtko.ursulin@igalia.com>
- <fbf6ec45cf29c26e2a064bd79f006862@kernel.org>
- <6b489363-274f-426a-9143-6ed5593a0c19@igalia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z84m/HJC
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36e795af1d4so766283eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:25:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794234303; x=1794839103; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GbH9hEkRxL7poVnfKttfcF7GkxvjJPt+uCTzdn29ebA=;
+        b=Z84m/HJCfCEuqEv/mTlOVa0iXQatdrs27xfDhlKwCMbsssoQ4i0x94wzLOpq2FeZgD
+         Fp8Z45ayJyWYEJ+ZCH5XaDNGfz5bW6Ypc8ggi7mZFtPbdnHhRvTyb1y2nwKm/arTkNvS
+         mDtJsk7sThj44H4LOyfOMoRiutai89ezKvE6xjI1rWI7xvrfLP409Z/IYIy3jWS7yYRC
+         zNu+lqpEQY9xOBNcFajOPyZj/I1kCv0cdE6BMroWHt6Y0DZglY2B1oH1SeLE2crfRjVh
+         ccDkUBB07KIoZBQfg0Z/GM6OL109aJrIZS0TlaC+pCqoMmPHspJlZ8KhyqZeA3EONc6E
+         9DTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794234303; x=1794839103;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GbH9hEkRxL7poVnfKttfcF7GkxvjJPt+uCTzdn29ebA=;
+        b=eOGCuhc83ywUDABUJZ9BXAMrm8TkEZ+yPlNtvkh28cwMSPjnf4SE02MkKr2WNJiCSw
+         uuyyiT+V73Mg2Z0xR94xUl364AsaNscPQh1/0+tk/1TzatkYW+C9AfFB23FmT8OBNKsp
+         Xu0ar9DewFX0CEplSQTXqVFteDDhlFfRa6dHzuG9peOfC8kJx70bHvhVi4u6S1SAOxQr
+         dlIe++TBwjL/a1rqieup1aJDRq6Q8eK5iorng/R+zaDDX6lRtHwh6g4NdbRyhUOKySBb
+         sfNnYSH5LbJGKTLNpqz0PnSYhHdW6kRbWKSVF5txagA38jhEgNu+JHAK9zWUHkCNjHbK
+         VyCA==
+X-Forwarded-Encrypted: i=1; AL+hErEPf7o6GHy++bOetgcY7A2hDwfZ/f2uMWQ7X1DQDtENBWqXVngFoirI9+zM7WdmBzIlmgBCTY++18csHOg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FCDlRa+0fd0fqpq8G2dPaIG1fE8yGONbjjhEEg3fidp+97LRd
+	v4THDlITLRyvA/cyrNpeKUbAza3k/w8LmvTSkqcqQcDPrw2cgpxqdDOE
+X-Gm-Gg: AYBFou0eDbMoTKUTMXcfTPxju8xfo6NYuk1V5lVuUx2WlksSrf7E52PDDC3trRI/KV9
+	vd2XHxA28rao9Nf2xQrSlKU1QKLNKw/EqKxjR9x/jiPulex/DkJbriOEaWCgJyV1o4Aag0gzl3H
+	Temn963T5Iw5neOAu8hXwoqwVrEU3Ft1Yjc2plBCIunyb/3ECa58DnqvXhwA/ZrQY3dGylSOVMV
+	EyOUpXeiQ+jKp1GLltkImy6uegqaAhvfwYAA2GaQ+liyZzb089arvvf63Vr1JVZpe0S7W/eD9S4
+	xtCxhQ5ZjmU6jcLb9yHqEOsfNixCTlgJE6ykqdU2YiAc3pOf1ZHChuQ3QB1uCozHtzfaOt4Nz+R
+	QwgS8v0zqpRBTwiPJhLwpgrgJ7UmEwfsYR0JFCcg0p1PK7m12V/obQvPfW1/eszFagLqJMx4ntA
+	BdiAAGWIP1UpFZSLtM8ezVEhVUVYwKtDHrnkVcZ3TjXJTitQ5eRycS5MQ+NI4nGwff7JHVKvwHQ
+	IHhxnnag12UKDs+wbkTM9OrrN/rGG/MsxqGh08fPJAmFXkS/MMgipkH3NPQopBOMMb4eumsgnKq
+	V8bCNAz6EiROu7ki0pI7Q3d0CvBCOb/dijxfEkUERtiDdYr5pg==
+X-Received: by 2002:a05:7301:dc1:b0:362:2e2f:c261 with SMTP id 5a478bee46e88-370f8269e2cmr10965596eec.27.1794234301815;
+        Mon, 09 Nov 2026 06:25:01 -0800 (PST)
+Received: from localhost.localdomain ([103.170.54.70])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372661ede11sm16138027eec.21.2026.11.09.06.24.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 06:25:01 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: sreekuttan2156239@gmail.com
+Cc: hare@kernel.org,
+	hare@suse.de,
+	hch@lst.de,
+	kbusch@kernel.org,
+	kch@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	sagi@grimberg.me
+Subject: [PATCH v2] nvmet: reject invalid write-protect feature values
+Date: Mon,  9 Nov 2026 14:24:28 +0000
+Message-ID: <20261109142428.2612-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261109135536.2772-1-sreekuttan2156239@gmail.com>
+References: <20261109135536.2772-1-sreekuttan2156239@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,32 +103,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6b489363-274f-426a-9143-6ed5593a0c19@igalia.com>
+Content-Transfer-Encoding: 8bit
 
-Hello,
+The Set Features handler for namespace write protection currently
+accepts unsupported values. The default case in the write-protect
+switch leaves the status unchanged, causing the command to return
+success even though no valid setting was applied.
 
-On Mon, Nov 09, 2026 at 09:52:17AM +0000, Tvrtko Ursulin wrote:
-...
-> apply_workqueue_attrs() would work in theory but is not exported for modules
-> which is required for panthor.
+Return NVME_SC_INVALID_FIELD | NVME_STATUS_DNR for unsupported
+values. This also prevents issuing a namespace-change notification
+for an invalid request.
 
-Oh, please feel free to export them.
+Fixes: 3a1f7c79ae6d ("nvmet: make nvmet_find_namespace() req based")
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+v2:
+ - Add Fixes trailer
 
-> Regarding the flag reorganization, what would require expanding to u64?
-> Unless I am missing something I see currently only 20 bits are used.
+ drivers/nvme/target/admin-cmd.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Right, it might not be strictly necessary. Just something we might as well
-do while at it if we want to encode a bunch of scope / attrs in the flags.
-
-> Although on a higher level my feeling is that panthor could first try with
-> WQ_RT as is, and we consider adding strict affinity, via either of the above
-> options, if that will not be good enough.
-
-I see.
-
-Thanks.
-
+diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+index f12d83098644..ee8be237485e 100644
+--- a/drivers/nvme/target/admin-cmd.c
++++ b/drivers/nvme/target/admin-cmd.c
+@@ -1223,6 +1223,7 @@ static u16 nvmet_set_feat_write_protect(struct nvmet_req *req)
+ 		status = 0;
+ 		break;
+ 	default:
++		status = NVME_SC_INVALID_FIELD | NVME_STATUS_DNR;
+ 		break;
+ 	}
+ 
 -- 
-tejun
+2.55.0
+
