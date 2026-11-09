@@ -1,99 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.37
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794189704;
-	b=AW8JHPANOFxhJjeP8vwlo5bU6ZrdrmicSMOl04UDWvpuAsGuU0nAgrnHkGzA/rRIbULR
-	 VZ+39dYlipsWpOnMVP3pk18zODwjaT9OJVqy4PXuZGWoA07RsLR1o9BzJsaowgFN7rIEM
-	 ma6cBC5ufPZn33PGnkY/fJwvLB5Mm4bRCo91R7A1dglP2gnT5NeGMr/AerNLu8W669rTJ
-	 QTM9EFDnxXkebuWG280PV3c8xb5KOqqS5oEAP0uyRW0TicPWPh1sx0lkMh7y2raL0UB/b
-	 BKg0wXQPTp+1IZ3Va6gOkH6UCt2vWxE4+fanCrc/AvrOIBvGXXzO/t9b/gy3LPr0B+g==
+	t=1794189737;
+	b=D5P9dUMmrNK82mNFEU5HuBwIPSitUG5CIo9HLodO+NBHqd0QqNJyf5Y63G+26v8U3BFK
+	 o4m0inRp0B0910dQrygwVx8+oDl/ZIB2hCDobvqOf+tP9mBQn3DARn1hmuELKb5kjcFZN
+	 kp/4fZ/b7g5kiqFUYXS9y/+euLjStOUNAl499qnvzXGAbfUiWN3gAgnoIlFs236Q1ZGL6
+	 W+Oq1yX94URTZ65g/ZNB78su8V8IDQMrhC7FIeSJ10qpwNxBjo0VwoOrDnkBvrvuqm3Zo
+	 OE/GmaGE5T61lxBNvUSHzM337VRIY7kESKMDhREsx9+BZxoISkUW1weKPgfafrzWMXA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794189704;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=uTAW0TKjvfD7BsKN9xooVklRKfteW0KINt5lhZgJuiw=;
-	b=is8wHjmf2zzsOLRrglMEaq9m+/3mV/71PpkBoquyd3SzRvbl2X6+POCmte5I41aHJ187
-	 BevdrPtn8Z3LDQOmTVzP1L8ZaDHijF8t8fLblSLVV1+4ZAQH7OyozFxhbSbCvCu6AfNoR
-	 R8kIXvUUxMyUv62JSPpYCCIuCClQKHsX5e3+v0DoELOy7UW09XNFi0ySUZIp9vrzNhQ+l
-	 nMWlui20r+kROMDsHJPqj3ARpffbIei00Nj000rr9x0imeYwq9odCOaLtBZpnyXvwzO4y
-	 d8fHiTY52abPU0RdTeq1eEZzk2A8FtKqzwi5nwsmN6odzKSuZbWoDRrZ+0/fyhNks0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794189737;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:From:To:Cc:
+	 Subject:In-Reply-To:User-Agent:Content-Type:Date:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=S8Ua1ny9b0/+8kXkDUTlmQjSwULblBbZJ91rSikPLEc=;
+	b=awqEpbsLCoptlg/SeVagXQSN3gLTpryFL9GapK8tdWKFI+8SHirX5uEX2pGI2iteDN3X
+	 bvL4O2gbRX2FwnLNkN0XojuxyvVjQSmysqrwDKf2wC1psW+2PDn9f1CZHzRp/H9zwGOIF
+	 V4PQEGU/gfQjn1snalq3zReuomDdP02Jits28luqvY+BtJxZ1HDAsiBBiWfPzDlW3FP0y
+	 r7Y6loq8i5sQLsdeUNbDZoDxjdoHmVA46Nmfz05aT5c0gsq4Ps85DuftRoOL0JLt7ldW+
+	 CHdtLYKo3znUL5LX4NRgC+UL9B2u05jfWlvnKJySnjsZH+M/vxGB4e0oV57fhmouk9Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JyATp1k5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.50
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=renesas.com;
+	spf=pass smtp.mailfrom=renesas.com;
+	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=gItERcug;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.37
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011037.outbound.protection.outlook.com [40.107.74.37])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4914E606A320
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:01:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4914E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE826606A320;
+	Mon,  9 Nov 2026 02:02:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE826606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JyATp1k5
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6dd7070699eso230894eaf.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:01:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794189703; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QCPW0CoCM/G8q6VGVpZse80A+b7nfpwiNdQisAOGr18qnAT1HfzNSxztBiVLyzo3Wi
-         AjzpnOk6BfoK5t4XihbhjjkFa0RxCCJ1UzwiqQmTUawXAe3Q/aO70yGudcq83dtNnvqZ
-         wO/WST2M0LZ/5QSllC4WyFQdgusEsjp0wZayzSc6xZ0jUKjW+qJFEX61HQDR24B5kwML
-         BozEhq50g9eT4jVYd/7gciB2FH+WIp2zmznR7JagXQWRYVjsLtm4eIZb0tksj1cao+W2
-         AbzEKN63+jwlyaHgw/dXHm/dTLsYya4Er89zITfTcHEY6jsQJ8m/nWnYc9PSZaUj8LR0
-         JydQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=uTAW0TKjvfD7BsKN9xooVklRKfteW0KINt5lhZgJuiw=;
-        fh=Qfx1JyLZ2Xr0ggyMLhRIF0tm9vuBhU+VkduyHT0lZaQ=;
-        b=cFD5UNrkrshZWv9OemH3cbX8QLq5W9V/g6AvI9gXLpIjVVqKIsnU7XUCsC4k976kht
-         2HS3gYpXimqDv2jEbUR8MKSXzDNwjiqqGAqK7nu2/wWWA9gRCZu/41d0YCjXTzX2VghP
-         lS1mmOgK1jB+xY0Hp5M4wqaaZyQJaFxoMcXxvoZ35nlLPHuZefv5lfH9wo1Lexo4hiAb
-         pVGDFr2Tra4QHTJR6AZjj7kmx7afENpb5gCR5FrQeIGciqHalki/HuJM+Q/iPMRN4aRj
-         RqyITyYMYeSIirJ23o2eaHSPnrFE9XO2e6WWlCe5obAAtNXfhi9Kg0+Yw73HXibimnD8
-         nHkg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794189703; x=1794794503; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uTAW0TKjvfD7BsKN9xooVklRKfteW0KINt5lhZgJuiw=;
-        b=JyATp1k5tqswqOFMWVVJqWr3NIatcUZcQNLie2dcvJRmHgk4LuZ0gO4RKeGVqqCV/k
-         EDuCHC+AmjS8xTjG158+4dp7PeLu0MOjlYoxsiPL/J6qmPj2RaYwcuIbTclxbrMozcEx
-         p9pTxQGN5I+3Q97nZGK7hNys0/sfF3VZ0BclbBJWmv+iui2JjwLJ0RKzStZDYyPPEm4y
-         MlogNbB7JwGXFNDrrSyzaKiMLiQe7KTnupcN8PVmBDoiMoVvbaTZrsxh3I7yt2BIyWQn
-         jUzZ6QQ22zoM9mkke76nn0sge5VZDDrRaB3X38wiCCseznzR8qliZ0wlBjuNDWlipW96
-         AKXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794189703; x=1794794503;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uTAW0TKjvfD7BsKN9xooVklRKfteW0KINt5lhZgJuiw=;
-        b=rkkaz1pttN/Ty3nQl+lqAHQemDI55MRi0TdEMHtPnd27ZwDMwoTRRGqUCSNp5byj6T
-         70mvg4ssfFEC7MX36GsC0FO0qd8CDFe+YLmSge50Lim2kUERcVkvP//tc++xd5mpDWho
-         G0KEqvugnuMOMn7oRZ2QZLMa1ie/R5VG8C5C/JAcseuFE2EEEwKuWd2caileNUrr6Svq
-         LPKTQe0B+8I8NxqfHf4n9hs5J8RTXZ4zKdlTu1Vv8B92C7809wSS3etQvMNyUbhE+J9l
-         wv3IRgcAkjDk0TqmF7aIErkIi47qPuxUw/FlJdaWhU1GnZNzS4X1CYDVoOgP7WYAeejL
-         UGSQ==
-X-Forwarded-Encrypted: i=1; AL+hErHt4E9UZTc+Cke/BzNxH46UGfUmJxdcgSAHMta6YRNnyhT6QnvCix2UBpZkSPRIxBmgcfUp3CcBGbr3aek=@vger.kernel.org
-X-Gm-Message-State: APuU4Z87aj3VfPN4zdlTMGt53tnytHH5FJxIZlf1h134PY7p7AcOueZx
-	5CtIYLnyPL3jGY92awerPkxhBQ6YPnut7UzVUHXCyhehoUPo66zu3Qem2tOXwBaGlel2M60XUoN
-	d68FdC+lhiORUcWSGEG6gTAgvK0VXcUw=
-X-Gm-Gg: AYBFou0STjdHiVwQZqDAQCTFIbosgOlgUhinzGe9oQgT4RTD1UOhb2stBEjNR2mdtoq
-	LPr7SqE72dxtcx8rvmkmsWt+HPUm/hcAXXLx2LMOdYQYEBYcQ4KFDIvFCBKAhZqh9npSVkKYntG
-	HvMXfvN6vrfTLh6DmHuyatkrkLCl4lpi7cYYXYCYopPE+x6KGvcAl3IeFLlZO7QLpqB/oAu+Vys
-	cDgY6U0ci8780FAGjXKrwtighDHqvgdlQu5oGWrmZvSG7Or4ExTj6tKB6deO8POPi4WVORtGXjO
-	uFXvgkQ+ixXLl2oW/bpU7F2NJG3XPwJLJtQaAiP39CIdRRzJC0k61rGrEWLtE8WWqmQTOkhxOH7
-	DYR4G0dizHmHN9Xvc+SPM2SKO+2YzNJiN7pPaPck9mG0BmibOk7t2psQ4ApPMYAI6rIEtBdI=
-X-Received: by 2002:a05:6820:858a:20b0:715:2400:9579 with SMTP id
- 006d021491bc7-7170f310a90mr1162069eaf.56.1794189703071; Sun, 08 Nov 2026
- 18:01:43 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=gItERcug
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SJ6O6qXqlZAzXyiBbHmxXisDRSscNTvQAfAwg6BWNvozUIR+DCjkam1Tr3Mfkah13DRSj0JtChLLyyezaecTowtpD/2BBHsoE3qEQ16ps4Ki58fxnW4/Q7EPfmgcxWtqw5ZHa2x5XwuWTV6Qqwir0UadK38fXyxWMZsUszyDQQimjFYk/7kUU6GxZfJmNF6asr69Rd/i5KETYgX9jxt51W/njNCUAIYRAmlmcdsbGxwg1L978Bbpaq6/utsfpChx25nt8aJxN6ip7l6sIx7Jw9bNvXVrWMW5HW9I9jHs5sCNU7QUah90mLd4A2Naqu74UvSVoegus3VexxWVa93new==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S8Ua1ny9b0/+8kXkDUTlmQjSwULblBbZJ91rSikPLEc=;
+ b=sO4plmFME74BJMnRSOd7JJXwJZt9xdmWdTDpdFLhU0bYb9pdXKaj0DJoLuIQ/MTQneOEzsdqv0fff2QiB3PUBPJEIYVcejsaHPUr9WCRV/+u30wML8xl5ZJhkKN3ml//f/rjcYg4INkUTZN7nkZQVSBrvzUzt7gBAxRshD8oZmO5vSxTTYrGqEEEd66m9aU+0A+JlKmCnaPoCEOgtQ0bi67i0nDO2AAmrqoWzMaAUWWwpBGWmlMhZbuYkls2K7q4Bnzla1BoJXjRrZgFAiXzHiXMPAhjw5XR0SASqabvgm+z2kFL1fD6AqeS+zsvkxNrU5DvE5ikvxn+k07K57M86w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S8Ua1ny9b0/+8kXkDUTlmQjSwULblBbZJ91rSikPLEc=;
+ b=gItERcugRHE1hxf1H/3vpvci9XAXGNZUpP/Cfwu17OqZSumPE981XRi1fQsza+J08CaI/7upZ+krT6s1J/uFRnf9fVYGwdlQtNHy2UB+LYQ7eSRoZ9AUTfkgxxjgODs28m68rcPgBsSBRmy4uVLLGjehlqWwNkrZG6rxLSLpeTo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYYPR01MB15175.jpnprd01.prod.outlook.com (2603:1096:405:27d::8)
+ by TY4PR01MB13993.jpnprd01.prod.outlook.com (2603:1096:405:204::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
+ 2026 02:02:12 +0000
+Received: from TYYPR01MB15175.jpnprd01.prod.outlook.com
+ ([fe80::9bfd:a110:68f1:134d]) by TYYPR01MB15175.jpnprd01.prod.outlook.com
+ ([fe80::9bfd:a110:68f1:134d%6]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 02:02:12 +0000
+Message-ID: <87wlqmpxss.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: <shao.mingyin@zte.com.cn>
+Cc: <broonie@kernel.org>,
+	<linux-sound@vger.kernel.org>,
+	<lgirdwood@gmail.com>,
+	<heiko@sntech.de>,
+	<linux-rockchip@lists.infradead.org>,
+	<linux-arm-kernel@lists.infradead.org>,
+	<wens@kernel.org>,
+	<jernej.skrabec@gmail.com>,
+	<samuel@sholland.org>,
+	<linux-sunxi@lists.linux.dev>,
+	<linux-renesas-soc@vger.kernel.org>,
+	<srini@kernel.org>,
+	<linux-arm-msm@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/5] ASoC: rsnd: fix NULL dereference when remote port has no endpoint
+In-Reply-To: <20261107160821263n_tb5YdtJX-icNTWJbOW9@zte.com.cn>
+User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Mon, 9 Nov 2026 02:02:11 +0000
+X-ClientProxiedBy: OS7PR01CA0309.jpnprd01.prod.outlook.com
+ (2603:1096:604:26f::17) To TYYPR01MB15175.jpnprd01.prod.outlook.com
+ (2603:1096:405:27d::8)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,183 +105,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <3bf4dd70-9771-497b-8c27-e925e0ef81eb@yahoo.com> <7ebd9453-4af4-4ebd-9cf7-8422755fc4aa@yahoo.com>
-In-Reply-To: <7ebd9453-4af4-4ebd-9cf7-8422755fc4aa@yahoo.com>
-From: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Date: Sun, 8 Nov 2026 23:01:28 -0300
-X-Gm-Features: AclHuK9hcJpyGCPEGAR6IZqezV5G1cX2VmyhiUoC8VNQM5o45OKxqUZ-uP_TlI4
-Message-ID: <CAJq09z6vOz5KZ2x_4xoyP444ks5LYhLDpe3a9VeMyCM8C0JVJg@mail.gmail.com>
-Subject: Re: [PATCH net-next v7 06/10] net: dsa: realtek: rtl8365mb: use raw
- VID for PVID on family D
-To: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-Cc: linusw@kernel.org, andrew@lunn.ch, olteanv@gmail.com, kuba@kernel.org, 
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, 
-	linux@armlinux.org.uk, maxime.chevallier@bootlin.com, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYYPR01MB15175:EE_|TY4PR01MB13993:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1584023-82b6-437b-7fe4-08df3e0577ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|7416014|52116014|366016|18002099003|22082099003|6133799003|10067099003|11063799006|261102123227099003|261022075727099003|56012099006|261021121427099003|261026121527099003|261009223027099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	eBcdnyLwzA9cuQlpyybUuwB1YDIfoIdtizf2aEqLv2QHAi4QCfHBS2zBdfLyil95yLB+H3lB4cOFA6ydyFgJvaGCtucE5Z2pSHv4heE9cvj63ZSytRjN/6NI9VseeT5MhzHiPSLjoOlKksaiBlwLWCjmdO2qfBKsHID36L4YvvZ72OMf/AsaXfEwKS6x/B2ge4OdhisrlG61eXtCbxU7r1bELHrooiLHeCxhaxXS+VoF4ADxMDE9thtP9Uy8RNwAV2gwS/NR75Zat2szagN9WOCCPQa/J57sTVK3ZA2u3hb3dUR8sB8oEXPEaMoBXpQ0vuQFdxyeoJS8p0yQ7WdeDzGfCaQhEEtgwH7GmSC8mGUu8JaQn9EQNkBHJbLYTiH3t92I6uhzX7702Sheaijeir4jPQlw0kq0UpiV5h+nsyQ5zNJRsOcKUZyeumIckkRkzkrWnXxL4wNyqdnMWyIUo2xNrhi2WnJpSs+KK07zPi3M3WmIhdoON54hVLw5S+W9Eofk9I8HBCMrUp2rct9MqfnhIApogzw5ckeI7qMz92n8DTA0Ew0phiV+r9ZntLiKD2x+QDxdV9pcqncVpBjPPZW05Un2suGdCCFE80yFPe5g7EWQAEmC+CiZObf0GNE2UaLmmnhuHLMVdwqdqj0dRjC8U44+zHoXxGvLa46ndgRhqyYiY7b2HOyUoATrgQQv3OhuIHm6XudEtwuJA7R0/8eZcChx+QGLGvE2JpaswZQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB15175.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(7416014)(52116014)(366016)(18002099003)(22082099003)(6133799003)(10067099003)(11063799006)(261102123227099003)(261022075727099003)(56012099006)(261021121427099003)(261026121527099003)(261009223027099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9zxWd+j+ULKopfvpVfi3EHtRDx5rvJ7IX5xdkDdS28sjUBsEb0CY/gShqqWQ?=
+ =?us-ascii?Q?j2LS82qOkUqI7Xwcb8cp26MxM3zCbaA06oxWt+ZhSSKe9XNdkBJmvrOMEfyr?=
+ =?us-ascii?Q?I2ypWExwA/oApGZss2mHA8kHdvTrlpfaYBIm/Eww2q3aUp7PVcARBcDsHUXB?=
+ =?us-ascii?Q?VpAYjcfvcPJa5lilbZJ19QmTCCkiatmmgQ77jGh4W52Bv4BMdv1LxsyCEpcW?=
+ =?us-ascii?Q?j9JcKneC4oLCRwJpAnLakiiZCqIfkxPtqxCmgE783jvSjEL7/lS8DVY8LTv1?=
+ =?us-ascii?Q?oYOr/xCpMn8799DDrjAaUq8MJgoHJwAjsJ16zKwl4gyi7gC7h03ZCtVrZpTU?=
+ =?us-ascii?Q?2A1uO1DWvdK9YQA4l4K1L7jD2oNABlYbGwMqXJmIl1TSAD2cXz3ek2Z8JLZ2?=
+ =?us-ascii?Q?O3bFOqxuDf0NjkoIjcemPK3Pk+r/mqjT1OAf+0pxw83JpTU3boxZJULc0OES?=
+ =?us-ascii?Q?IGSlJUveQ5MNPzxoqB8x0o4hnz6QU0MdOxajWUEugdpMVZWeI0r9wkWRpi2b?=
+ =?us-ascii?Q?506m3Yk9NGZ9bdDu2ThVH459nSCqfuXJuvJq0/VkVjk1Xzo4+voWlwG+Snk6?=
+ =?us-ascii?Q?IdCqicNp1edW8QjwfkErlNTGKApWuS6+4QvHxar0UB7j0270Gt92hWByF+FL?=
+ =?us-ascii?Q?KNJGwiI59NjPmD7XLxLfa3sVxavq3jZtLZHtOdgn/hfHPYK6n5H4nmirTLnL?=
+ =?us-ascii?Q?XswoVLg1ze/YmwJknmSeC7TcC5FMc1ZdhfMSvl0hP4iHhlM73J5n9peMwrpg?=
+ =?us-ascii?Q?CKCtj4nI95MOFhw8RTPYcJ7YN/eJzlS1A5U18tvsLHBlPLRiV/FTZrkxXWWn?=
+ =?us-ascii?Q?Wqv3niqPZtzMF6K2fwAcRymtvhDSutPZSjDdDSTH4zqmweWkoO7ZssX+ely1?=
+ =?us-ascii?Q?HqWGACdyu+UaxIcA6bP3eP7Qmg11K4XQiUMGqIh0gPu9ZYBM4/Nm9OzNPvHE?=
+ =?us-ascii?Q?Ht8WsVOrFL72/m9D+nJXBrMLnURk+mBQ4H9KOGLjZW8ZPqOYSjs8FJSL7ovi?=
+ =?us-ascii?Q?BByTawXINmd+/dXzOtuSHC2VmHgXZUpfZQ3uJ3gUsEUeLfere/IfMXXfaliI?=
+ =?us-ascii?Q?kv1PudztQA31ftbOWhoPnWQco4ntvnjpteajM9MViCc78G5hBpPwtDeW05hV?=
+ =?us-ascii?Q?0UFrabK8bb3hs8kajneTzuaf4lFrwuw6ziKs5+helNQ7GHSd+jrby6cTIcZA?=
+ =?us-ascii?Q?ME4a8Ag2l+FOurGuzzZlgRhT2Z+NgqdMBqsoDbaN+K9PBRnzphH3oobCq4ZR?=
+ =?us-ascii?Q?zZC+7ug188vsPPs3jzDpcM8bBJf0oxbqWAbeNWojyFQnxgp4uoydCtD92Zmw?=
+ =?us-ascii?Q?o9DEvjdWJRMtbT2m+mlXZMz2r/bHF/IE+LKUgujGHfCQpkbAVRaUCUUveAqf?=
+ =?us-ascii?Q?d0ajJSuxmAgTp90jBEmrt0yJ+i25HMCQnp3EAXzVaDr0GalDaKQMfhNXSeA7?=
+ =?us-ascii?Q?THHSPWBiJXzmv2z+g/Kb+W6gxhtMFAg4ZIUjNCLfCQa8m8bN0H7F9NvlqMru?=
+ =?us-ascii?Q?t1OlzyuIWVPIRApjLoBfAqqbBx1i0dqzvxhYNIVeb81q/ohCjcyvUpFLqWGZ?=
+ =?us-ascii?Q?PYWaxD8z8VihP5DCcbNLq54+P2o/g077BVhVfFVazhaA5/53t7J2pZwJs7xd?=
+ =?us-ascii?Q?9balA8wF8IDOpzPo6sR4KBDqeP0ngi8XZIkzWhRw4joAs+MLaM9fy3sRhzmy?=
+ =?us-ascii?Q?LaxRBzV9+V1hEfxellS3IXomSpNuunSpsAXO4AvHgFv7OyacaYA8DH1MOofV?=
+ =?us-ascii?Q?xWCGfy6BJHkNbflflE+Iq4AElA3t/jY=3D?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1584023-82b6-437b-7fe4-08df3e0577ee
+X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB15175.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 02:02:11.9633
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: c/TwwXf/8FMUZ+APuow/uIux8D+E4BUnXA8g7NrgqdntWvvP6Sk055OA8tdqC1oOSJ+FmUJA7azFPb8Hl3c0+smInP1/Eg5CTHJF2Zd4Nys8WznDECs5oNJ9JfvNKRUq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB13993
 
-> Family D has no working VLAN member config (MC) table. Its PVID is a
-> raw 12-bit VID in a per-port register at 0x0700 + port, whereas family C
-> stores a 5-bit MC table index, two ports per register, at
-> 0x0700 + (port >> 1).
->
-> Running the family C code on family D therefore reads an MC table that
-> does not exist, and writes an MC index into the VID register of port
-> (port >> 1) instead of the one of the port being configured.
->
-> Read the PVID straight from its register in
-> rtl8365mb_vlan_port_get_pvid(), and make rtl8365mb_vlan_pvid_port_set()
-> and rtl8365mb_vlan_pvid_port_clear() use direct-VID variants on family D
-> that skip the MC table. They keep the family C frame filter handling and
-> rollback on error.
->
-> Also clear the family D PVID registers when the VLAN support is set up.
-> Unlike on family C, where VLANMC index 0 is the neutral PVID, the
-> register holds a raw VID, and after a reset it keeps its hardware (or
-> EEPROM) default. Without clearing it an unconfigured port could report
-> a stale PVID from rtl8365mb_vlan_port_get_pvid(), and
-> rtl8365mb_port_vlan_filtering() would accept untagged frames into it.
->
-> No functional change for family C.
->
-> The family D branch is not reachable until the chip table entry is
-> added in the last patch.
->
-> Signed-off-by: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Hi Shao
+
+Thank you for your patch
+
+> rsnd_parse_connect_graph() uses the node returned by
+> of_graph_get_remote_port_parent() without checking it for NULL.  An
+> endpoint node with no remote-endpoint phandle yields NULL, and the
+> following strstr() on remote_node->full_name dereferences it during
+> probe.
+> 
+> Return early when the remote node is absent, so a graph link that does
+> not lead anywhere is ignored instead of crashing the kernel.
+> 
+> Fixes: beed78aeeb10 ("ASoC: rsnd: move HDMI information from ssi.c to core.c")
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 > ---
->  drivers/net/dsa/realtek/rtl8365mb_main.c |   9 +
->  drivers/net/dsa/realtek/rtl8365mb_vlan.c | 205 ++++++++++++++++++++++-
->  drivers/net/dsa/realtek/rtl8365mb_vlan.h |   1 +
->  3 files changed, 210 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/net/dsa/realtek/rtl8365mb_main.c b/drivers/net/dsa/realtek/rtl8365mb_main.c
-> index d69eed0..e82205c 100644
-> --- a/drivers/net/dsa/realtek/rtl8365mb_main.c
-> +++ b/drivers/net/dsa/realtek/rtl8365mb_main.c
-> @@ -2360,6 +2360,15 @@ static int rtl8365mb_vlan_setup(struct dsa_switch *ds)
->         int ret;
->
->         dsa_switch_for_each_available_port(dp, ds) {
-> +               /* Start every port with the neutral PVID */
-> +               ret = rtl8365mb_vlan_port_reset_pvid(priv, dp->index);
 
-We already have a clear and a set operation. Why do we need a separate reset?
-[...]
+Basically it shouldn't happen in of-graph case, but we shouldn't believe
+sane DT.
 
-> --- a/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-> +++ b/drivers/net/dsa/realtek/rtl8365mb_vlan.c
-> @@ -44,6 +44,10 @@
->   *
->   * VLANMC index 0 is reserved as a neutral PVID, used for standalone ports.
->   *
-> + * Everything above describes chips that have a VLAN membership configuration
-> + * table. RTL8365MB_FAMILY_D chips do not have one: their PVID is a raw 12-bit
-> + * VID in a per-port register, and no VLANMC entries are allocated.
-> + *
->   */
->
->  #include "rtl8365mb_vlan.h"
-> @@ -120,6 +124,11 @@
->  #define   RTL8365MB_VLAN_PVID_CTRL_PORT_MCIDX_MASK(_p) \
->                 (0x1F << RTL8365MB_VLAN_PVID_CTRL_PORT_MCIDX_OFFSET(_p))
->
-> +#define RTL8365MB_D_VLAN_PVID_CTRL_BASE                        0x0700
-> +#define RTL8365MB_D_VLAN_PVID_CTRL_REG(port) \
-> +       (RTL8365MB_D_VLAN_PVID_CTRL_BASE + (port))
-> +#define RTL8365MB_D_VLAN_PVID_CTRL_MASK                        GENMASK(11, 0)
-> +
->  /* Frame type filtering registers */
->  #define RTL8365MB_VLAN_ACCEPT_FRAME_TYPE_BASE  0x07aa
->  #define RTL8365MB_VLAN_ACCEPT_FRAME_TYPE_REG(port) \
-> @@ -171,7 +180,7 @@ struct rtl8365mb_vlan4k {
->   * This structure is used to get/set entries in the VLAN membership
->   * configuration database. This feature is largely vestigial, but
->   * still needed for at least the following features:
-> - *   - PVID configuration
-> + *   - PVID configuration (family C only, family D has no VLAN MC table)
->   *   - ACL configuration
->   *   - selection of VLAN by the CPU tag when VSEL=1, although the switch
->   *     can also select VLAN based on the VLAN tag if VSEL=0
-> @@ -740,14 +749,51 @@ int rtl8365mb_vlan_port_get_pvid(struct realtek_priv *priv, int port, u16 *pvid)
->         u8 vlanmc_idx;
->         int ret;
->
-> -       ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &vlanmc_idx, &vlanmc);
-> -       if (ret)
-> -               return ret;
-> +       if (rtl8365mb_get_family(priv) == RTL8365MB_FAMILY_D) {
-> +               u32 data;
-> +
-> +               ret = regmap_read(priv->map,
-> +                                 RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-> +                                 &data);
-> +               if (ret)
-> +                       return ret;
-> +
-> +               *pvid = data & RTL8365MB_D_VLAN_PVID_CTRL_MASK;
-> +       } else {
-> +               ret = rtl8365mb_vlan_get_pvid_mc(priv, port, &vlanmc_idx,
-> +                                                &vlanmc);
-> +               if (ret)
-> +                       return ret;
-> +
-> +               *pvid = vlanmc.evid;
-> +       }
->
-> -       *pvid = vlanmc.evid;
->         return 0;
->  }
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-If the functions don't share most of their code, they shouldn't be
-lumped together inside a shared function with an if/else.
+Thank you for your help !!
 
->
-> +/**
-> + * rtl8365mb_vlan_port_reset_pvid() - Put a port's PVID in its neutral state
-> + * @priv: realtek_priv pointer
-> + * @port: the port number
-> + *
-> + * On family C the neutral PVID is VLANMC index 0, which is the reset value, so
-> + * there is nothing to do. On family D the PVID is a raw VID in a per-port
-> + * register whose value after reset is not defined by the driver (it may come
-> + * from the hardware default or from an EEPROM), so clear it to 0.
-
-I'm not entirely convinced by this. VLANMC index 0 isn't a
-hardware-defined neutral index; it's just a convention we use where
-VID == 0. The driver treats VID 0 as "unset" alongside the ingress
-filter. Furthermore, checking rtl8365mb_get_family(priv) !=
-RTL8365MB_FAMILY_D doesn't scale well if we eventually introduce a
-family E.
-
-> + *
-> + * Context: Can sleep.
-> + * Return: 0 on success, or a negative error code on failure.
-> + */
-> +int rtl8365mb_vlan_port_reset_pvid(struct realtek_priv *priv, int port)
-> +{
-> +       if (rtl8365mb_get_family(priv) != RTL8365MB_FAMILY_D)
-> +               return 0;
-> +
-> +       return regmap_update_bits(priv->map,
-> +                                 RTL8365MB_D_VLAN_PVID_CTRL_REG(port),
-> +                                 RTL8365MB_D_VLAN_PVID_CTRL_MASK, 0);
-> +}
-> +
->  /*
->   * rtl8365mb_vlan_port_get_framefilter() - Get the ingress frame filtering mode
->   * for a port
-> @@ -809,6 +855,68 @@ rtl8365mb_vlan_port_set_framefilter(struct realtek_priv *priv,
->                                   val);
->  }
->
-> +/*
-> + * rtl8365mb_vlan_pvid_port_set_direct() - Configure a port's PVID as a raw
-
-The term "direct" doesn't give me much meaning. Since it has
-essentially the same signature, it should simply be a clean,
-family-specific implementation (same goes for the other functions).
-
-Best regards,
-
-Luiz
+Best regards
+---
+Kuninori Morimoto
