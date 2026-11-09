@@ -1,100 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794246541;
-	b=jykKocJqw7BZ+/92lQ4u5sP6YKq5ItTjZJbaQaVkDO/f+Dcke1tAjvBiKMtwkL/Qz9pt
-	 HbFLVgEdmBx0Oc+KQ1WaBbhuSYIKgYSgcBnRVlvSkPGRlkSLM8W2BWzpOYf6PshLLEENT
-	 Kz/r2YSVCFlElaqLzpgYhEVxsHQDwlsjG+CzIoKUtnrLHETkmERPu5RIRHiTksLE7DChg
-	 2Oc/j7Rc6nw5+ct2ZJTUsg1riQDbGGMtYDSR6nkrQkjupE7z0L1tOxpNgQfWJQHRzr8gg
-	 UOEnocxOeUpqc0Hmat1+PV9G+3yIR7wf/nQuHmstu39+Idc1p9NPHAoNqxhjMrvQdmQ==
+	t=1794246636;
+	b=wjXiDl1GrWZDvZdgKpsNBRSpBU21bdwGSOk/+4p+IosNBaHkj0AbQdsZS5j+f1UyqbEE
+	 MAkLLhI6uAjctEnqJqTndJMbx929x2uTJkOewQ/noZHpLKa+ZbT7HUHkJP+2R14P6XYcR
+	 T0NmLNVUDyKVm3dc0uLZxR6lbx+GmFyLXO8tL0tEVu4GmorOwcNJN3C+DzY6B+USqU62f
+	 DfGFXxlURxnSVNtA5ItPRdfT0QC1gKZaIGaj7gNK8722AfshTODJpDWL657QHXOCCAIVg
+	 imx874Pt3WCnhrpybbrvae2gxmUKws1VGeTvos9PDtR9Lg/MAxCTdNEKWnLZ5GnCX1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246541;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MmsV1ThD3E4KMfcEvrDULM6QGE9kBcLsTn0dQnSK4co=;
-	b=FOyNDOjYTA3g9DR5dWpSZJ9ro+u1qsp6QlR3H5tZGbUeKaraGEXM2fHKufM5IXcgsj56
-	 9vplYT73qrDMO7v7QL0gBPKDhnHipKshjLzMMSO4QANWhTQ/zo93MttQ3minS7gi4HafC
-	 sJzU/AhTRIvG8XbWjTr1BdIZVP7LidRsSQ3A33fkcRP18OkPZO/qsBz7i+bHnCmE9p8kY
-	 prAcWDhxz1QkYCaAaMAj6hxCji0PvlhnSHnpu6DL1J27OQCY0sUzePPugr59y1iwZ37jY
-	 cQGBvePRYJpGXda3LFNp6HFaw3C90SShoM8eba8IUvJykE5i1XFN8SdgK2w/YpGW7hQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246636;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=4Y+apbv0moZAbIC2JZwKUuLxptoIhomU3mV95VqD+l4=;
+	b=alw7wVpnrLdRiQSkBAeTekFUEfM/Dw2tkZGVqpx/i3zLsEK7N1YPWCklRK5mBY0LWSMx
+	 9tZ637L/GQ3EZkkQ5Z5JAE8Ux2suFpN9tbIK6EDWQcG1BMzpL9lnMn3+niISwt2PLTAZa
+	 T4AwYfxwLKMDI7kVgvXNIKoEj1wVVkPiRC+XrtIrhp7Z+vpgKSZmIl8fZccbFVeJbQATg
+	 myUGBTQ8Fma9BwnSsRserOFhtslIpbaXUloYLKt8tff4FOgWj/PgdoSoO2w8V1AFneFIX
+	 OjSoYcurOKD4V270egJtXYNZDghJi0Un8heVmy7dbFS8ZrAHmIihHzrO+LsYXzDzSDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q9wQ32cP;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="alzL5p/E";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 289E3606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:49:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 289E3606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376BE606A31C;
+	Mon,  9 Nov 2026 17:50:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q9wQ32cP
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so12400385e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:49:00 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=alzL5p/E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86BE51F0089F;
+	Mon,  9 Nov 2026 17:50:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794246539; x=1794851339; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MmsV1ThD3E4KMfcEvrDULM6QGE9kBcLsTn0dQnSK4co=;
-        b=q9wQ32cPD0so3ZqfuhtKzNTUawAwni8LAA8qq7zVdmSmiF2zoYuT7nv4t184BwaTAx
-         OSusIKeJYV0aDt/JPYmkZUSgwBgqWd3VhxAejdJTZpysRLOf3WCdcgDzYXUgA73NiN4M
-         qiNOwHZi/reQYemYTyQAQ/eTQ9rMsfpsbuBv9P2jbo5EhDzrw2BYaYlgQqzrh+LfNJBr
-         EOwopcYxM34WU5x/tjB9XzT6iz7XSHllAYxdDpf8NzmVJVXzcliqMLHzvcmZFMMGoR/i
-         g5qScX3lT6mQmHrFPjwmUrs3xEiFCQ8OeWMD/xhW81ym/Hvw9mHJsnjSi65NvzMA9CT6
-         UhMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794246539; x=1794851339;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MmsV1ThD3E4KMfcEvrDULM6QGE9kBcLsTn0dQnSK4co=;
-        b=Md4iCZMrmEy6O4Ei4W9gQzImPmMc99o5FJnDf9EoSE/UoSqtB2FBL/Cp66IIVJF3yy
-         RQkQsNeZk6PY4E2u2kaEONU4hExsCWRr+NbL52qt4EMpldNzfSVVraNxDBeRvUynQBkO
-         uMA7K5zamO9dIytxR/+7Ms0A94vU+8Jo9+z4zY2Yk5vd9HkF0ugT2ZfPqXj7c76G57tg
-         XrMdn6KM3prROqRcw9XkxGpPEKOr/oFz66WWNgrrTvp9lcozs0FsXVslhKfqSzATonhb
-         GTYr1uZlxmDpS2Ajd/duEVQhGa+z6YJj1oU196nxoBbhMze6+NUOIl3DkXceP17zi8VO
-         HMGw==
-X-Forwarded-Encrypted: i=1; AL+hErGMSJvLsZiXnO17DFdjFh9gVslNkJaZdV16kyKnBts7NtbLGKVZgRWqdYqWNncnOuPljIXxzTemCTz9yUk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94eAKXYzk+Y2g2BQGi5InocIQatJC9KgtIOmr7AaswOs8I1J+4
-	d6rHOaBvUlrnnpA8/SahnDJToZLq6SLYHkmRj90kd7/5HxUKB3443cwo
-X-Gm-Gg: AYBFou1g2rtdacy8pnfGEfdzy2q9rgej5Uc4UsdGOuXTI+BBZJawkBM3jecmE8Y7F5c
-	ERO9vZIGh6phinE3Jgvx4+FyOM/pmae3gg1vjpx0ogLz3XCcnA9KfOk2bvVJj9PjfQiT4WqM8cF
-	2gkpMHVJI/ffdltXbaFhiZRH2IdAgtX72umrav4KONlUOR7vcNs7iM+lzNP1F5sDFg5OgCcRKd+
-	Xmnnc8VbXSJYl47krfizqfNikgDFbOD91ZMtbWjM9uYfCqIfsk91N7r1A32L7Au9CSctB5jQbYY
-	Ht5BbRGbSD9zmzp3WEhudsZk2Q1yT3o4esU8aVs8bNHmA0mKU4T5Btcnb2T9A3zVrTknR+hUKfU
-	nLlP9sScKs+oTCh5X+L6/d/HEVb2VFeVwxDSlrQuw8GengqQ+Sdz250TJy/ieop07t7+hYqFKtu
-	1RAELh5GkNSYCvgg4R6E5athyqeW6tHcc8ENcqXJ0ujP8IT4jH3lNQbIv85J2tMdwrSWvPwyRsf
-	0dYWc09zn4eSiQsZvggYftGIIE0GwJ95ptTH0B4jctQxuKfVSRVFC3+7OKZ0xfzvOZmNrha9ymH
-	5jisBMj9Od0pTU7tDsXFY0dQUEc=
-X-Received: by 2002:a05:600c:6218:b0:4a1:a6e0:4ce4 with SMTP id 5b1f17b1804b1-4b963c88030mr89979545e9.33.1794246539561;
-        Mon, 09 Nov 2026 09:48:59 -0800 (PST)
-Received: from flare5 ([212.58.121.92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba01d89f22sm7619465e9.3.2026.11.09.09.48.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 09:48:59 -0800 (PST)
-From: Stanislav Aleksandrov <lightofmysoul@gmail.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Georgi Djakov <djakov@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] interconnect: qcom: Add Halliday interconnect provider driver
-Date: Mon,  9 Nov 2026 17:48:46 +0000
-Message-ID: <20261109174846.2091271-1-lightofmysoul@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <f942043d-a46e-4792-b8cc-a00280eef29b@oss.qualcomm.com>
-References: <20261109-halliday-icc-v1-0-def7cf786f75@gmail.com> <20261109-halliday-icc-v1-2-def7cf786f75@gmail.com> <f942043d-a46e-4792-b8cc-a00280eef29b@oss.qualcomm.com>
+	d=linux-foundation.org; s=korg; t=1794246636;
+	bh=4Y+apbv0moZAbIC2JZwKUuLxptoIhomU3mV95VqD+l4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=alzL5p/E5TFjU0f4S3NCoMGJBvZNjLceDHvjdf7oUnrtQutT9d/lual9TYbQaYsV8
+	 BIDjLsHSLUcOK6q2LAzWt3YlvV/WiGiPoNNU3sNfH3m3TbLCyeOWWakP21fgtRFZY7
+	 MuUKvUaoZ86WAElRGG65TDNBtS7Dp15/zVMHHz1w=
+Date: Mon, 9 Nov 2026 09:50:33 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Jason Gunthorpe
+ <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu
+ <peterx@redhat.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
+ Kara <jack@suse.cz>, Rik van Riel <riel@surriel.com>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Harry Yoo
+ <harry@kernel.org>, Jann Horn <jannh@google.com>, Lance Yang
+ <lance.yang@linux.dev>, Zi Yan <ziy@nvidia.com>, Matthew Brost
+ <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul
+ Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache
+ <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain
+ <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, Usama Arif
+ <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Xu Xin
+ <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, Madhavan
+ Srinivasan <maddy@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)"
+ <chleroy@kernel.org>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, Pedro Falcato <pfalcato@suse.de>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, Shakeel
+ Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He
+ <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Leon Romanovsky
+ <leon@kernel.org>, SJ Park <sj@kernel.org>, Rakie Kim <rakie.kim@sk.com>,
+ David Rientjes <rientjes@google.com>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Peter
+ Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Arnaldo
+ Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
+ Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James
+ Clark <james.clark@linaro.org>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, John Johansen
+ <john.johansen@canonical.com>, Georgia Garcia
+ <georgia.garcia@canonical.com>, Paul Moore <paul@paul-moore.com>, James
+ Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Mimi
+ Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg
+ <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, Stephen Smalley
+ <stephen.smalley.work@gmail.com>, Ondrej =?UTF-8?Q?Mosn=C3=A1=C4=8Dek?=
+ <omosnacek@gmail.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ kvm@vger.kernel.org, damon@lists.linux.dev,
+ linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-integrity@vger.kernel.org, selinux@vger.kernel.org
+Subject: Re: [PATCH 00/13] mm: continue vma_flags_t conversion
+Message-Id: <20261109095033.ed2b0334c862ca832389ea7d@linux-foundation.org>
+In-Reply-To: <ab4be2bc-8959-4c09-a120-37e216279dae@kernel.org>
+References: <20261105-late-2026-vma-flags-v1-0-0d3cd15ab75f@kernel.org>
+	<d0ea7929-7c12-4245-ba3f-6dd5c0269e6b@kernel.org>
+	<au3r0-geuwtRYPiC@gremlin>
+	<1c0b1368-a381-4b25-bba9-7a4f8e92b764@kernel.org>
+	<au-DXpEi4wHwsz0r@gremlin>
+	<93fef824-9f60-4940-9ee6-80c9c8e3f945@kernel.org>
+	<20261109094434.d23a227a869e76455ddff3b1@linux-foundation.org>
+	<ab4be2bc-8959-4c09-a120-37e216279dae@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,19 +107,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 09/11/2026 14:30, Konrad Dybcio wrote:
-> On 11/9/26 1:29 AM, Stanislav Aleksandrov wrote:
->> +static struct qcom_icc_node qhm_qup1;
->> +static struct qcom_icc_node qnm_a1noc_cfg;
->> +static struct qcom_icc_node xm_ufs_mem;
->> +static struct qcom_icc_node xm_usb3_0;
->
-> Please take a look at the newest files in there, you can remove these
-> forward-definitions. Otherwise, I think this looks good
+On Mon, 9 Nov 2026 18:48:07 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-Thanks, I'll drop them in v2.
+> On 11/9/26 18:44, Andrew Morton wrote:
+> > On Mon, 9 Nov 2026 14:40:48 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+> > 
+> >> On 11/7/26 21:09, Lorenzo Stoakes (ARM) wrote:
+> >>> I think we're slightly talking across purposes, so to be clear - I am totally
+> >>> fine with you taking any of this through your tree or whatever works for you and
+> >>> Andrew to avoid merge pain :)
+> >>>
+> >>> I was just talking more generally about how to merge series that touch a lot of
+> >>> subsystems and maintainers-who-may-never-reply, etc.
+> >>>
+> >>> These are the edge cases that make things... fun :)
+> >>>
+> >>> Anyway, I guess easiest resolution here is for you to take the bits that belong
+> >>> to your trees and Andrew takes the bits that belong elsewhere?
+> >>
+> >> Yes, that's what I did now, applying #1,#3,#4,#5,#6
+> > 
+> > Cool.
+> > 
+> > I'll remove the whole series from mm.git immediately for
+> > collision-avoidance reasons - let's sort things out later.
+> 
+> The mm-next merge today still worked (minor conflict on #7 due to one
+> unnecessary ksm.c hunk I commented on), so you could have likely just kept all
+> but the above patches.
 
-Stanislav
+OK, I'll take a look at re-adding things...
+
+> > 
+> > I'll get better/more accurate about this soon - I need to set up
+> > infrastructure to fetch everyone else's trees, do test merges and
+> > figure out what should be removed/fixed in mm.git.  I might just base
+> > mm.git on everyone-else and always route its stuff ->david.  I need to
+> > spend a bit of time on this and discuss with the mm-next peeps.
+> 
+> Ack!
+
+...once this is in place!
