@@ -1,62 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794223190;
-	b=jpESuOJLPQNKPPdkRr9cgKkrtLXdCPWtwNIo4xx0tPOw4WUraeTEiv8DBCer2TrLy3CZ
-	 bE7EGl15byEaLvKhUvgSvTHQd+UBqgIOr8ju49SbXJ+5PxZsqu9pHFbWBoC7yGAXgY4NC
-	 v07G3zAG/OGuIbIm9D61gapxmsF0WAjHt2dO8deFBKTrnFLDLWgcI43M8Y45BniwTLMIF
-	 8G7uMZtdh85OCAzaFD+nwvkoSS0+QfgGx/e2fc/ekvT2/cmdMtsa/i/7Rn22Fjd5UM6iE
-	 gRI//3gdBrlxPy/8gW3obiJkGYRSLPAusuflCk0aAfOyrnQB7PeNNbdLWCnlMES24gQ==
+	t=1794223189;
+	b=PpJo9KeacyjcsP16gIuz/H+f1bRKgnoqItTT+tpB6Z4ekF5n8qRocHkiwTXowPX9JMiG
+	 6ICQOrrPkp/mcvNnOcswipmvpa3zoidtysFRd/1eTA5vz0TvQHeSvISaCLyio4cRCjvXj
+	 Ijndb//b4nc9aB+wA9lWH513P0ZcNBhnLMPYHKhmJDcJ5gKi0vLrBeyP9Ik7Mgp30P+N1
+	 KSolDy22yEJbIHiMx/r/U7UuI/Xgk5Z64Xt4qNCuXeVQl+czLuWJjlpjX26fLM9GGRwC6
+	 Yid88a22ZvKiwHZT4VmaDqEJHPfk8FXQBVHLOfHfd/t7w3+vDzwHu/HT6Y9s0l9l7rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223190;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=lY6O5vQk9+JczPENJHYrp1HUtZoEwLFGCDuEEIYM8M0=;
-	b=JnYW5zMfSeuDCxSDSfuebHE/fJn+g8Fs0NrwjVFmrGWTfHY/0BAvNKokbYegO1Iun0H0
-	 SF91FqPtXY1ZYF+foYc/6x1W6Drx3PA58Btv7FtKdhVEbaJBLaeYlcR78/w3aB4SCzygl
-	 p30T3LJ4TqyjsUnPF1Z59s1TF/1q1x5h8V3s+ItjfWLCLyuY0v0sZvK1UvVWRJDCFWFpm
-	 /4tbmHLuKmw4wJo0AiV6VGe9DFWfIzI/EJNh0gIAnmDEmhlvpkv2k28ido92qZ6ze760x
-	 KoUTdWE4dTAieZB9Li6LWnUWJpLIIkxCqK9kl15xftWAHFVC8OzSQ/tA+6twVVg/Zhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223189;
+	h=DMARC-Filter:DKIM-Signature:X-Original-From:Subject:Date:
+	 X-Lms-Return-Path:From:X-Mailer:Content-Type:To:Cc:Message-Id:
+	 Mime-Version:Content-Transfer-Encoding;
+	bh=nrTj8/1DomOwvHqcUIcxM/6KsnFRHawVripj6enYjDE=;
+	b=w+t5GwVaDkRCpPbmzkvoanWtOeEzg69xei+WkPMKjxuUGoh6BHWFjdjqU0mqtJG2Lh+D
+	 6b9JB+5zjbIaYUSxOCdsyIZY1i0FXAgycAd5WUjhvOH43Yg3PoP4DPvcBi6zTOBar9e2G
+	 NMflGO6I8AFhvqYpuKAfBuOrLSaOQWbQZ1ZHr23iWcg07yrop/pksiSPdAWgF1e+YF0Hm
+	 Pq5karhL7Y/p4WeQb8hPSoYdR8loAKV81A7PScFOjgjAMSIB6LAfXXAB5jvPD8rNWmJH6
+	 jnyyF8J8LyJ2dB1bqeJxbiUh3JY95Aoxn1OydcXtydemvvFonqaczopLZHe5AZkH0Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CCWQBaPf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=H3rX9E0R;
+	arc=none smtp.remote-ip=209.127.230.115
+Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 704F2606A322;
-	Mon,  9 Nov 2026 11:19:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C94606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:19:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90C94606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CCWQBaPf
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 33EFB1F008A5;
-	Mon,  9 Nov 2026 11:19:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794223190;
-	bh=lY6O5vQk9+JczPENJHYrp1HUtZoEwLFGCDuEEIYM8M0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CCWQBaPfZi1MG+dTcJAQyHkuMP7MyNLJMrJYZUyrhewaBgyMdCYBipTYs9Zmy48BB
-	 AM+96bBxOxsNmO9fPkVPjLtj+JTUPBJseLz8jJV+1vwMKiR39WxFtM6SEZqhPfjZLT
-	 ePAMSZQ05MJl3ma34ufuX12k7NuQl5T4yRzQUxKTFDmTei12X+7VXWCr4JkVEoEzyw
-	 /8abAvup8mBBdjFQpgaa5QXumRFng7IOFSSGVZox99SR38XaHB6N5ZbkZCKHO89m8T
-	 paGW8xiKSEDQJjfAzna0nx1XvRx4ZwAjKz0kRhs+VqcCvrKCCwNerlKl/5cfxxiJ4S
-	 FMRvMQjfxmvPQ==
-Date: Mon, 9 Nov 2026 12:19:46 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Johan Hovold <johan@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
-	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 4/9] device property: provide fwnode_property_get_names()
-Message-ID: <eymdomw4dby2zwlfio2l2wdyp2m7hblb2xwks2masnc26jb2xn@jkwf2v4heamc>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-4-6e28fe1c72c4@oss.qualcomm.com>
- <auug8QoQ62ETGg1D@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=H3rX9E0R
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794223183; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=nrTj8/1DomOwvHqcUIcxM/6KsnFRHawVripj6enYjDE=;
+ b=H3rX9E0RE21NXqy7N1salj1TMq04PbW2OFcO+j7c00H5N/78drhbBYVTzmGzj8+Tm0BHQj
+ ZxxSoLKdaSGih5euq0dZ5oXk/n9YCd1q+noTxrT5wbMf0baizDizclTvJ/6yXlVhnS9QDY
+ FoZhEkyycCZM5aJ0XLrnjnFmYOo+rUeWzcEiyHL7W1SXXvQl2ZBl2h2VkOBv/uEV79VmtR
+ 3/XCAQ1T7YOyCH1ktLfKgl3HGFTcR0rKpGZOIseOdC4d37+s7rUs/EGpogdy1n9aVTPpRp
+ wZVydDWIXZqbnTw2FCD/Rkw3uGdypEsrChI4i2erDZu1ov4YYhEbYly5HAXz0A==
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+Subject: [PATCH] perf/x86/amd: Avoid double-decrementing n_pair on failed transactions
+Date: Mon,  9 Nov 2026 19:19:09 +0800
+X-Lms-Return-Path: <lba+26af1ac4d+dbe2b5+vger.kernel.org+zhaogongyi@bytedance.com>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Content-Type: text/plain; charset=UTF-8
+To: <peterz@infradead.org>, <mingo@redhat.com>
+Cc: <acme@kernel.org>, <namhyung@kernel.org>, <mark.rutland@arm.com>, 
+	<alexander.shishkin@linux.intel.com>, <jolsa@kernel.org>, 
+	<irogers@google.com>, <adrian.hunter@intel.com>, 
+	<james.clark@linaro.org>, <tglx@kernel.org>, <bp@alien8.de>, 
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>, 
+	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Message-Id: <20261109111909.31712-1-zhaogongyi@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,48 +66,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auug8QoQ62ETGg1D@ashevche-desk.local>
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Wed, Nov 04, 2026 at 11:17:37PM +0200, Andy Shevchenko wrote:
-> 
-> > +{
-> > +	int ret1, ret2 = -ENXIO, n1, n2, i, j, count;
-> > +	char **prim = NULL, **sec = NULL, **merged;
-> > +
-> > +	if (IS_ERR_OR_NULL(fwnode))
-> > +		return -EINVAL;
-> > +
-> > +	ret1 = fwnode_call_int_op(fwnode, property_get_names, &prim);
-> > +	if (!IS_ERR_OR_NULL(fwnode->secondary))
-> > +		ret2 = fwnode_call_int_op(fwnode->secondary, property_get_names, &sec);
-> > +
-> > +	if (ret1 == -ENXIO && ret2 == -ENXIO)
-> > +		return -ENXIO;
-> > +
-> > +	n1 = max(ret1, 0);
-> > +	n2 = max(ret2, 0);
-> > +
-> > +	CLASS(strarray, prim_props)(prim, n1);
-> > +	CLASS(strarray, sec_props)(sec, n2);
-> > +
-> > +	if (ret1 < 0 && ret1 != -ENXIO)
-> > +		return ret1;
-> > +
-> > +	if (ret2 < 0 && ret2 != -ENXIO)
-> > +		return ret2;
-> 
-> > +	if (n1 == 0 && n2 == 0)
-> > +		return 0;
-> 
-> Shouldn't these checks be before any CLASS()? Otherwise seems strange to me.
-> 
+On a failed PERF_PMU_TXN_ADD commit, x86_schedule_events() releases
+constraints for newly added pair events. The AMD put callback decrements
+n_pair, and x86_pmu_cancel_txn() then subtracts n_txn_pair for the same
+events. This undercounts active pairs and overstates the GP counter budget
+for later scheduling.
+
+Leave transaction rollback to x86_pmu_cancel_txn(). Keep the AMD
+decrement for constraint releases outside transactions.
+
+Fixes: 871a93b0aad6 ("perf/x86: Fix n_pair for cancelled txn")
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+---
+ arch/x86/events/amd/core.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/events/amd/core.c b/arch/x86/events/amd/core.c
+index 49b6b8fce..3363cfd3b 100644
+--- a/arch/x86/events/amd/core.c
++++ b/arch/x86/events/amd/core.c
+@@ -1251,7 +1251,8 @@ static void amd_put_event_constraints_f17h(struct cpu_hw_events *cpuc,
+ {
+ 	struct hw_perf_event *hwc = &event->hw;
  
-Actually, not ok for this: we create these classes in order to
-automatically free the string arrays when returning so we must create
-them before the checks. The above check for double -ENXIO doesn't need
-it because no string array could have been created.
+-	if (is_counter_pair(hwc))
++	if (is_counter_pair(hwc) &&
++	    !(cpuc->txn_flags & PERF_PMU_TXN_ADD))
+ 		--cpuc->n_pair;
+ }
+ 
 
-Bart
+base-commit: f5a78ecccd98a04c47cea1cd63c2a2fdce8a4b48
+-- 
+2.39.5 (Apple Git-154)
