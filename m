@@ -1,66 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794248400;
-	b=NLE7pm5sP1rkVgGOSBEYThb6Qf9SuLBuC7Mgcgapp72qtVlHh/SRI04bvwG+jIyW2IeD
-	 C4SiDzuxLqmRUqR0Q0P3fNfnuOYMpgpzB8u4Te6OrHyvmrebeMh/79XrMLR+xc3xoDPnv
-	 PYs50Te2ush07gyUfLtRKHRABkYzmvhpjplufxYQ2DE+/eYdo5WidzvQOiRm89I9wIqxI
-	 8JQBPfjMx8K+fuNPf2rDhjk6iPXH6E89q4Q64d/XWkLghQXD1ddklQ9uhDEZWFWlUruGQ
-	 7uhEtFQ+ml9hbJANgkNy4l8gG1USM1cXu38GZJZ7CXr4wqLcqsTaoYg6+eDu7KjN+YA==
+	t=1794248419;
+	b=H3WPkYgTEg28aWxm/lUdQtIWoHXSkWFpvI/lT4ltsrf5v1C71pN1nvp43N12Z5/NMn+R
+	 u2FHR5sJxNuef3jus57bapGwio2E+m8H2B1kqpWftwwKbUiMdWqaeRzaRStj7XlJVKxVw
+	 bFY55tAKNgl/ztibkl7bT4m8SD9zhX3cu9fpSNsQEfDulDd5YWCwnd29W5JcGPDF2KSxO
+	 nU2p4hBagCPgs/+cglRrYZFzwSxpcGQve2n1f8t3WT0Oc6t62dojnD4voJ2zFZwfpfReC
+	 Q0Uz3a8tN2k7vPisSmrQ0XBOUy/pE+V9kdNXyqTPgyVTcg5JZnLpuZk7zbLB5oqS9ZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794248400;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=t6KaJjDKYgdsxCn/x+DcOuRyLRSrJHR5bZ1fNs67esU=;
-	b=JtGEsGaOnwbxsD+PJSLtKcG5hqCYE/WUL0kXRBHwtip9A5adrJxk/U7gRg9D7q69s5Bz
-	 PMFUlCpEv+ZY+oUnIxmgnkOXwHXMg4b4ZLxbuyCpPKkFyrSRIggBWtmxqRxGeu8QVzDjW
-	 PkaA256MEBMh/eefEM4kl3h57qdC/WUSTzbkzZFVPrg+WMqx+PO58qN9fYecfDwZmXAyF
-	 KdBEnBI3NCidt76lsJLBXCN7z51hHj6UtfwCp0TbU1BN1UVmTjW5T6bPM+Mr6/YMjWg/W
-	 Eyf4Rdsibvh/7nd6IFjv7hoi1PL4O8YmHBOepFvtbI9/HX6InbCqF7S+JDnjbx43S+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248419;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=vrKuO2D1JP4mdnml9ASPpTlclUAIMoHvROGX7/k5V0k=;
+	b=yib/JYPm2WhpbH/pYNLiEx4E4VgYLFNVBXa1q4D7qoRp1SZzhNWEwZ49uzqT5LWuCuwO
+	 Fz7OKZEhXm2DYONUHIJg8sIC+CL5x8En73HsFlrDiRwl+66RwKHgOPIVW/wyLeHs9hSWt
+	 GzzH4096hsoM0I5FuxxdG+1jl7/4dpF1M3yw/iGkS5afLHUb8S7DW69PMSNpq/clfRo99
+	 YQvpBvZBSqN9KqW4+L/aPM/1pNNeso8qJMHP0hqIxTFYfdwIcW0vCI3wjxk4gC+O+Eif+
+	 0EOILPn9noZKZZqHXydldJJ22Y6I2vlbfNButPSmWIh7+WnCS/86N19cr84Z2YWwUwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="r/SqOy+3";
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BwKtwE6x;
+	arc=none smtp.remote-ip=209.85.215.173
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E27606A325;
-	Mon,  9 Nov 2026 18:19:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91E27606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AE31606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:20:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AE31606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=r/SqOy+3
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jNdNn56z4z1XM30h;
-	Mon,  9 Nov 2026 18:19:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1794248391; x=1796840392; bh=t6KaJjDKYgdsxCn/x+DcOuRy
-	LRSrJHR5bZ1fNs67esU=; b=r/SqOy+3CO2pEJ1RMWjgQgxEuel2MYJip54GsQFg
-	tmfkpuwReDEz4wLFwcjGjW03owqNJf06qcpJrWMt9mPZPmRJJPAOdx20qzXL3wtQ
-	O6wHv0pNWtn0MGStu2vxeUiZKyUVgkJ38nUWuod0OEFqZXvskCJUSgjuD1uL3S+2
-	p4V36MlBi/yJsfhtbmBZNVGC5bZsCG3XSrpP6vvOzpS4Vno0QM55ONaAuz5euT96
-	Dn+nwbiVW7HzyIHl4sKUIorH4W4taJvH/SZAhfHvczs1RhZfYAhoZK8Y81C//SZ8
-	PIEwqcsBLGOZgnpPt9KQHxWV/XqoupAU+vsT18XfBvxtFA==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id y0eBIHRfhNv2; Mon,  9 Nov 2026 18:19:51 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jNdNl2Kjwz1XM5kD;
-	Mon,  9 Nov 2026 18:19:51 +0000 (UTC)
-Message-ID: <ad6c8019-15b1-42a6-8bea-bf74533522b9@acm.org>
-Date: Mon, 9 Nov 2026 10:19:50 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BwKtwE6x
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so513627a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:20:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794248419; x=1794853219; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vrKuO2D1JP4mdnml9ASPpTlclUAIMoHvROGX7/k5V0k=;
+        b=BwKtwE6xchZs54QWCq084EsXrBLCEuzQGQFzO4Gx/s8yzwYQUzbBYjDFo6ac2B65/Q
+         /pFAeWu/UFBMv9WjMK3PXo724ViUxMEcVqFsyjZF9l3+U08wQONUZ5Q5z4OqthyVZoSr
+         cV2QMAKnDePYI2ahCWr7Mk5p304Y4vWQStVNeAIbNT43gtXXJ2x1rx5qXkPPTY4+5vB2
+         LSfGRR3ALAD3qXc/LSPfzVtDgGdTwmmA0tkdOGB0DxnVFsG0QfNxUi/YSrMhlCpw0Pu7
+         rUTjWGSLJ2BIJKJQDXrAA3T2HNL/fkFwbOb3rylq/rRrEJ3zjtTh0URabPJZsmQiDwAR
+         8X8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794248419; x=1794853219;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vrKuO2D1JP4mdnml9ASPpTlclUAIMoHvROGX7/k5V0k=;
+        b=OJzivX0wg8R7tQ1QD7DVjFBmMJNGhG+2kkkX7anUflGL18UoLfB7fQ/EUQUyc9cWXq
+         CqH7VFHnvyAlSqROsiJVA0R3RMsY5O0RW/CtIdfUn1lKgc35KlIef+JXUYWTYaNImVhw
+         NKSI3EET4/xQh4bksEO/HSt+vhNvUUfeoyszViIB5P3W7SWD8Nl34q7afcibcVO7FKje
+         IBmKVbGS3i9cMHRiNaTFb7UFKj1HhCezGihjVWf0zi0tk8fbK51LAKxTlsmMjXXUPnXc
+         5vkHvBS6JBErlXZ8yZ/stzqxsdPfDDv0mWSUNBEaVFrgNTX9jr/eWwSwqfjyN76pnvSd
+         EKJA==
+X-Forwarded-Encrypted: i=1; AL+hErHIgKbMYt4Bfw3Nq/3D3hRajOdHyAnTDiiqssBnzyh35GqZ0lbLbLIA6RUlcSuRzobYVpEKvpru4R67K7A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+026+AUOtSDE6NoTQFfh/YovlLAEW6+O+2IYK5CPl2VKblJ1xL
+	cFTmdATnz3r5bNrNkvb79tZey9EeJwdk6FHArbGEobq+EdFA921jsgJV7vD7YQy/mvM=
+X-Gm-Gg: AYBFou3dk6mcGbUxDMb7mhBynd+cPaLQEUebojdk+UEPvVwi1cxapZ+yVtzOVBWfR19
+	Jr/iwj0n/ttK9XkwyuSg26Hg/3i+JT8LzO5Xrr/Ncon9f75IFPXIGbXHdXSCrvquIgInWkeA/k9
+	v3YBpnGgKAM1t2Uuc39kOVLZRL3kUH7Ip7CTZiTru2PDVU364h4wlINs2bObL9ag7nA95WUC1Ml
+	AswrPcGAqIQLGb8tWFJ+CBa5Ybtn6WZmg87/pMCnUGMNYhkmzE9FXG/jwnB2PpFHWGGQmR8vYcz
+	J8imCacudaL7i3DIwEAnCuG/EdKyoNBI8CTAH/NGQ9jZWgaxaZqoxwumN77GyMwyTAooyPRRpSA
+	jUFHm7bdNim/9iaS0NBxmhfoC4syI75ZWKfF0vYHlFW04U3D6MmfpIOBFVHZ+H1gBsLUJBC0ws/
+	NR0xEQYdOC77FZTNgAkp5NbH2KZ6a4MyfLXIwlo3EgvC1zC7xqyJAjB8sm6vpXYOEosFbT8BNeC
+	8mKDu3UjEylGElbctgQj3kyco+JW7U1zT5k5RdWWIjpKyQOcIEGYjRh35Wej839GLErzFRm+9ql
+	J0TUwZx3tfhIQUjqw2EH2Muj3DjeMGQ7jzVPgFbzx65oLNcyPEZEYIw016lRso5G5GBC+Ce2N00
+	XbhLTkuP9KIFKjPgKf3SqNsWGbzUPsg==
+X-Received: by 2002:a17:90b:4a0f:b0:3ab:1b19:78f0 with SMTP id 98e67ed59e1d1-3b166cc8442mr517367a91.41.1794248418870;
+        Mon, 09 Nov 2026 10:20:18 -0800 (PST)
+Received: from localhost.localdomain ([59.153.103.50])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b16792aabfsm423189a91.12.2026.11.09.10.20.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 10:20:18 -0800 (PST)
+From: Zeshan Ahmed Nobin <zeshanahmednobin@gmail.com>
+To: Luka Gejak <luka.gejak@linux.dev>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>
+Subject: Re: [PATCH RESEND rtw-next v2 1/2] wifi: rtw88: 8822c: fix out-of-bounds access in cck_pd_set
+Date: Tue, 10 Nov 2026 00:20:01 +0600
+Message-ID: <20261109182001.29076-1-zeshanahmednobin@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <0FD97102-7E9C-47DA-9B52-7F7A837E2924@linux.dev>
+References: <20261108182837.682661-1-zeshanahmednobin@gmail.com> <20261108182837.682661-2-zeshanahmednobin@gmail.com> <0FD97102-7E9C-47DA-9B52-7F7A837E2924@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,40 +100,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/3] scsi: ufs: core: Hold host_sem in
- ufshcd_wl_poweroff()
-To: Peter Wang <peter.wang@mediatek.com>, HOYOUNG SEO <hy50.seo@samsung.com>,
- linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, mkp@kernel.org,
- martin.petersen@oracle.com, stanleyjhu@google.com, alim.akhtar@samsung.com,
- kwangwon.min@samsung.com, kwmad.kim@samsung.com, cpgs@samsung.com,
- h10.kim@samsung.com
-References: <cover.1794196863.git.hy50.seo@samsung.com>
- <CGME20261109041347epcas2p17b5c0fd7b693f92eb2af35b12a24de31@epcas2p1.samsung.com>
- <973576304.21794200282836.JavaMail.epsvc@epcpadp2new>
- <5fef4ff73511a2613beaa7accdf635a1c634c449.camel@mediatek.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <5fef4ff73511a2613beaa7accdf635a1c634c449.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/9/26 1:34 AM, Peter Wang wrote:
- > Although not checking the return value was an original
- > mistake, this patch would make the previous mistake worse
- > and cause a system hang. Could we at least add a check
- > to release the lock?
- >
- > +	ret = __ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
- > +	if (ret)
- > +		up(&hba->host_sem);
+Hi Luka,
 
+On Mon, Nov 09, 2026 at 07:41:46 +0100, Luka Gejak wrote:
+> As far as I can see bw doesn't have to come from the chip here, since
+> rtw_set_channel() programs the same value it stores in hal. So maybe
+> this could just be
+>
+>         bw = rtwdev->hal.current_band_width;
+>
+> CCK PD only runs on 2.4 GHz, so that seems to always be 20 or 40 MHz and
+> the check could go. Or is there a reason to read it from the chip that I
+> missed?
 
-I agree with Peter. If __ufshcd_wl_suspend() fails, host_sem must be
-released so that ufshcd_err_handler() does not deadlock waiting on
-down(&hba->host_sem). Also, please propagate 'ret' instead of returning
-0 on failure.
+I couldn't find one. Apart from the BB init table, bits 3:2 of 0x9b0
+are only written by rtw8822c_set_channel_bb(), with the bandwidth that
+rtw_set_channel() also stores in hal. I also checked it on my
+RTL8822CE with Ubuntu's 6.8 kernel. Its firmware does hardware scans,
+and at 40 MHz on 2.4 GHz, hal and the register matched at every
+cck_pd_set call, across 10 scans and a reconnect. So v3 will take bw
+from hal and drop the check.
+
+One consequence: a chip that drops off the PCIe bus still reads nrx
+back as 3. When the level then changes, rtw8822c_phy_cck_pd_set_reg()
+gets past its WARN_ON(), since bw is now valid, and does the zero-mask
+access to register 0x0; forcing nrx to 3 confirmed it. So on PCIe,
+patch 2 is then what handles a dead chip. In v3 I'll update its
+message for that and add Cc: stable to it as well. Its code doesn't
+change; is it fine to keep your Reviewed-by on it?
 
 Thanks,
-
-Bart.
+Zeshan Ahmed Nobin
