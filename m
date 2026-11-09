@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242216;
-	b=oxL5EIpb6J8+BruaS33RW2KLwwW18O+W2tLZueZ2QN/SQquEiV6RtSOhpsvVY0eL1C+q
-	 7JczoTSMi32zymgChXwryg9CD7wTDpCxXfMyj5IFGk4JDforwIeDdCsphiTqnbr+ZpGo/
-	 9+m+pMwaW60g6IMVBsjI+FMeaztdm0mLlVJUY5Ox8I8yBTI1WcX4OX5oHybwADyXUjEF+
-	 EzfDGzs7KMqUf04G/zDvL2FHgTZC+ckBIVnxeHaVzsYEGkWQv5mxS2N0IAn83ucBR3Z1f
-	 J9xrvuGmI01YmzUkclr2Mf+qh9kQ6bJnQM5RNP830YE3BBw36ewyHTGHJ+lhJCpO5sQ==
+	t=1794242223;
+	b=KcPxu6VgfVkT8s/+8srw5P0Qs7XETBBPvlsF43o8lb/uVKiURTZ1+PNIBFXBqEhJaju/
+	 8y2kgKTAPj6HAYVIB4fVmOtb7MSarQ3tKSuBvIGTuutRTu8Gu+1TqMC2rdrgQq9t6rdrC
+	 YJfUuuwXIeK7Z9Z2/RWG9bntT8m5Bg0rnAzlMxdtb3OjNxHuTV2OBDrz7cVLQ1khtpjEe
+	 hsYd0Nj+WVZjEFoD3kfdadEbmwXw5k3msVmK3FFtwXHVwC2pElKQzc+AdNTmZ4Y2gWbhS
+	 NPbxbyNjneJdkUOpaxFoTel5ImkzHXSRNHhTrNHv1wVxu7MGTRID1RjhOVihw6wa3cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242216;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242223;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=KcIjo2huR4gFwGnFpf64WoFNBDsnsdPcDg9Gewk+Kmg=;
-	b=hYcPfF9/sZ6BcR15TnYcZxih47/M+iwGqB6zPv0YDtCwaav1cXXJBcTAHIfN0uxr787E
-	 FvaICvX31dnws1o0gUe1nmbBC+VZGf2onHYo6rFHJDLquUG8i3Yqa1kCi3WVNoe6ssbg+
-	 cZblWJdCVu2yjjs0jql3A0jnsY6O3Je5lqc3WEeq17IkFdZIeIBEGdmrBAg3/0+n6w7Hl
-	 uN/S6spYf+ICI5TsHAtEVVctMnF13H/JpQnN/bdlELS/NFcqZH+c96rPWpk0FGjI7JyzR
-	 1XOb0fyk30YjlxkAMd8al7s3/+mSkYH5Z6aexEiYwBTRDXXrr1oPfvtcWH9AUB4FOxA==
+	bh=p6J5hm0GOFDibiRim/ZqD/ZmyMUOkw5F47dVQ1P/Hd4=;
+	b=qh0ecjrwtNNRrogFCOjPudFPtZfG5CdZxE7OohMIlVRfaY0Pnlr43D89zjCpVBNvaUWa
+	 RTauz8PqbP0b5jxHA3DBXhVj7bJZtDdW2xsxkR4o0O9X9L+D9iHhJuohbho6l3au/yCjU
+	 8nobx+hhy8+/K3KVlOA/lPrnjiKL8sEFBzBdovfr+OuUfzY5wk8ozn2CXqUSjjQgj9z38
+	 IKlzbLKvoG7l2nwRG+sjSVbRX/5yTSYSx65kHTxXUaZ+Kes3uNKDtrPLQZCXurcwjiy9w
+	 oPJwblfxpxheOigpFjUAozYRtd/RJVNjteB+ecKdVwAqBCoy82WuoVx88w4lpXZtPnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mNidKtF4;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=peGi2MI9;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B326073648
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70B326073648
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C74606A874
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:37:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0C74606A874
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mNidKtF4
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2153c8525so8735075e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:56 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=peGi2MI9
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so9994405e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:37:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242215; x=1794847015; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794242221; x=1794847021; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KcIjo2huR4gFwGnFpf64WoFNBDsnsdPcDg9Gewk+Kmg=;
-        b=mNidKtF48zgO+YCbrgnhMwgek8M9YQFCr43AGDT7GmGLvxNAV+sAap7bvqx9qZRpyc
-         qfq5X2h4swn8zwYZIBppu50VkduStIaexbjdTko+RytF6O4Ot6jo/tWVD0YdfVdsSVc3
-         XAX8a/LbhJn5ctZYeXNL2XpW5BC2KOmCl0uqfu1nFsgDlNFGqYy+ZqPJE/pfIfDb348E
-         Ss4k6vflYyykqTbNHvrjjY9xvkfK5NRaRli0ft012bAqwea31JhewInlFR+nes7r2twZ
-         ftvXoCB4ZP4JGNDc1hH3wj/0C1AFq4u+Lvjrt+JW3HvoOFlhMSeqgJqxAb4zB085crHV
-         c39Q==
+        bh=p6J5hm0GOFDibiRim/ZqD/ZmyMUOkw5F47dVQ1P/Hd4=;
+        b=peGi2MI92KN4hlNnaw2LL/jjXg5j7/GW/imFPOlRCArxymPODdI42tAYTn20EkmIAq
+         05FVqW9/PM6xVXSrhMHvsbrEZ5uBFrtmUbMmAu+73JP4JCX1ywBFTk/pEXbaIQOabmFH
+         mTnps61a1iv11CbdwwepkdkA7C1sM58S53PSSJJvPHoYP56ZvzU02ooZHk5OVvbYl6j2
+         NoQ6qoQgmW27xUxk4jJBfdIOQamXx3+hbFvmNrxIl6MA5sbwS9YWuYHPBcJA1rFuOEPE
+         GFbpmW8JcFCMcQKJaievKASw1Ig4BikluJemgG+h5aEAGjTAOq/TrXEw6qfbvPBSDuET
+         Rd4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242215; x=1794847015;
+        d=1e100.net; s=20260707; t=1794242221; x=1794847021;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KcIjo2huR4gFwGnFpf64WoFNBDsnsdPcDg9Gewk+Kmg=;
-        b=fmKX4cc+a+dgzZW2OGb8IDPeqaDZPXCFCS1Ze9pwKYFvhPrDgBHCU5mJVUZeAMFpFU
-         LeZZTSQL9jdNO8SWCmdbos+K77ewWgiUAxp0FGW4yy4sQjzQFpSISykwHtrxVkGWhBX5
-         8vizYD+BHoUeWtJ3y9Pgh7c58bh9ciiu+EQ1Z9mXjbzHgXAV9dMh7K3oBKpp88Lx23hc
-         1fWFFiJufFcOteWY3zgxXt8t2HqK8xkVRzSDeVGBwUnJz2cEJLOVhhaioPll0P+r5rVH
-         p/mt6vDZrdgR0KbGHlgy9Xo1GRX1yMUhHFCeJb8JODvcjxviahlrjJIrjvPqYlZkz5L3
-         nAFA==
-X-Forwarded-Encrypted: i=1; AL+hErHc2A6dxYzuUegXRxWSzHK2wN+OrAtwXf8ce910E3KOys1urekscHT2sTHD1UrlwehVtBRkMjR5lyod148=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8um2/DjcSZkHBRG1K0lmXC2436+Jigdkb47AGvqNnuDVuvRoSg
-	7hS7QCQLfJtDwmhS0bxcRqNpi3TAa789jIrEgVSYSbxOEB2B+IDsb9R3
-X-Gm-Gg: AYBFou0qflfA+HYCkDNvHLkdv/zIRI7VqXw4TWG4LSRv15j2nssuyOn+EAccENtAhc6
-	z4H7qldWi8MBBPfu4l1f6Jo5loAWYgEXQbnJg4HhOTyBbD6I589PEIGZNujp2kCV8JL5/ZC528U
-	3dHmP3qsZtWLCALOvd0P4Yy2MDNqFRCKz9EwXz5ps3zFfV6ev0NyhT+kWx0IpTVvdCrhiv/7HqA
-	7JUvAKJXNe+DNb6lXWmwGY9AcXdVHYCD4vENXwn1VDqD+QLmti1e17iY8bLgl8L/HP0lM5XBQUe
-	RmHw+2neEoQ5EqDEbD/fG7UVMpuF2MXf/RrW/c6JjCPmpR1yLPM9smouPTQytkZHobotmG2GuPt
-	f30XjuEMrdYVwydzLGFS0uYqlYuWM/bvH7iwtVwfsqzCU5u+lqRJ9dkJMw0TvjWKUhOHMZShK7k
-	otARX+hnf15KGy1+kzJ1do8TQnEUJ0p3oXStBDYld8jBkk9rNcwG4LLAHj1DxmPRg/8VwltsCZT
-	jFv9LMH2/0ro+2d/WSifmu5YtBPY8f2tBhHg/nMHcGiTJ2810cWoQBUyQYd/Rz3/DPjog9Se/ye
-	XAb9iP1vH2lSXvsgA5j5Sfn99lCp6rz4fuY9R6taEyjcuXA=
-X-Received: by 2002:a05:600c:811b:b0:4a7:b304:253e with SMTP id 5b1f17b1804b1-4b963c6d1c8mr76438335e9.22.1794242214867;
-        Mon, 09 Nov 2026 08:36:54 -0800 (PST)
+        bh=p6J5hm0GOFDibiRim/ZqD/ZmyMUOkw5F47dVQ1P/Hd4=;
+        b=JWGJ3RrKHuIUsjQBAiI7Db0TFA+jaw3vLo8+1xLIVi8h+htsG1BpNrZO9z0YvGpQjr
+         DANosUJbyqhux5WOmzkN1X/X2sTAkXFFy0oXqlNOSNcP9Fgu9ArTmy9CBqKIAzFFVjio
+         N4Q+5/V0gncvWzsRREEJ1xBhcy6r4hTYpdr50uJ8jXEt8MMFlsE0gn0GQgIyFMccfSXM
+         3a16hMyyI51THtmAkYvev2c6uGEX18a3hMMMldTlDDAk8p+bMYRnSvnj8r/kh1zqRqY5
+         0s9/igS/zUliqFOUqZJyv3b3FHzwXONrV6mLacabQFJgu+blR69EbHsnvY70Wa0FNoJv
+         Gsfg==
+X-Forwarded-Encrypted: i=1; AL+hErEhr4gFqeMGno/OOuN71Lw84bjgE1E5Ioyacv8gEdDO7lSvWQs/7xuIs4nERhkb1qKjDCFhfsBgC8zeHt8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9q2AT5uWO9Bl+mCZDhPgULaSzpFO3mCvQ/hO3htXphghkgmUgy
+	p6/7FND16ARZP/tW72XQlv7lmmGvbj1RAlA3Mw8kQOL4DPoyTgF66EQx
+X-Gm-Gg: AYBFou2AFWbgi7oa/9Qa2Km+q7Y9q9GdDIdFZCHZpS5bSDPdn83+Cs79W3vTNT34Khk
+	KjG6lycSNf5USQ5uqeNy6DKHs9BxtpGOsEOeQFBWi9WnH6P/8gB8rLHhDZNSoTPkv3j8Ar6F8Ev
+	BAIOoIis/tDs4IK65XgX/QfdjruAf89tc9UQK6lDSzwjGzbSe0jsn6kRBteooqBF2NXiZW/RT6y
+	IE/6HoW49lIdFSTPeTr2dt6dZKqswewq3g1W0kTZz/M/vrMDI+wMZ4fn4cSR0X86Hhh5epbDxgp
+	wgQ6CrzY5n21moc2fuWrl8JI3MFh/BQIn3X2UlvBxxJrWQRGL2BFec/1mzNu/WlOXvHM9krKwqE
+	MYZYZpgkorp4/XoOBCmkHCr570UzDtFoCaWfmcWhu0bacD4jQOeuGczWNGMCAHZUCX4jxAciGNL
+	SvMaw/3GW9RSTgNtMi9UcMe8XIdQwUO0diyW52teWfs/A6GmuDx8siGBFojio8GuXsGvhTGgb43
+	kGBXg/Itl2dxDr0yq2/9JgLv4KrLUebFbEMDQebuEuxb4g6OVtIujvedmBzyU5U72NppBHNgp9U
+	FtiZCt2BOPvECR520icjzzDSz6itfF8N
+X-Received: by 2002:a05:600c:314a:b0:4a5:26b8:4507 with SMTP id 5b1f17b1804b1-4b963c74205mr89464595e9.21.1794242221357;
+        Mon, 09 Nov 2026 08:37:01 -0800 (PST)
 Received: from victus-lab ([193.205.81.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.53
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.37.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:36:54 -0800 (PST)
+        Mon, 09 Nov 2026 08:37:00 -0800 (PST)
 From: Yuri Andriaccio <yurand2000@gmail.com>
 To: Ingo Molnar <mingo@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -96,9 +96,9 @@ Cc: cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Luca Abeni <luca.abeni@santannapisa.it>,
 	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: [RFC PATCH v7 20/29] sched/rt: Hook HCBS migration functions
-Date: Mon,  9 Nov 2026 17:36:06 +0100
-Message-ID: <20261109163616.195264-21-yurand2000@gmail.com>
+Subject: [RFC PATCH v7 25/29] sched/rt: Enable HRTICK_DL for HCBS servers.
+Date: Mon,  9 Nov 2026 17:36:11 +0100
+Message-ID: <20261109163616.195264-26-yurand2000@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109163616.195264-1-yurand2000@gmail.com>
 References: <20261109163616.195264-1-yurand2000@gmail.com>
@@ -113,139 +113,125 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hook rt-cgroup migration functions:
+If HRTICK_DL is enabled, start hrtick timers whenever a rt-task that is served
+by a rt-cgroup is ticked or enqueued for execution.
 
-- select_task_rt_rq
-  Always return the cpu where the task is scheduled.
-- balance_rt
-- put_prev_task_rt
-  If a server is throttled, put_prev_task_rt is invoked and a push is
-  necessary so that the task can keep running on another server if possible.
-- switched_to_rt
-  Keep track of the deadline server that is assigned to the task switching
-  to FIFO/RR priority.
-
-Set rt-cgroups runqueues to online to allow balancing in balance_rt.
-
-Co-developed-by: Alessio Balsini <a.balsini@sssup.it>
-Signed-off-by: Alessio Balsini <a.balsini@sssup.it>
-Co-developed-by: Andrea Parri <parri.andrea@gmail.com>
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-Co-developed-by: luca abeni <luca.abeni@santannapisa.it>
-Signed-off-by: luca abeni <luca.abeni@santannapisa.it>
 Signed-off-by: Yuri Andriaccio <yurand2000@gmail.com>
 ---
- kernel/sched/rt.c | 42 +++++++++++++++++++++++++++++++++---------
- 1 file changed, 33 insertions(+), 9 deletions(-)
+ kernel/sched/deadline.c | 13 +++++++++++--
+ kernel/sched/rt.c       | 30 ++++++++++++++++++++++++++++++
+ kernel/sched/sched.h    |  1 +
+ 3 files changed, 42 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index 0b7c36f8acdc..9d95cf5fd520 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -266,6 +266,7 @@ int alloc_rt_sched_group(struct task_group *tg, struct task_group *parent)
- 
- 		init_rt_rq(&s_rq->rt);
- 		s_rq->cpu = i;
-+		s_rq->online = 1;
- 		s_rq->rt.tg = tg;
- 
- 		init_dl_entity(dl_se);
-@@ -1017,6 +1018,10 @@ select_task_rq_rt(struct task_struct *p, int cpu, int flags)
- 	struct rq *rq;
- 	bool test;
- 
-+	/* Just return the task_cpu for processes inside task groups */
-+	if (is_dl_group(rt_rq_of_se(&p->rt)))
-+		goto out;
-+
- 	/* For anything but wake ups, just return the task_cpu */
- 	if (!(flags & (WF_TTWU | WF_FORK)))
- 		goto out;
-@@ -1106,27 +1111,30 @@ static void check_preempt_equal_prio(struct rq *rq, struct task_struct *p)
- 	resched_curr(rq);
- }
- 
--static int balance_rt(struct rq *rq, struct rq_flags *rf)
-+static int balance_rt(struct rq *global_rq, struct rq_flags *rf)
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 219493427e0b..6220d793ae91 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -2841,10 +2841,20 @@ static void start_hrtick_dl(struct rq *rq, struct sched_dl_entity *dl_se)
  {
- 	/*
- 	 * Note, rq->donor may change during rq lock drops,
- 	 * so don't re-use p across lock drops
- 	 */
--	struct task_struct *p = rq->donor;
-+	struct task_struct *p = global_rq->donor;
-+	struct rt_rq *rt_rq = rt_rq_of_se(&p->rt);
- 
--	if (!on_rt_rq(&p->rt) && need_pull_rt_task(rq, p)) {
-+	if (!on_rt_rq(&p->rt) && need_pull_rt_task(rq_of_rt_rq(rt_rq), p)) {
- 		/*
- 		 * This is OK, because current is on_cpu, which avoids it being
- 		 * picked for load-balance and preemption/IRQs are still
- 		 * disabled avoiding further scheduler activity on it and we've
- 		 * not yet started the picking loop.
- 		 */
--		rq_unpin_lock(rq, rf);
--		pull_rt_rq_task(&rq->rt);
--		rq_repin_lock(rq, rf);
-+		rq_unpin_lock(global_rq, rf);
-+		pull_rt_rq_task(rt_rq);
-+		rq_repin_lock(global_rq, rf);
- 	}
- 
--	return sched_stop_runnable(rq) || sched_dl_runnable(rq) || sched_rt_runnable(rq);
-+	return sched_stop_runnable(global_rq) ||
-+	       sched_dl_runnable(global_rq) ||
-+	       sched_rt_runnable(global_rq);
+ 	hrtick_start(rq, dl_se->runtime);
  }
++
++int dl_can_start_hrtick(struct rq *rq, struct sched_dl_entity *dl_se)
++{
++	return dl_se->runtime > 0 && is_leftmost(dl_se, &rq->dl);
++}
+ #else /* !CONFIG_SCHED_HRTICK: */
+ static void start_hrtick_dl(struct rq *rq, struct sched_dl_entity *dl_se)
+ {
+ }
++
++int dl_can_start_hrtick(struct rq *rq, struct sched_dl_entity *dl_se)
++{
++	return 0;
++}
+ #endif /* !CONFIG_SCHED_HRTICK */
  
  /*
-@@ -1293,6 +1301,13 @@ static void put_prev_task_rt(struct rq *rq, struct task_struct *p, struct task_s
+@@ -2975,8 +2985,7 @@ static void task_tick_dl(struct rq *rq, struct task_struct *p, int queued)
+ 	 * not being the leftmost task anymore. In that case NEED_RESCHED will
+ 	 * be set and schedule() will start a new hrtick for the next task.
  	 */
- 	if (on_rt_rq(&p->rt) && p->nr_cpus_allowed > 1)
- 		enqueue_pushable_task(rt_rq, p);
-+
-+	if (is_dl_group(rt_rq)) {
-+		struct sched_dl_entity *dl_se = dl_group_of(rt_rq);
-+
-+		if (dl_se->dl_throttled)
-+			rt_queue_push_tasks(rt_rq);
-+	}
+-	if (hrtick_enabled_dl(rq) && queued && p->dl.runtime > 0 &&
+-	    is_leftmost(&p->dl, &rq->dl))
++	if (hrtick_enabled_dl(rq) && queued && dl_can_start_hrtick(rq, &p->dl))
+ 		start_hrtick_dl(rq, &p->dl);
  }
  
- /* Only try algorithms three times */
-@@ -2110,12 +2125,21 @@ static void switching_to_rt(struct rq *rq, struct task_struct *p) {}
-  */
- static void switched_to_rt(struct rq *rq, struct task_struct *p)
+diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
+index 839977b05d53..fffb6ec30e68 100644
+--- a/kernel/sched/rt.c
++++ b/kernel/sched/rt.c
+@@ -1231,6 +1231,17 @@ static void wakeup_preempt_rt(struct rq *rq, struct task_struct *p, int flags)
+ 		check_preempt_equal_prio(rq, p);
+ }
+ 
++#ifdef CONFIG_SCHED_HRTICK
++static void start_hrtick_rt(struct rq *rq, struct sched_dl_entity *dl_se)
++{
++	hrtick_start(rq, dl_se->runtime);
++}
++#else /* !CONFIG_SCHED_HRTICK: */
++static void start_hrtick_dl(struct rq *rq, struct sched_dl_entity *dl_se)
++{
++}
++#endif /* !CONFIG_SCHED_HRTICK */
++
+ static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, enum snt_e type)
  {
-+	struct rt_rq *rt_rq = rt_rq_of_se(&p->rt);
-+
- 	/*
- 	 * If we are running, update the avg_rt tracking, as the running time
- 	 * will now on be accounted into the latter.
- 	 */
- 	if (task_current(rq, p)) {
+ 	struct sched_rt_entity *rt_se = &p->rt;
+@@ -1258,6 +1269,12 @@ static inline void set_next_task_rt(struct rq *rq, struct task_struct *p, enum s
  		update_rt_rq_load_avg(rq_clock_pelt(rq), rq, 0);
+ 
+ 	rt_queue_push_tasks(rt_rq);
 +
-+		if (is_dl_group(rt_rq)) {
-+			struct sched_dl_entity *dl_se = dl_group_of(rt_rq);
++	if (!is_dl_group(rt_rq))
++		return;
 +
-+			p->dl_server = dl_se;
-+		}
-+
++	if (hrtick_enabled_dl(rq))
++		start_hrtick_rt(rq, dl_group_of(rt_rq));
+ }
+ 
+ static struct sched_rt_entity *pick_next_rt_entity(struct rt_rq *rt_rq)
+@@ -2254,6 +2271,8 @@ static inline void watchdog(struct rq *rq, struct task_struct *p) { }
+ static void task_tick_rt(struct rq *rq, struct task_struct *p, int queued)
+ {
+ 	struct sched_rt_entity *rt_se = &p->rt;
++	struct sched_dl_entity *dl_se;
++	struct rt_rq *rt_rq = rt_rq_of_se(rt_se);
+ 
+ 	update_curr_rt(rq);
+ 	update_rt_rq_load_avg(rq_clock_pelt(rq), rq, 1);
+@@ -2281,6 +2300,17 @@ static void task_tick_rt(struct rq *rq, struct task_struct *p, int queued)
+ 		resched_curr(rq);
  		return;
  	}
++
++	if (!is_dl_group(rt_rq))
++		return;
++
++	/*
++	 * update_curr_rt() might have resulted our dl_server to not be anymore
++	 * the leftmost deadline entity, similarly to task_tick_dl.
++	 */
++	dl_se = dl_group_of(rt_rq);
++	if (hrtick_enabled_dl(rq) && queued && dl_can_start_hrtick(rq, dl_se))
++		start_hrtick_rt(rq, dl_se);
+ }
  
-@@ -2125,8 +2149,8 @@ static void switched_to_rt(struct rq *rq, struct task_struct *p)
- 	 * then see if we can move to another run queue.
- 	 */
- 	if (task_on_rq_queued(p)) {
--		if (p->nr_cpus_allowed > 1 && rt_rq_of_se(&p->rt)->overloaded)
--			rt_queue_push_tasks(rt_rq_of_se(&p->rt));
-+		if (p->nr_cpus_allowed > 1 && rt_rq->overloaded)
-+			rt_queue_push_tasks(rt_rq);
- 
- 		if (p->prio < rq->donor->prio && cpu_online(cpu_of(rq)))
- 			resched_curr(rq);
+ static unsigned int get_rr_interval_rt(struct rq *rq, struct task_struct *task)
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 835af319b78d..323befba5609 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -356,6 +356,7 @@ extern bool dl_param_changed(struct task_struct *p, const struct sched_attr *att
+ extern int  dl_cpuset_cpumask_can_shrink(const struct cpumask *cur, const struct cpumask *trial);
+ extern int  dl_bw_deactivate(int cpu);
+ extern s64 dl_scaled_delta_exec(struct rq *rq, struct sched_dl_entity *dl_se, s64 delta_exec);
++extern int  dl_can_start_hrtick(struct rq *rq, struct sched_dl_entity *dl_se);
+ /*
+  * SCHED_DEADLINE supports servers (nested scheduling) with the following
+  * interface:
 -- 
 2.56.0
 
