@@ -1,55 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794240858;
-	b=ejD5paT1E26+vqrxQxhXZwOealPagMzhc+ZGyMnUMWB1k9fiRyqD3sCpkJDBngra8/VQ
-	 RoKuB6G+OoySQP1h+7diyVspOVfYpFDHXMcVHNI6gh62t5nrg3O2T1CCmIKX24jqp8kO+
-	 c91WYWuRKdqpO1xRgJX+CG/07EwMwKoPLg4MxgG7MTfw8N8FWGGSwT2K4SqsPnk8MPs2u
-	 KSMQDfxEGExZvuR5rIQBTIKa5Y8SEXeOkUOAoTG5Y2CPvfKhVayBkw2GAOwAs/dedIV3c
-	 8nhsmtlwkOXogVVRNf+Q1Qht0QFdn4grn7ksu5j5GwcM8PVlowiC1IflTcKbcFQtH7A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240858;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=FoBZPBz0A32H03ZJeXTMKctFSPuuFEY2YbURgnGwEZQ=;
-	b=jYkAsboD7chWu/W97QaDhGj3MuO3O92yd97X5sylxtulKsMUHRA5YSvA+0+i3bjnKtIA
-	 0cMaoeyeJ/sxfeqruuIXjXy+a9YMKHNyGY0KRcXU/S2M7G1Bi2JT4aRot/LEoEtwevOKu
-	 9ULSJjWBDjYYkuuoNu2kG9oD6ugjHLxJNEmRelJqN4qEI0siohJ484A9hmb0hhp1baJZ4
-	 +9UnYaahxYywOvpubHWPnaubVLfSLXRijGAngt2ps0iNgdZMKtmXJSC9ipD4E52dqvUuf
-	 sMscPESiAVPn/AWk5ClBxQ1V2CduvA6cffopyH1ftppk79M4bak5QgrNdEWuMZfEnZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrgoeqzO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794240894;
+	b=o7XjgUgPv5hAacY4ab9aIF5k8Dc77GdPNdrAfX/D8pgRGOIWL8NfJ080AfLBY/J8Zf8x
+	 glsOvHwnw3oYVpAR34OdzIRAMHjcnUMmOgsEhSi1dGA/TD2yENd91nhtCnAdn53RCJ/CH
+	 FWifXmlzMN57Yr4a/4Wcf5HxFT817cQ75mwSjro2guK92w+sYNHNpFElPBs1e9XFDMNxh
+	 N2J/PhCpJ8P78TOCplYmpro4GhKsU6bwbkUwaok6SioFgdBHQnyl6xrzRH4TTd0uTJw+5
+	 1hWm8oavExxEKjpsZN/KuFxtTranQx51XNCtCJTTk32vfpdHIH1PpI/iIfmt8kgeqqQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240894;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=Iazb6upx9SUGzyZFOTqETYh5xGwU5uNLEyV8UXrgEeE=;
+	b=BT0e0j6dVUj7Ghvmf9fJ66zRJHOsZ/heHOXtuG2O6RtyDdENf2N5vRQOxrhChIXucnl4
+	 UVJxz+kzi+pQ4+Ix7qMs7eeKoJMo/12okGzDe09ZOfVciC6EqSpzzADRPySNeQEiSgfL/
+	 Lrpt4b2MPovVA+S7156IFSnQpxODmBQrE4Kln84ncsHj2MBSIsImpk8q0nqG5w+ZxUqui
+	 LZEleTtHXvs32tCHOnKxexgORMzPTQ95T0fGWCopO5QD1jKYo5qBEvDRNMZg+omFU4zwa
+	 Qw6a/9WZ+t4EfuAAqK/dap0j84vhC3yq4x8Uo+UahqR3dI/ZneTooMm7t8ob9RKz1MA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=IKT4xzwd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F574606A334
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:14:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E08606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:14:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52E08606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QrgoeqzO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 294BC1F00907
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:14:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794240857;
-	bh=FoBZPBz0A32H03ZJeXTMKctFSPuuFEY2YbURgnGwEZQ=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=QrgoeqzO13po6lKggu39WD60MDVQu+ADwHfSf5jTVoCR5UA/aIko4G6nqRYimQ8mw
-	 LM5MzksIR5DhOiqrfFw4GROP9wBVkz9CdpM7WZ0TPwHXY3IhwqH8muit2yJmAhgNIy
-	 CeC+BFF59IBSy93AIlYJ8TBk14vy0ja1/pPbWQP0Wdy+C4o8585XaIRVOwJTbvhbd0
-	 M4MrRxBxIzjKEQm0dc6E3QT64ruDkJ+65xdH1FBsS+4BPcG7xwrETMFImkbODD/i20
-	 CubIkNx3H00PsxlotV7dYSNoONHn5xAuyL+Hf9jMPmlH7dKZCfIvOXgHeryBnKPH30
-	 pyi+MxWfIDoPw==
-Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-4af173320f9so498723b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:14:17 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFsOWz4J0zIYq1FT5njlRGctOfMXgj64kenkT3ixh/OEUdqZeV3pTpq8ZBdkhTzdNLChzovyYu1U5g4F3Y=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9FuUOThWeHgj+G29kGx3SC2HJBWwpfCXI2VhgR6dg288nNJRKh
-	mZiQQD2Z4ZqvwmVfiYpSgZghr0AHWTWxOtb3BJHZA/NIsYhGhbdqSG88pYfOI3QruzbZNjpWK9k
-	p6UwctO7Z6ANVnAan2blpB3+LcywqqUU=
-X-Received: by 2002:a05:6808:1381:b0:564:3fe1:2f95 with SMTP id
- 5614622812f47-5683cdc8174mr51063b6e.56.1794240856276; Mon, 09 Nov 2026
- 08:14:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=IKT4xzwd
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b577addee9so1413381a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:14:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794240893; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sF+RyKTTsr69iA9jhB2LJEMpDzkQIox+I8cTCEz3RdCiO0II4hLz0uh+iZuxD0h9lr
+         oPkLYLE1cMudofwTfOQ8JI+S39OK9NIIu0aTCo/xJybDtbXqhZXu+tjIda/ZI6Yzt2+D
+         DW048OtbF3v1tJ3vkTBKDkzflSIeQxlTXg3hta4f9f86Tjppc8iOrzV5tmhpvxsC+7pt
+         uPegg5Up/xORXbedouw7dvAnTMaC4Je1LzBk+CxFYvbC3eb7y+7pxPVyi4H2vZdCzbZv
+         /AXi73QZWOSKvgS6r3aPa6rdBZifuo3hC+rbQ2OY727iM4cA1BVNg6Z1uR+sL6BmtHhZ
+         haSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Iazb6upx9SUGzyZFOTqETYh5xGwU5uNLEyV8UXrgEeE=;
+        fh=kCnRocTZdN1CQdsa/dGbByRI6ln4Agp5g/Tp/ZB2iGI=;
+        b=MFRDIQo+PB93WLkD7VMQc37x6V/E2bvZMMRiLGlnaKEWeCTM8xrcRNbW33TZDYiB6Z
+         U3riUXMu1GcPuLiYZ6shwqMnGJTBFCdHLYfak8SDlTA1jBM3OZ306eS3suQM/mBONArV
+         LFy5uG1/F96kakGvGUYhTsIntdswGRpjW213m/8TaOym/NV9yzwoIgZPTDaHGP0PK234
+         wo+vUaiQ8jHNBxYdkH8z0sXi+TptJkmsmlrTFQ2ESEdaidM/23GEvoTZRodYilijoClK
+         KUZ8/tGGUF4yrxH8uRY6DqCufDW/QAt71KLgS5o1j8aPwMo3mdzESJCpDKN8tgmitr1L
+         GdPw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1794240893; x=1794845693; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Iazb6upx9SUGzyZFOTqETYh5xGwU5uNLEyV8UXrgEeE=;
+        b=IKT4xzwdBITINaAmi9Te00xNxWBY8gPeyVTW7S5qwm51AkeDkhtCoh5jhu7fGcTHR3
+         6QTN8dTJ2oR3dvu5TVx5U/BeCfqy8FOonrfaekGc1/+N80gsHUkjbwnGL/Ox6Lce6IuW
+         CohYZ++fW208MYiAW877VmLQLzbXNIYl+hbW144I5sp5ErPT0HPckXjp8otNdzyyCZSB
+         8m6vQzu5PvMtPN+Ca4gQvLUyOU6bmNQqcipW7Jm2aJCT2/FJXgVQKdzHHByoztNKGXSc
+         Tb7zY9NSZKhtObVjil9Es9DolX02wmyjl4OJ5FqNkskpBSgPccF3K/vIAQmt7VfarSl7
+         89Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794240893; x=1794845693;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Iazb6upx9SUGzyZFOTqETYh5xGwU5uNLEyV8UXrgEeE=;
+        b=v2gpOUPY5mWWbUXeatZG46M8xdoog7eaqRfj5+ds7nnhVpJZ1did+xwMkBBLMZNSu1
+         ZG8jDwMSqPhdfkXGSMmMa6KVFyZq+oSF3ZIsjr4m/rhSF4o+ywXPactddyVEjCdFgOes
+         zTm0XXN3O0RQMXtJFQclioDISpqnMbv5LQwul5N6rWgbDQXGyWXU5QfhSfTxUxsfjjaB
+         TnkDJaQBTnZP5VtNOegGKiWNMkqkIfwOgPzcu/9A3BqSHhv6HmMbARs+fNCE2TI0ljT4
+         PbVTo5b8ji661BWdaL2lBvWr2LxTNcziZw1dzbPf15E0D70B9mgOUvJ8DDb7se4tBXbp
+         YT/Q==
+X-Forwarded-Encrypted: i=1; AL+hErFogaSgzCbFlOJI5KR7ybISOCm8D0vRQMQPePvLEXQpe3naWrmHFb+C196MSUTCgHaW0JCO/BDOcYXPhQE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xJOm7SzOzvuIdwCqIF5K/fnMUyCe2nNv2eZyHvhLBlKjKNd5N
+	zRTrSQCL1rCqQT+RZEMdEOqgexSEjfzPlU8BXQgfU38WusuT6wK2PkwF4wRHFprceWXPCXtgbgX
+	/LXfpr3y/mbRXxXx9xVnJiGjPzXbkBbqhAq50zp2BdA==
+X-Gm-Gg: AYBFou0FXjhebow9iz4tGI0M1JrMF1WZVOU2S5o3uSimNCz7eUvAzEmGj/fho/nYi8F
+	gyDqZxy+ux+v8MUe9601Fzo/czHq5/ddws5x9nhKvoAokgjedfwfvK7p2ic8DU6Hf6Zp081YoOf
+	QqWfjf3d3pJdhAUc4y3TxlmzqOU+b8P5Oz5bbHBT+hh3KyjTRGPW7YCqbnF+Ej4NY4fg2ko9BUd
+	5d1LmF81bZaqB2DADGng5RDHLvUI9S/tmfckx9khofN1LG23unL9UyODaaQKt09cfE0ssNNZqwA
+	1KmoCCQaK1exwYhECYvb0Di87cE6uOxaI+QBhvr0Y31cEboKQiOnJqVkhrCHt4ZkcHm6VBOmAEU
+	vuTs6SsmrzLmhGFhPIc+3OjL4nzEAzB6O73x1uWhsEGDZVIGtf1OiXoDEBGfYY91sPDf8Kw==
+X-Received: by 2002:aa7:d7d5:0:b0:6b6:e808:9701 with SMTP id
+ 4fb4d7f45d1cf-6b755e6b4aamr53584a12.1.1794240892542; Mon, 09 Nov 2026
+ 08:14:52 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,53 +103,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech> <20261009-a733-clk-v6-4-ae8178fce7e8@pigmoral.tech>
-In-Reply-To: <20261009-a733-clk-v6-4-ae8178fce7e8@pigmoral.tech>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 10 Nov 2026 01:14:02 +0900
-X-Gmail-Original-Message-ID: <CAGb2v65=FbB=WeG6UxvO2S7eapFAs6up05H8yKxE9ZV5XHHg7w@mail.gmail.com>
-X-Gm-Features: AclHuK_oriluD6lv7Dh-nyywN-v7TzMrzN3qlz6xuuw7NLsiTt8EPPBIYrFTgRg
-Message-ID: <CAGb2v65=FbB=WeG6UxvO2S7eapFAs6up05H8yKxE9ZV5XHHg7w@mail.gmail.com>
-Subject: Re: [PATCH v6 4/8] clk: sunxi-ng: a733: Add PLL clocks support
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, netdev@vger.kernel.org, 
-	Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, 
-	Andre Przywara <andre.przywara@arm.com>, Norman Herms <dockseed@proton.me>, 
-	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-9-vincent.guittot@linaro.org> <20261109155418.GL1779021@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261109155418.GL1779021@noisy.programming.kicks-ass.net>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Mon, 9 Nov 2026 17:14:39 +0100
+X-Gm-Features: AclHuK8Lril_R7chVytS1fQiJPDmi6Vo891N6VuKxGIj8nfdzRAKgkQea7WMEGA
+Message-ID: <CAKfTPtA-nrgGQGcBPqNoPk4atOHakyZK9Fk-4AsrHBrnvPXTLQ@mail.gmail.com>
+Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, lukasz.luba@arm.com, 
+	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org, 
+	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, 
+	sched-ext@lists.linux.dev, qyousef@layalina.io, christian.loehle@arm.com, 
+	pierre.gondois@arm.com, sshegde@linux.ibm.com, kayracizmeci@gmail.com, 
+	tim.c.chen@linux.intel.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 12:54=E2=80=AFAM Junhui Liu <junhui.liu@pigmoral.te=
-ch> wrote:
+On Mon, 9 Nov 2026 at 16:54, Peter Zijlstra <peterz@infradead.org> wrote:
 >
-> Add PLL clock support for the main CCU of the Allwinner A733 SoC. The
-> structure is mostly similar to the sun55i, with the addition of a
-> PLL_REF clock that normalizes the hardware-detected DCXO/hosc frequency
-> (19.2MHz, 24MHz, or 26MHz) into a consistent 24MHz reference for all
-> subsequent PLLs.
+> On Fri, Nov 06, 2026 at 04:19:35PM +0100, Vincent Guittot wrote:
 >
-> Model the independently gated outputs of the peripheral, video, and DE
-> PLLs as programmable-divider child clocks, with each output gate modeled
-> separately. Follow the documented hierarchy for the derived peripheral
-> PLL outputs.
+> > +static bool __check_pushable_fair_task(struct rq *rq, struct task_struct *p)
+> > +{
+> > +     if (!task_on_rq_queued(p))
+> > +             return false;
+> > +
+> > +     if (p->se.sched_delayed)
+> > +             return false;
+> > +
+> > +     if (p->nr_cpus_allowed <= 1)
+> > +             return false;
+> > +
+> > +     return true;
+> > +}
+> > +
+> > +static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struct task_struct *next)
+> > +{
+> > +     if (!__check_pushable_fair_task(rq, p))
+> > +             return false;
+> > +
+> > +     if (next == p)
+> > +             return false;
+> > +
+> > +     return false;
+> > +}
 >
-> PLL_AUDIO0 uses SDM parameters from the vendor driver to provide a
-> 22.5792MHz * 4 output. PLL_AUDIO1 provides fixed /2 and /5 outputs and
-> does not expose fractional rates, but its SDM controls are modeled so
-> that stale firmware settings can be disabled when an integer rate is
-> programmed.
+> > +static void fair_remove_pushable_task(struct rq *rq, struct task_struct *p)
+> > +{
+> > +     if (sched_push_task_enabled())
+> > +             plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> > +}
+> > +
+> > +static void __fair_add_pushable_task(struct rq *rq, struct task_struct *p)
+> > +{
+> > +     plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> > +     plist_node_init(&p->pushable_tasks, p->prio);
+> > +     plist_add(&p->pushable_tasks, &rq->cfs.pushable_tasks);
+> > +}
+> > +
+> > +static void fair_add_pushable_prev(struct rq *rq, struct task_struct *prev,
+> > +                                struct task_struct *next)
+> > +{
+> > +     if (sched_push_task_enabled() && fair_check_pushable_task(rq, prev, next))
+> > +             __fair_add_pushable_task(rq, prev);
+> > +}
 >
-> Tested-by: Jerome Brunet <jbrunet@baylibre.com>
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+>
+> Can't we add the 'p->nr_cpus_allowed > 1' condition to rq->cfs_tasks and
+> use that, rather than adding yet another list? I mean, its used for
+> migration, so excluding all pinned tasks actually makes sense.
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+rq->cfs_tasks can be quite large (we even take a breath during LB)
+whereas this list should be 1 task most of the time (except during
+wakeup)
+
+>
+> Also, I'm still not sure why we need a plist. The rq->cfs_tasks list is
+> MRU per set_next_task_fair() moving the current task to the front.
+
+The plist was only to reuse struct plist_node pushable_tasks; in
+struct task that is already there for RT
+
+>
+> So reserve iterating rq->cfs_tasks, skipping blocked and current and
+> such, should get you much the same over-all.
+
+Yes but I was afraid by the overhead of iterating this list which can
+be very long; We have already seen email about bug with thousands of
+tasks queued on the rq
+
+>
+> That is, why can't push_task_fair() be something like:
+>
+>         list_for_each_entry_reserve(p, rq->cfs_tasks, se.group_node) {
+>
+>                 if (!can_push_task(p,..))
+>                         continue;
+>
+>                 ...
+>         }
+>
+> This would result in pushing the task that has not ran longest; which I
+> think makes most sense. Hmm?
