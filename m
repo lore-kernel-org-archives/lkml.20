@@ -1,59 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794189282;
-	b=HOH4Owh0HZfBd7gJWWcoqnm7HSy/stJFerhk/DZOnZWALZHeyV18ThPuYyEkqQYD8oEV
-	 5QGb+Y6Zc9qPvfb6lzibqy7lafv2z5OmpcswUjxC+n2bDagavcE6GM4CUEHvx4RO8wcGX
-	 J63BDd6DfajOXv0thzqasycG8nOxDySEIvaDhxitr0YQBZWmb7VsoSUZ0V/193/1l3s9u
-	 EtubXOydvy9F3084gKSZGcL0Rbv2mz47FA5nLbWnpIS9xpy7XpCdEXfbOOdxsJXc+Y3jp
-	 nY5Yhotg3xyGN+sOctr+7SNKUDR/9hFW4XTVM/oSDuB+jH5nx3KwFTAj5oIh+efPT0g==
+	t=1794189375;
+	b=qYU6wAhCuZYgja7Cxo01TPzXWIzghWIi1Tou7E2rT+pNNXLQj5YJkc9Zgq52EunK35Lu
+	 p/e3xoLRG/FKpzLOQw7YFjGnxFMhl4qjBWOsnx81rr5MzX6+iHobPlfExFtptkaQxzx4/
+	 w2NGvisRViB/kd/u4PzGrGH1BlCepg2sGwViYm3mMoricSat91YQJBsLLbZvY0nRcLKIF
+	 VTm3tOP1zs8IxSssY/pkujvTl06PhrG1Ej33uCMIKkt573anDLn309lkrj6ASOfbaHugE
+	 hYhRzGipNq1soP3f15FfjF5MSjeH4+xB6m7OOiNzqRA1hXgdFWCEuzD6yQ7s+o/6Gug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794189282;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=i6e9dyTu3EyPnfq4IJG0Z3eas29bFD8O0rKrA8tROtk=;
-	b=p9y7LKkyTE+JO6YPydBMRTgo8OA1RlXSTKN04kAzRHC9hJku7a8B6MV7EI9xr6R6aX51
-	 gqS1FjdRHn+CbdvArOWV28an5KY/LpMF3MAbv4mnU2mbvOm7osy71gEjG61Ce60pJF+Kd
-	 oOuvGFDysZ+SjW85K6D3q7iNZYYVpqGRff1zJ6fU7Jo5jaGCkvO18nknh1GSU1Kr2E/l0
-	 r1BvUuXwoIT5X/yG14ekVDwiJuLtJy5hrEerUGAWR/ny7XsoH2wBynC4xHuT/qnXzVLGx
-	 xlI2a5qGXAuzGrU6LxiUL1www9oxKgETDcACupLVT17hNwgbHd4cBkJAAiBWC7o78bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794189375;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=zlooKifXIEnpOdDholaV6IGpZp6Z7HTveBBzmNQgTqE=;
+	b=MkhnET0tAxn3vrRsqCxVq5tq39gslcDKHE30Dhqy0PSqh6DkT/q+bussNCQqrTF88i5z
+	 7F4aRnKAOcdS/MgIUaMlVsPXY+emdTzBDVoJkmPwh1slKaUME6QSMMjqkKHa/Cx6i3jC1
+	 j7J/VxV4C45wPX3czYJnCqlRM++cYUBm1SloZYAaqgRV+Jm3GQQyqdoskEUCOGLKtORJK
+	 dUcD8EnOrb7LFZ69Ef9tm36X2Opk3KeOnmzegrrCjv70dR423KeGFDiDFyCIa7DpoDT7I
+	 wDFyy5olbe2fOTZZWJHU6i2PizlzvfrbdiBYXBWCJTvtiRqL77zAw+fvW8vi9volOlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CNMMsCBC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b="P/popzep";
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0DA2606A322;
-	Mon,  9 Nov 2026 01:54:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FB9606A336;
+	Mon,  9 Nov 2026 01:56:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1FB9606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CNMMsCBC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E15391F0089F;
-	Mon,  9 Nov 2026 01:54:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794189281;
-	bh=i6e9dyTu3EyPnfq4IJG0Z3eas29bFD8O0rKrA8tROtk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CNMMsCBCkhFqrX25Vkd4yuASiT/teP4r5pU+fWqc8y57yYRT/8Te/ziZC6PMYSVY3
-	 9DcOiK1QKJgi2XWrBIadl6KoUhKQ26cB4F7fD9tK3s2AnNsfA0RnyCCzg0hsIve1rm
-	 gqIUimZH0jGgUMUbxoXcbgkKyYnLjGexYUJa522eNY7PteFKFhCRltNaIfcwjIdT+I
-	 Oe6YxpBLWKGwfH4eNgiZnBvIWxshrhk7MAzUJX9GZ2a59vh8a1wrYRqz5u826XbW4A
-	 QHNIQs71258j+Zxpo9SzuabMD9bilJooNDUesvnZ7c7b+qYTqcnHuULza+5az0XaJQ
-	 HXnWJ6bQ2qzLQ==
-Subject: Re: [PATCH net v2] net: ethernet: adi: adin1110: mask the RX IRQ of
- the port being stopped
-From: netdev-bot+sashiko@kernel.org
-To: wuyuehong@cmss.chinamobile.com
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, kuba@kernel.org,
- edumazet@kernel.org, pabeni@redhat.com, nichen@iscas.ac.cn,
- linux-kernel@vger.kernel.org
-Date: Mon, 09 Nov 2026 01:54:40 +0000
-Message-ID: <179418928039.994134.15007957865161430391@kernel.org>
-In-Reply-To: <20261104-adin1110-net-stop-v2-1-yuehongwu@cmss.chinamobile.com>
-References: <20261104-adin1110-net-stop-v2-1-yuehongwu@cmss.chinamobile.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=P/popzep
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A91u9SS13887152, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794189370; bh=zlooKifXIEnpOdDholaV6IGpZp6Z7HTveBBzmNQgTqE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=P/popzepLhymPDoRKxtueHD6UOyo/uAJyenv39IrWgsnsNblOCr5o8Y6vKZuyNdKX
+	 w1zMOxSRRclGAptyJkv3gCGspQBltGG5IQHmfomS4PFJcomgDmm8BxOYiXNyp/oeUg
+	 wQgHl2V8uXZLIcuJP3ActpGtbqjtTbT6RYqckjz7IsCAAEx8lYhLpFgnnN5g0GppQ/
+	 USB4fku2Sq6/l2Eec4xtHzpFT72E/4Yft7iqHKK537BtuYXWmbf6+09oLYO+hAU+w4
+	 sEsqyZRst8JCXit+STU9vwc21v94BQykvOUNF47hdVk/ygltioBv4RdyHaHpjivq3b
+	 bfJ6QIfwghpXQ==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A91u9SS13887152
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 9 Nov 2026 09:56:09 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 09:56:09 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Mon, 9 Nov 2026 09:56:09 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Ho Jie Feng <hjf3108@gmail.com>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>
+CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next 5/5] wifi: rtlwifi: rtl8192d: let the firmware
+ use all rates
+Thread-Topic: [PATCH rtw-next 5/5] wifi: rtlwifi: rtl8192d: let the firmware
+ use all rates
+Thread-Index: AQHda3lMjeHUYZEd20CIBb6M95IYCLclAbug
+Date: Mon, 9 Nov 2026 01:56:09 +0000
+Message-ID: <8fbf3fbba7d94b55b7510a57ff376e8d@realtek.com>
+References: <20261103095256.949327-1-hjf3108@gmail.com>
+ <20261103095256.949327-6-hjf3108@gmail.com>
+In-Reply-To: <20261103095256.949327-6-hjf3108@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,95 +85,72 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Ho Jie Feng <hjf3108@gmail.com> wrote:
+> The rate mask is chosen based on rssi_level, however rssi_level
+> is always 0,=20
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Should we fix it ?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> since:
+> - for rtl8192de, call to rtl92d_dm_refresh_rate_adaptive_mask is
+>   commented out and function is not implemented
+> - for rtl8192du, it is also not called.
+>=20
+> This makes the branch always choose less than optimal allowed MCS rates.
+> Enable all the rates.
+>=20
+> Test results (2.4 GHz):
+>    before after
+> TX 6.4    12.6
 
-- [High] On ADIN2111, the patch's fix in adin1110_net_stop() stops
-  working as soon as the other port is opened.
+How about the rate before/after? I think the highest rate will be similar
+or the same?
 
---
+> RX 32.0   39.1
 
-net: ethernet: adi: adin1110: mask the RX IRQ of the port being stopped
+You change many rate masks for different wireless modes, so please provide
+more experiments. Especially you need tests for a clean & noisy environment=
+s.=20
 
-This commit swaps the RX-ready mask bits in adin1110_net_stop(), so the
-port being stopped now masks its own RX interrupt. This matches the
-mapping in adin1110_port_rx_ready(). The goal is to keep a stopped port
-from re-raising its level-triggered interrupt when nothing drains its
-FIFO.
+>=20
+> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+> ---
+>  .../wireless/realtek/rtlwifi/rtl8192d/hw_common.c    | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192d/hw_common.c
+> b/drivers/net/wireless/realtek/rtlwifi/rtl8192d/hw_common.c
+> index cfefbe86380fbc..0c921c049b5178 100644
+> --- a/drivers/net/wireless/realtek/rtlwifi/rtl8192d/hw_common.c
+> +++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192d/hw_common.c
+> @@ -903,7 +903,7 @@ static void rtl92d_update_hal_rate_mask(struct ieee80=
+211_hw *hw,
+>                 else if (rssi_level =3D=3D 2)
+>                         ratr_bitmap &=3D 0x00000ff0;
+>                 else
+> -                       ratr_bitmap &=3D 0x00000ff5;
+> +                       ratr_bitmap &=3D 0x00000fff;
 
-> diff --git a/drivers/net/ethernet/adi/adin1110.c b/drivers/net/ethernet/adi/adin1110.c
-> index 53fac3dc8be62..abdc16089c9e3 100644
-> --- a/drivers/net/ethernet/adi/adin1110.c
-> +++ b/drivers/net/ethernet/adi/adin1110.c
-> @@ -945,7 +945,7 @@ static int adin1110_net_stop(struct net_device *net_dev)
->  	u32 mask;
->  	int ret;
->  
-> -	mask = !port_priv->nr ? ADIN2111_RX_RDY_IRQ : ADIN1110_RX_RDY_IRQ;
-> +	mask = !port_priv->nr ? ADIN1110_RX_RDY_IRQ : ADIN2111_RX_RDY_IRQ;
->  
->  	/* Disable RX RDY IRQs */
->  	mutex_lock(&priv->lock);
+This mask means all 12 OFDM rates. I guess original design wants to select
+higher rate quickly.
 
-[Severity: High]
-On ADIN2111, does this mask still hold once the peer port is opened?
+>                 break;
+>         case WIRELESS_MODE_A:
+>                 ratr_index =3D RATR_INX_WIRELESS_G;
+> @@ -922,7 +922,7 @@ static void rtl92d_update_hal_rate_mask(struct ieee80=
+211_hw *hw,
+>                         else if (rssi_level =3D=3D 2)
+>                                 ratr_bitmap &=3D 0x0007f000;
+>                         else
+> -                               ratr_bitmap &=3D 0x0007f005;
+> +                               ratr_bitmap &=3D 0x000fffff;
 
-adin1110_net_open() does not check which port is opening. It rewrites
-the whole IMASK1 register and clears the RX_RDY mask bits of both ports:
+For N mode, it wants to jump to MCS rate quickly I guess.
 
-drivers/net/ethernet/adi/adin1110.c:adin1110_net_open() {
-    ...
-	val = ADIN1110_TX_RDY_IRQ | ADIN1110_RX_RDY_IRQ | ADIN1110_SPI_ERR_IRQ;
-	if (priv->cfg->id == ADIN2111_MAC)
-		val |= ADIN2111_RX_RDY_IRQ;
+>                 } else {
+>                         if (rtlphy->rf_type =3D=3D RF_1T2R ||
+>                             rtlphy->rf_type =3D=3D RF_1T1R) {
 
-	priv->irq_mask = val;
-	ret = adin1110_write_reg(priv, ADIN1110_IMASK1, ~val);
-    ...
-}
+[...]
 
-Take this sequence:
 
-  ip link set eth1 down  -> adin1110_net_stop() sets ADIN2111_RX_RDY_IRQ
-  ip link set eth0 down
-  ip link set eth0 up    -> adin1110_net_open() clears it again
-
-After the last step, port 1's RX_RDY interrupt is unmasked while eth1 is
-still down.
-
-eth1's RX FIFO may still hold frames at that point. Frames can arrive
-after the IMASK1 write but before phy_stop() in adin1110_net_stop(), and
-frames can also be left over when the ADIN1110_MAX_FRAMES_READ budget
-runs out. The handler skips them:
-
-adin1110_irq()
-    adin1110_port_rx_ready(priv->ports[1], status1)
-        if (!netif_oper_up(port_priv->netdev))
-            return false;
-    adin1110_write_reg(priv, ADIN1110_STATUS1, priv->irq_mask);
-    -> IRQ_HANDLED
-
-The IRQ is requested with IRQF_TRIGGER_LOW | IRQF_ONESHOT. Wouldn't the
-threaded handler then run again and again until eth1 is brought back
-up? This assumes RX_RDY stays asserted while the FIFO is not empty. The
-commit message relies on the same assumption.
-
-This looks like the same "stopped port also keeps re-raising its
-interrupt with nobody draining the FIFO" case the commit message
-describes. The only difference is that the peer port's ndo_open
-triggers it.
-
-Should adin1110_net_open() also change so that it unmasks only the
-opening port's RX_RDY bit, plus the shared TX_RDY and SPI_ERR bits? And
-should priv->irq_mask include only ports that are up?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104-adin1110-net-stop-v2-1-yuehongwu%40cmss.chinamobile.com
