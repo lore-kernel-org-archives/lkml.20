@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794263928;
-	b=yLQz87Ir8obUpfhZFl6brdumRgO8KLoxCucXYFlaiFwDYQz9S5LEJGLglZw6Xq2o28+V
-	 L9CQM8O7ICS9cRe10uMVeOD08sISb28veg7Q+EARM3PTPJztoI3Xn7FEOwg+C7emtylQF
-	 AmB+Z0XY2vv9I7Cb2VPNthasvb5kLoIWmWJSrDasvAYulzx9SIpk5l+bKLZxaFrfNua5o
-	 uhvijGykZ2XEIVhylp2WhYk3CmHTS++aUpwbRQStQL4Z9SdoYKR/Z/FAFInVn/g6se9Ax
-	 UvBVhzaeDYhPdtPKBVd+8W3T3sQSuJ/XptYcybT1k33QqbmUFwqnuPJPfDkAHol+Kyg==
+	t=1794263926;
+	b=agRcgSiK8GjRMv3XjBOdYY+3ZG6AKgH7ZiBUbw4s7tfvrReqR26lV5tDpsrL5frX8LVl
+	 YgfTSmv3RK98TA9WSAE2I6toFPAIQHlt/X1IDgOVan8Hgyu9pr8MM+vS6dTDc+YQxEXpI
+	 taj3KkaFxUs+rL2A2Ac/nbia/ApBYP/h/1mhuIzIzeHXDBVVOa9kcj6G0F1TiwO2CJvP2
+	 szVsuGrDolEyaB0kynx6KsT1kD90NQtDENiaxwuz0noAbPEyO/3EqNSnSoOYXzFVejFMj
+	 eImaKL7HFTd7UFGxBcerwEnnjKX0MebF3lOKl3orvXqwUQSmG1B9Q9ZiFelczmO7N2g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263928;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263926;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6/Dm+GFqSP+RPZZpbEmkldSJ9aNGdfHY9wqUSsIZRKI=;
-	b=EqtloS/M5ZCzS1y6VDtoykDbTX5pV+qmeYzwjGHHScPsgvDsnx3yrU/YVIwrkpKqKUkC
-	 3VdKLQOiFCaUHsbtTytb+qtekezUk2NwsDueRXcPXcbHiyALGtYTOyADkvi86ayvZRaDn
-	 K680VRNOAbAQVO98bzl/swuuZOZFzyHEhXqrgWnUNiE8/jUoHZXGV+buyU1pabHmk/EfP
-	 x9Y+MeqCL2HeCNkQuq67w0U+a4593j1nG7ul8GCcBZiAxSS/Ns0Baj0TJpS6UtCo0iPA1
-	 dW2jJozxtPyb7ffH1XxY1NPnf6wqyVvNSGSUxB5pjvkrU39ehEXu8PehcCnJKwxzN+A==
+	bh=Cv2ugW4W2/7cBP6tQKGqkydbkAUXsi9JOHrTI/0VYZc=;
+	b=MsuwdirB9vtUIzijNKc2l9F4S5A1tdO2fxrXh5/6wGnoT5iwLUNX1hXbkW5/rsnD1T82
+	 /ZB9Ut9SSGVCGuvyOZUm/i6V98qDYPbO/dQB4imPw1/aG2A+Ofdz41inGqa1FAmBB9/WV
+	 mtO7BVdma+7VFw0ZzSt+x/aGWexCxLIUUub5GKiP00s3o+4MuY4eSqZEnt7ca0/539Cqk
+	 hbAZ4cMSIYwkV3vvE9xezsjjhQQfNfG3PUzwPkruFO7Xl5uAKsXUwGnPFHU1k1zMb4fO8
+	 lCyv2yFxD1S4OU0eR5UiWKbR/cOMEAAqwGLOHN0UNr0uW+YA5z2kKx8foSimTLCr56w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmzJ15C1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=heFvRUXR;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F8C60A2604;
-	Mon,  9 Nov 2026 22:38:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3647D60A2608;
+	Mon,  9 Nov 2026 22:38:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmzJ15C1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=heFvRUXR
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794263927;
-	b=HyxZL1iPNDNVe8KkKYjKO+I6WCdXw1W8DOLHL+30vOr5L96rAIpzbsdgJylJZGonXRHc
-	 vsBhp1GNFQEzf/JxCX72etKklOX+7eUeS9J0U2dHX0B29DNfNF4NkyWXCU3zwLMKo0uxL
-	 7Bo4YQZzxOD0Cb6ym9HDTsYsBrYbL4crZHkdMVE2ZaO597Z52yl1IMQJCrheqEQnc+frc
-	 A+dXMstVPnLiNn4uKjDzNWJHWEiwam1emKxBwDtLhLR5q3OLzTZvPQJG491PXpxSTU46D
-	 pD1ojzUCwyuwtohkM4Ci/5sgmVPX4onSrK+rw76ArsN9BDIcWRrtz2ZuukovfhAy+IQ==
+	t=1794263926;
+	b=Ei9WoHABdHUWhS3vdisnjqGtgp6PiHAFIhhQ9ioHzXTAmxhhgTjc8hXcruwq8WgIaWQo
+	 R8ihid/LuBr6AuEu5Uu1vV1h5wXULmVb1098ooQBPbvczlFUJ+DCU1sO7J/xvdlNEaudR
+	 aRaWZTrUxe3YGGfHHM610cpJ/nMWpWAO4ML9eAAYx8Xyg8OUzyrTbmCj0+TmSKEsGQYEH
+	 mI7Q2k/uh5N/8h8n1FAFo+WUl8zqC/AFvV8IxykEPjZu3XgAj3Te3piHvgcjNx+NfNBEc
+	 wZWQy598DX4fmmTN6ce8cL8H+2ygPN++IdgvlXJmw4plNG8qrxQHIsaY+cNDuMXsLVQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794263927;
+	c=relaxed/relaxed; t=1794263926;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6/Dm+GFqSP+RPZZpbEmkldSJ9aNGdfHY9wqUSsIZRKI=;
-	b=o4opENTDodQ8eh+ucfgzB8GNl4t0nK4lU/u/mzqeoikXgShdatQzXRSl+hF4OQoprrKm
-	 X5yYVeXn/drXVsbKpu+MK9Lge0SgYVl9UvNUHE9BcW+NF+fAw5/VwihmZnP3nusEuh04V
-	 2D9sD9Sm21SL7bz0rLQzVGw6H93C5faiDMvYcLnSD+PVvn1w/MEbWnW9cVIhiM9AnRjsb
-	 tDlpM7Icg1VbJjzUdW2c0OSI6XixdDkL9kvWmkdsniNQ28qfhHEll8dw59/72TfUzwta4
-	 Uc6AWwfTxU+zoGFrO8TEn/lU4zdEICjc7k1WJZfc138/cgc9+BioPVfdsyRhse+OV3Q==
+	bh=Cv2ugW4W2/7cBP6tQKGqkydbkAUXsi9JOHrTI/0VYZc=;
+	b=uDQvlw48VFSmmSsJt/pluWAMqlqp6WLHHLW/Cx7QmbrAbfF/3INknZ4ZmQ8tN0mZ+SQO
+	 9uGc4DG6PmgnKX/4m6zfJ35mlEQcwez7VFRbMTWCS9a/4JLCmjwQSz8pn3x/uLbGy2C4i
+	 3FFEm/ucYXPhIWuAW7Ktjxa9K+ehBm+7I72HXrwJc5reqhkLNRskvSe4kTxMt3WIirNQB
+	 G1A6/jgO3tYK8yqu91lkUJHt7FjnkVvTogrRO6JTQUF44Cp3m68eFuBq9daxecv6s4/V+
+	 tm32e0z9xlvvfpuBDZUnMdlHKbvZxyX1VnDkv+7hJ3NRn34BSPkLpbYCzW1SGnCaZcQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 42E8D1F0089F;
+	by smtp.kernel.org (Postfix) with ESMTPS id 012B51F008A6;
 	Mon,  9 Nov 2026 22:38:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794263927;
-	bh=6/Dm+GFqSP+RPZZpbEmkldSJ9aNGdfHY9wqUSsIZRKI=;
+	s=k20260515; t=1794263926;
+	bh=Cv2ugW4W2/7cBP6tQKGqkydbkAUXsi9JOHrTI/0VYZc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=SmzJ15C1NzHHZcAXWyriTDDJVuffl5DKhSOcwn67pDnoMGdC0nMcoeKkU2HLvjiez
-	 nLkSTJ4zyJtu7ZxmtQx4XFXlaTWkZkcDqquxvkRIrPuYR07bpfn0sA6mwqycCbTX5/
-	 XoqbG0ytU5BauTwyNNfQQZjqDINWlMRJU0Gek9aJf1W53xqd2JpFmG+UO88/+fARRi
-	 ITMrvSXu+vA8T4B/uXjdeZ5jVuecFlmvqnj3StO2tJDkE/EEOuwMNFykAkVXyLm/yu
-	 uT1fYTPyVfiiscM7/8HRDaUSIBw9HQBupmCYPbH+q/SO/BdyeL97mXn2cSzNeTWz2U
-	 s1IK8hUooOFSA==
+	b=heFvRUXRB9lqeI4Vz15s8DasWP74Q1s6OE5/TPxSVT60wMJF3t4iJddwldKCes/9Q
+	 BG61fhxO/Gj3PhSmndy/Lf1i3css8ASEYZ8Af6yuV5+IikgY1EAVhyAVHzHspzzHGe
+	 t1D2GTNOJH6VPhtZGc0zOBU8R3b/Ih6D8IEV13yECmPn7k5N7y9NtbDNEgf5I4UyJN
+	 pfwKnGPUITxjjpJYRuwdaVVk88iFxTuFpRrqenowWX7K6tlR7F096GmvEE/jBJEXcJ
+	 ssFb3Uy0lWJrin7D/BWZ+XhrRbrw4gTyuQOXiSBUobdb27o5NC9T+9BEp8T7IKJ/74
+	 zOtfQxvVfuacQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A4711486DF;
+	by lkml.kernel.org (Postfix) with ESMTP id 6AADB486D3;
 	Mon,  9 Nov 2026 22:38:43 +0000 (UTC)
 From: Gaurav Suman via B4 Relay <devnull+gauravsuman007.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 22:38:26 +0000
-Subject: [PATCH 8/8] media: i2c: Add ON Semiconductor LC898123F40 lens
- autofocus driver
+Date: Mon, 09 Nov 2026 22:38:23 +0000
+Subject: [PATCH 5/8] dt-bindings: media: i2c: Add Samsung S5KGD1 image
+ sensor
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-sm8150-camera-v1-8-3d2e7b407516@gmail.com>
+Message-Id: <20261109-sm8150-camera-v1-5-3d2e7b407516@gmail.com>
 References: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
 In-Reply-To: <20261109-sm8150-camera-v1-0-3d2e7b407516@gmail.com>
 To: Bryan O'Donoghue <bod@kernel.org>, 
@@ -98,11 +98,11 @@ To: Bryan O'Donoghue <bod@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794263921; l=7472;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794263921; l=3549;
  i=gauravsuman007@gmail.com; s=default; h=from:subject:message-id;
- bh=aXld3phNDaFjb9XBLc+lkcUeUGkLUlYruxuB+5QHU0Q=;
- b=sATE1weRvLYnW21DnVXmSGRhsvo6h4uhzitB7inax8Gq8QKq5U9fdfJc1M3yNAcytlgzq8jpq
- f2djMqzQY4FD5XYucDpZK18g3gLoXsVZpVgnHkZ4P75+Wn24Gkl2oe/
+ bh=/uP5BNjbdyi1wf98CyTi3wc+sNFa7nqcCb/NOpDJ6F0=;
+ b=zXKjcD9GYO3wZMfX1wq+CxIBgPCXHoqFK3BIJ4HHoRBM0e5rHu3wagCrvCbzEwOA6sUfOB+NN
+ As5nCPUenKbAJsHwP4oo+gQj6I6r65J7G/dVjwQ8L80yy+yfKN/riyI
 X-Developer-Key: i=gauravsuman007@gmail.com; a=ed25519;
  pk=lnUC0mQfc0KyA0LE73pQ4+QWYVRaCD8Sd3XWxLZO+JY=
 X-Endpoint-Received: by B4 Relay for gauravsuman007@gmail.com/default with
@@ -113,222 +113,128 @@ Content-Transfer-Encoding: 7bit
 
 From: Gaurav Suman <gauravsuman007@gmail.com>
 
-Add a V4L2 lens sub-device driver for the autofocus function of the
-LC898123F40 OIS/AF controller. The controller runs firmware from its
-own flash; the lens position is a 32-bit value written to register
-0xf01a, and 0xf012 = 1 enables the servo, as in the LG G8x ThinQ
-vendor camera data. Only V4L2_CID_FOCUS_ABSOLUTE (0..2047) is
-supported; image stabilisation is not.
-
-Tested on an LG G8x ThinQ: sweeping the position visibly moves focus
-on the IMX363 main camera.
+Add bindings for the Samsung S5KGD1 (ISOCELL GD1) 32MP quad-Bayer
+sensor, used as the front camera of the LG G8x ThinQ.
 
 This was written and tested with the help of an AI coding assistant
 (Claude Opus 5.5, Anthropic); I reviewed the change and the results.
 
 Signed-off-by: Gaurav Suman <gauravsuman007@gmail.com>
 ---
- MAINTAINERS                  |   7 +++
- drivers/media/i2c/Kconfig    |  10 ++++
- drivers/media/i2c/Makefile   |   1 +
- drivers/media/i2c/lc898123.c | 138 +++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 156 insertions(+)
+ .../bindings/media/i2c/samsung,s5kgd1.yaml         | 105 +++++++++++++++++++++
+ 1 file changed, 105 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b13cf3ad43a185802b31a89176fd85d5ba2c6d1b..ab3d82598865973241112a0e5636e3679ea8d35d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20984,6 +20984,13 @@ S:	Maintained
- T:	git git://linuxtv.org/media.git
- F:	drivers/media/i2c/ov9734.c
- 
-+ON SEMICONDUCTOR LC898123 LENS DRIVER
-+M:	Gaurav Suman <gauravsuman007@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/onnn,lc898123f40.yaml
-+F:	drivers/media/i2c/lc898123.c
-+
- ONBOARD USB HUB DRIVER
- M:	Matthias Kaehlcke <mka@chromium.org>
- L:	linux-usb@vger.kernel.org
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 2477db9a17fac4d5278e2428f9b840a0698e56af..fa4d26a27381bd23eafc88dd0af0facbe2fc8ac4 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -1022,6 +1022,16 @@ config VIDEO_DW9807_VCM
- 	  capability. This is designed for linear control of
- 	  voice coil motors, controlled via I2C serial interface.
- 
-+config VIDEO_LC898123
-+	tristate "LC898123F40 lens autofocus support"
-+	select V4L2_CCI_I2C
-+	help
-+	  This is a driver for the autofocus function of the ON
-+	  Semiconductor LC898123F40 optical image stabilisation and
-+	  autofocus controller, controlled via I2C serial interface.
-+	  Only the lens position is controlled; image stabilisation is
-+	  not supported. The controller runs firmware from its own flash.
-+
- endif
- 
- menu "Flash devices"
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index 7e714dbcbf69d55576be1abe76311c3478511201..836bf5b8a44e260567b34977b191c1f0f6e3667e 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -36,6 +36,7 @@ obj-$(CONFIG_VIDEO_DW9714) += dw9714.o
- obj-$(CONFIG_VIDEO_DW9719) += dw9719.o
- obj-$(CONFIG_VIDEO_DW9768) += dw9768.o
- obj-$(CONFIG_VIDEO_DW9807_VCM) += dw9807-vcm.o
-+obj-$(CONFIG_VIDEO_LC898123) += lc898123.o
- obj-$(CONFIG_VIDEO_ET8EK8) += et8ek8/
- obj-$(CONFIG_VIDEO_GC0308) += gc0308.o
- obj-$(CONFIG_VIDEO_GC0310) += gc0310.o
-diff --git a/drivers/media/i2c/lc898123.c b/drivers/media/i2c/lc898123.c
+diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5kgd1.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5kgd1.yaml
 new file mode 100644
-index 0000000000000000000000000000000000000000..69516ad964d6035e8b2db91ad9fc9c95fa8c9b80
+index 0000000000000000000000000000000000000000..4b01f1057afe70665bb445c8395a6deaabc8bd9d
 --- /dev/null
-+++ b/drivers/media/i2c/lc898123.c
-@@ -0,0 +1,138 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * ON Semiconductor LC898123F40 OIS/AF controller, autofocus part only
-+ * (LG G8x rear main camera). The controller runs its own factory-flashed
-+ * firmware; the lens position is a 32-bit big-endian value in 0xF01A and
-+ * 0xF012 = 1 enables the servo, as LG's CamX module data does.
-+ */
-+#include <linux/delay.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regulator/consumer.h>
-+#include <media/v4l2-cci.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
++++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5kgd1.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/samsung,s5kgd1.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#define LC898123_REG_SERVO	CCI_REG32(0xf012)
-+#define LC898123_REG_AF_POS	CCI_REG32(0xf01a)
-+#define LC898123_REG_OIS_CTRL	CCI_REG8(0xf100)
-+#define LC898123_POS_MAX	2047
-+#define LC898123_POS_DEFAULT	1024
++title: Samsung S5KGD1 Image Sensor
 +
-+struct lc898123 {
-+	struct regmap *regmap;
-+	struct v4l2_subdev sd;
-+	struct v4l2_ctrl_handler ctrls;
-+	struct v4l2_ctrl *focus;
-+};
++description:
++  Samsung S5KGD1 (ISOCELL GD1) is a 32MP image sensor with a quad-Bayer
++  (tetracell) colour filter array, controlled over a serial camera control
++  bus. The driver supports the 2x2 binned 3264x2448 mode at 30 frames per
++  second, RAW10 over a 4-lane MIPI D-PHY interface.
 +
-+static int lc898123_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct lc898123 *lc = container_of(ctrl->handler, struct lc898123, ctrls);
++maintainers:
++  - Gaurav Suman <gauravsuman007@gmail.com>
 +
-+	if (ctrl->id != V4L2_CID_FOCUS_ABSOLUTE)
-+		return -EINVAL;
-+	return cci_write(lc->regmap, LC898123_REG_AF_POS, ctrl->val, NULL);
-+}
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
 +
-+static const struct v4l2_ctrl_ops lc898123_ctrl_ops = { .s_ctrl = lc898123_set_ctrl };
++properties:
++  compatible:
++    const: samsung,s5kgd1
 +
-+static int lc898123_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+{
-+	struct lc898123 *lc = container_of(sd, struct lc898123, sd);
-+	int ret = 0;
++  reg:
++    maxItems: 1
 +
-+	cci_write(lc->regmap, LC898123_REG_OIS_CTRL, 0, &ret);
-+	cci_write(lc->regmap, LC898123_REG_SERVO, 1, &ret);
-+	if (!ret)
-+		ret = __v4l2_ctrl_handler_setup(&lc->ctrls);
-+	return ret;
-+}
++  clocks:
++    description: MCLK supply clock.
++    maxItems: 1
 +
-+static const struct v4l2_subdev_internal_ops lc898123_internal_ops = {
-+	.open = lc898123_open,
-+};
++  reset-gpios:
++    description: Active low GPIO connected to RESET pad of the sensor.
++    maxItems: 1
 +
-+static const struct v4l2_subdev_ops lc898123_ops = { };
++  vdda-supply:
++    description: Analogue voltage supply, 2.8 volts.
 +
-+static int lc898123_probe(struct i2c_client *client)
-+{
-+	struct lc898123 *lc;
-+	u64 val;
-+	int ret;
++  vddd-supply:
++    description: Digital core voltage supply.
 +
-+	lc = devm_kzalloc(&client->dev, sizeof(*lc), GFP_KERNEL);
-+	if (!lc)
-+		return -ENOMEM;
-+	ret = devm_regulator_get_enable_optional(&client->dev, "vdd");
-+	if (ret && ret != -ENODEV)
-+		return dev_err_probe(&client->dev, ret, "vdd supply\n");
-+	if (!ret)
-+		usleep_range(10000, 12000);	/* controller boot from flash */
++  vddio-supply:
++    description: Digital I/O voltage supply, 1.8 volts.
 +
-+	lc->regmap = devm_cci_regmap_init_i2c(client, 16);
-+	if (IS_ERR(lc->regmap))
-+		return PTR_ERR(lc->regmap);
-+	ret = cci_read(lc->regmap, LC898123_REG_AF_POS, &val, NULL);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret, "no response\n");
-+	cci_write(lc->regmap, LC898123_REG_SERVO, 1, NULL);
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
 +
-+	v4l2_i2c_subdev_init(&lc->sd, client, &lc898123_ops);
-+	lc->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	lc->sd.internal_ops = &lc898123_internal_ops;
-+	lc->sd.entity.function = MEDIA_ENT_F_LENS;
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
 +
-+	v4l2_ctrl_handler_init(&lc->ctrls, 1);
-+	lc->focus = v4l2_ctrl_new_std(&lc->ctrls, &lc898123_ctrl_ops,
-+				      V4L2_CID_FOCUS_ABSOLUTE, 0, LC898123_POS_MAX,
-+				      1, LC898123_POS_DEFAULT);
-+	if (lc->ctrls.error) {
-+		ret = lc->ctrls.error;
-+		goto err;
-+	}
-+	lc->sd.ctrl_handler = &lc->ctrls;
-+	ret = media_entity_pads_init(&lc->sd.entity, 0, NULL);
-+	if (ret)
-+		goto err;
-+	ret = v4l2_async_register_subdev(&lc->sd);
-+	if (ret)
-+		goto err_entity;
-+	return 0;
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++              - const: 3
++              - const: 4
 +
-+err_entity:
-+	media_entity_cleanup(&lc->sd.entity);
-+err:
-+	v4l2_ctrl_handler_free(&lc->ctrls);
-+	return ret;
-+}
++        required:
++          - data-lanes
++          - link-frequencies
 +
-+static void lc898123_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct lc898123 *lc = container_of(sd, struct lc898123, sd);
++required:
++  - compatible
++  - reg
++  - clocks
++  - reset-gpios
++  - port
 +
-+	v4l2_async_unregister_subdev(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(&lc->ctrls);
-+}
++unevaluatedProperties: false
 +
-+static const struct of_device_id lc898123_of_match[] = {
-+	{ .compatible = "onnn,lc898123f40" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, lc898123_of_match);
++examples:
++  - |
++      #include <dt-bindings/gpio/gpio.h>
 +
-+static struct i2c_driver lc898123_driver = {
-+	.driver = {
-+		.name = "lc898123",
-+		.of_match_table = lc898123_of_match,
-+	},
-+	.probe = lc898123_probe,
-+	.remove = lc898123_remove,
-+};
-+module_i2c_driver(lc898123_driver);
++      i2c {
++          #address-cells = <1>;
++          #size-cells = <0>;
 +
-+MODULE_DESCRIPTION("LC898123F40 autofocus driver");
-+MODULE_LICENSE("GPL");
++          camera@2d {
++              compatible = "samsung,s5kgd1";
++              reg = <0x2d>;
++              clocks = <&camera_mclk 0>;
++              assigned-clocks = <&camera_mclk 0>;
++              assigned-clock-rates = <19200000>;
++              reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
++              vdda-supply = <&vreg_2p8>;
++              vddd-supply = <&vreg_1p05>;
++              vddio-supply = <&vreg_1p8>;
++              orientation = <0>;
++              rotation = <90>;
++
++              port {
++                  endpoint {
++                      data-lanes = <1 2 3 4>;
++                      link-frequencies = /bits/ 64 <380800000>;
++                      remote-endpoint = <&csiphy_ep>;
++                  };
++              };
++          };
++      };
++...
 
 -- 
 2.49.1
