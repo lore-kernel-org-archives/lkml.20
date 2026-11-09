@@ -1,73 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794205319;
-	b=nyNdd1MlUJC1e4fqHl3Vg3kxsUPPbDHJ0x9fjOC+rWH7PN1SxHbqayeGwciFdjmL0zg6
-	 jEtHTJlb2aq1/cxEh8oZixptUTBczQTFW0gnyc1ufcm8Sgm/c1WY4wUcmJHAu09iZUZrF
-	 0yyI+RhDke0CQuH3IHVm50Zu7iaFM3T9hj5q7rMlW9wbIhLm18ofa4yc78xhJ5Delgc1n
-	 X4To8tmGDqzAIn3Xt7enynApS2yZ7MyVLka5+Nl/Y5iVerYR9cz81CqFT5KaWAtdJ/lAz
-	 e95TUiSnIIUmsm5xAm+1rZ5bPxtx84IJc++eRjCLwqW9qh0W/6x7Vjoa7uNplNOss6A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794205319;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=j96X4UIakiFHOKxgOngYS1UNzbH0JLa5PG4yrQQAi7M=;
-	b=wfGLBaeobXCBZ/s+bo25CQHjbkyG8A0fBKDLY7ve3eSenLHnJkaFUZknQQP/6Ulq68Ph
-	 zamgZRy91tg33x0ItDiWkdMOkXCX8xQBqLyeslnrOa/gUV24hFZegwwkOMimhqvYRyg4i
-	 vndkfUxqErzTY83igiMS4jxnSbRaPNFfZKgUfw0qATdW6Bs0vFfjYDCSxOr0RKPl/7NM8
-	 gf7teOStpOjbgCUyGBdP2TFfvf4WF0h1OniXrH57qUcc1CKuzI8zCVIIGVgtyj2ybCV4X
-	 nQfHmq2UA6SHb1oh1Srs12+X8PUAeJPKRjVZROz+3sZ+bRs9lj/IYOfsvIYUP8f6deg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=iU4iQnii;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A636A606A338;
-	Mon,  9 Nov 2026 06:21:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A636A606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.139
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794205356;
+	b=aTBV++7VPQygMXuGoOA6tnkzL4a08fvFoKF4uXnSHshDBzJFtvfu/f5t+E6Z/15+aQdC
+	 HlIuAD1/qkGJApdzKKGnYaUKiYG6cruG2FX+uZTJnPztfkRHU1Rd13VRczFqdTMEZxTS5
+	 z6wCQKQ8gnGHTobUwaew+ZXTjCLCwTzcaRDZFxPUxuRVcSulwDRvG14fykRLin2TyClw2
+	 2ygfjiVKMsouBtMgC05hORqP6WHruqSN0ZqFHaPQC7eb7cuWIScF0W+WsPtu25SaHYUzt
+	 qMv3hZ5snO7AYTj/kaPwd3Mmd+Q3zgebEdsyhINWAO6ZQwIwrVYlo0DcbIbo6AKCKvQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794205356;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Authentication-Results-Original:Received:Received:Message-ID:Date:
+	 User-Agent:From:Subject:To:CC:References:Content-Language:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-ClientProxiedBy:MIME-Version:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam-Untrusted:
+	 X-Microsoft-Antispam-Message-Info-Original:
+	 X-Forefront-Antispam-Report-Untrusted:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-CodeTwo-MessageID:
+	 X-CodeTwoProcessed:X-EOPAttributedMessage:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+	 X-MS-PublicTrafficType:X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=24lnj/hDOHXZInbnc2MB6LKyfbx1zMu8Fkz6rKA28U0=;
+	b=W/z+LgGkyRGT4j+XvXWC/sdvwC9rgCZ5kXI+9QCcfso6cWQIAYqWGzAARaS1NYuvcC3V
+	 cvv4JCej3EvC3++cQIRD9UXsncCN/ZjY+GT32L/tgnMhscxMh+E4NwgBq0vSukjq1iGIY
+	 WFLvsz2Y3pLS7KkGVjRdSetIKLQQDK8VI7duR6fO11gkEhGYh0WEMSfu9LTGZpgimGjn+
+	 vCNEHOkEJsc0iIVRsOLke5FlJhQhERoqUGpZXQlUPHtXXCCnN22Oc12Xn+ebxiMihcARC
+	 8MUPZ1lK0TJdVCn8vvCABURg9NskfcOwXhccLFPdQWfBfMdbp9OwW3Z2arjCSqknPSQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=topic.nl;
+	spf=pass smtp.mailfrom=topic.nl;
+	dkim=pass header.d=topic.nl header.i=@topic.nl header.a=rsa-sha256 header.s=selector2 header.b=HKGZRMFv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.139
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11020139.outbound.protection.outlook.com [52.101.69.139])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0834606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:22:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0834606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=topic.nl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=topic.nl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=iU4iQnii
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=iU4iQnii/lD1wRkQCZGge8sjA5p+MWo1NFE/3JAqaMnHo81Y0Zzwfm6Ai2geDnwwP7TftngeGCfP2
-	 Vzpyo2myHSYcPUKyTfqKaEiBoP4ShwEpLiO97OPN8rs+3+84j0cM3rc3ETaRpKxxTZqZqvKhSU/jbK
-	 Jlx7QQxpuIKKMJJY=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16af16683e00-9d193;
-	Mon, 09 Nov 2026 14:21:56 +0800 (CST)
-X-RM-TRANSID:2ee16af16683e00-9d193
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from desktop-c950f82eaac8410e-20260515094303939 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af16680c6d-8374c;
-	Mon, 09 Nov 2026 14:21:55 +0800 (CST)
-X-RM-TRANSID:2ee36af16680c6d-8374c
-From: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
-To: mst@redhat.com,
-	david@kernel.org
-Cc: jasowangio@gmail.com,
-	eperezma@redhat.com,
-	xuanzhuo@linux.alibaba.com,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com,
-	stable@vger.kernel.org,
-	Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
-Subject: [PATCH v4] virtio_balloon: drain update works on probe error paths
-Date: Mon,  9 Nov 2026 14:21:52 +0800
-Message-ID: <20261109062152.1097-1-zhaimingbing@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.53.0.windows.1
-In-Reply-To: <8f914911-8453-4f8f-b02f-384114f9d4ef@kernel.org>
-References: <8f914911-8453-4f8f-b02f-384114f9d4ef@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=topic.nl header.i=@topic.nl header.a=rsa-sha256 header.s=selector2 header.b=HKGZRMFv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N9SMp6jOX0ddKtuf+PuPX8pixH9PBR9FE18yoUh7Vado1sGjljcnx5A/ruxxy4z7v1O75zE2BA3Y/vcYsLlEQSsK3wqimVYZ/zziD5E69rM0W4U3YrkE5rrtkmvAumioXeKDLFwNGr7nPbLXTh4+OIWRA0dbpSmrqlhNcHnPzg8nWkCkg94zH5dWiGJu9wpcaB1wpNO9/SORcMlTIjVIm1wKua4OnhrEpCsjPD9434XXWzcEZj3p3kc/AFkpfLJj4z9BiJ1Le9GdoROkp+N3535357TEMnhh7qyeI+g3R706AplDRCxfaOOVlNibzaTLGcREQAn48PyypI1mLlpoqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=24lnj/hDOHXZInbnc2MB6LKyfbx1zMu8Fkz6rKA28U0=;
+ b=mk5Ujzho5PAkXr+Gkb84hQTc19rWQQs0R8gYxmVVOpyzjPmg+z1pZ47eEp+nQe8q/hvKiPgfXcV5UmpgAM9MXWA5hmgEzbfQKLVkDhRw//iS0hehkAzkegPD6JOQLOfj4I88Uf9XDLN7ZP3v2kzuU+lFkypLevvVMQzEq9xgr+zvV1Y6GJBEezXWiULsPj9/6YCLBWJNYhmdZ4S3XymgHnDnpBlPsLCnHC/PcjONTbtJY2kOrtJKnNvqQ3hw2wM2OfPX1CsOqeZPhBIBc4AIm1kLrfeUUCt5mUsdPdOJ1j+ulNfFDWRhd2wpm2h8ORyeaS38fW80lt8qc6FdZBt5Yw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 20.93.157.195) smtp.rcpttodomain=kernel.org smtp.mailfrom=topic.nl;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=topic.nl; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=topic.nl; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=24lnj/hDOHXZInbnc2MB6LKyfbx1zMu8Fkz6rKA28U0=;
+ b=HKGZRMFvbMUgE247tvPmY6wCFlMluUVinUQq7okCNKUgxGOb/x0TDAKXrguBeu0mw/CpyVEun+H5ow7xQWy2iJUa2lXikGfymoq53uwZLMzwYwxu4I2VGplk6QSwRit8U13YrHHmAOhRjzMk9M3p7z1kRjPnfoQ8Zvf8bljPV4ldxiMMcDx9ySiEX2vJOicTAq6o9UH18NDuu4oXQYgXLdS/VnbUWWAoPE1+SWAj7LfV3ZGvGZl26tFvlf2JCbKOrAbHRk921pgAVfIQslaTMUl0MZncV+DjvLuMa5AsortrCai3aLJOvBFXyd56TxXFRyMbvcUIMrIp/xFR2O4dbg==
+Received: from DUZPR01CA0184.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b3::7) by DB9PR04MB9555.eurprd04.prod.outlook.com
+ (2603:10a6:10:303::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
+ 2026 06:22:31 +0000
+Received: from DU2PEPF00028D12.eurprd03.prod.outlook.com
+ (2603:10a6:10:4b3:cafe::37) by DUZPR01CA0184.outlook.office365.com
+ (2603:10a6:10:4b3::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
+ Nov 2026 06:22:31 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 20.93.157.195) smtp.mailfrom=topic.nl; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=topic.nl;
+Received-SPF: Pass (protection.outlook.com: domain of topic.nl designates
+ 20.93.157.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=20.93.157.195; helo=westeu11-emailsignatures-cloud.codetwo.com;
+ pr=C
+Received: from westeu11-emailsignatures-cloud.codetwo.com (20.93.157.195) by
+ DU2PEPF00028D12.mail.protection.outlook.com (10.167.242.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 06:22:31 +0000
+Received: from GV1PR07CU001.outbound.protection.outlook.com (40.93.214.98) by westeu11-emailsignatures-cloud.codetwo.com with CodeTwo SMTP Server (TLS12) via SMTP; Mon, 09 Nov 2026 06:22:30 +0000
+Authentication-Results-Original: mx.microsoft.com 1; dkim=none (message not
+ signed) header.d=none;dmarc=none action=none header.from=topic.nl;
+Received: from VI0PR04MB12030.eurprd04.prod.outlook.com
+ (2603:10a6:800:316::24) by PA6PR04MB11779.eurprd04.prod.outlook.com
+ (2603:10a6:102:521::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
+ 2026 06:22:27 +0000
+Received: from VI0PR04MB12030.eurprd04.prod.outlook.com
+ ([fe80::e428:3105:17ec:8224]) by VI0PR04MB12030.eurprd04.prod.outlook.com
+ ([fe80::e428:3105:17ec:8224%4]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 06:22:27 +0000
+Message-ID: <d5f544e7-fe67-4e70-bb4b-9e106c0f3c57@topic.nl>
+Date: Mon, 9 Nov 2026 07:22:26 +0100
+User-Agent: Mozilla Thunderbird
+From: Mike Looijmans <mike.looijmans@topic.nl>
+Subject: Re: [PATCH 2/2] regulator: pwm-regulator: Revert "Add validity checks
+ in continuous .get_voltage"
+To: Mark Brown <broonie@kernel.org>
+CC: linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+References: <20261106130010.340950-1-mike.looijmans@topic.nl>
+ <1b153bce-a66a-45ee-a5c6-963ea6fb1c82.949ef384-8293-46b8-903f-40a477c056ae.6954786b-65e0-4206-a0c4-60cd251dbec9@emailsignatures365.codetwo.com>
+ <20261106130010.340950-2-mike.looijmans@topic.nl>
+ <6c74f007-5a18-4a4c-90b8-df2f3cc3b36a@sirena.org.uk>
+Content-Language: en-US, nl
+Organization: Topic
+In-Reply-To: <6c74f007-5a18-4a4c-90b8-df2f3cc3b36a@sirena.org.uk>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM8P189CA0006.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:20b:218::11) To VI0PR04MB12030.eurprd04.prod.outlook.com
+ (2603:10a6:800:316::24)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,112 +133,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-TrafficTypeDiagnostic:
+	VI0PR04MB12030:EE_|PA6PR04MB11779:EE_|DU2PEPF00028D12:EE_|DB9PR04MB9555:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04565164-c304-4eef-d117-08df3e29d5f8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|23010399003|376014|52116014|366016|1800799024|38350700014|4143699003|56012099006|261021121427099003|261022075727099003|261022105027099003|261009223027099003|261026140227099003|261028144727099003|261026121527099003|261102123227099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info-Original:
+ K54DJ+98Fwa+6jOJa7e10jxnMKF/mKEQevi8C0I2Dz05P5VQfte2162zB+iSWOLFMWsQxQcDrw+TfC4Xz83jJGWe57JNYca2GZUnFLzfRo1SPd2gSSs6P9Fw3KfpJxURZtCXak9PSEN3TEDZNZUWL9G3uA2BsphC5kBESBU8LC1NF4gwsKTLdW+BdcDLeBZbm6wYjSaK6DTbIAdy2Qf2Vx5+/Zd/jbwM4IvfYtJIJWWDjpCekDG2M2wu9g0VcTTpdrQiUs9ZzNqkFoOwRxd9fcIXhR0DIqz0DRW3eLrEISsiHqGBLhgqrp4Moz0eAqf3YI32i2ombP0jSyKalw+Gl1ue9Ryr6POVZ7wB6UDpkiBFgw4kQuu8Q7YyQNgPO63q/Z6Vz0MBhnE+Djos90Ocu92JDezS6Ojmbnun2m3zdVQf+LgzpxqLY2XI3y9Azz+Hw3WCp7PA/5AJu5aF4HRVjBBAcpITTS7BCQ2wJ2NJCtzStCyxA94rel6PLk340jaVdLnVqsKmUMHmBMM9LvRtcBvF94jUYIGspBps8qWe877K99L5mEdYDi5qaFcfbDDOZgACM7jxRjWQccElvJhrZTq9kYC1Z3ZigMho8/nQJW3QYJLyltTY0bidfPYzd+VXDY9nF2ps4GNa4C12/6iCCEpRn48lrghSu85VOasVmKA=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI0PR04MB12030.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(52116014)(366016)(1800799024)(38350700014)(4143699003)(56012099006)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003)(261026140227099003)(261028144727099003)(261026121527099003)(261102123227099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+X-Exchange-RoutingPolicyChecked: ULWNbZ/87CDSMImEM+YtN16Z8LuPCH5ZRSI+X9uykYj1aUT2CdCAB2Dw+aJqkZ1VPAccmQgzMMs0H/whpX3xJ0SQjDdqv+Vhe16XA1ELipFZMHb5rvZbXDzb5N8KoRRPT1CydRZELUv4DaDE3B4KG4hAKO3z1TNfLAREKXkuBYpPJtvE4+ob7VM/q8GKCxAIdXJpdIzWUXx4PJFTTAlEwRPv3sw0WdbPimh8BBNGe+v1p79YVCWe6pLJm7oNaKk5AhHrdPiwrbQHI4XNAQbL5K7PXn7FgyJWRYlIOQujDOw8VvmVIcprpM+MFd6XfiBc4IwdDhBPxJjrLtH+NBc+Nw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR04MB11779
+X-CodeTwo-MessageID: 69cac3a6-8be1-4fc4-a175-99f4a98a243d.20261109062230@westeu11-emailsignatures-cloud.codetwo.com
+X-CodeTwoProcessed: true
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DU2PEPF00028D12.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	57e446c1-ab9c-4532-4f26-08df3e29d37d
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|14060799003|1800799024|35042699022|376014|23010399003|36860700016|82310400026|10067099003|4143699003|56012099006|261021121427099003|261022075727099003|261022105027099003|261009223027099003|261026140227099003|261028144727099003|261026121527099003|261102123227099003|22082099003|18002099003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	0vY3Se8tEkDaOeXw73HeYSs2opqB/ypJ8KJ2geGv1tdLiUsWccHrmdfEE3MNOdtPqcMyNFmyRCgi2cJAkPmZruwBkL57ii6RdzUwRgkbfRM7zxx1l9mX1owMvWLZA8+ZbaKiia526CgPBe1lTP8DjKxuU6Wwcb1TaytnkAjFbXp4HojOV0WNP1LdlAdyjcKBj4Fpm55/9329jNzgNC+/VLjNzGb0NXHaKqRWSFoZLgzoffzzmeZ4zosquiNr5lWG646oLqX53yaaIAMxOpvkJyTd1nJOLl94GLiBdDRx3y/9cQ5Vy2sFExMO8rJKzbyRy4IqC8muFtwDSSJ+ZhzYmygon4A+1oQwJ6mR+2Xmw3ggLzcblwO3NrqCs9VVO+keMrr0GbC3nwU9q+GpD/FjgnnyYEGg3d9XCycMGQJAJLrI2N7BCyLcABN0DPjaSj701kQuCz+XQtc4261NP+fPdIb+OEpB+Xq5nQDGS1AXFVUeC/MttUVjB9eGVSbRzFv209MnnWorkS5WKIimoklu3LspzK27hrW/RtC8qwxVtHf0tLkLjaRgFu+Y+BW7KnFhrnXIlSHGMYKfnGmUS3olUznqQxOr2wiZXbyvbnIw1uDXzTtEG9szjzcbSvDg22R+NkRgNDBxeQb2RqFVqOkohA==
+X-Forefront-Antispam-Report:
+	CIP:20.93.157.195;CTRY:NL;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:westeu11-emailsignatures-cloud.codetwo.com;PTR:westeu11-emailsignatures-cloud.codetwo.com;CAT:NONE;SFS:(13230040)(14060799003)(1800799024)(35042699022)(376014)(23010399003)(36860700016)(82310400026)(10067099003)(4143699003)(56012099006)(261021121427099003)(261022075727099003)(261022105027099003)(261009223027099003)(261026140227099003)(261028144727099003)(261026121527099003)(261102123227099003)(22082099003)(18002099003)(13003099007)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	oh7b9luL2oB3MJtcHiHBPONJ3Ou1ulxCGaxzlI49HPzZTFfxQ5mn8upiItJ7+NLcWfrElvYUOQW/HFLV0z+xArIEbu5yxNXu7kUJ828CE+5KFSnC8BKoKSgOWbBayArHXVEooyof9DprLTBtCzvLj73b+7WruBqHPGSXGtGw7rtShsdPXdBBcBRNbPIQTZIrKOXogbMCeT+hjXFOr0ZrCFbK2CnwnWqsYqO5t0+ajjsLjJUV+03cFCOlSZCNXkxzH8Bf7Ul1NVrkCTjW1hF8Wp7SyAIXK0vEIRzodvl36Pyl2xTKACer3sj0QXzA4qvD3JhoPLX1dbyA7Sa4+7AIqxGln/trERHwIYS4MTMaOQTTIZW/kLCeEup9nPyJdN9VTbnGXm3HepmIaLWrDWIqIHMRkh/dAZZlG5YwZk28o4oaWU+ibygJBWdzCkIo1adG
+X-OriginatorOrg: topic.nl
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 06:22:31.3339
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04565164-c304-4eef-d117-08df3e29d5f8
+X-MS-Exchange-CrossTenant-Id: 449607a5-3517-482d-8d16-41dd868cbda3
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=449607a5-3517-482d-8d16-41dd868cbda3;Ip=[20.93.157.195];Helo=[westeu11-emailsignatures-cloud.codetwo.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF00028D12.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9555
 
-init_vqs() arms the stats virtqueue callback, so an update work can
-already be queued on the system freezable workqueue while
-virtballoon_probe() is still running.  If a later probe step fails, the
-error unwind deletes the virtqueues and frees vb without stopping the
-works, and the queued work runs after the balloon struct is gone:
+On 08-11-2026 16:13, Mark Brown wrote:
+> On Fri, Nov 06, 2026 at 01:59:56PM +0100, Mike Looijmans wrote:
+>> This reverts commit c92688cac239 ("regulator: pwm-regulator: Add validit=
+y
+>> checks in continuous .get_voltage").
+>> The core, and in particular the machine_constraints_voltage() method,
+>> expects the regulator to report what the current setting is, even if tha=
+t
+>> is outside the allowed range. The core will then bring the voltage into
+>> that range. It cannot do that if the regulator refuses to return its
+>> setting, and causes probe() to fail for a pwm-regulator when it has
+>> restrictions to the PWM range with messages like:
+>>    dsp7-pwm: failed to get the current voltage: -ENOTRECOVERABLE
+>>    pwm-regulator dsp7-supply-pwm: error -ENOTRECOVERABLE: Failed to regi=
+ster
+>>      regulator pwm-regulator
+>>    pwm-regulator dsp7-supply-pwm: probe with driver pwm-regulator failed
+>>      with error -131
+> Are you sure?  We have specific handling for -ENOTRECOVERABLE which just
+> blindly writes in the range specified in the constraints if the current
+> voltage is unreadable.  If that mechanism isn't working we should fix it
+> rather than changing drivers.
 
-  BUG: KFENCE: use-after-free read in virtqueue_get_buf_ctx
-   update_balloon_stats_func+0x121/0x300
-   Workqueue: events_freezable update_balloon_stats_func
+In core.c:
 
-remove() already handles this via virtballoon_quiesce().  Factor the
-stopping of the update works out of it and run it on the probe error
-path as well, before the queues and vb go away.
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (current_uV =3D=3D -ENOTRECOVERABLE) {
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* This regulator can't be read =
+and must be initialized */
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 rdev_info(rdev, "Setting %d-%duV=
+\n",
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 rdev->const=
+raints->min_uV,
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 rdev->const=
+raints->max_uV);
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 _regulator_do_set_voltage(rdev,
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 rdev->constraints->min_uV,
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 rdev->constraints->max_uV);
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 current_uV =3D regulator_get_vol=
+tage_rdev(rdev);
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 }
 
-The same hole exists when init_vqs() itself fails after
-virtio_find_vqs() succeeded: the stats priming can fail with the queues
-up and the callback armed, yet probe jumps straight to out_free_vb and
-leaks the virtqueues while the queued work still references vb.  Unwind
-inside init_vqs() in that case, stopping the works before the queues
-are deleted.
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (current_uV < 0) {
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (current_uV !=3D -EPROBE_DEFE=
+R)
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 rdev_err(rdev,
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0"failed to get the current voltage: %pe\n",
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0ERR_PTR(current_uV));
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return current_uV;
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 }
 
-Also reset the device before del_vqs() on these paths, like
-remove_common() and the virtio_net/virtio_scsi error unwinds do:
-without the reset the queues stay enabled on the device and the next
-probe fails in setup_vq() with -ENOENT.
+After=C2=A0_regulator_do_set_voltage() it calls=C2=A0regulator_get_voltage_=
+rdev()=20
+again, which keeps returning=C2=A0-ENOTRECOVERABLE, and thus the error path=
+=20
+kicks in.
 
-The drained work takes vb->wakeup_lock in process_wakeup_event() and
-finish_wakeup_event(), so this depends on "virtio_balloon: initialize
-wakeup_lock before virtqueues are set up", which moves that
-spin_lock_init() to the top of probe.
 
-Fixes: 1f34c71afe51 ("virtio: Fix scheduling while atomic in virtio_balloon stats")
-Reported-by: syzbot+0f659760bac1ecb01812@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0f659760bac1ecb01812
-Signed-off-by: Mingbing Zhai <zhaimingbing@cmss.chinamobile.com>
----
+>
+>> Besides that, regulator_get_voltage() is not supposed to return any
+>> state information, as is mentioned in the API documentation.
+>>   	voltage =3D pwm_get_relative_duty_cycle(&pstate, duty_unit);
+>> -	if (voltage < min(max_uV_duty, min_uV_duty) ||
+>> -	    voltage > max(max_uV_duty, min_uV_duty))
+>> -		return -ENOTRECOVERABLE;
+> The rest of the function relies on this to avoid having to deal with
+> wrapping when things are out of range.
 
-The wakeup_lock dependency is now in mainline (161aa708b02c).
+It's core.c that will handle that. It expects regulator_get_voltage() to=20
+return something out of range, and will correct that situation.
 
-Changes in v4 (from sashiko review):
-- reset the device before del_vqs() on both error paths, like
-  remove_common() and the virtio_net/virtio_scsi unwinds: without the
-  reset queue_enable stays set and the next probe fails in setup_vq()
-  with -ENOENT.
 
- drivers/virtio/virtio_balloon.c | 22 +++++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
-index 8c1b47ec1..b30a0ca26 100644
---- a/drivers/virtio/virtio_balloon.c
-+++ b/drivers/virtio/virtio_balloon.c
-@@ -554,6 +554,17 @@ static void update_balloon_stats_func(struct work_struct *work)
- 	finish_wakeup_event(vb);
- }
- 
-+/* Stop queueing of and drain any pending balloon update works. */
-+static void virtballoon_stop_updates(struct virtio_balloon *vb)
-+{
-+	spin_lock_irq(&vb->stop_update_lock);
-+	vb->stop_update = true;
-+	spin_unlock_irq(&vb->stop_update_lock);
-+
-+	cancel_work_sync(&vb->update_balloon_size_work);
-+	cancel_work_sync(&vb->update_balloon_stats_work);
-+}
-+
- static void update_balloon_size_func(struct work_struct *work)
- {
- 	struct virtio_balloon *vb;
-@@ -633,6 +644,9 @@ static int init_vqs(struct virtio_balloon *vb)
- 		if (err) {
- 			dev_warn(&vb->vdev->dev, "%s: add stat_vq failed\n",
- 				 __func__);
-+			virtballoon_stop_updates(vb);
-+			virtio_reset_device(vb->vdev);
-+			vb->vdev->config->del_vqs(vb->vdev);
- 			return err;
- 		}
- 		virtqueue_kick(vb->stats_vq);
-@@ -1075,6 +1089,8 @@ static int virtballoon_probe(struct virtio_device *vdev)
- 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		destroy_workqueue(vb->balloon_wq);
- out_del_vqs:
-+	virtballoon_stop_updates(vb);
-+	virtio_reset_device(vdev);
- 	vdev->config->del_vqs(vdev);
- out_free_vb:
- 	mutex_destroy(&vb->balloon_lock);
-@@ -1115,11 +1131,7 @@ static void virtballoon_quiesce(struct virtio_balloon *vb)
- 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		virtio_balloon_unregister_shrinker(vb);
- 
--	spin_lock_irq(&vb->stop_update_lock);
--	vb->stop_update = true;
--	spin_unlock_irq(&vb->stop_update_lock);
--	cancel_work_sync(&vb->update_balloon_size_work);
--	cancel_work_sync(&vb->update_balloon_stats_work);
-+	virtballoon_stop_updates(vb);
- 
- 	if (virtio_has_feature(vdev, VIRTIO_BALLOON_F_FREE_PAGE_HINT))
- 		cancel_work_sync(&vb->report_free_page_work);
--- 
-2.43.0
+--=20
+Mike Looijmans
+System Expert
+
+TOPIC Embedded Products B.V.
+Materiaalweg 4, 5681 RJ Best
+The Netherlands
+
+T: +31 (0) 499 33 69 69
+E: mike.looijmans@topic.nl
+W: www.topic.nl
 
 
 
