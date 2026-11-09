@@ -1,56 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.87
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192763;
-	b=blhFAax/bkCkKkkEZ4HFNv6FEVAHOOrdHJIMD07lmgQ7hNa/u6LNwxFcWt4m9qD9/Jzi
-	 cJeMgwmJkQAJO7+g08pzOSInuIKmHFP19vKkcFZNJuvP378H7oNqTAt5XHUUW5TuOsoGf
-	 0smG2KCOA4XqS0aQ8Ym9MxbzlyWRtED8RttlzR4ARTGpnd3CgdgqoSiRGWjsssVjFbZID
-	 UNmUW6t9UWmsCoCW9dFpojpCF9JwqJsOB+SbNWTy+4edxt5vs13HUMS6fBnbYAlsCqW1K
-	 3MXaugfCTCLmFQoBabcDfIe32Wtjxohltdiwtcx4/tYaf2TiL8MqAcZoKYQY0+yLMOA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192763;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=qB2X3p6Fnij6aDtj4F1N9a2CNtZpESRoicBIwPmoEc0=;
-	b=bgvowRq8qbqefc2GrrV0GPu8Oft9/5gJVJC3zQhlV4BBqeD55sise6hA7rXA+yewfTgE
-	 7KaW/XOVcC4N8M2URJM3kcLJi8pi1OgvK4IuWwuJRtGb8xvUxGSQLL5Jngtq0FrRMUm0+
-	 ggeN4x2FHh2c0aQYcp6TohNRGQVZDLBo9CkOnYRMiwTZoamxw/fzUiTwupbjP9bbMm2Ki
-	 dU+M06UccEpSDfvy8HXJWZrguZMv8mZl33+NCvP8ldrWPHH0U/Sbc3tdbhIkeeAY6dihC
-	 /xrciHvKksKaYSWMn+R6vwXBH6Y8vYBvicsnbj60kVjl4C3qwNkdCN785aKAMHtrVuA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eC7adzfA;
-	arc=none smtp.remote-ip=95.215.58.87
-Received: from mta1.migadu.com (out-87.mta1.migadu.com [95.215.58.87])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794192871;
+	b=WPhLsdywYypuyttk29u6+G0kfubS+E5bhYg5EU3t8vMxfg6ReVyeodbzgo5QLpde0v91
+	 SxAB3AMrhCRdBQkbSI1ka1+PsQx+8X8OlQRYfUikXu9TKXYAlY/AIl7ikWDR7MHl2Aoog
+	 3LwwRYCcK/nzI4E48HxmQqTKA2SlhVa0hfsbthNO5dol/2b8AbRIlZWZM6z7KYm3bNdMn
+	 +guEgomETR9HJPhAxtwIkDM5aZ24G2BSWgXYMO5gdxZCJ7xyTvjfo2MZgHwDEdnCrOER5
+	 b84OgaagrYQnHSEFwA9jUBsTId7s+8Z1b2cGkgrhqnnCqMqWGuRPKU3EuAmrjEEzfvw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192871;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Qz3NR7MGSXJNdrY+IV5qaIakyyfe+n06O6AowRbO9CQ=;
+	b=C3u83SA0nlhc2uqly8hJk+/RUlhVXsVI8GYHyFEd4ayRgJlLEDXCIRMa9OLo4Ny3+hJt
+	 W2C/EzxXQ1mCMfyX5eyyoD73nnLoPaoYx7N/vx0U6x4VKNC3N0JRXP8EvnvitrSk3kEZs
+	 h5wL9N8+gVWdrzlBZPKfkOUy15x0wLL/dEEAE6sHc2Q6vlO7FK+Hpfm79GKTCMYsgK9+a
+	 54UUXheudAbOFxNZK/dhtAiGjuPgTyTkqW+zLx6n8FVawqiKkTL/0ruNBxEdgFPzCr8px
+	 K06bDFmXTbw4tURgxWk5lHm7CEg/FtkPt1Wo5QRx/bCDQYni0pHKXzwxeuKUQptPGmw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=spacemachines.com;
+	spf=pass smtp.mailfrom=spacemachines.com;
+	dkim=pass header.d=spacemachines-com.20260707.gappssmtp.com header.i=@spacemachines-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=A+XTWgLg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38E02606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:52:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38E02606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFAD606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:54:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAFAD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=spacemachines.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=spacemachines.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eC7adzfA
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=KgVWWAxyr8iPCwiWN8wYMPXLomCb+GIGzWKMLYf37Ts=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794192760; v=1; x=1794797560;
- b=eC7adzfALQ0L4SM+y+ZdJC3Q5i5q9u43x0RsBuKad2n46bMdwo3ZCSREJmKrjaMErch/haL1
- BoOt+34GR7eIf7biomoRsJyV6Ao43W3E12J2oque0TezGsDMeDoNmXAec7pBPUv0NtmKHRGOUyc
- C7Barj8w+Ln8WBELoC6TkfiY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id b67e6ef6822d9ad3;
-	Mon, 09 Nov 2026 02:52:40 +0000
-X-Mizu-Trace-ID: b67e6ef6822d9ad3
-X-Migadu-Flow: FLOW_OUT
-From: Hangbin Liu <hangbin.liu@linux.dev>
-Date: Mon, 09 Nov 2026 10:52:25 +0800
-Subject: [PATCH net v3] ipv6: ioam6: do not modify shared tuninfo
- eh.nexthdr
+	dkim=pass (2048-bit key) header.d=spacemachines-com.20260707.gappssmtp.com header.i=@spacemachines-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=A+XTWgLg
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3720addb068so607476eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:54:29 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794192869; cv=none;
+        d=google.com; s=arc-20260327;
+        b=T+L/bxDbWjXymyxIRR7pYUNfj6hzhVHbpEB9hvEd8H4w8IWECGhgGPiDiplk2+49Zu
+         /pqlL2WNdHqlpR9mRxcFMUTiEgKWEh+CFC32HwltBiWuhN+xMooLPc9UUdgXs/lfnvOX
+         FjjHOdqd08aKLGfjvFmZ2KUadblhsLqgD/qGtMvAOG6R5hjL4KYMN0c13fJRw+5gXmOH
+         0oA8Lv0r5tSE0jw91PTtipJ540U+5PsC4USpe8wt63ouIbWgbSUnIT2ETGlERCjBYOlI
+         FaiiMJ3El2Zne8I4uPjfiUNhSABsBsN35OidqrcMbxv6Bf9u9WCZd/Cws1OhAreccg9T
+         re4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Qz3NR7MGSXJNdrY+IV5qaIakyyfe+n06O6AowRbO9CQ=;
+        fh=SxDlQdQjsKCtyvE3L5dRLjNNcv1TxJyCzQ7PA0Gmds4=;
+        b=skWfYRhJNXOG1HQYqMX7msbdPGskezZpTk9oTgmMYNaJT2iosCq2yc+Bby9/LkqYs7
+         K6jH9bF4pfHTjIBVqqBrjRDL84YzaUttQRMvg75slkg/PsxqU0caLpdCbvUgxBwDM8VO
+         Uh3Xdv1CMRKupWpwVjek5qeFPcBVuVyPnedEyxkS+RUBUymEJ6sBrb417tlpjWJDha34
+         OqUECReymmCaMKgNrpZfZYQ/QIR/h8HKz63aBjCZv67SERQGNN+SL6U/EMSlhz7e/FEw
+         lGrpjuMWojlsFa6LMUbk8hRODMtM+GvmEZ61Q85SrYBTpXGhQVNj3py7L6+pFv8cenzA
+         jyQQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=spacemachines-com.20260707.gappssmtp.com; s=20260707; t=1794192869; x=1794797669; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Qz3NR7MGSXJNdrY+IV5qaIakyyfe+n06O6AowRbO9CQ=;
+        b=A+XTWgLgnrqW+PCT7TIAIIkFzWhX5Buzzt2ApyCVF0MOnlG8Gi+M4EE5q0NaLoq1Ev
+         xPip4ML5lUHUiyZ5x2ApGnQrswnqqbtWfN2F+BglB0yjDc9W9JAFdOKJ/zYrzqQ6ttTg
+         X8qJUTdRDoFWV/PWbsOfYGw5P8h78PMyfkEHIr9suaJUzbKVw6eNzHnjgP3qtWwAxR2w
+         45q+B2oG8EoKqIsvtsVYgUDP1lNJve7W4l4p+hUagMNxjJbaE6XNu6ujr1KEzzK/fyr5
+         UG2R31p4ny/82LbEIp9YTBUJgH/cqrS5+HMPMK8IEhvuspgz01J7cId5LwMTWfx3w+1Z
+         OHqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794192869; x=1794797669;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qz3NR7MGSXJNdrY+IV5qaIakyyfe+n06O6AowRbO9CQ=;
+        b=dZhX3g7awpC9MW12VXygBlQW2OlkPiWIbT6AX7o5o/fzMTzBTC5s3SE5wguKoRsrfF
+         ApREATYhD+H7CLDa6iffelTExiDzD21kHMVs8DoFjG4myYZAutQbUsNjD22kmNHwatje
+         rgwr5fmuWILXMT8VrVKq96AtUar2hwd/w6YHSkI/xpH5iSljWzx3lvNDTRSm7AQUo/pQ
+         ArEU5yJjG4VGmkLTzn3kS4mICtL6TqxJhsJkAQ0Gnm1AjeVd59upxdFtzu4uGuG2e8SO
+         9oLr/lmvNg52VtjPFB2UFds1Ni+D9Dt7dX/AYbeBZNuRDmEJpE6mFqg7ZkphFGE3K1p2
+         tIlg==
+X-Forwarded-Encrypted: i=1; AL+hErE15qYn2UQDZAE0LV5E0MfCONGzxzcoKc2ypyF825yeFO2wy7kztQxuVX6oIChswaVQgmDMpdWQUGRfcao=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Do2gtk3dxXl+90O7Sfn3WG5nGF4RCfB53Jdhl4HZPn7fVPoEC
+	/8t4Jzs47yK7XHYF3io6ILDVkZRR9N403YNK5lH28bCJF+ll7yX0jvDohpRTpDSGb2tlHN8TuTB
+	g04tBtxjzDba4rP8A/8bAzJm7gg83KSfWfligWpCveg==
+X-Gm-Gg: AYBFou3wTL+33WucbJvxtFZCfHNezmWXwAvBNiYLMytqRaTZzZSXoCvr/uds4L7rLb8
+	ZKWjs8EIrkBhkKvY5mpW2R8LUThuQ0qd1nKMmDGfLetqCBjKLlZYYwcBQdeRo/1mkTjPg+h6kXY
+	27naCwBb/coVrA8To0vLMRWN6ZqkOutBgXrFQl6ql1DSqvuQ7bg/JuGPB3Ff+u99EH0yTa3ZsIp
+	LwzLovmZUEutmRbgyx5KuVG6zT9QnTOFsdQ/I7SmseGYfYop4c4ImDnhSxgiNYGhK5IUd3cpAff
+	oAMNuo4+Oc2JsVnrKkeOv1hTlUqUrU4vElVjSqSm+6/uWksHWNdj48AnK9iAVywy1hxUAkbb5M4
+	W6ndldNwVA+3+7geYgiAC0+hnSYBtKfK08GB4XA==
+X-Received: by 2002:a05:7301:4601:b0:369:f9da:a70f with SMTP id
+ 5a478bee46e88-372579ada0cmr5004293eec.17.1794192868908; Sun, 08 Nov 2026
+ 18:54:28 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,117 +104,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-ipv6_ioam_lock-v3-1-a86195859d1e@kylinos.cn>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WN3w6CIByFX8VxHQ0QnXXVe7TmkCB/aeDAWM757
- iF10Z/Lc3a+883IKwfKo302I6cCeLAmhnyTIdkKc1EYzjEjRlhJKckxDKGswYpb3VvZ4bKghEl
- R8B2pUIQGpzQ80uERGTWi06v09+aq5LherbMW/GjdlLSBpvHbwH8NgWKKuWZcctrESXPoph6M9
- Vtp0ntgn3zxx7PIV5ookRPJtRZf/LIsTzoIe2kEAQAA
-X-Change-ID: 20261103-ipv6_ioam_lock-65102ca54908
-To: Justin Iurman <justin.iurman@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: Hangbin Liu <hangbin.liu@linux.dev>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>, 
- Sashiko <netdev-bot+sashiko@kernel.org>
-X-Mailer: b4 0.16.0
+References: <20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com>
+ <20261103-core16550-rs485-v1-1-6d15ebe1e5b9@spacemachines.com> <20261104-zen-aloha-35da49a7e72c@spud>
+In-Reply-To: <20261104-zen-aloha-35da49a7e72c@spud>
+From: Kohei Otsuka <kohei@spacemachines.com>
+Date: Mon, 9 Nov 2026 13:54:17 +1100
+X-Gm-Features: AclHuK-Q4F2OkjltIrYE04Gknko9UUPJ0_lJdkzGPXUFMua3_w-rpVx6FPuUaIQ
+Message-ID: <CADMKYUAc3QPCdpH8JL9VHk4d0iETsUL2ao2i4OhoHYoZGoAnnQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: serial: 8250: add Microchip Core16550
+To: Conor Dooley <conor@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lubomir Rintel <lkundrak@v3.sk>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-serial@vger.kernel.org, conor.dooley@microchip.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Hangbin Liu <liuhangbin@kylinos.cn>
+On Thu, Nov 5, 2026 at 3:20=E2=80=AFAM Conor Dooley <conor@kernel.org> wrot=
+e:
+>
+> On Tue, Nov 03, 2026 at 11:11:31AM +1100, Kohei Otsuka wrote:
+> > Core16550 is a 16550-compatible UART soft IP core for Microchip FPGAs,
+> > including the fabric of PolarFire SoC. Its registers follow the 16550A,
+> > so ns16550a stays the fallback, but
+>
+> > it raises no interrupt on TEMT,
+> > which the driver has to know about to support RS-485 on it.
+>
+> Doesn't this exclude using the fallback to ns16550a, since it requires
+> specific interrupt handling?
+>
+Everything a plain ns16550a driver does works on
+Core16550 including transmit, receive, FIFOs, modem control and the baud ra=
+te
+divisor. The only thing that needs the specific compatible string is
+software RS-485
+(em485), which waits for a TEMT interrupt the core doesn=E2=80=99t raise.
+Without the patch, RS-485 direction control is missing, but the UART
+otherwise works. If you=E2=80=99d rather
+not have the fallback, I can match the compatible in 8250_of directly.
 
-ioam6_do_inline() and ioam6_do_encap() stored the next header into
-the shared ilwt->tuninfo template and then memcpy()ed it into the
-skb. The lwtstate is used from multiple CPUs without locking, so
-another packet can overwrite eh.nexthdr between the store and the
-memcpy.
 
-The packet can then leave with an HBH nexthdr that does not match its
-payload (e.g. TCP labelled as UDP, or a local packet labelled
-IPPROTO_IPV6). Set nexthdr on the per-packet Hop-by-Hop copy after
-memcpy instead, leave the shared template read-only.
+> >
+> > Add microchip,core16550 with ns16550a as the fallback.
+> >
+> > Link: https://github.com/linux4microchip/meta-mchp/issues/5
+> > Signed-off-by: Kohei Otsuka <kohei@spacemachines.com>
+> > ---
+> >  Documentation/devicetree/bindings/serial/8250.yaml | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Docum=
+entation/devicetree/bindings/serial/8250.yaml
+> > index 50d5c977afa3..33a5929bdaa6 100644
+> > --- a/Documentation/devicetree/bindings/serial/8250.yaml
+> > +++ b/Documentation/devicetree/bindings/serial/8250.yaml
+> > @@ -137,6 +137,7 @@ properties:
+> >                - ti,da830-uart
+> >                - loongson,ls2k0500-uart
+> >                - loongson,ls2k1500-uart
+> > +              - microchip,core16550
+>
+> This needs a -rtl-vX suffix on the end, as is used for other fabric
+> cores - see microchip,corei2c.yaml for an example.
+>
 
-Making tuninfo as const now since it's not modified anymore.
+v2 will use microchip,core16550-rtl-v3, thanks.
 
-Fixes: 3edede08ff37 ("ipv6: ioam: Support for IOAM injection with lwtunnels")
-Fixes: 8cb3bf8bff3c ("ipv6: ioam: Add support for the ip6ip6 encapsulation")
-Reported-by: Sashiko <netdev-bot+sashiko@kernel.org>
-Closes: https://lore.kernel.org/netdev/179336082844.3134.1265197633714491521@kernel.org
-Reviewed-by: Justin Iurman <justin.iurman@gmail.com>
-Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
----
-The issue is reported by Sashiko. It was confirmed with concurrent TCP
-and UDP traffic through a shared ioam6 inline route on a multi-CPU host.
+> pw-bot: changes-requested
+>
+> Thanks,
+> Conor.
+>
+> >            - const: ns16550a
+> >        - items:
+> >            - enum:
+> >
+> > --
+> > 2.53.0
+> >
 
-Without the fix, a packet can leave with an HBH nexthdr that does not
-match its payload (e.g. hbh->nexthdr=17 with a TCP segment after the HBH,
-or hbh->nexthdr=6 with a UDP segment). With the fix, the same load reports
-no HBH/L4 mismatch: nexthdr is written only on the per-packet Hop-by-Hop
-header after memcpy, never on the shared tuninfo template.
----
-Changes in v3:
-- make tuninfo as const (Justin Iurman)
-- Link to v2: https://patch.msgid.link/20261105-ipv6_ioam_lock-v2-1-8f0ea30c4ffa@kylinos.cn
 
-Changes in v2:
-- Add one missed Fixes tag. No code change.
-- Link to v1: https://patch.msgid.link/20261104-ipv6_ioam_lock-v1-1-4f24c41b261b@kylinos.cn
----
- net/ipv6/ioam6_iptunnel.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/net/ipv6/ioam6_iptunnel.c b/net/ipv6/ioam6_iptunnel.c
-index cfb2c41634a0..a1f954dd7c2a 100644
---- a/net/ipv6/ioam6_iptunnel.c
-+++ b/net/ipv6/ioam6_iptunnel.c
-@@ -254,7 +254,7 @@ static int ioam6_do_fill(struct net *net, struct sk_buff *skb)
- }
- 
- static int ioam6_do_inline(struct net *net, struct sk_buff *skb,
--			   struct ioam6_lwt_encap *tuninfo,
-+			   const struct ioam6_lwt_encap *tuninfo,
- 			   struct dst_entry *cache_dst)
- {
- 	struct ipv6hdr *oldhdr, *hdr;
-@@ -276,12 +276,12 @@ static int ioam6_do_inline(struct net *net, struct sk_buff *skb,
- 
- 	hdr = ipv6_hdr(skb);
- 	memmove(hdr, oldhdr, sizeof(*oldhdr));
--	tuninfo->eh.nexthdr = hdr->nexthdr;
- 
- 	skb_set_transport_header(skb, sizeof(*hdr));
- 	skb_postpush_rcsum(skb, hdr, sizeof(*hdr) + hdrlen);
- 
- 	memcpy(skb_transport_header(skb), (u8 *)tuninfo, hdrlen);
-+	((struct ipv6_opt_hdr *)skb_transport_header(skb))->nexthdr = hdr->nexthdr;
- 
- 	hdr->nexthdr = NEXTHDR_HOP;
- 	hdr->payload_len = cpu_to_be16(skb->len - sizeof(*hdr));
-@@ -290,7 +290,7 @@ static int ioam6_do_inline(struct net *net, struct sk_buff *skb,
- }
- 
- static int ioam6_do_encap(struct net *net, struct sk_buff *skb,
--			  struct ioam6_lwt_encap *tuninfo,
-+			  const struct ioam6_lwt_encap *tuninfo,
- 			  bool has_tunsrc,
- 			  struct in6_addr *tunsrc,
- 			  struct in6_addr *tundst,
-@@ -314,8 +314,8 @@ static int ioam6_do_encap(struct net *net, struct sk_buff *skb,
- 	skb_mac_header_rebuild(skb);
- 	skb_set_transport_header(skb, sizeof(*hdr));
- 
--	tuninfo->eh.nexthdr = NEXTHDR_IPV6;
- 	memcpy(skb_transport_header(skb), (u8 *)tuninfo, hdrlen);
-+	((struct ipv6_opt_hdr *)skb_transport_header(skb))->nexthdr = NEXTHDR_IPV6;
- 
- 	hdr = ipv6_hdr(skb);
- 	memcpy(hdr, inner_hdr, sizeof(*hdr));
+--=20
 
----
-base-commit: fafbc4051123d5459ea6950899cec08ed946e278
-change-id: 20261103-ipv6_ioam_lock-65102ca54908
 
-Best regards,
---  
-Hangbin Liu <liuhangbin@kylinos.cn>
+Kohei Otsuka
+Satellite Flight Software Team Lead
 
+  koheio@spacemachines.com   spacemachines.com
+
+ UTS Tech Lab, 36-38 Lord Street, Botany NSW 2019
