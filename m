@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794247648;
-	b=SNwkP7BCh+yWIb87XsKrZM1xkeOPyp7uODPLk1Ei53uUmFolF6kUbgnJ2FtQxU5huA1Y
-	 AeZ9SADHWyJ+Koues+72IAclv+8Sh5Vet3gA4SCrgxrMp+IkZQJtxRd5zMh+d4t181W4w
-	 KmEVJ0PubBq5lfCxs1X8rixJaH5Uj2RhgytXpbeQfBDqD18je/TjrDIFUOmiknURfXA1s
-	 hgNw19aUsFb+kjnUZN0WPpRYbK1hI6xwpKR0C7gnhHtSavJYJCG/3KB/vOdhuBHORo6Yn
-	 l/0JsG4tpUGfuodaYx2z0Ao3EjhvF0x/P1RSSgean/InALq0qrPZcn6IHplO35mqoQg==
+	t=1794247669;
+	b=Hdz6P37U0ZTPbPfgIUTIp94Psn7Cnk0pLRxNfgY1yMlQV6NLy3NCSGoFpfoWXyoVcqxW
+	 QdBqXb+zimBWACPpFMH1fvwdhgx7SJsFC6mqftH+7avjTjtOW0R9R/dB9IBgUVXzchJJ/
+	 RyHLmOzPwz/ZbY0+SB0ijN5IfWAW8QUIv1yXqQLFDU4e/2pEJ9T5K8+iubKkIp+oEbwK4
+	 pNpPDLa6xXMzh8rqt9TdxiWVDyTq6r2m1clGLmnW2fo/Hns+QmzMTDvXKSeRySccayQBc
+	 78btoN37e5ixkV2bPLIHfF/jLtNJiB92zhdIlVFt0H+6Ne6gy+jn7UIY43AuwzFGUpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247648;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=chIFJGd9aGjFqIdLQJRseW64QE/SzhDO/ltYFKnzUGM=;
-	b=Tjo4h0HiQ9zI/upp5Ch3PVY2h1q4GlQqJcw/1SxL8ugdpZOMzIUp7oS3ny7iS+Akpcys
-	 2jRk519JXWe5E4Q/Kj+lID8lF2sXEe16RU3rTtQYRp2Gxey/piGgJUs74vQ/fdl7oSWvw
-	 pzTWcV9yksPi8G3TqrmlktiDSarDhXmwhM36KnkZy34N8dkswaITfpTHdE5j/r/6RDzHC
-	 ecAdwTl+OL4lcPMulBSJ5wc8fp3LwZXgXudBgH1399CSBrdEXQCES1dXt/rrtV/Byz7UV
-	 tDwCwQUR3XxeRx3jzRoEonU3S2xWqykyeePbNVxxJQH2/WPtIZcAdnoubUp8ATS3HDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794247669;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1Gd+Z3/OLlRqwOYO36qAhtu9JC5HL8fvtZ/EZ5rAaLg=;
+	b=bIx6uAeaggHrxpeO+9x7u4g/IQBhYOwPxcnCgCRVApWDRTDnQT7lLd0er/s5ZT2RWbKN
+	 sa6WQPAor8dZ92oAd8jJrwF52L2A7dmntC7Gv6ihPQj/9g/w6rwKB8JHCdtMfEqnnapFD
+	 YFNzwrNtJoBOsMfTqc6b6xf52NYHqJ9mlhrF1S86jfj1cVYVlw7abdhV42DtHnlgJAPVQ
+	 lxR9AJp+59FYhrKqU+SQ0HwHTbggH+2qw8po+16K+2F/wg3PVEtpJaV0le5hD/k+acWoi
+	 KNXKwyXG6kayQfS2ZdrXbTcYMpjhq3rp2oZJ6Vlqv5Nf/0UcgVIzam04CI1Gy2OT6og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eS0xFi5F;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=K0GjaAFo;
+	arc=none smtp.remote-ip=79.135.106.121
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC224606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:07:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA2C606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:07:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FA2C606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eS0xFi5F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 407EA1F008A1
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:07:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794247647;
-	bh=chIFJGd9aGjFqIdLQJRseW64QE/SzhDO/ltYFKnzUGM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=eS0xFi5FxEskiC1znACA7+hIu3LnDW7B/+c3J/y6hk8vRCBQny/oqvRWbbRb0GHXt
-	 GHEGAUOvu4IDBTWOvc0dnIaOEr0AES2ERrqoO4uOQnORQTJd2IlFJ0DZ5+VMxK+fEF
-	 Aov4dm0JNFNyBGGJOz5r0bFuYUF+35ReNfK8lFGIsCzxdvOiy/GCv+B2j4dWPVY+dA
-	 d9Fba507gRyl2DY5baaHj57+7UPNKe+En4z28TePU/DJiYyUj/z0Wg9U6BaUSG38ap
-	 d9ILmaKXnuQc+w/+OoghM8MAh+APWPxi/0zzc2NAKOWJUpm3dHSZaoLvvZBm0Kelsj
-	 5GY+QfR2ez4DA==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c49b431f022so195261466b.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:07:27 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErF9ijTehMAy6xpMXJOYIetCSEcjQzqU+iEHrCa6PBwwyTZkUBNm9rf86lIkcRFRXkSFclXjc8G9jKTtLbA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8oNZT0Dp27vvusi5yOy6HQVstmV315ghrDwUD9P09vipOUms67
-	mkWSneostzFjo1vWpSNXo7BfCMbNOH8p2eAj7dg6BL0J/xL5IpFNXohBr/kixS8GCYGZtHArLFA
-	Ot28wK3d34/oyYMJ6TyhKUdssUXhTqQ4=
-X-Received: by 2002:a17:907:c1a:b0:c3f:e414:d35a with SMTP id
- a640c23a62f3a-c504955f03emr11473366b.26.1794247646237; Mon, 09 Nov 2026
- 10:07:26 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=K0GjaAFo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794247666; x=1794506866;
+	bh=1Gd+Z3/OLlRqwOYO36qAhtu9JC5HL8fvtZ/EZ5rAaLg=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=K0GjaAFoIez5E2XWNtv8OOtthbVyffwJW8gLJUU52J0oixcrvCidSFq6zZ0wmYSq9
+	 sFDIK+UOKwRujTAkTSFQVo5zHLCbjjFEyRRQ7/JHep9tMI5qmcwTsvicZcBpXYO2Vh
+	 iejqxG/4eQ3HkOzaH/IcoOlCaBHGL/uLX+e6QYjAWLfde+ze0QJotjIWnFV/cgV/0J
+	 G6ITKJ4Ow0XnwgoCQX4HzArGhUIozMRI06XnMoqJyDqAxCFJzqAFC3u1Gutt/n1cyg
+	 xJvPMssD28jbMftZwy9kDuj9nfq5BRDocAfd8Q4PuD5z3nAwjouIjoW4TLlG/va/z8
+	 9CTi5fP/Bwg2A==
+Date: Mon, 09 Nov 2026 18:07:38 +0000
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] media: i2c: vd55g1: Bound the number of st,leds entries
+Message-ID: <20261109180732.84703-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 4c63b7482c0eacdcf5397257a4892c43328949ae
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,89 +61,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106013927.166209-1-zide.chen@intel.com> <20261106013927.166209-5-zide.chen@intel.com>
- <au4kyULjUYdqbfIq@google.com> <531bd088-dc5e-4b2e-953a-6d9d6f14b61e@intel.com>
- <CAO9r8zMs+aBPN-w7L3nZxwVV-Dr2f0tBYBjicDsdYVp_Mc2AWg@mail.gmail.com> <e977b107-7762-46d3-ba31-832eb9ae609c@intel.com>
-In-Reply-To: <e977b107-7762-46d3-ba31-832eb9ae609c@intel.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Mon, 9 Nov 2026 10:07:14 -0800
-X-Gmail-Original-Message-ID: <CAO9r8zPVt++jgZD3-Jd-DYKMjYyAfUuQkvEXD4pKqe0bdYE29A@mail.gmail.com>
-X-Gm-Features: AclHuK8___5umqnpPhXfPUyV53ks38eOF5SSE51KrETciHe4B3EcpzDOnG_Gs_I
-Message-ID: <CAO9r8zPVt++jgZD3-Jd-DYKMjYyAfUuQkvEXD4pKqe0bdYE29A@mail.gmail.com>
-Subject: Re: [PATCH v3 04/18] KVM: x86/pmu: Add PMC bitmap accessor helpers
-To: "Chen, Zide" <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
-	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> >>>> +/*
-> >>>> + * @mask is expected to be a scalar unsigned long derived from pmu->pmc_exists,
-> >>>> + * which is already constrained by KVM_MAX_NR_{AMD,INTEL}_{GP,FIXED}_COUNTERS,
-> >>>> + * so iteration up to KVM's maximum counter count is safe.
-> >>>> + */
-> >>>> +#define kvm_for_each_gp_counter(i, mask)    \
-> >>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_GP_COUNTERS)
-> >>>> +
-> >>>> +#define kvm_for_each_fixed_counter(i, mask) \
-> >>>> +    for_each_set_bit((i), &(mask), KVM_MAX_NR_FIXED_COUNTERS)
-> >>>
-> >>> These are not used in this patch, are they?
-> >>>
-> >>> They should probably be introduced when they are used. Also, do we
-> >>> always end up passing kvm_gp_pmc_mask() and kvm_fixed_pmc_mask()? If
-> >>> yes, maybe we should pass in the pmu here instead?
-> >>
-> >> The intent was to group all bitmap accessor helpers together in this
-> >> patch for easier review so that the big patch 5/18 could be kept to
-> >> mostly mechanical replacements.
-> >>
-> >> But if you prefer introducing them on first use, I'll move their
-> >> definitions to patch 5.
-> >
-> > Yeah I think it's clearer to see what their definitions are with their usage.
->
-> OK, then I can move these two macros to the next patch.
-> >>
-> >> Regarding passing 'pmu' directly, I initially implemented it in this
-> >> way, but I can't recall why I discarded it. I will take another look.
-> >
-> > Thanks.
->
-> How about these? With them, we can remove the {gp,fixed}_mask variables
-> that you pointed out in your review of 5/18. The APIs are more
-> complicated, but the caller code is much cleaner.
+vd55g1_parse_dt_gpios() reads st,leds into a stack array of
+VD55G1_NB_GPIOS entries, and vd55g1_parse_dt_gpios_array() reads as
+many entries as the property has. The binding allows four, but nothing
+checks that at run time, and on ACPI the property can come from a
+software node or _DSD that no schema validates. A fifth entry is
+written past the array.
 
-I don't understand why we can't keep the macros as-is, but just move the
-calls to kvm_gp_pmc_mask() and kvm_fixed_pmc_mask() inside the macros?
+Refuse more entries than the sensor has GPIOs.
+
+Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+---
+Found while reviewing the vd55g0 driver, which has the same check.
+There is no VD55G1 here, so this was tested with a module that runs
+vd55g1_parse_dt_gpios_array(), copied unchanged, on a software node,
+with a guard word after the four-entry array. Five st,leds entries
+overwrite the guard and the call succeeds; with this patch it fails
+with -EINVAL. Four entries parse as before.
+
+Tool use, per Documentation/process/generated-content.rst (Assisted-by
+tags in commits were dropped in 7.4-rc1):
+
+* My contributions to this series were prepared with Claude Code
+  (claude-opus-5-5); work by others in it is their own.
+* This replaces any Assisted-by tags in earlier versions.
+
+ drivers/media/i2c/vd55g1.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+index e3939bb9bd4..2e847af3f1e 100644
+--- a/drivers/media/i2c/vd55g1.c
++++ b/drivers/media/i2c/vd55g1.c
+@@ -1854,6 +1854,11 @@ static int vd55g1_parse_dt_gpios_array(struct vd55g1=
+ *sensor,
+ =09=09*nb =3D 0;
+ =09=09return 0;
+ =09}
++=09if (*nb > VD55G1_NB_GPIOS) {
++=09=09dev_err(sensor->dev, "%s lists %d GPIOs, the sensor has %d\n",
++=09=09=09prop_name, *nb, VD55G1_NB_GPIOS);
++=09=09return -EINVAL;
++=09}
+=20
+ =09ret =3D device_property_read_u32_array(sensor->dev,
+ =09=09=09=09=09     prop_name, array, *nb);
+--=20
+2.54.0
 
 
->
-> static inline unsigned int __kvm_find_next_counter(struct kvm_pmu *pmu,
->                                              unsigned int base,
->                                              unsigned int max,
->                                              unsigned int prev)
-> {
->         return find_next_bit(pmu->pmc_exists, base + max, base + prev) -
-> base;
-> }
->
-> #define __kvm_for_each_counter(i, pmu, base, max)                       \
->         for ((i) = __kvm_find_next_counter((pmu), (base), (max), 0);
->      \
->              (i) < (max);                                               \
->              (i) = __kvm_find_next_counter((pmu), (base), (max), (i) + 1))
->
-> /*
->  * Iterate over all general-purpose or fixed counters supported by @pmu.
->  */
-> #define kvm_for_each_gp_counter(i, pmu) \
->         __kvm_for_each_counter(i, pmu, 0, KVM_MAX_NR_GP_COUNTERS)
->
-> #define kvm_for_each_fixed_counter(i, pmu) \
->         __kvm_for_each_counter(i, pmu, KVM_FIXED_PMC_BASE_IDX,
-> KVM_MAX_NR_FIXED_COUNTERS)
