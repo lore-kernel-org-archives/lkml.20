@@ -1,47 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794237824;
-	b=biAI/oVLtOGEKFDhbVVr6mv0AtBS1NuDFAulmejqfaHH8VWJ7Nt1ap25c45qrL3TlCfq
-	 jghclCK6JuoswQsXoTFu4eyrRKuOXuA0sBwWvyJEyW7ur/HyxsuZeDLz1XT08ZMW8krPs
-	 Zb5ynrLSHgSzkMwNMhEzTMvp8EqoegHGXT03qS2kFuMACK3z61qQx08WwYU6E6/KPHhps
-	 sh9JWeD8OZ264a8eqa4bUSpnNAvAeOWtQaNc0fx2aC+vxq9Be0C5T15aXr/CqnehK5jHu
-	 nDh7AVEcPJiacAksR0D7gvlifGbHMOXMTZaMpGhbhovfo/GRa27DbXwmynPdOWpIwzA==
+	t=1794237876;
+	b=u5Al+mpiivGQNW6spT4wpzQK37IR39TDEnBgKKXVB3am/YNLaqGj6EIiQgvShSs88ePr
+	 pNH7SV8HXP/ixalo7PaaZpQ+QVZxDp72SrGpMYR6oa2+jNFSaXBT0YWfzad0Roke0rIRZ
+	 9pLX2PzJ6X7H2l147xb5xwpkqtrIvpN8omdHjBeL9JVuFrczCxmxc8wEeg6LMC1EFDrLN
+	 bkmigH4sngwIYe6tb5ub92V3VT3loDbG9Phwb5+6DNTpsshEaU1rWqSqIzeLSrP2Sn3ba
+	 zjXjlW9hv8PewgRF1Id4YQduT5yCqPWoe22CQziR2Y4C7yQ6H5OyXTzdIGl93x17PBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237824;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=LYhCNgLdezCmiQtRdGUAuGXeiIAQRWnsak26kG4ikkU=;
-	b=UubAT2Y5rN4Fzqu5O0DRfkaGNl7PLUOEPLe3hvF/Bhm2ATXIwZ6VRAlyMksvM5OtmLKp
-	 h4EKa7wOEwiO6B4fkyy6E/h0svEqacQacu5pDGJ1dbIegXntbIWmBK4ssBjBH4oAxGxso
-	 pfJM0UyIOuAt1Sw/xHjjQIMStbm3fKY0Kgof8WRe83CkNEsj6wbvd0+frs4NXXsD4KQ3k
-	 Ay/gbFC4Pm9SgBI1B6yMV67ySUSpQ+tdxIiXR/yFa32+23mQwA/ByPCybAlWJmThtV4/T
-	 0igzeu0e6bPbNAiplI5vTv5ltidd0YRA3t7YSl4mRDs+0DshZFowq5xEIjIFpI1ZJXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237876;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=05PSSj9KAFKOlOAqbcefgviQBOp2FmRn72Lc22GkBCE=;
+	b=3RzC8ra6X73JlVKZWF3wPOLUBZHi8xA4o2waqOV5RvVdM0Zxe+dQaVyM/6Al5mbR5KOl
+	 4NuLh5I3AJP8zeicN+7FLqcBpPy6NyIR7Vs6R7ETeBCScUBZKzZkuu9f1kLZwiawi6/4d
+	 Zd5mtULK3yHCx87uBSSHV44GQ3uVKTZxtxAIv3GJIE7Ju8hVl8g02NGP07bGmSOh5Rthm
+	 saTlBXyI9zE+WwcZtylsh5YRqMBIXWJb/FAEO2mFa4qOB/xXxYFhVPgFwga0Opp1zcxco
+	 QwhDl+UM/xJrTdTAlPaSAcx1kJBXgnRWl8JJsBCqUboXdrOUGGY00koVCBaLlxicPkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lANC8zXP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39189606A321;
-	Mon,  9 Nov 2026 15:23:44 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dW2hIoim;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A1C7A606A321;
+	Mon,  9 Nov 2026 15:24:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1C7A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lANC8zXP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77DDF1F0089F;
-	Mon,  9 Nov 2026 15:23:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794237824;
-	bh=LYhCNgLdezCmiQtRdGUAuGXeiIAQRWnsak26kG4ikkU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lANC8zXPYCmVKBXQleZvG9jyEfrO3e8M3ADEGPRb3CffxcjQuPTYmfP4Pbnn1LKTa
-	 FHRShxovirrwAjLLRWG+KBuzLbXpiYzeHi+YoS2XhWazRUF+JulNDjY3ESamprKDGC
-	 2AIIW4HZ9Usyo4nGg/stF/Q4Y+ZbbTqtzHrAlqdgfGm6CG8IrDCVzH3u6Q4/yweVMs
-	 pVT0e0X8MWKw5tBKUdMK4zT3ufJNcsQFzspbHgyNYh+FlOG4qn+Ofc9lNb+BdUGskW
-	 o4z5pfSjQtEg59N0C6ZDg3DhbwwFamLNyUhirrN32AHK+wtGXHxPllnNGRRp0on6pM
-	 5sOFnRspNsV1w==
-Message-ID: <f1fa6cd5-3e76-4033-80f3-0233975207ab@kernel.org>
-Date: Mon, 9 Nov 2026 15:23:39 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=dW2hIoim
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7AFAE14BF;
+	Mon,  9 Nov 2026 07:24:30 -0800 (PST)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 066483F632;
+	Mon,  9 Nov 2026 07:24:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794237873; bh=5m0+4MkLWcNQHhoWxQ/fZjW/kH3KPYnBjU3kMCC73T0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dW2hIoimCnQ4aKC8wFf3cXyw0LwNNqLNkYtgmSRm+3yJohT9NFUKs1o/pkWDFnJRT
+	 1wKRX/L73wDMpIEmpsF9AhxYzUsWJZITwwrPlodIg5trvqYhZD/NzK9X9gVmZ6nJSB
+	 yOgP4lk2Y95HlkvimKrTvBU+9ZtrzIzSVdrIsDto=
+Date: Mon, 9 Nov 2026 15:24:28 +0000
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Rik van Riel <riel@surriel.com>,
+	Yuan-Hao Hsu <aa9736195201@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/6] mm: khugepaged: ignore MADV_HUGEPAGE for shadow
+ stacks
+Message-ID: <avHlrEfKXDNtFJG4@e129823.arm.com>
+References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
+ <20261109-refactor_gup_fast-v3-1-2aaef02df0e1@arm.com>
+ <3a2d4135-f531-4797-8dd2-a2732a846e45@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,302 +72,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 v6 5/9] ASoC: qcom: lpass-va-macro: Add SoundWire
- microphone support
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261106-add_shikra_support-v6-0-2cda302237cc@oss.qualcomm.com>
- <20261106-add_shikra_support-v6-5-2cda302237cc@oss.qualcomm.com>
-From: Srinivas Kandagatla <srini@kernel.org>
-Content-Language: en-US
-In-Reply-To: <20261106-add_shikra_support-v6-5-2cda302237cc@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3a2d4135-f531-4797-8dd2-a2732a846e45@kernel.org>
 
+> On 11/9/26 13:32, Yeoreum Yun wrote:
+> > commit 3efb9800557b ("mm: do not map the shadow stack as THP") makes
+> > shadow stack mappings default to VM_NOHUGEPAGE. However, userspace can
+> > still clear this flag and set VM_HUGEPAGE through madvise().
+> > 
+> > Allowing large folios in x86 shadow stacks exposes a limitation in
+> > folio_pte_batch_flags(). For example:
+> > 
+> >   1. create a shadow stack mapping.
+> >   2. apply MADV_HUGEPAGE and populate the mapping with a PTE-mapped
+> >      large folio.
+> >   3. apply MADV_DONTFORK to the first base page of that folio.
+> >   4. call fork().
+> > 
+> > In the parent, the first page remains writable and anonymous-exclusive,
+> > while the remaining pages shared with the child become write-protected
+> > and lose PageAnonExclusive(). These pages can still belong to the same
+> > large folio.
+> > 
+> > On x86, writable shadow-stack PTEs have _PAGE_RW clear and _PAGE_DIRTY
+> > set. Write-protected PTEs have both bits clear, with the dirty state
+> > preserved in _PAGE_SAVED_DIRTY.
+> > 
+> > When FPB_RESPECT_WRITE is set without FPB_RESPECT_DIRTY,
+> > folio_pte_batch_flags() normalizes PTEs using pte_mkclean(), which clears
+> > both dirty bits. This loses the distinction between writable
+> > shadow-stack PTEs and write-protected PTEs, allowing them to be grouped
+> > into the same batch. GUP-fast can encounter such a batch when walking
+> > across the VMA boundary created by MADV_DONTFORK.
+> > 
+> > Since there is no practical use-case shadow stack with large folio,
+> > ignore MADV_HUGEPAGE for shadow stack mappings, preserving their
+> > VM_NOHUGEPAGE setting and preventing large-folio allocation.
+> > 
+> > Fixes: 3efb9800557b ("mm: do not map the shadow stack as THP")
+> > Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> > Cc: <stable@vger.kernel.org>
+> > ---
+> >  mm/khugepaged.c | 3 +++
+> >  1 file changed, 3 insertions(+)
+> > 
+> > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> > index 40fad28c52f6f..51ec043fa26c3 100644
+> > --- a/mm/khugepaged.c
+> > +++ b/mm/khugepaged.c
+> > @@ -367,6 +367,9 @@ int hugepage_madvise(struct vm_area_struct *vma,
+> >  {
+> >  	switch (advice) {
+> >  	case MADV_HUGEPAGE:
+> > +		/* PTE batching doesn't work reliably. */
+> > +		if (vma_test_single_mask(vma, VMA_SHADOW_STACK))
+> > +			break;
+> >  		*vm_flags &= ~VM_NOHUGEPAGE;
+> >  		*vm_flags |= VM_HUGEPAGE;
+> >  		break;
+> > 
+> 
+> Ack, I prefer this solution for now until we know how to make pte_mkclean() on
+> x86 shadow stack PTEs not result in an implicit pte_wrprotect().
 
+Yeap. As we discussed in offline, just skip clearing dirty bit for
+shstk in pte_mkclear() wouldn't work since it would make a another
+regression -- wouldn't be page-outed.
 
-On 11/6/26 12:33 PM, Mohammad Rafi Shaik wrote:
-> The VA decimators can currently capture audio only from DMIC inputs.
-> Add support for routing audio from SoundWire microphone (SMIC) inputs
-> as well.
-> 
-> Update the decimator source selection logic to switch between DMIC and
-> SMIC sources based on the active input path.
-> 
-> The ADC_DMIC_SEL bit of CDC_VA_TXn_TX_PATH_CFG0 is shared by the DMIC and
-> the SoundWire mic mux, so a mixer write to the mux that is not part of the
-> active path can leave it stale. Program it from the resolved mux state
-> when the decimator is enabled, so capture does not depend on the order in
-> which userspace restores the two controls.
-> 
-> Add a helper to detect whether a decimator is using a SoundWire microphone
-> input. Use this information to skip DMIC-specific HPF programming sequences
-> when the decimator is configured for an SMIC source.
-> 
-> This enables VA decimators to capture audio from either DMIC or SoundWire
-> microphone inputs.
-> 
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> ---
+Might it would be good to use another soft-bit for shstk in x86.
+But, for now, it seems enough as you said.
 
-lgtm,
-
-Reviewed-by: Srinivas Kandagatla<srinivas.kandagatla@oss.qualcomm.com>
-
---Srini
->  sound/soc/codecs/lpass-va-macro.c | 154 ++++++++++++++++++++++++++++++++++++--
->  1 file changed, 147 insertions(+), 7 deletions(-)
 > 
-> diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-> index db395674312c..a11347404058 100644
-> --- a/sound/soc/codecs/lpass-va-macro.c
-> +++ b/sound/soc/codecs/lpass-va-macro.c
-> @@ -754,6 +754,16 @@ static int va_macro_mclk_event(struct snd_soc_dapm_widget *w,
->  	return 0;
->  }
->  
-> +static bool is_amic_enabled(struct snd_soc_component *comp, int decimator)
-> +{
-> +	u16 adc_mux_reg;
-> +
-> +	adc_mux_reg = CDC_VA_INP_MUX_ADC_MUX0_CFG1 +
-> +		      VA_MACRO_ADC_MUX_CFG_OFFSET * decimator;
-> +
-> +	return snd_soc_component_read(comp, adc_mux_reg) & BIT(0);
-> +}
-> +
->  static int va_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
->  				 struct snd_ctl_elem_value *ucontrol)
->  {
-> @@ -763,20 +773,26 @@ static int va_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
->  	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
->  	unsigned int val;
->  	u16 mic_sel_reg;
-> +	int decimator;
-> +	bool smic_mux;
->  
->  	val = ucontrol->value.enumerated.item[0];
->  
->  	switch (e->reg) {
->  	case CDC_VA_INP_MUX_ADC_MUX0_CFG0:
-> +		decimator = 0;
->  		mic_sel_reg = CDC_VA_TX0_TX_PATH_CFG0;
->  		break;
->  	case CDC_VA_INP_MUX_ADC_MUX1_CFG0:
-> +		decimator = 1;
->  		mic_sel_reg = CDC_VA_TX1_TX_PATH_CFG0;
->  		break;
->  	case CDC_VA_INP_MUX_ADC_MUX2_CFG0:
-> +		decimator = 2;
->  		mic_sel_reg = CDC_VA_TX2_TX_PATH_CFG0;
->  		break;
->  	case CDC_VA_INP_MUX_ADC_MUX3_CFG0:
-> +		decimator = 3;
->  		mic_sel_reg = CDC_VA_TX3_TX_PATH_CFG0;
->  		break;
->  	default:
-> @@ -785,10 +801,24 @@ static int va_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
->  		return -EINVAL;
->  	}
->  
-> -	if (val != 0)
-> +	/*
-> +	 * SMIC enums use shift 0 (lower nibble of CFG0), DMIC enums use
-> +	 * shift 4 (upper nibble of CFG0). Use e->shift_l to distinguish them
-> +	 * without relying on widget name comparisons.
-> +	 */
-> +	smic_mux = (e->shift_l == 0);
-> +
-> +	/*
-> +	 * Both muxes feed the same decimator and share ADC_DMIC_SEL, so only
-> +	 * the one the decimator is routed through may program it. A write to
-> +	 * the mux that is not part of the active path would otherwise switch
-> +	 * the input domain of a running capture.
-> +	 */
-> +	if (val != 0 && smic_mux == is_amic_enabled(component, decimator))
->  		snd_soc_component_update_bits(component, mic_sel_reg,
->  					      CDC_VA_TX_PATH_ADC_DMIC_SEL_MASK,
-> -					      CDC_VA_TX_PATH_ADC_DMIC_SEL_DMIC);
-> +					      smic_mux ? CDC_VA_TX_PATH_ADC_DMIC_SEL_ADC :
-> +							 CDC_VA_TX_PATH_ADC_DMIC_SEL_DMIC);
->  
->  	return snd_soc_dapm_put_enum_double(kcontrol, ucontrol);
->  }
-> @@ -978,7 +1008,6 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
->  	u16 tx_gain_ctl_reg;
->  	u16 adpt_ctrl_reg;
->  	u8 hpf_cut_off_freq;
-> -
->  	struct va_macro *va = snd_soc_component_get_drvdata(comp);
->  
->  	decimator = w->shift;
-> @@ -995,6 +1024,18 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
->  
->  	switch (event) {
->  	case SND_SOC_DAPM_PRE_PMU:
-> +		/*
-> +		 * ADC_DMIC_SEL is shared by the DMIC and the SoundWire mic
-> +		 * mux, so its value depends on the order in which userspace
-> +		 * restores the two controls. Program it from the resolved
-> +		 * mux state of this decimator, which is what selects the
-> +		 * input domain.
-> +		 */
-> +		snd_soc_component_update_bits(comp, dec_cfg_reg,
-> +					      CDC_VA_TX_PATH_ADC_DMIC_SEL_MASK,
-> +					      is_amic_enabled(comp, decimator) ?
-> +					      CDC_VA_TX_PATH_ADC_DMIC_SEL_ADC :
-> +					      CDC_VA_TX_PATH_ADC_DMIC_SEL_DMIC);
->  		snd_soc_component_update_bits(comp,
->  			dec_cfg_reg, CDC_VA_ADC_MODE_MASK,
->  			va->dec_mode[decimator] << CDC_VA_ADC_MODE_SHIFT);
-> @@ -1009,9 +1050,15 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
->  		snd_soc_component_update_bits(comp, tx_vol_ctl_reg,
->  					      CDC_VA_TX_PATH_CLK_EN_MASK,
->  					      CDC_VA_TX_PATH_CLK_EN);
-> -		snd_soc_component_update_bits(comp, hpf_gate_reg,
-> -					      CDC_VA_TX_HPF_ZERO_GATE_MASK,
-> -					      CDC_VA_TX_HPF_ZERO_GATE);
-> +		/*
-> +		 * Only the HPF zero gate assertion is specific to the DMIC
-> +		 * path; the cutoff programming and the gate release below
-> +		 * apply to both input domains.
-> +		 */
-> +		if (!is_amic_enabled(comp, decimator))
-> +			snd_soc_component_update_bits(comp, hpf_gate_reg,
-> +						      CDC_VA_TX_HPF_ZERO_GATE_MASK,
-> +						      CDC_VA_TX_HPF_ZERO_GATE);
->  
->  		usleep_range(1000, 1010);
->  		hpf_cut_off_freq = (snd_soc_component_read(comp, dec_cfg_reg) &
-> @@ -1037,7 +1084,6 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
->  				0x0);
->  		}
->  
-> -
->  		usleep_range(1000, 1010);
->  		snd_soc_component_update_bits(comp, hpf_gate_reg,
->  					      CDC_VA_TX_HPF_ZERO_GATE_MASK,
-> @@ -1237,6 +1283,39 @@ static const char * const adc_mux_text[] = {
->  	"VA_DMIC", "SWR_MIC"
->  };
->  
-> +static const char * const smic_mux_text[] = {
-> +	"ZERO", "ADC0", "ADC1", "ADC2", "ADC3", "SWR_MIC0", "SWR_MIC1",
-> +	"SWR_MIC2", "SWR_MIC3", "SWR_MIC4", "SWR_MIC5", "SWR_MIC6", "SWR_MIC7"
-> +};
-> +
-> +static SOC_ENUM_SINGLE_DECL(va_smic0_enum, CDC_VA_INP_MUX_ADC_MUX0_CFG0,
-> +			0, smic_mux_text);
-> +
-> +static SOC_ENUM_SINGLE_DECL(va_smic1_enum, CDC_VA_INP_MUX_ADC_MUX1_CFG0,
-> +			0, smic_mux_text);
-> +
-> +static SOC_ENUM_SINGLE_DECL(va_smic2_enum, CDC_VA_INP_MUX_ADC_MUX2_CFG0,
-> +			0, smic_mux_text);
-> +
-> +static SOC_ENUM_SINGLE_DECL(va_smic3_enum, CDC_VA_INP_MUX_ADC_MUX3_CFG0,
-> +			0, smic_mux_text);
-> +
-> +static const struct snd_kcontrol_new va_smic0_mux = SOC_DAPM_ENUM_EXT("va_smic0",
-> +			 va_smic0_enum, snd_soc_dapm_get_enum_double,
-> +			 va_macro_put_dec_enum);
-> +
-> +static const struct snd_kcontrol_new va_smic1_mux = SOC_DAPM_ENUM_EXT("va_smic1",
-> +			 va_smic1_enum, snd_soc_dapm_get_enum_double,
-> +			 va_macro_put_dec_enum);
-> +
-> +static const struct snd_kcontrol_new va_smic2_mux = SOC_DAPM_ENUM_EXT("va_smic2",
-> +			 va_smic2_enum, snd_soc_dapm_get_enum_double,
-> +			 va_macro_put_dec_enum);
-> +
-> +static const struct snd_kcontrol_new va_smic3_mux = SOC_DAPM_ENUM_EXT("va_smic3",
-> +			 va_smic3_enum, snd_soc_dapm_get_enum_double,
-> +			 va_macro_put_dec_enum);
-> +
->  static SOC_ENUM_SINGLE_DECL(va_dec0_enum, CDC_VA_INP_MUX_ADC_MUX0_CFG1,
->  		   0, adc_mux_text);
->  static SOC_ENUM_SINGLE_DECL(va_dec1_enum, CDC_VA_INP_MUX_ADC_MUX1_CFG1,
-> @@ -1372,6 +1451,11 @@ static const struct snd_soc_dapm_widget va_macro_dapm_widgets[] = {
->  	SND_SOC_DAPM_MUX("VA DMIC MUX2", SND_SOC_NOPM, 0, 0, &va_dmic2_mux),
->  	SND_SOC_DAPM_MUX("VA DMIC MUX3", SND_SOC_NOPM, 0, 0, &va_dmic3_mux),
->  
-> +	SND_SOC_DAPM_MUX("VA SMIC MUX0", SND_SOC_NOPM, 0, 0, &va_smic0_mux),
-> +	SND_SOC_DAPM_MUX("VA SMIC MUX1", SND_SOC_NOPM, 0, 0, &va_smic1_mux),
-> +	SND_SOC_DAPM_MUX("VA SMIC MUX2", SND_SOC_NOPM, 0, 0, &va_smic2_mux),
-> +	SND_SOC_DAPM_MUX("VA SMIC MUX3", SND_SOC_NOPM, 0, 0, &va_smic3_mux),
-> +
->  	SND_SOC_DAPM_REGULATOR_SUPPLY("vdd-micb", 0, 0),
->  	SND_SOC_DAPM_INPUT("DMIC0 Pin"),
->  	SND_SOC_DAPM_INPUT("DMIC1 Pin"),
-> @@ -1516,6 +1600,62 @@ static const struct snd_soc_dapm_route va_audio_map[] = {
->  	{"VA DMIC MUX3", "DMIC6", "VA DMIC6"},
->  	{"VA DMIC MUX3", "DMIC7", "VA DMIC7"},
->  
-> +	{"VA DEC0 MUX", "SWR_MIC", "VA SMIC MUX0"},
-> +	{"VA SMIC MUX0", "ADC0", "VA SWR_ADC0"},
-> +	{"VA SMIC MUX0", "ADC1", "VA SWR_ADC1"},
-> +	{"VA SMIC MUX0", "ADC2", "VA SWR_ADC2"},
-> +	{"VA SMIC MUX0", "ADC3", "VA SWR_ADC3"},
-> +	{"VA SMIC MUX0", "SWR_MIC0", "VA SWR_MIC0"},
-> +	{"VA SMIC MUX0", "SWR_MIC1", "VA SWR_MIC1"},
-> +	{"VA SMIC MUX0", "SWR_MIC2", "VA SWR_MIC2"},
-> +	{"VA SMIC MUX0", "SWR_MIC3", "VA SWR_MIC3"},
-> +	{"VA SMIC MUX0", "SWR_MIC4", "VA SWR_MIC4"},
-> +	{"VA SMIC MUX0", "SWR_MIC5", "VA SWR_MIC5"},
-> +	{"VA SMIC MUX0", "SWR_MIC6", "VA SWR_MIC6"},
-> +	{"VA SMIC MUX0", "SWR_MIC7", "VA SWR_MIC7"},
-> +
-> +	{"VA DEC1 MUX", "SWR_MIC", "VA SMIC MUX1"},
-> +	{"VA SMIC MUX1", "ADC0", "VA SWR_ADC0"},
-> +	{"VA SMIC MUX1", "ADC1", "VA SWR_ADC1"},
-> +	{"VA SMIC MUX1", "ADC2", "VA SWR_ADC2"},
-> +	{"VA SMIC MUX1", "ADC3", "VA SWR_ADC3"},
-> +	{"VA SMIC MUX1", "SWR_MIC0", "VA SWR_MIC0"},
-> +	{"VA SMIC MUX1", "SWR_MIC1", "VA SWR_MIC1"},
-> +	{"VA SMIC MUX1", "SWR_MIC2", "VA SWR_MIC2"},
-> +	{"VA SMIC MUX1", "SWR_MIC3", "VA SWR_MIC3"},
-> +	{"VA SMIC MUX1", "SWR_MIC4", "VA SWR_MIC4"},
-> +	{"VA SMIC MUX1", "SWR_MIC5", "VA SWR_MIC5"},
-> +	{"VA SMIC MUX1", "SWR_MIC6", "VA SWR_MIC6"},
-> +	{"VA SMIC MUX1", "SWR_MIC7", "VA SWR_MIC7"},
-> +
-> +	{"VA DEC2 MUX", "SWR_MIC", "VA SMIC MUX2"},
-> +	{"VA SMIC MUX2", "ADC0", "VA SWR_ADC0"},
-> +	{"VA SMIC MUX2", "ADC1", "VA SWR_ADC1"},
-> +	{"VA SMIC MUX2", "ADC2", "VA SWR_ADC2"},
-> +	{"VA SMIC MUX2", "ADC3", "VA SWR_ADC3"},
-> +	{"VA SMIC MUX2", "SWR_MIC0", "VA SWR_MIC0"},
-> +	{"VA SMIC MUX2", "SWR_MIC1", "VA SWR_MIC1"},
-> +	{"VA SMIC MUX2", "SWR_MIC2", "VA SWR_MIC2"},
-> +	{"VA SMIC MUX2", "SWR_MIC3", "VA SWR_MIC3"},
-> +	{"VA SMIC MUX2", "SWR_MIC4", "VA SWR_MIC4"},
-> +	{"VA SMIC MUX2", "SWR_MIC5", "VA SWR_MIC5"},
-> +	{"VA SMIC MUX2", "SWR_MIC6", "VA SWR_MIC6"},
-> +	{"VA SMIC MUX2", "SWR_MIC7", "VA SWR_MIC7"},
-> +
-> +	{"VA DEC3 MUX", "SWR_MIC", "VA SMIC MUX3"},
-> +	{"VA SMIC MUX3", "ADC0", "VA SWR_ADC0"},
-> +	{"VA SMIC MUX3", "ADC1", "VA SWR_ADC1"},
-> +	{"VA SMIC MUX3", "ADC2", "VA SWR_ADC2"},
-> +	{"VA SMIC MUX3", "ADC3", "VA SWR_ADC3"},
-> +	{"VA SMIC MUX3", "SWR_MIC0", "VA SWR_MIC0"},
-> +	{"VA SMIC MUX3", "SWR_MIC1", "VA SWR_MIC1"},
-> +	{"VA SMIC MUX3", "SWR_MIC2", "VA SWR_MIC2"},
-> +	{"VA SMIC MUX3", "SWR_MIC3", "VA SWR_MIC3"},
-> +	{"VA SMIC MUX3", "SWR_MIC4", "VA SWR_MIC4"},
-> +	{"VA SMIC MUX3", "SWR_MIC5", "VA SWR_MIC5"},
-> +	{"VA SMIC MUX3", "SWR_MIC6", "VA SWR_MIC6"},
-> +	{"VA SMIC MUX3", "SWR_MIC7", "VA SWR_MIC7"},
-> +
->  	{ "VA DMIC0", NULL, "DMIC0 Pin" },
->  	{ "VA DMIC1", NULL, "DMIC1 Pin" },
->  	{ "VA DMIC2", NULL, "DMIC2 Pin" },
-> 
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
+Thanks!
+
+-- 
+Sincerely,
+Yeoreum Yun
