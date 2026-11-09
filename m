@@ -1,80 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794266403;
-	b=2mBggskTFZEOzeC1Y0cH5tciyMdXIvm5SwvygVwPqMrA6cnZSVMiqZenSKyP9Lm9t78T
-	 5fevI5izv3bUkwcR8LBT054LHK/pRzqHzRfZMUq7ZoFENDhUnu/UmfunLUBphSEu2WhUG
-	 j36VpLL5s7cOXgVbR1ufRFlBl2Y6GCd/8p9A+5oN8+7rBqeGbX2YeFjh3DJ4uBUJDXfHB
-	 xZhUOA0tSIIExQPQsZfCNwYEKuQdJU/NuJo0RWcXGHf9AwjgVHrHaMG6CzT8ufqldARRK
-	 9E9o7DGqe1r+v/2UssqZvpe2mw9p1oiRijyXdH9FXya4yTfWHj9+aQ2UCGet1ruc1dg==
+	t=1794266407;
+	b=NweYO7y4TCOIGYruxJVuZCZXHMTdaP8cjBbu2d7tLEZmlAlV/fDkI85kZJjiAYpzNF+i
+	 9AEcMSLMgzvUU+nc77M0o1ql/IirHMoRK+Rsj+LmyZKD7O++ex+f5vMs36PATmNkQPKjr
+	 QaFQFt5+u4wgnXxDPGuTacpHVrf6wLOFKwKfQ+XAd7g02l61uHTLx4JECKcxkjgIGwfcO
+	 sbXyiTWWZKIbxyWjfF+g3LCGfURAuxHBAp6P+IbOCI+khu4cpI6PsST2GG+zLLqbu07UP
+	 26n2Oa2cActIU7MzkmYnqO08pgII3wyh3MGL4/CarNsrQG/XfWDWOTYqM/9L1VM2zGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794266403;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=xG8QHT+oPQ4nzS3cFhoe9VjDL746KBdhVtGShXs3ha8=;
-	b=bO6i67Dm2wJ7b0Kpb1yk36idLMxPd6JkEIgh/zCEJszHO6+PYNXz0XOCS5TMcoz541IJ
-	 oIRMtplkdqX3xXTft1VBol88K9MHiNDE0XT7eDK3W6IkeTtyNQXvsZLlYASVyruirQsG3
-	 wIG8k38b163WSa5+BXOwVwanphDPjo4DzsZs+jS4slxW1JvEK1HyxHA5PWepE1/ttvVJc
-	 Sr3p8GOuMPYG1hJ71VfiM+ffmYVlKcrdb9owvzp6+DMlPp0eGbjxD3ZCMANMVKrF7CtbI
-	 wDJDSlrZwB+q07Y+hGcKiEPKUOSPQj/ik869jaXVWoXMUvMbFb8/o/J2GyfzyCN/ZqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794266407;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=wFAP8r9CaQQlfx6iSws7XcCoEgxpI34vrJvw4H/11RI=;
+	b=RELOZnUI1h/XTO/f3Zmxajil3awhEKrK+e0H0BPpvoRXXCq6FqMlDEpMRX+8rgjhNI06
+	 jIdDlcZHgje1uZ63p9kxYbdDBZgOloBIZ2ofmcHxenq6HNVacCOUyFx3H5O2zlQu8C5GH
+	 2LtAJHKZ7u3HefGnjiue5fOzA96UmPhXdaDQQZGeq7R9MScJKd2q5rFH7AaFAzick468B
+	 /9pJHRhjMVUjV/se7wF+28bKNcfxq7UAgwBInDhdf0yvH4PrgAtf/dneSU14ifsa70XEC
+	 bDvu/U7xRDJ1xnesswg8pXYG5r6rMQ7szTey5bucb6QY0zNGCEGe7K9JQdoeAjFFAZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k7Ye+cT6;
-	arc=none smtp.remote-ip=198.175.65.16
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="at/Voxot";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98309606A31C;
-	Mon,  9 Nov 2026 23:20:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98309606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB0B606A326;
+	Mon,  9 Nov 2026 23:20:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k7Ye+cT6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794266403; x=1825802403;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4SdiW0YKLT7SmKutFZL+9Aq9+GkSZhGKdLq/aN5OhL4=;
-  b=k7Ye+cT6HFUUcemgPdzan9LJfIgkjZFmQHvjCark2scyR/O+/VavkJ9H
-   y322wdoVisjjflC/eY8f7TSfTEcGanJym+4B/wotasbBk+vwzpiDPkI/Z
-   oTcQpiLMpi6i8FOvoZ2Tk5xqehTGIyHJGi7QmczkG2zn0Q6IfKH0/TAyN
-   k291vKiBylus/2YOsvSnlXaKnEmOVPxio7ubTyx96SY8hoapIrkBNrR9w
-   rc57TRr8ehgW71VVTUD0ZJ8EyKRw6XKsyTQ3Nm0Sso+tpWQ0WnWIPvo8h
-   0QhLBq9Ad1ZCF+04bv13NHwI0dBCcDm6f12zeKeOB2A8JrS/07Y4Ezsky
-   g==;
-X-CSE-ConnectionGUID: SZAO9o0BQieIDG+iMPkWDA==
-X-CSE-MsgGUID: W9zPduynTNKO5ahT0MAnYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2990594"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2990594"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:20:03 -0800
-X-CSE-ConnectionGUID: FlmBclUuSpa/cDZg+BtUnQ==
-X-CSE-MsgGUID: /QbryOxGSReVt7TKEIIfvw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8135492"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:20:00 -0800
-Date: Tue, 10 Nov 2026 01:19:57 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arka Mondal <arka@arkamondal.net>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Robert Eshleman <bobbyeshleman@gmail.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] iio: light: max44009: Report the integration time
- via read_avail()
-Message-ID: <avJVHXMynrrMiSzK@ashevche-desk.local>
-References: <20261109050738.93424-1-arka@arkamondal.net>
- <20261109050738.93424-3-arka@arkamondal.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=at/Voxot
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D6871F008A2;
+	Mon,  9 Nov 2026 23:20:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794266407;
+	bh=wFAP8r9CaQQlfx6iSws7XcCoEgxpI34vrJvw4H/11RI=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=at/VoxotQ1gaLG12naEs/Lrq+/DMK+KU9jEfKRUMqib+2IZ2fTtdFlgB4Tmykv5N/
+	 INWqsvL0dGsGPVgWf1/0dDeA4WQqEbSzdNRzcXaYwmSIUsOtWElcU0/yVSAVAglMjM
+	 atyCGMckMdf0jJG9GeBhcF0f3E7Px4H0/HeD7YctZV/bjpCgg4WS2XsMMJHnWHXdeV
+	 pF1MyyI+vIVcTIHTPm6U4kIhfj23ueMGbyVFYFKt8lwI1SmE5fPlE393St0lcVC9BG
+	 /c07Z6nOQKpb87LJXNVmvQHd+WzGitxGCKQ292zho4IQLrD7ZaeUaaPiMfFrqfxO4p
+	 9txLQFRDJqO2g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 210B3391AF99;
+	Mon,  9 Nov 2026 23:20:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,46 +53,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109050738.93424-3-arka@arkamondal.net>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] ipv4: keep XFRM headers out of corked skb lengths
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179426640593.3539542.14588290897473786391.git-patchwork-notify@kernel.org>
+Date: Mon, 09 Nov 2026 23:20:05 +0000
+References: <20261030042229.74068-1-kylebot@openai.com>
+In-Reply-To: <20261030042229.74068-1-kylebot@openai.com>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
+ linux-kernel@vger.kernel.org, outbounddisclosures@openai.com
 
-On Mon, Nov 09, 2026 at 02:07:38PM +0900, Arka Mondal wrote:
-> The integration times the light channel accepts are listed by a custom
-> attribute named illuminance_integration_time_available. That name has
-> no in_ prefix, so it is registered at the device level instead of
-> beside in_illuminance_integration_time, and userspace looking for
-> in_illuminance_integration_time_available finds nothing.
+Hello:
+
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Thu, 29 Oct 2026 21:22:29 -0700 you wrote:
+> __ip_append_data() allocates space for dst.header_len in the first skb,
+> but includes that space in skb->len until __ip_make_skb() pulls it.
+> Fragment accounting uses an MTU that already excludes the XFRM headers.
+> As a result, the next skb can have a fraggap larger than its capped
+> datalen, and skb_copy_and_csum_bits() can overwrite its shared info.
 > 
-> Report the list through read_avail() and drop the custom attribute.
+> For example, five AH tunnel states can reserve 500 bytes while leaving
+> an effective MTU of 348. With 40 bytes of IPv4 options, the second skb
+> has room for 288 bytes of fragment data but receives a 500-byte gap
+> copy. The overwritten shared info is subsequently consumed by the skb
+> release paths.
+> 
+> [...]
 
-Will break it user space?
+Here is the summary with links:
+  - ipv4: keep XFRM headers out of corked skb lengths
+    https://git.kernel.org/netdev/net/c/0f47fce51a98
 
-> All eight values are a whole number of microseconds, so they go in as
-> IIO_VAL_INT_PLUS_MICRO pairs with nothing rounded. The values do not
-> change; the core prints them with six decimals, so the attribute reads
-> 0.800000 down to 0.006250 instead of 0.8 down to 0.00625. read_raw()
-> still reports the time itself as IIO_VAL_INT_PLUS_NANO.
-
-...
-
-> +static const int max44009_int_time_avail[] = {
-> +	0, 800000,
-> +	0, 400000,
-> +	0, 200000,
-> +	0, 100000,
-> +	0, 50000,
-> +	0, 25000,
-> +	0, 12500,
-> +	0, 6250,
-> +};
-
-Make it 2d array.
-
+You are awesome, thank you!
 -- 
-With Best Regards,
-Andy Shevchenko
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
