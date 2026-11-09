@@ -1,68 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794214407;
-	b=gnnjf+tq83CNgjTk5THHgBJnYJjCDC53soM1T7zD0TN7nMfDz1rBo294VnqKCYDo3Cw8
-	 9ePS9Eu5anLCC04tdqxSn7ZcRXxvav84GBohrxrPESu23ylQyTjmVgVaXOul7slze4ZAl
-	 ooV6FXdnD+FpzwjOXBfLa4I59Dowmlr024Df0N5bmuzPxTohWT5REu1VaZ+hwyszhWwry
-	 FLe0Fwd063Bu8UBv0hjolTkw1yAgFmRqpbKEuCJ4iK2oSYzZfbHd3kddGR3M8MlTMqISe
-	 oH4/J2ApC2/kCNquSdMndMzkGILm4QhFpFtEwKYoHyhpp8I3OkQnSatz/rQqDCT8n0g==
+	t=1794214478;
+	b=sd137b4Ie6cei8X5SUp7044OfsGXlpqazz0XeUdc/MKVDiN+fAj6uW9RO/GekqKNuj4V
+	 0Xz92hM9b0Phvm+H+nzmew8bOBKb3Ft6UTuek03oHl4DdML+7q5nODZLX7RNW8A1jCLKR
+	 4r9egUgzdXacM5rMNmKC/Z8W5I0yaXBW+WpOZ6hMGNgDQwprASP2/0dmbp4fZrmzvE7lH
+	 rL3MzCE6Sy5r9aFX9k4wynzzMRuk+sJtwjMuhGjGUmfIMSPSiO6OUE5YS8OdD037GnrJh
+	 Gsbd5x6RKU4BhLbiSMSzOODIBDXEUr2QAzsvxWPSk7TjsJddmBWX7EvjjqLQDNLoT9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214407;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=6t+vf6iGGvmtu53Ld38Ljlix1wD8ca6ce6t34f5kd3M=;
-	b=sS8IhDFDTzDk/sUHwS+MGEnyevZgVrBCFj15thdR5ZNVDVTCFrH3Trdrav8ipr3nqTBN
-	 vZroAazKvijQp4aBRSpwvVJNN7TdJZpyDajqTuKKH1p2RdOH6b/PPe0xvblyZq8qhn+bk
-	 Wrj0gNY3CVIAxJLqtvjgpKY529r3IlHpJWQqqhRrzY9aeWDs2z7aOvblc8V95H9zLT3p4
-	 cntPoh9Y7+FRf1NWon55jz3EqoVOon5UTby8pCAwX/OKu4iEWFTBxW0rsjiWrevk0MMEP
-	 BZoAn+UHQ99tIA24ZAhPXsE9JKrGdJDEw8UkO8ZKTppXeQqMCmyxsl1Cz2Xa8pLTvSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794214478;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=iQf4RM779oS0Lz1Z3sQeMmPMDiOPPiuMG27R11kbwhw=;
+	b=GnJGxWxWsGBcUKZovDliBju59r6/YLy9wONq6ZIxjx5zBLrPtECfgUVjgbqZNIU/iwlL
+	 HxAPJKi/1mSuccfCyhlgYW3ZM75LjjFk8FEFI/QHTBQR0ka4hRI908swBky9LVkei4zK6
+	 rDQkNibcQaJFLthv9PYWmqyeStuC1KnUIXXcRfHn/yFRx1Unh8nxuOA8UnGBmb4FP3obA
+	 a0ivmii40pRCCTeRvSe5Ct44ShOaALLFMEtlHLGSkm13TjmloOhHiD1mqkyS4xqGjK8sS
+	 EPabvoDAMf5GICeVYshGLkVnoANbGQN3YgoH96L3pAprnNImb0oyjU9ZgwRBFuDkI6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CNpScM05;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DdOJy33Z;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HJeBRbTv;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAA19606D80F;
-	Mon,  9 Nov 2026 08:53:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAA19606D80F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC6F606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:54:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CC6F606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CNpScM05
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794214407; x=1825750407;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=PDyVAs/P/xjSKJ+msEBqQaraDJZto4lbelsWIOUQKPQ=;
-  b=CNpScM05Ns0RBbVM0jDbjWh5GYs8pcJYVU9qjlPY2GeZ9OVju/Kacqeh
-   FnGn7kfoHc+jXaDKgl2ztsu3MLuAUPTRxPSs9Ui5+6FaFgYWB2F4B8hNo
-   2oVc+l4nirZM+utxlALzT6rN7z58FaViG8I5VExrjllyfJI+i54wC/zbh
-   LPkBEAAWWfTDcgpCO8W0Q4/CSkA4Utrj8Ow3w82oG84ri55vwJt/NIQg5
-   eUPxA+6fHiz/iQ5TMd2dqZf6LPnOuHL0Zm/lI8KhDGw6t7eo0rRPDvfk2
-   zGp3z9k/lyKd5itzvr6XN99l0uRtug5VxuzQGPm1fPCLftnIxJ0QKGN/x
-   Q==;
-X-CSE-ConnectionGUID: SKerGGctRCuFdvAyT5sFqw==
-X-CSE-MsgGUID: 19YoOawcSZef8vGSsv2P3A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2947798"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2947798"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 00:53:26 -0800
-X-CSE-ConnectionGUID: q/yk6RX0TLeiSS8T5mjpuw==
-X-CSE-MsgGUID: h1Nf3eMlRWeBVo2y3gRcPA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="8156437"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 00:53:24 -0800
-Message-ID: <6c3b5480-258c-471d-b700-4931d408161f@linux.intel.com>
-Date: Mon, 9 Nov 2026 16:53:20 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DdOJy33Z;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HJeBRbTv
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96AEVr481292
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 08:54:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=iQf4RM779oS0Lz1Z3sQeMmPM
+	DiOPPiuMG27R11kbwhw=; b=DdOJy33Zj+gGloeoGU0YcrU/rBuBrM8MfaDICyyX
+	n2WzCtTAZ42ZIxsnzjTL9PhWCB1PMX5vHqJsEznDaayNSyOUnCL9YjlbB9DvYa7+
+	SmId5DTFW9F43yVDih/KUy1TGn1gfva7yl7hZwG+46G1dqKyPJQb/E6bUllMjx5y
+	QJpeYTh4xafgu8EEZI9syRbPEB3DpR70tP+h32QV5uTXiY6wicVDiJXXCRKyb6KN
+	AJ/Qo6ZwOchptXmAv3MEiyh1YB/KKEx7no9iTetUiO+Bw8fGEUhlDI71D0vQV+TO
+	O/RuR4wTDSHabp17rCz+bXLSu0/3vSM9hdeAFRkwBm4p/g==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hstxsdn0v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:54:37 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f2c0e6653so123770285a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 00:54:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794214476; x=1794819276; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iQf4RM779oS0Lz1Z3sQeMmPMDiOPPiuMG27R11kbwhw=;
+        b=HJeBRbTvguh39nPevmBYDDhEXLGfAjm5qqqy6nkorKRF5Sq7px4TC8xZxitDJwchhY
+         X5BM+QekKNInY3VktuUgrLUIdudyDhYTs9fSxWeuevjBGBL1y5dSmhcOwi9ls1t3RfVA
+         xxDYt/PkGUXfgbaDuX/o4I2U+P2DzqElckJfuke21ISxgIsiVzQvqDC3u9gI3FBgWJqs
+         7i9Szs7r71Uc4yUPKfmRTOeB04K25lOcBnjfKPusrPVvcVnMbCqDAnSKG+6OMHaTewdH
+         KOfpN6fFGkExoWC8gAMxgTkAoNjM0ObElz7bIJxJbeX1GoGzwK51m8sFikB8p0fbVu5o
+         KHOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794214476; x=1794819276;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iQf4RM779oS0Lz1Z3sQeMmPMDiOPPiuMG27R11kbwhw=;
+        b=TKtIx3QfnXipBYnwRMHMrExoeqZDtHzNolfmHGZ1Z8WuHiSGJLwjHRXKZxXmeXHB8D
+         mINBgyH497dfOnErm00wLUlmK4L2g+doGBPWhigPtwiotdAbt3OF5mvhAnI41W/t8Gw7
+         j9dhvyosnWkGw2q1sOzPSVoHR5BYTON7s3cibqqFn3mJuTqn3EvapjgYiBK+C7vW439Z
+         jCDYiBeOuHQy/hTU9eQQx7W/9gSE/DJXrr+ObVkKpQa0oK+anSISqslbh/VPg6oF/U7+
+         3aN7jcejo8uSb1HMf3ZjEX1+KH09TAlwRpxrzjvd1HA/MepnO5YU0hou2j9qc2eSMxdy
+         b5Iw==
+X-Forwarded-Encrypted: i=1; AL+hErF/SWTlmz1w6LUTeVJW8TYsCWHLg9bro3IZW7IyEHlG7sXKnHJ+QnqRwfc0eD62HyffaAZdXyJNXP0SRUM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bk57lORi7+MkNmDpZ73bsSPCFLUIm+lGBBnT0nXyQ+Cf8iRAA
+	oRBmLn9DQ7Zy78KL4ZP1OP3nABsx5ff4SltEXHNdhf9cDaGkOQzVyzpqkX+ORFP141wIDViYBgF
+	AhdNIRYJMcKC09WtTLzKWv16o5OvrIeAk9jawYMgV+zFo+eEZh818KePHLYnt1+iRT5g=
+X-Gm-Gg: AYBFou28MKwXvBNGtnr+VihP8uJ/ZzAqBeJUWzT4gr/Uqp/zdsW77tfKUNtlZ9GRrpq
+	g1a+ULkx/ftmGUsz6m4WmJFacSrWZ8jI5GaEOvLz2aEs4PMRX8fbipQnLNHluJxpoMyOut6nyLf
+	Yq28YIoLCJ+5om1jBM6XwhYsYFmhjRPDGl55cn6gJoRqkks0WkxFc+dbsgGkkt5kmsMEJw4F74d
+	I6gII5Imhb31wAHsyVdTsdpFzVE5VhlUtLs21BJzRgVDI/7wgkADqfF6yFuahDep5ii8ZPBCdWm
+	czle5agMwLHtLG4lnPsvs7BrFEK221vRQff7J0vybD9mEfK94/J24N415WCfiGtb7sGfx6bWkAX
+	d378Hui7Uv6YeJ9ZOjeXWdIsU4TAZJx9dI3MdjiBvWDeamLtjgdikmIr25REy7oc=
+X-Received: by 2002:a05:620a:2a10:b0:93f:707f:28d2 with SMTP id af79cd13be357-947841e916bmr544560585a.26.1794214476130;
+        Mon, 09 Nov 2026 00:54:36 -0800 (PST)
+X-Received: by 2002:a05:620a:2a10:b0:93f:707f:28d2 with SMTP id af79cd13be357-947841e916bmr544555285a.26.1794214473764;
+        Mon, 09 Nov 2026 00:54:33 -0800 (PST)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b795038782sm146282185e9.3.2026.11.09.00.54.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 00:54:32 -0800 (PST)
+Date: Mon, 9 Nov 2026 10:54:31 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] clk: qcom: rpmh: Add support for RPMh clocks on
+ Halliday
+Message-ID: <x7eciplbxc744uqlbynakcr6ej2a3isj4j7vghgfocvvxldjqq@n3rrc537lgek>
+References: <20261109-halliday-clk-v1-0-20c3ba8be0bd@gmail.com>
+ <20261109-halliday-clk-v1-2-20c3ba8be0bd@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,65 +129,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16.1] KVM: selftests: Add support for TDX ucalls, via
- TDVMCALL_REPORT_FATAL_ERROR
-To: Sean Christopherson <seanjc@google.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sagi Shahar <sagis@google.com>,
- Lisa Wang <wyihan@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>,
- Ackerley Tng <ackerleytng@google.com>
-References: <20261105-tdx-selftests-v16-18-2024e8fa517a@google.com>
- <20261106164732.3939387-1-seanjc@google.com>
-From: Binbin Wu <binbin.wu@linux.intel.com>
-Content-Language: en-US
-In-Reply-To: <20261106164732.3939387-1-seanjc@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-halliday-clk-v1-2-20c3ba8be0bd@gmail.com>
+X-Proofpoint-ORIG-GUID: 4pgi-jxdzmAkkgeYzP_ju3OD9TlFW25i
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfX2FyJRtRQ83ho
+ f2Qxml3FSbEL70gZD1ERXnh9R9O6uTCiwPESPj2Tgt2EP2NyhgQ2RrLhW+DEJU9keUYTnBjth/w
+ 0PuTu280Oujc3bBp3Ka3N/9nFcNOnlQ=
+X-Authority-Analysis: v=2.4 cv=dZMVTnXe c=1 sm=1 tr=0 ts=6af18a4d cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=bJUmpo4LbrwfO9ae5mQA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfX0IypAngg5cHK
+ ITJPSX+1m4Z/gWI0aUcthnWQ1OzcLde8DOD8OnTTz2paOpoFuGGCqSISPA/2IwsgxlzNC8pjnfY
+ vddfXG1yrKCLPx/xsoQEB5Zkodgn7BIA6GA3UDWmZuTm53hFhflgeh2Nc7zORsQ1qB/hJWQMTRK
+ t3ECToTOye4JoR5UQvgyLQqjHymnPsIQg/V3Lu/rgmJmHhnxegfE+chDvq4GfT9Gf4ETfbIzfdm
+ 2s3otYfLd72HofWCiG2aBCWbS8yUqyWS3/zN7vDIinQl9BK31X6gDnjMDoMiDJ67ct9ccTp0mgm
+ E2OYeqK3z04WPpAmFZicvzgOmgWvCgryUFji4+sRfs2cnyhliK8aWDSJ4TjgXkOoh2598YPBlj9
+ zGjbGx+tMFLplNUDYXtDXWY8xlkp5vySzmbUmDr7+6Phg8SuymofdaLAWVtq6YzBQR1mqhHZvKq
+ vZfgKHcNjc/poCWZvhA==
+X-Proofpoint-GUID: 4pgi-jxdzmAkkgeYzP_ju3OD9TlFW25i
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 spamscore=0 priorityscore=1501 adultscore=0
+ lowpriorityscore=0 clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090035
 
-On 11/7/2026 12:47 AM, Sean Christopherson wrote:
-> Add support for doing ucalls on TDX by abusing TDVMCALL_REPORT_FATAL_ERROR
-> to pass the address of the payload to the host.  The "fatal error" TDVMCALL
-> is perfectly suited for passing information to host userspace, as both the
-> TDX Module and KVM allow the guest to pass (almost) all registers to the
-> host, i.e. provide enough of a data payload to make a collision with a real
-> fatal error practically impossible.
+On 26-11-09 00:29:11, Stanislav Aleksandrov wrote:
+> Add the RPMh clocks on the Qualcomm Halliday SoC as Qualcomm's
+> downstream clk-rpmh driver describes them: XO (divided by 4), RF_CLK1,
+> IPA, and the clka7, clka8 and clka9 resources (downstream LN_BB_CLK7-9).
+> As on the other SoCs with clkaN resources, clkaN is LN_BB_CLK(N - 5),
+> so these are LN_BB_CLK2-4.
 > 
-> TDX can't use port I/O, as the TDX ABI doesn't allow the guest to share
-> arbitrary register state with the host on a port I/O exit, and the port I/O
-> data payload is limited to 4 bytes, i.e. would potentially truncate the
-> ucall address.
-> 
-> Alternatively, TDX could use MMIO, but using a magic emulated MMIO address
-> is fragile (see the TODO in __vm_create()), especially for TDX since TDX
-> doesn't support read-only memslots, i.e. doesn't have line of sight towards
-> addressing the TODO.  E.g. TDX could hardcode the address to something that
-> is all but guaranteed to be unused on x86, e.g. the I/O APIC base address
-> or the HPET address, but that doesn't truly address the fragility concerns,
-> and it's ugly because ucall_arch_init() would completely ignore the passed
-> in @mmio_gpa despite obviously utilizing emulated MMIO.
-> 
-> Use a simple flag to route vCPUs/VMs to the right do_ucall() routine, and
-> take care to set the flag via write_guest_global() so that ucall_arch_init()
-> is thread safe (in the *extremely* unlikely scenario a single test creates
-> both TDX and non-TDX VMs *concurrently).
-                                       ^
-Nit: missing a '*'?
+> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
 
-> 
-> Alternatively, a virtual function pointer could be used to dispatch to the
-> correct do_ucall() via an indirect branch, but that has zero advantages
-> other than making ucall_arch_do_ucall() look prettier, at the cost of being
-> slightly harder to understand and making ucall_arch_init() uglier.  KISS.
-> 
-> Cc: Sagi Shahar <sagis@google.com>
-> Cc: Lisa Wang <wyihan@google.com>
-> Cc: Xiaoyao Li <xiaoyao.li@intel.com>
-> Cc: Binbin Wu <binbin.wu@linux.intel.com>
-> Cc: Ackerley Tng <ackerleytng@google.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
-
-BTW, the in-reply-to patch didn't trigger a new round of Sashiko review.
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
