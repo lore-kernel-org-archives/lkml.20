@@ -1,81 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239809;
-	b=0fiKEQCi62RmHM2czGrmk/cUC0Aigob2qH4kE3HqPHtZsmVBGtmNC8t2jY8EVWGDCFcw
-	 JlGI4mtaqyRnz7QJvlWEbQ8W/ZAZedOymK0m3NXtnKmsUQWDmFdIMJK/bGppOucCh+tcO
-	 YJCUYkABQhffE7BYcFsoFKaT/yh/uqDWNvyTKKz7j28Wq0H0V+jQg7yajF6423/9nC+4v
-	 +tH5gRH1JLXXpnBn2zW+TgRokZVsd8YISKOeTDcqikHNaNMm3tI1PqQ3dNNoHEfiD9vjg
-	 2duR5ZUyhhVIkEeXLkN84r6OtV3r7Z7iJv8/DZSVZR3cn6XoMSCdIOFBGZo8V67e45w==
+	t=1794239825;
+	b=ePp5akdtW21upD4buQONBoG8H4hPgp6fvDFTdjZMdXcByhqXS1668OQpWUjbFE4hSZsD
+	 SIcRAQfX2dYw146CM7qhQGDxD2+t2j9ABONIWVbD99uXH1h1cmpGHDMCddL8+T20Og5zt
+	 CZ9SeQ9fn4cpeK7sofubFeC62JpOxARdZqVoHORmEsea5yDg8cEZMhg6Ae7wDaH0QnQBu
+	 gEeSUaTX6z/99L5tKklM6F+ZMoUeWHk+LoQFYDrHjuj6YGDReKVfciids+s0Vpfeq4iew
+	 VdwoVBvKX6+ACoYJ8ZwLnVhA+fMJjZWf2F/dZvNaNNB7EbFGpsBG7z1vI526mxRlelQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239809;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=IiHfMjI5UW1C+sBrl6OK0Tos0QEXOpbHcV5EoY3XjNc=;
-	b=4h+h6GPzQIBBP+QP6Z7LihJQ/JkCio7zvSgMVOfacjwLFiZW5h+C3LeE8y5+kEH/xTby
-	 V5ajTuHzrqHuiPl2A+7s2I1hnBy19HyRHa2BlpMb+A5fibdJDWUe6O3pvkL/195w9xy1L
-	 EyVzni7jw9toiZQJytbutaaiCfvA9AtHBHDHeatgUKvu9GTMpC87lWeoF8E3PVUSW9aoq
-	 YlPU9FTVpAKP6q8/oExezjwyk+fPCzC5s+JdlOPjcrTiH4qNfuBzEYes212QUOlc5dgqZ
-	 6cOHcNAFA2sKWuJuN1ydl6GVPD4LsfJCQwEnAi6mRxpbOfQNEIodjOX4r/4F2/24nYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239825;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=pmUFbIi5ELXaVKVermTkfc30pmQFDxvmo4N0D8U5m1Y=;
+	b=Nj8rt2feeW2uv9QKw4zMW1NxDLOoZEjNVh5ubGqnnBtK6SMj1+Zf49/d43++QUBTtvrR
+	 gN/di22bbEisDLIA4gtOuFk/r+Ff/wa1dMInzAenmgVmrU5khKz8QE0JAj7HU7OvcDliu
+	 lc1aeX5nFhSa3+BZILh4XkZc/sMTzi8K7jVJCsWFUpxphoR5/rRU3AaiwAFBNxqR7oUnw
+	 7mLKNBGio3Ol4h3+vRJt0TBMRTCVVjugdVTC5M/AJ5GlkDdC6Ad/YZNA4VilACte0Jjl3
+	 24g3oxX7PwgsokmHvJZsj+ShlV+7yR3aodzXicxCi+FLavujWLTuQRidSwe0xvfpq8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b="0DcBLZr/";
-	arc=none smtp.remote-ip=44.202.169.39
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=UDLqnf7m;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2760606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:56:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2760606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92B4606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:57:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D92B4606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=0DcBLZr/
-Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
-	by cmsmtp with ESMTPS
-	id QQ1bx525QOOJnQRjex3Jkx; Mon, 09 Nov 2026 15:56:42 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id QRjexbqOhSeuLQRjexxOE4; Mon, 09 Nov 2026 15:56:42 +0000
-X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6af1ed3a
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=iHwBjlyiAAAA:8
- a=VwQbUJbxAAAA:8 a=bbxMUrBqG-LWPQ326wMA:9 a=CjuIK1q_8ugA:10
- a=uNSKXYNwxGiU6LD0JREI:22 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=IiHfMjI5UW1C+sBrl6OK0Tos0QEXOpbHcV5EoY3XjNc=; b=0DcBLZr/Skrac/9YuaGppdAFJq
-	U4CB7I9WuAnpZlpf5NUrjQGth5l+jsEH1ZZW7/3kuHf/CI1Lp1/3mOZDlnxB4GCnQZYfrQON1aFeJ
-	r1cgrB6r23EF/MUjM+b3QUfIi/HqGMotIs//Xrn5CGhx/Rh7JnSIb/+kUuXskx39f8f4Ut83tfE8k
-	u70/v0zPbLBLic59c6WLJy4LLGi74o9UTIBOghgeO6zBoo2osWPwOk2v3Ttf0yFSAd0BTuzgVlGz5
-	J16JZAT5a8P++Mr+xrR0BKI4bov23ZvgBgKXD0XgMfmFM7QOIvyoWE1no2KLsdo5l0YhVy+glJ4C+
-	LI0w7RUg==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:32976 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQRjd-00000001UbS-33TR;
-	Mon, 09 Nov 2026 21:26:41 +0530
-Date: Mon, 9 Nov 2026 07:56:40 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: raoxu <raoxu@uniontech.com>
-Cc: sudeep.holla@kernel.org, cristian.marussi@arm.com,
-	marek.vasut@mailbox.org, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (scmi) Enable temperature sensors using their
- sensor IDs
-Message-ID: <25506328-5bef-498c-8e9d-00c33bb8b13f@roeck-us.net>
-References: <AED18609B941BCFD+20261109082854.3739085-1-raoxu@uniontech.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=UDLqnf7m
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-49318428d98so564118f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:57:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1794239823; x=1794844623; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pmUFbIi5ELXaVKVermTkfc30pmQFDxvmo4N0D8U5m1Y=;
+        b=UDLqnf7m6MP9XOON1P2yBuMNdHBpOeVN/b/jwE+XxoD9ltNnxMyJaaDEvydhmAeuc7
+         Ew3AxhkfHo16dffHcSjkn7Ewb7ud3PaWGROInw6JmvcvzTv404/kLL4aT3eMRB/CEhFh
+         zFK9sb6aegQMNog2cSasODE4i2b0HMVvrGn6Bu10dAB4GmcXzFoX4eurOH7im3Ke97rI
+         BGiPujPpPJNP7Pu8wSH4XtKW63VLENynHyaT1XsAF1lazfNaj6LvXquLCjsX5RbnI0Xd
+         ZAk9lrnPVigkCW9DjLcDJr3ntOwx3VRNrvu0eltOAeWUU8RGJfk7aqjaEm3hcHNeJJZb
+         nMLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794239823; x=1794844623;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pmUFbIi5ELXaVKVermTkfc30pmQFDxvmo4N0D8U5m1Y=;
+        b=Zh2eI/EIRkNgjDJYrXoC6cJiN14DDaTos/7YTaBeVuUqoWAGiX5bEH8ksf7bpcyP8J
+         LCWk68wG6VjLs3PFg1HZdW08FtfCZ3bbLseBOzFgyctD23L73qlmdNdaHnpVAl3G6d7d
+         MgmpV71OUs4ZfFViCaoYZzQec14gz6W3UHp0Ed88szKJsuU7kqR41MQUnLF23nS2LyT2
+         hprcz09A+PVjv9slPvU31rR1CWRgdpaCzyuyAf4dBVPnLkEDQKvUXBPSDvd4F8F2VJUo
+         M7haSVPn5E/XjMWPwRZCHEIzatiy6XO6M+ypLJbvO8oMKQEz2KZI1TYuOIRlWGfGzQJx
+         jw7g==
+X-Forwarded-Encrypted: i=1; AL+hErFQNtg4M6TIJpJgzpUsO2BjH31ty9Noe5Qh8eQqLppa7dRhC0R3Lbhx0aHWJZ7HaKiAHrBNJ7Lc6ZtYdDY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/HHxaHN003UNik4eFdubEIY0nvm/WtOBp0+IkSAdh1QGQmnDIi
+	cP7W3e2+o7kk4Mp9pl+lKFtn8pbU5Hp3Thwdd+03IuTj46scUO1cMlH2NgQrjO1KSzA=
+X-Gm-Gg: AYBFou0f3frbNRPFTMDbtEQyEYEt8XfTQb4KpV018Cq5aUbSkWcmK721ILA5l2fVvKe
+	gKM7ywNvvYVWh8xK5DjnscdaV6I9WAbq0vK8KRi8Ido9ZCRFuxWPi6BEVzlC5bBoVNuKuI94ErC
+	iE+CQSSCX++DjZc5Z8MR4zqgH7lEEyIzlRZbMqwdqShp/IQV6xtvnVhfBJIlK09ul1t7q1P1XqW
+	oeKu93hoHbjbenX+tC7KTlPTyCTPKrbaIP+M+s3JoHaidqNqtvEmMb7jZ+RMYCra6yv9MZsT2Ui
+	lgyICr8utJzcLH/7HQ7ZY/40SyqdsnHTRocOgWA7qRjfu9DkRWlfnWV/LEBmT2gAwjkHdcghjGQ
+	CW9y0+yGyh/UkZlpHmA5J10eV/S4XIwjsB/LJuTk4wvsV1g5djelRe7yJHO8/FHZLiZXQqJhZ+c
+	tN53jA4hkRgn80mXVCDavHv2NcWv5cwsQ+KoRsaN63Ii80pUykUZfR5dOR0t2YxIa1aqJ8MBeDM
+	g702GSP3dsxWkTyd1p0DiydBqSVKQqIoE0ENrqmZpTgyo8GL809nYKTQOMZ60KMdGKgianfQN3Q
+	p50AQ/YzJ4af5NAelY+dzZtifq1oAQpq0kdK3SHlEMIlbuqZtExMtmzJjQWRdpCLSteucZsXZ+C
+	mBLbWRbHW/40v5Q==
+X-Received: by 2002:a05:6000:2913:b0:48f:bc05:76fc with SMTP id ffacd0b85a97d-4958871da7cmr8465559f8f.11.1794239823132;
+        Mon, 09 Nov 2026 07:57:03 -0800 (PST)
+Received: from localhost (p200300f65f19a90407b2ef73b14b6bb2.dip0.t-ipconnect.de. [2003:f6:5f19:a904:7b2:ef73:b14b:6bb2])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-496150c6e90sm9293515f8f.2.2026.11.09.07.57.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 07:57:02 -0800 (PST)
+Date: Mon, 9 Nov 2026 16:57:01 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Nicolas Schier <nsc@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Harald Freudenberger <freude@linux.ibm.com>, Holger Dengler <dengler@linux.ibm.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	linux-kbuild@vger.kernel.org, linux-s390@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	"kernelci.org bot" <bot@kernelci.org>
+Subject: Re: [PATCH 2/2] devicetable-offsets: Get struct cpu_feature from a
+ device-id header
+Message-ID: <avHrnT-rUMynqyeh@monoceros>
+References: <cover.1792144769.git.u.kleine-koenig@baylibre.com>
+ <179416565740.60865.16102443399828949110.b4-review@b4>
+ <66e4ee9c7f9b4bc48fcee92a94b6bb6d92fe1ad2.1794233316.git.sashal@kernel.org>
+ <f610c07f39df15f3e7ebdc63bfcd759ca7a687a8.1794233316.git.sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,52 +107,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2fgrweo6pewwby7y"
 Content-Disposition: inline
-In-Reply-To: <AED18609B941BCFD+20261109082854.3739085-1-raoxu@uniontech.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQRjd-00000001UbS-33TR
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:32976
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 35
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfNF+H9TF43A8r24mhtoljG4CboM4Si+e85C+sEt0hjSe8g8cI11aDB+mNsWNJMvaqy9irC1KkS30aFcgT5XjZFEKPhZJ5Yjncszsqnu+Mo/xMU1kEtzw
- Nhq0X3gsqIm4jWKuGvxVwnNlfZVyXc4h+HHPgR260eHama0YRKWkSmnf+gQzS3oyABxikAwyQj1fK++df9RVcNT3C9DYqzAAQfBMYRz2BHneFucrxSkdssbR
+In-Reply-To: <f610c07f39df15f3e7ebdc63bfcd759ca7a687a8.1794233316.git.sashal@kernel.org>
 
-On Mon, Nov 09, 2026 at 04:28:54PM +0800, raoxu wrote:
-> From: Xu Rao <raoxu@uniontech.com>
-> 
-> scmi_hwmon_probe() groups sensors by hwmon type, so the index in
-> scmi_sensors->info[hwmon_temp] is not necessarily the SCMI sensor ID.
-> Passing that index to config_set() targets a different sensor if the
-> platform exposes non-temperature sensors ahead of temperature sensors.
-> The intended temperature sensor can remain disabled, causing subsequent
-> readings to fail. If configuring the wrong sensor fails, thermal
-> registration of the intended sensor is also skipped.
-> 
-> Use the firmware sensor ID, as the read and thermal registration paths
-> already do, so temperature sensors are enabled correctly.
-> 
-> The patch was reviewed and the commit message expanded with OpenCode
-> AI assistance.
-> 
-> Fixes: 72804d1631b3 ("hwmon: (scmi) Enable sensors to assure they can be read")
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
 
-Applied.
+--2fgrweo6pewwby7y
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/2] devicetable-offsets: Get struct cpu_feature from a
+ device-id header
+MIME-Version: 1.0
 
-Thanks,
-Guenter
+On Mon, Nov 09, 2026 at 09:14:41AM -0500, Sasha Levin wrote:
+> Since commit cdfdbc11552b ("Move struct cpu_feature to
+> <linux/cpufeature.h>"), devicetable-offsets.c includes
+> <linux/cpufeature.h>, which includes <asm/cpufeature.h> on architectures
+> that select GENERIC_CPU_AUTOPROBE. On loongarch and mips that header
+> pulls in <asm/elf.h>, and from there <linux/fs.h> and <linux/mmzone.h>,
+> which need <generated/bounds.h>. devicetable-offsets.c is built before
+> that header is generated, so even defconfig fails on both:
+>=20
+>   include/linux/page-flags-layout.h:6:10: fatal error: generated/bounds.h=
+: No such file or directory
+>=20
+> Move struct cpu_feature to <linux/device-id/cpu_feature.h>, next to the
+> other device id types, and include that from <linux/cpufeature.h>,
+> devicetable-offsets.c and file2alias.c.
+
+I didn't do that before because I didn't have the impression that struct
+cpu_feature is a device id type. Seems a bit like a misuse to me, but
+=F0=9F=A4=B7.
+
+Acked-by: Uwe Kleine-K=C3=B6nig <u.kleine-koenig@baylibre.com>
+
+Best regards
+Uwe
+
+--2fgrweo6pewwby7y
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrx7UsACgkQj4D7WH0S
+/k61Rwf+LVoPzWsK/woGLLlyviU+6CbjuXgKqChzk+2WLkEBD+PwtIXB8AH9dbPn
+M6002PBuVjZim21ciWzb4KrFg+A7r8v7VwgqC0guYCC0fmT5saCufWs+mD3K0UNm
+v99+XG+Beb0pbOot1KBVbwhXV+bC3Me9emG+M/tnXXHJCQKspmNpEZveIk7dSlWF
+YkDj52lX/LcDMa7bDOfNfbEbMOZOoyzvXhBdLN5vonShXeWbBTvbIHDhIBXYUiXe
+TPKI4T+X/rK0qjc0N33xYdbPFPxC6JtA0bY19P+H9qXRHfDET9c4m1tBDYI/f4GF
+TRJz+4C8sNz42lbj0xNszq4D4wu9LA==
+=wmA7
+-----END PGP SIGNATURE-----
+
+--2fgrweo6pewwby7y--
