@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794228463;
-	b=q5KCqEtq5nkHmSstrNEeMaG+jBmy7cDKY8ze7gn3nDRaaa2EKJ0CcD+3zmNmgetxtTJx
-	 f6cwBJAuDJ14ViI85yD7QJhF/J4wvCw3X8SZqqqtVTNTNKy4qCQ/L5tgCNjI2wEvItyE5
-	 wy0xixGTKOZui1yot08HwND8T7ULJrutKe3j6guQjNaI5oHl4PrPBjF3e6bkM8rP+hJTz
-	 rgh9CWmokrqo7FY06Txa6vx0WCTZFrSBLijK7FHVT8b545sdNWALdR+3J+KSMfltpEyVN
-	 dPUmE3Dk2NXRP5hH+9y8c2+dwHVtQfgpSA1Hh02KBqeNCoXaUfbHpAG4YftXxulA28A==
+	b=NCBwE5JAhPBHvEEkEF0XificywmtyvyaTbSIukL/AGq3ed4WqJvpycu2Kl8800YbjJ48
+	 JH+J8yJqHqPm8xK2XJDKSzk3OF53Q2t4ZAWNYzytpNvtS+pEICp0QHMv3LYRbIWF8bhot
+	 4R1LmyQie2ipBQgUewkatEDAiBix+cmAzf6kRe5y4Top7qpOvnYzv4YzXVnMRrGCgOTSY
+	 2o8Vju+OnEjKJnjLxN2D0yFKvljUomzLYgqnrXRnfHea+8j+pxgodLsXLFCS5xw4KoyHD
+	 LTT6d5fLEV77DkZMuBwmaovXndqWZZdeEXfXOf62Kv4SXMOYN9LF/cvb70rJkigqk8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794228463;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
-	bh=wxk+bhvyLH0V8Ro0RSES6TcYnCuINk9KDIVovqPlrco=;
-	b=czBS2Gi0JZ2hKF8h8Y4/0NVped8A9Rij780clw9QXaDLdYKrRZeq4MvCEJEkQ2g/TEvL
-	 2M7PQ4AFGIw8dYjOuU1ptZzQP7Tgr/QZ1gYnhAR6xA2BND+LAn972XkclPRR0Zp/D11Ya
-	 8X93k1VEZ6kl9u11sOH1+35IabFQQfNassjsEdM2zokj8aMA2iRhTB49Wrd+EDgqS1N8q
-	 neiX8KffpPBfGvEpgTqfZRpWWaBR1JGuALW6EdujnTYm4VKPV/TLKowSaPHG0IbvGdT3s
-	 rAW8V3b1ha94nBRrE+9N64eKd9c44Ie1mQNlSdfxmWeKLcoQmJulcYe6tysKNR/ZTCg==
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=bXIrPJMc4TH6G6RUxn2CW4n4B3W1tJcmFyur2BPLzCk=;
+	b=j9+itFoXKjZiHKNCG1kkg8YS0LXWOYKQJkW9bkKCF8ItBvjD4giZnTaoFnv8c9ZuXYT6
+	 jlBOzZhRBjJtye0bO2QlUiPnPc8GWpYA8qK7ZlLOUAcN61HrsZhROGQ4cC2zi+w2MN0Oc
+	 DL2FYElh8mnXR1qXysx3BygyiW6k3zqvtlBLvCx9Y/Qf/MU6IPSWo/DYlGupjNH9OBlnd
+	 iiH/zhoIIYrLUY/OQxQuShzUEfljclg7peR9Vgsl5OYQTkXEjnIO7W3W+a6tfxncugCvf
+	 PH9OhRf/wXvw3Y3JOyxynH+oUyZGRzkXSNFv2xwpSbwn2h/ea+zVbcjIVyLj97XYPLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Zug4BiSa;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="h7N/dCfd";
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59EF606A33D
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:47:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E59EF606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Zug4BiSa
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 1383EC5845B;
-	Mon,  9 Nov 2026 12:47:41 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 313A960051;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EEA606D80E;
 	Mon,  9 Nov 2026 12:47:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E0A1A103293A7;
-	Mon,  9 Nov 2026 13:47:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794228455; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=wxk+bhvyLH0V8Ro0RSES6TcYnCuINk9KDIVovqPlrco=;
-	b=Zug4BiSadZnRUO+7qaJKJviEJxbniARKUmLjFqFaD/+G/0fnXauDtkzAocTUoYMhxn5e/V
-	8TMje7aBW+YOoB6sz1fzpE89EgOMXVpCKN0QoeTWy/JfCVbBLhHXNLkPGZspZQeHF2eHoP
-	MuM5xYgd1q7kgNimoAF48LtOQIsZgRLQwDoZkMuhnt9hpohuZqXM2naUaTfdu3fXJMEnEM
-	eb+CR4uyK6c0boIO1bmd2SwSMP38zLOy865hi97UKiV26cNOWWKTKYdYcKLds5a2T3CuIn
-	AX1B/aMbogTK04OlF/WEIZbEW7vbhuTIQu4vpRzb/o7N2bZxFFNHV6UmYdYuBw==
-From: Paul Louvel <paul.louvel@bootlin.com>
-Date: Mon, 09 Nov 2026 13:44:56 +0100
-Subject: [PATCH net-next 2/2] net: phy: marvell: add RGMII-to-Copper mode
- configuration
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51EEA606D80E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=h7N/dCfd
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=bXIrPJMc4TH6G6RUxn2CW4n4B3W1tJcmFyur2BPLzCk=;
+	b=h7N/dCfdD/K4N6TzCDR6HKR3dc4Ion4/vg16/NxSPWte2t4ELtNtXOy8qcJbChB/yLORt5yhT
+	4RzqPkhag660ALGqvBhyHZYERRXjGliohHM0nOH+Ehj6XOBUwwqE6/T4l/25WZq5m4U2RyFXYxu
+	ljIFsoKz2OUeZZkl8ojnVCo=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jNV195kMbz1K9BM;
+	Mon,  9 Nov 2026 20:47:25 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id E32F240561;
+	Mon,  9 Nov 2026 20:47:33 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 9 Nov
+ 2026 20:47:33 +0800
+Message-ID: <cf118756-4fd4-45c4-9426-a535d580fab1@huawei.com>
+Date: Mon, 9 Nov 2026 20:47:31 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,86 +62,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-marvell-phy-rgmii-v1-2-026979ef4f13@bootlin.com>
-References: <20261109-marvell-phy-rgmii-v1-0-026979ef4f13@bootlin.com>
-In-Reply-To: <20261109-marvell-phy-rgmii-v1-0-026979ef4f13@bootlin.com>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Paul Louvel <paul.louvel@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794228436; l=1900;
- i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
- bh=0+Pao/luz/FKciKGjA9DPEBPbRWwHZisVEAkAXPuHUw=;
- b=2Kl60nv/2d49BdYQKj4TI6T1Yb6we6SFZQCxikBM4duKj90ueV1JDjdZuM+3IQKG63CuktQcw
- pd/t+KHGGl8Br+gskJ02H6H8CMaX2EHunHKdhjFjDY+wvt/TOg2e00A
-X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
- pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] fs/resctrl: Disallow monitor group rename when the
+ RMID changes
+To: Ben Horgan <ben.horgan@arm.com>, <tony.luck@intel.com>,
+	<reinette.chatre@intel.com>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
+	<babu.moger@amd.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+	<rdunlap@infradead.org>, <zengheng4@huawei.com>, <gshan@redhat.com>,
+	<jic23@kernel.org>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-doc@vger.kernel.org>
+References: <20261105123524.2282090-1-ruanjinjie@huawei.com>
+ <7a8d6a15-5a10-4035-b825-4436cba537ee@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <7a8d6a15-5a10-4035-b825-4436cba537ee@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-The driver currently programs it only for SGMII-to-Copper, based on the
-PHY interface mode.
 
-Some MAC connect to the PHY via RGMII. Add code to configure the device
-in m88e1510_config_init().
 
-Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
----
- drivers/net/phy/marvell.c | 31 +++++++------------------------
- 1 file changed, 7 insertions(+), 24 deletions(-)
+在 2026/11/9 18:52, Ben Horgan 写道:
+> Hi Jinjie,
+> 
+> On 05/11/2026 12:35, Jinjie Ruan wrote:
+>> From: Peter Newman <peternewman@google.com>
+>>
+>> A monitor group can be renamed into the mon_groups directory of another
+>> control group to move its tasks to that control group's allocation
+>> while keeping their monitoring data. Where the RMID is only meaningful
+>> together with the CLOSID, as on arm64 MPAM where the RMID is a PMG that
+>> extends the PARTID, this move does not work. The rename succeeds, but:
+>>
+>> - The group's monitoring data is reset. Its counters are identified by
+>>   the CLOSID and RMID together, so after the move the group reads the
+>>   counters of the new CLOSID instead of the ones its tasks used.
+>>
+>> - The tasks are not moved. mongrp_reparent() sets the new parent and
+>>   CLOSID of the group before rdt_move_group_tasks() looks for the tasks
+>>   to update, and the search then matches on the new CLOSID, which none
+>>   of the tasks carries yet. The tasks keep the old CLOSID and the old
+>>   control group's allocation, and the group does not count them.
+>>
+>> The move has never worked on these systems, so rejecting it does not
+>> take away behavior that an existing user can rely on.
+>>
+>> Reject the move with -EOPNOTSUPP when it changes the RMID index of the
+>> group, and document the restriction in resctrl.rst. Where the RMID does
+>> not depend on the CLOSID, such as on x86, the move keeps the same index
+>> and is still allowed.
+>>
+>> Fixes: 3e9b35823aab ("arm_mpam: resctrl: Add rmid index helpers")
+>> Signed-off-by: Peter Newman <peternewman@google.com>
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> Cc: <stable@vger.kernel.org> # 7.1.x
+>> Link: https://lore.kernel.org/lkml/20241205153845.394714-1-peternewman@google.com/
+>> Link: https://lore.kernel.org/lkml/20261031101052.1692230-1-ruanjinjie@huawei.com/
+>> ---
+>> v2:
+>> - Drop the Suggested-by tag.
+>> - Describe the systems by whether the RMID depends on the CLOSID rather
+>>   than by MPAM, in both the changelog and resctrl.rst.
+>> - Explain that moving a monitor group is already broken on these systems
+>>   because the tasks are not moved, so no existing user relies on it.
+>> - v1: https://lore.kernel.org/all/20261104101913.586595-1-ruanjinjie@huawei.com/
+>> ---
+>>  Documentation/filesystems/resctrl.rst |  7 ++++---
+>>  fs/resctrl/rdtgroup.c                 | 13 +++++++++++++
+>>  2 files changed, 17 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+>> index b52795e03303..9ae34aace0ff 100644
+>> --- a/Documentation/filesystems/resctrl.rst
+>> +++ b/Documentation/filesystems/resctrl.rst
+>> @@ -552,9 +552,10 @@ will automatically remove all MON groups below it.
+>>  Moving MON group directories to a new parent CTRL_MON group is supported
+>>  for the purpose of changing the resource allocations of a MON group
+>>  without impacting its monitoring data or assigned tasks. This operation
+>> -is not allowed for MON groups which monitor CPUs. No other move
+>> -operation is currently allowed other than simply renaming a CTRL_MON or
+>> -MON group.
+>> +is not allowed for MON groups which monitor CPUs, and fails with
+>> +-EOPNOTSUPP on systems where the RMID depends on the CLOSID. No other
+>> +move operation is currently allowed other than simply renaming a
+>> +CTRL_MON or MON group.
+> 
+> A user may not readily know whether RMID depends on CLOSID. To document
+> this properly we need something specific we can point the user too.
+> Perhaps this can be a file in the info directory specifying whether the
+> move is possible or not, info/moveable_mon_group, as we discussed in v1.
+> I suggest a precursor patch adding this file, followed by this patch
+> which can then refer to the file.
 
-diff --git a/drivers/net/phy/marvell.c b/drivers/net/phy/marvell.c
-index aef5f8279133..b8b466eb1c45 100644
---- a/drivers/net/phy/marvell.c
-+++ b/drivers/net/phy/marvell.c
-@@ -1394,31 +1394,14 @@ static int m88e1510_config_init(struct phy_device *phydev)
- 	if (err < 0)
- 		return err;
- 
--	/* SGMII-to-Copper mode initialization */
--	if (phydev->interface == PHY_INTERFACE_MODE_SGMII) {
--		/* Select page 18 */
--		err = marvell_set_page(phydev, 18);
--		if (err < 0)
--			return err;
--
--		/* In reg 20, write MODE[2:0] = 0x1 (SGMII to Copper) */
--		err = phy_modify(phydev, MII_88E1510_GEN_CTRL_REG_1,
--				 MII_88E1510_GEN_CTRL_REG_1_MODE_MASK,
--				 MII_88E1510_GEN_CTRL_REG_1_MODE_SGMII);
--		if (err < 0)
--			return err;
--
--		/* PHY reset is necessary after changing MODE[2:0] */
--		err = phy_set_bits(phydev, MII_88E1510_GEN_CTRL_REG_1,
--				   MII_88E1510_GEN_CTRL_REG_1_RESET);
--		if (err < 0)
--			return err;
-+	/* RGMII/SGMII-to-Copper mode initialization */
-+	if (phydev->interface == PHY_INTERFACE_MODE_SGMII)
-+		err = m88e1510_config_mode(phydev, MII_88E1510_GEN_CTRL_REG_1_MODE_SGMII);
-+	else if (phy_interface_is_rgmii(phydev))
-+		err = m88e1510_config_mode(phydev, MII_88E1510_GEN_CTRL_REG_1_MODE_RGMII);
-+	if (err < 0)
-+		return err;
- 
--		/* Reset page selection */
--		err = marvell_set_page(phydev, MII_MARVELL_COPPER_PAGE);
--		if (err < 0)
--			return err;
--	}
- 	err = m88e1011_set_downshift(phydev, 3);
- 	if (err < 0)
- 		return err;
+OK, will add the info interface for user.
+
+> 
+> Thanks,
+> 
+> Ben
+> 
+>>  
+>>  All groups contain the following files:
+>>  
+>> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+>> index e6b64a5c9302..3c002b711024 100644
+>> --- a/fs/resctrl/rdtgroup.c
+>> +++ b/fs/resctrl/rdtgroup.c
+>> @@ -4398,6 +4398,19 @@ static int rdtgroup_rename(struct kernfs_node *kn,
+>>  		goto out;
+>>  	}
+>>  
+>> +	/*
+>> +	 * Moving the group changes the CLOSID. Where the RMID is only
+>> +	 * meaningful together with the CLOSID, the RMID index changes and the
+>> +	 * monitor state cannot follow the move.
+>> +	 */
+>> +	if (rdtgrp->mon.parent != new_prdtgrp && resctrl_arch_mon_capable() &&
+>> +	    resctrl_arch_rmid_idx_encode(rdtgrp->closid, rdtgrp->mon.rmid) !=
+>> +	    resctrl_arch_rmid_idx_encode(new_prdtgrp->closid, rdtgrp->mon.rmid)) {
+>> +		rdt_last_cmd_puts("Changing parent control group not supported\n");
+>> +		ret = -EOPNOTSUPP;
+>> +		goto out;
+>> +	}
+>> +
+>>  	/*
+>>  	 * If the MON group is monitoring CPUs, the CPUs must be assigned to the
+>>  	 * current parent CTRL_MON group and therefore cannot be assigned to
+> 
 
 -- 
-2.56.0
+Best regards,
+Jinjie
 
