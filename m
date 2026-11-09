@@ -1,100 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794244960;
-	b=af0saCE9JSbeg4PwValgsrWA/ocT7k3hlLpy8KSuldGCLP2VnoG5r320ksixkpLvdM+b
-	 4BWGtYjVoxVEF25455gHna/v9W8tI+LVuK37cx2dvKKBZLSOsY1bGVVDdD5bjZHar3nsk
-	 uxbxQMLnIlZTiOzuiFcDkiUuUYwaT2W5I9gwCgOE47F7jvH9ITpXJNlHQw8EhEUwbnVzM
-	 Ln34PAa7q2aWLs9RfHLFYr5t1p+Z9sVIb0Z04CBlPL9khEa3ut/lPjC+QEvbEWXMUnzRM
-	 pDh50kWkta9zwgbIF5KUA87P+z5yHf/jdjNRWZy00MceTomVEj8ZvmCP+BGrb2N3C/w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794244960;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=b6mHS43xjC7bUToGiz9ZtsTkKl4SjMG7SXbvThwI2D0=;
-	b=2Dj3GMy8PztBhpvJSXaW2vxbWe2jGvW4Fd9EuJnRZMrJpjkyIUwdeNRewf82oalVokkR
-	 yQaZ70tuXj0PJa/vSivKxBRtv4W/9tsNCHtPEHxo9NF+wIMgVpUHdE54Qvbget7HshD8W
-	 j/aqqNnWsN54KMxW5ppFv4jCYP/wqVqYWloFLMzO4dK3hVhvl8YZ09453pKNgd+h6CyOh
-	 eqClxRMVd5lNhVXlMp89aFAieNzjGK8Aw0QaHdAqxkUhnUUj/NsrQKEJ6BoDhQ5H8XPqt
-	 cfOGRr9KKTyZI7gLOZ8RAjPl8ODk1QVTsLfIBsJy6RIFu5qLS9z1NRLw6eEX1OSGMWA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linbit.com;
-	spf=pass smtp.mailfrom=linbit.com;
-	dkim=pass header.d=linbit.com header.i=@linbit.com header.a=rsa-sha256 header.s=google header.b=U4v0mlex;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794244952;
+	b=veAiocBaVYppmOljDqtxc9qF6qH2e1o12HtFaM919oDeihITJKLkoC4yCsyaU8oDz5c+
+	 MSPsMCbWcjcH9k/7ZH9mjX2+M0ndD0Yu48ZUiIekbrIW4IlCauh+Ak/0hh7iR1xyDhft3
+	 dzHz3E2pGnjR8aU2TPcFpPf8PQDnE/yO8NHvLHoSE5QR8nY8btn75/YISooFbAWYgxnjz
+	 QJnqupeNGeTs5ZLRgie0C+kKnnZ9KDNMi7/Thouxc8RpPT/ZrBB1/JbWDAghElEz3ErMv
+	 7xRte41dS8VDJyV20IaaoPDYbrp4L3zkt3YaNiPp4j32pc8pUJEAo6qs9KiXtQqKOWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794244952;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=D9U6IfQ/eO/lP3tHlty6WQMujUfLneQ9jmVLjziVU14=;
+	b=4uao6LoVxbwecfw7hSvWrXcHkWwzZsircoOUzSqvSHz73QP0IqG1VRMj72JLt1Qi6Mnj
+	 /Znvb4dCu/s4BLFd7CCRftxYgSnNgHeKcbfmNuo0nzhSnLLskWWlfJAmAs1mQ1529fN8u
+	 jaevdv7u8R0lTfBUkJD5DDUVlhz0N34m+eeY021CnjU2mX1OozPi76+KZQLLyAAyR9xd2
+	 NzLkh6GPuxIf58/WopB1xR9U8rHOLpytyjYASBUrgqScY8V3h2/9n4Ax2GwO8n3j0TZqk
+	 HHsvCaX5oKWMF5dXIn7nqOlUvKAc4kNk+yyD0yVVgV2fSNJ0YS6AG/Q7E9y/sfYos+A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0NPahwk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2071F606A31C;
+	Mon,  9 Nov 2026 17:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0NPahwk
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794244951;
+	b=lL5LEJxyCC0Uzb+ggJqbTWpKPjz6TVWx8NBDYAtPeCulFdpesFdy/peL1BzTSMKZTt4W
+	 R8/97m2gJoOCB8SwVqUsggJZ//ST3N1OvGw9xv1ewh/KTauR7ihNvzhkodhKAQ3WUJQGQ
+	 c5rOfi35gTTW7UbalwWf/H7kE9MkRtylcaQ9dNPpax3Nhyt9IZfzN8UmoZLPELhzCYKJk
+	 rHf9c4pILIxmuZvByQDDX/m8g8bpA2GuKi8jAyOtmlMANmng2XDIHeFP6jjJ3Es0dL5DP
+	 368HgmZWTz56ygHyqc0qp8quIBGmqw15NHRiLh6PGD5vCrJownyooqOmw8RWtPtH3pA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794244951;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=D9U6IfQ/eO/lP3tHlty6WQMujUfLneQ9jmVLjziVU14=;
+	b=C5fVgEzloT4v/siWiPs92JKTajshCxlh075Lzl1UX0tYu1FITx+MxzRhE/mZUTpUd+AE
+	 fAO7awskSCFHemg/Es75Ss0jXJ2oEw6+g/MXz/1r5GKTzbWZUxMHwTmDmhuYC8oRWSfi+
+	 KdsNXg0eFoBZQJTWh08EIK0oj2YG3YqPCTOYqIpDt8ksp/L2bowa7v54spPQwJsveNojC
+	 2L6ODfsRhU2SloF5cuXhIUbrmdhTGrjb6HoirSGvldpNmL2+ra9igUdDggW9H0/mvp9PO
+	 RzYVChk3wsLNd9rqZw1F7xr7wG4BrcmdvkZgv0R+77guhFBCmesaMOkgM3LR00Y2JqA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732CF606A33F
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:22:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 732CF606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linbit.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linbit.com header.i=@linbit.com header.a=rsa-sha256 header.s=google header.b=U4v0mlex
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso9491775e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:22:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linbit.com; s=google; t=1794244958; x=1794849758; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b6mHS43xjC7bUToGiz9ZtsTkKl4SjMG7SXbvThwI2D0=;
-        b=U4v0mlexhWlX56e50vl+rHtY0E4bzai4WnqBSNUoQGJvDFH+jhJZG+QNgLf/ou8Qhj
-         c4HdzeD9/Rvq4PLSw0i0SegdfnVBgRa09/CSARvygTBgoCOGLU3+zQutEf8u/FiuhFMW
-         qBH/0nEA6GfUKokeDCAqKFvRKRJhW6xSfRu1F9jQNByvFJtRvrszHUpPhpxL0oH0zt5E
-         8pNyo3s7ARdiyEuFvG4/2nP9ZwebN7wu5iKRFeejPNZ5YO85nvyWIXBcKsBeNIq+iuTT
-         LCKGawt2Bobn3BYRN36mW64rBrcAtzymMoS55QOhqALvVjMm8F7KHt/4h3QwtQ4mb1rv
-         Qaew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794244958; x=1794849758;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=b6mHS43xjC7bUToGiz9ZtsTkKl4SjMG7SXbvThwI2D0=;
-        b=SEgJZKTaVROFyJSQ0jxu0gSVdo5kBoZCevuI3t/b9dd58Bnp7MYmVTNtfD3R9F5p0F
-         rIVAgLjk/Ma3gX0hZz/83T1tDbBD0Egzns+IYUnmvlVu/GQb9KO7ilH8xJT9decy8gT2
-         fXsw1g5tJHxkiqpAt2L4nzt0nqFZiZ3jsXvygPYIuBDemwhRRgBngR5wWDA9e581UlU7
-         P5GJsmZ3iwCMz5Vb5qN7ou3mCMwj03DRZkmaggB2eUQ9SfH5ILXlqJIjHs6ahBMg8rJj
-         etWxI/dOCfcP558q1JcC8dE/RD7Zk8UefcAqU9wU8k0W6+EwlOizhHPEswoHPp4KjGJs
-         5tBA==
-X-Forwarded-Encrypted: i=1; AL+hErG3hxn6FkFyfxi1T6Akg5t0ubBO3GtT5vJm07xtJmIPyZa/6Zg5SPgMLQnr8zmRP5hHdtc8Ri3LEW/vzsc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wyxwAH61vHSML7ilh/ZxLAw+u01uxQXWFES/j68PHMqqSYtfb
-	o6ONDVA/cQv6CXWvBYn4HHKep0CkyDqvIBrWZaSQVw7QWRL9oD1UfvgsYP5/N7Xw4dc=
-X-Gm-Gg: AYBFou3iRf0HA1xXB2b3XfB33fjBN7eaKKr0AKrKKOxUtK3cZpHb2HcBT4gc7XFa5CH
-	zRdwefL5LmQfw6+zatMaaoOiFAHhsRLUuvZxlRI0v+9xH1aLn+Q+1WPCexz24Y/97cXc3jmgRF6
-	TbLTZVg76TgZA9uPNPEPEYyVxYZqHOpBfW8YNDz2Z5PpfBMQK+78KdsFAWJtKvB/GeIDgIJ6BJJ
-	zyfpdDFif0rTIB078KjVlIPRd3CELq87MmrG1Hx6KnUSnEfz/eCDG0UfwF0J8jJCRcbyjKwc+YT
-	Kd4mAArYhJ7nV/fH2QMYduJcFrXdfzjRBSUvLvkirB9octCmtfeKcPQLKiPkc0L6/Kp069bUn2o
-	2KKWS/zE1kpXK/LSSw2Ykl1IH1pdU2iET1AoOjVjwfaspu/dN/TIO8o74wuzLkDYDULRqhgezuM
-	GiVux9rhtiy41Tjq8Z+lxOBwwSC1fJWzAhABdozepKFbYeaZvYlam9EzpqLCONvHUBp0H9Lprug
-	VVOi+SP4vrjma/CA2aCFjtDpI+a5hVZ2OTFVU9xnGIqoL5Kp2R5kn5W491rNy9Pce50ckHePTv/
-	LmQCuqfS71EVnzgQCum7AT8w4zHwNx9zAqrxKBcdc4Jo0lK4r46nJ+N4Na66fcKnWkEXzwdK0bI
-	eQnwEOw7lsUjJ0kJ+zA==
-X-Received: by 2002:a05:600c:470a:b0:4a2:1655:87db with SMTP id 5b1f17b1804b1-4b943f76fdbmr96705385e9.0.1794244957763;
-        Mon, 09 Nov 2026 09:22:37 -0800 (PST)
-Received: from localhost (h082218129081.host.wavenet.at. [82.218.129.81])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba015c1e31sm4470385e9.1.2026.11.09.09.22.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 09:22:36 -0800 (PST)
-Date: Mon, 9 Nov 2026 18:22:35 +0100
-From: Christoph =?utf-8?Q?B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Philipp Reisner <philipp.reisner@linbit.com>, 
-	Lars Ellenberg <lars@linbit.com>, drbd-dev@lists.linux.dev, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Lars Ellenberg <lars.ellenberg@linbit.com>
-Subject: Re: [PATCH 0/7] drbd: preparation for DRBD 9
-Message-ID: <avIA1j2pX46pzOr0@linbit.com>
-Mail-Followup-To: Jens Axboe <axboe@kernel.dk>, 
-	Philipp Reisner <philipp.reisner@linbit.com>, Lars Ellenberg <lars@linbit.com>, drbd-dev@lists.linux.dev, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Lars Ellenberg <lars.ellenberg@linbit.com>
-References: <20260923140608.1116713-1-christoph.boehmwalder@linbit.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 2417F1F008A1;
+	Mon,  9 Nov 2026 17:22:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794244951;
+	bh=D9U6IfQ/eO/lP3tHlty6WQMujUfLneQ9jmVLjziVU14=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=G0NPahwkusp3/Mon21rx6ECbSa0acf9lj5wLuUlQBviiMhTUud5I9HNnOAAEVnaPu
+	 OiSXQqnDuKmn9bX5ZkJJzOgmFCKaXCsIJqNQUjKwFNTtZsoMWP6SDn+SYiCwa6q6R+
+	 q6TkL9lDpdz5AzM3LtCncDGb0B4HjI+P4pK5N6VSUBiIvyEYusw8btd25S21k5iAOX
+	 NqpKxDa/hyYJTQqS6VuJ4+tpLSozogBJ+5I4G5WKyUewcVCRok/6aIxKcl5xIPTaAm
+	 7IQNX3ddJP3el+2LT/4t89Tceur5c/Fed7A3jvZG+7jPKSijjjSy5ZzRCJNKew4UwN
+	 CW6F7a8MEcMGA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7BA7348586;
+	Mon,  9 Nov 2026 17:22:30 +0000 (UTC)
+From: Brian Ellis via B4 Relay <devnull+brianellis.gotenna.com@kernel.org>
+Date: Mon, 09 Nov 2026 10:22:31 -0700
+Subject: [PATCH] usb: dwc3: apply XCVRDLY after PHY init
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,71 +82,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260923140608.1116713-1-christoph.boehmwalder@linbit.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-dwc3-xcvrdly-after-phy-init-v1-1-488ed0a0c7da@gotenna.com>
+X-B4-Tracking: v=1; b=H4sIAFYB8moC/x3MwQqDMAwA0F+RnA2kug3dr4gHbdMZGJ2kohXpv
+ 1t2fJd3QWQVjvCuLlDeJcovFJi6ArtM4cMorhgaal7GUI/usC0mu6v7njj5jRXX5UQJsuGT+o5
+ a/5jJdlCGVdlL+u/DmPMNhc8OvG0AAAA=
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Ingo Rohloff <ingo.rohloff@lauterbach.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Brian Ellis <brianellis@gotenna.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794244950; l=3926;
+ i=brianellis@gotenna.com; s=20260910; h=from:subject:message-id;
+ bh=jakNXExeE+3F8RWpGGZDS5fPEZqL1DBayyBy3aFZ4js=;
+ b=qHYh4EC0tLu2Dq1qtTAHNTLSQp4jn5DMMM6Fhd/1GuvnW+jOInVLJ0XFKcUiTMcGnWDHfyrbl
+ 5LzN3MfzJxfCk7lK+FWF3LxMpP6vttnKQpS0lvcyPfANlt8X3wWUE2a
+X-Developer-Key: i=brianellis@gotenna.com; a=ed25519;
+ pk=JciDR8ctfMqvKeRCDP8VPwNLUDULxCAqDum6H+/ByBY=
+X-Endpoint-Received: by B4 Relay for brianellis@gotenna.com/20260910 with
+ auth_id=1022
+X-Original-From: Brian Ellis <brianellis@gotenna.com>
+Reply-To: brianellis@gotenna.com
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 23, 2026 at 04:06:01PM +0200, Christoph Böhmwalder wrote:
->This series contains preparatory changes for bringing DRBD 9 upstream.
->Each patch moves a piece of the in-tree DRBD 8.4 code to the form it
->has in the out-of-tree DRBD 9 code. Doing these steps separately and
->up front keeps them out of the much larger rework that follows, so
->that rework shows only what DRBD 9 actually changes.
->
->The patches are a file rename, comment and internal cleanups, and two
->higher configuration maximums. Defaults are unchanged, all existing
->configurations remain valid, and apart from those limits only the
->wording of some log messages is visible to userspace.
->
->Christoph Böhmwalder (7):
->  drbd: rename drbd_worker.c to drbd_sender.c
->  drbd: modernize the file header comments
->  drbd: raise the socket buffer size limits to 128 MiB
->  drbd: raise the maximum resync rate to 8 GiB/s
->  drbd: replace the drbd_interval bitfields with a type and flags
->  drbd: move the packet name table to drbd_strings.c
->  drbd: rate limit log messages per object
->
-> drivers/block/drbd/Makefile                   |   2 +-
-> drivers/block/drbd/drbd_actlog.c              |  16 +-
-> drivers/block/drbd/drbd_bitmap.c              |  18 +-
-> drivers/block/drbd/drbd_debugfs.c             |   4 +
-> drivers/block/drbd/drbd_debugfs.h             |   4 +
-> drivers/block/drbd/drbd_int.h                 |  59 +++-
-> drivers/block/drbd/drbd_interval.c            |   4 +
-> drivers/block/drbd/drbd_interval.h            |  55 +++-
-> drivers/block/drbd/drbd_main.c                | 106 ++------
-> drivers/block/drbd/drbd_nl.c                  |  15 +-
-> drivers/block/drbd/drbd_polymorph_printk.h    | 256 ++++++++++++------
-> drivers/block/drbd/drbd_proc.c                |  10 +-
-> drivers/block/drbd/drbd_protocol.h            |   4 +
-> drivers/block/drbd/drbd_receiver.c            |  61 +++--
-> drivers/block/drbd/drbd_req.c                 |  40 ++-
-> drivers/block/drbd/drbd_req.h                 |  12 +-
-> .../drbd/{drbd_worker.c => drbd_sender.c}     |  42 ++-
-> drivers/block/drbd/drbd_state.c               |  15 +-
-> drivers/block/drbd/drbd_strings.c             | 138 ++++++++--
-> drivers/block/drbd/drbd_strings.h             |  27 +-
-> drivers/block/drbd/drbd_vli.h                 |  12 +-
-> include/uapi/linux/drbd.h                     |  12 +-
-> include/uapi/linux/drbd_limits.h              |  12 +-
-> 23 files changed, 534 insertions(+), 390 deletions(-)
-> rename drivers/block/drbd/{drbd_worker.c => drbd_sender.c} (98%)
->
->
->base-commit: 85bffad4d2fea373a72d68bed8012e8cbccb8ee7
->-- 
->2.55.0
->
+From: Brian Ellis <brianellis@gotenna.com>
 
-Hi Jens,
+Commit a28de6335657 ("usb: dwc3: Support USB3340x ULPI PHY high-speed
+negotiation.") sets GUSB2PHYCFG.XCVRDLY in dwc3_ulpi_setup(), which
+dwc3_core_init() calls straight after ULPI init.  That is before
+dwc3_core_get_phy(), dwc3_phy_init(), dwc3_core_soft_reset() and
+dwc3_phy_power_on(), so the bit is already asserted while the PHY is
+brought up.
 
-this never got a reply, and neither did the subsequent v2 drbd rework series
-that's based on it [1].
-I think this should still apply to 7.5, would you mind queueing it up?
+On a ZynqMP board (DWC3 2.90a, peripheral mode) with a USB3340, that
+ordering breaks high-speed links.  Each link enumerates at 480 Mbps and
+passes traffic, then drops 2.20-2.23 s after enumeration, and the host's
+attempts to re-enumerate the device fail.  We measured 12 such links on
+two host root ports; every one died in that window.
 
-Thanks,
-Christoph
+What matters is when the bit is written, not its value.  Written at the
+end of dwc3_core_init() instead, GUSB2PHYCFG holds the same value
+(0x00022710 on this board), and high-speed links on the same board stay
+up: one ran continuously for over 1000 s with no receive errors, and 60
+re-enumeration cycles completed without a failure.
 
-[1] https://lore.kernel.org/linux-block/20261006154607.3936501-1-christoph.boehmwalder@linbit.com/
+Move the dwc3_ulpi_setup() call to the end of dwc3_core_init().  The bit
+is still set well before any high-speed chirp, which only happens when a
+host enumerates the device.
+
+Fixes: a28de6335657 ("usb: dwc3: Support USB3340x ULPI PHY high-speed negotiation.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Brian Ellis <brianellis@gotenna.com>
+---
+How this was tested: not on mainline.  The failure and the fix were both
+measured on our board running AMD's 6.6-based vendor kernel (through
+ADI's tree), with a28de6335657 backported.  The backport calls
+dwc3_ulpi_setup() from the same place and differs only in handling a
+single USB2 port.  The 12 failing links were attached directly to two
+host root ports.  The 1000 s run was through a hub, on a kernel carrying
+this change plus five other local dwc3, ULPI and extcon patches.  The 60
+re-enumeration cycles were direct to two root ports, on a later build
+with more of our local USB fixes.  On mainline the change is
+compile-tested only (x86_64 allmodconfig, W=1, no new warnings).
+
+Not established: why the ordering matters.  The outcome follows whether
+XCVRDLY is asserted before dwc3_phy_init(), not the value written, but
+we have not identified which step of PHY bring-up is sensitive to it.
+
+Ingo, if your USB3340 board is still to hand, it would help to know
+whether its high-speed links stay up for more than a few seconds, with
+and without this change.
+
+Not addressed here: on our board the ULPI ID read that a28de6335657 uses
+to detect the USB3340 fails when no cable is attached at boot, because
+this PHY only clocks ULPI with VBUS present, so the bit is never set and
+the port runs at full speed.  Fixing that needs a DT property and a
+binding update, so it is not part of this fix.
+
+Tool use: an LLM coding assistant (Claude) helped run the investigation
+and keep its record, wrote the code change, and drafted this changelog
+and these notes from that record.  The measurements were taken on our
+hardware.
+---
+ drivers/usb/dwc3/core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+index fd5c2cd36c..9b37ceda9a 100644
+--- a/drivers/usb/dwc3/core.c
++++ b/drivers/usb/dwc3/core.c
+@@ -1371,8 +1371,6 @@ int dwc3_core_init(struct dwc3 *dwc)
+ 		dwc->ulpi_ready = true;
+ 	}
+ 
+-	dwc3_ulpi_setup(dwc);
+-
+ 	if (!dwc->phys_ready) {
+ 		ret = dwc3_core_get_phy(dwc);
+ 		if (ret)
+@@ -1534,6 +1532,9 @@ int dwc3_core_init(struct dwc3 *dwc)
+ 		dwc3_writel(dwc, DWC3_GUCTL3, reg);
+ 	}
+ 
++	/* XCVRDLY must not be asserted across PHY init, so set it last. */
++	dwc3_ulpi_setup(dwc);
++
+ 	return 0;
+ 
+ err_power_off_phy:
+
+---
+base-commit: 3149e8b3237f58d4dd440fc64c45c93404c4b064
+change-id: 20261109-dwc3-xcvrdly-after-phy-init-509803f4b0c8
+
+Best regards,
+-- 
+Brian Ellis <brianellis@gotenna.com>
+
+
