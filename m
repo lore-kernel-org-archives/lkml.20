@@ -1,92 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794189961;
-	b=2McJpUjGR66BRZ3eUPs2wciY1cL0rRjtkwXHvwS6EY5MkhLi+naWRSo6Kr2S7ccU2FXa
-	 91rrJ6dNejomRuH1vO3hPdYIkm8YIawOE5wa3bFBWqbh4ZOMxRfXZLflip1NK5V4Uu8aS
-	 +Nsb8XCkzkmdqFf95p3tkfKwZXP0jRsrCuBXW364fizICH0rJJYZaawsCOy+iS/AMMQin
-	 U6XwbgF1tUyz1ZNnFwNASds6h9ioAhG9ul2FqISRp9DsN6RFx1iNYMd6iy4RCsDdb02ld
-	 FxKwHB/UkUDjHVD/935mfLWlcap231iyC6Wcn//a+oqWPCgpCJUqnOY7cKqX7792kjg==
+	t=1794190027;
+	b=KCbQ9x1F9pmX9cRLr1mgNu9NC6h9ExGe7stxSYa42a3wf/OiQpfzVZdzPVLyUKOXfmBT
+	 Gl5AcKT293t8plM3D5ZHDPURTy66E2XlMoixNx3+7yFoYi1EMFI21FzUvKLbxuWvlj1jp
+	 d7aWJ0WS3lQq4i7Jy/YXzG4Y9/tGP0yPOYVibN6c8d/hguH8XWVUM8QTxJQARtJ9BFlDd
+	 5U0J1VnzfxSoLDQFr2a/IQBenOVR3tBAOpPJtVjtlgEAdHEG6PcvtBEjn6xT38xrBGlF6
+	 e//s+KiZKp2iSMFGxZFPUkAPVqoAIQx4Qocn1OqWgWJTpF33+iy9SKaev4YKwE5LUhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794189961;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=aj9oR9Ww8FoQrbaajKI3tgdOoEt+pimjjkjSqzvb7B0=;
-	b=OH3oYZAEQjAmfXqHS2DCQOhkKNxFQonGcEYz6x3Pgtjr3CEj4DmBvcuM+FE6I990OykR
-	 WdSWbLmZ9wpsb98BTM2hJNzJnfinYDuE3+pHvFoPoe0YbgDdtq9wQZN6deSrahjsnB5jQ
-	 0kPTQqkUDGVuTnObhjFMlYgWVh5aCVmsN+mO54qMKQZo6ULaXWzXNmszhRz3NaeeAdhDc
-	 pmFCaF1qKlvFyP+q3ACw2aAmD6XVKy7fOb6VDfxMg7d8VQOQgRBVnoRa9uKFkwGiurT3Q
-	 QYRA/lTJr1Xl7dwjkauB4Pd71956qZZvylfHEndyM7hYJep3jS9ANvUJT4d93Ns9gaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794190027;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=lCEuoUUgwAK74uid5ekbPJrWySmOuTvo4m+1iRiAFug=;
+	b=1Ft9G7dxuh7Zn9HLvt5D/y3b772VOcKZgzI+bJsoCQH5J2DgrTU3mLFOzew5gOspTMH7
+	 NR2Wrb7bhS14NggVq4PSgucyoy9J0zq11yfFAFvQrOyYd9eRlLl0+phEFV2Z0XdPAYAIw
+	 wGktrMI5iuW/OJG5dK1jGigPOsHstQ3QPNXuF4jB60WK+CtjMx7EzPzgTnG5G42lH7Ti2
+	 KK0y6zq25iTLz+KLWWU1qwipL/eFZMaU1vIH3BBVPgf3a9GP8eMmKJOpQzMatNsFlxffi
+	 OoS34+uqJhoxoKtF67COH1e4WjTA/wwhUQjdgY8S7GCZhBtcLjNfycA2icT4ykwCtBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uv0OdyJq;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.93.99
+Received: from dggmsgout11.his.huawei.com (dggmsgout11.his.huawei.com [124.71.93.99])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47379606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:06:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47379606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uv0OdyJq
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1aefd1bf74aso298481c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:06:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794189959; x=1794794759; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aj9oR9Ww8FoQrbaajKI3tgdOoEt+pimjjkjSqzvb7B0=;
-        b=uv0OdyJqexO4HHQPX7ing3MyQxnuXcDSupkfl2rTn8US3X0SGCLZkZ39UdnAlHBQ7k
-         iBnIYmncCRRgY9gbfDvdpGMJzYza0k7K55fZLI6u50bqLcffxkyBh4lnSUh5Qt9afOJP
-         Mb9QLeHc988GsncdPodk8Rmt/khqaj3BVkbW+SLaKTZmPOcvIgcAhJcYMeEfTqsVdDU2
-         CMSBsNyUQdeT4VmWFgGtQoRNdMEMR58WRJyq9qHc2Ak37aJQwzaqZIT/kf8kympEGyx4
-         iIwURrAtBSbMZ4Yy78P8asAmSpPsU3H5Y4Q0p+h8lhHASbvabth/61+hVFcJU3WEZhjM
-         wwNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794189959; x=1794794759;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aj9oR9Ww8FoQrbaajKI3tgdOoEt+pimjjkjSqzvb7B0=;
-        b=n+V//F7MYh39wuhAtLNGj/RtMlBWZdL76iL/V6E/meT6icKY5ujV0S3AssjaeFU9is
-         5d0Y0RBZ+4bmO917sNiyckaFP7y5l44p8QN2QfjC6eHzu4nRH8pJc43CoxwRBseQw05g
-         UMTE8cWftz6RFsHwdC2SNzGS93Zz0QVhbJMgf9lMqTaQaEjc7n4aJz9yNA2PacadV7Ze
-         s1dr/lkFKqjVFVIUm1YBtTS9eeyZjQfW+gT4uJGpnYERb6PeBFP4mO5LKJklEQA2YKiv
-         U0FVuN2uTgu9EWo8TiV3t8ZYhIUhw4WIxBMne+1tKfLyV57FVfnPTLGYYmfYxI0utUCt
-         T/pw==
-X-Forwarded-Encrypted: i=1; AL+hErH345s4nEMZe3UbPGGaz0hpL4e0/WAG5rE3tUpXzzsB4YBv/lw9wg9+8Ngs6M73Iu8Tsrce7gU4ZjuVEYE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9/U3NgiCSYncxMv3M/3NlPvdQT+sn7X8MLIL96xOn1jicm9rFp
-	pplIqWT8+V4E2uUTJiuhR1gIezMrrJkBwCHit+5Wui/eHCQvL1Q7jUVi6gW+4g==
-X-Gm-Gg: AYBFou3mNwW2xzU7mlUV/cf+eddnqcEP+wkNdM7mhaZzB1eFO1VRZS07k1suIhYwXaS
-	1P6Kaoc9DBrlkLBF7Q/IyBF7SileTiHhhQig8I65zB5oElloSF+S8FbIad1rUA+Vn5tH03AUtdQ
-	uoe5OpVWzCznVxABOzbulNJCmliRnRyWKvBiww+Wz/itwrp3wTeHdhC1C7lv8oP63CyxzGnckV/
-	jtPo1uSLFVshrLkvZvKsxNOHjBbgbQMV5IKnmLhdYFgWPX4kbRpZCL07pOm1NUXD6WqaOAeYMnT
-	YwJX0SLsv255QclW6a1RGCM4zqcA+FupEScsfhW2BxmdaS/jJ65T4lLzT/nwoENC9YZ0kgWWp0J
-	iO168J2ajAC2JebHz0cbeO/1GJ3cJm6gXAIYqXTnZMrKDKpS4SRVDUBr721X3oMb+MekaLFOROG
-	3LSxk86l32p5B4roxugAyX6xT55t1B9o6AxeegtsPR54PFrX6BTgiu4XtCB3wqcC24+u3FqsgQ0
-	u7fS48Dc9nAVl0UTJAA1MRxCI9yh/bpQ2VcpFQjLMgorRp5xXpsVvu4GYOce2SSfmka8De8SU+r
-	JsRuXn7YyEGN/cbJSw==
-X-Received: by 2002:a05:7022:108d:b0:17a:a3d4:8b17 with SMTP id a92af1059eb24-1b39fea5ca7mr4535840c88.12.1794189958972;
-        Sun, 08 Nov 2026 18:05:58 -0800 (PST)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771f833esm9042336c88.21.2026.11.08.18.05.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 18:05:58 -0800 (PST)
-Date: Mon, 9 Nov 2026 11:05:55 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: xkeyC <xkeyc@qq.com>
-Cc: Namjae Jeon <linkinjeon@kernel.org>, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ntfs: don't let a fatal signal interrupt metadata reads
-Message-ID: <avEqgxgLl17nq8SU@hyunchul-PC02>
-References: <tencent_2859327A0C68D0D0429ED90F931234059808@qq.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F71F606A31C;
+	Mon,  9 Nov 2026 02:07:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F71F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggmsgout11.his.huawei.com (SkyGuard) with ESMTP id 4jNCnZ5jKcz1c1n2;
+	Mon,  9 Nov 2026 10:06:26 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id A272940573;
+	Mon,  9 Nov 2026 10:07:02 +0800 (CST)
+Received: from [10.174.178.164] (unknown [10.174.178.164])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgCn5fTEKvFq2COKDg--.45663S3;
+	Mon, 09 Nov 2026 10:07:02 +0800 (CST)
+Message-ID: <9521a3f6-890e-4f7c-b8a5-a355ffd3b1f2@huaweicloud.com>
+Date: Mon, 9 Nov 2026 10:06:59 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,344 +51,258 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <tencent_2859327A0C68D0D0429ED90F931234059808@qq.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V3 1/3] md/raid0: reject a takeover whose zones cannot
+ cover the array
+To: yukuai@fygo.io, Zizhi Wo <wozizhi@huaweicloud.com>, song@kernel.org,
+ magiclinan@didiglobal.com, xiao@kernel.org, linux-raid@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, yangerkun@huawei.com,
+ chengzhihao1@huawei.com
+References: <20261102083815.127751-1-wozizhi@huaweicloud.com>
+ <20261102083815.127751-2-wozizhi@huaweicloud.com>
+ <bc03d165-55fa-4029-b653-eb5359a2816c@fygo.io>
+ <ecaeda04-e90b-450b-a591-3cc3cc85fb5f@huaweicloud.com>
+ <f3d1b920-9e57-479d-8169-25e68bfe8bac@fygo.io>
+From: Zizhi Wo <wozizhi@huaweicloud.com>
+In-Reply-To: <f3d1b920-9e57-479d-8169-25e68bfe8bac@fygo.io>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:gCh0CgCn5fTEKvFq2COKDg--.45663S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3XFWfAw1kWFWxCFWxZw15CFg_yoWfJF45p3
+	y8tF4YqrWrGr93AwnFqw1UWFyFyry8Gw4UtFn3Xa48GwsxArn2grWUXr909a4UArZ5Ar1j
+	qw1UJrZruFyqgrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkm14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IY64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
+	6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+	IxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUonmRUUUUU
+X-CM-SenderInfo: pzr2x6tkl6x35dzhxuhorxvhhfrp/
 
-Hi xkeyC, 
+Hi, yukuai
 
-On Sat, Nov 07, 2026 at 05:41:23PM +0800, xkeyC wrote:
-> read_mapping_folio() returns -EINTR when the caller has a fatal signal
-> pending while it waits for the read it submitted. ntfs reads its metadata
-> through it and treats the failure as a volume error, so killing a task
-> that waits on a metadata read turns the volume read-only with
-> errors=remount-ro. A read that is part of an update also stops the update
-> half way: killing an rm can leave clusters allocated in $Bitmap, an MFT
-> record in use without a directory entry, or a directory index with
-> entries that point to freed records.
+在 2026/11/8 10:34, yu kuai 写道:
+> Hi,
 > 
-> Add ntfs_read_metadata_folio(), which waits for the read uninterruptibly,
-> and use it for metadata reads. Mount-time checks, compressed data and
-> named stream contents keep using read_mapping_folio(). A killed task now
-> waits for its metadata read to complete, as it does on filesystems that
-> use the buffer cache.
+> 在 2026/11/6 16:20, Zizhi Wo 写道:
+>> Hi，yukuai
+>>
+>> 在 2026/11/6 14:34, yu kuai 写道:
+>>> Hi,
+>>>
+>>> 在 2026/11/2 16:38, Zizhi Wo 写道:
+>>>> From: Zizhi Wo <wozizhi@huawei.com>
+>>>>
+>>>> If a raid0 takeover builds strip zones that cover less than the
+>>>> advertised
+>>>> array size, the block layer still accepts I/O for the whole size.
+>>>> raid0_make_request() hands any request past the zones to the mapping
+>>>> code,
+>>>> which fails to map it and triggers a BUG_ON.
+>>>>
+>>>> The zones are built from the member sizes in rdev->sectors, which
+>>>> may not
+>>>> match the size the array already advertises, so the zones can come out
+>>>> covering less than it. The extreme case is a member with no size
+>>>> recorded
+>>>> at all: an array created without metadata imports its devices through
+>>>> md_import_device(dev, -1, -1), which never sets rdev->sectors, and
+>>>> bind_rdev_to_array() does not reject such a member either, because its
+>>>> check that mddev->dev_sectors fits inside a member is skipped when
+>>>> rdev->sectors is zero.
+>>>>
+>>>> Refuse a raid0 takeover when its zones cannot cover the size the
+>>>> gendisk
+>>>> advertises. This prevents the takeover from silently shrinking the
+>>>> array,
+>>>> mirroring the rule raid5_start_reshape() and raid10_start_reshape()
+>>>> apply
+>>>> to a reshape.
+>>>>
+>>>> The check iterates the same devices and uses the same rounding as
+>>>> create_strip_zones(). It does not skip devices with rdev->raid_disk
+>>>> < 0:
+>>>> such devices cannot be raid0 members, so counting them only
+>>>> overestimates
+>>>> the coverage and, if present, the takeover fails later in
+>>>> create_strip_zones() anyway.
+>>>>
+>>>> Fixes: 9af204cf720c ("md: Add support for Raid5->Raid0 and
+>>>> Raid10->Raid0 takeover")
+>>>> Fixes: fc3a08b85b7a ("Add raid1->raid0 takeover support")
+>>>> Signed-off-by: Zizhi Wo <wozizhi@huawei.com>
+>>>> ---
+>>>>     drivers/md/raid0.c | 37 +++++++++++++++++++++++++++++++++++++
+>>>>     1 file changed, 37 insertions(+)
+>>>>
+>>>> diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
+>>>> index 35e103f0c2c3..fccc62a5fecc 100644
+>>>> --- a/drivers/md/raid0.c
+>>>> +++ b/drivers/md/raid0.c
+>>>> @@ -643,6 +643,34 @@ static void raid0_error(struct mddev *mddev,
+>>>> struct md_rdev *rdev)
+>>>>         }
+>>>>     }
+>>>>     +/*
+>>>> + * Refuse a takeover whose strip zones cannot cover the capacity
+>>>> the gendisk
+>>>> + * advertises: raid0 derives those zones from the sizes of its
+>>>> members, so
+>>>> + * find_zone() cannot map I/O that falls beyond them.
+>>>> + */
+>>>> +static int raid0_takeover_check(struct mddev *mddev, int chunk)
+>>>> +{
+>>>> +    sector_t capacity = get_capacity(mddev->gendisk);
+>>>> +    sector_t coverage = 0;
+>>>> +    struct md_rdev *rdev;
+>>>> +
+>>>> +    rdev_for_each(rdev, mddev) {
+>>>> +        sector_t sectors = rdev->sectors;
+>>>> +
+>>>> +        sector_div(sectors, chunk);
+>>>> +        coverage += sectors * chunk;
+>>>> +    }
+>>>> +
+>>>> +    if (coverage < capacity) {
+>>>> +        pr_warn("md/raid0:%s: refusing takeover, zones cover only
+>>>> %llu of %llu sectors\n",
+>>>> +            mdname(mddev), (unsigned long long)coverage,
+>>>> +            (unsigned long long)capacity);
+>>>
+>>> Other than raid1, other levels already have mddev->chunk_secotrs set,
+>>> and raid456/raid10 already
+>>> have a full functional raid0, their takeover can not fail.
+>>>
+>>> Noted normally mdadm will set rdev->sectors and 1.x metadata will
+>>> reject zero rdev->sectors in super_1_load.
+>>> However, it's still possible raid1 can be created with rdev->sectors
+>>> be zero, this is the root cause of the
+>>> problem syzbot reported.
+>>>
+>>
+>> Please consider the following two cases, both of which reproduce the
+>> same BUG_ON locally for me:
+>>
+>> 1. An array created without metadata leaves rdev->sectors at 0. This
+>> isn't raid1-specific — raid10 hits the same BUG_ON too. raid45 only
+>> escapes because raid0_takeover_raid45() overwrites rdev->sectors with
+>> mddev->dev_sectors first; raid0_takeover_raid10() doesn't.
 > 
-> Closes: https://github.com/namjaejeon/linux-ntfs/issues/98
-> Fixes: 11ccc9107dc4 ("ntfs: update runlist handling and cluster allocator")
-> Fixes: 115380f9a2f9 ("ntfs: update mft operations")
-> Fixes: af0db57d4293 ("ntfs: update inode operations")
-> Fixes: 495e90fa3348 ("ntfs: update attrib operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: xkeyC <xkeyc@qq.com>
-
-Could you double-check the Fixes tag and Could you confirm that
-xkeyC is your known identify for the sign-off?
-
-> ---
-> Reproducers and logs: https://github.com/xkeyC/linux-ntfs/tree/eintr-repro
-> 
-> In QEMU (KASAN, lockdep, reads throttled), killing rm, ls -l, fallocate
-> or dd partway through turned the volume read-only within a few runs
-> without this patch, and ntfsck found damage after rm. With it, 20 runs of
-> each stayed read-write and clean. Index inserts were not reached.
-> 
-> Developed with an AI coding assistant (Claude Code), which wrote the
-> change and the reproducers and ran the tests.
-> 
->  fs/ntfs/aops.c     | 58 ++++++++++++++++++++++++++++++++++++++++++++++
->  fs/ntfs/attrib.c   |  2 +-
->  fs/ntfs/bdev-io.c  |  2 +-
->  fs/ntfs/bitmap.c   |  4 ++--
->  fs/ntfs/dir.c      |  4 ++--
->  fs/ntfs/inode.c    | 12 +++++++---
->  fs/ntfs/lcnalloc.c |  2 +-
->  fs/ntfs/mft.c      | 20 ++++++++--------
->  fs/ntfs/ntfs.h     |  4 ++++
->  9 files changed, 88 insertions(+), 20 deletions(-)
-> 
-> diff --git a/fs/ntfs/aops.c b/fs/ntfs/aops.c
-> index ad781674f..767aecf42 100644
-> --- a/fs/ntfs/aops.c
-> +++ b/fs/ntfs/aops.c
-> @@ -7,6 +7,7 @@
->   * Copyright (c) 2025 LG Electronics Co., Ltd.
->   */
->  
-> +#include <linux/swap.h>
->  #include <linux/writeback.h>
->  
->  #include "attrib.h"
-> @@ -304,6 +305,63 @@ static int ntfs_swap_activate(struct swap_info_struct *sis,
->  			&ntfs_read_iomap_ops);
->  }
->  
-> +/**
-> + * ntfs_read_metadata_folio - read a metadata folio, ignoring fatal signals
-> + * @mapping:	address space of the metadata inode or block device
-> + * @index:	page cache index to read
-> + *
-> + * Like read_mapping_folio(), but the wait for the read cannot be interrupted,
-> + * so a fatal signal cannot fail a metadata read in the middle of an update.
-> + * The caller must not hold the lock of the folio at @index.
-> + *
-> + * Return: the uptodate folio with a reference held, or an ERR_PTR().
-> + */
-> +struct folio *ntfs_read_metadata_folio(struct address_space *mapping,
-> +				       pgoff_t index)
-> +{
-> +	struct folio *folio;
-> +	bool read_failed = false;
-> +	int err;
-> +
-> +	folio = filemap_get_folio(mapping, index);
-> +	if (!IS_ERR(folio)) {
-> +		if (folio_test_uptodate(folio))
-> +			goto out;
-> +		folio_put(folio);
-> +	}
-> +repeat:
-> +	folio = __filemap_get_folio(mapping, index, FGP_LOCK | FGP_CREAT,
-> +				    mapping_gfp_mask(mapping));
-> +	if (IS_ERR(folio))
-> +		return folio;
-> +	/* $MFT updates clear uptodate under the folio lock, so check it locked. */
-> +	if (folio_test_uptodate(folio)) {
-> +		folio_unlock(folio);
-> +		goto out;
-> +	}
-> +	if (read_failed) {
-> +		folio_unlock(folio);
-> +		folio_put(folio);
-> +		return ERR_PTR(-EIO);
-> +	}
-> +
-> +	/* ->read_folio() unlocks the folio when the read completes. */
-> +	err = mapping->a_ops->read_folio(NULL, folio);
-> +	if (err) {
-> +		folio_put(folio);
-> +		if (err == AOP_TRUNCATED_PAGE)
-> +			goto repeat;
-> +		return ERR_PTR(err);
-> +	}
-> +	folio_wait_locked(folio);
-> +	read_failed = !folio_test_uptodate(folio);
-> +	folio_put(folio);
-> +	goto repeat;
-> +out:
-> +	folio_mark_accessed(folio);
-> +	return folio;
-> +}
-> +
->  const struct address_space_operations ntfs_aops = {
->  	.read_folio		= ntfs_read_folio,
->  	.readahead		= ntfs_readahead,
-> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-> index 800e53df5..cf73fa4c3 100644
-> --- a/fs/ntfs/attrib.c
-> +++ b/fs/ntfs/attrib.c
-> @@ -2323,7 +2323,7 @@ int ntfs_attr_set(struct ntfs_inode *ni, s64 ofs, s64 cnt, const u8 val)
->  
->  	index = ofs >> PAGE_SHIFT;
->  	while (cnt) {
-> -		folio = read_mapping_folio(mapping, index, NULL);
-> +		folio = ntfs_read_metadata_folio(mapping, index);
->  		if (IS_ERR(folio)) {
->  			ret = PTR_ERR(folio);
->  			ntfs_error(VFS_I(ni)->i_sb, "Failed to read a page %lu for attr %#x: %ld",
-> diff --git a/fs/ntfs/bdev-io.c b/fs/ntfs/bdev-io.c
-> index 4f27eed3b..afb1d1df3 100644
-> --- a/fs/ntfs/bdev-io.c
-> +++ b/fs/ntfs/bdev-io.c
-> @@ -99,7 +99,7 @@ int ntfs_bdev_write(struct super_block *sb, void *buf, loff_t start, size_t size
->  	for (; idx < idx_end; idx++, from = 0) {
->  		u32 len;
->  
-> -		folio = read_mapping_folio(sb->s_bdev->bd_mapping, idx, NULL);
-> +		folio = ntfs_read_metadata_folio(sb->s_bdev->bd_mapping, idx);
->  		if (IS_ERR(folio)) {
->  			ntfs_error(sb, "Unable to read %ld page", idx);
->  			return PTR_ERR(folio);
-> diff --git a/fs/ntfs/bitmap.c b/fs/ntfs/bitmap.c
-> index af86fb1c1..1002d9c98 100644
-> --- a/fs/ntfs/bitmap.c
-> +++ b/fs/ntfs/bitmap.c
-> @@ -203,7 +203,7 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
->  
->  	/* Get the page containing the first bit (@start_bit). */
->  	mapping = vi->i_mapping;
-> -	folio = read_mapping_folio(mapping, index, NULL);
-> +	folio = ntfs_read_metadata_folio(mapping, index);
->  	if (IS_ERR(folio)) {
->  		if (!is_rollback)
->  			ntfs_error(vi->i_sb,
-> @@ -267,7 +267,7 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
->  		folio_unlock(folio);
->  		kunmap_local(kaddr);
->  		folio_put(folio);
-> -		folio = read_mapping_folio(mapping, ++index, NULL);
-> +		folio = ntfs_read_metadata_folio(mapping, ++index);
->  		if (IS_ERR(folio)) {
->  			ntfs_error(vi->i_sb,
->  				   "Failed to map subsequent page (error %li), aborting.",
-> diff --git a/fs/ntfs/dir.c b/fs/ntfs/dir.c
-> index 9fb5bb3d3..ce87799a2 100644
-> --- a/fs/ntfs/dir.c
-> +++ b/fs/ntfs/dir.c
-> @@ -327,8 +327,8 @@ u64 ntfs_lookup_inode_by_name(struct ntfs_inode *dir_ni, const __le16 *uname,
->  	 * of PAGE_SIZE and map the page cache page, reading it from
->  	 * disk if necessary.
->  	 */
-> -	folio = read_mapping_folio(ia_mapping, vcn <<
-> -			dir_ni->itype.index.vcn_size_bits >> PAGE_SHIFT, NULL);
-> +	folio = ntfs_read_metadata_folio(ia_mapping, vcn <<
-> +			dir_ni->itype.index.vcn_size_bits >> PAGE_SHIFT);
->  	if (IS_ERR(folio)) {
->  		ntfs_error(sb, "Failed to map directory index page, error %ld.",
->  				-PTR_ERR(folio));
-> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-> index 62dd5bd5b..9bf7957af 100644
-> --- a/fs/ntfs/inode.c
-> +++ b/fs/ntfs/inode.c
-> @@ -3773,8 +3773,14 @@ s64 ntfs_inode_attr_pread(struct inode *vi, s64 pos, s64 count, u8 *buf)
->  
->  	index = pos >> PAGE_SHIFT;
->  	do {
-> -		/* Update @index and get the next folio. */
-> -		folio = read_mapping_folio(mapping, index, NULL);
-> +		/*
-> +		 * Update @index and get the next folio.  The contents of a named
-> +		 * stream are user data, so a fatal signal may still stop that read.
-> +		 */
-> +		if (ntfs_inode_is_named_stream(ni))
-> +			folio = read_mapping_folio(mapping, index, NULL);
-> +		else
-> +			folio = ntfs_read_metadata_folio(mapping, index);
->  		if (IS_ERR(folio)) {
->  			err = PTR_ERR(folio);
->  			break;
-> @@ -3926,7 +3932,7 @@ static s64 __ntfs_inode_non_resident_attr_pwrite(struct inode *vi,
->  				break;
->  			}
->  		} else {
-> -			folio = read_mapping_folio(mapping, index, NULL);
-> +			folio = ntfs_read_metadata_folio(mapping, index);
-
-The read when writing to non-resident stream should remain
-interruptible.
-
->  			if (IS_ERR(folio)) {
->  				ret = PTR_ERR(folio);
->  				ntfs_error(vi->i_sb, "Failed to read a page %lu for attr %#x: %ld",
-> diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
-> index 3ebcac4c2..7e00016f4 100644
-> --- a/fs/ntfs/lcnalloc.c
-> +++ b/fs/ntfs/lcnalloc.c
-> @@ -340,7 +340,7 @@ struct runlist_element *ntfs_cluster_alloc(struct ntfs_volume *vol, const s64 st
->  		if (vol->lcn_empty_bits_per_page[index] == 0)
->  			goto next_bmp_pos;
->  
-> -		folio = read_mapping_folio(mapping, index, NULL);
-> +		folio = ntfs_read_metadata_folio(mapping, index);
->  		if (IS_ERR(folio)) {
->  			err = PTR_ERR(folio);
->  			ntfs_error(vol->sb, "Failed to map page.");
-> diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-> index 89288b794..3601f77ee 100644
-> --- a/fs/ntfs/mft.c
-> +++ b/fs/ntfs/mft.c
-> @@ -143,7 +143,7 @@ static inline struct mft_record *map_mft_record_folio(struct ntfs_inode *ni)
->  	}
->  
->  	/* Read, map, and pin the folio. */
-> -	folio = read_mapping_folio(mft_vi->i_mapping, index, NULL);
-> +	folio = ntfs_read_metadata_folio(mft_vi->i_mapping, index);
->  	if (!IS_ERR(folio)) {
->  		u8 *addr;
->  
-> @@ -549,8 +549,8 @@ static int ntfs_sync_mft_mirror_unit(struct ntfs_volume *vol,
->  	if (unit->folio_ofs + unit->len > folio_size(source))
->  		return -EIO;
->  
-> -	mirror = read_mapping_folio(vol->mftmirr_ino->i_mapping,
-> -				    mirror_file_ofs >> PAGE_SHIFT, NULL);
-> +	mirror = ntfs_read_metadata_folio(vol->mftmirr_ino->i_mapping,
-> +					  mirror_file_ofs >> PAGE_SHIFT);
->  	if (IS_ERR(mirror))
->  		return PTR_ERR(mirror);
->  
-> @@ -1023,7 +1023,7 @@ static bool mft_reserved_is_free(struct ntfs_volume *vol,
->  	if (!m)
->  		return false;
->  
-> -	folio = read_mapping_folio(vol->mft_ino->i_mapping, index, NULL);
-> +	folio = ntfs_read_metadata_folio(vol->mft_ino->i_mapping, index);
->  	if (IS_ERR(folio))
->  		goto free_m;
->  
-> @@ -1199,8 +1199,8 @@ static s64 mft_bitmap_alloc_free_rec(struct ntfs_volume *vol,
->  		 * for a zero bit.
->  		 */
->  		if (size) {
-> -			folio = read_mapping_folio(mftbmp_mapping,
-> -					ofs >> PAGE_SHIFT, NULL);
-> +			folio = ntfs_read_metadata_folio(mftbmp_mapping,
-> +							 ofs >> PAGE_SHIFT);
->  			if (IS_ERR(folio)) {
->  				ntfs_error(vol->sb, "Failed to read mft bitmap, aborting.");
->  				return PTR_ERR(folio);
-> @@ -1392,8 +1392,8 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
->  	 * to us.
->  	 */
->  	ll = lcn >> 3;
-> -	folio = read_mapping_folio(vol->lcnbmp_ino->i_mapping,
-> -			ll >> PAGE_SHIFT, NULL);
-> +	folio = ntfs_read_metadata_folio(vol->lcnbmp_ino->i_mapping,
-> +					 ll >> PAGE_SHIFT);
->  	if (IS_ERR(folio)) {
->  		up_write(&mftbmp_ni->runlist.lock);
->  		ntfs_error(vol->sb, "Failed to read from lcn bitmap.");
-> @@ -2207,7 +2207,7 @@ static int ntfs_mft_record_format(const struct ntfs_volume *vol, const s64 mft_n
->  	}
->  
->  	/* Read, map, and pin the folio containing the mft record. */
-> -	folio = read_mapping_folio(mft_vi->i_mapping, index, NULL);
-> +	folio = ntfs_read_metadata_folio(mft_vi->i_mapping, index);
->  	if (IS_ERR(folio)) {
->  		ntfs_error(vol->sb, "Failed to map page containing mft record to format 0x%llx.",
->  				(long long)mft_no);
-> @@ -2725,7 +2725,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
->  	index = NTFS_MFT_NR_TO_PIDX(vol, bit);
->  	ofs = NTFS_MFT_NR_TO_POFS(vol, bit);
->  	/* Read, map, and pin the folio containing the mft record. */
-> -	folio = read_mapping_folio(vol->mft_ino->i_mapping, index, NULL);
-> +	folio = ntfs_read_metadata_folio(vol->mft_ino->i_mapping, index);
->  	if (IS_ERR(folio)) {
->  		ntfs_error(vol->sb, "Failed to map page containing allocated mft record 0x%llx.",
->  				bit);
-
-Other paths still using interruptible reads include $LogFile and
-$MFTMirr checks, $AttrDef and $Upcase loading, bitmap scans through
-ntfs_get_locked_folio(), and ntfs_bitmap_check_used().
-
-> diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
-> index fac72d40f..f33df986f 100644
-> --- a/fs/ntfs/ntfs.h
-> +++ b/fs/ntfs/ntfs.h
-> @@ -294,6 +294,10 @@ static inline int ntfs_ffs(int x)
->  	return r;
->  }
->  
-> +/* From fs/ntfs/aops.c */
-> +struct folio *ntfs_read_metadata_folio(struct address_space *mapping,
-> +				       pgoff_t index);
-> +
->  /* From fs/ntfs/bdev-io.c */
->  int ntfs_bdev_read(struct block_device *bdev, char *data, loff_t start, size_t size);
->  int ntfs_bdev_write(struct super_block *sb, void *buf, loff_t start, size_t size);
-> -- 
-> 2.56.0
+> This is still legacy usage, and root cause is still that rdev->sectors be 0.
 > 
 
--- 
+This case is.
+
+>>
+>> 2. Even with valid non-zero rdev->sectors, growing the chunk of a
+>> running raid45 can make the post-takeover coverage smaller than the
+>> previously advertised gendisk capacity. E.g. create a raid5 with
+>> component_size=8K, chunk=4K, run it, then change chunk to 16K and run
+>> raid0_takeover_raid45().
+> 
+> How can chunksize grow to 16k in this case?
+
+1. mdadm --create /dev/md0 -l5 -n3 --layout=parity-last --chunk=4 
+--size=8 --assume-clean xxx
+2. echo 16384 > /sys/block/md0/md/chunk_size
+3. echo reshape > /sys/block/md0/md/sync_action
+4. Discard the verification disk
+5. echo raid0 > /sys/block/md0/md/level
+
+The check in raid5_check_reshape() is whether new_chunk divides mddev-
+ >array_sectors evenly, which in my 2-data-disk case is also satisfied.
+(I think checking mddev->dev_sectors would be more appropriate — a
+divisible total size doesn't imply each disk is divisible, which can
+still impact later IO. Still, detecting whether the total size shrinks
+after the change should suffice to block this case?)
+
+And raid5_start_reshape() still uses the previous chunk_sectors and
+prev_chunk_sectors values when doing the raid5_size < 
+mddev->array_sectors comparison,
+it fails to catch the fact that modifying the chunk size has actually
+reduced raid5_size.
+
+And in raid5_finish_reshape(), mddev->chunk_sectors has set to 16KB.
+
+> 
+>>
+>> So I think the real root cause is that the size changes across the
+>> takeover, and rdev->sectors == 0 is just one special case of it. That's
+>> why the patch compares coverage against the gendisk capacity on every
+>> takeover path.
+>>
+>> For case 2, the problem exists even without a takeover: if the chunk
+>> change shrinks the usable size, I/O from the upper filesystem will break
+>> just the same. So I'm now inclined to reject a chunk change in raid5/10
+>> when it would shrink the usable array size, and additionally check rdev-
+>>> sectors for raid1/10 at the takeover path. What do you think?
+> 
+> There is always a top rule that running array can be mounted, hence any
+> changes should not introduce data lost.
+> 
+
+Yes.
+
 Thanks,
-Hyunchul
+Zizhi Wo
+
+>>
+>> Thanks,
+>> Zizhi Wo
+>>
+>>> Although raid0_takeover_raid1() already calculate chunksect by
+>>> mddev->array_sectors, which is exactly the
+>>> real rdev->sectors for raid1, and it should be guaranteed such
+>>> takeover can succeed. However, as it's legacy
+>>> usage that rdev->sectors can be zero, I'll suggest just checking
+>>> rdev->sectors in raid0_takeover_raid1() and
+>>> reject if it's 0.
+>>>
+>>>> +        return -EINVAL;
+>>>> +    }
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>>     static void *raid0_takeover_raid45(struct mddev *mddev)
+>>>>     {
+>>>>         struct md_rdev *rdev;
+>>>> @@ -665,6 +693,9 @@ static void *raid0_takeover_raid45(struct mddev
+>>>> *mddev)
+>>>>             rdev->sectors = mddev->dev_sectors;
+>>>>         }
+>>>>     +    if (raid0_takeover_check(mddev, mddev->chunk_sectors))
+>>>> +        return ERR_PTR(-EINVAL);
+>>>> +
+>>>>         /* Set new parameters */
+>>>>         mddev->new_level = 0;
+>>>>         mddev->new_layout = 0;
+>>>> @@ -707,6 +738,9 @@ static void *raid0_takeover_raid10(struct mddev
+>>>> *mddev)
+>>>>             return ERR_PTR(-EINVAL);
+>>>>         }
+>>>>     +    if (raid0_takeover_check(mddev, mddev->chunk_sectors))
+>>>> +        return ERR_PTR(-EINVAL);
+>>>> +
+>>>>         /* Set new parameters */
+>>>>         mddev->new_level = 0;
+>>>>         mddev->new_layout = 0;
+>>>> @@ -750,6 +784,9 @@ static void *raid0_takeover_raid1(struct mddev
+>>>> *mddev)
+>>>>             /* array size does not allow a suitable chunk size */
+>>>>             return ERR_PTR(-EINVAL);
+>>>>     +    if (raid0_takeover_check(mddev, chunksect))
+>>>> +        return ERR_PTR(-EINVAL);
+>>>> +
+>>>>         /* Set new parameters */
+>>>>         mddev->new_level = 0;
+>>>>         mddev->new_layout = 0;
+>>>
+>>
+
