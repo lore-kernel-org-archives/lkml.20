@@ -1,79 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794242680;
-	b=NDuKUgHM1gv7jSfBWyoc7VRmCISYD1oUc20LrpDc+7f0jcIA8uiAHyYHDdxr0p5PVlKI
-	 QUmdSxPrpGoMsjN/UgesjRLTTGdeXmcB7rcPWmKCPKhEaZa1eG8IQrojv3OwsLYqn60He
-	 UtxSbblvptvtyECMKdvYuUEQv3AsBxWe29MrcvqArg/EQ1VnEnYfc/7mKZOV24tpAB9TP
-	 YpHTiDFYfOJ9MP45rcYn0lRe/Phm90uB2iQunRMH/yBb/U/CksoN4o2T0ucz5UbySNfBB
-	 XyPTbU8nM9LAXK0TrLZaZLwqDiwSD1M21T/1oFPTNJA0Oj8wiSrIpP2C9EQPgqK5LqA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242680;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NIiRj2RlfhuVRBMzB30J6neNTajQNxPn7bfacS8JNPM=;
-	b=g9v7Ir7a5eNtcen/e6X8YQTNi9Xiy3AfaT0BXam0cTO0MBF1Zr+6VmkKkIkrmR9oNQPW
-	 zvefruQPJo4Tp8635mxiI3eNz0shUKYA2xkDESAzBUYUJpYYYz76uCgnyV3HgQ3VrBnLT
-	 g0ZneD0aO3eQThLYY6Bi2CkRKhpXljyFb98GargCJg7u/TDjVD0I4T9o8rppoMF+E6UWE
-	 9uVLx3zphshpPIw7QtNYEYvMVKx79mwdU0LlQveIXiyj6SwCIY5JuHaSuNaN9CxMPyVw2
-	 f0U4q2eSogSOJa8rehuqpXw49ZgMGKuXPADrYptmSc3/6wScpJG28DgyVepps5GKO0A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3eEBvHD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD86606A33B;
-	Mon,  9 Nov 2026 16:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3eEBvHD
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794242679;
-	b=1TVkXNyZelOlv6peAw/dKj5NrIJUONuRfoZQeVty2/OwtFLYDgpA+8ZxYAuxedZPsCf3
-	 RKqWI8z53KdjmbU4lWwvDca+XABZtaC8cJqKacqQ11pQ3ZmIQQuY6gbr1jCb0r73q+xKY
-	 OOR9DnvDGjUe8qT54p8QoF3RH7tR4yBvpk6a4YQ9VwWG6Ttby765VGeggPVHh9Pv+W5wc
-	 7BkWN7YnbPYFlburcip4p/T3xnjHpo1WJxy7duZuLUhClJ/ox6H3TfWBEjkT9p8JfzGUA
-	 TFc1GTtWWeuemu+41ihQ8UlB74Oe9c+CNb9auf3SafQC9WYxjttCWrIEh/B1T7b/c9Q==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794242679;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=NIiRj2RlfhuVRBMzB30J6neNTajQNxPn7bfacS8JNPM=;
-	b=MlnuEKkxvAndOOFiA1t+alhYVKFWQcgILE1GmsuTdMsZ9F7vwJKDJ02fZnRClPX5u9WH
-	 hmrdz8fL/FqOS0Jcf5Cn4eX/heXP4ZnvlD7KpU1tF4xVdEkvxw2Qdnnnqvek7njO2yRgL
-	 U6SLx569RluSrKXvsBeG9gCA6mjSDAN11pxvKISgRbfct1eVYk2dvZeKXJ0fWU2FfGHYQ
-	 t9mQGpvjvMTxgrOKaKWy2VyLuqqcYqS8+zC8VvGKpWgmo/JhWlVtvQZfpo7ybr3A9DkV3
-	 TH0mhwlgKdLHeAxhtgqOL0PB4XXY5pSEhQ767YN0MhDflzjlBJYrtf9R8x5U4IVlSWw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794242744;
+	b=pvUhdZFEepiFZi5e3AgcTPB7ISvzhWXp8E/K7vYZQJH1bOPpNUoXSK1kyYvC+jpZ07Oj
+	 g4sY5CIUcfYsbcaXWIQbGf6uw3uIzIn6BorDWsbQcMzQsUULb/WGIUJHQhTj7gw8Pmiwd
+	 Lv3+uEPApkBolsSS5alo3DBrHBlyQcUYCiG+Oqsy9HIQ8G44u+mFyl3RoK6cj6CzT6wjS
+	 EF74N1Vqc1bZJ3kqq2yRNFcN0Yjee927kWsQSVTZ+CGWRQj8p0ToTcseA3UIMjsvnbjk7
+	 sA/eu4m0JB5yiTsSOErawDeKWJRO/iECoVdxIcnmLleWuuT5C6cQqeDy/c9QTXTRBqQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242744;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=VBx+pQ4H2H3adUQa50cH2AZAKCnEvci20+6PQw1MHT4=;
+	b=mKIM/fEGaMPNtBD0T087Fh9Cr1DH1F2L2mGOTBU2MagUE9/t0g/tnuq0N+k/R76G3k6B
+	 5wSfs2nxnqWCYznyB9O1WgO26F02E1b5N/SbjQ3IGsf4iRi061SuxrP4mt1PEE0cgjLx3
+	 qc4gD9lcs3tM09sGG/DoG8mMR5eO8c/LPf8pvFa7e05S3btJdQPNl6Ewjj7Rck/vSK0Lm
+	 ug2hqIgDH+5f2zTxmgnAw/VTSf8J78r326d0iQ9vpgB2M3Fsrk4FKZUwoW+GE8FrcaxXy
+	 yCqJGQVQ9UKoNXqZt9ldDjwpyzpccSdIBR8xtL6uPPoe+hvBQVnmkrZfpeRJj7W4ZAA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z9znmG26;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kHrtfwZF;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9492D1F008BC;
-	Mon,  9 Nov 2026 16:44:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794242679;
-	bh=NIiRj2RlfhuVRBMzB30J6neNTajQNxPn7bfacS8JNPM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=I3eEBvHDf9vidJt9SrivJwObNYLyFEQ4DKFLfEjfyVRCDM74sNPlD2NgAeYiL8lo+
-	 Jqo2XJAFEBxAg+3tOWIiwc0tenHGpseFZuU3a2iC9DJ/uNeurJDgB83XMcL1eMhNR8
-	 Q23Z9W0B6SjFYthbbdKIr0se6IUNxU6wZtTxLwBlvNNmnhrlCExdfyxQWqUN4iujDG
-	 /HSx1w9DkV4BG2HJlwupSd1t5vkH+G+KMkPZVt0ZIodlW4lD6dk6ddCx2MBqeafGt9
-	 PxfKrf1CBvPbyEuNlgMFKujwHPSNCLezb2y6n5vAcoOFWCoY1zw3Lin5wIKXVlRnPD
-	 c7TiZm4+dSe5Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2561D48549;
-	Mon,  9 Nov 2026 16:44:37 +0000 (UTC)
-From: Yongjian Wang via B4 Relay <devnull+echoowall.gmail.com@kernel.org>
-Date: Tue, 10 Nov 2026 00:44:35 +0800
-Subject: [PATCH net-next v3 1/4] tcp: initialize MTU probing before syncing
- MSS at connection setup
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C65606A337
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:45:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C65606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z9znmG26;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kHrtfwZF
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DF9et334886
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 16:45:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VBx+pQ4H2H3adUQa50cH2AZAKCnEvci20+6PQw1MHT4=; b=Z9znmG26EPaUKSEV
+	VRmBdJyuq/dFZiiTn1J2Anbbvsi4om2vKXrB51eY2pi22iW3s7MXTtByigsccPqU
+	rOTBswiRDzhk1/Pdgh/sPuXwW0bsjZ89D0S0Cueyfs2L2fxwl7NnhCrSulkvepbM
+	O2KFLbserTnhvUk7KLKVorj2eQNbC0yS5EpJA8vDz2246cgugo9CWPKNh52oKoha
+	QDc0a0ue27Y9ssBfOe8zk7IruUnT3Ku2hSp6rAcOtsCuy7by17IGXgre47d9HMB7
+	Qu97Mp2Hz2vxE/OjDX07IPjKVnTA6BJ1JfSXxKZg1wWHYmEnNiqP0y+LOU4awjtX
+	MLjTXA==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hudf594s4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:45:43 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso2381059eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:45:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794242742; x=1794847542; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VBx+pQ4H2H3adUQa50cH2AZAKCnEvci20+6PQw1MHT4=;
+        b=kHrtfwZFqd47WfddUOdWZKA/pr9I3C0Mjh5EpKkgM5wYv+wYIdMAD8eboLskQ2D+OE
+         R10tXlf+XCJ3U4KLHiCEIl4WJ0z9k/1rpPcU5sIpQveESP2qbB4AqO3Bew05Yqi6JE8c
+         q+Ka8CBpY4U0AFE0+3tw7XK6m9mC5ystpbynrbOYm30NaWyfYNXmQf0OLHUqcDMHU3wl
+         9TKdyZ/pQHrVlhpNdTZZmomKW/TTeDZDgq0bCYcHkffvrPve4iNrtpoqV+o/24XlUK/I
+         LauKMk9O9JYrYRDetrmmhLEFrSgx7W7PGL438LEvR2bMVoRfOnr/erTr1pVWtZ/LDO2N
+         mpTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794242742; x=1794847542;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VBx+pQ4H2H3adUQa50cH2AZAKCnEvci20+6PQw1MHT4=;
+        b=I1pDBR+4iaH1NUpUJTSRQHB2PDr/1KdD2kJQ9FtFYb+6dF4J1MPDJDaMM4bpr/Vef6
+         44UbkCyUSN9j4PiCPcMHppX3LLFLwSC0iEnBArQqdgTtZG2WlGvcbMSk2ivILPmjTj0G
+         ls7QBaEq0R28TwYtZC00z8z7OXRvUK63VZJCue+mblCK327QhbgqxGB/ht8b88v6tgFB
+         f0xqZybWqCIBOTsdIAN/h4CU3pch7UA5ccRqIrAD6kAnxmfIObgztu76PRlUNLn+EJCQ
+         WQ+aT/klPhoPhj8ZjJcdgzEMFxvK+A7fQRFyIIPq+y1EYZ42EdZ88mzsdlDQZ7hmwdWc
+         AEdg==
+X-Forwarded-Encrypted: i=1; AL+hErG4nzuPwpMvmCn92H69ha/m/VN6oxhS6GTRQZhwomxdGpjoS3a+9eUiGRW5iYjfhcDVK0+s/5dZzMA4jTw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z//+a7Po0nnA15Uv92cIQsNjv0DjE2Ynm2tL1h/JRRSgo9aZj0o
+	38UecB+Y6uvEWBzlUFg9jsGC3d6jvPmrrrSzMuCtjOb7JK+0+KXKEQaTY086PDnZqowsOQj96G2
+	TmaT9Ed3A+QOsefz1z9wTQsKOIoHGAfn4GEKiJFXDxG7ITZOJZjGyJgAz9mGzxmmvrdM=
+X-Gm-Gg: AYBFou3QbAg/WIzpXSBvBQzHkHaCtUjUWo+VAXiBC0jrdo0kBRtW8tEn7DDTPRh5PXa
+	LDD2vc+nVRrNVGvSknVy/f1hqpnJmeW7MrwkbVN2ttGT6LF6f+fQg9l4g5G89wLVFmJqUSvpbX6
+	iv3XbQWHyq0u84jcbzM1tJbS7T1EiB4t6sxsaQDmMv5TAQ99frCtldNHA4YJ5dpkqHV37qeWv21
+	rIr952I5pskQTSPIIaE0xlIYoldayd8sDaE9WMw9VMURBL8CmCpGTvPQnB/bgNv7SW8E55tTIug
+	aH3YuTRZqb5P0miLrPhPhlmPx4FY9Q8bYC2S6T2D46AJ6ODXKOZAJ0TW0Jx1bUUH/ZzpvLlFMnL
+	W5SkQfFKTKp4WcCPlLOlLyMcQr3pRnwijWWtLgnls0WqZptazJNIclF0puMn35usXRU0hiWtjdk
+	e3Y85COChbAwn36fzRJf0Y1Ksk7ZGaByPTGuhqpKYU9vVu+8cs9nc=
+X-Received: by 2002:a05:7300:6822:b0:369:9af5:7bc9 with SMTP id 5a478bee46e88-37256bf17efmr8459348eec.23.1794242742024;
+        Mon, 09 Nov 2026 08:45:42 -0800 (PST)
+X-Received: by 2002:a05:7300:6822:b0:369:9af5:7bc9 with SMTP id 5a478bee46e88-37256bf17efmr8459297eec.23.1794242741349;
+        Mon, 09 Nov 2026 08:45:41 -0800 (PST)
+Received: from [192.168.1.66] (164-34-238-49.southernonline.net. [49.238.34.164])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372660f385bsm15132197eec.20.2026.11.09.08.45.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 08:45:40 -0800 (PST)
+Message-ID: <37560f54-ee44-48a2-aa33-5229a4087ccf@oss.qualcomm.com>
+Date: Mon, 9 Nov 2026 22:15:33 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,113 +116,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261110-mtu-probing-series-v3-1-dedfab25d641@gmail.com>
-References: <20261110-mtu-probing-series-v3-0-dedfab25d641@gmail.com>
-In-Reply-To: <20261110-mtu-probing-series-v3-0-dedfab25d641@gmail.com>
-To: davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, 
- shuah@kernel.org, kuniyu@google.com, horms@kernel.org, ncardwell@google.com, 
- kuba@kernel.org
-Cc: netdev@vger.kernel.org, panweiping3@gmail.com, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Yongjian Wang <echoowall@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794242675; l=3191;
- i=echoowall@gmail.com; s=20261026; h=from:subject:message-id;
- bh=dheRlUn7XAqkq1CdSHyUrNsJDtsi4JPPCVAWaWCPNZs=;
- b=vA4c2zdS27JqROPN10pJMy5VSqbgq2gP+93UQGmEPJfvwSqis580F4ytRmOMhK6iMVnhku4yU
- JMiQKa2HeG7C+FUTBHRK4SPirJqHg2OLNQUmqG6Lg4LaQkV7SyyysTf
-X-Developer-Key: i=echoowall@gmail.com; a=ed25519;
- pk=9XP6JhqjjPsHCF6UZZZTeqTRnXIa4+ufggnxXtTJ+no=
-X-Endpoint-Received: by B4 Relay for echoowall@gmail.com/20261026 with
- auth_id=1323
-X-Original-From: Yongjian Wang <echoowall@gmail.com>
-Reply-To: echoowall@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] soc: qcom: geni-se: Define the QSPI firmware protocol
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Mark Brown <broonie@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
+        linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+        devicetree@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+References: <20261106-qspi_upstream_series-v1-0-21f43042dd60@oss.qualcomm.com>
+ <20261106-qspi_upstream_series-v1-4-21f43042dd60@oss.qualcomm.com>
+ <8015c245-5bdf-4088-bdce-7e81b3fa440e@oss.qualcomm.com>
+Content-Language: en-US
+From: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+In-Reply-To: <8015c245-5bdf-4088-bdce-7e81b3fa440e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: eA2L7zeF2_1CReMAGs0XQvoGo8BYhslP
+X-Proofpoint-GUID: eA2L7zeF2_1CReMAGs0XQvoGo8BYhslP
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA2NiBTYWx0ZWRfX7tW94GF5lur1
+ B2oqCwZF9iQES7BPU8fgBU3kgIs+dmGEkAmijnQl2H4OIUOyDM2Y2wBxVWs3Q32OU7WWrnlDg1F
+ uGJtTrjHnlYBmufQF20PjJypiVh5Ycg=
+X-Authority-Analysis: v=2.4 cv=bar+w+PB c=1 sm=1 tr=0 ts=6af1f8b7 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=rh678R6S33b4aGV2lqlmMA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=rLV7qYPEkEEFJh5gh6kA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA2NiBTYWx0ZWRfX5Ii03Ksp09Gv
+ KmpMjN4Vo3jz1J1eypWv8aeG/sFYa8xlghHlswMWSREh6sE/LbkC4LM2np5/ynXVYekGj1e8FES
+ oesW0hQ87WPZ3UCR9MaSeQT0Yui3hRSeVTc3AXx4XXBnVFmSGxSmjdCMtjLmCvUsUyw8hfSH65L
+ 2tNUUVCBGv+YS9MzzQ/m0hdhorsCnZT7HZsh6HZMPwTcxkXc2bmwDsDGhn6UkL8/UewZiKd9BH+
+ TKhYv/aSILzKAUmXRZDJv39Wc+5z8i1YZaPcmWFYZ5b5b+lR1gg2DNbCd7X52itiwA55lYDwjrL
+ dEJn0WtN+koX4YKGyc8p+UdC59MNuLCc+ddxIxliOHlZCyvnRX14HohZxmB4OVzAjOYYhfrkNer
+ Gacs0vEOpNGaCWRkfftzyHaVioLzxSl9GmlUS4piDJl9V0fp58wUsw6CFqsDvI9OcVKCR/e3Dm0
+ 20d2TVi9+G47gRN7oiQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0 malwarescore=0
+ spamscore=0 clxscore=1015 bulkscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090066
 
-From: Yongjian Wang <echoowall@gmail.com>
 
-With tcp_mtu_probing=2, a passive connection starts at the full MSS
-rather than tcp_base_mss. The IPv4 and IPv6 syn_recv_sock() paths
-call tcp_sync_mss() before tcp_init_transfer() enables MTU probing.
-With tcp_base_mss=1024, the first successful probe can therefore lower
-the MSS from 1460 to 1242. On a black hole path, the first reduction
-skips 1024 and goes straight to 512.
 
-The issue surfaced while developing packetdrill coverage for MTU
-probing and comparing the initial send MSS on active and passive
-IPv4 connections.
+On 11/9/2026 8:17 PM, Konrad Dybcio wrote:
+> On 11/6/26 4:01 PM, Jyothi Kumar Seerapu wrote:
+>> Add GENI_SE_QSPI with firmware protocol ID 9. The GENI SPI driver uses
+>> this value to request QSPI firmware and validate the protocol running
+>> on a serial engine.
+>>
+>> Extend the firmware loader's protocol-name table to accept QSPI.
+>> Reject unused protocol IDs in the sparse table before looking up
+>> firmware.
+>>
+>> Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+>> ---
+>>   drivers/soc/qcom/qcom-geni-se.c  | 7 +++++--
+>>   include/linux/soc/qcom/geni-se.h | 1 +
+>>   2 files changed, 6 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/soc/qcom/qcom-geni-se.c b/drivers/soc/qcom/qcom-geni-se.c
+>> index 873bfbd6b2b7..396f3d81d292 100644
+>> --- a/drivers/soc/qcom/qcom-geni-se.c
+>> +++ b/drivers/soc/qcom/qcom-geni-se.c
+>> @@ -122,7 +122,10 @@ struct geni_se_desc {
+>>   static const char * const icc_path_names[] = {"qup-core", "qup-config",
+>>   						"qup-memory"};
+>>   
+>> -static const char * const protocol_name[] = { "None", "SPI", "UART", "I2C", "I3C", "SPI SLAVE" };
+>> +static const char * const protocol_name[] = {
+>> +	"None", "SPI", "UART", "I2C", "I3C", "SPI SLAVE",
+>> +	[GENI_SE_QSPI] = "QSPI",
+>> +};
+> 
+> Please use designated initializers for all values here
+Hi Konrad,
 
-Commit 4d83e1773031 ("tcp: delete redundant calls of tcp_mtup_init()")
-removed tcp_mtup_init() from the passive setup paths.
-Commit 27204aaa9dc6
-("tcp: uniform the set up of sockets after successful connection")
-later moved MTU probing initialization into tcp_init_transfer(),
-away from tcp_sync_mss().
+Agreed. I will use designated initializers for all entries as mentioned 
+below in v2.
 
-Initialize MTU probing immediately before the existing tcp_sync_mss()
-calls in the IPv4 and IPv6 passive setup paths and when processing
-a SYN-ACK for an active connection. Remove the late initialization
-from tcp_init_transfer(). This lets tcp_sync_mss() apply tcp_base_mss
-without adding another MSS calculation to connection setup. The
-crossed-SYN path already uses this order.
+static const char * const protocol_name[] = {
+	[GENI_SE_NONE] = "None",
+	[GENI_SE_SPI] = "SPI",
+	[GENI_SE_UART] = "UART",
+	[GENI_SE_I2C] = "I2C",
+	[GENI_SE_I3C] = "I3C",
+	[GENI_SE_SPI_SLAVE] = "SPI SLAVE",
+	[GENI_SE_QSPI] = "QSPI",
+};
 
-Fixes: 4d83e1773031 ("tcp: delete redundant calls of tcp_mtup_init()")
-Suggested-by: Kuniyuki Iwashima <kuniyu@google.com>
-Suggested-by: Neal Cardwell <ncardwell@google.com>
-Signed-off-by: Yongjian Wang <echoowall@gmail.com>
----
- net/ipv4/tcp_input.c | 2 +-
- net/ipv4/tcp_ipv4.c  | 1 +
- net/ipv6/tcp_ipv6.c  | 1 +
- 3 files changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/net/ipv4/tcp_input.c b/net/ipv4/tcp_input.c
-index 3fd0e215324d..2b54b99f1f45 100644
---- a/net/ipv4/tcp_input.c
-+++ b/net/ipv4/tcp_input.c
-@@ -6763,7 +6763,6 @@ void tcp_init_transfer(struct sock *sk, int bpf_op, struct sk_buff *skb)
- 	struct inet_connection_sock *icsk = inet_csk(sk);
- 	struct tcp_sock *tp = tcp_sk(sk);
- 
--	tcp_mtup_init(sk);
- 	icsk->icsk_af_ops->rebuild_header(sk);
- 	tcp_init_metrics(sk);
- 
-@@ -7020,6 +7019,7 @@ static int tcp_rcv_synsent_state_process(struct sock *sk, struct sk_buff *skb,
- 			tp->tcp_header_len = sizeof(struct tcphdr);
- 		}
- 
-+		tcp_mtup_init(sk);
- 		tcp_sync_mss(sk, icsk->icsk_pmtu_cookie);
- 		tcp_initialize_rcv_mss(sk);
- 
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index 0dc3b087665d..fb968798be36 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -1740,6 +1740,7 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
- 
- 	tcp_ca_openreq_child(newsk, dst);
- 
-+	tcp_mtup_init(newsk);
- 	tcp_sync_mss(newsk, dst4_mtu(dst));
- 	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), tcp_dst_advmss(dst));
- 
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index b1dec5d86d63..8ea1ae1ad2b2 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -1490,6 +1490,7 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
- 
- 	tcp_ca_openreq_child(newsk, dst);
- 
-+	tcp_mtup_init(newsk);
- 	tcp_sync_mss(newsk, dst6_mtu(dst));
- 	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), tcp_dst_advmss(dst));
- 
-
--- 
-Git-157)
-
+Thanks,
+JyothiKumar>
+> Konrad
 
