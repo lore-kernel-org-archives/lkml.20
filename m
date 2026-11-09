@@ -1,60 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216889;
-	b=xRfD58/IwO1DjZnFXCGSXmKggwk/ydmqPrLSUMZb7NVzp6E9zn5B2Cs/0Ozwnc9dePUy
-	 wK9bPc3q8/2+VUYv9fqRccLtc/ugaVfR9HxnhPewC9W4paAwyHimnA9LuKPRs0C2ojaTz
-	 8S+JsH5KGWeslTxKPImuTG088cNTwJMrYOvdhqYQPwp7b02HM5OeAg8+yRu80FKO9L39u
-	 tuFppp8sVkn/2M9rvUdhWLrcPrwmNQxn+qnSdU0BN0QT97UolawRqcYuzCP094HIx8qDh
-	 LJf6Iq2JkJokhZ34aNBo0l1sXZPCjjTQftTxx9gBagKw5hh2cwpW0Zd8ym3lJs1WD/g==
+	t=1794216898;
+	b=z4jXZk2aN21e3prhnfQkaRnrmbnw3ytwbk1tArGOgKtGAAlfcYo+5ozicDXOnhqSuEZB
+	 jdXNdrWvzSqZILMte4YDkF/yNgiaxghy/Y1OzSz7sIB3aKS0Wn7Xhjubakwj6boqR62Gm
+	 cQIgDRnX45AQa7AlCq0Tk7BXdZLt0B/VvQJkFH6adPJGDjy8vmSXH2G5H9Lolr9g0pw9W
+	 GZWl1FO2PFGUpwnXkJXEov0J96MBLRg3PhYv00AWnaGrjWaoOylX/BsbM56j9TFnb03nw
+	 LEY+IpwPMC59levUUYZtXy+HZIBVjSy779FKtGRDDPb79WkDrbGnRC0D4/+J8J6kyIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216889;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=5GbUc9ScSjHwegUWJddmnX7lg3jnyDG3bVgefMaPuOc=;
-	b=XiI2+SiERKU7kq2tk0fAs7AB/ua37caNvC5AMM/4ONT2CsFoDS5SklMsKdYFPFKxEVvP
-	 lHELrefnNXR1Nez8Bv5+PKW/YvVhwLd9EHS2Ekd6xAN3Bu+zCqfOfWlGU+UMWrkJna1ha
-	 K2GjDiKM/MVAZeom4mFerkuv9HAWCfLjUqco8BaKLvxzXajR51b91/NIgET4nrJVhm2mV
-	 zb0qow/g6Mnd3NqSW+Q6qXPOoShSp1XXKPJwKLZojcpWonmLNxIW+RVG1JP2wSLW3+9GP
-	 vM3/xDM+J7IwKRCzbgzUWSS0p5CkDivpAII63xch5CHoEibvmpqMjvjO39UixLGkn4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216898;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CccmnGlyZTrd/PG02GZ7dzxSrKeyP9/QKdo873Q3FrE=;
+	b=GG9dtIqPmx0mrfsjEDLcunA06OJu3M5e+or5i/1hm6gWPi5gw8Mj39A/wF7dJWw5IhVd
+	 OP63ZibuAfAwyj3Ya+hsaax5k+iqwrY9mW3L/6DMTfyB4LjHvf0GRq3/lAV7qK1yN5QuU
+	 +jw7LLY6FburkZr8caQaJP3zErVAErtpzWDYOEsBAXQ2hAc4hjZSSua8dWI6jHnA07zW+
+	 eDpKXbB6IeIjNDHSjDrWWoMqvoJmEL+knK+oX9K/MVpgaOPP9d14yEVNa34YXId2/aFQh
+	 Ag0mhI3UiF7GDWREcL1LFHkrUCglBONrHqyU1nG30sengzQ1mVQQh2Z7MBaDrFtO+Rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=L3bwc6Q1;
-	arc=none smtp.remote-ip=79.135.106.28
-Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87676606D816
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:34:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87676606D816
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="iG/8bH2q";
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0224606A336;
+	Mon,  9 Nov 2026 09:34:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0224606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=L3bwc6Q1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794216886; x=1794476086;
-	bh=5GbUc9ScSjHwegUWJddmnX7lg3jnyDG3bVgefMaPuOc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=L3bwc6Q16wgBtN6f+cuYpUCF2FpJz2copj7hnd4Ys13U/mSjDh9f/SCXxRw7U7+aw
-	 S1ZHIhWOwp9n9NrKHXY4P5BSid+Agheeym+7mEmtHApCtBTJAI6qaTW7/+f8hzLOPL
-	 cfzQJdGnRU4N75nHKU8HcibkuwlYw0P6lmQtm/+GnqmOq23/VPr/upn54H4teD9gwQ
-	 WwRxBojOiCcrMDy/McWYZsy5rtTY5O1ednInxpUs10qY3LnuxBQikbSPtUtTfN3QWS
-	 o9JVMZ8V/HLcxEYO+uTDywEQYAZohp0GwKsvRwHiHpxoNTfLjZ5+Vr5j6hqkKq6oEj
-	 wKZUDz2iMvudg==
-Date: Mon, 09 Nov 2026 09:34:39 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/4] media: ipu-bridge: Add ST VD55G0
-Message-ID: <20261109093353.3757-4-lsa.uz@pm.me>
-In-Reply-To: <20261109093353.3757-1-lsa.uz@pm.me>
-References: <20261109093353.3757-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: ac3c6ffab691e6bfad9ade0ff54fea87a9118e4c
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=iG/8bH2q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=iG/8bH2q1T9bGAdxLuhqgb6v9+0swHsRT/b44WyKCBGYT8f4EccUwAOfQEtGMMJvK2mpLa/1g4LY9
+	 aayrO89joKkWLN3gK6k5X6FUPUUkeMrJ0R67fErmKpvFww5nSVppW/K+YtKUcCgbR1QaekIJs5pIKT
+	 aUTBmQSOL/DlU+2c=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66af193bd4c6-9101e;
+	Mon, 09 Nov 2026 17:34:54 +0800 (CST)
+X-RM-TRANSID:2ee66af193bd4c6-9101e
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from devin-VMware-Virtual-Platform (unknown[10.55.1.72])
+	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36af193bc3ce-89f97;
+	Mon, 09 Nov 2026 17:34:54 +0800 (CST)
+X-RM-TRANSID:2ee36af193bc3ce-89f97
+From: Zhu Jun <zhujun2@cmss.chinamobile.com>
+To: ckeepax@opensource.cirrus.com
+Cc: zhujun <zhujun2@cmss.chinamobile.com>,
+	rf@opensource.cirrus.com,
+	linux@roeck-us.net,
+	patches@opensource.cirrus.com,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] hwmon: (lochnagar) Avoid oversized shifts for zero readings
+Date: Mon,  9 Nov 2026 17:33:32 +0800
+Message-ID: <20261109093453.5384-1-zhujun2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,47 +71,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The infrared camera of the Surface Pro 11 with Intel is an ST VD55G0,
-enumerated by ACPI as SMO55F0 and wired to the IPU7 over one CSI-2 data
-lane.
+From: zhujun <zhujun2@cmss.chinamobile.com>
 
-The vd55g0 driver takes only a link frequency whose MIPI rate, twice it,
-is an integer multiple of the input clock. 396 MHz gives 792 Mbps, 33
-times the 24 MHz the sensor's SSDB lists on the Surface Pro 8, 9, 10 and
-11, and within the sensor's 750 to 1200 Mbps. Peter Marshall's earlier
-patch for the Surface Pro 9 used 380 MHz, 760 Mbps, which is not a
-multiple of 24 MHz, so the driver would refuse it:
-https://lore.kernel.org/all/20260918221705.323510-4-pm@petermarshall.ca/
+A zero IEEE754 reading gives exp = -150 in float_to_long(). Both shifts
+in the rounding expression then exceed the width of u64. UBSAN reports a
+shift exponent of 149, and the conversion can return a nonzero reading.
 
-Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IP=
-U6
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+Return zero when the required right shift is at least 64 bits. With the
+supported precisions, the scaled mantissa is too small to round up in
+this case.
+
+Fixes: 4cdb56214746 ("hwmon: lochnagar: Add Lochnagar 2 hardware monitoring driver")
 ---
-v3: moved before VD55G1, for vendor order. imx681 v10 3/3 adds SONY0681
-at the same place, so whichever lands second needs a trivial fixup.
+Validation: x86-64 and i386 driver objects built with W=1.
+Source-extracted boundary tests passed on 32-bit and 64-bit;
+the corresponding test fails on the base revision. I/O is mocked.
+No physical sensor hardware or booted-kernel test was available.
+OpenAI Codex assisted analysis, code, tests and changelog drafting.
+The human submitter must review and add their Signed-off-by.
 
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
+ drivers/hwmon/lochnagar-hwmon.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 3739c4a2a8c..c99c85b7e6f 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -124,6 +124,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
-sors[] =3D {
- =09IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- =09/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
- =09IPU_SENSOR_CONFIG("TBE20A0", 1, 200000000),
-+=09/* STMicroelectronics VD55G0 */
-+=09IPU_SENSOR_CONFIG("SMO55F0", 1, 396000000),
- =09/* STMicroelectronics VD55G1 (found on Lenovo X1 Carbon G14) */
- =09IPU_SENSOR_CONFIG("TBE20A1", 1, 402000000),
- =09/* Toshiba T4KA3 */
---=20
-2.54.0
+diff --git a/drivers/hwmon/lochnagar-hwmon.c b/drivers/hwmon/lochnagar-hwmon.c
+index 24a255d4c46b..328589e19917 100644
+--- a/drivers/hwmon/lochnagar-hwmon.c
++++ b/drivers/hwmon/lochnagar-hwmon.c
+@@ -74,6 +74,8 @@ static long float_to_long(u32 data, u32 precision)
+ 
+ 	if (fls64(man) + exp > (int)sizeof(long) * 8 - 1)
+ 		result = LONG_MAX;
++	else if (exp <= -64)
++		result = 0;
+ 	else if (exp < 0)
+ 		result = (man + (1ull << (-exp - 1))) >> -exp;
+ 	else
+
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+-- 
+2.51.0
+
 
 
