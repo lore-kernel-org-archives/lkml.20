@@ -1,93 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229193;
-	b=H0ltAJRb7dJ0lhT2AKc+W1XGKLqJRxun9P3bgAzIUq4CUzV/FYAgdAoa97v4/iCuis+E
-	 G4ca0xR+u80ASoGNzyScRu1yRsVdrleeVrdMx+f+FQJj4Z87/4vZFnevOEHcHHy3bfuoP
-	 567aROSKDE/qVGWPdmiJUbHmXEE5s9i8A5NTsZU2yq7FSYYRC710XQLJbYx6BggpQRn2w
-	 p4QBGt7ialkL/hs9b8s4ymSEQkeuziikUJ3ruQfxO5n6pdGnjeQK+pfuBZR3yr2MTUJIJ
-	 y5UJpTaOIItHOxaOUgCcrEs++7e63lLFFuS7TZmYguOR1lkppd3F26fWu0gVDmWSRug==
+	t=1794229196;
+	b=LFR0LMX7wB8MZPxvLKY/HGWAuL0dMOHJ8vZ152+2NNhw2z2I1cac4P6A2FQGaBMsHScq
+	 /2d8tEC1E5dRvuZJX23iMIO78Wv9FXiPU+wMMaU9OR4A6ZNicrz0TcJTbErxh84a4Wq5b
+	 H+cXlGL6lUaFDj2X7mVDpbgApHnqC0Y5Lp3Tn5oSTQwbw1WfTYxyH/l1ugo4oeoFOPiMg
+	 sPh/D7qynrFU9S2w9R8Kf5gOlw5qKb808FuhFzPe5CbyPXitWKN5DMTP8WVcPIvlN3a41
+	 gsn1Ox37pCyBkjN02c5n0e0GOSJBeWbpIxpGVPqlJhzyBGmIjSQS2ktYyIT15hD164A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229193;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=dHJxQX6qrdjoJ9xxCpDciOGfZ1moJmuMFI7elkZmNW0=;
-	b=L6TsJObbw+Fga3lBc4UzpLzsuRW0z/iVzC/58ib1NE4YZtcXeX3cnP+G91Z2dmtnOPe9
-	 Mh+7oKZeun49KjOGzmJNGAK59vvXxH64/9z7QlL0VyTAm+Pa0hHAu81grTTKKTKxSdj+P
-	 tTHuQj22YojpGDKWCz4+NebLOCDfacNpgoIkblLPPG0d44lLXysHia2tKIT+K/NlUK1Ng
-	 22BJkOPHKpUus93HMa1YHPWeAnIJtYzH9+LjMYsAbxQgTZmfdaN+K+hcXvxXn90VajjpU
-	 WbDro4DrAW3/NQqeabCJUzNuDlrLkp6Lowl9nZqhM6JbybJX4uxHcCzX9SlwgaV0xnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229196;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=aMEQbLRWx17UCfhc8SBN68gRj/bApfnEMsZRvsnpiIo=;
+	b=F6Mtib+NL58/XstHC/p2msjkPtYKjCm0Pwjnm/g5E6Hp6YqdEcvXpQAPPa0MOrHVYkZu
+	 YH2IZTETBcjWN8GIf6oOyMnvlLk5/ZyK0ATUkCc585GPYDeyfTSmW5gkUu0XEhZSGWUWH
+	 Kbzbojg6n1RWczjIUpJ226U9ynK7OX+qb2NgW9t33LlIEphdFgeiRDwQhuTc1dc3pNA0b
+	 58Viut3Lrh4Lwab9skyrwWSbYxMER9Y6kv6BuKLHdwCgJs1BWRCBpS898C9cMGU9Y2bVK
+	 9MMd/SlEl8LMm1pEwEHCB5i9uvUzwbFFyYOXl20d6Inp3NDt54SgDbSbQpya/4VD39Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b0ZQJEl2;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=doiTHSSv;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA56A606A334;
-	Mon,  9 Nov 2026 12:59:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA56A606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B415606D815
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:59:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B415606D815
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b0ZQJEl2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794229192; x=1825765192;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6dmvxcz7lqwbDDHNjfP4aPXb8rd73wq3lQfjHzl0tcs=;
-  b=b0ZQJEl2AoWe/JLecb5OUbKNfavJW/zFw943YmNgcwiOuvpRXOpd/W6D
-   eVI4rLJwDKH4pPK/Sun8xzvDfCSw1KP2dOn809+DlcnNLotJHFjESIdrz
-   lORG5t7U+P5GkyTXD98pXn5jb3J4qDLaBx6DF0U9KWhtnwGsiEVOHjl2i
-   eSIEXeVW+iHScPax5A3RtZmpcxm87xVmaugfxvw9K01Udaz6vEOT6rclk
-   03B6p+Et0axtqMMiS8xYD5iCQLz8tMj+nzxfgYMDZdqa8OmZ6c0HA3aP0
-   szpC8nGsX6Ngn0CgZNIdiFW8OhXYcv0jEjoYn8NYvBlZ55fzPTw+5ie7x
-   Q==;
-X-CSE-ConnectionGUID: U/3AekPXTJKd2vZ+zBS8Ow==
-X-CSE-MsgGUID: 1BjrRjniT26F4FgyrzLSVw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2849198"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2849198"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:59:51 -0800
-X-CSE-ConnectionGUID: ljgYPguSQQ+aqfsa0muZ2A==
-X-CSE-MsgGUID: JqzhGJqXRE6iA6j8DG6Qdg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7869393"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:59:47 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 5E107121B96;
-	Mon, 09 Nov 2026 14:59:44 +0200 (EET)
-Date: Mon, 9 Nov 2026 14:59:44 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Marshall <pm@petermarshall.ca>,
-	George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	"D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] media: i2c: Add ST VD55G0 global shutter sensor
- driver
-Message-ID: <avHDwGAe99WYaty9@kekkonen.localdomain>
-References: <20261109093353.3757-1-lsa.uz@pm.me>
- <20261109093353.3757-3-lsa.uz@pm.me>
- <avGwRaKSqXdtXkII@kekkonen.localdomain>
- <20261109124610.85065-1-lsa.uz@pm.me>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=doiTHSSv
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3acb1224533so86706a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 04:59:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794229195; x=1794833995; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aMEQbLRWx17UCfhc8SBN68gRj/bApfnEMsZRvsnpiIo=;
+        b=doiTHSSvB2o3/0cOmhkLHZM+mrUrp33VHW5YXgurmMGPltIigcPtucKoslLyLxgAli
+         4Cz8ZwVMZpV3Bo8Oe4sOrZqro0l9A/vLpIFELrEvuk2qfrSYvcVAmU2MGtjb2O3mvM0E
+         gZpm4ylzCEbL2YSCu96rmlqeQ7x/UDJjggwz3wfeKuh9Rq7isDu5lrXi/xDvCo0Go4AJ
+         m/j9UPgAXftrnpLcJK+nKIRpEdokqTZjKJpGjJtKLNsbRyNxvLNDAcTg3jChYb4T7HOQ
+         MzT3B3p2aqDRz5a40jT99sxNw90kkzYu4oaWB5DQETel0FCOBzxkkWYlVC3W8rACKd27
+         PY7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794229195; x=1794833995;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aMEQbLRWx17UCfhc8SBN68gRj/bApfnEMsZRvsnpiIo=;
+        b=bgYDx3c7s1ikQ0zSFRrgWH/qtgRfc5WhzBZT+YwZTKHpNbigKqhCJ4OCFBd5ZojsRk
+         /q7ODX3MVxWCTkGEIoI2Hl69AJQKRklM6u7aGzJ8TJoQpxiUCx1cN1Vd/MQu+ZlJlmhp
+         NpUzRvjKVtC+zAJjabItzyMQRNaNUgc8T6ThbqS0FSk+OHAni5babFuVQN9m1A/v7mw7
+         FDsg+zZcNcG6WNqECnZhIm9JQur2OjpUR/0PZyblAncqu0X++zQ0bygLVqszvFmQA9h8
+         gghWyfemNvcHBLWQt/K3s/ZziFGkR3kITM294YyI/xYRKNJxmJMrBcE1yDfnZnc96W3X
+         HyKA==
+X-Forwarded-Encrypted: i=1; AL+hErGj2gfRZE7cidTjgmhzYLt+BJHRFQkNKEKOSZxS7jhLEozGE+SSlnJ8U5hF97VIhjJ0YXM7Mgqj6AE4/yk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8sRG5T2mbNtWlMPGeGzxdfu4IddpILDkmuHr/20gTJrd8u9yjJ
+	UK09e2jK1QsFlTTa5MdEye9JQOSJCM+GltTHP3cnKahlxpWR2sZhmdhk
+X-Gm-Gg: AYBFou2pukJERqn7RnsQTfl/Xcfwv6DL/8y1u0C2a3PmphDGCfFYi5OmCmILPLxS83Z
+	dNbcVxsWvH1Cv5SixtgHH1U4nPqKLKL4ieYdj5iLQWfcVG+roCHXQESQiAEdge6zAp8+du5KXPq
+	w4FKvSfbS0+fqNVveLW2/vP6LeZJD4ATAu/UoObHgtz7B9HTX/AnC4KI5jxLqOR3J68YBFyFZM8
+	ToCorsA0hZLpHrjK3Hk67f1CE7cBC8bpb1Xgq8TraSjf2vQ9OMjZePEW7FNPdiX4wlbTgHYqaIw
+	fAp3pfHihqbVEBpPLwWT/UpO7N6Bf+3J8FkNiaZNx6OU3XuXjZQ74dKlr7ajYASNDFeQgHo1BD4
+	TXrs3tmfHaUbFG1wQg3EZ6dPzcRZWjE1+Rg28t0MrxUUq2fWSady2vdVFpaXNS13qQsqNZhKkKA
+	DRh5LfW7YbQyqJX1KVGi1Fg6aIqXqgtjVwqlGghdmH7RkLNtPTxNKrx2xfsXUGAEz3OVfpCEFTH
+	rxbnsRPhw/IsORAuQd9GCZ3Mf62fYggINl35zRH1u/Jjz3G1cuM58lUWHo1VHsrjK19gzzJRl3e
+	y8XfyW316mhEwaUsROYRHiFGOt48w7CNguBnnziSy5wi5xkuCQBMXO52D6dPmdNzQRk=
+X-Received: by 2002:a17:90b:1802:b0:3a0:238b:db4d with SMTP id 98e67ed59e1d1-3b12d44183fmr6666950a91.5.1794229194774;
+        Mon, 09 Nov 2026 04:59:54 -0800 (PST)
+Received: from o6.lan ([2602:fce1:44f:115e::])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb969694aasm1534153a12.25.2026.11.09.04.59.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 04:59:54 -0800 (PST)
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Date: Mon, 09 Nov 2026 20:59:31 +0800
+Subject: [PATCH v2 3/3] docs: zsmalloc: describe statistics with
+ CONFIG_DEBUG_FS
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,49 +92,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109124610.85065-1-lsa.uz@pm.me>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261109-zsmalloc_stat-v2-3-caee41684aba@gmail.com>
+References: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com>
+In-Reply-To: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com>
+To: Minchan Kim <minchan@kernel.org>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Nhat Pham <nphamcs@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Xueyuan Chen <xueyuan.chen21@gmail.com>
+X-Mailer: b4 0.16.0
 
-Hi Sergey,
+Zsmalloc statistics are now available when debugfs is enabled. Replace
+references to CONFIG_ZSMALLOC_STAT with CONFIG_DEBUG_FS in the English
+and Chinese documentation.
 
-On Mon, Nov 09, 2026 at 12:46:16PM +0000, Sergey Lebedev wrote:
-> Hi Sakari,
-> 
-> Thank you for the quick and thorough review. I am working on v4 with
-> the rest of your comments, which will take a few days. Two points
-> first, as your answers may change the code.
-> 
-> On Mon, Nov 09, 2026 at 01:36:37PM +0200, Sakari Ailus wrote:
-> >> +static const s64 vd55g0_ev_bias_menu[] = {
-> >> +	-3000, -2500, -2000, -1500, -1000, -500,
-> >> +	    0,
-> >> +	  500,  1000,  1500,  2000,  2500, 3000,
-> >
-> > Is this
-> 
-> The sentence seems to have been cut off here. What did you mean? The
-> table is vd55g1's, in the control's 0.001 EV units.
+Suggested-by: Nhat Pham <nphamcs@gmail.com>
+Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+---
+ Documentation/mm/zsmalloc.rst                    | 2 +-
+ Documentation/translations/zh_CN/mm/zsmalloc.rst | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Uh, yes. I meant to ask if this is a firmware limitation. I guess so?
-
-> 
-> >> +	if (!ret) {
-> >> +		sensor->expo_ctrl->val = expo;
-> >> +		sensor->again_ctrl->val = again;
-> >> +		sensor->dgain_ctrl->val = dgain;
-> >
-> > Can you use __v4l2_ctrl_s_ctrl()? That way events get handled correctly.
-> 
-> These three are volatile while auto exposure is on, which is the only
-> time g_volatile_ctrl() is called. v4l2-controls.rst says to set
-> ctrl->val there, and that a volatile control does not generate
-> V4L2_EVENT_CTRL_CH_VALUE; cluster_changed() skips volatile controls, so
-> __v4l2_ctrl_s_ctrl() would not send one either. Did I miss a case?
-
-Ack.
+diff --git a/Documentation/mm/zsmalloc.rst b/Documentation/mm/zsmalloc.rst
+index d2bbecd78e14..8c61733c6749 100644
+--- a/Documentation/mm/zsmalloc.rst
++++ b/Documentation/mm/zsmalloc.rst
+@@ -33,7 +33,7 @@ proper handle-based APIs.
+ stat
+ ====
+ 
+-With CONFIG_ZSMALLOC_STAT, we could see zsmalloc internal information via
++With CONFIG_DEBUG_FS, we could see zsmalloc internal information via
+ ``/sys/kernel/debug/zsmalloc/<user name>``. Here is a sample of stat output::
+ 
+  # cat /sys/kernel/debug/zsmalloc/zram0/classes
+diff --git a/Documentation/translations/zh_CN/mm/zsmalloc.rst b/Documentation/translations/zh_CN/mm/zsmalloc.rst
+index 4c8c9b1006a9..d163f4aab341 100644
+--- a/Documentation/translations/zh_CN/mm/zsmalloc.rst
++++ b/Documentation/translations/zh_CN/mm/zsmalloc.rst
+@@ -32,7 +32,7 @@ zs_unmap_object()解除映射。
+ stat
+ ====
+ 
+-通过CONFIG_ZSMALLOC_STAT，我们可以通过 ``/sys/kernel/debug/zsmalloc/<user name>``
++通过CONFIG_DEBUG_FS，我们可以通过 ``/sys/kernel/debug/zsmalloc/<user name>``
+ 看到zsmalloc内部信息。下面是一个统计输出的例子。::
+ 
+  # cat /sys/kernel/debug/zsmalloc/zram0/classes
 
 -- 
-Regards,
+2.47.3
 
-Sakari Ailus
