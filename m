@@ -1,61 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794228948;
-	b=yqrW+IDmApW4SHpE4zEb2WHJlsJtYb9XX58c6D/luy2k2mTDy78ebkVaZt3CDzNKMm71
-	 /oB9wSbvXzr4opHz5UeZOiVFYVYbx+l81iyOyG02uo6SFOrlB4bB2mtOaIOiFxU6YTSmQ
-	 MQlhq/iFi/g9kB6ykkYfHcuXu2eR19lfYwFXaliTJ0tzUFSqtFOF/+ySfK+VCyeLg/kYg
-	 7+RAyjf7tB6BV0lSDMTlXGsw+nOoqymdPnLyucJlherHbLkjYOb7377LM29rNAe50T6ys
-	 IFQePufpDvyVB4gtxMFvxJRbw/HQJz4kPSYPtmuQZRh3F30qKbrHwX3x12Ce6Vh5k+w==
+	t=1794228969;
+	b=IOGef/rCxOMJb0Fr45NFgMaOrLYIMuVToieq+QbRZ1K0nmsVaVRuQJH2dD0WiJ2IJ6O3
+	 Zuy/yIaTptX7B0jbguwQqYwMYQEyXWNACQk6ULaOqZ+F0UhBwINUU9DThAkx1FUrs4icd
+	 8XdO98EW0m40Xiagb76ZrMaz9Am+1wKbydhT6KGUCnaGKvG8s8UWQQ48g8cZ+hEG0HYz/
+	 ZwoD3aPchkqq0ZoeBRhQsyPnn4D+KAZunw4ZBxQNoTZmm3x/HEm/Y85qUpDAEvJ0epPOf
+	 CH62KmYvzVLi4tuYRlCGqk9Lh2ptRXOZYW46IfyfhQ/++gz04YAXt+XTg8LYU0diblw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794228948;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=kw0pU5fJYLabLzm2TZxnPbXSczZohIpAKLdAOkOFn91re5XF8AueIcHsWByqI2UjE5yA
-	 xb2iuWF5n3O01djERjJXVB6fs5km2iH5Dc2KiODSQQUIlE/W6dGbgNnzOI/FAbDHkvcop
-	 dxOw/xpVdUZk3hyWVhqFAg6gEk9fa/D5ExSi1CT8YwKGG+u+DuZzhbEtAlyB9E5bUMctP
-	 lXpbdAUUg8RbP7Sy1AHfWGrUfqmp36Qf7Qos7cGdtVR2Sqmqy1l/A3UqKG4GRhJuUt4jH
-	 gmM1m7E30letowafg2lwNSpvhHbMKJf/4JX/Zmu09iZgwig//JqmpYUnXtB790nsa/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228969;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=RlHXEngYq18Jj8tFRRJ8jj4MrDZLmQ3Qo9NJGm/ux7k=;
+	b=C3ttJHk6w1DzKDFQDO/azbExBYUhoGGF9CMKeEcUev1QnJWPjAre76hOLDbWLbzWYRIK
+	 sEK+9TY2ZUyJXsULFgKIM1QJ1Uj05aRXkoiExApFvFjeSLaAP6w8s8Adeam8GISYc8C0d
+	 V9P/jGlDrq//qqAHQItCO7g9hvDsBUNeJb31Edg+x15IHplYmqAI8iY1QGtpDYWbaaxAd
+	 hVomkrVn1DqauxZMQu1bfzuQ6OpNnZ1Q4znOy9SmaTOdl8OAwOmCmwukpoDlkdeG/q5NO
+	 9D0hXXfY8VIcTnGVcEGuGoAe1iLbUuxyTsC3rnnfUeHtD/QGrNqabOapyk0R6w1o+nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eS3zDmtX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwEcwZeS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656F5606A330;
-	Mon,  9 Nov 2026 12:55:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6778606A322;
+	Mon,  9 Nov 2026 12:56:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eS3zDmtX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A7951F0089F;
-	Mon,  9 Nov 2026 12:55:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZwEcwZeS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E1481F0089F;
+	Mon,  9 Nov 2026 12:56:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794228948;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eS3zDmtXQoSM0WBw7ZtTZCxurQv7b9ykrc9ps93JgPsshsqc4135DzveG9YbJJJMv
-	 6YtKqUWyD043tBclE20lvRheodkDJtBC5RX3JaRJl1l5u7P2qj7+KhqaZGm5IeqH2L
-	 So4v1DZnQgEWG/K0T7G7rj77obIv1N4oYlHqCC4jGg1mE38FuAuuw5vWd3wiWshBaW
-	 65t+QxWrQ0uxNM3Zb0f5ayK8uxQmwFGyFwfFbT7Xn8ymFm/YhCIatKhkHZOTlAN2yv
-	 Qu1e4eE1zxANV0Xu1DQKKoe0RGfG8sgR2fGNR2HrR0vlI8Z7KCMW0BlSz3ATraMglU
-	 nfQ9k+/Znlpjg==
-From: netdev-bot+sinfo@kernel.org
-To: Junyoung Jang <graypanda.inzag@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: 
- Re: [PATCH net] igmp: use the joined device when leaving a multicast group
-Date: Mon, 09 Nov 2026 12:55:46 +0000
-Message-ID: <179422894695.488859.13925819352934947141@kernel.org>
-In-Reply-To: <20261109125312.2208874-1-graypanda.inzag@gmail.com>
-References: <20261109125312.2208874-1-graypanda.inzag@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1794228968;
+	bh=RlHXEngYq18Jj8tFRRJ8jj4MrDZLmQ3Qo9NJGm/ux7k=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ZwEcwZeSanDenPa0eeRoFDyCiLtGCr2CMJ5FgJf5XZdSbIB0N8JBOb9RV7uCoDe1g
+	 eqjAIdB2AoI1r84cuzlN+g0R+zafTQJzGQVMEiJyeMDWSGMw0cPlXQKn1bSmLEV/2y
+	 QSEJ92Drya8zv0iK7yfGnYk9PFYUvsvv+A30rzX5Ffmcibck0nlEnj91yoBQR4C4+h
+	 8pILX51p0G0GbivHQT0O/bd3QrH8Md1XutNjypqw0DiWLS8NODfHcgjjy78bdADmVC
+	 UC+3gEv6E0ZJL5ZRsVG7mYCPdCFb6cCvOLfpa+byHIjPklVa7FXilFtfbTHD3zZ7Xb
+	 9GQ9mc5d8rcdA==
+From: David Hildenbrand <david@kernel.org>
+To: akpm@linux-foundation.org, david@kernel.org, shao.mingyin@zte.com.cn
+Cc: linux-mm@kvack.org, ziy@nvidia.com, matthew.brost@intel.com, 
+ joshua.hahnjy@gmail.com, byungchul@sk.com, gourry@gourry.net, 
+ ying.huang@linux.alibaba.com, apopple@nvidia.com, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261108142831046W_fbNCAFfuY0BjHPCCHgi@zte.com.cn>
+References: <20261108142831046W_fbNCAFfuY0BjHPCCHgi@zte.com.cn>
+Subject: Re: [PATCH v2] mm/migrate: fix softlockup in do_pages_move() with
+ huge page arrays
+Message-Id: <179422896536.6396.2331659018342056694.b4-ty@b4>
+Date: Mon, 09 Nov 2026 13:56:05 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,21 +61,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-Hi!
+On Sun, 08 Nov 2026 14:28:31 +0800, shao.mingyin@zte.com.cn wrote:
+> mm/migrate: fix softlockup in do_pages_move() with huge page arrays
+> 
+> do_pages_move() walks the array one page at a time.  An entry naming the
+> node its page is already on is never queued, so the loop runs without a
+> voluntary preemption point on a non-preemptible kernel; the existing
+> cond_resched() calls in the migration code are only reached after a
+> folio has been queued.  nr_pages comes straight from the syscall.
+> 
+> [...]
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Applied, thanks!
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+tree: mm/core.git
+branch: migrate-7.5.misc
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Applied patches will appear soon in mm-next, followed by linux-next.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
+
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/1] mm/migrate: fix softlockup in do_pages_move() with huge page arrays
+      https://git.kernel.org/mm/core/c/e200153a
+
+-- 
+Cheers,
+
+David
+
