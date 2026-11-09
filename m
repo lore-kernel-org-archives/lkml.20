@@ -1,64 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794241407;
-	b=to1vZb+Yb5+9qV6/Ul8rTD9/gk7SFdQsahXW1PFLZzom5s52RprWxBRX2TXpJxAIm4ro
-	 PrLxd5F+9YN3hBgkgFXAJuNMWDywxyWNLWWZqjlD/I8FlESBlgME2/7OFqLdvdomINFF4
-	 67+Q0xqOCJ3OPX7hTEQH0t5/SblZcP/w1QVuAaw+ChvE85G/BxywQH6fFC4BX5qy87uCm
-	 3zeHvdVpFdcJjQavq96aP/TfTfpqYkwiwNhsXKx7NP8lIQKwdi8kU42FffkUa1QPyQ+58
-	 22AuE0kFGp8p5Ne3418+rrlou5E35rl6r8gziG7rce/DAfqCApEpz1TdA6r4ztqtkGQ==
+	t=1794241427;
+	b=dHFh7T/txN7N1yEUKCSceYckEUVY1c6Fir9PdWeEaBKLs4fInShIY0G37x/lYWWQW8Tx
+	 warI+CVuT+cUhlWEKIbLcKiySK0/360Dm0VbS472MNx60nDV+SGXYQSzA7zZSXX8JEcWx
+	 HgJ+z55rs8iA8djMcHEoOqWtuVpP9r4YopiYZg0N1sBZga/5pCAzDSb18FlSgKjGGLLRq
+	 rljgy7Q8YC2D2VY5qI1LTPCtfMd5dxdUZLnDEejTBaFNGi+rJu/6yfcNQ6Ebpb+HX3LxL
+	 bQ01a4BWawnjvcy811hbHM3+FNLGLZgZzkVRuTbI9iz/tvQzpQy7ru8Ac96oRrKZ7NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794241407;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=tG5yEYutI+mpKyTMneJT8rko5YsS33pVwWvh68hLObg=;
-	b=NzSDnx+rjviIei1B62vgCsT8kajjlJc/RTxiez+1riRvvojzhgBafVlaVEirO2Bhp7uN
-	 nB0sRPAFn+wG1+nhICVPDtcnf9mqS5mRX4sBVRHUFYFeFYmwCOWgSNae7img4wGs+/2LP
-	 rV7nFi/Va7Zijk2UaBlNkWlrByEtBvO20DA2J+ARPEa05efvFc3mp7g/cBetmwS5U17mR
-	 8gMIt6T8HGNcGEjDom3YJyFgI0zeF1jWzsWJeDQu90MtAXlmRxORGbUvCPz8DSF+DMM2a
-	 xgWM1NBL+bLFUmGgbNAscz2ZUIM+VQAAx8Lv/4GV9t6gAF9AdUOSlXkqg6XgzA0zjAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794241427;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=jHf22tsdPPfDKAeOIiu4WmAuLGDaW8+V7RxrZhx4qXg=;
+	b=DF6iKJEbnC7JTmNraUMsVPg7zzlP7UZSiY/NBo13gc2GwP+IipERRVr3Nl485tEDo7xL
+	 Wg4tAy2pdQxgDzclluXnsp164od5ezIDxJ8MMJB0Nh+E2j5xnEOi4w0TBE0eMTFoo2Lz2
+	 c758ENbD+JbZd/MkD1IGMhQXc0yEvkD1HBLuPj4Rn0m9nKRhN9QJt1aVuBAEFdeYWADRC
+	 3edvxjxCflESbO3qotD4+SDiSHCMeBvx4hmkZiW5y7tZ5vRAP6foyH49XRr/T5O46ly5O
+	 4FxnLuif8ZBhTtGas2iimt4irbOk4VcQa0rDpsk5wqX75ODcQTb+Bvta+9KD+InsA9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jz87hB5k;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSyx9BAa;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF45606A338;
-	Mon,  9 Nov 2026 16:23:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D733606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:23:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jz87hB5k
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46FFA1F0089F;
-	Mon,  9 Nov 2026 16:23:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSyx9BAa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED57B1F0089F
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:23:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794241406;
-	bh=tG5yEYutI+mpKyTMneJT8rko5YsS33pVwWvh68hLObg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jz87hB5k60+uTGtLRku16bW3/e5kRmOxfhlfOyNBjMBL1583P5K2jAVIVtYzdzcZ9
-	 7CXXLkC63CRSsT4iPFW/3FpvyVHcaWcPsSNriFvaQTRBRJIo/udtienq9TqMU66e3E
-	 jt73m0An7Xx4E+5iZgx5EDhnAURvWwf3WhoMSUf38Xn/Lun9ZynV54GVmpZmMia4BF
-	 KO+sa6/Ww+bAAxzvsodLhXI4Rl10eCpp3gvU6SRQDxYEX5V81bLXPd2EN50ivv2kV/
-	 mq9i/fBnhWoYauvqBETQLmCGAeqM9T90Cx43JvuxfAVeG5AqeetPj3grWiSabqB3pm
-	 JQPDYPw6hBVKw==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 361491AC5995; Mon, 09 Nov 2026 16:23:17 +0000 (GMT)
-Date: Mon, 9 Nov 2026 16:23:17 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Bui Duc Phuc <phucduc.bui@gmail.com>
-Cc: Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	linuxppc-dev@lists.ozlabs.org, linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 03/10] ASoC: fsl_sai: Remove redundant error messages
-Message-ID: <avHzdeplLMGaL3EM@sirena.co.uk>
-References: <20261105104237.38542-1-phucduc.bui@gmail.com>
- <20261105104237.38542-4-phucduc.bui@gmail.com>
- <179397468197.3073895.1522608204443678480.b4-review@b4>
- <CAABR9nE52Rk81oyoM3L5hHRn3n9OCP3PWSxA8nNt+aEPoeRtqA@mail.gmail.com>
+	s=k20260515; t=1794241427;
+	bh=jHf22tsdPPfDKAeOIiu4WmAuLGDaW8+V7RxrZhx4qXg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OSyx9BAa9gS4PwuytH0sMUh2QyzhT6ozk6cj07WytrOmwfGLoC3KN8+wL4IsPkOuq
+	 wgVG4zxb4RwB9DVXmyHCHLSeoSIKvTTlZ76dxEOgcxdgh5ZVMrJn8kDrYEAtmPICgj
+	 HcIX0pl3w2Da+iZvLrqGiSOmus+BORZjtThdpKZxcWwrVxHQ3tcpSVyFpPj3394gtE
+	 W/u9WJffOZKTRUz/cmPGbuIut3k0lBJh4Lr4fpD0eyNtl0EUMyMqtkOJKeWLayU18J
+	 7bZqP5NO02E3HFuQ9seJ2dkgfPCb0vq+tUoiRTiANl8ZRgEB5+Iv1d7viNOQxetQoE
+	 D1SEz81YkI70g==
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4d28f75d62so142339466b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:23:46 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErHGbCts4vcgEpNZdjYQ42RLpo7tnEDGIAQB6KLm2xk7ezi+6dNdtAaYPweOx6lqUUarRYudUQBvqF8T0O0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/7eNnqucJ70Bx7INP5rJ1QK+5p6PkMZdFCit42i8PXHXq7RZai
+	zmbL0bLXpIlSkw86zlE5exO7dXgnwmhIWQ5HN9wptLfveRNXg6qXGlA1OPluQVQ2Ge7jKaRBONK
+	72q32kBZUu6n541WK7CN6pLeU1P4d6pY=
+X-Received: by 2002:a17:907:ea89:b0:c3f:7270:10ab with SMTP id
+ a640c23a62f3a-c4d6d491847mr331944966b.14.1794241425829; Mon, 09 Nov 2026
+ 08:23:45 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,52 +59,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZHui3L9dMLkg4C6t"
-Content-Disposition: inline
-In-Reply-To: <CAABR9nE52Rk81oyoM3L5hHRn3n9OCP3PWSxA8nNt+aEPoeRtqA@mail.gmail.com>
-X-Cookie: Victory or defeat!
+References: <20261106072412.7909-1-kanchanapsridhar2026@gmail.com>
+ <au5l3KEjG_mri-br@google.com> <CACpmpoc3R8gwkMouwyFLw9PEqyDN1i6OcmPxsvZ1d0QOPSS_fQ@mail.gmail.com>
+In-Reply-To: <CACpmpoc3R8gwkMouwyFLw9PEqyDN1i6OcmPxsvZ1d0QOPSS_fQ@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Mon, 9 Nov 2026 08:23:34 -0800
+X-Gmail-Original-Message-ID: <CAO9r8zOVf+gN0nbKkMGraTGhnCOG+5mpNBJvsZ=C5jDOssBf+A@mail.gmail.com>
+X-Gm-Features: AclHuK8wGQGw5PDN9FVkkzijzlP7nY0X41Q1fjXtSpx5oni4CF9QZzjxFkOpA7k
+Message-ID: <CAO9r8zOVf+gN0nbKkMGraTGhnCOG+5mpNBJvsZ=C5jDOssBf+A@mail.gmail.com>
+Subject: Re: [PATCH v3 0/8] Batched zswap_store() framework with compression batching.
+To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
+	davem@davemloft.net, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
+	senozhatsky@chromium.org
+Content-Type: text/plain; charset="UTF-8"
 
+> > As with previous versions, I cannot reproduce these results. I tried
+> > with a QEMU VM on a Cascade Lake host. I saw marginal improvements with
+> > patch 6 and no significant gain with patches 7-8.
+> >
+> > I noticed that you omitted high-level metrics (e.g. throughput), I
+> > didn't see significant changes in throughput, and I also ran a kernel
+> > build and saw a small regression in some cases (probably with order-0
+> > folios) and no significant improvement otherwise. Even if latency for
+> > some functions does improve slightly, it doesn't matter if it doesn't
+> > show up on higher-level metrics.
+> >
+> > It could be the difference in setups, or the overhead of bpftrace hooks
+> > for zswap_compress() might affect measured zswap_store() latencies, as
+> > you will have fewer zswap_compress() calls with patch 8.
+> >
+> > As advised previously, I would trim down patch 6 to the bare minimum
+> > (without all the scaffolding and prep work for patches 7-8), and send it
+> > separately (with patch 5), and we can check if it's worth adding, I am
+> > still concerned it might be adding overhead for order-0 to be honest.
+> >
+> > I am questioning the benefit of batching here without HW batching, so
+> > far the results are more concerning than encouraging. I already spent
+> > too much time trying to reproduce the performance gains. Also, sending
+> > new versions without resolving discussions on previous ones is not
+> > really productive.
+>
+> Thanks for taking the time to test and provide feedback, Yosry.
+>
+> I omitted high-level metrics like throughput since you raised a
+> concern about variation. Hence, I decided to go with the "ultimate
+> truth" which is bpftrace latency measurements.
 
---ZHui3L9dMLkg4C6t
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I didn't mean that we shouldn't look at high-level metrics, it's just
+that the test setup had too much variance for the high-level metrics
+to be useful so I checked the low-level latency. Ideally we'd test
+performance with benchmarks that should have stable high-level
+metrics.
 
-On Mon, Nov 09, 2026 at 11:08:05AM +0700, Bui Duc Phuc wrote:
+> For performance validation, I only have access to a 16G Chromebook
+> with a Crostini VM to which 13G is allocated. I am setting aside 3G
+> for swap and 7G for QEMU. Within the QEMU VM, I am selecting 2 E-cores
+> to run the 2 usemem processes to minimize variation due to frequency
+> fluctuations. This setup has its own limitations such as being unable
+> to fix the frequency.
+>
+> Despite all this, I have been able to consistently replicate the
+> bpftrace latency improvements with patch 8. My results show regression
+> with patch 6-7, and improvement only with patch 8. As noted in the
+> cover-letter, patch 8 adds significant latency improvement for order-0
+> folios. This is with ZSTD. FWIW, these are bpftrace latency
+> improvements in a significantly memory constrained environment and
+> this ought to be a useful data point. I have been posting general
+> vmstat "system health" metrics to prove that nothing unexpected is
+> going on.
+>
+> My data shows that order-0 zswap_store() tail latency improves by 11%
+> over mm-unstable with patch 8, although p50 is roughly similar between
+> patches 6-7 and 8. PMD store latency is significantly better at p50
+> and p99 with patch 8.
+>
+> Likewise, p99 latency of zswap_compress() alone improves by 3% with
+> patch 8, while it degrades with patch 6-7. p50 is almost the same with
+> patch 8, although patch 6-7 regresses. The page-normalized
+> batch_compress() p99 latency is better by 15%. All comparisons are wrt
+> mm-unstable.
+>
+> Hence, I believe even in a memory-constrained setup such as mine,
+> batching significantly (7-15%) improves p99 in all cases, with 4-5%
+> gains in p50: for order-0 and PMD folios.
+>
+> In addition to the latency benefits shown through my validation, I
+> would like to also emphasize the strategic benefit of moving zswap to
+> use batching, as noted under "Conclusions" in my cover letter. IOW,
+> batching within large folios to improve workload metrics can only do
+> so much (in proportion to the # of large folios reclaimed and
+> contribution of zswap_store() to the overall allocation-reclaim path).
+> What this patch series attempts to provide is a zswap batching
+> framework upon which additional improvements can be built, such as
+> reclaiming multiple folios as a batch. I believe that compress
+> batching is essential to support these next steps, which improve
+> workload throughput/latency metrics even more than simply batching
+> within folios. This is with ZSTD.
 
-> > >       ret = devm_request_irq(dev, irq, fsl_sai_isr, IRQF_SHARED,
-> > >                              np->name, sai);
-> > > -     if (ret) {
-> > > -             dev_err(dev, "failed to claim irq %u\n", irq);
-> > > +     if (ret)
-> > >               goto err_pm_get_sync;
-> > > -     }
+Without a direct line of sight for such features and consensus from
+the community, landing the framework in zswap is not very useful, it
+actually increases maintenance burden.
 
-> > This will only print an error for a subset of errors, things like -EBUSY
-> > will now silently fail.
+> Due to the environmental constraints, I haven't been able to reliably
+> use kernel compilation for validation.
+>
+> I have been doing my best to resolve previous discussions by
+> incorporating the calculate_high_delay() hack that you suggested to
+> reduce variation. The data posted in v3 comprehends this suggestion.
 
-> From what I can see in the code, devm_request_irq() ->
-> devm_request_threaded_irq() reports every failure via dev_err_probe()
-> in devm_request_result(), so -EBUSY should be printed too.
+Oh I wasn't suggesting you generally test with this hack, I just
+noticed that the variance was resulting from memory.high throttling
+and nullified it to see what the numbers look like without it. As I
+mentioned above, ideally we see stable improvement in high-level
+metrics. usemem is already a microbenchmark, if we can't demonstrate
+stable improvements in its metrics and have to measure latency of
+specific functions, the significance of the optimizations is
+questionable.
 
-Ah, that's changed since I last looked.
+It's a tradeoff between maintainability and performance. It doesn't
+really make sense to add complexity for marginal performance benefits
+on a small subset of setups.
 
-> Or did you mean fsl_sai_read_dlcfg()? It does have some silent
-> -EINVAL returns.
-> I'll restore that dev_err() together with the fsl_sai_reset_hw()
-> change I mentioned earlier.
+>
+> I would like to suggest/request the following, as next steps:
+>
+> 1) Can we reconcile our methodologies for usemem bpftrace
+> measurements: # of vCPU, usemem command line, reading Silesia, etc.
+> Also swap space and QEMU memory allocation, using linear lhists() in
+> bpftrace, etc. If you can share these details, it would be very
+> helpful. Thanks again for your time!
 
-That too.
+I ran a VM with 2 vCPUs, 8G of memory, and a 25G swapfile (although
+the size of the swapfile doesn't matter much).
 
---ZHui3L9dMLkg4C6t
-Content-Type: application/pgp-signature; name="signature.asc"
+I used zstd with the default pool limit (20%) and the shrinker off,
+with 2M THP enabled. I set memory.high to 3G for usemem like you.
 
------BEGIN PGP SIGNATURE-----
+I used this usemem command with the diff you posted in the last version:
+$ usemem -w --read-silesia -O -b 1 -s 10 -n 2 2400M
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavHzdQAKCRAv73Ows9A4
-ifrkAP9gnev+hbGO8ePdT7PHgzH3El9OJEtgV6/8NMCbTzrgSAD/RlZa/FDVWGL6
-B5UGRb7dndjHNJ0rmqfE9Yhe/h0YhwU=
-=fhwP
------END PGP SIGNATURE-----
+For kernel build, I used:
+$ kcbench --llvm -s 6.8 --nodownload -j 8 -i 1 -o <PATH>--detailed-results
 
---ZHui3L9dMLkg4C6t--
+I don't have the bpftrace commands but it should be pretty standard (I
+think I used hist() not lhist() tho).
+
+All that being said, I don't think I have more time to spend on this tbh.
+
+>
+> 2) Does the kernel community offer servers for contributors to test
+> their optimizations at scale?
+
+I don't believe so, but I am not sure.
+
+> 3) Can I please request the help of other zswap maintainers/reviewers
+> to validate this series with ZSTD on a server setup with usemem
+> running on 30+ cores, under high over-commit ratios; through bpftrace
+> and/or throughput metrics.
+
+I can't ask people to spend time testing this, I already spent more
+time than I have and I am sure other people are also busy. If someone
+is interested in testing this and collecting performance numbers, that
+would be up to them.
