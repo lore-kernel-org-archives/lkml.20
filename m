@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.169
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794197304;
-	b=Xg+2oB77ZMcGXmBy7VtRUmwZszOT+SqbGJN1LuXeGKKs28MyJdbTcS0OZSZnY1xv/KTA
-	 yITtzMy9Jk+1PQbJFyZUNS4aBA9kVag4J5IrbLU3E8BoLY0cxQnZs2SCiiJP7uevjxerI
-	 /hqhfbGI4kBQYdsO13vZoSeqE3lkJj38HbLxP6xmUekSdmgHtaOPlgcb49KvV7/AFPI4g
-	 5r7JdWr+RrvI+w3WS3rP1nSr6/TnvIsFqoNAZsxG1bm+adBvYQdUxoUpQGoxhdnLwxvKj
-	 MKj2kF67toHr99mLOmEMblcFTtCmixRq9ITCHEQ+X3+HalEb8X4zI9auS90V8Y7IiDA==
+	t=1794197297;
+	b=D6Iq3E02z+yoS3L5+80fJpr7E/lVqv2zS8OD5ZE7krJtOUJR90gcxi9VEvOKqPAjxfBR
+	 JBbmobQE4gbc2/IzsOZJa7fVwbsMAOQvXpWZv0unTJNjhaH8GwFDFvkqpaTQ62I2pXlXs
+	 8efKXAGdmHYj2I7Xr0h+lg0QOPgRsmy6xbDeAsYamtr42n3ksoggypoW3oRsgjERUn5g1
+	 W7y/TEL937DxVxsvvcpJySUC/n3xPDCmy1KngZzQOozO/pxBktLmPiCT9GovTAJPJiYQy
+	 fls00G5kp5W01c/aWgsFYWO2fkw8qy7Jpvy2RuBDSbIz2rXkWW70T/QxZp1wQB9b2mA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794197304;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794197297;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=VmgZV3Ha8SXRM5atMh4jHdaSdi8ER/Gp97TobHog/vw=;
-	b=wesWuCPIfU9wb/UrlUXmtcXveuAyBglDKJOhDO76XpNoMKOIeOVhaR+L8qzfnHHUj2mX
-	 8LLhzsXZNKdnsmOh12BFox51rXjfP4HG11022EVj1O5kCfbrb8SuZf+1cQcdY3rp3qBo6
-	 N9h/9oD1ZoxvbY5DzPOjSwuZOy8B7qg5w8EJQYEDJIw8EvMTqq+KPqoAXlZ3e+i5OgtAC
-	 nJD/pDE8EmW3h9qhFL6p0pL2CQSdZ1UxyWn/Asr7ekHHlJyVY2dvQd7/nZmxIspfhe+8G
-	 u/vi9pRJQljrhSHzTA/GuG+6bMMyFaCEh/TYpZbzHpm5YLJ4VpPZYqCNsFm3HSxoJrQ==
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=0IEY2oUkY/Exy20gttekfGAPLEe1995noJ1eoGIVUGo=;
+	b=BvcGGknMiraieJqu4pMnnt3D/dmpWzYvxpyGyqXnoO+MehgrziJUe28o7bMACP8OSgPt
+	 B+Zdj8s2Dzk7W2OPkVog0LpkDUE+BxLC2MagEkBy0s+slcbYBA4iNPklRHNeVUuSH1XEV
+	 opGID8wnEmCKq7SAAvPSsPknHtsv0Y5Aq+k5lemwVaYPv1cbsod8zHUDg5Udtmwu19Cf2
+	 qNQ6bjnl+qjQ/g5awvjUKfV9R7Ox+gii/nRKIhKJ+b2Ay8s6X6zO+ecJ8ju4ldm/ysyXJ
+	 oHgfyHEICwvpAanFER+WTC3c6qeH79d94XwWdFIS7R2DRA25UD4UmVI8y/j+g+PW/Mg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PZBXTZev;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="GgVf/4/n";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C14606A334
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:08:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4C14606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F11606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:08:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F11606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PZBXTZev
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b4f7d3cd98so517501a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 20:08:23 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794197302; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GgVf/4/n
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e985106c0cso3170305ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 20:08:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794197297; cv=none;
         d=google.com; s=arc-20260327;
-        b=qX3jD8SnPFE7dqE6RZMTGzLBbIVWDj5BfMF7pi3jGM4NEVEpbMzYUln0YbTZsB2XAV
-         dq6A9onwQvmATo3T7X6aNqpRaeZ67cAd4vmjE4Jw1uC9DK5oxp58dLfXABb5+MbvI8IE
-         xomoLmfqsnuEbHUjmb9DBd84KFOgguXu8ou95zpO1zjG1l8zx+yN6vUxj2i/MB0FsHLU
-         3dps95/QemWCV1ETs1Th9a615OvNzvejYI3RXOTidhv81yAJshHHkmqIb6dmjaDU0MdV
-         YtoR5t7lyiKYyZ0giJQU0wlPZDzxT5oQ9gRfrYsVKtRIwnvugTVVFdXLl1MUhLx+tDG3
-         S2kw==
+        b=nYgTMCfgzwZGtF947SN7jy8tySzSMwbxbzQZbdovY649fNOlFMCfU1CvboE6COWtJH
+         79UEVBFDwx0ooQN7yeCpwx65hYvh8ESxxOYnWk+HQeGokbDqRR0cJmvtE4oUMC5rz31f
+         9WZcokR4uLFKFEB/5RuKkEaW63uqiOtl5tMk/1V+LHMaxupUQGc0iALm2pM2Q63t5aIW
+         MPTcuVjn0Blcju6Qiu85vX93ReSBnYtLCDbx+l6W8+r2b4TDO4ofAebDCV146IWqfCyx
+         1DByWZl39otLY8I4VHHeWQI9vDdJDILVYHtT+fIBXUxBAVFpBTy2tpP0Ms5UIJz7ijZy
+         ZVrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VmgZV3Ha8SXRM5atMh4jHdaSdi8ER/Gp97TobHog/vw=;
-        fh=C6CNplLsuuD/IFQ65YySObBMyZ72KYBYx1OuxF3oXtw=;
-        b=kLvus7d0SP7yYF134eQ339ahEbNWKtWK+jl6LDWmkLSRZ7M2yrVZv1dq1nB5oajM+M
-         +n28/J8kSEcQv3OfUzvi2NsirS3OWoZvIV9kxF0Vur+bT9o3VSNracTVuy+hl1VUkHXZ
-         d+A9QSw21blkCAtNsEhFz4GxB4G6JuBuy+7B3NdueTn3tTyNcnHc86XP1AZMWZ/m+Crr
-         onoNh4QF1wt4yMzWGQkTkvZstV8sKjbiMacEIbMHZV8vbiYWl0gKj1nKRLLQFJJ3d3L2
-         fHeRuD2J97a39xEvn9Hws07aTyXrDIXePjBTZba7BsIQqBz2UdmMyHmRBVPU+my4NwSP
-         o/+A==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=0IEY2oUkY/Exy20gttekfGAPLEe1995noJ1eoGIVUGo=;
+        fh=TS+qmkD0PNoSpDSBR2F+ckJv5mGAgXqpXwQpbHwyMNE=;
+        b=lXh93wqOXU5o92iy0HMRuwyc/LIGjhKCRSyzWHmZrf1evKXZYKEJ2qIX+TKHrR/nJK
+         sEMcqOfedvBoepjXFUdLbl3+bucVmn8Lw54LwzwmipxD5GVxq7Acc34bBYK/VUOT8DaH
+         EelnwKhGVYvu4sP9t2XioS8XdgnytHKVGfLn9ZnE59klzSNctsOw6SBi0wW4S016It3g
+         Nk3hMKgseJDfeaoGJUT09dsNRQUYoe0T3WCG8vOsgggHpxdVWiwXn3BpY+Hn8HBp1ZB+
+         PoTCsv2Ki8Yi0eDp02RMUROkPUJ13mMG8ZgiE2u99QyV0Q56PMvILTkh596hO9ty3qqk
+         33lQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794197302; x=1794802102; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VmgZV3Ha8SXRM5atMh4jHdaSdi8ER/Gp97TobHog/vw=;
-        b=PZBXTZevTJRcpEqxhnLcKwEKgU0sp12tcupiabyP7Ks3Iupa8aIuGCUvv5+d8YlgzK
-         XA0cwI5d8kvekvoN9CTbFMUwNPv+QFZX3dUYsqBddXimPmVlBErCjmNlWzGaQc2NIC9j
-         sAN4ZrXFdEJqqvoTrKHlnHJFZawpugZ0jHLvM38LlHa9JvzSky7CqCNBibY0TyKNsWGp
-         4VHZNcHbGtGcvCBcVjUquDXcEQidUacnrPTCp+FwY2/mQuTk3HpYOdL+/hb9uFSij9mP
-         zctW62FDZrWJ/NNgI0PPyPyWpn3ZpKBpPFdHxx8GQt9eDaA8vXpyY2Dx/G+g7Sid4scE
-         Duvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794197302; x=1794802102;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794197297; x=1794802097; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VmgZV3Ha8SXRM5atMh4jHdaSdi8ER/Gp97TobHog/vw=;
-        b=NM7W9qHR+LZIZhvfrHSblz9+PvdRpLzv97OTR52t7yC5K7q5z+ua7VXVAAZuuk41Dh
-         /4tW9EIUG8Dcgta8Xzb3PvW1cp2AcirzAQApqMxtZJ+6qsP9ohvNgCbRq+ImcD0IqNDq
-         aeLL6ZLmCOA3lhbiYplc5+8RKtmAaNdnV0vSCenPjBTKA5TiW0hucecSiqXEnNVtG/ll
-         xwqai6SsQVlItzsQTb4qUlBbDVk7PpmFgBupi6MLuMXtbUFB8LKQqjsUkZ12mISHY8qD
-         hWasT72deOd44UDINdYM/Ic5brjy4SBmdCLYXN9KRmTp+BEdVhu5m5eirWpWchzNFeAC
-         UWsA==
-X-Forwarded-Encrypted: i=1; AL+hErEAWo/Vl5eaZTfdppD4xPZa+9aVU1GdPa3pFfVfheJX4CqA7N1wpilK5lOtBE43WH3roeJIYamfW8yp8N4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z88DRhBopTvPRwpnS9I+I9KfskuYt+XdyEv7B+YuxqjTIHOaUgD
-	nLl51CV/cPFh6K0I8NOS7B43aoXzTdO1Z97gtt95cjECWMuNtxxm3ai4dekMHfAZNg07unM54ck
-	wnqdVZ95UlKfdlZ4+XhaRFp+7FmECXxs=
-X-Gm-Gg: AYBFou1oy02sENS261cQ3L3m5mFTqShfcldgk2WYWoakcOzW+iT7fdwabzQRRPFUFPJ
-	XAzIvrDmL/Ad+g/f57z8iKMv1x5LE9HvUyPDBW9YQ3z2EMEoA7wOZg7yOgd5U1dd46GR+2yI1tn
-	VLGS0yqWKu6hBXvfmHoMBBPhb3qadruzVVl+gl27nsJtdWfNpDwAuPveYKYq24gbVo7Z7tFhjHm
-	PkgfVv/Vlh+0lTCXXIeGcGj7VNme2K0UMoRb7vf7kJTjdTOAB6+0OBkoP/9zLQZulAN3ZBviJJc
-	MbdppV1B49eFg8k5EpLaiFswD83iQqd8gWR/dsSHpRGAudDfFA9p0ZRAA0sfeAMxRhd/aXDgFoh
-	bH6hkG1YzaDRm9hUX87BPGfgNf0s37g+LfAsa6EmcqGxn4/jAZetSnZH1w8IQVeHJJX8=
-X-Received: by 2002:a05:6402:274d:b0:6b5:76be:62e0 with SMTP id
- 4fb4d7f45d1cf-6b722480872mr1993578a12.35.1794197302011; Sun, 08 Nov 2026
- 20:08:22 -0800 (PST)
+        bh=0IEY2oUkY/Exy20gttekfGAPLEe1995noJ1eoGIVUGo=;
+        b=GgVf/4/nZUEYCjXLUahSJmuRKKDNEuo19fTKCK2nP1iK9CnBNQFR0oKzd1ryRPzz8v
+         xbDK147jH6g3ALj6v8D1BZnXQE26G9j7pPwgfGEQsdMymlTKMcaawg5Zyxv3FhOFrD3z
+         Ma6LTQiSeZUc2AUiA1J3U4Ik7AveDl2gMgEjD7xOSfEQEdfNmgls3TPVqIp7aw/QF/uV
+         ytKin5PqawfI+bXljt2cG1TapEbPlMxq9ejx8NhX0Ss+Qlk7reBij5FZi+SH1HWU9ouN
+         Jw61ZeCQPPIBWX22iu94I8Ug3f1jFqTlwfvJjCme5O2gf54fwqPb5m0DUJ3qCLNVjcrM
+         MdYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794197297; x=1794802097;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0IEY2oUkY/Exy20gttekfGAPLEe1995noJ1eoGIVUGo=;
+        b=OaQ21sPAECDtHubKrJ0hIfhSzPE7z3R2nW3O3VEJNkJHm7MrwzMCUasJtRSrK4+RsW
+         UEJYtS/exiU8+UNau3avlm20XBBQ3U+WGzjCTI2juijOT6mKASd12r1jUJixz+sjYhON
+         +UZwB7zCITMFPB/1t+yl9KzM4Kz2RVffiutENVDAJTCWyLuFBUnLVO0h82GIIJ36Sjsg
+         RDmhcO1o1A0kYf7jYR9M+bjfv5DDwxgirmGpGC06LKXllhtb4leNpdVVqtnZslLaWKlY
+         kEn34W4u0dsS9Iec+Lb7yLaJymUvLJykdimMf3LDpYJx3mFyiIr3GtWGECJXuyp5c3Kw
+         AgwQ==
+X-Forwarded-Encrypted: i=1; AL+hErFPa998I1KcbBaUsxiZNvdwCOPOE+OPCrMvj9jtpWgJw3qJWbpSK9QIdfNkDf3e25LDwnDrKy4Be9D02Kc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qIHqLbwcMeDOzbQHh+sv80vhooMY8SnfsE7y2fv6qYpFwIjzs
+	luLfKnNVxZa9713t4osZr2Xp63H0QkMxPohHw3WEHqf9AuglnIptM867RWuaoJKi+U4WFvKwMQ2
+	J9Qn6NMkQbMX4z98gGn7QVhAvPNTW8aE=
+X-Gm-Gg: AYBFou0Kck/YT5VBpRwgMaEVElAZfIYqeQIIEkRmxxcGt9IGHpPnpwBvJtYj/eVJH19
+	Glkb+5daFOOQrLgZJDvrIYDFZ5JXbbRAhe6Kc3YWwuEX1fzoJ6jnC+xnhGo3l3RKU6Nquuvemsk
+	WTz+o2lePrZ7nmzikhjSt+OR5LPn2/a7Zn1pHcwJssXGl5xh9pVzR3XhDQMt5HRwKdAwp9OS4JS
+	WskQdqXqqDshmwRbEY0PUi6LQbnvsBhjqhAe84EB+iMQ4488vzpxSnO5s08/y3WHagv8qV5WMWK
+	kf1mPIkOC//U9xAw7cW+rg37JSteP0yH6LRg8Am6fj19Etcx6WW+EVQvedlyY9EFfR+tkOruv+/
+	805wsU8I++J2uZZHC1wLTVp8VQK3tsVwZQEXBxw1Zdfhoh2+pPp/Pbq/JPM312NBxrHbSJJkM/x
+	NXPcLDlsBFRyC/RNIYwc5I1Mk0m+D19qXaeZkzqlYgNMVtPTOS7gL2T1q4X8qOB8MFiCs6lA==
+X-Received: by 2002:a17:903:2a86:b0:2dd:ad73:c938 with SMTP id
+ d9443c01a7336-2ed8377272bmr30112565ad.25.1794197296668; Sun, 08 Nov 2026
+ 20:08:16 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,219 +104,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260803135249.2898083-1-wenst@chromium.org>
-In-Reply-To: <20260803135249.2898083-1-wenst@chromium.org>
-From: Inki Dae <daeinki@gmail.com>
-Date: Mon, 9 Nov 2026 13:07:45 +0900
-X-Gm-Features: AclHuK_ZmjCHtFzSMtsaBOPEyrbrKGy7XikpiPUkajiV_K7VOdZCVHHguZRFD24
-Message-ID: <CAAQKjZP+W0_gByaDAv8DrtxFgSDdtw4AMd-=tA_Pr8gL30z1iA@mail.gmail.com>
-Subject: Re: [PATCH] drm/exynos: Set supported modifiers during plane init
-To: Chen-Yu Tsai <wenst@chromium.org>
-Cc: Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
-	linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
+References: <20261105104237.38542-1-phucduc.bui@gmail.com> <20261105104237.38542-4-phucduc.bui@gmail.com>
+ <179397468197.3073895.1522608204443678480.b4-review@b4>
+In-Reply-To: <179397468197.3073895.1522608204443678480.b4-review@b4>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Mon, 9 Nov 2026 11:08:05 +0700
+X-Gm-Features: AclHuK-zMhWEuwFpd7MBkxqEDP76pBnSJIU10D20h7lMcoXH_TQWFgwLNT2WA4M
+Message-ID: <CAABR9nE52Rk81oyoM3L5hHRn3n9OCP3PWSxA8nNt+aEPoeRtqA@mail.gmail.com>
+Subject: Re: [PATCH v2 03/10] ASoC: fsl_sai: Remove redundant error messages
+To: Mark Brown <broonie@kernel.org>
+Cc: Shengjiu Wang <shengjiu.wang@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>, 
+	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
+	Nicolin Chen <nicoleotsuka@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linuxppc-dev@lists.ozlabs.org, 
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Sorry for late review,
+Hi Mark,
 
-2026=EB=85=84 8=EC=9B=94 3=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 11:22, C=
-hen-Yu Tsai <wenst@chromium.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> The exynos driver currently checks the modifier in a helper called by
-> the plane atomic check helper callback. This check only concerns whether
-> the selected plane supports the tiled format or not. This is tied to
-> the plane's hardware capability.
->
-> Turns out the tiled support was added around the same time modifiers
-> were being plumbed through DRM planes. The latter provided a way to
-> describe per-plane modifier support.
->
-> Add a field to the hardware plane capability struct to allow adding
-> an optional list of supported modifiers. This is passed to
-> drm_universal_plane_init(). This also allows the core to generate
-> and pass to userspace a list of supported modifiers for each plane.
->
-> EXYNOS_DRM_PLANE_CAP_TILE and the existing helper are removed, as the
-> check is now down by the DRM atomic check.
->
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> ---
->  drivers/gpu/drm/exynos/exynos_drm_drv.h   |  2 +-
->  drivers/gpu/drm/exynos/exynos_drm_plane.c | 30 +----------------------
->  drivers/gpu/drm/exynos/exynos_mixer.c     |  8 +++++-
->  3 files changed, 9 insertions(+), 31 deletions(-)
->
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.h b/drivers/gpu/drm/ex=
-ynos/exynos_drm_drv.h
-> index b126cd129944..ab0edb826261 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.h
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.h
-> @@ -92,7 +92,6 @@ struct exynos_drm_plane {
->  #define EXYNOS_DRM_PLANE_CAP_DOUBLE    (1 << 0)
->  #define EXYNOS_DRM_PLANE_CAP_SCALE     (1 << 1)
->  #define EXYNOS_DRM_PLANE_CAP_ZPOS      (1 << 2)
-> -#define EXYNOS_DRM_PLANE_CAP_TILE      (1 << 3)
->  #define EXYNOS_DRM_PLANE_CAP_PIX_BLEND (1 << 4)
->  #define EXYNOS_DRM_PLANE_CAP_WIN_BLEND (1 << 5)
->
-> @@ -112,6 +111,7 @@ struct exynos_drm_plane_config {
->         const uint32_t *pixel_formats;
->         unsigned int num_pixel_formats;
->         unsigned int capabilities;
-> +       const uint64_t *modifiers;
->  };
->
->  /*
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_plane.c b/drivers/gpu/drm/=
-exynos/exynos_drm_plane.c
-> index 5c04ef87e400..31f5f0941154 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_plane.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_plane.c
-> @@ -174,30 +174,6 @@ static struct drm_plane_funcs exynos_plane_funcs =3D=
- {
->         .atomic_destroy_state =3D exynos_drm_plane_destroy_state,
->  };
->
-> -static int
-> -exynos_drm_plane_check_format(const struct exynos_drm_plane_config *conf=
-ig,
-> -                             struct exynos_drm_plane_state *state)
-> -{
-> -       struct drm_framebuffer *fb =3D state->base.fb;
-> -       struct drm_device *dev =3D fb->dev;
-> -
-> -       switch (fb->modifier) {
-> -       case DRM_FORMAT_MOD_SAMSUNG_64_32_TILE:
-> -               if (!(config->capabilities & EXYNOS_DRM_PLANE_CAP_TILE))
-> -                       return -ENOTSUPP;
-> -               break;
-> -
-> -       case DRM_FORMAT_MOD_LINEAR:
-> -               break;
-> -
-> -       default:
-> -               DRM_DEV_ERROR(dev->dev, "unsupported pixel format modifie=
-r");
-> -               return -ENOTSUPP;
-> -       }
-> -
-> -       return 0;
-> -}
-> -
->  static int
->  exynos_drm_plane_check_size(const struct exynos_drm_plane_config *config=
-,
->                             struct exynos_drm_plane_state *state)
-> @@ -245,10 +221,6 @@ static int exynos_plane_atomic_check(struct drm_plan=
-e *plane,
->         /* translate state into exynos_state */
->         exynos_plane_mode_set(exynos_state);
->
-> -       ret =3D exynos_drm_plane_check_format(exynos_plane->config, exyno=
-s_state);
-> -       if (ret)
-> -               return ret;
-> -
->         ret =3D exynos_drm_plane_check_size(exynos_plane->config, exynos_=
-state);
->         return ret;
->  }
-> @@ -312,7 +284,7 @@ int exynos_plane_init(struct drm_device *dev,
->                                        &exynos_plane_funcs,
->                                        config->pixel_formats,
->                                        config->num_pixel_formats,
-> -                                      NULL, config->type, NULL);
-> +                                      config->modifiers, config->type, N=
-ULL);
->         if (err) {
->                 DRM_DEV_ERROR(dev->dev, "failed to initialize plane\n");
->                 return err;
-> diff --git a/drivers/gpu/drm/exynos/exynos_mixer.c b/drivers/gpu/drm/exyn=
-os/exynos_mixer.c
-> index 69dea5049309..d74e605a452b 100644
-> --- a/drivers/gpu/drm/exynos/exynos_mixer.c
-> +++ b/drivers/gpu/drm/exynos/exynos_mixer.c
-> @@ -93,6 +93,12 @@ static const uint32_t vp_formats[] =3D {
->         DRM_FORMAT_NV21,
->  };
->
-> +static const uint64_t vp_modifiers[] =3D {
-> +       DRM_FORMAT_MOD_LINEAR,
-> +       DRM_FORMAT_MOD_SAMSUNG_64_32_TILE,
-> +       DRM_FORMAT_MOD_INVALID
-> +};
-> +
->  struct mixer_context {
->         struct platform_device *pdev;
->         struct device           *dev;
-> @@ -148,8 +154,8 @@ static const struct exynos_drm_plane_config plane_con=
-figs[MIXER_WIN_NR] =3D {
->                 .num_pixel_formats =3D ARRAY_SIZE(vp_formats),
->                 .capabilities =3D EXYNOS_DRM_PLANE_CAP_SCALE |
->                                 EXYNOS_DRM_PLANE_CAP_ZPOS |
-> -                               EXYNOS_DRM_PLANE_CAP_TILE |
->                                 EXYNOS_DRM_PLANE_CAP_WIN_BLEND,
-> +               .modifiers =3D vp_modifiers,
+Thank you for your review.
 
-The VP plane advertises the tiled modifier for both NV12 and NV21, but
-framebuffer_check() accepts it only for NV12[1]. Could you add a
-format_mod_supported callback to restrict that combination? For
-example, the callback could check that the modifier is present in
-plane->modifiers, then reject DRM_FORMAT_MOD_SAMSUNG_64_32_TILE when
-the format is not NV12:
-static bool exynos_plane_format_mod_supported(struct drm_plane *plane,
-                                              u32 format, u64 modifier)
-{
-        unsigned int i;
+> >
+> > -     ret = fsl_sai_reset_hw(dev);
+> > -     if (ret < 0)
+> > -             dev_warn(dev, "Failed to reset hardware: %d\n", ret);
+> > +     fsl_sai_reset_hw(dev);
+>
+> This is the only caller of fsl_sai_reset_hw(), it could just return void
+> now.
+>
 
-        for (i =3D 0; i < plane->modifier_count; i++)
-        if (plane->modifiers[i] =3D=3D modifier)
-                break;
-
-        if (i =3D=3D plane->modifier_count)
-                return false;
-
-       return modifier !=3D DRM_FORMAT_MOD_SAMSUNG_64_32_TILE ||
-                 format =3D=3D DRM_FORMAT_NV12;
-}
-
-This can be assigned to exynos_plane_funcs.format_mod_supported.
-Checking the modifier list matters here because DRM delegates that
-validation to the callback when one is present.
-
-Thanks,
-Inki Dae
+You're right.
+I'll change fsl_sai_reset_hw() to return void.
+Since this series has already been applied,
+I'll send this as a separate patch.
 
 
-[1] in drm_framebuffers.c
-static int framebuffer_check(struct drm_device *dev,
-    const struct drm_format_info *info,
-    const struct drm_mode_fb_cmd2 *r)
-{
-...
-        /* modifier specific checks: */
-        switch (r->modifier[i]) {
-        case DRM_FORMAT_MOD_SAMSUNG_64_32_TILE:
-               /* NOTE: the pitch restriction may be lifted later if it tur=
-ns
-                * out that no hw has this restriction:
-                */
-                if (r->pixel_format !=3D DRM_FORMAT_NV12 ||
-                         width % 128 || height % 32 ||
-                          r->pitches[i] % 128) {
-                       drm_dbg_kms(dev, "bad modifier data for plane %d\n",=
- i);
-                       return -EINVAL;
-        }
-...
+> >       ret = devm_request_irq(dev, irq, fsl_sai_isr, IRQF_SHARED,
+> >                              np->name, sai);
+> > -     if (ret) {
+> > -             dev_err(dev, "failed to claim irq %u\n", irq);
+> > +     if (ret)
+> >               goto err_pm_get_sync;
+> > -     }
+>
+> This will only print an error for a subset of errors, things like -EBUSY
+> will now silently fail.
+>
 
->         },
->  };
->
-> --
-> 2.55.0.571.g244d577d93-goog
->
->
+From what I can see in the code, devm_request_irq() ->
+devm_request_threaded_irq() reports every failure via dev_err_probe()
+in devm_request_result(), so -EBUSY should be printed too.
+
+Could you please point me to the path that fails silently?
+I may have missed it.
+
+Or did you mean fsl_sai_read_dlcfg()? It does have some silent
+-EINVAL returns.
+I'll restore that dev_err() together with the fsl_sai_reset_hw()
+change I mentioned earlier.
+
+Best regards,
+Phuc
