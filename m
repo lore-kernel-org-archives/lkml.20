@@ -1,94 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794236237;
-	b=LlXU0S+xe6OtnIO/Uzefn5wmD5F2M797xiIHLxKu07mhvuNDAcC/S8CttNlwMQIJxfSo
-	 9YBZiTeBC5l9c0Zt2TtYcEZckXn7wEI8USBJ0OBJ73hkHwEIYZsw/fXXaenQwFHrPMzxz
-	 AImr4wJEfQnXyEmPEn5arMcyme9qKyR0k3gVmoNVd3nPPwzrEiJOt+CYmqfqQPRhZ6VPo
-	 97QhMByEaj9B148hC3+EQzoZjarN32ihdB2G0VAEKi6mgdN8qgs+Kzw0VKNY6TlYlKUMt
-	 dKf7+urwhQl2tJwzv6/wbeR8PB8FegqYSWmoA2Mb6dgtLwUaB8UyrGA6zSphkTaCGcw==
+	t=1794236238;
+	b=2U50d0reM519msUcW0+/aemdmzTvXiIx2c+CjIH8Rgv4unxUTOqPVfI53k/aQQvGbJzh
+	 jQ+YfhY4CaVd7fTv3Yp8blNZur0IVRFLlX9XuOShVuN27YIhVd5j0Yutcwwqrk2LDXtnG
+	 pOR9jjddUdlvFqW4OSfELDZ6KWYgZjbDO4kuioLi7tQYObEs4Ni36ub3U6gyrHn+6vWma
+	 FUeucdjzIBj7D3YInXug2c/yInEAO0Qu5/aN0MU5qKe2G/Kf+H4BmxggyVRzFDhWewk+f
+	 M6b2Z49fjNY57leysUiPzJLN8/pxnI+UkvLdGtvEACKeqSXWoezX3RCyNSyfKfDoONA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236237;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:From:To:Cc:In-Reply-To:References:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=WnGcSIDD8xsihnvux7kQF612pALMJnteuiV/uKYZ0Nc=;
-	b=FH2RNLW/QWzSTo4qa1NKYsvu4bobNhchpqW+IdEhfKYDtOTWp3HANzMEgP1+WEIAClbT
-	 n8DjLTunzIQdy8DFIh+E1mytEuNOsJlnh76PtDvNvsyeTqStsM+dEwAzTMMHdfNGHeOjn
-	 K28reFHuLLvJuBenxyVFzAuCuFUCSis2QQEkOeH9emtHf7RtKrlqSzgiN7UzKFooOu+Dm
-	 +RCMwAUnkFc+1V+RqdaDvWKhD8L0ot18cAjgoMDgZWVqo1c25Snhl0Hr4FPs+nsrmdV0S
-	 mbvH4HmJ46fmC5hgsHzzWr2O5LgXdnv9zl3zKKPIPlZsjVLuukHdnzp2ruGajG1S1GQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794236238;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=g+kkRoXjLnZvkcsVYJVyA99F6A7zMFGj/ZL5HWfx1bs=;
+	b=iFVCNpMuULlgU6DqQTsY5AR8blaXoHHrscxBVVVNtYaRqvF5nB26ZhsuWFarL1a6T6JF
+	 tt1ujPkvqdyrFb52xr1vew0t3TFgktgeOyO4WHmzbuwDZn7gVMVgrusAhc9sUPFHQtM/u
+	 8D0yporCIJhmCivFbn2PArM4VFukmE9mVmTCO+7Q3MYd/2t/cKd4NE1ULIAk/ua1GXXVq
+	 AwaqVVNEi/mkCopkyXPpN0EHga4mJPkxqWuwdHWXc/FsUfkBq7YqI7HZtqL3LWWeZ8C+L
+	 JKkuOGM4SOjtAu32ieKeGEAzj2ZGjQG9BVhiKnd9i8nkGjMvfwNM9wHR97ChqX51gKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sgWDoxDB;
-	arc=none smtp.remote-ip=209.85.128.178
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BFq8BqgO;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DpR+dvKU;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF46606A323
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:57:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BF46606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18AA9606A33E
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:57:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18AA9606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sgWDoxDB
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-8b308fca7c3so7872857b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:57:16 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BFq8BqgO;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DpR+dvKU
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DEu7h336383
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 14:57:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	g+kkRoXjLnZvkcsVYJVyA99F6A7zMFGj/ZL5HWfx1bs=; b=BFq8BqgOWHBy7rpY
+	XytFy+kA7CtV9qJKCSEga+ah0ixp5++GUYK/Mw4xX4A6B7vTvjicuz1jHZ0Mwadd
+	NvL7ttkZhTk9Z2ZtAu9LBI25Pft4BOzMZ+Ka44GAShWBXDDJqTpGFX9suhX5E5gG
+	zd+oqa0khh4OtC9oyEhOq/i0JZbJDKDktcYzu35upbxiACBlDFxd6M8WrXGvIcxC
+	RXl/fqlDEgZF3dIo+mAdgm7N5WtcbSOBg2Uw8uf4HKJv3t1reSSvWnO2QrU8uF4q
+	tYK8rpMBE8ihUW5asCWoglo/6hzzrU+1VOANKRt6JWa4Y0alAXyMzwCl3C9QADxd
+	li5v2Q==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hucr5rt1v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 14:57:17 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93ea6b66e53so22112185a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:57:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794236235; x=1794841035; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:references:in-reply-to:cc:to:from:sender:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WnGcSIDD8xsihnvux7kQF612pALMJnteuiV/uKYZ0Nc=;
-        b=sgWDoxDB9GBkZ5cRKpqIm9Car53R0jvltFnT3c93vi7tnQMMfsvSx8ddfcb2gmfwe9
-         gK8kJUSV5QcvTGlLUq/i8fzhND/XKrxbI/VWOXEl6YPFn4HCEre2ftX4gwtD4ww5EoVZ
-         JMqXr0sWdOG7hUu+1z3yq9fUMO9Bf1qQlCz2xDvnRFwIJu1UhPhSufztgH/UfDDfZqNk
-         rlpLPs330hEvuM55M0W6DNIl7xL60CJEpcn3PfuOpTQn+tkDnUJcCMaJw/CHlERZiLd3
-         ZVMnSQEqed7CVjyJwY6g6N7Fc7Yu/l6seM2eY+mqzEERpH9BvhxQ6Ud85AVLQGZ/uK96
-         CZ2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794236235; x=1794841035;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:references:in-reply-to:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1794236236; x=1794841036; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WnGcSIDD8xsihnvux7kQF612pALMJnteuiV/uKYZ0Nc=;
-        b=j1mKdX/rgyQIRlk19OiFwW+kBxqFUVN5fU6FHD2gdvaRFprVpQJXnylFA0ocLaFv2H
-         dZHAdFoyEsRUiCmC/EjlAq1B0gm46RdVHa/obnKWM8EnMjv01EVZYSn3dUJm8hkfhrey
-         RsDF67T0jjiwmx6c8NUJgh0E8DD16t3H1zoAoUxtaj7IOotEcAqSJFmgrH6ldNJfDjYm
-         tMMG3BXxeZ4R3Pu5k1v15Pk8uYz7BW85k733FfW3SpD8jlXpGjCOmoo4MowKJBl3qDU0
-         PLRajwQwKo/5B8F/wlCd8VunI4ys+fkFTCykezqt0NuqLWDnEy6GghxuV88Xt0asgp7I
-         obmg==
-X-Forwarded-Encrypted: i=1; AL+hErFeY6MPSqrOy761OlZLi85f3NKcxQPCVvg3PUlMgN/8OXq+9fJG8EpJwTh4jGOoWRH9+v7vz3o4uBbuA64=@vger.kernel.org
-X-Gm-Message-State: APuU4Z93DEilaaBfQHwjwRLyQ0JmKzY5vZMY1RkZDGibaxbt0Ez+j9i9
-	CbVc7eqGF+2b/KoUG6r3CMvDcmcMSls+LnYmkoJFNbSZvYDmadvWihML
-X-Gm-Gg: AYBFou3sd0YcYGUSSAAvzKEXC4Mi5w5rkeWnHiJnbVB2sUB7HsrcHW9mlfh+uX1x6/R
-	IvcIQUtwd8LnKbicA8PiyTw23aXyRk+gI47Lp2spQV3/Ebw4DtYYjw2x+n912+tk5y+M84Q8yLX
-	LsVX+XN2feCjuKhGSzF/ke1dhH32C6BdID4SVjZJ3taI8eqLkIFA7HTD+tZE9eJOVcGN+PuRzPP
-	IeroLnaK4eY93lePZR/q8MIqaoCEX5tBLPm9SlwLO+i4d5sSNPVYqM2/CSgGZbvx8W7fjI8ceot
-	hajop5WjESPZxZg1XbYUcDUplPiE7p/ssMROLLU4g19CfUg/o/Y0aJUvq0VeTxVI78HbTMMYhfz
-	ebFU4IJERFvg9Rc/RsNZOKd5X/quZRJk9Uol+AEgYmQZXmFykoRwPYABm+R0+UPUc9O2bcb+8np
-	LLrReZT2VXPbn/Tppauy+BFL8Jm587NLBahId8/1n5un0PmExTURYA9FNPLeWh6tSBvSIxM1ZJJ
-	/yYQ/T5oa1V1GtvsOvZb5RJ9hMwjhTmWTZt48KtYhhp9xabPIbH8ax89FhLn4ClQu/y++8QG6Ab
-	L5llVXSim2qMBIMuzWp2MZ3q2QNGzND/eGeoa5o4V8KuP8MBDq3jYCxgIAh5bQ+grby7whdonA=
-	=
-X-Received: by 2002:a05:690c:399:b0:8b3:90db:a7d3 with SMTP id 00721157ae682-8b390dbcf9emr105627b3.40.1794236235307;
+        bh=g+kkRoXjLnZvkcsVYJVyA99F6A7zMFGj/ZL5HWfx1bs=;
+        b=DpR+dvKUW3JpQG5mLvQ1D9BxUA1zVmYGjI0vs/YntxA0L1Cme0fcVElNOyucUsO2kT
+         DcAIJF78JCcmQKWIDKrgy9BF2K4tBJpC7dhUJ2qU7Ct03k0BvajPd9duUYHS8lpwXIqD
+         lNpGjUbgLwjN8lcH05fz5Jp+Rsfm/Umd1MGwNm54ANmAaCzJz/di1sKve4DucAS550El
+         bX1YLV3H2OonyowT7GbVKJWHrgSVIFON5Y+ZxXTWCswEtV+S9M+Pbx/XSp8ryGGV3ixR
+         kbWDo0onJ7csX3UnCQ8ey0hz5alrS3FHG7pfdZ4OCwbaWMUrhTCD3bxO6tjmjQTwgbHy
+         /FqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794236236; x=1794841036;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=g+kkRoXjLnZvkcsVYJVyA99F6A7zMFGj/ZL5HWfx1bs=;
+        b=2pToc4LT4hXnSVLfbAXWIZxdz5XbAHSNw8orbxZCuOPlCZfr0J/nvdx/QZnRFjpx0P
+         8SJNTJNtXOK9VsRG/Jc5h16kS6et1RCMGsZ44SVvwXXM4dMPIOw+pXPf/L5BTBlJkGRJ
+         oMQoH36q2uheHxIVzdy+U90prOIUFNjVJrUW3CBXJxGQha89iolDKWVZQwZHMLHPpM/O
+         jmRTfZXHQm5FDHfHxSdXiKR2OtCAZYtVfggpAH27We89Ifzl3GsXG0tZm4/efhb3mOvl
+         o+CTQAnshw1rDs8mKEoBrRPMJ1nsuUQuvoMYZnBZIpWM8EzaoQD9m68vfdDLfHlAGto0
+         Itog==
+X-Forwarded-Encrypted: i=1; AL+hErHn9tAR+x1wB5jGG8iFxBwRAEqWIwT/pGHqVonFUCc0DkNtskIvVawID5JvVH+uL5QChs2cOFSa4Vjwk2s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z96btuvEVj/qSUPSEyeViiohZVOaagJz0elXejCi+K+Gr7YdamP
+	nLzOurzJmEMEKMC5KsNCL995q7oC5bZ90U0C+sd0yGgU5L6TQZGFDyNfCQGuV2Th9DSLJ6kbxdG
+	SkO2LnTkNsLZit2MQR6+ZNq4RL7h/lR9kS2M5SZgUMG1t5KlIhUnQTbSlit3xcaRIq1o=
+X-Gm-Gg: AYBFou3+UqwQycdaGaH9ifSgjMiKiWXxTJsNV4ontl3xUjs13/jeYAtjoHLctq05g+S
+	INV3K5j35QIr9a08pQ1COu9e/K7bEqh3J+Ic/9z8jxaW3uExTK9weeMvZdoR073MalgW1L3BO2J
+	v04ZCP0JSpVHN+yRx+wJFKOk4XpSizbna6jkQRd92e6N6ghiEc3ha68vohaHFFIycbx+sBPWfd4
+	Nq1vWUddXYNQRIOMW118IctYZrOZ7glipnIVKGC5J4yAhWl34J0pG5lGPTPfD5Nr5WXlPAJ+tAu
+	3gBRRmtD2nezM2jrbulH7XkFGeKakAG7I6ijw5OWO0KYsfrT8WMVj6aRzY23Cq43Q0EbhQseBPm
+	lVQPTgr98pNuLU8JzXS6eloD5hwhvRqUAP0l3CoQA+afHMqGaRAUrs4VCNjVY8IHaMRY63Q==
+X-Received: by 2002:a05:620a:a41b:10b0:939:9ef4:79eb with SMTP id af79cd13be357-947842c05b3mr643352085a.6.1794236236337;
+        Mon, 09 Nov 2026 06:57:16 -0800 (PST)
+X-Received: by 2002:a05:620a:a41b:10b0:939:9ef4:79eb with SMTP id af79cd13be357-947842c05b3mr643346785a.6.1794236235768;
         Mon, 09 Nov 2026 06:57:15 -0800 (PST)
-Received: from nb-x1-03 ([181.120.144.175])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b36bbe8ce7sm37040637b3.25.2026.11.09.06.57.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+Received: from [192.168.226.72] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d69f943fasm178778066b.16.2026.11.09.06.57.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
         Mon, 09 Nov 2026 06:57:14 -0800 (PST)
-Sender: Ciro Iriarte <ciro.iriarte@gmail.com>
-From: Ciro Iriarte <ciro.iriarte+software@gmail.com>
-To: "Martin K. Petersen" <mkp@kernel.org>
-Cc: target-devel@vger.kernel.org, linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <591ac67a-fa1e-4395-9573-2d9405cfe0b6@gmail.com>
-References: <591ac67a-fa1e-4395-9573-2d9405cfe0b6@gmail.com>
-Subject: [PATCH v2] scsi: target: compare all six ISID bytes when identifying a nexus
-Date: Mon, 09 Nov 2026 11:31:01 -0300
-Message-ID: <8b1ac7d9-b0e4-42ac-b8a2-c4c70cccdddc@gmail.com>
+Message-ID: <cc6e877d-0d54-422e-b9e8-1cf8b8dbceb4@oss.qualcomm.com>
+Date: Mon, 9 Nov 2026 15:57:12 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,226 +115,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v4 3/3] arm64: dts: qcom: oneplus-kebab: new device
+To: Frieder Hannenheim <mail@fhannenheim.net>,
+        Frieder Hannenheim <git@fhannenheim.net>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Robert Oscilowski <drgitx@gmail.com>,
+        =?UTF-8?Q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
+        phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261105-kebab_dts-v4-0-c6bbe6ded92e@fhannenheim.net>
+ <20261105-kebab_dts-v4-3-c6bbe6ded92e@fhannenheim.net>
+ <c25371d5-1693-4ab6-9b4a-7b17a38a4e09@oss.qualcomm.com>
+ <DMQRL5NXWCTG.3VYYE9QSVOK2U@fhannenheim.net>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <DMQRL5NXWCTG.3VYYE9QSVOK2U@fhannenheim.net>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA1OSBTYWx0ZWRfX8QVSk1y9oZMP
+ 4aitbwFuxBTAbVOlkU/2fLigcfxyH4aqTUXhMxoHa809LoHBTBKZKrxxbWUSr3PNmoNw3mr/2ee
+ L8D5VdtuteWqouwxHL0nUMM4bGMBG4Y=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA1OSBTYWx0ZWRfXyX8Rhhu+3Xk7
+ ilsIc0tOkikr4JOhn60SpZr28IdnNtazrYxq63agg7AryWMFZcXs50lunodHAdMve+heKA7bl8P
+ 2kFn6fuL/ehilN7rprlM3rby8t5d8fyICl9E28+jMp/BBfaerx38RAw1VNY5rxW7iXvjpOMQZgZ
+ i7fr/VgQ6Nx7KAxLfEZKcmFmEvDyzlTYozQ1H7kQr41/YwkIkg/EOyVzFPDGdR8rTRTcYwbA9RU
+ KOM39cHqG7aKeaQ8iKjtsAaSXHTg3pfm8GukiL5H7lRjCbsMSpqs4a3eKeXvybQv6BymQdpgGqj
+ FVp5J4P0TJ6f/U02JF6SHkrvGGnc4yXpHgOfRr6EYwk62ly/O1FK43+QAeJrmEFMRnNRnz2aASn
+ FNsdTqUqxO7Am+aEMjSgLUpm5XhEsxVQLSjCIBok8PQlu9VCqU1zUdAaILf5iUuFD2RzzssDNwC
+ +OeRVoZMXtg2gX51y0g==
+X-Authority-Analysis: v=2.4 cv=ErlHPicA c=1 sm=1 tr=0 ts=6af1df4d cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=OQN141zOAAAA:20 a=pGLkceISAAAA:8 a=WE8o4AYwAAAA:8 a=MDqjLbU1OJPnQEr_jJMA:9
+ a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=6aV5INxNnvWGCTbEtcBN:22
+ a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-ORIG-GUID: yOB0CXmmOSu8gsKo7kAgcdzKWCXNjJyN
+X-Proofpoint-GUID: yOB0CXmmOSu8gsKo7kAgcdzKWCXNjJyN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 malwarescore=0 spamscore=0 bulkscore=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 lowpriorityscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611090059
 
-lio_sess_get_initiator_sid() reports the ISID as twelve hex digits, and
-iSCSI TransportIDs carry the same digits. __transport_register_session(),
-__core_scsi3_do_alloc_registration() and
-core_scsi3_alloc_aptpl_registration() turn that text into
-sess_bin_isid and pr_reg_bin_isid with get_unaligned_be64(), which takes
-the first eight characters, i.e. the first four ISID bytes.
+On 11/9/26 3:53 PM, Frieder Hannenheim wrote:
+> On Mon Nov 9, 2026 at 12:08 PM CET, Konrad Dybcio wrote:
+>> On 11/5/26 9:20 PM, Frieder Hannenheim wrote:
+>>> Add initial device-tree for the OnePlus 8T. Downstream reference is [1].
+>>>
+>>> [1] https://github.com/LineageOS/android_kernel_oneplus_sm8250/blob/lineage-23.2/arch/arm64/boot/dts/vendor/oplus/kona-kebab-overlay.dts
+>>>
+>>> Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
+>>> Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
+>>> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
+>>> ---
+>>
+>> [...]
+>>
+>>> +&i2c2 {
+>>> +	status = "okay";
+>>> +
+>>> +	pm8008: pmic@8 {
+>>> +		compatible = "qcom,pm8008";
+>>
+>> No PM8008 on the other phone?
+> 
+> There's 4 phones in total: 8 (instantnoodle), 8 Pro (instantnoodlep), 8T (kebab)
+> and 9R (lemonades). The OnePlus 8 doesn't have a PM8008. Should I define
+> this in -common? It would need to be disabled when a dts for the OnePlus 8 is
+> submitted.
 
-open-iscsi ISIDs start with 00023d00 and differ only in the qualifier in
-the last two bytes, so every session of one initiator gets the same
-binary ISID. target_scsi2_reservation_check() and
-target_scsi3_pr_reservation_check() then treat any session of the
-reservation holder's initiator as the holder:
+Okay, I thought there were only two. Do the remaining two feature
+this PMIC? Generally we try to do a lowest common denominator in
+-common, whatever that ends up being
 
-- after RESERVE(6) on one session, another session of the same
-  initiator can still write;
-- with a Write Exclusive persistent reservation, another session that
-  is not registered, or registered but not the holder, can still write.
 
-Reproduced with two open-iscsi sessions (ifaces default and if2) to a
-ramdisk LUN: on v6.12.113 every TEST UNIT READY, READ(10) and WRITE(10)
-the test sent from the second session completed with GOOD, under
-RESERVE(6) and under each persistent reservation type, whether or not
-that session was registered.
+>>> +		reg = <0x8>;
+>>> +
+>>> +		interrupt-parent = <&tlmm>;
+>>> +		interrupts = <112 IRQ_TYPE_EDGE_RISING>;
+>>
+>> interrupts-extended = <&tlmm 112 IRQ..>
+> 
+> May I ask why? According to the docs interrupts-extended is only useful with
+> multiple interrupt parents which is not the case here. Or just for brevity?
 
-Convert all six bytes. Text that is not exactly twelve hex digits keeps
-the old conversion of its first eight characters, now copied into a
-zeroed buffer so that a shorter string, such as an initiator_sid written
-to res_aptpl_metadata, is not read past its end.
+Yep just to be concise
 
-An all-zero ISID now converts to 0, which
-target_scsi2_reservation_reserve() took to mean "no ISID". Set
-DRF_SPC2_RESERVATIONS_WITH_ISID when the fabric reports ISIDs instead.
-Also update the TransportID parser comment that referred to the
-get_unaligned_be64() read.
+>>
+>> [...]
+>>
+>>> +&vreg_f {
+>>> +	status = "disabled";
+>>> +};
+>>
+>> I think it may be cleaner to move the definition to the other
+>> phone's DT (are there just 2, or more?)
+>>
+>> Konrad
+> 
+> The f block is used on the 8 and 8 Pro I believe. So I think it's best to keep
+> it this way.
 
-With distinct ISIDs, target_scsi3_pr_reservation_check() now sets
-isid_mismatch for the holder initiator's other sessions, and
-core_scsi3_pr_seq_non_holder() treated every such session as
-unregistered: DEF_PR_REG_ACTIVE is kept per se_dev_entry, which all
-sessions of the initiator share, so it cannot tell them apart. A
-session that registered its own key would then get RESERVATION
-CONFLICT for writes under a Registrants Only or All Registrants
-reservation, and for PREEMPT, CLEAR and RELEASE. Look up that session's
-own registration with core_scsi3_locate_pr_reg() instead.
+Thinking about it again, I'm a little surprised there would be variance
+between them. Can you do
 
-With this patch, TEST UNIT READY and WRITE(10) from the second session
-under RESERVE(6) return RESERVATION CONFLICT. Under Write Exclusive,
-WRITE(10) from the second session conflicts whether or not it is
-registered, and READ(10) is allowed. Under the Registrants Only and All
-Registrants types, WRITE(10) from the second session conflicts until it
-registers, as does READ(10) under the Exclusive Access types; once
-registered it has access and can PREEMPT the holder.
+`cat /sys/kernel/debug/qcom_socinfo/pmic_model_array`
 
-Initiators that relied on the old behaviour, reserving through one
-session and writing through another without registering it, will now
-see RESERVATION CONFLICT, as SPC requires.
+?
 
-Fixes: c66ac9db8d4a ("[SCSI] target: Add LIO target core v4.0.0-rc6")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ciro Iriarte <ciro.iriarte+software@gmail.com>
----
-v2:
-- core_scsi3_pr_seq_non_holder(): on an ISID mismatch, look up the
-  session's own registration instead of treating it as unregistered.
-  v1 made that path reachable for the holder initiator's other sessions,
-  so a registered second session got RESERVATION CONFLICT under the
-  Registrants Only / All Registrants types and for PREEMPT, CLEAR and
-  RELEASE (Sashiko review). Re-tested on v6.12.113 with types 1, 5-8
-  and PREEMPT/RELEASE/CLEAR from the second session.
-- Fixes: now points at c66ac9db8d4a, which added the get_unaligned_be64()
-  conversion; e48354ce078c only made it reachable (Sashiko review).
-- Reworded the TransportID parser comment.
-
-v1: https://lore.kernel.org/r/591ac67a-fa1e-4395-9573-2d9405cfe0b6@gmail.com
- drivers/target/target_core_fabric_lib.c |  9 ++---
- drivers/target/target_core_pr.c         | 46 ++++++++++++++++++++++---
- drivers/target/target_core_pr.h         |  1 +
- drivers/target/target_core_transport.c  |  2 +-
- 4 files changed, 49 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/target/target_core_fabric_lib.c b/drivers/target/target_core_fabric_lib.c
-index ad024009d..ccfeba645 100644
---- a/drivers/target/target_core_fabric_lib.c
-+++ b/drivers/target/target_core_fabric_lib.c
-@@ -372,10 +372,11 @@ static bool iscsi_parse_pr_out_transport_id(
- 			return false;
- 		}
- 		/*
--		 * The registration code reads the ISID as a C string,
--		 * and its first 8 bytes with get_unaligned_be64(), so
--		 * require 8 bytes after the separator and a NUL inside
--		 * the rest of the descriptor.
-+		 * The registration code reads the ISID as a C string, so
-+		 * require a NUL inside the rest of the descriptor.  Keep the
-+		 * existing minimum of 8 bytes after the separator: a valid
-+		 * ISID is twelve hex digits, and target_isid_to_bin() falls
-+		 * back to the first eight characters of anything else.
- 		 */
- 		if (buf + tid_len - p < 8 || !memchr(p, '\0', buf + tid_len - p)) {
- 			pr_err("Incomplete or unterminated ISID in iSCSI Initiator port TransportID\n");
-diff --git a/drivers/target/target_core_pr.c b/drivers/target/target_core_pr.c
-index ca1a2802a..0f2ff9d42 100644
---- a/drivers/target/target_core_pr.c
-+++ b/drivers/target/target_core_pr.c
-@@ -19,6 +19,7 @@
- #include <linux/fcntl.h>
- #include <linux/fs.h>
- #include <linux/fs_struct.h>
-+#include <linux/hex.h>
- #include <scsi/scsi_proto.h>
- #include <linux/unaligned.h>
- 
-@@ -30,6 +31,28 @@
- #include "target_core_pr.h"
- #include "target_core_ua.h"
- 
-+/*
-+ * lio_sess_get_initiator_sid() prints the six ISID bytes as twelve hex
-+ * digits, and iSCSI TransportIDs carry the same digits.  Convert all six
-+ * bytes: reading the first eight digits as a big-endian u64 keeps only the
-+ * first four ISID bytes, so two sessions of one initiator that differ only
-+ * in the qualifier, the usual case, would compare equal.  Text in any other
-+ * format keeps the old conversion of its first eight characters, without
-+ * reading past the end of a shorter string.
-+ */
-+u64 target_isid_to_bin(const char *isid)
-+{
-+	u8 bin[6];
-+	char raw[8] = {};
-+
-+	if (strnlen(isid, 2 * sizeof(bin) + 1) == 2 * sizeof(bin) &&
-+	    !hex2bin(bin, isid, sizeof(bin)))
-+		return get_unaligned_be48(bin);
-+
-+	memcpy(raw, isid, strnlen(isid, sizeof(raw)));
-+	return get_unaligned_be64(raw);
-+}
-+
- /*
-  * Used for Specify Initiator Ports Capable Bit (SPEC_I_PT)
-  */
-@@ -285,7 +308,11 @@ target_scsi2_reservation_reserve(struct se_cmd *cmd)
- 
- 	dev->reservation_holder = sess;
- 	dev->dev_reservation_flags |= DRF_SPC2_RESERVATIONS;
--	if (sess->sess_bin_isid != 0) {
-+	/*
-+	 * An all-zero ISID converts to 0, so test whether the fabric has
-+	 * ISIDs rather than the value.
-+	 */
-+	if (tpg->se_tpg_tfo->sess_get_initiator_sid) {
- 		dev->dev_res_bin_isid = sess->sess_bin_isid;
- 		dev->dev_reservation_flags |= DRF_SPC2_RESERVATIONS_WITH_ISID;
- 	}
-@@ -323,7 +350,18 @@ static int core_scsi3_pr_seq_non_holder(struct se_cmd *cmd, u32 pr_reg_type,
- 			 * RESERVATION CONFLICT on some CDBs */
- 
- 	if (isid_mismatch) {
--		registered_nexus = 0;
-+		struct t10_pr_registration *pr_reg;
-+
-+		/*
-+		 * Another I_T nexus of the holder's initiator.  DEF_PR_REG_ACTIVE
-+		 * is shared by all of its sessions, so look for a registration
-+		 * made through this one.
-+		 */
-+		pr_reg = core_scsi3_locate_pr_reg(cmd->se_dev, nacl, se_sess);
-+		if (pr_reg) {
-+			registered_nexus = 1;
-+			core_scsi3_put_pr_reg(pr_reg);
-+		}
- 	} else {
- 		struct se_dev_entry *se_deve;
- 
-@@ -674,7 +712,7 @@ static struct t10_pr_registration *__core_scsi3_do_alloc_registration(
- 	 * save it to the registration now.
- 	 */
- 	if (isid != NULL) {
--		pr_reg->pr_reg_bin_isid = get_unaligned_be64(isid);
-+		pr_reg->pr_reg_bin_isid = target_isid_to_bin(isid);
- 		snprintf(pr_reg->pr_reg_isid, PR_REG_ISID_LEN, "%s", isid);
- 		pr_reg->isid_present_at_reg = 1;
- 	}
-@@ -866,7 +904,7 @@ int core_scsi3_alloc_aptpl_registration(
- 	 * SCSI Initiator Port, restore it now.
- 	 */
- 	if (isid != NULL) {
--		pr_reg->pr_reg_bin_isid = get_unaligned_be64(isid);
-+		pr_reg->pr_reg_bin_isid = target_isid_to_bin(isid);
- 		snprintf(pr_reg->pr_reg_isid, PR_REG_ISID_LEN, "%s", isid);
- 		pr_reg->isid_present_at_reg = 1;
- 	}
-diff --git a/drivers/target/target_core_pr.h b/drivers/target/target_core_pr.h
-index b793c9963..4debfe4be 100644
---- a/drivers/target/target_core_pr.h
-+++ b/drivers/target/target_core_pr.h
-@@ -72,6 +72,7 @@ extern void core_scsi3_free_pr_reg_from_nacl(struct se_device *,
- 					     struct se_node_acl *);
- extern void core_scsi3_free_all_registrations(struct se_device *);
- extern unsigned char *core_scsi3_pr_dump_type(int);
-+u64 target_isid_to_bin(const char *isid);
- 
- extern sense_reason_t target_scsi3_emulate_pr_in(struct se_cmd *);
- extern sense_reason_t target_scsi3_emulate_pr_out(struct se_cmd *);
-diff --git a/drivers/target/target_core_transport.c b/drivers/target/target_core_transport.c
-index 927861c30..4629c9343 100644
---- a/drivers/target/target_core_transport.c
-+++ b/drivers/target/target_core_transport.c
-@@ -419,7 +419,7 @@ void __transport_register_session(
- 			memset(&buf[0], 0, PR_REG_ISID_LEN);
- 			se_tpg->se_tpg_tfo->sess_get_initiator_sid(se_sess,
- 					&buf[0], PR_REG_ISID_LEN);
--			se_sess->sess_bin_isid = get_unaligned_be64(&buf[0]);
-+			se_sess->sess_bin_isid = target_isid_to_bin(buf);
- 		}
- 
- 		spin_lock_irqsave(&se_nacl->nacl_sess_lock, flags);
--- 
-2.55.0
-
+Konrad
