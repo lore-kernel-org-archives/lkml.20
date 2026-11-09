@@ -1,99 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794240894;
-	b=o7XjgUgPv5hAacY4ab9aIF5k8Dc77GdPNdrAfX/D8pgRGOIWL8NfJ080AfLBY/J8Zf8x
-	 glsOvHwnw3oYVpAR34OdzIRAMHjcnUMmOgsEhSi1dGA/TD2yENd91nhtCnAdn53RCJ/CH
-	 FWifXmlzMN57Yr4a/4Wcf5HxFT817cQ75mwSjro2guK92w+sYNHNpFElPBs1e9XFDMNxh
-	 N2J/PhCpJ8P78TOCplYmpro4GhKsU6bwbkUwaok6SioFgdBHQnyl6xrzRH4TTd0uTJw+5
-	 1hWm8oavExxEKjpsZN/KuFxtTranQx51XNCtCJTTk32vfpdHIH1PpI/iIfmt8kgeqqQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240894;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=Iazb6upx9SUGzyZFOTqETYh5xGwU5uNLEyV8UXrgEeE=;
-	b=BT0e0j6dVUj7Ghvmf9fJ66zRJHOsZ/heHOXtuG2O6RtyDdENf2N5vRQOxrhChIXucnl4
-	 UVJxz+kzi+pQ4+Ix7qMs7eeKoJMo/12okGzDe09ZOfVciC6EqSpzzADRPySNeQEiSgfL/
-	 Lrpt4b2MPovVA+S7156IFSnQpxODmBQrE4Kln84ncsHj2MBSIsImpk8q0nqG5w+ZxUqui
-	 LZEleTtHXvs32tCHOnKxexgORMzPTQ95T0fGWCopO5QD1jKYo5qBEvDRNMZg+omFU4zwa
-	 Qw6a/9WZ+t4EfuAAqK/dap0j84vhC3yq4x8Uo+UahqR3dI/ZneTooMm7t8ob9RKz1MA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=IKT4xzwd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794240924;
+	b=CBMwBjaIg4GlMXU2NBfD1OqKh6hpz2vP6AYvrIEKb+mn4c0nawIiB6NeqWRF1QjsJ7aL
+	 bIhRjocLw15QoOQb0PqSS0SdyDqprZfqIjVh1H4jJ7XaXASbmBLYady9gEqpkMY/c95qD
+	 VKhFjpQ5Cqq4QOVDQFIs6TWRv1veyM62pJ5WTYjJxs4VIQuYkDgVBHz3uObP72EZRcDG5
+	 pT52G5DSrOw/mZ3qfEmfu1ccPdZjrkFGNUn8vN4RHg0jJS4CHDcfBRTMybE2gh/6M1g0J
+	 NoNe3d2neHynn3+jORj2VCRDFPAWtxNPIGLT5uu7jmQQWfSBH/zO9x2HKYkNBKmyNmA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240924;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=MN1BnROEORvgYw+MypT4h2Jcvdysaix5bzeL3TZj7Ug=;
+	b=BcuBi2F7f48mR/baFd7tVaCBT/4gJDOrHf9eArDjYAQE3wp/BfhfN2K7M3gnYXE3Pw1w
+	 KvM+D4zrRWvAIlA47QmbMJ4RaRb9AgJBRzxRUdKE71csmZaGXslTRXh8LP6or9qt+A3dI
+	 m1HhELWjH/CeUc99UZqPNGN1kPKIHOwMa3U+JogyUqqqXdkR4TqgaDzkRx19TzhKkQTDO
+	 dg0J0ChSVlhKXnuMS6rUzWhMMsijWNnjCuVL7zAdDVG101uNoP1BQx6iBXurlCORrwXj8
+	 2Ptz9rjlCEZSpa+PmeLBv58CJB93f9OGDuJ12gnkvPJcdZ+4eNZ57yyIOmCzdDO9gGg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="Nxb/MLdA";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=6Qx5XPOv;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E08606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:14:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52E08606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F09D606A326;
+	Mon,  9 Nov 2026 16:15:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F09D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=IKT4xzwd
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b577addee9so1413381a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:14:54 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794240893; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sF+RyKTTsr69iA9jhB2LJEMpDzkQIox+I8cTCEz3RdCiO0II4hLz0uh+iZuxD0h9lr
-         oPkLYLE1cMudofwTfOQ8JI+S39OK9NIIu0aTCo/xJybDtbXqhZXu+tjIda/ZI6Yzt2+D
-         DW048OtbF3v1tJ3vkTBKDkzflSIeQxlTXg3hta4f9f86Tjppc8iOrzV5tmhpvxsC+7pt
-         uPegg5Up/xORXbedouw7dvAnTMaC4Je1LzBk+CxFYvbC3eb7y+7pxPVyi4H2vZdCzbZv
-         /AXi73QZWOSKvgS6r3aPa6rdBZifuo3hC+rbQ2OY727iM4cA1BVNg6Z1uR+sL6BmtHhZ
-         haSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Iazb6upx9SUGzyZFOTqETYh5xGwU5uNLEyV8UXrgEeE=;
-        fh=kCnRocTZdN1CQdsa/dGbByRI6ln4Agp5g/Tp/ZB2iGI=;
-        b=MFRDIQo+PB93WLkD7VMQc37x6V/E2bvZMMRiLGlnaKEWeCTM8xrcRNbW33TZDYiB6Z
-         U3riUXMu1GcPuLiYZ6shwqMnGJTBFCdHLYfak8SDlTA1jBM3OZ306eS3suQM/mBONArV
-         LFy5uG1/F96kakGvGUYhTsIntdswGRpjW213m/8TaOym/NV9yzwoIgZPTDaHGP0PK234
-         wo+vUaiQ8jHNBxYdkH8z0sXi+TptJkmsmlrTFQ2ESEdaidM/23GEvoTZRodYilijoClK
-         KUZ8/tGGUF4yrxH8uRY6DqCufDW/QAt71KLgS5o1j8aPwMo3mdzESJCpDKN8tgmitr1L
-         GdPw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794240893; x=1794845693; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Iazb6upx9SUGzyZFOTqETYh5xGwU5uNLEyV8UXrgEeE=;
-        b=IKT4xzwdBITINaAmi9Te00xNxWBY8gPeyVTW7S5qwm51AkeDkhtCoh5jhu7fGcTHR3
-         6QTN8dTJ2oR3dvu5TVx5U/BeCfqy8FOonrfaekGc1/+N80gsHUkjbwnGL/Ox6Lce6IuW
-         CohYZ++fW208MYiAW877VmLQLzbXNIYl+hbW144I5sp5ErPT0HPckXjp8otNdzyyCZSB
-         8m6vQzu5PvMtPN+Ca4gQvLUyOU6bmNQqcipW7Jm2aJCT2/FJXgVQKdzHHByoztNKGXSc
-         Tb7zY9NSZKhtObVjil9Es9DolX02wmyjl4OJ5FqNkskpBSgPccF3K/vIAQmt7VfarSl7
-         89Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794240893; x=1794845693;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Iazb6upx9SUGzyZFOTqETYh5xGwU5uNLEyV8UXrgEeE=;
-        b=v2gpOUPY5mWWbUXeatZG46M8xdoog7eaqRfj5+ds7nnhVpJZ1did+xwMkBBLMZNSu1
-         ZG8jDwMSqPhdfkXGSMmMa6KVFyZq+oSF3ZIsjr4m/rhSF4o+ywXPactddyVEjCdFgOes
-         zTm0XXN3O0RQMXtJFQclioDISpqnMbv5LQwul5N6rWgbDQXGyWXU5QfhSfTxUxsfjjaB
-         TnkDJaQBTnZP5VtNOegGKiWNMkqkIfwOgPzcu/9A3BqSHhv6HmMbARs+fNCE2TI0ljT4
-         PbVTo5b8ji661BWdaL2lBvWr2LxTNcziZw1dzbPf15E0D70B9mgOUvJ8DDb7se4tBXbp
-         YT/Q==
-X-Forwarded-Encrypted: i=1; AL+hErFogaSgzCbFlOJI5KR7ybISOCm8D0vRQMQPePvLEXQpe3naWrmHFb+C196MSUTCgHaW0JCO/BDOcYXPhQE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xJOm7SzOzvuIdwCqIF5K/fnMUyCe2nNv2eZyHvhLBlKjKNd5N
-	zRTrSQCL1rCqQT+RZEMdEOqgexSEjfzPlU8BXQgfU38WusuT6wK2PkwF4wRHFprceWXPCXtgbgX
-	/LXfpr3y/mbRXxXx9xVnJiGjPzXbkBbqhAq50zp2BdA==
-X-Gm-Gg: AYBFou0FXjhebow9iz4tGI0M1JrMF1WZVOU2S5o3uSimNCz7eUvAzEmGj/fho/nYi8F
-	gyDqZxy+ux+v8MUe9601Fzo/czHq5/ddws5x9nhKvoAokgjedfwfvK7p2ic8DU6Hf6Zp081YoOf
-	QqWfjf3d3pJdhAUc4y3TxlmzqOU+b8P5Oz5bbHBT+hh3KyjTRGPW7YCqbnF+Ej4NY4fg2ko9BUd
-	5d1LmF81bZaqB2DADGng5RDHLvUI9S/tmfckx9khofN1LG23unL9UyODaaQKt09cfE0ssNNZqwA
-	1KmoCCQaK1exwYhECYvb0Di87cE6uOxaI+QBhvr0Y31cEboKQiOnJqVkhrCHt4ZkcHm6VBOmAEU
-	vuTs6SsmrzLmhGFhPIc+3OjL4nzEAzB6O73x1uWhsEGDZVIGtf1OiXoDEBGfYY91sPDf8Kw==
-X-Received: by 2002:aa7:d7d5:0:b0:6b6:e808:9701 with SMTP id
- 4fb4d7f45d1cf-6b755e6b4aamr53584a12.1.1794240892542; Mon, 09 Nov 2026
- 08:14:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Nxb/MLdA;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=6Qx5XPOv
+Date: Mon, 9 Nov 2026 17:15:20 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794240922;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MN1BnROEORvgYw+MypT4h2Jcvdysaix5bzeL3TZj7Ug=;
+	b=Nxb/MLdAkBa8XsF9k4yN7JmmPWhb8eEZ4Wx0xAxLiQm4wV/EKdGA2b7vjyaEYTOj9rMTUv
+	MULDhOcSoINy1O2FUxnboI/qdEKA2U44jWA5KkmARngPnZ132W1A2SZbdfpfpOx10h/M83
+	x1JW8Yc7fQCC+vBVYGuDDuxqa9jqH4WhTtzWe3Ql+gIsbBHY2mBDTm6sftmxRWdfGuQyUY
+	yQ5ynwDKnwgsCHJrlGyi5gvzs3LPxm0CDYBMFQ89F2AB/+VXH2RXQcOZ8R7R+fBwX5fkDo
+	3YzGn7rbQESMqQdnk4EnrTUic1Sl+761RUJiDSpAbqOUgByyeGCFG5owA9EFpw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794240922;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MN1BnROEORvgYw+MypT4h2Jcvdysaix5bzeL3TZj7Ug=;
+	b=6Qx5XPOvhwNYptQdWHV4IOm3h9SuIai0MbKolYUcGGjW2585+syNcIkyAKHYlIuU84OMub
+	McwTYs2bfaHtl1Dg==
+From: "Ahmed S. Darwish" <darwi@linutronix.de>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Julian Braha <julianbraha@gmail.com>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ingo Molnar <mingo@redhat.com>, Nicolas Schier <nsc@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	John Ogness <john.ogness@linutronix.de>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
+	Daan De Meyer <daan.j.demeyer@gmail.com>,
+	Luca Boccassi <luca.boccassi@gmail.com>,
+	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
+	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, arighi@nvidia.com
+Subject: Re: [PATCH v1 00/10] tools: Introduce a kernel configuration checker
+Message-ID: <avHxmCEdHgyRD7n0@lx-t490>
+References: <20261106091922.7560-1-darwi@linutronix.de>
+ <a20153cd-d148-4618-8089-ad81cb16fe23@gmail.com>
+ <20261109003745.GA3429615@ax162>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,108 +89,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
- <20261106151947.3991524-9-vincent.guittot@linaro.org> <20261109155418.GL1779021@noisy.programming.kicks-ass.net>
-In-Reply-To: <20261109155418.GL1779021@noisy.programming.kicks-ass.net>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Mon, 9 Nov 2026 17:14:39 +0100
-X-Gm-Features: AclHuK8Lril_R7chVytS1fQiJPDmi6Vo891N6VuKxGIj8nfdzRAKgkQea7WMEGA
-Message-ID: <CAKfTPtA-nrgGQGcBPqNoPk4atOHakyZK9Fk-4AsrHBrnvPXTLQ@mail.gmail.com>
-Subject: Re: [PATCH 08/20 v3] sched/fair: Add push task mechanism for fair
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, dietmar.eggemann@arm.com, 
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, lukasz.luba@arm.com, 
-	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org, 
-	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com, 
-	sched-ext@lists.linux.dev, qyousef@layalina.io, christian.loehle@arm.com, 
-	pierre.gondois@arm.com, sshegde@linux.ibm.com, kayracizmeci@gmail.com, 
-	tim.c.chen@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261109003745.GA3429615@ax162>
 
-On Mon, 9 Nov 2026 at 16:54, Peter Zijlstra <peterz@infradead.org> wrote:
+On Sun, 08 Nov 2026, Nathan Chancellor wrote:
 >
-> On Fri, Nov 06, 2026 at 04:19:35PM +0100, Vincent Guittot wrote:
+> On Sun, Nov 08, 2026 at 06:59:26PM +0000, Julian Braha wrote:
+> > I think the name will cause confusion.
+> >
+> > We already have some "kconfig checkers" in-tree, like
+> > scripts/kconfig-sym-check.pl
+> >
+> > But actually, your tool is quite unrelated, because that one checks
+> > 'Kconfig' source files, while yours checks the user's '.config' file.
+> >
+> > This has already caused some confusion in the past, for example in this
+> > thread [2], someone misunderstood which one 'kconfig-sym-check'
+> > actually checks.
+> >
+> > In addition to .config vs Kconfig, the name is similar to
+> > 'kconfig-sym-check', but is not as descriptive about *what kind* of
+> > checks it performs.
 >
-> > +static bool __check_pushable_fair_task(struct rq *rq, struct task_struct *p)
-> > +{
-> > +     if (!task_on_rq_queued(p))
-> > +             return false;
-> > +
-> > +     if (p->se.sched_delayed)
-> > +             return false;
-> > +
-> > +     if (p->nr_cpus_allowed <= 1)
-> > +             return false;
-> > +
-> > +     return true;
-> > +}
-> > +
-> > +static bool fair_check_pushable_task(struct rq *rq, struct task_struct *p, struct task_struct *next)
-> > +{
-> > +     if (!__check_pushable_fair_task(rq, p))
-> > +             return false;
-> > +
-> > +     if (next == p)
-> > +             return false;
-> > +
-> > +     return false;
-> > +}
->
-> > +static void fair_remove_pushable_task(struct rq *rq, struct task_struct *p)
-> > +{
-> > +     if (sched_push_task_enabled())
-> > +             plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
-> > +}
-> > +
-> > +static void __fair_add_pushable_task(struct rq *rq, struct task_struct *p)
-> > +{
-> > +     plist_del(&p->pushable_tasks, &rq->cfs.pushable_tasks);
-> > +     plist_node_init(&p->pushable_tasks, p->prio);
-> > +     plist_add(&p->pushable_tasks, &rq->cfs.pushable_tasks);
-> > +}
-> > +
-> > +static void fair_add_pushable_prev(struct rq *rq, struct task_struct *prev,
-> > +                                struct task_struct *next)
-> > +{
-> > +     if (sched_push_task_enabled() && fair_check_pushable_task(rq, prev, next))
-> > +             __fair_add_pushable_task(rq, prev);
-> > +}
->
->
-> Can't we add the 'p->nr_cpus_allowed > 1' condition to rq->cfs_tasks and
-> use that, rather than adding yet another list? I mean, its used for
-> migration, so excluding all pinned tasks actually makes sense.
+> Yeah, I had similar thoughts when this initially appeared in my inbox.
+> As you mentioned in your email, this is basically a policy checker (“we
+> need these configuration options enabled or disabled to meet our
+> requirements”), so maybe config-policy-checker or something like that
+> would be clearer?
 
-rq->cfs_tasks can be quite large (we even take a breath during LB)
-whereas this list should be 1 task most of the time (except during
-wakeup)
+I would've loved to keep "kconfig" in the name so that outside the kernel,
+it's still clear it's about a kernel .config. For example, a Debian package
+for this tool can be called "kconfig-checker", "kconfig-policy-checker",
+etc.
 
->
-> Also, I'm still not sure why we need a plist. The rq->cfs_tasks list is
-> MRU per set_next_task_fair() moving the current task to the front.
+What about kconfig-audit?  Something like:
 
-The plist was only to reuse struct plist_node pushable_tasks; in
-struct task that is already there for RT
+   ./tools/kconfig-audit/audit.py -c .config -p PREEMPT_RT
 
->
-> So reserve iterating rq->cfs_tasks, skipping blocked and current and
-> such, should get you much the same over-all.
+   make POLICY=preempt_rt auditconfig
 
-Yes but I was afraid by the overhead of iterating this list which can
-be very long; We have already seen email about bug with thousands of
-tasks queued on the rq
+config-policy-checker does sound good, but it feels verbose.
 
->
-> That is, why can't push_task_fair() be something like:
->
->         list_for_each_entry_reserve(p, rq->cfs_tasks, se.group_node) {
->
->                 if (!can_push_task(p,..))
->                         continue;
->
->                 ...
->         }
->
-> This would result in pushing the task that has not ran longest; which I
-> think makes most sense. Hmm?
+Feedback appreciated.
+
+Thanks!
+
+--
+Ahmed S. Darwish
+Linutronix GmbH
