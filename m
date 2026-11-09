@@ -1,81 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794225760;
-	b=epVYwWYkMerjCxCYKgcNMjnp8NzSk9OQX8r3ZzB8hobQRw8WAynVwYzSxSS0KxC58I7F
-	 kKgQtE1BWTlWFnp+w3jWFEk63pRVynLM/E95/GV47dO6shWuDw384J1Q3Abna8QtLx+Tc
-	 pB/WIsebRGsyXckQU3BDW4dKPrkWKtgq8EYXmxsdzks2oTkzMyRh7H3rZQpYcvBB8sZEZ
-	 Q8Avdd6+JMnRzgK0lKJ1fFwSjxH06LCHG2DPd/N7iMowjnbB6ddp0eLY/1gl/WlCthKEX
-	 8khf+7o52eMp6cZmM6rQSvHVXBTBrUpIbnRm8KE7jag5wI4Il5VJm5WxQWwjFL0yFhw==
+	t=1794225793;
+	b=UBnsCubhIEF5/sqN1Na4K7+csSL6uu7VwkHVFB0n4beaz0sa0jHyghnKPkeiIGg6P86o
+	 xsYpBR69Ovrbu+5ejOY67L98WX8g8/ZgKwyySuvlHI4Lfa8q1JJK0m2May0+turtywDhA
+	 DZ2nMQxk47FpsPproDfUdhLlc8mxBmyzxBe2Kl4B8G74bkaKoa897ZhXgcnXnRoQiPzAg
+	 OaRcMv14Axq5fkD4mS06owr1fE7JYAZEtyPKDJQtGN22VxVtii7d0fvF4vbcGQFIAoom4
+	 lijAx33CvX0jg8Wf7kZ923HyHp3I5dc9+tix7JeD8i/t/PUlGwrwcYAfE91ttwkbn6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225760;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=VOZzSzEpmNtfvzG2qO1eY0yK/YBvNo2Yl7ZJRUhzM/A=;
-	b=jJJZdCVu26okfRwPiHqhxbThCArrq7rM/BnVGR1Ax6G4VEHndcSP2ZOv6WjKFg30p4PM
-	 pNm/FYSGa4dccui5j/gDyhYhpk+IIsD0mBvVdfQLy4R4d0I/3J5NnoA5O352wtwmOeHic
-	 WeQuVMQrw9mRdiqmBmvzgUhDqN8vc2PmcCKEhh4sTC9BHNRyVJQSr30/dwO8UOjOBX3k0
-	 lJXm5WllPQDftjVCRHTIi3ehwh4UM5OBLJYR2L/7XPGUdTYGfnPNgDt2SU2y74UTJ7pqn
-	 JSs8aWKsQ4cHnImkkVRdDUbzF+BTXDU/kUnSN3n1E4kixcZfrWhMU2wRDHNGBvOHgrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225793;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=Pz9Hpm8j1u82FYaXh8nr33sjNtVErXhzD75hDRVTwoY=;
+	b=JDnV7Fn+8VFT5sbRPZhwKbmGNc1lIvIcT1qKT6NtDRelVC6U7iScPFuVWQ0zxtGJYxvf
+	 ymUPMWbfGaW/vbY6V4TjiWNZTqsSa7hNcCuZh1DgB6irHbPjR0W1BzQ7JVHdjo2M4mA6A
+	 XNZVaEuLU+CQTXZvzqKOEPEnGR73VYhK701ocPKzwzxvB83ETzpyNhCbdATINi8I02zwU
+	 uoP0AtjQsqrutZpQXQ7E4bVFfG9KFv3jhsp9GcBVuyLfqJnM7alpHdoLjYQRFQUv9b2JB
+	 5bZ9RgYz/zlX5pZZluTZpmHRsXPgsaLGuKJnDL4K7L+hacW069TP8ZH6dI5ijS+Iewg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CwNn6JMt;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="nlX/lCT3";
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FFE606A31C;
-	Mon,  9 Nov 2026 12:02:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77FFE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60AE2606A31C;
+	Mon,  9 Nov 2026 12:03:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60AE2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CwNn6JMt
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9AEYwV1481111;
-	Mon, 9 Nov 2026 12:02:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=VOZzSz
-	EpmNtfvzG2qO1eY0yK/YBvNo2Yl7ZJRUhzM/A=; b=CwNn6JMt9uDpo2aSJAGA6o
-	1SH0e44+qfTsHn0Og7ZRCO5pyurjiIsgH1qGO6YsiyFeywx0rlzA1jp0sBSnuO11
-	8JJUud/omDsFNlev1o4r9Z62JRJ8O+jnhzSQuWl8MVdgaKQ/7O2wndAyQfY//YMy
-	rNC/C6vqM2/5/Xe2zyZNAlA9UJKZcJN27TejhNpsDP6tRCTXt8NE8ghRMYwGKt4q
-	LDEC6cKDb0qPTLVOLC2pHsa9deiR6lmIeNWxGv5EtXxQnQjr0uV6abV00VrnvZuY
-	L2HE1pHqjnvPyI3VdsJzCHjwfnr4+TVk3QPb//H3qtuKbblZcNxMb5rhdH/CSAuQ
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsunsvxdk-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 12:02:39 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9A4tPc4140993;
-	Mon, 9 Nov 2026 12:02:38 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4htfthffj8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 12:02:38 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A9C2Yri47841558
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 9 Nov 2026 12:02:34 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8DD1F20043;
-	Mon,  9 Nov 2026 12:02:34 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6BA2720040;
-	Mon,  9 Nov 2026 12:02:34 +0000 (GMT)
-Received: from [9.68.16.159] (unknown [9.68.16.159])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  9 Nov 2026 12:02:34 +0000 (GMT)
-Message-ID: <50ea2597-15ba-471d-968b-546ce358d20d@linux.ibm.com>
-Date: Mon, 9 Nov 2026 13:02:34 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nlX/lCT3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794225793; x=1825761793;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=sYbfKgh8lkl7yxvDpMidYJPRN6EgAMxRg2ax/bIvwq8=;
+  b=nlX/lCT3G8XZnDZJKH91ZuhOjs3A9z7MXyzw/0vuVOePY2EOVUlupE8y
+   wKel9erEWxsaT+86jU5hUnE+/xdZemp1h6YDuWFvzyadWpQVv78E4Mida
+   HLEcLFM6hfD09Ph8LnZyEUk/zxpU8hzhq8+3H6r8hszwox+uZzwx655dv
+   wsT8CbEdjh3ZMoSzh36rzh0vgQKBYfR6pwJcmJ75SuKtlEbv/Z9Yfrk2f
+   wt2W99TqoMvydk1v303pNAuw1GkrbaDhweGsGxLcSlaWYOGVH25sJPznA
+   NerK4ufY9c3sIo+E7uB/ntizd+NVh/cPHRCh89SNkbaO2LBc1cBn1TIg4
+   A==;
+X-CSE-ConnectionGUID: 69RhCk68QZ2c7qLXtW8Nmg==
+X-CSE-MsgGUID: T9rd8x2sTdmQVPp/rgGuig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="3047382"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="3047382"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:03:12 -0800
+X-CSE-ConnectionGUID: xYJiNJYtRwe4WKF5bJna/Q==
+X-CSE-MsgGUID: pa3sT1BRSxiuFmlUIbzTqQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="9707620"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:03:06 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 9 Nov 2026 14:03:02 +0200 (EET)
+To: Hans Zhang <18255117159@163.com>
+cc: bhelgaas@google.com, mani@kernel.org, lpieralisi@kernel.org, 
+    kwilczynski@kernel.org, thierry.reding@kernel.org, ryder.lee@mediatek.com, 
+    jonathanh@nvidia.com, robh@kernel.org, linux-pci@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, linux-mediatek@lists.infradead.org, 
+    linux-tegra@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] PCI: Use pcie_get_link_speed() in pci.c
+In-Reply-To: <20261108094034.679945-2-18255117159@163.com>
+Message-ID: <43198b7a-b0f7-49e4-731a-807e7d9e5959@linux.intel.com>
+References: <20261108094034.679945-1-18255117159@163.com> <20261108094034.679945-2-18255117159@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,111 +81,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] s390: Guard emitting assembler macros for
- insn-common-asm.h
-To: Steffen Eiden <seiden@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev
- <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>
-Cc: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Andreas Grapentin <gra@linux.ibm.com>
-References: <20261105-insn-v2-1-ff27987aa212@linux.ibm.com>
-Content-Language: en-US
-From: Christian Borntraeger <borntraeger@linux.ibm.com>
-In-Reply-To: <20261105-insn-v2-1-ff27987aa212@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0NiBTYWx0ZWRfX/f53oy/ssrtj
- YRGMRyiwTPcw6WV0kwDKDVXkd3UIxlTVgVY5OZUG7ZTtfo1+AlIgAd7wI7/n7F6Ezd1LkLItEs6
- o0PmxFWEiANtxzjxJtjITW5olPkC/pw/D79zKrOpnQhwB+53u3XIL9cC8FhPW7JEu5U7LyaNWVh
- E55kywchmVbFeCfa6u8fIO4GWC5qd/CWaMHC3ClAd04ILVFF/8J2pytp4mOlXh8+VSNNceQo2wN
- 0G682PFlJEMZfeEUGBvAklLncIWOBpv48t3Jr4LGMMOlQHHgf6iiVDwF1IdyNre64mwvQXSAcqX
- yGBC+kYyrmdZ4VOtzribqxqzgLQQkq6SsWHA0bjURht/KrLW55ayOGgqRVJwsGHyXWiDRNlqsd+
- amOZ19WthXPxwHcB0Co0/h6OeyqLj0VxE8xxy8L1CjDT2wVlaJzdyGfY9MpTpbkyJtrlj6nOVEw
- zF6jJu1RGvIdAivSuvw==
-X-Proofpoint-ORIG-GUID: KN_9cFbh7Mn83eu_7q_B0fbCkfT6e5SD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0NiBTYWx0ZWRfX0FZDgQGO+LzU
- hxnOu2smSXT1qxFYSSnW2X7s1mm3RoMov52G+dNzw4SZLqkjpLFMoYM9hFn9BFrvEBtNYdEo813
- TNQeiXTP/vh79OMxC0uxmmzxb9nJlaM=
-X-Authority-Analysis: v=2.4 cv=euZKXYpX c=1 sm=1 tr=0 ts=6af1b65f cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=3WwxFDiQG7SU9cBGjFoA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: KN_9cFbh7Mn83eu_7q_B0fbCkfT6e5SD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090046
+Content-Type: text/plain; charset=US-ASCII
 
+On Sun, 8 Nov 2026, Hans Zhang wrote:
 
-Am 05.11.26 um 14:46 schrieb Steffen Eiden:
-> The CPP include guard of insn-common-asm.h is ineffective when the file
-> is read via a gas-level .include from inline asm. The assembler ignores
-> all '#' lines, so every .include redefines GR_NUM/VX_NUM and fails with
-> "Macro was already defined" if a translation unit emits more than one
-> such include. This is not the case right now but may lead to future
-> build issues.
+> Replace the to_pcie_link_speed() wrapper with pcie_get_link_speed() in
+> pcie_link_bandwidth_mbps() and pcie_bandwidth_available(), and remove
+> the now-unused wrapper.  pcie_get_link_speed() performs the same lookup
+> with bounds checking and is already exported.
 > 
-> Add a header 'asm/insn-common-asm-emit.h' that can be used by C/H files
-> which want to emit those macros. The header guards the GAS include to
-> prevent multiple includes in one compilation unit.
-> 
-> Co-developed-by: Andreas Grapentin <gra@linux.ibm.com>
-> Signed-off-by: Andreas Grapentin <gra@linux.ibm.com>
-> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+> Signed-off-by: Hans Zhang <18255117159@163.com>
 > ---
-> Changes in v2:
-> - Use a separate -emit header and CPP Guards to guard the asm .include.
->    (Andreas)
-> - Link to v1: https://lore.kernel.org/r/20261102-insn-v1-1-df048a0be0d5@linux.ibm.com
-
-
-Thanks applied.
-
-As we need this for the 2nd series of the arm on s390 support I will take it via the kvms390
-tree and queue it for kvms390/next as the first patch on top of 7.4-rc2. So if we ever have a
-(unlikely) complex conflict we can create a topic branch pointing to that commit at any
-time.
-
-> ---
->   arch/s390/include/asm/fpu-insn.h             | 2 +-
->   arch/s390/include/asm/insn-common-asm-emit.h | 8 ++++++++
->   2 files changed, 9 insertions(+), 1 deletion(-)
+>  drivers/pci/pci.c | 9 ++-------
+>  1 file changed, 2 insertions(+), 7 deletions(-)
 > 
-> diff --git a/arch/s390/include/asm/fpu-insn.h b/arch/s390/include/asm/fpu-insn.h
-> index eeb0a233d5c7..aaf1faeb3dc5 100644
-> --- a/arch/s390/include/asm/fpu-insn.h
-> +++ b/arch/s390/include/asm/fpu-insn.h
-> @@ -14,8 +14,8 @@
->   #include <linux/instrumented.h>
->   #include <linux/kmsan.h>
->   #include <asm/asm-extable.h>
-> +#include <asm/insn-common-asm-emit.h>
->   
-> -asm(".include \"asm/insn-common-asm.h\"\n");
->   asm(".include \"asm/fpu-insn-asm.h\"\n");
->   
->   /*
-> diff --git a/arch/s390/include/asm/insn-common-asm-emit.h b/arch/s390/include/asm/insn-common-asm-emit.h
-> new file mode 100644
-> index 000000000000..26a31e8439bf
-> --- /dev/null
-> +++ b/arch/s390/include/asm/insn-common-asm-emit.h
-> @@ -0,0 +1,8 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +
-> +#ifndef __ASM_S390_INSN_COMMON_ASM_EMIT_H
-> +#define __ASM_S390_INSN_COMMON_ASM_EMIT_H
-> +
-> +asm(".include \"asm/insn-common-asm.h\"\n");
-> +
-> +#endif /* __ASM_S390_INSN_COMMON_ASM_EMIT_H */
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 7c6f2aba8144..92ede1768caf 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -6025,11 +6025,6 @@ int pcie_set_mps(struct pci_dev *dev, int mps)
+>  }
+>  EXPORT_SYMBOL(pcie_set_mps);
+>  
+> -static enum pci_bus_speed to_pcie_link_speed(u16 lnksta)
+> -{
+> -	return pcie_link_speed[FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)];
+> -}
+> -
+>  /**
+>   * pcie_link_bandwidth_mbps - get the current bandwidth of a single PCIe link
+>   * @pdev: PCI device to query
+> @@ -6048,7 +6043,7 @@ int pcie_link_bandwidth_mbps(struct pci_dev *pdev)
+>  	if (err)
+>  		return pcibios_err_to_errno(err);
+>  
+> -	speed = pcie_dev_speed_mbps(to_pcie_link_speed(lnksta));
+> +	speed = pcie_dev_speed_mbps(pcie_get_link_speed(FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)));
+
+Readability seems worse due to cramming everything into a single 
+statement.
+
+>  	if (speed < 0)
+>  		return speed;
+>  
+> @@ -6089,7 +6084,7 @@ u32 pcie_bandwidth_available(struct pci_dev *dev, struct pci_dev **limiting_dev,
+>  	while (dev) {
+>  		pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
+>  
+> -		next_speed = to_pcie_link_speed(lnksta);
+> +		next_speed = pcie_get_link_speed(FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta));
+>  		next_width = FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
+>  
+>  		next_bw = next_width * PCIE_SPEED2MBS_ENC(next_speed);
+> 
+
+-- 
+ i.
 
