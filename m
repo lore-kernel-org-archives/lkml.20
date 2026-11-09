@@ -1,56 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794195049;
-	b=Dltu33ul6Ifw7PZr4l6//GW0iz1MWg8P/BoyfEpTJFCt0Vvr8kY8gwXcRYz7uFwLQIRu
-	 4lzTj5NWcGBzObqqzhd4rMzGose9FNJnWwYQYKFVlvnIKMhTzp/bibFiMgFHFUJ/SfXrg
-	 VEfAgw5dtQaFmO8aH8OYaOCZZ/h2v6aymZxOidMd3SRimpiKUduIEUL2+VtCn4pv4FzKt
-	 qsBoN+w9ZNNenIS0xbqxH/0dg+CW5/VlLkHJ9qmJQbV1fb/TI735mQEU93P+woXwyuHN4
-	 gplaYtVD/PuVc6oqIXP5QAYVO/NlnRy8EtwaPnhxrz1zodvbXD2/+mJfjwdMTY/R0qQ==
+	t=1794195088;
+	b=J/4QOY6+iDdHD+Kk1EGjxbSsJQ2+TTqEWfGlbKUfJZ4MEid1vOsmNe1phB9v8uIwsD5X
+	 /CyXYl+OJVEgDgkmOtuK9VpufOuYellHqVR3o1XNaOJlPSTy3yR9M/wd+2+lsJDJWs9GU
+	 liJVYZfWFCmNXKrFC3//f5L7KBr162l8sgrcKxVXmck1QhsEKROahUoJq0gC9Jv8suJxn
+	 pSTxUTztS+wc+9+EWOayHVJJBE60i1NQ1dXuk3vNEfimAtnijlyOukAh2NZbY/CFjVKOR
+	 qei0v6GzGs4mbWzk2fhcXIEddiyNIzSZRCSS83iagWNfboKFot0Czq/VSTT879nyy5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794195049;
-	h=DMARC-Filter:DKIM-Signature:X-Original-From:
-	 Content-Transfer-Encoding:Content-Type:To:Cc:Mime-Version:
-	 X-Lms-Return-Path:X-Mailer:Subject:Date:Message-Id:From;
-	bh=n+YkuDyPdUfR5lqnlx8AJWXuOw7DyNRylU3/lch8jfk=;
-	b=y1XQuQY8TT9sviQhVxjaJGUTn9PfLgnWD9Qy1K/3IJsH+RoCAKg7peBqYPgnAZHHRy6c
-	 c0PzZ5Rt+DGsXInGvT5Okoz6mue3MRte+hiDbFZz/bd1SKgTiKfF8IykbAWH5FJzh0w8r
-	 7+69/hOBBL8FgyoTMyCCSaITMOX6p/NRkh4tFWNnbdY+Lrq4qjilJk6AOKYJivEJUb7rg
-	 eB0voTJxc3/Ls5c5HvgPzn6U6GXyEOZQH7U+xRBDK1dlRx/sC6rAl6abRUqXqf2t3PvSP
-	 XCOtISbY9mG/QVHu/hJr8pRgRNZky+To8vADEChiyUcJZX3AcmA1WexglHRS/RywMgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794195088;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:
+	 Content-Transfer-Encoding;
+	bh=7h9gujRoiJjcc4FUBagD+Vkd7AT2WQ+KsrTI8xvvbgs=;
+	b=cw2mU69MH1Nb2VSjful8H1qMyFeY3vZ5QJGCDf8+bLoEL6ofbDGvrAB5VTpRbEWzU7SV
+	 Ci5lyb0msNFxV/XUcc9NztHVmr8Yd+gOq4p6UqNLSXIUOWH5QUn9MecUj1+xVx3GnTeXt
+	 2A6Ce3zBbvlo8k+S7RCNZ8FikExyAcJHzS7+zmgPpRO/0q8zC/u0heCqlhewGDDs02782
+	 5mG/ZlYOlmN/PBWoD/QfKuALnsY/39JH/CU/wiXO3OiPSdVs1I10aOgvmlieBNwcLipsl
+	 KVupcKRJ4u6MT43EIOnB5pNx4nVyN/XwJC5paomuHYaPJaImn39MzU1Dl3fCo6j6icw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b="b/SXpS2B";
-	arc=none smtp.remote-ip=209.127.230.114
-Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=fail reason="signature verification failed" header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b="Sn/kxibo";
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF077606A320
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:30:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF077606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0FC606A31C;
+	Mon,  9 Nov 2026 03:31:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B0FC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=b/SXpS2B
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794195041; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=n+YkuDyPdUfR5lqnlx8AJWXuOw7DyNRylU3/lch8jfk=;
- b=b/SXpS2BlZ8Xg6kEkCfFi99iyrZTgRwdD2wVK86ImxPtRgVdinGuamYv0ip2sLPuifuuRQ
- OPjYf2wx2s+ZkYMixMjvpo+8NSdhERj6e4xV7+wqVqviuxA62B2c1CjLfTgVmwflhA9LpW
- ja/mtzup0WZPZss4xYJCNiBi0dOXC0YIICRXUfmDSnTrFaScLVrZitaAJR4A14VlkbHhaB
- J2AdFnwUDSERGHTvbW4CTQDMNzh/quG87M6fJljWBS8IJwEe6T+dBOyVgoip2kfPaXjGpk
- OgZfP0c6G/y6LobQ0hRtGr3pBiw4N/etVUKwjAMaXJYKl7mKelkILaSGdH3Uzg==
-X-Original-From: Guixiong Wei <weiguixiong@bytedance.com>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=UTF-8
-To: "David Howells" <dhowells@redhat.com>, 
-	"Jarkko Sakkinen" <jarkko@kernel.org>, <keyrings@vger.kernel.org>
-Cc: "Paul Moore" <paul@paul-moore.com>, "James Morris" <jmorris@namei.org>, 
-	"Serge E . Hallyn" <serge@hallyn.com>, 
-	<linux-security-module@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Sn/kxibo
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 4DC4940E01E1;
+	Mon,  9 Nov 2026 03:31:24 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id fSr_K88CxAsy; Mon,  9 Nov 2026 03:31:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794195080; bh=G2paekuPNMEqonKhlRQSysxWYlUIiQcikXp7kwpEJAk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Sn/kxiboa5Hsi4RZJu1QDWhjwlMx6jbx2sX0sTMg5dgqqJJTG9N27x6YB/ReMZgND
+	 HSxLwWyTyU7dQbONAxG0mRG5CG4UaRLetb61hlkOoxCTbSlzKLYD5fwSs96ufNUlHy
+	 3z2vrAJsRMa7jo2Ad2U9dBYTKOD97Xvj+X95igI1lx5lSrga2USIS3+vp8tYTOVEDl
+	 xGdqO+dsvie/hvj+7ni29CIu/hdISJEjZlijHXQpU/fHO1FOxTGRloUahxJEY0Gu4V
+	 ostYsQRJaFLLMVzQi01nxWmolvRieV2BpB3MLOjrRyDh4/Z3J4vwkKSzk9rrqFvuo+
+	 UmVeIaQ15EvHHm/oOTAf5SucbgLuz+mv3MLy367cVVTTzKvz2PeqCu7TgaPrZuxGlN
+	 /kgw4F+sG4AXU3FShnmOMr2jJc3qj4QZhn5Gdy6UJRTaAqRHRnNHdfnMhifEP19Im9
+	 ClNjszdkAJi3y4xR3HW3wQAZSCHyrO1ICpSAQdXkcQMQtmNtwSvUmlVHD41n3iwY3q
+	 3AOA2BD0t2nVWZ2rpO1ZXqN4dvLnSPNTTHqednDcJB6r+sNSudJZTv27NuEcmXT2EZ
+	 3HPrEiRF1f/UXRNAFv+erPVVnCIhHnh0+h2CHPfCCkUhEBZAGMB76IabnXqMkkag2f
+	 JdEQJ/uoQ685K5tm0KHRzc3g=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id AE74E40E0497;
+	Mon,  9 Nov 2026 03:31:11 +0000 (UTC)
+Date: Sun, 8 Nov 2026 19:31:08 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: linux-kernel@vger.kernel.org
+Cc: linux-tip-commits@vger.kernel.org,
+	Fabio Estevam <festevam@nabladev.com>,
+	Zhipeng Wang <zhipeng.wang_1@nxp.com>,
+	Thomas Gleixner <tglx@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Radu Rendec <radu@rendec.net>, x86@kernel.org
+Subject: Re: [tip: irq/drivers] irqchip/imx-irqsteer: Validate IRQ count
+ before creating domain
+Message-ID: <20261109033108.GEavE-fNcWoLB94CXe@fat_crate.local>
+References: <20261104073759.386777-3-Zhipeng.wang_1@oss.nxp.com>
+ <179417457995.2093942.6001079047755881830.tip-bot2@tip-bot2>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,84 +84,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26af13e5f+040cfb+vger.kernel.org+weiguixiong@bytedance.com>
-X-Mailer: git-send-email 2.55.0
-Subject: [PATCH v2] KEYS: do not let an unmatched key decide the search result
-Date: Mon,  9 Nov 2026 11:29:20 +0800
-Message-Id: <20261109032931.80406-2-weiguixiong@bytedance.com>
-From: "Guixiong Wei" <weiguixiong@bytedance.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <179417457995.2093942.6001079047755881830.tip-bot2@tip-bot2>
+Content-Transfer-Encoding: quoted-printable
 
-With the dns_resolver key type available, put a key named "foo" in a
-fresh session keyring, revoke it, and search for "bar":
+On Sun, Nov 08, 2026 at 09:49:39PM -0000, tip-bot2 for Fabio Estevam wrot=
+e:
+> The following commit has been merged into the irq/drivers branch of tip=
+:
+>=20
+> Commit-ID:     f99f3c4acaff0df9393c1e6a3f28b7b974e01d95
+> Gitweb:        https://git.kernel.org/tip/f99f3c4acaff0df9393c1e6a3f28b=
+7b974e01d95
+> Author:        Fabio Estevam <festevam@nabladev.com>
+> AuthorDate:    Wed, 04 Nov 2026 16:37:50 +09:00
+> Committer:     Thomas Gleixner <tglx@kernel.org>
+> CommitterDate: Sun, 08 Nov 2026 22:43:43 +01:00
+>=20
+> irqchip/imx-irqsteer: Validate IRQ count before creating domain
+>=20
+> The IRQ count is validated after creating the IRQ domain. If it is
+> invalid, probe returns without removing the domain, leaving its host
+> data pointing at devm-managed memory that is freed on probe failure.
+>=20
+> Validate the count before allocating resources to avoid the leak and
+> dangling pointer.
+>=20
+> Fixes: 28528fca4908 ("irqchip/imx-irqsteer: Add multi output interrupts=
+ support")
+> Signed-off-by: Fabio Estevam <festevam@nabladev.com>
+> Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Reviewed-by: Radu Rendec <radu@rendec.net>
+> Link: https://patch.msgid.link/20261104073759.386777-3-Zhipeng.wang_1@o=
+ss.nxp.com
+> ---
+>  drivers/irqchip/irq-imx-irqsteer.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-i=
+mx-irqsteer.c
+> index 1b8d0c8..766756e 100644
+> --- a/drivers/irqchip/irq-imx-irqsteer.c
+> +++ b/drivers/irqchip/irq-imx-irqsteer.c
+> @@ -218,6 +218,8 @@ static int imx_irqsteer_probe(struct platform_devic=
+e *pdev)
+>  	 */
+>  	data->irq_count =3D DIV_ROUND_UP(irqs_num, 64);
+>  	data->reg_num =3D irqs_num / 32;
+> +	if (!data->irq_count || data->irq_count > CHAN_MAX_OUTPUT_INT)
+> +		return -EINVAL;
+> =20
+>  	if (IS_ENABLED(CONFIG_PM)) {
+>  		data->saved_reg =3D devm_kzalloc(&pdev->dev,
+> @@ -246,11 +248,6 @@ static int imx_irqsteer_probe(struct platform_devi=
+ce *pdev)
+>  	}
+>  	irq_domain_set_pm_device(data->domain, &pdev->dev);
+> =20
+> -	if (!data->irq_count || data->irq_count > CHAN_MAX_OUTPUT_INT) {
+> -		ret =3D -EINVAL;
+> -		goto out;
+> -	}
+> -
+>  	for (i =3D 0; i < data->irq_count; i++) {
+>  		data->irq[i] =3D irq_of_parse_and_map(np, i);
+>  		if (!data->irq[i])
 
-  keyctl new_session >/dev/null
-  A=$(printf '127.0.0.1\0' | keyctl padd dns_resolver foo @s)
-  keyctl revoke "$A"
-  keyctl search @s dns_resolver bar
+I'm guessing it is this one because it removes the "goto out;" around the
+2xx-ish linenumbers but forgets to remove the out: label itself:
 
-Results:
+drivers/irqchip/irq-imx-irqsteer.c: In function =E2=80=98imx_irqsteer_pro=
+be=E2=80=99:
+drivers/irqchip/irq-imx-irqsteer.c:271:1: error: label =E2=80=98out=E2=80=
+=99 defined but not used [-Werror=3Dunused-label]
+  271 | out:
+      | ^~~
+cc1: all warnings being treated as errors
+make[4]: *** [scripts/Makefile.build:290: drivers/irqchip/irq-imx-irqstee=
+r.o] Error 1
+make[4]: *** Waiting for unfinished jobs....
+make[3]: *** [scripts/Makefile.build:572: drivers/irqchip] Error 2
+make[3]: *** Waiting for unfinished jobs....
 
-  keyctl_search: Key has been revoked
+An allmodconfig x86_64.
 
-The search returns -EKEYREVOKED even though there is no key named "bar".
-It should return -ENOKEY.
+--=20
+Regards/Gruss,
+    Boris.
 
-A dns_resolver search walks the keys in the keyring and uses
-dns_resolver_cmp() to compare their descriptions with the requested
-name. When keyring_search_iterator() sees the revoked "foo" key, it
-records -EKEYREVOKED in ctx->result and skips the key before comparing
-its description. The search continues, but without a match it returns
-the error recorded for "foo".
-
-Call the match callback before checking for invalidated, revoked or
-expired keys. A nonmatching key then leaves ctx->result alone.
-
-Fixes: b2a4df200d57 ("KEYS: Expand the capacity of a keyring")
-Reported-by: Jarkko Sakkinen <jarkko@kernel.org>
-Closes: https://lore.kernel.org/lkml/avDG8G-Jl1YsmfCs@kernel.org/
-Signed-off-by: Guixiong Wei <weiguixiong@bytedance.com>
----
-
-Changes in v2:
-- Explain the wrong errno using Jarkko's original reproducer and output.
-- Clarify that the search continues after skipping the revoked key.
-- Add Reported-by and Closes tags. Keep the code diff unchanged.
-
-v1: https://lore.kernel.org/lkml/20261108131413.12012-2-weiguixiong@bytedance.com/
-
- security/keys/keyring.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/security/keys/keyring.c b/security/keys/keyring.c
-index 7143f3079d200..39645b8f9b30c 100644
---- a/security/keys/keyring.c
-+++ b/security/keys/keyring.c
-@@ -598,6 +598,12 @@ static int keyring_search_iterator(const void *object, void *iterator_data)
- 		return 0;
- 	}
- 
-+	/* A key the caller did not ask for must not decide the result. */
-+	if (!ctx->match_data.cmp(key, &ctx->match_data)) {
-+		kleave(" = 0 [!match]");
-+		return 0;
-+	}
-+
- 	/* skip invalidated, revoked and expired keys */
- 	if (ctx->flags & KEYRING_SEARCH_DO_STATE_CHECK) {
- 		time64_t expiry = READ_ONCE(key->expiry);
-@@ -617,12 +623,6 @@ static int keyring_search_iterator(const void *object, void *iterator_data)
- 		}
- 	}
- 
--	/* keys that don't match */
--	if (!ctx->match_data.cmp(key, &ctx->match_data)) {
--		kleave(" = 0 [!match]");
--		return 0;
--	}
--
- 	/* key must have search permissions */
- 	if (!(ctx->flags & KEYRING_SEARCH_NO_CHECK_PERM) &&
- 	    key_task_permission(make_key_ref(key, ctx->possessed),
--- 
-2.55.0
+https://people.kernel.org/tglx/notes-about-netiquette
