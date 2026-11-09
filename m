@@ -1,61 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794249704;
-	b=pGO2IBsSaR6bJDwlgMMkidI8ADIURGhP3D6Z49vxu9Cx5Vzak27eyazYkKNkFT1jBCM2
-	 gC6JTxPrBF9bQnGbnfoIJc/4xUQsVbIHjpBVkngDO/ypDiHMWT/jJbvNTzGAO25r6S+DS
-	 zj3lcyPaT78PmiRYlNCrl8xVOjeVyLeWx+KWze07RERH4GEKcueH3dyaKWv4JuNfYekDY
-	 Ph8b6F0uW3kMiKc9hulTDjcgLDm8qgneLnkd3+mne5tKlfUGaoM9y1+zbaG0rsyZRQ60/
-	 4/azunubQ4gQhEw+dMNuegWry4Hf5X/Lpe0ng5n49gAIam22E+pWGdWUIaMzruLHknw==
+	b=TZUYwd6lESXWyF6qtmmYggWzWhzkXCdsqD/i4QdPxiJSDl9D4iUyFbcSI7dzdDurcOtt
+	 fna3LUYPmollbwcXA1YKYjoxwxOum2BjJUTUKwLSIrhcO9gqIb15RBp1lW6DIwNbmoiLj
+	 SW5nfHmW/DeZ+w5p+s7/SC8ZF6oXNFHZImwhDVefVPI0+SAN1KL66eLu/dClpDWVtIvfn
+	 k8OJAnFQf2o7OlZc3/DtCuufSwmj6hxlUXneve9Pm8hSTM8QFFeBolu9x1/QVEAeJh2SQ
+	 rHvB+K7tcM4Gt38ElMZaifLDgZd9c8n1uUdziEFSzSSlhlYMMhrw+rjVOgOZPR5PqoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794249704;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=6KyvQTJzcbmQ4aop4C/wDl32TQvem89RduDDh7rd0ck=;
-	b=P3VJgNzB57qMcAThEBOzoAnlt+FMxs6LAol5XlcScscpHo3ru1TS/VaS5xLIlULknmWg
-	 Dn+BbD9Ccmu0eSEzwV37NKwkLrKAjTCOk7IdbQz4WcUPy7uje7N0jkoV7eIqK/nq6o90v
-	 nOQ24Z67RIL1+rZraBF3EvuZWdOdPBJdIOcZmQHPnAEO1DTS9pDidQea7OC79aApf/Dpt
-	 ErQ2WGumA3e44xPh/Tv13vZC/g6xOl3UwomXzk0Ft5c0OBO0MwTanCwEBPnDIVAyUc9tC
-	 HMzQIOfxEKyiXKA21SufRniN2GX4VSafNbFkq2y3skmxW/ForDszxvm0TXcCtPlN6Ew==
+	bh=0HgPsE/yzQvxRg/VPiLYa1EQNmt4HkXJrFJ8j7/ZIqg=;
+	b=A9ZHDsH69zySbcIraKy0HisAiRkhUYgktr5KDouQMdjna5rLboAwrWNDF+hnHJ0+YgY+
+	 iTCKycwP6eFOneCYHDbLBthD0UlW57JuyeDZeYGSVMsj0fzhupI3HblLNj8Unwl0FRYf9
+	 UhkT2EnkH9t2nOAxzOvzk01NW7+yreTBlgYCZUR6eDoaqRvDfJfBSROp1Q36FJHr+1HxN
+	 stZOUyF39P9VoiIGLwNPckihwrkYx1pLzLsxp4PyOjUI+vtOnMabHFp+Spps+RlCw6pUn
+	 w+fqhz0v9k1t3WY4Znr0Kbg0slzib3xegy/fzPel4Mf7TsmXGcSPRchxuI/MjteZvSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=N4PYsCmc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RKE1YbOH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B06606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:41:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6433606A31C;
+	Mon,  9 Nov 2026 18:41:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=N4PYsCmc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F18A21F0089F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RKE1YbOH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F3B1F008A1;
 	Mon,  9 Nov 2026 18:41:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794249703;
-	bh=6KyvQTJzcbmQ4aop4C/wDl32TQvem89RduDDh7rd0ck=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794249703;
+	bh=0HgPsE/yzQvxRg/VPiLYa1EQNmt4HkXJrFJ8j7/ZIqg=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=N4PYsCmcNhGd6lqTYimK+5S1xKYGvYtlUt01h5elvR/s1my1PY61eJeEVmWmH+83f
-	 R4grjYJTiZGg5iiOfmVqGVHBUF9OxSVoIVRLUP6/ks0u0FUZKr5qaUmteL9BfNZRCC
-	 hfFlIoWRamc89vgFsyQRq2qhb8xYkOcYfFfhwfrk=
+	b=RKE1YbOHt98e6Oi+JFCzGCun50I+F/tGbM7H58hOMPlSWKgSnkjYczqaaOzkG73/b
+	 tKP/OyUSsfaoWcNJAHw1mw1wP322eEBipOy6fMSb1vzCbF9kZTZlU2EDYy+5DvdWqg
+	 7MIjJ7WqoKX0HWA3RSYUlmygl727Be7X7qJGU4WU4jkgQ0QypxU9gSvhH0T6FVXHBq
+	 kaOn51XXRe/OU3Wb4XtGqOhOQAJk3RwUrWQ0nwXE8vPJFFSxrOzQVeo63LIvMgo2p0
+	 FJa1UB9sG/XwC4b3tTZ8t5WGism29+QfPfKocPQZrPKXYXqzgeJAUjb0X2VS45U+2h
+	 P26V/iWYwwFuQ==
 Date: Mon, 9 Nov 2026 10:41:42 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, Qi
- Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Axel
- Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei
- Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Muchun
- Song <muchun.song@linux.dev>, Lance Yang <lance.yang@linux.dev>, Ridong
- Chen <ridong.chen@linux.dev>, linux-mm@kvack.org,
+From: Jakub Kicinski <kuba@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Jeff Garzik <jeff@garzik.org>, Stephen Hemminger
+ <stephen@networkplumber.org>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] MAINTAINERS: MEMORY MANAGEMENT - MGLRU (MULTI-GEN
- LRU) update
-Message-Id: <20261109104142.c4e01c2e29ee9ead4056f354@linux-foundation.org>
-In-Reply-To: <20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
-References: <20261109-maintainers_mglru-v1-0-c25e6de60bcc@kernel.org>
-	<20261109-maintainers_mglru-v1-1-c25e6de60bcc@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Subject: Re: [PATCH] net: cxgb: Fix skb reference leak in
+ espibug_workaround_t204()
+Message-ID: <20261109104142.238b55e1@kernel.org>
+In-Reply-To: <20261108101000.2147805-1-vulab@iscas.ac.cn>
+References: <20260917105425.2147804-1-vulab@iscas.ac.cn>
+	<20260917073655.5d7c9ecb@kernel.org>
+	<20261108101000.2147805-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,40 +63,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 09 Nov 2026 19:31:53 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+On Sun, 08 Nov 2026 10:34:46 -0000 Wentao Liang wrote:
+> The cxgb patch is a small reference leak fix in an old T2 driver. A v2
+> that also covers the single-port timer callback with the same pattern is
+> ready; I will send it separately as one patch rather than in this reply.
+> If you would rather I drop it, please tell me and I will.
 
-> MGLRU is currently the only MM component without a dedicated component
-> maintainer. Fortunately, Kairui and Barry have been actively
-> contributing to MGLRU and have volunteered to take on more responsibility
-> by officially taking care of it.
-> 
-> Given that Kairui is already an established MM component maintainer in
-> a related MM component (SWAP), add him as an MGLRU maintainer right away.
-> 
-> For Barry, the idea is to transition him towards a component maintainer
-> role over the coming months, starting by moving him to the top of the
-> reviewer list.
-> 
+Do not send revised versions of your patches.
 
-Yay, thanks guys.  It's been wonderful to see the rebirth of MGLRU over
-the past ~year.
-
-When do we get to remove the legacy LRU???
-
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17635,10 +17635,10 @@ K:	(?i:vmemmap)
->  
->  MEMORY MANAGEMENT - MGLRU (MULTI-GEN LRU)
->  M:	Andrew Morton <akpm@linux-foundation.org>
-> -R:	Kairui Song <kasong@tencent.com>
-> +M:	Kairui Song <kasong@tencent.com>
-> +R:	Barry Song <baohua@kernel.org>
-
-Totally-Acked-by:me.
-
-
+They are all worthless slop.
