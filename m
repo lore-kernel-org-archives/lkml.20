@@ -1,41 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=132.226.202.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794190833;
-	b=E2nFa5Awh65k/YA2wsXWIEnc7gwDYXnEgv28aNEYydl31OWXbD8LwqjgFSaX+oeiJK0z
-	 yKR9uRWk8aqJVuuMIH5pzSETXFA4zlDL7eVR93xYa8b6YkD7e6dC7UKjzKJJrheKjZdlc
-	 eYcsirSNwqmH6OlYlJH81WTAP0FFZvCup6V3QOXChXVdtn/83+/oS7SFBbEqOndgvTpIZ
-	 F/FXH3PgskUFb4uzgFAdojxcd6iLNTUUElx00xpL3jUiSd8WyMyL8afXWdVUCJGpkzl3h
-	 CzFYSjrTReftkiv0Crsa2BQULz1oioKX+ljCPWJ0+YNzkso8fTvq5NG9bhO1taQ0F6g==
+	t=1794190880;
+	b=1TqS7jNaI1Y2GVans6wuPyX3jPw3JyaWX6PEBdSQyZuet9hrdtqck4IL0VNFCvGg+pwl
+	 YbJltIEScY3+bp5gnyGwkngzK5GrWMOtbiSyWmKgU1sztVVE9394fnG1zw4IlJWcagUVN
+	 xGI1m+KfpC6bOaQSh1aIzsRPG68TolozYVernC3UvcvBkMnkM6Aa6BZpbABt1yUkA+Lfa
+	 qCbfvvUbku6ty6V6N5QskA4s8H/pRngx8V2eJZ3E0jOUsHpG6VShG/yq1nYVjQU7YTMkS
+	 nO6Tj6xi9h3LQ7Rg8zavCRvbuWJ0AMLqlrP4QSUrxWNR9YM7VAB9Gh4yHYWaY/9zmDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794190833;
-	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=AueXqQ8NBu6uNNOfAm0QjH7ukRVpDkrJsxDH2iaMDa4=;
-	b=Q7g123pdKTwAv0fi4q71mr3+kRcRBshMfXVvktgziy/BK+VVac6BrrGDmXVeFFgthLZK
-	 WB9y6DbVWDEpbk+yDc4doYModRUosSmNvkxiI3SDk+iJ1EDGQ2eDrNT2yPFU08TSWM94P
-	 W6c7nXCVnd2s7eSqvIn++ccdC9AfnTi667rqcZopl+7wVOfFqdBatEnv/kmoQKTuJKm5Y
-	 zPBol0wF5MGPxnOyElo16D94u9mNCgK40D8mDFeAv2V3GloW1dur17SDwLht1+50HPYpg
-	 x5SU8fhrLFL7T196gZPrddbh9F1eV3X86h9yO1jn6c6Fp2L3qSWdIpi9Wj1At51Orcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794190880;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding;
+	bh=iW6QAKlV1qS/MBCzlPsZytfdoSp0El0cT2pW9sdd+j4=;
+	b=mlMUS8LRSVcKYLQ52oEHqkS/mjqr+QI4RIGsHGVPn0d1bGz9rJPW1YVxyZNpqrmdnE4K
+	 JjPEsJwy5zCpI04JA0JjmSigYBDqKCqz6qRAq9UkgYaz6g4sgraq0OWKr9CJibj4knk/l
+	 ene9m2rvE0ESeP+9maj4b8JP6SkzysGDLScIJR0mZ9zr31HZndtkO88qhB8slIn77RG+h
+	 FDC5nsY5stDkUCm+Sk7PceTt6Hu/vktyJh1K9yQ0+Ev/YvFZzWGSro+jClMFMhMopAe8b
+	 6P8tiHn4pofiM/lMe3pPnqt7IHIIFKv6Q8t6vl4N/fePeJimEulne+0SIrLDpefgNqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=132.226.202.154
-Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5524606A31C;
-	Mon,  9 Nov 2026 02:20:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5524606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.52])
-	by app2 (Coremail) with UTF8SMTP id IQEQrMCWvsbqLfFqhdMJAA--.30828S2;
-	Mon, 09 Nov 2026 10:20:26 +0800 (CST)
-Received: from [100.81.40.43] (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wBXQR_nLfFqSwwQAA--.21192S2;
-	Mon, 09 Nov 2026 10:20:26 +0800 (CST)
-Message-ID: <e9de49d3-c989-4539-8a1b-073d6866b7ec@hust.edu.cn>
-Date: Mon, 9 Nov 2026 10:20:22 +0800
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Z3UW8pLu;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3304D606A31C;
+	Mon,  9 Nov 2026 02:21:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3304D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Z3UW8pLu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794190878; x=1825726878;
+  h=date:from:to:cc:subject:message-id:mime-version:
+   content-transfer-encoding;
+  bh=bQEKnHu4KJAZQ/rnX5e1Y9/G3MfiVexKeVIiCOrbpYo=;
+  b=Z3UW8pLuKfHfi+BrezWk7EeGx2XmwKsjdEJEKbcYWFE60l5eLlrJtKgK
+   Cd7nbU88tDyMy7m7LnxtQWPnLch49YTHIXPvy0qjiIOTZYuXuXBGgL0fM
+   0g6HOZ7uGVDlfjXp1rvLbwyVrLsVWTDJN13RNqryQKsVGOn3hcDKmdQI2
+   j/RjB0QgYn+nfwMTtLdI0R3mUhZ//U4G42q/XYHAiXNqdmZjIfm908rqv
+   m2VUdISb4RaEQmj5RB7ByCme7wWunSLklLZaEJ+xGQvPGjW87kqqahRvF
+   JTh8QidCsJTRA5/zsoQN2qFTQztEvKLvohvI16TywSzg9w9Ux3mALU1U+
+   Q==;
+X-CSE-ConnectionGUID: AoOoo/ZGSPGkjC/FNQGoKQ==
+X-CSE-MsgGUID: pTLOngABRzqyijXD7jG8KA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2948635"
+X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
+   d="scan'208";a="2948635"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 18:21:17 -0800
+X-CSE-ConnectionGUID: IEp3A2LFTByh4OeuiOyHuw==
+X-CSE-MsgGUID: +p8k5xMFT+i8ZOH0nyNRqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,202,1787036400"; 
+   d="scan'208";a="7883333"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 18:21:16 -0800
+Date: Mon, 9 Nov 2026 10:21:12 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+	kernel test robot <yi1.lai@intel.com>,
+	linux-fsdevel@vger.kernel.org
+Subject: [linus:master] [libfs]  02a336a831:  stress-ng.clock.ops_per_sec
+ 147.7% improvement
+Message-ID: <202611090811.f9303f5a-lkp@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -45,61 +79,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/4] docs/zh_CN: translate AI-related process guides
-To: Weijie Yuan <wy@wyuan.org>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
- Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-References: <cover.1794153793.git.dzm91@hust.edu.cn>
- <avEXWkPrGugQSQX-@wyuan.org>
-From: Dongliang Mu <dzm91@hust.edu.cn>
-In-Reply-To: <avEXWkPrGugQSQX-@wyuan.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:IQEQrMCWvsbqLfFqhdMJAA--.30828S2
-Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvdXoW7XrWkGF1xCF1ftr1xWw4rKrg_yoW3XFb_CF
-	109FZ2krWDJFW7Ga109r47urn7Aa4Uury2yFyvya97Ga98XFW5Ar1DWr9a9w15GFWFyFy3
-	Gr1kCw1fCF17ujkaLaAFLSUrUUUUeb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbHkYjsxI4VWxJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI
-	8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vE
-	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_JF
-	0_Jw1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF
-	0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r
-	4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
-	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkIec
-	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGw
-	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
-	MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
-	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E
-	87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUVYhFDUUUU
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
 
-On 11/9/26 8:44 AM, Weijie Yuan wrote:
-> Dongliang Mu <dzm91@hust.edu.cn> writes:
->
->> Add Chinese translations of the process guides for coding assistants,
->> generated content, and the kernel threat model. The final patch updates
->> the coding-assistants guide to link to the new translations.
->>
->> Dongliang Mu (4):
->>    docs/zh_CN: translate coding-assistants.rst
->>    docs/zh_CN: translate generated-content.rst
->>    docs/zh_CN: translate threat-model.rst
->>    docs/zh_CN: link AI guide to translated documents
-> The last three patches seem to be missing.
-Sorry about that. After midnight, the campus network seems to impose 
-traffic control on outbound SMTP traffic.
 
-Now you can use b4 to retrieve the patchset.
+Hello,
 
-Dongliang Mu
+kernel test robot noticed a 147.7% improvement of stress-ng.clock.ops_per_sec on:
 
->
-> Thanks.
+
+commit: 02a336a831f02a18047bacbd49018a237af8a172 ("libfs: hold one mount reference for all pins") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+
+testcase: stress-ng
+config: x86_64-rhel-9.4
+compiler: gcc-14
+test machine: 256 threads 4 sockets INTEL(R) XEON(R) PLATINUM 8592+ (Emerald Rapids) with 256G memory
+parameters:
+
+	nr_threads: 100%
+	testtime: 60s
+	test: clock
+	cpufreq_governor: performance
+
+
+Details are as below:
+-------------------------------------------------------------------------------------------------->
+
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20261109/202611090811.f9303f5a-lkp@intel.com
+
+=========================================================================================
+compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
+  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-emr-2sp1/clock/stress-ng/60s
+
+commit: 
+  eeecea75ec ("proc: don't let an entry below /proc/<pid>/net be a mountpoint")
+  02a336a831 ("libfs: hold one mount reference for all pins")
+
+eeecea75ece2ba89 02a336a831f02a18047bacbd490
+---------------- --------------------------- 
+         %stddev     %change         %stddev
+             \          |                \  
+   4669272          +147.6%   11562917        stress-ng.clock.ops
+     77848          +147.7%     192799        stress-ng.clock.ops_per_sec
+    126459           +80.5%     228294 ± 13%  stress-ng.time.involuntary_context_switches
+     32287 ±  2%      -7.1%      30008 ±  3%  stress-ng.time.minor_page_faults
+     23175            +4.0%      24092        stress-ng.time.percent_of_cpu_this_job_got
+     13907            +3.7%      14423        stress-ng.time.system_time
+     16.08          +213.4%      50.38        stress-ng.time.user_time
+   2056711 ±  4%     +36.4%    2804386 ±  8%  stress-ng.time.voluntary_context_switches
+      9325            -6.2%       8744        uptime.idle
+
+
+Disclaimer:
+Results have been estimated based on internal Intel analysis and are provided
+for informational purposes only. Any difference in system hardware or software
+design or configuration may affect actual performance.
+
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
 
