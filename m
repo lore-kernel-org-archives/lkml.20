@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794268106;
-	b=PCQyadSjUw6dSgVXGwM+TVTVUFt1uINB3ZpNhv4qH3yb3z8UUvyKT2nOrNv1k8104zjI
-	 GTTvSLw8l3FKl03KzvbuFJgqBCQvxY1chP3W1dLFi7O2UT4dkAwb+iWYByxCO+fGFHUjp
-	 tg8Fm8CCJB/WuY5E0szUqv/XxiMU2xMI/t66DAtxBibc0XeV/YgMRGzcD7U4/C8TFIvfU
-	 w32KvkNEknqkZaV7hUJDB0JUHVN1RCXOxCtwUPp7IGB/BdEaTmFRMC3zf8D/lUpip8qPI
-	 2VWrNk5wJPu4/u6Qrc2KXzvSWgZUbpltdbn4gbp6W+FrCfvR3Byp0QLVCL5us8nNAhg==
+	t=1794268102;
+	b=QsMt2DAVu5Vm1Rf+Cg/zaKkd0aA8ZymHY4SZoAjG5nT8N8qVrMIiHUGdY5cZdSN3+bbp
+	 hmavHCaE5MVDVU7gEjcs/OP2+hcrVzgfDuDsYb9dSQYU3HcTsacr4o6lkgrJPpQ07gIQa
+	 bGN8y4tLhipCgHZyswTPKw67rQqAw8W+rDoPspwuZjWob8rPHap3rT/Ne/YgBE1B/tmJL
+	 FirbQIHKGjW1lZmNFwXSQbFB800ZiSO7dDztPPHNMuKtMwj/PBfOD00hAmvJ+OHO44Gyc
+	 WUOWwjXKebyJ1Sv7HBrj7l7Mv6CJLfBhwc4OkjPFvOpsJC1iKYa6c9dngfPMe1dKIyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794268106;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794268102;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=mgC3aFnQzEkUSqr0EdV9/pvy4kdF1e+4cJ+OWTfkigE=;
-	b=2gTyiWzYqEUzjg331G0xtLi/vNwW10KQB0otFeViey8dBVKvR/mB6oOruHpyrtwH43/S
-	 263eMOvCHa5eQJXTUooN0FjDI0pJ7daJdLpFhe9za9TT5jzHGkJsruET4GcSj20FYnnVT
-	 cawRizF5iw3aunCwu6Lakje4iQ4j2VFIMAzl4Gzo1IKDqkHi9GZfjiYXPyyDd1TBxGO1e
-	 yzixE5iu+8QaQWL1J/sLIjwPQ+aWgoXs4YJfvDRPMFXdpJQ/wCNSDQvw5MaNALzSazfPQ
-	 3WmWlGkcVENY9XbMf9cL9Epm7NKseP4LB8mbfiNEW3KhpMEry4XrUy5iNEZ5yuNtqbw==
+	bh=IppNhVX5WQCSwvqxwHiKEP05fP8li4vwyY2eexFMjDs=;
+	b=Z8RMyzbl39hAj4D6AOIPkpa/phcerqDuNjEfbZ8CWoYD1Qp9bEeAPh7maewkOWUuVJRQ
+	 ZZ0Q5JKIhTOwdbqHkdrUiKkwloekarqYXvIXwNndrhpmw9RrTAHmmCxdO06bEolpRg4Ai
+	 g+4py0mco3IOEiBtcbOPcPN4sgE0/GIq9ozdVnoCn6uQVeRGbhiZijzA2J10LNrPoRzQ9
+	 IN0SbpbDIsD/4GsTxV7BZGmsWWewb9YWk0BNd8OeVYdm/dZyZrBbSkWj1eUTgTJ8jVmdo
+	 vGwwFxaothyPL9h2AxHwP4GFh4B3TjQUP6c/7qAdA+AIS32h4XrO8NwupbMYDC6CQJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=baylibre.com;
 	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JCV1Ttpn;
-	arc=none smtp.remote-ip=209.85.214.171
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=pRG68NOM;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29629606A337
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:48:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29629606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BE2606A334
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:48:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9BE2606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=JCV1Ttpn
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2ed06b725fdso10978455ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:48:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=pRG68NOM
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b0e61a4decso1118162a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:48:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794268105; x=1794872905; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1794268101; x=1794872901; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mgC3aFnQzEkUSqr0EdV9/pvy4kdF1e+4cJ+OWTfkigE=;
-        b=JCV1TtpntEO2y+R3SwQjg0sprnLUZgcAIH+abSygcDUpyFJxTFDalHfw8MGnB9a0y5
-         TRXJVvZZJLFxh3BwOs0WsTv53xhKY6lbuiT/Dc6u8M6mpIfPFHQ99/tpbqEjKR5bBtal
-         UA/UzkXT3DyhoY0d+QxQ/GwFUvDMIthYPWvHv0PQopFgPe2HfzQXHo3rLg9kl27EoGi3
-         EtqsUruCtPOXI4/gPYj+rW05dH2AYvQD666F6EXjBbXK7RPE795oRQ/e7D7ADvN+b2cW
-         KDZXGaNiwpR7X0EEBRaIrGYDsR21J6VSiRz1J0r3ONfd1VxnPmuNRSkDefmnCUD9I5jG
-         tcsw==
+        bh=IppNhVX5WQCSwvqxwHiKEP05fP8li4vwyY2eexFMjDs=;
+        b=pRG68NOMZ/f28pchMXhs4pk+9Pxc2LAdL5XRgHwZird9D2ijjySTURWf6uWFmqwa0u
+         J9PAZCYsLHlfYlUnIcClJEzOd9rZEcN1H81ojhFrJ0fYfH59sbNPBXAuEAiA4LiWAgHo
+         dYPxBpFdCkNxq6Os5w6ml6GGuRB3ej50dakATcGxtqfJcXhE0+klVIXkOYZUBwFAngpu
+         UpKUtGoE8RyrkuekaWpRSwSwU3CFKapY8+I43i/Vv0JQFB6/MJgT5E1ACVITEqeI/9NB
+         mGWU9MMisVFAzAqiFZ8KovoOUxwgHw+cwIY4kEfNyuKPXtqRIin7DXZPaij7uaivIr9X
+         dyEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794268105; x=1794872905;
+        d=1e100.net; s=20260707; t=1794268101; x=1794872901;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mgC3aFnQzEkUSqr0EdV9/pvy4kdF1e+4cJ+OWTfkigE=;
-        b=wU1MwgQkJ/U5pUN/V9MRqBoP/gap2dbdO3X+yjD8TZ5Vvb3orflq74WuJgU6xXGi7A
-         671Z/xUgvDU81qr+FkR0rRiwuKXcxL7vFJLBaXcJTl6SlkB3iGrTon6hKIbiqvhhKsG/
-         vXDNjlwUON360fgjAOgfr8/idXO9mdymT3+jMxT6BFaQ70OOfyiXGf/ADCa+jyQfesdz
-         3haCm1pD/S3DYdjkJaoXYX5kNp0eXXildYnneoU5OfXS51c83ugx4aI/XrYmn0bxk84i
-         z4B0cWdVhnU1qqz7c7wdseo8r6BZEM5jQKZN7CWh9zhagUUh3BL7AEM4uvJQQwWVzPW5
-         Vttw==
-X-Forwarded-Encrypted: i=1; AL+hErECC4jGSjg8Iy/lQvMIizDcWl6FTn4agZo/MloTxnWVahVkUF2umwpbd8qtw4MFraeogpXYj8lN9Mqv5VA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YagLvohTlSHStMBoFPlRNElT7/Y0KprDZFTzbIPz7GQoC10dx
-	nEP64gQwgbzh+UPyKrUv4aRGGo9K5A0JRLqSYxYh9z+CUFws0oNcGxZMnMldvPYawYg=
-X-Gm-Gg: AYBFou0eiSwikqo+324Wpr7QTh1ZIDJ/ytRnXsz1O0sseA9NkK1aIxjHfmzE9y+VB5c
-	MOuthf0BLs+HjstGYK/j0k9mseidgI+bS11cRQiv9b2ecssUU/Tii66FpK6PW5qEUYPFhEfy7Xl
-	hN+AxczmOG+iarRgqc/11C1j9G9bJOtChgqcRsGNweOKqx5dlbXycaWAeMJViLpJkJ3H+Cujg2j
-	gdWKH5TsoUlcQOZ03CKK1m/hgD7vEjvsrk8XgF8x/gxhdVY4uRYvkFDc1VqiGH09jzzlyasRQnB
-	1qsRVb5ZLV2INbJrtAOHSQSa9nchxqvYwLekvLw8Ej2zMt8uzsivHpI5mVtBCqjVBGlauTSlYJU
-	7xdVCxOOqxP2guwOFIsU+oOFkPogbShSKTD32/KlnzaKjJEW3Xm0EtRtR1OVWm3iMar3HcTRw0z
-	zAAsgtK6uSS3+LcFqeugKJrC+CombpHUnrt1Ze0F9BY+UYNV0PBLGLw+ojVOWQDnz0IebDo1d/O
-	QLRGBF9bgdMgzAAgjf7fJ/CVX67aa4uxC40a6F04ixPqTaoMFGS00T8BRmEM48KeXD0DYyO3ZRp
-	YQPUhpo3pzpj5lgb6Qt2DY5Leg==
-X-Received: by 2002:a17:90b:3844:b0:3a7:a3c8:8f4a with SMTP id 98e67ed59e1d1-3b16797724fmr660791a91.18.1794268105529;
-        Mon, 09 Nov 2026 15:48:25 -0800 (PST)
+        bh=IppNhVX5WQCSwvqxwHiKEP05fP8li4vwyY2eexFMjDs=;
+        b=emXHwoihh8GvqxCzShGNXg+Tu6ac8/CZujpavl0LPtPSGtNHtj1vTMk3ZVSBPATLpf
+         uSU/GKSAdTN+8uVK0oOYvxO39vbKjlc5n4d/bhbdavhqeqor5NmmT+QwMeMDjSNWqByB
+         pM1mDcq0bCoJs/BSgVUSPmKXjJsdL9RxQSs6xEQgb6uRA1ymqKQEtDM3s8SNNJoVKTKi
+         Js7rPvEVo3VXhAcUcOl+0ETYoivVChbdK0eETsAc5IrgkCMiMb7Hmzw27DJqadkfaQC6
+         VLUpn5m1YrwWHCCXMHfJ7Qz3V1fttRU1eVKrpGikonSX0+Wz5ehzqE0jeYWoEbOKSzHm
+         WOSw==
+X-Forwarded-Encrypted: i=1; AL+hErFsdbu7Rwf8n5fKOVzKztoieLoHOU/W54DhkuYa258yyCZUOvod7MoKyXv5QArVbzwswoM6eL0jfzyofjw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cPwBKNkC74EY6nst9JWlc3lavrCRTgdJvTVhU68tOZiDLIZhb
+	THP42JXBTVaoNPHP8ue4kXO67aOYrzY0SZs/g0fRA48FluSmnM/AbiKrPxj1hWvy+lo=
+X-Gm-Gg: AYBFou2GEZSW4ZjPDoJ5hr0VkDYPxs40eKencsaY/+8GiqubiLakbvZ64LWLysgxIeW
+	sUVZUXbEv8pL8w18B2grAk8IZb/UmTdCk7dSuK9VKC/JuCGlKzAHetPI1G54C1EcS5YjbC32ZXT
+	otGLjgbAc44TtBO+hS8Ixr+NaJOaqwV9SogtDRtoArI8onvJ4d5UZXbxdBa4YrUInrlCL2ZVh+g
+	6SOt4Qymq5QW21bByMb33BxRjEyz8GIZy3SeoiwusFBFFVK/UHBLhIR/mwSlQCmbHiabLWS4zW1
+	WSffPPtdtOAl+io5MdoZCr6WKWQ9G50688dJRl5G89Ce5PI32oKaBQmj7J76tMO7Jgy/7oZgDZv
+	q27HhpUGMy/kLK9LqtydCBBAdYrfCZ6gEtfZY+YCSuhtBEaHYgKvtyBIIIEa1u7tGPn+HnN4cWD
+	el40RL/huEB6OiTnjft+EVlE7M42GFslmLrG0PZcQ5Vhnx9+gPnlKxj6UH66Yl4M/GCH++fPn+a
+	BW/8MCGgTUTJLfXoG7OJabJguQR1aIVoBoEJceWeDXisO8sVSt8vMi8vfZsIoj9A6rgxZaTTBXn
+	TrlubRDhkgpKY6QE2vuO3JXSca79ecmBKiHr3lwhjhYo5Q==
+X-Received: by 2002:a17:90b:4a0f:b0:3ac:a203:e0a5 with SMTP id 98e67ed59e1d1-3b166cc0352mr1249763a91.11.1794268100946;
+        Mon, 09 Nov 2026 15:48:20 -0800 (PST)
 Received: from localhost ([97.126.173.69])
-        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3b16771705asm1371571a91.12.2026.11.09.15.48.24
+        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3b166f542edsm1433378a91.0.2026.11.09.15.48.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 15:48:25 -0800 (PST)
+        Mon, 09 Nov 2026 15:48:20 -0800 (PST)
 From: Kevin Hilman <khilman@baylibre.com>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Roger Quadros <rogerq@kernel.org>, 
- Tony Lindgren <tony@atomide.com>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Matthias Schiffer <matthias.schiffer@tq-group.com>, 
- "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Cc: linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Julien Panis <jpanis@baylibre.com>, "Mendez, Judith" <jm@ti.com>, 
- "Francis, Sebin" <sebin.francis@ti.com>, stable@vger.kernel.org
-In-Reply-To: <20261103-v7-3-topic-am335lpm-ti-sysc-v1-1-1b9a23b4a7c1@baylibre.com>
-References: <20261103-v7-3-topic-am335lpm-ti-sysc-v1-1-1b9a23b4a7c1@baylibre.com>
-Subject: Re: [PATCH] bus: ti-sysc: Don't reserve the system timers on
- AM33xx
-Message-Id: <179426810432.2265990.13205445943569497614.b4-ty@b4>
-Date: Mon, 09 Nov 2026 15:48:24 -0800
+To: Aaro Koskinen <aaro.koskinen@iki.fi>, Roger Quadros <rogerq@kernel.org>, 
+ Tony Lindgren <tony@atomide.com>, Russell King <linux@armlinux.org.uk>, 
+ Andreas Kemnade <andreas@kemnade.info>
+Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261028-susp2-v1-0-174b52857d89@kemnade.info>
+References: <20261028-susp2-v1-0-174b52857d89@kemnade.info>
+Subject: Re: [PATCH 0/2] ARM: omap: cpuidle34xx: Fix unbalanced
+ cpu_pm_enter()/exit() and cleanup
+Message-Id: <179426809959.2265990.7562894927493541429.b4-ty@b4>
+Date: Mon, 09 Nov 2026 15:48:19 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,24 +105,18 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
 
-On Tue, 03 Nov 2026 14:24:03 +0100, Markus Schneider-Pargmann (TI) wrote:
-> Commit
->     3f6178392050 ("ti-sysc: allow OMAP2 and OMAP4 timers to be reserved on AM33xx")
-> introduced handling of am33 SoC timers that are already active as
-> reserved. During probe this means the clocks are enabled and a reference
-> is kept.
-> 
-> On AM33xx deep sleep is entered by the PM coprocessor which
-> requires the PER power domain to be idle. The system timer driver
-> disables the clock during suspend but the additional reference held by
-> ti-sysc leads to the PER power domain not being idle:
-> 
-> [...]
+On Wed, 28 Oct 2026 20:15:10 +0100, Andreas Kemnade wrote:
+> Fix unbalanced CPU pm calls and delegate the question whether the
+> cx pointer contents could change to the compiler.
+> During research for some spurios FPU issues, this oddity come to
+> light.
 
 Applied, thanks!
 
-[1/1] bus: ti-sysc: Don't reserve the system timers on AM33xx
-      commit: 196abf4dabe28fe7732732d0c79b84bf30994cee
+[1/2] ARM: omap: cpuidle34xx: balance cpu_pm_enter/exit()
+      commit: 97e0f6eb6112788e7a46376998e797b4d7d6f524
+[2/2] ARM: omap: cpuidle34xx: Constify state info
+      commit: 6d6f135fb1c38fc833e4189e1db47eb7060c0b1f
 
 Best regards,
 -- 
