@@ -1,98 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.82
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794203421;
-	b=1SFW9GBvwyIUKbtJKqjeGzrVXWZ51KoMElezbQYkIrRqsk6K5xL4RTx8i7+OSzf4oqJz
-	 M0eoCgN5JIMuqFOLvxX59bukpeT9rrr4gkqt//SbyFZ8Em1fMHkZrjzzy3dU4PqcDLq4b
-	 r400Yd5cPbDofyIvSU1aAA/8wXvRJ3Zo+XnmaQUkY5fyL0JEECdwweBLcJdYEuV/m8crI
-	 OkK8a3OnppjA+K4qxmTCEItw47L89eyNxy5FC4257NXswI151TcYTjNGFaw1XEqL2+fwC
-	 yWI2NLsawDJJ10rqJCS1/f/Ar9nj9tqxOEegP2Rb0okeYImun8p7EhTrxQigLF20abw==
+	t=1794203451;
+	b=Eba2V1aFr/edxT9338EZUO8cE5mWb30SgCdNA/MVnSJRTZBQ8qo+LuszWx8+cSjHYK5P
+	 kndjziZMcPMaQmtClbiCMgmJ9gEXec1C4MVSsFDu5ZNDu3ViYc/evAB18iUHQjzS6XRFa
+	 gw/yqdHkOapG1+7vPRUD+Va4PAYIMyLfkx3MIuPTToO5gK1zeMzMggJKs/yKJ61aysbTb
+	 glUpCFm1O15jBcQoPaPvw2lWHhFU0osyxc7LvghYgYDOpFWNhaSHp80OcraSIAD7Z37Q4
+	 eNPE4d8OaWe+DMbli8XyvL638cgyfg8HafsXOIcvmI4/TQX3wUt7DDF8NJbFHTcQ3qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794203421;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=zOU+uPjXYv6C9BQX655dlLqEf/JlKkzYX0WVqRX6Ues=;
-	b=GkrfiSj8OjxXtWVxUbysRKwcTuI4JA5C+CJlYE63gl6WvowFgcCOcKYSuy+cUq99BElR
-	 8ZTlj0v5U1+mXbonYch/IPb71Jx65VbLFhkA6HavQUSCvpgRvLuivTHaVy3XoB//4yNkL
-	 kAU3EindG4vw50K7st5CIt5xFwHpHhGqL2cBYtanc3ZY1Jbqg3r/SgiiDj9XLFU7A9Onl
-	 /bhXmyq67++1Nr4xkS7tMCIULIPl+uPtHzkDuQxgcLexMOUIXndCu1ikkQEj7/JtwKrMQ
-	 +crqbOFbBW1YDZ/1wcMHZvG6bIFrmsSwaAhOmRXwpPq79ZwUYPNHUG33Ihe7EvbioSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794203451;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MNwtJGlaqUCyQUQFpRisrhaSPNbClPkTOsfsk4c6288=;
+	b=OloSWmM5voQjfSBAojH3XiWnmdW3zkCZ0ict92YATZkQmLcxWzXzjZPDLaV35sxEhZFJ
+	 cEFA1UNGAXZk++ZMJQ5sEju2/PCbDFqJ1XKN6UT0pHx4BjWRdvJysPv0ekWwP6ed+hs/S
+	 3zfT42Uj81yx6LmGuGtU+n0NywmD/Z4whJwLq7H1+1jAFuJHFujVgLxocaCcyHqgw6mUu
+	 0GzI7Ng57njLwsgWsHgy5PRIeUkWUE/In0pqY9dupFiApvLTRxMploR+WQprxMHJgDMoz
+	 fx8v9o1rwdZu4y0tW2VreQuoNKDjQRK0X9ByPJxSYXKsfsqi2/s+vtcQMjg5vcoHkkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H+JNnCsV;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UpNt+xLP;
+	arc=none smtp.remote-ip=91.218.175.82
+Received: from mta0.migadu.com (out-82.mta0.migadu.com [91.218.175.82])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80103606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:50:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80103606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A444606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:50:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A444606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H+JNnCsV
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-497614c95f0so34838f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 21:50:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794203420; x=1794808220; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zOU+uPjXYv6C9BQX655dlLqEf/JlKkzYX0WVqRX6Ues=;
-        b=H+JNnCsVUCgEZDoYDAfHPe7mNmuUmXaMkyL2Meu2CESJ3eF/9IkHeMSJ5HmktqlVN4
-         n3KRuKvVmC6z+woxboJ9o7gIInrAYyhtmje2bHrLupmfpGViEjZuBcKKvrQZb4KycvgW
-         I59LI679DZHMSG3BNeHitkyEAqjCdUhhrK/FuJr2lHZwigU8/u5i7BEylOEuOC5mSYAy
-         AK9unokS5+oM+Td37rkq1ARnkUhE2qxqiD7CEce0Ms25ARC/Ori1wMfT8mYKm41dk8e9
-         bWcPaAlUaoRr6iiSlW3LAoDbVBYu9kOrU6cOxHwKFdad14q57OGh93Fc1w+vrX+WC1zf
-         MHSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794203420; x=1794808220;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zOU+uPjXYv6C9BQX655dlLqEf/JlKkzYX0WVqRX6Ues=;
-        b=o6X4ixhyXlWf5VFlPt6DNMU1mbEOjKjvb85Sz1TxakRB2CJ/evC/3+DEJ4lJk9GdLg
-         GF1bbtHxAt8rFNDbkQN3s0YyNq61+jyfwUrnS9LJ/KIRlSJMtTlWz8k8lGqNSsfmrl+Y
-         reWn5/gLXcWEf0Uh5wwVpk8ESSXwf9WxXQn+Z/M2GpMCmJNOv2+dGH0AhkyuRjhMiaKb
-         tefnyhWdN+GfO1wdktoKiwDJ7rGFtc5+gKN4uCgekZhwUDYv0uW/s5nRFaOyn4Qu/kKF
-         5Sijl5tCRk27AwYDOQtykFPbNCoZzoccd6A24aYyZyAZQtx1bfsBdnsLOVS9Wq6QI44A
-         aWyA==
-X-Forwarded-Encrypted: i=1; AL+hErEvsN4JX5uneTCO66F+OZP702/kdaELdGpBi/mSDf7AWlvyLQVAzlAFzyrfO6zXo5PT+E5YXoJtpvuXbLU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9+4r+uZSTmiiYTesOixbq+NcRAeVInfh8e9+MIE4eclpRPZjoj
-	0mCpVNFMJfnUtll61C22BRAL2hmCdlv6RSEGQedCIiDYnDd5HCTKObd6
-X-Gm-Gg: AYBFou2m79YqFrmLbAWfuE/lz+0WP0+aQA73UMw6jkhqoCLxZpf00dSRvnE/cG17z6a
-	fbLg1d1VqN1fHApUdsc8lxLWvPkUSMvFMYvbqUzFca91IU6fPiBqQJLEIGU0R/J8aXOZ6a+Dr8Q
-	nO2DbT8fDdnOkC7yUjDG2a4QAfrO8Da6bNJpi8ay92yoe7nNADoRwRg0IL+GP9wJ/7JLUbvptWA
-	qNEappFfWpMqUb5vzcSPM96oUCCiwxHxX31tl9hDrrAEgseL1uGmHcrulgMa9K4zMY3TnwtdEBC
-	9FE0yuG9fNtUOYtpes13CB5K0Tq5DwifGzWyCEe2H6yq2JusGvG6ZbU0m410dvmEVoNqI1pcYF/
-	jPGkdzDmgP3TjKvNhN/wfsib5yyf5SehxzhWq6/XyoeprdvAYUz78qdzm4Zmb5KrK9EAgN+08zu
-	vS6uBKDgFEEaU4Kb2YCOuTxhjxqfJHdBpAGFbaQuXJIagxFk4Gc/ddAekt8qHkdMtY62TCMnO5/
-	biJPRYKO55XGrCNdqjBN6bZwPnrHopD+Lq5wz2CnYqQyPqlY4B5GSgUD+aUqoTAtNG1eiFuviZB
-	Rj0nv5VHcKpEBhe0OE501N8srBX57KJBkURyFDeTejcDtZofRsff0mjAZiGumaKZwwwVQEReLEZ
-	ZHxBbdG2rWhAc6WwQxcSeRSbu8ACqvbYN8tn9p5rjnfcy6dBxjfqXfZYdNH5cmLyVRA==
-X-Received: by 2002:a05:6000:41f0:b0:492:c04f:1dfa with SMTP id ffacd0b85a97d-49582badc4dmr5288099f8f.9.1794203419718;
-        Sun, 08 Nov 2026 21:50:19 -0800 (PST)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4959783e39esm7566761f8f.45.2026.11.08.21.50.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 21:50:18 -0800 (PST)
-Date: Mon, 9 Nov 2026 08:50:14 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: Sean Christopherson <seanjc@google.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Karthik Bhargavan <karthik@pereq.eu>,
-	=?iso-8859-1?Q?Cl=E9ment?= Blaudeau <clement@cryspen.com>
-Subject: Re: [PATCH] KVM: nVMX: Prevent potential user space corruption
-Message-ID: <avFfFqotCajjCzTf@stanley.mountain>
-References: <dab486f129c36ba1cfb322ceb56ec6fdef020ca3.1793959700.git.dan@cryspen.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UpNt+xLP
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=05YxRWNZJI30oJfOmyqMZX5TbgRYCDrZaXVZFkrDSX0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794203448; v=1; x=1794808248;
+ b=UpNt+xLP4wHFET68R+zvjaQZyHcS+yE5UEzVYOILWclodaHHroQfBK3ir6+BfF8HYFKMc0na
+ 8RTLf8bktd2k1+DmSgBoftOKZkUPuH8FkWCROqQw/HUKYo0gAXSHJl/9TdaRwRjNF6d+gVeD7WT
+ hCwPZi+9YgjCKbjZQlVBahnA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a9500b413c04da7b;
+	Mon, 09 Nov 2026 05:50:45 +0000
+X-Mizu-Trace-ID: a9500b413c04da7b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f03d8a2f-7803-4503-9485-54a9ddcaf332@linux.dev>
+Date: Mon, 9 Nov 2026 13:50:32 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,13 +58,380 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dab486f129c36ba1cfb322ceb56ec6fdef020ca3.1793959700.git.dan@cryspen.com>
+User-Agent: Betterbird (macOS/Intel)
+Subject: Re: [PATCH v4] mm/memory: use pmdp_get_lockless() for the pmd read in
+ do_fault_around()
+To: Greg Ungerer <gerg@polyxeno.com>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Sam Creasey <sammy@sammy.net>
+Cc: Hui Zhu <zhuhui@kylinos.cn>, stable+noautosel@kernel.org,
+ linux-m68k@lists.linux-m68k.org
+References: <20261104091050.117076-1-hui.zhu@linux.dev>
+ <dec26f4a-138a-4cd7-b000-4bda7c61af82@kernel.org>
+ <88a6bf17-2189-44a8-8255-50b7ee1d80f2@linux.dev>
+ <e6ed4165-03fd-4204-b25a-bafc37c3930c@polyxeno.com>
+Content-Language: en-US
+From: Hui Zhu <hui.zhu@linux.dev>
+In-Reply-To: <e6ed4165-03fd-4204-b25a-bafc37c3930c@polyxeno.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Oops.  I sent this from the wrong mailbox so the From: header doesn't
-match.  I'll resend.
+2026/11/6 20:08, Greg Ungerer:
 
-regards,
-dan carpenter
+Hi Greg,
 
+> Hi Hui,
+>
+> On 6/11/26 13:03, Hui Zhu wrote:
+>> 2026/11/5 20:00, David Hildenbrand (Arm) :
+>>> On 11/4/26 10:10, Hui Zhu wrote:
+>>>> From: Hui Zhu <zhuhui@kylinos.cn>
+>>>>
+>>>> KCSAN reports a data-race in do_read_fault / pmd_install; the same code
+>>>> is in mainline:
+>>>>
+>>>>     write (marked) to 0xffff8d52a75fb810 of 8 bytes by task 27487 on cpu 5:
+>>>>      native_set_pmd arch/x86/include/asm/pgtable_64.h:83 [inline]
+>>>>      pmd_populate arch/x86/include/asm/pgalloc.h:84 [inline]
+>>>>      pmd_install+0xe0/0x120 mm/memory.c:444
+>>>>      finish_fault+0x5bc/0xb00 mm/memory.c:5204
+>>>>      do_cow_fault mm/memory.c:5432 [inline]
+>>>>      do_fault+0x5d0/0x6e0 mm/memory.c:5526
+>>>>      handle_mm_fault+0x211/0x4c0 mm/memory.c:6218
+>>>>      __mm_populate+0x144/0x270 mm/gup.c:2207
+>>>>      __do_sys_mlockall+0x2cd/0x380 mm/mlock.c:764
+>>>>
+>>>>     read to 0xffff8d52a75fb810 of 8 bytes by task 27527 on cpu 9:
+>>>>      do_fault_around mm/memory.c:5341 [inline]
+>>>>      do_read_fault+0x162/0x670 mm/memory.c:5381
+>>>>      do_fault+0x31a/0x6e0 mm/memory.c:5524
+>>>>      handle_mm_fault+0x211/0x4c0 mm/memory.c:6218
+>>>>      faultin_page_range+0x227/0x530 mm/gup.c:2156
+>>>>      __x64_sys_madvise+0x67/0x80 mm/madvise.c:1479
+>>>>
+>>>>     value changed: 0x0000000000000000 -> 0x000000001386c067
+>>>>
+>>>> Both paths only hold mmap_lock for read, so do_fault_around() tests
+>>>> vmf->pmd while pmd_install() populates it under the pmd lock.  The race is
+>>>> benign: a stale pmd_none() only wastes the prealloc_pte, which do_fault()
+>>>> frees again, and a pmd seen as populated only makes ->map_pages() find no
+>>>> PTE and do_read_fault() fall back to __do_fault().
+>>>>
+>>>> The load still has to be lockless-safe.  The store side already is: on
+>>>> i386-PAE, pmd_install() publishes both halves of the pmd with a single
+>>>> cmpxchg8b.  The load side is not.  pmdp_get() is a plain READ_ONCE() over
+>>>> a pmd_t that is wider than a word there, so it becomes two 32-bit loads
+>>>> and can return the low half of one pmd together with the high half of
+>>>> another.  Use pmdp_get_lockless(), the accessor for pmd reads that do not
+>>>> hold the pmd lock: it re-reads until both halves come from the same pmd.
+>>>> It is also what __pte_offset_map() already uses on this very pmd a few
+>>>> instructions later.
+>>>>
+>>>> Only X86_32+X86_PAE and SH+X2TLB compile the retry loop, these being the
+>>>> GUP_GET_PXX_LOW_HIGH selectors that have more than two page table levels.
+>>>> mips32 with 64-bit physical addresses selects GUP_GET_PXX_LOW_HIGH too,
+>>>> but is 2-level and so falls back to pmdp_get().  On every other
+>>>> configuration, x86-64 included, pmdp_get_lockless() is pmdp_get(): the
+>>>> pmd is loaded in one go, the READ_ONCE() silences the report the same
+>>>> way, and there is no functional change.
+>>>>
+>>>> Fixes: 7267ec008b5c ("mm: postpone page table allocation until we have page to map")
+>>>> Cc: stable+noautosel@kernel.org # KCSAN annotation only, no functional change
+>>>> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+>>>> Acked-by: Lorenzo Stoakes <ljs@kernel.org>
+>>>> ---
+>>>> Changelog:
+>>>> v4:
+>>>> Commit message only, the diff is identical to v3.  Spell out the affected
+>>>> arches and add the lore links for v1-v3 (Lorenzo Stoakes).  Reword the
+>>>> cmpxchg8b sentence: the store is already atomic, it is the load that tears.
+>>>> Add the Fixes: tag (David Hildenbrand).
+>>>> v3:
+>>>> https://lore.kernel.org/all/20261103014749.96764-1-hui.zhu@linux.dev/
+>>>> Shorten the comment to one line (David Hildenbrand).
+>>>> v2:
+>>>> https://lore.kernel.org/all/20261102093120.92654-1-hui.zhu@linux.dev/
+>>>> Use pmdp_get_lockless() instead of pmdp_get() (David Hildenbrand).
+>>>> v1:
+>>>> https://lore.kernel.org/all/20261102031308.66177-1-hui.zhu@linux.dev/
+>>>>
+>>>>    mm/memory.c | 3 ++-
+>>>>    1 file changed, 2 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/mm/memory.c b/mm/memory.c
+>>>> index 0fb676dd2bd63..f25c2ce0ef153 100644
+>>>> --- a/mm/memory.c
+>>>> +++ b/mm/memory.c
+>>>> @@ -6017,7 +6017,8 @@ static vm_fault_t do_fault_around(struct vm_fault *vmf)
+>>>>        to_pte = min3(from_pte + nr_pages, (pgoff_t)PTRS_PER_PTE,
+>>>>                  pte_off + vma_pages(vmf->vma) - vma_off) - 1;
+>>>>    -    if (pmd_none(*vmf->pmd)) {
+>>>> +    /* pmd_install() rechecks pmd_none() under the pmd lock. */
+>>>> +    if (pmd_none(pmdp_get_lockless(vmf->pmd))) {
+>>>>            vmf->prealloc_pte = pte_alloc_one(vmf->vma->vm_mm);
+>>>>            if (!vmf->prealloc_pte)
+>>>>                return VM_FAULT_OOM;
+>>> Fun, this breaks some odd m68k configs because they do some legacy weird stuff with pmd_none().
+>>>
+>>> I'll throw in the following cleanup. CCing m68k maintainers: I would drag
+>>> this along with this fix here unless you disagree.
+>>>
+>>>   From e3c739933a04743e3923f6f39a603e93f2700304 Mon Sep 17 00:00:00 2001
+>>> From: "David Hildenbrand (Arm)" <david@kernel.org>
+>>> Date: Thu, 5 Nov 2026 12:49:38 +0100
+>>> Subject: [PATCH] m68k/mm: simplify
+>>>    pmd_none()/pmd_val()/pmd_present()/pmd_bad()
+>>>
+>>> pmd_t on m68k used to contain 16 words. Commit ef22d8abd876 ("m68k:
+>>> mm: Restructure Motorola MMU page-table layout") reduced Motorola PMDs
+>>> to one word; Sun3 and ColdFire use word-sized folded PMDs.
+>>>
+>>> Use direct member access in pmd_val() and replace the Sun3 and ColdFire
+>>> pointer-taking predicate wrappers with inline functions taking values.
+>>>
+>>> This allows us to write something like:
+>>>
+>>>     if (pmd_none(pmdp_get(pmdp)))
+>>>
+>>> While at it remove unused pmd_present2() and commented-out pmd_bad()
+>>> on sun3.
+>>>
+>>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>>> ---
+>>>    arch/m68k/include/asm/mcf_pgtable.h  | 20 +++++++++++++++-----
+>>>    arch/m68k/include/asm/page.h         |  2 +-
+>>>    arch/m68k/include/asm/sun3_pgtable.h | 23 +++++++++++++++--------
+>>>    3 files changed, 31 insertions(+), 14 deletions(-)
+>>>
+>>> diff --git a/arch/m68k/include/asm/mcf_pgtable.h b/arch/m68k/include/asm/mcf_pgtable.h
+>>> index f45a882238dbb..4efa8e3e1e98a 100644
+>>> --- a/arch/m68k/include/asm/mcf_pgtable.h
+>>> +++ b/arch/m68k/include/asm/mcf_pgtable.h
+>>> @@ -130,11 +130,21 @@ static inline void pte_clear(struct mm_struct *mm, unsigned long addr,
+>>>      #define pte_page(pte)    virt_to_page(__pte_page(pte))
+>>>    -static inline int pmd_none2(pmd_t *pmd) { return !pmd_val(*pmd); }
+>>> -#define pmd_none(pmd) pmd_none2(&(pmd))
+>>> -static inline int pmd_bad2(pmd_t *pmd) { return 0; }
+>>> -#define pmd_bad(pmd) pmd_bad2(&(pmd))
+>>> -#define pmd_present(pmd) (!pmd_none2(&(pmd)))
+>>> +static inline int pmd_none(pmd_t pmd)
+>>> +{
+>>> +    return !pmd_val(pmd);
+>>> +}
+>>> +
+>>> +static inline int pmd_bad(pmd_t pmd)
+>>> +{
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +static inline int pmd_present(pmd_t pmd)
+>>> +{
+>>> +    return !pmd_none(pmd);
+>>> +}
+>>> +
+>>>    static inline void pmd_clear(pmd_t *pmdp) { pmd_val(*pmdp) = 0; }
+>>>      diff --git a/arch/m68k/include/asm/page.h b/arch/m68k/include/asm/page.h
+>>> index d30f8b2f15927..09a2c020ec992 100644
+>>> --- a/arch/m68k/include/asm/page.h
+>>> +++ b/arch/m68k/include/asm/page.h
+>>> @@ -17,7 +17,7 @@
+>>>     */
+>>>    #if !defined(CONFIG_MMU) || CONFIG_PGTABLE_LEVELS == 3
+>>>    typedef struct { unsigned long pmd; } pmd_t;
+>>> -#define pmd_val(x)    ((&x)->pmd)
+>>> +#define pmd_val(x)    ((x).pmd)
+>>>    #define __pmd(x)    ((pmd_t) { (x) } )
+>>>    #endif
+>>>    diff --git a/arch/m68k/include/asm/sun3_pgtable.h b/arch/m68k/include/asm/sun3_pgtable.h
+>>> index 704442a391fd7..5867d24032655 100644
+>>> --- a/arch/m68k/include/asm/sun3_pgtable.h
+>>> +++ b/arch/m68k/include/asm/sun3_pgtable.h
+>>> @@ -109,14 +109,21 @@ static inline void pte_clear (struct mm_struct *mm, unsigned long addr, pte_t *p
+>>>    #define pmd_page(pmd)        virt_to_page((void *)pmd_page_vaddr(pmd))
+>>>      -static inline int pmd_none2 (pmd_t *pmd) { return !pmd_val (*pmd); }
+>>> -#define pmd_none(pmd) pmd_none2(&(pmd))
+>>> -//static inline int pmd_bad (pmd_t pmd) { return (pmd_val (pmd) & SUN3_PMD_MASK) != SUN3_PMD_MAGIC; }
+>>> -static inline int pmd_bad2 (pmd_t *pmd) { return 0; }
+>>> -#define pmd_bad(pmd) pmd_bad2(&(pmd))
+>>> -static inline int pmd_present2 (pmd_t *pmd) { return pmd_val (*pmd) & SUN3_PMD_VALID; }
+>>> -/* #define pmd_present(pmd) pmd_present2(&(pmd)) */
+>>> -#define pmd_present(pmd) (!pmd_none2(&(pmd)))
+>>> +static inline int pmd_none(pmd_t pmd)
+>>> +{
+>>> +    return !pmd_val(pmd);
+>>> +}
+>>> +
+>>> +static inline int pmd_bad(pmd_t pmd)
+>>> +{
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +static inline int pmd_present(pmd_t pmd)
+>>> +{
+>>> +    return !pmd_none(pmd);
+>>> +}
+>>> +
+>>>    static inline void pmd_clear (pmd_t *pmdp) { pmd_val (*pmdp) = 0; }
+>>>      /*
+>> Hi David,
+>>
+>> Thanks for picking this up, and for the m68k cleanup!
+>>
+>> Tested-by: Hui Zhu <zhuhui@kylinos.cn>
+>>
+>> Tested with gcc-m68k-linux-gnu 13.3.0 (Ubuntu 13.3.0-6ubuntu2~24.04), on
+>> three configs that between them cover all three m68k families:
+>>
+>>    amiga_defconfig                    Motorola MMU, PGTABLE_LEVELS=3
+>>    sun3_defconfig                     SUN3,  PGTABLE_LEVELS=2
+>>    m5208evb_defconfig + CONFIG_MMU=y  ColdFire,  PGTABLE_LEVELS=2
+>>
+>> Without your patch none of the three can build mm/memory.o, and each fails
+>> at a different site:
+>>
+>>    arch/m68k/include/asm/page.h:20:27: error: lvalue required as unary '&' operand
+>>    arch/m68k/include/asm/sun3_pgtable.h:113:33: error: lvalue required as unary '&' operand
+>>    arch/m68k/include/asm/mcf_pgtable.h:134:33: error: lvalue required as unary '&' operand
+>>
+>> With it, all three build a full vmlinux with zero warnings.
+>>
+>> Two things that might save you some time:
+>>
+>> - m68k looks like the only arch with this pattern. Grepping arch/ and
+>>    include/ for '(&x)->pmd' and '(&(pmd))' finds nothing outside arch/m68k/,
+>>    and pmd_none2()/pmd_bad2()/pmd_present2() only exist in mcf_pgtable.h and
+>>    sun3_pgtable.h. So your three hunks look complete to me.
+>>
+>> - No m52xx/m54xx defconfig enables CONFIG_MMU, so the ColdFire path through
+>>    mcf_pgtable.h has no defconfig coverage at all; you have to flip it on by
+>>    hand (scripts/config -e MMU && make olddefconfig) to reach it. That is
+>>    probably how this went unnoticed for so long - my patch has been breaking
+>>    m68k since v1, because pmdp_get() returns by value just like
+>>    pmdp_get_lockless() does.
+> The m5475evb_defconfig is supposed to have MMU enabled:
+>
+>       $ ARCH=m68k CROSS_COMPILE=m68k-linux-uclibc- make m5475evb_defconfig
+>         HOSTCC  scripts/basic/fixdep
+>         [snip]
+>         HOSTLD  scripts/kconfig/conf
+>       #
+>       # configuration written to .config
+>       #
+>       $
+>       $ grep CONFIG_MMU .config
+>       CONFIG_MMU=y
+>       CONFIG_MMU_COLDFIRE=y
+>       CONFIG_MMU_GATHER_NO_RANGE=y
+>       CONFIG_MMU_GATHER_MERGE_VMAS=y
+>       CONFIG_MMU_LAZY_TLB_REFCOUNT=y
+>
+> But something ends up disabling it when you compile.
+> I'll fix this.
+>
+>
+>> I also checked whether your patch changes code generation, by building the
+>> same tree with and without it and comparing every object with objdump -d
+>> (plain cmp is useless here, timestamps and link layout shift everything).
+>> Counting only objects whose disassembly actually differs:
+>>
+>>    amiga      3733 objects, 0 changed
+>>    sun3       3553 objects, 3 changed: mm/memory.o, mm/pgtable-generic.o,
+>>                                        mm/vmalloc.o
+>>    m5208evb    716 objects, 1 changed: mm/pgtable-generic.o
+>>
+>> amiga is the interesting one. It is the only config where pmd_val() itself
+>> changed, and it comes out bit-for-bit identical, which also says the build
+>> is reproducible enough for this comparison to mean anything. sun3 and
+>> ColdFire differ because pmd_none() stops taking the address of its
+>> argument, and the direction is an improvement. In mm/vmalloc.o on sun3 one
+>> function loses a forced spill:
+>>
+>>    -  subql #4,%sp
+>>    -  movel %d0,%sp@(12)     /* spill the pmd value */
+>>    -  lea %sp@(12),%a1       /* &(pmd) */
+>>    -  moveal %a1@,%a0        /* read it back */
+>>
+>> and turns into a 13 instruction function with no stack slot at all.
+>> Instruction counts are otherwise flat (sun3 mm/memory.o 7373 -> 7373,
+>> mm/vmalloc.o 5514 -> 5515), so it is not a size regression.
+>>
+>> Dragging the cleanup along with the fix sounds right to me. It is a hard
+>> prerequisite, and sent on its own it would just look like a cleanup with no
+>> urgency. I assume it goes in ahead of 6ab55cfd in core-7.5.misc, so that
+>> linux-next never sees a broken m68k in between.
+>>
+>> One red herring in case anyone else pokes at this: m5208evb with its stock
+>> defconfig (CONFIG_MMU not set) fails to build mm/memory.o for reasons that
+>> have nothing to do with any of this - implicit declarations of
+>> pte_is_uffd_wp_marker() and pmd_pgtable(), plus a parse error in
+>> include/linux/mm.h. Pre-existing, and it goes away once MMU is on.
+> You should not be able to set MMU=y if configured for the M5208.
+> It doesn't have an MMU. You want the 5475, 5485 or 54418 to test
+> valid MMU=y configurations.
+>
+> Regards
+> Greg
+>
+>
+>
+
+You are right on both counts, and that mail of mine had three things
+wrong.
+
+1. "No m52xx/m54xx defconfig enables CONFIG_MMU" - wrong.  I grepped the
+defconfig fragments for CONFIG_MMU=y, but MMU is 'default y', so an
+enabled MMU never appears in the fragment.  m5475evb and m54418evb
+both give CONFIG_MMU=y, as you show.
+
+2. My "m5208evb + CONFIG_MMU=y" test config was not a valid config.
+M520x is 'depends on !MMU', so forcing MMU on leaves the SoC choice
+unsatisfiable and olddefconfig silently drops it:
+
+before:  # CONFIG_MMU is not set / CONFIG_M520x=y
+after:   CONFIG_MMU=y / CONFIG_MMU_COLDFIRE=y / CONFIG_M520x gone
+
+Please disregard the m5208evb row in my codegen numbers.
+
+3. The "red herring" I flagged was my own doing, not a pre-existing
+problem.  mm/Makefile has 'mmu-$(CONFIG_MMU) := ... memory.o', so a
+NOMMU config never builds mm/memory.o at all; I asked for a target
+that config does not have.  Sorry for the noise on that one.
+
+Retested with the configs you named (7.4-rc1 plus the do_fault_around
+change plus David's cleanup, gcc-m68k-linux-gnu 13.3.0):
+
+m5475evb_defconfig   without David's patch: mm/memory.o fails at
+mcf_pgtable.h:134 with it: full -j24 build ok, vmlinux 4215344
+bytes, 0 warnings
+
+m54418evb_defconfig  without David's patch: same mcf_pgtable.h:134
+failure
+
+So the Tested-by I sent covers amiga, sun3 and m5475evb.  It is
+build-tested only - I have no m68k hardware here to boot.
+
+On MMU being disabled when you compile: I cannot reproduce that. Here
+m5475evb_defconfig gives CONFIG_MMU=y, olddefconfig reports no change,
+two consecutive defconfig runs produce an identical .config, and a full
+build finishes with CONFIG_MMU=y and CONFIG_M547x=y still set and
+.config untouched.  Two differences from your setup that might matter:
+I am on a glibc toolchain rather than uclibc, and building out of tree
+with O= rather than in tree.
+
+One observation, which may well be unrelated.  m5475evb_defconfig never
+sets CONFIG_M547x - it only ends up with it because the "ColdFire SoC
+type" choice defaults to M520x, which is unavailable under MMU=y, so
+kconfig falls back to the first usable member. m54418evb_defconfig sets
+CONFIG_M5441x=y explicitly.  If that fallback is what breaks on your
+side, making m5475evb explicit would sidestep it.
+
+Best,
+Hui
+
+
+>
