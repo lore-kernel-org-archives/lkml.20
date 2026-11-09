@@ -1,86 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229383;
-	b=KVXVhGy5ebOiskDBdq+Z/Q7+n/r9iiF7go8pE8sDgJAXPGYtAJmNxhkkWNjagQ8gyOFT
-	 XfD5V7HNyZfLczJYfwsJa+7aVHo13SFxqYt7omoQYDcwkDWQ354GEHpYwWcnlKp99qW0T
-	 fDbNPd6O13TLgqY03uVewnXnj0/iXAHrREiJmOGEgFLrZPYYEkZeAYQfX0JuGv68ZI0HK
-	 8fJukUS92n1vAirmmflH3mSLF33FCuvR/b7FYyNvP+oCTkNbVD/SZDBvyg7do8489ISyh
-	 WCIF/zfk2MjCV6sR5bc8Nt4xIw2PYsWgnoCbOSWAmvUHovutxpdIYW8SJQtOLi91oHA==
+	t=1794229408;
+	b=ZIuNquEQX7Mhfz50YF9/5Iyd5kQ/ERcqhEC60jLLC83PbBvXFJmh5d5VadBYFGq2wVCZ
+	 jV+gml28dopnJ/SnliLy2ynsgi5VHLzJ2J1DP6Kn/JY7SNVlhFa5xsFhANgcqXKsvfPk1
+	 Gx9QIzWxsWMG0SuHiAz64h9hqI+Bfi0v4HrVfKCrjBSwc84w5wPiBDFrE7BTpPUwIPsM+
+	 zT69H4q2YjTGiWtbs2h+YCHO3CktodJT3neygtXxbRiIGZzLwmdtze2iS4rmG8LcwwBXh
+	 Wv01/FqGkKdRiT5TIcASWuHDCZeh14flvUc/mWrholGjU5tCyMGWKe6+QpluS42jRqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229383;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=vx6Ms7DaSLXJkW1vJMuP19hrsjj4bkb+6EJX49nS2u8=;
-	b=wGPqxpHlmIh+SSRhQA5jH0Hr5DR6ptXUzsneERkAo2FCkASZz93xbUI28vVx4lAieGtK
-	 51dswpEsNnCTqY9e3einAGSWOTdTmXwyI+yfJsL7Z9lszqgX8n6G9yoCttHUqYPLmZzFf
-	 ZcSUnAAoJkPkoLINfT7saiYtHGkpoAsrlLrWIdYDoe/OPMD8NfGoCZQioYDUimXXtGEkX
-	 CeOcnYIHowHPUrdQRAhfltSzcIQMZNsAaGxjg0aa/+WsZfHV1Zd0sFNhBMkfWH29VnF9g
-	 D5DrvYlPrIRKRBtjMRPBk+v80boQTOYEWK16A93P5I6yG+r1vDeoQyZK1Vli/RbHk9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229408;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 From:To:Cc:Subject:X-Mailer:References:In-Reply-To;
+	bh=72Pzf80vHJ6tg7h9s2yhzIcCJ8giywOh4xxajI0FVfE=;
+	b=GbSGeQuQ050bLT00/b4ulbws2EYdvcl4wEhLj7tuvnaaAWxNmK1Mz8OaVWeDTpOeGwij
+	 jGS6Muly84GcJvzsdBPuEtDcpI+ZZHV4qHhQWFpn/z1ISYgdrSFpsB8vTkb4+JNA9uBJu
+	 XS/cc22IoLJy/HeB2U4K7euLOvbyv9X82zFW2timCV/xovRwnDtb+DFVa6bB+U1bM25xs
+	 ww+kBsGzHSSPW23M5agoE/H40jYAkI+OtGFdpSgT/5HGtrunilOgfnUHZc6T0J4UOMkp0
+	 QxtZ/wqHbkCSF/v8MLLGtCaxET/e0R2yaap+9KQLgCtwipx7b6FcwDaZJlhaXwaYp/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="h2fJta/Z";
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Th6NR4gp;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6951E606A321;
-	Mon,  9 Nov 2026 13:03:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6951E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2910606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:03:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2910606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h2fJta/Z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794229382; x=1825765382;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=64RKfb+JM7ihLo+ucl0KWxre6Pov9mD8NahlY9fQh/Q=;
-  b=h2fJta/ZDBSNvBodkwUMG/+dlGl2n4bc5EJ2KXRYOiJn1TqEl8GEOqjC
-   Qty38acf9EYYZdG/9Wwe+N5TjXXjSCvjW6YYEuaDRYdPL9B0qnxqwsFj+
-   r+VpDX0Hs0KIZwI1w2ty7zROnxIunMwHH8g/chsnkg6t1BPEkQiTSpCl5
-   v15oAWC80/bVi8t1aR4rNfgj8Df4CGV6M9ua5l9LhYMvagKe12XMLwaHs
-   mqKodgCf6LMpPcwRiEIrPQP53hgNe8EHKcoA8Pb4obHhMQP3vAYn/rlls
-   UQP+9kmtxiyobV7XFJoRE5bBaju/sgaePCTojOTadagDAIqhMM4xGuByT
-   w==;
-X-CSE-ConnectionGUID: b25Oek+yS0iJMIInwnZpSA==
-X-CSE-MsgGUID: j/UfINtdToaCKA1+6eKfjA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2951823"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2951823"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:03:02 -0800
-X-CSE-ConnectionGUID: BDl7lsweQBq86zMoWj4whA==
-X-CSE-MsgGUID: lhfaR/UmQNqbEW9ClEKaJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="8034179"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:02:59 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id BD4E9121B96;
-	Mon, 09 Nov 2026 15:02:56 +0200 (EET)
-Date: Mon, 9 Nov 2026 15:02:56 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: b.danias@tutamail.com
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Serin Yeh <serin.yeh@intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Robert Foss <rfoss@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/3] media: i2c: ov8856: Enable runtime PM before
- registering the sub-device
-Message-ID: <avHEgEcEet-T9dmK@kekkonen.localdomain>
-References: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
- <20261104-ov8856-pm-fixes-v1-2-1958b730ce66@tutamail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Th6NR4gp
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91eb7d1478cso9159816d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:03:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794229407; x=1794834207; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=72Pzf80vHJ6tg7h9s2yhzIcCJ8giywOh4xxajI0FVfE=;
+        b=Th6NR4gpQlycRBLRjBND2+14b1JRjtLWr70u04hTBSAFERKPkfJOkUTK3TEdNyfRL1
+         EdEWi4ne5l33XwRwB0IMecrK3EHlMksJaS2H9i4GxM3NATIPc+YcuZaUQ9+Us4vYWqu0
+         a7opGItIC1bBR5aL256gy45CpuBuBzS9m6EJBcNYglPbaUfm6KjU+s0vzQDbqgTEukLK
+         odJRimkIhb3JTbg75cf4GygFLOX8zJGE50MS07jGUEVGREv1k3k6wsr9OKQCh/zuCr0A
+         1EKAsR/Sp/3331X2ZIGFsUFaefJHCQulLSSxIfqaMlOUKO31bI9O+oU65URNeAqzzp5C
+         bNeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794229407; x=1794834207;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=72Pzf80vHJ6tg7h9s2yhzIcCJ8giywOh4xxajI0FVfE=;
+        b=a+H/+2D6LD+TaaJw4aWrLrlKo/9VZT0pPtRCbe1Dx5EGdVvkGsXrYFRL+o2rh+JDkK
+         MeNQ0Rzhu86oM/g1+r0R0P2EesU8NJ0eqkAse7kEcrUVtXjjeOrK/iQL61QQsifHri/X
+         Ixfq5W74HEZ9c5tjHrl9DdolU6eHLw4jlXJs9YRc+AE8hsEcpeluhSiboucafNUBPbI3
+         X3Z7c3FzMYYIFSWCht9Z8duUvpZ+KJnrOeyxpEvFJ2mENFcx2xncTUHDvxvFQOv8LeuA
+         JowxGW9W807FIQf/GsNtmKEUzp7iERgQzcKiV3NGonLfiHtVdFxUWLl603yi5Z7RtmU9
+         PkfQ==
+X-Forwarded-Encrypted: i=1; AL+hErFUBEzxiVyIc40dA/7EDQ6eN5M0/D+pO7ZlxlhPrr0cR2ldvvsAG0unzeZwFHCdojfoY9VQljnLffyj2GQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NZuIM4dTCOxXMKmrtZQihJvQu4TA8/aU6PGqrcUW0iKxpnrP1
+	C1WbwfGXbNwlQHmy15eWcSNA1Vx+dsJ0AgZwsEzTNs5MwjsOBsvmiI27
+X-Gm-Gg: AYBFou2nDgSj6XoK4MSXqN69Feyebhxim8qYyLCcXQZSg/LgS0yjcljTtA491Yky596
+	n05gvYfWb1VrhtUkcF5dyVyuoa8+OHXYGP6GmcDxRgCwEtIshunzaTAkfgYpUr1xhU4zAuL526j
+	44zR4aS5jbHj5A4fzTEYd0uSNWrCHy3wXBuS0NsIqRYojwyruR1rqZSnUKthvuuVUShppD+2Ktf
+	C3eZr0IYFuBfowtaqqn7usBcoxwliv7WqQND+V6Klv5VIBOsAV53bl9Hhv4STDVJRDdgVdo1VVo
+	3LbjPgghzextyQ4siqT+CPgktBe2ZwYZI1WbAwWJeUa7v3ZN5gBpB7Yz7SGYxo3Y8xbo+4lgvWW
+	G7w9sH4imgKs9HPUQciuGJnCKa/BkEibK6oTyYjWTWMdIBPsCxEIsmcpUMwS3J6M4ozQlyXeHfn
+	DUEojoCA0eLnxlkWViUfI/mDNbOJDb7SqOUfqK6jXimGK7JkrtpxkH8GtMvwTDIN4cmr1ZuWoDM
+	WMiZWuHC/YDgtjir0lmSyFG6/StEz+ZXnJDJQyY5Pz91EIyToA1VAcxLweRB8CYa0pb7k9+24/s
+	XaLSynVZqdczyGQ18NqkEblcQtbyEFqRKQ==
+X-Received: by 2002:a05:620a:400b:b0:939:fde0:a71b with SMTP id af79cd13be357-947846073e3mr613394785a.0.1794229405262;
+        Mon, 09 Nov 2026 05:03:25 -0800 (PST)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94782d61906sm469034185a.14.2026.11.09.05.03.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 05:03:24 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,98 +87,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104-ov8856-pm-fixes-v1-2-1958b730ce66@tutamail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 09 Nov 2026 08:03:22 -0500
+Message-Id: <DMQP8OMF2NZ2.3K3MJRWBNXWW@gmail.com>
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>, <daniel.zahka@gmail.com>
+Cc: <kuba@kernel.org>, <willemdebruijn.kernel@gmail.com>,
+ <davem@davemloft.net>, <edumazet@kernel.org>, <pabeni@redhat.com>,
+ <horms@kernel.org>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+ <rdunlap@infradead.org>, <donald.hunter@gmail.com>,
+ <andrew+netdev@lunn.ch>, <shuah@kernel.org>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH net-next v3 4/5] selftests: drv-net: psp: factor out psp
+ connection setup
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20261106-psp-v3-4-a8dd38f5a727@gmail.com>
+ <179408516862.994134.13048510473902240219@kernel.org>
+In-Reply-To: <179408516862.994134.13048510473902240219@kernel.org>
 
-Hi Babis,
+On Sat Nov 7, 2026 at 3:59 PM EST, netdev-bot+sashiko wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in ca=
+se
+> you want to address the nit picks below when you respin.
+>
+> Low priority / nit picks for your consideration:
+>
+> - [Low] The commit message says "Here we are adding some more error
+>   paths, so we just handle errors by closing the data sock".
+>
+> --
+>
+> selftests: drv-net: psp: factor out psp connection setup
+>
+> This commit moves the PSP connection setup and the assoc uapi calls in
+> psp.py and psp_responder.c into helpers. Other tests that start with a ke=
+y
+> exchange can then reuse that sequence. It also makes run_session() close
+> the data socket when conn_setup_psp() fails.
+>
+>> The caller of conn_setup_psp() not handling errors was preexisting. Here
+>> we are adding some more error paths, so we just handle errors by closing
+>> the data sock to make the code a bit more robust.
+>
+> [Severity: Low]
+> This isn't a bug, but is the "adding some more error paths" part still
+> accurate for v3?
+>
+> Before this patch, conn_setup_psp() returned -1 in three cases:
+> psp_rx_assoc() returning NULL, recv() returning < 0, and psp_tx_assoc()
+> returning NULL.
+>
+> After the patch, it fails in the same three cases:
+>
+>     rx_assoc() returns -1 when rsp is NULL
+>     conn_setup_psp() returns -1 when recv() returns < 0
+>     tx_assoc() returns -1 when tsp is NULL
+>
+> The v3 changelog says the per-version key length table was replaced with
+> the key length from the kernel's rx-assoc reply. That table lookup looks
+> like the only new way this function could fail, so the sentence may be
+> left over from v1/v2.
+>
 
-On Wed, Nov 04, 2026 at 11:42:48AM +0200, Babis Danias via B4 Relay wrote:
-> From: Babis Danias <b.danias@tutamail.com>
-> 
-> ov8856_probe() registers the async sub-device before it enables runtime
-> PM. But the sub-device can be used as soon as it is registered. On ACPI
-> systems where ipu-bridge instantiates a VCM for the sensor, the bridge's
-> .bound() callback queues a work item that runtime-resumes the sensor.
-> If the work runs before probe reaches pm_runtime_enable(),
-> pm_runtime_get_sync() fails with -EACCES and the VCM is never created:
-> 
->   [  213.265894] ov8856 i2c-OVTI8856:00: Error -13 runtime-resuming sensor, cannot instantiate VCM
-> 
-> On a Dell Latitude 7320 Detachable this happened on every bind of the
-> rear sensor after the IPU6 ISYS driver had probed, so the dw9714 focus
-> motor never showed up. Documentation/driver-api/media/v4l2-subdev.rst
-> asks drivers to enable runtime PM before registering the sub-device.
-> 
-> Enable runtime PM first, and hold a usage reference until registration
-> is done, so that the sensor can't be suspended halfway through. Drop the
-> reference with pm_runtime_put(), which also lets the sensor suspend once
-> probe is done, as the old pm_runtime_idle() call did. If registration
-> fails, undo the runtime PM setup. The probe_error_media_entity_cleanup
-> label then has no users left, so remove it.
-> 
-> The problem was found, and this patch written, with the help of an AI
-> coding assistant (Claude Opus 5.5). See the cover letter for details.
-> 
-> Fixes: 879347f0c258 ("media: ov8856: Add support for OV8856 sensor")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Babis Danias <b.danias@tutamail.com>
-> ---
->  drivers/media/i2c/ov8856.c | 23 ++++++++++++++++-------
->  1 file changed, 16 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
-> index 988ce0310..f9bcdd412 100644
-> --- a/drivers/media/i2c/ov8856.c
-> +++ b/drivers/media/i2c/ov8856.c
-> @@ -2425,22 +2425,31 @@ static int ov8856_probe(struct i2c_client *client)
->  		goto probe_error_v4l2_ctrl_handler_free;
->  	}
->  
-> +	/* Set the device's state to active if it's in D0 state. */
-> +	if (full_power)
-> +		pm_runtime_set_active(ov8856->dev);
-> +	/*
-> +	 * The sub-device can be used as soon as it is registered, so enable
-> +	 * runtime PM first, and hold a reference until registration is done.
-> +	 */
-> +	pm_runtime_get_noresume(ov8856->dev);
+Ah darn. I let local sashiko convince me it was a good idea not to
+ignore the return code of conn_setup_psp(), even though it is purely a
+preexisting "issue". Then, when I was writing the commit message, I
+think I was looking at the code from the next patch where
+handle_tx_assoc() rekey handler, has an extra check against the key
+length.
 
-Don't do pm_runtime_get_noresume() here, instead call pm_runtime_idle()
-after enabling Runtime PM, perhaps still after registering the async
-sub-device.
+If I have to respin, I'll probably drop the code chunk below entirely.
+Otherwise if we can just edit the sentence:
 
-> +	pm_runtime_enable(ov8856->dev);
-> +
->  	ret = v4l2_async_register_subdev_sensor(&ov8856->sd);
->  	if (ret < 0) {
->  		dev_err(ov8856->dev, "failed to register V4L2 subdev: %d",
->  			ret);
-> -		goto probe_error_media_entity_cleanup;
-> +		goto probe_error_pm_runtime_disable;
->  	}
->  
-> -	/* Set the device's state to active if it's in D0 state. */
-> -	if (full_power)
-> -		pm_runtime_set_active(ov8856->dev);
-> -	pm_runtime_enable(ov8856->dev);
-> -	pm_runtime_idle(ov8856->dev);
-> +	pm_runtime_put(ov8856->dev);
->  
->  	return 0;
->  
-> -probe_error_media_entity_cleanup:
-> +probe_error_pm_runtime_disable:
-> +	pm_runtime_disable(ov8856->dev);
-> +	pm_runtime_set_suspended(ov8856->dev);
-> +	pm_runtime_put_noidle(ov8856->dev);
->  	media_entity_cleanup(&ov8856->sd.entity);
->  
->  probe_error_v4l2_ctrl_handler_free:
-> 
+"Here we are adding some more error paths, so we just handle errors by
+closing the data sock".
 
--- 
-Regards,
+so it says,
 
-Sakari Ailus
+"Handle preexisting errors from conn_setup_psp(). No new error paths are
+introduced."
+
+Then it would be accurate.
+
+> The only behaviour change is in run_session():
+>
+>     if (conn_setup_psp(ys, opts, data_sock)) {
+>         close(data_sock);
+>         data_sock =3D -1;
+>     }
+>
+> Could the commit message give the actual reason for that change? For
+> example, the existing failures can leave a half set up data socket open.
+
