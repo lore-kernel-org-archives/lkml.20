@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794263635;
-	b=XSij4b/drH1LD+R43AmAEU++1DGtJ7uMdloLLy0/THobC1/x/idR0ke/L9oYcOOR1ECZ
-	 xJGQGn69OanIrDox1um4BznFjnThla0a/M5CO9dyOXzNH5MYjLya494BldGA6IqSbNY7B
-	 xYNHbiOubignw1xTp41jYKxaEMgtpZ/bPCsPFdAiG8Mcf0xLTgt5mJwNqg8CfT5W3LLwe
-	 vk7yX7n2wzVZfTp5T5nPOn0twI7VzglkZYCh+gA1W9mGiLf0KeMpMQzvLqfMPauWMvJVn
-	 OtWTRsMUBHMe1/ioBF3Z+FHVNbkA0aGEaSfEriymssaVVquKfEKzIdATXVo+/PXtOgQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263635;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=juGSgCG90hPdE9/iBCfeU0O/czp1PvRM5jFo+xGilAI=;
-	b=XSKsp0GhgFRKbiLoVrXsYpk/yW8OGBhczMflNkh3Chz0KEsOqZY8d7Lu1zVxmTp23/8H
-	 2jt9YPJkOwWRasKJ6O91atIYkr02EbEilVBn5hru0q0PFt/5C5kRqrftL7Q1/qSsfDvfy
-	 QUpUWtg5uWCQclR9dR7DRUxXkSTzkp3T116iWirraQPC0d7h5yq8zqTC/VOBGJ29HAlWQ
-	 smwTKO3kSP/0B4nm+hmb4hHJDW8BpMSZIGIc6PCswcCNE3kTbuuQlvDljo+yNS39/+NXI
-	 UuxY96GIDufbSmjk+QpdnN2t6ZHUGbmMsiNY2I5OPlGw61zxJf+MNTSpZ1iAP2Fc6gA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=packett.cool;
-	spf=pass smtp.mailfrom=packett.cool;
-	dkim=pass header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=kIq8CGMJ;
-	arc=none smtp.remote-ip=91.218.175.34
-Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794263640;
+	b=dqnjy7e3eJxP3sc9sfEwXLN1DOGQvl7kcQLotu4dKE2Juwk2KYlUU+DaOO4arl6sqz7p
+	 Me4bYIKdjbvbxF3gvgbkBoiO2T2Oe1M5/Y0MF/cgUWULCp6OaTODYRqyTBQkKCMvPwLIL
+	 L8NlGDs8Tx5x5zIv54wkpxnqDVQQg7CfQN48RiIOSiAcl/Rz0PMzN3LMtykjXOm4Ikp4q
+	 WBoVKMC9RVnfVo/Wdk8FK3hpqsVAt9stB2btPQddxTK8A6Agq3I52X4vkRFamQMT8D8Ip
+	 T7QWE2tR3QJP6GmB0W+07R6OFj630sy8fhTNnWcZsVqlktTzZqvAI0AaZI9kPOn8OXg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263640;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1CsRf0YcuKzwMQXsUZyEVhrviRIPm5xpm4F4SF276F4=;
+	b=jdBjonAgBvnAPaYjkLvTrkFh0lURpooA6dEQ+7WSN8TnQycBpRgDwM8wQ5Zy+CTPUZ3/
+	 KN/13z8w4Q93IG035p6Zcr/BH0rkqrRWR4OUIorfP8DEcf89IKb1KeSubyiYOOTgq4L3L
+	 ebm9COklz9MvV2I4kSVvzr4BrfovK6fj2+eH8Mx6bs8gV3U/RzAKVrxDk13je13odlsbi
+	 oTFep/mYJly7AMTPt/q0WmB+G1UHZPeulYHmY0eOOdVOXxP9gX4flDCz6J1CMCZDYqn1O
+	 v55Ki2i4e8H+07NU8TPD0gc3Qu2nvDBHZ5kRssRcJ0YtwgLgbNx2twVmxkoUmFkR9Qw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eOvjwA2y;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97223606A31C;
+	Mon,  9 Nov 2026 22:34:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eOvjwA2y
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794263640;
+	b=D+AUuAM+VjH8V5oL7rCtXphVcys9ox+tZRwpltcVeOR5uJFTSE3UPvclF4+O7dklBjqO
+	 zGquxu0lUflGdS4v3m8/4aWFExq8ByvwUak6S/wi2wXAZ1aD2vuzK3rr5bcjCFFhGjSVS
+	 SSDcZMuEyaByxT6GdDXWKT0PDcGGWhpgesRJRQUjoVGfrYq3ZF4xYmiOiPsWmjPTAbzg4
+	 djd/nxuGG9NO8UpH04qik1d9mQrlh91LFC9T771kpRc/cCACdnkPwl0sYoEHUunS9B4S5
+	 wXUhfmeqMVeIgtoCy6gJkk+4ErVBhRqcpDDZUGLpb5AB2zWM6fhTucdxP7LYGqlN7jw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794263640;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1CsRf0YcuKzwMQXsUZyEVhrviRIPm5xpm4F4SF276F4=;
+	b=X7XDW+Z07MfGoQ2tlpZXp2ronEIwR7Zr/WjtZWqwsgIwPEfEfduNOd3OPMziF6BwKHAj
+	 8fERHmoD4ZAKWbYwJAROMAET75nHDdDhei/gJVwHNCpVgInGyyJaiKIdwlJ97yjLlWh4Z
+	 NG4El3H0GL2hZ8fN4kLNzumP/ns6hW5M1NoZlrzoLAzX5Q/iNrBUUnDLXSc/AQEBncHwt
+	 LIsbvYfFESMQRFo/tJjIPrjgLAXnzeKJDOm9iLC81PguCcM83ukKXO0DDHNJ91+eC/+iF
+	 /Bos1zRkXq+17zugfezI69wXhXXPy4+cdJrajl1voGR9EnhVZGdxeOdehb+MCkED4YQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86941606A338
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 22:33:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86941606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=packett.cool header.i=@packett.cool header.a=rsa-sha256 header.s=key1 header.b=kIq8CGMJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Pk+laV3dhTJwk3ZH99anCvnpBHgw0DllGaWgkIfgUSI=;
- c=simple/simple; d=packett.cool;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794263632; v=1; x=1794868432;
- b=kIq8CGMJ8Ryzbro5ihd1ky31LpWN/HDF9mkeE+J42nWU1mRr7yZ1wCtY0MNfVeNVDagJQX27
- pTwAgmGpmClcYXXAIJfd0dT1YNIyRlxbIKG+PA/R2Bcfx7TZWF22Hb4TFl1KHx4xcWWJcFEmoqW
- KnCC9NzmlUaV6GEGRQ48GBv3YKycARKTQMTTUT8W0OWfUkvVpEDhYF9rqbyMO+BdV+nISXWS1ZO
- ejjMcp+Q6eyFdQrsVDzXfawNHRoTKfn4TsVAuyzx9MoIFpJuCZGcD3eSWuSebtp+5gIyUdJbxCE
- o5lOe5UqxcqB3n1CmuHYeW5j+Mw94Dk3gF6QC21/dig1A==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a5961c1509ba55d7;
-	Mon, 09 Nov 2026 22:33:52 +0000
-X-Mizu-Trace-ID: a5961c1509ba55d7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1aca2519-878c-4aa2-b869-7416e7c3e981@packett.cool>
-Date: Mon, 9 Nov 2026 19:33:46 -0300
+	by smtp.kernel.org (Postfix) with ESMTPS id 8EEC71F008BD;
+	Mon,  9 Nov 2026 22:33:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794263640;
+	bh=1CsRf0YcuKzwMQXsUZyEVhrviRIPm5xpm4F4SF276F4=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=eOvjwA2y0CGm1NgBkRiEtZXpLkbJh9d7VvUwBZegauPqUVGd4vf+2mbC5Okt6848M
+	 AWet1hFWPdWp0p2VCaGbJuQmJI4ZiicgrZKipFO6saGJToD+oBYTTIaJaokCy8TilT
+	 NsSxrpfF6oQwfZ7RHRz98OkEXEKDjKrm9QbKp4x4ujhKG+xUvPBJVvGnDrWfl5k0/9
+	 6QJ3rnU3ha6nuIixJOTTjTWbSzfY+VE+UsWXAUOuwdci0LuGHXxbJd75tpozsNVPaX
+	 6Us9AdhBtPPrpsYclo9OAePUS+riQKALblO7fRj7FNYb9I+yCLcm522p+pSjWtLD3S
+	 YiU3udgMy8XlA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 20489486B0;
+	Mon,  9 Nov 2026 22:33:59 +0000 (UTC)
+From: Gaurav Suman via B4 Relay <devnull+gauravsuman007.gmail.com@kernel.org>
+Date: Mon, 09 Nov 2026 22:33:47 +0000
+Subject: [PATCH RFC] ASoC: codecs: wcd934x: keep MCLK enabled so init
+ writes reach the codec
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,96 +83,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] arm64: dts: qcom: Add sm6115-motorola-common
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
- Michael McAllister <me@michaelmcallister.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- linux-kernel@vger.kernel.org
-References: <20261109221453.658316-1-val@packett.cool>
- <20261109221453.658316-5-val@packett.cool>
-Content-Language: en-US
-From: Val Packett <val@packett.cool>
-In-Reply-To: <20261109221453.658316-5-val@packett.cool>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-wcd934x-mclk-v1-1-ab86342e7ead@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAEpK8moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwNL3fLkFEtjkwrd3OScbN2UVFPLVEMzEzMLA3MloJaCotS0zAqwcdF
+ KQW7OSrG1tQDvN9SUYwAAAA==
+X-Change-ID: 20261109-wcd934x-mclk-de59e1646807
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Gaurav Suman <gauravsuman007@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794263638; l=2522;
+ i=gauravsuman007@gmail.com; s=default; h=from:subject:message-id;
+ bh=8u46K9MtmpC/yZH7MaaIGPTHQMOfd8OqvroqTAoIDKw=;
+ b=w+dOp4lUMyGty2jZoxIvNtUcRjLUY05x9zhThT6au4LkhC/wFP6g5GWXIChw8BlQKGNbG0/pF
+ Er7ssv0G9cDDRWxrnPbWM27XRwHOTpM9thMIDASkQgg2xY3u+SAXMii
+X-Developer-Key: i=gauravsuman007@gmail.com; a=ed25519;
+ pk=lnUC0mQfc0KyA0LE73pQ4+QWYVRaCD8Sd3XWxLZO+JY=
+X-Endpoint-Received: by B4 Relay for gauravsuman007@gmail.com/default with
+ auth_id=1467
+X-Original-From: Gaurav Suman <gauravsuman007@gmail.com>
+Reply-To: gauravsuman007@gmail.com
 Content-Transfer-Encoding: 7bit
 
+From: Gaurav Suman <gauravsuman007@gmail.com>
 
-On 11/9/26 7:14 PM, Val Packett wrote:
-> Add the shared dtsi for sm6115/sm4250-based Motorola smartphones,
-> with support for:
->
-> * Simple framebuffer from bootloader
-> * Power, volume, and assistant buttons (PMI632)
-> * Charging LED, haptics/vibrator (PMI632)
-> * USB Type-C with dual-role USB 2.0 (PMI632)
-> * eMMC onboard storage and microSD card slot
-> * Wi-Fi, Bluetooth (WCN3990)
->
-> Signed-off-by: Val Packett <val@packett.cool>
-> ---
->
-> yes on both phones I've tested, only msm-id is required, not board-id.
->
-> ---
->   .../boot/dts/qcom/sm6115-motorola-common.dtsi | 541 ++++++++++++++++++
->   1 file changed, 541 insertions(+)
->   create mode 100644 arch/arm64/boot/dts/qcom/sm6115-motorola-common.dtsi
->
-> diff --git a/arch/arm64/boot/dts/qcom/sm6115-motorola-common.dtsi b/arch/arm64/boot/dts/qcom/sm6115-motorola-common.dtsi
-> new file mode 100644
-> index 000000000000..6a5110319bc3
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm6115-motorola-common.dtsi
-> @@ -0,0 +1,541 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
-> +/*
-> + * Copyright (c) 2026, Val Packett <val@packett.cool>
-> + */
-> +
-> +#include <dt-bindings/arm/qcom,ids.h>
-> +#include <dt-bindings/leds/common.h>
-> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
-> +#include <dt-bindings/usb/pd.h>
-> +#include "pm6125.dtsi"
-> +#include "pmi632.dtsi"
-> +
-> +/ {
-> +	chassis-type = "handset";
-> +
-> +	/* required for bootloader to select correct board */
-> +	qcom,msm-id = <QCOM_ID_SM6115 0x10000>;
-> +
-> +	aliases {
-> +		bluetooth0 = &bluetooth;
-> +		hsuart0 = &uart3;
-> +		mmc0 = &sdhc_1;
-> +		mmc1 = &sdhc_2;
-> +		serial0 = &uart4;
-> +		wifi0 = &wifi;
-> +	};
-> +
-> +	chosen {
-> +		#address-cells = <2>;
-> +		#size-cells = <2>;
-> +		ranges;
-> +
-> +		framebuffer0: framebuffer@5c000000 {
-> +			compatible = "simple-framebuffer";
-> +			memory-region = <&cont_splash_memory>;
-> +			width = <720>;
-> +			height = <1600>;
-> +			stride = <(720 * 4)>;
-> +			format = "a8r8g8b8";
-> +
-> +			clocks = <&gcc GCC_DISP_AHB_CLK>,
-> +				 <&gcc GCC_DISP_HF_AXI_CLK>;
-> +			vddio-supply = <&vreg_l9a>;
-s/vreg_l9a/pm6125_l9a/ of course, last-second copy-paste fail, sorry
-> [..]
+On an LG G8x (SM8150, WCD9340 over SLIMbus) the microphones record
+digital silence on roughly half of all boots. Register dumps look
+correct because they are served from the regmap cache, but the
+writes never reached the hardware: the WCD934x digital core ignores
+register writes while its MCLK/sysclk is off.
+
+wcd934x_comp_init() runs with MCLK off unless the SoundWire master
+happened to probe first and enabled the clock through
+wcd934x_swrm_clock(); __wcd934x_cdc_mclk_enable(false) then leaves it
+running because the SWR clock bit is set. Probe ordering is not
+deterministic, which matches the random good and bad boots.
+
+Enable MCLK before wcd934x_comp_init() and leave it enabled, which is
+what the good boots already do. With this change 8 of 8 boots had a
+working microphone (before: about 3 in 5 silent).
+
+Enabling MCLK only around wcd934x_comp_init() (and disabling it
+again afterwards, as wcd934x_enable_efuse_sensing() does) was not
+enough: 2 of 4 boots were silent again, so later writes made while
+the clock is off are lost as well. An alternative would be to mark
+the cache dirty and resync whenever MCLK goes from off to on; this
+patch takes the simpler route at the cost of keeping MCLK running.
+
+The fault was found, the change written and the boot tests run with the
+help of an AI coding assistant (Claude Opus 5.5, Anthropic); I reviewed
+the change and the test results.
+
+Signed-off-by: Gaurav Suman <gauravsuman007@gmail.com>
+---
+Tested on LG G8x ThinQ (SM8150).
+---
+ sound/soc/codecs/wcd934x.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/sound/soc/codecs/wcd934x.c b/sound/soc/codecs/wcd934x.c
+index 0ed24cca088f839263f015778e8281027392e51f..6b6ce5ba5d30da194db1b1570a58f0324956f96f 100644
+--- a/sound/soc/codecs/wcd934x.c
++++ b/sound/soc/codecs/wcd934x.c
+@@ -2995,6 +2995,12 @@ static int wcd934x_comp_probe(struct snd_soc_component *component)
+ 	/* Default HPH Mode to Class-H Low HiFi */
+ 	wcd->hph_mode = CLS_H_LOHIFI;
+ 
++	/*
++	 * The digital core drops register writes while MCLK is off, but the
++	 * regmap cache still records them. Keep MCLK running so the init
++	 * sequence below and later mixer/DAPM writes actually reach the codec.
++	 */
++	__wcd934x_cdc_mclk_enable(wcd, true);
+ 	wcd934x_comp_init(component);
+ 
+ 	for (i = 0; i < NUM_CODEC_DAIS; i++)
+
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261109-wcd934x-mclk-de59e1646807
+
+Best regards,
+-- 
+Gaurav Suman <gauravsuman007@gmail.com>
+
+
