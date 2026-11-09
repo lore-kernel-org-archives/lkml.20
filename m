@@ -1,98 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794243764;
-	b=Y/HXOlAUItTOWUuJAtg61CRldDACZ/V+FkHi6OWPRkQ9ywvkO5xdNb0C/oCcLZMfc6Ck
-	 Kjy50pvYOPsLcyZk8VGV6LT/U3ZhHLECg/csnOAPhWqB6PiYSobyFp9sp+XSNSWThsX32
-	 hsKdImXQ98sG4ZEUZt2e9TeY+dW+woQmG4oKY1d7ukGyryE+77VhHDn6YYpXNEe2n+HZt
-	 2DVYsDkCOyrttGG05qz6VRbHoIQ5PKH1Dj8f8UelT2xrJJFL5epmm6wDLW3765eB0glpQ
-	 8ZhQmeyyDsM0nhh0HluzefLMqQ+lHnV/7SBqZOLoH0e4Mv4RFGPx1ZiTJYzPHBBDmsQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794243764;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qY0mbUZdr0ztNMcKxMffZ/lOFKEQtrLqkPhKXm8ABiA=;
-	b=nr0XTF+LZ3qW91S4bqdJXR9J4+TxYXg4zJuN2ShMkoUUsBZKkNDaGtT8BH7nEN29/1iT
-	 AZ13UT1ZQTLIvORXsUYgRB37c40CCh0JGdyh/7RUQu6XzcDb1LDbKDQ1xqfKa6K0cINEz
-	 rWlc6uHcaWk0v3bUyApyiqlTQwVZqkYV1X83evYSt2tdFU1E+Pa1a2C86Tm0LzxZEcFU6
-	 LajiH74i2o8/nQt2z5LppMm3/BY7ghyiVSiJXjCiZVOgKj2cm2ZDW8Vs/HZ77rU5gdmUx
-	 5D48uKvYG8sczpdv8T+gRp1/cKmDqQwXbQuN66MFyVxEUdZtgBfYsEZux14v5omxrvA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hkcL9Mlc;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794243850;
+	b=EzNESHAK9DORyS4EGNywfT71dcKS++///KkQNFLHAw6JiZi3gsZ10SkTjyEpAT9fsFz+
+	 QlZcmDBVcw3ILjjdL2TLjmtrQdAXy/SdNxtTmqGMyjxUbcpfJVdn/j8jGQUi2xp+RhGYv
+	 0qFkaUZFnXx4yAop/LBHxIizQ35y/AK01vD2/SCO/tHgc5CaAFq96xSv3oPZcH/Zx4wXV
+	 x3C5sVwF6ek9ZIwd8FJmRmQmR66dG1NRP3/rRbeRYxZ2IiQ4KcTRxjpxInWjrHpDTvaa1
+	 TBKWm67qmXws6ORnLq1MY5c2SSKtcrjdB9KobcqpxXPnVxbYIA+wlCUfNRwro7ciZtw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794243850;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:X-CLAM-Verdict:X-CLAM-Score:X-CLAM-Description:Received:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=0OSVyRMwkTFhe/VYzUqR8sfmJ7deCG6+6TxSKqSqZKE=;
+	b=5ovYl3UkAeWGKN6rYjm1BtafvNZMcDuv+dky7ZIwUOihNlL5N82ggT/9aOAHyJvKu8yS
+	 5KiyVJlnZw90wKABLaIZaISilwpJ/WVcylQfkKiGARmP5DaanFn12yl2pJ7t52r4bziyn
+	 ar9Po4b7d2ICzsR/vCdvMCrXF4DqP7hwLYgYV/uGYzVT+Yvqpvqiysv2GJnXZwhytaDAz
+	 1CxPgcP18s2zL9VEoXvdTdPxZ3jNSphzXE4wi8MoDugN7GmD+CaWY/6MUwsYyr/QdMoK+
+	 KlBERqlZZnKHqaxLJcEySOGqwZsYMo9wZEPu39mqKETl67kUqv1H+UMNZ5d2zooUFcg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=philips.com;
+	spf=pass smtp.mailfrom=bbl.ms.philips.com;
+	dkim=pass header.d=philips.com header.i=@philips.com header.a=rsa-sha256 header.s=selector1 header.b=W+8uT3Wm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.9
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013009.outbound.protection.outlook.com [40.107.162.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD10606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:02:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AD10606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 119E2606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:04:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 119E2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=philips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bbl.ms.philips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hkcL9Mlc
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36dbde64409so2006816eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:02:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794243763; x=1794848563; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qY0mbUZdr0ztNMcKxMffZ/lOFKEQtrLqkPhKXm8ABiA=;
-        b=hkcL9MlcORBXFvbjWtWcHkl0IKHVpAmxnnQgf2LS6YqMGeO/zPObjXVUOxlRMnVb5+
-         s4kcVwj5dlgWXKN2lkV0A5hVitLtkAJLD8ASx5PIpRRX7b5wuc0Kfm3g19216Dw5SFPo
-         u+Tu0TOdt2sinQoAkOk8nScZBW+EiANXU7OV2HiV8MSjuxNLjBQM0/xrX9zP3Jaf2im9
-         l1PG7TMkj3JLc2wl0eZYUmN+9xj1jq0uv6ug74TTtX4o0H6gzslJDoPAdoqKwkKLrV/l
-         lgxFCJUCaDzWnK+9kknncAg6AxD6pbvYdvpg6dFOGTV3KiivH/ehoCltF2NVftNbOPrO
-         zKAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794243763; x=1794848563;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qY0mbUZdr0ztNMcKxMffZ/lOFKEQtrLqkPhKXm8ABiA=;
-        b=T3S7yz4ODdWqSIH4qrB7ejQldNPjPkQPSJ+IPLrooJZcdLjsw05v1pNTpI3V51jnse
-         aw+fAI8ujYkPk1WjXgfZRve8emw/V7bnpb5evfzFkfA8L5YIoGWzBbiNLxRMvYxsdgeV
-         URF/ZdDvReIzPaU6Poqi8MrdrHd0/LVamVDPG0dgh08gJHTdZouEegfPRjy/e6He3/TZ
-         RA6KMw7VxzLmYuhKocasOCs+aqUj8HQ2kueBxxfHe24IzsK4q1YsuMToM+QRaeSU/f7d
-         7DZqoXygBgSfkxt2ec7ZnQFFJEmdsOiERL8bOUDONJroeqPKFd0x4E/0lcs2X28qnMwz
-         caYA==
-X-Forwarded-Encrypted: i=1; AL+hErER/rrw9FIOGb/0VOYPbt3J+G0gSh6qPsK5oOL+0Zd/qjaVRZruDH+LdIuV6kXB3veAOHp8NWkhUKleCo4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9wJnRIaIp9PzMjinKm5H8KJ2V2yLG1NWyZ/6srdgSNddxCjkSY
-	4TrxA8lqbnuo2pInDA1D1X0tcxoVF51Ke0qm5tr7o5a3i1C8J0L0CVi8
-X-Gm-Gg: AYBFou3Yw6qxRsxpLXJJycgtwn5uHvjhPv0TKYPWv6bP0/4pTxWomoNFGZ0DPDfv2wW
-	2nhpKgjEq0euOIrZe5Gxv6gDHuycYBKlMg908nUlrk33xxtMaWOgspuQoAthoFsYGLBCdNTekFC
-	jbL/n8EJ7PrZWzys7T+Y1ll0lXNyFw5dZqZJwUCWywgxwfmaqQBVa/gkJ/h2hYiOAydGg6bY9c5
-	jW4WxvILTERIGruOTSs590pNqfquScucQb8oB+Ei/IJ18S/iQBsAh2j/kYeSId4OrkQGf/rl7dL
-	RlARD1jgzMcB0akjGa0UuipSUoz1k0M8S/lDEjeNLnVtGkBUIFZN9yr44p206EIxjZEpgaUpLvz
-	7iO8szDO1Ct3IbaTnhKaK7CPxk0t5b+XyLH/xX07icomz6p3N67Xj0tP7S7iC2Q7dH8PwTnP9go
-	U26+MfmLux8oysldEsWmAsfe5i18C3oGMCuE5hM3hQcQQcra87X76NlzZcGDE7VmnL7tv/h7nCY
-	SqtX04LSpa655w5HQYox4hcGDtn4A/KDlk9ihTL9APVDVG5xk+xgphV2vWqpxP3y/oZL5Q797F+
-	jRevSaWZSu1G1SZWoVSjvIxJodRxZVoQ7jLterDp2aJbjrbvHPbEg6mDRkS6podxD+LkNw==
-X-Received: by 2002:a05:7301:18a5:b0:36a:15ee:c20e with SMTP id 5a478bee46e88-37258658bc3mr7702403eec.33.1794243762677;
-        Mon, 09 Nov 2026 09:02:42 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265618e11sm13726894eec.7.2026.11.09.09.02.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 09:02:41 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Ray Jui <ray.jui@broadcom.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Raviteja Garimella <raviteja.garimella@broadcom.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-phy@lists.infradead.org,
+	dkim=pass (1024-bit key, unprotected) header.d=philips.com header.i=@philips.com header.a=rsa-sha256 header.s=selector1 header.b=W+8uT3Wm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wFa7r9WA7UiuP4ChzFOZrInrZYiP6U1frM/uKkvVsky/KaIr6+71B0lEtsMMy1PMlZW9aJKJiJA3dsIgn/BFThdlRoA1k1t5CLcvoi2La33y9KJM1KLY0A6/vzjMqyYQBnou3XytYEHJ+bGoeVF10CGrjT+hkayTLZYVwGLONGBEFwOF7Jg/sVEN6LZHu9zLS3viv6YEqrxPmZM+vnpa79hPRHH5G4CQqDLJhEwx/Yyl+YHyOhVfby9s6jjjDRNiMw/h7lUiHoTTu1dAEfc3xCk3D6A3thzAV+2lcEg6sOMDOMn+QG0jIDenBuflOfadyK5Qst2izZdo2NXS9OuaCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0OSVyRMwkTFhe/VYzUqR8sfmJ7deCG6+6TxSKqSqZKE=;
+ b=F/joZDJQgTTr5NzDRc0rfwqtnwRl/TGGu5T1gGNjts8WUzqr0pxp7FrMBNqubX3mfzV3J9QjZUIvAtILGSe10VvkyElXf3b9G5YCzqkDN+O/Pjczk0MGsAvLq+ztkS6iBZOPDRoyvML/2BilM+yt/giG26lqpJw/t+N9IqaJhljgK4c/em1FWkNtQaKzskXcBtMSs+wawePXenA8rFAOL99bpeJ4BIFAlquTJh93o8nMPS2YrDPSutbJh3VKILEMMWC8crMHoWxQq17WEb9Ilrl2SpTTjZt4KCPZ5nVgck0R+WtycSI50sYg7Wp/H9S9bOuKlpcsz9AJCt13rpyUWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 3.248.88.141) smtp.rcpttodomain=vger.kernel.org
+ smtp.mailfrom=bbl.ms.philips.com; dmarc=pass (p=reject sp=reject pct=100)
+ action=none header.from=philips.com; dkim=none (message not signed); arc=none
+ (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=philips.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0OSVyRMwkTFhe/VYzUqR8sfmJ7deCG6+6TxSKqSqZKE=;
+ b=W+8uT3WmK+FwB4wct+hU3ar1x5kEzsXt5yapqTzoJrEJMesq6POwotguYgFLRTHCBhKjpq2DzggkyI7vrFu0ZoEPnUZoaxYByBkysEG8bouE+8mr3BaYm9taVXO/whpD4dZo3xjRNBsItDpkt6foAE0KUP0DA7bVuYjbOPQJJR4=
+Received: from DUZPR01CA0068.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:3c2::18) by AM9PR10MB4040.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:1f1::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.8; Mon, 9 Nov 2026
+ 17:04:04 +0000
+Received: from DB1PEPF000509F5.eurprd02.prod.outlook.com
+ (2603:10a6:10:3c2:cafe::56) by DUZPR01CA0068.outlook.office365.com
+ (2603:10a6:10:3c2::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
+ Nov 2026 17:04:04 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 3.248.88.141) smtp.mailfrom=bbl.ms.philips.com; dkim=none (message not
+ signed) header.d=none;dmarc=pass action=none header.from=philips.com;
+Received-SPF: Pass (protection.outlook.com: domain of bbl.ms.philips.com
+ designates 3.248.88.141 as permitted sender) receiver=protection.outlook.com;
+ client-ip=3.248.88.141; helo=ext-eur1.smtp.philips.com; pr=C
+Received: from ext-eur1.smtp.philips.com (3.248.88.141) by
+ DB1PEPF000509F5.mail.protection.outlook.com (10.167.242.151) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 17:04:04 +0000
+Received: from smtprelay-eur1.philips.com ([130.138.84.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 256/256 bits)
+	(Client did not present a certificate)
+	by ext-eur1.smtp.philips.com with ESMTPS
+	id QGMzxcYXGf0UDQSmqxPFHJ; Mon, 09 Nov 2026 18:04:04 +0100
+Received: from mail.bbl.ms.philips.com ([130.143.87.230])
+	by smtprelay-eur1.philips.com with ESMTP
+	id QSmqxGYbKbtn9QSmqxKnzw; Mon, 09 Nov 2026 18:04:04 +0100
+X-CLAM-Verdict: legit
+X-CLAM-Score: ??
+X-CLAM-Description: ??
+Received: from bbl2xvg1.bbl.ms.philips.com (bbl2xvg1.bbl.ms.philips.com [130.143.220.100])
+	by mail.bbl.ms.philips.com (Postfix) with ESMTP id 2C5BB18015C;
+	Mon,  9 Nov 2026 18:04:04 +0100 (CET)
+Received: by bbl2xvg1.bbl.ms.philips.com (Postfix, from userid 2884)
+	id 23A00FE023B; Mon,  9 Nov 2026 18:04:04 +0100 (CET)
+From: Vishal Gupta <vishal.gupta_1@philips.com>
+To: linux-wireless@vger.kernel.org
+Cc: jeff.chen_1@nxp.com,
+	francesco@dolcini.it,
+	johannes@sipsolutions.net,
+	lilinmao@kylinos.cn,
+	kees+treewide@kernel.org,
+	elb12345@hotmail.co.uk,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v2] phy: phy-bcm-ns2-usbdrd: cancel extcon work on unbind to avoid use-after-free
-Date: Tue, 10 Nov 2026 02:02:23 +0900
-Message-ID: <20261109170223.1829473-1-hj351016@gmail.com>
+	Vishal Gupta <vishal.gupta_1@philips.com>
+Subject: [PATCH 1/1] wifi: nxpwifi: fix race on scan_processing in nxpwifi_scan_networks()
+Date: Mon,  9 Nov 2026 18:04:00 +0100
+Message-ID: <20261109170400.1316239-1-vishal.gupta_1@philips.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -104,68 +125,90 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509F5:EE_|AM9PR10MB4040:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: f4107a19-1463-4ae1-fd58-08df3e8375b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|11063799006|5023799004|56012099006|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003|261028144727099003|261026140227099003|261026121527099003|261102123227099003|10067099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	PJiqTjfZbKiC3noVccBnzdOaGjgZ+TgDaQmEh+X3YJj6nHcurF+qFqTA+4WNP2l/SikJlnMH1JeMqm1thy1zrG7dT05fyYCVFFwQunum91+2kuWIE1jfuwiG1OqzHDMucuoVLTMUh4iEXEIx+YhTjCSKD2DMVzXhgQWhfqWeWO6Foqyge0hH+WHMXkB7U+oJ9TLA5gzp8XV0Fo+kHWGeOXWhAx1sGwwve1fn8kYdC/xbQDcYx4/PC05PmIpdUMtNzEdxnXuIreDUMAlaVQriGcfNnL5v9ldbDdR5i7pb9kF71WaQlP2plAVr+ixF2MuPVWy9U7i28YfUmh/xiPOVLd96ffs3B6Io2+ndXo2AKi35CUCsUhDmckcwuDLDq7r0yidafpBkRC2CxAXVIfO5SOjIA6BmdW1umkOeD+uuLeqg7tZAbwGv3tdgRGKfLuSnl+PPDvv+hbxJNS4m4UAD9mqlA013ZQzjI2hd3iHuSvG7NbRVguhZcgHByl22muFCxS3EOAe5D8OjesblCY3ibnFoKJAee8Vg972XXFB0zAFknJQXNUqhyvqlTwmk4DB/h/n8coJlWf9aqTxH+9VGc+D7JnsgBIPHkWPS87q3ueFx4dv3ZZEJImIrVFy5iLo24MP3i7T+RESirayoq1KkaVC+XqhYj3Y2SiCVo3Zfeyhsmr+9MvxtekN8csrsUmP3rP2Kqzzqd0C7jgn51CeDyQ==
+X-Forefront-Antispam-Report:
+	CIP:3.248.88.141;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ext-eur1.smtp.philips.com;PTR:ext-eur1.smtp.philips.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(5023799004)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(261028144727099003)(261026140227099003)(261026121527099003)(261102123227099003)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	HvusEctPrCACbod+e1TSbdzi3w8CAh0B8NsON9eIk4VVGRgUXWrKu6T787OWTbCllUkDdebYv+AsDXzwvT89uSnNU+UpYmTttBq7jtvnYgRBmymEWtNUW+IzufiQxc/E+FNNmpmtYJs5+HZXW+ii/O0+zFnabod+T7H5tV1zQWTGFshMuCBoUAnWdDt7cjbTmkOBDuzCGgXCeEnbL0LOCfrrRmgscxx70lQ2Sk9TBqzavven4v6p6k1PQH91t9uTSca+UfWkczKB49Fra0q97evTT/HO5ZB4RIkWChr/s+KzsbZL+LmMPNwarIN8M7jCEtxwotiJAqb/Aj7imlvO2AkUwCwo7n+iVE5GUr6xsmqKvpm/572SRNCFP5v20gfFWHq+Ap9e127Xa2wmqBFFfD/wSgjIgKS+Q8XfWg9X2BiME6FbcMpGa4jdw7DshWO7
+X-OriginatorOrg: philips.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 17:04:04.6478
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f4107a19-1463-4ae1-fd58-08df3e8375b7
+X-MS-Exchange-CrossTenant-Id: 1a407a2d-7675-4d17-8692-b3ac285306e4
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=1a407a2d-7675-4d17-8692-b3ac285306e4;Ip=[3.248.88.141];Helo=[ext-eur1.smtp.philips.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509F5.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR10MB4040
 
-From: Hyunjung Ko <hj351016@gmail.com>
+nxpwifi_scan_networks() tests adapter->scan_processing without holding
+any lock and only sets it later under nxpwifi_cmd_lock. The test and the
+set are not atomic, so two callers can both observe the flag clear and
+both start a scan.
 
-ns2_drd_phy_probe() schedules driver->wq_extcon (extcon_work), which is
-also queued from the ID/VBUS GPIO interrupt handler gpio_irq_handler().
-The work handler dereferences the driver data via container_of().
+This is reachable because the function has two callers in different
+contexts: nxpwifi_cfg80211_scan() runs under the wiphy mutex, while
+nxpwifi_active_scan_req_for_passive_chan() runs from the driver's main
+work via nxpwifi_check_next_scan_command(), which is not serialized
+against cfg80211 ops.
 
-struct ns2_phy_driver is allocated with devm_kzalloc() and the driver has
-no remove callback, so on unbind devres frees it after probe's resources
-are released. The GPIO interrupts are requested with devm_request_irq(),
-and so released by devres; free_irq() only stops further interrupts, it
-does not cancel a delayed work that is already queued. probe() queues
-wq_extcon with a debounce delay before returning, and the GPIO interrupt
-can queue it too, so on unbind the pending work can run after
-ns2_phy_driver has been freed, dereferencing freed memory (use-after-free).
+After the last scan command completes, nxpwifi_check_next_scan_command()
+clears scan_processing and then starts the follow-up hidden SSID scan;
+a scan request from user space arriving in that window passes the unlocked
+check as well. Both scans then queue commands on scan_pending_q and share
+priv->scan_request, so one can clear scan_processing or call
+cfg80211_scan_done() while the other is still running.
 
-Register the work with devm_delayed_work_autocancel() instead of
-INIT_DELAYED_WORK(). It is set up before the GPIO interrupts are
-requested, so on unwind devres frees the interrupts first - after which
-the work can no longer be queued - and then cancels the work while the
-driver data is still valid. extcon_work() does not re-queue itself, so a
-single cancel drains it.
+Move the scan_processing check under nxpwifi_cmd_lock, in the same
+critical section that sets it, so that test and set are atomic.
 
-Found by static analysis and code review; not runtime-reproduced (needs
-Broadcom Northstar2 USB DRD PHY hardware).
-
-Fixes: 787f24543c4a ("phy: phy-bcm-ns2-usbdrd: Broadcom USB DRD PHY driver for Northstar2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Signed-off-by: Vishal Gupta <vishal.gupta_1@philips.com>
 ---
-Changes in v2:
-- Reword the commit message: the GPIO interrupts are requested with
-  devm_request_irq() and released by devres (not "released with
-  devm_request_irq()") (Ray Jui).
-- Place the new #include <linux/devm-helpers.h> in alphabetical order,
-  after <linux/delay.h> (Ray Jui).
+ drivers/net/wireless/nxp/nxpwifi/scan.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
- drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c b/drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c
-index 171bf09..4b8930b 100644
---- a/drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c
-+++ b/drivers/phy/broadcom/phy-bcm-ns2-usbdrd.c
-@@ -2,6 +2,7 @@
- // Copyright (C) 2017 Broadcom
-
- #include <linux/delay.h>
-+#include <linux/devm-helpers.h>
- #include <linux/extcon-provider.h>
- #include <linux/gpio/consumer.h>
- #include <linux/init.h>
-@@ -339,7 +340,9 @@ static int ns2_drd_phy_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		driver->debounce_jiffies = msecs_to_jiffies(GPIO_DELAY);
-
--	INIT_DELAYED_WORK(&driver->wq_extcon, extcon_work);
-+	ret = devm_delayed_work_autocancel(dev, &driver->wq_extcon, extcon_work);
-+	if (ret)
-+		return ret;
-
- 	driver->id_irq = gpiod_to_irq(driver->id_gpiod);
- 	if (driver->id_irq < 0) {
---
+diff --git a/drivers/net/wireless/nxp/nxpwifi/scan.c b/drivers/net/wireless/nxp/nxpwifi/scan.c
+index f3becafb9c23c..548c257a2e3c3 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/scan.c
++++ b/drivers/net/wireless/nxp/nxpwifi/scan.c
+@@ -1336,12 +1336,6 @@ int nxpwifi_scan_networks(struct nxpwifi_private *priv,
+ 	u8 scan_current_chan_only;
+ 	u8 max_chan_per_scan;
+ 
+-	if (adapter->scan_processing) {
+-		nxpwifi_dbg(adapter, WARN,
+-			    "cmd: Scan already in process...\n");
+-		return -EBUSY;
+-	}
+-
+ 	if (priv->scan_block) {
+ 		nxpwifi_dbg(adapter, WARN,
+ 			    "cmd: Scan is blocked during association...\n");
+@@ -1356,6 +1350,12 @@ int nxpwifi_scan_networks(struct nxpwifi_private *priv,
+ 	}
+ 
+ 	spin_lock_bh(&adapter->nxpwifi_cmd_lock);
++	if (adapter->scan_processing) {
++		spin_unlock_bh(&adapter->nxpwifi_cmd_lock);
++		nxpwifi_dbg(adapter, WARN,
++			    "cmd: Scan already in process...\n");
++		return -EBUSY;
++	}
+ 	adapter->scan_processing = true;
+ 	spin_unlock_bh(&adapter->nxpwifi_cmd_lock);
+ 
+-- 
 2.43.0
+
