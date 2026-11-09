@@ -1,101 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794198842;
-	b=TpEhDVfe8AbvMJ8Z8bJ6t3gJE7JPEj7fnh8KPLOyi7QQ/9MJB03mRpBOE9xUz22fICYm
-	 6OdCqIli4nQ3tJynNEn67GTlIzGhQM0Ks27an/WMYmAAOvy//RE6ZmhLrpEJO2/gJH4oG
-	 na9JWrgQCw3GRO21rB+0Emxz4S3Gbl/7kSEJUeT4rWXmUVmFU19NnvcSymPdeJd02gycr
-	 f9k/713O8ENrx6otIccf/6ijlcIyqTQcKASwLomUvI/XiauGUgzXN4iwYUUlqPGruF0jS
-	 3kvgthOpZwU5wVW3CJMllViiPTfw1yRC5W4xPI03YDZz9a+dOYjHSjabiZ7v7cQwwQw==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794198868;
+	b=qvl/ACEa884LcJGtr21BWbXo4Ah2J9zjn2GwgknQjExE7Los05j2bUtnOhiM1jgsZeHY
+	 7fIOm69GE0QJKbDgVR4zPc0STITn4pMuYNzUPgNBfd3nK+b7fogn02oeov8AQJ7ZTVr/M
+	 5MNtXRQJ5FMQgQMusMkgnMod5NgA1R1UYUdoKzd52fTa/eXz7KSjAbsiOSV26u0A68aP5
+	 ayhFKVGTs/IIYd5NpeeDwEWjYHShHF6CIMlJX6qGwJpsfzPZcgaE9WGTNF9++Uz7349R9
+	 yADGPut28n2I42sXFsYqi7/lwFM1G7FqikjsPY8uNg9uCjYMAQNiOTqrB4mt6apA43A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794198842;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=+KZfMQTyVl02e8ANbgPdMXZ52kWV3/1B9wyIuCkTXxg=;
-	b=RWesCoRurRLTgyUHT6OC30tkgLwXKtXUb3OcdfJVq2UnbwiiKSpCLbCn+Be+Fpfersbk
-	 lGvs9OzE3MxGzXMiMzxlJxFKTTjoaQ/xQeR4qGWmX2lqXF7LQqdp3cCSOcGOl9p1J19+w
-	 hx2CkFoPmYE2FgJTSDSjsFRReZwhnGTaxl5euvTXz4gL27+4sapdCYwsY8OWhoUFpZpmR
-	 t7dq2BVMp+2xD7WguJH2UFZKhvvhDeaeDSh7b0TazXzMtN7+AS/0S4eJzbiNJ+b3FXrW9
-	 5SJJvNiu21AXgT5QiGrqbLnrkybBa4xQEFDOL2gHwh9ZARBNoobk2h5DxNUqhl3L2UQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794198868;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=JdXboV7qxhltwNH0LSlUGIaBkpIrFuZqTC7N4GeLyss=;
+	b=B+EFjJs5W96p3V9B2dhO3/KK+R9ZbXFPMv48v0K96VpBQh3r1wDfe4+94yFGlNxwEyY/
+	 k9v90PA2UuiHvLHBgKaMRTuL8/EgrBCVaYOm/7C2Kj3aGawQTtq1DCbX7sJKBorGwiIEw
+	 I5Bv0ZtUPJ5DmDDMr4K8uuUs1+TYFodXJOLTg1M+GxkEowuhcE3xT795+mVoi6N+xbVb8
+	 TdZDKUsE+W/XQSNvEe72+nujldBIt8rfcM9N1we7d8yMRDhJHrNnSRj566QOIQ2KFYKK5
+	 PyxGnPX4Wbn9YtlkZZdpiJJwPrwCqlkoC+GQu5fGAEz5ZW+E6gseqWyb/8XF7gE4C8A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cE+TvgUh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RoehDnAO;
+	arc=fail smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CA3606A33E
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:34:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25CA3606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC60606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:34:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DC60606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cE+TvgUh
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso61291766b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 20:34:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794198840; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ltWf0vm5OjvegZEre/WLtGNz1xxUbgNwup2W7UIcf3iR2djq2plTPfn44btZuQwrfF
-         1WST1RFgwuOPPTjqr9Vcdi9xP300gBtCPvya5sC7cmUkgXnDQ41H0uhE3++JipL7+V3d
-         7Q5hi6NeRmWVfRRSEFLYtPTqqxdxGTWNMYhYrRgunC6Xy8bc267AqC7jOBHmgwLN6XBI
-         hQ7bz4Rls6VKb7qfFV6IVHFv42jwsZRy69e238V6Ko+afoa5WYJv0CKokRp+Rb2frAuP
-         7OI3RLsHOUnMoLgGw8890M8ekBlpBWCmHYxPkZyLgjyIt71o3Zp9ctfB8mZIOwFE7lgh
-         ABzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+KZfMQTyVl02e8ANbgPdMXZ52kWV3/1B9wyIuCkTXxg=;
-        fh=Yrd/Lc7TWmxqaomVNjIAlfhDLm469EupGu5jAhasRGg=;
-        b=DrW92cuSOftVawL0+uec8ibIh6DO8TQftYi02xGaKe0JOcxTGMS6Rp9toDf6c/JDQe
-         qYYoG4dV/rs1W/VB+nJ6SwLWskFUsPbXrNBeG0Vlml0y3xoB8GgjU+hS/fzsfEJ4go25
-         n3VgBcS34ZPVUAo5tFUGehj+gRMezF02qLfu/4JU2wn/JVOZ4J2RSbihl1/SSXUnBoWy
-         jOcmqiumSzWvyDzj7UHC7AX5fgwvGVtnqg5U9UwWw6dw/j5sFtwL2pS8iA2XEvLdedhu
-         Cp4pFZPDBX5F0cCt3bi/u8K+AXhPiw7gsC29v4qIYLnbuQ4aD6MURp6km3Mj7Fm/C3DZ
-         QTdw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794198840; x=1794803640; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+KZfMQTyVl02e8ANbgPdMXZ52kWV3/1B9wyIuCkTXxg=;
-        b=cE+TvgUhFThTLr3JE+C1ZlQ+Q55N6LLNa0OrEiv09d8eghwiw2yMa6WZV12mkUrdMl
-         6Mvy1LGFKpPerf4MWw5xwfnNBxN2q7iDFIUUYYvKZUI5mNWTU29YtpXqsIEYqb38YrVC
-         87R94ilSNUWGde3/XNm3SoMTaPSPkCN/sD4icSKv0BxLBA0NndnohpeajtrujTTERf+o
-         cyPO5iVi7O4afFUufZoGNOdUi+2WtqRUVXk7xsGwOd/glIUVjMg4D9DmY/t4Kk7N0J6E
-         5sl3Ulzmz8xDP4ew87+pN+PBjCzZsZyUUn/faa1N5nFEUcx6Hbk6sgeo4HN371cKMSG+
-         kM9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794198840; x=1794803640;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+KZfMQTyVl02e8ANbgPdMXZ52kWV3/1B9wyIuCkTXxg=;
-        b=KYgAsMESX/ok+g6exPRnQHzRL/PsE3fmBfOGpWeftaazsqNNVwnH3+lvLQW/ErgbCF
-         pwgMjtrBnBxKhmaPp+oG5mYmLrLp22OljM/8X8ZMWUIPIUCYYdbYo+wF/9U/SP4nvg3T
-         kesxRyOQqlpKHrqPNNNJh7IShfrtm77GH654P+ekTmM2uA7vZ6LbO2DZ5EG97TfpZ8xP
-         6kBFH36rbTgeGvp1HTiUWSBwLt5I6fBbKogL5u1D6yyZUmdMux4jkkrhra52N3YbzQK7
-         Tban03XbCZWjSoA4QKtgF293ySYjjS0FxHSBqyVjM1/QDuESWcv9FMY+9kj0Oyjxhwln
-         nskQ==
-X-Forwarded-Encrypted: i=1; AL+hErEpOL6lWCa+Bxiuwo6NvP72t58i/UrsFEcLOtnRrFVk6kzxQuepQmSUQpEqKhYy5GjOgKVqQID510KP1L8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Qt9cIDgEpe+a8UCtireCCX+XnoOxFMH8T+FigMek0BJMq4Hq9
-	w0FkGkG15wjj9J5soZuXNNYhL1BptrH/BeV3JyW8kkAjV+KVVYJDxmWM63GPJ6TrB2Jb+6sjFgw
-	PZTFSj2ebXCGaRpZTfJZoYGDQBO+TfpY=
-X-Gm-Gg: AYBFou0jHRZDOE/CNkI5WRpOA+hBAt2NEOH662wfCQHw+fFWYLW7TjSndoypM+mpA+0
-	bQl/iU8fDQJ4zdrNTUftw8cQrzInX7sEepjWyHTbF//i4SlkIOoDdpXlVwKenuf+lGqRYXpGNC3
-	OGhvv2FuBaoJ7LEOQbp9htYGe3qkOiT9ik4Dr3TIkUUCWEngMSrPAzCWbCCFfaWYaZQu+0Cdlsi
-	2fHs4jSKOP6BU6YH3UngMl2d9qz/IVdsPZSaJQHsiKFlUOxODIgFjMsMGLS1pnZDyzxDbJDFshH
-	PTY2ZabMRUn+a4vN0k/mMherWRXQBHH93U8lyPdujJeLpSj5TgvWaw8lQBoaHH/iP+6i1q+Q9y8
-	S5+G5nBd6qxUzYdSF40PWJKv5z7k3T4cqeM4bqnwgDNlTAmSGJuMBEyT8X92dSkfgw1i/0hm+u7
-	YpCxqR0pPRzh7S
-X-Received: by 2002:a17:907:72c2:b0:c2e:4292:d268 with SMTP id
- a640c23a62f3a-c4d6daf7c64mr226694166b.16.1794198840452; Sun, 08 Nov 2026
- 20:34:00 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RoehDnAO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794198865; x=1825734865;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=a5yAsM2ArfnJ82919SOECnhUtIe1OwnTp2CXvDgUU60=;
+  b=RoehDnAOdyPwjoGKVgcyVCFi9CaMbqfh1XtseY4UtH+1fsV/fRqe72Ws
+   O+xHb+TKHllF+TYynnw8GGE0bkoz9wEWl4KWCpV4bZ+rZ8LyS9XtjB7hI
+   g7zlxAsPlj8Xitg4udAJg39Es9xX50BCCKOdSei9VCA7TMYAr8o57N2fa
+   YVnjtpCpOVOYlnwmANucA9JBHzFwo5OYqKOgNu1nLrDqT3wew6S9Aenc5
+   ucgRnJHoRu1PExW1uf9/G0h2kJfu0r7Ed1ntE2fwzpJaSpOiMZvLknnIL
+   RKz+5wOX89Ujd1VvtABQwtPnQa9n6agfJhSkeq+phcuthxWmgQo5O/DdA
+   w==;
+X-CSE-ConnectionGUID: px97ssUSTkeBPE1ELydq1g==
+X-CSE-MsgGUID: ew94hxzIQBC75gSUky2dMw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2819575"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2819575"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 20:34:24 -0800
+X-CSE-ConnectionGUID: DkoXC/0+Qfitg6bQnqp0Gg==
+X-CSE-MsgGUID: cDMfWOS6TmGMVPkZi32fXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="7940071"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 20:34:25 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 8 Nov 2026 20:34:24 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Sun, 8 Nov 2026 20:34:24 -0800
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.24) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 8 Nov 2026 20:34:24 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DtU8O0Crd9kDD2rDkwDnnNeJiptqRdnEK+PZ2wGCNbivoS/s/ITKpdoCqn+d5C6ElaslXT6wRseWD/EBRt2KtqeoG9xN1B5vFXeNZtXkXCnyN762YOzvZN9K7kZEXljKuEsKoFx/F2Aeb3CVYGv9t81jy4RjIAcH4+hxjNqhphBaLoEc4bbuUfD5fy8fLV3XNEm7c2+VZWo8LtBh4AJuepe66Pm1wv4+EcHglatcvdtfWDAroOIJLcBQ9jUK/eAY2NDG5NCZAT2sWS+8luSdzyVdSktENDSSNt7GK+mjHCLPNxrJ9KqrHNivgHE2cqu0EStg8ZzyWJZ79O1V4LZveg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xdXyFIBxuV087j5YzfqQlOqvfr+ZGSU5Wqne6ftSAxM=;
+ b=kd0XYc+k7TFbgVm+O9N99tupVGo/gCbToq117wUcPM1o2h0y8U0C1r0i+vzCYlUWWfVLOPEuGXyZ2r9ssitnjdItiE3YU/KN7Fc5abvPpoWqscTTxgo0l4g6dJF+1VjoFj2z9EyZtu6wC3U2QgsJA5xNmX2Ccdn6twiKE+eYK0SbefejyWZw+K7D6okKlBVxef+J8XsQ/h4m5aX/SXDZCmAlLmX89GVYd/tNfzQPaqWIElFRO7uc5LPnckqJ3qAG/9Ct15zaHIClkNKjZGAtBM6pr3yeuq9LFTkfjobyKkF2SZ7RirfJOOUI0ANxUBq42BuhO01iRWDKfeKNuXnMFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com (2603:10b6:303:5d::14)
+ by CH3PR11MB196721.namprd11.prod.outlook.com (2603:10b6:610:364::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 04:34:22 +0000
+Received: from MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315]) by MW3PR11MB4684.namprd11.prod.outlook.com
+ ([fe80::2f5a:96ce:f7e4:c315%7]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 04:34:21 +0000
+Date: Sun, 8 Nov 2026 20:34:18 -0800
+From: Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	Carlos Santa <carlos.santa@intel.com>, Ryan Neph <ryanneph@google.com>,
+	Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, <linux-kernel@vger.kernel.org>, Thomas
+ =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH v3 24/33] drm/xe: Add defrag profiling tracepoints
+Message-ID: <avFNSl7oIffZTPi8@nvishwa1-desk>
+References: <20260711025619.2540575-1-matthew.brost@intel.com>
+ <20260711025619.2540575-25-matthew.brost@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260711025619.2540575-25-matthew.brost@intel.com>
+X-ClientProxiedBy: SJ0PR05CA0002.namprd05.prod.outlook.com
+ (2603:10b6:a03:33b::7) To MW3PR11MB4684.namprd11.prod.outlook.com
+ (2603:10b6:303:5d::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,125 +139,249 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261005001118.576198-1-rosenp@gmail.com>
-In-Reply-To: <20261005001118.576198-1-rosenp@gmail.com>
-From: Inki Dae <daeinki@gmail.com>
-Date: Mon, 9 Nov 2026 13:33:24 +0900
-X-Gm-Features: AclHuK8JGFlUXZkSE5CgvPvR5Q5pqnVQnyO-MTmGLdNc0lY8Yjx1OxeFaWmjmHc
-Message-ID: <CAAQKjZObmQm1X28cbpjd+dEVx93wfBwKNaaaxpU08o8JeFaZfA@mail.gmail.com>
-Subject: Re: [PATCH] drm/exynos: fimc: allocate formats as a flexible array member
-To: Rosen Penev <rosenp@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, Seung-Woo Kim <sw0312.kim@samsung.com>, 
-	Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	"moderated list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-arm-kernel@lists.infradead.org>, 
-	"open list:ARM/SAMSUNG S3C, S5P AND EXYNOS ARM ARCHITECTURES" <linux-samsung-soc@vger.kernel.org>, 
-	open list <linux-kernel@vger.kernel.org>, 
-	"open list:KERNEL HARDENING (not covered by other areas):Keyword:b__counted_by(_le|_be|_ptr)?b" <linux-hardening@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR11MB4684:EE_|CH3PR11MB196721:EE_
+X-MS-Office365-Filtering-Correlation-Id: b2f8099b-78aa-4446-6147-08df3e1ab9be
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|11063799006|4143699003|56012099006|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info: HAC7MKkGngzdZn8p0I/DQL8Av3OD6DL/DIM5VZXVexYztpIDS2PwXFYo9X9Eqd+qkiQgj5rC/AUX/+pTSdPvg59KBO3gEDgqDr2X2APQLHKNWE2/EwGD6SB1na14fgR41CnrICqZK1xxNgALVpohQH/bgTc2pLwvbnHe3M9kWgLNFxrfi1H12pHl9ZzUQ3XZcn6vzZ8ll9x9qJ8Qqkmj7UpiLlvG8tYmSXQU5Z8/15no/Z6LfR4eW66mPzupnjf9JgsUGPFAX0LRgZufOoZ2DF57JrhB1Qul2UVFd0+4OWftBw72vGXsNTSl1e+vHjo8vaxOYcZFSbb5S+psyXsvfke9HbilfrU8IvLoVzuJI0ITkoOvd1DBSg1IsnqR/F096BTthVxAbTVlbwIATPX4CI5X1p03OnZTVy9kYQxJ9Phgfysffi/kdCXo0Y0ueV3LwVHuSXxKUkMYOdMtSYAPtjVV3jlY7aykv4Q2l2CjnyG7VsJlUB2U1DXb2w36Fk+qkmf829GgB2Y9i8GZanFj9FuGPHlZjBl8hn1CxycDRRkDpBNhXGeXzXunkJqLRJvjhXvFZadYDM0N3M6idxkOS3yf2bmf7TigrE6QwtNHibEYtMabRogPwBDunniEO0WWXNWKDRufz55A2zbTU8tJPaC3dFTf7gVs2N+u1ln6m6g=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR11MB4684.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(11063799006)(4143699003)(56012099006)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?BUI9UQGb1vbxtGObGd6okkjCbvLKusFqkqAaBBmZtC1vHrtWdbQN77mMph?=
+ =?iso-8859-1?Q?bgNfTs24Uc98eONFHaPp81t3e+M9j7ecMThLrGljO/UkM7DbzmmdsX27o+?=
+ =?iso-8859-1?Q?7il3LgwDWNhEM41jvYG3pQXgkeMhvsm1pka0QsLi/NolW6m6HN3l+2kc27?=
+ =?iso-8859-1?Q?ylqAnKHtxZ4hUlazOTKaimv0VyATxTvNFNUbKwV8fuIQ8I6EB44LPhhxXg?=
+ =?iso-8859-1?Q?jmi1WAXW5k6UXuw7NyA+oYwRF8ciNCTbvxIey7UFui6hIhllJDqPrtvi0C?=
+ =?iso-8859-1?Q?1Fhqkqh9IzQJ4Zu5Ta+0rR3AGTpnEcauwDTOUumE1N5EOc+ZAnzDr9FBul?=
+ =?iso-8859-1?Q?82b7Eze3Cw36UIcZmNQY+w+/VJZv0E61UYGNHpStHqAzDum0P4IoqZ04SU?=
+ =?iso-8859-1?Q?ENYkQIvOO2PW1amDhrlPTUtetoDkZio4woAhAu5FGvgx+dkTxhezHjJ8na?=
+ =?iso-8859-1?Q?tbzo1Wd6RMUCoRy0A5CEJpAjjHFPeQuSn/T+owde6VuCuLZrPy5KvEEzup?=
+ =?iso-8859-1?Q?88bLSN+srh8Ohbkm/UC/movanEXxQEvE/AeVhIevIBWLYl6bOvM6aqXay8?=
+ =?iso-8859-1?Q?Mzvc/nJuyI+VZ4R0t3ooHtDd2EQz3TZfqktMdYPjku1nAujfg4twmMZ5xV?=
+ =?iso-8859-1?Q?DDsjCqHpDYx482a1mE3ILGf/TocoeuIlKVaMuanUed+gZEwG0teV8EaI1S?=
+ =?iso-8859-1?Q?HHUosH7f+3AEJT0xAGR/G+4+99zwwFo1CilQ8MjubamR0pG539hIXDYjqz?=
+ =?iso-8859-1?Q?OE9AwJihaVp8nh7iHCAsv7xs2Avs01h3zirBxJ+xzFyu/2xGgq3lFWywcP?=
+ =?iso-8859-1?Q?DFbQcw89Ye8AZJCFbfENTW38SPPSBrU/vlk5n9dhYXWrcnImM6pThgSiNm?=
+ =?iso-8859-1?Q?nIjp7ck/RW2ak4d9Tv7EAOOnIvjY4b4xSbWBh4cJXH60MT7rEeuvdT8y5b?=
+ =?iso-8859-1?Q?lzCJSlqWuWXECuT5GcX672XpmETQyjjCiH7SLO/uxJv55i5baB1UCj1mY+?=
+ =?iso-8859-1?Q?J5fuDmh6FbDNuuzBo4CtUL48vbwGt2XLD/UdTamIAIVtXgRx+z7xg6YU48?=
+ =?iso-8859-1?Q?eUlGUs/B8UW7N++DYN9drZjSDKV9BRtsNtOgnnKuowwrZDsTcB3fWSWv3F?=
+ =?iso-8859-1?Q?col9Xz3ofhcIjyfaYo6yeldb+8T/FRy2R5U1r0cXyCazGd169oYi0enKVm?=
+ =?iso-8859-1?Q?C7rAq+tOM3EgvFFboKv/EwYkJFlV6bW2ClgSIpV0wkmd0SXfWCFpI1kcgX?=
+ =?iso-8859-1?Q?s21M3PRHSV61NQfzYjtsMFCkfHM0CGC1WtbJQck6zMMyDCBBVghK+oVWJj?=
+ =?iso-8859-1?Q?7NOKhxJGx1fc+MNs7VQHPKzl1OZoLqElnsDFtbbDYbHIHU/554XbR5/upN?=
+ =?iso-8859-1?Q?zQO9yaphBVrldn4WouvMMVYg84JN39xHXzVCnl+aaUPivT3tQlYbxRpjiq?=
+ =?iso-8859-1?Q?k5sYjGPBFfTjRKo/juKVnfypQ4uZQEnMZZuhJaDU9dIMi+53eSdabcYKus?=
+ =?iso-8859-1?Q?p4skiYBgRGnwhBel2c0E0bZd+TJsvzjIQu3a35ZkpjCkdvK3VqZePWvu5Z?=
+ =?iso-8859-1?Q?MzYqeFj7zZMfXwqPHwEa8+HwgLPBFFwZwItmAu76bevFnnLh3VX6zYH/mP?=
+ =?iso-8859-1?Q?la4pW9ITVoDL4ON0b/NplkPyYTE6JVLFELTYb+Xv74n+6BMJE+jlU7bP5O?=
+ =?iso-8859-1?Q?KlY0HV2NmRP5C9BI7d0kjNN76euBgVljVMQr76FwqLkbWEaRxs+4GXg7xB?=
+ =?iso-8859-1?Q?auYzaiw4LCPs/oLQ/qKLS4TmkxvgBeJilKNR8nMjkp8hhWMo4nJgWSRidu?=
+ =?iso-8859-1?Q?4KxhyYaN3HaYp6sNiQ7CxQGGldUgt3eWOWy6RuFrhWVmjtB4MIKD?=
+X-Exchange-RoutingPolicyChecked: BtpcfFqVADn5jbJ9gPtwdG6FNM4a7HV25F+ZWdJj/t7/N1GXioK0gb9gFsYCd7NmSAuGaTLlMn/+At4iypC8QYeY+g+qAU+XrcUd9FnTGAYX7H5Ev/6an2gUGC8u1qodQRWp1zFSHYvWWH9CA/eBg2LVT2M9azSBcIUbqVPgs4FV8vFtXMmltaLaZJoqv7wF26GByaUmAupNom/pKj2uPgB/tEjwg+PBEK4WWedqXR+cemulzluclFb9M26NuHS/K13aCQLt+AnfRG/Iv8hFvB2y8uqWGtfd8xz84mwwkwP38TuexMxW4Vpbs86CfvtttWnCd1VXcXr/lJY5J1GzTQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2f8099b-78aa-4446-6147-08df3e1ab9be
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR11MB4684.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 04:34:21.7730
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pv71sKL+nHEqSSEu0q6ZnOxhjMelP25lF9UZ11xko3xr354MJxjOH7hipm3/FCkzoqQlkq+041HPikxVk+vm/tKF/2eSGsZlnBiAocW3lW49yQU9ye1fvRBE+v+52LCq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB196721
+X-OriginatorOrg: intel.com
 
-Hi,
+On Fri, Jul 10, 2026 at 07:56:10PM -0700, Matthew Brost wrote:
+>Add two tracepoints to profile the page defragmentation worker:
+>
+> - xe_bo_defrag_worker: emitted on worker entry and exit with the
+>   current defrag list count and the bytes processed in the run.
+> - xe_bo_defrag_one: emitted per BO with the run budget, the prealloc
+>   fill ratio (got/want) and the lock-held, lock-wait and prealloc
+>   durations, plus the bytes consumed and the result.
+>
+>These break down the cost of a defrag attempt into its locked vs
+>unlocked phases, making it possible to confirm that the expensive
+>beneficial-order allocation and cpu cache mode change happen outside
+>the BO dma-resv lock and that the residual lock-held time is copy-bound
+>(with the tail dominated by lock-wait behind active rendering).
+>
+>Cc: Carlos Santa <carlos.santa@intel.com>
+>Cc: Ryan Neph <ryanneph@google.com>
+>Cc: Christian Koenig <christian.koenig@amd.com>
+>Cc: Huang Rui <ray.huang@amd.com>
+>Cc: Matthew Auld <matthew.auld@intel.com>
+>Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+>Cc: Maxime Ripard <mripard@kernel.org>
+>Cc: Thomas Zimmermann <tzimmermann@suse.de>
+>Cc: David Airlie <airlied@gmail.com>
+>Cc: Simona Vetter <simona@ffwll.ch>
+>Cc: dri-devel@lists.freedesktop.org
+>Cc: linux-kernel@vger.kernel.org
+>Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>Assisted-by: GitHub_Copilot:claude-opus-4.8
+>Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+>
+>---
+>
+>v3:
+> - Move the ns-to-us division into TP_fast_assign() to avoid a 64-bit
+>   divide in TP_printk() (Sashiko)
+>---
+> drivers/gpu/drm/xe/xe_bo.c       | 18 +++++++++-
+> drivers/gpu/drm/xe/xe_trace_bo.h | 59 ++++++++++++++++++++++++++++++++
+> 2 files changed, 76 insertions(+), 1 deletion(-)
+>
+>diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+>index 8b89d34f37d4..25e5b72f870c 100644
+>--- a/drivers/gpu/drm/xe/xe_bo.c
+>+++ b/drivers/gpu/drm/xe/xe_bo.c
+>@@ -1263,7 +1263,9 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
+> 	struct ttm_placement placement;
+> 	struct ttm_place place;
+> 	enum ttm_caching tt_caching;
+>-	unsigned int order, want = 0;
+>+	unsigned int order, want = 0, got = 0;
+>+	u64 lock_ns = 0, prealloc_ns = 0, lockwait_ns = 0;
+>+	ktime_t t0;
+> 	int ret = 0;
+>
+> 	*consumed = 0;
+>@@ -1294,6 +1296,7 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
+>
+> 	/* Phase 2: preallocate outside the lock; */
+> 	if (want) {
+>+		t0 = ktime_get();
+> 		ret = ttm_pool_prealloc_fill(pool, tt_caching, &pp, want);
+> 		if (ret || !pp.count) {
+> 			ret = ret ?: -ENOMEM;
+>@@ -1301,12 +1304,16 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
+> 					 XE_GT_STATS_ID_DEFRAG_FAILED_COUNT, 1);
+> 			goto out_err;
+> 		}
+>+		prealloc_ns = ktime_to_ns(ktime_sub(ktime_get(), t0));
+> 	}
+>
+> 	/*
+> 	 * Phase 3: re-take the lock, re-check, and validate using the prealloc.
+> 	 */
+>+	t0 = ktime_get();
+> 	xe_bo_lock(bo, false);
+>+	lockwait_ns = ktime_to_ns(ktime_sub(ktime_get(), t0));
+>+	t0 = ktime_get();
 
-2026=EB=85=84 10=EC=9B=94 5=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 9:11, R=
-osen Penev <rosenp@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> The formats array is allocated separately with devm_kcalloc() and only
-> referenced through the fimc_context. Make it a flexible array member at
-> the end of the context and allocate both in one go with struct_size().
->
-> Annotate it with __counted_by(num_formats) so the array accesses can be
-> bounds checked with FORTIFY_SOURCE and UBSAN_BOUNDS.
->
-> Assisted-by: LLM
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Here only phase 3 locking is profiled. What about phase 1 locking?
 
-The allocation size, initialization order, and format array lifetime
-look correct to me.
-checkpatch.pl reports an error for Assisted-by: LLM like below. Please
-describe the AI assistance in the commit message instead of using this
-trailer.
+Niranjana
 
-WARNING: Non-standard signature: Assisted-by:
-#57:
-Assisted-by: LLM
-
-ERROR: Unrecognized email address: 'LLM'
-#57:
-Assisted-by: LLM
-
-
-Thanks,
-Inki Dae
-
-> ---
->  drivers/gpu/drm/exynos/exynos_drm_fimc.c | 17 +++++------------
->  1 file changed, 5 insertions(+), 12 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fimc.c b/drivers/gpu/drm/e=
-xynos/exynos_drm_fimc.c
-> index 09e33a26caaf..079d24d0671c 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_fimc.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_fimc.c
-> @@ -99,7 +99,6 @@ struct fimc_context {
->         void            *dma_priv;
->         struct device   *dev;
->         struct exynos_drm_ipp_task      *task;
-> -       struct exynos_drm_ipp_formats   *formats;
->         unsigned int                    num_formats;
+> 	if (!xe_bo_needs_defrag(bo)) {
+> 		xe_bo_defrag_remove(bo);
+>@@ -1362,9 +1369,13 @@ static int xe_bo_defrag_one(struct xe_device *xe, struct xe_bo *bo,
 >
->         void __iomem    *regs;
-> @@ -108,6 +107,7 @@ struct fimc_context {
->         struct fimc_scaler      sc;
->         int     id;
->         int     irq;
-> +       struct exynos_drm_ipp_formats   formats[] __counted_by(num_format=
-s);
->  };
+> unlock:
+> 	xe_bo_unlock(bo);
+>+	lock_ns = ktime_to_ns(ktime_sub(ktime_get(), t0));
+>+	got = pp.used;
+> out_err:
+> 	ttm_pool_prealloc_fini(pool, &pp);
+> out:
+>+	trace_xe_bo_defrag_one(bo, budget, want, got, lock_ns, prealloc_ns,
+>+			       lockwait_ns, *consumed, ret);
+> 	return ret;
+> }
 >
->  static u32 fimc_read(struct fimc_context *ctx, u32 reg)
-> @@ -1273,20 +1273,16 @@ static int fimc_probe(struct platform_device *pde=
-v)
->         if (exynos_drm_check_fimc_device(dev) !=3D 0)
->                 return -ENODEV;
+>@@ -1396,6 +1407,9 @@ static void xe_bo_defrag_worker(struct work_struct *w)
+> 		return;
+> 	}
 >
-> -       ctx =3D devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-> +       num_formats =3D ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_=
-formats);
-> +       ctx =3D devm_kzalloc(dev, struct_size(ctx, formats, num_formats),=
- GFP_KERNEL);
->         if (!ctx)
->                 return -ENOMEM;
+>+	trace_xe_bo_defrag_worker(xe, 0, atomic_read(&xe->mem.defrag.count),
+>+				  true);
+>+
+> 	/*
+> 	 * Process at most XE_BO_DEFRAG_SIZE_LIMIT bytes of newly (re)allocated
+> 	 * backing per run rather than draining the whole list in one go. Only
+>@@ -1503,6 +1517,8 @@ static void xe_bo_defrag_worker(struct work_struct *w)
 >
-> +       ctx->num_formats =3D num_formats;
-> +       formats =3D ctx->formats;
->         ctx->dev =3D dev;
->         ctx->id =3D of_alias_get_id(dev->of_node, "fimc");
+> 	xe_pm_runtime_put(xe);
+> 	drm_dev_exit(idx);
+>+	trace_xe_bo_defrag_worker(xe, defrag_bytes,
+>+				  atomic_read(&xe->mem.defrag.count), false);
+> }
 >
-> -       /* construct formats/limits array */
-> -       num_formats =3D ARRAY_SIZE(fimc_formats) + ARRAY_SIZE(fimc_tiled_=
-formats);
-> -       formats =3D devm_kcalloc(dev, num_formats, sizeof(*formats),
-> -                              GFP_KERNEL);
-> -       if (!formats)
-> -               return -ENOMEM;
-> -
->         /* linear formats */
->         if (ctx->id < 3) {
->                 limits =3D fimc_4210_limits_v1;
-> @@ -1320,9 +1316,6 @@ static int fimc_probe(struct platform_device *pdev)
->                 formats[j].num_limits =3D num_limits;
->         }
+> static int xe_bo_move(struct ttm_buffer_object *ttm_bo, bool evict,
+>diff --git a/drivers/gpu/drm/xe/xe_trace_bo.h b/drivers/gpu/drm/xe/xe_trace_bo.h
+>index 86323cf3be2c..b159d37d39a1 100644
+>--- a/drivers/gpu/drm/xe/xe_trace_bo.h
+>+++ b/drivers/gpu/drm/xe/xe_trace_bo.h
+>@@ -85,6 +85,65 @@ TRACE_EVENT(xe_bo_move,
+> 		      __get_str(new_placement_name), __get_str(device_id))
+> );
 >
-> -       ctx->formats =3D formats;
-> -       ctx->num_formats =3D num_formats;
-> -
->         /* resource memory */
->         ctx->regs =3D devm_platform_ioremap_resource(pdev, 0);
->         if (IS_ERR(ctx->regs))
-> --
-> 2.56.0
->
+>+TRACE_EVENT(xe_bo_defrag_worker,
+>+	    TP_PROTO(struct xe_device *xe, u64 defrag_bytes, int count,
+>+		     bool enter),
+>+	    TP_ARGS(xe, defrag_bytes, count, enter),
+>+	    TP_STRUCT__entry(
+>+		     __string(dev, dev_name(xe->drm.dev))
+>+		     __field(u64, defrag_bytes)
+>+		     __field(int, count)
+>+		     __field(bool, enter)
+>+		     ),
+>+	    TP_fast_assign(
+>+		   __assign_str(dev);
+>+		   __entry->defrag_bytes = defrag_bytes;
+>+		   __entry->count = count;
+>+		   __entry->enter = enter;
+>+		   ),
+>+	    TP_printk("dev=%s %s defrag_bytes=%llu count=%d",
+>+		      __get_str(dev), __entry->enter ? "enter" : "exit",
+>+		      __entry->defrag_bytes, __entry->count)
+>+);
+>+
+>+TRACE_EVENT(xe_bo_defrag_one,
+>+	    TP_PROTO(struct xe_bo *bo, u64 budget, unsigned int prealloc_want,
+>+		     unsigned int prealloc_got, u64 lock_ns, u64 prealloc_ns,
+>+		     u64 lockwait_ns, u64 consumed, int ret),
+>+	    TP_ARGS(bo, budget, prealloc_want, prealloc_got, lock_ns,
+>+		    prealloc_ns, lockwait_ns, consumed, ret),
+>+	    TP_STRUCT__entry(
+>+		     __string(dev, __dev_name_bo(bo))
+>+		     __field(size_t, size)
+>+		     __field(u64, budget)
+>+		     __field(unsigned int, prealloc_want)
+>+		     __field(unsigned int, prealloc_got)
+>+		     __field(u64, lock_us)
+>+		     __field(u64, prealloc_us)
+>+		     __field(u64, lockwait_us)
+>+		     __field(u64, consumed)
+>+		     __field(int, ret)
+>+		     ),
+>+	    TP_fast_assign(
+>+		   __assign_str(dev);
+>+		   __entry->size = xe_bo_size(bo);
+>+		   __entry->budget = budget;
+>+		   __entry->prealloc_want = prealloc_want;
+>+		   __entry->prealloc_got = prealloc_got;
+>+		   __entry->lock_us = div_u64(lock_ns, 1000);
+>+		   __entry->prealloc_us = div_u64(prealloc_ns, 1000);
+>+		   __entry->lockwait_us = div_u64(lockwait_ns, 1000);
+>+		   __entry->consumed = consumed;
+>+		   __entry->ret = ret;
+>+		   ),
+>+	    TP_printk("dev=%s size=%zu budget=%llu prealloc=%u/%u lock_us=%llu lockwait_us=%llu prealloc_us=%llu consumed=%llu ret=%d",
+>+		      __get_str(dev), __entry->size, __entry->budget,
+>+		      __entry->prealloc_got, __entry->prealloc_want,
+>+		      __entry->lock_us, __entry->lockwait_us,
+>+		      __entry->prealloc_us, __entry->consumed,
+>+		      __entry->ret)
+>+);
+>+
+> DECLARE_EVENT_CLASS(xe_vma,
+> 		    TP_PROTO(struct xe_vma *vma),
+> 		    TP_ARGS(vma),
+>-- 
+>2.34.1
 >
