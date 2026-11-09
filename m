@@ -1,54 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=218.76.62.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794191859;
-	b=gYm3AB0+ha08hxXs5LVdo3NEAasKtblbVPt+ZrMtn87bFgNf45p10F48UTPdBDM0grgM
-	 k3gcVU8P+WiioKV981hWjrVbBiMRbv58KBPCuLfq+GQaNLRqi1ENNAcB9rXSq26kaI1Lz
-	 JKpnq2QLwnFS5VI2iGEyXGsCYCTOShf6S7ls/Sz4pGzOF143K77gXh+XvrDkVg6+s8hju
-	 6NbLt/DEVi6JGNaAoLiQCcDy0edbmIyPwZ396NjU5sXwFiX3UEK0V/JOoFF0mgl0v7lbc
-	 MuE4h7/ZbnvGEDqNb7EBeuxFHmI4Bxdw+m6nJ+16ussz2afopb2s12ZYnv+2HPBMrOg==
+	t=1794191892;
+	b=uxof21ioYHWXbpv09a5JhxsYIdgk0ftMnxqLnfiR/OllppGHZhvEuTa0vmwYpQlEPceE
+	 3NgQdD8HsCRMOr1Z/6j85jEfPKZZeVjS08OfcpmxxhU5yzG80x4nU2YYik9eCqZgzk2bS
+	 Z73eqUvLSBe8O5c5rp6GAWywlL7wzzjr6sYD//v6Oh49DlIyugXy/A0UTzGKAxl4u/+Fq
+	 VNbStnhQ+/pZRYVHvvMDl2GTYpyzAGT1eSLCUTmAaROYed+SDrsD0Jtx8LWEd8+wQstJm
+	 0ivhAVjixwsQ+q06gbsaflclXQg+PSYvVj2KOoaPxNZPC0Ya61hDQ77dHiIG3IVKpWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794191859;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=9rXEcNZzcZAe4iE0p0XDHsc0VjCCW/UujjQm/s4ivWE=;
-	b=EFQCQ7NIYpZuFm2yen5h7CK68hWoFLwAFAQo3nlUfJnxTmd7WHmmXjSY1dVukuQl6AQr
-	 /N1rKKTDASZ+pM7R89bfsPcgdCK9mBU6mUcpf5RkqqbP7Zg7HBlFUuFY5Oh+G/iDw0ZD9
-	 XSX1G+SQDOuZ6xRYYREEPf0pwdjd+1/Xl8HiJeXoYnF7/K6YtUHqQcnXM8zFDdmxKPFNV
-	 QyB/F8o0vIIJSx7Qcw7/dl9gca1hO3+2zW4WG3HP+Xl9D/VQ/YbIxj4GIWGUa4ZuDQvzc
-	 mIjOp1DH7EJdlNQ/NzkZgq6ZuPeLQL1G+Whc5uSNF73/O/2ujSylwMY4BlbIJrDOf1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794191892;
+	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=62e392DU1DrlXWGc+bil/alPKZVCZVrzv976HNSepMA=;
+	b=yabeUQgIt4MPe6vGxITrFpPx1aiuj9YXDwITviNi8SqyoY8tZ3FNkjS30bpVnVlqWcF7
+	 J1ggoVroqUu0bOsUSaWdFWuhjcikmUSkvLTPMmqJbfe9DjA1qFU9mmfyt43bVCIXI3Rcx
+	 B1NPc9IXi2gv6ZclQuQqTceh6q195+VMGkqcwYHw22Gj3wwnQjAQ0RD7AjkSzdA4d8nt6
+	 RrnAe/j9vt44RH4ekxnLR/sB/7IQDUU7q1O3u8T0zOJl/9B2fxUomMnBPNwKkG8kVAUkY
+	 IlF/G06nEic/GT8NQc2GG4xSkVvInsnx08cpO2ZK80AcPHntIzoumqs+7VaLum0IbvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.200
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DBF2606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:37:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DBF2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4f4612a1a5cso611092b6e.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:37:39 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794191858; x=1794796658;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9rXEcNZzcZAe4iE0p0XDHsc0VjCCW/UujjQm/s4ivWE=;
-        b=rqYwxJjuGOESpTDf0Kp4wDVxgTxaSUL9pxTImRihFASQ5ou6u+ipfNEf27cyA/0/fO
-         rPnPKI9oPF0wvUeTIE7ebiEjcxLQUSX1gYk3JjbpUDEiYRlEcnGwn/e7Og1gqndNGhzi
-         v4V0Ic5BKIyuQIYeunLNIWoTZdU7ukiYM3rL+rOwi1+x0FVWqn3n4VmquT5fTpg6Ochq
-         Kgoi3pkYwvkaX6OS9BOQg0rg14HcVKhTS47DyH5REC8IPlybVe029ICcCf6jIPj6/qPS
-         hKULLay6E+i9UI7LgKjh80GHitwhRKEtRE4DqBIOHk2mRe32pvv7Exveq1p4pd1jlcJK
-         nXrw==
-X-Forwarded-Encrypted: i=1; AL+hErEw/xvGStir9yHC3yVEtTa3lkBtra1+A4tV/IS2ZCLLEHqbgvn6pqZd6/vwsy76zHB9CI6/Rrnp9xZlMmg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8DjRVeZUjULDJAIUZ/nt2jSuuvF4fDQ64qYBSfsHlyoOfKcut8
-	b1y6S1NLxeVFpDcWUAWY4Mjd4w+I85m3VC9Zfi8mnZP+TVxdP9EG+BrC8/b/theGXhQ+q0QP1am
-	QhvSKV1ABkPzZCvkxCb93maEUq7nBt2K3k9+yKvLXlSDoSkoWVuqriS/kcCc=
+	dmarc=pass header.from=ultrarisc.com;
+	spf=pass smtp.mailfrom=ultrarisc.com;
+	dkim=pass header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=Px2vhO8F;
+	arc=none smtp.remote-ip=218.76.62.146
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8C66B606A31C;
+	Mon,  9 Nov 2026 02:38:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C66B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=ultrarisc.com header.i=@ultrarisc.com header.a=rsa-sha256 header.s=dkim header.b=Px2vhO8F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=62e392DU1DrlXWGc+bil/alPKZVCZVrzv
+	976HNSepMA=; b=Px2vhO8FXHHr1QlFO973/QQANWpEe4IAD/gF7DMuHn4a7vONw
+	oVPic8PtO8TBwagdKzIgwSrkZWKPaaICe+9l2OlmqEXGzv9NJfCzbTRJjbSq7LHm
+	cMPuyseC7EofnQpSU4+xAhXwoQdySMgIg3F2c3j3Zzt6Rdbmz0k9BpA2kY=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDnrwbVMfFqCawDAA--.1441S2;
+	Mon, 09 Nov 2026 10:37:15 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,117 +50,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:518b:b0:495:f8a5:8797 with SMTP id
- 5614622812f47-567fcf350damr2647509b6e.0.1794191858336; Sun, 08 Nov 2026
- 18:37:38 -0800 (PST)
-Date: Sun, 08 Nov 2026 18:37:38 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6af131f2.44d55313.247daf.0001.GAE@google.com>
-Subject: [syzbot] [btrfs?] WARNING in btrfs_put_root
-From: syzbot <syzbot+55d1814e49f1fc0ba542@syzkaller.appspotmail.com>
-To: dsterba@suse.com, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mason@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v7 0/7] riscv: Add device tree support for UltraRISC
+ DP1000
+From: Xincheng Ji <jixincheng@ultrarisc.com>
+To: Xincheng Ji <jixincheng@ultrarisc.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Andrew Lunn <andrew@lunn.ch>, 
+ Jia Wang <wangjia@ultrarisc.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+In-Reply-To: <20261025-ultrarisc-dts-v7-0-621eca2b8790@ultrarisc.com>
+References: <20261025-ultrarisc-dts-v7-0-621eca2b8790@ultrarisc.com>
+Date: Mon, 09 Nov 2026 10:37:13 +0800
+Message-Id: <179419183382.2791817.17305257804227954338.b4-reply@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794191834; l=353;
+ i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
+ bh=RT6SE3Lf2ZsuoPOTBdd55N72LgL+cuUbZ1aU9KTXVIQ=;
+ b=d3YO63Kc7223iJpymiMjOHrM2CsJ/6HY+c/2ndCo0DfQBhfFXkdTAVK+vuVOh8zvIvMoep0Js
+ jrROUzMyFN+A5Y3H6aGA4DCFZaKAg45OzAIcbhqr2/qLhSd9y1XM5eR
+X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
+ pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
+X-CM-TRANSID:AQAAfwDnrwbVMfFqCawDAA--.1441S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUO17AC8VAFwI0_Xr0_Wr1l1xkIjI8I6I8E
+	6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
+	kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8I
+	cVCY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aV
+	CY1x0267AKxVW8JVW8Jr1l0xvY67AC8VAFwI0_Jr0_Jr4le2I262IYc4CY6c8Ij28IcVAa
+	Y2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4
+	A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F
+	5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc2xSY4AK6svPMxAIw2
+	8IcxkI7VAKI48JMxAqzxv26xkF7I0En4kS14v26r4a6rW5MxC20s026xCaFVCjc4AY6r1j
+	6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7
+	AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE
+	2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcV
+	C2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2Kfnx
+	nUUI43ZEXa7VUUq-e7UUUUU==
+X-CM-SenderInfo: pml0x0xfkh0wg6xo325dul2uoofrz/1tbiAQATDmrm4a4ABAATsI
 
-Hello,
+On 2026-10-25 20:24 +0800, Xincheng Ji wrote:
+Hi all,
 
-syzbot found the following issue on:
+A gentle ping on this series adding device tree support for the
+UltraRISC DP1000 SoC and the Shenzhen Rongda M0 and Milk-V Titan boards.
 
-HEAD commit:    fa4ad798f6f6 Merge tag 'for-7.4-rc1-tag' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=16f5af35580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=d44b06612b68f56
-dashboard link: https://syzkaller.appspot.com/bug?extid=55d1814e49f1fc0ba542
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+Are there any remaining issues I should address before the series can
+be picked up?
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Thanks,
+Xincheng
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/7a262c93f0a1/disk-fa4ad798.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/670f0137c169/vmlinux-fa4ad798.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/7b5f342645af/bzImage-fa4ad798.xz
+-- 
+Xincheng Ji <jixincheng@ultrarisc.com>
 
-AI-generated root cause summary:
-When a Btrfs filesystem encounters a transaction abort (reported in state EA),
-inodes being evicted during unmount (particularly via delayed iputs in
-close_ctree(), which runs after btrfs_error_commit_super()) fail to persist
-their delayed inode updates in btrfs_commit_inode_delayed_inode() because
-transaction joining fails. In btrfs_evict_inode(), this error causes execution
-to jump directly to the out label, bypassing btrfs_kill_delayed_inode_items().
-Because the delayed items remain uncleaned, __btrfs_release_delayed_node()
-re-queues the delayed node into delayed_root->node_list and retains a reference,
-preventing refcount_dec_and_test() from hitting zero and skipping
-xa_erase(&root->delayed_nodes, ...). When the root is finally freed in
-btrfs_put_root(), root->delayed_nodes is still non-empty, triggering
-WARN_ON(!xa_empty(&root->delayed_nodes)).
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=55d1814e49f1fc0ba542
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+55d1814e49f1fc0ba542@syzkaller.appspotmail.com
-
-BTRFS info (device loop6 state EA): last unmount of filesystem 395ef67a-297e-477c-816d-cd80a5b93e5d
-------------[ cut here ]------------
-!xa_empty(&root->delayed_nodes)
-WARNING: fs/btrfs/disk-io.c:1844 at btrfs_put_root+0x1f9/0x250 fs/btrfs/disk-io.c:1844, CPU#1: syz-executor/6160
-Modules linked in:
-CPU: 1 UID: 0 PID: 6160 Comm: syz-executor Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 11/06/2026
-RIP: 0010:btrfs_put_root+0x1f9/0x250 fs/btrfs/disk-io.c:1844
-Code: c5 0e fe e8 b9 81 a3 fd 48 8d bb 40 05 00 00 90 0f 0b 90 e8 69 98 de 07 e9 9b fe ff ff e8 9f 81 a3 fd 48 8d bb 90 05 00 00 90 <0f> 0b 90 e8 4f 98 de 07 e9 ad fe ff ff e8 85 81 a3 fd 90 0f 0b 90
-RSP: 0018:ffffc90006287d18 EFLAGS: 00010293
-RAX: ffffffff84258d21 RBX: ffff888079a62000 RCX: ffff8880233e8000
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: ffff888079a62590
-RBP: 0000000000000001 R08: ffff888079a6262b R09: 1ffff1100f34c4c5
-R10: dffffc0000000000 R11: ffffed100f34c4c6 R12: dffffc0000000000
-R13: ffff888069f06218 R14: ffff888079a625d8 R15: dffffc0000000000
-FS:  000055556295c500(0000) GS:ffff888123509000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007faacae5e000 CR3: 000000001ef0b000 CR4: 0000000000350ef0
-Call Trace:
- <TASK>
- btrfs_free_fs_info+0x252/0x360 fs/btrfs/disk-io.c:1257
- deactivate_locked_super+0xbe/0x110 fs/super.c:558
- cleanup_mnt+0x204/0x2a0 fs/namespace.c:1396
- task_work_run+0x1d9/0x260 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
- do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fb8687a0d57
-Code: a2 c7 05 9c a9 25 00 00 00 00 00 eb 96 e8 e1 12 00 00 90 31 f6 e9 09 00 00 00 66 0f 1f 84 00 00 00 00 00 b8 a6 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 01 c3 48 c7 c2 e8 ff ff ff f7 d8 64 89 02 b8
-RSP: 002b:00007ffc6dae6688 EFLAGS: 00000246 ORIG_RAX: 00000000000000a6
-RAX: 0000000000000000 RBX: 0000000000000000 RCX: 00007fb8687a0d57
-RDX: 0000000000000000 RSI: 0000000000000009 RDI: 00007ffc6dae6740
-RBP: 00007ffc6dae6740 R08: 00007ffc6dae7740 R09: 00000000ffffffff
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffc6dae77d0
-R13: 00007fb868836fb3 R14: 0000000000041ae3 R15: 00007ffc6dae7810
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
