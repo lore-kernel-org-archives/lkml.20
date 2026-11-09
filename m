@@ -1,54 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.86.107.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794197532;
-	b=tgCQLoNCBj0QGapKM7Q/bJsikN4NsKzb1jGrTrS1Z3ME7pEG8mdz8JMoFaBottQ/SLnG
-	 r3j/ZH14RXMc6tktf9UeknC+WajfuW0ZcScG8OPu6OFpo6ZGbL8aFSEg083q6boD3f+GT
-	 rnpTABo3usNmKKeD69ui38L2iXEYou8kYrkvg4nZE+53blITbFBoG2PFli1Jpk/iZ47wU
-	 KMnmLWFVZZDJ3CfnZmP7SRzID43alT4jVbZl/YaTWzG+CpR67JuytjFFZ7zk1MbHasfQE
-	 ck4Bhtka92CdzftAMfyLebgNAuHvU1KJ+0zPYwKyaBKWcsfOd0OYBaX+HqTLC5E9nFg==
+	t=1794197572;
+	b=X0btXl3MwoAUR2beMMxKrXW1RDa6a1s/ZNK9M4iLKXyq4M4XDDVR6c6a0aylym1vG6Ir
+	 a1n1tgksegshwpidDZtmkMfLOzM9WNexd2iqMViQg3DGGkUHI4rRrRbJl3BI4Na+rOON+
+	 S+WBDwQRnLJiCR8uiXI7rlTtKc/jaw75B/5gclbzoL3oU3kfxlanOeYsjXaC+R1HmV7z5
+	 6hLMY+enQLqo9zPPcrJOo7Vqwndly9o390mx2T53V9GxpJPfeLCTO4y7d+24UZSnNHUdQ
+	 TUhAdw0Z1qfUnIV5Xd79VbDrFvmeis14j4V/bbREBxMG/YSn6wb9spLzB9m20dSqzZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794197532;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
-	 X-Coremail-Antispam;
-	bh=2TguHwko21fivh+UAP4XrLKQb5/lOJ8y5+dOP7L0tb8=;
-	b=CtmpPedMr5kbE3UmqfzF9pVtzV2gNKw9rmVhqCKMv/yuF7ed01/Cuv6eSXNp8zzemLLm
-	 rAjZkikTT1Cqka7WBM4060qeSiCUeIpgAWkSg3XvvHG+ef/nArLfcEZxroRaa1X9sKx/5
-	 RCoNq/sVT6ijtyiT6S8QsVA7+bWdXjQKOu+hKpfLuFNgHi8A4JKAksiPWfvb2r7YfbQas
-	 RfDvFAFWh3xOtXJgpH7dQQLc9ODspPLjrzX/Da9qqB59SYu48up84tpz1d8ZWk0617ldO
-	 lQi4z7Tc9fjTshT2vhryFr0vaApme04mIyGmZ9scpNh/Cv1FMxuL6yrERdxud4fcJLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794197572;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=9ecP5Paab01vW01ah+VFfzbMn0r0qdT/KH2o51GJw1k=;
+	b=BW5SVjOHtPLhj0Z0ZtsR3OcXFikfO572Mw0dkVOOtMBzqeSNERCa5BNZskgZ2HoWocDl
+	 trD8ogdDwZKQ0BJvt1q1TRQrn/U8gSKBVDttwB/HQ7ZYfCoO7faS9WVXjQ7CXMoyTp+lf
+	 0FhoGv2kXAePKbjMakAgygcY1eNZbqK07RI7zgyJcpzgTTQzsgnaNAcyfxGYZ5OSQ3Ze6
+	 jwsZrH+lXwtx+s06+8xwAXDV4qLQdEcsrDknRBtjf1qLmiPbxUGmV/oIF5lkU7DGf7eH9
+	 4vIQhKB2DQwsDT2fP6r/lL3f083N/TMJAiIPHGBrRXMpKdlHw78ciRfZnGNLa+TfDRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D69A7606A322;
-	Mon,  9 Nov 2026 04:12:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D69A7606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8Cxf9MZSPFqmrMdAA--.20149S3;
-	Mon, 09 Nov 2026 12:12:09 +0800 (CST)
-Received: from linux.localdomain (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJDxxMwXSPFqQRwzAA--.11813S3;
-	Mon, 09 Nov 2026 12:12:08 +0800 (CST)
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: bpf@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH bpf-next v2 1/2] selftests/bpf: Skip jit_insns_arena tests if not supported
-Date: Mon,  9 Nov 2026 12:12:06 +0800
-Message-ID: <20261109041207.15221-2-yangtiezhu@loongson.cn>
-X-Mailer: git-send-email 2.42.0
-In-Reply-To: <20261109041207.15221-1-yangtiezhu@loongson.cn>
-References: <20261109041207.15221-1-yangtiezhu@loongson.cn>
+	dmarc=pass header.from=rendec.net;
+	spf=pass smtp.mailfrom=rendec.net;
+	dkim=pass header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=UuFbsJ8Z;
+	arc=none smtp.remote-ip=80.86.107.70
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B21606A31C;
+	Mon,  9 Nov 2026 04:12:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79B21606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.a=rsa-sha256 header.s=default header.b=UuFbsJ8Z
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id BF3E7D50A9;
+	Mon,  9 Nov 2026 06:12:47 +0200 (EET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro BF3E7D50A9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1794197569;
+	bh=9ecP5Paab01vW01ah+VFfzbMn0r0qdT/KH2o51GJw1k=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=UuFbsJ8Z2ptkqGhhMbpc49fXSCGqFGbJgHw4R5MuoKO0EEUKyKl3WcDuMWU0Ng/KM
+	 N3T3IaERNibAsLvRCuz9eYUQm75CTRDbOzkbP7LFhpvhjH0b+a8J0Or3SXy069Mklv
+	 8Gi0pYMaaKbqIXJaSeAMY2icehUjfV/vPBqEB0VbMwyRpARiyNiEj6xojVht/OV7a1
+	 GF3UhqqjPTrUpivlwNsH0WKq6ShWzWJE2IePEzIOPTefjQuslNLAkSXdbKV3mRGZq2
+	 3I8XagQAteEedS25m/jo3Zq5Z/evSm9WbKtjA51Br7S7sC02BfZipKM/HXkZnQA8M3
+	 hieybW1c3RxOg==
+Message-ID: <321c9fc07d58b2febeba1d6cb80baf85a4c03814.camel@rendec.net>
+Subject: Re: [tip: irq/drivers] irqchip/imx-irqsteer: Validate IRQ count
+ before creating domain
+From: Radu Rendec <radu@rendec.net>
+To: Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>
+Cc: linux-tip-commits@vger.kernel.org, Fabio Estevam
+ <festevam@nabladev.com>,  Zhipeng Wang <zhipeng.wang_1@nxp.com>, Frank Li
+ <Frank.Li@nxp.com>, x86@kernel.org, 	linux-kernel@vger.kernel.org
+Date: Sun, 08 Nov 2026 23:12:45 -0500
+In-Reply-To: <20261109033108.GEavE-fNcWoLB94CXe@fat_crate.local>
+References: <20261104073759.386777-3-Zhipeng.wang_1@oss.nxp.com>
+	 <179417457995.2093942.6001079047755881830.tip-bot2@tip-bot2>
+	 <20261109033108.GEavE-fNcWoLB94CXe@fat_crate.local>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,78 +72,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxxMwXSPFqQRwzAA--.11813S3
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7Ar1kKF48Jw13Aw4fWrWkKrX_yoW8Zw4DpF
-	92kw4vvrySq3WSvayDXrnrXrWjkFs5GF98Gw1rtw4xJrnrXr4aqr1xKa4YgFs3WrWxZw15
-	Zw1j9r9aka47AFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Yb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
-	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q
-	6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64
-	vIr41l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_
-	Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
-	AY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Xr0_Ar1lIxAI
-	cVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
-	IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIev
-	Ja73UjIFyTuYvjxU4OzVUUUUU
 
-When loading a BPF skeleton program via test_loader, certain test cases
-such as jit_insns/cast_to_user may fail if the underlying hardware lacks
-specific execution extensions required by newer features like BPF Arena.
+On Sun, 2026-11-08 at 19:31 -0800, Borislav Petkov wrote:
+> On Sun, Nov 08, 2026 at 09:49:39PM -0000, tip-bot2 for Fabio Estevam wrot=
+e:
+> > The following commit has been merged into the irq/drivers branch of tip=
+:
+> >=20
+> > Commit-ID:=C2=A0=C2=A0=C2=A0=C2=A0 f99f3c4acaff0df9393c1e6a3f28b7b974e0=
+1d95
+> > Gitweb:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 https://git.kernel.or=
+g/tip/f99f3c4acaff0df9393c1e6a3f28b7b974e01d95
+> > Author:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Fabio Estevam <festev=
+am@nabladev.com>
+> > AuthorDate:=C2=A0=C2=A0=C2=A0 Wed, 04 Nov 2026 16:37:50 +09:00
+> > Committer:=C2=A0=C2=A0=C2=A0=C2=A0 Thomas Gleixner <tglx@kernel.org>
+> > CommitterDate: Sun, 08 Nov 2026 22:43:43 +01:00
+> >=20
+> > irqchip/imx-irqsteer: Validate IRQ count before creating domain
+> >=20
+> > The IRQ count is validated after creating the IRQ domain. If it is
+> > invalid, probe returns without removing the domain, leaving its host
+> > data pointing at devm-managed memory that is freed on probe failure.
+> >=20
+> > Validate the count before allocating resources to avoid the leak and
+> > dangling pointer.
+> >=20
+> > Fixes: 28528fca4908 ("irqchip/imx-irqsteer: Add multi output interrupts=
+ support")
+> > Signed-off-by: Fabio Estevam <festevam@nabladev.com>
+> > Signed-off-by: Zhipeng Wang <zhipeng.wang_1@nxp.com>
+> > Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> > Reviewed-by: Radu Rendec <radu@rendec.net>
+> > Link: https://patch.msgid.link/20261104073759.386777-3-Zhipeng.wang_1@o=
+ss.nxp.com
+> > ---
+> > =C2=A0drivers/irqchip/irq-imx-irqsteer.c | 7 ++-----
+> > =C2=A01 file changed, 2 insertions(+), 5 deletions(-)
+> >=20
+> > diff --git a/drivers/irqchip/irq-imx-irqsteer.c b/drivers/irqchip/irq-i=
+mx-irqsteer.c
+> > index 1b8d0c8..766756e 100644
+> > --- a/drivers/irqchip/irq-imx-irqsteer.c
+> > +++ b/drivers/irqchip/irq-imx-irqsteer.c
+> > @@ -218,6 +218,8 @@ static int imx_irqsteer_probe(struct platform_devic=
+e *pdev)
+> > =C2=A0	 */
+> > =C2=A0	data->irq_count =3D DIV_ROUND_UP(irqs_num, 64);
+> > =C2=A0	data->reg_num =3D irqs_num / 32;
+> > +	if (!data->irq_count || data->irq_count > CHAN_MAX_OUTPUT_INT)
+> > +		return -EINVAL;
+> > =C2=A0
+> > =C2=A0	if (IS_ENABLED(CONFIG_PM)) {
+> > =C2=A0		data->saved_reg =3D devm_kzalloc(&pdev->dev,
+> > @@ -246,11 +248,6 @@ static int imx_irqsteer_probe(struct platform_devi=
+ce *pdev)
+> > =C2=A0	}
+> > =C2=A0	irq_domain_set_pm_device(data->domain, &pdev->dev);
+> > =C2=A0
+> > -	if (!data->irq_count || data->irq_count > CHAN_MAX_OUTPUT_INT) {
+> > -		ret =3D -EINVAL;
+> > -		goto out;
+> > -	}
+> > -
+> > =C2=A0	for (i =3D 0; i < data->irq_count; i++) {
+> > =C2=A0		data->irq[i] =3D irq_of_parse_and_map(np, i);
+> > =C2=A0		if (!data->irq[i])
+>=20
+> I'm guessing it is this one because it removes the "goto out;" around the
+> 2xx-ish linenumbers but forgets to remove the out: label itself:
+>=20
+> drivers/irqchip/irq-imx-irqsteer.c: In function =E2=80=98imx_irqsteer_pro=
+be=E2=80=99:
+> drivers/irqchip/irq-imx-irqsteer.c:271:1: error: label =E2=80=98out=E2=80=
+=99 defined but not used [-Werror=3Dunused-label]
+> =C2=A0 271 | out:
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | ^~~
 
-Use libbpf_probe_bpf_map_type() in prog_tests/jit_insns.c to explicitly
-check for BPF_MAP_TYPE_ARENA support before loading the jit_insns_arena
-test skeleton. If the JIT backend or hardware does not support Arena,
-cleanly report the subtest status as SKIPPED via test__skip().
+The culprit seems to be 54ac29cd1111 ("irqchip/imx-irqsteer: Let devres
+own the clock"). I think Thomas had reworked the patches (particularly
+the controversial part about the pm_runtime and clock control
+management) before he applied them to the irq/drivers tip branch.
 
-This prevents false-alarm test failures on unsupported hardware while
-preserving the core verification coverage for the rest of the standard
-JIT instruction tests (such as alu_imm, alu_reg).
+The commit posted to the mailing list removed the clk_disable_unprepare()
+at the end of the function, along with the "out" label. The one in the
+tip branch does not remove either. I guess the intention was to keep the
+call, but the label slipped through.
 
-Before:
-  $ sudo ./test_progs -a jit_insns/cast_to_user
-  ...
-  libbpf: map 'arena': failed to create: -EOPNOTSUPP
-  run_subtest:FAIL:unexpected_load_failure unexpected error: -95 (errno 95)
-  ...
-  Summary: 0/0 PASSED, 0 SKIPPED, 1/1 FAILED
-
-After:
-  $ sudo ./test_progs -a jit_insns/cast_to_user
-  ...
-  Summary: 1/0 PASSED, 1 SKIPPED, 0/0 FAILED
-
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
----
- tools/testing/selftests/bpf/prog_tests/jit_insns.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/jit_insns.c b/tools/testing/selftests/bpf/prog_tests/jit_insns.c
-index 0aaab23a2eef..e8a0e5ec2d6b 100644
---- a/tools/testing/selftests/bpf/prog_tests/jit_insns.c
-+++ b/tools/testing/selftests/bpf/prog_tests/jit_insns.c
-@@ -3688,7 +3688,14 @@ static void test_tail_call(void)
- 
- void test_jit_insns(void)
- {
--	RUN_TESTS(jit_insns_arena);
-+	if (libbpf_probe_bpf_map_type(BPF_MAP_TYPE_ARENA, NULL)) {
-+		RUN_TESTS(jit_insns_arena);
-+	} else {
-+		if (test__start_subtest("arena_zero_off"))
-+			test__skip();
-+		if (test__start_subtest("cast_to_user"))
-+			test__skip();
-+	}
- 	if (test__start_subtest("alu_imm"))
- 		test_alu_imm();
- 	if (test__start_subtest("alu_reg"))
--- 
-2.42.0
-
+> cc1: all warnings being treated as errors
+> make[4]: *** [scripts/Makefile.build:290: drivers/irqchip/irq-imx-irqstee=
+r.o] Error 1
+> make[4]: *** Waiting for unfinished jobs....
+> make[3]: *** [scripts/Makefile.build:572: drivers/irqchip] Error 2
+> make[3]: *** Waiting for unfinished jobs....
+>=20
+> An allmodconfig x86_64.
