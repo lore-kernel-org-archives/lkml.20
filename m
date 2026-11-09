@@ -1,90 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794240128;
-	b=LylFl5tYkf6cGRvM9Gh+KEBDASo7QnfP/5jMRX9OfJuXY6hJnPMpZI7J9V4qmVrBVWOv
-	 4m+6mUMaWdDisRPGmD+SY8pii9asZBjprIemHT2knSRHRFZcjSL7And4fGH5qC3omRm0X
-	 9HzL/jZqELXGmaJU/3FKzoQCH33DEDcZBC8QhmBllz10qnKZfoEKAu+ie5aAqvqwvd6hj
-	 JvDK5H/Oo299RBC+8B9GfYvEtuWnapnpSSdwlH1EEgBVZE8Pg9Ov2mAdaW6KgYS4EjfeF
-	 tV180g4RyyyZUwyX/4UMZqn/NzGUscg3LfNAAAWA0BY7lPDAomKMPuh/U+GD6L2gPUQ==
+	t=1794240129;
+	b=S/87Jxr01x7jroFeDU9oU+qdG/NKsqeGjFqSw0rXKtGf7TRviVHMEp76gPRkI9HWamyH
+	 wzFagKy5YnbltUUNnxBnP9vIS+T3cIHgRvOlpHCxVnEFhi6s2W6BbXo8j/y+07F3p9s4p
+	 jupCNneBJ1zp+8NVQ/F2WkGursyvMRW8eIz9hB8BNeNi9ffAB6cY14NzZz8jYwqz7cz9f
+	 DpST5pF7UXhd9lgmW8uA1DfPOGvEAAKzj+RBBlQP3l+vxlgNFKdxhbt1pE/1jqDE141VH
+	 +BS22kfSBf5n9BwvUyZMihtA2l8pRDvzO5pSmIbnM1WHVVGHawf41YHMzApDUNrwgCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240128;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=MUbKECMWpbH5Hktz2WSMdey09BNdQaJCNvxGCw4T8OU=;
-	b=3/a23RjcfEq55fqaYA10rzgHR1Blskt1orP6q/4PijlUbo86Lbe4w1HuY53ov9wYEoud
-	 GaubjDJHQ48CLNbODqU8z0j1fiwifYXAcClTSXtVF7VfcwX0kfvno67j1vA0pSDu6hqfm
-	 EWH8Lj40bRFhESMIlYkImekiVqJo+08Zz+PkMtvqT/fEYHHiDZa4FyCF0g0f6bnUtvUaJ
-	 3kAPRfSxWa1roogn4i9GPq9SL5jGf3mfZDQSXjXeMt9X8he3vtVUsUISwrH+OD0RWd1Mo
-	 bF0hslziYMVJ10oIVfMxBnWXCe5AHMxHVZBNTWwf/l9mw1u/RYKXa9OZ01jgfz42iIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240129;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=a5aexMwK+2MFktlu7rHzowEh/NG7elaL0zrvutdRtI8=;
+	b=Lm2K2vakdBq2eSKme0phJAbe5MX2ASPeQKfClH31n19/EcRR63yJbXguzyyEZzzyqWIC
+	 Ad0//by+QckW11bFzgpg26wHT2tJAj4yVs7C7wT1XfgH20ZzcLDoDPJrxE2fhs8u7FROH
+	 ugnOBtsc/P0a1Y1zKDPJ4JRa/tibKBq6noNU1t1mlQqAMuza5754ZlXBLzSoRGGdC5nzV
+	 rDbpwgWakGk+R9CW2ppurdw12TMh+NVYKbGrAdLDl9cy0cKWI9s6JTqffOmo/g5gNFtN0
+	 TTPulxLM5fa425bRpBtXqY1X0Imm0D25KfBjKLSLxaep/+smWGReQUb5W18mGgZTHIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=HeBZAWdf;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1522860A2611
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:02:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1522860A2611
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vbUKJvs3;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6696C60A260B;
+	Mon,  9 Nov 2026 16:02:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6696C60A260B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=HeBZAWdf
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4550d8ab15so152264766b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:02:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1794240125; x=1794844925; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MUbKECMWpbH5Hktz2WSMdey09BNdQaJCNvxGCw4T8OU=;
-        b=HeBZAWdffYjyW0dOUsMLYWwubHYgKf8GfrY3MfC1gOa4T3P8tHYK9A3g3Jpc948Nj1
-         +B77QXxX8Ck+WepuB/rDeX0Y2qMR8SiI2n7oF1QC6M41u3cvG9Hc8Dk1FglxJMQTdnGf
-         xFT8AYaFP9mEKsjnTzmzreDrcJWX2qgDsVEXc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794240125; x=1794844925;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MUbKECMWpbH5Hktz2WSMdey09BNdQaJCNvxGCw4T8OU=;
-        b=KDgk2I4lCT/l5rszPDqP8WzkeXcnIvCgmUG0AEv2+7usVjc7UycBx37z9OFdTtQs29
-         aTiO1G6JCMEjPJXVyD4xeXmBdw2yxDd1KIVGt3D0VfRFl7L+XlFbpFzW6K+AxJ7uKw2C
-         PIClDOESr8wQZu7B6RvMow9HktAMoVNnbZin5eUd8vuYSREc8/BeYnKIKxxGZMTzL8Wu
-         p91mc4c/pfHj2DZMqln/tNO/zk04kbhl0AvGSQfhorBP2XeQ6ugkS4DckIF/58+qHJ3I
-         /Qk+3Tbt/fMEBfzG5i4kCpIrKo+oMm90xAfBLSisa7F7uAOyB+aMsMXj+1sNrB+ZnvAH
-         J2KA==
-X-Forwarded-Encrypted: i=1; AL+hErEsnypwAJV9wQ2z9HB2kUEIp9qh5cw8IUuVZuDf1OqIY3/n3N/EALpxK0VGe8LU3F13MSlm/jaXo1N7Lak=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QwCX2RNfFnJZ1m8vs0vkZWtOBJ4EqsjiF6FQJwBKcYfIlW9Jt
-	3nRDqrn5DLcoGj7G3Zn2SSmOmkIkLwAcs2argqHhgallRFD7jdcHpyR0sb+dxVKktnH7dc3kD7o
-	mAm0AlME=
-X-Gm-Gg: AYBFou0gMCY4FZ1RECXuypqpXjSNnj6Lggyu3heRkI7kzT6lwl1+SAfAv0qDBaIWDKp
-	GqlPeP0XJECHIhJM5sL9GtD9+OMoAgcjzK3ghJ6jIok0ch250QkFOSceHukSRcP7G6QdSwdajwr
-	Si9EBHnc+uOe7hIcSb5liqsQAKAcHH5BHLa4KWHenhZk0t4hr0xpGzkfRThSZW+g/fd8mNo1p6J
-	N8tzFwFk+z6HpTr3rLKK6sOrFIBtHZGIk7VCIboxoVJdbncr8tk5AfVDh8pK43WyjDYvl533t/0
-	5wyr4oDvm8EV3fpWx7AnNU5wNZi49sqne9kABam8mQ1dgT7vqbFjH0UgqDXd1WSKUHHKlsfFD3R
-	NnMvt4asoyMZxrr0f5Qd6xlEJMPID+cRziGjRYuG2Mq4gWm3U0XKLDZdTqqYXQw2Z2WT7h5qur3
-	I+h6hwVpwT2Yy7T46wBuSf+567vXvUYEDP+U5FUVvw70EiX2vISaakkZku3B76hjG8IvDUd2m6w
-	2Muu/Yc5A8Q+X1vb+2y86zYnAM92r+CC6KOrnn7/+zdwwgDrBmxyS1F3STDJtiVjisOGUSZrpso
-	OuoP77PSJvmEQQbEh8sd47PTwc7ZRiyKhiWwEQW1+jFKdgqPlDC88FcRejcMQhEDZn/uF/qqqZu
-	7bw==
-X-Received: by 2002:a17:907:ea89:b0:c3f:7270:10ab with SMTP id a640c23a62f3a-c4d6d491847mr325987766b.14.1794240125399;
-        Mon, 09 Nov 2026 08:02:05 -0800 (PST)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com. [209.85.218.54])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d6a9a3822sm195574866b.80.2026.11.09.08.02.04
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 08:02:04 -0800 (PST)
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c4550d8ab15so152259566b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:02:04 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErG+xp4Rrt9MGpJuKesdnjLNo60wDHAc7LUbU4c3dwljPClcwbk9JQ6Tw3ZzoUF+/0OvJ8xroC4TwuPSkKU=@vger.kernel.org
-X-Received: by 2002:a17:907:7f93:b0:c4d:18e2:e66c with SMTP id
- a640c23a62f3a-c4d6d4d1cf2mr342046766b.18.1794239795407; Mon, 09 Nov 2026
- 07:56:35 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=vbUKJvs3
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ACD7B2F;
+	Mon,  9 Nov 2026 08:02:05 -0800 (PST)
+Received: from localhost.localdomain (e123572-lin.cambridge.arm.com [10.2.208.46])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D04EF3F632;
+	Mon,  9 Nov 2026 08:02:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794240128; bh=cUlLtdPRs8XVu22eeE08h4AwX9MJVfNOjzEFNCjlLx0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=vbUKJvs3Qdz7D4NxK50Ih0d1cPV51KEXxUyloY50+aDWWwJhRrfUaay3bbH4LO0E2
+	 APQBVrEsm5vFl4V6V0bWwOAUCk5yKdsCeDwjC/t4h18LBIMif9t/QoAkawW5pH8UD3
+	 ap4+IAAV8sS/IJmkte/B7IjY3MHrIxVKHmz+wawE=
+From: Kevin Brodsky <kevin.brodsky@arm.com>
+Date: Mon, 09 Nov 2026 15:58:43 +0000
+Subject: [PATCH RFC v10 18/22] arm64: kpkeys: Guard page table writes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,61 +55,205 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261104130118.2507513-1-kas@kernel.org> <20261104130118.2507513-2-kas@kernel.org>
- <ecad7b3c-7244-425a-9413-04d49f221057@kernel.org> <au2lsbDkyWt-To0C@thinkstation>
- <aa2a1e32-9b1d-4545-b2e0-03d213593023@kernel.org>
-In-Reply-To: <aa2a1e32-9b1d-4545-b2e0-03d213593023@kernel.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 9 Nov 2026 07:56:18 -0800
-X-Gmail-Original-Message-ID: <CAHk-=whnH5qLJH3Wd3bOxv--Ei6674Jo4iifGD_MqzyJg2Jm4g@mail.gmail.com>
-X-Gm-Features: AclHuK_KlZ4s0u4OfgGD3UZtJodv62VcuanWvSl4PYVPZCnpCpWEdwdwFyjepNA
-Message-ID: <CAHk-=whnH5qLJH3Wd3bOxv--Ei6674Jo4iifGD_MqzyJg2Jm4g@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 01/18] mm: free PG_rcu_free folios only after an
- RCU grace period
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Matthew Wilcox <willy@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Jan Kara <jack@suse.cz>, Hugh Dickins <hughd@google.com>, 
-	Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Harry Yoo <harry@kernel.org>, Miklos Szeredi <miklos@szeredi.hu>, Miaohe Lin <linmiaohe@huawei.com>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
-	"Liam R. Howlett" <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, "Paul E. McKenney" <paulmck@kernel.org>, 
-	Pedro Falcato <pfalcato@suse.de>, Luis Chamberlain <mcgrof@kernel.org>, 
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>, Jaegeuk Kim <jaegeuk@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	fuse-devel@lists.linux.dev, kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-kpkeys-v10-18-aa6c4d9603bc@arm.com>
+References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
+In-Reply-To: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
+To: linux-hardening@vger.kernel.org
+Cc: Kevin Brodsky <kevin.brodsky@arm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Ard Biesheuvel <ardb+git@google.com>, Andy Lutomirski <luto@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, Jann Horn <jannh@google.com>, 
+ Jeff Xu <jeffxu@chromium.org>, Joey Gouly <joey.gouly@arm.com>, 
+ Kees Cook <kees@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
+ Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+ Mark Brown <broonie@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
+ Maxwell Bland <mbland@motorola.com>, 
+ "Mike Rapoport (IBM)" <rppt@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, 
+ Pierre Langlois <pierre.langlois@arm.com>, 
+ =?utf-8?q?Pierre-Cl=C3=A9ment_Tosi?= <ptosi@google.com>, 
+ Quentin Perret <qperret@google.com>, 
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Vlastimil Babka <vbabka@kernel.org>, 
+ Will Deacon <will@kernel.org>, Yang Shi <yang@os.amperecomputing.com>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, x86@kernel.org, 
+ Ira Weiny <iweiny@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794240029; l=4952;
+ i=kevin.brodsky@arm.com; s=20260427; h=from:subject:message-id;
+ bh=cUlLtdPRs8XVu22eeE08h4AwX9MJVfNOjzEFNCjlLx0=;
+ b=MLBX1RjqBqwxlpGOI54Mr1paZcEmc9jPld6P5zWRz+PnxFR1FQTc2xDmuz69qpttX6tNinCHn
+ 5BEIdJg46dPCu+KVbvQiJPmvNs4SJAjCE4dVZM5yyeijEXoc3MIqP4j
+X-Developer-Key: i=kevin.brodsky@arm.com; a=ed25519;
+ pk=N2QG+eJKrvkNovwhhwJhnJ4+ScVfsGCHldmqLfcMTFs=
 
-On Mon, 9 Nov 2026 at 06:43, David Hildenbrand (Arm) <david@kernel.org> wrote:
->
-> Can we just rework that code first to have some clear folio freeing path, IOW
-> doing this in a folio-specific helper?
+When CONFIG_KPKEYS_HARDENED_PGTABLES is enabled, page tables (both
+user and kernel) are mapped with a privileged pkey in the linear
+mapping. As a result, they can only be written in a privileged
+kpkeys context.
 
-I think you're making things worse rather than better.
+Introduce a kpkeys guard that sets POR_EL1 appropriately to allow
+writing to page tables, and use this guard wherever necessary. The
+scope is kept as small as possible, so that POR_EL1 is quickly reset
+to its default value. Where atomics are involved, the guard's scope
+encompasses the whole loop to avoid switching POR_EL1 unnecessarily.
 
-The whole point was to hook into *one* place: the page freeing.
+This patch is a no-op if CONFIG_KPKEYS_HARDENED_PGTABLES is disabled
+(default).
 
-Trying to make it specific to one special freeing path only makes it
-fragile and less obvious, and results in anybody who then uses some
-other freeing model to miss the RCU thing.
+Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
+Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
+---
+ arch/arm64/include/asm/pgtable.h | 23 ++++++++++++++++++++++-
+ arch/arm64/mm/fault.c            | 17 ++++++++++-------
+ 2 files changed, 32 insertions(+), 8 deletions(-)
 
-It also means that suddenly nobody else can use the RCU path for their own uses.
+diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+index a474c9fb485a..5f46d4cb3882 100644
+--- a/arch/arm64/include/asm/pgtable.h
++++ b/arch/arm64/include/asm/pgtable.h
+@@ -39,6 +39,14 @@
+ #include <linux/mm_types.h>
+ #include <linux/sched.h>
+ #include <linux/page_table_check.h>
++#include <linux/kpkeys.h>
++
++#ifdef CONFIG_KPKEYS_HARDENED_PGTABLES
++KPKEYS_GUARD_COND(kpkeys_hardened_pgtables, KPKEYS_CTX_PGTABLES,
++		  kpkeys_hardened_pgtables_enabled())
++#else
++KPKEYS_GUARD_NOOP(kpkeys_hardened_pgtables)
++#endif
+ 
+ static inline void emit_pte_barriers(void)
+ {
+@@ -360,6 +368,7 @@ static inline pte_t pte_clear_uffd(pte_t pte)
+ 
+ static inline void __set_pte_nosync(pte_t *ptep, pte_t pte)
+ {
++	guard(kpkeys_hardened_pgtables)();
+ 	WRITE_ONCE(*ptep, pte);
+ }
+ 
+@@ -789,6 +798,7 @@ static inline void set_pmd(pmd_t *pmdp, pmd_t pmd)
+ 	}
+ #endif /* __PAGETABLE_PMD_FOLDED */
+ 
++	guard(kpkeys_hardened_pgtables)();
+ 	WRITE_ONCE(*pmdp, pmd);
+ 
+ 	if (pmd_valid(pmd))
+@@ -850,6 +860,7 @@ static inline void set_pud(pud_t *pudp, pud_t pud)
+ 		return;
+ 	}
+ 
++	guard(kpkeys_hardened_pgtables)();
+ 	WRITE_ONCE(*pudp, pud);
+ 
+ 	if (pud_valid(pud))
+@@ -928,6 +939,7 @@ static inline void set_p4d(p4d_t *p4dp, p4d_t p4d)
+ 		return;
+ 	}
+ 
++	guard(kpkeys_hardened_pgtables)();
+ 	WRITE_ONCE(*p4dp, p4d);
+ 	queue_pte_barriers();
+ }
+@@ -1053,6 +1065,7 @@ static inline void set_pgd(pgd_t *pgdp, pgd_t pgd)
+ 		return;
+ 	}
+ 
++	guard(kpkeys_hardened_pgtables)();
+ 	WRITE_ONCE(*pgdp, pgd);
+ 	queue_pte_barriers();
+ }
+@@ -1254,6 +1267,7 @@ static inline bool __ptep_test_and_clear_young(struct vm_area_struct *vma,
+ {
+ 	pte_t old_pte, pte;
+ 
++	guard(kpkeys_hardened_pgtables)();
+ 	pte = __ptep_get(ptep);
+ 	do {
+ 		old_pte = pte;
+@@ -1301,7 +1315,10 @@ static inline pte_t __ptep_get_and_clear_anysz(struct mm_struct *mm,
+ 					       pte_t *ptep,
+ 					       unsigned long pgsize)
+ {
+-	pte_t pte = __pte(xchg_relaxed(&pte_val(*ptep), 0));
++	pte_t pte;
++
++	scoped_guard(kpkeys_hardened_pgtables)
++		pte = __pte(xchg_relaxed(&pte_val(*ptep), 0));
+ 
+ 	switch (pgsize) {
+ 	case PAGE_SIZE:
+@@ -1374,6 +1391,7 @@ static inline void ___ptep_set_wrprotect(struct mm_struct *mm,
+ {
+ 	pte_t old_pte;
+ 
++	guard(kpkeys_hardened_pgtables)();
+ 	do {
+ 		old_pte = pte;
+ 		pte = pte_wrprotect(pte);
+@@ -1407,6 +1425,7 @@ static inline void __clear_young_dirty_pte(struct vm_area_struct *vma,
+ {
+ 	pte_t old_pte;
+ 
++	guard(kpkeys_hardened_pgtables)();
+ 	do {
+ 		old_pte = pte;
+ 
+@@ -1454,6 +1473,7 @@ static inline pmd_t pmdp_establish(struct vm_area_struct *vma,
+ 		unsigned long address, pmd_t *pmdp, pmd_t pmd)
+ {
+ 	page_table_check_pmd_set(vma->vm_mm, address, pmdp, pmd);
++	guard(kpkeys_hardened_pgtables)();
+ 	return __pmd(xchg_relaxed(&pmd_val(*pmdp), pmd_val(pmd)));
+ }
+ #endif
+@@ -1784,6 +1804,7 @@ static inline bool ptep_try_set(pte_t *ptep, pte_t new_pte)
+ {
+ 	pteval_t old = 0;
+ 
++	guard(kpkeys_hardened_pgtables)();
+ 	if (!try_cmpxchg(&pte_val(*ptep), &old, pte_val(new_pte)))
+ 		return false;
+ 
+diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+index b22736853fcd..37a4d8187aa1 100644
+--- a/arch/arm64/mm/fault.c
++++ b/arch/arm64/mm/fault.c
+@@ -239,13 +239,16 @@ int __ptep_set_access_flags_anysz(struct vm_area_struct *vma,
+ 	 */
+ 	pte_val(entry) ^= PTE_RDONLY;
+ 	pteval = pte_val(pte);
+-	do {
+-		old_pteval = pteval;
+-		pteval ^= PTE_RDONLY;
+-		pteval |= pte_val(entry);
+-		pteval ^= PTE_RDONLY;
+-		pteval = cmpxchg_relaxed(&pte_val(*ptep), old_pteval, pteval);
+-	} while (pteval != old_pteval);
++	scoped_guard(kpkeys_hardened_pgtables) {
++		do {
++			old_pteval = pteval;
++			pteval ^= PTE_RDONLY;
++			pteval |= pte_val(entry);
++			pteval ^= PTE_RDONLY;
++			pteval = cmpxchg_relaxed(&pte_val(*ptep), old_pteval,
++						 pteval);
++		} while (pteval != old_pteval);
++	}
+ 
+ 	/*
+ 	 * Invalidate the local stale read-only entry.  Remote stale entries
 
-Look at all the kmalloc RCU freeing: it's used all over the place. RCU
-has basically taken over the kernel. Every single performance-critical
-lock-free area of the kernel wants RCU freeing.
+-- 
+2.56.0
 
-I think trying to corral it into some special case is the last thing
-we want to do. It only makes things less potentially useful and more
-fragile.
-
-                  Linus
