@@ -1,63 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.61
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193708;
-	b=vPChQihW9gFZGBe17qlmGYTzPmkoPU9rpcNAgBp/kEepvxt4yrPNL6LI56aY5K22Qit/
-	 8KkNNem5vVRNNSe2FbvM0lpSDTIuseu6ujOHgpBISTXf7T3RGNWuq3/yLuBKLI8m4ZoRg
-	 Uk8bv2ZHAie/9HwrUuvQF/pNTUnVuqLByJGcusRxsTRuPC2JQFPVH1kHI7d2NdGYnSa8e
-	 p7PHbKdKUVL/+xyem9LdwHHf6yfZgLV9v6oU8mPDAUSBq//+LSi+SVK1PggiB/hQEKwwc
-	 S+Xrsqg9sw4yhyc0GaCLlqBEWuSvstQWZM8VA8aXDMB2ho+G6NoiTk2+uXNw3myiWvA==
+	t=1794193816;
+	b=F+sL68nckyEmZAoVM4d9AY99om/5/mJtR+wXY8OhhmBpi8tiLjuPEsW2Uf9NkBs8ikmC
+	 l86LZ/GYFHuVOs6WvVkDZBfWJKWrXZ5DyCWXGjYzREjLwJUh8BMYaqCPUPQfp1+7INnGE
+	 0daSptFnkEF8URk2OvLBPRHiV6yZNrLZNOW2jN/ci0TGxUWbXUWEeE/aKF4dp1bivYeKK
+	 dbXljEosX7XZqia9edNKZdgpfXZIeMyBYopLWyadpLVOIyMd0mb4VOfwyp+XCZNX4KaWL
+	 D9xO299FM29Ymn0RmhUb9ZJJoJncGDC2TU3JJyEpuMlWtWnp98FUiHJ/bcMTIgjIQ1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193708;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Y3YZ4XZqcxssxJ/4BRJGkkKL0kCh9N5Lz7PpxuiUZaQ=;
-	b=nHCDCvxqPh3gf3jj/N6NGiwtl3a+IfTkCcZp4Mz9HWONMx6ebSKnX0dKQ8D+CmTXuDtc
-	 NpywT4zxaLFRQrDJUf3NenSdURZeIYGwfAIF/HqHil/0TMmyEd9unbA21L14r8by90vl9
-	 zHNI0rXmltnIajIqvlh0z3a4HmyFrwXLA5UVj4UFWPnq4dnYfXeTR2Ogkrpmhy7K/n2J7
-	 SAoCHjFlVcR0NAAQeucCPXUaPG/zTrbpUAPhnq5GOdk86jMmgw2KjFsY9DOqRtHf3TjNH
-	 7/OjiT9UC5109MlsjsW2yHm71rjU/qkfj9bUcmbvqcQhWx+XPUNE99oW5UBP1kohctA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193816;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=R7YFoYH+pqizVWJtbykpYVkcry3ho5h+U0NhjdmQOV4=;
+	b=qxNnLJnO3e49CdXdi8cTiSIhlIZupAjRsrFVIMuU6u2nhtSztWfOiMoyh8oSoL5lYcNx
+	 v2i0htyva3umGQwFcIY7/WWVTR33Do73IO/bZ3jHE3s3xGv65WNc+V1aM9rIlg/57sBr6
+	 pfptbJM96y2+Y2KbvxFqeT+JjjDb7hU6nXov92GVL9KBtCkr3SuW09R/6XtEKcqD9cZdO
+	 En2Ljs211NF/wtyg1pc0sPMn5Fhw57iuAXzFPC2Yiw9IB7wMxwXCtD/tCfyPyYPDs8MvA
+	 eYSl8IyyRO6BURpbjuwBu2j+09UMvDxt2XW8MX2H3IcZy0qbD/ZYs+J8QVVaAJ1vHZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raidlab.org;
-	spf=pass smtp.mailfrom=raidlab.org;
-	dkim=pass header.d=raidlab.org header.i=@raidlab.org header.a=rsa-sha256 header.s=protonmail header.b=GKCmNUHC;
-	arc=none smtp.remote-ip=79.135.106.113
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gtbDVREB;
+	arc=none smtp.remote-ip=95.215.58.61
+Received: from mta1.migadu.com (out-61.mta1.migadu.com [95.215.58.61])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587A3606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:08:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 587A3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=raidlab.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raidlab.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE27E606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:10:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE27E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raidlab.org header.i=@raidlab.org header.a=rsa-sha256 header.s=protonmail header.b=GKCmNUHC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=raidlab.org;
-	s=protonmail; t=1794193696; x=1794452896;
-	bh=Y3YZ4XZqcxssxJ/4BRJGkkKL0kCh9N5Lz7PpxuiUZaQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=GKCmNUHCHWlPsRyDmFodjCEp9YedEhXqBSCM3Vwb6YBA/sQcqXqw2FuA/bE2mwgHg
-	 QBrOLxPEhQZ+vx+YgolS7fgfL/CqKHWE0T/yRfYvzx/uAE8Xg8ZTjbZH6KBFHjWmyg
-	 PHLlg/wkxGK4QmDODuf+VtsoumXSnZaIXegt+iLxC5ghUbfbC80u+twc0+bLwUPPoU
-	 cuhiA58tB9HPUBrxvHlBe6oJceUKkt/xQtdjhTwVLzfUeZ1w6veLhdxff/Dj81CCZi
-	 GlHUcDhrnsWLOnfaZmKjKm+6QM0Ko3Mepqt4xaYttrz50cWBJshVqEgUaBzbLFNNUe
-	 wl1V0HHzHbMBw==
-X-Pm-Submission-Id: 4jNF8s2rbLz1DDXR
-From: Miroslav Cimerman <mc@raidlab.org>
-To: Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai@fygo.io>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>,
-	linux-raid@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] raid6: use normal stores in the x86 x4 xor_syndrome functions
-Date: Mon,  9 Nov 2026 03:08:05 +0000
-Message-ID: <20261109030805.25709-1-mc@raidlab.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gtbDVREB
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7Na7xjzcQd16juEXNoMu7pYk4KLFnTP5KHehCh6IFWE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794193813; v=1; x=1794798613;
+ b=gtbDVREBKlXmZiiQn37nboEHI2/a0a20du9yKFge83pgGuSGnnJnWOdvyIUGVWhK9MPfmf8b
+ RX9ADc8PDttBKuZ8wChz8b+rwNyNdarOiNrWfZR3x4yHDAAzQhnU5Xp0wtDMKweiSWKCeHnDzs5
+ W45HOEGmg5bHLrY9e6j8bN9s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1ae66134428fd04f;
+	Mon, 09 Nov 2026 03:10:10 +0000
+X-Mizu-Trace-ID: 1ae66134428fd04f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <423c9b28-ecf2-4fab-817d-2fb326690c73@linux.dev>
+Date: Mon, 9 Nov 2026 11:10:02 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,155 +58,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] mm: gup: allow long-term pins of CMA-allocated
+ HugeTLB folios
+To: "David Hildenbrand (Arm)" <david@kernel.org>, muchun.song@linux.dev,
+ osalvador@suse.de, akpm@linux-foundation.org, azpijr@gmail.com,
+ lance.yang@linux.dev, Qi Zheng <zhengqi.arch@bytedance.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
+References: <cover.1794046188.git.zhengqi.arch@bytedance.com>
+ <586d6c53ab7e4c64d6e89ad3cf0cf7e07dabbfaf.1794046188.git.zhengqi.arch@bytedance.com>
+ <7abb3aa1-385a-422f-86bd-7aac9661c4d8@kernel.org>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <7abb3aa1-385a-422f-86bd-7aac9661c4d8@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-xor_syndrome() updates P and Q in place for a read-modify-write. md
-calls it twice on the same P/Q page per write, to remove the old data
-and to add the new data. The x1 and x2 unrolled versions write P and Q
-with normal stores since commit a582564b24be ("md/raid6 algorithms:
-xor_syndrome() for SSE2"), which argued that non-temporal stores of
-less than a cache line are slow, but kept non-temporal stores in the
-x4 version, as it writes whole cache lines. The AVX2 and AVX-512
-versions followed the same pattern.
 
-The non-temporal stores evict P and Q from the cache and the sfence
-waits until they are written to memory, just before the second call
-reads the same P and Q again, now from memory.
 
-Use normal aligned stores in the x4 unrolled versions too, like the x1
-and x2 versions and the other architectures.
+On 11/8/26 1:58 AM, David Hildenbrand (Arm) wrote:
+> On 11/7/26 11:30, Qi Zheng wrote:
+>> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>>
+>> Long-term pinning treats explicitly CMA-allocated HugeTLB folios as
+>> unpinnable, causing unnecessary migration or pinning failures.
+>>
+>> These folios already own their CMA bitmap ranges, and memory blocks
+>> overlapping CMA areas cannot be offlined. Allow HugeTLB folios with
+>> HPG_cma to be pinned directly, including in ZONE_MOVABLE.
+>>
+>> Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
+>> Cc: stable@vger.kernel.org
+>> Suggested-by: Muchun Song <muchun.song@linux.dev>
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+>> Acked-by: Muchun Song <muchun.song@linux.dev>
+>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+>> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+>> ---
+>>   include/linux/mm.h | 29 +----------------------------
+>>   mm/gup.c           | 31 +++++++++++++++++++++++++++++++
+>>   2 files changed, 32 insertions(+), 28 deletions(-)
+>>
+>> diff --git a/include/linux/mm.h b/include/linux/mm.h
+>> index 2d0b8a4c9974f..75dd40265d3f4 100644
+>> --- a/include/linux/mm.h
+>> +++ b/include/linux/mm.h
+>> @@ -2975,35 +2975,8 @@ static inline bool is_zero_folio(const struct folio *folio)
+>>   	return is_zero_page(&folio->page);
+>>   }
+>>   
+>> -/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
+>>   #ifdef CONFIG_MIGRATION
+>> -static inline bool folio_is_longterm_pinnable(struct folio *folio)
+>> -{
+>> -#ifdef CONFIG_CMA
+>> -	int mt = folio_migratetype(folio);
+>> -
+>> -	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
+>> -		return false;
+>> -#endif
+>> -	/* The zero page can be "pinned" but gets special handling. */
+>> -	if (is_zero_folio(folio))
+>> -		return true;
+>> -
+>> -	/* Coherent device memory must always allow eviction. */
+>> -	if (folio_is_device_coherent(folio))
+>> -		return false;
+>> -
+>> -	/*
+>> -	 * Filesystems can only tolerate transient delays to truncate and
+>> -	 * hole-punch operations
+>> -	 */
+>> -	if (folio_is_fsdax(folio))
+>> -		return false;
+>> -
+>> -	/* Otherwise, non-movable zone folios can be pinned. */
+>> -	return !folio_is_zone_movable(folio);
+>> -
+>> -}
+> 
+> Moving code while adding new stuff to it, please don't.
+> 
+> Move code first, then modify it.
+> 
+> I don't want to play "find the difference between two pictures" on a Saturday
+> evening.
 
-md RAID-6, 4 KiB random writes, md thread on one core, Xeon E5-2699 v3:
+;), got it.
 
-  8+2 on null_blk (dm-raid):     85.6k -> 98.1k IOPS (+15%)
-  6+2 on 8 Intel Optane M10:     57.3k -> 62.1k IOPS (+8%)
+I moved the code to resolve a build dependency.
 
-Change in time per write in md's pattern (both calls and the 4 KiB copy
-between them), kernel code built in userspace, one core, geometric
-mean over 2-24 data disks, data in cache / DRAM:
+> 
+>> +bool folio_is_longterm_pinnable(struct folio *folio);
+>>   #else
+>>   static inline bool folio_is_longterm_pinnable(struct folio *folio)
+>>   {
+>> diff --git a/mm/gup.c b/mm/gup.c
+>> index 2b405cce2ca5c..f41701c603500 100644
+>> --- a/mm/gup.c
+>> +++ b/mm/gup.c
+>> @@ -2216,6 +2216,37 @@ struct page *get_dump_page(unsigned long addr, int *locked)
+>>   
+>>   #ifdef CONFIG_MIGRATION
+>>   
+>> +bool folio_is_longterm_pinnable(struct folio *folio)
+>> +{
+>> +#ifdef CONFIG_CMA
+>> +	int mt = folio_migratetype(folio);
+>> +
+>> +	/* These HugeTLB folios own the CMA memory, so they can be long-term pinned. */
+>> +	if (folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio))
+>> +		return true;
+> More hugetlb hackery ... don't like that, sorry.
 
-  avx2x4 (Xeon E5-2699 v3):  -66% / -38%
-  avx512x4 (Xeon Gold 6130): -78% / -48%
-  sse2x4 (Core i5-2520M):    -37% / -19%
+Agree.
 
-Signed-off-by: Miroslav Cimerman <mc@raidlab.org>
----
-Notes:
-- The IOPS were measured on 2651f6deb332 (between 7.4-rc1 and -rc2) with
-  and without this patch, with avx2x4 forced by a test-only change in
-  raid6_choose_gen().
-- The raid6 benchmark picks the implementation by gen_syndrome() speed
-  alone. On Haswell-EP, AVX2 x2 and x4 differ only by noise, so either
-  can be picked. With x2 picked, xor_syndrome() already uses normal
-  stores, so this patch makes no difference in that case.
-- The sfence at the end of the xor_syndrome() functions (x1, x2 versions
-  since 2014, x4 with this patch) is no longer needed, as it no longer
-  orders any non-temporal stores. Removing it made no measurable
-  difference. I am happy to send a follow-up patch that removes it from
-  all xor_syndrome() variants.
-- Tested: raid6 KUnit on SSE2 and AVX2, AVX-512 was checked in userspace
-  against a scalar reference on a Xeon Gold 6130.
+> 
+> I think this just goes down to a problem we discussed a while ago that is
+> independent of hugetlb: we'd need some way to identify that the the page was
+> actually allocated by the CMA owner, and it's not just some other movable
+> allcoation that ended up there.
+> 
+> For something generic non-hugetlb thing, can't we call into CMA to ask whether
+> the current chunk is marked allocated?
 
- lib/raid/raid6/x86/avx2.c   | 16 ++++++++--------
- lib/raid/raid6/x86/avx512.c | 16 ++++++++--------
- lib/raid/raid6/x86/sse2.c   | 16 ++++++++--------
- 3 files changed, 24 insertions(+), 24 deletions(-)
+The existing bitmap is set before allocation completes, so the range
+may still contain borrowed movable pages. A set bit alone cannot
+establish ownership.
 
-diff --git a/lib/raid/raid6/x86/avx2.c b/lib/raid/raid6/x86/avx2.c
-index 3cc2fe7ac42c..fbc1328574e1 100644
---- a/lib/raid/raid6/x86/avx2.c
-+++ b/lib/raid/raid6/x86/avx2.c
-@@ -435,18 +435,18 @@ static void raid6_avx24_xor_syndrome(int disks, int start, int stop,
- 			asm volatile("vpxor %ymm13,%ymm12,%ymm12");
- 			asm volatile("vpxor %ymm15,%ymm14,%ymm14");
- 		}
--		asm volatile("vmovntdq %%ymm2,%0" : "=m" (p[d]));
--		asm volatile("vmovntdq %%ymm3,%0" : "=m" (p[d+32]));
--		asm volatile("vmovntdq %%ymm10,%0" : "=m" (p[d+64]));
--		asm volatile("vmovntdq %%ymm11,%0" : "=m" (p[d+96]));
-+		asm volatile("vmovdqa %%ymm2,%0" : "=m" (p[d]));
-+		asm volatile("vmovdqa %%ymm3,%0" : "=m" (p[d+32]));
-+		asm volatile("vmovdqa %%ymm10,%0" : "=m" (p[d+64]));
-+		asm volatile("vmovdqa %%ymm11,%0" : "=m" (p[d+96]));
- 		asm volatile("vpxor %0,%%ymm4,%%ymm4" : : "m" (q[d]));
- 		asm volatile("vpxor %0,%%ymm6,%%ymm6" : : "m" (q[d+32]));
- 		asm volatile("vpxor %0,%%ymm12,%%ymm12" : : "m" (q[d+64]));
- 		asm volatile("vpxor %0,%%ymm14,%%ymm14" : : "m" (q[d+96]));
--		asm volatile("vmovntdq %%ymm4,%0" : "=m" (q[d]));
--		asm volatile("vmovntdq %%ymm6,%0" : "=m" (q[d+32]));
--		asm volatile("vmovntdq %%ymm12,%0" : "=m" (q[d+64]));
--		asm volatile("vmovntdq %%ymm14,%0" : "=m" (q[d+96]));
-+		asm volatile("vmovdqa %%ymm4,%0" : "=m" (q[d]));
-+		asm volatile("vmovdqa %%ymm6,%0" : "=m" (q[d+32]));
-+		asm volatile("vmovdqa %%ymm12,%0" : "=m" (q[d+64]));
-+		asm volatile("vmovdqa %%ymm14,%0" : "=m" (q[d+96]));
- 	}
- 	asm volatile("sfence" : : : "memory");
- 	asm volatile("vzeroupper");
-diff --git a/lib/raid/raid6/x86/avx512.c b/lib/raid/raid6/x86/avx512.c
-index 772bfc4af6df..520094efbb71 100644
---- a/lib/raid/raid6/x86/avx512.c
-+++ b/lib/raid/raid6/x86/avx512.c
-@@ -516,18 +516,18 @@ static void raid6_avx5124_xor_syndrome(int disks, int start, int stop,
- 				     :
- 				     : );
- 		}
--		asm volatile("vmovntdq %%zmm2,%0\n\t"
--			     "vmovntdq %%zmm3,%1\n\t"
--			     "vmovntdq %%zmm10,%2\n\t"
--			     "vmovntdq %%zmm11,%3\n\t"
-+		asm volatile("vmovdqa64 %%zmm2,%0\n\t"
-+			     "vmovdqa64 %%zmm3,%1\n\t"
-+			     "vmovdqa64 %%zmm10,%2\n\t"
-+			     "vmovdqa64 %%zmm11,%3\n\t"
- 			     "vpxorq %4,%%zmm4,%%zmm4\n\t"
- 			     "vpxorq %5,%%zmm6,%%zmm6\n\t"
- 			     "vpxorq %6,%%zmm12,%%zmm12\n\t"
- 			     "vpxorq %7,%%zmm14,%%zmm14\n\t"
--			     "vmovntdq %%zmm4,%4\n\t"
--			     "vmovntdq %%zmm6,%5\n\t"
--			     "vmovntdq %%zmm12,%6\n\t"
--			     "vmovntdq %%zmm14,%7"
-+			     "vmovdqa64 %%zmm4,%4\n\t"
-+			     "vmovdqa64 %%zmm6,%5\n\t"
-+			     "vmovdqa64 %%zmm12,%6\n\t"
-+			     "vmovdqa64 %%zmm14,%7"
- 			     :
- 			     : "m" (p[d]),  "m" (p[d+64]), "m" (p[d+128]),
- 			       "m" (p[d+192]), "m" (q[d]),  "m" (q[d+64]),
-diff --git a/lib/raid/raid6/x86/sse2.c b/lib/raid/raid6/x86/sse2.c
-index 43b09ce58270..da8374e506b6 100644
---- a/lib/raid/raid6/x86/sse2.c
-+++ b/lib/raid/raid6/x86/sse2.c
-@@ -432,18 +432,18 @@ static void raid6_sse24_xor_syndrome(int disks, int start, int stop,
- 			asm volatile("pxor %xmm13,%xmm12");
- 			asm volatile("pxor %xmm15,%xmm14");
- 		}
--		asm volatile("movntdq %%xmm2,%0" : "=m" (p[d]));
--		asm volatile("movntdq %%xmm3,%0" : "=m" (p[d+16]));
--		asm volatile("movntdq %%xmm10,%0" : "=m" (p[d+32]));
--		asm volatile("movntdq %%xmm11,%0" : "=m" (p[d+48]));
-+		asm volatile("movdqa %%xmm2,%0" : "=m" (p[d]));
-+		asm volatile("movdqa %%xmm3,%0" : "=m" (p[d+16]));
-+		asm volatile("movdqa %%xmm10,%0" : "=m" (p[d+32]));
-+		asm volatile("movdqa %%xmm11,%0" : "=m" (p[d+48]));
- 		asm volatile("pxor %0,%%xmm4" : : "m" (q[d]));
- 		asm volatile("pxor %0,%%xmm6" : : "m" (q[d+16]));
- 		asm volatile("pxor %0,%%xmm12" : : "m" (q[d+32]));
- 		asm volatile("pxor %0,%%xmm14" : : "m" (q[d+48]));
--		asm volatile("movntdq %%xmm4,%0" : "=m" (q[d]));
--		asm volatile("movntdq %%xmm6,%0" : "=m" (q[d+16]));
--		asm volatile("movntdq %%xmm12,%0" : "=m" (q[d+32]));
--		asm volatile("movntdq %%xmm14,%0" : "=m" (q[d+48]));
-+		asm volatile("movdqa %%xmm4,%0" : "=m" (q[d]));
-+		asm volatile("movdqa %%xmm6,%0" : "=m" (q[d+16]));
-+		asm volatile("movdqa %%xmm12,%0" : "=m" (q[d+32]));
-+		asm volatile("movdqa %%xmm14,%0" : "=m" (q[d+48]));
- 	}
- 	asm volatile("sfence" : : : "memory");
- 	kernel_fpu_end();
+A generic query may need separate ownership tracking, such as an
+owned_bitmap recording successfully allocated pages. Its updates and
+lookups would also need to handle concurrency with fast GUP.
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.53.0
+> 
+> If that's too hard, we could add a temporary hugetlb hack.
+
+For this fix, I'd prefer to keep the current check.
+
+> 
+> But we all hate hugetlb hacks. :)
+
++1.
+
+> 
 
