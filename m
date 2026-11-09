@@ -1,77 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221614;
-	b=W+pP4VYtWnuZB1s1ZwWmMIUuZl+/CNNjt8gst/3ArhNavelU7QnQVZfh8FqHtxxYz9rt
-	 YeTK7hAaCBq7cJ8ke38EVLB52jcwZv8WV1DtCoOFKiGiBFHnt+SqsiW+XbL0Bt6v6SLv3
-	 9GrQ7bIJtsq0upIPCPbZPFNPkbSm8tV/jxvoIVRIbJVn4p8j94ocApokytoIxeeUUfiVW
-	 sA0OpmrHQLZBjGl80mLiNGXvApiKfQZmqxJaLJ+52b9TTs4kyixITr5i1OmsFtUDhZGhH
-	 +uGbzKuoBifozfVEWRuPxJ1irbT6UFMJ2P6k2yWlt94BXV0STuakGifC7PUL6Hoyz0g==
+	t=1794221727;
+	b=CNEVKvSLKVD79u1TgL0PQz3olt1GDEuYTioDUg2K+KdKfB/adrSbFICsazwtMGH6IqC2
+	 3xTIyicTWDKPZicnpEJ/nKu8K7sboscFXcv3HowYAmml9V2FhcImiCfw26sMrh0eGw09e
+	 Qdpz+000o0jtTggnc6N35U1dSUh5ta/l0fmNAEJm8oOKZEtXUHhwDMU3HzBurpmcIG4+t
+	 VKFK9gDAMzz/LtwoNEah+ZGZyEuXCzjFuiiR8duFWW3ReyMa5zdZBN3v8v4rXTWZWIznX
+	 VlmRDhyM/GJf5oZW4t/3yrp4/i9SB2KPmSBQawwIP82oI7uBpudzr1DaYdJA+EZg7+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221614;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=qjvYzF+3HH9TB2V4IKW7k3z7HidMUhtd+X86vmSVh5I=;
-	b=PxCr5xnoDG/7cUoP+Mxqh5YyNYb1tDpxCZT2io09HqoMLOsUah9Y46djosFYDO/sX9r7
-	 MtTUfL5zIUWl0zRirr/Fj3QdSixdBEYg3YoGPHyO5IFr4GkfBl2k8Z7/7BVkTEqUu8gKX
-	 9i3ZHv8KVrEwiG7hBjaTJFYL7iDFrTqRxK1nlCnBDHw6FGlAFMwTLrO9oNmoYcCtfyKNn
-	 mNFsNmemyAK0hYt4BXhlHIlYA5YQIHb174/Po0GuI5mkllonGZvAXFrxy4/W95C/YkKvx
-	 T4Gq+7Th6oICOaysjbkHroL4DZAnESUZvHbUW61s9l1QKbWy/qhZuYjBMxV9vboJ17w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221727;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=jn5hKaMgQENVPj5+VKE8YG++0J2SkBrOKhsvAlwUSaQ=;
+	b=JAtEtmlGifEt2QHQ6Md5PcPgbimIMf1yD+whz0QeVgdJrvIjI9Tw6cZszSpfdEgpgCBc
+	 A1TPHwTUaH0AL+gLYXyr/H9pNAuljohSM2zIdXtF5xcaaRCN/m7UPTLp2rlrGf1zLhEou
+	 ByPYc53bgUNmBTKjiKTLpa9UvI7mg1ESEv/BAYp/8PfHeLytCqn+sllX08hcDMrvvP/+a
+	 gMyikY7YjSL6yF9cn+OcIEJ2MX3llKQbNxegxrdGakoHk5Sbk42YIJYeaoCLEGM0+nLLu
+	 7R6O2HWEx5sAKYN065SmGOZQdh0Ntf58sORMJkkXpwGIpZcxmSGRAPubLokQCtyMPDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZzHNs9oG;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=MRAltz1T;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21008606A322;
-	Mon,  9 Nov 2026 10:53:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21008606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C91606A321;
+	Mon,  9 Nov 2026 10:55:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09C91606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZzHNs9oG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794221613; x=1825757613;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cR6aNMY/LQzTiG6SPnOMHk7TLzR2tfHdz0Cydg33JE8=;
-  b=ZzHNs9oGdS0zrrD2MKZY2M85//Rh3oTKnV9Le0Qt2pf+iCi2SkIxZHuD
-   MA7CpKI43Gb4wj5OWRwlbBwUMnpP1OdnPXsXwFjzegyl+7WBhm9Mf/8Z6
-   SLV5bhcmE60ORmW+d0E1MU92AsEwf5U+xtIdkaABXSww4U/+dzLV30yeM
-   BwIT59t+UaQbT3q4IXg1Z0mpFjjPRrbs5dAZGrtab8YiFaYjQG8NZXkGD
-   b8g2xJHWBiyo/LzMUd8QH7McLAOvgs8/VzTxgMCgA6m2tW9p6xUBAmFW7
-   fgmnVZkJ62OHRoSoHi3strZSnfM0j/GGVgCjBxfg5wYTWocfJ3AyMVjL3
-   g==;
-X-CSE-ConnectionGUID: g4/97BBLTzeuNBQf9a7VFA==
-X-CSE-MsgGUID: HFcXl2qyTLm7M6XuoW6NjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2941013"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2941013"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 02:53:33 -0800
-X-CSE-ConnectionGUID: iPLNRGGzRz+s7voUjlPVJw==
-X-CSE-MsgGUID: kaLG7q+bQa2nUSUuTxkqQw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7866654"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa006.jf.intel.com with ESMTP; 09 Nov 2026 02:53:31 -0800
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 515FA99; Mon, 09 Nov 2026 11:53:30 +0100 (CET)
-Date: Mon, 9 Nov 2026 11:53:30 +0100
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] i2c: designware: preserve invalid SMBus block count
-Message-ID: <20261109105330.GN176724@black.igk.intel.com>
-References: <20261107081108.1046163-1-pocj8ur4in@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=MRAltz1T
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jNRWq6kVFz52SGY;
+	Mon, 09 Nov 2026 18:55:19 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794221719;
+	bh=B/L78Lzol7MhyEEoU6+pSTQhICMzG5buL/Zr4UMYsiw=;
+	h=Date:From:To:Cc:Subject;
+	b=MRAltz1Tarv3EzC/LBES6eEmDtKRjlnGlPygwxCrdgYgCnpT5mTgMXpXLFxwUiRBs
+	 Q8X08sFLVnPXnozEkH3QfqGzdx1YDm24FkdrDhe0hdK/5DSIR51eQEuyev/33K6WSx
+	 QANFkV3wDZMWa2evTz5soKzAMsym1Ve2TwO36tSByHswYE9/6UWeRPFz5p0gurN0q1
+	 vZOjWL3Hc+6r20DLNTbG7WO7qmNd7VVQYcCWXSYaY7F53UZYuHJySpxTZH7Frt0aqy
+	 viUVfjw8BjG7VuEVyLNJxzRtHzdXW6/y2IOrt+FQyB31Z9Y0OF3pUPkXq5q82zM9wC
+	 Q9B1S0sSHbocA==
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl2.zte.com.cn with SMTP id 6A9AtD4H084127;
+	Mon, 9 Nov 2026 18:55:13 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 9 Nov 2026 18:55:15 +0800 (CST)
+X-Zmail-TransId: 2af96af1a693f44-1ee63
+X-Mailer: Zmail v1.0
+Message-ID: <20261109185515838mOfBTIYMU1_4vygdxd-Gg@zte.com.cn>
+Date: Mon, 9 Nov 2026 18:55:15 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,29 +69,94 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261107081108.1046163-1-pocj8ur4in@gmail.com>
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <bhelgaas@google.com>, <linux-pci@vger.kernel.org>
+Cc: <ilpo.jarvinen@linux.intel.com>, <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIHYyXSBQQ0k6IFJlamVjdCBuZWdhdGl2ZSByZXNvdXJjZSBhbGlnbm1lbnQgb3JkZXI=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A9AtD4H084127
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Mon, 09 Nov 2026 18:55:20 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF1A697.001/4jNRWq6kVFz52SGY
 
-On Sat, Nov 07, 2026 at 05:11:08PM +0900, Baek Kyu, Kim wrote:
-> When a slave reports an invalid SMBus block count, i2c_dw_read() uses
-> one extra read to reach STOP. It currently replaces the received count
-> with 1 for scheduling and also stores 1 in the message buffer. A count
-> above 32 is therefore exposed as a valid one-byte response.
-> 
-> Keep the received byte in the buffer and limit only the count passed to
-> i2c_dw_recv_len(). This preserves the extra read for STOP while retaining
-> the invalid count for the caller to reject.
-> 
-> The DesignWare receive functions were exercised with stubbed register
-> input for block counts 0, 1, 32, 33 and 255, with PEC both off and on.
-> The original code replaced invalid counts in the message buffer with 1;
-> v2 retains the received byte while scheduling the same extra read.
-> The arm64 i2c-designware-master.o build passed with W=1.
-> No physical controller or end-to-end SMBus result was measured.
-> 
-> Fixes: 69f035c480d7 ("i2c: designware: Handle invalid SMBus block data response length value")
-> Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
+pci_specified_resource_alignment() parses the pci=resource_alignment=
+boot parameter and rejects only orders above 63.  A negative order, such
+as "pci=resource_alignment=-5@...", passes that check and later reaches
+"align = 1ULL << align_order" with a negative shift count, which is
+undefined behavior; on x86 the 64-bit shift count is masked to six bits,
+silently producing a 2^59-byte alignment that mis-aligns (or fails to
+align) the affected IOV resources.
+
+align_order is a bit order, so parse it with %u.  vsscanf() does not
+accept a sign for %u, so a negative order no longer converts: the
+parameter is reported as invalid and no alignment is applied.  Orders
+above 63 are still rejected and fall back to the page-size alignment.
+
+Fixes: 6534aac198b5 ("PCI: Bounds-check command-line resource alignment requests")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+This supersedes 1/5 of the v1 series; 2/5-5/5 are unchanged.
+
+v2:
+  - parse the order with %u instead of %d, as Ilpo Järvinen suggested; a
+    bit order is unsigned, and this also removes the explicit < 0 test
+    added by v1
+  - pr_err() prints the order with %u as well
+  - note the resulting behaviour: vsscanf() does not accept a sign for
+    %u, so a negative order fails to parse instead of being clamped
+v1: https://lore.kernel.org/all/20261107002311316z2o2PFtFGoXh-VbqXtTGg@zte.com.cn/
+
+Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the
+pci=resource_alignment= boot parameter and a QEMU e1000 NIC; no extra
+hardware is needed.
+
+Booting with pci=resource_alignment=-5@pci:8086:100e, the unpatched
+kernel parses -5 and "align = 1ULL << align_order" shifts by -5 (masked
+to 2^59 on x86-64); the e1000 BAR is resized to 2^59 bytes, which cannot
+be assigned, and the e1000 fails to probe.  With this patch "-5" does not
+convert and the parameter is rejected:
+
+  unpatched                            patched
+  requesting alignment to              PCI: Can't parse resource_alignment
+  0x800000000000000                    parameter: -5@pci:8086:100e
+  e1000 probe failed, no eth0          e1000 eth0 probes
+
+ drivers/pci/pci.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index bca3a5d84cd9..e3f701ff9881 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -6585,7 +6585,8 @@ static DEFINE_SPINLOCK(resource_alignment_lock);
+ static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
+ 							bool *resize)
+ {
+-	int align_order, count;
++	unsigned int align_order;
++	int count;
+ 	resource_size_t align = pcibios_default_alignment();
+ 	const char *p;
+ 	int ret;
+@@ -6602,11 +6603,11 @@ static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
+ 
+ 	while (*p) {
+ 		count = 0;
+-		if (sscanf(p, "%d%n", &align_order, &count) == 1 &&
++		if (sscanf(p, "%u%n", &align_order, &count) == 1 &&
+ 		    p[count] == '@') {
+ 			p += count + 1;
+ 			if (align_order > 63) {
+-				pr_err("PCI: Invalid requested alignment (order %d)\n",
++				pr_err("PCI: Invalid requested alignment (order %u)\n",
+ 				       align_order);
+ 				align_order = PAGE_SHIFT;
+ 			}
