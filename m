@@ -1,77 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794249192;
-	b=FxPkvgf9Kk4Zb2UFJBSO780RJS4+LGU2sPGXneZ7dkHUdpnvy9QtVRxaODI0D9Hw2pII
-	 4S6ecOrezRitUrPVgLwyqonthWKgTgRX3I09apXr0bwSUt85GQgJpWwSZoHgy+oZU5B8F
-	 FIRCovTiE4hRhN4cXV4/J4xq52gs9gNkJHQqHwaHK5sIAM4NSV73d/BLpKkjIo0gCa+LO
-	 nTXQO+rFLR0RgGvq6Xh9EEtznH6/IBij9Na3d6vqW90qCdqJDb7XPa0ShHktia+rmotpl
-	 849T1JHtI4cEOuRSdYzVXdmkeviftyK+Hq1nC8Yqo2hrmpa8VRku7Jrv2cAeAEedGGA==
+	t=1794249188;
+	b=swxrTN3XCZk9kOQrSIo35kWv54VDu29ql0J333u36+tIVQs//vdvoRK1p08ZOkVXvdMd
+	 tts0cYcBzyva8K9kt8SsR5ZwOr/iZRJmDj6w3cDuflh1zjfKcgx2xtx6Us2fcWYWPHCRm
+	 E9omcmB7rd+4+NAYnvq442lVNkeBMJ/6Ver//fHzWAwsW5wDXqjirWasosfj0HRfoCeAe
+	 /TPoMM/x8FiVv6wzaR5w5eVjuHLJwhVrjj5u1KQ9MwkMVPmv3tPI61mTUHjviybor4ctD
+	 sKc0P/rWMtIC8QGXKGBGEuu61E8Am+46jdLq/T4if7S/SFWyd90YI+K7gkGxqV0NuBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249192;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:CC:
-	 Subject:User-Agent:In-Reply-To:References:Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=2oUG5RL4oF9Bagom1950zIho2zdDaGXSCPdxbH30cMs=;
-	b=YN/TW9fC2xGUZXiZpK3bMmD1Jj/HuGDjiiCEMRN/1UuTCiVTt8vhMJ/MpjkCxzApXrgh
-	 RybKKSBKcS5b8HZ/w5ZxP0UCZvTgR5Lp3jy3SPWqwHzTnBbbOFo9YCbKgZ+waY0APX760
-	 hh9HERrTjc/TremSULQp/RGITrPu1P6gYQb0lXjq2jCoY8UaImN62ILJewc2XH6sE8M/8
-	 tjoH9qY02Ip5gZSsufimPfaUlR0Hg2mL7GpPnkltlIP9CE7XN4jni81T/Ud1ylk/oihJ/
-	 Dq8dI96GaJWEO/PCe0A6CesHwlf3W8oP/LHI2taZ+gd71FQD0zvm9B6UMOKEBq1XOOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794249188;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
+	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
+	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
+	 X-Local-Domain:X-CMAE-Envelope;
+	bh=CNCUrfub2jnQwknJISxmpd3RnPi6PE7iaN89BAV2Gng=;
+	b=xT7I2RNGvEMGGaTr8LeopLDYr2Sx3Ji6LgikKcrQ2tVRclBlEbBHQspXCQq6dFPZSC//
+	 6aINFq/Mucw3Vtd7o2t6GkE1nZjsAR/klH3i5Y2SD3DLFN1lR4rLxU7wxY+V3ssEMEPhX
+	 JBf2QBINg+B/hiUJqFubSYYwn8yieB/1usbtzt5vGmIHWF3jjpE+NkEdtW9w3z9FRubaZ
+	 7IFO+BI0kk+D9mF4OlfbKh3CxTdcUvljVDhiDtwWg24+M9u3R2uVNcYsWzmsCHOYXKHtc
+	 080FJs2Cg6gB680ZCi1iVkZbaUlEqQBF43JSBZgFM8lCKwNYa+bbJdkTFqe/UUl88dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zytor.com;
-	spf=pass smtp.mailfrom=zytor.com;
-	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=Ga4QCJmN;
-	arc=none smtp.remote-ip=198.137.202.136
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=roeck-us.net;
+	spf=fail smtp.mailfrom=roeck-us.net;
+	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=BGlMXX5L;
+	arc=none smtp.remote-ip=35.89.44.37
+Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A3E8606CC54
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:33:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A3E8606CC54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05D0606B5AD
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:33:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D05D0606B5AD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026102901 header.b=Ga4QCJmN
-Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 6A9IW9cc1598047
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Mon, 9 Nov 2026 10:32:10 -0800
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 6A9IW9cc1598047
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026102901; t=1794249132;
-	bh=2oUG5RL4oF9Bagom1950zIho2zdDaGXSCPdxbH30cMs=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=Ga4QCJmNe8Bep6WEaJPZUYp85meRO157IBBvHPDLv55L3PLMGiBIyHW4w+pGgFjs1
-	 2Gf7H44LmrswwhYxVyMwLgxchbBhQ+UXDPi5Yh4mpiy7NsO62QPWJGIoRac/HfpC+p
-	 VE1kqXgsezZlWqho62sLvw9hQ1KZYxw7wQUtIfR1gLGvOLdXEjN3BH+b/N3buqPjck
-	 JxyZqRbuAxD4uLzj8kHywBfQolcfYS080GS1ssHhJ00nCQGWI1ruY56DMDITuvFe13
-	 HtAklBbXjRpyVliI5ss8a5EYT7XH1QfCMX1loJMEZzUd9sVKQwd4Qsg/XOxHFm3me8
-	 TYS4q4In0jscw==
-Date: Mon, 09 Nov 2026 10:32:04 -0800
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: Arnd Bergmann <arnd@arndb.de>, Arnd Bergmann <arnd@kernel.org>,
-        Ingo Molnar <mingo@redhat.com>
-CC: Richard Weinberger <richard@nod.at>,
-        Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        Peter Zijlstra <peterz@infradead.org>, Will Deacon <will@kernel.org>,
-        Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-        Yury Norov <yury.norov@gmail.com>,
-        Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Alexander Usyskin <alexander.usyskin@intel.com>,
-        Anthony L Nguyen <anthony.l.nguyen@intel.com>,
-        Przemek Kitszel <przemyslaw.kitszel@intel.com>, x86@kernel.org,
-        linux-kernel@vger.kernel.org, linux-um@lists.infradead.org
-Subject: Re: [PATCH 7/7] x86: simplify 32-bit instruction set selection
-User-Agent: K-9 Mail for Android
-In-Reply-To: <eaeec453-892d-4ddb-9d42-0510db8b9c88@app.fastmail.com>
-References: <20261105163440.2381661-1-arnd@kernel.org> <20261105163440.2381661-8-arnd@kernel.org> <4207CA81-6023-4DFC-8FBF-2C5C8C036CCC@zytor.com> <eaeec453-892d-4ddb-9d42-0510db8b9c88@app.fastmail.com>
-Message-ID: <D58976E3-E2A3-4577-BC64-5845CF4F82C6@zytor.com>
+	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=BGlMXX5L
+Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
+	by cmsmtp with ESMTPS
+	id QPeAxrTE4VK9UQUB1xtSMr; Mon, 09 Nov 2026 18:33:07 +0000
+Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
+	by cmsmtp with ESMTPS
+	id QUB0x9UwVlaNKQUB0xwYN3; Mon, 09 Nov 2026 18:33:06 +0000
+X-Authority-Analysis: v=2.4 cv=UbpRSLSN c=1 sm=1 tr=0 ts=6af211e2
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
+ a=K6s_-0DHPOfA-GDsQU4A:9 a=CjuIK1q_8ugA:10 a=KPbNTLLc3YvdawN95zVk:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=CNCUrfub2jnQwknJISxmpd3RnPi6PE7iaN89BAV2Gng=; b=BGlMXX5L9OlYS/p8u7IJ3wrSPS
+	Qx/EtaBx6FY+rs/DK9s7PfVShd5x2gr/x+r5oR8HBTPksF1oFhh/Gq9JEKi2mooSWzSNwJIPbIrMW
+	OG58vie+u9YFvDCC0m/6i43PbRi6v6sXGq2to6wqRy8RgfIAtoA9owkVbzpDEEe1VIiIrbLDZ/zNe
+	0donE0NSTZeTvRTtymNEWxhjnK287qjshT4PeteJ1Ib5qzYxzMtLIuu+RPVBgqfhSliwwxVjZNijv
+	MQGEBAz+dHkWR5JuNiXJofKGBDaEg3yDt8BbVb1O8VDaSVkgjl/Y0ZTr6thEp3P7iNuFda1earBg7
+	n0WNL6MQ==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:52656 helo=server.roeck-us.net)
+	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <linux@roeck-us.net>)
+	id 1xQUB0-00000002u67-112K;
+	Tue, 10 Nov 2026 00:03:06 +0530
+Date: Mon, 9 Nov 2026 10:33:05 -0800
+From: Guenter Roeck <linux@roeck-us.net>
+To: Vincent Jardin <vjardin@free.fr>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] hwmon: (pmbus/core) Add a vout_command debugfs entry
+Message-ID: <309198ab-f3a1-4155-8c7c-55e09f72a192@roeck-us.net>
+References: <20261108-for-upstream-pmbus-vout-command-debugfs-v1-v2-1-b19d6cd18aae@free.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,70 +80,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261108-for-upstream-pmbus-vout-command-debugfs-v1-v2-1-b19d6cd18aae@free.fr>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1xQUB0-00000002u67-112K
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:52656
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 14
+X-Org: HG=direseller_whb_net_legacy;ORG=directi;
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfNQZl7H5XpoYDsCZrej1R4/lqerbUzl20YDLfHZnh1iHraSlsS79QItizB/8adp864SMucOKY4ACQr5Lbc8ML9bymHhzjFVn9vk5DDcWM/1CNybZtw37
+ v4jAYuDfkbj1qbP6Wax1z0dzGZ5r/HXJ6ttzkkmZeqzVsOu7AQ2ncAffwK8qTxpPDsKiOPgXwr6nD3pYsoMcjDvkGUFEk4crhkc6vYdXo2mwxedAUpuo6TlG
 
-On November 5, 2026 2:01:40 PM PST, Arnd Bergmann <arnd@arndb=2Ede> wrote:
->On Thu, Nov 5, 2026, at 21:17, H=2E Peter Anvin wrote:
->> On November 5, 2026 8:34:38 AM PST, Arnd Bergmann <arnd@kernel=2Eorg> w=
-rote:
->>>From: Arnd Bergmann <arnd@arndb=2Ede>
->>>
->>>The -march=3D compiler flags select both instruction set and tuning for
->>>a particular CPU, which works well when building a kernel that can only
->>>run on this one type, but has some counterintuitive effects because it
->>>is not always clear which models are compatible=2E
->>>
->>>E=2Eg=2E building for Geode LX results in a kernel that can work on all=
- on
->>>all 686-class CPUs but crashes on CPUs without the CMOV instructions=2E
->>>Building a kernel for 686 could work on Geode LX and Crusoe but fails
->>>because of the CPU generation check that detects these as 585-class=2E
->=2E=2E=2E
->>
->> Crusoe (TM3xxx/TM5xxx) do have a handful of compiler/user space visible=
-=20
->> items that are missing from i686, as I recall notably the long nop=20
->> instructions and *possibly* fcomi (I *think* we caught that one, but=20
->> I'm not 100% sure=2E)
->>
->> As a result, it reports correctly as family 5=2E
->
->I don't know about fcomi, but the P6 long NOP hasn't been used
->in 32-bit kernels since your 2008 commit 14469a8dd236 ("x86:
->disable static NOPLs on 32 bits")=2E From that point, I believe
->we effectively treated Geode LX and Crusoe as 686-compatible=2E
->
->binutils apparently uses the same definition and emits long
->nops for -march=3Dpentiumpro but not for -march=3Di686 in modern
->versions=2E
->
->You are of course correct that this remains inconsistent:
->a kernel with CONFIG_MCRUSOE is still built with -march=3Di686
->and CONFIG_X86_MINIMUM_CPU_FAMILY=3D5, so it will fail to run
->on 586-class CPUs without CMOV=2E
->
->I'll fold in this patch to make a MCRUSOE kernel actually compatible
->with all i586-class CPUs, unless you have a better idea:
->
->diff --git a/arch/x86/Makefile_32=2Ecpu b/arch/x86/Makefile_32=2Ecpu
->index 1735a5f95d33=2E=2E9a3a1b1c2452 100644
->--- a/arch/x86/Makefile_32=2Ecpu
->+++ b/arch/x86/Makefile_32=2Ecpu
->@@ -21,7 +21,7 @@ cflags-$(CONFIG_MK6)		+=3D -march=3Di586 $(call tune,k6=
-)
-> # Please note, that patches that add -march=3Dathlon-xp and friends are =
-pointless=2E
-> # They make zero difference whatsosever to performance at this time=2E
-> cflags-$(CONFIG_MK7)		+=3D -march=3Di686 $(call tune,athlon)
->-cflags-$(CONFIG_MCRUSOE)	+=3D -march=3Di686 $(align)
->+cflags-$(CONFIG_MCRUSOE)	+=3D -march=3Di586 $(call tune,i686) $(align)
-> cflags-$(CONFIG_MEFFICEON)	+=3D -march=3Di686 $(call tune,pentium3) $(al=
-ign)
-> cflags-$(CONFIG_MCYRIXIII)	+=3D -march=3Di586 $(call tune,i486) $(align)
-> cflags-$(CONFIG_MVIAC3_2)	+=3D -march=3Di686
->
->     Arnd
+Hi,
 
-Yeah, the problem isn't the kernel, but user space=2E
+On Sun, Nov 08, 2026 at 08:56:36PM +0100, Vincent Jardin wrote:
+> From: Vincent Jardin <vjardin@free.fr>
+> 
+> The vout hwmon attributes and the regulator get_voltage() callback
+> both report READ_VOUT.
+> 
+> On a regulator whose configuration applies a load line (droop),
+> READ_VOUT sits below the setpoint under load by design, so user space
+> cannot see what the regulator was actually set to.
+> 
+> max20730 already exposes a driver-specific vout_command entry. Add
+> vout<page>_command to the PMBus core debugfs, for every page with VOUT
+> and a readable VOUT_COMMAND, in millivolts like the in*_input attributes.
+> 
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+
+This patch no longer applies to the upstream kernel due to commit 4dd10fbbeb9c
+("treewide: Convert devm_kmalloc() family to the devm_kmalloc_obj() family").
+Please rebase and resubmit.
+
+Thanks,
+Guenter
