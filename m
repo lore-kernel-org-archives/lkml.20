@@ -1,184 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794251119;
-	b=fqAifI4hhZPDuIubAm6fvx77SckkHnK9DxD3Luv+te3Cg+heBVltq3f0MW/IB8DOBe2h
-	 y6jBf+0B47CdWc9Gi8OBB+YO+uI11+rc9PrWhphLuayA7dYY+q7bhk5CxxBIEn2c3qhHe
-	 PZiKdebTf2DWT/MdMGOtC9Wwr6Hbz+fzNuugUMu4DaeqkO6nrLI0OPcdwKcrBCjsao/m9
-	 PGcyzXydTgU6uFE4s7J4ZAGMUizRZeJVCmsO8L5KRpZAcotl9cqB0siTf7hvkgH7SSc6Z
-	 J8iuo/fcp/cE+2MWak5/E+rmpjS0VoYHSnczB0653QBXzNS5OLNnw1Ku5T01FQsc9Mg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794251119;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=6+YZxQ13YOJ8UtOzew8TbdktPjj8yu1brjnF+SKC90w=;
-	b=Fa8RQINpxi8y1mtfGb9rctoeqzLVnPfnK/nm9oJg8GbTJooCkVT2ykGKBPhdmfxKsqNv
-	 XOFf8zZ2ezx8PQmDnzCuJWelSIj668xGe7jddCFqgmm4oteYqb0vLoZamH+sHj0Eo9+4Y
-	 JQse98Ovm8SecwxpbanlJJNzWpFDHF2iYHC+MqDz+WRJS6R/XcvdC87rOGJmQKNvOE5XP
-	 8xPFRwhFVl8BTqLOum9C5ZeYYNUK+2v+08NZAH/5AKcCwTxH0vChjTOb6BQoCIMQViPGo
-	 0P2RjjwyOc/8m2fQrx09f5jyTHrTo8NCmtLUAmxupPiosGBJESLM4o9IeklER+0eJNg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VUqLv6+c;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794251303;
+	b=fr30XkEcSLomFT2DfIe6WUB498oCwDx8BYXHEggEyvg3MTPJbpopP8trTMkUW1KXa7Wg
+	 lYkkmkoBLSZIQ46lRPyXW7lLcpRCQFhuLRRDgAYBQkapveqmsjrHvDyzMjAr7VrxZ/PlS
+	 qoYneC0Sn+DzucSG5hNLpmfUPjMBKMVqVIOQYndGZRiC9prMW4N6g3JKVTRgmYmOYV8UQ
+	 qMcaryHR79Vp5ieDMdb2rLJV0Zxm84n1z14SEI0d7osRTuxKsczZ9sptgLrednaVOP+6I
+	 Vk69/dC86VsUMmm/EYUHp8E/nBauh3VLMq0xXPwsgc2WRuqdgSKlOZ+zXTvYlpT8lvQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794251303;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=Td/mNMTGyqNop3iBhfVu/oBdBU20/htQYFGTW7D/2Ik=;
+	b=iT1JNZui9NTrQ3Y5xAb4t/CX9SDRh9oQ97fxZRU+PJz7RTeS+wB2XEqdeQAswdtPbwrR
+	 Pp3JF6UUh4rRU8wLSI8WGynqBGihea14znXeXTNwtvD3zsTt6LX4/biYcUtDb5V68UHht
+	 1k5Jftr8+V8hznhlsa7nuc8U1ZMHcHWaWt8rx95KcmRup1DsosK6N86yqi7Ar5tatXCfx
+	 oU5Lo3YBG5Roh1pCET1z/hFskpXSWjd9gHW1ZzLW5USS577nFnUwcGaxUmkUvciMo4zvv
+	 AlADo1iv3BZS/UQYU4g3B3GdF8uWSoCEoGmnhR71gqDUL3wqwV5EwLUxoGP9OtOUnuw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IoGPdfwE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 303FF606A32A;
-	Mon,  9 Nov 2026 19:05:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 303FF606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E42606A31C;
+	Mon,  9 Nov 2026 19:08:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=VUqLv6+c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794251118; x=1825787118;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=eMXrUJ8UKbblsKqu4OOWX155UBWvy+vGw9iUtUMdPK8=;
-  b=VUqLv6+cZLIH5m7UkdnA0+prrbpAAhuJ53ZRonoKKK3ZgrbviIQ5L3CF
-   zNDnDAELO5w9/+Yo+wNShLBercPYvdWOyh9vg4SXulPjqVO6AUeR57N4R
-   kMUFzQjN/sMP7wuHJC074/vhXRhLJMbLqzSi+5bS6aRWES/ESQwrsaoCI
-   sQngD+MblsVIFZ6YHEj6uqFf+g0lz3yWCUGVxVcizmACQkRm4myZdS6CQ
-   o4OXqyWJhmZbaHCv0Rd5ui45U+YpBQITYDab5virXkLK/lH8WXrE3jjvN
-   kaL+qYCOBaGfvRk0Xh8mYlbZraD3hWnUm2F+S3o6opBGk2uaD4skp2BZj
-   Q==;
-X-CSE-ConnectionGUID: p4dPgZQQTs+rJhxzMZXmIA==
-X-CSE-MsgGUID: dJzAWP71R4eu/T3KWWfwOA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2866444"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2866444"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:05:17 -0800
-X-CSE-ConnectionGUID: an51gV7YRqiRJ2Fu+cVWyw==
-X-CSE-MsgGUID: Qh7mzGfjRbuG2X+tYCjpIQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8128919"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:05:16 -0800
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 11:05:15 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 9 Nov 2026 11:05:15 -0800
-Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.64) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 9 Nov 2026 11:05:15 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z7n98kQdoTgsQc1H37jRS9QANJUzTpJ59uFU+vxxnof11y/iz/G5hs3PGZN6kShLTi0M9Bia3cwD/XpBaCi1UoCxRQabWDUH8kFVLdiw7Ziprw4aNG1gbNnxRK255ehanPikiTJCBwzjyKg+52ihcVMenJtao67vC3EpirNCldgOJ0qP3tY6ppDyZAohR0niR7XZV/ST4c25aIF2qhKP1xJXubjK4VXKUQqZhg/xC9lYSJ3Tfv/1CdP4LQ6saHHlMzsX5d0b6zhkJCs9ZzLB2tu7s3Wu8cs0TSyfkZ3BsKniEnZOwsIU4HBVHNUTrIUfl+H74iePxp+GN+ClFq8caA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6+YZxQ13YOJ8UtOzew8TbdktPjj8yu1brjnF+SKC90w=;
- b=FBXDulriYo+BZmlkPR+XGpfbpZSmpgzyT4mDCOVsfIjtg58Y5ih+EkDbyfTmwN7/alCiqpIyYxshY86+YYm3pdeq1aSCCX8IveFZpv/xV12iU0EQJjybnsCqBuF+HNE+egBev4p/C9HBdj491ZRAuAYMoElZVz9OnK44eTiBUj5AUmCXdbbhTqMJzONKknRCAVRf3W+XMTSCthixKi9pePu02hjrQKcGWuT7LjrEfqUExWyxLdP8VeQrfDX65fURX0c1GYrGr4ujSYmaPUZ4hmHOzAReEOQzprC8as55idJFjKhma/FQ0E8HYudbgiNvR/lp+rEc4lCBeYT/071pxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB824491.namprd11.prod.outlook.com
- (2603:10b6:208:626::16) by DS6PR11MB704522.namprd11.prod.outlook.com
- (2603:10b6:8:412::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Mon, 9 Nov
- 2026 19:05:12 +0000
-Received: from IA3PR11MB824491.namprd11.prod.outlook.com
- ([fe80::c2b7:5964:96e1:8ffd]) by IA3PR11MB824491.namprd11.prod.outlook.com
- ([fe80::c2b7:5964:96e1:8ffd%5]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
- 19:05:11 +0000
-From: "Salin, Samuel" <samuel.salin@intel.com>
-To: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>, Brian Vazquez
-	<brianvv@google.com>, Brian Vazquez <brianvv.kernel@gmail.com>, "Nguyen,
- Anthony L" <anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-CC: "Chittim, Madhu" <madhu.chittim@intel.com>, "Hay, Joshua A"
-	<joshua.a.hay@intel.com>, "Samudrala, Sridhar" <sridhar.samudrala@intel.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "David
- Decotigny" <decot@google.com>, Li Li <boolli@google.com>, "Tantilov, Emil S"
-	<emil.s.tantilov@intel.com>, Paul Menzel <pmenzel@molgen.mpg.de>
-Subject: RE: [PATCH iwl-net v2] idpf: wait for the reset completed state in
- idpf_check_reset_complete()
-Thread-Topic: [PATCH iwl-net v2] idpf: wait for the reset completed state in
- idpf_check_reset_complete()
-Thread-Index: AQHdWBpXjfwJ6tBorUC2IkGjruvcB7b84mQAgClnuPA=
-Date: Mon, 9 Nov 2026 19:05:11 +0000
-Message-ID: <IA3PR11MB82449130BE44CBEA89183442F79B732@IA3PR11MB824491.namprd11.prod.outlook.com>
-References: <20261009181553.582029-1-brianvv@google.com>
- <DS4PPF7551E6552686B1C0E5EF78B23A44AE59D2@DS4PPF7551E6552.namprd11.prod.outlook.com>
-In-Reply-To: <DS4PPF7551E6552686B1C0E5EF78B23A44AE59D2@DS4PPF7551E6552.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB824491:EE_|DS6PR11MB704522:EE_
-x-ms-office365-filtering-correlation-id: 8a890474-3b63-4d8f-1fa7-08df3e94614c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|7416014|366016|376014|1800799024|18002099003|22082099003|6133799003|10067099003|38070700021|921020|5023799004|261022075727099003|11063799006|261028144727099003|4143699003|261026140227099003|261026121527099003|261009223027099003|261021121427099003|56012099006|261022105027099003|261021123027099003|261102123227099003;
-x-microsoft-antispam-message-info: gdM0QarQeMSzvrpxyPItFH60zMMjl2apv9mNqdffAJ4/peJmn3yN4wHPcctid+cCidhnTqQ231A5N92KLuu/h1ohQTzq+phAtrrRcwJgKfwuwzQYbUEdvOW2mwlqvqNDEvzxQqW7VQ2yOYCEmjA60fS9ZerbWxSx5y2Tti+NwuEgMW95V7B67cwvP3UAiY4uYuUtsMtsrgN2Tkc0/zAtZ2xs62xqAAR1IG5FQU38ppQNNAvrVursApf3c8SaSRmUKL/hSOSlUJdYzclzr2+jRqMhy4wtrsJ4Uli6JekZdGyGvGsXEKNRLT5PhcrB+zr5cbvzJ9r6HhLbGCBTklpYjqpFVZYtvbPvzblKPVOuvF0A1/B9U2VaEek+vJnjyOIwmaBS869GA0W4eBBxgbGK2wZVDDPzSZKL9sF+LwvUidrcL7dq+Z29lUQEMi3DNplHgwI8hv9s7rUaesWuS0VXbMHpa3/nEtNVY+9vKekehDT9paeSI3qMpjxJqIqn3Ud/nuTy7jE+DMYSWn/dIgkttYLyJsHMdqqUmlwBu/8iX7rloNLL0ev0sAlO3uerbKH9gOjw2djPnYnQhzGBwB/Lcnm6bkGndogX+VC/wbzAqm9PnKPoMAtsyz+vr4mrECzAEXw8MNtRK46+73vHy0ITMKxNMClyknLDCdCTq5u3PBAYsTqvoQaZACCcBuLxIaImMIB2Fo5Iye1tzTSNOYK26bzayGeUSVtdHMsoTnfM/VqdBU2Y14EM8QsTtdai17TE
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB824491.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(18002099003)(22082099003)(6133799003)(10067099003)(38070700021)(921020)(5023799004)(261022075727099003)(11063799006)(261028144727099003)(4143699003)(261026140227099003)(261026121527099003)(261009223027099003)(261021121427099003)(56012099006)(261022105027099003)(261021123027099003)(261102123227099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0VDDK8XODffBS1Fd2jmttnknFPRzGt+rhs86P8rAA0bLQcfxLe861/eXg030?=
- =?us-ascii?Q?gLmhpYhA0c12lKmUys5E9zuy9Zd6XR8wdZesFG8kg43tOezCIDuiulAs0OTM?=
- =?us-ascii?Q?XCi7mMEAVItcuZP0rGVyyrJCucwe55T59KvKdYrDfbJD8KPzYkmZpKnKt6h1?=
- =?us-ascii?Q?JZAqI40UEa/hq1fUbiyjlwHAB3PvPJ4dV4cNqGM8yBYoPi+HDDozj7qhDwNB?=
- =?us-ascii?Q?ROoeyTmfHAP3Oqdn3F87TfV0E6Hkxkve+wmVHTy9Ro4USUM3ygSQiU6PtDoH?=
- =?us-ascii?Q?+n1SVVMDWCblLm12lRbPLXvHIOf/WNzVBR9vBCRXxLkyDaqkKRCqM+c88Iej?=
- =?us-ascii?Q?tWjqXpH/flv33f8ItLuDqX/56EwofGfOcj1j1+faFV/T6XAeW3JSb2tjTYfa?=
- =?us-ascii?Q?cetUATzONN3+ddfbm/gsjA8r5WxYe68R4cmqtkF/94ObXX6Lp2wDcAVISQ1T?=
- =?us-ascii?Q?U++yOLCxhpobQ8bisAcCpnYWIViIQ7ciVRTG9mdacTWnfHSC/p6Wnr63OU6p?=
- =?us-ascii?Q?umLNF41nFVqLkCIQmznH0HHYrnuoGNrLkRxjb/Ce+HamX6etR9+cMwnfE2Ti?=
- =?us-ascii?Q?4g8G5hoSghSckTpuQD/mz5XY06n9JoU9Nj1vKzOBU7Tfh4OXnThDOVv05AMr?=
- =?us-ascii?Q?hTIC2RPB1mX44Cu2aT/tsYkFTXR4GbhtMsxdPm8TGiQ9Bz54E79QbUMUTBxc?=
- =?us-ascii?Q?cC44a26kg04FkkSYpYyPW7OuLtnX5h4WaUGt7E3o6kUVhZmsWgZkTBpg653B?=
- =?us-ascii?Q?8dKpJqHhQqQD4mIWe8qVn3BIsBt84pEuh0yr0/D3qFz67xGCjqlFSZlLsTqI?=
- =?us-ascii?Q?YqQgijIHLzve/TAMCj3Kue2ZHmiu5/+TJaguh8DkdyXl7SUTeVs9Kvy+ijGH?=
- =?us-ascii?Q?JgcPTJIT/qNSJU0w9b7AGB65G/7J2RJWHPrq/cZ/MppC4Ult1M+B/l91Vj4w?=
- =?us-ascii?Q?hDce1ZBmZYHr2qyxdXH55KLAYUuKHmb2ZNbCxB/+eqad6i4nfSP1Xy/Myvk7?=
- =?us-ascii?Q?n9lF+ceBzm/pzU9wtLwoexS2x6ROHqEor4m/JdptEmF5/ddKvac1bS1qGZOB?=
- =?us-ascii?Q?R/hk9YA0K40dJz22/7YaRNLrCYwfYsDJl+IVKIMJAZPiq4dNTNBGC4E3XKD7?=
- =?us-ascii?Q?Fk7pQmLFf0FIedh+4FEiPxy6Jqj9EBYEil8kOUKHrtDbF5HlhRM4DYbwd3jq?=
- =?us-ascii?Q?pVT2btthWfNxnO/augixFLKfo/yypxS41DkfpxrzhD5xu578jvHxkUkdh0Yj?=
- =?us-ascii?Q?GZZCZTxKixLycQ9IzI1IEFb76J+pfgD3UfKOdUHmveEhQA6FtaUC8B9RQpvv?=
- =?us-ascii?Q?atNpWUEL6/cOGbYvVeUGlqy0vBzimRNqQE8zqvjC8b55H0TqnHrQlXzMo8PA?=
- =?us-ascii?Q?k1urv9kVf9YXgykEGFs+ZL2QmUq3Dkn5B5yVKX2R+wnTUoAr9igW3y0dD3YH?=
- =?us-ascii?Q?MPkn0Bq8loPaPQcRJKtbEWucfd/EjzwRA5TnfnHpRPi8S9bgRUwppbiO1sXN?=
- =?us-ascii?Q?GjYCojhbzAd2L5cHLUtAYTDjNk4kA0PfJvxvaHhapcWJlWey0WW6A75Xh3Vg?=
- =?us-ascii?Q?HB93dYW328CZauvQnWawueRVaTAmrjo9SjU/XgBD4MRzRQhdR5RipzeTDq/b?=
- =?us-ascii?Q?E1JHiiVMCC7okViKKi1PgdWT7aKDd9gIo+4rRWN1K8D8YTJt1K+rb4lvtFIl?=
- =?us-ascii?Q?nu9EqcUZhxO4seoSL+z9AC+SW274okNLjRKhVE+MyrZ+dcj9EUInhPLq128c?=
- =?us-ascii?Q?MWv1cmq01A=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IoGPdfwE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07CCA1F0089F;
+	Mon,  9 Nov 2026 19:08:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794251303;
+	bh=Td/mNMTGyqNop3iBhfVu/oBdBU20/htQYFGTW7D/2Ik=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=IoGPdfwEeEvgg26OvjfpuPkE3TKiGNdlrlcyNdeOzkn/83p58SLOyKeHeNwEEynuG
+	 +IB4xorOvyvIphSQJ3Fsry2xe7CfalGdZ89W6vSW+/sJ8p4KrazI65O7OWCRCF5IAg
+	 MiQXdv1jXWaIGU/GqIO6FXt9aUZCLqM0ArJRQGBDeiBcVCJ+yOe4Ikiivsr3RI/6Gd
+	 po2VfFTq6/NMPOfBH8uea13T5Mogt5wcTOwwVAiljoBjBxANRo+BbbjBBizXxs7Xl7
+	 7D6XLfwbOypQ1lkGEfWufNrmZcRIGLt+/lBbdozbShMILQ3sotIkMvInLaQXn1TT/I
+	 xHIJbL7QfUYeQ==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id BC9B92F70750;
+	Mon, 09 Nov 2026 19:08:02 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Matthew Schwartz <matthew.schwartz@linux.dev>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
+ Oder Chiou <oder_chiou@realtek.com>, Shenghao Ding <shenghao-ding@ti.com>, 
+ Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
+ Sen Wang <sen@ti.com>, Cezary Rojewski <cezary.rojewski@intel.com>, 
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+ Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261104225803.1574849-1-matthew.schwartz@linux.dev>
+References: <20261104225803.1574849-1-matthew.schwartz@linux.dev>
+Subject: Re: [PATCH v3 0/4] ASoC: support the ASUS ROG Xbox Ally X20 audio
+Message-Id: <179422721414.3711751.4806424761629006817.b4-ty@b4>
+Date: Mon, 09 Nov 2026 12:26:54 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -188,172 +71,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: h8ot16HJWLYEPOoU4pxWofqQNRDxwkOPrjpuQCf0savpdIfIBNDpRCAHvsehJhjuZYiw6/yyBjFbc0jtGIXIqX8Z5jS6BwiFQTTw1MiCWApEIqz1MLjIBSxN2bQRQ4ycelRrqZYzEbFwxjkhQnm+de7ggiPrycbjegQJm8d3A47Kvht25y573bjg/GWZqU5qhWVQMJTDnrWdaF9bvoDNs5R9afKyoWQu5wKFEF7AViJ84Cqvy3QDTGRM1QcxTDiDJlmmBDZtmWnaPIysFlMZnXMOsYtHRRgMzjWcesvRq0zuqe24DGE5WHGGLhswqu84lv3HJaNkaGc4AAsJI7XQSQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB824491.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a890474-3b63-4d8f-1fa7-08df3e94614c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Nov 2026 19:05:11.8227
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MM8NtEKaCSmdDP2MQfUcz1Bb4kH/LtQ7gLc3BbET988Ehbdy80svdYxQri9LM5J2v6lbJ9c+IpzD4skwDRKeoQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR11MB704522
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1977; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=SMb6pABjsjLAwOsoTGarVOQ2VZnyUOlkFFcSaM8l0vY=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+SQmlhhtd+huw9uVyFoWw3Q/mr1YxLfFcvPe8RMG1l
+ 7K6vtY2HaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE8gQBi5OAZjInQcM/6znrHuzXehV8Jn9
+ rnEccyy8/2xek7Raom/n8S0pH/jYFnIy/Pe1MRH/pSSfZsly7uY7z8RevgqJCeu7b14p+7wsvOv
+ XEQ4A
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> -----Original Message-----
-> From: Loktionov, Aleksandr <aleksandr.loktionov@intel.com>
-> Sent: Wednesday, October 14, 2026 3:47 AM
-> To: Brian Vazquez <brianvv@google.com>; Brian Vazquez
-> <brianvv.kernel@gmail.com>; Nguyen, Anthony L
-> <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
-> <przemyslaw.kitszel@intel.com>; Andrew Lunn <andrew+netdev@lunn.ch>;
-> David S. Miller <davem@davemloft.net>; Eric Dumazet
-> <edumazet@kernel.org>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
-> <pabeni@redhat.com>; intel-wired-lan@lists.osuosl.org;
-> netdev@vger.kernel.org
-> Cc: Chittim, Madhu <madhu.chittim@intel.com>; Hay, Joshua A
-> <joshua.a.hay@intel.com>; Samudrala, Sridhar
-> <sridhar.samudrala@intel.com>; linux-kernel@vger.kernel.org; David
-> Decotigny <decot@google.com>; Li Li <boolli@google.com>; Tantilov, Emil S
-> <emil.s.tantilov@intel.com>; Paul Menzel <pmenzel@molgen.mpg.de>
-> Subject: RE: [PATCH iwl-net v2] idpf: wait for the reset completed state =
-in
-> idpf_check_reset_complete()
->=20
->=20
->=20
-> > -----Original Message-----
-> > From: Brian Vazquez <brianvv@google.com>
-> > Sent: Friday, October 9, 2026 8:16 PM
-> > To: Brian Vazquez <brianvv.kernel@gmail.com>; Nguyen, Anthony L
-> > <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
-> > <przemyslaw.kitszel@intel.com>; Andrew Lunn <andrew+netdev@lunn.ch>;
-> > David S. Miller <davem@davemloft.net>; Eric Dumazet
-> > <edumazet@kernel.org>; Jakub Kicinski <kuba@kernel.org>; Paolo Abeni
-> > <pabeni@redhat.com>; intel-wired-lan@lists.osuosl.org;
-> > netdev@vger.kernel.org
-> > Cc: Chittim, Madhu <madhu.chittim@intel.com>; Hay, Joshua A
-> > <joshua.a.hay@intel.com>; Samudrala, Sridhar
-> > <sridhar.samudrala@intel.com>; linux-kernel@vger.kernel.org; David
-> > Decotigny <decot@google.com>; Li Li <boolli@google.com>; Tantilov,
-> > Emil S <emil.s.tantilov@intel.com>; Brian Vazquez
-> > <brianvv@google.com>; Paul Menzel <pmenzel@molgen.mpg.de>
-> > Subject: [PATCH iwl-net v2] idpf: wait for the reset completed state
-> > in
-> > idpf_check_reset_complete()
-> >
-> > PFGEN_RSTAT[1:0] / VFGEN_RSTAT[1:0] (PFR_STATE / VFR_STATE) encode
-> the
-> > function reset progress as a 2-bit state, not a flag. From the IDPF
-> > specification [1], "PF Reset Status - PFGEN_RSTAT":
-> >
-> >   00b - reset in progress
-> >   01b - reset completed, written by the control plane
-> >   10b - function active, written by the control plane once the function
-> >         has completed VIRTCHNL2_OP_VERSION
-> >   11b - reserved
-> >
-> > The "Function Level Reset" chapter of the same document has the driver
-> > poll the register until it reads 01b before re-initializing.
-> >
-> > idpf_check_reset_complete() tests (reg_val & rstat_m) as a boolean,
-> > with rstat_m =3D GENMASK(1, 0), so any non-zero state is taken as
-> > "completed", although only 01b carries that meaning.
-> >
-> > That only works if hardware moves the field to 00b as soon as the
-> > reset is triggered. On the Intel IPU E2100 (8086:1452) it does not:
-> > PFSWR transitions PFR_STATE to 00b only when the field currently reads
-> 01b.
-> > When the function is active (10b) the field keeps its value until the
-> > control plane finishes the reset and writes 01b, which takes a few
-> > hundred milliseconds.
-> >
-> > Consequently, on a hard reset of an active function
-> > (IDPF_HR_FUNC_RESET) the first poll sees 10b, returns immediately, the
-> > driver re-creates the mailbox and sends VIRTCHNL2_OP_VERSION while the
-> > reset is still being processed. The control plane tears the mailbox
-> > down underneath it, VERSION is never answered, and the driver sits in
-> > a
-> > 60 second virtchnl timeout (-ETIME) before going through a second hard
-> > reset which then succeeds.
-> >
-> > An FLR on an active PF is enough to reproduce it:
-> >
-> >   # echo 1 > /sys/bus/pci/devices/0000:01:00.0/reset
-> >
-> >   [  299.685030] idpf 0000:01:00.0: HW reset detected
-> >   [  299.715710] idpf 0000:01:00.0: Device HW Reset initiated
-> >   [  362.916087] idpf 0000:01:00.0: Device HW Reset initiated
-> >   [  364.318246] eth0: (slave eth1): link status definitely up, ...
-> >
-> > Nothing is logged during the 63 seconds; the timeout is silent on this
-> > path.
-> >
-> > Make idpf_check_reset_complete() wait for the state to be exactly 01b.
-> > This is the stricter reading of the register definition and it does
-> > not depend on how the field got to its current value: functions that
-> > are still in progress (00b) or active (10b) keep polling until the
-> > control plane reports completion.
-> >
-> > With the change the same FLR results in a single reset and the link is
-> > back after 1.5 seconds:
-> >
-> >   [  206.856635] idpf 0000:01:00.0: HW reset detected
-> >   [  206.887106] idpf 0000:01:00.0: Device HW Reset initiated
-> >   [  208.368721] eth0: (slave eth1): link status definitely up, ...
-> >
-> > [1]
-> > https://github.com/oasis-tcs/idpf-
-> > specification/blob/main/idpf_specification.md
-> >
-> > Fixes: 8077c727561a ("idpf: add controlq init and reset checks")
-> > Reviewed-by: Emil Tantilov <emil.s.tantilov@intel.com>
-> > Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
-> > Reviewed-by: Li Li <boolli@google.com>
-> > Signed-off-by: Brian Vazquez <brianvv@google.com>
-> > ---
-> > v2: reference the IDPF spec, name the device and add an FLR reproducer
-> >     with before/after (Paul); collect Reviewed-by tags. No code change.
-> >
-> >  drivers/net/ethernet/intel/idpf/idpf.h     | 2 ++
-> >  drivers/net/ethernet/intel/idpf/idpf_lib.c | 3 ++-
-> >  2 files changed, 4 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/net/ethernet/intel/idpf/idpf.h
-> > b/drivers/net/ethernet/intel/idpf/idpf.h
-> > index 470bc23c844c..ce8a1bd0ec8b 100644
-> > --- a/drivers/net/ethernet/intel/idpf/idpf.h
-> > +++ b/drivers/net/ethernet/intel/idpf/idpf.h
-> > @@ -166,6 +166,8 @@ struct idpf_netdev_priv {
-> >  	spinlock_t stats_lock;
-> >  };
-> >
-> > +#define IDPF_RSTAT_COMPLETE		0x01
-> > +
-> >  /**
-> >   * struct idpf_reset_reg - Reset register offsets/masks
-> >   * @rstat: Reset status register
-> > diff --git a/drivers/net/ethernet/intel/idpf/idpf_lib.c
-> > b/drivers/net/ethernet/intel/idpf/idpf_lib.c
-> > index 827c795afcb6..92eb3e9de77c 100644
-> > --- a/drivers/net/ethernet/intel/idpf/idpf_lib.c
-> > +++ b/drivers/net/ethernet/intel/idpf/idpf_lib.c
-> > @@ -1874,7 +1874,8 @@ static int idpf_check_reset_complete(struct
-> > idpf_adapter *adapter,
-> >  		 * register for us yet and 0xFFFFFFFF is not a valid value for
-> >  		 * the register, so treat that as invalid.
-> >  		 */
-> > -		if (reg_val !=3D 0xFFFFFFFF && (reg_val & reset_reg-
-> > >rstat_m))
-> > +		if (reg_val !=3D 0xFFFFFFFF &&
-> > +		    (reg_val & reset_reg->rstat_m) =3D=3D IDPF_RSTAT_COMPLETE)
-> >  			return 0;
-> >
-> >  		usleep_range(5000, 10000);
-> > --
-> > 2.56.0.385.gd3acb90ef8-goog
->=20
-> Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+On Wed, 04 Nov 2026 14:57:59 -0800, Matthew Schwartz wrote:
+> ASoC: support the ASUS ROG Xbox Ally X20 audio
+> 
+> The ASUS ROG Xbox Ally X20 (RC74XA) moves from the HDA codec and TAS2781
+> amps of the earlier ROG Ally models to SoundWire on ACP 7.0, with two
+> TAS2783 amps on link 0 and an RT721 on link 1. Its BIOS marks the ACP as
+> legacy DMIC only, no machine table entry matches the link layout, and
+> its TAS2783 firmware in linux-firmware uses the four-field name that
+> carries the BIOS speaker ID, so the speakers do not work today.
+> 
+> [...]
 
-Tested-by: Samuel Salin <Samuel.salin@intel.com>
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.5
+
+Thanks!
+
+[1/4] ASoC: amd: acp-config: force SoundWire probe on ASUS RC74XA
+      https://git.kernel.org/broonie/sound/c/817b86669dce
+[2/4] ASoC: amd: acp: add ACP70 SoundWire machine entry for ASUS RC74XA
+      https://git.kernel.org/broonie/sound/c/88363b2c5f0e
+[3/4] ASoC: tas2783-sdw: use the BIOS speaker ID in the firmware name
+      https://git.kernel.org/broonie/sound/c/9d28c97118d8
+[4/4] ASoC: rt721-sdca: wait for PDEs to reach PS0 after powering them up
+      https://git.kernel.org/broonie/sound/c/ab0fa5d151b5
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
