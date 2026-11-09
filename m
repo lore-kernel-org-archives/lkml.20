@@ -1,58 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230449;
-	b=PebztCUNCbmT6whJwTk1ylvWf8yCwT3ywggD8x1yJn5cCUqAsKLbl2vwoPBdTqXZLcv3
-	 0H04zZ9i/xdfKYP63VMoB6gqlMMmLO0YYIzZxGzjKomQYkh29iiKlPwy2Np3v2hGpBN4G
-	 ofZ/5CTYlQ/+HPrxfCT/1Ma0auMXjQ/agvk+adk0lgyvyNjamPzgBppjXa+7QF5GPY9IF
-	 lYn+O/+CDocI8vgkYjoJYmhHeLlxSOluQOErRshwKwtlYiLZHwy1tKRFWRopemWc/Gm5Q
-	 6I/K9hpur0gRqzVm2qD/symxOh2NDbv3ieDziE3/WUOVg180h6lclKZ1Dz9YITFTQ/Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230449;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fbrWj/P7ReOH36vraQbqKTdB5cdLMUI0mnHZkL6w8nw=;
-	b=HDUkH9fwWQMWnW16H3U9cIFep41ywW0R8dVQLY+DgpMNAYEI/75+mm2Hf8hbm+H9ocBI
-	 aeV9GflNzsLE6z6IcHc1OLrA80CBitxYQgIy5Dm0P7OykgbufyM/2x+/OOKiK41wYZ4YU
-	 aAFTMN78k7pI02Jop+rD3yN0HoCuIRPmnIHIcNAw8FeuUJTow1aR0rpiHN7pd5LE11MfT
-	 ter/3lnxZh+vD62ZtyBRaZKgvfM19+Ht2o34H2IRq4DxajfrMEWQttf1G+IPynQLpDX1A
-	 jfNhQPOa1zLAsXdpMwvI4Bc5kq7ZPPQLZlZPMoFap7EY7Rcv8fqDzkKTh4Bgw1PGHNA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y60etLaJ;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794230457;
+	b=kHgjxWsIZ/kNsIGytQw3Ie9PzPZdFVoEoyhS5Tj6up8lhrixRPm0Lxm3PXTnV4vz58j0
+	 L3hmWeZXVzcUCWVVKNlf+7TMW7QtpVCcIRzFU+rosU/f1W4Kv/7lVvrOfh43Z3mmS4kdO
+	 xr+ZICcAFopeHHG4HVIe01zpCzq12DT+y7qXtZjuTHdPnnPbzlNtH6CdTR7T8iVsiiXYy
+	 fVJ4YDirsqcue3am6eDZtDMDS2kyAgA2MG3fSJP/KxoASx/KOJoLTWqbjwmoH4H/6y0pD
+	 b/7fvLqldMunX8TDpaTaAcIfOZx/Q1WANfC98nTjhIf0/9GBcIeAVkozsksf8D1/gXQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230457;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8kk0BDRZXw+7xDFuJqSRq4HWjhAAgBkMx2607nI6V0M=;
+	b=PG778YW0VGzQSiuUUWz/H5UClsE4FjxMRZ6OmCOT3ng22kKKOUzIuEWu2SouQFPLfYcn
+	 /Xjf+XAIOyUUtA8umDYVGQmbcLUHaHhAnRwwE1Ph7SqHCd3+ceaIuiIg59Lsf0k0o587q
+	 gB68dUmGF5wB3vyj8jud2M9tkvLp4thLws3jDKGUd7TuFeGDMVwK/Cov3Ch4gGcLCqD0M
+	 1lUDA1xfc2eiO8g2a69r1GL9Tl45kTTdbPEANuH1Xw1JToGyDmJp5F5ENY26RfZKg8fiF
+	 z2guzbO+uHx4UhRc6T9XnYj54LHl5vSnvbfYXjmMVwQ39+TyrNJRd8DA1PzgYYKPfhQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EttyTTco;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7427D606A321;
-	Mon,  9 Nov 2026 13:20:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667BD606A31C;
+	Mon,  9 Nov 2026 13:20:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y60etLaJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A8321F008A1;
-	Mon,  9 Nov 2026 13:20:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EttyTTco
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794230456;
+	b=ujDyzZNuJqxHcS5OZ0TODgapNL8q/6PwsX79nR0UAuO4wC2RFQTcpbpPEUUNUneY2Mu8
+	 CYBakwQUKWO+LNNlQvpj1x8S0LQfSP0yEJ2hZGEb0CbWalU7YPMMoPgbojVunf5WbLrn6
+	 GlHs8qFu9mB2orA9zs4fGFYRr2jVCEMcaoPkELneXru2k8Y+xluLpeyEqqLAy53SGgVJk
+	 GqJK9U45zeQYjvKyQUd096ej33EcwGSwJyevR5Q4yRB+Thsn3DgMu38VgJ5fPKHSxWPbI
+	 3cWWNvJUzaCMD3tfwj+rlMU9/L0LmSbtzUo+GHXRANxIgLIHDpGt+d6kHaDkjI6MgoQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794230456;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8kk0BDRZXw+7xDFuJqSRq4HWjhAAgBkMx2607nI6V0M=;
+	b=bSk9NuARkxLvoSB62ZkRubPrXQ1df5G+a6G/YjMyXKr49xTpMVkB1zuPY0IPgUGuYvSm
+	 gtkuBvzwuswFM1jPG20L0qC9rvjWvO49wF9AMT3UVSI1EVNSWrHnXH1YnAGRQgReN8PaH
+	 RXTBBuoP4+PweUdkQnEJLpeq5r96PHrXvWxXP7u4ZJkYQcD65nCgO9eqqNdoAo6WprxNf
+	 P1wpC5UgVZ9RIoyb7FChpnU1pz2Kz0OOlD8xck8t4A6uR+v3ahThndsmBzrYbRRECwyJG
+	 7CwfCzBnHxc1GQBdGoVhoj99aCs2HXzjYaHI3WOgmqQJTsikVGgbd+6AfFpRrtR+8kw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 3B8831F0089F;
+	Mon,  9 Nov 2026 13:20:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794230449;
-	bh=fbrWj/P7ReOH36vraQbqKTdB5cdLMUI0mnHZkL6w8nw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Y60etLaJSMnZOF8w/mZbUSb5AofUw7dLgMTR7pwz52+5nJwCu+0K/lQUIQm9tLCkG
-	 EGgZW3P77d7028QTbHNnMXqgZyBsEYy94vUbgJljQnMIffnZEPLWQZAT5ic2TIvfoV
-	 iJQF7xlLK5KWjwAOsXHqNWaSUSSrDjHpqSxinwjbYo2ZunFu+/WIg6t0TM+VKH8+UM
-	 +ISOYkh+354NA09jtlWzv011qCf5IGWMdCZ4aYfGYAhldsNpBRiJSdn/q31oRPEYC3
-	 tlzyRNnaRWg022z/f56RlYPJzl+301XZYbUSBBP2kaOj4Gn8FFVl7bmVv3PEBooJJh
-	 FICNhYksADSpQ==
-Date: Mon, 9 Nov 2026 14:20:46 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Demeter Barna <me@fromdisposition.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: sm8350: Add the inline crypto
- engine
-Message-ID: <20261109-qualified-cuttlefish-of-intensity-42ffda@quoll>
-References: <20261105-b4-sm8350-ice-v1-0-f55e6ea8e1ca@fromdisposition.org>
- <20261105-b4-sm8350-ice-v1-2-f55e6ea8e1ca@fromdisposition.org>
+	s=k20260515; t=1794230456;
+	bh=8kk0BDRZXw+7xDFuJqSRq4HWjhAAgBkMx2607nI6V0M=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=EttyTTcodJ8EkEvBkBr2Z05BoVQAYLNmwMEcpCRUAwLszZHcUJPlIuDJlcmy7ts4i
+	 5UDBYi5o0LTExQbsQ4WKBT/+F/yifPlY4jxfFN8C7/07k1GjLm3YiLXSkBtf70vmEu
+	 yuw1Ghty+cAgN2QgfdX0tRhYVpJ6d3YqpuxMOoLgaL6to9ilPPDw6W4eUrQamm19g8
+	 fiq+2U7qMpD+GBbeLliaB4mO2CK3XbhOXc0f7HKsF61zgv+Gqzsg8NVc93yH8vsCNo
+	 9WHJY9nheQYL7tfONxxBrl7Pp8kVKUL2hJ3UxxoSu+icmlAJ5JbLNEhguiH5/Hm6+7
+	 fYUSXrwfFNl0w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id C14C2484AE;
+	Mon,  9 Nov 2026 13:20:55 +0000 (UTC)
+From: Ahmed Abdelfattah via B4 Relay <devnull+me.ahmedabdelfattah.dev@kernel.org>
+Date: Mon, 09 Nov 2026 15:20:52 +0200
+Subject: [PATCH] iommu/vt-d: Set up scalable mode context entries for DMA
+ aliases
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,52 +83,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261105-b4-sm8350-ice-v1-2-f55e6ea8e1ca@fromdisposition.org>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-iommu-vtd-sm-bridge-alias-v1-1-76704f658dc3@ahmedabdelfattah.dev>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrB0wKhW9SnExSabtFKMloyKId
+ zfV5Qfv/TsoR2GFLtsh8ioq05hg8gzch8Y3o/hkKIvyYUzRokwhLLjOHjWgjeLThAYhxZapcc4
+ 3NVUW0v8X+SXb1X72t3WxX3bzPwjHcQL9pKzpfQAAAA==
+X-Change-ID: 20261109-iommu-vtd-sm-bridge-alias-9ea7ccd74a3b
+To: David Woodhouse <dwmw2@infradead.org>, 
+ Lu Baolu <baolu.lu@linux.intel.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Kevin Tian <kevin.tian@intel.com>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794230455; l=3605;
+ i=me@ahmedabdelfattah.dev; s=20261106; h=from:subject:message-id;
+ bh=dhz3rHJR7YOUo+roQBNF725wE94t53ubNOSPW8yLvDQ=;
+ b=CCaCnLcMIkkJ833TNpgDHDuF6lqomjTQZdvFCQ9qy0RVezMbNjY5HwSKOoRlmEcmNnZBj92e/
+ ozmQTn2f9TEDttmf2taiXGkoCtIP5IPgF1ywzfnbC822Hg12pULtuVB
+X-Developer-Key: i=me@ahmedabdelfattah.dev; a=ed25519;
+ pk=DHEHKU4PddrkJ/iYMZpwyyXsFyIQ6ySjTttKLrt9YqI=
+X-Endpoint-Received: by B4 Relay for me@ahmedabdelfattah.dev/20261106 with
+ auth_id=1438
+X-Original-From: Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
+Reply-To: me@ahmedabdelfattah.dev
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 05, 2026 at 03:29:31PM +0000, Demeter Barna wrote:
-> Describe the UFS inline crypto engine at 0x1d88000 and hand it to the
-> UFS host controller with qcom,ice. The region covers the engine and its
-> hardware key manager (0x8000 + 0x9000), as in Qualcomm's SM8350 device
-> tree; it is clocked by the UFS ICE core and AHB clocks and powered by
-> the UFS PHY GDSC, as on SM8450. Without it the UFS driver logs
-> "Disabling inline encryption support" and fscrypt has no hardware path.
-> 
-> Signed-off-by: Demeter Barna <me@fromdisposition.org>
-> ---
->  arch/arm64/boot/dts/qcom/sm8350.dtsi | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> index 55b32050c..2b258c4b4 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-> @@ -1782,6 +1782,8 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
->  				<0 0>,
->  				<0 0>,
->  				<0 0>;
-> +			qcom,ice = <&ice>;
-> +
->  			status = "disabled";
->  		};
->  
-> @@ -1807,6 +1809,17 @@ ufs_mem_phy: phy@1d87000 {
->  			status = "disabled";
->  		};
->  
-> +		ice: crypto@1d88000 {
-> +			compatible = "qcom,sm8350-inline-crypto-engine",
-> +				     "qcom,inline-crypto-engine";
-> +			reg = <0 0x01d88000 0 0x11000>;
-> +			clocks = <&gcc GCC_UFS_PHY_ICE_CORE_CLK>,
-> +				 <&gcc GCC_UFS_PHY_AHB_CLK>;
-> +			clock-names = "core",
-> +				      "iface";
+From: Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
 
-Odd, your binding was hinting towards incomplete/legacy DTS, but I see
-complete - at least in clocks part.
+In scalable mode, devices behind a PCIe-to-PCI bridge can't do DMA at
+all. Their requests carry the bridge's alias requester ID, and the
+context entry for that ID is never written, so every request faults:
+
+  DMAR: [DMA Read NO_PASID] Request device [0000:02:00.0] fault addr 0xfffff000 [fault reason 0x02] Present bit in context entry is clear
+
+pci_pasid_table_setup() and pci_pasid_table_teardown() only act when
+they are called for the device itself. pci_for_each_dma_alias() reports
+an alias that comes from an upstream bridge with the bridge as @pdev,
+so these aliases are skipped. An identity domain doesn't help either,
+as the device still needs the context entry.
+
+Legacy mode is fine, because domain_context_mapping_cb() and
+domain_context_clear_one_cb() have no such check, and the same check
+was already removed from the pass-through path in commit 64f792981e35
+("iommu/vt-d: Remove device comparison in context_setup_pass_through_cb").
+
+Drop it from both callbacks, so the alias context entry points to the
+device's PASID table and is cleared again when the device is released.
+
+Fixes: 301f1a80487f ("iommu/vt-d: Setup scalable mode context entry in probe path")
+Fixes: 81e921fd3216 ("iommu/vt-d: Fix NULL domain on device release")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
+---
+This showed up with a USB controller behind QEMU's pcie-pci-bridge in a
+q35 guest using intel-iommu with scalable-mode=on: the USB tablet behind
+it never enumerates.
+
+Tested on v7.4-rc2 in that guest (x86_64_defconfig + kvm_guest.config,
+INTEL_IOMMU with scalable mode on by default), with an EHCI controller
+and an e1000 behind the bridge, in scalable mode with second-stage
+tables, with first-stage tables (fsts=on) and with iommu=pt. Without
+the patch both devices fault on 02:00.0, the tablet never shows up and
+the e1000 hits Tx unit hangs. With it the tablet enumerates, the e1000
+passes traffic and no DMAR faults are logged. Removing the EHCI
+controller through sysfs and rescanning brings it back without faults,
+which exercises the teardown side. Legacy mode behaves the same with
+and without the patch.
+
+Devices that share an alias always end up in the same IOMMU group, so
+whichever device's PASID table the alias entry points to, it translates
+with the group's domain. As in legacy mode, releasing one of them also
+clears the alias entry the other one uses, so its DMA is blocked until it
+is probed again (see the comment above domain_context_clear()).
+---
+ drivers/iommu/intel/pasid.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/drivers/iommu/intel/pasid.c b/drivers/iommu/intel/pasid.c
+index e4f24d3f19a6..e72b6e972cfb 100644
+--- a/drivers/iommu/intel/pasid.c
++++ b/drivers/iommu/intel/pasid.c
+@@ -760,8 +760,7 @@ static int pci_pasid_table_teardown(struct pci_dev *pdev, u16 alias, void *data)
+ {
+ 	struct device *dev = data;
+ 
+-	if (dev == &pdev->dev)
+-		device_pasid_table_teardown(dev, PCI_BUS_NUM(alias), alias & 0xff);
++	device_pasid_table_teardown(dev, PCI_BUS_NUM(alias), alias & 0xff);
+ 
+ 	return 0;
+ }
+@@ -897,9 +896,6 @@ static int pci_pasid_table_setup(struct pci_dev *pdev, u16 alias, void *data)
+ {
+ 	struct device *dev = data;
+ 
+-	if (dev != &pdev->dev)
+-		return 0;
+-
+ 	return device_pasid_table_setup(dev, PCI_BUS_NUM(alias), alias & 0xff);
+ }
+ 
+
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261109-iommu-vtd-sm-bridge-alias-9ea7ccd74a3b
 
 Best regards,
-Krzysztof
+--  
+Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
+
 
