@@ -1,97 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.99
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794193025;
-	b=pdto5jHCNGlyoAtXlfTk+x44CyhmYLq2nbZejCUiNrITCHiOoOA3Rf6BNXQRdGa+0PaP
-	 hK1q0faEI6XTU2/BuByg8eCJ4A11am3vJ7Z1yvtIOhQ1GBnzgZaXSR8ysN+dZbbJES2Tw
-	 tbm2DSrXMPDxPU3WueJB4MmYam7WoFLcWAzSYKCDZ4wAAlPqT6dg96pOd8bT39FINeXyF
-	 iid5rW9abrcEM7Vz/BA0Syqymy+Pg4KcjguSOOsQKbrB/gKXfaYG0cVXXxmpEzg/o+NDE
-	 TtZRoYWENKtXA21/LH+N1TMmpMYzEGa1mkTnzKqIkZx1OJd+pZvni1zDQHKiycr7Kfw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193025;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Xnme7yKUwdQaDiHIT552cN7iSCPO5ynXqvQjG0Lz/Eg=;
-	b=oFOtLVsAHeR0bQMgC7W+IL2sLUSX2+TJC+/oNIfFbhYxQL3O1QgObzPTVCWmc6YQQo+u
-	 XruuLV68xFk0jYvGBPCm1xF8BVVD/Mi+1vFpopdR2taJKoeWoC4QXlBClZb6ZyiYgsoG7
-	 amF4ZJzfDmykAkdfebsj8Hon7F6S6uVzy95FCqq6QuOcSlqvvcap1I1Y9gKuvIIpuOirn
-	 j2KtWQsDxmrm6kjUf7c/bvJVAEDNHJB82n64dqtae/8TBuqP6Q/3moafrlntwl9Lw9yM0
-	 PJXRuMBGDrOYFRBLNaULAmoG9z37LR4IlXp5GNuagF8H76tzXuZx8kYa3Dk+aSDA4UA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=NOJi2QQI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.99
-Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022099.outbound.protection.outlook.com [40.107.193.99])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.123
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794193045;
+	b=rsbMPvqVvtUu6owqq+ZpdpcjTjVqj3VIHreCdxN9vxQDq+L05dK6QvCmb1PIdnak1q5T
+	 Gub4Z2UXDhv6pUHRGsb/iTOG31GbOtFJxKl8X1DGuCp8eWoP7J/iexsisUwCYrGljYwMP
+	 iCz2gbz4ux/Zc2Nm5RAclfs5q33Z7FnO6SkfEONLa/0P2SFB01sRVrB6hj67UTddin55t
+	 0hWtedBL1qzBlEDbOjn9tChdA0jK53XrZZAvZzlPzeQ/Zegdi1iatzPRY0Xnc1KtBstVT
+	 XOcypcgl2WKTIGDkHn/Z4fynQYuoMBHIruXMz3gRybyoaqFjpKQmAfkOW9oT8XKHrWw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193045;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=slSez8APteyrjAQFVPi36IPS8gsYJrd9o7OEPdbfuX0=;
+	b=NXeAynjDNZDwoHUlXWHzeahUKiES10XQKxLubR/x1JCRspZsDcDUe5d2grLx1fTWnZdz
+	 xsHDdIdvEk6uQmauIsqe6MTAGMSieC1F11GNQ51Bu87r8hMR++I94a4hR0NarmLMG+Sck
+	 BpGpaZeQx3sitpvBQnmutVrrLVemHRNglAjiRy0YvImJ5ZcqbN7qAgqpDjFDYNeTH9f4w
+	 mIQrcNMhOXb5fL/al7NGqm7tsxCKM23dLxINHmH/5lm6S9cPAs+y8E2a5Q9kN1ZBYuZVV
+	 Khp+bt2MaTpzOulw1BCHQ9g4HLmpFxZnjnx9Ti++hbZV4TuPzaaw6OoD4v/tiZIXwFg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UVo4mFcv;
+	arc=none smtp.remote-ip=91.218.175.123
+Received: from mta0.migadu.com (out-123.mta0.migadu.com [91.218.175.123])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1971606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:57:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1971606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84778606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:57:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84778606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=NOJi2QQI
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e6Kt1if8DTiMjcbyXN4Mtthe7FpV4Yhe7v3VYUoEOnbo+3U+cT9jIZ+wsLZ/rXDVzgx9P2wfXbUCZgkQpMJjVZWAe45eKgmz4Ti1ylaI0eG4Rxx65ANNHMAzRRl1K1O8Xkz9z98FYNqX2oEj/9RqCZRVgwjbyo9rX20MgNL0k9/Db4X3pdL59P5uWd7pIV2IxRrcNFxUEsXseYma52zSJlSP0MveRuhjO7Zhl45TK3Z+c3+YtSyPtroFnk+ZsmfPIt6uUbME1c72HlhzFL//smom7PdVkrCD+03SvFO3AxmZHiIElg3vaXO6W57sWCwfpoqGVRPPwsn+T9RBa9N7CQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xnme7yKUwdQaDiHIT552cN7iSCPO5ynXqvQjG0Lz/Eg=;
- b=tH4Rhulafy9htN+ERfRdm0ym7v3agt24s2mmpwRS482NSRQROzXjszZat0eO8ahNuKclr9G9ebHUcfwo85fqm641jRCPdW7YESby1MaNq/7HyyLpPbiPepWi2Fl6vj4WaGYjqwwwGgjE2aWarIdfSNF89qzCTCOB+BW7LuByp92wH+kCY0ggiaOUaqz8tnCqysBU9GWk3k8w94RBzYhwtLt6UiFOqDSvr+/T7DBD0TAXZfJiJTeJyKGTpL/1uFXuvxo70d8BPMCS6UPxpnBU4mNHQOqLKE8D9qTID8663ryh/4eCJJz/z7LL5evtw00VUtoQDCRPHG88NrwtcYXsdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xnme7yKUwdQaDiHIT552cN7iSCPO5ynXqvQjG0Lz/Eg=;
- b=NOJi2QQIFZr3dlJOQePzjeNvhiIIOdkwab/dTdyM1yksiVqHMUh9hHKY4JICWC67nM//itf+aYUTGCYbAaOtMwgs0l6CAKgsy5yxE1gYjV7EqfnPjN7YNDq540GCoO6V87MXoDuk7w1F76q5MM8A8Yu0HbBhoGFY4aflnCt782dyqXOkBWSoPyeDm3AHORgJgRhuOd/5AmXCArTYuFGPPr/PZ5Z9sHpDjLfr7zlGKcKn81Aqzyz0nylBdMLp/f5yvpldXD786ILcteL+K1qX9Eas3MoCVigvvN8FkpLxitIqiMfUi786ZGjcEn+IXuY2BK4d1Ox1+fnQONrHU/qEYw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10) by YQ1PR01MB376387.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:c8::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
- 2026 02:57:03 +0000
-Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 02:57:03 +0000
-Message-ID: <94d8d7af-b04f-4c59-ae3b-e693d4457a65@efficios.com>
-Date: Sun, 8 Nov 2026 21:57:02 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 18/29] sched/deadline: Move a task's bandwidth only
- where room was made
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-rt-devel@lists.linux.dev, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, linux-kernel@vger.kernel.org
-References: <20261108185406.1549770-1-mathieu.desnoyers@efficios.com>
- <20261108185406.1549770-19-mathieu.desnoyers@efficios.com>
- <sashiko-outbox-203951@kernel.org>
-Content-Language: en-US
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-In-Reply-To: <sashiko-outbox-203951@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0011.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::26) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:1d0::10)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UVo4mFcv
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3ZW9WdZ2Gaii+5kPjGa0iMjjl+g4WUyJikDdM5XjZ10=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794193042; v=1; x=1794797842;
+ b=UVo4mFcv9Q4H2cIE2qz310LcnD++QCHbOylIue1Vs0G6jgrLPp+xVvhGyNgSeXOl0pvzHqg3
+ 4fg7KzseuvrVEmjug3M7XgifnRXdeQ6dywNlzXN2u4Lvyv6LkO3SrcfLrs+JsCsbOeVx0MpIa2W
+ gfPb8wsrXh3AUd5fkgs3vTKc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e7634fc4ade2e7d9;
+	Mon, 09 Nov 2026 02:57:22 +0000
+X-Mizu-Trace-ID: e7634fc4ade2e7d9
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Paul Moore <paul@paul-moore.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Julian Anastasov <ja@ssi.bg>,
+	Allison Henderson <achender@kernel.org>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	bridge@lists.linux.dev,
+	linux-security-module@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	lvs-devel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-sctp@vger.kernel.org,
+	linux-s390@vger.kernel.org
+Subject: [PATCH net-next 05/14] calipso: annotate data-races around cache sysctls
+Date: Mon,  9 Nov 2026 10:52:04 +0800
+Message-ID: <20261109025425.328445-6-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,94 +101,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YQ1PR01MB376387:EE_
-X-MS-Office365-Filtering-Correlation-Id: cfd773bf-839e-43c6-4aeb-08df3e0d21a5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|10070799003|1800799024|366016|4143699003|56012099006|261022105027099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	qAhlfDJ/KMmYxprSpfQqe/SyWdWsYlXpP0vuUKT0JYWIGT1KyAiFTTItik/pTCLWH0r9KZiqJV8O0Zqc0BNdQQgTSzBbzEXwjNIPvw5ILr4kwmVkpobVJcLEqOFt8Ifq+txI0V+4ZglMrlU6qzMhotLYCulD2zavVl9PJ22lVJpXs+WqCSCRmJWLACXTyU6mnzDgMsv1sssHQSsnjbTYcNldqNM5ek5i366vDlvAd1u9kv6uqR7vSxXvxkF7zzWFN0iEcit5i1sZlx7UpiAW5CALTN/p0JfM2t/peIHGUsx1/RbMXwjjBaHuW6Xej3z9XSTISJBe8TrlVMpsStr8/2pCezzjSQBdkIQ5zT/eFcgUcUajBrgvokw6p3Js6nAq/cY9j3jQvx/N47M2qAVzavJPwyGq27EWJcV7fdM3qfshCRyJmt8ksb+TGPaa4eWdOpo/NKWodRyydCg/n/fswvYeHHpYQFYp0pJE3AbTNW/PLC7/VZTMIy3x8LcjG/v/UissxNeXjOCRvUOHxt3laQhvQWW+/3cZkpLGZvpAsaovkyFZBiPTlVCDYfZsASMzPPDQUCOeK/HKkXNmjqWKJS7Y1R2p0OpeloF2plYpekQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(10070799003)(1800799024)(366016)(4143699003)(56012099006)(261022105027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aVY1UWkxbHhnMWhpTFdkbjlvbVJwZkNqSjNaZFk1TzBGbGNWSTZ3TFdPT2x0?=
- =?utf-8?B?Y2xXYjEreUc0bUREeGkrbUoydUJLN3hsc3RtWVJqT0Y2RVFsOVAydDBxK0Z0?=
- =?utf-8?B?U3J6Q2NaT0tIMGMwaTZWMm00MXMzeGRINEZmVVllZzhTT1JHTUpLaEYwYmdD?=
- =?utf-8?B?bWlVaGIvS2lzRHYzYXFXMW5qYk9md2EyalVsOWxyOGJFUmVDamVFVkl4RkdW?=
- =?utf-8?B?RGxPRyttSlFVYlJXSmhXbk9yV3MvSk5tTkdZWTF1eHdmSjNXT1QvdStscDlt?=
- =?utf-8?B?Z0h3U1NGQkYreWNHTWJNQW5ReXNsSk9ONE05RXdodW8zd3BHVDBqSmI5SU8y?=
- =?utf-8?B?SnN1ZFBpZ2YzQkJXVGdYYUVvZDFSUitlTnYwNjdZRXc0WDE0WHdmTWZhS3JB?=
- =?utf-8?B?YjZpNkltY09HdmtzaHRhR3M4MUd0UDY2ZXhQc0JMcVZvbmlHVjUzM3VpRmZQ?=
- =?utf-8?B?bW9pQi9UaG5OYStUdlZEN1RqNEtzNkg4TFdqMy8yRlZtM281Kzc4RXd3TDll?=
- =?utf-8?B?U1pKa0cyTDhEUnZEbGtzNVM3ZmtZNGFobXpJVHFNM3JJem9FSFBVcUZwOHht?=
- =?utf-8?B?M0EyYmVZT3p3djFPa1VROVllT3h3NmdDeVBrWnpEaFJad28rNS81QXVzdUx4?=
- =?utf-8?B?Y29obHJENzZNK2tHWWFoUStweTFXMC93TXlFL3kvTlJaMzdXeFhxZVpFdHUz?=
- =?utf-8?B?MmE1cWRLb0V3NTArcDBqeTZlc3RtZytGTmdQVXIvOUV6K0hVcWxKYUhmRnNz?=
- =?utf-8?B?cVUzZkovTzVFdmdnMm1wWVpWOE5oZkQrTWNpQnAzS2xiTXVVWHNOL0pKa28z?=
- =?utf-8?B?MGFYQUhNR0NkZ2FLZlZiVzhGUFpPbkVlK2VZNG5DcUFqTDZKRzYxQUJXRVBN?=
- =?utf-8?B?V3RPVHcyNklXVnpuN2VPQ1RDQ1d1VzlWM0dRVUZLSWtYdW54NjlydXBML2Zi?=
- =?utf-8?B?aWY3M0RRYktyc1YzOU9sa0FVZ0FUS2s0VGtnQ2YvcytDVEYrTVFOd3dHdk9N?=
- =?utf-8?B?eHQvOU9QNnNBS2JZOVVwbzlGREtGQ0NqSUp5NjZocGUxM1cxbFMvSWhMZ0pS?=
- =?utf-8?B?Qk1ibkp2UXVHU2x2U2EzWVRwL0ZiN0o3aHN5ZXR0NVJwVjhQOStFQkxQK2Jm?=
- =?utf-8?B?STcxRXJNdWg0NmJhNkhPUHpvZkdna0hlTVlyMngzM3FUUk4rZy9Ua0tEQk41?=
- =?utf-8?B?NDdGZ3EzODh3TjJMSklPazZOVmFPTzkydWF4NnBpczZnYnBuYVR2Tk10ZDhu?=
- =?utf-8?B?K0p2TlR3NUtWUEZPWkdEZjl5U0RrSm5BQWVESEZyaFNwR1d5WllvZW9DdTZ6?=
- =?utf-8?B?R0pVQmtCNmVDLzFTOUJJZW5NVVZVSDJVOGZyNno2UWlNVERCSHVLM3BOYjdp?=
- =?utf-8?B?a3hQdFpXajBWUFVVMnRFL0MwUWZXaHdSM2ViV1FsZG4rODFiUDdtTmhkTmk1?=
- =?utf-8?B?TDE5OG1seDdrcG15R0RoVXQvV1A3LzhtMUFKUSsxWWZ1UFhJSHVtd1NlQlIz?=
- =?utf-8?B?aFlGNXloTk9qcXVvK3RDOXJhQ2U4VWRUbVkyRUE3YlRyK0hkWE1JSjJ0QStk?=
- =?utf-8?B?Nk8wdzRlZGxTMTVITVpQZktaak1lcGFyWU9qR1BpWERKMUVXOE1qVUNISXhZ?=
- =?utf-8?B?Z3hwZkZsRFVwQ2RLOStrNmNNL3IxUEw0anRYOVpPZmNhY0t3RVdUcUNGWWpH?=
- =?utf-8?B?eE12aExPblc5UktWd3JvSlFVSDJkMkxjeHZqNFJYN1ovNm5NVHBLL1VRaEY1?=
- =?utf-8?B?MjFFVUowbnBrMTR0Qm5Hd2pCTjRHRU0yWmtJeTNJSnRtWFdNcXV5Ung0OElY?=
- =?utf-8?B?RHBSdzMwcDM2TWVTcGw3VERUY0g1dTFqbUsrck9nWXAvRmV1UDk1UlNFQzc5?=
- =?utf-8?B?cFY1eHhIQnZONDR4YVJWRjRmNXlseTRBczcxNWRYNnBwSjA1cmJpMDNkNnps?=
- =?utf-8?B?OGoyb3kxTk5scVIyY2NSV1VvZzUzVUJvQ1V3OUFJY280VVlXZWgrWjlLczhF?=
- =?utf-8?B?UkxqMmlDQWJ0VzAyVkRTVXlWOWJYSzR5T1dqQXpMZ2xnd1ZjWEFjMGp5Yi9D?=
- =?utf-8?B?REJvNUcvOFZjbm5kSzM3a1h3NkxPSmRFRHE3VnFTVVAzZGcyYUp2SlZzS1RG?=
- =?utf-8?B?ZTRFT1cvaXVhcHovZGY5dUMrZDgyamh2cnlpUzFHL3dNZmNMc3RQRDlBVmg3?=
- =?utf-8?B?Vy8vMDQ0aXFqSkxBbXFzWHFzYzFUQW1LUHNUTURwaXRjUWpDVG55MTRYcDVL?=
- =?utf-8?B?ak4rbFg5VEV1ZXpvRWJzR0p5ZEl6R3NVeEF1UFN1Z1hPak82REc2OGE1ZXg1?=
- =?utf-8?B?eThkVFZMK1hQb2V2ZXZRVThrNUtOcE5JNHU0Wi9ma2kzNnlacmhKUDJhbzNU?=
- =?utf-8?Q?1E9kaROg7sWK1H1ZS8LlrV7q92trv+2Lrp0aiFWq5PIXD?=
-X-MS-Exchange-AntiSpam-MessageData-1: ZN1QMvxWyn2eEfsoJ6mUaccaBZV0D2jJJpA=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cfd773bf-839e-43c6-4aeb-08df3e0d21a5
-X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 02:57:03.0716
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c3riYGa0rD5ZwpXkgyo2aJlwIUr23rOl19GSOghP7s7LdWTqjq0eerMaD1WNEOVKjzQ6ShaWkPpotuIPpvKGW2SgKg5Xjg1bG1NnsjFb+PM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YQ1PR01MB376387
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-08 14:30, sashiko-bot@kernel.org wrote:
- > skipped bandwidth move in __set_cpus_allowed_ptr_locked()
+calipso_cache_enabled and calipso_cache_bucketsize are read without any
+lock while their sysctl handlers update them with WRITE_ONCE(). Add
+READ_ONCE() to the readers.
 
-Thanks. The skip is real: an attach with an unchanged mask never reaches
-set_cpus_allowed_dl(), and the reservation is given back. Both setups
-you describe end at the wakeup, though. The task's old CPU is out of its
-mask, so migrate_task_rq_dl() moves the bandwidth when it leaves that
-CPU. A running task migrates before sched_setaffinity() returns.
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ net/ipv6/calipso.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-The lasting case comes from dl_task_check_affinity(). It tests the root
-domain of the CPU the task is on. A task moved asleep still sleeps in
-the root domain it left. So sched_setaffinity() can take it out of the
-root domain that counts it, and it then wakes on a CPU of its mask. The
-next version makes the affinity check use the CPU recorded with the
-bandwidth, and lets SCA_DL_BW_RESERVED skip the early exit. A new case,
-affinity_moved_asleep, fails on v5 and passes with the fix.
-
-Thanks,
-
-Mathieu
-
+diff --git a/net/ipv6/calipso.c b/net/ipv6/calipso.c
+index e399a42e30839..5e63212b60163 100644
+--- a/net/ipv6/calipso.c
++++ b/net/ipv6/calipso.c
+@@ -204,7 +204,7 @@ static int calipso_cache_check(const unsigned char *key,
+ 	struct calipso_map_cache_entry *prev_entry = NULL;
+ 	u32 hash;
+ 
+-	if (!calipso_cache_enabled)
++	if (!READ_ONCE(calipso_cache_enabled))
+ 		return -ENOENT;
+ 
+ 	hash = calipso_map_cache_hash(key, key_len);
+@@ -269,7 +269,7 @@ static int calipso_cache_add(const unsigned char *calipso_ptr,
+ 	struct calipso_map_cache_entry *old_entry = NULL;
+ 	u32 calipso_ptr_len;
+ 
+-	if (!calipso_cache_enabled || calipso_cache_bucketsize <= 0)
++	if (!READ_ONCE(calipso_cache_enabled) || READ_ONCE(calipso_cache_bucketsize) <= 0)
+ 		return 0;
+ 
+ 	calipso_ptr_len = calipso_ptr[1];
+@@ -289,7 +289,7 @@ static int calipso_cache_add(const unsigned char *calipso_ptr,
+ 
+ 	bkt = entry->hash & (CALIPSO_CACHE_BUCKETS - 1);
+ 	spin_lock_bh(&calipso_cache[bkt].lock);
+-	if (calipso_cache[bkt].size < calipso_cache_bucketsize) {
++	if (calipso_cache[bkt].size < READ_ONCE(calipso_cache_bucketsize)) {
+ 		list_add(&entry->list, &calipso_cache[bkt].list);
+ 		calipso_cache[bkt].size += 1;
+ 	} else {
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+2.43.0
+
