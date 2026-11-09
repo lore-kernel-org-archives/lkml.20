@@ -1,110 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227566;
-	b=U0W/EnNEJFqgoPoLbcClIYWqUxqIthSzgKqovmWDql/A9Cdd8q4eY7dbl0m/vKkH37xQ
-	 nlGnOX6brLBGVCUr/39o8ajwhq/ll1R4G3QXowbfjL6sgYhnz3UO+jSIQeYdW35/agvbf
-	 ROs7F7KDzNO/s0R7WQFQfqqu8H4dSuhQe0ZjjkdLfzgabg+km58rAAhFtGZiT3jte+sEl
-	 eAV/KlIY91an6OkKqMy3+vEfwS0xYcQYc14H1y0t6T6CtAIwFn4+jS+BiATljdOZ+keSQ
-	 ryfu+1+mitAc5QQ6/yHqxSZTQG2g7dUyFx5zSqGCNdC41m0UXOZASzkyGt5IVSomT4Q==
+	t=1794227560;
+	b=47UPUp3o6I1R9khMbcqzmGJJj3/1TpJzBzQg73dOGCy7HrQHoH7Zp0mPB/NwfjVXKfWP
+	 l61YsdUNnhrRMOKCuArzoXuN3ZopvHN48epIIH7p02M9nCs/8jQIKzCzQ5608NbEVfz1K
+	 gADbFPS2xA/ADPlTR6PBEB3/OYxnSIZCbPmK84h3TuJ1TfpGMdEHuVT0f7jPVew/FNPU8
+	 X69yoOQDj2oO3F3KsjVIbHr9uvZLvKybmf1dL6EVSrXt03n7wvlz/KkT5Gz6BZ+i3EroU
+	 uD6i6nokkmxaSqYOnuCGXtTeGdoImf1hPyNfRcMCTWzW+dNYr/++6Yqwoldsroo71Jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227566;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=z2TgZrLbTmoftRs/7c7FwZ6UT40CTpEUsgV8AiSiNVY=;
-	b=3N6IXSjOeHmELpk3oaxV0lRRUiPRVu+ihTd7Ht86/Wz+m0+O04YKzhOBfaVSkLnP65wJ
-	 n3zf1QKF7erA5Nbh9RPQIbNP1/nCAch8ScZOMsAssR8hTFmuhNaHeGjXgpQ7rbQiT3fP8
-	 YZngcYlyQwGKma7J7VHDy+t1RwmPKWRP7iBHVZ5Zk1Tbx8MmFe9N/n6H7/XuGATMgU/nj
-	 bWhD9LSO+kOHbDC1V8FjE+5rT9telr7P7VD4jkOiRXFbzexRw2aX39bs75FC+I2/CGymR
-	 4hwc+CuL/c2m1EXTxalBL/mOdVqqHm7C2LjGVDXEl7jqLukcErDM11Tyq+4Df1vxnBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227560;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=vmOohr0y2TE4TjPI/p+yd2G4mqQXEGFY5JLNeNktYvw=;
+	b=fo9q6pA5XZrNhPJMhApi5RQwBKfU/zZSB/uJThpS3w4m+LIrVN55DymzfbcRHRuvws0J
+	 pecH1MUzgFIDvEQfikjP40TE06WoMgVXk+WSW7GRVH7nFg6ks6HDuI5MnVpC6siRnQeDw
+	 lp4UIZfRvxIyrQbXBvn3A8G/I0mq7uywteyfIdHX9JOEG7zT67IZk4BPd2kQT58EzYEMj
+	 jilFcIUwn1MCgFitb3V/+kYvlnpnM3yIYVa7W4+exZpA8jeJMG8GRrVupkF9XQ3o3b91x
+	 OIBCRnPAWhuhiQC25pyte9pTp+V261Mp+JoIlJJMPkaOgvtVHWt3To0lP2Gwql3xguQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=W3EVCwvs;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rPhk6nbf;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=W3EVCwvs;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rPhk6nbf;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4947F60A2607;
-	Mon,  9 Nov 2026 12:32:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4947F60A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=SYAFCRmR;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 159C9606D81A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:32:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 159C9606D81A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=W3EVCwvs;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rPhk6nbf;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=W3EVCwvs;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rPhk6nbf
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8DE0F21F3B;
-	Mon,  9 Nov 2026 12:32:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794227564; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z2TgZrLbTmoftRs/7c7FwZ6UT40CTpEUsgV8AiSiNVY=;
-	b=W3EVCwvsY6vqd/7BBr9lj7twl4xvQ+Esotw0io4A3HzluHovv1wZkDPLGhoc98KZfBxuPh
-	GW3TxGoVChnzzYVeKCDNNCqDWHzHiiQrjhMjxQf0VLnoN5QY/E+dQTUqjfcSQUcjHeNy9D
-	MhcimZFesNMZ3HV4KxTBxGZVWysbEJA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794227564;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z2TgZrLbTmoftRs/7c7FwZ6UT40CTpEUsgV8AiSiNVY=;
-	b=rPhk6nbfyoOYae7odRvj372aPcQYCwTJhZ3YWt026mv3NrABOv8FsGFe2vl4RA78wMiutr
-	Ad8Mz6KGUjjx9iDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794227564; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z2TgZrLbTmoftRs/7c7FwZ6UT40CTpEUsgV8AiSiNVY=;
-	b=W3EVCwvsY6vqd/7BBr9lj7twl4xvQ+Esotw0io4A3HzluHovv1wZkDPLGhoc98KZfBxuPh
-	GW3TxGoVChnzzYVeKCDNNCqDWHzHiiQrjhMjxQf0VLnoN5QY/E+dQTUqjfcSQUcjHeNy9D
-	MhcimZFesNMZ3HV4KxTBxGZVWysbEJA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794227564;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=z2TgZrLbTmoftRs/7c7FwZ6UT40CTpEUsgV8AiSiNVY=;
-	b=rPhk6nbfyoOYae7odRvj372aPcQYCwTJhZ3YWt026mv3NrABOv8FsGFe2vl4RA78wMiutr
-	Ad8Mz6KGUjjx9iDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 665F813302;
-	Mon,  9 Nov 2026 12:32:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id MjlgEWy98WqJawAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 09 Nov 2026 12:32:44 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id EFA3621FFB; Mon, 09 Nov 2026 13:32:39 +0100 (CET)
-Date: Mon, 9 Nov 2026 13:32:39 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Joel Granados <joel.granados@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 35/38] proc: sysctl: don't hold the tables while
- readdir copies to userspace
-Message-ID: <iapjcf747osh2r2ocowfed23uuffvyplfo4ectdml27mbtmwun@7cz75zql5g2w>
-References: <20261102-work-procfs-bugfixes-v1-0-59422ed3e465@kernel.org>
- <20261102-work-procfs-bugfixes-v1-35-59422ed3e465@kernel.org>
- <ntnca5ndnjaoi7bvfh346zek2jphi4kfmaxv7yd4bqfrfcwjl6@2wdnnptu4igg>
- <20261106-raufen-heilfroh-abblitzen-d77ebbf36816@brauner>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=SYAFCRmR
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5B23B1758;
+	Mon,  9 Nov 2026 04:32:35 -0800 (PST)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 781543F632;
+	Mon,  9 Nov 2026 04:32:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794227558; bh=kDQ/Cw8E4K7AyiySq43gJAAEkO7wMAGzc4Mi72irbQg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=SYAFCRmRZF5av8uUEMW1VHc8giB65KCiDRWB5ILYfuIy2ICAtkg2hoGijXazVkSD/
+	 0Dc1ll3Hnjcu1N/vrb2bh7egicr/wbGHESqmL9eXQ2T1cn4VpsSWo820SSeIdOw+vs
+	 6xpFVIvhJvDoCAOpXq4epLsJ2s/CNjmtCBhsVRCQ=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Date: Mon, 09 Nov 2026 12:32:26 +0000
+Subject: [PATCH v3 2/6] mm: gup: clarify a reason to check pte/pmd in
+ gup_fast_pte_range()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,54 +56,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106-raufen-heilfroh-abblitzen-d77ebbf36816@brauner>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[]
-X-Spam-Score: -12.80
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-refactor_gup_fast-v3-2-2aaef02df0e1@arm.com>
+References: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
+In-Reply-To: <20261109-refactor_gup_fast-v3-0-2aaef02df0e1@arm.com>
+To: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Rik van Riel <riel@surriel.com>, 
+ Yuan-Hao Hsu <aa9736195201@gmail.com>, Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=951; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=kDQ/Cw8E4K7AyiySq43gJAAEkO7wMAGzc4Mi72irbQg=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBq8b1drpWHASPRHYNJhjTpYT6414cQr+xJVq4uI
+ 5/OzAJYSKCJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCavG9XQAKCRBt1cPRWsUx
+ My6NC/4j+nQd/JxG2RfLWlUTYv7VYPCiN2mrXzJocDJRsKJMzD5BIUlz59oDWHU7PjBP78w+pu5
+ O3nkLGAW3+zpjXTDZpYoAbqCrqJzxppQ0hrf2aQG94xy3ssee4/dNgf6G08BZAlSsR6/ojqg+1w
+ TuVwjl6L719P1qemy84J+45X2ee2cPUYt/ok5WRn9t/XvLYTshm2se9xh3DEaRGMtwgBR3XDscx
+ ORY2qI0F6NIe7p9kz9+/B9iuKUWl65NE+Z+ekNu5tntJwAzHAkcNpMG0PssXp/a+gJSxqLWQO8t
+ HsdrTn6JgMlv2KpMygKxvCd0Z/4Tfd6yMtuInIQcny1E+YwmeX71kyQgSb+iJ2A3zomE56N6err
+ 7Dl35rVwofyUfN0lCalqDeBE2eCfXH0BfunbGCYtTBhyNrGkRBUlgGgXX6FOlPg0rW/GO1wqOCE
+ M8LiXDff8G6bUS53SAsfPbi4t/Rkk7107qpgy44pZn+7V7jjj3i03X9FwUbW18GQwIf8o=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-On Fri 06-11-26 15:08:12, Christian Brauner wrote:
-> On Thu, 5 Nov 2026 13:55:56 +0100, Jan Kara wrote:
-> > So I didn't really carefully check all the details but overall this looks
-> > sane to me. Just one thing that was confusing me is: Why is sysctl_dirent
-> > separate from sysctl_cursor? Wouldn't it be more logical for sysctl_cursor
-> > itself to start what it needs to pin the entry it wants to restart from?
-> 
-> Because they have different lifetimes. The cursor lives in the file
-> between two getdents() calls. So nothing in the cursor may be something
-> that unregistering the sysctl table waits for. So it only remembers the
-> name of the last entry and the position behind it.
-> 
-> sysctl_dirent is the state of one call. It does hold a grabbed header
-> which we drop before the call returns.
-> 
-> If the cursor were to hold the header too then every open directory
-> would keep the table of its last entry pinned until the next getdents()
-> or close() which is the indefinite delay this patch kills.
+Clarify a reason to check pte/pmd in gup_fast_pte_range().
 
-Right. Thanks for explanation!
+Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+---
+ mm/gup.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-								Honza
+diff --git a/mm/gup.c b/mm/gup.c
+index 7d43ce717b246..7f9348c633d58 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -2881,6 +2881,14 @@ static unsigned long gup_fast_pte_range(pmd_t pmd, pmd_t *pmdp,
+ 		if (!folio)
+ 			goto pte_unmap;
+ 
++		/*
++		 * Recheck the PTE after grabbing the folio to detect concurrent
++		 * unmapping or protection changes such as by KSM.
++		 *
++		 * Also, recheck the PMD: THP collpase can detach the PTE table
++		 * while its entries remain unchaged. Checking the PTE alone
++		 * would not dtect that we are walking a detached page table.
++		 */
+ 		if (unlikely(pmd_val(pmd) != pmd_val(pmdp_get_lockless(pmdp))) ||
+ 		    unlikely(pte_val(pte) != pte_val(ptep_get_lockless(ptep)))) {
+ 			gup_put_folio(folio, 1, flags);
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.43.0
+
