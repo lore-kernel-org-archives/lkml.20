@@ -1,85 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794225679;
-	b=xE6gq9PnOa492NiawS4q0tUghzr9OuTSmHVIPWF1WTedgHHzyXDVKk0qsubJQeCHr+dL
-	 412AS1ANy/XzsGqui3T8Cm5HI4k6ZeB5Kkc9dv1/KyBmcI/ZTj0yYoegacj9B2MclX+CX
-	 4JF3WM68X6ZmxKfJtrJPPcdrfhHyset0gJ0TRa+bIVOSWXCI7tXkFkskeYShammFVOgVl
-	 ErYho86yofloyktmM3pimNYnCUGUbevk+oWAzgO3baEXU/TyEP8r/ebLHtdcZRiymypuf
-	 qXYHOaPXgMFchp1PJ5eYo7Yz5ZJh6XzKds3Tb9bG+v5Uw6z7gJKLoK4SrieO+QCV86A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225679;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pxzG4Z9tUr84C+n4G473WYz9seP+45U8TnoBcPvES30=;
-	b=4pVfMdZHrY7Z84DMgoTrjBtzVXvegjoydJllnh3N4n+zJPvvMe+R+yTZdH3+7CpP7qe5
-	 H5nIwtnrwm0snTNQzH+nhX0iUJgNW9idsUTJc4CjRoM+GZSbmRNK+Ed0m3RX/wtplAVog
-	 oKLsD8jp6XlzhboITpzpe6qQfQXKOzAvbiRILM257tCWYJdXKy92c1T/7jx7FfwWqxUjO
-	 6IHz0PWz/+pGSTHfHHQJrYbqIHPrHTP0wAx3z8qEIbqnj7zWUCjz0ZBO4AWda08OhtPmh
-	 jOkTeezslPe4gyBMetJkKwpoqeRqT0lPnwgf4BfZq4hQOr0F81nzAwhVfFlGcizgk/w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Srlba1QQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794225701;
+	b=e4Ef18QehyJQwXHtoyjPY8ImntTkxetm1AsorAV39ihYP4AKBZKRrEqqSmzbGUSdXx9X
+	 901ZstgR+uMrooZSSZZGWRyRFPGX+yjmy727bRGt10gtmA14O493lwAe7csAIuORAq3hZ
+	 Gau9/4h/sL9V3kj5O+kQbhN5uz2IgN6VBRdi5MiIekAJf6lmqi/UIMnIawxZvoqJFZvmR
+	 45CpxkI2eA4L9Ek6+r+9J0aqpod1xcb8H5Cuj6HKWhn+Y1h+FNe4H3/DPLE2QKbHzVcRh
+	 03Ij9LT0MCzUuInrKPjRuVWbGKLNSkUQVbzN9PjnpxA2zf7897F8CHlh4du411E/p2Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225701;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PKOCGL5PIUh+iIhYhoT2eo6Jh8jb4ovmpmj5cMu0mOM=;
+	b=Q3p3sppm6YETdfmd6I6DkjKNGlBra1SVaPxCW7AJTJZ94I4kbf6wxZB4TU7NldQUW1kC
+	 STzBPUhdu0s8xcCzMkuibIjdHofU3fOkMcsLHRhSy137DetKFei71Rl1Zn+qUB0s2NqzU
+	 lDLNUptdyr0FwKQ+O05+H9GdKoO2urYlaYtozQCaDVnuNHdGTsk6LbnkN0ef2sTljOrZk
+	 qBXMOb4IFGIeOI3EkYA3TYai8SfftcIvrbUyMbABS9+xPljCAN2R6ZlvV4ZLPQlofFfbI
+	 q0LpxC2+HZh0WhJn9nPmh35aUL7S8n4uB2kGQ087hGD/G+wYbOab1ZvmuTb79ZuVgtA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9+zhOrB;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B671A606A31C;
-	Mon,  9 Nov 2026 12:01:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD53606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:01:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Srlba1QQ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794225678;
-	b=H6pnApyDwvQKJiIZCb3HhNC9v2+J3C5JqiPDz+Manf3ufmUimH6KWLzXq0mmZXGAic6p
-	 C2ueCr8fnU6wrtUBDQOKE6sDqwp8P3VgNngd9vdpB9D8bZ+Ns2BQC5I7OoFtl+BQ3wsWI
-	 6q0V0fzG4g79oP3OTzli2vuTVskgMjYan+ze8xy+tefDQjAssaQ1hd88EhwaYNs0sxoH/
-	 6PK/x1IyuJST370tcCktv/32RVdsmb8K7z51B1QdZ/TMwUlbsxxbywhzOgIpCpvL5CNYX
-	 FS0cAbgzu5oLRp8QD/bdT7y/Gp3dBuAINoQVd1SslNJEEt83RCsznZB2WqCkygTQkuA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794225678;
-	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
-	 References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pxzG4Z9tUr84C+n4G473WYz9seP+45U8TnoBcPvES30=;
-	b=oa3tCVDihpcrW0ftMjvjWyIpztvziRl5Vjq4grR+K+5MaSqldOypR+AtuadAmhHunSvi
-	 a4vujr2Njk3Si9QaidHaRj/ZXp/R4g4268sozU3rrPVqwsK0flaTAfW9twniF+jdnVJSg
-	 q9QxGVeUlto8owAVazlgy+QuJX7Ak6wSFeGLxBhSUSUgtd1Bb5vB5CqZE2cRkqWwrFvVA
-	 jqv/pusnVJFzxy8Igd79YgEbUtkh4DcVBvCEtpLvurwvrGtddV0ze+SqgmsmzYdf6Wk3N
-	 Cc1USby9/KcpjbQEryO6D4q5tuDU85FS/FdPvqjbok7OXxVmXjse5phnnfJDnMs2+Kg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=90.182.112.124
-Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPSA id 8A9AE1F008A1;
-	Mon,  9 Nov 2026 12:01:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g9+zhOrB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A90851F0089F;
+	Mon,  9 Nov 2026 12:01:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794225678;
-	bh=pxzG4Z9tUr84C+n4G473WYz9seP+45U8TnoBcPvES30=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Srlba1QQ6QNms9fdYyWQZmx/GjFcwwjH25qwjZj8EmvqEmODeEeiehT9y1c+OVoyH
-	 DmJeqxoVEIMrghgFYGxQac3PnwmT0fkcLVmqo1vPnfje0RmjLR1wBOjPr2x0p8AKcv
-	 X8uGGisEeu+m3AU2+uhij2JkIw8IcEhLftK4ES2r3ebS94RKsS/21Cl2PFNd6dGvsy
-	 EX7jkgOfi8islkmPcGRcg3cwl86pEP1JD9liS7x+314M9t6FMedGaSBM1ndaMj/Bwe
-	 UdlmkP+a9kl1XyApqYfvqf+Yr/B+VL9M9/p4Au+8Esf+nOLkHIC/iaAECpo5yPeyPQ
-	 +hLXkrhA8EadQ==
-Date: Mon, 9 Nov 2026 13:01:07 +0100
-From: Joshua Crofts <crofts@kernel.org>
-To: Akhilesh Patil <akhilesh.patil@linux.dev>
-Cc: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- alexandre.belloni@bootlin.com, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-rtc@vger.kernel.org, akhileshpatilvnit@gmail.com,
- akhilesh@ee.iitb.ac.in
-Subject: Re: [PATCH v2] MAINTAINERS: Update Akhilesh Patil Email address
-Message-ID: <20261109130107.000056f8@kernel.org>
-In-Reply-To: <20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com>
-References: <20261109063924.GA118887@u5ce4748bae3b54.ant.amazon.com>
-	<20261109104443.GA531570@u5ce4748bae3b54.ant.amazon.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	s=k20260515; t=1794225700;
+	bh=PKOCGL5PIUh+iIhYhoT2eo6Jh8jb4ovmpmj5cMu0mOM=;
+	h=From:To:Cc:Subject:Date;
+	b=g9+zhOrBYHMFIDH+YNar3XAFNMIY1Jprc27Y8kgQZLsDDW3hrnc7EzBhpEpqm08xa
+	 CQES66TAbDFIC2KcmOq/FJ1NaOYkY+sPfeEOsQ8+L49DzVwsVk26xsHue5bLZBb0WL
+	 Ec3WNsZnTV/VAnRGtmJFBqA/mW/VU1q7IX/NcI/MparpkHTPUYPfMwdN0ge7Y12m40
+	 ov63WznnnSzH7w+f6tuDNIi1VIrxdAECCgiXUowYisKSfwzPB2+1uOFmOPMc4DgfWf
+	 +qEfqPImqNGnDLxvl+HmbBb69aRlv+g7swQdxOEYZmhpBwAlTY7AhhUOHAvOZ1q8bY
+	 +CjQ72hmLoZ4Q==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] riscv: Keep helpers used by noinstr code in noinstr text
+Date: Mon,  9 Nov 2026 19:41:27 +0800
+Message-ID: <20261109114129.20260-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,22 +59,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 9 Nov 2026 10:44:43 +0000
-Akhilesh Patil <akhilesh.patil@linux.dev> wrote:
+A plain inline annotation does not guarantee inlining. In particular,
+size optimization can cause helpers called from noinstr functions to
+be emitted out of line in .text. Such copies do not inherit the
+caller's instrumentation restrictions.
+Use __always_inline for the IRQ, idle, stack-check and vector helpers
+reachable from non-instrumentable entry paths, including their nested
+helpers. Also force inline arch_exit_to_user_mode_prepare().
+do_trap_misaligned() is called by some '__trap_section' functions such
+as do_trap_load_misaligned() and do_trap_store_misaligned() which are
+noinstr code. So we also need to mark do_trap_misaligned() with
+__trap_section to keep it in non-instrumentable text as well.
+Build-tested the affected entry, trap, idle, stacktrace and KVM objects
+with GCC and CONFIG_CC_OPTIMIZE_FOR_SIZE=y. Inspected object symbols
+and relocations.
 
-> Move to my new linux.dev email address akhilesh.patil@linux.dev
-> I plan to use this email for kernel development going forward.
-> Also update email address in few yaml and driver source files.
-> 
-> Signed-off-by: Akhilesh Patil <akhilesh.patil@linux.dev>
-> ---
+Since v1:
+  - add Fixes tag to patch1
+  - add more missing __always_inline or noinstr to vector.h and
+    kernel_mode_vector.c, these are missing in v1.
 
-Next time please don't send a v2 as a reply to v1, it can break
-tooling like b4.
+Jisheng Zhang (2):
+  riscv/traps: Mark do_trap_misaligned() with __trap_section
+  riscv: Keep helpers used by noinstr code in non-instrumentable text
+
+ arch/riscv/include/asm/cpuidle.h       |  2 +-
+ arch/riscv/include/asm/entry-common.h  |  4 ++--
+ arch/riscv/include/asm/irqflags.h      | 14 +++++++-------
+ arch/riscv/include/asm/processor.h     |  2 +-
+ arch/riscv/include/asm/stacktrace.h    |  2 +-
+ arch/riscv/include/asm/vector.h        | 22 +++++++++++-----------
+ arch/riscv/kernel/kernel_mode_vector.c | 17 +++++++++--------
+ arch/riscv/kernel/traps.c              |  3 ++-
+ 8 files changed, 34 insertions(+), 32 deletions(-)
 
 -- 
-Kind regards,
-Joshua Crofts
+2.55.0
+
