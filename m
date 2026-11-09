@@ -1,96 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.68
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794249754;
-	b=B51zJFEs1q5Ozpq25GOAwCPMtuQQK+603BLs5cPx8tiVdMp30gym5tsEjxZ11wsxHgLc
-	 VddksNZTxn6Rq0Lu8FD6gxbj8qI2H5G98H9FCoqghcI7DBfXie+HKdSW+KVMXcqlhxzE7
-	 C4dlqet3pmUYdGxkpnkG85YeitbDgrD1NCEwS/kyhQ8WLWier7CbWEaucxH08dQiLTwxh
-	 F8vGbZPaeO1Y73hduKdshdLFrtkWEK++47CvPHyzjlxWxLjn6uEkIVS5l9ewvyadNQ8zk
-	 TueVOeouVqdjJHqz9QTBeQsItu1SjvrI+Dnwl/rXKazF5E8btH6qq0lTGiLPEClemMw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794249754;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=dlsxZYtEeSMnirE2Mvec6rLsfZCL6OAYGtkZw3q5YHk=;
-	b=teDb4aRMCoa5D+Bu9SOQuUaaID0IilKSwtaD6AfkeNx/vWNRNyDymTrTAi+onKVkJ2Hy
-	 rKjVfsy/QLjBb1sHeIMYfqY9BquenYgpeUOzlGoJXHfXegfAW8PdlrpCtI6fCakKk5tMV
-	 P4kvuvw73lujKK23G8z3Wp+lD0ljapBSxxwRju/Oa/OP7peRlaa9C+Zb7pAeFT/zZM4+o
-	 7g48zGoeTSPRRc+ds72kGWKZu1wDScACFbBJQlQx8avfyxrt7+QbrDsZan8YHOjF82Lqx
-	 QxEnwaorZbOUJP72cyO17H5XD4n5uRMDopYYHMpASJh2z4kNgCLFpZH3i8NHGZXDbAg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="RbP/W4Sa";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.68
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012068.outbound.protection.outlook.com [40.107.209.68])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794249782;
+	b=qsfgMk1Lrv2J0hiLeKggw3Dyu8LYKx0T7yQA33hnnQts/2foUgKC/gnSrM6eYR1M1ABK
+	 8tyJU0ZdSOKBwsDnDQa1Zn6Yp/BpzARkJxQfnCDf27biq6pWn8+LsXdeFOWTp6efVOcG6
+	 /XwWH3m4Dvw+Fbjy235jH9zbhWvVp/KTGpjLf2mw1XQ3YcIrYtJPahnUQ7GERmgthC5Bh
+	 H/Tz9Q2lQn5nmyXHexFF6VKd8gSCT3UHoj67k+d9JcK/w7XFbFHO85PYFzhk7fjdy+m9i
+	 4zoIpYCnaNnKhAN/FGSxgyzdEYA5FhC4p3nDA6NhqmgAQAlTr8AVeFvQSKA3EiSqVhQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794249782;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hCv4A4/fOHsrQBoTCNAexOwPwKPV45Fgld4XHthQZuI=;
+	b=sqJ/XcInEFMCeLJNDnE6xLL5uK14J1XxZj3f7NyHBawEbMNpS3DYxNzqIPTH35Ay8xI6
+	 LvYEqGJrIXK0VzYL+sHph5C3U+BWNfZ5XryGAAMYR8eEgRcPtLK3bGzP+v0pGdSX2kwGo
+	 fsa6s3DwQuXyjKVuuSfEq104Dbpk5u+EpcMFkR3LG13CAw20+wUhlK2dUtHc1pzRnSuFc
+	 nzB3FCkbLYHfl8J2e+P8+FuQsJpJax4Ek+Kdj2HutXVvGnp4cxQnJZRDy4sCp3xVYr3cB
+	 CVY5ghQULTWdx307JL08mxqwNbtTiBUUOKU4/DPMKHPmAUkxC+g2skXovXd8MQsiW9A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TtLXkgwx;
+	arc=none smtp.remote-ip=209.85.128.175
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB918606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:42:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB918606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC593606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:43:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC593606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RbP/W4Sa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ops9pJpy0jxJvU2jf+uczuBQ+3P6eDwMoyIUGVfrZgwZ6ZgTdhgdeln1TV7w2wD/MnP2hMzn6Eo/23WmnFz8iRJJj9RnvCg2t8zzpThP6wMHZAd5EQbsYy2GY1gilFTHefIpBxgCqnuOVA1smOBDg2BYVbKLJqeVqR0KN0AOVdY8eJSkCdRMgU16qu/A+zBC0IoFyS3xL3j+mofCpYsJms2L3cpcutqSZhpY0AKEyQfgjXmIV5yWco/z/5ebk9PkxOch22R8Hfi4iiAKpeC7+QwkwQybOLSOujMK73AuFh1ZvEuF5UNr/QipRjoflzi9Y5+Dfp6uZhIiUUn1SYxPlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dlsxZYtEeSMnirE2Mvec6rLsfZCL6OAYGtkZw3q5YHk=;
- b=q7DhnkB8VNh3lWi1e244Vy5TXm1Bhw4VDhmwKT1CbCHiZjv6N1qi3eYX9yBQQrzeJkNWySuHfdJDrj1QZSbSItGa0N+irrM+yLm77pU+b4cmuezoEzVN4II2Q3OJZoT6EPaFl5KKIim3fIAG47og7gXTLm39WYi6wwhTBvqpT59R+lIRw4FG2WDaqSKYquZ9pIbHwHA/s0XQfzXOvLhNfMtIhCjjckqzGAwAmO/6lIRIfYWY8NNl23CYEr87HMZhZO8TiVRBeNJrX9dDo0LEwdUV5E4VR6I30dGXF/+ghWME3NMNQOaiaWkXRkNf8e4ojHiNSK6XzZZa/lKB66WdFw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dlsxZYtEeSMnirE2Mvec6rLsfZCL6OAYGtkZw3q5YHk=;
- b=RbP/W4SalaaKMrUzpJPYHeTS0WfHt0gGwx+LyiQwCu+4YagGIwy3Dw56CffEixCzNF0Nql8aIJqa0n9XHPLeppRk4rBhmEa4bJlqjI7f0m8vaK6b6MMVqbcvYINIQQHMaqmbXpXyTO7q8b2fYyU9naAiu7H/jFnDjrWWNB2nrl4=
-Received: from MW3PR05CA0010.namprd05.prod.outlook.com (2603:10b6:303:2b::15)
- by SJ2PR12MB8011.namprd12.prod.outlook.com (2603:10b6:a03:4c8::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
- 2026 18:42:26 +0000
-Received: from SJ1PEPF000037B6.namprd05.prod.outlook.com
- (2603:10b6:303:2b:cafe::22) by MW3PR05CA0010.outlook.office365.com
- (2603:10b6:303:2b::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.7 via Frontend Transport; Mon, 9
- Nov 2026 18:42:26 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000037B6.mail.protection.outlook.com (10.167.244.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 18:42:25 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
- 2026 12:42:22 -0600
-From: Shivank Garg <shivankg@amd.com>
-Date: Mon, 9 Nov 2026 18:41:55 +0000
-Subject: [PATCH] mm: remove unused clear_flush_young_ptes_notify()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TtLXkgwx
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b308fca7c3so11085127b3.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:43:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794249781; x=1794854581; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hCv4A4/fOHsrQBoTCNAexOwPwKPV45Fgld4XHthQZuI=;
+        b=TtLXkgwxEPz0z8fneHxMiAg7Hmzz6JBs49ZXD2SYIDg9bKwIWSet86cI8DSPTU8sQh
+         hXyW4zo5k3Hg1aMngkhng5JGY8+KRymjLOGAbHvbGlzv6N8rmmzUjiL01wEyKv+vCCcr
+         OhFqj2WwJli7USde1EsLYucpDD/2mQ0cVPPg7DjRWb/0GAbQj9lejjIwYqhBdkU2pI0l
+         59iwDKinKLL53Fs2NOZpB+O5wAapCp+pxDpPYLlEJ9BV3hxyYq5XeaPAPFiHaY7GNHSe
+         c1ruN46S+Xg5hMRWrHW6KRU81EhD42T2m775xGM5vnOuePC39NPDyxG2s2yJx9VzFMOt
+         AcVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794249781; x=1794854581;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hCv4A4/fOHsrQBoTCNAexOwPwKPV45Fgld4XHthQZuI=;
+        b=oZRWD0VaRHNDK64qcqpC7psQyohBZniAjTE/x5X8WcD8f6pAI49AqYnPYZUYmF6zGq
+         M0AhWMZ2IZVFUxTw6t6C9cg2XyFgT8GKChlVKXHii+o2Pn0eb++l9Q5cj5hh+9VikSv8
+         KsQd9V5Ap53bbvPff6QTU/mSWDhs4yq4gpAHpDxlSBWHL/I1Y7Fr7/NAsoXyOiJQZq8x
+         Em/xcj5j67e1xKr3b0NGOJg5n0ZwlYsr/atNofCB9aacAX2agZVIngvzL8w8jUWrPmkf
+         ICSm+WU0XRjYrOqkFN2HYPz40d/wgnd+hj04hFdSJW3oi0lchMsmLnjUdslhnSeSUBsh
+         0Mnw==
+X-Forwarded-Encrypted: i=1; AL+hErEhMnCZswpJSDHsOMnQ75nEGzg8ez2IaZwWofGXw3krDE/8KVMg2e0gx06y5cpUaI7uUpDxl+HTSfwKQYM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89/DajKzle4RA5W/YKGRn9xVLk7sfPBC8STo+EQ6NelNMx1x5A
+	P+1Bh5r/dOiTTUABkLjVbLDIPAtWAJ97TJvvtUqNKWN3yGxhsI+tZU0Z
+X-Gm-Gg: AYBFou33g20x8zff+rVe5wiwtGhqyUt6EWYqbQU7mf73i4+sMH9ePRf536imPRPGVzL
+	dc0SKxbwbrHRNpdqLtYfNh585I0SzGlX4kRCzNrQNqoVljb9Qsu5mKFLqCZsvAolDm+YF7qNfGu
+	BlxKLTCoQnX277bp88uyliBc1ihfhcjPOOHm67M9c+LBdOGYDTf7tGfprLdX4bSzpuWF0iW873q
+	jWPxpY6JU6poRQI18a1YmsTFFGczQz/aOlSRfRo5nsGXEa2WVTPxUrTsLf6ZrNX/NBF/bjgwoLx
+	jJBLxV4Z0/Js/OKyKtXQhfeoSLD5lK7sj7tjfpGPFzKodjS7CaOLvwEF0nvyBR1qRt+cimEdWop
+	jlKRuj/uaY/jiM0B0lRC9TtSY4d2Io4AfokK91b36ItzFcmf1vXc8eXPaXU8aBc76prQ3YcpYYe
+	5HFXR1UPjKPbREUvVIMeX1bFZeBMMHX5Lk/oYv1qrAZzF73pvNKGeuY5TO+nsBP8j19Q3pkm+5s
+	pcuc6eB9mQd3NhZkljv9qfyrz8r9aea/ouXOPYkuj4XYsgfYJQn0jlzUj9anMuPxmV3GTCH7IKe
+	xSVNhv5x9w9GKX4Ztkgi1Ew=
+X-Received: by 2002:a05:690c:e204:10b0:8ae:a9c6:2740 with SMTP id 00721157ae682-8b392b6884dmr1303547b3.48.1794249780855;
+        Mon, 09 Nov 2026 10:43:00 -0800 (PST)
+Received: from localhost ([2a03:2880:10ff:10::])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b39324bbf5sm961007b3.1.2026.11.09.10.43.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 10:43:00 -0800 (PST)
+From: Vlad Poenaru <vlad.wing@gmail.com>
+To: "Michael S . Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>
+Cc: =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Brett Creeley <brett.creeley@amd.com>,
+	Kyle McMartin <jkkm@meta.com>,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH] virtio_pci: limit Oracle DSC2-200 virtio-net to 48-bit DMA
+Date: Mon,  9 Nov 2026 10:42:52 -0800
+Message-ID: <20261109184253.531677-1-vlad.wing@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,107 +101,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261109-clear-flush-young-notify-v1-1-b37fbafa2686@amd.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtIqciuEi3MxhoIDa0opLsnL
- d/i/wSRAlOEvkgQ6OLI3mWIsgCzarcQ8pwNspKtEJVCs5EOaLczrvj40y3o/MH2wVmbbmpq1ZK
- pIed7IMv3vx7G9/0AKsxO4moAAAA=
-X-Change-ID: 20261109-clear-flush-young-notify-dac8b5496ec4
-To: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>
-CC: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Shivank Garg
-	<shivankg@amd.com>
-X-Mailer: b4 0.15-dev-47d62
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794249742; l=1810;
- i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
- bh=wxWmapUOhxu/6jc9xLT927AsGRcrXYc4JFalOogWUCA=;
- b=KNFZ6QCPOiqiQTec+hroRFvtSQKAt3Tdvy0kK6Aa9ax6/K2DFXn276d7XC9gCBt27DFYqJWsh
- 23Kh92D7la+AoCZsfF1KYoKB6eegvHZ8VljYDcekOIGErW1AjuEfAtq
-X-Developer-Key: i=shivankg@amd.com; a=ed25519;
- pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037B6:EE_|SJ2PR12MB8011:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6015d7ef-cbcd-4cbf-6a93-08df3e91332f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|7416014|82310400026|36860700016|260925021911599003|260925022911599003|260925021311599003|11063799006|261009223027099003|56012099006|261021123027099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	CBZyXrba/nyf8Ab9uTTmPMGc4TJek4qyphphyzGMRIPtiAhXNDUxRhnvPBUNzMruBEBlLrDm931iapGOHoxjEaJqT2rQpCzL9xHgloHhSMRT1kplGhtRm9sQWqOvvClGRkmZt+AvJS4yM88FxVG2SQuUiz5k5RuWHKbdg0Xx5gEeCiJwKliBDmdnBFUwPcUUiZdyA4nON9y3vudMiNXdQ57hUR4T5K4axJp6fvPyK7U050vcc8lKpZ1JSA1llb/uRWXy1JbTtqBKTWgdVzdVKg2N8YSp5c/G0VYPB+a0qT367ny+jJBI/k+Ctz6BzFFUfgmxykbQt6ScaI3JeI5/Ps2NU7pKt83VPj+DCCKnHb/H+ZnBl0uc8MvD6CvL+/9424dQS0PzUYsa5SbD/ta82yPGTHaMPR0cSXzHBuEFhBu0ZX/VqwP6QGz3MpxDa8/OVSd77svI5Qg+vFuxlbxvWWD34wnaGB3EU35bHRh8Be41Vp1lBER+aUr5nwai/tL+mGDofQwqgCal5b430Mcw/752YtPYtxoIbOIZNobGWg8vgla/8Hky63XqnpgGYfipNClomNgZSfXq0btabemve3jxwEK4PGsYVL1gQdcpYFLAwDejL15gbFQw5ZbxUSSTSOuih+9xiyseenufjg9U6M41YH3bPWEvtppfT9DooJ0vtzxiSaFiK64cWdFuLjPLBPOLkbADjojZ08ovR4/uxQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(7416014)(82310400026)(36860700016)(260925021911599003)(260925022911599003)(260925021311599003)(11063799006)(261009223027099003)(56012099006)(261021123027099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	1c+tFXoHWa12xaB7bqQagnR0jcKlwCYEUj61S6SjHSyzwzwmZJ7FLP+wjXIQQJHoDr1OdJfkxaS75vFwPkwTXhobiDh7WL9Fxv774K9mJoU+5n7VAlYHzp6IeTDD9FQK13ety03vUdMH3h/RKw8zlOd0XeAwxNiC5dtjzLqyNhjz/9BheCPXaOjI+9MvG7xrY3AuYb6S6zFmAFeCDSBXU9E3z1MRaZlRYAPDS6p766w4QLs1WfP0PjMSynJZUN0ODwGkDJbUq6eWTYTRnoHjCycot4ocQEu8HxpCE80R1IfvvaPavZFAqz4I0SkOJXcoRxcMmtxMbN/WFRJtGBm0eyG9ijCgjVDIVtyNntXoVYSygC5dCo72musjDxeadqQFIWPk2f/DMgZm5L8CHQCUAn8yj2opygvYm1y9IETtvOCxDF6KMaDNY+XrwTtLpygp
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 18:42:25.8537
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6015d7ef-cbcd-4cbf-6a93-08df3e91332f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037B6.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8011
+Content-Transfer-Encoding: 8bit
 
-clear_flush_young_ptes_notify()'s last user was removed in
-commit f3c493d2f42b ("mm/rmap: handle device-exclusive entries in
-folio_referenced_one()"), which open-codes clear_flush_young_ptes()
-and mmu_notifier_clear_flush_young() in folio_referenced_one().
+The virtio-net function of the AMD Pensando DSC2-200 (Elba) DPU, as
+shipped by Oracle (1af4:1041, subsystem 108e:1200), cannot DMA to
+arbitrary 64-bit bus addresses, and Oracle advises limiting it to 48
+bits. virtio_pci gives it a 64-bit mask, so its virtqueues stop
+completing requests once the IOMMU starts handing it IOVAs above 2^48.
+The card is used in OCI bare-metal shapes such as BM.Standard.E6.288.
 
-Remove both the CONFIG_MMU_NOTIFIER definition and the
-!CONFIG_MMU_NOTIFIER alias.
+On those AMD EPYC 9005 hosts the AMD IOMMU supports a 6-level v1 page
+table (EFR[HATS] = 2), so the aperture spans all 64 bits and the IOVA
+allocator, which works down from min(mask, aperture), returns addresses
+just below 2^64:
 
-Signed-off-by: Shivank Garg <shivankg@amd.com>
+ - With iommu.forcedac=1, the first control virtqueue command never
+   completes and virtio_net hangs in probe.
+
+ - Without it, iommu_dma_alloc_iova() prefers 32-bit IOVAs until that
+   space runs out once, logs "Using 64-bit DMA addresses", and stops
+   preferring them for the device. Across several thousand of these
+   hosts, 21 logged that for the virtio-net function within 0.2 to 7.3
+   days of boot. On 14 of them, TX queues then stopped completing
+   descriptors within hours ("NETDEV WATCHDOG: ... transmit queue N
+   timed out"). No host without the fallback reported a TX timeout.
+
+virtio gives a device no way to advertise a DMA address limit, and the
+platform describes none for this device, so the driver has to apply
+one. Cap the device at 48 bits through the dma_mask override that
+vp_modern_probe() already provides for devices with address limits.
+The device still gets 32-bit IOVAs first, and then IOVAs below 2^48
+instead of 2^64. pds_vdpa uses 52 bits for the same ASIC; this uses
+Oracle's narrower 48-bit limit, which still leaves 256 TiB of IOVA
+space.
+
+Only the virtio-net function is matched, since it is the one that was
+tested. force_legacy does not bypass the quirk: the legacy probe
+refuses device IDs above 0x103f, so the device always goes through the
+modern probe.
+
+Tested on a BM.Standard.E6.288 with 6-hour iperf3 --bidir soaks, at up
+to 57 Gbit/s each way with iommu.forcedac=1 and at about 26 Gbit/s each
+way without it. Neither run saw a TX timeout or an AMD-Vi
+IO_PAGE_FAULT. With forcedac, every traced IOVA for the device fell
+between 2^32 and 2^48; without it, every IOVA stayed below 2^32, as
+before.
+
+Cc: stable@vger.kernel.org # 6.5+
+Co-developed-by: Kyle McMartin <jkkm@meta.com>
+Signed-off-by: Kyle McMartin <jkkm@meta.com>
+Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
 ---
-Applies cleanly on mm/core.git/for-next.
----
- mm/internal.h | 12 ------------
- 1 file changed, 12 deletions(-)
+ drivers/virtio/virtio_pci_common.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index b129510b92e2..b1f3a1a59bc0 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1598,17 +1598,6 @@ static inline void maybe_rmap_unlock_action(struct vm_area_struct *vma,
- }
+diff --git a/drivers/virtio/virtio_pci_common.c b/drivers/virtio/virtio_pci_common.c
+index 79d3395f37050..0a7c97cd80509 100644
+--- a/drivers/virtio/virtio_pci_common.c
++++ b/drivers/virtio/virtio_pci_common.c
+@@ -667,8 +667,18 @@ static const struct dev_pm_ops virtio_pci_pm_ops = {
+ #endif
  
- #ifdef CONFIG_MMU_NOTIFIER
--static inline bool clear_flush_young_ptes_notify(struct vm_area_struct *vma,
--		unsigned long addr, pte_t *ptep, unsigned int nr)
--{
--	bool young;
--
--	young = clear_flush_young_ptes(vma, addr, ptep, nr);
--	young |= mmu_notifier_clear_flush_young(vma->vm_mm, addr,
--						addr + nr * PAGE_SIZE);
--	return young;
--}
--
- static inline bool pmdp_clear_flush_young_notify(struct vm_area_struct *vma,
- 		unsigned long addr, pmd_t *pmdp)
- {
-@@ -1641,7 +1630,6 @@ static inline bool pmdp_test_and_clear_young_notify(struct vm_area_struct *vma,
  
- #else /* CONFIG_MMU_NOTIFIER */
++/*
++ * The virtio-net function of the AMD Pensando DSC2-200 (Elba) DPU, as
++ * shipped by Oracle (subsystem 108e:1200), cannot DMA to arbitrary 64-bit
++ * bus addresses. Oracle advises limiting it to 48 bits.
++ */
++#define VIRTIO_PCI_QUIRK_DMA_48BIT	BIT(0)
++
+ /* Qumranet donated their vendor ID for devices 0x1000 thru 0x10FF. */
+ static const struct pci_device_id virtio_pci_id_table[] = {
++	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_REDHAT_QUMRANET, 0x1041,
++			 PCI_VENDOR_ID_SUN, 0x1200),
++	  .driver_data = VIRTIO_PCI_QUIRK_DMA_48BIT },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_REDHAT_QUMRANET, PCI_ANY_ID) },
+ 	{ 0 }
+ };
+@@ -710,6 +720,9 @@ static int virtio_pci_probe(struct pci_dev *pci_dev,
+ 	if (rc)
+ 		goto err_enable_device;
  
--#define clear_flush_young_ptes_notify	clear_flush_young_ptes
- #define pmdp_clear_flush_young_notify	pmdp_clear_flush_young
- #define test_and_clear_young_ptes_notify	test_and_clear_young_ptes
- #define pmdp_test_and_clear_young_notify	pmdp_test_and_clear_young
-
----
-base-commit: 2683df3b7eac1d91380194955ad0c9751454610c
-change-id: 20261109-clear-flush-young-notify-dac8b5496ec4
-
-Best regards,
++	if (id->driver_data & VIRTIO_PCI_QUIRK_DMA_48BIT)
++		vp_dev->mdev.dma_mask = DMA_BIT_MASK(48);
++
+ 	if (force_legacy) {
+ 		rc = virtio_pci_legacy_probe(vp_dev);
+ 		/* Also try modern mode if we can't map BAR0 (no IO space). */
 -- 
-Shivank Garg <shivankg@amd.com>
+2.53.0-Meta
 
