@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.73
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192726;
-	b=yTIz3vWvHnLoKi+4/hq8jA4KkxZRUFV2TS/sQoAwURzA5kHb3Mo9mSYTva4Y4h4muRF0
-	 DXD7MJFw3Js2OkzBnHFHqDlwTGBUEappuCvwAYYGRJPRi1c718uDgpI5Bhy9WavkJ0EoJ
-	 wf3pm50NmDjO6HjmXFu7cHoCSxJJEPDPN/OWwijqdKQteuMx4Y8toYep9AeMZthoBdcEE
-	 RfvGdmt0lnx0eajtFKZwLSH5f0PdUCCA8bPjOGVQu7kseOc3aNbVwfEU4rDSz8bdH15gs
-	 2/jf65iTimvi/nYoc+6ushxdXxx5cyTJ0kPK5kmdkNIidGd/03tkTkrZp0YdVYC151A==
+	t=1794192738;
+	b=YKuBntgQnXtQ4liPGLC5580/OBJOtDbBpQbbC9+E0/J4PVt+U1vRw00JHaffRdXxxknY
+	 bv2/9wrZbiZNKGt7AvfsfAZbkI9VJV3WXjEkYlBYBafmmdHC6H/Ljsy4ixMf3kT5lqkt+
+	 oX173l6i8qbZwQ5dNaZlkc8H5nOFdbVSaB/zLmHm3DKc+jeZtDGCmNU1xAKu0KQSayHrk
+	 B4glfj2qmvitiq/e2QBhGb5eRzlS81w6EIJ+ySlriHWDx3Aj9565aT/rWVaxST0YIWcMa
+	 xTwxer0oYbsW8uZhzA2I/xz33CMf9uuc9J8r2eP4aNfw0kHSqCv1TayKX7un2Ro8LKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192726;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=nWqWiduDQX/+eDY/lBNMvXq4xgQ2WR9If/niokbocYQ=;
-	b=kfRWTLd5OlssAp4mo6N5wOYAlbQLWaNB52/nxWKA/l2l4ZoPtm1DoUlkoQV9K3uJVbiC
-	 2F6symmWQYs8uGtaGiWHym8Z83iSjpzVFgyNK3WQT/9V8Cuw0e9MKeuvtALrEEFsI+MrE
-	 LLiwp3v+raUrZs18XdYjrCO/iGtu2D90J0ffLISKYOeLOyCcqKnbEBobbZdX07hLZCnaj
-	 31WyEcozDEcF0jVRJWRiYSWPH56PFpj6ntbCfQKXDso64vHk7Bqzz6fS5nohc3Tm/NtJ4
-	 luYZxiiQCpuH5Z+AggYTcJlEj65+VchPYbXIQ30DoB+l6vVD0lXPfkQFBXoHGn7Nwxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192738;
+	h=DMARC-Filter:DKIM-Signature:References:In-Reply-To:
+	 Content-Transfer-Encoding:Content-Type:Mime-Version:User-Agent:
+	 X-Original-From:X-Lms-Return-Path:To:Cc:From:Subject:Date:Message-Id;
+	bh=yCuez44DIiflK+TgYYvbZf169TnqdyWBhAx5pU0vziY=;
+	b=3448FWe29OL6x9gSpZe8naTHty630M3saKKRaf8hkzV2g1xFME1euR8mrwc/2rpXVaEv
+	 YdCFPfvZZPfF2vEskN1AkWeEYqIaJE+p36wFRQDKosFHBKLQipCB3y/5ckoXOwYs6F6Yx
+	 tc0fUXyyhf8RLAsf/veG3VeQgEqcO6YFxdQrbMEB0LcHqFYbTAgpTSulmi7pSwKvmxcjD
+	 eR4OAgRaUUWI6JnUj/p0FPZEQv0KdY/USePp19xAXsL/BG6A7HrLqoGW/FfMuOxUHJsxQ
+	 Ia3b2+fBQ2n1i35Aczmxcqf55G6yDoNLuleSXhDmbQoos17DCICE1RBds8uyFXoBJFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pKqbz5+1;
-	arc=none smtp.remote-ip=95.215.58.73
-Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	arc=none smtp.remote-ip=209.127.230.113
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7E1606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:52:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B7E1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pKqbz5+1
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1zQrA1miKQ/sO3U4FLD9eN7ND1EAn4eFHq58nFmS/2c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794192722; v=1; x=1794797522;
- b=pKqbz5+1nAKvoDjratDGIzCVYLRnYWqr1KkI/51AbwTsIOLh1H3KSkwjZnitIUapDrfX3moK
- iBDOjWlEa0LcAglhZ0IIVJXQpa10JvLhgoeorLL1bBrmrzYqTSk7F/F73Ux8tJumFsmES18Q1nY
- WVU2IQ4+YlREcEp/U62zWKW0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f8a5242679d67f97;
-	Mon, 09 Nov 2026 02:52:02 +0000
-X-Mizu-Trace-ID: f8a5242679d67f97
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <3f45a5f9-9c87-420d-b6a5-6145c834c0d1@linux.dev>
-Date: Mon, 9 Nov 2026 10:51:46 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E64D606A338
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:52:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E64D606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794192730; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=yCuez44DIiflK+TgYYvbZf169TnqdyWBhAx5pU0vziY=;
+ b=KxyNBXOr2WX+/CCiYXTtCYnYklFW1pXMkg0Soddx2vt2uFSbwwoid1xH80xzBzbNaVmNET
+ N2JgyDtddaT54CD+S9WoCnsGUv0jb32pKmQD/xskzNSnVrJNvFcJot6ml2WsRCDdA4rqvp
+ zmHioFqb2X1+YDZ8AX787x3oZMdhtWgbB081svwSL8YA9V2EoywRJ2lepwVUVLGCZhL6Ts
+ ufxQ4zi47HLD+lthy5VmxDNOkKRXQsZlnSv6Pp4ovdH7hjhXYuqVjWBBBAH7m0rGeQNOzJ
+ ZBuh/HQszSBTzyUERX/KtS88cxiPlfjaKS858ZLvmR/auaRSukt8cHGKUVNk3w==
+References: <20261105120615.16817-1-lizhe.67@bytedance.com> <20261105120615.16817-2-lizhe.67@bytedance.com> <au2tQaaMBg3umthq@parvat>
+In-Reply-To: <au2tQaaMBg3umthq@parvat>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,44 +52,139 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 1/6] block: refuse a dma-buf bio that carries a crypto
- context
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Dan Williams <djbw@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, tytso@mit.edu,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
- <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Zhang Yi <yi.zhang@huawei.com>, "Darrick J. Wong" <djwong@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, asml.silence@gmail.com,
- Anuj Gupta <anuj1072538@gmail.com>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-mm@kvack.org, Li Wang <liwang@kylinos.cn>
-References: <20261105065847.196540-1-mengmeng.zhao@linux.dev>
- <20261105065847.196540-2-mengmeng.zhao@linux.dev>
- <20261106104119.GA5668@lst.de>
-From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
-In-Reply-To: <20261106104119.GA5668@lst.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+X-Lms-Return-Path: <lba+26af13558+b772d5+vger.kernel.org+lizhe.67@bytedance.com>
+To: "Balbir Singh" <balbirs@nvidia.com>
+Cc: <muchun.song@linux.dev>, <osalvador@suse.de>, <david@kernel.org>, 
+	<akpm@linux-foundation.org>, <rppt@kernel.org>, <apopple@nvidia.com>, 
+	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Subject: Re: [PATCH 1/2] mm/mm_init: factor out memmap_init_page_from_template()
+Date: Mon, 9 Nov 2026 10:51:52 +0800
+Message-Id: <25a188bf-05e4-4f0e-b670-a9dc88195b21@bytedance.com>
 
-On 11/6/26 18:41, Christoph Hellwig wrote:
-> On Thu, Nov 05, 2026 at 02:58:42PM +0800, Mengmeng Zhao wrote:
->> +	/* a dma-buf bio has no pages for integrity work or contents crypto */
->>  	if (unlikely(op_is_dmabuf(bio->bi_opf) &&
->> -		bdev_has_integrity_csum(bio->bi_bdev))) {
->> +	    (bdev_has_integrity_csum(bio->bi_bdev) ||
->> +	     bio_has_crypt_ctx(bio)))) {
-> 
-> This could really use a factored helper explaining all the refusals.
-> And maybe we should use the chance to sit back and think what else
-> would blow up and add it there as well.
-> 
-Hi Christoph, thanks for the review. I will extract a helper in V2 soon. 
-There are several buffered io fallbacks, it's really necessary to discuss
-how to avoid these. Glad to join it.
+On 11/6/26 6:34 PM, Balbir Singh wrote:
+> On Thu, Nov 05, 2026 at 08:06:14PM +0800, Li Zhe wrote:
+>> ZONE_DEVICE memmap initialization already uses a reusable struct page
+>> template when initializing compound tail pages.  The template mostly
+>> contains invariant state, but a few fields still depend on the target
+>> PFN and must be refreshed before copying the template into each
+>> destination struct page.
+>>
+>> Factor that operation into memmap_init_page_from_template() so other
+>> boot-time memmap initialization paths can reuse the same helper.
+>>
+>> No functional change intended.
+>>
+>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+>> ---
+>>   mm/mm_init.c | 29 +++++++++++++++--------------
+>>   mm/mm_init.h |  2 ++
+>>   2 files changed, 17 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/mm/mm_init.c b/mm/mm_init.c
+>> index 2a0e782a151d..495e20fbdec0 100644
+>> --- a/mm/mm_init.c
+>> +++ b/mm/mm_init.c
+>> @@ -625,6 +625,17 @@ void __meminit __init_single_page(struct page *page, unsigned long pfn,
+>>   	vmemmap_optimization_verify_zone(page);
+>>   }
+>>   
+>> +void __meminit memmap_init_page_from_template(struct page *page,
+>> +		unsigned long pfn, unsigned long zone, struct page *template)
+>> +{
+>> +	set_page_section_from_pfn(template, pfn);
+>> +#ifdef WANT_PAGE_VIRTUAL
+>> +	if (!is_highmem_idx(zone))
+>> +		set_page_address(template, __va(pfn << PAGE_SHIFT));
+>> +#endif
+>> +	memcpy_nontemporal(page, template, sizeof(*page));
+>> +}
+>> +
+> Can we make the template a const? Why can't we do
+>
+> void __meminit memmap_init_page_from_template(struct page *page,
+> 		unsigned long pfn, unsigned long zone,
+> 		const struct page *template)
+> {
+> 	memcpy_nontemporal(page, template, sizeof(*page));
+>
+> 	set_page_section_from_pfn(page, pfn);
+> #ifdef WANT_PAGE_VIRTUAL
+> 	if (!is_highmem_idx(zone))
+> 		set_page_address(page, __va(pfn << PAGE_SHIFT));
+> #endif
+>
+> That way we don't update template once it is set, if template is r/o,
+> then we don't need both first page and template in the caller to
+> be different.
+I kept it this way to preserve the memcpy_nontemporal() write pattern:
+update the PFN-dependent fields in the template first, then copy the
+final state to the destination page once.
+
+If we copy first and then update the destination page, the hot loop
+would do a non-temporal copy followed by normal stores to the same
+struct page. That is the pattern this helper avoids.
+
+Thanks,
+Zhe
+>
+>>   #ifdef CONFIG_NUMA
+>>   /*
+>>    * During memory init memblocks map pfns to nids. The search is expensive and
+>> @@ -1073,17 +1084,6 @@ static void __ref __init_zone_device_page(struct page *page, unsigned long pfn,
+>>   	}
+>>   }
+>>   
+>> -static void zone_device_page_init_from_template(struct page *page,
+>> -		unsigned long pfn, struct page *template)
+>> -{
+>> -	set_page_section_from_pfn(template, pfn);
+>> -#ifdef WANT_PAGE_VIRTUAL
+>> -	if (!is_highmem_idx(ZONE_DEVICE))
+>> -		set_page_address(template, __va(pfn << PAGE_SHIFT));
+>> -#endif
+>> -	memcpy_nontemporal(page, template, sizeof(*page));
+>> -}
+>> -
+>>   /*
+>>    * With compound page geometry and when struct pages are stored in ram most
+>>    * tail pages are reused. Consequently, the amount of unique struct pages to
+>> @@ -1136,8 +1136,8 @@ static void __ref memmap_init_compound(struct page *head,
+>>   
+>>   	/* Initialize the remaining tail pages from template. */
+>>   	for (pfn = head_pfn + 2; pfn < end_pfn; pfn++)
+>> -		zone_device_page_init_from_template(pfn_to_page(pfn), pfn,
+>> -						    &template);
+>> +		memmap_init_page_from_template(pfn_to_page(pfn), pfn,
+>> +					       ZONE_DEVICE, &template);
+>>   	prep_compound_head(head, order);
+>>   }
+>>   
+>> @@ -1192,7 +1192,8 @@ void __ref memmap_init_zone_device(struct zone *zone,
+>>   	for (; pfn < end_pfn; pfn += pfns_per_compound) {
+>>   		page = pfn_to_page(pfn);
+>>   
+>> -		zone_device_page_init_from_template(page, pfn, &template);
+>> +		memmap_init_page_from_template(page, pfn, ZONE_DEVICE,
+>> +					       &template);
+>>   
+>>   		if (IS_ALIGNED(pfn, PAGES_PER_SECTION))
+>>   			cond_resched();
+>> diff --git a/mm/mm_init.h b/mm/mm_init.h
+>> index 0034e37dbabd..22c465122b47 100644
+>> --- a/mm/mm_init.h
+>> +++ b/mm/mm_init.h
+>> @@ -111,5 +111,7 @@ void memblock_free_all(void);
+>>   
+>>   void __meminit __init_single_page(struct page *page, unsigned long pfn,
+>>   				unsigned long zone, int nid);
+>> +void __meminit memmap_init_page_from_template(struct page *page,
+>> +		unsigned long pfn, unsigned long zone, struct page *template);
+>>   
+>>   #endif /* __MM_MM_INIT_H */
+>> -- 
+>
+> Balbir
