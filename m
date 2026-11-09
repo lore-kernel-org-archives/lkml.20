@@ -1,64 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794246672;
-	b=Ke8Fe1lLUr1Tpf4hWgZnf/98Q32M21Hm1LCDL2N7ihecaNcCvj89/chVrChfm5+Ae9Oh
-	 R2RvOmDw0dSfSInCPlA/YWJh72MvwkZ444IEmNZV3K2a2zUc7n7yBdaxRdPvEsAbF1tqX
-	 cu4D2hoBEWzEk0JK7x70l+yRnOkoGz65WH7sdeX0Ah0EpdmU5TFWyVQz7USe6gnIS1urp
-	 iwGxMH/+PWan4yb73Q3B0ExGtt2luUoSU1T5BlzDVIT7kjQpEdyR3wkevKRnQFS2ydFvh
-	 AVZU4ySfRh3Kgl2RoOkycRLNwkNeHlFKqUMr+PeK06xbAakayNmrG4ORRLDAbh1s3mA==
+	t=1794246678;
+	b=ppVawIp4Xa2bGkeNTIS6oeTxj0oMk/f1GwyzM0D09XAMpn89ac7x55lQktgIPlwyHTB5
+	 8JHCyLT68xz6KyxI0zTOjOF4m5dx+F6/zLlRGE6CrSZn039fkbj1wpRmAUvtA6G9P9UCc
+	 wZUMQnJFH2VS083tNygUFOR/J9u7+V4fY74fplU5TdS+blPYMQhW6/xBPOHDjTuM6MXGS
+	 r3vN9niuJmxZNUMt9YfbdS7Crs3Zo0kz8fUhUbqWLk6DuMdgZkcM/c+rRj9FDJsWTF83t
+	 1EExIKzDH8kLiMbKocbxKgmZFDuaiXFbwkNuUGOXcsKQ1Or++KRsB1dYxNbFvOJgUbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794246672;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 X-Infomaniak-Routing;
-	bh=JeHC9buT6jY2RTh/VwQit4Bm1+7sFLgUnVlvsKrwLnc=;
-	b=GsZ3Qejel6omDle8Zmv7wcFYPt7vQCTlTxxUrQ30GdRQFUg4SrRBpYnm2fgolt822J9U
-	 ZAN9rFxYze3cLtXhyffOovJUDOqrlQePvXc9oEVjL2T+QnAEoM44R/Jut/d3m1m+opUmG
-	 1y8o8JDA6dQvKa8so/dFntQWxNghVeHO0YgBkAGBpgnOsQBMv0LS5j+fqDg7tVfOcPpgU
-	 oA5UQLJweHhwUbfgSmSoabNOT0yr5sVifG0GXFhu3Dc1ahMbxzu6eGcgmjmiIsN5/GBfM
-	 2okV3T36h9sD1tKe6q0ot9U4admLz6A4yJUqA83pUfanIvNHOaQG8ohWNdP7crmFrFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794246678;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GFzABPh/i3DTYACKwlsIa8uWdbyDlbj1NiTPGOeH3RM=;
+	b=x9WVvQDZS0vFPK93aHCZc30o2IzyluWl+dvQPpfe+LxaT4UZBeiCoLkursQwCoG1g6O7
+	 UQkBkAepCGYNTidVnvnQH1R4cw2hK6beig3uqWEM9XfmfDht0SY8IrYbKp/vN61OcFWgv
+	 rFn8ChYX7jho2rdKCzdywgyrEIORI/elTmCWMUTlK61DDVnOXCUdMhoMJh4JVxK8e06Q3
+	 Zt90Zbp0O9G/fR4dTkVxPA7WFqbgcgpD6hJyqxxMMyKo390ZcWVqwrwu/7pXwOgwB6Ew1
+	 kscqGDt5qtED/b9XWvyF/bykqYSG9v7fQjeukrFH/qcNN0nAUElcYmi6M+dEPPgAeKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=digikod.net;
-	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=rKTzkrX6;
-	arc=none smtp.remote-ip=83.166.143.170
-Received: from smtp-8faa.mail.infomaniak.ch (smtp-8faa.mail.infomaniak.ch [83.166.143.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UhCW4MjD;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF93660A2616
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:51:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF93660A2616
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC2060A5BEB
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:51:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAC2060A5BEB
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=rKTzkrX6
-Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jNclV0lmlzXWj;
-	Mon,  9 Nov 2026 18:51:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794246661;
-	bh=JeHC9buT6jY2RTh/VwQit4Bm1+7sFLgUnVlvsKrwLnc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rKTzkrX65LTV3iie6B18TVpJ9L8iyosumpRUjriXl48xzZlo4vADJYs16J0CxCu7O
-	 wqEVOPdMLL5kVGLa9JoayKCYkd1ajBaCK+LxjoJM7ZMWVHzWOFn8GmN/AlOo9376kO
-	 xTwh222ORxXpEeJNMF96RI5YFN0MUHMYiWUStfSk=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jNclR3WsFzQG2;
-	Mon,  9 Nov 2026 18:50:59 +0100 (CET)
-Date: Mon, 9 Nov 2026 18:50:52 +0100
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: hannes@cmpxchg.org, surenb@google.com, peterz@infradead.org, 
-	mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, kprateek.nayak@amd.com, cerasuolodomenico@gmail.com, 
-	linux-kernel@vger.kernel.org, sashiko-bot@kernel.org, 
-	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>, linux-security-module@vger.kernel.org, didtldms2525@naver.com
-Subject: Re: [PATCH] sched/psi: Check CAP_SYS_RESOURCE in the initial user
- namespace
-Message-ID: <20261109.iej8biD4ohph@digikod.net>
-References: <20261106120004.90041-1-dennylin0707@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UhCW4MjD
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-49412eb1474so783103f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:51:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794246676; x=1794851476; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GFzABPh/i3DTYACKwlsIa8uWdbyDlbj1NiTPGOeH3RM=;
+        b=UhCW4MjDrB2Jx44R2tgdeRC22xvRx3LIYCPL1fI900FRNGaM4YP4XcM1Qwt4JqeZ1M
+         B/BAxGogYx/l546Sx67OBuhsR0xVeM1JLt4MXZQIhKnUqLNQUW2L0OpGZh7iasgt4rah
+         V6gF8Bd3NfZiH4vybKbWuXgcUn5C+5tFoZ1uvXTMKwIq3U9+Wy0C1wnMCStFD7UOTd0h
+         wu1yRsXxBAhKk6iXkf1mCUhDU5IGdKwJTHQ0kcpQxYup8vlhSmj5aiAHXHld9bWcJ7aa
+         esuFhvbUjSV0fRbcBFnKd44KaHyjLrZJVjefpf4UylNJHeRJcRSpFnRIklUxqYiSzuZP
+         tfuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794246676; x=1794851476;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GFzABPh/i3DTYACKwlsIa8uWdbyDlbj1NiTPGOeH3RM=;
+        b=WEL5W9LQ99J+qVyLpDd7AI6mHetMKeYVF6JqOhxvuemZov99XKlKRhLoUwYfddv5as
+         ocROVfr2Zgb1FeMe3rFRFdh7K4WLYh4uhxInFIezHkaxhsVkZe/mGKzw2JPE0bdW/1Y5
+         rUfO0oyWO1NK6lAGTR7+WBgUcgXHC+cyO9MkWZy4xpUHwc49WIJuJ0FgE6XnZUSZuKEl
+         5DDlJiH3NaEcOpoXXNukeoHkr2iBxCkEXJDeDxuJJeWg0JTZ3SPLc+jbS/65L5BHdIBr
+         zW7ckjNLL8MIDAcQi3l1KTgGF239HIDBhoxC1SQHZSRb6pLzN6D9UwkxOGpHHKn/+PAV
+         GLQw==
+X-Forwarded-Encrypted: i=1; AL+hErFPMlk0A83lfYi7D+Q7ToW+d3vEMhlQulMNxuNi4unDHgcCHMyjHgHlPmW9+wnfjQKgx9mHoiZmO7ZjAGA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8aRpz/O9Y+1GjNckTc3bZ2qKkZ8WRP5FgDE4GUWFCOhYvrq86k
+	6zxsdGONGRmspeTUwCvapO61SLNx7NlOdcyN2LpxkB6jfwhxDJ4IzGvc
+X-Gm-Gg: AYBFou2PFGgMkjy2EjZJxVI0vrTHDdtpquhtlNxu2DOW+7VVdkA/G3nnudBnGg3NNPq
+	cSlqhrfOMu+eIoAlNqDABeOV5JQXnIkHmGXR10pFQUVZRppcGxm500h+KDc//2OBUt3NUOS4Wwe
+	SiTYmE1TKk7pjrv3prF1Kf0q5//95j0zbn/trc5pZgkFAtO1PSkYP5h7DcWYpNYkyANK5fcImeY
+	y4N/o+vjDrIgQugncPLvm2TXrzYDPiLodDF93PULHrrv5SDRMErEKDMmBV51lzF9EHLf9Zca9Q4
+	Bo2bfz3LabfSP4eVqwoYzLFzWMezP5tvV5mj2DFaw+jbOau1oG8qgdnDGsQC3LRFV/X7x6SSmih
+	yK3XQIa4uZIiL49IrT95/TbliKtkQiKeAvc5dM96HzRr30j1RIYAqX1hFM7SG9wXyA7F60t1NRt
+	egv+wEaMI8hBcnSgzmS6k+0yEtnqLRkJJKXvCJo2hnGlpOESGg0Dn5+x7bOXGaNLWG5Yi34QFt7
+	qVrV7D01vt5TPfqs6eSp4DAeBO1oeen53Vpo3hztf2MSPxIDAhM0Xm7+geaj1WuV3kwRpWqyEzc
+	kqRQNr1Q+uY0Ur4/MYdAIvv1d9Qvwp8JpHGv7I+2dl2ZeujupxLTXXtLnVLXljRNKi2lzv+Z2UV
+	Ewjxfyjlg/rE+ml8CEORjIT77rgqY742v9BpKnmSyFHwQlqvjikpIjdGTLyMKu7KJ3EfZ+koqO7
+	bRcBEI9NcTNyggJ/S9CALwijPgyAOJzv+/6CnHhDsB7GK8BayvJQm8g/re11zoxAlT8OhnXDZh1
+	jeOWRFLuOYS7Sur7gqPrCsmZRwv7vrUCgQPCBYlOJGhin0tZ58=
+X-Received: by 2002:a05:6000:29d9:b0:492:b1c5:6db4 with SMTP id ffacd0b85a97d-4982fd3e550mr237732f8f.26.1794246675934;
+        Mon, 09 Nov 2026 09:51:15 -0800 (PST)
+Received: from jernej-laptop (86-58-12-36.dynamic.telemach.net. [86.58.12.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-498369a4238sm200717f8f.54.2026.11.09.09.51.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 09:51:15 -0800 (PST)
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	Paul Kocialkowski <paulk@sys-base.io>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Samuel Holland <samuel@sholland.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: [PATCH v2 08/11] staging: media: cedrus: vp8: use the vendor probability table size
+Date: Mon,  9 Nov 2026 18:50:13 +0100
+Message-ID: <20261109175016.42061-9-jernej.skrabec@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109175016.42061-1-jernej.skrabec@gmail.com>
+References: <20261109175016.42061-1-jernej.skrabec@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,60 +111,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261106120004.90041-1-dennylin0707@gmail.com>
-X-Infomaniak-Routing: alpha
 
-On Fri, Nov 06, 2026 at 12:00:04PM +0000, Hungyu Lin wrote:
-> Commit d82caa273565 ("sched/psi: Allow unprivileged polling of N*2s
-> period") moved the CAP_SYS_RESOURCE check for psi triggers from the
-> open() of the /proc/pressure files to psi_trigger_create(), so that the
-> credentials of the opener decide whether a trigger is privileged. In
-> doing so it replaced capable(CAP_SYS_RESOURCE) with a direct test of the
-> opener's effective capability set:
-> 
-> 	privileged = cap_raised(file->f_cred->cap_effective, CAP_SYS_RESOURCE);
-> 
-> Unlike capable(), cap_raised() does not check against the initial user
-> namespace and does not go through the LSM capable hook. A task that
-> creates a user namespace has a full effective set inside it, so an
-> unprivileged user gets privileged triggers on /proc/pressure/* and on
-> delegated cgroup pressure files: windows that are not a multiple of 2s,
-> served by the SCHED_FIFO psimon kthread, which the N*2s rule was meant
-> to keep from unprivileged users. LSM policies that deny CAP_SYS_RESOURCE
-> are not consulted either.
-> 
-> Use file_ns_capable(), which checks the opener's credentials against the
-> given user namespace through security_capable(). This brings back the
-> user namespace and LSM checks of the capable() call it replaced.
-> 
-> Fixes: d82caa273565 ("sched/psi: Allow unprivileged polling of N*2s period")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+The driver allocates the VP8 probability table with 0x2400 bytes, which
+is the size the old Allwinner A10 library uses. All newer vendor
+libraries allocate 0x5400 bytes and never write the area past 0x11b0
+from the CPU. The hardware uses that area as scratch space, most likely
+for the segment map, and its usage grows with the frame size: a
+3840x2160 stream makes the hardware access memory past 0x2400 and
+causes IOMMU page faults.
 
-This is directly visible with the new Landlock control of capabilities.
+Allocate the table with 0x5400 bytes, like the vendor libraries do.
 
-Reviewed-by: Mickaël Salaün <mic@digikod.net>
-Tested-by: Mickaël Salaün <mic@digikod.net>
+Fixes: 3c39a16d30d8 ("media: cedrus: Add support for VP8 decoding")
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+---
+ drivers/staging/media/sunxi/cedrus/cedrus_vp8.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> ---
->  kernel/sched/psi.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
-> index 7c5381423334..cf2593183b25 100644
-> --- a/kernel/sched/psi.c
-> +++ b/kernel/sched/psi.c
-> @@ -1347,7 +1347,7 @@ struct psi_trigger *psi_trigger_create(struct psi_group *group, char *buf,
->  	 * Checking the privilege here on file->f_cred implies that a privileged user
->  	 * could open the file and delegate the write to an unprivileged one.
->  	 */
-> -	privileged = cap_raised(file->f_cred->cap_effective, CAP_SYS_RESOURCE);
-> +	privileged = file_ns_capable(file, &init_user_ns, CAP_SYS_RESOURCE);
-> 
->  	if (sscanf(buf, "some %u %u", &threshold_us, &window_us) == 2)
->  		state = PSI_IO_SOME + res * 2;
-> --
-> 2.43.0
+diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c b/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c
+index fecca343bd92..84bf18fd231d 100644
+--- a/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c
++++ b/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c
+@@ -25,7 +25,7 @@
+ #include "cedrus_hw.h"
+ #include "cedrus_regs.h"
+ 
+-#define CEDRUS_ENTROPY_PROBS_SIZE 0x2400
++#define CEDRUS_ENTROPY_PROBS_SIZE 0x5400
+ #define VP8_PROB_HALF 128
+ #define QUANT_DELTA_COUNT 5
+ 
+-- 
+2.43.0
+
