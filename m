@@ -1,96 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239157;
-	b=Jn2u9zLdMTXPTYT7l0sAkkmtUf/49XMeAZLljxCQXgtWvrN33xupBl0X39rCnwbVEiKc
-	 yQ0YiYAkZ3WWLsO674hfsZoTFJM2lUqMm26ARMCsp09gVmqk1EfAEPrumONkbG5C1oY/D
-	 kxE5QLKZAzAKo1g3bNIoqctL5/DfKeJKYeaEqu+F6MIfowXR3/mjg3FtR+b6Q2urlVSi+
-	 cjYRYk6YNLwuwLJFE723x7DH1XSvrEyGnUzOMPYjl95FK70EB2M2vf82GQgfgrtASe3Sd
-	 cxdSO3tNeAtPBQ4g3kNkQFY0SveYFFSB/cqtn2239Ve8eqDWfmEgQy73Ng6DJypl6Zg==
+	t=1794239149;
+	b=1CQ6S/LUIo4yueoRfV/JJ4QSSQBXv/7AfnGkScWS8t07NF+HGmP9K3YpeY8cKI358men
+	 LvIF0w9xVo0EzFPcLki6Efx/yMbzbXsWng29DERxnIIRicpuMJ6nXgQVQl/05scWkY3Qk
+	 BkblG6ywOyK9XbZzFsIZPTOekma3T78pUfM3hwj7VkgWLOzeVMQh29YglIOMS76zLzIAY
+	 /wu3QVq9gzt5CxHvNLLBPiVjkcS59pgAQ4jruop57UBjhb/3oQGF4dZUWFeTh7fEMFEfS
+	 mhaN2GpwfPfOIsXeI6Nn6kw4hvbDkAS9oIoI1otG1cCuixSSHIRrK1Pt3pKOee1OtoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239157;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=6LYtK+tbTD2I98lblh8z72sGlAc9Xb6Dd1FXdrWY3z8=;
-	b=szHD4D+mP5Yn4vbtNBv7Gj28ctvxWAQBimNINP8OzIVF+AF4Ey+UtSmVcsLXrK3fTPr3
-	 lr4T0rRTPyRsT5PsnEsZIJzMv+gAOQK6W3dQ9ffqM4QA/Rh5EBsTAJd7Rxhth2hK8gFJN
-	 c13a2CP47FH64dBIUGF5PwVOLXu53PLoKW9V97KKo/bTNXGidkR4qF4dtZ+5WZMaSyoVl
-	 /pF6HKLkP+8n4Shqhr0+9J5nSd4l++H4RURsai52gL4CzB8oWfrpYtjO5yn8gOBSNE/d4
-	 WRw6rdJmP/hA2oNw60vqlCafnZxUs8ekkjDQOlVuH6Fv/2DQaTsth2bW9lP8rbaCVyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239149;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=9Q+7RmGiXiMjZGRgbB4DLZQo/PrtHeW7nZ+vrrlEwbs=;
+	b=DKffXfz2PByq3wUqPzVnTpPx2sdThCWoum09w7zYjcgkk99sBAhKNi3AyqhvEyrnqNGi
+	 EXixCxeji6f+rYZf856FssG/YrrcVKfX+QYXgPxldXwLZ8BK5h5u44VFyY/lpD5bUKfqM
+	 hwTMs0LL8jT5RvY8nrdjlLhX9yuZMzKpNKtFMsT+ZX5kfOIoS5ws2QoVpSrQtiLyI9QSJ
+	 ciBSMRVX/brky0MxekIFfA0/UQjthoQFaPW+jzQZ07+njJrMzcF7iqrILZmUnbCCdcyRn
+	 pToL+grdfN4Fx/C6e5Q42f6lngPDdrDFVIDzTPROrZkiTWWhAc0KYmMvBg7E96UJ7ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=IS0pGvnj;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=V+586NAv;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34648606EEB9
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:45:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34648606EEB9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82698606A336;
+	Mon,  9 Nov 2026 15:45:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82698606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=IS0pGvnj
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so9325945e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:45:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1794239156; x=1794843956; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6LYtK+tbTD2I98lblh8z72sGlAc9Xb6Dd1FXdrWY3z8=;
-        b=IS0pGvnjEz37wBiXQOYf3x0I2gJ4jbH5++Z+bigFH8M5+TA1apPL7XOFUnkMsCQwgj
-         J2qfzClny9+VUCYmOQPUhWxjpOgDkeg0yyCUjmjfociANFiVvb1C/F69PMBboH387fgt
-         KNKB/KwKQykquYHCx5kghGSMVuKiwKOc1eCTjXbwLrVH5366g5JLo59gWpUjPPz4Wwla
-         +CAyYZ1KxHBgjmMoKfPwo5c4CU6MbMv96GhY5zQqNKWStLHBGKVY9pemH3VL3n9R6/D8
-         3BvwEw1ZHN1RsKd3Vj7VRHVTjvLUYastXNs3Dt4FJBYSLi/JFXpsUKNjcqz71Jgrs38n
-         9utA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794239156; x=1794843956;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6LYtK+tbTD2I98lblh8z72sGlAc9Xb6Dd1FXdrWY3z8=;
-        b=ngKKQX5uxNyCXlTSHRAcgfPB5Dzf5s3jPDP3GRzGX9/5A1XEkMFkn308JYdIqa7LWC
-         ES8uIVemUvDdXiojvF/xWJ1Hk+QV33yTddCpL6S2v0HseAd5ijjr3xC+fc7RSSF5zs4U
-         TlUNIXF4Q+2ZqFsupmj73PGJ5puCSpP8hXBbl6Kjsa+3sb2NIGY0UIOT1WwwSFOMwfjg
-         IB5HOnE5MdifUR39WJDIg0uL1W6VzCL7RW6NkJxX+Z9iqMQO0ZgTJi7ycrD3FC5IIxX8
-         G2dFDi0JTGrKDfGf5qwERCGWvo4VQW2KpsVZzcFnjwW1zJ9joCA1Fr+dnWWVu1TkiafF
-         ILgA==
-X-Forwarded-Encrypted: i=1; AL+hErGm1LA736HCl09cQtU0aMnxVR5Fe+3B+VUv1P+z07y9SnP8CZfzfUHpw9v7nK6JUSKVoGWhU3gOEj9myXY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/MZFL5NA530DgN0+camRHJpf0aIlSlBGS4O69vSJFSvhq8OnU9
-	2pAxXYA+VixLC4mEQbrOQFicMklGI+uLAe+cgQHnk+vO7UnVFJiT3qXAX/j5SgBGHOM=
-X-Gm-Gg: AYBFou3237qc1BDL/wX/ZlmX5JMRvPQgYxLxBkUMfhY1sw+QQdsNZ43VRsADi7twrlB
-	O+cduhMi181ej+JY5MUqBN6MzgMJ3aMV2RHtFc/ZzMbVDXrB/AUlGS9Wg+4Rf/Jnr5vOc4cx232
-	6Q1MdNkAIMHDUglXy+h6ZIwFacdI7L9fPFDMaeU1U4G/IsWRai5tiTS7LY06fCNH7A3uRdo6gFz
-	tKQl+2nYfvZ+YNEUWgjBaxpRXzf2YD7KWN57a/45LuLoK+on/d8zF9UWMurTu2UpPFU4owWACaq
-	Eg76rjY8lAsZvB3dC6nJlfQU3T2C0pepHwI4jT/jKrCiulAHJob5+gNzjmxZ6Yy1OLFiIkQV6VS
-	saoAuhl518vhx+fIPhtleuE7fqu/Di+gvtvt1u4dOsMDkWgqfOxAjS/D1rrQulJBOO5NRfpTIHx
-	ZfOyn+tnttrahaQuGrtg3e9OXfWUo/9iKOZnaOdtfavnbpkV2HoGQsCWW9wwF7cQ5em5bT8Gu06
-	B/WwpGPHP9/FuPvvrKU2+TYup9UNb0PIUCanwyfh3WUHMlGmp099ciEiYp6/58gDDFYqe1eOxlF
-	r0LCjb42LIaP1CCfTUDGKgwefwECCA==
-X-Received: by 2002:a05:600d:82ea:b0:4a7:7f3f:6f8e with SMTP id 5b1f17b1804b1-4b943f76d81mr99129045e9.0.1794239155647;
-        Mon, 09 Nov 2026 07:45:55 -0800 (PST)
-Received: from pathway.suse.cz ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7d54d6f93sm397296675e9.0.2026.11.09.07.45.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 07:45:49 -0800 (PST)
-Date: Mon, 9 Nov 2026 16:45:46 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Chris Down <chris@chrisdown.name>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	printk@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 00/16] printk: Clean up preferred console handling
-Message-ID: <avHqqoJO8C15LkpG@pathway.suse.cz>
-References: <20261106171952.207909-1-pmladek@suse.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=V+586NAv
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=9Q+7RmGiXiMjZGRgbB4DLZQo/PrtHeW7nZ+vrrlEwbs=; b=V+586NAvw1i5hM4ViF1nQH9Z2H
+	64twHzsJNk3IHZBrWoUXQiwDt5YK51Yl2YRB26u8iC0TwIJFvKdzvrW7lXTdbg09fM6oxd5vzX3xz
+	stg1z8N+YyWiR3Fp+NvVqzreEOi0x0U8CUSyP9UJ25U3DVoZeusM3VgfcZqQrwvyxhkvGwbfO/YG8
+	1jeJFZmSpzMc3XczDenhjezDVMVPzIcWuqYT60CfnGjHgBsrFN0i0iBBXA+21TGWt9V9AghkwHUdG
+	MlOxGZkJ5JvBG6a3HJ1vOsNR3cpX8gwTeGo8D5gjPJQ843sDIFjekqIZJ6wx/h41Z0xoJsnqLJKZo
+	WYhXXnsA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xQRYw-00000006teL-3Mit;
+	Mon, 09 Nov 2026 15:45:39 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 873B230057E; Mon, 09 Nov 2026 16:45:36 +0100 (CET)
+Date: Mon, 9 Nov 2026 16:45:36 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Kayra Cizmeci <kayracizmeci@gmail.com>, mingo@redhat.com,
+	juri.lelli@redhat.com, dietmar.eggemann@arm.com,
+	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+	vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, lukasz.luba@arm.com,
+	rafael@kernel.org, linux-pm@vger.kernel.org, tj@kernel.org,
+	void@manifault.com, arighi@nvidia.com, changwoo@igalia.com,
+	sched-ext@lists.linux.dev, qyousef@layalina.io,
+	christian.loehle@arm.com, pierre.gondois@arm.com,
+	sshegde@linux.ibm.com, tim.c.chen@linux.intel.com
+Subject: Re: [PATCH 02/20 v3] sched/eevdf: Reset lag at wakeup when prev CPU
+ has been idle
+Message-ID: <20261109154536.GK1779021@noisy.programming.kicks-ass.net>
+References: <20261106151947.3991524-1-vincent.guittot@linaro.org>
+ <20261106151947.3991524-3-vincent.guittot@linaro.org>
+ <au38gSTzmvPKmqWT@scheduler.schedules>
+ <CAKfTPtDXo8_3tfXt=UH+BKyO1rJCWjRAVXjO5nFVHO1NBd8LyA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,34 +80,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106171952.207909-1-pmladek@suse.com>
+In-Reply-To: <CAKfTPtDXo8_3tfXt=UH+BKyO1rJCWjRAVXjO5nFVHO1NBd8LyA@mail.gmail.com>
 
-On Fri 2026-11-06 18:19:36, Petr Mladek wrote:
-> Hi,
+On Mon, Nov 09, 2026 at 04:27:14PM +0100, Vincent Guittot wrote:
+> On Fri, 6 Nov 2026 at 17:22, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
+> >
+> > On Fri, Nov 06, 2026 at 04:19:29PM +0100, Vincent Guittot wrote:
+> > > @@ -8376,6 +8383,9 @@ static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+> > >
+> > >       dequeue_hierarchy(p, flags);
+> > >
+> > > +     if (!(flags & DEQUEUE_SAVE) && !cfs_rq->h_nr_queued)
+> > > +             cfs_rq->idle_seq++;
+> >
+> > This needs WRITE_ONCE, no?  3/20 uses READ_ONCE().
 > 
-> this patchset does some clean up of the code for handling preferred
-> consoles in the console registration code.
-> 
-> It is a prerequisite some more patchsets, namely:
-> 
->   + for Marcos' clean up of CON_ENABLE
->     flag handling. It should prevent regressions caused by the
->     hidden effects of try_enable_preferred_console(), for example,
->     see https://lore.kernel.org/r/89409a0f48e6998ff6dd2245691b9954f0e1e435.camel@suse.com
-> 
->   + for Chris' per-console log-level, see
->     https://lore.kernel.org/r/cover.1764272407.git.chris@chrisdown.name
-> 
-> and maybe even some more.
+> I hesistated to make it WRITE_ONCE but i concluded that it was not
+> strictly necessary because the READ_ONCE is only used to compare the
+> value but not use it for any computation or sync so if the compiler
+> wants to do any kind of optimization what we really care is : is it
+> equal or not ? so any intermediate value that we would read would be
+> ok
 
-Heh, Sashiko AI makes things interesting. It found some real problems
-which I just commented.
+Right, so without WRITE_ONCE() the compiler is allowed to write the word
+in random order byte writes. When comparing only cares about equality,
+any intermediate messed up state is not equal. And since we were
+incrementing, we're not supposed to be equal to any previous snapshot.
 
-I have the fixes mostly ready. I wonder whether you would prefer that
-I send v7 or you have already started review of v6.
+Therefore all is well.
 
-I do not have strong opinion. The changes are rather simple. But the
-code is not trivial so that even small changes have surprising effects.
-
-Best Regards,
-Petr
+That said; we should either document the above reasoning, or just do
+WRITE_ONCE() and get all the sanitizers off our back, because I'm
+certain that KCSAN is going to complain about this.
