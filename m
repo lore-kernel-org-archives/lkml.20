@@ -1,66 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187157;
-	b=mc7ukcF16W/EnkOtvv85hhd3XSLGlzGm5jzoOwLOEZIsUOvbnitCRUFMr0t6TEQ53y2e
-	 j62VUlY/Mjc97HbhIR6crVwwLV2Bjg0I85cwT+byYWmQrh315vYQLHqPNd89If5z7kGCP
-	 B9UuDwYPo4r39GqpsVIAIFA8CbhN6EyOvcrzyPuNx+MnTVTYXd5dNFeAawi6naWsd6QFp
-	 GIyaq+x1a9rVqgY/T3snlcWe+I7wFI7T3rGpdbcodlqrZTiyuOTvCOUw1DUtOg8jvie4L
-	 wlgAqKujD8ekahkESvJItMbo2zTAOSZr/q/3yyW9lYappRlft/kvngEjDT2zhlwWafg==
+	t=1794187280;
+	b=1TLF5MGHP9wLe0iKxWwymF3cbtl15QWyCDT8nycwgTO+q5W5LK1qRhwXUI6Ase9Rm6wX
+	 YjUM/FGlI4kn0dpE5xy3+/OVS8/Q08RgEVkRhjSXk7Gf1oNm5wIF1an73Qz2A5VkwW4gg
+	 UFMppvUI6c3hE9aK7EapxOT06ftn9eivqLh8W6bb5iW+4oHeW6a4W9fwFTJMEpuIRIt0u
+	 9x5hgKLP7CItA+98wBasCbIc/GUSnajtDIBkS1qs5N2g9ixc6ArTgUZF404PiKzTfOa77
+	 flK3kV//SryFRiAPo+QaWrs9JQpp86jz6LOYN1+ISjTM0KgVf8XBqznEc9FQK52X9sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187157;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Yai90Hd3dLOe+5rDvODu2eCI5bMe6nPfP5rfjydqf1g=;
-	b=CjCa9BgqNJTPd10TwUmKP6w+7hbsRDDebWp1zCaqB6EWWkjxT8yhV2RK0uD7SM238gCx
-	 k9Ue9kRx21oz2fz3R0J4sExq9yoBf7lT/aMQa3lopWYjdAf0E275988Osimq1p73PUCie
-	 f2CjD2qdvNSIb2DJreQn5Usp23JbFk6QIntXS0lJz/TGIzC3GEbF6eXRKKWC/5MSozO0t
-	 V+xq4Y+0BSPlfhyO4iw7DyY1Avf/27i2EPvni7TFE7dVs0Y9XFww+4zQW4DqIWtwSNj0d
-	 WVFSkKxfLfYCSwwncOUdKIz1vkNFH4DnYOcBqtFY7geOUrtd5fce5d0rNBi9m738+DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187280;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=o4iYp1mgiuHJ22mIDE1+YNcbZQqDTtCDvucolqruxaE=;
+	b=ln3GbimlRiZX4I5ga8y6vjP5uKKEYMr5TZ8ngpvmx1cfc4LrIWnprFCTpCrczN/RDQ1a
+	 3XT92+kpeWroP10DysPtCYZHhQZWIEtDmM1lU7gBONXa0UWQ6kfehQ5rSFtBuEGdYjIsO
+	 sA1vsXwAxVa0nt8UMkYGo063lG5G146/XbQ4XO0tzwEpAStbgZPqy+DrOOIakH6LYXlGI
+	 yhv/nrXb35IWN0Re/mOKp+I7l2xfv1F7WaGrz8oonYyUGMxFUwpN1/SA8R9DjluPk9Loo
+	 j7oXdgquftqkH9S5M2HFUkqRdRmBr+d+G4SXtqRGce18RMZcIIrzKzrbPzwA0Msi3Qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Z+fT3uBe;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5CD78606A31C;
-	Mon,  9 Nov 2026 01:19:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CD78606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Z8CMFoCM;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 713B2606A322;
+	Mon,  9 Nov 2026 01:21:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 713B2606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Z+fT3uBe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=Z+fT3uBeKI5H00stxVWvw6tW0NBlICoyKhOxF5MjZIHMX/Uw5vLzeo67Xqbj6YZcQUv6arfSH251R
-	 AABWCJImj1Cj5LMjXlTOseLTzhhmrRYvSardM3Iq8ZlJwW+RR4sdAKmr3Hm396hm5mT8SUaM911vek
-	 4pNT/aDYgya6fM1w=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af11f8d5ac-c382e;
-	Mon, 09 Nov 2026 09:19:10 +0800 (CST)
-X-RM-TRANSID:2ee96af11f8d5ac-c382e
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from [25.255.2.225] (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af11f8d89a-7b223;
-	Mon, 09 Nov 2026 09:19:10 +0800 (CST)
-X-RM-TRANSID:2eea6af11f8d89a-7b223
-From: xujiahao <xujiahao@cmss.chinamobile.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	xujiahao <xujiahao@cmss.chinamobile.com>
-Subject: [PATCH v2] Input: sidewinder - use scnprintf() for the port names
-Date: Mon,  9 Nov 2026 09:05:48 +0800
-Message-ID: <20261109010548.438699-1-xujiahao@cmss.chinamobile.com>
-In-Reply-To: <20261106033300.3439313-1-xujiahao@cmss.chinamobile.com>
-References: <20261106033300.3439313-1-xujiahao@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Z8CMFoCM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
+	To:From:Reply-To:Content-ID:Content-Description;
+	bh=o4iYp1mgiuHJ22mIDE1+YNcbZQqDTtCDvucolqruxaE=; b=Z8CMFoCMwHNkaDy4xwo7g9Tmfd
+	tEwNb6kGCLWxN0HFFV7k4VHAgrkwh4xZ10twvER4YDsWRNU7lDrIrWJVB9GEAvPSoMKwxbphrCVg1
+	1JGCz0nSNZquQsoMn1Kt4Cv8ecpUsrPCB7TTO1LOr9YJ1YRS8QKOLbf5EnkpN3sNLCXajNGREffp+
+	VrUkl4ivaMoP1RzkF36Ret4vhIuuveiRg7A6jj8iPWsrIT/wmWo4+tloIbP98O6aIuEAxrzwI7+Mu
+	E7iwDwmUAL3iXuSad6DonGqnkgDshF30+l/0tqo6hRb5JC9/SY6VMj5PAvsgEDP1FI4v9G83nxEPi
+	X0Yzfb4g==;
+Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xQE4P-00000007Pvy-05vk;
+	Mon, 09 Nov 2026 01:21:13 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xQE4O-0000000EKUd-3UqI;
+	Mon, 09 Nov 2026 01:21:12 +0000
+From: David Woodhouse <dwmw2@infradead.org>
+To: kvm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	x86@kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paul Durrant <paul@xen.org>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Sascha Bischoff <Sascha.Bischoff@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Jack Allister <jalliste@amazon.com>,
+	Dongli Zhang <dongli.zhang@oracle.com>,
+	joe.jin@oracle.com,
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH v12 09/24] KVM: x86: Cache host vclock_mode for masterclock eligibility checks
+Date: Sun,  8 Nov 2026 17:20:55 -0800
+Message-ID: <20261109012112.3415328-10-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261109012112.3415328-1-dwmw2@infradead.org>
+References: <20261109012112.3415328-1-dwmw2@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,64 +95,123 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Sender: David Woodhouse <dwmw2@infradead.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-sw_connect() composes the physical path of each port as "%s/input%d"
-from gameport->phys into a 32-byte array, and sw_3dp_id() builds
-" [PnP %d.%02d id %s rev %s]" into the 40-byte comment buffer of
-sw_connect().  GCC reports that both formats can overflow their buffers
-in a W=1 build:
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-  drivers/input/joystick/sidewinder.c:538:58: warning: ‘%s’ directive output may be truncated writing up to 8 bytes into a region of size between 5 and 21 [-Wformat-truncation=]
-  drivers/input/joystick/sidewinder.c:727:29: warning: ‘/input’ directive output may be truncated writing 6 bytes into a region of size between 1 and 32 [-Wformat-truncation=]
+The remaining users of pvclock_gtod_data only need to know whether
+the host clocksource is TSC-based. Cache the vclock_mode value in a
+simple kvm_host_vclock_mode variable, updated by the pvclock_gtod_notify
+callback, and use gtod_is_based_on_tsc() for eligibility checks.
 
-The values seen in practice fit these buffers, and a truncated name is
-harmless, so keep the sizes as they are and switch to scnprintf() to
-make the truncation explicit instead of letting the compiler warn about
-a possible one.
+This is inherently racy (as it always was — kvm_track_tsc_matching
+never held the gtod seqcount), relying on eventual consistency: the
+notifier fires on every timekeeping update and will correct any
+transient inconsistency within one tick.
 
-Link: https://lore.kernel.org/all/20261106033300.3439313-1-xujiahao@cmss.chinamobile.com/
-Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Signed-off-by: xujiahao <xujiahao@cmss.chinamobile.com>
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- drivers/input/joystick/sidewinder.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ arch/x86/kvm/x86.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/input/joystick/sidewinder.c b/drivers/input/joystick/sidewinder.c
-index 7f37d18c8..bca81df19 100644
---- a/drivers/input/joystick/sidewinder.c
-+++ b/drivers/input/joystick/sidewinder.c
-@@ -535,12 +535,12 @@ static void sw_3dp_id(unsigned char *buf, char *comment, size_t size)
- 
- 	pnp[7] = rev[8] = 0;
- 
--	snprintf(comment, size, " [PnP %d.%02d id %s rev %s]",
--		(int) ((sw_get_bits(buf, 8, 6, 1) << 6) |		/* Two 6-bit values */
--			sw_get_bits(buf, 16, 6, 1)) / 100,
--		(int) ((sw_get_bits(buf, 8, 6, 1) << 6) |
--			sw_get_bits(buf, 16, 6, 1)) % 100,
--		 pnp, rev);
-+	scnprintf(comment, size, " [PnP %d.%02d id %s rev %s]",
-+		  (int)(((sw_get_bits(buf, 8, 6, 1) << 6) |	/* Two 6-bit values */
-+			  sw_get_bits(buf, 16, 6, 1)) / 100),
-+		  (int)(((sw_get_bits(buf, 8, 6, 1) << 6) |
-+			  sw_get_bits(buf, 16, 6, 1)) % 100),
-+		  pnp, rev);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index b47c36265c2f..0ed3d2549ac3 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -1187,6 +1187,8 @@ static u64 compute_guest_tsc(struct kvm_vcpu *vcpu, s64 kernel_ns)
  }
  
- /*
-@@ -723,8 +723,8 @@ static int sw_connect(struct gameport *gameport, struct gameport_driver *drv)
+ #ifdef CONFIG_X86_64
++static int kvm_host_vclock_mode;
++
+ static inline bool gtod_is_based_on_tsc(int mode)
+ {
+ 	return mode == VDSO_CLOCKMODE_TSC || mode == VDSO_CLOCKMODE_HVCLOCK;
+@@ -1216,7 +1218,6 @@ static bool kvm_use_master_clock(struct kvm *kvm)
+ static void kvm_track_tsc_matching(struct kvm_vcpu *vcpu, bool update_mclock)
+ {
+ 	struct kvm_arch *ka = &vcpu->kvm->arch;
+-	struct pvclock_gtod_data *gtod = &pvclock_gtod_data;
+ 	bool prev_matched_tsc = ka->all_vcpus_matched_tsc;
+ 	bool prev_matched_freq = ka->all_vcpus_matched_freq;
  
- 		snprintf(sw->name, sizeof(sw->name),
- 			 "Microsoft SideWinder %s", sw_name[sw->type]);
--		snprintf(sw->phys[i], sizeof(sw->phys[i]),
--			 "%s/input%d", gameport->phys, i);
-+		scnprintf(sw->phys[i], sizeof(sw->phys[i]),
-+			  "%s/input%d", gameport->phys, i);
+@@ -1269,8 +1270,9 @@ static void kvm_track_tsc_matching(struct kvm_vcpu *vcpu, bool update_mclock)
+ 	 * are fine — each vCPU's pvclock has its own tsc_timestamp that
+ 	 * accounts for its offset.
+ 	 */
++	int host_vclock_mode = READ_ONCE(kvm_host_vclock_mode);
+ 	bool use_master_clock = kvm_use_master_clock(vcpu->kvm) &&
+-				gtod_is_based_on_tsc(gtod->clock.vclock_mode);
++				gtod_is_based_on_tsc(host_vclock_mode);
  
- 		sw->dev[i] = input_dev = input_allocate_device();
- 		if (!input_dev) {
+ 	/*
+ 	 * Request a masterclock update if needed: toggling master clock,
+@@ -1283,7 +1285,7 @@ static void kvm_track_tsc_matching(struct kvm_vcpu *vcpu, bool update_mclock)
+ 
+ 	trace_kvm_track_tsc(vcpu->vcpu_id, ka->nr_vcpus_matched_tsc,
+ 			    atomic_read(&vcpu->kvm->online_vcpus),
+-		            ka->use_master_clock, gtod->clock.vclock_mode);
++			    ka->use_master_clock, host_vclock_mode);
+ }
+ #else
+ static inline void kvm_track_tsc_matching(struct kvm_vcpu *vcpu,
+@@ -1454,7 +1456,7 @@ static inline bool kvm_check_tsc_unstable(void)
+ 	 * TSC is marked unstable when we're running on Hyper-V,
+ 	 * 'TSC page' clocksource is good.
+ 	 */
+-	if (pvclock_gtod_data.clock.vclock_mode == VDSO_CLOCKMODE_HVCLOCK)
++	if (READ_ONCE(kvm_host_vclock_mode) == VDSO_CLOCKMODE_HVCLOCK)
+ 		return false;
+ #endif
+ 	return check_tsc_unstable();
+@@ -1788,7 +1790,6 @@ static void pvclock_update_vm_gtod_copy(struct kvm *kvm)
+ {
+ #ifdef CONFIG_X86_64
+ 	struct kvm_arch *ka = &kvm->arch;
+-	int vclock_mode;
+ 	bool host_tsc_clocksource;
+ 
+ 	lockdep_assert_held(&kvm->arch.tsc_write_lock);
+@@ -1828,9 +1829,9 @@ static void pvclock_update_vm_gtod_copy(struct kvm *kvm)
+ 			ka->use_master_clock = false;
+ 	}
+ 
+-	vclock_mode = pvclock_gtod_data.clock.vclock_mode;
+-	trace_kvm_update_master_clock(ka->use_master_clock, vclock_mode,
+-					ka->all_vcpus_matched_freq);
++	trace_kvm_update_master_clock(ka->use_master_clock,
++				      READ_ONCE(kvm_host_vclock_mode),
++				      ka->all_vcpus_matched_freq);
+ #endif
+ }
+ 
+@@ -7210,17 +7211,23 @@ static DEFINE_IRQ_WORK(pvclock_irq_work, pvclock_irq_work_fn);
+ static int pvclock_gtod_notify(struct notifier_block *nb, unsigned long unused,
+ 			       void *priv)
+ {
+-	struct pvclock_gtod_data *gtod = &pvclock_gtod_data;
+ 	struct timekeeper *tk = priv;
+ 
+ 	update_pvclock_gtod(tk);
+ 
++	/*
++	 * Pairs with the READ_ONCE() in the lockless readers; the race is
++	 * benign by design, relying on eventual consistency (the notifier
++	 * fires on every timekeeping update).
++	 */
++	WRITE_ONCE(kvm_host_vclock_mode, tk->tkr_mono.clock->vdso_clock_mode);
++
+ 	/*
+ 	 * Disable master clock if host does not trust, or does not use,
+ 	 * TSC based clocksource. Delegate queue_work() to irq_work as
+ 	 * this is invoked with tk_core.seq write held.
+ 	 */
+-	if (!gtod_is_based_on_tsc(gtod->clock.vclock_mode) &&
++	if (!gtod_is_based_on_tsc(kvm_host_vclock_mode) &&
+ 	    atomic_read(&kvm_guest_has_master_clock) != 0)
+ 		irq_work_queue(&pvclock_irq_work);
+ 	return 0;
 -- 
 2.43.0
-
-
 
