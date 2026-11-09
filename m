@@ -1,101 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794204926;
-	b=Sy4KhEMeulyejsjUC39Zj5dSSI7taLyijw2Sb8nQUtirDad3cEndIoz+gn06ThASlt3v
-	 QauzDAbsOMtP+/LYWXSn+rWeMUyTJswPeEAAQwTwNZNJ6oG73rhhhuGxtpCOpbGspE3+b
-	 bk+HRYm1mTjC2hKWWDM+xNk+/5iUaD9MI6c1INl4H8tTkbm6fMJmnaG/R+ta82FAqJH+n
-	 +B9fIQBEb9dCEbuSfFEkRZr4psNgoBxhWEoarfb8NAap5djAsIyAfux+ePYLJwsQE1vFv
-	 q4/oft8Os6vZMoGhIuaruqrS7nrffkgtt/pR4t3smU3SisSPOgHmy13gfp7mk6Q1GkQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794204926;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=1OirEdYPjNWlGy7xmMe0PuTtLR8bBFzhH374tYnu7hI=;
-	b=MLoJFeOTJJBoC0ijwKzkrMsXA3vZ+RoyXkMckvVfGCcFzO3vcrP6iAH4pA/QuWSdOCG9
-	 5pgzBFJ+Cd0GKCPB23jYI42yuy5I8Bndy9ne9fq2PkXItoWdg2xMEA6+kM8FyXWmoJH3F
-	 Tki2sHlb4js9FpouXBWZPkvjTYGn41ne6aRY54zpHkKLtwMchhwjg7TYirF8j6LKj9PKw
-	 lSdP5fT9PhRY+1wBdJGq9Z7ARqZ+6iuqcmS0GYdQrNYezhM4DyWK9YaahSIUWbFYs1V5l
-	 Sc/FQXPSUtJo2mCZ0RLDoGVPg6a0SE8aBlrPXcYANxCxRcG4h96DLn5Eh9hK7ZQ7Fng==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VnjAxhbN;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.136
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794204953;
+	b=Vs+qq2a8Ld3sTgVXIBbkXWNuw4OUirRkw/hHa86OG44QuEqplb6RGtdUIHc5YFJQU7ik
+	 ccEsXrJdYUZcGtuqf+UTICM+PWBZqlKA0tP2oPKD2E7oMDcm1brUwRpZObZjGyA3F/WB9
+	 oxVaQkEoq7+iN2CxrhdlV16RVo3TRvYs7B/vD6+Z3HEv5cmYehAPTdX9xWnPMffUpudEz
+	 DC3+igjW+tSLRvPYyt4qNFA02ouyDsRX7o6task5bo+Qf67apevGuUh9wJO7BLM63Bfud
+	 UCEXZl1+Jcak+VzWJLEVB5MoA67HJsnOjaZaiuIYyiOdvOZdi83tmADI7yzOYoTBpPw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794204953;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=6cnuEJnvW6lfgAkxwp5j4btXtUzOXabWpPgzUeOVG40=;
+	b=qeQMKy1JMz/1gZUVPitzBqwHsZKF5IbnhDO6W1xLraQYnvgPabksHT+oSxlQceegsh4r
+	 IQr0cmTLNOKqraDf5wWl4IfUIyg9lUBjd9/FPkMetDQVUvZrX+3IFBeppB5lIIXC6J/ma
+	 1N7ZyW/r9QGMtZforvFNrniZla/tXn+xLwuKDO9g0VDvD4ZFLUtxWbZgyqw6ENcMfSGK/
+	 CZZ1BBY/LqLk/LjwdpGiC5SgsQfda4840KATzC/4x+JnuuwiHk2RU3npB8CyAtehNkuui
+	 nZyJmbCRBbBM1yGVcx+YnupvOMDJM0c7DpS5pTbRe6/Od/rf+EMbycpdqK5k1/7bseg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TlkAUAYv;
+	arc=none smtp.remote-ip=95.215.58.136
+Received: from mta1.migadu.com (out-136.mta1.migadu.com [95.215.58.136])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17BE0606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:15:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17BE0606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4B9606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:15:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB4B9606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VnjAxhbN
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b6e8b6d424so702031a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 22:15:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794204924; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rdMEZywTruDo2Z7GA0LlGKHNPO9L9d+D1nEB37CcbAl6tnAbLEqhxmNurEGSvYFR9C
-         3N1q/kMyXICv8DH76eb2Kn8SHushn+K9/zzaIHg0nvJBqFQKNlYaDoz6KhFer7gMwten
-         W+9aqBlzeFu3TlALIRR5q1U7TRk+noMfp1HRMehIiAZv6RomZOwBwiTRRHDoe/3xvDz6
-         oQKS4zCezGm7FOU4WgU1lUoj+YOz2CI1BgrySsKNNugecu8R/45cMX2zojiW3a70EopE
-         U4DpmuGENqJqoFH+fSc/JSBtF9ElCHRRnCpEcTsf3yNV/gKH6tUNcNqLCf0FKC2NTc/Y
-         QCjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=1OirEdYPjNWlGy7xmMe0PuTtLR8bBFzhH374tYnu7hI=;
-        fh=XnuVgw5ztP64Hxk0s6pA6DgSyXBk6GzGs0Swc5djqis=;
-        b=shSYQX50ZvyXRkVAncRtWJSf7wwke1fVzxF6a1M3nEPMT5q4zNQugzOSnIgwNkKkPd
-         1AwfflywUP+JkU0dazhVOz03UuDngOoGeUXG5lfVAaTLf5n2LnmSVXaZIjRkYb9PB1fF
-         o1QiDc+LxYT02aaX94MWvVuAzcZ9dOZUJ7vf7InTQOWBIKSQn4q67kn582CeocAwDpDF
-         sXpXlTcKGczGbKvCM0o7IrkYP9HZF5KO49W+8u8D42NOS4rtrtP/90dxDIsE3oaldPUJ
-         X1QwQKVX+HDEaulGVNR4EbEiK1Vpou32w+dAYn3PQabcZQmfWwZ1hAvZaQaHpwUUag6e
-         YKeg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794204924; x=1794809724; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1OirEdYPjNWlGy7xmMe0PuTtLR8bBFzhH374tYnu7hI=;
-        b=VnjAxhbNIjKY+l3FrLTmF03OxcKJy99I711bzC3orIvQ/IyAT8tKQ1hKmQCwmbXoPR
-         NGkudxmIUppfph+Fay5VwyDK8YO6d5x4aT7B195TrKrr5HfSwfg3KS7Q+PAYuhNhEPiZ
-         IRenmIGzDopf4rYBDPbHVT/JQiS+FFrkbVxUynpEC1iK/+YOcP6QSwUx1yCz23ybDlcZ
-         Y0fYXmWkLUJ0pXjH0yv1XqMBAArtkh8qyC5x2xrKIwOCmyiDeMmIfSUS/ABWouNZWEaa
-         H12QVsoGGcFF3yvgGG+8UzKvr2Y9RB3LSzfnt0J6ZOp0TL3PJ3H1uIJuyrSmZaRtmYi4
-         Y3wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794204924; x=1794809724;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1OirEdYPjNWlGy7xmMe0PuTtLR8bBFzhH374tYnu7hI=;
-        b=Q0WUJpXwwv1yaXAziYRI5WFyRAmjxBCq7ercxRJFXAFU2bvBBwXpaYoIf7W5UDpF/s
-         ndVG+OBbwRZsPGT+vdRAoIRXDlKLSwDsNKGFV80pcTIMJGEi2B0zPicY2kr5XnNk2Sxy
-         9laSmTd5zrNBlmvbrGQyFQAvP7Q+OYkDmzYJBYiLcdFrZPBAQFNwy5xz6iHY0p4RBE2W
-         rvxyGgpBItRBTiXwotlAz7hghxeXbJSMMIE1ISSDLDiEn9KidA3TO6ZHR7Fmy91Qhvv2
-         AjufpMvDe0mgXXpw8IiCQPgiITuy1/e9yfjeJjjyXtLkIm17/Jp5gE+WbG4pI/YxaQDM
-         K0fQ==
-X-Forwarded-Encrypted: i=1; AL+hErHGz+3+bNzP7FvmkkQ/mYrICkVAEaSynTyjibN21bxyX1Bhd6/HVg6pPxQOA8xxKvi8cWmYWQcH39bznss=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8n+MAj6/uC+Ahhs3KW4Hp4bt39kJEWi9eZGfR5DTZMCSZH+mPp
-	H+nKGFcSIij2BFYu3Hvx1EMQfRqATIh/HQ3RpPveN68sleM/4AMTU5G3j4fHPp0eMRvy//Y8HnZ
-	boh4v48719MIId3bBdZATqks1bggrXGg=
-X-Gm-Gg: AYBFou316u4BfsPCXgSHaHk05qvq0e9/UshsKCDE/+XQkR65h89dQpmGkizgQV9Q/MA
-	uuBYGFke2mpgBOYKOCSrPxiq4edEhDuJQBfps7CABhx4zz3V6V9TR2MnGZwFw2bXDftQnunWaFA
-	Wib5YcHxwemXd40dvBtGEoSPqTntASXX39aiXKnfwmQAZq54SL5NLjChD+E/4G8KLuvdKN1j1e1
-	WV4JiN6SOzi2mnx/lqgWa/OPufVuDKYynx4NW2S5pn+OCVGOD8JVznLKhrXmYls9FBxHlKTlghf
-	HZp6GKXWu2ywxVSgSxwwkd0XW20SrINghTKFMKdd/7mIGTUuS3q06dktArKzY407EKtvFOqTVYa
-	tqCI5S3qFWeKZoLZAsOmzbZ9EefeKi4SRw2ft2QLl4lIMMErHFQax2ecn/tAvn2wriXw3xS48W1
-	AH2CBxcemi3f2Pd+ssHyPvoQDZCzmAoP0nRnXsRCTFehWSZL7+onE=
-X-Received: by 2002:a17:907:3ea1:b0:c2b:4142:2db1 with SMTP id
- a640c23a62f3a-c4d6d842e53mr191712566b.40.1794204924269; Sun, 08 Nov 2026
- 22:15:24 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TlkAUAYv
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=euyNRM4nzOyoMOPvqz19w86AtMhDDtspYlJVh4lVawE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794204950; v=1; x=1794809750;
+ b=TlkAUAYvdtdt++B68DPxUwN7wGxgseOvJ/3q4RMTzqJRH+LWnuIaHWf6QhhrDXso2jIHcWXr
+ EqyDuaSYqOeb4FQM6BMVrqlQQtK/RpLMTkA9EgwsbcvkmolDa92PvIckOPcgDZg0lzLSTvMen15
+ 6a/7fkm41fNoWOCqQOAOZAjY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 1d173c1a73d69c8c;
+	Mon, 09 Nov 2026 06:15:49 +0000
+X-Mizu-Trace-ID: 1d173c1a73d69c8c
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 9 Nov 2026 14:15:38 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: linux-mm@kvack.org
+Cc: akpm@linux-foundation.org, david@kernel.org, chrisl@kernel.org,
+	kasong@tencent.com, nphamcs@gmail.com, baohua@kernel.org,
+	youngjun.park@lge.com, corbet@lwn.net, hannes@cmpxchg.org,
+	chengming.zhou@linux.dev, kunwu.chan@gmail.com,
+	klarasmodin@gmail.com, linux-kernel@vger.kernel.org,
+	Baoquan He <hebaoquan@kylinos.cn>
+Subject: Re: [PATCH v5 00/19] mm, swap: extendable swap devices (xswap phase
+ I)
+Message-ID: <avFlClZec9mNayjd@fedora>
+References: <20261109055455.536925-1-baoquan.he@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,64 +68,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108095634.100517-1-clamor95@gmail.com> <20261108095634.100517-3-clamor95@gmail.com>
- <20261108205143.134d6aa0@jic23-hlaptop>
-In-Reply-To: <20261108205143.134d6aa0@jic23-hlaptop>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 9 Nov 2026 08:15:10 +0200
-X-Gm-Features: AclHuK8Qn06eeEYq6AauLfpWkIVYBvVrCQiH0heTOHXTTI9POYlOkAaf0cbYYK8
-Message-ID: <CAPVz0n3uRoQAN=rk1dHyHMFxueK8Ry0UsDxkxA=jzgGP7Ykceg@mail.gmail.com>
-Subject: Re: [PATCH v1 2/4] mfd: max8907: Add ADC client support
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-iio@vger.kernel.org, mfd@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109055455.536925-1-baoquan.he@linux.dev>
 
-=D0=BD=D0=B4, 8 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 22:51=
- Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Sun,  8 Nov 2026 11:56:32 +0200
-> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
->
-> > The Maxim MAX8907 has an 8-channel ADC at a fixed location. Add client
-> > support for it along with its regmap and interrupts.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
->
-> > diff --git a/include/linux/mfd/max8907.h b/include/linux/mfd/max8907.h
-> > index 35b2ede54f856..cf304afc782d6 100644
-> > --- a/include/linux/mfd/max8907.h
-> > +++ b/include/linux/mfd/max8907.h
-> > @@ -153,6 +153,51 @@
-> >  #define MAX8907_REG_MPL_CNTL         0x1E
-> >
-> >  /* ADC and Touch Screen Controller register map */
-> > +#define MAX8907_REG_TSC_STA_INT              0x00
-> > +#define MAX8907_REG_TSC_INT_MASK     0x01
-> > +#define MAX8907_REG_TSC_CNFG1                0x02
-> > +#define MAX8907_REG_TSC_CNFG2                0x03
->
-> ....
->
-> > +/* Regulator stride */
->
-> I'm not sure what this means. Stride of what?  Seems to
-> be some offsets in the register address.
->
+On 11/09/26 at 01:54pm, Baoquan He wrote:
 
-Regulator register offsets.
+Forgot adding change history versions before v4, please refer to below
+v4 patchset cover letter if you want to check.
 
-> >  #define MAX8907_CTL                  0
-> >  #define MAX8907_SEQCNT                       1
-> >  #define MAX8907_VOUT                 2
-> > @@ -165,6 +210,8 @@
-> >  #define MAX8907_MASK_OUT5V_ENSRC     0x0E
-> >  #define MAX8907_MASK_OUT5V_EN                0x01
-> >  #define MAX8907_MASK_POWER_OFF               0x40
-> > +#define MAX8907_MASK_RST_CFG_INT_REF_EN      0x01
-> > +#define MAX8907_MASK_NREF_OK         0x10
->
+[PATCH v4 00/14] mm, swap: extendable swap devices (xswap phase I)
+https://lore.kernel.org/all/20261003003136.750633-1-hebaoquan@kylinos.cn/T/#u
+
+> Changelog
+> =========
+> v4 -> v5:
+> - Rebased onto the latest mm-new (2c5dafa7f289). 
+> 
+> - A device now has a stable id instead of exposing the swap type:
+>   /proc/swaps shows xswap<id>, the debugfs file is named by the id and
+>   prints the type as well, and destroy takes the id. The id is assigned
+>   per boot and never reused, so a value read earlier cannot name a
+>   different device.
+> 
+> - swapoff accepts the name: swapoff xswap<id> and swapoff -a tear the
+>   device down, while a real file or directory keeps precedence. A name
+>   that does not exist reports -ENOENT; the sysfs destroy keeps -ENODEV
+>   for an id it does not know. The interfaces are now documented in
+>   Documentation/ABI/testing/sysfs-kernel-mm-xswap and zswap.rst.
+> 
+> - CONFIG_XSWAP_DEFAULT_MAX sets the default size of a new device. It
+>   takes a percentage of RAM, a size, or "max", and defaults to "200%";
+>   xswap.max= still overrides it.
+> 
+> - The cluster_info accesses are RCU-safe: the allocation fast path bounds
+>   a cached cluster against the mapped range, and the shrink drains the
+>   per-cpu cache and waits an RCU grace period before unmapping.
+> 
+> - xswap_grow() now links the clusters it mapped even when swapoff has
+>   already cleared SWP_WRITEOK, so a failed swapoff cannot leave them
+>   mapped and on no list.
+> 
+> - swap_info_remove() skips the commit limit probe for xswap; real swap
+>   devices keep it. See the overcommit note above.
+> 
+> - The cgroup zswap gate is checked again after the allocation when an
+>   xswap device appeared after the initial lookup, so a slot is not kept
+>   for a cgroup that cannot zswap.
+> 
+> - The patches are reorganized: the VM_SPARSE work is split into helpers
+>   and the xswap use, the max/pages widening moves before the sysfs
+>   interface, the shrink trigger now carries the workqueue deferral, and
+>   the unmap helper is prepared for range shrinking in its own patch. The
+>   series is now phase I of four, with the swap-table backend records as
+>   a phase of their own.
+> 
+> Baoquan He (18):
+>   mm, swap: refactor free_swap_cluster_info to take swap_info_struct
+>   mm, swap: add VM_SPARSE cluster-array helpers for xswap
+>   mm, swap: use a VM_SPARSE cluster array for xswap devices
+>   mm, swap: widen swap_info_struct max/pages to unsigned long
+>   mm, swap: add a sysfs interface to create xswap devices
+>   mm, swap: refactor swapoff and add xswap_destroy
+>   mm, swap: require zswap for xswap devices
+>   mm, swap: use a stable id for xswap devices
+>   mm, swap: let the command line set the xswap device size
+>   mm, swap: add CONFIG_XSWAP_DEFAULT_MAX
+>   mm, swap: let swapoff destroy xswap devices by name
+>   mm, swap: add xswap grow trigger on cluster allocation
+>   mm, swap: add debugfs counters for xswap
+>   mm, swap: make xswap cluster_info accesses RCU-safe
+>   mm, swap: prepare xswap_unmap_clusters for range shrinking
+>   mm, swap: add xswap shrink trigger and defer it to a workqueue
+>   mm, swap: do not give an xswap slot to a cgroup that cannot zswap
+>   mm, swap: skip the overcommit probe when removing xswap
+> 
+> Chris Li (1):
+>   mm: xswap support for zswap
+> 
+>  .../ABI/testing/sysfs-kernel-mm-xswap         |   43 +
+>  .../admin-guide/kernel-parameters.txt         |    8 +
+>  Documentation/admin-guide/mm/zswap.rst        |    9 +
+>  MAINTAINERS                                   |    1 +
+>  include/linux/swap.h                          |   17 +-
+>  mm/Kconfig                                    |   20 +
+>  mm/page_io.c                                  |   19 +
+>  mm/swap_state.c                               |    9 +
+>  mm/swapfile.c                                 | 1569 +++++++++++++++--
+>  mm/zswap.c                                    |   11 +-
+>  10 files changed, 1593 insertions(+), 113 deletions(-)
+>  create mode 100644 Documentation/ABI/testing/sysfs-kernel-mm-xswap
+> 
+> 
+> base-commit: 2c5dafa7f289d760f4492260b0988029aab478b0
+> -- 
+> 2.54.0
+> 
+> 
