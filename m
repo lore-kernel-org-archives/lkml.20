@@ -1,47 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794256543;
-	b=bAerrWrmNUR0bRjijSaGPBgT8WqBb65lJnIPcXM3ScV8KP05X4yp0/9xxRvwvgA2j7jh
-	 UI6IlqkaIyazMIqz6/gmwezA/yC7n/6lQxwQ0LwPqvIw9MJ01v/MRSiIwTGc0kifFIMaX
-	 kRh94joVj4bL8w380om0B4b4o1+552dIjKar5LTej2z7fXUKqtjUbamXCe0k/vWO/bGFk
-	 RYzsoQCQD2CULvsAvChxB60bArsl4mbQtjaYtWveSnxuaQ7oTW1jFQNJhOF5xJCzTLzxT
-	 SzTf8+apXKbStqif8TXgxEnEPLECAoDOJ6BVXvPzwkT1a3pgJmlTAO9rRKWyg/MIQww==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794256543;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4S0ZASTCxuNpF4rd1cySC3wOXo2N6s1iGqE54udrluA=;
-	b=Vi/P+ARoEVr7QPPRdzUViXssk0lV8DAIUMbDlgBYQUZwE+Ic4OZEl2oO7WAIU/am3eBT
-	 XSkdql7EPzzk4wde5q4YeSdJw5ViNXCiOqoRQaW31rfbXtRhJBGNtcHgwDKZxuJ/hRF03
-	 dhphV+h8s+tj4147h1spP9h7vRLnlT0U4BxJvHO6VPWWxy5qc9tjtwqI/rtQAQCbfPpXp
-	 rJ65ohyFmr4O+FjHxqTcSy4Z0nX9hm5wA/liQDuX+LuXtHy3G3O6284THWp7RefnvwJ01
-	 VusVEiWNM/qA2p0cW9CDwpkrvaD/G/U9zZ3PG3FwZ/zFOOXt1pv1iBYokL4jedMXWeQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4sw6wQ3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794256560;
+	b=HUMxwrFfmor4E6Q9gNycYxCl818YvzBhQs+9w6GKhxXZtp2odR0BIYfalUw+PrKLH0OI
+	 4O7Yl/OibJwAHDNLnCxv8MzeuneptLlB/YnN2D5pV7MyK4kJRMazx8TMrFCZNRRkyQR8G
+	 2GAwOTgZhy0eCAERVdP2OfoJRkOSMqgltT87C0LSDTksZB5QtX2p1Whz4sR13ZJ02Vgy7
+	 E5r1/PeskCCYeF37PulKCE40wlQ6g9tu6CZ2Gmcwq9rLZf5CeIYErGLXMLen1LDw/Gzu3
+	 93yd6Zp44nEY4+yU3fuiPs1O8oI95zu6one6xtXXMWz34GAs7L4jcJnhi6jcejShtoA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794256560;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=HHK2j6C70814ed+SeZ72BzLXfkGIHDIDnhaf+wnb4K4=;
+	b=unDBRSMkQyW8Yt3Vpms8OPmIVHFkfHqgaR9GoCaKJtx97PooqQ9mWMcNMnV8+i2o7J3f
+	 0JAaOhs6sPDNLLL1sJj14iHLrtgph6Gm/LzxjK3SB63T5r6BJlsVbAj9rKol8sLGbdKVz
+	 6O4G8T0jgKOtR33l0HWalSSH/K8yvmWBcJAi17sbB+rq3RbOF5X+++hLmoZGF3KddgIuh
+	 6lLy4rcjmFkkqzVtC1eMl0CjriAOlAP7a+SSi17gpHp9fHL1OccXfR7EQNRaRy5SKcGkN
+	 5aTnurE2LEsQJJaKHNYL5koNLhyAbPCx089im5aErF/N/MVVd5LhnFthva3iHRepoiw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=COcyqUh0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.54
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012054.outbound.protection.outlook.com [40.107.200.54])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBB1606A321;
-	Mon,  9 Nov 2026 20:35:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC21606A321;
+	Mon,  9 Nov 2026 20:35:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BC21606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P4sw6wQ3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87BE31F008A3;
-	Mon,  9 Nov 2026 20:35:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794256542;
-	bh=4S0ZASTCxuNpF4rd1cySC3wOXo2N6s1iGqE54udrluA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P4sw6wQ3f4dx6u4pFALkqAd21ksXEckvh8fTjSyAtPK7pCZ5oCMgj9geo1WMAb8Zy
-	 T3WPTAqBAfrjyOIGwG13GeeN3JYJDQ0p0EnAA+3SeB7wR5mcK6LoOA4Lu6t6CzmY36
-	 2VQiGF1vIwZSWSmDUN9g9kebIsNKZ6E22tSOaeIO94SWxGBVGJ3qOC1yPcnVsH/Cn0
-	 UZ5K32bWw2VUooDNxET6m7PVp4kstgbO6IwT0nw08/ddOnnD9tbaGGmpT3knr++bkh
-	 7m8kKDrBrff07mDjClfAY1zac5v1ooNQvpK1hlOKoCgLMNjgZlX5N8FMDDhhJGVMAI
-	 B6ihb0Ustt8og==
-Message-ID: <88a96126-11be-41cc-ab0d-372d32189e79@kernel.org>
-Date: Mon, 9 Nov 2026 21:35:26 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=COcyqUh0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xBg3S+uAiWM3pys09JuNM1P5RTsxzJJP1OlWiPREzU0/jYmC7Y82gYDEbHbQCNPL/4KFQx4rz8Vdvr0gGvVIgU2migct9XAX19fu+SokByE8zoNGQd8WRfw7G04T+UEVPY3Da9r7Zwr4DkrwJCm0Be2Rs9cTXKybLv9R15RvsjWqqw9qRE/V8DnwuaV+4XeydIWbPo2hOqg9ju2hgEAU1yaYeXtlccp9rVg+vyejPh38qO9mRnx6SvmUeszpCC+hL2q7+owcr6LFKe2qbrh4ClIdTykXWRf0fspfMylGslNErLSy+Rj5I1cqplqJJLS6rYTiX6ipfgBzr9elstFuZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HHK2j6C70814ed+SeZ72BzLXfkGIHDIDnhaf+wnb4K4=;
+ b=IbbRNmsuhNnQjM3NDoxjV73VIu+ucFhu4m+VHEp5BKPpUMllXxLR7+a41IQTCrpH1sELpZ75yctTG5xGwnltKVF4WPWM9d5bmMDXcUs2IBLSy+tjc6ldlg9YJ6nDI5fzNHxXPaaj+9YCn6Sk/Kc2mKuOOn3ZXTtFJQJsUKaJ9wqJbKlWqzE/jFP8JWOpvGj10q7OWt8ocgB3cimZADkV+9LivnRPNT9/pjWGb7+uBdl8FGcrF9RonpkKL2N1ZSPZNKooR7ovtx84svVUdXqmM/Kw0sHUlYFo6wBFv59u5WqDUcE7pHUpY4jl9Z5Py+BotXH3ysMYH97WsuTLhpnT+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HHK2j6C70814ed+SeZ72BzLXfkGIHDIDnhaf+wnb4K4=;
+ b=COcyqUh0QBHdtKigp8E6e6e9vCjdHSEvLJIZLKixCcNIlLqLt+7dmBKlaNRuIwRoe78W+p18KusrLjEVUDqFxCYlgCMJjQmSAIK0ftX11s7Ar65gxzrXm19/4UIUJR/f1/M300xJyGrHUYZyOnSIP9NcJFYTHY/EbrUIKHg7Eyw=
+Received: from BY3PR03CA0012.namprd03.prod.outlook.com (2603:10b6:a03:39a::17)
+ by IA1PR12MB7541.namprd12.prod.outlook.com (2603:10b6:208:42f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 9 Nov
+ 2026 20:35:50 +0000
+Received: from MWH0EPF000D894C.namprd05.prod.outlook.com
+ (2603:10b6:a03:39a:cafe::ab) by BY3PR03CA0012.outlook.office365.com
+ (2603:10b6:a03:39a::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
+ Nov 2026 20:35:49 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000D894C.mail.protection.outlook.com (10.167.249.212) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 20:35:49 +0000
+Received: from speedway8455host.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
+ 2026 14:35:47 -0600
+From: "Pratik R. Sampat" <prsampat@amd.com>
+To: <kvm@vger.kernel.org>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <seanjc@google.com>, <pbonzini@redhat.com>,
+	<thomas.lendacky@amd.com>, <kim.phillips@amd.com>, <nikunj@amd.com>,
+	<michael.roth@amd.com>, <ashish.kalra@amd.com>, <prsampat@amd.com>
+Subject: [Patch v4 2/4] KVM: SVM: Add host support for Enhanced SMT Protection
+Date: Mon, 9 Nov 2026 20:35:12 +0000
+Message-ID: <ea20a52f49c15a4b59fc64f7791c9834e52d757f.1794244450.git.prsampat@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1794244450.git.prsampat@amd.com>
+References: <cover.1794244450.git.prsampat@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,319 +108,363 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v24 00/10] Hierarchical Percpu Counters for RSS
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: linux-kernel@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Martin Liu <liumartin@google.com>, David Rientjes <rientjes@google.com>,
- christian.koenig@amd.com, Shakeel Butt <shakeel.butt@linux.dev>,
- SeongJae Park <sj@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Sweet Tea Dorminy <sweettea-kernel@dorminy.me>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Vlastimil Babka <vbabka@kernel.org>, Christian Brauner <brauner@kernel.org>,
- Wei Yang <richard.weiyang@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Al Viro <viro@zeniv.linux.org.uk>, Yu Zhao <yuzhao@google.com>,
- Roman Gushchin <roman.gushchin@linux.dev>, Mateusz Guzik
- <mjguzik@gmail.com>, Matthew Wilcox <willy@infradead.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Aboorva Devarajan <aboorvad@linux.ibm.com>,
- David Carlier <devnexen@gmail.com>, Andrew Morton
- <akpm@linux-foundation.org>, linux-mm@kvack.org,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
- Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, Ben Segall
- <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
- Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>, Kees Cook <kees@kernel.org>,
- linux-trace-kernel@vger.kernel.org, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>
-References: <20261105203639.1459524-1-mathieu.desnoyers@efficios.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261105203639.1459524-1-mathieu.desnoyers@efficios.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000D894C:EE_|IA1PR12MB7541:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad171d42-ce4b-4d69-5949-08df3ea10a4c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|82310400026|23010399003|1800799024|6133799003|20046099003|22082099003|10067099003|18002099003|3023799007|261102123227099003|261021121427099003|261009223027099003|261021123027099003|261026140227099003|261022105027099003|261028144727099003|56012099006|11063799006|261026121527099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	Dtr7GUJNsagWGEr9rkhTvx2+o775TVKkLzX9FLmRZ+4XZWD1IAr0HCN02CgehWrxTOAXFjYnbFGRDhaJbCKPcQTQaZjjiHTwdXcRHAcZpdE9lQsS4xU1rkIFg/ruFpTb/V6mRYePonBGn3PmQmMhXJDLQRKA/dOlByQGlpG2FxYfUrFNxxTkkj868yUsj1OL+ZoSr8JtdkiQa8SvvVL0W9f5AtoTnAWVgfky4hVx3F4aEgYYX634mQAGyHJYT9lCNmHDLB/s6BorEQMuE5bPuAWZsy1WYRQMmp8l6UJuugSjUr14tl/QqzH+Mzpu/GcMIkb0/ISO4vJZwM2o3uGP/FO4q3eqeW97gc6tEarJji7QM717fBJO2d5/ZK1AceCG73emWPs+WP5THN+jPfP+E9Gb9Tdrw5M3NBBFf2OnTE1mHHQUKNxKrTb8/BctFKdOzCumazppjDCxterdHzZqfAozTvXc/y9bIJl8esy/sJsx6SaLNud3cArNtABkTogpSyHqATXYy6q2HIZE+zEHVSxAjgMogY/b1YEYtXcX1my11jiPrfTyTTQWQSF5K32gjrZ2vplbDY0LH0HSyLfDsY0vYGfqIRqJKcs0/axhpNzdkKZ9M7SysST5V47snZHmch/fOMhp7dZ9U8zOe0ElTcqQ4nek43P/XeNlb7M1j1F+G8PDB2gEKTMSuhW+FzR5avQQ8fBfhCUbIb+f+prMIw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(82310400026)(23010399003)(1800799024)(6133799003)(20046099003)(22082099003)(10067099003)(18002099003)(3023799007)(261102123227099003)(261021121427099003)(261009223027099003)(261021123027099003)(261026140227099003)(261022105027099003)(261028144727099003)(56012099006)(11063799006)(261026121527099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Bc9MTeWBuwMNh4yVoZ/gvmbl1w9Qs0VwJw2GE+GFZy2JPikWwG5WM6pOEE7nJ+DLE2RQvk8RrXYrNrPm2FhyYVqYt1Wu/soraCZzP8prbuTmKeMzOhbjDVlOR1WEho0DTqwKmLUI6v9iJ2KUT66ts97ti6JjF6yjXSEMpngbEkJse0AyWAY4plXl5LWQ5Fv+NgmGiAHH+xEIjCSgY4laH/oOsFfZiROhLYmRg1YsTHqwIbaZAa8TYgZft0WZNxY5RbPsEj7hGfxIM7StwOP08rWUGAje14ZjR6r6oo8hvWdArye8td1mJupRymBjweftrmsl+Hxzc/E7JU0mz4dA3IcSnTLEpbkXBgqJUZERkGZ1WFpeBduv58PIx9jkPdREKJen39TOAHmF6m+JO2deZxhBlrH0Om3KXlJFBePoCnTWuVpXxIOIFLBYGv0VeFE6
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 20:35:49.1999
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad171d42-ce4b-4d69-5949-08df3ea10a4c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000D894C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7541
 
-On 11/5/26 21:36, Mathieu Desnoyers wrote:
-> Hi David,
+Enhanced SMT Protection (ESMTP) protects an SEV-SNP guest from SMT side
+channels by requiring that, while a vCPU is in guest mode, its SMT sibling
+thread is either idle in host mode or executing a vCPU the guest has
+declared to be a legal sibling. A legal sibling is another ESMTP vCPU of
+the same guest that carries the same VCPU_SIBLING_MASK and agrees on
+VCPU_ID outside that mask.
 
-Hi!
+Hardware enforces this at VMRUN, which no longer enters guest mode right
+away but stalls until the condition holds. Three new exits report that it
+could not be met, all of them non-fatal:
 
-> 
-> Here is the hierarchical per-cpu counters series for the RSS counters,
-> based on v7.4-rc1.  It is an RFC because of the questions at the end,
-> and because of the significant changes since v22 [1], notably the
-> per-cpu counter size (long -> byte), the configuration heuristics, and
-> the lazy activation introduced by patches 6 and 7.  v24 fixes the bugs
-> found by the Sashiko review of v23 [2], including a NULL pointer
-> dereference in patches 3 to 5 on sparc64.
+ESMTP_ILLSIB: a sibling thread is running a vCPU that is not a legal
+sibling of this one.
 
-I think we discussed other possible applications (IIRC Michal expressed concern
-if a single user is sufficient motivation for these additional LOC). Did
-anything result from that discussion that is relevant to v24?
+ESMTP_TIMEOUT: the stall exceeded the timeout programmed in the VMCB. The
+timer bounds how long VMRUN waits for the core to settle. A module
+parameter exposes an interface to program this timer.
 
+ESMTP_RETRY: If DBREQ is detected, VMRUN exits. ESMTP_RETRY indicates an
+internal event and the hypervisor should execute a VMRUN.
 
-> 
-> The problem
-> -----------
-> 
-> Since commit f1a7941243c1 ("mm: convert mm's rss stats into
-> percpu_counter"), the RSS counters are struct percpu_counter with a
-> batch size of max(32, 2 * nr_cpus): their approximation error grows with
-> O(nr_cpus^2), up to 1.1GB per counter at 384 logical CPUs.
+Refer to the AMD64 APM Vol 2, section "AMD64 Enhanced SMT Protection".
 
-Okay, so that's a per-MM problem, not a per-system problem. On a large system
-with many CPUs I'd have said "likel we don't care" :)
+Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+Acked-by: Borislav Petkov (AMD) <bp@alien8.de> # non-virtualization changes
+Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
+---
+v3..v4:
+* Fix conflict of reserved bits introduced by PML support in
+  vmcb_control_area 
+---
+ .../admin-guide/kernel-parameters.txt         | 19 ++++++++
+ arch/x86/include/asm/cpufeatures.h            |  1 +
+ arch/x86/include/asm/msr-index.h              |  1 +
+ arch/x86/include/asm/svm.h                    | 12 ++++-
+ arch/x86/include/uapi/asm/svm.h               |  9 +++-
+ arch/x86/kernel/cpu/scattered.c               |  1 +
+ arch/x86/kvm/svm/sev.c                        | 48 ++++++++++++++++++-
+ arch/x86/kvm/svm/svm.c                        |  8 ++++
+ arch/x86/kvm/svm/svm.h                        |  2 +
+ 9 files changed, 97 insertions(+), 4 deletions(-)
 
-> /proc/PID/status, /proc/PID/statm and the OOM killer moved to precise
-> sums (commits 82241a83cd15 and 5898aa8f9a0b), but the other readers
-> still use the approximation: the RSS high watermark (VmHWM, the
-> ru_maxrss reported as "Maximum resident set size" by /usr/bin/time -v,
-> taskstats), /proc/PID/stat (ps, top, monitoring agents), the taskstats
-> RSS-time integral (coremem, sampled at each tick), NUMA balancing and
-> the mark_victim tracepoint.  On the test machine below, the
-> /proc/PID/stat RSS of a test process was off by 17MB while
-> single-threaded, and by up to 134MB with 64 threads.
-
-What's the resulting impact of that (temporary) imprecision?
-
-> 
-> Precise sums cannot fix the high watermark or the RSS-time integral:
-> update_hiwater_rss() samples the RSS on every unmap path, and the
-
-As a side-note, I absolutely hate update_hiwater_rss() on the unmap path.
-
-> integral at each tick, while a precise sum reads every possible CPU,
-> about 4us per counter at 384 logical CPUs.  A smaller struct
-> percpu_counter batch takes the counter spinlock on every carry: at batch
-> 32, an update of the counters of a shared mm costs 4.4 to 69us with one
-> thread per CPU, compared to 26ns to 1.2us with this series.
-> 
-> The series
-> ----------
-> 
-> Patches 1 to 5 replace struct percpu_counter for the RSS counters with
-> hierarchical per-cpu counters: per-cpu bytes carry into a tree of atomic
-> counters shaped at boot from nr_cpu_ids, with a fixed batch of 32, an
-> error bound in O(n*log(n)) and no global lock.  
-
-How does this interact with CPU hotplug?
-
-> Each level carries only
-> once its residual reaches the batch in either direction, so updates
-> going back and forth around a boundary do not climb the tree.  The
-> comparison functions have no user in this series; a follow-up will use
-> them for a faster OOM killer task selection.
-> 
-> Patches 6 and 7 keep the RSS counters of single-threaded processes exact
-> and without per-cpu memory: until a second thread shares the mm, the
-> task running on the mm adds to the bias of each counter without atomic
-> instructions, and other tasks add to its atomic bias, both read in O(1).
-> Creating the second thread allocates the per-cpu counters and tree
-> items, and activates the tree.  struct percpu_counter cannot do this as
-> is: its count is an s64 under a raw spinlock, which the remote updates
-> (reclaim, khugepaged, remote GUP) would then take.
-
-What was the particular reason to special-case single-threaded apps? Do we
-expect them in practice to really be that RSS heavy+dynamic such that it would
-matter?
-
-> 
-> Patches 8 to 10 are the tools to tune the tree shape on other hardware:
-> the percpu_counter_tree.arity= and rss_stat_batch= boot parameters, and
-> a KUnit benchmark.  The default shapes were measured on one machine,
-> with up to 384 logical CPUs, so results from other hardware are welcome.
-
-Hm, so that means one might have to fine tune these toggles to get the best
-performance? That's a bit unfortunate.
-
-> 
-> Results
-> -------
-> 
-> 2-socket AMD EPYC 9654, 192 cores, 384 logical CPUs with SMT (the CPU
-> counts in this letter are logical CPUs, as in nr_cpu_ids), tree 8,8,8,
-> batch 32, whole series; details in patches 3 and 7.  The bare-metal
-> results were measured on v7.3: the rebase onto v7.4-rc1 had no conflict,
-> and the hpcc update costs of the series as sent, measured in a pinned
-> 384-vCPU guest, match the bare-metal ones within 2%.
-> 
->   Accuracy per counter: bound, and largest |approximate - precise| seen
->   by get_mm_counter() while a process hops across all CPUs doing
->   mmap/munmap of 1 to 16 pages (384-vCPU KVM guest pinned to the host):
-> 
->                                         hpcc   upstream
->     bound                            158.5MB      1.1GB
->     measured, single-threaded      0 (exact)      841MB
->     measured, with a second thread      96MB      845MB
-> 
->   Update cost, ns per update per thread, one thread per CPU, bare metal
->   (mm: the 4 counters of one mm; private: one counter per thread; batch
->   32: local change of the benchmark, bound 46.5MB):
-> 
->                                               upstream   upstream
->                                        hpcc  batch 768   batch 32
->     mm, +1                               26        288       4370
->     mm, random +-32                     135        385      69171
->     mm, random +-512                   1174      20229      69186
->     private, random +-32                 31         20          -
-> 
->   /proc/PID/statm read with 1000 to 16000 processes, bare metal:
->   5.3-6.5us vs 16.5-19.0us for single-threaded processes, on par for
->   multi-threaded ones (14.4-16.0us vs 14.5-17.1us, guest).  fork + exit
->   of a single-threaded child: 116us vs 139us.  will-it-scale
->   page_fault1, 2 and 3: no regression (-0.6% to +5.1%, one boot each,
->   the upstream one on the previous day).
-> 
->   Memory per mm, counting the slab objects of mm_struct and of the tree
->   items, and the per-cpu memory of the RSS counters, in bytes (guest,
->   v7.4-rc1):
-> 
->                   single-threaded   threaded   upstream
->     16 CPUs                  1820       1948       2076
->     384 CPUs                 1928       8145       8072
->     1024 CPUs                2185      17204      18569
-> 
->   The tree items are allocated with the per-cpu counters when the second
->   thread is created, and the mm_struct slab object keeps its upstream
->   size.
-> 
-> Behavior changes
-> ----------------
-> 
-> - The allocation of the per-cpu counters and tree items moves from
->   fork() to the second thread (clone() with CLONE_VM, without
->   CLONE_VFORK), which can then fail with -ENOMEM.
-> - mm_struct gains rss_owner, the task running on the mm, compared with
->   current and never dereferenced, and rss_stat_mutex, which serializes
->   the activations of the tree, as mm_cid.mutex serializes the mode
->   changes of mm_cid at fork and exit.
-> - The precise sums (/proc/PID/status, /proc/PID/statm, the OOM killer)
->   take no lock: under concurrent updates of a multi-threaded process,
->   they can miss a carry on its way up the tree, where upstream counts
->   each concurrent update either whole or not at all.  They are exact for
->   a process at rest.
-> - The rss_stat tracepoint reports the approximation (patch 5): exact for
->   single-threaded processes, within the bound otherwise.
-> - Like struct percpu_counter, the tree is sized at boot and not
->   reshaped on hotplug; its shape and bound depend on nr_cpu_ids, while
->   the default upstream batch follows the online CPUs.
-> 
-> Caveats
-> -------
-> 
-> - From 33 to 39 CPUs, up to 1.37 times less accurate than upstream.
-> - The tree is shaped for the number of CPUs rounded up to a power of 2:
->   just above a power of 2, the RSS counters of a threaded process, with
->   rss_owner and the mutex, use up to 1.50 times the memory of upstream
->   (129 CPUs, 1.28 times at 65 and 1.38 times at 257), compared to at
->   most 0.90 times at a power of 2, and 1.02 times at 384 logical CPUs.
-> - Private counters with random +-32 updates: 31ns vs 20ns, the price of
->   a 7 times tighter bound.
-> - A multi-threaded process which ran on few CPUs can hold more error
->   than upstream: 2047 pages per CPU path vs 767 at 384 logical CPUs.  A
->   follow-up could index the counters by concurrency ID (mm_cid) instead
->   of CPU, so the accuracy bound and the precise sums would scale with
->   the concurrency the process uses.
-> - Before activation, concurrent remote updates of a single-threaded
->   process contend on one atomic per counter.
-> - The second thread allocates per-cpu memory, which the per-cpu
->   allocator serializes, as it does upstream at every fork: with 384
->   threads at once, init + destroy of 4 counters takes 874us per
->   operation (1004us upstream, 6.0us alone).  Tree item slab objects
->   owning their per-cpu counters, with slab destructors, could avoid it.
-> - The accuracy was measured in a guest, with a debug patch and a test
->   program which are not part of the series.  The bound is analytic and
->   tested in both directions.
-
-[...]
-
-> 
-> Questions
-> ---------
-> 
-> 1. Is mm->rss_owner acceptable, or would you prefer current->mm == mm
->    (without PF_KTHREAD) and an "activated" flag?
-
-I'm afraid I'm the wrong person to ask that question. I'd have to look into the
-details. If it's just a simple member, we likely don't care about the addition
-memory footprint (if that's your main concern).
-
-> 2. Is moving the -ENOMEM from fork() to the second thread acceptable?
-
-I'd assume that's not a problem.
-
-> 3. Would you rather take the single-threaded mode first, on its own?
-
-Again, the question is how much we care in practice, I guess.
-
-> 4. Should the rss_stat tracepoint report the approximation, stay
->    precise, or report both?
-
-No strong optinion on that. Do we know who uses these and for which purpose?
-
-> 5. Should the tuning tools be merged, built only with the benchmark
->    config, or dropped later?  Who could run them on non-AMD, 4-socket,
->    arm64 or POWER machines?
-
-Is there some way to have it be an auto-tuning instead of requiring this tooling?
-
-> 6. Is tools/testing/hpcc the right home for the topology test?
-Good question, I'd assume so.
-
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 42ff19defe16..55a5471cc88f 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -3269,6 +3269,25 @@ Kernel parameters
+ 			max_snp_asid == min_sev_asid-1, will effectively make
+ 			SEV-ES unusable.
+ 
++	kvm-amd.esmtp_timeout_ns=
++			[KVM,AMD] Enhanced SMT Protection (ESMTP) VMRUN
++			timeout, in nanoseconds, for SEV-SNP guests that enable
++			ESMTP.  When an ESMTP vCPU executes VMRUN, hardware
++			waits for every sibling thread to either be idle or
++			run a legal sibling vCPU of the same guest before
++			entering guest mode.  If the wait exceeds this timeout,
++			VMRUN exits with VMEXIT_ESMTP_TIMEOUT and KVM retries
++			the VMRUN.
++
++			The value is converted to TSC cycles and programmed
++			into the VMCB when a vCPU is initialized, so changing
++			it at runtime only affects vCPUs that are created or
++			reset afterwards.
++
++			Default is 0, which disables the timeout, i.e. VMRUN
++			waits until the sibling condition is met or a physical
++			interrupt arrives.
++
+ 	kvm-arm.mode=
+ 			[KVM,ARM,EARLY] Select one of KVM/arm64's modes of
+ 			operation.
+diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
+index e2c21e58190d..64ca8cc723c6 100644
+--- a/arch/x86/include/asm/cpufeatures.h
++++ b/arch/x86/include/asm/cpufeatures.h
+@@ -532,6 +532,7 @@
+ 						      * and purposes if CLEAR_CPU_BUF_VM is set).
+ 						      */
+ #define X86_FEATURE_X2AVIC_EXT		(21*32+20) /* AMD SVM x2AVIC support for 4k vCPUs */
++#define X86_FEATURE_AMD_ESMTP		(21*32+21) /* AMD Enhanced SMT Protection */
+ 
+ /*
+  * BUG word(s)
+diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
+index 3a8e51a0c9e8..fbcb3313e946 100644
+--- a/arch/x86/include/asm/msr-index.h
++++ b/arch/x86/include/asm/msr-index.h
+@@ -761,6 +761,7 @@
+ #define MSR_AMD64_SEG_RMP_ENABLED_BIT	0
+ #define MSR_AMD64_SEG_RMP_ENABLED	BIT_ULL(MSR_AMD64_SEG_RMP_ENABLED_BIT)
+ #define MSR_AMD64_RMP_SEGMENT_SHIFT(x)	(((x) & GENMASK_ULL(13, 8)) >> 8)
++#define MSR_AMD64_IDLE_WAKEUP_ICR	0xc0010137
+ 
+ #define MSR_SVSM_CAA			0xc001f000
+ 
+diff --git a/arch/x86/include/asm/svm.h b/arch/x86/include/asm/svm.h
+index 83fd49b26a4b..8adf9b3cb08f 100644
+--- a/arch/x86/include/asm/svm.h
++++ b/arch/x86/include/asm/svm.h
+@@ -165,7 +165,8 @@ struct __attribute__ ((__packed__)) vmcb_control_area {
+ 	u8 reserved_9[22];
+ 	u64 allowed_sev_features;	/* Offset 0x138 */
+ 	u64 guest_sev_features;		/* Offset 0x140 */
+-	u8 reserved_10[128];
++	u64 esmtp_timeout;		/* Offset 0x148 */
++	u8 reserved_10[120];
+ 	u64 pml_addr;			/* Offset 0x1c8 */
+ 	u16 pml_index;			/* Offset 0x1d0 */
+ 	u8 reserved_11[526];
+@@ -314,6 +315,7 @@ static_assert((X2AVIC_4K_MAX_PHYSICAL_ID & AVIC_PHYSICAL_MAX_INDEX_MASK) == X2AV
+ #define SVM_SEV_FEAT_ALTERNATE_INJECTION		BIT(4)
+ #define SVM_SEV_FEAT_DEBUG_SWAP				BIT(5)
+ #define SVM_SEV_FEAT_SECURE_TSC				BIT(9)
++#define SVM_SEV_FEAT_ESMTP				BIT(17)
+ 
+ #define VMCB_ALLOWED_SEV_FEATURES_VALID			BIT_ULL(63)
+ 
+@@ -486,6 +488,11 @@ struct sev_es_save_area {
+ 	u8 fpreg_x87[80];
+ 	u8 fpreg_xmm[256];
+ 	u8 fpreg_ymm[256];
++	u8 reserved_0x670[560];
++
++	/* Enhanced SMT Protection */
++	u32 vcpu_id;
++	u32 vcpu_sibling_mask;
+ } __packed;
+ 
+ struct ghcb_save_area {
+@@ -558,7 +565,7 @@ struct vmcb {
+ 
+ #define EXPECTED_VMCB_SAVE_AREA_SIZE		744
+ #define EXPECTED_GHCB_SAVE_AREA_SIZE		1032
+-#define EXPECTED_SEV_ES_SAVE_AREA_SIZE		1648
++#define EXPECTED_SEV_ES_SAVE_AREA_SIZE		2216
+ #define EXPECTED_VMCB_CONTROL_AREA_SIZE		1024
+ #define EXPECTED_GHCB_SIZE			PAGE_SIZE
+ 
+@@ -593,6 +600,7 @@ static inline void __unused_size_checks(void)
+ 	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0x320);
+ 	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0x380);
+ 	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0x3f0);
++	BUILD_BUG_RESERVED_OFFSET(sev_es_save_area, 0x670);
+ 
+ 	BUILD_BUG_RESERVED_OFFSET(ghcb_save_area, 0x0);
+ 	BUILD_BUG_RESERVED_OFFSET(ghcb_save_area, 0xcc);
+diff --git a/arch/x86/include/uapi/asm/svm.h b/arch/x86/include/uapi/asm/svm.h
+index e80676185092..141386d680a0 100644
+--- a/arch/x86/include/uapi/asm/svm.h
++++ b/arch/x86/include/uapi/asm/svm.h
+@@ -136,6 +136,10 @@
+ #define SVM_EXIT_SW				0xf0000000ull
+ 
+ #define SVM_EXIT_ERR           -1ull
++/* Enhanced SMT Protection VM exits taken during VMRUN sibling sync */
++#define SVM_EXIT_ESMTP_ILLSIB  -5ull	/* Illegal ESMTP sibling */
++#define SVM_EXIT_ESMTP_TIMEOUT -6ull	/* ESMTP_TIMEOUT expired */
++#define SVM_EXIT_ESMTP_RETRY   -7ull	/* Internal event; retry VMRUN */
+ 
+ #define SVM_EXIT_REASONS \
+ 	{ SVM_EXIT_READ_CR0,    "read_cr0" }, \
+@@ -248,7 +252,10 @@
+ 	{ SVM_VMGEXIT_EXT_GUEST_REQUEST, "vmgexit_ext_guest_request" }, \
+ 	{ SVM_VMGEXIT_AP_CREATION,	"vmgexit_ap_creation" }, \
+ 	{ SVM_VMGEXIT_HV_FEATURES,	"vmgexit_hypervisor_feature" }, \
+-	{ SVM_EXIT_ERR,         "invalid_guest_state" }
++	{ SVM_EXIT_ERR,         "invalid_guest_state" }, \
++	{ SVM_EXIT_ESMTP_ILLSIB,	"esmtp_illsib" }, \
++	{ SVM_EXIT_ESMTP_TIMEOUT,	"esmtp_timeout" }, \
++	{ SVM_EXIT_ESMTP_RETRY,		"esmtp_retry" }
+ 
+ 
+ #endif /* _UAPI__SVM_H */
+diff --git a/arch/x86/kernel/cpu/scattered.c b/arch/x86/kernel/cpu/scattered.c
+index b18cc9c88dd5..5648a632e6d0 100644
+--- a/arch/x86/kernel/cpu/scattered.c
++++ b/arch/x86/kernel/cpu/scattered.c
+@@ -68,6 +68,7 @@ static const struct cpuid_bit cpuid_bits[] = {
+ 	{ X86_FEATURE_PERFMON_V2,		CPUID_EAX,  0, 0x80000022, 0 },
+ 	{ X86_FEATURE_AMD_LBR_V2,		CPUID_EAX,  1, 0x80000022, 0 },
+ 	{ X86_FEATURE_AMD_LBR_PMC_FREEZE,	CPUID_EAX,  2, 0x80000022, 0 },
++	{ X86_FEATURE_AMD_ESMTP,		CPUID_EDX,  1, 0x80000025, 0 },
+ 	{ X86_FEATURE_AMD_HTR_CORES,		CPUID_EAX, 30, 0x80000026, 0 },
+ 	{ 0, 0, 0, 0, 0 }
+ };
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index 6427db390b1c..71f22356c4c5 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -67,6 +67,11 @@ module_param_named(sev_snp, sev_snp_enabled, bool, 0444);
+ static unsigned int __ro_after_init nr_ciphertext_hiding_asids;
+ module_param_named(ciphertext_hiding_asids, nr_ciphertext_hiding_asids, uint, 0444);
+ 
++static unsigned int esmtp_timeout_ns;
++module_param(esmtp_timeout_ns, uint, 0644);
++MODULE_PARM_DESC(esmtp_timeout_ns,
++		 "ESMTP VMRUN sibling-wait timeout in nanoseconds (default: 0, timer disabled)");
++
+ #define AP_RESET_HOLD_NONE		0
+ #define AP_RESET_HOLD_NAE_EVENT		1
+ #define AP_RESET_HOLD_MSR_PROTO		2
+@@ -520,7 +525,7 @@ static int __sev_guest_init(struct kvm *kvm, struct kvm_sev_cmd *argp,
+ 		return -EINVAL;
+ 
+ 	if (!snp_active)
+-		valid_vmsa_features &= ~SVM_SEV_FEAT_SECURE_TSC;
++		valid_vmsa_features &= ~(SVM_SEV_FEAT_SECURE_TSC | SVM_SEV_FEAT_ESMTP);
+ 
+ 	if (data->vmsa_features & ~valid_vmsa_features)
+ 		return -EINVAL;
+@@ -1035,6 +1040,15 @@ static int sev_es_sync_vmsa(struct vcpu_svm *svm)
+ 
+ 	save->sev_features = sev->vmsa_features;
+ 
++	if (sev->vmsa_features & SVM_SEV_FEAT_ESMTP) {
++		save->vcpu_id = vcpu->vcpu_id;
++		/*
++		 * All vCPUs of a guest are put into one group and can be run
++		 * co-resident on the sibling thread of the same core.
++		 */
++		save->vcpu_sibling_mask = U32_MAX;
++	}
++
+ 	/*
+ 	 * Skip FPU and AVX setup with KVM_SEV_ES_INIT to avoid
+ 	 * breaking older measurements.
+@@ -3281,6 +3295,9 @@ void __init sev_hardware_setup(void)
+ 
+ 	if (sev_snp_enabled && tsc_khz && cpu_feature_enabled(X86_FEATURE_SNP_SECURE_TSC))
+ 		sev_supported_vmsa_features |= SVM_SEV_FEAT_SECURE_TSC;
++
++	if (sev_snp_enabled && cpu_feature_enabled(X86_FEATURE_AMD_ESMTP))
++		sev_supported_vmsa_features |= SVM_SEV_FEAT_ESMTP;
+ }
+ 
+ void sev_hardware_unsetup(void)
+@@ -3312,6 +3329,31 @@ int sev_cpu_init(struct svm_cpu_data *sd)
+ 	return 0;
+ }
+ 
++void sev_esmtp_enable_wakeup_icr(void)
++{
++	unsigned int cpu, sibling, shift;
++	u32 core;
++
++	if (!(sev_supported_vmsa_features & SVM_SEV_FEAT_ESMTP))
++		return;
++
++	cpu = raw_smp_processor_id();
++	shift = topology_get_domain_shift(TOPO_CORE_DOMAIN);
++	core = per_cpu(x86_cpu_to_apicid, cpu) >> shift;
++
++	for_each_present_cpu(sibling) {
++		u32 apicid = per_cpu(x86_cpu_to_apicid, sibling);
++		u64 icr;
++
++		if (sibling == cpu || (apicid >> shift) != core)
++			continue;
++
++		icr = (u64)apicid << 32;
++		icr |= LOCAL_TIMER_VECTOR;
++		WARN_ON_ONCE(wrmsrq_safe(MSR_AMD64_IDLE_WAKEUP_ICR, icr));
++	}
++}
++
+ /*
+  * Pages used by hardware to hold guest encrypted state must be flushed before
+  * returning them to the system.
+@@ -4835,6 +4877,10 @@ static void sev_es_init_vmcb(struct vcpu_svm *svm, bool init_event)
+ 		svm->vmcb->control.allowed_sev_features = sev->vmsa_features |
+ 							  VMCB_ALLOWED_SEV_FEATURES_VALID;
+ 
++	if (sev->vmsa_features & SVM_SEV_FEAT_ESMTP)
++		svm->vmcb->control.esmtp_timeout = mul_u64_u32_div(esmtp_timeout_ns,
++								   tsc_khz, 1000000);
++
+ 	/* Can't intercept CR register access, HV can't modify CR registers */
+ 	svm_clr_intercept(svm, INTERCEPT_CR0_READ);
+ 	svm_clr_intercept(svm, INTERCEPT_CR4_READ);
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index 61e798d02db8..03547d007811 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -603,6 +603,8 @@ static int svm_enable_virtualization_cpu(void)
+ 		__svm_write_tsc_multiplier(SVM_TSC_RATIO_DEFAULT);
+ 	}
+ 
++	sev_esmtp_enable_wakeup_icr();
++
+ 	svm_init_os_visible_workarounds();
+ 
+ 	svm_init_erratum_383();
+@@ -3853,6 +3855,12 @@ static int svm_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
+ 		return 0;
+ 	}
+ 
++	if (svm->vmcb->control.exit_code == SVM_EXIT_ESMTP_RETRY ||
++	    svm->vmcb->control.exit_code == SVM_EXIT_ESMTP_ILLSIB ||
++	    svm->vmcb->control.exit_code == SVM_EXIT_ESMTP_TIMEOUT) {
++		return 1;
++	}
++
+ 	if (exit_fastpath != EXIT_FASTPATH_NONE)
+ 		return 1;
+ 
+diff --git a/arch/x86/kvm/svm/svm.h b/arch/x86/kvm/svm/svm.h
+index b9f7786bf17c..55d530d9e7fa 100644
+--- a/arch/x86/kvm/svm/svm.h
++++ b/arch/x86/kvm/svm/svm.h
+@@ -1020,6 +1020,7 @@ void __init sev_set_cpu_caps(void);
+ void __init sev_hardware_setup(void);
+ void sev_hardware_unsetup(void);
+ int sev_cpu_init(struct svm_cpu_data *sd);
++void sev_esmtp_enable_wakeup_icr(void);
+ int sev_dev_get_attr(u32 group, u64 attr, u64 *val);
+ extern unsigned int max_sev_asid;
+ void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code);
+@@ -1048,6 +1049,7 @@ static inline void __init sev_set_cpu_caps(void) {}
+ static inline void __init sev_hardware_setup(void) {}
+ static inline void sev_hardware_unsetup(void) {}
+ static inline int sev_cpu_init(struct svm_cpu_data *sd) { return 0; }
++static inline void sev_esmtp_enable_wakeup_icr(void) {}
+ static inline int sev_dev_get_attr(u32 group, u64 attr, u64 *val) { return -ENXIO; }
+ #define max_sev_asid 0
+ static inline void sev_handle_rmp_fault(struct kvm_vcpu *vcpu, gpa_t gpa, u64 error_code) {}
 -- 
-Cheers,
+2.43.0
 
-David
