@@ -1,52 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794265388;
-	b=5eMtX3RUjK7kxApc+r2bU/FrH/lcGAO68hl7OMXj0+z2Zjk63X6FW7xpwALF0tBiDrH1
-	 2vVMEBKdILmIB5POzHfIMOCJTFDmfibVbekhMngBF2lVIlgQdIyJgmmeS077PeBUmXBaj
-	 8o5K8UzwvpgeAmo4ByojTYyqCAyDOauqEntEf1y1DKgr5+illh+dlxR/a9q2EsR0Kg3KQ
-	 UmG8gDATlB+9me3szQPgoToOFugIQLZ5tK3w8n2Wder9qbyyx+NhAxOOXJaTFBrpNAxhp
-	 U1Yno2TLAKc+7aoq0KOo+zVyMd57+Z3gWUF2E2c+vjgthDtvA9geKcI5RCuNRJsiTKQ==
+	t=1794265429;
+	b=FS9EHjf57iqWEDWYXGpd3MritdYUuQrTv3juOmeqRsDYqSSNWb2FOPQoFY7tYQV8m7W7
+	 foLJC6oVC3U3eJ2so5BbHVor/FWPzDzKKOY2AAH+BDhKD4Zg9XE62rXtZYhbUDqFqfhkI
+	 9cr+pknSAqtVfl5h+YAvjeRqGB4/JFWwUu22ws9EgvaERaIiefJPeK8uqBNFzW4yeLJva
+	 gBHmzN4lsUUOglTvUxWcEKsnIaaFikZ8CAGOz79+aoyyidDpoUInhQ6ro2iPZnt5gQFO4
+	 y1W9NC7NSGUKX5hJ51dS8GDwY6/qsnEG4et+v3pQQtSRJzGVTEbddsQSY2ksv8BG9ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794265388;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=1UKK/To0jM4MQHkafo2SrDtvaNxDgEoLg2sNhgA3Yik=;
-	b=Ua0VIUUQ1EIsrW0jGCDQSA92+yo9KAKmY2mEgZbEDVGn8eviAnTKA1Gznwo8kX4oN0CW
-	 3/fBKcShjqV/HwmF8Nyug980Ix7SMO7DhBtlu6usrsCxe8eKW6U8DboqP3Q+8TEW8dmeR
-	 zWz9dwwjYje/48pMVtSHiRlUbf6vIzG8fZTvR/iLBdLnWxu90hYt8KjVR/0ju/nMMldXT
-	 1AbrigdJ01zQPXzijtPyFq1OZRIdTtj/k9XYW3Jks4uaUl8LMxxZ/69uOxIp4WdmYTRC7
-	 TWOdPWRz6Qeit3eG/la9UgMnn3lBxgtch2tLFAOqezhB8nzi4Mz8o1fRsM8Y+7tgu8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794265429;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=av3WRFVIfYOqlxtYCbtCUVyRZTi6ahIEMlQGBL6IcHk=;
+	b=YOGjt792bhUy2mINYu1qCsZoSaVMQMKEk+VKN55JaBbV+LfM0xWI4dPlaAjmIUNC8UtH
+	 4pk4wVosUoTtwu1DGTf0PNbFp28veb/tSqF1ipqKAGvYy4fxnTVHsReddJ9a6G2zPBOq/
+	 Hrv7bax6VRiPzcaoDHRGJDEsVGY1ynf/7zUvTjI86fF5uij/QE1Nu0KSPpfE20WK0kORi
+	 UGgaSXJhKOXc5aOF4xO+llJNtfGFMCnorAX8TzCBQUBI0Xv5M9fZZeSBHPT2m2kKU3pZQ
+	 ZhjQyr7nKpXcAqlT6FmCm61zYXwtuoq28OLIcU2HA/4D1Kfu5I5UAbt5Xi/CNptxqDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q+6CMvPt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Ul2/H7PT";
+	arc=none smtp.remote-ip=209.85.160.181
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C913606A31C;
-	Mon,  9 Nov 2026 23:03:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38544606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:03:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38544606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q+6CMvPt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FF1C1F0089F;
-	Mon,  9 Nov 2026 23:03:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794265387;
-	bh=1UKK/To0jM4MQHkafo2SrDtvaNxDgEoLg2sNhgA3Yik=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=Q+6CMvPtTEa5ooGZ0LRTuFm7iZpknWqErWir64A1nMY4IYMfb7/uEwJWXvkPIs7sG
-	 663kZF7grqmS0QdIIiKqrx8cULyjw53Mfa30yBU863nL8/g1yvjA5gXzTP7v70fr5t
-	 C46b5Mu5VPKzC4FczI8dbse+IVZ9nVoKKNhsJuO9URGBo1wgxnL9KTYlh4s6D2XYXT
-	 jrobO3ddWxbJPC/IP2sHrcE3gMjivU/wyHN91HFZ/Fzao1y4vJbLDe4xNTRE6SJ9Zh
-	 cf1MugsqIniq5H8Zuxx97viV3kvYpoMeLUQKOQMwmm7SkuoEa+2vU4aYdielV3J0cQ
-	 dqzuIKOmT21WA==
-Date: Mon, 9 Nov 2026 17:03:06 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: shao.mingyin@zte.com.cn
-Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
-	ilpo.jarvinen@linux.intel.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] PCI: Reject negative resource alignment order
-Message-ID: <20261109230306.GA339915@bhelgaas>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ul2/H7PT
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5365e86c939so1119401cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 15:03:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794265428; x=1794870228; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=av3WRFVIfYOqlxtYCbtCUVyRZTi6ahIEMlQGBL6IcHk=;
+        b=Ul2/H7PTQHZU4/4J3TdO9pgaWgdh9x5pgKCAmfi1bvLen4mPg1gEyDDN2b/VoFf+fx
+         /wByzrCct5JucAi55IogVhtPjf57rIDiTsZHt24dH5NLLmTR0OR/PBv1rOxY+dcGvhgM
+         Mpco9DO5l55ewLEKpLR+el31jYdBNWWW1IONhJ9f5sFqk/dMI8lLBsreRe/JEdTu9hO4
+         bETthDF4S4QM4S/XnsDvvCyEDezaPHNvT3OF9y0XVz7jD4VjV/fn+F9jEFjQbH8MXD5o
+         HZ64as2+rKOgEbd69TqAQrhLqvbPG42NiR3EcgLvY++gdnuHHWAKRNwzSDLpLCG/e+gn
+         LnQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794265428; x=1794870228;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=av3WRFVIfYOqlxtYCbtCUVyRZTi6ahIEMlQGBL6IcHk=;
+        b=MFXvWctf3AHpXk/3BmBSRLpXRkeKK9rqMcGtAaP+a580cppU6u25aZPXig9446css3
+         ZVGMM/Tbrnn5cfVIqyg1mn3JfXQnN6qb4WcIAGIeXo1BtnlQptsvNmqNgTnHYdqTWjU9
+         q/HU3XyIZ5X2YcJjoUb++r7PsFzvP30gLH5nBNUPiYv67cGyPMkcvfY2cYfZUwi1GojB
+         RD+3XGaucHYrRqHalp+tWSult6k4am0f4CAXNriasSo006q5NtkHCfVQlecXzDFPhtkn
+         iCUR6WFmifwQR3/kYJSkJCthCKUkNyzvhOfME851mlPH9TGJtIKNV4wi44GXsKYII+Xu
+         hNUQ==
+X-Forwarded-Encrypted: i=1; AL+hErElwGGCH52F6Nn3SEO4WAwpz1vugbAUIZo26c5bn8tGORu01HWEi2S+8HfXu5AxrH7K6d0UosYOUyixJqg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8ELvmpoX6LAXLPKjR6FKsDTu0HnyE+zsyvsUTTjCVAqgyK69Q
+	ILezUMzWY/Tu0pzAMQwnUsFlXCqfl64vvL0qt94QIusOjQNjWNxPt2Rk
+X-Gm-Gg: AYBFou3eFoVpeyHVCqH/9DGADhFBei82SvCxgPssPplgyT4lq2NVNtjx2iEliLX25So
+	CGMvCeSBNfehtAk8AlUAZgBbBBToGc2c/XXvnnON0iIHSIvFRvb3xPHd2vDdiq2ZRHtDkZHGszD
+	konyl5eGt5At601P1h3jlDa0hdLX8vHUG2tK2ZLOUS/2VgE6kkduHceEG90PJfieOvYK2RRS9Aw
+	ULu1lxWSGx5Cchyc+urEttqjtjePgBo6XFCRWQ/E5mOUvLIYuCTB+HdRXwX1GmkBNC+wep970/i
+	WpgJIvZRw6wW9Iv946oNiQiVSG6WNt/xIyChgyrJ/ERogzjsX7c9CweKKeEsYK9CySghPlMs4HK
+	DHSAxoEcrr53bK50jZEasaKsuVSAPf2ki8VKUYQQVhx0UmXgaWi95s3BRvHI4ET8FsA57gs/Dp/
+	Wj96g+caH5xPi8W2Mlye6BemuNWqgckH5DkrAZROYi9H0Y7TDaj+E9QxrRz+vDnggrgwy5TxLGr
+	+FQXveOPKdHO6nJD8lAJf90EEvPrbgV7peQKyPb0s8DtAJiE8T9yVGgccs2pu7RSkQBv8jhcC/c
+	GE0kJEN0Ic+2X/sfRUI7Sly0yQSkzJHxlJY1uEdca4Pe/Q==
+X-Received: by 2002:a05:6214:d6f:b0:91e:81a3:d459 with SMTP id 6a1803df08f44-91eef96b9e5mr23941996d6.3.1794265428066;
+        Mon, 09 Nov 2026 15:03:48 -0800 (PST)
+Received: from yaozhao-prestige14a10sc ([198.58.190.97])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ef051dc53sm7031306d6.32.2026.11.09.15.03.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 15:03:47 -0800 (PST)
+From: Yao <dragonlinux@gmail.com>
+To: peterz@infradead.org,
+	mingo@redhat.com
+Cc: mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	yao <dragonlinux@gmail.com>
+Subject: [PATCH perf] perf annotate: fix annotate crash for fused instructions
+Date: Mon,  9 Nov 2026 18:03:14 -0500
+Message-ID: <20261109230314.627013-1-dragonlinux@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,107 +97,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261109185515838mOfBTIYMU1_4vygdxd-Gg@zte.com.cn>
 
-On Mon, Nov 09, 2026 at 06:55:15PM +0800, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> pci_specified_resource_alignment() parses the pci=resource_alignment=
-> boot parameter and rejects only orders above 63.  A negative order, such
-> as "pci=resource_alignment=-5@...", passes that check and later reaches
-> "align = 1ULL << align_order" with a negative shift count, which is
-> undefined behavior; on x86 the 64-bit shift count is masked to six bits,
-> silently producing a 2^59-byte alignment that mis-aligns (or fails to
-> align) the affected IOV resources.
-> 
-> align_order is a bit order, so parse it with %u.  vsscanf() does not
-> accept a sign for %u, so a negative order no longer converts: the
-> parameter is reported as invalid and no alignment is applied.  Orders
-> above 63 are still rejected and fall back to the page-size alignment.
-> 
-> Fixes: 6534aac198b5 ("PCI: Bounds-check command-line resource alignment requests")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+From: yao <dragonlinux@gmail.com>
 
-Applied to pci/resource for v7.5, thank you!
+Function is_fused tries to find the previous fused instruction with
+the current conditional jump instruction in the annotate_line list.
+disasm_line is the container of annotate_line.
+The annotate_line list uses list_head and the head is in
+annotated_source: notes->src->source which is not an annotate_line,
+so it couldn't walk without checking the list_head.
+If so it will read annoted_source neighbour memory mistakenly and most
+likely cause crash.
 
-I included this diff based on Ilpo's comment:
+Fix the case where current instruction is a conditional jump and it is
+the first instruction in the disassembled list, the original code will
+walk to the head and treats it as disasm_line which is not.
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index b603d5c5596b..f8968f3be0f5 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -6511,10 +6511,9 @@ static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
- 							bool *resize)
- {
- 	unsigned int align_order;
--	int count;
- 	resource_size_t align = pcibios_default_alignment();
- 	const char *p;
--	int ret;
-+	int ret, count;
+Signed-off-by: yao <dragonlinux@gmail.com>
+---
+ tools/perf/ui/browsers/annotate.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/tools/perf/ui/browsers/annotate.c b/tools/perf/ui/browsers/annotate.c
+index cf36b5347f72..07449944fa2e 100644
+--- a/tools/perf/ui/browsers/annotate.c
++++ b/tools/perf/ui/browsers/annotate.c
+@@ -155,17 +155,26 @@ static void annotate_browser__write(struct ui_browser *browser, void *entry, int
  
- 	spin_lock(&resource_alignment_lock);
- 	p = resource_alignment_param;
+ static int is_fused(struct annotate_browser *ab, struct disasm_line *cursor)
+ {
+-	struct disasm_line *pos = list_prev_entry(cursor, al.node);
++	struct annotation *notes = browser__annotation(&ab->b);
++	struct list_head *node = cursor->al.node.prev;
++	struct disasm_line *pos;
+ 	const char *name;
+ 	int diff = 1;
+ 
+-	while (pos && pos->al.offset == -1) {
+-		pos = list_prev_entry(pos, al.node);
++	/*
++	 * backwalk to the nearest neighbour instruction till the list head
++	 * instructions/non-insn are ordered from head to tail
++	 * head is not a annotate_line/disasm_line
++	 */
++	for (; node != &notes->src->source; node = node->prev) {
++		pos = list_entry(node, struct disasm_line, al.node);
++		if (pos->al.offset != -1)
++			break;
+ 		if (!annotate_opts.hide_src_code)
+ 			diff++;
+ 	}
+ 
+-	if (!pos)
++	if (node == &notes->src->source)
+ 		return 0;
+ 
+ 	if (ins__is_lock(&pos->ins))
+-- 
+2.56.0
 
-> ---
-> This supersedes 1/5 of the v1 series; 2/5-5/5 are unchanged.
-> 
-> v2:
->   - parse the order with %u instead of %d, as Ilpo Järvinen suggested; a
->     bit order is unsigned, and this also removes the explicit < 0 test
->     added by v1
->   - pr_err() prints the order with %u as well
->   - note the resulting behaviour: vsscanf() does not accept a sign for
->     %u, so a negative order fails to parse instead of being clamped
-> v1: https://lore.kernel.org/all/20261107002311316z2o2PFtFGoXh-VbqXtTGg@zte.com.cn/
-> 
-> Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the
-> pci=resource_alignment= boot parameter and a QEMU e1000 NIC; no extra
-> hardware is needed.
-> 
-> Booting with pci=resource_alignment=-5@pci:8086:100e, the unpatched
-> kernel parses -5 and "align = 1ULL << align_order" shifts by -5 (masked
-> to 2^59 on x86-64); the e1000 BAR is resized to 2^59 bytes, which cannot
-> be assigned, and the e1000 fails to probe.  With this patch "-5" does not
-> convert and the parameter is rejected:
-> 
->   unpatched                            patched
->   requesting alignment to              PCI: Can't parse resource_alignment
->   0x800000000000000                    parameter: -5@pci:8086:100e
->   e1000 probe failed, no eth0          e1000 eth0 probes
-> 
->  drivers/pci/pci.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index bca3a5d84cd9..e3f701ff9881 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -6585,7 +6585,8 @@ static DEFINE_SPINLOCK(resource_alignment_lock);
->  static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
->  							bool *resize)
->  {
-> -	int align_order, count;
-> +	unsigned int align_order;
-> +	int count;
->  	resource_size_t align = pcibios_default_alignment();
->  	const char *p;
->  	int ret;
-> @@ -6602,11 +6603,11 @@ static resource_size_t pci_specified_resource_alignment(struct pci_dev *dev,
->  
->  	while (*p) {
->  		count = 0;
-> -		if (sscanf(p, "%d%n", &align_order, &count) == 1 &&
-> +		if (sscanf(p, "%u%n", &align_order, &count) == 1 &&
->  		    p[count] == '@') {
->  			p += count + 1;
->  			if (align_order > 63) {
-> -				pr_err("PCI: Invalid requested alignment (order %d)\n",
-> +				pr_err("PCI: Invalid requested alignment (order %u)\n",
->  				       align_order);
->  				align_order = PAGE_SHIFT;
->  			}
