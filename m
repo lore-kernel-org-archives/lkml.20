@@ -1,74 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794230209;
-	b=0ZqqB8bai2QCTvLaiuDf9btAOB3DC3lSzeEFdY2NXiZ1CujCcnxML1dvoD4m0c9Ub1zh
-	 hLWm58Z8ik9MtwqWix8z2U9BBrwnKSZ3HxvRENkJppkFnfYqalWfJCGNRkCNyVu++3zvz
-	 hwIgpbUUqjm14c/+qnsuJNmAqLbsjZFlliUVL2gHV7wepeBok70jWb09+n5pF9xvfW7rN
-	 3kGTrHH7XTUzMCsc2R/LIHoy1EY8DKm6AECEI/GqWJtcrh8vRQkG8ObUoY1L6sk/cEIon
-	 /OAPUARZB3tyN9zqADWde68AqI3a8K3yAYLXNdpN4XyCZ4jwqjjjOGdTWpT2xs5NWPw==
+	t=1794230193;
+	b=0XmtOH2p8UjYXtOegls/lhVok9SLAug0zK9ijvpF3Pax0lbj5rcQhG3sJVoCGAwngOI8
+	 Am6eoeEyYyopN20Uci/YPmdYmooBzmHWiryOP0R1MAvPAOkklbthJarY8BZJWNRFWTCaW
+	 c3IwJSzD+eXLGrShmvuIHEwRVEugFRQ9xlbRRRjQVssL6g/rdquj7fXvXlZ/66zeHPT1E
+	 j9YXE/AfaIwBe27zQ5ilIKRQAbMSEDEJlOpAqHLw15mDzgmd1renREd2hkw0ISePktGfG
+	 7QlkKf3xGZpwYFxAXebFgh4F7ThkdJ4ZsGvAlq/ZSaROmvnEkD58pxZbK//ZR5T6D7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794230209;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=LccMJis6sYnn44X90MSK47Ehqu5qOodsJEfJUs7rEMo=;
-	b=xYLghpljUg5GQqbkFsnPh/eMGkKFyWytRGzejYF+748Bq9eeG17ZsdhPFx8v+0mHLs3w
-	 vIV+dbehWDY7xrgRcoW/CQRWy0ZAfO8qKOGn/wCklKb9zYG3b6rt+HuI0My3/EHNM6jgX
-	 pYFXNnuGprjGh1jfF2TgR7q5frPfCjcFqjM/9eZVN408UQLzwBsd2MKxPl90BbC3kFdZE
-	 PDu5c1a/oAKnbv/8QoPBNIhKC1BcFfKknfVVCA0sokW9qu+hAlSteD6uFN7pqnrmW7VZP
-	 3cz2K1hKO+zGJsoCuGxH2XNTdj+ftyq5NGh5csiWWwgwdbxe7VDKDfVsXH6EJwgytQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794230193;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=e8c7paxwL5tke+4A1jsRM0Wz3ZxVtSkYKKkM+0xB5tI=;
+	b=udxpkX7jqQVsDRTuyjwIoSbvZwwbLkiknxm9wpYoSpQGNuyuAeHciGscuVBebT5ZL99x
+	 1vcx/U7dNc02eSquO0AKJv07uTy+UPVH5/VRV5Qkn2e6VwUCaPBTbgP9D1kKXE2a8FXJL
+	 U7xGQZoj1a0Lmz6vmjOSTcWBwoNFDSnd6bVTNHWRoCH4V9Alf2ziKhA+7CThlVCsCJC1Z
+	 QkgWoNHulslYgugXmo24yeL5x1hE4JHYVURBehuJZcMSNqLx2mFVXTfiD7usPmHK9m4ay
+	 V5xlebRca3b4uLveGH/g1NtEDUUJUsAKCyADDF+GMQ7Q39gU6zQe6xkfh5b/43mcqjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kLb3eUCL;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYX+58IZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318B4606A33A;
-	Mon,  9 Nov 2026 13:16:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 318B4606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451A7606A321;
+	Mon,  9 Nov 2026 13:16:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kLb3eUCL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794230209; x=1825766209;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=oJECIkof0wKIc6PeDXCw3rXlNlQaD2qboHkqbMUp6Mo=;
-  b=kLb3eUCLnNdgOzNMbcPbV/ClsVb8MppaUNyUcjfwJNb8YzxvRcshnUpC
-   lPOqz/2fX7KXcVBDaRDb1DM61b4A/qpW108Gk2Utyypw1eXLc6Syw8RNX
-   yuAu8HAKZx+1MvRzGNZ6KWgUc4sBGPmkQYDHRAZo5FGHZGS+4hQ8pgeOk
-   AJZBYMRUTNpDxkQNJi8qkzGtiiXj0DOmyprj3O57SKVzTCs/q/5lTVX7F
-   6L7Zq5pVmq3QxcVITHohO0mf6HUmfjdDzsRVuuyQaGArVzx5Gavv3Zvtq
-   j7bFxod57CCpeOFz1fZaw7zHr2GDL4dBRvzOwvnF1f/1dsqV6WkilGA0L
-   g==;
-X-CSE-ConnectionGUID: +VeD7g3XTy2YHcVLJs2qZQ==
-X-CSE-MsgGUID: QirATWYQTXyXWd0I2X4SxA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2828591"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2828591"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:16:48 -0800
-X-CSE-ConnectionGUID: vIFble+JSaOAKm1Cdg5yZw==
-X-CSE-MsgGUID: 8U0mSmWlTfmLKtGjOI5Cxw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7717855"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:16:46 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 9 Nov 2026 15:16:42 +0200 (EET)
-To: shao.mingyin@zte.com.cn
-cc: bhelgaas@google.com, linux-pci@vger.kernel.org, 
-    ilpo.jarvinen@linux.intel.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] PCI: Reject negative resource alignment order
-In-Reply-To: <20261109185515838mOfBTIYMU1_4vygdxd-Gg@zte.com.cn>
-Message-ID: <4f46d7de-5a52-4c01-3048-c8eee380c53d@linux.intel.com>
-References: <20261109185515838mOfBTIYMU1_4vygdxd-Gg@zte.com.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PYX+58IZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B951F008A1;
+	Mon,  9 Nov 2026 13:16:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794230192;
+	bh=e8c7paxwL5tke+4A1jsRM0Wz3ZxVtSkYKKkM+0xB5tI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=PYX+58IZVuGhJf+vfDNJ6mRmgi1a6MydZE5XF4S4xpvC+zMOlqWzX8w5AX6K4hwA3
+	 WMEiDZkPlC1G0ezUT3DJRqzhWgC59yhw9KAppblCnbpWo2ZNKWFoQI4WzkfUcuiH28
+	 TgnD/kUbwh7b8OIz39MmZnk0CwFnGkD1qFfQE8ArIwQd6RNn2tkJrJp572Zo+53H5Y
+	 NteXLQ1bTSlMSf8+bpJPXugg7ccUG4bsos/4ywnk3nws6yRW7gDQfJ4/olMilU16tS
+	 Oeh/NWtjPUIEyW7t/aD5XxF4mkwMOD+CPc9UBWuSMCgVp6hXpT8JaCkZeCn2TFAHmu
+	 chgg9kmxOUdxg==
+Subject: Re: [PATCH v2 1/2] net: atlantic: AQC113: Fix
+ hw_atl2_hw_acket_filter_set for L2 filter base index > 0
+From: netdev-bot+sashiko@kernel.org
+To: j@jannau.net
+Cc: sukhdeeps@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 09 Nov 2026 13:16:31 +0000
+Message-ID: <179423019192.994134.8909643387874030122@kernel.org>
+In-Reply-To: <20261108-net-atlantic-aq113-apple-l2-filter-slots-v2-1-0b988d031c78@jannau.net>
+References: <20261108-net-atlantic-aq113-apple-l2-filter-slots-v2-1-0b988d031c78@jannau.net>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,107 +63,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1838671496-1794230202=:1181"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Thank you for your contribution! Sashiko AI review found 5 potential
+issue(s) to consider.
 
---8323328-1838671496-1794230202=:1181
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Critical: 0 · High: 1 · Medium: 2 · Low: 2
 
-On Mon, 9 Nov 2026, shao.mingyin@zte.com.cn wrote:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
->=20
-> pci_specified_resource_alignment() parses the pci=3Dresource_alignment=3D
-> boot parameter and rejects only orders above 63.  A negative order, such
-> as "pci=3Dresource_alignment=3D-5@...", passes that check and later reach=
-es
-> "align =3D 1ULL << align_order" with a negative shift count, which is
-> undefined behavior; on x86 the 64-bit shift count is masked to six bits,
-> silently producing a 2^59-byte alignment that mis-aligns (or fails to
-> align) the affected IOV resources.
->=20
-> align_order is a bit order, so parse it with %u.  vsscanf() does not
-> accept a sign for %u, so a negative order no longer converts: the
-> parameter is reported as invalid and no alignment is applied.  Orders
-> above 63 are still rejected and fall back to the page-size alignment.
->=20
-> Fixes: 6534aac198b5 ("PCI: Bounds-check command-line resource alignment r=
-equests")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> ---
-> This supersedes 1/5 of the v1 series; 2/5-5/5 are unchanged.
->=20
-> v2:
->   - parse the order with %u instead of %d, as Ilpo J=C3=A4rvinen suggeste=
-d; a
->     bit order is unsigned, and this also removes the explicit < 0 test
->     added by v1
->   - pr_err() prints the order with %u as well
->   - note the resulting behaviour: vsscanf() does not accept a sign for
->     %u, so a negative order fails to parse instead of being clamped
-> v1: https://lore.kernel.org/all/20261107002311316z2o2PFtFGoXh-VbqXtTGg@zt=
-e.com.cn/
->=20
-> Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with the
-> pci=3Dresource_alignment=3D boot parameter and a QEMU e1000 NIC; no extra
-> hardware is needed.
->=20
-> Booting with pci=3Dresource_alignment=3D-5@pci:8086:100e, the unpatched
-> kernel parses -5 and "align =3D 1ULL << align_order" shifts by -5 (masked
-> to 2^59 on x86-64); the e1000 BAR is resized to 2^59 bytes, which cannot
-> be assigned, and the e1000 fails to probe.  With this patch "-5" does not
-> convert and the parameter is rejected:
->=20
->   unpatched                            patched
->   requesting alignment to              PCI: Can't parse resource_alignmen=
-t
->   0x800000000000000                    parameter: -5@pci:8086:100e
->   e1000 probe failed, no eth0          e1000 eth0 probes
->=20
->  drivers/pci/pci.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index bca3a5d84cd9..e3f701ff9881 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -6585,7 +6585,8 @@ static DEFINE_SPINLOCK(resource_alignment_lock);
->  static resource_size_t pci_specified_resource_alignment(struct pci_dev *=
-dev,
->  =09=09=09=09=09=09=09bool *resize)
->  {
-> -=09int align_order, count;
-> +=09unsigned int align_order;
-> +=09int count;
->  =09resource_size_t align =3D pcibios_default_alignment();
->  =09const char *p;
->  =09int ret;
-
-I'd have preferred having count and ret on the same line.
-
-Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+- [High] Off-by-one in the slot index of the new enable/disable loop in
+  hw_atl2_hw_packet_filter_set()…
+- [Medium] hw_atl2_hw_packet_filter_set() can write past the end of the
+  38-entry L2 unicast filter table.
+- [Medium] hw_atl2_hw_packet_filter_set() now bounds its secondary-filter
+  loop by priv->l2_filter_count.
+- [Low] The commit message does not match the change.
+- [Low] After this patch, hw_atl_b0_hw_packet_filter_set() has no
+  external user.
 
 --
- i.
 
-> @@ -6602,11 +6603,11 @@ static resource_size_t pci_specified_resource_ali=
-gnment(struct pci_dev *dev,
-> =20
->  =09while (*p) {
->  =09=09count =3D 0;
-> -=09=09if (sscanf(p, "%d%n", &align_order, &count) =3D=3D 1 &&
-> +=09=09if (sscanf(p, "%u%n", &align_order, &count) =3D=3D 1 &&
->  =09=09    p[count] =3D=3D '@') {
->  =09=09=09p +=3D count + 1;
->  =09=09=09if (align_order > 63) {
-> -=09=09=09=09pr_err("PCI: Invalid requested alignment (order %d)\n",
-> +=09=09=09=09pr_err("PCI: Invalid requested alignment (order %u)\n",
->  =09=09=09=09       align_order);
->  =09=09=09=09align_order =3D PAGE_SHIFT;
->  =09=09=09}
->=20
---8323328-1838671496-1794230202=:1181--
+net: atlantic: AQC113: Fix hw_atl2_hw_acket_filter_set for L2 filter base index > 0
+
+This patch replaces the call from hw_atl2_hw_packet_filter_set() to
+hw_atl_b0_hw_packet_filter_set() with an open-coded copy. The copy takes
+l2_filters_base_index into account, so it no longer disables the L2
+filters that hw_atl2.c programs, including the one for the MAC address.
+This fixes broken networking on Apple silicon systems whose firmware
+reports l2_filters_base_index = 9.
+
+> net: atlantic: AQC113: Fix hw_atl2_hw_acket_filter_set for L2 filter base index > 0
+
+[ ... ]
+
+> Copy the formerly wrapped `hw_atl_b0_hw_packet_filter_set()` to handle
+> this additional complexity.
+
+[Severity: Low]
+This isn't a bug, but there's a typo in the subject line
+(hw_atl2_hw_acket_filter_set).
+
+Also, the new code is not a plain copy of hw_atl_b0_hw_packet_filter_set().
+The loop bound used to be the fixed HW_ATL_B0_MAC_MIN..HW_ATL_B0_MAC_MAX
+range. It now depends on the l2_filter_count that firmware reports. The
+slot index is also rebased onto l2_filters_base_index. Both changes affect
+AQC113 systems with a base index of 0 too.
+
+Could the commit message mention these differences?
+
+> diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
+> index 25dd7150aaaf2..8d7a489aa5de4 100644
+> --- a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
+> +++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
+> @@ -759,9 +759,42 @@ static int hw_atl2_hw_ring_tx_init(struct aq_hw_s *self,
+>  static int hw_atl2_hw_packet_filter_set(struct aq_hw_s *self,
+>  					unsigned int packet_filter)
+>  {
+> +	struct aq_nic_cfg_s *cfg = self->aq_nic_cfg;
+> +	struct hw_atl2_priv *priv = self->priv;
+> +	u32 base_location = priv->l2_filters_base_index + 1;
+> +	unsigned int num_l2_filters = min_t(unsigned int, HW_ATL2_MAC_MAX,
+> +					    priv->l2_filter_count);
+
+[Severity: Medium]
+What happens here if firmware reports l2_filter_count == 0? Then
+num_l2_filters is 0 and the loop further down never runs. The secondary
+filter enables would stop following IFF_MULTICAST and mc_list_count.
+
+For example, clearing IFF_MULTICAST when there are no secondary unicast
+addresses would leave enabled the slots that
+hw_atl2_hw_multicast_list_set() wrote.
+
+hw_atl2_utils_get_filter_caps() gives a zero art_count a default, but
+l2_filter_count gets no fallback:
+
+hw_atl2_utils_get_filter_caps() {
+    ...
+	if (priv->art_count == 0)
+		priv->art_count = HW_ATL2_ART_TOTAL_ENTRIES;
+    ...
+	priv->l2_filter_count = filter_caps.l2_filter_count;
+    ...
+}
+
+The b0 loop covered slots 1..32 no matter what the firmware reported.
+
+Later in the series this gets worse. hw_atl2_get_num_multicast_addresses()
+returns min_t(int, l2_filter_count - 1, 32), which is -1 when the count is
+0. The num_multicast_addresses check in aq_nic_set_multicast_list() is an
+unsigned comparison, so -1 becomes UINT_MAX. Wouldn't the check then never
+fire, so that every multicast address is copied into the 32 entry
+mc_list.ar?
+
+> +	unsigned int i = 0U;
+> +	u32 vlan_promisc;
+> +	u32 l2_promisc;
+> +
+>  	hw_atl2_hw_new_rx_filter_promisc(self, IS_FILTER_ENABLED(IFF_PROMISC));
+>  
+> -	return hw_atl_b0_hw_packet_filter_set(self, packet_filter);
+
+[Severity: Low]
+This isn't a bug, but once this call is removed,
+hw_atl_b0_hw_packet_filter_set() is not used anywhere outside
+hw_atl_b0.c. Could it be made static again, and its prototype dropped
+from hw_atl_b0.h?
+
+[ ... ]
+
+> +	hw_atl_rpfl2broadcast_en_set(self, IS_FILTER_ENABLED(IFF_BROADCAST));
+> +
+> +	for (i = HW_ATL2_MAC_MIN; i < num_l2_filters; ++i)
+> +		hw_atl_rpfl2_uc_flr_en_set(self,
+> +					   (cfg->is_mc_list_enabled &&
+> +					    (i <= cfg->mc_list_count)) ?
+> +					   1U : 0U, base_location + i);
+
+[Severity: High]
+Is the slot index off by one here? base_location already equals
+l2_filters_base_index + 1, and the loop starts at HW_ATL2_MAC_MIN (1).
+The loop therefore manages slots base + 2 .. base + num_l2_filters. It
+enables slots base + 2 .. base + 1 + mc_list_count.
+
+hw_atl2_hw_multicast_list_set() writes entry k (counting from 0) to
+base_location + k:
+
+hw_atl2_hw_multicast_list_set() {
+    ...
+	u32 base_location = priv->l2_filters_base_index + 1;
+    ...
+		u32 i = cfg->mc_list_count;
+    ...
+		hw_atl_rpfl2unicast_dest_addresslsw_set(self, l,
+							base_location + i);
+    ...
+}
+
+Its entries therefore occupy base + 1 .. base + mc_list_count. In the b0
+original, the enable loop used slot i for 1 <= i <= mc_list_count, which
+matches the slots its own list_set writes.
+
+With the new indexing, nothing here ever clears slot base + 1. When the
+address count drops to 0, aq_nic_set_multicast_list() skips
+hw_multicast_list_set() and only calls aq_nic_set_packet_filter(). That
+happens when the last secondary unicast address or multicast group is
+removed, or when multicast is turned off. Would the NIC keep accepting the
+stale first secondary address in those cases?
+
+The loop also enables slot base + 1 + mc_list_count, which was not
+programmed in this round. If the list shrinks from N to M entries, that
+slot still holds the old entry M. Can the hardware keep accepting an
+address the stack has already removed?
+
+This happens for every l2_filters_base_index, including 0. AQC113 boards
+that worked before could regress, and Cc: stable would carry that to
+them. Should the index be priv->l2_filters_base_index + i instead? The
+final patch of the series doesn't seem to change this loop.
+
+[Severity: Medium]
+Can this loop also write past the end of the 38 entry L2 unicast filter
+table? The highest slot it touches is
+l2_filters_base_index + min(HW_ATL2_MAC_MAX, l2_filter_count). Nothing
+checks that value against HW_ATL2_MAC_MAX, and
+hw_atl2_utils_get_filter_caps() clamps only the base index:
+
+hw_atl2_utils_get_filter_caps() {
+    ...
+	priv->l2_filters_base_index = filter_caps.l2_filters_base_index;
+	if (priv->l2_filters_base_index >= HW_ATL2_MAC_MAX)
+		priv->l2_filters_base_index = HW_ATL2_MAC_UC;
+	priv->l2_filter_count = filter_caps.l2_filter_count;
+    ...
+}
+
+The commit message of the next patch in the series ("net: atlantic:
+AQC113: Limit multicast filters to available slots") says Apple firmware
+reports base 9 and count 29. With those values the loop reaches slot 38.
+Each call then does a read-modify-write of bit 31 at
+HW_ATL_RPFL2UC_ENF_ADR(38) = 0x5244, which is beyond the last table entry
+at 0x523C.
+
+Firmware that reports a larger count with a nonzero base would go further,
+into HW_ATL_RPFL2MC_ENF_ADR(1) at 0x5254 and the VLAN TPID register at
+0x5284. Bit 31 of those registers would then follow mc_list_count. The b0
+loop never went beyond slot 32.
+
+Should the bound also enforce
+l2_filters_base_index + l2_filter_count <= HW_ATL2_MAC_MAX?
+
+> +
+> +	return aq_hw_err_from_flags(self);
+>  }
+>  
+>  #undef IS_FILTER_ENABLED
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108-net-atlantic-aq113-apple-l2-filter-slots-v2-0-0b988d031c78%40jannau.net
