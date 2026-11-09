@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794187280;
-	b=l6qH+TVYUbbd3Oj+/h1NWfaIOsmhDUpT2UuQ4pNX71X0fTRJ1tds48BAfPg1p/OTse13
-	 eycI99S6lMw3bxeSDBq/huRAgZKbV2W/RXDnRyIcOeWTYwjFtfp+WMcaHuZADIZPPZ2jz
-	 CXhtzP5jHt4g8F/ve3ctqmJJiNTUcaHmftvcroRI4Q7dmodVeYQO2LSg+HUQeB7oh7LGL
-	 PNSAhp8/qeXcgCA+gvm6EQl8S/LLAngSoiFC6NAzx9DbmYKNyhL6pOc/R93EEZcutBQcA
-	 /izHWFGfS5NJdh1WfuYX76qdiXTcuq8jXKXmLvYZx19F94J9oNhx+5dG6cJbSKILoAA==
+	b=3yuVxjA6ZbHlIQ/FcbaJKNhiTGWyyNcK0ssp9icNnG3GJMpoCswZZVdw/g85sRvFAuFL
+	 xbJ9eFI2DHrit7AWUjDSRkuABUtuiVouXWnH1KOS0LsLjUaAGcx/5SLOfAAQBhdKu6zAV
+	 6yPCVOhtuAX/JbFsANxij/9L9JEoJeW19vLqd1nog+PfbNUskU40sKXy1dhyiaA53FcFG
+	 n/tHVQfLUuULF7o6bn9E8sQugLK6nbeitD6P/74uNSCC57WXME1EHG0n9HpFxASt5gVLN
+	 ynCOLtXPhoAr7oItptM3LoDBz0Tc9FWwwyiX2PR9Cd552ZXW7oVEWSlBy9DpDOGHZNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794187280;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
-	bh=hMvljJnllU7aDRXmXMvZrMdzo7ACgZ9fJ569T/ac5uM=;
-	b=ua44IFRrbwkjgdARcvjarhUwvf0Mze5OR4yHW9V4n4BAAO/7Yhjz9B4IdpYfRukKwVb6
-	 Wzp8PYAlRhZ9/9knuSz16nfr/nT0WaKkUK0IX0+h2hpBzZW0uDVp/GczHdEV+OZepUe9I
-	 rH18lZlrFDTp8lerSNMN4rFmVCL/cbR3HdaEoSRcwo2059tSnN/rt5Z2YxH3yihXI9oXl
-	 2lx4PXNEwjPICRT321cBjj57A2ELG0AglmPWdYmsMEDcReog0N9FC6yUdUigqlE3G6EfL
-	 8S6ZUNU5XLgmHrbGtZU0exA0XLUJ+ucpFdTQGbScRGG4eer+U9c1qM0PMuL4TLNhBbw==
+	 Content-Type:Content-Transfer-Encoding:Sender:X-SRS-Rewrite;
+	bh=jhbHTsXlkafiijDqKYXVFTZ8kLMGsWqGWQ4/HbRTNCs=;
+	b=31qQ8TGX+I8v0lo1228RF+xNP7SWcGAaZ13wHhhjgNYHOUDoRsUv4wO3Jdw09VJbxn/b
+	 GRg6rcAAVuHEPSlYgRf1Ats6z22A5WckijWo3M3iqqzjS3Dt2qij6KCwmiEzuhdT9DfsB
+	 OfR1REn392rX1HU/3sZpwtPyXvYz22KX6d3YXFGg+B9XsSq8HatKS0Bk4MfIgCzCwh5lw
+	 lTwjvwp0ODXE9ubX55DCg/IW3BmUELGgNdnmisah34Crv8M2eqRDmqtR9DdVjQIRfx5KB
+	 QTdhnqZ8ws9v49IvBxNsZqJz890DOEMCPR4g6h6JjrcRJ5RTUQOa7SJxmTJuM3WPNfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=infradead.org;
 	spf=none smtp.mailfrom=casper.srs.infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=KKFNx3dO;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=UMiTYyaJ;
 	arc=none smtp.remote-ip=90.155.50.34
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714B5606A331;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71438606A32A;
 	Mon,  9 Nov 2026 01:21:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 714B5606A331
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71438606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=KKFNx3dO
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=UMiTYyaJ
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
-	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=hMvljJnllU7aDRXmXMvZrMdzo7ACgZ9fJ569T/ac5uM=; b=KKFNx3dOVMS9oS3gP03ZDQC80V
-	a0QXN3E6tXhOyT4C0udEbqQ6COzincx/L8+MphVECcNxues0E3zqg3i6Y0Lgf/T/aY5sZ55pwto7G
-	Ktvx1AQQWrxNnvldgoSUpSoDVtsPEG7HqVk71jqU75egEv5kS9GrzME5yro6+1g9uRnN94DeIrTCI
-	ScL8W0jiqBNpa3pDU4aTcPiCymwlcdSjxR1Ad+CDAGo9u+MUnYgJbbAOAkIxBBkdrTqBP0LUnvy2F
-	tmySDeOka1cESQEi2iI7Rp7JcjJlp82WrqPlxHdHeWy2S6JOCSF7KvLqK0tPnRT3Q9HEspUDVk+dw
-	xzPKpwLg==;
+	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
+	To:From:Reply-To:Content-ID:Content-Description;
+	bh=jhbHTsXlkafiijDqKYXVFTZ8kLMGsWqGWQ4/HbRTNCs=; b=UMiTYyaJUWRPpigzSX/2R4AfNf
+	Vms5l1HWVobQvkUIuIvqktD0UgljhqxSbtoiRrsneCppCdTNcKxy8ly0tJqBPhNnip96ELPYdAV46
+	pTVBeOf2FCjl/Af314myhUZtQJTMYO4fTEWjC7W4CRrHfJL9OCXfV0gY+9eWIvOmjvEfNd31l/eJf
+	R4VjoZJ9AcTbMWMfKdwocZ6BBEQZ90As+82F9cuKSVmnjwBy9MGTCNesvzdaYTKGxrPgjh1eH5vCX
+	Cj2T5dSA1IPFIUfOpUZYN5G+Li/Wd+b4emrOkVGbedGPy+R+eyALKGKOIA/+GXVUAjSqPdDoChUhj
+	VOAyAk6g==;
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
 	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xQE4O-00000007Pvu-3wfB;
+	id 1xQE4P-00000007PwJ-2HJo;
 	Mon, 09 Nov 2026 01:21:13 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xQE4O-0000000EKUV-2uCe;
-	Mon, 09 Nov 2026 01:21:12 +0000
+	id 1xQE4P-0000000EKVS-1Vui;
+	Mon, 09 Nov 2026 01:21:13 +0000
 From: David Woodhouse <dwmw2@infradead.org>
 To: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -78,9 +78,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Dongli Zhang <dongli.zhang@oracle.com>,
 	joe.jin@oracle.com,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v12 07/24] KVM: x86: Avoid redundant masterclock updates from multiple vCPUs
-Date: Sun,  8 Nov 2026 17:20:53 -0800
-Message-ID: <20261109012112.3415328-8-dwmw2@infradead.org>
+Subject: [PATCH v12 21/24] KVM: selftests: Test that the first user TSC write is honoured exactly
+Date: Sun,  8 Nov 2026 17:21:07 -0800
+Message-ID: <20261109012112.3415328-22-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261109012112.3415328-1-dwmw2@infradead.org>
 References: <20261109012112.3415328-1-dwmw2@infradead.org>
@@ -93,217 +93,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-When a masterclock update is triggered (e.g. by the clocksource change
-notifier), KVM_REQ_MASTERCLOCK_UPDATE is set on all vCPUs. Without this
-fix, each vCPU independently processes the request and redundantly
-re-executes the entire pvclock_update_vm_gtod_copy() sequence, serialized
-only by tsc_write_lock. Each redundant re-snapshot of the master clock
-reference point introduces potential clock drift.
+The 1-second "slop" heuristic in kvm_synchronize_tsc() is only
+supposed to apply between successive userspace TSC writes, i.e. once
+kvm->arch.user_set_tsc has been set by a previous write. The kernel's
+own internal TSC synchronization on vCPU creation (and frequency
+changes) must not arm it, otherwise the first genuine userspace write
+falling within 1 second of virtual cycle time of the kernel's default
+generation is "corrected" back to that generation instead of being
+honoured — breaking the restore of a guest with less than one second
+of runtime.
 
-Fix this by having __kvm_start_pvclock_update() check, after acquiring
-the lock, whether the requesting vCPU's KVM_REQ_MASTERCLOCK_UPDATE is
-still set. If another vCPU already did the update and cleared it, bail
-out. Otherwise, clear the request on all other vCPUs before proceeding.
+Add a test which creates a vCPU and immediately performs a first
+host-initiated write of a TSC value corresponding to ~500ms of guest
+runtime, then verifies the value reads back exactly (modulo elapsed
+time) rather than being snapped back to the kernel's default
+generation near zero.
 
-The caller in vcpu_enter_guest() now uses kvm_test_request() (non-clearing)
-since the clearing is done inside __kvm_start_pvclock_update() under the
-lock.
-
-kvm_end_pvclock_update() now broadcasts KVM_REQ_CLOCK_UPDATE and clears
-KVM_REQ_MCLOCK_INPROGRESS while still inside the interrupts-off lock
-section with the seqcount held open. That ordering is load-bearing for
-the bail-out path: a vCPU whose request was consumed by another updater
-must be guaranteed to observe either the open seqcount or its pending
-KVM_REQ_CLOCK_UPDATE before it can enter the guest.
-
-Since the update now consumes pending KVM_REQ_MASTERCLOCK_UPDATE
-requests, the Hyper-V reenlightenment notifier must invalidate the
-Hyper-V TSC page itself; previously a pending request survived the
-notifier and refreshed the page via kvm_update_masterclock() later.
-
-Suggested-by: Dongli Zhang <dongli.zhang@oracle.com>
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Tested-by: Dongli Zhang <dongli.zhang@oracle.com>
 ---
- arch/x86/kvm/msrs.c | 11 ++++--
- arch/x86/kvm/x86.c  | 89 ++++++++++++++++++++++++++++++++++++++-------
- 2 files changed, 83 insertions(+), 17 deletions(-)
+ tools/testing/selftests/kvm/Makefile.kvm      |   1 +
+ .../selftests/kvm/x86/tsc_user_set_test.c     | 153 ++++++++++++++++++
+ 2 files changed, 154 insertions(+)
+ create mode 100644 tools/testing/selftests/kvm/x86/tsc_user_set_test.c
 
-diff --git a/arch/x86/kvm/msrs.c b/arch/x86/kvm/msrs.c
-index a2dffa1c706f..26eb30f10c43 100644
---- a/arch/x86/kvm/msrs.c
-+++ b/arch/x86/kvm/msrs.c
-@@ -1278,10 +1278,15 @@ static void kvm_write_system_time(struct kvm_vcpu *vcpu, gpa_t system_time,
- 	struct kvm_arch *ka = &vcpu->kvm->arch;
- 
- 	if (vcpu->vcpu_id == 0 && !host_initiated) {
--		if (ka->boot_vcpu_runs_old_kvmclock != old_msr)
-+		/*
-+		 * Store the flag before requesting the masterclock update:
-+		 * the update may now be performed by another vCPU (which
-+		 * consumes this request), and it must observe the new value.
-+		 */
-+		if (ka->boot_vcpu_runs_old_kvmclock != old_msr) {
-+			ka->boot_vcpu_runs_old_kvmclock = old_msr;
- 			kvm_make_request(KVM_REQ_MASTERCLOCK_UPDATE, vcpu);
--
--		ka->boot_vcpu_runs_old_kvmclock = old_msr;
-+		}
- 	}
- 
- 	vcpu->arch.time = system_time;
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 0348f24cfd1d..290a3c3bb44f 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -1733,10 +1733,51 @@ static void kvm_make_mclock_inprogress_request(struct kvm *kvm)
- 	kvm_make_all_cpus_request(kvm, KVM_REQ_MCLOCK_INPROGRESS);
- }
- 
--static void __kvm_start_pvclock_update(struct kvm *kvm)
-+static void kvm_clear_mclock_inprogress_request(struct kvm *kvm)
- {
-+	struct kvm_vcpu *vcpu;
-+	unsigned long i;
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 1edc78845fd3..fd063806a7fb 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -151,6 +151,7 @@ TEST_GEN_PROGS_x86 += x86/xcr0_cpuid_test
+ TEST_GEN_PROGS_x86 += x86/xss_msr_test
+ TEST_GEN_PROGS_x86 += x86/debug_regs
+ TEST_GEN_PROGS_x86 += x86/tsc_msrs_test
++TEST_GEN_PROGS_x86 += x86/tsc_user_set_test
+ TEST_GEN_PROGS_x86 += x86/vmx_pmu_caps_test
+ TEST_GEN_PROGS_x86 += x86/xen_cpuid_timing_test
+ TEST_GEN_PROGS_x86 += x86/xen_migration_test
+diff --git a/tools/testing/selftests/kvm/x86/tsc_user_set_test.c b/tools/testing/selftests/kvm/x86/tsc_user_set_test.c
+new file mode 100644
+index 000000000000..a74eb78a975b
+--- /dev/null
++++ b/tools/testing/selftests/kvm/x86/tsc_user_set_test.c
+@@ -0,0 +1,153 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Test that the first userspace write to MSR_IA32_TSC takes effect
++ * precisely, and is not subjected to the 1-second "slop" heuristic
++ * which is only supposed to apply between successive *userspace*
++ * writes (kvm->arch.user_set_tsc).
++ *
++ * The kernel synchronizes the TSC internally when a vCPU is created
++ * (and when its frequency is set). If any of those kernel-internal
++ * paths incorrectly sets user_set_tsc, then the first genuine write
++ * from userspace which happens to fall within 1 second of virtual
++ * cycle time of the kernel's default generation is "corrected" to
++ * match that generation instead of being honoured exactly. That
++ * breaks the restore of a guest which has genuinely been running
++ * for less than one second.
++ *
++ * Simulate exactly that: create a vCPU (kernel establishes a default
++ * TSC generation starting near zero), then perform the first
++ * host-initiated write with a value corresponding to ~500ms of guest
++ * runtime. If the slop heuristic fires, the written value is snapped
++ * back to the kernel's generation (near zero) and the TSC reads back
++ * hundreds of milliseconds low. Repeat with an explicit
++ * KVM_SET_TSC_KHZ on the never-run vCPU before the write: that is
++ * another kernel-internal synchronization which must not arm the
++ * heuristic (nor open a generation that swallows the first write).
++ */
++#include "kvm_util.h"
++#include "processor.h"
 +
-+	kvm_for_each_vcpu(i, vcpu, kvm)
-+		kvm_clear_request(KVM_REQ_MCLOCK_INPROGRESS, vcpu);
-+}
-+
-+static bool __kvm_start_pvclock_update(struct kvm *kvm, struct kvm_vcpu *requesting_vcpu)
++/*
++ * Returns false when the attempt was inconclusive: a snapped-back value
++ * tracks time since vCPU creation, so if creation-to-write time gets
++ * anywhere near the written 500ms, a buggy kernel's value could land
++ * inside the assertions' tolerance and pass. The caller retries.
++ */
++static bool test_first_write(bool set_freq)
 +{
 +	struct kvm_vcpu *vcpu;
-+	unsigned long i;
++	struct kvm_vm *vm;
++	u64 freq_khz, t_write, t_read, slack_cycles, mono_ns, create_ns, read_ns;
++	struct timespec ts;
++	int r;
 +
- 	raw_spin_lock_irq(&kvm->arch.tsc_write_lock);
++	clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
++	create_ns = ts.tv_sec * 1000000000ULL + ts.tv_nsec;
++
++	vm = vm_create_with_one_vcpu(&vcpu, NULL);
++
++	if (set_freq) {
++		/*
++		 * Halve the frequency so this is a real change, exercising
++		 * the frequency resynchronization path rather than the
++		 * unchanged-frequency no-op.
++		 */
++		r = __vcpu_ioctl(vcpu, KVM_GET_TSC_KHZ, NULL);
++		TEST_ASSERT(r > 0, "KVM_GET_TSC_KHZ failed");
++		vcpu_ioctl(vcpu, KVM_SET_TSC_KHZ,
++			   (void *)(unsigned long)(r / 2));
++	}
++
++	r = __vcpu_ioctl(vcpu, KVM_GET_TSC_KHZ, NULL);
++	TEST_ASSERT(r > 0, "KVM_GET_TSC_KHZ failed");
++	freq_khz = r;
 +
 +	/*
-+	 * If another vCPU already did the update while we were waiting
-+	 * for the lock, our request will have been cleared. Bail out,
-+	 * clearing the KVM_REQ_MCLOCK_INPROGRESS kicks made on entry to
-+	 * kvm_update_masterclock() so vCPUs can enter the guest again.
-+	 *
-+	 * Clearing them VM-wide can also clear kicks just made by yet
-+	 * another updater still waiting for tsc_write_lock, letting
-+	 * vCPUs run while that update is in flight. That is not new:
-+	 * kvm_end_pvclock_update() has always cleared the request on
-+	 * every vCPU regardless of which updater made it. The window is
-+	 * harmless to readers (the pvclock seqcount covers the master
-+	 * state); a vCPU which slips in runs on the old snapshot until
-+	 * its KVM_REQ_CLOCK_UPDATE is serviced, exactly as if it had
-+	 * entered just before the update began.
++	 * The first user write: a guest TSC corresponding to 500ms of
++	 * runtime. This is within 1s (of virtual cycle time) of the
++	 * kernel's default generation, so it is exactly the case that
++	 * the slop heuristic would destroy if it were (incorrectly)
++	 * armed by the kernel's own internal TSC synchronization.
 +	 */
-+	if (requesting_vcpu &&
-+	    !kvm_test_request(KVM_REQ_MASTERCLOCK_UPDATE, requesting_vcpu)) {
-+		kvm_clear_mclock_inprogress_request(kvm);
-+		raw_spin_unlock_irq(&kvm->arch.tsc_write_lock);
++	t_write = freq_khz * 500ULL;		/* khz * ms = cycles */
++
++	/*
++	 * Measure only the write..read window (a window measured from
++	 * before creation would also bound a snapped-back value), and
++	 * insist the write lands well before 500ms of creation time so
++	 * a snapped-back value cannot sit inside the tolerance.
++	 */
++	clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
++	mono_ns = ts.tv_sec * 1000000000ULL + ts.tv_nsec;
++
++	if (mono_ns - create_ns > 250000000ULL) {
++		pr_info("  creation took %lu ms, retrying for a conclusive run\n",
++			(mono_ns - create_ns) / 1000000);
++		kvm_vm_free(vm);
 +		return false;
 +	}
 +
-+	/* The update is VM-wide; prevent other vCPUs from redoing it. */
-+	kvm_for_each_vcpu(i, vcpu, kvm)
-+		kvm_clear_request(KVM_REQ_MASTERCLOCK_UPDATE, vcpu);
++	vcpu_set_msr(vcpu, MSR_IA32_TSC, t_write);
 +
- 	write_seqcount_begin(&kvm->arch.pvclock_sc);
-+	return true;
- }
- 
- static void kvm_start_pvclock_update(struct kvm *kvm)
-@@ -1744,7 +1785,7 @@ static void kvm_start_pvclock_update(struct kvm *kvm)
- 	kvm_make_mclock_inprogress_request(kvm);
- 
- 	/* no guest entries from this point */
--	__kvm_start_pvclock_update(kvm);
-+	__kvm_start_pvclock_update(kvm, NULL);
- }
- 
- static void kvm_end_pvclock_update(struct kvm *kvm)
-@@ -1753,22 +1794,35 @@ static void kvm_end_pvclock_update(struct kvm *kvm)
- 	struct kvm_vcpu *vcpu;
- 	unsigned long i;
- 
--	write_seqcount_end(&ka->pvclock_sc);
--	raw_spin_unlock_irq(&ka->tsc_write_lock);
- 	kvm_for_each_vcpu(i, vcpu, kvm)
- 		kvm_make_request(KVM_REQ_CLOCK_UPDATE, vcpu);
- 
- 	/* guest entries allowed */
--	kvm_for_each_vcpu(i, vcpu, kvm)
--		kvm_clear_request(KVM_REQ_MCLOCK_INPROGRESS, vcpu);
-+	kvm_clear_mclock_inprogress_request(kvm);
++	t_read = vcpu_get_msr(vcpu, MSR_IA32_TSC);
 +
-+	write_seqcount_end(&ka->pvclock_sc);
-+	raw_spin_unlock_irq(&ka->tsc_write_lock);
- }
- 
--static void kvm_update_masterclock(struct kvm *kvm)
-+static void kvm_update_masterclock(struct kvm *kvm, struct kvm_vcpu *vcpu)
- {
++	clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
++	read_ns = ts.tv_sec * 1000000000ULL + ts.tv_nsec;
++
 +	/*
-+	 * The Hyper-V TSC page request is made before the dedupe check
-+	 * in __kvm_start_pvclock_update() because it takes a mutex and
-+	 * so cannot sit inside the tsc_write_lock critical section where
-+	 * the winning updater is known. A losing vCPU may therefore mark
-+	 * the page HOST_CHANGED after the winner has already rewritten
-+	 * it; the next clock update then rewrites the page again with
-+	 * the same contents, which the TSC-page sequence protocol makes
-+	 * safe against concurrently running guests.
++	 * Bound the whole creation..read interval too: a snapped-back
++	 * value tracks it, so letting it approach the written 500ms
++	 * (via a stall between the two MSR ioctls, which the slack
++	 * below would otherwise absorb) would let a buggy kernel pass.
 +	 */
- 	kvm_hv_request_tsc_page_update(kvm);
--	kvm_start_pvclock_update(kvm);
--	pvclock_update_vm_gtod_copy(kvm);
--	kvm_end_pvclock_update(kvm);
-+	kvm_make_mclock_inprogress_request(kvm);
-+
-+	if (__kvm_start_pvclock_update(kvm, vcpu)) {
-+		pvclock_update_vm_gtod_copy(kvm);
-+		kvm_end_pvclock_update(kvm);
++	if (read_ns - create_ns > 400000000ULL) {
++		pr_info("  creation..read took %lu ms, retrying for a conclusive run\n",
++			(read_ns - create_ns) / 1000000);
++		kvm_vm_free(vm);
++		return false;
 +	}
- }
- 
- /*
-@@ -6869,7 +6923,14 @@ static void kvm_hyperv_tsc_notifier(void)
- 	kvm_caps.max_guest_tsc_khz = tsc_khz;
- 
- 	list_for_each_entry(kvm, &vm_list, vm_list) {
--		__kvm_start_pvclock_update(kvm);
-+		/*
-+		 * Invalidate the Hyper-V TSC page explicitly: the update
-+		 * below consumes any pending KVM_REQ_MASTERCLOCK_UPDATE,
-+		 * which would otherwise have refreshed the page from
-+		 * kvm_update_masterclock().
-+		 */
-+		kvm_hv_request_tsc_page_update(kvm);
-+		__kvm_start_pvclock_update(kvm, NULL);
- 		pvclock_update_vm_gtod_copy(kvm);
- 		kvm_end_pvclock_update(kvm);
- 	}
-@@ -8275,8 +8336,8 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 			kvm_mmu_free_obsolete_roots(vcpu);
- 		if (kvm_check_request(KVM_REQ_MIGRATE_TIMER, vcpu))
- 			__kvm_migrate_timers(vcpu);
--		if (kvm_check_request(KVM_REQ_MASTERCLOCK_UPDATE, vcpu))
--			kvm_update_masterclock(vcpu->kvm);
-+		if (kvm_test_request(KVM_REQ_MASTERCLOCK_UPDATE, vcpu))
-+			kvm_update_masterclock(vcpu->kvm, vcpu);
- 		if (kvm_check_request(KVM_REQ_GLOBAL_CLOCK_UPDATE, vcpu))
- 			kvm_gen_kvmclock_update(vcpu);
- 		if (kvm_check_request(KVM_REQ_CLOCK_UPDATE, vcpu)) {
-@@ -9665,7 +9726,7 @@ void kvm_arch_vcpu_postcreate(struct kvm_vcpu *vcpu)
- 	vcpu_load(vcpu);
- 	kvm_synchronize_tsc(vcpu, NULL);
- 	if (kvm_check_request(KVM_REQ_MASTERCLOCK_UPDATE, vcpu))
--		kvm_update_masterclock(vcpu->kvm);
-+		kvm_update_masterclock(vcpu->kvm, NULL);
- 	vcpu_put(vcpu);
- 
- 	/* poll control enabled by default */
++
++	mono_ns = read_ns - mono_ns;
++
++	/*
++	 * The TSC advances between the write and the read; bound the
++	 * difference by the measured elapsed time around the two ioctls
++	 * plus 10ms of slop, so a descheduled test cannot flake. If the
++	 * write was snapped to the kernel's default generation, the
++	 * value read back is ~500ms low (i.e. below t_write), which is
++	 * unambiguous.
++	 */
++	slack_cycles = freq_khz * (mono_ns / 1000000ULL + 10);
++
++	TEST_ASSERT(t_read >= t_write,
++		    "TSC went backwards from explicit write: wrote %lu, read %lu"
++		    " (first userspace write was subjected to 1-second slop?)",
++		    t_write, t_read);
++	TEST_ASSERT(t_read - t_write < slack_cycles,
++		    "TSC read back too far from written value: wrote %lu, read %lu",
++		    t_write, t_read);
++
++	kvm_vm_free(vm);
++	return true;
++}
++
++static void run_first_write(bool set_freq)
++{
++	int i;
++
++	for (i = 0; i < 5; i++)
++		if (test_first_write(set_freq))
++			return;
++
++	TEST_FAIL("vCPU creation repeatedly too slow for a conclusive run");
++}
++
++int main(void)
++{
++	run_first_write(false);
++
++	if (kvm_has_cap(KVM_CAP_TSC_CONTROL))
++		run_first_write(true);
++
++	return 0;
++}
 -- 
 2.43.0
 
