@@ -1,75 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216181;
-	b=fGeHqzIMonyd5D4fTJps0EeLo7PSs37oVyUQDhy14+3rRZZdebvEPQEfkIQbtOU5uME1
-	 CyjKNloyyOnZ3JdtJEfLdtEC+oVIA4fZNIOTYCixxj13+KpmNVlzAIYh30lqj8cGQA1ZH
-	 zhOdHkrGBdeJqeFL89stCaQs1qzKG6ZxeM1vQQ1P+5Pqo0DBCyqIFXJkrELgUQRNxnuLm
-	 9nG1rjkp4BjlNsdcpdsKd/wVyUflW2N/EsdBMyojySsfqu28pGuVwYQUvEqud6uOxrtwJ
-	 lXZ1VPL+k7fxSgZMJKlkUPR90nNUqIXhouIOoQ2VXxpXGXN74vJxoqgyheQdGC/pXrg==
+	t=1794216189;
+	b=gwne/rXXPA7GS5EQd4T9sm1FKdCSVT+kUJp+lW27nIFJt+aTT7nYLzX0IL4h2834ERLP
+	 LkLxjzLr9z4l+KFX0pnBcainOs4FfNvPlOcNLdqFz28KVvXgQSn//hZRFIiOsylsEBQ4A
+	 f6bHuy8TpvaXW6F5N826efAWs38IWB7xvtV9SfVXvzhyEyyLQihUO3l+Quz7vmBvvr3Qh
+	 ayoMvV7iaw1AWm+zt4nxCmB2xHwZP9riiQktcIngaROR3ga4mVmrCbAAwmgGPf3z3GcMH
+	 Kxo3vmHLdOr/ZyhqYH6qCEJb1739opxgkj8YpptcKGxNQzg05STpvXKtLXLD6GNdj2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216181;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=3C+mbxu/DGgJwnMlvtOHx+fxPmxNpeTWk+8b9g3xqe4=;
-	b=j7JI6RWjMRm2stAZYPanFeYEPTxb+ItguzcUE18nPbycutu1ULnJzSLNuMLIIMS75yCP
-	 VRTWmFKcuo3pEWKYzJFv+61WoVz+cPr+75JTSP1Y5VeOK1pKC/P9qGSJbOl3CWq4hvkZh
-	 03k8QqdB6YGr2jHFH5nFjhYUV6HeYDFfEXRxFvf7GY1Z3resTHIIBBD7b+9S3cXXpFKCO
-	 ih3xQeLT7ryJIYZVlT0ewDiHLeQAr+37a0nsciyUUaBJcYGZnlhab1plSn7QDgMMLnIoL
-	 wsA2yNtRU1opC0OTSHLMSpr0/0KtpuAQtdYqSv1m8S16fZQgQGFkOfgIMXqghU43R4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216189;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3a6/w1xWJzr0AfOc6H7D9LndxRKnZcP9ByrmJVJZKlg=;
+	b=4b4GDCF1BWf7T+XQ2osb3z4KXHZNEOmqh3P4f24YGzd0AXuECnlZQBS+y311ic2WUSqr
+	 1u/E/4/0TTMgjORVRUD7+L7X1docHDUp1cQu42SjFoFXpHTKmWmM2WcLQgJg9UyDRCOvS
+	 /qQ1AZDEtb3FVW3F1WHa7f3ulxKwMPS0CeChsbqqNVLfNOniVaZCKmgT+j0cN/L2oADrO
+	 hOJ0DGvpP9crDLiCklYgbL0IT2UYtBxdNNIEfTbrrQc18QkKXm27/NQY/cAYZXwdT5jYK
+	 1yl+XGBBlvDNEU3Y3xDBY5QBWYiwBCPN0iNZSnyxY6fYGqBDB9U7UQDGdWuLgE0MLsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=frLNV0kF;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="Ec3/0mue";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jPerqchO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E9A606EEA1;
-	Mon,  9 Nov 2026 09:23:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0E9A606EEA1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65012606EEA1;
+	Mon,  9 Nov 2026 09:23:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=frLNV0kF;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=Ec3/0mue
-Date: Mon, 09 Nov 2026 09:22:57 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794216179;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3C+mbxu/DGgJwnMlvtOHx+fxPmxNpeTWk+8b9g3xqe4=;
-	b=frLNV0kFLpbb85uWNe75Ql8aKjcMkeuMo2FVm4xMwG5eOzNS5sy0c9Oy/lNNIE9/TLhEw4
-	rrz1TJLX2qaym9OifFIzNrsxJcBabUO126mWyPqhhC0Zbmi1NJ3VgYkXQwsTMVQBTMVfXx
-	LhC2RjIttAJda72Fzn9ZpMQJJ1njHcELX3pOkJ4IWrgC9BJ5NIZ11UKRnOeTVt78vKL3gX
-	ktkRZJZdwwXEtMgnl1DBB/KR8G/AjxX2p/GZX9ULvGcg7M6n0DiVAt41V6vfwXuX8fuToW
-	nPNsxWWmXkH/IBdnbINgj5PALp2d8vjTS6+dPLG6qutg1DtFBwDr72TaIOjVyQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794216179;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3C+mbxu/DGgJwnMlvtOHx+fxPmxNpeTWk+8b9g3xqe4=;
-	b=Ec3/0mueYVLHV8HLCL+uihzvBDh8eYNFPBpIe6krD/ikvQpQE8UIct/UD+QTruueBksfly
-	l3agu3CmMSD+xjCw==
-From: "tip-bot2 for Vladimir Kondratiev" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/drivers] irqchip/riscv-aplic: Do not mark the syscore
- registered flag ro_after_init
-Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
- Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261020-aplic-async-probe-v5-1-c4861c2aafca@mobileye.com>
-References: <20261020-aplic-async-probe-v5-1-c4861c2aafca@mobileye.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jPerqchO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C70D1F0089F;
+	Mon,  9 Nov 2026 09:23:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794216189;
+	bh=3a6/w1xWJzr0AfOc6H7D9LndxRKnZcP9ByrmJVJZKlg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jPerqchOgRaBjw8X4fE92dxajm9AqaZxq/CWymw4Q92RQ0WDcbFVO1k/1PNDbaxcI
+	 hGT2oMS+lRCX8Zhan8FgyX3B2GyGobWKynYHS/ynXoApxjg+DTgow/J3R6Jf6EN4uN
+	 /dWDbNcHJUTRN2JieRsY+YReAOL/18x838383G1sdN/cfFv4qcUu/eSWCjlVfJ3VeD
+	 n2DWeW81faiyxdDwq/o7AhuCqzQFbH4a1/fxSxT9FBJLVQBqSK9BYPkasSXMg9hQ1g
+	 AHBaXva0eMOPfkUu4wYtOVUyc1s/KgOuS0Kr0ybeBztodfszj/JpEpJ+oegaxOvTRW
+	 PyG1J9kzrpLCA==
+Date: Mon, 9 Nov 2026 11:23:04 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>, Eric Dumazet <edumazet@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-input@vger.kernel.org, netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-pci@vger.kernel.org,
+	iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH 05/17] USB: Lock registered interfaces during manual
+ driver binding
+Message-ID: <20261109092304.GC8635@unreal>
+References: <20261105-device-trust-core-v1-0-1e536825b4eb@nvidia.com>
+ <20261105-device-trust-core-v1-5-1e536825b4eb@nvidia.com>
+ <bb83fe3c-cebb-4bc8-bfc9-24df1cf72b0b@rowland.harvard.edu>
+ <20261105184442.GF8298@unreal>
+ <bf756e50-c77e-40f2-916d-e88887426806@rowland.harvard.edu>
+ <20261108110909.GA8635@unreal>
+ <647f3199-909d-425f-b485-b598a18844d1@rowland.harvard.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,59 +93,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179421617723.2093942.10236928397108586294.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <647f3199-909d-425f-b485-b598a18844d1@rowland.harvard.edu>
 
-The following commit has been merged into the irq/drivers branch of tip:
+On Sun, Nov 08, 2026 at 11:59:11AM -0500, Alan Stern wrote:
+> On Sun, Nov 08, 2026 at 01:09:09PM +0200, Leon Romanovsky wrote:
+> > On Thu, Nov 05, 2026 at 03:04:18PM -0500, Alan Stern wrote:
+> > > >  it ensures that the lock is
+> > > > acquired when the driver is bound.
+> > > 
+> > > That may have been your intention when the patch was created, but if you 
+> > > read the patch you'll see that it includes a whole bunch of material 
+> > > not related to locking during binding.  Namely, this part:
+> > 
+> > Once I added `device_lock()` to `bind`, I had to add it to `unbind` as well.
+> 
+> Obviously I'm not making my points clear.  Let me try again.
+> 
+> The entire patch description, as you wrote it, is this:
+> 
+> > Interface claims hold the USB device lock, but device_bind_driver()
+> > requires the target interface lock. Without it, trust-policy writes  can
+> > race admission.
+> 
+> This says nothing about holding the interface lock during unbinding.  In 
+> other words, it isn't a complete description of the patch.  It implies 
+> that the patch changes nothing outside the device_bind_driver() 
+> function, which isn't true.
+> 
+> Furthermore, the patch does not change any of the code in 
+> usb_driver_release_interface(), which is where unbinding takes place, 
+> because that routine already takes the interface lock.  So to say that 
+> you had to add device_lock() to `unbind` is not accurate.
+> 
+> Instead the patch adds a new usb_driver_release_refused_claim() routine, 
+> plus code in usb_set_configuration() to call the new routine.  The patch 
+> description says nothing about either of these things.  Not to mention 
+> the fact that your other changes make it now possible for the driver 
+> core to delete an interface claim when the interface is registered, 
+> something which was not possible before.  This is another inadequacy in 
+> the patch description.
+> 
+> I'm not saying that any of the code is wrong.  But the description does 
+> a very bad job of explaining the new code.
 
-Commit-ID:     401632b77cc38bb6de44a2e83ed7c777e540119c
-Gitweb:        https://git.kernel.org/tip/401632b77cc38bb6de44a2e83ed7c777e54=
-0119c
-Author:        Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-AuthorDate:    Tue, 20 Oct 2026 18:38:48 +03:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Mon, 09 Nov 2026 10:20:17 +01:00
+I hope v2 explains this better. I also split the USB patch further.
 
-irqchip/riscv-aplic: Do not mark the syscore registered flag ro_after_init
+Thanks
 
-aplic_syscore_registered is marked __ro_after_init, but it is written
-from aplic_probe(), which can run after init. With MSI, aplic_msi_setup()
-returns -EPROBE_DEFER while the MSI parent (IMSIC) is not ready, so the
-later successful probe writes the flag after it has been made read-only.
-That write faults.
-
-Drop the __ro_after_init annotation so the flag stays writable.
-
-Fixes: b330fbfd34d7 ("irqchip/riscv-aplic: Register syscore operations only o=
-nce")
-Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Link: https://patch.msgid.link/20261020-aplic-async-probe-v5-1-c4861c2aafca@m=
-obileye.com
----
- drivers/irqchip/irq-riscv-aplic-main.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/irqchip/irq-riscv-aplic-main.c b/drivers/irqchip/irq-ris=
-cv-aplic-main.c
-index 1676d64..a2c4d14 100644
---- a/drivers/irqchip/irq-riscv-aplic-main.c
-+++ b/drivers/irqchip/irq-riscv-aplic-main.c
-@@ -116,7 +116,11 @@ static struct syscore aplic_syscore =3D {
- 	.ops =3D &aplic_syscore_ops,
- };
-=20
--static bool aplic_syscore_registered __ro_after_init;
-+/*
-+ * Not __ro_after_init: probe can be deferred (e.g. MSI mode waiting for the
-+ * IMSIC) and complete after the init memory is made read-only.
-+ */
-+static bool aplic_syscore_registered;
-=20
- static void aplic_syscore_init(void)
- {
+> 
+> Alan Stern
+> 
