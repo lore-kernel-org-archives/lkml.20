@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794247938;
-	b=gNlCFUZUmQFLCMBqF+PsGmhxhKnejEdRgN4swyBNJDpT52qtS5cwKEWL+ufBPBAzLJVr
-	 kvXoGKLOJr0mbvaDazWlnIsisGqdeJT3s0qdxRgR+l0Bj2QFmIvZYn1D/T/L8cLIdpt0W
-	 3+apn++wjxtUDGJVm0GQMeF3+gxSIYpS7Bd3aFprVZV2mSC5iILybWWqu9vS/a0j9HLZJ
-	 41Wl3BUHcJYSGdMCE1bHr+bk/CjDzpRpN0nNAb+xweTE/Bxk7sED5BhjTUVvtyjNeWQpc
-	 nNUfEW3qrs8B4AIpW9icBkHjHvx9uW28eVkRjwmXGr6YtBRMdvVsNNktqg3UrsZCZkA==
+	t=1794247954;
+	b=RfCeWhD59fQyegMyV96vIci4ioISqrCoeFoP29LByu0IjmTFCxPhVXG/JO3nbuSYjO6P
+	 lKqZZhOckKdsMlBZx8QnlALL3rjMPMnKOD9aeId71G6lS9nQ+mkYpS73IZF2+MIfPD7S7
+	 HJ0WPo9BPvkfLSfexm/abo3oE9sMULfFOSMGJmugZ5rUPMSWEI4jdNhF3nxqDywEPnEar
+	 XjvAvohlGBKNkwC0C89gMlwb2MqidGSPqoWOAwCSjYySFt/lKZeFj6+cIsmBl38Y0eXp1
+	 cvfhIXFep8fpy5LeGovCu34A6vedjUP/chRvIvaJi616UqutjTG+Lx++2bMKLHJQm5Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794247938;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794247954;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=nDGAaQ8TMvgUEB9dx62M0e9zR6BoUuJi2I6t8Mao9/4=;
-	b=SWnmuJhoNBvnkvCmapjHpY5TESRTP3OKH0RUt4ARVrjCsC7vgbnVyTk9/ZW0np4NgEba
-	 S0s8pCuC6iNlqis531iiDj2CRMHPwlocRI8G8dHm6B6U+r9zV4/Wsmk0awvnBftZJgI8V
-	 +Sma7mrz/hyOTCMtZneLJYwDpceK68numlodEi2ph5eWURi2tqlb972QPMLrT8JdyrcCp
-	 2mixdjJEFci7phs4Kv/HFTuKc96NXMa7xRY2EpzVl/BYhYRwGweYGwZU5wvfvPUL2s4G0
-	 nWSfjXzJkt6KC//++U8N8ZLu+aRFlcyterAtkOfXdV26ZEYq4I65kaQ5f6S70hqlwfQ==
+	bh=dGm8nmvLy6E2sFmoRptp+D8SP6z/MqgZLc9I2o+BU6Y=;
+	b=sgBNEgV8hMLqhHwyw1zGJWqKw3bASGnBDRpF71e+ucS39cC2Wyr8H+mzEkNam67yWJLq
+	 Easn8VtN8eZgVD0ONr8rmuvmluezLA13QUExzpr6FiA4xgGA3bdbWEBGGyVd8omiS/ZeG
+	 yfrURuEdCgxNPzXPQvwj8FU5iIW3UsbELvgUh8+F4L8cP2DV3tUgoSPL08AxTl3bCZNKx
+	 fgkluPVMQknxLZenz1HVDoH0tTilYV+D8c/g0m7Cic/44TOjg/0q7bOtZtcL2jXp1/1MW
+	 Ji7gyWZ3vuQRblZURbf8Wyc6dvAZLJsKdwnBMiwIWm/+IZOsdEa7qcoRmC0DvAEyVvw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jYFkyAo2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.169
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PSUh0CjE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650A5606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:12:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 650A5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDBC606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 18:12:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EDBC606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jYFkyAo2
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5495d549924so12243431cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:12:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794247937; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PSUh0CjE
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-5383c97c8cfso6361cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:12:34 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794247953; cv=none;
         d=google.com; s=arc-20260327;
-        b=lv8zTiaYRF/vJZQdO2/TWSN18Sz4MAPA3g2SoQwf//xVynWFT0IjQhdDZ2CxbPX7Is
-         kAglITsUWqTLHAQjNabezzZ6JxgYxHizS12mzTBtD2qPzd76B1+2u+6MH7m32BmNlbkc
-         NrKJLIs0q2okz9gfaifMuMBHUaeRg9MpfCXwhTtiN/4cuYZZqFmi4xRnw69bZtho3L8g
-         7Ex+9Q1nd9dgAguzvwHK01DiChFIuraK/oo2reQEIWgHlWPZs0PrCuEKicwsxZHtM5VC
-         ytoEzVGgnnrHFSdJwFshL4m6kr9m5mm5dPbqkqR11tr4ErGqD7UQrCGGICk9XAAg+khm
-         hiZg==
+        b=To62IKLC6zDVYCvUHSDdqVLa+Fdbwwdb41H7lHzlzvwDInMOp4q2I9T/url9F2Jucw
+         3KahYtl5Sp5jpXOK72GCfrdEqmZlbzXEZW4TKdjQJFUxfWYpReZABxIOKFqZW2ulyH9v
+         GBGKY2VsweGIUX43iPbArWA76PBZecoRROVP8XxDlFJraXcS1192zqPIu0NpBCf/cF+X
+         gjz0ZDW5xk0nMOQMKHA7HmE9uGaHQMCs7ZrATKNrFXQDNiUc/+hGn3Agih3YTWW/tXpX
+         SuS24pAIvCJ82sVq3Q0+QGRE7ibNkr+NfsMo5BDn2lMfy0Sg4ruG97Vd/WfWM0UXbrhp
+         KbaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=nDGAaQ8TMvgUEB9dx62M0e9zR6BoUuJi2I6t8Mao9/4=;
-        fh=66f7LcLG55HaJ186MvGnUVMA1vElxYsi/yMfa+QezGo=;
-        b=TNP44bTMRCTFD9HIdoVykxXZlYhO4vv0E8evjgHIVl7uB1SIK2BtFL1wDnsPlrQVd3
-         z4R9XL5Fby2DnTGzxR4CwE86XeMkZH7KnErw6JbxWFDDJhEEK+83AV7CfAsTrQ0NsB+Q
-         v1jN1lp2WdOkp6Rw3z1CDq1VSJAylNxtCaIoNP3x9xa2PAPQULff19hVXpKe19jRpywj
-         EZ7PvwYHylJCKih+uEzRpzGNzGTd3XSTQdlGYtUZC0/BGjstSWC2o/xgY0aGsHru4KR2
-         XQL+86p3Z+KUh3HDo8FrtXXzBbZ0vTzd2jRQ48wQ7CneJrcwu+HvRboLHycvw7FZ4wUM
-         1N3g==;
+        bh=dGm8nmvLy6E2sFmoRptp+D8SP6z/MqgZLc9I2o+BU6Y=;
+        fh=T8aNAvp4EN+wbcQzpzHslBBrgcFoCKNGPMYc5LWnzAA=;
+        b=hdl6bUiWh1CLtPEPjHuBcxQ/CNy9LUku4Cs3IWBLtxwNlubd7EpO8az4GZ2S2HIRFi
+         gYN+rFva2hmPJs350mz2C4m9O8rccM805aXkSVZqSTZME1VipKMnf7sQaCWwawUglM9T
+         y/M4txLKoadP9yn0yIWg4K3zW+lN7UcHuqN7rsCzTIg6M2iie+dCAcg0eChOUv4rDwfV
+         K8IxlJRc5OhjB7H7zwoaExFJqWqs12IBB6FBlzBLzyeEUfYhjACkDYKPXHoRjt2xllfJ
+         LUiIT8XXyf4rJOsIMSBjBamEaRuhpOXUL+JOW4EzcueYUm/3WPkc1ly/a73NkBumwLtH
+         30DQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794247937; x=1794852737; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1794247953; x=1794852753; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=nDGAaQ8TMvgUEB9dx62M0e9zR6BoUuJi2I6t8Mao9/4=;
-        b=jYFkyAo2Kyv2q9G/ATbzjr2YhaIdcEZRAXQnEn6SRzTaE9eL4W/QVLk5jZ5iVUllLh
-         sYQpHzdVFPcAeb7sNiviahcxwgzZqBYK3Dttm0ze5X/GLlwEO3MVErU7GpImiwh6V14M
-         0sG6ZP5EYXHy4zMDL4TLnqC78Qk2iCOnbM8uBRjli+FCmeYoTKhrKmtbXH7nDSBDaLlc
-         08F+Jf22vhVTOO062d+btL/der7gis/haSuX2fHGNNwOkqcbzjiWgTbVYroaRAL4f66o
-         n7su4+HNqq6ukX1N0EikxdtggPHkmUa2xOgiMRuTdNuqbbpmcy5QQXPA44Ox3LC/lTZe
-         F06w==
+        bh=dGm8nmvLy6E2sFmoRptp+D8SP6z/MqgZLc9I2o+BU6Y=;
+        b=PSUh0CjEMxfsN7BHYMDVYvAEhdCcCyr1A8NrN35WuqIsTR+9oBEIETRFwRAro1JVm3
+         MV1+5v+uMk+26jLTq5uauyK8cGUBpvkuLmmMzmvpKYsVEfLOqM2QWxhNxm1WSDiG39Hc
+         LTAHnyvY/X2rS+nkN/lKmAHpLiddGtkYrHVxvMKhJ1moyY8860W6RLabyNh1z4jjpx9a
+         Lz/KEShc71fQvc5/8eK4Hguy0S8PE5R3o4K2oCTZ3AWeX1mUJLqTjoK1wyGAzD8xoDjv
+         AB3YDwby5q0KbeUR9WvSXdj+JayLNpn2bGQrzWfko+Ha4+FTzwUgMYg6unYT0fWJaxiG
+         CyPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794247937; x=1794852737;
+        d=1e100.net; s=20260707; t=1794247953; x=1794852753;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nDGAaQ8TMvgUEB9dx62M0e9zR6BoUuJi2I6t8Mao9/4=;
-        b=p24eeQsLFkb9AINkS0UyehSLVaLf9BjmwnFgdfT1jQ987gcFigIXxCbV5IOgbrnfqk
-         3YOlcaqXjXb9y5TdTD4/TSjKTO7yjOYiK1FEX42X8JpC8hYDLjYH74IyXp3/zvCzWpuQ
-         FJH3WmPbrpSdSkKMWKpr+f1sBtmnW4xHxvSsnn3r4QybhLvzf7wMzn42UUOKGKbf1E8k
-         bmWwFlmP9u+HNOH40M3MDUOGRK3BAOOWZg7XOJ1F1uZosUg+mu9Lotn8v39mzJBKMFBy
-         UGVCIIfFSAJQfQsZwzyoi+NlSqYpXT2F3T3z1mIzbdz21x/9GYdMM3n4MgcowlOcmPWZ
-         bffA==
-X-Forwarded-Encrypted: i=1; AL+hErEk7BXVxadQakKeGaDLTwovWhhvGM01hc3BFpX+mihlXLmOW92vGIk2t6ckwevWguteK00IRciaZDs039M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9QyBUtRIKcK+4NU6L5SI8FDCmFbDbdvWWbq5/bxYLhH6W4ghe1
-	dHi1GGkVf4OPTDMsEYslXakxQj9YlmFCqv2ZBWs/ASqX3OpUsmXGDo66TuQWcAicHdWhQnX8K8q
-	VSl/9rpCdcQFCrhkvJf99TPNzxUyaZjs=
-X-Gm-Gg: AYBFou2Tiq0kAox4vZ1hHUapNlk02AmkxzG8x5/vAQmN+Ub3fcLA1TWCumOF4EMWFvv
-	YiiWbKxpi/EFvxVw7M2bIqv4wSAncB0YkpkAv1QiWgWZWxvmTfHDMGQrl//JUohj4dCl8+Wdeqk
-	r5u+WWgDrVan7tIlCxnyQQpaGTmOn33knorYSZ47/BNY2mRtFo9xP9kFRQ/SFuLRynctHELvefI
-	iVm/fhw4Penvu3fiaHDwPKbQfuWlvz9LGyUmyac3tJTFirZea/UL/zxWgsy38UYVIxvLaHJBPmZ
-	QpF71IpRWyRD28zfjDqSnjOk9kYDRb7z5Q3PLWWA3qDjoUIqBTBidn3/iYMW+xVNCkTxQon4Ddv
-	8NWQq8vl5ZqYahldWns1C+lOQ09hHhbzB7oNM
-X-Received: by 2002:ac8:5a49:0:b0:536:6c87:ebdd with SMTP id
- d75a77b69052e-55527133c46mr2041511cf.14.1794247937229; Mon, 09 Nov 2026
- 10:12:17 -0800 (PST)
+        bh=dGm8nmvLy6E2sFmoRptp+D8SP6z/MqgZLc9I2o+BU6Y=;
+        b=n/SZ4Lz9Bobj9BVn61mIsxrexcjMzmFv6NDRrZ2/+acUPC1Eu+uZYOBMWREu8XGGIf
+         eibIfMVRK4OBtDTNmAUqcWMkez1EzjiK4yp2AD1kXz7exmZgCRpujENy3DIbW6VDifgW
+         U7jf76wU9mUPXXZVDmgchSiJcp/4bu48x4eUAxOfnjcQGnb3J3HMf54cAUSgrSmAusPN
+         tT3dG48Glab+wyyslQMIGkqDYIsDMisn0+Z1LIIBildRzaX5QxUfujr1pVZ7yKDR7sHU
+         sA+Fz2LgTDPd7+tprQ4ftZO/OXPJFQMHTePluW5PZ97EcyG09O9l5Wagq65VORotvPJQ
+         TkKw==
+X-Forwarded-Encrypted: i=1; AL+hErE/WMOVujPFGZ59wVh8qRaYyPXSF8xBND7NeIP6vUMYUvBeQHPKqSj4HAe59anL4p9QJjeuf3LkvBB+E6Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+iPiDVcSpj7BNhNnbbA9WhoEQFd1JkldT95i6//l77wLG2dYop
+	iXXOirRiY+UmVXkbgNXlXiDNmQ6c1adaHDqfuYybloMlLtX9pGE36vrESgKIc5WscTrlQIplpAc
+	kyBJc+QNQnFmIJMSy+X3zlAf9bRAp1nu+uPxxPyxe
+X-Gm-Gg: AYBFou0FzDxZbvev1UCvJ/3+mp83icNkdY2mY+3bPWc+3D/Vtgs5RQnu75AVXZSXXAM
+	qAC5mk1wkn9I7Lp5EWmlqHPMKjd8x5K36dl62Zm1XEsFRYTYT2cVJyG+dZ2VUfgYqxdtdCi/2Xb
+	M2k0a2xKn6o40hPDmKMtjHyCYMpRqR03p+Mmd8pd2PoADkhiHwYZXAjcnwQjaEA+Nt9jQxc/naO
+	NOKC5nA0SuRY/ozjnsfdsEJ5y/64nJno3f0+6AMUyfeTAv9Ta0zEsKWAP0g4VXISp+iXshuiXql
+	TJjeg/M+6CT345JjFqOStAwIZwC9o99lRv2uG9P7dSYlJpAaLFzIY1H9P7RFjhXjCVtjQPvbuf/
+	hLiJnUKdGXkE2Sl+QLIcj9wfkyXwJUb5qnI4xrf5Uj5Ty43vSGU5X5X2juQG+juAH1R0JT+U2UR
+	lDGi0ofxQR5Hj5KBCsBmpaVubVS+Y4dBNz/wFM9LFiuwrSUUw=
+X-Received: by 2002:a05:622a:488c:b0:542:fc60:fe23 with SMTP id
+ d75a77b69052e-55530d3d62amr54161cf.3.1794247952273; Mon, 09 Nov 2026 10:12:32
+ -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,120 +105,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261106213526.3393779-1-qwe.aldo@gmail.com> <20261107012636.1008932-1-qwe.aldo@gmail.com>
-In-Reply-To: <20261107012636.1008932-1-qwe.aldo@gmail.com>
-From: Jason Gerecke <killertofu@gmail.com>
-Date: Mon, 9 Nov 2026 10:12:05 -0800
-X-Gm-Features: AclHuK_GFmi3iEIOGHod7r7_OlLsZDYJCh5KSeGDmqGi69z7Emf7p-xajIEWGmY
-Message-ID: <CANRwn3Rt_zT5jwCvgbC1J-V1EUzLKKqDC+aDrgt=y1HkzpzYuQ@mail.gmail.com>
-Subject: Re: [PATCH v4] HID: wacom: validate battery range before scaling
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
+References: <20261110-mtu-probing-series-v3-0-dedfab25d641@gmail.com> <20261110-mtu-probing-series-v3-3-dedfab25d641@gmail.com>
+In-Reply-To: <20261110-mtu-probing-series-v3-3-dedfab25d641@gmail.com>
+From: Neal Cardwell <ncardwell@google.com>
+Date: Mon, 9 Nov 2026 13:12:13 -0500
+X-Gm-Features: AclHuK-E7FZmMgLaCJxXz6hIu0FtIdqq3ijAk57SK8zqY5F6VRotgKBpxs38suI
+Message-ID: <CADVnQykoJWJL+vZ9GC=RqZuiSEypNtmTONBzV7XRQ1jsXy0X_A@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 3/4] selftests/net: packetdrill: add TCP black
+ hole detection test
+To: echoowall@gmail.com
+Cc: davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, 
+	shuah@kernel.org, kuniyu@google.com, horms@kernel.org, kuba@kernel.org, 
+	netdev@vger.kernel.org, panweiping3@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 6, 2026 at 5:26=E2=80=AFPM Aldo Ariel Panzardo <qwe.aldo@gmail.=
-com> wrote:
+On Mon, Nov 9, 2026 at 11:44=E2=80=AFAM Yongjian Wang via B4 Relay
+<devnull+echoowall.gmail.com@kernel.org> wrote:
 >
-> Battery events divide by the difference between the logical maximum
-> and minimum without validating the range.  A malformed HID descriptor
-> with equal limits can therefore trigger a divide-by-zero exception.
+> From: Yongjian Wang <echoowall@gmail.com>
 >
-> Move percentage conversion to a helper that rejects non-positive
-> ranges and accounts for a nonzero logical minimum.  Clamp the result
-> to [0, 100] as an additional safeguard against out-of-range
-> percentages.
+> Black hole detection (net.ipv4.tcp_mtu_probing=3D1) has no selftest
+> coverage.
 >
-> Fixes: 37d160193834 ("HID: wacom: generic: Scale battery capacity measure=
-ments to percentages")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-
-LGTM
-
-Reviewed-by: Jason Gerecke <jason.gerecke@wacom.com>
-
-Jason (she/they)
----
-Now instead of four in the eights place /
-you=E2=80=99ve got three, =E2=80=98Cause you added one  /
-(That is to say, eight) to the two,     /
-But you can=E2=80=99t take seven from three,    /
-So you look at the sixty-fours....
-
+> Add a test where a full-sized segment keeps timing out without any ICMP
+> feedback. Check that the MSS drops to tcp_base_mss once tcp_retries1 is
+> exceeded, and that the smaller MSS is also used for new data after the
+> retransmission is acknowledged.
+>
+> Set tcp_retries1 to 1 to keep the test short, and disable TLP so that
+> every retransmission comes from the RTO timer, which is what
+> tcp_write_timeout() counts.
+>
+> Signed-off-by: Yongjian Wang <echoowall@gmail.com>
 > ---
+>  .../net/packetdrill/tcp_mtu_probing_blackhole.pkt  | 37 ++++++++++++++++=
+++++++
+>  1 file changed, 37 insertions(+)
 >
-> Changes in v4:
-> - Reword commit message: describe clamp as a defensive safeguard
->   rather than claiming it handles a specific ADC scenario.  The
->   caller already filters out-of-range values.  Code unchanged.
->
-> Changes in v3:
-> - Drop s64 widening and div64_s64 as requested by Jason Gerecke.
->   Use __s32 range with a <=3D 0 guard instead. Keep the clamping.
->
-> Changes in v2:
-> - Clamp the computed percentage to [0, 100] instead of returning
->   false, so that slightly out-of-range ADC values do not prevent
->   battery registration or silently drop updates.
->
->  drivers/hid/wacom_wac.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-> index 361738b..36bab07 100644
-> --- a/drivers/hid/wacom_wac.c
-> +++ b/drivers/hid/wacom_wac.c
-> @@ -1960,6 +1960,16 @@ static void wacom_wac_battery_usage_mapping(struct=
- hid_device *hdev,
->         return;
->  }
->
-> +static __s32 wacom_wac_battery_percentage(struct hid_field *field, __s32=
- value)
-> +{
-> +       __s32 range =3D field->logical_maximum - field->logical_minimum;
+> diff --git a/tools/testing/selftests/net/packetdrill/tcp_mtu_probing_blac=
+khole.pkt b/tools/testing/selftests/net/packetdrill/tcp_mtu_probing_blackho=
+le.pkt
+> new file mode 100644
+> index 000000000000..f10dbb36dd2d
+> --- /dev/null
+> +++ b/tools/testing/selftests/net/packetdrill/tcp_mtu_probing_blackhole.p=
+kt
+> @@ -0,0 +1,37 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Test black hole detection with tcp_mtu_probing=3D1: when full-sized s=
+egments
+> +// keep timing out and no ICMP arrives, TCP falls back to tcp_base_mss.
 > +
-> +       if (range <=3D 0)
-> +               return 0;
-> +
-> +       return clamp_val((value - field->logical_minimum) * 100 / range, =
-0, 100);
-> +}
-> +
->  static void wacom_wac_battery_event(struct hid_device *hdev, struct hid_=
-field *field,
->                 struct hid_usage *usage, __s32 value)
->  {
-> @@ -1973,7 +1983,7 @@ static void wacom_wac_battery_event(struct hid_devi=
-ce *hdev, struct hid_field *f
->                         wacom_wac->hid_data.bat_status =3D POWER_SUPPLY_S=
-TATUS_UNKNOWN;
->                 }
->                 else {
-> -                       value =3D value * 100 / (field->logical_maximum -=
- field->logical_minimum);
-> +                       value =3D wacom_wac_battery_percentage(field, val=
-ue);
->                         wacom_wac->hid_data.battery_capacity =3D value;
->                         wacom_wac->hid_data.bat_connected =3D 1;
->                         wacom_wac->hid_data.bat_status =3D WACOM_POWER_SU=
-PPLY_STATUS_AUTO;
-> @@ -1981,7 +1991,7 @@ static void wacom_wac_battery_event(struct hid_devi=
-ce *hdev, struct hid_field *f
->                 wacom_wac->features.quirks |=3D WACOM_QUIRK_BATTERY;
->                 break;
->         case WACOM_HID_WD_BATTERY_LEVEL:
-> -               value =3D value * 100 / (field->logical_maximum - field->=
-logical_minimum);
-> +               value =3D wacom_wac_battery_percentage(field, value);
->                 wacom_wac->hid_data.battery_capacity =3D value;
->                 wacom_wac->hid_data.bat_connected =3D 1;
->                 wacom_wac->hid_data.bat_status =3D WACOM_POWER_SUPPLY_STA=
-TUS_AUTO;
-> --
-> 2.53.0
->
+> +`./defaults.sh
+> +sysctl -q net.ipv4.tcp_mtu_probing=3D1
+> +sysctl -q net.ipv4.tcp_base_mss=3D1024
+> +sysctl -q net.ipv4.tcp_retries1=3D1
+> +sysctl -q net.ipv4.tcp_early_retrans=3D0`
+
+Thanks for the test! Though because of all these sysctl settings, this
+is testing a fairly non-standard configuration. That's better than no
+test at all, but IMHO it's more important to test the default
+configurations users will be using.
+
+So I'd suggest renaming this case to be something like
+tcp_mtu_probing_blackhole_no_tlp_retries1_is_1.pkt.
+
+Then I'd suggest creating a test like this, but with only the following set=
+ting:
+
+`./defaults.sh
+sysctl -q net.ipv4.tcp_mtu_probing=3D1`
+
+That way we get test coverage for the most important scenarios and
+code paths, and can understand the behavior that users will see if
+they just set net.ipv4.tcp_mtu_probing=3D1 and do nothing else.
+
+Thanks!
+neal
