@@ -1,62 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794241102;
-	b=lczkM3yaIFGas91B7Lfbr+UntdHHhZtEhFYqqF6kazYuDu52Bc/UKBWj/qTCzXxOUQE8
-	 a/f3QHglh139X/bnwn70fiI7f5SUIuEV5TcwwNXR9JuxqFRYCdyikDlPwnZAl1JQ8S9bd
-	 yWZzGDpN1JEToQjphDHhVoLqQReGZ2M9qq84wTSGOHn3i0TYit1Yu3ZBn1mUVfJpqaXdZ
-	 MGRmLANPdQkO5lMlgnymwMQiRM6miZNCefZiY07hB/2x8V/ImopTwinL3mwg5GPLGWXvC
-	 bcLDlDRIjGVldFWH1/Dp/A0SgfNXofKe/VVtyDAEeEm3uT5turgjLbuDoFm6GvW5dzg==
+	t=1794241241;
+	b=nqhXW0plQtxJ7XhI1djcLuLl73bfP1J5XremKp8LIRqVhWBzMe8nixecrBUITIitg+Hz
+	 e00yaPLAW1t9ZQyoW1EXQN08ddoR23rZYbdijsAQYyMcuZhMvm4V3KMVkotpiJAr3DLrG
+	 kmxwK0WTB1wVpNCAYfc1Y3RHUtgOx41kkl4TjyDnq9PaMbsYzbXeFFkwwNXHhu9Uc69L/
+	 giacZQzT5iTIbOgcQWZxYtWAPtnx0SfpDAcpIBYYWvMr2LjbzenYWKktJ0fDD3QAnOJ6c
+	 pQNraXPoLIpk6hcwfmDs8vYIX661D000d2G03uHKEmn4chQJ8dzSSoQsSCVhqz76+fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794241102;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=k47tfCEJkcbLr56UWWN1mV8xEAHsP5jrj/tsgJbgRzY=;
-	b=VfpNTCCFE21J7oL2VW8c3d3y1BF0QSUZgv9pY1Snz/nCTNQpIa481TvpYjL/LloSWogq
-	 9NkeQl3xcwRkycqW5MBhgayu8kGyPJEwzMBlLshP8Va64awic1MuAFUimw0AF/35Wg7zf
-	 Sv7YinYAmSg1Fi6UDMvhKtiRQsR+Fhlubp/lVquwHLcenFRErzdAzYQf5yFoCB692kw3S
-	 j7G/ErP5oWNAiQQgsYaAei434M2GgNie7Hv+iOvpbA4I9YUeZIoIbkEXRIdhnX+IseXG4
-	 RXtesouLLxf79HHoMtv3Sb6ygMiHquB09tmohSZtlg/gt7F5NL9alWW7CxZpJTKsYgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794241241;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/0Dk0uPlaTG6qaR2nzgxnAMSKVBZP51BhonP6B1XqbE=;
+	b=PYOvJbmmuz/oyxhspAoTXnaFa4y+aIqBuw2jtAGqM7GO0x0NcD1BMe9ZuslOyU8N/lCK
+	 qWY09+Gv08fcKPeQad+z2m2I7SItw42Tt6qK7n9DQ8qpLx+HH1VuWHk4xA23Rr7H8e88G
+	 4cdymxgBqAA0w+TOqFJA3vtqJxz0O1NL2yJfyZSBtunuV1UDqmSjzNGNVo6u9PhfZt8B0
+	 wjYqCkDQZnf85WG2gFwNZKTLMzlfPJG/3Eyc0dsuQbBOGJNfBcglqvnBObF2c3WBlwHTJ
+	 10ToFCGBOtBpO979u/bfzegd85JwROaJjOladmEsXb7GcKw8j9ksu0EVnw4NQNfLlEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yb4YDHnB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3gPrwc2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D768B606A332;
-	Mon,  9 Nov 2026 16:18:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81014606A32A;
+	Mon,  9 Nov 2026 16:20:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yb4YDHnB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ABB01F008A1;
-	Mon,  9 Nov 2026 16:18:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3gPrwc2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C6221F008A1;
+	Mon,  9 Nov 2026 16:20:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794241101;
-	bh=k47tfCEJkcbLr56UWWN1mV8xEAHsP5jrj/tsgJbgRzY=;
-	h=From:To:Cc:Subject:Date;
-	b=Yb4YDHnB6Exb1cY689qfkUxTSs0Q7/s5VcUWYeEkZb4yE/wLfvx6tGanvomg/z3qP
-	 N3OTyYEn/sEwcb3hyG5fLlcC+N/8xex1np/vAi+p87Dle/Lk0Ump+HJKF+jVihxd61
-	 ahIYnX9T42wZAGKaoco8OOJQ2farJD7VCzWe5xgHIPphIPxso2D/3JlbRqHQMrZFO/
-	 P8WQrH4SuHsNYg/66xhThGu2fp8KBcAEmmkJH2dJszxLItK2mhbhhnHBMBEmPNHcPM
-	 AOHlwepOogENYNfPiekZtRlS45yh5Ae7ZZmzY+TnwssULifj+7VkPqkvEUBm2Xoc7x
-	 rLvQ09AjZsG3w==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>
-Cc: sashiko-bot@kernel.org,
-	stable@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ARM: dts: nxp/imx6: Fix imx6qdl pico dwarf and nymph includes
-Date: Mon,  9 Nov 2026 10:18:09 -0600
-Message-ID: <20261109161812.3629546-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1794241241;
+	bh=/0Dk0uPlaTG6qaR2nzgxnAMSKVBZP51BhonP6B1XqbE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J3gPrwc2WmZto8H3leOdSAf9aaa7knSkZ51KnpOtMRNDpWI4sa+BSXjQe8vo+yFmx
+	 hAVE6gMXu08EgqAj3+/Wwgng/DVvmYXGrQ5JSA9LzOEMCHAhDVxn9SPTfokOhN0oA4
+	 LjaYI1E+pE7elf+ZABfzGIoeNavYDk7itmkBs3ourYwPEjEJU+SqsMJjaqpzI7Gn0m
+	 cYkw7wZpukvfygJleF8B3jU1Ih0YDEGiNqX7WauppcyKRXqSs1xsdUzLwhghruBXZZ
+	 rs+iNShfkvubFMqO3sIJo0dbZVbGwPo1y0g+cTsyufxObEe9gFMxV73yt2lUh832jo
+	 XodiEzsVS/mVA==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xQS6o-0000000AXLe-2q7n;
+	Mon, 09 Nov 2026 17:20:38 +0100
+Date: Mon, 9 Nov 2026 17:20:38 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
+Subject: Re: [PATCH] software node: only let the owner release a managed node
+Message-ID: <avHy1rt0Qb_IgpSs@hovoldconsulting.com>
+References: <20261102-swnode-only-owner-release-v1-1-ee4c9022a629@oss.qualcomm.com>
+ <avHMhh8ChrFE_b_e@hovoldconsulting.com>
+ <DMQQO3DTZE66.1Q2XGGDGN3WUP@kernel.org>
+ <avHZ5U_YR9QSqd0G@hovoldconsulting.com>
+ <DMQREV9DFQST.1Z4ZFOFTS0Z7W@kernel.org>
+ <avHfx80pHRPwtqRt@hovoldconsulting.com>
+ <DMQS3EURP5MB.2DY989AOI0CSD@kernel.org>
+ <avHs9hKOc3QVLM4x@hovoldconsulting.com>
+ <lhljpce4lyhuggmfyaq4c4g2mxqe5z3gwmqyrnxptlub3bahff@vdyh47ms5ua3>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,114 +78,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <lhljpce4lyhuggmfyaq4c4g2mxqe5z3gwmqyrnxptlub3bahff@vdyh47ms5ua3>
 
-The imx6q/dl pico dwarf and nymph boards appear to have a copy-n-paste
-error including the imx6qdl-pico-pi.dtsi by mistake. The
-imx6qdl-pico-dwarf.dtsi and imx6qdl-pico-nymph.dtsi were otherwise unused.
+On Mon, Nov 09, 2026 at 05:08:50PM +0100, Bartosz Golaszewski wrote:
+> On Mon, Nov 09, 2026 at 04:55:34PM +0100, Johan Hovold wrote:
 
-Fixing the typos introduces some DT schema warnings, so fix them. The
-supplies for MPL3115 are a guess based on other dwarf variants.
+> > I've updated the commit with the missing Reviewed-by and Fixes tag. I
+> > also decided to drop the reordering of releasing the swnode references
+> > as that is arguable an unrelated change and the current code expects
+> > users to hold a reference unless it's a managed node.
+> >
+> 
+> Ok, I won't be sending a v2 then.
+> 
+> I'm not sure what the workflow is exactly among the driver core maintainers
+> but the commit that ended up in tree looks quite different from what
+> I submitted and what Link: references.
 
-Reported-by: sashiko-bot@kernel.org
-Link: https://lore.kernel.org/all/sashiko-outbox-199279@kernel.org
-Fixes: 98670a0bb0ef ("ARM: dts: imx6qdl: Add imx6qdl-pico support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
- arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts   | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts   | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6q-pico-dwarf.dts    | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6q-pico-nymph.dts    | 2 +-
- arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi | 3 +++
- arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi | 1 +
- 6 files changed, 8 insertions(+), 4 deletions(-)
+Right, and the three changes are recorded in the commit trailers (and
+the rationale is documented in the Link thread).
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts b/arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts
-index d85b15a8c127..dd8ce2df876c 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6dl-pico-dwarf.dts
-@@ -9,7 +9,7 @@
- /dts-v1/;
- 
- #include "imx6dl.dtsi"
--#include "imx6qdl-pico-pi.dtsi"
-+#include "imx6qdl-pico-dwarf.dtsi"
- 
- / {
- 	model = "TechNexion PICO-IMX6 DualLite/Solo Board and Dwarf baseboard";
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts b/arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts
-index 32ccfc5d41ce..4ce0d0d0756c 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6dl-pico-nymph.dts
-@@ -9,7 +9,7 @@
- /dts-v1/;
- 
- #include "imx6dl.dtsi"
--#include "imx6qdl-pico-pi.dtsi"
-+#include "imx6qdl-pico-nymph.dtsi"
- 
- / {
- 	model = "TechNexion PICO-IMX6 DualLite/Solo Board and Nymph baseboard";
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-pico-dwarf.dts b/arch/arm/boot/dts/nxp/imx/imx6q-pico-dwarf.dts
-index 479a63ed42af..5e1f8b79593d 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6q-pico-dwarf.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6q-pico-dwarf.dts
-@@ -9,7 +9,7 @@
- /dts-v1/;
- 
- #include "imx6q.dtsi"
--#include "imx6qdl-pico-pi.dtsi"
-+#include "imx6qdl-pico-dwarf.dtsi"
- 
- / {
- 	model = "TechNexion PICO-IMX6 Quad Board and Dwarf baseboard";
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-pico-nymph.dts b/arch/arm/boot/dts/nxp/imx/imx6q-pico-nymph.dts
-index e8ad4c12b263..d688b5bb6c6a 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6q-pico-nymph.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6q-pico-nymph.dts
-@@ -9,7 +9,7 @@
- /dts-v1/;
- 
- #include "imx6q.dtsi"
--#include "imx6qdl-pico-pi.dtsi"
-+#include "imx6qdl-pico-nymph.dtsi"
- 
- / {
- 	model = "TechNexion PICO-IMX6 Quad Board and Nymph baseboard";
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
-index 3a968782e854..feaadacfe7ff 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-dwarf.dtsi
-@@ -22,6 +22,8 @@ &i2c1 {
- 	mpl3115@60 {
- 		compatible = "fsl,mpl3115";
- 		reg = <0x60>;
-+		vdd-supply = <&reg_3p3v>;
-+		vddio-supply = <&reg_3p3v>;
- 	};
- };
- 
-@@ -31,6 +33,7 @@ io-expander@25 {
- 		reg = <0x25>;
- 		gpio-controller;
- 		#gpio-cells = <2>;
-+		interrupt-controller;
- 		#interrupt-cells = <2>;
- 	};
- 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
-index 3d56a4216448..a13f4d49c05d 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico-nymph.dtsi
-@@ -30,6 +30,7 @@ io-expander@25 {
- 		reg = <0x25>;
- 		gpio-controller;
- 		#gpio-cells = <2>;
-+		interrupt-controller;
- 		#interrupt-cells = <2>;
- 	};
- };
--- 
-2.53.0
+> Such in-tree modifications from maintainers have caused problems in the
+> past[1]. I would have preferred to apply changes myself based on reviews
+> and send a v2 which could then be queued as it appears on the list. Just
+> my 2 cents.
 
+Since I've already done the work, and have the context fresh in mind,
+another round-trip would just mean even more work.
+
+If you think it differs too much or you don't agree with the end-result,
+I can update the authorship.
+
+Johan
