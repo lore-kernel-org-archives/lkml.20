@@ -1,93 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794204420;
-	b=c26Ib/t7q91Ss5rtmDVliGiJeTu4lMt+S5NxDi6QBpYwun1ZFOvFGcuiz86RWgjHsD/k
-	 1rcTLvKyfvePhLA0+OZNSkI5vPJkQDPHCJIx9q4Obx9P3zC3YWj7MVawsSzVAUkjWKFNb
-	 pZlKmGBXTKijRg8xPBo1ZdrPUPMFotybVlHlOO3+fwRM5S4/MDHNuaAGG/V7gpcr9TG0O
-	 AIqZFG13EpUI3zr3q4AZY2jc4tmrlhWVykYcFuyH2UTNms+LgAh6fN1SVaPlon7YJTblr
-	 jE1PPIixkZSaBgTHtZuv95qpmpK7o7GBJ4NX+8aVRayUide4nar3dOjX90GeOyII8sw==
+	t=1794204438;
+	b=fl7o+rgdcqvJdaNszYmOFD4B0v3hWmeNjlMyip0Tinz237YsdjabNjEuiobhKmeoocWu
+	 5Qw57zDcR2XwU5+zryV80qMo1k0m8klo8tTzQnU6CeS4HIGNba71d/r38xcQFG6DvWd7N
+	 5JOTInO4M3rfQc14geHRFFj1yVTR0QLQ28+iQGXxG6SVa68ZZ+ZmrsNRI0uDdDLrCmyTt
+	 DDOmf6Qrfk+QB85gST4Yn7eJkbwdeqeGf8tsfgEOmYhrycEjURaLfKahw89/luMTcR/HG
+	 R6l2C4UG8xSYwFAIUJoHuaYfLl0PmiZdmyyA8eigeF/v8HC13BEwvK6IiiyZ0zw9Gmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794204420;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794204438;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=RDa0JQRpSFd64FcDNqu+A8RXC4M3Gvi3sCFSGQLCqvI=;
-	b=NeIAdbIYrR0dlUrcj6jLdGDgxl30lAf3jW5PuBL/PBYS/UIzNZpz5hTQGCOjqF4QDjAX
-	 5OrHqURCWIpzaLVmGDh7j5rSH9yX71kRcHTV2BIzZ0HRXNQdLERQZC80OBspi0pFGjuhr
-	 sDiaO/7XwAltIEqzxTkObW4EPGpj6+FV6LfPC/uNsWiAxjnZgyckGr1CjldSfC7Xpweam
-	 gZn64bkIJGsHZ2vYVrJyPVaIkVs33Em4mulWAfeOTPrTw6Xx6TdwQP8xFJpg+yG0p/T3Q
-	 3fDhV8zKdomGTxqbpVAZh7sVfwDsknbQky+wNgCwDhy11TEqwL5jn+iyxA+4lXQNh8w==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=2Hx/ir9n6/52Xt0z/1r5+TdJ8onrgSGbL4t23XE1gKw=;
+	b=bw3raRAJDPx81xqzwtSJOVZYBzvM+bsnjyEXi6EG1+xEjWHtQRt/A/wz5GXsgPgZH8Hp
+	 bIVIQ6KCt9W2+7aA/+AmBcsxj7Wm2G31dcwjksw/i+MDy/qw8ED/1axBZ9+2QwRLHlze0
+	 vKGSD/vmQo87YmGFwQ4UQ3FfKC9klQjP8kVYaBzyL1httVse9xCv//ssaH7zLEbakrTei
+	 vJXBxxAn6lyyPQ+jR5B0zqqlKctVRMvnxmZN6fcfoND3RJ0FcqxRRV+vaGpFe1YW/hVqG
+	 MD8uwWnmPh18ATMjCdlq0sQ7GfY4dTOBb6m59N+aZRSek61UPZAvCqLW7M2OsyuElKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PDeq9vm0;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s4LV6iJe;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAEF9606A322
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:06:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAEF9606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E900606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:07:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E900606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PDeq9vm0
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36f8cdd30beso1225738eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 22:06:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s4LV6iJe
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36f8cdd30beso1226094eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 22:07:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794204419; x=1794809219; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794204438; x=1794809238; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RDa0JQRpSFd64FcDNqu+A8RXC4M3Gvi3sCFSGQLCqvI=;
-        b=PDeq9vm01rgqhK9bmX/OE7GH1VuLm23QvDHZcZASR1CG5FzPfl69ejROO6OSHTh5Av
-         +146DoFfzA/7XNgUDpLF/6NUKyTahSnPOykgCDIqcxGxt8mcJiZ0LPp2rpeZGlY9o1ay
-         nSw1hL+32akar+tBTnv/C45ZN20l50zUOa0W5s4DIAGmRjlMAFUGJ519y1/FobQY1lIS
-         OMZt32c9RwhrUG22nzMvhoGWT0mHGpfTyb2dnxNM3L1AL/qRTNDMNxPHo7EhLcGC0MAZ
-         5aqyvWG8UhY+58BvW8FbrGKqJepydJpUrq7yoYvR8i9KSGbKtbJU6QHsTn6JEsci+zdG
-         0iYA==
+        bh=2Hx/ir9n6/52Xt0z/1r5+TdJ8onrgSGbL4t23XE1gKw=;
+        b=s4LV6iJeGf04TyVRnrUEBWfq2NfS9J/UPf/nstbpSmtfW9dsoCj7dYG8cGieq76olq
+         UBtxibZRLZrEuyGSej3GSuuaVUDOSYpPgS2pomNyS3E9CepOAEmykyVbAqV/aRRN2vr2
+         OAbW3tUkonU/C5o6XhDWkmXqoREh3n7FoqbmKnrQjPL/dGQxW+06hFz83bmpyoSYfx9A
+         0H876bNxiOT4xg/6Lk5ZrNkKouz1xfDaEdWhGUVbNbMTdTYKgG5WfxaoBtywj83hapHr
+         +LAJ+6FQ1coQX7H2J6cvfrngNV5CcpQMCIF/onOlrAHOGZBR15M1OgrqT06rr5ZQEQ4u
+         MuGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794204419; x=1794809219;
+        d=1e100.net; s=20260707; t=1794204438; x=1794809238;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RDa0JQRpSFd64FcDNqu+A8RXC4M3Gvi3sCFSGQLCqvI=;
-        b=QPMJ5prmpdD2ZKuthKyWTMRbsmtKCWHCXuT8Q2bI7+K5Bc03UKQgdgjXUWCeHwOKlP
-         RTp6ASlh5+1lJVR7SSoUN0N4K0Jbf5sVuHoZpAH71dwKM33E8STMvmFBOR0MXZVVfznK
-         xh7oDw9BXbD2LtNgFvBh7AMdKsAEghHsykq2100igCopwXvP/19eZ2xiEP7KfggILRzv
-         PAWd6lN2RGEFGrRTNP5J1PzaaiPywHJpwYk/8EuxzuLzli0rpZzI3D4V2bGQV2/anSpd
-         QvXdArRPR0pnlD2+18lNe4i7XvTYF+sodST1KgpudRO8vJDcoxrx+Q5v/mtP87pCnCAk
-         vXRg==
-X-Forwarded-Encrypted: i=1; AL+hErGYh8S+lsXxemputeUd5YT2fdYaR4ryJEXMQuAGbnyGV1RIC7e1ykLErjNYQMM5456bKhowUAutxdskCxY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Yg564/rG5LRrV9XZXweNkwmrhVLkb8aAhT5TJlNatbf2arPRH
-	BvWboXSGbAfdnFUDa6bu2EwDPMJtgm7EPcmYr+KB9JQJsHrqtTN3Lr4x
-X-Gm-Gg: AYBFou1OT8289H6MrOt0v/cikVQt9IPwEU//yG74087bHJl7CfjIVy8bf3L4RcC3QWC
-	/NrcMmHrN8r/gI1SFATecyVE7t9LEVytgrjcnDcGhzPUPBudYJ1zGdy323mAG5VAqljGejDbrQ8
-	RolrPkaTQNECndLb4cjRV3j7rJzPGOskjGCDLjPOaq7bh1wzC8ykR0EP5P81euERA06duV7Up3T
-	nQ0l2LGPvL9mW7M3JOx9/ggfssSrahhqM46GgPLdfHLnqL2PUHuToStx3iFS7O4PyIxoc09AELX
-	MQ5OnvKEho2tT3b2iwtzCPePGPbN9n6DkT6ZPsy+CeyKqtLa/UgMsKOH9+wte1R8vgCqppuSR8C
-	2++8Tp8MXzLCdSuQH89P246WYWannAjweS+ykN/8mDPF1peWt0Yxsb4CNdQwY68P0QHqOyXYz4N
-	OzZ0gD50pRtGE9AkxY2pMCpyxwd9a6f1pi/gj80/IH0x5HJ5Jfv4+DDqxMRR301khjYv4eENBBr
-	nJDNevzQgPbqiJWfEYtPwFf5wKjXuenU6pjio6yi0GxeG1qF+kxs9Ux/UE4GeJVVFNIrGUmyAPf
-	QKTvxhdovDh4L3yTPcj3q0vTMQKyPj61QJKe55P4NsEHSHjQ
-X-Received: by 2002:a05:7300:6a9c:b0:358:3426:d601 with SMTP id 5a478bee46e88-3725b461998mr5714163eec.2.1794204418800;
-        Sun, 08 Nov 2026 22:06:58 -0800 (PST)
+        bh=2Hx/ir9n6/52Xt0z/1r5+TdJ8onrgSGbL4t23XE1gKw=;
+        b=gRpQq+WXM9pKrOEzsupNK1ySTO5M/yICcKypGvG3sPOjiDVASQafaa9TdRQ3Xqi0KR
+         NHkslzQUuQzVTHsM1oTqry7tFXJ7T4/zC6joulywVIhYFmyUX9x6EDi5DUhBkItsQF+9
+         to7eL7hiYUEzZNAx02b3N95FSW1fxcLoNLUada5n6YHq1Q4ZzZcixCSrHcGnh66Pw0UU
+         UTfu8d9x7r9t23MpCdU31dcEV02mWzFaNUYZCuti50tCX/cfmQt9TU8Xvcn9t3mAt+ZA
+         SdHQzqTTzPxTxxpp8JXHw1q4/EFLUJa11rxW2ISRz75nxpHs1D2UwEIRwmE4Z5vCYvvd
+         XEAQ==
+X-Gm-Message-State: APuU4Z/hl/KaiQksbwngCleUJl8kWA796h+vBlLbNTZI8OzETDls6Tr3
+	sLznc/UhKCX7IUeKf1WxzOgNx8GtDg+qDgAI5zeMt74AU6sF8JFu/dSu
+X-Gm-Gg: AYBFou33bdlwY7ZmsifUBlnMxMrR5tjNG63UJBf/xaybm6mTH9zAgqcUsVRJ394kEyp
+	XvC+86AbV9O0NOi+4f/4szk8BsLdBYHgcTZCazf8AVflI89sKRRLBMYsYt38aJ3lVJKHhavZ4pn
+	xjy8eUdUIFkB9MTrBNNIcrnnN27eWjaGKST+gjSZAUM5adLEzkfukJuXTd8ltuCbmKBMfdsevW3
+	1Q6VrYTC9wUPvkXrLuIlUR6IpvM3ALRiB0dgiKIDmgqIK3Ssv6+A5+5lfYFjL1UXbqqrwwRN2Pd
+	Wi6zgXQKugpIbF+WX3kVKANZCJhA4Wfhy80XBPT4re75ip0oSFl+nQdQlwVz93VIAex4diHcbBO
+	7dg1kpKqSCq8dFBnoOZcEp0OHKSxLbWdfLdRI63Yef/7q+kiKwrUDjr6GpJyKjeVrn0CZtaqjcN
+	D8RSC3eScFCIhSTFfbM7N5NMfC4G5i38Tu1kO+mVIDyR7pE5Cao3yhodHVraBFkMvDMWDsEU23r
+	jno/Zjwm7I4RA2ipgqVsnNitTorKWpTtFQCi/kff9gR0I8dmh7UzXbEvmBhQL7csvHTqD0XePQc
+	4Oe5W+XwX6UGZEov9HLn2aw8vzQylHVP+jPeneTMkCL4jIlZ23SxYL2dILbBXkB31fOhgw==
+X-Received: by 2002:a05:693c:6203:b0:369:ff7d:840 with SMTP id 5a478bee46e88-3725e142d96mr8228165eec.21.1794204437459;
+        Sun, 08 Nov 2026 22:07:17 -0800 (PST)
 Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3726561851esm10754270eec.4.2026.11.08.22.06.56
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265a16f9csm10728942eec.12.2026.11.08.22.07.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 22:06:58 -0800 (PST)
+        Sun, 08 Nov 2026 22:07:17 -0800 (PST)
 From: hyunjungg <hj351016@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+To: Niklas Cassel <cassel@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	linux-ide@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v3] HID: microsoft: fix use-after-free of ff_worker on teardown
-Date: Mon,  9 Nov 2026 15:06:33 +0900
-Message-ID: <20261109060633.1231417-1-hj351016@gmail.com>
+Subject: [PATCH v2] ata: libahci: delete the SW activity blink timer on port stop
+Date: Mon,  9 Nov 2026 15:07:09 +0900
+Message-ID: <20261109060709.1231946-1-hj351016@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,80 +99,70 @@ Content-Transfer-Encoding: 8bit
 
 From: Hyunjung Ko <hj351016@gmail.com>
 
-ms_play_effect() schedules ms->ff_worker to send the force-feedback
-report; ms (and ms->output_report_dmabuf) is devm-allocated and freed
-after ms_remove() returns, and the work was never cancelled on teardown,
-so ms_ff_worker() could run against freed memory.
+The software activity LED support arms a per-EM-port timer (emp->timer,
+ahci_sw_activity_blink) from ahci_sw_activity() on I/O, and the timer
+callback re-arms itself while the LED is blinking. emp->timer lives in
+struct ahci_em_priv inside the port's ahci_port_priv, which is allocated
+with devm_kzalloc() and freed when the port is torn down.
 
-hid_hw_stop() in ms_remove() unregisters the input device, whose teardown
-(input_ff_flush() -> ms_play_effect()) re-queues ff_worker, and a work
-left running after ll_driver->stop() would also issue an output report on
-an already-stopped transport. Disable the work with disable_work_sync()
-*before* hid_hw_stop(), so it is drained while the transport is still live
-and cannot be re-queued during teardown.
+ahci_port_stop() never deletes this timer, so when the SW activity LED is
+in use and the port is stopped (driver unbind / module unload) while the
+blink timer is pending, ahci_sw_activity_blink() runs after
+ahci_port_priv has been freed and dereferences the freed ahci_em_priv
+(use-after-free).
 
-ff_worker was only INIT_WORK()'d in ms_input_configured() for
-force-feedback devices, so initialise it unconditionally in ms_probe()
-(making disable_work_sync() always valid) and also disable it on the
-hid_hw_start() error path, whose unwind can likewise schedule it.
+Shut the timer down in ahci_port_stop() before the port private data is
+released; timer_shutdown_sync() also stops the self re-arm. The timers are
+only set up (ahci_init_sw_activity()) when ATA_FLAG_SW_ACTIVITY is set, so
+gate on that flag and skip slots whose timer was never initialised --
+timer_shutdown_sync() on an uninitialised timer trips the debug-object and
+lockdep checks. Sweep all EM_MAX_SLOTS em_priv slots rather than the
+current links, so a detached Port Multiplier's fan-out timer is not missed.
 
-Not runtime-tested (requires MS force-feedback hardware).
+Not tested on real hardware (needs an AHCI controller with SGPIO
+enclosure management and the software activity LED enabled).
 
-Fixes: 1cfc77a64b71 ("HID: microsoft: move FF initialization to .input_configured()")
+Fixes: 18f7ba4c2f4b ("libata/ahci: enclosure management support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 ---
-diff --git a/drivers/hid/hid-microsoft.c b/drivers/hid/hid-microsoft.c
-index a7d3493a6141..5e4218beec92 100644
---- a/drivers/hid/hid-microsoft.c
-+++ b/drivers/hid/hid-microsoft.c
-@@ -335,7 +335,6 @@ static int ms_input_configured(struct hid_device *hdev, struct hid_input *hidinp
- 		return 0;
- 
- 	ms->hdev = hdev;
--	INIT_WORK(&ms->ff_worker, ms_ff_worker);
- 
- 	ms->output_report_dmabuf = devm_kzalloc(&hdev->dev,
- 						sizeof(struct xb1s_ff_report),
-@@ -361,6 +360,13 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 
- 	hid_set_drvdata(hdev, ms);
- 
-+	/* ff_worker can be scheduled from input_ff_flush() during a failed
-+	 * hid_hw_start() unwind and on removal, so initialise it
-+	 * unconditionally before hid_hw_start() rather than only for
-+	 * force-feedback devices in ms_input_configured().
-+	 */
-+	INIT_WORK(&ms->ff_worker, ms_ff_worker);
-+
- 	if (quirks & MS_NOGET)
- 		hdev->quirks |= HID_QUIRK_NOGET;
- 
-@@ -377,6 +383,7 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 				HID_CONNECT_HIDINPUT_FORCE : 0));
- 	if (ret) {
- 		hid_err(hdev, "hw start failed\n");
-+		disable_work_sync(&ms->ff_worker);
- 		return ret;
- 	}
- 
-@@ -384,6 +391,16 @@ static int ms_probe(struct hid_device *hdev, const struct hid_device_id *id)
- }
- static void ms_remove(struct hid_device *hdev)
+diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
+index 001a6f5e4172..3f6844acb413 100644
+--- a/drivers/ata/libahci.c
++++ b/drivers/ata/libahci.c
+@@ -2605,9 +2605,32 @@ static void ahci_port_stop(struct ata_port *ap)
  {
-+	struct ms_data *ms = hid_get_drvdata(hdev);
-+
-+	/*
-+	 * hid_hw_stop() tears down the input device, whose input_ff_flush()
-+	 * -> ms_play_effect() path re-queues ff_worker, and a work still
-+	 * running after ll_driver->stop() would issue an output report on a
-+	 * stopped transport.  Disable the work first so it is drained while
-+	 * the transport is live and cannot be re-queued during teardown.
-+	 */
-+	disable_work_sync(&ms->ff_worker);
- 	hid_hw_stop(hdev);
- }
+ 	const char *emsg = NULL;
+ 	struct ahci_host_priv *hpriv = ap->host->private_data;
++	struct ahci_port_priv *pp = ap->private_data;
+ 	void __iomem *host_mmio = hpriv->mmio;
+ 	int rc;
  
++	/*
++	 * The SW activity LED blink timer (emp->timer) is armed from the I/O
++	 * path and re-arms itself, and the ahci_em_priv it lives in is part of
++	 * the devm-allocated ahci_port_priv; shut it down before that is freed
++	 * or it can fire against freed memory.  Only slots whose timer was set
++	 * up by ahci_init_sw_activity() may be touched -- timer_shutdown_sync()
++	 * on a never-initialised timer trips the debug-object/lockdep checks --
++	 * and all EM_MAX_SLOTS slots are swept, not just the current links, so a
++	 * detached Port Multiplier's fan-out timer is not missed.
++	 * timer_shutdown_sync() also stops the self re-arm.
++	 */
++	if (ap->flags & ATA_FLAG_SW_ACTIVITY) {
++		int i;
++
++		for (i = 0; i < EM_MAX_SLOTS; i++) {
++			struct ahci_em_priv *emp = &pp->em_priv[i];
++
++			if (emp->timer.function)
++				timer_shutdown_sync(&emp->timer);
++		}
++	}
++
+ 	/* de-initialize port */
+ 	rc = ahci_deinit_port(ap, &emsg);
+ 	if (rc)
 -- 
 2.43.0
 
