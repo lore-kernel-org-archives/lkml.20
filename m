@@ -1,102 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794237447;
-	b=1aenghchzfBd9nputlhR1ElcbwBieXCNEIt7WSIlndH9wF3YlaZwnB/H6ZoVnWdwM7Iw
-	 Y9uu9gWWp7COytP9U3+YwkWLyvkG3/ZefZmy8tm4o3xbk0EPCg3C7wpAYyB+TNBW78ik8
-	 XNsipBFfspWPJImemzoT0Fgx7l9R2bGTCJgBFfwasYoN1qQwBpMtb4x6yIe/S7u/sA546
-	 lfh0AOZ6UH6ta4PfryBEKjsopmqbVYZHZyT8YSS1Wbd7jxbnBkx6RKK+U2peki+OLxeSA
-	 RdjLGk/oDlOPfvuBfCMlhh/EME68n0lZeW1oklVGgn2JjihUivD2s1eEYlh2RpQggLA==
+	t=1794237457;
+	b=OCo1ng85VJiVwSsamnfheBhHc4arZ5kztHYrfcZQpzbW51kpyfq1WifAnfxB6ync2+ow
+	 zDNs6f8SjZbP/N6s+My/RW8nAWLVJeuTtRJJgft60dHnXjxfimN8NT83uRqXFFLsu4x4m
+	 y5ANtdFi90ec+uDgS1EZiiUJ9dDPietztR0B97FEpOJscSx23esazNitpYUY8+DGKvMsE
+	 d/o8lVjctjijtrE+qc9OgR59mWkFBBw2eU86LvVG87xVK3Y7ECnhYQp7kxqkOANKBL5/W
+	 tAHEIZdPWmzjt4whduunXAAiWU4SB7IstaIsNcld5ffd+MFfEn52V6XAEdpvw/QmaVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237447;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Xdh9DR4pvP3bPWHM/PE++xfHsGb4NZkwyA7cH/UYfZM=;
-	b=i41+Tvz3ctaGkS4x1nVsvt5nF+BVOIU2uvJ9MMiULAouTiDZf8MpvJDT4gMZPZoSjKSS
-	 eKh+Sam5P2QYxj6sMmdF3CjxgaxjvOOBcFEt83lheCo+xbyjov3g1ksyx4VPSusROLgra
-	 WUbgQvl0nAWaiBJ22OBlyh5+F7BBTIqPhR8bPOk+9X90B7S07ppRuttMtsGQv0Ee90Z0/
-	 nFzQDmg5Lt3e4512hl41WtVErLItjXk7UaXJzr4TLuEh3mK47vlGSXlgv7ZsCvftTfZKG
-	 opALkAWgNBsCeP9QvtHOQ0pStIcqM3gC1tNlrFwKqI5w/60ndZNsQ4ySPxeypPBU9KQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237457;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To;
+	bh=CfHap0q6P6c91MZbBlQG5hfjcm9Nfhv5PV47PljtmhY=;
+	b=b3lxSPMMBcLboSEJR+qsqvYlUrRmkNpxKGhgGsi1+xuR+PqoQvulFidk4OMyJxowJg6d
+	 nVFlfTPou0qtd9SqHkW5VVP1wHxvoBZyI3hUxOT0tOIjT9tqd5rvNyu7tKAvRMniWz7fv
+	 eUM4ek3c8nOW/wSwODEi+dBVlZwqUG5VjkSgjKR01R71IW7+YMpwe4FgJkmCdhsq+OUb5
+	 33nFC1AnyGJXPazR19DqdR/HZ9VYMpM1tytcP2HTQ9nsLWTcvH1aBAbpmgEXYc6F3ZuMX
+	 Ha8gBXxJC+yrNAMQAmKL5rcwyuSg9pWL2EVkfx06woJI9VjI5TOCozL2uztP0j/sxug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=smartx.com;
-	spf=none smtp.mailfrom=smartx.com;
-	dkim=pass header.d=smartx-com.20260707.gappssmtp.com header.i=@smartx-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=nnkIAT9j;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbK5tj5B;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02132606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:17:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02132606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=smartx.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=smartx.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 095BC606A331;
+	Mon,  9 Nov 2026 15:17:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smartx-com.20260707.gappssmtp.com header.i=@smartx-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=nnkIAT9j
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-37198ed3727so1350060eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:17:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=smartx-com.20260707.gappssmtp.com; s=20260707; t=1794237445; x=1794842245; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Xdh9DR4pvP3bPWHM/PE++xfHsGb4NZkwyA7cH/UYfZM=;
-        b=nnkIAT9j6W5kjL2AukY6s9LACsUL/7/5/3oeWkfyGSy9CDbNWy7IJd/+qGnPI/Rvrs
-         h8vprcezd8yI62kK0DZeROYl07EOnZQ7yPXw0f+CA9vbvyNqAqKFVhAgS59o2nVboAkK
-         u/5VSHDv0mrWUEOv5AH8tFKnEmbw295JSMmHYA5dPR4YZJ7VDcfaMOOoZDQuvePTlnXo
-         ra3a83LDvmY3qZT2nsnq7zgEm2qGS8ucdse3VXhSCb2kK//HknKd8m8gUmXB/VqYWGIF
-         qk4xqOfqBOrhKKShpRCDXqVJJ1aTtYCR3FBuSuceszHHeKLBdgIKr8c0rb/PjzxS/YOc
-         nrIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794237445; x=1794842245;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xdh9DR4pvP3bPWHM/PE++xfHsGb4NZkwyA7cH/UYfZM=;
-        b=VjDXe/JPuFXLbANiBGDWMzFHA9PWQ54oSHRueU0Fh0nbcTGj/5JKcYjkijLc3yalkN
-         m3SpL25P2l+XJ3L50KJMSPw+/UJpWQTo+YBf5umttr1gOx4MVDpUmohCsahz2P1jmTYZ
-         vCS+TKzGkv/5n65Y9vv0psBsKXI1JF5IcUwS/7ecgNiBkSis/sOslhHKkiKxn9qBdWTE
-         MJQVqwmZjTyXTftRKpN7H128moZ2dx7rzGzUbg1mZiD7sDu8iD9k2SaRHIGc4WKWUgsB
-         MB/P+UU29TVI0x4CLF+99YwWT0gPpfJ1IQTslymRzK4g9J854bgBYCjvF8gRhQc0qZP3
-         8j/Q==
-X-Forwarded-Encrypted: i=1; AL+hErGaOCWoIt2OIOdYJR0fy35XEETz/lL5UJiv2sDiY0DY5Ud3lJdBID85GgZ55BFi/DDUODRXP4dlmaOdk0A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8252NM5SM2cLi6BmFBb7drcKfdXPaWTshAQ13LukfgTxQC2ERm
-	41IQjC+ulyaoBscdafIgEemyxtdJqrGKESxkah5DV/tTi3g6ub5PaiRvvryNbPc9xe1rXd2YN0f
-	UDgv9q15T6Ojy1UFk0U1ys1kadJWCd7xX1TpOALoLiXHbgEJRiBEPE6VFKYak2RUYXYQa8QX26p
-	g2WHy/
-X-Gm-Gg: AYBFou2PK90SDIcpaz4CmJ7ZiKkPJYFiSBt7+8N9qMG9msFCnpTOPdjiCGvg8vM2Ino
-	PyorJ1cn1hzOC/q2vIhdFS7UMDrdFaGdZLet9N+SUo7NBOi9UlsBpJ6GYbn0QmpJeYer0LY89J1
-	RMD+LKxVHO17UCVLp1upc7N35/3cSSbQaypO3neGK7Xo4a1RD+KmCI50ttDXOwHXUd2IDl50vyT
-	VEgx0GP8v5wrCk6brmb2tVhvZFkWdPsQziJPX8n7YtaNhGXoZLumG/QvTQytQ7JzGy+uarEfWTc
-	LTdjc1WbBORHhPfynvvy8gZrfkiwDacv50SyThdmgIyjamauQxI2P8x97UtKhZRaxqSiqzcAyBg
-	Ubje/jeQI6CXLLd505xU1ZLK9O02z43bqxQB6R4YEs55e7jPfTPXB+iK4FdsJwhfLpyRzI6Om9u
-	qOxKroQE92CHDFDmNPI9JRvqD1Dfzr2M4oTNEYEHOSNWGm0TkWTLyx8ogjeTryiYm2kUCQU5em4
-	pnEEOd4gnkt9V5/4Mj7EpKhH8Gk6OTFAvY8M9mS5MIjQSVM7cRJ6jbTXJlmlwH3wNq6aM6O5g7q
-	R1yGeb+0w7vTPw5nuHzG61dThKDt0h4KefV4T6IE3A==
-X-Received: by 2002:a05:701b:458e:20b0:1b2:42db:8a5d with SMTP id a92af1059eb24-1b39fe2fcd9mr6125970c88.3.1794237444186;
-        Mon, 09 Nov 2026 07:17:24 -0800 (PST)
-Received: from localhost.localdomain ([174.136.204.24])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3731487edsm15203046c88.2.2026.11.09.07.17.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 07:17:23 -0800 (PST)
-From: Wang Zhan <wang.zhan@smartx.com>
-To: netdev@vger.kernel.org,
-	Yingjie Wang <x-professor@outlook.com>
-Cc: Wang Zhan <wang.zhan@smartx.com>,
-	"davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@kernel.org" <edumazet@kernel.org>,
-	"kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>,
-	"horms@kernel.org" <horms@kernel.org>,
-	"kuniyu@google.com" <kuniyu@google.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net-next v3] net: preserve rps_default_mask on failed writes
-Date: Mon,  9 Nov 2026 23:17:00 +0800
-Message-ID: <20261109151700.3979272-1-wang.zhan@smartx.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <a235de028cc4160692127c6bf44ac567185b5449.1794143938.git.x-professor@outlook.com>
-References: <a235de028cc4160692127c6bf44ac567185b5449.1794143938.git.x-professor@outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mbK5tj5B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65DB61F008BD;
+	Mon,  9 Nov 2026 15:17:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794237456;
+	bh=CfHap0q6P6c91MZbBlQG5hfjcm9Nfhv5PV47PljtmhY=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=mbK5tj5BA19WbMwGdas1Q1+I1CSPXuGwsyEa+SrzP7WhvMEjXBtaWSSHD9wyGS9Jf
+	 CccTFcfNpk1W281ZQvRy+OrA6VcmLCMCtkaH1y6DocwctAdvSg2JqJiDu7s6Yf1oh7
+	 Uw7jbjtmjzbgLZLSapVuDcG8TCgBRd+oIy8EnQCJ5v+5L08oX22PmoWJXVbiOIAn77
+	 ecEK85TtVu109xYYkQijVHJ2wSiVvdGC5slKD7Rq7LU92z4XXJXeMgIUGIJ9o9OQmE
+	 COW/iHr8/t8gpqYJDS5EaBd2WOsicAID2zZT5PGEdpk2hxAw85Ju7HQtJdYAyTsqXk
+	 XkK+CwX4vzy2g==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,101 +48,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 09 Nov 2026 16:17:33 +0100
+Message-Id: <DMQS3EURP5MB.2DY989AOI0CSD@kernel.org>
+Subject: Re: [PATCH] software node: only let the owner release a managed
+ node
+Cc: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>, "Andy
+ Shevchenko" <andriy.shevchenko@linux.intel.com>, "Daniel Scally"
+ <djrscally@gmail.com>, "Heikki Krogerus" <heikki.krogerus@linux.intel.com>,
+ "Sakari Ailus" <sakari.ailus@linux.intel.com>, "Bartosz Golaszewski"
+ <brgl@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, "Rafael J. Wysocki"
+ <rafael.j.wysocki@intel.com>, <linux-acpi@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ "Balasubramani Vivekanandan" <balasubramani.vivekanandan@intel.com>
+To: "Johan Hovold" <johan@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261102-swnode-only-owner-release-v1-1-ee4c9022a629@oss.qualcomm.com> <avHMhh8ChrFE_b_e@hovoldconsulting.com> <DMQQO3DTZE66.1Q2XGGDGN3WUP@kernel.org> <avHZ5U_YR9QSqd0G@hovoldconsulting.com> <DMQREV9DFQST.1Z4ZFOFTS0Z7W@kernel.org> <avHfx80pHRPwtqRt@hovoldconsulting.com>
+In-Reply-To: <avHfx80pHRPwtqRt@hovoldconsulting.com>
 
-On Sun, 08 Nov 2026 13:19:12 +0000 Yingjie Wang wrote:
-Two nits, if you happen to respin:
+On Mon Nov 9, 2026 at 3:59 PM CET, Johan Hovold wrote:
+> Yeah, I skimmed the thread now. I think the last thing he said was:
+>
+> 	The patch looks fine to me but I still see that there are some
+> 	concerns. Like Danilo's points are valid, can those be addressed
+> 	later?
+>
+> 	...
+>
+> 	Let's wait a little and if nothing arises I can apply this for
+> 	XE.
+>
+> and in the reply they say would go back to managed nodes "once the
+> limitation is addressed".
 
-> @@ -105,34 +105,36 @@ static int rps_default_mask_sysctl(const struct ctl_table *table, int write,
->  				   void *buffer, size_t *lenp, loff_t *ppos)
->  {
->  	struct net *net = (struct net *)table->data;
-> +	struct cpumask *new_mask = NULL;
->  	struct cpumask *mask;
->  	int err = 0;
->  
-> -	mutex_lock(&rps_default_mask_mutex);
-> -	mask = net->core.rps_default_mask;
->  	if (write) {
-> -		if (!mask) {
-> -			mask = kzalloc(cpumask_size(), GFP_KERNEL);
-> -			net->core.rps_default_mask = mask;
-> -		}
-> -		err = -ENOMEM;
-> -		if (!mask)
-> -			goto done;
-> +		new_mask = kzalloc(cpumask_size(), GFP_KERNEL);
-> +		if (!new_mask)
-> +			return -ENOMEM;
->  
-> -		err = cpumask_parse(buffer, mask);
-> +		err = cpumask_parse(buffer, new_mask);
->  		if (err)
-> -			goto done;
-> +			goto out;
->  
-> -		err = rps_cpumask_housekeeping(mask);
-> +		err = rps_cpumask_housekeeping(new_mask);
->  		if (err)
-> -			goto done;
-> +			goto out;
-> +	}
-> +
-> +	mutex_lock(&rps_default_mask_mutex);
-> +	mask = net->core.rps_default_mask;
+Oh, I missed that part, that's good then.
 
-nit: use net->core.rps_default_mask directly in the read path and drop
-the variable; there are no other users.
+> The proposed xe fix is still not in linux-next however, and this patch
+> carries a Closes: tag for the regression.
+>
+> So I think we can just go ahead and fix this in driver core directly.
 
-> @@ -105,34 +105,36 @@ static int rps_default_mask_sysctl(const struct ctl_table *table, int write,
->  				   void *buffer, size_t *lenp, loff_t *ppos)
->  {
->  	struct net *net = (struct net *)table->data;
-> +	struct cpumask *new_mask = NULL;
->  	struct cpumask *mask;
->  	int err = 0;
->  
-> -	mutex_lock(&rps_default_mask_mutex);
-> -	mask = net->core.rps_default_mask;
->  	if (write) {
-> -		if (!mask) {
-> -			mask = kzalloc(cpumask_size(), GFP_KERNEL);
-> -			net->core.rps_default_mask = mask;
-> -		}
-> -		err = -ENOMEM;
-> -		if (!mask)
-> -			goto done;
-> +		new_mask = kzalloc(cpumask_size(), GFP_KERNEL);
-> +		if (!new_mask)
-> +			return -ENOMEM;
->  
-> -		err = cpumask_parse(buffer, mask);
-> +		err = cpumask_parse(buffer, new_mask);
->  		if (err)
-> -			goto done;
-> +			goto out;
->  
-> -		err = rps_cpumask_housekeeping(mask);
-> +		err = rps_cpumask_housekeeping(new_mask);
->  		if (err)
-> -			goto done;
-> +			goto out;
-> +	}
-> +
-> +	mutex_lock(&rps_default_mask_mutex);
-> +	mask = net->core.rps_default_mask;
-> +	if (write) {
-> +		swap(net->core.rps_default_mask, new_mask);
->  	} else {
->  		err = dump_cpumask(buffer, lenp, ppos,
->  				   mask ?: cpu_none_mask);
->  	}
->  
-> -done:
->  	mutex_unlock(&rps_default_mask_mutex);
+Ok, then I agree it is fine as is. :)
 
-nit: move this up to the closing brace and add a blank line before out:, so
-the unlock is visibly paired with the lock.
-
-Thanks
+Thanks,
+Danilo
