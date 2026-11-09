@@ -1,88 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794219455;
-	b=I6oTg5O2GgHM7iiRu7atSTFVeJWB8n5du8gBbBixAiOgNQKb3p7UNx4IRDs8kTIE6lj1
-	 pd22GLBQrjktFXvn6Ms69QUISZalOXZt5t8Pc1YAijGLIPA1ErPmZzwiH5uQwlyg2cBEH
-	 vIpjXkJ8oo4wHPrmF9P2irBY+7+tWbpkkpafLNU2FbdUbMCjfFnRE+Mc8B+L3HTmHiVGX
-	 bGUyWMIzjNwkCov1nLmxsrUvkFgIW9q9djK+5kBpSm1MoyspRiOXp34dKoqOGZq1mRt4g
-	 YWwHCqY6MO1RijSSQVVRmwLbduuXr3MiB3FLZ/AwcPh4COiwjxdydRoLYfGr28SlTaQ==
+	t=1794219458;
+	b=bU5S7++692rmwSMxL4kiS9bo/EGIefIUZlGz/hYWF2n0qG5jbXYDYWJnd+j1ftP/RZa6
+	 iYDUZ5Kwt+namOaNe5pOWzQvc+B2z0j0Eopj4oOEjw45sLKcVPSQ43BuE2xJs32Fok+i0
+	 28gTkEJJzDY1haM63UHxZWr/lm24dQvDAHq3EP1gKoJS2ih9WCDv5vBFNhk6YJtDMzb7A
+	 8pmVziTE2/ynQgM6M6vYtt2Gcsdny6uZKBaNjcaQyknk/cLrpWp+1g7qEwXtsff2i66bV
+	 7OuED23hQ4eqqGl++6kR37ku7iUeYrv//faPa/NNoabCHexGbSLL15pbw1YHz5THbjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794219455;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=WIaieGGBZ//QGoNLj878zCBnNschlkTQti7AhZ3wdkI=;
-	b=G/XsDQZxe9rs+Tojxre0ijo9V9xryeULO+G+TiN8M3g/4EAvJ1k3hL6ud6zFyYW16sqD
-	 lwrcapcWkWrGnfd899VFoHfv1Y0FJngj5GO1rH+T7D8/CAIuU0KXHxyHdMEZIoZI0N7pZ
-	 qYLIF0QJxPy5r2DNMDkls7994a3OTer7wd4hFdfs9XVjMxEh5MVZFO5VzMlpLOCD/WfQq
-	 gO9QLmqsmbc6qPeI1ZtAjtRDbnHsW6OW7p7ywtDocXzKwV60ahV4Psn0YmGEseQmnjgYp
-	 7DMoKf+ejXNnsWDBGADsk5/Lim9whyBuKIKb+ry6CkW5snr6kYA7X3BbtAeuX8BPCXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794219458;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=qEpeXh4n+Ip6h8mQUL16hZLbonLzBsEE2lau1nHqEmo=;
+	b=MOAQhDcmY3RRXnIHxsu3UL+fa5OvgKHH9cC5icv5lg2MwdanPVcBiac/5fBMr4HU6jTP
+	 UOPILkDSFD7TSBIxzoFZdDECweV6XeedU5tMcMe/6hkni3HXpUwooH69GSaIFpN/PZcss
+	 yeJJTwWLEc8rMS2OPhH4JrsmaIOLyz6WcfiIFKDK1wmTyDU7ZgzW9DDOUWxfOuiQMsiCW
+	 sb2AZau/GqZDEnxGvoYmusSb4k+Rd+aYOaRMVCBHlItRBHfPUbOgaPueuSK84MrqoUYh2
+	 qO1CoIyymQBKdepoptmB+zV0nT7f80Vf9kGXOFTajmpSPWFnz30ot53EJshsncAjukg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KbmTF0pB;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=SYSseT9J;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=AZFsxJji;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CB0606D83A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:17:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1CB0606D83A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E7D3606EE99
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:17:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E7D3606EE99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KbmTF0pB
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so8100305e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:17:34 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=SYSseT9J;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=AZFsxJji
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794219456;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qEpeXh4n+Ip6h8mQUL16hZLbonLzBsEE2lau1nHqEmo=;
+	b=SYSseT9Jy/WFz6WVEQnxyGdvA31iEpfH9eel+Zh4l7BmosTfd2yqb8ywOJP3F1AVZRNeg5
+	aa+84ZKKLzl/TqB0SaTPHCnK8h/8gjYa9qqx22T4rfSuxZnHTBxqCOrmAXovhohUQzb1gc
+	sVS28RI1ga/MsxTvIUrRtULxmVUfwtc=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-75-btC-k3BdMP-7f2dXTI5uGw-1; Mon, 09 Nov 2026 05:17:35 -0500
+X-MC-Unique: btC-k3BdMP-7f2dXTI5uGw-1
+X-Mimecast-MFC-AGG-ID: btC-k3BdMP-7f2dXTI5uGw_1794219454
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a214a5f8a1so6709175e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:17:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794219453; x=1794824253; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WIaieGGBZ//QGoNLj878zCBnNschlkTQti7AhZ3wdkI=;
-        b=KbmTF0pBknBeDwOEN7r0cHteYDa/vTyhn6x0Nd9IvVWy1J0cE3V8Pre6W8UpWPoTqb
-         0TcIGXn5KsjZtiMF5LSq5h33pMTB2oDkym7mAiDju6tBfN9dhgMmX99/G7ut6msUmeJG
-         56tWZjKTHjF1kX6z9m4o2jmVjsyvjWXsqFRnIdWAcyuLo8suFTc9tYi0TC+XDl7YHgFK
-         WDT4V5NaFpGsSlqww02GtNWVmmVlnBUIPBDsHXhKA8UoRhcbd4n/qQ9H1M7I/JqRwxGo
-         BxQm3ekGb9zAd4TetWohPwXVyVok4mXgL/u7UnP+3nq7V09fcWDNDY7or7FJbxfBQjtJ
-         yzDw==
+        d=redhat.com; s=google; t=1794219454; x=1794824254; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qEpeXh4n+Ip6h8mQUL16hZLbonLzBsEE2lau1nHqEmo=;
+        b=AZFsxJjiZqZrL72YI//l2f88S1Zo8AtzYrL3FMNrR379eUWzcnayOE/cfH5U18gqM0
+         5VVr+x8YGYXw3RoHOvRXeb0wJruoSshj6G3yx9ycnng69Opfq3a3dnXTtrP1IceixiKM
+         S4sdRiNe1b0gtheaY8NSLaxe96FuCBx0S6eFh1LllCYntmj2dkAFRBaTAmofb3P2cyZ9
+         qRRb+E73H/aL1qoIDHnBHP/rHQTgZlS+iCsqhG/L3pffTnjLOD5CLOCyc+47UyV5X7EW
+         X0CH1hv0FQlHM8KtCwJIZxetv31oO+PIlKYAG49ZDbZp54lOkMz5FhlxvgOqnWx65kzL
+         64oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794219453; x=1794824253;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WIaieGGBZ//QGoNLj878zCBnNschlkTQti7AhZ3wdkI=;
-        b=P0Mj4/FBxEWZEl3aA+grH4CLP6qKfF4wJfVw+oT4JjB+f0jj6+VtGJodI8VWOFuRmI
-         pOolEj60F2iYFPJt85KiywkD/4N4q4vCJ0mLRdV/0HkN4BQ0ihGTcxp22mQI5CwaiQfV
-         LhnR3ts7juotVdpOQ6jsOABG1O7LIvOtUcpXeZSmZCenzNIGrpKDGQ5imWH2PQ75pr8s
-         6gDtepKdyZEaj7X+m82wb2Ii9EDrn80+DaQw1YiihVmDeL/k7FymjVUflzQHzAcc/fj7
-         OmtCbs/nMmjJkhMsPa1QgznlJUmLYgFLWb1WstmymNzd0hrpxic7hGP8rTvrCK59wJOy
-         rLeA==
-X-Forwarded-Encrypted: i=1; AL+hErFysWm8sYYpYYJJr29/04UnKzPbRVuPofsIV1/fWH1FeNZjuVJC9WcX02sCyue5A1wtXzNccNx//ARVsbI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9KLC331YhjBurBXwhmRSUGn30F+/as7kZw8zWm/Ff9jh3gIKa9
-	X8PAKxB8FrC2MfbNzTbU6V1u+wDueVBcHfMN30b//2m6AaTRj5SbkRX9d+/zZyRrBzk=
-X-Gm-Gg: AYBFou3LqcRd42arwa04RQqshkrZDlfeg6EViCJY8wdSBEjZ4jESUIM0PpqxNuDLDJ4
-	eI4/L8fr82LzteYCGzyQYmzLdNgrPpD7MrATGKOW0ERFiOasZuiviI3jlQlGDgTG/l44x+WQABn
-	6JGC2NNaUDAWyi2WB+kHjQ7+gNF3v/6Tv06zQ7LeENlFGQLGBlEXNDwlGNz3XeyTHL76074PRRk
-	iUxu2+fu/EjrPJOtlviOUnSrdXfVdRwAgWyQ41VfXv8HziSGazKXVdakTMj4MSxmdXU2sO1QkBd
-	bmT0GVjP0hK8MY8lMOe/ctM7Fd++/xPhnuvbc3wtp0xJJwG4ZD59H+BMUd2zmG60cXMio8y0trU
-	0EfKKq7kpLkaciCKOYWhzFY2QbIXD5oF6s30rtBJfWdvqtyynf3o63G7cgcTnq9ZLhfSfAsjd/2
-	bUd00sB2Mw5gHSXWgb+X2wXkZyNO1hpMG1NcZJ71tJRCbgdKJnW9C7WFf3SAQUKQITjHtqIlKoD
-	Pcb/wwHOWzsmiw9/W1TtfpRINOX7YzCtASDvQootHbpb4+u6qS61XNQjl3nQsE5V+IozJk1Mznn
-	A9cNBaRfIa7K/m0Z1PdUZyJTJ/A4QzqJlqqIzt0cb4+UMA5ksw/P+g==
-X-Received: by 2002:a05:600c:8714:b0:4a2:1364:252a with SMTP id 5b1f17b1804b1-4b94d763291mr62542225e9.3.1794219453273;
+        d=1e100.net; s=20260707; t=1794219454; x=1794824254;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qEpeXh4n+Ip6h8mQUL16hZLbonLzBsEE2lau1nHqEmo=;
+        b=t6AYDHdJRR3Jzrr57SOyGU2CJWmyoUin06ds2NT8fKxtz7kX7cDLNqwg9wVnj9tT3U
+         O3Z+mC30q2mSMhjlITcR2pF1H2Saf9Po+I89X8ZacpM0vbRtzrSSNhWm9Zq4oh6DUSHv
+         UfP/8Wk/a4zN1utY7O0fX6P2RDKTsOzObrjssaY15bsKoHCnyuIy5B2RISimFMyngglv
+         vwiYYJUsVZRrbyESl79NPTqoW/Wmut+3Wyr7YOeEUNS3F0zUI9yq/5C2Dijc0Ec8C/8u
+         XF3ubVAl+XAzyqJTZD/UiaTBfVLWi7lFEEAATShYNubUWZSjpuqu8sXGt53NrvVjKSZg
+         wefQ==
+X-Forwarded-Encrypted: i=1; AL+hErHuyUR82PX43aAQZ73UVKIGqbiF0aJhn7Ytu+oWncpA15MzncMw6p9PfHqIhrs6Qg4kQmUioNDU7aUAmuM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yoJubc9YCjDXdb2zm3oQ935zSon9d1kA2EVE/Nif8kTDolBDq
+	XMDCAVhQWiR1bu0Yd222ckxzfQ5MUKm9AE/bIlFCAp43BabJq0f3Eg9tzxKlZOalpsFAaQ/xFbW
+	RGjDP7y+Eva8BnS0/rTPu1IWehV4stk2emdWLMcy/qMLast8Xq75hGmddt7MdLTyz+w==
+X-Gm-Gg: AYBFou1rCQbasyLQHSgz6hKyrTzxQejtZl9a3e3t7DiAERqElevzqOXUqm71xBIUY54
+	YOsB8ipHFmzEp+vwLh/KCYHA0av1pOV40CYlXm7RgDXr/8je1FL8oNJALKMVPgSeOrjfAKkQ/iq
+	2b8wO5Wa2Vt6oIanHFWwrnZLke4LBsoo99yY8Y2qsLDxYpwf8rRVVhbua0Ha483VGUQdujYc+fU
+	BsGpOkqtMQs5G0NZoHFXBgZvRIf/nMae3fRRR8gPl6fdsZktIRsQuGl2Qy2qp3pIDsa8BJSwUWs
+	ioK6goktuFmnUFVh8fAsIfkkaJzIYTT78IOOSEKXKSZX2El+V/zeYPziPdqiHpDNUHNZhWSf8eP
+	eK16HOwpiHePh34HPu2n+zfjOBkB3HFqGnG7BiEoxBEdzRKMifOB4WhxK3oD3qRrtNTApm9yS1k
+	cyVA==
+X-Received: by 2002:a05:600c:4e4e:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4b94d763141mr64174705e9.2.1794219454201;
+        Mon, 09 Nov 2026 02:17:34 -0800 (PST)
+X-Received: by 2002:a05:600c:4e4e:b0:4a0:23f:8b0d with SMTP id 5b1f17b1804b1-4b94d763141mr64174325e9.2.1794219453808;
         Mon, 09 Nov 2026 02:17:33 -0800 (PST)
-Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90ee1de2esm121575795e9.5.2026.11.09.02.17.32
+Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b9f93c04afsm71663785e9.3.2026.11.09.02.17.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Mon, 09 Nov 2026 02:17:32 -0800 (PST)
-From: James Clark <james.clark@linaro.org>
-Date: Mon, 09 Nov 2026 10:17:04 +0000
-Subject: [PATCH v3 4/4] perf test: Don't starve per-process tests with
- system-wide events
+Date: Mon, 9 Nov 2026 11:17:29 +0100
+From: Juri Lelli <juri.lelli@redhat.com>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: linux-rt-devel@lists.linux.dev, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	K Prateek Nayak <kprateek.nayak@amd.com>, Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	John Ogness <john.ogness@linutronix.de>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>
+Subject: Re: [RFC] RT throttling, DL/ fair server, RT_GROUP_SCHED and
+ everything
+Message-ID: <avGduY8yVmZSfpMf@jlelli-thinkpadt14gen4.remote.csb>
+References: <20261023161348.t3lpPLQZ@linutronix.de>
+ <at8J1mimeQ2oPZDE@jlelli-thinkpadt14gen4.remote.csb>
+ <20261105120932.lSBBenqn@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,130 +129,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-james-perf-test-fixes-v3-4-e8d0a65e618a@linaro.org>
-References: <20261109-james-perf-test-fixes-v3-0-e8d0a65e618a@linaro.org>
-In-Reply-To: <20261109-james-perf-test-fixes-v3-0-e8d0a65e618a@linaro.org>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, Jakub Brnak <jbrnak@redhat.com>, 
- Leo Yan <leo.yan@arm.com>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- James Clark <james.clark@linaro.org>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261105120932.lSBBenqn@linutronix.de>
 
-Some tests intermittently fail when run in parallel, for example "Check
-branch stack sampling" fails with no branches recorded at all.
+On 05/11/26 13:09, Sebastian Andrzej Siewior wrote:
+> On 2026-10-26 09:05:42 [+0100], Juri Lelli wrote:
+> > Hi Sebastian,
+> Hi Juri,
+> 
+> > On 23/10/26 18:13, Sebastian Andrzej Siewior wrote:
+> > > Hi,
+> > > 
+> > > this is about the old RT throttling mechanism, the DL/fair server around
+> > > the RT tasks, the /proc/sys/kernel/sched_rt_* mechanism to control the
+> > > former and CONFIG_RT_GROUP_SCHED which never worked as it supposed to.
+> > > The current status looks like a mess and I'm not sure if there is a bug
+> > > somewhere leading to my headaches or if this is just not meant to be
+> > > working together. If so out with it.
+> > > 
+> > > tl;dr /proc/…/sched_rt_*, sched_rt_runtime_exceeded() probably
+> > > CONFIG_RT_GROUP_SCHED should be removed. A bit of docs should be added
+> > > for the fair server (or the right place).
+> > 
+> > Thanks for putting this recap together!
+> > 
+> > > Now. Details.
+> > 
+> > ...
+> > 
+> > > Without enabled RT_GROUP_SCHED the files can be set. Are they useful?
+> > > According to Documentation/scheduler/sched-deadline.rst it used for
+> > > "admission control" whatever that means. Anyway the fair server still
+> > > kicks if it is disabled. So I *think* this is just something else and
+> > > not part for the docs there.
+> > 
+> > Right, confusing, but for a root_domain comprising M CPUs, -deadline tasks can
+> > be created while the sum of their bandwidths stays below
+> > 
+> >   M * (sched_rt_runtime_us / sched_rt_period_us)
+> 
+> My understanding is that this is the runtime available to a DL task and
+> the length of a DL period (after the accounted runtime is reset). The
+> left over runtime (of runtime is less than period) is either buffer
+> (idle) or SCHED_OTHER runtime.
+> This defines how much runtime a DL task gets from the system, correct?
 
-The default event is cycles:P which there may only be 1 or 2 HW counters
-for on Intel because it's precise. System wide or per-core precise
-events hog the HW counter leaving other per-process tests with no
-samples. Rather than make all the tests that use default record commands
-run serially, just make the system wide ones use a software event which
-has the greatest possible compatibility. They don't need precise
-sampling or HW counters anyway. The per-process tests can be left alone
-as their events/processes never run concurrently on any one core.
+How much bandwidth (runtime/period) DL tasks get from the system
+(comprised of M CPUs). And a corresponding cap (no more than that will
+be allowed to enter the system) - admission control.
 
-The LBR filter is another resource shared by all events on a CPU, and
-the system-wide LBR test uses different filters to the per-process
-branch stack test, so mark the LBR test as exclusive.
+> > and writing -1 disables the check altogether. That's the "admission control"
+> > the docs hand-wave about, and it's also why the knobs can't simply be deleted.
+> > As you noticed already, the servers are completely independent of these knobs:
+> > writing -1 does not disable the fair server, it only lifts the DL admission
+> > cap. In principle we could move this to a different interface that reads closer
+> > to the underlying purpose, but I'm not sure how much breakage it could cause.
+> 
+> That is my point. The rt_ runtime/ period is about DL properties and not
+> RT as in SCHED_FIFO/ RR as it once was. Both are set to one second as of
+> today and can not be changed with enabled CONFIG_RT_GROUP_SCHED.
+> 
+> Could we please move it to /sys/kernel/sched/ and rename it as dl
+> something? Is there any reason to keep as-is? There is
+> 	Documentation/scheduler/sched-deadline.rst
+> 	Documentation/arch/arm64/asymmetric-32bit.rst
+> 
+> referring to it in DL context. There is "ftracetest" writing
+> unconditionally -1 as a workaround, see commit 57c4cfd4a2eef
+> ("ftrace/selftests: workaround cgroup RT scheduling issues").
+> 
+> If the runtime/ period arguments are fine then we could keep
+> it and make them only apply for the DL period.
+> 
+> Two files have been repurposed and if your intention as to disable the
+> RT throttler then you will be surprised.
 
-This fixes the "Check branch stack sampling" test and other flakes when
-a system-wide record from another test runs at the same time, for
-example:
+Right, it's indeed confusing. I believe the intent for keeping as it is
+today was that in the future, if we get to 'fix' RT_GROUP_SCHED with
+HCBS, the existing knobs will be control both group and simple DL tasks
+bandwidth (they share the same bandwidth). I'm not against making things
+clearer. Maybe let's hear from others what they think as well?
 
-  $ sudo perf record -a -o /dev/null -- sleep 30 &
-  $ sudo perf test -vvv "Check branch stack sampling"
-  ...
-  Testing user branch stack sampling
-  ERROR: Branches missing ^brstack_bench\+[^ ]*/brstack_foo\+[^ ]*/IND_CALL/.*$
-  ...
-  Testing user branch stack sampling [Failed]
-  ...
-  Testing branch stack filtering permutation (call,CALL|SYSCALL)
-  Testing branch stack filtering [Failed empty script output]
-  ...
-  ---- end(-1) ----
-  138: Check branch stack sampling : FAILED!
+...
 
-Signed-off-by: James Clark <james.clark@linaro.org>
----
- tools/perf/tests/shell/record.sh          | 6 +++---
- tools/perf/tests/shell/record_lbr.sh      | 2 +-
- tools/perf/tests/shell/record_sideband.sh | 4 ++--
- 3 files changed, 6 insertions(+), 6 deletions(-)
+> > With 820725b0eb59f ("sched: Add deadline tracepoints") we already have
+> > some of that: sched_dl_{throttle,replenish,update,server_start,server_stop},
+> > which fire for fair/ext servers too (there's a type field, DL_SERVER_FAIR
+> > and friends). They of course require something like this [1] to be
+> > activated. We could add more if they are still not enough to get a clear
+> > picture about what's going on.
+> 
+> Hmm. You may want to merge Qais's current master to get it compiled
+> again ;) But then nothing hooks it up, so I just replaced with with
+> trace_printk() just to see what happens and got:
 
-diff --git a/tools/perf/tests/shell/record.sh b/tools/perf/tests/shell/record.sh
-index 01dc3e22fa73..e4789e2bcf43 100755
---- a/tools/perf/tests/shell/record.sh
-+++ b/tools/perf/tests/shell/record.sh
-@@ -388,7 +388,7 @@ test_system_wide() {
-   echo "Basic --system-wide mode test"
-   local ret=0
-   perf_record_with_retry "${perfdata}" "check_system_wide" "perf test -w thloop" \
--    -aB --synth=no || ret=$?
-+    -aB --synth=no -e cpu-clock || ret=$?
-   if [ $ret -eq 2 ]; then
-     echo "System-wide record [Skipped not supported]"
-     return
-@@ -471,7 +471,7 @@ test_cgroup() {
-   echo "Cgroup sampling test"
-   local ret=0
-   perf_record_with_retry "${perfdata}" "check_cgroup" "perf test -w thloop" \
--    -aB --synth=cgroup --all-cgroups || ret=$?
-+    -aB --synth=cgroup --all-cgroups -e cpu-clock || ret=$?
-   if [ $ret -eq 2 ]; then
-     echo "Cgroup sampling [Skipped not supported]"
-     return
-@@ -491,7 +491,7 @@ test_uid() {
-   echo "Uid sampling test"
-   local ret=0
-   perf_record_with_retry "${perfdata}" "check_uid" "perf test -w thloop" \
--    -aB --synth=no --uid "$(id -u)" || ret=$?
-+    -aB --synth=no --uid "$(id -u)" -e cpu-clock || ret=$?
-   if [ $ret -eq 2 ]; then
-     local logfile="${PERF_RECORD_LOGS[${#PERF_RECORD_LOGS[@]}-1]}"
-     if grep -q -E "libbpf.*EPERM|Access to performance monitoring" "$logfile" || \
-diff --git a/tools/perf/tests/shell/record_lbr.sh b/tools/perf/tests/shell/record_lbr.sh
-index 8d51afeb437b..6b6af59db871 100755
---- a/tools/perf/tests/shell/record_lbr.sh
-+++ b/tools/perf/tests/shell/record_lbr.sh
-@@ -1,6 +1,6 @@
- #!/bin/bash
- # SPDX-License-Identifier: GPL-2.0
--# perf record LBR tests
-+# perf record LBR tests (exclusive)
- 
- set -e
- 
-diff --git a/tools/perf/tests/shell/record_sideband.sh b/tools/perf/tests/shell/record_sideband.sh
-index 2182551873be..f16889e3fa9a 100755
---- a/tools/perf/tests/shell/record_sideband.sh
-+++ b/tools/perf/tests/shell/record_sideband.sh
-@@ -22,7 +22,7 @@ trap trap_cleanup EXIT TERM INT
- 
- can_cpu_wide()
- {
--    if ! perf record -o ${perfdata} -BN --no-bpf-event -C $1 true > /dev/null 2>&1
-+    if ! perf record -o ${perfdata} -BN --no-bpf-event -e cpu-clock -C $1 true > /dev/null 2>&1
-     then
-         echo "record sideband test [Skipped cannot record cpu$1]"
-         err=2
-@@ -39,7 +39,7 @@ test_system_wide_tracking()
-     can_cpu_wide 1 || return 0
- 
-     # Record on CPU 0 a task running on CPU 1
--    perf record -BN --no-bpf-event -o ${perfdata} -C 0 -- taskset --cpu-list 1 true
-+    perf record -BN --no-bpf-event -e cpu-clock -o ${perfdata} -C 0 -- taskset --cpu-list 1 true
- 
-     # Should get MMAP events from CPU 1
-     mmap_cnt=`perf script -i ${perfdata} --show-mmap-events -C 1 2>/dev/null | grep MMAP | wc -l`
+Ack, yeah, I didn't use them recently and they rotted. :/
 
--- 
-2.43.0
+I will try to find some time soon to refresh and check what's missing
+from the information they provide (from a debugging point of view).
+
+Thanks,
+Juri
 
