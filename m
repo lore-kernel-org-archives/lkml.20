@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794183823;
-	b=ZpGA+3QunBxbOoGl3E1t+DDyK0AQZcaJvlSnRIikXfpJDF4r4T4gEnJqvGv8K6bMFz4F
-	 OLJeXIV9Z0Y/0Qboa/bNReiZhX6pf41J+LIm0JwXljdSzLQKQAokuimf5qb8goD75GKRj
-	 k/LzADCKmOtA4k1G/2qyaWvlZQyI+RnMKKeeUYeQ3canoV2lDwCIxAt+ccPNlNR6oHLeW
-	 VmHHu2yKt43jvfr+UlQ0uo9VPA1ti9VnjmKdGH8MWXGs4glvPcv0vc1qT4PxkRyCN9lsK
-	 TBSeSJGOs83gfCsczsQtlPPZxRWXQz1jvnidC3qxf3UUNBft3VIiibq/GJ18f1j3xww==
+	t=1794183825;
+	b=ZHvQqdTKStp8XMnBFXkP/EVq6N6BJHa+r/eCVr11QwyNttxGVKzGEA9ftedSMQTqH/Dw
+	 KJDu/f3QaXdk+SxWtsKyq7Mt1bTm5Sm0tuHitciVtQyQ7GMRnADzMUjbpseIHD9TZea7p
+	 ApUCzNwx1MhgVpj9ysyvPDdmYkdFwe5ld/4zti74K+2aB4Dz6H8jSFkgbB8v5RNzFVlOv
+	 TJ/4DPHBgfMmk+Djc9EeCMSiVPZFrQQgiFJSvDYaPbfJFwk1hmnA5hEklkpYoV1ustEGm
+	 A4zRlHK9mo4B1lkIUKeYFWjgH7v9mpjksWyrP6kpJsNxKS7+Lic2A0mKK9VII2U4scA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794183823;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794183825;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=fb+OgOz+Kkm9T6KX15g4rjKPgCT3BsFEwLgAd4OsAeo=;
-	b=ZKijXm8epkkfz7twKErZ1VK/Kg5VVI+CfRu/y4WVvUx33ApXicM3/bVSSgUxTCbO2n45
-	 u1+QOpxzFgrRime/ZkSHSZFLJNqp1mcm3qy2yxEYX7P7wIBLrs05goFZTakSq5OwjCO9J
-	 gkg6JF/O0muUYhpNHqYvGHg4w10MKh6h7XFXO5qljDLoaWRKnjCtWvii93u/RlavWICE0
-	 K7PmIY0Ism/UQ4oD03MkPWKt2O3Hn9dFDF35UFnLCURC1t2GIcMUdBfsdeCoX/DkNzBg/
-	 1fFArvXfuF6+QBG/ePfaWNxOPBe/I7rLcWCVP2/8giN1HN2i2DyYLw/4JoGYRSJFJOw==
+	bh=d5oIkC3vkpUeCRqtBQPySjNSXhBUukoSypJuE6glTuE=;
+	b=G9emQn93l3l+GnfRnvsXSK8n2HgWz4dAlU1ggFayPuR3WGIg8qoQq30ZTtKDe0MtpRVY
+	 HCwGu7bpMLtz3BWOXp5Yd1uKYJIJ5M+5PqxB1j8JaEirBddAchmJs9FuX/6K37UHNrEC6
+	 lgB+5R9suvyNsZMssD9MKg+JP1h40vaPiJ1zEBXfmj5ddb0VOYSypdinInHr3ZCYnH/lP
+	 BtYbJJfMyIcj2luHpDBn2kbQz7wfysQ1AbaTeFxbzZLcQBoDpl+YQPWcp/QE479MyzFQF
+	 4kHhLnxz+/loQlFm0AopeLRRFqMrBnbvYXXdMUZ3AxETemJL95UUH7bQUZXWkq1heiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BaCAm4OE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AhzSt7kA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB87D606A31C;
-	Mon,  9 Nov 2026 00:23:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A3D606A33F;
+	Mon,  9 Nov 2026 00:23:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BaCAm4OE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9721D1F0089F;
-	Mon,  9 Nov 2026 00:23:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AhzSt7kA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D74801F0089F;
+	Mon,  9 Nov 2026 00:23:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794183822;
-	bh=fb+OgOz+Kkm9T6KX15g4rjKPgCT3BsFEwLgAd4OsAeo=;
+	s=k20260515; t=1794183824;
+	bh=d5oIkC3vkpUeCRqtBQPySjNSXhBUukoSypJuE6glTuE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=BaCAm4OEoIJaJfq1zmTvbYS4VG7xYuNkmPJqJr4Rx4S5QNMADUzRFPYMZdJ/mXBhx
-	 LaCTLMrkcstEd2Xenm9kvm9jaNxQ4KH/WF1wmT3EJMRu9u99JeJk0kCd5IncQbbvo1
-	 7CQbBxF9y/93SMxqtkXCrkPuW5DzkiL+9SeSk+/nyR4zqqY0RqqMl+0XGxV8TsBS21
-	 NcMVDn0Jfmg4SIspNV+7cguVvO3uJ/yGzziiRp3SzTZ5V0rv8HHrZ1nGwqNCIc54qZ
-	 +9hEExyhXGOBS6vWB33N+gPfb436D18EUxWUNrdxbp+SFk/l7lRVCpvlN6NAG8Y5nS
-	 ZdNbC5MsLeNAQ==
-Subject: Re: [PATCH net v3 1/5] net: mvneta: lift the per-queue TX rate limits
+	b=AhzSt7kAYN/cG/9Kt6cyoK5fvX4fdx7nzWYVlhBxUr5G3+E61MRofN8TaRP9q6i5+
+	 HuwKzzwNdOt0MFEDLCOJ3ExzcKcpJACUgvZ6V/FNfCxDIF/zlb9TAdIb8jxajtvaj5
+	 QT0vRE6BSjXUMjANZLDmwE2gArmXM20MoOMdaQMlnBrY/A5/8m8udfhEzBtj1j/tyu
+	 EmZ0xb7KkuaO86jkN+yj3vOYlaBLco+Fm6o3q02dcFIb0hh1kWwn8zdHXjTlb7dm77
+	 GtULudhIy5fjTaxBj23yw3MM/tVCpb7HdsMLCN3sXNnbTwvEH+P7Mt8zbotKWPa1lj
+	 VNpOw1ABwytqA==
+Subject: Re: [PATCH net v3 3/5] net: mvneta: unwind a failed mqprio setup
 From: netdev-bot+sashiko@kernel.org
 To: pepe.schlehofer@gmail.com
 Cc: netdev@vger.kernel.org, marcin.s.wojtas@gmail.com, andrew+netdev@lunn.ch,
  davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  maxime.chevallier@bootlin.com, w@1wt.eu, linux-kernel@vger.kernel.org
-Date: Mon, 09 Nov 2026 00:23:41 +0000
-Message-ID: <179418382115.994134.7847184519215065308@kernel.org>
-In-Reply-To: <20261104224518.66487-2-pepe.schlehofer@gmail.com>
-References: <20261104224518.66487-2-pepe.schlehofer@gmail.com>
-X-sashiko-severity: Low
+Date: Mon, 09 Nov 2026 00:23:43 +0000
+Message-ID: <179418382346.994134.3211728825005845989@kernel.org>
+In-Reply-To: <20261104224518.66487-4-pepe.schlehofer@gmail.com>
+References: <20261104224518.66487-4-pepe.schlehofer@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -63,92 +63,123 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-- [Low] In drivers/net/ethernet/marvell/mvneta.c,
-  mvneta_disable_per_queue_rate_limit() now writes every…
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] In drivers/net/ethernet/marvell/mvneta.c, the new `err:` label
+  in mvneta_setup_mqprio() does not put back the hardware state that…
 
 --
 
-net: mvneta: lift the per-queue TX rate limits
+net: mvneta: unwind a failed mqprio setup
 
-When the per-queue TX rate limit is disabled, this commit sets the token
-bucket refill registers of all TX queues to full rate. Without it, the
-limits set by an earlier mqprio shaper stayed in effect after the shaper
-was turned off.
+This commit adds an err: label to mvneta_setup_mqprio(). When a mqprio
+offload setup fails, the driver now clears the VLAN priority to RX queue
+map, disables the per-queue TX rate limits and resets the netdev traffic
+classes, so no partial configuration is left in hardware.
 
 > diff --git a/drivers/net/ethernet/marvell/mvneta.c b/drivers/net/ethernet/marvell/mvneta.c
-> index ea755cf05b9ef..9b9efac2846ef 100644
+> index 79711a117c39c..171111d7fe57d 100644
 > --- a/drivers/net/ethernet/marvell/mvneta.c
 > +++ b/drivers/net/ethernet/marvell/mvneta.c
-> @@ -5204,9 +5204,16 @@ static int mvneta_enable_per_queue_rate_limit(struct mvneta_port *pp)
->  static void mvneta_disable_per_queue_rate_limit(struct mvneta_port *pp)
->  {
->  	u32 val = mvreg_read(pp, MVNETA_TXQ_CMD1_REG);
-> +	int queue;
+
+[ ... ]
+
+> @@ -5289,29 +5291,39 @@ static int mvneta_setup_mqprio(struct net_device *dev,
+
+[ ... ]
+
+>  			ret = mvneta_setup_queue_rates(pp, txq,
+>  						       mqprio->min_rate[tc],
+>  						       mqprio->max_rate[tc]);
+>  			if (ret)
+> -				return ret;
+> +				goto err;
+>  		}
+>  	}
 >  
->  	val |= (MVNETA_TXQ_CMD1_BW_LIM_SEL_V1 | MVNETA_TXQ_CMD1_BW_LIM_EN);
->  	mvreg_write(pp, MVNETA_TXQ_CMD1_REG, val);
+>  	return 0;
 > +
-> +	/* The token buckets still limit the queues, refill them at full rate */
-> +	val = (1 << MVNETA_TXQ_BUCKET_REFILL_PERIOD_SHIFT) |
-> +	      MVNETA_TXQ_BUCKET_REFILL_VALUE_MAX;
-> +	for (queue = 0; queue < txq_number; queue++)
-> +		mvreg_write(pp, MVNETA_TXQ_BUCKET_REFILL_REG(queue), val);
+> +err:
+> +	mvneta_clear_rx_prio_map(pp);
+> +	mvneta_disable_per_queue_rate_limit(pp);
+> +	netdev_reset_tc(dev);
+> +	return ret;
+>  }
 
-[Severity: Low]
-Does "full rate" here depend on MVNETA_REFILL_NUM_CLK_REG having been
-programmed first?
+[Severity: Medium]
+Can this unwind also remove the TX rate limits of an mqprio qdisc that is
+already attached, when replacing it fails?
 
-A period of 1 means one base refill period. The length of that period
-comes from MVNETA_REFILL_NUM_CLK_REG. As far as I can see, the only write
-to that register in the driver is in mvneta_enable_per_queue_rate_limit():
+For a failed fresh attach, going back to "no offload" is right. Now take
+a shaped, offloaded mqprio that is root as 1:. It gets replaced under a
+new handle with a bad parameter, for example:
 
-	/* Set the base refill rate */
-	mvreg_write(pp, MVNETA_REFILL_NUM_CLK_REG, refill_cycles);
+  tc qdisc replace dev eth0 root handle 2: mqprio ... hw 1 mode channel \
+     shaper bw_rate max_rate 10001kbit ...
 
-mvneta_setup_mqprio() can reach the disable path without the enable path
-ever having run:
+The new qdisc is initialised while 1: is still grafted:
 
-	if (!num_tc) {
-		mvneta_disable_per_queue_rate_limit(pp);
-		...
+tc_modify_qdisc()
+  create_n_graft:
+  qdisc_create()
+    mqprio_init()
+      mqprio_enable_offload()
+        mvneta_setup_mqprio()
+          mvneta_setup_queue_rates() fails
+          goto err
+            mvneta_disable_per_queue_rate_limit()
 
-	if (mqprio->shaper != TC_MQPRIO_SHAPER_BW_RATE) {
-		mvneta_disable_per_queue_rate_limit(pp);
-		return 0;
+qdisc_create() then calls mqprio_destroy() on the new qdisc.
+mqprio_enable_offload() sets priv->hw_offload only after ndo_setup_tc
+succeeds, so the driver is not called again and 1: stays root.
+
+Before this patch, these failures returned before any of 1:'s per-queue
+TX rates were overwritten:
+
+  - the RX queue range check
+  - num_tc > txq_number
+  - mvneta_enable_per_queue_rate_limit()
+  - the first TX queue
+
+Now every one of those paths goes through err: and refills all TX buckets
+at full rate. Meanwhile tc qdisc show still lists 1: with its max_rate
+values.
+
+The replace case was already partly inconsistent before this patch, since
+the RX prio map is cleared before validation. Losing 1:'s TX rate limits
+is new, though.
+
+"net: mvneta: lift the per-queue TX rate limits", earlier in the series,
+made mvneta_disable_per_queue_rate_limit() also clear
+pp->txqs[].bucket_refill:
+
+	for (queue = 0; queue < txq_number; queue++) {
+		pp->txqs[queue].bucket_refill = 0;
+		mvreg_write(pp, MVNETA_TXQ_BUCKET_REFILL_REG(queue), val);
 	}
 
-One example is the first offloaded mqprio after boot with no bw_rlimit
-shaper, such as one that only maps VLAN priorities to RX queues. Later
-in the series, deleting such an offload, or a setup that fails before
-mvneta_enable_per_queue_rate_limit() runs, also takes this path.
+Because of that, mvneta_restore_per_queue_rate_limit() will not bring 1:'s
+limits back on the next open either.
 
-In those cases the per-queue refill registers are overwritten while
-MVNETA_REFILL_NUM_CLK_REG still holds its hardware reset value. Before
-this patch they kept their defaults on a port where the shaper was never
-enabled.
+The earlier series commit "net: mvneta: fix the removal of the mqprio
+offload" says that "A replacement qdisc is set up before the old one is
+torn down". This commit message only covers the fresh attach case.
 
-If the reset period is long, could this cap the TX queues below line
-rate? For example, with NUM_CLK at 0xffff cycles, MAX tokens per period
-works out to roughly 2 Gbit/s, which is below a 2.5G port's rate.
-
-This depends on the reset value of MVNETA_REFILL_NUM_CLK_REG, which
-can't be checked from the code. Period 1 with the maximum value is the
-fastest setting the register can encode, so this may never be visible in
-practice.
-
-Would it make sense to also program MVNETA_REFILL_NUM_CLK_REG on the
-disable path, so the "full rate" setting doesn't depend on the enable
-path having run first?
-
->  }
->  
->  static int mvneta_setup_queue_rates(struct mvneta_port *pp, int queue,
+Would it work to validate the whole configuration before touching the
+hardware? That would cover the RX/TX queue ranges, num_tc against
+txq_number, min_rate, and the resolution and range of each max_rate. It
+would also need to happen before the mvneta_clear_rx_prio_map() and
+netdev_set_num_tc() calls at the top of mvneta_setup_mqprio(). A rejected
+configuration would then leave the previous offload in place.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261104224518.66487-1-pepe.schlehofer%40gmail.com
