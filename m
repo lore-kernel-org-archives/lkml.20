@@ -1,51 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794219375;
-	b=qvEEtbJAiuUggfn0BkbxLb7YaZhQVLATWbwasHmzQ9jf7PZpxbUP659E63YCG0CYvSz7
-	 /TgMIcEytH/IqXztwqFmxtr5kMohdbwcCuS/YyIS3S4O5Sr1/CyO1w8VvAlUBgJw2zrwg
-	 HJC7NpNVCfh++yxtUA5Scmicn3MLKOnwiMOeJ1H1WiD6MJmUwJ7/C1hR+k0F36W5dobUX
-	 Q42dunOWvZogMTLYgQ4AZxnV/MrWXVNYS1y1hweU3Gs4RGRErjFjw8SjsGuCajoQh6dPA
-	 U/ewxupDzwJHyxwY047f+FJDTw7sUZjyLW+8FfEtNOnEsfqjqiIGzwyRDQL50yartbg==
+	t=1794219388;
+	b=xIT093grb6zcj+RtXR0Kxm8LhYYUDYyFajCSVqZZGbvhQnz2+dn3lO4QUmJZ7OP6g1Q6
+	 uXdYinV9PfhXT6pKgLv33qgD0ttCnMQaRZs+Eu7c0WS6Jx54/dSu9vPVIckAY8qGJrUZe
+	 cY0/F+tW5PBG6XA6Dtlc46EFG2mBg0W0n3UmuL2P6fjdwkK/4VCLwHggNc7sS/eMT4o4E
+	 NpmT727EQT6JhNiH6E+b+QUwNMIggRfmjAJTcEXp2DeyMoCtRo5Az//LzKYi1NjmZwtzq
+	 ZcRlXus1kl0yqlI2bADi2NK3BuEBC7pqvQURPy9PHTa7rWZPXybCFqcH/tgC4LyuShA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794219375;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+giTbXT6EmvdQ1JP9cpKHXzUj0Dv1scyxYh0K4wA7Fk=;
-	b=y22OR8cbzbLSC+q/Sxm4PIFnxzJVpMpu1eLtEs1x23UmIVbk4bstSh4MwWMQrvXDmXdZ
-	 +hXTOERq7wDgJcscrE4m7J19rEvZrO+9XeK2RMbu6kMUJ8DlQWkNUyjJcC3PzK0F71DDt
-	 XN8s7zp1lnwKlrR/Arj5t18EEWbji8mW+8dmFp84x7t+ds6F977jAQCHXyN0my2z+bK0B
-	 UQqxUWbIv96gx7Z+MXWXMGomkk7iwSvDhxreUxr8k9wo+YzmpSZkw6rQ6lwTlOQ0k0C/H
-	 4qBm1A5KVNqBi1w/ki+7OnD9EnH4ydNMqBSQ3SVJCfc3dZxU/ogJC0EjSQLyYh0Bw4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794219388;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=sU6Tteo7EgsZGvRvlD7HYXLZDGynQ8f3jIkOaXQPzOg=;
+	b=WmmHgQix/sET/pZqGecdnwe+HY5WL6AH5Kc9XOogeBpNU0r+Z+/sOcltze1MPzk5+P86
+	 GlOGBvajqQr68Z1EZ7VHbaBAeGcdXomKrsIOHB1CX2rx2vI0h7Ujk33xN/lwpOtmbfNJH
+	 uuIRxF2lzXFj6fZ/y0ku5QGGfYOhFpDaDrTHKs79Vn7xDQ95kCYv8F/uVlMtFPFq1A6PJ
+	 CaNk91eTjpd0CL7yzLE9fRiNYbL4Ta6n/hRRlBmybeqRhD9MUcxL3c63+HmnVd49h9mbE
+	 GbfWiL+kGOep74uD0RcQ9QSWXFl5rk3j3T09aLoMvMRS2bnFPlQDO5LzwitYryQcQYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VIF5rZNV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NXlxouF5;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=J1m8ZRbf;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6ECA606A323
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:16:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B16606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:16:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21B16606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VIF5rZNV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B41D91F0089F;
-	Mon,  9 Nov 2026 10:16:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794219374;
-	bh=+giTbXT6EmvdQ1JP9cpKHXzUj0Dv1scyxYh0K4wA7Fk=;
-	h=From:To:Cc:Subject:Date;
-	b=VIF5rZNV2kZRPMtqTFmQVn2L8R8A/AX1ZQGwIBhB4j2U5klebrA5HW6IjRz1suW+Y
-	 ynR+DpzCD6j4Vty+mRK6/R2bocoGa5iqUFkF87SOsibwMEbdUvCURn9UwwMDnQiEfa
-	 t5M+rNANRXKa61+7Ko6tsU9V9ZEW7yXaJse1BO4JWNlW7cSy65TjNdYWVafkh6sDmm
-	 MM2T/fINZHTZHh7pnOR7C09kuQq1UJXMy6gJRIO2O8jaKhxUdNJM9wKLkD17OiSiej
-	 TI4hfRUbCfLf+dRFkJqibHZL7h2ZM0ocO5xtjN/xLTYtO9ZjymJorDNPCTeW8eu9i+
-	 xQA2Tzm/jcpdA==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: David Carlier <devnexen@gmail.com>, Mani Tofigh <mt4022@columbia.edu>, "Masami Hiramatsu (Google)" <mhiramat@kernel.org>, Yifan Zhang <yfzhang23@stu.pku.edu.cn>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] probes: Fixes for v7.4-rc2
-Date: Mon, 09 Nov 2026 19:16:10 +0900
-Message-ID: <undine-1794219370825486361-2e190190c67cc5a6@undined.local>
-X-Mailer: UndineD 0.1
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NXlxouF5;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=J1m8ZRbf
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A99v5JB561982
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 10:16:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sU6Tteo7EgsZGvRvlD7HYXLZDGynQ8f3jIkOaXQPzOg=; b=NXlxouF5IGxXoiTH
+	50V/SYfTdmP9WAzj9hMz/9CSK4E4ap82vuPHkP9piINQ4H3a1nqz+CbsHHDFLzLT
+	Vj6Ssz8yD3PBfHyxlsZ6h8vph/HcfeyShlFjCHe/zkhot77Egxv+s+vFx9Y9krhA
+	zAYG+PlDmvRbcLIU2pV1IE6r6/BJdzQsc5kMc1fj5Ruz8OtUum6Rp3Gqr1/bzGZD
+	0AeDJH6dDUXcY4u/t6arryEtou0wcn0JRlt+CHSYyw1Oj/RVvvK6LHMq17nrWFUb
+	6q0EYpzwtv4D3fmS0bms7doswiGzPJLTKj0swbyIRxJpgSx2TyMTI51kqHW1bvbU
+	wS0TBA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsujxdwv1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 10:16:26 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cdb869327e7so693284a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:16:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794219386; x=1794824186; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sU6Tteo7EgsZGvRvlD7HYXLZDGynQ8f3jIkOaXQPzOg=;
+        b=J1m8ZRbfvfSSahFH2t4M3sxy9YWFA163L+/xH0nRqpkc/Ssr526pM1RhhivVqgS0Wy
+         weJMTIVV7InfAiz/0egezSDy0okirWYzide7qOT85dfm/Z/zui2iteptL9HN3YfcMfIm
+         QX9G8p+MsjzS1M67nH9sG2JgsuAIqFOveOmdjOCuvnRr1DRn95mExLAUnvkpV37qFbVR
+         Y1fy7QKgT4d3U3DBEW8I9u/+MnCBrsQPXi/VX1LntR0RG3vzPaRntocW60jnQVxM+T8j
+         o1puRrYHESitub9pXlJP76YBUB91d6FxWFZUrYk90KACUEJgO/QtlWJn3qDBN4p7BBWO
+         uj3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794219386; x=1794824186;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sU6Tteo7EgsZGvRvlD7HYXLZDGynQ8f3jIkOaXQPzOg=;
+        b=kjs6EWK9i6rOtzeAAADGcq3kur9CEN7Hztqv7c1KNl0CnQs+w1gUcOs/+Rj4Zs8+5w
+         rLdH4gA84066O5/QdNL/vY5v8f0bTguU2S+lfi3zwvDatCW8z6UVSRgMBljzU5IhIf08
+         Pbh7AveC+I99Y6dyH9TzKst+Solibao7MYoyK4wL1nnrwN9D7K+wXsSrE1Kyzc24lf1A
+         XGOWyBgBCLpxFo3EuJN7E3TKS4jYSvHFCbdIk5VhS3T7We8L3CJp7Bk7Eu4NXNwzTiEk
+         6XRqdahkBTi/H2BlpC6L1EjxjKdv5Y44RiYBTwYebZCkb48FpxaDkVSW6xRVy6i/VrUo
+         ThTg==
+X-Gm-Message-State: APuU4Z/25lbajVB5/pMrVhFGPUh23LSbL/Mq6nzx96x19wJQgYXxgQgc
+	qydqtaVSAy4WBs03Zcu4TLsjHnUXKi29P6RYdSaANJutj8dLJ1C0BgiNubXm4HRVgrEgtteOQBM
+	zb/Ke9b2QeDhA5iSOus7T69uR+wiTgy7UdN4Hf00l/fbucRZXuCOgcU4hA9c4ktr8eZQ=
+X-Gm-Gg: AYBFou2j4rmE7LTuDJJXyCSnjOHNcsaz/pGO6OuVeVfhAGtN7SVUNhoLUSeDvpuzhKl
+	z+GNhHu5K02S8fmult0uZt0PmlU5nofTIbbzJSgd/vUH+u9HnjKdzBOFZXzzog7tnkspnUnfY+K
+	DkFo+dEGfJd2X1BcbhK1i6oWZH7H2DmwXdQYZkCQnIU0N/emwjvaD8s31UDJVgm4NZX8EimHUUU
+	Qj/qa0o7yP2hgMmXB9y77LeSGjaH5GXK8g1y/aWlsepGVUYtVSajgYBboH5h3/EKj3jml+inFPC
+	c6wOn5HON12xlo0q3HrwYUQR60dmVXIeaMAlboTUiz5qFmZK2fU4ll+1O/diD7oAflJQGN5B4NO
+	sM6qD/6wolKP+yCyOz3wRlalaw2XOdj3z83MhsTh/3ZTk1tNrNPBx8U/U9Qhkog+DDbkS8IxPZk
+	CYkL/8M2YQB0zBUQBPdx2MFEMDJkUlFFRXLOGV52rbzvA=
+X-Received: by 2002:a17:90b:55cf:b0:3ac:8897:7b92 with SMTP id 98e67ed59e1d1-3b12d582e7cmr3322434a91.57.1794219385882;
+        Mon, 09 Nov 2026 02:16:25 -0800 (PST)
+X-Received: by 2002:a17:90b:55cf:b0:3ac:8897:7b92 with SMTP id 98e67ed59e1d1-3b12d582e7cmr3322403a91.57.1794219385318;
+        Mon, 09 Nov 2026 02:16:25 -0800 (PST)
+Received: from [10.133.33.170] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b105904951sm10442480a91.16.2026.11.09.02.16.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 02:16:24 -0800 (PST)
+Message-ID: <093f7cda-c6ef-43ab-bf79-8200a40bbc7f@oss.qualcomm.com>
+Date: Mon, 9 Nov 2026 18:16:15 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,769 +114,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 3/7] qcom-tgu: Add signal priority support
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, andersson@kernel.org,
+        alexander.shishkin@linux.intel.com, mike.leach@linaro.org,
+        konrad.dybcio@oss.qualcomm.com, james.clark@arm.com,
+        krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-arm-msm@vger.kernel.org, coresight@lists.linaro.org,
+        devicetree@vger.kernel.org, gregkh@linuxfoundation.org,
+        Jie Gan <jie.gan@oss.qualcomm.com>
+References: <20260730080704.2903540-1-songwei.chai@oss.qualcomm.com>
+ <20260730080704.2903540-4-songwei.chai@oss.qualcomm.com>
+ <9d450f18-2300-4ead-981b-94bd9eea9126@arm.com>
+ <f1e4f462-2aba-470d-84e4-87a12c2a13d3@arm.com>
+ <75364e56-62d3-4d3f-bf79-03ddeaee1121@arm.com>
+Content-Language: en-US
+From: "Songwei.Chai" <songwei.chai@oss.qualcomm.com>
+In-Reply-To: <75364e56-62d3-4d3f-bf79-03ddeaee1121@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-
-Hi Linus,
-
-Probe fixes for v7.4-rc2:
-
-- kprobes: Fix registration and unregistration error handling
-  . Release the instruction slot via arch_remove_kprobe() and propagate
-    the error code when arm_kprobe() fails in __register_kprobe() instead
-    of leaking the slot and returning 0.
-  . Skip rethook_free() and kretprobe holder cleanup in
-    unregister_kretprobes() when __unregister_kprobe_top() fails, and
-    clear rp->rh after synchronize_rcu() to avoid double free and NULL
-    pointer dereferences.
-  . Resolve the target address up-front in register_kretprobe() and check
-    for re-registration before allocating resources so symbol_name-based
-    re-registration does not corrupt the active kretprobe on error.
-
-- kprobes: Fix optprobe state transitions during forced unoptimization
-  . Disarm a disabled optprobe in unoptimize_kprobe() when forced
-    unoptimization moves it directly to a cooling or freeing list, for
-    preventing breakpoint callback of freed probes.
-  . Skip disarming unhashed optprobes in the optimizer dispatch path so
-    a newly registered probe at the same address does not get disarmed
-    (or have freed module text written to).
-  . Keep a reused cooling optprobe marked disabled in
-    reuse_unused_kprobe() so register_aggr_kprobe() or enable_kprobe()
-    properly arms it, and skip redundant force-unoptimization cleanup
-    for already-unoptimized cooling probes.
-
-- tracing/probes: Fix symstr buffer overflow and eprobe triggers
-  . Format symstr symbols into a temporary buffer and copy only up to the
-    reserved field length (updating __data_loc accordingly) to prevent
-    overwriting the trace record if a probed pointer changes between
-    sizing and storing passes.
-  . Install and remove the eprobe event trigger for each trace instance
-    file that enables the eprobe rather than only on first enable and
-    last disable, so secondary instances record events and disabled
-    triggers do not reference freed eprobes.
-
-- samples, docs: Replace printk() with trace_printk() in probe handlers
-  . Replace printk() and stack_trace_print() with trace_printk() and
-    trace_dump_stack() in kprobe and fprobe sample modules, and depend on
-    CONFIG_EVENT_TRACING.
-  . Document in kprobes.rst and fprobe.rst that calling printk() directly
-    from probe handlers can deadlock on console or scheduler locks and
-    recommend trace_printk() instead.
+X-Proofpoint-GUID: WNMTM2jcYhd9GXWE1sVT4L9DV-xzaEUm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0MCBTYWx0ZWRfX7gHo6WPAYnfU
+ AvK/nsy7S/jrBx3SKVxEFi2qlt3eByC7isWzMoViavO13/ZUkGLlYMjIEKsb6Lc3xEsbqurfCh3
+ ZyBtged8+VpeA1DU8sqiEl2kCfhPcBDhZKzmT9TXYsqtz+GykHv9ov4zOp05o4QZSyQpdxEW5+9
+ Y4pS9NmB/rWb+mcWes7UcsZ2NJEYGZ6gulkdvWvofr8jLEUL8ieZecC1y9wr2PtBr/oNq/YB1sr
+ rm2Ehj9wlnP5aQ2AaycbT256zStAi5z0ju83lTX8+RKL367CDnCevbu/k8FICO8HizQJwHdUBAc
+ AmH15+G2f5aCGJVaEQv29TgFPIVqduSXKHbvJcqLwbUnFKXxcA7CMtDFoINa8Ri+eJZBogftjyL
+ Wmd4dTgemhscfHveF/TzNYuudt71i0KLizH3oAKTH3889IAmECsTS06pYmkX3VIYQyABQjnl6tW
+ lX+1Lyw7I25o1JPvIlA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0MCBTYWx0ZWRfXxMh6xmC66jee
+ MS9PMcdriX8Veu6W0XmkpQ0oNF7TABSRRxvu7mT3mDmkf+FfQgAdZMbktAfIA/62+00KfH4pNsR
+ SNG7q+CaVgXTlkfYz/8maDLqLn5W+Q0=
+X-Authority-Analysis: v=2.4 cv=TeIDJhQh c=1 sm=1 tr=0 ts=6af19d7b cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=600ImXwT8V8y3K12yXwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-ORIG-GUID: WNMTM2jcYhd9GXWE1sVT4L9DV-xzaEUm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0 adultscore=0
+ spamscore=0 priorityscore=1501 clxscore=1015 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090040
 
 
-Please pull the latest probes-fixes-v7.4-rc2 tree, which can be found at:
+On 11/5/2026 10:32 PM, Suzuki K Poulose wrote:
+>
+>
+> On 05/11/2026 14:14, Suzuki K Poulose wrote:
+>>
+>> On 05/11/2026 13:01, Suzuki K Poulose wrote:
+>>> On 30/07/2026 09:07, Songwei Chai wrote:
+>>>> Like circuit of a Logic analyzer, in TGU, the requirement could be
+>>>> configured in each step and the trigger will be created once the
+>>>> requirements are met. Add priority functionality here to sort the
+>>>> signals into different priorities. The signal which is wanted could
+>>>> be configured in each step's priority node, the larger number means
+>>>> the higher priority and the signal with higher priority will be sensed
+>>>> more preferentially.
+>>>>
+>>>> Reviewed-by: Jie Gan <jie.gan@oss.qualcomm.com>
+>>>> Signed-off-by: Songwei Chai <songwei.chai@oss.qualcomm.com>
+>>>> ---
+>>>>   .../ABI/testing/sysfs-bus-amba-devices-tgu    |   7 +
+>>>>   drivers/hwtracing/qcom/tgu.c                  | 189 
+>>>> +++++++++++++++++-
+>>>>   drivers/hwtracing/qcom/tgu.h                  | 133 ++++++++++++
+>>>>   3 files changed, 328 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu 
+>>>> b/ Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+>>>> index 36ab64f1e301..7dd24314592d 100644
+>>>> --- a/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+>>>> +++ b/Documentation/ABI/testing/sysfs-bus-amba-devices-tgu
+>>>> @@ -7,3 +7,10 @@ Description:
+>>>>           Accepts only one of the 2 values -  0 or 1.
+>>>>           0 : disable TGU.
+>>>>           1 : enable TGU.
+>>>> +
+>>>> +What:        /sys/bus/amba/devices/<tgu-name>/ 
+>>>> step[0:7]_priority[0:3]/reg[0:17]
+>>>> +Date:        August 2026
+>>>> +KernelVersion:    7.2
+>>>> +Contact:    Jinlong Mao <jinlong.mao@oss.qualcomm.com>, Songwei 
+>>>> Chai <songwei.chai@oss.qualcomm.com>
+>>>> +Description:
+>>>> +        (RW) Set/Get the sensed signal with specific step and 
+>>>> priority for TGU.
+>>>> diff --git a/drivers/hwtracing/qcom/tgu.c 
+>>>> b/drivers/hwtracing/qcom/tgu.c
+>>>> index 9c7dd4a09f02..0e88b437f191 100644
+>>>> --- a/drivers/hwtracing/qcom/tgu.c
+>>>> +++ b/drivers/hwtracing/qcom/tgu.c
+>>>> @@ -15,14 +15,144 @@
+>>>>   #include "tgu.h"
+>>>> +static int calculate_array_location(struct tgu_drvdata *drvdata,
+>>>> +                    int step_index, int operation_index,
+>>>> +                    int reg_index)
+>>>> +{
+>
+>>>> +    return operation_index * (drvdata->num_step) * 
+>>>> (drvdata->num_reg) +
+>>>> +        step_index * (drvdata->num_reg) + reg_index;
+>
+> I am confused by this, probably amplified by the bad naming of num_step,
+> num_reg ?
+>
+> I perceive num_step => numbe of steps in the hardware
+>
+> num_reg => number of registers (or controls) in a given priority field ?
+
+yes, correct.
 
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-probes-fixes-v7.4-rc2
+> If that is the case, shouldn't the index be :
+>
+> step_index *  (drvdata->num_step) * (drvdata->num_reg) +
+> op_index * (drvdata->num_reg) + reg_index ?
 
-Tag SHA1: a3e7f41511dda9015ed78c636694e25d724212b7
-Head SHA1: 1ffd6efb1b58e596ed70f660182803264a4c84d9
+It can be thought of as a flattened three-dimensional array, with the 
+three dimensions representing which priority, which step, and which 
+register, respectively.
 
+Hope this helps clarify the layout and the indexing logic.
 
-David Carlier (1):
-      tracing/eprobe: Install the trigger for every instance that enables the eprobe
+>
+> ...
+>
+>>>> +
+>>>> +struct value_table {
+>>>> +    unsigned int *priority;
+>>>> +};
+>>>>   static inline void TGU_LOCK(void __iomem *addr)
+>>>>   {
+>>>> @@ -36,6 +163,9 @@ static inline void TGU_UNLOCK(void __iomem *addr)
+>>>>    * @lock: Mutex serialising enable/disable and the associated PM 
+>>>> runtime
+>>>>    *        reference counting against concurrent sysfs access
+>>>>    * @enabled: Flag indicating whether the TGU device is enabled
+>>>> + * @value_table: Store given value based on relevant parameters
+>>>> + * @num_reg: Maximum number of registers
+>
+> Where ? in a priority ? in a step ? Why is this maximum ? Isn't it the
+> number of "registers implemented on this hardware"
+In a priority,
 
-Mani Tofigh (3):
-      kprobes: Disarm disabled optprobe on forced unoptimization
-      kprobes: Do not disarm unhashed optprobe on dispatch
-      kprobes: Arm reused optprobe on cooling list
+The comment will be updated to clarify this.
 
-Masami Hiramatsu (Google) (6):
-      kprobes: Fix error return and slot leak in __register_kprobe()
-      kprobes: Fix double free and NULL deref in unregister_kretprobes()
-      kprobes: Validate re-registration earlier in register_kretprobe()
-      samples/kprobes: Use trace_printk() in probe handlers
-      samples/fprobe: Use trace_printk() and trace_dump_stack()
-      docs: trace: Warn against using printk() in probe handlers
-
-Yifan Zhang (1):
-      tracing/probes: bound symstr stores to reserved length
-
-----
- Documentation/trace/fprobe.rst      |   5 ++
- Documentation/trace/kprobes.rst     |  11 +++-
- kernel/kprobes.c                    | 102 ++++++++++++++++++++++--------------
- kernel/trace/trace_eprobe.c         |  56 +++++++-------------
- kernel/trace/trace_probe_tmpl.h     |  14 ++++-
- samples/Kconfig                     |   4 +-
- samples/fprobe/fprobe_example.c     |  49 ++++-------------
- samples/kprobes/kprobe_example.c    |  69 ++++++++++++------------
- samples/kprobes/kretprobe_example.c |  10 ++--
- 9 files changed, 160 insertions(+), 160 deletions(-)
----------------------------
-diff --git a/Documentation/trace/fprobe.rst b/Documentation/trace/fprobe.rst
-index 46dd46a97c1f..72e0fd9e1808 100644
---- a/Documentation/trace/fprobe.rst
-+++ b/Documentation/trace/fprobe.rst
-@@ -101,6 +101,11 @@ handler.
- If the entry callback function returns !0, the corresponding exit callback
- will be cancelled.
- 
-+Since the callbacks run with preemption disabled under ftrace recursion
-+protection, calling printk() or pr_*() from these callbacks is not safe
-+and can cause deadlocks on console driver or scheduler locks. Use
-+trace_printk() instead to log debugging output.
-+
- @fp
-         This is the address of `fprobe` data structure related to this handler.
-         You can embed the `fprobe` to your data structure and get it by
-diff --git a/Documentation/trace/kprobes.rst b/Documentation/trace/kprobes.rst
-index 5e606730cec6..19c04a91a664 100644
---- a/Documentation/trace/kprobes.rst
-+++ b/Documentation/trace/kprobes.rst
-@@ -563,8 +563,8 @@ course, has no way to distinguish the deliberately injected faults
- from the accidental ones.  Don't drink and probe.
- 
- Kprobes makes no attempt to prevent probe handlers from stepping on
--each other -- e.g., probing printk() and then calling printk() from a
--probe handler.  If a probe handler hits a probe, that second probe's
-+each other -- e.g., probing trace_printk() and then calling trace_printk()
-+from a probe handler.  If a probe handler hits a probe, that second probe's
- handlers won't be run in that instance, and the kprobe.nmissed member
- of the second probe will be incremented.
- 
-@@ -579,6 +579,13 @@ which depends on the architecture and optimization state.  (e.g.,
- kretprobe handlers and optimized kprobe handlers run without interrupt
- disabled on x86/x86-64).  In any case, your handler should not yield
- the CPU (e.g., by attempting to acquire a semaphore, or waiting I/O).
-+Furthermore, probe handlers should avoid calling printk() or pr_*().
-+Because probe handlers execute in atomic/non-preemptible contexts without
-+being in NMI context (especially when jump-optimized or ftrace-based),
-+calling printk() may attempt to synchronously acquire console driver locks
-+or scheduler locks via console_unlock(), risking a deadlock if the probed
-+or interrupted context already holds those locks. Use trace_printk()
-+instead to safely output messages to the trace buffer.
- 
- Since a return probe is implemented by replacing the return
- address with the trampoline's address, stack backtraces and calls
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index 2441b9e39343..dddad1e01866 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -633,8 +633,12 @@ static void do_unoptimize_kprobes(struct list_head *unopt_list,
- 	list_for_each_entry_safe(op, tmp, free_list, list) {
- 		/* Switching from detour code to origin */
- 		op->kp.flags &= ~KPROBE_FLAG_OPTIMIZED;
--		/* Disarm probes if marked disabled and not gone */
--		if (kprobe_disabled(&op->kp) && !kprobe_gone(&op->kp))
-+		/*
-+		 * Disarm probes if marked disabled and not gone. Unhashed probes
-+		 * were disarmed before they were unhashed.
-+		 */
-+		if (kprobe_disabled(&op->kp) && !kprobe_gone(&op->kp) &&
-+		    !hlist_unhashed(&op->kp.hlist))
- 			arch_disarm_kprobe(&op->kp);
- 		if (kprobe_unused(&op->kp)) {
- 			/*
-@@ -1002,9 +1006,10 @@ static void unoptimize_kprobe(struct kprobe *p, bool force)
- 				 * for cooling down (or freeing if unused).
- 				 */
- 				force_unoptimize_kprobe(op);
-+				/* Disarm probes if marked disabled and not gone */
-+				if (kprobe_disabled(&op->kp) && !kprobe_gone(&op->kp))
-+					arch_disarm_kprobe(&op->kp);
- 				if (kprobe_unused(&op->kp)) {
--					if (!kprobe_gone(&op->kp))
--						arch_disarm_kprobe(&op->kp);
- 					hlist_del_init_rcu(&op->kp.hlist);
- 					list_move(&op->list, &cur->freeing_list);
- 				} else {
-@@ -1056,6 +1061,10 @@ static int reuse_unused_kprobe(struct kprobe *ap)
- 	 */
- 	op = container_of(ap, struct optimized_kprobe, kp);
- 	WARN_ON_ONCE(list_empty(&op->list));
-+	/* Already disarmed, the caller arms it only for an enabled probe */
-+	if (optprobe_queued_cooling(op))
-+		return 0;
-+
- 	/* Enable the probe again */
- 	ap->flags &= ~KPROBE_FLAG_DISABLED;
- 	/* Optimize it again. (remove from 'op->list') */
-@@ -1568,7 +1577,8 @@ void kprobe_busy_end(void)
- /* Add the new probe to 'ap->list'. */
- static int add_new_kprobe(struct kprobe *ap, struct kprobe *p)
- {
--	if (p->post_handler)
-+	/* A reused cooling probe is already unoptimized */
-+	if (p->post_handler && !kprobe_unused(ap))
- 		unoptimize_kprobe(ap, true);	/* Fall back to normal kprobe */
- 
- 	list_add_rcu(&p->list, &ap->list);
-@@ -1793,52 +1803,61 @@ _kprobe_addr(kprobe_opcode_t *addr, const char *symbol_name,
- 	return addr;
- }
- 
--static kprobe_opcode_t *kprobe_addr(struct kprobe *p)
--{
--	bool on_func_entry;
--
--	return _kprobe_addr(p->addr, p->symbol_name, p->offset, &on_func_entry);
--}
--
- /*
-  * Check the 'p' is valid and return the aggregator kprobe
-  * at the same address.
-  */
--static struct kprobe *__get_valid_kprobe(struct kprobe *p)
-+static struct kprobe *__get_valid_kprobe_at(struct kprobe *p, kprobe_opcode_t *addr)
- {
-+	struct hlist_head *head;
- 	struct kprobe *ap, *list_p;
- 
- 	lockdep_assert_held(&kprobe_mutex);
- 
--	ap = get_kprobe(p->addr);
--	if (unlikely(!ap))
-+	if (unlikely(!addr))
- 		return NULL;
- 
--	if (p == ap)
--		return ap;
--
--	list_for_each_entry(list_p, &ap->list, list)
--		if (list_p == p)
--		/* kprobe p is a valid probe */
-+	head = &kprobe_table[hash_ptr(addr, KPROBE_HASH_BITS)];
-+	hlist_for_each_entry_rcu(ap, head, hlist,
-+				 lockdep_is_held(&kprobe_mutex)) {
-+		if (ap == p) {
-+			p->addr = addr;
- 			return ap;
-+		}
-+		if (ap->addr == addr && kprobe_aggrprobe(ap)) {
-+			list_for_each_entry(list_p, &ap->list, list) {
-+				if (list_p == p) {
-+					p->addr = addr;
-+					return ap;
-+				}
-+			}
-+		}
-+	}
- 
- 	return NULL;
- }
- 
--/*
-- * Warn and return error if the kprobe is being re-registered since
-- * there must be a software bug.
-- */
--static inline int warn_kprobe_rereg(struct kprobe *p)
-+static inline struct kprobe *__get_valid_kprobe(struct kprobe *p)
-+{
-+	return __get_valid_kprobe_at(p, p->addr);
-+}
-+
-+/* Return error if the kprobe is being re-registered */
-+static inline int check_kprobe_rereg_at(struct kprobe *p, kprobe_opcode_t *addr)
- {
- 	guard(mutex)(&kprobe_mutex);
- 
--	if (WARN_ON_ONCE(__get_valid_kprobe(p)))
-+	if (__get_valid_kprobe_at(p, addr))
- 		return -EINVAL;
- 
- 	return 0;
- }
- 
-+static inline int check_kprobe_rereg(struct kprobe *p)
-+{
-+	return check_kprobe_rereg_at(p, p->addr);
-+}
-+
- static int check_ftrace_location(struct kprobe *p)
- {
- 	unsigned long addr = (unsigned long)p->addr;
-@@ -1946,6 +1965,8 @@ static int __register_kprobe(struct kprobe *p)
- 		if (ret) {
- 			hlist_del_rcu(&p->hlist);
- 			synchronize_rcu();
-+			arch_remove_kprobe(p);
-+			return ret;
- 		}
- 	}
- 
-@@ -1967,7 +1988,7 @@ int register_kprobe(struct kprobe *p)
- 		return PTR_ERR(addr);
- 	p->addr = addr;
- 
--	ret = warn_kprobe_rereg(p);
-+	ret = check_kprobe_rereg(p);
- 	if (ret)
- 		return ret;
- 
-@@ -2503,20 +2524,19 @@ int register_kretprobe(struct kretprobe *rp)
- 	int ret;
- 	int i;
- 	void *addr;
-+	bool on_func_entry;
- 
--	ret = kprobe_on_func_entry(rp->kp.addr, rp->kp.symbol_name, rp->kp.offset);
--	if (ret)
--		return ret;
-+	addr = _kprobe_addr(rp->kp.addr, rp->kp.symbol_name, rp->kp.offset, &on_func_entry);
-+	if (IS_ERR(addr))
-+		return PTR_ERR(addr);
- 
--	/* If only 'rp->kp.addr' is specified, check reregistering kprobes */
--	if (rp->kp.addr && warn_kprobe_rereg(&rp->kp))
-+	if (!on_func_entry)
- 		return -EINVAL;
- 
--	if (kretprobe_blacklist_size) {
--		addr = kprobe_addr(&rp->kp);
--		if (IS_ERR(addr))
--			return PTR_ERR(addr);
-+	if (check_kprobe_rereg_at(&rp->kp, addr))
-+		return -EINVAL;
- 
-+	if (kretprobe_blacklist_size) {
- 		for (i = 0; kretprobe_blacklist[i].name != NULL; i++) {
- 			if (kretprobe_blacklist[i].addr == addr)
- 				return -EINVAL;
-@@ -2603,8 +2623,10 @@ void unregister_kretprobes(struct kretprobe **rps, int num)
- 	for (i = 0; i < num; i++) {
- 		guard(mutex)(&kprobe_mutex);
- 
--		if (__unregister_kprobe_top(&rps[i]->kp) < 0)
-+		if (__unregister_kprobe_top(&rps[i]->kp) < 0) {
- 			rps[i]->kp.addr = NULL;
-+			continue;
-+		}
- #ifdef CONFIG_KRETPROBE_ON_RETHOOK
- 		rethook_free(rps[i]->rh);
- #else
-@@ -2616,7 +2638,9 @@ void unregister_kretprobes(struct kretprobe **rps, int num)
- 	for (i = 0; i < num; i++) {
- 		if (rps[i]->kp.addr) {
- 			__unregister_kprobe_bottom(&rps[i]->kp);
--#ifndef CONFIG_KRETPROBE_ON_RETHOOK
-+#ifdef CONFIG_KRETPROBE_ON_RETHOOK
-+			rps[i]->rh = NULL;
-+#else
- 			free_rp_inst(rps[i]);
- #endif
- 		}
-diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
-index 998e6390937a..474be2f5ccd9 100644
---- a/kernel/trace/trace_eprobe.c
-+++ b/kernel/trace/trace_eprobe.c
-@@ -644,37 +644,32 @@ static int enable_trace_eprobe(struct trace_event_call *call,
- {
- 	struct trace_probe *tp;
- 	struct trace_eprobe *ep;
--	bool enabled;
- 	int ret = 0;
- 	int cnt = 0;
- 
-+	if (WARN_ON_ONCE(!file))
-+		return -EINVAL;
-+
- 	tp = trace_probe_primary_from_call(call);
- 	if (WARN_ON_ONCE(!tp))
- 		return -ENODEV;
--	enabled = trace_probe_is_enabled(tp);
- 
- 	/* This also changes "enabled" state */
--	if (file) {
--		ret = trace_probe_add_file(tp, file);
--		if (ret)
--			return ret;
--	} else
--		trace_probe_set_flag(tp, TP_FLAG_PROFILE);
--
--	if (enabled)
--		return 0;
-+	ret = trace_probe_add_file(tp, file);
-+	if (ret)
-+		return ret;
- 
-+	/* The trigger lives in the instance of the file, add it for each file */
- 	for_each_trace_eprobe_tp(ep, tp) {
- 		ret = enable_eprobe(ep, file);
- 		if (ret)
- 			break;
--		enabled = true;
- 		cnt++;
- 	}
- 
- 	if (ret) {
- 		/* Failed to enable one of them. Roll back all */
--		if (enabled) {
-+		if (cnt) {
- 			/*
- 			 * It's a bug if one failed for something other than memory
- 			 * not being available but another eprobe succeeded.
-@@ -687,10 +682,7 @@ static int enable_trace_eprobe(struct trace_event_call *call,
- 					break;
- 			}
- 		}
--		if (file)
--			trace_probe_remove_file(tp, file);
--		else
--			trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
-+		trace_probe_remove_file(tp, file);
- 	}
- 
- 	return ret;
-@@ -702,33 +694,21 @@ static int disable_trace_eprobe(struct trace_event_call *call,
- 	struct trace_probe *tp;
- 	struct trace_eprobe *ep;
- 
-+	if (WARN_ON_ONCE(!file))
-+		return -EINVAL;
-+
- 	tp = trace_probe_primary_from_call(call);
- 	if (WARN_ON_ONCE(!tp))
- 		return -ENODEV;
- 
--	if (file) {
--		if (!trace_probe_get_file_link(tp, file))
--			return -ENOENT;
--		if (!trace_probe_has_single_file(tp))
--			goto out;
--		trace_probe_clear_flag(tp, TP_FLAG_TRACE);
--	} else
--		trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
-+	if (!trace_probe_get_file_link(tp, file))
-+		return -ENOENT;
- 
--	if (!trace_probe_is_enabled(tp)) {
--		for_each_trace_eprobe_tp(ep, tp)
--			disable_eprobe(ep, file->tr);
--	}
-+	for_each_trace_eprobe_tp(ep, tp)
-+		disable_eprobe(ep, file->tr);
- 
-- out:
--	if (file)
--		/*
--		 * Synchronization is done in below function. For perf event,
--		 * file == NULL and perf_trace_event_unreg() calls
--		 * tracepoint_synchronize_unregister() to ensure synchronize
--		 * event. We don't need to care about it.
--		 */
--		trace_probe_remove_file(tp, file);
-+	/* Synchronization is done in below function. */
-+	trace_probe_remove_file(tp, file);
- 
- 	return 0;
- }
-diff --git a/kernel/trace/trace_probe_tmpl.h b/kernel/trace/trace_probe_tmpl.h
-index 8db12f758fda..8acc0f0ebd7a 100644
---- a/kernel/trace/trace_probe_tmpl.h
-+++ b/kernel/trace/trace_probe_tmpl.h
-@@ -87,15 +87,27 @@ fetch_store_symstrlen(unsigned long addr)
- static nokprobe_inline int
- fetch_store_symstring(unsigned long addr, void *dest, void *base)
- {
-+	char namebuf[KSYM_SYMBOL_LEN];
- 	int maxlen = get_loc_len(*(u32 *)dest);
- 	void *__dest;
-+	int len;
- 
- 	if (unlikely(!maxlen))
- 		return -ENOMEM;
- 
- 	__dest = get_loc_data(dest, base);
-+	len = sprint_symbol(namebuf, addr);
-+	if (len < 0) {
-+		*(u32 *)dest = make_data_loc(0, __dest - base);
-+		return 0;
-+	}
-+
-+	len = min(len, maxlen - 1);
-+	memcpy(__dest, namebuf, len);
-+	((char *)__dest)[len] = '\0';
-+	*(u32 *)dest = make_data_loc(len + 1, __dest - base);
- 
--	return sprint_symbol(__dest, addr);
-+	return len + 1;
- }
- 
- /* common part of process_fetch_insn*/
-diff --git a/samples/Kconfig b/samples/Kconfig
-index 00eed83c07df..744d991ea620 100644
---- a/samples/Kconfig
-+++ b/samples/Kconfig
-@@ -71,7 +71,7 @@ config SAMPLE_KOBJECT
- 
- config SAMPLE_KPROBES
- 	tristate "Build kprobes examples -- loadable modules only"
--	depends on KPROBES && m
-+	depends on KPROBES && EVENT_TRACING && m
- 	help
- 	  This build several kprobes example modules.
- 
-@@ -88,7 +88,7 @@ config SAMPLE_HW_BREAKPOINT
- 
- config SAMPLE_FPROBE
- 	tristate "Build fprobe examples -- loadable modules only"
--	depends on FPROBE && m
-+	depends on FPROBE && EVENT_TRACING && m
- 	help
- 	  This builds a fprobe example module. This module has an option 'symbol'.
- 	  You can specify a probed symbol or symbols separated with ','.
-diff --git a/samples/fprobe/fprobe_example.c b/samples/fprobe/fprobe_example.c
-index bfe98ce826f3..3b94839b3199 100644
---- a/samples/fprobe/fprobe_example.c
-+++ b/samples/fprobe/fprobe_example.c
-@@ -1,12 +1,12 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-  * Here's a sample kernel module showing the use of fprobe to dump a
-- * stack trace and selected registers when kernel_clone() is called.
-+ * stack trace and function entry/exit when kernel_clone() is called.
-  *
-- * For more information on theory of operation of kprobes, see
-- * Documentation/trace/kprobes.rst
-+ * For more information on theory of operation of fprobe, see
-+ * Documentation/trace/fprobe.rst
-  *
-- * You will see the trace data in /var/log/messages and on the console
-+ * You will see the trace data in /sys/kernel/tracing/trace
-  * whenever kernel_clone() is invoked to create a new process.
-  */
- 
-@@ -15,10 +15,9 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/fprobe.h>
--#include <linux/sched/debug.h>
- #include <linux/slab.h>
-+#include <linux/trace_printk.h>
- 
--#define BACKTRACE_DEPTH 16
- #define MAX_SYMBOL_LEN 4096
- static struct fprobe sample_probe;
- static unsigned long nhit;
-@@ -35,34 +34,14 @@ static bool stackdump = true;
- module_param(stackdump, bool, 0644);
- MODULE_PARM_DESC(stackdump, "Enable stackdump.");
- 
--static bool use_trace = false;
--module_param(use_trace, bool, 0644);
--MODULE_PARM_DESC(use_trace, "Use trace_printk instead of printk. This is only for debugging.");
--
--static void show_backtrace(void)
--{
--	unsigned long stacks[BACKTRACE_DEPTH];
--	unsigned int len;
--
--	len = stack_trace_save(stacks, BACKTRACE_DEPTH, 2);
--	stack_trace_print(stacks, len, 24);
--}
--
- static int sample_entry_handler(struct fprobe *fp, unsigned long ip,
- 				unsigned long ret_ip,
- 				struct ftrace_regs *fregs, void *data)
- {
--	if (use_trace)
--		/*
--		 * This is just an example, no kernel code should call
--		 * trace_printk() except when actively debugging.
--		 */
--		trace_printk("Enter <%pS> ip = 0x%p\n", (void *)ip, (void *)ip);
--	else
--		pr_info("Enter <%pS> ip = 0x%p\n", (void *)ip, (void *)ip);
-+	trace_printk("Enter <%pS> ip = 0x%p\n", (void *)ip, (void *)ip);
- 	nhit++;
- 	if (stackdump)
--		show_backtrace();
-+		trace_dump_stack(0);
- 	return 0;
- }
- 
-@@ -72,19 +51,11 @@ static void sample_exit_handler(struct fprobe *fp, unsigned long ip,
- {
- 	unsigned long rip = ret_ip;
- 
--	if (use_trace)
--		/*
--		 * This is just an example, no kernel code should call
--		 * trace_printk() except when actively debugging.
--		 */
--		trace_printk("Return from <%pS> ip = 0x%p to rip = 0x%p (%pS)\n",
--			(void *)ip, (void *)ip, (void *)rip, (void *)rip);
--	else
--		pr_info("Return from <%pS> ip = 0x%p to rip = 0x%p (%pS)\n",
--			(void *)ip, (void *)ip, (void *)rip, (void *)rip);
-+	trace_printk("Return from <%pS> ip = 0x%p to rip = 0x%p (%pS)\n",
-+		     (void *)ip, (void *)ip, (void *)rip, (void *)rip);
- 	nhit++;
- 	if (stackdump)
--		show_backtrace();
-+		trace_dump_stack(0);
- }
- 
- static int __init fprobe_init(void)
-diff --git a/samples/kprobes/kprobe_example.c b/samples/kprobes/kprobe_example.c
-index 53ec6c8b8c40..0f516a2b04be 100644
---- a/samples/kprobes/kprobe_example.c
-+++ b/samples/kprobes/kprobe_example.c
-@@ -6,7 +6,7 @@
-  * For more information on theory of operation of kprobes, see
-  * Documentation/trace/kprobes.rst
-  *
-- * You will see the trace data in /var/log/messages and on the console
-+ * You will see the trace data in /sys/kernel/tracing/trace
-  * whenever kernel_clone() is invoked to create a new process.
-  */
- 
-@@ -15,6 +15,7 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/kprobes.h>
-+#include <linux/trace_printk.h>
- 
- static char symbol[KSYM_NAME_LEN] = "kernel_clone";
- module_param_string(symbol, symbol, KSYM_NAME_LEN, 0644);
-@@ -28,39 +29,39 @@ static struct kprobe kp = {
- static int __kprobes handler_pre(struct kprobe *p, struct pt_regs *regs)
- {
- #ifdef CONFIG_X86
--	pr_info("<%s> p->addr = 0x%p, ip = %lx, flags = 0x%lx\n",
--		p->symbol_name, p->addr, regs->ip, regs->flags);
-+	trace_printk("<%s> p->addr = 0x%p, ip = %lx, flags = 0x%lx\n",
-+		     p->symbol_name, p->addr, regs->ip, regs->flags);
- #endif
- #ifdef CONFIG_PPC
--	pr_info("<%s> p->addr = 0x%p, nip = 0x%lx, msr = 0x%lx\n",
--		p->symbol_name, p->addr, regs->nip, regs->msr);
-+	trace_printk("<%s> p->addr = 0x%p, nip = 0x%lx, msr = 0x%lx\n",
-+		     p->symbol_name, p->addr, regs->nip, regs->msr);
- #endif
- #ifdef CONFIG_MIPS
--	pr_info("<%s> p->addr = 0x%p, epc = 0x%lx, status = 0x%lx\n",
--		p->symbol_name, p->addr, regs->cp0_epc, regs->cp0_status);
-+	trace_printk("<%s> p->addr = 0x%p, epc = 0x%lx, status = 0x%lx\n",
-+		     p->symbol_name, p->addr, regs->cp0_epc, regs->cp0_status);
- #endif
- #ifdef CONFIG_ARM64
--	pr_info("<%s> p->addr = 0x%p, pc = 0x%lx, pstate = 0x%lx\n",
--		p->symbol_name, p->addr, (long)regs->pc, (long)regs->pstate);
-+	trace_printk("<%s> p->addr = 0x%p, pc = 0x%lx, pstate = 0x%lx\n",
-+		     p->symbol_name, p->addr, (long)regs->pc, (long)regs->pstate);
- #endif
- #ifdef CONFIG_ARM
--	pr_info("<%s> p->addr = 0x%p, pc = 0x%lx, cpsr = 0x%lx\n",
--		p->symbol_name, p->addr, (long)regs->ARM_pc, (long)regs->ARM_cpsr);
-+	trace_printk("<%s> p->addr = 0x%p, pc = 0x%lx, cpsr = 0x%lx\n",
-+		     p->symbol_name, p->addr, (long)regs->ARM_pc, (long)regs->ARM_cpsr);
- #endif
- #ifdef CONFIG_RISCV
--	pr_info("<%s> p->addr = 0x%p, pc = 0x%lx, status = 0x%lx\n",
--		p->symbol_name, p->addr, regs->epc, regs->status);
-+	trace_printk("<%s> p->addr = 0x%p, pc = 0x%lx, status = 0x%lx\n",
-+		     p->symbol_name, p->addr, regs->epc, regs->status);
- #endif
- #ifdef CONFIG_S390
--	pr_info("<%s> p->addr, 0x%p, ip = 0x%lx, flags = 0x%lx\n",
--		p->symbol_name, p->addr, regs->psw.addr, regs->flags);
-+	trace_printk("<%s> p->addr = 0x%p, ip = 0x%lx, flags = 0x%lx\n",
-+		     p->symbol_name, p->addr, regs->psw.addr, regs->flags);
- #endif
- #ifdef CONFIG_LOONGARCH
--	pr_info("<%s> p->addr = 0x%p, era = 0x%lx, estat = 0x%lx\n",
--		p->symbol_name, p->addr, regs->csr_era, regs->csr_estat);
-+	trace_printk("<%s> p->addr = 0x%p, era = 0x%lx, estat = 0x%lx\n",
-+		     p->symbol_name, p->addr, regs->csr_era, regs->csr_estat);
- #endif
- 
--	/* A dump_stack() here will give a stack backtrace */
-+	/* A trace_dump_stack(0) here will give a stack backtrace */
- 	return 0;
- }
- 
-@@ -69,36 +70,36 @@ static void __kprobes handler_post(struct kprobe *p, struct pt_regs *regs,
- 				unsigned long flags)
- {
- #ifdef CONFIG_X86
--	pr_info("<%s> p->addr = 0x%p, flags = 0x%lx\n",
--		p->symbol_name, p->addr, regs->flags);
-+	trace_printk("<%s> p->addr = 0x%p, flags = 0x%lx\n",
-+		     p->symbol_name, p->addr, regs->flags);
- #endif
- #ifdef CONFIG_PPC
--	pr_info("<%s> p->addr = 0x%p, msr = 0x%lx\n",
--		p->symbol_name, p->addr, regs->msr);
-+	trace_printk("<%s> p->addr = 0x%p, msr = 0x%lx\n",
-+		     p->symbol_name, p->addr, regs->msr);
- #endif
- #ifdef CONFIG_MIPS
--	pr_info("<%s> p->addr = 0x%p, status = 0x%lx\n",
--		p->symbol_name, p->addr, regs->cp0_status);
-+	trace_printk("<%s> p->addr = 0x%p, status = 0x%lx\n",
-+		     p->symbol_name, p->addr, regs->cp0_status);
- #endif
- #ifdef CONFIG_ARM64
--	pr_info("<%s> p->addr = 0x%p, pstate = 0x%lx\n",
--		p->symbol_name, p->addr, (long)regs->pstate);
-+	trace_printk("<%s> p->addr = 0x%p, pstate = 0x%lx\n",
-+		     p->symbol_name, p->addr, (long)regs->pstate);
- #endif
- #ifdef CONFIG_ARM
--	pr_info("<%s> p->addr = 0x%p, cpsr = 0x%lx\n",
--		p->symbol_name, p->addr, (long)regs->ARM_cpsr);
-+	trace_printk("<%s> p->addr = 0x%p, cpsr = 0x%lx\n",
-+		     p->symbol_name, p->addr, (long)regs->ARM_cpsr);
- #endif
- #ifdef CONFIG_RISCV
--	pr_info("<%s> p->addr = 0x%p, status = 0x%lx\n",
--		p->symbol_name, p->addr, regs->epc, regs->status);
-+	trace_printk("<%s> p->addr = 0x%p, status = 0x%lx\n",
-+		     p->symbol_name, p->addr, regs->epc, regs->status);
- #endif
- #ifdef CONFIG_S390
--	pr_info("<%s> p->addr, 0x%p, flags = 0x%lx\n",
--		p->symbol_name, p->addr, regs->flags);
-+	trace_printk("<%s> p->addr = 0x%p, flags = 0x%lx\n",
-+		     p->symbol_name, p->addr, regs->flags);
- #endif
- #ifdef CONFIG_LOONGARCH
--	pr_info("<%s> p->addr = 0x%p, estat = 0x%lx\n",
--		p->symbol_name, p->addr, regs->csr_estat);
-+	trace_printk("<%s> p->addr = 0x%p, estat = 0x%lx\n",
-+		     p->symbol_name, p->addr, regs->csr_estat);
- #endif
- }
- 
-diff --git a/samples/kprobes/kretprobe_example.c b/samples/kprobes/kretprobe_example.c
-index 65d6dcafd742..9dd5cf9a7432 100644
---- a/samples/kprobes/kretprobe_example.c
-+++ b/samples/kprobes/kretprobe_example.c
-@@ -14,9 +14,8 @@
-  * Documentation/trace/kprobes.rst
-  *
-  * Build and insert the kernel module as done in the kprobe example.
-- * You will see the trace data in /var/log/messages and on the console
-- * whenever the probed function returns. (Some messages may be suppressed
-- * if syslogd is configured to eliminate duplicate messages.)
-+ * You will see the trace data in /sys/kernel/tracing/trace
-+ * whenever the probed function returns.
-  */
- 
- #include <linux/kernel.h>
-@@ -24,6 +23,7 @@
- #include <linux/kprobes.h>
- #include <linux/ktime.h>
- #include <linux/sched.h>
-+#include <linux/trace_printk.h>
- 
- static char func_name[KSYM_NAME_LEN] = "kernel_clone";
- module_param_string(func, func_name, KSYM_NAME_LEN, 0644);
-@@ -63,8 +63,8 @@ static int ret_handler(struct kretprobe_instance *ri, struct pt_regs *regs)
- 
- 	now = ktime_get();
- 	delta = ktime_to_ns(ktime_sub(now, data->entry_stamp));
--	pr_info("%s returned %lu and took %lld ns to execute\n",
--			func_name, retval, (long long)delta);
-+	trace_printk("%s returned %lu and took %lld ns to execute\n",
-+		     func_name, retval, (long long)delta);
- 	return 0;
- }
- NOKPROBE_SYMBOL(ret_handler);
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
-
-
+>
+>>>> + * @num_step: Maximum step size
+>
+> Number of steps ? not step size ?
+It should be "Number of steps implemented", will correct it.
+>
+> Suzuki
+>>>>    *
+>>>>    * This structure defines the data associated with a TGU device,
+>>>>    * including its base address, device pointer, the lock serialising
+>>>> @@ -46,6 +176,9 @@ struct tgu_drvdata {
+>>>>       struct device *dev;
+>>>>       struct mutex lock;
+>>>>       bool enabled;
+>>>> +    struct value_table *value_table;
+>>>
+>>> Why this ? why not
+>>>
+>>>      struct value_table value_table ?
+>>>
+>>> Surely, we seem to be dynamically allocating the priorities etc from 
+>>> there. But do we need dynamic allocation for value_table field as
+>>> such ?
+>>>
+>>> Suzuki
+>>>
+>>>> +    int num_reg;
+>>>> +    int num_step;
+>>>>   };
+>>>>   #endif
+>>>
+>>
+>
