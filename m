@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794208888;
-	b=EvjECuEfv78LLPGiU8aJZW/dZcQFVdLp1bGaLM/UXDRMejmdI1qZi8BnJBhWw3SB02QO
-	 64ojIvG/uvsrYI9tbUXG/yzYgPPbK4R9jtygTv3Jmv9Obj0UTnyjoIX/vIsNXdLY5ACCz
-	 rBDtE2HbHRqrR6qcJUMq8AyvFVwD3fQMWAPFViZBKJqZVRJT49bj85PhG1VV1wdcivmGJ
-	 PBCmyD45H003ZtIKsPzKFJpz4Zy9bZn/QGbRlh0dZ//JHXCVAbw9E2LdmGdSHlwpZJyOt
-	 vhP9wgLjNLx1OQuH7G3uF1pm9r+90gBmuj9f+Qaer5sLiVTHzTnWaHA66aJ6TKhZ2AQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794208888;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=z4KQ9ur7T2zxxI5IMiepuDiZw3HO1s+NcjMePnOn0Ro=;
-	b=ydRXMMjvNiRonLcLPumATnTQvYsz10jz7bc1ZbaZQ5q/wp/2h2hjnlkCBC43XwwEygwV
-	 qneeTZygX8K5O+UQvQtVpiX59HUmIAH+K7GW+NDdYWZoUUV5tJzGsAvlPFmB90ZBDJ5Fu
-	 BAAEK1J0VdlLWWfbXgLGiRt8eKzaSCPOaRnpuMARhOctGRopu8ZAHzYqwAT4oWrpuTJul
-	 4iKwb+h/bRxJVd8cL20NihaEC7xmstLtqcOe4UMol5/ZmTeA66dXl0+ZMdW8hEXURhYlA
-	 YVbdJDP8MBUEgQ9fRoDpNBqwLmUAwn8Vdd4wIArFSQYQFb0tPoPDQ6MbwSzq6l3AQkg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=zrPZcwmi;
-	arc=none smtp.remote-ip=216.40.44.11
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794208915;
+	b=ctT7GG3Ygyw1x2+H2ACM8SPnCBLeyPYPFpHpVu+toVQVuljP5kHnFg0Oh8O8nHlfn3so
+	 tIRQ6u0h1rpLC4sg/nSUtOFtx3EEmDMKHDBgqLK6LD7jh9p/QXisIKLFx1mWula/d6B+H
+	 E28Is4lMdKQCeAVAE4IY/rh9Umd3kK8kVxqZVdALtZMMICCKP7Y3G6kkbYzFqu5Zezll0
+	 I40T9+OF1BkYjzQCZS2k0U8wRYPgqqNBIqs0hYma1upcfrJjHUHW60EeAR7TJNkS3EpKq
+	 GYb0UgHyYk7dewTQyJiT5ne/1BX5R4yap5+IlLPv0adSfhV0rMSR1qW+OtRYrO9T9rw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794208915;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=ATNZbk8m3Z0iLvwJh9R/0PDOsfgpSkjXKD1zTTxPL4Y=;
+	b=jNizFOoSw5rn9vRj/KrxZKvE+MfSBJ70nzt+F4iMCqhyVs1QYW05/TbgkbzqkFHy7KGy
+	 8aK7kTNaeN/3A/pNP07IPcURaY1c93GGoiWTzUhHvCRUaUK2/39s2bYlu35YCdoTxdhwV
+	 XQc7s6T/ElQBreAzgVPsc/zdhMbgAYDqfm0jeV8MkdulFGMF0rxCFQoTEds9rTq6nVhCp
+	 OkWqVTPeQy0hibg+8yztaIrAFel7/qOaV174jIVF4S3ZR7zoeFxa0vji0smZCIns3Mduk
+	 nTg/2TrA4nFOogmnBxYmKJmCF4ZCsuLPJKQAMtMEawIRmC/+tjHkaHL0joH619JSyFQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h1GPqjOs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8D9606A31C;
-	Mon,  9 Nov 2026 07:21:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B8D9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46521606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:21:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46521606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=zrPZcwmi
-Received: from omf03.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay07.hostedemail.com (Postfix) with ESMTP id B1E6C1605D3;
-	Mon,  9 Nov 2026 07:21:24 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf03.hostedemail.com (Postfix) with ESMTPA id 72DB86000D;
-	Mon,  9 Nov 2026 07:21:20 +0000 (UTC)
-Date: Mon, 9 Nov 2026 02:21:04 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Breno Leitao <leitao@debian.org>
-Cc: Vincent Donnefort <vdonnefort@google.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Steven
- Rostedt <srostedt@redhat.com>, kernel-team@meta.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2] ring-buffer: Handle a reader taking the new head in
- rb_handle_head_page()
-Message-ID: <20261109022104.214fc175@fedora>
-In-Reply-To: <20261105155729.0f9c7e4d@gandalf.local.home>
-References: <20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org>
-	<20261105155729.0f9c7e4d@gandalf.local.home>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h1GPqjOs
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e987b4a710so2303695ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:21:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794208915; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PmnAQhst6UE15eCAOD/T8XcbcUPrlTMVtEpfls3Liv2/E/pqGSs62hdwXjIMQ/3phn
+         tCjkVUfWuj/MPQCqSxL5BsHpOZDIARgA7d5i53LjKz1u5dCDdZUuYxdsPc+I8MNPWwAr
+         EYl3En4RtABKbGRKn1qWiQ097UmT2vO86rzelQKDsWIjOD1MzoZC2FikQO+SgcxmCli7
+         RJR+mAKZjhAXfSlUF12y4Fm5ba+sqNcsrzgrG1r27NIt1yv691imiDIYwO7braygfBUb
+         tZRUJECVmXoCGetirAyGbJWfdFAp3GnELYwGA7+wPlKrJDGHXwwpaPXk46/GJJjrSXyp
+         22Qg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ATNZbk8m3Z0iLvwJh9R/0PDOsfgpSkjXKD1zTTxPL4Y=;
+        fh=vKtB82slThwthyx2pS6t+m628Fu43Es7c/Qv+lNNoMU=;
+        b=UMF9i+fvaN+ClwShvdx1kJoY7UWVnKkQo8NpUuWyFQ2Lw4rAgOnj7Y1DE+tk4jMX53
+         lGiUVveOvDcMT8he0g3/24ndPpIISFi5FgslziLEKG+TZdEcmnka7N+S9ZN6Zyq/dErZ
+         rUVrY7r65Cn8waiA3mz8gQxbOWLcUSZqkjXHCHB9iUhpXKreXbgNNGJCCbYpS/EJPcCK
+         no8NBy7XM9ESmI6faVFKzKPwlrwpu2BWP1940STo+IfuLhiAK7o3vYfDsc2NRPfv4rvz
+         aEdDxmO1N5xCBfxM3lv2oneeru1fYTIYp/AZQkCbXXfwVYDC2jcXpVSVwvFw7EpvXdMS
+         S91g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794208915; x=1794813715; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ATNZbk8m3Z0iLvwJh9R/0PDOsfgpSkjXKD1zTTxPL4Y=;
+        b=h1GPqjOsz/tCFk6EBkO5pH/mtjgHWel9gZfd+qu8gEACM6+aVxjcC4cgB0DTaMXr5V
+         X5IIbyloeJYMwGehY4hEA8S8UZoEAOF7q9bW7JjTPTbn3VBtRmaeel7qyKIrjeI5bFZO
+         yuciy56WSdgN/E8qznJ7HEnuFOFSWiy9wqo5Rka6EjokAD3gg3VJUo03i57lLimHQUgI
+         tJjpsnZr3QQLbOCwlmR3Fx28sNoGcM5lQyVewpABIt3+HEZ5t/GQVTgdL3mp77wkIbrq
+         TlOt2eqcD/jCtPUP1U7QkPvTzZQeE8tlxS5DsVCxNm5kYT+ZJT4rKMBR5MVxeeK7OAuL
+         /ufg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794208915; x=1794813715;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ATNZbk8m3Z0iLvwJh9R/0PDOsfgpSkjXKD1zTTxPL4Y=;
+        b=VAUmH8QRI1gzCJaHiZoLZS+Yi91f+GtqlAHcIB/mwf3W+t/HtwfYM6bdSzpdDLjnHf
+         3zkNZ8BG1HxUIDtMLh2aztnR1Ne1d29XyzlgZam2w/dqpwSDmjI5yLZAZ1oZfCjuQy8Y
+         LWFoTk8U7UCqxL8VD37oR8Zvg7IcXsbnRc7w8eBTjpec7T0qKs7nIq8feHTUp1qeU1rh
+         Vpi/xcitoJ/PTWG8PHzqyN+0E0ZgVD8FztO4zzqE8H30GUcIg6lASKa8Hzs9tDFAxDRY
+         GtuBvapnD9LbzSmbwgb0uZPQAjJbFPjGdeKErpP9EMUhLpJnQ8p2HQ6IOsYR8zAxoFX/
+         9rfg==
+X-Forwarded-Encrypted: i=1; AL+hErFtyLOpB12M8LF1IgEqvMyfaWvwqMIGVh/FdQ4Vp1Mm67Qt64p/4TII69s6IYWfbxmaDLY2Mq+jn2UNn3g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/l88Bsdn/TvYEtc8zbT1FHSrBugUe2nqX1+3pgXh9i7/7HPxq8
+	gHnKIZ7gwtCFbkIEfj5ExRVe5k4Olji5DIMlSUk6zc5kIf7mb9iB2oKxZCFLLFGpcZdnzJDEYGk
+	elM7chrhZHpy2Oyxg8Kgay5laf/lISYs=
+X-Gm-Gg: AYBFou1nCg96L2lgq4WVMwfmCgIM7xJtXTzXo5VFUNGXcRbAXltCa0J3WeDPLZ6Gr9R
+	4Ka2vat+A1mT37+uEi/fjDDMDNwdB1Wc9XFL2MF9Jm8j+xzk6Oage++g4EzdhZMGLMVkov5oytL
+	Fd23eH9HOFR0qFfdI+JK3FYwkpTENlTsgCbTeO5keIQ3Y40AD1kyInXJmJW3+fBEj0tb6q32xmZ
+	oEe8w/+5XldvOilBPIrWtwTEL8L3m5dcdNsUIITIP2fMex1yrc+8Zks2TAci93SlPrrT0y57M9J
+	WZkCJHMnDW+5C7iKu9oY4P1+fOPfs4mOtQXDo+R5TN1K0UcWS0vXUqcclVtznFq+wAXw7/Zwk+W
+	vq/9gzWVdhU7yLqCaZqv2AA3Qlk+iM7tZC9sKEdpqKVpGChgUh5Yn//kWbn3oKIflFNBVm2QShn
+	3NQhJM0/Dvb7OjZfC4bUUd3OilTj8NO+CZnRyTtINJMt5JmVIhcWqfDrVJOEQhzQuk6y/phw==
+X-Received: by 2002:a17:902:c40a:b0:2e5:cd0f:518f with SMTP id
+ d9443c01a7336-2ed671fc98amr43058145ad.0.1794208914572; Sun, 08 Nov 2026
+ 23:21:54 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,63 +104,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: ca6fqgaq4119qkm9zan7zj11nwtuioh5
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 72DB86000D
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18Wus/X+66WuujD0oWCiUcgXWmfMH+Kh9c=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=z4KQ9ur7T2zxxI5IMiepuDiZw3HO1s+NcjMePnOn0Ro=; b=zrPZcwmipijpDKowW7aYBNEZtTC8jO3Q3SD5qtuXkWv+0IOHkSMJFUPiSlpRbkvlozR0E4ErZkzRLSy3GtIW1BPsCH57qN+ZdFRul1vV/DpTLZ+4Hp+coEbNfzIZp+zkI6lZxhQ4hyZhw8TsAy4po+UjQWbnmvEqNA2elUOU81U=
-X-HE-Tag: 1794208880-263880
-X-HE-Meta: U2FsdGVkX1/h7Z9+jzxdQwjhXJav2RBG88LhYugWFjpJW6DLPXAOWsPt6fkfd2Qq/rNEMEUIwFaFP0BL74Ies+BvgN6JLmfstsXLJ6HVdwuXigldN/FXo3Cfc7S6hd5kRLhI0R4eJB/fFCI8cazEX8n4A8Mv2w2HBCquco+Hz6ywwNO24lI/j2LOirZS3n/QkfLgIk/UkVR/o5fmr51GGSqYYSxAL4vano5eLIePbV+5HuMQt029pTCmMLtQtoPtxDWVLnlGa/5+cgJd7wkAgzmvVsh+xZoArn4TOjvidCSnrH/u0EgU7cIl3lh+CW+RdN8gfXANumFLGIPGOgJRxGW8xf/QvxMxJqykrWeUUjWgAyKMNQ0R5VAKhZcD+T4d
+References: <20261102100031.5573-1-phucduc.bui@gmail.com> <20261106193208.4136410-1-wbg@kernel.org>
+In-Reply-To: <20261106193208.4136410-1-wbg@kernel.org>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Mon, 9 Nov 2026 14:21:41 +0700
+X-Gm-Features: AclHuK_GvzxanApqj_qZEY7vEkrkEWr44FH_wFftNIfTWMnEUrAcqCHwPdCxRLw
+Message-ID: <CAABR9nELsefCssH=KX-KX0FhvWuDO77WhrsdmChfaJyjpMhRCw@mail.gmail.com>
+Subject: Re: [PATCH v3] counter: ti-eqep: use devm for runtime PM to
+To: William Breathitt Gray <wbg@kernel.org>
+Cc: andriy.shevchenko@intel.com, andy@kernel.org, dlechner@baylibre.com, 
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, m32285159@gmail.com, 
+	nuno.sa@analog.com, sozdayvek@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 5 Nov 2026 15:57:29 -0500
-Steven Rostedt <rostedt@goodmis.org> wrote:
+Hi William,
 
-> We may need to add memory barriers here, but for now, I think this could
-> fix it. As it should prevent the search from ever starting in between the
-> two heads.
+> Go ahead and submit a v4 addressing the comments from Andy. Submit a
+> follow-up patch as well to eliminate the ti_eqep_remove() callback as
+> described in my earlier comment[^1] in this thread.
+>
+> [^1]: https://lore.kernel.org/all/20260604021902.891327-1-wbg@kernel.org/
 
-Yeah, I think this will do it. Please test, I'll go write up a formal patch:
+Thanks. I'll send v4 and the follow-up patch soon.
 
--- Steve
-
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index c64e001c3fc0..0d37f8b529d5 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -1494,7 +1494,13 @@ rb_set_head_page(struct ring_buffer_per_cpu *cpu_buffer)
- 	if (RB_WARN_ON(cpu_buffer, rb_list_head(list->prev->next) != list))
- 		return NULL;
- 
--	page = head = cpu_buffer->head_page;
-+	/*
-+	 * Make sure that the start of the search of the head_page does not
-+	 * start between the writer adding the UPDATE and the new HEAD that it
-+	 * moves forward.
-+	 */
-+	/* Sync with the writer moving the HEAD in rb_handle_head_page() */
-+	page = head = smp_load_acquire(&cpu_buffer->head_page);
- 	/*
- 	 * It is possible that the writer moves the header behind
- 	 * where we started, and we miss in one loop.
-@@ -3721,6 +3727,15 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
- 		local_sub(rb_page_commit(next_page), &cpu_buffer->entries_bytes);
- 		local_inc(&cpu_buffer->pages_lost);
- 
-+		/*
-+		 * To prevent a stale head_page from being between
-+		 * the UPDATE and new HEAD pages, set it here to have
-+		 * the reader check always find the update before
-+		 * finding the HEAD page.
-+		 */
-+		/* Sync with the reader setting the head page */
-+		smp_store_release(&cpu_buffer->head_page, next_page);
-+
- 		if (cpu_buffer->ring_meta)
- 			rb_update_meta_head(cpu_buffer, next_page);
- 		/*
--- 
-2.53.0
-
+Best regards,
+Phuc
