@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.115
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794203706;
-	b=rdSNzr5/xTLNVX6TJ2ml4YUnr2lMCZ9SIo8hlwR0mpv2+V/ZLhLMkxLH+bJuHe66fMWo
-	 WO1c1TnlKk3RJ9Alw9E5Xu+RcmxqIOXe4gEv24uIRYsnnyKydWvbg4GmLJaqZZJreb8/m
-	 PFJ3RlwbsbcYTprWaZNwm8GkIMQeLmyhaSZ9jdfYAGArIyBRMJ7QK2cc6Hrxb2Mz+l5Ki
-	 E+3VIuAAK4V/MU6QH+xCs/p2ouGCyzXSmNFbHJ5MIPtMLi0o6Q0+kaYMIyoMktGCukxbO
-	 C6yj7Vke1WlX+d63/Ne1WvH21hYwWxzZ9/UKMIOWUytaXL3ZEKV1/svjS4MlcINnY0g==
+	t=1794203715;
+	b=J1rE6qvaD1mwS9MJ5w2UzLFRBz2vBudPwtwcGVWLakPMAqydpHU6zKqhmXutQrN77KdU
+	 tdiGuneOsjlbscPG7PgFL+FrpalVKkwFJMcobuVv1MGY4PN3r0hRbDw+QCpHMve17z3TF
+	 TdHteSr9cuQVyN469/g9K1YU0CRkmck+3/Ewo/VHCmkEWJU1aYOPaHevux1lxwlsjwTuo
+	 AHt0gh/hON5mMR6rniqtxBYweEIYKtzGgaAPoFVs+HwaUy7y1Pdi/sqtAtcE239OzzP08
+	 WpefaPacgequcE0VjeOm4/X04ylN9foZE7UBm3VeKoXEXEGOgjsG/sEpM8rFiFV8++Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794203706;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794203715;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-type:Content-Transfer-Encoding;
-	bh=W/AjPF4lUvH2Tm2tPsJdtvyHfSlcx6yLvdL+dxtRtZY=;
-	b=baFqpnCBR01qsJGbqgMeP7VvvbmKWJORWZxZ2PkP8e+YXkpReZNVBsoeyeSE7n0eSW7t
-	 ArOVoS+0KLKJE+r/DIemwABsSqgwIL6iaLHhgZ5wEXHIExRderCBvwBS7UuxMQQpuvEbF
-	 SKpu0z4QL1MRCLDsAozoJjWVdlnN7SDlP7USypyYOsIl8FUWAT3IMrAj6UpbJHDePtNVY
-	 Zi1jZxGyar0RrmT58HIEmG2E+4MLZTQtMmm5ho9pH0wWYL8atSAJC9GpBe/OqV2rCAst0
-	 atKZQ24/LYBMnu1tjQREINqAZ2RU6mcmavSpzE46PG7nZYIq2t/JbDBTssb4s/p5pBQ==
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-type:
+	 Content-Transfer-Encoding;
+	bh=RgWCQWEjlKpefS1gCz5VRixmL/45vbZ8jqDfCMPKzeU=;
+	b=tsfhovQhYQ6mlp1XAS03VgoKLzIgpuRUj6NOwK1OHII/KetfUwAOHcPCHHzA9ZQRqBhd
+	 Xv5PX31mAnq+OYQSd2KyhrNQN+EBvENeweRZPKAKrqxZfeXZapLduPyZCN0HgMTiaU6Rf
+	 eKZTYmF8oCxFq/AXlJZlmRQiOWcPz73kesBXsiyjiIpMOfs8xleD6pZVdDuT1yEZ0L+xG
+	 7HmW6chlI6bi0eFuxel+6FjbaXAYdfvdcw4KXg0/GDnazLaGzlZVnhS6ksv5sZpDtcWez
+	 uCPumsGmV20oP3ReY7t+mNNQUtjmELvjPU+C5Z3glR4HN8Vcu43sBPIhmcqZ+zeDJtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="p3or/Anv";
-	arc=none smtp.remote-ip=95.215.58.115
-Received: from mta1.migadu.com (out-115.mta1.migadu.com [95.215.58.115])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MI+Aujry;
+	arc=none smtp.remote-ip=91.218.175.130
+Received: from mta0.migadu.com (out-130.mta0.migadu.com [91.218.175.130])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEEE8606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:55:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEEE8606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB16606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:55:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CB16606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p3or/Anv
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MI+Aujry
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MY4RYe2ggYDq1Sriom4d+L+Pul0dtqxzyvCW4eNUg78=;
+DKIM-Signature: a=rsa-sha256; bh=LIIX9oWLaqumHSHHiuBxv2+h/DOSLalAfUaDyeTWWbk=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794203703; v=1; x=1794808503;
- b=p3or/AnvPrg8+P3hoZmkf1hdAJXVb4pvpO+U7/oBlhPwwuIRlgJxEFgavYzeABtbUepzkoSD
- Q24dW18AXftUL5tb3erHvFcXyNg45jpAmYlQaD7aOW3Bm0Oda53lk86g/Rt6HrjhDMocJBy7/b1
- YsyXbsWfVP4GBaKmU5zgyiy0=
+ t=1794203712; v=1; x=1794808512;
+ b=MI+Aujry/m21goiYP4NuIzOa+peFK3+jVH0ndWRZNcZpRq41YuVqs2HKB2v2eCqebqvIexP2
+ SkUSz6Ys7kXor1rdIRBlkW82C6ZY1oxZrdLuKrAr+n8r6mynEBz9uJ/07J6zbMhqvqI8k4KBCLv
+ aO8rSAuraCMoHMEgsKu1F+d8=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 1566e80ae3ec20ca;
-	Mon, 09 Nov 2026 05:55:03 +0000
-X-Mizu-Trace-ID: 1566e80ae3ec20ca
+Received: by mta10.migadu.com with ESMTPS id 38166b020c202b3d;
+	Mon, 09 Nov 2026 05:55:11 +0000
+X-Mizu-Trace-ID: 38166b020c202b3d
 X-Migadu-Flow: FLOW_OUT
 From: Baoquan He <baoquan.he@linux.dev>
 To: linux-mm@kvack.org
@@ -61,11 +62,14 @@ Cc: akpm@linux-foundation.org,
 	kunwu.chan@gmail.com,
 	klarasmodin@gmail.com,
 	linux-kernel@vger.kernel.org,
+	Kunwu Chan <chentao@kylinos.cn>,
 	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v5 00/19] mm, swap: extendable swap devices (xswap phase I)
-Date: Mon,  9 Nov 2026 13:54:36 +0800
-Message-ID: <20261109055455.536925-1-baoquan.he@linux.dev>
+Subject: [PATCH v5 01/19] mm: xswap support for zswap
+Date: Mon,  9 Nov 2026 13:54:37 +0800
+Message-ID: <20261109055455.536925-2-baoquan.he@linux.dev>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261109055455.536925-1-baoquan.he@linux.dev>
+References: <20261109055455.536925-1-baoquan.he@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,376 +82,263 @@ MIME-Version: 1.0
 Content-type: text/plain
 Content-Transfer-Encoding: 8bit
 
-From: Baoquan He <hebaoquan@kylinos.cn>
-
-A normal swap device has a fixed size, set when it is enabled. This does
-not fit zswap well. With zswap the swapped data stays in RAM in
-compressed form, so how much swap a machine can really use depends on how
-well the workload compresses, not on a number we pick before we know the
-workload. Make the device large enough for the worst case and most of it
-is never used. Make it just large enough for the average case and the
-machine runs out of swap while zswap still has free room.
-
-xswap is a swap device with no backing file. In this phase its swap
-entries hold pages in zswap, and its cluster_info array lives in a
-VM_SPARSE area that is mapped a chunk at a time, so the device covers a
-large swap address space and costs only the chunks it has actually
-mapped. The device grows when the workload needs it and gives the tail
-back when it does not.
-
-This series is the device itself: the sparse cluster array, growth and
-shrink, and the interfaces that create and destroy one. It is phase I of
-four; the physical backend, the swap accounting, and the swap-table
-backend records (zswap w/o xarray) build on it.
-
-Design notes
-------------
-
-In this phase the device is only an swap address space. si->max is set
-when the device is created and does not change for its lifetime; what
-changes is how much of it is mapped. swap_info_struct carries
-nr_clusters_max (the swap address space) and nr_clusters_mapped (the
-mapped prefix), and the two walkers that touch cluster_info are bounded
-by the latter.
-
-Growth starts when 85% of the mapped range is in use and maps until 65%.
-The call comes from the cluster allocation path. Growing maps pages into
-the VM_SPARSE area, and mapping can sleep, so it cannot be done inside
-the allocation that would otherwise fail: the swap-out path would then
-have nothing to fall back on. A grow maps at most XSWAP_GROW_CHUNKS
-chunks at a time.
-
-Shrink gives the free tail back when the mapped range is at most 50% in
-use and stops at 70%. It is triggered when a cluster becomes completely
-free, from a workqueue, because it takes xswap_lock and sleeps in
-synchronize_rcu() and vm_area_unmap_pages(). Shrinking on a smaller drop
-is not useful: growth happens on demand, so the same clusters would just
-be mapped again, and every unmap also costs an RCU grace period. The two
-target points sit inside each other's threshold, so a grow cannot leave
-the range in a state the shrink would undo, and the other way around.
-
-Configuration
--------------
-
-The device is behind CONFIG_XSWAP, which depends on SWAP, 64BIT, ZSWAP
-and SYSFS. CONFIG_XSWAP_DEFAULT_MAX sets the default size of a new
-device; it takes a percentage of RAM, a size, or "max", and defaults to
-"200%":
-
-  CONFIG_XSWAP_DEFAULT_MAX="200%"
-
-xswap.max= on the kernel command line overrides it:
-
-  xswap.max=8G          8 GiB
-  xswap.max=300%        three times RAM
-  xswap.max=max         the largest size the device can address
-
-"max" stops at the swap offset limit, capped so that a cluster index fits
-in an unsigned int. A slot is still a swap entry, so that limit applies
-even though the data never goes to a physical address.
-
-The swap address space cannot move once the device exists, so the size
-is settled at creation. That is why this is a boot parameter and not a
-runtime knob.
-
-Identity
---------
-
-A device needs a name that survives while it exists. The swap_info type
-is a slot in swap_info[] and is reused after swapoff, so it cannot be
-one. Each device instead takes an id from a per-boot counter, assigned
-at creation and never reused, and that id is what /proc/swaps shows:
-
-  Filename                Type        Size        Used        Priority
-  xswap1                  xswap       10485756    0           32767
-
-The same id names the debugfs file and is what destroy takes:
-
-  # cat /sys/kernel/debug/xswap/xswap1
-  type 0
-  clusters_max 5120
-  clusters_mapped 73
-  usage_pages 0
-  tail_free 72
-  grows 0
-  shrinks 0
-  # echo 1 > /sys/kernel/mm/xswap/destroy
-
-A file-less device has no swapon, so /sys/kernel/mm/xswap/create makes
-one. The only argument it takes is a priority; the size comes from
-xswap.max=. A priority can be given per device while a size cannot:
-
-  # echo > /sys/kernel/mm/xswap/create          default priority
-  # echo 100 > /sys/kernel/mm/xswap/create      priority 100
-
-The default is the highest priority, SWAP_FLAG_PRIO_MASK, so an xswap
-device is tried first, ahead of any ordinary swap device. Setting a
-lower priority is allowed.
-
-The teardown of a device is shared with sys_swapoff() rather than
-duplicated.
-
-swapoff
--------
-
-sys_swapoff() opens the path first. An xswap device has no file, so the
-name shown in /proc/swaps cannot be opened. Only a -ENOENT from that
-open is taken for an xswap device, and the device with that name is torn
-down. A real file or directory keeps precedence: a path that fails for
-another reason is never matched. This is what makes both of these work:
-
-  # swapoff xswap1
-  # swapoff -a
-
-The name is matched exactly, and /proc/swaps prints the one to use: a
-path such as ./xswap1 is not the bare name and is not recognized.
-
-The device needs zswap. Without it swapout takes a swap entry and frees
-no memory, so creating one fails.
-
-Limitations
------------
-
-This phase has no physical backend. If zswap refuses a page, the folio
-stays in memory, so an xswap-only system can run out of memory once the
-zswap pool is full. Keep a real swap device on such systems; phase II
-adds the physical backend.
-
-xswap does not allocate large folios in this phase. The allocation walk
-stops at the first device for a large folio, and a new xswap device
-defaults to the highest priority, so the folio is offered to xswap,
-rejected there, and split into base pages; a lower-priority block device
-never gets it whole. Creating the xswap device below a block device in
-priority avoids this, at the cost of offering every page to the block
-device first. mTHP and THP swapout are both affected; the data is still
-swapped, in base pages. A bypass in the walk would avoid the split, but
-the next phase teaches xswap to take large folios itself, on a
-contiguous physical run, and would remove the bypass again; this phase
-leaves the walk unchanged.
-
-An xswap entry stored while no real swap device exists is not put on the
-zswap LRU, so adding a real device later does not make it reclaimable.
-Phase II puts every xswap entry on the LRU.
-
-Testing
--------
-
-qemu KVM guest, 8G RAM, booted with xswap.max=10G. memhog is a small
-local helper: it faults <total_gb> of anon, fills it with a fixed
-pattern, and holds it.
-
-Set up zswap and create a device:
-
-  # echo 1 > /sys/module/zswap/parameters/enabled
-  # echo > /sys/kernel/mm/xswap/create
-  # awk 'NR == 1 || /xswap/' /proc/swaps
-  Filename                Type        Size        Used        Priority
-  xswap1                  xswap       10485756    0           32767
-
-An idle device maps one chunk of cluster_info: 73 clusters with the
-current struct size.
-
-Swap more anon than RAM through a small cgroup:
-
-  # mkdir -p /sys/fs/cgroup/xswap_limit
-  # echo 2G > /sys/fs/cgroup/xswap_limit/memory.max
-  # echo max > /sys/fs/cgroup/xswap_limit/memory.swap.max
-  # ( echo $BASHPID > /sys/fs/cgroup/xswap_limit/cgroup.procs
-  #   exec env MEMHOG_FILL=pattern ./memhog 11 600 ) &
-
-clusters_mapped grows to cover the pages that go to zswap (2,414,630
-pages against 2,038,301 of RAM in one run), while SwapTotal stays at
-10485756. Throughout, SwapTotal never moves and SwapFree stays in
-[0, SwapTotal]. Pushing past the size leaves the cgroup out of room and
-the OOM killer takes the workload, which is the pass signal there.
-
-Growth and shrink, measured with two cgroups so that one keeps its pages
-while the other goes away:
-
-  idle                           mapped=73    occ=0.000  grows=0   shrinks=0
-  2G in a 1G cgroup              mapped=657   occ=0.799  grows=7   shrinks=0
-  3G more in a second 1G cgroup  mapped=1898  occ=0.829  grows=12  shrinks=0
-  kill the second cgroup         mapped=803   occ=0.654  grows=12  shrinks=1
-
-The second cgroup is started later, so its clusters sit at the tail, and
-killing it leaves a free tail to take back. The first stays alive, so
-usage falls but not to zero: that is the state the shrink has to land in.
-occ (occupancy) is usage over the mapped range, which is what the grow and
-shrink thresholds are expressed in.
-
-With the first cgroup still alive, destroy the device:
-
-  # echo 1 > /sys/kernel/mm/xswap/destroy
-
-Also tested these, and nothing crashed or warned:
-
-  - a shrink racing a swapoff of the same device, 20 rounds
-  - a cgroup that cannot zswap: it gets no xswap slot, and the
-    allocator walk does not spin
-  - 2000 create/destroy cycles: no per-cluster state is leaked, and the
-    ids keep increasing
-  - destroy with the workload alive, and a recreate at the same size
-  - swapoff -a and swapoff by name both tear the device down
-
-The whole series has also been through the later phases' tests, which
-need the physical backend and the swap accounting; those results will be
-reported with the phases that own them. Nothing crashed or warned there
-either:
-
-  - a destroy returns the physical slots it handed out to their block
-    device, and a THP swapout leaves the xswap device and its backend
-    with the same usage
-  - a swapped THP reads back as one unit from the physical backend, and
-    readback through zswap and through the backend both pass a
-    byte-for-byte pattern check
-  - the memcg swap accounting, memory.swap.current against the backend
-    usage, holds across charge, uncharge and destroy
-
-Note on performance
--------------------
-
-This phase is the device and leaves the swap store path alone: an xswap
-slot still goes through zswap's xarray. What it adds is covered by the
-growth and shrink behaviour above, not by throughput.
-
-When an xswap device exists, the allocation-time zswap gate runs on
-every swapout, including the pages that end up on a real device, and in
-this phase its cgroup check can flush the cgroup's zswap statistics. A
-later phase replaces it with a lockless check.
-
-The series as a whole (phase I+II+III+IV) has been measured on a 288-CPU
-server with 1.1 TiB of RAM. The numbers are repeated here only to show
-where this leads; each later phase will report the measurements that
-belong to it.
-
-  - Release path. usemem -O -y -x -n 1 20G, ten rounds, in a cgroup
-    limited to 14G of memory and 12G of swap. The swap-out volumes are
-    the same in both arms, 18,370,771 and 18,370,836 pages:
-
-      baseline kernel, zram device    1,067,082 us
-      this series,     xswap device     922,396 us    -13.6%
-
-  - Steady-state throughput. The same usemem runs. Per-run medians:
-
-      baseline kernel, zram device     338,260 - 338,760 KB/s
-      this series,     xswap device    340,997 - 341,885 KB/s
-
-    The two ranges do not overlap: every pairing of a baseline run with
-    a series run is 0.7% to 1.1% ahead, about 1% on average.
-
-  - General workload. A full kernel build, x86_64 defconfig and -j144,
-    five rounds per kernel, best of:
-
-      baseline kernel    2,572.6 s CPU (user+sys)
-      this series        2,577.7 s CPU (user+sys)
-
-    The 0.2% difference is smaller than the run-to-run spread of either
-    kernel.
-
-The large gain is in the release path. How it splits between the swap-table
-backend records, the device itself and the accounting is what the later
-phases report, each with the measurement that belongs to it.
-
-Overcommit
-----------
-
-An xswap device advertises its whole address space as swap: si->pages is
-what /proc/swaps and SwapTotal report, and what nr_swap_pages uses to
-decide that anonymous memory can be reclaimed. The backing is the zswap
-pool in this phase, and real swap devices in the later phases; the
-address space is not backing store in either case, yet it raises the
-commit limit that __vm_enough_memory() enforces.
-
-Which semantics this should follow is not settled here. Counting the
-address space lets a workload commit 2xRAM it can never back; not
-counting it changes what SwapTotal means. swap_info_remove() skips its
-commit-limit probe for xswap, so destroying a device does not fail on
-headroom the device never provided, and real swap devices keep the probe.
-The limit can then fall below Committed_AS; new allocations fail until
-Committed_AS drops. This is left to a follow-up, together with the rest
-of the swap accounting.
-
-Changelog
-=========
-v4 -> v5:
-- Rebased onto the latest mm-new (2c5dafa7f289). 
-
-- A device now has a stable id instead of exposing the swap type:
-  /proc/swaps shows xswap<id>, the debugfs file is named by the id and
-  prints the type as well, and destroy takes the id. The id is assigned
-  per boot and never reused, so a value read earlier cannot name a
-  different device.
-
-- swapoff accepts the name: swapoff xswap<id> and swapoff -a tear the
-  device down, while a real file or directory keeps precedence. A name
-  that does not exist reports -ENOENT; the sysfs destroy keeps -ENODEV
-  for an id it does not know. The interfaces are now documented in
-  Documentation/ABI/testing/sysfs-kernel-mm-xswap and zswap.rst.
-
-- CONFIG_XSWAP_DEFAULT_MAX sets the default size of a new device. It
-  takes a percentage of RAM, a size, or "max", and defaults to "200%";
-  xswap.max= still overrides it.
-
-- The cluster_info accesses are RCU-safe: the allocation fast path bounds
-  a cached cluster against the mapped range, and the shrink drains the
-  per-cpu cache and waits an RCU grace period before unmapping.
-
-- xswap_grow() now links the clusters it mapped even when swapoff has
-  already cleared SWP_WRITEOK, so a failed swapoff cannot leave them
-  mapped and on no list.
-
-- swap_info_remove() skips the commit limit probe for xswap; real swap
-  devices keep it. See the overcommit note above.
-
-- The cgroup zswap gate is checked again after the allocation when an
-  xswap device appeared after the initial lookup, so a slot is not kept
-  for a cgroup that cannot zswap.
-
-- The patches are reorganized: the VM_SPARSE work is split into helpers
-  and the xswap use, the max/pages widening moves before the sysfs
-  interface, the shrink trigger now carries the workqueue deferral, and
-  the unmap helper is prepared for range shrinking in its own patch. The
-  series is now phase I of four, with the swap-table backend records as
-  a phase of their own.
-
-Baoquan He (18):
-  mm, swap: refactor free_swap_cluster_info to take swap_info_struct
-  mm, swap: add VM_SPARSE cluster-array helpers for xswap
-  mm, swap: use a VM_SPARSE cluster array for xswap devices
-  mm, swap: widen swap_info_struct max/pages to unsigned long
-  mm, swap: add a sysfs interface to create xswap devices
-  mm, swap: refactor swapoff and add xswap_destroy
-  mm, swap: require zswap for xswap devices
-  mm, swap: use a stable id for xswap devices
-  mm, swap: let the command line set the xswap device size
-  mm, swap: add CONFIG_XSWAP_DEFAULT_MAX
-  mm, swap: let swapoff destroy xswap devices by name
-  mm, swap: add xswap grow trigger on cluster allocation
-  mm, swap: add debugfs counters for xswap
-  mm, swap: make xswap cluster_info accesses RCU-safe
-  mm, swap: prepare xswap_unmap_clusters for range shrinking
-  mm, swap: add xswap shrink trigger and defer it to a workqueue
-  mm, swap: do not give an xswap slot to a cgroup that cannot zswap
-  mm, swap: skip the overcommit probe when removing xswap
-
-Chris Li (1):
-  mm: xswap support for zswap
-
- .../ABI/testing/sysfs-kernel-mm-xswap         |   43 +
- .../admin-guide/kernel-parameters.txt         |    8 +
- Documentation/admin-guide/mm/zswap.rst        |    9 +
- MAINTAINERS                                   |    1 +
- include/linux/swap.h                          |   17 +-
- mm/Kconfig                                    |   20 +
- mm/page_io.c                                  |   19 +
- mm/swap_state.c                               |    9 +
- mm/swapfile.c                                 | 1569 +++++++++++++++--
- mm/zswap.c                                    |   11 +-
- 10 files changed, 1593 insertions(+), 113 deletions(-)
- create mode 100644 Documentation/ABI/testing/sysfs-kernel-mm-xswap
-
-
-base-commit: 2c5dafa7f289d760f4492260b0988029aab478b0
+From: Chris Li <chrisl@kernel.org>
+
+Introduce extendable swap device support - xswap.
+
+An xswap device has no backing storage and no swap data section, so
+it wastes no disk space. Creation is via a sysfs interface added in a
+later patch.
+
+Zswap writeback is gated on whether a real (non-xswap) swap device is
+active. nr_real_swapfiles counts such devices and is maintained at
+swapon/swapoff only, so the gate reflects "a device exists to write
+back to" rather than "a device currently has free slots". This keeps
+writeback working even when the real swap device is full, and avoids
+a double decrement when a full device is swapped off.
+
+An xswap entry is not added to the zswap writeback LRU: with no backing
+store there is nothing to write it back to. zswap_lru_del() tolerates
+that, since an entry that was never added is on no list.
+
+Reviewed-by: Kunwu Chan <chentao@kylinos.cn>
+Co-developed-by: Baoquan He <hebaoquan@kylinos.cn>
+Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
+Signed-off-by: Chris Li <chrisl@kernel.org>
+---
+ include/linux/swap.h |  2 ++
+ mm/page_io.c         | 19 +++++++++++++++++++
+ mm/swap_state.c      |  9 +++++++++
+ mm/swapfile.c        | 37 +++++++++++++++++++++++++++++++------
+ mm/zswap.c           | 11 +++++++++--
+ 5 files changed, 70 insertions(+), 8 deletions(-)
+
+diff --git a/include/linux/swap.h b/include/linux/swap.h
+index 4f686709d71f..9073d29377d8 100644
+--- a/include/linux/swap.h
++++ b/include/linux/swap.h
+@@ -201,6 +201,7 @@ enum {
+ 	SWP_STABLE_WRITES = (1 << 11),	/* no overwrite PG_writeback pages */
+ 	SWP_SYNCHRONOUS_IO = (1 << 12),	/* synchronous IO is efficient */
+ 	SWP_HIBERNATION = (1 << 13),	/* pinned for hibernation */
++	SWP_XSWAP	= (1 << 14),	/* extendable swap device */
+ 					/* add others here before... */
+ };
+ 
+@@ -378,6 +379,7 @@ void free_folio_and_swap_cache(struct folio *folio);
+ void free_pages_and_swap_cache(struct encoded_page **, int);
+ /* linux/mm/swapfile.c */
+ extern atomic_long_t nr_swap_pages;
++extern atomic_t nr_real_swapfiles;
+ extern long total_swap_pages;
+ extern atomic_t nr_rotate_swap;
+ 
+diff --git a/mm/page_io.c b/mm/page_io.c
+index a57cdcf2892d..2285fb1735b3 100644
+--- a/mm/page_io.c
++++ b/mm/page_io.c
+@@ -258,6 +258,15 @@ int swap_writeout(struct swap_io_ctx *ctx, struct folio *folio)
+ 	}
+ 	rcu_read_unlock();
+ 
++	/*
++	 * xswap has no backing store: keep the folio.  ctx->sis is not set
++	 * yet, so look the device up from the entry.
++	 */
++	if (unlikely(__swap_entry_to_info(folio->swap)->flags & SWP_XSWAP)) {
++		folio_mark_dirty(folio);
++		return AOP_WRITEPAGE_ACTIVATE;
++	}
++
+ 	__swap_writeout(ctx, folio);
+ 	return 0;
+ out_unlock:
+@@ -515,6 +524,16 @@ void swap_read_folio(struct swap_io_ctx *ctx, struct folio *folio)
+ 	if (zswap_load(folio) != -ENOENT)
+ 		return;
+ 
++	if (unlikely(sis->flags & SWP_XSWAP)) {
++		/*
++		 * An xswap entry only ever lives in zswap, so zswap_load()
++		 * must have found it.  Unlock and let the caller retry.
++		 */
++		WARN_ON_ONCE(1);
++		folio_unlock(folio);
++		return;
++	}
++
+ 	/* We have to read from slower devices. Increase zswap protection. */
+ 	zswap_folio_swapin(folio);
+ 	swap_add_folio(ctx, folio, READ);
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index da65d75ceead..4c965cf99809 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -899,6 +899,10 @@ struct folio *swap_cluster_readahead(swp_entry_t entry, gfp_t gfp_mask,
+ 	struct blk_plug plug;
+ 	swp_entry_t ra_entry;
+ 
++	/* xswap entries live only in zswap; readahead does not help. */
++	if (si->flags & SWP_XSWAP)
++		goto skip;
++
+ 	mask = swapin_nr_pages(offset) - 1;
+ 	if (!mask)
+ 		goto skip;
+@@ -984,6 +988,7 @@ static int swap_vma_ra_win(struct vm_fault *vmf, unsigned long *start,
+ static struct folio *swap_vma_readahead(swp_entry_t targ_entry, gfp_t gfp_mask,
+ 		struct mempolicy *mpol, pgoff_t targ_ilx, struct vm_fault *vmf)
+ {
++	struct swap_info_struct *si = __swap_entry_to_info(targ_entry);
+ 	struct swap_io_ctx ctx = {};
+ 	struct blk_plug plug;
+ 	struct folio *folio;
+@@ -992,6 +997,10 @@ static struct folio *swap_vma_readahead(swp_entry_t targ_entry, gfp_t gfp_mask,
+ 	unsigned long start, end, addr;
+ 	pgoff_t ilx = targ_ilx;
+ 
++	/* xswap entries live only in zswap; readahead does not help. */
++	if (si->flags & SWP_XSWAP)
++		goto skip;
++
+ 	win = swap_vma_ra_win(vmf, &start, &end);
+ 	if (win == 1)
+ 		goto skip;
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 038d2efe26ad..0b1fef65b6a0 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -66,6 +66,7 @@ static void move_cluster(struct swap_info_struct *si,
+ static DEFINE_SPINLOCK(swap_lock);
+ static unsigned int nr_swapfiles;
+ atomic_long_t nr_swap_pages;
++atomic_t nr_real_swapfiles;
+ /*
+  * Some modules use swappable objects and may try to swap them out under
+  * memory pressure (via the shrinker). Before doing so, they may wish to
+@@ -738,7 +739,8 @@ static void free_cluster(struct swap_info_struct *si, struct swap_cluster_info *
+ 	/*
+ 	 * If the swap is discardable, prepare discard the cluster
+ 	 * instead of free it immediately. The cluster will be freed
+-	 * after discard.
++	 * after discard.  xswap has no bdev and never sets
++	 * SWP_PAGE_DISCARD, so it always takes the free path below.
+ 	 */
+ 	if ((si->flags & (SWP_WRITEOK | SWP_PAGE_DISCARD)) ==
+ 	    (SWP_WRITEOK | SWP_PAGE_DISCARD)) {
+@@ -1221,6 +1223,9 @@ static void del_from_avail_list(struct swap_info_struct *si, bool swapoff)
+ 		 */
+ 		lockdep_assert_held(&si->lock);
+ 		si->flags &= ~SWP_WRITEOK;
++		/* Count active devices, not merely those on the avail list. */
++		if (!(si->flags & SWP_XSWAP))
++			atomic_sub(1, &nr_real_swapfiles);
+ 		atomic_long_or(SWAP_USAGE_OFFLIST_BIT, &si->inuse_pages);
+ 	} else {
+ 		/*
+@@ -1254,6 +1259,12 @@ static void add_to_avail_list(struct swap_info_struct *si, bool swapon)
+ 	if (swapon) {
+ 		lockdep_assert_held(&si->lock);
+ 		si->flags |= SWP_WRITEOK;
++		/*
++		 * Count the device here, not after adding it to the list: a
++		 * full device is still active and skips the add below.
++		 */
++		if (!(si->flags & SWP_XSWAP))
++			atomic_add(1, &nr_real_swapfiles);
+ 	} else {
+ 		if (!(READ_ONCE(si->flags) & SWP_WRITEOK))
+ 			goto skip;
+@@ -1267,10 +1278,11 @@ static void add_to_avail_list(struct swap_info_struct *si, bool swapon)
+ 	/*
+ 	 * When device is full and device is on the plist, only one updater will
+ 	 * see (inuse_pages == si->pages) and will call del_from_avail_list. If
+-	 * that updater happen to be here, just skip adding.
++	 * that updater happen to be here, just skip adding.  @val still has
++	 * the off-list bit, so compare its counter part.
+ 	 */
+ 	pages = si->pages;
+-	if (val == pages) {
++	if ((val & SWAP_USAGE_COUNTER_MASK) == pages) {
+ 		/* Just like the cmpxchg in del_from_avail_list */
+ 		if (atomic_long_try_cmpxchg(&si->inuse_pages, &pages,
+ 					    pages | SWAP_USAGE_OFFLIST_BIT))
+@@ -3274,7 +3286,8 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
+ 
+ 	destroy_swap_extents(p, p->swap_file);
+ 
+-	if (!(p->flags & SWP_SOLIDSTATE))
++	if (!(p->flags & SWP_XSWAP) &&
++	    !(p->flags & SWP_SOLIDSTATE))
+ 		atomic_dec(&nr_rotate_swap);
+ 
+ 	mutex_lock(&swapon_mutex);
+@@ -3384,6 +3397,19 @@ static void swap_stop(struct seq_file *swap, void *v)
+ 	mutex_unlock(&swapon_mutex);
+ }
+ 
++static const char *swap_type_str(struct swap_info_struct *si)
++{
++	struct file *file = si->swap_file;
++
++	if (si->flags & SWP_XSWAP)
++		return "xswap\t";
++
++	if (S_ISBLK(file_inode(file)->i_mode))
++		return "partition";
++
++	return "file\t";
++}
++
+ static int swap_show(struct seq_file *swap, void *v)
+ {
+ 	struct swap_info_struct *si = v;
+@@ -3403,8 +3429,7 @@ static int swap_show(struct seq_file *swap, void *v)
+ 	len = seq_file_path(swap, file, " \t\n\\");
+ 	seq_printf(swap, "%*s%s\t%lu\t%s%lu\t%s%d\n",
+ 			len < 40 ? 40 - len : 1, " ",
+-			S_ISBLK(file_inode(file)->i_mode) ?
+-				"partition" : "file\t",
++			swap_type_str(si),
+ 			bytes, bytes < 10000000 ? "\t" : "",
+ 			inuse, inuse < 10000000 ? "\t" : "",
+ 			si->prio);
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 37d217860a6b..cef142d2ff85 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1095,6 +1095,11 @@ static int zswap_writeback_entry(struct swap_io_ctx *ctx,
+ 	if (IS_ERR_OR_NULL(si))
+ 		return -ENOENT;
+ 
++	if (si->flags & SWP_XSWAP) {
++		put_swap_device(si);
++		return -EINVAL;
++	}
++
+ 	mpol = get_task_policy(current);
+ 	folio = __swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
+ 					 NO_INTERLEAVE_INDEX);
+@@ -1601,7 +1606,9 @@ static bool zswap_store_page(struct folio *folio, long index,
+ 	entry->referenced = true;
+ 	if (entry->length) {
+ 		INIT_LIST_HEAD(&entry->lru);
+-		zswap_lru_add(entry);
++		/* No backing store: nothing to write these back to. */
++		if (!(__swap_entry_to_info(page_swpentry)->flags & SWP_XSWAP))
++			zswap_lru_add(entry);
+ 	}
+ 
+ 	return true;
+@@ -1671,7 +1678,7 @@ bool zswap_store(struct folio *folio)
+ 	zswap_pool_put(pool);
+ put_objcg:
+ 	obj_cgroup_put(objcg);
+-	if (!ret && zswap_pool_reached_full)
++	if (!ret && zswap_pool_reached_full && atomic_read(&nr_real_swapfiles))
+ 		queue_work(shrink_wq, &zswap_shrink_work);
+ check_old:
+ 	/*
 -- 
 2.54.0
 
