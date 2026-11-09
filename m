@@ -1,99 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794255125;
-	b=kLOFB4y293QpQmWjs8AIWJ1RB+/J89Yp8Q1MAd0rTWyFj8im3cd26jmG3UW/bG0ycJb2
-	 QUv7BOdNCi9OjxsZ9aduc6tq7YFVCNIukclyCBDiJ8Epg7/PRfi0z4Ho9Nck7b+aCq8Bz
-	 DCeatMG1/+enh7MVoObtmQqX5VuY0ar3c/7mYuJqzorU8c1XUaZYrSMuMJZjw0HWVkf7K
-	 dKAn2R2J/IB1O8mF2ykFuwfXx772sH4brqQV3N/K/Q2pUFVBcs4pHFSF5iXlsk3IdTQDY
-	 hpjslpUJBuUj+nb7nge34TadSnixO/KZM7Z2dGHMKkROGB1ZX17dLaqEc7lW36LyvZg==
+	t=1794255150;
+	b=qxgP6DsUM64w1jr0vPhyVzNk+rjLqmcNVLjyr2pgFMNWIA0zNvPMQJU/eoK9x3DK7T2m
+	 rFJHjtGevbeMKWQIH14ShKZwhfXIuzqQ14CmHAWYPfZzscsgAXKvaIZdW33xs+9b2Oqin
+	 jZLBaeCa0theOvbQM2U8xrtiBJGYR1GNqlzwMaFph5YigUHFMzcrMdvs+chAxLocCzXzz
+	 tvbDZlFQ2xVgIMp8CW3c0Ka3VAGm4TiUtCmKDmbddOvsv+PmWeH1fsMUhhFTQ+/jb2+XW
+	 BctgFgjPGUzKHnRPxxJWTi585ZtJ2MiuQLHVsDDIFxjOFd880q9EZzpHdoPHNmw6C0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794255125;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=292T8O0aYQmW1UA5e/QuA2F7Fm+KQFHNlKPM8I6UjFs=;
-	b=ewfwrCSmVncljdSMjtcd/pD86raBH5CJPe72ChUNHDH4b3lvzOqCLo5/yz6oCIsVCJgh
-	 kMkHKmQTu68+sdDl+HxUa1hMGuVLT8IgvUnPLGR4V2b+6KKE1hu4/4Wl5d7ZY1U/mUeDq
-	 Uq57z6/sL0gtpDUWaAd9MSYu8bpfH9yOiE/7jlq4uh/ISo+uc2vymbWhRakgV+Tc8zNA+
-	 /HzGAbx/r6FBMBjU/s8OCeaM9Um67e2VG144uwwKSNSzV1jCEaa6LR8yK6vRxWwmJnEgi
-	 XjwCrTte9K0i0Nhmdy0YhsaEGy9/e6E22WqVe6ZPbN8UPG+YiisqlaLh/Kz8vWh6u6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794255150;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=wlTGvH0QUOsr+i6QSOF/pBnjZSuTmqvqtfQVED5Nrp4=;
+	b=EKWxP+Y6ooGQKx5DSB342927J62ayd/sgLoXkND1EinxFVUm9cAAturEkg/Wgp73J00G
+	 BbhUO38AoKOWjxJfFtWDIHPOn/ZrB+Nh4qfnGKsrI99E/4ANQw7zLbH5JnphgL3v+FZGd
+	 q1msD5yz54Ss0Jk8vTN5QqBSoa5j3+ClJguMdF4r8/pPEasnh7XNzxIIMLRAcH7bN8imj
+	 FRG8kWib93HV1wh5f1XucN3fXJTQG+1gCpYcQ4g7k++F6TzHpfyqY3raw0QKXULNPyTs1
+	 sIhEdnVhlUPUBEa1xXvDP4Wwovys72cM9qvXasHX9JA3FpPoqy4A/AvcEASy+UjiY9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dama.to;
-	spf=none smtp.mailfrom=dama.to;
-	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Ip8+iMcH;
-	arc=none smtp.remote-ip=209.85.215.173
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AE9EP2U3;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94EB5606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:12:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94EB5606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB28B606A321;
+	Mon,  9 Nov 2026 20:12:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB28B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Ip8+iMcH
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cdb1199bfd8so509789a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 12:12:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1794255124; x=1794859924; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=292T8O0aYQmW1UA5e/QuA2F7Fm+KQFHNlKPM8I6UjFs=;
-        b=Ip8+iMcHvKrY9zFOYypIviny/5cFym2x9yoAPmDDC/trN/zTVtZ3Y6KFEbImBGAzr8
-         d77ZFlCo1lr4hxIOKdtTTGH6w5JmYn0vplbDm2XbqLUAhJ8neXrnB+NJeSuKgNLO6u8d
-         W6wqtBbfw+e3zJLU101XOWq7oMybWBRKbDvhkxIbYc/0uIhoAecYTArBfiOfSUNq2scN
-         sTsJpI1UNH8FovGNkAWkCyCJysaFs3KiXEl5knV7KiyniUuoctuo+8C1uB8jqOFGl/4S
-         zCPqNKNUZB/RX4+khtR4NgZJmV0Iygb9l1gYHuVNIe1ojV5WRudu6JhtX61gIEi6AXfY
-         aU+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794255124; x=1794859924;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=292T8O0aYQmW1UA5e/QuA2F7Fm+KQFHNlKPM8I6UjFs=;
-        b=2s/pKmQMvDMHi4Ft1kWnLtzIYNNVEVm+Lnp/RiP1glAfQ+WldqsoE1Icq0H+gcC6ZM
-         WGWax8ROm6UxjbxCnITtjmRpDCRhJeWJlZInvZhMa08j4viuFA9WigiSyGmeMSn82gZ0
-         Yza2oZuiGcNrLtOP0X350TwWlW+7bB8mZHK2DY8IuHfAiQaX3XUhjg7f5ZVMpgeYXRwO
-         nXJ+zkHReqIe4BeT7I85CJ66yjHHHijVeuPU835Ujy3+7kWRzhlz1JcJJ6DuO4EgHZiL
-         o0r5KCDh9Zky6tCza9E3Fuf/w7koRz3qKP8bmTjMrUItQqjMpMkwQRms5BAFQTeHJO0d
-         LqdA==
-X-Forwarded-Encrypted: i=1; AL+hErFcO1/sgTe05LivD2PpsYvMXRZ8MBsLHJzGTlfChKmIL9wAZMDEWKXG+vjlybFLmcQ9qJlUVCnfM1QDEWo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9SHL3IMcbqMD/VSkJJNOIt4NNROJahwIIkmMRh1XrTYN3bGtft
-	t6DrsW3jZrmlbyJEtlUz+Zsy3G4P+XB8pNRb+522avHUSUtlOcGWwrkDdIGlfPyGFUc=
-X-Gm-Gg: AYBFou3+ALs2HgqE0qsfhfnZMd8PGlFBGE3BEm4P2ZcXU6vMTeeaGAeIInxyHEq3CqN
-	X3eqmmrb0WXtRp/DcQ7JmeszuME8u4zj7DJ2Ee/t9ehi5866wXahPzmrpiPRf/OSw8EEyjWjO/v
-	pjUgjgsRWJrLD6K6y+hOrednAFO1BxgBmi27quclsUiqqhowK9ANOXkV48s2ZWZ58AIKcbjG6EM
-	h9C0Q8umDJd8C9vkMgrYirwl0DA1HPfcYqdEDc7F4B73JZVU8AJ7AQFtMzQWukH4SKqq+Vhc6GZ
-	+msY7y32+yQURCoUVNC10AzvAVVJ5AN/d2Ilpw1UrN3XDSJnn86OV96XK7jsQb8vdSbLLIODtTN
-	05BJDMyt8yOPn4cuzOODrtgUxJu1o3rtbROp4CBUCrL8zVrrsybPHNSsMSd5Zpoj/5dcpqLsmLb
-	lvwS6JNiogrbXiXYiubH7t7gf5nGVQzDru5UD8WfKiHxjqGxjRZ6ZZCzAvSHNSsuLjShJvLO9Rp
-	dn1AOOifAmSVMaV44tsYKbZ1c4M30DzbsB1f2ylq7QGy5qCFgAj1qI4VQory1oxAKNIfJORrXtD
-	GEEg1gdRukub+U6d/qXOOAYGWpa0Cx8s2JroixKv1g==
-X-Received: by 2002:a17:90b:37c8:b0:3a0:4668:4cb0 with SMTP id 98e67ed59e1d1-3b166d1efc2mr707172a91.47.1794255123838;
-        Mon, 09 Nov 2026 12:12:03 -0800 (PST)
-Received: from localhost ([2a03:2880:2ff:57::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1676d83absm798172a91.7.2026.11.09.12.12.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 12:12:02 -0800 (PST)
-Date: Mon, 9 Nov 2026 12:12:02 -0800
-From: Joe Damato <joe@dama.to>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v5 0/4] bnxt_en: Make RING FREE more robust
-Message-ID: <avIpEpoCYvLHYl3j@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>, netdev@vger.kernel.org,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
-	linux-kernel@vger.kernel.org
-References: <20261106191423.4194081-1-joe@dama.to>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AE9EP2U3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794255147;
+	bh=NUdD8rmrEWF0Gtvg3tI1P9FxbEJolb3CZKqT5DxBjJU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=AE9EP2U3ZdwEKiCK6ShpVS/2z04RaqxFkbEk4mRkQjQqB8IoFXvNQcvnehXBS+YDi
+	 9DxXzBHGM2Gxpxu5tm5uR0VTZeHz15vyqXiYyRr/TWC8sEgDIloTrdCVwRK/W1KNCJ
+	 /A+dWhrF9SR6JHOPiAqmwhM/QCyZ2jjJ3cyVsO6jaZS2rgC9YoD8HIEv38XMa0Lr+/
+	 e+WHydNGnr96Qr6AwPcGYOsmZbshtBKArLAFY6sgxfaFKVt0ifmzdpmyP9OlmHEocS
+	 kSJ3yBlu9bWKCcMonqZqSCgoW04vpX3diPdQthJ8k1lHrDjfwug9wMbUj5xM9vIYRL
+	 wZM8ZPGkb9E8A==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DDDDB17E0269;
+	Mon, 09 Nov 2026 21:12:25 +0100 (CET)
+Message-ID: <a605ddd72e629ac677c7b45d940fa7e7f7412ebd.camel@collabora.com>
+Subject: Re: [PATCH 1/3] media: verisilicon: stop the VEPU1 JPEG encoder
+ after an unfinished frame
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: shomenkow@gmail.com, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
+	 <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Ezequiel Garcia
+	 <ezequiel@vanguardiasur.com.ar>, Chen-Yu Tsai <wenst@chromium.org>, Hugues
+ Fruchet <hugues.fruchet@foss.st.com>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Mon, 09 Nov 2026 15:12:23 -0500
+In-Reply-To: <20261109-hantro-buflimit-v1-1-f0b86ce61e66@gmail.com>
+References: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
+	 <20261109-hantro-buflimit-v1-1-f0b86ce61e66@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-qVlDHU493oj7uu3cN6Fe"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,67 +93,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261106191423.4194081-1-joe@dama.to>
 
-On Fri, Nov 06, 2026 at 11:14:16AM -0800, Joe Damato wrote:
-> Greetings:
-> 
-> This is a follow up to the previous RFC (linked below).
-> 
-> On two production systems, I saw the following dmesg pattern:
-> 
->   NETDEV WATCHDOG: transmit queue 0 timed out 6073 ms
->   Resp cmpl intr err msg: 0x51                  x20
->   hwrm_ring_free type 1 failed                  x12
->   hwrm_ring_free type 2 failed                  x8
->   AMD-Vi: IO_PAGE_FAULT  x3
-> 
-> This suggests that, for some currently unknown reason, TX completions stall
-> and the netdev watchdog fires. The driver asks FW to free the rings, this
-> times out, but the driver ignores the possible failure and frees ring memory.
-> Since the FW didn't respond to the ring free command, it is possible that the
-> FW is still DMAing to the memory which was freed.
+--=-qVlDHU493oj7uu3cN6Fe
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-OK so Sashiko found a lot of random stuff and I thought it might be good to
-summarize what I plan on addressing in the next revision in one place.
+Le lundi 09 novembre 2026 =C3=A0 16:43 +0300, Sergei Khomenkov via B4 Relay=
+ a =C3=A9crit=C2=A0:
+> From: Sergei Khomenkov <shomenkow@gmail.com>
+>=20
+> When a JPEG stream does not fit the CAPTURE buffer, the H1 raises an
+> interrupt with BUFFER_FULL set and FRAME_RDY clear, and pauses with the
+> enable bit of H1_REG_ENC_CTRL still set, waiting for more output space.
+> rockchip_vpu1_vepu_irq() returns the buffer with the ERROR flag but
+> clears only the interrupt and AXI registers, so the next job is
+> programmed into the paused encoder: its ENC_CTRL write aborts the paused
+> frame, which raises a reset interrupt while the new job is being set up,
+> and that job times out. The watchdog then calls
+> rockchip_vpu1_enc_reset(), which sets H1_REG_INTERRUPT_DIS_BIT, and the
+> JPEG encoder path never clears that bit again, so every later job times
+> out as well. That second problem is not addressed here.
+>=20
+> Write 0 to the enable register when an interrupt does not report a
+> finished frame. The write comes before the interrupt and AXI registers
+> are cleared, and before the next job is scheduled. On the RK3026 it
+> raises no interrupt of its own: in the test below the encoder raised one
+> interrupt per frame and no job timed out.
+>=20
+> The encoder rarely gets there today, because the stream limit it is
+> given is eight times too large; the next patch fixes that, and then
+> every frame that does not fit ends this way.
+>=20
+> rockchip_vpu2_vepu_irq() and stm32mp25_venc_irq() do not stop the
+> encoder either. I cannot test the VEPU2 or the STM32MP25, so this patch
+> leaves them alone.
+>=20
+> Found with an LLM coding assistant while porting mainline Linux to a
+> Rockchip RK3026 board (VEPU1); the assistant also drafted the code and
+> this message. Tested on that board with the stream limit fixed: without
+> this change the job after a buffer-full interrupt gets a reset interrupt
+> and every later job times out; with it the frame that does not fit comes
+> back with the ERROR flag and the following jobs, overflowing or not,
+> complete as before (10 alternating jobs, and four overflowing frames
+> queued back to back followed by fitting ones). Counted in
+> /proc/interrupts over 24 runs of the series (48 frames, 16 of them
+> ending in a buffer full), every frame raised exactly one interrupt, so
+> the stop write raises none. Only buffer full was exercised, not bus
+> errors or the hardware timeout. Not tested on other SoCs.
 
-For v6:
+Please trim this down to what is really needed.
 
-Patch 1:
-  - Fix commit message
-  - Return the errno from hwrm_req_send().
+>=20
+> Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
+> ---
+>  drivers/media/platform/verisilicon/rockchip_vpu_hw.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+>=20
+> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drive=
+rs/media/platform/verisilicon/rockchip_vpu_hw.c
+> index 02673be9878e..144d320302a1 100644
+> --- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+> +++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+> @@ -376,6 +376,15 @@ static irqreturn_t rockchip_vpu1_vepu_irq(int irq, v=
+oid *dev_id)
+>  =09state =3D (status & H1_REG_INTERRUPT_FRAME_RDY) ?
+>  =09=09VB2_BUF_STATE_DONE : VB2_BUF_STATE_ERROR;
+> =20
+> +=09/*
+> +=09 * An interrupt without FRAME_RDY does not end the frame: after a
+> +=09 * buffer full the encoder pauses with its enable bit still set,
+> +=09 * waiting for more output space. Stop it, so that the next job is
+> +=09 * not programmed into a paused encoder.
+> +=09 */
+> +=09if (!(status & H1_REG_INTERRUPT_FRAME_RDY))
+> +=09=09vepu_write(vpu, 0, H1_REG_ENC_CTRL);
 
-Patch 2:
-  - Only check the response for HWRM_RING_FREE. HWRM_SELFTEST_IRQ and
-    HWRM_RING_RESET keep the existing behavior.
-  - Read the valid byte with READ_ONCE(), then dma_rmb() before reading
-    the rest of the response, including error_code.
-  - Respect BNXT_HWRM_CTX_SILENT for the new warning.
+Can you follow other similar patches (G2), and add some rate limited debug =
+so we
+are ware when a fault occured, and what fault it is. Its also best practice=
+ to
+only reset the bit you care about, Hantro IPs have all sort of side effect =
+per
+bits.
 
-Patch 3:
-  - Count a ring as stuck only when no response arrived, not when the
-    firmware replied with an error.
-  - Don't stop DMA when BNXT_STATE_IN_FW_RESET or BNXT_STATE_FW_FATAL_COND is
-    set.
+Nicolas
 
-Patch 4:
-  - Make BNXT_NO_FW_ACCESS() also test BNXT_STATE_DMA_STOPPED.
+> +
+>  =09vepu_write(vpu, 0, H1_REG_INTERRUPT);
+>  =09vepu_write(vpu, 0, H1_REG_AXI_CTRL);
+> =20
 
-Update commit messages as needed.
+--=-qVlDHU493oj7uu3cN6Fe
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-The Sashiko feedback that I think is real, but that I haven't seen in prod or
-I think feels more like "new features" instead of bug fix and should be a
-series for net-next:
+-----BEGIN PGP SIGNATURE-----
 
-  - Making the per queue paths more robust.
-  - Completion and NQ failures are not counted as stuck.
-  - The polling path in __hwrm_send() probably needs a dma_rmb between reading
-    the valid byte and reading the rest of the message.
-  - bnxt_resume, bnxt_fw_reset_task, and bnxt_io_slot_reset all call
-    pci_set_master without checking the DMA bit.
-  - Notifying bnxt_re when DMA is stopped.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCavIpJwAKCRDZQZRRKWBy
+9Hk8AQDqkecJtNqrHJyWzsY47xf1Moj1ivtzo5zq3R0hSA87BwEA+RZEhGQ70w8c
+tLls+tZpnQtJ+rZDYw40pV7vcBIn/Qs=
+=nT8W
+-----END PGP SIGNATURE-----
 
-If Broadcom or any of the maintainers disagrees and thinks some or all of this
-should be part of this series please let me know.
+--=-qVlDHU493oj7uu3cN6Fe--
