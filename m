@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.83
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.61
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794214195;
-	b=Xb27uC2423BWwXicMt//5eO5SpgPfZFqhNWgEenlduBN9yuNhZSHkVfYY+J5KGKYE2Mb
-	 qw2HE0U6MZ4cRQGAgpnujmKMUkDRn2Rp2iMMjExxw2YOilk4JSROVj4N6uB/InojUBtP3
-	 FFQy9Marul/y1ukPYBfe/j5jt18v6pisHF66FuUWDWExUSKDG+KMa+bDw6URUTFliTrPY
-	 BbvFzGSyG60vmSR0dGHnSVO35Mkmnh2NpVckz++Rbn9myHNjbcgOXNpjkmKxyF9r+BGbP
-	 rXTpeqEBUBjmJe4tHoOu7MlkG32lqzDRoU1BTmGAEIcIW+P0AEHSVR2Co3q6Z3uoxyw==
+	t=1794214198;
+	b=3CLeEHIYiQPW3Bfv3SL7zlJHkypmH2L3BjXwLpAxmaRkLXlWO9UocD1PiRCZLrc8TXl7
+	 wTUCinhwhxHlXC2L59q20czI9DFOaRqvh2xEBYE31nyCwG+KUZj643L+oVU8iRY4mkc80
+	 4hn+HrwZmvfIilRRQHXbPRC1wrYsvXX2zdl9I/4cpcYpcYhwEB9ihTu+q9skON1Ts2k9p
+	 uxE3GG5tQ3LxYCL4vSclZy3a/RMQP+kcTVyUwD1QeIexLipsMXLMzhjqPjnqxpkT0GtKH
+	 0haNv0/h/hXYYvY3Y9hzLp4sgNc5JPE0s3V/dbqsuzU0aK0KN5i5lT27S8MRvvFuR5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214195;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794214198;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=/IWC4Ezrv13mnRLgYAS+OGpQRhiZxP+CWXUuP5MxY5k=;
-	b=0M2nCKRtloR0IUUaSXpicUOLhoBOtqtjkEpJh4tU9vhymzs7USUcvIlr4gS4qxEj8eje
-	 Bt8cVvFy/Xnz7YaonymtxqhjwpqizgOTdsDMBYujG0a9TC3buNx/s8uTftdcXb895gbGt
-	 LfxzrTx5jjZksJn/02WKLf3XdtURFP+vNRAwtvgyiRffg46tbeMBH0SFAh0qZn5afCoWJ
-	 DCi/H/lXoiLr2DE02EYP7Am0wrtKaxpFMOKvWCQLtQGfR4Bb2fr3HPgddKuDB6uY0Je2M
-	 g10qSN0Yt4pQVdujm/+/NeLCN4CBRuq0twaDsReTR6kV9nZyO23LF753VQwUR1nbjBg==
+	bh=YYtZXvG9+UdS+4Z9GxZSoWsbkG0GwWt2msV5s/Y8pAo=;
+	b=qEhBzWjDYQK1Nuc0+PO3PQeTrFwpDkwv2i0H6wRfjObbjTDmNZrhOmpYjZcNsLkMnkfD
+	 ZL/hUsZF2oFvp7AdhHCFkvcFoQHUu/O4l9/BxtPUobW+elxFYS30GdEvzEWj8Sfm4qn0H
+	 28/rLPSTDEUNxm+vXgsSffUPh4FGc8lPf+SxhXOpwwGDB6alP2yCwlzQkrnfpIc8qrGda
+	 bxyjmCM3l88yReunPM20jxW1R7b6pWBIMZldG05Au7y1Us/jOvZazrROdItu0gtP0krou
+	 29741Upyz5LUZbUxPuTw1n3x9l5+9Y5+85k4QkPF3gMxi+xLFboYVRA9gRGuRxN1uvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p2blvFPa;
-	arc=none smtp.remote-ip=91.218.175.83
-Received: from mta0.migadu.com (out-83.mta0.migadu.com [91.218.175.83])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="VfFncnz/";
+	arc=none smtp.remote-ip=95.215.58.61
+Received: from mta1.migadu.com (out-61.mta1.migadu.com [95.215.58.61])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C31606EE9D
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:49:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C31606EE9D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD84560A3804
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:49:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD84560A3804
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p2blvFPa
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VfFncnz/
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=skF3Q2kCAVK6QTvon75TdZ0hQ5efPIx2rz2Mq7wxPjQ=;
+DKIM-Signature: a=rsa-sha256; bh=Ia4ROUhNRdc6AFPTEZfdVXbpoKxOmfz2LXLKwxYl31Q=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794214193; v=1; x=1794818993;
- b=p2blvFPas2dHVup8gOoWIvdycqKygalVMSGl9x3nfg60jvl38GtLQo+TqjklTn8BDJgnJuIq
- 3V0a3/4tRARL3wVhhaBETVeTWZqJ1siU7d0WtIsi8hmOqg5H2wS+rt+3PrpTSkdn1uBAXJHP6vt
- wyjFqHmZPjn9d4s/T6YKLzXA=
+ t=1794214194; v=1; x=1794818994;
+ b=VfFncnz/4dzhyDw8/vZCcUip6yuDYqNURfw0jvHCMQNSdAL0eL+RgUiCavu2+KVK9/lt/LM7
+ Ezyi+ktJl1dPYhEk1HYEcvsVfHCNwe7jTmO643a9q9kmLKnZnXHXVEjAaV5yOIaRRKatwIdhhKp
+ cVUlBJdresaaxmH1iN1BZizk=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3788735acdf328b4;
-	Mon, 09 Nov 2026 08:49:53 +0000
-X-Mizu-Trace-ID: 3788735acdf328b4
+Received: by smtp.migadu.com with ESMTPS id 6a0cd798898f94ae;
+	Mon, 09 Nov 2026 08:49:54 +0000
+X-Mizu-Trace-ID: 6a0cd798898f94ae
 X-Migadu-Flow: FLOW_OUT
 From: Fuad Tabba <fuad.tabba@linux.dev>
 To: Marc Zyngier <maz@kernel.org>,
@@ -68,9 +68,9 @@ Cc: Will Deacon <will@kernel.org>,
 	kvm@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 15/19] KVM: arm64: selftests: Add pkvm_isolation host-access test
-Date: Mon,  9 Nov 2026 08:48:50 +0000
-Message-ID: <20261109084854.840576-16-fuad.tabba@linux.dev>
+Subject: [PATCH v2 17/19] KVM: arm64: selftests: Add pkvm_exceptions debug and SError test
+Date: Mon,  9 Nov 2026 08:48:52 +0000
+Message-ID: <20261109084854.840576-18-fuad.tabba@linux.dev>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261109084854.840576-1-fuad.tabba@linux.dev>
 References: <20261109084854.840576-1-fuad.tabba@linux.dev>
@@ -85,262 +85,299 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The host keeps its userspace mapping of a protected guest's memory, but
-can't reach the data through it. The host kernel's copy_to_user() and
-copy_from_user() on that mapping fail. If the host kernel pins a page
-and accesses it through its own mapping, as process_vm_readv() does,
-EL2 zeroes and reclaims the page, and the guest loses it.
+pKVM can hide self-hosted debug from a protected guest, which then reads
+ID_AA64DFR0_EL1.DebugVer as 0. A virtual SError the host injects has to
+be delivered by EL2, since the host can't see whether the guest has it
+masked.
 
-Test each of these, that MADV_DONTNEED and munmap() leave the guest's
-pages pinned and accounted, and that a normal VM's fault on them fails.
+Verify that the guest's own handler takes a hardware breakpoint, a
+watchpoint and a single step, and that an injected SError is pending in
+ISR_EL1.A while PSTATE.A masks it and is taken once unmasked. The debug
+cases skip while ID_AA64DFR0_EL1.DebugVer is 0.
 
 Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
  tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../selftests/kvm/arm64/pkvm_isolation.c      | 225 ++++++++++++++++++
- 2 files changed, 226 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_isolation.c
+ .../selftests/kvm/arm64/pkvm_exceptions.c     | 261 ++++++++++++++++++
+ 2 files changed, 262 insertions(+)
+ create mode 100644 tools/testing/selftests/kvm/arm64/pkvm_exceptions.c
 
 diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 13998964facd5..68bdd01f62270 100644
+index 214f38e3f67a7..1045136aacc16 100644
 --- a/tools/testing/selftests/kvm/Makefile.kvm
 +++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -193,6 +193,7 @@ TEST_GEN_PROGS_arm64 += arm64/page_fault_test
+@@ -190,6 +190,7 @@ TEST_GEN_PROGS_arm64 += arm64/nv_pre_fault_memory_test
+ TEST_GEN_PROGS_arm64 += arm64/external_aborts
+ TEST_GEN_PROGS_arm64 += arm64/mmio_sign_ext
+ TEST_GEN_PROGS_arm64 += arm64/page_fault_test
++TEST_GEN_PROGS_arm64 += arm64/pkvm_exceptions
  TEST_GEN_PROGS_arm64 += arm64/pkvm_host_abi
  TEST_GEN_PROGS_arm64 += arm64/pkvm_id_regs
  TEST_GEN_PROGS_arm64 += arm64/pkvm_irq
-+TEST_GEN_PROGS_arm64 += arm64/pkvm_isolation
- TEST_GEN_PROGS_arm64 += arm64/pkvm_mem_share
- TEST_GEN_PROGS_arm64 += arm64/pkvm_psci
- TEST_GEN_PROGS_arm64 += arm64/pkvm_smccc
-diff --git a/tools/testing/selftests/kvm/arm64/pkvm_isolation.c b/tools/testing/selftests/kvm/arm64/pkvm_isolation.c
+diff --git a/tools/testing/selftests/kvm/arm64/pkvm_exceptions.c b/tools/testing/selftests/kvm/arm64/pkvm_exceptions.c
 new file mode 100644
-index 0000000000000..f083d0434238a
+index 0000000000000..f7f9b666dd089
 --- /dev/null
-+++ b/tools/testing/selftests/kvm/arm64/pkvm_isolation.c
-@@ -0,0 +1,225 @@
++++ b/tools/testing/selftests/kvm/arm64/pkvm_exceptions.c
+@@ -0,0 +1,261 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * pkvm_isolation - what the host can and can't do with a protected VM's memory.
++ * pkvm_exceptions - debug exceptions and a virtual SError in a protected VM.
 + *
 + * Copyright (C) 2026 Google LLC
 + * Author: Fuad Tabba <fuad.tabba@linux.dev>
 + */
-+
-+#include <errno.h>
-+#include <sys/mman.h>
-+#include <sys/uio.h>
-+#include <unistd.h>
 +
 +#include "kvm_util.h"
 +#include "pkvm.h"
 +#include "processor.h"
 +#include "test_util.h"
 +
-+#define DATA_MEMSLOT	(PKVM_IDMAP_MEMSLOT + 1)
-+#define DATA_GPA	BIT_ULL(30)
-+#define DATA_PAGES	16
-+#define DATA_SIZE	((size_t)DATA_PAGES * MIN_PAGE_SIZE)
++/* Debug register programming bits, as debug-exceptions.c has them. */
++#define DBGBCR_LEN8	(0xff << 5)
++#define DBGBCR_EXEC	(0x0 << 3)
++#define DBGBCR_EL1	(0x1 << 1)
++#define DBGBCR_E	(0x1 << 0)
 +
-+#define GUEST_VAL	0x0badf00ddeadbeefUL
-+#define HOST_VAL	0x0123456789abcdefUL
++#define DBGWCR_LEN8	(0xff << 5)
++#define DBGWCR_RD	(0x1 << 3)
++#define DBGWCR_WR	(0x2 << 3)
++#define DBGWCR_EL1	(0x1 << 1)
++#define DBGWCR_E	(0x1 << 0)
 +
-+static volatile u64 *page_va(int idx)
++#define SPSR_SS		(1 << 21)
++
++#define NR_STEPS	3
++
++enum { CMD_INJECT_SERROR, CMD_CHECK_SERROR };
++
++extern unsigned char hw_bp, ss_start;
++
++static volatile u64 ex_pc, ex_addr;
++static volatile u64 ss_addr[NR_STEPS + 1];
++static volatile int ss_idx;
++static volatile char write_data;
++static volatile bool serror_taken;
++
++static bool debug_exposed;
++
++/* Masks debug on return so the breakpointed instruction runs. */
++static void hw_bp_handler(struct ex_regs *regs)
 +{
-+	return (volatile u64 *)(DATA_GPA + (u64)idx * MIN_PAGE_SIZE);
++	ex_pc = regs->pc;
++	regs->pstate |= PSR_D_BIT;
 +}
 +
-+/* The host acts on the guest's memory at the sync, then the guest checks it. */
-+static void guest_code(void)
++/* Records FAR, the accessed address, and masks debug on return so the access completes. */
++static void wp_handler(struct ex_regs *regs)
 +{
-+	int i;
++	ex_pc = regs->pc;
++	ex_addr = read_sysreg(far_el1);
++	regs->pstate |= PSR_D_BIT;
++}
 +
++/* Records the stepped PC and sets SPSR.SS so that the next instruction is stepped too. */
++static void ss_handler(struct ex_regs *regs)
++{
++	__GUEST_ASSERT(ss_idx <= NR_STEPS, "step %d past the stepped range", ss_idx);
++	ss_addr[ss_idx++] = regs->pc;
++	regs->pstate |= SPSR_SS;
++}
++
++static void reset_debug_state(void)
++{
++	asm volatile("msr daifset, #8");
++
++	/* Clear the OS lock and double lock so debug exceptions are permitted. */
++	write_sysreg(0, osdlr_el1);
++	write_sysreg(0, oslar_el1);
++	isb();
++
++	write_sysreg(0, mdscr_el1);
++	write_sysreg(0, dbgbcr0_el1);
++	write_sysreg(0, dbgbvr0_el1);
++	write_sysreg(0, dbgwcr0_el1);
++	write_sysreg(0, dbgwvr0_el1);
++	isb();
++
++	ex_pc = 0;
++	ex_addr = 0;
++}
++
++/* A zero DebugVer means EL2 hides self-hosted debug, so the case has nothing to test. */
++static bool guest_debug_exposed(void)
++{
++	bool exposed = SYS_FIELD_GET(ID_AA64DFR0_EL1, DebugVer, read_sysreg(id_aa64dfr0_el1));
++
++	GUEST_SYNC(exposed);
++	return exposed;
++}
++
++static void enable_monitor_debug(void)
++{
++	asm volatile("msr daifclr, #8");
++	write_sysreg(read_sysreg(mdscr_el1) | MDSCR_EL1_KDE | MDSCR_EL1_MDE, mdscr_el1);
++	isb();
++}
++
++static void guest_hw_breakpoint(void)
++{
 +	pkvm_guest_init();
++	if (!guest_debug_exposed())
++		GUEST_DONE();
 +
-+	for (i = 0; i < DATA_PAGES; i++)
-+		*page_va(i) = GUEST_VAL + i;
++	reset_debug_state();
++	write_sysreg(DBGBCR_LEN8 | DBGBCR_EXEC | DBGBCR_EL1 | DBGBCR_E, dbgbcr0_el1);
++	write_sysreg((u64)&hw_bp, dbgbvr0_el1);
++	enable_monitor_debug();
++	asm volatile("hw_bp: nop");
++	GUEST_ASSERT_EQ(ex_pc, (u64)&hw_bp);
 +
-+	GUEST_SYNC(0);
-+
-+	for (i = 0; i < DATA_PAGES; i++)
-+		GUEST_ASSERT_EQ(*page_va(i), GUEST_VAL + i);
-+
++	reset_debug_state();
 +	GUEST_DONE();
 +}
 +
-+static void guest_np_read(void)
++static void guest_watchpoint(void)
 +{
-+	*page_va(0);
++	pkvm_guest_init();
++	if (!guest_debug_exposed())
++		GUEST_DONE();
++
++	reset_debug_state();
++	write_sysreg(DBGWCR_LEN8 | DBGWCR_RD | DBGWCR_WR | DBGWCR_EL1 | DBGWCR_E, dbgwcr0_el1);
++	/*
++	 * BAS = 0xff watches all eight bytes only from a doubleword-aligned DBGWVR.
++	 * FAR still holds the byte's address.
++	 */
++	write_sysreg((u64)&write_data & ~7UL, dbgwvr0_el1);
++	enable_monitor_debug();
++	write_data = 'x';
++	GUEST_ASSERT_EQ(write_data, 'x');
++	GUEST_ASSERT_EQ(ex_addr, (u64)&write_data);
++
++	reset_debug_state();
 +	GUEST_DONE();
 +}
 +
-+/* The host kernel's copy to or from private memory faults, and the uaccess fixup fails it. */
-+static void host_write_from_private(void *hva)
++static void guest_single_step(void)
 +{
-+	ssize_t ret;
-+	int fds[2];
++	pkvm_guest_init();
++	if (!guest_debug_exposed())
++		GUEST_DONE();
 +
-+	TEST_ASSERT(!pipe(fds), "pipe: errno %d", errno);
++	reset_debug_state();
++	write_sysreg(read_sysreg(mdscr_el1) | MDSCR_EL1_KDE | MDSCR_EL1_SS, mdscr_el1);
++	isb();
++	ss_idx = 0;
++	/* Unmasking makes the step active-pending, so the first one is taken at ss_start. */
++	asm volatile("msr daifclr, #8\n"
++		     "ss_start:\n"
++		     "mrs x0, esr_el1\n"
++		     "add x0, x0, #1\n"
++		     "msr daifset, #8\n"
++		     : : : "x0");
++	GUEST_ASSERT_EQ(ss_addr[0], (u64)&ss_start);
++	GUEST_ASSERT_EQ(ss_addr[1], (u64)&ss_start + 4);
++	GUEST_ASSERT_EQ(ss_addr[2], (u64)&ss_start + 8);
 +
-+	ret = write(fds[1], hva, MIN_PAGE_SIZE);
-+	TEST_ASSERT(ret == -1 && errno == EFAULT,
-+		    "write() from private memory: rc %zd errno %d", ret, errno);
-+
-+	close(fds[0]);
-+	close(fds[1]);
++	reset_debug_state();
++	GUEST_DONE();
 +}
 +
-+static void host_read_into_private(void *hva)
++static void serror_handler(struct ex_regs *regs)
 +{
-+	u64 val = HOST_VAL;
-+	ssize_t ret;
-+	int fds[2];
-+
-+	TEST_ASSERT(!pipe(fds), "pipe: errno %d", errno);
-+	TEST_ASSERT_EQ(write(fds[1], &val, sizeof(val)), sizeof(val));
-+
-+	ret = read(fds[0], hva, sizeof(val));
-+	TEST_ASSERT(ret == -1 && errno == EFAULT,
-+		    "read() into private memory: rc %zd errno %d", ret, errno);
-+
-+	close(fds[0]);
-+	close(fds[1]);
-+}
-+
-+/* The host's long-term pins keep the guest's pages and their locked-memory accounting. */
-+static void host_dontneed(void *hva)
-+{
-+	size_t locked = pkvm_host_locked_vm();
-+
-+	kvm_madvise(hva, DATA_SIZE, MADV_DONTNEED);
-+	TEST_ASSERT_EQ(pkvm_host_locked_vm(), locked);
-+
-+	/* The host's mapping now has a new page, which the guest doesn't see. */
-+	TEST_ASSERT_EQ(*(u64 *)hva, 0);
-+	*(u64 *)hva = HOST_VAL;
-+}
-+
-+static void host_munmap(void *hva)
-+{
-+	size_t locked = pkvm_host_locked_vm();
-+
-+	kvm_munmap(hva, DATA_SIZE);
-+	TEST_ASSERT_EQ(pkvm_host_locked_vm(), locked);
-+}
-+
-+/* A normal VM's fault on private memory fails, and the protected guest keeps its data. */
-+static void host_np_vm_on_private(void *hva)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	int ret;
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, guest_np_read);
-+	vm_set_user_memory_region(vm, DATA_MEMSLOT, 0, DATA_GPA, getpagesize(), hva);
-+	virt_map(vm, DATA_GPA, DATA_GPA, 1);
-+
-+	ret = _vcpu_run(vcpu);
-+	TEST_ASSERT(ret == -1 && errno == EPERM,
-+		    "normal VM's fault on private memory: rc %d errno %d", ret, errno);
-+
-+	kvm_vm_free(vm);
-+}
-+
-+static void (*host_action)(void *hva);
-+
-+static void on_sync(struct kvm_vcpu *vcpu, struct ucall *uc)
-+{
-+	host_action(addr_gpa2hva(vcpu->vm, DATA_GPA));
-+}
-+
-+static struct kvm_vm *vm_create_with_data(struct kvm_vcpu **vcpu)
-+{
-+	struct kvm_vm *vm = pkvm_vm_create_with_one_vcpu(vcpu, guest_code);
-+
-+	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS, DATA_GPA, DATA_MEMSLOT,
-+				    DATA_PAGES, 0);
-+	virt_map(vm, DATA_GPA, DATA_GPA, DATA_PAGES);
-+	return vm;
-+}
-+
-+static void test_host_access(void (*action)(void *hva), const char *name)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+
-+	vm = vm_create_with_data(&vcpu);
-+
-+	host_action = action;
-+	pkvm_run_loop(vcpu, on_sync);
-+
-+	kvm_vm_free(vm);
-+	TEST_ASSERT_EQ(pkvm_host_locked_vm(), 0);
-+
-+	ksft_test_result_pass("%s\n", name);
++	GUEST_ASSERT_EQ(ESR_ELx_EC(read_sysreg(esr_el1)), ESR_ELx_EC_SERROR);
++	serror_taken = true;
 +}
 +
 +/*
-+ * The host never reads the guest's data: a kernel copy from private memory
-+ * reads zeros, and the guest's next access to the page fails.
++ * The guest sees the injected SError in ISR_EL1.A while PSTATE.A masks it, and
++ * takes it on unmasking. EL2 has to deliver it through HCR_EL2.VSE, because the
++ * host can't read a protected guest's PSTATE.A for serror_is_masked().
 + */
-+static void test_process_vm_readv(void)
++static void guest_serror(void)
 +{
-+	u64 buf[2] = { HOST_VAL, HOST_VAL };
-+	struct iovec local = { .iov_base = buf, .iov_len = sizeof(buf) };
-+	struct kvm_vcpu *vcpu;
-+	struct iovec remote;
-+	struct kvm_vm *vm;
-+	struct ucall uc;
-+	ssize_t ret;
-+	int i;
++	pkvm_guest_init();
 +
-+	vm = vm_create_with_data(&vcpu);
-+	vcpu_run(vcpu);
-+	TEST_ASSERT_EQ(get_ucall(vcpu, &uc), UCALL_SYNC);
++	GUEST_SYNC(CMD_INJECT_SERROR);
++	GUEST_ASSERT(read_sysreg(isr_el1) & ISR_EL1_A);
++	GUEST_ASSERT(!serror_taken);
 +
-+	remote = (struct iovec){ .iov_base = addr_gpa2hva(vm, DATA_GPA), .iov_len = sizeof(buf) };
-+	ret = process_vm_readv(getpid(), &local, 1, &remote, 1, 0);
-+	TEST_ASSERT_EQ(ret, sizeof(buf));
-+	for (i = 0; i < ARRAY_SIZE(buf); i++)
-+		TEST_ASSERT(!buf[i], "process_vm_readv() of private memory read 0x%lx", buf[i]);
++	local_serror_enable();
++	isb();
++	local_serror_disable();
 +
-+	/* The guest's next access is its read of that page. */
-+	ret = _vcpu_run(vcpu);
-+	TEST_ASSERT(ret == -1 && errno == EFAULT,
-+		    "guest access after process_vm_readv(): rc %zd errno %d", ret, errno);
-+
-+	kvm_vm_free(vm);
-+	TEST_ASSERT_EQ(pkvm_host_locked_vm(), 0);
-+
-+	ksft_test_result_pass("process_vm_readv() of private memory reads no guest data\n");
++	GUEST_ASSERT(serror_taken);
++	GUEST_SYNC(CMD_CHECK_SERROR);
++	GUEST_DONE();
 +}
 +
-+static const struct {
-+	void (*action)(void *hva);
-+	const char *name;
-+} host_accesses[] = {
-+	{ host_write_from_private, "write() from private memory fails with EFAULT" },
-+	{ host_read_into_private, "read() into private memory fails with EFAULT" },
-+	{ host_dontneed, "MADV_DONTNEED of private memory leaves the guest's data" },
-+	{ host_munmap, "munmap() of private memory leaves the guest's data" },
-+};
++static void serror_sync(struct kvm_vcpu *vcpu, struct ucall *uc)
++{
++	struct kvm_vcpu_events events = {};
++
++	switch (uc->args[1]) {
++	case CMD_INJECT_SERROR:
++		events.exception.serror_pending = true;
++		vcpu_events_set(vcpu, &events);
++		memset(&events, 0, sizeof(events));
++		vcpu_events_get(vcpu, &events);
++		TEST_ASSERT(events.exception.serror_pending, "vSError not pending after injection");
++		break;
++	case CMD_CHECK_SERROR:
++		vcpu_events_get(vcpu, &events);
++		TEST_ASSERT(!events.exception.serror_pending, "vSError still pending once taken");
++		break;
++	}
++}
++
++static void test_serror(void)
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++
++	vm = pkvm_vm_create_with_one_vcpu(&vcpu, guest_serror);
++	vm_install_exception_handler(vm, VECTOR_ERROR_CURRENT, serror_handler);
++	pkvm_run_loop(vcpu, serror_sync);
++	kvm_vm_free(vm);
++}
++
++static void debug_sync(struct kvm_vcpu *vcpu, struct ucall *uc)
++{
++	debug_exposed = uc->args[1];
++}
++
++static void run_debug_guest(void *guest_code, int ec, handler_fn handler, const char *name)
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++
++	vm = pkvm_vm_create_with_one_vcpu(&vcpu, guest_code);
++	vm_install_sync_handler(vm, VECTOR_SYNC_CURRENT, ec, handler);
++	pkvm_run_loop(vcpu, debug_sync);
++	kvm_vm_free(vm);
++
++	if (debug_exposed)
++		ksft_test_result_pass("%s\n", name);
++	else
++		ksft_test_result_skip("%s: self-hosted debug not exposed to protected guests\n",
++				      name);
++}
 +
 +int main(void)
 +{
-+	const char *np_vm = "a normal VM's fault on private memory fails with EPERM";
-+	int i;
-+
 +	TEST_REQUIRE(pkvm_supported());
 +
 +	ksft_print_header();
-+	ksft_set_plan(ARRAY_SIZE(host_accesses) + 2);
++	ksft_set_plan(4);
 +
-+	for (i = 0; i < ARRAY_SIZE(host_accesses); i++)
-+		test_host_access(host_accesses[i].action, host_accesses[i].name);
++	run_debug_guest(guest_hw_breakpoint, ESR_ELx_EC_BREAKPT_CUR, hw_bp_handler,
++			"hardware breakpoint");
++	run_debug_guest(guest_watchpoint, ESR_ELx_EC_WATCHPT_CUR, wp_handler, "watchpoint");
++	run_debug_guest(guest_single_step, ESR_ELx_EC_SOFTSTP_CUR, ss_handler, "single step");
 +
-+	test_process_vm_readv();
-+
-+	test_host_access(host_np_vm_on_private, np_vm);
++	test_serror();
++	ksft_test_result_pass("virtual SError taken on unmasking\n");
 +
 +	ksft_finished();
 +}
