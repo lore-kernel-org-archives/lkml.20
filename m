@@ -1,47 +1,93 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794209449;
-	b=0BJRNrXZCTQBJ9i/XkVyw7MGOJ3oC0NHkCH8YrdH6W84Op4oHFfDJn2VmX99uGm74jdO
-	 tS2nTqhXrAGmUojAtCwxh2tcVwEtqdp1RM3RpYSXzhklMO2kPwq1zhiTqR96Owi6QkCB4
-	 jGo9DOyivuVPXsX/VkEcsOQm4DeQQxKPpnpOCr/sPdSv0SpUI8fU0/WTRfLmbgjLetIV/
-	 degFr1Uwiyg+3qm8AC/DQdAJLrwz70bqOYH0s4OPqyswA95hRjxjT+yv7Oqid6YG7r9o2
-	 YCxI9xYMC6YXRyS95fOsVZVColFLDjXvbEZvfTmGeNF+foxqqrORQA2bWOyZVqDdOpA==
+	t=1794209645;
+	b=Fw09vnRc1jkC9PoMjjH7C6jxUQQSNOgU3G34Bh+9HL8v3PViORoOf3Fw+k/NIRhkDM1v
+	 cpCJ/nMP3xQpq829FMoHtQpQhSsKYilsK1L4eDZ35KC2jUR7VVn9OB09R2Nf7UKOACAtl
+	 dqRust6ILxBzYE0Gfe/aatW+BD4qJ1bh6Fpaee98LBxrEvyuX/8bTvCoqp9nsqRSlZtEa
+	 CXvyGJRYN2Y6jUL2ZYp87ayxEOpg4zdFtlLJYu8KX/AdJxw4y6RCmcOiAI9BWsRe/kg3h
+	 I3fsQLXDDZ0CmQlFJpTBZ3AVaTE3htxuN/fe2L8vi11d1DplxjIcEoXn3A9KaWoe1rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209449;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=gwQguMjWTXj547Wlb0YlIL6VP9/rSHj8jIm9CFG7WT4=;
-	b=As8u1V3yiNAQaI1JSamo0hTg5lFxnuOy5cIIezeeKAAKUQF/9yQrkls73C/AzjCe6Hsh
-	 +xAF8bCySN6XbW3xnrUDf2ttuzlyM7iNLqLJyjTPQugn/0Y+fXqP0xHE1QF1tK4xfA7LS
-	 Unv0dIEmd15YYsg6lMO4k+9nRqEe7zsCu0dFhZaTf2zYTJJgaq/vHdAa7eaIjYBf9yYrN
-	 pLYTZ61dXkieIQB4TUQtjJogUUoEh+U7xjn4WbwBrAKeM/TJANIYqMgh9Flnq17HpaQPn
-	 oYUbCcObHhycHeQmZC5c/8pwo5IwZaL92TWszluJSvSRmv8+Pd8z+6Fs00ziLvmhYBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209645;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 Content-Transfer-Encoding;
+	bh=cdCM073jR/DCJh2HUDXaqMPcxaAwWF1lPqWNiB/vLUE=;
+	b=0vKsntalvKb5zwLeRqR9lMsWOLgL1hbOYyDK4vuZRMZu4CwhQLc1yh/G9Q6aSVo2Hx47
+	 SMrnv2t08dtMBd0FyMftlcm7VENlT4v8O8vaMKLMli8LoUY63LrW97FEgepvUl9Zj9E6+
+	 VnpkCiIz3yyx1n2qzMGGzn5gFWysMA9p1W2TVDjEJfMxBSU40a7nUT6Y84TwYYTxWk+zY
+	 boX++8ks5hobUX4WpVA+Vk+WZfNePoYKe3w6gcs2LHNfP7OlrJC3ctfnDt8UU/sUePLYy
+	 e8yhScubrrI2I1+CmWCwkLfNhcHlorjmetrR4VZ8l5c4+R8YPsj+ekpRMmuUxVUuh7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RI8528ES;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFbxgJSV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E2F606A31C;
-	Mon,  9 Nov 2026 07:30:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F5A606A33E;
+	Mon,  9 Nov 2026 07:34:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RI8528ES
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E0681F008A3;
-	Mon,  9 Nov 2026 07:30:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFbxgJSV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA111F0089F;
+	Mon,  9 Nov 2026 07:34:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794209448;
-	bh=gwQguMjWTXj547Wlb0YlIL6VP9/rSHj8jIm9CFG7WT4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RI8528EScJoHQR7kmRMgze/LCi7SBj6zZOm1eWudN14dvx8utmgoeoOTlwodaTzEJ
-	 Wo6QM0nT3aCQMhaX8QniBs0+jbKz9cJUQcOtKYpMcaXqjM9qOtq0u2m+bm+Je/C/mc
-	 2LOm8+Us79ByF6XABhqpy9vAIUV2TdUMr+x22tAVbdGVO6aDfsoIAU3eitosigdoFf
-	 K9Pie4k5fuylYTOraY/aPbCA4dWQIydbfqzN3DWiinlalsQDCMGHsvqmEWLHx7+ZS9
-	 K1L1P0hFCXDIVJRGKnfZtc+0hpJfkKaH4gO0hZWC+aimLr+nPy0E91f6NvyijUH7U0
-	 o1FQUfHzVIBfQ==
-Message-ID: <3b4d9f8a-2b5b-49c6-a2fa-666548029975@kernel.org>
-Date: Mon, 9 Nov 2026 08:30:44 +0100
+	s=k20260515; t=1794209644;
+	bh=cdCM073jR/DCJh2HUDXaqMPcxaAwWF1lPqWNiB/vLUE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JFbxgJSVJyGy7SW+J+0KIAxI1XhrPwQhbNaVT6wRNqGNJPT7ebLpgixmX6f5TRYUI
+	 mI7fszmxT6vtfO/WS/HH6XQEZxYbeDKtCIRxOS5I/TRspMJWr6Z+uaJ9I3EU8aqlVh
+	 pleyfOrhrz2HjvolsAzEt/GTTS2xbbCRZknTG+Sc+H8nIXLaQ1Lpa9AS5AiqsYy4bC
+	 VOfWafAmh07YVtc7Ezu9uhzDbqubQgq0VCD6lMiMWbwT9piMq3DbO7ZkTu4Yv3jDxE
+	 hIAGVG2IO4CDNeMLIpywlIWi4W0JI7iD08jh9GM9edSnABb/Lcb6rQM9etPnCUrZJ+
+	 wv+htg3AQIizg==
+From: Leon Romanovsky <leon@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Johan Hovold <johan@kernel.org>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>
+Cc: linux-kernel@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-input@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	iommu@lists.linux.dev,
+	Jason Gunthorpe <jgg@ziepe.ca>
+Subject: [PATCH v2 02/19] wifi: mac80211_hwsim: lock device for manual driver binding
+Date: Mon,  9 Nov 2026 09:33:32 +0200
+Message-ID: <20261109-device-trust-core-v2-2-3b12d9a9f861@nvidia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
+References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,87 +97,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH 1/3] power: supply: max17040: pass the device
- fwnode to the power supply core
-To: Hugo Karlsson <huggek@klattorp.se>, sre@kernel.org
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- matheus@castello.eng.br, me@iskren.info, m.szyprowski@samsung.com,
- clamor95@gmail.com
-References: <20261108154241.198160-1-huggek@klattorp.se>
- <20261108154241.198160-2-huggek@klattorp.se>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261108154241.198160-2-huggek@klattorp.se>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
-On 08/11/2026 16:42, Hugo Karlsson wrote:
-> Since commit f4b782af61ae ("power: max17040: pass status property from
-> supplier") the driver forwards POWER_SUPPLY_PROP_STATUS to its supplier,
-> and the DT binding documents a power-supplies property for naming that
-> supplier. The driver never passes its device node to
-> devm_power_supply_register(), however, so the power supply core cannot
-> parse power-supplies and the battery never gets a supplier from
-> firmware. The status lookup then always returns -ENODEV and userspace
-> sees POWER_SUPPLY_STATUS_UNKNOWN.
-> 
-> Set psy_cfg.fwnode the way max17042_battery and cw2015_battery already
-> do.
-> 
-> Fixes: f4b782af61ae ("power: max17040: pass status property from supplier")
-> Assisted-by: Claude:claude-opus-5-5 [Claude Code]
+From: Leon Romanovsky <leonro@nvidia.com>
 
-If you are resending, then at least you could run checkpatch.
+The documented API contract for device_bind_driver() requires the device
+lock. mac80211_hwsim uses it for a newly created class device with no bus,
+so no automatic driver-core path can bind the device concurrently and the
+missing lock was safe.
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+---
+ drivers/net/wireless/virtual/mac80211_hwsim_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/drivers/net/wireless/virtual/mac80211_hwsim_main.c b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+index e53714b81ec2c..b796da3dd54b3 100644
+--- a/drivers/net/wireless/virtual/mac80211_hwsim_main.c
++++ b/drivers/net/wireless/virtual/mac80211_hwsim_main.c
+@@ -5769,7 +5769,9 @@ static int mac80211_hwsim_new_radio(struct genl_info *info,
+ 		goto failed_drvdata;
+ 	}
+ 	data->dev->driver = &mac80211_hwsim_driver.driver;
++	device_lock(data->dev);
+ 	err = device_bind_driver(data->dev);
++	device_unlock(data->dev);
+ 	if (err != 0) {
+ 		pr_debug("mac80211_hwsim: device_bind_driver failed (%d)\n",
+ 		       err);
+
+-- 
+2.56.0
+
