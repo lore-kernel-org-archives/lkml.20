@@ -1,81 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794252517;
-	b=bqH9p35tDQ+cQwS+P26FLKelj0CRv75UwaMLQotucX1W+sLF8ZYcQ74SSz8MEHLFPF8o
-	 ZQHrNZZWGABkqyb1jXJfoZ7G1q5p2B4D2YMYN4uhVOPIRmvjGI3HDdxePLCQJhqJaZ235
-	 ckGuPgGpzuI9CkCZkWEBu1NrdL4fNfe0anmrgS7D+NA1sokMAtCacHa8ZPwzUyt4XOnew
-	 IykK4Zj2zSEJl6mwDmzGkbq4Hc0IrBUrtguJdq1dXqsNU2h7FxO+XKm5McRxp+M1UOVLc
-	 HojmexMdJoV1fy9i5IJesGmDIwyzW5KxVt9oTazBVMrS+yTRLpxv3CQQ5axE5QT9KHQ==
+	t=1794252525;
+	b=B21VzSlTe/miziADi0EwjO9FLXuqPESEDtQa5SsqN5OxYduTtVKkBqBiC3jeS+5wjn74
+	 jA7Kx1EEOIpIInshwR6w5i2KHPARuIIPL1kSuQji9911+7gmW7/63Zg8EJ04eBF/v/2jx
+	 PjZQBVF3seT2qPneS2Cck3Jz+El++4PuE62LJvh+UCbX1E1VTI7wZwduH4WRCwrRcXXf1
+	 mPVxCVpIaOp2ogvw9k7dT8018w0LJvalsXhLa6KlNExdiDbxVO+daQzBTAhhcFhl+xHnt
+	 xX1E8bCOehQKSssznOnm2WSwZKPoWhT18yMPFfe5dqmWfc5PSUYpze+EziP90vI2m0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794252517;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=PvK1FBUlQu92e+3qOO46yvXvWJ6xY3Ch9e+qtHZ8ifM=;
-	b=159sSVPtIaoiZ8E4RjihyMN/wscTTScqRSYfMAEkJVc1iKndzX+vGY2V1/RjMdBX2kZ6
-	 tKXeCOD8H7qO1oRboegQeYduRHQXtRTKdxa+CBHPc+9Vpahl+zeXDOB2h4wPNUW0IgvFI
-	 US3nfiP/iBlDkoD7gcBKbQ6TSaWvCLYQUkVpOGWf7KSHXYTgIEszQ6+hiDdAqr7oRJxkM
-	 7CQhKtrHN807b046xDiZaI9I4fB8Y0hAEERvNk9/MdGUEM+RmV3FZ/b/TYH+vjpBfMdHw
-	 HvTiffUsmRiylC6YMbUynCDW8IYMWdmdPFTyE835rWEsHqNP5JCDQkzHhmcSkvcWriQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794252525;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=8P+ZG6KiZ77Eb9mO9Id+HUpKEbu4gTtjlzZy16Jeb5g=;
+	b=mVY+lTAMu38O51N3Sk+R4SvfogYPvCAOiFN7pm0rhXJ3U/Y1lQntvlt05jRNNHKlcB6Y
+	 ngvlcWt1seLytXolw2FJ+sQuYQQ28Q/nh079OjYyYy0z4jytzFIAiYu9jROUz5PT+4Bas
+	 cDtowZmklXj1e8auGSs34iP1GmirKuJdQZkshwo7xf+yvhS5peKRSzZAn0fqdoGwDRpfn
+	 vqBDeu2YHRYd70Ks9Qc0VDm3VxuxGsZwwvLAEn/re56s8uzbdQkCkQx84U9GoSs7ez19b
+	 /HedAXG30r1Xp+uZmpppkxC7X3QvHsN2KP7QrrRGcai3a4EWcAqO1MyHfkvn9LruDwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IYUVVpaQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=qPeji1th;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99982606A325;
-	Mon,  9 Nov 2026 19:28:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF0A606A336;
+	Mon,  9 Nov 2026 19:28:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBF0A606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IYUVVpaQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79A741F008A2;
-	Mon,  9 Nov 2026 19:28:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794252517;
-	bh=PvK1FBUlQu92e+3qOO46yvXvWJ6xY3Ch9e+qtHZ8ifM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IYUVVpaQejpurCnmiYSSdzB7QEEI0r4B85C8K76h9yFnNJIPW8dxlBgo8Gf4RbywF
-	 912hcLYLrkWoewMKDW5nvpzv1yqTIW7T1NnukrfgH/RGFu6tU7g49C/aBzA1eoOU2+
-	 Xco6d23rGLqJTWskOkobA8dwadTfpbw96TxH97fHifLyMitYEsxHmuiVhiazCf2XGq
-	 tvK1Tu9Yy3MzftA4rdouKVLkIgY13lIQdoTva7UujOM3xVVABeA1nHBEtYJelTnwZE
-	 m2SKA95aBi7aBeiElZpEqK6RW3yOxjRmRh0thPi4BYk2+J0Xe+HNRJeyQXbyck8mT2
-	 a6f6ciRegoZLg==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 54E2F2FC6B1B; Mon, 09 Nov 2026 19:28:14 +0000 (GMT)
-Date: Mon, 9 Nov 2026 19:28:14 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-hardening@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ard Biesheuvel <ardb+git@google.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Jann Horn <jannh@google.com>, Jeff Xu <jeffxu@chromium.org>,
-	Joey Gouly <joey.gouly@arm.com>, Kees Cook <kees@kernel.org>,
-	Linu Cherian <linu.cherian@arm.com>,
-	Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Maxwell Bland <mbland@motorola.com>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Pierre Langlois <pierre.langlois@arm.com>,
-	=?iso-8859-1?Q?Pierre-Cl=E9ment?= Tosi <ptosi@google.com>,
-	Quentin Perret <qperret@google.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
-	Yang Shi <yang@os.amperecomputing.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
-	x86@kernel.org, Ira Weiny <iweiny@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [PATCH RFC v10 22/22] mm: Add basic tests for
- kpkeys_hardened_pgtables
-Message-ID: <2d13fbb7-b5b4-446e-8709-5b43349ff19a@sirena.org.uk>
-References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
- <20261109-kpkeys-v10-22-aa6c4d9603bc@arm.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=qPeji1th
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=8P+ZG6KiZ77Eb9mO9Id+HUpKEbu4gTtjlzZy16Jeb5g=; t=1794252523; x=2109612523; 
+	b=qPeji1thMDMO7dMQavXBh/l+wyF/4VJcXpq2aN2cj0Qyjpc4uwo/IrTWOcCBwET0wn4npsE4dFb
+	BJifpZ6pCabyLnTOOoMNBT9MEeAsFysHl9sTQiWM369770p3eEiC6BXLzUSZnsGRLelFbIf0ZM8pc
+	LDLZylE5eq2X89AvaN4WwK+yIUypfdZCApzOG8SOEhuSaSsiptLXvvvZkDhrmaxSsYJO5KtsT29l/
+	Wr9Ie8BU2PY083POm9dtlsEuiyetP65+YbGqPJpRbOhP49CpPyVLyaOaLmpepKwiOmqAc/Mc9VcvW
+	4+PUiTRN67tRr/QGZIQv3M/sjFVUQ5BMFpXA==;
+Received: from [177.172.122.137] (helo=[192.168.15.100])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xQV2c-007bVC-TT; Mon, 09 Nov 2026 20:28:31 +0100
+Message-ID: <d767ae10-2738-43f4-bcc3-1583a5294766@igalia.com>
+Date: Mon, 9 Nov 2026 16:28:37 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,44 +57,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/fHNA9/ObvvJyqoU"
-Content-Disposition: inline
-In-Reply-To: <20261109-kpkeys-v10-22-aa6c4d9603bc@arm.com>
-X-Cookie: Whoever dies with the most toys wins.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/futex: print tv_sec as long long
+To: Sasha Levin <sashal@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>,
+ Darren Hart <dvhart@infradead.org>, Davidlohr Bueso <dave@stgolabs.net>,
+ Ingo Molnar <mingo@redhat.com>, Shuah Khan <shuah@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20261103155445.534229-1-sashal@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20261103155445.534229-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-
---/fHNA9/ObvvJyqoU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Nov 09, 2026 at 03:58:47PM +0000, Kevin Brodsky wrote:
-
-> ---
->  mm/Makefile                               |   1 +
->  mm/tests/kpkeys_hardened_pgtables_kunit.c | 200 ++++++++++++++++++++++++++++++
->  security/Kconfig.hardening                |  12 ++
->  3 files changed, 213 insertions(+)
-
-> +config KPKEYS_HARDENED_PGTABLES_KUNIT_TEST
-> +	bool "KUnit tests for kpkeys_hardened_pgtables" if !KUNIT_ALL_TESTS
-> +	depends on KPKEYS_HARDENED_PGTABLES
-> +	depends on KUNIT=y
-> +	default KUNIT_ALL_TESTS
-
-I'd also expect to see this added to one of the KUnit config fragments
-somewhere so it gets run as standard, though that's a little awkward
-given that KPKEYS_HARDENED_PGTABLES isn't universally available.
-
---/fHNA9/ObvvJyqoU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHQEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavIezQAKCRAv73Ows9A4
-ibK2AQCrJzPayeKs4GAc3zkVW3UwqtkA+D8a/edVfuY3OR/2bwD3XTl245dfPaNz
-6bNpvbbPF3MhEBTENHBe9r4fl/a7Bw==
-=iCAm
------END PGP SIGNATURE-----
-
---/fHNA9/ObvvJyqoU--
+Em 03/11/2026 12:54, Sasha Levin escreveu:
+> On 32-bit architectures with a 64-bit time_t, such as armhf in Debian
+> 13, tv_sec is a long long, and printing it with %ld warns:
+> 
+>    futex_requeue_pi.c:351:30: warning: format specifies type 'long' but the argument has type '__time64_t' (aka 'long long') [-Wformat]
+> 
+> Cast it to long long and print it with %lld.
+> 
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: André Almeida <andrealmeid@igalia.com>
