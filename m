@@ -1,93 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794209697;
-	b=2b6BFHu6cHfx4zfEo8WqMhZXx0EJBbgh/4hMKLl1EFsizYufJCB2KFJ3NlVzxqmw4wo2
-	 dDvpKH+AmKSdnYuoDaXO/S3+1UxzByoBa+SZzdy2BgaNA01JGiFb16L9AM4nRnWnnUzuF
-	 dfWI+iYv8ksoQ7QiwgyVRXNmTxxfIRmBduvfJWv/JG+ZHFqLPXbilnpDHLZC+2xObHuoc
-	 GPhtDk4Aim84Qj2lnL+Nox56+u/CWkdSJzeR9tXZ4S6pBudnbOmydnCCVucRtFTBhPe0P
-	 A9qGTDrstzeQn3OzeMXHMPP26ItpkH2KM+hV/lWPTt4+b7fcyfqGDlLaSbt7VTvg7Ig==
+	t=1794209775;
+	b=Bl6otZQzm7/WKDXXQ3dH/0sPSddNTv2MEsgs9u5jkCbW0N/4uZIGbCGw4GaxbfE27ppo
+	 qgDCixoLH1nOm1WjVYMzrh2x101SZPKgzh+Zv8Z8AZ/xWOwLwXJJ98i/o6npNFh6Xa6p3
+	 g1oacJ9+Z32FlHIa0/fhAfKaN/hRgtXkqyqlGizzUskQpD+t6Mb3TtDe5yXkORJ7B8KHl
+	 60Le/ghpGgdu397672/d0SbaTe8TATL/zo8Gwny1eNXWHTDU4+MmdSS9dAKaBRgz8JRSG
+	 SOgmKzdye7MVMBzyzOBffoGRQHL6uWnNZjXs5VgY2/UZ7gZWWuh/3ZH8gxZtJzE0xgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209697;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 Content-Transfer-Encoding;
-	bh=JXKtvIbL0K2IZDNlPsE68VhyZMr10s51jGVWYtoazCA=;
-	b=eWJWld1aMHMTGzMjISON0aDEFPsb9paWj96jLPClzYkIQGDtdyyZxhjrM9GJmx2zs0mv
-	 B3l21kdAX/i8aDV3XB9wrOIUBd5ocj2hwnis82xZjLuP7HJ/Ni8SKKOaOI5Z7SUgkYZ5s
-	 pHun9RZWWCxHSClvLJ/E/tjXRtbUQ9FrMZ53MOMMeekSzAS9/zbtLBntQcCOg2PyzBh9U
-	 BRZQv/Dj5Lk8nShGdlzt6DZ1wGk58bmLZesmvgirxSkoPTIwIWRFBZbIdAmqk/6J7zy0h
-	 Brrx740f/JYmRjzChKo59jYw5OMgiWBtd5XDaKskrNEx9LrFl1OUGsW69kz/a/T+LNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209775;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=yF9JVkGVR2aGG3aF6jXJ0BO0tZQAnzVsEur9IWCcqTA=;
+	b=h0+CQ5MRmnWqQH/BPDJEJblcJUeaJkIJlTAyMoHNRIA01HAycdLlQfiLFmPhXzxQxTk5
+	 VwWK7xpj99CyDL1CkU64oVFy+ppMkSMvZ6rJoFhxkFFT+Qa/6EWazW/O2Q419T34jRccP
+	 14mfVNPKDeafwJVhIlWC1IalGCHmTp+drGkeFspG4ijpSGWNmAW7QRksgJE56jPjy1Qhr
+	 IXd6igcvMnN3dKZnn8t0spSIXlp3CWVBqnY9t9GD1BuCjfCV0khOLfpTvY0+Xwt91uOcw
+	 XQat1Tf/AahPRiqhKwc7RfgtpWG407SzjwgD18oMqzJEIovl/N5Bbt8SF3+yyWDpPSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgjZctuj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=h9p58XMX;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0328C606C4D2;
-	Mon,  9 Nov 2026 07:34:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF49606A31C;
+	Mon,  9 Nov 2026 07:36:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DF49606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QgjZctuj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C284C1F0089F;
-	Mon,  9 Nov 2026 07:34:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794209696;
-	bh=JXKtvIbL0K2IZDNlPsE68VhyZMr10s51jGVWYtoazCA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QgjZctuj7XAbnRPlfytiYDlObXFcdAJFzq2JrMGgvRdjLeF5Oc1sd2mMdMmXnQr/s
-	 FphjJsNuqNe6pb3+5P6v5iJuNN7tItUAlU5R+9bex4Q0EytCkbhNfVyRf0mx+ipOhn
-	 sRa/0cM2NUliM14OowhNh6OWyscF0HVa5oiyinFcFnjRcVS+ZwGVYVuh2ea4H+0Zya
-	 dWvbRz0A7o2gVMSIPwkG/iFaoW0AheJMSnUIUVbF14gwYDzWflRB4P3xOgq87XDWtr
-	 1ofzFthYFiZjCetGk8kOJVNZ3YLaofaI74s0wKTPSdxRjGtqhCBjaJwY+ijoCxAT7l
-	 kto4fVuCuUSzg==
-From: Leon Romanovsky <leon@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>
-Cc: linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH v2 13/19] driver core: Accept device trust policy on the kernel command line
-Date: Mon,  9 Nov 2026 09:33:43 +0200
-Message-ID: <20261109-device-trust-core-v2-13-3b12d9a9f861@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
-References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=h9p58XMX
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=yF9JVkGVR2aGG3aF6jXJ0BO0tZQAnzVsEur9IWCcqTA=;
+	b=h9p58XMX6OH6j6VoyN6nQd/OlAy+/gxcTNa+btddTXDsIcEIK49m4ciFn7EQKa0Jxduziofxr
+	Td3sRr8a6DaGwSUsecW3L4yBxVD8yD8p3tvDWELzS7g03/K4L2KbSnLYpvpcVpcUo5eFUOIGeJu
+	i/b0ENl1ooZVjSg/vxQrK0I=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jNM5t0KVgz1prmH;
+	Mon,  9 Nov 2026 15:36:02 +0800 (CST)
+Received: from whupemk200001.china.huawei.com (unknown [7.152.184.93])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8EC584056E;
+	Mon,  9 Nov 2026 15:36:09 +0800 (CST)
+Received: from localhost.localdomain (10.50.163.32) by
+ whupemk200001.china.huawei.com (7.152.184.93) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 9 Nov 2026 15:36:08 +0800
+From: Chenghai Huang <huangchenghai2@huawei.com>
+To: <herbert@gondor.apana.org.au>, <davem@davemloft.net>
+CC: <linux-kernel@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
+	<liulongfang@huawei.com>, <qianweili@huawei.com>, <wangzhou1@hisilicon.com>,
+	<linwenkai6@hisilicon.com>
+Subject: [PATCH 1/4] crypto: engine - clear busy and recheck running in the retry pump loop
+Date: Mon, 9 Nov 2026 15:35:53 +0800
+Message-ID: <20261109073556.2517351-2-huangchenghai2@huawei.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109073556.2517351-1-huangchenghai2@huawei.com>
+References: <20261109073556.2517351-1-huangchenghai2@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,215 +71,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemk200001.china.huawei.com (7.152.184.93)
 
-From: Leon Romanovsky <leonro@nvidia.com>
+The retry pump loop jumps back to the dequeue path directly, skipping
+the idle check that clears engine->busy and rechecks engine->running.
 
-Built-in drivers can probe before initrd policy agents start. Fresh
-attestation therefore requires disabled policy before those attempts.
+When the loop drains the queue it exits with busy still set, and
+crypto_transfer_request() queues a pump only when the engine is not
+busy: if the loop ends with the inline error completion in req_err_1,
+which queues no pump, the next request is enqueued with nothing to run
+it and the engine queue stalls. crypto_engine_stop() also spins
+waiting for the stale busy flag, up to failing with -EBUSY, and the
+loop keeps submitting to hardware after stop was requested because it
+never rechecks running.
 
-Add device_trust=<bus>:<device>=<policy>[,...] to initialize requested
-policy before registration. Apply PCI overrides during discovery so IOMMU
-and ACS decisions use the same initial policy as binding. Retain rules for
-hotplug, preserve admission history when a device object is reused, and
-leave unlisted devices unchanged.
+Jump to the idle check instead: the loop now clears busy and exits
+when the queue is empty, and stops submitting once the engine is no
+longer running. Engines without retry support are unaffected.
 
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+Fixes: 6a89f492f8e5 ("crypto: engine - support for parallel requests based on retry mechanism")
+Signed-off-by: Chenghai Huang <huangchenghai2@huawei.com>
 ---
- Documentation/ABI/testing/sysfs-devices-trust   |  2 +
- Documentation/admin-guide/kernel-parameters.txt |  9 +++
- drivers/base/base.h                             |  8 +++
- drivers/base/trust.c                            | 93 +++++++++++++++++++++++--
- drivers/pci/probe.c                             |  1 +
- 5 files changed, 109 insertions(+), 4 deletions(-)
+ crypto/crypto_engine.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-devices-trust b/Documentation/ABI/testing/sysfs-devices-trust
-index d68113b0d6b08..fd523bbe7bdc6 100644
---- a/Documentation/ABI/testing/sysfs-devices-trust
-+++ b/Documentation/ABI/testing/sysfs-devices-trust
-@@ -14,6 +14,8 @@ Description:
- 		value may be selected by the bus before the device is
- 		registered; otherwise it is "default". The policy is resolved
- 		to an active trust level before the device is probed.
-+		A matching device_trust= kernel command-line entry overrides
-+		the initial requested policy before registration.
+diff --git a/crypto/crypto_engine.c b/crypto/crypto_engine.c
+index 3d07dd5de4fa..5b669038acb4 100644
+--- a/crypto/crypto_engine.c
++++ b/crypto/crypto_engine.c
+@@ -82,6 +82,7 @@ static void crypto_pump_requests(struct crypto_engine *engine,
+ 	if (!engine->retry_support && engine->cur_req)
+ 		goto out;
  
- 		The values are "default", "disabled", "adversary", and
- 		"full". "default" lets the bus select the active trust level.
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 2d046c79becd9..fbc0cd21bf09f 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1259,6 +1259,15 @@ Kernel parameters
- 	dell_smm_hwmon.fan_max=
- 			[HW] Maximum configurable fan speed.
++check_idle:
+ 	/* Check if the engine queue is idle */
+ 	if (!crypto_queue_len(&engine->queue) || !engine->running) {
+ 		if (!engine->busy)
+@@ -98,7 +99,6 @@ static void crypto_pump_requests(struct crypto_engine *engine,
+ 		goto out;
+ 	}
  
-+	device_trust=	[KNL]
-+			Set initial device trust policy before probing, including
-+			for devices added after boot.
-+			Format: <bus>:<device>=<policy>[,...]
-+			Names match exactly as in /sys/bus/<bus>/devices/<device>.
-+			Policies are default, disabled, adversary, and full.
-+			Entries override bus policy and device_trust.default.
-+			See Documentation/driver-api/driver-model/device-trust.rst.
-+
- 	device_trust.default=
- 			[KNL] Set the initial trust policy for all devices.
- 			Format: { default | disabled | adversary | full }
-diff --git a/drivers/base/base.h b/drivers/base/base.h
-index 623444c7a3be8..59da537462a57 100644
---- a/drivers/base/base.h
-+++ b/drivers/base/base.h
-@@ -178,6 +178,14 @@ void device_release_driver_internal(struct device *dev, const struct device_driv
+-start_request:
+ 	/* Get the fist request from the engine queue to handle */
+ 	backlog = crypto_get_backlog(&engine->queue);
+ 	async_req = crypto_dequeue_request(&engine->queue);
+@@ -161,7 +161,7 @@ static void crypto_pump_requests(struct crypto_engine *engine,
+ 	/* If retry mechanism is supported, send new requests to engine */
+ 	if (engine->retry_support) {
+ 		spin_lock_irqsave(&engine->queue_lock, flags);
+-		goto start_request;
++		goto check_idle;
+ 	}
+ 	return;
  
- extern const struct attribute_group device_trust_attr_group;
- 
-+#if IS_ENABLED(CONFIG_KUNIT)
-+int device_trust_parse_cmdline(const char *options, const struct device *dev,
-+			       enum device_trust_policy *policy);
-+void device_trust_apply_boot_policy(struct device *dev,
-+				    enum device_trust_policy policy,
-+				    const char *options);
-+#endif
-+
- /* Full-only manual attachment uses the caller's subsystem serialization. */
- void device_trust_init_state(struct device *dev);
- int device_trust_prepare(struct device *dev, const struct device_driver *drv);
-diff --git a/drivers/base/trust.c b/drivers/base/trust.c
-index 86ce2751f30a3..f581857642493 100644
---- a/drivers/base/trust.c
-+++ b/drivers/base/trust.c
-@@ -1,5 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- 
-+#include <linux/ctype.h>
- #include <linux/device.h>
- #include <linux/errno.h>
- #include <linux/export.h>
-@@ -211,6 +212,79 @@ static struct attribute *device_trust_attrs[] = {
- const struct attribute_group device_trust_attr_group = {
- 	.attrs = device_trust_attrs,
- };
-+
-+static const char *device_trust_cmdline __ro_after_init;
-+
-+VISIBLE_IF_KUNIT int device_trust_parse_cmdline(const char *options,
-+						const struct device *dev,
-+						enum device_trust_policy *policy)
-+{
-+	enum device_trust_policy selected = DEVICE_TRUST_POLICY_DEFAULT;
-+	const char *entry = options;
-+	bool matched = false;
-+
-+	if (!*entry)
-+		return -EINVAL;
-+
-+	for (;;) {
-+		const char *end = entry + strcspn(entry, ",");
-+		const char *bus_end, *name, *level, *p;
-+		unsigned int i;
-+
-+		bus_end = memchr(entry, ':', end - entry);
-+		if (!bus_end || bus_end == entry ||
-+		    memchr(entry, '=', bus_end - entry))
-+			return -EINVAL;
-+		name = bus_end + 1;
-+		level = memchr(name, '=', end - name);
-+		if (!level || level == name || level + 1 == end)
-+			return -EINVAL;
-+
-+		for (p = entry; p < end; p++)
-+			if (isspace(*p) || iscntrl(*p) || *p == '"')
-+				return -EINVAL;
-+
-+		for (i = 0; i < ARRAY_SIZE(device_trust_policy_names); i++)
-+			if (strlen(device_trust_policy_names[i]) == end - level - 1 &&
-+			    !strncmp(level + 1, device_trust_policy_names[i],
-+				     end - level - 1))
-+				break;
-+		if (i == ARRAY_SIZE(device_trust_policy_names))
-+			return -EINVAL;
-+
-+		if (dev && dev->bus && dev_name(dev) &&
-+		    strlen(dev->bus->name) == bus_end - entry &&
-+		    !strncmp(dev->bus->name, entry, bus_end - entry) &&
-+		    strlen(dev_name(dev)) == level - name &&
-+		    !strncmp(dev_name(dev), name, level - name)) {
-+			selected = i;
-+			matched = true;
-+		}
-+
-+		if (!*end)
-+			break;
-+		entry = end + 1;
-+	}
-+
-+	if (matched)
-+		*policy = selected;
-+	return matched;
-+}
-+EXPORT_SYMBOL_IF_KUNIT(device_trust_parse_cmdline);
-+
-+static int __init device_trust_setup(char *str)
-+{
-+	if (device_trust_parse_cmdline(str, NULL, NULL) < 0) {
-+		pr_warn("device_trust: ignoring invalid policy list '%s'\n", str);
-+		return 1;
-+	}
-+
-+	/* The command-line buffer survives init. */
-+	device_trust_cmdline = str;
-+	return 1;
-+}
-+__setup("device_trust=", device_trust_setup);
-+
- static int __init device_trust_default_setup(char *str)
- {
- 	int policy = match_string(device_trust_policy_names,
-@@ -226,13 +300,24 @@ static int __init device_trust_default_setup(char *str)
- }
- __setup("device_trust.default=", device_trust_default_setup);
- 
-+VISIBLE_IF_KUNIT void device_trust_apply_boot_policy(struct device *dev,
-+						   enum device_trust_policy policy,
-+						   const char *options)
-+{
-+	if (policy != DEVICE_TRUST_POLICY_DEFAULT)
-+		dev->trust_policy = policy;
-+	if (options)
-+		device_trust_parse_cmdline(options, dev, &dev->trust_policy);
-+}
-+EXPORT_SYMBOL_IF_KUNIT(device_trust_apply_boot_policy);
-+
- /**
-- * device_trust_init - Apply global boot policy before registration
-- * @dev: unregistered device with its initial policy set
-+ * device_trust_init - Apply boot policy before registration or bus policy use
-+ * @dev: unregistered device with its bus, name, and default policy set
-  */
- void device_trust_init(struct device *dev)
- {
--	if (device_trust_default_policy != DEVICE_TRUST_POLICY_DEFAULT)
--		dev->trust_policy = device_trust_default_policy;
-+	device_trust_apply_boot_policy(dev, device_trust_default_policy,
-+				       device_trust_cmdline);
- }
- EXPORT_SYMBOL_GPL(device_trust_init);
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 9a178e0e5f7f4..5b6960bbb35bc 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -2083,6 +2083,7 @@ int pci_setup_device(struct pci_dev *dev)
- 	set_pcie_cxl(dev);
- 
- 	set_pcie_untrusted(dev);
-+	device_trust_init(&dev->dev);
- 
- 	/* "Unknown power state" */
- 	dev->current_state = PCI_UNKNOWN;
-
 -- 
-2.56.0
+2.43.0
 
