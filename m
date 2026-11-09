@@ -1,85 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794220239;
-	b=IUKX+/rR33KCgfHEHpkcQv9pDzsDEkS/kwuPOrVNhcB42G+jFWv0fHtanlKSjmSJ9Ppb
-	 h/f72FrnNTo2F7uMWUs2EzxtVaYHIq1fs/QRRrJunn/S0gH8Kdjz9MuJsSInB2j+xn2ON
-	 QXXIMmk2vjUEBVy/e/8OuSwPgk5+CU7vYDJ789qyqcphEUg50d6B+ER3fURzAAEpQituv
-	 9xYvlZd+mFSKLGGoure+Hz3klxr61ZjKvMBTsuYTHh/W4IhtMfnD7G55c1fODVoxIfmqf
-	 5B4e3xgUbf4S9Gwahcxs9iVfERd+Eid3jKXav/DdegACs8kDh938AHp+4t/N/8RJqkw==
+	t=1794220306;
+	b=Gj8doFuYaR1juZrDFhFOzlbH7I/ObWfPak67GCdVApOHQTwhcroyj+a3lCWmobeQKFIw
+	 QvmPvMKVtkEEaPicwO/SCOQfKHNLahwWGbvXFG93dBZVCo1UkP8Y7Y8Pb1Tt2GgZ4jz9h
+	 Izx5SmjFusQUB+IBl2XRyLzFFwvGwsKm6oaW7dT/FBiE6GAzgx4gck8QWSN8/SBdCZbWI
+	 0pUYQhrTSqPDUEQ8VLvlgR4YUCaviKMvNjJpub/AZ3tcbr99c9SHl3EBfRJc9oFPl4xvM
+	 exAGGfWKmKz5b57swHJWOa1QF5yvG3XWJnHC7LdXSRBd8/aRzIpGnjjzRU0koSX24zA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794220239;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=N5fjvvMg5v+YqmRbm1DHrHR2Quq9Ia0pKK7R5BqyqzI=;
-	b=ZW3bQBmpCp8t8rh5gcoM0d+Bj0HiwwuV0z8MfU5gfZazmpc3/xWv5GZZdeX4qifKRnVg
-	 GHB+M/cZz2ZgV6PPS242HnVotiQfYMKK+InyPpAQJ+P9fpO0DWTB/FPGaooYJsmpaHqI+
-	 xEMvNMGj8++DA+hNd8oe7U6nRwoLNwrbHwk/Y3mRjvuQEDkFKCsy96fs7zY/GEQwYiHZ0
-	 wqYeHSFcaOC2hRJbAtvjecaEm6+fxR5QnPFh/NTzGcLDFQEXt0jV5xufs7VPN2HKhVNEJ
-	 QHB6WFKaJbYBygDgRrd8czuv9R/xmUk0j3+s4FTW2jFnQlwPVFCNJ8toTIKhjwNQw5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794220306;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=PMGJTgU8mvjkAS5YWFNnpC41aKPnUg3SSlpFkRXcdzg=;
+	b=grlS1n+TMGCZNPEI05eBo1Ai2HvtlG5Vtks6vOTTu0nX7lQl3GAsEGLkIMYt2+YS+pe8
+	 iYi8ylkpJOe8x6hODx7rnwsBodkU1JNq65zPX2t5y3/77hUlis/T+EEzkPfLjpZrLfWQH
+	 pYPB+pxCuT2Yd/2gx25UxKtjYHDjOsAxE7M1t87hOkAPYb1dDEKGVufHV9x7xPKcbOP5+
+	 5aMCkK+G1IjRgX6iSQfGpPkyoWKlm5uEW9f4knTnuAYD2dn51nIGjqjQabdp3gnXmWYSG
+	 XZ7Mi3IjXkt5LVSlPAHjduIhSq2fOCI04XU/sEsW9KEH2gijQ7XDN0MdHaOq4DW+rAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=s+stk8VQ;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b="OfQX/noz";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iDMIGTOx;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=hXszPBEE;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ksA9a2+C;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBEB9606A321;
-	Mon,  9 Nov 2026 10:30:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBEB9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90327606A325;
+	Mon,  9 Nov 2026 10:31:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90327606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=s+stk8VQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1794220234;
-	bh=yTeRKXu9YZgUz+dbgWl4/sCZ4/3dKWKlHh3NLNjeWsw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=s+stk8VQuKT1y1LGI3WuOadMU7yH2fUe6nkiErYHvrLwd3LGOavJshhugrWPx9UxA
-	 gwRMPKsFlVk5boHImKOh8uKjdCUUm2E7nr1SO4FY1GTTI21JUtoVWeGTw0ILRJwI1x
-	 qhsvUSta2xhEdJ35gzZeUwaAobiEnMLzx7S5mqwwNHkv9jF6MjnVb6DF0HlsvWxU6Z
-	 cE+7esN6QeWj4gtkyiY+FFOsxmYfDoSJBiil3+lA4gdtNsSN95EOmbHuZ/+v5Hde4P
-	 VboObL6l2m4nM/wnV3uRRtYHsTJtX+b8MMfgBgwKA6CN9eU4qvnLAEXgZ1YV0cLxcv
-	 CyNzRdy03MaAg==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 532DB25549;
-	Mon,  9 Nov 2026 13:30:34 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.5])
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=OfQX/noz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=iDMIGTOx;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=hXszPBEE;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ksA9a2+C
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Mon,  9 Nov 2026 13:30:31 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.16.213])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jNQzC0xjXz2mqy;
-	Mon, 09 Nov 2026 13:30:31 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] net: phy: clean the sfp upstream if phy probing fails
-Date: Mon,  9 Nov 2026 13:30:23 +0300
-Message-ID: <20261109103024.1413-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 2BD591F7C6;
+	Mon,  9 Nov 2026 10:31:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794220303; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PMGJTgU8mvjkAS5YWFNnpC41aKPnUg3SSlpFkRXcdzg=;
+	b=OfQX/noziV6DSYx6Ym8MbXcxSZv18FRFVG+5LBizRILh8Q5LKnvKBnlRrp6KMHd9eL5AIK
+	TiaSK50xRk6k1p+H3qtOkoWKtvt1wLwE6Xs5gDBB+Rdduo8+kY1E+IJkZ2P3/Acsq4fzvK
+	1aQPMDkuKqOPOMEOyyfIS7qQMgmm5P4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794220303;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PMGJTgU8mvjkAS5YWFNnpC41aKPnUg3SSlpFkRXcdzg=;
+	b=iDMIGTOxp3+L0e8TwmbievMZviBTFhXKn7ln2CNGRyuhxhqFtJfE3wIN8nT/ae5pEp/dec
+	t9LT4N03992rH5CQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=hXszPBEE;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=ksA9a2+C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794220302; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PMGJTgU8mvjkAS5YWFNnpC41aKPnUg3SSlpFkRXcdzg=;
+	b=hXszPBEEhIoVLqxSbzpAAyX7Wgaqs6dx8+GHH88JwmD2NC4DtTLCeYQLb+40gqC/sTuUX4
+	tjTXIw/N0J4QwfAp9dpnGpEFjnGoE1iAIhDgatrWP0ErTd6Hyo3VtixsNXCcOt1Ed5Eg52
+	uqpk9HoTC4wGq+3grbgaxUQ0nH0dwzw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794220302;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PMGJTgU8mvjkAS5YWFNnpC41aKPnUg3SSlpFkRXcdzg=;
+	b=ksA9a2+CxqLGJfMxtNBSyn+ZJ87wQdsUgROJTVSdhfunoxf0kFZPvwqKs8gbQ/TcT+LNfs
+	46zR4hI4XlwPpFBQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F07A513319;
+	Mon,  9 Nov 2026 10:31:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id lPu7Mg2h8Wo6awAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 09 Nov 2026 10:31:41 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 8228121D9C; Mon, 09 Nov 2026 11:31:41 +0100 (CET)
+Date: Mon, 9 Nov 2026 11:31:41 +0100
+From: Jan Kara <jack@suse.cz>
+To: Huang Shijie <huangsj@hygon.cn>
+Cc: axboe@kernel.dk, viro@zeniv.linux.org.uk, brauner@kernel.org, 
+	zhongyuan@hygon.cn, fangbaoshun@hygon.cn, yingzhiwei@hygon.cn, jack@suse.cz, 
+	agruenba@redhat.com, mic@digikod.net, gnoack@google.com, paul@paul-moore.com, 
+	jmorris@namei.org, serge@hallyn.com, aleksa@amutable.com, legion@kernel.org, 
+	david@kernel.org, sandeen@redhat.com, ebiggers@kernel.org, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	gfs2@lists.linux.dev, linux-security-module@vger.kernel.org, sunjunchao@bytedance.com
+Subject: Re: [PATCH 3/3] vfs: convert sb->s_inodes iteration to
+ super_iter_inodes()
+Message-ID: <wrknznlm52ffratfpdoe3otqhkgyd45vgmvtjkixrvurwpplyu@sfpz3yiwhidy>
+References: <20261015093854.2082600-1-huangsj@hygon.cn>
+ <20261015093854.2082600-4-huangsj@hygon.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,72 +118,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected, bases: 2026/11/09 09:26:00
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {date_rfc_vio_soft_silent}, {Tracking_one_susp_tld}, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;astralinux.ru:7.1.1;patch.msgid.link:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207345 [Nov 09 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/09 08:07:00 #28826469
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected, bases: 2026/11/09 09:26:00
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015093854.2082600-4-huangsj@hygon.cn>
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[25];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[hygon.cn:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:dkim];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 2BD591F7C6
 
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+On Thu 15-10-26 17:38:54, Huang Shijie wrote:
+> Convert all the remaining superblock inode iterators to use
+> super_iter_inodes(). These are mostly straight forward conversions
+> for the iterations that use referenced inodes:
+>  - sync_bdevs
+>  - drop_pagecache_sb
+>  - gfs2_kill_sb
+>  - add_dquot_ref
+>  - hook_sb_delete
 
-commit 48774e87bbaa0056819d4b52301e4692e50e3252 upstream.
-
-Sashiko reported that we don't call sfp_bus_del_upstream() in the probe
-failure path, so let's add it, otherwise the sfp-bus is left with a
-dangling 'upstream' field, that may be used later on during SFP events.
-
-This issue existed before the generic phylib sfp support, back when
-drivers were calling phy_sfp_probe themselves.
-
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Fixes: 298e54fa810e ("net: phy: add core phylib sfp support")
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Link: https://patch.msgid.link/20260604092819.723505-2-maxime.chevallier@bootlin.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[mdmitrichenko: Adjust the phy_probe() error-path context: 5.10/5.15
- register LED triggers only after probing succeeds.]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-53232
-
- drivers/net/phy/phy_device.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 665952e64e9b0..2ba1f1833336d 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -1275,6 +1275,9 @@ int phy_sfp_probe(struct phy_device *phydev,
+...
  
- 		ret = sfp_bus_add_upstream(bus, phydev, ops);
- 		sfp_bus_put(bus);
-+
-+		if (ret)
-+			phydev->sfp_bus = NULL;
- 	}
- 	return ret;
- }
-@@ -2903,6 +2906,9 @@ static int phy_probe(struct device *dev)
- 	return 0;
- 
- out:
-+	sfp_bus_del_upstream(phydev->sfp_bus);
-+	phydev->sfp_bus = NULL;
-+
- 	/* Re-assert the reset signal on error */
- 	phy_device_reset(phydev, 1);
- 
+> Signed-off-by: Huang Shijie <huangsj@hygon.cn>
+> diff --git a/block/bdev.c b/block/bdev.c
+> index 18b4423b4e61..b263b566056f 100644
+> --- a/block/bdev.c
+> +++ b/block/bdev.c
+> @@ -1340,56 +1340,36 @@ void bdev_mark_dead(struct block_device *bdev, bool surprise)
+>   */
+>  EXPORT_SYMBOL_GPL(bdev_mark_dead);
+>  
+> -void sync_bdevs(bool wait)
+> +static int sync_bdev_fn(struct inode *inode, void *data)
+>  {
+> -	struct inode *inode, *old_inode = NULL;
+> +	struct block_device *bdev;
+> +	bool wait = *(bool *)data;
+>  
+> -	spin_lock(&blockdev_superblock->s_inode_list_lock);
+> -	list_for_each_entry(inode, &blockdev_superblock->s_inodes, i_sb_list) {
+> -		struct address_space *mapping = inode->i_mapping;
+> -		struct block_device *bdev;
+> +	if (inode->i_mapping->nrpages == 0)
+
+Seeing these various checks iterators are doing before actually paying the
+cost of grabbing (and dropping) the inode reference, I'd add a
+->elegible(inode) function to the iterator which will get called under
+i_lock after other checks pass and can decide inode is not worth bothering
+with and put the checks there. If it is NULL, the behavior would be as
+currently.
+
+								Honza
 -- 
-2.43.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
