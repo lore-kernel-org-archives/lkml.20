@@ -1,58 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229861;
-	b=hvgd2zz+nA5XOYTYclY6P2LXkML3Dc9K6/hN2v5HRFFUueqVWTgMyR7kmHrrHUuNHSsH
-	 jsjCC5qbCSaoAnwa2AZPFfIyX8u9I2VfUF2TvL7cvTciJJVMkVX12WYywH0/bsrgHlDKZ
-	 wKPCS3TCFJ0M9N614w5bhCbhY1a6RUR0FMKglGdybS1Z3LlBc98N+/3/bl0OgC5Virbse
-	 o2X1oun2GIJDNeZAgmbD8QZSLvYj1PbbnYR5WgeQQtOkQy45TbWhRM6ZH4UoYoYNbnicy
-	 ClMLxRjBsbB7mWKSGO55NhmIP3A/yaCcXLiIybb3Raz+Iajco5XGzVj70++RjOJpOcg==
+	t=1794229860;
+	b=WyzAwAUAx1lSw2RUQpTiB9xlZwioNfmyWQOp3QSRV+u91gt4yaT20O4S8Mecze+bqCee
+	 HHoZ8HH6dR1ckYVKneg2yeRkU39j7KXbRsfc3GL66RmPgs5ZkDl8yCg8c9b2Beew6AdLe
+	 sBQCAPltcPnoSbKuNkhw3Pf0+kLO5gb/kThHrqhXdyxa+lUNFUZTXLDu1vL0SWfHgoOSr
+	 QqLZi7zlj8kLRg5HPCnQvB0TyAw7BZJhOB0KSCxby7SZZhImzNmGtepnVlAuBgQFxwKr+
+	 UNMak9eOL69FoCiDXpDfcp8LlL0edhEhIZ8pBqYqcSVCQNUhlcuFPwA+vpzlrJzqvmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229861;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gNfZR1tD/4uQN4tqp8U8BRhf/3RUz4loH+G8h6ncrFI=;
-	b=U15Ah8Tl04ZgOwYRvIGd45URGAMHpxSEfazBZ9B/8I6IbyGyRlHl1zkAwPSJNxko/ice
-	 moUJmQesW6PRhi8Mt6piEtBR9SAjMby7cBQk5u+y6hTe8mCx7RhvWiqmVm3OFzv5s1PaN
-	 aLRPLzWnJtdBnHlCyHLtglsBkRK6IEV1dYI9O57GCSw+aXmsUnhS1aYs3VAAy6933Jlf5
-	 c8QyxunUge96wbiNF8fvbRhp2GMBVTLrVmdWZ+8Mkf2l2CHrVB/LSQJiUqjQPU3Ft5XSr
-	 56IX5HDh09VwVrPkWbF13p2b1hCgOrsP1qpADY1Ct8qBRYrPbjvqWRHEg5mI+Nu6mJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229860;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=A7mNXlZUVimdG14ChDRBXqLXI8W0LtI4Z8X2rq1hlx0=;
+	b=0gL5lQKPi22dwJ11JmcGBzSrDM58kAuGfeVhOZUR+KgAQ04qb5WgOdxUKOS44doTDgOs
+	 K1W3/kVOxPQMMRwi8S8ENBF9NDwWM5lNevP1fQaYCUIBkQeLZtYSFOv0Ui0awfFZF7vNi
+	 r5VGr3Pg93SxsyMIE8dscdQ95hgY0E0SA+ldMRmSCTArKURcE+TNgPzwdarg5flDkEt1A
+	 QGdY8322MvVPW4J1jcY1BClLwprkuL/7X3X2VsCLkmKG10iqkPSsM1XaxMh32k1ilNYpZ
+	 235cKHRnLroaAFIyb1kZgTEAlRGJpQON2Vsz3lHgTB4RJB7XDoUJ/GgPddt3zGxBOew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1UKdJpW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eD1EhzID;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44C0606D82D;
-	Mon,  9 Nov 2026 13:11:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20062608361C;
+	Mon,  9 Nov 2026 13:10:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20062608361C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S1UKdJpW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5C1F1F008A1;
-	Mon,  9 Nov 2026 13:11:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794229861;
-	bh=gNfZR1tD/4uQN4tqp8U8BRhf/3RUz4loH+G8h6ncrFI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S1UKdJpWyqYgkqJU08KtgulF65HWrq2E/AFfyEEOaihWAVjP5+DPfXePkZjq/bmvW
-	 oir5yfcteX98GaXH6Bc9av2SIQ8SVuiaTEI2io7v4MWbsuiTiicvJ/rmKaeYzHo+NG
-	 LSR1kYa6GJ5eV0U6tzdntULAR52nlx4I950oZO5ZN1SmwONGLR0XECOlMpVqaqM+Fk
-	 0WnvBwb9ZYUDNqPkfo6ABbUcJ+Iyct6lDUA31Qm+AvODDiNvCQ/EeW9OLZumba28ZO
-	 9UElmcQ6orUKgJSKuv713MKJeafnnbdCZAuNYj6Y+nmCK50MIlNx1PoMCdtWZBX8VB
-	 H1nWHcJNriJSA==
-Date: Mon, 9 Nov 2026 14:10:57 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: Alban Bedel <albeu@free.fr>, Vinod Koul <vkoul@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: phy: qca,ar7100-usb-phy: add AR9340,
- QCA9550 and the analog reset
-Message-ID: <20261109-lively-marten-of-upgrade-11637e@quoll>
-References: <20261109040451.114135-1-rosenp@gmail.com>
- <20261109040451.114135-2-rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eD1EhzID
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794229860; x=1825765860;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=KiHN1pxVayKxO5mupz+g4G35Vt9fAcltz04pRwX/fbg=;
+  b=eD1EhzIDSORkpsWPSlE4mxd9u32A6NiQRpTYoJbGpBxO0IEyywSjxVGZ
+   VYCP0R5tV3ulOE6dclP5RKoCxjzafmiittiB3SmWRmFqNa6AggxVDCwHu
+   LhHbedQU9GgdtqdiWXZEQtOuReQbd9bqC9webzTC7vn/o5dHK0eBt2CRd
+   LMOSeLOkwqsZw+Zyzus20wHBRWInoasgQjnAx4yGAJkq9awsCcta/IO9k
+   Q51u3aZ/KPG5wyYPR/5oXKxMyhFqhtLLceN4gHvqyGe/dT1El40EsKpEu
+   dHmjvX7K/ZpJMfw8iRWtMbjoJKiIAOuaH1nMHuKpV2hdK78qGdHzU3t+e
+   A==;
+X-CSE-ConnectionGUID: KcTiHIoOSiKKJcrnkpD2aA==
+X-CSE-MsgGUID: A9O7s9GuS0CotmCfW9gTSQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2843624"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2843624"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:11:00 -0800
+X-CSE-ConnectionGUID: pK5ua5WPTUKCTO+ozskMtg==
+X-CSE-MsgGUID: msX1r8hZQGewA2KlQ6L/PQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="7683823"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:10:54 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Matthew Brost <matthew.brost@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	intel-gfx@lists.freedesktop.org
+Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH 3/3] drm/i915: Remove driver side resource assignment after BAR resize
+Date: Mon,  9 Nov 2026 15:10:10 +0200
+Message-ID: <20261109131011.1815-4-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261109131011.1815-1-ilpo.jarvinen@linux.intel.com>
+References: <20261109131011.1815-1-ilpo.jarvinen@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,23 +92,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261109040451.114135-2-rosenp@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 08, 2026 at 08:04:50PM -0800, Rosen Penev wrote:
-> >From AR934x on, the analog part of the USB PHY has its own reset,
-> which has to be released along with the PHY one. Add it as a third,
-> optional reset, and add compatibles for AR934x and QCA955x, which need
-> it.
-> 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  .../bindings/phy/qca,ar7100-usb-phy.yaml      | 38 ++++++++++++++++++-
->  1 file changed, 37 insertions(+), 1 deletion(-)
+pci_resize_resource() assigns the resized BAR and the other BARs it
+released, or restores the original configuration on failure. Calling
+pci_assign_unassigned_bus_resources() after it is redundant. If that
+call manages to assign more resources in some scenario, the problem
+should be fixed inside pci_resize_resource() instead.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Remove the pci_assign_unassigned_bus_resources() call from
+i915_resize_lmem_bar().
 
-Best regards,
-Krzysztof
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/intel_region_lmem.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/intel_region_lmem.c b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+index b8a39567a334..d6f5e340657c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_region_lmem.c
++++ b/drivers/gpu/drm/i915/gt/intel_region_lmem.c
+@@ -104,7 +104,6 @@ static void i915_resize_lmem_bar(struct drm_i915_private *i915, resource_size_t
+ 
+ 		_resize_bar(i915, GEN12_LMEM_BAR, rebar_size);
+ 
+-		pci_assign_unassigned_bus_resources(pdev->bus);
+ 		pci_write_config_dword(pdev, PCI_COMMAND, pci_cmd);
+ 		intel_uncore_forcewake_put(&i915->uncore, FORCEWAKE_ALL);
+ 	}
+-- 
+2.47.3
 
