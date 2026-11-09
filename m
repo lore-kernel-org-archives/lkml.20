@@ -1,78 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794248317;
-	b=ZV5m5Gkcw8f7AsFVE+cFTiKnGOVtfnRho1YtXrMUhjh6LFJ/Jz33UoBlQXPrxw4IhaC/
-	 4WBuMJ6C5KioloQBwjg8OEUKhaGcMNhDetwQlxo3xUEyOdl6BAZhu3/2NZIQLmDsqYYqf
-	 mOYge2D9qeoIIguF8yK8Pe6Wq+8M+XHAShSJyoluYZJhN6Q4IMJ+7fDvWxc82tQrYidnM
-	 lQEpfaX4QnzkVjuaWTLGnunVzrDQmUYqtNoau/nNumyR7fqgAJSgV0WwpyHRSTq/CouiL
-	 4ljqjXcyPVYaSTFJMJtFPnSUAkOTjCIDSJw6DGz04a6/zQOsAvZNVrf80pJDlckpYmQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794248317;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=EUIHDJF1HJnlwUwYfUdtmtORr693jDiKk0JRv/rDZfE=;
-	b=kkIt7kGNbdVngTkRORjUUknJB5/enUau4+Xbb2DXHI9um9/h12nQKzfw5W2/+JopLekC
-	 wwJQAux/+jg7IQ90hxhWk3MAtOWH6cCJAjUHffMQzJkaLWbjkiZ/PLrbxb6Z0whsdyTi9
-	 yO9RY1PVZloSAVXyArJspPzgL6QiWgVewClKRHaH+83fAiZ0ZcTPZIyuzVcepl/+3DeEV
-	 AbnJi/fHv+SNcTSHPvoRPT7cG9p3NpCBZnYidrc4D9Emf7UZaOiuVM1KNwJAM8dtaViPr
-	 gDrTjlvwYx4EMvd7CyxMqUMfISg4vi3gdQnbpkajN1dOdPrLY4RMRlukFQAQNPkkZMw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Qw6/l9ct";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E07A606A32A;
-	Mon,  9 Nov 2026 18:18:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qw6/l9ct
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794248317;
-	b=IVFFBu6olLKZlTwbrxc/d+EiEexMAbD8jhm6H1Xv808Hq0HghwSBibNZhxLABy1y3MPH
-	 06n+ZTLQwi8ecI3djG4klx+2KeRy8IJ+shGcOiK4W5G/zHNGBnyuwzpGoT3aS/XZ3n99H
-	 Z1tNFR/JIPu+P5LtH0aDnWqzGY2tMZmqZHfUAEyQtd4RBwUl1BU5/fCYSmTmmveb9gR+Q
-	 08i9ht1NKBeCbv41Js1K4piq+NJHRw9G6YWbbdEuhf3OiVnicEpfQa9nqe/HVH4KG7TD/
-	 RHLD3vz6+V3z6NxKSKga4p07nAJjXbk8tZROJVYg+FVCLJio9hKuq/i3WGrgTCweBqQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794248317;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=EUIHDJF1HJnlwUwYfUdtmtORr693jDiKk0JRv/rDZfE=;
-	b=sf+LvgXPM6lybgxjqAbL7ilZa+xrWT6ej3FkfUkmIX4FWwv1JTZTvJDyP+4+ZoQBsBYI
-	 X34kJd/QbYOMqErlj8AgjE3qlcLK5hKztmXH/+moxF1wxGfM7s6JHYWTcyYCFHCYBeYXY
-	 Lgz8fp9SQBvq1rvclcMpaLUVlojnzYHY9N47eG5/cT1c9RlGT2tV+Cw5nApNuC/BFULaC
-	 1f9tLvsnxw8mlOas12zfO8P8XU20pcHi5IH0LEcWAL/149IZ6YE4pZcuEW+aixR8paF9K
-	 pZ/NiV5MXXlndWTp8LgN3P+yB2li24TZXzdYiq5Gi8DPAWE3oaXWvGGrYlpakpZS/cA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794248400;
+	b=NLE7pm5sP1rkVgGOSBEYThb6Qf9SuLBuC7Mgcgapp72qtVlHh/SRI04bvwG+jIyW2IeD
+	 C4SiDzuxLqmRUqR0Q0P3fNfnuOYMpgpzB8u4Te6OrHyvmrebeMh/79XrMLR+xc3xoDPnv
+	 PYs50Te2ush07gyUfLtRKHRABkYzmvhpjplufxYQ2DE+/eYdo5WidzvQOiRm89I9wIqxI
+	 8JQBPfjMx8K+fuNPf2rDhjk6iPXH6E89q4Q64d/XWkLghQXD1ddklQ9uhDEZWFWlUruGQ
+	 7uhEtFQ+ml9hbJANgkNy4l8gG1USM1cXu38GZJZ7CXr4wqLcqsTaoYg6+eDu7KjN+YA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794248400;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=t6KaJjDKYgdsxCn/x+DcOuRyLRSrJHR5bZ1fNs67esU=;
+	b=JtGEsGaOnwbxsD+PJSLtKcG5hqCYE/WUL0kXRBHwtip9A5adrJxk/U7gRg9D7q69s5Bz
+	 PMFUlCpEv+ZY+oUnIxmgnkOXwHXMg4b4ZLxbuyCpPKkFyrSRIggBWtmxqRxGeu8QVzDjW
+	 PkaA256MEBMh/eefEM4kl3h57qdC/WUSTzbkzZFVPrg+WMqx+PO58qN9fYecfDwZmXAyF
+	 KdBEnBI3NCidt76lsJLBXCN7z51hHj6UtfwCp0TbU1BN1UVmTjW5T6bPM+Mr6/YMjWg/W
+	 Eyf4Rdsibvh/7nd6IFjv7hoi1PL4O8YmHBOepFvtbI9/HX6InbCqF7S+JDnjbx43S+w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b="r/SqOy+3";
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 731891F008A6;
-	Mon,  9 Nov 2026 18:18:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794248317;
-	bh=EUIHDJF1HJnlwUwYfUdtmtORr693jDiKk0JRv/rDZfE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Qw6/l9cte8OhOx1KyTLb3Vk8Y3fVAc+EAf7I6yMxEFEnxu21qGQW3pmHD/JlyKTZz
-	 Qd6c/xYHWx278grXPwssMmz9PXHT/MEhGhzeoTq7YdPWSaz2ntSiL5BDs8PGjB24fX
-	 EuiiXqB/bH1XbSLsOzYB84m/FKtPx9B/p4hOvUK67wY0AR6XiunZb9DiI6FLZO+ApW
-	 aMnhY4vRCYkj9x32Ne45iEFjjFKM4bC81baq3ZtnCeVSUvYZgWSrHaoZAmZiXWP6Bo
-	 +M3RaJXMck+fRB3D8kQnTdmko05/v96g0+l1TbdVOjFp60vtp4n8M1gAGW8iyNh5nG
-	 y/nneDf/qPYHg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F2519485BD;
-	Mon,  9 Nov 2026 18:18:35 +0000 (UTC)
-From: Tin Posavec via B4 Relay <devnull+tin.posavec04.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 19:17:52 +0100
-Subject: [PATCH v2 3/3] media: ipu-bridge: Add OV9734 sensor config
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E27606A325;
+	Mon,  9 Nov 2026 18:19:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91E27606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=r/SqOy+3
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jNdNn56z4z1XM30h;
+	Mon,  9 Nov 2026 18:19:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1794248391; x=1796840392; bh=t6KaJjDKYgdsxCn/x+DcOuRy
+	LRSrJHR5bZ1fNs67esU=; b=r/SqOy+3CO2pEJ1RMWjgQgxEuel2MYJip54GsQFg
+	tmfkpuwReDEz4wLFwcjGjW03owqNJf06qcpJrWMt9mPZPmRJJPAOdx20qzXL3wtQ
+	O6wHv0pNWtn0MGStu2vxeUiZKyUVgkJ38nUWuod0OEFqZXvskCJUSgjuD1uL3S+2
+	p4V36MlBi/yJsfhtbmBZNVGC5bZsCG3XSrpP6vvOzpS4Vno0QM55ONaAuz5euT96
+	Dn+nwbiVW7HzyIHl4sKUIorH4W4taJvH/SZAhfHvczs1RhZfYAhoZK8Y81C//SZ8
+	PIEwqcsBLGOZgnpPt9KQHxWV/XqoupAU+vsT18XfBvxtFA==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id y0eBIHRfhNv2; Mon,  9 Nov 2026 18:19:51 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jNdNl2Kjwz1XM5kD;
+	Mon,  9 Nov 2026 18:19:51 +0000 (UTC)
+Message-ID: <ad6c8019-15b1-42a6-8bea-bf74533522b9@acm.org>
+Date: Mon, 9 Nov 2026 10:19:50 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,61 +70,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-ov9734-ipu6-v2-3-0481b512c4c0@gmail.com>
-References: <20261109-ov9734-ipu6-v2-0-0481b512c4c0@gmail.com>
-In-Reply-To: <20261109-ov9734-ipu6-v2-0-0481b512c4c0@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Bingbu Cao <bingbu.cao@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Afonso Figuinha <afonso.figuinha@gmail.com>, 
- Tin Posavec <tin.posavec04@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794248315; l=1249;
- i=tin.posavec04@gmail.com; s=20261109; h=from:subject:message-id;
- bh=eQVHwvgwGlO3Yl06SOqVT2v4rEicQFZdXN3NaM0IeJ0=;
- b=jl97J/ClFpJKUhdnSThRmbsWQkTZp/tPO4uLdMJowA4FEgr5/GeMjFXPpM3kLmV07kne5/cg7
- kmN/AHsRazqCMtRtLVLoRl2ycIordoBXYIf+xu63rOW7Xe2SjqgDQOx
-X-Developer-Key: i=tin.posavec04@gmail.com; a=ed25519;
- pk=h4O+VaAXzwd3B9L6H8RltugTkzF65lam1c1ls5knAVg=
-X-Endpoint-Received: by B4 Relay for tin.posavec04@gmail.com/20261109 with
- auth_id=1463
-X-Original-From: Tin Posavec <tin.posavec04@gmail.com>
-Reply-To: tin.posavec04@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/3] scsi: ufs: core: Hold host_sem in
+ ufshcd_wl_poweroff()
+To: Peter Wang <peter.wang@mediatek.com>, HOYOUNG SEO <hy50.seo@samsung.com>,
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, mkp@kernel.org,
+ martin.petersen@oracle.com, stanleyjhu@google.com, alim.akhtar@samsung.com,
+ kwangwon.min@samsung.com, kwmad.kim@samsung.com, cpgs@samsung.com,
+ h10.kim@samsung.com
+References: <cover.1794196863.git.hy50.seo@samsung.com>
+ <CGME20261109041347epcas2p17b5c0fd7b693f92eb2af35b12a24de31@epcas2p1.samsung.com>
+ <973576304.21794200282836.JavaMail.epsvc@epcpadp2new>
+ <5fef4ff73511a2613beaa7accdf635a1c634c449.camel@mediatek.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <5fef4ff73511a2613beaa7accdf635a1c634c449.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-From: Tin Posavec <tin.posavec04@gmail.com>
-
-Add the Omnivision OV9734 (ACPI HID OVTI9734) to the
-ipu_supported_sensors[] table, with a single link frequency of 180 MHz,
-the only one supported by the ov9734 driver.
-
-The sensor is the RGB camera of the Intel NUC M15 laptop (LAPRC710).
-Without this entry ipu-bridge does not create a fwnode graph endpoint
-for the sensor, and the camera is not enumerated.
-
-Signed-off-by: Tin Posavec <tin.posavec04@gmail.com>
-Tested-by: Afonso Figuinha <afonso.figuinha@gmail.com> # Surface Laptop 1 (IPU3)
----
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 3739c4a2a..4982b77de 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -120,6 +120,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
- 	IPU_SENSOR_CONFIG("OVTI5693", 1, 419200000),
- 	/* Omnivision OV8856 */
- 	IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
-+	/* Omnivision OV9734 */
-+	IPU_SENSOR_CONFIG("OVTI9734", 1, 180000000),
- 	/* Sony IMX471 */
- 	IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- 	/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
-
--- 
-2.53.0
+On 11/9/26 1:34 AM, Peter Wang wrote:
+ > Although not checking the return value was an original
+ > mistake, this patch would make the previous mistake worse
+ > and cause a system hang. Could we at least add a check
+ > to release the lock?
+ >
+ > +	ret = __ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
+ > +	if (ret)
+ > +		up(&hba->host_sem);
 
 
+I agree with Peter. If __ufshcd_wl_suspend() fails, host_sem must be
+released so that ufshcd_err_handler() does not deadlock waiting on
+down(&hba->host_sem). Also, please propagate 'ret' instead of returning
+0 on failure.
+
+Thanks,
+
+Bart.
