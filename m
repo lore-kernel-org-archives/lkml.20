@@ -1,60 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794259399;
-	b=ZPvyGYqt5o0yev5s8g4xacK0U/9W8TrjnsRepzZd8ffSNd7eZGrbY1+wZJhXZSb4W4JJ
-	 +/yuMHD35kYfYA+2HGUp45mkZcmtWaCe0UeZFb03tKs/ijiEskAGubSBVQKr5SzFunHoH
-	 tnDdZsdTAh8PRSum3t7nYjNnR7NW2d1Ewr10WMwOSKv2INMl9WeNNEVasZpkggh0iyPUK
-	 nzYCGa9XXS3nMRAvKOXWZTUoxs7NVAfE9LsQb4eGRMQ9JyxrAOaiMxSzIAuwQjJtsgDi2
-	 O7pJn2y2l2Thl2UVGcQJcHiFct3zt2Yd031QT1B9KDJRa0KJIBR+HORQXhUONpyDOTg==
+	t=1794259409;
+	b=qD+l8gGEi4yGTzjiqLfy9IAvNfdqhxCxMmpQ6D927SiWs4j9Z89ddslO6jcSzQlgdXQj
+	 PQvX6Min8hBl8sKLVkn5r5YHrKoJgAiua9rcwEFFub3lGrBHhNEnJnZQ1mEVwJyOJ1LKX
+	 TxaNZUJSKDO5qN1lSm1kqYFsnV7HERL6CHGj62925eDY4ypyehZxC8BV0Xw8+FrZC7t7O
+	 FajuzXv1/DgKtekNZwj4Wz96olGzox1EvjDwKb5JN0wNavFqnpYbapM3gYzkMlsclt3cH
+	 kHbJRfrZWLHX/xkjWstLocavux9kseYwpxrNrT4x1qkEIrNb2GTifY1TXZiY648hjfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794259399;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=+kUTd224F4w2WVRCX29Wbt8/OcYpKrZOIe0kcjayeIo=;
-	b=plNbDbmkjhphRWA7jd6lRxcsYOmH8LOME30n6vRKNKedgpB1RBCrOejk+ErxJy4BDRyj
-	 9WpLZMKrvpuv2rvag0LU35AOPbIgJ1+RQ5T94dMwfZ0kcDFtwBhbmEMISJrAq9S3v1EIE
-	 t3n65GTyPTRyb7BZOUkCJqZauAJ69tKnrqB6VkGtH2w2o1GmfQHESK+lX+Yr8SgZwF5xT
-	 WrGvGQ2LvHhZe0fDZh7LTNaQlUYn/kL08lQ6GtJmehzjt9a5dYo+KH589ZAvJrS6jyT+8
-	 VsfPwOLyQWSlOTjPxqea54PzgbpT5ttwxugim8m3ss0wKb29n5H7/PrO+5wGcMBdVZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794259409;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:
+	 Content-Transfer-Encoding;
+	bh=5p15Wb3kzPE37M7VtnOaHaW0RqcNfcAj8nyBrjFRkQk=;
+	b=CYaQIn0aKs3npEeFK0GB3MxcoZRvolFkxDZt57jJrGztB2iUAgDPeMEgC4CrDkD1SCf0
+	 +wHazqNiTIBbdUcnv+N1nAJmAdp13+kwdS3mf7r5XymikqVTFRHIwpaZHqIbk+pBSKuwF
+	 p4rQB5Rio73+6f6XVPftkBidhsTk9ObiQt6OIrFUJD5g0vBHIJ1NbH1cNWVG+xcMs33Ph
+	 SiODcA4auW2DIiGi6c+C+Ep46ZssWLD0Jh8tTjVo7smXMOJQJsILeKhZ3MJcN4uxC1i2H
+	 HAt1Zos1m7fhIn4lDTyBMPvS9K7+tIn8gLF5U4J1FMvGkSGN6f4RhYHOZtDuoK1ACcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVqjpXl3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=fail reason="signature verification failed" header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=j2tpxB9H;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC301606A31C;
-	Mon,  9 Nov 2026 21:23:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A462606A325;
+	Mon,  9 Nov 2026 21:23:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A462606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nVqjpXl3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 969901F008A1;
-	Mon,  9 Nov 2026 21:23:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794259398;
-	bh=+kUTd224F4w2WVRCX29Wbt8/OcYpKrZOIe0kcjayeIo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=nVqjpXl3jELyOGYz8QbtC9ZmJjl+dXzZ0Nfjtwg2s+48CfxcodVzNgRjxDGMX+HJ4
-	 zZPk79N9QUVB43OeJhBO2LOmq06RNAy/ZzZuhj3qyTEkTs+k3Hm6PUnuPBwUY3hq5x
-	 ftt88gv/tSP0PlpMIXbRAH9IQDEuV0G/Y98Zq8DW69iLNVDbRkUMpCH53Wwzb9fMk8
-	 P1TvlqzvOZdTULh13FTwnHlA3lD7Hkk7hVJ2g0UZ6B3YoFoy8JPCgcCXxKbxfebTtp
-	 eUN9eQXZVT5Cp50jDKrmzPbW31kYKxmsVBTobYAOEBLixE1pA+jWUGl9GBOf3TiKcO
-	 j+R8thQJBIgHQ==
-Subject: Re: [PATCH net] virtio_net: check RX buffer length before DMA sync
-From: netdev-bot+sashiko@kernel.org
-To: vladimir@dfb.sh
-Cc: netdev@vger.kernel.org, mst@redhat.com, jasowangio@gmail.com,
- eperezma@redhat.com, xuanzhuo@linux.alibaba.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- vishs@meta.com, virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, nikolai@kalinidze.me
-Date: Mon, 09 Nov 2026 21:23:17 +0000
-Message-ID: <179425939711.994134.2719389056327615125@kernel.org>
-In-Reply-To: <20261108-b4-virtionet-rxlen-v1-1-0078c5ab7e14@dfb.sh>
-References: <20261108-b4-virtionet-rxlen-v1-1-0078c5ab7e14@dfb.sh>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=j2tpxB9H
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id DC8C440E0255;
+	Mon,  9 Nov 2026 21:23:24 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id wd58f5gQ-F7D; Mon,  9 Nov 2026 21:23:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1794259401; bh=PCx4oeUJ0piui2+J9YL4CZu/4nfYGRm57CG6++yDoFY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=j2tpxB9HXAbjAcij5vEWnn/23KcZZcyHCjGshnbNojFz/n+jVyvfEDk02WKK4UHgL
+	 pnJQOZLMfkhbvzjrN6t2hUak2sXIufcYT0I+iXwPp5RhHly6O6h2uyHLMuhKbydpNr
+	 pCmHlf7eO3pCzPB+2cFKOA9J8Mz08VyHIQXvEJ8z42W90+h/lidq4KjQpwPfrfrHOl
+	 VW+WA7xQrGHzTHk7x9zFq9hSr2YBtgRgorxRY7cjaYi6TrQ2IQ/v0hPZ3dxQ0xYdcI
+	 X2GCq0tPnbMkP/KVLIUBsM1U5UD6xbr+XYSZ05Gzs+7ARee3M6tUvXvuDncDkH4D2o
+	 fBrRX4ZwmDxtpcPA+Eqe7ps76B92ZQfFXbYJS7bl8bFc/L5/hJKvjFdC4wtFeWCc/V
+	 yNHZLKeOW/4ozodGFi+XG9XbKn3QiW7O941/l8oLmsJMlv2G2wAmLvJUkbT9WbIriV
+	 DewdLKUgt7SRaMCDTSAhEF/9ZVGnS+q+RsQKmA04QcmddvkumgzLO5oWoWkEmTwfhT
+	 RbqsdYc4CLStzq/n79OgX8yC+VoPJGEYTjVciTjcNrT2KLNeArQEzlNWpuDXSE6MTB
+	 +UQk5nU4QQI7j2LBXaok98j4TtmrzT7MTYK9bmhfJcSHMq9OyElQq9awDztC5txOmG
+	 i0BggbghVQt5OsjsAnumXILA=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id EBAF940E0184;
+	Mon,  9 Nov 2026 21:23:08 +0000 (UTC)
+Date: Mon, 9 Nov 2026 13:23:05 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Rik van Riel <riel@surriel.com>
+Cc: "Luck, Tony" <tony.luck@intel.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"x86@kernel.org" <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"kernel-team@meta.com" <kernel-team@meta.com>,
+	Breno Leitao <leitao@debian.org>
+Subject: Re: [PATCH] x86/mce: Restore rate limit on MCE logged message
+Message-ID: <20261109212305.GDavI5uXK066CxHoNA@fat_crate.local>
+References: <20261108143751.3af49e48@fangorn>
+ <20261108202820.GCavDbZJgmwKqysH4X@fat_crate.local>
+ <CH8PR11MB4034331B3E52AF39AA9C003E68FC732@CH8PR11MB403433.namprd11.prod.outlook.com>
+ <20261109195216.GBavIkcPlh-HcT_7JW@fat_crate.local>
+ <63ed91b49db00d7a601b8ae1625571ee0c46ffca.camel@surriel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,107 +91,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <63ed91b49db00d7a601b8ae1625571ee0c46ffca.camel@surriel.com>
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Mon, Nov 09, 2026 at 03:12:43PM -0500, Rik van Riel wrote:
+> There are a dozen or so "mce: MCE records pool full!"
+> lines, and then two=C2=A0of these:
+> "mce_gen_pool_add: <bignum> callbacks suppressed"
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Sounds to me like you getting errors logged and there's no userspace cons=
+umer
+at all.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+What is your fleet policy about collecting and logging hw errors?
 
-- [Medium] The Fixes: tag and the changelog blame commit 24fbd3967f3f
-  ("virtio_net: add page_pool support for buffer allocation") for…
+Do you even care about them?
 
---
+--=20
+Regards/Gruss,
+    Boris.
 
-virtio_net: check RX buffer length before DMA sync
-
-This patch moves check_mergeable_len() ahead of
-page_pool_dma_sync_for_cpu() in the mergeable fragment loops. It also
-limits the head buffer sync in receive_buf() to the length of the buffer
-that was posted. The goal is to stop a malicious device under SWIOTLB from
-using an oversized used length to bounce its own bytes over neighbouring
-page pool fragments.
-
-> Since commit 24fbd3967f3f ("virtio_net: add page_pool support for
-> buffer allocation"), an RX queue that uses the DMA API
-> (rq->use_page_pool_dma, for example with VIRTIO_F_ACCESS_PLATFORM)
-> syncs each received buffer with page_pool_dma_sync_for_cpu() using the
-> length the device wrote to the used ring, and checks that length
-> against the posted buffer only after the sync.
-
-[ ... ]
-
-> Fixes: 24fbd3967f3f ("virtio_net: add page_pool support for buffer allocation")
-> Cc: stable@vger.kernel.org
-
-[Severity: Medium]
-Is 24fbd3967f3f the right commit for the Fixes: tag? The sync before the
-length check seems to predate page_pool. That commit appears to have only
-moved it into the per-site page_pool_dma_sync_for_cpu() calls.
-
-In the parent of 24fbd3967f3f, every merge or small mode RX buffer goes
-through virtnet_rq_get_buf(). It syncs using the raw used length:
-
-drivers/net/virtio_net.c:virtnet_rq_get_buf() {
-    ...
-	buf = virtqueue_get_buf_ctx(rq->vq, len, ctx);
-	if (buf)
-		virtnet_rq_unmap(rq, buf, *len);
-    ...
-}
-
-drivers/net/virtio_net.c:virtnet_rq_unmap() {
-    ...
-	if (dma->need_sync && len) {
-		offset = buf - (head + sizeof(*dma));
-
-		virtqueue_map_sync_single_range_for_cpu(rq->vq, dma->addr,
-							offset, len,
-							DMA_FROM_DEVICE);
-	}
-    ...
-}
-
-This covers the head buffer through virtnet_receive_packets() ->
-receive_buf(). It also covers the fragments in receive_mergeable(),
-virtnet_build_xdp_buff_mrg(), xdp_linearize_page() and
-mergeable_buf_free().
-
-In every case the sync runs before check_mergeable_len() or the
-GOOD_PACKET_LEN check in receive_small().
-
-In virtnet_rq_alloc() the mapping covers the whole alloc_frag:
-
-	dma->len = alloc_frag->size - sizeof(*dma);
-
-So under SWIOTLB, wouldn't an oversized used length copy bytes chosen by
-the device over the neighbouring RX buffers in the same frag? That looks
-like the same primitive the changelog describes.
-
-git blame points at 295525e29a5b ("virtio_net: merge dma operations when
-filling mergeable buffers"). The path then became unconditional for merge
-and small mode in fb22437c1ba3 ("virtio_net: rx remove premapped failover
-code").
-
-Kernels with fb22437c1ba3 but not 24fbd3967f3f seem to be just as
-exposed. With only the 24fbd3967f3f tag, stable tooling would not pick
-those trees up. This patch also cannot apply there, because the page_pool
-code does not exist in them.
-
-That also affects the note after the changelog:
-
-> An alternative is one sync helper bounded by the posted length for all
-> four call sites; we kept the per-site change to keep the net and
-> stable backport small.
-
-Should the Fixes: tag point at 295525e29a5b and/or fb22437c1ba3? It would
-also help to say in the changelog that those trees need a separate fix,
-for example limiting the sync in virtnet_rq_unmap() to the posted length.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108-b4-virtionet-rxlen-v1-1-0078c5ab7e14%40dfb.sh
+https://people.kernel.org/tglx/notes-about-netiquette
