@@ -1,85 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242902;
-	b=hBtkmfgjeY0xx4kJkMQqYJTUa3EYCqmDRVjNn6m7x7zzTNSXveJa0ct64SLBazbPvIW1
-	 5shUBa4Px86OmqhyqWeqGSAdo99PxrV7OdBirXIiGOxQaXMizF4YF/2lHwU2zJasaAk60
-	 pCWtX//XkXODhe7MywZojeGtdP3lOsIdxEHksI/NK7u726XdYeZY0Ox43K82Ju3sd8rJF
-	 NqI9dfjcfgz8DOcojJboh9yDMl72d9EKg2ZdCRSjYg580wJwDLrNQ5oIjsap2CrcKzwAJ
-	 6Taljxu0Nry2fU7PH0rcSP/lgKyO6A0y0+rTuxE6v512sFHWKGMF/a8wGxxuYk2RXtg==
+	t=1794242914;
+	b=3TK4Z0YkkGMSnISWP+b1UfD/RbuffAZaoIQBT5dFKWGvoFRhDeygX1XWVBNVwys8FtWh
+	 DvTBcdbhalEP3TFDcb3d1b+twxBwHNHwDCzGElggmWUcqkhCWKBcLAUetyfc7ZVnyTzqt
+	 4yiUP/I75N2Fahgc6Y6MHJ/FNnH4ODCPV78yCEF8BZ9s+m1fOjGpzlYDlWjAgBAc6aCfq
+	 0QJ+8P2/wy/em979cWaMvEw7ifqaaQPAZowjZ3y1yu5jYzo7WDMQs14eejMT0ZFVlleOt
+	 9d7CC09TDC7rhJjxam2/3vLaubmBMvwIbuAa5wKSS/PbhuTG5NOyt3mgKKShjPFx8xQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242902;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Organization:Content-Transfer-Encoding;
-	bh=dtCQxHf6DUwyC+J6cCfISGldHvJA6vcL3U1YvK4OhBI=;
-	b=U2BBS7pEcfoQH7MF4tdheq6mBiCBibMtemfrd1uaJjBxpQnMMHv7Ayp5HR/AKrF/SBca
-	 3taWNNSqNlF4yE65YlVmQwyn2gPMiR8KBHzzkSiRQwUG+57PJuZ1aVKaAmApZ6QmPJftp
-	 Fi3cICpBzQgHMkwr0lR2M4Tu/Za212h2dJkWEm7ca6/eOM+sxJ03Sh01dpNRyWBc2nwzS
-	 HjjaGnhXX+KF8aR9jkDPeg0sa/aM2o0ldP4NIGHvy/HuEhpM0R3NqRY3NKVKWeuSEx67/
-	 jh5E1tv2UR0eLJXIvXM5/5/dbPBooUdqNq4oKeDvor84FgLQdImE7akRux8HPo1q0CA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242914;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=GdDGOAbB/KQU4vtxa83AQst4hcGs21jmt+hYBHudx+4=;
+	b=RTc94lfjdB1iCVdbF615ZVuH/bWsMAr4/aYJMTip0xARDvRhHC8aWUJwC0cA6NnYE8n6
+	 LubKU16sR5FWKZ416fnuP0EBAyiQasztRh5NBl/hVtPewFJ6N8QqwXKU9EW9MicM29Ea+
+	 ohhE0NKRFypAkpynJjCyifpv6lLZjpcylGwZ5hm3Y2d+XJAY3qJvuxgKM3HmHWT4AFVyc
+	 UqDbT/TLfMLMgYrUB6Z+naU5go8Gh1zl7lGHyb6YUr4LPosn0VnMqvQsmAxysXUES8uQE
+	 lxuY9SOCAC1FpS/UDrOZlFyunXs0o8psRkIWwdgkE7gtHuef52RZuE86jQXh6bXyf4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="I/KAmxy+";
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OTYgV68L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77AF8606EE93;
-	Mon,  9 Nov 2026 16:48:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77AF8606EE93
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE60606EE95;
+	Mon,  9 Nov 2026 16:48:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=I/KAmxy+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794242902; x=1825778902;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=mG2F3kXHoPkrkgh7TuAzTTLOIw3kPA3YYlH38YhZ6zA=;
-  b=I/KAmxy+7kNpBaVCDME0irNgPbfRT81Bs7UGORQz0kuIo/F9qo6gzON7
-   JMmksSNV5sfwSk0ssVahPl5C99eIPWBYaXZVyKEE30Dh1F0kMpGbJXeWB
-   8P/QHmuS1spU+f8S/3KMvco9H2h3uJE8XsrxRNOvInE89VwrtYqY5bpTW
-   En7p1jq3eaBD1GMd55UaD9UhPqEiIcgAR3G7SM+CGUSczqD7PEf4+EYQ0
-   J1zgrkVnssLqgWn+1JxIxuRDAZlycd1gXGB/2KZ53KRq0OFD9SV2bZSm0
-   p2ZTyg03mCBeSaie9hAE4PnSJ18hfmyLhHNzwHRNKoR9/YP7l+Vx1iR5n
-   w==;
-X-CSE-ConnectionGUID: FOlSKpswQ7alQUqHSzsewg==
-X-CSE-MsgGUID: 9gC1BXxET4KWBMaI/mEH3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3010699"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3010699"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:48:22 -0800
-X-CSE-ConnectionGUID: ZL6YsHvVT4ur8NDCENsfVA==
-X-CSE-MsgGUID: Fk+TW1seTaGjdtpoXYvheg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8481233"
-Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 08:48:19 -0800
-From: Dawid Glazik <dawid.glazik@linux.intel.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	dawid.glazik@linux.intel.com,
-	maciej.lawniczak@intel.com,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v5 1/3] dt-bindings: arm: aspeed: Add Intel AVCRP and JNCRP boards
-Date: Mon,  9 Nov 2026 18:41:48 +0100
-Message-ID: <0fda64f661da98e069da9e0bdaf947f0f4d5430c.1794242015.git.dawid.glazik@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1794242015.git.dawid.glazik@linux.intel.com>
-References: <cover.1794242015.git.dawid.glazik@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OTYgV68L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F1091F008A6;
+	Mon,  9 Nov 2026 16:48:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794242913;
+	bh=GdDGOAbB/KQU4vtxa83AQst4hcGs21jmt+hYBHudx+4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=OTYgV68LQfLSbQrpPuh1WJFfOaf/IkL6cIfXaPKC277+lYfAq5q4qnewysjVcP7r1
+	 l/eJIiGSvXjecpKQEJBhVmTRiFxHr1OSNJJqWeXobLoV/Hr5dszmwwcL789dno8Ozd
+	 Y0RiEQyWoNyrWyaqGBBuXTxnGUl6+wpUyQshldWRaCzRRtCtFpOPscZcMhZGugQ9VX
+	 i5vUYdovs4GsWEHi1IA3thUY0m9o0iQpPOR2zlgAvfkgicUvNwC3XpnnaJgfaKiO32
+	 RuRVNG4Z3DJgdMogZ6CKT3l35xrejvKzJBwvHmvfUpSicJ+mroU7gLMfxPAk6j3F4K
+	 k8xFbkQ8LPU3A==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id DD2B42EE9BB1;
+	Mon, 09 Nov 2026 16:48:25 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Vijendar.Mukunda@amd.com, venkataprasad.potturu@amd.com, 
+ lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
+ Zhang Heng <zhangheng@kylinos.cn>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261105063153.353012-1-zhangheng@kylinos.cn>
+References: <20261105063153.353012-1-zhangheng@kylinos.cn>
+Subject: Re: [PATCH 1/2] ASoC: amd: yc: Fall back to DMI quirk table when
+ _WOV returns 0
+Message-Id: <179422737491.3711751.17494017501899617981.b4-ty@b4>
+Date: Mon, 09 Nov 2026 12:29:34 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,40 +64,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1270; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=z2zvrB5Q294z/4N+C9OWqKKhjp4aivE6Z3pnWZa+AIA=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+/ow0SRC9N3+xvHpBQKvQ9uWMB05d3/DNIfSR2e0pa
+ 1x89r2b0VHKwiDGxSArpsgSl8X9sr7k9Rq+gwvbYOawMoEMYeDiFICJCDxg+O+pXff6c+Cpmd/2
+ fVm4Z5vph+06T28c0mN/opW66OS+jnIBRoZZtVHbhTgWzJ0jGbvWPWHdv4/irNsz2Z4nWHy6EMd
+ Y95YBAA==
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Add compatible strings for the Intel AVCRP and JNCRP BMC boards.
+On Thu, 05 Nov 2026 14:31:52 +0800, Zhang Heng wrote:
+> ASoC: amd: yc: Fall back to DMI quirk table when _WOV returns 0
 
-Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
-v5:
- - Rebased onto the current aspeed/arm/dt, no other changes
-v4:
- - Rebased onto aspeed/arm/dt of bmc/linux.git, no other changes
-v2:
- - Squash the separate AVCRP and JNCRP commits from v1 into a single
-   commit, since the changes are small and closely related
- - Fix compatible string ordering so the new entries stay in
-   alphabetical order within the enum
----
- Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+Applied to
 
-diff --git a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-index b7e70868ebd8..61616a9754a4 100644
---- a/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-+++ b/Documentation/devicetree/bindings/arm/aspeed/aspeed.yaml
-@@ -110,6 +110,8 @@ properties:
-               - ibm,sbp1-bmc
-               - ibm,system1-bmc
-               - ibm,tacoma-bmc
-+              - intel,avcrp-bmc
-+              - intel,jncrp-bmc
-               - inventec,starscream-bmc
-               - inventec,transformer-bmc
-               - jabil,rbp-bmc
--- 
-2.43.0
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+
+Thanks!
+
+[1/2] ASoC: amd: yc: Fall back to DMI quirk table when _WOV returns 0
+      https://git.kernel.org/broonie/sound/c/cadc502ad7ec
+[2/2] ASoC: amd: yc: Add DMI quirk for ASUS TUF Gaming A16 FA607NUQ
+      https://git.kernel.org/broonie/sound/c/dfab155ecc7b
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
