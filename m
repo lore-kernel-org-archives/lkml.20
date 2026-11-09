@@ -1,65 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794217063;
-	b=GZytF3+oWTIFni+1xwqlMSpXHSWuILkJgzJZqyPAJ6IxYKkJpJphoP+pED6fIUzng0/f
-	 pR7TyYOaQFKi/WIlo91GZSbZY5zJ9AN/Ut7+hKOK1WNyvkoQVbM34Zu1bvt6ewMl5EX5p
-	 /ZibVq8TJgHvT8zuaDINi7sfKHNeLDNCQK/uyu0+BtsFiAi2aP8QWTrjA6NyoO/ZMp3X3
-	 NaSvzbf+KyK21byYSjEpC5pJIdVzx/HNmQVydnXJskHFsrfQZGSZORLmSHc129zH84kwy
-	 QzPivazsxvf7kvoguuVbt0ty1UbpRGr6Yb+03YbuME5giycT0JsB8mCm6Ba7OrRWELA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794217063;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pdQo22DKD+JvOWRMuDf69of/AG4sxAXBKnBk66wCO84=;
-	b=WwzWgnYE57IEH+fZsI5ej0WHSt5WXV1i+gtr+SmVAF3Scehq9hfo1yc+f/jmADZHE1JT
-	 ru7GFwfax5aHfVoAutq3i5A3u91yoFgOz71DjiVO0vJVX+RKCjS8gucry3kHerul1igub
-	 dfeXpmzbdhtg4vZEiLWfepWMf2ZbIw0D8ntuG4SeRoKDpF13Km/J41wooF9Tl+n/hDvyJ
-	 lhwOMlXlq5Iu4wlAvL5vGp11KeemWmK9krwxdqWQ6DvtbavTp+x8SNMWTzDdak9VrbYG3
-	 ySRkDy6iDEYkGSvaF2a/cE7oFLDuWWjvJKZKkITSM/3e5hjqvl5awk7NLmPlLnJNCfA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b="aoH4/nx6";
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D926A606A323;
-	Mon,  9 Nov 2026 09:37:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D926A606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794217147;
+	b=DlnWF2XHVoI76jNCQfWabN20Evy/asw+umqYlXj2Fc8m31y7FrzAQzIvkgS50vx5d3jR
+	 OHaQ+SHnGoqY28XRCVAlYnTNKSTZB4HYaOyu9XnUFKGVSQyEzNGWmdvsYjg3pWpNebXFm
+	 z+3XyWJnPxEuyYGJoK9In1YbBYvwqxMzWzdHF2H27n5joY3f/dYUdNIG+OIC3uYvzQBHH
+	 pNbCu6SxAdVes2pWXq2Ild8JabJovU8cDaP8pGtAypUOxOxZ2b4qGqWQs+W9amhdJtcGQ
+	 KpJayOHQclohB6KJ6EuCYeIsuUDX+5H4FLMQBZy3DEgKXRT2b7ND3oO3xJvfBm3A4pQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794217147;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Bt2kTkjGKfcd8zMvx1shHZytI48P75SXp34GvUI4/fg=;
+	b=RanNrwp5VApLsgI3KmPfbdWV7H4XmvfqCNXXXb54WXGVURMqq6xu1RbFxm6cDjGvBjMG
+	 f4AN0yvlcurd2Vk+s7tKqSF63MwZBu/R+qTapQNMuqBPk7l2YPY5P8SHBxj67luW4oMsA
+	 /8DTC1T67m0p6OP1GcQOb+8e3TNxWEwFhPvy9rVLH3grrP7naw/vq8yCfz/zBLi3oCh0E
+	 sdLNzASKFBr/Oxkvjar4MBR4F9ADnV4beGGLtl6+wmfAmzMyqO+pkbVvaLQ47X16HfkJr
+	 3ujIyf4A7eZITi2ut3qdC4koZomrCh3WyFmk84PL58BOyNlkH6v75Y3SjEhcxMIQtyA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Ez/Z55b0";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.53
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0863F606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:39:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0863F606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=aoH4/nx6
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ez/Z55b0
+Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-4ad587ba293so420469fac.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:39:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794217145; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AnKQTvkxdNTb+orpTfXxntqC3hQ9HyibqC+8igbx7ZUWTsmm5AidzeiQ1x+gY5UW8I
+         UOvZwDdFZd56FO5YYbChkd3SpjRxeBC3/aXuEPXxN0Rf55fEsKbRDKY/qUjnR6H1lYCb
+         B62k47HFPNonKIinz9DVZlp/KqCsbS7nB+Z4VRmeq8hIrobINJ0B3ohqTawAsUmFR/a/
+         d8zmoc8d9hQ1joYl9nv/vK8r3ujKFVddt8Ch+uD7PBIfLJXPgju7zTVy+1QpSoTy86zh
+         WXl6MmQs4Pa3kI0FrX/1cyMT7gvXKOzUhSYT/olZ0yQFptSG4iiUqDspbS7O9v+MN+8f
+         ROyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Bt2kTkjGKfcd8zMvx1shHZytI48P75SXp34GvUI4/fg=;
+        fh=QgxprfPpdNPhLvmb/1SbyN6Gn+WurmA5qzw93POA1lw=;
+        b=hBE8fyPHoyQPfAeoLpK08mC34W/K3wS2zqUqiNN6BxcxCkK5vtfS1AQdmAhGyLXKJV
+         hFx0iOXBzz/k4UG1B9vVck8lXWN8kN02OR1mqg7LXa5DCVAz+E/b0Sr4mWIcYTaKsBDZ
+         YwX1dmtTRm/XD9hkZ6BKvrV2S0EaYRTNrYHJv2Q9qXB7d7S7iJ3xu2RhQocBtuDRAlrv
+         Mk7RelBS++QAF1z5Borp2zJkTZ892yVRGB4kajtJVLOqmmfazP9QtWpjJRbw/TQDBU4B
+         OcIhQU1qYRdNS2NJlh/4a3WJSb1W5c/Rvd/tEN87D+K4kJh0lELqXUBQITFh9P81/f9M
+         LBPw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=aoH4/nx6btEucbdG0adW7sGC6WLblqFJGGys7VkNQFezeRXSVRcvaCb5rnQVOi17HcQWIRxBfnxdI
-	 iMo+A0XmsWdOsOITmp69vZrdcPW46tpJTYuxYOGIzT3qlNOfGlcvnYEiD4khRNdrgR2ODjoL0j3fos
-	 sPwvpQulMWIh94y4=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af19464acd-c9d74;
-	Mon, 09 Nov 2026 17:37:40 +0800 (CST)
-X-RM-TRANSID:2ee96af19464acd-c9d74
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from devin-VMware-Virtual-Platform (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6af19463c09-8a6ef;
-	Mon, 09 Nov 2026 17:37:40 +0800 (CST)
-X-RM-TRANSID:2eea6af19463c09-8a6ef
-From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: vt8231@hiddenengine.co.uk
-Cc: zhujun <zhujun2@cmss.chinamobile.com>,
-	linux@roeck-us.net,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwmon: (vt8231) Clamp voltage limits before scaling
-Date: Mon,  9 Nov 2026 17:37:38 +0800
-Message-ID: <20261109093739.5539-1-zhujun2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.51.0
+        d=gmail.com; s=20260707; t=1794217145; x=1794821945; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Bt2kTkjGKfcd8zMvx1shHZytI48P75SXp34GvUI4/fg=;
+        b=Ez/Z55b0uswFCCrOov466Vti5izMG1v2RfIprz1liD212lvlAPN/9oxAdWhDg8/HNo
+         hRWSJkAfaoWCJV9ylz1pMAI4Im1eai8Bz2J7SNqnmNttW4mOzZXW/RNk5dwQcwPU18q2
+         75/965pmobYanJrT/00PyCd01etzF7VJNN5PdoYALtWwGKJ7yf4bGFy01E6aOM4G9vJX
+         PWCB2pPCGQ5kmudjm2rrRMbIBGZ3X/Q+hh0qoTWNhHgH3sg2OKQ1J9mkXdeR0soyUnUT
+         oK4d4EoG2w6Fti24nb/9i+6XfjKQSiMsQJZ2EKY2yg41a89atwJ6KA/NBWy/R6jeI/mN
+         9zLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794217145; x=1794821945;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bt2kTkjGKfcd8zMvx1shHZytI48P75SXp34GvUI4/fg=;
+        b=zFk3aoqi36rWZ3F1gQB8HI1MPAFgQdLFr1AJYtq0UHFHb+CSUsRwdyUTHKYUN9/vfH
+         tOiLwHM2w8ub2sOFzi7ak5UNrhfRgCKQuipXFQaVhvumWGk59n8aFnS5wrBBbMwpcqvH
+         YCiGmVmjG9HS2R98+lKZOpCMuHC7oLmx0ukdnLNCoi9vscxzE/vKX0103Sdoe6HAzOd1
+         60qKI6+F8uNC1PYnoZPHq7Qmt+aHeBzHiyITrKQWXI8qSZIh8egUUIvSMI4Jl97TbXTN
+         jbVngikNFtC4zWsT0k7phwxzhUCU+4QwAYzhsM2OC4FDDOLzw0GsGEnUcwE3+ybExz6F
+         0BhQ==
+X-Forwarded-Encrypted: i=1; AL+hErH80MJaYKuWj1sA8iy3mSiq+/fL1Ubqq1d5IIWn0XDpYqptjtBZEW46f9tF6hmPdCHgTH1tqmwrRXcyX9M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/JyKd5pkCq0ItJEyrXFFKloJUNa9eqmZwd6Qo/MH/4khPij3cZ
+	Cw+HC89HgEEHzHQTM0aS5iWf9u61yk5Ijwmv+1Hj/NaWhvVwB7U+SiJCmNd3ohwvrJ9akTTriiP
+	szPxGTaVocv+3sg4jTN26bK/j2jnCYQ8=
+X-Gm-Gg: AYBFou28pCuXcEREEOJJjmTAOblwgu+P8XkCLgYF/ipHxTttXwfwmb0k6mekrDeEvH2
+	hTlP9QSUNjsC2A3zjXrFK4VZ8VwTxf9de9bk8P74L7Fel922QQGz/pKpHHELVMyzQZzwlPC1E5p
+	WC2YIL5a6X7y6Jiw8/VNo02GNu9wn/dlriDYkdEjUB9DJO/gGGYoV9+wcnv+VClbu4Zeydky69U
+	4KU+pQc4qsH4M7nthoOBSvyNfB2+DkhxFfF8wHouMcuH5GBbJcMKMSXUeP1SF+wdV80ipkj1jnn
+	bzSK6bYxQoVHgRlbZmrgiZHkRuCh/vg6cKNsq0/QNqUST7lKzVdbB8oWuyPoOvMvNaGZKpFmBIu
+	Q7ZXh8SPyok+QuSQg+M6e2QKE7poaNYV/H6jUVror3p2pkoVGtPRzr3IItyqntPV+45jQwATBtq
+	AlqXQmLRpp6kRWPA==
+X-Received: by 2002:a05:6871:b09:b0:499:c554:b635 with SMTP id
+ 586e51a60fabf-4adec9a0521mr1832827fac.28.1794217144641; Mon, 09 Nov 2026
+ 01:39:04 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,71 +105,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261106114551.212675-1-amaan.cheval@gmail.com>
+ <20261106114551.212675-2-amaan.cheval@gmail.com> <CALuQH+VtASWP=w9ibTJ7ioYxWrS5sgi9yCZMVK0D831_A-zusw@mail.gmail.com>
+In-Reply-To: <CALuQH+VtASWP=w9ibTJ7ioYxWrS5sgi9yCZMVK0D831_A-zusw@mail.gmail.com>
+From: Amaan Cheval <amaan.cheval@gmail.com>
+Date: Mon, 9 Nov 2026 15:08:53 +0530
+X-Gm-Features: AclHuK8ZY94zA-0byUQ__DrC9NeVtoJKfHv6SKapSVwO8ABChRUHJeGPjboSxYY
+Message-ID: <CAG+wEg3VCFnPMkkXVLBNgSNra2YBSZAM-Q--AEQvA597z7X5MA@mail.gmail.com>
+Subject: Re: [PATCH net v4 1/2] gve: block XDP on the DQO-QPL queue format
+To: Joshua Washington <joshwash@google.com>
+Cc: netdev@vger.kernel.org, hramamurthy@google.com, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	bcf@google.com, jordanrhee@google.com, przemyslaw.kitszel@intel.com, 
+	maciej.fijalkowski@intel.com, pkaligineedi@google.com, maolson@google.com, 
+	csully@google.com, willemb@google.com, yangchun@google.com, npl@google.com, 
+	awogbemila@google.com, shailend@google.com, nktgrg@google.com, 
+	maxyuan@google.com, bpf@vger.kernel.org, john.fastabend@gmail.com, 
+	hawk@kernel.org, sdf@fomichev.me, daniel@iogearbox.net, ast@kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: zhujun <zhujun2@cmss.chinamobile.com>
+On Sat, Nov 7, 2026 at 8:43=E2=80=AFAM Joshua Washington <joshwash@google.c=
+om> wrote:
+>
+> On Fri, Nov 6, 2026 at 3:46=E2=80=AFAM Amaan Cheval <amaan.cheval@gmail.c=
+om> wrote:
+> >
+> > Commit d8a8ca14c937 ("gve: add XDP_TX and XDP_REDIRECT support for DQ
+> > RDA") enabled XDP on DQO-RDA by dropping the queue_format check from
+> > verify_xdp_configuration(), which until then refused every format but
+> > GQI-QPL. Nothing replaced it for DQO-QPL: gve_set_netdev_xdp_features()
+> > advertises no XDP features there and gve_xdp_xmit() rejects it, but the
+> > core only checks that ndo_bpf exists, so a native XDP program, and an
+> > AF_XDP socket on top of it, can still be attached on DQO-QPL.
+> >
+> > The DQO-QPL RX path was never written for that. Its page accounting
+> > assumes the driver keeps a reference of its own across every handoff:
+> > gve_xdp_done_dqo() passes the buffer to xdp_do_redirect() and then
+> > recycles it with gve_reuse_buffer(), so a redirect target that releases
+> > the buffer synchronously, such as an AF_XDP socket in copy mode, can
+> > drop the page's last reference when pagecnt_bias runs out. The page is
+> > then freed while it is still DMA-mapped and registered in the QPL, and
+> > the driver posts it back to the device.
+> >
+> > Refuse XDP program setup on DQO-QPL in gve_verify_xdp_configuration(),
+> > matching the features the driver advertises. A zero-copy XSK pool bind
+> > is already refused by the core for the same reason, and a copy-mode
+> > bind never reaches the driver and is harmless without a program.
+> >
+> > Fixes: d8a8ca14c937 ("gve: add XDP_TX and XDP_REDIRECT support for DQ R=
+DA")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Amaan Cheval <amaan.cheval@gmail.com>
+> > ---
+> >  drivers/net/ethernet/google/gve/gve_main.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> >
+> > diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/e=
+thernet/google/gve/gve_main.c
+> > index 2437cd8ba633..4e9e692a0ed0 100644
+> > --- a/drivers/net/ethernet/google/gve/gve_main.c
+> > +++ b/drivers/net/ethernet/google/gve/gve_main.c
+> > @@ -1723,6 +1723,12 @@ static int gve_verify_xdp_configuration(struct n=
+et_device *dev,
+> >         struct gve_priv *priv =3D netdev_priv(dev);
+> >         u16 max_xdp_mtu;
+> >
+> > +       if (priv->queue_format =3D=3D GVE_DQO_QPL_FORMAT) {
+>
+> Thanks for implementing this!
+>
+> Minor suggestion: Can we check based on dev->xdp_features
+> (NETDEV_XDP_ACT_BASIC) instead?
 
-The voltage limit stores multiply an unrestricted unsigned long before
-clamping the register value. Large inputs can wrap and select a low
-threshold. On 32-bit systems, writing 4483265 mV to a regular voltage
-limit selects register 3 instead of 255.
+Thank you, yes, I'll respin.
 
-Bound the input before multiplication, using the separate scaling for
-input 5. This preserves the conversion throughout the representable
-range.
-
-Fixes: 1de9e371b89e ("[PATCH] hwmon: New vt8231 driver")
----
-Validation: x86-64 and i386 driver objects built with W=1.
-Source-extracted boundary tests passed on 32-bit and 64-bit;
-the corresponding test fails on the base revision. I/O is mocked.
-No physical sensor hardware or booted-kernel test was available.
-OpenAI Codex assisted analysis, code, tests and changelog drafting.
-The human submitter must review and add their Signed-off-by.
-
- drivers/hwmon/vt8231.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/hwmon/vt8231.c b/drivers/hwmon/vt8231.c
-index 1fe361bc30e2..a022119ee305 100644
---- a/drivers/hwmon/vt8231.c
-+++ b/drivers/hwmon/vt8231.c
-@@ -293,6 +293,7 @@ static ssize_t in_min_store(struct device *dev, struct device_attribute *attr,
- 		return err;
- 
- 	mutex_lock(&data->update_lock);
-+	val = min(val, 255UL * 10000 / 958);
- 	data->in_min[nr] = clamp_val(((val * 958) / 10000) + 3, 0, 255);
- 	vt8231_write_value(data, regvoltmin[nr], data->in_min[nr]);
- 	mutex_unlock(&data->update_lock);
-@@ -313,6 +314,7 @@ static ssize_t in_max_store(struct device *dev, struct device_attribute *attr,
- 		return err;
- 
- 	mutex_lock(&data->update_lock);
-+	val = min(val, 255UL * 10000 / 958);
- 	data->in_max[nr] = clamp_val(((val * 958) / 10000) + 3, 0, 255);
- 	vt8231_write_value(data, regvoltmax[nr], data->in_max[nr]);
- 	mutex_unlock(&data->update_lock);
-@@ -360,6 +362,7 @@ static ssize_t in5_min_store(struct device *dev,
- 		return err;
- 
- 	mutex_lock(&data->update_lock);
-+	val = min(val, 255UL * 10000 * 54 / (958 * 34));
- 	data->in_min[5] = clamp_val(((val * 958 * 34) / (10000 * 54)) + 3,
- 				    0, 255);
- 	vt8231_write_value(data, regvoltmin[5], data->in_min[5]);
-@@ -380,6 +383,7 @@ static ssize_t in5_max_store(struct device *dev,
- 		return err;
- 
- 	mutex_lock(&data->update_lock);
-+	val = min(val, 255UL * 10000 * 54 / (958 * 34));
- 	data->in_max[5] = clamp_val(((val * 958 * 34) / (10000 * 54)) + 3,
- 				    0, 255);
- 	vt8231_write_value(data, regvoltmax[5], data->in_max[5]);
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.51.0
-
-
-
+>
+> > +               NL_SET_ERR_MSG_MOD(extack,
+> > +                                  "XDP is not supported in DQO QPL que=
+ue format.");
+> > +               return -EOPNOTSUPP;
+> > +       }
+> > +
+> >         if (dev->features & NETIF_F_GRO_HW) {
+> >                 NL_SET_ERR_MSG_MOD(extack,
+> >                                    "XDP is not supported when HW-GRO is=
+ on.");
+> > --
+> > 2.47.3
+> >
