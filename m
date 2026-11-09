@@ -1,68 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794213565;
-	b=wKgglnivVUCHFEgLxldsRJgN+eA4gFoF5KBBvzT1rcszqtrpwD5oyMSMVjqiZkPf1qm9
-	 rs2oHr5zszjJvf8Y5M57HDBl6YsWb5MuLwEehgdXIaJFuIrv9E4huvsQNn5aULoB1gfoN
-	 Wjkt8YV1RZpNYezCXvCwg7Tbhn9W92XbL6nJU4v3IiDs2K/TVR5R3k456N9mtd7CIUklD
-	 sunRnnuUa/LkYTjGT00++83SEDDbFfReSqgXGXGhpiTKHl0RbCSLdbc1EYsHCX/7ezG0k
-	 R3iS6RJ6MbJsGA4uX/Xqq7VeTQFsH5rL9w0wxZuD8t35eFiJbuRwQ+OWmOVbPyUO0Lw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794213565;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794213747;
+	b=t4Dy3mnByC8txEbvFAOTGIf43pH6TfGDRQfP9Kez1H26h0yz51zblIeQDSwzH5PTH/Qv
+	 bWJRkVqPY92v88k/FBYO7HQj/besoeiZ/1Y99Ejyhbir3xX9uANALn474BEQZshgDHGjH
+	 MGQ/Xkm3TNgXa7HXqM0ZSOk0h6S3JEfJx01UaShfoZA8bsmxqxQ0Q8eAmiAqRfBqpTAMj
+	 TJnNnjvpvjZFVHQn/snWSTF2PUaeYMNFUiB9PDTJDOpCjIuilSIrgpCrlxsEzCBtyYRDZ
+	 IL/mrsLK27t/AjYCeE+LvWbRK3KOEjJGguaJ3lSaFWA14N7YROB6eBwZaIjWxKIom/w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794213747;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=j4woioPd4Id4Xef47oA/Wr7zADMsvizCLXWTEMGbhN0=;
-	b=cxSFOrQpQfaapQQrEnVrqrmDlQUM3agbyAWEQ8FTo9IRnDkyg5zYx0ovezNESFEPFheC
-	 b4s4pxiAbt6KH6TYWf8ULl3L3feGMkHgtdydqbImfZ7Um7Yq5JDhPHTQPTySN8CxllVvM
-	 ZuNNCit1NA0tyvb2xn3puWPmCvqFU6HU51+wN7hKObAEr0gecr+t4TwS53NaAj0oFq8Kh
-	 8G+kV/6RS6BMM87DpV55HNJm8CviEZF5uCp4ttnP3w5goRbfEN2xMa2mXXzBMLWvEp5o8
-	 H/OD+e717eR62Bgl7M2rfAefFrM/qynVDIVeEZURzlbQGYeiq7FEj6uBuT7OL0da3qQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	bh=xq2W+DbzQKP7CTPJr7r8Z25kcdz5jvMXAXDiLOlCpBo=;
+	b=RNbtVNs/IHUb60IUBxtemC7OuhSn1+1qGiPy91wc4kG1MM2i/eybPXaKO+1pOyXucGmL
+	 kG9M3IgX6Oq2Zy3V60TuoLGYXrUbrqed8Uam6diP224hIlikugdls5yaU/WZ3DIBA3ndz
+	 glGaASYPMjTH3K3avGaS6YEbnFjVlBRa2NqOc0PF2Ezu0gdKqCRlVvHBz4dv0Ji/FuIi8
+	 W0G5ejF1DqCSilI0p2iksH446ZjOai4Gq2RErBisL8DrGaLefi3HMKvOT2tpmxg/hZYpM
+	 jlTG/QvZzHRc02V8ncRHY0OpWluRO45N8ImmcyJziB5lv2hABd04TC4jMTgkofqyj9A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjQGX5ik;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE45606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 08:39:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BE45606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 0b18689adc1911f19a56ed5b684f684d-20261109
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:ccdf3466-bade-4e70-bdde-89a7f4e8e66a,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:e99da3f601251e9ecbe5f7153963cfa0,BulkI
-	D:nil,BulkQuantity:0,SF:102|123|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,A
-	V:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 0b18689adc1911f19a56ed5b684f684d-20261109
-X-User: jiangwang@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <jiangwang@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 577905332; Mon, 09 Nov 2026 16:39:14 +0800
-From: jiangwang@kylinos.cn
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	linux-kernel@vger.kernel.org,
-	Wang Jiang <jiangwang@kylinos.cn>
-Subject: [PATCH] drm/amdgpu: Clear HDMI audio descriptors for sinks without audio
-Date: Mon,  9 Nov 2026 16:39:08 +0800
-Message-Id: <20261109083908.903757-1-jiangwang@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50102606A326;
+	Mon,  9 Nov 2026 08:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjQGX5ik
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794213746;
+	b=3jl7BgMEglT1/ybJ6z8QI7dCnppBnk8/CnN+2qdu0qSiChSXFgr8zzK5tFdoE3OtS5Sw
+	 qzG81ABpM62GUomdY3lYHYyL4BK2VE9Ekt/NkJsJmg/jI0c4MsNlAP/zuHT939iPCgrTA
+	 3o6GRf5iz9aJ7p3ihIlC4Qw4DneUYs9NJF43gVeUKaoFlbqrQ0Se10nW1+H29W3HSQK6c
+	 qf0Bze9qlF0MFapJvss5wxrDEk0IfYsdNbrlRyW1l26Ru1+tJpauGXxyJ1kE/2pvpV8SM
+	 S046csFAHBh5PbHF20smmlRjUdoZ16pTbfX9muALB74PfLe3WwNO0UWHuP9MvuIn5JA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794213746;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xq2W+DbzQKP7CTPJr7r8Z25kcdz5jvMXAXDiLOlCpBo=;
+	b=nfrKoRN91E//wEdojkR8umosiitGlg7T3XV7itKf1noGR+vyLdvReo1ryhpb8Rw+eQSg
+	 gOYtgEROYrzOnMK3Py/Be8bWMPWAOEZMagKJwyRp8k+MEz7N1oRZDhQk2jKTBvbdpSZ6R
+	 JfkYbba89y5TdsLvXmnRWs010N3s1sHQC95FWYLk78gJiqRanDJbOzhBv36aQrsuDQehz
+	 pW83k1TAHulJVlxYACM1qOG0IBGHTqGPAkzaBC9Uqo3cL+VVE/PhjhLKckrA7DDzpm4fY
+	 NFgjOOxY/hmM+ryv1EPwAX7w8VNSa4Y3nVwJlFaVlh6vC7g9Iv664yPOmG53/3eXAIw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id 315541F008A1;
+	Mon,  9 Nov 2026 08:42:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794213746;
+	bh=xq2W+DbzQKP7CTPJr7r8Z25kcdz5jvMXAXDiLOlCpBo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PjQGX5ikj18ixU1M1yk44tzTbySRzSCyrLcHVmojCQnbEGbaXhtDMSZJBSB2ZHDyv
+	 1+ldfZHSoDz619h3s7tUdPAZ5MjHjqqc9lzlAcKbp/+nGR+lG55mwNCrVKWsuoLyoO
+	 +EtR6+V8YfoCbeCRDxm4unLNtvOoEHdQnO7LqFGESZHzZkKDLx1mpZN6Y3rJFxo8rS
+	 04AVtFK4j/FJyAh/x99yNDKBZ3fLOFxPIYx7vhVj5hIAN1uWULHBSUzMe+jIvoDq85
+	 Uwgson9yMyo2d+0vbqkl3+RC7j+J+Gz6rQmQ/d2dgoMvrqi+fvMEtC3T+aF9tVPmGS
+	 WRC2AN9WC2EOQ==
+Date: Mon, 9 Nov 2026 09:42:02 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Song Qiang <songqiang1304521@gmail.com>, Radu Sabau
+ <radu.sabau@analog.com>, Maxwell Doose <maxwell@maxwelld.cc>, Tomasz
+ Duszynski <tduszyns@gmail.com>, Erikas Bitovtas <xerikasxx@gmail.com>,
+ Waqar Hameed <waqar.hameed@axis.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org, Jonathan
+ Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [RESEND PATCH 11/14] iio: proximity: vl53l1x-i2c: poll own
+ trigger from interrupt handler
+Message-ID: <20261109094202.0000284f@kernel.org>
+In-Reply-To: <20261109042851.1326940-12-jic23@kernel.org>
+References: <20261109042851.1326940-1-jic23@kernel.org>
+	<20261109042851.1326940-12-jic23@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,79 +94,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Wang Jiang <jiangwang@kylinos.cn>
+On Mon,  9 Nov 2026 04:28:48 +0000
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-EDID without SAD left stale AZ descriptors; emulated ATI ELD faked
-audio capability. Clear them.
+> From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> 
+> Keep a pointer to the driver's trigger in struct vl53l1x_data and poll
+> that from vl53l1x_irq_handler() rather than indio_dev->trig. Only the
+> driver's own trigger is accepted, via iio_validate_own_trigger(), so
+> with the buffer enabled that is the trigger in use.
+> 
+> This removes a dependency on the trig field of struct iio_dev, which
+> is to become private to the IIO core.
+> 
+> Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> ---
+>  drivers/iio/proximity/vl53l1x-i2c.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/proximity/vl53l1x-i2c.c b/drivers/iio/proximity/vl53l1x-i2c.c
+> index bce238d1b6de..ffc6fe45b165 100644
+> --- a/drivers/iio/proximity/vl53l1x-i2c.c
+> +++ b/drivers/iio/proximity/vl53l1x-i2c.c
+> @@ -102,6 +102,7 @@ struct vl53l1x_data {
+>  	enum vl53l1x_distance_mode distance_mode;
+>  	u8 gpio_polarity;
+>  	int irq;
+> +	struct iio_trigger *trig;
 
-The legacy implementation refers to ce9778b7a027,
-"ALSA: hda/hdmi: Consider ELD invalid when no SAD is present".
+Pahole reports a 4 byte hole between irq and trig. Reordering
+like this yields a better result:
 
-Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
----
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c | 7 ++++++-
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c  | 7 ++++++-
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c  | 6 +++++-
- 3 files changed, 17 insertions(+), 3 deletions(-)
+struct regmap *            regmap;               /*     0     8 */
+struct completion          completion __attribute__((__aligned__(8))); /*     8    32 */
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-index f2977fe6d824..f967ee505271 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -1341,8 +1341,13 @@ static void dce_v10_0_audio_write_sad_regs(struct drm_encoder *encoder)
- 	sad_count = drm_edid_to_sad(drm_edid_raw(amdgpu_connector->edid), &sads);
- 	if (sad_count < 0)
- 		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
--	if (sad_count <= 0)
-+	if (sad_count <= 0) {
-+		/* sink has no audio capability: clear stale descriptors */
-+		for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++)
-+			WREG32_AUDIO_ENDPT(dig->afmt->pin->offset,
-+					   eld_reg_to_type[i][0], 0);
- 		return;
-+	}
- 	BUG_ON(!sads);
- 
- 	for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index c68de0fe1d7d..18c171c533de 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -1320,8 +1320,13 @@ static void dce_v6_0_audio_write_sad_regs(struct drm_encoder *encoder)
- 	sad_count = drm_edid_to_sad(drm_edid_raw(amdgpu_connector->edid), &sads);
- 	if (sad_count < 0)
- 		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
--	if (sad_count <= 0)
-+	if (sad_count <= 0) {
-+		/* sink has no audio capability: clear stale descriptors */
-+		for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++)
-+			WREG32_AUDIO_ENDPT(dig->afmt->pin->offset,
-+					   eld_reg_to_type[i][0], 0);
- 		return;
-+	}
- 
- 	for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++) {
- 		u32 value = 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-index c3906270f25e..62922736d569 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -1313,8 +1313,12 @@ static void dce_v8_0_audio_write_sad_regs(struct drm_encoder *encoder)
- 	sad_count = drm_edid_to_sad(drm_edid_raw(amdgpu_connector->edid), &sads);
- 	if (sad_count < 0)
- 		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
--	if (sad_count <= 0)
-+	if (sad_count <= 0) {
-+		/* sink has no audio capability: clear stale descriptors */
-+		for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++)
-+			WREG32_AUDIO_ENDPT(offset, eld_reg_to_type[i][0], 0);
- 		return;
-+	}
- 	BUG_ON(!sads);
- 
- 	for (i = 0; i < ARRAY_SIZE(eld_reg_to_type); i++) {
+/* XXX last struct has 1 hole */
+
+struct reset_control *     xshut_reset;          /*    40     8 */
+struct iio_trigger *       trig;                 /*    48     8 */
+enum vl53l1x_distance_mode distance_mode;        /*    56     4 */
+int                        irq;                  /*    60     4 */
+/* --- cacheline 1 boundary (64 bytes) --- */
+u8                         gpio_polarity;        /*    64     1 */
+
 -- 
-2.25.1
-
+Kind regards,
+Joshua Crofts
