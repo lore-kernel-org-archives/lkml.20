@@ -1,60 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.33.167.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794235851;
-	b=ArCuArotAkNzWMSuixNn9LNdQPetfg7I8dHBWcgY9HamJHRikPIZuVQKmaunWu96VFw5
-	 Tp7lSHzsVxzzF1aFq1E4ejbarggybSm+v01yXy5hHWX6I9LaVfrY9ut5T+H46y+nq5r1j
-	 PPtJcijmXgKbAqLZb7qgtvG34Xbgbkt9iXuTaYBDA+ev6k5amKAroi5wIX2gWviQcvWuI
-	 ik4hJhiziqZg/QnIWUWi0402V+ClwTk+qB1pHJjb1nEFSxujptUCvvI4qsiaT/BMnUCZL
-	 Iy6tJeXmYlp0r8/wbMXgcyra8Cukc75H81q3DzaO7xF9VzGJuMCSDCHibnHL/iL37Dw==
+	t=1794235855;
+	b=iMGtyRYK/tLlxTrxt8XU33q9wBsVdgJoa66THhCOH5V/m/90LgqKOxpxEOD2c2asxSqj
+	 Dygc+7cvh/fD3O+llWy5o0EwHkbK0AVVjlQNo/e8HKH9KoeKJGxJVhljQpYtjVvt5W5pl
+	 hIFXsLP3kqe1O04RMT6pic96up6S3OSfdDBuDQnRmLO9L9+2l/zzKPpMGNfLM3gHF+0zm
+	 pRWmLumkOXCEeTQPedycoCiDQGfSmnBs1ydcGPJKGDbu8AJM2IG4z4jlVt/kLzogGOVyc
+	 /9w+fsRT2HKEqF6zf34MuHrwvRR+XRMSKGS2Pzjy3V69BZdKB3ubyMYWT7NoeuBeo0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794235851;
-	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=cXbJk2INOtDbIQpp5ZPiMsPF5rN/iKWVctoi+2geGYo=;
-	b=Qo3KoC5JKxUY1mjmmftGY7ow5NS/c9872EUvkYond1KsRERR6Lt2zKYMPWDjiNsxJxCd
-	 dOQJzHuC53tojqELZPAqHEhO7UHKpYkq8hQD94Gj50bXe9kftXRytlIneJ1OK+911gm+X
-	 fyCi222mR8AYH9wUnI6pL1zv9OSSmbQ4QAgXbPhve1PSVvsFuU6SZcm5oCKIMmT25F14r
-	 2BI25NjQAvMILm5rjxtm3198lEQMKdf5BVOrkrHlrTtpdZkd+GuD3CCFe3Nb3GHZmjsAv
-	 E/FsyjJf8hwqVN69pivxYjhLx13MU+ngpPly1QV4R9KngzZnBJM9zf3eG/yg4aBY38Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794235855;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=H/+rCAuVYsfnrsVIMu7ttz7mGAAOgBsFhAj5CbRxTk4=;
+	b=iRA1vLp76znAN5t2kaG0DfXjTZ7X93LDU9yHsNMO0QaLCWgM2H60+Csuq0laepCJrKLv
+	 7MA22z8xTT1Qu/5yUFefy3np0Q61hNvDLONbsCwuqUuiGoFxyJZwh9Aj2swPmpWY3DDZZ
+	 3TXLQNVyT5plSNtv4tEeX9xXyCCnVkxlY8tpd4fcLCJ629YU+g6xtrSQqALSgxaAx0h4v
+	 0MKGXEoQUQtvoF1PSyshU14Q/fJt1izPEpR+bIdzopd8EK5HyQETyb0bPjEL2eiWwMXBZ
+	 LEku4OTFx54BzWdqR60OS2cSAvlwweW92nM8mF4ZM2i3hMbhR6SZgSf0g+oQBqGv28Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=picomail.one;
-	spf=pass smtp.mailfrom=picomail.one;
-	dkim=pass header.d=picomail.one header.i=@picomail.one header.a=rsa-sha256 header.s=mail header.b=gHpbuhBN;
-	arc=none smtp.remote-ip=193.33.167.51
-Received: from mail.picomail.one (mail.picomail.one [193.33.167.51])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVvVg9x+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F244606A31C;
-	Mon,  9 Nov 2026 14:50:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F244606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picomail.one
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picomail.one
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E3D06606A322;
+	Mon,  9 Nov 2026 14:50:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=picomail.one header.i=@picomail.one header.a=rsa-sha256 header.s=mail header.b=gHpbuhBN
-From: Jonathan Schmid <kernel@picomail.one>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=picomail.one;
-	s=mail; t=1794235843;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=cXbJk2INOtDbIQpp5ZPiMsPF5rN/iKWVctoi+2geGYo=;
-	b=gHpbuhBNgY/RTmYVoFBqFHZ+iIeeulOWb/8hr/zhuVyid+3RigOTD/xGsnBu6M+YXy3+8y
-	4U+YjLn5S2JxWWrHuPDZFD5+YuxQL+5nNLaUWm7mv2Ao2jDlPcGGzdL1uGkZRCaMlmMz8M
-	D5XZm7Y6lMnTc/vs4CjR8r0KGdhNP9TsAdErFZWcR/rttC4VtdAPN1/Rdhyuz9UWdqhMkP
-	SvLihVgkBvwRpgsZHJBPUFIK0aZCdt8EDshpPOJMtPrhCYewJFIMXn3bzgbS2zazTJa7Bf
-	vBoZT0ZHYXyZJHqQKkZe28SEd4SiMLQ1p13r9M9P/5/eALWbKJ/pEiq8z4uE/w==
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Detlev Casanova <detlev.casanova@collabora.com>,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jonathan Schmid <kernel@picomail.one>,
-	stable@vger.kernel.org
-Subject: [PATCH] arm64: dts: rockchip: Pull down the eMMC data strobe on RK3576
-Date: Mon,  9 Nov 2026 15:50:22 +0100
-Message-ID: <20261109145022.75261-1-kernel@picomail.one>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AVvVg9x+
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 09AB81F008A3;
+	Mon,  9 Nov 2026 14:50:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794235854;
+	bh=H/+rCAuVYsfnrsVIMu7ttz7mGAAOgBsFhAj5CbRxTk4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AVvVg9x+0RW/eCtxRJWfGPb1YeYocuDVL4MRfeeJgkFnYP8dXWkA9MVDWZjoKLEAA
+	 dSUbZPvcneA2PEEhFWj4W/z3ZD6f3+0gnVoNTggB3UFJ0/u+BOTlNGffW/WJjzReuL
+	 xDhHfd81JX/lxc11/yRxdCB9rOhxOlqaSqz+Uhk1JoOxCsHdTWWDSdi2ZwFQI60UiR
+	 rMz5+jhe+E6d2XEIpSFFvCETYl1VlIQh3y6LeE3QbQ1GwWgsoIhhJ1Rwu0kXMZg2Zn
+	 epPHZFHwvyl18wvn33vfDLcDw/65SdhUC6ZwYUww+BlpLG+I9pZzxvKdFwfo1wKBXu
+	 D8TaO9Ddl+4uw==
+Date: Mon, 9 Nov 2026 16:50:50 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Guo Zihao <guozh23@xiaopeng.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Ard Biesheuvel <ardb@kernel.org>, linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] tpm: sessions: bound the primary public area by
+ the response size
+Message-ID: <avHdynG1rKStCVUO@kernel.org>
+References: <au3waVnY6QA8TpPl@kernel.org>
+ <20261109014955.2777635-1-guozh23@xiaopeng.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,50 +60,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109014955.2777635-1-guozh23@xiaopeng.com>
 
-The eMMC data strobe (DS) is only driven by the card while it sends data
-or the CRC status token; in between, the card releases the line. RK3576
-configures emmc_strb with pcfg_pull_none, so DS floats between
-transfers.
+On Mon, Nov 09, 2026 at 09:49:54AM +0800, Guo Zihao wrote:
+> tpm2_parse_create_primary() reads the size of the TPM2B_PUBLIC area
+> from the response and hashes it to compute the object name:
+> 
+> 	len = tpm_buf_read_u16(buf, &offset_r);
+> 	offset_t = offset_r;
+> 	if (name) {
+> 		/*
+> 		 * now we have the public area, compute the name of
+> 		 * the object
+> 		 */
+> 		put_unaligned_be16(TPM_ALG_SHA256, name);
+> 		sha256(&buf->data[offset_r], len, name + 2);
+> 	}
+> 
+> The length is only checked against the response later, after the
+> hash has been taken. A TPM that reports a public area longer than
+> what it actually sent makes the sha256() run past the end of the
+> received data and hash whatever follows the response in the buffer.
+> 
+> Check that the public area fits in the response before hashing it.
+> 
+> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+> ---
+> 
+> v2: Drop the Fixes and Cc: stable tags, as suggested by Jarkko
+> Sakkinen: a TPM reporting an oversized public area is not known
+> to violate the TCG specification, so this is hardening rather
+> than a bug fix. No code changes.
+> 
+>  drivers/char/tpm/tpm2-sessions.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
+> index cf8f1fd6790b..e140079dbc13 100644
+> --- a/drivers/char/tpm/tpm2-sessions.c
+> +++ b/drivers/char/tpm/tpm2-sessions.c
+> @@ -1125,6 +1125,8 @@ static int tpm2_parse_create_primary(struct tpm_chip *chip, struct tpm_buf *buf,
+>  		return -EINVAL;
+>  	len = tpm_buf_read_u16(buf, &offset_r);
+>  	offset_t = offset_r;
+> +	if (offset_r + len > tpm_buf_length(buf))
+> +		return -EINVAL;
+>  	if (name) {
+>  		/*
+>  		 * now we have the public area, compute the name of
+> -- 
+> 2.50.1
+> 
 
-In HS400 the host samples the CRC status token that follows each written
-block with DS. With the floating line it misreads the token now and
-then: the write ends with a data CRC error and is retried. Nothing is
-logged and the data ends up intact, but the errors show up in the
-controller's err_stats in debugfs, and write throughput drops.
+Thanks this change itself is great and well described.
 
-On a board with RK3576S and a 64 GB eMMC 5.1 in HS400 enhanced strobe
-mode at 200 MHz, mainline shows about one data CRC error per 16 MiB
-written (1123 over 18 GiB) and writes at about 50 MB/s. Changing only
-the strobe pin from pull-none to pull-down at runtime gives 0 errors
-over 15 GiB written and about 176 MB/s; the drive strength and the pull
-of the clock pin made no difference.
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-Pull-down is the reset value of the pad, which the vendor kernel keeps
-(its eMMC node has no pinctrl), and RK3588 already uses pcfg_pull_down
-for its eMMC data strobe.
-
-Fixes: 57b1ce903966 ("arm64: dts: rockchip: Add rk3576 SoC base DT")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jonathan Schmid <kernel@picomail.one>
----
- arch/arm64/boot/dts/rockchip/rk3576-pinctrl.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-pinctrl.dtsi b/arch/arm64/boot/dts/rockchip/rk3576-pinctrl.dtsi
-index 98c9f8013..2ce5e1bfd 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-pinctrl.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-pinctrl.dtsi
-@@ -613,7 +613,7 @@ emmc_cmd: emmc-cmd {
- 		emmc_strb: emmc-strb {
- 			rockchip,pins =
- 				/* emmc_strb */
--				<1 RK_PB2 1 &pcfg_pull_none>;
-+				<1 RK_PB2 1 &pcfg_pull_down>;
- 		};
- 	};
- 
--- 
-2.55.0
-
+Br, Jarkko
