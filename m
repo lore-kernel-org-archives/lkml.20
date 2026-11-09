@@ -1,47 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794262257;
-	b=xHF0TRcnhugKkqZ7psU96V94pwB8LezZBAkOOPdYTsKHCVIenSB6JEz+UcF1mNyvqerG
-	 hedoZXSLZMBvOLoBLfHqVg3gULs+e6Z4F+4MILjXZs1JovKV40BFGwZV6aFofDhSVKgvI
-	 2LS7/8j/9UwmrBx5/bgKGN1aZlW5ZN1QCg+XlyhKixGXFzXXjCLuNRk8Uz6joezvyIFnf
-	 QqoYpHAGYU6/GdY8zP48LHc+JMG6X9T6wHjVW6L52j9lef37cKbmoQpPzZbXKkZn5Acuf
-	 zTD+S8AXqWFoJB3rCfyxhgFVZzXGD8gXV/nwcubZ3VRl+72AK7dbSS7zLynY7WQBlYg==
+	t=1794262350;
+	b=Q7UG/d/afISKMz9fM7I3IPvgOBo5N55LUDE/A2Y2bAy1UZ6mmna+eTpMG8idQyrtEwXe
+	 SNT5yMg3VivD82fzP16lE7e5PtGCbi5ct1CMAXcp0eoy94uYxSCPS/mockWxOD52ZOkE9
+	 iAl3VqOJim4Gwjz0uFRK8Y6Uvh16q2AsuvgrV4ouIx/I8lyv9hTHxyqCT2nQ+0rs96osm
+	 8v/D70d1IDBnCHovTzSbQ3Qvc1b/+VhpvmrnvwiKa7rBlAj30YhAP7suHCaH6oiLf7zG+
+	 rEwemn6lxtBUElzaFhLdjNl0Gyd0/rrNIx8SXOZ2Ecpc2ke1qWGko2mILbHBxagXvzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794262257;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Nq3uNwV5La5ApWi/9kLjTCydsVP84l6yDoi8+trNlgc=;
-	b=NpicOnjO0WRP39yW7Zrd/6cxBUEzP0a73CnCl5ncwhpWSOjPDNWOida2rMn29b0lnsGV
-	 9sU3R691CKS3WNFQZRASBeYX8cVztcVUEmjg4Wn4dcKKAqSZ+LpI+/ZEGB4Ae7Mk2Eyhh
-	 +3K6UYOHbRp9hM4uDA8j/+6Kao5eBrY0aPPNN8WP0f/VUvyoQsTaGbo+foe5CEuSteRhK
-	 UsWR9FqH/1ftfNOFClB5gQLZBw27F/HomgN6XVzC/BV//b64IbELNuQgIMnc3WIDciki0
-	 g9P70838eXS1BMEz+19XTDR4AnK6YxXy+ZUjrndqKWclwFdD9BluOjcy0JPVSXwn4HA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794262350;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=xgvmP0yR+MtGh0RmcZ6t9qcDIy0KV5BDdf5DZR4AHIw=;
+	b=d3FT5HrVJli0HQtS2X3NOdchhThtDIdkcvdhEoqXfj56DlF7b1JvkYd05keOP5aN+qhu
+	 5KI/+g4I3ZQyhUtEa7PR+K/q+6NdeloRE614/PxYBjY0bccsKdl59QXsY3CdKHXhU4rcL
+	 stqVmEjBiCHTYtlqiSejDFYh82whkdwL0JxvwTHJg8vUvYycgApd49w7orjBWTKEaQ5MO
+	 PH2hdrxpipHGWtssiJANsRQ5Gdu8Yvj0Gsqgtfc1LuH5siDSH+xyxKkSkm5EVdSbCL+bm
+	 jZVjmarZ80rmkJOx8K81ubRXwiGu9ZjJ3vCdIPn37NrBmYJLI7LIHY6nwepYX4LucQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5sxpAIA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=kDuLzLVs;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FD6606A321;
-	Mon,  9 Nov 2026 22:10:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4AE4606A31C;
+	Mon,  9 Nov 2026 22:12:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4AE4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T5sxpAIA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 566951F0089F;
-	Mon,  9 Nov 2026 22:10:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794262257;
-	bh=Nq3uNwV5La5ApWi/9kLjTCydsVP84l6yDoi8+trNlgc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=T5sxpAIAXOI3ZDEQWopFV5OTdo4jzRfqLbQHFfT4UDpkr08xV0skJOcp0CpvWEOKb
-	 htUPjMvyLhkQzORb5F1K1ANGox/qUflDnmiU27cY3LP+jyjXzsudkNdjmRDWeTHeEi
-	 EmaLWTCkQzqTlpOlCjdj9Quxbz7HnTySxbRG7pCGa9i6jygQaGtx0owEffeEI9HStU
-	 e9/u/rywL/KMhT3uBfsOZ5h/oOofXNmQhMVq3OJ7olx7UODTLP6/IZ3jM0EqOOBfan
-	 oKV2rqE/73+kZ52d/5fG3uhiR06rR4MXBHgsHRadgGtWTjI8DELXBDdpM1h/ogH1G1
-	 Q7/3fWQZBjuaA==
-Message-ID: <78833267-f204-4387-9f8c-c7e0d5df59a5@kernel.org>
-Date: Mon, 9 Nov 2026 23:10:38 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=kDuLzLVs
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=xgvmP0yR+MtGh0RmcZ6t9qcDIy0KV5BDdf5DZR4AHIw=; b=kDuLzLVsQ0SFzAPM9Ea2q4LIjk
+	vOzPZU1P42riJ4bh3CEQzzhWqmWlE8C90zzmPuR94gS3HF3ctAWwG0oDsOunwVTvjd3pWBvVmkkdP
+	9OZJPdERN+A31guqceVx7K/fMvGTgjIZkUEuMiDAKU6NCnCzM1U4hr9qK4TH3+oFJbEGbnJW14LLu
+	AstqSGR/uqWDjLOiMqIqAAAewUhCUvDBWjEYJSO7EpoZsXnJ8wj2ROFpnXzSub82/kl7P68Z8Mphf
+	7dyjl/DQpdHO6Fv23HNbPjTk2jb9cG0LLlrb3qsAf5LUfV/L7HGctBErU2fjrtd2rVgXOrC5o3Ksb
+	ZNaLvvLw==;
+Received: from [151.115.150.205] (port=59320 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xQXbI-0000000GC1M-02Ej;
+	Mon, 09 Nov 2026 23:12:27 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: tytso@mit.edu
+Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	"Ritesh Harjani" <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@kernel.org
+Subject: [PATCH v3] ext4: validate extent root during fast commit replay
+Date: Mon,  9 Nov 2026 22:12:11 +0000
+Message-ID: <20261109221211.1793790-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,145 +77,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] spi: use dmaengine_desc_set_callback()
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Frank.Li@oss.nxp.com, Mark Brown <broonie@kernel.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Radu Pirea <radu_nicolae.pirea@upb.ro>, CL Wang <cl634@andestech.com>,
- Ryan Wanner <ryan.wanner@microchip.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>, Ray Jui
- <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Vladimir Oltean
- <olteanv@gmail.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Han Xu <han.xu@nxp.com>,
- Haibo Chen <haibo.chen@nxp.com>, Linus Walleij <linusw@kernel.org>,
- Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>, Heiko Stuebner <heiko@sntech.de>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Andi Shyti <andi.shyti@kernel.org>, Tudor Ambarus
- <tudor.ambarus@linaro.org>, Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Yixun Lan <dlan@kernel.org>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Alain Volmat <alain.volmat@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Laxman Dewangan
- <ldewangan@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- "open list:SPI SUBSYSTEM" <linux-spi@vger.kernel.org>,
- "moderated list:ARM/Microchip (AT91) SoC support"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
- <linux-rpi-kernel@lists.infradead.org>,
- "open list:FREESCALE DSPI DRIVER" <imx@lists.linux.dev>,
- "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
- "open list:ARM/Rockchip SoC support" <linux-rockchip@lists.infradead.org>,
- "open list:RENESAS RZ/V2H(P) RSPI DRIVER"
- <linux-renesas-soc@vger.kernel.org>,
- "open list:SAMSUNG SPI DRIVERS" <linux-samsung-soc@vger.kernel.org>,
- "open list:RISC-V SPACEMIT SoC Support" <linux-riscv@lists.infradead.org>,
- "open list:RISC-V SPACEMIT SoC Support" <spacemit@lists.linux.dev>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
- "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
- Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Thierry Reding <treding@nvidia.com>
-References: <7f96599b-681d-4963-bdda-1274371ac84f@kernel.org>
- <f1fa853d-1703-411d-b2d2-0fb0b176c2fa@kernel.org>
- <autqC143h7Qf1R9H@ashevche-desk.local>
- <9e39502a-dd17-4fa2-98a3-9019523cb5e8@kernel.org>
- <auuYcS7-YqJKcUbE@ashevche-desk.local>
- <63c24437-4261-4a51-be7e-31ac0759a095@kernel.org>
- <auxGom0XR-Hax9b3@ashevche-desk.local>
- <00390a20-7630-4066-9779-06c8f915a176@kernel.org>
- <auxNmE8yZVP-wL2e@ashevche-desk.local>
- <3dc7277e-2f6b-44a6-9085-2e33d989c1c9@kernel.org>
- <avIJhv7p2v30U8H9@ashevche-desk.local>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <avIJhv7p2v30U8H9@ashevche-desk.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On 09/11/2026 18:57, Andy Shevchenko wrote:
-> On Fri, Nov 06, 2026 at 08:20:33AM +0100, Krzysztof Kozlowski wrote:
->>>>
->>>> Statement of oversight DOES NOT include "part of the patch".
->>>
->>> So, it means I MUST from now on REQUIRE a split before reviewing.
->>> Right?
->>
->> Why "from now on"? The reviewer's statement of oversight is worded like
->> that since beginning? Also nothing stops you from reviewing parts. We
->> discuss the statement of oversight and its result: giving Rb tag. The Rb
->> tag is not output of some review, but agreement with statement of
->> oversight and performing what is stated there.
->>
->> You can review parts, but you do not provide Rb tag.
-> 
-> No, I'm not going to review something that I may not put Rb tag on.
-> I can NAK or ignore (or Ack without viewing, but it equals to ignore to me).
+Fast commit replay skips extent tree validation in ext4_iget(). The
+replay code then reads and updates the extent root stored in i_data
+without validating its header.
 
+The root has space for four extents. A corrupt header with eh_entries
+set to 4 and eh_max set to 5 lets replay insert a fifth extent past
+the end of i_data, which overwrites other fields in struct
+ext4_inode_info.
 
-That's your call, but you put it on yourself, so do not blame us for "I
-MUST from now on REQUIRE"...
+Check the root in ext4_find_extent() during fast commit replay. Skip
+extent replay helpers for non-extent inodes and clear the replay state
+before loading the root inode.
 
+Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
+Cc: stable@kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+---
 
-Best regards,
-Krzysztof
+Changes in v3:
+- Skip extent replay helpers for non-extent inodes.
+- Clear EXT4_FC_REPLAY before loading the root inode.
+
+Changes in v2:
+- Validate replay roots regardless of EXT4_INODE_EXTENTS.
+- Rebase on fa4ad798f6f6.
+
+v2: https://lore.kernel.org/all/20261108201906.1417129-2-Jeremy.Jean@oss.cyber.gouv.fr/
+v1: https://lore.kernel.org/all/20260821100559.3612643-2-Jeremy.Jean@oss.cyber.gouv.fr/
+
+ fs/ext4/extents.c     | 8 +++++++-
+ fs/ext4/fast_commit.c | 4 ++--
+ fs/ext4/super.c       | 3 +--
+ 3 files changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index ad0d80e33f609..aec75a680bcc7 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -905,6 +905,12 @@ ext4_find_extent(struct inode *inode, ext4_lblk_t block,
+ 		ret = -EFSCORRUPTED;
+ 		goto err;
+ 	}
++	/* ext4_iget() skips extent validation during fast commit replay. */
++	if (unlikely(EXT4_SB(inode->i_sb)->s_mount_state & EXT4_FC_REPLAY)) {
++		ret = ext4_ext_check(inode, eh, depth, 0);
++		if (ret)
++			goto err;
++	}
+ 
+ 	if (path) {
+ 		ext4_ext_drop_refs(path);
+@@ -6391,7 +6397,7 @@ int ext4_ext_clear_bb(struct inode *inode)
+ 	int j, ret = 0;
+ 	struct ext4_map_blocks map;
+ 
+-	if (ext4_test_inode_flag(inode, EXT4_INODE_INLINE_DATA))
++	if (!ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS))
+ 		return 0;
+ 
+ 	/* Determin the size of the file first */
+diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
+index 0cac890cf3702..b883ce015c303 100644
+--- a/fs/ext4/fast_commit.c
++++ b/fs/ext4/fast_commit.c
+@@ -2002,7 +2002,7 @@ static int ext4_fc_replay_inode(struct super_block *sb,
+ 	 * crashing. This should be fixed but until then, we calculate
+ 	 * the number of blocks the inode.
+ 	 */
+-	if (!ext4_test_inode_flag(inode, EXT4_INODE_INLINE_DATA))
++	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS))
+ 		ext4_ext_replay_set_iblocks(inode);
+ 
+ 	inode->i_generation = le32_to_cpu(ext4_raw_inode(&iloc)->i_generation);
+@@ -2334,7 +2334,7 @@ static void ext4_fc_set_bitmaps_and_counters(struct super_block *sb)
+ 		}
+ 		cur = 0;
+ 		end = EXT_MAX_BLOCKS;
+-		if (ext4_test_inode_flag(inode, EXT4_INODE_INLINE_DATA)) {
++		if (!ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS)) {
+ 			iput(inode);
+ 			continue;
+ 		}
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index 9cae52471dee9..8dac2c1cea78a 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -5660,6 +5660,7 @@ static int __ext4_fill_super(struct fs_context *fc, struct super_block *sb)
+ 	 * The jbd2_journal_load will have done any necessary log recovery,
+ 	 * so we can safely mount the rest of the filesystem now.
+ 	 */
++	ext4_fc_replay_cleanup(sb);
+ 
+ 	root = ext4_iget(sb, EXT4_ROOT_INO, EXT4_IGET_SPECIAL);
+ 	if (IS_ERR(root)) {
+@@ -5699,8 +5700,6 @@ static int __ext4_fill_super(struct fs_context *fc, struct super_block *sb)
+ 			goto failed_mount4a;
+ 		}
+ 	}
+-	ext4_fc_replay_cleanup(sb);
+-
+ 	ext4_ext_init(sb);
+ 
+ 	/*
+-- 
+2.47.3
+
