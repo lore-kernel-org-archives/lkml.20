@@ -1,80 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794235617;
-	b=UZMEYbNEUF4x+2mFLmuYI6Q9YuLIPRxFnoNAlRg8uAp/5KneSaqy8/xeb8Gm2pMofZ7Y
-	 /IJ9mWG7W8JOiOyUMiDiFLE2wkSRCqPCX8BfR0djOxmw8kKaVRQRAOQOM7LqUqTYhtlrG
-	 yzd+YvvRZzl1yqF1nnxU0/480cjhAOY513iUJw374K65BN823o1cotztWljiqd5xJ8Zbz
-	 oCyzs1Vki63gJYOKdzgEsrv1AgBHTeqFm3XX646WwXB0+e0Pv1H5n+BjWEGlaD8Ek59d/
-	 8GDM0Xk+9H3iTGaR6eWHBd6mWYM52SZskvLwtmxg2M9wI0C7dJQNGOKd+i/aqcz5b5w==
+	t=1794235665;
+	b=AJYB0SXoK0fH393bQSq1OjYiXMq9wWKQfT8cTiD/UBe96Mu+jDgVgsTG1asRQAINQfxu
+	 QVNXEfQXaSGswDNcFLkQMRB8DaOejKZKXkTnejk+42Yc+vOQHq+YE4JT4Hl+NfKbakhUe
+	 TYiWzzzFrlNzRSKWQXFtRMdEYgFQO9NFn+DmVxrPrLAwQbqokVb9Alb9M9ijxKNKuvjAv
+	 yTwh5cjwuVq6NQPzJFCyRCj1gWGQfGV44ym89xeXALMgMOVStr/rVrCLyD62v8/D0vw1l
+	 xZ0TebXwFfYHdht2dt5sHYYWPi4Eww2UDjjYoN+FK8Gc2OEFKwsMCT9qrxMZ1c3r58w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794235617;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/Zs+Ic1R03IE+bmq387RlMKn8zZ+sny+To/g863uh+I=;
-	b=KddoTb9gdnOpxTSysoazT8muQyV4+WbA44QqkTgbkat9zkVsJ443BhH7PP6lGudzoenb
-	 AfYuCUA2lDrmn+c5qymwYqqOkhEOH1kVb+mAd6kDtJNFceGKJgQ6C8zr0bLTfzrkfOJxG
-	 CntHTAVZZUau1q5SuumYFJHje8Atbao4wBqVcLM7/kwklOQB0t5vT930FEzWosOkrvFdB
-	 F1fw9a7ARSz1+KBQyJCKqpgFvqBaOxpoqEYwoawRgIy8CiVobgmiHt/UzqBnsQQ2ETeQ/
-	 8Pf+y+7QNdp5T9lc+a6qm+w1XQN5gI5leeJFi9xp4umKPRMrDopg6SNpUcrTun7Tf7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794235665;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=Bwn4oMi4wD4Hm2RlK2+vnAdq4AFCLTg3OHrUehp6rKQ=;
+	b=zCG3yLN8mSgr5bRHbp/BJhu3H4mtXl9jYwFEVrb3KQ5DwUanRbSOBm7hXQslavX+a/90
+	 GuEkD9kpIXsbFLaGB2ZNVqErSR6fU5HsxUm5Q01ScGG5da5iHSApl7X56C8g1Gg3WmrTF
+	 T1KwjYtV3Qgra2/N2ng2hQwa/ui0m2t+OqVOh1SBxVC+CbAKUEuoZhFXy8HhkJf53sc3D
+	 NXAXbXqHHvCbLawF+6D2XAaIfTgkOM3JspMp4k0RV5Us4N/JRWkAx8ihoJPZymlAQ6uI6
+	 zdypE2WmebgQX1MpAZ6BYRWyanPKDz4AmXprkOglfpe+mEsnn1i474kZA6uaLc9PvKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kqN4mN8g;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1u1vckD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C20C606A31C;
-	Mon,  9 Nov 2026 14:46:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C20C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A57606D807;
+	Mon,  9 Nov 2026 14:47:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kqN4mN8g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794235616; x=1825771616;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=IYpd36+hNdVVbHA3LFgNx5Hn7NExvNmImvUzW4FHbYY=;
-  b=kqN4mN8grlztSnqH6hQMrpkjUmZ1L91piGySO8znJ3RMaG09ff7JoVAe
-   8laCuGbWm1jxFVN+mVPL32dgl/wQe0OB42icb8AlewZfQjD4RxHvbgzPb
-   hmNoxCfLu0/Q4OT4ZtWVzjRi+eEEGIdmz1PL8b4MA7eY8erMpM8LkSYV2
-   ZzAwokXhqI0rPRffPj3m3xe9UriTnyRmMJNNvlRL53gjcs+S1jIYhCIal
-   LjIXVbyDiXivSysLfa3a9sqcXSydQ3faF+h1Eh7iH22wj6+iKXf6+YrkH
-   7slVg5Bu7F4nK2ej8x6xHEmisrBuGeWGhm0RxLPYtiMyKB/6ktXCsAh75
-   g==;
-X-CSE-ConnectionGUID: /e+66MnWTdSh29v71GyyJQ==
-X-CSE-MsgGUID: LqYelcxcS/uIkz7gDKU1lw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2957091"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="2957091"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:46:56 -0800
-X-CSE-ConnectionGUID: GBQL0ihET5usu8uKS7Ogvw==
-X-CSE-MsgGUID: bgQJgiuYQviRFVR9NG048g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8044136"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 06:46:29 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] PCI: Honor window granularity during resource distribution
-Date: Mon,  9 Nov 2026 16:45:53 +0200
-Message-ID: <20261109144553.2516-4-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109144553.2516-1-ilpo.jarvinen@linux.intel.com>
-References: <20261109144553.2516-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y1u1vckD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C3521F008A6;
+	Mon,  9 Nov 2026 14:47:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794235664;
+	bh=Bwn4oMi4wD4Hm2RlK2+vnAdq4AFCLTg3OHrUehp6rKQ=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Y1u1vckDjH8hJB76C9UNV0Jie/UmxwTJ5xCoKFaBVFS4pYMvG3XP6ao8osYS5luGt
+	 7IVgAGiHiC++Y2xxERgx+6vLb53UrAUWJmxrXRdcEN4FT+hwDfqJnhGunyxwQY+1wg
+	 dySHKzmjZyPtmc2K0aXZCxNNP4iIhz5MpRZa7P8WvVU6zcSqPNJW6LFDSUBee47nYs
+	 FqF7Rk++hN2aYFPUo5ia4Wt4gc34hbT5NtZzXQM6cr9f0To21UNWQy7+Nr7aGy1//8
+	 jr959VB8xHKzHPTajKdbEL9KY3nOpthHwGV4xxp5+Nku32c1LqMm5PIz7ghcqbd3LA
+	 XFDDcIbadTZzQ==
+Content-Type: multipart/mixed; boundary="===============0156833231429614843=="
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,94 +49,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Message-Id: <8b9e5217cbe9c192e678ce5c8d59f573c80a659d72211f5b91c905ed00ebb799@mail.kernel.org>
+In-Reply-To: <20261109140816.5196-6-leon.hwang@linux.dev>
+References: <20261109140816.5196-6-leon.hwang@linux.dev>
+Subject: Re: [PATCH bpf-next 5/9] libbpf: Add log_opts support for BPF_TRACE_ITER
+From: bot+bpf-ci@kernel.org
+To: leon.hwang@linux.dev,bpf@vger.kernel.org
+Cc: ast@kernel.org,daniel@iogearbox.net,john.fastabend@gmail.com,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com,kpsingh@kernel.org,matt@bobrowski.net,shuah@kernel.org,leon.hwang@linux.dev,linux-kernel@vger.kernel.org,linux-trace-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,netdev@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Mon,  9 Nov 2026 14:47:44 +0000 (UTC)
 
-When a bus below a hotplug bridge has BARs smaller than the window
-granularity, removing them leaves available[i].start unaligned.
-pci_bus_distribute_available_resources() then aligns the start up for the
-downstream bridge but keeps the end, so the size passed to
-adjust_bridge_window() has a sub-granularity tail. The bridge window ends
-up not being a multiple of the window granularity.
+--===============0156833231429614843==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Align the size down to the window granularity after aligning the start.
+> libbpf: Add log_opts support for BPF_TRACE_ITER
 
-Consider a hotplug Root Port (bus 01) with a Switch Upstream Port (bus 02)
-below it that has an e1000 and an ivshmem with a 64k pref BAR as its other
-Functions. When the switch is hot-added (emulated with a remove and
-rescan), /proc/iomem before and after this change is:
+TL;DR:
+- libbpf BPF_TRACE_ITER case may not reject stray bytes after iter.len
+  (missing OPTS_ZEROED check), so unknown fields could be silently ignored
+- Nit: iter.len test in the legacy branch looks like dead code
 
-   faa00000-fe9fffff : PCI Bus 0000:01
-  -    faa00000-fe8200ff : PCI Bus 0000:02
-  +    faa00000-fe7fffff : PCI Bus 0000:02
-         faa00000-fc8fffff : PCI Bus 0000:03
-           faa00000-faa000ff : 0000:03:00.0
-         fc900000-fe6fffff : PCI Bus 0000:04
-  -    fe820100-fe8201ff : 0000:01:00.2
-  -    fe840000-fe85ffff : 0000:01:00.1
-  +    fe800000-fe81ffff : 0000:01:00.1
-  +    fe820000-fe8200ff : 0000:01:00.2
-  ...
-     100000000-13fffffff : PCI Bus 0000:01
-  -    100000000-12000ffff : PCI Bus 0000:02
-  +    100000000-11fffffff : PCI Bus 0000:02
-         100000000-10fffffff : PCI Bus 0000:03
-           100000000-10fffffff : 0000:03:00.0
-         110000000-117ffffff : PCI Bus 0000:04
-  -    120010000-12001ffff : 0000:01:00.2
-  +    120000000-12000ffff : 0000:01:00.2
+> diff --git a/tools/lib/bpf/bpf.c b/tools/lib/bpf/bpf.c
+> --- a/tools/lib/bpf/bpf.c
+> +++ b/tools/lib/bpf/bpf.c
 
-Before, the bus 02 windows end at fe8200ff and 12000ffff, which are not 1M
-aligned and thus impossible for a bridge window. As such an end cannot be
-written to the bridge, the resource tree does not match what the bridge
-actually uses: it decodes up to fe8fffff and 1200fffff, covering the BARs
-of 01:00.1 and 01:00.2.
+[ ... ]
 
-Fixes: 9db0b9b6a142 ("PCI: Take other bus devices into account when distributing resources")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: stable@vger.kernel.org
+> @@ -821,6 +816,16 @@ int bpf_link_create(int prog_fd, int target_fd,
+>  			return libbpf_err(-EINVAL);
+>  	}
+>  
+> +	if (iter_info_len) {
+> +		if (OPTS_GET(opts, iter.len, 0))
+> +			return libbpf_err(-EINVAL);
+> +		iter_info = OPTS_GET(opts, iter_info, (void *)0);
+> +	} else {
+> +		log_opts = OPTS_GET(opts, log_opts, (void *)0);
+> +		iter_info = OPTS_GET(opts, iter.info, (void *)0);
+> +		iter_info_len = OPTS_GET(opts, iter.len, 0);
+> +	}
+> +
+
+When the legacy iter_info_len is non-zero, the check above already requires
+OPTS_ZEROED(opts, target_btf_id), which covers every byte from that offset
+up to sz, including iter.info and iter.len.  Can this OPTS_GET(opts,
+iter.len, 0) test ever be true?  It looks like dead code.
+
+[ ... ]
+
+>  	switch (attach_type) {
+>  	case BPF_TRACE_ITER:
+>  		attr.link_create.iter_info = ptr_to_u64(iter_info);
+>  		attr.link_create.iter_info_len = iter_info_len;
+>  		break;
+
+Every other union member's case ends with a check such as:
+
+    if (!OPTS_ZEROED(opts, tracing_multi))
+            return libbpf_err(-EINVAL);
+
+Should the BPF_TRACE_ITER case do the same with OPTS_ZEROED(opts, iter)?
+
+On the new iter.info/iter.len path, nothing checks the bytes after iter.len.
+A caller that sets opts.iter.info, opts.iter.len and opts.tracing_multi.cnt
+gets the stray field silently ignored instead of -EINVAL.  Likewise, a
+later field added to the iter struct after len, built against newer
+headers, would be silently dropped by this libbpf because sz still equals
+sizeof() and OPTS_VALID() cannot see it.
+
+Legacy callers would be unaffected, since their union is already zero, and
+the iter.len test in the legacy branch could then be dropped.  The later
+commits in this series only touch selftests and do not address this.
+
+
 ---
- drivers/pci/setup-bus.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index 9d8b22d1e6ad..5651966f3029 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -1974,7 +1974,7 @@ static void pci_bus_distribute_available_resources(struct pci_bus *bus,
- 	unsigned int normal_bridges = 0, hotplug_bridges = 0;
- 	struct pci_dev *dev, *bridge = bus->self;
- 	resource_size_t per_bridge[PCI_P2P_BRIDGE_RESOURCE_NUM];
--	resource_size_t align;
-+	resource_size_t align, win_align;
- 	int i;
- 
- 	for (i = 0; i < PCI_P2P_BRIDGE_RESOURCE_NUM; i++) {
-@@ -1989,10 +1989,22 @@ static void pci_bus_distribute_available_resources(struct pci_bus *bus,
- 		 * window.
- 		 */
- 		align = pci_resource_alignment(bridge, res);
--		if (!resource_assigned(res) && align)
-+		if (!resource_assigned(res) && align) {
- 			available[i].start = min(ALIGN(available[i].start, align),
- 						 available[i].end + 1);
- 
-+			/*
-+			 * Small BARs on the parent bus may result in a
-+			 * size that is not a multiple of the window
-+			 * granularity (usually 1M), which is impossible
-+			 * for a bridge window.
-+			 */
-+			win_align = pci_min_window_alignment(bus, res->flags);
-+			resource_set_size(&available[i],
-+					  ALIGN_DOWN(resource_size(&available[i]),
-+						     win_align));
-+		}
-+
- 		/*
- 		 * Now that we have adjusted for alignment, update the
- 		 * bridge window resources to fill as much remaining
--- 
-2.47.3
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/42633880300
+--===============0156833231429614843==--
