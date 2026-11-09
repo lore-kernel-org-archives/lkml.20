@@ -1,77 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794226613;
-	b=RuT3O8h8KSiD/V14Ji8eX9+8I8ZgEqddPHIt8HlxiqDEo84wyFN3V0yVh2bOzh86zp/M
-	 hNhO0SBD/0zHng1DSFQoKbDm5lwDsjak0sptDuhk5nvfkEgQAlOdfOq+Z1hHV8u1oJs0D
-	 kgH5Gcz1JFzsBjvvY8epq8yc69YLv19XuYlOZ9hM5HUl0rIX6wN/32f2MU24wZMN4nyFQ
-	 vLWSh9Tdw4YYW9O10Cgc6ssjHwAcMkhyqSA/ttXhZd+fiKvrSuUAW93vle/rgYCp0FbxN
-	 0szdpnewMtRT6ozPPJ729kW++Qydd7+oCkJgyJkCvjS2aROmaE0budnrJcVSrTVjPhg==
+	t=1794226695;
+	b=NX+otcGSTxWGiv2UaXkOGoXHO+MkmB05dkgJckr3An7Or0Uu+2sZHqR01IgBrMA8Y/Pp
+	 dLcjakZNdOPXOqsxuNqvjSzfwQYZeFSDI7mdsHN41lXyHiChGF/P04dTpWdQGO5cNLLr/
+	 L4ssw0bnQXvII9ilDzpwTYVhvwLSpft0CEXjH74bb8B9+YtNCv7mr928rAfJhoT9JPp74
+	 msAor41NLLIdKncsd+RYy7u9WXMwYo10peozN5qQ1qBLB5tWf1XvfpAkUcoujXTxVy1Ku
+	 gd3IYD9foswWIk7POg4eQptaIf9Yh/s0t0WgiRiVrovQTYcspWboyLtJ1kCyTpJBJcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794226613;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=5EAH61NrdU977284xwlV7JSstKvYCuFCm0A7SE4qcvQ=;
-	b=O107qajctKEbwJhr+6KLzYm2t1TRuVeoxC8hwuKMBWfolub47gbjAa1cxLrA1NayTmRj
-	 iBTJWppY+xQzFElBYCGbVVvpgM43pgO9cZAbsNKlPorcy73O10gWV9pF18sLk76ppD6D2
-	 CugWy9YyyzCDkZ2qsOCv4alvAQYcw+bUm3j3KTgECvI0lL77vTKD1YtBkTobTRiarK6Sd
-	 A3aZrXJDz79ixtsh1SPfXdtzFesD8dd7FszwsQVKEOejPMR33TdtdAiX/btG8vxOcebXE
-	 qS6YYt2B0h4hnAFMOMgQoucU/JXhywvi1bpFgSf6YCWPWkb+Hh50tGAtmFvWrRy4ThQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794226695;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Date:From:To:cc:Subject:
+	 In-Reply-To:Message-ID:References:MIME-Version:Content-Type:
+	 X-Scanned-By;
+	bh=OBdiK9l8kFT4f0yo7evXfhDN4v7F5oYM4pE8DacBPJ8=;
+	b=jgXXkJrOT/ZgpJ9V1RoVAsrQiA/e4kDv4GRacMMukXZewwD8mVo9tpemLutuCs0gyXqN
+	 CGWro2iBMw8gN+l3nGDJ0susj5k15kKBKptakG/B+HFsTIo8d+pUPk+R283ZAzSceh3fz
+	 B04RfqoU9I8y7Y2LMoF+V29a9hv7o/sOFXiKenHblhvRYdyhuMtMKN6UpF6hHTEvuWEQJ
+	 8pdF0dCeJ5AmRqUfZbbOJYclIXC3MH76Ez9OvXcFBmxanC3qQ4bzZzJbSxqYdbXmdtVFx
+	 6DJTwG46VlgPox9p4YTTO6gegd8BtAh0jGVF08t3FF2FE/oHF1Hew3oAYz151Gcxc2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g73xGVzK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QUqnVNko;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294CB606A321;
-	Mon,  9 Nov 2026 12:16:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24DF606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:18:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F24DF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g73xGVzK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D681F0089F;
-	Mon,  9 Nov 2026 12:16:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794226613;
-	bh=5EAH61NrdU977284xwlV7JSstKvYCuFCm0A7SE4qcvQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g73xGVzKCsDCS81GLV3KO4OFB+mRx9gp+NMwK6egST5kX7bwDxGGd2lnD7uWsxe38
-	 R5NM6ziSg0LlEvaNIXKBbKwC00C4d7ldcVdjBJW9bkVxWdHlkdf7soUAAa3GwGjXLi
-	 TmVjZjVVQoNt45UGIxXVQ35Pehm9piXaesD3pTL2MxmsWlr+JzGRhRafI4M2LZoa9a
-	 1UvHyvSVIqq+XJt/TEhZOJ7ZL6SpNvGNR9TdWjxhXYEmmiwZDGAAbNYJmZ4iCjm+3U
-	 lrnUwP/yqdHKHv6auYd8/eW/fhenAirqnZiMsL2RLxLbnP72L+aIR1eSDLrgwlB7E5
-	 EdCDcA/rSJCLA==
-Date: Mon, 9 Nov 2026 19:56:30 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: yunhui cui <cuiyunhui@bytedance.com>
-Cc: David Laight <david.laight.linux@gmail.com>, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	dennis@kernel.org, tj@kernel.org, cl@gentwo.org, ast@kernel.org,
-	daniel@iogearbox.net, andrii@kernel.org, martin.lau@linux.dev,
-	eddyz87@gmail.com, memxor@gmail.com, song@kernel.org,
-	yonghong.song@linux.dev, jolsa@kernel.org, bjorn@kernel.org,
-	pulehui@huawei.com, puranjay@kernel.org, thuth@redhat.com,
-	ajones@ventanamicro.com, ben.dooks@codethink.co.uk,
-	rkrcmar@ventanamicro.com, samuel.holland@sifive.com,
-	zong.li@sifive.com, conor.dooley@microchip.com, tglx@kernel.org,
-	debug@rivosinc.com, seanwascoding@gmail.com, andybnac@gmail.com,
-	menglong8.dong@gmail.com, cyrilbur@tenstorrent.com,
-	wangruikang@iscas.ac.cn, atishp@rivosinc.com,
-	apatel@ventanamicro.com, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	bpf@vger.kernel.org, arnd@arndb.de, nathan@kernel.org,
-	nick.desaulniers+lkml@gmail.com, morbo@google.com,
-	justinstitt@google.com, qingfang.deng@siflower.com.cn,
-	linux-arch@vger.kernel.org, llvm@lists.linux.dev, dave@stgolabs.net,
-	emil@etsalapatis.com, ihor.solodrai@linux.dev, broonie@kernel.org
-Subject: Re: [External] Re: [PATCH v9 1/3] riscv: implement this_cpu
- operations
-Message-ID: <avG07pmpcLGkq5i-@xhacker>
-References: <20261108110406.97495-1-cuiyunhui@bytedance.com>
- <20261108110406.97495-2-cuiyunhui@bytedance.com>
- <20261108213254.67805ef0@pumpkin>
- <CAEEQ3w=5QwwvMJFJkpS51APoBjhed6oriCkvcieRdUFWrKtmSg@mail.gmail.com>
- <avFN7LbSK0q1gsB6@xhacker>
- <CAEEQ3wmViZNwxXr8q477yHjtABStEJecCHS8=5s_UAk1hYgyfw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QUqnVNko
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794226693;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OBdiK9l8kFT4f0yo7evXfhDN4v7F5oYM4pE8DacBPJ8=;
+	b=QUqnVNkoj/hEsfX/d7XUkrG5grDJAtqJiwpx70vdWbA/rPJrjov7X1HihBSMtOvr3aj9K1
+	ySwxtpYDSx0cvR2UmTKS0+wLIcEHVoKa1kdBNQxKLu9o7QCeezyJBUyAx2lLmmFg/Kg4Zi
+	cl2znRKxrcu5F/wxBrg/Bncr0f77OQw=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-219-B2yFbfMxM02T4zTZ50vSbA-1; Mon,
+ 09 Nov 2026 07:18:11 -0500
+X-MC-Unique: B2yFbfMxM02T4zTZ50vSbA-1
+X-Mimecast-MFC-AGG-ID: B2yFbfMxM02T4zTZ50vSbA_1794226690
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 12EC3180055F;
+	Mon,  9 Nov 2026 12:18:10 +0000 (UTC)
+Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 23EDA18004F5;
+	Mon,  9 Nov 2026 12:18:06 +0000 (UTC)
+Date: Mon, 9 Nov 2026 13:18:04 +0100 (CET)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Damien Le Moal <dlemoal@kernel.org>
+cc: Josef Schlehofer <pepe.schlehofer@gmail.com>, 
+    Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
+    Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev, 
+    linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+    Ignat Korchagin <ignat@linux.win>, Milan Broz <gmazyland@gmail.com>
+Subject: Re: [PATCH] dm-crypt: defer async write submission to write thread
+In-Reply-To: <0197be1d-1257-4597-aea2-1a065fe0a1d5@kernel.org>
+Message-ID: <4093292e-1fa1-dc18-b185-18dff61a32bf@redhat.com>
+References: <20261105072708.30722-1-pepe.schlehofer@gmail.com> <0197be1d-1257-4597-aea2-1a065fe0a1d5@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,80 +80,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAEEQ3wmViZNwxXr8q477yHjtABStEJecCHS8=5s_UAk1hYgyfw@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Mon, Nov 09, 2026 at 01:49:05PM +0800, yunhui cui wrote:
-> Hi Jisheng,
+
+
+On Mon, 9 Nov 2026, Damien Le Moal wrote:
+
+> On 11/5/26 16:27, Josef Schlehofer wrote:
+> > With no_write_workqueue, kcryptd_crypt_write_io_submit() submits the
+> > bio directly, even when called from kcryptd_async_done(). An async
+> > cipher may run this callback in softirq or with BH disabled, where
+> > submit_bio_noacct() must not be called because it can sleep.
+> > 
+> > Submit inline only when async is false. Async completions are sent to
+> > the write thread, as is already done for submit_from_crypt_cpus. Use
+> > the async flag rather than in_interrupt(), since callback context
+> > depends on the cipher driver. Sync ciphers still submit inline.
+> > 
+> > Tested with cryptd in QEMU (x86_64 and arm64) with
+> > CONFIG_DEBUG_ATOMIC_SLEEP, and on a P2020 running 6.18.55 without it.
 > 
-> On Mon, Nov 9, 2026 at 12:57 PM Jisheng Zhang <jszhang@kernel.org> wrote:
-> >
-> > On Mon, Nov 09, 2026 at 11:47:43AM +0800, yunhui cui wrote:
-> > > Hi David,
-> > >
-> > > On Mon, Nov 9, 2026 at 5:33 AM David Laight
-> > > <david.laight.linux@gmail.com> wrote:
-> > > >
-> > > > On Sun,  8 Nov 2026 19:04:04 +0800
-> > > > Yunhui Cui <cuiyunhui@bytedance.com> wrote:
-> > > >
-> > > > > RISC-V has no asm/percpu.h, so this_cpu_*() read-modify-write
-> > > > > operations use generic implementations that disable local interrupts.
-> > > > >
-> > > > > Implement RISC-V-specific this_cpu operations with preemption disabled
-> > > > > to keep accesses on the current CPU.
-> > > >
-> > > > Have you looked at some of the schemes (I think arm64 has the latest,
-> > > > but also s390) that do most per-cpu ops without disabling preemption.
-> > > > In particular they save the pre-emption check when pre-emption
-> > > > is enabled.
-> > > >
-> > > > Basically the code tells the scheduler which register contains the
-> > > > per-cpu data so that it can be 'magically' flipped during a context
-> > > > switch.
-> > >
-> > > Many thanks for pointing this out and suggesting this optimization. This
-> > > is a very useful suggestion. In the common case no preemption or migration
-> > > occurs, so the preemption bookkeeping and reschedule check are unnecessary
-> > > overhead.
-> > >
-> > > Implementing this scheme for RISC-V will require additional changes beyond
-> > > the current series. If this series is otherwise acceptable, I would like
-> > > to land the current this_cpu_* support first and then prepare a follow-up
-> > > series using this approach.
-> >
-> > Hi Yunhui and David,
-> >
-> > During the merge window but before rc1, I implemented a riscv POC
-> > following arm64's preemptible this cpu scheme. Each operation records
-> > its per-cpu pointer, offset and address registers. Exception entry saves
-> > and clears this state, and a noinstr c helper repairs the saved offset
-> > and address registers on exception return after any migration.
-> >
-> > However, my PoC is based on current percpu offset.
-> >
-> > I planed to sent it out last Sunday, but then I found Yunhui sent
-> > his percpu series(which is up to v9, I didn't know this before) on Sat.
-> > So I hold on the sending.
-> >
-> > Now would it make sense to rebase the PoC on Yunhui's series patch2 and
-> > patch3, especially the percpu offset optimization? I can post an RFC
-> > with this rebased implementation.
-> >
-> 
-> Given the substantial effort already invested in bringing this series
-> to v9, my original plan was to land the current implementation first
-> and add the preemptible scheme as a follow-up.
-> 
-> However, if the consensus is to move directly to the preemptible scheme,
-> I will implement this scheme in the next revision, building on the
-> cached percpu offset introduced in patch 2.
-> 
-yes, I suggest go with the preemptible design from the beginning. It
-avoids introducing preemption-disabled wrappers that would later be
-removed. But your preemption-disabled version isn't dropped, it can
-be used for performance comparison. We can do similar benchmark
-as arm64 does:
-https://lore.kernel.org/linux-arm-kernel/28978498-348e-4cfd-af72-1146a106e96b@arm.com/
+> Originally, this was added to avoid write reordering for zoned block devices.
+> So did you test this change with that (scsi_debug or null-blk) ? You can also
+> use an emulated NVMe ZNS device in QEMU.
+
+So, should we disable asynchronous crypto operations for zoned devices? 
+Would you send a patch for that?
+
+Mikulas
+
