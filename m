@@ -1,92 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794245322;
-	b=37r7/e89T/tpEBaq0jnlKKrqkxdmgK8u/6BhbkFcf+vWlgBjSxQSF5WIvbE1fuGjzEfQ
-	 j/2+WYXSwXJUTf5ShVKt5xgUtKWE6AtgEz/y3bZF8wNHOGOOitLYUE0M/fuhfVsM1JgzH
-	 07b7kOB+PbGDYthQfq7GjH1tmbvTVoZA3b/vM72r9URxO/l8Q0738U+0/2M17xb3drkDP
-	 aLpDgfgqnGGZozyxmclrQjHenPeyqjkddZdMTrBIxmREyDuoxJWGMsK/SKu2GIRFW076W
-	 VHnHqZVnwNqPzCrOFZH8RQyJxvjv5WtnQRFv0k/MQ03mJDYU46Ax31eKXPQtgTQX7dA==
+	t=1794245365;
+	b=hjcuAoWfKAqvzCEH56VKkCeOzLWixqvs8q1HEoW8fRNXGMdKzYI/jOGCOGqrOY1M8JYW
+	 7zwROPCnBPbOjzq4A4wGeHMmHSH1XGOQYcEYU1I9PkK9FftUtEAH3pgCMvS3oSPM84pCF
+	 J1uhn+xrSkXdsafhpWPBkQIL7iWmh9O6CxUdgvGvo4RSSnYJKc4uHa3fPjHfSAYY7J2Nt
+	 ZCnFqZPp0q4NfuaCEnw4QTL+3AxXPrYSRqVEoCphhLNXN+LClMD2UA33XUbLm7F6oNJeI
+	 FOZ2ul7yKQnGEzgc1pRQWuLD+tAlQ7V7u6N/26jYg7F64eWWBzxgHW712ZibohbdeKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794245322;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=qRjzt/bH5jDngzJr4W8d1d/oZfLkUy/oU6+unqf5Pk4=;
-	b=SWmj8afr7Fe5sOpb45pmYAjB1UY0eZhowzRzF7778AteP7rgvo/z6Gngc180lobvOj8J
-	 fk8otKB/5rABFAuuf7nAr3v5i0c6NOkLDU9MxNZlYGITrQQ/ZPssrpznS35mKfnF+mf+T
-	 zxDuRKfpgJ2GoduLrOhxgI6k680EB8o99qE7rUqaNqxZsoU0LdQqB1LjhbG7D+lTz9Vk8
-	 Iz7fylDqyEYWbtABjrEMqkCrusKjcFv8BayazTn6JG7nnQ07nPxm6c3eAImpXHastxs5o
-	 Xg8m2kf2wKKbSmCtwHntPRABBWcYLqCA0XZZzRQU1dg0rgv6fXc045XZNp5vcY8+FaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794245365;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=olORNfTjVUYPDMp2DcsyDGVL+vmC9b6BSLlr9om20oA=;
+	b=5m/m4RhCfs1moBzoVvcZ8aGZTLCkiUJI77zzTBOlhDpOnhEByP0O99P2LGdILzx8EMJ3
+	 leDdstDV+bSTxtshACAS3wwRcQ+uNSJBJsx2RHyQ4PdTQYeSOx9ZlkEDJqv0M+f0aVWXg
+	 0diy0RerJ6kD0dZhPpQk34dAGzd9tNz0xN/LsX2sQEE+9Tkxgkv5tIycA79f3NJRKdezb
+	 Sg0CqVFhOy2EyROOcb4f/lObE1+ZbZMFWbsQDulyu+q8qvwpQu4vKMmRD0GU2bW5UJD3N
+	 tjeWbOqcOm0HGWmFqaj6GNUf9VDvjLixK+QhYKhTwSrlX3vDRD/g31DpGGtPJH5liMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PjfNukQx;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+Wb7hhg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE5F606A330;
-	Mon,  9 Nov 2026 17:28:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAE5F606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BEA3606A326;
+	Mon,  9 Nov 2026 17:29:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PjfNukQx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794245322; x=1825781322;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ar1TVtAm+rvGquAEzkco4mRBe7I0DyfasS/JM+grgNc=;
-  b=PjfNukQxbqA3dtIT/h64Gv6izhyVEfhLKz5J/Ei27qEpKK2pZAvOXFkj
-   ww4tdn163l0DtTeOISBiLN7V22nQfl8juvb1ek5ONlbxXqUyaY9div7bJ
-   V5I4V7KUDjqieU+480r67PGPsIChzxbl6bsOdUshye9VtfWpyhqtnZ1Fi
-   Sr2HuJwHB5M52RE+Rb19+X3AckITUDAeOlu+fdZ1P8Gb6Q0SGCSwe/n1x
-   dS1hkFBY9Ent+sHM68syZ546qLLMRZ/4xLgFdz0RaiiTih7O5mEUlpWpq
-   HB0jUZeTUT5Mx2ij6/NbFvqzTdRSNvk9OBuTQjoPueUnZE+bE5+AY6RD5
-   w==;
-X-CSE-ConnectionGUID: kQULd7oLTjmchRuVTUZwBA==
-X-CSE-MsgGUID: 428/Vel6Qu2Nui9WYPJDYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2970916"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2970916"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:28:41 -0800
-X-CSE-ConnectionGUID: VdCIUz+9TlyfdNc/xxFYmA==
-X-CSE-MsgGUID: ucYIODM9ShSeTtbSAloFqw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8069574"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 09:28:36 -0800
-Date: Mon, 9 Nov 2026 19:28:33 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-	Len Brown <lenb@kernel.org>, Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 5/9] of: property: implement the .property_get_names()
- fwnode operation
-Message-ID: <avICwdxyi-W1Y3PD@ashevche-desk.local>
-References: <20261104-fwnode-for-each-prop-v1-0-6e28fe1c72c4@oss.qualcomm.com>
- <20261104-fwnode-for-each-prop-v1-5-6e28fe1c72c4@oss.qualcomm.com>
- <auuhy40x1BMoW96-@ashevche-desk.local>
- <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k+Wb7hhg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AA281F0089F;
+	Mon,  9 Nov 2026 17:29:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794245364;
+	bh=olORNfTjVUYPDMp2DcsyDGVL+vmC9b6BSLlr9om20oA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=k+Wb7hhgAXNyraYHbaY71E+KF0d1JTJMDgJz5Zl/N9saDb0THO03y0/n6oRQZTcMt
+	 GywBVNtT8zWGIThBbo90uQ262MYlaK0QPVSYPnx3v3spEHPwxHAuriIZw1JkCtX/Db
+	 +RivsnsYDZHnWbABt+EDMIgqYe0wupT9pqRelv9LB5fvNQVUJsYIUJlh6q9gdprs1+
+	 OBomx/TmJb3RNfBBu/XK2bGgFuSikHu/3BX/Pqm3NIzpGGX2jhJwfHld/ekOjmBHYa
+	 bmYonew6A3b6HeIiuitskLDU9G/FUeYoVlcO9b5prLCNIGs8IR5JNqMcEeBU5TYhTy
+	 MzAgr7BuwGLWA==
+Message-ID: <4e1b3b0d-f831-450f-9974-746c86ef0c23@kernel.org>
+Date: Mon, 9 Nov 2026 11:29:23 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,51 +51,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7sfr4ljlwbehal3or4dmy5jxbjz6ya2lf3dq3yptr54wym5tea@eqaexflmocih>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] firmware: stratix10-svc: Use proper atomic to fix
+ possible double free
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ Mahesh Rao <mahesh.rao@altera.com>, linux-kernel@vger.kernel.org
+Cc: Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20261101122908.46723-2-krzysztof.kozlowski@oss.qualcomm.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <20261101122908.46723-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 02:07:46PM +0100, Bartosz Golaszewski wrote:
-> On Wed, Nov 04, 2026 at 11:21:15PM +0200, Andy Shevchenko wrote:
-> > On Wed, Nov 04, 2026 at 03:03:47PM +0100, Bartosz Golaszewski wrote:
 
-...
 
-> > > +	for_each_property_of_node(node, prop)
-> > > +		count++;
-> > 
-> > Hmm... Don't we have a helper for that already?
+On 11/1/26 06:29, Krzysztof Kozlowski wrote:
+> Doing atomic_dec() and then separate atomic_read() leaves small race
+> window leading to double free in stratix10_svc_remove_async_client():
 > 
-> I haven't found one. Though I'm thinking that maybe
-> fwnode_property_get_names() with props == NULL could serve that purpose?
-> Possibly wrapped in a static inline fwnode_property_count()? Would
-> anyone use it though?
-
-I haven't found any users for this. Most of the current ones of
-for_each_property_of_node() are filtering by property name.
-
-...
-
-> > > +		names[i] = kstrdup(prop->name, GFP_KERNEL);
-> > 
-> > Can property be statically defined somewhere? We might want to also optimize
-> > these duplications with const variant (here or elsewhere, for fwnode generic
-> > path, I believe).
+> CPU 0                               CPU 1
+> =====                               =====
+> refcount == 2
 > 
-> Please rephrase because I'm not quite following what you're saying.
+> stratix10_svc_remove_async_client() stratix10_svc_remove_async_client()
+> atomic_dec(&refcount);
+>                                      atomic_dec(&refcount);
+> if (atomic_read(&refcount) == 0)
+>    kfree(achan);
+>                                      if (atomic_read(&refcount) == 0)
+>                                        kfree(achan); // double free
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/bug/linux-506b1474-e503-4085-b62a-929cde036317
+> Fixes: bcb9f4f07061 ("firmware: stratix10-svc: Add support for async communication")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>   drivers/firmware/stratix10-svc.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
+> index 88391ea161ed..aca4d354bdd7 100644
+> --- a/drivers/firmware/stratix10-svc.c
+> +++ b/drivers/firmware/stratix10-svc.c
+> @@ -1444,8 +1444,7 @@ int stratix10_svc_remove_async_client(struct stratix10_svc_chan *chan)
+>   	}
+>   
+>   	if (achan == actrl->common_async_chan) {
+> -		atomic_dec(&actrl->common_achan_refcount);
+> -		if (atomic_read(&actrl->common_achan_refcount) == 0) {
+> +		if (atomic_dec_and_test(&actrl->common_achan_refcount)) {
+>   			ida_destroy(&achan->job_id_pool);
+>   			ida_free(&actrl->async_id_pool,
+>   				 achan->async_client_id);
 
-Can prop->name come from something that is declared as
+Applied!
 
-static const ... foo = {
-	... .name = "bar";
-};
-
-?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thanks,
+Dinh
