@@ -1,92 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794260961;
-	b=CDuJHmrIv9E8kkbKO+Jo0y+S72KZMw7Hsr4jJ10S1L1d8I8d5aI14ev1kQFx1NVAnuPR
-	 ldBRKNrUk0uzcGAXke8SPiplGhKWj8pMB+fB7ev2Ynn69VzEFpwvUNS5ZjqpnhlT8ZT86
-	 VsyTlCbjnf6X/DxKsv9sF5Jx32FTT+oDb/+4ojG3zcoxPqxNVKhilGFW54ICe2H0D2uph
-	 76IgnCcIoxY6jrlj9aswLPM8bwZoB6dfWz4y+F58dGlVFB1zOC4QopQ0DQ3F5VojBaTCW
-	 7xQFHlQFKIS9IS2QR8E4Mr7hAfHOw9t6VOhzHDTmFVm6Zppqm8qlp4SQ80cpf1dr70Q==
+	t=1794260956;
+	b=Ga1Uxw6K1UpuFtBG+1/yR+gxcAV6+1JkWNdzRKU6w6uudgt9fi+qUAOiLOPiq58Pm7b7
+	 9eZAZnXdTQLgZGFctVrVtUlj0QP94MGx3li1fjM9C7Kc9Xg2jkMFqrtLKCJrDMmNroBjq
+	 L98NDqRTwg/UFVjdhbUmdw3hvcud8Fxk3eoL9LifN9D7Ox9iTzeqpUwXwwLRl0CZzGHcJ
+	 9E+hMx2tjzoQAVpnBrgU27OJ+sVr4eXq6CqjdqQXrVFWlWZvgfe3kFq9JXyiqJQVmToG8
+	 wsnFS8sAVBbdM3WPIGDfqRqeA6sS/0vAO+BCkdpW8ls1OnK1+yNtlQ9VilKzDG9MlLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794260961;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=UxDjvppQo/SrqEXKDKs+D5fmThARf1TnPkDI8HYKfsw=;
-	b=zpU3CgAFjURUgjitZfQ9pA6yEoBuRggu/Jgf1nzpqlPeeB5WSKL3VCfqG1H1j84+jmT7
-	 4prM/R/99ItxM6a6w//y7KVvYQAZ2Ekx4rp64VvN/ZTsltn5xcGtSBWP4l4SETbPSFdvE
-	 p4wMTWX86ZPABhdTdlxk0+ZGIYINyRb450PWzKS/57czBv6WpDMAMuNVV2p1noVc0S/5Y
-	 +26KUxXKuDr/pX1/rtKcRSl+RBXeFCovvSGFv9mhCZ8kOhQV2ODfpN0QeKRFnitXHfmOM
-	 Aaf9ZIlOHXLsB+XU1C6b4Pq3n7Ms2jHKHP75OKyU9R1gfiX70ltOPmR/gGiqW3tbFyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794260956;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
+	 References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=hD4/rOBor8vuXy7+FBslFmkGihyycuVPMTbcjvsGkCs=;
+	b=TVL9R3M0EF1q0825Y08zCwfVEs0Ff1ZNXb1yoYF/QOAjIX8I2Z49xxo1Ifj02WKv7SsC
+	 LSZyR2qiFyrzV+1nsIUMiroFQPvgF7XpaxLTuzGY4Ia3PMtjNOWgZ9YuXiup9JQnNTzCa
+	 TbuxI2PG2XUA+yH9bMvtpioY0zRoFUjnqYA+o2hQMXXv5fbeB3DokMOgIge+QGZJ9Fi2p
+	 JCO+AfKG5TkzJBUlS5CEg76M++nS5K2kHkjpqWRrY3Tmiq4Wu0Zxt/dctaYHPQSVbzTH6
+	 XDXDtwFyuZYs9BCfp5lRErCgF+anIRFQ6oDt1uoFsoXYKb35GCnxY7z7u6lRwswxwZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WhNLbKUt;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IwAHBzog;
+	arc=none smtp.remote-ip=95.215.58.101
+Received: from mta1.migadu.com (out-101.mta1.migadu.com [95.215.58.101])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CD5606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:49:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0CD5606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A4A606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:49:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34A4A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WhNLbKUt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794260960; x=1825796960;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Q2UzRyhaM40DLj8CMTHMez0m2szpSS2h1gwd08COTzQ=;
-  b=WhNLbKUtjxbarDdncnIRkZbAJaTnxFjZAAIewU+roMBberNYLn5sl6ed
-   fmXfBbJq7di1jU3WXW01Scf7SrMFpQzewiihcxgiyh5zGWKekRv3ih88q
-   k3HA58ktxnNoGGn3XhuwFphN55jrmiKde3HzzX1OuUrRSIi1+MWvdZ7Ku
-   aa4Mroy8XI3crPwCoU3iQuCvJJwjHddwyXwvTLEvpV/bAcKvx1PRa63Ug
-   6v0doPYirzXiTynpZXeaVmKFhVEiw1EvvWYBRHw7z9i7z1hcn4lohyEQh
-   pXAtMSHHmbig9ma5FofYbNBgHcY+kqkQTipoNaCBMxass1T1LEDotGLSS
-   w==;
-X-CSE-ConnectionGUID: viP/488SSDyUQw2XM1ldGQ==
-X-CSE-MsgGUID: 2l02TcVlT4SRSAypefSxyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3023904"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3023904"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:49:19 -0800
-X-CSE-ConnectionGUID: sLzjHxyhRkGJ3Fqvas8SXg==
-X-CSE-MsgGUID: DDsrY47BTsaSpcaHsy4PjQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8116535"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:49:16 -0800
-Date: Mon, 9 Nov 2026 23:49:13 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Sam Agazaryan <samagazaryan@google.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-i3c@lists.infradead.org, Frank Li <Frank.Li@nxp.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
-	Vitor Soares <vitor.soares@toradex.com>,
-	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/5] i3c: add i3cdev module to expose i3c dev in /dev
-Message-ID: <avI_2ddihPu_sxCe@ashevche-desk.local>
-References: <as487H8-0Gc77mXI@ashevche-desk.local>
- <CAHreonHiesGbR4VB+3sRxoLDmNHXFFEB=6_o6TNedm-N6VksEQ@mail.gmail.com>
- <atXmovzepBLP8Mqo@ashevche-desk.local>
- <atXnS1ZKGVfHDNEK@ashevche-desk.local>
- <CAHreonFnUSKJMUpR0rmsnSMHEhcJ_W332_NTcGfTKiRkkPse_w@mail.gmail.com>
- <202610210957562f3f6511@mail.local>
- <ati4B33tnKsCD4c_@ashevche-desk.local>
- <CAHreonEbHrPCCro+2u5LC2reVk2fzprC4sTLi00nyh8U1=VdXA@mail.gmail.com>
- <at8xuIWvvqLoicTg@ashevche-desk.local>
- <CAHreonEjSXs7ecOrCtqXh3gXdkGeqK=8mgjTUHLk3q0aOuP4pA@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IwAHBzog
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nOiQEYuSoNBv1LoQFek3ZETD1fxVkZfpV6TKA1yBp1c=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794260952; v=1; x=1794865752;
+ b=IwAHBzog+whtqfF3z2P7E5B0HdrMiktrlXFGvgiNL/MhO1f3H5FrF1rWSFrmGCFYunIq+Bij
+ BlyAusF21I1a5dqJHHnnHAx+OdHyJiSxYAgHPzOgeFcXzZdYChml06mclSY9cQDJWmH8iWMX/Ek
+ hd3OON6X9y0nY6uL0Tas4/eQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e82d086895ec596b;
+	Mon, 09 Nov 2026 21:49:12 +0000
+X-Mizu-Trace-ID: e82d086895ec596b
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 09 Nov 2026 22:49:06 +0100
+From: Luka Gejak <luka.gejak@linux.dev>
+To: Alastair D'Silva <alastair@d-silva.org>, Ping-Ke Shih <pkshih@realtek.com>,
+ linux-wireless@vger.kernel.org, Kalle Valo <kvalo@kernel.org>
+CC: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+ linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_rtw-next_v9_0/4=5D_wifi=3A_rtw88=3A_sd?=
+ =?US-ASCII?Q?io=3A_Fix_unhandled_RX_request_interrupt_storm?=
+In-Reply-To: <23518740c620e5575d5ca5f46aa99f1dbb7e1172.camel@d-silva.org>
+References: <20261107035321.1210303-1-alastair@d-silva.org> <ab3dcde64bb90809ae10627803315d7385d6708e@linux.dev> <f2784538533947a38e9d03af7bc7fce8@realtek.com> <162821b6cf0e6d17aa33c81d55a716b553e70579@linux.dev> <23518740c620e5575d5ca5f46aa99f1dbb7e1172.camel@d-silva.org>
+Message-ID: <DE52F1F4-9DBC-4627-BB76-90A2727345F8@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,107 +68,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHreonEjSXs7ecOrCtqXh3gXdkGeqK=8mgjTUHLk3q0aOuP4pA@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 08, 2026 at 10:11:52PM -0800, Sam Agazaryan wrote:
-
-[...]
-
-> > > production BMC firmware update and recovery daemons running in OpenBMC
-> > > server fleets (managing Caliptra Root-of-Trust and SoC recovery targets
-> > > over I3C), as well as production server accelerator management daemons.
-> >
-> > Okay, but they are not (obviously) use the upstream solutions for that.
-> 
-> Right, they run on vendor kernels carrying out-of-tree i3cdev patches
-> based on an earlier version of this series, so there is no upstream ABI
-> to stay compatible with. This series already departs from that ABI
-> and v6 will change it further based on the review in this thread.
-> 
-> > But it's still unclear to me why this can't be moved to the kernel space?
-> > There is no user space that communicates with upstream kernel in the way
-> > you described, they should have used a custom (out-of-tree) solutions, right?
-> 
-> It could be, and the closest in kernel fit would be an OCP recovery
-> i3c_driver exposing fw_upload. But pushing an image is only one part of
-> the spec, and an in kernel driver would have to cover all of it, not
-> just the subset one recovery agent happens to use:
-> 
-> - status and identity: PROT_CAP, DEVICE_ID, DEVICE_STATUS (with
->   recovery reason codes), RECOVERY_STATUS and HW_STATUS
-> - reset and boot control: DEVICE_RESET with forced recovery and
->   flashless boot, and multi-stage activation through RECOVERY_CTRL
-> - memory spaces: code, critical logging and vendor-defined CMS
->   regions, through either the indirect window or the FIFO interface
-> - the VENDOR command and vendor-specific status, which differ per
->   SoC vendor
-
-Good. We can see that being implemented step-by-step.
-
-> Which of these an agent uses, when to trigger recovery, and which image
-> goes with each stage all vary by platform, and the BMC's userspace
-> already makes those decisions.
-
-Based on the absence of any interface in the kernel before, there is no chance
-to regress anything. It might be just a good will to try hard to support
-existing out-of-tree solutions.
-
-> An in-kernel driver would need new sysfs ABI for this, and that ABI
-> would have to grow as the spec evolves: v1.1 alone added multi-stage
-> activation, flashless boot and the indirect FIFO interface. With a
-> target-scoped transfer interface, none of that needs kernel changes.
-> fw_upload and lib/pldmfw fit well where a kernel driver already owns
-> the device; here the only consumer is the BMC's management stack.
-
-Yes, and I see no issues with that. Opening the whole i3cdev just for the same
-reason sounds like an overkill. Especially if we do *not* expect any more users.
-
-> The kernel already splits things this way on I3C for MCTP: mctp-i3c
-> binds by DCR and provides the transport, while PLDM firmware update
-> runs in userspace. i3cdev could be made to bind the same way, by the
-> OCP recovery DCR, instead of binding to every unbound target. Outside
-> I3C it is the same pattern: nvme-cli does NVMe firmware download/commit
-> through the passthrough ioctls, and fwupd updates devices over hidraw,
-> usbfs and drm_dp_aux_dev.
-> 
-> So the kernel side stays a small mechanism consisting of target-scoped
-> transfers to explicitly bound devices, and the recovery policy stays
-> in userspace, where it can follow new spec revisions without new kernel
-> ABI.
-
-If there are success stories, those examples might help to justify your
-approach. It makes sense to mention that in the cover letter with the
-summary on their designs (and split).
-
-> > > If you mean electrical bus recovery, i3cdev doesn't perform
-> > > bus-level electrical recovery. It only submits normal target-addressed
-> > > transfers via i3c_device_do_xfers().
-> >
-> > But how it will do if the i2c device blocks the i3c bus in mixed mode?
-> > I mean, how will it affect the i3c transfers on the wire?
-> 
-> Electrically speaking, SDA and SCL are shared, so an I2C target that
-> holds SDA low blocks every transfer on that bus, I3C and I2C alike,
-> regardless of which driver issued it. The controller reports the failure
-> as a NACK, arbitration loss or timeout, depending on the controller.
-> i3c_device_do_xfers() returns the error, and i3cdev passes it back to
-> userspace from the ioctl.
-> 
-> So i3cdev behaves the same as any in kernel I3C driver on that bus
-> since it uses the same transfer path. Getting a stuck bus released is
-> up to the controller driver rather than i3cdev. For what it's worth,
-> section 8.4.1 of the OCP recovery spec recommends a pure I3C bus for
-> critical recovery paths, and for mixed buses requires validating that
-> I2C targets have spike filters and considering isolating or
-> disabling the ones that can't. I2C devices on a mixed bus are also not
-> allowed to stretch the clock.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+On November 9, 2026 9:29:38 PM GMT+01:00, Alastair D'Silva
+<alastair@d-silva.org> wrote:
+>
+>On Sun, 2026-11-08 at 06:06 +0000, Luka Gejak wrote:
+>> 
+>> > Please take Luka's Reviewed-by for each patch, and send v10.
+>> > 
+>> > [1] https://patchwork.kernel.org/project/linux-
+>> >
+>wireless/list/?series=&submitter=Alastair&state=*&q=&archive=&delegate=
+>> > 
+>> 
+>> It might be the same issue lore is experiencing. Nothing newer than
+>> November 6th is appearing, maybe it's related?
+>> 
+>> 
+>
+>Looks like it's still stuck on 6th of November - is there someone we can
+>poke?
+>
+>-- 
+>Alastair D'Silva
+>0493 18 5566
+>
+Maybe helpdesk, or Konstantin? I'm not sure, I will see what I can do.
+Best regards,
+Luka Gejak
