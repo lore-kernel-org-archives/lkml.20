@@ -1,102 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253328;
-	b=bIl5rwuwKSiEt4jK9QXGx8OR7RmJi4OX1p2GKMUGlfIMgUt/osr66I6t2RfxnqjJmWes
-	 xU3TbXFsFnUSKXc5DxyBW6p5xFlIWli3fAa/ptju6OANq/qkXYcle2sWwr07teXF4LWgw
-	 QRB8Cy8mbVfZP+CyPGxGjKf8BSg0XztjFdYKiBcsIMPmHk5QIOf1PG+FAP2bDGnjb69Ra
-	 UbB8zHkf6BaL96nSCofIZQnqxdYzpPsnbW8hf7LzUlTsmZG6BmKfAc8jCX7r/wcBfwAQe
-	 b9rF4GmH4y9RMd1WoC0ZNldwT2YhwwnKI8S3+Jhv8rjllpCgbq7/S+w96mjcvw70NnA==
+	t=1794253333;
+	b=GEU8yRaTsZlU9Y6cc46yvQ6U76ZNveUMnVY9SFK3zG218yHqopryqftJ7BWUkRa/90EF
+	 o2qwK/0fzjvFle2B60FnXQ+/0+FzKBZ4/V51TC3/pP+7aVkanhADKsX8oBlR3zKFY8Um2
+	 JgCGBzsAArRY5PkfqcmsDfYOzu5LNI7o0GCxFBj9FVHyuOQRK9i8nxowV+lq95iYlhle6
+	 SvYu2XRnZJn9Fd6vtYDDGKs4rJ6+r+eFxWj30uLTjSkiqJjfAo7M5g22t5m0DCaOdBt5+
+	 +ruwmblyFN3owLGY2aWkIii4uYVcsjNzcDRH8R2AE5RnnSDSBE15XYtcRYWJrIYyweg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253328;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253333;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=1pthWRdK4ZkZ8eTK2zEDjJYumkGRyHppHsESDoMnS7Y=;
-	b=VGtP/DcW6+dr5LhZ+JpAK/L2aWqq+XDfWRfkvHpG1rhuAh8JX/Lgcjr5u3mWJlXU0Ajk
-	 ApxxxKeg4IWO7xy977/KXuq+RAE6SWIzA07Ned8CDRfe/+De9sM9SFCqc79MUic5X+RLA
-	 JqN5KkXOBAnhwhiSoGZsF16/Nndo6t7yH8IXQGzUZs9nZJPv89WDEy64JCMhAWx+hS8Ek
-	 We0AXUq0oE9bf4YOf/tUryXqfocPcBVMt/8Np/KVDeZN81MLlazNEr6XiCnq6G5Tq5tOO
-	 6RjHVeR358LEWAjEx6KagV52CZBaee7uy49PVNdEHY4Z8AbPLQ6TAc3TwsyMiQdPYdQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PUPl+ApB+9u+qzt/i8jIifMeFEhVOmG0DXWj1SviarY=;
+	b=4Ux3p4qpgZMwC3wRiFdjt4wtku/RrUCUtTJXRpUx2Et0S+emi/Vky9fIoCB1z2T3wy+M
+	 xR9Ri2edX0s2147GObTFSmdKgtxohiIpA5TYq6TWh0kpDXzVhfaBy+NMkLRj62H7gKo6p
+	 tURPIiAWmP1AEneyoI3BwVVBFFzkoTe7fwUmSmLFxWCIOV7zAorR86jSV8uEluxW9buAx
+	 Y21eB6cH+tRUc/v4zqLFeVvX7N5UToCPvychnEAJN31Il29deIpgNLKQn2SSoU47AeLFe
+	 EJqyDAR0N2E11UsQBTZgXShmD/tB258u5k6+HQCH+RjP1yfwQ4RA1KHJBY5QtUy8r6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=myk6mMl4;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dEVCFL4+;
+	arc=none smtp.remote-ip=209.85.210.179
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB3C606A33C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:42:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBB3C606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A29606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:42:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55A29606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=myk6mMl4
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so9565ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:42:07 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dEVCFL4+
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8b271e573adso480257b3a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:42:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794253327; x=1794858127; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1pthWRdK4ZkZ8eTK2zEDjJYumkGRyHppHsESDoMnS7Y=;
-        b=myk6mMl4KE86xxvQLPdHMiS/I4VRjPrLwDaHQ63euM4WNvXJiD//eeBQhgyfaD0Tty
-         CP6lF1SrS02MDV9OR4c17Rb7y5raWXhS8BBA2OcGB6ePGOfYFn83j1hmTvv0woUWPkJQ
-         6Aoh7yR9Dr7VPBfMXkekZeh4CsnuiclIvtGL9jajDiX2h78ivVYzsagcCM/HN3OI/t5a
-         2xEvyD68SmAK97S0gUHOM1P6SInNOZLExv1wP7veGmJbyTY6+t59R5+puHOuft0N1R71
-         h4E+BegJnBmxCSDxs5J5Xa2L1KqyOwExi685dcAzHrfkVHMeFxcgkGEwz4uJnj94Rhbq
-         dv4g==
+        d=gmail.com; s=20260707; t=1794253332; x=1794858132; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PUPl+ApB+9u+qzt/i8jIifMeFEhVOmG0DXWj1SviarY=;
+        b=dEVCFL4+3tO2YlMLJynyvigzSYs/Fb+ZFdqJUQqskUFWU77fPvBBNuXFD2d7DK21Om
+         2tkoYd3KpzG5u5LpXm/Khp2jNiJAdaNbqlgaH37U6HQX9fVKc9+lwK05TFZ2revLSdUi
+         YPh7AAUE6CW+058Lo31F9YaET89BW2gvWw66mvtl7GIZp4mLVyDWxTU6369CVSb48hrD
+         humlF5YQRAtoxbR8oRVOT7dYk7E947eKMWzCZiIaFDOrAEWujiPSqrVD/OKVIOzTGsg1
+         7iDtYueD93EjuQcAG6AQ9SMTBTt8uTUMmwCDm1tjaCJMp6n6kkItdUotqV5zlhLIJmGG
+         ojiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794253327; x=1794858127;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1pthWRdK4ZkZ8eTK2zEDjJYumkGRyHppHsESDoMnS7Y=;
-        b=FBzVrEZFMJoS7fgkitT0AuKgSv/3bdPK6th1qmtIcz5vn/HeuR8U/u/zWLf9ZgZJG+
-         EuobxYI8tnW8JRPkN8H9bjqtUUHBjW37AmwbhdGJlPwHa3WOjrq7SHcox9qfFkU4cN6Y
-         oyroHTDJqXtR6D6aktL6gZ0y8tSH6ZoGqqCNj1/Vwuynp3lPcfrWtG9Axh5/uilxzNu9
-         EXDTxDxMZi6991oRZfGoendefLbUAsMmM3raMz0t447lBoYUaUUnIBFds1RWlyTAlCb3
-         9t4vj1rtjiOeled11eu55ww6Ouhe3JDxryDb5xnpBsL9owasbWfCJNPAzOl6g3WnsOMa
-         UFTA==
-X-Forwarded-Encrypted: i=1; AL+hErFRTh0PFou6KcUg+NMU9hhr/91R53EhHlHEkFjOOUb8T3E0BhFf0lcfn7VCsGbUM2M9e8n6lf0RCCXz0vA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/gp4cZn+dmQlN+kGMvz+RNbgZPHNQdEL0QA+ITdV8XTOZafapp
-	0n1+u05rK4lpRubK5suPtZcnbD9c5ICcvC25Db+8g4OnPMJriSfTKo5mDcRjNK/YsQ==
-X-Gm-Gg: AYBFou2LbxrPu0zImPRM/dPJis2fUOSQrTeqkpQODf4PA8KmLLP8Ch7ikFW6DcZ0KIn
-	AB+FaykAUlGbYiruv9Qd3JRElw29p7i6tmcAZQSWl2DM3y8enQoqjjr77vNA9LKNxhsAdO5y85w
-	j/vvzMVlXXtknVQ12ijA4mS+lpiEwtT36K2Jm9j5b4W7VT8UFKF+yNA8VNzdmleYNdsJSoWe7xB
-	vD5cScpUxGz6er0aherinN2/9Xsfr5/+TSm0HnbIesbIbm6JUIIzMGuE0J7eChcMwkEgGXfFWOv
-	4UFkXbFwTl6LfKvNi2rVP+avhu71pmp8LGgdYmPUZF9FXLJk7RNsSwlew/TjZVvvdZBDGkm8DNO
-	3gf5oOlgoZkvvi5K/Ptd1/6lvwXNDzIw0tCJR/iIc4HAZVUW/a4Aa8J1YN33zZUTBQzwP2qtfft
-	wzRZBSAZt45GXhc7mdSmqGvjfcojri7gKQp6WolxNzpIiBc17jtBl2yJndJmJeidEKMUR8qjTc2
-	7Xmser64p3opCd16lRBHIftPmCr8lrjZuVgsewlFTiE/qWWEz2I7kdmQT3snPlsVviTInOStHy3
-	zAQlw7XSHlJ3AGP6MDarjQ+lu5YuSBBLe0EUGJcjHuOeDUDFExIjiMdePssCOvjdu5NkC1hcaPO
-	+VDXxvbYe0GjWLwd8Lpf2bkKG4LB9NT93zcDhpsX7XMxGxWkUdEAycRVxA4wiRIzYprCbmDISB+
-	2Dsf5T6Ads92XbdA7PBK91BP7eMjAEh8SQpnLlCBB61CKHaiNUdsj2OnqYO8uJ5n+0bRfMA11j9
-	Qy8xJSRwJL63g==
-X-Received: by 2002:a17:902:ce84:b0:2ea:4a1:e8a4 with SMTP id d9443c01a7336-2edb81c5bc3mr547825ad.13.1794253326553;
-        Mon, 09 Nov 2026 11:42:06 -0800 (PST)
-Received: from google.com (25.229.125.34.bc.googleusercontent.com. [34.125.229.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8baaa2a6d79sm55957b3a.10.2026.11.09.11.42.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 11:42:05 -0800 (PST)
-Date: Mon, 9 Nov 2026 19:42:02 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Chris Wiseman <chriswiseman@google.com>
-Cc: Alice Ryhl <aliceryhl@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
-	Todd Kjos <tkjos@android.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] rust_binder: account for deferred work size in
- Thread::read()
-Message-ID: <avIiCpJ3ctbQaExK@google.com>
-References: <18e61a85b0d13e9c.3137322e32332e3235332e313736.9c152.0000sendgmr@google.com>
- <18e61a8cb2ff887c.3137322e32332e3235332e313736.9d011.0000sendgmr@google.com>
+        d=1e100.net; s=20260707; t=1794253332; x=1794858132;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PUPl+ApB+9u+qzt/i8jIifMeFEhVOmG0DXWj1SviarY=;
+        b=OuOuEY4+L9KcsMlOQQ91ULHrXFquTItvdwxmWAlWWikmxIgCHh3eQpTU4IDjVMZ/3r
+         1Md88sOtAbX+CtpzO5XVWUhDvblbhR3zI3ZT+QGJdI+vieICOBBIoL9t3pWyBXdIrCDu
+         NbmgHjiyU+p728JKMsPWrmvL872Ax/U5Jft46CZv0m3bK2Tcx6Gh2HWnn4t8XX7UOcU8
+         i1y2SPc/LdDzst45nUQDDv4Z96h1m+XTFwaBaIik6c25ads3NVsScWlzvM+V6gR0LiNY
+         WheSuVdirmkXtFnsWQbUuswlaO3g2oOu3czTtOkZwHsl1tc7o3pPUaGmR2vL0X0LIrsh
+         tzyQ==
+X-Forwarded-Encrypted: i=1; AL+hErFysFh2Gkxeh1CEGzuRfE8ZBDj0nFnabkw56gkPvwbwdwuTZpUIPOWplg5OlDZ8eIZIrVIhUkJ6/HMcwOk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+DzPVPENCWn9lAPMlSZESRDYX2aq88QBa4ChJelyemerO4oH/M
+	UeqN0h5lS2MTr8JzVLKU+1WbMK4wJMyrWElEZisL+3hZc/dbLqfgwIT86NTdn70GEbj1Pw==
+X-Gm-Gg: AYBFou2ffedhZURRWmJrwfYzUA2B2NOVovQXFPRlDSYiVtDD3LVZJHcmQLtM+GdAsXC
+	u+V3J+P4gyk+kMFktV7O4AU//Yl4PkFCC73OhKcLqg7f8yJRylvqJtYKPnC05QKPravjfsjt+HQ
+	G200E2jQouCT93LIblxOaurpgvy46CiEkALaesa6PFx2vVg75V4nDiS+3XCy2ShvIWkmxnwlpzG
+	pMQpLJT070/J0Kbl+SDZOPh/104r6Rfq1Jc5UGACS21Nr604Mh5s17ckibLxbD2K8W+Z9Ej4ZJB
+	WvSnjufs15QI/v3SR9zRq7mp+1381ffjxOZeNoTv8eYyB2lsL43vGtqJBSjbpJ04P65kWzSTbRH
+	liIaPb79qZvbiuLzI7qGMlrksAUzVhSK32KLCPkyj3uZ/17QLAAvhjVixWBYsoqkwN+6iH5SlYJ
+	AnSqLAdOc5r2qted6kzKhaODgOEXvQ8KfQt0rrx8rT5peDNVHIbZynZwe9mviqMNndWFJiYa83p
+	kS+fxxELSI9jTh0DtspaiXQ0Nxwg1KR3DoGthECkBp+CWGTNljJXMyWm6y6qnopfIna0YBNoHJW
+	sJ2S11shxBDCW/5YYcqNLRyiqV5trSMeIYWQIa+4gh2HubxmR1/J7atkODP2W5d9qnk83cFx+Qp
+	xzJAuOLpCLnRgPVMWeOixBQAXJDiyoRkaXa0qgUJbprhkyKrrzqYq+L4=
+X-Received: by 2002:a17:902:cec1:b0:2ed:18cc:d3b3 with SMTP id d9443c01a7336-2edb8d6f270mr1644585ad.6.1794253331652;
+        Mon, 09 Nov 2026 11:42:11 -0800 (PST)
+Received: from localhost.localdomain (mx-ll-183.88.2-201.dynamic.3bb.co.th. [183.88.2.201])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2edb6d4b950sm1388585ad.13.2026.11.09.11.42.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 09 Nov 2026 11:42:11 -0800 (PST)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: linkinjeon@kernel.org,
+	stfrench@microsoft.com
+Cc: icb@fastmail.org,
+	senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	ematsumiya@suse.de,
+	lsahlber@redhat.com,
+	hyc.lee@gmail.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 3/6] ksmbd: use the channel signing key for session setup on a bound channel
+Date: Tue, 10 Nov 2026 02:41:41 +0700
+Message-ID: <20261109194144.22814-4-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261109194144.22814-1-mike.michalo@gmail.com>
+References: <CAKYAXd-Jo-ObBDs-AdGfaM+QmDsot3gj1g0oJiyDKczoUDg2TA@mail.gmail.com>
+ <20261109194144.22814-1-mike.michalo@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,229 +109,254 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <18e61a8cb2ff887c.3137322e32332e3235332e313736.9d011.0000sendgmr@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 08, 2026 at 03:11:32PM +0000, Chris Wiseman wrote:
-> When a looper thread replies with TF_DEFER_COMPLETE, its 4-byte
-> BR_TRANSACTION_COMPLETE work item is queued via push_work_deferred() in
-> inner.work_list without setting inner.process_work_list. On the next
-> blocking BINDER_WRITE_READ ioctl, inner.should_use_process_work_queue()
-> returns true and Thread::read() checks only whether the remaining output
-> buffer can fit a single transaction (4-byte command code plus
-> size_of::<uapi::binder_transaction_data_secctx>()).
-> 
-> If userspace provides a read buffer with 76 bytes remaining after the
-> initial 4-byte BR_NOOP placeholder (read_size = 80), Thread::read()
-> calls Self::get_work(), sleeps in Process.ready_threads, and receives an
-> incoming synchronous transaction queued behind the deferred
-> BR_TRANSACTION_COMPLETE in inner.work_list. Iteration 1 of the loop
-> writes the 4-byte BR_TRANSACTION_COMPLETE, reducing writer.len() to 72
-> bytes, and iteration 2 exits the loop without delivering the incoming
-> transaction, leaving it stranded in the thread-local work_list.
+smb3_check_sign_req() and smb3_set_sign_rsp() always use the session
+signing key for SESSION_SETUP. That is right for a binding request and
+its non-final responses (MS-SMB2 3.3.5.2.4, 3.3.5.5.3), but a
+reauthentication sent on a channel that is already bound is then also
+verified and signed with the session key instead of that channel's
+key.
 
-ok, so if userspace is setting TF_DEFER_COMPLETE, the read buffer size
-should reflect the possiblity of a BR_TRANSACTION_COMPLETE no? I'm not
-sure this is a driver issue. Maybe I'm missing something?
+Use the session key for binding requests, for their non-final
+responses, and for SESSION_SETUP on a connection that is not yet a
+channel of the session. Use the channel key for everything else on a
+channel. Samba does the same. MS-SMB2 is ambiguous here: 3.2.4.1.1
+has the client sign any session setup with Session.SigningKey, while
+3.3.5.2.4 has the server verify non-binding requests with
+Channel.SigningKey.
 
-I guess we are trying to match the behavior we have without the
-TF_DEFER_COMPLETE and using a smaller read buffer e.g. 65-bytes. I
-suppose this makes sense.
+The signature of a reauthentication was not checked at all, because
+SESSION_SETUP is exempt from the check in __process_request(). A
+reauthentication of a live session with a forged signature therefore
+got STATUS_MORE_PROCESSING_REQUIRED signed with the session key, with or
+without multichannel: the same kind of signing oracle as an unverified
+binding request. Verify it with the same helper as binding requests.
+Also refuse an unsigned reauthentication of a session that requires
+signing, as smbtorture's bind_negative tests expect from Windows,
+unless the request is encrypted. A session that negotiated encryption
+has sess->sign cleared even when the connection required signing, so
+take that and enforced encryption into account too; merely having
+negotiated encryption is not enough, since clients such as the Linux
+one always offer it and then send unsigned, unencrypted requests. Do
+not expire the session when a check fails, since the request did not
+come from its owner.
 
-> 
-> Add a size(&self) -> usize method to DeliverToRead returning the maximum
-> number of bytes that do_work() may write to the user read buffer, and
-> sum the sizes of all deferred items in inner.work_list when
-> use_proc_queue is true. Include deferred_size on the right-hand side of
-> the while condition in Thread::read() so the thread does not wait for
-> global events when the output buffer lacks room for both its deferred
-> work items and an incoming transaction, and subtract work.size() as each
-> item is popped so subsequent loop iterations do not double-count items
-> already written to writer.
-> 
-> Suggested-by: Alice Ryhl <aliceryhl@google.com>
-> Fixes: 8eb05e8e47f1 ("rust_binder: add TF_DEFER_COMPLETE flag for avoiding userspace roundtrip")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
-> ---
->  drivers/android/binder/freeze.rs           |  4 +++
->  drivers/android/binder/node.rs             |  8 +++++
->  drivers/android/binder/node/wrapper.rs     |  4 +++
->  drivers/android/binder/rust_binder_main.rs |  8 +++++
->  drivers/android/binder/thread.rs           | 34 ++++++++++++++++------
->  drivers/android/binder/transaction.rs      |  4 +++
->  6 files changed, 53 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/android/binder/freeze.rs b/drivers/android/binder/freeze.rs
-> index 69e058e6d818..5103bfac781f 100644
-> --- a/drivers/android/binder/freeze.rs
-> +++ b/drivers/android/binder/freeze.rs
-> @@ -152,6 +152,10 @@ fn should_sync_wakeup(&self) -> bool {
->          false
->      }
->  
-> +    fn size(&self) -> usize {
-> +        size_of::<u32>() + size_of::<BinderFrozenStateInfo>()
-> +    }
-> +
->      #[inline(never)]
->      fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
->          seq_print!(m, "{}has frozen binder\n", prefix);
-> diff --git a/drivers/android/binder/node.rs b/drivers/android/binder/node.rs
-> index efdafc202e27..4f4c892cba58 100644
-> --- a/drivers/android/binder/node.rs
-> +++ b/drivers/android/binder/node.rs
-> @@ -754,6 +754,10 @@ fn should_sync_wakeup(&self) -> bool {
->          false
->      }
->  
-> +    fn size(&self) -> usize {
-> +        2 * (size_of::<u32>() + 2 * size_of::<u64>())
-> +    }
-> +
->      #[inline(never)]
->      fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
->          seq_print!(
-> @@ -1149,6 +1153,10 @@ fn should_sync_wakeup(&self) -> bool {
->          false
->      }
->  
-> +    fn size(&self) -> usize {
-> +        size_of::<u32>() + size_of::<u64>()
-> +    }
-> +
->      #[inline(never)]
->      fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
->          let inner = self.inner.lock();
-> diff --git a/drivers/android/binder/node/wrapper.rs b/drivers/android/binder/node/wrapper.rs
-> index edfbccf6e6da..37826349eafb 100644
-> --- a/drivers/android/binder/node/wrapper.rs
-> +++ b/drivers/android/binder/node/wrapper.rs
-> @@ -93,6 +93,10 @@ fn should_sync_wakeup(&self) -> bool {
->          false
->      }
->  
-> +    fn size(&self) -> usize {
-> +        2 * (size_of::<u32>() + 2 * size_of::<u64>())
-> +    }
-> +
->      #[inline(never)]
->      fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
->          seq_print!(
-> diff --git a/drivers/android/binder/rust_binder_main.rs b/drivers/android/binder/rust_binder_main.rs
-> index 56c786475237..361f3a987235 100644
-> --- a/drivers/android/binder/rust_binder_main.rs
-> +++ b/drivers/android/binder/rust_binder_main.rs
-> @@ -163,6 +163,10 @@ fn do_work(
->      /// Generally only set to true for non-oneway transactions.
->      fn should_sync_wakeup(&self) -> bool;
->  
-> +    /// Returns the maximum size in bytes that [`DeliverToRead::do_work`] may write to the read
-> +    /// buffer.
-> +    fn size(&self) -> usize;
-> +
->      fn debug_print(&self, m: &SeqFile, prefix: &str, transaction_prefix: &str) -> Result;
->  }
->  
-> @@ -279,6 +283,10 @@ fn should_sync_wakeup(&self) -> bool {
->          false
->      }
->  
-> +    fn size(&self) -> usize {
-> +        size_of::<u32>()
-> +    }
-> +
->      fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
->          seq_print!(m, "{}", prefix);
->          if self.skip.load(Relaxed) {
-> diff --git a/drivers/android/binder/thread.rs b/drivers/android/binder/thread.rs
-> index 3ca5c95695e4..af7a340adcb3 100644
-> --- a/drivers/android/binder/thread.rs
-> +++ b/drivers/android/binder/thread.rs
-> @@ -1599,13 +1599,20 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
->              UserSlice::new(UserPtr::from_addr(read_start as usize), read_len as usize).writer(),
->              self,
->          );
-> -        let (in_pool, has_transaction, thread_todo, use_proc_queue) = {
-> +        let (in_pool, has_transaction, thread_todo, use_proc_queue, mut deferred_size) = {
->              let inner = self.inner.lock();
-> +            let use_proc_queue = inner.should_use_process_work_queue();
-> +            let deferred_size = if use_proc_queue {
-> +                inner.work_list.iter().map(|w| w.size()).sum()
-> +            } else {
-> +                0
-> +            };
->              (
->                  inner.is_looper(),
->                  inner.current_transaction.is_some(),
->                  !inner.work_list.is_empty(),
-> -                inner.should_use_process_work_queue(),
-> +                use_proc_queue,
-> +                deferred_size,
->              )
->          };
->  
-> @@ -1630,15 +1637,20 @@ fn read(self: &Arc<Self>, req: &mut BinderWriteRead, wait: bool) -> Result {
->  
->          // Loop doing work while there is room in the buffer.
->          let initial_len = writer.len();
-> -        while writer.len() >= size_of::<uapi::binder_transaction_data_secctx>() + 4 {
-> +        while writer.len() >= size_of::<uapi::binder_transaction_data_secctx>() + 4 + deferred_size
-> +        {
->              match getter(self, wait && initial_len == writer.len()) {
-> -                Ok(Some(work)) => match work.into_arc().do_work(self, &mut writer) {
-> -                    Ok(true) => {}
-> -                    Ok(false) => break,
-> -                    Err(err) => {
-> -                        return Err(err);
-> +                Ok(Some(work)) => {
-> +                    let work = work.into_arc();
-> +                    deferred_size = deferred_size.saturating_sub(work.size());
-> +                    match work.do_work(self, &mut writer) {
-> +                        Ok(true) => {}
-> +                        Ok(false) => break,
-> +                        Err(err) => {
-> +                            return Err(err);
-> +                        }
->                      }
-> -                },
-> +                }
->                  Ok(None) => {
->                      break;
->                  }
-> @@ -1798,6 +1810,10 @@ fn should_sync_wakeup(&self) -> bool {
->          false
->      }
->  
-> +    fn size(&self) -> usize {
-> +        size_of::<u32>()
-> +    }
-> +
->      fn debug_print(&self, m: &SeqFile, prefix: &str, _tprefix: &str) -> Result {
->          seq_print!(
->              m,
-> diff --git a/drivers/android/binder/transaction.rs b/drivers/android/binder/transaction.rs
-> index 48ac942bb75a..6909d7a8a219 100644
-> --- a/drivers/android/binder/transaction.rs
-> +++ b/drivers/android/binder/transaction.rs
-> @@ -762,6 +762,10 @@ fn should_sync_wakeup(&self) -> bool {
->          !self.flags.is_oneway()
->      }
->  
-> +    fn size(&self) -> usize {
-> +        size_of::<u32>() + size_of::<BinderTransactionDataSecctx>()
-> +    }
-> +
->      fn debug_print(&self, m: &SeqFile, _prefix: &str, tprefix: &str) -> Result {
->          self.debug_print_inner(m, tprefix);
->          Ok(())
-> -- 
-> 2.56.0.317.g454f8302e1-goog
-> 
+For a SESSION_SETUP that is not the first command of a compound,
+__process_request() already checks the signature and zeroes the
+Signature field, so the new reauthentication check then failed. Restore
+the field after that check.
 
-It seems sashiko has found a legit issue, see:
-https://sashiko.dev/#/patchset/18e61a85b0d13e9c.3137322e32332e3235332e313736.9c152.0000sendgmr%40google.com
+An AI assistant was used to draft the patch and as an independent
+reviewer.
 
---
-Carlos Llamas
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+---
+ fs/smb/server/server.c  |  11 ++++
+ fs/smb/server/smb2pdu.c | 115 ++++++++++++++++++++++++++++++----------
+ 2 files changed, 98 insertions(+), 28 deletions(-)
+
+diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
+index 064f99427ca6f..4430c8d6393e9 100644
+--- a/fs/smb/server/server.c
++++ b/fs/smb/server/server.c
+@@ -150,7 +150,18 @@ static int __process_request(struct ksmbd_work *work, struct ksmbd_conn *conn,
+ 	}
+ 
+ 	if (work->sess && signed_req) {
++		struct smb2_hdr *hdr = ksmbd_req_buf_next(work);
++		char signature[SMB2_SIGNATURE_SIZE];
++
++		/*
++		 * check_sign_req() zeroes the Signature field. Restore it:
++		 * smb2_sess_setup() checks the signature of a SESSION_SETUP
++		 * again and adds the request as received to the preauth
++		 * integrity hash.
++		 */
++		memcpy(signature, hdr->Signature, SMB2_SIGNATURE_SIZE);
+ 		ret = conn->ops->check_sign_req(work);
++		memcpy(hdr->Signature, signature, SMB2_SIGNATURE_SIZE);
+ 		if (!ret) {
+ 			conn->ops->set_rsp_status(work, STATUS_ACCESS_DENIED);
+ 			return SERVER_HANDLER_ABORT;
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index af1e7aac4ded1..7d107a61626ad 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -2561,15 +2561,17 @@ static int krb5_authenticate(struct ksmbd_work *work,
+ #endif
+ 
+ /*
+- * A binding request must be signed with the signing key of the session it
+- * binds to (MS-SMB2 3.3.5.2.4). Check it before the request is processed
+- * and before any response is signed with that key. The Signature field is
+- * restored afterwards, because SMB 3.1.1 adds the request as received to
+- * the channel's preauth integrity hash.
++ * SESSION_SETUP is not covered by the signature check in __process_request(),
++ * because work->sess is not set for it. A binding request must be signed
++ * with the signing key of the session it binds to (MS-SMB2 3.3.5.2.4), and a
++ * signed reauthentication with the key of the channel it arrives on. Check
++ * them before the request is processed and before any response is signed
++ * with that key. The Signature field is restored afterwards, because SMB
++ * 3.1.1 adds the request as received to the preauth integrity hash.
+  */
+-static bool smb2_check_binding_sign_req(struct ksmbd_work *work,
+-					struct smb2_hdr *hdr,
+-					struct ksmbd_session *sess)
++static bool smb2_check_sess_setup_sign_req(struct ksmbd_work *work,
++					   struct smb2_hdr *hdr,
++					   struct ksmbd_session *sess)
+ {
+ 	struct ksmbd_session *prev_sess = work->sess;
+ 	char signature[SMB2_SIGNATURE_SIZE];
+@@ -2577,12 +2579,37 @@ static bool smb2_check_binding_sign_req(struct ksmbd_work *work,
+ 
+ 	memcpy(signature, hdr->Signature, SMB2_SIGNATURE_SIZE);
+ 	work->sess = sess;
+-	ret = smb3_check_sign_req(work);
++	/* The key, and so the way it signs, belongs to the session */
++	if (sess->dialect >= SMB30_PROT_ID)
++		ret = smb3_check_sign_req(work);
++	else
++		ret = smb2_check_sign_req(work);
+ 	work->sess = prev_sess;
+ 	memcpy(hdr->Signature, signature, SMB2_SIGNATURE_SIZE);
+ 	return ret;
+ }
+ 
++/*
++ * Whether a reauthentication of @sess must be signed or encrypted. A session
++ * that negotiated encryption has sess->sign cleared even when signing was
++ * required on the connection, while encryption itself is only enforced when
++ * configured, so check what the session actually requires. Merely having
++ * negotiated encryption does not count: clients such as the Linux one always
++ * offer it, and then legitimately send unsigned, unencrypted requests.
++ */
++static bool smb2_sess_needs_protection(struct ksmbd_conn *conn,
++				       struct ksmbd_session *sess)
++{
++	if (sess->sign)
++		return true;
++	if (!sess->enc)
++		return false;
++	if (server_conf.flags & KSMBD_GLOBAL_FLAG_SMB2_ENCRYPTION)
++		return true;
++	return sess->user && !user_guest(sess->user) &&
++	       (conn->sign || server_conf.enforced_signing);
++}
++
+ int smb2_sess_setup(struct ksmbd_work *work)
+ {
+ 	struct ksmbd_conn *conn = work->conn;
+@@ -2665,7 +2692,7 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 			goto out_err;
+ 		}
+ 
+-		if (!smb2_check_binding_sign_req(work, &req->hdr, sess)) {
++		if (!smb2_check_sess_setup_sign_req(work, &req->hdr, sess)) {
+ 			rc = -EKEYREJECTED;
+ 			goto out_err;
+ 		}
+@@ -2759,6 +2786,29 @@ int smb2_sess_setup(struct ksmbd_work *work)
+ 			goto out_err;
+ 		}
+ 
++		/*
++		 * A reauthentication of a session that has keys must prove it
++		 * comes from the session's owner: a signed request must verify,
++		 * and a session that requires signing or encryption must not
++		 * accept an unsigned request unless it is encrypted, since
++		 * encryption has already authenticated it. The session has
++		 * keys once this connection is one of its channels, including
++		 * while a reauthentication is in progress. Do not expire the
++		 * session if the check fails: the request did not come from
++		 * its owner.
++		 */
++		if ((READ_ONCE(sess->state) != SMB2_SESSION_IN_PROGRESS ||
++		     lookup_chann_list(sess, conn)) &&
++		    ((req->hdr.Flags & SMB2_FLAGS_SIGNED) ?
++		     !smb2_check_sess_setup_sign_req(work, &req->hdr, sess) :
++		     (!work->encrypted &&
++		      smb2_sess_needs_protection(conn, sess)))) {
++			rc = -EKEYREJECTED;
++			ksmbd_user_session_put(sess);
++			sess = NULL;
++			goto out_err;
++		}
++
+ 		if (work->session_setup_reauth)
+ 			WRITE_ONCE(sess->state, SMB2_SESSION_IN_PROGRESS);
+ 
+@@ -12982,22 +13032,24 @@ int smb3_check_sign_req(struct ksmbd_work *work)
+ 	 * A key must be used with the algorithm it was generated for: the
+ 	 * session key with the one of the connection that created the
+ 	 * session, which can differ from this connection's when binding.
++	 *
++	 * A binding request, or a SESSION_SETUP on a connection that is not
++	 * yet a channel of the session, is verified with the session key. A
++	 * request on an existing channel, including a reauthentication, is
++	 * verified with that channel's key, so that the session key is not
++	 * used at the MessageIds of another connection.
+ 	 */
+-	if (le16_to_cpu(hdr->Command) == SMB2_SESSION_SETUP_HE) {
++	chann = lookup_chann_list(work->sess, conn);
++	if (le16_to_cpu(hdr->Command) == SMB2_SESSION_SETUP_HE &&
++	    (!chann || (((struct smb2_sess_setup_req *)hdr)->Flags &
++			SMB2_SESSION_REQ_FLAG_BINDING))) {
+ 		signing_key = work->sess->smb3signingkey;
+ 		signing_algorithm = work->sess->signing_algorithm;
++	} else if (chann) {
++		signing_key = chann->smb3signingkey;
++		signing_algorithm = conn->signing_algorithm;
+ 	} else {
+-		chann = lookup_chann_list(work->sess, conn);
+-		if (!chann) {
+-			if (le16_to_cpu(hdr->Command) != SMB2_SESSION_SETUP_HE ||
+-			    !(hdr->Flags & SMB2_FLAGS_SIGNED))
+-				return 0;
+-			signing_key = work->sess->smb3signingkey;
+-			signing_algorithm = work->sess->signing_algorithm;
+-		} else {
+-			signing_key = chann->smb3signingkey;
+-			signing_algorithm = conn->signing_algorithm;
+-		}
++		return 0;
+ 	}
+ 
+ 	if (!signing_key) {
+@@ -13041,17 +13093,24 @@ void smb3_set_sign_rsp(struct ksmbd_work *work)
+ 	hdr = ksmbd_resp_buf_curr(work);
+ 	command = le16_to_cpu(hdr->Command);
+ 
++	/*
++	 * Responses to binding requests, other than the final one, are signed
++	 * with the session key (MS-SMB2 3.3.5.5.3), as is any SESSION_SETUP
++	 * response on a connection that is not yet a channel. Everything else
++	 * on a channel, including a reauthentication on a secondary channel,
++	 * is signed with that channel's key.
++	 */
++	chann = lookup_chann_list(work->sess, work->conn);
+ 	if (command == SMB2_SESSION_SETUP_HE &&
+-	    (!work->session_setup_binding || hdr->Status != STATUS_SUCCESS)) {
++	    (!chann || (work->session_setup_binding &&
++			hdr->Status != STATUS_SUCCESS))) {
+ 		signing_key = work->sess->smb3signingkey;
+ 		signing_algorithm = work->sess->signing_algorithm;
+-	} else {
+-		chann = lookup_chann_list(work->sess, work->conn);
+-		if (!chann) {
+-			return;
+-		}
++	} else if (chann) {
+ 		signing_key = chann->smb3signingkey;
+ 		signing_algorithm = conn->signing_algorithm;
++	} else {
++		return;
+ 	}
+ 
+ 	if (!signing_key)
+-- 
+2.43.0
+
