@@ -1,100 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242063;
-	b=y4Kby6qm+sow8FUjfYcp4mxpOaGnoaiLDqVgwo8IgrJASL4XEe1RWjRb66KHV8ogN9Ak
-	 VM5MPWTqibQTZM+/jjmXJKRPkP9wuNyxKabLRsfEp/k7rc5GcOM2iTG95Xx+jjOoc3I4r
-	 ZtoMtShPdf8+iFbthAJIkjrpdDMQ0GZDdITmRu9tvBhBnxbnnf3zKj8YJVMn+K+XGd5AN
-	 qJPHXVyQuUerk4tRGWvVHoHgBaDczEmOHXzlAynFZ1haYmBK0Jrv+wLErecBkfz/SPuUM
-	 Vvc3oL/iKP0toKGH3Ij6KelDemTUxKS4Se8tTVGefJGPjd3avR6vYzSjQfrF/VIDJ8A==
+	t=1794242105;
+	b=tPjGdGji6hiFAyLg9VeSo71z3toRfOYYdfCK8jRIx+LEow4PYw4Lw3/msJslII7KWQ/h
+	 hJgN5VTtleh5TGXriJvxsdALfkeTM1/0uQFM7B1+mqFH0gyZpMCN2M+zbZPcxJGZXjpkf
+	 wnPFmWmTcH+vg7ujqCFSv1ZzrZM1Jp/KU8ICVtZzi4z9xajdHf4Gl236RyCr3SX6Ew7Yv
+	 qJLr5caT0F8C2+cLqdqtC2uMzBe8CeIWtoevIKejerSO7+QS5ncIEFygrIWt2LMSi6HQK
+	 qwilZtqEpVdbxIe0kLeNWUnwEn8NZcPd3v+R7ULqTYS1DTZ6TohxMtDYKXsCOc+vJcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242063;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=RbYLKZJReBRYNMnQD9Gq9gm7nUierN4cjniygw/hBYA=;
-	b=tebmye3u0r4qaQ7pFropsQfzW3xA++b6e0rtqNNuBdofaeRfIwg6pd4owWNrPC47sXff
-	 ObWq39UXLdtuFuRsDYO+BgCp2Zk5sWYczBgJ8e9s9bPnmAMuExZ66CqNqwoh0rr5+pDNy
-	 qWHiId2DYOCjIyxyqC4hOy64cjGwimNH+kfmQLX2J5RMv0g4oFmprAz+1faMzd08arhtt
-	 JWQ2q4quchoouBRrUWFZQY+4HKF/kUc5eBMZ4a0PIeStFsPAGU1Yx4WPwNXbVJ/qtfb7E
-	 dyd0hekEazy6T+4JRXKMmG6W5VcXBUd0gRROi0gEsORlXFeG0u4xgPASgvmnPfnZ5qQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242105;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:
+	 X-Last-TLS-Session-Version;
+	bh=DBdnRIpEkGXCt848QcHdKdd7ZCOwp35Qcq78QE720ew=;
+	b=tNP98PyaR3jkh3mYWqgtcxfRKUzWZV/PyKl97G1RaxvtjvfQmXTB8mNbtEfCsp0Ck6Sh
+	 pIqItB+QbmczJP/9dNjfs32UlDbxr48r5ZiB5AcVYXAk2y3X3uaTZ+f0tjhscf7D5yI/3
+	 4QYvjFVpghBUWQXheg3sHbxvQGR53O0sMV0mnh/Jx4ftu4drESO7qVi4qe0WPOg7hiPBO
+	 THenRnfxlDVTRS9qcRbez9P7kBL4YSSgAfrUd78INhx1lPKwQJhmzC4OavXsDKGic2gpW
+	 75RxIN71cXqR6zTd04ZVGABp9DCPNLpGQOo1Cm7IVZrERyC5HPHYjuc9N8Hzthi2BlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x4mCWU8m;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qMx724VR;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C810606A332
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:34:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C810606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0AD606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:35:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C0AD606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x4mCWU8m
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-490c1d337d8so785106f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:34:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242062; x=1794846862; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RbYLKZJReBRYNMnQD9Gq9gm7nUierN4cjniygw/hBYA=;
-        b=x4mCWU8mmXnl3LLBdoTqcB3RuNv0n1+H3dzghvwZ0PithQOwP0JtmZN+sbHTAnmwbD
-         VNYyoNrNGokWVcEyttMwdtkMtrX7u3iPcCgK7xcPcDe5lJm0tykkpv3PointI7HRyGUz
-         X+lkA2GtiOc06G6dmKzFhqU63q3Nffl0rI/BNOiZI+0XdvdfwOVhJUP0vZOpNWvsrkM/
-         o8UxpS1K39JqluaEulbWKOl0srp2GQltBXBr2TxujujhzFP4+VupVDG2DZ1Gi9w1XeNv
-         0xPMkhgxitKIVipgbBAWEHs3Lwuz5ukWryGSlklJZhk3DxXEB+rpAnEtp+PSV91+UBaY
-         lFUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242062; x=1794846862;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RbYLKZJReBRYNMnQD9Gq9gm7nUierN4cjniygw/hBYA=;
-        b=WtrU4Rk4viFWx1ucpW3ieNGAml6tuIyHyKXFQKrAnJwc5IJpflUWts/zV4r/3B8Won
-         cgQau6BSF98RxbYEw66AIBRnByTG1ztvaehl5/yYcXM8PdGlZOcp4HiM/DkkVr4VZqJg
-         W76akl42vpXndf8bLkeydsfmU8wn+K3qZW28R3OJVdlcRHAFnN9qqHZFQVGR12Jjvfdk
-         hY3n24r64ziP+OJUvpEGRfRZcFP07ul0+3ksSWnKcjVj9VErxHHfbWJdSEtI44vKHgMF
-         JtRYHf2Z4XK9oXQSxLNxnTQH1osjNqx9hbam2G+ibWDz0y9dL3lotZVp9EmjTxV6LBrn
-         Nr+Q==
-X-Forwarded-Encrypted: i=1; AL+hErHBQ8LQka5P+V3YCJu176EuTQ5m0/AbbEn7EXfxK0LHE5Seeh0TLylPEDif2/3yaWjAtXQcEgPIhgMVb5o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jnDnVCs+9FFGs+4bxGARkrFQ5H2LPnIi51NVHLjhzCu/UT/m0
-	CuDnD95uLl8wjZAnA6FD1r+nHgUhNzFRj64qkC+Lj1kohOhu86pdZi8=
-X-Gm-Gg: AYBFou26Iwun+Om9HufH00IOn+8dr/9+tCa5ojvGuh8MaOgM61ojuMoOrGBLf32DVbL
-	V/XKMEEQ3jlGZoRzNRFZv+JcSERv7UJbRblHVB6vD3e/xN2qgMDwSuZwaY7LWzZhzWO9lMBb1X/
-	Ww58/rX+CXJEZptgM9wA+Agk6rQPFTjw3Q5y/o3qD5pOWI1xaCEg2Vgq5993aFmgWj9Ue2Woz6t
-	iWgzAl6d8AR3NBEycf0wZ+j3T13Xs76lsgzQ4/xEonF1+EKBxeFwWbXU9F14/UWSD2B7noxz/Rr
-	ypXJVx8423GFf+7mchPbOcfOk4hNb29k+y9BkgpTJgiYWdzidfozI4o6KjwVKrrslC2l8Q6Huwr
-	6RXwh8o6ernzXSoKvQ/y5pc1ophS7ziY06+/2tV6h999zbaP2uNYdLOgHO+EmLIihCqZ2ukld5v
-	iiwgqLfZRdiqTbdVq7wjbTSQfAWqNoQ3C2LjMqWF6FtcaMvMcEaGoM8cUBL18L/kU7efPL0mvCu
-	GoS1fz3CgDhDo5Rp0KZp7nniqB9jjY6AA4kkmXrmVRtZ/U8jozUjFhoKOK0VCWFJFU3wGCpidw4
-	hose8Y5ogzEHgDum4LO3/85k//XkLWpvdpj/8tZrm8fIO0G05XjEmLNjRFoYse5q8kO6/PAhFNn
-	iNO00vZpzy9q6obTphVbfdxqhdl50rjFLBBmsqLoP8OzLzG3N7m02rksrCPhl0PQzBRR5wB9ung
-	==
-X-Received: by 2002:a05:6000:288d:b0:48e:25e1:5eb8 with SMTP id ffacd0b85a97d-4982b28aa42mr46827f8f.3.1794242061567;
-        Mon, 09 Nov 2026 08:34:21 -0800 (PST)
-Received: from chateau ([194.65.85.67])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49597ef6db0sm11269050f8f.59.2026.11.09.08.34.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:34:21 -0800 (PST)
-From: Sergey Zagursky <gvozdoder@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Sergey Zagursky <gvozdoder@gmail.com>,
-	Jake Steinman <j@metarealtyinc.ca>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Lixu Zhang <lixu.zhang@intel.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: [REGRESSION] ipu-bridge: HM1092 entry hides IVSC-attached OV02C10 on Dell XPS 16 9640
-Date: Mon,  9 Nov 2026 16:30:02 +0000
-Message-ID: <20261109142140.ov02c10-hm1092-regression.e938253b8516@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=qMx724VR
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 279904E4152F;
+	Mon,  9 Nov 2026 16:35:01 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E077060051;
+	Mon,  9 Nov 2026 16:35:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 73AF2103293CE;
+	Mon,  9 Nov 2026 17:34:57 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794242100; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=DBdnRIpEkGXCt848QcHdKdd7ZCOwp35Qcq78QE720ew=;
+	b=qMx724VRQDEMMpb2flZ+b/gHBd7QWNlvkPM2lmndl4O+CSZB2qK6AKcfAFvUnZ/TB4/AqZ
+	y6OYlAbOGMTRkz09eal+AWVAt03QX9SG/M3mtF1wvyEczqy8d2q1gbCB2UQgRJPTOStGVW
+	D6LpRoDHVYKE2fXLOzAWP9VmUd5mIZQhH/NrsaA/OSggtyN9htP9JqES6cCRtdvgGtpGlk
+	ppbVocgR5nAwg5+6uRfLpfhG8sbxeKft5VRiTmyEm3DZrKOAIJDhxx85dS9DWd0kNigQyd
+	nUw+HrokY4vohGfhBVhpp6JzR4/yPLc0HijLIjvdVZr3COEnq0FDO/YMvCG9Kg==
+Message-ID: <0260a1943c59cdda431bb216438d49c3955d93b0.camel@bootlin.com>
+Subject: Re: [PATCH 5/5] spi: cadence-xspi: Add workaround for old Marvell
+ firmwares
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Bharat Bhushan <bbhushan2@marvell.com>,
+ Sunil Kovvuri Goutham <sgoutham@marvell.com>, Tanmay Jagdale	
+ <tanmay@marvell.com>
+Date: Mon, 09 Nov 2026 17:34:55 +0100
+In-Reply-To: <au8lyXiMUSvcdPWx@xhacker>
+References: <20261104100643.162694-1-paul.cercueil@bootlin.com>
+	 <20261104100643.162694-6-paul.cercueil@bootlin.com>
+	 <au8lyXiMUSvcdPWx@xhacker>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,72 +78,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Hi Mark,
 
-Since v7.3 the built-in camera of my Dell XPS 16 9640 (Meteor Lake
-IPU6, OV02C10 behind the Intel IVSC, plus a Himax HM1092 IR sensor in
-ACPI as HIMX1092:00) is no longer found by libcamera. It works with
-v7.2.8.
+Le samedi 07 novembre 2026 =C3=A0 21:21 +0800, Jisheng Zhang a =C3=A9crit=
+=C2=A0:
+> On Wed, Nov 04, 2026 at 11:06:43AM +0100, Paul Cercueil wrote:
+> > From: Tanmay Jagdale <tanmay@marvell.com>
+> >=20
+> > Older firmwares from Marvell used the cdns,xspi-nor compatible string
+> > for the Marvell-specific xSPI IP, which is incompatible.
+> >=20
+> > Add a workaround to support this by assuming that if the "xfer" resourc=
+e
+> > is found, it means that a Marvell IP is used.
+> > S>=20
+> > Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
+> > Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+> > Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
+> > ---
+> > =C2=A0drivers/spi/spi-cadence-xspi.c | 18 ++++++++++++++----
+> > =C2=A01 file changed, 14 insertions(+), 4 deletions(-)
+> >=20
+> > diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-x=
+spi.c
+> > index 48a109f3fcdb..d326589a6ca3 100644
+> > --- a/drivers/spi/spi-cadence-xspi.c
+> > +++ b/drivers/spi/spi-cadence-xspi.c
+> > @@ -1301,11 +1301,21 @@ static int cdns_xspi_probe(struct platform_devi=
+ce
+> > *pdev)
+> > =C2=A0	}
+> > =C2=A0
+> > =C2=A0#ifdef CONFIG_64BIT
+> > -	if (cdns_xspi->driver_data->mrvl_hw_overlay) {
+> > -		res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM,
+> > "xfer");
+> > -		if (!res)
+> > -			res =3D platform_get_resource(pdev, IORESOURCE_MEM,
+> > 3);
+> > +	res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "xfer");
+> > +	if (!res)
+> > +		res =3D platform_get_resource(pdev, IORESOURCE_MEM, 3);
+>=20
+> This moves the mrvl specific code to all users, so I believe this
+> needs dt-binding update.
 
-The cause is commit 4fdb0342f05e ("media: ipu-bridge: Add Himax HM1092
-IR sensor"). ipu-bridge now adds an async connection for the HM1092,
-which has no driver in the kernel, so the IPU6 ISYS notifier never
-completes. The OV02C10 binds to the IVSC CSI sub-notifier, and its
-sub-device node is only created from the ISYS .complete() callback, so
-it never appears. The sensor driver probes and the entity is in the
-media graph without a device node, and libcamera skips it:
+I actually disagree here. The binding says that "xfer" is only provided wit=
+h
+Marvell-specific compatible strings, and that's correct. The fact that some
+firmwares don't respect this spec is not a problem of the spec itself.
 
-  ERROR V4L2 v4l2_device.cpp:92 'ov02c10 20-0036': Failed to open V4L2 device '': No such file or directory
-  ERROR SimplePipeline simple.cpp:1930 No valid pipeline for sensor 'ov02c10 20-0036', skipping
+> From another side, this assumes other users doesn't have 4th resource
+> but what about if they have? they will get "Marvell-specific xfer
+> resource passed, but ..." warning below, this confuse the users.
+> I don't think this workaround can be added to all users.
 
-This is the same problem that commit 7456b40bc992 ("media: i2c: cvs:
-Add sensor node in bound callback") fixed for CVS in v7.4-rc1. The
-IVSC path still has it.
+Yes, I thought about that and I can understand that you don't like it...
 
-I can see two possible fixes, and I'm not sure which you would prefer:
+I originally thought that it was fine because the dt-binding states that th=
+e 4th
+resource is only for Marvell compatibles; but the binding can change, so it=
+'s a
+bit wobbly.
 
-- Revert 4fdb0342f05e. The comment above the ipu-bridge sensor table
-  says not to add sensors that are not supported, and I found no
-  HM1092 driver in mainline or linux-next.
-- Do for IVSC what 7456b40bc992 did for CVS. I'll reply to this mail
-  with that patch.
+I will come up with a better mechanism in the v2.
 
-The second one only covers sensor nodes. As far as I can tell from
-the code (not tested, my sensor has no VCM), a VCM instantiated by
-ipu-bridge still gets its node only from .complete(), so with an
-HM1092 in the tree a camera with a lens would lose focus control
-regardless of IVSC.
+> Lastly, does the "firmware" mean dtb? But per my grep, I didn't
+> find any mrvl dts(i) uses "cdns,xspi-nor" compatible string, so
+> this means the dtb is outside upstream, then can the firmware
+> be fixed instead?
 
-Testing, all on CachyOS kernels. Their ipu-bridge and ivsc-csi
-modules have the same srcversion as modules built from kernel.org
-v7.2.8, and the test modules were built from kernel.org v7.2.8 sources
-with clang 23.1.4 (the kernel itself was built with clang 22.1.8) and
-loaded unsigned, so the kernel was tainted (E):
+It is dtb and also ACPI. The firmware can and will be fixed, the idea here =
+is to
+make sure that the driver still works on older firmwares that haven't been
+updated yet, because they are out there.
 
-- 7.3.1: camera missing as described.
-- 7.2.8: camera works.
-- 7.2.8 with only the HM1092 entry from 4fdb0342f05e added to
-  ipu-bridge: camera missing, same libcamera errors.
-- Same, plus the patch applied to ivsc-csi: the sensor gets its
-  sub-device node, libcamera lists the camera, PipeWire exposes it,
-  and "cam -c1 --capture=10" streams at 30 fps. No kernel warnings.
-- 7.2.8 with only the patch applied (no HM1092 entry, so .complete()
-  runs after .bound() has already created the node): the sensor has
-  exactly one sub-device node and streams at 30 fps. No kernel
-  warnings.
-
-I have not booted v7.4-rc2 itself. The patch is against v7.4-rc2 and
-builds without warnings with W=1 under GCC and clang.
-
-Hardware: Dell XPS 16 9640, BIOS 1.4.1. libcamera 0.7.2.
-
-#regzbot introduced: 4fdb0342f05e
-
-This report and the patch were prepared with the help of an AI
-assistant (Claude); I reviewed them and ran the tests above on my
-machine.
-
-Thanks,
-Sergey
+Cheers,
+-Paul
