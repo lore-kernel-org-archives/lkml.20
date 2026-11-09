@@ -1,58 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794243315;
-	b=m/NRsFOOS8Yz1kFEWxQ0o03Fi7jzMT90OhBsSShXyCCHtM0UjM68gwQ5kLwBWyDGXPV9
-	 w4pGmfvZqA7CI2Kacs/P+kUY2ttCAHwvUJZFqqLnqblT5hq4JtRSVmIpWIptRl67LQJWQ
-	 w76e4GFApNcbbCZo9YPGtpkUx0PEIlnN5hN4tgpN0tEoxgUvxNh8F4cOgGWQoFO6SCtPi
-	 bW7raoEIkfOqntiNCwkeHJEBJ+asgu1D2R4vUIeSorO8CmmyTYUjKPSZmIeSM8DRo1e55
-	 sV2YYQyqRpinZL3POKx+rFUHuWFdyR/JoZxvIsNTVh/Oj98sbzcVvcFIFjwQVhSKg4Q==
+	b=NXr85Z7mowmUTAUa0lxN3cTAkbLmb3R+mqXF3g/C1WpITjws13GkecWvaFXBYlPLB42J
+	 ZU9yRxJqC+1O86rzurnwMmNgT2qnSvZx9d5YNnIsklMzbPi6cKOu7+0uyZnnNnAJem3IG
+	 jyWDb4Evhcl/dZmu6xzEV9JolOB3XHZ6777XYyOy5+6WUuLGkTZUEp54RF+rB9DohLqBP
+	 n7ninVW0KtOTGYXMenbREEq51J1FYtN4aRhRpNbKrl6tLhdyjRc59h6OziNfsMCBBgTIp
+	 3mkCiJFDyKrw3fzXL6+EEDDIaB9xzQq0KP0BXAqEoR2hYCIE/FgO7ydvNkl0UoW5WhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794243315;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=LN7OfULWwyuiTNDpJx71gHGXtOMINgXhvBjanVT0HKo=;
-	b=ciRb0XDKVc+Pqdry1HCoKtYnyaA86slPbYPDmod7lqHsVimVjr++FY+3V6Rv6zbIeuNI
-	 721wWlnJMNiaXYQUdqmackPi3qGFMIgk6FvqwcmjyyrGrsAIVO0LS+lqYrROmOs+3k9xL
-	 kUi14MkDkMuxmKA8Fdfk/Uyu3cE+3H4gQx61ZBcOs7Qr+py/OSWnBbe7b5IjkO3p4v3X1
-	 o+FTHrqmTqy5D8omndpGMdjI0xx8EJX2iB8YQatiK0CZ0zUNTJkgkVgX3Pz/P0J7KgxgN
-	 XVil0YEKXU1o8yg0RM5WDZIh514ih6/7nSBuexZhmNKMYSno5V0eQQ6jo7Db3fMMnLg==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=qV+5I3xoJxRujdrwMOK1g18t57cqNvStai8Z7cSzRSw=;
+	b=BrZicR3avjXMAYkKUDdsvfhSYnZAiCwil35gtK1WZO0Xswe47uNk3mOPqS8x4FhJFD3N
+	 ztqlvTK3N56ZCANeWIKHmzGNWwWNAawvWoiCR68OdwyalvvSdpsjTyUAXuBFQbVFYaPuc
+	 iMQM2MGcjVw3fXWde3nEydOFJZhkdY4Bf6UGnNL3sOWdrJtcu6WZ5wMBJ8LLGhOpsi5Mh
+	 eqnHZL3wfTb7gODVds/GTwD7KeacktSnI2eLxrxuPR6wGI1lt0f4tXlTpt4Q8FXDhZ2pM
+	 wcfouTlwL1+7uUbO8XTJ+LmVZfEGDUEtcwaX7V41DRZWP6tQwDZWJLwBQKEU3e+XTjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BN6v2nd9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qx9dUkOk;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6656660A2623;
-	Mon,  9 Nov 2026 16:55:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F821606EEBA
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:55:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F821606EEBA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BN6v2nd9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A2881F008BD;
-	Mon,  9 Nov 2026 16:55:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794243315;
-	bh=LN7OfULWwyuiTNDpJx71gHGXtOMINgXhvBjanVT0HKo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=BN6v2nd9yb9AboaWPxCoS6KZKzGGNZ7nOKlwF+761IoJ9vNo1e7/YJAKzpidP5rJG
-	 psZsEfO2xg1d661Xm1ufeEwaYLhE2lTWWuhdmEYfEe4qA2LY4c5C9yIvn3VNmmijBb
-	 c5qduoFYJ3Z82DLBioBD6fw9qw7Cdf/UXy8lSlTm6oJ/LzEPIPYBvaJX/6EQaLLJQd
-	 V98yUgcmcBwwLXNlaDo+k4RkwxpxOaXR2Ge5fv7/uDM80kLCG+HpQChH/k2drcjdTz
-	 UiqG4PHwsFKwJvaGynZjW7EOT0Q5UBq177/DWLGSjsYvj3PfL9fUJlGngQCb1xDHSw
-	 17jlWOlzuHdZg==
-From: Chen-Yu Tsai <wens@kernel.org>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
- Icenowy Zheng <icenowy@aosc.io>, Jernej Skrabec <jernej.skrabec@gmail.com>
-Cc: linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <20261104185027.883011-1-jernej.skrabec@gmail.com>
-References: <20261104185027.883011-1-jernej.skrabec@gmail.com>
-Subject: Re: [PATCH] clk: sunxi-ng: h6: Let the SPDIF clock set the audio
- PLL rate
-Message-Id: <179424331293.1081044.6611467485377241437.b4-ty@kernel.org>
-Date: Tue, 10 Nov 2026 00:55:12 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qx9dUkOk
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso12108455e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:55:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794243314; x=1794848114; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qV+5I3xoJxRujdrwMOK1g18t57cqNvStai8Z7cSzRSw=;
+        b=Qx9dUkOkbOVv3AdspaNK7rZkfivrRMnyfo0dX91ZnhdMc7yhFU5Z91Zf1w2FP2mBxo
+         HpIPc2x6aDyz8iy1BPcuNuHNZJyC3JYbpDvkhI8xVX1NPNJnjpqeEtTNBq0obCPPdO4s
+         Ecg9emsfzIzHYpJl7CGav469zxWR4BX/+1a12cQKKikGx7hObf39JVFMua96en+Mk1aU
+         kiix3JJKsGGFQe8tjztUMdt+82w0M+nprj2g7cinQh/04QwWpCzJ0b2dNDhHAOkzDnO0
+         DcO0HomHn7gCMEPvjlqq1OKJ3gvfqekHHY5rd3Y+jBf9Ab3qS0hx9eWJn59DIqFcW29r
+         QFng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794243314; x=1794848114;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qV+5I3xoJxRujdrwMOK1g18t57cqNvStai8Z7cSzRSw=;
+        b=uO4lpNNIzAMBc3uLNqPUI8cPU3ZQPqJWTzL765+egrfvnym+l5M15QIGOp9M5ui8hF
+         irIEIX4CTsj0DuJ5vtAbI6BxXVF3od0txjqGplWcBqpRbDv1SzsGSNzmug7F92fsa48E
+         aIlsn98NPFC+O9IyDP4by8t2jhR1uWzcEKUhDnmBk6DpSyTQjxXsOD/mozP52f42iy5b
+         xUgFKKoUvIIHhzejKzeABoQcpuFrCOL8ytkH9fCjOYai6/wRg7wLhvpgBWExLWp/fU1F
+         4AKqlZGV2FkHyM419CdWEg63jlMk5H6pLvpy8PAwGPkP9JLhRywMZVE2nh42zkv+nMBr
+         hOUQ==
+X-Forwarded-Encrypted: i=1; AL+hErGuGbjfJpAx18Rhuy7MDd+nrj8oZrXRK9A0L5CGqaIW6XAAE4zSclekV85cFrBmD0L1x+UJGvmM/xzbFmI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9FFejLehtQXYL2f49h9W9ZdwJWSX67be7JkRBMINbrG+jh9Qec
+	cuSuLwpVBW3TgYJ7vXQGCwMj30CU106HZQKp16yWKt714+AhU5R8Ds80
+X-Gm-Gg: AYBFou3Kmv7zO7quOD2GW1GEcjD/MjGoALZjfI3OooQh4XuMiVXigJ78hqa67JTK/OE
+	d9KgejDlnbSIO2vQHSET4xX7v9yZIYNQkm/W5tQBrKyatEQZ1JzNb8TRz/RyOOgW2076LFVFrVx
+	JEdcmecIvLAzXFT2xXX5KSVcrnB2YUpxteZiHOdOBCy4G09vnnz10Yj8hs2F4UtJMxCSunvL+Wm
+	7Lrtxgk7/0p+H8vvWBmQvz85qLRh8Ny8YnHryT7dvwPBWGk4S/yKR0/xqsUaCzdivAtvFaV47fh
+	uaFcoOWTiKDB8QkfTTD+cH5KFYcZQFfDT0TTUGwgSuswY9Dnze0eAzikFcWZhrTBDF9noRbyKd5
+	60XEEFlmSRdCy+sgO5kMC8UBX013wUtRMohjbDWu0YX+X+aAfl+XX9OPtb3Cxrxe/BeLZu6QXqh
+	rCg2fipuqLSyecMU7L4ShSAZDxFVV7xCIlaaz+hPQOvAgyfUcLP26TsyfdP7yNirfcngxUlSgBL
+	oOFT+e6QAXx+ltfWSCcRe8CMdjEHvqxpais5IZhaWAQ7T7qbFAm5HYYHflBxEDeHtUYYenQ8+jh
+	kOZXU2Z9gaFwLGjLnBcFAgeVcPT5/bxQaQ+2aDN5OrzHST4=
+X-Received: by 2002:a05:600c:1d05:b0:4a1:83f0:7c91 with SMTP id 5b1f17b1804b1-4b963c8c780mr80148275e9.18.1794243313724;
+        Mon, 09 Nov 2026 08:55:13 -0800 (PST)
+Received: from localhost.localdomain ([2a04:ee41:4:b2de:1ac0:4dff:fe0f:3782])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4959783fd04sm11392369f8f.47.2026.11.09.08.55.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 08:55:13 -0800 (PST)
+From: Anton Protopopov <a.s.protopopov@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Alan Maguire <almagui@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Quentin Monnet <qmo@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	KP Singh <kpsingh@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Sasha Levin <sashal@kernel.org>,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Anton Protopopov <a.s.protopopov@gmail.com>
+Subject: [PATCH v2 bpf-next 17/18] selftests/bpf: Enable bpf_scan_ir in the config
+Date: Mon,  9 Nov 2026 17:05:37 +0000
+Message-ID: <20261109170550.141443-18-a.s.protopopov@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109170550.141443-1-a.s.protopopov@gmail.com>
+References: <20261109170550.141443-1-a.s.protopopov@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,26 +112,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.2
+Content-Transfer-Encoding: 8bit
 
-On Wed, 04 Nov 2026 19:50:27 +0100, Jernej Skrabec wrote:
-> Unlike the I2S clocks, the SPDIF clock can't change the audio PLL rate,
-> so it can only divide down the rate the PLL already runs at. That covers
-> only one of the 44.1 kHz and 48 kHz sample rate families, and the other
-> one is sent at the wrong rate.
-> 
-> Propagate rate changes to the parent, like the I2S clocks do.
-> 
-> [...]
+The bpf_scan_ir plugin is off by default. Without it bpf_test_retval has
+no fixtures for the plugin and fmodret_retval skips. Enable the plugin in
+the selftests config, so the CI jobs which build the kernel with clang
+build and test it. Kconfig enables the plugin only on x86 and arm64 with
+clang 19 or newer and a matching llvm-config, so elsewhere
+bpf_test_retval is built without the fixtures and fmodret_retval skips.
 
-Applied to sunxi/clk-for-7.5 in sunxi, thanks!
+Signed-off-by: Anton Protopopov <a.s.protopopov@gmail.com>
+---
+ tools/testing/selftests/bpf/config | 2 ++
+ 1 file changed, 2 insertions(+)
 
-[1/1] clk: sunxi-ng: h6: Let the SPDIF clock set the audio PLL rate
-      https://git.kernel.org/sunxi/linux/c/280af24c8605
-
-Best regards,
+diff --git a/tools/testing/selftests/bpf/config b/tools/testing/selftests/bpf/config
+index 49dfe939467c..5461c32cd3cd 100644
+--- a/tools/testing/selftests/bpf/config
++++ b/tools/testing/selftests/bpf/config
+@@ -11,6 +11,7 @@ CONFIG_BPF_STREAM_PARSER=y
+ CONFIG_BPF_SYSCALL=y
+ # CONFIG_BPF_UNPRIV_DEFAULT_OFF is not set
+ CONFIG_CGROUP_BPF=y
++CONFIG_CLANG_PLUGIN_BPF_SCAN_IR=y
+ CONFIG_CRYPTO_HMAC=y
+ CONFIG_CRYPTO_MLDSA=y
+ CONFIG_CRYPTO_SHA256=y
+@@ -56,6 +57,7 @@ CONFIG_IPV6_TUNNEL=y
+ CONFIG_KEYS=y
+ CONFIG_LIRC=y
+ CONFIG_LIVEPATCH=y
++CONFIG_LLVM_PLUGINS=y
+ CONFIG_LWTUNNEL=y
+ CONFIG_LWTUNNEL_BPF=y
+ CONFIG_MEMCG=y
 -- 
-Chen-Yu Tsai <wens@kernel.org>
+2.43.0
 
