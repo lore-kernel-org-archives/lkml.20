@@ -1,57 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794257304;
-	b=UC9PMVrsXsYIhbp43KyUBI82KctYh9QXXxuDYYjhGAqVCMgxVMlTsHbBYzqMq0BG63T6
-	 0epie+zbYlwaoJREve7sdwup21fBWILKfyL/005/OcJcXcbXOSjPbefmw+WpB81lPzadF
-	 7dIf6nkDJjW4FEduTwarl5sKDTXO7xbbCkg89kM6o11DQW5ZKXBsWgoN/hPM8q9SsJfmL
-	 gGID4xqE6K6QwUaB2XS58ulcxggPZjCbLWeN54TiV7nwNH1pdAD3mhXMKYIsMfp0MDns2
-	 TLF5Sow7E+Gutiw/lL/nsOfzoRNFs6rh+q3TnJA//Nz3f92xClggx72Ufcj2KCQSh8w==
+	t=1794257305;
+	b=5ohjCd68QSyj0wVKQYM4YEUMm+Oh4oC/FuOdNgWejlXbkYlrpmNW1DncmlMrCcMhwsNT
+	 ozKRZDfirVgYxsQ9bJ62hCUoU5yCtT7iYRp1yzgq9dKPQZyHIJbIJJ1GeaEOUKtH7Lc4T
+	 mepKTy/HzTIvxRGP3k3Rh6+Ktzt2MRMUEFPnw1FAbdOQmuxWNPHaPqFQV+aReso8eRgGp
+	 il+pn1boBT+zhOLfcmzYWEyxUcPUoO2PUtkmuvDrqsbfWcH1dSB7me6dDE+LQnd5Q8XLp
+	 UyX3ln45ONNN8alld8lxTvV5sLkgIUF0SNa6v/iiS8AP/BbFRvWcKObPxEJxMcSeoZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794257304;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TP0p+gw2NtY8DtFZrnMf1yHjdZHitLSYQV57c8ydShM=;
-	b=xHL6MVh8KHaY6aV/I6InzAHdgqzr95NWEiY8XyTzfNOY9JtJEgH+pOKiLlqiUzk1yIvX
-	 NPv0YJ09KfNOaIkk63UX+zLwz1SOc/psxuSopxC9t+RrEhe4eF5lJy35fUIkrLL/cQCWr
-	 rrk530AKnOGoA9o6aUwUp5hfH4yYFBxJDHafmzZPCMbay5aw2TsrP2d7ri32CniQAJ5DH
-	 iOTNFh15RotF6NRleDLAT3PxCjKlLYmc4249su1hG0qaAHDgR/Tx9Svr0z6f2ckiGSuNf
-	 cQB9nlUSDaOC8+paElh7hkUCSC1I4QFOaDs5E6AMe9DO0q2PI1VpCjeI/fDYRimpiqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794257305;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=cr59Jlw63YR0F4Paf2c41Gc0yvl82l13H2pewUH6kQs=;
+	b=fM67+GA/Pr/zdCc+X7QID50J40nNyhBAp1JmGitwQp/3Se4sLEN2lRwSPXzarQQndJDn
+	 00c4K0lRvXUKsgyS+w9wMLH1X2i+x6HWXt+GHUSPrYJvM1y+N0FGFeT635IaDFGTtAkcA
+	 /x7JFn/LwSydx8PNPKJRuk+xQEqqIxByQ1P1LcEMIiP0H6iZD95oBkxIafL8vW6oIwa4s
+	 6LBSqln7io8L0Fp37d/1j+3eT4LqDbWhPNnQhFNK3jj12Pm50fK60gD8aCtcmqRIwBu82
+	 EoHKwaweGagtjtOG5wSYBLNwMq34h6DZVA23spgDEt+VBlOutmyHEKaT+Aq35F0R9Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=iAhH31w5;
-	arc=none smtp.remote-ip=109.224.244.18
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=g8WDSSNK;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB92606A31C;
-	Mon,  9 Nov 2026 20:48:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BB92606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB4F606A326;
+	Mon,  9 Nov 2026 20:48:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DB4F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=iAhH31w5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1794257301; x=1794516501;
-	bh=TP0p+gw2NtY8DtFZrnMf1yHjdZHitLSYQV57c8ydShM=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=iAhH31w5NuQdUOt1S1JeM2wCJN02fk2PMoAK2tymKZauEb6R+kbbiqjZalbwx37jn
-	 L3FQEXalCiro3OY40Gfmpw2y3/4rfEx14ChkiJ8tzSayQtz+L3iMdDxE2DlVp3eMvq
-	 LQEwybUR3B7dZmKdDOUB5SNyYSrVN8Jv0rj7sBXdbcUBP7pEjXtpPfxaTn0uZqeZhY
-	 soCss6YDdjpPkVOADA941Yog2KZ86/5TIlAeAgMIjCIQ/TXrEvgNJuLrnsiAO+V9lR
-	 Dt/n45OvzxVwBB2HrCZT92IBYQw7RRVgzd4qhxx+/ZO4rhNRYWtDJkK3IPpPi/8FoT
-	 jW/M7HTs0yGjA==
-Date: Mon, 09 Nov 2026 20:48:15 +0000
-To: corbet@lwn.net
-From: Mauro Codella <mauro.codella@pm.me>
-Cc: Mauro Codella <mauro.codella@pm.me>, skhan@linuxfoundation.org, rdunlap@infradead.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] docs: sysfs: Align example callback names with __ATTR_RW
-Message-ID: <20261109204724.37838-1-mauro.codella@pm.me>
-Feedback-ID: 135342123:user:proton
-X-Pm-Message-ID: 34e2b86c320db1e0a81e0100bb28b1244e3d1b3f
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=g8WDSSNK
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=cr59Jlw63YR0F4Paf2c41Gc0yvl82l13H2pewUH6kQs=; b=g8WDSSNKQdVFTWx1a5zdBz9zFh
+	GUXXz0IRv0IsR/ve1G3+vzg6g1SAwBk8vuJPsCuCEg8frs4/+xAXqU0xhGRsS9CV4b2HvspveUeFD
+	yT6aQipWAK7+6yhOCeX9N+sliON8Bw/O70MbuMgjDlUHoX+WMZ1/9xy55ndq4LPBVrxc=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xQWHS-00FKzw-TE; Mon, 09 Nov 2026 21:47:54 +0100
+Date: Mon, 9 Nov 2026 21:47:54 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: javen <javen_xu@realsil.com.cn>
+Cc: hkallweit1@gmail.com, nic_swsd@realtek.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v1 1/3] r8169: make PHY OCP access safe in
+ atomic context
+Message-ID: <7791e7b5-fdc8-4c8c-ab5b-dcc7d7a6506a@lunn.ch>
+References: <20261109023022.770-1-javen_xu@realsil.com.cn>
+ <20261109023022.770-2-javen_xu@realsil.com.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,57 +65,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109023022.770-2-javen_xu@realsil.com.cn>
 
-The sysfs guide presents __ATTR_RW(foo) as a shorthand for the preceding
-DEVICE_ATTR declaration and explicit struct device_attribute initializer.
-Both preceding examples use show_foo and store_foo, but __ATTR_RW(_name)
-uses token pasting with _name##_show and _name##_store, so __ATTR_RW(foo)
-references foo_show and foo_store instead. Switching to the shorthand
-without renaming the callbacks would fail to compile.
+On Mon, Nov 09, 2026 at 10:30:20AM +0800, javen wrote:
+> From: Javen Xu <javen_xu@realsil.com.cn>
+> 
+> r8168_phy_ocp_read() and r8168_phy_ocp_write() wait for the GPHY_OCP
+> handshake with rtl_loop_wait(), which may sleep (fsleep(25)). Upcoming
+> PTP support for RTL8127A accesses the PTP block through the same PHY
+> OCP interface from atomic context (spinlock held, NAPI RX path), and
+> concurrently with phylib MDIO accesses.
+> 
+> Busy-wait for the handshake with readl_poll_timeout_atomic() instead,
+> keeping the previous maximum wait time of 250us, and serialize the
+> GPHY_OCP register accesses with a new spinlock.
 
-Rename the callbacks in both preceding examples to foo_show and foo_store
-so all three examples agree. No kernel behavior is changed.
+There are many drivers which need to access PHY registers via blocking
+MDIO accesses. Why is this driver different?
 
-Codex identified the mismatch and assisted with the change and commit
-message after a request to find a small kernel contribution.
-
-Fixes: 44a47f0e3ec2 ("sysfs.txt: add note on available attribute macros")
-Signed-off-by: Mauro Codella <mauro.codella@pm.me>
----
- Documentation/filesystems/sysfs.rst | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/Documentation/filesystems/sysfs.rst b/Documentation/filesystem=
-s/sysfs.rst
-index ffcef4d6b..94329668c 100644
---- a/Documentation/filesystems/sysfs.rst
-+++ b/Documentation/filesystems/sysfs.rst
-@@ -107,7 +107,7 @@ It also defines this helper for defining device attribu=
-tes::
-=20
- For example, declaring::
-=20
--    static DEVICE_ATTR(foo, S_IWUSR | S_IRUGO, show_foo, store_foo);
-+    static DEVICE_ATTR(foo, S_IWUSR | S_IRUGO, foo_show, foo_store);
-=20
- is equivalent to doing::
-=20
-@@ -116,8 +116,8 @@ is equivalent to doing::
- =09=09    .name =3D "foo",
- =09=09    .mode =3D S_IWUSR | S_IRUGO,
- =09    },
--=09    .show =3D show_foo,
--=09    .store =3D store_foo,
-+=09    .show =3D foo_show,
-+=09    .store =3D foo_store,
-     };
-=20
- Note as stated in include/linux/sysfs.h "OTHER_WRITABLE?  Generally
-
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
---=20
-2.56.0
-
-
+	Andrew
