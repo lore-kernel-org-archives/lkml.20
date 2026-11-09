@@ -1,79 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794192908;
-	b=3vpch+MB6DEkwP0XctFL+uBp/L9RMQkK7053QDcqLAXMEoNYkZBVqFKKGyINdxeb6hsV
-	 poao9oMX8YdVHxogXF2ThVfzzyIMlrc1wcOkEcF3Bkh9ACGp0sstUj3G+CBj7oQ5I3mZk
-	 x1Rkl1JQ7oujc7XMcSubDRPLXhb4+GWwczfELYW/rWCRUUyCqksWpSu9OZILlHEFaLDX4
-	 LjH7WStcdCifllUBywgbYJPeHQiJso8b1Lpe3iF0qk+fnQ9R9yiv631/FfcnaTG9BPafW
-	 PRsiR1dujgWVMxsN1ZuPmUUnoqzjhLvUYhjQuJ6TOjiU1q+/fBSTu4eArZTuMGKelTg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192908;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=hCLJhCUS0aC39Klvw3MzzILFDtWzh1NJzG2j/NEt1UY=;
-	b=WxxH8uXla81MNlbPAsAZYYR3dURerYDUpBgDoiIcfLzVNCHYYlKr82vU9l/9WUlv66Q4
-	 yK3478e5c9Ma2FjliFDNVEcKDZg3AUBGURHEEWHtXs2g/hTO5JhhbdS8WxEiUU7GJS4ML
-	 W0c4aOS/m6dhv3SAKleb9zPkyZmIMui0X5PJQEmhYrhAEtbX2SXwbIAkgEblwNOj2yAGY
-	 fy2UjkdFL+FHz+RgsvcbEssfHO04LzRgNMGN/+YrYC1fjVXume/US9ei388msE6HmrOn8
-	 ZHtCjEAgaXzYkiN8WsOSQ8CCI6PYQ3RPyD7GtQD3JZ2TlM2eS3/a9xMwUlz7X9Tf61A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=inlRNb6J;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868E3606A321;
-	Mon,  9 Nov 2026 02:55:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=inlRNb6J
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794192908;
-	b=jPikI2983IZS7qISy327+orS1iSm2Lv8rECkpMxlqfJ/xv1pYl1pDd5kPJ0fv2hqLnhr
-	 Lqo+JwDKO+9Hd27siK2GvH7A/YRbf4HpCwP0r/xKNe11hnIYgp8QXv1seX2utk7eC+lR/
-	 hqstP0DF5nlYL2HSkpz9PiTIs9SY37CAzVk4qS0mJcSbxiMYuO8nX2N8sTx1yjzV2xzSV
-	 y0aysgFRUzH9NL6uIG7hZeUbnTB4TqRa+LXDHck3orZa01S+RE5t7lhO+CSDksYSmszJt
-	 /U+0mrkVtgaZyzesppdQt8cCKzt8nbu+nv2sO/YW0d0bAEjVuYESOjf/UtOHy5+SAXA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794192908;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=hCLJhCUS0aC39Klvw3MzzILFDtWzh1NJzG2j/NEt1UY=;
-	b=i2EDjFHpc97O4B6h/5++14ihdgE+n3PDzLrS7V6qPdfGNxBLhFwncK9yfPOo6GlRqvZk
-	 z32SoaFE2bpyjwooG6jNTKxba6T8Qs8+oogSdhtdSHKJHfozwec+rHIKNdl2h+sqoqI9y
-	 917tQCaHTuljOZJrs2W13s7xr3Ie3itLdPuY1sAExnoYMmQ+80KCIXcp+A7PvCPs5orlf
-	 mH44a4TJWV3Hjf5jV59LRCSCwvlxtzzqXZtKz54kUHEGnPxP9TKzBIJzvpaP/LFRPjVdE
-	 7omOKWZO7Lqsw/jkgpLKBjpz6pVOUSoUjbFkF6bRk9MeiIP+UQDtenvO8thMDrwI2Fg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.191
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794192925;
+	b=i0uyXDF0IrS54FbSx677JQk+ZhNWfoj4/G/hgIcyfcqEGCYvBECAwVXpwJyFMSXRZgU6
+	 otT9aMwgWZNnOiLDPxWbN7Cqx4ZW/tZ/JjMjm2NepoiZSWOsCeqa9n9TJFq8vYsBfd2p5
+	 rQqiU9ziqUCfl8oRGFGRtmGJDGgijxmO+TfucZ8Srj3f5InOOZLml+z3g2H1g2DGrWIYh
+	 ILExDLBZ651CFoSlB9v5BXtOQh2iqCwjoddAAIuWHEmrVDWPoQfiAThNWfpPxyxc37uJ0
+	 ylfP63a11EQHQkkSkhJxYf5MGs73ud+MLw7d95tFJW36vUyJ8ufz6522bRcZjbhHsJg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192925;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=98LE/RewkB/mIgXW5VS/v06u2iEnrqunStfHDCrZQtU=;
+	b=4ebX6T/O0z16eoQduu0B8TxSieS0gwNM7fT9m0GVvC2+yXU/+O1LH33fgsl6XT6LsCH3
+	 RZTtlyWCHk0Z9mRcRDW0vXkkeR3n14EpF8duRJ6fmpXwY43kJkU9v56tYQsQbqVhnteeS
+	 z44nUiQ+hCDf0JFQjjDfVaqqD7/PPCA724IAVeye92bB4LBFXsQNx8lpTGYiiciOBhv+Z
+	 1ZcUjGHuLD31gdpaMDe/ylrJlgwe7iTnqAqvxpTxiZ1OaKydL6qQhUvmawBon/vFZU0en
+	 RkGOQxjaIeaj6P9IXObQapZpB/Vz4R2ZMCGhboxJb/98ags0gJXG2iW2TItREr1N3rA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WFbQ1y71;
+	arc=none smtp.remote-ip=95.215.58.191
+Received: from mta1.migadu.com (out-191.mta1.migadu.com [95.215.58.191])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 74B4C1F0089F;
-	Mon,  9 Nov 2026 02:55:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794192908;
-	bh=hCLJhCUS0aC39Klvw3MzzILFDtWzh1NJzG2j/NEt1UY=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=inlRNb6JcXIa1Et4WI/bw9Y/w+e57fBCkXO9OzaWOsDztv+dPgxO6fPImZqNXHsoy
-	 a/LzKPJZUmD5qjgGHykXTf/ZFI99YHGkW09/fgeHdkyKY6FwkDUdBQCWXPMI38j8Cr
-	 HlO5NnaOZ+lDVZDZ4+53QgJoU5SGZVxxBCTtlwEAQtg9696vAJVYLL3JNSR8ffbrpw
-	 nec0n5LmpazuvjGK/ffY6OtpW8oYJlg9ta37JTaqZLc7b/OFvQjJMG5qZdOBIN7oex
-	 PEQrigFq+chZ1Bq9+rw1ibgAcGsN6OO9LpCExbRygSALHfSBjfCwbYn5oh7OWlmMWl
-	 349IDApKnsZ8w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E62CD4823F;
-	Mon,  9 Nov 2026 02:55:06 +0000 (UTC)
-From: Kohei Otsuka via B4 Relay <devnull+kohei.spacemachines.com@kernel.org>
-Subject: [PATCH v2 0/2] serial: 8250_of: RS-485 on Microchip Core16550
-Date: Mon, 09 Nov 2026 13:55:04 +1100
-Message-Id: <20261109-core16550-rs485-v2-0-a15933c7b907@spacemachines.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB257606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:55:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB257606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=WFbQ1y71
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=inXLUMxi88jjAjyCcfXQ3nh2o8NgWQcLnFDb+eW27Lc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794192922; v=1; x=1794797722;
+ b=WFbQ1y71lK7GLyzNjPhra3OLXkwovIXx0c9PhLuI6eRoSd0t+kwA0lTQsNOSaRCbKJ1TIV3j
+ /MzB31Le9lDvpoVr2AdqEN0W+oIebFW/kDrr9jnT+E+YBLu6o0yjVrsZMj40frrCae7bopZr41q
+ cpNaqUIyJbDdfrRzpSaVyYXc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 582f103ddfa10910;
+	Mon, 09 Nov 2026 02:55:19 +0000
+X-Mizu-Trace-ID: 582f103ddfa10910
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Paul Moore <paul@paul-moore.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Julian Anastasov <ja@ssi.bg>,
+	Allison Henderson <achender@kernel.org>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	bridge@lists.linux.dev,
+	linux-security-module@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	lvs-devel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-sctp@vger.kernel.org,
+	linux-s390@vger.kernel.org
+Subject: [PATCH net-next 01/14] ipv4: annotate data-races around ip_rt_* sysctls
+Date: Mon,  9 Nov 2026 10:52:00 +0800
+Message-ID: <20261109025425.328445-2-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,96 +101,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbU0HHaKuvIdh0ZapjAmUdJBoC
- HcXdO3yJe+/P4NyFla4FDNknkQl9SuUuwJC6/o7G2lWhtKWFaI9mJAyY0VkTdbjiQxZctHG6Jg
- 9rKshc5TXt3irf6xP/+AwbpnNaEXHlN/fywk37399QmNN1SCxZ2Ty56sOLnDnQis96z6kDuplW
- T5v6nYqyAAAAA==
-X-Change-ID: 20261103-core16550-rs485-505af0ffaeeb
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>, 
- devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- conor.dooley@microchip.com, Kohei Otsuka <kohei@spacemachines.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794192905; l=2791;
- i=kohei@spacemachines.com; s=20261103; h=from:subject:message-id;
- bh=f2A/H5VB6PfODmMTbPgALIZYZl5rfDVy8lpdMZKZsFw=;
- b=xXTMsbmJO+GrhRmRI8JeoCEMfKJHsfBZMK7rQZY6zEHp4BDcYYihqsapc1FnA+8IZRG2S4+h5
- 55TDccEl5qZCaUjja4g5zvlcuSL4QTFUcVKpsWrrkRi4gfaRUjlpMfq
-X-Developer-Key: i=kohei@spacemachines.com; a=ed25519;
- pk=1kit/vmX5JiLGH9NPcqlvT55ISWaLmNipdL5VrriRt0=
-X-Endpoint-Received: by B4 Relay for kohei@spacemachines.com/20261103 with
- auth_id=1385
-X-Original-From: Kohei Otsuka <kohei@spacemachines.com>
-Reply-To: kohei@spacemachines.com
+Content-Transfer-Encoding: 8bit
 
-Core16550 is a 16550-compatible UART soft IP for Microchip FPGAs. We use
-four of them in the fabric of a PolarFire SoC Icicle Kit as RS-485
-ports, described as "ns16550a" with linux,rs485-enabled-at-boot-time.
-With RS-485 enabled, RTS (the transceiver's driver enable) goes high at
-the start of the first transmission and never drops, and the port stops
-receiving. Core16550, like the original 16550A, raises no interrupt on
-TEMT, so __stop_tx() waits for one forever unless the port has
-UART_CAP_NOTEMT, which 8250_of never sets.
+ip_rt_redirect_number, ip_rt_redirect_load, ip_rt_redirect_silence,
+ip_rt_error_cost, ip_rt_error_burst, ip_rt_gc_timeout, ip_rt_min_pmtu,
+ip_rt_mtu_expires and ip_rt_min_advmss are read without any lock while
+their sysctl handlers update them with WRITE_ONCE(). Add READ_ONCE() to
+the readers.
 
-Testing, on a PolarFire SoC Icicle Kit with four Core16550 instances
-on FIC3 (PCLK 50 MHz), linux-mchp 6.18.17 with this series applied
-and the ports described as "microchip,core16550-rtl-v3", "ns16550a",
-115200 8N1, against USB-RS485 (2-wire, half duplex) and USB-RS422
-(4-wire) converters:
-- All four ports transmit and receive correctly with both converters.
-- On RS-485, each port keeps receiving after transmitting, across
-  repeated request/response exchanges in both directions.
-- Without the series, RTS stays high after the first transmission and
-  nothing more is received.
+KCSAN reports it when net.ipv4.route.min_adv_mss is changed while TCP
+connections are being opened:
 
-This series was prepared with the help of an AI coding assistant
-(Claude, Anthropic): the analysis of __stop_tx(), both patches and
-these messages. I reviewed and tested the result and take
-responsibility for it.
+  BUG: KCSAN: data-race in do_proc_int_conv / ipv4_default_advmss
 
-Link: https://github.com/linux4microchip/meta-mchp/issues/5
+  write (marked) to 0xffffffffb0828f70 of 4 bytes by task 715 on cpu 0:
+   do_proc_int_conv+0xa9/0xd0
+   proc_vec_conv+0x21/0x40
+   proc_vec+0x21e/0x6f0
+   proc_dointvec+0x16/0x30
+   proc_sys_call_handler+0x282/0x3a0
+   proc_sys_write+0x13/0x20
+   ...
 
-Signed-off-by: Kohei Otsuka <kohei@spacemachines.com>
+  read to 0xffffffffb0828f70 of 4 bytes by task 719 on cpu 1:
+   ipv4_default_advmss+0x98/0x2c0
+   __tcp_transmit_skb+0x1df4/0x28f0
+   tcp_connect+0x266b/0x3c30
+   tcp_v4_connect+0x9a1/0xae0
+   __inet_stream_connect+0x1cc/0x760
+   inet_stream_connect+0x49/0x80
+   ...
+
+  value changed: 0x00000100 -> 0x00000101
+
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
-Changes in v2:
-- dt-bindings: rename the compatible to microchip,core16550-rtl-v3,
-  following the -rtl-vN convention of Microchip's other fabric cores
-  (Conor)
-- dt-bindings: explain in the commit message why ns16550a remains a
-  valid fallback (Conor)
-- 8250_of: match microchip,core16550-rtl-v3
-- Dropped Krzysztof's Acked-by on 1/2, as the compatible changed
-- Link to v1: https://patch.msgid.link/20261103-core16550-rs485-v1-0-6d15ebe1e5b9@spacemachines.com
+ net/ipv4/route.c | 34 +++++++++++++++++++---------------
+ 1 file changed, 19 insertions(+), 15 deletions(-)
 
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jiri Slaby <jirislaby@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Lubomir Rintel <lkundrak@v3.sk>
-To: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-serial@vger.kernel.org
-
----
-Kohei Otsuka (2):
-      dt-bindings: serial: 8250: add Microchip Core16550
-      serial: 8250_of: drop RS-485 RTS on Microchip Core16550
-
- Documentation/devicetree/bindings/serial/8250.yaml |  1 +
- drivers/tty/serial/8250/8250_of.c                  | 10 ++++++++++
- 2 files changed, 11 insertions(+)
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261103-core16550-rs485-505af0ffaeeb
-
-Best regards,
---  
-Kohei Otsuka <kohei@spacemachines.com>
-
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index d0a5f6d77094c..83f49b2d4c36a 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -829,7 +829,7 @@ static void __ip_do_redirect(struct rtable *rt, struct sk_buff *skb, struct flow
+ 				nhc = FIB_RES_NHC(res);
+ 				update_or_create_fnhe(nhc, fl4->daddr, new_gw,
+ 						0, false,
+-						jiffies + ip_rt_gc_timeout);
++						jiffies + READ_ONCE(ip_rt_gc_timeout));
+ 			}
+ 			if (kill_route)
+ 				WRITE_ONCE(rt->dst.obsolete, DST_OBSOLETE_KILL);
+@@ -930,7 +930,7 @@ void ip_rt_send_redirect(struct sk_buff *skb)
+ 	/* No redirected packets during ip_rt_redirect_silence;
+ 	 * reset the algorithm.
+ 	 */
+-	if (time_after(jiffies, peer->rate_last + ip_rt_redirect_silence)) {
++	if (time_after(jiffies, peer->rate_last + READ_ONCE(ip_rt_redirect_silence))) {
+ 		peer->rate_tokens = 0;
+ 		peer->n_redirects = 0;
+ 	}
+@@ -938,7 +938,7 @@ void ip_rt_send_redirect(struct sk_buff *skb)
+ 	/* Too many ignored redirects; do not send anything
+ 	 * set dst.rate_last to the last seen redirected packet.
+ 	 */
+-	if (peer->n_redirects >= ip_rt_redirect_number) {
++	if (peer->n_redirects >= READ_ONCE(ip_rt_redirect_number)) {
+ 		peer->rate_last = jiffies;
+ 		goto out_unlock;
+ 	}
+@@ -946,7 +946,7 @@ void ip_rt_send_redirect(struct sk_buff *skb)
+ 	/* Check for load limit; set rate_last to the latest sent
+ 	 * redirect.
+ 	 */
+-	backoff = (u64)ip_rt_redirect_load << min(peer->n_redirects, 31U);
++	backoff = (u64)READ_ONCE(ip_rt_redirect_load) << min(peer->n_redirects, 31U);
+ 	backoff = min_t(u64, backoff, MAX_JIFFY_OFFSET);
+ 	if (peer->n_redirects == 0 ||
+ 	    time_after(jiffies, peer->rate_last + (unsigned long)backoff)) {
+@@ -956,7 +956,7 @@ void ip_rt_send_redirect(struct sk_buff *skb)
+ 		peer->rate_last = jiffies;
+ 		++peer->n_redirects;
+ 		if (IS_ENABLED(CONFIG_IP_ROUTE_VERBOSE) && log_martians &&
+-		    peer->n_redirects == ip_rt_redirect_number)
++		    peer->n_redirects == READ_ONCE(ip_rt_redirect_number))
+ 			net_warn_ratelimited("host %pI4/if%d ignores redirects for %pI4 to %pI4\n",
+ 					     &ip_hdr(skb)->saddr, inet_iif(skb),
+ 					     &ip_hdr(skb)->daddr, &gw);
+@@ -1027,13 +1027,16 @@ static int ip_error(struct sk_buff *skb)
+ 			       l3mdev_master_ifindex_rcu(skb->dev));
+ 	send = true;
+ 	if (peer) {
++		int burst = READ_ONCE(ip_rt_error_burst);
++		int cost = READ_ONCE(ip_rt_error_cost);
++
+ 		now = jiffies;
+ 		peer->rate_tokens += now - peer->rate_last;
+-		if (peer->rate_tokens > ip_rt_error_burst)
+-			peer->rate_tokens = ip_rt_error_burst;
++		if (peer->rate_tokens > burst)
++			peer->rate_tokens = burst;
+ 		peer->rate_last = now;
+-		if (peer->rate_tokens >= ip_rt_error_cost)
+-			peer->rate_tokens -= ip_rt_error_cost;
++		if (peer->rate_tokens >= cost)
++			peer->rate_tokens -= cost;
+ 		else
+ 			send = false;
+ 	}
+@@ -1063,14 +1066,14 @@ static void __ip_rt_update_pmtu(struct rtable *rt, struct flowi4 *fl4, u32 mtu)
+ 
+ 	rcu_read_lock();
+ 	net = dst_dev_net_rcu(dst);
+-	if (mtu < net->ipv4.ip_rt_min_pmtu) {
++	if (mtu < READ_ONCE(net->ipv4.ip_rt_min_pmtu)) {
+ 		lock = true;
+-		mtu = min(old_mtu, net->ipv4.ip_rt_min_pmtu);
++		mtu = min(old_mtu, READ_ONCE(net->ipv4.ip_rt_min_pmtu));
+ 	}
+ 
+ 	if (rt->rt_pmtu == mtu && !lock &&
+ 	    time_before(jiffies, READ_ONCE(dst->expires) -
+-				 net->ipv4.ip_rt_mtu_expires / 2))
++				 READ_ONCE(net->ipv4.ip_rt_mtu_expires) / 2))
+ 		goto out;
+ 
+ 	if (fib_lookup(net, fl4, &res, 0) == 0) {
+@@ -1086,14 +1089,15 @@ static void __ip_rt_update_pmtu(struct rtable *rt, struct flowi4 *fl4, u32 mtu)
+ 				if (!nhc)
+ 					break;
+ 				update_or_create_fnhe(nhc, fl4->daddr, 0, mtu, lock,
+-						      jiffies + net->ipv4.ip_rt_mtu_expires);
++						      jiffies +
++						      READ_ONCE(net->ipv4.ip_rt_mtu_expires));
+ 			}
+ 			goto out;
+ 		}
+ #endif /* CONFIG_IP_ROUTE_MULTIPATH */
+ 		nhc = FIB_RES_NHC(res);
+ 		update_or_create_fnhe(nhc, fl4->daddr, 0, mtu, lock,
+-				      jiffies + net->ipv4.ip_rt_mtu_expires);
++				      jiffies + READ_ONCE(net->ipv4.ip_rt_mtu_expires));
+ 	}
+ out:
+ 	rcu_read_unlock();
+@@ -1367,7 +1371,7 @@ static unsigned int ipv4_default_advmss(const struct dst_entry *dst)
+ 	rcu_read_lock();
+ 	net = dst_dev_net_rcu(dst);
+ 	advmss = max_t(unsigned int, ipv4_mtu(dst) - header_size,
+-				   net->ipv4.ip_rt_min_advmss);
++				   READ_ONCE(net->ipv4.ip_rt_min_advmss));
+ 	rcu_read_unlock();
+ 
+ 	return min(advmss, IPV4_MAX_PMTU - header_size);
+-- 
+2.43.0
 
