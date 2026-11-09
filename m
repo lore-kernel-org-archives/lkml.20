@@ -1,107 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242219;
-	b=Qen5CVwU8Mb2JYuxgs8avpjQ1gUOjKzFNd1jGS4rhyMhD8wwI/vV+sbeEWA9YIZrMTpA
-	 LbR1cc3N9yVj/U5mdznN24zaI8Vwa9vTc+YQj5s5IVvDBg7l+snO6gwAtlJz7+FhxRNGI
-	 CHVuG3I8fJdzdtFBDMsjYs6hMhgytzvS9vCfccmRW2o6JCmGcomQ0ArTZGR/D/3dQanv+
-	 FMX/PLCLlIfwo38dt7ZY926uyabzeCEGvIJktKotmd12JfohHVowDkGH3ggSlNV5WKSQA
-	 EDgaZ9uKOI+mJYYkzB7fPN99U8+9POXZHhTZ2DZDOnKD1JkiJW1yiC0RjwYjQ3+7dVQ==
+	t=1794242214;
+	b=qoYr5UzBJF8LMAEyn7cxp4X/XJ6s4Ke2lzBsFe2lq/NOevLpVLmFlpvtZcjVPIUwM+RJ
+	 LfVgofVn+Fcs17TgMJe7S9E37R7GVmwVECefOrxFo25nNJD3AzTDWO3sgVX/rRnNX/rwR
+	 Y2qIbxYZAtGgC93xCVGSQrnDW26ZzOyUEi4vHCrNP3z+xOlvYuj0YWkiF5oHZNYAbWxh7
+	 qcjjbWkDie+SXSEpDKRNEAP9zmtANGCdNv2Eis1BGB/8p3Y50qAJdtL0XNWT83PcvUtdq
+	 higEBpn3Byk/d9Qc/pFFml9dSJmoaPxjWGoSfsoUWSI6pIihcABYfZCZFRQxXQp3ZDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242219;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242214;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=JLlaKTPbLeb3/gH7AJPm/GuRoGA7hDQrgsFi/3akh7M=;
-	b=v1OPZUbBGvezqF0G4QzjJfVASJTtq8LUvEHIMFdUMZUiOBRlIxtcuaiY5E7PG6OLweVf
-	 doLh8AQroe/3O9p/Wn4uGZCZrURV+JC6oBrf3W2RMUzYwMRgEHAJ3Nyx7o2NENrYADOac
-	 8G/wWJZvVzkRdo9UqNdrsZ2UXVL4elEPtcYT1sOVldskaNb6K8L5P5xx+KNHG/8Rz+E7e
-	 zvtvANAKZSET/t7OBiQDu1wNtG+apxD3hGb2h4u22c5mnc62dslc6UN3gI+hP9HmeuxPE
-	 nRxZX3vONIyjq5tyLe4B9YbIQiMGP5fhncDaY8AQlkjLALaakbeo2AquVnLqMA9L7gA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+i1MwDM3O2yhOtvhcZrVhI/0oNqRtv4EvJtbPIkjNXA=;
+	b=bpurGAaf8t9RWjOztqrmoq4KS+ZLfScJdMO5vw0y5ONLIzY8SvZBzgSMRe1O+4/7d7oO
+	 vLSQ06FLowSPvt7AAVg7EqKWz46xgk3sLG2R3qEIg6EeKqEC/1eZUlOigKHh1u4QmxBCo
+	 +PNjYzhQLm9r/7JOdVrfay+TJSXkD+tuZy7JujmdrHDSNoMvbyB9r6E+5YjLP8tqbahG5
+	 HpqS5oXATQDscrog/0KM6QxeBIlAPqj3aUg0RyW3rWMFNVbcXQWmBs638xWiUGXxEUoYk
+	 j4o+/4vCExhIZVcmBOdq7Mcfbt8bUiOzyxoqO+NkMDt18YF5AoScuMSou8kxus95UHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vqUgHQ2v;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FoIzAwNj;
+	arc=none smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B91C606EE95
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B91C606EE95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7BB60A6F4B
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B7BB60A6F4B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vqUgHQ2v
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so11212335e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FoIzAwNj
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5495d549924so11214561cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242217; x=1794847017; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JLlaKTPbLeb3/gH7AJPm/GuRoGA7hDQrgsFi/3akh7M=;
-        b=vqUgHQ2vNCQ5nG+Dlu0E31TLu6AgQHG414t4NmyiyEfkjDF7U5c79e0+Pj0Hkj1kMX
-         mnl6fj7xBdzbvHhkFCASOv8y/2gqCw68E4KFwSKvwAjgGIIBAkfimEfo+3MJaZKbUjdP
-         1FEMUTrhzP96MzqZl0N97/ESBaTdzSJPabdO3/Phz15TUiaXihp9f2QSE67hK1Z+Zars
-         lfNTj0FEaGuVVAntOkWK+wvqEHzwHRJcJtSfWXpaVQcieItV5pNMiLizhdmE0PUjUg8y
-         71M0TvQab3uLzEfbQ1dGj8eWeIGZ8a8nhnhfICm9BIPgGHjLam10mI7NraAC73aSxoKQ
-         M4Ag==
+        d=gmail.com; s=20260707; t=1794242213; x=1794847013; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+i1MwDM3O2yhOtvhcZrVhI/0oNqRtv4EvJtbPIkjNXA=;
+        b=FoIzAwNjbA8Th3jeM5HQIAMdkEjsi4l+IETeNlmZjX0H7yKQ5UlCYjP9aZSanbN02b
+         lSkEqTWyIYFpn0odRR3V16lY9j89BjQ1AkCfhWHi/LAf3EaSESFbTSSvYAv0ryOgqnQ6
+         rDlVBClRe8MPuwinpJsXvREiBYqPqZPdc2lyRKLXurFxL+IHtNH+tuiRkstSTvAl9ytJ
+         fdDeQs7Cl02lXbISyjiHKTZVDtmsxY4r/HJqjJo0y8w6MTFioKF+mAU+RQFwXUSrnst+
+         +EwqDtnuRq4NrECFuA9uxXzYFg/cjXfgzDylF09QI6/azYaH/5nVVeUpz1xOgEZnTGBb
+         GGDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242217; x=1794847017;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JLlaKTPbLeb3/gH7AJPm/GuRoGA7hDQrgsFi/3akh7M=;
-        b=vatmMww3lVlm6+UnrZf3spTy+fkjwH0OC1uFhoVt459XdWUukf1AxCZWh09Ja98svw
-         tehSjg1WadpSmNmyJpSHf6Iyp8K/J/KlbcPTcik6d4+eg74s1hxv/j4YR09LjZzUpRNn
-         1yAvlCi+maTIr/TKQhGKeWQiXhLNtpQq0QnpVpDfCgPjbFJudz76xz8Nj1FFImfdIDIY
-         oMv9Z+v9qnw+htY/jPCldmwwLheL57sD+SHOT1ds+P3K3yI3eRlGMVULCuHEGi0nI+tz
-         yUm7OJ7XEIwn6NQKh7UwZtpJujHHZf3WBqnp21bjQdcq78Nizuop/OmD3es5sziGupzZ
-         JhPQ==
-X-Forwarded-Encrypted: i=1; AL+hErEdrN0r4U36ghI/PrmMXHjjcGvgyhBPmAtrgVkfOnhLdd/SlgRzZgdo2CoqmtMRaCHHGaIwHPelowkbt5s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UBZ+ODAqVgex9PbDOja8cNMrxZ8OL1b2zhCfmJY1grUVGuu7K
-	ZRHFrlvJIxkYv8RR5GYfQ3iKCljLhekxMAb2Um8tS74YhFuE1HZFMkZt
-X-Gm-Gg: AYBFou34DLsD7hICspiDibsETqiVqcPm957RWMIv/luLGYj4/5Veu7ZLauq/R0u1zwk
-	sx2tvCnCIl7yVnODB3oHzfHUylrF3MgMPGzLEdAG8TCn0CFkUIwXtErEvq5b8KO2Eug+PuuKpZv
-	RT4vqiVrPWww3DUP1cHifm2QBmg3bE3gyC/NhIbMrLDuxgRirynlhGvxYOnczjcO6Sp/o0ZI+lX
-	i3z8JE0U+SAewAU7ODffQhww70OG98jb6OFyyV36CnyAscZOet6odrDs1/IcamehVKCuC2MyaH5
-	A8lBmxOqi1UjDrTvDbzDi0gUmDmSk3shxXaWXvD4FiBtFUJvC68zPe7DLzUHwsM6nmL8uH3uuLl
-	kyPcOiwa5Fp/OW5BeExDfgSPkTk7cKWQwewbV76tmg/9YV+CDZ/B46QG0J9Heo+sB48sYY1D3AZ
-	qsuZmVat+Y0g4tE4FbHml68IMR2sPF1Mf9M+ICOyhoq1vnNMk3xY5acpa68n5xogTFyEiYWF2Gv
-	lmOPKZSpu5TF/W7IBJ1ptMxBrYh2Ft3j2vmTcmsBBDCqFNCfdspMgDJNEjnvV/aocxkHxP8LyVR
-	VLvupH3UNO/aWOxBAll2DxMfBw==
-X-Received: by 2002:a05:600c:3e0a:b0:4a7:d9b1:b684 with SMTP id 5b1f17b1804b1-4b94d762e54mr87248405e9.2.1794242217597;
-        Mon, 09 Nov 2026 08:36:57 -0800 (PST)
-Received: from victus-lab ([193.205.81.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.56
+        d=1e100.net; s=20260707; t=1794242213; x=1794847013;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+i1MwDM3O2yhOtvhcZrVhI/0oNqRtv4EvJtbPIkjNXA=;
+        b=AFwHnSnUzB94cPwOE+Xlks6kDiAuZaEo5A+QsmB15NsMuNMHB0tOrO794SRgaV5KWo
+         GsjDCCRGa6gIM2dOh7wXhVsJcYdO7jZlrXXSjrWmAUjmLmDksZEpuh9gzzjPRYzISqqC
+         R0ESvDM3cvctycuuDhiy3hFUDuu3PJZBkRy3a4TO2WI4sZCRepDpnXCIc5fl9OR3xzCV
+         txuxChDxOnhkCTqmF59dUW83VSmEyOjrU6GNsRaxR8GXWQQYcim6MiCH0mCLzC/6boNa
+         vvU/eDXLbbGLRaj2e4FBh0zVQSvP1RwFiaBKYMvWAwP8vrC9tT9mLxJ2oEt5I2qRERUX
+         Cn+g==
+X-Forwarded-Encrypted: i=1; AL+hErGq1nXJvBPOD6sXeVptxgclmJ+mAaBgQKNnJ5bIzzyQo4SY+uzvKL1+SXgFoYgvp34riOt4uD+Q27Fwsh0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z94Xmau2bnUCbD9DtDy3IVQJ5a8TrpuwsIZupB6Z98/MLBiXRz2
+	x7jbCddeCbWE02W2ywZRIvhFS0VA63rSfMP0SaVyYYZneL1SeOrfW81p
+X-Gm-Gg: AYBFou0QjFDZzASvYbZol819lazawTWNNJj/1ubiW38ji49Ht8BZbC/xINVI64G5/Ad
+	64RUdFcSdFW0IKNkWjo3Ly/pedUiStRpEd9m8Dkv4VFdPDnm/4v5Wmt+4lvQCSXpk3//puGKZhT
+	HmpWGi2V+BZNCVIF75AmPe3skmIflPXcL5A1bV7CgSS1G/fH6VicKLDA82fP0Xpyj246NBLm/UA
+	hEqqgVvMwYnQvFK4kP0nnWc47AfWOx5IdtCtEy1Uc363vObf2ZDFS3R3olXNGOlVPsU/2bnyKlQ
+	QUNzbcwdMkNJcVv4qA7N0Xfe89pSIa1uUgpsE8wu+Vo7tr4cKcbjNLnfQuJ20vNuISbI2S0m3AK
+	Sk3eFWQeHGx8GWCQICsuc9MfKpV3MzNHfZnCUuitoX9fiijWWCxqlPchhEIJj3Ke4XQ/h9A+d4i
+	yHxC9XnfGD5ZSjD610xosTZxoNwX+be8AbTiMyuRbeYOzuCUz8TEA+s0CJMyd5CXDwMGXtcFoY3
+	9ibDp8scCynXqs9knl/R9ij1qKJsC6Y8iFzvkEXIQ2m3gqQafbNJG6jtYC7U6OPH/VQYmPjHd5l
+	VZiaHkYfmkzLH/Uthw==
+X-Received: by 2002:a05:622a:5505:b0:535:a5fb:6446 with SMTP id d75a77b69052e-552a604f9ffmr71709701cf.64.1794242213378;
+        Mon, 09 Nov 2026 08:36:53 -0800 (PST)
+Received: from linux.. ([8.34.174.240])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91eced95d91sm45729516d6.9.2026.11.09.08.36.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:36:57 -0800 (PST)
-From: Yuri Andriaccio <yurand2000@gmail.com>
-To: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org,
+        Mon, 09 Nov 2026 08:36:52 -0800 (PST)
+From: Changyul Lee <lcy8047@gmail.com>
+To: Lee Duncan <lduncan@suse.com>,
+	Chris Leech <cleech@redhat.com>,
+	Mike Christie <michael.christie@oracle.com>
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	open-iscsi@googlegroups.com,
+	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Luca Abeni <luca.abeni@santannapisa.it>,
-	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: [RFC PATCH v7 22/29] sched/rt: Try pull task on empty server pick.
-Date: Mon,  9 Nov 2026 17:36:08 +0100
-Message-ID: <20261109163616.195264-23-yurand2000@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109163616.195264-1-yurand2000@gmail.com>
-References: <20261109163616.195264-1-yurand2000@gmail.com>
+	Changyul Lee <lcy8047@gmail.com>
+Subject: [PATCH] scsi: iscsi: Remove the endpoint ID only once when device_register() fails
+Date: Mon,  9 Nov 2026 11:36:49 -0500
+Message-ID: <20261109163649.1092897-1-lcy8047@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,73 +102,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Try to pull task on a server with an empty runqueue before returning NULL (and
-thus shutting down).
+When device_register() fails, iscsi_create_endpoint() removes the
+endpoint ID from iscsi_ep_idr, drops iscsi_ep_idr_mutex and then calls
+put_device(). put_device() runs iscsi_endpoint_release(), which removes
+the same ID again. If another endpoint gets that ID in between, its
+entry is removed and iscsi_lookup_endpoint() no longer finds it. The
+next endpoint then gets the same ID and fails to register:
 
+[    6.689361] sysfs: cannot create duplicate filename '/devices/virtual/iscsi_endpoint/ep-1'
+
+Leave the removal to iscsi_endpoint_release().
+
+Fixes: f014165faa7b ("scsi: iscsi: Fix possible memory leak when device_register() failed")
+Signed-off-by: Changyul Lee <lcy8047@gmail.com>
 ---
+Found with a static analysis tool we are developing. Sashiko AI review
+also pointed it out as a pre-existing issue.
+https://lore.kernel.org/all/20260617204203.91A3B1F000E9@smtp.kernel.org/
 
-When all the servers of a cgroup are throttled, work is pending, and any one of
-the servers is replenished, it may happen that the runqueue is empty and thus
-the replenished server is immediately shut down.
+Reproduced in QEMU (x86_64) with CONFIG_DEBUG_KOBJECT_RELEASE, which
+delays iscsi_endpoint_release() by 1-4 seconds, and a test module. The
+module makes device_register() fail with fail-nth (an allocation in
+device_add()), creates a second endpoint and looks it up after the
+delayed release. Without this patch, the second endpoint gets the same
+ID 1 and is not found, and a third endpoint fails with the error above.
+With it, the second endpoint gets ID 2 and is found, and the third gets
+ID 1 after the release.
 
-The server may try to pull a task so that the cgroup could consume its
-allocated runtime as soon as it is replenished.
+ drivers/scsi/scsi_transport_iscsi.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-Signed-off-by: Yuri Andriaccio <yurand2000@gmail.com>
----
- kernel/sched/deadline.c |  8 ++++++++
- kernel/sched/rt.c       | 13 +++++++++++--
- 2 files changed, 19 insertions(+), 2 deletions(-)
+diff --git a/drivers/scsi/scsi_transport_iscsi.c b/drivers/scsi/scsi_transport_iscsi.c
+index b094af7c997e..6e38fbfd5a9d 100644
+--- a/drivers/scsi/scsi_transport_iscsi.c
++++ b/drivers/scsi/scsi_transport_iscsi.c
+@@ -246,9 +246,6 @@ iscsi_create_endpoint(int dd_size)
+ 	return NULL;
+ 
+ put_dev:
+-	mutex_lock(&iscsi_ep_idr_mutex);
+-	idr_remove(&iscsi_ep_idr, id);
+-	mutex_unlock(&iscsi_ep_idr_mutex);
+ 	put_device(&ep->dev);
+ 	return NULL;
+ free_ep:
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 64df71ab370d..219493427e0b 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -2910,6 +2910,14 @@ static struct task_struct *__pick_task_dl(struct rq *rq, struct rq_flags *rf)
- 
- 	if (dl_server(dl_se)) {
- 		p = dl_se->server_pick_task(dl_se, rf);
-+
-+		/*
-+		 * server_pick_task may drop the runqueue lock, so check if
-+		 * something has shifted.
-+		 */
-+		if (pick_next_dl_entity(dl_rq) != dl_se)
-+			goto again;
-+
- 		if (!p) {
- 			dl_server_stop(dl_se);
- 			goto again;
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index 9d95cf5fd520..839977b05d53 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -286,14 +286,23 @@ int alloc_rt_sched_group(struct task_group *tg, struct task_group *parent)
- }
- 
- static struct sched_rt_entity *pick_next_rt_entity(struct rt_rq *rt_rq);
-+static void pull_rt_task(struct rq *);
- 
- static struct task_struct *rt_server_pick(struct sched_dl_entity *dl_se, struct rq_flags *rf)
- {
- 	struct rt_rq *rt_rq = &dl_se->my_q->rt;
-+	struct rq *global_rq = global_rq_of_rt_rq(rt_rq);
- 	struct task_struct *p;
- 
--	if (!sched_rt_runnable(dl_se->my_q))
--		return NULL;
-+	if (!sched_rt_runnable(dl_se->my_q)) {
-+		rq_unpin_lock(global_rq, rf);
-+		pull_rt_task(rq_of_rt_rq(rt_rq));
-+		update_rq_clock(global_rq);
-+		rq_repin_lock(global_rq, rf);
-+
-+		if (!sched_rt_runnable(dl_se->my_q))
-+			return NULL;
-+	}
- 
- 	p = rt_task_of(pick_next_rt_entity(rt_rq));
- 
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.56.0
+2.43.0
 
