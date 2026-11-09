@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794229720;
-	b=wBaTKU0+Du+RbqVTSAXi52/JRH8/gkPAfG5ulkxoE+O/M67q6aZZi1UZY+vLYlYQV9x1
-	 ZfsMdXAfqIbia83eQyY3YS2Fjh8GpLXF7fckCwTqwOW4G1EDKeVxe5poQLCs2eatnZCms
-	 Cup/Y0Rrmc2PgH8bbJveb2go8D+nLcOW93Hg+eT7IITm9acf4j7bWgvTVlwztZIHuRPfV
-	 FnYtTQfRe4gRxxbQUyyRQzq8nDVMS4hQZ+JOa+6RuWaPkmNE1+0cec9pz2fbDQ5Z2V7/1
-	 DJB2IWkZkn6OG+dXxwgpJRedcQyG3eY6B1G4L7Y9P3tHpUJBz0VxP2OVLr/9DGWNGNQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229720;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=OKEddP/ZtNdVYxAML2vua9qtIab03bP2/fkLZgAxazY=;
-	b=L0N/jHJbqonccib0ki7OD52KIArp81jB5eqIWyNGmTTyZUw7siBqdolR5fExAAsGMK0h
-	 Juh9lkrlcIJ9sAhf2R8LEhlHMfEKaNGgQAoNUyQOChIqPRWi0O0duXdCkj6+n53Z61luC
-	 ovpIukRf8PxUTbZLYzprPzapgb8LIhvI6ww7depySsfu/pmOjcG/ZgGQf0TbJkKKGyw93
-	 ew+S5Ld+M0qW8oEt9DokLEFQpBCfNB5GpwYO+LlAbfDiYGnUSwWcAGUiv0V0jzVgwUArr
-	 waxRjEcmw3o4Iu2hCvIN2JJZqG030vurW+iSH7UN3KSAsG0pYBQGb19riqrtWoNi59w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p4IxYHNy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794229723;
+	b=0Ogq7BXoL9sXjIcOqilFy7psYyTMKdE7sSUmqX78C5T9IRSDeFCKEFMI2lYBmSZMof/5
+	 2OwJsw7dk/8jF3lBFQztyW9K7H9LYOa7Ed0Vy6NQFGkxPFjBft1LCdc252LhTNdyQpkHI
+	 eUn0/41d/n2lf59od2CGlW5SB4o8rVzbGJo10KwfOcbQyfcbhCJwRnG12ZqOLmj2lX0hb
+	 H5Hsmp81CgcncaOMPY71tJRp3wPYpMuo3SVaKbTYP0tqORefJP6au8WXhjjgG/QdlKxpG
+	 ztaDCBKF4BqM3wa+8juiFo4XqsyoUGY1A4XPH844QfHHBQ7UjKZHNFfI33IXHigjASw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229723;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=HeVyPfr/vjE25DybJiBv8Syth1+FEFh3PPc4LRQJ8dE=;
+	b=pcd5Dk5EiVUnhYRcHWzasqrS+BW+rKwihF8GVVIl06z8bmnWFGCIEP1FALMdjzZTimEV
+	 ILFT9V9kdBM8Drp5ZzuWECZhlh1DFbqlEXYRZYlADDyyhK4Fbiz7COrwtRsmUm9O01pTZ
+	 yXktI+GeGhIBI1ORq2MItAlnF3vn/06mlimZDQOtRTQ3L4CPFIvDbnZlKoQ1+Z4J82Ww8
+	 X8TcqtOQ+JoDYvWEkfTBIwUMEejrIe/S54BrhNS9zYCofrJvAM+SYIAeSL2Z1gXdrQsVj
+	 pcrWGvzztXjOck6J6Tf9tTq6QMom98sQk4Ah+6nGgfFgt1I8ivTYkFgOA6hu5kP66ZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="MhAo/UNS";
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A11606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74CB5606A322
 	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:08:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48A11606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74CB5606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p4IxYHNy
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e9d7791b00so6624765ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:08:40 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794229720; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Vc9HYhz9YqmGd7i90IGME5ArQXHu/5jqMWq4bVjEkwxSf8e8fGMh+2XcmS5T1D3RIL
-         rZvu86VFzD0CBkdf8co64g3jL2OSy938WxCVB5YmLE6P+2YdBkKYqlNwsDMDZAmK/8j3
-         b4R+SukVBGrPutMTARz+epBX709Zna5XdrdNb+nNqx697yAVD75j9+gdiV/uCjQZEGWI
-         /Iz9wQxr0aeixSchocrLwPSLc1gCSJNkh8li5zBiQu6HtTeVFFZ1PSJZrk3J+frWABnO
-         q7hsNW3Nf0AxZhrJ3Xyb1hTtpvM8Xtae1OZmTQk9WsEWtbsoyqAbHZQpCHM/2KgKlLpi
-         hUwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OKEddP/ZtNdVYxAML2vua9qtIab03bP2/fkLZgAxazY=;
-        fh=0ewWX540eBzhWVur/1Xp4TiyxG3CDPUcSbmKqMXm+k0=;
-        b=KAn1BijE5Prwc6+d2DCcEAoTew0XHs3cZ7PQBBI/qi2tcAh5oQyQu+7Vl5RtTbW7t1
-         xUeVl5SedIAWaDLluN8TQK95/4t2rA1wdIz6SHISZABHa+bnmO5FSBZaJuhsIbnGu4KD
-         N8NC3LG5W3W2WKN/ZnFFM+9AtNHp/CUEXl094hFpqsr1qxQrlqp1qawezRNN3TuzVoYy
-         RmD4olDU0hrabYFe4xKspGLOAbbZ3lyh/XC4qaybMEjcPCg9Xf9ugU93jTnTaBYnEGdd
-         eMUgP9WIv8J6oxyLhcm86o5cSff5kuTmpAL4/Dca76/dljWvXvqHRtAPHcbxRc14a9BX
-         hMsA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794229720; x=1794834520; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OKEddP/ZtNdVYxAML2vua9qtIab03bP2/fkLZgAxazY=;
-        b=p4IxYHNy9MYAUzxRA1Ns5JvNBAn14iHWe+Ip41mYevrzh+ZYDSRy8qTiTXh8gb8q59
-         vwenErXfWOavA+8b9ARCNbggSoufzK4ehPa8VbSbMduMoEeJ0kwRmWsrg8KwtasfO179
-         u04BRIUXeHWJqfFaysiwQESkMmNfF/8pd7pht3Lgx64AFQ9gEW+sJQnAoNN9nhApzLzZ
-         nAn4MX9QJdnl2F7b5J14XfU7kHVwtknCsniT8rGJyNm7Oqk+KpRBQX5cio4HmnVfbYXc
-         edPPfcGkonxoODDNFBbJ9f7TrfkHb31v4nb947/KgsVhw+nmsYf1isDDmN6+JS8rUwaJ
-         oB2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794229720; x=1794834520;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OKEddP/ZtNdVYxAML2vua9qtIab03bP2/fkLZgAxazY=;
-        b=YFbYVq8HtY1QAIDlEwM34yCPbPvkzk35IySNw8E4zP2lBrQiZVv/C+W9ySQXlaph+J
-         7Rl+86OxnVElHGLvOJ83izXC35cOJVllF6aWDEdh2TChUFpLaJCvJPcwIXwe08GN4AU9
-         bGMZx0075eUHRDXneZ+UHqkqsFXQBEvf/Ai/FXF6d82ZFy9G/pR0dj01S4gL+4JimnD2
-         gZEAthARfqIdo58b4Eqva9x5FUxDQKmzLDtpa9QyGve+a/znpCxDP+h1GWjve4uGzd/l
-         iJ65ThFWxKr4etOiQ+N1ZmqifRGH14Xk/6ba0RR4D71KGonB9q6MeShNcdMvrYqCRsPj
-         jB2g==
-X-Forwarded-Encrypted: i=1; AL+hErFdkXwbvoK4v1ArY91kxXL37m+Rlj1qG7Acgj8BkUhwkgGjrbS2FiS2Dg7BEXQQhaabKbihClVRCqZxuWw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8nElR0cdh/uujcjq0XMeYb2Exe9tJKVsobmuWTkheHo+y1vN9d
-	4UouYc/STKXNMZOidV9fjF9SqJwgnfObWu+I2xLxorMUY/EWwr9+vZ8dZ2TomoLUQ0v9x5PCpTA
-	ZFzBSmaUo8cFWqVjK7hs0+B34iPq5JqE=
-X-Gm-Gg: AYBFou2NM/HXjex3jNzTQpMj75XSzyA9Vq6aP9iR+PaO8EnlmP+xGnhMBYTaNVsetF1
-	ELXKzUAh/Ug8qiXUzAqrwKMl+CRxzHOZCIGHtaj9MJ0v/SBZkQNFepw9JgqZAedbjR1+7CMLzvR
-	nUoVaZ4a47OhJW3mlqYfeQnueqWv76FkbQLnDxuTtCagMNf0S4xeKeVJSVkpEFQhCxqAkdEE3KM
-	/OO2hGlLvOr7Ymj9wPEv+O1yXMOUXQBKq36TspOl9oo9v75zvxC6jZGhQqwM+OcN1f0GN7I2cBy
-	COvLU4nYipPvWlIZUg9HjEjdf12JTkJnMsUeTpRdIJ6hamILAoh5OZxTmPpHqlTgjvL8IREhbvo
-	5S5MmxD8Gd2+IqyGI97u9Ta2TNg3gA31zaYqlKg==
-X-Received: by 2002:a17:903:3890:b0:2e9:9524:b004 with SMTP id
- d9443c01a7336-2ed83793651mr35834995ad.59.1794229719514; Mon, 09 Nov 2026
- 05:08:39 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=MhAo/UNS
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CBED41A15D7
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:08:38 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9A1B960051;
+	Mon,  9 Nov 2026 13:08:38 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1F432103293D5;
+	Mon,  9 Nov 2026 14:08:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794229713; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=HeVyPfr/vjE25DybJiBv8Syth1+FEFh3PPc4LRQJ8dE=;
+	b=MhAo/UNSj3XNkOOjcnCeV+/gaS3CQ9M5C49WyjqIl/9AGQpJmUMj+m5O3BzGh5AQzHBKwm
+	khHSnDtD+4hpvup/3UnjLjSFrAZLyXwRjb4zp2HU00ZNEZOESbkZtoelJr/Hl4kmCjjx65
+	LPYhRpXJXoMgnhcxk+ln4fv62+hySgpopJlpdUoZUG7jkzVMwFuYClTdA4hYnVX0M36bPL
+	y9pMg+NV/iZo/T+cfvj9zl5Difl5BXQI6m801HvYnSw0IHfUZxQoXbaf3Mw7N35A0KSP9Y
+	mHHGTLLurmP1qKe0PCGL8g1D+LcPiA8KeEvDUITdzsN7HB++rvxA9VDaKV+/Gw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,52 +58,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261109125312.2208874-1-graypanda.inzag@gmail.com> <179422894695.488859.13925819352934947141@kernel.org>
-In-Reply-To: <179422894695.488859.13925819352934947141@kernel.org>
-From: Junyoung Jang <graypanda.inzag@gmail.com>
-Date: Mon, 9 Nov 2026 22:08:25 +0900
-X-Gm-Features: AclHuK_r-BhklqLacdFk7flA9saDqgS8hhdjYf5Wqi5mheW7AFHXSdxfF9SF8I4
-Message-ID: <CAO7ntTRXoVY11BPcVD849enGM0uEiSD5mZtNr-Gc3fjpyGNW7g@mail.gmail.com>
-Subject: Re: [PATCH net] igmp: use the joined device when leaving a multicast group
-To: netdev-bot+sinfo@kernel.org
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 09 Nov 2026 14:08:31 +0100
+Message-Id: <DMQPCM8MRHES.2CRX1939ANVY3@bootlin.com>
+Cc: "Tzung-Bi Shih" <tzungbi@kernel.org>, <linux-watchdog@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v5 5/5] watchdog: w83627hf_wdt: Add minute mode counting
+From: "Paul Louvel" <paul.louvel@bootlin.com>
+To: "Guenter Roeck" <linux@roeck-us.net>, "Paul Louvel"
+ <paul.louvel@bootlin.com>, "Wim Van Sebroeck" <wim@linux-watchdog.org>
+X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
+References: <20261020-w83627hf_wdt-improvements-v5-0-90b226684fc7@bootlin.com> <20261020-w83627hf_wdt-improvements-v5-5-90b226684fc7@bootlin.com> <865349b3-77a5-406e-96e6-f8187ae112ad@roeck-us.net>
+In-Reply-To: <865349b3-77a5-406e-96e6-f8187ae112ad@roeck-us.net>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Hi Guenter,
 
-This issue was initially spotted using an experimental code analysis
-tool we are researching, and subsequently confirmed via manual code
-inspection.
+On Tue Oct 27, 2026 at 8:35 PM CET, Guenter Roeck wrote:
+>> @@ -504,7 +523,7 @@ static int wdt_probe(struct platform_device *pdev)
+>>   	wdd->ops =3D &wdt_ops;
+>>   	wdd->timeout =3D WATCHDOG_TIMEOUT;
+>>   	wdd->min_timeout =3D 1;
+>> -	wdd->max_timeout =3D 255;
+>> +	wdd->max_timeout =3D WATCHDOG_MAX_TIMEOUT;
+>>  =20
+>>   	switch (chip) {
+>>   	case nct6102:
+>> @@ -526,10 +545,27 @@ static int wdt_probe(struct platform_device *pdev)
+>>   	watchdog_set_nowayout(wdd, nowayout);
+>>   	watchdog_stop_on_reboot(wdd);
+>>  =20
+>> +	wdt_set_timeout(wdd, wdd->timeout);
+>> +
+>>   	ret =3D w83627hf_init(wdd, chip);
+>>   	if (ret)
+>>   		return dev_err_probe(dev, ret, "failed to initialize watchdog\n");
+>>  =20
+>> +	if (data->early_timer_val) {
+>> +		if (early_disable) {
+>
+> The purpose of this flag is specifically to disable the watchdog
+> "at module load time or kernel boot time". Moving it into the probe
+> function would delay that and is therefore undesirable.
+>
+> On top of that, the flag is pointless in the probe function since
+> the watchdog core takes care of pinging the watchdog until
+> userspace kicks in if WDOG_HW_RUNNING is set.
+>
+> Also, any change made in that regard should be independent of
+> introducing minute mode support.
+>
+> Thanks,
+> Guenter
+>
 
-The bug and the fix were dynamically verified in a local QEMU test
-environment by reproducing the condition and confirming the patch
-resolves it cleanly. I will include these details in the commit
-message if a v2 is needed.
+So, the w83627hf_init() function should be called inside wdt_init(). Then, =
+this
+is a problem introduced in patch #2.
 
+Thanks.
 Best regards,
-Junyoung Jang
+--=20
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-On Mon, Nov 9, 2026 at 9:55=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote:
->
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
