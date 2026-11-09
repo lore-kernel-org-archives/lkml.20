@@ -1,54 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187083;
-	b=rDghUcUJCCraGLdOnNwwSpFvDo78PGBV4W3/3IEzobQoMh9e56owCPP+WaxLM+TCwqgp
-	 xL0vXcYHVF/Tty5I1X0Lob0oQu+ep/BMOLezVqjplVagzf4k83w+JXns5tRKvi4ZRJmuV
-	 i0aWP3on+fEVBKeJdtHFyaBb0bMPCWtXyzMjtwOughNHizitikVgHqss4WD4WclxdxSqj
-	 6vAA/ARQlhSiMMsV7c6ItYoyzbLjvjVkZxmoir8ebS1VICUtiaYDJDcnEDHp3Flg637ST
-	 9qRvoQajmTeGrIcHUy8ikpys71k8Kz44iBpEp5nevCEb/WXX1Qss84YBY4kJAgQs8LQ==
+	t=1794187116;
+	b=Jews36gy3HnP/Nvi+ZNLAn362cAvdiyTe/p+6xpnui9P7Fo/t0GqoLRSI4YTfuo2wC/f
+	 KPt72NuHoUxeKn48YnKI6MjuHmzA0+sEz0XtCRdvfA7xzVnzoLp8AF2h5U1ccOTzwwuby
+	 S9RkoqcCTVW/03zmgY/pW4FxZQBW0npURI75u/bg+7nsrbLEEz1/e+8bGHseuHBpr88B3
+	 AvZ3oOkkkBY1FjCDMTy7IKRAjHJqrW+xtB1mvBcEvZNfPdTF3Zw0NSHErjn+KGZDm2+bG
+	 nxG1pOcK2DmgUNIQgeYkEA2HGaZ45RevOFRmZzvoMN0dphAjM6XpvltqmmzwCHoDUoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187083;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-CMAE-Envelope;
-	bh=WvG0kClh0TtoSxBVHbwJqxA9jzJi1q8SGW5f3Mvk2Ls=;
-	b=mA//2oqFqfLzVu3aZ5QuOJJFcs8N6AjTzJ3SWSe9dLCthv1X0p6Ydi10iKZmYKv+JVG8
-	 zm7a6U3HLW/OplVTfWmr1DbPjdZtTZDaIwAwVE+evKAAwlIZZL0v5tBNuGv2sjFPAIAzL
-	 JINdhDJ+rgcHFLABSSrxn80S2Lpbc0Qg6CSjQUS5bUMAWWJUE0rv4wFtkwhiFvGpGuHIk
-	 lhE86l9JoVTZ0kq3S5XhrASO8pyJaxjlC1gXBVHhEA1J1v29C2Hr1vPHhwhBIk+wIzSLN
-	 4cHrBCFvGfkwm6s+PyRCPvGqxhr7eBxYnzdZikIC4esJJY9Pf8d6PNePsX8FRTJYgHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187116;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=xPeztD9jupX4eVwTVUeTKAoTPh5ugz27mamWsCNiAPk=;
+	b=AzKu+quOmWcOE4ZFC/MooeNTHJpeiCn6IGK7SBUyGAwjbkRETPiEQBcLq2jGCNxhJJ4b
+	 QjBgMCU607fYLv2JZNVCohMBUteU07Uf1XXpvTvd0q8QogGQaWP9x4Oesc77NFZZUcSH+
+	 ScQPw1orhwKCjLwvrMx3/upPyXCk6BoE8j6QE9Y2YR1SQ2NVP8EqAK7CoIRO7Rz5fzYCt
+	 VvThz8DITswSNTzHp/4q/cd3Z2JnimJh6yfVcQcyHl9kYXaNvkw/mPHcBHicaS+G56YoQ
+	 VB0Jz+J7GVutUT6Wu71c/lBJmYGOY/TkhqT9K6P1RAhJ/m4ttC+PPnmX299yJC8ykGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mythread.it;
-	spf=pass smtp.mailfrom=mythread.it;
-	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=dYBvY+T0;
-	arc=none smtp.remote-ip=62.149.156.116
-Received: from smtpcmd11116.aruba.it (smtpcmd11116.aruba.it [62.149.156.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iAWQjwsz;
+	arc=none smtp.remote-ip=91.218.175.12
+Received: from mta0.migadu.com (out-12.mta0.migadu.com [91.218.175.12])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766AE606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:18:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 766AE606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F776606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:18:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F776606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=dYBvY+T0
-Received: from [127.0.0.1] ([87.16.49.252])
-	by Aruba SMTP with ESMTPSA
-	id QE1AxMsH06VShQE1CxPovl; Mon, 09 Nov 2026 02:17:54 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1794187074; bh=oLRFKUwHbKhCHiC98MhkOwsf0J/5kYlXvF/Sbi45IsU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:To;
-	b=dYBvY+T0Ccw0OUXRpirWIhT71Cq7XFsrJ7ZowC7wHvN2dWQ81F/K/28uhz0A2QUNX
-	 52140I5pdGEIZYaK9jQ5JAyObqiHkEI9zvEaMzMgaFnvWwtQqUYbKy46dq0r5etAxk
-	 n/Ic/KkM2HAVD/TG6SHOS2S7sqVqfYHsUV2TuwPMyrxfO7k2SZQuah7lqPX30eeSZy
-	 xHq2f4r3f7NSIvfm6W3XS4ynA1wl4xBI6MSr28VXVANp90ILyD46UfORr63xWYkVhU
-	 vZWWBM5GFemWu230RiY8liX6CMxNiIXtrlj+17QOmQ7n5iPBXmKrBp8/GV4j2MfVZg
-	 XBNmYMSr3TAYA==
-From: Alessio Ferri <alessio.ferri@mythread.it>
-Date: Mon, 09 Nov 2026 02:17:53 +0100
-Subject: [PATCH wireless-next v4 03/10] bcma: pcie2: request HT on
- BCM4352/BCM4360
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=iAWQjwsz
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=clTj9343lRLL07YsOYeNovaP17CXMps+FdlXaphuSNA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794187101; v=1; x=1794791901;
+ b=iAWQjwszyGQARCy6cQPq1IU+KVGUWAM8zhlEowA5+N9o7GfY41XiWB6GQ6JTbc3wXCcoheR2
+ ZTOs1D9GyMnoLa92K8CDlA5zp3rG4rolGLYFviBcS0t5rD75FjxmDQiJhsdGCoDBIT7NvopdfMg
+ IEsO35ekf7Cd+VT7aeEb8zUI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 7e66af7b63cab7ae;
+	Mon, 09 Nov 2026 01:18:20 +0000
+X-Mizu-Trace-ID: 7e66af7b63cab7ae
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 9 Nov 2026 09:18:05 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	Jiacheng Xu <stitch@zju.edu.cn>, Shuai Liu <847807867@qq.com>,
+	=?iso-8859-1?Q?=D6mer?= Mete Kaya <omermetekaya0@gmail.com>
+Cc: kuba@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+b3fca27eb4005f0111f4@syzkaller.appspotmail.com
+Subject: Re: [PATCH net] netdevsim: check the driver is bound in
+ new_port/del_port
+Message-ID: <avEfTZl6gC20PRPc@fedora>
+References: <20261101135824.24484-1-ngocthang2710.1999@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,47 +69,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-bcma-ac-rev1-v4-3-de1262c18b54@mythread.it>
-References: <20261109-bcma-ac-rev1-v4-0-de1262c18b54@mythread.it>
-In-Reply-To: <20261109-bcma-ac-rev1-v4-0-de1262c18b54@mythread.it>
-To: =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
- Michael Buesch <m@bues.ch>
-Cc: vit9696 <vit9696@protonmail.com>, ville+git@takio.fi, egc112@msn.com, 
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mips@vger.kernel.org, Alessio Ferri <alessio.ferri@mythread.it>, 
- b43-dev@lists.infradead.org
-X-Mailer: b4 0.15.2
-X-CMAE-Envelope: MS4xfA0SHnp7/o1kd6yqNJOwxQ9vhGBL4ANMkZqJ/MlRU6NcbLTLJG6wQLJXR978HuYWEYipWWphXGxbozZm8p1w++CcEwuVs3pTkD1lBJ20cKs7x66LY7ZO
- lPPxLcppsYWEvc99HGnRnIC1KkYsC01OvWhZjoF/A16my8XfcvPZtQinQ6hyBPO/54IZ57QV5xdcM4Cs2fG7IUipQQ3UyGsuZ/zSXSby5FILX0qafbbGO0s2
- lJyGypyqM5VPyry4Ig6v819AhE5kzGniuKo+kLbJqeAtozKB6ffkUgvuCRTaLm7+Q7V+5QN4gE2pGL0AGwffg9h0/VoBw3JAKiZjd3Ipe0WVfCgxB1BOh69R
- MRv+wSUc4/Ab1VnwNi7LQ57g0F53Qbmbk2v4s0EvLv29tM00yMnMLi6zhSQy0jWpm9SrVS847vMEtoc9SHjv6a/bgJBL8cz4NnEs/D2REzNpbRwn1oyKCn3F
- ylYWEYsSklBQcXBVXSj93DAHrMOimmP33IBBzA==
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261101135824.24484-1-ngocthang2710.1999@gmail.com>
 
-Set HAVEHTREQ in the PCIe2 core's clock control on chip revs before 4,
-as Broadcom's driver does.
+On Sun, Nov 01, 2026 at 08:58:24PM +0700, Nguyen Ngoc Thang wrote:
+> new_port and del_port are attributes of the bus device, so they stay
+> reachable after the driver is unbound. nsim_drv_remove() clears
+> drvdata, yet both handlers pass it straight to priv_to_devlink() and
+> devl_lock(), which faults on a small negative pointer:
+> 
+>   BUG: unable to handle page fault for address: fffffffffffffeb0
+>   RIP: 0010:__lock_acquire+0x41/0x2de0 kernel/locking/lockdep.c:5140
+>   Call Trace:
+>    lock_acquire+0x115/0x350
+>    mutex_lock_nested+0x55/0x1d0
+>    nsim_drv_port_add+0x5a/0x140 drivers/net/netdevsim/dev.c:1760
+>    new_port_store+0x1a5/0x280 drivers/net/netdevsim/bus.c:96
+>    kernfs_fop_write_iter+0x3a5/0x540
+> 
+> The nsim_bus_dev->init check does not help: it is only cleared when
+> the whole device is deleted, not on unbind.
+> 
+> Do what sriov_numvfs already does: take device_lock() so the driver
+> cannot be unbound underneath us, and return -ENOENT if drvdata is
+> NULL.
+> 
+> Fixes: 794b2c05ca1c ("netdevsim: extend device attrs to support port addition and deletion")
+> Reported-by: syzbot+b3fca27eb4005f0111f4@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=b3fca27eb4005f0111f4
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> ---
+> Reproduced in QEMU (x86_64, KASAN + lockdep) with the syzbot C repro:
+> the unpatched kernel oopses in nsim_drv_port_add() right after unbind.
+> With the patch, the write to new_port returns -ENOENT, a 40s stress of
+> bind/unbind + new_device/del_device racing with new_port/del_port/
+> sriov_numvfs runs clean (no splat, no lockdep report, no hung task),
+> and new_port/del_port still work as before on a bound device.
+>  drivers/net/netdevsim/bus.c | 17 ++++++++++++++---
+>  1 file changed, 14 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
+> index 5c55c308487b..d843b3c985cf 100644
+> --- a/drivers/net/netdevsim/bus.c
+> +++ b/drivers/net/netdevsim/bus.c
+> @@ -93,8 +93,13 @@ new_port_store(struct device *dev, struct device_attribute *attr,
+>  		return -EINVAL;
+>  	}
+>  
+> -	ret = nsim_drv_port_add(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF, port_index,
+> -				addr_set ? eth_addr : NULL);
+> +	device_lock(dev);
+> +	ret = -ENOENT;
+> +	if (dev_get_drvdata(dev))
+> +		ret = nsim_drv_port_add(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF,
+> +					port_index, addr_set ? eth_addr : NULL);
+> +	device_unlock(dev);
+> +
+>  	return ret ? ret : count;
+>  }
+>  
+> @@ -115,7 +120,13 @@ del_port_store(struct device *dev, struct device_attribute *attr,
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = nsim_drv_port_del(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF, port_index);
+> +	device_lock(dev);
+> +	ret = -ENOENT;
+> +	if (dev_get_drvdata(dev))
+> +		ret = nsim_drv_port_del(nsim_bus_dev, NSIM_DEV_PORT_TYPE_PF,
+> +					port_index);
+> +	device_unlock(dev);
+> +
+>  	return ret ? ret : count;
+>  }
+>  
+> -- 
+> 2.43.0
+> 
 
-Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
----
- drivers/bcma/driver_pcie2.c | 3 +++
- 1 file changed, 3 insertions(+)
+There are three identical fixes (author cc'ed) following Jiacheng’s patch [1].
+I’m not sure whether there were others before that. I notified Jiacheng and
+Nguyen on Nov 2, but Jiacheng hasn’t reposted his patch. To prevent further
+duplicate fixes from landing on netdev, I’d prefer to ack Nguyen’s patch,
+since it is the earliest one that includes test information.
 
-diff --git a/drivers/bcma/driver_pcie2.c b/drivers/bcma/driver_pcie2.c
-index cf889fc62..54daeaa43 100644
---- a/drivers/bcma/driver_pcie2.c
-+++ b/drivers/bcma/driver_pcie2.c
-@@ -170,6 +170,9 @@ void bcma_core_pcie2_init(struct bcma_drv_pcie2 *pcie2)
- 	case BCMA_CHIP_ID_BCM4360:
- 	case BCMA_CHIP_ID_BCM4352:
- 		pcie2->reqsize = 1024;
-+		if (ci->rev < 4)
-+			pcie2_set32(pcie2, BCMA_CLKCTLST,
-+				    BCMA_CLKCTLST_HAVEHTREQ);
- 		break;
- 	default:
- 		pcie2->reqsize = 128;
+[1] https://lore.kernel.org/netdev/4fe1dcd1.16124.1a01a660a42.Coremail.stitch@zju.edu.cn/
 
--- 
-2.34.1
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
