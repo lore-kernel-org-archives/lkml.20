@@ -1,84 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794208259;
-	b=c1urC4iBjgY10IWqwNeBn9U4iZISqxcZ0oo07eji6ejZCpsxTwcFq5ZoaTgGwq4NzIxJ
-	 6KAhzDmTgFYmkBgz5VqCAM9GTBPGiwY8SGeQzDlaRaCbBDftS2+UF56rpEEtgD823b0ZU
-	 PBb3A0zzym+bt7XsCoKdBSZRDp3xiC1VUnzy0h9xwHhM0r2RI5oVrQsPsU5UPA4/DI6y7
-	 0wAcWKeaXYNloJxFRufOaNuy++j1JvpYozvgBrqDS3BCm01vNKawWOwActHSsxmq+VdZO
-	 ILCXh4QQUMUMWxNU4+1hU8zsjEvP9sB0l1fxajTTk8HSaefXHfezvyohlEFn52XkO7A==
+	t=1794208270;
+	b=itd+RS1QUAzqop1eN0I5e9FiCMt5TEkIjnfjpIiqrevvOqQPUg16OPbXQU2v6zdrodCA
+	 bigEr1l6Z3MfzqlzXAWFAomHru2CNESGdrXDKmGTzSlnUVVYbj9Y4H1bi/Nws/55x2+LW
+	 et0uw/IBuQTHeSLYqZSijNp0yhJTg8X7pKQT727R5JVwfqecAwm5Y0tHw30RU1+Q3V4q5
+	 t7xUqjb0yyX10SoguzKa2XtgDS7IK/O3GUWje+qM3mIssSbipdHddzvjBlo6N9UJ8ku7N
+	 hemhsW34hKFrcpezcUeBp88txb2HXG8XpYyN76Xj53eurTlnjoL7AOF4zkavJPVdoUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794208259;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794208270;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Td911GW/RuVeylqJZh+mg3PMQ4kx9/FZxzP7fXWcQL4=;
-	b=3vQvLocFZk8QXNwqoj/Y9zcdV7cZTQK/qsf2izgOtpgBv3eGlykA5nXX8y2pay6E3gUm
-	 R80lI3V3yLTIYwLQLXlOVDbhCUnNPq0SKm1Mz9ja1/1QGNtJS3t8dh30lVVEXPLV7SEOF
-	 VkGWehEsBDPSPYvtIJU0N4E9sfyhig4kHsy6W/LgVwISSp+GUoyWIqwFCYkIyCJTV/Bbi
-	 VPrmMBL/E8WP7fEWM8NFpPk/E1UmMSsuQxe9e3WcRDS0cvdxqPdWf8MbG4P82/NcoMWbP
-	 dP7QixN6k0NCeyE1870uHE6ZFzmmR9l/J0E5CshNRiJWJ227MIyxKEehpJswaMKfOeA==
+	bh=LrXsda7Q/wV7+l2k+sGQxx8wXojvBKGw7M+uJmFtdYU=;
+	b=y9Wz9UwOKmSALJLWTLKeK2LaYeRxDehkLjKMUcxem1M4ae1CCj3YWTWGaxZlqlOIPUgO
+	 6cB0FQPNNPrGro52+l5Yj1X03WlR09XXk3vUhqC2llJ+vcSE4tcipDoc5q3GldelEyMZA
+	 rba5eI5BrFWFz0JwSXBcmP8jWo0lElXUmFoSEgcOlfA7J2TCmYWV+4GyIoI7Lyl1D3Ami
+	 IoRhPLfGYQZ8uR+qYgiQRsjxRz4IDDttILNDt7bZmUC3VeKOkkxGFSBeC8pzTRpjAEIAN
+	 E+GWJgyJTXgLO/fyVw+Ke+GMMUWtdHHNnRRq9A1GrhrMY9tinA1Ve+ZtrJtXnfdXHMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="lrxcpB//";
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a3coknYg;
 	arc=none smtp.remote-ip=74.125.82.47
 Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDBBB606A323
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:10:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDBBB606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94A2606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:11:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D94A2606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lrxcpB//
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-14394530ec6so616142c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:10:58 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a3coknYg
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1b244fb7fffso583218c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:11:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794208258; x=1794813058; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794208269; x=1794813069; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Td911GW/RuVeylqJZh+mg3PMQ4kx9/FZxzP7fXWcQL4=;
-        b=lrxcpB//IjTuPa7XFTDWdg33npJj5T51SLHc6M8AR/74UrbF2JHehRosylQO0o9XZ8
-         j4RFL58oYnVWIv9sFQomNvmL5lZfqA4yN0zluUI/oaSPkOm47PjDowot5EUfn4AHGXqT
-         cA38vbof9RnIcx752HV/8bqsO5uzBJkOnUWuKVS3QfaIIRvgAFjsL4cS8G5ZTbsc1ouj
-         22osgFP7Chezl2hnKavXyxyFC64t+4LIE41HcNabkfPvbhqPiG2DviQ3+C9LRH9rQkjU
-         WTBuAktne/jYLtMWTW/gdzxRR7QzphX5+h/TliNKEuhu/DBdMKXWcI+DQIjkosbkrPpV
-         gygw==
+        bh=LrXsda7Q/wV7+l2k+sGQxx8wXojvBKGw7M+uJmFtdYU=;
+        b=a3coknYg0/9is928kAfp4u0Vmq7Q+SzLiFXZc9jUQ3rdzRY7S4pdGKN+LcYXzwTLkF
+         nqvyRSUa1Z7NyIvwl9Ciu+wpnMeevbcig/AZL8Hez6ihonfDQheXaxWg7qv7P1z0hiAp
+         Qia8bMGREQf5y9c0vmBMg6OGIKV4kZClYM0zmzuJok0RceLVJpdlNrR0Nazewt2SdD2j
+         FmxpptP/USok37rRTtUZ64FVfZGYgbZtkiPCqpKGjqVS/e/qnSm1WW8A5u3/oO5xkF6u
+         +5RzUcQfWG6WH2fx0icLfyYVR3iuKye7XL0lHfjZlJ2Pj4282DaIJv1D99eWm4jP6QJL
+         nbpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794208258; x=1794813058;
+        d=1e100.net; s=20260707; t=1794208269; x=1794813069;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Td911GW/RuVeylqJZh+mg3PMQ4kx9/FZxzP7fXWcQL4=;
-        b=g30pBeE4dLJaerG9w/dEdp2zdWxC0fFSZig+t2eQ8UMHgpw9l4fqGMrXSiNZzdPb86
-         Jnmcp5meUu8HfcGjWuALG95/zwrUbPjfQs9eZDJ9Nym83OjztugyvD4Flk3LbVvyk/3+
-         r1ZOwFStwSWD4arlar+f4b6UNMg7wIYZGrdlXmAE0lfDdu+ppMjtbZitcyxKxOSSdMzN
-         RwEj9IuXifcVRw9eaPBsMDOjNMesWaytR0aT5kfjGk/LbbFpCmnN6LEILlMK6Fjvzbmc
-         dgKzPyHwafHx67bsFbVRtZd5lofdPEppUjvOAG1P5P49Qke/SBWiXXiktUb9FQlL4ZbL
-         uVxQ==
-X-Forwarded-Encrypted: i=1; AL+hErEQuedAIqcCy83OB0/mLWTpbTFTM8Rsfo+lQVWDH6IeWiegx7L8WgpZ6GiD8gPcNZfE897lwKBBGuoBF5o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9cpCvNzuV06eR1R6CVvkov9wAYGKo+jX/kYv+THN/uOZmxi5SU
-	+bz4Tc+nE+JsZPLMpwSDFYAbbwQFO6p6hHVSbCtNMnWVdMZDJv74CypY
-X-Gm-Gg: AYBFou0WYlyateNLqDio9dAX+0eTMSCmaWAKaSlhjFdqls3BSJv/6mCyiHsLitQMf//
-	YGGVdT9WtpOoRsE380L0P/hhBS3SA5wKsPdYChhCwZYfzVledCPf8XVTLF5PU1RUip1QuCZYQuf
-	hZ2TPWCtlhrdRbDxpmt2yUCi9gZeTOUSI5IBW7F7vTQr9ESPPCtLYr975jT6PmjqHKtYI+c239s
-	xgYwQjpj+iqfA6PuYgc//GHYhaH8AYA3y5EGat5PrwqbZzvbxdSFPkAEQMiEZuQS6ADSnFW3ZkM
-	+F6tGpYcanVjqdrN5ALoSLCVKcWWi1rMAfO3IuyKvR2C0bLcNKfRQeTmgwJc6/5Qimr7Uh8PAis
-	ZqHEygk7jnGP1u6yadW0cqoVLVYvJDkBR7lt+8IqUvA2F0C8hHwJdfjm+oz8gJ0yXwBgBZqQHGi
-	/ym0QEzRAqzaSEMx+VoCuFz3ho3Ors1MuAAO9fbhbSXi6VriEw5IaHjuoBUwpVmao+pPIWyd6aY
-	ktJOaPc6R/ybevOHBg+/wWAFRBDFj00Oc6jfciUqWkXeg2JSD+xTzEvhrqS8hlXCY0kBSsiinkS
-	b3kQnefVCqTsOk4WzK0LVnY/dttd6AeCsIzK0Ibn57bVJPcK+T2DzurE56G16h2gvbmZmz/MZQ1
-	wwoW5l24ej7tktkuNq/4k1DLajKef
-X-Received: by 2002:a05:7022:1586:b0:1a8:b566:80c2 with SMTP id a92af1059eb24-1b39fed11a6mr5130904c88.17.1794208257851;
-        Sun, 08 Nov 2026 23:10:57 -0800 (PST)
+        bh=LrXsda7Q/wV7+l2k+sGQxx8wXojvBKGw7M+uJmFtdYU=;
+        b=zx/yfiMt+uBHIf4dwpjeX+cMBqzPZGfPfTGiRg6Srd7e6U66K7IJRlPRzZ6QvJIjXr
+         u/DZ5HnVMlkCVSakvMZP/vnGaUZlp9GE+8Ew8lbcWf/ULgFWnoa/84eDP0JOBXsxZSd/
+         Cz7eZ/njTznZ3cU3ot5HSG3FZcmz2kGiYfosaWWkhaHUxrLlT1dw/KclyQRTo1ivml4h
+         j1qPFUiX4nMQlLMn6bbrU9Urf/3xBMtmk0peh9KcsVmjeHrc4rIk8G5XrqJ3G3mjVCiV
+         vnf6/nveVO+fY97qceGKHCfk5dUVfWh71si3aOiv+/T/8xbrgPw2KGYnLtJU5EYvq1sr
+         97BQ==
+X-Forwarded-Encrypted: i=1; AL+hErHlOZz73ejMjgimht0Jcca9ZWKYGhnOPumhmAaGUfnRacjUaV3FtF/Fj+Mon1/Tfa74N/mQM1PSPc7RU6w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z840xa+SrqPWidEfhrATxV7xep2IwWTLcliTxp1wuYRLjPP4FGu
+	OKWFia2V5duEU+DfA+fLVeF6/hiq9OKQbrYGX6iAH8eFUsZ5T1+H2Ll3
+X-Gm-Gg: AYBFou13tBlWHmWgKV131P41w25yglFQ9w+AeIxOz2dz+S0Q3R3yvdMto63jsW4a62A
+	VHeeaUYV2yS/Vs11Z0GEhXqREYOh7IBA+27gSe37bod9csarWXy7EsOZoUtYyKMNoOI0n4FVAtx
+	QNpGGP3yYAT+6Lg+L1py62SipOL4HnjQkt/XWp6xwjGIK3eAM4bdbz9pzoNmXj8FRiiqm42nMbo
+	5xENNilAs5VWsAb9eCEzGYmac8eiRZCqoN0DrZkdNQm0h0cGPqd3nl0BIl7PX4NzqH5QhAl/Y4/
+	tn0FSc/yPO7u9d+eHqTPU5SkUEBMSPwIpskA/qkE+cGcRJfDc1qLE3Z1L8AOEhd41nAeYi6Kg0l
+	IIisvTAUMU6nMRiMPa62VhLBwJTpwjh/aAERrGYQsYO6stkYANank4CS/w+xbY8yI8LqZnHtJje
+	d+JJGxbdjyok0EhvIZlLGme1HgZ+Rey5ab3wQKl7YM4wpbld/8oQHlk6iC5IVHu4PjUSNOnjkze
+	nsxn9AKdiKc89mVzfKUOWtEZjuKDIZyCFWJQdQBEsSRo4lRE6OBrZIywrh4tm8zF8UIkezxmTpt
+	I6PlfiXLQd5vNvotdUmAsxsvzOxZtPwJPDWDMB74xPuLWqMpzc5H/KVP8bnSMJmwZLejHIGIPUm
+	dC9+nFHOwcSdMdD/xR3mCV/eTwVAl
+X-Received: by 2002:a05:7022:286:10b0:1ae:59d6:91cd with SMTP id a92af1059eb24-1b39fecaa6emr4913256c88.38.1794208268937;
+        Sun, 08 Nov 2026 23:11:08 -0800 (PST)
 Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:cc96:e14b:76e:f8f1])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755eb6efsm13443513c88.4.2026.11.08.23.10.51
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3755eb6efsm13443513c88.4.2026.11.08.23.11.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 23:10:57 -0800 (PST)
+        Sun, 08 Nov 2026 23:11:08 -0800 (PST)
 From: "Hemendra M. Naik" <hemendranaik@gmail.com>
 To: netdev@vger.kernel.org
 Cc: davem@davemloft.net,
@@ -99,9 +99,9 @@ Cc: davem@davemloft.net,
 	vishy0777@gmail.com,
 	tahiliani@nitk.edu.in,
 	"Hemendra M. Naik" <hemendranaik@gmail.com>
-Subject: [PATCH net-next v10 2/4] selftests: tc-testing: add fq_pie per-flow class stats test
-Date: Mon,  9 Nov 2026 12:40:15 +0530
-Message-Id: <20261109071017.438478-3-hemendranaik@gmail.com>
+Subject: [PATCH net-next v10 3/4] net/sched: pie: correct tc_pie_xstats field documentation
+Date: Mon,  9 Nov 2026 12:40:16 +0530
+Message-Id: <20261109071017.438478-4-hemendranaik@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261109071017.438478-1-hemendranaik@gmail.com>
 References: <20261109071017.438478-1-hemendranaik@gmail.com>
@@ -116,58 +116,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add tc-testing case 83c0: build a TBF + fq_pie hierarchy on $DUMMY, push
-traffic through it with ping, and verify that 'tc -s class show' reports
-an fq_pie class.
+The comments describing struct tc_pie_xstats do not match the values
+exported by the kernel.
 
-The per-flow counters themselves (prob, delay, deficit) are printed with
-the companion iproute2 change, "tc: fq_pie: add support for printing
-per-flow PIE statistics"
+Update the delay field comment to microseconds (PSCHED_TICKS2NS() /
+NSEC_PER_USEC). Update avg_dq_rate to bytes/second (avg_dq_rate *
+PSCHED_TICKS_PER_SEC >> PIE_SCALE).
+
+Documentation-only; no UAPI layout or runtime change. Touch
+include/uapi/linux/pkt_sched.h only
 
 Signed-off-by: Hemendra M. Naik <hemendranaik@gmail.com>
 Signed-off-by: Vishal Kamath <vishy0777@gmail.com>
 Signed-off-by: Mohit P. Tahiliani <tahiliani@nitk.edu.in>
 ---
- .../tc-testing/tc-tests/qdiscs/fq_pie.json    | 27 +++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ include/uapi/linux/pkt_sched.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json
-index 229fe1bf4a90..15b2667285eb 100644
---- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json
-+++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json
-@@ -40,5 +40,32 @@
-         "matchPattern": "qdisc fq_pie 1: root refcnt [0-9]+ limit 1p",
-         "matchCount": "1",
-         "teardown": ["$TC qdisc del dev $DEV1 handle 1: root"]
-+    },
-+    {
-+        "id": "83c0",
-+        "name": "FQ-PIE class stats accessible via tc class show",
-+        "category": [
-+            "qdisc",
-+            "fq_pie"
-+        ],
-+        "plugins": {
-+            "requires": "nsPlugin"
-+        },
-+        "setup": [
-+            "$IP link set dev $DUMMY up || true",
-+            "$IP addr add 10.10.11.10/24 dev $DUMMY || true",
-+            "$TC qdisc add dev $DUMMY root handle 1: tbf rate 8bit burst 100b latency 100ms",
-+            "$TC qdisc add dev $DUMMY parent 1:1 handle 2: fq_pie limit 100 flows 1",
-+            "ping -c 50 -i 0.001 -W 0.01 -s 56 10.10.11.11 -I $DUMMY > /dev/null 2>&1 || true"
-+        ],
-+        "cmdUnderTest": "$TC -s class show dev $DUMMY",
-+        "expExitCode": "0",
-+        "verifyCmd": "$TC -s class show dev $DUMMY",
-+        "matchPattern": "class fq_pie 2:[0-9]+ .*prob .*delay .*deficit",
-+        "matchCount": "1",
-+        "teardown": [
-+            "$TC qdisc del dev $DUMMY handle 1: root",
-+            "$IP addr del 10.10.11.10/24 dev $DUMMY || true"
-+        ]
-     }
- ]
+diff --git a/include/uapi/linux/pkt_sched.h b/include/uapi/linux/pkt_sched.h
+index fef848eaaab2..445a041cd103 100644
+--- a/include/uapi/linux/pkt_sched.h
++++ b/include/uapi/linux/pkt_sched.h
+@@ -920,9 +920,9 @@ enum {
+ 
+ struct tc_pie_xstats {
+ 	__u64 prob;			/* current probability */
+-	__u32 delay;			/* current delay in ms */
++	__u32 delay;			/* current delay in microseconds */
+ 	__u32 avg_dq_rate;		/* current average dq_rate in
+-					 * bits/pie_time
++					 * bytes/second
+ 					 */
+ 	__u32 dq_rate_estimating;	/* is avg_dq_rate being calculated? */
+ 	__u32 packets_in;		/* total number of packets enqueued */
 -- 
 2.34.1
 
