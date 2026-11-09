@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.247
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794203824;
-	b=KSWUi4awWPpExqxcCP3v9JaKfFUE4wCfq5T9M+5hY2UY+1Su4e0shv+zBZxCx7xhBjL0
-	 kRF9cZDXKZvmkBiAlf031UTtMfsvuFMHuTRSL7zld+4yGIXODHWh3LfjDUfoYRuN0FKLD
-	 SlP+mUs/f/G/yr6ntw8657TFep85KWrVq66OfQfBDfAz8XHqCTBO67RgvSI0JTZXQd6vB
-	 LwsXpPRyRdbTUeSMVWqIfO4WzXsqapigwVOLNLgfOPE8wKWc3t3c/GUSSJMjXUgfSGe5h
-	 Pi+9H5x/2P7PMUab5QB+KEeerltJ/417xbCdtAV3GW2KKRE3+13I7Fgkyk3D8gfJSeQ==
+	t=1794203829;
+	b=WRjf4CLxZbdYXKjOFtHGA0+ZzmCKRn1Rz9+iI0LFBwAPoCfAepX92ytHIOlVeXGWnNNg
+	 sKcXLKTLx8KY3fqymxSBe1oQiYkwv+X7tABbOnftdmDwNqOQcNNvkeeHDmhdnqbazJ5GV
+	 2ekUdPGdB96k0iZmDy1+myhuojnYCG8/t0ui/vxX61gzYoAi6ehgLwla/vnZfG/Pyzq3z
+	 wIapU4mIfS/6YW/CnM0frNTbzaBwxZeeqEWGYPMZWcZP/YbVHtaHs8xlR+xYpwd6R+omw
+	 faFqqVrfUsMOCXYCixupgoxuXPG+EfTW1HYASEyfsQL1dH6QYt74pT8NkQgRC+gIIwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794203824;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794203829;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-type:
 	 Content-Transfer-Encoding;
-	bh=kSmmp9v6vncnhzFzbNk1b+BeLQB+Xppvc2OdJ7fK/aQ=;
-	b=ehTUEAbdIY5qrxKJO5+jsazpqWlBjTsR+NbYKkNnUGCngngV/hsjMLGdXqBXtkbRZ8VH
-	 GTP0yDYdNWCrJx4Jg9kT8D5jsi21AN8dhLqIkNEvLajqPE8C6GJ+KiebiVsGujhe9eUOJ
-	 0ujswSW2TJlVkMp/or5FFV2GL9wRq5Vgyk0fuWhtti9GQFymyp8QHV3J+0vPzm1XQGKWl
-	 cUBnjMoArDJFLuXIzAu33r9g8GyxQXUtnLeqHAnhjqISMCNZgD7RvXqHOpnK+B0n8xG1K
-	 BQ4U9LNYto5Lud9Cfg1Mt4jJG8f4G8bh7JfdTjDio0YF+CcfQxFTmSOuhobkfc8n5oQ==
+	bh=oHIuvULbA0fqevzvPsgDGnoy3CmrucFTgFOStDNRHTc=;
+	b=GCm3acXnJARV/XTfL4IvZKyalajJGXMRn/UVSWxxP9NWPIe2FFU18ckaW1YsE05+SIEy
+	 /trI9iQ2D9xsYCVqktS00vb0A+tFMrTPJ1JYvMY5amgTD4ITISdCSSGwD7MC1nksSoYWJ
+	 H6DO+ra5oEo0pOFdzAYQ8SV6tOQskYz5bJ8NWsoDV6seugx1trIb3AAI1uSaLNgftOLOA
+	 ztR7K60gcWtezblETsJln+uVkXiQT7jNIsk/AR6G98iZjeKa4NuNDXdFdIKzAxYBKUr2z
+	 MYYLD3SUobLNF4yEmI5hJjUALWL36P7bA8rrl8PPbPbXFGy8BAXhqIaLEicJi6WIR5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eOgSZahh;
-	arc=none smtp.remote-ip=95.215.58.247
-Received: from mta1.migadu.com (out-247.mta1.migadu.com [95.215.58.247])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lnz6CLZV;
+	arc=none smtp.remote-ip=91.218.175.197
+Received: from mta0.migadu.com (out-197.mta0.migadu.com [91.218.175.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9B1606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:57:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D9B1606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5065E606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:57:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5065E606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eOgSZahh
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lnz6CLZV
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6e/jGgT3foSA9psEQl1VWtIINfD0s81p21YzwZ3MAHM=;
+DKIM-Signature: a=rsa-sha256; bh=grvGazueux9g/dh4Ox9KldXCRFLinqH44M5UkMCzZds=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794203821; v=1; x=1794808621;
- b=eOgSZahhL8qRLlBdFP9/7i1YbvHANJI1JaTDTb5qp3U+QuHNpithOvoRiKxdtFjPok5Xru1u
- A+zMrlmHHZ16Qzx9JhML3P7rFf8/SGVfOt9OaQQlVHQyJQTEoq1ZroO1S8uNTvJiKv8d2LsA6/5
- CFunnw3glJaq0st58++AgS10=
+ t=1794203826; v=1; x=1794808626;
+ b=lnz6CLZVFYsVRZgBptfCd919FbVYInP7m1dvDrnoVc6njiOzG77gb8J7DSJB3qhZwZ/jgNSG
+ z+zVS7ZP9OBCwB8vtIy/7QdRXlkeIhWqrzT2ScEQ99+mXMCgBEio3k3ufpzFOa6eS2lpIlQSBTC
+ WY7sZQdQPC3ZrkaL1IXzf13E=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id d708437a31d01fe9;
-	Mon, 09 Nov 2026 05:57:00 +0000
-X-Mizu-Trace-ID: d708437a31d01fe9
+Received: by mta10.migadu.com with ESMTPS id 6e7fba55756a7293;
+	Mon, 09 Nov 2026 05:57:05 +0000
+X-Mizu-Trace-ID: 6e7fba55756a7293
 X-Migadu-Flow: FLOW_OUT
 From: Baoquan He <baoquan.he@linux.dev>
 To: linux-mm@kvack.org
@@ -63,9 +63,9 @@ Cc: akpm@linux-foundation.org,
 	klarasmodin@gmail.com,
 	linux-kernel@vger.kernel.org,
 	Baoquan He <hebaoquan@kylinos.cn>
-Subject: [PATCH v5 12/19] mm, swap: let swapoff destroy xswap devices by name
-Date: Mon,  9 Nov 2026 13:54:48 +0800
-Message-ID: <20261109055455.536925-13-baoquan.he@linux.dev>
+Subject: [PATCH v5 13/19] mm, swap: add xswap grow trigger on cluster allocation
+Date: Mon,  9 Nov 2026 13:54:49 +0800
+Message-ID: <20261109055455.536925-14-baoquan.he@linux.dev>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261109055455.536925-1-baoquan.he@linux.dev>
 References: <20261109055455.536925-1-baoquan.he@linux.dev>
@@ -83,144 +83,166 @@ Content-Transfer-Encoding: 8bit
 
 From: Baoquan He <hebaoquan@kylinos.cn>
 
-An xswap device has no backing file, so /proc/swaps shows a synthetic
-name, xswap<id>, that file_open_name() cannot open. Teach swapoff to
-fall back to xswap_destroy() when the name is exactly "xswap<digits>"
-and the lookup failed with -ENOENT.
+Grow the mapped xswap range before it runs out. When usage reaches 85%
+of the mapped range, map more clusters from cluster_alloc_swap_entry().
 
-A real file or directory keeps precedence; other open errors are
-returned unchanged, so a file that exists but cannot be opened is not
-mistaken for an xswap device. The ABI documentation is updated, and
-the destroy attribute remains the unambiguous teardown interface.
+Grow to about 65% usage. This leaves free space in the mapped range
+before the next grow at 85%, so one grow is not immediately followed by
+another.
 
-A well-formed name for an id that does not exist asks xswap_destroy()
-for a device that is not there. It returns -ENODEV; map that to
--ENOENT so swapoff reports a missing name like it does for a missing
-file.
+Mapping pages can sleep. Grow before the allocation that needs them,
+not after it fails. xswap_grow() drops the per-CPU cluster lock around
+xswap_map_clusters(), because mapping can sleep and the lock only
+protects the per-CPU cache. xswap is always SWP_SOLIDSTATE, so this path
+does not use global_cluster_lock.
+
+Link the new clusters even if swapoff cleared SWP_WRITEOK while mapping.
+The caller keeps the device alive, and the allocation path checks the
+flag before taking a cluster. If try_to_unuse() then fails, the
+reinserted device needs these clusters; otherwise they go away with the
+device.
+
+After a failed scan, retry the free list once. A concurrent free or
+grow may have added clusters.
 
 Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 ---
- .../ABI/testing/sysfs-kernel-mm-xswap         | 11 +++-
- mm/swapfile.c                                 | 56 ++++++++++++++++++-
- 2 files changed, 62 insertions(+), 5 deletions(-)
+ mm/swapfile.c | 100 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 100 insertions(+)
 
-diff --git a/Documentation/ABI/testing/sysfs-kernel-mm-xswap b/Documentation/ABI/testing/sysfs-kernel-mm-xswap
-index 38eead0b1b31..f7e7f3e4d216 100644
---- a/Documentation/ABI/testing/sysfs-kernel-mm-xswap
-+++ b/Documentation/ABI/testing/sysfs-kernel-mm-xswap
-@@ -9,9 +9,14 @@ Description:	File-less swap devices backed by zswap.
- 		for the lifetime of the device.
- 
- 		The name shown in /proc/swaps, xswap<id>, is synthetic and
--		is not a path.  It cannot be passed to swapoff(2), so
--		swapoff -a reports an error for these entries.  Use the
--		destroy attribute instead.
-+		is not a path. swapoff(2) accepts it, so both "swapoff
-+		xswap<id>" and swapoff -a tear the device down. A real
-+		file or directory with that name takes precedence: if it
-+		opens, it is looked up as a swap file and the synthetic
-+		device is not used. Only a name that cannot be opened
-+		because it does not exist, including a dangling symlink,
-+		is treated as an xswap device. Use the destroy attribute
-+		for an unambiguous teardown.
- 
- 		An xswap device requires zswap.  Disabling zswap at runtime
- 		(enabled=0, or max_pool_percent=0) while xswap devices
 diff --git a/mm/swapfile.c b/mm/swapfile.c
-index cb53f9415de8..7b1d16226b7b 100644
+index 7b1d16226b7b..ba730fa19194 100644
 --- a/mm/swapfile.c
 +++ b/mm/swapfile.c
-@@ -34,6 +34,7 @@
- #include <linux/backing-dev.h>
- #include <linux/mutex.h>
- #include <linux/capability.h>
-+#include <linux/ctype.h>
- #include <linux/syscalls.h>
- #include <linux/memcontrol.h>
- #include <linux/poll.h>
-@@ -88,6 +89,7 @@ static int xswap_mapped_end(pte_t *pte, unsigned long addr, void *data);
+@@ -80,7 +80,18 @@
+ 	max_t(unsigned long,						\
+ 	      ((XSWAP_UNMAP_BATCH_PAGES * PAGE_SIZE) /		\
+ 	       sizeof(struct swap_cluster_info)), 16)
++/*
++ * Grow thresholds, as a percentage of the mapped range in use.  The target
++ * sits above the point where the shrink starts looking (50%) and below the
++ * next grow trigger (85%), so a grow cannot leave the range in a state the
++ * shrink would undo.
++ */
++#define XSWAP_GROW_UNTIL	65
++#define XSWAP_GROW_WHEN		85
++#define XSWAP_GROW_CHUNKS	4
  
- static int xswap_create(int prio);
- static int xswap_destroy(u64 id);
-+static int xswap_destroy_by_name(const char *name);
++static bool xswap_should_grow(struct swap_info_struct *si);
++static unsigned long xswap_grow(struct swap_info_struct *si);
+ static int xswap_map_clusters(struct swap_info_struct *si,
+ 			      unsigned long start_idx, unsigned long nr);
+ static void xswap_unmap_clusters(struct swap_info_struct *si,
+@@ -1359,6 +1370,18 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
+ 	if (order && !(si->flags & SWP_BLKDEV))
+ 		return 0;
  
- /* Stable device id, assigned at create and never reused. */
- static atomic64_t xswap_id_counter = ATOMIC64_INIT(0);
-@@ -275,6 +277,11 @@ static void xswap_sysfs_init(void)
- static inline void xswap_sysfs_init(void)
- {
- }
++#ifdef CONFIG_XSWAP
++	/*
++	 * Top the range up early.  Every path below leaves through `done`,
++	 * so this has to come first; mapping pages can sleep, and doing it
++	 * from the allocation that would otherwise fail leaves nothing to
++	 * fall back on.
++	 */
++	if ((si->flags & SWP_XSWAP) && (si->flags & SWP_WRITEOK) &&
++	    xswap_should_grow(si))
++		xswap_grow(si);
++#endif
 +
-+static inline int xswap_destroy_by_name(const char *name)
+ 	if (!(si->flags & SWP_SOLIDSTATE)) {
+ 		/* Serialize HDD SWAP allocation for each device. */
+ 		spin_lock(&si->global_cluster_lock);
+@@ -1435,6 +1458,12 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
+ 		if (found)
+ 			goto done;
+ 	}
++
++#ifdef CONFIG_XSWAP
++	/* A concurrent free or grow may have added clusters; retry once. */
++	if (!found && (si->flags & SWP_XSWAP))
++		found = alloc_swap_scan_list(si, &si->free_clusters, folio, false);
++#endif
+ done:
+ 	if (!(si->flags & SWP_SOLIDSTATE))
+ 		spin_unlock(&si->global_cluster_lock);
+@@ -4168,6 +4197,77 @@ static void xswap_unmap_range(struct swap_info_struct *si,
+ 		__free_page(pages[i]);
+ }
+ 
++static bool xswap_should_grow(struct swap_info_struct *si)
 +{
-+	return -ENOENT;
++	unsigned long mapped = READ_ONCE(si->nr_clusters_mapped);
++
++	if (mapped >= READ_ONCE(si->nr_clusters_max))
++		return false;
++
++	return swap_usage_in_pages(si) * 100 >=
++	       mapped * SWAPFILE_CLUSTER * XSWAP_GROW_WHEN;
 +}
- #endif /* CONFIG_XSWAP */
- 
- static void swap_range_alloc(struct swap_info_struct *si,
-@@ -3513,8 +3520,21 @@ SYSCALL_DEFINE1(swapoff, const char __user *, specialfile)
- 
- 	CLASS(filename, pathname)(specialfile);
- 	victim = file_open_name(pathname, O_RDWR|O_LARGEFILE, 0);
--	if (IS_ERR(victim))
--		return PTR_ERR(victim);
-+	if (IS_ERR(victim)) {
++
++/*
++ * Map more of the cluster_info array, up to GROW_UNTIL in use.  The caller
++ * holds percpu_swap_cluster.lock, which this drops while it sleeps.
++ */
++static unsigned long xswap_grow(struct swap_info_struct *si)
++{
++	unsigned long mapped = READ_ONCE(si->nr_clusters_mapped);
++	unsigned long nr_new, want, i;
++	int ret;
++
++	/* The unmap below is paired with the caller's lock. */
++	lockdep_assert_held(&this_cpu_ptr(&percpu_swap_cluster)->lock);
++
++	want = DIV_ROUND_UP(swap_usage_in_pages(si) * 100,
++			    XSWAP_GROW_UNTIL * SWAPFILE_CLUSTER);
++	if (want <= mapped)
++		return 0;
++
++	nr_new = rounddown(want - mapped, XSWAP_GROW_CLUSTERS);
++	if (!nr_new)
++		nr_new = XSWAP_GROW_CLUSTERS;
++	if (nr_new > XSWAP_GROW_CHUNKS * XSWAP_GROW_CLUSTERS)
++		nr_new = XSWAP_GROW_CHUNKS * XSWAP_GROW_CLUSTERS;
++	nr_new = min(nr_new, READ_ONCE(si->nr_clusters_max) - mapped);
++	if (!nr_new)
++		return 0;
++
++	/*
++	 * Mapping pages can sleep.  The lock only guards the per-cpu
++	 * cluster cache, which this path does not touch.
++	 */
++	local_unlock(&percpu_swap_cluster.lock);
++	ret = xswap_map_clusters(si, mapped, nr_new);
++	local_lock(&percpu_swap_cluster.lock);
++	if (ret)
++		return 0;
++
++	/*
++	 * Link the clusters even if swapoff cleared SWP_WRITEOK while we
++	 * mapped. The caller keeps the device alive, and nothing takes a
++	 * cluster while WRITEOK is clear. If try_to_unuse() fails, the
++	 * reinserted device needs them.
++	 */
++	for (i = mapped; i < mapped + nr_new; i++) {
++		struct swap_cluster_info *ci = &si->cluster_info[i];
++
 +		/*
-+		 * An xswap device has no file, so /proc/swaps shows a name
-+		 * that cannot be opened. Accept it here so swapoff -a works.
-+		 * Only a missing name is taken for a device; a real file or
-+		 * directory that failed for another reason must not match.
++		 * A concurrent grower may have taken these already;
++		 * only add the off-list ones.
 +		 */
-+		if (PTR_ERR(victim) != -ENOENT)
-+			return PTR_ERR(victim);
-+
-+		err = xswap_destroy_by_name(pathname->name);
-+		if (err == -ENOENT)
-+			return PTR_ERR(victim);
-+		return err;
++		spin_lock(&ci->lock);
++		if (ci->flags == CLUSTER_FLAG_NONE)
++			move_cluster(si, ci, &si->free_clusters,
++				     CLUSTER_FLAG_FREE);
++		spin_unlock(&ci->lock);
 +	}
- 
- 	mapping = victim->f_mapping;
- 	spin_lock(&swap_lock);
-@@ -4504,6 +4524,38 @@ static int xswap_destroy(u64 id)
- 
- 	return __swapoff(p);
- }
 +
-+static int xswap_destroy_by_name(const char *name)
-+{
-+	const char *p;
-+	char buf[24];
-+	u64 id;
-+	int err;
-+
-+	/* Strictly "xswap<digits>": no sign, no trailing newline. */
-+	if (strncmp(name, "xswap", 5))
-+		return -ENOENT;
-+
-+	p = name + 5;
-+	if (!isdigit((unsigned char)*p))
-+		return -ENOENT;
-+	while (isdigit((unsigned char)*p))
-+		p++;
-+	if (*p)
-+		return -ENOENT;
-+
-+	if (strscpy(buf, name + 5, sizeof(buf)) < 0)
-+		return -ENOENT;
-+
-+	err = kstrtou64(buf, 10, &id);
-+	if (err)
-+		return -ENOENT;
-+
-+	err = xswap_destroy(id);
-+	if (err == -ENODEV)
-+		return -ENOENT;
-+	return err;
++	return nr_new;
 +}
- #endif /* CONFIG_XSWAP */
- 
- SYSCALL_DEFINE2(swapon, const char __user *, specialfile, int, swap_flags)
++
+ /* Caller must hold si->xswap_lock.  Cannot fail. */
+ static void xswap_unmap_clusters(struct swap_info_struct *si,
+ 				 unsigned long start_idx, unsigned long nr)
 -- 
 2.54.0
 
