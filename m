@@ -1,49 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794256702;
-	b=14Cwoq8+yzzrrA+ITrHCBwFzeO5HoxoGu0BUof4Nde18CfgKiB1rD3zM1f99J6u9POFu
-	 zt/xGdaPvFO+IItHfXMIAuwp+lIwYO+L0ucVy89V6OO5QHKO1kz6p1NZ10KkWkFteAEVv
-	 onz4ueWn6H4oLKzLhOJwrHaAG8LTLZ+5zyr2uhgIvNA/vA/QkgoElEh9pHWuj9PiaHx3o
-	 sXrD1sxeil90xZ9JaG3HONLlx1BrlMzb6VnSE+ZCB+LD/Jm9eflMgXO8Mz5698VKZt59F
-	 7KHJxyp7Dt9tvN+SjzKKjM/+E/6P1gS9Ii0cIHmpRBa33c4eyiN0hhPp992XbMwiu9Q==
+	t=1794256745;
+	b=KX7CLg7jTpkDZcOjDW0qpkBL5qPJAOTM8sYmm7QdE1MLvkPkFR4WqINYTaykIDNoCTCY
+	 uH6d9HX4pNHku+pfAGsZumNVEXYd0JDdE1pZZymNSj81NhNmxq/2YteporfwJvPTCRHfB
+	 5NTB2q5zuvd8lIgQs9htWeu0cg+PyY1YdPf7USLjP5ZBeYHy1oMYSTQd4s4w/lOarwDOe
+	 hS/fBrV1YNMCGepgbp1rr4BFiF+O+FXQYt6iTd/SukJjZnyiPPa705T7Zo6avXC9kBHPF
+	 YbGAicmv7iflfGJwYJtM8iXny2awQLRSF+ZsIGMt03YBBQ15aP1CzGZllxMtAbZzGZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794256702;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iUTOQBuZvFfgrneGsHjxGBAwowTnNnzKKaKeYNawjrw=;
-	b=Ewc2lpL/pSqxpVCx2VPUdpJgLMHxV9y/fDYMqaSeQmcQICaAVNB2Pe2Sq5s4vOaIRSEy
-	 BnVhwgoBBkLeHCdrrZNLHlcyWgJ5QeQlmb9zHRSk7KIO+0//VkI/yAs1nrT3NQlzwDg1Y
-	 TRNbKlJdfN6Ou955iwlL5G3D0YzX4dDGZahFXT9tEbjnntOL2eFfnddI3kFEBCvmcxpRT
-	 xdYFMQr0rEOjK3rOTKj1A3glS1DTPYl0jeERueaQpShTZnrCVMJIyOtpSot/iXSa+Anoj
-	 vLZfkyXiqX+McHJCWSQ32j1GEH6VqAEdErQG5VUIr4R6iv4VIYRQXIAXTHW28vGDzNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794256745;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=KXTKxpvQmG4qWI9EEs3gz14VI5DReG+qhWlAxe45/Nc=;
+	b=WSTiJFI6wfVYM7/qR9NT27gls+98CvVeQH9c1v6Hp5TD6PcGvgA2817fPu12w3DSKHX6
+	 WQVTlCEPGc0JDuWypSD5LEoAVpsGVYA/KuoXOOKIZbou1ZUD1v0wlDzxFtkV/o4t/vcFw
+	 q99/bavGbgFqBcmIQaQy4rYGXkJujN803jMA5zvG2A7JtYQjSM+NPYtYDXLv1jUJi29rJ
+	 64r+nq1SMV2deaXxAWNxm16a9uKkLIH++dMakZOXAv8IUxO9PJpOnU5susHzGPGnhW8GW
+	 XbkmvtQkvTPtAXNgzQCXESGOaxD9WyqPW33LoE7XRdnV08+JT5kfDfsBbC9/RvBRp3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yWMPu4Rn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=iv63CrR+;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA8B606A333;
-	Mon,  9 Nov 2026 20:38:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848E6606A325
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:39:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 848E6606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yWMPu4Rn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC9C41F0089F;
-	Mon,  9 Nov 2026 20:38:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794256701;
-	bh=iUTOQBuZvFfgrneGsHjxGBAwowTnNnzKKaKeYNawjrw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=yWMPu4Rnd9pcQqdJrpS0L0B16Kw7I9eg7ICKUjdAB/frctP6gaq93Jvg5x3kRUcyb
-	 tNgNBxIk+SNjfw8qrqQyWTQsV4areDiaTxg8j0KIyBAE9fYhuFYv8NHOjOjStA1vjr
-	 FLO1i25JwBOYhYDo04YKx/0kS8ZQn9sx1F7i/Q2E=
-Date: Mon, 9 Nov 2026 15:38:16 -0500
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Vic B <linux@vicb.net>
-Cc: linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	Kees Cook <keescook@chromium.org>
-Subject: Re: [PATCH] security: Restrict unprivileged access to /proc/config.gz
-Message-ID: <2026110958-outlying-dreamy-b249@gregkh>
-References: <avCF9zEHV48EHjgG@vicb.net>
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=iv63CrR+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=KXTK
+	xpvQmG4qWI9EEs3gz14VI5DReG+qhWlAxe45/Nc=; b=iv63CrR+NkxkquUtgPAq
+	xEKCX7A9CKbbZWNdTu2lcZahuFZDtMGnqQQ74Y5qcP5fyoa0paj0o/gfo0jeMsZ6
+	PUhWd1+03dTf4bDg/7g13tuVG0PJyP69YOLSYVc6vscb0Esftjgpico9K2F0e2xU
+	gvPI1j2AzUtP8sFgOGxN5+wrZK9aRo7OODlLLtmbTavBpp4cc+f3ayz56AjDrTM7
+	aIr0jOIJewj/VJVAAKUhDiEPrqOdvMOCfJ5VhEGGkSH+TSBpt13R0IfL+HDHvTnx
+	8+eFb37xTHxQT6+/hxTCIVsdO15/jY1Sm9fqCbGQtGVpZU1gjvbCe1rBSfuvlv6E
+	QQ==
+Received: (qmail 3406806 invoked from network); 9 Nov 2026 21:38:58 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 9 Nov 2026 21:38:58 +0100
+X-UD-Smtp-Session: l3s3148p1@1JSC891fWJ0ujntg
+Date: Mon, 9 Nov 2026 21:38:56 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Cc: Linus Walleij <linusw@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+	srinidhi kasagar <srinidhi.kasagar@stericsson.com>,
+	Ben Dooks <ben-linux@fluff.org>,
+	Andrea Gallo <andrea.gallo@stericsson.com>,
+	linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6/8] i2c: nomadik: handle pm_runtime errors
+Message-ID: <avIvYMDqQtyBVIWI@ninjato>
+References: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
+ <20261103-i2c-nomadik-fixes-v1-6-655c6af2cb70@mobileye.com>
+ <avFwLctRcnJHtINQ@ninjato>
+ <avFzEaxgam-UuZH0@ninjato>
+ <20261109100606.493ca48095bcc3527be18573@mobileye.com>
+ <avICFAh07d7XrAIY@shikoro>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,22 +74,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avCF9zEHV48EHjgG@vicb.net>
+In-Reply-To: <avICFAh07d7XrAIY@shikoro>
 
-On Sun, Nov 08, 2026 at 03:23:51PM +0100, Vic B wrote:
-> When using CONFIG_IKCONFIG_PROC, the built-in configuration is
-> world-readable through /proc/config.gz, which somewhat weakens existing
-> address hiding defences, as it allows an unprivileged user to simply
-> read built-in config from the running kernel and build their own copy
-> with identical System.map.
-> 
-> This patch adds a configuration option to restrict access to
-> /proc/config.gz to superuser only.
-> 
-> Signed-off-by: Vic B <linux@vicb.net>
 
-Full name please.
+> Having a leak less and cleaner code? Yes, I am sold :)
 
-But really, a .config file is not a secret, this isn't needed, sorry.
+Can you please resend an updated patch? The code change is easy for a
+rebase but the commit message needs to be rewritten completely which
+calls for a new version of the patch, I'd think.
 
-greg k-h
