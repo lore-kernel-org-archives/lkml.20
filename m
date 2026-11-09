@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794195197;
-	b=WXgP6zhbmX1OzC87ux+wY97zz2zChSzUMgubMqEELZDUXsKQ2WgEp9SfRsvNz0lUc9zc
-	 kClAbSGKzLfP8MTlUV3OwEVNLRqN0jenE2mon7l1mYRheUec077ae/Bj+ZRwl7C2CbzOl
-	 /5x7ArfCluDqOlxEBrr82+MD3hgsisUrtTRbQYkKFuNk3Hz5PrSeE37sFimGijyE0O6Bx
-	 ZGRJZAa8MRGL3TPrP7JZ1Ncx7Hm8mf0FyMEKifW94eUaDYIUyDXyd9eaHMw7UubzE3QyT
-	 eNR6QgWWPnrRZ4IL/3+nJA4JmRHy2RfQM3CHAKlMQeQB2sxVmX7Sk9UC7D9Jgu0zAbw==
+	t=1794195203;
+	b=00rhe0MZnnfKHS8BQxDtUU7fY2HZO708TpbVhd0xgFwrXTDctD1fw9PFlqXUsOvWNLE7
+	 w/zFt7bkz4VmISzuQiYTt1uo7Qv9DZwVKgnBhtJi62GntB2VHeJtNKzYD0gDcw1DDk1Fy
+	 fxpuGfEJjyhGfpm5Ge4cjE9Dn8TCZwPCc4inI5cPczGN3wz7g0lz6qraGBRe6vQg2WIEs
+	 /mMm0h2XYGQ0yO2dbLwT/ycSf3rmW1v60U7qPZ4kv1KYq0F7yXOfQkdfkynER0AIAtyn4
+	 +CDlgkWgquEdup0EeSOG2aSOoPYgl0LcKcIyypYwFii3pZV0j8bncXs/xeSpiqKPzrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794195197;
-	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
-	 References:Date:MIME-Version:Content-Type;
-	bh=hZeWcvJmcWSh6f8njGGlnk6OtxBT31JFdhmDrEkmf1g=;
-	b=XNRCr8QT/tj05z31pspL+LKJpkmEjUnu5Eb0mBTWl+SWx9LP5V8WI2riDpBBxVYd+/jF
-	 nXMCwKU35c89I1bjnV+gChsoKCQHwcEGenNCnuGBb5gwvqUu+CynNBoq5sawNuU2dgWSB
-	 CzqwMkWr293133cXHKKahaBDKfqWojZVLbkePylmX72thpM14cWwoOcCbY+g+LFFlt/cK
-	 O2xhrEJSRHtv/8oI38AsqXnKfxpkyv4r/uGg+oOxHu6JBJl00Iyjy7GYR5PAQzkk8mto2
-	 Szn6ZhF3EyiKRCETOmi9ODrbK6BiNr0q/45sFglnBE6JAh7Xk175JabPZtPYzjET+JQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794195203;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=fSXkQFvYokTP7/zdJJbPcVi6eQ2VnCwRvk+/9wXmlm4=;
+	b=oM7omaNgc6jTV/ZXN62Iuevh0fTqAfaD2XGCvzfVFKa5SL2prr94Ok0sR7kcFpi5j0FU
+	 +vcizgrfxGeXRnwCe01Gk/3j7b2p4EOEvXFXFouxKOy7DHZBZEvqtLqrKTreQcRaGhwbL
+	 V62TFZJHqI9EGaFsj/fUlwiRKywHl5K0UM32RHaeWg1QiTKUMTFdQr7tBMplzwo4Wh2qc
+	 Uj8EBQAkIeiZaPe76wCR1JN1yC2NtKEf1qjPomnxA8mOv++xmjcTguk3Qm2RQfwCB2sAh
+	 LvozE/ax4RQn5fJN4I3Xbj7B88wa3Ww5SSLBoVl2EETu/ANJH5DzwMnjdwpFHAZQDbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oBjSP9FM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=r16QktDB;
+	arc=none smtp.remote-ip=95.215.58.197
+Received: from mta1.migadu.com (out-197.mta1.migadu.com [95.215.58.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23079606A321;
-	Mon,  9 Nov 2026 03:33:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81817606A320
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:33:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81817606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oBjSP9FM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5841E1F008AB;
-	Mon,  9 Nov 2026 03:33:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794195196;
-	bh=hZeWcvJmcWSh6f8njGGlnk6OtxBT31JFdhmDrEkmf1g=;
-	h=To:Cc:Subject:From:In-Reply-To:References:Date;
-	b=oBjSP9FMQk8gkTQfwSVISUnjhd63EJhcZKQ81yIBlArAeFHB1+WEcnnZCUNUlKvkA
-	 FBCVO+FHBlL58sYhcAJn+vZcuJY+QwRro0QT8OOCqaPMvk0FRYuQXN5wvVodf61iQf
-	 WBRTBk8CW+y0fhpSQsypp/0X3V1PZVOwb8QiS8FxPuWkbU6cER0jxlRs2Ezg1ukVXR
-	 /itD5B2V8GGcpFK4yOgJbe+ZTMj57Y+TSviO+B2c3uP16KDRWbamRYcuXG2kF+dl5V
-	 EKFDB0yWTapSNefB2lGhrjyRW1vMUEitpF5iacjljN+iARAwoD/B/G9iT+LGiYWC7v
-	 Hit01yGUgeNnw==
-To: <shao.mingyin@zte.com.cn>
-Cc: <mkp@kernel.org>,  <linux-scsi@vger.kernel.org>,
-  <target-devel@vger.kernel.org>,  <James.Bottomley@HansenPartnership.com>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 0/2] target: remove dead kmap checks
-From: "Martin K. Petersen" <mkp@kernel.org>
-In-Reply-To: <20261105193346452uAUQ3LtGtsQ_d_O9gjAw5@zte.com.cn>
-Message-ID: <yq1a4niwufi.fsf@mail.kernel.org>
-References: <20261105193346452uAUQ3LtGtsQ_d_O9gjAw5@zte.com.cn>
-Date: Sun, 08 Nov 2026 22:33:15 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=r16QktDB
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fSXkQFvYokTP7/zdJJbPcVi6eQ2VnCwRvk+/9wXmlm4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794195200; v=1; x=1794800000;
+ b=r16QktDBtgrve2lJtXf+k6gXH2JSF2UEsOe+NTp+H98CZ49wJ1Z7BJczkYK9T6Di3A8RlBwI
+ ZmVorwwBFY77q8no22m3Of4AAcVaDARx6SWh9e1i206khZ08QONc2ddINsWniDSlUhMtxdUeT3n
+ JGi03KI7efrxXB4Ev5FI0UVQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1b12e287425c2338;
+	Mon, 09 Nov 2026 03:33:19 +0000
+X-Mizu-Trace-ID: 1b12e287425c2338
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <dbdb9385-89cd-4e4f-bfb8-b72510e8801b@linux.dev>
+Date: Mon, 9 Nov 2026 11:33:09 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,16 +58,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 00/14] net: annotate data-races around sysctl
+ knobs
+To: Jason Xing <kerneljasonxing@gmail.com>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>,
+ Phil Sutter <phil@nwl.cc>, Nikolay Aleksandrov <razor@blackwall.org>,
+ Paul Moore <paul@paul-moore.com>, Matthieu Baerts <matttbe@kernel.org>,
+ Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
+ Julian Anastasov <ja@ssi.bg>, Allison Henderson <achender@kernel.org>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, "D. Wythe" <alibuda@linux.alibaba.com>,
+ Dust Li <dust.li@linux.alibaba.com>, Sidraya Jayagond
+ <sidraya@linux.ibm.com>, Mahanta Jambigi <mjambigi@linux.ibm.com>,
+ Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ coreteam@netfilter.org, bridge@lists.linux.dev,
+ linux-security-module@vger.kernel.org, mptcp@lists.linux.dev,
+ lvs-devel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ rds-devel@oss.oracle.com, linux-sctp@vger.kernel.org,
+ linux-s390@vger.kernel.org
+References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+ <CAL+tcoDvFNAZubOjw9+Z1eyaVeiBzt_Xg3KMNucY879bg-ZLow@mail.gmail.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <CAL+tcoDvFNAZubOjw9+Z1eyaVeiBzt_Xg3KMNucY879bg-ZLow@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
-> kmap() and kmap_local_page() never return NULL, so the checks after
-> them are dead code. Remove them.
+On 11/9/26 11:11 AM, Jason Xing wrote:
+> On Mon, Nov 9, 2026 at 10:55 AM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
+>> While testing the recent sysctl range fixes I noticed that a lot of our
+>> sysctl knobs are read with plain loads while the handlers update them
+>> with WRITE_ONCE() and no lock, so KCSAN reports them as data races. I
+>> then used an LLM to go through every ctl_table under net/ and list the
+>> readers that were left behind. This series annotates them with
+>> READ_ONCE(), and adds WRITE_ONCE() to a few custom handlers and netlink
+>> paths that store to the same fields with plain writes. Most of it is a
+>> plain READ_ONCE() at each read; where a function reads the same knob
+>> twice to make one decision, it now reads it once into a local, so the
+>> comparison and the value it acts on cannot come from two different
+>> writes.
+>>
+>> There are no Fixes tags. Done one knob per patch this would be well over
+>> a hundred commits, so I grouped them by subsystem and feature instead to
+>> keep the review manageable. If maintainers prefer, I can split it up
+>> further with a Fixes tag on each one, as several smaller series.
+> Over the last year, I've been thinking about the annotation stuff
+> especially around sysctls, which, I suppose, shouldn't actually affect
+> the real workload but does affect the outcome of the syzbot.
 >
-> No functional change intended; both patches are independent and can be
-> applied on their own or as a subset.
+> Out of sheer curiosity, my question would be what is the point of
+> trying to change all of them? Or what kind of benefits can we get from
+> the big series?
 
-Applied to 7.5/scsi-staging, thanks!
 
--- 
-Martin K. Petersen
+Three things:
+
+1. A plain load may be emitted twice by the compiler. ip_error() compares
+peer->rate_tokens against ip_rt_error_cost and then subtracts it again;
+if the sysctl changes in between, the u32 wraps. A few readers have that
+shape and now read the knob once into a local.
+
+2. Tearing is not involved here, all the fields are at most word sized.
+
+3. The rest is the memory model: a lockless read of a field written with
+WRITE_ONCE() is a data race unless it is marked
+(tools/memory-model/Documentation/access-marking.txt). That is what KCSAN
+reports, and why most of the series is plain READ_ONCE().
+
+
+I think the benefit is doing it in one pass.
+
+
