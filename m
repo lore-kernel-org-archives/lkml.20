@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.96
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794195818;
-	b=CgV5wd40X7D5RjxxLNVhtQioFRWdo+Vswy5DxYcGKIrfN7dWKtNmMYm1L/FDYhjWmqu7
-	 mBqbqk9eXMibC4UsXOEmbFthjf4KdogOja5rdKdGeZv270UP7nRO3ngRinF1/HclmH4Fa
-	 SsS5eKqnQGLPHEsMXd3uPnST7OI6Ia/MzQ5Ir+yOR/vGhTVQFfLVyghRI+O7oyADz3b0Q
-	 NU7TqcM7BdLNVnie85T/M7rqt9HMZ2aZybfeUcfRKqMgUiT2bI9tz+MBi2T++qTQWlhDl
-	 bVNmDUa0L58RhsMS4J16vRYVUh6HUw/aXXjJWdCsJsD4DFGUAjRMewXy3KiLZKZSMGg==
+	t=1794195872;
+	b=vowHTQL61s1s7sVnDTObWP0snxoNYyi260M0XmeFt4gh37+nFKNtcRsTnp1qNgotrVOP
+	 cJL0E61qU9BxjFJIelGqLviX4ifHnUqMtrGExA2v32VvPil/sUKPPlqDcF5lsEGUVZeaQ
+	 CNNHfj6kbhLG7LsA39481NtpJKnLOf7Wl+R7TQsOEEYkZBiobVIqY0mfpGf8LofCd8RQu
+	 GMgzkYMSnPaTahPkAAhAkxXQ3G5XXJoDZ4idNmmelYej3Av+wijMiv1e7Y8LU04wzj2ra
+	 ZKLzgcEUK/feDAYrXoxFMYORXWO0FRpt7Th9PlW83eXyppEUNliFJl69f6VxjVBYLcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794195818;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=VxCc9CWGeKPIK0yidoTH1LkVvQU2hINZ7DGVHD2Knc8=;
-	b=r0n11GIs1r2qZQPzQOnh7QaL+IkMbPFxpJD1ol7GFhkGDR3I776Nry6Mx/I91EUpGF2m
-	 QcwMxNe1zMZeGwy7Bq39GpDUCzZGYT+C7bbzk2m8MxvZLPeAZUUVH+kmeiFv8xoxyfenu
-	 At20P6kHNDmcTDVSsu9BENsyYjnbwzXXhLq9BH8ebJc+CRH1tsh/AK4e6hPo8VUivxGxP
-	 75sc/mCkPwzJaZah5xxaIcde1hIXa0yRtzY4QtOmrjSnfZUjNhl6zDkZWxVKBACYny9n3
-	 Qoix55vLNn9h7xhhr0Nq4phkMwwfj501/MpMYrTeNmEj5gEqjV67Lh+v5zyjZQsdr9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794195872;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=JTiv2GRYKop7vCx/gXindWSFmU7+GmHnHjp+oJDyjUQ=;
+	b=4nkpkfpN472fy5unV4I4Dm8SDDfgnah5s2c2QX6GJfsYEWHHIFUtJT0/kq8e+1UaFMZJ
+	 QoqYmK7VEncNlQTFBui1hdqTQXcE26y7vpI1X50IQP1aOAy7Hr9PtfRuU0XQY5CnlQWJx
+	 ST2t9iLOy3hr7Rizw412t3xQps7B0e9wV+G/TV0A1+AccPR+UEGWYrSN2x1l8CxujS2AF
+	 FRBB+xPqaEBJ9tbMdRWs46nncBmm8gM6wlIeeaVsSPDukfdlxVts51TVfzX99Mpn3xLgb
+	 RY+BavXsSfQ6uP34Xr1ACXtAs1/AsQX3mbQwqitodCoCMuhGBQ8Fx9bwhjta4/pvmeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="pe/iC9Iq";
-	arc=none smtp.remote-ip=115.124.30.130
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UL182Ymp;
+	arc=none smtp.remote-ip=91.218.175.96
+Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FE68606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:43:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FE68606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D84C606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:44:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D84C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=pe/iC9Iq
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794195808; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=VxCc9CWGeKPIK0yidoTH1LkVvQU2hINZ7DGVHD2Knc8=;
-	b=pe/iC9Iq6TWefmdRr1xrsN7dpkHqJQHjnqaDfT9KzquC1xAoynGVBmJI5uN7kUys3upJlCEa8RmHcaRB+Wl+Anh+cFuOVsgAYuQWKN34U9ikprrLfCBvIvrFdq+GWu/hIt3TRkA4p63ipL4dZ5v1eKNEs+KNIlfM1Ob7NTd3kaY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XEIKFAw_1794195806;
-Received: from 30.221.146.205(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XEIKFAw_1794195806 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 11:43:27 +0800
-Message-ID: <8b72e94b-2871-4a45-8a9b-2841dd76e4ff@linux.alibaba.com>
-Date: Mon, 9 Nov 2026 11:43:26 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UL182Ymp
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JTiv2GRYKop7vCx/gXindWSFmU7+GmHnHjp+oJDyjUQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794195869; v=1; x=1794800669;
+ b=UL182YmpeSX6nFVbBsJ7y8S/IyQUXmitlzi+JbC5w2Ptgjh/cWL19fCg1j4IPVm2/p8G8A3e
+ Zz3G2ydotNN5QvKRbPqEHUQIojBNTXxOPc1QrQFTI7OMGbxmf1kuKdNvyTzu1IW2fadxFyJ1+Lw
+ bRnzGF/XbnueIjXLpDOd5JWI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id b7f753fb76ab6eb5;
+	Mon, 09 Nov 2026 03:44:29 +0000
+X-Mizu-Trace-ID: b7f753fb76ab6eb5
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,32 +57,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/31] ocfs2: split dinode validation into shared
- predicates
-To: Andrew Morton <akpm@linux-foundation.org>,
- Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261106111458.1467464-1-joseph.qi@linux.alibaba.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20261106111458.1467464-1-joseph.qi@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH] x86/mm: Tear down the direct map when memory hot add
+ fails
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <au_l5MRyDbYfsUVe@chrisdown.name>
+Date: Mon, 9 Nov 2026 11:44:11 +0800
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+ Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ David Hildenbrand <david@kernel.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Lance Yang <lance.yang@linux.dev>,
+ linux-mm@kvack.org,
+ linux-cxl@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ kernel-team@meta.com
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <681A0C48-AA5C-4337-8CD0-57FCB21D8D63@linux.dev>
+References: <au_l5MRyDbYfsUVe@chrisdown.name>
+To: Chris Down <chris@chrisdown.name>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
 
-On 11/6/26 7:14 PM, Joseph Qi wrote:
->   22      Bug fix.  filecheck fix reported SUCCESS on corruption it cannot
->           repair.  Revalidate and return the residual code, snapshotting
->           the block so a failed repair is rolled back rather than leaving
->           a dirty buffer behind.
 
-Sashiko still has review comments on this patch and I've confirmed it looks
-real.
-https://sashiko.dev/#/patchset/20261106111458.1467464-1-joseph.qi@linux.alibaba.com
+> On Nov 8, 2026, at 11:00, Chris Down <chris@chrisdown.name> wrote:
+>=20
+> arch_add_memory() sets up the direct map before calling add_pages().
+> If add_pages() fails, the range stays mapped and any page tables
+> allocated for it are leaked. A later hot add can reuse the stale
+> mapping.
+>=20
+> Remove the direct mapping on failure.
+>=20
+> Fixes: 45e0b78b0532 ("[PATCH] hot-add-mem x86_64: use =
+CONFIG_MEMORY_HOTPLUG_RESERVE")
+> Signed-off-by: Chris Down <chris@chrisdown.name>
 
-Will address it on v3 later.
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
-Thanks,
-Joseph
+Thanks.
+
