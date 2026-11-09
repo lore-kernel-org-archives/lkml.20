@@ -1,115 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794214852;
-	b=3dN2nF3ymywXwtX5FF57i0+cyPeSCra0BQn8W8hLtFBRh3CY6brHYiTm3tP3+mhD9WIl
-	 96woUwL8F1hksqip/ykxV4D6mkS23iG/kb93xqjC73sSM+5Oac/ANDAXUFyS7L+2aDYmd
-	 gSGyc1DlXCsq08z8IpGmj0gSRut72QEIZV1nx3xdjgB0WGDHEPwVxjf/AOGua75oUXy8L
-	 LTe2HVni9pOSMGB6uGqOlCVQYG5oaZI3hQuXa7tuw5Yi6IXq0Uq1JIIT72bTsnZZqu54f
-	 tw6Lu/B9HjXyB2NTi7wWxlEpTfVTp1UnQS/yX9PvFexYiovvwi8CYtQ5xVXU/+waVUw==
+	t=1794214858;
+	b=EKka/M4rNHOSpjiCJkrUaen3FIMqkPD0dU1r6+GWdmWLtSPZOdM1Crz4TKgp5UcoayTi
+	 fgZjoMvaQE/wxoKn5uXiqAB/46//1Cn5e6oeW3gMOFsyWBu8foxIG2vdOjAekSqYuJBXU
+	 G5Ds7iKg1RBg9b+roWpKojqEOIeKPKAU7JZI2RyoKV/haj3qNujOc4pyUvUeeHFGvuzsJ
+	 gvCDkJXew2DQHqwowRPfmZWO55P4/zvAO5w5OYjw6M7nmqGkw2ukDl91YFGnE6ekhWW8n
+	 KH8lFRlE7w3OFVXwflxll8wb28VWIJqulq9AP0hoIVJUOSCFN9RrXX4PbNsuZsLMQZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794214852;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-ADIRuleOP-NewSCL:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=5cQRvkXNtjJAnko0WWY5a15d0+AvbQkqet34XcNU5HA=;
-	b=F6oep+jzWax6piV/vdzWAdDFkmWXl4/DqPY6EdUOXeJCPSunibXGLOJBDAbH+SO6OoC2
-	 D7/euAosnUVTnZm7bH8wlD0CQo6hvnM2wQs64KV0j/xH4R7BCOdx5UuPo3v+4b8bJHtoD
-	 5sWxH38njgph2mqRh6F206GaD8xey2o+0N+NqkOaEPUrzBu1VPpJbBPbyf7sBtmY8AXa7
-	 sQ2E+Sk7NNUiCpbQa9QTl0Gg5xg6m0rXLhvEKeoB6ADFRSxZ632M2fPq+PcvKXjKuP+yK
-	 8cI7Y9KPBj/WA2P892hA4ujaG42q2mtWS9BH+jaV6t3klAcEjhf72JBm270E/eexAsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794214858;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=jg4upLHUrM6H1fsgp5Xb2gkT8KIhNg+n3t7qrZRLzsU=;
+	b=UBG3/CfuD205LH2FP/RVKniQmZC7LcYpN9neHXljjk1HyCe24lYtDe6ExCY9MSk36fzz
+	 Uv0oeG3T4XDW3VcKlsgJ2JuzvUYMfPCiF+r15S24oVnX4Uo8EVOTu87FOa59BwsgBc1sX
+	 g3LhkUxAiWvMPpwCBH+bNmbg4HwjIAVwr7fFsft7sbNE28LVaZfv9Bm0zbO6g8Cyflbmz
+	 jL9VHpGEMNqBDKPj5MGtOUyOG6vRKxrNzamYuig9Zkp8RCrHcxFTgF0EHoGCH6nbq98Rv
+	 HKh3VPM4jGgAKyzdhMAtKjixFGp9e3on3P3+EQqESsVysnFAq1MUsbnvO9+VoZQ86eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=analog.com;
-	spf=pass smtp.mailfrom=analog.com;
-	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=ampd0T+T;
-	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=L0leps9C;
-	arc=none smtp.remote-ip=148.163.135.77
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CwF7Z76K;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="IjH/UgHo";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B37606A31C;
-	Mon,  9 Nov 2026 09:00:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37B37606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79555606A334
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 09:00:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79555606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=ampd0T+T;
-	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=L0leps9C
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96C3iM2401967;
-	Mon, 9 Nov 2026 04:00:14 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
-	 h=cc:content-transfer-encoding:content-type:date:from
-	:message-id:mime-version:subject:to; s=DKIM; bh=5cQRvkXNtjJAnko0
-	WWY5a15d0+AvbQkqet34XcNU5HA=; b=ampd0T+TjOLux4JH/4qX4C4LcP8uzC2d
-	8o/gh9GFvp5qOpy4/n5bv1pP/e13p5PwWLRGNyZkwtEH7wBqDe5gqQozGJHnXpO3
-	rZZiVb90lQddwrMJqrzMtmfUB2ibYQZq4VgOo2xRyBDXontsFOvT5N+DCkdV21wE
-	Jsv4//LFj3b66khmLtgksIy6ovzGCz83ZAa3rWcCeNoFg+LPrjGV8LWjx87Fc07/
-	P0Nmd76mfkjEq5PPqu9ueyw6/Bm1AjQ4mDR7p0c5iSDbuoqy2NLDx+pwEcZNhcLh
-	c81Y9ZZTgSe6ln3svNMFboYiBec0k2NkIHZSpE00sg8feo3d4RBVxw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=DKIM; bh=5cQRvkXNtjJAnko0WWY5a15d0+A
-	vbQkqet34XcNU5HA=; b=L0leps9CWulFAeBkmRzwu1R1yVlsAKS5pEIFE+MM3mQ
-	jfoBgkfY6CBLtq5Z0bBbiBvXWUP9yY41pBQPA5xD6XaFGJy+gdv7NvvVucAPls7b
-	reop4P0UZfi/sEtXDuknie79SZoeAJh96L7idF7lrZzycwjAtcRpYA5Ox0FxD/YF
-	0H0DNmsL3cRR1ZEsqHfCsGL84k2F58LnHtrzZedHbKOv4kuTDYMb4K6DqWOq33uA
-	LKAoxdCJaBgi/x4V/hh+VCWSBZpeTq6AhqDbQvScdqc+nselecby9nfC++df+bLk
-	KnVci5it+8ucH2WoJM6Cl/KCmoeAC2F/QAgkd49NUJQ==
-Received: from nwd2mta3.analog.com ([137.71.173.56])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4htk6je40r-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 04:00:14 -0500 (EST)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta3.analog.com (8.14.7/8.14.7) with ESMTP id 6A990D8v045687
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 9 Nov 2026 04:00:13 -0500
-Received: from ASHBCASHYB4.ad.analog.com (10.64.17.132) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 9 Nov 2026 04:00:13 -0500
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB4.ad.analog.com (10.64.17.132) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Mon, 9 Nov 2026 04:00:13 -0500
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 9 Nov 2026 04:00:12 -0500
-Received: from HYB-6AVb5If9qTU.ad.analog.com (HYB-6AVb5If9qTU.ad.analog.com [10.135.4.41])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6A98xreF024796;
-	Mon, 9 Nov 2026 03:59:58 -0500
-From: Iustin Stolniceanu <iustin.stolniceanu@analog.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring
-	<robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CwF7Z76K;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IjH/UgHo
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A96A6do3298532
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 09:00:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=jg4upLHUrM6H1fsgp5Xb2gkT
+	8KIhNg+n3t7qrZRLzsU=; b=CwF7Z76KP0m38XRhVKLHCxvumfvreMoizoCQK9YF
+	X66jwKO3Nra60tif2qVyMXpobdRj5RjZ82dbMypq4VGE5dBV4mwRVaVdbPuikw2N
+	x5hypu0YtE881MMAsBptBHxyuD/rTmzvU2BfSCpgvgJH7S78gY4F/XKrV8leUHp3
+	gzi423PJU112uRme3IU0/6mSO9V2d/j4qQgIpjSdO8kmCc2PSacad/P0E6q5WvBW
+	EWT6b5boWa4jF259uPqRYhdbR9BIWixj33bFQcqV1BOvO2YTxzKjAypJZ8CPN9Up
+	0HIb8xjDbyIwaFMlX6zEb8k67FlVw3+6Yc1cO/R+xU3wsw==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsuagwmut-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:00:56 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-30bcb065bfdso1452299eec.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 01:00:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794214855; x=1794819655; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jg4upLHUrM6H1fsgp5Xb2gkT8KIhNg+n3t7qrZRLzsU=;
+        b=IjH/UgHoGAdNFLfiKwSnr33AkJaLpH+dHNF5e6LruX2sEcRYeUOsABOqKhfVUDnvl3
+         0qxqEypw6ZBYKYtqpVV9wTluXXJNoCWr47UrDmKdSAe8Vmy5GbgYMtnGWlFpfcnXaTgB
+         J0vkCj45Rs9OtTLJMoeuG5KL74HnLXW3rxb35BWG/Aj4PDCXIKEr1MFtQxzrOdvf6Fww
+         Vb5VudW17m7UzG+H7Eb7unbCU2fSV+0JwmDTvUNXBogUbcnaV02ALx2I7iAg826QC4zY
+         S7xa2jcRkIJTcb6vMgiN6fHPyb/Zqt6zmnMEZhlYFIPCcQqaW+pQUIG9Ozv1ltTxb3hd
+         ir9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794214855; x=1794819655;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jg4upLHUrM6H1fsgp5Xb2gkT8KIhNg+n3t7qrZRLzsU=;
+        b=QkGt+dQlB3vfdOUSmw8aPiMkwGqdjVXRSJJIHpg++A2SBGaP72iSdNy9PDO2wWjw7U
+         KeWLGrF+Ax1U/cOjBNMhtCOhhyfhTqcV4twGICOVuLobshQzMOMsn+H+WSA2Z7BSPmAT
+         tqlS45WSpfN8huaVu238pkIyNe8C4qWjkpiJIWOF8YVr4rcMgxfSC4AD/eE7zAJQvFJd
+         w9xJqvAsttIGLuuf/kU+93u9S03sczoa+lUKsOlyXHXzRj0ReAFNMgPh6+fOi9SE3ZpW
+         MFPFIq092JUdEyMDxUrqyq7TbDtNg8QMSPVsZZyPWdalhEUpV6DoD9ojiQTW7QOWmx6f
+         26+g==
+X-Forwarded-Encrypted: i=1; AL+hErFhwbFo52Q0dtRAXBWhvuFRv4mIz1U/TUcDP1JkOnfiLNcSR469LVWtv7yoj+VuAJFUh6+EeA0l40qX/bw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z++RWDtho6kHBvLjq3gcfQsAhflQjJjF/8p6bJcQ5XzV8odxfyk
+	CMJ5z4FuxgvIXTnDiZJsIhoMm3fkQuKsWbnjiyGzWnHpUyw4W5kUUQ3C0ptouXkBlKmYsAtVaY/
+	QKaW7sbKMRU9xUK+NAE3tVxTIAAoNfY05NSxBCefkuOI1V+f1oaNTHhqUrdat+M8MngY=
+X-Gm-Gg: AYBFou3MLWRvNC1qVIglJWwLIXyYolShhKzWnggTV+Kuo9xUO7JwRI6u+INz+j89R3B
+	WI+/J5qSsn6k99JkbcjX1IjdXONYBdGsL9GGfnUjwPg6ufXPeAq+iGvm8lUXZ25wQcXYFpR/+RO
+	TSUQ8/cksRyhSQKQAHblVTsytdMCvEjb0o2M055vJFuowLO3pAwkUf9Xgnb8epWxHdsEYvFLyVh
+	6DF/lDKZoVHE7Gk78MUI9cS2EsthAFtPBEL14YDzb6rOZmyo9eiqzrgM6FAgNEWwb+LS0EIlpOq
+	+D4j1Wj8WTSdX6Qz1+qGue1KInnSkxbSHc695fjPWwGPon0grAimSzS/A8CD/NT7ucSJCFCzerJ
+	rKsW6Ba5nxzqCq3McheURAW4/nQgZmJOgt2eeLHB+pmjBFaNEw8A0qvWtKKo4Zlz5jrmWS33kEP
+	TuUDIPwxWrjRVCdoxxyZU+5g==
+X-Received: by 2002:a05:7300:de4b:b0:36c:a42d:9bc9 with SMTP id 5a478bee46e88-37256bf17d9mr6702795eec.25.1794214855052;
+        Mon, 09 Nov 2026 01:00:55 -0800 (PST)
+X-Received: by 2002:a05:7300:de4b:b0:36c:a42d:9bc9 with SMTP id 5a478bee46e88-37256bf17d9mr6702737eec.25.1794214854259;
+        Mon, 09 Nov 2026 01:00:54 -0800 (PST)
+Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265a179c1sm10908331eec.11.2026.11.09.01.00.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 01:00:52 -0800 (PST)
+Date: Mon, 9 Nov 2026 01:00:50 -0800
+From: Peter Chen <peter.chen@oss.qualcomm.com>
+To: Akash Kumar <akash.kumar@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        Parthiban Veerasooran
-	<parthiban.veerasooran@microchip.com>,
-        Heiner Kallweit
-	<hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Marcelo Schmitt
-	<marcelo.schmitt@analog.com>
-CC: =?UTF-8?q?Alvin=20=C5=A0ipraga?= <alvin.sipraga@analog.com>,
-        Ciprian Regus
-	<ciprian.regus@analog.com>, <netdev@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        "Iustin
- Stolniceanu" <iustin.stolniceanu@analog.com>
-Subject: [PATCH net-next v2 0/7] net: ethernet: adi: adin1110: Add OPEN Alliance TC6 support
-Date: Mon, 9 Nov 2026 10:59:45 +0200
-Message-ID: <20261109085952.105331-1-iustin.stolniceanu@analog.com>
-X-Mailer: git-send-email 2.43.0
+        Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: Re: [PATCH v2] usb: dwc3: Update nominal max votes for qcom usb
+Message-ID: <avGLwjn6yZRqpBhF@hu-petche-lv.qualcomm.com>
+References: <20261105100626.2003771-1-akash.kumar@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,157 +125,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: JVYHGvlzRz_wvuc7DVOj07o5X7dWnzBm
-X-Proofpoint-GUID: JVYHGvlzRz_wvuc7DVOj07o5X7dWnzBm
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfX2LU24/J9QWKg
- JsRlomIgAlRw4ivgrgx84jxI0LEO80mGNHSUgLy+LW1fssBOf7ExD6FHgRGj9jfHDebXFeTrTOP
- R7MEkFCBFqEB7sEkLyopO69hrNSIztlawmsGuoePX+fkRYNK+k68
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfX+o6qdxuHfq85
- ywrZ4y92M6/RxCMmuv7P14xLD/5O7e2z3Z/w50UORLXIS9J/wImTiZ5C2vS1XCyxE8P4Mtic9kb
- pei6+rSosMsX9M6M4wQb03DcCjRj9IIg+m6QiKmarWj7SB5DYiuBFtBd/RW18IjArAjvyw2dPN9
- d53OJktkfKdliGG47nOeH0kYAPlgt+ZaM/gcBBhmGEKPptWrXQrc9921AZnLD552uIoEVjGN1uB
- QL4FrhJu/abTuYuFZBX5ODm/sVrrhIvTSrwgS8v2e4+I2m5NEetvSz8WaiA8KHLoy8RUY/J1wps
- 2zWMUqwpZ5SoI05/XXuu13X4tRcCAcJ9AwJn1BT8KgCKDGvRg8DQ442LF0K2wUgWxHrecx23eyP
- 5EweAOvbfSW/KLN64UYqR88ugMU6RPIOZFYopyIJnrJaU+rKvyxXnDLKPpEcDUDXbZsKzUwWK8A
- F+QQUnB58xeHq0cP/XQ==
-X-Authority-Analysis: v=2.4 cv=O7+sLx9W c=1 sm=1 tr=0 ts=6af18b9e cx=c_pps
- a=PpDZqlmH/M8setHirZLBMw==:117 a=PpDZqlmH/M8setHirZLBMw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=VwQbUJbxAAAA:8
- a=gAnH3GRIAAAA:8 a=iT5Kz9XhaAhAbwJ0Y2EA:9 a=QEXdDO2ut3YA:10
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105100626.2003771-1-akash.kumar@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfXxT+bLYD5xEl/
+ lgr+mnoVMDoyal1xgHb3FDOEeha+pKdmF+GlscACjzptmO2a+InzOPcwiKNJKOIavu5FPwh9rqm
+ A5nm6JIy9EtVyyggMmvd5M9colzA/bbGBm6+oV/R4PuaXuqb6r3t3RMwhjpOzFE5O0/diUD9P2k
+ QYdoEQ77IPp5NpjGeC9c8cqrxmntflhGNbP2hL6Vy0v7U/2ZeW002kMVu/qVB9vu8FVcHC7tJho
+ aLsWLAnMOmo63XjiQACwAfO6iSAUiq6IpwuURUjSe0KDPZS0tJxjT6qWh/DS7LPKhThdVNwJvux
+ XsBlpcFWbwYl3D1HlRWpULyQVuVYU3+YkS8L81b6rkIAouYCDxLqWcNC4PCeuYaEt+s2iT2XxGd
+ D2TWdewqTfZGL+8Sbcex6mZwQilGPUVohjkUygUt6qIqGHrmfBIpOuOwp24OtvTenwogyJAh4M4
+ EOK+KcckLxakVRX+Idw==
+X-Proofpoint-ORIG-GUID: jzAoHWaYjs3TrdPpAlDkg0BxxkRkcQS2
+X-Proofpoint-GUID: jzAoHWaYjs3TrdPpAlDkg0BxxkRkcQS2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDAzNSBTYWx0ZWRfX+VMhqmaaIlq/
+ LksZrHGKVlz0JRQ6YVSQEquGKMKWxGSmeoUB3o9N9RPdBpH5ant1FkdJOevT2iAV4i2DGK/VKvv
+ r2Dtg+DcIJsYMXKshMPVKrPoHh2Qx/U=
+X-Authority-Analysis: v=2.4 cv=V8LoQuni c=1 sm=1 tr=0 ts=6af18bc8 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rNO_JpGmdzbLC-vSDh4A:9 a=CjuIK1q_8ugA:10
+ a=PxkB5W3o20Ba91AHUih5:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-09_03,2026-11-06_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 lowpriorityscore=0 malwarescore=0
- suspectscore=0 phishscore=0 clxscore=1015 impostorscore=0 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611090035
+ suspectscore=0 clxscore=1015 malwarescore=0 bulkscore=0 impostorscore=0
+ phishscore=0 adultscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090035
 
-The ADIN1110 supports two SPI host interface protocols: the generic SPI
-protocol, which the adin1110 driver implements today, and the OPEN
-Alliance TC6 protocol. Two pins select the mode, and the device latches
-them when it comes out of reset:
+On 26-11-05 15:32:16, Akash Kumar wrote:
+> Increase the nominal max USB memory bandwidth vote to let DDR scale
+> higher within its nominal corner, fixing glitches seen during
+> simultaneous USB audio use cases.
+> 
+> USB_MEMORY_PEAK_SS_BW is raised from 2500 MB/s to 4500 MB/s (+2000
+> MB/s, ~1.8x). This ICC vote does not by itself determine DDR
+> frequency; the vote-to-frequency mapping is platform-specific and
+> comes from each target's interconnect/OPP table. On the tested
+> targets, the old vote kept DDR pinned at 1 GHz within the nominal
+> corner, even though DDR can run at 1.5 GHz (+50%) within the same
+> corner. At 1 GHz, glitches were observed during multiple concurrent
+> USB audio use cases.
 
- - SPI_CFG1 selects the protocol: OPEN Alliance TC6 when low (or left
-   floating), generic SPI when high.
- - SPI_CFG0 enables the CRC8 of the generic SPI protocol, or the control
-   data protection of the OPEN Alliance protocol: enabled when low,
-   disabled when high.
+How we decide which value is suitable, eg, you set 4500 here?
+If DDR can run higher, and we have more stress test case like UAS
+transfer + UVC transfer, do we need this value to be higher?
 
-SPI_CFG0 can be read back, as the PROTE bit of CONFIG0, and the generic
-SPI case is already described by the adi,spi-crc property. No register
-reports SPI_CFG1, so the protocol cannot be detected by reading the chip.
+Is it okay we just set the highest value for USB, there is a platform
+OPP table, and we let ICC choose the highest value for USB at specific 
+platform?
 
-This series adds OPEN Alliance TC6 support for the ADIN1110 using the
-oa_tc6 framework, selected by a new adi,spi-oa-tc6 DT property:
+Peter
 
- 1:   oa_tc6: forward declare struct mii_bus in oa_tc6.h
- 2-3: oa_tc6: configurable reset settle times, and indirect MDIO access
-      (MDIOACC) for MAC-PHYs without direct PHY register access
- 4-5: adin1100: separate phy_driver entries per model, then skip the
-      soft reset on ADIN1110/ADIN2111, as it resets the whole MAC-PHY
- 6:   dt-bindings: add adi,spi-oa-tc6
- 7:   adin1110: add the OPEN Alliance TC6 probe path
+> 
+> Tested internally on RB3, RB4, RB8, Shikra, and other KLM targets.
+> With the updated vote, DDR is allowed to run at the higher nominal
+> frequency, and the following were measured (not merely projected):
+> 
+> - USB memory throughput: 125 MB/s -> 145 MB/s (+16%)
+> - RTD-USBC audio latency: 17.9 ms -> 16.6 ms (-7.3%)
+> 
+> RTD-USBC is the round-trip audio latency measured over a USB-C audio
+> path; lower is better. Note the +50% DDR frequency headroom does not
+> map linearly to the +16% throughput gain, since throughput is also
+> bounded by other factors along the USB/DDR path; the frequency
+> increase is necessary but not sufficient to explain the full gain on
+> its own.
+> 
+> Signed-off-by: Akash Kumar <akash.kumar@oss.qualcomm.com>
+> ---
+> v2: Added Details of targets Tested.
+>     Added details for usb vote.
+>     Added KPI Details.
+>     Dropped USB AVG BW vote change which is not needed.
+> 
+> Link to v1: https://lore.kernel.org/all/20260611081831.2743464-1-akash.kumar@oss.qualcomm.com/
+> ---
+>  drivers/usb/dwc3/dwc3-qcom.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+> index ac68b4218b56..3a19385969dc 100644
+> --- a/drivers/usb/dwc3/dwc3-qcom.c
+> +++ b/drivers/usb/dwc3/dwc3-qcom.c
+> @@ -46,7 +46,7 @@
+>  #define USB_MEMORY_AVG_HS_BW MBps_to_icc(240)
+>  #define USB_MEMORY_PEAK_HS_BW MBps_to_icc(700)
+>  #define USB_MEMORY_AVG_SS_BW  MBps_to_icc(1000)
+> -#define USB_MEMORY_PEAK_SS_BW MBps_to_icc(2500)
+> +#define USB_MEMORY_PEAK_SS_BW MBps_to_icc(4500)
+>  #define APPS_USB_AVG_BW 0
+>  #define APPS_USB_PEAK_BW MBps_to_icc(40)
+>  
+> -- 
+> 2.43.0
+> 
+> 
 
-The ADIN2111 is not supported in OPEN Alliance TC6 mode yet.
-
-If adi,spi-oa-tc6 does not match the board strapping, probe fails with
--ENODEV and a message pointing at the SPI_CFG1 strap and the property.
-
-As promised in the v1 thread, I tried the wrong framing on an
-EVAL-ADIN1110EBZ in both directions. OA TC6 access to a generic SPI
-strapped chip gets no valid reply and does not set SPI_ERR. Generic
-SPI access to an OA TC6 strapped chip returns garbage and sets HDRE and
-LOFE in STATUS0, which are write-1-to-clear, and OA TC6 access keeps
-working afterwards. So the protocols can be told apart, but I kept the
-explicit property for now. If autodetection is preferred, I can do that
-before the binding is merged.
-
-Testing: Raspberry Pi 4 with an EVAL-ADIN1110EBZ, SPI at 25 MHz, against
-a 10BASE-T1L link partner, on a normal and a debug kernel (KASAN,
-lockdep, kmemleak). OPEN Alliance TC6 mode: probe/remove 20x, sysfs
-unbind/bind 10x, link up/down under traffic, frame sizes 42-1514 bytes,
-flood ping, ~9.4 Mbit/s TCP in each direction, 0% loss on 10 Mbit/s
-bidirectional UDP, joined multicast group and macvlan traffic. Generic
-SPI mode: same results with and without the series. Both mismatches
-(adi,spi-oa-tc6 set on a generic SPI strapped board, and the reverse)
-fail with -ENODEV and a clear message. OPEN Alliance TC6 was tested with
-and without control protection (SPI_CFG0).
-
-Known limitations, unchanged by this series:
- - A "Config unsync" error (e.g. after a chip reset) makes oa_tc6
-   disable the device until the driver is reloaded.
- - On unload, a lockdep enabled kernel prints a "suspicious RCU usage"
-   warning from phy_detach_internal(), as phy_disconnect() is called
-   without the RTNL held. The generic SPI path of the unpatched driver
-   does the same.
-
-Parts of the code and of the commit messages were developed with the
-help of an AI assistant (Claude Opus 5.5); all changes were reviewed and
-tested on hardware by the submitter. The v1 patches 1-4 were also
-reviewed with Sashiko (Claude Opus 5.5) before sending. For v2 I ran
-Sashiko again on the settle time patch (2/7) and the adin1110 patch
-(7/7), the two with real code changes, and fixed the one real issue
-it found.
-
-Changes in v2:
- - Reordered: the adin1100 patches now come before the adin1110 OA TC6
-   patch that needs them, so the series bisects cleanly.
- - 1/7: new: split the struct mii_bus forward declaration out of the
-   adin1110 patch (Alvin)
-   Link: https://lore.kernel.org/r/au3C27DWOcZiMLxb@analog.com
- - 2/7: split reset_settle_us into hwreset_settle_us (default 1 ms) and
-   softreset_settle_us (default 0); fsleep() unconditionally (Alvin)
-   Link: https://lore.kernel.org/r/aus8XiLynJmSXaXc@analog.com
- - 3/7: use if (!DPRAC) mdio_indirect_mode = true (Alvin)
-   Link: https://lore.kernel.org/r/aus8GQ-Xut5XBNwU@analog.com
- - 4/7: new: one phy_driver per model with PHY_ID_MATCH_MODEL() instead
-   of a single entry with mask 0xffffffcf (Andrew, Alvin)
-   Link: https://lore.kernel.org/r/309a1eb9-8255-42f0-a510-b40bf3302bbd@lunn.ch
- - 5/7: (was 5/5) omit .soft_reset on the ADIN1110/ADIN2111 entries
-   instead of checking the PHY ID in the callback (Alvin)
-   Link: https://lore.kernel.org/r/autAidTgykOObtzp@analog.com
- - 6/7: (was 3/5) disallow adi,spi-crc together with adi,spi-oa-tc6 (Alvin)
-   Link: https://lore.kernel.org/r/aus899mJ-XZg6ZgF@analog.com
- - 7/7: (was 4/5) set 50 ms / 10 ms settle times from the datasheet;
-   -ENODEV instead of -EOPNOTSUPP for ADIN2111; whitespace nits. Fail
-   with -ENODEV and a clear message if adi,spi-oa-tc6 does not match the
-   strapping (Andrew). Accept all multicast when the multicast list is not
-   empty and don't set IFF_UNICAST_FLT, and use DEV_STATS_INC() for
-   tx_dropped (Sashiko).
-   Link: https://lore.kernel.org/r/aus-LdkVRPxR6lFu@analog.com
-   Link: https://lore.kernel.org/r/c1747691-2c2e-4a7a-af04-92c94cb041b2@lunn.ch
-   Link: https://lore.kernel.org/r/sashiko-outbox-197578@kernel.org
-
-v1: https://lore.kernel.org/r/20261103160918.409701-1-iustin.stolniceanu@analog.com
-
-
-Ciprian Regus (4):
-  net: ethernet: oa_tc6: Allow custom reset settle time values
-  net: ethernet: oa_tc6: Add support for MDIO indirect access
-  dt-bindings: net: adi,adin1110: Add adi,spi-oa-tc6
-  net: ethernet: adi: adin1110: Add OA TC6 protocol support for ADIN1110
-
-Iustin Stolniceanu (3):
-  net: ethernet: oa_tc6: Forward declare struct mii_bus
-  net: phy: adin1100: Add separate driver entries for ADIN1110/ADIN2111
-  net: phy: adin1100: Skip the soft reset on ADIN1110/ADIN2111
-
- .../devicetree/bindings/net/adi,adin1110.yaml |  12 +
- drivers/net/ethernet/adi/Kconfig              |   1 +
- drivers/net/ethernet/adi/adin1110.c           | 206 +++++++++++++++++-
- drivers/net/ethernet/oa_tc6.c                 | 188 ++++++++++++++--
- drivers/net/phy/adin1100.c                    |  33 ++-
- include/linux/oa_tc6.h                        |  20 ++
- 6 files changed, 435 insertions(+), 25 deletions(-)
-
-
-base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
 -- 
-2.43.0
 
+Thanks,
+Peter Chen
