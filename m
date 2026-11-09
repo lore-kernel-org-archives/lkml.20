@@ -1,56 +1,138 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794263716;
-	b=fPLAV6xbia5iyPFTqfvcb56va3AG6WeKsQ2pi+2LX3vNnShEUkGTgZee3wNu6VMGBf+b
-	 dUg86G8XSRDawC0/E9aHO53DbJ+PzmQoc58RvlTjoBEIGzeocMNSgD5FOATsEOyHbm2us
-	 V9vpYYvmbWPXWxwjr+5WT9afRP5X85xf5Xbz1FYi5XEqRo6TRkSHtMdWcxTuCGyoTG0Md
-	 HfTIUAVwqflObKCEv1LMz3dyuPLA0pRNclvOwARNwa1Q19qs9Dr4n1fNpsju7SRN2LA+H
-	 MlCn7krqWGTT1fl64c/VBlepvFnqup4SecOR/pOlGD5k160nWRANWWglOypKnOF3R4w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794263716;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=fQpTppDPw8YDlhiLl7nY8XQS2Ja3ohq3MPDeLqzC3bc=;
-	b=pgHSEjQFOJwIVH9YyJTPV2BZqdFPfHyhEyC2/HLIC9lHA+kYKy8OVm2oAd67dAPioV+U
-	 Q2HXK7AK4h0eImYrVGxorGpWBdfTzRsPdSLPirZpVcruCQAaqY9T3W5s32YYmDLcRYTAl
-	 nVHq76/gnlXInE1K2CiC5TzOfN0M4Y0768wTOndonukqp34ARge858m9W+NsGyNsZACnW
-	 lCXH5ctHNDk1GRiBNk3FnH20AqaW9H8vhhXC5HCl7Sb7+71/OzMv5tiUSx2FUGmFfssQ0
-	 XOXwovX1RacGKiigc0o+xueAhB2IxJAwdKI4lQhFHFI5OsnJ1LYMwq7sOzaCU6QcOFA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gPfTp7AX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794263721;
+	b=l2a2dsDtUto43F9bi5Umoo4174hOqLipNXcDJcMesLvUAS/mmMpyLQ+Xm+5YydREIE+s
+	 0sBbTDCTvPoNsAXI/MFZvFioNI128qZM6eHj9dmS/o0uAj605gT+SLXvl/ZhUQkSDUfvp
+	 k9M3TxuqUtBtVU/qgD7chaSnny1e6vb+vkQOjAKMySH+v+xgu4vJwRDfL4nC0Cif8lEFw
+	 NKO6A4AB0WOWUG2KaHTjuqEwS0Dj3H1yrUOZ5yRi/ocAbHg2E8dzjYvZPpYkTP3hWmCy4
+	 92bHVF0uc/mJFwuKRKaxdj7k/TKe3ffk+f4k5IueYUQDYJ/tL+tb///HtQZF6c6X9UQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794263721;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=tfDe8hV3Hwh4azhPfNUhsuqSz4OanlShz/YgsgS4UZ4=;
+	b=Ml72OsNtVYzvDb3k3Tp5pVOGoGX/Dpst4nfLfrC2pz2ErKISr4KeGaIpxmyGQDy8ed2d
+	 x35nCZ3zxMbA5s9ff0B9nerC8BNzwCDyqOEjejYzRZIDsxYzqaDHJ9PEHbdBB+6jLkf87
+	 giddLqsVDBcmPsYR5IJyc2AaHCJq/yrEAOm4sREN8WPyND1l0/l8PCuWHS/AjU+giAxAa
+	 Y2xJ1s1i4qhlDbU+TcHYxhzQycIaOOTa2ZIg9T996oxT8Ssi+64153Agr3JF4QCEnVdCm
+	 4+3dYNwzzOLB8VEy+dz7Eq5Cnxavi6Uz3gJvpqod0L9DslWC//utbuU56nELGRvnwSQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bprY6qLb;
+	arc=fail smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E921606A31C;
-	Mon,  9 Nov 2026 22:35:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2F8606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 22:35:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A2F8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gPfTp7AX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFA561F0089F;
-	Mon,  9 Nov 2026 22:35:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794263716;
-	bh=fQpTppDPw8YDlhiLl7nY8XQS2Ja3ohq3MPDeLqzC3bc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gPfTp7AX/t1AFiXXWuc+n0MJxsY2Gx6DEuO3aO4AY9lURX8KTI7IwtssbLG6vtOuw
-	 cwm652q1ho9Kl1hTF4Xe2MTNKhdPx7OwNRQ+S4Pva214mMoKoxYKKDqIwrhKtEd7+m
-	 vObjJsQcJLJt/akuYrXUQpw3iZ7QBJJlRkuaOzKToX2rBhcHR2p/GNe8to/2C+9pxg
-	 Rd1PsNOCOfhXFJhO80T/owzgE8CexIfeDM+OA5/89ZzcPc4Xnf6BERAerf3fNdReRd
-	 xMyLwLt8mVS2exHKQlrFWKbGDUWsn22RrfJ2w33TeWJAb+FBNaCJ/FdlHyH+ElFdM7
-	 QIxUi/dKweMBw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id AA6E3303EF23; Mon, 09 Nov 2026 22:35:12 +0000 (GMT)
-Date: Mon, 9 Nov 2026 22:35:12 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: linux-next: Tree for Nov 9
-Message-ID: <970f8568-bc47-469b-8ff3-34bb2eb7a2d9@sirena.org.uk>
-References: <avHgrm2PmkCsLyDT@sirena.co.uk>
- <20261109200324.GA950470-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bprY6qLb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794263721; x=1825799721;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=Pr7SHvZYe+inPam1dfgN4DDLNAs2s8soEuUBNz2BOVc=;
+  b=bprY6qLbLNh2/bM6JzQi5WxSARI5z6hvnX/p5xDxgaINhu/4CMtreear
+   Zvgkg29E39eTKByxdOioccxrHCZDpc/YC3vC7R/OEx8b7U4M9k4Yj8qSL
+   TFfOdhZOs9CsYEyaV7cGxFgyckvGCG2lF0C6937OF0Udkc1AA/lxfWu9p
+   O/LNsgiCLThhhimTsyNOOyKU3OH+rZKAvbqf2+5X7lqLErLvBDRPSUO5u
+   Q4lbwF1NIxaGIh9BRo4Jq+NB9p0dJbmt1na5OJvJB99NjtpzelFyawgAk
+   ZtUJeIYm8FpZ3Mq0s0ymnlK7iS2txLCJMbUbPoL7VW/0SCZy/0BmFLt1k
+   A==;
+X-CSE-ConnectionGUID: ztvgYkJHSDKi+1XnD26nYg==
+X-CSE-MsgGUID: 79YK9XAwTLK8xUq1nCN/RA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3011871"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3011871"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:35:21 -0800
+X-CSE-ConnectionGUID: YaaGNloVQ0COXTg3tGL4uQ==
+X-CSE-MsgGUID: j9mc/6loRSazMBH6Y3lqgA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8169238"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 14:35:20 -0800
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 14:35:20 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Mon, 9 Nov 2026 14:35:20 -0800
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.53) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 14:35:19 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eUEeWoM6jBFDrD7tjyqyc0PqhPbb3qItY0ZToUBrvrQwUoE8Bmv1Ciqg8KwNdkA9uD7xH/H5FkY4feVx9wuw8NVYYhd6hReCczduMBL+kXT21MqU7BRW9pXS1pAFMVbF+uSTkesjuidTb4r0eIDe2q8GakC8u4Xr1Df2SkAeeud74ZAx0EHY/iqWJSNH0km1AKZk/CqirMDKsV9soAcryLZEdMdbTI+VTf3CKmeyqZ2Q1T8Wif9U/KoU2T57sb83Tp0zkwdvUYo4krltJRE1jc4bQhT5YxckoyknY6gogAh5TNGZ4D+lkjwr1sF5w5hdribMuoc4RJAuqNRILYABhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4SGVKEvF9P+fjgRj4GgE8YR4r6wE5fl7fQdWVobbH9s=;
+ b=MKdk5Cwwmr42O4Kl/93zXqTiNz36R8PgCcJidfBG5EgZmdiM6N/5KIMoDeGpCbTWKFRiuJawzBkbkQSwV2AmFX4u5qqoKB1TRjIxhJ0CXqVQjpkqXRKd9rZds/OSX69j4rQqmX86AwTczNys+5UsLMn2F2p+HdGujEOnZKtJQyrzhjOIomZpjnsw0yjlVFQdJ1qY7agphWFFIzL+2AlBpwTjE60Hlo46xsPrGmhhp3ZzriGnXWACWwhGbbH2X/xxXBolJ+L2sgSbo+L+/qEALHgWNr8IUk9xUrW9AHBeFY1+AEpEwJZSEhSewxCQk2reYBN4BrkXXzw3+wdwUTJ/MQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com (2603:10b6:303:95::23)
+ by IA3PR11MB8893.namprd11.prod.outlook.com (2603:10b6:208:577::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 22:35:17 +0000
+Received: from CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd]) by CO1PR11MB4787.namprd11.prod.outlook.com
+ ([fe80::e7eb:a872:53d1:21fd%4]) with mapi id 15.21.0592.012; Mon, 9 Nov 2026
+ 22:35:16 +0000
+Date: Mon, 9 Nov 2026 14:35:14 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: Lizhi Hou <lizhi.hou@amd.com>
+CC: "Huang, Honglei1" <Honglei1.Huang@amd.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Santan, Sonal" <sonal.santan@amd.com>,
+	"ogabbay@kernel.org" <ogabbay@kernel.org>, "quic_jhugo@quicinc.com"
+	<quic_jhugo@quicinc.com>, "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>, "Limonciello, Mario"
+	<Mario.Limonciello@amd.com>, "karol.wachowski@linux.intel.com"
+	<karol.wachowski@linux.intel.com>, "Zhen, Max" <Max.Zhen@amd.com>,
+	"thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
+	"himal.prasad.ghimiray@intel.com" <himal.prasad.ghimiray@intel.com>
+Subject: Re: [PATCH V1 1/2] drm/gpusvm: add drm_gpusvm_pages unmapped and
+ retry helpers
+Message-ID: <avJKouF5RYo8PlwF@gsse-cloud1.jf.intel.com>
+References: <20261106184217.2720718-1-lizhi.hou@amd.com>
+ <CY8PR12MB71707223ED3F56E5894FF353D9732@CY8PR12MB7170.namprd12.prod.outlook.com>
+ <283f184b-eefd-2402-3ed7-a08a96dce382@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <283f184b-eefd-2402-3ed7-a08a96dce382@amd.com>
+X-ClientProxiedBy: SJ0PR13CA0049.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c2::24) To CO1PR11MB4787.namprd11.prod.outlook.com
+ (2603:10b6:303:95::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,36 +142,234 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="erIxxcJPksV1gcmf"
-Content-Disposition: inline
-In-Reply-To: <20261109200324.GA950470-robh@kernel.org>
-X-Cookie: Whoever dies with the most toys wins.
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB4787:EE_|IA3PR11MB8893:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b007102-40ea-469b-f7f3-08df3eb1ba5f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|56012099006|4143699003|11063799006|261009223027099003|261102123227099003|261021121427099003|261026121527099003|261021123027099003|261009221227099003|261026140227099003|261022105027099003|261102130727099003|261028144727099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: NNCQGQYGOQnm1XjPF60oV1P26GLXYejLy13z4trHW5IkxR8ek77kyyeeMQ5ZYMsIH+++duev5dpmWHCMK/ob8fVjzYAaYQHN/Bjut4wulWMMlCe7gGq9EzodWkiR1NEOndKkAEAzJfVCgAkn0aANJZN5qm9C/iLXan/rGJWRPLgJUdYAglW1BLhI4MKQrqD0AwI45fryMUDuPA77x5qowkup87Dg6x0AehvqJsFyc71VShUlfYkQnrC49YSwU6UIPJisoAU/hg477N+ej711eyIdZOW00MT/Kly5IsH81vrSyXqqBZzrGhJRuipAxKUKqxxCVqnvx1RHGPFn7bMrNUezX6NiUgmADwFzRMY6rJ+jWhOZMVwE8VO5zg1H43BOkQqFIv0aAXhHfN2sUwzuJ5ONEnP7NeMWIYrHdw/cXh+IGlcmFwy0wpkGDOEhRR9jJ8f94R5YhpEqaQVkt/HsjUDk1C4we7W1+hDwzUzrD2QeOHkNp7g830iyoEoZigKrmvHN8beCcO2r/zKe+wFrznGfyIJsUxobtGp/qc1ZdngZ7F4DNy2xIq8B7y2nxsMYKAABYfydPr67MjvE1N4juufldsIYnBo0IXNYkW9RvyQyjVk5f9+fIIIl7sJfvd0ZGGUBfXghSSn/jV7zWVw4h6wKGORsS11h5nebXwv/4yY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4787.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(56012099006)(4143699003)(11063799006)(261009223027099003)(261102123227099003)(261021121427099003)(261026121527099003)(261021123027099003)(261009221227099003)(261026140227099003)(261022105027099003)(261102130727099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?CIDV206hs21Lk7ExSHSsjeuAB5/CWhGKJNIPg7pF8XOa4K/UPFZDJ0SPkX?=
+ =?iso-8859-1?Q?lYRjl5QQ2XhoayaKPf9oKQEcwtpYY4X8F1CjthCL+MKYWZ8fuOGxPV5hO4?=
+ =?iso-8859-1?Q?Nf3hjCTZJ2/G0+s2Gaw16ZJubS8KsHNtKIhGlk8rNaRtkbgqD8SOyqutyN?=
+ =?iso-8859-1?Q?wi5ey3I98o/elNdX9s5ud0vHeYqq2avi3KOCF0NLZKNWEae5OdQxVUM+VQ?=
+ =?iso-8859-1?Q?zdqhhoj2Czy5LBATprXQz1Db7YZZu0HJXcxZPlasHqglYxFD4HOpqRMsrH?=
+ =?iso-8859-1?Q?0hddRsSGsCVgdUJ09SltEBDXYEDKkOPDhPDdeQtD2yLbujdIUk4jSmannp?=
+ =?iso-8859-1?Q?G6TrLb5x2EnaVkEhGVdb4AXUvmQxmFfdeKR11lgDz9wXKrYVt4iqtT0KGL?=
+ =?iso-8859-1?Q?U6IEg5TAtHPCB7fPs5ylBfuarTG4qed6voapYCR1sTMezf66X5ybhMfol7?=
+ =?iso-8859-1?Q?ApFX0soVtSA/jnmN/zMF5W0EY2nmmRnoBcnOLxgxuB31Od8aNmXQ46O94W?=
+ =?iso-8859-1?Q?uRvBe98aalRWUd+Jr5ClLw58Nn5HbQu7pt2DUajfXz23uhhTEuCBmKo0AJ?=
+ =?iso-8859-1?Q?QIPUVXTVVzEUPc7zBOIogte6NPeqMgraI6BBjJ7OvxHDGj/cq70/IR8vK6?=
+ =?iso-8859-1?Q?SJTcVyMiMJasmI69Kg9tPAlWXqQDhFaWe34DuZoVJVoLmlyLFUq1Z3o8MB?=
+ =?iso-8859-1?Q?806RzQ1/XrOKR88CuuUH8C8st31LA41l+iXvw2N6YTzGRfrXvJx6i614MG?=
+ =?iso-8859-1?Q?r1MH+fzZr0oqpwmiUtU7s1afCSBI1lGF8pYe8/wfV+1/SjX9E5F9ZJ3dkX?=
+ =?iso-8859-1?Q?VSZQKnhxKtFmGA0jaL6fWkW9MNTBdAhYEdL0ZebXwSxXmp9hSfYg354pZJ?=
+ =?iso-8859-1?Q?XHp1aKZmBlJvD5PygFYbKun91UvX9c0JgJEi63Ap+mv/wGP5/eyroTeZok?=
+ =?iso-8859-1?Q?MELg9BSdFjPxwYVZS8PhxgvTJOXtUDi74tqd6NP2ewFy8WIxqMgW2GL9uS?=
+ =?iso-8859-1?Q?4I1bFxMQIVA+UHREMvgEtqNomEqXCzgmH/4qUsCh9up6zCXegDyHSNLL2t?=
+ =?iso-8859-1?Q?tDiQHT3I+lzVTF9W5O3w71oMkK9bUs4XcW8/35FHnq7kDUzZDzsA5ElxED?=
+ =?iso-8859-1?Q?CuCpakk8UFRAoeL/xpSA1Fv+27zLOAgMzWiZdcX76Fmi2JYh/i9JqUi7F2?=
+ =?iso-8859-1?Q?+WIWDy02NippfgLX3CMVF4QtrtxKY4+FYWFlg2bVBemxqPM8DDskKBCyOM?=
+ =?iso-8859-1?Q?EMQkWBuZy4XjhfczbVp6FulndUjCdOAHtdDL/Ej3ZC0FKUlrxP7qDiWy0O?=
+ =?iso-8859-1?Q?uRkknp0ZBlPC5k2s9kEHrKozx5IFiJenf8wgY6dVFNw9LerED2yOKOk3Sp?=
+ =?iso-8859-1?Q?PgSvcfXFf6aHypDdsWX/c1o8cwffRmszQWtM4cYVSX6JrgjJLLJMfb5HVl?=
+ =?iso-8859-1?Q?L7BKHHc4HXQ+HkLzcaGj86JVDlKzoW5apPGG3f8B/7xC18Yr5MVgXAQsV0?=
+ =?iso-8859-1?Q?rTALsC3Fgpn6nneclsqWMcaNFpMSoHf09b0zkxWqig6O/cXvcwZ5G4CVTs?=
+ =?iso-8859-1?Q?pGe/SUI6YDx+F9nt11wDnIrLad4mu40iGUeNifjchnC2MSFHD06hPTTGKc?=
+ =?iso-8859-1?Q?IVzQfYRsP8zklGQYfx6QO90lxqBZH72v1IxO3NhIFgbMQ72k9TkFwIcdB/?=
+ =?iso-8859-1?Q?fp+EE8ykKDFr2tdQLfsdw5evUTxboiipGS1ps6n0NodWwD4IxFYb5BPOXc?=
+ =?iso-8859-1?Q?knAWMNBFPr9pDaOJwrzuzTHHN0e+8qGcMMBCgaUxMmnQFinSnOI5WOgwaK?=
+ =?iso-8859-1?Q?zhN7VDMOZQ=3D=3D?=
+X-Exchange-RoutingPolicyChecked: J+TJiLN7Zf49rswR0HPTif0LFWi/ywr67x7PoClwXwfa4/WorCHWMv6OEATQObe0rWOl9Wqk8AiWo9Cm8FJjk0/ulNw+bfibRaRLxSCosLAhE2MiKZrvgtkE9Lg7kz+FtUZI8NddozxgYhVrH4LGGzOAqHKaHioHp8D+KYsILe01umj/0NT4VcAhXvSbLOLr/rUVOzHantcNBndxWiHySBGc3pHUOPpPfH8xnnW0VCjwC8CbFaJcIw0SxJSgdLlGxkUhlVNfzkzlU1rl8dss+OB6BxDFs3IB4nqmGu4qj2RrRjF+V/epkpMhyw6NTPLDrzNDzwKZWne2N8eZC2I+7Q==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b007102-40ea-469b-f7f3-08df3eb1ba5f
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4787.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 22:35:16.7706
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +4ClFdHNPDMzWsaZBzmnJdOmHKSKCZ5HvybONYPZg+Gg2DJdkIA2Y+1+vBpsQjlYTF0NkXydSNvJuv3odY3Hrg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB8893
+X-OriginatorOrg: intel.com
 
+On Mon, Nov 09, 2026 at 11:53:37AM -0800, Lizhi Hou wrote:
+> Hi Matthew,
+> 
+> 
+> How do we converge on this?  Both 2 patches are reviewed, is it good to
+> merge them to drm-misc-next?
+> 
 
---erIxxcJPksV1gcmf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I also gave an RB, feel free to merge or if you need help merging, let
+me know and I can merge them.
 
-On Mon, Nov 09, 2026 at 02:03:24PM -0600, Rob Herring wrote:
+Matt
 
-> It looks like a number of trees are missing today. For example, clk,=20
-> reset, and i2c trees have fixes, but not next branches.
-
-Hrm, unfortunate.  Sometimes things do fail to update (which was more
-likely than usual today due to hotel WiFi) but we should still have the
-last update.  I'll have a look tomorrow.
-
---erIxxcJPksV1gcmf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCavJKoAAKCRAv73Ows9A4
-iU3VAQDwN+w5c7M8KXj4ZQ5LrfTx/ZhbJ4HvV2Mhjx6U90vL+AEAgEtbD+4Inmh6
-mm8Up5Lj+aOyrJlMA7AuTvYx7Bok6wA=
-=07+I
------END PGP SIGNATURE-----
-
---erIxxcJPksV1gcmf--
+> Honglei, Thanks a lot for reviewing the code.
+> 
+> 
+> Lizhi
+> 
+> On 11/9/26 00:56, Huang, Honglei1 wrote:
+> > AMD General
+> > 
+> > Reviewed-by: Honglei Huang <honghuan@amd.com>
+> > 
+> > -----Original Message-----
+> > From: Lizhi Hou <lizhi.hou@amd.com>
+> > Sent: Saturday, November 7, 2026 2:42 AM
+> > To: ogabbay@kernel.org; quic_jhugo@quicinc.com; dri-devel@lists.freedesktop.org; Limonciello, Mario <Mario.Limonciello@amd.com>; karol.wachowski@linux.intel.com; Zhen, Max <Max.Zhen@amd.com>; thomas.hellstrom@linux.intel.com; himal.prasad.ghimiray@intel.com; Huang, Honglei1 <Honglei1.Huang@amd.com>
+> > Cc: Matthew Brost <matthew.brost@intel.com>; linux-kernel@vger.kernel.org; Santan, Sonal <sonal.santan@amd.com>; Hou, Lizhi <lizhi.hou@amd.com>
+> > Subject: [PATCH V1 1/2] drm/gpusvm: add drm_gpusvm_pages unmapped and retry helpers
+> > 
+> > From: Matthew Brost <matthew.brost@intel.com>
+> > 
+> > Drivers which only use the drm_gpusvm_pages API (no drm_gpusvm_range) have no way to mark pages unmapped from their MMU notifier, as
+> > drm_gpusvm_range_set_unmapped() requires a range. They also have to open code the mmu_interval_read_retry() check on the recorded notifier_seq to commit pages faulted with &drm_gpusvm_ctx.no_dma_map.
+> > 
+> > Split the pages part of drm_gpusvm_range_set_unmapped() into drm_gpusvm_pages_set_unmapped(), and add drm_gpusvm_pages_read_retry() which performs the commit side check with a lockdep assert on the notifier lock.
+> > 
+> > Assisted-by: LLM
+> > Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> > Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
+> > ---
+> >   drivers/gpu/drm/drm_gpusvm.c | 49 +++++++++++++++++++++++++-----------
+> >   include/drm/drm_gpusvm.h     | 29 +++++++++++++++++++++
+> >   2 files changed, 64 insertions(+), 14 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c index 03dbe304e4b8f..63a26919f59db 100644
+> > --- a/drivers/gpu/drm/drm_gpusvm.c
+> > +++ b/drivers/gpu/drm/drm_gpusvm.c
+> > @@ -1761,9 +1761,8 @@ static int drm_gpusvm_dma_map_pages(struct drm_gpusvm *gpusvm,
+> >    *
+> >    * With &drm_gpusvm_ctx.no_dma_map no mapping state is recorded, so
+> >    * drm_gpusvm_pages_valid() never returns true and success is only a snapshot:
+> > - * the caller must recheck mmu_interval_read_retry() against the recorded
+> > - * &drm_gpusvm_pages.notifier_seq under the notifier lock, and hold it until
+> > - * its work is visible to invalidation.
+> > + * the caller must recheck drm_gpusvm_pages_read_retry() under the
+> > + notifier
+> > + * lock, and hold it until its work is visible to invalidation.
+> >    *
+> >    * Return: 0 on success, negative error code on failure.
+> >    */
+> > @@ -2021,6 +2020,38 @@ bool drm_gpusvm_has_mapping(struct drm_gpusvm *gpusvm, unsigned long start,  }  EXPORT_SYMBOL_GPL(drm_gpusvm_has_mapping);
+> > 
+> > +/**
+> > + * drm_gpusvm_pages_set_unmapped() - Mark GPU SVM pages as unmapped
+> > + * @gpusvm: Pointer to the GPU SVM structure.
+> > + * @pages: Pointer to the GPU SVM pages structure(s).
+> > + * @pages_count: Number of GPU SVM pages structure(s) passed in.
+> > + *
+> > + * Mark @pages as unmapped, after which drm_gpusvm_get_pages() fails
+> > +with
+> > + * -EFAULT for them. Intended to be called from the driver's MMU
+> > +notifier on
+> > + * MMU_NOTIFY_UNMAP, and usable without a &drm_gpusvm_range by drivers
+> > +that
+> > + * only use the drm_gpusvm_pages API. The caller must hold the notifier
+> > +lock
+> > + * in write mode.
+> > + */
+> > +void drm_gpusvm_pages_set_unmapped(struct drm_gpusvm *gpusvm,
+> > +                                  struct drm_gpusvm_pages *pages,
+> > +                                  unsigned int pages_count)
+> > +{
+> > +       unsigned int i;
+> > +
+> > +       lockdep_assert_held_write(&gpusvm->notifier_lock);
+> > +
+> > +       for (i = 0; i < pages_count; ++i) {
+> > +               struct drm_gpusvm_pages_flags flags = {
+> > +                       .__flags = pages[i].flags.__flags,
+> > +               };
+> > +
+> > +               flags.unmapped = true;
+> > +               /* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
+> > +               WRITE_ONCE(pages[i].flags.__flags, flags.__flags);
+> > +       }
+> > +}
+> > +EXPORT_SYMBOL_GPL(drm_gpusvm_pages_set_unmapped);
+> > +
+> >   /**
+> >    * drm_gpusvm_range_set_unmapped() - Mark a GPU SVM range as unmapped
+> >    * @range: Pointer to the GPU SVM range structure.
+> > @@ -2039,20 +2070,10 @@ void drm_gpusvm_range_set_unmapped(struct drm_gpusvm_range *range,
+> >          struct drm_gpusvm_range_flags range_flags = {
+> >                  .__flags = range->flags.__flags,
+> >          };
+> > -       unsigned int i;
+> > 
+> > -       lockdep_assert_held_write(&range->gpusvm->notifier_lock);
+> > +       drm_gpusvm_pages_set_unmapped(range->gpusvm, pages, pages_count);
+> > 
+> >          range_flags.unmapped = true;
+> > -       for (i = 0; i < pages_count; ++i) {
+> > -               struct drm_gpusvm_pages_flags flags = {
+> > -                       .__flags = pages[i].flags.__flags,
+> > -               };
+> > -
+> > -               flags.unmapped = true;
+> > -               /* WRITE_ONCE pairs with READ_ONCE for opportunistic checks */
+> > -               WRITE_ONCE(pages[i].flags.__flags, flags.__flags);
+> > -       }
+> >          if (drm_gpusvm_range_start(range) < mmu_range->start ||
+> >              drm_gpusvm_range_end(range) > mmu_range->end)
+> >                  range_flags.partial_unmap = true;
+> > diff --git a/include/drm/drm_gpusvm.h b/include/drm/drm_gpusvm.h index 4d31c6bba7455..b43432af56377 100644
+> > --- a/include/drm/drm_gpusvm.h
+> > +++ b/include/drm/drm_gpusvm.h
+> > @@ -349,6 +349,10 @@ void drm_gpusvm_range_set_unmapped(struct drm_gpusvm_range *range,
+> >                                     unsigned int pages_count,
+> >                                     const struct mmu_notifier_range *mmu_range);
+> > 
+> > +void drm_gpusvm_pages_set_unmapped(struct drm_gpusvm *gpusvm,
+> > +                                  struct drm_gpusvm_pages *pages,
+> > +                                  unsigned int pages_count);
+> > +
+> >   int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
+> >                           struct drm_gpusvm_pages *svm_pages,
+> >                           unsigned int num_pages,
+> > @@ -383,6 +387,31 @@ static inline void drm_gpusvm_init_pages(struct drm_gpusvm_pages *svm_pages,
+> >          svm_pages->notifier_seq = LONG_MAX;
+> >   }
+> > 
+> > +/**
+> > + * drm_gpusvm_pages_read_retry() - Check whether GPU SVM pages went
+> > +stale
+> > + * @gpusvm: Pointer to the GPU SVM structure.
+> > + * @svm_pages: Pointer to the drm_gpusvm_pages.
+> > + * @notifier: The notifier passed to drm_gpusvm_get_pages() for @svm_pages.
+> > + *
+> > + * Check whether @notifier was invalidated since the last successful
+> > + * drm_gpusvm_get_pages() for @svm_pages. This is the commit side check
+> > +for
+> > + * pages faulted with &drm_gpusvm_ctx.no_dma_map, where no mapping
+> > +state is
+> > + * tracked. Pages that were never faulted always report as stale. The
+> > +caller
+> > + * must hold the notifier lock and keep holding it until its use of the
+> > +pages
+> > + * is visible to the invalidation path.
+> > + *
+> > + * Return: True if the pages must be faulted again, false otherwise.
+> > + */
+> > +static inline bool
+> > +drm_gpusvm_pages_read_retry(struct drm_gpusvm *gpusvm,
+> > +                           struct drm_gpusvm_pages *svm_pages,
+> > +                           struct mmu_interval_notifier *notifier) {
+> > +       lockdep_assert_held(&gpusvm->notifier_lock);
+> > +
+> > +       return mmu_interval_read_retry(notifier, svm_pages->notifier_seq); }
+> > +
+> >   /**
+> >    * drm_gpusvm_pages_first_dma() - Resolve the device address array
+> >    * @svm_pages: Pointer to the drm_gpusvm_pages.
+> > 
+> > base-commit: d2a8cee91bfa8616f713c7c8f539a81e8e3554ea
+> > --
+> > 2.34.1
+> > 
