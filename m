@@ -1,87 +1,90 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794244597;
-	b=qv8ZIF7b+D3E2sS1Cd24cczNEvOauejLdU9+9yaJcAm9afE9fEdGHkmSMuX2RMgWJOao
-	 hjUBQ5/DFl3f8a7ecmuqI7WWYv3xArDu/KjPHrRlRe6PpObZJ2CDkeCiEJiotnq7z9xbC
-	 4wmz8OCIVprX8I6nc6Pn63QolcRg1poVTCnQso40gsV6A2tRcWmKGDefqQ0SdtWGjJAQp
-	 hL0GB3HaPDZB+o7GmnMYlpIfXh4fPX8Z4sIcNjHTzrPwINR9LbJhvJhWXn4L7fKfPy/yR
-	 sb3fF/jHznHI5yqNBkoSwhU+SWx/JeioUtryjsb9DFI1ut+k8M7TpFZZ239dA/dVWTA==
+	t=1794244631;
+	b=ySpqISxxSeHv/Urlu9b0OFat/2XhwdeLjwOg/qp9W10QmuGkc1Ant4fejyu7tmPuddxf
+	 znujZCIZrWCbT1wbIcHairw97J3rAl/1LW+pLxLtCtBBGLbbk9YUB6UvLkFQGxWDzUyjF
+	 uMThEj4/6tTujQ3PRIm4rKNNfEXKcSxUpfg0I2FIPl7jdLwwQ78VTSpbdkXVVHUTUFLwY
+	 L07w+Cb6wkBtkC2Q0UeARlQ53PonEir3mA409oTtd1w+J97+BUdWEsK+c4nhRSjRmZEXd
+	 1Ulf7hag+Y7xzi36gyeMlZwqBUK7FbTEj3RtBgoBqLE8XbAZfTRN2dfTKgAfMcCK+mQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794244597;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794244631;
 	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
 	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To;
-	bh=j6CW/1Tx0ekOFiRNdAR2OG0dMWkU4FJDAABQ/X0bHfs=;
-	b=dayuzXu4pvapYTmeD01R/dWJCx2qEtFfofdcfGMQzO3kSEjSJwbe2NtV3fsEk1HaILCS
-	 i0FIxa7Ajc5ftl/g+VVQ44Bfyg5umIJzFaeaYhVSSHu5ntEGj03s3RF/koROJAiybeQbe
-	 /LEn1KyOP5j9XwUC31G9jnUJfUkPr9xFfTTmaa17ht11HArg6z/x4jMdwPRQ9NMaAoyZx
-	 3QHeAl8/swknOjescgn8TdnSzd8ti87DlbUlt+3bUU4GEmI4Z2eVMJVXxRVnP2IGKZXUK
-	 DCuppJHhKUYZTOn3OqxPB+/0VH4SSMth9eUnuWY/wfeG3GrmrVra6+I1krGQxwmPzAw==
+	bh=hikr3NdZOFIV97qGG552H/Op66kxtcpyq5g4qXWJP2g=;
+	b=YCtGN6vYu1m0aUsPTysnKAkPMIKSpvhyJTk5vyE/DvjdSFkqWvfbpBLABacPnqSy5r7k
+	 0mnrTx2Mb6yLD6+fSljtbayEaBqpRMTk6wgliYjp3NwrWw1B6/lrIZjSOGyTT+22QRybc
+	 zQ40XYDDZDg+JfL6nl06uS7nLx2x8Ww78r31oZT2tDrvKEKJNlxjEJp4H1BioEPEfLvGZ
+	 1zBVRl+fKNSy4a8WiJXgUoStxhqV/sqzHxMzYjnobbtt+DaBVjbFGImZ3dyo7wpdaTAp3
+	 8Z8KNDvXqqwbOLU2R03McJSyjoSnPtpvuvfwqup0bk/HRSzpL3agRHyavTwk45X10vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5mnmvZ3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DaRj2WPE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A20D606A333
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:16:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2707C606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:17:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5mnmvZ3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F10771F008A1;
-	Mon,  9 Nov 2026 17:16:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DaRj2WPE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E060A1F008A1;
+	Mon,  9 Nov 2026 17:17:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794244596;
-	bh=j6CW/1Tx0ekOFiRNdAR2OG0dMWkU4FJDAABQ/X0bHfs=;
+	s=k20260515; t=1794244630;
+	bh=hikr3NdZOFIV97qGG552H/Op66kxtcpyq5g4qXWJP2g=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S5mnmvZ36QyMB3PKa1QOlaF8M6++BvEsviRir2wFFKZKhIGSfG7yw7wclXGxpDxxw
-	 EwNnTsa+biPnrA+66hoZnjS4wLEuYUh00iHBBHNmfL8Iv3m8wJJpuTLunscdf9mwSz
-	 iaiLjdRDkJas6Kb/uPRQXfibPZdu54Ivi7gdAhSxbViqX8bx8Na8CcbnurDXpPdCIY
-	 PHU04Qlq+IZSg2X2ag7KYYtpZWZZHFi5s6Ti9nb4+Iq4qLhfNf7TreGsfQ9LgyzfUv
-	 OERYrXHNd3uGl5kmdSnF6gdsFppUEr+eNJW5EEY8A66kbWUJirlf+YY0uL+KKXbea+
-	 o3ZQg3L8tBDgw==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id ED8A21980052;
-	Mon,  9 Nov 2026 12:16:30 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Mon, 09 Nov 2026 12:16:33 -0500
-X-ME-Sender: <xms:7v_xalaHW1t7fI0I_R3gU1CMnkRqpNp-XA0_0Fg4v6R8ft-Wq42eyw>
-    <xme:7v_xauuH0RV3MQ4Pb7C71_fo3nIvY8TKk73odKl0VDOnY6aGOxhGfw_G6R7EFVftK
-    PP7mjWjYSR9xtZ3dITdTypD8rckq-CevRhw78qxqEzbznFyCDKKkmQ>
-X-ME-Received: <xmr:7v_xampey70JtFaVA0GRMnJ_YQpvE6-UFpEySSD0K4td5NanbeGCdOUx6SQ>
-X-ME-Proxy-Cause: dmFkZTERlrsw/TgcMaQYagBEnXGdzeOR8l8ctOzfJRMC5gmxQrqcjviMIQVm5fCxzjFNKI
-    IeEbuGRKdFHZmLlvXbmrb9fzt7wQqlOtts94l4qY4D2oFWPXKUHMZO0fRI3X08tvy9QJCn
-    A02mYLG5Juy4RlqXdNpii+MXz8cX4yViexmP+/uUYcJ6+OgX4AckbkH8/NNN1SUFpaFgZD
-    n2e4j0GcraBJvUYshJyxQ7o0JndZ7qx7mMNaDnlKl5yzwxdTV0LKgn7Ck/ar5g7k/NnUdD
-    MQoixdGSru5Lk8amtpUzoV+E0VbdBuHQaAAffX2SmgNaVbFEpdrDauAk7bC3vfXTmEtfBI
-    Z73zrmDnsjHnFh3mBSDLndWiNeFU7k8H2Yaa0bbgNOzke45sxWlCdMDpPVJGhsVs2o3nmm
-    to4vqIxSuhz5nFQjAHiMRyRiVURSlMkn626DYbwDbLkPF3YJ0yGUiVkZZY7eXn+zv/VvZ/
-    v2z2cyJz8Kwk7XMhHpy+sRocofQ+UeNlH8ITiGkKN+VwZ08StrSHm1SiWOYvd7W1laHE46
-    lfRCr97z5nT70hUbQyd7NJTgfMpvQk2YnsBB7GYEoEPSKa/7QGHKzdfXTX60zC58DCBbio
-    kBeIOZFZ8Q8sdt8ykdj871CNWYVTKNOGXfcpp0XJASlbd0nOwFqrpV/YFP6Q
-X-ME-Proxy: <xmx:7v_xagmFT_VPHYNx8UGLXIzR-urF8KP1t2JDhY7f4OriXzqjVBNSjw>
-    <xmx:7v_xauTXPvS4e2WvouH9HmJdc4zo-6wYkBs5v3Fd4uebeTeLHRPMKQ>
-    <xmx:7v_xahR0uGKU3D4qmpVO7TuCxu9ooZh7OLQ9UBn4yl0t8vNU81R8mw>
-    <xmx:7v_xan56uCWHbpPe3MBvfmUB_jdX1viF3Wqyw4QjjNSZZa_xaiNR-w>
-    <xmx:7v_xanRDMpyKfqo0Gor9YLT1IUstCHJMDkz5hOoLDO4n7m0QQ0WqGX-c>
+	b=DaRj2WPEDX6GjzLecC2leOw1e9m5ocwvoJlDHsfSD2+u84H2UKxC21aUfKVinanoA
+	 uQW5NTxN8UEZ90WGSWx9R087nby70dIuoPoBLg9mpNVkkamVbHKXfWe7di37Dm2/C9
+	 v9pQqOLa9AUjFcTe5E/zSMnvaHYrwui+3kGUY0iUSKcShswHIo1l7cuTnbRxiGaRJy
+	 aDeVeuEQr/N87OFQfEflecufBom5BvK3gw7c+ELFxq+0irHt8gxhFnp3hPLbazC0Zt
+	 PbNMLHLIpZMSmTjiY9Nmno8m8B20uPFR9i+1im9j+uYe0vWGiWoD+lA7ezFu7WCi7j
+	 s0pRktKCNBpZg==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.ams.internal (Postfix) with ESMTP id CBB7E1980050;
+	Mon,  9 Nov 2026 12:17:05 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Mon, 09 Nov 2026 12:17:08 -0500
+X-ME-Sender: <xms:EQDyal_E3i3-JOyrXgAel3XmchxyRy6dJKHmn0RHn09DQU2qOx53hg>
+    <xme:EQDyanWxemPQ8pkRZ3YIAgJXgCHOaoZyOyNuPrDU5zA2HaG5sWlsImUkQtTh6Bzdq
+    K_oRDDnMt_Uvxe17C4ltpB7ARntMwEY0niGeDEOzmakFyjqhWkQTuCq>
+X-ME-Received: <xmr:EQDyaqY-wXPnBLr-hCcdNW8K2xDebDgZ6hWdC4L97R30CLsRRXQaW2WkeWE>
+X-ME-Proxy-Cause: dmFkZTElZQIW6SWcaw1iguscu2eY5QRPkCI+Zh7YF9LAIl6Q6UDTQUJwYU5pgh0mTZpmF5
+    NxbI9uk32CzRVwmOylzVie+SWfDBrEYcRZ2p1j1AQ/MuQcSePoOec3dfy1ajnlOjYwO1hl
+    Xbo5hNTGbMq0y+sDiK+aCg9uHGvxRy7N3Vq+rRj2PhA2LLezz9+bkjEBvK8ETAnlSc5TZR
+    akrsVfCK2YDA101kRiLJ8f0MlU4hyylsv1fMuxTwHhQnwjjvVkpGCb5ees+82vtcTP3kO+
+    WocAA+bVDijg7kHIjKZXEn2dV9MY1IjQ8Sm1IF6WYExkFItyIcDhe9h9bl4fPV9mWjJUnY
+    DzCUMfJsGPdbDNKvpXAWZxzzlawuUdw6tZGAmgVqamoAzzCihQfFMmK/Zx8GOl68saGJIx
+    6YlurgnnIRLoX1tHfkwEq8INt3eSuOAdIsI/iT3mhaKEXxVCKwX8NxZFuTwdXRxAaaZWJd
+    Zo9dxHry3xUo1MsDZaFCB0yHpzXua+EIBPQ8zzN2OylaHG09yWtEzoLiEsGiz6/xOCNuqV
+    5X6xF4+kz8U9F8mw5cDCkCSf+2seoPzNTK2phXDxtLlectgNneWxA6GmVuDi6QtYrci6H0
+    UM1nBtG2OIZRUWr6iYNSsJ2OQk9fT/GmSreDs7XCkBonjX9IDZfzAYYaPTSQ
+X-ME-Proxy: <xmx:EQDyahqdwG4SwoeTcbhVCpgeaBptrobVJSl3lwLMRXXr7y3al7i06A>
+    <xmx:EQDyah74B5-hdy-JkxViNftHu2_nEgrX-ElvPBIxzsPbXPhDCq3aJA>
+    <xmx:EQDyarUZh4JrJRfeBxK_Z2rVLGPtiG7EZ0I-MBGqFaJZ79tOt2Cu5g>
+    <xmx:EQDyavvaWKiEUsAYuDF_q8xdT0s-OFkyeTI9FYlZDwxqsvbSi05JsQ>
+    <xmx:EQDyagrbS8mKwXtaEumhHAY747RpoQ1KmHErQTqj7u4kdzLNTLdfiGFe>
 Feedback-ID: i10464835:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 9 Nov 2026 12:16:29 -0500 (EST)
-Date: Mon, 9 Nov 2026 17:16:28 +0000
+ 9 Nov 2026 12:17:04 -0500 (EST)
+Date: Mon, 9 Nov 2026 17:17:03 +0000
 From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, Hugh Dickins <hughd@google.com>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] mm: don't allocate a page table under RCU in
- do_set_pmd()
-Message-ID: <avH_38C4vO6BDywb@thinkstation>
-References: <20261106-khugepaged_set_pmd-v2-0-d2457b5e377a@kernel.org>
- <20261106-khugepaged_set_pmd-v2-2-d2457b5e377a@kernel.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Pedro Falcato <pfalcato@suse.de>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Hugh Dickins <hughd@google.com>, Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2 1/2] mm/memory: recheck PG_uptodate after
+ ->page_mkwrite()
+Message-ID: <avH3L4ZbQC6fIt5s@thinkstation>
+References: <20261109120403.82361-1-kas@kernel.org>
+ <20261109120403.82361-2-kas@kernel.org>
+ <avHWhZzXE-ge6nU6@gremlin>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,33 +96,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261106-khugepaged_set_pmd-v2-2-d2457b5e377a@kernel.org>
+In-Reply-To: <avHWhZzXE-ge6nU6@gremlin>
 
-On Fri, Nov 06, 2026 at 01:36:13PM +0100, David Hildenbrand (Arm) wrote:
-> do_fault_around() skips PTE table preallocation when the PMD already points
-> to a PTE table. A concurrent collapse can then retract that table and
-> clear the PMD before filemap_map_pages() locks the new PMD-sized folio.
+On Mon, Nov 09, 2026 at 04:11:40PM +0000, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Nov 09, 2026 at 12:04:01PM +0000, Kiryl Shutsemau (Meta) wrote:
+> > do_shared_fault() unlocks the folio around ->page_mkwrite(). Writeback
+> > can lock it in that window, fail, and clear PG_uptodate with the folio
+> > left in the page cache. ecryptfs_writepages() does this when encryption
+> > fails. filemap_page_mkwrite() relocks the folio and checks only
+> > ->mapping, so the fault maps a folio that is not uptodate:
+> >
+> >     CPU0                            CPU1
+> >     do_shared_fault()
+> >       folio_unlock()
+> >                                     ecryptfs_writepages()
+> >                                       folio_clear_uptodate()
+> >       filemap_page_mkwrite()
+> >         folio_lock()
+> >       finish_fault()
+> >
+> > The next read(2) or fault on the folio reads it in again from the file,
+> > over anything stored through the mapping in the meantime. Those stores
+> > are lost.
+> >
+> > Recheck PG_uptodate once ->page_mkwrite() returns with the folio locked,
+> > and retry the fault if it is clear, the same way filemap_fault() retries
+> > on a cached folio that lost PG_uptodate. Skip folios outside the page
+> > cache: driver pages from ->fault() never get PG_uptodate and would
+> > retry forever.
+> >
+> > The check stays out of do_page_mkwrite(): wp_page_shared() calls it on
+> > a folio that is still mapped, and a retry there would fault on the same
+> > PTE forever.
+> >
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Closes: https://lore.kernel.org/sashiko-outbox-202966@kernel.org/
 > 
-> filemap_map_pmd() can then call do_set_pmd() with an empty PMD and no
-> preallocated table. On PowerPC hash MMU, do_set_pmd() then tries
-> allocating a PTE table to deposit. But filemap_map_pmd() calls
-> do_set_pmd() under RCU, so allocating from that context is not good.
-> 
-> This race became possible when retract_page_tables() stopped taking the
-> mmap and VMA locks. Previously, those locks excluded retraction while
-> the fault was in progress.
-> 
-> Add a may_alloc argument to do_set_pmd() and pass false from
-> filemap_map_pmd(), so we can fail with VM_FAULT_FALLBACK instead of
-> trying to allocate.
-> 
-> This issue should be fairly hard to hit in practice.
-> 
-> Fixes: 1d65b771bc08 ("mm/khugepaged: retract_page_tables() without mmap or vma lock")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> No Fixes? Sorry I may have missed context from v1 here :)
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+The window is from 2007, when __do_fault() started to drop the folio
+lock around ->page_mkwrite():
+
+Fixes: 6967614761fd ("ocfs2: release page lock before calling ->page_mkwrite")
+
+Not sure how useful such Fixes is. It predates any possible stable tree.
+
+> > ---
+> >  mm/memory.c | 22 ++++++++++++++++++++++
+> >  1 file changed, 22 insertions(+)
+> >
+> > diff --git a/mm/memory.c b/mm/memory.c
+> > index fe72e66c9c2e..cc1d0b7d15c7 100644
+> > --- a/mm/memory.c
+> > +++ b/mm/memory.c
+> > @@ -5613,6 +5613,18 @@ static vm_fault_t do_anonymous_page(struct vm_fault *vmf)
+> >  	return VM_FAULT_OOM;
+> >  }
+> >
+> > +/*
+> > + * A page cache folio that is not uptodate holds data that was never read in
+> > + * or cleared, and mapping it leaks stale memory to userspace.
+> > + */
+> > +static bool file_folio_not_uptodate(struct folio *folio)
+> > +{
+> > +	if (likely(folio_test_uptodate(folio)))
+> > +		return false;
+> > +	/* Driver pages from ->fault() never get PG_uptodate */
+> 
+> I guess you mean drivers that return non-page cache folios from ->fault()?
+
+Yes. How about:
+
+        /*
+         * ->fault() can also return driver memory that is not in the page
+         * cache. It never gets PG_uptodate.
+         */
+
+I would rather avoid "rmappable". These folios do get
+folio_add_file_rmap_ptes() in set_pte_range(), and the word reads like
+PG_large_rmappable. As you said, DAX never reaches the check, so "page
+cache" is accurate.
+
+> > +	return !folio_test_anon(folio) && folio->mapping;
+> 
+> Technically folio_test_anon() can never return true based on where this is
+> called from right? Could this just be a:
+> 
+> 	VM_WARN_ON_ONCE(folio_test_anon(folio));
+> 	/* ... comment */
+> 	return folio->mapping;
+> 
+> Instead?
+
+Right, all callers pass a file folio.
+
+I will make it an assert, but at the top of the helper, so it checks
+every call and not only the rare !uptodate one.
+
+> > @@ -6163,6 +6175,16 @@ static vm_fault_t do_shared_fault(struct vm_fault *vmf)
+> >  			folio_put(folio);
+> >  			return tmp;
+> >  		}
+> > +
+> > +		/*
+> > +		 * The folio was unlocked for ->page_mkwrite(). If it lost
+> > +		 * PG_uptodate meanwhile, retry the fault to read it in again.
+> > +		 */
+> > +		if (unlikely(file_folio_not_uptodate(folio))) {
+> 
+> As Pedro said, I think this unlikely() is probably unnecessary given the true
+> return case is implicitly unlikely.
+
+As I told Pedro, I prefer it at the call site. That is where the reader
+needs to see that the retry is the rare path. But if you insist...
 
 -- 
   Kiryl Shutsemau / Kirill A. Shutemov
