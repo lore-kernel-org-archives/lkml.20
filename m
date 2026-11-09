@@ -1,70 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794236362;
-	b=hEmxp9SQ0LG75mxj1ypP0bRdxIsX13Tx8+1xRbvK25Y6YbOvAnBlutK/8F/MjRKFFDdM
-	 SkUI/VJPxtZ0pVkMOfUX46g6LchiFyFd1bnBuDjGfPliBySpBtgse85TZRoNJ+mjMy2X8
-	 57nqQy9pachxaFpkpMhS4sCObBN3WRumnaB4mgywkpONEeoB4/3bc4AqqE/9gVX0nHfA+
-	 0O3EQ1vzbOh5ogu8LLljXyDgcd6rODm+g9VI4NL8Tm5P8yDJu1EIIOyBUZuY/mqIKxYPG
-	 or+CgHFCPs+jGhiQ99WlsaL/+bh24u2GG2m/AGC8GigYAQoc0CWwwBdeTknDcGwLiVg==
+	t=1794236365;
+	b=PYzSoz/ZOrlRHER4P8EVHy9YRhfQidqb4l49JKOH0P3biNitu+NOrwsB1icp5EFDCCJs
+	 GyPiWF4JEjceQK7oJxTXv0LoZH5cl4XG999q2wBIPqQ5UYh6B0NHmcBWIrEhUT9XbztqY
+	 DXDx5IhwaKvTvmzcQhrq9sg87C59buU9vO0sKEHCOZVsTZlIxrWFfkmiN3Pb92LvSBO8r
+	 Ak5+O3C//jEn+2iVl5nzEqQcdiYW1z8TwHxXLvm9QYECB1fOEkXjs/dd4YJBXWfNP/Mpj
+	 KQTMidL1mkEq2awvxsykNBTKjn5NKusc0JMkV3K+DrpfRgNXhLhRb5U79+OnnKEEKJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794236362;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0MXD1olVR1VK2jv8CjAecVpZq6Cd7JFM5zil6KQVVHw=;
-	b=eShOVi3WwrBPDZO8i7mKMQTixxlp/pnYHRKu5hmnYdLwju1rjqQjGifa6GiezFGbDN1t
-	 L0wZ+thT48S7quYFIGB/2+JmyXPCGJ1fYogVpO8QFV8cQSr+mMGPr6IpSN/bNIbZmStdN
-	 mn5XLTb6uJb9OmeEf54gnnRuHQSuFvidyUQbTzM7PgLwZgbd3I7mhzapk587DD51AvPVg
-	 agIKIpuEeU+Ym8/JXKv1vRBKkvYDxfPL473CUBkd5IKAqhCc719pv+DCXrXxzXbBtOKT4
-	 dBRyKWrfXu4G6sdwOEzCZ262PeadVHJp2BTTcnTZyltp8HOi2+quI7USFj8/0smEP+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794236365;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=/uGlgNaTZ39GNEO0DIFkGDDlYQv31NwdqtqlJEOxmcM=;
+	b=1cFzfNSc5IFO99YJdFFaf1hBOsHhS+/R3sxG3JV6EcGN7bkIUmYWECEAWisNppsGKQ1R
+	 nLrNscY5eoNAlo2waOiKgUe5OgQ+S+KuxEt2AWX1mGGOHYg9/D4pnAguTrakxsGl8ewUw
+	 Zk+G2yV8VNk/6tpDq1dRng2HqyWXw59twmtxfaHlf6htonLdSG1Z6e/88lIc+2fn5pjIa
+	 ii0gACFXBriiMx9vrOgryEnOgQRbJeSemdIVshvK7izMq3DqwRtKWaDN1hL8JYqO/hcTX
+	 8ob4B3fuZ5kWfTQ8kpZ0ywdxL054YSv0m+hc9vSsdncS9kqHSkJ3G5t1xoJV/DjYT4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxcGcMAU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="mlp/MgZL";
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A76C606A333;
-	Mon,  9 Nov 2026 14:59:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D378B606EE96;
+	Mon,  9 Nov 2026 14:59:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D378B606EE96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GxcGcMAU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0087C1F008A5;
-	Mon,  9 Nov 2026 14:59:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794236362;
-	bh=0MXD1olVR1VK2jv8CjAecVpZq6Cd7JFM5zil6KQVVHw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GxcGcMAUxCz0SQoiXLJgG8/t6tK0uZFMbBLXWXbfeTpgnvD8OyU2vkFI+oTvLZvNl
-	 ZPGeUtA3IrZ/vvuWC0/ZwAosXMmtOWMAMNumvG7ZrCH0tvqDq5fdjzMtmm5M9oUO+m
-	 NPncYbsELb0l7+VaTl456F3FbwDppCxquN7a7BvC+pKOtEOqpXA2gtq+g4UihrgNVM
-	 shEJUlOW1OBJyuFeTEABFNXgQfi/GZ2OEOZ1+ZjMroGh0AM1GEfhf5KcNP6FNdHVa1
-	 BKvNrb+ZomYBhhPYjkBRq/Z0QLkVSI9edjSns+uUeV6xEpgw5aTxN42vvrv1HXueZn
-	 AxvhOZSrjr2Rg==
-Received: from johan by xi.lan with local (Exim 4.100.1)
-	(envelope-from <johan@kernel.org>)
-	id 1xQQq7-0000000AFDp-1J45;
-	Mon, 09 Nov 2026 15:59:19 +0100
-Date: Mon, 9 Nov 2026 15:59:19 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-Subject: Re: [PATCH] software node: only let the owner release a managed node
-Message-ID: <avHfx80pHRPwtqRt@hovoldconsulting.com>
-References: <20261102-swnode-only-owner-release-v1-1-ee4c9022a629@oss.qualcomm.com>
- <avHMhh8ChrFE_b_e@hovoldconsulting.com>
- <DMQQO3DTZE66.1Q2XGGDGN3WUP@kernel.org>
- <avHZ5U_YR9QSqd0G@hovoldconsulting.com>
- <DMQREV9DFQST.1Z4ZFOFTS0Z7W@kernel.org>
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=mlp/MgZL
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jNXxR0phdz8Xrnt;
+	Mon, 09 Nov 2026 22:59:23 +0800 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
+	s=z202610; t=1794236363;
+	bh=TpIfpB47CwmdgGId7W2SupsJewo/qXQ10cq1sQ2P0/w=;
+	h=Date:From:To:Cc:Subject;
+	b=mlp/MgZLj/qKsvH/znv5+c7+5DM/vL4lrryDnmZRuIB1CP2pTyKnwCC4DnLgkWl8u
+	 Gh7LoEX0owZ2ajvyDTvogqdttok2Dk8RGB2A7kN9mZUeOdL6rim0m/xhZ+JeEXOUN+
+	 EOZb3vWCQqepXVbWm3IpTn9SkYN+3ZhexE8tuXlm1T/f8MZYuWq7LFOpxG6EE+7azQ
+	 AvunWP5upJqO+ZBkR2hjWiLL3i4aOXZKyZj2yNCHvSyVHQTOzZvQEIyT66bLyssxF2
+	 WtxiRt2w/l+EEH/rQMdslzlF1BaR6ondORd55anuHREG10z/JHk1lBqSftf9mkIiZI
+	 48OBYWi8Q8tfA==
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl2.zte.com.cn with SMTP id 6A9ExCXn067527;
+	Mon, 9 Nov 2026 22:59:12 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 9 Nov 2026 22:59:14 +0800 (CST)
+X-Zmail-TransId: 2af96af1dfc28e3-656bc
+X-Mailer: Zmail v1.0
+Message-ID: <20261109225914306SSjwaKCesNqNUj53kLV1R@zte.com.cn>
+Date: Mon, 9 Nov 2026 22:59:14 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,67 +69,58 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DMQREV9DFQST.1Z4ZFOFTS0Z7W@kernel.org>
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>
+Cc: <hare@suse.de>, <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDAvMl0gbnZtZTogdXNlIHRoZSBwYXJzZWQgb2Zmc2V0IGZvciBESC1DSEFQIHNlY3JldHM=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 6A9ExCXn067527
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Mon, 09 Nov 2026 22:59:23 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AF1DFCB.000/4jNXxR0phdz8Xrnt
 
-On Mon, Nov 09, 2026 at 03:45:29PM +0100, Danilo Krummrich wrote:
-> On Mon Nov 9, 2026 at 3:34 PM CET, Johan Hovold wrote:
-> > On Mon, Nov 09, 2026 at 03:10:31PM +0100, Danilo Krummrich wrote:
-> >> On Mon Nov 9, 2026 at 2:37 PM CET, Johan Hovold wrote:
-> >> > On Mon, Nov 02, 2026 at 04:25:16PM +0100, Bartosz Golaszewski wrote:
-> >> >> device_create_managed_software_node() creates a node whose lifetime is
-> >> >> tied to the device it was created for. software_node_notify_remove() is
-> >> >> called for every device that has the node as its fwnode (primary OR
-> >> >> secondary) and, if the node is managed, unconditionally detaches it from
-> >> >> that device and drops the creation reference.
-> >> >> 
-> >> >> This breaks when the node is shared with another device. Example: the
-> >> >> i2c-designware copies the parent's fwnode to the adapter's struct device.
-> >> >> When the adapter is deleted, it releases the reference that belongs to
-> >> >> the owner and the latter ends up with a dangling pointer.
-> >> >> 
-> >> >> Record the device's "manager" and only perform the actual release when
-> >> >> notify is called for that "owner" device.
-> >> >> 
-> >> >> Reported-by: Balasubramani Vivekanandan <balasubramani.vivekanandan@intel.com>
-> >> >> Closes: https://lore.kernel.org/all/20261009164241.923756-2-balasubramani.vivekanandan@intel.com/
-> >> >> Fixes: 151f6ff78cdf ("software node: Provide replacement for device_add_properties()")
+Both the host and the target parse a DH-HMAC-CHAP secret with
+sscanf("DHHC-1:%hhd:...") and then skip a hardcoded ten characters to
+reach the key.  The prefix is only nine characters when the hash
+identifier is one digit, so a short but accepted secret makes the key
+pointer point past the end of the string and the follow-up strlen() read
+past the allocation.
 
-> >> Also, are we sure this is -rc material? I think the original commit wasn't
-> >> technically broken and the bug in Xe was fixed otherwise.
-> >
-> > The regression was introduced by 0f485f88656a ("drm/xe/i2c: use
-> > device_create_managed_software_node()") in 7.3 and Bartosz framed it as
-> > an alternative fix for that bug.
-> >
-> > Are you saying this has since been fixed differently?
-> >
-> > If so, this can obviously wait.
-> 
-> There's the fix in [1] and Andy said he'll pick it up for Xe in one of the
-> replies.
+Patch 1 changes the host-side parser to record the offset of the key with
+%n and use it instead of the constant.
 
-Yeah, I skimmed the thread now. I think the last thing he said was:
+Patch 2 makes the same change on the target side and stores the offset
+with each configured secret, so nvmet_setup_auth() no longer adds the
+constant to the stored string.
 
-	The patch looks fine to me but I still see that there are some
-	concerns. Like Danilo's points are valid, can those be addressed
-	later?
+The two patches touch different trees (common/host and target) and are
+independent.  Both carry Fixes: and Cc: stable.
 
-	...
+Testing: both apply to next-20261105 (`ddfe51b0a0f5`), pass checkpatch.pl
+--strict with 0 errors/0 warnings/0 checks, and the affected files build
+under W=1.
 
-	Let's wait a little and if nothing arises I can apply this for
-	XE.
+Both were also reproduced on a KASAN kernel (7.3.0-next-20261030,
+CONFIG_NVME_HOST_AUTH/TARGET_AUTH): a 9-byte "DHHC-1:1:" secret written
+through the host sysfs attribute, and a target host entry configured with
+the same key, both made nvme_auth_extract_key() read one byte past the
+10-byte allocation (KASAN slab-out-of-bounds in strlen/strrchr). With the
+two patches the same boots produce no KASAN report.
 
-and in the reply they say would go back to managed nodes "once the
-limitation is addressed".
+Shao Mingyin (2):
+  nvme-auth: use the parsed offset for the DH-CHAP key
+  nvmet-auth: store the DH-CHAP key offset instead of hardcoding it
 
-The proposed xe fix is still not in linux-next however, and this patch
-carries a Closes: tag for the regression.
+ drivers/nvme/common/auth.c  |  6 ++++--
+ drivers/nvme/target/auth.c  | 17 ++++++++++++-----
+ drivers/nvme/target/nvmet.h |  2 ++
+ 3 files changed, 18 insertions(+), 7 deletions(-)
 
-So I think we can just go ahead and fix this in driver core directly.
-
-Johan
-
-> [1] https://lore.kernel.org/all/20261009164241.923756-2-balasubramani.vivekanandan@intel.com/
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
