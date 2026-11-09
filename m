@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.194
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.250
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794189007;
-	b=EvXb+1n/wWRPjkqEzHQEbvtROXjupphQSz3iq5Gna/DXIcr2y02P7fo9Xdol7lFwt8Yc
-	 MjxxQCiOWegOw4KZADBTK+bpP02WQJSK86DFjR9cScXtfOCKOiQx2UwwhWStMV26kcgPB
-	 M3Lgs97QYMvNnQwu2Gm0oYljDqas4RpWVxG7jZb9332KrtG8GTJmWo6epD2PqYxdE5zqT
-	 H1CWoVYo0LnIqJwjEyY7ngx+gD/UWqzNoO71EXg9j+6qU7rG1b/GG83eJRwONY2LUEbvZ
-	 kGdB0okkWa27rqshJbgyfoUo+2Q4T7PRU3tZMT9dquF2/tLi6RWr1kCebcGLewfhAZg==
+	t=1794189053;
+	b=MUABnt2P1k5YHM/L2Yu6ii09dfEnV/6rUXuOMznLNySVOo6g0sF3V9pGX0pmwZ8Gymr0
+	 QGgoJDGgZJxpBbq8enPNI9+jTce4/Xm/AHStgkQ8X/quMQd9zWhXLwvqmuRBVCNkc2fBN
+	 fUtplKj4XQzb9TvTCsvNHyTkT1MS9YUJo97be6M98HhVhAaljz02tM/qVfr3wWjZtR+Du
+	 eG+0nihBT6aR9u+yIuD1HyMLFKrSCz2JZD8bRCqU20+KgtCzMGnJ5URNz8a4B50VJr6t2
+	 lawyvTzLrEPqiMaWV/zJRYuEAXKJOnYYiFQ7AF6HmV6nzTc132OhZi8BF6heqGZRZhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794189007;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794189053;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=0UrPyjnV+g0ulzGUI2dXxm+mkOWbP/75IbFUZ4V1ZIk=;
-	b=qzJUcBsFOIkiSHsw8BBH2Mi+DGwARq9PddsSSTx15NI6CfeEralfrQfRGfW0qZR8PaAa
-	 TRfdfbBnszdmxxBCUa4SEqY1O32B8vYS53o2C4FRoT9nBxp9MBAnY4DZImGhqxi3yuWWT
-	 g0SJ2jw3aoxDyQu8yixIrdKWbGl7OsAZel0d1nuK+MFrsg9vAtZ+iKgVOvXklxmZgbJRh
-	 +m3HEqPml2ACSrMFuQcsebv81WURoSd1iJnVVEhjDD9je/r0I5Q2fZQ7xZ0eprPPSi80i
-	 3Sqazu+awbbShAw8jEhIXmQFMc3zLXzOygeBzFoCBTE6Y+oNfvt3heRxf4AnjuERXMw==
+	bh=H7Bnt0oaHObCRAYHP9jDNv4qbPY14ASkahF3dtA4y2s=;
+	b=0LcGtYesCaafL20ol/QQ6ebAB7S2WEw4pEA2fxAToo1vslx5Z2fGi97ZGHk+cCv5Trps
+	 my86L0mFQYXYzKMQfh6D1jWY3Ybwyw2Iyy8kEtlFDWbO0WszTl/+OFUteZJrx9els61iu
+	 vA+ppNU5YZWpVGW2XROBWXRibX3Mfhwxec2P7auLRbxC4OLosoXoWJPCPs/M+03bY5XNs
+	 0F3m7FnNtjuXdtkmKIlhJY8o6fHQhHfRl0H3aCyaGudIFmLthJjudTW1IBgyHqw4LFKqb
+	 EWaa5wpqNQmxP8NHPgKybxWILQHovnjYpohv1TAVJyzQgV7VxRRV80itxwnECqJUeKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=MJ4Kyqru;
-	arc=none smtp.remote-ip=115.124.28.194
-Received: from out28-194.mail.aliyun.com (out28-194.mail.aliyun.com [115.124.28.194])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PFk7jMUM;
+	arc=none smtp.remote-ip=91.218.175.250
+Received: from mta0.migadu.com (out-250.mta0.migadu.com [91.218.175.250])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F1B4606A31C;
-	Mon,  9 Nov 2026 01:50:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F1B4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1ED606A320
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:50:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E1ED606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=MJ4Kyqru
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1794188997; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=0UrPyjnV+g0ulzGUI2dXxm+mkOWbP/75IbFUZ4V1ZIk=;
-	b=MJ4KyqruD6kJJMxEjVKC1dpsVUjZ+GlGfC525ENHfrR2SH4aywe2VF2UAz3foUWIUI0EsM3TQpzNwfkQY2yHP9QQtX1Z9lccRDipHx443oqwcQ74GOOuwPfpBugnSXh2CP9aIp018G4jARc6Omf8L+uxZH3SydX5rvWQx6jzX98=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1606892|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.000952147-0.000939795-0.998108;FP=13220359827208283216|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033040092104;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jziGj8I_1794188996;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jziGj8I_1794188996 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 09 Nov 2026 09:49:56 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: Peter Huewe <peterhuewe@gmx.de>,
-	Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	linux-integrity@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] tpm: sessions: bound the parameter decryption by the response size
-Date: Mon,  9 Nov 2026 09:49:55 +0800
-Message-ID: <20261109014955.2777635-2-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261109014955.2777635-1-guozh23@xiaopeng.com>
-References: <au3waVnY6QA8TpPl@kernel.org>
- <20261109014955.2777635-1-guozh23@xiaopeng.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PFk7jMUM
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=V8t2DsGsOlEEZeIAghkdXZSawCAIBraQf2pr/ZV9ZYE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794189050; v=1; x=1794793850;
+ b=PFk7jMUMChfz9psSEwtr0OYbxIi9BbBbddxigtvq7g7LihnCOYef+y/9EwqQoQz3EbSKH+QB
+ hive4t5oKHrdSFuFeVI4elLql9AeINrfw/RYJd6sb8nad3FMw8Nh6pt6tEydxxQYma+r6z9b4cU
+ 2Nj2WjvZcoOjMDREb8OmFKD0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ab26c670e0a08f52;
+	Mon, 09 Nov 2026 01:50:49 +0000
+X-Mizu-Trace-ID: ab26c670e0a08f52
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <04d2e2ba-e6d3-486e-bf38-7d6b1902eeb1@linux.dev>
+Date: Mon, 9 Nov 2026 09:50:39 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,54 +58,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/mm: pkeys: wait for the child in become_child()
+To: =?UTF-8?Q?Carlos_L=C3=B3pez?= <clopez@suse.de>,
+ akpm@linux-foundation.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Cc: dave.hansen@linux.intel.com, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Shuah Khan <shuah@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
+ hongfu.li@linux.dev
+References: <20261106164639.2959195-1-clopez@suse.de>
+From: Hongfu Li <hongfu.li@linux.dev>
+In-Reply-To: <20261106164639.2959195-1-clopez@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-tpm_buf_check_hmac_response() decrypts the parameter area of a
-response for sessions with TPM2_SA_ENCRYPT set:
 
-	len = tpm_buf_read_u16(buf, &offset_p);
-	aes_prepareenckey(&auth->aes_key, auth->scratch, AES_KEY_BYTES);
-	aescfb_decrypt(&auth->aes_key, &buf->data[offset_p],
-		       &buf->data[offset_p], len,
-		       auth->scratch + AES_KEY_BYTES);
+在 11/7/26 00:46, Carlos López 写道:
+> become_child() forks during test_pkey_alloc_exhaust() and has the parent
+> exit, so that the remaining tests run in the child. However, the test
+> runner only waits for the original process, so it sees the test finish
+> early with a success status while the remaining tests keep running in
+> the background. Failures after the first fork are thus not reported in
+> the exit status, and the remaining tests overlap with the next selftest.
+>
+> Fix this by waiting for the child in the parent and exiting with its
+> status. A previous fix avoided waiting, arguing that the parents would
+> keep holding their resources [1]. Particularly, the parent keeps the
+> hugetlb reservation of its test memory, so the child runs out of hugetlb
+> pages after a few iterations. Avoid this by freeing the test memory
+> before waiting.
+>
+> Link: https://lore.kernel.org/all/20240419115027.3848958-1-usama.anjum@collabora.com [1]
+> Fixes: e1812933b17b ("x86/selftests/pkeys: Fork() to check for state being preserved")
+> Signed-off-by: Carlos López <clopez@suse.de>
 
-The length is read from the response itself and never checked
-against the buffer: every other size taken from a session response
-is compared to tpm_buf_length(), but not this one. A TPM that
-reports an oversized parameter area makes aescfb_decrypt() walk
-past the end of the buffer, and since the decryption is done in
-place, this both reads and writes whatever follows the received
-data.
+Hi Carlos,
 
-Check that the encrypted parameters fit in the response before
-decrypting them.
+This is a great catch, thank you for working on the fix.
 
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
----
+I reproduced it locally: without the patch, a failure after become_child()
+is not reflected in the result and the runner still prints
+"ok 1 protection_keys_64"; with your patch the same failure is reported as
+"not ok 1 protection_keys_64 # exit=1". So the fix works as described.
 
-v2: Drop the Fixes and Cc: stable tags, as suggested by Jarkko
-Sakkinen: a TPM reporting an oversized parameter area is not known
-to violate the TCG specification, so this is hardening rather
-than a bug fix. No code changes.
+Tested-by: Hongfu Li <lihongfu@kylinos.cn>
+Reviewed-by: Hongfu Li <lihongfu@kylinos.cn>
 
- drivers/char/tpm/tpm2-sessions.c | 4 ++++
- 1 file changed, 4 insertions(+)
+> ---
+>   tools/testing/selftests/mm/protection_keys.c | 16 +++++++++++++---
+>   1 file changed, 13 insertions(+), 3 deletions(-)
+>
+> diff --git a/tools/testing/selftests/mm/protection_keys.c b/tools/testing/selftests/mm/protection_keys.c
+> index b7882ab97683..5dece144ab95 100644
+> --- a/tools/testing/selftests/mm/protection_keys.c
+> +++ b/tools/testing/selftests/mm/protection_keys.c
+> @@ -1009,9 +1009,10 @@ static void test_pkey_syscalls_bad_args(int *ptr, u16 pkey)
+>   	pkey_assert(err);
+>   }
+>   
+> -static void become_child(void)
+> +static void become_child(int *ptr)
+>   {
+>   	pid_t forkret;
+> +	int status;
+>   
+>   	forkret = fork();
+>   	pkey_assert(forkret >= 0);
+> @@ -1021,7 +1022,16 @@ static void become_child(void)
+>   		/* in the child */
+>   		return;
+>   	}
+> -	_exit(0);
+> +
+> +	/*
+> +	 * Wait for the child to finish the tests and pass on its result.
+> +	 * Free the test memory first, as it may reserve pages from the
+> +	 * small hugetlb pool that the child needs.
+> +	 */
+> +	free_pkey_malloc(ptr);
+> +	if (waitpid(forkret, &status, 0) != forkret || !WIFEXITED(status))
+> +		_exit(KSFT_FAIL);
+> +	_exit(WEXITSTATUS(status));
+>   }
+>   
+>   /* Assumes that all pkeys other than 'pkey' are unallocated */
+> @@ -1060,7 +1070,7 @@ static void test_pkey_alloc_exhaust(int *ptr, u16 pkey)
+>   		 * preserved across fork().
+>   		 */
+>   		if (i == NR_PKEYS*2)
+> -			become_child();
+> +			become_child(ptr);
+>   	}
+>   
+>   	dprintf3("%s()::%d\n", __func__, __LINE__);
+>
+> base-commit: 843c58022865a7b0f9743416c2b48bc2632da23c
 
-diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
-index e140079dbc13..59c7fdc0c88e 100644
---- a/drivers/char/tpm/tpm2-sessions.c
-+++ b/drivers/char/tpm/tpm2-sessions.c
-@@ -872,6 +872,10 @@ int tpm_buf_check_hmac_response(struct tpm_chip *chip, struct tpm_buf *buf,
- 			  auth->scratch);
- 
- 		len = tpm_buf_read_u16(buf, &offset_p);
-+		if (offset_p + len > tpm_buf_length(buf)) {
-+			rc = -EINVAL;
-+			goto out;
-+		}
- 		aes_prepareenckey(&auth->aes_key, auth->scratch, AES_KEY_BYTES);
- 		aescfb_decrypt(&auth->aes_key, &buf->data[offset_p],
- 			       &buf->data[offset_p], len,
 -- 
-2.50.1
+Best regards,
+Hongfu
 
