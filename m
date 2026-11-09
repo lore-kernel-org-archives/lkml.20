@@ -1,62 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.21
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794208316;
-	b=RrOuP7moMH2BHPVzcuerzNaqFGG26x+x9Mu1uIPDcpoKeDGKimbr/89dGwgpyWOtTSYZ
-	 eRuIAGLG74lClTRDIl5ddLObBRrApysweKUZNIt7cZcxO0dc1rIiBj8wJ9pKZ0jnOi80B
-	 A8VJUIkYfxDna/xosW4CGCLh/LRbL1oYm6fDR6KOBh2IqEyB42riAti4ODZUtOo4TMh8/
-	 xSCu938B9eR0MBobL/hPmsD41n7QU2IHoOb/pLNohq6nwuwymQnUaKAxvI8mph/4njwva
-	 2/eOjpX74OwOyDug0WHSBKSOurPOnFWIm5g6QWw4YhmOrvynElregauAIvg4qldnI1w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794208316;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Efpu2m5sUCkdtOy2mV59c9dnNklW/tHHx/bjnmS0jw4=;
-	b=ik+lqaSPHI2y2gr2qnfbHyt/1dX5l04CldEVmg0kHjt5xB6RCF9QrTHjAhejjb5Xy282
-	 hUIiWDvjuEO6DdJI8fQ6gdtsol0LkCy1sGhS/U8nb9wiST5tGBcanK7iXBOru23a4G9hJ
-	 aUzyy71VDEo/FJZX8LBiYbxP/+4Ncb5jRT3j3729Wgjhrv+DOrdFaKazt6LjVGusGzxLb
-	 Qu6AAQYUtVAJAnH+yniYNuQCILnv/S424w0JAyly1CIT5288Ifz540sVxh9iR7vqhJSpt
-	 UWnxWDWifNPagRbYdJNb1/imE5e/nuv+ufMXw2NdFB0cAcxqBOZAFhPtJL165tRXSEg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DpSB5oM+;
-	arc=none smtp.remote-ip=91.218.175.21
-Received: from mta0.migadu.com (out-21.mta0.migadu.com [91.218.175.21])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794208329;
+	b=GpAvZUpfYnum0g8Nf0dwUeAsl6cJkjO2aTNrOpKD++k0F0xpnvtMoWtE+IgqqZSRzKlG
+	 cVFWwx3r81dNcOTjAs3vakJCkuvD9OS8xRyqM7B58JSThfV7DcLDnb33zrZsRqhanx56N
+	 vGVewREV3MDXbpzaX3J41pofVv64soKeDtt4b/X20aPjwfLz6YLu1K/uyBS1TbHSdXUxy
+	 QbNsvADoghc7TIZwAXNiA3crOsbB5G6q5BBL/IU7qU5oc698c4KFlrAfLxeI8Oui8EiYQ
+	 Or53D2H2BhZbKuiXt4Ad5fwSi0aevPigB6LOskzXwZC06g+tZyb+/WM2JbeKRSyLLRw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794208329;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=OupCEGaIrNwuKpf7Jfdnd1ZAhIgrnuD9zgt3Qr7q5bI=;
+	b=wrosBAXrmvG9rUhB9indnTUsns+f+0vJvcp30pL3CCXAAinQxBPwtPHYNFjryeQRY+1V
+	 Qv6/o0TgKBdivmp6BNwfRu4Z8pSNAee28Qstw9PfXP+p74pcawB1ShmD2vP0v6x78DgEP
+	 btGv8FbSkfZ9Lm6kj/ZQTwBmvuFEcyus57QQbutgEPn4k+9jzvZPeZx68B49/5vXXi8I7
+	 t3u76pXMkZYDmq/lO1oL5C7eO+86RjFsWpTc8YiyNJcKsnAvvPysSiTulfGWc9xfwZY5S
+	 jyQYJk2bBNs/en9A8WUYBy1Ry4/Q4xQdy67ouNtFBmUiyUu5tEnJFpBHLuMMkXXBiSA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S3VYJ1Ch;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.48
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 824DD606A335
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:11:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 824DD606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2435A606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:12:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2435A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DpSB5oM+
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=wpRI+2GrIdAPSLZrCXpsQnyv46ZEoGtZdJa6JUTIvvo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794208313; v=1; x=1794813113;
- b=DpSB5oM+KG6vva4r4fO5NTSKG8V+dLgn6FFKBJdR8I6lRBjm98ebMxSuTwld8rSE0vqeB5Gf
- TrF2taRHuMz4gef7v0ZtLxPmffIr6K9Gpk7UdxGtj61eESGUJrLP/yN3twLwvxN74lcPQr8RCUp
- mfYte1q6HTakYvWOgv0vODos=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 583b959740c77b18;
-	Mon, 09 Nov 2026 07:11:53 +0000
-X-Mizu-Trace-ID: 583b959740c77b18
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 09 Nov 2026 08:11:51 +0100
-From: Luka Gejak <luka.gejak@linux.dev>
-To: Kalpesh Solanki <skalpesh942@gmail.com>, pkshih@realtek.com
-CC: kvalo@kernel.org, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v4_2/3=5D_wifi=3A_rtw88=3A_skip_al?=
- =?US-ASCII?Q?ready_reset_station_in_rtw=5Fsta=5Fremove=28=29?=
-In-Reply-To: <20261108142708.489067-3-skalpesh942@gmail.com>
-References: <20261108142708.489067-1-skalpesh942@gmail.com> <20261108142708.489067-3-skalpesh942@gmail.com>
-Message-ID: <83E3139E-BE19-4EAD-9BCB-6DABBF8D1942@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S3VYJ1Ch
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91eb3ac1875so5964116d6.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:12:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794208328; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iYTKEBdu8pfzBWxGJeQjEgjIeTI0ItpZzuf7LPdMIutJrI32zeqHo94yqsOJ2AoASW
+         VBhWBD+HGhm21dM5yPQJ6Bo6qx35xzQ1c7JCHj4twPmRg5B24uMOcf5vNVW01PGIz0n1
+         dZAiiIOCR6GVQLGFx8lULuaZjfxP7dMNar9r9gvEqeRHQhPo58nQ/tvIe3iasgo/7K7c
+         rhfIUjogU+fp5qNfPWrnIl712+5cG0p4cXdX1fvAVmxh06/uBJhlPwgQl+ZofcQnf1zI
+         kSriips1yXIwzzlwo258dR5GSMnB+TOxcQoEfF3iVoNpjv6zCBCZHJcDyT4Y4CoX2L5j
+         ESHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OupCEGaIrNwuKpf7Jfdnd1ZAhIgrnuD9zgt3Qr7q5bI=;
+        fh=Cr5N5A/ncuxPwYzi/rSahWrMIqqXtVMqPKwqsUGdj88=;
+        b=XTTMcN+Dv4EdMD6+mTkguxLfwLICiBrWkWB/x9o+M6i3zNfx5M+M/RFIpSLhKMi+rd
+         rYpARgKU3eO7+pA3aIVFG2D11sLkO1aBhH8DVzbPAbZVEvTfohK5SL/MaR9K8bi0yEDs
+         TTj9zTQ84njtuzOnB4axhV55NzfM6NyMjH40ZG6bPl0Dn4flB5XqA7AOM/qoKJHmrOLD
+         eC4nUDzpUk1xt80vB+YOJd1EMaEQnb+FK6LRHcf7H2zrKH1yJ1G0zsCcQkAA0xzfQj2+
+         MB1PcCoz37Qxnu4fhUOjFnib5QifM/EZXRWUQkholtOhZixwP4jx2n/y+/E+dBliDU72
+         UWog==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794208328; x=1794813128; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OupCEGaIrNwuKpf7Jfdnd1ZAhIgrnuD9zgt3Qr7q5bI=;
+        b=S3VYJ1ChTDVlnZj+ORlw3KQTe4wFrKpaIAerq2bLU+VqDtH0D62D+PF3ST71FgSKI+
+         k1KBQoX5cgBknJwIVa4+v74qnq7guJen+5Mi3pSWXAvG/6KxzRROdUD9ZCBVIIC47Aev
+         NdntDwYgJwQRuTbSHQOU1HTk4ydzNikWETFE1v6pzuJnbsxJ/xRxx+sThdeF2sllZkDl
+         ntVA+YCCpQEIpTyFDPU1J7q9JZCEI6uDFFeOdAZvOc3nPmQ7moYUlxwzyFBDVrb1XK6D
+         gpVA68mlf54X1gjcI/xPPjua/XDCwpeogYnFwPZoQYTVk8QR7hyfQZLaSbQohcJZNHXr
+         sjPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794208328; x=1794813128;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OupCEGaIrNwuKpf7Jfdnd1ZAhIgrnuD9zgt3Qr7q5bI=;
+        b=PqR+J6eKLy1iRHmSH7t9pfa6zClmWfgX4Fic4ggk7NLwE0uWcGmu/U7X290YIRmsN+
+         PfBlJ1yqN0mfD3NmPawSFu2rQeXNJs7aSwszeUY/uWxIwP4AKmU71xYGHb6G1geWZJOW
+         Ysg/o60/Hp5ijveB2LvlFdGYnlLY4TjspqVDSB+HdbStOZMix0wtR3xZq9IpVhjCkqOr
+         PXBkCSos/SqTUD4q7hq4Ax7h327CrxFqxNhkNyOy8B0WopsKco2A9v3N+1eEketm3RhK
+         bM4WFbbFRKmjq/BntZjTUcaQVxaDd71UqBDaZTLebmPpv2Y5VHaU5rmMLkNHE0pr/mjB
+         dUHA==
+X-Forwarded-Encrypted: i=1; AL+hErGploDgpEQZ3ctZh/R1wi3HqSbA+h1zRc9Fb+vOAGSnebaaSHcRegrx8r07IwwEuq0EJUoUnDneeBsZV7o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/dvbOyhuPKvL1owfl1OkjoTFZdhaskdppCFIn9Q3eS1yTZSlxo
+	aLkfztSwr34XvK184ptxc8McyDQCA+NHVa3LoLOtM+NTRP/h9k8BPmfOxV+Vhn4XwbaFnD/lvCz
+	mzku45eUBmtwsZ+r5kks04D03HGCfiJo=
+X-Gm-Gg: AYBFou20i4edxMqSG/LpvS3XbsUVUnlxlbefvk4xy/ELMo1Yn9NbFY1YFZsA5w2AYIG
+	kB1ASMqcZiSz+CpXAX3639Imbj4bFKPb2KhWrSHRXrUZu7uooF2KMu6fRijF6gfnqia+//1JnXq
+	YD6V2b8Ohkef3vet0YeLJ8SQKCTQuqKRiSF5s30iJ+hSqE3xoaNqaaOyF3IJnAPBkMj0G73jaQT
+	T9UjJGzhVNGobpLtcVYSXVidI08xszSzBZsMgcAIkhHCG1n4fWX672NBEiGp1wSxqOc2oRevY5t
+	/f/tT3tltbLlybDQNnz4nK6BY+F4pK4dSP+wmQEMr0zo/mp6ERAEXHK2yq/0Q1PhIMGraP7lmId
+	CMygt6Eei5jB4bM1y+T2D1UkDD8YUBwcwa12V
+X-Received: by 2002:ad4:5c46:0:b0:91e:9d18:6a61 with SMTP id
+ 6a1803df08f44-91ed21f31e0mr43992646d6.5.1794208328122; Sun, 08 Nov 2026
+ 23:12:08 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,38 +104,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+References: <20261002041220.133911-1-artem122novak@gmail.com>
+ <CAPufuhaE=pg9yzqZYaDcfkxooZeQPzSNsKQw-kX7PHN99yZyQQ@mail.gmail.com> <469a405f0a447cf433e9449016551cb408fd11dc.camel@physik.fu-berlin.de>
+In-Reply-To: <469a405f0a447cf433e9449016551cb408fd11dc.camel@physik.fu-berlin.de>
+From: Artem Novak <artem122novak@gmail.com>
+Date: Mon, 9 Nov 2026 01:11:57 -0600
+X-Gm-Features: AclHuK9M0NU4pJUOxjwJxtUPXJmeVW_GjcaKtkSrXnuPLAjKurNTbXo_mGqnfSw
+Message-ID: <CAPufuhbXzbgBR=L+5o3eBRXXnHh2FPqThdUnnPsSOuSyjgOsfw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] sh: add initial SH7305 CPU support
+To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Cc: linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Kalpesh,
+Hi Adrian,
 
-Thanks for adding this. One comment below.
-
-On November 8, 2026 3:27:06 PM GMT+01:00, Kalpesh Solanki
-<skalpesh942@gmail.com> wrote:
-
-> diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-> index f7708ad17b6f..a74f199a93ab 100644
-> --- a/drivers/net/wireless/realtek/rtw88/main.c
-> +++ b/drivers/net/wireless/realtek/rtw88/main.c
-> @@ -384,6 +384,9 @@ void rtw_sta_remove(struct rtw_dev *rtwdev, struct ieee80211_sta *sta,
->       struct ieee80211_vif *vif = si->vif;
->       int i;
->
-> +     if (!vif)
-> +             return;
-> +
->       cancel_work_sync(&si->rc_work);
-
-As far as I can see rtw_ops_sta_rc_update() can queue rc_work again after
-the recovery has reset the station. If the station is then removed before
-the restart adds it back, this return skips the only cancel_work_sync()
-and rtw_sta_rc_work() could run on a freed station.
-
-The window is small, but maybe the check could just go below
-cancel_work_sync()?
-
+No problem, thanks for the update
 
 Best regards,
-Luka Gejak
+Artem
+
+On Mon, Nov 9, 2026 at 1:04=E2=80=AFAM John Paul Adrian Glaubitz
+<glaubitz@physik.fu-berlin.de> wrote:
+>
+> Hi Artem,
+>
+> On Mon, 2026-11-09 at 00:43 -0600, Artem Novak wrote:
+> > I wanted to follow up on this patch series,
+> > as it's been a little over five weeks since the v2 submission.
+>
+> I'm sorry, but there has been too much else on my plate in the
+> past weeks. And before I can get to your patches, there are a
+> few others still lingering on Patchwork for SH that I need to
+> review and pick up.
+>
+> See: https://patchwork.kernel.org/project/linux-sh/list/
+>
+> > I'm happy to revise and resubmit if necessary.
+>
+> Not necessary. I will let you know.
+>
+> Adrian
+>
+> --
+>  .''`.  John Paul Adrian Glaubitz
+> : :' :  Debian Developer
+> `. `'   Physicist
+>   `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
