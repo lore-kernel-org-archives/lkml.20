@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242233;
-	b=3GwiTy/4VD9Y9yWCwyiFqB7WEVRhoyFv5OhJpywq3r1c48YHAkGteYAenOBR6AIysG2s
-	 dchjRoMQATHjm771QoVSf/WQFZsLsg/9o1X1Qj//dvroOCgL4e0CP5LEZyMWIlp+MIT23
-	 lVErxVzfgx3bP3qZ48M6n73L0czg5mj4SFQHbIJgvKutnPZ5Iy+/PDy5EuFO1oDA82j8m
-	 Qe70NsCwm/X11suTUUitYH0XtnYkT7ygA7uFmnW+8piwt7YG3OWZAqGehIhnP6R2FFP22
-	 B9Iv35Xgg0u7sCEDhQJWF298oa3trg5+ifub9A873QdnzYK6XqTI/xemOx9jmVAxv6g==
+	t=1794242226;
+	b=F+TY+6v4z9uZR/+0+ei4Mp4/h+cCHCoFIXzQGb/nPjEnYfKYUAaZeGTvTkyoVdSocc8J
+	 +kTkmZ8X0NpuyHwtooYhgPz0IEpD6JpNIzW9UUJ6mK/ZPYsKQfqFsIEU4wp8RxbnmOjwo
+	 IEyK167lHYM7WqS4Zc5VcKQWsHZPXj6cjNM2JfPqfXUrOBE7dMWY6Spb2qxOaVJ5fh/T0
+	 POkPpPnzPZJSTHj0jiVle+ARt/dU35loQ7E9wZb8IR6bd4LwlToR0sxWE0ExISSormofb
+	 ACcUKz6AAnt/hRiZ+Bgx8d3F6FDjWwBm5UoVUJGaUSCiGWvMF8Uyqz9e21EgYYuUrBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242233;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242226;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=iV4MSBv1m3zZ0qC3foM53r7HPoheP/jpXByvwGcGppE=;
-	b=dR9Hd52kAvl1G5mInDzq7L7HkKkeElnPqswHVw6QVmjXcAX+nxo6coGUD6fW5td0jA2N
-	 Spv8NUsrNmZ4FKOXSprN3ou1ymxnyGYfUMpP+wsxcfPeYUufz5zxPC4qP+qD8f5UOGkOt
-	 Pq3S+BkA0dnPcuOs/DwL7GHdbGzQnhVTgs6UWZOte1+83GdZnXpJIIqO/nl2m+7cvJsmu
-	 UozmJO+tSlvICsLxH+cna0AkSmX2DxkTjlo11yjOGST7xCZGMPIh+TsXOEnjt2rSG7+CU
-	 Qz0uygR+I/2WqBlXNKUQNBuzkw58SH1vq6usouKpLd1LPzc+g1p1G/eyGo8R5fGycQQ==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=+/xZg7qiwpDo1me2GUiLgY63C1uKI/SxYe8Raw9ZtvY=;
+	b=xvUAi3Resm574i0Q1D9gfQ/ksjf4gIl/CugkS4Sj21BRk2GK6XKpVfdOifVaFuJFdy8k
+	 MVTn6w37+ijJKpJrWzGvcTSb+nr3Cx3BSBzIhd2Br6m6P2ZZGHtg+KCYgN/8Hs4jZk2bO
+	 AzBHZEV45D3xGGhBgxfXYK4o+fZOmV4zeg71K3PlAmuH85TUALKhyVjYnDZcHkrUR3muG
+	 rjX4UlxPZiDRuJnMmAeKl+1OdEAYT+76fsItgAqKm0eJ3IxWajml6sFhakvDp50h3dFU5
+	 Qq2o+j8vAAkEsNIM6YhFGBmXKRUx/1/4zaYVG5B5sftWZ6vtfV/BupucF1cdkiVyO9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yws5LF30;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P0OFKE1n;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC76160A6F73
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:37:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC76160A6F73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A50D60A2617
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:37:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A50D60A2617
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Yws5LF30
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a215e64962so12864025e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:37:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P0OFKE1n
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a208d93758so11597285e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:37:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242224; x=1794847024; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iV4MSBv1m3zZ0qC3foM53r7HPoheP/jpXByvwGcGppE=;
-        b=Yws5LF30Z2wid/h4tykUTOKqTeT9cQcfslDLmkbZlQw9Izn/7WGTX1dEN1ghmHggmp
-         umPWUOl93KVzCjwqFruWZcnxebbzO9b0ZJB+4bSJK9kCfTb0Bw+7t67XdThVAyy4Yb1+
-         qrUQo2O1uSlq+zC82D6i+4TmgrFa9toHBPdjxq8o9HKfhz+T3gUfBl3rRJTDQkjlTGGF
-         6KxpY232OYJlaQEsltoGBTcA+KeuesFJBbEqo9RJU27WFD+gb8OMnl122VyLKNfmBQpK
-         krVJ2NxT9oGSwKoIhj5p8Y5C6OS6qduPG+jhXUGQkGjsyFd+dtrYk0wHZ2PSwX5Pvt3E
-         n7pw==
+        d=gmail.com; s=20260707; t=1794242223; x=1794847023; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+/xZg7qiwpDo1me2GUiLgY63C1uKI/SxYe8Raw9ZtvY=;
+        b=P0OFKE1nR/97Yj5SZ1Z0/2wmuensK4NKbnO3FpfyJAv1PV6yp6J9BcxnqjtnR+k4Tu
+         q4gxF0qcC77FrV8xg48HpQoG0zF72DPmfq+P6nn8nXhtNCXuosWI9EyM0MqTfcki9zzN
+         B9Jty2ZXOmvc5CZE8MN14r0Mk0ozlXXv+rXnWPn4ouXcxahxhogULxujqnX+WNOhEmHj
+         +LQezmqLfOqea/Dfrzsyh6TuPntmcJZLt6ZmCnd2/0xelSuEH5XGoqX3bKvxSEFxpEOs
+         PsB3w3ou8h/9lBDiUUS2SUapbxe75plmRDHC8tBl7Ljw+wtqLobRGSJHGVB8cgzW33Av
+         d6Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242224; x=1794847024;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iV4MSBv1m3zZ0qC3foM53r7HPoheP/jpXByvwGcGppE=;
-        b=K6+jMXjpKz6jsyM7UkrJOV0gRmw5yk4n7LFGunluCP29ccmGBjEi/9keEGpJeowShF
-         oYy0BpwTd6TAXqRhADcD83bV0Sh48XPux2XsWoh84CG/L4qt3Tzdyf4uXCOVfs+8Lhr5
-         cRJ8hwlr9sPtg9hsMozMEoVxGdzuUzkWFmKG22OWHoN0fmpRE1zytG2Z6al+Oe0Rpsb6
-         vcEypIuxiP00NxG3/yf8VkI2mIaYCOx/rC1yfmdyizituWmIo0pcwD/Ma2pdFUNAW2Mj
-         1krw5kNyRQ9CzlJsfqY4nhIn+DUh4k7Wy+d64aspS7NllVEDfRKWdvYwOe6vWdkcCO27
-         Tj5w==
-X-Forwarded-Encrypted: i=1; AL+hErHt9zIUxhdyQfIBf90/XwpbiF6wnw+s7Un2dmsL7d51vAWxz/5W7niW1/Gq8YbEw6BkGYA8NcO4aNe6vrc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+paUweFidTb1H8JL9PjpCDrRSnFnS0Puo11mKXWUAD2QwwlTuc
-	vi0hTpIo9rGHhJ6JjKf+hrG+c60T9saww2Jhw6mwjIOpqE3Qpp2sEDPbwdASAA==
-X-Gm-Gg: AYBFou0fCHd+Uyhn0SY2+IkVYjcu4sjzzi6XRGzp3DG2JyGv6ky+4F24j7/Z39jDq5G
-	E3Wawl9nWgOHrzZgEDS5/EmQKN6SeIhilouq5+9YtbvyV6r8/1U1C8MEs5RxwwaR6/2Iyj0myO3
-	d7Mff8vWniFPgU+V3kXR7xFlVtxeuCI75mxePFtdmRtFmaqUFRyqoBP4HVppBSQyneSDCBxdNDw
-	ieNs5hqcAJUkRhW+ldKqhVT/57983V5XYWwFrgqHW+7ESaEX9Lxz1NHDgJ60bEh86O+BGAMJBC1
-	Zcnxd76RX4spwo2LWLd/8R2hZXtCQMAgHK1WdJbGF5kxMUr7UoBnLLbgqbfItG7yqSJC1ocDeU6
-	vK0o5J0qrpZOLLLp+YZ3vSEWZf3ns1/IbXe5zLstH+fRmnugTZcuqErBpXxxOhWr1a/tJ4SwN9g
-	aVbK4wkSmZpnInO1IBiMdogabIR/EA6VvbIpG8d9W9/TVOpRqU2cGWkBSlNPiqTWN8Twe/m0NyX
-	GVkNuk1vofd/+3sM9rJt1c9kF0uHkWz4EpP5rFzAhrFdNbhZ5TXoxYaeFPtJUavhG9n91DGfoLp
-	iwBa5ABdlhLUD3CGSN97yBR+mgQvpIQLSys/ti3AHemk648=
-X-Received: by 2002:a05:600c:4f13:b0:4b5:d95c:2378 with SMTP id 5b1f17b1804b1-4b963ca28a4mr104820785e9.34.1794242224184;
-        Mon, 09 Nov 2026 08:37:04 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794242223; x=1794847023;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+/xZg7qiwpDo1me2GUiLgY63C1uKI/SxYe8Raw9ZtvY=;
+        b=ZWbzy56GolYWBOPVuNnmJt3Y0lUqoUAUoelXPqoBdQVv4kMfnZx/3GwjNfDGlLc/Gj
+         BD4Swy0VH5mljVcILipHN0rjj4/YOD/4PnwrKfFhXUtuLFN1JoPrN6wTXlbVdkLh5rZi
+         /yug74LLJxbb2TmVI3lkPTT1Tc5Wuxe8nZeoAK/HYHefr7LlQdyfe79upYDxNp+X6PYo
+         iHFK0atJMgKb2ZuW9/2IaMptaOktL1mQrTJetgPYH5Pqe1lStjW9JQfHFsTAabWR9Vyd
+         +yVgZmYcPeMvz02PGC+mxEDXnVUyMnP1C87R4/aopZr/YP9RCV12hrWBVO6dlOoMrVqf
+         av/g==
+X-Forwarded-Encrypted: i=1; AL+hErGuvFgiVq783oTORW284IZmmpzHRBOvhCHj1dkcXWTLvpIW1heFNBvZmAqW4h08oidH8dx69/w+i+oV6qY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9C4fibBHBC5t7YxMQ+LIyLwOYLLP7cu/qB/EBL3zbieW8WIBBb
+	HLhzyR3zieFF0PEa5CJHJLaB8P3Ax0Ylf8k9xhqU77OaNsnXmDkf/XYJwbqoPQ==
+X-Gm-Gg: AYBFou0JXZpHf5fOTLnt4agdBnh2l04SEbS6SNOStuXtS+/1stxlmOdALigI6VBjasZ
+	Y0iF3cKJly7L4Vzwz7btrnCOB9KZLeeZGJ+R7Fczlf2cQ1PpBKYqdx3GjDEdvVKjb+FkmBixszW
+	CX9fo4cMXIdvm0c7dIwu7aVvaEJQq61rUdeZFoSH9qmornUHOkU9FavHM1vFdzo9PrcJkGjgeZ5
+	nQDJPDCI6kjz3f5kLrMle3S6sInk6u6UgEhO4omzJY4/0GOFM9WWzmKKrUpfMi/rHUfEi4yhVSS
+	VDzSnwLtWZ9I92wZJTObs2+7KaRBV9GF4u7EsmBDYzL0YVFA+yfxR0mSBNCqrcPhC9mt8LFBjCa
+	7HRopzQ2V2B2srO5ukhmcXfeUpLiZ3mC8p2VAI2+ELPn4ZT0A/E7Qdc9ydn7Kkw0KtuZ44qrgNH
+	MO0puTcUoK0/aXOsZdySs8IrDQ77cp1bVwgqzniNl+vQti6Rzl69QCv0Lvlomtn/2ZUPbnhswIz
+	VaIgcB7l5SLOugKszlNTteUmLvxTU3mi82oHEG+KO7EAkBK6xN/exGKDoBBio5V7JMyAsPSd/1o
+	CvzLKM/jmmP7UdZgveQj3nefHA==
+X-Received: by 2002:a05:600c:800e:b0:4b3:ad9d:e21 with SMTP id 5b1f17b1804b1-4b963c7f2f2mr85665445e9.12.1794242222978;
+        Mon, 09 Nov 2026 08:37:02 -0800 (PST)
 Received: from victus-lab ([193.205.81.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.37.03
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.37.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:37:03 -0800 (PST)
+        Mon, 09 Nov 2026 08:37:02 -0800 (PST)
 From: Yuri Andriaccio <yurand2000@gmail.com>
 To: Ingo Molnar <mingo@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -96,9 +97,9 @@ Cc: cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Luca Abeni <luca.abeni@santannapisa.it>,
 	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: [RFC PATCH v7 27/29] sched/rt: Integrate cpuset and cpu controllers
-Date: Mon,  9 Nov 2026 17:36:13 +0100
-Message-ID: <20261109163616.195264-28-yurand2000@gmail.com>
+Subject: [RFC PATCH v7 26/29] Documentation: Update documentation for real-time cgroups
+Date: Mon,  9 Nov 2026 17:36:12 +0100
+Message-ID: <20261109163616.195264-27-yurand2000@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109163616.195264-1-yurand2000@gmail.com>
 References: <20261109163616.195264-1-yurand2000@gmail.com>
@@ -111,689 +112,544 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Integrate the cpuset and cpu controllers:
-- cpuset cannot be changed if the HCBS cgroup is active (non-max)
-  or any of the group's children is active (cpuset_can_change function).
-- introduce cpuset_effective_cpus to read the cpuset's effective mask.
-- update struct dl_bandwidth to store the effective mask of the cgroup.
-- remove the dl_internal_runtime in dl_bandwidth as this value is now
-  per-cpu/server and equal to dl_se->dl_runtime.
-- update schedulability checks to account for cpumasks.
-- update cpu.rt.effective.local interface to show per-cpu internal
-  values.
+Update the RT_GROUP_SCHED specific documentation. Give a brief theoretical
+background for Hierarchical Constant Bandwidth Server (HCBS). Document how
+the HCBS is implemented in the kernel and how the RT_GROUP_SCHED behaves
+now compared to the version which this patchset replaces.
 
 Signed-off-by: Yuri Andriaccio <yurand2000@gmail.com>
 ---
- include/linux/cpuset.h  |   2 +
- kernel/cgroup/cpuset.c  |  31 +++++
- kernel/sched/core.c     |  22 +++-
- kernel/sched/deadline.c |  13 ++-
- kernel/sched/rt.c       | 249 ++++++++++++++++++++++++++--------------
- kernel/sched/sched.h    |   9 +-
- 6 files changed, 237 insertions(+), 89 deletions(-)
+ Documentation/scheduler/sched-rt-group.rst | 471 +++++++++++++++++----
+ 1 file changed, 394 insertions(+), 77 deletions(-)
 
-diff --git a/include/linux/cpuset.h b/include/linux/cpuset.h
-index 914983387e95..6487bdbbdeb3 100644
---- a/include/linux/cpuset.h
-+++ b/include/linux/cpuset.h
-@@ -81,6 +81,8 @@ extern void cpuset_cpus_allowed_locked(struct task_struct *p, struct cpumask *ma
- extern void cpuset_cpus_allowed(struct task_struct *p, struct cpumask *mask);
- extern bool cpuset_cpus_allowed_fallback(struct task_struct *p);
- extern int cpuset_num_cpus(struct cgroup *cgroup);
-+extern void cpuset_effective_cpus(struct cgroup *cgroup, struct cpumask *mask);
-+extern int cpuset_can_change(struct cgroup *cgroup);
- extern nodemask_t cpuset_mems_allowed(struct task_struct *p);
- #define cpuset_current_mems_allowed (current->mems_allowed)
- void cpuset_init_current_mems_allowed(void);
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 3219f927c35e..c7fd878154c6 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -2572,6 +2572,10 @@ static int update_cpumask(struct cpuset *cs, struct cpuset *trialcs,
- 	if (cpumask_equal(cs->cpus_allowed, trialcs->cpus_allowed))
- 		return 0;
- 
-+	/* Disallow change if subtree has any allocated rt-cgroup */
-+	if (!cpuset_can_change(cs->css.cgroup))
-+		return -EINVAL;
-+
- 	compute_trialcs_excpus(trialcs, cs);
- 	trialcs->prs_err = PERR_NONE;
- 
-@@ -2632,6 +2636,10 @@ static int update_exclusive_cpumask(struct cpuset *cs, struct cpuset *trialcs,
- 	if (cpumask_equal(cs->exclusive_cpus, trialcs->exclusive_cpus))
- 		return 0;
- 
-+	/* Disallow change if subtree has any allocated rt-cgroup */
-+	if (!cpuset_can_change(cs->css.cgroup))
-+		return -EINVAL;
-+
- 	/*
- 	 * Reject the change if there is exclusive CPUs conflict with
- 	 * the siblings.
-@@ -3585,6 +3593,10 @@ static ssize_t cpuset_partition_write(struct kernfs_open_file *of, char *buf,
- 	else
- 		return -EINVAL;
- 
-+	/* Disallow change if subtree has any allocated rt-cgroup */
-+	if (!cpuset_can_change(cs->css.cgroup))
-+		return -EINVAL;
-+
- 	mutex_lock(&cpuset_top_mutex);
- 	cpus_read_lock();
- 	wait_attach_done_lock();
-@@ -4354,6 +4366,25 @@ int cpuset_num_cpus(struct cgroup *cgrp)
- 	return nr;
- }
- 
-+void cpuset_effective_cpus(struct cgroup *cgrp, struct cpumask *mask)
-+{
-+	struct cpuset *cs;
-+
-+	if (!is_in_v2_mode()) {
-+		cpumask_copy(mask, cpu_online_mask);
-+		return;
-+	}
-+
-+	guard(rcu)();
-+	cs = css_cs(cgroup_e_css(cgrp, &cpuset_cgrp_subsys));
-+	if (!cs) {
-+		cpumask_copy(mask, cpu_online_mask);
-+		return;
-+	}
-+
-+	cpumask_copy(mask, cs->effective_cpus);
-+}
-+
- void __init cpuset_init_current_mems_allowed(void)
- {
- 	nodes_setall(current->mems_allowed);
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index e4e50202896d..59bd9599c509 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -8970,6 +8970,8 @@ void __init sched_init(void)
- 	init_defrootdomain();
- 
- #ifdef CONFIG_RT_GROUP_SCHED
-+	BUG_ON(!alloc_dl_bandwidth(&root_task_group.dl_bandwidth, GFP_NOWAIT));
-+
- 	init_dl_bandwidth(&root_task_group.dl_bandwidth,
- 			  global_rt_period(), 0, &root_task_group);
- #endif /* CONFIG_RT_GROUP_SCHED */
-@@ -10426,6 +10428,19 @@ static void __maybe_unused cpu_period_quota_print(struct seq_file *sf,
- 	seq_printf(sf, " %ld\n", period);
- }
- 
-+static void __maybe_unused cpu_period_quota_single_print(struct seq_file *sf, int cpu,
-+							 long period, long quota)
-+{
-+	seq_printf(sf, "%d ", cpu);
-+
-+	if (quota < 0)
-+		seq_puts(sf, "runtime=max");
-+	else
-+		seq_printf(sf, "runtime=%ld", quota);
-+
-+	seq_printf(sf, " period=%ld\n", period);
-+}
-+
- /* caller should put the current value in *@periodp before calling */
- static int __maybe_unused cpu_period_quota_parse(char *buf, u64 *period_us_p,
- 						 u64 *quota_us_p)
-@@ -10486,9 +10501,12 @@ static int cpu_rt_internal_show(struct seq_file *sf, void *v)
- {
- 	struct task_group *tg = css_tg(seq_css(sf));
- 	u64 period_us, runtime_us;
-+	int cpu;
- 
--	tg_rt_internal_bandwidth(tg, &period_us, &runtime_us);
--	cpu_period_quota_print(sf, period_us, runtime_us);
-+	for_each_possible_cpu(cpu) {
-+		tg_rt_internal_bandwidth(tg, cpu, &period_us, &runtime_us);
-+		cpu_period_quota_single_print(sf, cpu, period_us, runtime_us);
-+	}
- 	return 0;
- }
- 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 6220d793ae91..0282258db3e9 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -592,14 +592,25 @@ static inline int is_leftmost(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq
- 
- static void init_dl_rq_bw_ratio(struct dl_rq *dl_rq);
- 
-+struct dl_bandwidth *alloc_dl_bandwidth(struct dl_bandwidth *dl_b, gfp_t gfp_flags) {
-+	if (!alloc_cpumask_var(&dl_b->active_mask, gfp_flags))
-+		return NULL;
-+
-+	return dl_b;
-+}
-+
-+void free_dl_bandwidth(struct dl_bandwidth *dl_b) {
-+	free_cpumask_var(dl_b->active_mask);
-+}
-+
- void init_dl_bandwidth(struct dl_bandwidth *dl_b, u64 period, u64 runtime,
- 		       struct task_group *active_context)
- {
- 	raw_spin_lock_init(&dl_b->dl_runtime_lock);
- 	dl_b->dl_period = period;
- 	dl_b->dl_runtime = runtime;
--	dl_b->dl_internal_runtime = 0;
- 	dl_b->active_context = active_context;
-+	cpumask_clear(dl_b->active_mask);
- }
- 
- 
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index fffb6ec30e68..37e4b24183ab 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -172,6 +172,7 @@ void free_rt_sched_group(struct task_group *tg)
- 
- 	kfree(tg->rt_rq);
- 	kfree(tg->dl_se);
-+	free_dl_bandwidth(&tg->dl_bandwidth);
- }
- 
- static inline void __rt_rq_free(struct rt_rq **rt_rq)
-@@ -206,6 +207,7 @@ static int __alloc_rt_sched_group_data(struct task_group *tg) {
- 	struct rt_rq **tg_rt_rq __free(rt_rq_free) = NULL;
- 	struct sched_dl_entity **tg_dl_se __free(dl_se_free) = NULL;
- 	struct sched_dl_entity *dl_se __free(kfree) = NULL;
-+	struct dl_bandwidth *dl_b __free(dl_bandwidth_free) = NULL;
- 	struct rq *s_rq __free(kfree) = NULL;
- 	int i;
- 
-@@ -218,6 +220,10 @@ static int __alloc_rt_sched_group_data(struct task_group *tg) {
- 	if (!tg_dl_se)
- 		return 0;
- 
-+	dl_b = alloc_dl_bandwidth(&tg->dl_bandwidth, GFP_KERNEL);
-+	if(!dl_b)
-+		return 0;
-+
- 	for_each_possible_cpu(i) {
- 		s_rq = kzalloc_node(sizeof(struct rq),
- 				    GFP_KERNEL, cpu_to_node(i));
-@@ -235,6 +241,7 @@ static int __alloc_rt_sched_group_data(struct task_group *tg) {
- 
- 	tg->rt_rq = no_free_ptr(tg_rt_rq);
- 	tg->dl_se = no_free_ptr(tg_dl_se);
-+	retain_and_null_ptr(dl_b);
- 
- 	return 1;
- }
-@@ -1416,7 +1423,8 @@ static int find_lowest_rt_rq(struct task_struct *task)
- 			* different capacities of the CPUs when searching for
- 			* the lowest_mask.
- 			*/
--			if (dl_se->dl_throttled || !rt_task_fits_capacity(task, cpu))
-+			if (!dl_se->dl_runtime || dl_se->dl_throttled ||
-+			    !rt_task_fits_capacity(task, cpu))
- 				continue;
- 
- 			if (prio >= lowest_prio) {
-@@ -1567,7 +1575,8 @@ static struct rt_rq *find_lock_lowest_rt_rq(struct task_struct *task, struct rt_
- 			 * check the task migration disable flag here too.
- 			 */
- 			if (unlikely(is_migration_disabled(task) ||
--				     (dl_group && lowest_dl_se->dl_throttled) ||
-+				     (dl_group && lowest_dl_se->dl_throttled &&
-+				      !lowest_dl_se->dl_runtime) ||
- 				     !cpumask_test_cpu(lowest_rq->cpu, &task->cpus_mask) ||
- 				     task != pick_next_pushable_task(rt_rq))) {
- 
-@@ -2418,114 +2427,132 @@ static int tg_subtree_has_rt_tasks(struct task_group *tg) {
- 			         dl_bandwidth_read(tg)->active_context);
- }
- 
-+static inline u64 tg_cpu_period(const struct dl_bandwidth *dl_b, int cpu) {
-+	return cpumask_test_cpu(cpu, dl_b->active_mask) ? dl_b->dl_period : 0;
-+}
-+
-+static inline u64 tg_cpu_runtime(const struct dl_bandwidth *dl_b, int cpu) {
-+	return cpumask_test_cpu(cpu, dl_b->active_mask) ? dl_b->dl_runtime : 0;
-+}
-+
- struct tg_update_data {
- 	struct task_group *tg;
--	u64 rt_period;
--	u64 rt_runtime;
-+	struct dl_bandwidth dl_b;
- };
- 
- struct tg_compute_children_bw_data {
- 	struct tg_update_data update;
- 	struct task_group *active_context;
--	u64 period;
--	u64 runtime_sum;
-+	const struct cpumask *mask;
-+	u64 *rt_runtime_sum;
- };
- 
- static int __tg_compute_children_runtime(struct task_group *tg, void *data) {
- 	struct tg_compute_children_bw_data *d = data;
- 	const struct task_group *parent_active_context;
--	const struct dl_bandwidth *dl_b_parent, *dl_b = dl_bandwidth_read(tg);
--	u64 period, runtime;
-+	const struct dl_bandwidth *reference_dl_b, *dl_b_parent, *dl_b;
-+	u64 reference_period, period, runtime;
-+	int cpu;
- 
- 	/* Skip the current task group from the sum. */
- 	if (tg == d->active_context)
- 		return 0;
- 
--	period = dl_b->dl_period;
--	runtime = dl_b->dl_runtime;
-+	reference_dl_b = dl_bandwidth_read(d->active_context);
-+	dl_b = dl_bandwidth_read(tg);
- 	if (tg == d->update.tg) {
--		period = d->update.rt_period;
--		runtime = d->update.rt_runtime;
-+		dl_b = &d->update.dl_b;
- 	}
--	if (runtime == RUNTIME_INF || period == 0)
-+
-+	/* Skip the task group if runtime = `max` */
-+	if (dl_b->dl_runtime == RUNTIME_INF)
- 		return 0;
- 
-+	/* Skip the task group if it's parent active context is not current */
- 	dl_b_parent = dl_bandwidth_read(tg->parent);
- 	parent_active_context = dl_b_parent->active_context;
- 	if (tg->parent == d->update.tg) {
- 		if (dl_b_parent->dl_runtime != RUNTIME_INF &&
--		    d->update.rt_runtime == RUNTIME_INF)
-+		    d->update.dl_b.dl_runtime == RUNTIME_INF)
- 			parent_active_context = dl_bandwidth_read(tg->parent->parent)->active_context;
--		else if (d->update.rt_runtime != RUNTIME_INF)
-+		else if (d->update.dl_b.dl_runtime != RUNTIME_INF)
- 			parent_active_context = tg->parent;
- 	}
- 
- 	if (parent_active_context != d->active_context)
- 		return 0;
- 
--	d->runtime_sum += mul_u64_u64_div_u64(runtime, d->period, period);
-+	for_each_cpu(cpu, d->mask) {
-+		reference_period = tg_cpu_period(reference_dl_b, cpu);
-+		period = tg_cpu_period(dl_b, cpu);
-+		runtime = tg_cpu_runtime(dl_b, cpu);
-+
-+		if (period)
-+			d->rt_runtime_sum[cpu] += mul_u64_u64_div_u64(runtime, reference_period, period);
-+	}
-+
- 	return 0;
- }
- 
--static u64
--tg_compute_children_runtime(struct task_group *tg,
--			    u64 normalization_period,
--			    struct tg_update_data *data)
-+static void tg_compute_children_runtime(struct task_group *tg,
-+					struct tg_update_data *data,
-+					const struct cpumask *mask,
-+					u64 *sum_runtime)
- {
-+	int cpu;
- 	struct tg_compute_children_bw_data sum_data = {
- 		.active_context = tg,
--		.period = normalization_period,
--		.runtime_sum = 0,
-+		.rt_runtime_sum = sum_runtime,
-+		.mask = mask,
- 		.update = *data,
- 	};
- 
-+	for_each_cpu(cpu, mask)
-+		sum_runtime[cpu] = 0;
-+
- 	lockdep_assert(rcu_read_lock_held());
- 	walk_tg_tree_from(tg, __tg_compute_children_runtime, tg_nop, &sum_data);
--	return sum_data.runtime_sum;
- }
- 
- struct rt_schedulable_data {
- 	struct tg_update_data update;
--	u64 rt_runtime_remainder;
-+	u64 *children_runtime;
-+	u64 *rt_runtime_remainder;
- };
- 
- static int __tg_rt_schedulable(struct task_group *tg, void *data)
- {
- 	struct rt_schedulable_data *d = data;
- 	const struct dl_bandwidth *dl_b;
--	u64 total, sum = 0;
--	u64 period, runtime;
-+	u64 total, runtime;
-+	int cpu;
- 
- 	dl_b = dl_bandwidth_read(tg);
--	period = dl_b->dl_period;
--	runtime = dl_b->dl_runtime;
+diff --git a/Documentation/scheduler/sched-rt-group.rst b/Documentation/scheduler/sched-rt-group.rst
+index ab464335d320..9776cf4509cc 100644
+--- a/Documentation/scheduler/sched-rt-group.rst
++++ b/Documentation/scheduler/sched-rt-group.rst
+@@ -53,9 +53,12 @@ CPU time is divided by means of specifying how much time can be spent running
+ in a given period. We allocate this "run time" for each real-time group which
+ the other real-time groups will not be permitted to use.
+
+-Any time not allocated to a real-time group will be used to run normal priority
+-tasks (SCHED_OTHER). Any allocated run time not used will also be picked up by
+-SCHED_OTHER.
++Each real-time group runs at the same priority as SCHED_DEADLINE, thus they
++share and contend the SCHED_DEADLINE allowed bandwidth. Any time not allocated
++to a real-time group (and SCHED_DEADLINE tasks) will be used to run both
++SCHED_FIFO/SCHED_RR, normal priority tasks (SCHED_OTHER), and SCHED_EXT tasks,
++following the usual priorities. Any allocated run time not used will also be
++picked up by the other scheduling classes, in the same order as before.
+
+ Let's consider an example: a frame fixed real-time renderer must deliver 25
+ frames a second, which yields a period of 0.04s per frame. Now say it will also
+@@ -73,10 +76,6 @@ The remaining CPU time will be used for user input and other tasks. Because
+ real-time tasks have explicitly allocated the CPU time they need to perform
+ their tasks, buffer underruns in the graphics or audio can be eliminated.
+
+-NOTE: the above example is not fully implemented yet. We still
+-lack an EDF scheduler to make non-uniform periods usable.
 -
- 	if (tg == d->update.tg) {
--		period = d->update.rt_period;
--		runtime = d->update.rt_runtime;
-+		dl_b = &d->update.dl_b;
- 	}
- 
- 	/*
- 	 * "max" groups are always schedulable, as they defer their access
- 	 * control to their first non-max parent.
- 	 */
--	if (runtime == RUNTIME_INF)
-+	if (dl_b->dl_runtime == RUNTIME_INF)
- 		return 0;
- 
- 	/*
- 	 * Cannot have more runtime than the period.
- 	 */
--	if (runtime > period)
-+	if (dl_b->dl_runtime > dl_b->dl_period)
- 		return -EINVAL;
- 
- 	/*
- 	 * Ensure we don't starve existing RT tasks if runtime turns zero.
- 	 */
--	if (dl_bandwidth_enabled() && !runtime && tg != &root_task_group &&
-+	if (dl_bandwidth_enabled() && !dl_b->dl_runtime && tg != &root_task_group &&
- 	    tg_subtree_has_rt_tasks(tg))
- 		return -EBUSY;
- 
--	total = to_ratio(period, runtime);
-+	total = to_ratio(dl_b->dl_period, dl_b->dl_runtime);
- 
- 	/*
- 	 * Nobody can have more than the global setting allows.
-@@ -2542,16 +2569,18 @@ static int __tg_rt_schedulable(struct task_group *tg, void *data)
- 	 * The sum of our children's runtime, plus our own bw, should not
- 	 * exceed our own max.
- 	 */
--	total = runtime;
--	sum = tg_compute_children_runtime(tg, period, &d->update);
--	if (sum > total)
--		return -EINVAL;
-+	tg_compute_children_runtime(tg, &d->update, cpu_possible_mask, d->children_runtime);
-+	for_each_possible_cpu(cpu) {
-+		runtime = tg_cpu_runtime(dl_b, cpu);
-+		if (d->children_runtime[cpu] > runtime)
-+			return -EINVAL;
- 
--	/*
--	 * Compute remaining runtime
--	 */
--	if (tg == d->update.tg)
--		d->rt_runtime_remainder = total - sum;
-+		/*
-+		 * Compute remaining runtime
-+		 */
-+		if (tg == d->update.tg)
-+			d->rt_runtime_remainder[cpu] = runtime - d->children_runtime[cpu];
-+	}
- 
- 	return 0;
- }
-@@ -2559,15 +2588,25 @@ static int __tg_rt_schedulable(struct task_group *tg, void *data)
- static int tg_rt_schedulable(struct tg_update_data *data, u64 *remainder_runtime)
- {
- 	int err;
-+	u64 *children_runtime __free(kfree) = NULL;
-+	u64 *rt_runtime_remainder __free(kfree) = NULL;
- 	struct rt_schedulable_data d = {
--		.update = (struct tg_update_data) {
--			.tg = data->tg,
--			.rt_period = data->rt_period,
--			.rt_runtime = data->rt_runtime,
--		},
--		.rt_runtime_remainder = 0,
-+		.update = *data,
-+		.children_runtime = NULL,
-+		.rt_runtime_remainder = NULL,
- 	};
- 
-+	children_runtime = kcalloc(nr_cpu_ids, sizeof(u64), GFP_NOWAIT);
-+	if (!children_runtime)
-+		return -ENOMEM;
-+
-+	rt_runtime_remainder = kcalloc(nr_cpu_ids, sizeof(u64), GFP_NOWAIT);
-+	if (!rt_runtime_remainder)
-+		return -ENOMEM;
-+
-+	d.children_runtime = children_runtime;
-+	d.rt_runtime_remainder = rt_runtime_remainder;
-+
- 	/*
- 	 * Walk the cgroup tree and check schedulability constraints.
- 	 */
-@@ -2576,7 +2615,7 @@ static int tg_rt_schedulable(struct tg_update_data *data, u64 *remainder_runtime
- 	if (err)
- 		return err;
- 
--	*remainder_runtime = d.rt_runtime_remainder;
-+	memcpy(remainder_runtime, rt_runtime_remainder, array_size(nr_cpu_ids, sizeof(u64)));
- 	return 0;
- }
- 
-@@ -2626,16 +2665,25 @@ int tg_rt_bandwidth(struct task_group *tg,
- 	return 0;
- }
- 
--int tg_rt_internal_bandwidth(struct task_group *tg,
-+int tg_rt_internal_bandwidth(struct task_group *tg, int cpu,
- 			     u64 *rt_period_us, u64 *rt_runtime_us)
- {
- 	const struct dl_bandwidth *dl_b;
-+	cpumask_var_t mask __free(free_cpumask_var) = CPUMASK_VAR_NULL;
-+
-+	if (!alloc_cpumask_var(&mask, GFP_NOWAIT))
-+		return 0;
-+
-+	cpuset_effective_cpus(tg->css.cgroup, mask);
- 
- 	guard(raw_spinlock_irq)(dl_bw_lock_of_tg(tg));
- 	dl_b = dl_bandwidth_read(tg);
- 
--	*rt_runtime_us = dl_b->dl_internal_runtime;
--	*rt_runtime_us = DIV64_U64_ROUND_CLOSEST(*rt_runtime_us, NSEC_PER_USEC);
-+	*rt_runtime_us = -1;
-+	if (dl_b->dl_runtime != RUNTIME_INF || !cpumask_test_cpu(cpu, mask)) {
-+		*rt_runtime_us = tg->dl_se[cpu]->dl_runtime;
-+		*rt_runtime_us = DIV64_U64_ROUND_CLOSEST(*rt_runtime_us, NSEC_PER_USEC);
-+	}
- 
- 	*rt_period_us = div64_u64(dl_b->dl_period, NSEC_PER_USEC);
- 
-@@ -2646,11 +2694,13 @@ int tg_set_rt_bandwidth(struct task_group *tg,
- 			u64 rt_period_us, u64 rt_runtime_us)
- {
- 	struct tg_update_data update;
-+	struct dl_bandwidth *__update_dl_b __free(dl_bandwidth_free) = NULL;
- 	struct task_group *parent_ctx;
--	struct dl_bandwidth *dl_b;
-+	struct dl_bandwidth *dl_b_write;
-+	const struct dl_bandwidth *dl_b;
- 	u64 rt_period, rt_runtime, old_rt_runtime;
--	u64 rt_actual_runtime = 0;
--	u64 runtime, children_runtime;
-+	u64 *rt_actual_runtime __free(kfree) = NULL;
-+	u64 period, runtime;
- 	struct sched_attr attr;
- 	int err, i;
- 
-@@ -2692,14 +2742,9 @@ int tg_set_rt_bandwidth(struct task_group *tg,
- 	if (rt_runtime != RUNTIME_INF && !__checkparam_dl(&attr, true))
- 		return -EINVAL;
- 
--	update = (struct tg_update_data) {
--		.tg = tg,
--		.rt_period  = rt_period,
--		.rt_runtime = rt_runtime,
--	};
 -
- 	guard(mutex)(&rt_constraints_mutex);
--	old_rt_runtime = dl_bandwidth_read(tg)->dl_runtime;
-+	dl_b = dl_bandwidth_read(tg);
-+	old_rt_runtime = dl_b->dl_runtime;
- 
- 	/*
- 	 * Disallow changing from/to "max" and a HCBS reservation if the group
-@@ -2713,15 +2758,28 @@ int tg_set_rt_bandwidth(struct task_group *tg,
- 	     tg_subtree_has_rt_tasks(tg))
- 		return -EINVAL;
- 
--	err = tg_rt_schedulable(&update, &rt_actual_runtime);
-+	rt_actual_runtime = kcalloc(nr_cpu_ids, sizeof(u64), GFP_NOWAIT);
-+	if (!rt_actual_runtime)
-+		return -ENOMEM;
+ 2. The Interface
+ ================
+
+@@ -86,105 +85,423 @@ lack an EDF scheduler to make non-uniform periods usable.
+
+ The system wide settings are configured under the /proc virtual file system:
+
+-/proc/sys/kernel/sched_rt_period_us:
++``/proc/sys/kernel/sched_rt_period_us``:
+   The scheduling period that is equivalent to 100% CPU bandwidth.
+
+-/proc/sys/kernel/sched_rt_runtime_us:
+-  A global limit on how much time real-time scheduling may use. This is always
+-  less or equal to the period_us, as it denotes the time allocated from the
+-  period_us for the real-time tasks. Without CONFIG_RT_GROUP_SCHED enabled,
+-  this only serves for admission control of deadline tasks. With
+-  CONFIG_RT_GROUP_SCHED=y it also signifies the total bandwidth available to
+-  all real-time groups.
++``/proc/sys/kernel/sched_rt_runtime_us``:
++  A global limit on how much time real-time scheduling may use (SCHED_DEADLINE
++  tasks + real-time groups). This is always less or equal to the period_us, as
++  it denotes the time allocated from the period_us for the real-time tasks.
++  Without **CONFIG_RT_GROUP_SCHED** enabled, this only serves for admission
++  control of deadline tasks. With **CONFIG_RT_GROUP_SCHED=y** it also signifies
++  the total bandwidth available to both real-time groups and deadline tasks.
+
+   * Time is specified in us because the interface is s32. This gives an
+     operating range from 1us to about 35 minutes.
+-  * sched_rt_period_us takes values from 1 to INT_MAX.
+-  * sched_rt_runtime_us takes values from -1 to sched_rt_period_us.
+-  * A run time of -1 specifies runtime == period, ie. no limit.
+-  * sched_rt_runtime_us/sched_rt_period_us > 0.05 inorder to preserve
+-    bandwidth for fair dl_server. For accurate value check average of
+-    runtime/period in /sys/kernel/debug/sched/fair_server/cpuX/
++  * ``sched_rt_period_us`` takes values from 1 to INT_MAX.
++  * ``sched_rt_runtime_us`` takes values from -1 to ``sched_rt_period_us``.
++  * A run time of -1 specifies runtime == period, i.e., no limit, but also
++    disables admission tests for SCHED_DEADLINE.
 +
-+	__update_dl_b = alloc_dl_bandwidth(&update.dl_b, GFP_NOWAIT);
-+	if(!__update_dl_b)
-+		return -ENOMEM;
++The default value for both ``sched_rt_period_us`` and ``sched_rt_runtime_us`` is
++1000000 (or 1s), while fair-servers and ext-servers have a default runtime of
++50ms and default period of 1s, giving a minimum of 0.05s to be used by
++SCHED_FIFO/SCHED_RR and non-RT tasks (SCHED_OTHER, SCHED_EXT), while 0.95s are
++the maximum to be used by SCHED_DEADLINE, and rt-cgroups if enabled.
 +
-+	init_dl_bandwidth(&update.dl_b, rt_period, rt_runtime, dl_b->active_context);
-+	update.tg = tg;
++2.2 Cgroup settings
++-------------------
 +
-+	cpuset_effective_cpus(tg->css.cgroup, update.dl_b.active_mask);
++Enabling **CONFIG_RT_GROUP_SCHED** lets you explicitly allocate real CPU
++bandwidth to task groups.
 +
-+	err = tg_rt_schedulable(&update, rt_actual_runtime);
- 	if (err)
- 		return err;
- 
- 	scoped_guard(raw_spinlock_irq, dl_bw_lock_of_tg(tg)) {
--		dl_b = dl_bandwidth_write(tg);
--		dl_b->dl_period  = rt_period;
--		dl_b->dl_runtime = rt_runtime;
--		dl_b->dl_internal_runtime = rt_actual_runtime;
-+		dl_b_write = dl_bandwidth_write(tg);
-+		dl_b_write->dl_period  = rt_period;
-+		dl_b_write->dl_runtime = rt_runtime;
-+		cpumask_copy(dl_b_write->active_mask, update.dl_b.active_mask);
- 	}
- 
- 	if (tg == &root_task_group)
-@@ -2737,15 +2795,13 @@ int tg_set_rt_bandwidth(struct task_group *tg,
- 	    (rt_runtime != RUNTIME_INF && old_rt_runtime == RUNTIME_INF))
- 	{
- 		if (rt_runtime == RUNTIME_INF)
--			tg_update_active_context(tg, dl_b->active_context, parent_ctx);
-+			tg_update_active_context(tg, update.dl_b.active_context, parent_ctx);
- 		else
--			tg_update_active_context(tg, dl_b->active_context, tg);
--
-+			tg_update_active_context(tg, update.dl_b.active_context, tg);
- 	}
- 
--	WARN_ON(rt_runtime == RUNTIME_INF && rt_actual_runtime != 0);
- 	for_each_possible_cpu(i) {
--		dl_init_tg(tg->dl_se[i], rt_actual_runtime, rt_period);
-+		dl_init_tg(tg->dl_se[i], rt_actual_runtime[i], tg_cpu_period(dl_b, i));
- 	}
- 
- 	/*
-@@ -2754,24 +2810,49 @@ int tg_set_rt_bandwidth(struct task_group *tg,
- 	if (parent_ctx == &root_task_group)
- 		return 0;
- 
--	scoped_guard(raw_spinlock_irq, dl_bw_lock_of_tg(parent_ctx)) {
--		dl_b = dl_bandwidth_write(parent_ctx);
-+	dl_b = dl_bandwidth_read(parent_ctx);
- 
--		runtime = dl_b->dl_runtime;
--		children_runtime = tg_compute_children_runtime(parent_ctx, dl_b->dl_period, &update);
-+	tg_compute_children_runtime(parent_ctx, &update, update.dl_b.active_mask, rt_actual_runtime);
-+	for_each_cpu(i, update.dl_b.active_mask) {
-+		period = tg_cpu_period(dl_b, i);
-+		runtime = tg_cpu_runtime(dl_b, i) - rt_actual_runtime[i];
- 
--		rt_period = dl_b->dl_period;
--		rt_actual_runtime = runtime - children_runtime;
--		dl_b->dl_internal_runtime = rt_actual_runtime;
-+		dl_init_tg(parent_ctx->dl_se[i], runtime, period);
- 	}
- 
--	for_each_possible_cpu(i) {
--		dl_init_tg(parent_ctx->dl_se[i], rt_actual_runtime, rt_period);
--	}
-+	return 0;
-+}
++ .. warning::
++  Real Time Cgroups are only available for cgroups-v2.
++ ..
 +
-+static int __tg_subtree_is_max(struct task_group *tg, void *data) {
-+	const struct dl_bandwidth *dl_b;
++This uses the cgroup virtual file system and the CPU controller for cgroups.
++Enabling the controller for the hierarchy creates two files:
 +
-+	guard(raw_spinlock_irq)(dl_bw_lock_of_tg(tg));
-+	dl_b = dl_bandwidth_read(tg);
-+	if (dl_b->dl_runtime != RUNTIME_INF)
-+		return 1;
- 
- 	return 0;
- }
- 
-+int cpuset_can_change(struct cgroup *cgroup) {
-+	struct task_group *tg;
-+	int err;
++* ``<cgroup>/cpu.rt.max``, which specifies the runtime and period of the group.
++  The file also accepts a runtime of 'max', specifying that its tasks must be
++  scheduled using the nearest configured ancestor (or the root cgroup if it is
++  the nearest non-max ancestor).
++* ``<cgroup>/cpu.rt.effective.local``, read-only, returns the runtime and period
++  actually allocated to the group, excluding that of its children.
 +
-+	if (!rt_group_sched_enabled())
-+		return 1;
++ .. tip::
++  For more information on working with control groups, you should read
++  *Documentation/admin-guide/cgroup-v2.rst*.
++ ..
 +
-+	guard(rcu)();
-+	tg = css_tg(cgroup_e_css(cgroup, &cpu_cgrp_subsys));
-+	if (!tg)
-+		return 0;
++By default the root cgroup has the same period of
++``/proc/sys/kernel/sched_rt_period_us``, which is 1s, and a runtime of zero, so
++that rt-cgroup is *soft-disabled* by default, and all the runtime is available
++for SCHED_DEADLINE tasks only. New groups instead get a period of zero and
++runtime of 'max' (essentially delegating their tasks' scheduling to the nearest
++configured ancestor).
 +
-+	err = walk_tg_tree_from(tg, __tg_subtree_is_max, tg_nop, NULL);
-+	if (err)
-+		return 0;
++3. Theoretical Background
++=========================
 +
-+	return 1;
-+}
 +
- int sched_rt_can_attach(struct task_group *tg)
- {
- 	struct task_group *ctx;
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 323befba5609..9410d1909729 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -316,8 +316,8 @@ struct rt_prio_array {
- struct dl_bandwidth {
- 	raw_spinlock_t		dl_runtime_lock;
- 	u64			dl_runtime;
--	u64			dl_internal_runtime;
- 	u64			dl_period;
-+	cpumask_var_t		active_mask;
- 	struct task_group	*active_context;
- };
- 
-@@ -586,7 +586,7 @@ extern bool cfs_task_bw_constrained(struct task_struct *p);
- 
- extern int tg_rt_bandwidth(struct task_group *tg,
- 			   u64 *rt_period_us, u64 *rt_runtime_us);
--extern int tg_rt_internal_bandwidth(struct task_group *tg,
-+extern int tg_rt_internal_bandwidth(struct task_group *tg, int cpu,
- 				    u64 *rt_period_us, u64 *rt_runtime_us);
- extern int tg_set_rt_bandwidth(struct task_group *tg,
- 			       u64 rt_period_us, u64 rt_runtime_us);
-@@ -3054,6 +3054,11 @@ extern void resched_curr(struct rq *rq);
- extern void resched_curr_lazy(struct rq *rq);
- extern void resched_cpu(int cpu);
- 
-+extern struct dl_bandwidth *alloc_dl_bandwidth(struct dl_bandwidth *dl_b, gfp_t gfp_flags);
-+extern void free_dl_bandwidth(struct dl_bandwidth *dl_b);
++ ..  BIG FAT WARNING ******************************************************
 +
-+DEFINE_FREE(dl_bandwidth_free, struct dl_bandwidth *, if (_T) free_dl_bandwidth(_T))
++ .. warning::
 +
- extern void init_dl_bandwidth(struct dl_bandwidth *dl_b, u64 period, u64 runtime,
- 			      struct task_group *active_context);
- extern void init_dl_entity(struct sched_dl_entity *dl_se);
--- 
++   This section contains a (not-thorough) summary on deadline/hierarchical
++   scheduling theory, and how it applies to real-time control groups.
++   The reader can "safely" skip to Section 4 if only interested in seeing
++   how the scheduling policy can be used. Anyway, we strongly recommend
++   to come back here and continue reading (once the urge for testing is
++   satisfied :P) to be sure of fully understanding all technical details.
++
++ .. ************************************************************************
++
++The real-time cgroup scheduler is based upon the **Hierarchical Constant
++Bandwidth Server** (HCBS) [1] *Compositional Scheduling Framework* (CSF). A
++**CSF** is a framework where global (system-level) timing properties can be
++established by composing independently (specified and) analyzed local
++(component-level) timing properties [5].
++
++For HCBS (related to the Linux kernel), the compositional framework consists of
++two parts:
++
++* The *scheduling components*, which are the basic units of the scheduling. In
++  the kernel these are the single cgroups along with the tasks that must be run
++  inside.
++
++* The *scheduling resources*, which are the CPUs of the machine.
++
++HCBS is a *hierarchical scheduling framework*, where the scheduling components
++form a hierarchy and resources are allocated from parent components to its child
++components in the hierarchy.
++
++The Chapter is organized as follows: **Section 3.1** gives basic real-time
++theory definitions that are used throughout the whole section. **Section 3.2**
++talks about the HCBS framework, giving a general idea on how this is structured.
++**Section 3.3** introduces the MPR model, one of the many models which may be
++used for the analysis of the scheduling components and the computation of the
++minimum required scheduling resources for a given component. **Section 3.4**
++shows the schedulability test for MPR on the HCBS framework. **Section 3.5**
++shows how to convert a MPR interface to a HCBS compatible resource reservation
++for a component. Finally, **Section 3.6** lists other interesting models which
++could be used for the component analysis in HCBS.
++
++3.1 Basic Definitions
++---------------------
+
++*We borrow the same definitions given in the* ``sched_deadline`` *document,
++which are very briefly summarized here, and new ones, needed by the following
++content, are added.*
++
++A typical real-time task is composed of a repetition of computation phases (task
++instances, or jobs) which are activated on a periodic or sporadic fashion. For
++our purposes, real-time tasks are characterized by three parameters:
++
++* Worst Case Execution Time (WCET): the maximum execution time among all jobs.
++* Relative Deadline (D): the maximum time each job must be completed, relative
++  to the release time of the job.
++* Inter-Arrival Period (P): the exact/minimum (for periodic/sporadic tasks) time
++  between each consecutive job.
++
++3.2 Hierarchical Constant Bandwidth Server (HCBS) [1]
++-----------------------------------------------------
++
++As mentioned, HCBS is a *hierarchical scheduling framework*:
++
++* The framework hierarchy follows the same hierarchy of cgroups. Cgroups may
++  have two roles, either bandwidth reservation for children cgroups, or they may
++  be *live*, i.e. run tasks (but not both). The root cgroup, for the kernel's
++  implementation of HCBS, acts only as bandwidth reservation (but as written in
++  this document it has also different uses outside of the hierarchical
++  framework).
++* The cgroup tree is internally flattened, for ease of scheduling, to a
++  two-level hierarchy, since only the *live* groups are of interest and all the
++  necessary information for their scheduling lies in their interface (there is
++  no need for the reservation components).
++* The hierarchical framework, now on two levels, consists then of a first level
++  of cgroups, and a second level of tasks that are run inside these groups.
++* The scheduling of components is performed using global Earliest Deadline First
++  (gEDF), SCHED_DEADLINE in the kernel, following the bandwidth reservation of
++  each group.
++* Whenever a component is scheduled, a local scheduler picks which of the tasks
++  of the cgroup to run. The scheduling policy is global Fixed Priority (gFP),
++  SCHED_FIFO/SCHED_RR in the kernel.
+
+-2.2 Default behaviour
+----------------------
++3.3 Multiprocessor Periodic Resource (MPR) model
++------------------------------------------------
++
++A Multiprocessor Periodic Resource (MPR) model [2] **u = <Pi, Theta, m'>**
++specifies that an identical, unit-capacity multiprocessor platform collectively
++provides **Theta** units of resource every **Pi** time units, where the
++**Theta** time units are supplied with concurrency at most **m'**.
++
++This theoretical model is one of the many models that can abstract the
++interface of our real-time cgroups: let **m'** be the number of CPUs of the
++machine, let **Theta** be **m' * <cgroup>/cpu.rt_runtime_us** and **Pi** be
++**<cgroup>/cpu.rt_period_us**.
++
++Let's introduce the concept of Supply Bound Function (SBF). A SBF is a function
++which outputs a lower bound for the processor supply provided in a given time
++interval, given a resource supply model. For a completely dedicated CPU, the SBF
++function is simply the identity function, as it will always provide **t** units
++of computation for an interval of length **t**. The situation gets slightly more
++complicated for the MPR model or any of the other model listed in section 3.6.
++
++The **SBF(t)** for a MPR model **u = <Pi, Theta, m'>** is::
++
++             | 0                                       if t' < 0
++             |
++  SBF_u(t) = | floor(t' / Pi) * Theta
++             |   + max(0, m' * x - (m' * Pi - Theta))  if t' >= 0 and 1 <= x <= y
++             |
++             | floor(t' / Pi) * Theta
++             |   + max(0, m' * x - (m' * Pi - Theta))  else
++             |   - (m' - beta)
++
++where::
++
++  alpha = floor(Theta / m')
++  beta = Theta - m' * alpha
++  t' = t - (Pi - ceil(Theta / m'))
++  x  = t' - (Pi * floor(t' / Pi))
++  y  = Pi - floor(Theta / m')
++
++Briefly, this function models that the server's bandwidth is given as late as
++possible, so describing the worst case possible for the supplied bandwidth.
++
++3.4 Schedulability for MPR on global Fixed-Priority
++---------------------------------------------------
++
++Let's introduce the concept of Demand Bound Function (DBF). A DBF is a function
++that, given a taskset, a scheduling algorithm and an interval of time, outputs
++the worst resource demand for that interval of time.
++
++It is easy to see that, given a DBF and a SBF, we can deem a component/taskset
++schedulable if, for every time interval t >= 0, it is possible to demonstrate
++that:
++
++  DBF(t) <= SBF(t)
++
++We have the Supply Bound Function for our given MPR model, so we are missing the
++Demand Bound Function for a given taskset that is being scheduled using global
++Fixed Priority.
++
++3.4.1 Schedulability Analysis for global Fixed Priority
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++Bertogna, Cirinei and Lipari [6] have derived a schedulability test for global
++Fixed Priority (gFP) on multi-processor platforms. In this test (called
++*BCL_gFP* test) we can consider all the CPUs to be dedicated to the scheduling.
++
++  A taskset **Tau** is schedulable with gFP on a multiprocessor platform
++  composed of **m'** identical processors if for each task **tau_k in Tau**:
++
++    Sum(for i < k)( min(W_i(D_k), D_k - C_k + 1) ) < m' * (D_k - C_k + 1)
++
++  where **W_i(t)** is the workload of task **tau_i** over a time interval **t**:
++
++    W_i(t) = N_i(t) * C_i + min(C_i, t + D_i - C_i - N_i(t) * P_i)
++
++  and **N_i(t)** is the number of activations of task **tau_i** that complete in
++  a time interval **t**:
+
+-The default values for sched_rt_period_us (1000000 or 1s) and
+-sched_rt_runtime_us (950000 or 0.95s).  This gives 0.05s to be used by
+-SCHED_OTHER (non-RT tasks). These defaults were chosen so that a run-away
+-real-time tasks will not lock up the machine but leave a little time to recover
+-it.  By setting runtime to -1 you'd get the old behaviour back.
++    N_i(t) = floor( (t + D_i - C_i) / P_i )
+
+-By default all bandwidth is assigned to the root group and new groups get the
+-period from /proc/sys/kernel/sched_rt_period_us and a run time of 0. If you
+-want to assign bandwidth to another group, reduce the root group's bandwidth
+-and assign some or all of the difference to another group.
++  while the **min** term is the contribution of the carried-out job in the
++  interval **t**, i.e. that job that does not completely fit in the interval
++  **t**, but starts inside the interval after all the jobs that complete.
++
++3.4.2 From BCL_gFP to the Demand Bound Function
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++We can then derive the DBF from this test:
++
++  DBF_gFP(tau_k) = Sum(for i < k)( min(W_i(D_k), D_k - C_k + 1) ) + m' * (C_k - 1)
++
++Briefly, the first sum component, the same in the BCL_gFP test, describes the
++maximum interference that higher priority task give to the analysed task. The
++workload is upperbounded by ``(D_k - C_K + 1)`` because we are only interested
++in the interference in the slack time, while for the ``C_k`` time we are
++requiring that all the CPUs are fully available, as the single job needs `C_k`
++(non overlapping) time units to run.
++
++The demand bound function from Bertogna et al. is only defined on a single time
++(i.e. the deadline of the task in analysis) instead of all possible times as
++this is the minimum argument to demonstrate schedulability on global Fixed
++Priority.
++
++3.4.3 Putting it all together
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++
++A component **C**, on **m'** processors, running a taskset **Tau = { tau_1 =
++(C_1, D_1, P_1), ..., tau_n = (C_n, D_n, P_n) }** of **n** sporadic tasks, is
++schedulable under gFP using an MPR model **u = <Pi, Theta, m'>**, if for all
++tasks **tau_k in Tau**:
++
++  DBF_gFP(tau_k) <= SBF_u(D_k)
++
++3.5 From MPR to deadline servers
++--------------------------------
++
++Since there exist no algorithm to schedule MPR interfaces, a tecnique was
++developed to transform MPR interfaces into periodic tasks, so that a
++number of periodic servers which respect the tasks requirements can be used for
++the scheduling of the MPR interface and associated tasks.
++
++Let **u = <Pi, Theta, m>** be a MPR interface, let **a = Theta - m * floor(Theta
++/ m)**, let **k = floor(a)**. Define a transformation from **u** to a periodic
++taskset **Tau_u = { tau_1 = (C_1, D_1, P_1), ..., tau_m' = (C_m', D_m', P_m')
++}**, where:
++
++  **tau_1 = ... = tau_k = (floor(Theta / m') + 1, Pi, Pi)**
++
++  **tau_k+1 = (floor(Theta / m') + a - k * floor(a/k), Pi, Pi)**
++
++  **tau_k+2 = ... = tau_m' = (floor(Theta / m'), Pi, Pi)**
++
++This periodic taskset of servers **Tau_u** can be scheduled on any number of
++processors with concurrency at most **m'**.
++
++For real-time control groups, it is possible to just consider a slightly more
++demanding taskset **Tau_u'**, where each task **tau_i** is defined as follows:
++
++  **tau_i = (ceil(Theta / m'), Pi, Pi)**
++
++3.6 Other models
++----------------
++
++There exist many other theoretical models in literature which are used to
++describe a hierarchical scheduling framework on multi-core architectures.
++Notable examples are the Multi Supply Function (MSF) abstraction [3], the
++Parallel Supply Function (PSF) abstraction [4] and the Bounded Delay
++Multipartition (BDM) [7].
++
++3.7 References
++--------------
++  1 - L. Abeni, A. Balsini, and T. Cucinotta, “Container-based real-time
++      scheduling in the Linux kernel,” SIGBED Rev., vol. 16, no. 3, pp. 33-38,
++      Nov. 2019, doi: 10.1145/3373400.3373405.
++  2 - A. Easwaran, I. Shin, and I. Lee, “Optimal virtual cluster-based
++      multiprocessor scheduling,” Real-Time Syst, vol. 43, no. 1, pp. 25-59,
++      Sept. 2009, doi: 10.1007/s11241-009-9073-x.
++  3 - E. Bini, G. Buttazzo, and M. Bertogna, “The Multi Supply Function
++      Abstraction for Multiprocessors,” in 2009 15th IEEE International
++      Conference on Embedded and Real-Time Computing Systems and Applications,
++      Aug. 2009, pp. 294-302. doi: 10.1109/RTCSA.2009.39.
++  4 - E. Bini, B. Marko, and S. K. Baruah, “The Parallel Supply Function
++      Abstraction for a Virtual Multiprocessor,” in Scheduling, S. Albers, S. K.
++      Baruah, R. H. Möhring, and K. Pruhs, Eds., in Dagstuhl Seminar Proceedings
++      (DagSemProc), vol. 10071. Dagstuhl, Germany: Schloss Dagstuhl -
++      Leibniz-Zentrum für Informatik, 2010, pp. 1-14. doi:
++      10.4230/DagSemProc.10071.14.
++  5 - I. Shin and I. Lee, “Compositional real-time scheduling framework,” in
++      25th IEEE International Real-Time Systems Symposium, Dec. 2004, pp. 57-67.
++      doi: 10.1109/REAL.2004.15.
++  6 - M. Bertogna, M. Cirinei, and G. Lipari, “Schedulability Analysis of Global
++      Scheduling Algorithms on Multiprocessor Platforms,” IEEE Transactions on
++      Parallel and Distributed Systems, vol. 20, no. 4, pp. 553-566, Apr. 2009,
++      doi: 10.1109/TPDS.2008.129.
++  7 - G. Lipari and E. Bini, “A Framework for Hierarchical Scheduling on
++      Multiprocessors: From Application Requirements to Run-Time Allocation,” in
++      2010 31st IEEE Real-Time Systems Symposium, Nov. 2010, pp. 249-258. doi:
++      10.1109/RTSS.2010.12.
++
++
++4. Using Real-Time cgroups
++==========================
++
++4.1 CGroup Setup
++----------------
+
+-Real-time group scheduling means you have to assign a portion of total CPU
+-bandwidth to the group before it will accept real-time tasks. Therefore you will
+-not be able to run real-time tasks as any user other than root until you have
+-done that, even if the user has the rights to run processes with real-time
+-priority!
++The following is a brief guide to the use of Real-Time Control Groups.
+
++Of course, real-time control groups require mounting of the cgroup file system.
++We have decided to only support cgroups v2, so make sure you mount the v2
++controller for the cgroup hierarchy.
+
+-2.3 Basis for grouping tasks
+-----------------------------
++Additionally the real-time cgroups require the CPU controller for the cgroups to
++be enabled::
+
+-Enabling CONFIG_RT_GROUP_SCHED lets you explicitly allocate real
+-CPU bandwidth to task groups.
++  # Assume the cgroup file system is mounted at /sys/fs/cgroup
++  > echo "+cpu" > /sys/fs/cgroup/cgroup.subtree_control
+
+-This uses the cgroup virtual file system and "<cgroup>/cpu.rt_runtime_us"
+-to control the CPU time reserved for each control group.
++The CPU controller can only be mounted if there is no SCHED_FIFO/SCHED_RR task
++scheduled in any cgroup other than the root control group.
+
+-For more information on working with control groups, you should read
+-Documentation/admin-guide/cgroup-v1/cgroups.rst as well.
++The root control group has no bandwidth allocated by default, so make sure to
++allocate some bandwidth so that it can be used by the other cgroups. More on
++that in the following section...
+
+-Group settings are checked against the following limits in order to keep the
+-configuration schedulable:
++4.2 Bandwidth Allocation for groups
++-----------------------------------
+
+-   \Sum_{i} runtime_{i} / global_period <= global_runtime / global_period
++Allocating bandwidth to a cgroup is a fundamental step to run real-time
++workload. The cgroup filesystem exposes two files:
+
+-For now, this can be simplified to just the following (but see Future plans):
++* ``<cgroup>/cpu.rt.max``: which specifies the cgroups' runtime and period in
++  microseconds.
++* ``<cgroup>/cpu.rt.effective.local``: read-only, get the cgroups' actualy
++  runtime and period in microseconds, without its children's bandwidth.
+
+-   \Sum_{i} runtime_{i} <= global_runtime
++By definition, the specified runtime must be always less than or equal to the
++period. Additionally, an admission test checks if the bandwidth invariant is
++respected (i.e. sum of children's bandwidth <= parent's bandwidth).
+
++The root control group files instead control and reserve the SCHED_DEADLINE
++bandwidth allocated to real-time cgroups, since real-time groups compete and
++share the same bandwidth allocated to SCHED_DEADLINE tasks.
+
+-3. Future plans
+-===============
++4.3 Running real-time tasks in groups
++-------------------------------------
+
+-There is work in progress to make the scheduling period for each group
+-("<cgroup>/cpu.rt_period_us") configurable as well.
++To run tasks in real-time groups it is just necessary to change a task's
++scheduling policy to SCHED_FIFO/SCHED_RR and migrate it into the group. If the
++group is not allowed to run real-time tasks because of incorrect configuration,
++either migrating a SCHED_FIFO/SCHED_RR task into the group or changing
++scheduling policy to a task already inside the group will fail::
+
+-The constraint on the period is that a subgroup must have a smaller or
+-equal period to its parent. But realistically its not very useful _yet_
+-as its prone to starvation without deadline scheduling.
++ # assume there is a task of PID 42 running
++ # change its scheduling policy to SCHED_FIFO, priority 99
++ > chrt -f -p 99 42
+
+-Consider two sibling groups A and B; both have 50% bandwidth, but A's
+-period is twice the length of B's.
++ # migrate the task to a cgroup
++ > echo 42 > /sys/fs/cgroup/<my-cgroup>/cgroup.procs
+
+-* group A: period=100000us, runtime=50000us
++4.4 Special case: the root control group
++----------------------------------------
+
+-	- this runs for 0.05s once every 0.1s
++The root cgroup is special, compared to the other cgroups, as its tasks are not
++managed by the HCBS algorithm, rather they just use the original
++SCHED_FIFO/SCHED_RR policies (as if CONFIG_RT_GROUP_SCHED was disabled). As
++mentioned, its bandwidth files are just used to control how much of the
++SCHED_DEADLINE bandwidth is allocated to cgroups.
+
+-* group B: period= 50000us, runtime=25000us
++Any non-root cgroup configured as 'max' that has the root cgroup as its nearest
++non-max ancestor will run its tasks in the root runqueue.
+
+-	- this runs for 0.025s twice every 0.1s (or once every 0.05 sec).
++4.5 Guarantees and Special Behaviours
++-------------------------------------
+
+-This means that currently a while (1) loop in A will run for the full period of
+-B and can starve B's tasks (assuming they are of lower priority) for a whole
+-period.
++Real-time cgroups are run at the same priority level of SCHED_DEADLINE tasks.
++Since this is the highest priority scheduling policy, and since the Constant
++Bandwidth Server (CBS) enforces that the specified bandwidth requirements for
++both groups and tasks cannot be overrun, real-time groups have the same
++guarantees that SCHED_DEADLINE tasks have, i.e. they will be necessarily
++supplied by the amount of bandwidth requested (whenever the admission tests
++pass).
+
+-The next project will be SCHED_EDF (Earliest Deadline First scheduling) to bring
+-full deadline scheduling to the linux kernel. Deadline scheduling the above
+-groups and treating end of the period as a deadline will ensure that they both
+-get their allocated time.
++This means that, since SCHED_FIFO/SCHED_RR tasks (scheduled in the root control
++group) are not subject to bandwidth controls, they are run at a lower priority
++than the cgroups' counterparts. Nonetheless, a minimum amount of bandwidth, if
++reserved, will always be available to run SCHED_FIFO/SCHED_RR workloads in the
++root cgroup, while they will be able to use more runtime if any of the
++SCHED_DEADLINE tasks or servers use less than their specified amount of
++bandwidth. SCHED_OTHER tasks are instead scheduled as normal, at lower priority
++than real-time workloads.
+
+-Implementing SCHED_EDF might take a while to complete. Priority Inheritance is
+-the biggest challenge as the current linux PI infrastructure is geared towards
+-the limited static priority levels 0-99. With deadline scheduling you need to
+-do deadline inheritance (since priority is inversely proportional to the
+-deadline delta (deadline - now)).
++The aforementioned behaviour differs from the preceding RT_GROUP_SCHED
++implementation, but this is necessary to give actual guarantees to the amount of
++bandwidth given to rt-cgroups.
+
+-This means the whole PI machinery will have to be reworked - and that is one of
+-the most complex pieces of code we have.
+--
 2.56.0
 
