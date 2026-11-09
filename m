@@ -1,97 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794225858;
-	b=3CWNCl8bAobzCdzqR1sip4+ZNT9XeR+cWtA0EvkaHb6v/ILUUxDC4+usIY6V6TKcyPMY
-	 fEroo72u87jtkYXF7BldCaMz7v0vr0X6cKTbLmQkcKpMwCsDJXY5Ng4qgAqtkhjEHUWdz
-	 qV8MosI7r2Nn9Vtq8gOsUKQhJe0E+RZmH5YJkeHHPowBTOu4wxJcYjfXMd0+NKD+xUnc6
-	 IFSKDbXG7sODoyOwJyp5eHYcpNgj8Dtx3m7Y3uehOL5zvFtSFWdCw+yMEeiEMgeuWDezS
-	 pjT/muysX0JUOgXR6rgFU0yQokPr6oeSGK1rWBlef5Y6/+PJVBx96zqtjNg5B7r/z7A==
+	t=1794225913;
+	b=Kc++v7Ok8IQcKznWYCQRKMWajCuDVf/ndfZhBxYoV2T/2JfZOM3AuZlLQY7N2XL5b7R9
+	 baRvzvA5OQJ+OSYvRDTaUB57hVoI2iSh/0WGVupQAwVR32jyb5hSqgxInn0xLsRIfKd2c
+	 rMszE6Vvqqs7XyXL0xt9MGTwwDhhCw2kcsNr6AVjjkvCQyY4m2EzFLCt3KsYXciC1ec97
+	 vl0d4ajy5GUzV9nSrAaVk0HNt9E71x4rap0WK1fjy2sqTEi5Msh74jHnxfUg8L3NnD9at
+	 zBrNQLkpplwp32GcNqabNPqw0LDNqmpmmBhLI6x81J7EOvffVhlus3hCTuMRgsM3PRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225858;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6MFiKRgYbDh7TYHy8nV42WRITeRtyQvjTK97N2J3pK4=;
-	b=sTLYg0qrXn2g7DumSvLTvSvYxk3zmbFcJyP0p+++ZEaNIExjLBjjRg24ar+SoLRXxA4L
-	 3mhAgyjk0O0/6yHAEwPFgsk0AFJFjkkA81+I2k/y8MOU7ie9RJ+iVy+KC5Pgyl15SfKGU
-	 4pCWUvgF2werpV4vddOZy04//y4UxyUJrxtvcvUcLTW7xLZVVoaDuYJdxQ2xWM1watYsk
-	 svKldmsdI9n3joJAlGgYj1JjZBWg6l4+znBkKAkBdnJMkT9FclLNgSQ+wQ0iQ6cFxIKje
-	 wenKICJWVVzOZYks7ckuk4Z2wBdPJ/1s1iJRA0sIhZfIQdvCM0/UUTuPoSZtI+fdyEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225913;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7QYMXonlT1X/OPGysSVGx2KIKbzgu61tqS/KtO5R6L4=;
+	b=ayuOAkmMXngMcignFG9YuU+HAOf7am0H4uZoFgpYR6/K7At0Mu03+dnK/68foXGSl1ep
+	 WHrubqVYkKam36PNachiA1uqlC4ZRA9KHTv0cr2qNADnTtYckF6PPmDbeAHSl0AhJGbto
+	 HfJB0JDiCr8t/TdajPKT+8ixJmudAsg+WSG1/CFeFvuPf+sS8dhd9TLv5R9dUjpsyomTj
+	 D33SKZoFrgqyxuuzYtoSAPDCjkupZTrZPem/jy9MKGbeA/TF99f6UukOblxLxY9cMOky0
+	 HrGN6JrPwall6AsXFdN1XycwaOqcIMgaYr47AQkHOX7MaJq/JscUuCvZvsgy8+Lqt4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Mt/n0Jtc";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cxvv80tf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B740F606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:04:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3546C606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:05:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mt/n0Jtc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 821581F008A6;
-	Mon,  9 Nov 2026 12:04:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cxvv80tf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8725E1F0089F;
+	Mon,  9 Nov 2026 12:05:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794225857;
-	bh=6MFiKRgYbDh7TYHy8nV42WRITeRtyQvjTK97N2J3pK4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mt/n0JtcC9od8cYxe7uDVecnAvAxzv/cU1Vo0IFHPMpU5MiUkxwu8omUODYV5Zcqy
-	 LPX8//ZdfaIcEutLlmY5Kl1GtVoLj3HA82/9bm1IEnetSW/2or2GYtn3PaLE+MB4f4
-	 WXPnKxkV6rWmcOHXoc5U/1ljClKcmA5xOi2nfngeSgAljF166tDnnUUvHZk+bnGujy
-	 PHOHKmSOOXgU9+C2CM2VhhYkE+B6tXrXGnVSRUZyPBUHBq7kwO2FZK0lXEq1rwwaiG
-	 /P4Q1Zi7GWkjU9CePeXr/asytuVD8lPk2+vkK/lq8NDBGh4XsNjgcYpSSBvnjhcIq0
-	 Eu4SJ9xHJUwVw==
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfauth.ams.internal (Postfix) with ESMTP id C3CC2198003A;
-	Mon,  9 Nov 2026 07:04:13 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Mon, 09 Nov 2026 07:04:15 -0500
-X-ME-Sender: <xms:vbbxas7vTZ344FZodtk9B_zvzXKOzJFB18lU71dHyERZnO88I0_QbA>
-    <xme:vbbxanR68IbNzBLNyT9N8TkeafL1bK9hE0ojWsPXQ3r30Tq_UeOfgS2OaqQYbqSdI
-    sqIVB5TBcuz-wdu75KcqvnG6SxRiWwHSx5oPHe3kP8qQB0xHl_IRVsi>
-X-ME-Received: <xmr:vbbxaj-ZV81kczXXLZ5HYmfOgEUxfILItKX_4OH16YTcSpFP95k9IgoBAvQ>
-X-ME-Proxy-Cause: dmFkZTFNHiUwdQBBta8BQiRQNiL+3aFxYBCGleH13rK/AikNGSSC3QUGqUhmGxAnWboa44
-    Oxa+oNSrcFePVCLQ4GNJqtcYf4GxsV9GMptj5ZrpOImzhEVV24EobsIoaE3cyqt1HUzWKb
-    uvK/vFY8P9JVFvAY4sv/elH4sBbKNz8TiTp9kbnxQZ5ar8JtE1kD6OyBHc5nmptdrKWCE1
-    SHUchB4wZ75gxD0AKiAsvr9dPbzNysAsG0icmsqmjFSwMuBk9eg/M1NxwUGV5B50W5JtPi
-    mSSRdlKYNHyBf92yjckRvTvKXC7OSPkjnpnydQqAEDttujjY9r4EKzHT66M2V7UmWGi5er
-    ikZqmnu1uDnQHyaxkbjc46ZO43YOdBKQ1RH9KKccapbaOK3TTnl40pdbE/fr9DYpMhsTps
-    j7HDy0qRpYPcOYLrtTF/1DiZ5inJTQLs8BJtHHXRT5o3uOQnNATpLAzreKbBQmMaTgZw6n
-    JJM8vVVipFfCsj7/JhuP/uX+ZPPZzqzXlmahs13aSfSACRHNO+KiV0rP04PsMuhmhNVCxa
-    6VEdZqnX1y4cB2i0dapKU/4yUbSBi+QVM7HrT7Yveslwg0KGF7iTSXxum+Teq0KUQ1NQOK
-    eGPOIoU54wqRC/DFCItRABfTGoQHAkcITex6FYgamEzVAu1nbJ3frcEw+1Mw
-X-ME-Proxy: <xmx:vbbxagpYR0bJyBxZ5WUcSDYmTyQPfKgTDoWexdv4F7Y28rMEwFXGWA>
-    <xmx:vbbxahV-Xrm1KZbHFu6yVMLQmpdBhLtQmBHvAIfygaNVaGh5tX-3mQ>
-    <xmx:vbbxat5WYPH6be4un4C-Z1rnHjk0rPA4jLt3YvBnoI_yMDhZyO3vxA>
-    <xmx:vbbxavASrqab1Rwq6GkTNevdpBpjcqA-hV7oQdjlEneqU4vwiVKAVw>
-    <xmx:vbbxahdvpjtgJfsfZzOe8dn5eYMOllmn8MhjVXQxWUJ5zoVw1NEar4-G>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 9 Nov 2026 07:04:12 -0500 (EST)
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Hugh Dickins <hughd@google.com>,
-	Chris Mason <mason@kernel.org>,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
+	s=k20260515; t=1794225912;
+	bh=7QYMXonlT1X/OPGysSVGx2KIKbzgu61tqS/KtO5R6L4=;
+	h=From:To:Cc:Subject:Date;
+	b=cxvv80tf4aXmD9C43/MEHNe9zk/XOvqolhWIiXZdZMbWuItd64Qt+Eec5f3n8l3TH
+	 bEeXEYYcf2FECsC4387/eB7cZ7Dzz5R8a4Y9NITxgFw57Fx4q2uUiCx0XlzoyIkFIe
+	 e4OdrhnHbZHoyCSKGEcTrw7Dn41p6jBtM2nkI1URQFwSoTPAQpiDoR3y8bh7nl7ETf
+	 FrVXkorB2YhV5Hk/fN7tPjhceB2XfaRA+04R4fYULh4TrbRlGfGhRTBDxzWqnxOy4B
+	 lxEGLabfYbu7mcX5Pt+8TBuKYaf/YydINE9Tke532vWOT8D3B9rOVXXVa4YrzkL2Nw
+	 zs9k3s1sFuN0w==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Tejun Heo <tj@kernel.org>,
+	Dennis Zhou <dennis@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>
+Cc: linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH v2 2/2] mm/memory: refuse to map page cache folios that are not uptodate
-Date: Mon,  9 Nov 2026 12:04:02 +0000
-Message-ID: <20261109120403.82361-3-kas@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261109120403.82361-1-kas@kernel.org>
-References: <20261109120403.82361-1-kas@kernel.org>
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org
+Subject: [PATCH v2 0/6] arm64: Fix instrumentation escapes from noinstr path
+Date: Mon,  9 Nov 2026 19:44:53 +0800
+Message-ID: <20261109114500.20298-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,63 +70,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A page cache folio that is not uptodate holds data that was never read
-in or cleared. shmem fallocate(2), for one, adds such folios and clears
-them only on first use. Mapping one hands userspace whatever the memory
-held before.
+Code marked with noinstr can only safely call other noinstr or
+__always_inline functions. When reading arm64 source code, I found
+necessary noinstr markers is missing somewhere. So I asked AI to scan
+the arm64, this series is the result.
 
-Each path that maps page cache checks for this itself: fault-around in
-next_uptodate_folio(), a fault in filemap_fault() or shmem_get_folio().
-Nothing in the mapping code does, so a caller that misses the check
-leaks stale memory silently. MADV_COLLAPSE did exactly that with
-fallocated shmem THPs until recently.
+Since v1:
+  Mainly address sashiko review comments:
+  - add always inline to per cpu helpers
+  - use tif_test_bit() instead of test_thread_flag() in sme_enter_from_user_mode
+    and sme_exit_to_user_mode
+  - a new patch to mark kasan_hw_tags_enabled always inlined
+  - a new patch to Disable branch profiling for architecture library code
 
-Warn and refuse the mapping in __do_fault() and do_set_pmd().
+Jisheng Zhang (6):
+  arm64: percpu: Always inline helpers used by noinstr code
+  arm64: entry: Always inline helpers used by non-instrumentable paths
+  kasan: Always inline kasan_hw_tags_enabled()
+  arm64: stacktrace: Always inline internal stack boundary helpers
+  arm64: lib: Disable branch profiling for architecture library code
+  arm64: alternatives: Make branch and ADRP offset helpers noinst
 
-__do_fault() checks the folio ->fault() returned while it is still
-locked. do_shared_fault() unlocks it for ->page_mkwrite(), and a
-writeback error can clear PG_uptodate after that; that case retries the
-fault instead. For CoW, __do_fault() sees the page cache folio that
-do_cow_fault() copies from. do_set_pmd() covers MADV_COLLAPSE, which
-maps without a fault.
+ arch/arm64/include/asm/cpufeature.h        |  8 +--
+ arch/arm64/include/asm/entry-common.h      |  2 +-
+ arch/arm64/include/asm/fpsimd.h            |  8 +--
+ arch/arm64/include/asm/mte-kasan.h         |  4 +-
+ arch/arm64/include/asm/mte.h               | 10 ++--
+ arch/arm64/include/asm/percpu.h            | 18 +++----
+ arch/arm64/include/asm/stacktrace.h        | 16 +++---
+ arch/arm64/include/asm/stacktrace/common.h | 12 ++---
+ arch/arm64/lib/Makefile                    |  4 ++
+ arch/arm64/lib/insn.c                      | 57 ++++++++++++++--------
+ include/linux/kasan-enabled.h              |  4 +-
+ 11 files changed, 82 insertions(+), 61 deletions(-)
 
-The fault gets SIGBUS, as for a folio that fails to read in.
-MADV_COLLAPSE fails and leaves the range to be faulted in.
-
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
----
- mm/memory.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/mm/memory.c b/mm/memory.c
-index cc1d0b7d15c7..2324c04d632f 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5684,6 +5684,13 @@ static vm_fault_t __do_fault(struct vm_fault *vmf)
- 	else
- 		VM_BUG_ON_PAGE(!folio_test_locked(folio), vmf->page);
- 
-+	if (WARN_ON_ONCE(file_folio_not_uptodate(folio))) {
-+		folio_unlock(folio);
-+		folio_put(folio);
-+		vmf->page = NULL;
-+		return VM_FAULT_SIGBUS;
-+	}
-+
- 	return ret;
- }
- 
-@@ -5727,6 +5734,9 @@ vm_fault_t do_set_pmd(struct vm_fault *vmf, struct folio *folio, struct page *pa
- 		return ret;
- 	page = &folio->page;
- 
-+	if (WARN_ON_ONCE(file_folio_not_uptodate(folio)))
-+		return VM_FAULT_SIGBUS;
-+
- 	/*
- 	 * Just backoff if any subpage of a THP is corrupted otherwise
- 	 * the corrupted page may mapped by PMD silently to escape the
 -- 
-2.54.0
+2.55.0
 
