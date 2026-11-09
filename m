@@ -1,100 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794237940;
-	b=kbTawJZqJvjxKrbGA8qHHCC7qHk/6BJy3GB9FnvfqLY4dULV/FmFbkCMMlmK30JMkXSY
-	 rd/N4TSiylxf8qYmnSGNDEy5it0KfQ7B7886YSIBV3YOa+2ipzJRj+e3xwr5W003t496V
-	 FLTqMPAGBeltd8Xz5l1omCnKC8odbHmhKpl2iYdMmzrVgbTyfboCdPN24YEssje2JPCMi
-	 da10hx4yUdC9cO2qeAisc9V5cTlJdGDIWOH8MtbLOktu9Lg6IFK4/MOjmd9J59Lwvve4K
-	 pCJK5KlAEIo3OdpLPqcZuuPk5R2fUc9Il77O77aZUVT7CQ48BuSK5V0CKWFI3skQTPg==
+	t=1794237950;
+	b=rOIdj3ehEpnlZhi/NAgVPzTIc8cXwyI+wX9n93KN8MCopff7urf5Noc8H3m8OxhJveo6
+	 Bmi0RM9GxR2fOGu9t8P+1VZCzNm9nxtHpOr4QJZP96B4yo5vDP73e0I+aziNoao6N8aIz
+	 Aibt7/x/omCsli6RZOJqSpXs9vIg4D0zzA8p+0/+ECrMvpz7bOXgNNgkqaBHnI9euVxNi
+	 LlWcohg5GDI2MWMFvu+E6AvyUBkOy9zp2aXW1SE70rM92vSqBPXXOpstmKcygrVlGobE3
+	 915mt5OuBVzO+0qXErRGe4DM2GsCGWLgx7RW9wcQugxNquUa19nO/kOjy8/XimX2/tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794237940;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:X-Google-Original-Message-ID:From:X-Google-Original-From:
-	 To:Cc:Subject:Date:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+2eo50vndD4kHyto0T87+2tamN+YBpxl6Kj/Chr71eo=;
-	b=hQYXWoXwSdpVOUADv6Gchxb1fwjcP0xEMTeB+qcqX1En/Rmn19uQNW30CUXQ3onSmwBj
-	 t9ZqOr6iEUjUGfW+XR2PoadcJvwlnmQtHAhYskKIlmwPxtL4QIARI8B0Pxo23ju7XlQlh
-	 M5278gQpoeCmp7HQBnckGQMfDhgwS3WgIkMtjJKuoWH3xSWuGTl4l4yVXUJyZETlGDYXD
-	 HKPgMjuvbFgBJNTsPTMoJ01xxabtNRk1HfhG+URD6d0sA+vlSlekW3IZ50djk12esKC84
-	 GsCtBeN2LqHMVJdqZEVod8gT3d65qJ+EAvsXppuUziSWdhibcUkh39uV2DBadMEwZUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794237950;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4263mtKXKKoNqH4huNX2n14ORi1Z79O1WQ7rm0WWYFs=;
+	b=uFvb9nASb7Ngd9sftGEAmJ1sK3lEk9QBrg3gAjzP6Yvdw339eaoO/+f1OThlXXybOXiz
+	 2jZAzMcg+69SyaIfPq8w/eLUrMhishOoFBO25+2NlCS6W4kPkki9FUA2+5yNm+uax3huU
+	 Pj1KU4AmctBinIF7rNYHZV43NJ5tGyiLjOEZdxrTI+v33LYLsNRN2mgsyqmqdyY/keAKt
+	 KUKcdllGu4yFvdpeJNUo/PTq9dku3GpX1BjnCwvtCzJbgd4zZv/F9WHtqJrqYSnlgbpxI
+	 +nqIisgFI6lVmWB+2Fy2aRne7ZdUaCMUjHzyB1GSAXGgjsLdD+605ELPmfuvCUd5/3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QAH5Td1V;
-	arc=none smtp.remote-ip=209.85.215.170
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+y89fNA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BB5606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:25:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00BB5606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E0F81606A321;
+	Mon,  9 Nov 2026 15:25:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QAH5Td1V
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso359205a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:25:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794237939; x=1794842739; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:subject:cc
-         :to:from:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+2eo50vndD4kHyto0T87+2tamN+YBpxl6Kj/Chr71eo=;
-        b=QAH5Td1VVsnMLp74yBsh4npC78p5NNQ1yeYU7wlnu0FWjl/bPOeUPjHSKfgSElKUaY
-         sL7qtgp1plN4TJ3twIW+lQcQWqMV52IR3AswYPfeaf3pHMgWa1T0Vo5v0HVn30K5LzJO
-         AjM6aNGBh0xyNGbzIh8womUFdwHXj0Yu8W20njfgXPOxLfw/5XXyh8shBACc/Ny3dsRc
-         0KUiBokdaY41XjPAnqRokYNmrA63vPfK9OspssxFsn+CpDg8tOFDfl8sfZDIhJhTz+gh
-         jJvN/MglHjaK1X8YBA3Z89RzXSYmdRKI9yxNToQxDj6BnYbU2Mej2WjBdVGkxHAGfRyq
-         tWJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794237939; x=1794842739;
-        h=content-transfer-encoding:content-type:mime-version:date:subject:cc
-         :to:from:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+2eo50vndD4kHyto0T87+2tamN+YBpxl6Kj/Chr71eo=;
-        b=QLXbEOh0uYG2vmsNC3fhxoftLTSqsg60w84gK619hA3j/yMcEx/3HSAYtx3eo5MN5y
-         0S9cKtE6iMlfDjNHXEjkgE7tyeFrmgYQZVVET2tiGnE4IE1lmyKD1AZ7523qywfDYV8v
-         W+3ocIfuz1fHhy6ko8nis08uJ03hCD9/sKXKAsf2V590lTaEN1GThh2udv7ds0V6rcJ6
-         a4dW3tHRFsl0k3IFmnp1JxiC31oXnL+Y7+0TL6OeWIk4NG2xyLM8T1q2hpakA7oFk429
-         G9tMiaMk+lSlgJslZj2jAVVpyxdAx2nQbB8Hj7fOXACY9y/0mrWD6n/lxj5Zjy36znyK
-         z7Zg==
-X-Forwarded-Encrypted: i=1; AL+hErGnDjaybmqSjVdZ7iRKxw8nBJIiBtEpgStmzUWvk2oNSW1iJMneBsyPExAHeyW5REVfjAxB0Kx6mc/Czs4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/iru6PH6ESJb+bhymdrmQF/wMs48qxH1RcVeyy9SnPJFS85XQC
-	OvZVVfv4vy8R5DxqV6kgs3JfrB+OSMuPjM2JT+C5U7Qollfk/cGWiJIq
-X-Gm-Gg: AYBFou12FasVBJqjRexmdQYzoFykEMnSzxv+yYnwJKbRujRQxp2c9Qa+mqv2oEaQLl6
-	OjxhxXNz0SnH7heO5oOgrRP8jcjBjIrKteooZfoLBPuECzthk3jX5Fkvv/n+212iKUnah/+2X2k
-	2/TMbyEhqOfNcW9VTqyHtqTueQibFikWWOxa34VsMP5VKPYf0jirCj8NQ4dMDWc2XfT9c7TDKh/
-	aZwPj4EQZBLAk9o1XTpn9dg1c9PzjTLDCrS9HJgMoC3KYn3JMx7H5aeVBkeJLB2y66Qj3Ot6UvC
-	JisSmOrfn1ZzV6BtbNpDhITCd83F20s6r/wP1sEH96u5nYBjnW6DSoAMEnXTS2fFiafB6TlZWO5
-	JMqm8k2vsvjwl2ic2UmrfWuCnNkMhG3mUYbt96rJm4rVwB47XlnOU2wH7irK1jz0TwJ5g5qC+F4
-	7AU0eUArqAQalQELWFckIj5GGqcdem0ePqUu5nH7Po0LBQsEdiZy7yuo12xNLrQ9ZUfbjEENnmQ
-	8k2czDxfrOBYAbaFKRnDC4obLt5FGz8CJDMZnp+pZHR97T54/dNj5dbr864/iUd+J9dm7JD06uv
-	VdJ6CsvF+kJBE1j+5Z1n+z/wJ+eRxBTNwLEJ+oqURkmRUTiJ62g=
-X-Received: by 2002:a17:90b:33ca:b0:3ac:929e:691 with SMTP id 98e67ed59e1d1-3b12d418819mr4176458a91.17.1794237938727;
-        Mon, 09 Nov 2026 07:25:38 -0800 (PST)
-Received: from hanzj-mi.. ([157.185.136.247])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b105864bffsm11462095a91.3.2026.11.09.07.25.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 07:25:38 -0800 (PST)
-Message-ID: <6af1e5f2.a438010f.130489.ab94@mx.google.com>
-X-Google-Original-Message-ID: <<179423792787.1832964.14629633117175086624@gmail.com>>
-From: Zhijian Han <hanzhijian1991@gmail.com>
-X-Google-Original-From: Zhijian Han <hanzhijian@zepp.com>
-To: bpf@vger.kernel.org,
-	sched-ext@lists.linux.dev
-Cc: daniel@iogearbox.net,
-	tj@kernel.org,
-	ast@kernel.org,
-	void@manifault.com,
-	arighi@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	Zhijian Han <hanzhijian1991@gmail.com>
-Subject: sched_ext selftest enable_cmask fails to load on 7.4-rc2: verifier rejects arena pointer cast from scx_enable_args.cmask_arena_addr
-Date: Mon,  9 Nov 2026 23:25:32 +0800
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+y89fNA
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DE6191F0089F;
+	Mon,  9 Nov 2026 15:25:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794237949;
+	bh=4263mtKXKKoNqH4huNX2n14ORi1Z79O1WQ7rm0WWYFs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=M+y89fNAvHoUw9A7TWlhNt85e5LZFvXaHbsSLLaIDbsRUFY5JD+FR2i4M+Ra2zyLw
+	 ko7U5zmllvV9qktJgZHLT99akhjvMIvj7Ub6dQopecjB35ydeA6p5pwLX5nSLMeunQ
+	 dRwU+XpJ/cEOyndp4qzIJeqE8IrtviODXTErU+KTxvDL/WfyUS8tXBIwPKZKRCV23r
+	 Zh1lbE5tqGIwGVkMYiw0If5x5hXyPdBLc/IayiKx94lhCKB9uiIaIb/SfpiSsnnxdZ
+	 JYSFw1V3HaDs51WP6SRZyLeoo2xCj7HuZo3533iuQ15655dnhhnX8gPakL5fjxY2f9
+	 WnQvGS4+o8paQ==
+Date: Mon, 9 Nov 2026 17:25:45 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] tpm: acpi: Fix memory leak at tpm_read_log_acpi() error
+ path
+Message-ID: <avHl-WoBP73QjInD@kernel.org>
+References: <20261109082527.541901-1-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,93 +57,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109082527.541901-1-tiwai@suse.de>
 
-From: Zhijian Han <hanzhijian1991@gmail.com>
+On Mon, Nov 09, 2026 at 09:25:24AM +0100, Takashi Iwai wrote:
+> When devm_add_action() returns an error, we do NULL-clear
+> log->bios_event_log unnecessarily before calling tpm_bios_log_free(),
+> and it would lead to a memory leak of the allocated log buffer.
 
-Hello,
+I don't understand this. "NULL-clear" is gibberish when the actual
+bug is just spurious clear of log->bios_event_log. Also we are not
+doing anything we are not computers.
 
-The enable_cmask selftest (tools/testing/selftests/sched_ext/, added in
-the recent merge window via d781d1b78acf "selftests/sched_ext: Check the
-cmask cid-form ops.enable() receives") fails to load on v7.4-rc2 and
-linux-next-20261105. The BPF program enable_cmask_enable is rejected by
-the verifier at load time:
 
-  libbpf: prog 'enable_cmask_enable': BPF program load failed: -EACCES
-  94: (61) r1 = *(u32 *)(r8 +0)
-  R8 invalid mem access 'scalar'
-  Verification failed: Register Type Safety: Invalid dereference
+> 
+> Fix it by simply jumping to the err.
+> 
+> Fixes: a3a860bc0fd6 ("tpm: Change to kvalloc() in eventlog/acpi.c")
+> Cc: <stable@vger.kernel.org>
 
-The test follows the usage documented in kernel/sched/ext/internal.h:
+Put Cc before fixes.
 
-  struct scx_enable_args {
-          u64     cmask_arena_addr;
-  };
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  drivers/char/tpm/eventlog/acpi.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/drivers/char/tpm/eventlog/acpi.c b/drivers/char/tpm/eventlog/acpi.c
+> index cf02ec646f46..50770cafa835 100644
+> --- a/drivers/char/tpm/eventlog/acpi.c
+> +++ b/drivers/char/tpm/eventlog/acpi.c
+> @@ -167,10 +167,8 @@ int tpm_read_log_acpi(struct tpm_chip *chip)
+>  	}
+>  
+>  	ret = devm_add_action(&chip->dev, tpm_bios_log_free, log->bios_event_log);
+> -	if (ret) {
+> -		log->bios_event_log = NULL;
+> +	if (ret)
+>  		goto err;
+> -	}
+>  
+>  	return format;
+>  
+> -- 
+> 2.53.0
+> 
 
-  /*
-   * ... The address is a plain value rather than a typed pointer ...
-   * Cast it to struct scx_cmask __arena * before use.
-   */
-
-i.e. enable_cmask.bpf.c:101:
-
-  struct scx_cmask __arena *m =
-          (struct scx_cmask __arena *)args->cmask_arena_addr;
-
-The C cast does not emit an addr_space_cast insn: in the generated
-bytecode the member load (insn 1: r7 = *(u64 *)(r2 + 0)) produces
-R7=scalar(), which stays scalar across the cast and the inlined
-check_mask() prologue, so the first dereference m->base (insn 94) is
-rejected.
-
-The same selftest was verified by Tejun on the for-7.3-fixes branch
-(per the v3 cover letter, 20260919002838.1960071-1-tj, 16-CPU VM, three
-standalone runs plus the full suite); the verifier-side arena handling
-that changed during the 7.4 merge window appears to no longer accept
-this pattern. The struct_ops argument path (direct __arena args, e.g.
-ops.set_cmask) still works — only the u64-carried address form is
-affected.
-
-Reproducer (deterministic, two consecutive runs identical):
-
-  # kernel: defconfig + SCHED_CLASS_EXT, DEBUG_INFO_BTF, FUNCTION_TRACER
-  make O=build -j$(nproc)
-  cd tools/testing/selftests/sched_ext
-  make LLVM=1 O=$PWD/../../../../../build OUTPUT=out/ TEST_GEN_MODS_DIR=
-
-  # initrd with out/runner + out/build + libs + busybox + kernel .config
-  # at /boot/config-$(uname -r); then:
-  qemu-system-x86_64 -enable-kvm -smp 4 -m 2G -nographic \
-    -kernel build/arch/x86/boot/bzImage -initrd initrd.cpio.gz \
-    -append "console=ttyS0"
-
-  /root # ./runner -t enable_cmask
-  not ok 1 enable_cmask #
-
-Tested on:
-  v7.4-rc2 (7475ea8b5):          FAIL  (verifier rejects at load)
-  next-20261105 (gddfe51b0a0f5): FAIL  (same rejection)
-  v7.3:                          SKIP  (struct scx_enable_args not present)
-
-Compiler versions tried: clang 18 and clang 19 — identical bytecode
-around the failing insn, identical rejection, so this does not look
-compiler-dependent.
-
-The other 40 tests in the suite pass on both 7.4-rc2 and next (after
-enabling CONFIG_FUNCTION_TRACER, without which the fentry-based tests
-maximal/kick_immediate/reload_loop fail with -EBUSY — worth a note in
-the selftest docs, but that part is config, not a bug).
-
-Possible directions (not investigated in depth):
-  - a kfunc or verifier-supported way to convert the u64 carried in
-    scx_enable_args into a PTR_TO_ARENA,
-  - or an __arena-typed member/alias in scx_enable_args once BTF can
-    express arena pointer members (the internal.h comment already
-    anticipates this),
-  - or adjusting the test to obtain the cmask through a path the
-    verifier accepts.
-
-Full verifier log and QEMU boot log available on request.
-
-Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
+Br, Jarkko
