@@ -1,62 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229954;
-	b=NJhD7eYH5h2+vC7Agno6sF4wbGItq2FV5Hu/6AjCcfPpBRAzdj665VA8bml4IQ5upxSC
-	 futXQtDxeaZXYLie6qQNY/ZXjfUduDl3+qPuX+0ofbq21VWr6jpt+zyaHfmwItzCCm78L
-	 DFSzMzkXzhu35c2pGNtQhMFMtr563mq15oYm9hShYDYL/knni67nyrykvx17ax/rp09bt
-	 mguaume2OGgsDvBv4OxTuZcY5+iIIDbd151w9spfS/lXkcCgEJnBCxTAyBtxJ6djrwKMb
-	 yMmNyNmsYcWxMx5UlhaWt7XzuzQtGGUgR1Vz9Zg5SvEhoEk10kbzaSwFi9UJVc8ux1A==
+	t=1794229981;
+	b=JaV6v4A7vpxUulmwqZ3/zi0VJlL7LL/sSaf7MLVqhcnYRNAcU/UBPF8cXUJF0qEYilm9
+	 8xEI0eEneEqEMz5nJp62/GUpL6zfacESUuY83fvOVHPd6CDM7xpIAVAX9JcoKLzoo18T7
+	 cdffu1lo0BVhOkapAuhYrKmbW/PscTH5Y1F2IjnEOpcLDkBg9AiIGhb1wueDgfXxlT53b
+	 hZaRB7Y5H1uWjdXkZehUjC3qz7Cvb871nxH+rCSsv4Z/pLNiW6v34Lw9tFJGPhQzGvV0C
+	 H605MFOBpfq/NE+VxTBu79e14YVBRdeEAR3XynsY4I6hnsMqy1nE/MBEeZOAIGdl7oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229954;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=VcGX3S/ok2ofcwS3uJdO8rQXnNkquiVnumUqc1g1VFE=;
-	b=soj20ttTAa3yzy5/aFOh825nMsFMn/iySB6z69peUZjTmWQAKOs2thdSTVCJAT7/FikV
-	 lTbzip4i43XxNgR1uIZeqCRTxR/+3NpFTDO47ZvC/pSxEWMWuZvD3hZmX8S4T4LeVsSoi
-	 eXC5gbWPCWaG2QKnvYnoSBVGiv91XUWOlzoYcXoM6EwiXs/35ZPH5tBzsWhSpX6QGzo96
-	 Amdim+KwZWAL/7tvfkyj5dh7O2cxejQ2uuuOtudu0Pbc0LdHgAHFVJhQM6AjNE0gTM8+F
-	 lWSJzvfyCx8c7ByGKn7LHDBnB+lZIN43Tvepo8l7Zka/yLttMlRYbzlf6KZgLXjR2ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229981;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=mO+ZxTuBmnc8jJlKf0wnonLOScSpxc0ZUKDgd09SjV4=;
+	b=EjnESpLSX6IX3Y7djAFgPrc23UOUK28/v3tTVKsRlrcVqjEzt/+EsHNz3XSR/JklmOxE
+	 TEJKMoC8ZnkBp6RWtBhdR3lDews97w32DO3Zj+CGvmcg0aRq/9FL4tmbQGFc6XQGJwlx1
+	 Fac36/dyZAJQys/8NwLJbyCSUdoNAfUsZaqwn+SRONb+DtrgyjTsytrhDL2M97gTJEFyx
+	 M4D3YHRNVZb03eEzYtI8iM6HNTNTqOmbx3yUQe1F1Q/ehogo6MGwoioSGtLpivMFRfhJL
+	 j3898BMjiAhU5sSRjyk0E6r0QK/iepX87EMxBh1NArgzRmSlo9JKcsn3d+vSf9pkESA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ll9SyF9z;
-	arc=none smtp.remote-ip=91.218.175.195
-Received: from mta0.migadu.com (out-195.mta0.migadu.com [91.218.175.195])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nKqKZZ2V;
+	arc=none smtp.remote-ip=74.125.224.42
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DC4606A331
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:12:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29DC4606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA47606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:13:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CA47606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ll9SyF9z
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9ZfmGyDfW24qGm7656Xt3E7F30kmlnVfQdHu0DS+Udo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794229951; v=1; x=1794834751;
- b=Ll9SyF9zNlSMAGfwbEgHRzmiDmW6DEXh9Xfjr2F4nstXo8/Oxv+CNcwJl9Hv3ehjqU8sK2Tu
- RmSHN5VFbSCkpXljtXH9MiqAaCeVkDYTDtS1TgaWzkoTfieZag7EXJumvfpvdP2cJeH3g9s6pZK
- P5B04ihTOsK+7mEM1edYdDog=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 86ac3c8a92c8c74c;
-	Mon, 09 Nov 2026 13:12:31 +0000
-X-Mizu-Trace-ID: 86ac3c8a92c8c74c
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5c14bc5a743so5482e87.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:12:26 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHtXLbR6pGyEiH4zXE6UV0M1hM05HsAdDEE6dvlZ1KtBJD9UlROtZQEMBdRjXJcHRJpc8JkRmh5z0lmhrI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/xoqFvUucAT+mMpVC2RHwAfSAe7gZ+f3fjPtOI0tTq24EI/Gd
-	l/e68S8kN618eOxjSmzK8tKadX8MGsdMscFfslQBFuHF0DiMhoMywlCI/ux4K39JWrRK7pGvBDm
-	O+Yg/Hgsm8K4hOwVNhMYdpjk+YpbuXVMH8U/OI7fF
-X-Received: by 2002:a05:6512:1109:b0:5bf:c3e1:532b with SMTP id
- 2adb3069b0e04-5c00b60a427mr195461e87.5.1794229945777; Mon, 09 Nov 2026
- 05:12:25 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nKqKZZ2V
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-677af43eed4so863391d50.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 05:13:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794229979; x=1794834779; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mO+ZxTuBmnc8jJlKf0wnonLOScSpxc0ZUKDgd09SjV4=;
+        b=nKqKZZ2VtNpRZKOtwZpCpL+YPvDECCxCgrGBSez7I3kUEdT7DLPLGj16VmXBE82vRX
+         iUCiNvRDxFD5dnjg0sbuBCQdWTMkqJ6yuH59zcBaj+F7rtA26Md11G6jsJTeaVIJkbAG
+         A6AhMWn+G+ArX1J+bS8qz3Guv7iv+M3VQgpSV6I//K+QwC+g1EUeoVTtPxlqv1MeJCrA
+         ZWf4wQRLLgUP7VIHV8H9cRGSyyNw6YskoMQeb9RnOW8dlwLcD3LY8DIMl1rgkysP17mw
+         bm8nlX/Em6kWDo2YHjo1JDa0GOInX/ZLq2OwHrI427Envj0yuJdxF2ITDE/LWSeV6Iju
+         1bjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794229979; x=1794834779;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mO+ZxTuBmnc8jJlKf0wnonLOScSpxc0ZUKDgd09SjV4=;
+        b=vvuWBRzwnAyLJeKFmgkWgEkaq/ngD133n8hHdoPIeJfWlE+Zh2WfTORiI5anX9aqn2
+         mDnp690NN4B9DabM6jvVOGgo6I39zThCo+qUUscZLVCvvfSJQREqk7XsRVud7epj5XQe
+         I0Fklc53na+R5zFVJdF9GICuuMOfNLTyBlXwPat4MNtlPBXvzMVTiv9w3/aAonrAR6Px
+         kdoceU94pAY6PfmV2RRX6Z1mCWgvmzPdXxDFotGgeZXcfMwl/3gAnRKlIbaROzf8ibsz
+         pRg4SqfrB+TYWylpOY95EuH6IRR/S98E9KVT+/a1igUGYhrlVWEORxTZR5fapBAUCFUI
+         06iA==
+X-Forwarded-Encrypted: i=1; AL+hErFONoiZiyH5LGr9vHA+aHGo/jhvjWrYH+nzCC8B3Cw/ooURoZM2NcrWQ04nqhky2C0pVViQSJ0AavrIrVU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9RXzL8hb2hUXur88pTdpCHtcElQDIjPqauCNYH0rNXSqsashwk
+	51vDVcPL3KBZap6bQ6rgcvkHhL4ylqbh0NwxHZF5StlBEnWGTInLN//D
+X-Gm-Gg: AYBFou3+brj4BIYEL7M98rdaaYp13XSmML+YXeHOeb+WceKSdceo2plH5XUWdM+Xn6o
+	Laqyf36th0DVVRD3JTOw3HNZmaa0Lk5hPf03knNejidm9SMopzVcKimgzCK4C1tYI0IpTBxgWXs
+	OIzFkczBamObgUEi/uYPN5G9AR309tGVmbSL0KrjQXWhzCEkIbgaLEpwVXDmU/4RZSMObv1tsX3
+	8zBEs/8P6OuWKUl85OxXSVmxkDdp9YgyheUJIXFsJ8ccwZ0Sys8J8ktiD7FWeea1p1NChnWDAGO
+	tFBDZnEDUMpBEbNQlL+BQyTiBNc9mL582yN3/NF8E5iIsaGUfCBIT3hORHFlJ4U58udTkODGqSZ
+	lw++MwkWbfxVG8KPrQCO1Gbdxl8hRvT/ymNVABwdlXyZkyZq43lIm9sFecy1oE3ARTt514Mz1CM
+	NMLMLljcrBdvGZfosQKbVtq7Q0CC01NJxvbCIkvsQtTJt6CyVoCt6U8SqBhKFiWQVWd/f1zozhH
+	AhWnGL7YR0Qx+WWJ8c4s0OfsMnoCTLm4CaraGYuAv+LNq2+4BToaF1h7GClh5pZtXnHUfo59Z/d
+	EACSpNqeluPqTtfmKA3PCac+ce3FA5VyZMYddP6eygKq70H3bDgqYlCUtwAEa6x622A7SrIe5w=
+	=
+X-Received: by 2002:a05:690e:1446:b0:679:bad8:7dd0 with SMTP id 956f58d0204a3-67c3d966913mr2937912d50.27.1794229979471;
+        Mon, 09 Nov 2026 05:12:59 -0800 (PST)
+Received: from nb-x1-03 ([181.120.144.175])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67c3b83e8bdsm3945927d50.1.2026.11.09.05.12.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 05:12:58 -0800 (PST)
+Sender: Ciro Iriarte <ciro.iriarte@gmail.com>
+From: Ciro Iriarte <ciro.iriarte+software@gmail.com>
+To: "Martin K. Petersen" <mkp@kernel.org>
+Cc: target-devel@vger.kernel.org, linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] scsi: target: compare all six ISID bytes when identifying a nexus
+Date: Mon, 09 Nov 2026 10:12:53 -0300
+Message-ID: <591ac67a-fa1e-4395-9573-2d9405cfe0b6@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,53 +95,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102141304.126883-1-steven.price@arm.com> <20261102141304.126883-11-steven.price@arm.com>
- <fa0ee5a1-4c49-4c1f-bfbb-c270dc4b6301@arm.com> <CA+EHjTy970AWnhYoZ5OqxQ8ojCAELeejw60y2NmpDsM_ZMdu4Q@mail.gmail.com>
- <06e52c9c-9026-4279-b8c0-53a54a667dad@arm.com>
-In-Reply-To: <06e52c9c-9026-4279-b8c0-53a54a667dad@arm.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 9 Nov 2026 13:11:49 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTzJ1O8=q0rL5CkLKN3CBDr=TkujEw_M-W0H=BJfmrTEzg@mail.gmail.com>
-X-Gm-Features: AclHuK9lv_i4f5zskQj2LbWryVS8Q4D5sdKCijE4VdtfsoeeW5x-cT5K6pQCDgo
-Message-ID: <CA+EHjTzJ1O8=q0rL5CkLKN3CBDr=TkujEw_M-W0H=BJfmrTEzg@mail.gmail.com>
-Subject: Re: [PATCH 10/11] KVM: arm64: CCA: Support runtime faulting of memory
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: Steven Price <steven.price@arm.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>, Will Deacon <will@kernel.org>, 
-	James Morse <james.morse@arm.com>, Oliver Upton <oliver.upton@linux.dev>, 
-	Zenghui Yu <yuzenghui@huawei.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>, 
-	Alexandru Elisei <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>, 
-	linux-coco@lists.linux.dev, 
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>, Gavin Shan <gshan@redhat.com>, 
-	Shanker Donthineni <sdonthineni@nvidia.com>, Alper Gun <alpergun@google.com>, 
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, Emi Kisanuki <fj0570is@fujitsu.com>, 
-	Vishal Annapurve <vannapurve@google.com>, WeiLin.Chang@arm.com, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Suzuki,
+lio_sess_get_initiator_sid() reports the ISID as twelve hex digits, and
+iSCSI TransportIDs carry the same digits. __transport_register_session(),
+__core_scsi3_do_alloc_registration() and
+core_scsi3_alloc_aptpl_registration() turn that text into
+sess_bin_isid and pr_reg_bin_isid with get_unaligned_be64(), which takes
+the first eight characters, i.e. the first four ISID bytes.
 
-On Mon, 09 Nov 2026 11:35:31 +0000, Suzuki K Poulose
-<suzuki.poulose@arm.com> wrote:
-[...]
->> applies as is. Only how the expected state is computed differs: for a
->> pVM it comes from the per-page share state rather than an IPA bit.
->
-> When you say, per-page, you mean per-IPA or per "backing page" ? i.e.,
-> can pKVM do something like :
->
->     kvm_ipa_is_private(kvm, ipa) ?
->
-> (similar to Realm) or does it need the struct page backing the "ipa" ?
+open-iscsi ISIDs start with 00023d00 and differ only in the qualifier in
+the last two bytes, so every session of one initiator gets the same
+binary ISID. target_scsi2_reservation_check() and
+target_scsi3_pr_reservation_check() then treat any session of the
+reservation holder's initiator as the holder:
 
-Per IPA, so kvm_ipa_is_private(kvm, ipa) would work for pKVM too. A
-pVM's page is private unless the guest has shared it, and that state
-is in its stage-2 PTE at EL2, not in the struct page. The host kernel
-doesn't have a copy today, since EL2 handles the share and unshare
-hypercalls and the new state is only at EL2, so the pKVM side of the
-check, a hypercall or a host-side mirror, is part of pKVM's
-guest_memfd support when that lands.
+- after RESERVE(6) on one session, another session of the same
+  initiator can still write;
+- with a Write Exclusive persistent reservation, another session that
+  is not registered, or registered but not the holder, can still write.
 
-Cheers,
-/fuad
+Reproduced with two open-iscsi sessions (ifaces default and if2) to a
+ramdisk LUN: on v6.12.113 every command from the second session
+completes with GOOD; with this patch TEST UNIT READY and WRITE(10)
+under RESERVE(6), and WRITE(10) under Write Exclusive, return
+RESERVATION CONFLICT, and READ(10) is still allowed.
+
+Convert all six bytes. Text that is not exactly twelve hex digits keeps
+the old conversion of its first eight characters, now copied into a
+zeroed buffer so that a shorter string, such as an initiator_sid written
+to res_aptpl_metadata, is not read past its end.
+
+An all-zero ISID now converts to 0, which
+target_scsi2_reservation_reserve() took to mean "no ISID". Set
+DRF_SPC2_RESERVATIONS_WITH_ISID when the fabric reports ISIDs instead.
+Also update the TransportID parser comment that referred to the
+get_unaligned_be64() read.
+
+Initiators that relied on the old behaviour, reserving through one
+session and writing through another without registering it, will now
+see RESERVATION CONFLICT, as SPC requires.
+
+Fixes: e48354ce078c ("iscsi-target: Add iSCSI fabric support for target v4.1")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ciro Iriarte <ciro.iriarte+software@gmail.com>
+---
+ drivers/target/target_core_fabric_lib.c |  8 +++---
+ drivers/target/target_core_pr.c         | 33 ++++++++++++++++++++++---
+ drivers/target/target_core_pr.h         |  1 +
+ drivers/target/target_core_transport.c  |  2 +-
+ 4 files changed, 36 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/target/target_core_fabric_lib.c b/drivers/target/target_core_fabric_lib.c
+index ad024009d..f720fbce1 100644
+--- a/drivers/target/target_core_fabric_lib.c
++++ b/drivers/target/target_core_fabric_lib.c
+@@ -372,10 +372,10 @@ static bool iscsi_parse_pr_out_transport_id(
+ 			return false;
+ 		}
+ 		/*
+-		 * The registration code reads the ISID as a C string,
+-		 * and its first 8 bytes with get_unaligned_be64(), so
+-		 * require 8 bytes after the separator and a NUL inside
+-		 * the rest of the descriptor.
++		 * The registration code reads the ISID as a C string, so
++		 * require a NUL inside the rest of the descriptor, and at
++		 * least 8 bytes after the separator: an ISID is twelve hex
++		 * digits.
+ 		 */
+ 		if (buf + tid_len - p < 8 || !memchr(p, '\0', buf + tid_len - p)) {
+ 			pr_err("Incomplete or unterminated ISID in iSCSI Initiator port TransportID\n");
+diff --git a/drivers/target/target_core_pr.c b/drivers/target/target_core_pr.c
+index ca1a2802a..c59032228 100644
+--- a/drivers/target/target_core_pr.c
++++ b/drivers/target/target_core_pr.c
+@@ -19,6 +19,7 @@
+ #include <linux/fcntl.h>
+ #include <linux/fs.h>
+ #include <linux/fs_struct.h>
++#include <linux/hex.h>
+ #include <scsi/scsi_proto.h>
+ #include <linux/unaligned.h>
+ 
+@@ -30,6 +31,28 @@
+ #include "target_core_pr.h"
+ #include "target_core_ua.h"
+ 
++/*
++ * lio_sess_get_initiator_sid() prints the six ISID bytes as twelve hex
++ * digits, and iSCSI TransportIDs carry the same digits.  Convert all six
++ * bytes: reading the first eight digits as a big-endian u64 keeps only the
++ * first four ISID bytes, so two sessions of one initiator that differ only
++ * in the qualifier, the usual case, would compare equal.  Text in any other
++ * format keeps the old conversion of its first eight characters, without
++ * reading past the end of a shorter string.
++ */
++u64 target_isid_to_bin(const char *isid)
++{
++	u8 bin[6];
++	char raw[8] = {};
++
++	if (strnlen(isid, 2 * sizeof(bin) + 1) == 2 * sizeof(bin) &&
++	    !hex2bin(bin, isid, sizeof(bin)))
++		return get_unaligned_be48(bin);
++
++	memcpy(raw, isid, strnlen(isid, sizeof(raw)));
++	return get_unaligned_be64(raw);
++}
++
+ /*
+  * Used for Specify Initiator Ports Capable Bit (SPEC_I_PT)
+  */
+@@ -285,7 +308,11 @@ target_scsi2_reservation_reserve(struct se_cmd *cmd)
+ 
+ 	dev->reservation_holder = sess;
+ 	dev->dev_reservation_flags |= DRF_SPC2_RESERVATIONS;
+-	if (sess->sess_bin_isid != 0) {
++	/*
++	 * An all-zero ISID converts to 0, so test whether the fabric has
++	 * ISIDs rather than the value.
++	 */
++	if (tpg->se_tpg_tfo->sess_get_initiator_sid) {
+ 		dev->dev_res_bin_isid = sess->sess_bin_isid;
+ 		dev->dev_reservation_flags |= DRF_SPC2_RESERVATIONS_WITH_ISID;
+ 	}
+@@ -674,7 +701,7 @@ static struct t10_pr_registration *__core_scsi3_do_alloc_registration(
+ 	 * save it to the registration now.
+ 	 */
+ 	if (isid != NULL) {
+-		pr_reg->pr_reg_bin_isid = get_unaligned_be64(isid);
++		pr_reg->pr_reg_bin_isid = target_isid_to_bin(isid);
+ 		snprintf(pr_reg->pr_reg_isid, PR_REG_ISID_LEN, "%s", isid);
+ 		pr_reg->isid_present_at_reg = 1;
+ 	}
+@@ -866,7 +893,7 @@ int core_scsi3_alloc_aptpl_registration(
+ 	 * SCSI Initiator Port, restore it now.
+ 	 */
+ 	if (isid != NULL) {
+-		pr_reg->pr_reg_bin_isid = get_unaligned_be64(isid);
++		pr_reg->pr_reg_bin_isid = target_isid_to_bin(isid);
+ 		snprintf(pr_reg->pr_reg_isid, PR_REG_ISID_LEN, "%s", isid);
+ 		pr_reg->isid_present_at_reg = 1;
+ 	}
+diff --git a/drivers/target/target_core_pr.h b/drivers/target/target_core_pr.h
+index b793c9963..4debfe4be 100644
+--- a/drivers/target/target_core_pr.h
++++ b/drivers/target/target_core_pr.h
+@@ -72,6 +72,7 @@ extern void core_scsi3_free_pr_reg_from_nacl(struct se_device *,
+ 					     struct se_node_acl *);
+ extern void core_scsi3_free_all_registrations(struct se_device *);
+ extern unsigned char *core_scsi3_pr_dump_type(int);
++u64 target_isid_to_bin(const char *isid);
+ 
+ extern sense_reason_t target_scsi3_emulate_pr_in(struct se_cmd *);
+ extern sense_reason_t target_scsi3_emulate_pr_out(struct se_cmd *);
+diff --git a/drivers/target/target_core_transport.c b/drivers/target/target_core_transport.c
+index 927861c30..4629c9343 100644
+--- a/drivers/target/target_core_transport.c
++++ b/drivers/target/target_core_transport.c
+@@ -419,7 +419,7 @@ void __transport_register_session(
+ 			memset(&buf[0], 0, PR_REG_ISID_LEN);
+ 			se_tpg->se_tpg_tfo->sess_get_initiator_sid(se_sess,
+ 					&buf[0], PR_REG_ISID_LEN);
+-			se_sess->sess_bin_isid = get_unaligned_be64(&buf[0]);
++			se_sess->sess_bin_isid = target_isid_to_bin(buf);
+ 		}
+ 
+ 		spin_lock_irqsave(&se_nacl->nacl_sess_lock, flags);
+-- 
+2.55.0
+
