@@ -1,100 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794197297;
-	b=D6Iq3E02z+yoS3L5+80fJpr7E/lVqv2zS8OD5ZE7krJtOUJR90gcxi9VEvOKqPAjxfBR
-	 JBbmobQE4gbc2/IzsOZJa7fVwbsMAOQvXpWZv0unTJNjhaH8GwFDFvkqpaTQ62I2pXlXs
-	 8efKXAGdmHYj2I7Xr0h+lg0QOPgRsmy6xbDeAsYamtr42n3ksoggypoW3oRsgjERUn5g1
-	 W7y/TEL937DxVxsvvcpJySUC/n3xPDCmy1KngZzQOozO/pxBktLmPiCT9GovTAJPJiYQy
-	 fls00G5kp5W01c/aWgsFYWO2fkw8qy7Jpvy2RuBDSbIz2rXkWW70T/QxZp1wQB9b2mA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794197297;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=0IEY2oUkY/Exy20gttekfGAPLEe1995noJ1eoGIVUGo=;
-	b=BvcGGknMiraieJqu4pMnnt3D/dmpWzYvxpyGyqXnoO+MehgrziJUe28o7bMACP8OSgPt
-	 B+Zdj8s2Dzk7W2OPkVog0LpkDUE+BxLC2MagEkBy0s+slcbYBA4iNPklRHNeVUuSH1XEV
-	 opGID8wnEmCKq7SAAvPSsPknHtsv0Y5Aq+k5lemwVaYPv1cbsod8zHUDg5Udtmwu19Cf2
-	 qNQ6bjnl+qjQ/g5awvjUKfV9R7Ox+gii/nRKIhKJ+b2Ay8s6X6zO+ecJ8ju4ldm/ysyXJ
-	 oHgfyHEICwvpAanFER+WTC3c6qeH79d94XwWdFIS7R2DRA25UD4UmVI8y/j+g+PW/Mg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="GgVf/4/n";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.169
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F11606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 04:08:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73F11606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GgVf/4/n
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e985106c0cso3170305ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 20:08:17 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794197297; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nYgTMCfgzwZGtF947SN7jy8tySzSMwbxbzQZbdovY649fNOlFMCfU1CvboE6COWtJH
-         79UEVBFDwx0ooQN7yeCpwx65hYvh8ESxxOYnWk+HQeGokbDqRR0cJmvtE4oUMC5rz31f
-         9WZcokR4uLFKFEB/5RuKkEaW63uqiOtl5tMk/1V+LHMaxupUQGc0iALm2pM2Q63t5aIW
-         MPTcuVjn0Blcju6Qiu85vX93ReSBnYtLCDbx+l6W8+r2b4TDO4ofAebDCV146IWqfCyx
-         1DByWZl39otLY8I4VHHeWQI9vDdJDILVYHtT+fIBXUxBAVFpBTy2tpP0Ms5UIJz7ijZy
-         ZVrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=0IEY2oUkY/Exy20gttekfGAPLEe1995noJ1eoGIVUGo=;
-        fh=TS+qmkD0PNoSpDSBR2F+ckJv5mGAgXqpXwQpbHwyMNE=;
-        b=lXh93wqOXU5o92iy0HMRuwyc/LIGjhKCRSyzWHmZrf1evKXZYKEJ2qIX+TKHrR/nJK
-         sEMcqOfedvBoepjXFUdLbl3+bucVmn8Lw54LwzwmipxD5GVxq7Acc34bBYK/VUOT8DaH
-         EelnwKhGVYvu4sP9t2XioS8XdgnytHKVGfLn9ZnE59klzSNctsOw6SBi0wW4S016It3g
-         Nk3hMKgseJDfeaoGJUT09dsNRQUYoe0T3WCG8vOsgggHpxdVWiwXn3BpY+Hn8HBp1ZB+
-         PoTCsv2Ki8Yi0eDp02RMUROkPUJ13mMG8ZgiE2u99QyV0Q56PMvILTkh596hO9ty3qqk
-         33lQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794197297; x=1794802097; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0IEY2oUkY/Exy20gttekfGAPLEe1995noJ1eoGIVUGo=;
-        b=GgVf/4/nZUEYCjXLUahSJmuRKKDNEuo19fTKCK2nP1iK9CnBNQFR0oKzd1ryRPzz8v
-         xbDK147jH6g3ALj6v8D1BZnXQE26G9j7pPwgfGEQsdMymlTKMcaawg5Zyxv3FhOFrD3z
-         Ma6LTQiSeZUc2AUiA1J3U4Ik7AveDl2gMgEjD7xOSfEQEdfNmgls3TPVqIp7aw/QF/uV
-         ytKin5PqawfI+bXljt2cG1TapEbPlMxq9ejx8NhX0Ss+Qlk7reBij5FZi+SH1HWU9ouN
-         Jw61ZeCQPPIBWX22iu94I8Ug3f1jFqTlwfvJjCme5O2gf54fwqPb5m0DUJ3qCLNVjcrM
-         MdYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794197297; x=1794802097;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0IEY2oUkY/Exy20gttekfGAPLEe1995noJ1eoGIVUGo=;
-        b=OaQ21sPAECDtHubKrJ0hIfhSzPE7z3R2nW3O3VEJNkJHm7MrwzMCUasJtRSrK4+RsW
-         UEJYtS/exiU8+UNau3avlm20XBBQ3U+WGzjCTI2juijOT6mKASd12r1jUJixz+sjYhON
-         +UZwB7zCITMFPB/1t+yl9KzM4Kz2RVffiutENVDAJTCWyLuFBUnLVO0h82GIIJ36Sjsg
-         RDmhcO1o1A0kYf7jYR9M+bjfv5DDwxgirmGpGC06LKXllhtb4leNpdVVqtnZslLaWKlY
-         kEn34W4u0dsS9Iec+Lb7yLaJymUvLJykdimMf3LDpYJx3mFyiIr3GtWGECJXuyp5c3Kw
-         AgwQ==
-X-Forwarded-Encrypted: i=1; AL+hErFPa998I1KcbBaUsxiZNvdwCOPOE+OPCrMvj9jtpWgJw3qJWbpSK9QIdfNkDf3e25LDwnDrKy4Be9D02Kc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qIHqLbwcMeDOzbQHh+sv80vhooMY8SnfsE7y2fv6qYpFwIjzs
-	luLfKnNVxZa9713t4osZr2Xp63H0QkMxPohHw3WEHqf9AuglnIptM867RWuaoJKi+U4WFvKwMQ2
-	J9Qn6NMkQbMX4z98gGn7QVhAvPNTW8aE=
-X-Gm-Gg: AYBFou0Kck/YT5VBpRwgMaEVElAZfIYqeQIIEkRmxxcGt9IGHpPnpwBvJtYj/eVJH19
-	Glkb+5daFOOQrLgZJDvrIYDFZ5JXbbRAhe6Kc3YWwuEX1fzoJ6jnC+xnhGo3l3RKU6Nquuvemsk
-	WTz+o2lePrZ7nmzikhjSt+OR5LPn2/a7Zn1pHcwJssXGl5xh9pVzR3XhDQMt5HRwKdAwp9OS4JS
-	WskQdqXqqDshmwRbEY0PUi6LQbnvsBhjqhAe84EB+iMQ4488vzpxSnO5s08/y3WHagv8qV5WMWK
-	kf1mPIkOC//U9xAw7cW+rg37JSteP0yH6LRg8Am6fj19Etcx6WW+EVQvedlyY9EFfR+tkOruv+/
-	805wsU8I++J2uZZHC1wLTVp8VQK3tsVwZQEXBxw1Zdfhoh2+pPp/Pbq/JPM312NBxrHbSJJkM/x
-	NXPcLDlsBFRyC/RNIYwc5I1Mk0m+D19qXaeZkzqlYgNMVtPTOS7gL2T1q4X8qOB8MFiCs6lA==
-X-Received: by 2002:a17:903:2a86:b0:2dd:ad73:c938 with SMTP id
- d9443c01a7336-2ed8377272bmr30112565ad.25.1794197296668; Sun, 08 Nov 2026
- 20:08:16 -0800 (PST)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.46.229.174
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794197399;
+	b=Ntias8bzgCkYK9CU0YJBl+VIWtrPLh08Qho5/N0wH1DWO8NCE1gMNrOmECgRrLLDMUEI
+	 VjDpMF6vb4inWEZ8e2mRbnv/ZC9ZS6Kvj4gfkHnOnl8e1KsmK9HBh5SN0gi/zMZd3haGW
+	 /0OOEQUGwN89wtH/Ff2WyRuicwm3wJZ+loNRTmxaCNg+h9+cEqAj81ctYnuTXA4ERNMyA
+	 NqOfLhO6XIjSgs7eaFxX8SnXhbPK9DXXQGbQXrk0m/xTmFHQ7GB1ONaI6URG4EwsUXsKN
+	 Mr6DmmRySuG6XTMeNl40C76+m4/hFg9Ra68Ap19s3Bnumoqd6pN075W6F7WmScVd/LA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794197399;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=IYD2oSweeBs4xm2WTa90Mc3CacGxXDWMr+jK6llJ94M=;
+	b=Kdd3TOFByVd/t2uVFOAquiCf6zbMiYbFRZW1DMJGehOPPLwstlTQNoy4FCyDUD0q2wOm
+	 Gpxqz0/og2eBpW8o9bbM/OKbzWeeA7gCWihonVpz8Mtg68tGAG/9HevXXbL9H8fJjiYhv
+	 EW8gpLI9BInBPX08sRTIouePo41oflBHxF02L/HZsbEF+jyPnA875PmY1Yt3f0L0LB9JT
+	 Yl+8zknFdVfyKVu4HNrNB+JjPQluhrHBYyynlMK7wgKXWgOlzYhxp3lIgbXLE+OS6VppZ
+	 ZKqLW5GTOvJ1X03fs2CIH/JIC5SKRln9YDsGCw1qmh6pf8aQBQqqmrSyf+Z1iYqkVrg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=207.46.229.174
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E9CA606A31C;
+	Mon,  9 Nov 2026 04:09:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E9CA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.52])
+	by app2 (Coremail) with UTF8SMTP id IQEQrMDmDcaRR_FqKREKAA--.10976S2;
+	Mon, 09 Nov 2026 12:09:53 +0800 (CST)
+Received: from [100.81.40.43] (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wDHz8+OR_FqlHAQAA--.14573S2;
+	Mon, 09 Nov 2026 12:09:52 +0800 (CST)
+Message-ID: <5b1d5dd4-5c39-4fc9-873c-39cc1aa1d76c@hust.edu.cn>
+Date: Mon, 9 Nov 2026 12:09:50 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,65 +45,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261105104237.38542-1-phucduc.bui@gmail.com> <20261105104237.38542-4-phucduc.bui@gmail.com>
- <179397468197.3073895.1522608204443678480.b4-review@b4>
-In-Reply-To: <179397468197.3073895.1522608204443678480.b4-review@b4>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Mon, 9 Nov 2026 11:08:05 +0700
-X-Gm-Features: AclHuK-zMhWEuwFpd7MBkxqEDP76pBnSJIU10D20h7lMcoXH_TQWFgwLNT2WA4M
-Message-ID: <CAABR9nE52Rk81oyoM3L5hHRn3n9OCP3PWSxA8nNt+aEPoeRtqA@mail.gmail.com>
-Subject: Re: [PATCH v2 03/10] ASoC: fsl_sai: Remove redundant error messages
-To: Mark Brown <broonie@kernel.org>
-Cc: Shengjiu Wang <shengjiu.wang@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>, 
-	Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
-	Nicolin Chen <nicoleotsuka@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linuxppc-dev@lists.ozlabs.org, 
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] docs/zh_CN: translate coding-assistants.rst
+To: Weijie Yuan <wy@wyuan.org>
+Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
+ Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+References: <cover.1794153793.git.dzm91@hust.edu.cn>
+ <bb985e0f6f0c3e320cadcd007cfd0dbfd4102e46.1794153793.git.dzm91@hust.edu.cn>
+ <avE4mPgZOx1th2FE@wyuan.org> <avE7dsawxAjrz-Ev@wyuan.org>
+From: Dongliang Mu <dzm91@hust.edu.cn>
+In-Reply-To: <avE7dsawxAjrz-Ev@wyuan.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:IQEQrMDmDcaRR_FqKREKAA--.10976S2
+Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvdXoW7JFWrJw18ZF43Zw4xuryrCrg_yoWDuFc_u3
+	4xCF1qkr15trWxCan7KrnI9r1fAFyUX3W3XF9FyrZ3GasxJrW5CFZ5Wa4fZ343W393Arsr
+	AFnIv3sYqr129jkaLaAFLSUrUUUUeb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbHAYjsxI4VWxJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI
+	8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vE
+	x4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAaw2AFwI0_JF
+	0_Jw1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF
+	0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0EF7xvrVAajcxG14v26r
+	4UJVWxJr1lYx0E74AGY7Cv6cx26r4fZr1UJr1lYx0Ec7CjxVAajcxG14v26r4UJVWxJr1l
+	Ox8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkIec
+	xEwVCm-wCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r4fZr1UJr1l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jw0_GFylx2IqxVAqx4xG67AKxVWUJVWUGw
+	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
+	MIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMI
+	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2
+	z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0XVy3UUUUU==
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-Hi Mark,
 
-Thank you for your review.
-
-> >
-> > -     ret = fsl_sai_reset_hw(dev);
-> > -     if (ret < 0)
-> > -             dev_warn(dev, "Failed to reset hardware: %d\n", ret);
-> > +     fsl_sai_reset_hw(dev);
+On 11/9/26 11:18 AM, Weijie Yuan wrote:
+> Weijie Yuan <wy@wyuan.org> writes:
 >
-> This is the only caller of fsl_sai_reset_hw(), it could just return void
-> now.
+>> Dongliang Mu <dzm91@hust.edu.cn> writes:
+>>
+>>> Translate the AI coding assistant guidance into Chinese. Link to the
+>>> existing Chinese license-rules.rst guide while keeping untranslated
+>>> document references on their English paths.
+>>>
+>>> Update the translation through commit 1e035297ffda
+>>> ("docs: remove Assisted-by references")
+>> Looks very good.
+>>
+>> Reviewed-by: Weijie Yuan <wy@wyuan.org>
+> Oops, you may forgot to add your sign-off in this series, and this
+> single patch:
 >
+>    https://lore.kernel.org/linux-doc/20261107000338.1243411-1-dzm91@hust.edu.cn/
 
-You're right.
-I'll change fsl_sai_reset_hw() to return void.
-Since this series has already been applied,
-I'll send this as a separate patch.
+PATCH v2 of "docs: improve translation update checks across locales 
+<https://lore.kernel.org/linux-doc/4c0221d662b7e8521d93000ad6ae09300dbda9c1.1794196480.git.dzm91@hust.edu.cn/#r>" 
+is sent now.
 
+https://lore.kernel.org/linux-doc/4c0221d662b7e8521d93000ad6ae09300dbda9c1.1794196480.git.dzm91@hust.edu.cn/
 
-> >       ret = devm_request_irq(dev, irq, fsl_sai_isr, IRQF_SHARED,
-> >                              np->name, sai);
-> > -     if (ret) {
-> > -             dev_err(dev, "failed to claim irq %u\n", irq);
-> > +     if (ret)
-> >               goto err_pm_get_sync;
-> > -     }
+Dongliang Mu
+
 >
-> This will only print an error for a subset of errors, things like -EBUSY
-> will now silently fail.
->
+> Thanks.
 
-From what I can see in the code, devm_request_irq() ->
-devm_request_threaded_irq() reports every failure via dev_err_probe()
-in devm_request_result(), so -EBUSY should be printed too.
-
-Could you please point me to the path that fails silently?
-I may have missed it.
-
-Or did you mean fsl_sai_read_dlcfg()? It does have some silent
--EINVAL returns.
-I'll restore that dev_err() together with the fsl_sai_reset_hw()
-change I mentioned earlier.
-
-Best regards,
-Phuc
