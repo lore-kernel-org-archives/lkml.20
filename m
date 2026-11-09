@@ -1,65 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.185
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794194305;
-	b=W7qW2XmG/hnyFkn8JuWsgzh/iY3BlZQACJk7YrfvBBCjR+0rtc/Smf9k+zCJgJfN+UU5
-	 Y4T65cDYO92HR+1Qg7TvLjIZAVxNAKYuAzu58TTYHOVy9JGNivohGTTQgH+eQo+zLnA0M
-	 3vxeGfQ22VYW419LV/sRrolZTMijtszEDLcjv6i2HU7Hgdnf4hHeTX+ZYfJBYxkgobzra
-	 nGwCWu8ykz4bYl35O+EKm7Jp6pEUKOcVgKT89HzOs9DG/8HdKIGhNbb5V/OfOJoN2fNhc
-	 uFhYUB3vLOeOHQl0zSUbgHv4ULKAuzfYPw9p2fmV7vhJnTzkH1P3nici5hc8xTlWorg==
+	t=1794194315;
+	b=vHsDv712hC4ABav7obcbnOElWAbZsRGga8EPEdhUPcG4ZqySHtUR7P0tnjKa25BB1vCP
+	 WjMkLKE9Dolld+2miIlc/v4gVhzq7gkJS3+ea8KX6m/FW134cdyz50OGOSq+/fX+ViFee
+	 lhnRQ/ux8OcJrQEya+uvVyS5619nzvocB7+g2t5h3/vtCG3fCzDAErj/ifQpNv/gTnhTY
+	 3jrCtfY/ztlygeR4AaZRzaLgI8wf33CODIKwHc4uDX79ElZAkgVPVgD3W9AYXDRwADGQP
+	 SjP4Ww5qyqCwUu1A/rfls8wRnvKYOg+atFU7YIKnujMM/MM0CNLHHzDZYzasd/hLqQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794194305;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Ho2n2m0C4upultPSmUZGZo/C4dJ0o7j+fKnGqA7y1jQ=;
-	b=J+zoQfUNrDxeBkLLi/buLca+xhonNu4pcDdnlQTQCz3LoZ++6iksb03IoQAdkiVnZHu2
-	 MUJlfjysPJIiQdue2i5NWAneKgM7CxSY/srbxQSTdUk1xea8dFa5rHZSjV9mb1KburXIi
-	 Earf9qRlSTgcwdgFuw7BEoaSNJwiZ0tvl75GTbU3IS1JJ+8divfMis2rNVlJaMRNnUQH+
-	 ZdCzKiUYVt8o3WaTVclA14PeEx/9z621Ws2DTONiYGiKllvG3i3nkSlMr5t+IP1xmIPwd
-	 SeiJ9stwaNhOtsbN5A4BirIqdYvvohDBB6AGx1plM6NZelfPoSFLAvU/H/j/ueAPlfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794194315;
+	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
+	 References:Date:MIME-Version:Content-Type;
+	bh=s0Hi6a4UzQOVDUCrl2d7KaSZKBXxqT7Il00z8aUrfhY=;
+	b=Jey9JXF1GstRmkjSyqebPPrR26UBr7gnIA7JPpBkD5BvIWV4XWZz3/JJepOX/jocPx2/
+	 lUolTWzWH9CCvVfgVTzd2FHy7V5WS5cSPg+lNzSVOpwyhA+W77lEKLEHqhUoLRqWAhILj
+	 Fitt3dMLzd4T5GTmS7loGJVDfvWf2Jr564p1IjQlJl/ZMfu+u4w82QCmgE/0gB8BIHgUZ
+	 CbACsfWvocxljJkJ2TqgmnmhrgSeu3l/yqXGJtdXcdmagL2D/nFmDzgNcD5b+ANKUeWnX
+	 q+Qn/0w5kuRCJMKI8Nvm5kgB4OvPdT7SZipjU762xb9QfRpTWxe/2TgBX/+XntNPrdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	dkim=pass header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=xrjH3sPd;
-	arc=none smtp.remote-ip=95.215.58.185
-Received: from mta1.migadu.com (out-185.mta1.migadu.com [95.215.58.185])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MhuE+yBj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDA1D606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 03:18:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDA1D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7F3606A31C;
+	Mon,  9 Nov 2026 03:18:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wyuan.org header.i=@wyuan.org header.a=rsa-sha256 header.s=key1 header.b=xrjH3sPd
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ag7n8AaTG3j33PCW+KCpehGT2YXRm9dTVy3ZyIP/LZA=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794194302; v=1; x=1794799102;
- b=xrjH3sPdwbI7Qs7TXoayLL67ixtAb+dZynjtORxcs4v13m2XNWZQARJeSzr86Vwbd3pl8z5B
- T2vE1H066eFDiItjLQ5gXW6/0xIZqEig51/UWs7AdV/lDALLSqn57SDwwDEL+8lUajcAFtDGxM4
- 6LwxjsTLhX+wCrNE6JriLsekKfTA08QQehVaxwY4hKnT5Ukn3qLzz8ahMjacOnUYA37J2xodORb
- 7LRQZBH/lNZIXyKwLhMXkLMTmFfc1uRjaN5ZrQz/mVNZ9ACfvQQf+ay+826LWHHkeBdkcqKJBQh
- Uz/XNYfX0eNSBqeYnEEp2tV5JBoZwttn35sgyo1aZl0tg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6defdb246e5ad1f3;
-	Mon, 09 Nov 2026 03:18:21 +0000
-X-Mizu-Trace-ID: 6defdb246e5ad1f3
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 9 Nov 2026 11:18:14 +0800
-From: Weijie Yuan <wy@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>
-Cc: Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/4] docs/zh_CN: translate coding-assistants.rst
-Message-ID: <avE7dsawxAjrz-Ev@wyuan.org>
-References: <cover.1794153793.git.dzm91@hust.edu.cn>
- <bb985e0f6f0c3e320cadcd007cfd0dbfd4102e46.1794153793.git.dzm91@hust.edu.cn>
- <avE4mPgZOx1th2FE@wyuan.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MhuE+yBj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 035FF1F0089F;
+	Mon,  9 Nov 2026 03:18:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794194315;
+	bh=s0Hi6a4UzQOVDUCrl2d7KaSZKBXxqT7Il00z8aUrfhY=;
+	h=To:Cc:Subject:From:In-Reply-To:References:Date;
+	b=MhuE+yBjnbqQXlDe/1usvgThyy9whC6+OWlEkMGl0lpUn0xVxFT5IP9e0A8vslzCy
+	 P02e7hfJ0x/wMDhu/5tJ3mlxmpRvTLXufcNEUD8SmtzBc2KL34O91PNUjXtAmIIYwX
+	 /RTKyjQnKaM862pHqlwEAsAnptwqhKkvA6HzTALSKqxIK2aT4meq/gteR9nNNfqSCD
+	 7LBbCYQR52mO7QkfbaARtOwAFPVXfi/dM+19WlO2YkCT4JlBM6Rf3Gm8FWSmon0F21
+	 CpQTlFzbf3+gFT27bWdDJbXJYATZWvMbBvo8HqVkO4UHRQwireG3pMmnP6odL9DqG1
+	 ejfF+SX3YiWJQ==
+To: <shao.mingyin@zte.com.cn>
+Cc: <mkp@kernel.org>,  <james.bottomley@hansenpartnership.com>,
+  <linux-scsi@vger.kernel.org>,  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] scsi: scsi_devinfo: return an error when the proc write
+ fails
+From: "Martin K. Petersen" <mkp@kernel.org>
+In-Reply-To: <20261031222133489hI-BEIDpFMxrtlntnLiFb@zte.com.cn>
+Message-ID: <yq1ld72wv42.fsf@mail.kernel.org>
+References: <20261031222133489hI-BEIDpFMxrtlntnLiFb@zte.com.cn>
+Date: Sun, 08 Nov 2026 22:18:34 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,28 +58,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avE4mPgZOx1th2FE@wyuan.org>
+Content-Type: text/plain
 
-Weijie Yuan <wy@wyuan.org> writes:
 
-> Dongliang Mu <dzm91@hust.edu.cn> writes:
-> 
-> > Translate the AI coding assistant guidance into Chinese. Link to the
-> > existing Chinese license-rules.rst guide while keeping untranslated
-> > document references on their English paths.
-> > 
-> > Update the translation through commit 1e035297ffda
-> > ("docs: remove Assisted-by references")
-> 
-> Looks very good.
-> 
-> Reviewed-by: Weijie Yuan <wy@wyuan.org>
+> proc_scsi_devinfo_write() calls scsi_dev_info_list_add_str() but
+> ignores its return value, so a write to /proc/scsi/device_info always
+> reports success, even when the string is malformed and no entry was
+> added. Users and scripts then believe that the quirk is in effect.
 
-Oops, you may forgot to add your sign-off in this series, and this
-single patch:
+Applied to 7.5/scsi-staging, thanks!
 
-  https://lore.kernel.org/linux-doc/20261107000338.1243411-1-dzm91@hust.edu.cn/
-
-Thanks.
+-- 
+Martin K. Petersen
