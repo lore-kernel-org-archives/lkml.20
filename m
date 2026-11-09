@@ -1,57 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227973;
-	b=vEEJWqaH6kp9qUUGctvnxkQzr9lI/ZArirM9ska0Vc9Ain1Qmnt+z8noZjbKkwW6kdAK
-	 ActliHdCKwWpaHhTTNbcoTHSrcn/54fpP7r+BtpLKS3AlFaXkjIWUiI9kGU60IicSlvYc
-	 VkodgcULkjre9K5OeXsFsLMWXo412URHswslEXnrYgM6ghImQcl5eqgps+95RUHry2u4G
-	 mDREIis4rY1a6S9OZTI4n9wTIDT0cLeIQWdm3MUUw/jHVfV1bMxRD2Q0x9RmgxTZ3WECI
-	 bFLRXtPZq2B8XYOTcZgtYgR2vDbD5GcXJpeA39DOSFTHDwHYUqUOW59aAGUcso1klkA==
+	t=1794228006;
+	b=K2jSn3qCwCKJCubHksJx5GslcyU/jRuCnHzWyBhBl9KZHTSr6FFYQFpxwDjzeFsP7Y7h
+	 hIn8t4zRQ2zHB10JVMtCDqzlp46QvPkBQDU8E4uIEEzZtAuDZmSJh/TlGoz/SxmdEmL6k
+	 Md+kGO8+QW5lcBtGoJcLxXv2ixJegOFHmCM6410dXEKy/W3x5svnikcAwr+4WtQvp32g8
+	 XWqz5GXaIUkyt8qsvBuPyvxEGShfSRZeCjGqYNTBg2ocjFwX41ur3QVGp+mBk7FmSu2FP
+	 Kk11qpPisMt86jy/GYA9+6/z0ZRFUlE/bw5brAvT42FEDKA0qEwjMyGxgbnIM0WqUZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227973;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=7NsW7rrxSQb5R7oB9xUAueMweQagV7BfWEKuD5Xv8Mg=;
-	b=Ec7l4gQoWml/ifpjNY/ANrsA0RVe+LYh/P7PAlPhIzEg8V4qVbBe7TW+jLRvaFQAGmdF
-	 4J0PcLM+DFyNeThd1CkcLU8WQcAa53qJVolQduGDR6EMhCeAllzwfYbmlvpNcqKmQyPJT
-	 5ZxMwiJlRCGzanwPK7rd2bs2xLMzIdUauPGs29JOfehQhOb9CXmnjwkj2ns74wFhauCzR
-	 GlIk5AwepHOiaKm6gKOxQ5rkdk8YdhsosNFvRI+kmNyvIIIcL1X+HwdAXTXkCh/hL2Sm4
-	 ooQ9DIgcVSYI0Wr8MaTXRxXDtaHs4X6zlenFpRSJhLxPdp68+ik1g5tUhHP3Qfnf5jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794228006;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=WWb056gPipccz0Z+Rf2etpC3VqitL7tkSZ//q9NzwZQ=;
+	b=LPKor4IURZilap0aDUMsN6nUqVOt1o17woLuTebYTQOKclpuXQEAU7mMWooajfma8Mep
+	 Z9s5Fd0SEnGz2vES5zN6J3t4qNS4L0P9D+39lgL83lTZc5Pzmu/z4UQ/ajcIRwCwpccCz
+	 8XPptmX+OxA9SfG2mlH1lxJHp3P0yEdMfzEY3Ul9k6pqfuh+PVr+6PcII2efydUcVWsxZ
+	 ZwilhNIeN13HRIwrsvOjp4ehLxBnBRbfs3JNB7SKEbRTGpYJtk+RcEp/uCBTJ8/vkMTIm
+	 FtQU6HGmjiJ/NbwKT2LIyVaQ0wdGFSFE2IlrPtD7Sz6IUnJyb677U0/al26JKHcktVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fxI4Jpsd;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=NgpkRXhN;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9piDjCwH;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3636E606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:39:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3636E606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89DB6606A321;
+	Mon,  9 Nov 2026 12:40:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89DB6606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fxI4Jpsd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794227970;
-	bh=SYFx4542py389igztUanI5VcIPWwi6M9GrC/elcvR9c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fxI4Jpsd3g7vTSj46IWhYwEDBmQbgb3PPI7s5SdPEz7twavuZGjBiKftphJJ7Eflf
-	 QNLg4yjUSTbRb1OWW9Y+oQkSrmfeeTp7c1qL4FbxVZl070dUt8dVOP/QXwVVCZ1cpR
-	 X3+IRgjH/7k07xdd8KUs249PG9BR2FhljH/B6WreOZKKwqi7ZgDqihPYC+z5cySMiY
-	 wty0hXwM6K8yzXa/l4P5d+ho2ltdBC9G8C9iq8Fu+HgKhWWK3feToXZgW9SpK1PXW4
-	 /2Ibxqi0slNit3as5Z2XkEkwqTAsqNlpKN7weyibzZlrK7MLa2O0ujKIO5IkubszGd
-	 YbtGQv0U6c6IQ==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8D59617E07E5;
-	Mon, 09 Nov 2026 13:39:30 +0100 (CET)
-Message-ID: <e9a58f67-d6ff-44a4-ab32-31e44e6f7f0f@collabora.com>
-Date: Mon, 9 Nov 2026 14:39:30 +0200
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=NgpkRXhN;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9piDjCwH
+Date: Mon, 9 Nov 2026 13:40:01 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794228003;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WWb056gPipccz0Z+Rf2etpC3VqitL7tkSZ//q9NzwZQ=;
+	b=NgpkRXhNAxzUdTG5+1ErHI4Bdi3xz5RF4IbE05z4lhqW3Dim5Co5HVJWuOmL4qpjo+eQ9k
+	UDKTieCgat9zt9axBKLg3dPvNHHYVDQ0uajk3f+rt5lypdGnp3WMbxxPy9dPvuh01B7CTO
+	n6NqxcShKB73869PlhdU91rB0oKSDeLBaJ5xVnZm5X/ekrpMEsQgKrULUQ4cdMCupYtwhX
+	D8JR7mArn4pBSmI+hXrVP3eE8BSWZlbf4Uu8+KARHwce4MceN/BHgJ6VwEFUEgc9yX5+9U
+	YIw3Pq9M7dQmp5bWDatkHW0kvPMHT8H6wGP+6k2cjpSeRCH60CQNDHEzRfz8Rw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794228003;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WWb056gPipccz0Z+Rf2etpC3VqitL7tkSZ//q9NzwZQ=;
+	b=9piDjCwHPumPCCOarJvE9FW/bdj5Kujx5ekmk8xq7Wv01NAeZeA2TLCtygQfXf1LNGDyrD
+	6XWvkZp3iiNuC4CA==
+From: "Ahmed S. Darwish" <darwi@linutronix.de>
+To: Julian Braha <julianbraha@gmail.com>
+Cc: Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	John Ogness <john.ogness@linutronix.de>,
+	Derek Barbosa <debarbos@redhat.com>,
+	Zbigniew =?utf-8?Q?J=C4=99drzejewski-Szmek?= <zbyszek@amutable.com>,
+	Daan De Meyer <daan.j.demeyer@gmail.com>,
+	Luca Boccassi <luca.boccassi@gmail.com>,
+	linux-rt-devel@lists.linux.dev, debian-kernel@lists.debian.org,
+	linux-kbuild@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 01/10] kconfig-checker: Add schema for rule files
+Message-ID: <avG_IXPcRY7njMgP@lx-t490>
+References: <20261106091922.7560-1-darwi@linutronix.de>
+ <20261106091922.7560-2-darwi@linutronix.de>
+ <e0ffecfe-8c4f-457e-ae8d-32a9601e69e5@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,95 +88,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/display: hdmi: Prevent NULL pointer dereference
- in sync_scdc()
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: kernel@collabora.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Dan Carpenter <error27@gmail.com>
-References: <20261104-hdmi-scdc-scramb-fixes-v1-0-16a9bb3d64a6@collabora.com>
- <20261104-hdmi-scdc-scramb-fixes-v1-1-16a9bb3d64a6@collabora.com>
- <712f4d29-f69c-4130-9cc6-3efccacba3aa@igalia.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <712f4d29-f69c-4130-9cc6-3efccacba3aa@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e0ffecfe-8c4f-457e-ae8d-32a9601e69e5@gmail.com>
 
-Hi Maíra,
+Hi Julian,
 
-On 11/9/26 2:00 PM, Maíra Canal wrote:
-> Hi Cristian,
-> 
-> On 04/11/26 10:26, Cristian Ciocaltea wrote:
->> The connector pointer is used to initialize the local variables hdmi and
->> dev before the NULL check takes place, leading to the following Smatch
->> complaint:
->>
->>    drivers/gpu/drm/display/drm_hdmi_helper.c:663 drm_connector_hdmi_sync_scdc()
->>    warn: variable dereferenced before check 'connector' (see line 657)
->>
->> Move those initializations after the sanity check to avoid a potential
->> NULL pointer dereference.
->>
->> Fixes: d653818324ed ("drm/display: hdmi: Add HDMI 2.0 scrambling management helpers")
->> Reported-by: Dan Carpenter <error27@gmail.com>
->> Closes: https://lore.kernel.org/all/arJo7A7L5hud3tyc@stanley.mountain/
->> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->> ---
->>   drivers/gpu/drm/display/drm_hdmi_helper.c | 7 +++++--
->>   1 file changed, 5 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
->> index f85cce3d6254..872f7e32e8d2 100644
->> --- a/drivers/gpu/drm/display/drm_hdmi_helper.c
->> +++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
->> @@ -653,9 +653,9 @@ EXPORT_SYMBOL(drm_connector_hdmi_disable_scrambling);
->>   int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
->>                    struct drm_modeset_acquire_ctx *ctx)
->>   {
->> -    struct drm_connector_hdmi *hdmi = &connector->hdmi;
->> -    struct drm_device *dev = connector->dev;
->> +    struct drm_connector_hdmi *hdmi;
->>       struct drm_connector_state *conn_state;
->> +    struct drm_device *dev;
->>       struct drm_crtc *crtc;
->>       u8 config;
->>       int ret;
->> @@ -663,6 +663,9 @@ int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
->>       if (!connector || !plugged || !ctx)
->>           return 0;
->>   +    hdmi = &connector->hdmi;
-> 
-> hdmi is only used once (and you are going to delete it in the next
-> commit), so personally, I would prefer to delete this variable in this
-> commit and use connector->hdmi directly when needed.
+Thanks for all the feedback!
 
-Ack.
+On Sun, 08 Nov 2026, Julian Braha wrote:
+>
+> On 11/6/26 09:19, Ahmed S. Darwish wrote:
+> >
+> > --- /dev/null
+> > +++ b/tools/kconfig-checker/schema.yml
+...
+> > +
+> > +        #
+> > +        # Expected value for the matching kernel configuration option.
+> > +        #
+> > +        # Values:
+> > +        #
+> > +        #   y        option is expected to be enabled (built-in or module).
+>
+> Kconfig's tristates use 3-state logic. It seems like you're
+> approximating 'm' as 'y'?
+>
 
-> 
->> +    dev = connector->dev;
->> +
->>       /*
->>        * This is normally part of .detect_ctx() call path, which already holds
->>        * connection_mutex through @ctx.  However, re-acquiring it with the
->>
-> 
-> drm_modeset_lock() here could use the variable dev instead of
-> &connector->dev.
+You're correct.
 
-Well spotted, I missed it.
+'y' is deceiving, even with the comment beside it saying that it implies
+either a built-in or a module.
 
-> 
-> Anyway, these are just a few nits.
-> 
-> Reviewed-by: Maíra Canal <mcanal@igalia.com>
+I guess it would be better to have the expected values like:
 
-Thank you for reviewing the series.  Please let me know if you'd still like me to
-send a v2 to address your findings in this patch.
+   expected:
+      type: string
+      enum: [enabled, disabled, allowed]
 
-Kind regards,
-Cristian
+As a bonus, 'enabled' and 'disabled' rhymes well with 'allowed'.
+
+So the policies can be:
+
+  - name: CONFIG_PREEMPT_RT
+    expected: enabled
+    ...
+
+  - name: CONFIG_NO_HZ_FULL
+    expected: disabled
+    ...
+
+  - name: CONFIG_DEBUG_FS
+    expected: allowed
+    ...
+
+I think that's much cleaner.
+
+> These are meaningfully different values :/
+
+I wrote some policies beside the PREEMPT_RT one, and the main requirement
+was always that a certain kernel feature is either enabled or disabled.
+
+In the future, I can add;
+
+    expected:
+      type: string
+      enum: [enabled, disabled, allowed, builtin-only, module]
+
+But so far, there was no need for that.
+
+> > +        #   n        option is expected to be disabled or unset.
+> > +        #   allowed  option is permitted and must not be reported as a violation.
+> > +        #            This is used to exempt a specific symbol from a broader
+> > +        #            `name_pattern` rule  with `expected: n`.
+> > +        #
+> > +        expected:
+> > +          type: string
+> > +          enum: [y, n, allowed]
+>
+> What if a user wants to specify that the value can be 'n' or 'y', but
+> not 'm'?
+
+Is this a real-world use case?
+
+I did not encounter a need for making the expected values that complex
+before.
+
+Thanks!
+
+--
+Ahmed S. Darwish
+Linutronix GmbH
