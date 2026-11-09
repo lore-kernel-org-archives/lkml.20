@@ -1,78 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794238945;
-	b=5hFcQcXSvJZB3RFxgmvJRfr7IiWh76X5I3jb/ZexD1jhgKj4/muujluPSmRSdOgJsiNF
-	 +rYyY92FDLB/TuKGg0V1ys/LUOrewrTZfIb/a0GOMfo2S9jFpuF08BR4Kz3XqKrrX/hcR
-	 7LEBi4Wemvae7MrKJljYqrehJ6O44PYVbyzL+kjgaRanx07dfUS9L/F/USa3YdSXZqc1s
-	 WyowCVi7aH5Vtg8VdNOOqwyClA+/GIKoYUYC5aQYGj6Wux03H+5zdMUKyTP4HNA2qzkF5
-	 X3rCQhlfmP+H0aTGmgMaegwia5BAVDoQwDk7Dzhg5pgnRVNzOQm9nLuNs0gPQcEd3Fg==
+	t=1794238999;
+	b=4IGsZj8N4LlBeoq4hirrYr3MWnYagZh6Ehdn2vsnVA20fYA5+LsbMr7XuXsc/5nuG2m0
+	 VAzM8DOS0wzlECPEw0d+7z4ytPYaS2LHWfYGSL4yi4AaJYFTY5kQ2Vk1qpV5ShJxw7T6a
+	 hIdsIbcJ/UaMvYkEpgKGYKe3LWhRftWBLLPlECog9gxmEj6oZBsgPOvnQTwMye30ihRhP
+	 +0v6CKREt221g8G8uBN4b8PPtWNrhFGPpLx2uJU+MJLZGHaLJZ8vd061SuAGdoRE0mvJ3
+	 37I46fj00phMTEC6l7BeniZmdyiz8g4CksfMRH4S5Zqhbq6iR/x+EckAKWJ6Gsw1MzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794238945;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=xG4pMlSywf90fG++ZmuGwd6o+rUWkZppXqxcs9JhM2Y=;
-	b=4DAaTqiNOGzMI3WPhxGNvTARhEt1C5noIeEUcdrGCnLsvyuq9I76z6JX51vVGxF5pL6J
-	 Tf+X08JYvrr3I/oYhdf9ON5ngGwnk8s0wNXZFHVKVIVn/M9oM0IeVxN0L/HL54mS5VRH9
-	 AhqpgZ2yb1axTy+eRcJYBpMK0yehDEi3J64UO3LxyHkr2xELvQcvhXE3GBN2rzssRReVC
-	 TLSeDxcW3wKL39RfRNemzH93sKc5Phr7zmPARa88+Vuv5Xf5Tui6lc6soYECrF3ql1dES
-	 VbHo2S2eEN7G0lhDsKtjBRUTkKE75hh66xrtV6Y7vgZCRVw9zguLwbsTeA6Qjec+0SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794238999;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=cL++JI9C+4Cy1uXsxf69XJu4TXzjHGTPhlS+dkkhl1k=;
+	b=jZQVtoWoiErAtCR0adRjpd8WAGzR6/yahSLXk3jjLYjbDORmmT+6nvMcSfOSKRgN7lrE
+	 H6utfQ4+6/tsUDrK304Swt/Sfhon9vBr1lLrw0AoPsOmVRZHeHnJt89KEQ0MZ1CzORWK9
+	 ShxHSLu0cMyC6pw4L9sryRYjpWTSUCMB6rNEN/wd5hQAX8l6s+tglyee4jDsjnf/Xw9SI
+	 bM4hSQhrcxCyqWAPRtXfOGmsYtPE+8QwuvY/N08mn9N9kAivEQ245LBtW8gHpTdQsWdGl
+	 wpPY5rSulE4IFYAxhrwFdDuayyEZq8zxS0tHinmZURU1Hd2InPWhSiPa7UKh6zsCoSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HlazxI5W;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F194606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:42:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F194606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b305d38bafso7064977b3.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:42:25 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794238944; x=1794843744;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xG4pMlSywf90fG++ZmuGwd6o+rUWkZppXqxcs9JhM2Y=;
-        b=Jjg048ujhPFTjR3GtWhCeMWwT22MWGyPRFv+dmzENrw3AL3Psi2mGpqHNpqyQoWi97
-         OQxteHr1WCrlLeiZqNI2ZpjIw8VH94HsjlEILutFDniI/qIly4DiGDAGnfgIv2n7TYEN
-         m8f/StYu5/yVfxVA8FStxQ3IIFLmdPkzPEHSKC2en3XAZrIuKO2ogrHuiSRykfCwzAXX
-         /0liyCXSuv0xSO8MJ+mgeo8bnvCqQ8ma+CbmxyV5S6BTlZwHAKB4gPa4lKMPhM15Jkou
-         1BYEoeDi/97+8DKDV1c5ERKyebRCbCV5RAkZ7eKKSF9SdBOc+strf/CU2YYsL/+sGl9o
-         l4RQ==
-X-Forwarded-Encrypted: i=1; AL+hErFHsEFU5SKU6Q6Fk+qCgzQsV3Ib2s3kyK5bec4A5SllM+8QeGmWu2utrLtxrYxb8HLiILQ+KeKn+9R5tDE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9mV2fS1XTNUu0NpngyBegWHj6+7+rcbe409fyV5Ic2/s9WVsjf
-	FCDAFxwPXnhUfHr+zFiSLAjqPfD4C3zpwLeTxeomFDh3upURvjeqRBJ5+0ZCrV+p/5A=
-X-Gm-Gg: AYBFou31AD9Cfg7Updf3g6Gt58i05pUplwuaANPJyPluRCa6ScXwsq0hJak4r6YVegK
-	d0WqtndQpSxy1CAYGE56tQ1G+pTqj3RQkLWk9LCIV9ssQZEFZe8D/n+aJNFyPHOUESXqtaSEEoI
-	tuzzR5lw2ckumeBJb7D+CfYde7UXzQV830uyXiqDZTz2UCv47uTUJ8RAVu3Y3wsjYedudfkcn6o
-	mdJW8Lt9bojU/WT/JTFyQ50fdv0hwFeFeVskNurMPRqOnLWpEWbY8KGn+ea6026sq1JSU9yj+X7
-	YSb3d0lOEghKcytPg+N92K7aLkmDhDJ3pENqqOYWqxIyS9bikl+3qYLqhzOFNqQZN1Sxe+no+26
-	IRiv5+q1duiTl92kXua/HlTvTRukxBEQy4obO9OtvqZNYgH5l19gVNdPzJAy+IpWvHJOfbvViLr
-	3TIXV3zHC2F5KaoIA+MBLiP9h4cfYSuutku8u3ZMVRp3INJ/ENoJ4ePCYlWIQI3JWgM0JULI2jj
-	kt6byO5iNX58HxIJ5Qh17tF5RybaTusvnEASWf8xZJaxXdahxqacBamFrTe1GVk5KdvjNxGOCl0
-	031POGk7nG1FZD0UgvoFjeFz4tU1WHhjUC6atwXVhg2L2SKqKIUnIQa7JiO4xMtvh5CWGmoazcS
-	lcS7xVeFqWaWmUVruzl7lEddQqHGy0+e7mUCpgWn4i/ujbdltQsRLYZHX
-X-Received: by 2002:a05:690c:920b:b0:8b3:90db:a864 with SMTP id 00721157ae682-8b390dbcf43mr998147b3.11.1794238944031;
-        Mon, 09 Nov 2026 07:42:24 -0800 (PST)
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com. [209.85.128.172])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b36bc2c768sm38427057b3.30.2026.11.09.07.42.23
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 07:42:23 -0800 (PST)
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b308fca7c3so8630257b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 07:42:23 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFw2AAJSBPEyu0R3pVgux4CdBJQ9zMjbkgpe0/yT8tOcX9CJUdRY1nbSUfZLZ9ExVX0jp1eoYXRljOLZzk=@vger.kernel.org
-X-Received: by 2002:a05:690c:c4e6:b0:8ae:8d28:77be with SMTP id
- 00721157ae682-8b36c8542c6mr28200577b3.1.1794238943160; Mon, 09 Nov 2026
- 07:42:23 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id DBC85606A31C;
+	Mon,  9 Nov 2026 15:43:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HlazxI5W
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E7FD81F0089F;
+	Mon,  9 Nov 2026 15:43:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794238998;
+	bh=cL++JI9C+4Cy1uXsxf69XJu4TXzjHGTPhlS+dkkhl1k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HlazxI5WEzYsWkggYjXwI9aVHs5Rv1+vsftVJo7FV22BKBcQe6TkZG+6QLMtVG+o+
+	 Ex0iQ80VQLXKcU9eWg1MZEegeXd2LdQzTx1xvTmjHLXUGW5SssMjusEPxZ120eg//9
+	 /E2YW8WYL6Gt1cA14BBPaoYyaHfx8FedE1jam7J/gsViUX5OFEDzqz3GFWd6MnSARs
+	 3dYgxkgCjCUPmzo+zlEQL/2oXhzgcIwNtU0pLdAgpU2GVIpXwJRrcSyMq1z4qGyDfP
+	 ym9nUD4v0XWeUmjdsgUmE1vu3hhb2nUQmzyYAFr9NwHTzyh3YuJBdkUSw+GEz+Jvg9
+	 L7bTSDkh4hVqw==
+Date: Mon, 9 Nov 2026 16:43:14 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: pinctrl: document the Halliday Top
+ Level Mode Multiplexer
+Message-ID: <cdfwfoubvs6dvwojrjhryjejeqcpmtllu2ko7vhjcgxshgvsga@65rliahvcppf>
+References: <20261109-halliday-tlmm-v1-0-a181d54214cd@gmail.com>
+ <20261109-halliday-tlmm-v1-1-a181d54214cd@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,165 +61,185 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261103163715.385394-1-tanure@linux.com> <20261103163715.385394-3-tanure@linux.com>
- <20261105-stoic-cricket-of-tolerance-cb3014@quoll>
-In-Reply-To: <20261105-stoic-cricket-of-tolerance-cb3014@quoll>
-Reply-To: tanure@linux.com
-From: Lucas Tanure <tanure@linux.com>
-Date: Mon, 9 Nov 2026 15:42:11 +0000
-X-Gmail-Original-Message-ID: <CAJX_Q+1OMHo_VWD2+0RUfF6EUNbLLNZafDuHxCBzU_qALBa2hQ@mail.gmail.com>
-X-Gm-Features: AclHuK81wJVzU4rFeRI7sUHF0-2FEAkn5jMEtF1UQ-EscSMzMfyyODCM_UAkaVg
-Message-ID: <CAJX_Q+1OMHo_VWD2+0RUfF6EUNbLLNZafDuHxCBzU_qALBa2hQ@mail.gmail.com>
-Subject: Re: [PATCH v5 2/7] dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109-halliday-tlmm-v1-1-a181d54214cd@gmail.com>
 
-On Thu, Nov 5, 2026 at 11:57=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
->
-> On Tue, Nov 03, 2026 at 04:37:10PM +0000, Lucas Tanure wrote:
-> >
-> > Assisted-by: LLM
->
-> Drop this one.
->
-> > Signed-off-by: Lucas Tanure <tanure@linux.com>
-> > ---
-> >  .../bindings/net/amlogic,meson-dwmac.yaml     | 59 +++++++++++++++++++
-> >  1 file changed, 59 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.=
-yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> > index e769c9bb70d8..6de013e3e8f6 100644
-> > --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> > +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> > @@ -23,6 +23,7 @@ select:
-> >            - amlogic,meson-gxbb-dwmac
-> >            - amlogic,meson-axg-dwmac
-> >            - amlogic,meson-g12a-dwmac
-> > +          - amlogic,t7-dwmac
-> >    required:
-> >      - compatible
-> >
-> > @@ -57,6 +58,59 @@ allOf:
-> >              - const: clkin1
-> >              - const: timing-adjustment
-> >
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: amlogic,t7-dwmac
-> > +    then:
-> > +      properties:
-> > +        clocks:
-> > +          items:
-> > +            - description: GMAC main clock
-> > +            - description: First parent clock of the internal mux
-> > +            - description: Second parent clock of the internal mux
-> > +            - description:
-> > +                clock of the pipeline stage inserted in the bus path b=
-etween
-> > +                the controller and the DRAM. Without it, the controlle=
-r cannot
-> > +                complete DMA transfers.
-> > +            - description:
-> > +                clock of the register block holding PRG_ETH0 and PRG_E=
-TH1.
-> > +                Without it, the block reads as zero and ignores writes=
-.
->
-> This sounds like you take clock from other block. That's wrong, that
-> device should take its own clock.
+On Mon, Nov 09, 2026 at 12:28:37AM +0000, Stanislav Aleksandrov wrote:
+> Document the Top Level Mode Multiplexer on the Qualcomm Halliday SoC
+> (SXR2250P).
+> 
+> Signed-off-by: Stanislav Aleksandrov <lightofmysoul@gmail.com>
+> ---
+>  .../bindings/pinctrl/qcom,halliday-tlmm.yaml       | 146 +++++++++++++++++++++
+>  1 file changed, 146 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,halliday-tlmm.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,halliday-tlmm.yaml
+> new file mode 100644
+> index 000000000000..172de2d98997
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,halliday-tlmm.yaml
+> @@ -0,0 +1,146 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/qcom,halliday-tlmm.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Technologies, Inc. Halliday TLMM block
+> +
+> +maintainers:
+> +  - Stanislav Aleksandrov <lightofmysoul@gmail.com>
+> +
+> +description:
+> +  Top Level Mode Multiplexer pin controller in Qualcomm Halliday SoC.
+> +
+> +allOf:
+> +  - $ref: /schemas/pinctrl/qcom,tlmm-common.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,halliday-tlmm
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  gpio-reserved-ranges:
+> +    minItems: 1
+> +    maxItems: 112
+> +
+> +  gpio-line-names:
+> +    maxItems: 224
+> +
+> +patternProperties:
+> +  "-state$":
+> +    oneOf:
+> +      - $ref: "#/$defs/qcom-halliday-tlmm-state"
+> +      - patternProperties:
+> +          "-pins$":
+> +            $ref: "#/$defs/qcom-halliday-tlmm-state"
+> +        additionalProperties: false
+> +
+> +$defs:
+> +  qcom-halliday-tlmm-state:
+> +    type: object
+> +    description:
+> +      Pinctrl node's client devices use subnodes for desired pin configuration.
+> +      Client device subnodes use below standard properties.
+> +    $ref: qcom,tlmm-common.yaml#/$defs/qcom-tlmm-state
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      pins:
+> +        description:
+> +          List of gpio pins affected by the properties specified in this
+> +          subnode.
+> +        items:
+> +          oneOf:
+> +            - pattern: "^gpio([0-9]|[1-9][0-9]|1[0-9][0-9]|2[01][0-9]|22[0-3])$"
+> +            - enum: [ ufs_reset, sdc2_clk, sdc2_cmd, sdc2_data ]
+> +        minItems: 1
+> +        maxItems: 36
+> +
+> +      function:
+> +        description:
+> +          Specify the alternative function to be configured for the specified
+> +          pins.
+> +        enum: [ atest_char, atest_usb, audio_ext_mclk0, audio_ext_mclk1,
+> +                audio_ref_clk, cam_mclk, cci_async_in, cci_i2c_scl,
+> +                cci_i2c_sda, cci_timer, cmu_rng, dbg_out_clk,
+> +                ddr_bist_complete, ddr_bist_fail, ddr_bist_start,
+> +                ddr_bist_stop, ddr_pxi0, ddr_pxi1, ddr_pxi2, ddr_pxi3, dp0_hot,
+> +                edp0_hot, edp0_lcd_self, edp1_dpu0_lcd, edp1_dpu1_lcd,
+> +                edp1_hot, gcc_gp1, gcc_gp10, gcc_gp11, gcc_gp2, gcc_gp3,
+> +                gcc_gp4, gcc_gp5, gcc_gp6, gcc_gp7, gcc_gp8, gcc_gp9, gpio,
+> +                i2s0_data0, i2s0_data1, i2s0_sck, i2s0_ws, i2s2_data0,
+> +                i2s2_data1, i2s2_sck, i2s2_ws, ibi_i3c, jitter_bist,
+> +                mdp0_vsync, mdp0_vsync0_out, mdp0_vsync1_out, mdp0_vsync2_out,
+> +                mdp0_vsync3_out, mdp0_vsync4_out, mdp0_vsync5_out,
+> +                mdp0_vsync6_out, mdp0_vsync7_out, mdp0_vsync8_out, mdp1_vsync,
+> +                mdp1_vsync0_out, mdp1_vsync1_out, mdp1_vsync2_out,
+> +                mdp1_vsync3_out, mdp1_vsync4_out, mdp1_vsync5_out,
+> +                mdp1_vsync6_out, mdp1_vsync7_out, mdp1_vsync8_out,
+> +                pcie0_clk_req_n, pcie1_clk_req_n, pcie2_clk_req_n, phase_flag,
+> +                pll_bist_sync, pll_clk_aux, prng_rosc0, prng_rosc1, prng_rosc2,
+> +                prng_rosc3, pwm_0, pwm_1, pwm_10, pwm_11, pwm_12, pwm_13,
+> +                pwm_14, pwm_15, pwm_16, pwm_17, pwm_18, pwm_19, pwm_2, pwm_3,
+> +                pwm_4, pwm_5, pwm_6, pwm_7, pwm_8, pwm_9, qdss_cti, qdss_gpio,
+> +                qup0_se0, qup0_se1, qup0_se2, qup0_se3, qup0_se4,
+> +                qup0_se4_l0_mira, qup0_se4_l0_mirb, qup0_se4_l1_mira,
+> +                qup0_se4_l1_mirb, qup0_se4_l2_mira, qup0_se4_l2_mirb,
+> +                qup0_se4_l3_mira, qup0_se4_l3_mirb, qup0_se5, qup0_se6,
+> +                qup1_se0, qup1_se0_l3_mira, qup1_se0_l3_mirb, qup1_se1,
+> +                qup1_se1_l3_mira, qup1_se1_l3_mirb, qup1_se2, qup1_se2_l3_mira,
+> +                qup1_se2_l3_mirb, qup1_se3, qup1_se3_l3_mira, qup1_se3_l3_mirb,
+> +                qup1_se4, qup1_se5, qup1_se6, qup1_se6_l0_mira,
+> +                qup1_se6_l0_mirb, qup1_se6_l1_mira, qup1_se6_l1_mirb,
 
-It is this device's clock, the description is misleading. PRG_ETH0 and
-PRG_ETH1 are the glue registers of this controller, the second reg
-entry of the node. The gate is named after the PHY block at
-0xfe028000, which the mdio multiplexer node lists too, but it also
-feeds these registers: with it off they read as zero and ignore
-writes, and no other gate brings them back. The stmmac core enables
-"pclk" before touching them. v7 will say:
+The number of QUPv3 functions could probably be limited by merging the
+entries differing just in line numbers but this is how it's always been
+in sam8550 so let's leave it.
 
-            - description:
-                APB clock of the glue registers PRG_ETH0 and PRG_ETH1.
-                Without it, they read as zero and ignore writes.
+> +                sd_write_protect, sdcc5_vdd2_on, tb_trig_sdc2, tgu_ch0_trigout,
+> +                tgu_ch1_trigout, tgu_ch2_trigout, tgu_ch3_trigout, tmess_prng0,
+> +                tmess_prng1, tmess_prng2, tmess_prng3, tsense_pwm1,
+> +                tsense_pwm2, usb0_phy_ps, usb2phy_ac_en,
+> +                vsense_trigger_mirnat ]
+> +
+> +    required:
+> +      - pins
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    pinctrl@f100000 {
+> +        compatible = "qcom,halliday-tlmm";
+> +        reg = <0x0f100000 0x300000>;
+> +        gpio-controller;
+> +        #gpio-cells = <2>;
+> +        gpio-ranges = <&tlmm 0 0 225>;
+
+make dt_binding_check will not raise an error because it ignores
+non-existent phandles but please make the example correct and add the
+tlmm label to the pinctrl node.
+
+> +        interrupt-controller;
+> +        #interrupt-cells = <2>;
+> +        interrupts = <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>;
+> +
+> +        gpio-wo-state {
+> +            pins = "gpio1";
+> +            function = "gpio";
+> +        };
+> +
+> +        i2c-w-state {
+> +            scl-pins {
+> +                pins = "gpio58";
+> +                function = "qup1_se0";
+> +                bias-pull-up;
+> +            };
+> +
+> +            sda-pins {
+> +                pins = "gpio57";
+> +                function = "qup1_se0";
+> +                bias-pull-up;
+> +            };
+> +        };
+> +    };
+> +...
+> 
+> -- 
+> 2.55.0
+>
 
 Thanks,
-Lucas
-
->
->
-> > +
-> > +        clock-names:
-> > +          items:
-> > +            - const: stmmaceth
-> > +            - const: clkin0
-> > +            - const: clkin1
-> > +            - const: pipeline
-> > +            - const: pclk
-> > +
-> > +        # The PHY adds the 2ns RGMII delays, see ethernet-controller.y=
-aml.
-> > +        # The RX delay line of this glue is fine tuning in 200ps steps=
-,
-> > +        # added on top of what phy-mode describes. The TX side has no =
-fine
-> > +        # tuning: its only step is a quarter of the clock period, the =
-full
-> > +        # 2ns at 1Gbit/s, so the TX property is not accepted.
-> > +        tx-internal-delay-ps: false
-> > +
-> > +        # Deprecated: new SoCs use the standard *-internal-delay-ps
-> > +        # properties instead.
-> > +        amlogic,tx-delay-ns: false
-> > +        amlogic,rx-delay-ns: false
-> > +
-> > +  # Delay definitions for Meson8b and newer
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            enum:
-> > +              - amlogic,meson8b-dwmac
-> > +              - amlogic,meson8m2-dwmac
-> > +              - amlogic,meson-gxbb-dwmac
-> > +              - amlogic,meson-axg-dwmac
-> > +              - amlogic,meson-g12a-dwmac
-> > +    then:
-> > +      properties:
-> >          amlogic,tx-delay-ns:
-> >            enum: [0, 2, 4, 6]
-> >            default: 2
-> > @@ -106,6 +160,7 @@ allOf:
-> >            contains:
-> >              enum:
-> >                - amlogic,meson-g12a-dwmac
-> > +              - amlogic,t7-dwmac
-> >      then:
-> >        properties:
-> >          rx-internal-delay-ps:
-> > @@ -142,6 +197,10 @@ properties:
-> >        - items:
-> >            - const: amlogic,meson6-dwmac
-> >            - const: snps,dwmac
-> > +      - items:
-> > +          - const: amlogic,t7-dwmac
-> > +          - const: snps,dwmac-5.10a
-> > +          - const: snps,dwmac
->
-> I see no such hunk in the code, so not sure how to review this.
->
-> Best regards,
-> Krzysztof
->
+Bartosz
