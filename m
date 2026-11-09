@@ -1,73 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.159
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794190393;
-	b=oD7xbWHHAXWeghf/5eXr+ochXJ83dJhIIVvV52kp0gy3dseIyYPwrmgZ9Qq6+Y4lW47g
-	 hgS3S+VQE2KEixK2SA32dOE8o4414AstT67UecloJTc7OIdl8rS2eprYxS3BhVgGH54dL
-	 S15Um/NX1J0TFHNmINk0g1F+epFwUUch7GVZwPhfVOIWg1m9XAfsii+WX27KUTstUGpIJ
-	 STDM6Ze8PqvcfmRXmacr48s6wZV/YgjquYny0O7RUYJAII09GmJsguDht3O36plQYiMGV
-	 x6/VnF7tGXo70Qh/IIteZUNGEsvDnxJEJfW3ujD8pmjMdU/6XAmWdSoZTMY+qvQQGNA==
+	t=1794190483;
+	b=EkdGS2CSY41apF478TjUzwN0BRcmUkWF4AkkPYyNK6t2QGEJ5xY3abwUdB7XFNTT5C2Y
+	 EliccUTKeq17ncS07ZYAxvigFB3RE14Xb8Muw6LLCF5+//pgEnVC2RBIF8l/gbCSMvkNp
+	 c6L933UOFvIOEadRz8F8e3lBrQ3QrvBOftHiSMX/WY/B+1DfFIy5NVPDVdl+eDsZAqsjk
+	 chFbSepf/CWXKQ13s0n9nOd8G5kdJ1o1MYlkhCuNayAhVdvhx0zuqpW1oOn1GgCqRul6K
+	 U9z8i29v0Wr8ATPuJKxIgNBdo+hxeMKYQWUxW9AEuHMJjWd7jftQetcCss65BdGsPwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794190393;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2Hrqs/JVKUcbfDET+jPKh8H9v2r5yy3K1PZrEbt8Ns8=;
-	b=n2PulPVzpzSBjKDpqC0JtwCbds+AXwnAdxwzyeHGZ4QksI/BVhFwsO63tJyHvOkJoen3
-	 b5950dREZd5ppn6yqyM5himV9fkBYIUTHkCQu3FjWUT3Q4qHgngQ1tIdTbech0B4E9Vnk
-	 7Rr0jtfZAGRcMmi0msvm3kxwY5tg1S/dd9wTbLYWIMHj63BpRYHucaKrYcS2MKapnKapi
-	 JN8UWkrveWy6FV7OiwmeKyPAlna22TdXpYQGkz1zNPalYk7TNw3Dp/lzen/ZPt9PcNWYD
-	 2+pa+I77SZcKDFxGkhDeknn6CgA4xp/lWMXXInB5rHLtQJB3HpnJGWW7GUR7ypsEL9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794190483;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=J+h57vEeYMsDL7q4YjW7EJHuQlkp7BLgFsx7/CAjkpU=;
+	b=4fqwSYAZYtJh/SKcEydlib7Dtroj9uSycqohL1Ds+fbUdayZb6FRyJ3iW5gXRdR4hYzR
+	 SuhzQ9RbkCR4yeo9xjwq2N0awjqEk5C03r7RF9hlce9lsedSRFl0EPOTNzuV1vlOR+1kb
+	 5PZXryt0gHaLmIRLKWlNxSMlWVxw8CV3lt+LoNV9+fkQFVg2/asqknHgHV7miNWbpGWfw
+	 xH6f3kyXbwfJ/4hKIOQl0IOJ+fIc52aEqH91pf/D8RLYmj6mSwHC31resJxYH0MUi1qvc
+	 dojlEvXLG24S6gylOf7wPF4f8RWbcJStpfko7yicLBxLZ/8j1MA9jZ3qsy0JEwiT7pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DjlQzerJ;
-	arc=none smtp.remote-ip=91.218.175.159
-Received: from mta0.migadu.com (out-159.mta0.migadu.com [91.218.175.159])
+	dmarc=pass header.from=arista.com;
+	spf=pass smtp.mailfrom=arista.com;
+	dkim=pass header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=UfmvNmLX;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2D0606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:13:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D2D0606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82EF606A320
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:14:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B82EF606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arista.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arista.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DjlQzerJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nunKtJw2pkzgi9VVF0VjIUIjGkEovgWbt7tbN/jur34=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794190390; v=1; x=1794795190;
- b=DjlQzerJmxVwZSoGIC5wn1fGAYeqaYdb0xmd0166dhd89K63DpTCiFCUxA3JOLHOCISkGpxz
- fCX+oGa3oTiS89WVQew6IaaqXTsUOWLtk7bDqIOQkpuHvSeWoCP0edT4f2oehSpnoOvuvKMuQlP
- dj2HW6m42/B01Se11MWUPnNE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id f1189d88acb6bb10;
-	Mon, 09 Nov 2026 02:13:10 +0000
-X-Mizu-Trace-ID: f1189d88acb6bb10
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 9 Nov 2026 10:12:51 +0800
-From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-To: Qiliang Yuan <odys.yuan@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Stefan Roesch <shr@devkernel.io>, Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 2/5] docs/mm: ksm: describe how smart scan picks the
- scans to skip
-Message-ID: <avEsIwSBUFygAdq4@dgvxl46587.localhost.localdomain>
-References: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-0-86be8fe77e7a@gmail.com>
- <20261108-bug-mm-ksm-smart-scan-align-skips-v4-2-86be8fe77e7a@gmail.com>
+	dkim=pass (2048-bit key) header.d=arista.com header.i=@arista.com header.a=rsa-sha256 header.s=google header.b=UfmvNmLX
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33fb4680717so956963eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 18:14:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=arista.com; s=google; t=1794190481; x=1794795281; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J+h57vEeYMsDL7q4YjW7EJHuQlkp7BLgFsx7/CAjkpU=;
+        b=UfmvNmLXs/Ja5fQ8ifnw5Tay+od7YLlFQ9zOGWBljFb31qqvAYjwnSkk+JYsPkCcHK
+         1qakyi9kUxfmgXZCA8S3dtjkEB+B40tikfmzOD2VZMmtsAbFha6OMLa1koHA60IfGweT
+         oQ+BWKfMcwUEuAfVaPQvUaNSWuiHVSJFbgLzCTl6iEmSzV7aqaQc3L9vCLFqoHXOewJR
+         E/te70g3D1Wd1TKVVMYj34qyKAxda+Plm1SBzvQurtTDjdb2WSzupC5fQ0UUeP7G84/m
+         Evjcj0dt7mfhvyjFTKwnWAOqPS4n6Dns4hWwkyVscuNMicu62jq6H11xVWxSfBN5tSSM
+         p1qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794190481; x=1794795281;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=J+h57vEeYMsDL7q4YjW7EJHuQlkp7BLgFsx7/CAjkpU=;
+        b=edD48WCyk0fnsikJp5ndGHMkbMQzaOpxd6CPgfAb1YzavY3isEhXM65jUjva0Zqpcj
+         QchMZeqloakhoK/gv1G5XESJStOhIgSqjNrTE77ZAKXYnmZlC2vfFNjvSZOuz5gowk2n
+         R7iGEvxj7uqN3pAvRszt+4U1TmAs6p+vOA8hzQe5ysqg0HW9aL3Zl3j5BgmJXc7PiHMP
+         t78ujlFNJESyn1nLuFEcSgtyxE3PfQsBc1puqChhS3XPNyGcrbAqvokCc5pv66O5cAbY
+         62+5IalzCutOsZvWxFrogoGRO3nMzadVrnzet4Vx+9pDvz5W4bcOfsOmBhFRp1u3kxsi
+         xygw==
+X-Forwarded-Encrypted: i=1; AL+hErGXv/GugO0bpvJJvJ2kqGt/a+rsD/fjoppi5Mc5CnhcmqpJV7SZjyUuSJW7MqGj/SV2f7/rX2ql+MYRly8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/8gh6ylOMQHD93s/HH0nLEJuVvb0Pglg9AFfrTW1dxhjJ27sja
+	IQSyEzTaG/4DcV5pC5mDw+7A8nAgM7pNW9bVMSIvU/auvzKMVuVdphvNaKN28PeyN6hf7cQJ0Kj
+	Bnsh6bg==
+X-Gm-Gg: AYBFou1IAVcpx068N/9D8Lcuzt1gPTquI5+2/f32vAijf7bt4pbaZIFtmFDxWhBzXSn
+	t7NHGpkoujZfuE3FC5gS6HkBSvxl7qPU82U+zV3l8NVdzoEfiHm9BuCSZRTLMSY+2bxoEGdff55
+	PMT3iHY1uDb9tSC7RdpnzhDnPRexz7dnGdpeGNrrFfkuvcrownh+oZNllTw3nYlxMbw6ypsURze
+	RT8C8XK+IZk7/+YUg1zJnflivKIfiaATZERt3BPrL6cCA3In5zQxyMmFBG9Iqfudfj7tWXp8ZjJ
+	IWsrlP7887nJmjrECLoABmjeTRwww06MviA4SP2ib7LzcEcH3ygzLNjR3E45aa3gCjk5MKPgZva
+	443zL5c6f+BmqjIlQn2Going4l/LbQ1hIo83KoiHlJkkGrofVNbLf0TqI9ngHFcF6SiV/yb0UBv
+	UEZbJLcfRmrVO2Ov7Lb92bl6DkuDVn1R4yeONnHstpaV/F+r4q+hB+Z5wID2tS7akcvxOG9VCGw
+	b8wE3WSBgTdNA4oOAQfdWlRY6C9T9h+9MurzTC1eSQAz4N0t2qiFoRB8tML+ODXV1+LMuLZjkE2
+	z5pK616glhg7cIIcCcpRVmk0xR/Uz1v++Z8SHzVJRSMWgp+oXxk++4HZ+jClm0Sc
+X-Received: by 2002:a05:7301:6492:b0:36d:a466:9d0b with SMTP id 5a478bee46e88-372568fffe1mr5590031eec.19.1794190480709;
+        Sun, 08 Nov 2026 18:14:40 -0800 (PST)
+Received: from mparker-home-xcrbr.sjc.aristanetworks.com ([74.123.28.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-372669d2826sm9392155eec.29.2026.11.08.18.14.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 18:14:40 -0800 (PST)
+From: Matthew Parker <mparker@arista.com>
+To: pratyush@kernel.org,
+	mwalle@kernel.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Matthew Parker <mparker@arista.com>,
+	Adam Calabrigo <adamc@arista.com>
+Subject: [PATCH v3] mtd: spi-nor: gigadevice: Add support for GigaDevice GD25B512
+Date: Mon,  9 Nov 2026 02:14:35 +0000
+Message-ID: <20261109021435.904625-1-mparker@arista.com>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,60 +102,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-2-86be8fe77e7a@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 08, 2026 at 08:22:51PM -0500, Qiliang Yuan wrote:
-> Documentation/mm/ksm.rst covers the stable tree and its reverse mapping,
-> and Documentation/admin-guide/mm/ksm.rst only says that smart scan skips
-> pages KSM has failed to merge before.
-> 
-> Neither says how often an unmerged page is looked at, or that the scans
-> are picked by the global scan number so that identical pages of
-> different ages still meet in some scan, which merging through the
-> unstable tree depends on.
-> 
-> Add a section on smart scan that describes both.
-> 
-> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-> Tested-by: Andrew Morton <akpm@linux-foundation.org>
-> Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  Documentation/mm/ksm.rst | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
+Add support for the GigaDevice GD25B512 512Mbit (64 MiB) SPI NOR flash.
 
-Reviewed-by: Xu Xin (vivo) <xu.xin@linux.dev>
+The chip exposes valid JESD216B SFDP tables including 4-byte address
+instruction tables, from which geometry and opcodes are discovered.
+Status register locking is enabled. Status register block protection is
+enabled using 4 BP bits (BP0-BP3) to cover the full 64 MiB address range.
+Read, write, and erase functionality across the full memory array have been
+tested on hardware.
 
-> 
-> diff --git a/Documentation/mm/ksm.rst b/Documentation/mm/ksm.rst
-> index 5a80573162def..f954d221e8017 100644
-> --- a/Documentation/mm/ksm.rst
-> +++ b/Documentation/mm/ksm.rst
-> @@ -75,6 +75,22 @@ The whole list of stable_node "dups" linked in the stable_node
->  The frequency of such scans is defined by
->  ``stable_node_chains_prune_millisecs`` sysfs tunable.
->  
-> +Smart scan
-> +----------
-> +With ``smart_scan`` enabled, ksmd skips pages that it has already tried
-> +to merge without success. The ``age`` of a page's ksm_rmap_item counts
-> +the scans that went by while the page stayed unmerged. A page younger
-> +than three scans is looked at on every scan; after that it is looked at
-> +every second scan up to an age of five, every fourth scan up to an age
-> +of eight, and every eighth scan from then on.
-> +
-> +The scans that look at a page are picked by the global scan number
-> +``ksm_scan.seqnr``, not counted per page. The unstable tree is rebuilt
-> +on every scan, so two identical pages can only be merged in a scan that
-> +looks at both. As the periods are powers of two, every page is looked
-> +at on each scan whose number is a multiple of eight, so two identical
-> +pages meet at least every eighth scan whatever their ages.
-> +
->  Reference
->  ---------
->  .. kernel-doc:: mm/ksm.c
-> 
-> -- 
-> 2.43.0
-> 
+Cc: stable@vger.kernel.org # v6.1+
+Co-developed-by: Adam Calabrigo <adamc@arista.com>
+Signed-off-by: Adam Calabrigo <adamc@arista.com>
+Signed-off-by: Matthew Parker <mparker@arista.com>
+---
+v2:
+ - Drop .fixup_flags per modern SFDP discovery conventions.
+v3:
+ - Add SPI_NOR_4BIT_BP flag to .flags.
+
+ drivers/mtd/spi-nor/gigadevice.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/mtd/spi-nor/gigadevice.c b/drivers/mtd/spi-nor/gigadevice.c
+index 6a2e6ebda148..113db85f7bd2 100644
+--- a/drivers/mtd/spi-nor/gigadevice.c
++++ b/drivers/mtd/spi-nor/gigadevice.c
+@@ -64,6 +64,9 @@ static const struct flash_info gigadevice_nor_parts[] = {
+ 		.id = SNOR_ID(0xc8, 0x40, 0x19),
+ 		.name = "gd25q256",
+ 		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_HAS_TB | SPI_NOR_TB_SR_BIT6,
++	}, {
++		.id = SNOR_ID(0xc8, 0x47, 0x1a),
++		.flags = SPI_NOR_HAS_LOCK | SPI_NOR_4BIT_BP,
+ 	}, {
+ 		.id = SNOR_ID(0xc8, 0x60, 0x16),
+ 		.name = "gd25lq32",
+-- 
+2.51.0
+
