@@ -1,67 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794205501;
-	b=HErxivs/6DIiXm00hW/wtumoZeu5jXpF28cy0toi2VjmXJHKe3rX9waaSjWJcZPYrDr6
-	 ggMp6QZkVt8+JL9dza8aiQtF5X4NLUsgrjNAJAaeE/d6K41KFZZIT8jvyHXohlV1JWOyV
-	 YFVjTvmsXsXMdgPZa4jjo4tJcQFedbEo5PbusIzCqPByL78vNQbyCWiT9h8WvmzmO5+ms
-	 p3VKbwQ+uRkGBLOjNAzCYBD2yoStf+W318tCbUusKZU3h2vy0hXct9m5+yZM4jke7FKZK
-	 0URRWEd8KqG/sWw3VtwXybKK79zBm/j+PlGWECalojZx7Zsw5lOYlUeBI8fgJ+gwidQ==
+	t=1794205536;
+	b=GErA3tU4wK8rtX3PFDcgcn2znMKfEaKthWCuvR/IE/0dkY614RMHu5CyoMPjla4XQjNB
+	 bVplv4kvgJBdDnBagu02C4qWtKJnqo8AjwEX9UcNO/Lp0SeaRhMLZGUujXzya9/T0uFQp
+	 jyUwAPffuvlQ5vgkOFEhdTxJO7VsXLLpXRAsMkPNGOxgLbvcEn39lwzu3QzQEqFmaWUO7
+	 jKSiHGXvz+6yhgxJ/lc5N5Ply7xTG0K9xOtnIar2ivIXpBEyC5noEO9AF6fEAvRNKZT9o
+	 /tNNavuo5ecrfuDUf99YEX+tFEycAE0kRT95+tb1ESKfXzO8PRDO7hESKeC03Lg6Zmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794205501;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=tZbehCCVWAQp16KYzP4ZlOLAW7PdEXUmB6Gq4qGN56g=;
-	b=MywqOs8DfAtcg4E8AsDaZ2IjyM9THc75sCRJKhz1uCROTSccFE81uz9NHoMwvrCbKSWV
-	 /thUTqVE0JfGjFtba54tZqGbpp1P7l8Rc1fldx8ZWoTTlBg0C3XlPlmfhlcJkysXXAELg
-	 +D0cQCLt4t69BoyimqbMm2FCKGB6iiine6r5NPrBoHLCunikK0GRKagqLVR8aniUvDOZv
-	 9UWlIIl5IEPCuSixZoQuIR00hLCr7BT8yEmKWmQ7geJG7SezbLi6W7g2xBIj2zdcJfXyc
-	 qOM0Dy1m3o6hpefowyxMWIhvjIj59l1wYpkZVRuM9r6TPjuk/Tz/06EkZ+dVyR67U8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794205536;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=vxR0y8O6Yjfa9xBmupmiYjq0RBrrS/LkXi20mWxNVj4=;
+	b=MqmSNkSECLaCK512kwn1Tyl3nRbFR7H20qWgH7kri25qeaWdhcX4SVFmiJAHQbYQPdtr
+	 4qT0pwFBX/J52DetO92uaSZhWtt6JJCnkXPLF/wQaQCOceWISUlueAh2CRAZ8ZSYsmnSQ
+	 2+MrAXhoz8xaML8L8shzq+FqAFJcwuogWrbN26qiCEsHRFkB6KjD72BRTm1HrW8Mn4pRS
+	 bVJyOLdYHTcfX4t5R3shWL3hW35S3u/3PZcSUADdSKRkOkcLCfMrs+HvFn/lwoRau6EXz
+	 HFs6FYPqfrTl4vwNDf86F3lJvTNkdqxPp9zbiqm2k+JlPoRPNKOn65OL9LeWjb67hyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b="j/Qeg7lB";
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLSKRX3B;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02E4606A31C;
-	Mon,  9 Nov 2026 06:25:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E02E4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE951606A31C;
+	Mon,  9 Nov 2026 06:25:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=j/Qeg7lB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1794205498;
-	bh=tZbehCCVWAQp16KYzP4ZlOLAW7PdEXUmB6Gq4qGN56g=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=j/Qeg7lBnFx7MbZ6d/nyR6LaZF2TIRCIpbxGcpl0PX8fkVaAsg7NcArOWgfjqkf/l
-	 jZHZ3uUOoRovxymn8fAFzr1DKUb/nh74Db/6/CD4Dsvh1Z5n1wK/j573XzdTwmt+Or
-	 8mBbbRN2fvHYSmvi+QoGOBfa8A4IoEjpVWnxICnollgS2EKc5rFti4jUZRW+AIsXlX
-	 ceobV1fOOQaUYe/aKAySXOFMr/7kJ+5Vqd75QnaFh+bR+GtqcXAO9QW8LTXkBBQXpJ
-	 reECfD7fz+hT/ZRrAxh0ExM9NmXYb1xMlCs0Ns2Q51K1jT+628vrrlGjFgbH8zUyzL
-	 xScxue7q7aEYw==
-Received: from [192.168.68.117] (unknown [180.150.112.139])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 54B956E9E9;
-	Mon,  9 Nov 2026 14:24:57 +0800 (AWST)
-Message-ID: <91edc3ed1d65a6765530895c6574714bfd76b8d0.camel@codeconstruct.com.au>
-Subject: Re: [PATCH v2 2/2] ARM: dts: aspeed: Add NVIDIA MGX Vera C2 BMC
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Jacky Huang <jackyhuang@nvidia.com>, Joel Stanley <joel@jms.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>,
- Billy Tsai	 <billy_tsai@aspeedtech.com>, devicetree@vger.kernel.org, 
-	linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Date: Mon, 09 Nov 2026 16:54:56 +1030
-In-Reply-To: <70b7dd4c538ce72a2caf3b4420af3889e9b2dab7.1793705210.git.jackyhuang@nvidia.com>
-References: <cover.1793705210.git.jackyhuang@nvidia.com>
-	 <70b7dd4c538ce72a2caf3b4420af3889e9b2dab7.1793705210.git.jackyhuang@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLSKRX3B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F41D1F008A1;
+	Mon,  9 Nov 2026 06:25:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794205535;
+	bh=vxR0y8O6Yjfa9xBmupmiYjq0RBrrS/LkXi20mWxNVj4=;
+	h=From:Date:Subject:To:Cc;
+	b=mLSKRX3BsieLi4GLeZuPq0+ZHK9kVNOPWSfwixBMn4rpaVkA9YsE6GmciW2bwB/GS
+	 jMhza4Hel1F/vyASKGubuDwP+evpOsrc42c52ET8aYW58TE+iULoJrwdd/xy8YfJ8N
+	 vVHhWt2HxsHQ977KH8nX5W7vFaxJgDf3xYqCrtasrntgUjWJobvAVJfeJZA7nlfTs3
+	 J/xwuPkpnRgIxT1U1chNy+FTjmyc+NUb8SvWstd4tbR4OcDpOaKn6V9BiiG7dJf/ue
+	 RCJ/169I/OKMg0/NZSKGz8dvpkuRtJNXMuO3YG8OFfaIlonagAG1jnnis8WrBsuT1p
+	 1AErDaT5zWuvw==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Mon, 09 Nov 2026 01:25:26 -0500
+Subject: [PATCH] Input: apm-power - Rename to apm-power-input
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,243 +52,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-apm-power-input-rename-v1-1-0609e7b91825@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMQQrCMBBG4auUWTuQpKLoVcTFtPnVEZqGSauF0
+ rsbdfkt3lupwBSFzs1KhpcWHVOF3zXUPyTdwRqrKbhw8N6dWPLAeXzDWFOeJzYkGcASorSudXF
+ /FKpxNtx0+Y0v17/L3D3RT98bbdsHPY5OwHoAAAA=
+X-Change-ID: 20261109-apm-power-input-rename-a2da3030d47a
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Nicolas Schier <nsc@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sasha Levin <sashal@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2220; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=Zm6n7DvPV/zt+FKqZ0sjzZv/v8rOmXG/Eq1yFEOyh8I=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFkf06P4DTnV9t09uXaJ3Ke8/TW6Tju3hRusifx3do2Z7
+ aU1wbqbOkpZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBENGQZ/kqICBo7fTRZZ777
+ w4NPJl9Pa0VflHazsZ69OyW15+r9djOG/4lb7zZZdBx9eVbQ4fqZ5YzrDniuiz2t2/D4wI3nwst
+ E5/AAAA==
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On Tue, 2026-11-03 at 20:47 +0900, Jacky Huang wrote:
-> Add support for the NVIDIA MGX Vera C2 BMC based on the
-> ASPEED AST2600 SoC.
+When scripts/modules-check.sh is fixed to normalize the module's name
+like name-fix-token does in scripts/Makefile.lib before checking that it
+is unique [1], there is an error due to drivers/input/apm-power.ko and
+drivers/power/supply/apm_power.ko having the same module name.
 
-Can you please expand the description of the platform? Why was it
-designed and built? What's its purpose?
+  error: the following would cause module name conflict:
+    drivers/input/apm-power.ko
+    drivers/power/supply/apm_power.ko
 
->=20
-> Signed-off-by: Jacky Huang <jackyhuang@nvidia.com>
-> ---
-> Changes in v2:
-> - Specify the console and baud rate in stdout-path and drop bootargs.
-> - Use generic GPIO expander, fan controller and regulator node names.
-> - Fix gpio-line-names indentation and GPIO bank comment formatting.
-> - Remove duplicate GPIO line names.
->=20
-> =C2=A0arch/arm/boot/dts/aspeed/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0 1 +
-> =C2=A0.../aspeed/aspeed-bmc-nvidia-vr-c2-bmc.dts=C2=A0=C2=A0=C2=A0 | 1275=
- +++++++++++++++++
-> =C2=A02 files changed, 1276 insertions(+)
-> =C2=A0create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-vr-c2=
--bmc.dts
->=20
-> diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed=
-/Makefile
-> index 6874b621d..e5c44d423 100644
-> --- a/arch/arm/boot/dts/aspeed/Makefile
-> +++ b/arch/arm/boot/dts/aspeed/Makefile
-> @@ -66,6 +66,7 @@ dtb-$(CONFIG_ARCH_ASPEED) +=3D \
-> =C2=A0	aspeed-bmc-microsoft-olympus.dtb \
-> =C2=A0	aspeed-bmc-nvidia-gb200nvl-bmc.dtb \
-> =C2=A0	aspeed-bmc-nvidia-msx4-bmc.dtb \
-> +	aspeed-bmc-nvidia-vr-c2-bmc.dtb \
-> =C2=A0	aspeed-bmc-opp-lanyang.dtb \
-> =C2=A0	aspeed-bmc-opp-mowgli.dtb \
-> =C2=A0	aspeed-bmc-opp-nicole.dtb \
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-vr-c2-bmc.dts b/a=
-rch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-vr-c2-bmc.dts
-> new file mode 100644
-> index 000000000..a044dfa00
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-vr-c2-bmc.dts
-> @@ -0,0 +1,1275 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/dts-v1/;
-> +
-> +#include "aspeed-g6.dtsi"
-> +#include <dt-bindings/gpio/aspeed-gpio.h>
-> +#include <dt-bindings/i2c/i2c.h>
-> +
-> +/ {
-> +	model =3D "AST2600 MGX Vera C2 BMC";
-> +	compatible =3D "nvidia,vr-c2-bmc", "aspeed,ast2600";
-> +
-> +	aliases {
-> +		i2c16 =3D &i2c_usbhub;
-> +		i2c17 =3D &i2c_tpm;
-> +		i2c18 =3D &i2c_dp;
-> +		i2c19 =3D &i2c_rtc;
-> +		i2c20 =3D &i2c_fan_ctrl0;
-> +		i2c21 =3D &i2c_fan_ctrl1;
-> +		i2c22 =3D &i2c_fan_iox;
-> +		i2c23 =3D &i2c_fan_hsc;
-> +		i2c30 =3D &i2c_mcio_c0c1_north0;
-> +		i2c31 =3D &i2c_mcio_c0c1_north1;
-> +		i2c32 =3D &i2c_mcio_c0c1_north2;
-> +		i2c33 =3D &i2c_mcio_c0c1_north3;
-> +		i2c34 =3D &i2c_mcio_c0c1_north4;
-> +		i2c35 =3D &i2c_mcio_c0c1_north5;
-> +		i2c36 =3D &i2c_mcio_c0c1_north6;
-> +		i2c37 =3D &i2c_mcio_c0c1_north7;
-> +		i2c40 =3D &i2c_mcio_c0_south0;
-> +		i2c41 =3D &i2c_mcio_c0_south1;
-> +		i2c42 =3D &i2c_mcio_c0_south2;
-> +		i2c43 =3D &i2c_mcio_c0_south3;
-> +		i2c44 =3D &i2c_mcio_c0_south4;
-> +		i2c45 =3D &i2c_mcio_c0_south5;
-> +		i2c46 =3D &i2c_mcio_c0_south6;
-> +		i2c47 =3D &i2c_mcio_c0_south7;
-> +		i2c50 =3D &i2c_mcio_c1_south0;
-> +		i2c51 =3D &i2c_mcio_c1_south1;
-> +		i2c52 =3D &i2c_mcio_c1_south2;
-> +		i2c53 =3D &i2c_mcio_c1_south3;
-> +		i2c54 =3D &i2c_mcio_c1_south4;
-> +		i2c55 =3D &i2c_mcio_c1_south5;
-> +		i2c56 =3D &i2c_mcio_c1_south6;
-> +		i2c57 =3D &i2c_mcio_c1_south7;
-> +		serial2 =3D &uart3;
-> +		serial4 =3D &uart5;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path =3D "serial4:115200n8";
-> +	};
-> +
-> +	leds {
-> +		compatible =3D "gpio-leds";
-> +
-> +		fault-led {
-> +			gpios =3D <&exp7 12 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		power-led {
-> +			gpios =3D <&exp7 8 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		uid-led {
-> +			gpios =3D <&exp7 10 GPIO_ACTIVE_LOW>;
-> +		};
-> +	};
-> +
-> +	memory@80000000 {
-> +		device_type =3D "memory";
-> +		reg =3D <0x80000000 0x80000000>;
-> +	};
-> +
-> +	standby_power_regulator: regulator-standby-power {
-> +		compatible =3D "regulator-fixed";
-> +		enable-active-high;
-> +		gpio =3D <&gpio0 ASPEED_GPIO(M, 3) GPIO_ACTIVE_HIGH>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +		regulator-max-microvolt =3D <1800000>;
-> +		regulator-min-microvolt =3D <1800000>;
-> +		regulator-name =3D "standby_power";
-> +	};
-> +
-> +	reserved-memory {
-> +		ranges;
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <1>;
-> +
-> +		framebuffer@9f000000 {
-> +			reg =3D <0x9f000000 0x01000000>;
-> +			no-map;
-> +		};
-> +
-> +		ramoops@a0000000 {
-> +			compatible =3D "ramoops";
-> +			reg =3D <0xa0000000 0x100000>;
-> +			max-reason =3D <2>;
-> +			record-size =3D <0x10000>;
-> +		};
-> +
-> +		framebuffer {
-> +			compatible =3D "shared-dma-pool";
-> +			alignment =3D <0x01000000>;
-> +			reusable;
-> +			size =3D <0x01000000>;
-> +		};
-> +
-> +		video_engine_memory: jpegbuffer {
-> +			compatible =3D "shared-dma-pool";
-> +			alignment =3D <0x01000000>;
-> +			reusable;
-> +			size =3D <0x02000000>;
-> +		};
-> +	};
-> +};
-> +
-> +/*
-> + * NVIDIA multi-interface MCU enumerates as hid-generic by default
-> + * and binds to hid-cp2112 at runtime
-> + */
-> +&ehci1 {
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <0>;
-> +
-> +	status =3D "okay";
-> +
-> +	hub@1 {
-> +		compatible =3D "usb424,2514";
-> +		reg =3D <1>;
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		hub@2 {
-> +			compatible =3D "usb424,2422";
-> +			reg =3D <2>;
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +
-> +			hub@1 {
-> +				compatible =3D "usb424,2514";
-> +				reg =3D <1>;
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				device@1 {
-> +					compatible =3D "usb955,cf11";
-> +					reg =3D <1>;
-> +					#address-cells =3D <2>;
-> +					#size-cells =3D <0>;
-> +
-> +					cp2112: interface@1 {
-> +						compatible =3D "usbif955,cf11.config1.1";
-> +						reg =3D <1 1>;
-> +						#gpio-cells =3D <2>;
-> +						gpio-controller;
-> +						#interrupt-cells =3D <2>;
-> +						interrupt-controller;
-> +
-> +						i2c {
-> +							#address-cells =3D <1>;
-> +							#size-cells =3D <0>;
-> +
-> +							/* CPU0 IROT/thermal/SOCAMM/JTAG */
-> +							gpio@50 {
-> +								compatible =3D "nxp,pca9555";
-> +								reg =3D <0x50>;
-> +								gpio-controller;
-> +								#gpio-cells =3D <2>;
-> +								interrupt-controller;
-> +								#interrupt-cells =3D <2>;
-> +								interrupt-parent =3D <&cp2112>;
-> +								interrupts =3D <0 IRQ_TYPE_LEVEL_LOW>;
-> +								gpio-line-names =3D
-> +									"CPU0_IROT_RECOVERY_L_3V3-I",
-> +									"CPU0_IROT_FATAL_ERR_L_3V3-I",
-> +									"CPU0_OVERT_L-I",
-> +									"C0_THERM_WARN_N-I",
-> +									"C0_S0_THERM_OVERT_N-I",
-> +									"CPU0_CHIPTHROT_L-I",
-> +									"C0_SOCAMM_0_ID_PRSNT_N_1V8-I",
-> +									"C0_SOCAMM_1_ID_PRSNT_N-I",
-> +									"C0_SOCAMM_2_ID_PRSNT_N-I",
-> +									"C0_SOCAMM_3_ID_PRSNT_N-I",
-> +									"C0_SOCAMM_4_ID_PRSNT_N-I",
-> +									"C0_SOCAMM_5_ID_PRSNT_N-I",
-> +									"C0_SOCAMM_6_ID_PRSNT_N-I",
-> +									"C0_SOCAMM_7_ID_PRSNT_N-I",
-> +									"MCU_JTAG_BYPASS_CPU0_S-O",
-> +									"MCU_JTAG_BYPASS_CPU0-O";
+  $ modinfo drivers/input/apm-power.ko drivers/power/supply/apm_power.ko | grep name:
+  filename:       drivers/input/apm-power.ko
+  name:           apm_power
+  filename:       drivers/power/supply/apm_power.ko
+  name:           apm_power
 
-I assume the -{I,O} suffixes refer to input or output. Are they
-necessary?
+Rename drivers/input/apm-power.c to apm-power-input.c to make the module
+name unique and clear up the error.
 
-Andrew
+Reported-by: Sasha Levin <sashal@kernel.org>
+Closes: https://lore.kernel.org/20261108225808.1809266-1-sashal@kernel.org/
+Link: https://lore.kernel.org/20261103110411.11698-1-info@daylightlinux.ch/ [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+We would like to take [1] for 7.5 in kbuild-next, so we would appreciate
+an ack to take this directly or a stable branch that we can pull in.
+---
+ drivers/input/Makefile                           | 2 +-
+ drivers/input/{apm-power.c => apm-power-input.c} | 0
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/input/Makefile b/drivers/input/Makefile
+index 2cd6e1c9a778..842a7e4f7b50 100644
+--- a/drivers/input/Makefile
++++ b/drivers/input/Makefile
+@@ -27,6 +27,6 @@ obj-$(CONFIG_INPUT_TOUCHSCREEN)	+= touchscreen/
+ obj-$(CONFIG_INPUT_MISC)	+= misc/
+ obj-$(CONFIG_INPUT_KUNIT_TEST)	+= tests/
+ 
+-obj-$(CONFIG_INPUT_APMPOWER)	+= apm-power.o
++obj-$(CONFIG_INPUT_APMPOWER)	+= apm-power-input.o
+ 
+ obj-$(CONFIG_RMI4_CORE)		+= rmi4/
+diff --git a/drivers/input/apm-power.c b/drivers/input/apm-power-input.c
+similarity index 100%
+rename from drivers/input/apm-power.c
+rename to drivers/input/apm-power-input.c
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+change-id: 20261109-apm-power-input-rename-a2da3030d47a
+
+Best regards,
+--  
+Cheers,
+Nathan
+
