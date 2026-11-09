@@ -1,86 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229836;
-	b=qvkZ/Svigjc/hB71HSlvMs88pbrIAG1f0DrLj051gsNiOB8vBO5WfK6NyFgVPz0qVQ+S
-	 Tr+7m5aSauunkGOT62KfPCIhdSC5m+m6/IEcjcHKbhVHwdOCPX4VbrvoH7HIonIX8uZyO
-	 EnswV7fUq9au6K2WK12kGPHoj91wN9q/Z7ZQS0IDKwj8ZqqaIP0MVbz63W+8ZHud23hvl
-	 IygUzVOnUoIbQ1xGNJVHORT+S4YqmtEqFT/bDEBSjWUNBCbubzbS8HBKklIxlynyH9KmD
-	 Y1luGoR8XLnCkYWUX7wR9IZPWyFrJFUDkvtg96Z+zBsveVBzf/6bWbutfIKvVBR0zbw==
+	t=1794229852;
+	b=aWFvqAk9ILGJXhWiuKtRQoVpiFld9QciLx/5QHop5pd2cv3CnD3bqewF9eGqvTFimNwe
+	 XVTJqfRkLGMmjB51OTCfqCaRt77275hStMij38fy7hHex7j0sprJvJ5IHwimecLz916nX
+	 KVjNHVzqUwr7Xtq4Sf+NtVnZkZ5txFH2FEr97e5UfTo7sOdlmi8FrK9b4CZ3BQ7wvdg/q
+	 FJUYlQhaCmcUK0C+5M+uFsgHgx7TGEE32BnUmePa7JA9TxI/F4ahVWxoGe5JcVZfX3kL5
+	 vnIun/xKYbxMeQ7B1YjfJ09R65xhgM6b5QoNIji/fXh9NQvr++QElrOzKKMWFwl6h/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229836;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=kkHjrvDUSvd97LkLdq2kDFeq79z5vdLmwk/z6XccS2k=;
-	b=rbG2S5nmaNjhnHSswiSeMTMgLnfYs5gcODy6JHwWFSQ//KGFNT+2Xm81Kb/XvTypJi4g
-	 fh2MB/BtXQQDa8BuN9U1M+n0VBfi/DBU/+Fnlnn2Xusj0aWOFqY18rgPk4bveo+PQNwmZ
-	 KeSsDOhZ15dtdHf3nRAQWUvGB1RiKSdlb7CF2PCtx8YCLbq2CRqXf9Wj7VnrSoZv7iEYG
-	 K2XzimdgMJvCTqcRuKAVcntqc9+fdnWx7zPzfPIzWiWropmyYXXo9OTFgyl7vzmWO7nhC
-	 YAhL8eX+9uY+yST2vW+lpk6OCrRwrhh3lD+oJ/MqH8Rue2YkexPzBToJ/ximGnL0wkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229852;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Debian-User;
+	bh=iG7IxATYQFhr9N5nGzI4lRguPVjPcmyj3wacG9KcqpE=;
+	b=lAwO+wcOJB792EXih1i8TIs4EKTB78FCh1+QCQN64GUTflNT05zrBiqtdxRz8fybu4O1
+	 LMGxaBe0VAi0QnHLc7xbmHUFyuvXSBDb9nPg4bgSMsDsOZEiMnZWFYAzdnYj2K+V04Ikd
+	 2tlb3m7Hrryz74WDcVhc3lSDFJllKzvIL4VISDQ/LXsF/Htt2s/54akyosvoyytZ7ODeP
+	 9A3yjg6rEkrWLyYyPc5Shnb1eyuv3wJVfcS5QJ+SYSn6kLuA53eWsl31M8Z98ZAqH2uKF
+	 ClCnR2AynTW/1G8SPQ8q/7PNg7vuIdAVR7mY8U11qP9srahXwEt+Pdr30t2fekUHkHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BYHDOMsH;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=koKTttrZ;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04F1606A321;
-	Mon,  9 Nov 2026 13:10:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D04F1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC255606EEB7;
+	Mon,  9 Nov 2026 13:10:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC255606EEB7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BYHDOMsH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794229836; x=1825765836;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=T7LXLzC0gRylbqBTsZD+y1ZkJOs+qcyQ4bV2Qg0srZE=;
-  b=BYHDOMsHkZ3cZB5Qglwav12tgQlrC0K2sePFcZ/27aIWDU/H+Pxod473
-   Z+CfcWZV9Nm8pVtqoPG5zz5AHU1S1I+WrkltfnFPx9i3XExfPvVPmFLrR
-   tY3fCIWGPRUgzXLraZHqfh/TnB9dPBJVe1mvJ6tHNYxflMUKzdIJlpyZc
-   I/6QJn0STWqCGoIZ4zRJifqy6p6Q+OWBxw89XEmiwgY4kIvF/cBQDTdYU
-   8BWJRGGcoJK2l4w8dkHNFKC08kmzSi9GJU8sVr7FjL9PbgK+v9nyTdbEu
-   yGvCppdDVxwZddpxSXxFsOFRAEAwSSvI4Tsah9iNNUv4vQjgktvPR1SBd
-   Q==;
-X-CSE-ConnectionGUID: C9vob+gkRAKYxnYLUyIJdA==
-X-CSE-MsgGUID: kGWVjulPR6SMFpoS2H61OQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="3039508"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="3039508"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:10:36 -0800
-X-CSE-ConnectionGUID: 5PUYAd50QkGEZoKjws36ng==
-X-CSE-MsgGUID: GEPSSIKzSdKrJQUQbEOh0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="7905762"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 05:10:31 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Matthew Brost <matthew.brost@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 1/3] PCI/sysfs: Remove resource assignment after BAR resize
-Date: Mon,  9 Nov 2026 15:10:08 +0200
-Message-ID: <20261109131011.1815-2-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109131011.1815-1-ilpo.jarvinen@linux.intel.com>
-References: <20261109131011.1815-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=koKTttrZ
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=iG7IxATYQFhr9N5nGzI4lRguPVjPcmyj3wacG9KcqpE=; b=koKTttrZvvSN3b8LyyQHVBrfuA
+	YS3wnhxid4Iov5yOiasfDDJBRATSzYA/rI8+LkalUEGEwzsBkj2quilf2blu4Ir++Tah8tmcm4r9I
+	swPG4qwfueaV77YWRQWF2aeE7+lxWBl0WP89DFpyCKc/p+TaZckwE9aWti5QW/faZQr9A2od/kpBl
+	AN03Pq0UUg69n/C6LSJ764yrddB9zEm/WMDAmmNgYRMh83nTCBBCnUHMPDEjhjeB+VneQFTkchaUr
+	l4LyUcoU+mT+8GrmF42CSQ6KAj7YK0h6TC6upNYCTYJ2Ppwy7LOQgm9+ihewDSSYOTDj4kvcFpNwr
+	FtYk3C8Q==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xQP8z-00BdPm-0q;
+	Mon, 09 Nov 2026 13:10:41 +0000
+Date: Mon, 9 Nov 2026 05:10:37 -0800
+From: Breno Leitao <leitao@debian.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Vincent Donnefort <vdonnefort@google.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	Steven Rostedt <srostedt@redhat.com>, kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2] ring-buffer: Handle a reader taking the new head in
+ rb_handle_head_page()
+Message-ID: <avHFeq9GjAVN_OnF@gmail.com>
+References: <20261105-ring-buffer-head-moved-v2-1-05da40cebccc@debian.org>
+ <20261105155729.0f9c7e4d@gandalf.local.home>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,44 +70,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105155729.0f9c7e4d@gandalf.local.home>
+X-Debian-User: leitao
 
-pci_resize_resource() assigns the resized BAR and the other BARs it
-released, or restores the original configuration on failure. Calling
-pci_assign_unassigned_bus_resources() after it is redundant. If that
-call manages to assign more resources in some scenario, the problem
-should be fixed inside pci_resize_resource() instead.
+Hello Steven,
 
-Remove the pci_assign_unassigned_bus_resources() call from
-__resource_resize_store().
+On Thu, Nov 05, 2026 at 03:57:29PM -0500, Steven Rostedt wrote:
+> Can you try this?
+> 
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index c64e001c3fc0..f0bb2d23d818 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -3721,6 +3721,14 @@ rb_handle_head_page(struct ring_buffer_per_cpu *cpu_buffer,
+>  		local_sub(rb_page_commit(next_page), &cpu_buffer->entries_bytes);
+>  		local_inc(&cpu_buffer->pages_lost);
+>  
+> +		/*
+> +		 * To prevent a stale head_page from being between
+> +		 * the UPDATE and new HEAD pages, set it here to have
+> +		 * the reader check always find the update before
+> +		 * finding the HEAD page.
+> +		 */
+> +		cpu_buffer->head_page = next_page;
+> +
+>  		if (cpu_buffer->ring_meta)
+>  			rb_update_meta_head(cpu_buffer, next_page);
+>  		/*
+> 
+> We may need to add memory barriers here, but for now, I think this could
+> fix it. As it should prevent the search from ever starting in between the
+> two heads.
 
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
----
- drivers/pci/pci-sysfs.c | 3 ---
- 1 file changed, 3 deletions(-)
+This seems to be racy as well. Sashiko found the race, and it can be
+reproduced by adding some delays in the code.
 
-diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
-index 6669e9ad5bd3..bccd0bd5091b 100644
---- a/drivers/pci/pci-sysfs.c
-+++ b/drivers/pci/pci-sysfs.c
-@@ -1731,7 +1731,6 @@ static ssize_t __resource_resize_store(struct device *dev, int n,
- 				       const char *buf, size_t count)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
--	struct pci_bus *bus = pdev->bus;
- 	unsigned long size;
- 	int ret;
- 	u16 cmd;
-@@ -1768,8 +1767,6 @@ static ssize_t __resource_resize_store(struct device *dev, int n,
- 		pci_warn(pdev, "Failed to resize BAR %d: %pe\n",
- 			 n, ERR_PTR(ret));
- 
--	pci_assign_unassigned_bus_resources(bus);
--
- 	if (sysfs_create_groups(&pdev->dev.kobj, pci_dev_resource_attr_groups))
- 		pci_warn(pdev, "Failed to recreate resource groups after BAR resizing\n");
- 
--- 
-2.47.3
-
+Thanks for looking at it,
+--breno
