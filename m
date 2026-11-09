@@ -1,77 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794239417;
-	b=GZuO9YZC871+fnEj020OJbN1OyGYsSYIza53SfB8IfSNtVTksVPDxekwdOubIz9Up0pO
-	 uDfk0pjbnlBmCBIgKLlMVViPsdRcweyfsg9eoOvhHVyQERlkYBMUlciAIs+X2xZa6cKuf
-	 D9Sk8KYHBQqIKeNlsJF8DVzVHNCL4byKlgHi5KykdNCNiM7pD/5tAwaKXZ6aH1bMKbu7E
-	 o9KfzP5zKK90tIcmm72+gqMTuMpT8XX1+02iD/NBp8Ro4hZS5y+VlyAeKPdCvJk6YudAX
-	 TiF7H3r1Ldh+8GVGkbZfprAwhMPflCYIPCtFC1iRjhAkBBfbDPm4VjEuiIMLeOkBLCQ==
+	t=1794239420;
+	b=0dz6dhdvBDmQOYja4tancvwv93jw56R/nuObFkCPd2huveEwKo5gDidjNI0uSXJCqZ5G
+	 APMVmT/EgCH/aaaMX0lF5614rShl5Kb+HnRACYdKZfG0ryDigkovnJ9R/rQXXSGQPSoEM
+	 fltripwwkw7YlBYuAZG3tgaAel4IyTd0DiU0i6R+2vCU5iDEgJN26nQxRMBBhFKvIRW0i
+	 Jn5uPlZo8SdN9+koO4t89XpaLbjMAiOzXLVYW3mvbTNamvClqlwOYCd1+OKS7UWoK/lte
+	 dci1+wrZUSgWBRXUgBPqacxBqMM+8QbQ2Aq6r2jM3TiaA3VVEUZhdT1PHnyL4kGMH+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794239417;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:X-OQ-MSGID:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=LQGO9vFLEAdP3AUmlh/19/aI1sYZIjGs9h7QlSX1ek8=;
-	b=sOP1+SVU9OcXGK/CjCvFLvnR/oTw5TctPSe3HswTcjh8/u/6WZMGDqzR0dGXWhkHswQi
-	 6WWtn01pCDEKG021T7PdnI+RQ+mV+4BWVhyFTa2CQj46PNb0G9yURHjWeZpPbqrka12Zo
-	 2BgGBcMRYRQzuUZHLWLdC/ag4AE4fj3fIQ0GoKXjexANDGQPK2Rp8ALyppCoOAs8WJkPD
-	 qaZCpuBrAclnXMy1VYWnuxDzK1qi6JRMKCSDST/R+Taz3hyPff4GMMz3Sj3AfrRqQVCq0
-	 8chFGkb9a0W7chv++CR5NvxvUBlsxrPGQ426EGkJaXngP3+oKUDWL3HdTTPw2JH/tag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794239420;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=2p6CUqRLEssOKWLdU6YDLfy7whJKTepklUCynGnWpPc=;
+	b=VsV0c5kbISaKrklLwpTw9SbvGZEVlYTKtR5cBzRvs9Tjt28FYUutQsB66nT+9uYZkJHS
+	 m+2Yy8vL8n3MVcIGW6EkW1s3xmlPhtw84GvO7fOsqVXhwRTjwYUSMyRrtIPIm3/7KVqb3
+	 UU2hCOnJkQlGezt0uOt87/TstOcNlTfwMFOuCZo7CdKfbyruL2efSxd3RclCeCaO6+deC
+	 GdyR1O7hlgBTXjSpH2flnyb/laQYYNMGgyFDBccW3m8uA8ApBOsxO6tDrBaQtoxgdGour
+	 mzWcSP0fM3/w/KiZ8WdQzFvh7kkiRz676eZokoOKiKOj3V27WVM3K5TEmbjWzb7ajKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Y7neRKVu;
-	arc=none smtp.remote-ip=162.62.57.87
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="D/OdJKmp";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FDD606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 15:50:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54FDD606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1667606A331;
+	Mon,  9 Nov 2026 15:50:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Y7neRKVu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794239404; bh=LQGO9vFLEAdP3AUmlh/19/aI1sYZIjGs9h7QlSX1ek8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Y7neRKVul6ECm8ba7qW9dFWXF5nz+n28qVMzy2oFTkewVUJTrMQh0zsHcVMXJPsGj
-	 BtVi4i+wVh5tvtMt0Rk7bMw5IH9fh2I+fGOfI4IvsnKNPu59A2mTx5NL3ztBryHctF
-	 ffARKc3W/ZDshmsWLTm4POGwm0M6Sd27rBWvwCUU=
-Received: from [127.0.1.1] ([223.88.55.127])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id C82BC2E7; Mon, 09 Nov 2026 23:50:02 +0800
-X-QQ-mid: xmsmtpt1794239402t4rzum2zj
-Message-ID: <tencent_FEC82334BDE27688994F74B9BB4BCBB2140A@qq.com>
-X-QQ-XMAILINFO: OOO9dHjlsLs7+BwpEGlTITjYED/dMO+du/JEOvMweydDS/+o7C1A6TJwXgBZkP
-	 WZoQXYihMW8gzsUJrmYEmxxg/PTXmkGIE+g32IJoxnfTD374JDRU+C6GpYZvoCDhT55cg7np+ARS
-	 J70Y7J12lbDOEa7r2YZGbeuf+tG35VJkrXlZxqXuLqBK76wnlMzG7FMGRaRxRCjP4nSuNxoNMFXT
-	 WzHJ346RxwYiD4MS5hNmk8BVjJFw0yz5cuVYzqfHS97PpwHb5UfcR6uBTsoiUZsmCoWWmGo6z1Bh
-	 X2cXPljgm+dzwxO8fbNgEKmipn99xCzlv7mXRA9BsTC2dDqIKmiU0xb0hIswHmfb26uXdh1v1sbc
-	 F9aUpOFgmR96ij6WgJFkR1wngHr0uHlZvCqBxpNBSceLPX7Tu/KtmieSenUY2fqeBkrJ/sBbbhTF
-	 nFNsWmhOT7sJS8J1BpT4bDEIk/1uNfuGKCtSkS4ruRXryg8FxEQ7cuXTXjtoixyIDOk2LBuQEWNo
-	 ptXbim08oFJUIBmbC4TZ3oLY5bwyC5vh56fIlShQAW8byA0BRCZWMJO2xLT8tyFEdsbjQAZogBGr
-	 3JBlSGvz5XjZvGb9tMauqID2K9B4pduQlTl3uCZUL+PKzRzh4ZYYth0y4jqqDG7RfacXwVJkr9Qq
-	 paBeOuXpiqdl5JGfZy8+xLb1tm9k2AMrjZuYSadxWSDvtAnK8+USQm6/1LinNX6Kv6GLWo/OGs7I
-	 Xpx5a7FRPwXQ6oWaMrAxQVpUOsQkTt7EB442wSilr9Z65zhgz22kfR5RKeq6is4FuiB1QvJEtFb8
-	 nAN7+iyiILtkMgclLVP5YX14QRbU0n/T3aDSyplZzkcOpxjEY6HA8iiQZzdOlsm9DtJFUt3T0iSj
-	 PcDbDZBIeckV3T5WPVBY2N3z/7gWA9VqjcewZKSDGOucoixjZI1/XwBh9eSLhZyiq2le4TyyeKqg
-	 p33aeC6EB3b0rovzuEZYDYVtS4GarublQsaGjh7jxaiW8iP7jszxzFDPIi25itiiOkyFBL7rEyJU
-	 LIDRXvdjPt0aLo7qDpM6/27xXIWvl7FCfIGY2EYAjBvOXlPqREn4sKaXCYUymtwRYpqSRPU6JoRC
-	 wczuUq
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Shuai Liu <847807867@qq.com>
-To: Aleksandr Khromov <haa@amicon.ru>
-Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH] jfs: fix double free of the log superblock buffer in lmLogInit()
-In-Reply-To: <20260817071347.1160598-1-haa@amicon.ru>
-References: <20260817071347.1160598-1-haa@amicon.ru>
-Date: Mon, 09 Nov 2026 23:50:02 +0800
-X-OQ-MSGID: <179423940257.1336427.12304260030044137322@qq.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D/OdJKmp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DCAF1F008BC;
+	Mon,  9 Nov 2026 15:50:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794239419;
+	bh=2p6CUqRLEssOKWLdU6YDLfy7whJKTepklUCynGnWpPc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=D/OdJKmp8l9kgc9gKUFPITsbs95e8Z0jZG2j7ulPpl7tXaQuoQ1c6UzOrmO32zIKC
+	 8lRYCz+che2eDOf57VQFUluuA6p7bYLgQkqFhAJubSqpeQ9czUbxPYWkQ+yiiVoMzt
+	 rrWFIuzp3Bvw+6xHOV3a0NLHHE6Sz0Ep1bC5lbVi2HyCaA/MI5DtY6UvpCQ9S2EV/I
+	 5yl7riPmWrS6kCcOvZBIUiulO6DtNTYyaHmpunxqE8OLt72/eiFnJYTr0dW81zBW4a
+	 025S9X7st9KMD87XLiadCOPECnNaJuRzFoU+F7Aw09pOirJlIZrUmqkmU5ckf12gZy
+	 u/TiPj10arTpw==
+Message-ID: <8f1679ef-caad-4873-acb2-4faa04a1d9cc@kernel.org>
+Date: Mon, 9 Nov 2026 15:50:16 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,49 +51,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/11] media: qcom: camss: Use SOF sequence tracking
+ for vb.sequence
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>, bryan.odonoghue@linaro.org
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261107-v4l2-frame-sync-v3-0-e5bf7073a35d@kernel.org>
+ <20261107-v4l2-frame-sync-v3-3-e5bf7073a35d@kernel.org>
+ <crjR444yGrRKOohEVzfhYdoqIGCsi1tUpZLgBeeVGuinXQwMsZKZ9ZqkiU4uby7YTCrsbE5SfutnA8JQ49kDSw==@protonmail.internalid>
+ <CAFEp6-1tMwheRKaN=sEgF9abzNZOLS79OePq1GOwtm8JGXjSug@mail.gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <CAFEp6-1tMwheRKaN=sEgF9abzNZOLS79OePq1GOwtm8JGXjSug@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Aleksandr,
+On 09/11/2026 09:49, Loic Poulain wrote:
+>> +atomic_t *csid_get_sof_seq(struct media_pad *pad)
+> I would go with a `const atomic_t *` to preserve explicit ownership
+> within the CSID.
+> This is also what atomic_read is using, so that should work.
 
-I ran into the same double free while triaging a syzbot report, and I can
-confirm both the analysis and the fix.
+I'll amend on application.
 
-The report is this one:
-
-  https://syzkaller.appspot.com/bug?extid=d16facb00df3f446511c
-  KASAN: slab-use-after-free Read in lmLogInit
-
-It is the same bug: the second lbmFree(bpsuper) makes log->lbuf_free
-circular, and lbmLogShutdown() then walks that list and reads l_freelist
-from an lbuf it has already kfree()d.
-
-On a v7.3 based tree with KASAN, using the syzbot C reproducer (crafted
-JFS image mounted through a loop device), the unpatched kernel gives:
-
-  BUG: KASAN: slab-use-after-free in lmLogInit+0x146b/0x17e0
-  Read of size 8 at addr ffff88802e805c18 by task exploit/10730
-  ...
-  lmLogInit
-  lmLogOpen
-  jfs_mount_rw
-  jfs_reconfigure
-  mount
-
-With your patch applied on top of 4ce61d7abd85, the same reproducer
-reaches the error path (lmLogInit: exit(-5), i.e. -EIO from the log
-superblock write) and there is no KASAN report at all; the machine then
-powers off normally.
-
-Tested-by: Shuai Liu <847807867@qq.com>
-
-One minor nit on the changelog: it says lbmLogShutdown() "never
-terminates". In my run the first visible symptom is the KASAN
-use-after-free read inside that loop; the endless loop is the same
-circular list, just without KASAN's quarantine. Not worth a respin on its
-own, I think.
-
-Dave, this has been on the list since August without a reply - could you
-take a look?
-
-Thanks,
-Shuai
-
+---
+bod
