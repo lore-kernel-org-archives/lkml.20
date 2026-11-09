@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.69.30.187
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794264995;
-	b=0pQaXwhBops0ypjAzZhUUhZdGnjFtoJNpOxLXf9f5VEAqgi0GPH7WB0Rhy9SkyfhDugo
-	 WDOYAtv+/KIbtRHZNx9DtjH0F/pRgtZEP7G06wA5qzwI4x7mG0EDIIEA9OtQ7+FHw5Tw1
-	 fkUpywmth5WY/iErowhnQEPgWy+baBnR/KG1QxNIPvtjivAbq1k+g7qaWFmlgqgC3rpHv
-	 j4Lcr7a39HqG6955n7lew/iEhGh0f+vav76bpGlC8xpCbKlc2UPsLj5+ruiv+hwNF9ak5
-	 DE0ZbCliN+OPnkUMXrE5GrXIWNwBe8owYZAq9GhbK5tx7TxMDMR9LRagG7OGhLTwxgw==
+	t=1794265004;
+	b=vh0vyOxE8kq+4SBFoA2vGEyTDMdPoSbP++zew5PDwb6m+A9N54dZpi1JOd8kcix3WneB
+	 AoCkqIhZNSomYFGwFc4XGysA8TT46IFCNbjxObUyA3Heh5+2YV6XLc563cRP4sgFrc/Us
+	 oSYyoq8xptY1DMgvpRXhHM2vM6uPp3ntDpYLsGm8ELpb0fQXgj7F5KGRuwp3qu1r/9Ten
+	 rw7BJmJTaB/88jEqNnvWYNEFz8uAkqYzTBcNj0jjrAuxJVhuiEizzUr8Tsw+cwDL6sWHG
+	 i5DtN9FgA4KvjS5i9RJKv6j86X0vVOm+ngtxkvcBkOaSdoQVmuxoTNqGuDVYu0GYopA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794264995;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	b=zd3M/hT7NbTE+1IaWwcUqIgTdINZOb9sB2fsD33hIoidm8CZMQ1t4s4coFGN+F8fD0Ho
-	 +zud6k2Gc5Lt23OD/dShVXXxTrNVw7YRLA8DD/5JFDUMOZr9FzDWFfnHg0lglm/eIIup0
-	 Gxbd10ihLPYO3RuQ7tYXTTv8blZKKwBzzOWIuk9RKyohT5DB1Hyw/W7+Gegx3TyfKQ56b
-	 IuMTRJDEOmiFTyPbVdbp1lSKcJjb+PcbCzXG3b4jlLZUcLA6QLyQPs0fIzOlBEOnXYeSu
-	 BoCbXBXhMKzIKP2yisiTtHPGDz12rXhFfNutGWoMJimHc6GgU6ib/70jpHTREI/Ug6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794265004;
+	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=GWAVL70i6r6sAHI5CbKhPc1r3FwU+hCVb2gn7ZX9euY=;
+	b=gmDNoMBLKWEtsoXM40OAAelIYYbQWhMf7CZBGNq7DeIvlVMBehfoh7b1qLR2nHHkkGzF
+	 jEl2t8u5zYjnFYpTjtYF+CG930Aq9I2WTBaMc218rfWGoBT/1ZX8+hLZZtLUGgXHQY/KU
+	 GSgcRZGQ4M+jOERO0eP7P1DhJ87DmBWz1Cz43nam3cyOtxHCBbXZcs7ZdT1Z1tyk8S5Wq
+	 ZT744lapm3XDUjrkHJdgLTEKp/lc18rrFA2dyVQLi2AQJOxacA3Xn+cOTABbZYQVoKTAm
+	 8FkHstVzOWBas3kx57pjzVlhEvxSPvk+ZMrogJoVE5GBgeg7FKS8mpRj5DJne6T9+hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZqebq5X;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=freenixos.com;
+	spf=pass smtp.mailfrom=freenixos.com;
+	dkim=pass header.d=freenixos.com header.i=@freenixos.com header.a=rsa-sha256 header.s=mail header.b=uR7gVJhX;
+	arc=none smtp.remote-ip=54.69.30.187
+Received: from mail.freenixos.com (mail.freenixos.com [54.69.30.187])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC13B606A325;
-	Mon,  9 Nov 2026 22:56:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B78606A321;
+	Mon,  9 Nov 2026 22:56:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91B78606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=freenixos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=freenixos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZqebq5X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466291F0089F;
-	Mon,  9 Nov 2026 22:56:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794264994;
-	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BZqebq5XdQcisHnOldbxLsK4vsbACs0ZzEqR1Kp7ZYjgcYuX+pB+uIRimgsDt8WkP
-	 fTfb/+GZm9wWY5Z+JHidL89egaYvqYKAT2ZDdPeuO98AuOSMA8pd2funcQXa9i4PQz
-	 /QOZ9p8lXEBV/OA8T0Pw/AN7D1OA9FHAaCF7fBs8ykywIFWKhtxGyFwXTYswbYAlIi
-	 AJ5ueVIDjiDnFJn3odCWCay+c+pKfK1vBo2mWcDORMwtuyn9I6GXoxv5OYziCdARQn
-	 GhSXmZLy2POUtdjD/LiGviBjIOZmlc/iqyfXPXU8xYFFYKWrZXeAjXJYVA7Khi2QeZ
-	 KQM1zfCAnorxw==
-From: netdev-bot+sinfo@kernel.org
-To: =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v4 0/2] xfrm: fix IPv6 atomic fragment policy handling
-Date: Mon, 09 Nov 2026 22:56:33 +0000
-Message-ID: <179426499382.488859.12636576773274199602@kernel.org>
-In-Reply-To: <20261109213803.1785516-2-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261109213803.1785516-2-Jeremy.Jean@oss.cyber.gouv.fr>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=freenixos.com header.i=@freenixos.com header.a=rsa-sha256 header.s=mail header.b=uR7gVJhX
+From: Hex Lindqvist <hex@freenixos.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=freenixos.com;
+	s=mail; t=1794264996;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GWAVL70i6r6sAHI5CbKhPc1r3FwU+hCVb2gn7ZX9euY=;
+	b=uR7gVJhXmXl+I0WLlrHtMgLpTbMNFHuQChRchHjUc3vZiAjNvrdUs1h4OUCdLZolSZZMaU
+	rdOyN10H7wHDE43Lt0umjKmFJHSLivqI0SOXPoB26Gqx4EjW2v1cEg5WVZJDF1KKXnugAN
+	CEZv0pJW0WFPKIU8xk65Osu+PayTbRekN/aFB5J+F9zjZmNxiAO5TzNCLJ825rA7KZB986
+	isML65CbAL3lN9uQxH2DXFd3M+WM6C1XjUGs37kOhiP0MrzOPkL+qhz6Qf9G9fdajW+PD8
+	ExuhpKwXgavXXnJLq8/MJ29eSWRLoJuyOovBgixOmMwqvDiBmb0UoQcPHfPIuw==
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Zijun Hu <zijun.hu@oss.qualcomm.com>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Paul Menzel <pmenzel@molgen.mpg.de>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] Bluetooth: btusb: Use DECLARE_FLEX_ARRAY() for memdump segment data
+Date: Mon,  9 Nov 2026 14:56:32 -0800
+Message-ID: <20261109225632.1227242-1-hex@freenixos.com>
+In-Reply-To: <CABBYNZJdeHXP1XjYcTwUdCe_SFfxMETpSQbF7t0FHyxY4YfZQQ@mail.gmail.com>
+References: <20261108042008.226295-1-hex@freenixos.com> <b83e0172-2f64-4e28-9750-1a5fb3dd6b41@oss.qualcomm.com> <CABBYNZLJpDXTPmE_=rJ=J3oUMWRzybHhut4y1kPTEU8y2AKKiQ@mail.gmail.com> <CABBYNZJdeHXP1XjYcTwUdCe_SFfxMETpSQbF7t0FHyxY4YfZQQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,25 +65,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+Hi Luiz, Zijun,
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Thank you both for looking at this, and Paul for the review.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+On Mon, Nov 9, 2026 at 10:39 AM Luiz Augusto von Dentz wrote:
+> On Mon, Nov 9, 2026 at 10:35 AM Luiz Augusto von Dentz wrote:
+>> While this maybe true if the above code does produce new warnings then
+>> it needs to be fixed anyway, from the commit message it doesn't
+>> mention any build warning but that perhaps is because it is enclosed
+>> into a union which mask it or something, anyway trainling variable
+>> length should be accompany with __counted_by; so the compiler can do
+>> bounds checking.
 
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
+There is no build warning, with or without the union; the patch was
+only about the zero-length array being deprecated. __counted_by does
+not fit here: the struct has no count field, and the segment length
+comes from skb->len.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+> Maybe not DECLARE_FLEX_ARRAY, but [0] is not recommended for vla see
+> the Link tag, in fact the first_segdata[] does follow it so this needs
+> to be fixed anyway.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+As Zijun says, segdata is only an offsetof() anchor, so it can go
+together with the union:
+
+	struct qhci_vse_memdump {
+		__le16 seqno;
+		u8     subsys;
+		__le32 dump_size;
+		u8     first_segdata[];
+	} __packed;
+
+	#define QHCI_MEMDUMP_HDR_LEN	offsetof(struct qhci_vse_memdump, dump_size)
+
+The header is pulled with QHCI_MEMDUMP_HDR_LEN, the first segment's
+dump_size with sizeof(md_vse->dump_size), and the kernel-doc gains a
+line saying that middle and last segments carry their payload right
+after @subsys. The generated code does not change.
+
+Zijun, would that work for you? If so, I will send it as v2.
+
+Thanks,
+Hex
