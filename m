@@ -1,96 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794244925;
-	b=s0CtjPZkMCVRik0Wxmia1xVeEbHoB0tj3Zv7QH+OoJvDkEpny1AAheEtwgo6q2Aebvk9
-	 ISi1meaa26ckb53sDmhxcSavkC74ic0wlk+55VPZuumUonPCtY8q99B45vgeCGdLxObej
-	 OgCY/H43JhRY4SLUxY/rzlWTlvKM3WBJSZR5DsKl7jt70gMN+aVAocO7ssMVguvYbucj2
-	 Lc2eqXT+dcmXqTiOEZZV2/QvpCd3r0gNnoeSHfJg7MxFA8cPsxDrwbI4TqQzKtcapdDQV
-	 0rX6pu75HtYIUDwx7+7VK+B3JoFk22KNNFg4S8Yo02RLpzLk7Hvm6BjJh29J9BPdLcQ==
+	t=1794244960;
+	b=af0saCE9JSbeg4PwValgsrWA/ocT7k3hlLpy8KSuldGCLP2VnoG5r320ksixkpLvdM+b
+	 4BWGtYjVoxVEF25455gHna/v9W8tI+LVuK37cx2dvKKBZLSOsY1bGVVDdD5bjZHar3nsk
+	 uxbxQMLnIlZTiOzuiFcDkiUuUYwaT2W5I9gwCgOE47F7jvH9ITpXJNlHQw8EhEUwbnVzM
+	 Ln34PAa7q2aWLs9RfHLFYr5t1p+Z9sVIb0Z04CBlPL9khEa3ut/lPjC+QEvbEWXMUnzRM
+	 pDh50kWkta9zwgbIF5KUA87P+z5yHf/jdjNRWZy00MceTomVEj8ZvmCP+BGrb2N3C/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794244925;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794244960;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5LpgpL2Vm/swkS7qZWB8wOpeYfhvv54g4ZTTBda+f2A=;
-	b=DA7HfwawYvnpOMpriidlyLBZRDbPUDWWMcdRDTwFFfaQcEiEdL3Ku8es7Qe9rc3xSx7R
-	 awsx+4aa4ER+qFo2pYfp/G5a9Z3anVNybfQ6Ghj6+CjZDgZMXW9mUTMlTGEPcizvu+zmV
-	 RMSrRYNk6+LdcSyQ/BGJn8BYFM+ENmV8Bz4QoJWcAeu9NYBPqXVdX1OxqU0x3x1fngCl5
-	 iOQDbOgZyGgrWAgWae7OjenZq0gKZjYzg80G/ZES/yCHfP7JlZe2pXnUZM/OAlgKACxbl
-	 Ag9lJIb6RbeZxPSqFGsvyYzBXfJo5EVCJvCNonyCHIfiVWsFlH+8qnU3449BtKkplbA==
+	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=b6mHS43xjC7bUToGiz9ZtsTkKl4SjMG7SXbvThwI2D0=;
+	b=2Dj3GMy8PztBhpvJSXaW2vxbWe2jGvW4Fd9EuJnRZMrJpjkyIUwdeNRewf82oalVokkR
+	 yQaZ70tuXj0PJa/vSivKxBRtv4W/9tsNCHtPEHxo9NF+wIMgVpUHdE54Qvbget7HshD8W
+	 j/aqqNnWsN54KMxW5ppFv4jCYP/wqVqYWloFLMzO4dK3hVhvl8YZ09453pKNgd+h6CyOh
+	 eqClxRMVd5lNhVXlMp89aFAieNzjGK8Aw0QaHdAqxkUhnUUj/NsrQKEJ6BoDhQ5H8XPqt
+	 cfOGRr9KKTyZI7gLOZ8RAjPl8ODk1QVTsLfIBsJy6RIFu5qLS9z1NRLw6eEX1OSGMWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qnCtOysC;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	dmarc=pass header.from=linbit.com;
+	spf=pass smtp.mailfrom=linbit.com;
+	dkim=pass header.d=linbit.com header.i=@linbit.com header.a=rsa-sha256 header.s=google header.b=U4v0mlex;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540F3606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:22:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 540F3606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732CF606A33F
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 17:22:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 732CF606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qnCtOysC
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1b244fb7fffso1391141c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:22:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=linbit.com header.i=@linbit.com header.a=rsa-sha256 header.s=google header.b=U4v0mlex
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso9491775e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 09:22:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794244924; x=1794849724; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5LpgpL2Vm/swkS7qZWB8wOpeYfhvv54g4ZTTBda+f2A=;
-        b=qnCtOysCu33I0l52a/q/vUnN8e5/1zgL//hKB8axZuVQzgUN6DsejxbLfEXNQAOcRf
-         fFp77Lrtvx75fLUGAYXKOnOd8/5FUoavr3Gb+V/c1B+kAjIwfDYrtB2uZVX6fbW4+2+A
-         4ObxNM3cl9ALgwQBTkKPvu9gbWiLjPzt7hvi6aO3/ePOgLQZaSu7ZxII4TLTiPY5OtCf
-         nhnGmWGJf3a9twzDffAFrnxwwi5/e0k8VltJ0PqVL7+jNRirikmb7XInS2G+s0R1j145
-         Ny65dFX0Qrzr0LKmKlKoOAAok5m5GXnQjPJ09GgHMQjKDMZDAVntkZWM4DkLVZ4ciWZZ
-         X55g==
+        d=linbit.com; s=google; t=1794244958; x=1794849758; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b6mHS43xjC7bUToGiz9ZtsTkKl4SjMG7SXbvThwI2D0=;
+        b=U4v0mlexhWlX56e50vl+rHtY0E4bzai4WnqBSNUoQGJvDFH+jhJZG+QNgLf/ou8Qhj
+         c4HdzeD9/Rvq4PLSw0i0SegdfnVBgRa09/CSARvygTBgoCOGLU3+zQutEf8u/FiuhFMW
+         qBH/0nEA6GfUKokeDCAqKFvRKRJhW6xSfRu1F9jQNByvFJtRvrszHUpPhpxL0oH0zt5E
+         8pNyo3s7ARdiyEuFvG4/2nP9ZwebN7wu5iKRFeejPNZ5YO85nvyWIXBcKsBeNIq+iuTT
+         LCKGawt2Bobn3BYRN36mW64rBrcAtzymMoS55QOhqALvVjMm8F7KHt/4h3QwtQ4mb1rv
+         Qaew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794244924; x=1794849724;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5LpgpL2Vm/swkS7qZWB8wOpeYfhvv54g4ZTTBda+f2A=;
-        b=03MITi10uok+jNMLoifhn3YF7WMaSSJkAQEFGPyZmmlEtpigJktTfr2XYKPIduPbpB
-         a6RGwYWGL8uGYL1raHJKAT2JFkncwcYIcHPuBQTuAAnw9L1vCjQm2efgfvDiXrxUqU/c
-         byLAyGu/Z7NMWyztbl4HAlaUd+Xl7tiWFvFi5KFDBAwkngVYVeqZwW8Md9Lm7G9J57ix
-         +8WJi391ZAPX/aDQJq+j7dfcq5F2hC56wtMsW3oDJje24filfB4lZ6B+z7/yg1lmrOBn
-         N0drZ8N3sXQPAOcDA/r4jbHV8esNP4QChPyLKcdR4KkO1hGUWlcmjejP485QqmaXTCBP
-         Brtg==
-X-Forwarded-Encrypted: i=1; AL+hErHp5dHeZkdq5K3a1tIIjIzCd9FP/+QBE//EYpvHvSc+OlcXpySJQZ9afdYeBujn2FhDM84dM1c0gD0A790=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/AXWeHrW3GDcaeQlCa86eucGnopYw/eTVuTiSsIwyNh2eHtNUc
-	ZYdqSFNlLl4CS9t14NMZKufDFecZoP9SrlghmqcAPji5QP5MVpoMMa6v
-X-Gm-Gg: AYBFou2qHtW2++c8uL5Jmo9kmHzMtUTszRB2lBy4keKfnkiWoE5JR4FBzgosrWqQqvo
-	HcQlHi7UapZIcmnybzXzJcvJN44oKm/4le/PAXsy5I2FIhzHedkSLRzIG585UCClPEm6j/Y+NPH
-	2adwQWVWluPnYzVZlJlA5i9wij1HNM2O3Y58fAVSfMWaN7VjUnEZDlBdIM/KO/E4R7IYVbhU6NQ
-	9vHxn/QnVWgRa1GOdMBARjCf4nvJss39AvUWqNPG6mpwUsRnCwP2+VkRlPJoryuzTHlf41CRzbR
-	ScqmGRhuwKlKlzSjQBEZsBl1V0+3xzt2LwtF75uyLPOgGWTskPMh7MpizsI4TlZkTrAl49xdrzX
-	1Ne2R8cjMWJ/PX2Y/7mgfHi7rH+nEPkKkY23GEt9a7sANVeSXIzMARRLyIWpcFiKx9tSiXQcPWP
-	kyp4rPIGPgK7aGXJNSDYWXW2yhUzoVKNPV6eUluyroxx/9ILXl9s/33U1wvHEBSMUxntfyg8ZpQ
-	hv8DXPsJ4t8QMqC24KL2dQWfZRMVmodGR5K0gwBRitg9362gwhr/wXaEgq/xmELzN8/xipBD4ZB
-	7XTDRXD3jUeTOLSUmHNxE3kl3jRG0sGlmj3qgXe35X/gADFv
-X-Received: by 2002:a05:7022:b047:20b0:1b2:6855:997b with SMTP id a92af1059eb24-1b3b5ff8c21mr129142c88.25.1794244924205;
-        Mon, 09 Nov 2026 09:22:04 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3b5b54431sm285869c88.17.2026.11.09.09.22.01
+        d=1e100.net; s=20260707; t=1794244958; x=1794849758;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:mail-followup-to:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=b6mHS43xjC7bUToGiz9ZtsTkKl4SjMG7SXbvThwI2D0=;
+        b=SEgJZKTaVROFyJSQ0jxu0gSVdo5kBoZCevuI3t/b9dd58Bnp7MYmVTNtfD3R9F5p0F
+         rIVAgLjk/Ma3gX0hZz/83T1tDbBD0Egzns+IYUnmvlVu/GQb9KO7ilH8xJT9decy8gT2
+         fXsw1g5tJHxkiqpAt2L4nzt0nqFZiZ3jsXvygPYIuBDemwhRRgBngR5wWDA9e581UlU7
+         P5GJsmZ3iwCMz5Vb5qN7ou3mCMwj03DRZkmaggB2eUQ9SfH5ILXlqJIjHs6ahBMg8rJj
+         etWxI/dOCfcP558q1JcC8dE/RD7Zk8UefcAqU9wU8k0W6+EwlOizhHPEswoHPp4KjGJs
+         5tBA==
+X-Forwarded-Encrypted: i=1; AL+hErG3hxn6FkFyfxi1T6Akg5t0ubBO3GtT5vJm07xtJmIPyZa/6Zg5SPgMLQnr8zmRP5hHdtc8Ri3LEW/vzsc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9wyxwAH61vHSML7ilh/ZxLAw+u01uxQXWFES/j68PHMqqSYtfb
+	o6ONDVA/cQv6CXWvBYn4HHKep0CkyDqvIBrWZaSQVw7QWRL9oD1UfvgsYP5/N7Xw4dc=
+X-Gm-Gg: AYBFou3iRf0HA1xXB2b3XfB33fjBN7eaKKr0AKrKKOxUtK3cZpHb2HcBT4gc7XFa5CH
+	zRdwefL5LmQfw6+zatMaaoOiFAHhsRLUuvZxlRI0v+9xH1aLn+Q+1WPCexz24Y/97cXc3jmgRF6
+	TbLTZVg76TgZA9uPNPEPEYyVxYZqHOpBfW8YNDz2Z5PpfBMQK+78KdsFAWJtKvB/GeIDgIJ6BJJ
+	zyfpdDFif0rTIB078KjVlIPRd3CELq87MmrG1Hx6KnUSnEfz/eCDG0UfwF0J8jJCRcbyjKwc+YT
+	Kd4mAArYhJ7nV/fH2QMYduJcFrXdfzjRBSUvLvkirB9octCmtfeKcPQLKiPkc0L6/Kp069bUn2o
+	2KKWS/zE1kpXK/LSSw2Ykl1IH1pdU2iET1AoOjVjwfaspu/dN/TIO8o74wuzLkDYDULRqhgezuM
+	GiVux9rhtiy41Tjq8Z+lxOBwwSC1fJWzAhABdozepKFbYeaZvYlam9EzpqLCONvHUBp0H9Lprug
+	VVOi+SP4vrjma/CA2aCFjtDpI+a5hVZ2OTFVU9xnGIqoL5Kp2R5kn5W491rNy9Pce50ckHePTv/
+	LmQCuqfS71EVnzgQCum7AT8w4zHwNx9zAqrxKBcdc4Jo0lK4r46nJ+N4Na66fcKnWkEXzwdK0bI
+	eQnwEOw7lsUjJ0kJ+zA==
+X-Received: by 2002:a05:600c:470a:b0:4a2:1655:87db with SMTP id 5b1f17b1804b1-4b943f76fdbmr96705385e9.0.1794244957763;
+        Mon, 09 Nov 2026 09:22:37 -0800 (PST)
+Received: from localhost (h082218129081.host.wavenet.at. [82.218.129.81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ba015c1e31sm4470385e9.1.2026.11.09.09.22.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 09:22:03 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Oder Chiou <oder_chiou@realtek.com>
-Cc: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] ASoC: rt5659: cancel jack detect work on removal to avoid use-after-free
-Date: Tue, 10 Nov 2026 02:21:55 +0900
-Message-ID: <20261109172155.1851386-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Mon, 09 Nov 2026 09:22:36 -0800 (PST)
+Date: Mon, 9 Nov 2026 18:22:35 +0100
+From: Christoph =?utf-8?Q?B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Philipp Reisner <philipp.reisner@linbit.com>, 
+	Lars Ellenberg <lars@linbit.com>, drbd-dev@lists.linux.dev, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Lars Ellenberg <lars.ellenberg@linbit.com>
+Subject: Re: [PATCH 0/7] drbd: preparation for DRBD 9
+Message-ID: <avIA1j2pX46pzOr0@linbit.com>
+Mail-Followup-To: Jens Axboe <axboe@kernel.dk>, 
+	Philipp Reisner <philipp.reisner@linbit.com>, Lars Ellenberg <lars@linbit.com>, drbd-dev@lists.linux.dev, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Lars Ellenberg <lars.ellenberg@linbit.com>
+References: <20260923140608.1116713-1-christoph.boehmwalder@linbit.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,63 +104,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260923140608.1116713-1-christoph.boehmwalder@linbit.com>
 
-rt5659_jack_detect_work() runs from the delayed work jack_detect_work,
-which is queued from the jack IRQ handler and from the jack-detect setup,
-and dereferences the driver data via container_of().
+On Wed, Sep 23, 2026 at 04:06:01PM +0200, Christoph Böhmwalder wrote:
+>This series contains preparatory changes for bringing DRBD 9 upstream.
+>Each patch moves a piece of the in-tree DRBD 8.4 code to the form it
+>has in the out-of-tree DRBD 9 code. Doing these steps separately and
+>up front keeps them out of the much larger rework that follows, so
+>that rework shows only what DRBD 9 actually changes.
+>
+>The patches are a file rename, comment and internal cleanups, and two
+>higher configuration maximums. Defaults are unchanged, all existing
+>configurations remain valid, and apart from those limits only the
+>wording of some log messages is visible to userspace.
+>
+>Christoph Böhmwalder (7):
+>  drbd: rename drbd_worker.c to drbd_sender.c
+>  drbd: modernize the file header comments
+>  drbd: raise the socket buffer size limits to 128 MiB
+>  drbd: raise the maximum resync rate to 8 GiB/s
+>  drbd: replace the drbd_interval bitfields with a type and flags
+>  drbd: move the packet name table to drbd_strings.c
+>  drbd: rate limit log messages per object
+>
+> drivers/block/drbd/Makefile                   |   2 +-
+> drivers/block/drbd/drbd_actlog.c              |  16 +-
+> drivers/block/drbd/drbd_bitmap.c              |  18 +-
+> drivers/block/drbd/drbd_debugfs.c             |   4 +
+> drivers/block/drbd/drbd_debugfs.h             |   4 +
+> drivers/block/drbd/drbd_int.h                 |  59 +++-
+> drivers/block/drbd/drbd_interval.c            |   4 +
+> drivers/block/drbd/drbd_interval.h            |  55 +++-
+> drivers/block/drbd/drbd_main.c                | 106 ++------
+> drivers/block/drbd/drbd_nl.c                  |  15 +-
+> drivers/block/drbd/drbd_polymorph_printk.h    | 256 ++++++++++++------
+> drivers/block/drbd/drbd_proc.c                |  10 +-
+> drivers/block/drbd/drbd_protocol.h            |   4 +
+> drivers/block/drbd/drbd_receiver.c            |  61 +++--
+> drivers/block/drbd/drbd_req.c                 |  40 ++-
+> drivers/block/drbd/drbd_req.h                 |  12 +-
+> .../drbd/{drbd_worker.c => drbd_sender.c}     |  42 ++-
+> drivers/block/drbd/drbd_state.c               |  15 +-
+> drivers/block/drbd/drbd_strings.c             | 138 ++++++++--
+> drivers/block/drbd/drbd_strings.h             |  27 +-
+> drivers/block/drbd/drbd_vli.h                 |  12 +-
+> include/uapi/linux/drbd.h                     |  12 +-
+> include/uapi/linux/drbd_limits.h              |  12 +-
+> 23 files changed, 534 insertions(+), 390 deletions(-)
+> rename drivers/block/drbd/{drbd_worker.c => drbd_sender.c} (98%)
+>
+>
+>base-commit: 85bffad4d2fea373a72d68bed8012e8cbccb8ee7
+>-- 
+>2.55.0
+>
 
-struct rt5659_priv and the jack IRQ are both allocated with devm against
-the i2c device. The i2c driver has no .remove callback, and the component
-.remove and the .shutdown callback only reset the chip; neither disables
-the IRQ nor cancels the delayed work. On unbind devres frees the IRQ and
-rt5659_priv while jack_detect_work can still be queued, so the pending
-work then runs against freed memory (use-after-free).
+Hi Jens,
 
-Disable the IRQ and cancel the delayed work before the chip reset, and
-wire that teardown into a new i2c .remove callback so it runs on unbind,
-mirroring the sibling rt5682 driver.
+this never got a reply, and neither did the subsequent v2 drbd rework series
+that's based on it [1].
+I think this should still apply to 7.5, would you mind queueing it up?
 
-Found by static analysis and code review; not runtime-reproduced (needs
-RT5658/RT5659 hardware).
+Thanks,
+Christoph
 
-Fixes: d3cb2de2479b ("ASoC: rt5659: add rt5659 codec driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- sound/soc/codecs/rt5659.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
-index 0000000..0000000 100644
---- a/sound/soc/codecs/rt5659.c
-+++ b/sound/soc/codecs/rt5659.c
-@@ -4319,9 +4319,18 @@ static void rt5659_i2c_shutdown(struct i2c_client *client)
- {
- 	struct rt5659_priv *rt5659 = i2c_get_clientdata(client);
-
-+	if (client->irq)
-+		disable_irq(client->irq);
-+	cancel_delayed_work_sync(&rt5659->jack_detect_work);
-+
- 	regmap_write(rt5659->regmap, RT5659_RESET, 0);
- }
-
-+static void rt5659_i2c_remove(struct i2c_client *client)
-+{
-+	rt5659_i2c_shutdown(client);
-+}
-+
- #ifdef CONFIG_OF
- static const struct of_device_id rt5659_of_match[] = {
- 	{ .compatible = "realtek,rt5658", },
-@@ -4347,6 +4356,7 @@ static struct i2c_driver rt5659_i2c_driver = {
- 		.acpi_match_table = ACPI_PTR(rt5659_acpi_match),
- 	},
- 	.probe = rt5659_i2c_probe,
-+	.remove = rt5659_i2c_remove,
- 	.shutdown = rt5659_i2c_shutdown,
- 	.id_table = rt5659_i2c_id,
- };
---
-2.43.0
+[1] https://lore.kernel.org/linux-block/20261006154607.3936501-1-christoph.boehmwalder@linbit.com/
