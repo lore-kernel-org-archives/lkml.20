@@ -1,65 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794182903;
-	b=5CCBRv1T+dIDDt2j5jqLUNJntDXdtA4UsTSZabIq8uCpM5V3ljLYurnzMX2Jx4CAG8RO
-	 g9FQGCeECNj5uszmWwBSVJbg3gRS4KwIspc7B1e0M9Wg8ZT2mrKOswusowGbK4mRINawm
-	 +NRs8GWh7WCqWUKIcaiIa5OSbvKZ/Jdf/1GT93yd8AeOTWIXXY5v48jitEzQ4XW1T4n9U
-	 0Ibz9OotkjNBYX61PbnDav6rBZLGZH0YkhoUHwgV691DMJZIlsYsah8/P01SPO/Un7wgW
-	 6KBcO9TQh8Ew/H79yaVgqnH9kssZz1aTxi+IC0sIpcwMYpN2iP3lp6vl4bg6KqEtMlA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794182903;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
-	 X-ZohoMailClient;
-	bh=9rVwbOecFjn75cDjqDTfDsnAfqPeatJDytpCsuFTOOw=;
-	b=Y2sHLa1SfF2moKvf9DC2uHw0HPwoKwuVgtKxfXZ8RiE+AYnbZtSPpMgZ9gDjCqaEFrzx
-	 L5T2+SydLRSdhHEVCA1QFM5JYOLuAXrp5gWZJevWkv6zRoH7wx9P/Uuj0ZUFNi9vFUOB9
-	 fWuaHdfgRVQdOmrgdidDcRA9JHNDbiBvNRUb8v7DVTUgQPYvtPjwtVmZoAFJjwYCcrVvN
-	 UEVTocaiH3mvsjxQ8lxgSE7zKrfRwp5czy5gB+i2M9WBmbcbV3I0xNRlz1qeht35xMWYz
-	 zrkR4qehB+7fZuVI7oqbhchBCYHdkVnTV30cSLJfVjxIGtHCJ4O1zzrEG6sVFkP2cEQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Y1nXV3+1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794183019;
+	b=OqeWw+W2DzK8CBPuz+PUkH3P8BIAvaOMEs3eMP+OoK40IFe1OHPscv6+1EryH56WUnBB
+	 YUHYfv/RPKXRDMN8GmwRYv/wr3Ujjoq8HzCKul0ew2uqHiyL4gWZDV9rYDMJspyK1y72Z
+	 UmQaeeueRwgMv88m3WLvyUoQc1AjvwZI+XWih+4/2SpMWajfBU0AHWOTw4DIyc8nImaRb
+	 wiAv/D71MsOEtqOHqeKqsi+dQUn2wjP7PbwfoT9YA7wqgyxC3QrijOye6kKCut/nD07Tj
+	 5wbyvrxbErNuoPQkqHocDCkGVwG1G7BWj8q0X5ICVG3li5J9RHBFC9aWZIqBPzA0d8g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794183019;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=PyTqqEn2wX12kZAgZgEAmVuIcoRQ/KUps+43IBZdEzM=;
+	b=mm28XVdXZUdZDLs+s1EaLFrkD+ZQ5hS/wCJNoqd2XrbY7jLWE44q5Ts/QTqnbxyUODub
+	 uyjZWfPe6R81g49+VryDaHZoBXLK+q8KtWj8nN+buH/KH5f/7SV4bGKGAoRVvgpi/gQeL
+	 k1onvVMiUr4W374zDNKi3ePoAweBWlXwM64XKr+iRef55kqwKopv6Iy4nZyP9lc28S6LQ
+	 TONQ0tf3FWohdYNHGiUlib1BMLtNCMI/zZvXAqvPuJk6xJXt6clQToRZchp7H+5NPKBop
+	 9c/qcEnHoX5nkvT46nPYkKQmyYjLUu0l89n2cQBXTflVempYhBApTXaPUSmiK3rNkPg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iStRZirw;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10386606A31C;
-	Mon,  9 Nov 2026 00:08:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10386606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F8F606A320
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 00:10:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04F8F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Y1nXV3+1
-ARC-Seal: i=1; a=rsa-sha256; t=1794182894; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=GZdOfVGwfy+fHzzFImBVN3ZRwh5yJ0rExwch9ff/A1WPXOMJeyl9H7pbyKSpwZ0ktG1SVIPMnSMyMli3qdqr3+XDdVW5OnEOkQXS42SkaGP945U4hUUeCcHLX85jkcVoCu2bBFZovtwLk0yA628do5498cmiDoKBVFs8LCyuJ0g=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794182894; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=9rVwbOecFjn75cDjqDTfDsnAfqPeatJDytpCsuFTOOw=; 
-	b=UtOWFT0AU74Ns2xz8nEyYXPyUTIZvRDLn5deaduTCtAY+R5cOJe/OUUHbTWjzKtIuOZjj/jyPoN1lGcDxRbC0gplFaDlxy3semyGTjZ3eIiqZ9WjO/GWSWMnMTYCEQSK9YOfdDOJE7nMRO+eI2BGf0JIo30/shvBmXFtKuCcumY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=Y1nXV3+1hdC3fCNRppldqk7KeJc6XHRAYG+BuJhiILJ7IJEgsKa++uiJJtrep62MhdIQ/yCq54z96CpR830gM9Ew/R82WR+b5kIZj178NXz7YBn+ruCfGsaJNkiwok0NvDP4wySMLECnoNcqn8+PKt+ArVOs8ku13uZ5KTEJvJQ=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=9rVwbOecFjn75cDjqDTfDsnAfqPeatJDytpCsuFTOOw=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794182894285249.11400116708091;
-	Sun, 8 Nov 2026 16:08:14 -0800 (PST)
-Received: by venus (Postfix, from userid 1000)
-	id 62D591808E6; Mon, 09 Nov 2026 01:08:13 +0100 (CET)
-Date: Mon, 9 Nov 2026 01:08:13 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: admin@tsv-stahl-riesa.de
-Cc: Aaron Kling <webgeek1234@gmail.com>, 
-	Svyatoslav Ryhel <clamor95@gmail.com>, linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] power: supply: bq24190: Fix NTC status decoding for
- BQ24193
-Message-ID: <avEObsi3nkr_-kaf@venus>
-References: <20261026-upstream-bq24190-ntc-v1-1-fdc12d795a99@tsv-stahl-riesa.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iStRZirw
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so686201eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 16:10:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794183018; x=1794787818; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PyTqqEn2wX12kZAgZgEAmVuIcoRQ/KUps+43IBZdEzM=;
+        b=iStRZirwtXbMsEeyt8mJmEQC1BN0pUC1ce01sEbH7zzinI+36nBDHz9KTroZuGzvdR
+         YsRw4/kMVbClxq9SZoKJLlFdQhGH9mCC/rBpE09xnUzArHxjVS2GyZ6rW9tchU0FTnZ7
+         2NThoMEtO5TGMZ2puYuWhsuK0W/etbev5eI3G+q5Iv4PtvHrqW8wx1r1Ji8tkTF5/OAd
+         J3/eRKbWmm0CSckHG7UNA/HZH5Mrr1v+N8vv8QKoG9gukPJLMGT48xC/5IQPIBENl/oE
+         qWhSvcBoW1+zCnhpJfeJ02iY3IhItA7CyNLtG9+/kZKY3um5fdqw2/oor56tKGuEMC1A
+         QA2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794183018; x=1794787818;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PyTqqEn2wX12kZAgZgEAmVuIcoRQ/KUps+43IBZdEzM=;
+        b=WhoL6H8RfpiCpdV+tsbSkR4afoO2gvkTDVZmwd2A7jOVFc1NC+8jdPa3G+B9w44MYp
+         j4Y6E2/Jw3aLjUEzQF//FrKnDZKiftEX74hHQwrBBzDr+YZLwY2XQUZrQIucDsDjz3TI
+         OrZq5viQJOuuuxIGJ4Z9NMPbIP54M18UW7kRW+dOraWtJVewGbgNPrPC7nXhjlEGYdgF
+         DRqSH0JlmeSCGDqlV29TWIdRyXxhOPgB4JxLGZb6AW8qkuZiOPDsI2B3ch+cQGUmK2U9
+         zQyEn1gOIl7rkCFd3efJ7CPU5kBUtqgNqc0lA0G5NinIxc0h1ytQA6I2STM2M+vgsm6V
+         lbOA==
+X-Forwarded-Encrypted: i=1; AL+hErEsipOgcqGQFduAHTk9e2qC/xkPN+omlmH/ALt0+Dow66tyBrChZQzLVrsTHjO42JdmvxYh/7/KFIonfKc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z94sN2k4IJtqJo9JvT1PseeZLXnNoul7nWFNHWHWM9xCG/PTNx6
+	UVAqd4Oq8kG08cHygiI4kTDXmj2UWuDyYCbe5ujAjbBSZ5BKOTtx/mBV
+X-Gm-Gg: AYBFou2Z+s1NKSCUujIwyvNmQroqMyuqnemDFM1EP1Ym8l8w5t3LkqaPQzHVP+qs2MR
+	+XDhmXZivwspvfEzxoDhzwwjzQ7SOA540LlIucfiFpkCgeXf+w45QbqHB20lgU1qWwd6/Dv4Kkv
+	3Em26ZBF37H12bP/x9RQ4JT4guiWhMoCigZ/AiHD/37P6bc83+RHTZ4a5IwWCInhDL6zBSLgyjx
+	N6Dp01aRQRRkEa9uXs7GdJul0A1HvOVSel3Kg2ckUCn4sjDyWF0Qu7SCF+vX9Tek2MT/mTmV5/J
+	fxGvpuewr2toQ/wToy5vmljJcrkvuB9/WXUvDs/f/NuWTlPR0qERyIcYjUIXUQ77Qoomp/SUmS9
+	NuuPURwNeA8mUm51pZ24UKozGD8sjfXzXLD7mrtXlv40XQpRyddkv9dStfqXd7g5+m3a1A3ZS29
+	SomX1tnZGx3GnICsyl7TnnLb64f7N4B53+BXfjI0mqnv7QRoA2vWIk705TwpC34QzGil5tmhh9h
+	7zopusWB7TMWWlWnbPtKtkbyPR1w+OwAa5FRddZL84jHv2EVfAIoz7/kp/siLjk0X5R/MusBXXE
+	WRAFW2W0EKCPzSPIJKP6d2tSwid5/g==
+X-Received: by 2002:a05:693c:8808:20b0:36c:9e26:88b6 with SMTP id 5a478bee46e88-37256613f82mr4409295eec.9.1794183017970;
+        Sun, 08 Nov 2026 16:10:17 -0800 (PST)
+Received: from dev.local ([163.43.243.221])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37265ff3415sm7790873eec.18.2026.11.08.16.10.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 08 Nov 2026 16:10:17 -0800 (PST)
+From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Subject: [PATCH net-next v5 0/2] seg6: skip route refcounts in seg6local
+ lookups
+Date: Mon, 09 Nov 2026 09:10:13 +0900
+Message-Id: <20261109-seg6-lookup-noref-v5-0-96dc6a652c7e@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,162 +93,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wxjeawftv4clqcwp"
-Content-Disposition: inline
-In-Reply-To: <20261026-upstream-bq24190-ntc-v1-1-fdc12d795a99@tsv-stahl-riesa.de>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/294.158.93
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGUP8WoC/23QSw7CIBAG4KsY1mKGZ4sr72FcYBkrasGU2mhM7
+ y6tLhrT5cDM98O8ScLWYyLb1Zu02PvkY8iFWq9IdbahRupdrgkHrhmApAlrTW8xXh93GmKLJ4r
+ AtDTqqAEdyXP3fOifk7knATsa8NmRw/cmPY4XrLqRHHvPPnWxfU3xPZsmfklqIalnFCgYjqUsC
+ okl7OrG+tumis3k93wmMFgSeBYUq8A4Z0pmin9BzIXFN4gsaKeY1WB14cS/IGcCF0uCHH9hHdh
+ SmLy001wYhuEDmuSQMJQBAAA=
+X-Change-ID: 20261004-seg6-lookup-noref-e016495b60ed
+To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Gabriel Goller <g.goller@proxmox.com>, 
+ Yuya Kusakabe <yuya.kusakabe@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2126;
+ i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
+ bh=r8iXkM8RhORDogoTl4VkuWoeTGCS5cWvT3FEyheqGgs=;
+ b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBq8Q9myrVipLCknrBU5SJV2TPFs2kF3X25o2+nJ
+ FNZfnl4Hm2JAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCavEPZgAKCRAq19F1Kl0b
+ TQ9+D/wL0aPKqaUINLk0fal0rXnwjtAGTNMsON9DuE36VQwgMrZVnfBmofWg9S2GOFObJ/RWaSC
+ mP31iIOC1ATKv1I0das4lSzckHsYuFSygdX2E+CW/96vLNeMwF0EcXH24wHsXJwnZljTGJ2NKCF
+ 8ruipLI4p9yE7muqR2LZYA8pEXAfoBz4qNXdHCneD1iZwDY8Its8rIYv93t0DhPwI1s32G8dgfY
+ ezZup19e90qh9GU6GikNfYzJQBSJbFzWGB2yIlnfH/aFq2F1eQFw/dPyjD28AlOyeNIlS0C1Mur
+ jYfWd2csIGwbPMATXiwGThhQTvVsC4zOk3hCZCKKIdIBTjt8D0zPP1igdI04z81TFAIiWNbcYEv
+ irHhb+x+eyvlPzCOP5DixitwKCQ2qTGcS4EfQzWe/C1BGW4NgrWBkyMUhp0YJ+eIFqV7gtHjRK4
+ ATGMpP2LyQC2GLIx/GyMFRdY612r5641HMHPyZpnjCCvR2L/D3TZGHKgXT60h4wO4tZWMrXz7Nf
+ iFkkNGDCy32r6dIKgDjFz/PEWAhjJ8yS5zqx3VqBTVU8pzOlUqqOWkoWhafZcvNTmGcCaN/0Rcc
+ EiYKfAZzZfmRVwIBUNoRSzmTUsyZNYewX4lKUl1thlUQ7kMNDG7KN5/Nhr7HLVUG6WSzDu4ZXKz
+ PZPk1VdmvGwklvw==
+X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
+ fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
 
+seg6local looks up the nexthop of its IPv6 and IPv4 behaviors from the
+RCU read-side section of the receive path, yet takes and drops a route
+reference for every packet.  Skip the reference, as ip6_route_input()
+and ip_rcv_finish() do.
 
---wxjeawftv4clqcwp
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] power: supply: bq24190: Fix NTC status decoding for
- BQ24193
-MIME-Version: 1.0
+An LLM coding assistant helped write and test this series.
 
-Hi,
+---
+Changes in v5:
+- Rebase onto net-next after the merge window; no other changes.
+- Link to v4: https://patch.msgid.link/20261023-seg6-lookup-noref-v4-0-0ad0a83960ef@gmail.com
 
-On Mon, Oct 26, 2026 at 07:25:05AM +0100, Patrick Fischer via B4 Relay wrot=
-e:
-> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
->=20
-> The BQ24193 has a single thermistor input and applies the JEITA
-> temperature profile. Its NTC_FAULT field in REG09 is encoded
-> differently from the BQ24190, which has two TS inputs:
->=20
->   NTC_FAULT  BQ24190    BQ24193
->   000        Normal     Normal
->   010        TS1 Hot    Warm
->   011        TS2 Cold   Cool
->   101        Both Cold  Cold
->   110        Both Hot   Hot
->=20
-> (BQ24190/2/2I datasheet SLUSAW5B, table 17; BQ24193 datasheet
-> SLUSBG7A, table 16.)
->=20
-> Warm (45-60 C at the TS pin) and Cool (0-10 C) are not faults. The
-> charger keeps charging at a reduced charge voltage or charge current.
-> The BQ24193 uses bq24190_charger_get_ntc_status() though, so a warm
-> battery is reported as POWER_SUPPLY_HEALTH_OVERHEAT and a cool one as
-> POWER_SUPPLY_HEALTH_COLD.
->=20
-> Add a BQ24193 decoder that reports POWER_SUPPLY_HEALTH_WARM and
-> POWER_SUPPLY_HEALTH_COOL for these states. Cold and Hot are unchanged.
->=20
-> On an NVIDIA Tegra Note 7 (P1640) REG09 reads 0x02 after a few minutes
-> on USB power. The battery keeps charging, but the charger reports
-> health "Overheat". With this patch it reports "Warm" in that state and
-> "Good" while REG09 reads 0x00.
->=20
-> Fixes: afe5301bfbaa ("power: bq24190: Add BQ24193 support")
-> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
-> ---
-> I kept this a pure decoding fix. Two things stay as they are and could
-> be follow-ups if you want them:
->=20
-> - The interrupt handler still logs a change to Warm or Cool as
->   "Fault: ... ntc 1", as it does for every change of REG09.
-> - bq24190_charger_get_health() checks the NTC bits first, so while the
->   battery is warm or cool the charger health hides a charge fault or
->   battery over-voltage.
->=20
-> Tool use (see Documentation/process/generated-content.rst): this patch,
-> its changelog and this note were prepared with an LLM coding assistant
-> (Claude Code). It compared the driver with both datasheets and wrote the
-> code change and the texts from my register dumps and instructions. I
-> reviewed the change and ran the test on the device.
-> ---
+Changes in v4:
+- Take no reference on ip6_blk_hole_entry after a noref lookup,
+  including for a missing table.  An End whose next segment is a local
+  address took one for every packet (Andrea Mayer).
+- Comment that the noref helpers need RCU held until dst_input()
+  (Andrea Mayer, Sashiko).
+- Link to v3: https://patch.msgid.link/20261015-seg6-lookup-noref-v3-0-6d51a60a67d3@gmail.com
 
-Looks like bq24190_charger_get_ntc_status can just be updated to
-handle a single temperature sensor as warm/cool and dual-sensor as
-overheat/cold?
+Changes in v3:
+- Keep the refcounted lookup in seg6_lookup_nexthop() and give
+  seg6_lookup_any_nexthop() a noref argument instead, so the BPF LWT
+  helpers see no change while a route is released (Andrea Mayer,
+  Gabriel Goller, Sashiko).
+- Mention NFQUEUE reinjection and the release race in the commit
+  messages (Andrea Mayer).
+- Link to v2: https://patch.msgid.link/20261010-seg6-lookup-noref-v2-0-51c09dd98197@gmail.com
 
-Greetings,
+Changes in v2:
+- Split the lookup into a noref primitive for the seg6local input
+  actions and a refcounted seg6_lookup_nexthop() wrapper, which the BPF
+  LWT helpers also call (Andrea Mayer, Sashiko).
+- Rebase onto net-next and re-measure.
+- Link to v1: https://patch.msgid.link/20261005-seg6-lookup-noref-v1-0-092e84774e80@gmail.com
 
--- Sebastian
+---
+Yuya Kusakabe (2):
+      seg6: skip the route refcount in seg6local IPv6 lookups
+      seg6: skip the route refcount in seg6local IPv4 lookups
 
->  drivers/power/supply/bq24190_charger.c | 26 +++++++++++++++++++++++++-
->  1 file changed, 25 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/power/supply/bq24190_charger.c b/drivers/power/suppl=
-y/bq24190_charger.c
-> index 4bea6fd83c36..350cf79a0744 100644
-> --- a/drivers/power/supply/bq24190_charger.c
-> +++ b/drivers/power/supply/bq24190_charger.c
-> @@ -999,6 +999,30 @@ static int bq24190_charger_get_ntc_status(u8 value)
->  	return health;
->  }
-> =20
-> +static int bq24193_charger_get_ntc_status(u8 value)
-> +{
-> +	int health;
-> +
-> +	switch (value >> BQ24190_REG_F_NTC_FAULT_SHIFT & 0x7) {
-> +	case 0x2: /* Warm */
-> +		health =3D POWER_SUPPLY_HEALTH_WARM;
-> +		break;
-> +	case 0x3: /* Cool */
-> +		health =3D POWER_SUPPLY_HEALTH_COOL;
-> +		break;
-> +	case 0x5: /* Cold */
-> +		health =3D POWER_SUPPLY_HEALTH_COLD;
-> +		break;
-> +	case 0x6: /* Hot */
-> +		health =3D POWER_SUPPLY_HEALTH_OVERHEAT;
-> +		break;
-> +	default:
-> +		health =3D POWER_SUPPLY_HEALTH_UNKNOWN;
-> +	}
-> +
-> +	return health;
-> +}
-> +
->  static int bq24296_charger_get_ntc_status(u8 value)
->  {
->  	int health;
-> @@ -2013,7 +2037,7 @@ static const struct bq24190_chip_info bq24190_chip_=
-info_tbl[] =3D {
->  		.check_chip =3D bq24190_check_chip,
->  		.set_chg_config =3D bq24190_battery_set_chg_config,
->  		.ntc_fault_mask =3D BQ24190_REG_F_NTC_FAULT_MASK,
-> -		.get_ntc_status =3D bq24190_charger_get_ntc_status,
-> +		.get_ntc_status =3D bq24193_charger_get_ntc_status,
->  		.set_otg_vbus =3D bq24190_set_otg_vbus,
->  	},
->  	[BQ24196] =3D {
->=20
-> ---
-> base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
-> change-id: 20261023-upstream-bq24190-ntc-f35ec3323449
->=20
-> Best regards,
-> -- =20
-> Patrick Fischer <admin@tsv-stahl-riesa.de>
->=20
->=20
+ net/ipv6/seg6_local.c | 59 +++++++++++++++++++++++++++++++++++----------------
+ 1 file changed, 41 insertions(+), 18 deletions(-)
+---
+base-commit: 7b6ab4dbc156e2f96419715130b3d5738a306c93
+change-id: 20261004-seg6-lookup-noref-e016495b60ed
 
---wxjeawftv4clqcwp
-Content-Type: application/pgp-signature; name="signature.asc"
+Best regards,
+--  
+Yuya Kusakabe <yuya.kusakabe@gmail.com>
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrxDukACgkQ2O7X88g7
-+prEng//VL80jG3ac+N44hjvZX28Pga/56OOG1omtl/BuuUqk3wMbIIUa6lpXAM/
-OWb9gQ3aM9tnX69d9pDega9vMfzSCH4nV1gmSbM4DYr6bDu8kaX1veCDRVNIzj0i
-Q0O8WSd4sbh8J40UZnftYTlSMxJrugR9e8SAOWnUav1gzp7+5QCn6mq6Z9T/Uf+t
-imkdA1ASPe3P4AzAkHgMP8AgsXk2DIWYjo3bc0JWetSksCA8HXZsx5FsjftiwYLP
-CftuocddSIeYb2hWJeadLOG91Q2Izol1yZz0F9TtbBQoicN1+3gHzhOMnS2XVmU6
-2wKBr0p17Ghr6M5MslkVX8ALTI5lhji9Tr9kMWdlPUk/xPm6JI+QsZhd/5dl1Zwb
-c3nI2QhYl1JH0+QYYmq5qBLLMlPCRjE5CYVpCTx1y7Kd0Xxzdl6VAF9Q3ZScje06
-/NCCgDUqJW543bLVakDP3YTd1vnxM0B5jDOx/C5OMeNfclqXot22n3poZVKKQgtv
-5AIgHZAAouCBSMNt+i/Bfi43Bb1tcwS9uuIGrSkdCgK4XJOtt7PLERjlcI768Oyn
-ux+EcGMmoekx2Oh99TxsELi5siThPh4z4EejReZcVJBcNbSPp9pN8oJk7IHEC1cL
-o841MSvhY0ieDr6PaA86m3cKmn6EquQuSPJ8dgpcrLlttUADErQ=
-=CoiC
------END PGP SIGNATURE-----
-
---wxjeawftv4clqcwp--
