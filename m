@@ -1,93 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794209652;
-	b=ueRJ3rd8jdospcvnu3pvWUcmbE7L6IMIyOvYsSQnFyjXy7uMcvtyvDBIb+luJDPpgEkI
-	 VLy/vaqKDNtoxIglpj9oh8z4Xvnc3C4/JKAkA/MP97CqMUvJcaebqI1Eit8tEXajM/w99
-	 reFO1/Rly7H+MqGV8ZGjiTJWIjBKTjJUP27q+7FFUjJfW+t5V1XfkstwWEQxjlJJymoHJ
-	 URCSSB48SncW90hXM1ViCdorzH2nPJV9l9Gi2b4ehHsIGpGS+BJFazKnKieoT0HDZn2DI
-	 kcRMtx4GfpwXjuY848+m+wyoOzT6oyH5NB7bOLJCKLptGKzGZSlY6LV7igTG+xHZCrw==
+	t=1794209643;
+	b=zKhXnc9P79h0P+WDH5v66nh4PGP37ITQtqcKTihMkDV5FDAvT0TgV/E5F5uiY3zdMSs1
+	 8yruJiUhUb+AZeV8Lb9ydU/9/rh75egWIJ2WqPIyOvBz746HM0IYLtzZNai0RZxOc5Ktm
+	 1sVO5PVhwyed7DN466qh5un4Nkpqezuilty9BW5tfiJCv3OUhV1j/FjHuDlIhFobAO5dn
+	 7lAuXw/nGrNYjdvXak0xnmwg4sGjvAmE7G0aSOM0WIfSi1R1HOyq1xCldt50wAZ8JyRgH
+	 hwxEBzly0g9KNOVQChwfDzpsJHX34+YaaXdJjpPeRJ/feqNGbAyzjemH0O0wJBeh9lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794209652;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 Content-Transfer-Encoding;
-	bh=5KpZyXTyDaeCpFL09xfcSddfcVQz8Z2BLa6aTzaRrnw=;
-	b=kIrpUDg7h4QzTP+CD/Lnd48zHcPGiFoqWCqL5t+ztsfJ6Y1KCPhZBgZWcE5QNouGiTVx
-	 YmKkGkqxtkLpog7RUX3zYCyEDD6nCmBiuBcaGaKmzFiqIi8ZyNeFG90EiGsY4D5q5q+Yw
-	 5jt12kvfHl8KRJNRGWdE1cxiF9QaGWZB9egZG5jXSUSMSK8dxx7a3Zzf8ps/KpYZW1pGj
-	 mlv4YeD3A1tKClMeNv+n9zg5T6J5DxdPAnLmElEZyYo+qvTxfr4d3WeYlV1t34Gu7SjxJ
-	 nSLUzxSU00zRpbt1jafZMkwZ+KXyBo9+rfjB+geKyE9bzBmy3B8/gPOAjFT4nz9yVWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794209643;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=xUomCp3G+LfMvtKyqhwJAVOlhjISvM2EjbUQ5TP+saA=;
+	b=yL7R+jADtsYkT/VTDThpoFHoZD03tOnQRV/imdXfJN+EEA6k3QkquRNHd33Jx3jL0ECm
+	 kmJJ2ewcm+2hMl7vqzHc/LTrewqIsnyrLpQQX5NQCDjEMTQ3cppfDVPJeJ1dD89Flznar
+	 sL8HEjEHKRYd+EpQTlHHImZqQwqkol0TnjvLT1kJiQyk5JHxkg2FxInW4E00rV/ph+JrE
+	 LmLeLfsdf9uwiIKHvcDf1Lf60TLgrnlkG2hik7KLEUZ8ZkoikZ39Ih5fKoPUIqyPdAPwf
+	 Anz1FSJ6M59j4dmYgNyWOvptBzGLxDW2y7k7A9Hvo67vpxg7aspOZ25XdC4B8ahvGUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lwKBHRrg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofYQ8dJQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DDA1606D827;
-	Mon,  9 Nov 2026 07:34:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55834606A322;
+	Mon,  9 Nov 2026 07:34:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lwKBHRrg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 410D21F0089F;
-	Mon,  9 Nov 2026 07:34:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofYQ8dJQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4410E1F008A1;
+	Mon,  9 Nov 2026 07:34:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794209652;
-	bh=5KpZyXTyDaeCpFL09xfcSddfcVQz8Z2BLa6aTzaRrnw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lwKBHRrgtLlHdfSIgSshSm3e0EGD/FzxILn/oHZ/MBhIlxI92zK1vyP/KinI0O+dq
-	 N1lkFUZ1d1LxsJFXpKksY6sxA+asTaTHkZoul7zy9272bic517JX89oNFsIZ1y5Xpo
-	 lpJVehQ2mPpV8DtjN9VWns0x+h74ukvpSJnGqPF3qV7WMyHiEty6/9IUL4NqOH9sbO
-	 N4Xg0BfHVzBLU8JKOsEAtqqFC/KoByvzJTCTdkwPkrln1oXePe+/4LOBk5b6PTvakB
-	 qGWrjTRcTvelnyEbe0ToJwLbaTKoeQR0FT/RT6LxYj1L0gDGKgW+DHEKRPmlndd15f
-	 1L7qwcpsIsz/A==
-From: Leon Romanovsky <leon@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Johan Hovold <johan@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>
-Cc: linux-kernel@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-input@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH v2 04/19] USB: Release interface claims refused during registration
-Date: Mon,  9 Nov 2026 09:33:34 +0200
-Message-ID: <20261109-device-trust-core-v2-4-3b12d9a9f861@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
-References: <20261109-device-trust-core-v2-0-3b12d9a9f861@nvidia.com>
+	s=k20260515; t=1794209641;
+	bh=xUomCp3G+LfMvtKyqhwJAVOlhjISvM2EjbUQ5TP+saA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=ofYQ8dJQMRuSeejKWpsw2KtfaUmurR0LF1MhBod/ZZ3P41TEG4wozg3N48S1aJCzj
+	 t9AFBk0ss8klUBmdyPyZclxYESs+j2fT7t1S4CZHEjM1e7dUg2McfxayuCgd7mgkL4
+	 0gGmxlmPx/hQsgmz69CaRYPukLtkGR2DCJqzdMQCfv7b6rWiDA+IYM0Do96/wNxA4X
+	 Wa2IwtHgwzQ+1U0/2bokoAB8eROTfoR0pJ4MfgoUp/dC9A3HsrClmwbqTYQVGpugnD
+	 SQBQ9ImMZIS5t5PrlkBjLj1hNCbvyV0nw8ClQHEQANbUPZXPpFCsVzam2l8TjhxLJQ
+	 rVendOyk+RUmg==
+Subject: Re: [PATCH net] can: j1939: transport: validate the DPO packet offset
+From: netdev-bot+sashiko@kernel.org
+To: sunyiqi2@huawei.com
+Cc: robin@protonic.nl, o.rempel@pengutronix.de, kernel@pengutronix.de,
+ socketcan@hartkopp.net, mkl@pengutronix.de, linux-can@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org, stable@vger.kernel.org,
+ luoxiaoxing@huawei.com, kuba@kernel.org
+Date: Mon, 09 Nov 2026 07:34:00 +0000
+Message-ID: <179420964075.994134.5840863564858819241@kernel.org>
+In-Reply-To: <20261105065931.1302-1-sunyiqi2@huawei.com>
+References: <20261105065931.1302-1-sunyiqi2@huawei.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,98 +63,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
 
-From: Leon Romanovsky <leonro@nvidia.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-An interface can be claimed by a sibling's probe before registration.
-If its later binding fails, driver core clears the driver pointer while
-USB retains the bound state and claimant data. Device registration still
-succeeds, leaving the claimant unaware that its binding was refused.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Remember the claimant across device_add() and invoke USB unbinding when
-driver core drops the claim. Hold the claimant's module while running its
-disconnect callback, and clear the retained interface state.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/usb/core/driver.c  | 18 ++++++++++++++++++
- drivers/usb/core/message.c |  8 ++++++++
- drivers/usb/core/usb.h     |  2 ++
- 3 files changed, 28 insertions(+)
+- [High] When a second out-of-range ETP DPO arrives, the new bad-offset
+  branch in j1939_xtp_rx_dpo_one() (net/can/j1939/transport.c) cancels…
 
-diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
-index ad5d9d5fc7598..ee36eae34bdcc 100644
---- a/drivers/usb/core/driver.c
-+++ b/drivers/usb/core/driver.c
-@@ -652,6 +652,24 @@ void usb_driver_release_interface(struct usb_driver *driver,
- }
- EXPORT_SYMBOL_GPL(usb_driver_release_interface);
- 
-+/*
-+ * The driver core refused to bind an interface that a sibling claimed before
-+ * it was registered, and dropped the claim. Let the claimant release the
-+ * interface instead of operating it with a bound interface but no driver.
-+ */
-+void usb_driver_release_refused_claim(struct usb_interface *iface,
-+				      struct device_driver *claimant)
-+{
-+	struct device *dev = &iface->dev;
-+
-+	device_lock(dev);
-+	dev->driver = claimant;
-+	usb_unbind_interface(dev);
-+	dev_set_drvdata(dev, NULL);
-+	dev->driver = NULL;
-+	device_unlock(dev);
-+}
-+
- /* returns 0 if no match, 1 if match */
- int usb_match_device(struct usb_device *dev, const struct usb_device_id *id)
- {
-diff --git a/drivers/usb/core/message.c b/drivers/usb/core/message.c
-index a738d03c23eac..d35a7710c8ef4 100644
---- a/drivers/usb/core/message.c
-+++ b/drivers/usb/core/message.c
-@@ -2264,6 +2264,7 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
- 	 */
- 	for (i = 0; i < nintf; ++i) {
- 		struct usb_interface *intf = cp->interface[i];
-+		struct device_driver *claimant;
- 
- 		if (intf->dev.of_node &&
- 		    !of_device_is_available(intf->dev.of_node)) {
-@@ -2277,7 +2278,14 @@ int usb_set_configuration(struct usb_device *dev, int configuration)
- 			dev_name(&intf->dev), configuration,
- 			intf->cur_altsetting->desc.bInterfaceNumber);
- 		device_enable_async_suspend(&intf->dev);
-+		claimant = intf->dev.driver;
-+		if (claimant && !try_module_get(claimant->owner))
-+			claimant = NULL;
- 		ret = device_add(&intf->dev);
-+		if (!ret && claimant && !intf->dev.driver)
-+			usb_driver_release_refused_claim(intf, claimant);
-+		if (claimant)
-+			module_put(claimant->owner);
- 		if (ret != 0) {
- 			dev_err(&dev->dev, "device_add(%s) --> %d\n",
- 				dev_name(&intf->dev), ret);
-diff --git a/drivers/usb/core/usb.h b/drivers/usb/core/usb.h
-index a9b37aeb515be..293340a48b6c5 100644
---- a/drivers/usb/core/usb.h
-+++ b/drivers/usb/core/usb.h
-@@ -49,6 +49,8 @@ extern int usb_set_isoch_delay(struct usb_device *dev);
- extern int usb_get_bos_descriptor(struct usb_device *dev);
- extern void usb_release_bos_descriptor(struct usb_device *dev);
- extern int usb_set_configuration(struct usb_device *dev, int configuration);
-+void usb_driver_release_refused_claim(struct usb_interface *iface,
-+				      struct device_driver *claimant);
- extern int usb_choose_configuration(struct usb_device *udev);
- extern int usb_generic_driver_probe(struct usb_device *udev);
- extern void usb_generic_driver_disconnect(struct usb_device *udev);
+--
+
+can: j1939: transport: validate the DPO packet offset
+
+This patch makes j1939_xtp_rx_dpo_one() check the packet offset from a
+received ETP DPO against session->pkt.total. An offset that is out of
+range is rejected and the session is aborted with
+J1939_XTP_ABORT_BAD_EDPO_OFFSET. This prevents a NULL skb from reaching
+j1939_sk_recv() when a later EOMA arrives.
+
+> diff --git a/net/can/j1939/transport.c b/net/can/j1939/transport.c
+> index 8fcfd13e5e6f8..bda50432a72ea 100644
+> --- a/net/can/j1939/transport.c
+> +++ b/net/can/j1939/transport.c
+> @@ -1823,14 +1823,22 @@ static void j1939_xtp_rx_dpo_one(struct j1939_session *session,
+
+[ ... ]
+
+> +	packet = j1939_etp_ctl_to_packet(skb->data);
+> +	if (packet >= session->pkt.total) {
+> +		j1939_session_timers_cancel(session);
+> +		j1939_session_cancel(session, J1939_XTP_ABORT_BAD_EDPO_OFFSET);
+> +		return;
+> +	}
+
+[Severity: High]
+What happens if a second out-of-range DPO arrives while the session is
+already in J1939_SESSION_WAITING_ABORT?
+
+After the first bad DPO, j1939_session_cancel() arms the abort rxtimer
+and moves the session to WAITING_ABORT. The session stays on
+priv->active_session_list. j1939_session_get_by_addr_locked() does not
+filter on state, so j1939_xtp_rx_dpo() can still find it.
+
+If a second bad DPO comes in before J1939_XTP_ABORT_TIMEOUT_MS expires,
+this branch runs:
+
+j1939_xtp_rx_dpo_one()
+  j1939_session_timers_cancel()
+    j1939_session_rxtimer_cancel()
+      hrtimer_cancel(&session->rxtimer)   <- pending abort timer removed
+      j1939_session_put(session)
+  j1939_session_cancel()
+    if (session->state >= J1939_SESSION_ACTIVE &&
+        session->state < J1939_SESSION_WAITING_ABORT) {
+        ...                              <- skipped, already WAITING_ABORT
+    }
+
+j1939_tp_rxtimer() is the only timeout path that deactivates a session
+in WAITING_ABORT:
+
+    if (session->state == J1939_SESSION_WAITING_ABORT) {
+        ...
+        j1939_session_deactivate_activate_next(session);
+
+Once its timer has been cancelled, that path cannot run. Does the
+session then stay on the active list for good, still holding its
+reassembly skb and its netdev and j1939_priv references?
+
+Every repeated bad DPO would also queue another J1939_ERRQUEUE_RX_ABORT.
+
+Before this patch, a DPO in WAITING_ABORT only called
+j1939_tp_set_rxtimeout(session, 750). That re-armed rxtimer, so the
+session was still deactivated later.
+
+j1939_xtp_rx_rts_session_active() already documents this hazard and
+works around it:
+
+    } else if (session->state == J1939_SESSION_WAITING_ABORT) {
+        /* Force deactivation for the receiver.
+         * If we rely on the timer starting in j1939_session_cancel,
+         * a second RTS call here will cancel that timer and fail
+         * to restart it because the state is already WAITING_ABORT.
+         */
+        j1939_session_deactivate_activate_next(session);
+
+That workaround came from commit 1809c82aa073 ("net: can: j1939:
+j1939_xtp_rx_rts_session_active(): deactivate session upon receiving
+the second rts"). It fixed a syzbot refcount leak that showed up as
+"unregister_netdevice: waiting for vcan0 to become free".
+
+Any of these could avoid the problem:
+
+- Return early when session->state >= J1939_SESSION_WAITING_ABORT.
+
+- Cancel only the txtimer here. j1939_session_cancel() already cancels
+  and re-arms rxtimer through j1939_tp_set_rxtimeout().
+
+- Force j1939_session_deactivate_activate_next() when the state is
+  already WAITING_ABORT, as the RTS path does.
+
+The out_session_cancel paths in j1939_xtp_rx_cts_one() and
+j1939_xtp_rx_dat_one() use the same cancel-then-noop sequence, so a
+shared helper might be a better fix.
+
+>  	/* transmitted without problems */
+> -	session->pkt.dpo = j1939_etp_ctl_to_packet(skb->data);
+> +	session->pkt.dpo = packet;
+>  	session->last_cmd = dat[0];
+>  	j1939_tp_set_rxtimeout(session, 750);
 
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105065931.1302-1-sunyiqi2%40huawei.com
