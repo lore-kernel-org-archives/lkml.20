@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227279;
-	b=ubRyruU7uchbe+1W3JxB2HqtYATyu326+BCPX4hDldGnjMGrAWTtjPkAeccnmelsxI8/
-	 JEusOmPLj8KX1W5arCeZ/8/NNpMbFM7wFYkJL1GCrsuf0bMDC+euxECQxRrXxAgC2xzRL
-	 FZsNdbQGv8lgC3BgzaTeeTYt4z0pbx1ybLoMzbrpopzSdlirBCyUI12D6gzEEiefFBWSb
-	 KfoxJEB2sq3G9AL7hlAVIvVamvxc4beQ5t1ibE8nFw7cQn1Uamso7SPd9BcbBheJNJP+2
-	 kDmxXGgCo57+JPPpFjpUPrSAahPeHZvTac05Ng3b5nXbyyMGdZ1ccVeX4itwMVBGjCg==
+	t=1794227296;
+	b=iIj5BmC3gVBTF9Sp2jhA27e/97uWVn+W2lWuVXgoLhMkfhv93hypod0y53lBdddp6u2O
+	 UH5uSrbZqJrpxapBOAnv6C57iX4+RCe4VazYZeVENSusTDb+b8QiHFbZnGIAG1bIVPUbs
+	 VCXs2c6JIIEIEACuH5ppxcCLa6fdZvKhL/lvhXS6FBCWF4XmCpgqEGL4KkOi5jRDsJs6q
+	 fT47MctkQi25uUUOHyF5yd8ipUA4oiF+1W0sYhOD5+V/SzVHFFsmPItIoz87d3cPgIqAk
+	 mSZGusjeba4E1nIBOflADtaCuHMo5iB8Lh/dOaWLKbCOyTgAklqp0chgH4YtdlKD0tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227279;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gCHTfCW97KpYQJTKEFqZ/ymfH4VJHD4E4IGyWOcVdiE=;
-	b=2DU0N6vrneMGhpk10FB8y6k8XK42QbxqKrZfs+E1NaBaljASZw4WjSMzX2NV3BRI+HK2
-	 iBMiRFEbdo8za8tOKSJEjH5njQGjSmKMkgPP1isxNHLR1V7Ho+fMjoa1q8ACu9roYAhOY
-	 3h8tIFofiX5RnjfZ/pIXSCaPIThz4P1mOyvdPQbIvW/Y/qQ1cmtkWtJLIb42/XsXmqGG/
-	 0ud/ffPh7SdEFWy/8OB6XfL0Th4H1T/c36bO4HmhJC1EIYLLZJSBwZ/uS4y9K4QbIlxn1
-	 RdFpfyLVOQmB3JjBhang9w3tskYCIhoN/LuZng8MOx0UipbyRw2EXStEECQFE4+Hr0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227296;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=iS8GiYS6BEKZKYojShCn/PzarfE6Hwuxq2fwUTCgOqc=;
+	b=xBkYTllTNTLIK5wumr+IAb4KmPJw9W0j2pMmVf8uwXFr4REtAklwlxK6z+Gk2LHWCEjJ
+	 5RgrwZqpl6QumRoqlxLjx/xpXQryIIXtZ5uRGqeloxChr2E9HWaNqa2FPjIbaNUTREmAG
+	 +rMy5XHUBtxWJbeN/+C3JvEHkislb8T3PQWB6tF2OqWwyv4tNHHiCap3/XE2ifHhgVA8n
+	 tvt9xU/gN3cGcou1J+bw72FIcuv3D03yXWsa7VpLX3nQmNJS8luJ1Wfe42U2XvELcW9El
+	 Epa6weDzwuNuK9jw5fo/iTP13D80sfY2uc/rYEHpJ/8XXPBjouHjkP6/YywCTQIBQFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJAkJOZp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GZnzTybZ;
+	arc=none smtp.remote-ip=91.218.175.181
+Received: from mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974CA606A322;
-	Mon,  9 Nov 2026 12:27:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FCE606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:28:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2FCE606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bJAkJOZp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F7641F0089F;
-	Mon,  9 Nov 2026 12:27:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794227279;
-	bh=gCHTfCW97KpYQJTKEFqZ/ymfH4VJHD4E4IGyWOcVdiE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bJAkJOZpQM6h9sgGDj6agmWdRQPGL2hS4t1t+waOoqK0Hnfy359N421qqvgXVJEf5
-	 AHdF2R7HuIwvmBMGzneVN7q+NSOit4jPiTiYqg5J5QkxwtG/IR+K2BGrdMqs8aq6Vs
-	 AbTOemJ9M8UX2lWHfBgm84bT3BROYbe80y3/TuVthg+IL+W2uDfZlo+Yc+x7OyF+DX
-	 PAojDZY9cT6NhPhGxGhjJxuKJ7UlJwdHKPBJoBdUsyo8MzYricxCBLSYMd+/sjWGPm
-	 ibp9KckV7siLxVuLRwV3xyYTsUj4ebyKt1cmdiUZUMdU9ZZwfFpCcGKEgYRorJlH+n
-	 fVn9AYn9OJ7Sw==
-Date: Mon, 9 Nov 2026 13:27:55 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Gwenael Treuveur <gwenael.treuveur@foss.st.com>
-Subject: Re: [PATCH v4 4/8] dt-bindings: stm32: add clocks for Cortex-CM0 on
- stm32mp25
-Message-ID: <20261109-radiant-bear-of-sunshine-3db3cd@quoll>
-References: <20261106-ups_mp25_clk_update-v4-0-9e32b817c38d@foss.st.com>
- <20261106-ups_mp25_clk_update-v4-4-9e32b817c38d@foss.st.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GZnzTybZ
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=bqVtQ6P0h3fZuMSz5KkI6pN2g1Enr0aSOZ5UYfB26Bo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794227292; v=1; x=1794832092;
+ b=GZnzTybZAk36XLwLOZUCgUBKQNqi0dynVG15SJqCDyXUf03m3H6jFEiXgjKSNXYmXwpqCswp
+ 59CKDDhBrk+D0PdbUj8WuvpGrIIUQf7kHOj2roieiDTs414HJagMP/CqEWe/KnBYp0l021gpjPK
+ KxEZLDsToCLYkmglJ8wxclY4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d1122df8eed1b4de;
+	Mon, 09 Nov 2026 12:28:12 +0000
+X-Mizu-Trace-ID: d1122df8eed1b4de
+X-Migadu-Flow: FLOW_OUT
+From: Peng Fan <peng.fan@linux.dev>
+Date: Mon, 09 Nov 2026 20:27:55 +0800
+Subject: [PATCH] pinctrl: pinconf-generic: widen the packed config argument
+ to unsigned long
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,41 +60,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261106-ups_mp25_clk_update-v4-4-9e32b817c38d@foss.st.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-pinconf-widen-v1-1-469726456c84@nxp.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBMcA8uuEi3ExprNJAoVhHdPW
+ r7F/y8UykwF5u6FTBcXPqUB+w7C4WUnxVszGG0sonYqsYRTorp5I1F6nHCwbgjGR2hNyhT5+X/
+ LWusHvh3KQl8AAAA=
+X-Change-ID: 20261109-pinconf-widen-07813693c2af
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>
+X-Mailer: b4 0.14.3
 
-On Fri, Nov 06, 2026 at 05:16:34PM +0100, Gabriel Fernandez wrote:
-> From: Gwenael Treuveur <gwenael.treuveur@foss.st.com>
-> 
-> Add the clock identifiers needed to allocate the D3 peripherals to the
-> Cortex-M0 (CPU3 domain) and to enable their autonomous mode:
-> 
->  - CK_CPU3 and CK_<IP>_C3: allocation of the CPU3 domain and of the D3
->    peripherals to CPU3
->  - CK_CPU3_AM and CK_<IP>_AM: autonomous mode of the CPU3 domain and of
->    the D3 peripherals
->  - CK_HSI_KER_ON, CK_HSE_KER_ON and CK_MSI_KER_ON: kernel clocks of the
->    HSI, HSE and MSI oscillators
-> 
-> Add the matching SCMI clocks: CK_SCMI_HSI_KER_ON, CK_SCMI_HSE_KER_ON,
-> CK_SCMI_MSI_KER_ON and the autonomous mode clocks owned by the SCMI
-> server (CK_SCMI_GPIOZ_AM, CK_SCMI_IPCC2_AM, CK_SCMI_LPDMA_AM and
-> CK_SCMI_RTC_AM).
-> 
-> The three kernel clocks of the HSI, HSE and MSI oscillators are also
-> added at the end of the RCC input clocks. They are optional, so that
-> the existing device trees remain valid.
-> 
-> Signed-off-by: Gwenael Treuveur <gwenael.treuveur@foss.st.com>
-> Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-> ---
->  .../bindings/clock/st,stm32mp25-rcc.yaml           |  9 +++++-
->  include/dt-bindings/clock/st,stm32mp25-rcc.h       | 35 ++++++++++++++++++++++
->  2 files changed, 43 insertions(+), 1 deletion(-)
+From: Peng Fan <peng.fan@nxp.com>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+The packed pin configuration stores the parameter in the lower 8 bits and
+the argument in the remaining bits of an unsigned long. However, the
+argument was limited to 24 bits: pinconf_to_config_argument() masked it
+with 0xffffff, and pinconf_to_config_packed() took a u32 argument, so even
+on 64-bit systems the left shift in PIN_CONF_PACKED() discarded the upper
+bits. For example, the pad configuration value 0x1080000 used by a new
+i.MX SoC was packed as 0x08000000 and read back as 0x80000.
+
+Allow the argument to use the full width of unsigned long so that such
+values survive the pack/unpack round trip. Cast the argument in
+PIN_CONF_PACKED() to unsigned long to keep direct users of the macro
+consistent with pinconf_to_config_packed(), and print the full argument
+in the debugfs dumps.
+
+The packed argument only has BITS_PER_LONG - 8 bits available, so on
+32-bit systems values above 0xffffff still cannot be represented. Reject
+such firmware properties instead of silently truncating them.
+
+Signed-off-by: Peng Fan <peng.fan@nxp.com>
+---
+ drivers/pinctrl/pinconf-generic.c       | 16 +++++++++++-----
+ include/linux/pinctrl/pinconf-generic.h | 13 ++++++++-----
+ 2 files changed, 19 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/pinctrl/pinconf-generic.c b/drivers/pinctrl/pinconf-generic.c
+index 36845517984e..0876015a6575 100644
+--- a/drivers/pinctrl/pinconf-generic.c
++++ b/drivers/pinctrl/pinconf-generic.c
+@@ -95,12 +95,12 @@ static void pinconf_generic_dump_one(struct pinctrl_dev *pctldev,
+ 		seq_puts(s, item->display);
+ 		/* Print unit if available */
+ 		if (item->has_arg) {
+-			u32 val = pinconf_to_config_argument(config);
++			unsigned long val = pinconf_to_config_argument(config);
+ 
+ 			if (item->format)
+-				seq_printf(s, " (%u %s)", val, item->format);
++				seq_printf(s, " (%lu %s)", val, item->format);
+ 			else
+-				seq_printf(s, " (0x%x)", val);
++				seq_printf(s, " (0x%lx)", val);
+ 
+ 			if (item->values && item->num_values) {
+ 				if (val < item->num_values)
+@@ -152,7 +152,7 @@ void pinconf_generic_dump_config(struct pinctrl_dev *pctldev,
+ 	for (i = 0; i < ARRAY_SIZE(conf_items); i++) {
+ 		if (pinconf_to_config_param(config) != conf_items[i].param)
+ 			continue;
+-		seq_printf(s, "%s: 0x%x", conf_items[i].display,
++		seq_printf(s, "%s: 0x%lx", conf_items[i].display,
+ 			   pinconf_to_config_argument(config));
+ 	}
+ 
+@@ -164,7 +164,7 @@ void pinconf_generic_dump_config(struct pinctrl_dev *pctldev,
+ 		if (pinconf_to_config_param(config) !=
+ 		    pctldev->desc->custom_conf_items[i].param)
+ 			continue;
+-		seq_printf(s, "%s: 0x%x",
++		seq_printf(s, "%s: 0x%lx",
+ 				pctldev->desc->custom_conf_items[i].display,
+ 				pinconf_to_config_argument(config));
+ 	}
+@@ -268,6 +268,12 @@ static int parse_fw_cfg(struct fwnode_handle *fwnode,
+ 			}
+ 		}
+ 
++		if (val & ~PIN_CONF_ARG_MASK) {
++			pr_err("%pfw: value %#x for %s does not fit in the pinconf argument\n",
++			       fwnode, val, par->property);
++			return -EINVAL;
++		}
++
+ 		pr_debug("found %s with value %u\n", par->property, val);
+ 		cfg[*ncfg] = pinconf_to_config_packed(par->param, val);
+ 		(*ncfg)++;
+diff --git a/include/linux/pinctrl/pinconf-generic.h b/include/linux/pinctrl/pinconf-generic.h
+index 1df63c732b99..9d28d4de1415 100644
+--- a/include/linux/pinctrl/pinconf-generic.h
++++ b/include/linux/pinctrl/pinconf-generic.h
+@@ -172,27 +172,30 @@ enum pin_config_param {
+ /*
+  * Helpful configuration macro to be used in tables etc.
+  */
+-#define PIN_CONF_PACKED(p, a) ((a << 8) | ((unsigned long) p & 0xffUL))
++#define PIN_CONF_PACKED(p, a) \
++	(((unsigned long) a << 8) | ((unsigned long) p & 0xffUL))
+ 
+ /*
+  * The following inlines stuffs a configuration parameter and data value
+  * into and out of an unsigned long argument, as used by the generic pin config
+  * system. We put the parameter in the lower 8 bits and the argument in the
+- * upper 24 bits.
++ * upper BITS_PER_LONG - 8 bits.
+  */
+ 
++#define PIN_CONF_ARG_MASK	(~0UL >> 8)
++
+ static inline enum pin_config_param pinconf_to_config_param(unsigned long config)
+ {
+ 	return (enum pin_config_param) (config & 0xffUL);
+ }
+ 
+-static inline u32 pinconf_to_config_argument(unsigned long config)
++static inline unsigned long pinconf_to_config_argument(unsigned long config)
+ {
+-	return (u32) ((config >> 8) & 0xffffffUL);
++	return (config >> 8) & PIN_CONF_ARG_MASK;
+ }
+ 
+ static inline unsigned long pinconf_to_config_packed(enum pin_config_param param,
+-						     u32 argument)
++						     unsigned long argument)
+ {
+ 	return PIN_CONF_PACKED(param, argument);
+ }
+
+---
+base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+change-id: 20261109-pinconf-widen-07813693c2af
 
 Best regards,
-Krzysztof
+-- 
+Peng Fan <peng.fan@nxp.com>
 
