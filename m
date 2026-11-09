@@ -1,78 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794253419;
-	b=gpfjM5wS104Bf7xJyK0tuE6ulbnEEi3Q1nhEpAAXJZV9wSW7GjqI9LGJNvRDoYyPxTNs
-	 W/eR10R4PdsCfZliDw0mPnN0oTxHQ/i+yzX91SOTVj9PiL1Gzs7Z6FdH6pYzJT/JOaHHc
-	 fLWmBygmKHmRgey9DozuJ3caAonAxwIsXEJSyvwOOHdAaplHjRU/XYlTYfWBEOW0fA58k
-	 6g4O6WqqiNxylRPP9RNZ3L1h+nuJqFjH1f4NATgN/aLdCFm/06pR43A146eg6l0Q4Rnw1
-	 i838HD46IaG0LX/ccWYnJEtD/sSihcYP+3aIsW8f3JDa+H4c7rkicUPQxk7ZpkMNdog==
+	t=1794253429;
+	b=Lzdwr0UHPHroE2uuEAqF7giCPqbSELMeiR/yyeIiX5JObU4NW6/uzvZWfeePhauLowLH
+	 oGwH4SQJb8XqQIyP8EVJAE2hYZj4SLgReolsDe63iqqel5GONRp1F2MAEm9+fNcrRCIEw
+	 /III/Qgm9kgJiCazPZ5EPDenOGQm8ckBpHmHGMsz4MbPoISn83Nc9wua314XqXPT0LLs6
+	 KAtSqXim/mWJ/Ggl/T4Ky/p3azE5kj4JN3FCXjO4kBpnaMML4SeIhBUTQP/Bwo2OASXfz
+	 LwiR2YfWweAXDXA69AxfmAS+//TjdTmxz/4QoV5HJysQb8pwHlVJp3frPhgAg56NXRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794253419;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=4tzUHAD8cISFdwg6X2KpZ+wQl4rMETW33aQlL9cOx/g=;
-	b=RaXdfeZ46ifcVbsOKSiOW8fOms3mCqsrYHB79BXKmWa0NIAAjbtw+uYxJEjfg2fP5vwU
-	 kzfK/XGmr2LPfa/yKpHFya0nUcZOkFQhf455crd9mHOIsAEJht90MYF71qYey3j7GutYJ
-	 JrcWsOf3IrL88OGbB5v1cQWV07rPLWxOwFmFL8855I38xDLTznFCIHO2iYfdtkSaldS9M
-	 AYTOnYWc4XN8xNjYWuOjPTtbtnGcsqeX1rfF0lVB12mcaeOfjPcqDysIZY09xD9ygvkJA
-	 5wFVWb0ZJgsadyhug98GFKT9JMHGXjtPep8o2OM2l8oUYEl6/FuD+owEsHZvYDIDCPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794253429;
+	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
+	 Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=GiiCdlrkEsadT5b1EEALLJgkBNkzhktjT2LeWox5L6w=;
+	b=NJXBq1x1Q+gGWBjm00Us5yEHzsoPfXV5S+1b1RMu9SakORRBZQn7d/wvXT1q/oQ8+VF1
+	 4OAOXIe4w7zg8chYffQ7BJrkXz4OsQ+Z9plpH8neUEGn+/B2LVTOkTTK5s9V3thEZ2YCY
+	 elpInxbT1m7LyyzhkZ0idec14tkiJSzAThy1goPaCVi5+OF3CBf1J9p0N04wpjj7WOj6Y
+	 IkFd65Fd4cb7TZ9QMgDq5jRe97SaLqe6tP6aCbw8dI8yuEkfMhG1HeQ+xv3BRmlY83eou
+	 +LPo0THCo4U/yjMX9X5Go5ZnT+mDiCodosL2PbUEvSl6l8Kf9rvliajg1IcfJBqWtZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eHEtR6oj;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HswYtFnl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C63E1606A321;
-	Mon,  9 Nov 2026 19:43:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C63E1606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBED8606A321;
+	Mon,  9 Nov 2026 19:43:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eHEtR6oj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794253419; x=1825789419;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=+R4YXXYgFDCqdcIFqhh4oFRdTM2C01Lzsqrhf/1eWbI=;
-  b=eHEtR6ojlBtCqrK9jkH+VDRjeQJJ8wT+/Zxp1/crgM8HexEa4/YzBToU
-   F+QPmEKNJ5jzJfMxAO+/kOK5xGSazjWOUqdbzBs3N1ImRMzjIhQBMOj95
-   hPT75pNX2uAqqHH0WT7lMYWMKgKBxCYGYKMV6f/P1XOWJg0VOm3ABmVgB
-   A6g6BmAlRE10t2tg5vLjRrB5nym2niuzTdmry7BYKtSuULqLW85EnGtAh
-   gv/Ap7yNH3rlY6oRQRH2jmy9yH1DfPmwfZHjDCNSX7VAnYq5DV4+8zGoF
-   zJhMat30xV837NMWp9kDbxQaBYpCBXGEqBJypnVQZsk1q1gWP0lUtO7QQ
-   Q==;
-X-CSE-ConnectionGUID: 0jLAi8bVRBiEZQcr7pECOQ==
-X-CSE-MsgGUID: w4dJjzUAT+iHNF7aWRDSOA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2887305"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="2887305"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:43:38 -0800
-X-CSE-ConnectionGUID: X/wz/UWXTCSXCnc64O/XXg==
-X-CSE-MsgGUID: rha019tmQteNnHwzERLfyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="8116064"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 11:43:36 -0800
-Date: Mon, 9 Nov 2026 21:43:33 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Archit Anant <architanant5@gmail.com>
-Cc: jic23@kernel.org, dlechner@baylibre.com, andy@kernel.org,
-	nuno.sa@analog.com, u.kleine-koenig@baylibre.com,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	joshua.crofts1@gmail.com
-Subject: Re: [PATCH v6 11/11] iio: adc: ti-ads1015: Replace custom shift
- macros with FIELD_PREP/GET
-Message-ID: <avIiZfJtj0DTArWR@ashevche-desk.local>
-References: <20261109165805.31160-1-architanant5@gmail.com>
- <20261109165805.31160-6-architanant5@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HswYtFnl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 385BD1F008A1;
+	Mon,  9 Nov 2026 19:43:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794253428;
+	bh=GiiCdlrkEsadT5b1EEALLJgkBNkzhktjT2LeWox5L6w=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=HswYtFnlC2cFgEP+oUi2EdGObVoL1SjVfNscGxA1TgECdEGVUcOw9nV/YZTbMqyoI
+	 Yzt8b38ijHkNVCrFB+P0jQOQzM4AaARYcE5j/0krnLdDNiiaTQ6xbYZp0K2hc3o8b0
+	 j3wnDf8OrrP+1vONQfdNT7WUvTDDImqQOpUq8LQQAkYIUssOY8GbvD2EN3QjPcn4c7
+	 eiL8qoFqdX0ra2UrsyF2Sr8KKOANX9EBQfOTsWGPTWj9S5mCsE49vAQizCYLuE208B
+	 sbeLW2AqWWnb61GKC4Wp9+01X0ReACjD8xZzPrz/9imYV1NaxFOCFyN/sZ4iG1ogeZ
+	 c2wqzSOLPDW3w==
+Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
+	by traversing.sirena.org.uk (Postfix) with ESMTP id 453602FC6BDA;
+	Mon, 09 Nov 2026 19:43:00 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, 
+ Tyler Baker <tyler.baker@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261106054333.2748248-1-tyler.baker@oss.qualcomm.com>
+References: <20261106054333.2748248-1-tyler.baker@oss.qualcomm.com>
+Subject: Re: [PATCH 0/2] ASoC: fix the x1e80100 card after an ADSP restart
+Message-Id: <179422760307.3711751.5465611340806386159.b4-ty@b4>
+Date: Mon, 09 Nov 2026 12:33:23 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,37 +67,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261109165805.31160-6-architanant5@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1611; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=1VINJaUZ4ngpMAC5A6UaEXNuVO47g2rYK3BqBR5Y9mM=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+KblcDbap2bDvcf7vbRuFG9/U2dy6eWj3p7shQg2ad
+ hMNLk/J7ihlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBNVmD4X7NN/sr1Uw1PbJO3
+ PPb4/3e1/nlhzZ32ERc2M/3S/BzCmMnI8CnF41v7vc5tIXLaYjmyf10mXT5iWnzYzXLV6aMdu+4
+ 95QIA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, Nov 09, 2026 at 10:28:05PM +0530, Archit Anant wrote:
-> The driver currently uses custom _SHIFT macros and manual bitwise
-> operations to read and write to the configuration register.
+On Fri, 06 Nov 2026 00:43:31 -0500, Tyler Baker wrote:
+> ASoC: fix the x1e80100 card after an ADSP restart
 > 
-> Modernize the bitwise logic by replacing all manual shifts with the
-> standard FIELD_PREP() and FIELD_GET() macros from <linux/bitfield.h>.
-> This improves readability and prevents potential bitwise errors.
+> On Qualcomm boards an ADSP restart unbinds and rebinds the LPASS pin
+> controller, the SoundWire controllers and the codecs, and the card binds
+> again once they are back. On the Hamoa IoT EVK two things break on that
+> path: the DAI link names point at the SoundWire controllers' freed
+> strings, and the headset jack is never recreated.
 > 
-> Remove the now-unused _SHIFT macros from the top of the file.
+> [...]
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Applied to
 
-...
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-> +		mask = ADS1015_CFG_MUX_MASK | ADS1015_CFG_PGA_MASK |
-> +			ADS1015_CFG_DR_MASK;
+Thanks!
 
-Indentation is broken here.
+[1/2] ASoC: soc-core: copy the DAI link names into the card
+      https://git.kernel.org/broonie/sound/c/33a130f6ed8c
+[2/2] ASoC: qcom: x1e80100: recreate the headset jack on card rebind
+      https://git.kernel.org/broonie/sound/c/704251f9dad3
 
-> +		cfg = FIELD_PREP(ADS1015_CFG_MUX_MASK, chan) |
-> +		      FIELD_PREP(ADS1015_CFG_PGA_MASK, pga) |
-> +		      FIELD_PREP(ADS1015_CFG_DR_MASK, dr);
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
--- 
-With Best Regards,
-Andy Shevchenko
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
