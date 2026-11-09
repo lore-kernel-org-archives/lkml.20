@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794221593;
-	b=3748aNFQx9xXAqHs9tLyaCx4Z/UXEnItCoBPuebnzDnisA243qnR7iDQCAWHNW5S/h9i
-	 tQrDBVUycxg6DqbRQaAWwxBEVcAERMJqr/iOXEb3kr9NTNJRRJfHYzOq+Xl/XFVzrUyB1
-	 a6EWBqywRAFADQcflBYU1zd3VHfsC6GpmHpoxuf4MYTyHMhC14WHjB9wjqrmoTuHUZFne
-	 JrOiOx3oKX2PYOocXmzBoHep8UBjVYvoPDP/TMFZCHhTrwY5JKfTzeS/Q/gL+fKcj81Hn
-	 9k828VJDCFSZQme+Mk9/D0QDUNAVCUAAaMwTxEWUi/QhcfR6+EUN+KLBr4XRybu7umA==
+	t=1794221590;
+	b=occZus7LedZrVf0zrHViVcXuth10pPK4hjME8SAFPFXoX6D9oXEJplBLaZz1MROqWEHd
+	 gkRWwRo6015gX61sTaVicEhiu9Qsa7Id0GWPkEduX/d0NouM/zHNUKSe6JWwU8scNyzcS
+	 WKANcvMDP3jSxQ7Vu7g/MzVuD+EKjJqpFrVEU/LwVoMEm3UnybObq1fSk5pA6e/WV8AlX
+	 xvQitQw18oHaa66KUel84rvS4hk/LnaXirJTWyN6Z0e9wjU1EDCymnqLWhJRxI1Cl02VL
+	 hyevPT1RalgZZs/OoAZg0A74nr0LWtjU3Rux24lwyvJQiQLC9vmL704YqZIX6SfdzAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794221593;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794221590;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=DvUQ95Qmafx/GUKCgwM1Wq8Fj7AkLqXVLQmPGo9tiOM=;
-	b=N3g6HpjzMr6ZR5jJDqzUWg77Q5Bi1Pyb+Xh0NnrrxeL5oiX+jEM8O4JVq59Pb0wvhd4s
-	 SEqG/WsPce6JEFH/KscoTFXLnjrRY4lF84wliMtzRpEQpGCUqEvQ/9MP4hyYS6Ky0+XtO
-	 YmPmR+Z9bl2ln8IezwoXQGkFON9WUW/443mr9+ByY/HC7B+jGSdY35pKFtw8Cixwn4k3t
-	 iNCJd/Z07/BxuoGjW8wt/M3SSZlS2bidUlXSA49+Loj5f6Mx45Ts0xUC0mORAAriYJKWV
-	 P/YdrL7z/fWOLzt+YTbKmbKIbi2UWt7hb4pMqvt5PUoqoNJJq0IxxC5540/XpZLg6ww==
+	bh=B8wcRySJd/dlTtht6qCP4yFXYl/Td0vFc8lSf/i1WTo=;
+	b=AqWm0oA+N34z3qryiB6PbMcJ08wk/lA5Q6yaMbIT4ByvUBpo/iyw7uw7I03JUXM8/EO0
+	 AWA+IiBGCyFKBoWg26XYDpYW43t9lOhwJl+7ppQWafUJthYnY8/aR2+IrYIjvVbgsODaO
+	 lXBElNoYflrL0q8GPXL246hS2aP1NVgwX+cIDR+j4ld4fIoVHxwszY4BXmyjx74Bsftc3
+	 /DXsrLZ5jMyMAF8/xgqva7WcOodSnjW48mUHNStQHmq6Qe4N+0Xe4TvlOyn2jej9MAEo4
+	 j1GddLpdTpYtFBlvBHthwgp5rphCt8VhPfKdvpqHCg7lulE64XKAi8ZRbns9B2FnYIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=is.s.u-tokyo.ac.jp;
 	spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp;
-	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=JbOG2UYu;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=ag8s8wnN;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71ACA606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:53:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71ACA606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B3E606A33C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:53:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29B3E606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=is.s.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=JbOG2UYu
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1b1ce85287aso654923c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:53:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=ag8s8wnN
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso1097207c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:53:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=is.s.u-tokyo.ac.jp; s=google; t=1794221593; x=1794826393; darn=vger.kernel.org;
+        d=is.s.u-tokyo.ac.jp; s=google; t=1794221589; x=1794826389; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DvUQ95Qmafx/GUKCgwM1Wq8Fj7AkLqXVLQmPGo9tiOM=;
-        b=JbOG2UYu1aPGgNyb7/u4cOaEroeWMgwhVhqZQJKSvCrjB5akVUv1Y3+owXoNoX6qas
-         Mx8TlG5OoeLOGPgXCli/gibKdC6truSuK87hssu8eqIVhr8kwJnqjxtStphxQKpZXcQn
-         HK7TsEd2gGEJ5bOLVq2FS0/mSZSCqwulxKGSuKQUAgMw9fiGEnuq2aaDOofubA0VyD23
-         vcAcH5904tJKM9acyAn/af/IxmDvcKeWkalXMjbUF589IFrpNxZ8sJUDHFG53eZCb671
-         e8jCjfc8IYKqnY8AYUUEcBeQ1gUlIJXw9y8LjgmmFC6MJZJLSCS1zJCamLDtIUXKBwbV
-         qbjw==
+        bh=B8wcRySJd/dlTtht6qCP4yFXYl/Td0vFc8lSf/i1WTo=;
+        b=ag8s8wnNbir+9Lof0homx1DDFO7cebbc0V5YP8kmlt9OiSkDrztC71N+5LloWADaSB
+         MIREdddFLzjBCDaU0rAYi4jtosvgp8pMYdFoMEU1ZNPxC2goflR2DxIb3I9Cx+gb8a9n
+         JVE5kUuWlyy1Pf24t6JML2CRYGzkC77vA3Q0zTWoy4dHb8TELmrSXj0P6SBBTQ8CqBx2
+         dmAWpkESG9SEXIpJJYKsap5/hJgXdaMdE7I69eWpbbm3+ww6WEfftwIVKPOxXSJ3eRSe
+         WDQDkcbTey3ZsEiVlEaOdKz3mo7VVHjP51GUND/XC0H0BWt1eztty6c0/ddDZCK6DL0n
+         VXnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794221593; x=1794826393;
+        d=1e100.net; s=20260707; t=1794221589; x=1794826389;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DvUQ95Qmafx/GUKCgwM1Wq8Fj7AkLqXVLQmPGo9tiOM=;
-        b=OdtElaBGPk7gr0cxcycyQ3+C16lYC2vhro0jXDai2f7GXYHx47doOiVEQmbTyP2J4/
-         sPB9ktJwnh3Lnf3i5bfdl2q6gP3PeDUQIxUXqCJ34GCqzGZJDmZCFp+t7YIulXnk3WQ5
-         AeajZ19xVpujFqkkYLtdbFwcTfB54nX5e3dz2YZrznezEJonxo+y3vpiDiZe8TCDMSQf
-         hi7lI9Kb58wYVM1XdFyWcuHbrnWA7bTONq7PaLwY0UCxVbhXlkbhq36fsQuL+CEPpuka
-         n8A5nyukOFodAitp3mjqikCX2Bn5D00rsyOPmoXDVZOgBAKX+ZHEPYlJqSPszVWGSVzF
-         DVXg==
-X-Forwarded-Encrypted: i=1; AL+hErHYQplQlad/Jd8Ur66+pjOh4O6w0vGJ8Zoi21LE7kH9Ozm8HPEuvZdANT4WSs/lqtHAKKE+4tUO0fg8ysc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+WQYoKJRWQOwKHUhFsYp0CzrI23gEx7xkLlXOWSevoEJNUuRFF
-	py62+S+6udaqbn4Kp4Yye7YKP5Cj5WQb6QnsR5enTC7zkNIoVYI97hy+TdCCAjAVf/6ZQzxkAJn
-	6SwA=
-X-Gm-Gg: AYBFou0KWX8m1lABf9oGjQ6ZVfYDgC2yKGXl3IjbuVGIkEi79mLcp4HxPtoNVWlmnMb
-	dAyCWluo51P0jp3wOyIH95QYNS3H5XXi9/QQSxlf14Y90YUmZF+GDiz5Hc5EOMffqHX/w8cjvBw
-	qelB/t3ByworDRRItGD0pq9X61mrDB3H8JpsXucp62xRw+rswxP+ALSIEsXLwFKuRR2z+RthrkL
-	VJ582M8i0JCjyIHZvjoBrZyM71e+TRz5LHfMYak++VFB6PIkwX4kvWe6+tZI2Vsh/3YqDIEEz+G
-	RXBlybpjGE2yH6RFdu9R1Sb3RObSHJPmgjMIpm3dqEkQVSpSKjR4Jz8hEGpKOhdnOTW0RaAfQam
-	YTAz1fH8aDKu33imrp7/PObqLOnOhOt68Yx5j21B9ANdbv18kuaiAwN8G2La0L9IhAVdDQvSZe1
-	Uazd9PTnEc4Ll6p9rpYapUUiduLV/ial6QD9OAWT/shvKr+uxPea6dP3rF8IKhrkHMTTdCTfszp
-	zFdwMyq2w1/5b1YgsOqC4XwHZpfhfnmdSLcshPQ6gdRlcqv6zeYcPOz8DhVFAmoyijBp3YD8m5w
-	djAupjtjeqltOMgQrsMFIV3I+DufvJac/BWJXaA=
-X-Received: by 2002:a05:7022:ec02:b0:16a:f5cd:365 with SMTP id a92af1059eb24-1b39fe307d9mr6849877c88.5.1794221592339;
-        Mon, 09 Nov 2026 02:53:12 -0800 (PST)
+        bh=B8wcRySJd/dlTtht6qCP4yFXYl/Td0vFc8lSf/i1WTo=;
+        b=beE6cWYJ1/HjwlE4mAXR8RObzQGehISAYOBp83M5XkhzVztLrPxYy1FIYmyHwIilt2
+         ismhidoZkKRxg89nfGlALYQktQpCiaen+t2f7Wn4BxzCDyrjcyoWGcaWP2+R7p2ykMka
+         JsHPmiKAMNIwbvCM3HskU063RpuQ2SMCF+0PX2VvmP2OYwsz3sTWqKDxgqIjtfPX0y6y
+         cwJAaRKGnmGkNKfcVDwH8h0OatkelfL80Ba/YZ4aEi3/9C0DCPLzQK6ThfP/nuC+S528
+         V9VlyrhFXpz9LAchpEl8C9hEKEX8y6bInCQFLbmyugrmd2v8jZwxuiFQVodn9l6oMmMl
+         5T4w==
+X-Forwarded-Encrypted: i=1; AL+hErGtRU63VTpKJdTRO/25rnzcLUHc+VV0M0NTM7NjpHuwkgqdWDwEqB0dk/rrYj2f1+Q07ulMfTGD0qhbGuI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z93JTXuWM3GMpssTPeM+ny0vx11LNIVjv6utLS54nfXS7faer9R
+	RgXVNGQ/esh72i0x9U191o79z06no8XourNkG96wLkt4Uk4v0Pk/N9HRY0+t/Hjszw==
+X-Gm-Gg: AYBFou1OFu+ecavbrHZ5EF4HVdeWiQ1t5WXr4BMJojThqemWeIsbgqyIwIc++Z0hyAH
+	Tiko2co1H4ok1nZ26Hutp0+7eXlXlq2YSrTJo6ZIiOVV0PPMz5iYbALItSUgfQPXQ6pYMa7rVp/
+	zGh3FSzn5Tb4Ll9qa8/CzYaesnQ+liTD0F6LAb6iAD9GpZpHQaubJ6QwI5l5vyARR33n+tREnTL
+	lm1BQB11ndWIzoZrwEwyupK/enCqoJVugQVnT6VUZByvVErCVQlfBPwNib3EobFF/owYxbKMl8c
+	BTMamJ58oVW7Ia79FInHWcGvwFO8TUHWPiDl1oVwnCNyj+WQiEUWw82BvaWCvjUeeQJZ9i9JvcX
+	3gmZizIqGDBCIALC6MST2JOw3deVVagHPyX/pjqAtTNOqUEKHjy9AisWkF2ttmW1Twgxxba3nEb
+	AH8eYhW3gPnU74KQ3jJqxc0J1XQqNijw4ofZq5wTK+xpKEXXjGdspKR70oJCXg9wPLryTg1hcM7
+	q3DGiroHj1tFX7ZwGyFfq44npzlnXXtwu8P/t/MWlI24IwQDUrlbn0ZKlWMD+JbUQAo0Dm/jNKl
+	k8HEE240zQxkrFSd2WKJaWxko6bNmEFx1EB+tA==
+X-Received: by 2002:a05:7022:150e:b0:151:6e80:baa9 with SMTP id a92af1059eb24-1b39fe7f403mr6653083c88.12.1794221589238;
+        Mon, 09 Nov 2026 02:53:09 -0800 (PST)
 Received: from wang0.localdomain ([133.11.33.33])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375726fd1sm12228744c88.14.2026.11.09.02.53.09
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b375726fd1sm12228744c88.14.2026.11.09.02.53.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 02:53:12 -0800 (PST)
+        Mon, 09 Nov 2026 02:53:08 -0800 (PST)
 From: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
 To: Eric Van Hensbergen <ericvh@kernel.org>,
 	Latchesar Ionkov <lucho@ionkov.net>,
@@ -100,9 +99,9 @@ Cc: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>,
 	linux-kernel@vger.kernel.org,
 	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
 	stable@vger.kernel.org
-Subject: [PATCH 5/5] 9p/virtio: keep zero-copy buffers until the device returns them
-Date: Mon,  9 Nov 2026 19:52:51 +0900
-Message-ID: <20261109105251.2545764-6-lian@is.s.u-tokyo.ac.jp>
+Subject: [PATCH 4/5] 9p: take the tag of a flushed request from the request
+Date: Mon,  9 Nov 2026 19:52:50 +0900
+Message-ID: <20261109105251.2545764-5-lian@is.s.u-tokyo.ac.jp>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109105251.2545764-1-lian@is.s.u-tokyo.ac.jp>
 References: <20261109105251.2545764-1-lian@is.s.u-tokyo.ac.jp>
@@ -117,287 +116,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a fatal signal ends the wait of p9_virtio_zc_request() while the
-device still holds the request, the payload pages are released, and
-p9_client_zc_rpc() returns to its caller once the RFLUSH arrives. Since
-the caller may free the buffers, a misbehaving device can answer the
-request after the RFLUSH and write the reply into freed memory. With the
-payload bounced through swiotlb, the guest itself copies the reply into
-the freed memory when req_done() unmaps the returned buffers:
+p9_client_flush() finds the tag of the request to cancel by parsing the
+header of oldreq->tc. For a zero-copy TWRITE, however,
+p9_virtio_zc_request() adds the payload length to the size in the header
+after marshalling, so p9_parse_header() fails on the mismatch with
+tc.size and no TFLUSH is sent. As a result, a zero-copy write
+interrupted by a fatal signal returns without waiting for the RFLUSH,
+and the server can still write the data after the writer is killed,
+overwriting a later write to the same file.
 
-  BUG: KASAN: use-after-free in swiotlb_bounce+0x236/0x270
-  Write of size 4080 at addr ffff888004800010 by task swapper/1/0
-  Call Trace:
-   swiotlb_bounce+0x236/0x270
-   req_done+0xb2/0x280
-
-Fix this by releasing the pages in req_done() once the device returns
-the request, when the wait ends without a reply. req_done() can find the
-pages only through the request, so the page arrays, their page counts
-and need_drop are gathered into struct p9_zc_pages allocated for each
-zero-copy request. p9_client_zc_rpc() now waits until the device returns
-the request, since the caller may reuse or free the buffers after
-p9_client_zc_rpc() returns.
+Use the tag in oldreq->tc.tag and drop the parse, so a TFLUSH is sent.
 
 This patch is assisted by Claude Opus 5.5.
 
-Fixes: abfa034e4b8e ("fs/9p: Update zero-copy implementation in 9p")
+Fixes: d28c756caee6 ("9p/net: Fix zero-copy path in the 9p virtio transport")
 Cc: stable@vger.kernel.org
 Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
 ---
- include/net/9p/client.h |   6 +++
- net/9p/client.c         |   3 ++
- net/9p/trans_virtio.c   | 109 +++++++++++++++++++++++++++++-----------
- 3 files changed, 90 insertions(+), 28 deletions(-)
+ net/9p/client.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/include/net/9p/client.h b/include/net/9p/client.h
-index e4e5cb102fb18..8f9074e69c54a 100644
---- a/include/net/9p/client.h
-+++ b/include/net/9p/client.h
-@@ -71,6 +71,8 @@ enum p9_req_status_t {
- 	REQ_STATUS_ERROR,
- };
- 
-+struct p9_zc_pages;
-+
- /**
-  * struct p9_req_t - request slots
-  * @status: status of this request slot
-@@ -79,6 +81,9 @@ enum p9_req_status_t {
-  * @tc: the request fcall structure
-  * @rc: the response fcall structure
-  * @req_list: link for higher level objects to chain requests
-+ * @zc_pages: the zero-copy payload pages, set by the transport while the
-+ *            device may access them and cleared with a wakeup on @wq when
-+ *            the device returns them
-  */
- struct p9_req_t {
- 	int status;
-@@ -88,6 +93,7 @@ struct p9_req_t {
- 	struct p9_fcall tc;
- 	struct p9_fcall rc;
- 	struct list_head req_list;
-+	struct p9_zc_pages *zc_pages;
- };
- 
- /**
 diff --git a/net/9p/client.c b/net/9p/client.c
-index 15bb939087165..34be0d2652d4e 100644
+index 66980ad52bca8..15bb939087165 100644
 --- a/net/9p/client.c
 +++ b/net/9p/client.c
-@@ -188,6 +188,7 @@ p9_tag_alloc(struct p9_client *c, int8_t type, uint t_size, uint r_size,
- 	refcount_set(&req->refcount, 0);
- 	init_waitqueue_head(&req->wq);
- 	INIT_LIST_HEAD(&req->req_list);
-+	req->zc_pages = NULL;
- 
- 	idr_preload(GFP_NOFS);
- 	spin_lock_irq(&c->lock);
-@@ -707,6 +708,8 @@ static struct p9_req_t *p9_client_zc_rpc(struct p9_client *c, int8_t type,
- 		 * into rc only while it waits.
- 		 */
- 	}
-+	/* The caller may reuse the payload once the transport releases it */
-+	wait_event_idle(req->wq, !smp_load_acquire(&req->zc_pages));
- recalc_sigpending:
- 	if (sigpending) {
- 		spin_lock_irqsave(&current->sighand->siglock, flags);
-diff --git a/net/9p/trans_virtio.c b/net/9p/trans_virtio.c
-index 68c3457bec401..d6914e5b36972 100644
---- a/net/9p/trans_virtio.c
-+++ b/net/9p/trans_virtio.c
-@@ -42,6 +42,43 @@ static DEFINE_MUTEX(virtio_9p_lock);
- static DECLARE_WAIT_QUEUE_HEAD(vp_wq);
- static atomic_t vp_pinned = ATOMIC_INIT(0);
- 
-+/**
-+ * struct p9_zc_pages - the pages mapped for the device by a zero-copy request
-+ * @in_pages: the pages of the reply payload
-+ * @out_pages: the pages of the request payload
-+ * @in_nr_pages: the number of reply pages
-+ * @out_nr_pages: the number of request pages
-+ * @need_drop: whether p9_zc_release() drops a reference to each page
-+ * @held: whether req_done() releases this structure
-+ */
-+struct p9_zc_pages {
-+	struct page **in_pages;
-+	struct page **out_pages;
-+	int in_nr_pages;
-+	int out_nr_pages;
-+	int need_drop;
-+	bool held;
-+};
-+
-+static void p9_zc_release(struct p9_zc_pages *zc)
-+{
-+	if (zc->need_drop) {
-+		if (zc->in_pages) {
-+			p9_release_pages(zc->in_pages, zc->in_nr_pages);
-+			atomic_sub(zc->in_nr_pages, &vp_pinned);
-+		}
-+		if (zc->out_pages) {
-+			p9_release_pages(zc->out_pages, zc->out_nr_pages);
-+			atomic_sub(zc->out_nr_pages, &vp_pinned);
-+		}
-+		/* wakeup anybody waiting for slots to pin pages */
-+		wake_up(&vp_wq);
-+	}
-+	kvfree(zc->in_pages);
-+	kvfree(zc->out_pages);
-+	kfree(zc);
-+}
-+
- /**
-  * struct virtio_chan - per-instance transport information
-  * @inuse: whether the channel is in use
-@@ -142,6 +179,15 @@ static void req_done(struct virtqueue *vq)
- 			need_wakeup = true;
- 		}
- 
-+		/* The device has returned the buffers of a zero-copy request */
-+		if (req->zc_pages) {
-+			if (req->zc_pages->held)
-+				p9_zc_release(req->zc_pages);
-+			/* pairs with smp_load_acquire() in p9_client_zc_rpc() */
-+			smp_store_release(&req->zc_pages, NULL);
-+			wake_up(&req->wq);
-+		}
-+
- 		if (len) {
- 			req->rc.size = len;
- 			p9_client_cb(chan->client, req, REQ_STATUS_RCVD);
-@@ -419,25 +465,30 @@ p9_virtio_zc_request(struct p9_client *client, struct p9_req_t *req,
+@@ -477,12 +477,7 @@ p9_client_rpc(struct p9_client *c, int8_t type, const char *fmt, ...);
+ static int p9_client_flush(struct p9_client *c, struct p9_req_t *oldreq)
  {
- 	int in, out, err, out_sgs, in_sgs;
- 	unsigned long flags;
--	int in_nr_pages = 0, out_nr_pages = 0;
--	struct page **in_pages = NULL, **out_pages = NULL;
-+	struct p9_zc_pages *zc;
- 	struct virtio_chan *chan = client->trans;
- 	struct scatterlist *sgs[4];
- 	size_t offs = 0;
--	int need_drop = 0;
- 	int kicked = 0;
-+	bool held;
+ 	struct p9_req_t *req;
+-	s16 oldtag;
+-	int err;
+-
+-	err = p9_parse_header(&oldreq->tc, NULL, NULL, &oldtag, 1);
+-	if (err)
+-		return err;
++	s16 oldtag = oldreq->tc.tag;
  
- 	p9_debug(P9_DEBUG_TRANS, "virtio request\n");
+ 	p9_debug(P9_DEBUG_9P, ">>> TFLUSH tag %d\n", oldtag);
  
-+	zc = kzalloc_obj(*zc, GFP_NOFS);
-+	if (!zc) {
-+		err = -ENOMEM;
-+		goto out;
-+	}
-+
- 	if (uodata) {
- 		__le32 sz;
--		int n = p9_get_mapped_pages(chan, &out_pages, uodata,
--					    outlen, &offs, &need_drop);
-+		int n = p9_get_mapped_pages(chan, &zc->out_pages, uodata,
-+					    outlen, &offs, &zc->need_drop);
- 		if (n < 0) {
- 			err = n;
- 			goto err_out;
- 		}
--		out_nr_pages = DIV_ROUND_UP(n + offs, PAGE_SIZE);
-+		zc->out_nr_pages = DIV_ROUND_UP(n + offs, PAGE_SIZE);
- 		if (n != outlen) {
- 			__le32 v = cpu_to_le32(n);
- 			memcpy(&req->tc.sdata[req->tc.size - 4], &v, 4);
-@@ -450,13 +501,13 @@ p9_virtio_zc_request(struct p9_client *client, struct p9_req_t *req,
- 		sz = cpu_to_le32(req->tc.size + outlen);
- 		memcpy(&req->tc.sdata[0], &sz, sizeof(sz));
- 	} else if (uidata) {
--		int n = p9_get_mapped_pages(chan, &in_pages, uidata,
--					    inlen, &offs, &need_drop);
-+		int n = p9_get_mapped_pages(chan, &zc->in_pages, uidata,
-+					    inlen, &offs, &zc->need_drop);
- 		if (n < 0) {
- 			err = n;
- 			goto err_out;
- 		}
--		in_nr_pages = DIV_ROUND_UP(n + offs, PAGE_SIZE);
-+		zc->in_nr_pages = DIV_ROUND_UP(n + offs, PAGE_SIZE);
- 		if (n != inlen) {
- 			__le32 v = cpu_to_le32(n);
- 			memcpy(&req->tc.sdata[req->tc.size - 4], &v, 4);
-@@ -476,10 +527,10 @@ p9_virtio_zc_request(struct p9_client *client, struct p9_req_t *req,
- 	if (out)
- 		sgs[out_sgs++] = chan->sg;
- 
--	if (out_pages) {
-+	if (zc->out_pages) {
- 		sgs[out_sgs++] = chan->sg + out;
- 		out += pack_sg_list_p(chan->sg, out, VIRTQUEUE_NUM,
--				      out_pages, out_nr_pages, offs, outlen);
-+				      zc->out_pages, zc->out_nr_pages, offs, outlen);
- 	}
- 
- 	/*
-@@ -494,10 +545,10 @@ p9_virtio_zc_request(struct p9_client *client, struct p9_req_t *req,
- 	if (in)
- 		sgs[out_sgs + in_sgs++] = chan->sg + out;
- 
--	if (in_pages) {
-+	if (zc->in_pages) {
- 		sgs[out_sgs + in_sgs++] = chan->sg + out + in;
- 		pack_sg_list_p(chan->sg, out + in, VIRTQUEUE_NUM,
--			       in_pages, in_nr_pages, offs, inlen);
-+			       zc->in_pages, zc->in_nr_pages, offs, inlen);
- 	}
- 
- 	BUG_ON(out_sgs + in_sgs > ARRAY_SIZE(sgs));
-@@ -522,6 +573,7 @@ p9_virtio_zc_request(struct p9_client *client, struct p9_req_t *req,
- 			goto err_out;
- 		}
- 	}
-+	req->zc_pages = zc;
- 	virtqueue_kick(chan->vq);
- 	spin_unlock_irqrestore(&chan->lock, flags);
- 	kicked = 1;
-@@ -539,27 +591,28 @@ p9_virtio_zc_request(struct p9_client *client, struct p9_req_t *req,
- 
- 		// RERROR needs reply (== error string) in static data
- 		if (unlikely(req->rc.sdata[4] == P9_RERROR))
--			handle_rerror(req, in_hdr_len, offs, in_pages);
-+			handle_rerror(req, in_hdr_len, offs, zc->in_pages);
-+	} else {
-+		/*
-+		 * A fatal signal ended the wait, and the device may still hold
-+		 * the request, so let req_done() release the pages unless the
-+		 * device has already returned the request.
-+		 */
-+		spin_lock_irqsave(&chan->lock, flags);
-+		held = req->zc_pages;
-+		if (held)
-+			zc->held = true;
-+		spin_unlock_irqrestore(&chan->lock, flags);
-+		if (held)
-+			return err;
- 	}
- 
- 	/*
- 	 * Non kernel buffers are pinned, unpin them
- 	 */
- err_out:
--	if (need_drop) {
--		if (in_pages) {
--			p9_release_pages(in_pages, in_nr_pages);
--			atomic_sub(in_nr_pages, &vp_pinned);
--		}
--		if (out_pages) {
--			p9_release_pages(out_pages, out_nr_pages);
--			atomic_sub(out_nr_pages, &vp_pinned);
--		}
--		/* wakeup anybody waiting for slots to pin pages */
--		wake_up(&vp_wq);
--	}
--	kvfree(in_pages);
--	kvfree(out_pages);
-+	p9_zc_release(zc);
-+out:
- 	if (!kicked) {
- 		/* reply won't come */
- 		p9_req_put(client, req);
 -- 
 2.56.0
 
