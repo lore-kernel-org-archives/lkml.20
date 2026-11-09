@@ -1,78 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794189542;
-	b=Ml27RumUl4HB+8SNJKVea38Qnwm6qaYNODvsdsa1iGzBiCK15/zEOXUyVpbXApBEe8JM
-	 jd6Yd47EpWpoF19CIfCdqhOKGXDvGKY+O4Rmn3Dvb9coGdFz8aDIBaJ8KnArYSaxxFuiO
-	 H9r8gzh04ejmhyFOUmTjTH1f9y7qLUz5ck7dCXrjy/OidtHJjGW2ZEHri/7XZPIwsU1jI
-	 MM8LwhHwes+97bsd55c3QSZQHiP5xnFBjyTTGvCz4aDTD7OWlr6b9mzLt2ApY/owHu8Da
-	 SEuFuyonEGcEOW2vuWx3XWSLR7HPANLSf+Uu/5WwsfbL1bJICmPUPaXV1ifjJnRj0qA==
+	t=1794189592;
+	b=FzJiinDOZSuOdI9jIoFTCWb47nr5I2/WrETjFZtI2unM3NWLv85EH5GoUH/8ctnI4gyP
+	 RMCcSnUGr3Y4FDF+6NldBSZnjkYJFM7A0CCGxDeb2XAwWocImFhuCJw7p3VxyaMl1cNYa
+	 uMiG7xK1VjcqveQD4Q5ahoBb64/+JWyuMY+fXwV2ZJmhs/GYGJZhxj4JcXqZ6lRXeczgI
+	 pD58V2gemFFv7wCOYjWmDNlcVsAElsIoH7e6e5cO9i0vVHPlYc/ciTmvYUBbidaceR3i8
+	 2R1GLYIjimVfSCUgMQZ7CHmWI2g5HjwMg4nsBm8wWb9x9RDlG75BmD3d5RYoFLUfH7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794189542;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=+OK9DbeBognNQm2Uppczdy/4MmLJ1Qm7DUxD2VxghhA=;
-	b=4V8YNTdEFdoDptxCynXAZODWBT6RY/xqimHWRVBLYBWmxDsJpaeLFcX3Ub4mISYuoyje
-	 lpM12czrzdV5i0nnXUsZ3c3TU6zh4sCEu5yQKtzCUWrQuk+6aaDNc0EGypEXgC69n97OI
-	 1NrOrDlIb/TdTlrBkA9awr3fzy4cDzP+rjmJI1+5OKef7GvfGVFJq8y5e0veXsYwWA9oJ
-	 egmmXotHJUWSC+fY+RSu9DFum5G51Na2+TJThRl8EYv2uZdk1Obl5E5fADEGfi+Rn2hfQ
-	 KGsgwEYZ0B5ZsPlgL4rpZ7RbixnlTHxFFP5WEzjoekl72GJkyyNb9HO+6EWJIDWUZwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794189592;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=HdJJGJvLJfBXV+myjhoI101l0bLvmZStfb+qas1H65M=;
+	b=fEiKtsWZU0Koc078pB4KzXjBcT3uvUbUCBYaoLP+V/gSzunnKKKjBM/lDj+/+lcL+y1Q
+	 tcrBbtYoiAPPgFAxOwxbbWmVuC+VcraVi1dtzteh5Ip7J9r/1FAS1Q46pAEvHDPRgyfwO
+	 vxzfFOKy85QwaZQI7/ZrN2tEH6cp/NTgIKrx2GQ5xeYj7LUlh8vfEl0CMatWV1bo3Ab6I
+	 GmEKfxdsyi1JL0PEMcBhfgrz5s375UPqdPlAoR1Tgr5gsFOA5wojSroD9K1fhVi8JrEep
+	 rXXUGP7+y/bqwrwca0J+TYAe4ncgIKAaCiDTLfjKlBX3sqLv1WPmTJr6oKiSdrYycQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=m5yBrWFa;
-	arc=none smtp.remote-ip=111.22.67.135
-Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AAC86606A32A;
-	Mon,  9 Nov 2026 01:58:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAC86606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="SotyYDm/";
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF55606A330
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:59:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACF55606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=m5yBrWFa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=m5yBrWFaxKx85D2r0pdfxUKdz4+L0/lw50/JGGJjRFILU3SuYmpBQVsrxmzTDyosFUPu//pXARTyu
-	 mxdoLu65PvtCoZvZ+/QcQcLbdKJWc8RkVSSw4v/Y7gVDCZX4YkIid/FtpsGCnzND/Panv3mluJVQA7
-	 eEnzj0zISyy/3DQs=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app03-12003 (RichMail) with SMTP id 2ee36af128e1877-8af85;
-	Mon, 09 Nov 2026 09:58:57 +0800 (CST)
-X-RM-TRANSID:2ee36af128e1877-8af85
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.102])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af128df0e3-7caff;
-	Mon, 09 Nov 2026 09:58:57 +0800 (CST)
-X-RM-TRANSID:2ee16af128df0e3-7caff
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: willemdebruijn.kernel@gmail.com
-Cc: davem@davemloft.net,
-	dsahern@kernel.org,
-	edumazet@kernel.org,
-	horms@kernel.org,
-	idosch@nvidia.com,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	shuah@kernel.org,
-	stable@vger.kernel.org,
-	tpluszz77@gmail.com,
-	willemb@google.com,
-	yana06070@163.com
-Subject: Re: [PATCH net v2 1/2] ipv6: fix cached route reuse for SO_MARK control messages
-Date: Mon,  9 Nov 2026 09:58:45 +0800
-Message-ID: <20261109015838.14237-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <willemdebruijn.kernel.1e0038bcc3ef8@gmail.com>
-References: <20261104092240.15649-1-yanxia@cmss.chinamobile.com> <willemdebruijn.kernel.1e0038bcc3ef8@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=SotyYDm/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=HdJJGJvLJfBXV+myjhoI101l0bLvmZStfb+qas1H65M=;
+	b=SotyYDm/hruw5R2SsojDiVa3MY+I3Zg8f0S6scoTLSKX7DJkkvOJEw5JASj++z
+	pVQqfToLq+t7QG5QEMLHRIch06ta/ize8f/gpMVmHrjJS/DbSNdfhZrB2ySeGlsR
+	iXgiyUwOptIt9JhHg/uXr5n+9A1oFqc8KW2WP/diJaUQ8=
+Received: from [IPV6:2409:8900:1fc3:1c4:1334:395a:4176:707c] (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wD3XyX5KPFqmwDTGA--.55471S2;
+	Mon, 09 Nov 2026 09:59:23 +0800 (CST)
+Message-ID: <90e94e53-08b5-4ca4-8dff-0ab92abdabf1@163.com>
+Date: Mon, 9 Nov 2026 09:59:20 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,22 +54,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/5] ntfs: support O_TMPFILE
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Baolin Liu <liubaolin@kylinos.cn>
+References: <20261106063059.2904988-1-liubaolin12138@163.com>
+ <CAKYAXd8JHaJcs8j-Jbf3UecDD-SKEnhAsMd_7XJ1eh8HcC=UpA@mail.gmail.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <CAKYAXd8JHaJcs8j-Jbf3UecDD-SKEnhAsMd_7XJ1eh8HcC=UpA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3XyX5KPFqmwDTGA--.55471S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuFWfuF1UXw4DXF13AF48Xrb_yoW7Kr45pF
+	Zaga98tw4DJr1xW392va1DXF10vayfJF47Jr15WrW7uwn8KFn7trWxKr4YvasrC393Gw4j
+	qw4jq34xXF98ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zR-o7iUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6h1gK2rxKP1dkgAA39
 
-Hi Willem,
 
-> Would this be a viable alternative solution?
 
-Yes, I've used your approach in v3: the cache is read only when
-connected is true.
+在 2026/11/6 19:37, Namjae Jeon 写道:
+> On Fri, Nov 6, 2026 at 3:31 PM Baolin Liu <liubaolin12138@163.com> wrote:
+>>
+>> From: Baolin Liu <liubaolin@kylinos.cn>
+> Hi Baolin,
+>>
+>> This series adds O_TMPFILE support to fs/ntfs. Applications can prepare a
+>> regular file's contents and metadata before publishing it with linkat().
+>> Unpublished files are reclaimed when their last reference is released.
+>> O_EXCL prevents publication.
+>>
+>> The series keeps the same five changes and ordering as v1 and v2:
+>>
+>>    1. Initialize inherited ACLs after allocating the new MFT record.
+>>       Anonymous creation needs its inherited ACL stored before returning.
+>>    2. Preserve prepared atime and mtime when publishing the inode through
+>>       the hard-link path.
+>>    3. Initialize the new FILE_NAME's packed EA size, since a temporary
+>>       file may already have EAs when it is published.
+>>    4. Complete unlinked-file attribute writes before dropping the cache,
+>>       including EAs and data copied during resident-to-nonresident
+>>       conversion before publication.
+>>    5. Add O_TMPFILE creation and publication support.
+>>
+>> As requested in review, patch 2 gives the new FILE_NAME and directory
+>> index entry the same ctime as the inode. The inode ctime is updated only
+>> after the link succeeds. Patch 1 also initializes a newly created
+>> FILE_NAME's ctime after inherited ACL setup, fixing a timestamp mismatch
+>> caused by moving ACL initialization later in v1.
+>>
+>> In v3, patch 4 also preserves data copied by
+>> ntfs_attr_make_non_resident(). As reported in review, growing DATA in a
+>> nearly full MFT record can convert SECURITY_DESCRIPTOR and leave its
+>> contents only in a dirty folio. Evicting the zero-link attribute inode
+>> then discards those contents.
+>>
+>> Write the resident value to the newly allocated clusters before
+>> committing the conversion. If that write fails, release the new clusters
+>> and retain the original resident value. Propagate the error to the caller
+>> instead of continuing with another attribute. Patches 1-3 and 5 are
+>> unchanged in code from v2.
+>>
+>> While implementing and testing O_TMPFILE, we also found pre-existing
+>> NTFS bugs in attribute rollback and ACL lookup. These include stale
+>> attribute inodes left cached after failed creation, which can cause
+>> subsequent creation to return EIO even after space is freed, incorrect
+>> ACL inheritance when the default ACL is not cached, and a fixed-size
+>> read buffer that cannot handle larger ACL values. The underlying bugs
+>> predate this series.
+>>
+>> To keep this series focused on O_TMPFILE support and review
+>> feedback, we are leaving these existing bugs to a separate bug-fix
+>> series. We plan to submit those fixes after this series is accepted and
+>> merged. These issues remain present with this series applied.
+>>
+>> Tested this five-patch series in QEMU with four CPUs, NTFS debug and
+>> lockdep enabled. The requested unchanged xfstests generic/004 and
+>> generic/389 passed. Tests covered creation, publication, last-reference
+>> cleanup, O_EXCL, normal idmapped ownership, named streams, nonresident
+>> EAs, direct I/O, mmap, allocation and concurrent publication. Published
+>> data and metadata were checked after cache eviction, remount and reboot.
+>> Offline inspection compared hard-link ctime in STANDARD_INFORMATION,
+>> the new FILE_NAME and the directory index.
+>>
+>> The conversion regression uses 1 KiB MFT records and varies EA sizes
+>> before writing 4 KiB to anonymous and ordinary files. Offline inspection
+>> compares SECURITY_DESCRIPTOR contents with the original resident value.
+>> The v2 kernel loses converted security descriptors and some EAs; v3
+>> preserves them with 512-byte, 4 KiB and 8 KiB clusters, including after a
+>> fresh boot. An injected block write error returns EIO and leaves the
+>> resident security descriptor and EA intact. Free space is unchanged after
+>> that failure, and retrying the write succeeds.
+>>
+>> Changes in v3:
+>> - Extend patch 4 to write converted attribute data before switching the
+>>    record to nonresident form, addressing the v2 review.
+>> - Preserve the resident value on conversion write failure and propagate
+>>    conversion errors.
+>> - Add conversion and I/O-error regression tests and rerun generic/004
+>>    and generic/389.
+>> - No code changes to patches 1-3 and 5; add Hyunchul Lee's Reviewed-by.
+>>
+>> Changes in v2:
+>> - Update FILE_NAME and index ctime as requested in review.
+>> - Set the source inode ctime only after successful hard-link creation.
+>> - Initialize creation FILE_NAME ctime after inherited ACL setup.
+>> - Run generic/004 and generic/389 on the standalone five-patch series.
+>> - Rebase onto ntfs-next commit
+>>    564c7753647731d19170914c1c637d3b33d88d3b, including the const mnt_idmap
+>>    tmpfile callback signature and documentation context.
+>> - Resolve patch 1 against the updated early ACL error handling in
+>>    __ntfs_create(); the relocated ACL failure still uses MFT/EA rollback.
+>> - Keep the original five-patch scope; submit fixes for the pre-existing
+>>    attribute rollback and ACL lookup bugs separately after this series
+>>    is merged.
+>> - No functional changes to patches 3 and 4.
+>>
+>> Baolin Liu (2):
+>>    ntfs: initialize inherited ACLs after allocating the MFT record
+>>    ntfs: support O_TMPFILE
+>>
+>> Xuewen Wang (3):
+>>    ntfs: preserve timestamps when creating hard links
+>>    ntfs: initialize packed EA size when creating hard links
+>>    ntfs: write unlinked file attributes before dropping their cache
+> 
+> Can you check Sashiko's review comments? I think some of the points
+> raised in Sashiko’s review are worth looking into.
+> 
+> https://sashiko.dev/#/patchset/20261106063059.2904988-1-liubaolin12138%40163.com
+> 
+> Thanks.
 
-All 54 cmsg_so_mark.sh cases pass on UML, including explicit mark 0.
-
-v3:
-https://lore.kernel.org/netdev/20261109014400.9025-1-yanxia@cmss.chinamobile.com/
+Hi Namjae,
+    Thanks for pointing this out. I'll address the review comments and 
+send v4 as soon as possible.
 
 Thanks,
-Xia Yan
-
+Baolin.
 
