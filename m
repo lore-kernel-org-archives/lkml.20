@@ -1,77 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794225793;
-	b=UBnsCubhIEF5/sqN1Na4K7+csSL6uu7VwkHVFB0n4beaz0sa0jHyghnKPkeiIGg6P86o
-	 xsYpBR69Ovrbu+5ejOY67L98WX8g8/ZgKwyySuvlHI4Lfa8q1JJK0m2May0+turtywDhA
-	 DZ2nMQxk47FpsPproDfUdhLlc8mxBmyzxBe2Kl4B8G74bkaKoa897ZhXgcnXnRoQiPzAg
-	 OaRcMv14Axq5fkD4mS06owr1fE7JYAZEtyPKDJQtGN22VxVtii7d0fvF4vbcGQFIAoom4
-	 lijAx33CvX0jg8Wf7kZ923HyHp3I5dc9+tix7JeD8i/t/PUlGwrwcYAfE91ttwkbn6g==
+	t=1794225825;
+	b=pPihEynb2gB1IjqXkb9IMJSLQ9/+k24krz07ladDcdhBKqmSz9TCa/d3mqZYCapmMZn0
+	 4h8aqr8BzUWeB3WNP8KpUp3YL+9tlErNsc8wxD2qo5qozvjevhu25V86GHdidsasq/QeQ
+	 fPwqUF5CDWhhh4RufC3H8lMjAASIdHl5VpqVZkMKkijNwpjriXDBI5lLr/HXcoy7etjo/
+	 zxABgZv6WHrTiXOhBdOIWwjpZR8nDkbD8x3yd0zUQCMeGrXX8n0Pc9IqzzdZqu30ewytR
+	 +uzSW5HiqvDBGj1ZGkCBavzIMypFowk+QRLXJKof8Qh1JQHwgUFF2QF6LskiSGsnCZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794225793;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=Pz9Hpm8j1u82FYaXh8nr33sjNtVErXhzD75hDRVTwoY=;
-	b=JDnV7Fn+8VFT5sbRPZhwKbmGNc1lIvIcT1qKT6NtDRelVC6U7iScPFuVWQ0zxtGJYxvf
-	 ymUPMWbfGaW/vbY6V4TjiWNZTqsSa7hNcCuZh1DgB6irHbPjR0W1BzQ7JVHdjo2M4mA6A
-	 XNZVaEuLU+CQTXZvzqKOEPEnGR73VYhK701ocPKzwzxvB83ETzpyNhCbdATINi8I02zwU
-	 uoP0AtjQsqrutZpQXQ7E4bVFfG9KFv3jhsp9GcBVuyLfqJnM7alpHdoLjYQRFQUv9b2JB
-	 5bZ9RgYz/zlX5pZZluTZpmHRsXPgsaLGuKJnDL4K7L+hacW069TP8ZH6dI5ijS+Iewg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794225825;
+	h=DMARC-Filter:DKIM-Signature:Date:X-Lms-Return-Path:To:
+	 Content-Transfer-Encoding:X-Original-From:X-Mailer:From:Message-Id:
+	 Mime-Version:Content-Type:Cc:Subject;
+	bh=v7noJFWyhPyas3ihZ7WV/RNLGJABt0a32tKsgqHOSU8=;
+	b=SBbYS4pCJU3c3/19h4CYV4HSpAKjci9cxMWkk+xqPzFxuuN4a3guMopbESq1IGaDAytZ
+	 82Cr4T2JRdHc7/KV4sAKtQ2MG3Cy1K+Gl3O+jcC2qofiIMxWwgyLFAcUSXnnvG/p3FuG+
+	 hJPPZHuuIG7mSnOSdhFI2rZ800xnJN7XIZ2O04fPTxDlRs3GBYB27lhWkL/LnbDROMNE2
+	 0a3jBSZTxsLLVbM85DY4g7UeDkv6yJf+vNzpKbz7ooeKCuIOAIUHpROkt1GLqVmmKXhyb
+	 INlF2M2MUKsGKgPxh3jZcneLcBNogKS7ZzWKPM0sMuutdeB2i5WWYtNXUuSZizn4ZUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="nlX/lCT3";
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=IvYEgYhD;
+	arc=none smtp.remote-ip=209.127.230.113
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60AE2606A31C;
-	Mon,  9 Nov 2026 12:03:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60AE2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA32606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:03:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FA32606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nlX/lCT3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794225793; x=1825761793;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=sYbfKgh8lkl7yxvDpMidYJPRN6EgAMxRg2ax/bIvwq8=;
-  b=nlX/lCT3G8XZnDZJKH91ZuhOjs3A9z7MXyzw/0vuVOePY2EOVUlupE8y
-   wKel9erEWxsaT+86jU5hUnE+/xdZemp1h6YDuWFvzyadWpQVv78E4Mida
-   HLEcLFM6hfD09Ph8LnZyEUk/zxpU8hzhq8+3H6r8hszwox+uZzwx655dv
-   wsT8CbEdjh3ZMoSzh36rzh0vgQKBYfR6pwJcmJ75SuKtlEbv/Z9Yfrk2f
-   wt2W99TqoMvydk1v303pNAuw1GkrbaDhweGsGxLcSlaWYOGVH25sJPznA
-   NerK4ufY9c3sIo+E7uB/ntizd+NVh/cPHRCh89SNkbaO2LBc1cBn1TIg4
-   A==;
-X-CSE-ConnectionGUID: 69RhCk68QZ2c7qLXtW8Nmg==
-X-CSE-MsgGUID: T9rd8x2sTdmQVPp/rgGuig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="3047382"
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="3047382"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:03:12 -0800
-X-CSE-ConnectionGUID: xYJiNJYtRwe4WKF5bJna/Q==
-X-CSE-MsgGUID: pa3sT1BRSxiuFmlUIbzTqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
-   d="scan'208";a="9707620"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:03:06 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 9 Nov 2026 14:03:02 +0200 (EET)
-To: Hans Zhang <18255117159@163.com>
-cc: bhelgaas@google.com, mani@kernel.org, lpieralisi@kernel.org, 
-    kwilczynski@kernel.org, thierry.reding@kernel.org, ryder.lee@mediatek.com, 
-    jonathanh@nvidia.com, robh@kernel.org, linux-pci@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, linux-mediatek@lists.infradead.org, 
-    linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] PCI: Use pcie_get_link_speed() in pci.c
-In-Reply-To: <20261108094034.679945-2-18255117159@163.com>
-Message-ID: <43198b7a-b0f7-49e4-731a-807e7d9e5959@linux.intel.com>
-References: <20261108094034.679945-1-18255117159@163.com> <20261108094034.679945-2-18255117159@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=IvYEgYhD
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794225817; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=v7noJFWyhPyas3ihZ7WV/RNLGJABt0a32tKsgqHOSU8=;
+ b=IvYEgYhD02nctOnuL6sH/aesWRrDXnnmlyxAfjx3+e+cvQ5L013F75fMRoZQCzT3J44wEj
+ 5i7lGCDU3l3dtpODVKPg8vOV5uMQ8CBapFHlRR+eMarU7ORDuH+omM1o4R44FYmkLyVB9O
+ lw+hkC0T7Qh+QbxKugHfZ9KphKqh10EzebyOXLZR+egsVoJtGpzkGWkdv50HVNMjdNqHK6
+ aWcljmO0FskzuFsYb9Sjgs7/rWt/UErUnxISiXAxk1oK6x6HIRggjKW5J6SqKp5M0lr97H
+ 9Sk86gyhLigBtiXiepHOaxTb4XX32KC40U/or7xB3GQavIBOQrWPPtQkB+LQeg==
+Date: Mon,  9 Nov 2026 20:03:21 +0800
+X-Lms-Return-Path: <lba+26af1b697+b7d842+vger.kernel.org+qirui.001@bytedance.com>
+To: <linux-perf-users@vger.kernel.org>
+Content-Transfer-Encoding: 7bit
+X-Original-From: Rui Qi <qirui.001@bytedance.com>
+X-Mailer: git-send-email 2.52.0
+From: "Rui Qi" <qirui.001@bytedance.com>
+Message-Id: <20261109120320.75053-2-qirui.001@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,61 +59,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Cc: <linux-kernel@vger.kernel.org>, <linux-riscv@vger.kernel.org>, 
+	<peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>, 
+	<namhyung@kernel.org>, "Rui Qi" <qirui.001@bytedance.com>
+Subject: [PATCH] perf parse-events: default data breakpoints to any size on RISC-V
 
-On Sun, 8 Nov 2026, Hans Zhang wrote:
+When the length of a data breakpoint is not specified on the command
+line, perf defaults it to HW_BREAKPOINT_LEN_4:
 
-> Replace the to_pcie_link_speed() wrapper with pcie_get_link_speed() in
-> pcie_link_bandwidth_mbps() and pcie_bandwidth_available(), and remove
-> the now-unused wrapper.  pcie_get_link_speed() performs the same lookup
-> with bounds checking and is already exported.
-> 
-> Signed-off-by: Hans Zhang <18255117159@163.com>
-> ---
->  drivers/pci/pci.c | 9 ++-------
->  1 file changed, 2 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 7c6f2aba8144..92ede1768caf 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -6025,11 +6025,6 @@ int pcie_set_mps(struct pci_dev *dev, int mps)
->  }
->  EXPORT_SYMBOL(pcie_set_mps);
->  
-> -static enum pci_bus_speed to_pcie_link_speed(u16 lnksta)
-> -{
-> -	return pcie_link_speed[FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)];
-> -}
-> -
->  /**
->   * pcie_link_bandwidth_mbps - get the current bandwidth of a single PCIe link
->   * @pdev: PCI device to query
-> @@ -6048,7 +6043,7 @@ int pcie_link_bandwidth_mbps(struct pci_dev *pdev)
->  	if (err)
->  		return pcibios_err_to_errno(err);
->  
-> -	speed = pcie_dev_speed_mbps(to_pcie_link_speed(lnksta));
-> +	speed = pcie_dev_speed_mbps(pcie_get_link_speed(FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta)));
+  $ perf record -e mem:0x30020:w ./prog
 
-Readability seems worse due to cramming everything into a single 
-statement.
+That assumes the length describes a byte range that is compared
+against the address of the access, which is how the x86 debug
+registers and most other architectures work.
 
->  	if (speed < 0)
->  		return speed;
->  
-> @@ -6089,7 +6084,7 @@ u32 pcie_bandwidth_available(struct pci_dev *dev, struct pci_dev **limiting_dev,
->  	while (dev) {
->  		pcie_capability_read_word(dev, PCI_EXP_LNKSTA, &lnksta);
->  
-> -		next_speed = to_pcie_link_speed(lnksta);
-> +		next_speed = pcie_get_link_speed(FIELD_GET(PCI_EXP_LNKSTA_CLS, lnksta));
->  		next_width = FIELD_GET(PCI_EXP_LNKSTA_NLW, lnksta);
->  
->  		next_bw = next_width * PCIE_SPEED2MBS_ENC(next_speed);
-> 
+RISC-V debug triggers behave differently.  An Sdtrig mcontrol6
+trigger encodes the width of the memory access it should match, and
+it only fires for accesses of exactly that width.  Watching an 8-byte
+variable with the implicit 4-byte length therefore never triggers:
+the perf event is created and enabled, but no event is ever
+delivered:
 
+  $ perf stat -e mem:0x30020:w ./prog          # 8-byte stores
+  0       mem:0x30020:w
+  $ perf stat -e mem:0x30020/8:w ./prog
+  10      mem:0x30020:w
+
+The failure is silent and easily mistaken for a broken hardware
+breakpoint implementation.  Tracing hw_breakpoint_exceptions_notify()
+while the event is active confirms the trigger never fires.
+
+Zero is a valid length for RISC-V data breakpoints: the kernel
+encodes it as size 0, which means "match any size".  That is what a
+user leaving out the length asks for, so use it as the default on
+RISC-V and keep the existing 4-byte default elsewhere.
+
+Tested on a riscv64 kernel with hardware breakpoint support.  With the
+default length, watching an 8-byte and a 4-byte variable both count
+10 stores, while explicit lengths keep their exact-width behaviour:
+/8 only matches the 8-byte access and /4 only the 4-byte one.
+
+Signed-off-by: Rui Qi <qirui.001@bytedance.com>
+---
+ tools/perf/util/parse-events.c | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
+
+diff --git a/tools/perf/util/parse-events.c b/tools/perf/util/parse-events.c
+index f3ba70d4f76b..b72e4b0da8a1 100644
+--- a/tools/perf/util/parse-events.c
++++ b/tools/perf/util/parse-events.c
+@@ -598,6 +598,27 @@ size_t default_breakpoint_len(void)
+ #endif
+ }
+ 
++/*
++ * Default length for data breakpoints when the user did not specify one.
++ *
++ * Most architectures treat the length as a byte range that is compared
++ * against the address of the access, so 4 bytes is a reasonable default
++ * that matches most accesses.  RISC-V debug triggers (Sdtrig mcontrol6)
++ * encode the width of the access in the trigger instead, and a trigger
++ * only fires when the access has exactly that width.  This holds for
++ * both RV32 and RV64.  With a fixed default, an access of a different
++ * width silently never matches, so pass 0 on RISC-V, which the kernel
++ * translates to "match any size".
++ */
++static size_t default_data_breakpoint_len(void)
++{
++#if defined(__riscv)
++	return 0;
++#else
++	return HW_BREAKPOINT_LEN_4;
++#endif
++}
++
+ static int
+ parse_breakpoint_type(const char *type, struct perf_event_attr *attr)
+ {
+@@ -658,7 +679,7 @@ int parse_events_add_breakpoint(struct parse_events_state *parse_state,
+ 		if (attr.bp_type == HW_BREAKPOINT_X)
+ 			len = default_breakpoint_len();
+ 		else
+-			len = HW_BREAKPOINT_LEN_4;
++			len = default_data_breakpoint_len();
+ 	}
+ 
+ 	attr.bp_len = len;
 -- 
- i.
-
+2.52.0
