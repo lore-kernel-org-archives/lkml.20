@@ -1,66 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794203631;
-	b=ZCFRYO/6Ylv4B/DgXL6rgzSF51Z1aFPJhPrsq+dcqmVOnQbC+Npzj+I5GeuyA+v2iDkL
-	 ZveoGZ1x2M92GVF33MNdDHZf/fDA32MERt7iFpgNc0bDHeVJOHAfSBArVRPC7mU+qXmtK
-	 o02xHStcA8lf2sj2AZSpk4lDyiUDEUz/kngvt0j5AprJtcwVBlS1COpQVgvKKmGRZprSy
-	 j9j6bfk+WAqrKC+4WQIkjACjKJcacDC3JYQZTrn7SnssCi2+QrhVFh5pkdZsjdnYkHxbT
-	 SCAYk7FtV3gb2W4d1HqGBmq2P9MkUrZegFsiDuVsiWPmRPL1XARrsYXiaaILjGsFVuA==
+	t=1794203686;
+	b=ldhui/4dmxNQLWEpbJTnXQ+8cNAnehkTfFm9mRtvu3MhFfP0RbmYGtNfVl5I3JWL2GSk
+	 cCkOvCjFAEL+qes6D3zv9zvhsAmt9NimIBEkBfbqddecEdjPoXVcGblWAwi2ldLz0Jsgq
+	 zbVhKoqPCwcfDVHy1aC8W4ciyEr3mMOz1hodoCnwVnQEVe/kAyZFdWmjwn1lZdkEN5SGm
+	 BDUlBo20/ggClF+Qxyydlqz+y7m3H8ODJ5pjz0Dtkiyo9xfOD8HKcy3ki2LGNqwO/SNfy
+	 5YD5dnxY3w7Z0VYflasc7NPqOYzI4geIfFL+TXmPdEKL/NAvkAHH0CRlwjth/h7cFOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794203631;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=W1mfR/+JXbp1hpCZu9HuoqLOwrMsPqWR8ZMYk9Ds6Ng=;
-	b=4BMgLEiYnPyCwvqxwntCdA219LM38X27Gd2Eqf4zbwWBo9FQv+R/Tcqf6lLuejNk5Eik
-	 HyWwjIYSOiP9mKHKGv+lVxMi/TaDeHxfd8uXRUQ407F/VUvQdL5UXh6k4RNyOMxKJFclA
-	 ljti8dE34BC+eDYZA/7mwvz3u8jZoFnb84azkl/Pb1g1DT4dkbqOxzaXEkK93bTpiO4e+
-	 QxRzhh9KvbxL3RSw2g6QiTA/F+87YHCLeJGy+ctr6PTkdyMFr/n78+r3yjCodC6qqP4Wk
-	 JkOaSdHM9o52B5eZ5KwQH43p4NU+Xq+W3s0vAtQYgctrko0qlYVwc/4rD/Cg5xJraLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794203686;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=4vpGeLeIeYKZwhRX632ZaQaeUd4pqX7ikOfK30oZWrU=;
+	b=dvHG5MY2t44nTZ42dXWV6i1p4KOsrSGQhqvZOCyFHwmRm1vAanMA0KlJiGHylFm15X/p
+	 5oj7uHe/itAPYkGwSfpcKKS71ZXw27args1+ke9b+kcB7L4bgl2Qy05tq41PIR9v/Ej8L
+	 m1fidwcBuy0/6QKLXIAapZglW4hGFtwOn8JI0OfsPbwDea6RK3cvQUhULnzDYXEGYEfTD
+	 QIxi3xhtYf8m99yNCWOF3dyo1jnGnp+4veN69GD1HU+fGMz1DWyWcc8mat08g5oqsawHL
+	 ZBdRDXzGxbVPXXr9h7MMzsbwPnHtUUMCt/SJHevETeSmQC+9YjnhLhQqMVeU1Ts4SpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijlKxu8n;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="Frq8lN/0";
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAFAF606A31C;
-	Mon,  9 Nov 2026 05:53:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5A3606A322;
+	Mon,  9 Nov 2026 05:54:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A5A3606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ijlKxu8n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 459FF1F0089F;
-	Mon,  9 Nov 2026 05:53:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794203630;
-	bh=W1mfR/+JXbp1hpCZu9HuoqLOwrMsPqWR8ZMYk9Ds6Ng=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ijlKxu8n/cdoHYoaEVAKvBG2RpOt+W23Lb9OFOL3uAySOP2c4vvmvXKKsfHW4RbVB
-	 9yk5/JkSPA1SQm21DI37LVMJGSnoL1NyCehVi4f8LG5XsYpXEUFvhyrVuez2mbzdel
-	 hpy3vnYy4Gf6eS9HTrZEV2hOZxLuNWRj2q0fhkrhZAjBTSTWocr6prPkZBGi1gVyG3
-	 XvMgEPU5KoeCey2RYtUrg2vSwDrWmTqkM/Fo0jhMx/ayNBz0gw8ihXy15ARQJiMzkM
-	 osdowQDUTqaumgEdN4QGi3toLKjsoVBDOidmdJHmfIKoMau6rKuGsyfp1wa1mgo1OU
-	 wb/gdwnXuc9Jg==
-Subject: Re: [PATCH net v2] net: stmmac: Disable queues before
- netif_tx_disable in xdp_release
-From: netdev-bot+sashiko@kernel.org
-To: muhammad.nazim.amirul.nazle.asmade@altera.com
-Cc: netdev@vger.kernel.org, kuba@kernel.org, maxime.chevallier@bootlin.com,
- ansuelsmth@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, ast@kernel.org, daniel@iogearbox.net,
- hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me,
- faizal.abdul.rahim@intel.com, noor.azura.ahmad.tarmizi@intel.com,
- yoong.siang.song@intel.com, rohan.g.thomas@altera.com,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org
-Date: Mon, 09 Nov 2026 05:53:48 +0000
-Message-ID: <179420362880.994134.12466150409496809199@kernel.org>
-In-Reply-To: <20261105053916.22353-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-References: <20261105053916.22353-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Frq8lN/0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=4v
+	pGeLeIeYKZwhRX632ZaQaeUd4pqX7ikOfK30oZWrU=; b=Frq8lN/0a9nWkGTscR
+	mZ+0pAEoHPzJsNoHAz9AO7hq8QlZzM78heafuW+ZTEpvbME6/5eCi3g2VbdIDF46
+	F+WMLCMXxAyEDCAyTskcSKWhjWoYHEt0jtAeidYbIDipmBYiQATA8Y9/FWd5Dt6Z
+	6Eou9nW7ESbCoRp9WjYO0zIsU=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgCnH57FX_FqLONMEw--.40637S2;
+	Mon, 09 Nov 2026 13:53:11 +0800 (CST)
+From: luoqing <l1138897701@163.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>
+Cc: Phil Sutter <phil@nwl.cc>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Patrick McHardy <kaber@trash.net>,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH nf-next v3 1/2] netfilter: conntrack: avoid secs-to-jiffies overflow in SIP helper
+Date: Mon,  9 Nov 2026 13:53:08 +0800
+Message-Id: <20261109055309.512876-1-l1138897701@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,185 +69,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgCnH57FX_FqLONMEw--.40637S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCr47Zr4fAryUAF45ZF48Crg_yoWrJF1rpF
+	Wrt34Skr4xXF4Sya1kCwn7Aas8Ww4fGa4fWFWYk3yrCanxJF1rKFZagry2qa4DJrWktF13
+	Xa15Wr1jkF1kAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U6q2_UUUUU=
+X-CM-SenderInfo: jorrjmiyzxliqr6rljoofrz/xtbC3QcgZGrxX8e49wAA3S
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+From: Qing Luo <luoqing@kylinos.cn>
 
-Critical: 0 · High: 1 (1) · Medium: 1 · Low: 0
+refresh_signalling_expectation() converts the expiry from a SIP
+REGISTER 2xx response with "expires * HZ" in 32-bit arithmetic and
+stores it in a u32.  sip_strtouint() only rejects values above
+UINT_MAX, so the answering registrar controls the input.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Expectations are reaped with "(__s32)(exp->timeout - nfct_time_stamp)
+<= 0".  A wrapped product can only cut the lifetime short, never
+extend it: at HZ=1000 an expiry of 2147484 seconds (24.9 days)
+crosses 2^31, so the expectation is born expired and registration
+refreshes break, while 4294968 seconds wraps to 704 jiffies and the
+expectation is reaped almost immediately.
 
-- [High] The patch moves the hrtimer_cancel() loop on tx_q->txtimer ahead
-  of netif_tx_disable().
-- [Medium] The reorder only blocks one of the two places that can wake a
-  TX queue after netif_tx_disable() in stmmac_xdp_release().
+Add nf_ct_secs_to_jiffies(), which multiplies in u64 and saturates at
+INT_MAX so the signed expiry test stays positive, and use it for the
+SIP expectation refresh.  Oversized expiries now saturate to the
+INT_MAX jiffies ceiling - about 24.8 days at HZ=1000 and 248 days at
+HZ=100 - which is the same maximum a registrar could already request
+with the largest non-wrapping value; the longest lifetime does not
+change.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but it is a use-
-  after-free in the same teardown.
+Sweeping all 2^32-1 inputs at HZ=1000, the helper never wraps, never
+yields a value that reads as expired, and matches the old expression
+up to INT_MAX / HZ.
 
---
+Fixes: 0f32a40fc91a ("[NETFILTER]: nf_conntrack_sip: create signalling expectations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+---
+v3:
+- Retargeted to nf-next.git as suggested by Pablo.
+- Rebased onto nf-next/master.
+  
+v2:
+- Clarified in the commit message that this patch introduces the
+  nf_ct_secs_to_jiffies() helper, which the subsequent H.323 patch depends on.
+- Added a note about the stable backporting dependency for the helper.
+- Addressed the Sashiko AI review comments.
+https://lore.kernel.org/all/20261106060948.540233-1-l1138897701@163.com/
 
-net: stmmac: Disable queues before netif_tx_disable in xdp_release
+v1: https://lore.kernel.org/all/20261104085925.773471-1-l1138897701@163.com/
+---
+ include/net/netfilter/nf_conntrack.h | 10 ++++++++++
+ net/netfilter/nf_conntrack_sip.c     |  3 ++-
+ 2 files changed, 12 insertions(+), 1 deletion(-)
 
-This commit reorders stmmac_xdp_release(). NAPI is now disabled and the TX
-coalescing hrtimers are cancelled before netif_tx_disable() is called. The
-goal is to stop stmmac_tx_clean() from waking a TX queue while the DMA
-rings are being torn down, using the same order as __stmmac_release().
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 7ffed295eb14a..7d1497392b8b5 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -7264,15 +7264,15 @@ void stmmac_xdp_release(struct net_device *dev)
->  	struct stmmac_priv *priv = netdev_priv(dev);
->  	u8 chan;
->  
-> -	/* Ensure tx function is not running */
-> -	netif_tx_disable(dev);
-> -
->  	/* Disable NAPI process */
->  	stmmac_disable_all_queues(priv);
->  
->  	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
->  		hrtimer_cancel(&priv->dma_conf.tx_queue[chan].txtimer);
->  
-> +	/* Ensure tx function is not running */
-> +	netif_tx_disable(dev);
-
-[Severity: High]
-hrtimer_cancel() now runs before netif_tx_disable(). Can a stmmac_xmit()
-or stmmac_tso_xmit() that is already in flight re-arm tx_q->txtimer after
-the cancel has returned?
-
-stmmac_tx_timer_arm() checks the NAPI state and then acts on it:
-
-stmmac_main.c:stmmac_tx_timer_arm() {
-    ...
-	if (unlikely(!napi_is_scheduled(napi))) {
-		if (unlikely(!(hrtimer_active(&tx_q->txtimer))))
-			hrtimer_start(&tx_q->txtimer,
-				      STMMAC_COAL_TIMER(tx_coal_timer),
-				      HRTIMER_MODE_REL);
-	} else {
-    ...
-}
-
-One possible interleaving:
-
-CPU1 (stmmac_xmit, txq lock held)
-stmmac_tx_timer_arm()
-  napi_is_scheduled(napi) returns false
-  <hardirq, or preempted on PREEMPT_RT>
-
-CPU0 (stmmac_xdp_release)
-stmmac_disable_all_queues()      /* napi_disable() sets SCHED */
-hrtimer_cancel(&tx_q->txtimer)   /* nothing queued, returns */
-
-CPU1
-  hrtimer_start(&tx_q->txtimer, ...)
-
-CPU0
-netif_tx_disable()   /* waits for the txq lock, timer stays queued */
-
-stmmac_xdp_set_prog() then calls stmmac_xdp_open() straight away, and
-stmmac_xdp_open() does:
-
-	hrtimer_setup(&tx_q->txtimer, stmmac_tx_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
-
-The coalesce timer defaults to 5ms and ethtool can raise it to 100ms, so
-the stray timer is likely still queued at that point. Would re-initializing
-a queued hrtimer corrupt the per-CPU hrtimer base?
-
-Before this patch, netif_tx_disable() ran first, so in-flight xmits were
-drained before the timers were cancelled.
-
-The commit message says:
-
-  "Once NAPI is disabled, NAPI_STATE_SCHED stays set, so
-  stmmac_tx_timer_arm() takes the hrtimer_try_to_cancel() path and new
-  transmissions cannot re-arm the TX timers after hrtimer_cancel()."
-
-This seems to hold only for transmissions that check the NAPI state after
-napi_disable(). Would the order stmmac_disable_all_queues() ->
-netif_tx_disable() -> hrtimer_cancel() close both this window and the
-stmmac_tx_clean() one?
-
-> +
->  	/* Free the IRQ lines */
->  	stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0);
->  
-
-[Severity: Medium]
-Disabling NAPI first stops the wake in stmmac_tx_clean(). Is there still a
-second waker in the window between netif_tx_disable() and
-stmmac_free_irq()?
-
-stmmac_tx_err() also calls netif_tx_wake_queue(). It runs from the hard
-IRQ handlers stmmac_dma_interrupt() and stmmac_msi_intr_tx() when the
-status is tx_hard_error:
-
-stmmac_main.c:stmmac_tx_err() {
-    ...
-	stmmac_start_tx_dma(priv, chan);
-
-	priv->xstats.tx_errors++;
-	netif_tx_wake_queue(netdev_get_tx_queue(priv->dev, chan));
-}
-
-The IRQ lines stay requested until stmmac_free_irq(), which now runs after
-netif_tx_disable(). stmmac_xdp_release() never sets STMMAC_DOWN, so the
-STMMAC_DOWN check in stmmac_msi_intr_tx() does not filter this either.
-
-Suppose the DMA reports TPS or FBE in that window. The queue is woken
-again and TX DMA is restarted. Could the NET_TX softirq then call
-stmmac_xmit() while stmmac_stop_all_dma() and free_dma_desc_resources()
-are freeing the descriptor ring and tx_skbuff/tx_skbuff_dma?
-
-The trigger needs a fatal bus error or a transmit-process-stopped status in
-this window, so it is narrow. __stmmac_release() has the same
-netif_tx_disable() -> stmmac_free_irq() window. It is still the same
-failure the commit message describes: the queue restarts after
-netif_tx_disable() and ndo_start_xmit() runs during ring teardown.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but it is the ndo_xdp_xmit()
-race the v2 changelog mentions. Can stmmac_xdp_xmit() write into the TX
-rings that free_dma_desc_resources() is freeing here?
-
-On program removal, stmmac_xdp_set_prog() does:
-
-	if (!prog)
-		xdp_features_clear_redirect_target(dev);
-
-	need_update = !!priv->xdp_prog != !!prog;
-	if (if_running && need_update)
-		stmmac_xdp_release(dev);
-
-Nothing waits for a grace period between these two calls.
-stmmac_disable_all_queues() only calls synchronize_rcu() when an RX queue
-has an xsk_pool.
-
-Another device's NAPI may already have passed the feature check in
-__xdp_enqueue() and queued frames in a devmap bulk queue. When it flushes
-through bq_xmit_all() -> stmmac_xdp_xmit(), the only gate is:
-
-	if (unlikely(test_bit(STMMAC_DOWN, &priv->state)))
-		return -ENETDOWN;
-
-stmmac_xdp_release() never sets STMMAC_DOWN. stmmac_xdp_xmit() also takes
-__netif_tx_lock() without checking whether the queue is stopped, so
-netif_tx_disable() does not fence it.
-
-stmmac_xdp_xmit_xdpf() then writes into tx_q->dma_tx and
-tx_q->tx_skbuff_dma. __free_dma_tx_desc_resources() releases that memory
-with dma_free_coherent() and kfree().
-
-The v2 changelog already says this will be handled separately.
-
+diff --git a/include/net/netfilter/nf_conntrack.h b/include/net/netfilter/nf_conntrack.h
+index c39425e54d87..b32716084ea8 100644
+--- a/include/net/netfilter/nf_conntrack.h
++++ b/include/net/netfilter/nf_conntrack.h
+@@ -210,6 +210,16 @@ bool nf_ct_get_tuplepr(const struct sk_buff *skb, unsigned int nhoff,
+ void __nf_ct_refresh_acct(struct nf_conn *ct, enum ip_conntrack_info ctinfo,
+ 			  u32 extra_jiffies, unsigned int bytes);
+ 
++/* Convert a timeout in seconds to jiffies, saturating at INT_MAX instead of
++ * wrapping the "secs * HZ" product in u32.
++ */
++static inline u32 nf_ct_secs_to_jiffies(u32 secs)
++{
++	u64 delta = (u64)secs * HZ;
++
++	return delta > INT_MAX ? INT_MAX : (u32)delta;
++}
++
+ /* Refresh conntrack for this many jiffies and do accounting */
+ static inline void nf_ct_refresh_acct(struct nf_conn *ct,
+ 				      enum ip_conntrack_info ctinfo,
+diff --git a/net/netfilter/nf_conntrack_sip.c b/net/netfilter/nf_conntrack_sip.c
+index 64bc440b1181..e2fd97f53386 100644
+--- a/net/netfilter/nf_conntrack_sip.c
++++ b/net/netfilter/nf_conntrack_sip.c
+@@ -891,7 +891,8 @@ static int refresh_signalling_expectation(struct nf_conn *ct,
+ 		    exp->tuple.dst.protonum != proto ||
+ 		    exp->tuple.dst.u.udp.port != port)
+ 			continue;
+-		WRITE_ONCE(exp->timeout, nfct_time_stamp + (expires * HZ));
++		WRITE_ONCE(exp->timeout,
++			   nfct_time_stamp + nf_ct_secs_to_jiffies(expires));
+ 		WRITE_ONCE(exp->flags, exp->flags & ~NF_CT_EXPECT_INACTIVE);
+ 		found = 1;
+ 		break;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105053916.22353-1-muhammad.nazim.amirul.nazle.asmade%40altera.com
+2.25.1
+
