@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794198559;
-	b=QUCUThnlgPJ+GQAkXL9W1Z7FLC0n1T+41lp2SY6x16e/ZCvuCwFGAmAQWXzfJ2TM6xC1
-	 hZPjbRunLvaUQucVF6TEHKxRTeMkN17Mlb5ZGpudO4T7YQ+nk7NUotxj7rnsFduXp13WP
-	 z6qILrn+5N9kjce9j0rUcB7RUBjDXez5Fz37Y9bEIlIKmGRqY86LidqtHHHyvRUg5dcO6
-	 D61YgrhdE3JWfZCrQ0zTenAhIw8qX0+g+olp3DXNJcfK3duQwaPiKp/LzPRya6haZF/Kx
-	 loDpTtEowD8fAI9TBpJlt903Q5gnXnhnBhMx5+TAThLwlofZ3VapOZky21BV7YUVdXA==
+	t=1794198556;
+	b=C1AiWzonEfw25wxIf0cF+uJNDOvc71hIw6//3a9eEvyp88LQZFs8+lovjXLL+xocFXK3
+	 lL88OhukcbYYlKWLyhF6px8T915HDJbuHRWYbcIoyI1T39Q7JVlKc33raBDbg9/8RDhSb
+	 FHGsHyPuRbZ73qBqRcucY96PkyZKt+r/2AjzqwAFwoehJFXyJ3n/mHkPCqjw3qJtbe9Pc
+	 paORVLcrYRaZxv2zpdcM25VTLqZmt8PaW1uFoca6SUZdOVN0Mu9Pe4hv+0PnAoStDdkhy
+	 cG4Tq+ohQUQ/6q/Pmo8wWRuh2CiMAH/CmOf6FuO/vaKfRjeDBWH4+X79ac4vNoQ57vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794198559;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794198556;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1JrXEd2NO/cJ+1CoKfKmdQuXHWCqxoOc8mX38KC+4vo=;
-	b=RfNEK4JrBnI3L7OjPUgS42YZyP9EvQuAc71nmzu/FT64xKnkvwG4HNKsBHSNzR/vMyC8
-	 JA90YMK2MwU5DhM/WkcarfpoQPywYGGF17oPGeHWPJyF5RNa+NikHmEgyM9K0yFt0nSnt
-	 DKInV+KP32pB4wIx3pGKjL9DuURcITwMQ5a3z/tKl8uyQcnZpfNrjP75+duuktoi1kPvX
-	 kRlCDrap8P3PN9qf4LjZtNHrlErhXK6FXCO3CNZWtH+Pdl/0anzE0drq7uePYdJtZy/Vt
-	 jF67CXpGWoZR7LaRau0sSURTf7wwYujqh/nVbhdfneo3vE3IjeZ0Q47hoICWlDA8Zcw==
+	bh=I7LWda9VcDO/rMIUhcFJBfu3q+cLbfZB0A4Yi23fMc4=;
+	b=VsYNIjUYa1uv+4kyISJBmV3NS5lo4ISWMMvVkY6yDbYD1f984RHH96g/scEQgwKhXdLM
+	 HQXXPsUVlyYT4CsKUu1IIxxEzu6UexCmxRM9baAWNrr11FCvPzSj5l8RrNbrRras9nTFn
+	 eVFm6naa2a1/LF7FRV+FuBkPKd8FjqlHSYxVXh7gR4pYKoA8Kr2bWgKS5YfEEomJnZ1z3
+	 QLyIfXqG4XemkA//o+BtwJjtb24KnDQMjIbr+GADeb6h52yt5oXgor/S5Ptp99T2NDCNV
+	 hPHsBRG/aGh3Om0Vl9mQTFwusTRIyf+161sV6pwM7xXbYL62t1gmtlw3AhrK0p5lV5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1IQboB3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GtdWscg8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 198DA606A323;
-	Mon,  9 Nov 2026 04:29:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c1IQboB3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 952031F00906;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1799B606D801;
 	Mon,  9 Nov 2026 04:29:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GtdWscg8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FA9F1F008A7;
+	Mon,  9 Nov 2026 04:29:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794198558;
-	bh=1JrXEd2NO/cJ+1CoKfKmdQuXHWCqxoOc8mX38KC+4vo=;
+	s=k20260515; t=1794198555;
+	bh=I7LWda9VcDO/rMIUhcFJBfu3q+cLbfZB0A4Yi23fMc4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c1IQboB3Ziazu8d89pEJTcYjx/+p8MW4DFJs4P61Bm9z0vfQcFRcsESqwce4AvLre
-	 GPjeZpvW+LmJUopV8HP9IMAHgzR9+onhx3VUGsjIGPVYjOnHvqwUxB+05XVc+wLh79
-	 t9npLDpIwyn1pD6wuhltySUBHlj5iNgnG8imByx6XkWAuo/mcjgRmwvdkzEfPcccyk
-	 HDUH3HoWFn4nJ1I9FaQ9wI+dticsSHTXt+IuPOXTEVaMhnlCUwrbyKUbhOAKIu/kRh
-	 7RCOXirQLj8Qx+SqVyVgWdIQ3qTNzeDhgMIJlcrSRybGT/E8qYzFKZaeja1/p1MCpV
-	 NWMoKaP73MTnA==
+	b=GtdWscg8eg1YDIHa6Rim+cbadHt5rYIJ9dAYofGbKwz7PyP+K0fvHDqokWO4C81Az
+	 QOmky9qQy2TD7YUxv8C/Zb2sgeRHx0v687dTbnWdxs/R3Q5GZymEM9LchGqj8X1Vy/
+	 HrnZmgVJ1aKdgYcux3xGN4RqW+1tVTCr89QRiw+rVkgwpEhgjQ8TnU8BZZX5vYAtcE
+	 +Zr/pd+A49fZavVboVKF3c+gWaU2WtmFpAqykUubLELYDJ5gneCDWUQQ9M3FPW/U3y
+	 +A30gXXfRxx9YSz/mvXT9gG7OfLPrhCVQfE3IQwpJ/HS9fZuNIU21iY2Evq5e12dJ8
+	 dz2l9Z9RwTxdw==
 From: Jonathan Cameron <jic23@kernel.org>
 To: linux-iio@vger.kernel.org,
 	Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -56,9 +56,9 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	Andy Shevchenko <andy@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: [RESEND PATCH 04/14] iio: adc: ti-ads1119: poll own trigger from interrupt handler
-Date: Mon,  9 Nov 2026 04:28:41 +0000
-Message-ID: <20261109042851.1326940-5-jic23@kernel.org>
+Subject: [RESEND PATCH 03/14] iio: adc: max1027: poll own trigger from interrupt handler
+Date: Mon,  9 Nov 2026 04:28:40 +0000
+Message-ID: <20261109042851.1326940-4-jic23@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261109042851.1326940-1-jic23@kernel.org>
 References: <20261109042851.1326940-1-jic23@kernel.org>
@@ -75,30 +75,31 @@ Content-Transfer-Encoding: 8bit
 
 From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-Poll st->trig from ads1119_irq_handler() rather than indio_dev->trig.
-The poll is only reached when iio_trigger_using_own() is true.
+Poll st->trig from max1027_handler() rather than indio_dev->trig. The
+poll is only reached when the buffer is enabled and the device's own
+trigger is in use.
 
 This removes a dependency on the trig field of struct iio_dev, which
 is to become private to the IIO core.
 
 Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 ---
- drivers/iio/adc/ti-ads1119.c | 2 +-
+ drivers/iio/adc/max1027.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/iio/adc/ti-ads1119.c b/drivers/iio/adc/ti-ads1119.c
-index b0f04741ddc6..e815ba6d9d4f 100644
---- a/drivers/iio/adc/ti-ads1119.c
-+++ b/drivers/iio/adc/ti-ads1119.c
-@@ -497,7 +497,7 @@ static irqreturn_t ads1119_irq_handler(int irq, void *dev_id)
- 	struct ads1119_state *st = iio_priv(indio_dev);
- 
- 	if (iio_buffer_enabled(indio_dev) && iio_trigger_using_own(indio_dev))
+diff --git a/drivers/iio/adc/max1027.c b/drivers/iio/adc/max1027.c
+index 8d282feea8b5..65a0e85faca9 100644
+--- a/drivers/iio/adc/max1027.c
++++ b/drivers/iio/adc/max1027.c
+@@ -481,7 +481,7 @@ static irqreturn_t max1027_handler(int irq, void *private)
+ 	if (!iio_buffer_enabled(indio_dev) || !iio_trigger_using_own(indio_dev))
+ 		complete(&st->complete);
+ 	else
 -		iio_trigger_poll(indio_dev->trig);
 +		iio_trigger_poll(st->trig);
- 	else
- 		complete(&st->completion);
  
+ 	return IRQ_HANDLED;
+ }
 -- 
 2.56.0
 
