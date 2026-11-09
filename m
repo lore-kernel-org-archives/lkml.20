@@ -1,88 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794257322;
-	b=tlyPl3pHkCC2YmiZLh4RsHm/Pu2bBK/BOG7jvP/3eDeIQjvQC8QVfkUX8a23fZtsF2K1
-	 cD6czt067eoTXOwk2eDyFsnYOpTQTPspatErLahIYUfff9INYFT9O5ZnZVrx84BkZ9O3i
-	 b+7NHhWz+nXfQCY4kf20TTxjW7fETIiJqY5+lYsWU24b6iIjwswkqvnXTLSp0Gxu4k485
-	 zWWbR+5JFEyamqgLXO0nQlbMABDXlVSqbsiUwx9G8jNqAzv1gwsOBPh9juenLMqXs02ne
-	 ok9oEdaKY04ufYoXv4BS/LtMueeTJQlyKGneiKI5RWIpDnZYcptxAjXWZchbxQ2HLvQ==
+	t=1794257348;
+	b=YN0Q5lg+XWrhrpTCx9UbuOVMz42LuuB8oWJSihBX5ounnubJvscpLqsoHrwjKbbxZXa/
+	 +yHXb40FoA0xm1IAYidyYztg3POBWoVUxekmiQbv6AwZN8tBGY38rmQWe0rFFQKawwPnt
+	 erbVJ0HwKRzdjpp1Qm6A5OXg8BFquBAc4qd1NptsgLpa7ZykzmVTKgH7UiB68ia3RIP52
+	 imbQN5IoBrudhL3+GPA/Cu8VJ4FQxkvCo/a+mWaQoU25WNLWSLRjVc8uKmtFhY1taZfen
+	 DqWcYzzT45hExv/WfqIXPIhh6Kggy5ByV9TNoK2eDgz4KZqmMkqS19ktrGi9rYF3fLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794257322;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=HCOo5dIuLMc4cgUiAq1BDTXlWDL7LT0CiehKkG4T0q8=;
-	b=W5cjEmc9vsy7NDR78rE7N3ia9JnVffHEFuWn/Nj0/l6EjsF4gG/nw4lT3jzHeSsC7Mus
-	 3UifvrfDlopR3GLpsL+WNEws9uLBIuQm9vS6wA6wvsQ6rv2g+kIfb2eeu9FRM7nFC3iYB
-	 gWWkIb2vRqRzF6koZNy7vC+G72bJTquAubRepeO4DX8QotjYFvKTpmxmRr8DTxHFjoh1t
-	 8Eqo9QtnufIIi4RFCwPfq8L4CpGSEFVKoUIuK2d7zKTTKHYMImIA5kuvJaeP141FEJ0g8
-	 GHoecYkEDsIefGgcFXdq5Eu3xsiY/r9TK9LGjwVVF1Z8AQKnmf9YYXgTw1Gv1k5A65A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794257348;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=XISjf9goHc7T2Sl6qjTz090Wgw3MK6CQaGX5dxqO5Ic=;
+	b=X8hdWP3tBUKarq+6sWfdhwOHn2SPmqTLxCsPqWe72HIf8JzByEEmPAAHUOBommysfyVg
+	 xLY+gQe90vi3SosXNwx8ZkC/ZPzmYkeY+0xx7lFWsnCnP2nZg+8qO19qwq83W2KWL+dgH
+	 zVxNH4Xfu9b7QOY3cg6XiEE0Jlnql5eA5Y08t/jEs0rBiSZFH/QNwihz7LNJcuWR1jvFm
+	 BaNvUcdNz08SSTREQust90n+W6wapKQHSVWKp0WnCoXBP8ZqZpCN22hE0gpJzYGkPGak9
+	 VYqyXnqJ+p8ZOZIhfzzrPlu70GlF54NNZ1Pwrb4agPfRifJAXTKF/CCvtyORlYNtuag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=so3wPPfp;
-	arc=none smtp.remote-ip=209.85.210.195
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com [209.85.210.195])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="Unev/XDB";
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7804F606A330
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:48:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7804F606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4011606A325;
+	Mon,  9 Nov 2026 20:49:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4011606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=so3wPPfp
-Received: by mail-pf1-f195.google.com with SMTP id d2e1a72fcca58-8b8ecfa886bso605303b3a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 12:48:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794257322; x=1794862122; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HCOo5dIuLMc4cgUiAq1BDTXlWDL7LT0CiehKkG4T0q8=;
-        b=so3wPPfpPERFQm4A4bCtwIoIR1Jsu5RcDZrhDBzWKWDKsA+g5VFRxXtxHdaNHLSTIR
-         aKUyEEDWvKkFyBTMuGNubrJO2poJ/o5nBJEXRjhhBMeg88nK0dVZtVZkC9VCchRk4XfH
-         PBN7EKEMeXYVtXeoAsvphZsuCWI0tZIZYjYiLDAjL11AyFZqOpWIINZCfejcJFsTaYF2
-         ZWMNZpan/Mv/CGJ6Fghn49fI2p/vDzYGtHfMpYN2Ik2KUALHV/nL/zokN9wgDdPLyHzh
-         9k7oV00eN0RCS6I3+45hKpiQ9d77MwEQHDq/JROyGbuda0KNZ+/TNAVdbUHKkp0ENw1g
-         CLng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794257322; x=1794862122;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HCOo5dIuLMc4cgUiAq1BDTXlWDL7LT0CiehKkG4T0q8=;
-        b=vkCp5sQqBqb/ZSIVIjaB6L18XMj4lRwH9eXLoltkIgGTWP9VLhLTHIoi+TSq7ryXAP
-         aa4Myvtz6R2Sm/vdnXarfAYHycK1bunmaiGdMwgKJeejxgspHvoqTASdOL6uVNGxDf0H
-         sgsp7UNoIIxrl13x5teDolAE9JfyK+ddYornv3S68snjBDzMH7lUb9wqN9RJo3zO+/U+
-         MHrMMND/DkomE/jtkYIEmxt8RCGCMu4Kbw8afQ7UIXb1Jmw2VbvY+1XaEJWX8znAbrwe
-         plPXPYujE+EmGCgQKdo3Cz1P6zuQC9TI9/c9yv7WQFM9L8dtOFPz5e0bsF1AGzlEnGfx
-         FObA==
-X-Forwarded-Encrypted: i=1; AL+hErGTPtCGFa010dqQcsC3uC1Q7ptZ1fdlgNKU9oq7ixbaNmyGSRoYZxseutCFRYGwG0vUryHusCZ+tviQn2I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Ky1/evxItui7iGCOdBUElpRuliL4KDgylvRsSW+aVd4wMrDwY
-	Yvb9D6KnSApw/XyRkBepQybsPVxNitfe23KGO40mp8xEBLputGe5deGIdYZq4Px23pDRwkJU
-X-Gm-Gg: AYBFou0oOMF2gizUeNNUWAjIWhxMGBwqJ6y0SvQ38Jcv0fGxQ8qwn1l6N3Q2UcIIubd
-	KX+GBlhPk5GZ/6LXVbgvWqQjZO2IZ1ZmXu4RMpklg79OFrGhd7ixHlo+ZPElR3OkUPkppuOGOUz
-	LRg/lCl/38pZb46/j2NpFdWk4Cze+0AG20FeGk3D1ZueaKJni3wyrkR6ZHrNyHYMRKvmI2ixf/l
-	RZxSchRscB3Ge1ieMGvHzYPQfkNdWxMFC9c+Zwu08Br7rGqYA+A2OTGTVUJHCLX5LP3K0pBTAo+
-	0aHxQA+CuB59reiO1uEOpyRuz4b60SdEV+2c9kN47OcJJ1tlOFUXzcingJBKnsWm+BEH8V0mpgo
-	kDVwGs5TZmXIy8RxDp79Y4U8DIcErzllm5wGEriFB8WT5tQIEzhs9S5UMJjTBKIPCsReDSxe8yc
-	wCkotZXDe2t85f4zYsPNJJpHJBpPMQKL2AXEMqU52BcWBqIbag7PD49t8YtLsTffPXJsIHws04R
-	lq0W1sBq0hdCMW2OqGKFXaiSsTx3O489qJjFpFzRyDr8YjJHxIiYlJM1/N4qlmu3sJcoxxC4xx2
-	t0d01fTB6rm1mSM1qw+HDUXa1kqWh4zReuBT5I/LGyQtG9LSjlBsz10=
-X-Received: by 2002:a05:6a20:7f89:b0:3e2:8c23:4d6d with SMTP id adf61e73a8af0-3f172725e92mr417125637.15.1794257321733;
-        Mon, 09 Nov 2026 12:48:41 -0800 (PST)
-Received: from [198.18.0.1] ([45.95.212.227])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdd8d7b37casm129038a12.22.2026.11.09.12.48.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 12:48:40 -0800 (PST)
-Message-ID: <9a73588a-f5ac-4c9f-bb83-97224173aee7@gmail.com>
-Date: Tue, 10 Nov 2026 04:48:35 +0800
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Unev/XDB
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9HiCW5027289;
+	Mon, 9 Nov 2026 20:47:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=XISjf9
+	goHc7T2Sl6qjTz090Wgw3MK6CQaGX5dxqO5Ic=; b=Unev/XDBbS/tKw3dZCjLwC
+	bHT8k/20yGuv4wqKlfwmCg1mERBTRE69/EXMo4Lmii67gimtNJe9UjuKXZCHMNom
+	1GoZV8SFLSTVwaZNas6TAvu4lmWaKs7YJyOXDukq1ou7dv8f5q1Tfa41Le1mYsJs
+	oQCm3lPXT3zuIiT7owN+l44TodCzSa38StiDmebYnELcp9oyb3A/zTWnSGBq4NkW
+	eOQsV90eVvugS9inRF1wj+8TdFY3OkQR9uyaKwAn/9L1P3VaV26wu3R6GyvkzGjk
+	BrH8N9C2dBnJc4HDV0WQEMS/zGEgwCEz5Opihc7VpPqFLnE/bHs15Ui7B1fWHBPA
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsumuruc4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 20:47:44 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9J0NRD427429;
+	Mon, 9 Nov 2026 20:47:44 GMT
+Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hteaq3psu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 09 Nov 2026 20:47:44 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A9KlhZl43254072
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 9 Nov 2026 20:47:43 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4BA7358054;
+	Mon,  9 Nov 2026 20:47:43 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2927E58012;
+	Mon,  9 Nov 2026 20:47:42 +0000 (GMT)
+Received: from [9.61.242.246] (unknown [9.61.242.246])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  9 Nov 2026 20:47:42 +0000 (GMT)
+Message-ID: <114f0d44-3b01-4523-a99c-5654a3a556ba@linux.ibm.com>
+Date: Mon, 9 Nov 2026 12:47:41 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,73 +87,102 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: rockchip: use rgmii-id for LubanCat 4 gmac1
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-References: <20261109191515.252449-1-cyan2254650260@gmail.com>
- <f2663951-aa1a-44de-87cc-8e7b105e1036@lunn.ch>
+Subject: Re: [PATCH] PCI/MSI: Initialize MSI-X descriptors in the setup loop
+To: lirongqing <lirongqing@baidu.com>, Bjorn Helgaas <bhelgaas@google.com>,
+        Thomas Gleixner <tglx@kernel.org>,
+        Vivian Wang <wangruikang@iscas.ac.cn>,
+        Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>,
+        Yuanhe Shu <xiangzao@linux.alibaba.com>,
+        Hans Zhang <18255117159@163.com>, Vidya Sagar <vidyas@nvidia.com>,
+        Shawn Lin <shawn.lin@rock-chips.com>, Juergen Gross <jgross@suse.com>,
+        linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261109031411.2205-1-lirongqing@baidu.com>
 Content-Language: en-US
-From: Pufan Jin <cyan2254650260@gmail.com>
-In-Reply-To: <f2663951-aa1a-44de-87cc-8e7b105e1036@lunn.ch>
+From: Farhan Ali <alifm@linux.ibm.com>
+In-Reply-To: <20261109031411.2205-1-lirongqing@baidu.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA4MiBTYWx0ZWRfX2t6L9V1etdr5
+ /D9sBlQ5JUc7CNazPgJokKXEcHYxU95fZ0N6FAaP6Dr98B0kTuLmLVeHtQkbvn39E5FcsBjKff0
+ YbVf21UrM7Qx1gnJ++fF+nNRqNyPEBA=
+X-Authority-Analysis: v=2.4 cv=GISdgeNK c=1 sm=1 tr=0 ts=6af23171 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=zuLzuavZAAAA:8
+ a=mqgD3dJQ3uNcEhCF-SYA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: od_lFLi87hxz3F77eNJU_-B99vaRVJvV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA4MiBTYWx0ZWRfX2AUZ4E1sy40I
+ 84OLvKjOOFkt0B739TNqSI4xFUAYXZMxet+XbZguhXot/cPEXOe6EzkU0DAKYIySGX0xL97bwS2
+ hTbAfRe6AuarwrcIbHrxkO1NPC/QNVZecsooZbiWj79VOUjvDvTS5MhxWBCxktyIbIL9PVgSRw0
+ sNyg8H8RmdrQ25zuh/CTqW/wMfjqipNeSw4lkmkvS9urFoVapz4mcvNFohC3OBDVdElj50QqPtr
+ JcPN9e+d2xoKguSNX6mgx4hYTrvMtZCjUJHoXhdUmQIy0qTjHG9fkC0cbDEbw9xfcIBl97WWChC
+ pz19sYU3qzNllOK2GhUaevAEqjdn6xwrFmAZjjDe0lBQy3/iPWgcTFXOzg/ueukHayEPER45DmU
+ tuegi2dJXnBGvLXHShlbZ6eWnI1RMmrF3eiZdk62OPvTSzqE3vAe+fxYE5b9FET6S1cE1llUhbH
+ pxF2ZsLx0SD0ivPyVCQ==
+X-Proofpoint-ORIG-GUID: Aw92mHiaWDuz8Q02v92sGPveT14G9xv2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_06,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 impostorscore=0 clxscore=1011 adultscore=0
+ priorityscore=1501 phishscore=0 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090082
 
-On 2026/11/10 03:55, Andrew Lunn wrote:
+Hi Li,
 
-> On Tue, Nov 10, 2026 at 03:15:15AM +0800, Pufan Jin wrote:
->> The LubanCat 4 PCB adds ~2ns of trace delay on both TXC and RXC, but
->> that alone is not sufficient for reliable RGMII operation.  With
->> phy-mode = "rgmii" and zero MAC delays the link comes up at 1Gbps but
->> drops ~90% of the packets; the PHY's internal TX/RX delay is required.
-> Sorry, but this does not make sense. 4ns of delay is 2ns too many.
+On 11/8/2026 7:14 PM, lirongqing wrote:
+> From: Li RongQing <lirongqing@baidu.com>
 >
-> You need a proper explanation of what is going on here.
+> msix_setup_msi_descs() reuses a single stack descriptor for all
+> MSI-X entries.
 >
->      Andrew
+> Since msix_prepare_msi_desc() only sets can_mask for non-virtual
+> descriptors, a virtual descriptor can inherit can_mask == 1 from
+> the preceding real descriptor.
+>
+> As msi_domain_insert_msi_desc() copies the descriptor, this stale
+> value can cause pci_msix_write_vector_ctrl() to access beyond the
+> mapped MSI-X table.
+>
+> Clear the descriptor inside the loop to ensure each MSI-X entry
+> starts with can_mask == 0.
+>
+> Fixes: 3ece3e8e5976 ("PCI/MSI: Handle the NOMASK flag correctly for all PCI/MSI backends")
+> Signed-off-by: Li RongQing <lirongqing@baidu.com>
 
-Hi Andrew,
+I think at some point the can_mask attribute was set in the loop in 
+msix_setup_msi_descs(). But this was split with commit 612ad43330d9 
+("PCI/MSI: Split MSI-X descriptor setup"), so I think the Fixes tag 
+should be applied against that commit?
 
-The old comment was wrong. Here is what is actually happening on the
-board, with measurements.
 
-Conf A: phy-mode = "rgmii", no tx_delay/rx_delay in the DT.
-dwmac-rk programs its defaults tx_delay = 0x30, rx_delay = 0x10; the
-PHY's internal delays are disabled. On the board's direct 1Gbps link:
+> ---
+>   drivers/pci/msi/msi.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
+> index a346284..681dd2f 100644
+> --- a/drivers/pci/msi/msi.c
+> +++ b/drivers/pci/msi/msi.c
+> @@ -638,9 +638,8 @@ static int msix_setup_msi_descs(struct pci_dev *dev, struct msix_entry *entries,
+>   	struct irq_affinity_desc *curmsk;
+>   	struct msi_desc desc;
+>   
+> -	memset(&desc, 0, sizeof(desc));
+> -
+>   	for (i = 0, curmsk = masks; i < nvec; i++, curmsk++) {
+> +		memset(&desc, 0, sizeof(desc));
 
-   host -> board ping:  200 sent, 20 received, 90% loss
-   board -> host ping:  200 sent, 19 received, 90.5% loss
-   mmc_rx_crc_error:    118
+I wonder if we can just set can_mask = 0 in the loop rather doing the 
+memset every iteration?
 
-Conf B: phy-mode = "rgmii-id".
-dwmac-rk programs (0, 0) into the MAC; the PHY inserts its internal
-2ns TX/RX delays. On the same direct link:
+Thanks
 
-   host -> board ping:  200/200, 0% loss
-   board -> host ping:  200/200, 0% loss
-   iperf3 TX:           921 Mbps
-   iperf3 RX:           941 Mbps
-   mmc_rx_crc_error:    0
+Farhan
 
-The vendor BSP DTS for this board is:
-
-     phy-mode = "rgmii-rxid";
-     tx_delay = <0x1b>;
-     /* rx_delay = <0x00>; */
-     rtl8211f,tx-delay = <0x1b>;
-
-The vendor configures an explicit MAC TX delay and PHY TX/RX delays.
-The mainline RTL8211F driver only supports the standard 2ns TX/RX
-enable selected by phy-mode; it cannot program the vendor's
-fine-grained rtl8211f,tx-delay. With "rgmii-id" the PHY provides the
-2ns TX/RX clock delay and the MAC delays are zero, which is the tested
-mainline configuration.
-
-The "PCB adds ~2ns" text was never measured and is removed. I will
-follow up with a v2 containing the corrected comment and these
-measurements.
-
-Pufan
-
+>   		desc.msi_index = entries ? entries[i].entry : i;
+>   		desc.affinity = masks ? curmsk : NULL;
+>   		desc.pci.msi_attrib.is_virtual = desc.msi_index >= vec_count;
