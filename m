@@ -1,88 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794203752;
-	b=VCACRho569Gf/g1rTUrU89QUr6GSgj64u8J0hDHSKVsulaUoAYrgU7vpDBrT3DnKUjnE
-	 9SvqTokUo8Zv+0fwJYseiWOfTFwQpXm9GB3zpkA2Nr/7Ly/R2ZhLaZFx7GZi+zkfNwg/0
-	 /MPDPJN2D8/4uAZYdWnJ9wXUanRypYVV3rFOGKC6jfWTbdS472c/I1I21pIg1KOtAHUhk
-	 +527ZeZUZGV7hYPMH0YKaN0IwQ0NrGDe800BZhvG5TziBjELo7QbTzEJ+gAK3Lhz3aEGM
-	 1nIWwoiwPbo7kYXnYMgUO4kJn/9d13RE+z07AP6lDVZFu18c5sSftxWUW3vu/hx3zlg==
+	t=1794203762;
+	b=aHbmytsI2V1Y41UkHkOIMMz+V9fuKcRdlzoT75LMMkBkhk4xB3nYrpKB2k/UtxuGw60C
+	 vPdO8qQn6NCvNnUwsCAaD5pw9kkcGLUdgvn/JdBvtI0ipNi0FXctsEd7qX3GX67rCzpro
+	 VAIMZQWc1zdv3sxCyuq7C0oXPByMpOTS0tUtR0Mt5m8N5aexnnTdswe3lnFe9Zsccro94
+	 8hah2/pJPpzBJ8GD5FinwxbwzHrsdAmsopDJOyNkZXtcCVGlMe5jcZOdmeYvnThd4LBBB
+	 t1h1XpWX1aiG3/v/NSfJhwtssw/YAZylOm6wCgOm501QbyRpSCP573L3ZJZU6H5pm1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794203752;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794203762;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-type:
 	 Content-Transfer-Encoding;
-	bh=+JKPXzOXiWeUhRjPCoGmPsKCkrFKLMgj6krvEZ3KGKE=;
-	b=VTamAK9LYzEQxd3pstdGJ/BVeAjMmzeFJy6lTvIV2nrwZrgZyqEFaMSzXa6B715uytps
-	 /9oEqkVWUo9XJkBdl5xUakYnCM0tj8nAunXRWtTmJySljyqPljLiO3Oqty17lqlcuHS/E
-	 +jjbpD5Gzw1jsv6LysMshhww5MhPGoCqL9t57PWtxJsyEy/Rh75Ql1HOn2Aok6T0ltnAU
-	 AKHDkGQV8Lyk8YQwuUbWrHQXYZ1XA9qrgnHMJd5+3PVTH8cPCVRvZQpLbsl83YUCmq4R4
-	 H6mLaZqHurh+tQd0A0gAxUnTjYJGLPgfvt21Q6OXQKyMCy9t2Ns4zajs1VJuQQJukGQ==
+	bh=kYujfJJva9ewvxkSIVF90LpYUHC0ArQaaSuEcl9iuM0=;
+	b=0ZobAqFRgucPbDF1fDxUvK3suRyc3r3QDZmvU6d6ufqWEg6d6Y092qAP5MOqwor49pkZ
+	 kwa+sv22As3bV0YqxFyq6SHaYovcvKyGDeFdVELiRCwo963fOJLEQhVI/xkVOTFAapuIK
+	 8nDERlYnLGnTHg3bdNqIQFT1TPOwbsnw9JeOJhKLNf7DUg53hkd/G4I4PeCuU1XHHjOvE
+	 VDoK+XsatDdV6Vk9c5/6ICJxAd6Jka3XTdMAlNeCuZV0bd0I9Rbc/WDRCY2/O5x+OH83A
+	 rqW0NO82EX1Efil6aFeVOAmyUVFT6KoAVRQWj4jswUWq2qpI5Q5UtcRTOFve5Ce5pkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T6Z7eMcK;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K54eP75t;
+	arc=none smtp.remote-ip=95.215.58.153
+Received: from mta1.migadu.com (out-153.mta1.migadu.com [95.215.58.153])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5944606D80D
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:55:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5944606D80D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 942D1606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 05:56:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 942D1606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T6Z7eMcK
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48dee593f18so214037f8f.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 21:55:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794203750; x=1794808550; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+JKPXzOXiWeUhRjPCoGmPsKCkrFKLMgj6krvEZ3KGKE=;
-        b=T6Z7eMcKXogH7+9itoQfxyaZTybuP058S9GB0loQUaNg6lWfeXsTzQCQrnVnI5TDUL
-         pKXHh/QnmAhyfhWdC+vAmPwk5bpfxoX3AukAuI75fYOTHE4yNCHuPVPUHRm6+N2UUSEE
-         SlIEZPlxk6RSHOa7VUMouYbEjq8Rig3agn9PHt5UKBre90XKpDGIwt3AFPmkk35GFC25
-         GcFEJzNXKqJ2Pu63EMX4+kVfWj/CM6//2DaXaau+yV+XW2ZX5p0KBU8B2hUx5785YAfK
-         qXdpYEHjJ+89JQYCPrErt5aMYuJkuJRUpUTAs2I+KbZKe0fjdpG2wJqld2AGstfMUOLv
-         xe8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794203750; x=1794808550;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+JKPXzOXiWeUhRjPCoGmPsKCkrFKLMgj6krvEZ3KGKE=;
-        b=DQQ7j8IvquUBzPzq6o4fSvTn3KSyqiJkkrFPey6+gHGlO+a+PKfnU29lWvWeg2HMpg
-         RH3x2Q6VHWNJKQ+S5dDkDuJz+aA0R/5jq2IG4F/ZGDCF+qEo7oBLH2eMiifwfQZ+IvEt
-         WccOyuYJJizXW52sY193d/PLAZQ51Cg5NNKesnl8rETZOdsW00L2Y4ob0wiEYOcUMCDw
-         vXMlxISz3hcH+L45PToefbcCd0OXe8/13mic9As9s346gDk1n5yIxR00gwvkfTzlw21r
-         7LQj/MPiHsNEg9BriJ4tGbPmt5+a01F8aOzNScTsryiZ5G24cZhNPb1IQrSgEjeKvbhp
-         BdFQ==
-X-Forwarded-Encrypted: i=1; AL+hErFOYsO3pIVc+0ul+OfjkaP1Ri21nmopriPy2VZ0X7dvWpDrc4IodHsBHGWl1TSdJ/T7jqYdtI0llurZbSc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+3AlAfmgz7dR0sbSlim+xwuI8UJxjaK/Ijp0WlZLhMlvgAwmIY
-	J0AXuTur6hGwM3Hyj9s9lM4clHmKdE715AJhNh4Zjt/mUCN223z87r0U
-X-Gm-Gg: AYBFou0YQjALMuryc03A0AcAjw4RR8NTnSGeaTD/UAUiDO02a4Gi1ehrN25RKIRU+s5
-	AmaiuJ/Sim8QcPpS7MkXAObjNO8Uem57z+aDv51c2VqbayJJBM+sp0C+DQAI92aESxhA6La4i3L
-	oRXUzy50MrAyhpYTvtQHP5i4sLQ5Lkr+2oBae6RJ+xII4BuFnKAsZZrZ0oZygScBJ3lYzbt/zzu
-	C9Ja46v/+6MqA8d7gjZYytKTqxwvv+qw7Sb6mHejzuDVwpV3+6YvthXbB1o6JCXFjsr7TF6/cIm
-	pYPTjT89eai/IuiuRKpAsaol1eko90MgVXHf5xzh1GYcdGhG7XcUYcnFpvb5PtJERICV19i9McQ
-	Ows9Y2VGbNN+DT5EsdZmm822AOiJH17qPqMXHAAoy/8068c+cjnLrf93xM7vbvl1tHtTIA+dKv+
-	zx2maz+mRxwNVwE/94m+pClpF0DJs7ZxI+0ZLfTRdbteC9PR7fRqOxiisQJNXt0VUZZZYvsqX9X
-	lsvG8UkHqNjnlR/ovGjH/qH+zL4u84Imb5ybIgxTsqbT+BS1KwmM/REl8F4Op87n28qd4SGTG7c
-	+BcBKtSZQo5hV+S8orH/du4pi8u7Fx26TMuKT2SAKEOefC5zWKQa1u54PYXie4t2juNB7imf
-X-Received: by 2002:a5d:584c:0:b0:488:7df9:3898 with SMTP id ffacd0b85a97d-4958cb50b2amr5677097f8f.56.1794203750094;
-        Sun, 08 Nov 2026 21:55:50 -0800 (PST)
-Received: from [192.168.0.40] (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4959783fd04sm7983953f8f.47.2026.11.08.21.55.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 08 Nov 2026 21:55:49 -0800 (PST)
-Message-ID: <17b8daee-c5df-4b03-a839-38b5ef3edf3e@gmail.com>
-Date: Mon, 9 Nov 2026 06:55:48 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=K54eP75t
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1z4tONTNZj3MF0cFOK8R4Ji3R8IflIG6FbjM8iv86DA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794203759; v=1; x=1794808559;
+ b=K54eP75tk94wTNdiOjYtBwfluwnIdzyF2QfVPprFb+RJk07c5kk6CiEEawxkdyMoXepWkS7K
+ EuP8zloRCLgc673CCfPyuIJyUAQtZ8m2g7tm13DgbEJsH9llVTadm+o7Ddv1LEfKA+dUs3ftrWn
+ jTYG/2gXiZrkNLumrFDsM5KM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 0caf9f1543e5b09e;
+	Mon, 09 Nov 2026 05:55:59 +0000
+X-Mizu-Trace-ID: 0caf9f1543e5b09e
+X-Migadu-Flow: FLOW_OUT
+From: Baoquan He <baoquan.he@linux.dev>
+To: linux-mm@kvack.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	chrisl@kernel.org,
+	kasong@tencent.com,
+	nphamcs@gmail.com,
+	baohua@kernel.org,
+	youngjun.park@lge.com,
+	corbet@lwn.net,
+	hannes@cmpxchg.org,
+	chengming.zhou@linux.dev,
+	kunwu.chan@gmail.com,
+	klarasmodin@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Baoquan He <hebaoquan@kylinos.cn>
+Subject: [PATCH v5 03/19] mm, swap: add VM_SPARSE cluster-array helpers for xswap
+Date: Mon,  9 Nov 2026 13:54:39 +0800
+Message-ID: <20261109055455.536925-4-baoquan.he@linux.dev>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261109055455.536925-1-baoquan.he@linux.dev>
+References: <20261109055455.536925-1-baoquan.he@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,48 +78,320 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] firmware: raspberrypi: Store child devices in
- struct rpi_firmware
-To: Stefan Wahren <wahrenst@gmx.net>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Eric Anholt <eric@anholt.net>,
- Stephen Boyd <sboyd@kernel.org>, Nicolas Saenz Julienne <nsaenz@kernel.org>
-Cc: linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261107-fix-raspberrypi-firmware-v2-0-5bfe605a5cc5@gmail.com>
- <20261107-fix-raspberrypi-firmware-v2-6-5bfe605a5cc5@gmail.com>
- <63ecdac3-f8b3-4d44-9b0a-37346568d326@gmx.net>
-Content-Language: en-US
-From: Sander Speetjens <sander.speetjens@gmail.com>
-In-Reply-To: <63ecdac3-f8b3-4d44-9b0a-37346568d326@gmx.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-type: text/plain
 Content-Transfer-Encoding: 8bit
 
-Hi Stefan,
+From: Baoquan He <hebaoquan@kylinos.cn>
 
-On 11/8/26 22:06, Stefan Wahren wrote:
-> Hi Sander,
->
-> Am 07.11.26 um 19:21 schrieb Sander Speetjens:
->> The hwmon and clock platform devices were kept in global variables.
->> Move them into struct rpi_firmware so each instance owns its own
->> children and their lifetimes are correctly paired with the parent.
->>
->> Also check the return value of platform_device_register_data() so that
->> an error pointer is never stored.  The child devices are optional; do
->> not propagate registration failures so the main firmware interface
->> remains available.
->>
->> Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
->
-> the first version of this patch contained fixes tags, but they were 
-> dropped without mention it in the cover letter. 
+Add CONFIG_XSWAP and the state needed for a sparse cluster_info array:
+cluster_vm, nr_clusters_max, nr_clusters_mapped and xswap_lock.
 
-I was not 100% sure if the commit needed them. If you say that it is 
-needed, I will add it again.
+Also add the helpers that map and unmap chunks of the VM_SPARSE area,
+plus the callback that finds the already-mapped prefix. The helpers
+have no callers yet; the next patch adds them into setup/free and the
+walkers.
 
-Kind regards
-Sander Speetjens
+Unmap collects the backing pages before the PTEs go away and frees them
+after, so it cannot fail and its callers need no retry loop. If the
+collection array cannot be allocated, it falls back to a bounded batch
+with a stack array.
+
+They are marked __maybe_unused for this intermediate step so a
+CONFIG_WERROR=y build does not warn about the missing callers.
+
+Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
+---
+ include/linux/swap.h |   6 ++
+ mm/Kconfig           |   9 ++
+ mm/swapfile.c        | 231 +++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 246 insertions(+)
+
+diff --git a/include/linux/swap.h b/include/linux/swap.h
+index 9073d29377d8..382a578140b5 100644
+--- a/include/linux/swap.h
++++ b/include/linux/swap.h
+@@ -242,6 +242,12 @@ struct swap_info_struct {
+ 	signed char	type;		/* strange name for an index */
+ 	unsigned int	max;		/* size of this swap device */
+ 	struct swap_cluster_info *cluster_info; /* array, one entry per cluster */
++#ifdef CONFIG_XSWAP
++	struct vm_struct	*cluster_vm;	/* VM_SPARSE area for cluster_info */
++	unsigned long		nr_clusters_max;/* total clusters in the xswap address space */
++	unsigned long		nr_clusters_mapped; /* currently mapped cluster count */
++	struct mutex		xswap_lock;	/* serialize map/unmap operations */
++#endif
+ 	struct list_head free_clusters; /* free clusters list */
+ 	struct list_head full_clusters; /* full clusters list */
+ 	struct list_head nonfull_clusters[SWAP_NR_ORDERS];
+diff --git a/mm/Kconfig b/mm/Kconfig
+index afff1b25b543..9bdb905a66ef 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -122,6 +122,15 @@ config ZSWAP_COMPRESSOR_DEFAULT
+        default "zstd" if ZSWAP_COMPRESSOR_DEFAULT_ZSTD
+        default ""
+ 
++config XSWAP
++	bool "Extendable (virtual) swap device"
++	depends on SWAP && 64BIT && ZSWAP && SYSFS
++	help
++	  Adds support for extendable swap devices (xswap) that decouple
++	  PTE swap entries from physical backing storage. The cluster_info
++	  array is backed by a sparse vmalloc area that is mapped lazily
++	  in chunks, avoiding static pre-allocation overhead.
++
+ config ZSMALLOC
+ 	tristate
+ 
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index 619bd5305120..afd0e8718544 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -49,6 +49,21 @@
+ #include "internal.h"
+ #include "swap.h"
+ 
++#ifdef CONFIG_XSWAP
++/* Batch size for the fallback unmap; keeps the stack array small. */
++#define XSWAP_UNMAP_BATCH_PAGES		16
++#define XSWAP_UNMAP_BATCH_CLUSTERS					\
++	max_t(unsigned long,						\
++	      ((XSWAP_UNMAP_BATCH_PAGES * PAGE_SIZE) /		\
++	       sizeof(struct swap_cluster_info)), 16)
++
++static int xswap_map_clusters(struct swap_info_struct *si,
++			      unsigned long start_idx, unsigned long nr);
++static void xswap_unmap_clusters(struct swap_info_struct *si,
++				 unsigned long start_idx, unsigned long nr);
++static int xswap_mapped_end(pte_t *pte, unsigned long addr, void *data);
++#endif
++
+ static void swap_range_alloc(struct swap_info_struct *si,
+ 			     unsigned int nr_entries);
+ static bool folio_swapcache_freeable(struct folio *folio);
+@@ -3662,6 +3677,222 @@ static unsigned long read_swap_header(struct swap_info_struct *si,
+ 	return maxpages;
+ }
+ 
++#ifdef CONFIG_XSWAP
++static int __maybe_unused xswap_map_clusters(struct swap_info_struct *si,
++			      unsigned long start_idx, unsigned long nr)
++{
++	unsigned long start_addr = (unsigned long)si->cluster_info +
++				   (size_t)start_idx * sizeof(struct swap_cluster_info);
++	unsigned long end_addr = start_addr + (size_t)nr * sizeof(struct swap_cluster_info);
++	unsigned long vm_start = PAGE_ALIGN(start_addr);
++	unsigned long vm_end = PAGE_ALIGN(end_addr);
++	unsigned int noreclaim_flags;
++	unsigned long mapped_end;
++	unsigned long npages;
++	struct page **pages;
++	unsigned long i;
++	int err;
++
++	mutex_lock(&si->xswap_lock);
++
++	/* Refuse a stale range: the boundary moved since the caller read it. */
++	if (start_idx != READ_ONCE(si->nr_clusters_mapped)) {
++		mutex_unlock(&si->xswap_lock);
++		return -EAGAIN;
++	}
++	if (start_idx + nr > si->nr_clusters_max) {
++		mutex_unlock(&si->xswap_lock);
++		return -EAGAIN;
++	}
++
++	/*
++	 * Page-granular mapping can cover clusters past the previous chunk.
++	 * Find the already-mapped prefix and map only the rest.
++	 */
++	mapped_end = vm_start;
++	if (vm_start < vm_end)
++		apply_to_existing_page_range(&init_mm, vm_start,
++					     vm_end - vm_start,
++					     xswap_mapped_end, &mapped_end);
++	if (vm_start >= vm_end || mapped_end == vm_end)
++		goto mapped;
++	vm_start = mapped_end;
++
++	npages = (vm_end - vm_start) >> PAGE_SHIFT;
++
++	/* Prevent recursive reclaim during vmap page table allocation. */
++	noreclaim_flags = memalloc_noreclaim_save();
++
++	pages = kmalloc_array(npages, sizeof(*pages),
++			      __GFP_HIGH | __GFP_NOMEMALLOC | GFP_KERNEL);
++	if (!pages) {
++		memalloc_noreclaim_restore(noreclaim_flags);
++		mutex_unlock(&si->xswap_lock);
++		return -ENOMEM;
++	}
++
++	for (i = 0; i < npages; i++) {
++		/* __GFP_ZERO: cluster_info pointer fields must start NULL. */
++		pages[i] = alloc_page(__GFP_HIGH | __GFP_NOMEMALLOC |
++				      GFP_KERNEL | __GFP_ZERO);
++		if (!pages[i])
++			goto fail;
++	}
++
++	err = vm_area_map_pages(si->cluster_vm, vm_start, vm_end, pages);
++	if (err) {
++		i = npages;
++		goto fail;
++	}
++
++	for (i = start_idx; i < start_idx + nr; i++)
++		spin_lock_init(&si->cluster_info[i].lock);
++
++	kfree(pages);
++	memalloc_noreclaim_restore(noreclaim_flags);
++
++	/*
++	 * Publish the new mappings and cluster lock initialization before
++	 * the count; walkers without xswap_lock use smp_load_acquire().
++	 */
++	smp_store_release(&si->nr_clusters_mapped, start_idx + nr);
++	mutex_unlock(&si->xswap_lock);
++	return 0;
++
++mapped:
++	for (i = start_idx; i < start_idx + nr; i++)
++		spin_lock_init(&si->cluster_info[i].lock);
++
++	/* Publish the advanced count. */
++	smp_store_release(&si->nr_clusters_mapped, start_idx + nr);
++	mutex_unlock(&si->xswap_lock);
++	return 0;
++
++fail:
++	/* Clear PTEs vm_area_map_pages() may have left before freeing pages. */
++	vm_area_unmap_pages(si->cluster_vm, vm_start, vm_end);
++	while (i > 0) {
++		i--;
++		if (pages[i])
++			__free_page(pages[i]);
++	}
++	memalloc_noreclaim_restore(noreclaim_flags);
++	kfree(pages);
++	mutex_unlock(&si->xswap_lock);
++	return -ENOMEM;
++}
++
++struct xswap_page_data {
++	struct page **pages;
++	unsigned long nr;
++	unsigned long max;
++};
++
++static int xswap_collect_page(pte_t *pte, unsigned long addr, void *data)
++{
++	struct xswap_page_data *xpd = data;
++	pte_t pteval = ptep_get(pte);
++
++	if (!pte_present(pteval))
++		return 0;
++	if (WARN_ON_ONCE(xpd->nr >= xpd->max))
++		return 0;
++	xpd->pages[xpd->nr++] = pte_page(pteval);
++	return 0;
++}
++
++/*
++ * Free the backing pages mapped in [vm_start, vm_end) and clear the PTEs.
++ * @pages must have room for @max pointers.
++ */
++static void xswap_unmap_range(struct swap_info_struct *si,
++			      unsigned long vm_start, unsigned long vm_end,
++			      struct page **pages, unsigned long max)
++{
++	struct xswap_page_data xpd = {
++		.pages	= pages,
++		.max	= max,
++	};
++	unsigned long i;
++
++	apply_to_existing_page_range(&init_mm, vm_start, vm_end - vm_start,
++				     xswap_collect_page, &xpd);
++	vm_area_unmap_pages(si->cluster_vm, vm_start, vm_end);
++
++	for (i = 0; i < xpd.nr; i++)
++		__free_page(pages[i]);
++}
++
++/* Caller must hold si->xswap_lock.  Cannot fail. */
++static void __maybe_unused xswap_unmap_clusters(struct swap_info_struct *si,
++				 unsigned long start_idx, unsigned long nr)
++{
++	unsigned long start_addr = (unsigned long)si->cluster_info +
++				   (size_t)start_idx * sizeof(struct swap_cluster_info);
++	unsigned long end_addr = start_addr +
++				 (size_t)nr * sizeof(struct swap_cluster_info);
++	unsigned long vm_start = PAGE_ALIGN(start_addr);
++	unsigned long vm_end = PAGE_ALIGN(end_addr);
++	struct page **pages;
++	unsigned int noreclaim_flags;
++	unsigned long npages, idx;
++
++	mutex_lock(&si->xswap_lock);
++
++	if (vm_start >= vm_end) {
++		WRITE_ONCE(si->nr_clusters_mapped, start_idx);
++		mutex_unlock(&si->xswap_lock);
++		return;
++	}
++
++	npages = (vm_end - vm_start) >> PAGE_SHIFT;
++
++	if (npages <= totalram_pages()) {
++		/* Reclaim here would re-enter xswap_map_clusters() and its lock. */
++		noreclaim_flags = memalloc_noreclaim_save();
++		pages = kvmalloc_array(npages, sizeof(*pages),
++				       GFP_KERNEL | __GFP_NOMEMALLOC);
++		memalloc_noreclaim_restore(noreclaim_flags);
++		if (pages) {
++			xswap_unmap_range(si, vm_start, vm_end, pages, npages);
++			kvfree(pages);
++			goto out_store;
++		}
++	}
++
++	/* No memory for the array, or too large: unmap in bounded batches. */
++	for (idx = start_idx; idx < start_idx + nr; idx += XSWAP_UNMAP_BATCH_CLUSTERS) {
++		unsigned long batch = min(start_idx + nr - idx,
++					  XSWAP_UNMAP_BATCH_CLUSTERS);
++		unsigned long addr = (unsigned long)si->cluster_info +
++				     (size_t)idx * sizeof(struct swap_cluster_info);
++		unsigned long bstart = PAGE_ALIGN(addr);
++		unsigned long bend = PAGE_ALIGN(addr + (size_t)batch *
++					       sizeof(struct swap_cluster_info));
++		struct page *batch_pages[XSWAP_UNMAP_BATCH_PAGES + 1];
++
++		if (bstart < bend)
++			xswap_unmap_range(si, bstart, bend, batch_pages,
++					  ARRAY_SIZE(batch_pages));
++	}
++out_store:
++	WRITE_ONCE(si->nr_clusters_mapped, start_idx);
++	mutex_unlock(&si->xswap_lock);
++}
++
++/* Track the end of the run of pages that is already mapped. */
++static int xswap_mapped_end(pte_t *pte, unsigned long addr, void *data)
++{
++	unsigned long *mapped_end = data;
++
++	/* The mapped range is a prefix, so the first hole ends it. */
++	if (!pte_present(ptep_get(pte)))
++		return 1;
++	*mapped_end = addr + PAGE_SIZE;
++	return 0;
++}
++#endif /* CONFIG_XSWAP */
++
+ static int setup_swap_clusters_info(struct swap_info_struct *si,
+ 				    union swap_header *swap_header,
+ 				    unsigned long maxpages)
+-- 
+2.54.0
 
