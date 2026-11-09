@@ -1,111 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794222498;
-	b=D7kaVygzeC0OGN9OBgWAUkkK+ypElFeMu21VWaM38jG/tQQf3vtK0ZY5jnTiaFHXlN7u
-	 u1SBi5bgLJF5/g2R8UG2q9D6Xr2xqhr+fQuKhUBSDudTpAUJThYELVzqBW0jkoAMeS65+
-	 e4OMpmZfVkyOwxtB4CN4KzfQJVa5o6mv0i1XbqRyZqR4T8nTC4DaZuADVMnX46aXBgQnt
-	 QBY25XMgfJqPwSUn6zxDAOw1jfxJ9gdPsMh+D25Z2xfWjri/iJrHi6kqrZ0vF9JNtcRrT
-	 NUIbC1qMdY962DEvujmfIf+3IZkpNYDkokVmuXu3co7qx9Csr3qkXt9jhPPptzRkHlw==
+	t=1794222550;
+	b=UlGF9RDbp1y8t0UXDhXaG0/2l4oFl7NlYbrUZC15LBDQ233mGkguhUka2j/6IRE2Y9fJ
+	 gEZXZEPKjgMOHJMABS53TePcvrqEv8TBRS2sHF/2GLUZb7u2n0mb+0qmuC4oMWjkFsyvf
+	 YEjigSIVbEUDnpz0TibLMS7tPoZdb+tUl1WI1tnc6EFYmkqPbXUUOyuYvGHEU9BrAceyz
+	 hzjj6R8utgyVMAes+za6e8CS6+tKb2d+gkOq25c8xxsFyTfn/bAx4ia8/c4UUFRP/cpdz
+	 YrVHKX8vPyU1XlhmkRLZZsByfpiyYqLi9ybe/gWiPI+MtdrIySRT/reErEmKtHCmLng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794222498;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=36DtqmFY9ZuwB0YeiQKuJ7Aj4UwEcsVzlYW4e3gr6+I=;
-	b=TigGKxdEbU/CnvIJBxm0rrIo+nyUGxJDiOilhe7+vOOryu+Vjn2iG25YzQJx9BIDPMKm
-	 rr7WxI8khGc0cI7zdWYrbGyBGuKBaotwtxX9zoH7t2DcWKtNFe5dwUx3CQE6IF/Coyq2G
-	 ETkAVBUGoEj3X3wbbbQLFRm7NlpL5BNoWK/OQEuUCuQR21LAf42bURGg/3t/CDEH/swpP
-	 yedboEV6vXm+Wa/WRi7tmbR6F5GbbKcWw1GHa+CmLbZf08LjYNeDAVcR1M8AzoIhSSIXn
-	 J0P3A238AEWUfVSJ5r/hUdZvpO8rjbuvuArzamnayYtq1lkP1ztX8EMHbZeO8ydw99g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794222550;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=aOodfZE2ZLJT1tt72r9gxw/AwWXvUZO8hln4ZVGINpQ=;
+	b=oT0VGJEMgO1aFCQLT6MLOiHyhF6UBm11OSy8vzU80uXx/Pe54d7L3henjQOvXQwmBiAN
+	 VPaATArF1LTnNV7aTXzPeHUl91yoUS0eHuNS2xzpX4DI2p9ANS3yQUwXAvVX4aiCak5wO
+	 4S11r+xYP+IbIeVlPcEIZHGjTPQXZnMDiqOYasYGydQyx5JFCbtx7KgvpiEUvuaEy8WXo
+	 uIiIUr1w12wFjQDMOoPnjVG5XHt66uB0/8PihePUhE2k/m6c5pJ4f3G3nzOFQP+WMvyf1
+	 UhomxrrtddeKWcTjQbu29latTY2DC1NWXl8GvOGFi/JA5jvucjxXQryYK9sLE4WmJjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LHo7EinQ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="b/q6LzJQ";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OVy7dpEW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A5F606A323
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:08:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3A5F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00C20606A322;
+	Mon,  9 Nov 2026 11:09:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LHo7EinQ;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b/q6LzJQ
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A99v6vK562007
-	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 11:08:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	36DtqmFY9ZuwB0YeiQKuJ7Aj4UwEcsVzlYW4e3gr6+I=; b=LHo7EinQJg9ARF4n
-	xexAhH0K5D+x4kWAJSUylb7Smu9iPfa1I7dmdhZ+0cPSsH+wPyUt4j2t7la1iHH4
-	VddscktFCR5IrT93cKxXOOku1kni4IN3y7NU7yRAoWTfouT5r8XYbcRprBD8uI62
-	vnwFDLlxYvkMOSVgH8fWk3knoIAtryLKT2MaA5NMvMGNXG7I2Ui0nIlU4n+Fml7T
-	qg3Fuy7zLNHDbYLnV03csDxAYDixGN1eCLXj1BvyBlzI+DFLxTbMJau4XcVtbL6a
-	Mc19gRvhksR6JkjeI7i5el+MilEp4ZT9vcJNZ7ItjQX766j7C4HWF6IfNmdtM2fO
-	RS95IQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsujxe3bd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 11:08:15 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-943fffbc5dbso17233385a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:08:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794222495; x=1794827295; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=36DtqmFY9ZuwB0YeiQKuJ7Aj4UwEcsVzlYW4e3gr6+I=;
-        b=b/q6LzJQv6U8+LiGl8h2+VgYxDAiT7j6UQXWvU+MBWPOAKMDSLvC3BUuRIkIPDewZi
-         i+ID47LhK7CZumhzctS4SebuBUzxPsFcu1qnz7+9FjzdkPUTUZDv3cw+L5bUaT6ZOxJu
-         SxHIFZLz1G7Ux0HbWpndvNn4By57WeFtGU4yYeNJYW9XW2M6pt11p2+jiboRZssAnD/J
-         8JlH+UNuVofoTm0TLhRhf6obeFX/75W6cnQyNjvukyztIP1ed0Ghlu61+3DYnEb0mYSj
-         lZ2h5Gys78HnnUHdN/nbgMY1S3RS/M7jau39El03nL9chC/I1Q/aUiWoq1OXGJKxTYqf
-         wnrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794222495; x=1794827295;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=36DtqmFY9ZuwB0YeiQKuJ7Aj4UwEcsVzlYW4e3gr6+I=;
-        b=z3vOOdEFximTbQBoZZvHi7dzbsKAsW8Per+QfQAs7U6/wa3RHmvfOfvkSvRQbFKR8k
-         2Kp+OhJ4c62G0+1Jmnpl8b1Luf46XUGspDRW/MIXg/LTJbOWxbvFj8lWIN7nWpW6UrFw
-         QzXzt1EvgOgwYPXlfDir3qevemHh1864dvVCut3NMC/9S617UWDepwNJE4PooK9k3UYq
-         R9BZqeNRwEIuSDmJ7v5mJv0cYik+fbjNAaEI5LHXxVrUYKk7/c5YqKH1Ei5a5lCz1jFi
-         oMrs6WAm8q6PEzdP6c7wSnnSa0j8tyRlh4pD53mqCM/oL6MGwQfosDdH8JJr00n4CrR7
-         1CVw==
-X-Forwarded-Encrypted: i=1; AL+hErHofBAvsXgHQo6WFDTRPN7+6OxA0QjAy/AlXBPxPqTsOXQ5Ojv7SFmjGO9j1jupgZ22p17l6J+Grm/RPwM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8yyGHk9GYQ0qcmqiwh3mSUi/Z7dMi0XynXitbr3GYQNgvBNgAI
-	TwRTJbIS8sKnW5nv8Da5VIXlr56+rkZPgMTGlFQhwvokbFtbyprV/u0k2TUaMaukldkuhBtej6a
-	IeS22b89Q+JgbBSSR3bxNe8B3ZqIiNCbouIGSBvF9ddsqKZh5v/cIqZ9IOGdrSd++1M0=
-X-Gm-Gg: AYBFou0yhuUCoZaODf4UsMck4I/oDE1OaiaNBKQpF4SZ7wA7r6fLWnRYsgC0ayvjOBH
-	96T1Vk2c3NPjeyp7wIN9PhOpxDGfkmfRDBC7Bn5okQdGZktn4XbzP2En5UrQ4XIASQEPzxuDmbc
-	THdnWvfkjVJpuoxeUq+zG6s66HF4NnRQfNajI2eATtHIP8NU1eWgRlM/+/ly0pU6ltLt9w7SB5W
-	PFoAQzOdR+O4xgQpAECL+KSz+8FfAeuTFwHJBRwnQ2H2WH3HWc6anxEB/UENVtOfjE8mluwurRj
-	WVbj40O4NZrhksXOMpwFISz4DebdCSKOVKIPoiTUzz2QNvxjcJeA8w6vrHUx0Z16rRqTruEXR3k
-	n6U0ZZ5xQE/jqYuBzLvHc7SZV4anxd0WDh+gjrUvRYqxJ/VpkXUDVBT3U+962gAbmhYKC5Q==
-X-Received: by 2002:a05:620a:a41b:20b0:93e:54fc:2c79 with SMTP id af79cd13be357-947842adee7mr515074885a.5.1794222495312;
-        Mon, 09 Nov 2026 03:08:15 -0800 (PST)
-X-Received: by 2002:a05:620a:a41b:20b0:93e:54fc:2c79 with SMTP id af79cd13be357-947842adee7mr515069785a.5.1794222494798;
-        Mon, 09 Nov 2026 03:08:14 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4d69f94805sm148341166b.26.2026.11.09.03.08.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 03:08:13 -0800 (PST)
-Message-ID: <c25371d5-1693-4ab6-9b4a-7b17a38a4e09@oss.qualcomm.com>
-Date: Mon, 9 Nov 2026 12:08:11 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OVy7dpEW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314141F0089F;
+	Mon,  9 Nov 2026 11:09:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794222549;
+	bh=aOodfZE2ZLJT1tt72r9gxw/AwWXvUZO8hln4ZVGINpQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OVy7dpEWlg5/XbJsqYaWzhLgZhXYjImiWD+7BGtQkQS5rpiBB85a1/PQ0PkrxDf5M
+	 wk43LO1COjb2xg+5HPNyr1QkIYNDrIb4eOs7I2Iwq4YwsQMLmMHgC7V6vgkRoLACGI
+	 XWYQ6ahL7CJCsRdAHmQNfr7CCjxQUFxNEKcMeNskzB4OD34KI6XvgWgIHKmydbIRX8
+	 ssM7IQSJdxcajwYHE98J+/58pjYvmhu5SCoPrTsqWhGYHjK4u5Z7GLERW7R5MDTvNp
+	 6EMN6qtTxnTWW04+peDUxv9u1UnMfJDe6DSMt2dITZ31QBgxdt2FcSnef3ArvwiBVi
+	 j3Og+kFrFeKxw==
+Subject:
+ Re: [PATCH] nfc: pn533: validate response length before parsing DEP ATR_RES
+From: netdev-bot+sashiko@kernel.org
+To: hj351016@gmail.com
+Cc: david@ixit.cz, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kuba@kernel.org
+Date: Mon, 09 Nov 2026 11:09:08 +0000
+Message-ID: <179422254869.994134.11688036324201956954@kernel.org>
+In-Reply-To: <20261105105805.1450120-1-hj351016@gmail.com>
+References: <20261105105805.1450120-1-hj351016@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,87 +62,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v4 3/3] arm64: dts: qcom: oneplus-kebab: new device
-To: Frieder Hannenheim <git@fhannenheim.net>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Robert Oscilowski <drgitx@gmail.com>,
-        =?UTF-8?Q?Jean-Fran=C3=A7ois_Bobier?= <jf.bobier@gmail.com>,
-        phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261105-kebab_dts-v4-0-c6bbe6ded92e@fhannenheim.net>
- <20261105-kebab_dts-v4-3-c6bbe6ded92e@fhannenheim.net>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261105-kebab_dts-v4-3-c6bbe6ded92e@fhannenheim.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: W_FHN4i51KIrt3ZkUGcTj7hEV6-ZIxAo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0NCBTYWx0ZWRfX0YipzxvmUvt6
- 2mMbahoGnNZoGGI58JN4R1V/+XRQNMWuQA64OyeDbps/sV2rxbD7WWm+EDcVFNd4oSdZyEQyCx1
- 1DBUnjX0qQfq9VVebPmjJKP6fTANBMJ+x7yv/hnwTT110X31veXGpjG4W0Of8ryDf2xQpshnf1p
- axVe4kEASeL4CGpK6D8K3FTzkWJ6BOWo608FxG7apHYmOlnxS3G4+tQeUB8Y+ycZRUmAsibJLGN
- lg2cJukPsVHaNr8EedzF7Hsb2FWaOjmPeRTMHXJPEZ/29OZqRvLN8cF3g3PQGnhjUFJk2Xyrvc0
- XoqnHmBKa1n1w7bVua5AH1MZ8WS5sg6MUO3jfWmXKs3YxUHGlK/sGuqABNCZfaL2P9fSUsoQZ1s
- n4rbxS+rw2lJ64+DrBpA8g/e/a5uyFAkvPcBhTSJJ80+kmJB87IOiw1L4m67a+RE27mtmKWpPxM
- FO1agEZPBAF926iO6Qw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0NCBTYWx0ZWRfX8tSKXAmTsIuj
- 66asCgqUVN1MxoBgL2r8ciK4OoBsdXocw/00nnnXI5bcBntDWpBY2o+dhGqRjBzyHg1NkxeZBRZ
- PuzaS+njHZ3zZgLryzhqRssS546BO50=
-X-Authority-Analysis: v=2.4 cv=TeIDJhQh c=1 sm=1 tr=0 ts=6af1a99f cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=OQN141zOAAAA:20 a=pGLkceISAAAA:8 a=WE8o4AYwAAAA:8 a=0q0syt3hQrrWoPH5w1IA:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=6aV5INxNnvWGCTbEtcBN:22
- a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-ORIG-GUID: W_FHN4i51KIrt3ZkUGcTj7hEV6-ZIxAo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0 adultscore=0
- spamscore=0 priorityscore=1501 clxscore=1015 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090044
 
-On 11/5/26 9:20 PM, Frieder Hannenheim wrote:
-> Add initial device-tree for the OnePlus 8T. Downstream reference is [1].
-> 
-> [1] https://github.com/LineageOS/android_kernel_oneplus_sm8250/blob/lineage-23.2/arch/arm64/boot/dts/vendor/oplus/kona-kebab-overlay.dts
-> 
-> Co-developed-by: Robert Oscilowski <drgitx@gmail.com>
-> Signed-off-by: Robert Oscilowski <drgitx@gmail.com>
-> Signed-off-by: Frieder Hannenheim <git@fhannenheim.net>
-> ---
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-[...]
+Critical: 0 · High: 1 · Medium: 1 · Low: 2
 
-> +&i2c2 {
-> +	status = "okay";
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The new length check in pn533_poll_dep_complete() and
+  pn533_in_dep_link_up_complete() (drivers/nfc/pn533/pn533.c) runs…
+- [Medium] pn533_activate_target_nfcdep() in drivers/nfc/pn533/pn533.c
+  parses the ATR_RES returned by PN533_CMD_IN_ATR in the same way as the…
+- [Low] The commit message says 'pn533_rf_complete()-style handlers in
+  this file already length-check resp->len before use (e.g. the…
+- [Low] The patch says it fixes an out-of-bounds read whose bytes reach
+  userspace through nfc_targets_found() (netlink), but it has no Fixes:…
+
+--
+
+nfc: pn533: validate response length before parsing DEP ATR_RES
+
+This patch adds a resp->len < sizeof(*rsp) check to
+pn533_poll_dep_complete() and pn533_in_dep_link_up_complete(). The check
+runs before the InJumpForDEP response is parsed as a struct
+pn533_cmd_jump_dep_response. The goal is to stop reads of the 17-byte
+fixed header from going past the end of a short frame.
+
+> A valid ATR_RES always carries the full 17-byte fixed header (the
+> general bytes, if present, start at offset 17), so reject any response
+> shorter than sizeof(*rsp) before parsing it. pn533_rf_complete()-style
+> handlers in this file already length-check resp->len before use (e.g.
+> the ATR_REQ_GB_OFFSET check in pn533_init_target_complete()).
+
+[Severity: Low]
+Is this description accurate? pn533_rf_complete() only checks
+IS_ERR(resp), queues poll_work and frees the skb. It never reads
+resp->data and has no resp->len check.
+
+pn533_init_target_complete() does have a real check:
+
+    if (resp->len < ATR_REQ_GB_OFFSET + 1)
+        return -EINVAL;
+
+Other completion handlers in this file read resp->data without any
+length check. One example is pn533_start_poll_complete():
+
+    nbtg = resp->data[0];
+    tg = resp->data[1];
+    tgdata = &resp->data[2];
+    tgdata_len = resp->len - 2;
+
+pn533_tm_get_data_complete() and pn533_data_exchange_complete() do the
+same.
+
+Could this sentence be reworded or dropped, so it doesn't suggest the rest
+of the file already validates lengths?
+
+> Found by code review; not reproduced.
+>
+> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+
+[Severity: Low]
+The commit message says stale buffer contents can reach userspace through
+nfc_targets_found(). Should the patch carry Fixes: tags and Cc: stable?
+
+git blame shows the unchecked parsing came from these commits:
+
+  pn533_poll_dep_complete(): 673088fb42d0 ("NFC: pn533: Send ATR_REQ
+  directly for active device detection")
+
+  pn533_in_dep_link_up_complete(): 361f3cb7f9cf ("NFC: DEP link hook
+  implementation for pn533"), with the current rsp cast from
+  13003649b1eb
+
+> diff --git a/drivers/nfc/pn533/pn533.c b/drivers/nfc/pn533/pn533.c
+> index f5a6a7c20d5af..63b6032692184 100644
+> --- a/drivers/nfc/pn533/pn533.c
+> +++ b/drivers/nfc/pn533/pn533.c
+> @@ -1310,6 +1310,11 @@ static int pn533_poll_dep_complete(struct pn533 *dev, void *arg,
+>  
+>  	rsp = (struct pn533_cmd_jump_dep_response *)resp->data;
+>  
+> +	if (resp->len < sizeof(*rsp)) {
+> +		rc = -EINVAL;
+> +		goto error;
+> +	}
 > +
-> +	pm8008: pmic@8 {
-> +		compatible = "qcom,pm8008";
+>  	rc = rsp->status & PN533_CMD_RET_MASK;
+>  	if (rc != PN533_CMD_RET_SUCCESS) {
+>  		/* Not target found, turn radio off */
 
-No PM8008 on the other phone?
+[Severity: High]
+Does this check also reject failure responses that worked before? The old
+failure path read only rsp->status (resp->data[0]), so it handled a
+failure frame of any length.
 
-> +		reg = <0x8>;
+pn533_send_async_complete() strips the frame header and tail:
+
+    skb_pull(resp, dev->ops->rx_header_len);
+    skb_trim(resp, resp->len - dev->ops->rx_tail_len);
+
+After that, a status-only InJumpForDEP error reply such as D5 57 <status>
+has resp->len == 1. It now takes the goto error path and returns -EINVAL,
+skipping the "Not target found" branch:
+
+    queue_work(dev->wq, &dev->rf_work);
+
+pn533_wq_rf()->pn533_rf_complete() is the only place that re-queues
+poll_work after a DEP poll attempt. pn533_wq_cmd_complete() ignores the
+callback's return value except for -EINPROGRESS. Doesn't the poll loop
+then stop silently?
+
+In that state poll_mod_count stays non-zero and nfc_dev->polling stays
+true. No targets are reported, and a new NFC_CMD_START_POLL fails with
+-EBUSY in nfc_start_poll() until userspace stops polling. The one
+exception is when the current modulation is listen mode
+(cur_mod->len == 0). In that case listen_timer eventually moves polling
+to the next modulation.
+
+Once pn533_start_poll_complete() has set poll_dep, this is the normal
+"no peer in range" path, not an edge case.
+
+pn533_in_dep_link_up_complete() below has the same ordering. A short
+failure reply there now returns -EINVAL before reaching this:
+
+    nfc_err(dev->dev,
+        "Bringing DEP link up failed (error 0x%x)\n", rc);
+
+so the chip's error code is no longer logged.
+
+The commit message says "A valid ATR_RES always carries the full 17-byte
+fixed header", but an error reply is not an ATR_RES. The message also
+doesn't mention any change to the failure path.
+
+Would it work to require resp->len >= 1 before reading status in both
+handlers? The resp->len >= sizeof(*rsp) check could then apply only after
+status is PN533_CMD_RET_SUCCESS.
+
+> @@ -1928,6 +1933,11 @@ static int pn533_in_dep_link_up_complete(struct pn533 *dev, void *arg,
+>  
+>  	rsp = (struct pn533_cmd_jump_dep_response *)resp->data;
+>  
+> +	if (resp->len < sizeof(*rsp)) {
+> +		rc = -EINVAL;
+> +		goto error;
+> +	}
 > +
-> +		interrupt-parent = <&tlmm>;
-> +		interrupts = <112 IRQ_TYPE_EDGE_RISING>;
+>  	rc = rsp->status & PN533_CMD_RET_MASK;
+>  	if (rc != PN533_CMD_RET_SUCCESS) {
+>  		nfc_err(dev->dev,
 
-interrupts-extended = <&tlmm 112 IRQ..>
+[Severity: Medium]
+Should pn533_activate_target_nfcdep() get the same fix? This patch leaves
+it unchanged, but it parses the ATR_RES from PN533_CMD_IN_ATR in the same
+way:
 
-[...]
+    rsp = (struct pn533_cmd_activate_response *)resp->data;
+    rc = rsp->status & PN533_CMD_RET_MASK;
+    ...
+    /* ATR_RES general bytes are located at offset 16 */
+    gt_len = resp->len - 16;
 
-> +&vreg_f {
-> +	status = "disabled";
-> +};
+rsp->status is read with no resp->len check. With resp->len == 0, that
+read hits the trimmed DCS byte. The u16 gt_len also wraps when
+resp->len < 16.
 
-I think it may be cleaner to move the definition to the other
-phone's DT (are there just 2, or more?)
+nfc_set_remote_general_bytes() narrows the wrapped value to u8, and
+nfc_llcp_set_remote_gb() then rejects it. So the gt[] over-read is
+mitigated, as with the two patched handlers. The unguarded status read
+and the wrap are still there.
 
-Konrad
+The same approach would cover this handler: a resp->len >= 1 check
+before reading status, then a sizeof(*rsp) check after the success test.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105105805.1450120-1-hj351016%40gmail.com
