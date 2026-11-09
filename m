@@ -1,57 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794188340;
-	b=SjayT1GetzkphwJfTRwUPZhkPZ6KwagrkkFpbr/+ezlz71CRnG3o4P+99+SClwbr97au
-	 ND5s+zaQH0kQHaMTeodQbUY4SG+ikDJZ6+MyWP0sBX26F1mV4m56NN/oJV+HsVBeT+3Dc
-	 5n2olIT6Co/HLiQ8SDxnexOZzpZMFIe6oFL+Maw6WOUH4dNQ/JrWDgMiwXfVtSEfwaEiR
-	 W0vbXbXmmYFHVz8yatzKDwThDe3y6uDPG9EaSdOtJSvopNyMII6LLKGr4lgY1sj5q5EQR
-	 TcRw5QJ0i296AElpGope1qf1SV7HFb+0zyb/h7Ng98lM02xB0E7E7gvXC4FmgzkF1UQ==
+	t=1794188329;
+	b=aMp17AwEZsUhfpHtbZVjOHhswdlwx3Ovfilr9aZ1A+2HBcSr4LagZXIFpLoH+AYW0gXX
+	 rlu9azkBtYRohVyjUrW+IpgfvHIKUfK1Yw4wtfEER1STU5tuSPhSAsYtk6TEDIYbk1j7K
+	 YOpj5FC0Xg76YY5d3Ai4QmSwINf1rwPBiDKApWqCmAc68G0q297bYxOHdUi9nnylCl9fZ
+	 4z+U/ZVG5I1YJmEc+PtkaPtfx/9cySdoZAg45Kave18QwPYebCvSLR0aeWyF0oPS8NBjv
+	 ZoWOWLXcZjPlDoY0bV3/5jmIFZVhey4LgJAKm4iLkoCbhChh3I8N/rMc28NbY9bXnpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794188340;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:X-TLS:
-	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-FangMail-Miltered:X-FangMail-Envelope:
-	 X-FangMail-Bounce-Flag:X-FangMail-Outinfo:X-CLEAN:Message-Id:
-	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=x1muTvUlf9SEhMdygrZyzxBP7L0PY5h9SJntq65AnLM=;
-	b=twUL7sBPxQo46VOQIv4Wbvlwo/H4FuIR+pHe9dJtwXvqfVbxP6tAh+/15QqADNxyVmbW
-	 tgdO5plDwOJcUI9HuBAc8EOBhWyF7RWB2u7848pY0Gl3bvGDRCsiPYsy7HDD4G+lkQC8c
-	 vNMpcuTii11GAQuO31lQlvfvbxGLqBg7WAdFdWcn2HATcCq2Nk4B0j+zz3t+HWUnJcEk+
-	 WfkfWjvT5ww8lUdjsRtYMigZNN4wvQq8IfQKhM29Rg2Ep3H+FLfQ3ZsQ3wlQ/mplujUdX
-	 8BxEEcfJZxe9X4ALpqKQ6y1jdxgbqsxx9QyqdLFrezw3xNJbNKK45ak7+uq1ZqeLGsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794188329;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=jgJQfbD85DE2uxnUN7b8QIZUT8lwjyaqkF8TDj03zC4=;
+	b=sWAC3cVU4DEDMmdAsN79IbsXfdpC/LMdXAIAlGkhjrC+l8yaguM/BMx8c7YtZKdK6YtR
+	 A0f78NZaS33E3/T4QWeDVEjULKGKygMCAqoM757A7VjQnneJI9xghg7O48dYJaaPXpSpU
+	 0cWYIdnDqaiKX3WqHkv+dweJdmHcsJKRD6fIyAoLvCpptg1CjsSXDKVHxtR2PH91hnafd
+	 7RmPagW/ogUcBmyV+nKporvhrFr4UxHdMYiL4cmi0mOsJb1u1UOX3Q8HpLWUGl9Lpp//a
+	 NmZjOhq2Zw987wbZr3cGjZXwviYRIqjjIUX9eE5LqMADarTACOvP6Mc9bmV52IVavTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=isoftstone.com;
-	spf=pass smtp.mailfrom=isoftstone.com;
-	arc=none smtp.remote-ip=219.143.121.9
-Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjTPy2yz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406DA606A31C;
-	Mon,  9 Nov 2026 01:38:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 406DA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
-Received: from ldzh.. (unknown [221.226.109.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dlzhangak@isoftstone.com)
-	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jNC9j12vbz23pF;
-	Mon, 09 Nov 2026 09:38:49 +0800 (CST)
-From: zhangdaolong <dlzhangak@isoftstone.com>
-To: Xiubo Li <xiubli@kernel.org>
-Cc: Ilya Dryomov <idryomov@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dlzhangak@isoftstone.com
-Subject: Re: [PATCH] ceph: revalidate dentries under snapdir to drop stale snapshots
-Date: Mon,  9 Nov 2026 09:38:48 +0800
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <CAOuZWzyZoQ9oAHKmxVg7B292Vx-QZ2E+QLt6xVnpfKpps+4Yfw@mail.gmail.com>
-References: <20261106021310.777075-1-dlzhangak@isoftstone.com> <CAOuZWzyZoQ9oAHKmxVg7B292Vx-QZ2E+QLt6xVnpfKpps+4Yfw@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D625A606A320;
+	Mon,  9 Nov 2026 01:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjTPy2yz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 748BC1F0089F;
+	Mon,  9 Nov 2026 01:38:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794188328;
+	bh=jgJQfbD85DE2uxnUN7b8QIZUT8lwjyaqkF8TDj03zC4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=DjTPy2yztsF3Tw1bDXzsfQy3yCKNQuLLExDeMe3KMc+9tR31wqrUtF2Kc1Z3PHYIj
+	 c0B4nD/15J65wnauqLKeCeBZBNwRg8/gd0fmEaP9wx1i7ex7f+zt9wEBG9r1HmBKDT
+	 EGJn2CcgV35vWxd0u722U4Lom/OFTUcdn1NR75AU+hCU1Tjxq1aEWl9TnCTChkQ7jJ
+	 79qGiMQ6SAiRByFEVlCYYtSXjnJc1sgMODXXnLtQSSC/g5fTtBp6UUwSKwn6HJjMuu
+	 MaVOeO3qddBGVCvv+OmgGIFbabu8QdS1wznPGSS4OFDSFG+dL1xuu+2+9my5F6Vc4N
+	 nqnW6JHGlgEwA==
+Subject: Re: [PATCH net-next v4 2/2] net: prevent mixing frags from different
+ memory providers or bindings
+From: netdev-bot+sashiko@kernel.org
+To: almasrymina@google.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, willemb@google.com,
+ kaiyuanz@google.com, linux-kernel@vger.kernel.org, ncardwell@google.com,
+ kuniyu@google.com, bobbyeshleman@meta.com, asml.silence@gmail.com,
+ sdf@fomichev.me, daniel@iogearbox.net
+Date: Mon, 09 Nov 2026 01:38:46 +0000
+Message-ID: <179418832697.994134.11198338213560511850@kernel.org>
+In-Reply-To: <20261108013838.1454450-3-almasrymina@google.com>
+References: <20261108013838.1454450-3-almasrymina@google.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,97 +65,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TLS: YES
-X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
-X-SOURCE-IP: 221.226.109.28 unknown Mon, 09 Nov 2026 09:38:49 +0800
-X-FangMail-Miltered: at fangwg01 with ID 6AF12428.004 by FangMail milter!
-X-FangMail-Envelope: 1794188329/4jNC9j12vbz23pF/6AF12428.004/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
-X-FangMail-Bounce-Flag: 1794188329.6AF12428.004
-X-FangMail-Outinfo: 1794188329/6AF12428.004/4jNC9j12vbz23pF/dlzhangak@isoftstone.com/1
-X-CLEAN: YES
-Message-Id: <1794188329.6AF12428.004.4jNC9j12vbz23pF@fangwg01>
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF12428.004/4jNC9j12vbz23pF
 
-On Sat, Nov 7, 2026 at 12:17 PM Xiubo Li <xiubli@kernel.org> wrote:
->
-> Hi Daolong,
->
-> Thanks for the patch. I can reproduce this with two kernel clients, and
-> it is a bit worse than described: after B removes .snap/s3 and creates a
-> new .snap/s3, A still reads the file contents of the old snapshot. A
-> removed ancestor snapshot also stays visible as .snap/_p1_<ino> in child
-> directories. Your patch fixes all of these cases.
->
-> [...]
->
-> >         /* always trust cached snapped dentries, snapdir dentry */
-> > -       if (ceph_in_snap(dir)) {
-> > +       if (ceph_in_snap(dir) && ceph_snap(dir) != CEPH_SNAPDIR) {
->
-> With this change nothing can validate a dentry under .snap anymore. The
-> MDS issues no lease for it, the snapdir only has CEPH_CAP_PIN, and a
-> snapped inode has no real caps. So every path walk through .snap/<name>
-> does a synchronous LOOKUPSNAP. With 3000 stats of .snap/s3/f on a cached
-> snapshot (in a VM, so only the order of magnitude matters):
->
->                  ops/s   LOOKUPSNAP   p50/p99 (us)
->   unpatched     257834        0         3.1/6.9
->   this patch     10065     3000        89.9/273.1
->   realm check   234741        0         3.4/7.5
->
-> The "realm check" row is an alternative that avoids the round trip. The
-> client already knows which snapshots exist: the directory's snap realm
-> keeps the list in cached_context, and the MDS sends a snap update to
-> every client with caps in the realm when a snapshot is created or
-> removed. So d_revalidate can keep trusting a dentry under .snap while
-> its snapid (ceph_snap(inode)) is still in the realm's snap context of
-> the head directory, and only fall back to LOOKUPSNAP when it is not, or
-> when we hold no caps on that directory.
->
-> I tried this on 7.2.9. It fixes the same cases as your patch: recreating
-> a snapshot, reading stale data, removed ancestor snapshots, and 50/50
-> "B rmdir, A mkdir right away" rounds. It sends no LOOKUPSNAP on cache
-> hits. I can send you the diff I tested if it helps.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Hi Xiubo,
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
-Thank you very much for reproducing the issue, identifying the additional
-stale read and removed ancestor snapshot cases, and benchmarking the
-LOOKUPSNAP overhead.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Validating the dentry against the head directory's snap realm
-cached_context (when holding caps on the head directory) before falling
-back to LOOKUPSNAP makes total sense and avoids the unnecessary MDS round
-trips on cache hits. Could you please share the diff you tested? I would
-be glad to incorporate it and test it for v2.
+- [Medium] The commit message says the whole change is "theoretical", but
+  one of the bundled fixes closes a bug that any devmem TX socket can…
+- [Medium] skb_has_net_iovs() returns `skb->unreadable &&
+  skb_shinfo(skb)->nr_frags`.
 
-> >                 if (!err && !req->r_reply_info.head->is_dentry)
-> >                         d_delete(dentry);
-> > +               else if (err == -ENOENT)
-> > +                       d_drop(dentry);
->
-> Please make this a separate patch. With the revalidate fix, rmdir of a
-> stale snapshot already fails in the lookup and never sends RMSNAP. I
-> checked the MDS counter with and without this hunk. Also, this hunk
-> affects unlink() of regular files too.
+--
 
-Agreed. I will drop this hunk from v2 and send it as a separate patch.
+net: prevent mixing frags from different memory providers or bindings
 
-> Nits: the "always trust cached snapped dentries, snapdir dentry" comment
-> needs an update. Also, the trust-all check dates back to 2817b000b02c,
-> while 200fd27c8fa2 only added the unreachable LOOKUPSNAP branch, so
-> please explain the choice of Fixes: tag.
+The patch adds skb_has_net_iovs(), skb_net_iov_provider(),
+skb_mem_provider_compat(), skb_frags_can_coalesce() and
+net_devmem_skb_binding(). These are used in the coalesce, shift, GRO,
+TCP collapse and devmem TX paths so that frags from different memory
+providers or devmem bindings are never mixed in one skb. It also
+propagates skb->unreadable and compares netmems when merging frags in
+tcp_clone_payload().
 
-I originally chose 200fd27c8fa2 ("ceph: use lookup request to revalidate
-dentry") because it explicitly added the CEPH_MDS_OP_LOOKUPSNAP branch in
-ceph_d_revalidate() intending to revalidate dentries under CEPH_SNAPDIR,
-but overlooked that the earlier check from 2817b000b02c ("ceph: directory
-operations") made it unreachable. In v2, I will update the comment and
-point Fixes: to 2817b000b02c (while also mentioning 200fd27c8fa2 in the
-commit message).
+> diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+> index 6787fcf6ac3e4..e6f63450a193a 100644
+> --- a/include/linux/skbuff.h
+> +++ b/include/linux/skbuff.h
+> @@ -1882,6 +1882,17 @@ static inline bool skb_frags_readable(const struct sk_buff *skb)
+>  	return !skb->unreadable;
+>  }
+>  
+> +/* Return true if frags in this skb are backed by net_iovs.
+> + * Assumes skb->unreadable and net_iov-backed frags are equivalent for now;
+> + * the two can be decoupled in the future if readable net_iovs in skbs are
+> + * introduced. Also check nr_frags because not all frag-removal paths clear
+> + * skb->unreadable when nr_frags drops to 0.
+> + */
+> +static inline bool skb_has_net_iovs(const struct sk_buff *skb)
+> +{
+> +	return skb->unreadable && skb_shinfo(skb)->nr_frags;
+> +}
 
-Thanks,
-Daolong
+[Severity: Medium]
+
+Does the nr_frags gate make the checks this patch replaces weaker, for
+exactly the state the comment above describes?
+
+An skb with unreadable=1 and nr_frags==0 is now classified like a
+page-backed skb. So skb_mem_provider_compat() and skb_frags_can_coalesce()
+report it as compatible with a readable skb. The checks being replaced
+rejected that case:
+
+skb_try_coalesce():
+	if (skb_frags_readable(from) != skb_frags_readable(to))
+		return false;
+
+tcp_skb_can_collapse():
+	skb_frags_readable(to) == skb_frags_readable(from)
+
+tcp_sendmsg_locked():
+	unlikely(skb_frags_readable(skb) != !binding)
+
+Take skb_try_coalesce() with to stale-unreadable with 0 frags, and from
+readable with only page frags and headlen 0. It skips the copy path and
+passes skb_frags_can_coalesce(). It also misses the new readability check,
+because that check only runs when skb_headlen(from) != 0. The page frags
+are then copied into to, and to->unreadable stays set.
+
+skb_shift() behaves the same way and only clears the source skb's
+unreadable bit. In tcp_sendmsg_locked(), net_devmem_skb_binding(skb)
+returns NULL for such a tail. With binding == NULL, page data is appended
+to the tail instead of starting a new segment.
+
+The resulting skb is flagged unreadable but holds struct page frags.
+net_devmem_skb_binding() returns NULL for it, so would
+validate_xmit_unreadable_skb() drop it on every transmit and retransmit?
+
+	if (!binding || binding->direction != DMA_TO_DEVICE ||
+	    READ_ONCE(binding->dev) != dev)
+		goto out_free;
+
+On RX, the dmabuf recvmsg path would reject the non-niov frags.
+
+The stale state can be produced. __pskb_trim_head() in tcp_output.c
+removes frags without clearing unreadable, and it is reached through
+__tcp_retransmit_skb()->tcp_trim_head() for a FIN skb whose data has been
+acked.
+
+I could not find a live path where such an skb later becomes the target
+of a coalesce, shift or sendmsg append, because that FIN skb is the last
+one in its queue. So this may only weaken the old checks rather than
+cause a reachable failure.
+
+Would it make sense to keep rejecting a readable/unreadable mismatch in
+these paths as well?
+
+[ ... ]
+
+> diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
+> index cf3ddc055d48d..b8a5c3556243b 100644
+> --- a/net/ipv4/tcp_output.c
+> +++ b/net/ipv4/tcp_output.c
+> @@ -2692,8 +2692,9 @@ static int tcp_clone_payload(struct sock *sk, struct sk_buff *to,
+>  				     probe_size - len);
+>  			len += todo;
+>  			skb_shinfo(to)->flags |= skb_shinfo(skb)->flags & SKBFL_SHARED_FRAG;
+> +			to->unreadable |= skb->unreadable;
+>  			if (lastfrag &&
+> -			    skb_frag_page(fragfrom) == skb_frag_page(lastfrag) &&
+> +			    skb_frag_netmem(fragfrom) == skb_frag_netmem(lastfrag) &&
+>  			    skb_frag_off(fragfrom) == skb_frag_off(lastfrag) +
+>  						      skb_frag_size(lastfrag)) {
+>  				skb_frag_size_add(lastfrag, todo);
+
+[Severity: Medium]
+
+The commit message says:
+
+  This issue is theoretical and was found by manual code inspection and
+  LLM review; it was not triggered in production.
+
+Is that accurate for this tcp_clone_payload() change? It looks like it
+fixes a reachable data corruption bug that any devmem TX socket can hit
+when MTU probing is enabled.
+
+Before this patch, the path was:
+
+tcp_write_xmit()
+  tcp_mtu_probe()
+    tcp_can_coalesce_send_queue_head()
+      tcp_skb_can_collapse()   <- only required equal readability
+    tcp_clone_payload()
+
+The probe nskb comes from tcp_stream_alloc_skb() with unreadable=0.
+Nothing set the flag when net_iov frags were copied into it. So
+validate_xmit_unreadable_skb() returned early without checking the
+binding's direction or device. Readers gated only by skb_frags_readable(),
+such as skb_copy_bits() for packet taps, could treat the net_iovs as
+struct pages.
+
+There is a second problem in the old merge test. skb_frag_page() returns
+NULL for every net_iov frag, so the test was NULL == NULL. The frag
+offset comes from the user iovec address in net_devmem_get_niov_at():
+
+	*off = virt_addr % PAGE_SIZE;
+
+Consider an iovec at dmabuf offset 0 with length 100 (niov 0, off 0),
+followed by one at offset 2*PAGE_SIZE+100 (niov 2, off 100). The two
+frags have contiguous offsets but sit on different niovs. They would be
+merged into one 200 byte frag on niov 0. Bytes 100..199 of the probe
+would then be sent from the wrong dmabuf page as valid TCP payload.
+
+Since this puts wrong data on the wire, could the commit message describe
+it accurately? Could this fix also be split into its own patch, so it is
+easier to spot for stable backports?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261108013838.1454450-1-almasrymina%40google.com
