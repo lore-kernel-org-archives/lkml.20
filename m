@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187085;
-	b=heTmKhiP4MbWeshCy5ZeBO+g58J+PkGmK7p/DDikYAqFsnI3R5rOJPAoDaUl99UENA0l
-	 njKHeQe7BRDlbyZuJ49aUBH6W1j8M81bwT1vmBwOSecghzhM3qfAMmFtlt51drJjTHVL6
-	 auAs36DEl34vAbbex+RZkHqN1WXZkxtl0NpUcn8AKks0/PzSCwheZEvPdBIm8fj4O8GsC
-	 A3XTjoPJlIWnpBZRJnWYWfmudkz4xVZ4iYlScUz3Gh//amrcVvo38tYVHhvzkIjS0uDpY
-	 oh8WwMbvj+dE0PC0DUN6abZwSV/etR2G4VUJGIR3aQ/zqM+bUY/f6AQBUxbvMwrOCTQ==
+	t=1794187083;
+	b=jde6fkhVhvcWzqm36EoWQKlitJUOTtuMAORQdKqi1hLBSl9H5068SxJgMtkTV5yaAFHk
+	 taHCN4BrAQ8tvzIheAEHsR1ZR/bVJtV6p0wvqBX4SrRPcdNkbhk6qLm78v61iKJH6mfTe
+	 KL3urqWAvt954pmJ5FBUEL4w3h2BSrB7GE1EGWmkD/703Y6auzY4l3773pwAG4lZ7jAiT
+	 i4WuFk+EBvU2n4rs8dxZn4NIxB8WMnbHRoeh/6TzyktLJ6Qarhv8+beY2k7RRfN2BOUdZ
+	 tHijpx+Hc9JgEDJ9sQ+yAAW3BNdAm354DED17WpAW0Ma5MuAEet922KKnBsfo3Am8OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187085;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-CMAE-Envelope;
-	bh=YEqc13wt2HALjaz89i8UrNv1S77qlq72ni9CSRUHi90=;
-	b=3AUXW5Sv5gHuZ7rm4f5NvVT4+6F+M8tIh965BAm1EDTLCkjWpEUF9J/z6JN2WF0rqebM
-	 6jxPX1wylprnXgRsiWHQTwQfpmC6vxKKCWvNRsu/Ee0DQ+4hNZpqiNQAa/+6Ng9d+nHcx
-	 tQL6HDpJB6kM3il8+VtwAP2xDhroE1UN5YOEVEJBj9+ygsvJ9V/JOgGEILD9edceDvmTp
-	 hzPE0ATdklOA1tjMnhg4n17BzS++bJdHvqPUVVHafI8ZvLa2JFLd6HuXVKFjFnP7jkozx
-	 hYTfLKYQ9zPCq6EL1A1G/xQV2MqXDO/JEaZOiE3ak0Kbg6F3FyMp551FqEykFOr0Nmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187083;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-CMAE-Envelope;
+	bh=slZxuBR5Ylf16jTMuBMAPIg1IYxJMk2ifndH1hoqYJo=;
+	b=nhAKpZz++gF+Jc4CHTs+sFtpu4g9J9MkbIoeDboVdkFvTqK+ufQFysJ1Rtn6Daj0c0K3
+	 j6RMFoIjAmpQI4SxabpMrVKV7oZcyPeBUBpxaeFQEIYJJyGw6WQufLywUkGr+tt3e1jUk
+	 Ws/rrV/YfJnE/UKGV/vUsi4ah8RoQ+PrjcBdj7LlwBnFEOGjKGiEuFu6jdxs9fc6ftynd
+	 j6Meqe6nEwCiifrtVVLstYGvqfZsoQ8Oy+gEzeuwdC49/EFtbnH+IDgRj26/cEhrsQzF+
+	 5dgwyDMHxXC1lxMxOJDgRlqmKRkRKApDKM7+W3Oo1JkZGH9TUAoqypuSLVZk9o+JOSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mythread.it;
 	spf=pass smtp.mailfrom=mythread.it;
-	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=MGj3YinP;
-	arc=none smtp.remote-ip=62.149.156.121
-Received: from smtpcmd11121.aruba.it (smtpcmd11121.aruba.it [62.149.156.121])
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=fKRvzmdy;
+	arc=none smtp.remote-ip=62.149.156.116
+Received: from smtpcmd11116.aruba.it (smtpcmd11116.aruba.it [62.149.156.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E0E2606D81D
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:18:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E0E2606D81D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23230606A320
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:18:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23230606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=MGj3YinP
+	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=fKRvzmdy
 Received: from [127.0.0.1] ([87.16.49.252])
 	by Aruba SMTP with ESMTPSA
-	id QE1AxMsH06VShQE1DxPoxW; Mon, 09 Nov 2026 02:17:55 +0100
+	id QE1AxMsH06VShQE1BxPoug; Mon, 09 Nov 2026 02:17:53 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1794187075; bh=G+hd6qQfLeLELGBJdeMNPTRelD4TD1iZ3wlVeFjzB6o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:To;
-	b=MGj3YinPn/xrHtVaZe04poPoBv+hyb6uozi8u0+qHNS3zccwlPIBuasbiWlZKOOlX
-	 03G6iiS/vJjiFIlfyLv1PnT4QW+tbM9ht87/NjOK3e1UYOQeKEp72Wt28CRLAjBpl4
-	 lTRH2tVJmSx6suP0ybpmQSEbdoXlPUyiNkHL+meZE0piHHAwny9wa/RxiesD1MIEGX
-	 qiiz2EwgfZQeZjgntmst8azqkQTBAzO3raQ48PXiU9JOof+fXR6brFdRKEdYklyQ4V
-	 +iautpIMDT5BqHpKDeCSy/Lhm6H2mL2JC5e7KiOA80MUXIYZky0sSLfYAzx0+VgJtt
-	 A1vWC70gyis0g==
+	t=1794187073; bh=BoLHLvKmDPgG+mZ0H4J9N9IHuLDr3SiWMohhnh53hq4=;
+	h=From:Subject:Date:MIME-Version:Content-Type:To;
+	b=fKRvzmdyzC8jyj6MrcjcoSoG/ufNBPIYlagoNWL/aqwH5qg2ICjP0nr0yRKqKlM0C
+	 SXaJWWUhQN6I8VtdPQ8nweW8O3K2bAdrMrLKFJZ0Dwb4RHwLWM3mGWntMYuGVG7Kqm
+	 9dI2UTHOpktAzWvZbCP65KXyrGshXRywOn2pxuz2ruJq6XoR7cpQ9fbAMpvIxP2aMr
+	 jSFpo9z8jEkcCTx9ZIQnSayB6xWN3Z/cT0o/iP2yeFz+kVtIxyL4t/bwPhn6cEYySq
+	 YwYJf6ZIwu0DSXk6RiUCKXbLVf/a3cSaK9KPoGo3s7AcW01bEDPZ/Nb27Sn2myAieI
+	 5FxhDw4mF784Q==
 From: Alessio Ferri <alessio.ferri@mythread.it>
-Date: Mon, 09 Nov 2026 02:17:58 +0100
-Subject: [PATCH wireless-next v4 08/10] firmware: bcm47xx_sprom: read
- boardflags3 from NVRAM over the SPROM
+Subject: [PATCH wireless-next v4 00/10] bcma-ac-rev1: support 4352/4360
+ rev3 chips
+Date: Mon, 09 Nov 2026 02:17:50 +0100
+Message-Id: <20261109-bcma-ac-rev1-v4-0-de1262c18b54@mythread.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,10 +60,12 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-bcma-ac-rev1-v4-8-de1262c18b54@mythread.it>
-References: <20261109-bcma-ac-rev1-v4-0-de1262c18b54@mythread.it>
-In-Reply-To: <20261109-bcma-ac-rev1-v4-0-de1262c18b54@mythread.it>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAD4f8WoC/23NQQ6CMBAF0KuQrq3ptAjUlfcwLtoySI2CaREhh
+ LtbYINoMpufmfdnIB6dRU+O0UActtbbugoh3kXElKq6IrV5yIQzngCDmGrzUFQZGo6B5iqTMcQ
+ 8lawggTwdFrab687kbR3e0XtaYdeQy7L2L31D00yVEyitb2rXz+9bmNn/T2EY1QnLUMpcFIfk9
+ Oib0qHK93Ypb/mK83TD+cylTsAIkJz9crHiAjZcBA6FRpFhBqnU33wcxw9FheEKSQEAAA==
+X-Change-ID: 20261014-bcma-ac-rev1-da894142790f
 To: =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
  Michael Buesch <m@bues.ch>
 Cc: vit9696 <vit9696@protonmail.com>, ville+git@takio.fi, egc112@msn.com, 
@@ -70,35 +73,93 @@ Cc: vit9696 <vit9696@protonmail.com>, ville+git@takio.fi, egc112@msn.com,
  linux-mips@vger.kernel.org, Alessio Ferri <alessio.ferri@mythread.it>, 
  b43-dev@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-CMAE-Envelope: MS4xfKWjnE3rgRu097RkoPrMJ4MPxysVPF64nqsRxaRlKnggHbOPYLVd9XcCNuAFVy9R604y+t/IyBHWnzCfKnncv95fMU6FS+5VKHSFDHBS0O9kwJWX7Lob
- ptCXaBN4ntFR1EvmyXE0jcPR0A2DQfSOgHtcNN/jCGYjqI583VyMGDRHbVxFBvyTJMkVeiPZv2ZtzMqTD7EOfi8adXMs69O8ZZqIl3u22OU/KSKmhu0Glcpe
- hE6zliytsMNeeBCmC+RtEX2KU5UBmCYYTbw49Uh5g/nwskGuQFJkzxysfnCo5R7Ni/QRd89kUShaeRo4W/KHTBtWvUnEUQVVayt9aoU6yN04gTgYz1aMe4Sn
- DufaRe1wDty1nADLf8tXEqOahMLSYV1YJF9wLdV2R9/U85BpXXksINsklc4WzW+/FLWh3RMphnSy7VaxpJ1NksgtqGdhFanaKQWHOKbCK4pJBFFrOQ8do7rs
- rqjVWvn6/UzNk/Ib2UlJb2oubVW0lE/unCfMJQ==
+X-CMAE-Envelope: MS4xfEdioDTGY1z/u4GjVMe1mHbLmWpT+rI4H8Xls66NQln3AiF++CcMvxSaaGmsBXk3x4g8Dib6BHu6BK7TnmTEOyW7ehauJEouv8SmkiWXnR8yDAh0bB+l
+ EloZ/IAJiS+pl1kaopHIob50iIHTC/gQWIgjGsi2LETExhRM+4Iw4SCq/wC0LddyDFKmHZ1+cC9a7yW1HZgGp/1yMl5U8vhOCUJNDyGRBZVhLbHUNeFzuHa5
+ El4XezI2nRw/fKrMcWh6jLOdHOlPh61DGekcC/bMC7HU+xVzJxUEkJhFHncDdWUYTu9ZDKdKoVTiCfIGDOjT4RrpaXx0JVGSUZ4h5ElM/Icp1mpuzk8xrtoL
+ lqrk58HMIeGgZOleaDyOXw1A8zY//V541UoWSHJa05W6otiIa2vqQ47zRVXM8GFp6e8/iRuanRLI5ji6BUU/0BWNimWWZaL78D4YfdbOLmR7Op+ESZdUK2Rx
+ +AtcAd9UX0hdJ+tOJ0A1x3quhZXaT7BEcnQH7A==
 
-Read boardflags3 along with ledbh4..ledbh15, so that a value in NVRAM
-replaces the word of a SPROM read from the device.
+Preparatory work in the bring up of AC family rev1 chips, in particular,
+the bcm4352 rev3 and bcm4360 rev3. When public sources were found, the 
+same gates applied for operations were ported in this code.
+
+Initialize the PMU, the PCIe2 core and chipcommon of the BCM4352/BCM4360
+family on chip based on the open source version of broadcom driver, parse 
+SPROM revision 11, read the NVRAM variables set on top of the SPROM, and 
+bind bcma-pci-bridge to the BCM4352. Finally, add the missing ids to b43.
+
+Most of the series was tested by Erik Conijin and Ville Takio, both are 
+cc-ed, but i don't know if i can put their tested by directly in the 
+commit myself or if it is a very suspicious thing to do.
+
+Concerning the risk of applying the series: 
+- FORCEHT may change the behaviour of brcmsmac too (can i ask Arend?)
+- i do not expect regression from rev11 parsing, especially since no one 
+  use it yet.
+- The rest of the series has code mostly gated with the same criteria 
+  used by public code released by Broadcom, so i guess that it is safe. 
+- b43 marks the ac part BROKEN, so there is very little to preserve.
 
 Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 ---
- drivers/firmware/broadcom/bcm47xx_sprom.c | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v4:
+- Readded the missing signed off
+- Added pdoffset2g40ma and pdoffset2g40mvalid to the series, work of 
+  Ville Takio, mostly.
+- Link to v3: https://patch.msgid.link/20261031-bcma-ac-rev1-v3-0-1fbe38e8179b@mythread.it
 
-diff --git a/drivers/firmware/broadcom/bcm47xx_sprom.c b/drivers/firmware/broadcom/bcm47xx_sprom.c
-index e2c4e3307..7425526c4 100644
---- a/drivers/firmware/broadcom/bcm47xx_sprom.c
-+++ b/drivers/firmware/broadcom/bcm47xx_sprom.c
-@@ -217,6 +217,9 @@ static void bcm47xx_sprom_fill_nvram_only(struct ssb_sprom *sprom,
- 		nvram_read_u8(prefix, NULL, name, &sprom->gpio_ext[i], 0xff,
- 			      fallback);
- 	}
-+
-+	nvram_read_u32(prefix, NULL, "boardflags3", &sprom->boardflags3, 0,
-+		       fallback);
- }
- 
- /* This is one-function-only macro, it uses local "sprom" variable! */
+Changes in v3:
+- regated most of the checks on the proper version/flag present
+  instead of forcing everything to be rev3 only, as Vitaly suggested
+- Added nvram parsing for all params found in a real northstar router
+- Removed AvVmid parsing from nvram, as it doesn't seems to be useful
+- Added missing pci ids for 4352/4360 variants
+- Link to v2: https://patch.msgid.link/20261027-bcma-ac-rev1-v2-0-b69b61c31920@mythread.it
 
--- 
-2.34.1
+Changes in v2:
+- gated chipcommon behaviour on its own revision instead of chip rev as
+  pointed out by Vitaly
+- Link to v1: https://patch.msgid.link/20261014-bcma-ac-rev1-v1-0-b608e99d3f56@mythread.it
+
+To: Rafał Miłecki <zajec5@gmail.com>
+To: Michael Buesch <m@bues.ch>
+To: vit9696 <vit9696@protonmail.com>
+Cc: linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-mips@vger.kernel.org
+Cc: b43-dev@lists.infradead.org
+
+---
+Alessio Ferri (10):
+      bcma: core: clear only FORCEHT for BCMA_CLKMODE_DYNAMIC
+      bcma: pmu: init PLL and resources on BCM4352/BCM4360
+      bcma: pcie2: request HT on BCM4352/BCM4360
+      bcma: chipcommon: enable asynchronous GPIO interrupts
+      bcma: extract SPROM revision 11
+      firmware: bcm47xx_sprom: read the SPROM revision 11 fields from NVRAM
+      firmware: bcm47xx_sprom: read ledbh4..ledbh15 from NVRAM
+      firmware: bcm47xx_sprom: read boardflags3 from NVRAM over the SPROM
+      bcma: add the single-band BCM4352/BCM4360 PCI IDs
+      wifi: b43: add the 2.4 GHz BCM4352/BCM4360 to the supported bands
+
+ drivers/bcma/core.c                         |   2 +-
+ drivers/bcma/driver_chipcommon.c            |   3 +
+ drivers/bcma/driver_chipcommon_pmu.c        |  81 +++++++++
+ drivers/bcma/driver_pcie2.c                 |   3 +
+ drivers/bcma/host_pci.c                     |   8 +-
+ drivers/bcma/sprom.c                        | 210 ++++++++++++++++++++++-
+ drivers/firmware/broadcom/bcm47xx_sprom.c   | 257 +++++++++++++++++++++++++---
+ drivers/net/wireless/broadcom/b43/main.c    |   6 +
+ include/linux/bcm47xx_sprom.h               |  15 ++
+ include/linux/bcma/bcma_driver_chipcommon.h |  15 ++
+ include/linux/ssb/ssb.h                     |  72 ++++++++
+ include/linux/ssb/ssb_regs.h                | 103 +++++++++++
+ 12 files changed, 747 insertions(+), 28 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261014-bcma-ac-rev1-da894142790f
+
+Best regards,
+--  
+Alessio Ferri <alessio.ferri@mythread.it>
 
