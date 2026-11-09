@@ -1,63 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794227497;
-	b=ksYi70fn+REqPvspoxj8kCmnDV5iZDlh75fQLeVfKuv53MDOld34wEAyWhanY6ZNfthx
-	 9RXrGprnXXkIe1KDU10Cl5916IJ76CNVGgVnLwj90MnqKX9BtW+gKY/lDfYrpBgwpuZcJ
-	 tiMGkI7JWWUv5MNoKUTuDr7l2anphrnH3b3TDSOlazOkyUWTWvHoDSTQ1vK+z7NFMbTsv
-	 h9K2+xugfxPzulXy9cnmz06MVVIwykrWbxU8pa5TcQNZu2fPPZjJU13VwycOqYBJ9J1Zl
-	 QJ/SFh4Ae3V68GTPQKTkqiComD26f8jICtFCqWv8flMdYuIA/gQjITnxGZNGulJycEQ==
+	t=1794227495;
+	b=5stgj6gAuvA7FNLrMhP+PZjkFCm38gjyDtfDC/GlWTUHIsBsZkLJV3fo8uZr9WYoAGyd
+	 dw1yTFUt2SNinssdcDRKednMfOocLOii+XNbNFLv9bhJ8m77oAh0xJT1nXWaWZnde1AMU
+	 hMFCCsRZNvMdPpD8enGPbStlGEznFp8Yae/AQjeyE7vd5zF/Coc/GRFbgcg33Jsg/QxXO
+	 GRJDnmFtpmVbA66Z1fra24+1SiSD6KNt4p0mSUmOSZcOIo7+l/V0Z045cSP2nOfCnTbwO
+	 HHyEHGo4SOjfVKj1GEafQtxKoBdhottVBg4KFMeYBgiuL8J0QAL06V6TXwIv2Ak4cHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794227497;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=JGdQjssGCQLpg6AsSzBPTbjJOXtkrQX8V8KWmYZSf54=;
-	b=udWk+dJYWI8hgqM/x1NKS1xYAOlIpmxul79wK26b9RsC7sNfbcRPL0RhkMup3lFmrg8+
-	 MehtEdaP7DBQs4YfQJNE1ZBY13kgbs5qmQbE4SvB4B/Lz+cIA9ZNOvgUA/ZDTUO7hCTuP
-	 E06iJNIyHtAgzaAUvomtc8ifBXPrd3JHv53jLCvQxxqbGf+pXRG+pienP8mWhMfhV6GGU
-	 XPo41gJ7zs9hmQmE9s/EM2o5EDu8R+epmgBShZO+pj3N6NmmBtiSIJQrXUnPT3fdZXXPD
-	 j9a25QlZ1teQF8vSqyJ/t22ICcnQ6VEx7s6XjF8QPvQMvt2h9wd0QFBsdvmTpU/wKbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794227495;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=U+Dj0snY+kfTXfG+VRMdB3cQPdoVXWSwHQgeJoQUXLU=;
+	b=UzT/hdAOQP+ksuIUkmlQ28go7qLxeNVidrG4jmMAHRtx+fNd58PMfaRHoj3UGuHCCNwx
+	 Ntl6eQTdSJ4LBqkPSpCQwTjyuFWckwz0k8IFSDUu+hml1As0FGJ4yV+Gzzn/WuT8OH2fO
+	 Di+AQVuFFUcw9D52LU0UIkAuM+SA1Xf9K4SomIhCXjQeXS5nL6wYSkzWHNUkuGCHCue+D
+	 LpFvmBhbtzBHu5DQbf/oRduhcZTgitPjGmVWO3bgvwokvZc4lu82qaMwBEY34uTNn3Lge
+	 tI1CCTXyxVm0iVgPo6cfNYVmyFy1OTIxaDkrQ+ybiGjHxZc4KaKF5+veXciVw9KTJYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Kg7HlYh2;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=YGDzl48j;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=6xr7PFmf;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCA6606D827;
-	Mon,  9 Nov 2026 12:31:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDCA6606D827
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23941606D817;
+	Mon,  9 Nov 2026 12:31:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23941606D817
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Kg7HlYh2
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BCEB2981;
-	Mon,  9 Nov 2026 13:29:11 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794227351;
-	bh=xBs+FZDtGIlwtTPVFyPtdGeWugakZJOmOZJZsX+RPno=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Kg7HlYh2pqQbp5oCClYnPyGL3xXB2qZNTQb5pYPJQ+ZFq7Rf6yxztN+/ePGogZwq0
-	 hcWvUgwo/E1F5/q8U81GjDi82QNTOvJOQk2rxYvk3wo6GOkFyDQaSR2oNvMKjI6caV
-	 chFRMJ+0fYBjrV+HVoTHDIkePhasaoPuGLk39EO0=
-Date: Mon, 9 Nov 2026 14:31:32 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: "D. Manresa" <dmanresa@gmail.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] media: ipu-bridge: don't reference the module
- image from software nodes
-Message-ID: <20261109123132.GA921524@killaraus.ideasonboard.com>
-References: <20261010155626.2766298-1-dmanresa@gmail.com>
- <20261010155626.2766298-2-dmanresa@gmail.com>
- <avGxxCtAsVYKFxSq@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=YGDzl48j;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=6xr7PFmf
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794227492;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U+Dj0snY+kfTXfG+VRMdB3cQPdoVXWSwHQgeJoQUXLU=;
+	b=YGDzl48jYxHNdQWqwzNV5+QEK5o2Kg+YtE6I5R275wGjN0HYtjQdCgRd5ky/lY+rhD0Qeo
+	tHw/E1efPQUfsZ/jlNeTR1oxqYCbkOZGnVg+Uq5Vv8wfKDDtqGaZn/WrDTF9WeWxAURlEB
+	pcZqWoViGMQFsNmPlbCpu+DOuuflw21r0Gnh9BIpQbVgawuzs5a3FXsauNOmusnTnQ70u7
+	GgNqniIODXVigg0MAmdDaZbxdtD9DtTMXx3naSCdTZlXFr2nCt4AKRzJaVPU8/roKKBt6k
+	gzvy1JaX2Opas0XDVcwX4MkVopbyv50xHXVqg7JKBGjAWakNamPG8CMCDsKaEg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794227492;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U+Dj0snY+kfTXfG+VRMdB3cQPdoVXWSwHQgeJoQUXLU=;
+	b=6xr7PFmfvnfZEgJrYF2lOI1GpwHyCQZKyXHko+03Y4661Q1+t74W76iQkYV+5jIqHY/Wc4
+	2HCIiZcLDXSmuJAA==
+To: Petr Mladek <pmladek@suse.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Breno Leitao <leitao@debian.org>,
+	printk@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Gustavo Luiz Duarte <gustavold@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org
+Subject: [PATCH printk 6/6] netconsole: Always perform unsafe flushing on panic/kdb/restart
+Date: Mon,  9 Nov 2026 13:37:23 +0106
+Message-ID: <20261109123127.489676-7-john.ogness@linutronix.de>
+In-Reply-To: <20261109123127.489676-1-john.ogness@linutronix.de>
+References: <20261109123127.489676-1-john.ogness@linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,39 +85,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <avGxxCtAsVYKFxSq@kekkonen.localdomain>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 09, 2026 at 01:43:00PM +0200, Sakari Ailus wrote:
-> Hi D.,
-> 
-> On Sat, Oct 10, 2026 at 05:56:25PM +0200, D. Manresa wrote:
-> > The software nodes the bridge registers are deliberately never
-> > unregistered, so that a later rebind can reuse them. Nothing reachable
-> > from them may therefore point into the module image, but two properties
-> > still do: the "link-frequencies" values point at cfg->link_freqs in
-> > ipu_supported_sensors[], and the "lens-focus" property name is a string
-> > literal.
-> > 
-> > Both dangle once the module is unloaded. Re-probing sensor drivers then
-> > read poisoned link frequencies from the surviving nodes and fail:
-> > 
-> >   ov5693: supported link freq 419200000 not found
-> > 
-> > Copy both into struct ipu_sensor, where the other property names and
-> > values already live.
-> > 
-> > Assisted-by: LLM
-> > Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
-> > Fixes: 68b9bcc8a534 ("media: ipu3-cio2: Add support for instantiating i2c-clients for VCMs")
-> > Signed-off-by: D. Manresa <dmanresa@gmail.com>
-> 
-> Could we have a real name here, please?
+As a legacy console the netconsole would perform unsafe flushing
+during panic/kdb/restart. With commit 7eab73b18630 ("netconsole:
+convert to NBCON console infrastructure") the netconsole is now an
+NBCON console, however it uses the CON_NBCON_ATOMIC_UNSAFE flag and
+this prevents unsafe flushing except for at the very end of panic().
 
-If you think this patch is important, just drop authorship completely.
+Enable unsafe flushing policies to allow the netconsole to perform
+unsafe flushing during all panic/kdb/restart variations, just as it
+did when it was a legacy console.
 
+Signed-off-by: John Ogness <john.ogness@linutronix.de>
+---
+ drivers/net/netconsole.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
+index 267254f046de9..6c1587958e915 100644
+--- a/drivers/net/netconsole.c
++++ b/drivers/net/netconsole.c
+@@ -2695,6 +2695,8 @@ static void free_param_target(struct netconsole_target *nt)
+ static struct console netconsole_ext = {
+ 	.name = "netcon_ext",
+ 	.flags = CON_ENABLED | CON_EXTENDED | CON_NBCON | CON_NBCON_ATOMIC_UNSAFE,
++	.unsafe_flush_flags = NBCON_PANIC_FLUSH | NBCON_PANIC_PRINTK | NBCON_KDB |
++			      NBCON_NORMAL_NOTHREAD,
+ 	.write_thread = netconsole_write_ext,
+ 	.write_atomic = netconsole_write_ext,
+ 	.device_lock = netconsole_device_lock,
+@@ -2704,6 +2706,8 @@ static struct console netconsole_ext = {
+ static struct console netconsole = {
+ 	.name = "netcon",
+ 	.flags = CON_ENABLED | CON_NBCON | CON_NBCON_ATOMIC_UNSAFE,
++	.unsafe_flush_flags = NBCON_PANIC_FLUSH | NBCON_PANIC_PRINTK | NBCON_KDB |
++			      NBCON_NORMAL_NOTHREAD,
+ 	.write_thread = netconsole_write_basic,
+ 	.write_atomic = netconsole_write_basic,
+ 	.device_lock = netconsole_device_lock,
 -- 
-Regards,
+2.47.3
 
-Laurent Pinchart
