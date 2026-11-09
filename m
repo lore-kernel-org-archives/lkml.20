@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794233868;
-	b=wO1xgJMV/G/vTlL24eGHbXX1+I7Y/H+gIRrVdBd0NtYOsZ4+rTxSUta5pIkALw2EWxPR
-	 6VRqQ3IhB+FHutplU+eQUoNRWpdai0HTECxZrEiLWBg5bGq7/BubjmEOQlkCv62ylDzUg
-	 zuoie9b9BrIFfn9jnqV7piz3rksBzhvjCj/iw3zE9D/XwXf46UuDdxFWCDQdKn0RCNXO0
-	 F+6ZzsE5mh0CL/KOJoVP3IFcVoYUS7K6CbSaYVtWAG1C+S7dBuEUAmdagr2HwORrEErjt
-	 73e/jkbNMmQSgc9DMYq6+cRZE8uW05LGyVxUomRgbpbzgEYN49vde8kK3VI5woRKnLg==
+	t=1794233886;
+	b=2kJ/0A+kBfOB189S41pijn7KAjwZtaUYN00/anIcfvVYj8N1Q2F9vPfSwQ4YMLGaVqca
+	 UsQQNJZSJGt9ziQ/JZUp449iMrhUmSF5rFnqSBX95RWJksYpDV05YnFc6SbxVL4w2JsJP
+	 zw3kaidbzAa8nypJtgvxjPT0N9DPDX7II/gBM4OwS24WFgBu7wxlziw9rK5/GZQdEWzIS
+	 nFV+BXYn+4LbV399tBIWpZvc0VUYwrO1ZDkiq6MqAqUaLE4/+BWbJNmFEGITjLE3xP9tX
+	 QqC3xhUSnxGl9QELsMWfA26wkGxwvcDw/ixVDmr1vvPPVgDHKvPYhVwcEtINo62s9Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794233868;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=XR2x7H0QDMg9NEfvtp2YYokzFcl3lf1p7mfJHpawz4U=;
-	b=ftaa6ce5ePO+FN141DN0qlgET4PpoF8J3scMS4EIH6fwgqEgqJmHOCcyQGv18WWtubiC
-	 56Ctky53Z3LtGdbqCLN9it03Stb8OdX/SX9LBuJhXTxJ3bNHTRwdV+LcBTPhoz2e4RZIE
-	 6IFUVGUYKJr7VOrHJZSaf/6l2pvZb1rdaVZvcOV8crze8bE5pIP4l2mFN7c8KRsLSl9KJ
-	 IayF2N+LpDG2aFzAq+9SAkL1fEtPQodTafJsG0GcDnp+1obmgG3LW8/rgi9Ae7xKJXU1K
-	 8GMMqAR8/K/PujGoqo/SdaVbXGi51Winxp/IicOC8FFEsiE4jbl1myZTY72EFsvUhAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794233886;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=dpgVf9tUOxt21nL29JIYp7gXan6E5AN40sN7S5BUh80=;
+	b=2ybIucBqooEqYkjxNq2SkAIXnQO69VSJoDVHPa3a1WH8fn76/zgxFGGkNXksfEIVYzTV
+	 dNLgq8k4g+dprkwww5nQFjW5zvBctn6YS7vGf4XYjXe9kQESNbFitqyFtUBwg8X49fZdh
+	 eAjAUtnWuDW85/ygNheN24d+Az95LIgdKK2xlApnyQ1roip8Bz1Lzsx0weMWy8zGw6fpi
+	 fkSH+ZoEXX4gwjwxPGFU8WCDNDUJ9qehE7Ur7Va8s6tfls0M8j9u4X+9Thwg5tLtD+0sy
+	 o9Pv+vy0audK5o2kVRVjqahKjcSJ3nAKg5SaD16NAQ0pwQLQrVfisL5X2qXlsPTCmIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gum9HxiD;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0gpO+E5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02702606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:17:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02702606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D43E606A321;
+	Mon,  9 Nov 2026 14:18:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gum9HxiD
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so7619885e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:17:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794233866; x=1794838666; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XR2x7H0QDMg9NEfvtp2YYokzFcl3lf1p7mfJHpawz4U=;
-        b=gum9HxiDEc4SHVuULNqRQVFj/LkYh75l5bdGaESip8ZtAyxcFdcDV3vL2Gdl3WeKie
-         aB+3fKamh1hjGlq/C2JRb4vgAp8mDZzk7TgAuDwP54iz52lnCTdB67QP77cKMIgoi5wA
-         7pTpzs04zXeLOF3fGiplWSskb+rJDPrR+2tHlEEsMS19fqQ42w4kie3HruB+vHdVQAiY
-         wJJMkflMfr3tDNax2EnEQMvz8I8v6OGykqhLYxksijWnNp+QThTgU9WjsVVK4k2OAOef
-         txTt4Z5XtpPKa6jSZWbsrF6GdnOtGtCbIzIBJkoyAasbcSTLbMWZTL33a6mC08n9Wczh
-         6c2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794233866; x=1794838666;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XR2x7H0QDMg9NEfvtp2YYokzFcl3lf1p7mfJHpawz4U=;
-        b=BG4nPGQZC88OYt5wWUFi1thRg5z3ndW0O75GRn5eXVXLQvO77DKWu7aWiSwGz7sJF4
-         WRHW44wckv05TY3nU87dqvFh16PomAmQRKT3r3F5sLt8ffp4XZM4SyFf3frBmZzMe6/h
-         DpQ2UQyTY4iIrxTs5SBLMfYp66xJ7sxmO6+3NDBFW9mG4Tv/mCht75py5uBMeDV13iSk
-         iQMasXbqFWsmcEwvTb78IbnYFPxNcLIuuFRN88M2pOaO9V1l1CgtAwbanmLCqE5+WRzf
-         uFXOi5riyNmVr+NCzIP/JxwMwyg1JcyH+NiEmebOGcG8d3vvvomm82f94K1EOJRpaj00
-         ydbg==
-X-Forwarded-Encrypted: i=1; AL+hErFFWzRY1anwx3P8tkzKrCWTKj35YXTEflBAgiCIe/0L9y4lHIW2ZKbPCQD7GcLGW6NJQHo/Ed6Uoe9x9jg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Ji7e+0h/UKduVFJrlgmmlQQR8yM6y6rMKDQk+6wZ/JvE62gFJ
-	8mjagqix7vgb/hmkev//OPxCGbvxbF0G0dc9MFM7zzI0Vy9i4S6D/Lsp
-X-Gm-Gg: AYBFou3eho4YaVWGVCOb8BEaEsy8yTtqouzfn5jWLmg+iDA/YFh0DcqkF88WTwXX55N
-	2bllPIKQKXLXwFqq/8qnt/5w/kxAiDiafeiU/ULNBM2dDS++Gs2hw/oaoo8Tw21YbCHQ+jif2j/
-	Vgp4DmfJoaCiVe0jd0AbyqJPAXjYoiQOe/2hpDB5ms9I2vZx7cRsCLYSd1YV3LkN7NnOitHM0uO
-	wWbsHIymZsc5WPoTCH1A+nmAuk45i+lL0BGkU4I953Z6v0IPeBiRQqGQ255bnbUOeIdJD9ObyKC
-	Pq+KzjVsId4VbF/KisUHDSmBsK/DUoxBjugUhzHQN/1wgDpUFSKpRein4Shutf5AGAx7S+Ups3W
-	Sr2l8DaJtOFIq9HHFf658TL2asU2mIMokNu0zeGCl+K+8vwSmO5Gb85TUyeq4DSg3OwjlO7DQx2
-	ngAVdBiCyR/NwmolaXmtk2cZg5RGg74W09Xv8hKBFdonW+zGFVueoFLgJp2lPIaAESQA8akAA73
-	IiPHk9Sru5oktwqxAclKr2J0bjc1j+6809gPHmrnFkRjC4nhzrbf4Au+74DhHdQkuer9jhnsUFb
-	eWmL82KJRyjoBnJ6upXY00gcvRjtJNNHqaIACaItJg==
-X-Received: by 2002:a05:600c:3b0e:b0:4aa:15b1:d4fa with SMTP id 5b1f17b1804b1-4b963c75e37mr80638945e9.5.1794233866115;
-        Mon, 09 Nov 2026 06:17:46 -0800 (PST)
-Received: from ADRIAN-PC.lan ([171.22.87.31])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b7efb134ccsm218255955e9.10.2026.11.09.06.17.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 06:17:45 -0800 (PST)
-From: =?UTF-8?q?Adri=C3=A1n=20Garc=C3=ADa=20Casado?= <adriangarciacasado42@gmail.com>
-To: Nilesh Javali <njavali@marvell.com>,
-	Manish Rangankar <mrangankar@marvell.com>,
-	"Martin K . Petersen" <mkp@kernel.org>
-Cc: GR-ETH-Storage-Upstream@marvell.com,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Adri=C3=A1n=20Garc=C3=ADa=20Casado?= <adriangarciacasado42@gmail.com>
-Subject: [PATCH] scsi: qedi: Add __printf to debug helpers and fix format strings
-Date: Mon,  9 Nov 2026 15:17:38 +0100
-Message-Id: <20261109141738.1624579-1-adriangarciacasado42@gmail.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0gpO+E5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 019461F0089F;
+	Mon,  9 Nov 2026 14:18:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794233886;
+	bh=dpgVf9tUOxt21nL29JIYp7gXan6E5AN40sN7S5BUh80=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=m0gpO+E5I6Wdc+KNOhxtO0wlirOjxQ70iCMoPco73V1ng9vrGiXdAJD6e1wIB4y/Q
+	 ATJ2yoQrDPQrXYtkH5RRivWhT5b21RRRzPh4OmBtUvV+BG1jXIzOaMZjdkjRx9feiK
+	 fFXikTzvmQXcm5H4w0/fWnvIy9GxU0QQYL0XMdNdePDzHLHxtB/+t2+rUgNJgQcZXS
+	 kXj7o9cL2QMmNWkSlhk0zfAwlB66862lA85XluYBMM55LXN6pTkZcCZ+wK2DxN7Bw9
+	 xi61Q7RJgNUZIhIsRqWo/5PVNfvCMrze6VDxniGcEipQ2KPdFqsjarELxwVjiGfw2C
+	 ZZ1tF9xlIDgKQ==
+Message-ID: <7ade0225-5ec8-4cd0-a54e-b68627276130@kernel.org>
+Date: Mon, 9 Nov 2026 15:17:59 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,94 +51,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: embedded-controller: Add HP OmniBook 5
+ 16 EC
+To: Rahul Pon <theflyingrahul@gmail.com>, Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
+ platform-driver-x86@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261109104914.1534-1-theflyingrahul@gmail.com>
+ <20261109104914.1534-2-theflyingrahul@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261109104914.1534-2-theflyingrahul@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-qedi_dbg_err(), qedi_dbg_warn(), qedi_dbg_notice(), and qedi_dbg_info()
-format their variadic arguments via struct va_format and %pV, but unlike
-their counterparts in qedf_dbg.h, they lack __printf() attributes in
-qedi_dbg.h.
+On 09/11/2026 11:49, Rahul Pon wrote:
+> The HP OmniBook 5 16 (Snapdragon X2) has an embedded controller on I2C
+> at address 0x76. It runs the fan and the keyboard backlight and reports
+> the fan speed and its thermistor temperatures.
+> 
+> Signed-off-by: Rahul Pon <theflyingrahul@gmail.com>
+> ---
+>  .../hp,omnibook-5-16-bf1xxx-ec.yaml           | 49 +++++++++++++++++++
+>  1 file changed, 49 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/embedded-controller/hp,omnibook-5-16-bf1xxx-ec.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/embedded-controller/hp,omnibook-5-16-bf1xxx-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/hp,omnibook-5-16-bf1xxx-ec.yaml
+> new file mode 100644
+> index 0000000000..be4c845067
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/embedded-controller/hp,omnibook-5-16-bf1xxx-ec.yaml
+> @@ -0,0 +1,49 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/embedded-controller/hp,omnibook-5-16-bf1xxx-ec.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: HP OmniBook 5 16 Embedded Controller
+> +
+> +maintainers:
+> +  - Rahul Pon <theflyingrahul@gmail.com>
+> +
+> +description:
+> +  The embedded controller of the HP OmniBook 5 16 (Snapdragon X2), on an
+> +  I2C bus. It runs the fan and the keyboard backlight and reports the fan
+> +  speed and its thermistor temperatures. Its four thermistors can serve
+> +  as thermal sensors, indexed 0 to 3.
+> +
+> +properties:
+> +  compatible:
+> +    const: hp,omnibook-5-16-bf1xxx-ec
+> +
+> +  reg:
+> +    const: 0x76
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  "#thermal-sensor-cells":
+> +    const: 1
 
-Add the missing __printf(4, 5) and __printf(5, 6) annotations to
-qedi_dbg.h and fix the resulting -Wformat warnings exposed across
-qedi_fw.c and qedi_main.c:
+Looks incomplete, test your DTS. Your driver mentions interrupt.
 
- - Use 0x%x instead of 0x%p for cqe->rqe_opaque (u16).
- - Use 0x%x instead of 0x%llx for pbl->address.hi and lo (__le32).
- - Use 0x%lx instead of 0x%x for qedi->qedi_err_flags (unsigned long).
-
-Signed-off-by: Adrián García Casado <adriangarciacasado42@gmail.com>
----
- drivers/scsi/qedi/qedi_dbg.h  | 4 ++++
- drivers/scsi/qedi/qedi_fw.c   | 4 ++--
- drivers/scsi/qedi/qedi_main.c | 4 ++--
- 3 files changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/scsi/qedi/qedi_dbg.h b/drivers/scsi/qedi/qedi_dbg.h
-index 8649518658691..70acb55847f4f 100644
---- a/drivers/scsi/qedi/qedi_dbg.h
-+++ b/drivers/scsi/qedi/qedi_dbg.h
-@@ -78,12 +78,16 @@ struct qedi_dbg_ctx {
- 		qedi_dbg_info(pdev, __func__, __LINE__, level, fmt,	\
- 			      ## __VA_ARGS__)
- 
-+__printf(4, 5)
- void qedi_dbg_err(struct qedi_dbg_ctx *qedi, const char *func, u32 line,
- 		  const char *fmt, ...);
-+__printf(4, 5)
- void qedi_dbg_warn(struct qedi_dbg_ctx *qedi, const char *func, u32 line,
- 		   const char *fmt, ...);
-+__printf(4, 5)
- void qedi_dbg_notice(struct qedi_dbg_ctx *qedi, const char *func, u32 line,
- 		     const char *fmt, ...);
-+__printf(5, 6)
- void qedi_dbg_info(struct qedi_dbg_ctx *qedi, const char *func, u32 line,
- 		   u32 info, const char *fmt, ...);
- 
-diff --git a/drivers/scsi/qedi/qedi_fw.c b/drivers/scsi/qedi/qedi_fw.c
-index c8af10c326532..18df8b0138ef5 100644
---- a/drivers/scsi/qedi/qedi_fw.c
-+++ b/drivers/scsi/qedi/qedi_fw.c
-@@ -339,7 +339,7 @@ static void qedi_get_rq_bdq_buf(struct qedi_ctx *qedi,
- 	}
- 
- 	QEDI_INFO(&qedi->dbg_ctx, QEDI_LOG_CONN,
--		  "rqe_opaque [0x%p], idx [%d]\n", cqe->rqe_opaque, idx);
-+		  "rqe_opaque [0x%x], idx [%d]\n", cqe->rqe_opaque, idx);
- 
- 	QEDI_INFO(&qedi->dbg_ctx, QEDI_LOG_CONN,
- 		  "unsol_cqe_type = %d\n", cqe->unsol_cqe_type);
-@@ -378,7 +378,7 @@ static void qedi_put_rq_bdq_buf(struct qedi_ctx *qedi,
- 	pbl->address.hi = cpu_to_le32(QEDI_U64_HI(qedi->bdq[idx].buf_dma));
- 	pbl->address.lo = cpu_to_le32(QEDI_U64_LO(qedi->bdq[idx].buf_dma));
- 	QEDI_INFO(&qedi->dbg_ctx, QEDI_LOG_CONN,
--		  "pbl [0x%p] pbl->address hi [0x%llx] lo [0x%llx] idx [%d]\n",
-+		  "pbl [0x%p] pbl->address hi [0x%x] lo [0x%x] idx [%d]\n",
- 		  pbl, pbl->address.hi, pbl->address.lo, idx);
- 	pbl->opaque.iscsi_opaque.reserved_zero[0] = 0;
- 	pbl->opaque.iscsi_opaque.reserved_zero[1] = 0;
-diff --git a/drivers/scsi/qedi/qedi_main.c b/drivers/scsi/qedi/qedi_main.c
-index f394fcbb97e7e..278dcea9f05e9 100644
---- a/drivers/scsi/qedi/qedi_main.c
-+++ b/drivers/scsi/qedi/qedi_main.c
-@@ -1128,7 +1128,7 @@ void qedi_schedule_hw_err_handler(void *dev,
- 		qedi->qedi_err_flags = qedi_flags_override;
- 
- 	QEDI_INFO(&qedi->dbg_ctx, QEDI_LOG_INFO,
--		  "HW error handler scheduled, err=%d err_flags=0x%x\n",
-+		  "HW error handler scheduled, err=%d err_flags=0x%lx\n",
- 		  err_type, qedi->qedi_err_flags);
- 
- 	switch (err_type) {
-@@ -1581,7 +1581,7 @@ static int qedi_alloc_bdq(struct qedi_ctx *qedi)
- 		pbl->address.lo =
- 				cpu_to_le32(QEDI_U64_LO(qedi->bdq[i].buf_dma));
- 		QEDI_INFO(&qedi->dbg_ctx, QEDI_LOG_CONN,
--			  "pbl [0x%p] pbl->address hi [0x%llx] lo [0x%llx], idx [%d]\n",
-+			  "pbl [0x%p] pbl->address hi [0x%x] lo [0x%x], idx [%d]\n",
- 			  pbl, pbl->address.hi, pbl->address.lo, i);
- 		pbl->opaque.iscsi_opaque.reserved_zero[0] = 0;
- 		pbl->opaque.iscsi_opaque.reserved_zero[1] = 0;
--- 
-2.39.5
-
+Best regards,
+Krzysztof
