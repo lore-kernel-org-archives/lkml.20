@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794258038;
-	b=FP3Bxha0BzzX71aQmvTWP2V7vCFLSgOe8O1/yey0uAw23Q1uCqCl2zlHouY+FRMmAltI
-	 fTok1UIzoB+XcyHlh8R1TAPYPUndfXaZVwk7r2tzgLmayqg5HohUAld6lh7x5CW3d/Im9
-	 lBRvfmRbBAbEktKrUM3tRMUwGzA3c4ZU0DigWKPlogp3GvWo5s/Ij+YLIiCEuawUAC8Po
-	 rAE1CF6Qcr35yzQIN8iiVgCRM6HJyxK2YRAVuga+vXW+rZ0zvilrGGpkcD1dZMekkQvQy
-	 oyDJva63mFVyDI6PTnWZ1GaXmOHGt8+DAIXhQnQkFt2a9OW9Jwh98I/HGerJvbaoVLQ==
+	t=1794258071;
+	b=HKtj8B4IFlY7iuCj3tQ17bCXmK5MXOTL9tIwpPcOj1qNA2cLl6LBgLuB6RsebpbDOyjG
+	 RoyR/PsR4n8APaVeXcGFc4SuIDkC1dXhIF/9waXY3MHzrawpOMq69iHHd1YMLdLQWqmyd
+	 RahrHqG4bUdxFndCLsDjdCdDo8hk7c/Wj7O7dHjlOmQl5pJULarg7Ua+JoBKvJE4Ae0RC
+	 tq1sOAf59uLt/E1S/JQolTJBjJUALdFX2//CkrjSLRQ1OKADHcf0kfyJbMWHewTNkEpa8
+	 fie4LD9JOoBcbed1kurcvZkR2URFGuDFsG5iXLVPSIQNSLJaqJSplnoQiNR4ECBewtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794258038;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794258071;
 	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=PUYXlgXOcVHlfHOjoXYqr0W2HQuorszYX6zWp63OOsY=;
-	b=m3WuXKKrhn57dhmaqSaRoG47TWPk7xEHNFjPpX9O0erV+dA0NW0k9Q+yxoDuziFLDsjV
-	 +RCEJYGGoMaxpA7Cdc5JhmxkpVf9HGqDUKK6FTu8MUBAL5+0NxSAahJ+8CXdnogvbCnWw
-	 sAyLt2SwNBAM4ITaGH2Y3fMkzDbq8O+SBN6WajyxHJZa8y+Yn6WeSqNn+EIDUdukuBwmt
-	 IWJN0xgH2wYY02HqwhPcK2l2xnjCwEMk6AeLFTaNni/XmTaCN4MraR5PzBwy9acxdV4G2
-	 1ywHJRuEjETVIrX4PSjnI9w8c59BTr+vRwufEj5te7pN8nOlEeUqNPsRo0HIX71mscw==
+	bh=W40un1XNAqPtcoImBzGbxmEQEgO2uX7YR4GLBCynYYQ=;
+	b=kd+Jg6OQ2zU4ONZCgxzYc/KoTFQ/QIFFGoPipy7cQ2UJUDNl+N/sVCXX+MFHOiY27CsO
+	 15Un44gTXd4fMHlH2UKDO6LCmwp6u47YyXVKnFITh+g4leuLfUeNzEsm5Zo25gCagnlkC
+	 C1PuHtsSz/q0cG4fZmzb6PhmmndIz/f+1eTbkSyLJ+InYiarKUfIH3VgweUPP1Z3crwy8
+	 CfVCuXNB/IBmnb41OmTWYXjPKGA/C/qP2x2VhVWyTyqBusicHn+VuWEDG4MryiRjD9KKC
+	 ZV6wfTPvtJ8f75MRGcbEJ9YUCAO6e5+gVaAEB2d1WNNk0ih9hGQJ23RFg8FSroPLojw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DNEPzL0/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF6GzHcR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189FB606A325;
-	Mon,  9 Nov 2026 21:00:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618B4606A31C;
+	Mon,  9 Nov 2026 21:01:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNEPzL0/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E280D1F0089F;
-	Mon,  9 Nov 2026 21:00:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF6GzHcR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C6991F008A1;
+	Mon,  9 Nov 2026 21:01:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794258037;
-	bh=PUYXlgXOcVHlfHOjoXYqr0W2HQuorszYX6zWp63OOsY=;
+	s=k20260515; t=1794258071;
+	bh=W40un1XNAqPtcoImBzGbxmEQEgO2uX7YR4GLBCynYYQ=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=DNEPzL0/endA1uY3nTdlc/VOe25Cchx/Eo+x2Fdakt62o4aYzwszu1V8DSP5ipyi7
-	 Bp68gEBsLEPOcDSJ8W5TCuUgfwCnAmPhzNPR9e8kLGmbVJ4uCZMc+YXJycmhcjiu4d
-	 rV39MP4QnnqFf0aKKvKaqwgcAw2UgWVKMXAvkFOdEcfvlujvgzFGtglmjmdg4aWUYc
-	 yNKrPgwguvLzgKCmCpakc21C4NDwY9aEG8xX+ld08AQavrDRyassiH1NLpL4NXFhuG
-	 bR7TFMoPE3I2Tq2Epp8vAvE3dtvE2yQa43DfhJE/gnNCqd5+4AHtzS8mMCYK43y5ME
-	 w1NoqhwzWjanw==
+	b=iF6GzHcRZmIKjnW69pOqsfO3jKAeD20Cdt392q+PS9hRNVpMtyfXiSFvnZi5+nGeO
+	 XyA/Ck7Fozg+jjB7td5JXyNuj700k9Nf5A9KGOkWl1F0BUQJe4yLx7pS/4nFpaiRUk
+	 x7AWekRNXn5bQCVkUh5iCDNKJmZNu7gjlX0mpe4FRQ5REGfUUaDyp+ieAACA0+Kz0v
+	 qePEDEBsL7DZSqucOiLJ9ErFUjCdXfZ6PeK0XGNFr6m96sFeombWoKBtcACxeDunFu
+	 Il035pDznLn2FokxjL2V6c2ePy10UMnns3fIUxZYdmcAN08iFQIZzQBqbBMPsXZP2D
+	 cMa3/QG9SZXMw==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id E37FC30217EB;
+	by traversing.sirena.org.uk (Postfix) with ESMTP id C64CD30217EA;
 	Mon, 09 Nov 2026 20:59:39 +0000 (GMT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 06/22] ASoC: ops: Introduce 'soc_set_enum_kctl'
+Subject: Re: [PATCH v4 05/22] ASoC: ops: Introduce 'snd_soc_ctl_activate'
 From: Mark Brown <broonie@kernel.org>
 To: James Calligeros <jcalligeros99@gmail.com>
 Cc: David Rhodes <david.rhodes@cirrus.com>, 
@@ -72,46 +72,39 @@ Cc: David Rhodes <david.rhodes@cirrus.com>,
  linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-In-Reply-To: <20261103-macaudio-v4-6-637484efe46d@gmail.com>
+In-Reply-To: <20261103-macaudio-v4-5-637484efe46d@gmail.com>
 References: <20261103-macaudio-v4-0-637484efe46d@gmail.com>
- <20261103-macaudio-v4-6-637484efe46d@gmail.com>
+ <20261103-macaudio-v4-5-637484efe46d@gmail.com>
 Date: Mon, 09 Nov 2026 20:59:38 +0000
-Message-Id: <179425797819.3711751.131370181090870189.b4-review@b4>
+Message-Id: <179425797818.3711751.12937263042321950225.b4-review@b4>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=764; i=broonie@kernel.org;
- h=from:subject:message-id; bh=LC7c8xgtOqcQVsOq7+PY63O6vUwrZU5EM9lhyhjytO0=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+mVgzbI5k6vi5/8Qiw3+fvfdceH8s0DKlsU26kqP1R
- 9TfurVcHaUsDGJcDLJiiixxWdwv60ter+E7uLANZg4rE9gQLk4BmMiShwz/E5X4PYODLnEccSu1
- erflBkfh63mxTh/lHXVzuj4tV014xcjw3vh6++Wl962fvXMN6u7ZtG5FTr6CzISeu+2uixd+nbe
- JDQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=615; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=xvmkDp6UJdRL/ikpcXrp5a9qw8WBoVYhDOKggMTTKA8=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLI+mVhLfZutsGLFm5NREsxh81TmK534tEw69faZh2Xvb
+ DPO5p2y6ShlYRDjYpAVU2SJy+J+WV/yeg3fwYVtMHNYmUCGMHBxCsBElqcyMnTt/cX6NiT78a4j
+ 3hLbP96dumXapB9us2+qqLMLVG/+1F7IyPC3cd+ZEyk/joiv7+c6O399yQO2tFe8+ociNE8pHee
+ SnsUMAA==
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> The new function is to be used to set enumerated controls to desired
-> values. It is something a machine driver may call in fixup_controls.
+> This function mirrors wraps the sound/core 'snd_ctl_activate_id'
+> for ASoC. Machine drivers may call it to lock down kcontrols
+> during fixup_controls.
 
-The subject has soc_set_enum_kctl() but the code has
-snd_soc_set_enum_kctl().
+> +int snd_soc_ctl_activate(struct snd_soc_card *card,
+> +			 const char *name, int active)
+> +{
+> +	struct snd_kcontrol *kctl;
+> +	int ret = -EINVAL;
 
-> +/**
-> + * snd_soc_set_enum_kctl - Set enumerated control matching a name
-> + *
-> + * @card: where to look for the controls
-> + * @name: name
-> + * @value: string value to set the controls to
-> + *
-> + * Return 0 on success, else error.
-> + */
-
-
-> +	for (i = 0; i < info->count; i++)
-> +		evalue->value.enumerated.item[i] = sel;
+> +	kctl = snd_soc_card_get_kcontrol(card, name);
 > +
-> +	return kctl->put(kctl, evalue);
-> +}
+> +	if (kctl) {
+> +		ret = snd_ctl_activate_id(card->snd_card, &kctl->id, active);
+> +		if (ret < 0)
 
-put() returns 1 on change which is not what the kerneldoc says, the code
-is the better choice here.
+As Cezary pointed out this return is redundant, we could just exit above
+if there's no kctl.
 
 -- 
 Mark Brown <broonie@kernel.org>
