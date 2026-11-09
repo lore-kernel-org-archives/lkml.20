@@ -1,66 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794256587;
-	b=d0sIfkMJYTMWhdgE9NQfnOGNAOE5Pb2bs8tYtRK1IINRwycjBepaZtK1fq3Qf4ZDuJeq
-	 2148pJwU+YiXFktT/SM50VrGyjuCvhihdBN9fmadVnLEYmsTSqXMu08ieY4YZtPgmrwCt
-	 PBuMYmc7qrnWEBSqXZ4o5ag2zCXaCEzE3AdUT317/+TV04o6PHa5dicTVdeth5w8EdkmF
-	 n7trDQCtiagzeHrZ412X4tthcjaQKlp8lRNSKCaQomqTeQrodA++gr5ZPBJFCntZpul4u
-	 j1lwNsp6soOFgonNw4kG3Q3wWosQw574jjLhHXLUeV7hCEGFLHr/5uL5evh4PHexgdQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794256587;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID;
-	bh=sknmdDkQTO5Ldr11UDZTsw2bKwiyFyyJ90PVXDuF9BI=;
-	b=vl60jUfczAz3IR4+Qkx7tCdzNqzrh68wlfPAs603eLelnWrQ7+PTAY308liS066adqgp
-	 uFBZGSo8RdeFyI62GKbUzD7S0LscyiRqjn5LtR6EKULHc8TtiT+uZ+C51dW7IRAojq8ro
-	 O1qZFYg1/ZsqKSB/SVH21J+CkqyjPftesBRmqoDKEhAC6K9M/e5qLdz12dbL9ExjAbP8Z
-	 rNUiYzhHXQe2szi1o7ZqwTv3Ln5SI0LjHKS3yLWzrGDfJ9+H/m4GiqeeO21+YUtmNSGBe
-	 0ttuuXoTEhGLZrPBdqy0h5qGnJm9sFRPekCEyNQxgY6Zb73CxFpgXvroU8us/lxalLA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=imgtec.com;
-	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=tVzjNwCj;
-	arc=none smtp.remote-ip=185.132.180.163
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.59
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794256584;
+	b=S81S+ftWUHzjPSaHLDhJuuPMrc8Be5uVPEfk4jG7Vop4CMxnYLRRXgCWEoY5KRMJy8G6
+	 rflho/vRvIu8aclSaCQN/NJ0ba4hWkG+x4g7X6L2LKBPPV9Ur/Qo879NKgy3n6h5SW2RF
+	 f4wl4OhU8pGR9y3VfDaxcB9oALUOjyjcoQVxGlNUOJK/363uqwPg5kLigvXyLzRn1M7QM
+	 CwXDeE8/OfRL6DcfIaRfpooJDtB3/NVuKS3VFzcX8ultRghRsv2i+NuxQxxEfIuzgv8hW
+	 wCO2lUuvgQh9Rhgtio83BmnLVyMpCxtUfgDzrKHn9P3RXCoeCeNlfdQHyz9bQF9gQjg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794256584;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=1Exxypuu8xJGENdHmQMfJH5TvekaATY0Z67Fc+2EG5k=;
+	b=rf/WrsybQzEcWOW+iaCol0+670xz8MNO1GGb1+Ijn9skMCSxA1VnGJyziKqscpJjNEd2
+	 W0Izg4aduwcOfEZuTg3oYBoY2XzpYPvcn1izguvNZkCkoSczTuqXU045wcPJMpVONtoV7
+	 N5a+nrZWKkGpKvsZ4oWiWzj8v5UIX2qB4b/4fAHHkNamHKUElMdeZE6i7syk2OeBgOc/+
+	 LlJTR4tFuqK03+T5E5Z7rIdk5yGe4GDJbRZl7/oMD7RTmzHIhwpGfnDC8kS9067JhL1Ar
+	 6g9+LRxAYqZ+ciyIH9zA2pTrbO4g8RY6WwFjJGtkTCTbZ+Ij9oQE20Hd+9NpC4vPFkQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pHfKfJlZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.59
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012059.outbound.protection.outlook.com [52.101.48.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7A2606A33E
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 20:36:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF7A2606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1871606A32A;
+	Mon,  9 Nov 2026 20:36:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1871606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=tVzjNwCj
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id 6A9Jxrvn3422877;
-	Mon, 9 Nov 2026 20:36:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=s
-	knmdDkQTO5Ldr11UDZTsw2bKwiyFyyJ90PVXDuF9BI=; b=tVzjNwCjp//szmtu0
-	1Vfxtba1jt6ehYlHfOZc17aebltk/Mh0XJ0SZpc4UD85/xUCXJtCMZvDy+1mxfPw
-	skDxEYdyK/pmZ+LWrcHsINB+qVkS25SLX5Muylk5g1hcY0h458JxueU+ycZAKFeh
-	u+ceuYa9NVKn/0dU2Zuenejm4V2fQgzCrzHwjeVSHmv3DXe+yfh7P4F/eIjFAjcC
-	hrJyBAIN7MJuRnKYgBlL3hwGizX/UnKmIqvQepmT06IMpUVcs889LVK0+BGSdJbV
-	TkhHB3FZIzbukL8uQv0pWLRY0VbGsGiZy1+MQqZSIVmFXeDqi2AxZF1sTjfbSLNo
-	r9b2w==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hsvxx1tk3-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT key_exchange=secp384r1);
-	Mon, 09 Nov 2026 20:36:06 +0000 (GMT)
-Received: from [127.0.1.1] (172.25.6.177) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Mon, 9 Nov
- 2026 20:36:05 +0000
-From: Luigi Santivetti <luigi.santivetti@imgtec.com>
-Date: Mon, 9 Nov 2026 20:35:21 +0000
-Subject: [PATCH v2 1/2] drm/imagination: clamp stride of heaps and static
- areas for legacy UM
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=pHfKfJlZ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nghNQ4Igq3Pm7et0uo7uxqpmjECAGIkhpGoApOAoyqXdpK4yQxNxK5jJrXVKS8JwxSr4GmJMu71gOkMyEMVWp3+EL3UUTCkwMvsjhoGzsX5z3GodY9Od8+JE2gYLcIdRn1H1xSvGn5HmGwGZcqocg44g4Q8wbc0/12grJzvE85dsEcd6N3Th/MCIbbY1DyhIIuRFhGrR3pFZI5PjLmwTDMlyPjq+mrN/QvmAj7+nadim0dKodja+3TT4IJOhpu4umduSblo+wuhhjIUfqHJJZ5UeWlC1Xk6czmemVlMzoeClSwKtyH6D0Znxq4fN35MuCWEzKFyg4ugaMXv9VwQo+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1Exxypuu8xJGENdHmQMfJH5TvekaATY0Z67Fc+2EG5k=;
+ b=EJRYxJ/yhvYA9NRMJmBsWfKlIziM27pENAEGK4YHB/UEtoVjDEQUSgDxfnDMSy83c0Xafoyfmivc1OOwmnYhob49Ib/R7GJIT/AU6spEg9jukSYDQxc6HDuTACAa+DqEusz0WU1syS6kUN7beQxJtANsFD0vgbAyKkofMT7sXjQKTeAQ4ZzgPykErcYBE6bEP+EXPVFSXF79zyVjQKf2Y7vf41FA8GELOt+OqkH/Dv6DGAve2JxkV09joVb5oB2AgCfTXzUHJQqAmdhSi86n8hKUAYxQYvMFCAPsRqWaY34EiXUYk5FHokG3Pk5W54Y6zV766GV69oZUS2fvqmGE6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1Exxypuu8xJGENdHmQMfJH5TvekaATY0Z67Fc+2EG5k=;
+ b=pHfKfJlZKhWpdqtKHd5fT3cguO4C9omih0mzykzgB1grGi501nJfC3g08Mx/VHbTlnEV82Fb/MaqO42AQcGP+okYUQsjCWtTKB1WhwmSjYkkwlPf2Y+fsRsPoVTyeVzJxTcGtVHA2mrdaaU/VK5iHDNT5CVxOn/SEFd2uqnvlrM=
+Received: from MW4PR04CA0136.namprd04.prod.outlook.com (2603:10b6:303:84::21)
+ by PH8PR12MB8607.namprd12.prod.outlook.com (2603:10b6:510:1cf::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.11; Mon, 9 Nov
+ 2026 20:36:17 +0000
+Received: from MWH0EPF000D8950.namprd05.prod.outlook.com
+ (2603:10b6:303:84:cafe::9c) by MW4PR04CA0136.outlook.office365.com
+ (2603:10b6:303:84::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
+ Nov 2026 20:36:15 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000D8950.mail.protection.outlook.com (10.167.249.216) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 20:36:14 +0000
+Received: from speedway8455host.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
+ 2026 14:36:14 -0600
+From: "Pratik R. Sampat" <prsampat@amd.com>
+To: <kvm@vger.kernel.org>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <seanjc@google.com>, <pbonzini@redhat.com>,
+	<thomas.lendacky@amd.com>, <kim.phillips@amd.com>, <nikunj@amd.com>,
+	<michael.roth@amd.com>, <ashish.kalra@amd.com>, <prsampat@amd.com>
+Subject: [Patch v4 4/4] x86/hyperv: Add guest support for Enhanced SMT Protection
+Date: Mon, 9 Nov 2026 20:35:14 +0000
+Message-ID: <04910fb1afacec52ffc078c341ed17e47e5bffde.1794244450.git.prsampat@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1794244450.git.prsampat@amd.com>
+References: <cover.1794244450.git.prsampat@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,209 +108,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261109-ioctl-query-count-stride-fixes-v2-1-228ea0e28dc3@imgtec.com>
-References: <20261109-ioctl-query-count-stride-fixes-v2-0-228ea0e28dc3@imgtec.com>
-In-Reply-To: <20261109-ioctl-query-count-stride-fixes-v2-0-228ea0e28dc3@imgtec.com>
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>, <frank.binns@imgtec.com>,
-        <brajesh.gupta@imgtec.com>,
-        Luigi Santivetti <luigi.santivetti@imgtec.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794256564; l=7072;
- i=luigi.santivetti@imgtec.com; s=20260707; h=from:subject:message-id;
- bh=BtQCl/jQqu9IlaT2VJeUrDoOjvX4lBlJNJkGp+dN7yk=;
- b=7ju1YjK1/3lcSqTeOj2iw0gNgWOYNsvw++Kql/nRFdhL7/qszrm21gXJ1QiwFPkdWJDgP7uet
- BLwHu89k5aJAg+YCFCp18RJpk8hJ0If0xWfLmrcAo+wn3QR3jsOK0Qx
-X-Developer-Key: i=luigi.santivetti@imgtec.com; a=ed25519;
- pk=jS7sCDyWFMopn8iAXVN+AdJi+Z3fZPQKsS5NdQtI+sc=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA4MiBTYWx0ZWRfX5uiXmvM+giJf
- 4UoT0zHYicpes2rB4YsP7xdn9OIG/iLatWxd4TV5ydhj/EAH2iQmLK8zDzLCva3nrMs8NaKXJjS
- aodmGnHzEswOODrpWzpNdAJglA/7ND0=
-X-Proofpoint-ORIG-GUID: yY1bslqMTcTB9JpwFrUUJ3KFGfemKeTy
-X-Authority-Analysis: v=2.4 cv=H+JOUOYi c=1 sm=1 tr=0 ts=6af22eb6 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=2JH569OHYJkA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=e5mUnYsNAAAA:8 a=r_1tXGB3AAAA:8 a=wk5KyH1tZOMvrzhs76oA:9 a=QEXdDO2ut3YA:10
- a=Vxmtnl_E_bksehYqCbjh:22 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA4MiBTYWx0ZWRfX2L6O+tfBrm/Y
- Nb6JUNI7D6y+w3XAW18PwRMszLr/ImpdNRoHp5Y9mwKKyjuD9jjXr8Lex6LJ9mk5zdLGqEfwAo/
- yo13BFiJ3odtl7rF+QGw10IFJKJnwG0gLri5vbVwTbaoWnl3bb0gKcnP/vZWvMhH8Yf6CIXO202
- E+qhq0oOBK4uf6ysIeiGyEraaqFR/dbh5rUg/0UOfdn3s0b3rchhHikU7gduJH+hcqUVllAAXxU
- vMwLrf0yAggzGYmzyF3zbnKeELDPQHUQVh0XwE02PLuNoUN37KBLzTLemdXrQky3L8cRygRXfeo
- HDDQsi/83HvSBUDo52Wr730eZknZ5WGwucshUqPHtjK9z7xoLZ3ZLcf9p6O1BhTRdDQqmq14wK0
- J3khUj5QpF8OVLty8+GkKxXJoKKJyuMGbWoZP/GLgjvmvm4ppq7+tskcVk8DgeZvNpbn8ptggrs
- tv3RlvDmMqVCeEWPOUg==
-X-Proofpoint-GUID: yY1bslqMTcTB9JpwFrUUJ3KFGfemKeTy
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000D8950:EE_|PH8PR12MB8607:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3aaf7380-9112-4212-fc9c-08df3ea11988
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|11063799006|261026140227099003|56012099006|261021121427099003|261028144727099003|261102123227099003|10067099003|261022105027099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	XUAX1haqtAbjKItfiHVOeSzVFDsNRYX+WMHQCesXk+l7of/FabQNQxec9HoU/0wTJdyduPsQLX4p8IuThnIRLerpb/pkrT0pyf4pzWVGW0LnfJJeqQ9XqHh4UKT463WXiiIMTf6ZbTuHBa12L6n6+flDsNSOF5jzkorqVwdm+HrlLz3eWJm3pCggEfMW3JLeAK3Cll38ODrR8ROORXuT+eu7HCJUv+ReArtitvE6EhFK01DrOqwtBYui/7963otb/YfmG9kjRyLwCd/c7rB0c14oti60DbpX/J+qhseh3o2fhLVDHRvvDkc9AddXkUQlBV00omyll2rE5WVMHL3tkvjZte2wMdd3Y8HjHlHn6u4Ms0kzmFqYIIE/oWLbJ9HzauhJfSCoUxyiGHR15aHoim1xNX+aQjAnynpSybEUEsFXprqYPwSWQzNBx/iqIx9BL0xU3htMkQhh2Ah6xi3IvfA9hRFsWLSRP1UBJxgRWVyVjjAVzF+7V6Jr1DU/MNM7Z2pLxzcGUSE0wtfytRpHtlvIUIQkBoXs4yFX3R6dcqb/ghQXTxIifdgYsPP8DDmcMyFRYinJpXvIP74tjRLPMV7ECWS1r7sbJ0gSwMV16VED+bArXejYytIOK4vjWFHWsTU2PRgwqtgALdqf6y0/cMqBnW0Hf1Vab2LYNjZ8u3nbusb2iI48T6o17rBiJqC2KCWy9go+0D1quhWxdzU71A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(11063799006)(261026140227099003)(56012099006)(261021121427099003)(261028144727099003)(261102123227099003)(10067099003)(261022105027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Ax8S7JoJwZ8A76yXGreAk+0WsSq13AlKDdv31B8nqNQLGYMyn3JWzS/ecwnpHgJnYl8jr6McotsKMFCqwxnkY5AmP5qX0Sng0qLyk+G2SE2HbmyT3hse8nkXDRXWp4Aj5DP1KM8oXYJwh3wiFFYm2fcciQUscjgkBWCIjuRtqWSssWw71pKDKbX8JlNAeIvRJTa+gg87nSXnQxvipl4FuylaFSLvr2b783u6KSs7bxCDN54UU6+owIN6w0kqHLAkaYYbqOD5p6yqrKh+iss0LKiHm3KHhKKV4wtJG+fe8SgFFTWwVtQHZSGjb2r1KkMFvexaea2FewArjlKN9RlhZm2g/fnoqFCkXsFq3lpuUoVxd3xySKGCLnxq+r4QmMbon+ZgAFdpzSVbDQX3Fkis4OIGw9LUN/DA9Hx19bwDK8M9aHJ28QU8Cc5cjTsRcF9G
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 20:36:14.8198
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3aaf7380-9112-4212-fc9c-08df3ea11988
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000D8950.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8607
 
-Userspace before 4c18bbc6 in [1] failed to set the stride when doing the
-DRM_PVR_DEV_QUERY_HEAP_INFO_GET and DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET
-query ioctl calls. This isn't a problem as long as the kernel and userspace
-use the same version of struct drm_pvr_heap and of drm_pvr_static_data_area
-and at present this is the case. However, nothing prevents it to change in
-the future, allowing userspace and kernel to run with a different version
-of either of those structures.
+Add corresponding hyperv support for Enhanced SMT protection. A fully
+enlightened SEV-SNP guest on Hyper-V builds the VMSA itself when
+bringing up an AP, so populate both fields there, before the page is
+turned into a VMSA and while it is still writable.
 
-In order to protect userspace before 4c18bbc6, change those ioctl calls now
-future proofing the value of the stride that is returned by the kernel.
-This means to take a snapshot of the size of struct drm_pvr_heap and of
-drm_pvr_static_data_area as of today and return it to old UMDs. Since the
-size has never changed so far, we may refer to this size in docs, code and
-comments as version 1, first released version, legacy or minimum supported
-version of the stride.
+Similar to KVM, fully set the sibling mask so that all threads of the
+same guest trust each other.
 
-In order to be safe for userspace, make use of the following properties
-that hold in UM code before 4c18bbc6:
-
-  1. for both DRM_PVR_DEV_QUERY_{HEAP_INFO,STATIC_DATA_AREAS}_GET, it makes
-     two ioctl calls
-  2. it never sets struct drm_pvr_obj_array::stride in either ioctl calls
-  3. it assumes the stride from the kernel to match the stride of userspace
-
-In the second ioctl call the value of the stride is set to what the kernel
-had set it to in the first. Therefore, special case what is returned to UM
-in the first call, so that the value of the stride matches with the one
-userspace uses before 4c18bbc6.
-
-Although backwards compatible, this commit alters the semantics of how to
-retrieve the non-legacy or maximum supported stride going forward. The new
-pattern for interacting with the kernel is documented in the UAPI header.
-
-[1] https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/44456
-
-Signed-off-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
+Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
 ---
- drivers/gpu/drm/imagination/pvr_drv.h | 21 +++++++++++++++++++++
- drivers/gpu/drm/imagination/pvr_vm.c  | 14 ++++++++++++--
- include/uapi/drm/pvr_drm.h            | 33 +++++++++++++++++++++++++++------
- 3 files changed, 60 insertions(+), 8 deletions(-)
+v3..v4: No Change
+---
+ arch/x86/hyperv/ivm.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_drv.h b/drivers/gpu/drm/imagination/pvr_drv.h
-index 4e058a6fdd5c..db3ffe55af29 100644
---- a/drivers/gpu/drm/imagination/pvr_drv.h
-+++ b/drivers/gpu/drm/imagination/pvr_drv.h
-@@ -72,6 +72,27 @@ int pvr_set_uobj_array(const struct drm_pvr_obj_array *out, u32 min_stride, u32
- 	PVR_UOBJ_DECL(struct drm_pvr_dev_query_fw_info, _padding_4) \
- 	)
+diff --git a/arch/x86/hyperv/ivm.c b/arch/x86/hyperv/ivm.c
+index 2ce4dfe53472..40dd252f333a 100644
+--- a/arch/x86/hyperv/ivm.c
++++ b/arch/x86/hyperv/ivm.c
+@@ -347,6 +347,17 @@ int hv_snp_boot_ap(u32 apic_id, unsigned long start_ip, unsigned int cpu)
+ 	vmsa->vmpl = 0;
+ 	vmsa->sev_features = sev_status >> 2;
  
-+/*
-+ * Minimum supported values that are fetched by DRM_PVR_DEV_QUERY_HEAP_INFO_GET
-+ * and DRM_PVR_DEV_QUERY_STATIC_DATA_AREAS_GET ioctl calls from userspace.
-+ *
-+ * These values may depend on the GPU hardware and they must not change for
-+ * cores that are already supported. However, new cores (and architectures)
-+ * may have different minimum values and they should be introduced
-+ * respecting the semantics described in the UAPI for Rogue.
-+ */
++	if (sev_status & MSR_AMD64_SNP_ESMT_PROT) {
++		vmsa->vcpu_id = apic_id;
++		/*
++		 * The mask fully set puts every vCPU in one group, so any two
++		 * of them may be co-resident. A legal ESMTP sibling must
++		 * also match on ASID, so the sibling of a vCPU in guest mode is
++		 * always either another vCPU of this same guest or idle.
++		 */
++		vmsa->vcpu_sibling_mask = U32_MAX;
++	}
 +
-+/* Size of the first released version of struct drm_pvr_heap for Rogue cores. */
-+#define DRM_PVR_HEAP_STRIDE_MIN_SUPPORTED \
-+	PVR_UOBJ_MIN_SIZE_INTERNAL(struct drm_pvr_heap, page_size_log2)
-+
-+/*
-+ * Size of the first released version of struct drm_pvr_static_data_area for
-+ * Rogue cores.
-+ */
-+#define DRM_PVR_STATIC_DATA_AREA_STRIDE_MIN_SUPPORTED \
-+	PVR_UOBJ_MIN_SIZE_INTERNAL(struct drm_pvr_static_data_area, offset)
-+
- /**
-  * PVR_UOBJ_GET() - Copies from _src_usr_ptr to &_dest_obj.
-  * @_dest_obj: The destination container object in kernel space.
-diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
-index a4d2f4e273f9..6d11b85e5ec5 100644
---- a/drivers/gpu/drm/imagination/pvr_vm.c
-+++ b/drivers/gpu/drm/imagination/pvr_vm.c
-@@ -984,8 +984,14 @@ pvr_static_data_areas_get(const struct pvr_device *pvr_dev,
- 		return err;
- 
- 	if (!query.static_data_areas.array) {
-+		u32 *stride = &query.static_data_areas.stride;
-+
-+		if (!query.static_data_areas.stride)
-+			*stride = DRM_PVR_STATIC_DATA_AREA_STRIDE_MIN_SUPPORTED;
-+		else
-+			*stride = sizeof(struct drm_pvr_static_data_area);
-+
- 		query.static_data_areas.count = ARRAY_SIZE(static_data_areas);
--		query.static_data_areas.stride = sizeof(struct drm_pvr_static_data_area);
- 		goto copy_out;
- 	}
- 
-@@ -1024,8 +1030,12 @@ pvr_heap_info_get(const struct pvr_device *pvr_dev,
- 		return err;
- 
- 	if (!query.heaps.array) {
-+		if (!query.heaps.stride)
-+			query.heaps.stride = DRM_PVR_HEAP_STRIDE_MIN_SUPPORTED;
-+		else
-+			query.heaps.stride = sizeof(struct drm_pvr_heap);
-+
- 		query.heaps.count = ARRAY_SIZE(pvr_heaps);
--		query.heaps.stride = sizeof(struct drm_pvr_heap);
- 		goto copy_out;
- 	}
- 
-diff --git a/include/uapi/drm/pvr_drm.h b/include/uapi/drm/pvr_drm.h
-index 1179c1e7d92d..9e432f3ad7b4 100644
---- a/include/uapi/drm/pvr_drm.h
-+++ b/include/uapi/drm/pvr_drm.h
-@@ -319,9 +319,19 @@ struct drm_pvr_heap {
-  */
- struct drm_pvr_dev_query_heap_info {
- 	/**
--	 * @heaps: Array of &struct drm_pvr_heap. If pointer is NULL, the count
--	 * and stride will be updated with those known to the driver version, to
--	 * facilitate allocation by the caller.
-+	 * @heaps: Array of &struct drm_pvr_heap. To facilitate allocation by
-+	 * the caller:
-+	 *
-+	 * - if &heaps.array is NULL, the count will be updated with the count
-+	 *   of heaps known to the kernel driver.
-+	 *
-+	 * - If &heaps.array is NULL and &heaps.stride is set by the caller, the
-+	 *   stride will be updated to the size of &struct drm_pvr_heap known to
-+	 *   the kernel driver.
-+	 *
-+	 * - If &heaps.array is NULL and &heaps.stride is zero, the stride will
-+	 *   be updated with a value that is the minimum supported by the kernel
-+	 *   and this may differ based on the GPU ID.
- 	 */
- 	struct drm_pvr_obj_array heaps;
- };
-@@ -427,9 +437,20 @@ struct drm_pvr_static_data_area {
-  */
- struct drm_pvr_dev_query_static_data_areas {
- 	/**
--	 * @static_data_areas: Array of &struct drm_pvr_static_data_area. If
--	 * pointer is NULL, the count and stride will be updated with those
--	 * known to the driver version, to facilitate allocation by the caller.
-+	 * @static_data_areas: Array of &struct drm_pvr_static_data_area. To
-+	 * facilitate allocation by the caller:
-+	 *
-+	 * - if &static_data_areas.array is NULL, the count will be updated with
-+	 *   the count of static areas known to the kernel driver.
-+	 *
-+	 * - If &static_data_areas.array is NULL and &static_data_areas.stride
-+	 *   is set by the caller, the stride will be updated to the size of
-+	 *   &struct drm_pvr_static_data_area known to the kernel driver.
-+	 *
-+	 * - If &static_data_areas.array is NULL and &static_data_areas.stride
-+	 *   is zero, the stride will be updated with a value that is the
-+	 *   minimum supported by the kernel and this may differ based on the
-+	 *   GPU ID.
- 	 */
- 	struct drm_pvr_obj_array static_data_areas;
- };
-
+ 	ret = snp_set_vmsa(vmsa, true);
+ 	if (ret) {
+ 		pr_err("RMPADJUST(%llx) failed: %llx\n", (u64)vmsa, ret);
 -- 
 2.43.0
 
