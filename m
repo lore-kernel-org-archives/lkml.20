@@ -1,107 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794242208;
-	b=X62EapLeWUlArx7JgbGM0jFHm6rLObV+7tBa3BliKErt46mLL5qOZ32NDZSFlsgN6m/B
-	 nQhjnK7GQuucH56QyBc4ElKDH7lHnHGMc0i/9EXGVIzpqdUo/X8XZUYTjHAo8lIYwvYA3
-	 5W1AeMTa53wsfrMcH0uuaKeJaEWN0h9AbeKiXZvRX8I9M7nrq80iXNpfeWYF8bgKaTvAB
-	 +Y0ntLQXJN6GjR0F726B2rSwY0arQVyzO5GDvuxp5HRnUjIEzr33C+X61Tn8fQ+K6t3bh
-	 4BhaHYHN2IgvT/KAbcGnop1z3Rwv9s0qXp3uqqHZ3qK7s6JpgLQxFuds8lAysVUMrgA==
+	t=1794242216;
+	b=mLheyJRI7G35A4ck6C2HjHjZKP3XDu4/UnaJRD98z0cdvDixqUlc0TKVeaRlKRi01Tqb
+	 36sjJIlSe4hiM5uSYUPPp+sZAAr5/lFWwza8s5D/9ozJ3nWFEPElMe8MikxlVDTRQVi0l
+	 oErpD+c1JUAfWqwT+BUr7/h0p5PY0wi9vvHUTt119WiqeF8WuQsjlzFD9YsZjW8xUY5K9
+	 NmRYjms8PksrglWejTbdMMdMWLJmhLd2UuxiTIcaX3ZZ79sb0X2oNs2y7gH/2fY5i2rHk
+	 8rqsSHXXgvzAzzklYjjRJjubp5RKmJ7Lj/l+pjQMMgEimKbffIfrckF8XzuPppPQDEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794242208;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=IrxSe2X7kKSSBjS8XEqbeR8ODZ6jh3UfBb1A6Bk+f+s=;
-	b=g0qmsc8kdvAZ8PY0fo78SUViOwHPzkS2o7kzLVTixjagUmPnrQAAwNqLHlppBkGk9nPt
-	 KnDb3OPT3E8Z9vY/kUhJ7BGV+dNJE0p8WvxCAPe9NaSmEbEBndAE4IHhfuoMG0Px2G//8
-	 yIUGj6cIldexMnvaLRLlvz5dS6xT4dGJeb60dV4Ytpm6bNVA0d5sMG56kVP/UiSkBHCun
-	 RkTQ0PJbpWFOnHkFg82mfa2W7xxLCRw34iDEiK34YrNe8mgn4oxhz2ivrvwoBmTurbope
-	 S4pSQvPbsCpfE3wc4mj4V5sCeLZl9aaL/RxSnNwf3Qj20C512xoP/XHwsxiw5X0Je6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794242216;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Jn9CEocg2zylizZLlU3oTB1VMEKBAaE2tCfugJNdHSQ=;
+	b=bfjDbzave8hQXOWFLPruH/p4ON9Aydz4V4aUFudosoAL+wUqtXzBS2iRzBW8ZEVtatiE
+	 qLpRKmVD1KK5e0fND6eNSx4uRRrK9G37/VnKQ6vEt5Xhusw04Ih/euhEmTP1Qu11quZrs
+	 xYCzwV1dUoxTUzYRcwXX3PBz2JjP+WVbhsT61MoqbmGpXakU9mUIW+v9uYJK+tB8kevoA
+	 65DHX6vZdf2T5U0PjNRuZfNt1LwnCIy8Z97E+BhjNm8a18TAq9PApQps1zEexeprXDURH
+	 7v1md0SwfrRJvIwjNioDL/EqDo1D+3Oot5Ps6Vn7AxBYltDDRCig25AKwHXjh3ENxdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="OTPjwy/4";
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=msfeHy88;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SLzHrJNq;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7463260A5BDC
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7463260A5BDC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689E160A6F73
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 16:36:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 689E160A6F73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OTPjwy/4
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-492f563d1c6so406987f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:48 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=msfeHy88;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SLzHrJNq
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DFErE4025860
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 16:36:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Jn9CEocg2zylizZLlU3oTB1VMEKBAaE2tCfugJNdHSQ=; b=msfeHy88415MBPwc
+	L2uACbLQp0TEuRExtyxYzU291teu/v++InscGb4Aaa2Ur6ppwNzx450ymMgkJ6+T
+	RsKi8GKr+ln9kS31RG1mwE7HLQ8zS9AkBTfrRvBIp8KaomUIGxjcbXLCcazMAs9t
+	IQiA20uJJmBdCDwoT/mRRETRWRxdcF+cGqiUN7XjYq9Siu5kdnHVZgCVgIBcXc5P
+	58qz5s4legHs7/U50tGU9KDu+NKv3Ldhtcbc68SZ+oTIE034fBt4Xb7K58F8UT/5
+	3l8HcU9tCM+fn3FczPhTZAoOO0DYs/PpWqece//gUUofGWuBUeeGDlkKdyI0H3iv
+	EyNxwg==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hua589us7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 16:36:54 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7d2e7fa9fbbso778630137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 08:36:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794242207; x=1794847007; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IrxSe2X7kKSSBjS8XEqbeR8ODZ6jh3UfBb1A6Bk+f+s=;
-        b=OTPjwy/4ZIEoZabHK6C+fW1OzzN6bYy2RkFTx7Zde2BttWQFAxrH4h3IMMRVe3dPef
-         CXAo2qQo/dIaGvFeRWrgM/I5Q2k4Y6ua7oBcBD0Xz6Hvu9rzn874J+jeRZKk7m+rgXIr
-         zex3o1DxqbQecxo9fqFuzc+3oEGGTEF6K112lcr38CX3Bm1MRawaQzYaLKDlDyJqmwZe
-         sTMipPirsj/+8rFmUkWH+N+MdNDBXx4CjUIDnhTcNAilreeYNWqwtpOKBggb2idEZlcv
-         GBDF80JJycvwWIRGpN8SMIdbvTUZZkpVBTV2c5XFeI/A+mhE98Q/BgmoRAMdUnT/JYTl
-         VBHQ==
+        d=oss.qualcomm.com; s=google; t=1794242214; x=1794847014; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jn9CEocg2zylizZLlU3oTB1VMEKBAaE2tCfugJNdHSQ=;
+        b=SLzHrJNqf9j5xRb2SDpdSZWy9ypPctNtHh/7EXdgzvFa++3wgN9My0Z0FyHa6HzEbi
+         ybxzf/ZheDp9c6tjd/YD+0WaEH4Q/noeLraKwN6ucjmmk2kFuMZs6tSQGZHEKjuf+uKy
+         DcffWqfpNHMAgU0hcNtG2Ldm4bSF1X9eP3B0t5HsmFtP/7T3O49e9XKfR1y6X2HIsqmw
+         ZxNN2VQ3LNjqEYMJb8Ty8PpmKXW1d1Dr6XziM7uW8vvK4TsDA3L213s7RaqUfuPCcVmK
+         5Zs71CBK5k80iSOCzGdJQMJtsL25LvnrPuMVdhAAmwqF8UsNnTg+RjufFzS3Trm531sd
+         aXTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794242207; x=1794847007;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IrxSe2X7kKSSBjS8XEqbeR8ODZ6jh3UfBb1A6Bk+f+s=;
-        b=jJomMGdqWiJuUN0de6TY8aFzrpdaFvfSSK+P7iMeGlQiaD5yJEN2HFU76CqASQFp1+
-         FRrOmjckgp+L2aR0mQ4gfKeLLhF0atz7TLpGFWvtq+h5SXfuyJoXO+/w/Y3A7DFyMkgP
-         AUdBXtF1gl7YBgcuiN5ZU7htmW0Efl764j2gG0/UgGH9r8w8BAaL329O2AE8abkGFgcT
-         JK1MgBCgmrIEsSYBCilnVkp8u3Ww+PMcso7rSlpbt/S1sHFfsKqy5bSpQFT0WTd3M/47
-         Rxzh4c0yPgUu4VA097w6XOrrAcbLwluZq4vl4qgVXiLcpRyl1IGuNXoBl3OZa/SXquai
-         +DAQ==
-X-Forwarded-Encrypted: i=1; AL+hErGKE5DBQBBVQ0RsK8btGw627VFsqUYDHfQOg7eykIss6Wu1aouwo93WhTxjZ2I4igZNfRDHnWPhPvF2RQ0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+SZoUL/XCUqxIy+1dnmkzxX6n83XcGtKKuw77nc4My8CSzc/Ei
-	hqXEQP4/FZ5czZJ+t4kNO54+C7Bf0x3qwd2e13VlClD/YZEKFKIVLyrT
-X-Gm-Gg: AYBFou1GxH8UbUGLG7KGdA1XdmYoLwZxQf1Xnv89KFrXbAvfSRiwfq7LXy0pvPTa8VV
-	Pqy2lDBokVOD7BB56Y9bw2dtaIRIFuV8yVWNOck4wrcKmWs2CVJorssZ4IjIlF/Mdkvl44x1M5+
-	dDgv9gFm5eOvKhXBhlK4FdMd1ZZTLDSC9DrLLoEbdawsoLCMPTNzq8P8b2m6r7PO3PVAhFQenf3
-	08UHdraUceN1KpzeW9dl/Y54DxsU2fgfISV5uKg8NfgJ98RgW+pBs9NVryiSvLNLBIvh/vTCtHv
-	Qzhl/FalTgyaroYZatif7KJB0v0b5meX3qzKaTB0ZFEvquOtpjoMrCgr3SBAyT3/IDHlUpWQ4nz
-	fXYD67sca3UQ4IJkRTex4qLQOsQUigdNGfWh8XqMY4Y+Ks6Y+Rn5Z13wszoFpPQ8lluIWcueRDN
-	sKw/iqWs/Hb9CT7cLsD6GG64mF9jbaLYFNpic/plqgm5/QIiHrEhZHqKp7gijUvgz4mCrcGakUx
-	yqVsKuyjLwMr3NR6udEamXXH8Izezy3M8dObVhRdA2Jvr9eLl+tiyrpW89CIhyw73ifjb65JoCU
-	CX+17wfS2FRFEh33H4TROSOX3A==
-X-Received: by 2002:a05:600c:1c02:b0:4a2:74f:46c1 with SMTP id 5b1f17b1804b1-4b9633cee71mr104324895e9.8.1794242206692;
-        Mon, 09 Nov 2026 08:36:46 -0800 (PST)
-Received: from victus-lab ([193.205.81.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b96cd012e1sm138851295e9.8.2026.11.09.08.36.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 08:36:45 -0800 (PST)
-From: Yuri Andriaccio <yurand2000@gmail.com>
-To: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Luca Abeni <luca.abeni@santannapisa.it>,
-	Yuri Andriaccio <yuri.andriaccio@santannapisa.it>
-Subject: [RFC PATCH v7 15/29] sched/rt: Remove support for cgroups-v1
-Date: Mon,  9 Nov 2026 17:36:01 +0100
-Message-ID: <20261109163616.195264-16-yurand2000@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261109163616.195264-1-yurand2000@gmail.com>
-References: <20261109163616.195264-1-yurand2000@gmail.com>
+        d=1e100.net; s=20260707; t=1794242214; x=1794847014;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jn9CEocg2zylizZLlU3oTB1VMEKBAaE2tCfugJNdHSQ=;
+        b=I2VgEK9YRGDvaX6/6kEhvCJsFnLOWq5Ln8IHBUzVGSB67/K5E5eGIaXU37wwDIQanA
+         dK36pwqEws0coITZ9rVu6lSYiHj3BqIBv+UtCc6b8P/Z4Ktkg2rVBSnyA61PY7iYMrri
+         JzKnTbnsF79LW2uAwiZSfucFxVTIBj3dp/4fPi9LUdf+EEZ6QEsMElia9mnRNQim964E
+         DUdRl1rfFHy1LVdP7nt9U5JHz5CeCezhf0NeTch2A0RXbbb0RssS5baPhd79nA3APHNa
+         MROioHnye49Ezx17DLjKlcLsSj9jrViM9AmE+J7lpdqKkmc5T/OYtoon5GjCmBPhFAbn
+         1BFw==
+X-Forwarded-Encrypted: i=1; AL+hErGW8qbLnrl6yReZKZET23tLyGsy4zkSlDg1RJoLVOzeKNDL4w4zN1d2H3Lt5hdURHYlBpk30PosH0za134=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+gnizDrQXwSjunaMeHSoOJfW/0L4SuShfsl4CnJRTA5CHpiZdd
+	CNVmQRF65rsbnb8/xfuRQVSS/i7pMxcU9JvXnL78I3SQM4KwHlniswyle8/hxwYrdlHFmjT1nwY
+	+Vf+C6u1nvU/IvO7ZfkBi8x6kZQp5vzpV1K3t74KExvNODyMGh5bW9ImxEJ+QKdxiKHE=
+X-Gm-Gg: AYBFou1UyXvwwYz7p7qkx+OHifpLSlUQXWoWOdt15zh1VXloWbKhOrBiSFIFV08jZfb
+	wExtcLVAqFy/dSTJIR8UOL13csUiPGN2zHF6ung/8ymxSBtmI2v3Ovx+6JWCIkro8730QWg9n5C
+	tnfWKgA13IH31JImn8Zr49C8JistYXzYkUjuFIBh2V05HgPoAHbpYDzDnwDKPcgze+REvV7fmJm
+	5x9aAdZPOcrY3rLpVYMr4St/3Y27gVtpfISd0l/gBJGjpqq48jxzJ+2KsVGPS3uuoorYlu1gyW2
+	Gfktw5eQpW+cDAWlqiV4wPYz0b1K394qE+zi4Mer/iia0WZ7pBCCyKcSYeBKWgGfGahg6jNmSYL
+	5rfm7sgVuuKmGG5OlXkziomCBq9P/oDq3qlchxnEkpRw1apNGVbrLeIC4kboeq+JTN0NPbhJH0A
+	KoMpJ7bmzjUtq4qN8X+XC8YUCRiow37aqWoQ==
+X-Received: by 2002:a05:6102:390d:b0:7d2:cdcb:6b4a with SMTP id ada2fe7eead31-7d301120897mr5316137.22.1794242213435;
+        Mon, 09 Nov 2026 08:36:53 -0800 (PST)
+X-Received: by 2002:a05:6102:390d:b0:7d2:cdcb:6b4a with SMTP id ada2fe7eead31-7d301120897mr5297137.22.1794242212750;
+        Mon, 09 Nov 2026 08:36:52 -0800 (PST)
+Received: from ?IPV6:2a05:6e02:1041:c10:8ebe:809e:5980:89b4? ([2a05:6e02:1041:c10:8ebe:809e:5980:89b4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49596f9a9ffsm11476601f8f.30.2026.11.09.08.36.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 09 Nov 2026 08:36:51 -0800 (PST)
+Message-ID: <ed4aac63-ac58-4e2a-ae45-ebf4da158228@oss.qualcomm.com>
+Date: Mon, 9 Nov 2026 17:36:50 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,174 +114,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] Make platform profiles firmware independent
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+To: rafael@kernel.org
+Cc: Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>,
+        Hans de Goede <hansg@kernel.org>,
+        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Maximilian Luz <luzmaximilian@gmail.com>,
+        Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+        Mark Pearson <mpearson-lenovo@squebb.ca>,
+        "Derek J. Clark" <derekjohn.clark@gmail.com>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Armin Wolf <W_Armin@gmx.de>, Jai Luthra <jai.luthra@ideasonboard.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jack Wu <jackbb_wu@compal.com>,
+        "Mario Limonciello (AMD)"
+ <superm1@kernel.org>,
+        linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-doc@vger.kernel.org, linux-pm@vger.kernel.org,
+        platform-driver-x86@vger.kernel.org
+References: <20261024223501.1420953-1-daniel.lezcano@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20261024223501.1420953-1-daniel.lezcano@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA2NiBTYWx0ZWRfX7Die4Bss41wF
+ zIAk6ixKY4wyocTgqjmnjRxpVuu6bEHF0Va1E8Xc1bnqWGIlixbdGguRyd88MZPxuBhhIM1X/zZ
+ WiHFTQNSeUfrOgnxQIyznFrWIxnH4LpM7guohBhGM/oXo2nMbtLm2DBbMltmXBrlvqzzk6ZllhK
+ Vf5H52IitdHM5mCz0JvNSfUMGg+bARmB2mynJuLAcesYJgjzz8yC6kj8g/x0e8poJ7CIGY++G5a
+ dyR6fLmUJFIzmyr7DMMRzWwp5wYjnH6vru76aq3Ddk15pxRSzMNzb+9y2U1x6rTvbADkuInKDo5
+ S3AmZr1qDrTuJ1FsG5L+qXd98u7H1U15iT6jYmJoNZWM7kPIukKY42hU/syrP10kl0ASv0yoiaU
+ AQUPibcBgIZWL3lnvFK9Luunp7GEFWNAt5QUnPnA+UW4rqceg1imJ4WH42AbrM+syhyx31yDmjU
+ liz7O8cchdyssDD88ug==
+X-Proofpoint-ORIG-GUID: ZWn6__Zb79iVsU-Z0bdG-PlvLjueb2iM
+X-Proofpoint-GUID: ZWn6__Zb79iVsU-Z0bdG-PlvLjueb2iM
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA2NiBTYWx0ZWRfX0eSovTBILPAN
+ yM6tzx9Nye5JhqpymfZ40GydDUD0mXPxNHFJ80ZOT31CdlIpycpBWDp7C9R33ZNPJPPXiSwa1KW
+ 3RiA/lDmmGxP+WZr3fQHStiBUMx2Tx8=
+X-Authority-Analysis: v=2.4 cv=C9V8WgP+ c=1 sm=1 tr=0 ts=6af1f6a6 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=I2DTqkVBWxGU35LqPC4A:9
+ a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0
+ bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090066
 
-Disable control files for cgroups-v1.
 
-Remove cpu_rt_group_init function and functions related to the
-cgroup-v1 control files 'rt_runtime_us' and 'rt_period_us'.
+Hi,
 
-Signed-off-by: Yuri Andriaccio <yurand2000@gmail.com>
----
- kernel/sched/core.c  | 50 --------------------------------------------
- kernel/sched/rt.c    | 49 +------------------------------------------
- kernel/sched/sched.h |  4 ----
- 3 files changed, 1 insertion(+), 102 deletions(-)
+sashiko validated this series
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 0425d2c98240..20297c2123d2 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -10185,32 +10185,6 @@ static int cpu_burst_write_u64(struct cgroup_subsys_state *css,
- }
- #endif /* CONFIG_GROUP_SCHED_BANDWIDTH */
- 
--#ifdef CONFIG_RT_GROUP_SCHED
--static int cpu_rt_runtime_write(struct cgroup_subsys_state *css,
--				struct cftype *cft, s64 val)
--{
--	return sched_group_set_rt_runtime(css_tg(css), val);
--}
--
--static s64 cpu_rt_runtime_read(struct cgroup_subsys_state *css,
--			       struct cftype *cft)
--{
--	return sched_group_rt_runtime(css_tg(css));
--}
--
--static int cpu_rt_period_write_uint(struct cgroup_subsys_state *css,
--				    struct cftype *cftype, u64 rt_period_us)
--{
--	return sched_group_set_rt_period(css_tg(css), rt_period_us);
--}
--
--static u64 cpu_rt_period_read_uint(struct cgroup_subsys_state *css,
--				   struct cftype *cft)
--{
--	return sched_group_rt_period(css_tg(css));
--}
--#endif /* CONFIG_RT_GROUP_SCHED */
--
- #ifdef CONFIG_GROUP_SCHED_WEIGHT
- static s64 cpu_idle_read_s64(struct cgroup_subsys_state *css,
- 			       struct cftype *cft)
-@@ -10288,20 +10262,6 @@ static struct cftype cpu_legacy_files[] = {
- };
- 
- #ifdef CONFIG_RT_GROUP_SCHED
--static struct cftype rt_group_files[] = {
--	{
--		.name = "rt_runtime_us",
--		.read_s64 = cpu_rt_runtime_read,
--		.write_s64 = cpu_rt_runtime_write,
--	},
--	{
--		.name = "rt_period_us",
--		.read_u64 = cpu_rt_period_read_uint,
--		.write_u64 = cpu_rt_period_write_uint,
--	},
--	{ }	/* Terminate */
--};
--
- # ifdef CONFIG_RT_GROUP_SCHED_DEFAULT_DISABLED
- DEFINE_STATIC_KEY_FALSE(rt_group_sched);
- # else
-@@ -10324,16 +10284,6 @@ static int __init setup_rt_group_sched(char *str)
- 	return 1;
- }
- __setup("rt_group_sched=", setup_rt_group_sched);
--
--static int __init cpu_rt_group_init(void)
--{
--	if (!rt_group_sched_enabled())
--		return 0;
--
--	WARN_ON(cgroup_add_legacy_cftypes(&cpu_cgrp_subsys, rt_group_files));
--	return 0;
--}
--subsys_initcall(cpu_rt_group_init);
- #endif /* CONFIG_RT_GROUP_SCHED */
- 
- static int cpu_extra_stat_show(struct seq_file *sf,
-diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
-index b7ea6b5da9e4..1df87d25fda2 100644
---- a/kernel/sched/rt.c
-+++ b/kernel/sched/rt.c
-@@ -1,3 +1,4 @@
-+#pragma GCC diagnostic ignored "-Wunused-function"
- // SPDX-License-Identifier: GPL-2.0
- /*
-  * Real-Time Scheduling Class (mapped to the SCHED_FIFO and SCHED_RR
-@@ -2290,54 +2291,6 @@ static int tg_set_rt_bandwidth(struct task_group *tg,
- 	return err;
- }
- 
--int sched_group_set_rt_runtime(struct task_group *tg, long rt_runtime_us)
--{
--	u64 rt_runtime, rt_period;
--
--	rt_period = ktime_to_ns(tg->rt_bandwidth.rt_period);
--	rt_runtime = (u64)rt_runtime_us * NSEC_PER_USEC;
--	if (rt_runtime_us < 0)
--		rt_runtime = RUNTIME_INF;
--	else if ((u64)rt_runtime_us > U64_MAX / NSEC_PER_USEC)
--		return -EINVAL;
--
--	return tg_set_rt_bandwidth(tg, rt_period, rt_runtime);
--}
--
--long sched_group_rt_runtime(struct task_group *tg)
--{
--	u64 rt_runtime_us;
--
--	if (tg->rt_bandwidth.rt_runtime == RUNTIME_INF)
--		return -1;
--
--	rt_runtime_us = tg->rt_bandwidth.rt_runtime;
--	do_div(rt_runtime_us, NSEC_PER_USEC);
--	return rt_runtime_us;
--}
--
--int sched_group_set_rt_period(struct task_group *tg, u64 rt_period_us)
--{
--	u64 rt_runtime, rt_period;
--
--	if (rt_period_us > U64_MAX / NSEC_PER_USEC)
--		return -EINVAL;
--
--	rt_period = rt_period_us * NSEC_PER_USEC;
--	rt_runtime = tg->rt_bandwidth.rt_runtime;
--
--	return tg_set_rt_bandwidth(tg, rt_period, rt_runtime);
--}
--
--long sched_group_rt_period(struct task_group *tg)
--{
--	u64 rt_period_us;
--
--	rt_period_us = ktime_to_ns(tg->rt_bandwidth.rt_period);
--	do_div(rt_period_us, NSEC_PER_USEC);
--	return rt_period_us;
--}
--
- int sched_rt_can_attach(struct task_group *tg)
- {
- 	/* Don't accept real-time tasks when there is no way for them to run */
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index ef11619cfc30..047d564e8f71 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -599,10 +599,6 @@ extern void start_cfs_bandwidth(struct cfs_bandwidth *cfs_b);
- extern void unthrottle_cfs_rq(struct cfs_rq *cfs_rq);
- extern bool cfs_task_bw_constrained(struct task_struct *p);
- 
--extern int sched_group_set_rt_runtime(struct task_group *tg, long rt_runtime_us);
--extern int sched_group_set_rt_period(struct task_group *tg, u64 rt_period_us);
--extern long sched_group_rt_runtime(struct task_group *tg);
--extern long sched_group_rt_period(struct task_group *tg);
- extern int sched_rt_can_attach(struct task_group *tg);
- 
- extern struct task_group *sched_create_group(struct task_group *parent);
--- 
-2.56.0
+Is there any other comments for these changes I should take care of ?
+
+
+On 10/25/26 00:34, Daniel Lezcano wrote:
+> Make platform profile selection independent of ACPI firmware.
+> 
+> The provider API already uses struct device, profile enums and callbacks;
+> it does not require an ACPI handle or firmware node. However, the core is
+> built under drivers/acpi/, its Kconfig symbol depends implicitly on ACPI,
+> and initialization fails when ACPI is disabled, preventing non-ACPI
+> providers from using the existing firmware-independent class interface.
+> 
+> This series moves the core to drivers/platform/profile/ and introduces
+> CONFIG_PLATFORM_PROFILE, updating all existing provider selectors. It
+> retains the tristate configuration and platform_profile module name.
+> Firmware-specific discovery and profile operations remain with providers.
+> The core can also be selected directly through its Kconfig prompt.
+> 
+> An optional ACPI adapter obtains the legacy sysfs kobject and is linked
+> into the same module. The generic core contains no ACPI types or symbols
+> and initializes without ACPI support or with ACPI disabled at boot.
+> The existing /sys/firmware/acpi/platform_profile and
+> /sys/firmware/acpi/platform_profile_choices attributes remain available
+> on active ACPI systems.
+> 
+> CONFIG_PLATFORM_PROFILE_LEGACY controls the backwards-compatible aggregate
+> sysfs interface. It defaults to enabled to preserve existing userspace.
+> Disabling it omits the legacy sysfs callbacks and ACPI adapter while
+> retaining class devices and kernel profile cycling. New userspace should
+> discover and control individual class devices instead.
+> The interface is deprecated, with removal intended after the 2028 LTS
+> kernel once userspace migration is complete. A shared pr_notice_once()
+> warns on legacy attribute access rather than on merely loading the core.
+> The default remains enabled while userspace adopts released class-device
+> support; this series does not claim that ecosystem migration is complete.
+> 
+> The existing firmware-independent interface remains:
+> 
+>    /sys/class/platform-profile/platform-profile-X/name
+>    /sys/class/platform-profile/platform-profile-X/choices
+>    /sys/class/platform-profile/platform-profile-X/profile
+> 
+> Non-ACPI userspace controls providers individually through these class
+> devices. Aggregate selection remains available through the legacy ACPI
+> attributes, and aggregate profile cycling remains available to kernel
+> callers. No new sysfs directory or userspace ABI is introduced.
+> 
+> The original first patch, "Separate handler locking from sysfs lifetime",
+> fixing the handler access race and sysfs teardown locking issue, has been
+> sent separately as a standalone v3 fix. It is not included in this series.
+> The base tree used here already contains that fix.
+> 
+> Patch 1 extracts the core and initializes it before built-in consumers.
+> Patch 2 completes class-device notifications and registration cleanup.
+> Patch 3 documents firmware-independent profile selection through class
+> devices. Patch 4 makes the legacy ACPI aggregate sysfs interface optional
+> and documents its deprecation.
+> 
+> Validation performed during development (before this rebase):
+> 
+>    - ARM64 built-in core with CONFIG_ACPI=n: W=1 build and sparse.
+>    - x86 modular core with CONFIG_ACPI=y: W=1 object build and sparse.
+>      Both CONFIG_PLATFORM_PROFILE_LEGACY=y and =n are covered.
+>    - Full x86 kernel link and QEMU boot with lockdep and list debugging,
+>      with active ACPI and with acpi=off.
+>    - Firmware-less providers exercising common and hidden choices,
+>      profile reads/writes, invalid input, mixed profiles, cycling,
+>      partial callback failures and POLLPRI on the class and legacy ACPI
+>      interfaces. With acpi=off, class get/set, notifications and kernel
+>      cycling are exercised. Both runs check that no new aggregate sysfs
+>      directory is created.
+>    - Concurrent sysfs I/O with two persistent providers while a third
+>      provider is registered and removed 200 times, last-provider attribute
+>      removal and repeated provider module reloads.
+>    - QEMU with active ACPI and CONFIG_PLATFORM_PROFILE_LEGACY=n: verify
+>      the legacy attributes are absent, class get/set and notifications
+>      work, and kernel cycling and registration/removal stress pass.
+> 
+> The provider API and profile names are unchanged. Aggregate writes retain
+> their sequential, non-transactional behavior: a failing callback does not
+> roll back providers already updated.
+> 
+> Changes in v3:
+>    - Send the original first patch fixing the handler access race and
+>      sysfs lifetime locking separately as a standalone v3 fix, including
+>      the requested profile_lock protection comment and Fixes tag.
+>    - Reduce this series to the four remaining patches and renumber them.
+>    - Rebase the remaining changes onto the current base, which already
+>      contains the separately submitted locking fix.
+> 
+> Changes in v2:
+>    - Add the Fixes tag to patch 1 and explain how the mutex-guard conversion
+>      reintroduced the teardown deadlock previously fixed in 041142d7d252,
+>      and how class-device support subsequently extended the affected paths.
+>    - Drop the proposed /sys/kernel/platform_profile/ aggregate interface
+>      and its ABI documentation. Use the existing firmware-independent
+>      /sys/class/platform-profile/platform-profile-X/ devices instead.
+>    - Preserve aggregate selection through the legacy ACPI attributes and
+>      retain internal aggregation for kernel profile cycling.
+>    - Refocus patch 3 on class-device notifications for direct writes and
+>      restoring aggregate visibility after failed registration.
+>    - Update the Kconfig help and documentation to describe the existing
+>      class interface and distinguish it from ACPI aggregate selection.
+>    - Revalidate class controls and notifications with acpi=off, legacy
+>      aggregation with ACPI active, and the absence of a new aggregate ABI.
+>    - Add CONFIG_PLATFORM_PROFILE_LEGACY (default y) to make legacy aggregate
+>      sysfs code optional, independently of class devices and kernel cycling.
+>    - Mark the legacy ABI deprecated and describe removal after the 2028 LTS
+>      kernel, conditional on userspace migration. Emit one shared notice on
+>      legacy attribute access; retain the enabled default during migration.
+>    - Move the legacy ACPI ABI documentation from testing/ to obsolete/,
+>      document the replacement class attributes and update MAINTAINERS.
+> 
+> Changes in v1:
+>    - Initial series extracting the core from ACPI, separating handler
+>      locking from sysfs lifetime operations and retaining the legacy ABI.
+>    - Proposed a firmware-neutral aggregate sysfs interface alongside the
+>      existing per-provider class devices (removed in v2).
+> 
+> Daniel Lezcano (4):
+>    platform profile: Extract the core from ACPI
+>    platform profile: Complete class notifications and registration
+>      cleanup
+>    platform profile: Document firmware-independent profile selection
+>    platform profile: Make legacy ACPI aggregate interface optional
+> 
+>   .../sysfs-platform_profile                    |  12 ++
+>   .../ABI/testing/sysfs-class-platform-profile  |   2 +-
+>   .../userspace-api/sysfs-platform_profile.rst  |  55 ++++++--
+>   MAINTAINERS                                   |   5 +
+>   drivers/acpi/Kconfig                          |   3 -
+>   drivers/acpi/Makefile                         |   1 -
+>   drivers/cpufreq/Kconfig.x86                   |   2 +-
+>   drivers/platform/Kconfig                      |  35 +++++
+>   drivers/platform/Makefile                     |   2 +
+>   drivers/platform/profile/Makefile             |   5 +
+>   drivers/platform/profile/acpi.c               |  15 +++
+>   .../profile/core.c}                           | 122 ++++++++++++++----
+>   drivers/platform/profile/profile.h            |  17 +++
+>   drivers/platform/surface/Kconfig              |   6 +-
+>   drivers/platform/x86/Kconfig                  |  10 +-
+>   drivers/platform/x86/amd/pmf/Kconfig          |   2 +-
+>   drivers/platform/x86/dell/Kconfig             |   4 +-
+>   drivers/platform/x86/hp/Kconfig               |   2 +-
+>   drivers/platform/x86/lenovo/Kconfig           |   6 +-
+>   drivers/thermal/intel/int340x_thermal/Kconfig |   2 +-
+>   include/linux/platform_profile.h              |   3 +
+>   21 files changed, 255 insertions(+), 56 deletions(-)
+>   rename Documentation/ABI/{testing => obsolete}/sysfs-platform_profile (70%)
+>   create mode 100644 drivers/platform/profile/Makefile
+>   create mode 100644 drivers/platform/profile/acpi.c
+>   rename drivers/{acpi/platform_profile.c => platform/profile/core.c} (88%)
+>   create mode 100644 drivers/platform/profile/profile.h
+> 
+> 
+> base-commit: 8244dc8f69f0e73cb1789355260b7d68bf5494e7
 
