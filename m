@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.88
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794192989;
-	b=NcJqx2EOneAq7KBA8WjYbqzZ9PWop2zSZhEL/dlBp00YIfnH4D6jm8BPqyzIo9+1WnBy
-	 trAdTXZ2gad0RRiaQVcSgWQ4vU/BPpGukkgdHH1LkVrLvrixdNSsLjyF2VBnikGeZaoDR
-	 JIZQCLb0HC7Pzd1CnrYOOs/GQ5sqq5JjWxMxD1HNzptcZCqnia5RU+jR3ugg9z9uhJVhF
-	 qLZq53NCAI8MdPvR7oxQXBj8L4b9YNfWbMZ/spm6IYJ4/yDFZXIr1/Xm7I2qkXQpWofog
-	 HTwqcjXUXqgTg4AqKQ6wPi/nvVRh2j4OoKrRXJA6N1IpOSrP2QaSfu1Fz+jem0VK9DA==
+	t=1794192998;
+	b=4zaPdv9Iqq+wyT0JcABWTgUUDaaiHd6ijF6Ne+dh13tOa+QdaMC1QAOSAU16z/9FzdJP
+	 xdn3GPJfi/Akksld0bOO6dfuM2Y7Tumq3hheO92aWHeWKm8a5SaXAEirm7o6v5ct/uyk8
+	 UYJ1U7TDcgF1GJjA9LWjzE1cZ7OeXVWVgnJ1F81+E1fGAtdcg+zX/xpMyQq67gekA4/1x
+	 GyKf4qrgNcfe+qrSRDnnWT7oV+TNiRzzoDyy5WszUsvtlJ09SA2ZvWncme7lBAGrGwHqH
+	 +vKhSZkOZgb8qWtqYS3c/fav2tihKjSoog9Uru2nQW+6ypIfONCyOX51HAYHgFZRBWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794192989;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794192998;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=n+4TwEwtUO3KwUkahtVVwASlPtdRGoMNVNlYwVFyhNM=;
-	b=JWw7xLxWqvycWRs8ebQujrJdlU2uyRwKa55UEklBr41vZQEZdF08slUGAn6eIQC+RQKl
-	 jds0rHHQKB2y4f1uO3f8U9HzNlBFX9HhPQiwmM8Cv/HjgtFZCHNT3m7wQqR/aR4UdQpRI
-	 DPqMOp436FNpw64i3N2DsHeFW2NICP2PTSYtzRVN0CBLPCtfLtj2vjJDqV31zB+FgrfoJ
-	 MgU5s+gB60e+Vt9QhzGs1DQYyd64PXxx4iZWkEnbSFpkomk9U8WUKjLhspgjQxU4gRkBy
-	 cK/eajCmj+8l68n3kdNqvt/zyFPBvO/71R/9XhS7n1m7yWaP6H4djiJkiUtKoMMvRWQ==
+	bh=x0JDGtGCXd7TffH/+d34YMn2ktB/SOhkBO9QkKhS8XA=;
+	b=1i0Kx7K09x77lieamIczcn9twR28xGtOHg+q6S4ggavhEetFGXeMBoUIsChCzEQAWWFm
+	 2SCu1VWJYTQvQn4vOkiTmfosBj+zbwutLO0DRd99fGnKqr8xP+9q0Q9Yo7IpzRlMPBL88
+	 tZgwhxO7ruEL+69QOdWf+8h8j5DoWAtPSCiKq6ziBgU63oiS1OlMm+tnlzICmv2dMKKEB
+	 18gmzaJxiF5SiExl5akZKSKYgeZUArkLk3uISG1dpNSQt3XqoyEraRtRAO0WEPvwIYCVk
+	 pqM95bY3oMKqRsKCGifZm6JYPpAeVVrE/9271P1t6qGahRG9/MGevw37RlqYhOyLv8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ony5awTA;
-	arc=none smtp.remote-ip=91.218.175.74
-Received: from mta0.migadu.com (out-74.mta0.migadu.com [91.218.175.74])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g1lDsqiR;
+	arc=none smtp.remote-ip=91.218.175.88
+Received: from mta0.migadu.com (out-88.mta0.migadu.com [91.218.175.88])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9768606A320
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:56:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9768606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E54606A334
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:56:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5E54606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ony5awTA
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g1lDsqiR
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=E6nbi2q9BWguhq7sUJJq5GhBbCo7Z1GUqwFoBaxZTl4=;
+DKIM-Signature: a=rsa-sha256; bh=oYQ00QqKoEkMvDxebrBIGfEKZ3Gcw97sYPD1Al7A4CY=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794192986; v=1; x=1794797786;
- b=Ony5awTAgbmLsrGgFLGN+cLVk7IZWAP3tmpT1qrRBuK7dNO0hugdBuUGWBeLt4XIjNOYMq3f
- 7ufDpZOF7Pzol6jvJvfzNo6qsYak2JTaZ021ZasCg8mEm4DH8yyv7OPSEEEHd98kmkqwqbmAG44
- vNDNkSGgDm4jSgrI5mi+O+yI=
+ t=1794192995; v=1; x=1794797795;
+ b=g1lDsqiRSINm9ZEaABG2qZP+5s1BctYSAflnusynK6Z5qrpASmJlxemvHGJdiLbPOrJM/oqh
+ 5SaPhl/akgvJyGDPWjhE2TSBoU16VCsh2818YLzaAa/6Qwy4bisPFL0ifMLGzfAk+HdqPuqX7xB
+ nIPVjw5vYODGgnpVoPCItWVs=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f9c8e6b6d36b6895;
-	Mon, 09 Nov 2026 02:56:26 +0000
-X-Mizu-Trace-ID: f9c8e6b6d36b6895
+Received: by smtp.migadu.com with ESMTPS id bb9a3d38076780ee;
+	Mon, 09 Nov 2026 02:56:35 +0000
+X-Mizu-Trace-ID: bb9a3d38076780ee
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <f7f034f6-cc88-4f54-a37f-9e9fd2dbb62f@linux.dev>
-Date: Mon, 9 Nov 2026 10:56:11 +0800
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: netdev@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Paul Moore <paul@paul-moore.com>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Julian Anastasov <ja@ssi.bg>,
+	Allison Henderson <achender@kernel.org>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	"D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	linux-kernel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	bridge@lists.linux.dev,
+	linux-security-module@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	lvs-devel@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	rds-devel@oss.oracle.com,
+	linux-sctp@vger.kernel.org,
+	linux-s390@vger.kernel.org
+Subject: [PATCH net-next 03/14] ipv6: annotate data-races around addrconf sysctls
+Date: Mon,  9 Nov 2026 10:52:02 +0800
+Message-ID: <20261109025425.328445-4-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,40 +101,192 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 5/6] iomap: refuse dmabuf iterators on contents-encrypted
- inodes
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Dan Williams <djbw@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, tytso@mit.edu,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
- <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Zhang Yi <yi.zhang@huawei.com>, "Darrick J. Wong" <djwong@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, asml.silence@gmail.com,
- Anuj Gupta <anuj1072538@gmail.com>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-mm@kvack.org, Li Wang <liwang@kylinos.cn>
-References: <20261105065847.196540-1-mengmeng.zhao@linux.dev>
- <20261105065847.196540-6-mengmeng.zhao@linux.dev>
- <20261106104403.GC5668@lst.de>
-From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
-In-Reply-To: <20261106104403.GC5668@lst.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/6/26 18:44, Christoph Hellwig wrote:
-> I think contents-encrypted should be content-encrypted.
-> 
-> But we really need to find a way to make these checks more
-> systematic instead of sprinkling them everywhere.  E.g. have a flag
-> in file->f_mode to allow it, which then only leaves the direct I/O
-> to buffered I/O fallback as a special case.
-> 
+The forwarding setting of conf/all, the per-device autoconf, accept_ra,
+accept_ra_min_lft, addr_gen_mode, ra_defrtr_metric, disable_ipv6 and mtu6
+settings, and the per-netns idgen_retries and idgen_delay, can be read
+concurrently with the sysctl handlers that update them with WRITE_ONCE().
+Add READ_ONCE() to the readers.
 
-Agreed, adding the check to every file system is quite tedious.
-We'll look into redesigning the implementation based on your
-suggestion. Thanks for your time!
+KCSAN reports it when net.ipv6.conf.<dev>.autoconf is changed while
+Router Advertisements are received on the device:
+
+  BUG: KCSAN: data-race in addrconf_prefix_rcv / do_proc_int_conv
+
+  write (marked) to 0xffff8d7250116df4 of 4 bytes by task 767 on cpu 2:
+   do_proc_int_conv+0xa9/0xd0
+   proc_vec_conv+0x21/0x40
+   proc_vec+0x21e/0x6f0
+   proc_dointvec+0x16/0x30
+   proc_sys_call_handler+0x282/0x3a0
+   proc_sys_write+0x13/0x20
+   ...
+
+  read to 0xffff8d7250116df4 of 4 bytes by interrupt on cpu 1:
+   addrconf_prefix_rcv+0x474/0xf00
+   ndisc_router_discovery+0xf4f/0x1f80
+   ndisc_rcv+0x2a2/0x3c0
+   icmpv6_rcv+0xb46/0xd40
+   ip6_protocol_deliver_rcu+0x787/0x9a0
+   ip6_input_finish+0xb0/0x1b0
+   ip6_input+0xa8/0x250
+   ip6_mc_input+0x249/0x780
+   ipv6_rcv+0x1b1/0x1c0
+   __netif_receive_skb_one_core+0x8f/0xe0
+   ...
+
+  value changed: 0x00000001 -> 0x00000000
+
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ net/ipv6/addrconf.c | 22 ++++++++++++----------
+ net/ipv6/ndisc.c    |  2 +-
+ net/ipv6/route.c    |  8 ++++----
+ 3 files changed, 17 insertions(+), 15 deletions(-)
+
+diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
+index d9d13e78bf13b..40f94124641d4 100644
+--- a/net/ipv6/addrconf.c
++++ b/net/ipv6/addrconf.c
+@@ -1104,7 +1104,7 @@ ipv6_add_addr(struct inet6_dev *idev, struct ifa6_config *cfg,
+ 		goto out;
+ 	}
+ 
+-	if (idev->cnf.disable_ipv6) {
++	if (READ_ONCE(idev->cnf.disable_ipv6)) {
+ 		NL_SET_ERR_MSG_MOD(extack, "IPv6 is disabled on this device");
+ 		err = -EACCES;
+ 		goto out;
+@@ -2215,7 +2215,7 @@ void addrconf_dad_failure(struct sk_buff *skb, struct inet6_ifaddr *ifp)
+ 			.scope = ifp->scope,
+ 		};
+ 
+-		if (retries > net->ipv6.sysctl.idgen_retries) {
++		if (retries > READ_ONCE(net->ipv6.sysctl.idgen_retries)) {
+ 			net_info_ratelimited("%s: privacy stable address generation failed because of DAD conflicts!\n",
+ 					     ifp->idev->dev->name);
+ 			goto errdad;
+@@ -2248,7 +2248,7 @@ void addrconf_dad_failure(struct sk_buff *skb, struct inet6_ifaddr *ifp)
+ 		spin_unlock_bh(&ifp2->lock);
+ 
+ 		if (start_dad)
+-			addrconf_mod_dad_work(ifp2, net->ipv6.sysctl.idgen_delay);
++			addrconf_mod_dad_work(ifp2, READ_ONCE(net->ipv6.sysctl.idgen_delay));
+ 		in6_ifa_put(ifp2);
+ lock_errdad:
+ 		spin_lock_bh(&ifp->lock);
+@@ -2706,8 +2706,10 @@ static void manage_tempaddrs(struct inet6_dev *idev,
+ 
+ static bool is_addr_mode_generate_stable(struct inet6_dev *idev)
+ {
+-	return idev->cnf.addr_gen_mode == IN6_ADDR_GEN_MODE_STABLE_PRIVACY ||
+-	       idev->cnf.addr_gen_mode == IN6_ADDR_GEN_MODE_RANDOM;
++	u32 mode = READ_ONCE(idev->cnf.addr_gen_mode);
++
++	return mode == IN6_ADDR_GEN_MODE_STABLE_PRIVACY ||
++	       mode == IN6_ADDR_GEN_MODE_RANDOM;
+ }
+ 
+ int addrconf_prefix_rcv_add_addr(struct net *net, struct net_device *dev,
+@@ -2735,7 +2737,7 @@ int addrconf_prefix_rcv_add_addr(struct net *net, struct net_device *dev,
+ #ifdef CONFIG_IPV6_OPTIMISTIC_DAD
+ 		if ((READ_ONCE(net->ipv6.devconf_all->optimistic_dad) ||
+ 		     READ_ONCE(in6_dev->cnf.optimistic_dad)) &&
+-		    !net->ipv6.devconf_all->forwarding && sllao)
++		    !READ_ONCE(net->ipv6.devconf_all->forwarding) && sllao)
+ 			cfg.ifa_flags |= IFA_F_OPTIMISTIC;
+ #endif
+ 
+@@ -2857,7 +2859,7 @@ void addrconf_prefix_rcv(struct net_device *dev, u8 *opt, int len, bool sllao)
+ 		return;
+ 	}
+ 
+-	if (valid_lft != 0 && valid_lft < in6_dev->cnf.accept_ra_min_lft)
++	if (valid_lft != 0 && valid_lft < READ_ONCE(in6_dev->cnf.accept_ra_min_lft))
+ 		goto put;
+ 
+ 	/*
+@@ -2928,7 +2930,7 @@ void addrconf_prefix_rcv(struct net_device *dev, u8 *opt, int len, bool sllao)
+ 	/* Try to figure out our local address for this prefix */
+ 
+ 	ignore_autoconf = READ_ONCE(in6_dev->cnf.ra_honor_pio_pflag) && pinfo->preferpd;
+-	if (pinfo->autoconf && in6_dev->cnf.autoconf && !ignore_autoconf) {
++	if (pinfo->autoconf && READ_ONCE(in6_dev->cnf.autoconf) && !ignore_autoconf) {
+ 		struct in6_addr addr;
+ 		bool tokenized = false, dev_addr_generated = false;
+ 
+@@ -3434,7 +3436,7 @@ static int ipv6_generate_stable_address(struct in6_addr *address,
+ 
+ 	if (ipv6_reserved_interfaceid(temp)) {
+ 		dad_count++;
+-		if (dad_count > dev_net(idev->dev)->ipv6.sysctl.idgen_retries)
++		if (dad_count > READ_ONCE(dev_net(idev->dev)->ipv6.sysctl.idgen_retries))
+ 			return -1;
+ 		goto retry;
+ 	}
+@@ -3805,7 +3807,7 @@ static int addrconf_notify(struct notifier_block *this, unsigned long event,
+ 			 * when the interface up, the changed MTU must be
+ 			 * reflected in the idev as well as routers.
+ 			 */
+-			if (idev->cnf.mtu6 != dev->mtu &&
++			if (READ_ONCE(idev->cnf.mtu6) != dev->mtu &&
+ 			    dev->mtu >= IPV6_MIN_MTU) {
+ 				rt6_mtu_change(dev, dev->mtu);
+ 				WRITE_ONCE(idev->cnf.mtu6, dev->mtu);
+diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
+index 0ed1a619372bf..b69e6d66e8b1a 100644
+--- a/net/ipv6/ndisc.c
++++ b/net/ipv6/ndisc.c
+@@ -1375,7 +1375,7 @@ static enum skb_drop_reason ndisc_router_discovery(struct sk_buff *skb)
+ 		}
+ 	}
+ 	/* Set default route metric as specified by user */
+-	defrtr_usr_metric = in6_dev->cnf.ra_defrtr_metric;
++	defrtr_usr_metric = READ_ONCE(in6_dev->cnf.ra_defrtr_metric);
+ 	/* delete the route if lifetime is 0 or if metric needs change */
+ 	if (rt && (lifetime == 0 || rt->fib6_metric != defrtr_usr_metric)) {
+ 		ip6_del_rt_reason(net, rt,
+diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+index 04098cf32eabe..91a003417697c 100644
+--- a/net/ipv6/route.c
++++ b/net/ipv6/route.c
+@@ -2065,7 +2065,7 @@ static bool rt6_mtu_change_route_allowed(struct inet6_dev *idev,
+ 	if (dmtu >= mtu)
+ 		return true;
+ 
+-	if (dmtu == idev->cnf.mtu6)
++	if (dmtu == READ_ONCE(idev->cnf.mtu6))
+ 		return true;
+ 
+ 	return false;
+@@ -3666,7 +3666,7 @@ int fib6_nh_init(struct net *net, struct fib6_nh *fib6_nh,
+ 	if (!dev)
+ 		goto out;
+ 
+-	if (!idev || idev->cnf.disable_ipv6) {
++	if (!idev || READ_ONCE(idev->cnf.disable_ipv6)) {
+ 		NL_SET_ERR_MSG(extack, "IPv6 is disabled on nexthop device");
+ 		err = -EACCES;
+ 		goto out;
+@@ -4533,7 +4533,7 @@ static void __rt6_purge_dflt_routers(struct net *net,
+ 		struct inet6_dev *idev = dev ? __in6_dev_get(dev) : NULL;
+ 
+ 		if (rt->fib6_flags & (RTF_DEFAULT | RTF_ADDRCONF) &&
+-		    (!idev || idev->cnf.accept_ra != 2) &&
++		    (!idev || READ_ONCE(idev->cnf.accept_ra) != 2) &&
+ 		    fib6_info_hold_safe(rt)) {
+ 			rcu_read_unlock();
+ 			ip6_del_rt(net, rt, false);
+@@ -5075,7 +5075,7 @@ static int fib6_nh_mtu_change(struct fib6_nh *nh, void *_arg)
+ 			return 0;
+ 
+ 		if (mtu >= arg->mtu ||
+-		    (mtu < arg->mtu && mtu == idev->cnf.mtu6))
++		    (mtu < arg->mtu && mtu == READ_ONCE(idev->cnf.mtu6)))
+ 			fib6_metric_set(f6i, RTAX_MTU, arg->mtu);
+ 
+ 		spin_lock_bh(&rt6_exception_lock);
+-- 
+2.43.0
+
