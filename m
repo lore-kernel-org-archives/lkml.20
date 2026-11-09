@@ -1,102 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794208512;
-	b=iK9Eew0UHTVikfY62nt5mgKCu3aIC5s+8EX4YTDfLg/OfFQVgLdfbq0acZjP3BU4LJOM
-	 M1ePxXUPGPRfQ9+sRv0U4Jb/PjbtIfqw6VjfIMXIbxlbOPF6TakluKIftL//eQdWEnfF9
-	 FahKYBMhFGq0Q9rX/sRt0Lm1i14d4Q+YkVj8X2N8maWkY8+8SKdqFxCMjSa7pWPlFwCZ8
-	 e/vrK3Pi8hWCtd9t+j7RtgNX+0+Iaxx7MrypWrvFUScaI5uwFvYaPylamTzEo4RdTnjsa
-	 2mIKjfk6WgZQZ2j977ykSXHo7B3p6FWDn7CFnFzV0KXZ5Kzo7YUkRe3lRgEf1BDNWDA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794208512;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=W3TH+FpKDkN9+upkUl+wnaxnw+xID6Ayvvs9bsXe9Os=;
-	b=HlQ+oUIOQWNEcoonIvAx9rfpAGc7Mt89RnNB8P3eAGaTKpA4s5nqh/P5L2CC3tFa0uIZ
-	 7HaZ+5mA98dp+5zspEZHoxxeR6hCkoNQ0KoUfyGcRpMIiq9Zkj08bGZPADdT1zm0tonQX
-	 hm9Fq0E0a+bAZneHANJIZnA3Mc4dwVzR6sl4VxzDhB7GNRuCmKe/4/N2XnMLsf7pMREzw
-	 DzzdZ3NI3nKLEntk1qtfDjYVOx7Fw6EyiXGOEKbQQp1Z8fW+WfLlmEgxJEOeaqC9wJEQl
-	 TAiMH9D6sdWxWNH0cDJ8vgpxmzoE6Su7waJC46eJwT9NI+O1kSgPoNVgQZ244zt7NeA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=csU26nM3;
-	arc=fail smtp.remote-ip=209.85.128.174
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794208534;
+	b=G72FV3p5Fb4nVDHY6bY9FA1TQoxgoC19i/UcK5pdq4ufeVMqAqYTokka4RJxy2vNwSl5
+	 9o8VFb188RdO3W+XkfJ0GCsluruxykMbhwPi89J373xiv8FiDNlSS8uE9Z0b04ivxyaiM
+	 Bqf1zuf2Hgt1TSWnQBZ2srNBLIPVSW4W+Wkq3hX4r6QuTO95OEfVd/yg+9kMhcquWGogN
+	 bgXxpGzbKOC+jrs8d8olodT/srTWPW7MVhdO3II+o4OMBgf0PbBUgvIAiVIq3Pd4vtKEc
+	 Gvp+mDmiviojB23o+UYHrJsHgm/gy9wnJhmjcvyku13l8nlH/Q1nh2+1xsqlePNSxmw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794208534;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=NDe69qNLIYTdhsLYqYQaekRTxEOj0NjeZaREVZUZT1k=;
+	b=KGlHre1mcWyRH4QP5WokfBVPus6iUXQ6c/vZWXBZpz8UhvryH/6oSTzuvrxMERdnM7Be
+	 7EZvfju7uPJc919jDpTfJRF87f/z+w9+kjFhXG+9NOxOeScGOSlf0QyuhtK738FC+vM3V
+	 /SOYGeKyF/FCcj5cENxh+AT0l1Q+nAkEzoquOC1TGfxvjfnZRlqz+VBUHrzkm/xNpic6r
+	 3qB9dv4s90NYhl8CuW1lK1Ium8WZgEbkSIHBS+6bCpvpHl2N4P7RuVG9omZ1hq+PZ9UzK
+	 TYv9KYE/NJ7AnrM/OrqZWjz3qMV1yLqR2qR74zWK6CqXVAy2mAC9A0hj+7zvnZBYsvg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b="i2/ox5zl";
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1955E606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:15:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1955E606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351C8606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:15:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 351C8606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=csU26nM3
-Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b31fc13124so3196037b3.3
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:15:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794208511; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W7dcX+i2QtygLQtzLjNlTqX62SS4m+Rz7GOvXAfKGggEu8BEDGYXRl1ojJKtpdp3HF
-         bWSKDVCTasKa6Vlo8xjZRY1BRalxsx7lC7iK1dSHD4uTwJATqj6rccyAT4OtdZw1Ilvf
-         ebDEm2rxOMiKlBpJA6FaVwnZaK9YVKBhuPlvscM8Bp9/2z3ZM/vR/0Qu2MnNfrHExk94
-         d6b6tjyUZ7S8HrLEaktlJfLfLf4Ovg3XYm1zcIqM3F6BLMZBGctvay2dnvVTEGiCteNK
-         /pb0i/9X+btAQ8HrGPf8wLc3DiyKAthAXyeWHZe6am81qSmhV0YwUmVfGvGmmd+vONOC
-         zFTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=W3TH+FpKDkN9+upkUl+wnaxnw+xID6Ayvvs9bsXe9Os=;
-        fh=7nMqT/eXZ5r514Q3siMy1cKl2V7pGNnRxZvTPTP5XcA=;
-        b=cb61tv7AsfEtzwPr9AfksRTVBhqHKYysgsYY0WFWwMPppdiQHwGNxZ1z9wXcVsrC9L
-         3azXWFuCwR3hObZ/dBd2Y6OHdXttuqECBoIFzi1p/Wo+LeJiKthJScxz9Qrvl92jgt7V
-         hV5kUFcUul6+ZPT4rSms8mWEBTYl5dRIQXUemBAs5YIS3iwAtp71kJecliabNEN06dIH
-         5ha0ic7FIvhSzVRfqNHUPdw3jdBJQ63mlntUZoP2y+bMIZS8zVt4uV4Uspe9Bh7pzNMX
-         pdmAHPssNaXmMqlZL9vw3gPm1/xMF0VYsomn0X6CwkkRs0FtshOrbtA6KlR+EWulXl8q
-         dsKw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794208511; x=1794813311; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=W3TH+FpKDkN9+upkUl+wnaxnw+xID6Ayvvs9bsXe9Os=;
-        b=csU26nM3k4fPR6c+45FXgNSnRd6mcGiFaUu5fBYpJCB35zLotT2fORe0o7XeUCLaY/
-         hjVDjwdD4kDmKRqzjXaYFFBeZ5XabH172MZi+LniP7uqs7p9+8Sho2n/M//EeF2v+Z0Z
-         bIF2rTnHM52w4rZ8UxueOZN/q3swm//FfuG3oAXlS5lfeHcFWFpPrLhH+FMQCJh9n98Q
-         g1fMq00h5DXiDnowP5J2Cysl3dMXpGL3+AmNLAcUnzIALcCARYG/n5E+0yNkz4QouzUr
-         akOFfvi4XQndFgLZBxT/3aR2OWfzVUkGzg5mR5kAq34rjnqlsOPJKhfC/MfQwatFvjmA
-         7HOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794208511; x=1794813311;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W3TH+FpKDkN9+upkUl+wnaxnw+xID6Ayvvs9bsXe9Os=;
-        b=SpSN0QlAyobisIhaRPzqnjZ9GESvWxe0PVoFxrx9gvB+42nI3WZBY8wtYPsHTrrBR7
-         ZgtriIMhpmzsq9YLY/6mUp5aoHlHgcGnnoUpOXXfPvh+lGHHh+KuAuzG2xnNa0nVd8lz
-         Ly4WsPsOqvIezig+OfOCGb9wCSBVEbqqg9r30c6pXPoqOpi6fh+R18CCrKbDz+vxIRQq
-         xl5OEkDfU0vdr8TOnonv5yCwKE1AGbKZVYdJ1rJsaYlPraezBVVrjvWJgPev62krqrUd
-         GI5ZCf+SL2+UJVBzGkfkFO3YngXKWwMLbOHxFMXnw+NKAjl9Advtn1uQ14fP2EXVKwjH
-         gjRw==
-X-Forwarded-Encrypted: i=1; AL+hErEL5qQzZocA7xx+vamP/ArejLINmDum+SIAgElbSusZq5nxuT05f6MveO3y97ur819TS4yr9C06sZAdCc0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IZ+ridhWhs4Bwi0GA/ZwTl9OT7r4Gz+7b4bC7l0FH7FXN+Jb/
-	V7o1YlKDmVtCdk386dl2x6JKvHb2fG/7IVZAwMEZlkvcBsB8KTS1955uzkQcxTQpgyMFl4oqqaz
-	jU0UlDTgep+s/ykBNdknp0s+h4z4NHTE=
-X-Gm-Gg: AYBFou3VDJ0ULmN/kouqtB9bHVQfjAEwwUOpLfGApbdVrjlyZelLLkpA6xbO0ilvMOz
-	x8Xnuhg1uEJR87Im12Sv/9Z5d/XoisGD/hWFZXk157Ekv96tjhYmoDzUAKLmxLlc9D0wuJICGFj
-	4Qfr50zZpLRXQaU4Aho5stu88vTKJ0TBM8UmziW7NAoWpwda4uEoIAB9vgsj7V1sIVQYNo/B6NB
-	5c7OyQObb5bnPAZ5Rm/K5ZfoLHYYliYJtiPaxS2H2Dk54LdZgv9tO2KNTAfaX+OnzMOxGM4x7O2
-	xA8S1tYC14rbZGEG2tbCL11dpjTFFQLXk6UBLiVla4pYYFhoS5tsdEfxGQCQ+AFsEcWCYhACteO
-	3SRH2Vyp/xAWBWuc94ssfS6EUq8+qX46fPeqoTa7X9hHe6lHq83b7IcFoOzgUhsnl9BriMoDKPn
-	ICVp94Q4PzGWtl6/QABCqLobLcGC85ZEt/hKxnZeHoi0LYXqj0RrWVE5qDL6zznI83etltRoKle
-	pKsA1MM+YEFfsxkGM4io3Tc2TTSlsRCMYiogHWgKgSTQrgskUVDD4OtSiMhow==
-X-Received: by 2002:a05:690c:a4cd:10b0:8b3:6430:6728 with SMTP id
- 00721157ae682-8b36cb77a09mr16346547b3.53.1794208510681; Sun, 08 Nov 2026
- 23:15:10 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=i2/ox5zl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=NDe6
+	9qNLIYTdhsLYqYQaekRTxEOj0NjeZaREVZUZT1k=; b=i2/ox5zlx48Yc9tPUkPZ
+	myNyvSR8O6TjJ0DwTg3U28GlwBgpxYJQT+kHtERfTPsamq8A8xpaDcWtNVjEB4d9
+	hEZFdzWg8JvsKhlQ3WLS4yCqkCcIk76cVNutKyM8R+OuOBYtL3ZHxpMSCrY2t50K
+	jYTVnWANWRaTLUxUm7l+kekFNa9WZ3akqOPJEmlFyvZSV+NIddtHWfcS4Qx55x0b
+	bqA6Ep/3pWiJvGbQIm08RvQb1+GCjzv2wP97vfcm4jccccuty//1AXN9ZZgyNLNo
+	xjUBWivV7vLWE8TH+pzJ3FadM8rhFuzaVQmYLkKyM3Vi4HPRSgCBjtjmu9e2KD9N
+	IQ==
+Received: (qmail 3136135 invoked from network); 9 Nov 2026 08:15:29 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 9 Nov 2026 08:15:29 +0100
+X-UD-Smtp-Session: l3s3148p1@zC8QutJffLMujntg
+Date: Mon, 9 Nov 2026 08:15:29 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Dmitry Guzman <Dmitry.Guzman@mobileye.com>
+Cc: Linus Walleij <linusw@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+	srinidhi kasagar <srinidhi.kasagar@stericsson.com>,
+	Ben Dooks <ben-linux@fluff.org>,
+	Andrea Gallo <andrea.gallo@stericsson.com>,
+	linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 6/8] i2c: nomadik: handle pm_runtime errors
+Message-ID: <avFzEaxgam-UuZH0@ninjato>
+References: <20261103-i2c-nomadik-fixes-v1-0-655c6af2cb70@mobileye.com>
+ <20261103-i2c-nomadik-fixes-v1-6-655c6af2cb70@mobileye.com>
+ <avFwLctRcnJHtINQ@ninjato>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,65 +69,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261108213656.13031-1-antoniovazquezblanco@gmail.com> <20261108213656.13031-3-antoniovazquezblanco@gmail.com>
-In-Reply-To: <20261108213656.13031-3-antoniovazquezblanco@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 9 Nov 2026 09:14:34 +0200
-X-Gm-Features: AclHuK-MowMPC7nsIXdyGu4QxS5XFSL9LJIdTkFEgLEwFauodytJ5sllsbRZ9KE
-Message-ID: <CAHp75VfuW1Xz=UeEqCUtnwQF0+auziyTa4nyhHWSa6=QuZMV-g@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] platform/surface: surfacepro3_button: don't load
- on amd variant
-To: =?UTF-8?Q?Antonio_V=C3=A1zquez_Blanco?= <antoniovazquezblanco@gmail.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Hans de Goede <hansg@kernel.org>, 
-	Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>, Maximilian Luz <luzmaximilian@gmail.com>, 
-	Chen Yu <yu.c.chen@intel.com>, Sachi King <nakato@nakato.io>, linux-input@vger.kernel.org, 
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avFwLctRcnJHtINQ@ninjato>
 
-On Sun, Nov 8, 2026 at 11:37=E2=80=AFPM Antonio V=C3=A1zquez Blanco
-<antoniovazquezblanco@gmail.com> wrote:
->
-> From: Sachi King <nakato@nakato.io>
->
-> surfacepro3_button binds to MSHW0040 on the AMD variants of the Surface
-> Laptop 3 and 4, where soc_button_array is the right driver.
->
-> surface_button_check_MSHW0040() evaluates function 2 of the MSHW0040
-> _DSM, the OEM Platform Revision, and binds when the result is 0,
-> assuming that only a failed evaluation yields 0. The AMD variants
-> implement that function and legitimately return 0, so this driver binds
-> there as well.
->
-> Decide instead on whether the device implements the function at all,
-> which function 0 of the same _DSM advertises and acpi_check_dsm()
-> reports. Of the 32 Surface models carrying MSHW0040 in the ACPI dumps at
-> [1], only two do not advertise it, and they are exactly the two this
-> driver is for: the Surface Pro 4, whose MSHW0040 device carries no _DSM,
-> and the Surface Book 1, whose _DSM advertises functions 0 and 1 only.
->
-> The driver currently reaches the right answer on the Surface Book 1 by
-> accident rather than by that test. Function 2 is not implemented there,
-> so the _DSM falls through to a trailing Return (Buffer), and
-> acpi_evaluate_dsm_typed() rejects the type and returns NULL rather than
-> an integer. The revision is left at 0 and the driver binds.
->
-> Keep evaluating the revision when it is advertised, so that it remains
-> available through dev_dbg().
+On Mon, Nov 09, 2026 at 08:03:09AM +0100, Wolfram Sang wrote:
+> 
+> > -	pm_runtime_get_sync(&priv->adev->dev);
+> > +	i = pm_runtime_get_sync(&priv->adev->dev);
+> > +	if (i)
+> > +		return i;
+> 
+> Testbots revealed a smatch warning:
+> 
+> drivers/i2c/busses/i2c-nomadik.c:737 nmk_i2c_xfer() warn: pm_runtime_get_sync() also returns 1 on success
+> 
+> I will fix it here.
 
-> [1] https://github.com/linux-surface/acpidumps
->
-> Fixes: 64dd243d7356 ("platform/x86: surfacepro3_button: Fix device check"=
-)
-> Link: https://lore.kernel.org/all/20211109081125.41410-1-nakato@nakato.io=
-/
-> Co-developed-by: Maximilian Luz <luzmaximilian@gmail.com>
-> Signed-off-by: Maximilian Luz <luzmaximilian@gmail.com>
-> Signed-off-by: Sachi King <nakato@nakato.io>
+Like this:
 
-Same comments to the tag block and the commit message as per previous patch=
-.
+diff --git a/drivers/i2c/busses/i2c-nomadik.c b/drivers/i2c/busses/i2c-nomadik.c
+index 104da275ff91..8cf1d443a25c 100644
+--- a/drivers/i2c/busses/i2c-nomadik.c
++++ b/drivers/i2c/busses/i2c-nomadik.c
+@@ -734,13 +734,13 @@ static int nmk_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 	struct nmk_i2c_dev *priv = i2c_get_adapdata(i2c_adap);
+ 
+ 	status = pm_runtime_get_sync(&priv->adev->dev);
+-	if (status)
++	if (status < 0)
+ 		return status;
+ 
+ 	/* setup the i2c controller */
+ 	setup_i2c_controller(priv);
+ 
+-	for (i = 0; i < num_msgs; i++) {
++	for (i = 0, status = 0; i < num_msgs; i++) {
+ 		priv->cli.slave_adr	= msgs[i].addr;
+ 		priv->cli.buffer		= msgs[i].buf;
+ 		priv->cli.count		= msgs[i].len;
 
---=20
-With Best Regards,
-Andy Shevchenko
+Note that setting status = 0 is not really required as the I2C core will
+ensure num_msgs to be > 0. But if people really hack around it, they
+could circumvent that. And code checkers will recognize this path until
+we fix the loophole.
+
