@@ -1,79 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.16
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794207057;
-	b=LHbKb4otBHZejkma+0e0uwkIcad0G137XwK9b/80yHJavIoDXkU795QJa20YP8bNgkAe
-	 XJwRipMT+GEJSHlk5lz4TcjKwMxmLzOtbs/zfXQ2njOmDCWTWdUb6QX8by9j9gjVsRnSf
-	 xVsjkDhjXbV8WZbiEWmxyci6DMjEMutUm19db5mMHkhgpX5ppdc5XFAGVz4EkyHqSjtDg
-	 bNEpp3oSwCxGj2EjrYgzZwCTiIzXZi1UwyrusSOcUe1kJkWX9doRLxjcMVLwLDtvQhZrS
-	 BD13DFSyPIiPnPwlyX7M0yXkykt02jonoQ9HuOFPajb1E2/+p0s9qvAbc4i3MUg6Bgw==
+	t=1794207097;
+	b=LdfZMgqFf92Hipr2MOx0bxvbYc2v4+p4BBJ1OBBYheHcPJdU1UtfyYYE3nkKCHYTATgD
+	 6jBGxpEL4A9EJaPIW32sxWqz/rYLxCv/eO7C3NEdiutEGusdSPcHxUQXwhSPA5tNvmVi3
+	 OJwq6pHehhvFmKbrWw0eCo+h/82qXK4H3kW110tSx9SDilpyPNXCaw6+Mb4IxXVeG48OK
+	 9vyadLN7cSmeqs0pIT1L4RfzCTjeomoNudt10L9MbAUjUl/fGcLjNOPuougiJSrzA/vJI
+	 ZMl/i5j/9WmRjULzwOHu/nQ8vA2cltGpcU/sn2LBjpxkkqw/5wLTx7lo1xnl+zfAX8w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794207057;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=omOPotSF23BsSAHhQA9AtmiTDdtSHsbFMlDtlvtNjYc=;
-	b=y4srvc96R41h8KImHEIO5ZPfu4i3BVKh5Zt778daj6WRGhhz4TGBlNLoNLBobf7hk9sU
-	 BR/ulrnclr3BiDAOOIYkmQ43rdSFiv1OpKw8CzPdsAW/X2RyaQbgX7sWFgUaJ1ygzc/yN
-	 R4LFYvw3qrqhpYLYM8HPI+Lah8wHJn3tnyKSdHFByzjdiJ8Gzj62wvPXZ82UBomRzaLyx
-	 z128I28f0Ysp2jPfupZIaVia7xaLrKCkb6/B7Mx9K0ZgXh5oBwt0ufJueWYMfkwZ+mcnb
-	 Hyey4e+yB5qxfpVyXGsmmvKEuc10xooF3l3FC8Kdf36sJxpdAaqolW2NpRXevgvcKxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794207097;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=GRYMVgY7LLZLdohLNTD198CyzBzgVMBBYs4VpkOhRfk=;
+	b=3X7lsl4jTunYLzLfIjFVJVWXhxTeynnguoAVkAgOXI4q+cjSaP0DdyW/TfL57mepvDgY
+	 L9x5R4/hCytjsJQ9OVzjzMlTwptLpeVlHlFu8V0URCEgvl0sn3resP2ex4JM/vqfeIL8w
+	 7adEZoIDK0b5eyxUUNPUi9eWELfiWpuF5VkOF0Q9KhjIoP4rXSHRwrCppq1NDhMlrj8RK
+	 HqObvyKWSb2+9crG16Ytv4cpjnfpCYjAUd0WvWJMJ9biMT+ZA3iBUEHNA6MEgf+3SEF71
+	 2w3w6gnEVUsLOk3DRGRHltoWHCgG422VFylEB1XjuWWWcItFVlvkTd/MCk18FkcDWfg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i7FSI6RU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="H2qI7m/H";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.16
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010016.outbound.protection.outlook.com [40.93.198.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAC8606A326;
-	Mon,  9 Nov 2026 06:50:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBE8606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 06:51:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BBE8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i7FSI6RU
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794207056;
-	b=aAzusggBF4l/oaJNzYZCtSdg9gYUPM1Wp3uIs4GLElq84SZyv9PaFXjfg8P4apfQouXs
-	 7E8Lv8OyvGNuRg97fxUTzEYCnSNbSBwvo0WrUwkh3t4wClm5Me3AGlL7xmquKRzO5NLmY
-	 GTqi/7bdIuXATEnn2scMT1C25qW9Ev2r+d8zYAZYkMew0MJSQYVcaHG8YY8QFvpME/CQz
-	 AOb7HBKDnPOkgR6HqeeAi5DPSv9h9rYDuk5p/k/0fxttnpQGFt3rG0lbwiishvO7N0n64
-	 wcu2+IUhnqMRnjKOp2g0MfmL89QroFdsTS5IMrqon2yf+kIeFYg/GZiNPhlJmWvQ5Zw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794207056;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=omOPotSF23BsSAHhQA9AtmiTDdtSHsbFMlDtlvtNjYc=;
-	b=GAt/WsKu2vDcFMareSSpWb1dyyW4Twr68l9tTH7kvgRDUQmpbD/ZyYrURNYn/NBq2ibV
-	 N4CN29fkY/SDaY4YYogu27F/yrn4+3oWmvbr4iXnECwUHFFCm7rzSI5Y4LbVdXtsDR9hl
-	 XgAggudLjhogldxRrL5gQW1OoiXrY/zFmxacavBD6NKHffVwHEePrSlqrwGvejjnSyZHj
-	 nloJwVO+v87zjqlfT4dvXU3zz27GgWPKRYlm1RKaaVaM+jsrKd5Bwwtt4CR8RqylW3hq7
-	 5aS28o7Vx6bv7GCSyDwpt7safJP5+ssIN3jeNeWz4ClknE4Q0Ir5VeJ75YIWKfy8zoA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 03A4C1F008A2;
-	Mon,  9 Nov 2026 06:50:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794207056;
-	bh=omOPotSF23BsSAHhQA9AtmiTDdtSHsbFMlDtlvtNjYc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=i7FSI6RUfJalfQgFQbTQJg0QYnZ+/NljF66NKAY274EiQJ/F2IkzroE35elzdJRBK
-	 1BQU/IOFaHymsVeYeY/GqHF3VmDxvc3LWASIS1CtYPQplrYlyxDlC9xStqbIUrrt/s
-	 xkWGu9sUXVQxT85aQSPPW+6wN7H6AxD2UBVSGzKp8cbV1X4LBJNl6y7qklpPS26NgC
-	 YnS3yIZD7rDrLYc1HQ2fk3Njj2r7EfN9+9GQnnNfTMkNvyu1mvOBGgSgtJwy6x8xQD
-	 2vYpE5WJ/MsPUqVFt6VE3pUAxw++QUCiWw52o52GT1d3Z5eMl2dMka90CK6jPxh8Ut
-	 KNiTJdLucFAbg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 73EF3482E3;
-	Mon,  9 Nov 2026 06:50:54 +0000 (UTC)
-From: Jing Lin via B4 Relay <devnull+kayano050408.gmail.com@kernel.org>
-Date: Mon, 09 Nov 2026 14:50:51 +0800
-Subject: [PATCH v6 1/3] usb: gadget: gadgetfs: fix ep0 request lifetime on
- disconnect
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=H2qI7m/H
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TgU9atx5TO7UJYPRHN0N+U40HnGX8GwVxyIuSLYmE7nJs60+EGE2S9938XdLivyBFoCPd0dWappkKX983ei5xz/+SUuvHNxNRWHh+wEkX0ugWVMqigQfFQiRO2KE4CDXq3nIc4UoEiUp8uCbsxDK20ybxdiByjpQiMNnnhP8mQXKTOyHyMXicz3kDUsDgMhFMIK8KVffb1Wl1avL5k2OLVsIpD2Qww2uEnTCANNVGIrkSt5uDIAiCEEH9Ww9Fag60FAZNX9hgOc/3ya2nIruoIwUcMV1/jeQI/uMWMHnWY2sKuQKOPe3/UYQ1MOwLUdR1VivXdgFhSnpk93TXgrzGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GRYMVgY7LLZLdohLNTD198CyzBzgVMBBYs4VpkOhRfk=;
+ b=muxGTC5zfF862XrMnfVOAS30RCeEQAkkortXy0MMfV0zunOMgnIoEKKHqS7EW9UpeCPoYygYGtORnwlcX0Ro2ewLZ+jisKhxZdzsKRUCrcm6sKb04TEryR30eSJMpncMkWBVxu/GYYJT5hghOonUuMfN6ONBQiIqpnHcydLFlRpG1fXrMbXa0lvA3Q7JRvG2xVL4LouzFXxhG29KA95eRhstPIiwbf2QG+PvGjne9LgHqHxHyknlmiqncifPtCyLeJESSG49DE8His20IgydjqTaJalBYGlmwkWyQOxgoSVy41qM2pjdnSxclGWOd4Ph6sgXDK3IG8KgaZk8b4yzBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GRYMVgY7LLZLdohLNTD198CyzBzgVMBBYs4VpkOhRfk=;
+ b=H2qI7m/HXdV8Z8V9lb9NCRLRRyQHoXmUgQhn9k/03ePZRcN4fwO0Z64u/+uu9hx/yRiucrv8plrHY/dpVFeAbYi0K8w9Pr5/zGW6/pyUSuwKfis8LQIOaRHIaN+SPru5IfUBjuPhUQuzaBH+RDlj+V75p8g3od65ce1S4nvLpRc=
+Received: from MW4P223CA0021.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::26)
+ by DS7PR12MB8082.namprd12.prod.outlook.com (2603:10b6:8:e6::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
+ 2026 06:51:31 +0000
+Received: from MWH0EPF000D8951.namprd05.prod.outlook.com
+ (2603:10b6:303:80:cafe::14) by MW4P223CA0021.outlook.office365.com
+ (2603:10b6:303:80::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.12 via Frontend Transport; Mon, 9
+ Nov 2026 06:51:30 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000D8951.mail.protection.outlook.com (10.167.249.217) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 9 Nov 2026 06:51:30 +0000
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
+ 2026 00:51:25 -0600
+From: Shivank Garg <shivankg@amd.com>
+Date: Mon, 9 Nov 2026 06:51:07 +0000
+Subject: [PATCH v2] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,575 +101,205 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-b4-gadgetfs-ep0-v6-1-b410e3dced89@gmail.com>
-References: <20261109-b4-gadgetfs-ep0-v6-0-b410e3dced89@gmail.com>
-In-Reply-To: <20261109-b4-gadgetfs-ep0-v6-0-b410e3dced89@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Neill Kapron <nkapron@google.com>
-Cc: Jing Lin <kayano050408@gmail.com>, linux-kernel@vger.kernel.org, 
- linux-usb@vger.kernel.org, 
- syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794207052; l=18089;
- i=kayano050408@gmail.com; s=default; h=from:subject:message-id;
- bh=nIWji7L0I66NP9pSdbXN6pggSDW1snNqVzCuXJ2cSoE=;
- b=8L4OYqK6ZbHf77xtd2n0tVSOkwlFyE4ShH0/fsvkF39Ba8AGNMzUogdKqb7WE+PQAV0jE9N9j
- bdmKCMxaUqsCyt7/2Ks92t3BUS+ll85U/BIZNcv41nL3vrWYi/DsbN6
-X-Developer-Key: i=kayano050408@gmail.com; a=ed25519;
- pk=pr6i8RN1WEON1jbXPdghSglxaBSzfuJjXNGFknX//+A=
-X-Endpoint-Received: by B4 Relay for kayano050408@gmail.com/default with
- auth_id=1441
-X-Original-From: Jing Lin <kayano050408@gmail.com>
-Reply-To: kayano050408@gmail.com
 Content-Transfer-Encoding: 7bit
+Message-ID: <20261109-clear-pages-batch-v2-1-2e62c4f84f94@amd.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NywrDIBREfyXcdS1qSpSu+h8hCx/XKDQxaJCW4
+ L/XBrorszoDc+aAjClghnt3QMIScohrA37pwHi1zkiCbQyc8oFRzoh5okpkUzNmotVuPBHCCY5
+ OUok3aLstoQuv0zlOjX3Ie0zv86Kwb/uz8T+2wkhLb3ttqZZiwIda7NXEBaZa6wfcyRnesAAAA
+ A==
+X-Change-ID: 20261021-clear-pages-batch-77f72ef808e4
+To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
+	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
+	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
+	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+	<mhocko@suse.com>, Ankur Arora <ankur.a.arora@oracle.com>, Pedro Falcato
+	<pfalcato@suse.de>, Peter Zijlstra <peterz@infradead.org>, Borislav Petkov
+	<bp@alien8.de>, Bharata B Rao <bharata@amd.com>, Hrushikesh Salunke
+	<hsalunke@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>
+CC: <x86@kernel.org>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+	Shivank Garg <shivankg@amd.com>
+X-Mailer: b4 0.15-dev-47d62
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794207085; l=5798;
+ i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
+ bh=VNe8x8Ob0mAwd6pZ9p9OSSpfdUNhMscllgbnWCzcy4Y=;
+ b=DLmLWcuAjWxv7oVtTAAcDqPpxeLlFKxKYXddpxXde/0zKA04voSCsGmjfG+kS2vknyM/t6sX6
+ 61rg6Hxg3NxAfshcp5QTl0Xc97WWeEq1BVTyrpbUEdrQu8s67XT0CPy
+X-Developer-Key: i=shivankg@amd.com; a=ed25519;
+ pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000D8951:EE_|DS7PR12MB8082:EE_
+X-MS-Office365-Filtering-Correlation-Id: 787bce45-1f19-4416-8eb1-08df3e2de2b0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|82310400026|36860700016|921020|11063799006|5023799004|56012099006|261021123027099003|261021121427099003|261022075727099003|261009223027099003|261026121527099003|261102123227099003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	nnKgUHJ1adgF+TFaD8P0woIETl499TGNuB1P7btBt2kW2utxef7hBGUlyqNaNT6jaGNfGrUn3oCf8Mv6PKmwWXKe6J4hjCEelBusjZw97oIgwXJ5Nai8qbEQoJj1WT7GXvXPgsNLSbkhJoxLYCKQVjKE7ECnzbWRynVBH6EW8pbIlnsmu8gl3/ztRkQYh1jbJgbaL6/jBNl+TvFqam1QU37P9uT04xqT2pXTbh0YDTvHaHrjbBp4eufYZlna4ZI7esyY5ydJSwd5p/8brdfPXF0HpbxHaAxlYTocpHADDKTsYZRkjCJTac7rqm8M9+QTUL22OANIdvks0V2LLReaRpYBKgBLd/yDhGN60dDYkNKpbmRAA1J1RtX7VR/GfzKXWs6NP2YOfxE9tUhsTnaQOfd1DGbJz7upf7HAxnznYpnR83gEMh8KTe0lnif0TtFKI9wVMB/vXyLosczsrPOH2jQvFFNx7V3KdX8vQv4jDQfn1oZ0C6gsOzUku152u/txN+uEMaZZMYCRsxDMJH8BeiR/LdshR0axT5bXsyKSiCWfK9NznmWv0oKkOoq5MlB7KlsyEP6f9klhWVEo6zURbwpamLhXWYDxLc/MXaBCkGsNPA61x6WHwjfwEeTJ/h0fUregJSix2ji6voR1UXxjTMKVDLrNdaoXSEXhT4U2reuDoCqoWx5A1zPxqIupxQDC+xSvwnVx+CFtwKEEwlBGhw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(82310400026)(36860700016)(921020)(11063799006)(5023799004)(56012099006)(261021123027099003)(261021121427099003)(261022075727099003)(261009223027099003)(261026121527099003)(261102123227099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	wMSJxw+90Vdo4nlGdv+Yz9bnNDRgClQMI6bJIcuW0p38GGHBovvBlCsg1Qkyhi/db9fbkAZ25qY4Ok/IAX/HqFefMQpA9l1jM2maPTCFKiM8hA2T0DXwMH2Juf+75UUEgCgxIW60qLVPXD9Q4Ncex7hc5szfByKAxYJ8CcnI37/Ia8yzlR2VEucR9trgiDQ7eYOw95RvxF/CwyA8nId4r0oSPQMDT3/Icd4bpfkpQmvlG11rOVK4Y0brQ+l4GQLE2NNkFSstuvWWZ/aP5K4BiOlKmdyzE4vLoNPIBHKmG0H3DWgl/KG/7BqJClsrH4oTPkK80Xj4mjLjxzHxmc94AsgqQAAo6KmhSrbW2FAvKlEztnLk22zORHshphJepjj0+2nS9tjStsfsVbRxuUWMDSXsN50Jz+OeSmHeVQUPF3IarlTKDYYiFcRPOGvEqzc4
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 06:51:30.6264
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 787bce45-1f19-4416-8eb1-08df3e2de2b0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000D8951.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8082
 
-From: Jing Lin <kayano050408@gmail.com>
+clear_contig_highpages() clears the whole range at once under
+preemptible models. Otherwise it clears PROCESS_PAGES_NON_PREEMPT_BATCH
+pages at a time, with a cond_resched() in between. The batch is 32MB if
+the architecture defines clear_pages(), and one page otherwise.
 
-gadgetfs_unbind() frees the preallocated ep0 request after disconnecting
-the gadget, assuming that no I/O remains active.
+Since commit 7dadeaa6e851 ("sched: Further restrict the preemption
+modes"), architectures that support lazy preemption only offer the
+full, lazy and RT preemption models, also with PREEMPT_DYNAMIC. x86 is
+one of them, and it is the only architecture that defines
+clear_pages(). So the 32MB batch is never used: whenever
+clear_contig_highpages() runs under a cooperative model, the batch is
+one page.
 
-With dummy_hcd, disconnecting does not necessarily drain ep0, so a delayed
-userspace response can leave dev->req queued when it is freed.  This
-triggers the warning in dummy_free_request() and a use-after-free when
-dummy_udc_stop() subsequently drains the endpoint queue.
+Make that explicit. Clear the whole range when CONFIG_PREEMPTION is
+set, and one page at a time with cond_resched() in between otherwise.
+Drop PROCESS_PAGES_NON_PREEMPT_BATCH, which has no other users.
 
-gadgetfs_setup() and the userspace copy helpers also race on dev->req and
-req->buf:
+PREEMPT_DYNAMIC kernels also have CONFIG_PREEMPTION set, and
+cond_resched() does nothing on any of these kernels. So a build-time
+CONFIG_PREEMPTION check is enough, and preempt_model_preemptible() is
+not needed.
 
-1. ep0_read() versus gadgetfs_setup().  A delegated control OUT request
-   is queued by gadgetfs_setup() and completed by ep0_complete(), which
-   leaves the payload in dev->req->buf and sets setup_out_ready.
-   ep0_read() copies that payload with copy_to_user() after dropping
-   dev->lock, so the copy can fault and sleep.  If a new control transfer
-   arrives during that window, gadgetfs_setup() reuses dev->req for it;
-   for example, GET_DESCRIPTOR(config) points req->buf at dev->config.
-   When ep0_read() resumes, clean_req() frees whatever req->buf points to
-   at that moment, which is now dev->config.  The following
-   GET_DESCRIPTOR(config) dereferences the freed descriptor.
+No functional change intended.
 
-2. ep0_write() versus gadgetfs_setup().  For a delegated control IN
-   request, ep0_write() prepares dev->req and copies the response from
-   userspace with copy_from_user() after dropping dev->lock.  A control
-   request that arrives during that copy can point req->buf at dev->dev
-   or dev->config, so the userspace copy overwrites a descriptor buffer,
-   or it can reset req->buf to dev->rbuf, so the request is queued with
-   the wrong buffer.  Completion then calls clean_req() on the wrong
-   object.
-
-Copy completed control OUT payloads into a separate setup_buf in
-ep0_complete(), copy control IN payloads from userspace into a stack
-buffer before preparing dev->req in ep0_write(), and reset req->buf when
-control transfers finish.  Track whether dev->req is queued, reject reuse
-while it is queued, and dequeue it without dev->lock before freeing it in
-gadgetfs_unbind().
-
-Only the buffer allocated by setup_req() belongs to the request, while
-descriptor responses point req->buf into dev->buf.  Track the allocation
-explicitly so clean_req() cannot free a descriptor buffer when a request
-is destroyed while an in-kernel GET_DESCRIPTOR response is active, and
-wait for the asynchronous usb_ep_dequeue() completion before freeing the
-request.
-
-Count setup callbacks and recheck the count in ep0_write() after
-copy_from_user(), so a control request that arrives while dev->lock is
-dropped invalidates the stale response instead of having it queued for
-the new transfer.
-
-Wake an ep0_read() that waits for a delegated OUT data stage when a new
-setup aborts it, and include setup_abort in the wait condition so the
-abort is not missed.
-
-Consume setup_abort through one helper that returns to
-STATE_DEV_CONNECTED only when the state is still STATE_DEV_SETUP.  This
-keeps the following event read out of the control data path without
-overwriting STATE_DEV_UNBOUND when gadgetfs_unbind() ran concurrently.
-
-The setup() callback runs in interrupt context and may not sleep, so a
-mutex cannot be used to serialize it against ep0_read() and ep0_write().
-The shared request state is protected by dev->lock and the payloads are
-handed off through private buffers instead.
-
-Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+c73e1942197af9f54ca3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c73e1942197af9f54ca3
-Cc: stable@vger.kernel.org
-Signed-off-by: Jing Lin <kayano050408@gmail.com>
+Suggested-by: David Hildenbrand <david@kernel.org>
+Signed-off-by: Shivank Garg <shivankg@amd.com>
 ---
- drivers/usb/gadget/legacy/inode.c | 230 ++++++++++++++++++++++++++++----------
- 1 file changed, 174 insertions(+), 56 deletions(-)
+This came up in review of the copy_mc_highpages() series [1]. Pedro
+pointed out that most architecture run with full or lazy preempt, so mm
+does not need to check the preemption model at runtime or batch the copy
+for cond_resched(), and a simple per-page fallback is enough for
+non-preemptible models.
+David suggested doing the same for the zeroing path, and this patch
+does that.
 
-diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-index 7f6d84601..1277982f1 100644
---- a/drivers/usb/gadget/legacy/inode.c
-+++ b/drivers/usb/gadget/legacy/inode.c
-@@ -140,6 +140,10 @@ struct dev_data {
- 					setup_abort : 1,
- 					gadget_registered : 1;
- 	unsigned			setup_wLength;
-+	unsigned int			setup_out_len;
-+	bool				ep0_req_queued;
-+	void				*ep0_req_buf;
-+	unsigned int			setup_generation;
- 
- 	/* the rest is basically write-once */
- 	struct usb_config_descriptor	*config, *hs_config;
-@@ -153,6 +157,7 @@ struct dev_data {
- 
- 	/* except this scratch i/o buffer for ep0 */
- 	u8				rbuf[RBUF_SIZE];
-+	u8				setup_buf[RBUF_SIZE];
- };
- 
- static inline void get_dev (struct dev_data *data)
-@@ -984,54 +989,82 @@ static inline void ep0_readable (struct dev_data *dev)
- 	kill_fasync (&dev->fasync, SIGIO, POLL_IN);
- }
- 
--static void clean_req (struct usb_ep *ep, struct usb_request *req)
-+static void dev_req_complete(struct usb_ep *ep, struct usb_request *req);
-+
-+static void clean_req(struct usb_ep *ep, struct usb_request *req)
+[1] https://lore.kernel.org/all/20261019-batpagecopy-v2-1-d75e7d0dfaae@amd.com 
+---
+Changes in v2:
+- Rebased on mm-next/for-next, and drop RFC tag.
+- Link to v1: https://lore.kernel.org/r/20261022-clear-pages-batch-v1-1-13d3bd0b876e@amd.com
+---
+ include/linux/mm.h | 28 +---------------------------
+ mm/memory.c        | 29 ++++++++++++++++-------------
+ 2 files changed, 17 insertions(+), 40 deletions(-)
+
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index d89e6f823c9f..59bc3685aac5 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -5242,7 +5242,7 @@ static inline void clear_page_guard(struct zone *zone, struct page *page,
+  *
+  * When running under preemptible models this is not a problem. Under
+  * cooperatively scheduled models, however, the caller is expected to
+- * limit @npages to no more than PROCESS_PAGES_NON_PREEMPT_BATCH.
++ * clear one page at a time and call cond_resched() in between.
+  */
+ static inline void clear_pages(void *addr, unsigned int npages)
  {
- 	struct dev_data		*dev = ep->driver_data;
- 
--	if (req->buf != dev->rbuf) {
--		kfree(req->buf);
--		req->buf = dev->rbuf;
--	}
--	req->complete = epio_complete;
--	dev->setup_out_ready = 0;
-+	/*
-+	 * req->buf may also point into dev->buf, which holds the
-+	 * descriptors; only the buffer allocated by setup_req() belongs
-+	 * to the request and may be freed here.
-+	 */
-+	kfree(dev->ep0_req_buf);
-+	dev->ep0_req_buf = NULL;
-+	req->buf = dev->rbuf;
-+	req->complete = dev_req_complete;
-+}
-+
-+static void dev_req_complete(struct usb_ep *ep, struct usb_request *req)
-+{
-+	struct dev_data		*dev = ep->driver_data;
-+	unsigned long		flags;
-+
-+	spin_lock_irqsave(&dev->lock, flags);
-+	clean_req(ep, req);
-+	dev->ep0_req_queued = false;
-+	spin_unlock_irqrestore(&dev->lock, flags);
-+
-+	/* gadgetfs_unbind() waits for this before freeing the request */
-+	wake_up(&dev->wait);
+@@ -5253,32 +5253,6 @@ static inline void clear_pages(void *addr, unsigned int npages)
  }
+ #endif
  
- static void ep0_complete (struct usb_ep *ep, struct usb_request *req)
- {
- 	struct dev_data		*dev = ep->driver_data;
- 	unsigned long		flags;
--	int			free = 1;
- 
- 	/* for control OUT, data must still get to userspace */
- 	spin_lock_irqsave(&dev->lock, flags);
--	if (!dev->setup_in) {
-+	if (!dev->setup_in && dev->setup_wLength) {
- 		dev->setup_out_error = (req->status != 0);
--		if (!dev->setup_out_error)
--			free = 0;
-+		if (dev->setup_out_error) {
-+			dev->setup_out_len = 0;
-+		} else {
-+			dev->setup_out_len = min_t(unsigned int, req->actual,
-+						   sizeof(dev->setup_buf));
-+			memcpy(dev->setup_buf, req->buf, dev->setup_out_len);
-+		}
- 		dev->setup_out_ready = 1;
--		ep0_readable (dev);
-+		ep0_readable(dev);
- 	}
- 
--	/* clean up as appropriate */
--	if (free && req->buf != &dev->rbuf)
--		clean_req (ep, req);
--	req->complete = epio_complete;
-+	clean_req(ep, req);
-+	dev->ep0_req_queued = false;
- 	spin_unlock_irqrestore(&dev->lock, flags);
-+
-+	/* gadgetfs_unbind() waits for this before freeing the request */
-+	wake_up(&dev->wait);
- }
- 
- static int setup_req (struct usb_ep *ep, struct usb_request *req, u16 len)
- {
- 	struct dev_data	*dev = ep->driver_data;
- 
--	if (dev->setup_out_ready) {
-+	if (dev->ep0_req_queued) {
- 		DBG (dev, "ep0 request busy!\n");
- 		return -EBUSY;
- 	}
--	if (len > sizeof (dev->rbuf))
--		req->buf = kmalloc(len, GFP_ATOMIC);
--	if (req->buf == NULL) {
-+	if (len > sizeof(dev->rbuf)) {
-+		dev->ep0_req_buf = kmalloc(len, GFP_ATOMIC);
-+		if (!dev->ep0_req_buf) {
-+			req->buf = dev->rbuf;
-+			return -ENOMEM;
-+		}
-+		req->buf = dev->ep0_req_buf;
-+	} else {
- 		req->buf = dev->rbuf;
--		return -ENOMEM;
- 	}
- 	req->complete = ep0_complete;
- 	req->length = len;
-@@ -1039,12 +1072,30 @@ static int setup_req (struct usb_ep *ep, struct usb_request *req, u16 len)
- 	return 0;
- }
- 
-+/*
-+ * Consume a pending setup abort and report it to userspace.  Called with
-+ * dev->lock held.  Return to the connected state so that the next event
-+ * read is not misdirected into the control data path, but leave a state
-+ * that gadgetfs_unbind() already changed alone.
-+ */
-+static bool ep0_check_abort(struct dev_data *dev)
-+{
-+	if (!dev->setup_abort)
-+		return false;
-+
-+	dev->setup_abort = 0;
-+	if (dev->state == STATE_DEV_SETUP)
-+		dev->state = STATE_DEV_CONNECTED;
-+	return true;
-+}
-+
- static ssize_t
- ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- {
- 	struct dev_data			*dev = fd->private_data;
- 	ssize_t				retval;
- 	enum ep0_state			state;
-+	u8				tmp[RBUF_SIZE];
- 
- 	spin_lock_irq (&dev->lock);
- 	if (dev->state <= STATE_DEV_OPENED) {
-@@ -1053,8 +1104,7 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- 	}
- 
- 	/* report fd mode change before acting on it */
--	if (dev->setup_abort) {
--		dev->setup_abort = 0;
-+	if (ep0_check_abort(dev)) {
- 		retval = -EIDRM;
- 		goto done;
- 	}
-@@ -1073,13 +1123,20 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- 			struct usb_request	*req = dev->req;
- 
- 			if ((retval = setup_req (ep, req, 0)) == 0) {
-+				dev->state = STATE_DEV_CONNECTED;
- 				++dev->udc_usage;
-+				dev->ep0_req_queued = true;
- 				spin_unlock_irq (&dev->lock);
- 				retval = usb_ep_queue (ep, req, GFP_KERNEL);
- 				spin_lock_irq (&dev->lock);
- 				--dev->udc_usage;
-+				if (retval < 0) {
-+					dev->ep0_req_queued = false;
-+					clean_req(ep, req);
-+				}
-+			} else {
-+				dev->state = STATE_DEV_CONNECTED;
- 			}
--			dev->state = STATE_DEV_CONNECTED;
- 
- 			/* assume that was SET_CONFIGURATION */
- 			if (dev->current_config) {
-@@ -1102,32 +1159,43 @@ ep0_read (struct file *fd, char __user *buf, size_t len, loff_t *ptr)
- 			}
- 			spin_unlock_irq (&dev->lock);
- 			retval = wait_event_interruptible (dev->wait,
--					dev->setup_out_ready != 0);
-+					dev->setup_out_ready ||
-+					dev->setup_abort);
- 
- 			/* FIXME state could change from under us */
- 			spin_lock_irq (&dev->lock);
- 			if (retval)
- 				goto done;
- 
--			if (dev->state != STATE_DEV_SETUP) {
-+			if (ep0_check_abort(dev)) {
-+				retval = -EIDRM;
-+				goto done;
-+			}
-+			if (dev->state != STATE_DEV_SETUP ||
-+			    dev->setup_in || !dev->setup_out_ready) {
- 				retval = -ECANCELED;
- 				goto done;
- 			}
- 			dev->state = STATE_DEV_CONNECTED;
- 
--			if (dev->setup_out_error)
-+			if (dev->setup_out_error) {
-+				dev->setup_out_ready = 0;
-+				dev->setup_out_error = 0;
-+				dev->setup_out_len = 0;
- 				retval = -EIO;
--			else {
--				len = min (len, (size_t)dev->req->actual);
-+			} else {
-+				len = min_t(size_t, len, dev->setup_out_len);
-+				memcpy(tmp, dev->setup_buf, len);
-+				dev->setup_out_ready = 0;
-+				dev->setup_out_len = 0;
- 				++dev->udc_usage;
- 				spin_unlock_irq(&dev->lock);
--				if (copy_to_user (buf, dev->req->buf, len))
-+				if (copy_to_user(buf, tmp, len))
- 					retval = -EFAULT;
- 				else
- 					retval = len;
- 				spin_lock_irq(&dev->lock);
- 				--dev->udc_usage;
--				clean_req (dev->gadget->ep0, dev->req);
- 				/* NOTE userspace can't yet choose to stall */
- 			}
- 		}
-@@ -1258,8 +1326,7 @@ ep0_write (struct file *fd, const char __user *buf, size_t len, loff_t *ptr)
- 	ssize_t			retval = -ESRCH;
- 
- 	/* report fd mode change before acting on it */
--	if (dev->setup_abort) {
--		dev->setup_abort = 0;
-+	if (ep0_check_abort(dev)) {
- 		retval = -EIDRM;
- 
- 	/* data and/or status stage for control request */
-@@ -1267,29 +1334,45 @@ ep0_write (struct file *fd, const char __user *buf, size_t len, loff_t *ptr)
- 
- 		len = min_t(size_t, len, dev->setup_wLength);
- 		if (dev->setup_in) {
--			retval = setup_req (dev->gadget->ep0, dev->req, len);
-+			u8	tmp[RBUF_SIZE];
-+			bool	zero = len < dev->setup_wLength;
-+			unsigned int generation = dev->setup_generation;
-+
-+			dev->state = STATE_DEV_CONNECTED;
-+			spin_unlock_irq(&dev->lock);
-+			if (copy_from_user(tmp, buf, len)) {
-+				spin_lock_irq(&dev->lock);
-+				return -EFAULT;
-+			}
-+			spin_lock_irq(&dev->lock);
-+			/*
-+			 * A control request that arrived while dev->lock was
-+			 * dropped supersedes this data stage; do not queue the
-+			 * stale response for it.
-+			 */
-+			if (dev->setup_generation != generation)
-+				return -EIDRM;
-+			if (dev->state != STATE_DEV_CONNECTED)
-+				return -ECANCELED;
-+			retval = setup_req(dev->gadget->ep0, dev->req, len);
- 			if (retval == 0) {
--				dev->state = STATE_DEV_CONNECTED;
-+				memcpy(dev->req->buf, tmp, len);
-+				dev->req->zero = zero;
- 				++dev->udc_usage;
--				spin_unlock_irq (&dev->lock);
--				if (copy_from_user (dev->req->buf, buf, len))
--					retval = -EFAULT;
--				else {
--					if (len < dev->setup_wLength)
--						dev->req->zero = 1;
--					retval = usb_ep_queue (
--						dev->gadget->ep0, dev->req,
--						GFP_KERNEL);
--				}
-+				dev->ep0_req_queued = true;
-+				spin_unlock_irq(&dev->lock);
-+				retval = usb_ep_queue(
-+					dev->gadget->ep0, dev->req,
-+					GFP_KERNEL);
- 				spin_lock_irq(&dev->lock);
- 				--dev->udc_usage;
- 				if (retval < 0) {
-+					dev->ep0_req_queued = false;
- 					clean_req (dev->gadget->ep0, dev->req);
- 				} else
- 					retval = len;
+-#ifndef PROCESS_PAGES_NON_PREEMPT_BATCH
+-#ifdef clear_pages
+-/*
+- * The architecture defines clear_pages(), and we assume that it is
+- * generally "fast". So choose a batch size large enough to allow the processor
+- * headroom for optimizing the operation and yet small enough that we see
+- * reasonable preemption latency for when this optimization is not possible
+- * (ex. slow microarchitectures, memory bandwidth saturation.)
+- *
+- * With a value of 32MB and assuming a memory bandwidth of ~10GBps, this should
+- * result in worst case preemption latency of around 3ms when clearing pages.
+- *
+- * (See comment above clear_pages() for why preemption latency is a concern
+- * here.)
+- */
+-#define PROCESS_PAGES_NON_PREEMPT_BATCH		(SZ_32M >> PAGE_SHIFT)
+-#else /* !clear_pages */
+-/*
+- * The architecture does not provide a clear_pages() implementation. Assume
+- * that clear_page() -- which clear_pages() will fallback to -- is relatively
+- * slow and choose a small value for PROCESS_PAGES_NON_PREEMPT_BATCH.
+- */
+-#define PROCESS_PAGES_NON_PREEMPT_BATCH		1
+-#endif
+-#endif
 -
--				return retval;
- 			}
-+			return retval;
- 
- 		/* can stall some OUT transfers */
- 		} else if (dev->setup_can_stall) {
-@@ -1360,8 +1443,7 @@ ep0_poll (struct file *fd, poll_table *wait)
- 	spin_lock_irq(&dev->lock);
- 
- 	/* report fd mode change before acting on it */
--	if (dev->setup_abort) {
--		dev->setup_abort = 0;
-+	if (ep0_check_abort(dev)) {
- 		mask = EPOLLHUP;
- 		goto out;
- 	}
-@@ -1470,6 +1552,10 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 	u16				w_value = le16_to_cpu(ctrl->wValue);
- 	u16				w_length = le16_to_cpu(ctrl->wLength);
- 
-+	spin_lock(&dev->lock);
-+	/* invalidate userspace copies started for an older control request */
-+	dev->setup_generation++;
-+
- 	if (w_length > RBUF_SIZE) {
- 		if (ctrl->bRequestType & USB_DIR_IN) {
- 			/* Cast away the const, we are going to overwrite on purpose. */
-@@ -1478,11 +1564,15 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 			*temp = cpu_to_le16(RBUF_SIZE);
- 			w_length = RBUF_SIZE;
- 		} else {
-+			spin_unlock(&dev->lock);
- 			return value;
- 		}
- 	}
- 
--	spin_lock (&dev->lock);
-+	if (dev->ep0_req_queued) {
-+		spin_unlock(&dev->lock);
-+		return -EBUSY;
-+	}
- 	dev->setup_abort = 0;
- 	if (dev->state == STATE_DEV_UNCONNECTED) {
- 		if (gadget_is_dualspeed(gadget)
-@@ -1505,8 +1595,11 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 	 * then ep0_{read,write} will report the wrong status. controller
- 	 * driver will have aborted pending i/o.
- 	 */
--	} else if (dev->state == STATE_DEV_SETUP)
-+	} else if (dev->state == STATE_DEV_SETUP) {
- 		dev->setup_abort = 1;
-+		/* wake an ep0_read() waiting for the aborted data stage */
-+		ep0_readable(dev);
-+	}
- 
- 	req->buf = dev->rbuf;
- 	req->context = NULL;
-@@ -1618,6 +1711,7 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 			dev->setup_wLength = w_length;
- 			dev->setup_out_ready = 0;
- 			dev->setup_out_error = 0;
-+			dev->setup_out_len = 0;
- 
- 			/* read DATA stage for OUT right away */
- 			if (unlikely (!dev->setup_in && w_length)) {
-@@ -1627,12 +1721,14 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 					break;
- 
- 				++dev->udc_usage;
-+				dev->ep0_req_queued = true;
- 				spin_unlock (&dev->lock);
- 				value = usb_ep_queue (gadget->ep0, dev->req,
- 							GFP_KERNEL);
- 				spin_lock (&dev->lock);
- 				--dev->udc_usage;
- 				if (value < 0) {
-+					dev->ep0_req_queued = false;
- 					clean_req (gadget->ep0, dev->req);
- 					break;
- 				}
-@@ -1663,21 +1759,26 @@ gadgetfs_setup (struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
- 	if (value >= 0 && dev->state != STATE_DEV_SETUP) {
- 		req->length = value;
- 		req->zero = value < w_length;
-+		req->complete = dev_req_complete;
- 
- 		++dev->udc_usage;
-+		dev->ep0_req_queued = true;
- 		spin_unlock (&dev->lock);
- 		value = usb_ep_queue (gadget->ep0, req, GFP_KERNEL);
- 		spin_lock(&dev->lock);
- 		--dev->udc_usage;
--		spin_unlock(&dev->lock);
- 		if (value < 0) {
-+			dev->ep0_req_queued = false;
-+			req->buf = dev->rbuf;
- 			DBG (dev, "ep_queue --> %d\n", value);
- 			req->status = 0;
- 		}
-+		spin_unlock(&dev->lock);
- 		return value;
- 	}
- 
- 	/* device stalls when value < 0 */
-+	req->buf = dev->rbuf;
- 	spin_unlock (&dev->lock);
- 	return value;
+ #ifdef __HAVE_ARCH_GATE_AREA
+ extern struct vm_area_struct *get_gate_vma(struct mm_struct *mm);
+ extern int in_gate_area_no_mm(unsigned long addr);
+diff --git a/mm/memory.c b/mm/memory.c
+index c46482e35418..9bfd49ea990f 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -7612,27 +7612,30 @@ static inline int process_huge_page(
  }
-@@ -1771,6 +1872,7 @@ static void
- gadgetfs_unbind (struct usb_gadget *gadget)
+ 
+ static void clear_contig_highpages(struct page *page, unsigned long addr,
+-				   unsigned int nr_pages)
++		unsigned int nr_pages)
  {
- 	struct dev_data		*dev = get_gadget_data (gadget);
-+	bool			queued;
- 
- 	DBG (dev, "%s\n", __func__);
- 
-@@ -1781,15 +1883,29 @@ gadgetfs_unbind (struct usb_gadget *gadget)
- 		usleep_range(1000, 2000);
- 		spin_lock_irq(&dev->lock);
- 	}
-+	queued = dev->ep0_req_queued;
- 	spin_unlock_irq (&dev->lock);
- 
-+	if (dev->req) {
-+		if (queued) {
-+			usb_ep_dequeue(gadget->ep0, dev->req);
-+			/*
-+			 * usb_ep_dequeue() may return before the completion
-+			 * routine runs.  Do not free the request until the
-+			 * controller has given it back.
-+			 */
-+			wait_event(dev->wait, !dev->ep0_req_queued);
-+		}
-+		dev->req->buf = dev->rbuf;
-+		clean_req(gadget->ep0, dev->req);
-+		usb_ep_free_request(gadget->ep0, dev->req);
-+		dev->req = NULL;
-+	}
+-	unsigned int i, count;
++	unsigned int i;
 +
- 	destroy_ep_files (dev);
- 	gadget->ep0->driver_data = NULL;
- 	set_gadget_data (gadget, NULL);
++	might_sleep();
++
+ 	/*
+ 	 * When clearing we want to operate on the largest extent possible to
+ 	 * allow for architecture specific extent based optimizations.
+ 	 *
+-	 * However, since clear_user_highpages() (and primitives clear_user_pages(),
+-	 * clear_pages()), do not call cond_resched(), limit the unit size when
+-	 * running under non-preemptible scheduling models.
++	 * clear_user_highpages() (and primitives clear_user_pages(),
++	 * clear_pages()) do not call cond_resched(). That is fine on
++	 * preemptible kernels, where the scheduler can preempt the clearing
++	 * at any point, so clear the whole range at once. Otherwise, clear
++	 * one page at a time and reschedule in between.
+ 	 */
+-	const unsigned int unit = preempt_model_preemptible() ?
+-				   nr_pages : PROCESS_PAGES_NON_PREEMPT_BATCH;
+-
+-	might_sleep();
++	if (IS_ENABLED(CONFIG_PREEMPTION)) {
++		clear_user_highpages(page, addr, nr_pages);
++		return;
++	}
  
--	/* we've already been disconnected ... no i/o is active */
--	if (dev->req)
--		usb_ep_free_request (gadget->ep0, dev->req);
- 	DBG (dev, "%s done\n", __func__);
- 	put_dev (dev);
+-	for (i = 0; i < nr_pages; i += count) {
++	for (i = 0; i < nr_pages; i++) {
+ 		cond_resched();
+-
+-		count = min(unit, nr_pages - i);
+-		clear_user_highpages(page + i, addr + i * PAGE_SIZE, count);
++		clear_user_highpages(page + i, addr + i * PAGE_SIZE, 1);
+ 	}
  }
-@@ -1816,11 +1932,13 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
- 	get_dev (dev);
  
- 	/* preallocate control response and buffer */
-+	dev->ep0_req_queued = false;
- 	dev->req = usb_ep_alloc_request (gadget->ep0, GFP_KERNEL);
- 	if (!dev->req)
- 		goto enomem;
- 	dev->req->context = NULL;
--	dev->req->complete = epio_complete;
-+	dev->req->complete = dev_req_complete;
-+	dev->req->buf = dev->rbuf;
- 
- 	if (activate_ep_files (dev) < 0)
- 		goto enomem;
 
+---
+base-commit: b1efbb50cfdfa953cb1335ead2ef93954b496bc5
+change-id: 20261021-clear-pages-batch-77f72ef808e4
+
+Best regards,
 -- 
-Git-155)
-
+Shivank Garg <shivankg@amd.com>
 
