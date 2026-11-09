@@ -1,81 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794265802;
-	b=rwluKCRC/9WqJ9APzfu8O8wy4FDKBpk2Z7/rgXzA6rq25jGG5Vm+8xxtZAAxTp2o3fce
-	 wfz3drcBs4drg2hwkeSmLGevmaVSF5e2DmmCffJvV22uMVU+7Dwl4VZma7Sn/xJbrv32a
-	 hftziBHjhQoSWZZetmw7Pnohb0jFcyUeTaza1ltaYb5Skf2lGzgUbgQCXWAQoXdPvSiOT
-	 6FsNsR4alKoPXFuTI1GnU+NkWNB1gjuvzYvtVLpOF/A1cJOPzR5yzG9mssgmBeT0LoVFu
-	 8k4/4xyR34xwadGns0VY+KA3Lf1RaZNkARuHoXBKzf2Ika/UdVDzKOgTS4ht/0oIXZQ==
+	t=1794265824;
+	b=wOe6pQNbb3IgQqnVFRfEjx8EAkY5S/qrkSOVG7Ft6Hv2FsxU7HKvVs6+rHxH6t+7u4KU
+	 e3WqBdhDWW7dcwm5zf9lkiYxB/YW6Ff6pmomEbLgm6VQ0AlSjNDLqEfZrKbR20wBhc6FI
+	 Tz/IX23KRbpZRyzJU9gbREexRpxyTNKlbpwt4ybUV/LHPl0MfRnTdCFAzslVUxNeX9v3J
+	 598noJkcZQpDVD/uQACwB5ehbJfWLST2mR0HBbFT96O/M4iKpRwuwjLlTGWwWPX92MEzC
+	 OhHDu8IdPmhtgV95XoNG6yIAcyK5+zxWWjD3HnTK//eyjHY8OSe+bFLF9jor6Pz5RAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794265802;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:
-	 X-Source-L:X-Exim-ID:X-Source:X-Source-Args:X-Source-Dir:
-	 X-Source-Sender:X-Source-Auth:X-Email-Count:X-Org:X-Source-Cap:
-	 X-Local-Domain:X-CMAE-Envelope;
-	bh=6+kzbC8NY48LGIWA5cXEEQo3ig6iDfaSEJx3zcs0cjU=;
-	b=ZRJ+4Ul35SkcdIC/3jMOssobJMRO7pLFTEWChVk75/+m51i0mdaiktJ0fdLCWoYq8qYE
-	 sOaLlrB9Pw5iyO6D1ohSnRkm0e1Z6sU7zAE/o1hrvwnRAjSSEJZ5xtgIvMXyxJDs9dAu9
-	 6c7A3viKwpZk+faSlbgZGDUpXhcnPx+6qavlAx+UZGs009iEP9UR8j7eBkwSeyWJq5Q9f
-	 X/fQqyR9JPhB+k5jYioSlCqAEU/o59bbrXX+w76QTjuvOjZqKrfw4WOqMWsf24L2aCESo
-	 A4cGigf/GwJHM/XOnZjVX90BqNB18CWJSKbB4LgTQ/zEweJJkuwhRXdBGS2vXDgXjqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794265824;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=WUGyGqN0Xjrr8oyN7PYnUH7fmkjvYC7AdczM08DaAiA=;
+	b=fSZHQq1wjcbBp0ius2eFHXeh/MxzaTSr8U6rZgfrT5fYbQKTsbAwijGAig88aMCzn3Jq
+	 E6rp0apcqSNSZAfB+8eKZDB+rPhUSKPASLaSqtdzmsuTyX+nNJaNlB60KsFLV3IVsF3l6
+	 i62QkM26i/y9dY8bq+/J53KjAYixp9LdqDA9u6UaVnGe6rXheAPO7tKstEZjp817EoD93
+	 mTMWOmG2f4ZCgVoWQDX8J1qMvGvrWjXqgWCE5eKgxz92QkdD0LZ8jmrdkNlRtwif1fPE8
+	 LskcJm4d/+3Gxfgz9LFNXN7VZFw307SyQbuoJbF/Qzhe994vHcpm9ktiVekCvGi5HzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=RjhQxviY;
-	arc=none smtp.remote-ip=35.89.44.33
-Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Pngp7haW;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A4E606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 23:10:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3A4E606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BD0606A31C;
+	Mon,  9 Nov 2026 23:10:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18BD0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=RjhQxviY
-Received: from eig-obgw-5001b.ext.cloudfilter.net ([10.0.29.181])
-	by cmsmtp with ESMTPS
-	id QRDUxOH87AR1iQYUzxa4ka; Mon, 09 Nov 2026 23:10:01 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id QYUyxlGB3xmi7QYUzxJXvp; Mon, 09 Nov 2026 23:10:01 +0000
-X-Authority-Analysis: v=2.4 cv=KuFN2XWN c=1 sm=1 tr=0 ts=6af252c9
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10 a=gu6fZOg2AAAA:8
- a=VwQbUJbxAAAA:8 a=R5C9hjxsAAAA:8 a=F3YKiNpd_WCGsebJcZcA:9 a=CjuIK1q_8ugA:10
- a=-FEs8UIgK8oA:10 a=O8hF6Hzn-FEA:10 a=2RSlZUUhi9gRBrsHwhhZ:22
- a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
-	:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
-	:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=6+kzbC8NY48LGIWA5cXEEQo3ig6iDfaSEJx3zcs0cjU=; b=RjhQxviYsdBU9ZRKWCxfSoDY9c
-	v9lXkQZWmDv/bYejN314/dIb2MNG1KLm8Of5IVuda7vj5idaSEiM0ErcBCrByVWG2TTPgn7Il5JHv
-	8sf3BDyTxDB1fxYS/2DrzrgjiL9+rx1AzJrYF6qFaRl4Wv9GupE8fZEGuwiumiT9uHlSYmwKmyO7E
-	9bRWyAFWpkkoYJiyHf2/bRUPlDM7B4l9O3LKiUYSokicmhu7Zr6CR1ocm5A5u3Jxd2TJBpmdR8ZfG
-	n0fuzY7Wvjq611n/OpcfjRClUxmV5EOsrz+rKg/o8i3pVHB9luTB9K1Bbrc1dwDIapgWLUWX/lQJT
-	o11tDuoQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:39438 helo=server.roeck-us.net)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xQYUy-00000000qO0-1y61;
-	Tue, 10 Nov 2026 04:40:00 +0530
-Date: Mon, 9 Nov 2026 15:09:59 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
-	linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] watchdog: npcm: fix clock prepare leak when setting
- timeout on a running watchdog
-Message-ID: <19258f94-ec01-48f4-9d04-22e5ecb5cac2@roeck-us.net>
-References: <20261109071004.1506-1-zhaofeng2@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Pngp7haW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794265824; x=1825801824;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=af3GDmz7xfwUFmwVL6uIE0r8PVeWfD9yEXjaSn5nujQ=;
+  b=Pngp7haWxmR07JODslBy5AAtNCfKbG6kjQjSOeP15DeFP6qb5OS2XfgX
+   /4ESlvcTzhMN92reGOkNwcpQUq00DF+YxaHVRGZNMo9RrRLVaTnULF+Ab
+   wYffQyEtHuXzYUsOLn7ITFHHHFM4kBk6EQwj8ih9cpp7gXoRUeS6340b1
+   1hl5xMu1XetRPZDhg+MJZFf8MvjQ4EZynhtxn2vIRXP+ucJponY30xPnr
+   Uraud/WWUNqVTZ0tUu5R2u4MNECjd8uJ66159yY/LuVLznnuSNCd9OM/q
+   ZqYtepR4c3s9LPMte53VQSC97gL5ZUUUm7O/TSM3fpnPhMpALfowXFpZx
+   w==;
+X-CSE-ConnectionGUID: eCLTlqAKQDSA0IuLxL2esQ==
+X-CSE-MsgGUID: fYZ69JvFS129MO2/4BdDOQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3001312"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="3001312"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:10:24 -0800
+X-CSE-ConnectionGUID: Y+J0sHFaQjW4CBkOwp/h0w==
+X-CSE-MsgGUID: hpFwZrQwQpWTELres5ey+A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="9845397"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 15:10:20 -0800
+Date: Tue, 10 Nov 2026 01:10:18 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v8 06/11] serial: 8250_dw: derive RX trigger thresholds
+ from the FIFO depth
+Message-ID: <avJS2vUE-UrPVXqi@ashevche-desk.local>
+References: <20261105-submit-h616-uart-fifo-v1-v8-0-14024d2b184b@gmail.com>
+ <20261105-submit-h616-uart-fifo-v1-v8-6-14024d2b184b@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,116 +89,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109071004.1506-1-zhaofeng2@cmss.chinamobile.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xQYUy-00000000qO0-1y61
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (server.roeck-us.net) [108.223.40.66]:39438
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 15
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfOM7hG5TjmBCiPjjEfrkV4f8IwQn5ll0pNMKyPLdmHX+0jNwIifspMzp0f2WD4ZHehb4R1bF9jNXwRrjcctCeHmkDSF6uEOS4rx6DO7MVuQ+Ws5EiK4v
- gIzNHfLAa8YKf4NaZSUk+cqiK1a6QMA2sqaaNcmlQjio2JHqemllxm65jv98PXDl0ye+MH6kuYIskV7E7yiAsq/0mZCH9O21Vp8VyaUbtO5wqh3Xmb2RbCRm
+In-Reply-To: <20261105-submit-h616-uart-fifo-v1-v8-6-14024d2b184b@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Nov 09, 2026 at 03:10:03PM +0800, Zhao Feng wrote:
-> npcm_wdt_start() unconditionally prepares and enables the watchdog
-> clock, and npcm_wdt_stop() is the only place that disables it.
-> npcm_wdt_set_timeout() calls npcm_wdt_start() again whenever the
-> watchdog is already active, so every WDIOC_SETTIMEOUT ioctl issued
-> while the watchdog is running takes one extra clock prepare/enable
-> reference that is never dropped.
+On Thu, Nov 05, 2026 at 01:52:07PM -0700, James Hilliard wrote:
+> DW_apb_uart uses receive thresholds of one byte, one quarter full,
+> one half full and two bytes below full. The generic 16550A table describes
+> these encodings only for a 16-byte FIFO. For example, the half-full setting
+> on a 64-byte DW FIFO is reported as eight bytes instead of 32, and a sysfs
+> request for 32 bytes selects the 62-byte encoding.
 > 
-> Split the register programming out of npcm_wdt_start() into a
-> __npcm_wdt_start() helper that assumes the clock is already running,
-> and call the helper from npcm_wdt_set_timeout() instead; only the
-> watchdog .start callback (and the restart path, which intentionally
-> keeps the clock) now acquires the clock.
+> Build a per-port threshold table from the discovered FIFO depth in dwlib
+> and install receive-trigger callbacks for CPR-described FIFOs, including
+> LPSS ports. Keep the setup helper available to integrations which obtain
+> the depth without probing the optional DW registers. Validate that each
+> threshold is positive and representable before constructing the table.
 > 
-> Fixes: af084fdccfaf ("watchdog: npcm: Enable clock if provided")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-
-Applied.
-
-Couple of notes:
-
-The problem reported by Sashiko seems real, but I have any idea how to fix
-it, and it is unrelated to this patch.
-
-The error propagation patch has a number of issues (as reported by Sashiko)
-and will have to be resubmitted anyway. When thet is done it will have
-to be rebased to this patch.
-
-Thanks,
-Guenter
-
-> ---
-> Verified against current upstream master.  Not runtime-tested (no
-> Nuvoton NPCM hardware).
+> Serialize FCR updates with termios and the port lock, acquire a runtime PM
+> reference before accessing the device, and propagate resume errors without
+> changing the shadow or hardware. Update only the trigger field so changing
+> the threshold preserves the FIFO contents.
 > 
-> Note: this overlaps textually with Triet Hoang's pending
-> error-propagation patch
-> (https://marc.info/?l=linux-kernel&m=178955112320092)
-> but fixes a different bug; whichever lands second will need a
-> trivial rebase.
-> 
->  drivers/watchdog/npcm_wdt.c | 17 +++++++++++++----
->  1 file changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
-> --- a/drivers/watchdog/npcm_wdt.c
-> +++ b/drivers/watchdog/npcm_wdt.c
-> @@ -148,10 +148,8 @@
-> -static int npcm_wdt_start(struct watchdog_device *wdd)
-> +static void __npcm_wdt_start(struct watchdog_device *wdd)
->  {
->  	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
->  	u32 val;
->  
-> -	clk_prepare_enable(wdt->clk);
-> -
->  	if (wdd->timeout < 2)
->  		val = 0x800;
->  	else if (wdd->timeout < 3)
-> @@ -176,10 +174,19 @@
->  	val |= NPCM_WTRE | NPCM_WTE | NPCM_WTR | NPCM_WTIE;
->  
->  	writel(val, wdt->reg);
-> -
-> -	return 0;
->  }
->  
-> +static int npcm_wdt_start(struct watchdog_device *wdd)
+> The FCR mapping is documented in the DW_apb_uart databook, section 6,
+> FIFO Control Register. The existing default FCR encoding is unchanged.
+
+...
+
+> +static int dw8250_set_rxtrig(struct uart_port *p, u16 bytes)
 > +{
-> +	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
+> +	struct dw8250_port_data *pd = p->private_data;
+> +	struct uart_8250_port *up = up_to_u8250p(p);
+> +	int fcr, ret;
 > +
-> +	clk_prepare_enable(wdt->clk);
+> +	fcr = serial8250_bytes_to_fcr(pd->rxtrig_bytes, bytes);
+> +	if (fcr < 0)
+> +		return fcr;
 > +
-> +	__npcm_wdt_start(wdd);
+> +	guard(mutex)(&p->state->port.mutex);
+> +
+> +	PM_RUNTIME_ACQUIRE_IF_ENABLED(p->dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	guard(uart_port_lock_irqsave)(p);
+> +
+> +	up->fcr &= ~UART_FCR_TRIGGER_MASK;
+> +	up->fcr |= fcr;
+
+FIELD_MODIFY()
+
+> +	/* Changing the trigger alone preserves the FIFO contents */
+> +	serial_port_out(p, UART_FCR, up->fcr);
 > +
 > +	return 0;
 > +}
-> +
->  static int npcm_wdt_stop(struct watchdog_device *wdd)
->  {
->  	struct npcm_wdt *wdt = to_npcm_wdt(wdd);
-> @@ -216,7 +223,7 @@
->  		wdd->timeout = 2750;
->  
->  	if (watchdog_active(wdd))
-> -		npcm_wdt_start(wdd);
-> +		__npcm_wdt_start(wdd);
->  
->  	return 0;
->  }
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
