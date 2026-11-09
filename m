@@ -1,78 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.241.220.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794258543;
-	b=EYHwL6emjLLerre/ko2g6COSr9hko5L4J8FcOupav4wYyCy9czze6qY3EdVs19rD/zbx
-	 /zEu3BxDPlwHYy6ZocyhAL2F9A5XTjFQHYJ7/84662UaTIqqCfeM2/TR/lvu3hN3VFUo0
-	 nrZx/Vn1K36QNF5Mc96N9vMFH4HR1coWXS5pcuiLDekRYxAzm3vESbpK5EQnIqzsYYR5y
-	 4xdq1v6iEYdgV4F185SV69gfl1da953m6+zVtU8KLjxo7oJyqt8PR+I37OENuybbAkBPg
-	 ybM3EgelUGLCyh2+5HB0QIobT43HUX9Kcoreo4rKNHk5aAa2lkh5SU+1AwZv8BtgbGw==
+	t=1794258586;
+	b=GM47okd56D3eMvBy0KzA49VuEF1OX2eUhRwOrHVr5fypGbr8Qxd3xOxT9H4ZuuZ3jkGD
+	 Oq6vZXImWjIAkqflhTFKVKWxnkdVe1kPwgY7JGHltLBSxfX+oEwOYmLNpg/pdD7mKQd0u
+	 HeAbRK6ZNUL+rbW8IzgetZoI0RSBthWGGkK9B0yC8ktn8MnZmORCX87c2K6fYkw4ekTfu
+	 nPJnjSB/S5cjiUDzFSTx4ZEm3Hy1bFLxoSlMuF2lKLG5EyZyDnwoqG2kd+TzGdjJUrfdP
+	 KidRz7d9BYp5jBcDgAl8xI2AiiuL4kdgjTOcQeYfuon/4jZRBIqlbXtd2+AB7PCW+bQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794258543;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=9BfpnICID5Wust8DZJw3hUVC5bZ8A/dEUIdqKRmre9A=;
-	b=ROCz8Cb2HMvDa3rOYzijXGh/fY/H4XJsMFQICkXzp1zcM6wZt8wKE0bc9cf9cofpmBFm
-	 vZ6NT6vb24J8yVUwFbsaPoAyfEHUR7x7xIv5aoCSJyqv6Z38zh2zJVLIWqTNZDY/ziUrj
-	 RiKYqHwCD9SSmhYIVOiRtGkgv52KXG+93EfJ7JbKRoD/o5lTYUuqjIYMBsvHfocAtFKt7
-	 /+pF5EWkijoTnGNZhvuUjDsSRSdkeM8glKZ3VZ/nJBq8kzKVgiJtHmp7mY9lvG32Y9h3E
-	 5mDmMw0O9qxS562swRTLKV8DhnGg+o1ThaDADStLP5y7P8KuTNs7b1NLpIi3feXsERw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794258586;
+	h=DMARC-Filter:X-KumoRef:DKIM-Signature:DKIM-Signature:Received:To:
+	 X-Maileroo-Ref-Id:DKIM-Signature:Content-Type:From:Subject:Message-ID:
+	 References:Content-Transfer-Encoding:Feedback-ID:X-CSA-Complaints:Cc:
+	 In-Reply-To:Date:MIME-Version:X-Tenant-Id;
+	bh=0xeYOXy87vRk1HG34LnslJREtedPrEqOahPX4I7WggQ=;
+	b=Cc3VOppgJwgY5jPb2Che6ulc98S6FdPJcVV0R1R4NEW5w3lalt29C9zerSnjJQ7HNnKN
+	 mT/I7qv9g3h60dhf5WhWC/VmSL3QDgbKEGGGrj9e3l7fMpkZYpfR8Rpd/wwWR31dGo5zk
+	 wmEumuX6xtOc0z4dxWZ489rB5ZpJxEXN8x2LJuK+JbdsAnpWVlODNWjK8O9pq4lU1jnsp
+	 AVsDHHf77qpYJjqiwGpE40nmAwgAB/Kxs4DNenSKVsulC1+qWpDRU2Fas01FNF0vgXG6h
+	 X9EZ/mzkTeJNlHZQwazmaiEpnnNHznWHX0xWJyjT9KSOxHCKXazVznx9GTVEDtC9P2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="APH2l7G/";
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=darioackermann.ch;
+	spf=pass smtp.mailfrom=darioackermann.ch;
+	dkim=pass header.d=maileroo.info header.i=@maileroo.info header.a=rsa-sha256 header.s=mta header.b="F/bEvkKc";
+	dkim=pass header.d=darioackermann.ch header.i=@darioackermann.ch header.a=rsa-sha256 header.s=mta header.b=aaF7EQEg;
+	dkim=fail reason="signature verification failed" header.d=darioackermann.ch header.i=@darioackermann.ch header.a=rsa-sha256 header.s=v1-rsa-20261020 header.b="AyxSA4/w";
+	arc=none smtp.remote-ip=188.241.220.25
+Received: from mta203.maileroo.com (mta203.maileroo.com [188.241.220.25])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99E5606A33E;
-	Mon,  9 Nov 2026 21:09:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A99E5606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0E8606A321
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:09:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D0E8606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=darioackermann.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=darioackermann.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=APH2l7G/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794258542; x=1825794542;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=xTnxusP93BI/HWNwISTM71UBSSlGflENSkIVcOCR+XA=;
-  b=APH2l7G/12L6O1osS+VLs7nG4YQNKyvXqPe6KKBiepprPcqIlttja1fO
-   tdthT6R86/D/c7ziMorOK+Wv+jqChwjIZYGSjEDOyqY8DhEtCCd8m+F+D
-   tMqa/Qyu/jVQ1FbRmsCW3mMcxlq6rG6YW2lOEhptwOW60+M/OFcxXCnzy
-   pUIjoLDKwxo6j2gdJko1oeAB4S9f2iUm8ZNe6A49JP+85OX5o5E0cKQyD
-   fdmsIYGX0EZ0riODKZIDh/53fGXwyyXg+tJgvZDdfLsew2prnlBUPlylx
-   /b62SHiJ5qx0JwdOc4zfeXlCGPQxvRBuQo3Su2vsW5rhGfBQFjG1GYQ9d
-   w==;
-X-CSE-ConnectionGUID: J8VpnSzXRFeNrToVTE0JZg==
-X-CSE-MsgGUID: Itbtd8mKSiKOpz+HBj75qw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="3004838"
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="3004838"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:09:02 -0800
-X-CSE-ConnectionGUID: nC7L6KFKRQa8CLBponX8ww==
-X-CSE-MsgGUID: eWX3yG9uTyC+Au4Gu4i09Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
-   d="scan'208";a="9747053"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.139])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 13:08:59 -0800
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-pci@vger.kernel.org,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 11/11] PCI: Move CardBus resource names to setup-cardbus.c
-Date: Mon,  9 Nov 2026 23:07:11 +0200
-Message-ID: <20261109210714.3862-12-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261109210714.3862-1-ilpo.jarvinen@linux.intel.com>
-References: <20261109210714.3862-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=maileroo.info header.i=@maileroo.info header.a=rsa-sha256 header.s=mta header.b=F/bEvkKc;
+	dkim=pass (2048-bit key, unprotected) header.d=darioackermann.ch header.i=@darioackermann.ch header.a=rsa-sha256 header.s=mta header.b=aaF7EQEg;
+	dkim=fail reason="signature verification failed" (2048-bit key, unprotected) header.d=darioackermann.ch header.i=@darioackermann.ch header.a=rsa-sha256 header.s=v1-rsa-20261020 header.b=AyxSA4/w
+X-KumoRef: eyJfQF8iOiJcXF8vIiwicmVjaXBpZW50IjoibGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZyJ9
+DKIM-Signature: v=1; a=rsa-sha256; d=maileroo.info; s=mta; c=relaxed/relaxed;
+	bh=0xeYOXy87vRk1HG34LnslJREtedPrEqOahPX4I7WggQ=;
+	h=from:sender:reply-to:subject:date:message-id:to:cc:mime-version:
+		content-type:content-transfer-encoding:content-id:content-description:
+		resent-date:resent-from:resent-sender:resent-to:resent-cc:
+		resent-message-id:in-reply-to:references:list-id:list-help:
+		list-unsubscribe:list-subscribe:list-post:list-owner:list-archive:
+		list-unsubscribe-post:feedback-id:x-csa-complaints; t=1794258578;
+	b=F/bEvkKcVLZfMUgG8iD8nNyDp3CLUmhjQoNITz/GKSkenB7iw2G5XamLSBmipzgxjPe4wvH8e
+	jVloMiT380oDRYCXZF+oTS/8JrN2A60U+I0U0PromBkqJ9C1f7RIknGryJz7ZeSKQwYKxLX1j8E
+	as1sk+JSE/lnlwKp7rnQUcAuHzJFzH6A3WyMUMd91x4QUymO6JtSbhoBVAooh7ow9RBkDYS4Upo
+	ZrV/HQoai7b6pPYrbwS/JUIpd8XsSoOcFI1/L3emMNIeXXjpYANin6y2BiY3gkO/WgVfLXt67f3
+	5jKqL8a3MT5Kn/taIYvKKdHTqi+mMcLkq+sL6G/WUjLA==;
+DKIM-Signature: v=1; a=rsa-sha256; d=darioackermann.ch; s=mta; c=relaxed/relaxed;
+	bh=0xeYOXy87vRk1HG34LnslJREtedPrEqOahPX4I7WggQ=;
+	h=from:sender:reply-to:subject:date:message-id:to:cc:mime-version:
+		content-type:content-transfer-encoding:content-id:content-description:
+		resent-date:resent-from:resent-sender:resent-to:resent-cc:
+		resent-message-id:in-reply-to:references:list-id:list-help:
+		list-unsubscribe:list-subscribe:list-post:list-owner:list-archive:
+		list-unsubscribe-post:feedback-id:x-csa-complaints; t=1794258578;
+	b=aaF7EQEg5PzRmwcjQH9lpYqPPVQ73ptvDzhKKOdPwd1X9WSLeIrCqlOiCKyI28UqC53CjZtqh
+	NM4d6jAic39NOlPvPDMwDL52bW90YY9xKRlzCVxUxA0uo0uD8hU0WJkgVOfRvZ9q4r+liz3iUYO
+	PojlJFYfUr3vb2aQVAPcByUS+5DqUmX8TqxwfB6TxW737JF+jrZwtpdzvqPtrMymHcgJJIF3r5G
+	ff5p5hDM1gb5qpWYYN21r5B2zp24wlsoCzeA0mKKNM78dUv/okb9IObw8Kld17XhORRGvWUj5f9
+	304gesW4KRy27YrUyxNxhluPCUtKCRKI6KITGkAZSSnw==;
+Received: from localhost (127.0.0.1)
+  by mta3 (KumoMTA 127.0.0.1) 
+  with ESMTP id df455bdedc8111f1a91f92000677b433 for <linux-kernel@vger.kernel.org>;
+  Mon, 9 Nov 2026 21:09:37 +0000
+To: <linux-kernel@vger.kernel.org>, <regressions@lists.linux.dev>
+X-Maileroo-Ref-Id: 3016bfdc9dd670d9eb0ab4c4
+DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20261020; d=darioackermann.ch; c=relaxed/relaxed; r=y; h=Date:Message-ID:Subject:To:From; t=1794258575; bh=0xeYOXy87vRk1HG34LnslJR EtedPrEqOahPX4I7WggQ=; b=AyxSA4/wfkPTIZ+eB4B7aN2uzxfg+ZVMPO7XoNwObNYLmlvlF7 QMJFW6/I9B9f+sUANWuIE0+O2mkiz6M75hcoDMQUUv7Px7TUyegj6ZuZpf5XvJ5dea+cvFDOkXz ecqxbllVZHrZnTbTP/pH15s/AyjXl0OrRtZybOrQhys0zas26NkZ/gFCEwugQjVyVCVu1ztduC8 sVoZ7viG3bZU5BGOCHsS0f8j+tdMXrBvv3/ogDQ6UbYVSvr1g6E3bN+SOdWLl3FsBCWGsqbO6Yv OtUDduh+z1sJ5hFXp782D9No2qusVxT1vSBm5xP6nibgA1JUA/OVKyyg+xY2Tk61EpA==;
+Content-Type: text/plain; charset="utf-8"
+From: "Dario Ackermann" <dario@darioackermann.ch>
+Subject: =?us-ascii?Q?AW:_[REGRESSION]_x86/microcode:_boot_hangs_bringing_?= =?us-ascii?Q?up_first_secondary_CPU_on_i7-6700HQ,_avoided_by_dis=5Fucode?= =?us-ascii?Q?=5Fldr?=
+Message-ID: <573088061427271854315322.9091.202611921937@darioackermann.ch>
+References: <mw9nsyuj.70b4b79c-e987-49da-abe1-0164defd8d5a@darioackermann.ch>
+Content-Transfer-Encoding: quoted-printable
+Feedback-ID: u56201:maileroo
+X-CSA-Complaints: csa-complaints@eco.de
+Cc: <x86@kernel.org>, <bp@alien8.de>, <tglx@kernel.org>
+In-Reply-To: <mw9nsyuj.70b4b79c-e987-49da-abe1-0164defd8d5a@darioackermann.ch>
+Date: Mon, 9 Nov 2026 21:09:32 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,123 +92,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Tenant-Id: u56201
 
-pci_resource_name() contains a table of resource names specific to
-CardBus bridges. Move the CardBus-specific part into
-pci_cardbus_resource_name() in setup-cardbus.c to make the core code
-cleaner.
+I found two similar reports on ASUS N552V-series laptops with an Intel i7-6=
+700HQ:
 
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
----
- drivers/pci/pci.c           | 26 ++------------------------
- drivers/pci/pci.h           |  5 +++++
- drivers/pci/setup-cardbus.c | 30 ++++++++++++++++++++++++++++++
- 3 files changed, 37 insertions(+), 24 deletions(-)
+Ubuntu N552VW: the reporter tested upstream 6.4.0 as working and 6.5.0 as f=
+ailing. Boot stopped at "smpboot: x86: Booting SMP configuration:", and dis=
+_ucode_ldr allowed booting.
+https://askubuntu.com/questions/1512327/ubuntu-freezes-during-boot-when-usi=
+ng-linux-kernel-6-5-0
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 46da873c9aac..e6c5a2d28abf 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -832,31 +832,9 @@ const char *pci_resource_name(struct pci_dev *dev, unsigned int i)
- 		"bridge window",	/* "mem" included in %pR */
- 		"bridge window",	/* "mem pref" included in %pR */
- 	};
--	static const char * const cardbus_name[] = {
--		"BAR 1",
--		"unknown",
--		"unknown",
--		"unknown",
--		"unknown",
--		"unknown",
--		"unknown",
--#ifdef CONFIG_PCI_IOV
--		"unknown",
--		"unknown",
--		"unknown",
--		"unknown",
--		"unknown",
--		"unknown",
--#endif
--		"CardBus bridge window 0",	/* I/O */
--		"CardBus bridge window 1",	/* I/O */
--		"CardBus bridge window 0",	/* mem */
--		"CardBus bridge window 1",	/* mem */
--	};
- 
--	if (dev->hdr_type == PCI_HEADER_TYPE_CARDBUS &&
--	    i < ARRAY_SIZE(cardbus_name))
--		return cardbus_name[i];
-+	if (pci_is_cardbus_bridge(dev))
-+		return pci_cardbus_resource_name(i);
- 
- 	if (i < ARRAY_SIZE(bar_name))
- 		return bar_name[i];
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 057c8a2c7ee7..eefa5a2937c1 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -426,6 +426,7 @@ static inline bool pci_is_cardbus_bridge(const struct pci_dev *dev)
- #ifdef CONFIG_CARDBUS
- unsigned long pci_cardbus_resource_alignment(const struct resource *res);
- int pci_setup_cardbus_device(struct pci_dev *dev);
-+const char *pci_cardbus_resource_name(unsigned int resno);
- int pci_bus_size_cardbus_bridge(struct pci_bus *bus,
- 				struct list_head *realloc_head);
- int pci_cardbus_scan_bridge_extend(struct pci_bus *bus, struct pci_dev *dev,
-@@ -442,6 +443,10 @@ static inline int pci_setup_cardbus_device(struct pci_dev *dev)
- {
- 	return -EOPNOTSUPP;
- }
-+static inline const char *pci_cardbus_resource_name(unsigned int resno)
-+{
-+	return "unsupported";
-+}
- static inline int pci_bus_size_cardbus_bridge(struct pci_bus *bus,
- 					      struct list_head *realloc_head)
- {
-diff --git a/drivers/pci/setup-cardbus.c b/drivers/pci/setup-cardbus.c
-index 33aca7b28354..9acbf299c3a3 100644
---- a/drivers/pci/setup-cardbus.c
-+++ b/drivers/pci/setup-cardbus.c
-@@ -44,6 +44,36 @@ int pci_setup_cardbus_device(struct pci_dev *dev)
- 	return 0;
- }
- 
-+const char *pci_cardbus_resource_name(unsigned int resno)
-+{
-+	static const char * const cardbus_name[] = {
-+		"BAR 1",
-+		"unknown",
-+		"unknown",
-+		"unknown",
-+		"unknown",
-+		"unknown",
-+		"unknown",
-+#ifdef CONFIG_PCI_IOV
-+		"unknown",
-+		"unknown",
-+		"unknown",
-+		"unknown",
-+		"unknown",
-+		"unknown",
-+#endif
-+		"CardBus bridge window 0",	/* I/O */
-+		"CardBus bridge window 1",	/* I/O */
-+		"CardBus bridge window 0",	/* mem */
-+		"CardBus bridge window 1",	/* mem */
-+	};
-+
-+	if (resno < ARRAY_SIZE(cardbus_name))
-+		return cardbus_name[resno];
-+
-+	return "unknown";
-+}
-+
- int pci_bus_size_cardbus_bridge(struct pci_bus *bus,
- 				struct list_head *realloc_head)
- {
--- 
-2.47.3
+openSUSE N552V: the reporter says 6.1 works, newer kernels hang when Intel =
+microcode is present, and dis_ucode_ldr allows booting.
+https://forums.opensuse.org/t/opensuse-tw-wont-boot-without-the-dis_ucode_l=
+dr-parameter/175229
 
+Commit 0c7ffa32dbd6 ("x86/smpboot/64: Implement arch_cpuhp_init_parallel_br=
+ingup() and enable it"), merged for 6.5, moved AP microcode loading from af=
+ter the AP startup handshake to before it. This is a candidate cause, not y=
+et confirmed by a bisect or patched-kernel boot test on my N552VX.
+https://git.kernel.org/linus/0c7ffa32dbd6b09a87fea4ad1de8b27145dfd9a6
+
+I am preparing two upstream 6.18.55 boot images, one unmodified and one wit=
+h the AP microcode call moved after the handshake, for a direct comparison =
+and to work on a potential fix
