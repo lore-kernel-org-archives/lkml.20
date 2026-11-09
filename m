@@ -1,100 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=96.67.55.147
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794259799;
-	b=AL9ZasYv4VjiPkO+0jmp/tu5+UPBwxZnQ57+4AwsC+9RwWD4aDGvNocmUSFD3vsqzTLc
-	 FLjZO4W658Ith8yy9lb60KX3fBAOK/9MCUHVjhI3pU8Awc9V6CGzN698cK2nTQjMkITrX
-	 Twp3eAEHUQEzxyH53ueUVj0JP/I2eBSlbz4Fq+rNC6ovz9fh7kPOJJDPFbZg+voENG6va
-	 6h9x6fT4tlhV6wwQFhRNNCC1ydz5O1HW8p/ppFkjzjKbvkVYzEEVPOk9p/8LNWg3QQoBR
-	 9IgYCr0NRSwDresfJqmJB++RX3QY4ut9PbELfM8REL+V3IqnqHPQnAUzwK5fx8iGAEA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794259799;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=u9L975C0e+5zVtIy58ZmS7yDvWaw4ousywCqBSfmK2A=;
-	b=JFSzQPEg8s8GCQKgtEdznBu/k5rhKxGLWP0oqeqL9yzOXJqRvzbmuEdmYt+zJLaRnUyN
-	 Q02FK3zCjgvgS43OH565QfaiZc87CB3e1Wqq+s3dbNX0qk6625ArinVhhC+Smp6CjCO5e
-	 7dcJxtij5Fghmr5OtAvKH6RCk6I495BfDDQwU/r3t0T5G1JbY7stg9RttAGWlm2+QPpV7
-	 iIl8Ais2nwoty3KytB83VaPnz7vBiPH1H5QdjnYSQtQYpt9iBa0EzjsBehjj5AkENtoMa
-	 m7x9eHfp6Gm+wgGuN0gXHsLBT9n3rXCmx9pVmFZXFOu8uL9N1Llns9Sj14LznPTjw/w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=surriel.com;
-	spf=pass smtp.mailfrom=surriel.com;
-	dkim=pass header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=S5N6rFs1;
-	arc=none smtp.remote-ip=96.67.55.147
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.9
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794259798;
+	b=ciXHgcBq+MjDbhOylIPaepeLvbVRt1Cr+HYW8v/u9aZZ/ljEnDhPJZ4piN+PDPqjYADQ
+	 xbClea59bDvUfV2qPQHaXhjHBGyKoU7DjoVoQyZ5AvgqJbhEd7gyNdAs+nrs+niqLKONt
+	 If2dv0nDIAO0mvavVoYx1VwBEIoU83httPxlGOOFLa64elnBFhY5PX6fbLH5YCoa8AEyq
+	 QGlvGdbKuLppZoBWVGco+SEDL01f92std6ysBmoPvXrp+2Dlp5nT7IS+bZ3d3vgSgSKT0
+	 yNa6mn88CoR/+4841/kdTb+i8FZ0TI5foq9JzdCYfUUjjUQ7IpTCGqirXxgBdgHfR0Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794259798;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=d2bdU7CoN82K+N9Dqx/xs2qV4FVkhwuD1u6KIhRpEZc=;
+	b=B1Vkx6hwGkrM0Sn2CJpEGA68mopvF9ymvtZ4OXgDQ9IDkYcHEVvWITmQ9Z0RF/0D4Qij
+	 8s+w/VLh9Ah78Rdf0XkIw4jX2tWCQGWpJ9zUjjt9K59O/vo8FtSljc+9I4nWb3775gAzM
+	 DTkgYV65GYe8U+neByK6CC76lAJCfCamZPA4nUwIPQI2aGIf0tpnOHYA/exOZunCPdddP
+	 efszoX8LiH8fHFMzTqYfVY6/NxxCA0etZgg7TNFd7jK4qAsgKlqMrg6A2Y0EXMWjTSHm/
+	 kL+zChwf5EXKyckGsSzDdgTnECFY2gLhHr+edUtqtsFI4pOVlAIR7fwySVIIQSKQKug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Nf1lMqgV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.9
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010009.outbound.protection.outlook.com [52.101.46.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73B5160A2607;
-	Mon,  9 Nov 2026 21:29:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73B5160A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2209606A31C
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 21:29:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2209606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.a=rsa-sha256 header.s=mail header.b=S5N6rFs1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=u9L975C0e+5zVtIy58ZmS7yDvWaw4ousywCqBSfmK2A=; b=S5N6rF
-	s1hiWpOH4mral1mqQm6xld0d8IgnR8b7wR3Y+BwbaaI9I7vDYAIog+xoVvbk53P+xKpPMRkDrgl5P
-	Xlg7b4u+wolqBpv0IhGpD7i46qgvuD4RjoLgrICD8IjDUa3MvCjEI6/7mL1XfTUNjoMn022FqN7OZ
-	0SC/bl7LhlE25jraFJZVlT0jh1uB1GMHCz3ixxuF0FflBb8DJCwyMqG5Su4/yvxCi5w6Fn/DPcsvE
-	uLVDHNdbPo1rLrg0XzwvHND5ez+YacUZeW7u5eRBDOGJPuLDH/FYK/dLkb9TqYVtpb42BEsDnrEoK
-	hRuApDeaAH6uG8zeC4iOVQQrxbkg==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1xQWvk-00000003Sg7-1zxM;
-	Mon, 09 Nov 2026 21:29:32 +0000
-Message-ID: <a799adc77dc325f5e3cd9f806dae684f198efd38.camel@surriel.com>
-Subject: Re: [PATCH] x86/mce: Restore rate limit on MCE logged message
-From: Rik van Riel <riel@surriel.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: "Luck, Tony" <tony.luck@intel.com>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- "x86@kernel.org" <x86@kernel.org>,  "H. Peter Anvin"	 <hpa@zytor.com>,
- Qiuxu Zhuo <qiuxu.zhuo@intel.com>,  "linux-edac@vger.kernel.org"	
- <linux-edac@vger.kernel.org>, "linux-kernel@vger.kernel.org"	
- <linux-kernel@vger.kernel.org>, "kernel-team@meta.com"
- <kernel-team@meta.com>,  Breno Leitao <leitao@debian.org>
-Date: Mon, 09 Nov 2026 16:29:32 -0500
-In-Reply-To: <20261109212305.GDavI5uXK066CxHoNA@fat_crate.local>
-References: <20261108143751.3af49e48@fangorn>
-	 <20261108202820.GCavDbZJgmwKqysH4X@fat_crate.local>
-	 <CH8PR11MB4034331B3E52AF39AA9C003E68FC732@CH8PR11MB403433.namprd11.prod.outlook.com>
-	 <20261109195216.GBavIkcPlh-HcT_7JW@fat_crate.local>
-	 <63ed91b49db00d7a601b8ae1625571ee0c46ffca.camel@surriel.com>
-	 <20261109212305.GDavI5uXK066CxHoNA@fat_crate.local>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Nf1lMqgV
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=e9VBYHZU3LFFsQAjvdIgyB+BtM+V+7ghXddzxvu5qp8kcqTqGgGw6eqVNh9/wzn9DUDsSYAdp8sXi9YkHW997lPsXFgYElASwDvmtQvuC3BLH/g5pLDDTvqfL6llkK/8sqkg+3V19Z5MUVGLpxsYdA9mRm9QsDBjD7vaOjBeqgcblBt+lvYvDRHWsFcDd76m8UVAQJY66q65HioIfSOxxfUt08Q27DhFLftI0SDjeXotDShxGpWZBIWye24cd98NZBrZQeeveSqQ5cgqohPdQ1vrztf1L5Hi374U0ggpq4X6DwuG8cL9iyQnMSEoh7iRdjWMN960+X1ziOvVqEFNOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d2bdU7CoN82K+N9Dqx/xs2qV4FVkhwuD1u6KIhRpEZc=;
+ b=KlNkLmk3rxxZ0ibiuexD/oo2s0hQNlw8dXpcahtcFv6SwY2rJt/B8JSl7NEYcJ0enduOOiaEqH5zZt0vsu8KjWnx39U/BqzwvyN9J42O3M705z5Kcz0lssW1Glc7COicP+/nXr7Ngevc+fSjV2nsMqEM4oYnzvE2VOaiMI0tr+kGUya/gzSoWLK44OEAU42KUJnSsFKyXokUBIOWxkkUpIX77jFYOGaIFXlGqCG5KM49qpC7LrE82bItd0hkmAt6UzeF+kq9woCisYKSY+Py2OQZjCXI+wcp8Im5XAe4Y2EqaKFwXnj3SOzAhKq3ypocszOMyjXtRZ4YftSqtvtkzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d2bdU7CoN82K+N9Dqx/xs2qV4FVkhwuD1u6KIhRpEZc=;
+ b=Nf1lMqgVsBesFsgprBEIvfItwBr6EGHmdKEeTmSwpSbrdEPDI9hA1WliB4uhqROGJLlGGYpFcCLz/9K3EOTFGSjSfOjrYwtb2RqkdVpYBW7QDRdnw6wKRT7HxLgrBFV45MQC/tiaQugTV1f9mORllh4BNSZ6R73nlXcRN5DAJ/pvextXIS1MCnWtBsqphqWSvKtzwSmxJFfFa5Ac7rwGMppD4X3Pbvp4Xq1JksufAyKTEqWvcPFqJytewoRoJR4YrLsbSbJByhqw/jAs7tw/raXHy7hwQIGwyhfXp8lkfSfDrRvgnAnlVp4jSGJY5ZGuFH0pZkYlE7lrA+2+ePQmPQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM4PR12MB5230.namprd12.prod.outlook.com (2603:10b6:5:399::11)
+ by PH0PR12MB8031.namprd12.prod.outlook.com (2603:10b6:510:28e::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.13; Mon, 9 Nov
+ 2026 21:29:50 +0000
+Received: from DM4PR12MB5230.namprd12.prod.outlook.com
+ ([fe80::6e87:1bde:1853:3b73]) by DM4PR12MB5230.namprd12.prod.outlook.com
+ ([fe80::6e87:1bde:1853:3b73%4]) with mapi id 15.21.0569.011; Mon, 9 Nov 2026
+ 21:29:50 +0000
+From: Fenghua Yu <fenghuay@nvidia.com>
+To: Reinette Chatre <reinette.chatre@intel.com>,
+	Tony Luck <tony.luck@intel.com>,
+	Ben Horgan <ben.horgan@arm.com>,
+	James Morse <james.morse@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Dave Martin <Dave.Martin@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Shaopeng Tan <tan.shaopeng@fujitsu.com>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Babu Moger <babu.moger@amd.com>,
+	Drew Fustini <fustini@kernel.org>,
+	Vikram Sethi <vsethi@nvidia.com>,
+	Shanker Donthineni <sdonthineni@nvidia.com>,
+	Newton Liu <newtonl@nvidia.com>,
+	Richard Cheng <icheng@nvidia.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Fenghua Yu <fenghuay@nvidia.com>
+Subject: [PATCH RFC v1 6/6] Documentation: resctrl: document MB_MAXHLM for MPAM MBA
+Date: Mon,  9 Nov 2026 13:29:37 -0800
+Message-ID: <20261109212937.1409570-7-fenghuay@nvidia.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261109212937.1409570-1-fenghuay@nvidia.com>
+References: <20261109212937.1409570-1-fenghuay@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0158.namprd03.prod.outlook.com
+ (2603:10b6:a03:338::13) To DM4PR12MB5230.namprd12.prod.outlook.com
+ (2603:10b6:5:399::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,29 +111,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB5230:EE_|PH0PR12MB8031:EE_
+X-MS-Office365-Filtering-Correlation-Id: ab7ed68a-7ad8-45f4-dc55-08df3ea8960b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|921020|11063799006|261021121427099003|261009223027099003|261022105027099003|56012099006|261026140227099003|261026121527099003|261102123227099003|261028144727099003|18002099003|22082099003|10067099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	yNnARW17gOjGCfC6/dY5pQJ9h8PL3Td0dyVlHcLNqfz6lwH0NY/iK52ihHjQuJE6hcRBfuF9WjSUa520bwdb1/KBtnhD4zaIWgzcL9+9HLBiO/SecKhvJl+3VkKn9ZYVDxiPUmD/RwSYoko3D0PNpHZ4dc7saX309XtIoC5+RqCzclyFvHm0Yb4j9rJDqkGgB55uuYT6ZAhaHe1c+txebpdoPdmecwzsD21oOeiBPam1/7mTQ1sEDB2ZpLe4hl3iCBSw44hrqEr+em4t/nG5jt1LVIK87qQ+IzuKaOhbU4L1H7ozamBrG90Dpz/pyhJxbNfrAhFxoiNMQUt1IMQSWe9BC1/tEY+IRIarVUV0lC4ursSOHAZuImVe3AhmnAyLBKbzQQm9hrhQERUF1Q5dApRzbjB4N011uKdSeX4ohDmxN+UNR6oEEsfrQXL23PWveQhE3dG+7hTFRiZ0RYy+j7EyoVvhv8Ej6Qs9v+fIQYLmYIejLFbFNkPvzbxhcKDqNit+NhItWKOIWCmpVDhakZEJXnne8k5oJr+n4OooshzvC/NPqdREE4US+3AITyqM2lO4S91TC4SPuZc6N8KDzc1wrpcH50Gn98ZmwSHx3JJZzSqbldV4wDw5cZ01yODlzpvZb3ljDqTpSuNwl4Uy3nI8E24ffJ0TGWuglzeap6CjwqeC73hGTYZHoEoKVA4vlmj6Mnug1t+Qb0gnbcMsIA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5230.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(921020)(11063799006)(261021121427099003)(261009223027099003)(261022105027099003)(56012099006)(261026140227099003)(261026121527099003)(261102123227099003)(261028144727099003)(18002099003)(22082099003)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?BDZdth8LoXObznw3acKMn6PaJM4JFCQSg+3QOCpFa5rWWJDEHcf+jCyaI4yd?=
+ =?us-ascii?Q?UBVe/+wWOM/vb04xChCMrxKsI5P5oFqeT/H84QktdVZhl/eKUSOStfkLpk7m?=
+ =?us-ascii?Q?UiFiv5JmBoTCzVr9f7wq5lKOqcF2lllepNAZu/5RfAqpocr180YWDqcRjl1f?=
+ =?us-ascii?Q?CboxWbmBAtRpojFggMeCDV01Ci2RFjFygs4Ojz79Wpu8MAMHtj3HCKjhvPqv?=
+ =?us-ascii?Q?qtKQ9LdHKFgBQtann6ecTKRrPPlXsXSAuoRe3V2JHXL6du+rI5IYYbz126vC?=
+ =?us-ascii?Q?N89qQEIxfVvx7XfkSwz+AQ63Y6tD38/IZ+6P2Unk4utLWhDVulVAw0GWKU/c?=
+ =?us-ascii?Q?rH4ZZRibXnDow5F5jMc921CFZQzU+Lw5nlUU7fGL4Xm0GSNfVYzDjlbGQKtY?=
+ =?us-ascii?Q?kJa44RIOkeyU4vHm06TzmpwrW4s6oibz8a7AMa/Z1JSf3sC0vYEsFVs3Jz4n?=
+ =?us-ascii?Q?4+ZaMZDDO54Yk9xiaRtF4OGo3qZYmj1eoANxRqWuSvhlAU9Vwx7YzdiWvlcJ?=
+ =?us-ascii?Q?/n/rSV2sHB/Q3ZjnjOBcvqjkdMgwIw+86CVOi/9KP6kvSplIKQRRqzH4ZsSJ?=
+ =?us-ascii?Q?VQYRLoL+zUQYndbIiUvEQ31xZ8yNvdG2CLyXm7ORehxGd6Xs04cQtxfucMSI?=
+ =?us-ascii?Q?4vV6snBnpDHynAOUeouDdXFXYtInutAHxv+CZszrpvClboK0ebwnnQySSV0z?=
+ =?us-ascii?Q?2iFwIOjQL+033xOOtsV1eQPl4zW3Q0b2mZBPGcTcJWktFLfYO7Bah6Vat+La?=
+ =?us-ascii?Q?x53Ma1jC6uiR9w0kVXApj0Ih4pjvWKfxbyepdFiXnC22mK0gruvX23377ae1?=
+ =?us-ascii?Q?SfpLAgPFPUwuT+Gwsug3rmzAExsFp1CQ0XiP/bi/kqIAl1SBwv+XawesiWWe?=
+ =?us-ascii?Q?Xx6pqH3nsHHRmXe4z5AtkRlsf9paJ3SNrbHw4dMYRzBiZA/LNEaArKAuCJgE?=
+ =?us-ascii?Q?97xWq5XDA9AZTlHAbY01OPVB998XA+x6vELqTLkOUHnRcJm4FMGZi0WCkaFU?=
+ =?us-ascii?Q?YST+u6sY6WY0wlxEDO0wX9RY9JlbK6DQtUrxPSlLwKaVaaVoJmm1nm9KN8Nr?=
+ =?us-ascii?Q?8SeJqyJrWlaYDZ/7LIWcvtZXd0JRcehNMAUKlY2Avbz1Qu/Ktjxtmmehc3Ps?=
+ =?us-ascii?Q?PB+0NPg8K6ssHVLCkPWPg1yFprxKYxAz1IwK4TCF0U8NEV6yS/3b20JfoZ3C?=
+ =?us-ascii?Q?7AvDOukb0vqPu9bYTs1/3G9qj5m/j4M5v5iBISQ5oz4OLarYyYfypxpd3t27?=
+ =?us-ascii?Q?ghz/qDeNoJZJ9DVUaTnsOnk65dF9U1+2t/cVKgCeRb7DSv7odTJA9NPbXqeH?=
+ =?us-ascii?Q?WzfzUIlix3QuN4xhHRa3BopJ4CyuumNKuhNFkLqoPXWeCLsMHKxMldmQ4T+v?=
+ =?us-ascii?Q?Ss4JdU+wGI1WxYdusJ+rlt1Xt6T4pGYfGr9GoPD4ngFGAxXXygk1J35WLrXq?=
+ =?us-ascii?Q?nDcJn180jA99aHfbPatVWWaegseiwZIgTVxmqa513GKDykqB3SLTGhz2B3Q4?=
+ =?us-ascii?Q?Zlh7veOa1lk42DMrMFpUEcZRvs5bXCeEqQXx186Vp7jdqKAw+xyvQX4NN7H5?=
+ =?us-ascii?Q?Oo/EYlik+DRAcTBuCHhHXQumwo5Nk/jCjYzM2Es3irhXlTZLpLDMte9CrIQ1?=
+ =?us-ascii?Q?QTfO5UdYJisBedlBN9Ng981qNheiUrjhdLXBVT3qBK4TGWLq8kCDL2/25vHN?=
+ =?us-ascii?Q?YP6Y6n/ehmNzREGOZjYw+s9Qe7gyS5n109DN/i2Sd99jBPMyDJJqxyU2+/2/?=
+ =?us-ascii?Q?/9rrk7Fxog=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab7ed68a-7ad8-45f4-dc55-08df3ea8960b
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5230.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 21:29:50.4367
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pQPC+qw2dV2Q5sSsap9hQN1aaFCSbwcbRhLxLLe6HJlNowVpe0J0qvnpjRDbeOpzSTCWWZ9hKGyO2wi8DalJMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8031
 
-On Mon, 2026-11-09 at 13:23 -0800, Borislav Petkov wrote:
-> On Mon, Nov 09, 2026 at 03:12:43PM -0500, Rik van Riel wrote:
-> > There are a dozen or so "mce: MCE records pool full!"
-> > lines, and then two=C2=A0of these:
-> > "mce_gen_pool_add: <bignum> callbacks suppressed"
->=20
-> Sounds to me like you getting errors logged and there's no userspace
-> consumer
-> at all.
->=20
-> What is your fleet policy about collecting and logging hw errors?
->=20
-> Do you even care about them?
+The hard-limit interface is the MB_MAXHLM or MB_MAXHLM_NODE schemata
+line. HARDLIM is read/write only when MPAMF_MBW_IDR.MAX_LIM is zero.
+Existing resctrl documentation covers percentage MBA only.
 
-We definitely care about them. Errors are used
-to figure out which hosts need to be repaired.
+Document both schemata lines (0/1 per domain) and how they relate to
+MPAM MBW_MAX, HARDLIM, and MPAMF_MBW_IDR.MAX_LIM.
 
-I do not know how exactly memory errors are getting
-collected. There are some tools that watch netcons,
-some that collect data on the host, and some that
-grab data off the BMC. I have no idea which of
-those paths the memory error collection uses.
+Signed-off-by: Fenghua Yu <fenghuay@nvidia.com>
+---
+ Documentation/filesystems/resctrl.rst | 28 +++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
---=20
-All Rights Reversed.
+diff --git a/Documentation/filesystems/resctrl.rst b/Documentation/filesystems/resctrl.rst
+index b7ffedc02b41..2335fb91e5c6 100644
+--- a/Documentation/filesystems/resctrl.rst
++++ b/Documentation/filesystems/resctrl.rst
+@@ -1198,6 +1198,34 @@ When MB domains are NUMA nodes::
+ 
+ 	MB_NODE:<node_id0>=bw_MiBps0;<node_id1>=bw_MiBps1;...
+ 
++MBW maximum hard limit (ARM MPAM)
++---------------------------------
++On some ARM systems, resctrl memory bandwidth allocation uses MPAM
++maximum bandwidth (MBW_MAX). When ``MPAMF_MBW_IDR.MAX_LIM`` is 0, an
++additional schemata line selects the ``HARDLIM`` bit for
++``MPAMCFG_MBW_MAX`` independently of the numeric limit on the bandwidth
++line (``MB`` or ``MB_NODE``).
++
++The line uses the same domain indices as the bandwidth line. On a
++cache MSC those indices are cache ids and the lines are ``MB`` and
++``MB_MAXHLM``. On a memory-level MSC those indices are NUMA node ids
++and the lines are ``MB_NODE`` and ``MB_MAXHLM_NODE``. Each hard-limit
++value must be ``0`` or ``1``: ``0`` clears HARDLIM (soft-limit behaviour
++for the max), ``1`` sets HARDLIM (hard limit). When ``MAX_LIM`` is
++nonzero or the platform does not support the hard-limit control, the
++line is omitted from ``schemata``.
++
++The control is listed under ``info/MB/schemata/`` as ``MB_MAXHLM`` or
++``MB_MAXHLM_NODE``.
++
++Format when MB domains are caches::
++
++	MB_MAXHLM:<cache_id0>=0|1;<cache_id1>=0|1;...
++
++Format when MB domains are NUMA nodes::
++
++	MB_MAXHLM_NODE:<node_id0>=0|1;<node_id1>=0|1;...
++
+ Slow Memory Bandwidth Allocation (SMBA)
+ ---------------------------------------
+ AMD hardware supports Slow Memory Bandwidth Allocation (SMBA).
+-- 
+2.53.0
+
