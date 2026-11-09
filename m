@@ -1,75 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794232981;
-	b=4PAuKlXAp0e6lR8SG9lFxid6yQGMw3TPa+Um0Tn4cjfEIiRBoYMb4p+ZWylClmokuTnH
-	 lv6qo9GYcd+9qdqld8D/28V6SbZ2VEeaZ8gLM5FECzkQ28CPYvIDePVU71yaZwB9JU+hf
-	 IaDNe4nUlgsWGXtgBHF1hk0Pyw6ouuKocZgCnIYRb6pgngB5cEGaFkFCeSMCL7h/FhZjN
-	 8aeFbAqe6aLNLLVgY6LFGaexBb7shXVqmoWOQ/M4EkpcLBxRIYhUEt4NuipfIQ/FbgYvj
-	 ipa5EJP1jbUebD0XEC7QHOW4YVlkPkPSyX6yQMElcT4T3GFtcA1snVI5qwFpqP8/9Ew==
+	t=1794232996;
+	b=h9wT1Ir++QQ0MI/dYuwvWvlKlf3EA8yZD6Yp3Hja4RBPdn2ya5MaUAcpOufAY5F4R0gK
+	 smxBoyDgjUO4B3/Ne9IUUnqLEEm12D0oiLJkF8z2GzBLBkA+Wslcg+90jqZcDCOGWL475
+	 5mjDWaSBHMg574shSewidz8YXoG4x4+fmcNth4y2SyW34A+KrLEVaa1NtDUatZjwb3gf/
+	 OvHc0G6JY7pa0MksgYhh3QZQUvatkjbcSrVBvm8JiFHgD/+Pt4zeom2O6S7CSkiHiniqO
+	 vXmv1396Jwe0ZuGjpTmERGHYo14MZyjw9ksSTGcMBpU8TKa3iNS0uYifMy1R3e26mKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794232981;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
-	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=/wZaGJR7Mv8C0oFPRANDNKg3ptxz8mbh24FxUb/IyHE=;
-	b=Lgmjk4HSfgj3C9hVPOXy+/QFczAnxryT2Nz7A+ip5BJqaKj+CFSfAxoVBGUjNvn0/aw0
-	 5QmUrfAD6RSctgxEdJssSWwMXmABVzPcfOZOkC2BOq58ZVFpO5xPvHQhBNiaSOqo4smkY
-	 ZByQ1gBB99CggKZ38FBmOHna43zW/gAv+BT8ViOVpmIkkGb/ESX8D9/FbrZqPdbSCMW8n
-	 ILc3IqTtytHy2jTpO9BUFDNZ8WlvqU4jLKYZBg2aw3TGRPlNzL+qlb6UabKwg1F+5xfT+
-	 QrP7PzdibGe80dp+O/ReLHMn3UO1joU7ONnyC9QdkTGRfiaOM13tyfo/qDxzw9DgNXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794232996;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=bzUDjoYzf7fPf/riUB3Cm7ED6nu44j+BYRwBBoXgSpI=;
+	b=4r9GtU8dDEIyuiTBEWAEp3CaKKQVTQorcBKS3O8fz+J0cL2U+8pvSaFZ+yt77i6oj2tT
+	 XFu+gSJ3qgy8QRLYHGXEGQl2tI0XAGPa3xE/z+LwuDj5vEbf8YCpcJo6/faEZ+/23BE6w
+	 x1HSPHNdIuglV12+Fq48IH5wUv3JDURiGqwzMj4MgkhT4N6F5To8+dn7eNxbOulT8suEz
+	 2fZH96jhFawovDNexidFNeFWY8Ef+EtO/Lcg99NX4NlgAjOWQRlzXUCqlorpOGQNyzXEs
+	 HAiPYOuXBzAdgi2o4MlLC3WMAihXG4af7e2+ByrAfgnlMXEr+Nsemi2PiUJIQtOBhHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="m9ANW4L/";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=uKN5liah;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="L11V/teK";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BeJrSghT;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D08606A322;
-	Mon,  9 Nov 2026 14:03:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1D08606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C3A606D821
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 14:03:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16C3A606D821
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=m9ANW4L/;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=uKN5liah
-Date: Mon, 09 Nov 2026 14:02:57 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794232979;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/wZaGJR7Mv8C0oFPRANDNKg3ptxz8mbh24FxUb/IyHE=;
-	b=m9ANW4L/fkEmx9KtItFuYlyDPL9p82A05SwhH6fNCwBL1CMSVgYMy0ujEvEG1eVpjhINnF
-	DrHNHaYUSjW/hmK5p+863dvtiL2xCA4KOsZK7ReifitJeYuAb9AVD06c+PGuBu7zQWdRRG
-	uP5susOpZOhU1cmhdmdom9qGj9APxALDHUvH0I/P5r0wL7f5u7W4EUyhZWxuFH2iig+M1a
-	rmJaUhgtFN9UdE7u71A95Xo9muxytH2FMAGoDgDZc2V5bDAmnUi/mdt+e2XlNjkochyyOW
-	f271pe/CMOC7kRjs42SBlMZR2XxTd91qU0y3YHfQg04sd35hsdQbuZcSTjlQmw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794232979;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/wZaGJR7Mv8C0oFPRANDNKg3ptxz8mbh24FxUb/IyHE=;
-	b=uKN5liahxi10Ep4ZmtW5d27IFe0OIMv6P3UOe9U00JwKKqFVrNtPUtaPaPfYHbepKXltGA
-	BDXAEr8ZlIUHT3Aw==
-From: "tip-bot2 for Avi Weiss" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: irq/core] genirq/matrix: Update availability for offline
- managed IRQ changes
-Cc: Avi Weiss <thnkslprpt@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- maz@kernel.org
-In-Reply-To: <20261025164045.2513933-2-thnkslprpt@gmail.com>
-References: <20261025164045.2513933-2-thnkslprpt@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=L11V/teK;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BeJrSghT
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9DFX48985821
+	for <linux-kernel@vger.kernel.org>; Mon, 9 Nov 2026 14:03:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bzUDjoYzf7fPf/riUB3Cm7ED6nu44j+BYRwBBoXgSpI=; b=L11V/teKikPLjWhd
+	o0MG3H1sE84/Taj3zYC+5B3uf1shAg0QVMpf/V/2YC/qaJlPjD86g/JXjyRtBCC2
+	6dL2M6DVatCFTNm3o0mWKcz0PjBCDCNqAbuwtUw9cG2z44Wu5G9upf87v0MPCKzO
+	2twTSJWt1VHplC7q5OYUicWwMAEyH6WWHkw07nR/4tdZgtu+4Hw/GMn2Zpi8Bxtn
+	tSfEw39TGGdpD5XAOkiquJyS7sPEUaV8c97UIrnP40Hk4F5zhQFsTg9Aax/iHniL
+	FFrWoZSPBlKzCxDEhe8zYVugxnzI0QVab4w51fhCyCsfDRfMSoWZjrD09BrA7SgM
+	K2EJNQ==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hsujxep09-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 14:03:15 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-99859876e19so166245241.2
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 06:03:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794232994; x=1794837794; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bzUDjoYzf7fPf/riUB3Cm7ED6nu44j+BYRwBBoXgSpI=;
+        b=BeJrSghTx0gltL/eqmeoIpBW+c4eT/VE1u8GI4Wv5ncLa3iuAGkAE6VDQPqgZclYzc
+         cOxmtp8GQgRY35s1RXwKLT6/Zo2fmh5u5xZt4GzZ3hAOKoksLwePURudi5jSvfZY6nty
+         HrJ/MkY4q9ZLmo3NDVC2EhdeMPsK+RjsPa5RR4DMPk01ucWBvjlOBKZMHC2qmoyZSQW6
+         7PsiT6LZeHG9SWiph/Y/zLfBz78jKQcvbOBlkw4Uy19rjIgCi0kGFqVtWNKECcUYDq47
+         AICaIaY6HByiDVXwLYpF+msfvsz0MLHsdKS9jdShwQTiv+ueWYF6TSyT005uuSQ0pQke
+         L1Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794232994; x=1794837794;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bzUDjoYzf7fPf/riUB3Cm7ED6nu44j+BYRwBBoXgSpI=;
+        b=1kg8eDvHROxebKZJDzgzm4UaLGwr7NcdO6ACDWUcfQKoZLOBfqNMDcphEL6Vv5fDYP
+         NyL4rj0NE4AO4uwu1B7fHpTZXqi1/63QgQxS0+ukL+CwBr/Dx/fKJeO7K+XzqrktYeLp
+         biMyYgANcMzKcTiRxYCFNn1ANhqa1SI4/udvNPZ0BP1maL4u44qxM+i2eRGsJZkTqoxY
+         CiyibAmEyp13sHf+QTONxeiKMfnsioaXViKoIp1kw1BxrDODpU1hZrT9RcGzDm5nvCK/
+         h/eIhbXFpjvWMkfBULhppuRTgP3ZeuQmaHPUBLhNrFN677h3iIbTqbsegTeNx3S755wb
+         3+1A==
+X-Forwarded-Encrypted: i=1; AL+hErHwQqYGZ32Jrs0MBMXO44v7cJ3yxYwmjaKgdgrdCnQYNUVVFvif08sOTEBIuKJlclxQwxkLC/JwdgHsi9g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/i2eJHEwlU/vU/2GuQ1hBxPuR6YNxJ/SLnvXa5po6i39S7aYer
+	YEt7v8LSajNsykWdhv89B0CMymrBm/SrHjTaUX5iMXLsWp1U6Ch5THPvvzEqdfenBVXnh+ip/71
+	eWiJA78X/Ir8FFzcMlm1BMtwtTbSzWxeyR2z6RvdEYYUYdzPq34WrrsAYomsEL5j95Ds=
+X-Gm-Gg: AYBFou2se/78NGWNrMKFxrYw4AJlvUCTKHvp93y4K8vhWAQEPqGD/c7YwEdCzLzi1kj
+	GQQBEuEigxKGyWBzHf1rcno+FAHfBt19klUzEVuqq6EPFQKKNz0gb84EElbWdTEyU/UZ16Z9lno
+	w69gxptSCvaEfxdtgazdLS0+uiKwp1Xcu4FI+XVKF7+XjIgU80igEbp5IRFUa3MErBZNI76lOEb
+	ryxT23oTfzOygA/viKLcmXidaY+j+th4EzNYtEtvn3/8YaSafXLiK0E2fpHgkUaiwgyj0KMe7H5
+	Tm/Ml8hMuvf34TyHYdcGarehKoOcgOEFAAMINALxmOwwRcC4/mzBSP01orVItCrPIL8yEVkCEYr
+	1gcPx9qMqd+6plREM6tyoIX/Q06kbuvwvvVtB9/rB7d6sLzv1CD7GWKiU/iVaLz6ZiKx+o23QQ0
+	WA1UN+FKXIWsE6qirhJR5eSBzA5AbKtPWX26bCDyGiQho0O6yJSAKq1fSZZRhSeLxLXhaJkDaVn
+	ZgMGAFC9Fcw7VLsI9aJ4EwsNyM6
+X-Received: by 2002:a05:6122:4b18:b0:5ea:b1f5:a657 with SMTP id 71dfb90a1353d-5ece7220ac4mr1174165e0c.7.1794232994033;
+        Mon, 09 Nov 2026 06:03:14 -0800 (PST)
+X-Received: by 2002:a05:6122:4b18:b0:5ea:b1f5:a657 with SMTP id 71dfb90a1353d-5ece7220ac4mr1174095e0c.7.1794232993087;
+        Mon, 09 Nov 2026 06:03:13 -0800 (PST)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:f9b5:154f:6aa3:35d3])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b79502652csm161515845e9.4.2026.11.09.06.03.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 06:03:12 -0800 (PST)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 09 Nov 2026 15:02:00 +0100
+Subject: [PATCH v4 7/7] i2c: qcom-cci: Build command words with
+ FIELD_PREP()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,78 +117,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179423297780.2093942.15095289769443065495.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-cci-imp-v4-7-4dc4095dd052@oss.qualcomm.com>
+References: <20261109-cci-imp-v4-0-4dc4095dd052@oss.qualcomm.com>
+In-Reply-To: <20261109-cci-imp-v4-0-4dc4095dd052@oss.qualcomm.com>
+To: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-GUID: 2HD9TJmu7GK9LWU6zC0ToPGDt936xAkw
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA1NSBTYWx0ZWRfXwO3Dx1PbJh0N
+ jnkeUW4oQqD9G5uWdqVasA7eZRbayCYxEtinAv7c3W9WBRSWqTpimW11nQ6wPsjMW+Ei7CE3VGF
+ 3sn7nPLZrY0JM7yth/FKX+KTQbRp7lwq3wujZnsyx95AbRXTEQZ7O/R0D2ct/9KAL/tH0KXrRCF
+ KmHqqYFM9uHR9aa5T5kE5kHSkLeIvRJPmTWNrelgqWS7zKvJnwo7WqkWBoq4F8EkAN5H1EDuMV4
+ s8hJlGOfgVlJ41Xqn84L2GG6cdbFYGtYPRcaI4VBiEmj+CjqfsC6azkstYQ/VgioQVdsg2wi/sQ
+ rCb7hGU+dkio9d4s/K/ivxrERcsO8im1QetUUir+7RzjkOye96jwy7BSxNGgZDL10E/cc3gjRRc
+ v52OicU48zefioD2O0xqB/KMA8OHQ5FxCJ/B+iwFLN06JhTjL2IONEKlMnd8UN/JvQl/a8vjIKt
+ IN9RAdQgjCaCR5ERPNg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA1NSBTYWx0ZWRfX0pBtIlYnNexY
+ dRGqblkbEUe6C8QToY1PmSNwgRWkEVTvhThHbA85YoYZ/mABB8uoDLy6q0OkvIzrlXrB2rzTuFj
+ lmfnFud40SSBjOGTPNr1gTqivPZ4YFY=
+X-Authority-Analysis: v=2.4 cv=TeIDJhQh c=1 sm=1 tr=0 ts=6af1d2a3 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=aws9h2sAfGIhmysyGwIA:9 a=QEXdDO2ut3YA:10 a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-ORIG-GUID: 2HD9TJmu7GK9LWU6zC0ToPGDt936xAkw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-09_05,2026-11-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0 adultscore=0
+ spamscore=0 priorityscore=1501 clxscore=1015 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090055
 
-The following commit has been merged into the irq/core branch of tip:
+Every command loaded into the CCI command queue has the same shape: a
+4-bit opcode in the low nibble followed by an opcode specific payload.
+That payload was open-coded as a bare shift at each site, which hides
+how wide the fields actually are.
 
-Commit-ID:     c3f7de51aac3f5b7a369222acb06509922268feb
-Gitweb:        https://git.kernel.org/tip/c3f7de51aac3f5b7a369222acb065099222=
-68feb
-Author:        Avi Weiss <thnkslprpt@gmail.com>
-AuthorDate:    Sun, 25 Oct 2026 18:40:46 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Mon, 09 Nov 2026 14:59:39 +01:00
+Describe the fields and use FIELD_PREP() instead. No functional change.
 
-genirq/matrix: Update availability for offline managed IRQ changes
-
-The IRQ matrix caches available vectors after a CPU's first online
-transition. Managed IRQ reservations can be added or removed while
-the CPU is offline, but irq_matrix_reserve_managed() and
-irq_matrix_remove_managed() only update cm->available for online CPUs.
-
-When the CPU comes back online, irq_matrix_online() adds the stale
-count to m->global_available, causing vector availability to be
-overestimated (or potentially underestimated).
-
-Update cm->available whenever the CPU matrix has been initialized,
-regardless of its online state. Continue updating global availability
-only for online CPUs, leaving first-time initialization to account
-for existing reservations.
-
-Fixes: 651ca2c00405 ("genirq/matrix: Handle CPU offlining proper")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261025164045.2513933-2-thnkslprpt@gmail.com
+Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 ---
- kernel/irq/matrix.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/i2c/busses/i2c-qcom-cci.c | 31 +++++++++++++++++++++++--------
+ 1 file changed, 23 insertions(+), 8 deletions(-)
 
-diff --git a/kernel/irq/matrix.c b/kernel/irq/matrix.c
-index faafb43..5a6adf8 100644
---- a/kernel/irq/matrix.c
-+++ b/kernel/irq/matrix.c
-@@ -225,10 +225,10 @@ int irq_matrix_reserve_managed(struct irq_matrix *m, co=
-nst struct cpumask *msk)
- 		if (bit >=3D m->alloc_end)
- 			goto cleanup;
- 		cm->managed++;
--		if (cm->online) {
-+		if (cm->initialized)
- 			cm->available--;
-+		if (cm->online)
- 			m->global_available--;
--		}
- 		trace_irq_matrix_reserve_managed(bit, cpu, m, cm);
- 	}
- 	return 0;
-@@ -275,10 +275,10 @@ void irq_matrix_remove_managed(struct irq_matrix *m, co=
-nst struct cpumask *msk)
- 		clear_bit(bit, cm->managed_map);
-=20
- 		cm->managed--;
--		if (cm->online) {
-+		if (cm->initialized)
- 			cm->available++;
-+		if (cm->online)
- 			m->global_available++;
--		}
- 		trace_irq_matrix_remove_managed(bit, cpu, m, cm);
- 	}
+diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-qcom-cci.c
+index 7452ee8eab0635bf6562f4dbfb2342263211cbb8..66cf68837a9112f83503ad7299775d1a2c6953c6 100644
+--- a/drivers/i2c/busses/i2c-qcom-cci.c
++++ b/drivers/i2c/busses/i2c-qcom-cci.c
+@@ -102,6 +102,17 @@
+ #define NUM_MASTERS	2
+ #define NUM_QUEUES	2
+ 
++/*
++ * A command word is a 4-bit opcode followed by an opcode specific payload.
++ * The payload width differs per opcode: a write carries its length in a
++ * nibble (which is what makes 0xf available as the burst marker) and is
++ * followed by the data bytes, while a read carries a 16-bit length.
++ */
++#define CCI_I2C_CMD_OP		GENMASK(3, 0)
++#define CCI_I2C_PARAM_ADDR	GENMASK(10, 4)
++#define CCI_I2C_WRITE_LEN	GENMASK(7, 4)
++#define CCI_I2C_READ_LEN	GENMASK(19, 4)
++
+ #define CCI_I2C_SET_PARAM	1
+ #define CCI_I2C_LOCK		6
+ #define CCI_I2C_UNLOCK		7
+@@ -574,7 +585,7 @@ static int cci_validate_queue(struct cci *cci, u8 master, u8 queue)
+ 	if (!val)
+ 		return 0;
+ 
+-	val = CCI_I2C_REPORT | CCI_I2C_REPORT_IRQ_EN;
++	val = FIELD_PREP(CCI_I2C_CMD_OP, CCI_I2C_REPORT) | CCI_I2C_REPORT_IRQ_EN;
+ 	writel(val, cci->base + CCI_I2C_Mm_Qn_LOAD_DATA(master, queue));
+ 
+ 	return cci_run_queue(cci, master, queue);
+@@ -607,10 +618,12 @@ static int cci_i2c_read(struct cci *cci, u16 master,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	val = CCI_I2C_SET_PARAM | (addr & 0x7f) << 4;
++	val = FIELD_PREP(CCI_I2C_CMD_OP, CCI_I2C_SET_PARAM) |
++	      FIELD_PREP(CCI_I2C_PARAM_ADDR, addr);
+ 	writel(val, cci->base + CCI_I2C_Mm_Qn_LOAD_DATA(master, queue));
+ 
+-	val = CCI_I2C_READ | len << 4;
++	val = FIELD_PREP(CCI_I2C_CMD_OP, CCI_I2C_READ) |
++	      FIELD_PREP(CCI_I2C_READ_LEN, len);
+ 	writel(val, cci->base + CCI_I2C_Mm_Qn_LOAD_DATA(master, queue));
+ 
+ 	val = readl(cci->base + CCI_I2C_Mm_Qn_CUR_WORD_CNT(master, queue));
+@@ -685,7 +698,8 @@ static void cci_i2c_load_write(void __iomem *loadq, u8 *buf, u16 len, bool burst
+ {
+ 	u32 cmd[CCI_I2C_WRITE_WC] = { };
+ 
+-	cmd[0] = CCI_I2C_WRITE | (burst ? CCI_I2C_WRITE_BURST : len) << 4;
++	cmd[0] = FIELD_PREP(CCI_I2C_CMD_OP, CCI_I2C_WRITE) |
++		 FIELD_PREP(CCI_I2C_WRITE_LEN, burst ? CCI_I2C_WRITE_BURST : len);
+ 	memcpy((u8 *)cmd + 1, buf, len);
+ 	iowrite32_rep(loadq, cmd, CCI_I2C_WRITE_NWORDS(len));
  }
+@@ -713,9 +727,10 @@ static int cci_i2c_write(struct cci *cci, u16 master,
+ 		return ret;
+ 
+ 	if (burst)
+-		writel(CCI_I2C_LOCK, loadq);
++		writel(FIELD_PREP(CCI_I2C_CMD_OP, CCI_I2C_LOCK), loadq);
+ 
+-	val = CCI_I2C_SET_PARAM | (addr & 0x7f) << 4;
++	val = FIELD_PREP(CCI_I2C_CMD_OP, CCI_I2C_SET_PARAM) |
++	      FIELD_PREP(CCI_I2C_PARAM_ADDR, addr);
+ 	writel(val, loadq);
+ 
+ 	do {
+@@ -727,9 +742,9 @@ static int cci_i2c_write(struct cci *cci, u16 master,
+ 	} while (len);
+ 
+ 	if (burst)
+-		writel(CCI_I2C_UNLOCK, loadq);
++		writel(FIELD_PREP(CCI_I2C_CMD_OP, CCI_I2C_UNLOCK), loadq);
+ 
+-	val = CCI_I2C_REPORT | CCI_I2C_REPORT_IRQ_EN;
++	val = FIELD_PREP(CCI_I2C_CMD_OP, CCI_I2C_REPORT) | CCI_I2C_REPORT_IRQ_EN;
+ 	writel(val, loadq);
+ 
+ 	return cci_run_queue(cci, master, QUEUE_0);
+
+-- 
+2.34.1
+
