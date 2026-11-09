@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794240078;
-	b=YH2+lUjR8ydJU3yroa4D1KBuI1GgNJnUTMlH6B2uA74oR1AEbPrF24XwG55efkRBXKNl
-	 gnizScS2jsCJ/hRm74t8+G4WxLMNyikeJDnAxxeZA+j4/PmMZN+z7Ch39DFSesIWdti1K
-	 nWUyXKaxQvInpll1skxXscftTtZAPYawXMVzPbuP0LmNr33C76jVRNLjUvQ8dVPCpl/Nl
-	 lfNassIYzK/TCM1z8urzKCfF6SCUs+beENyZPt56XtlrE9fvaj161UqBY0tfQEBUlh0JE
-	 +MGYv7q3Y0WNhM7qwDpHPkhHWUisfG9Etd52tfEC0Uc4/wHBv2OLcPpo3du76+HPjWA==
+	t=1794240082;
+	b=x8NNGNm8OfJf+Sp61XBrZLPypwQ7fahdC+UW2+nXzsMevh/F3sCq9QEveYZiOKsxleTx
+	 wexBvi/b72TFXRvErcL6+idKFIgxLMuF9pBFhYCb3/Q+7EkXPc/4mJaKr6urW8DOs/eku
+	 sat06bCtremaeKc0MrQHoISXKv93MjUU2CYVtA17yKVEqLaVVcaCP4YbCRbEVnBgrWC2I
+	 77IynbqHPRj9F7CMotX7PtmvYTHrmlOF/GeHcPdTULp8NNBTtRwHo7udi7LUta5kxRnOr
+	 XZd07FVGpCjCok7Cm9NgEyshJFzx38c9TeX635I7seCGUmfXLNjnrsK0Hw77QkoH1xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794240078;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794240082;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=n+IvwUbalMB+lMEj2xh+/SJ+ZMqnlHDeMyWsUhxMutY=;
-	b=Yxa0/Z4oPrAPh3FKQE8i3c6U+qThSgp9oo+7gKNFE2w09TjIgZCffb/aTWCloRk0yY2S
-	 p2KJBvcOgsnRuvpjoAw0eAG5g8j9zYCXR1vUNd1ZmxoIHB5aYcbZCDAVbrwNPzoozaiUG
-	 bgPu6hLiB5ZL4pWxr+wjsKnPlwYgZJ//qXAgcTpYJf9W6+1VpyeNDFWOfkw3JvUfK/ftk
-	 2hTiZCDYftliXJVE27Y4L+AUCrpTGznSpTtSOjyrz1Ld/pEUBF6weLF8doZyOWt8AizbC
-	 9G9EYkUh4WKlh2nUwdO0oXkmfrvSV8HiVFRqW5fPyjsv+BiHI7jRTzgSQzhFWwUjKtQ==
+	bh=dY9xuTSUx+VKL/ce4GOjJF5WW3kIPH+saWseajGc3UE=;
+	b=m+R1Sayhe3luw3WIyVZpW9x24haMz90VUn33ssqyWqgR7b8WWdfbf/q/1mcnqKCFrY3i
+	 yKSDOHIZrd43SJFVdFcfSx/CyyHIJhFMPsOih3njWkldEJyekZ9QzM5SXgD4lkxeBK5dh
+	 +zOhP6/TeimAAJXAiQb298nKu9NadMNnm2EA/PABt4GcnVfLGJdcwri5YJvvBfL6LmbtM
+	 KzRI2osT4bP+wkdfr9i3Ez3JvJ2NH4YG/1y4j6LG1MHIqGmeCu0VCGv+8r9eHgXr8cyeh
+	 TOczxfqKRS+//hj6WgIaaeYKl4L9DdpYIyoYEivMULTQ9geZfSRyxeMI5/S439Ur7AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UM9ZY938;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=oWE9SHeT;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4854D6083617;
-	Mon,  9 Nov 2026 16:01:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4854D6083617
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 68F5460A5BD1;
+	Mon,  9 Nov 2026 16:01:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68F5460A5BD1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=UM9ZY938
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=oWE9SHeT
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 954E21516;
-	Mon,  9 Nov 2026 08:01:13 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C96E51691;
+	Mon,  9 Nov 2026 08:01:18 -0800 (PST)
 Received: from localhost.localdomain (e123572-lin.cambridge.arm.com [10.2.208.46])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BADC63F632;
-	Mon,  9 Nov 2026 08:01:11 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ECB673F632;
+	Mon,  9 Nov 2026 08:01:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794240076; bh=69XjZGmtQpsQiw/RLc3kshkLffGbawQIbdoKaGDZULE=;
+	t=1794240081; bh=Y0zSXQuI73WVYRp+ApaQSKHcTrjkRu31AZuqJ4SX/+Y=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=UM9ZY938suJnPaezt9DwztK24sCh6xVc8bxvjH925gRZ5QpwvdBF5JlzN9zILAnWt
-	 75X067qjHkhks/llchFRr+0huGUhyju5W3N9EkRLbyXWCUzLymQZBQpxz+W3aVedGN
-	 F9h9DhG1c3UN4l5xtCx4daM2U7r1KlKGW3NJWVdY=
+	b=oWE9SHeTz0Zr4EwuExxrKWPcs0DZPuSD1zxVxPYO66wezmOJmTn+Vxc23FrbAQ70L
+	 fXFbPD1rD0uD4dJXodLqZWxzK7X+y6B7JI3Po/gnxNx/lQq4JfEi3WG7xYnoBQ84H3
+	 M2CLJMDSagcRY2kSgkjXrMFDzqNUs8cry8oWgozs=
 From: Kevin Brodsky <kevin.brodsky@arm.com>
-Date: Mon, 09 Nov 2026 15:58:33 +0000
-Subject: [PATCH RFC v10 08/22] arm64: Context-switch POR_EL1
+Date: Mon, 09 Nov 2026 15:58:34 +0000
+Subject: [PATCH RFC v10 09/22] arm64: mm: Enable overlays for all EL1
+ indirect permissions
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,7 +58,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-kpkeys-v10-8-aa6c4d9603bc@arm.com>
+Message-Id: <20261109-kpkeys-v10-9-aa6c4d9603bc@arm.com>
 References: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
 In-Reply-To: <20261109-kpkeys-v10-0-aa6c4d9603bc@arm.com>
 To: linux-hardening@vger.kernel.org
@@ -85,77 +86,48 @@ Cc: Kevin Brodsky <kevin.brodsky@arm.com>,
  Ira Weiny <iweiny@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
  Thomas Gleixner <tglx@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794240029; l=2136;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794240029; l=1848;
  i=kevin.brodsky@arm.com; s=20260427; h=from:subject:message-id;
- bh=69XjZGmtQpsQiw/RLc3kshkLffGbawQIbdoKaGDZULE=;
- b=5odrr2x68jCwQ+LojjKcXp9Zj53vS8pkd5Cr3SnsGrCwJYb2HeRqZVwI5XXSiJQI8HwY8d7kY
- BjKw/bkeILzDFc0crCchfxBG8yFGXa1Y5sKvtR8hH9jveFSPJe6gfkG
+ bh=Y0zSXQuI73WVYRp+ApaQSKHcTrjkRu31AZuqJ4SX/+Y=;
+ b=DrIUmvyOStKkICsbTho2FY0JXL/3bvaGUJYYur70JPOyzgyrSslhzEX+PR7cTWOovxbTg9h/L
+ DUVO/Ct8ZdXBsPzaw5R0LMJ9uaOUXPKQQA0Z3TwnP3F27plZAsjgHiW
 X-Developer-Key: i=kevin.brodsky@arm.com; a=ed25519;
  pk=N2QG+eJKrvkNovwhhwJhnJ4+ScVfsGCHldmqLfcMTFs=
 
-POR_EL1 is about to be used by the kpkeys framework, modifying it
-for (typically small) sections of code. If an exception occurs
-during that window and scheduling occurs, we must ensure that
-POR_EL1 is context-switched as needed (saving the old value and
-restoring the new one). An ISB is needed to ensure the write takes
-effect, so we skip it if the new value is the same as the old, like
-for POR_EL0.
+In preparation of using POE inside the kernel, enable "Overlay
+applied" for kernel memory types in PIR_EL1. This ensures that the
+permissions set in POR_EL1 affect all kernel mappings.
 
+User memory types must be left untouched (overlays not applied)
+because any privileged access to user memory (e.g. futex atomic
+without FEAT_LSUI) would then be mistakenly checked against POR_EL1.
+
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
 Reviewed-by: Linu Cherian <linu.cherian@arm.com>
 Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
 ---
- arch/arm64/include/asm/processor.h |  1 +
- arch/arm64/kernel/process.c        | 10 ++++++++++
- 2 files changed, 11 insertions(+)
+ arch/arm64/include/asm/pgtable-prot.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
-index 481f1999f7c1..18424d91d8b2 100644
---- a/arch/arm64/include/asm/processor.h
-+++ b/arch/arm64/include/asm/processor.h
-@@ -195,6 +195,7 @@ struct thread_struct {
- 	u64			svcr;
- 	u64			tpidr2_el0;
- 	u64			por_el0;
-+	u64			por_el1;
- #ifdef CONFIG_ARM64_GCS
- 	unsigned int		gcs_el0_mode;
- 	unsigned int		gcs_el0_locked;
-diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 42b15b0c069f..a3984aedfebe 100644
---- a/arch/arm64/kernel/process.c
-+++ b/arch/arm64/kernel/process.c
-@@ -51,6 +51,7 @@
- #include <asm/exec.h>
- #include <asm/fpsimd.h>
- #include <asm/gcs.h>
-+#include <asm/kpkeys.h>
- #include <asm/mmu_context.h>
- #include <asm/mpam.h>
- #include <asm/mte.h>
-@@ -446,6 +447,9 @@ int copy_thread(struct task_struct *p, const struct kernel_clone_args *args)
+diff --git a/arch/arm64/include/asm/pgtable-prot.h b/arch/arm64/include/asm/pgtable-prot.h
+index 590ef4328f12..eb779c0e892d 100644
+--- a/arch/arm64/include/asm/pgtable-prot.h
++++ b/arch/arm64/include/asm/pgtable-prot.h
+@@ -183,9 +183,9 @@ static inline bool __pure lpa2_is_enabled(void)
+ 	PIRx_ELx_PERM_PREP(pte_pi_index(_PAGE_SHARED_EXEC),   PIE_RW)     | \
+ 	PIRx_ELx_PERM_PREP(pte_pi_index(_PAGE_READONLY),      PIE_R)      | \
+ 	PIRx_ELx_PERM_PREP(pte_pi_index(_PAGE_SHARED),        PIE_RW)     | \
+-	PIRx_ELx_PERM_PREP(pte_pi_index(_PAGE_KERNEL_ROX),    PIE_RX)     | \
+-	PIRx_ELx_PERM_PREP(pte_pi_index(_PAGE_KERNEL_EXEC),   PIE_RWX)    | \
+-	PIRx_ELx_PERM_PREP(pte_pi_index(_PAGE_KERNEL_RO),     PIE_R)      | \
+-	PIRx_ELx_PERM_PREP(pte_pi_index(_PAGE_KERNEL),        PIE_RW))
++	PIRx_ELx_PERM_PREP(pte_pi_index(_PAGE_KERNEL_ROX),    PIE_RX_O)   | \
++	PIRx_ELx_PERM_PREP(pte_pi_index(_PAGE_KERNEL_EXEC),   PIE_RWX_O)  | \
++	PIRx_ELx_PERM_PREP(pte_pi_index(_PAGE_KERNEL_RO),     PIE_R_O)    | \
++	PIRx_ELx_PERM_PREP(pte_pi_index(_PAGE_KERNEL),        PIE_RW_O))
  
- 	ptrauth_thread_init_kernel(p);
- 
-+	if (system_supports_poe())
-+		p->thread.por_el1 = POR_EL1_INIT;
-+
- 	if (likely(!args->fn)) {
- 		*childregs = *current_pt_regs();
- 		childregs->regs[0] = 0;
-@@ -698,6 +702,12 @@ static void permission_overlay_switch(struct task_struct *next)
- 		 * of POR_EL0.
- 		 */
- 	}
-+
-+	current->thread.por_el1 = read_sysreg_s(SYS_POR_EL1);
-+	if (current->thread.por_el1 != next->thread.por_el1) {
-+		write_sysreg_s(next->thread.por_el1, SYS_POR_EL1);
-+		isb();
-+	}
- }
- 
- /*
+ #endif /* __ASM_PGTABLE_PROT_H */
 
 -- 
 2.56.0
