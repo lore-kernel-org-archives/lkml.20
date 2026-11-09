@@ -1,103 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.1
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794231847;
-	b=iU7ROvT2Zqv+oS6r7+aewJB5+R1PbU6HP7FyBPdR5cNzZjRQ/2olCOnU0iUh3HPPrguN
-	 9MA/ZenjUwc+FXogR1Mz1YN0IUwvfMUwZ616A/GH2vWOuQftRI9FI4W1SVkmYHkzFFohX
-	 oQx+bnjicc14etTG1apIESygGLDSOX3Mp4uUhbMHML9YQrPtGNYH1DggtoMsOj06sibcT
-	 4rGCGKLV+0hh/W+AtPMywGh9EE8/Hnkf3KdGZTL31plYGU2LVmBqL4zWf8UgBC96X0xrv
-	 vyPlGlyltMmc9U7V8i3FwPG01wPYip/pXtp7p0fLQsCwlgLutpu37P9xFmb5qWllUZw==
+	t=1794231840;
+	b=yTQp2YkSpmUbGK8yr81nlV2UrDuFC3PTAVY8UlCC5KcvH+0AEMziQDJTg3FgTkVkidP+
+	 TFR6SFic8KRyi2IDAaxmXrkZUC/zBTHlSTUSpkvqA/1D1eVbOaEf8YVbWeHsuYHamgPGY
+	 NUkDjoJBMGmy9JeE7nFF5A2sopUnyPU40adZ5kNqAX2nRwdKKrROc5g7WjfXS196PmFdB
+	 iBeQZTffSTwv4ZdiOIJhBNQ4GtiWI5/LcP/vUkJRVj0xFzfp6X6KWfilSerFl72ycYTTS
+	 gJ48kLp5NDq3O8RKLWfisdORMpgMaFXGiuhNn8NDS5i15gIi6O68gFdxjL2VZ8mHiAA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231847;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=IIzvUKUICb23eFlHyYYodZ+ZuF8+iNxg1iEmDvfWwWM=;
-	b=1vK5cgExjYiC5CEq59jAn3xwA/zmaB0G0felmwzudf5ulm8oZLMsDZMz9JzFdQGB88rA
-	 1a7/KJ6b6xwunFEjZhzDexTB4lmyyz3i85PWWmQVo4wg/KoHFURIZR+/UsTV/uwSz0Oar
-	 HqwZBYRGAVBT8o5Lltyg3bwxiqGhlglaxX9b4mhNq3qBim7MlhPm/VcyrTfzCLerCSU0G
-	 UbHJgcxb/9MIc4lmXo21TgiJbA6vk9kYMhmi3I1ivC7jNWKHCCX+ZV4ARgGD1UbPA5z7P
-	 l7pqGZ3qWbp+L2c7WpxL4NRzI9gxG8UFg7r0JtY4tqQ/LK2vKQ7pyBkdjA8mk6tAseg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231840;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=uQPEtNnmLlScHzIoED0cbGAI+vw3fcSsbnPTSfV6adM=;
+	b=YzLO/F8t3ECGAqfBToNVaLHNS/GUpgLy47PzG4oqnsvTgpK4RJoiZDoJdD5U+Ac8CFJV
+	 EGa90TXcZcl6PQ/74KqNszvxm4je5IdmcQZjsGYaEexH5Rca0i/hPbFS46qadZmT75G0r
+	 WIdW1aCZsSAqyiSe5n9ahAHIsPStHonjbBU57HqoL7akHq87S4bMAvKJVbYYknWu8dfxK
+	 birbXi5G6sauwGO/SrYApsDbEYyo12tzh4n7bfaQEqpGHD7+DCMWNu4HejDbZ2mPAzOwK
+	 wppT9i6qecW5C6jnKdQuG2T1X08RFjjXzKgpJ5SBDkQmX3ABWGXPPIOwc7T6HLPu2nA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2PcmwRh9;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.1
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010001.outbound.protection.outlook.com [52.101.85.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFv5ScoH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA284606D811
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:44:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA284606D811
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3402606A32A;
+	Mon,  9 Nov 2026 13:43:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2PcmwRh9
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H7qFX7173Ml0373yICZ0HTRwpqse1uU4DUULB9fyYwFd9JatO/zd/NIG6BAbPaO6m5v1nxwKj6uqG8LmL4N7jEZYqI+aIVrS4yh7andS0tnK3r/ztO21a6xd02CMPE4KvSHIONB3tkYuf9/ibONpyFbegsnSQOcnpwxkH+Qy210xjL03MZ9b5rRARgoXkt6Q1s9Z9bEskgC0dPo0OsceV2v+GVaF0OplCtD53MZMIbZ4+YTKXweVXViU+UsgxzHfkpq752y1xE/iZ1MNrueWs0+zyaT0ZoQdyYZKQeAHLwjNH4nD0RU492Mn2cYvIfg++pQvfNU/Wn/fU0oO6ozF8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IIzvUKUICb23eFlHyYYodZ+ZuF8+iNxg1iEmDvfWwWM=;
- b=GvQd01knTgSYKNxfoLOZ7NWb6feC50Vmp2FQIqbYXSzP+F1fZtYLSfXCTJ0OwxBfcbdtETll9u1lRGFIa7zQBk/ECZ3v5RlpyoMXNcvwSUfWV83zU/F0GGPiXYiZ55lu6w2EsCigUUvk4tlMsxEFJwoL4PZeNEwBuc2SM1anwrOHsw74SdYrC4SRCGQo1ZpXjjWhGiPcG1WXiLFEBNnayIDGVNdyHBYC6EQo+v65IXPB0BoeaE/Xw6n0B6M5m5ZwtPoIyOoM66eBwOGrXrUPeNxsxO0fU0YRPv/DI9h7+qYydyvyf4xBiAQ2ctZHjx0tG0AZhx/ZqTVz8zy2qWCk2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IIzvUKUICb23eFlHyYYodZ+ZuF8+iNxg1iEmDvfWwWM=;
- b=2PcmwRh9GKMVPnmrtbEMv+whRDRUGyjoGmkcSOBv3FriN/jPEHTqmPfsT4HBSu4JCq+IMCVRG3i7rU3Tn5lHEOs6rI0t0YOU+6EVFOdrglI2kvta+QxaELI2bVI3cUBzdTk+6QCUDnt/3FGnSJ8meNfmlVkechkhgEUcUBzdT7g=
-Received: from PH8P221CA0062.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:349::14)
- by SN7PR12MB7810.namprd12.prod.outlook.com (2603:10b6:806:34c::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
- 2026 13:44:01 +0000
-Received: from MW3PEPF00001659.namprd21.prod.outlook.com
- (2603:10b6:510:349:cafe::98) by PH8P221CA0062.outlook.office365.com
- (2603:10b6:510:349::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
- Nov 2026 13:44:01 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MW3PEPF00001659.mail.protection.outlook.com (10.167.249.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.0 via Frontend Transport; Mon, 9 Nov 2026 13:44:01 +0000
-Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
- 2026 07:43:57 -0600
-From: William Palacek <William.Palacek@amd.com>
-To: <dri-devel@lists.freedesktop.org>
-CC: <intel-xe@lists.freedesktop.org>, <matthew.auld@intel.com>,
-	<arunpravin.paneerselvam@amd.com>, <joelagnelf@nvidia.com>,
-	<sanjay.kumar.yadav@intel.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 2/2] gpu/tests/buddy: add range-biased allocation performance test
-Date: Mon, 9 Nov 2026 08:43:46 -0500
-Message-ID: <20261109134346.3169162-3-William.Palacek@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109134346.3169162-1-William.Palacek@amd.com>
-References: <20261109134346.3169162-1-William.Palacek@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFv5ScoH
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794231839;
+	b=lG96xWLSy5XFfp2TMOIYrBVkKaQ+VBADwRz4p/M2sUwZ5/zRbjGhLs8jHA/fTInXt5JH
+	 NHFM+sYE7acMZlympfex1cMEKiMDe6+On9ddowo53UTKLm9ALHa4dqFzVSuxLEULxy0Ki
+	 ZZ1qybt4b8//Izwevapqm3OmDfnYgWGyNW/v93AKFdCnNA2aupdg58NUpxkfIvx0mb8j3
+	 wZ9uh3gx0PfODpVk2rfNhbohELad4LNpwnBKzt+WwrGSRLMtoGicZIS0FhEDLnL4aQDlH
+	 KmlHqT6o+pWrzGWeaMG2sff4tfFiX/kYU6CYBkGZ+3sds15gvl9sDQ9MCdDPgt0Ixkw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794231839;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=uQPEtNnmLlScHzIoED0cbGAI+vw3fcSsbnPTSfV6adM=;
+	b=cqm9nPwAZPY2fjZiArfLYyw3VQ9gCurGoqhE4NwI3DMMQe5mz3jfA3IXNnVA7tFMjGmt
+	 ZbIK05gmypGp1djMFkrTtp+DJ1GHpwRVY3mLsGPmMDWTENX0Cib9vGuXhEzLjyVYvi4+O
+	 Hs93N0N5q5Qoj15r94F2/CS4uhh4Rz3L+WiXpqza8o5Ub+5+lHOD3yoLPfYIf83KuqIM5
+	 ugtHYRhmDUm8oJEzLQy7hFrTzJ4FadHkkXk5hvpRqJJ3HO/99wHzed43ITBilyEjPTu6v
+	 Kt7V3iXVH1x7w2IVBCOWO98hZhBz0E0UYhhfIYijp9QjGFeYQcWWxgMERGbQAdJHPsg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5A2901F008A3;
+	Mon,  9 Nov 2026 13:43:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794231839;
+	bh=uQPEtNnmLlScHzIoED0cbGAI+vw3fcSsbnPTSfV6adM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=OFv5ScoHr6NEX0ohHKaYpAnOpZrheTiWrjXo99Rlw0ygg1U/Dn2oZPucD7D+8evGk
+	 3ZdZ6nLr/wwUQMeiwrO0+o3V4FNVo6AKlCD15SjOWuyiwb6dBPGZnlLzTGRsZQvJAq
+	 rcRTKisoxYnKf1AqpS5adK5I7K/uq0hrDQb95ZRoLAVRLBuq2paQZqIW2tjyQ+s8ol
+	 a5IWZTRu+qt+El3jWoPmmaqwBKUVVvrALlDIhQjxzRRg2Df/NeAtmCw2ybQ5w2EVdm
+	 HY2WvmPMfTprGz22zP/oPpqBZb14pNIwXoecP2b5HKsQnWLFs5UleEunL1Acfd0lXo
+	 u+z+Buf8ObpoA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DFA6F484C5;
+	Mon,  9 Nov 2026 13:43:57 +0000 (UTC)
+From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
+Date: Mon, 09 Nov 2026 16:43:53 +0300
+Subject: [PATCH 3/3] media: verisilicon: leave room for the JPEG header and
+ one stream burst
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,95 +83,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PEPF00001659:EE_|SN7PR12MB7810:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee15c633-d8aa-4f76-015e-08df3e678323
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|11063799006|56012099006|261021121427099003|261021123027099003|261009223027099003|261026121527099003|261102123227099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	PWclW6rsO11PoiC6NSEuiVfEv8dpiJifgULSiwSIuwjqb8S7Do7HfEg8GNuJawtn+p/i2QuOdxxIdcOrQtFI8t9Rup+V+7kiLWyu2J8+NZ7Thaun6osHqwfHx9XV12Qy2BwL8SWD0Z6MDha32BHcvnQMqf9WGhecybnwiZ3XHzxcxzuPSfIneQlZGMt3JjrmNX6NYDyKn89pExkbq2Qo44Jf8xA2/jcIhnnptMQECJzWkerwFQD6k3O3ptEBtX8Wt3+m/uercD7NhFAKpLW9fhkdGnjjvDuiYyXyMb9rSlGr3jOVyC3P43mV1f8HDZoLn0ybjDlhSFjozpAPy16iZTs3OpfQL+/9lgWwQNxaNBIcD8qWgytGKqUZ1TuNthgfYMfh4dlUS+GAniHq1bsadd2a5UyE8+TkJ7bi+NqqoeC8Y4I6zXvImCPubN7kSeYw8sQwL2FrjSeNO+54EXiCA3d4Zgkmesff7krNGTCNhJW81XU9wmvWw9QJ/z5W5VjFCtDQ6dNEM+lmSaQt2RGgs1iQIP7CtwZQ5250xTnQpARe4X7yRZ3FEXXKbsqTF0WUKrygCn7A3xACRSnRVimDnPu/0PPzA8bqTwwtreuYGvuquF99W9qry88nl0Ev+BasuBzkiOcsNOsMglFCs8xHULGk2nksKZt7+NahggNCTVeYTZnkcIkPYIXs7mCIMDeyPWeOjD1R6mPE4q4tds+eNg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261009223027099003)(261026121527099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	j1CUO27SXi8YK+c8+IkO2s+tSmOe05uvOkXKh5Cmp2+xJvn/o5CZwx5uyfKkrydeHJC/s7ZSg8KIxVi7rSO4AUghuuQXyLJpokZW7l6aq1j7LdaBkVyYMb2bfVQLGwYgrwjllJriFqXRLOrEf9ww1mr9O5V5x37JR+JukL/RbKik8Pb62c6EBDhrv/GET2nrgrBzlxw/YUZsen8VJUuaFXm9u5QQSbnoWnb9G09TfNml9yqrKYTPFta0CLYIs9FXfLrrig60rgCKmNgIdJLeZ2qLL6c2WrGGuadW+TsrR0BRymCNyRycFrhFaC15Pzv3wWMEIzJ7r+6IB4MxDxumkahCPTMlGZUR0GRjuwvhgQ04EHQord6DiFeM11n/UWaBOVt+mPIj2NXx9BZt2wa11uL8cRbKSNIiQdT0YmUHVMYE2azpACSLcsmT4rhuG8y4
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 13:44:01.1200
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee15c633-d8aa-4f76-015e-08df3e678323
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW3PEPF00001659.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7810
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-hantro-buflimit-v1-3-f0b86ce61e66@gmail.com>
+References: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
+In-Reply-To: <20261109-hantro-buflimit-v1-0-f0b86ce61e66@gmail.com>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Chen-Yu Tsai <wenst@chromium.org>, 
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, linux-media@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Sergei Khomenkov <shomenkow@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794231837; l=2875;
+ i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
+ bh=WFzfE2RiWdT+i+qq0glggXPv17AxZu0PiVwPxE5rxXQ=;
+ b=pPK6FLWKeibNzXyvohaaL0PsnBvzKTougQAG6KwXp2yfxpo4tasR1lz+/mNE91PalLZ0uU93p
+ 0Pp3dUaw9zCAA3hw1AA6gCnAy32OCAfz/TuRbgsnNesnOQZWA78mcPb
+X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
+ pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
+X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
+ auth_id=1409
+X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
+Reply-To: shomenkow@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Fill a 1 GiB range of a 4 GiB manager top-down with 64 KiB range-biased
-allocations that request cleared memory, as amdgpu does for KFD VRAM on
-NPS4 partitions, check that each one is placed directly below the
-previous one, and report the time taken: 1190 ms with the full-range
-walk, 3 ms with the free tree lookup.
+From: Sergei Khomenkov <shomenkow@gmail.com>
 
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Signed-off-by: William Palacek <William.Palacek@amd.com>
+hantro_try_fmt() keeps any non-zero sizeimage on the JPEG encoder's
+CAPTURE queue, however small, and hantro_buf_prepare() then accepts a
+plane of that size. hantro_jpeg_header_assemble() writes the 624-byte
+header into the plane with the CPU before the hardware starts, and a
+plane smaller than the header also makes the WARN_ON() in
+hantro_h1_jpeg_enc_set_buffers() and
+rockchip_vpu2_jpeg_enc_set_buffers() fire on every job, which userspace
+can trigger at will. After the header the encoder writes its stream in
+bursts, one of them even when the stream limit is 0; on the RK3026
+VEPU1 a burst is 64 bytes. A plane smaller than the header plus 64 bytes
+is therefore written past its end.
+
+Raise a smaller request to header_size + 64, so that every plane the
+driver accepts holds the header and at least one such burst.
+
+Found with an LLM coding assistant while porting mainline Linux to a
+Rockchip RK3026 board (VEPU1); the assistant also drafted the code and
+this message. Tested on that board: a 640x480 CAPTURE format set with
+sizeimage 1, 600, 656 and 689 reads back 688, 688, 688 and 689, a
+656-byte DMABUF plane is then refused with EINVAL, and frames that do
+not fit a 688-byte plane stop exactly at its end and come back with the
+ERROR flag. A request of 600, now raised to 688, encodes with no
+warning; before this change it was kept, and the encode hit the
+WARN_ON() at hantro_h1_jpeg_enc.c:50 (hantro_h1_jpeg_enc_set_buffers(),
+reported in hantro_h1_jpeg_enc_run()). Also before it, with 32 and 8
+bytes after the header (a stream limit of 0), the encoder wrote one
+burst, 32 and 56 bytes past the plane. The burst size is measured there
+only; not tested on other SoCs.
+
+Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
 ---
- drivers/gpu/tests/gpu_buddy_test.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ drivers/media/platform/verisilicon/hantro_v4l2.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
-index 2c6f1da1a6d1c..ef4176b4baa39 100644
---- a/drivers/gpu/tests/gpu_buddy_test.c
-+++ b/drivers/gpu/tests/gpu_buddy_test.c
-@@ -283,6 +283,32 @@ static void gpu_test_buddy_fragmentation_performance(struct kunit *test)
- 	gpu_buddy_fini(&mm);
- }
+diff --git a/drivers/media/platform/verisilicon/hantro_v4l2.c b/drivers/media/platform/verisilicon/hantro_v4l2.c
+index 83af9fa1ce94..cc35beac8338 100644
+--- a/drivers/media/platform/verisilicon/hantro_v4l2.c
++++ b/drivers/media/platform/verisilicon/hantro_v4l2.c
+@@ -394,6 +394,16 @@ static int hantro_try_fmt(const struct hantro_ctx *ctx,
+ 		 */
+ 		pix_mp->plane_fmt[0].sizeimage = fmt->header_size +
+ 			pix_mp->width * pix_mp->height * fmt->max_depth;
++	} else if (fmt->codec_mode == HANTRO_MODE_JPEG_ENC) {
++		/*
++		 * The JPEG encoder writes the header with the CPU, then the
++		 * stream in bursts, one of them even when the stream limit
++		 * is 0. Leave room for both; a burst is 64 bytes on the
++		 * RK3026 VEPU1.
++		 */
++		pix_mp->plane_fmt[0].sizeimage =
++			max_t(u32, pix_mp->plane_fmt[0].sizeimage,
++			      fmt->header_size + 64);
+ 	}
  
-+static void gpu_test_buddy_range_bias_performance(struct kunit *test)
-+{
-+	struct gpu_buddy_block *block;
-+	LIST_HEAD(allocated);
-+	struct gpu_buddy mm;
-+	ktime_t t0;
-+	u64 i;
-+
-+	/* Fill one NPS4-like quarter top-down with cleared 64 KiB allocations. */
-+	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K));
-+	t0 = ktime_get();
-+	for (i = 1; i <= SZ_1G / SZ_64K; i++) {
-+		KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, SZ_1G, SZ_2G, SZ_64K,
-+								SZ_64K, &allocated,
-+								GPU_BUDDY_RANGE_ALLOCATION |
-+								GPU_BUDDY_CLEAR_ALLOCATION |
-+								GPU_BUDDY_TOPDOWN_ALLOCATION));
-+		block = list_last_entry(&allocated, struct gpu_buddy_block, link);
-+		KUNIT_ASSERT_EQ(test, gpu_buddy_block_offset(block), SZ_2G - i * SZ_64K);
-+	}
-+	kunit_info(test, "Range-biased fill took %lld ms\n",
-+		   ktime_ms_delta(ktime_get(), t0));
-+	gpu_buddy_free_list(&mm, &allocated, 0);
-+	gpu_buddy_fini(&mm);
-+}
-+
- static void gpu_test_buddy_dirty_tracker_performance(struct kunit *test)
- {
- 	struct gpu_buddy_block *block, *tmp;
-@@ -1617,6 +1643,7 @@ static struct kunit_case gpu_buddy_tests[] = {
- 	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
- 	KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
- 	KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
-+	KUNIT_CASE_SLOW(gpu_test_buddy_range_bias_performance),
- 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
- 	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
- 	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
+ 	return 0;
+
 -- 
-2.43.0
+2.53.0
+
 
