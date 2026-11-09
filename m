@@ -1,101 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.30
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794223914;
-	b=4F7ClqtN/d4bEpI/nZaV3TkEJ0HSGqddWQnL2WCebhM9jWL1cG76Zu5OYBpeeYOFCpqo
-	 C/ElmR73XkeFsVDxQqCpHTYRIpaPxUtftyliz+BTqqta+slYeHMk4hwx1374gfpCI1f5V
-	 5yKA3B1c3QNKH4ej9nrZiXi0vdo7uSUMRO2Ph99rsUCz7udTLJu1r1O4c2zIeZ2KTblvj
-	 Nu+VDifbZeMVkxE+NFrKQqTb9l3zYUHxcQh9iKjsyppOMqpxONmopwSvl7QX8fjNIYmCX
-	 YXUo4qYg0feVCaFrFNR7K/8NEIBdmf8HQKu67FDVHoKn/bCBFpgWvhMtovnZVWTUdJA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794223914;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zx9nBsm3vl4/11ecHOgKP9fQmlf4UBxjC4vWblmEF3c=;
-	b=2MIATptwqjy08rSDVLld9a4bUwjMasM0RXVeuqwlDMaUdJuOtBqmqD1ms0jMLTciLf7d
-	 9S4WOt0ueX9S2zSBuGqMNFfU3N11fE2jfxIg+CkJg8QdCLmtwANALnjxztiNr9ZCDXcX5
-	 FUTeRdleV6JHG3PYlkCYAy5OjjKXSmopQpEi728M7FjWBVqkUMwa9cehGlBMVZMlqG0aU
-	 L4wSeSFdhzUO3F6dG/B9GUMGqAGty6EewSdYxiJ7nRqAyWpkiErF4yXDYt3Qny4rhbsN0
-	 KAKxrYOPbjUr6S2fVRYs/FgpgDqrDsk9/K68C2NV0T9b2A/1+dDKBxWNtCWyPb/3Ebw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=W6CF4JLU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.30
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013030.outbound.protection.outlook.com [40.107.162.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFFC606A31C;
-	Mon,  9 Nov 2026 11:31:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BFFC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794223936;
+	b=uratz09cL5UDaEqTauqwpSNaL46KZkOAX4wZ4R9D9kYQX3bwI4abGSra/HEhhTPBrQ4W
+	 aJHE5fEUvjg19GUZl92amnHbEPQdIoH1++VX2D9Y5cFMmEb4xK7inNJFuhq85k0sRLfWx
+	 8qhP4Ho5rdTnZ7+DiiXYtGyiGC24CKM9feP7kg6rvGBUncUCWMgHY51rQf0COqStCSRR3
+	 S0rLZBUUecBMDmbSs0PXF3iv/3LKGXKTA+LLvIsETX1UhOMXbS1wQwFHVY2DizI8jhvkI
+	 kzPUn081XTObm0++AwFhMzWwWd5mLsKW1CSAKqWKcOoBJo/BLsLBQp918Pkst2Karnw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794223936;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=CXHQRvzu9ySr8LuHBBRQmSRAHwMMhm14WW1qfDMLw/c=;
+	b=VHZST4CwF3pci3Pmg2myylJ9gkSDgM8/iIR8DcswCxwKcwoHcyvslAFsxgkbmQUHBVXq
+	 V3QwYmL8EP6FkjcoGAs677xUXT/QqYN8O4VRSHfwc20txbLOLdgdCtjKN1biVphEngeii
+	 LLECSDLbsLH/Kxt6KzXDB5BhS8f9kLPdOqVL1WSJrNkQrh1gJOMvBzissqm52UjhmH2l5
+	 NSBnB0xtea1cFtJYH9td0OJsa/NKjg80YY8Qc3ZRy0807ol2GXeIyIuW9VlXXssb+0cCG
+	 Ft2jjnbWIFRaPPOzgAXnOxp6fXp46Fh2nTc4AkKY0Za3lsbzhN2/jBfGN+J19egQyjQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hMg7TyP8;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C1559606A321;
+	Mon,  9 Nov 2026 11:32:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1559606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=W6CF4JLU
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BOn28d59FEE8AuFMQQChyGVkScSQKT9zD1um/6yrgy1He+04ZsYUQaU1lSpHrWiKH5OycnlGnvp+LJojKSAXu7S5qO057DV3Mf2Jp8El+V7FUa9eSgXbMk/TCUHpu09LtgRDayMBzf/F0DQWc6nPGeCJZak7Z94fFphIeBF0TPWFeamPOwVIpUM3+TZLJtr58DRb0dE8RQEoxmx5OCs94TodOPvV2rqbqXITwRuTIG2yz35xSV1sv8ZD9f3Q/alTuuVAGy1wWVmZxoDTsANO+8z9inyQCAM07izamHwfyRPJr49oEyo2dmUhbxfynELYy7zsYJXgLTgtIoedcqP55g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zx9nBsm3vl4/11ecHOgKP9fQmlf4UBxjC4vWblmEF3c=;
- b=CeENtuu5uqfpGK93huCTc889EJKhiM6SNOWACNLKKn8mTzJFBE32OFKraLwN7hebfo1AMpnhvU7Pvfjth0WYyn64Y2zVN1kpodO9PxHY4MneEvfKWsiuPR/vF2CMqq8Yu2JaMuB3ruEmXu4P/zPXejTTzza5RnObNHkWosoglwpCEElPX0AC/tULClOIvA0mVr/MNirCE2T5LZ/ws4LjW7qacR4H1ajcCt3HE1MjPPKZUwSVWFm9S/n+fgx0o6eBiTevpQxib4YZpb5Z1P+kAU5HhedK02e42qtid+9aBogN+VA6N+3HuS+9PYDeIDJk6mckkZjKxJ637vLdaJE8CA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zx9nBsm3vl4/11ecHOgKP9fQmlf4UBxjC4vWblmEF3c=;
- b=W6CF4JLUozIKddodkQKk1h4M39EMOu8nVEpvxEgzZnPRVxPwUrQT3jt3BIHiP/AjfwMy9inlLvvXJpxj3btQ0aLGzpuaXPAdkTewnmdKKSX2tARfziAXYEkziSQ29FgpEfkoq4FGbrT4Q5RrPKK1VvbOi/3p7FClZCGKHmLrseAgDPhP6AGr/4xbvwZp+i70seYfm/JfMIU2yPsYXT7I5tElzflVEGCwdJTK0v0sOGcwCNAXGaauzVgMHsteR1dmsqg847OOw8r96V5Z4U0xqzQqEqtOARlFDu0tcGjxZb5LUCakY3HQCU4dAImH5s2yFfpD3jtyYzGxZlFYSFamWw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM6PR04MB4472.eurprd04.prod.outlook.com (2603:10a6:20b:23::20)
- by DU0PR04MB9670.eurprd04.prod.outlook.com (2603:10a6:10:31e::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
- 2026 11:31:44 +0000
-Received: from AM6PR04MB4472.eurprd04.prod.outlook.com
- ([fe80::aed9:e8b9:c352:9ba0]) by AM6PR04MB4472.eurprd04.prod.outlook.com
- ([fe80::aed9:e8b9:c352:9ba0%6]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
- 11:31:44 +0000
-From: Stefan Ghetu <stefan.ghetu@nxp.com>
-To: abelvesa@kernel.org,
-	peng.fan@nxp.com,
-	sboyd@kernel.org
-Cc: bmasney+clk@redhat.com,
-	jbrunet+clk@baylibre.com,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	linux-clk@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Florin Pavelescu <florin.pavelescu@nxp.com>,
-	Stefan Ghetu <stefan.ghetu@nxp.com>
-Subject: [PATCH v2] clk: imx: pll14xx: Fix potential integer overflow
-Date: Mon,  9 Nov 2026 13:31:38 +0200
-Message-Id: <20261109113138.10845-1-stefan.ghetu@nxp.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: FR4P281CA0416.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:d0::19) To AM6PR04MB4472.eurprd04.prod.outlook.com
- (2603:10a6:20b:23::20)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hMg7TyP8
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 118511516;
+	Mon,  9 Nov 2026 03:32:12 -0800 (PST)
+Received: from e132581.arm.com (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 638FF3F85F;
+	Mon,  9 Nov 2026 03:32:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794223935; bh=r0wxlvvbX4+OZAvcNk00XNBeViJ9UtAC+4++EEYcwcA=;
+	h=From:Date:Subject:To:Cc:From;
+	b=hMg7TyP8YQOM4N79+1WjmlQWjRNykXwLvLmDcBN2EAZ8JuB5knQU6LcJzSLxu3qoF
+	 QtFj3IbRWEUUszuarolBh5WjyMax3jgMKZUMdqHIkjEa3yRxP/uX0STUul7fKWuSta
+	 glWVnI9nDcFHRz+lLOPD8BM2BeiI1dWrg0kR6ViQ=
+From: Leo Yan <leo.yan@arm.com>
+Date: Mon, 09 Nov 2026 11:31:53 +0000
+Subject: [PATCH] perf/aux: Fix a memory leak on AUX allocation failure
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,90 +55,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM6PR04MB4472:EE_|DU0PR04MB9670:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c47ad66-aeb9-4432-a77e-08df3e550804
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|19092799006|10067099003|11063799006|56012099006|261021123027099003|261021121427099003|261022075727099003|261009223027099003|261026121527099003|261102123227099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	Z9v5oBCYWLfYolDy6+0Z/vEz8mUNefJJwqNZuPTRalpbzyRt4PDKjU5nj+CLdm47ENvnGnG01K7LvXAX7jsuTS1eZxBT9dHr5vPTrQ5wGYqXszCTQWFzUli6JAIJ0R8lP3uLPnmwJkJC3HkpSeFk8wzxR/xZosy+P6PcValckN9W+Nz9nVW0ODQOCI/j5V+1XP/bvDXb23jIh/4iusuottZrvnX7j/VVDMoHfLDgVzrbi9Pq6OPq1hvAR3yQ4YHSM9n40XhIEBhV61VzmncEBBzW/Khf/mNswxbGILY/jgAzO3ry5rr4jDNv8z6aa0q867VRDvAdeVRE4RFlngyG3awmqRm0sSXd6f5uKGuXsOjBP0e41EjVQhpOxZtDa0aps2P0H/Ff+7+xbxoy6MsqL7Vwd97xFCbSITN/POOBD5ipBAA9e6zQWE1Wv2bRhFNytrMlMCiVBKIZyIGUcEIQBqdNEEe77DY6X6Ks4tfy1C9RAjcC7y9DWB4+LaOiccfwPXJHpBepCGPJVE82+eA8DbhfCbpB1JAZQ8yNFUtMsjqLAHYNgRe3CLdCOt9wuvITNRV9SsY5VNqdGgXGxRS9HOlHdEUzUfRH3ax2y+VT7VQ3sQdxRBvdOemOliEzX7BGbYdXxMkYJUdOROO5eRbVvRLaPsb59e2OEQKuMZN7wtk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB4472.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(19092799006)(10067099003)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261022075727099003)(261009223027099003)(261026121527099003)(261102123227099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?sTGefgqH1PCBH2+6V7b3RtSKIESHSpLVVzMEK/+LqZ/fWSVYY53epy0pF2VF?=
- =?us-ascii?Q?eblxmRLIuVz29+XE8EcRooTiKdy+KxcufLWTx6SZ14N+BvH3U1F6k/C4UMZn?=
- =?us-ascii?Q?8HZvAseYNvgYVeQ5gwoUs7lfObAFGk50kNNexXAjpP9YXIxcOAJZdkx1tWPb?=
- =?us-ascii?Q?JzXr0JeWO/YtfOH7YuwEOryGe7ptj47aLuxxgnuVmJ2b5wMkDHGe+/xtNUOj?=
- =?us-ascii?Q?blR8XlcL83sjTa8M1MBihnHkG0yrb45NtwnF5fgMmoB6M2wiiShBiXk0pMMN?=
- =?us-ascii?Q?F1vapBCn0lGdmL1lqrq23RYm8Khg5z3barV8z8TpaF1FS+Ulcb6tvaOiit5H?=
- =?us-ascii?Q?oi3Zg4Y/YZlaL0DsY4wZYDReSBNRaFeTzEIY64wgQNv5Jo8OxYZQ74Qw+ioZ?=
- =?us-ascii?Q?BmkyZVlLuW2ZzqySrZ+ctxPWsEkd6j0W+TPDIeFxdao18n4RndFNoZZn/7cP?=
- =?us-ascii?Q?xFgqHnzpdt3rmIniqTleuZapKSIva+ALr3uZaCHRN3WRiIFS5DbxJLGvKu+2?=
- =?us-ascii?Q?5eBOSIA353avL7fsNw0pGGNKeO1Kqin59XiEMfiJqhOusfsl/vfbO2WeAjr6?=
- =?us-ascii?Q?seCDuLCUX27ualRZd6w4kyOWnMdo5KrxzAsOu9yERv1KgANr6J0zd5X+PqB1?=
- =?us-ascii?Q?K6tQmWKzB4dfn0FmrvPuTfXWfQ+KXY8ofoE8Bvn7xI04/SkLvhDTMnwqBrJp?=
- =?us-ascii?Q?uZHl+470cWR1zYLPBuK1yZq5tBMk8lZG545Ordz1uGoVEoFoQMXHxpNgDex9?=
- =?us-ascii?Q?8gAHz0NNZ/E5o8cPjdpyeMeAvGhmbD2ifSCsl/LOaMKQ9TKDxY8LAbc3sxD/?=
- =?us-ascii?Q?5DWTvHYNjAZb1tB1TmdSP4KLI7WwVrvXgWbzAIt44ZGMBSQf22H+pzaGCCmy?=
- =?us-ascii?Q?Svy7Bd0TB+Ef6Ok0F5OPdKiaMJk4XYDLCTI8F081ekj1NIfuuYoT4bPx7q6K?=
- =?us-ascii?Q?Iqhj0lYlWh67O4BO5B34AO5Vc3F0WVfrrqkqdovs9GJ7oQsoVXhh3AqhmmOp?=
- =?us-ascii?Q?LWbI8Pmyjk9K/yAp+yYIgFgKYdOVtAWQXi4Mn1W5vVs9hd5y7xJKPuO/dRuq?=
- =?us-ascii?Q?R9iDRPxbAO/mNu7OWJQ6wMAlelKiF4eKQfpQ5nuJW4Z6kpEGobSlgoRPY0XR?=
- =?us-ascii?Q?77k87Ex4+csktebs6L0scawXSsKgy8s+6+B+GmcuxpZIU258o7cL4rGzFfmw?=
- =?us-ascii?Q?Unh0hdvX+yzIP50JZNbU9WDtdU+iZNB3OBCNn134zXCQAf8hCjf8pd8/tlAs?=
- =?us-ascii?Q?THijoy3F2VsNFU+X8JL7M+29yz9ghPFgjvcl13V2PdaO33gr/1+m8KZHbiSt?=
- =?us-ascii?Q?GfSWL+EdKkbxqQ1UijbWdkzbQnpJ3SPluNpHhFV9qh/D0B4QPvv0OrCVGXMa?=
- =?us-ascii?Q?yVyCGAUDC9OcyBf5Woi3hjQjvcC/oHlmaiH40JiwAOeQt0VlYbzhkOSjzqKr?=
- =?us-ascii?Q?bl7mC3NH47XDDVqpujcjxo/k2BBQHA8ttmD5SdT/Ttdd4/ex0jJeJ+A2i8Dm?=
- =?us-ascii?Q?JxoYwontI/OAkePpGV2pjJ9xfzgQjo4d/j5NI9TyE2xZwMWDuaIGzwPNHP73?=
- =?us-ascii?Q?AwijKTjGDQYb7AuP8V3w7ckljHBggdpHUhzAi1zAJ1gUk+FMdiHwLZJdLxUn?=
- =?us-ascii?Q?Hymsi9W7nJSnI8pNuPKXsP+P57YaY/6p8odO7oZrDQ1vxRpPHnFbS89SbHxg?=
- =?us-ascii?Q?u6/XZpoHAcH2fWpCu+9DCwYbQQXbYa69ElnK25x3Oad9iXocsDhSxJk/L5tE?=
- =?us-ascii?Q?7eFExUHZlg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c47ad66-aeb9-4432-a77e-08df3e550804
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB4472.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 11:31:43.9353
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QkLQ1rIRtiXsqXB8I4H/GUcGeTdCFTIb2YVgHZ8XHCVIuf2C6hd65weYLPeekmwYPL0CcxBU4M6zs+EIUqN0oA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9670
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261109-perf_fix_aux_page_memleak-v1-1-aae781d6749c@arm.com>
+X-B4-Tracking: v=1; b=H4sIACmv8WoC/x2M3QqEIBQGXyXOdUJm7Na+SoSYfdahnxWlCKJ3T
+ 7ocmJmLIgIj0i+7KODgyP8tgcwzspPZRggeElNZlB8pi0Z4BKcdn9rsp/ZmhF6xLjCzaAarvs7
+ 2daUUpd4HJO99t919P9V9qtJrAAAA
+X-Change-ID: 20261109-perf_fix_aux_page_memleak-9dc37fcb8433
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: Ingo Molnar <mingo@kernel.org>, linux-perf-users@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Leo Yan <leo.yan@arm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794223933; l=1781;
+ i=leo.yan@arm.com; s=20250604; h=from:subject:message-id;
+ bh=r0wxlvvbX4+OZAvcNk00XNBeViJ9UtAC+4++EEYcwcA=;
+ b=zJD8U6yffrHJiNrOFC5llDvc7sJv10tIeTLsnQjA8NUOVC81FMoWVwPDqogMIJ9OjK6USk+1a
+ zGumgocFo2/AK4X6UZvR5kyJ1TkBhMm5VJuyHH51MHuqBd1x4Fsdyaq
+X-Developer-Key: i=leo.yan@arm.com; a=ed25519;
+ pk=k4BaDbvkCXzBFA7Nw184KHGP5thju8lKqJYIrOWxDhI=
 
-From: Florin Pavelescu <florin.pavelescu@nxp.com>
+rb_alloc_aux() allocates rb->aux_pages before allocating the AUX data
+pages. If the first rb_alloc_aux_page() call fails, rb->aux_nr_pages is
+still zero, so __rb_free_aux() skips freeing the pointer array.
 
-Cast to u64, so that multiplications and additions will be done
-in 64-bit arithmetic and the possibility of integer overflow is eliminated.
+Commit ee9397a6fb9bc ("perf: Fix double-free of the AUX buffer") added
+the aux_nr_pages guard because AUX cleanup and main ring buffer release
+shared an IRQ-work callback that could call __rb_free_aux() twice.
 
-Fixes: 53990cf9d5b48 ("clk: imx: pll14xx: consolidate rate calculation")
-Signed-off-by: Florin Pavelescu <florin.pavelescu@nxp.com>
-Signed-off-by: Stefan Ghetu <stefan.ghetu@nxp.com>
+Since commit 95ff4ca26c49 ("perf/core: Free AUX pages in unmap path")
+removed that shared cleanup path, main ring buffer release no longer
+invokes AUX cleanup. The earlier double-free race is therefore gone, so
+the guard is no longer needed for freeing the pointer array.
+
+Free rb->aux_pages unconditionally to cover the zero-page failure case.
+
+Fixes: 95ff4ca26c49 ("perf/core: Free AUX pages in unmap path")
+Closes: https://sashiko.dev/#/bug/linux-c1a2bb3b-5d2a-4fca-a697-ce07992a5cc1
+Signed-off-by: Leo Yan <leo.yan@arm.com>
 ---
-Changes in v2:
-- Drop the redundant (u64) cast on kdiv, as suggested by Frank Li.
-  Adding a 32-bit value to a u64 already promotes it to u64.
+ kernel/events/ring_buffer.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- drivers/clk/imx/clk-pll14xx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/kernel/events/ring_buffer.c b/kernel/events/ring_buffer.c
+index 95f4fbdfd2764de5b72d901d778c46302f525fad..687d89c1fd5fe06963ba2a9563887d5f0d693e93 100644
+--- a/kernel/events/ring_buffer.c
++++ b/kernel/events/ring_buffer.c
+@@ -674,9 +674,10 @@ static void __rb_free_aux(struct perf_buffer *rb)
+ 		for (pg = 0; pg < rb->aux_nr_pages; pg++)
+ 			rb_free_aux_page(rb, pg);
+ 
+-		kfree(rb->aux_pages);
+ 		rb->aux_nr_pages = 0;
+ 	}
++
++	kfree(rb->aux_pages);
+ }
+ 
+ int rb_alloc_aux(struct perf_buffer *rb, struct perf_event *event,
 
-diff --git a/drivers/clk/imx/clk-pll14xx.c b/drivers/clk/imx/clk-pll14xx.c
-index c6438144e507..ee9a9e4c392a 100644
---- a/drivers/clk/imx/clk-pll14xx.c
-+++ b/drivers/clk/imx/clk-pll14xx.c
-@@ -124,7 +124,7 @@ static long pll14xx_calc_rate(struct clk_pll14xx *pll, int mdiv, int pdiv,
- 	u64 fout = prate;
- 
- 	/* fout = (m * 65536 + k) * Fin / (p * 65536) / (1 << sdiv) */
--	fout *= (mdiv * 65536 + kdiv);
-+	fout *= ((u64)mdiv * 65536 + kdiv);
- 	pdiv *= 65536;
- 
- 	do_div(fout, pdiv << sdiv);
+---
+base-commit: 2651f6deb3326129a052897df193052dc28ea94f
+change-id: 20261109-perf_fix_aux_page_memleak-9dc37fcb8433
+
+Best regards,
 -- 
-2.34.1
+Leo Yan <leo.yan@arm.com>
 
