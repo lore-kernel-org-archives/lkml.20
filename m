@@ -1,66 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794195482;
-	b=tiZMbuQxJlzuOK0MHzVBQUm2d1/wFbRnr+PBCkHBbl15NGTh5xxEFH/2tnCaoZRZww7b
-	 3i7SElbXUDMU3iSlD+jEBVsVy+LyTwcdh5Rab5VT1xtuBpWMpPkOBhvbsJLb8+jFzn5i+
-	 0oKxr/idcvhEixIJQhMryhFZOk4PjNfJbVoDwk5VIKel1AOa9wu+5R1gA5SEckI03q1KL
-	 r3jeaUQsKPWZ9goF2+03ZJUbQx06nJAA9xfX8Ea22CuI1e/XXsbqhPpp5RVzyy4MW4mjC
-	 imvafZnIYxLv8z1wBYVAoRnGeJ8DviPg3+MxyEQavhm+AAw170H2tU9jJp1jJOV7eYQ==
+	t=1794195492;
+	b=DNbn5/1JpnwNVSojmtcjWCRZe7iQUGcBTJEC66ugKX/IzB4PNny05umq3G1sMJ3S1EYn
+	 uE36J0JppdiJ0tQZ6DBmkMrSEiY208KIQl5KaS+bXAXsK38YaL31cqJMMqkd4kBtBG//w
+	 +eMgHkD9Xw44XV3ujL39qqX0miFg+Jy5HfirA8On+M6vkua0/05W1+5y/JdW8DZuv4aYb
+	 fpbvjuCcqCDLUZOQMwF5+XK/ddwN/rmf67+tqzuGVCOeAc2dXiOZd2t/aK5M14ip6Awkm
+	 QqqJx/IuOUvVjH4uNlVwkPNfKPzl3DMzH2tpEM/3eKMD0j25M6QZeYjLdtNUp+SxCcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794195482;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794195492;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=QR6SnSFlCFw/lgO9lpC7SNUztBTZE+xdnWmajoMdqy8=;
-	b=WqZzTRNGr1XLuXPWrnRMPKt9PI9U6RQrp4D9LVisTLMJ//b7XZXuNYYJAoLCICai1Tjj
-	 iUq01PyyuWVVPxHv1+wxJ1Rw3ZTZZNNBzMi8VwdHV57MUBoyeYQX2ctLDH0OzkR0bEGcZ
-	 Il/LLszK5R599qAvsrQl+th2P7cgwVqEntM+Smtp9GwX/kfMnuzQsa8Z5PRVo011JGm0w
-	 PuTdGRa0isasFdpkf/r+nI3MOjIBFArgehfU2q+5UGmZlssvI56gYOCfFwnIQdnyJSGSK
-	 zSINuqd9zCcicIA31PUGHVsdwIdEF1ifNZVw54d0o5yK+apaSUpcHHIex2/PsI2eINA==
+	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
+	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
+	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=SCgcCvjpVgxAQGFzaYNd2gEe0P2/mBn/A3wpYYQTHtk=;
+	b=BtcyioVIlO8W9ElE1Y2sSUO6wyyOCKXHvUStTK0451K6noGWkLvB2opuLFeh1me3ECUO
+	 k4ORvbkBw9tAIuO3GDQF5jGfuwMuhhatlwH5BWppvQGSs+Yy+fsovIg0Sj8POWg933jdQ
+	 6c/Hn8J1wgnQ9rq8F+DkkyotbHH1QhegTTO8txezORrrZr2FP8FfBlHr+EYY2ZOPHTLgS
+	 CNYJt44bHGaDTjrsS0vwUbMe+80f2vOwsWVUO26E1YtkTQdwTzaUijwrF+uhegoGCbnjQ
+	 7cccqvcmhi2b0Rv3P+L5q39prQrbpRip2ypLVT6vZYzfGX4tYGbfmX9au2XDXWJI+LQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=FhvrH6aV;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=YE8dnh5n;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33EA4606A31C;
-	Mon,  9 Nov 2026 03:38:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33EA4606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDDB606A326;
+	Mon,  9 Nov 2026 03:38:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FDDB606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=FhvrH6aV
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=YE8dnh5n
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jNFqB73ZJz8Xs79;
-	Mon, 09 Nov 2026 11:37:58 +0800 (CST)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jNFqQ1NBQz4yjSm;
+	Mon, 09 Nov 2026 11:38:10 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794195479;
-	bh=70yvcFBEizJ9BF630Dxm5ylJM6qPfCYSUPjWF0wQ6Aw=;
-	h=Date:From:To:Cc:Subject;
-	b=FhvrH6aVJLr0RI5BKxLHWFCI3HCiQaQPXohhEYEXkDf7mlvgkLLKOresS2VtLYn0+
-	 Fvh5X6m3cgCO5NHKQaYBH50z0GTTaS3gsSn/VtVQDcmdOJdKUNlwxr8Xqn1kRE/JLQ
-	 ZPE16n16OmZz2PLMVUoO7BJDuizmf6u1IU2fgLiyCSgjSFCifsKViXsW30fKG2t69o
-	 TzJbMrSNTkwS2569xcp6aWxr7QBZQJWyWqSJoUjQcOA8KBf5aAuQ2I1tFtBm09J6CA
-	 uxyrOKsmVgrdEbNvuJRqdUCLvh2oLXam+OUdJlmiYj4mrRPzqazR89fwGhwK6nfeX5
-	 E0mG7SekEpEUQ==
+	s=z202610; t=1794195490;
+	bh=lZWEoNF2oFB9eK3jk5bK1iP9mc+Hj+HyJRK0HMRsDfY=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject;
+	b=YE8dnh5nw3JRRcFpUOp0Go9HTkAJI27DULUclLDUyQcU03j/KEyvHW0SSmSPeTVBc
+	 UnarJRTmSW3N6sxF1lQgOzj2hu/44CU20JFG9TiOXEFVwXwvDeybp2xu2Av6LofGdW
+	 1Rddsptumn6sjTMw9u88sK5Y3BN2lEl8pRBnurmJ2p8mcRHUmwk1kGgnlXtV1paWY6
+	 ciDrYRIrcibXDhK3AOwHSyZ2QkbyCW7Uk4vEf3mlpUcBZjlLZrXrf83M4raPZQ2LNf
+	 oiCfe6Rzf7jiwbR5OPGjNo2Skv/RAmeYpIrAbLXm8aisTkamIWMfIXNOLunBAfhCXi
+	 KbIvaPh7g7HMQ==
 Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 6A93bqSA025922;
-	Mon, 9 Nov 2026 11:37:52 +0800 (+08)
+	by mse-fl2.zte.com.cn with SMTP id 6A93c0o0063755;
+	Mon, 9 Nov 2026 11:38:00 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp01[null])
+Received: from mapi (xaxapp05[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Mon, 9 Nov 2026 11:37:53 +0800 (CST)
-X-Zmail-TransId: 2af96af14011c7b-40e75
+	Mon, 9 Nov 2026 11:38:01 +0800 (CST)
+X-Zmail-TransId: 2afc6af140193ff-415f8
 X-Mailer: Zmail v1.0
-Message-ID: <20261109113753774uzCxndU_9x6G5W63TB1hA@zte.com.cn>
-Date: Mon, 9 Nov 2026 11:37:53 +0800 (CST)
+Message-ID: <20261109113801611J1jCIkfmIY1QGjnJLAW25@zte.com.cn>
+In-Reply-To: <20261109113753774uzCxndU_9x6G5W63TB1hA@zte.com.cn>
+References: 20261109113753774uzCxndU_9x6G5W63TB1hA@zte.com.cn
+Date: Mon, 9 Nov 2026 11:38:01 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,39 +77,40 @@ From: <shao.mingyin@zte.com.cn>
 To: <mkp@kernel.org>, <linux-scsi@vger.kernel.org>,
         <target-devel@vger.kernel.org>
 Cc: <James.Bottomley@HansenPartnership.com>, <linux-kernel@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDAvM10gdGFyZ2V0OiBmaXggZXJyb3IgcHJvcGFnYXRpb24gYW5kIGxvZ2dpbmc=?=
+Subject: =?UTF-8?B?W1BBVENIIDMvM10gdGFyZ2V0OiB0bXI6IGZpeCB0aGUgaW52ZXJ0ZWQgZHJhaW4gbG9nIG1lc3NhZ2U=?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6A93bqSA025922
+X-MAIL:mse-fl2.zte.com.cn 6A93c0o0063755
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Mon, 09 Nov 2026 11:37:59 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Mon, 09 Nov 2026 11:38:10 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF14016.001/4jNFqB73ZJz8Xs79
+X-Fangmail-MID-QID: 6AF14022.001/4jNFqQ1NBQz4yjSm
 
-This series fixes error propagation and logging in the target core.
-All three patches are independent and can be applied on their own or
-as any subset.
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-Patch 1 preserves the error returned by the fabric make_np callback instead
-of replacing every failure with -EINVAL.  This one is a functional change,
-so it carries a Fixes tag.
+The message is printed when __target_check_io_state() returned false,
+i.e. when the command is already complete or kref_get_unless_zero()
+failed, but it says "non-zero".  Make the message match the condition
+and switch the unleveled printk() to pr_info().
 
-Patch 2 prints ref_task_tag as unsigned; the field is a u64.
+No functional change.
 
-Patch 3 makes the LUN_RESET drain message match the condition it reports:
-the message is printed when __target_check_io_state() returned false,
-i.e. when the command is already complete or kref_get_unless_zero() failed.
-
-Shao Mingyin (3):
-  target: configfs: preserve the error from fabric_make_np()
-  target: tmr: print ref_task_tag as unsigned
-  target: tmr: fix the inverted drain log message
-
- drivers/target/target_core_fabric_configfs.c | 4 +++-
- drivers/target/target_core_tmr.c             | 6 +++---
- 2 files changed, 6 insertions(+), 4 deletions(-)
-
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-base-commit: ddfe51b0a0f5dc9e415cc2c8ad8db17532dd426b
+diff --git a/drivers/target/target_core_tmr.c b/drivers/target/target_core_tmr.c
+index 0b719f3f9cdf..2ba84773466b 100644
+--- a/drivers/target/target_core_tmr.c
++++ b/drivers/target/target_core_tmr.c
+@@ -222,7 +222,7 @@ static void core_tmr_drain_tmr_list(
+ 		spin_unlock(&sess->sess_cmd_lock);
+ 
+ 		if (!rc) {
+-			printk("LUN_RESET TMR: non-zero kref_get_unless_zero\n");
++			pr_info("LUN_RESET TMR: cmd complete or kref_get_unless_zero failed\n");
+ 			continue;
+ 		}
+ 
+-- 
+2.27.0
