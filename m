@@ -1,58 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=49.12.199.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794243871;
-	b=f3WoJdtOOGjzhUarlK3w//+9rdv5cJMAn28wkPUrjCh4vlwYuu60dZrYANkAzQrfBwPe
-	 Z2uw/0FFcuObZRKir5v7E0s/2Og6Ji9KSw5Qt01MIaSHTKoGuPoxRIOnVVGIpmdYPUA+s
-	 bMWTqNoGlJGDAPWBqhZQftHG59vy9oHbEb/YfdR6s0ew9SMFnQ2oF4T9yntyYVudFuEjl
-	 9LQw/YnWlBpCyZVAQrERAs+CpKtltTKyiFA3kcou9xCRzc3UlfU59PCEz4hMtAkdngLwL
-	 5nxTnVUnB7dnVO2uOHjYVC89ws3d3gfir301pLhqlHlrsQ6T9Me/oMG6rmxLmA4SqIw==
+	t=1794243882;
+	b=GCTO7d8YY3p302HSUpGjcNif076jNv9+8yCz3OKawzf01/Wv+k5sGFcXUPMdn4V4r/vS
+	 Ca0ZkA82+CR5V29iBjptiJ2amHDLQLMxEGiG7KbHELO2LyTE5xcukEL7YAj22JvnzB4TW
+	 WfkXW/SsgpJ0Mb3STjQL2RY3IRLn+Nl2QTJnk6VrFZtJeKR0/bWhzu4i95NqtMfAMfPN/
+	 4k6mWf7rfvaSd6REl1BMQj/p0/K13tFbfxLj92qam/Hdy4TNIXwR1gWRxCrxjfZg8Vh9J
+	 sfLKGuwMpSVzJECC7xp7RyupDk5eR/Wv+8ttAOwZcw6o07csUH0z503+EuxoluqMykg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794243871;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:Subject:
-	 Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=BjzF+OV9KrwDhT+7SIROb6R2QHteuy74+xxIjAz9HGk=;
-	b=Y2SwAGR4vCl+SUWOkmNCEwrL7o41cuicFMIrt9yDa7RkZuGKi2v4g4J5j4sy3Ix1HwKc
-	 d0ysuoWjuF5/EOLb9kWFfCbO0PCInvs70Id3Y9LmVc2aUq0jeL9XY8Yyoq8HOR8/qNztC
-	 wEKxS/s0pNATKpUwatlZuAuPEvz6OEPi+vXEFmsO8ScirAHvgzhDOxuSBnTeqE2byvYTY
-	 pxkeDakPAlzH9u/Ytwb1/4X5X3l2qQuTphLDt7dF343L2SONhKHqi4HfJB4xrqLweOH0T
-	 wWFDkWYxXwiMboiAxSdUcEGwvdHgzLZk2EdzreIxQ398gKI/NJ2TwsNMF4gZqokxgOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794243882;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+odsCpg7jpRsaCQXSZZ4yxoA+q2K8SnFUpM1JNTaGdM=;
+	b=lIjAKru5SGVbLsfdFfaVYEtWd/BlZGLJ4dAtW/cQU6jbXfiKmfsSxqU8bnPB/6L554fu
+	 eTJ+iqSw+/hS19+DqgDuA6YQDtM6lrmEcrxexycuSQflma2uY/pleoNitT6plR825Zg2T
+	 C+co9r90BQXupSEdVcYC/jaYNlHMiJy/wFnWYXuHgrXdPXOl7yM/sYbwneiPC6GSL9JyG
+	 ecSt8zu5bM0WQQvFvfLbfDdBckx8Slm2eZOVQAy4TNtuZHAd4GaXvjHxO7w1tLB1OBo9v
+	 JuXQy4Bc66wYjl0k7Bl+cEXrkSPGO9DppmO/qF92cdP7rgDvHJ4UVqvdCdeNEQDqGfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=monom.org;
-	spf=pass smtp.mailfrom=monom.org;
-	dkim=pass header.d=monom.org header.i=@monom.org header.a=ed25519-sha256 header.s=v1-ed25519-20260726 header.b=z8s1Vhjg;
-	dkim=pass header.d=monom.org header.i=@monom.org header.a=rsa-sha256 header.s=v1-rsa-20260726 header.b=ksUeWPGp;
-	arc=none smtp.remote-ip=49.12.199.46
-Received: from mail.nearlyone.de (mail.nearlyone.de [49.12.199.46])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FODMQ6HF;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3333606EE96;
-	Mon,  9 Nov 2026 17:04:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3333606EE96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=monom.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=monom.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFC6606A339;
+	Mon,  9 Nov 2026 17:04:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=monom.org header.i=@monom.org header.a=ed25519-sha256 header.s=v1-ed25519-20260726 header.b=z8s1Vhjg;
-	dkim=pass (2048-bit key, unprotected) header.d=monom.org header.i=@monom.org header.a=rsa-sha256 header.s=v1-rsa-20260726 header.b=ksUeWPGp
-DKIM-Signature: v=1; a=ed25519-sha256; s=v1-ed25519-20260726; d=monom.org; c=relaxed/relaxed; r=y;
-	h=Message-ID:Subject:To:From:Date; t=1794243843; bh=BjzF+OV9KrwDhT+7SIROb6R
-	2QHteuy74+xxIjAz9HGk=; b=z8s1VhjgdNEhZ5qkc6yeJkIGI3Fvg9+MesP3I2Q5syeproFxj5
-	nXf0l6FlVFEYE6qDLuLyZ7Y7fIxl+HZcgqBg==;
-DKIM-Signature: v=1; a=rsa-sha256; s=v1-rsa-20260726; d=monom.org; c=relaxed/relaxed; r=y;
-	h=Message-ID:Subject:To:From:Date; t=1794243843; bh=BjzF+OV9KrwDhT+7SIROb6R
-	2QHteuy74+xxIjAz9HGk=; b=ksUeWPGp4q3yMzvKba5jrV4xK8O7Czs+0lk/9q+k0S/CYHX+L1
-	BpHxSsQaQARg+R4O31Ae0OlCMIviB+b/qCt6QKF2ELINNY2yXgb5l3P7x8wwg6FKakcVnrlE9e+
-	qeh6UROZngf2owYIfgzGbXkVrNWiXBJgPfM+vlfnO2Z0AI1U5x2J0TeqfUGh9to1EiKx6oTKsmJ
-	yowA+Aw0mtoz97dvpTVV07zu7A/vhiH+XDcWqvcqWWOZ0NwFSPLeoih9TorXrnMi+0MrsRby8+b
-	EHnpnAL4vpBKLATzR06XxYgcAPtmtDCG+WSA0wc+mIonVcxKZVwdvcI8j5XsElVE9bg==;
-Date: Mon, 9 Nov 2026 18:04:03 +0100
-From: Daniel Wagner <wagi@monom.org>
-To: LKML <linux-kernel@vger.kernel.org>, linux-rt-users@vger.kernel.org, 
-	stable-rt@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Clark Williams <williams@redhat.com>
-Subject: [ANNOUNCE] v6.12.116-rt22
-Message-ID: <62f9ba32-b008-4014-aa5e-061595654505@monom.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FODMQ6HF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62A7D1F008A1;
+	Mon,  9 Nov 2026 17:04:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794243881;
+	bh=+odsCpg7jpRsaCQXSZZ4yxoA+q2K8SnFUpM1JNTaGdM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FODMQ6HFrJPYbAiPnyWZS0/BhpGp22hllkW0FNfkoaK5CcC043UUfohcKcPk1gp16
+	 +9rUSS5AA4O8P+dEykIPa8fswmqGJ0vYl2zVPKtNbC1dNy1YVwUbtIWWghnDLkPv4H
+	 pfEuNOOx7qWMEfr3GxEDV18r56z+KZxWptqV+Z2+Ei9UoN4dbxPH9IMVswH7Fcd9ST
+	 0kAiW09cm9cSKYdVE6hlg0yi5Uu18PRtwm/TOXAHJEMGfMP2/T5bBWkDZaG2hYpECf
+	 JMe7NL5gOG3nRzUWGmhVvmYoVpBL3PYjuULhStALMsZ/6RHe4Yfzy1/B7YEbUsb+YW
+	 e4jLSkMwebdeA==
+Date: Mon, 9 Nov 2026 09:04:40 -0800
+From: Oliver Upton <oupton@kernel.org>
+To: Jinqian Yang <yangjinqian1@huawei.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev, maz@kernel.org, fuad.tabba@linux.dev,
+	yuzenghui@huawei.com, joey.gouly@arm.com, seiden@linux.ibm.com,
+	suzuki.poulose@arm.com, liuyonglong@huawei.com,
+	wangzhou1@hisilicon.com, prime.zeng@hisilicon.com,
+	tangchengchang@huawei.com, zhengtian10@huawei.com,
+	linuxarm@huawei.com, liujian222@huawei.com
+Subject: Re: [PATCH] KVM: arm64: Register irq_bypass consumers only with GICv4
+Message-ID: <avH9KJ99im5Z2wEb@kernel.org>
+References: <20261109112018.241298-1-yangjinqian1@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,46 +63,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261109112018.241298-1-yangjinqian1@huawei.com>
 
-Hello RT-list!
+Hi,
 
-I'm pleased to announce the 6.12.116-rt22 stable release.
+On Mon, Nov 09, 2026 at 07:20:18PM +0800, Jinqian Yang wrote:
+> kvm_arch_has_irq_bypass() on arm64 returns true unconditionally, so
+> every irqfd assignment registers an irq_bypass consumer even when the
+> hardware cannot perform GICv4 direct MSI forwarding. In that case
+> kvm_vgic_v4_set_forwarding() bails out at its very first check, since
+> vgic_supports_direct_msis() is false without has_gicv4, and the
+> registration becomes pure overhead: every KVM_IRQFD ioctl takes the
+> global irq_bypass mutex, which becomes a contention point when many
+> VMs boot concurrently.
+> 
+> Gate the registration on kvm_vgic_global_state.has_gicv4, the way x86
+> gates on enable_device_posted_irqs. Functionally this is a no-op:
+> without GICv4 the consumer registration never did anything beyond
+> acquiring the lock.  On a GICv3-only host booting 100 microVMs
+> concurrently this cuts the average boot time by ~5 ms, matching the
+> gain observed with CONFIG_HAVE_KVM_IRQ_BYPASS=n.
+> 
+> Signed-off-by: Jinqian Yang <yangjinqian1@huawei.com>
+> ---
+>  arch/arm64/include/asm/kvm_host.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index 97332ffcb130..785d57388032 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -1744,7 +1744,7 @@ void kvm_set_vm_id_reg(struct kvm *kvm, u32 reg, u64 val);
+>  
+>  static inline bool kvm_arch_has_irq_bypass(void)
+>  {
+> -	return true;
+> +	return kvm_vgic_global_state.has_gicv4;
+>  }
 
-Changes since 6.12.111-rt21:
+This should just take a pointer on struct kvm then use
+vgic_supports_direct_msis() since having an initialized irqchip is a
+precondition of kvm_irqfd_assign().
 
-  - none
-
-In the last release, I reported seeing some very high cyclictest maximum
-latency numbers.
-
-After some debugging, it turned out that the SMI watchdog was not being
-handled correctly, the iTCO_wdt driver was missing, and a few other
-tunings (such as fixing the clock frequencies) were needed.
-
-Everything looks good again in my lab.
-
-You can get this release via the git tree at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/rt/linux-stable-rt.git v6.12.116-rt22
-
-  branch: v6.12-rt
-
-Or to build 6.12.116-rt22 directly, the following patches should be applied:
-
-  https://www.kernel.org/pub/linux/kernel/v6.x/linux-6.12.tar.xz
-
-  https://www.kernel.org/pub/linux/kernel/v6.x/patch-6.12.116.xz
-
-  https://www.kernel.org/pub/linux/kernel/projects/rt/6.12/older/patch-6.12.116-rt22.patch.xz
-
-Signing key fingerprint:
-
-  5BF6 7BC5 0826 72CA BB45  ACAE 587C 5ECA 5D0A 306C
-
-All keys used for the above files and repositories can be found on the
-following git repository:
-
-   https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git
-
-Enjoy!
-Daniel
+Thanks,
+Oliver
