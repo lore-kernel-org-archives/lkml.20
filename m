@@ -1,102 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794224335;
-	b=ewIwNcds+dRGr7rSCq7y5qXAWG3HfpZcFgyTNkazhPvo+UW3yqtuAOOovn32D1lQWGlA
-	 Ml82LsVQsFak5jxUcFVq08bZwrhe7hky3+DPFW1ZsuXJu//ls5TjQGj+040jvI0VHek64
-	 oACH532HhsbzzZIeImOO53tq45FPATeQT0Do8A1SGkmhi75cysJm+3Jr4SNLwk6LivjVK
-	 B5Q1M0aYGNgZEG2udqLUlVKN1lVAsIGLjDFYa+Bs1W8WHoG7J9GiDJNkTq+H+moeM1P2A
-	 8tDRf/XQ8xZgPgNhGGc3q4RruSsnZG0Y1PQvOyvMwxVx6DS1Reo6tGJ9jJMLB0NReIQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794224335;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WqzI2P0ubLVIWtFBMZak1suctx0ODmadmSDnzYGG298=;
-	b=x+P0Q3y6oQwdERtDe2ZAlsux2Zb/ekTIkwaHMLOeTf99NKRICtOzL0jHXuQN0/BJN6iF
-	 rw0q78UUY/XVGlRA3Jak43xTG5uXfJ5uTe8ftXGaQkQQzjjS6e6bAG3w1F82gOzHtkRte
-	 fqKOLjZPHx4gmeHgpdWOmKCGFNwRNhW0klw+VsWTbdVYXXBv3w9QSTygzGoaoyGwd9kxW
-	 L17S6VAwUJgOgQPmF9O4lsSbJxCNclweJWY23tn4yLbVUrMe9nOEPi68+vVFwAzMrR/rF
-	 BleXsHhiJG0MnRJBMInu7+o+rMdHk1RCFcvlkFlz51KiYG+kVsSoXzxP4KlWcETKCJQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tD27Ojvw;
-	arc=none smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794224347;
+	b=xysNBLLh2+4xMNm9lyBmFDjHS0HBfiOaKIYM5Vh10W/JaPPk1VG8RL06oFe3qQsL5WQ2
+	 7MxaMBxkU9DlTSXlUTVCy7oVauunL/3SGe99UbNp08MGJhRXheswuJ6KgXgpqaS8LRfod
+	 pDdfs6eibQAMxkhswjvODk5NHKMZJ1ZRD2O5/AivY+O3VAIDOv+1VjcpHQRsq397WEckw
+	 sWOn622eKz1uxAUC0W8jc3cjKiJ/1HsVLB6pGn6ZOoXookpriQZxQIz/CTAPBEEZLIgpn
+	 zdxIH+nUZmWsl0ooIPqYr6stwdroypwUIUDhEXxOavd7pHhOQGEZKH9hwwMlDe7eYaQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794224347;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=sGURusLgWX86zeWwlkvJEoTgmEXteujAKyrxsu0OODc=;
+	b=rUSxAQ7UF7f+9OUZYcOvIo53dZPxT6/WrJ6IzzXeM++FrtiSR/2Hd94iLaBak/H0FutN
+	 PCkUYwhc4VNYSsErJqFxIpeLGSzsr6OYWPMUVQkleE/XvBAtJVRgC3Uzzn9EGnaIkE+nP
+	 8TraVIVz/p8WUKIX+nrNxNIVQm8IiTBokAaVXC0A9V37oxQ82HpEbsP20dq9MWqXWBE5b
+	 sKxnY0vni7FMThbMyYc90GywFiW31ymqjagfhwO0jIySxd8haHhTQoFK+TjDLWhyI2KxV
+	 kuefEsYH+TiddUXLw9Y75lhqLO4tRYpwpj4zAmU+d7u6RXx6DDgsvh2MXzz7iMBlUYg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wm9qB9Q9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519D1606A325;
+	Mon,  9 Nov 2026 11:39:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wm9qB9Q9
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794224346;
+	b=tlF6/7yFWJEfzjjWmNiEQyzeX5MoW1LMYyLYX1a9+CnGCg11rXJtO3b2iGGVfoXEkuJT
+	 aakbyBzW56qtPVQA6J66rvc3Lb9+qZViMm5PfJ1QGWqDZPtk3Zt0Q6wMJ31npCg3IoGRQ
+	 vtvgT88uww9bQnVJi4msNr2Kfa7pf0nVrbGTV+CVfhzEeAcjSukrpum3r6wCNrVG+xVSG
+	 o6v1iBJMv4AcQxy+97QelXOqzQk4z6yTiExyE2jQXseQBLFxsB2D6mX20i85mI3tqz6bA
+	 ovddAi2+Lxe/EyE81VKYqEKX3yDpUkHbN4SGHOSX+VlJJWD7Sefx63ViotTjRzrDUZw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794224346;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=sGURusLgWX86zeWwlkvJEoTgmEXteujAKyrxsu0OODc=;
+	b=XM63riUldckC8tM5NZorkr2o7iyqRAxvtu2i7wS9gHcOJ7XmbE+uBYZ7HCQUujf8c4cu
+	 6GiaSOEy8G9Dptf9nQwVNBrJbsiPNwISz3D30q7EXJlv+5xmhJwIrOUQEMx9EBa3iLpQC
+	 BzW9guMwdIlxuj8UWhRpUGe9G83lpLiqLEFw4KVHMM8yYO3sYUYhHYcwRuIG/Wxt4918F
+	 fO9+wXmU8+w8dgX6Zm4Y8J9hwkCEOssmqBV53DzyQu5U2YyqxaFqV1L392CGbOhg5ZbW+
+	 viggcGlP/BNKN+R6zUX6+WljSqr7vL1NJba8XLngN0y03Z42T99Y4Z6hcd745LIC+8A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0057606A31C
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:38:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0057606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tD27Ojvw
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so1238311a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:38:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794224333; x=1794829133; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WqzI2P0ubLVIWtFBMZak1suctx0ODmadmSDnzYGG298=;
-        b=tD27OjvwWNQ21XqsrQmI+ENivQFIJpYKI0Aop9TO3Ee1+UZ74sOZygHNL4LADccvtZ
-         cfvAZdsSGrp7vt7IU5Q8MSamOcoEouxTmj7sk0jIJOBuwu+7FD12J9kGPxXfRLKnRLCV
-         92Gp6EY1CI9f6t5Cg+6UDIOTsJn34RWLrUQGtS3xsFJBj8ypKos9ClVu+j5nmTNMpWzR
-         Zy0H6FrQsihXWXObhVJomMZNyLOrVd0Sbr9PaL6/ZuqkeAkJ75RcB3WHXucd/ZUCG5Dv
-         RdRustwQ0Rjlh9ylvR58lRQQeb9brzhm7xhRwNPkU9sHWKH5YJ5I5qIwokJCShEcMmZy
-         Z3PQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794224333; x=1794829133;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WqzI2P0ubLVIWtFBMZak1suctx0ODmadmSDnzYGG298=;
-        b=hc4y6kqbfr3dQAwWGqwtKKhF6AKkOiMhciXvnQUQNLetG1l5zWYKKaoJZ+BpbtQJzN
-         eoid7JcKHd21RgR83llYE7JbODfioU5hKt7YlNQU2B3NXgLQ9RseyLHJMN8DreMGeGqG
-         DyXSKScF9bHWURpQ8LQ0fyD5poah3TJN194uBPKtukcexxts/QYDkYBysudu66u+TZJd
-         3Qeu9u1ak7O4p/Gvq5AYpDcnVx9Utny/0kSrgsL7IsOGbUrmbyeKoDRknOJR1xEmEhmY
-         OQT2kdU9Od1ZyLx4DvVoVf0Va+BquuL6tPry+FppNYRRpoHPR6bIM7R8PyUvSo5lglPX
-         loow==
-X-Forwarded-Encrypted: i=1; AL+hErFErhfZsGtFo5YhxBen5MQ2riPDJ/UzKkdE8qY3XmKBT0fgpdykh0Zbt44Gkqy4e6BZPyur0FrZa76cITc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9IaQmmn7Thw0hkCdiMPmVukj65p3nt/jEBzzq9nIPjnA1kAXlP
-	+ItaLpUVrTajLbV3zDBBlg/9+OmKvrFDnbFo7n9/4DEuknCtsW0JCCSI
-X-Gm-Gg: AYBFou2Fw3HLobroOAyXWScSj5eY2mlOCqL5G8fzTsCikg8W7YkuuOzweK3ndCMlq+T
-	FO/i0zCOv8pNFdjClKTpczWefdnwOXAwDySuTNPOaHa2h1NM99/RjWrEUMSOmx66wzYB4UX22f9
-	iXvp2M9dg1T0c8kforczFgcr7yslGfHZ/CAlH2azMibgJSA9MZ+wThh0cr+bkAjDrOnrxLJ1H8U
-	5++JDFs6eMbLdcZNJKeLDtq2GDspMzv9+cpUjKshXITPusfRVSMVodNXb4CvhLuLQpf3sYUA1Pm
-	daWyBI2lZNYkp0mUtuLc6Yi9KXIlVwQFWtF4Eq8ELg76BaicK1abKHvdiRqys7gmMUTwI4D3tz9
-	VJGVS3hjX61vtJsoqhh6eJh+Rh0fIrAA2FX4fuPg6rNw8uMSUq2ndxpBULrGR7LxJz+Kr2f9oO1
-	k71uQoBeeS5DhaHIG2/VSyz50Gk1fPKuaylb4+zEPWNUHVn6VpPsnhoqJ2JoIDfGRh3maDUWTo6
-	IsEA3184ojP/FU3ZnkbUwJ/CUPtzafbuM64QQ4FPifXOEtLHfqObl3H2jdt2pEO40dv
-X-Received: by 2002:a05:6402:3604:b0:6b5:9714:dea8 with SMTP id 4fb4d7f45d1cf-6b72249b331mr2626989a12.45.1794224332902;
-        Mon, 09 Nov 2026 03:38:52 -0800 (PST)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b721ea56f2sm1479837a12.8.2026.11.09.03.38.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 03:38:52 -0800 (PST)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Mon, 9 Nov 2026 12:38:49 +0100
-To: Wen Jiang <jiangwenxiaomi@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, catalin.marinas@arm.com,
-	will@kernel.org, urezki@gmail.com, linux-mm@kvack.org,
-	baohua@kernel.org, dev.jain@arm.com, ryan.roberts@arm.com,
-	anshuman.khandual@arm.com, david@kernel.org, rppt@kernel.org,
-	leo.yan@arm.com, xueyuan.chen21@gmail.com, chleroy@kernel.org,
-	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-	ajd@linux.ibm.com, jiangwen6@xiaomi.com,
-	linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 00/10] mm/vmalloc: Speed up ioremap, vmalloc and vmap
- with contiguous memory
-Message-ID: <avGwySHgt3qCmvIG@milan>
-References: <20261107134953.748622-1-jiangwenxiaomi@gmail.com>
- <20261108230842.3a77b9fe2d4bfc2a04b355a5@linux-foundation.org>
- <CAHKocdGWE9OVA5pJh33U-FYnNkUqRS0pzFt=rCwXWzY9w-QXyw@mail.gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 39BA81F008A1;
+	Mon,  9 Nov 2026 11:39:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794224346;
+	bh=sGURusLgWX86zeWwlkvJEoTgmEXteujAKyrxsu0OODc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Wm9qB9Q9JCG/TcTKLuZQCZCxr9FuMqLKUSJ6DGXo71qu4gNhFkPGqwxaV0uzzdG/5
+	 HZzeneNv8ZctOCzpeIERJxBMBw8s9clHDGCaBlSvN2QhBLab4UA2U/7Ekls8GMzDpE
+	 N5oE4q7AiYd5eml6vqYdX/87DVdGGjUCB7mXAQVYdJ6yZ4RApJyBOBotuQaC1Meuv0
+	 /4qnuXSkjJAo76Qzo8O8lqarhFg9AMx064oOeg1tjd+DkUYLcDlg2quY49SOb6In21
+	 NTwvvuabCxydJJmYHIywvDSOh+NMXHa0reb4PY1hMRL4wTUrcOfbbLH6Go/HTMSN47
+	 TfznoUV24JIfA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A326F483E2;
+	Mon,  9 Nov 2026 11:39:04 +0000 (UTC)
+From: Raffaele Tranfaglia via B4 Relay <devnull+raffaele.tranfaglia.gmail.com@kernel.org>
+Date: Mon, 09 Nov 2026 11:39:02 +0000
+Subject: [PATCH 1/2] iio: light: adux1020: fix interrupt clear value on
+ SMBus-only adapters
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,37 +83,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHKocdGWE9OVA5pJh33U-FYnNkUqRS0pzFt=rCwXWzY9w-QXyw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261109-adux1020-measure-fixes-v1-1-fe1ba63f28bc@gmail.com>
+References: <20261109-adux1020-measure-fixes-v1-0-fe1ba63f28bc@gmail.com>
+In-Reply-To: <20261109-adux1020-measure-fixes-v1-0-fe1ba63f28bc@gmail.com>
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux@analog.com, linux-iio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794224343; l=1379;
+ i=raffaele.tranfaglia@gmail.com; s=20261011; h=from:subject:message-id;
+ bh=r0ZSbO/Ld4MVFSPmXF2iaVAjnoCBKisOgRdgkZhMCRw=;
+ b=Lv77MYIhtCIDIjnpPc9VCu9My+u0Qn91R1RGUysL3NaIsmiXtHiDCQ42UFSCBZ2Ncph52XTl0
+ 1EgtEa/iXfOC5Ef15NlRhdop9O8WTPmIbbIYcj7wNb3HZyOIXszNGUs
+X-Developer-Key: i=raffaele.tranfaglia@gmail.com; a=ed25519;
+ pk=mweuSGNM6vguCTdqa+aiHwMXdgk70suj2wolzCp6XGM=
+X-Endpoint-Received: by B4 Relay for raffaele.tranfaglia@gmail.com/20261011
+ with auth_id=1160
+X-Original-From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+Reply-To: raffaele.tranfaglia@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 09, 2026 at 07:07:23PM +0800, Wen Jiang wrote:
-> On Mon, 9 Nov 2026 at 15:08, Andrew Morton <akpm@linux-foundation.org> wrote:
-> >
-> > On Sat,  7 Nov 2026 21:49:43 +0800 Wen Jiang <jiangwenxiaomi@gmail.com> wrote:
-> >
-> > > This patchset accelerates ioremap, vmalloc, and vmap when the memory is
-> > > physically fully or partially contiguous.
-> >
-> > Thanks.  This looks pretty mature and reviewed.  I'll add it to the
-> > pipeline for linux-next testing.
-> >
-> > Sashiko likes it.  I'm working on a different AI review setup which
-> > finds different things.  Very slowly.  I'll let you know if anything
-> > interesting pops out.
-> >
-> > Do we have sufficient ARM review?
-> >
-> 
-> Thanks for picking this up.
-> 
-> On ARM review: Dev reviewed the earlier revision in detail and
-> his suggestions are folded in. Leo Yan tested the large vmap() path
-> on TRBE/SPE. We'd welcome more ARM review from Ryan, Catalin
-> and others.
-> 
-It took a while but i think it is more or less ready. All patches have
-been reviewed in the v12.
+From: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
 
---
-Uladzislau Rezki
+adux1020_measure() clears the mode interrupt by writing the inverted
+interrupt enable mask to INT_STATUS. The mask is a u16, but integer
+promotion makes ~0x00f0 evaluate to 0xffffff0f, which does not fit in
+the 16-bit register.
+
+On adapters supporting plain I2C, regmap formats the value with
+put_unaligned_be16() and silently truncates it to 0xff0f. On adapters
+that only support SMBus word transfers, regmap_smbus_word_write_swapped()
+rejects values above 0xffff with -EINVAL, so every proximity read fails.
+
+Mask the value to 16 bits so that SMBus-only adapters send the same
+0xff0f that has always been written on plain I2C adapters.
+
+Fixes: 356543545576 ("iio: light: Add support for ADUX1020 sensor")
+Signed-off-by: Raffaele Tranfaglia <raffaele.tranfaglia@gmail.com>
+---
+ drivers/iio/light/adux1020.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/iio/light/adux1020.c b/drivers/iio/light/adux1020.c
+index d4281b9754c3..cccd509dd18a 100644
+--- a/drivers/iio/light/adux1020.c
++++ b/drivers/iio/light/adux1020.c
+@@ -346,7 +346,7 @@ static int adux1020_measure(struct adux1020_data *data,
+ 
+ 	/* Clear mode interrupt */
+ 	ret = regmap_write(data->regmap, ADUX1020_REG_INT_STATUS,
+-			   (~adux1020_modes[mode].int_en));
++			   ~adux1020_modes[mode].int_en & 0xffff);
+ 	if (ret < 0)
+ 		return ret;
+ 
+
+-- 
+2.56.0
+
+
