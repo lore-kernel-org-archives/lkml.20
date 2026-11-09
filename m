@@ -1,64 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794219450;
-	b=U51CXNt/cWICLWkZiHTvIcPhsaxf2RojZmEisp1zjASb9bHSCMz5z6UX1JYAoYXjcLbi
-	 ARwyvSHgTOmBi9lEICfGnLLcQsnRcIZ+vc7GZDEU0O1KHNpsZXpDFWlUVqqcfbIeRPDvi
-	 PdLKzctz4tMlygpaHuaTqqvZQRSC+nPHZVchFLdulGjqd6DGTfHWgAfX8I2//B3v45yzZ
-	 5NPKLn6qmcwPXK50Ez/nEbNQ4m+KVkHs5oaB3/BTvWj6rSG32NJVUL74a+h+5bgrKZXds
-	 WHTB3WhHCcxybjzn8xalUxqWupNMS61tmFibA9cvSp5E7YCObrEAOUipnnmE5LjVGaw==
+	t=1794219451;
+	b=HJverOeKwc3bm4rSxLtUh0QqWs38dlQLxHQRlqy/2xKf1rGohC20Ay94JuGM6m7aYKp3
+	 boCtVs/Z3jR2y1nhpsJAa2CDmpt2FInjHafBhiLpfBqRS/0m3k0H3M2dWcm5aO5AfEL8b
+	 kZtvU8wFWPJTIIcGrwPXE6m+fR6H+3PSGWDk5czdFUwxcYuouiVv/mAglPC4K/18Sje6H
+	 bxnqACfxFsusESyC4qC5P8HnYLqdx4qRarcCDNTE0SylHYiWPSh6yImx6VEfUNTlFuUmi
+	 nkUeaPZ++YmicD1aRvV0R/o8LlPXaVBH41JtKbSuSlBbS7vRdjWEMJoLtW3BCWKMHMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794219450;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cTz+IlTqa5+jcSZYqRGk9nQTbICrUS28laYZWZAnGYE=;
-	b=1ywL0N2ce+e3uhgRQSYdYKob8OHkosXpHfqGxFCYjE5eVUFbgzxYj4rg3tM9CKWcA72R
-	 oJn9+jqUIfn8n3YpG4DYMZGrgxpHGTXVZWoyitubP2D3KzVpE0bnHTBFSuGzhj74OXFrI
-	 JtS0KZefUEErnBOahseVsAHSG49EXhP+GbNaYOMUhT/OncEQAsD7yLjsJJUleU0XRI2jU
-	 751pJD+YpGpMOTfewr68K5Iiy6agWAfSn19l3AaYlZIWsm+lbJeT7utsAoEf64y36Kike
-	 SOzmL/EBgts7lRAwNCqSTd4g55Ke1r42nhznBeNHKlLf2OQ43EG42/TXv78BuhIm3tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794219451;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=TJaSvhKXpOs4hPW+qhrc6bZ76dM2q6MMdsGYOHYjFdc=;
+	b=kIP72iwdDeL2TvQppV5FkKOU0p7m+bKXDxV/Zp/it3PdrQ6rB0WFNG8+PB4y2ofHGxIz
+	 W5p7NgYygPSW4gqhTspubdvLPz/li3bK6T0jv/RwrzV5Q4JVqsLl7B1wr2enT5fsLtKn6
+	 hdrLFy5AW2ESVN4N5z2bomHwHT0Jmh2cMbu7J5Xg31g+eUAY/cGYpKY9tfQwWgqYtFDxl
+	 e8Ak1avjNVZ5KVEJHYYOOZfzX5KrWJeeINrJNH4bqq38svzTzjNhxyU+bXVjNLxGCAD4T
+	 Ue+W4OHSHfKESVX+JA13XAlbi7FbZRocCNkcgJ6KzE7UqTnnfrJOFAcRUISKGEZ2Dfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ZetOdvQi;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 13642606A31C;
-	Mon,  9 Nov 2026 10:17:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13642606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jYWPiZtM;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CFC606A322
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 10:17:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1CFC606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ZetOdvQi
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jYWPiZtM
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so7057155e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 02:17:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=ZetOdvQiVmrP7ehBMjuoEFVlyWk/ZtrjqE9BkPSj1RaJQleBq0O2tWofqv02QDxv5nEmKBun0MHDE
-	 dgSdJy/9TUxXWOQPDWwo0D7/yQ6efNrMcAhLADB0f4hrBKLQmd534jGymUGRnESmLJQmidVvOEwbr8
-	 VuPV9jeYeQEhcB/E=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app09-12009 (RichMail) with SMTP id 2ee96af19db01cd-ca476;
-	Mon, 09 Nov 2026 18:17:27 +0800 (CST)
-X-RM-TRANSID:2ee96af19db01cd-ca476
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from devin-VMware-Virtual-Platform.localdomain (unknown[10.55.1.72])
-	by rmsmtp-syy-appsvr01-12001 (RichMail) with SMTP id 2ee16af19db540f-8bfa5;
-	Mon, 09 Nov 2026 18:17:27 +0800 (CST)
-X-RM-TRANSID:2ee16af19db540f-8bfa5
-From: Zhu Jun <zhujun2@cmss.chinamobile.com>
-To: jdelvare@suse.com
-Cc: linux@roeck-us.net,
-	linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwmon: (it87) Bound 16-bit fan limits before conversion
-Date: Mon,  9 Nov 2026 18:17:26 +0800
-Message-ID: <20261109101726.16875-1-zhujun2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.51.0
+        d=linaro.org; s=google; t=1794219449; x=1794824249; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TJaSvhKXpOs4hPW+qhrc6bZ76dM2q6MMdsGYOHYjFdc=;
+        b=jYWPiZtMTC1lB+9ahM3rmPP/S3UjVUcqZq+wKSDRfw9xU8z5bUcHf3zg+ZzIOD4+G8
+         x2JstWyS8oD7Xq2AdE+5NJcGeeYXxdvhYAwKNYZ6XnEHaOXlW5FDzV2hqqqmdyzpz5GN
+         3xeu9s/hssF7zfYabYFqJd3O5dZPsAGXaFd5DTHIkbJxAFnoat4N1VjvToYA+7V+iD7O
+         dcl+TQsBl6itTT7g5hQcOhanKOu6+WZZ0z6eTQljil2zx54K8YZvgJk5damRfJzR54H/
+         gvrcmaA+nIIKHTDQ08b6p4xZVWwp+GBLm8o22D974volh8lsKb1ktXUqsq+7EzMImENi
+         QAkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794219449; x=1794824249;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TJaSvhKXpOs4hPW+qhrc6bZ76dM2q6MMdsGYOHYjFdc=;
+        b=JjJcGfYypgQexC/d8CKFPK77ebc0CV0/lofn7gWIVZJ5Wxliz59+DSNtkvpe1brRaL
+         AGXfdrCzHvdziKQQbTWT+CnTXTK4U43YBEq8wjf447nn+7BSzC234DZWsobUkYN9ICnz
+         IX5ZgTUsp5/lci8jD20w2l54pbbuhn3JBaj+lGaCW6d64Yl+OCCit+Dc2L/2GO1Dp8V/
+         T6e/7pz6I9IJnA8y6FBkw4lvotWDhgNHxh2SLFh+MNNlIU+PQsa3z0e6J0EpEV/kfK3V
+         pVC+uCPX6SHnp6FcmwZsUN2uJFpfLGrREn1NW3LRVvMRzxzTiMr8wHWYbIgxsvnwhHLT
+         6gyQ==
+X-Forwarded-Encrypted: i=1; AL+hErEqx1YtlHlxsVsWEy43Xl1DkIpYQF5CiFZn20Tnk4TzjNPmwHTSTn1nHIsY2MkHh3+WFThPx/r+CVxYGJo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8WYHOksl0I6L/EnqL8Z7unudfDMUL4/JQQCd+78P99USrirJWJ
+	42PfsHT9G9UaiiPL297vnfxDJzlP1ZBrcOjbnMaRZqOdhA0JcQav9N5Yc4Z2c/YwHZ8=
+X-Gm-Gg: AYBFou3sdFFas7nYZZiYIG27jZbjvDg9f4PIW6Cs/FaBx0i5BcaJ49WQNTrfRXJwF/x
+	sQCbwue0XjE5JeEfzlKCpjKaYB43PttcghaHVfw2JcEJIeUh57V7GXfKQalUcB9tVBZEaHZhFvc
+	y/pP6d6/mDKyOTJ7CZxf16jPqKK94lxx/NxQoCbIgXm16kbXADAjKaYVk1K23CRsiV/9zkzGvdh
+	JeCLJmh5wX7woBI0O0PD8vSzNQr2N2Bo9gdNjSznEbpmI31U55nTeAlQwzU1+hUeLevKqVO+gkg
+	v5XBL0ehqz/lsQEbhPuEBw/OB9umvmt1xkPHHXp19dsbDMNIZ7d+MYrDQ/UJ6npIAHyNjONJL+0
+	DnKXKnjJl4x0xcOMqck5gpaguI/JLZPKg+5RR/muuq06v/NQPoUceOKFEn9xX9hyBefMbCl3KwC
+	F428ESHVXzZAqE95dLlfyGO0FvXwH0K5JJlfPfLaK9eQuwjIY0ck1LqMuFImiX4ZvHkOBnp3Gw7
+	z5WRt8JpalQwUTHGs3mJ9PWYQcyUeGFS/eO+snAL8Z1rghU1fLPdhf05dFjCn0bVOU2k/9X/HUO
+	4yUxxasqUG0FANdaEaDlWSjR+bS4Rpgx
+X-Received: by 2002:a05:600c:c4aa:b0:4a7:8fe8:130c with SMTP id 5b1f17b1804b1-4b963c8c64dmr68512305e9.28.1794219449235;
+        Mon, 09 Nov 2026 02:17:29 -0800 (PST)
+Received: from pop-os.local ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b90ee1de2esm121575795e9.5.2026.11.09.02.17.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 02:17:28 -0800 (PST)
+From: James Clark <james.clark@linaro.org>
+Subject: [PATCH v3 0/4] perf tools: LLVM dwarf and flaky test fixes
+Date: Mon, 09 Nov 2026 10:17:00 +0000
+Message-Id: <20261109-james-perf-test-fixes-v3-0-e8d0a65e618a@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,44 +91,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJyd8WoC/3WNQQ6CMBBFr0K6tqYdpIAr72FcFJhCiVLS1kZDu
+ LstxkQXLl9m/nsLcWg1OnLMFmIxaKfNFCHfZaQd5NQj1V1kAgwE5+xAR3lDR2e0inp0nir9iKx
+ KAFEUOe+4JHE7W9wOcXq+vNndmxFbn2TpY9DOG/vcwoGnv0+j+NMInDLKGijrBrGocna66klas
+ ze2JykS4Fsj/mkgampZcxACVAXwo1nX9QXIOfLcFAEAAA==
+X-Change-ID: 20261104-james-perf-test-fixes-f72265531d1a
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, Jakub Brnak <jbrnak@redhat.com>, 
+ Leo Yan <leo.yan@arm.com>
+Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, 
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ James Clark <james.clark@linaro.org>
+X-Mailer: b4 0.15.2
 
-FAN16_TO_REG() doubles an unrestricted positive long and adds 1350000
-before dividing. Large fan limits can overflow these intermediate values
-and select an incorrect tachometer limit. Converting LONG_MAX can select
-0xfffe instead of 1.
+Running the tests on an LLVM build results in some dwarf issues that
+need fixing. And there is an easy fix for some flakiness caused when
+tests are run in parallel.
 
-Apply the same RPM bound used by the 8-bit conversion before doing the
-arithmetic. Keep zero as the alarm-disable value.
+Assisted by Claude Opus 5.5
 
-Fixes: 17d648bf5786 ("it87: Add support for the IT8716F")
+Signed-off-by: James Clark <james.clark@linaro.org>
 ---
-Validation: x86-64 and i386 driver objects built with W=1.
-Source-extracted boundary tests passed on both word sizes;
-the corresponding test fails on the base revision. I/O is mocked.
-No physical sensor or booted-kernel testing was available.
-OpenAI Codex assisted analysis, code, tests and changelog drafting.
-Please review and add your own Signed-off-by before submitting.
+Changes in v3:
+- Rebase to resolve new conflicts
+- Link to v2: https://patch.msgid.link/20261106-james-perf-test-fixes-v2-0-9a912662f822@linaro.org
 
- drivers/hwmon/it87.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+- Break perf probe line (Namhyung)
+- Use a software event instead of cycles for VM compatibility (Namhyung)
+- Link to v1: https://patch.msgid.link/20261105-james-perf-test-fixes-v1-0-0b279bee5830@linaro.org
 
-diff --git a/drivers/hwmon/it87.c b/drivers/hwmon/it87.c
-index bbb3f9788c2e..b8ad1ed043b3 100644
---- a/drivers/hwmon/it87.c
-+++ b/drivers/hwmon/it87.c
-@@ -761,6 +761,7 @@ static inline u16 FAN16_TO_REG(long rpm)
- {
- 	if (rpm == 0)
- 		return 0xffff;
-+	rpm = clamp_val(rpm, 1, 1000000);
- 	return clamp_val((1350000 + rpm) / (rpm * 2), 1, 0xfffe);
- }
- 
+---
+James Clark (4):
+      perf libdw: Find the CU by iterating all CUs when aranges are missing
+      perf dwarf-aux: Support DW_OP_addrx locations for global variables
+      perf test probe_vfs_getname: Fix missing debuginfo detection
+      perf test: Don't starve per-process tests with system-wide events
 
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
--- 
-2.51.0
+ tools/perf/tests/shell/lib/probe_vfs_getname.sh |  6 ++-
+ tools/perf/tests/shell/record.sh                |  6 +--
+ tools/perf/tests/shell/record_lbr.sh            |  2 +-
+ tools/perf/tests/shell/record_sideband.sh       |  4 +-
+ tools/perf/util/annotate-data.c                 | 27 +---------
+ tools/perf/util/dwarf-aux.c                     | 70 ++++++++++++++++++++++---
+ tools/perf/util/dwarf-aux.h                     |  3 ++
+ tools/perf/util/libdw.c                         | 19 +++----
+ 8 files changed, 89 insertions(+), 48 deletions(-)
+---
+base-commit: 13a8d580433a3b72b10be34f0e26787fe5659d3c
+change-id: 20261104-james-perf-test-fixes-f72265531d1a
 
-
+Best regards,
+--  
+James Clark <james.clark@linaro.org>
 
