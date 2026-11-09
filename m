@@ -1,95 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794226100;
-	b=gRvge5ngNQThh2+38VXqB0ot21uGAvKYboPectailUJbJyD6SmdMilp6tkqMAwYbAGyw
-	 5N3t1BkEDbKdQv4tG9ZeMCJdO0d0YeGzLgrqwVCa3kt8Wo2hq8vXD/x3ro1zliG94R9/S
-	 RkDMpnO82kOPHOsHIGbMIHIx3RQmx9Wqp74BSjp7P1AEdJmgepOukpnVtWWxR5RWf8kAp
-	 OELf9gM6lVFALWbOXrhgm2HhlJAUF3YzXztCo3FcrpUYVJESOnesSMyuTMELvRlLB2Nrs
-	 VAW8MLGoGKpCXK08sM9rNPgsgikalpLHRmcQYIJVHZKtu+jPmp0dpyzxzBbBfz5rQ7g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794226100;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=q8x7zVGGkfSdWA+EkndmqEqSgl70Bo/p7FSSNehigJg=;
-	b=4ZGH/l8w1p81UjbDuscRQ4itO8u9ObtLwJhfk4fwBCZ10nvtu4aEavrzuV/sAd9b+Glx
-	 3KJzMfMVf/jh/ryiRlJk4mFpO30Fsej4nJIyVoaJtSH5wEDGC+xZC6ykQTBI61mBXmnV2
-	 u05m34p4O6UXAy1bKuC86o1M4HDvavzDAnTvQFLU4qNnMxp56uWnKkTIGuRjGWQZpAX7v
-	 65fsZ4tBv9HrgHEtTPHKS6FpiNq7DjrHZmPPXTPGLgELdetKy456Y4uABLkDy3FsPPkDz
-	 xkH/H+WdG+T7MgwSRQ8AzVn12QqmfmWmGnIsJSTn/n90kNW0LEDIdwdS2hQi08aX1eg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=EnupwC5s;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794226111;
+	b=zROwn1m91+UCMy/ZkUkHTf3suMBMIt92/jxf6BnjNoFTAqpVx3XLuwmG/Z9EmwDB5rfz
+	 0IXujYfs+rFCD+YJfWtd0IP+6hbhg7u9A0xvQVRK2M5BDNSx78RqdLd5u9y/YsmMSNcvx
+	 g9tZ5Ea6H/w3IkI4fBZ09jKnpz2F+DA+d7KKFiNJZb+isWBsK+bpbaPgG24juspe/bcVO
+	 XcCjIh+FP40SX3HfU9KmF8p4QPmhU6KjjQ6J5Fk8j0PbKI2Do06QWlrx0YfLzSwSpJGp9
+	 ZC1Kpmw+hNT96bSwAE0QixOpUKykgvL7YVFYvce67e28p97aUDqSYPwulCg1xYm1fNQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794226111;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=QPuqOtcKETNZ+9NL0dzC9IlGRwh+zSe9grKnZnim9GE=;
+	b=xTZbmQ83K0VqoXEFm36FVT0jjnRUduaXoo2mBJDrR2s/io+X89ydlo/7hO0WpCaP0Cvz
+	 xeNXzo9KzZ/9UJ/PopCsiWDtZFyq+2CPt5DJdN6UZLul1fu0nPLwxdqxI7KsYr/EMBTWf
+	 MTa97UsU+8RFS0sBoUOJW93AOMIj2x0D1xNsCqexATams3PBeASYLg05k+kHLU7t5boHB
+	 +QYRbwl9+eix8TKXhp3rUPXmGduK5KD+1YqIadh3n22imOy6+ZjPv5q13dVa0/mpGcLv2
+	 gAlHZkBjDKyW7OOvxqoxpuw3ioCvo0GK1qSHz9eZDGsGeLUHcBM6Jku+lCAk8h6INlw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Bqvi3A7z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.43
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010043.outbound.protection.outlook.com [52.101.56.43])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1F5606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:08:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B1F5606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D38C606A321;
+	Mon,  9 Nov 2026 12:08:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D38C606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=EnupwC5s
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso1195337c88.1
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 04:08:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794226098; x=1794830898; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q8x7zVGGkfSdWA+EkndmqEqSgl70Bo/p7FSSNehigJg=;
-        b=EnupwC5swvuo5sJrJActcmI7J62yE6t8sZNBuZNDrQE95d1pf4R6nr1qfg9EZEp4MZ
-         qR3oRM6oXwcAS6wwsUjeRFWYFEBb3JR5xItxfhWsCYa5rzl66Pv7D5joo4oStYpQ9Zyf
-         /KB7J996nIjHZFCreHLTLFQ81qdRuKa5uNtcQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794226098; x=1794830898;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q8x7zVGGkfSdWA+EkndmqEqSgl70Bo/p7FSSNehigJg=;
-        b=rCRMynlLds8ezMSmsTg+HAgOXURz4MBObJ52/s/ndz0eivSGDQA1e2ku7YIP8VabUR
-         rZf+fNBo+MKbnN9UFt9Eg8A4GQJ785wI/8eVNNIJ+ywz4hn0NFFGiLwtMwNxVlau3mZd
-         w/LJga8L7/zI/X8jComhb/hqfLFquS4o/CyWuqEPizaUyCGJUwt3elhLQtE4ZTWn/pIq
-         rpuhfH8N5NZtDMw17vWCcPg2+ADU++Q4PUTO84c5Thdy2YHDRplkEGwakzDYlzMrubA7
-         xzUTnnpC4MnMw4nDsQ0+am9dfdbLCw7Ey0wyKgEut9Iq6rpbqzkvGaN/xXe/lwY8UWAB
-         fvSA==
-X-Forwarded-Encrypted: i=1; AL+hErH2s3IEPUmqtU64Aq5sJvfc9GoiGOrxjJ6mrIFwSHK62opQ5eepcprHIMxvxCqbzAGigP2ypRDMLOwEvJo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/VBZwW4a4EDYbJd2gPCP057K0HP31FBI0kDRiJtXJtDhwtVP04
-	Rf9Gn/zaJsVLSP2KHM6ywK54COx2j9xzli8GCDwqgyTUQ6cB/v71YpJZCLHCcIlEtg==
-X-Gm-Gg: AYBFou1+c7WeFHHT1ZWVSUqGYcpyTvni1S9eKNQYTK9a/ccT5Sf9hFdY3/e3SP/PWCm
-	4jHuxoCzmqsIabPFoLhTKqopUwXZsnUpY2VCvQRdu1coSu596Li2bjGVqYZFWiMb0yULwbGH8Zd
-	OAM4j2ra6bPCJeWRUVanMELqxyZi4feuIYKCUEa4+wEo8zzBDAJFyk8Kwqt9q+QKgVrH/7wQLgS
-	r6SP4jG1maCNNjmslUrtDuBPc21PceTSHXyW0qct4jzcShLVF8tAme3sqqtUFpUsF+UmnlkYrbZ
-	+Qs0JaQgpR7Sys35cluB4zHhNxVNjtzxHjz4v6tBqBnE0Bbxf1WHUP7LaYmx/Jlkx0DU6gj7A/X
-	7O9N6O66Z6sYRZm1idz369L/wBE349fu2JYMEYZOhAUhnpJWIa/4q7QatOJ34w7BUByoYBVMJpu
-	OmMWTq6CR4Eyl+r/fpcWCQ0BDNQ5LFyJuC/CnqzciOgenHUGGjvaAmwVxJqUEzCyK1mudfw8+7w
-	in5tGHiNRX8Qxez7jayJgwaVfjw2HnAwtORxE/jTebLHRoN9WVLU4L8JuXEqYg/zgb+jvXlNMAo
-	DR2jlA0y9LwoRq5Pqbf5XYP/hjrr1xDzO1V++rpePMmH2P29yPTNT/rRA6wQ3YcaRf+mY/uiePZ
-	PUtSuMA==
-X-Received: by 2002:a05:701b:270c:b0:14a:8cff:fbb8 with SMTP id a92af1059eb24-1b39fea8a78mr6100575c88.28.1794226098355;
-        Mon, 09 Nov 2026 04:08:18 -0800 (PST)
-Received: from localhost ([2a00:79e0:203d:7:24d0:a2cf:66c5:ef86])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1b3755e936bsm16025308c88.6.2026.11.09.04.08.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 09 Nov 2026 04:08:17 -0800 (PST)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	Ryan Brue <ryanbrue.dev@gmail.com>,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] clocksource/drivers/timer-mediatek: Don't override the arch timer sched_clock
-Date: Mon,  9 Nov 2026 20:07:56 +0800
-Message-ID: <20261109120757.847266-1-wenst@chromium.org>
-X-Mailer: git-send-email 2.56.0.455.g6c5a503b38-goog
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Bqvi3A7z
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aS6R1z4G2E+hZ49JS+dHtPo2z0adhZPX6SvIrtrlScjtK2e0BGNjhWUFkJJgus1tnhmMplpmg6Fpy7XevWj8fsv3DVTB7GNqeI9fR6QTm1qlytf5UWGgtrQC/J0QYvl3hm16dMls5KrV8G9h0daG7oMghjad4KBGWxFAeOt4SpbltVTpmMYCIzhOYFCAdreYcOyftyxCKltWhWF+jR2S8rSwpRzhznqXZjUKBCw4tuq6ao1IcTVpTL9Rb4K5OcteMCiHPXrZtqibfLHtLho48KmxHDr22Gacjg015BxceDIe3vR9bzwq+rmUWtfB+tGnZ0J7msW2u2bLpS7cQLQUXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QPuqOtcKETNZ+9NL0dzC9IlGRwh+zSe9grKnZnim9GE=;
+ b=B0E0bw9N3BZ27bcf6EgUo1VRfhtCQ/WPyOZg5dn9rtgqSkCsTtjTy7aPD7FcC1nukvUFumcIL39CnBBzuPRrMQW9v8HxuPK/dz8Kykz+F1HAlLzalTeA+1huNi9xkySuLctuZS12OeWx+DV78ZGvboyh4SM82NIdL+jkRecnQjCZQylhYDTD5uUItnAmvtNRo1ZO8+GpoWjP4JkGEt3TGAw5FIpb7BZIWTo40UccytIeZkMRfdnauXcEej+64OnCJh+XrT1rs6bDdAOWF3h57cUzLWHjfsSjOKf0MPD9byCnrBXmzlulW61vYyu1eEE7YQnAvgRvuKfDNi2Tg/9PBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QPuqOtcKETNZ+9NL0dzC9IlGRwh+zSe9grKnZnim9GE=;
+ b=Bqvi3A7zhwY5W/YJtNX5lEAeP7vKz8Qo7x0EtfnOVzT17EKJxvTbN+qGNYTf/Av4lhAQ5uF7bmJX8+Zjyflk7Z8qcKmTO6kpM+VHPf/0fjgYEa/UCabCtkAmHTb8x2XNn9pIyUUfctdT+BX7+EpnU1Tg4WFAQvbtLD5bossGms9fN+1YyuHYbcxTJV1bVpz2OJhZKNBG1vVZNMYeEqStWjleR4Vumsu864Qz+fUm5I/DRrPVJ+8bYZQ4jy1FUpCwPXZD+DLbgVVJV0gH73Rr6cE7tw0OstTSlw/TMcNPyvwixCcY/slUnuSdsmUbLUPccBSKDshNmFuVQFzdHUrtEw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by MW4PR12MB6850.namprd12.prod.outlook.com (2603:10b6:303:1ed::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
+ 2026 12:08:27 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0592.010; Mon, 9 Nov 2026
+ 12:08:27 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 09 Nov 2026 21:08:24 +0900
+Message-Id: <DMQO2LBNLJGK.3DH2LJGMV41TA@nvidia.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
+ <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi"
+ <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH v11 4/5] rust: id_pool: do not round capacity up to
+ BitmapVec::MAX_INLINE_LEN
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Eliot Courtney" <ecourtney@nvidia.com>
+References: <20261109-chid-v11-0-082aa9bf5a91@nvidia.com>
+ <20261109-chid-v11-4-082aa9bf5a91@nvidia.com>
+In-Reply-To: <20261109-chid-v11-4-082aa9bf5a91@nvidia.com>
+X-ClientProxiedBy: TY6P286CA0025.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:3b9::6) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,100 +111,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MW4PR12MB6850:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5481a336-0d5b-4ccf-4ab1-08df3e5a296d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|10070799003|22082099003|18002099003|10067099003|4143699003|11063799006|261028144727099003|261022105027099003|56012099006|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	fppPhfJrhrmrVqWM8L8OoW+xbv+ydzRzHPjtMus7gUjO6ZDX7v2+ad3DWxCGui5pUkhmffihlyHsX5IPlEdDj0rtD/icZuTcKQQjk+J2Bw7sRZ9Aio7023MdQ2ryK/ADePrcNBGROU2jaXksiEBfvAAcN09+1m6TVn0b/VSiPV1oOZ0b3/+4zMz1vsMb2MWmTAyRCft9iMBRaEmseuGnTCE0bIsneAfFnu3Lgf9teqaVHJP516yjr/pa2zoZXSxRsftMVTqmmOLou16Oawa58sgBqx/3IpfLkNZdq65N+pbQH9n6DWmj/OMyfs0e8SO1H3uoActl5nrqNHUMKt30tsnJYjJJf+myjiRsTFeLoUEEzKucKC4vxerUuC5clxoqh5GdpaaNIHBhRFJn89ltjcnlQpPqe1IgRFKxWxs1AWGCnqIxmtobbRkA3ats1BMzTZBCl2pyfWHHlrZ/Alka3esHBg4OFwSbgV7BrU+53FNR8gvBvg6iwbG7MR4R66j7cKVPpT6zAukA8j++7nrALB1rdv+J/1iWS3++Pa9Ot9MvPnGf+XghjMQ+G71h1iDE6yUCbv+mKJnGckRE0I3yvjVeqKTYAiNjJaAApV12GwkGcYZxeWOzB6zsTag7aHBYyDfpp0uPkSq2EvnSXCHlTCP8vSg0va3Ofs+yJGLlfd8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(10070799003)(22082099003)(18002099003)(10067099003)(4143699003)(11063799006)(261028144727099003)(261022105027099003)(56012099006)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VW5wL3dDTk45d05MZ0s0Rm5lOG0yelB2MXdlVTRGWVZlbERWN1NzNDBpK1h1?=
+ =?utf-8?B?SHE0OHV4dkFCeDhhd2ZnVXF1MW11bkQxSEx0UW04Zm5KbVFLWFdEQjVjcTVH?=
+ =?utf-8?B?ZGZFY21zZ1h3OUR6NURBMXA3WnhoNDA4eXRvS0FVQ3ZwVXlsdjcwSENHcEVK?=
+ =?utf-8?B?blV6dmZqaFNiQkw2VXZkTUs2a25nQzJmVnRNbVhvL3Z6eExyQWxPTGx4YWRt?=
+ =?utf-8?B?VHBoZG5kYlV2L2xvcEQxbW5GU3lZODVYdjAySU1OQitaZ211M3V2QVpPaExu?=
+ =?utf-8?B?Si9lTWZ0TmI0TFNZYWh6a2VyNmlFeTFDbXprRlBhdUI1bHQ3U01ZMnl2c252?=
+ =?utf-8?B?VzgwcVQ5bDZpdHBzVjZGZldJMzh6RUR1SUFEQTFDQm9zVTUwUmZtTW42YVRp?=
+ =?utf-8?B?S0NycmJLRThmNlZtMTF0UjI5K3hOU3R1d01HeWU1VVQ1MEJIbzZmZHhxc1Jw?=
+ =?utf-8?B?N0hSM0lPUzV4RGpwcDNIbFJwMUN1VC8yRjAyUUJJY2FOVEZXTFljWHVpMG9m?=
+ =?utf-8?B?QnJ2OU1aLzhaL0ZaWE9LYllUQmlMM2dnZEpTM1JUR21kMDl0RHhwL2Uvb1FT?=
+ =?utf-8?B?dmNXVjBMcStzc2ZxbCtqSW1MTDljWjEzZDdQbG9aQ3FCd1RLcSsyQzM2ZGNs?=
+ =?utf-8?B?bDRyQzZ2MXdBakVFaHpaK3JON3g4ZllJY3cxdnhtSzJXZTc5YSswbUxta3hl?=
+ =?utf-8?B?MnNZQWNqbkEwNS84NERNYmpEYXFPZXIzNlJpSzhjSTUxaGVvaFlkQWZ1bFRP?=
+ =?utf-8?B?dlhuczhGNnViU2RocDRDUlh1Z2NhQkpRNklvTDNlMXdoZDFqVWJsMUlHUmdX?=
+ =?utf-8?B?Rlo0SE5KajFhUTFrNnpsWHlBSkRwRWhiU3pkTmFBQzJ4bmNBWnBWZTZub0Vp?=
+ =?utf-8?B?QXRFbmRoL09rWE1TRVMvYTdhaUhRVG1rNHR4WWJLYmtrM0VVSnBoR3lOaTZW?=
+ =?utf-8?B?aVNWOEdEaTU4K2RtMFZWLytSeW9JaXh1T2tmMmxsL3RtNWhhdHY2ZjJnYXhY?=
+ =?utf-8?B?b0g0S0sxQ2psVlZzQUhPMVRyVy8wOVQ1cnJLWmZmeitNRmR2QjBJSzk3VmM5?=
+ =?utf-8?B?VU8wYkk2Vk9QRzBrdFhKZ1lzbjdHZEFGZTdxQUZ5UWs1MkdnbVRlQnNnNm5M?=
+ =?utf-8?B?eURHdHM1NSsxQ0Y0R2xpMXZtc1lXV0pXL2kwcnhjUjUraC8zSTd0TU12TmYr?=
+ =?utf-8?B?SDhYL3JSTkhEZytBVDBGN3lCMGpIbVQ2dzJBVUpzSjA5MUJPbmFOZjZab25W?=
+ =?utf-8?B?dm1SY0kxRUh3U0xDRFJGNk0zNGJ2M3BudVVhTE1uOU9hbzZZT2dUMWFMQkdu?=
+ =?utf-8?B?dG95bVpkeEkxdDhpNWE1Rmt1QVdOd3MwaWtIMnhyS0FERGExQ3kxbytqZUk4?=
+ =?utf-8?B?TkRrU3c5QkJBRHdXWDBZRi90SUErUzB2UXl4RkM4c2NoMGZOYThpdWQxbUhU?=
+ =?utf-8?B?alF5NWMrUm1GYklmVFd0SDNCSTA0Y0JPSjBYVFdVanhmVmxmYlJsd1pYekgw?=
+ =?utf-8?B?Z0RKNG1tQi9uV09uaUtObTlqaGg0aVFITXUyN1hVWXltZXBuZFdjcFh5U1Yx?=
+ =?utf-8?B?Tm80dmx6MzltZ2lKNUJsWUdtTEZpR08rZEVMVmZPM25EZ0RDRjQ1VWNLSldV?=
+ =?utf-8?B?alB1S1daZFk1VHhONkRFdDBDNGV4bk5kcElJSjBLdXk2aVVkeFMvY3J2VTdD?=
+ =?utf-8?B?TzkzdnBRSVNxbStzRmd3dDdUV3V6bHFZRXE2UkQ5SXpjL0lDVEFBSXlNMUZ1?=
+ =?utf-8?B?bzVsV2Z5Mkt2TmNrU2w4N3FRbWVkUVN1R2lzMm5BdnFtdkFZUGNJaUZJL2Fk?=
+ =?utf-8?B?UytGS2xYSWhnaDBjMlVFQnNuNG44ZU9RUmdtakZrVE5qU21FS3ovVlpKNHJX?=
+ =?utf-8?B?VWxTcVh1SFN6d0k5SW1Ld0dyMWV6ZTVPalhKU3NFVitPVHlKUlAxY2FZRlBG?=
+ =?utf-8?B?VDRkOXNWZkZRY1ZKSldHeDBCQmNNYjljTXkrK0htV2M3VGN3dWdBcTZlVlUr?=
+ =?utf-8?B?UCtHRUU4ZDdWcVBJckpRZ3VEZ2xCY3psUk5QYzJHc2dxWEpZcldTN0VGZ1JO?=
+ =?utf-8?B?VjNvY0RSRkEwb3pNY1kzY2N2dzc3elBnWG1ORUUyb3hNeno2Y0s5YVNMUy9k?=
+ =?utf-8?B?M1kxWjJjbmJiUWhVRUVPTGtuL255cnNmVjgyL2VEUFFsME9GMmFKRG52MXdF?=
+ =?utf-8?B?bE9KaTJkZHZISjBjUXVCREtzQ2NrSDNRTVZFTWVWVlB4ZG1ERzFoK2lrdlA2?=
+ =?utf-8?B?SnlaN0JrTStqVDE0Y0pmRldCK0NlcTNuTEh3dmJFT3BLYWdEZy9iRXhYeTdj?=
+ =?utf-8?B?MEdOTzAzOFh5dFBxRGRYa2ZyVzR5VndxS1JPdDBaTUtxSnFYTzFOQzQ2OFFw?=
+ =?utf-8?Q?ibIYZOiM6QYmeRnN5B6jCTTxfSPJgYZ4lci4mtggx6vIh?=
+X-MS-Exchange-AntiSpam-MessageData-1: R9dFAID7t8K9IA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5481a336-0d5b-4ccf-4ab1-08df3e5a296d
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 12:08:27.4033
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VQiLyZbcsXQbnQs0wlwCuH1IOI3VSWk0vTq7ak+Jb/hkdBvau/kyxwwdOhX0/6iNNNcliVxaU+8Px5oUjtbJzQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6850
 
-Since the driver was converted to a platform driver, the GPT probes
-late, after the architected timer has registered itself as sched_clock.
-sched_clock_register() only refuses counters with a lower rate, and
-sched_clock has no notion of priority, so the 32-bit GPT counter, which
-runs at the same 13 MHz as the arch timer on MT8173, replaces the 56-bit
-arch timer counter as sched_clock:
+On Mon Nov 9, 2026 at 5:32 PM JST, Eliot Courtney wrote:
+> Current code in IdPool::with_capacity rounds the capacity up to
+> BitmapVec::MAX_INLINE_LEN, but BitmapVec::new works fine with values
+> smaller than this and still uses an inline representation. Remove this
+> behaviour.
+>
+> This allows specifying a real capacity of 0, which was not previously
+> possible. This breaks `grow_request` in this case, so change it to grow
+> to at least `BitmapVec::MAX_INLINE_LEN`, mirroring the capacity floor in
+> `shrink_request`.
+>
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Reviewed-by: Burak Emir <burak.emir@gmail.com>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 
-  sched_clock: 56 bits at 13MHz, resolution 76ns, wraps every 4398046511101ns
-  ...
-  sched_clock: 32 bits at 13MHz, resolution 76ns, wraps every 165191050201ns
-
-Before the conversion, both drivers used TIMER_OF_DECLARE and
-timer-mediatek.o is linked before arm_arch_timer.o, so the arch timer
-registered last and won.
-
-The narrower GPT counter wraps more often and is slower to read over
-MMIO than the arch timer system register. Doing the switch at runtime
-also runs enable_sched_clock_irqtime(), which may sleep, with interrupts
-disabled, causing a splat.
-
-Other drivers worked around the same problem in the same way, see
-
-  commit 37b8b003c483 ("clocksource/drivers/sun4i-timer: Only register a sched_clock on sun4i and sun5i")
-  commit 10720e120e2b ("clocksource/drivers/imx-tpm: Exclude sched clock for ARM64")
-
-Only register the GPT as sched_clock if the ARM architected timer is not
-present. This currently includes MT6572, MT6580, MT6582, and MT6592, as
-seen in their respective .dtsi files. This follows the example of
-sun4i-timer.
-
-The analysis of the boot log and git history, and drafting of this
-change, were done with an AI agent. The agent originally proposed using
-arch_timer_get_rate(), which was replaced by the author.
-
-Manually tested on a MT8173 Hana (Telesu).
-
-Fixes: 7a097aba7255 ("clocksource/drivers/timer-mediatek: Convert to OF probing")
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-
-For the ARMv7 SoCs such as the MT2701, MT8127, and MT8135, the firmware
-has to correctly set the arch timer frequency, as their device trees do
-not have the clock-frequency property.
-
-OTOH we could let sched_clock_register() reject replacing the current
-counter if the new one runs at the same rate. But that would be a
-separate discussion: if more drivers are converted to standard platform
-drivers, then the probe order is no longer easily known like before
-by the link order.
-
-The splat is a separate issue that I already reported [1].
-
-[1] https://lore.kernel.org/all/20261109095036.GA722431@google.com/
----
- drivers/clocksource/timer-mediatek.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer-mediatek.c
-index 1b2cbcc2795a..ef67cc783635 100644
---- a/drivers/clocksource/timer-mediatek.c
-+++ b/drivers/clocksource/timer-mediatek.c
-@@ -15,6 +15,7 @@
- #include <linux/interrupt.h>
- #include <linux/irqreturn.h>
- #include <linux/module.h>
-+#include <linux/of.h>
- #include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/sched_clock.h>
-@@ -334,8 +335,20 @@ static int mtk_gpt_init(struct platform_device *pdev)
- 	clocksource_mmio_init(timer_of_base(&to) + GPT_CNT_REG(TIMER_CLK_SRC),
- 			      node->name, timer_of_rate(&to), 300, 32,
- 			      clocksource_mmio_readl_up);
--	gpt_sched_reg = timer_of_base(&to) + GPT_CNT_REG(TIMER_CLK_SRC);
--	sched_clock_register(mtk_gpt_read_sched_clock, 32, timer_of_rate(&to));
-+
-+	/*
-+	 * sched_clock has no priorities; a counter with the same rate
-+	 * replaces the current one. Only these SoCs lack the ARM architected
-+	 * timer, which is otherwise the better sched_clock.
-+	 */
-+	if (of_machine_is_compatible("mediatek,mt6572") ||
-+	    of_machine_is_compatible("mediatek,mt6580") ||
-+	    of_machine_is_compatible("mediatek,mt6582") ||
-+	    of_machine_is_compatible("mediatek,mt6592")) {
-+		gpt_sched_reg = timer_of_base(&to) + GPT_CNT_REG(TIMER_CLK_SRC);
-+		sched_clock_register(mtk_gpt_read_sched_clock, 32,
-+				     timer_of_rate(&to));
-+	}
- 
- 	/* Configure clock event */
- 	mtk_gpt_setup(&to, TIMER_CLK_EVT, GPT_CTRL_OP_REPEAT);
--- 
-2.56.0.455.g6c5a503b38-goog
-
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
