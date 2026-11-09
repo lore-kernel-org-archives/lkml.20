@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794262782;
-	b=pJPUwd7NIc02WP1adbydDKCkEnswjYVWmJz+ZJ7tyAhN3qCXGsq78LA+ptO7b2kTU2+l
-	 YcWIWv7NRsna2KsWysfHAg7r7Lop5NYHgtrSX623X5lHDe/693o8SsTfkvNu/4iAT/vk7
-	 w/h8ejo+6SxP0CmC2djM/lgON89dh0hOrrfI+hcSI55wdbPnYvFi5FN+mL5OO2hsQVrLA
-	 8yU9p6Pe0koFmzHWom72OU/D0R2IsMpS9tSv+Qm85B13Pwo75gH8jUphG4PVsoNCd4OJC
-	 UKlwq8tmMZJmxz8mzf3RCO09BdP46ZtPAdtZRIXOTQs1Zr0e8Ryh0foAlUGU0AfKxBQ==
+	t=1794262781;
+	b=zAriGQJjAXMpzBL9YWgmw6uOlScceSyJS97KS74WQ4g8X3CVBB19zfCVhq9xNqhBl4/G
+	 0lhs7GI/N/MeMJkzcTxOWE8HeQSELlJqUL5MQ1JmI4skrAUgKx82dQYs7wJ6kw7/olckG
+	 /HxWdMEVdUw0jgu6+sIadOynEkj8KHHLdq5vX7foGdz5CCpu72mlO3fc7670AlLU3ZvnL
+	 yPQxdSNlBF6wBYEgTyPtdS+4qWkD+XDusar+rYe4CyU2NzCCF9lgYeKOJpGV2YusPmlWk
+	 eblTqNlIVX+KOQQGzWXwMsmNCTnMfsQBaLD/YWZJbXiIULugxamx0qtiHEis3l0Yfuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794262782;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794262781;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=QS5I/bEC4hI41fEu7EUfrCSCl2fxBCHghNauEy5q40U=;
-	b=3LjM/LFy5OXJrVBuxBTCEr4nJFUeWoN0vlH4N3Yy0Iy9Qqnr89MzsBBTycg3DGUZvcNx
-	 DpHzKu5PkZ4gSMIbr+9YFQyQcYQktIjPd6dazx2mfKXIDw6lWN9h/PQrwqpQk7swcSo+u
-	 onSK20knLHoW7HE6Mww2qiL3NILJx1FgnJQDIgNc56SVR4WjlERt1LXGndrgxoqKsK6Nx
-	 dEn8t8MZI/TseITv+sF6P9k6OYXmUZecCia1JV2V8hVBszYPXkEIQ1Q70d0dcFE6rADvx
-	 AO83+s2cPeWO0ykJS7vAXv93MdAjkuTU6ugRHzsDNMENS0Gnow6Y2nV4bAgvRtT5zXA==
+	bh=ieIwxx7aww9l648mtXdPCLcHQjOhw/DTkMOJRAxpEdU=;
+	b=KQtPl7mNjNEMl8jq0iw3ru08Ykh8U5EZzAxqK5nAAeySuCL9kj4rGweak6NDw3bxGMBB
+	 5YaY2WxCRis8SicsHJl30BQGFsEqCv3wv4YXukSB0EATltpQmZPafYqnVovglLXci7eoT
+	 YbGJt74nhaU54wS/MqxnRPnx794FwoiVu7z/BqRt1XpoQUjOkNJVos79pLkcM6pOb4pxw
+	 Dlau+fKZxjhvixyL1TY4DdF/0znCqiy77M2SOHxRe4E9vCKl30PHCtRLdsPquskv8HPJ1
+	 twyN6BldBgIZIoLiy6Ba38hfAtanaDOpFBm+fPWphgk8PEbsZKyP/fJ/fjWISf0xXdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aF0ebzNy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+bYfXyg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E01606A32A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66039606A333;
 	Mon,  9 Nov 2026 22:19:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aF0ebzNy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 021CB1F008A6;
-	Mon,  9 Nov 2026 22:19:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y+bYfXyg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E27E1F008BD;
+	Mon,  9 Nov 2026 22:19:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794262781;
-	bh=QS5I/bEC4hI41fEu7EUfrCSCl2fxBCHghNauEy5q40U=;
+	bh=ieIwxx7aww9l648mtXdPCLcHQjOhw/DTkMOJRAxpEdU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aF0ebzNy8jXqMKT5XDgQlR+fKrQGBzkZHlIUb/rXLrEztm81fYlD1+IVhPcCPzkQC
-	 7ys+RnawzWfpZedwdAnxHQTzGbNEfplnd1iVAJypCN9gWakisjwEPRM8cfmlZfWdCB
-	 ix+KnfFnQGYJFrYqQTU7srFbA8YyedqZruesXDOVrS1EjsZpSpiJ6B0c67ekJBNyy8
-	 mmIRV5DhzoTGo/KWSmeDISm+TlgpwSSXE84w1OcR2p/pXXNrrMfifPIqwSrd5wlOcI
-	 ckuDOEsLOWEgbYRWfHSbUpXbusmGxwfXsq+89V71MXIADKKQWCOvjiIoU29I1dk+lM
-	 QXjZqSr6oAzkw==
+	b=Y+bYfXygzrAg1w+bc2WSLfp4zREsjCyng7vmt0NA15o8TNEWFwv06x4Ox603qRNfP
+	 ghiMeBVqkt8B0GEuod5EtISRjJoZYUDbYjqRb0Jx91kXVKNiHJ0gL7+jLRZdh9jp6X
+	 YKs4Nduweee/eznd/Y1T6hZwkf8F2PWIfxkHsQx5870F+KJHtIQgFcoRd90DUzJecU
+	 fdoYbExtHVqD3AVGMAIXYphQCZdaqUMwlJQwOCoiwARI1m6YWwvTlKQkkHF2HEc2GG
+	 UsICsVgkT3QHstXV4v9UHt88LmwKMrIp6s4EKrr7qL/I9/qg7gZNcw44fzK8Do6dXH
+	 bTe9xF7vPHGvg==
 Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id AE653CE0DDC; Mon,  9 Nov 2026 14:19:40 -0800 (PST)
+	id B3FA2CE0F2E; Mon,  9 Nov 2026 14:19:40 -0800 (PST)
 From: "Paul E. McKenney" <paulmck@kernel.org>
 To: rcu@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	kernel-team@meta.com,
 	rostedt@goodmis.org,
-	"Paul E. McKenney" <paulmck@kernel.org>
-Subject: [PATCH 2/8] rcutorture: Disable RCU priority boost testing on non-TREE03 scenarios
-Date: Mon,  9 Nov 2026 14:19:33 -0800
-Message-Id: <20261109221939.2070171-2-paulmck@kernel.org>
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	"Paul E . McKenney" <paulmck@kernel.org>
+Subject: [PATCH 4/8] Documentation/litmus-tests: Add SRCU fastpath scan-before-anchor test
+Date: Mon,  9 Nov 2026 14:19:35 -0800
+Message-Id: <20261109221939.2070171-4-paulmck@kernel.org>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <db8c185c-5523-48e5-abee-020503b4875f@paulmck-laptop>
 References: <db8c185c-5523-48e5-abee-020503b4875f@paulmck-laptop>
@@ -65,59 +66,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The TREE03 scenario has been configured to permit testing of RCU
-priority boosting, including setting RCU kthead priorities to 2.
-But now that RCU priority boosting is default for preemptible kernels,
-it is now automatically tested for TREE01, TREE02, TREE08, and TREE09,
-none of which have RCU kthread priorities set up for such testing.
-One approach would be to set up these scenarios' kthread priorities,
-but this would fail to test common-case kernels having default priorities.
+From: Kunwu Chan <kunwu.chan@gmail.com>
 
-This commit therefore disables the testing of RCU priority boosting
-except on scenario TREE03, which is set up properly for this purpose,
-though rather unrealistically.
+If the synchronize_srcu_atomic() fastpath instead places its lock scan
+before the grace-period anchor, the scan can miss a reader whose
+increment was already visible before the anchor.  That reader already
+existed when the grace period started, so completing the grace period
+without waiting for it would violate the SRCU grace-period guarantee.
 
+This litmus test models the reversed ordering, with the lock scan placed
+before the grace-period anchor.  "seq" models the grace-period anchor in
+->srcu_gp_seq and "ctr" models the per-CPU ->srcu_ctrs[].srcu_locks
+counter.  P0 scans the lock counter before writing the anchor, with an
+smp_mb() between them.  P1 models the reader-side counter increment.
+P2 models an observer that sees the reader's increment before seeing
+the anchor.
+
+The same outcome is allowed with this ordering, and herd7 reports
+"Sometimes".  The litmus-tests README is also updated to describe both
+SRCU fastpath tests.
+
+Tested with herd7 7.58 using linux-kernel.cfg.
+
+Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
 ---
- tools/testing/selftests/rcutorture/configs/rcu/TREE01.boot | 1 +
- tools/testing/selftests/rcutorture/configs/rcu/TREE02.boot | 1 +
- tools/testing/selftests/rcutorture/configs/rcu/TREE08.boot | 1 +
- tools/testing/selftests/rcutorture/configs/rcu/TREE09.boot | 1 +
- 4 files changed, 4 insertions(+)
- create mode 100644 tools/testing/selftests/rcutorture/configs/rcu/TREE09.boot
+ Documentation/litmus-tests/README             | 19 +++++++
+ .../SRCU-fastpath-scan-before-anchor.litmus   | 52 +++++++++++++++++++
+ 2 files changed, 71 insertions(+)
+ create mode 100644 Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
 
-diff --git a/tools/testing/selftests/rcutorture/configs/rcu/TREE01.boot b/tools/testing/selftests/rcutorture/configs/rcu/TREE01.boot
-index 1cc5b47dde282..73d51d869fd5e 100644
---- a/tools/testing/selftests/rcutorture/configs/rcu/TREE01.boot
-+++ b/tools/testing/selftests/rcutorture/configs/rcu/TREE01.boot
-@@ -6,3 +6,4 @@ rcu_nocbs=0-1,3-7
- rcutorture.nocbs_nthreads=8
- rcutorture.nocbs_toggle=1000
- rcutorture.fwd_progress=0
-+rcutorture.test_boost=0
-diff --git a/tools/testing/selftests/rcutorture/configs/rcu/TREE02.boot b/tools/testing/selftests/rcutorture/configs/rcu/TREE02.boot
-index dd914fa8f690b..f2ca5d812f3f5 100644
---- a/tools/testing/selftests/rcutorture/configs/rcu/TREE02.boot
-+++ b/tools/testing/selftests/rcutorture/configs/rcu/TREE02.boot
-@@ -1 +1,2 @@
- rcutorture.fwd_progress=2
-+rcutorture.test_boost=0
-diff --git a/tools/testing/selftests/rcutorture/configs/rcu/TREE08.boot b/tools/testing/selftests/rcutorture/configs/rcu/TREE08.boot
-index 94d38445d3937..41c3264f8e8cc 100644
---- a/tools/testing/selftests/rcutorture/configs/rcu/TREE08.boot
-+++ b/tools/testing/selftests/rcutorture/configs/rcu/TREE08.boot
-@@ -1,3 +1,4 @@
- rcupdate.rcu_self_test=1
- rcutree.rcu_fanout_exact=1
- rcu_nocbs=all
-+rcutorture.test_boost=0
-diff --git a/tools/testing/selftests/rcutorture/configs/rcu/TREE09.boot b/tools/testing/selftests/rcutorture/configs/rcu/TREE09.boot
+diff --git a/Documentation/litmus-tests/README b/Documentation/litmus-tests/README
+index 6c666f3422ea3..4d4ec9c6f2cc7 100644
+--- a/Documentation/litmus-tests/README
++++ b/Documentation/litmus-tests/README
+@@ -78,3 +78,22 @@ RCU+sync+read.litmus
+ RCU+sync+free.litmus
+     Both the above litmus tests demonstrate the RCU grace period guarantee
+     that an RCU read-side critical section can never span a grace period.
++
++SRCU (/srcu directory)
++----------------------
++
++SRCU-fastpath-anchor-before-scan.litmus
++    This models the synchronize_srcu_atomic() fastpath with the
++    grace-period anchor ordered before the lock-counter scan.  This
++    ordering prevents readers that existed before the grace period
++    from being missed by the scan.  See
++    SRCU-fastpath-scan-before-anchor.litmus for the reversed
++    ordering.
++
++SRCU-fastpath-scan-before-anchor.litmus
++    This models the synchronize_srcu_atomic() fastpath with the
++    lock-counter scan ordered before the grace-period anchor.  This
++    permits the scan to miss readers that existed before the grace
++    period, violating the SRCU grace-period guarantee.  See
++    SRCU-fastpath-anchor-before-scan.litmus for the opposite
++    ordering.
+diff --git a/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus b/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
 new file mode 100644
-index 0000000000000..1f52e460e14a3
+index 0000000000000..7df0641b5470f
 --- /dev/null
-+++ b/tools/testing/selftests/rcutorture/configs/rcu/TREE09.boot
-@@ -0,0 +1 @@
-+rcutorture.test_boost=0
++++ b/Documentation/litmus-tests/srcu/SRCU-fastpath-scan-before-anchor.litmus
+@@ -0,0 +1,52 @@
++C SRCU-fastpath-scan-before-anchor
++
++(*
++ * Result: Sometimes
++ *
++ * If the synchronize_srcu_atomic() fastpath instead places its lock
++ * scan before the grace-period anchor, the scan can miss a reader whose
++ * increment was already visible before the anchor.  That reader already
++ * existed when the grace period started, so completing the grace period
++ * without waiting for it would violate the SRCU grace-period guarantee.
++ *
++ * This litmus test models the reversed ordering, with the lock scan
++ * placed before the grace-period anchor.  "seq" models the grace-period
++ * anchor in ->srcu_gp_seq and "ctr" models the per-CPU
++ * ->srcu_ctrs[].srcu_locks counter.  P0 scans the lock counter before
++ * writing the anchor, with an smp_mb() between them.  P1 models the
++ * reader-side counter increment.  P2 models an observer that sees the
++ * reader's increment before seeing the anchor.
++ *
++ * The same outcome is allowed with this ordering, and herd7 reports
++ * "Sometimes".  See SRCU-fastpath-anchor-before-scan.litmus for the
++ * opposite ordering, which forbids this outcome.
++ *)
++
++{}
++
++P0(int *seq, int *ctr)
++{
++	int r2;
++
++	r2 = READ_ONCE(*ctr);
++	smp_mb();
++	WRITE_ONCE(*seq, 1);
++}
++
++P1(int *ctr)
++{
++	WRITE_ONCE(*ctr, 1);
++}
++
++P2(int *seq, int *ctr)
++{
++	int r3;
++	int r4;
++
++	r3 = READ_ONCE(*ctr);
++	smp_mb();
++	r4 = READ_ONCE(*seq);
++}
++
++filter (0:r2 = 0)
++exists (2:r3 = 1 /\ 2:r4 = 0)
 -- 
 2.40.1
 
