@@ -1,51 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794252005;
-	b=SRt8ODXgFMx9zRvgFJ1hQWOUbHu8XIxJZhph9ujmfJwmKR+zAEgju5lUoQAWF7lv1SKy
-	 2BrnPO8cLzwieohYZMr6kft3P6gDKaUUT9BQox48Y4XSjjkMbrngEb6ALep6eaNJDM5Tc
-	 NvUYEWMFkvS3rTUBTXR6K7s8Dl8F/3Xc/iCjoEOIcmLSgniNOU1cMqZ2CKVeJK2GfFvsW
-	 cosZJiM0TjULbYY69r0MbbZyMy2qOyXYA4pGg27AfKOI12pXz+X3LeCG+rFJugCUcVog2
-	 l5RUdlFFyrmve99xgyLDBrhpWPLT/Tp2WAvubXzEMPJMtwErjDNNPxHWG2oTwD2Widg==
+	t=1794252030;
+	b=G23TNcbmFNA3PXEhbGTmOduw0syYbNlk3GL7UQKrsSghQ36d3WDYsAvSsAxs3n9wfES8
+	 y7QBGpQypqpXpR8qiwoBz1XPMaV2PnCGZH6r+BAOIaKRVZ5A+h+v+/0ZjHozTNKdnhZL4
+	 pJ26YujA2DNFz6E1L+qQTCLUr9b1FBJB9uFztDcQ2/99Mz9x00IkDM1YxjrhXktCX4b0J
+	 CnfKtqqiIDgXOj34LKtI/FIeJxFZBB48ativtXlNE7av4IxifvbSELrFEHrirwYUVLEYq
+	 wVP892JGiW2HaT0zRJn1AGrwIfwVCoi1XJwTrD9fT0t9A27ZqInS0zQLOQ12MsaA1lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794252005;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=pByP64xYjlCmoKt/eNlnc0GMK5oodeNiOFZJqxDUKPk=;
-	b=AmDV+jUKmnSeQ768CiM8cFJHj5d+c0HxE3c9np6kGaH5Xd9wODoYwXLADgVAPU/au8Yk
-	 vHti9A8VrDHxFo6gKqiLKlHHJ0tp1c/VVbuxdan1dmermD7J6HN8rhq6PopHHlHMRKdBD
-	 06OEiYXYPqanHaX/fFMukZnaA1u5lGoJgbZiqtk/3wxZqXdHBsDJJjEl/55Kzf58g2bJI
-	 1VEXvszLTB3tuA8c9rH45FAXhw1JPV4c5Lh6tnIuFFgh9XcHezKzZMYtSAWo0GMAB9XBA
-	 f2FaXGzA15LFW1egCAvP+DvFAzBfjHn2uVmxqhStPEsJxfLRy7d5wmXCrvVT9dZCVsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794252030;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
+	 To:Subject:Cc:In-Reply-To:References:MIME-Version:Message-ID:Robot-ID:
+	 Robot-Unsubscribe:Precedence:Content-Type:Content-Transfer-Encoding;
+	bh=mqmzqHy+K6xqClxPJ0pw3vTOjRyHVjEU8LMpqi7wpRU=;
+	b=c1iyWe8YVPdtSdFnKojtlSMAled2gVGP+VNUX6rZMi3/24+EX0tPfUerJd6Le68TRgYC
+	 LowRWd8VWv78P6l6hqqyrk9K1OzoH4HOK3Sq/dw5iGJqJrjYMfrHgRG1jursXfl3PJczq
+	 +97gnHBoLmonAn/Isv4nbvTLZTkeTcYzXoXI1TEo2VJK7vGIropYIDApQyfRscR5gM/Z8
+	 L8HJGw6ZSl+nN3RjMmJ0fVgHYGenAsGWVAEgt5bG40FTPxz2c9q0swXNThKMHi9CkYGeZ
+	 NY834+dm1LrGAnSWBoBv6I0PiSfjfx87ibjnhuo5uENlQ/a+FdzlkkPNl4FMlxRX6Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gentwo.org;
-	spf=pass smtp.mailfrom=gentwo.org;
-	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=LfIWjz0w;
-	arc=none smtp.remote-ip=62.72.0.81
-Received: from gentwo.org (gentwo.org [62.72.0.81])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="xp7Ws/J2";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=SGxk5KLm;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26062606A31C;
-	Mon,  9 Nov 2026 19:20:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26062606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2489606A331;
+	Mon,  9 Nov 2026 19:20:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2489606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=LfIWjz0w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1794248809;
-	bh=v/4GMSFwTdjUInNUT+gg1y5mga28q+gEKxv/5/CU6fM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=LfIWjz0wcawGk9tLwhsw02zxwYERtrtcIWhP5Jq8Jg9V5XB+JLngczQt9Dn+zTCw4
-	 wCHao6UJIPJ+IhNWame60t4InjRF4W6S1rSM9/AqqRj9ttJuaFHMUv4xGOPTyDcErQ
-	 tyiXEUleZxbvlkFbolXByY4Tto9iVU782LRbsnHY=
-Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTPS id 7D3674076D;
-	Mon, 09 Nov 2026 10:26:49 -0800 (PST)
-From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Date: Mon, 09 Nov 2026 10:26:48 -0800
-Subject: [PATCH v3 2/2] selftests/futex: Test tagged arm64 futex addresses
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=xp7Ws/J2;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=SGxk5KLm
+Date: Mon, 09 Nov 2026 19:20:26 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794252028;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mqmzqHy+K6xqClxPJ0pw3vTOjRyHVjEU8LMpqi7wpRU=;
+	b=xp7Ws/J26aBS1MXvODxi/xgGazICgW0x3e8oYY4bt8SDQB/8t0LjvJX/cIygTm4QCCoH3H
+	yy9uBrAJ5yBvq5MXlnAe/xEZljUKiVoyFc3aUuzQ4/Ux7k2p19lwiLxMYIa9s6dpEkOKGG
+	Ft5P6JMEecJH0bzhOgyZdPxofMH6xGjx7khJ2qdnsIKg82gmX24ubDhaYC7nKv1Mx+oeVa
+	hw40ufNz0UZfMfmkWnfDiNueU+7m64mlEAg7kglR5LjDsfIff94NEQ4vShYjuM9PGRGwYD
+	V5eP+/I6CUvV1Y2UrD7EfVG5bCcuL/xTdoUh5xMqjMLzmCcvSojSGiCB3qp3ww==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794252028;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mqmzqHy+K6xqClxPJ0pw3vTOjRyHVjEU8LMpqi7wpRU=;
+	b=SGxk5KLmjD7RopxlSJM/JL2iF0fjOX5BMOqpPD/hoclIrW+GE5El7u+iY2lAqsF3ftDZOc
+	Jhkfdsy7Qk2ju4Aw==
+From: "tip-bot2 for Hungyu Lin" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject:
+ [tip: timers/urgent] tsacct: Keep task begin times stable across suspend
+Cc: Oleg Nesterov <oleg@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Hungyu Lin <dennylin0707@gmail.com>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261030054227.35453-3-dennylin0707@gmail.com>
+References: <20261030054227.35453-3-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,152 +79,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Message-ID: <179425202666.2093942.10369104068455461255.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-futex-tagged-uaddr-v2-prep-v3-2-3f5f2ef83138@gentwo.org>
-References: <20261109-futex-tagged-uaddr-v2-prep-v3-0-3f5f2ef83138@gentwo.org>
-In-Reply-To: <20261109-futex-tagged-uaddr-v2-prep-v3-0-3f5f2ef83138@gentwo.org>
-To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Darren Hart <dvhart@infradead.org>, 
- Davidlohr Bueso <dave@stgolabs.net>, 
- =?utf-8?q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>, 
- Shuah Khan <shuah@kernel.org>, Kees Cook <kees@kernel.org>, 
- Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
- "Christoph Lameter (Ampere)" <cl@gentwo.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Andrey Konovalov <andreyknvl@gmail.com>, Will Deacon <will@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794248808; l=4099;
- i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
- bh=v/4GMSFwTdjUInNUT+gg1y5mga28q+gEKxv/5/CU6fM=;
- b=9WvlPA4uRv35Tiu696WHDaHQybRLPz7PE0XaNDkkx+Ygo7MTZM4qACQXkP+j7NG1/2LpoK0/b
- vnyuCL1h+AICqIyQACN+AqgT9nti0XFFzApe0r0uYxTUbJzEt2XuREB
-X-Developer-Key: i=sh@gentwo.org; a=ed25519;
- pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
+Content-Transfer-Encoding: quoted-printable
 
-On arm64, a thread that enables the tagged address ABI can use a
-top-byte-tagged futex address. Verify that a waiter using such an
-address is woken through the equivalent untagged address.
+The following commit has been merged into the timers/urgent branch of tip:
 
-The test retries the wake briefly while the waiter queues, avoiding a
-dependency on /proc/<tid>/wchan.
+Commit-ID:     c49b3c20a2d0b22700e2100a527e68e829ece7f0
+Gitweb:        https://git.kernel.org/tip/c49b3c20a2d0b22700e2100a527e68e829e=
+ce7f0
+Author:        Hungyu Lin <dennylin0707@gmail.com>
+AuthorDate:    Fri, 30 Oct 2026 05:42:27=20
+Committer:     Thomas Gleixner <tglx@kernel.org>
+CommitterDate: Mon, 09 Nov 2026 20:15:58 +01:00
 
-Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+tsacct: Keep task begin times stable across suspend
+
+bacct_add_tsk() derives ac_btime and ac_btime64 by subtracting a
+CLOCK_MONOTONIC elapsed duration from CLOCK_REALTIME. MONOTONIC stops
+during suspend while REALTIME continues, so querying an existing task
+after resume moves its reported begin time forward by the time spent
+suspended.
+
+Calculate the begin time from the wall-clock boot timestamp and the
+task's CLOCK_BOOTTIME start timestamp instead. This accounts for suspend
+and adds the nanoseconds before truncating to seconds. Keep ac_etime and
+ac_tgetime on CLOCK_MONOTONIC and retain the existing rebasing when the
+wall clock is adjusted.
+
+The new begin time can be negative: setting CLOCK_REALTIME is bounded
+by CLOCK_MONOTONIC, which excludes suspend, rather than CLOCK_BOOTTIME.
+A permitted backward clock adjustment after suspend can therefore put
+the task's begin time before the epoch. Clamp ac_btime64 at zero too,
+instead of wrapping in the unsigned field, and retain its positive range.
+
+Fixes: f3cef7a99469 ("[PATCH] csa: basic accounting over taskstats")
+Reported-by: Oleg Nesterov <oleg@redhat.com>
+Suggested-by: Thomas Gleixner <tglx@kernel.org>
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/r/20130611200600.GA15168@redhat.com
+Link: https://lore.kernel.org/r/alpine.DEB.2.21.1911071335320.4256@nanos.tec.=
+linutronix.de
+Link: https://patch.msgid.link/20261030054227.35453-3-dennylin0707@gmail.com
 ---
- .../testing/selftests/futex/functional/.gitignore  |  1 +
- tools/testing/selftests/futex/functional/Makefile  |  1 +
- .../selftests/futex/functional/futex_tagged_addr.c | 61 ++++++++++++++++++++++
- tools/testing/selftests/futex/functional/run.sh    |  3 ++
- 4 files changed, 66 insertions(+)
+ kernel/tsacct.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/tools/testing/selftests/futex/functional/.gitignore b/tools/testing/selftests/futex/functional/.gitignore
-index 7c39d10b38e4d86096d2d1ce5fe8d6036e8ca758..c64b93a683bd6e9f6b9d3e4f02397eb24cc5a0ad 100644
---- a/tools/testing/selftests/futex/functional/.gitignore
-+++ b/tools/testing/selftests/futex/functional/.gitignore
-@@ -6,6 +6,7 @@ futex_requeue
- futex_requeue_pi
- futex_requeue_pi_mismatched_ops
- futex_requeue_pi_signal_restart
-+futex_tagged_addr
- futex_wait
- futex_wait_private_mapped_file
- futex_wait_timeout
-diff --git a/tools/testing/selftests/futex/functional/Makefile b/tools/testing/selftests/futex/functional/Makefile
-index a03bd5acba50319f08b04ff0904ef155c000fee3..8f7f6730285b725b483787362db4626c459d65c9 100644
---- a/tools/testing/selftests/futex/functional/Makefile
-+++ b/tools/testing/selftests/futex/functional/Makefile
-@@ -19,6 +19,7 @@ TEST_GEN_PROGS := \
- 	futex_requeue_pi \
- 	futex_requeue_pi_signal_restart \
- 	futex_requeue_pi_mismatched_ops \
-+	futex_tagged_addr \
- 	futex_wait_uninitialized_heap \
- 	futex_wait_private_mapped_file \
- 	futex_wait \
-diff --git a/tools/testing/selftests/futex/functional/futex_tagged_addr.c b/tools/testing/selftests/futex/functional/futex_tagged_addr.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..0b0e350eff11939e42b7b1aca01136b037ed7217
---- /dev/null
-+++ b/tools/testing/selftests/futex/functional/futex_tagged_addr.c
-@@ -0,0 +1,61 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+
-+#include <errno.h>
-+#include <stdint.h>
-+#include <string.h>
-+#include <sys/prctl.h>
-+#include <time.h>
-+#include <unistd.h>
-+
-+#include <linux/prctl.h>
-+
-+#include "futextest.h"
-+#include "futex_thread.h"
-+#include "kselftest_harness.h"
-+
-+#define WAKE_RETRIES	100
-+#define WAKE_WAIT_US	10000
-+
-+#if defined(__aarch64__) && __SIZEOF_POINTER__ == 8
-+static futex_t futex;
-+static futex_t *tagged_futex;
-+
-+static int waiterfn(void *arg)
-+{
-+	struct timespec timeout = { .tv_sec = 2 };
-+
-+	return futex_wait(tagged_futex, 0, &timeout, FUTEX_PRIVATE_FLAG);
-+}
-+#endif
-+
-+TEST(tagged_addr)
-+{
-+#if !defined(__aarch64__) || __SIZEOF_POINTER__ != 8
-+	SKIP(return, "arm64 64-bit tagged address ABI not available");
-+#else
-+	struct futex_thread waiter;
-+	int ret, i;
-+
-+	ret = prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0);
-+	if (ret && errno == EINVAL)
-+		SKIP(return, "tagged address ABI not available");
-+	ASSERT_EQ(ret, 0)
-+		TH_LOG("PR_SET_TAGGED_ADDR_CTRL failed: %s", strerror(errno));
-+
-+	tagged_futex = (futex_t *)((uintptr_t)&futex | (0x42ULL << 56));
-+	ASSERT_EQ(futex_thread_create(&waiter, waiterfn, NULL), 0)
-+		TH_LOG("pthread_create failed");
-+
-+	for (i = 0; i < WAKE_RETRIES; i++) {
-+		ret = futex_wake(&futex, 1, FUTEX_PRIVATE_FLAG);
-+		if (ret)
-+			break;
-+		usleep(WAKE_WAIT_US);
-+	}
-+
-+	EXPECT_EQ(ret, 1);
-+	EXPECT_EQ(futex_thread_destroy(&waiter), 0);
-+#endif
-+}
-+
-+TEST_HARNESS_MAIN
-diff --git a/tools/testing/selftests/futex/functional/run.sh b/tools/testing/selftests/futex/functional/run.sh
-index d1a681b798bd385570710e7c5f9bb28cca64de3e..620d13ee7171e7cc6061053750c9ff4cf525ff72 100755
---- a/tools/testing/selftests/futex/functional/run.sh
-+++ b/tools/testing/selftests/futex/functional/run.sh
-@@ -46,6 +46,9 @@ echo
- echo
- ./futex_waitv
- 
-+echo
-+./futex_tagged_addr
-+
- echo
- ./futex_priv_hash
- 
-
--- 
-2.52.0
-
+diff --git a/kernel/tsacct.c b/kernel/tsacct.c
+index 5c15310..4832068 100644
+--- a/kernel/tsacct.c
++++ b/kernel/tsacct.c
+@@ -24,7 +24,7 @@ void bacct_add_tsk(struct user_namespace *user_ns,
+ 	const struct cred *tcred;
+ 	u64 utime, stime, utimescaled, stimescaled;
+ 	u64 now_ns, delta;
+-	time64_t btime;
++	struct timespec64 btime;
+=20
+ 	BUILD_BUG_ON(TS_COMM_LEN < TASK_COMM_LEN);
+=20
+@@ -39,9 +39,11 @@ void bacct_add_tsk(struct user_namespace *user_ns,
+ 	do_div(delta, NSEC_PER_USEC);
+ 	stats->ac_etime =3D delta;
+ 	/* Convert to seconds for btime (note y2106 limit) */
+-	btime =3D ktime_get_real_seconds() - div_u64(delta, USEC_PER_SEC);
+-	stats->ac_btime =3D clamp_t(time64_t, btime, 0, U32_MAX);
+-	stats->ac_btime64 =3D btime;
++	getboottime64(&btime);
++	btime =3D timespec64_add(btime, ns_to_timespec64(tsk->start_boottime));
++	stats->ac_btime =3D clamp_t(time64_t, btime.tv_sec, 0, U32_MAX);
++	/* Setting the clock back after suspend can make btime negative. */
++	stats->ac_btime64 =3D max_t(time64_t, btime.tv_sec, 0);
+=20
+ 	if (tsk->flags & PF_EXITING)
+ 		stats->ac_exitcode =3D tsk->exit_code;
