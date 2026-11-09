@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794208329;
-	b=GpAvZUpfYnum0g8Nf0dwUeAsl6cJkjO2aTNrOpKD++k0F0xpnvtMoWtE+IgqqZSRzKlG
-	 cVFWwx3r81dNcOTjAs3vakJCkuvD9OS8xRyqM7B58JSThfV7DcLDnb33zrZsRqhanx56N
-	 vGVewREV3MDXbpzaX3J41pofVv64soKeDtt4b/X20aPjwfLz6YLu1K/uyBS1TbHSdXUxy
-	 QbNsvADoghc7TIZwAXNiA3crOsbB5G6q5BBL/IU7qU5oc698c4KFlrAfLxeI8Oui8EiYQ
-	 Or53D2H2BhZbKuiXt4Ad5fwSi0aevPigB6LOskzXwZC06g+tZyb+/WM2JbeKRSyLLRw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794208329;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=OupCEGaIrNwuKpf7Jfdnd1ZAhIgrnuD9zgt3Qr7q5bI=;
-	b=wrosBAXrmvG9rUhB9indnTUsns+f+0vJvcp30pL3CCXAAinQxBPwtPHYNFjryeQRY+1V
-	 Qv6/o0TgKBdivmp6BNwfRu4Z8pSNAee28Qstw9PfXP+p74pcawB1ShmD2vP0v6x78DgEP
-	 btGv8FbSkfZ9Lm6kj/ZQTwBmvuFEcyus57QQbutgEPn4k+9jzvZPeZx68B49/5vXXi8I7
-	 t3u76pXMkZYDmq/lO1oL5C7eO+86RjFsWpTc8YiyNJcKsnAvvPysSiTulfGWc9xfwZY5S
-	 jyQYJk2bBNs/en9A8WUYBy1Ry4/Q4xQdy67ouNtFBmUiyUu5tEnJFpBHLuMMkXXBiSA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S3VYJ1Ch;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.48
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794208355;
+	b=JCyAjvrbUHza+Xa1hho7k0O+tmXs8WCRAOo0FaT/A7eV4OKZhwL1QAXa3q75m2x+hu4v
+	 irCuOkZDRbI/sgPSRAwS60mkLiJNtSjATQxUjS6Wa+7q9k6uJUILXVWfFoSQLwidpGmOG
+	 ma5YXFU/LitlskaGCrRj1kanYoAg0VgrGwHKhuVRGjsCYDgj0Ff0qA+BuGwcSCN7fDTbN
+	 gAkZ/jGAX6dYOFujKnQF3p/GImbRgVOadvBb3T6ULTlxLp7I2MCWgT9BM4fCaD/QoMBPJ
+	 vOSSr9l+5jgqkT+G+ZVj2+jHNYspYxJ8eP4E/Inno1u3AvaM1CXhTm6ZfkEBHELMKug==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794208355;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=jm9engSfdWPrS9dt7pF9UwSBMVA4d9S2cMVwCkkiwKQ=;
+	b=RDNTrXvH4XloAmRKUT0uM+dpvmVmY9D7BNoJU1SouQq0Wa40vyHgSN+TtE1Un9J6lc6C
+	 HEtT2pftqeRUf0FjO57HbgdLCY1XOEm/qAv2jugdH4Xpcr4okc6Tf1tgWZXwlQe1iW1Yw
+	 Cg2WlJr+OQWOY671gr4Ma2nsqJrGFgU4KNiG/ps/pPY9q4sEE50F8LPPJUgsDrDeW70QJ
+	 p86X1RvWKG/V72eWaZd3I3R9j9QyCMBS0C7XZo7ttvkXWOdVvPEOWyDrJ2CAx83pOewUS
+	 kyY2bcJTHbm2nm7JycuadUEZXQnKVEvQL/fj9pEp3BIPdmJWspxRVwAYmzb2wWCOuFw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dSSbULsB;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2435A606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 07:12:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2435A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7B0606A31C;
+	Mon,  9 Nov 2026 07:12:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD7B0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S3VYJ1Ch
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91eb3ac1875so5964116d6.1
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 23:12:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794208328; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iYTKEBdu8pfzBWxGJeQjEgjIeTI0ItpZzuf7LPdMIutJrI32zeqHo94yqsOJ2AoASW
-         VBhWBD+HGhm21dM5yPQJ6Bo6qx35xzQ1c7JCHj4twPmRg5B24uMOcf5vNVW01PGIz0n1
-         dZAiiIOCR6GVQLGFx8lULuaZjfxP7dMNar9r9gvEqeRHQhPo58nQ/tvIe3iasgo/7K7c
-         rhfIUjogU+fp5qNfPWrnIl712+5cG0p4cXdX1fvAVmxh06/uBJhlPwgQl+ZofcQnf1zI
-         kSriips1yXIwzzlwo258dR5GSMnB+TOxcQoEfF3iVoNpjv6zCBCZHJcDyT4Y4CoX2L5j
-         ESHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OupCEGaIrNwuKpf7Jfdnd1ZAhIgrnuD9zgt3Qr7q5bI=;
-        fh=Cr5N5A/ncuxPwYzi/rSahWrMIqqXtVMqPKwqsUGdj88=;
-        b=XTTMcN+Dv4EdMD6+mTkguxLfwLICiBrWkWB/x9o+M6i3zNfx5M+M/RFIpSLhKMi+rd
-         rYpARgKU3eO7+pA3aIVFG2D11sLkO1aBhH8DVzbPAbZVEvTfohK5SL/MaR9K8bi0yEDs
-         TTj9zTQ84njtuzOnB4axhV55NzfM6NyMjH40ZG6bPl0Dn4flB5XqA7AOM/qoKJHmrOLD
-         eC4nUDzpUk1xt80vB+YOJd1EMaEQnb+FK6LRHcf7H2zrKH1yJ1G0zsCcQkAA0xzfQj2+
-         MB1PcCoz37Qxnu4fhUOjFnib5QifM/EZXRWUQkholtOhZixwP4jx2n/y+/E+dBliDU72
-         UWog==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794208328; x=1794813128; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OupCEGaIrNwuKpf7Jfdnd1ZAhIgrnuD9zgt3Qr7q5bI=;
-        b=S3VYJ1ChTDVlnZj+ORlw3KQTe4wFrKpaIAerq2bLU+VqDtH0D62D+PF3ST71FgSKI+
-         k1KBQoX5cgBknJwIVa4+v74qnq7guJen+5Mi3pSWXAvG/6KxzRROdUD9ZCBVIIC47Aev
-         NdntDwYgJwQRuTbSHQOU1HTk4ydzNikWETFE1v6pzuJnbsxJ/xRxx+sThdeF2sllZkDl
-         ntVA+YCCpQEIpTyFDPU1J7q9JZCEI6uDFFeOdAZvOc3nPmQ7moYUlxwzyFBDVrb1XK6D
-         gpVA68mlf54X1gjcI/xPPjua/XDCwpeogYnFwPZoQYTVk8QR7hyfQZLaSbQohcJZNHXr
-         sjPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794208328; x=1794813128;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OupCEGaIrNwuKpf7Jfdnd1ZAhIgrnuD9zgt3Qr7q5bI=;
-        b=PqR+J6eKLy1iRHmSH7t9pfa6zClmWfgX4Fic4ggk7NLwE0uWcGmu/U7X290YIRmsN+
-         PfBlJ1yqN0mfD3NmPawSFu2rQeXNJs7aSwszeUY/uWxIwP4AKmU71xYGHb6G1geWZJOW
-         Ysg/o60/Hp5ijveB2LvlFdGYnlLY4TjspqVDSB+HdbStOZMix0wtR3xZq9IpVhjCkqOr
-         PXBkCSos/SqTUD4q7hq4Ax7h327CrxFqxNhkNyOy8B0WopsKco2A9v3N+1eEketm3RhK
-         bM4WFbbFRKmjq/BntZjTUcaQVxaDd71UqBDaZTLebmPpv2Y5VHaU5rmMLkNHE0pr/mjB
-         dUHA==
-X-Forwarded-Encrypted: i=1; AL+hErGploDgpEQZ3ctZh/R1wi3HqSbA+h1zRc9Fb+vOAGSnebaaSHcRegrx8r07IwwEuq0EJUoUnDneeBsZV7o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dvbOyhuPKvL1owfl1OkjoTFZdhaskdppCFIn9Q3eS1yTZSlxo
-	aLkfztSwr34XvK184ptxc8McyDQCA+NHVa3LoLOtM+NTRP/h9k8BPmfOxV+Vhn4XwbaFnD/lvCz
-	mzku45eUBmtwsZ+r5kks04D03HGCfiJo=
-X-Gm-Gg: AYBFou20i4edxMqSG/LpvS3XbsUVUnlxlbefvk4xy/ELMo1Yn9NbFY1YFZsA5w2AYIG
-	kB1ASMqcZiSz+CpXAX3639Imbj4bFKPb2KhWrSHRXrUZu7uooF2KMu6fRijF6gfnqia+//1JnXq
-	YD6V2b8Ohkef3vet0YeLJ8SQKCTQuqKRiSF5s30iJ+hSqE3xoaNqaaOyF3IJnAPBkMj0G73jaQT
-	T9UjJGzhVNGobpLtcVYSXVidI08xszSzBZsMgcAIkhHCG1n4fWX672NBEiGp1wSxqOc2oRevY5t
-	/f/tT3tltbLlybDQNnz4nK6BY+F4pK4dSP+wmQEMr0zo/mp6ERAEXHK2yq/0Q1PhIMGraP7lmId
-	CMygt6Eei5jB4bM1y+T2D1UkDD8YUBwcwa12V
-X-Received: by 2002:ad4:5c46:0:b0:91e:9d18:6a61 with SMTP id
- 6a1803df08f44-91ed21f31e0mr43992646d6.5.1794208328122; Sun, 08 Nov 2026
- 23:12:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dSSbULsB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794208355; x=1825744355;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=vuCWaIlGUKXXEN2eAbbUtujZ8yy68AEkaUI0O7EyVNs=;
+  b=dSSbULsBQWCmEu9/95U1Mh1FqxcjVetyqt9c9pDguXhXBVppDtdrL4I0
+   y0hmTSvgILu8k84g43Myvphs5Phpq6qN8fqBDatf/qeCSi4uCrnmA69b+
+   MJdOzWK8Z0jwmx+bF0F+PDOss5zE6hcRK8rkcCY2Zpf5w1Nni7FzT+6hj
+   nZcp+1vVYpSM4of5IxzjzrXb7wMOZ8s3cj+hIRm+5r0/Q3E/esqI7s2R9
+   HUSXx+Od07yfAaoONLZp6fEZcPhOjHOCnxhnHr1l70TdUx7L7tTVusYwM
+   1FiNOmnhJk4G+L1nqxz4KDekYc7jHlAgz/BYYbS32xmriHh5Dj+601Mrb
+   w==;
+X-CSE-ConnectionGUID: 5CM3MMqxTbSt9bwF+nXnKg==
+X-CSE-MsgGUID: usgmnsTeTsm5t/DUaZjeVQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2953950"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2953950"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 23:12:34 -0800
+X-CSE-ConnectionGUID: cg/ksszfRaWB7nuvOkH03w==
+X-CSE-MsgGUID: jS8vn2vhQOqV6LVelN0C4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="8370954"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO [10.245.244.60]) ([10.245.244.60])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Nov 2026 23:12:31 -0800
+Message-ID: <3fabe6b3-1285-4edb-abaa-bedf406b4926@linux.intel.com>
+Date: Mon, 9 Nov 2026 09:13:10 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,50 +72,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261002041220.133911-1-artem122novak@gmail.com>
- <CAPufuhaE=pg9yzqZYaDcfkxooZeQPzSNsKQw-kX7PHN99yZyQQ@mail.gmail.com> <469a405f0a447cf433e9449016551cb408fd11dc.camel@physik.fu-berlin.de>
-In-Reply-To: <469a405f0a447cf433e9449016551cb408fd11dc.camel@physik.fu-berlin.de>
-From: Artem Novak <artem122novak@gmail.com>
-Date: Mon, 9 Nov 2026 01:11:57 -0600
-X-Gm-Features: AclHuK9M0NU4pJUOxjwJxtUPXJmeVW_GjcaKtkSrXnuPLAjKurNTbXo_mGqnfSw
-Message-ID: <CAPufuhbXzbgBR=L+5o3eBRXXnHh2FPqThdUnnPsSOuSyjgOsfw@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] sh: add initial SH7305 CPU support
-To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Cc: linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ASoC: SOF: ipc4-topology: Fix pin format leak in
+ process widget setup
+To: Baoli Zhang <baoli.zhang@linux.intel.com>,
+ andriy.shevchenko@linux.intel.com, Liam Girdwood <lgirdwood@gmail.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Mark Brown
+ <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
+ <sound-open-firmware@alsa-project.org>,
+ "open list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Cc: stable@vger.kernel.org
+References: <20261109005604.1004362-1-baoli.zhang@linux.intel.com>
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <20261109005604.1004362-1-baoli.zhang@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Adrian,
 
-No problem, thanks for the update
 
-Best regards,
-Artem
+On 09/11/2026 02:56, Baoli Zhang wrote:
+> sof_ipc4_widget_setup_comp_process() allocates the input and output pin
+> format arrays via sof_ipc4_get_audio_fmt(). When the following
+> sof_ipc4_widget_setup_msg() fails, e.g. because the firmware does not
+> provide a module matching the widget UUID, the error path jumps to the
+> 'err' label, which frees the process struct and clears swidget->private
+> but skips sof_ipc4_free_audio_fmt(). The arrays are then unreachable and
+> are reported by kmemleak:
+> 
+>     sof_ipc4_get_audio_fmt+0xc9/0x420 [snd_sof]
+>     sof_ipc4_widget_setup_comp_process+0x8e/0x200 [snd_sof]
+>     snd_sof_load_topology+0x71a/0x840 [snd_sof]
+>     sof_pcm_probe+0x77/0x120 [snd_sof]
+>     snd_soc_component_probe+0x21/0x60 [snd_soc_core]
+>     ...
+> 
+> Jump to 'free_available_fmt' instead, as the other process widget error
+> paths after sof_ipc4_get_audio_fmt() already do.
+> 
+> The other IPC4 widget setup functions (pga, mixer, src, asrc) free the
+> audio formats in their common error label and are not affected.
+> 
+> Fixes: f9efae954905 ("ASoC: SOF: ipc4-topology: Add support for base config extension")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Baoli Zhang <baoli.zhang@linux.intel.com>
 
-On Mon, Nov 9, 2026 at 1:04=E2=80=AFAM John Paul Adrian Glaubitz
-<glaubitz@physik.fu-berlin.de> wrote:
->
-> Hi Artem,
->
-> On Mon, 2026-11-09 at 00:43 -0600, Artem Novak wrote:
-> > I wanted to follow up on this patch series,
-> > as it's been a little over five weeks since the v2 submission.
->
-> I'm sorry, but there has been too much else on my plate in the
-> past weeks. And before I can get to your patches, there are a
-> few others still lingering on Patchwork for SH that I need to
-> review and pick up.
->
-> See: https://patchwork.kernel.org/project/linux-sh/list/
->
-> > I'm happy to revise and resubmit if necessary.
->
-> Not necessary. I will let you know.
->
-> Adrian
->
-> --
->  .''`.  John Paul Adrian Glaubitz
-> : :' :  Debian Developer
-> `. `'   Physicist
->   `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
+Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.linte.com>
+
+> ---
+> Changes in v2:
+> - Drop the Assisted-by tag.
+> - v1: https://lore.kernel.org/linux-sound/20261103021710.3647599-1-baoli.zhang@linux.intel.com/
+> 
+>  sound/soc/sof/ipc4-topology.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+> index 8b13c97b34804..de03dc58021a1 100644
+> --- a/sound/soc/sof/ipc4-topology.c
+> +++ b/sound/soc/sof/ipc4-topology.c
+> @@ -1313,7 +1313,7 @@ static int sof_ipc4_widget_setup_comp_process(struct snd_sof_widget *swidget)
+>  
+>  	ret = sof_ipc4_widget_setup_msg(swidget, &process->msg);
+>  	if (ret)
+> -		goto err;
+> +		goto free_available_fmt;
+>  
+>  	/* parse process init module payload config type from module info */
+>  	fw_module = swidget->module_info;
+> 
+> base-commit: 3ecd14f81434da3b5ff5c44d243715f96d52303d
+
+-- 
+Péter
+
