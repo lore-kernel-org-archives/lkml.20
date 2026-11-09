@@ -1,87 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794229189;
-	b=oRtlYcOxUXYzeyJVNGhlijPesqA/asrCz1MSocpxGETVNFL9mhjpUWAtciCfRv8ACK1B
-	 7A1L4fkMiDZoJq35cFCviqk8EcvE2/Kzi6fwcT6tXHZ4vGIgV66NQ+QjlIH2ykgLrL2UH
-	 GWqGt5/HMDGJIM2nX1jCXFrAuYCXuF/WPWfMIA0Axesj7WJyb8g//SDxhaBl2fAteQtkh
-	 8SesO1UT70jSCd12NwjZpbFNQkuI8tzhWk81J6Th4Q5cFbWPEtKUCIOcJwVEYwAhLmYnL
-	 a0vqOvQLdxdQ0nb6En3/z25HPE3soBnQepUc2Sa9Kx+90b4mx+X8YOGQmfT0lIziTWQ==
+	t=1794229193;
+	b=H0ltAJRb7dJ0lhT2AKc+W1XGKLqJRxun9P3bgAzIUq4CUzV/FYAgdAoa97v4/iCuis+E
+	 G4ca0xR+u80ASoGNzyScRu1yRsVdrleeVrdMx+f+FQJj4Z87/4vZFnevOEHcHHy3bfuoP
+	 567aROSKDE/qVGWPdmiJUbHmXEE5s9i8A5NTsZU2yq7FSYYRC710XQLJbYx6BggpQRn2w
+	 p4QBGt7ialkL/hs9b8s4ymSEQkeuziikUJ3ruQfxO5n6pdGnjeQK+pfuBZR3yr2MTUJIJ
+	 y5UJpTaOIItHOxaOUgCcrEs++7e63lLFFuS7TZmYguOR1lkppd3F26fWu0gVDmWSRug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794229189;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=Bf66K50sN/ej0L8frki1RtqgPCwdRDaZn51n0bwU8VM=;
-	b=PfpWLRdrQ91vclkTTFcmwvu7Ee7eL2f87XDx/tdBX1tsAhzzSE9koD7cLNxFmn/gjxvn
-	 KyQ/6oIsNk/9qV/aZhvZq0OWfQAO8gfLGPMNU5XRhi7/88w7JeWoYCZAUfUZAT15CzAQO
-	 yAqjNWeLWo9iUxJ6xz8VYQUG6654qAmEoCihF6lfc+FU4oOvtS+Jesmd8qWPSdqZ/jgcP
-	 Yy1oZufPnwJSb/pdDrwIGTJ4nsH9oqfsD71Non9a1pIXCbaLDHOZ+q5Psy1Sj6C9/vtgY
-	 kVVArn0snOf5V89Wj1whAJj5jI54XTAK46MAs+GlGlduxqj74YtN5drWrWH4U1B73+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794229193;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=dHJxQX6qrdjoJ9xxCpDciOGfZ1moJmuMFI7elkZmNW0=;
+	b=L6TsJObbw+Fga3lBc4UzpLzsuRW0z/iVzC/58ib1NE4YZtcXeX3cnP+G91Z2dmtnOPe9
+	 Mh+7oKZeun49KjOGzmJNGAK59vvXxH64/9z7QlL0VyTAm+Pa0hHAu81grTTKKTKxSdj+P
+	 tTHuQj22YojpGDKWCz4+NebLOCDfacNpgoIkblLPPG0d44lLXysHia2tKIT+K/NlUK1Ng
+	 22BJkOPHKpUus93HMa1YHPWeAnIJtYzH9+LjMYsAbxQgTZmfdaN+K+hcXvxXn90VajjpU
+	 WbDro4DrAW3/NQqeabCJUzNuDlrLkp6Lowl9nZqhM6JbybJX4uxHcCzX9SlwgaV0xnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NAWvgYnL;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b0ZQJEl2;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E168606A321
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 12:59:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E168606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA56A606A334;
+	Mon,  9 Nov 2026 12:59:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA56A606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NAWvgYnL
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3b0d0f38abdso85547a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 04:59:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794229188; x=1794833988; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bf66K50sN/ej0L8frki1RtqgPCwdRDaZn51n0bwU8VM=;
-        b=NAWvgYnLD4QUCck7k9pNmkOk0CoS6hSluVdBbZ4zWYWeo/gQJCfVq67X5V0ro0uWNz
-         kgqgT2FaNNYOKEEBajysZS6Np2HFCvU5Gse3AIt/jWpBHSqpk7swp1gRYdyborX1ZLlH
-         DU2STgIJ0c1qR1etFaMugyU0+u2WyH5S/OFHoUTkDhtPb8VnogCxgcu83KNcf1LihkH9
-         MLVJcmbvldvAhZqLlM7N+Nelaz4IqUMzu+RmDEOsplKorKX6BMi6XGR1CFsoFGgdzyY1
-         PAe0V1SOjK+ayZzoBCorPp46PKRW+z29SPgkveUjqIXsyLg7W3gofxHIMVltxyM5Q0op
-         hXxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794229188; x=1794833988;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bf66K50sN/ej0L8frki1RtqgPCwdRDaZn51n0bwU8VM=;
-        b=oHKbB/cLMYaPwM77i9IRvo5ieyPH1qyVuToDxxPOhNEUcDLnZCu4RZW8Vif3MojQdH
-         HPyvuBxeFjs9VRnP7veusPEN1f6vr7XNUPig7X98pHIPcaxOqVstnrmdU/fdTTZD9xw8
-         GMAANtecsQ9MWWE0qYZ3L1NMCXHwCyIZr8DZTDoe67kLU9EbCaK2k54YyrhVqU+kgrjC
-         XTAVSwzQC7THVSxu/PtRXGWxu02PzvjsYi6bgljgTI/vgeXLY4pxNaqNgKd0UBsfhb8B
-         gWbTQG/tV59N8RTrlFFtBiaWDZcsrBI3kpg2dl39lkqrg8CuYCOZa9F95PfEwHFuQ/ps
-         4Wcw==
-X-Forwarded-Encrypted: i=1; AL+hErEpFLog9Z1V3v99cZFFXVxzwz2y5Ha2PS6yMzQf4W4bU6b2CCGveH9seXdS27zMxzl9r5mqDemsYZ7qoqE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bparMNrNBCXx1J9rHu+CV6onl2pM7tLeZ+mwFOYO4fl38rvlA
-	dA07ZzZ4Y+AaiH1U9bd3moCGxsMNwmlxmCTcIUJEo3bkB61fR/7OrLy5
-X-Gm-Gg: AYBFou3rHwRr2YRAd/f0oQlkPP5VdtRidhSOpx7+InFYJ/K3y+stXFMwsOk5fI716ZD
-	krYWwWpsFld/7lJuggvU6WebfByTbaqJN99ar8gTxguYQ28NAGJuQMoetk+Z5JSDmNJWNd3KAsq
-	28xQuHw+vsclYjYlb7WaxK3fm8wGgiuCiCRuDyA9upC+haiRNNWUqHhwt7r8UIUXqQa2LYKjpUO
-	sTa3x98P3JrSoXDybh5+7XCwrw9f8YEGdzTMsd2h1me+5JRNvk7rJ3j4WEk68CaW2Q4moetD20s
-	3EPNo/MO4g2h6AASQYv5hcMGSrou8k9wThqVrNwfLHLLIKKJivzGs/cf3hnivUOm5GXoYe1uVRG
-	2yztX6IocfVhG3QFYw8Crw24njFvAbSjcismUtuxmxuVElRQe+RV5jIsIzBV4oroM5gF5+E8pCd
-	yo4VEsjOUzQsWCVyAdX5OWelqRpbWnwQxa0ZKgbRWK+RNOhboD+L7G1kbfqcQUfJc5Z+sj9kAXk
-	kv2xaHRQPrkwFqnz/72/ctqTzMJjLJSB4KPmBDguqN8hjzpnutzzZI26NqvMWnMoaUc7DTDh48G
-	1aq4xLW/CvecZ9I8hvVUgCrwXBruD22piOBHNhkRj29LB8CqjaDFG1azaY55mkILsaXu
-X-Received: by 2002:a17:90b:3912:b0:3b0:9a3e:bf8b with SMTP id 98e67ed59e1d1-3b12d4c5f3cmr6392997a91.6.1794229188323;
-        Mon, 09 Nov 2026 04:59:48 -0800 (PST)
-Received: from o6.lan ([2602:fce1:44f:115e::])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb969694aasm1534153a12.25.2026.11.09.04.59.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 09 Nov 2026 04:59:47 -0800 (PST)
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Date: Mon, 09 Nov 2026 20:59:29 +0800
-Subject: [PATCH v2 1/3] mm/zsmalloc: remove CONFIG_ZSMALLOC_STAT
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b0ZQJEl2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794229192; x=1825765192;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6dmvxcz7lqwbDDHNjfP4aPXb8rd73wq3lQfjHzl0tcs=;
+  b=b0ZQJEl2AoWe/JLecb5OUbKNfavJW/zFw943YmNgcwiOuvpRXOpd/W6D
+   eVI4rLJwDKH4pPK/Sun8xzvDfCSw1KP2dOn809+DlcnNLotJHFjESIdrz
+   lORG5t7U+P5GkyTXD98pXn5jb3J4qDLaBx6DF0U9KWhtnwGsiEVOHjl2i
+   eSIEXeVW+iHScPax5A3RtZmpcxm87xVmaugfxvw9K01Udaz6vEOT6rclk
+   03B6p+Et0axtqMMiS8xYD5iCQLz8tMj+nzxfgYMDZdqa8OmZ6c0HA3aP0
+   szpC8nGsX6Ngn0CgZNIdiFW8OhXYcv0jEjoYn8NYvBlZ55fzPTw+5ie7x
+   Q==;
+X-CSE-ConnectionGUID: U/3AekPXTJKd2vZ+zBS8Ow==
+X-CSE-MsgGUID: 1BjrRjniT26F4FgyrzLSVw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11960"; a="2849198"
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="2849198"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:59:51 -0800
+X-CSE-ConnectionGUID: ljgYPguSQQ+aqfsa0muZ2A==
+X-CSE-MsgGUID: JqzhGJqXRE6iA6j8DG6Qdg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,203,1787036400"; 
+   d="scan'208";a="7869393"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.119])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 04:59:47 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 5E107121B96;
+	Mon, 09 Nov 2026 14:59:44 +0200 (EET)
+Date: Mon, 9 Nov 2026 14:59:44 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Peter Marshall <pm@petermarshall.ca>,
+	George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>,
+	Fernando Rimoli <fernandorimoli11@gmail.com>,
+	"D. Manresa" <dmanresa@gmail.com>, Jizhou Tong <fqwqf@fqwqf.xyz>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/4] media: i2c: Add ST VD55G0 global shutter sensor
+ driver
+Message-ID: <avHDwGAe99WYaty9@kekkonen.localdomain>
+References: <20261109093353.3757-1-lsa.uz@pm.me>
+ <20261109093353.3757-3-lsa.uz@pm.me>
+ <avGwRaKSqXdtXkII@kekkonen.localdomain>
+ <20261109124610.85065-1-lsa.uz@pm.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,110 +97,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261109-zsmalloc_stat-v2-1-caee41684aba@gmail.com>
-References: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com>
-In-Reply-To: <20261109-zsmalloc_stat-v2-0-caee41684aba@gmail.com>
-To: Minchan Kim <minchan@kernel.org>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>, 
- Nhat Pham <nphamcs@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Xueyuan Chen <xueyuan.chen21@gmail.com>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109124610.85065-1-lsa.uz@pm.me>
 
-CONFIG_ZSMALLOC_STAT only controls the debugfs interface. The class
-counters are updated regardless of this option.
+Hi Sergey,
 
-Remove the CONFIG_ZSMALLOC_STAT guards and rely on the debugfs API
-stubs when CONFIG_DEBUG_FS=n. Skip statistics setup silently when
-debugfs is unavailable.
+On Mon, Nov 09, 2026 at 12:46:16PM +0000, Sergey Lebedev wrote:
+> Hi Sakari,
+> 
+> Thank you for the quick and thorough review. I am working on v4 with
+> the rest of your comments, which will take a few days. Two points
+> first, as your answers may change the code.
+> 
+> On Mon, Nov 09, 2026 at 01:36:37PM +0200, Sakari Ailus wrote:
+> >> +static const s64 vd55g0_ev_bias_menu[] = {
+> >> +	-3000, -2500, -2000, -1500, -1000, -500,
+> >> +	    0,
+> >> +	  500,  1000,  1500,  2000,  2500, 3000,
+> >
+> > Is this
+> 
+> The sentence seems to have been cut off here. What did you mean? The
+> table is vd55g1's, in the control's 0.001 EV units.
 
-Suggested-by: Nhat Pham <nphamcs@gmail.com>
-Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
----
- mm/zsmalloc.c | 33 ++-------------------------------
- 1 file changed, 2 insertions(+), 31 deletions(-)
+Uh, yes. I meant to ask if this is a firmware limitation. I guess so?
 
-diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
-index 7ef80e0da626..104ccf3aa170 100644
---- a/mm/zsmalloc.c
-+++ b/mm/zsmalloc.c
-@@ -222,9 +222,7 @@ struct zs_size_stat {
- 	unsigned long objs[NR_CLASS_STAT_TYPES];
- };
- 
--#ifdef CONFIG_ZSMALLOC_STAT
- static struct dentry *zs_stat_root;
--#endif
- 
- static size_t huge_class_size;
- 
-@@ -279,9 +277,7 @@ struct zs_pool {
- 	/* Compact classes */
- 	struct shrinker *shrinker;
- 
--#ifdef CONFIG_ZSMALLOC_STAT
- 	struct dentry *stat_dentry;
--#endif
- #ifdef CONFIG_COMPACTION
- 	struct work_struct free_work;
- #endif
-@@ -565,14 +561,10 @@ static inline unsigned long class_stat_read(struct size_class *class, int type)
- 	return class->stats.objs[type];
- }
- 
--#ifdef CONFIG_ZSMALLOC_STAT
--
- static void __init zs_stat_init(void)
- {
--	if (!debugfs_initialized()) {
--		pr_warn("debugfs not available, stat dir not created\n");
-+	if (!debugfs_initialized())
- 		return;
--	}
- 
- 	zs_stat_root = debugfs_create_dir("zsmalloc", NULL);
- }
-@@ -650,10 +642,8 @@ DEFINE_SHOW_ATTRIBUTE(zs_stats_size);
- 
- static void zs_pool_stat_create(struct zs_pool *pool, const char *name)
- {
--	if (!zs_stat_root) {
--		pr_warn("no root stat dir, not creating <%s> stat dir\n", name);
-+	if (IS_ERR_OR_NULL(zs_stat_root))
- 		return;
--	}
- 
- 	pool->stat_dentry = debugfs_create_dir(name, zs_stat_root);
- 
-@@ -666,25 +656,6 @@ static void zs_pool_stat_destroy(struct zs_pool *pool)
- 	debugfs_remove_recursive(pool->stat_dentry);
- }
- 
--#else /* CONFIG_ZSMALLOC_STAT */
--static void __init zs_stat_init(void)
--{
--}
--
--static void __exit zs_stat_exit(void)
--{
--}
--
--static inline void zs_pool_stat_create(struct zs_pool *pool, const char *name)
--{
--}
--
--static inline void zs_pool_stat_destroy(struct zs_pool *pool)
--{
--}
--#endif
--
--
- /*
-  * For each size class, zspages are divided into different groups
-  * depending on their usage ratio. This function returns fullness
+> 
+> >> +	if (!ret) {
+> >> +		sensor->expo_ctrl->val = expo;
+> >> +		sensor->again_ctrl->val = again;
+> >> +		sensor->dgain_ctrl->val = dgain;
+> >
+> > Can you use __v4l2_ctrl_s_ctrl()? That way events get handled correctly.
+> 
+> These three are volatile while auto exposure is on, which is the only
+> time g_volatile_ctrl() is called. v4l2-controls.rst says to set
+> ctrl->val there, and that a volatile control does not generate
+> V4L2_EVENT_CTRL_CH_VALUE; cluster_changed() skips volatile controls, so
+> __v4l2_ctrl_s_ctrl() would not send one either. Did I miss a case?
+
+Ack.
 
 -- 
-2.47.3
+Regards,
 
+Sakari Ailus
