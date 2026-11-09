@@ -1,82 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794222368;
-	b=WslDM2mPGPnCQVckkFIyh/kc7bclcHUQHvkS6MfHSCFykjCEw1Zr7qtACZ5GVQ1zdbon
-	 VkHVe0Nblt5Rjqf9+cRavzJreG5CwV3CQXqtRSdQzFAmNGIFhktbQ6NeelKUri/SdWc25
-	 HqICkyAcbvvRBN1uw4Q+Q2bDrgcm47Ycf9H1qATO5k2NIHjwnTHGwQpUUVUVxZS9xMTSP
-	 3txOR4/jpYRV+RkKz1JtYi8Yp+AH82qhYnHG0OmAETG5kvofbDdZvCbQe0iHj6p+h5sq6
-	 Oq4ppyBnMsQYe3LAMBZt2zOfPqvsbKN1aTPxfT4v8YqYWOiZP/UUA6LSkdD0DjybfiA==
+	t=1794222376;
+	b=U/z1pPN1tHKprMA2/eOM8heFQJ6LO56p81RBL1DwW0aRFEE8WaiRSPVaKrdxqDpEAqEd
+	 POSONMAd8H3uUjNkAx4nPC67LcHEGm0AN+pbGTSd5BZpeAsrA/eTbAzveepKM2Ci5oTP2
+	 8edfSvIBQIlk61GyflJONlK4pGUES3kBzccyUVrsCqqSIN+c2fHbbtUm32cBzNFUIMdOW
+	 +3fUPvZgSKs1iRFRz8o1oZKZBky1W2gRQiRmYghXSNAUjBoJJ0v8v37naPjXt4nzg+BIf
+	 4ZAwJedF8MG/yABbqw2ptSW1PPPmD/7VZGQju3RNiSB97LzBlaNItBBJQrwdA+A151A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794222368;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=xxg0UqRxYEUrKq/Q8BY+QBId1hBHt/fyVMnZzjc96lI=;
-	b=Xn4POvaw+6Yqdr6cODdvgDGXFBJJYKKY6o7vwdVSVoQ0eviyKob/oziqYtPREptryCK7
-	 1CVSZHnH/AS75bDUY+4II219ERHPEOI8hoKO5SuTjqM9T0l55RHfshwLz9MRF9PlEh+I3
-	 5ozTE/rUqXBJwHr1i3nRvAZGcm6P+TILlR6Yyf4R2kTHO10lSiwtEztg8wK9fZBMk2xqY
-	 xhSu6yd2lRf6O8P8pj8rfTMpoPZkC6XpgsvjN1af/p8PfrLnxj8/OfI/P7bFNBrOzk7re
-	 Rojetw3lK0LlZaCcu0xmjV9yeJcmKVnL8lPOfe3Gb41HP8TI5txQ/XglDJhqHTy4V6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794222376;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=d8vRIIYl392fLQltvVGdYCiU5psYi3L4CF/tseUFWuI=;
+	b=1KcYN8UHvTwXCtBg4yhmCV/q7uo4pJFN6FXvSFhYez7EQQIQCQycp6G8Egzdsm7H96B6
+	 7Gdm5qp06iDs4nAteIXvb8cl5bkWcZ6Thx5gWnXN7r7Oe9KeqUxBwWTBZpZWFWQQDER/q
+	 VqJVnbyC/KeHe63mwSTX9mtIFzkjn+MOw8MnlDIDbN/th7/IiyMVIF76//2QVL/ELYC6c
+	 ob6r9AInBbCNOB+UcX+EHw5e0usjZzC9tJHYiQddvv7UrhZhdPAXUIrGE7dI4rkbHkxwQ
+	 LLHp5hNHj57Q5t8LOYRcjwg9xgUES9e7zjKQAPNcgKr4ZpaTbqjhlSO0p9sJQ1Lh/Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=HH6ZqzdG;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NQBER74O;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE79606A31C;
-	Mon,  9 Nov 2026 11:06:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADE79606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AA0606A32A
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 11:06:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74AA0606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=HH6ZqzdG
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9AE6n03322054;
-	Mon, 9 Nov 2026 11:05:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=xxg0Uq
-	RxYEUrKq/Q8BY+QBId1hBHt/fyVMnZzjc96lI=; b=HH6ZqzdGOij0KkpSjUG5ud
-	1SUNetgDFBKny0B1XE6nHLMEDduwB7fKwN2XrXrF/0eCPakp9S/in2BsvtX1/FR+
-	xIDLnCNpmaH7XpiOqCTJ2F05fooxdqeT8uiGobHMTWq5O4gVZJSRPWEjhqLAueXj
-	l6QwlfNalYhoO9B48SbrGrPkFIsoQQusGKj4TJnvf3dBsdw69mMuApdwHARn8ssz
-	RoXzvIy5uldqC3jaRRZQiIHJN5DAbQ+IpJs8XDUDVBDu0V4gz/YI1UVLpa2wb9v2
-	jHvMVvs/jftf3iZn6z6/q6dzC10MOnFtuMx6S45U+RNR1HxKx23ZrdCFG3MGqYTw
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hsug5vn61-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 11:05:54 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A9AJogF4093682;
-	Mon, 9 Nov 2026 11:05:53 GMT
-Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4htepvqgm2-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 09 Nov 2026 11:05:53 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
-	by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A9B5rop40370818
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 9 Nov 2026 11:05:53 GMT
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2B3AD58059;
-	Mon,  9 Nov 2026 11:05:53 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0364C58058;
-	Mon,  9 Nov 2026 11:05:49 +0000 (GMT)
-Received: from [9.61.101.130] (unknown [9.61.101.130])
-	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  9 Nov 2026 11:05:48 +0000 (GMT)
-Message-ID: <e562995a-dbde-4c6b-9373-1d47b789adef@linux.ibm.com>
-Date: Mon, 9 Nov 2026 16:35:47 +0530
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NQBER74O
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a018493d57so23965e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 09 Nov 2026 03:06:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794222375; x=1794827175; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d8vRIIYl392fLQltvVGdYCiU5psYi3L4CF/tseUFWuI=;
+        b=NQBER74OU5U3ZNxkP7QM3WDEqDaLQG+IRNaj6Lfu7gFSHjIosHZG30KG910/k1aXjn
+         EG3e6n/soxDFjNqohoSRC23OY6LHQxkMLyjJEcWh+1AdV1vmt4+GNAXhUgSTL2Y5ym9I
+         OTe0ZZcrC6PgOkQv7+Bu9lbHQBLDFm0qeCgSgL0CUkc9iJ5ooKvUNQfiiprvb9KMJiGM
+         a0ZjY6h9QnN85gTUMwHti0AukhF4NRX5r0gxPon2zMdefhVagjkuaRaiSkF1Nfj6AQzK
+         EXaN0e3vFENLurgoTCsM2c5zcCG1co1M91QG8MSDPy5pFG0P156WXKajxSclcizr48vg
+         GHQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794222375; x=1794827175;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d8vRIIYl392fLQltvVGdYCiU5psYi3L4CF/tseUFWuI=;
+        b=Sn5JnV+4XDCvTDeIlJWpkwdiHuE9O4zk0w4sl9eFADfpLZR2QIuxele9HY2Yczd3Wj
+         Ncnj8UCM46ov7oziG9i42Fv2h52A2VGKKOTste0wGD4ug1N5F3wI59Qmpgw6iw7AG1br
+         kL8vVkYLf1pZ6ItXJSJfUyuDATBg+pF4UKfhW/S+NpKScARR2K2t1QbD+ufJT3CxbVIL
+         ftDVoqT9xy2ZlHxFkg/qI3Yp456orq1/E2+8NlfRo41BJb9y5xA9TL32FU6ZsIuOBLLb
+         rAn4LUyCmSV2jWt8Tp8Vlif3OTNOsK10yZiCTYqV1Ns6PJfTZidnIPSXrVsGFAsqoJyQ
+         bs3g==
+X-Forwarded-Encrypted: i=1; AL+hErHG/e28vmTsGD1R1RXF4IwX2+GjtN6HetoxhClyi5Ett83ox9A3ijIO52OJkJ4S+JuphWkn6daQ4Ujw0dQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8XNiUKeHyQ3g2f1mvT0APfZteJJexxj8PudjWK03u8Caxzzo22
+	2Z2WLIJ/9trj8mrEsm+mWxrHHcmG+JdIU/nOUKVzfSfNbif4KIvWXAj/Leda0FCklQ==
+X-Gm-Gg: AYBFou11C3lrJK/gdeTpZsuedahFavX256q31tioaRsXJ+w1G8xEAxlwKLeRKjgz8Fb
+	S+aHWI66YisM7FHqDjCr2dP7atFi4vL2xKQ94VVU7nhugRxB0x4pHaIUkWKmgwBDnvKxzP+fZs9
+	3vVux8vRBv7arqgC0GeT2cZyVwYX00IhpPZlqQcqOyTCyKemGWfC0L8HKJHDFVMz8rkxhFe3rPa
+	HLloXTwgbW/9d4+ZAFjvH5kEO5Ov7NbFVmmBYTr8uG7AUkuQ+xVQ8d0a5QG2OHUwro/kv1eNW99
+	AidZ3bgPazHoK07FEB/2rgIotA0+doOZ22SzsNu1b6KIqaiUGTAgup0x8W6Or6mytxIPlzlkWYh
+	RBWQYgfmmyonRO+gbeAtYiwBa291L9GASt2/NYkQ4htmfGvzQ2cK1V0qldMVTbdkkM/2inKnotA
+	3WDtHv0RnuQ5bmFrIo6k1GukQo3pTuNwQsBlGgTB23ENOXnUd91TwTQnvw3/oawI1wJ7szUwaug
+	hUzZK6mhRZqpQppIcsHfR7cjVu8K7bmr/GF+AXHgmpRLEEaalMVwPW3Wa5XBE62ral3dL8/ugbb
+	l8nuf5+wjXL++eYHP2Kg+IkNCjjJYIrRpTThVEjYQfpJptKvH5Z9341t3USmPLNzAZ3uww==
+X-Received: by 2002:a05:600d:640f:10b0:4a2:1912:6687 with SMTP id 5b1f17b1804b1-4b8aec1d290mr1382195e9.2.1794222374432;
+        Mon, 09 Nov 2026 03:06:14 -0800 (PST)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-496c89d8630sm4422045f8f.15.2026.11.09.03.06.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 09 Nov 2026 03:06:13 -0800 (PST)
+Date: Mon, 9 Nov 2026 11:06:09 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
+	catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
+	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com,
+	yuzenghui@huawei.com, joro@8bytes.org, jgg@ziepe.ca,
+	mark.rutland@arm.com, qperret@google.com, tabba@google.com,
+	vdonnefort@google.com
+Subject: Re: [PATCH v9 13/25] iommu/arm-smmu-v3-kvm: Add MMIO emulation
+Message-ID: <avGpIXoiLzncL29t@google.com>
+References: <20261015200903.2735565-1-smostafa@google.com>
+ <20261015200903.2735565-14-smostafa@google.com>
+ <au4w8nvPQ3xv7igC@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,121 +103,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] blk-mq: take quiesce_lock when removing a queue from
- the tag set
-To: mt4022@columbia.edu, Jens Axboe <axboe@kernel.dk>
-Cc: Mohamed Khalfella <mkhalfella@purestorage.com>,
-        Keith Busch <kbusch@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
-        Bart Van Assche <bvanassche@acm.org>, Christoph Hellwig <hch@lst.de>,
-        Josef Bacik <josef@toxicpanda.com>, linux-block@vger.kernel.org,
-        linux-kernel@vger.kernel.org, tz2294@columbia.edu,
-        stable@vger.kernel.org
-References: <20261106-blk-mq-del-quiesce-lock-v2-1-cd4f72a6eb03@columbia.edu>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20261106-blk-mq-del-quiesce-lock-v2-1-cd4f72a6eb03@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: q4ZXlQ6vjS07HfIoR1c6Huw6xN7545dt
-X-Authority-Analysis: v=2.4 cv=PeVqFShd c=1 sm=1 tr=0 ts=6af1a913 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=WTJdmG3rAAAA:8 a=VnNF1IyMAAAA:8 a=npNqatxc2sd5QBqGfiMA:9 a=QEXdDO2ut3YA:10
- a=q3NGepEMMmKWaCv8Sx90:22
-X-Proofpoint-GUID: jEaq0M2rO7FPtIYS8bgGuG88Iao1FqLq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA5MDA0MiBTYWx0ZWRfX3Hkkski1muN8
- kzXY+XPtCyZ8kWHiFOaDaqs2zC0308SvqoiotyXnrEsRxCWA+38Zxbfe4mKgrje/HWTK0gMjXgV
- JA/0KPINRE26VCCkZXZY/6+iflQ+uodCYlbS5NUM0xcPtelpg9hqXQp5gDeOPeNGxZc1O0dxy4p
- gAfU4zOMh6jdlPae/b35BkfKHQqM+FxodbQhEUxjXJYvn819BIgkiWh2+1V2XAOX36GwzjG53GB
- DYxKrqZ+o+4x+O3YjQMq7JdgX8dRIeobd4tK2gnn+db3+kTSOtqMrSCdkJo4PU47yw1FSxjUXTe
- ilFv+N4OcDwnnPPtgdvZivcopYuXvz9NMyK8IsJA54icXGTTP7VaAst/iR0F87wyNT8MouMTCag
- UQTNzaFiawqE38LF5Vq/eXtwO7vFy9y8KLXCUE87jWuY5w8P9eyJtzlg8qgdQ5iDNhb1+bbprd9
- rmobPnRzaOP+02QHEhw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA5MDA0MiBTYWx0ZWRfXz/GmBHuoY8oW
- Ap73ExYvU9VMwkgBUkLxk+uOZtZmZISPuj9l9pKBnW3uNIrIUDP4NdAToH149fhULd1bDBeIMyk
- uMsQZAEWjkDmRiQMlQAa1ZXOAVTC7BY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-09_04,2026-11-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 suspectscore=0 impostorscore=0 priorityscore=1501
- lowpriorityscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611090042
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <au4w8nvPQ3xv7igC@nvidia.com>
 
-On 11/6/26 10:23 PM, Mani Tofigh via B4 Relay wrote:
-> From: Mani Tofigh<mt4022@columbia.edu>
+On Fri, Nov 06, 2026 at 11:56:34AM -0800, Nicolin Chen wrote:
+> On Thu, Oct 15, 2026 at 08:08:44PM +0000, Mostafa Saleh wrote:
+> > +static bool smmu_dabt_handler(struct user_pt_regs *regs, u64 esr, u64 addr)
+> > +{
+> > +	struct hyp_arm_smmu_v3_device *smmu;
+> > +	bool ret;
+> > +
+> > +	for_each_smmu(smmu) {
+> > +		if (addr < smmu->mmio_addr || addr >= smmu->mmio_addr + smmu->mmio_size)
+> > +			continue;
+> > +		hyp_spin_lock(&smmu->lock);
+> > +		ret = smmu_dabt_device(smmu, regs, esr, addr - smmu->mmio_addr);
 > 
-> Unquiescing a tag set can run the hw queues of a queue whose hctxs were
-> already freed.  blk_mq_unquiesce_tagset() walks the tag set's queues
-> under quiesce_lock and rcu_read_lock().  Commit 71ec3c7d6db8 ("blk-mq:
-> quiesce a queue that joins a quiesced tag set") added quiesce_lock to
-> the walks and to adding a queue, but blk_mq_del_queue_tag_set() still
-> removes a queue without it.  The hctxs are then freed right away since
-> RCU only keeps the request_queue itself alive:
+> Going through the followup patches, I found this smmu_dabt_device
+> gets really too big. Perhaps it can be bisect to read and write at
+> least? Something like:
 > 
->    Task A (controller reset)            Task B (namespace removal)
->    blk_mq_unquiesce_tagset()
->      /* finds q */
->                                         blk_mq_del_queue_tag_set(q)
->                                         blk_mq_release(q)
->                                           /* frees the hctxs */
->      blk_mq_run_hw_queues(q)
->        /* reads freed hctxs */
-> 
-> The window is short.  On PREEMPT_RT quiesce_lock is a sleeping lock and
-> the walk can be preempted inside it, which is how it's hit here:
-> 
->    [  399.851277] BUG: KASAN: slab-use-after-free in blk_mq_run_hw_queues+0x4bd/0x550
->    [  399.851328] Read of size 8 at addr ff11000003014148 by task kworker/u9:2/116
->    [  399.851352] CPU: 1 UID: 0 PID: 116 Comm: kworker/u9:2 Not tainted 7.3.0-16299-g81cb9aa43246 #1 PREEMPT_RT
->    [  399.851425] Workqueue: nvme-reset-wq nvme_loop_reset_ctrl_work
->    [  399.851441] Call Trace:
->    [  399.851457]  <TASK>
->    [  399.851551]  blk_mq_run_hw_queues+0x4bd/0x550
->    [  399.851564]  blk_mq_unquiesce_tagset+0x128/0x210
->    [  399.851576]  nvme_loop_reset_ctrl_work+0x78/0x4c0
->    [  399.851600]  process_one_work+0x92b/0x16d0
->    [  399.851660]  worker_thread+0x4e6/0xd60
->    [  399.851707]  kthread+0x300/0x3e0
->    [  399.851727]  ret_from_fork+0x4f0/0x6f0
->    [  399.851776]  ret_from_fork_asm+0x1a/0x30
->    [  399.851793]  </TASK>
->    ...
->    [  399.851988] Freed by task 111:
->    [  399.852040]  kfree+0x1b3/0x4b0
->    [  399.852050]  blk_mq_release+0x400/0x550
->    [  399.852060]  blk_put_queue+0x94/0x120
->    [  399.852068]  disk_release+0x1bd/0x3f0
->    [  399.852102]  nvme_free_ns+0x39/0x270
->    [  399.852113]  nvme_remove_nsid_range+0x2d1/0x4a0
->    [  399.852123]  nvme_scan_ns_list+0x2cc/0x390
->    [  399.852134]  nvme_scan_work+0x421/0x9f0
->    ...
-> 
-> With BLK_CGROUP the disk's root blkg holds the queue until a grace
-> period later, which hides this for NVMe namespaces.  It's still open
-> without BLK_CGROUP, and from reading the code also for queues freed
-> without a disk (e.g., SCSI device queues on a UFS host).
-> 
-> Take quiesce_lock around the list_del_rcu() as well so that the walk
-> either finishes with a queue before it leaves the list or never sees
-> it, and say so in the comment of quiesce_lock.  With the fix, KASAN
-> doesn't report the use-after-free anymore.
-> 
-> This bug was identified and confirmed with the help of a deterministic
-> hypervisor currently under development.  The C reproducer below however
-> hits it about once every 20 minutes on a PREEMPT_RT kernel.
-> 
-> Fixes: 59e25ef2b413 ("block: Use RCU in blk_mq_[un]quiesce_tagset() instead of set->tag_list_lock")
-> Cc:stable@vger.kernel.org
-> Reviewed-by: Mohamed Khalfella<mkhalfella@purestorage.com>
-> Signed-off-by: Mani Tofigh<mt4022@columbia.edu>
+> static bool smmu_mmio_handler(smmu, regs, esr, off)
+> {
+>         /* decode ESR: len, rd, xzr; width check */
+>         if (is_write)
+>                 return smmu_mmio_write_handler(smmu, off, len, val);
+>         val = smmu_mmio_read_handler(smmu, off, len);
+>         if (!is_xzr)
+>                 regs->regs[rd] = val;
+>         return true;
+> }
 
-Looks good to me:
+Yes, I was wondering about the size of the dabt handler also.
+I will try this, but that will propably won't cut the size in half.
 
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
+Thanks,
+Mostafa
+
+> 
+> Nicolin
