@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.39
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.1
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794231846;
-	b=NzDjBBC8FzEbYY5zBvQhwSgFikiab8d9erjSDsfKvLn1UNE2AqvjsZhMgq6lJV0EQc5G
-	 fwX8MIL1HYG1vw4jlvxNl+i0FWCCSc5eGyyQtmqB47u3n9bpg1czhLb3Dl3kgXCRz5s7L
-	 Scjhes+bl4E0ki+ZlTOIcWG/tlgadsxwXMZ9d71GJWqoWH0K5wOAGWmgfDq1MjGCiC53t
-	 HSh+Y8jsrjjbWSNL/qOvqj9twHJxqsRPes7Rf2W0zBsQJz6EipEr5mwKZmTLtVdleKa8x
-	 quzb+o7p889XtcCO7t7Mt2pe3YK2Uw5JbyCU7CdYp9d0rFEVSu6+ykgiYijk5aTBdlw==
+	t=1794231847;
+	b=iU7ROvT2Zqv+oS6r7+aewJB5+R1PbU6HP7FyBPdR5cNzZjRQ/2olCOnU0iUh3HPPrguN
+	 9MA/ZenjUwc+FXogR1Mz1YN0IUwvfMUwZ616A/GH2vWOuQftRI9FI4W1SVkmYHkzFFohX
+	 oQx+bnjicc14etTG1apIESygGLDSOX3Mp4uUhbMHML9YQrPtGNYH1DggtoMsOj06sibcT
+	 4rGCGKLV+0hh/W+AtPMywGh9EE8/Hnkf3KdGZTL31plYGU2LVmBqL4zWf8UgBC96X0xrv
+	 vyPlGlyltMmc9U7V8i3FwPG01wPYip/pXtp7p0fLQsCwlgLutpu37P9xFmb5qWllUZw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794231846;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794231847;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
@@ -26,53 +26,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=2M1o1ba4v3PCbCAr1JPtXsbnZdmsAOyg2ETasB2wEuE=;
-	b=PVPI8vVGDzaj9/36QBISygsroDzRaH2Eezu/EDmgF2ERtJh1SBSBebO4cVB8pCbkcVzF
-	 7jktRC/QN3ygY1yB8ylomBj/VbKK62348+npPClU8nOlO8N9Bk/Aul1Y5bQr+oES80wIN
-	 uCgiZWrdnoG+SOZlCSDKDXQ9y1MjaVFSShDit4f6v+0vHM+u4xyPOCXvYNqgw0MFDDZAk
-	 dpFmgmXdRk0/mLu91Q7tJIfP1hp9nYkh2HTlYoDcEcCrcRWyk6EFKeTLRgRBHs4OA36JQ
-	 IrTxCICIgJ/Hi3ynh9UKwCDFCerK2I3XPjNf+yx2R0WwqZ/qXqWnD6tiROgRJ9YNz5Q==
+	bh=IIzvUKUICb23eFlHyYYodZ+ZuF8+iNxg1iEmDvfWwWM=;
+	b=1vK5cgExjYiC5CEq59jAn3xwA/zmaB0G0felmwzudf5ulm8oZLMsDZMz9JzFdQGB88rA
+	 1a7/KJ6b6xwunFEjZhzDexTB4lmyyz3i85PWWmQVo4wg/KoHFURIZR+/UsTV/uwSz0Oar
+	 HqwZBYRGAVBT8o5Lltyg3bwxiqGhlglaxX9b4mhNq3qBim7MlhPm/VcyrTfzCLerCSU0G
+	 UbHJgcxb/9MIc4lmXo21TgiJbA6vk9kYMhmi3I1ivC7jNWKHCCX+ZV4ARgGD1UbPA5z7P
+	 l7pqGZ3qWbp+L2c7WpxL4NRzI9gxG8UFg7r0JtY4tqQ/LK2vKQ7pyBkdjA8mk6tAseg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=whUukJrP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.39
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012039.outbound.protection.outlook.com [52.101.48.39])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2PcmwRh9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.1
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010001.outbound.protection.outlook.com [52.101.85.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 348AC606D80A
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:44:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 348AC606D80A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA284606D811
+	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 13:44:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA284606D811
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=whUukJrP
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=2PcmwRh9
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NMqEeBdDXMK8CrgHBAYycgmSjqehoqpe+j2GqC6VY8W+SDFwNPfoN9YcwjQi5nPuzPK9li5pzdnT7+Zjile194k0KybenuIR0CsVw+NmSVtlZQgR1LfEHRF1OAq3lxDdfsmwXYW7f7AnZIpKQG3SDyL0KiV8OHlVl0Ufq+5y3+63Sxt/qrblLf6wv9lMAvXBA9tc8QZS8Qj0XgE83F7WILvD1Q6C10s4nSaX23iNqbAL9US9NqrBa7JYGXDZM2pBPXY1SoBDdrkVO30OXYFgXBbWUnA60kxDdDRvUNwT0tdFAqf42ipFMd3Wbf70MCNJVYEPaLxzQ0ofw5YoeSmrjw==
+ b=H7qFX7173Ml0373yICZ0HTRwpqse1uU4DUULB9fyYwFd9JatO/zd/NIG6BAbPaO6m5v1nxwKj6uqG8LmL4N7jEZYqI+aIVrS4yh7andS0tnK3r/ztO21a6xd02CMPE4KvSHIONB3tkYuf9/ibONpyFbegsnSQOcnpwxkH+Qy210xjL03MZ9b5rRARgoXkt6Q1s9Z9bEskgC0dPo0OsceV2v+GVaF0OplCtD53MZMIbZ4+YTKXweVXViU+UsgxzHfkpq752y1xE/iZ1MNrueWs0+zyaT0ZoQdyYZKQeAHLwjNH4nD0RU492Mn2cYvIfg++pQvfNU/Wn/fU0oO6ozF8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2M1o1ba4v3PCbCAr1JPtXsbnZdmsAOyg2ETasB2wEuE=;
- b=WVMGApHSgK5VyDJ/TUcFHJRJQOS0IqohFdfw7zu4mlbro+2xCtsIuhcVsSa1pHgcLNGAAVcksnPJBtNS61kFAMrRTxnOiSeIm0j3pH2ce/ycxMkodu+9NGeAbWhRWsWLJDkBkH9HB8JIhqYgPUwYhZjN081zPJDDcPbkcrniGA9UbxkVKzKYBN8X+n4fP5Q0mvs4eSblC/KEmEcegG+8z5RG+wi8yo5iDRw81FhY467QtB8xTFZmrfZUqJCgoFtO7JK5ykx6OLwcO8m+66sI6ATexQHPnFmHb+iErYF+xsZGRt8IGbzr3H8Ez1vdc/5Wtnn4lCPdoOSFu9cpVaztEQ==
+ bh=IIzvUKUICb23eFlHyYYodZ+ZuF8+iNxg1iEmDvfWwWM=;
+ b=GvQd01knTgSYKNxfoLOZ7NWb6feC50Vmp2FQIqbYXSzP+F1fZtYLSfXCTJ0OwxBfcbdtETll9u1lRGFIa7zQBk/ECZ3v5RlpyoMXNcvwSUfWV83zU/F0GGPiXYiZ55lu6w2EsCigUUvk4tlMsxEFJwoL4PZeNEwBuc2SM1anwrOHsw74SdYrC4SRCGQo1ZpXjjWhGiPcG1WXiLFEBNnayIDGVNdyHBYC6EQo+v65IXPB0BoeaE/Xw6n0B6M5m5ZwtPoIyOoM66eBwOGrXrUPeNxsxO0fU0YRPv/DI9h7+qYydyvyf4xBiAQ2ctZHjx0tG0AZhx/ZqTVz8zy2qWCk2Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2M1o1ba4v3PCbCAr1JPtXsbnZdmsAOyg2ETasB2wEuE=;
- b=whUukJrPrwfRtUbqy/nZOgd+LuSSdBUivCdUnm999qdT/5UkLE6k4VpeOu1tzUcbP68hieQHDpm9BReP15nPXMI/s5uydSmTUh2r+6JpxNTiGNVOXp7OXD58u3SpKYNNvFMXnJPKm0eeSsr9gZUhJEAsaF1kcvkE16ii/MPX4XU=
-Received: from PH8P221CA0064.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:349::16)
- by SA1PR12MB7151.namprd12.prod.outlook.com (2603:10b6:806:2b1::10) with
+ bh=IIzvUKUICb23eFlHyYYodZ+ZuF8+iNxg1iEmDvfWwWM=;
+ b=2PcmwRh9GKMVPnmrtbEMv+whRDRUGyjoGmkcSOBv3FriN/jPEHTqmPfsT4HBSu4JCq+IMCVRG3i7rU3Tn5lHEOs6rI0t0YOU+6EVFOdrglI2kvta+QxaELI2bVI3cUBzdTk+6QCUDnt/3FGnSJ8meNfmlVkechkhgEUcUBzdT7g=
+Received: from PH8P221CA0062.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:349::14)
+ by SN7PR12MB7810.namprd12.prod.outlook.com (2603:10b6:806:34c::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.12; Mon, 9 Nov
- 2026 13:44:00 +0000
+ 2026 13:44:01 +0000
 Received: from MW3PEPF00001659.namprd21.prod.outlook.com
- (2603:10b6:510:349:cafe::10) by PH8P221CA0064.outlook.office365.com
- (2603:10b6:510:349::16) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:510:349:cafe::98) by PH8P221CA0062.outlook.office365.com
+ (2603:10b6:510:349::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.13 via Frontend Transport; Mon, 9
- Nov 2026 13:43:59 +0000
+ Nov 2026 13:44:01 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -82,7 +82,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  MW3PEPF00001659.mail.protection.outlook.com (10.167.249.203) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.0 via Frontend Transport; Mon, 9 Nov 2026 13:43:59 +0000
+ 15.21.592.0 via Frontend Transport; Mon, 9 Nov 2026 13:44:01 +0000
 Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 9 Nov
@@ -92,9 +92,9 @@ To: <dri-devel@lists.freedesktop.org>
 CC: <intel-xe@lists.freedesktop.org>, <matthew.auld@intel.com>,
 	<arunpravin.paneerselvam@amd.com>, <joelagnelf@nvidia.com>,
 	<sanjay.kumar.yadav@intel.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 1/2] gpu/buddy: find range-biased blocks in the free trees
-Date: Mon, 9 Nov 2026 08:43:45 -0500
-Message-ID: <20261109134346.3169162-2-William.Palacek@amd.com>
+Subject: [PATCH v2 2/2] gpu/tests/buddy: add range-biased allocation performance test
+Date: Mon, 9 Nov 2026 08:43:46 -0500
+Message-ID: <20261109134346.3169162-3-William.Palacek@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261109134346.3169162-1-William.Palacek@amd.com>
 References: <20261109134346.3169162-1-William.Palacek@amd.com>
@@ -113,130 +113,89 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PEPF00001659:EE_|SA1PR12MB7151:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9f5e98a-ffef-493a-a5b3-08df3e678227
+X-MS-TrafficTypeDiagnostic: MW3PEPF00001659:EE_|SN7PR12MB7810:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee15c633-d8aa-4f76-015e-08df3e678323
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|11063799006|56012099006|261021121427099003|261021123027099003|261022105027099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261102123227099003|10067099003|18002099003|22082099003|6133799003;
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|11063799006|56012099006|261021121427099003|261021123027099003|261009223027099003|261026121527099003|261102123227099003|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	BOEg2n/GxdASp4XjMD9oct2nJ5LqZ6/MEMgsi0eCwvNgITEPmVxx3d5SzrOihj1hUpEjVN4KP5oSuVSWobO3lGeqjAho1tGJOwZARt/yeVIdYzXiyy9C37r4ftbePt63wYchU0QgWAyAKY6dg7DAzJAnpb7eTIVpjdNOQJB46t9UrmfCQXM3uSg5Whs5YLkT3YMbN9LhHnTckW50JVLmJM0n27pV9pnbHpitUA7v/8zEQKsP8MJFnyZWFXlm6OsDcNKCQyMRQWGoje44YSb/ckroUUsfUSF1DPNXdNqL09Jx3RioHzyRfc/0hRB31gKV9/FfzKcWwcvjm1mUpsXCHsv3yO2DbKGtGhVD1++gASGeaOPG+yYs3kcimdmLlzYZBHFCET8YsZ5+olz7pB8r0gzEoQW7uyi18dwVI2F40tRKcut/rit9cFu1HCmyjoVoPPvCk3nSLHyolgwf6n53q8aefqTpsYUnmDs0MYWnx9ZK+DohhCJyyVXFjWPUZqIj6cnTnZayGqeKwX/Mak3CLRucQHaRgCm1a8dk9pUP28aPtds7Z2PN44erM12fQ9kZg6W8HsqSQQV0CZAhG+Q3EXGk3+3MO5jundLv5FcLq22VLZCXtNGiNBcOSdPbEcy1iTCQkw/ZJX39JeRtBmNr403jr8DEwIdotY9/HiA5ilHmcpekX9+RtdulbcAHCsuMa+yle+4CAfe3huRiWELdrA==
+	PWclW6rsO11PoiC6NSEuiVfEv8dpiJifgULSiwSIuwjqb8S7Do7HfEg8GNuJawtn+p/i2QuOdxxIdcOrQtFI8t9Rup+V+7kiLWyu2J8+NZ7Thaun6osHqwfHx9XV12Qy2BwL8SWD0Z6MDha32BHcvnQMqf9WGhecybnwiZ3XHzxcxzuPSfIneQlZGMt3JjrmNX6NYDyKn89pExkbq2Qo44Jf8xA2/jcIhnnptMQECJzWkerwFQD6k3O3ptEBtX8Wt3+m/uercD7NhFAKpLW9fhkdGnjjvDuiYyXyMb9rSlGr3jOVyC3P43mV1f8HDZoLn0ybjDlhSFjozpAPy16iZTs3OpfQL+/9lgWwQNxaNBIcD8qWgytGKqUZ1TuNthgfYMfh4dlUS+GAniHq1bsadd2a5UyE8+TkJ7bi+NqqoeC8Y4I6zXvImCPubN7kSeYw8sQwL2FrjSeNO+54EXiCA3d4Zgkmesff7krNGTCNhJW81XU9wmvWw9QJ/z5W5VjFCtDQ6dNEM+lmSaQt2RGgs1iQIP7CtwZQ5250xTnQpARe4X7yRZ3FEXXKbsqTF0WUKrygCn7A3xACRSnRVimDnPu/0PPzA8bqTwwtreuYGvuquF99W9qry88nl0Ev+BasuBzkiOcsNOsMglFCs8xHULGk2nksKZt7+NahggNCTVeYTZnkcIkPYIXs7mCIMDeyPWeOjD1R6mPE4q4tds+eNg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261022105027099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261102123227099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261009223027099003)(261026121527099003)(261102123227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	I9MNNPuDM/kEEj/V1Yr155QCwiRF3d9B1xREb5Gk6HKkpYaiw/igNoyOZ/f492oa96MliehkSuAtM5oPAnpDBOOEjs5iBspZmR9zkgJJ/kMcDnbK2v00HOen3g8Nc4ywIapLmFWVufBS93sniV44gRKGj8nXRtg0nwTOkrd1Xmhp3dWnuhdaiRt19hOpVXgJ1QdVnyGCUu8WnhoJND06cTYawOKm+WwPHGVml28Q3XSrVgkx6teCs8AGn6uaUfwr10NjXuCFMU7FUpZbSv4VlgkTgqpYl4ruwxS/k7+Thth9pGC/1V+/lpjmV3PYzn81PsT1Gq6xOf5ioIxFOy0M9sWc/8j2LnWDrPTMR14d0DxeaY4BmUFhSeeGiZOjBHwWUFjOnIBuNAf/JP/BtGOayGkEvgyn8Yv82hx8fWcdM/ehX6nkuVVv4lIR2RKDXXWm
+	j1CUO27SXi8YK+c8+IkO2s+tSmOe05uvOkXKh5Cmp2+xJvn/o5CZwx5uyfKkrydeHJC/s7ZSg8KIxVi7rSO4AUghuuQXyLJpokZW7l6aq1j7LdaBkVyYMb2bfVQLGwYgrwjllJriFqXRLOrEf9ww1mr9O5V5x37JR+JukL/RbKik8Pb62c6EBDhrv/GET2nrgrBzlxw/YUZsen8VJUuaFXm9u5QQSbnoWnb9G09TfNml9yqrKYTPFta0CLYIs9FXfLrrig60rgCKmNgIdJLeZ2qLL6c2WrGGuadW+TsrR0BRymCNyRycFrhFaC15Pzv3wWMEIzJ7r+6IB4MxDxumkahCPTMlGZUR0GRjuwvhgQ04EHQord6DiFeM11n/UWaBOVt+mPIj2NXx9BZt2wa11uL8cRbKSNIiQdT0YmUHVMYE2azpACSLcsmT4rhuG8y4
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 13:43:59.4748
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2026 13:44:01.1200
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9f5e98a-ffef-493a-a5b3-08df3e678227
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee15c633-d8aa-4f76-015e-08df3e678323
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	MW3PEPF00001659.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7151
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7810
 
-__alloc_range_bias() walks the block tree from the roots and visits
-every split block overlapping [start, end) until it finds a suitable
-free block, so a range-restricted allocation costs time linear in the
-number of live allocations in the range.
-
-amdgpu pays this on every VRAM allocation when memory is partitioned
-(NPS2/NPS4): each BO, including the page-table BOs created when memory
-is mapped, is restricted to its partition's range, and KFD requests
-cleared VRAM. On MI300X in CPX/NPS4 the compute partitions that share a
-memory partition also share the VRAM manager lock, so the walk is
-serialised across processes. hipMalloc latency grows linearly with the
-number of live allocations, and vLLM piecewise graph capture slows down
-with every captured graph.
-
-The free trees are sorted by offset. Before walking, look up the highest
-free block that lies wholly inside the range in each free tree from the
-requested order up, and narrow the walk to the highest of them: it then
-only visits that block's ancestors and keeps the existing split and
-error handling. The full-range walk remains for space that is only
-available in blocks straddling the range edges.
-
-Placement changes in two cases: a free block straddling the upper range
-edge is no longer used ahead of a lower block wholly inside the range,
-and for a clear request without GPU_BUDDY_TOPDOWN_ALLOCATION the clear
-steering only applies within the chosen block, so a lower clear block
-is not preferred over a higher one that is not clear. Otherwise blocks
-are placed top-down as before, including with
-GPU_BUDDY_TOPDOWN_ALLOCATION.
-
-Filling 1 GiB of a 4 GiB manager with 64 KiB range-biased allocations
-that request cleared memory takes 1190 ms before, 3 ms after (KUnit,
-UML). On MI300X in CPX/NPS4, with 8000 live 2 MiB hipMalloc allocations
-on one partition, the median latency of the last 800 over the first 800
-is 1.60x and 4.45x before (two runs), 0.98x to 1.03x after (four runs).
+Fill a 1 GiB range of a 4 GiB manager top-down with 64 KiB range-biased
+allocations that request cleared memory, as amdgpu does for KFD VRAM on
+NPS4 partitions, check that each one is placed directly below the
+previous one, and report the time taken: 1190 ms with the full-range
+walk, 3 ms with the free tree lookup.
 
 Cc: Matthew Auld <matthew.auld@intel.com>
 Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 Signed-off-by: William Palacek <William.Palacek@amd.com>
 ---
- drivers/gpu/buddy.c | 35 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
+ drivers/gpu/tests/gpu_buddy_test.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index 28cff97d57dc8..8652ae35d323c 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -665,6 +665,26 @@ rbtree_last_clear_free_block(struct rb_root *root,
- 	return block;
+diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+index 2c6f1da1a6d1c..ef4176b4baa39 100644
+--- a/drivers/gpu/tests/gpu_buddy_test.c
++++ b/drivers/gpu/tests/gpu_buddy_test.c
+@@ -283,6 +283,32 @@ static void gpu_test_buddy_fragmentation_performance(struct kunit *test)
+ 	gpu_buddy_fini(&mm);
  }
  
-+/* Return the highest free block with lo <= offset <= hi. */
-+static struct gpu_buddy_block *
-+rbtree_last_free_block_in(struct rb_root *root, u64 lo, u64 hi)
++static void gpu_test_buddy_range_bias_performance(struct kunit *test)
 +{
-+	struct gpu_buddy_block *block, *last = NULL;
-+	struct rb_node *node = root->rb_node;
++	struct gpu_buddy_block *block;
++	LIST_HEAD(allocated);
++	struct gpu_buddy mm;
++	ktime_t t0;
++	u64 i;
 +
-+	while (node) {
-+		block = rbtree_get_free_block(node);
-+		if (gpu_buddy_block_offset(block) > hi) {
-+			node = node->rb_left;
-+		} else {
-+			last = block;
-+			node = node->rb_right;
-+		}
++	/* Fill one NPS4-like quarter top-down with cleared 64 KiB allocations. */
++	KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K));
++	t0 = ktime_get();
++	for (i = 1; i <= SZ_1G / SZ_64K; i++) {
++		KUNIT_ASSERT_FALSE(test, gpu_buddy_alloc_blocks(&mm, SZ_1G, SZ_2G, SZ_64K,
++								SZ_64K, &allocated,
++								GPU_BUDDY_RANGE_ALLOCATION |
++								GPU_BUDDY_CLEAR_ALLOCATION |
++								GPU_BUDDY_TOPDOWN_ALLOCATION));
++		block = list_last_entry(&allocated, struct gpu_buddy_block, link);
++		KUNIT_ASSERT_EQ(test, gpu_buddy_block_offset(block), SZ_2G - i * SZ_64K);
 +	}
-+
-+	return last && gpu_buddy_block_offset(last) >= lo ? last : NULL;
++	kunit_info(test, "Range-biased fill took %lld ms\n",
++		   ktime_ms_delta(ktime_get(), t0));
++	gpu_buddy_free_list(&mm, &allocated, 0);
++	gpu_buddy_fini(&mm);
 +}
 +
- static void rbtree_insert(struct gpu_buddy *mm,
- 			  struct gpu_buddy_block *block)
+ static void gpu_test_buddy_dirty_tracker_performance(struct kunit *test)
  {
-@@ -1247,11 +1267,24 @@ __alloc_range_bias(struct gpu_buddy *mm,
- 		   unsigned long flags)
- {
- 	u64 req_size = mm->chunk_size << order;
--	struct gpu_buddy_block *block;
-+	struct gpu_buddy_block *block = NULL, *tmp;
-+	unsigned int o;
- 	LIST_HEAD(dfs);
- 	int err;
- 	int i;
- 
-+	/* Narrow the walk to the highest free block wholly in range (top-down). */
-+	for (o = order; o <= mm->max_order && start + (mm->chunk_size << o) <= end; o++) {
-+		tmp = rbtree_last_free_block_in(&mm->free_tree[o], start,
-+						end - (mm->chunk_size << o));
-+		if (tmp && (!block || gpu_buddy_block_offset(tmp) > gpu_buddy_block_offset(block)))
-+			block = tmp;
-+	}
-+	if (block) {
-+		start = gpu_buddy_block_offset(block);
-+		end = start + gpu_buddy_block_size(mm, block);
-+	}
-+
- 	end = end - 1;
- 
- 	/*
+ 	struct gpu_buddy_block *block, *tmp;
+@@ -1617,6 +1643,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
+ 	KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
+ 	KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
++	KUNIT_CASE_SLOW(gpu_test_buddy_range_bias_performance),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
+ 	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
+ 	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
 -- 
 2.43.0
 
