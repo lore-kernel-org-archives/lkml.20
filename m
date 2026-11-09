@@ -1,55 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.76.5.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794216037;
-	b=EISMYmpFMrOFoxCA5xFyzb7hHPwadvS2Fw9WMXutRddLtHwOfS7HcrRAdHCqEo/+b2LN
-	 Ll74pq8zMUyxKoWmojJt2TaN9RFI+kX1FJ+dCgS5KBokXRc4pivwbEKJd8w3hfAZL/ItG
-	 buHJyCbM0JkJfzDOlDTc9yFaAA7QbX7O/csn2dG0fOEALtT9q0QF/Uwv/QPJnsSJKgpK/
-	 42/dinp/CYLLr1BJnUH5WgJn1twGMPo+u64LKU+L/xQBh8x13BnSiEHLxa4TGw1iktNhv
-	 8aTAF4chVaJ/nEXtz+44QMnuiNR3HI9yhL2kM1UKC7ShgExH95DEKjxsU3epICUwOLQ==
+	t=1794216030;
+	b=Lbv2TBeZFBhXhBRSOWe3yheWD0hDAIJsjEUVJkgcACSbCwMHOE+IW5EowbOBD7srGCKB
+	 jwoQKeqeQ9uNbTFIXxMgBItL/VC54wdtN59I4hla2enKu/eIh1wuuAzLddoo41m0FV2Qn
+	 iFHlgKH4ivYyT9Y6IJWArURmu0tlkSsocgnklSipx3IT1m46Zr0UOnRdBemZk7C0NOfKu
+	 1H/3HS3WkL1Il/H3V04SBbqIjkRLe6UX8asz/cEhUni4InM+1Ttfr7KxOh4RoAhAl3sl+
+	 iReLWWUTJR7HOZCMr217Zq2vuR5d3/crgngt9xLh+80mMYSNE9o1u3M3tXybOGr90Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794216037;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=ZZyyjGNvkBcG8CHZMxeKKhkkxpR+q4D3Wc++Fyipn68=;
-	b=5tfRRZrh7vj02G8EOhn/eu4ECsyzhgu5SSDYWm9XmCifO9aSx75wUfcq56KJWFif/P5/
-	 c5PyYfqf84dXMzs8Og7gaWRz1a1NiuECYBf5VYLiB6xLfxkA5iaJjlM+XuBs3gyJ9aPv+
-	 m1fNiw/9333iuvxTabwajsuSGfgqxjivbQLwAwYa7rLCQ1aixZ1oOuelPBwSkGRTTdk42
-	 svSRQht9MjRQIL/ydGlwRywvVQIbbhK4+dUvKTMZp0/HDn5iHa925SWqYWx3b7sVY9S0w
-	 xPya/LK65J2FHeHxBqs53vfWrKZWKgh9W8F3QFW3pXYHw0spMy0rurSMR73cq26RqkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794216030;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:DKIM-Signature;
+	bh=kwCvPkXgwrZOz9NQ5CtI9zg2+YkBy4S3vvYk8lmOZ8I=;
+	b=e4MldVr8zofJU+ILjf0KkG5xVJqg8srfvgqpHS/uNZNm3gc4ttHgtWk+hsM6+gHAKxkl
+	 oFx9fFMZjVn/BL7ymOSJy+A6maf7EdPDBUxZ6TbctRY/LaT1PS2t5hnC5jxDXDWYlkNUG
+	 6keVZimv3wNNT+phomX1Ve4e1CKGYxJUwgYdkvsgBGseKByAdKcts8SFYmGrE1YgKsNQE
+	 KcVk2z0Xe+/cC8dq1cBDFEGARjJ0RTv0O/6czCDwvBRjjy/ADotI3nORa0ePNGV5H0vtX
+	 hXf/n9uKYTdgsCuPI+i84Um+mKDbo3G97RCWxEvQWymjSSmpUZZKESQTyaiggCpgN8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2FyV1MG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700B2606A337;
-	Mon,  9 Nov 2026 09:20:37 +0000 (UTC)
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=i+jpgJFO;
+	arc=none smtp.remote-ip=180.76.5.236
+Received: from outbound.baidu.com (outbound.baidu.com [180.76.5.236])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 49944606A31C;
+	Mon,  9 Nov 2026 09:20:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49944606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2FyV1MG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7057D1F008A4;
-	Mon,  9 Nov 2026 09:20:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794216037;
-	bh=ZZyyjGNvkBcG8CHZMxeKKhkkxpR+q4D3Wc++Fyipn68=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=h2FyV1MGWP0IqEj9Vty1kZx2zwkKoh5nB1ltayAsfEXO/Py928ub1hHyNWQxr4bjL
-	 iGGIHSn14HoIQLS6Ba+S9hKNhpL2cXp73FXZE7iwBOwGNqA73X2xedG2Nxw5hSsLnZ
-	 EMqd6swMz//h3Wyhq7pGzpbdwtJKUExsnOjbb/p5E4MfSDZZ7L09g5zSHS6mDP+N0/
-	 Kdb1Z4aKVjC6cPPq6F7gohC0yqAR7bfBumb7pDeLK5bEWWb6YGjSnjR+deMZ/O7UQC
-	 jPToMZfpJc6svPBLx/twsFuydJdqMcDYh2N9HFKsPtpA3rCq59igGGDxRU2p4vNPar
-	 dUNrWjBltOcfw==
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Edward Srouji <edwards@nvidia.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Maher Sanalla <msanalla@nvidia.com>
-In-Reply-To: <20261108-free-sw-wcs-v2-1-d1e6d80d2746@nvidia.com>
-References: <20261108-free-sw-wcs-v2-1-d1e6d80d2746@nvidia.com>
-Subject: Re: [PATCH rdma-next v2] RDMA/mlx5: Warn on pending software WCs
- at CQ destroy
-Message-Id: <179421603402.229374.17686727545053393953.b4-ty@kernel.org>
-Date: Mon, 09 Nov 2026 04:20:34 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=i+jpgJFO
+X-MD-Sfrom: lirongqing@baidu.com
+X-MD-SrcIP: 172.31.50.47
+From: lirongqing <lirongqing@baidu.com>
+To: Kuniyuki Iwashima <kuniyu@google.com>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: Li RongQing <lirongqing@baidu.com>
+Subject: [PATCH,net-next,v2] af_unix: Fix wrong socket tested in the symmetric half of unix_state_lock_cmp_fn().
+Date: Mon, 9 Nov 2026 17:20:16 +0800
+Message-ID: <20261109092016.2082-1-lirongqing@baidu.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,32 +51,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Type: text/plain
+X-ClientProxiedBy: bjkjy-exc9.internal.baidu.com (172.31.50.19) To
+ bjkjy-exc3.internal.baidu.com (172.31.50.47)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1794216025;
+	bh=kwCvPkXgwrZOz9NQ5CtI9zg2+YkBy4S3vvYk8lmOZ8I=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=i+jpgJFOOrqtKSWxMaXnNBaU2X98LQ9hpxvtTVKOP5veK66MMxsv2bpF+B0DFzP5E
+	 F4khOkjV0qI/T7WJ+NQMVGlnjegqgp2GEsO04behyIwITJbkSwbyq5Bgq4dYnBZbg0
+	 wyw92Bt2ifXDvGIoxqGbzGOjDh2gLv84xzmdcHOA8e7bnrr23XamLaHYeYzrtZvjUx
+	 wCLuLHq2TQ+g2NZFhRajnmocWTF+hOfy6CIjxnCVeicC7+QoH+2oKs7DRlcm1pVi/I
+	 9D3oHha3ahw/wuL5WAvDOUROYUlu6bigKT877QQ9V91vjkq5Zb9C4S6fk4scSbRoHI
+	 GYMb7NCdLBgBg==
 
+From: Li RongQing <lirongqing@baidu.com>
 
-On Sun, 08 Nov 2026 18:06:12 +0200, Edward Srouji wrote:
-> Software WCs generated by mlx5_ib_generate_wc() are allocated, linked
-> onto cq->wc_list and only freed when a consumer polls them. Anything
-> still on the list when the CQ is destroyed would be leaked.
-> 
-> This cannot happen with in-tree users. Soft WCs are only generated for
-> send completions of the mlx5 GSI QP, and ib_mad is the only creator of
-> GSI QPs. Every MAD send holds a reference on its agent until its send
-> completion has been processed, unregister_mad_agent() waits for those
-> references, and ib_mad_port_close() frees the CQ only after all agents
-> on the port are unregistered. Since poll_soft_wc() frees each soft WC
-> before its completion handler runs, wc_list is empty by then.
-> 
-> [...]
+The second half of unix_state_lock_cmp_fn() mirrors the first with a and b
+swapped, but it tests b->sk.sk_state again.  Since b is already known to be
+TCP_LISTEN, the switch only hits default and always returns 0 ("no order
+known") instead of 1.  Test a's state instead, as the first half does.
 
-Applied, thanks!
+This code is only built with CONFIG_PROVE_LOCKING, so the impact is limited
+to lockdep failing to validate this unix_state_lock() nesting order.
 
-[1/1] RDMA/mlx5: Warn on pending software WCs at CQ destroy
-      https://git.kernel.org/rdma/rdma/c/52ace3fd7e1fc1
+Found by AI.
 
-Best regards,
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+---
+Diff with v1: target to net-next, and drop fix tag
+
+ net/unix/af_unix.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+index e7a0582..501e693 100644
+--- a/net/unix/af_unix.c
++++ b/net/unix/af_unix.c
+@@ -163,7 +163,7 @@ static int unix_state_lock_cmp_fn(const struct lockdep_map *_a,
+ 
+ 	/* Should never happen.  Just to be symmetric. */
+ 	if (b->sk.sk_state == TCP_LISTEN) {
+-		switch (b->sk.sk_state) {
++		switch (a->sk.sk_state) {
+ 		case TCP_CLOSE:
+ 		case TCP_ESTABLISHED:
+ 			return 1;
 -- 
-Leon Romanovsky <leon@kernel.org>
+2.9.4
 
