@@ -1,97 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.160
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794193098;
-	b=jGIpMSf1Hbcetj/wIXyTbiBiRRh8OXdhj5E/+jseIATiOP0+RI8saiHsFv5XjCaIJu9S
-	 LqvEY9JOHw7uaasRIK+hf8YC5fAQdd8dZK5CIdnmb0QbWKXhlumxkgjmuX33yHkEW4L1R
-	 n3DqrPKG02E42bgWJEKiFnWDDYJ47nTeU5fW7B8MqnUTA0AaT0F+1YNM0hAY7i19Sa9Hi
-	 K638Mmdc90AQpvNwghxDOby5CCskoWOUd3bF7cQia3Snu/EivavN6q2G/JeapRF2z8Pmb
-	 ei4TEWST4WbBHLSX0mUqFgHnujpkRzYNsYmpqv1ASjH0HQWzTHeRzasEOOpnIpjvMQw==
+	t=1794193118;
+	b=FtqGDrSoX1nr9qUIkMTKTZLObTKHUlJsD4trkEv4sQQyyS+FQ4xrix7Wi2qvfKv8euBv
+	 bz+UvMpq2K9MGt30zIxbdTal1DsO7HFeyvUpv/g/V9u+mc7ylf3dpQ5j+ygfA5vyMSd67
+	 xImvJGWeXmuHhJAhnOzcrUMD7PprO1JtFuJU9KqoG+cRdtPHVP/5umglusNFPhn3qXR82
+	 6Q3F1eJN48OwF/LvSXirgNSJqIsfsaVGQx7/8FvcwfId5BlUW0toS4Glig1nqkG/+Z3Zq
+	 G27UHNs6Y00sLSvArbQQ304FL9BGJDY0QeSG/azvx5uUWRBNPbL2TB7bCaRLecF3GZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794193098;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/ZzxlcdhJK/ud/KyVxq+93rWFaFImo0MKgWgyLOhJCY=;
-	b=gyjPBv+dCKOS0Et80uGKLr7YfLIi+0gs9cWtYkOfgNqW9cDQIodXBssMDcIg2an9Tl+v
-	 lmFoPYevr83+CahdSvGIgAeZ2IDL1cYqRhZ+DgWiRN3aKwIpRUokIeA4ELxg8IORuOXmT
-	 4ySsqiX85LXpAvEQeAWWK29XyNUz9lGh+Q0Hx/NU/9b/9a411pAwYXOFRymz7Sg/5+BX6
-	 5Yb+0T5uhU2DLhWUXLXEjl5ucC5J8DFyA/kinTabbTYZfUoARBgZ6NQi1WeWQlEYyJ9eo
-	 pNMRFPBtPHIeaSMXxLW4IaARFtCK1MA88C8WlJsxjeI7Uz/YsO1YR1x9x5rt2XcEE5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794193118;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=EZjE/JK3/R7shkaCTiy2m7At7WNjnN07YK5DWmAePew=;
+	b=kv138iwmA25CLzsNhmD4X+dtAQkqJajdYYQATlV5Po1tdMfDi2gQP5kS1MeKQRf1UtWE
+	 0Li0wJqg2WXD1nXCgJQ0FEUlrcsCRyJRKwh0YSBh3OALWSYumD51g6DWP3znPb3iolPDh
+	 s8R8MAfLMse5lqZSM5OnRGlZuWzaO1JKs7ooz6s+NjZAghHlJaWCh4L4ewQMBDZMPlLVd
+	 E82icYO0/Zv5GHJAOnD0SkMuRHQsxZKGpM8aFzhjq+TWR3XPg3Uqe/ZGRtHhDqHunZuOY
+	 7O6ne0orYnFc9b0mbBEzsYe25eD9rufG6fGby1GM4XI0q8xN1R6UfseRcT3VhGQIxcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZwZturDY;
-	arc=none smtp.remote-ip=91.218.175.160
-Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=EqhObOSN;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F95D606A325
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 02:58:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F95D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EC0606A31C;
+	Mon,  9 Nov 2026 02:58:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7EC0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ZwZturDY
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VW2UPIRvdm02fMitf8vcWNrGIl0DKTRZ6TxDmEcEySs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794193096; v=1; x=1794797896;
- b=ZwZturDYVJV0ijfMY4q1v+YvPkjzx4ykHjEuDzRYuFWI4wl9s+G6Izqovag1beThw64sqt4S
- Fu5nA8Gvk2cCe1ih31TvDCiyhP+wAhuqoUrxEQ7ASoBnLZ4vGk0WKx2T65jnhq90FECAbbfgavO
- xmoaVEHsSppJvPV2TjpmLmyQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 331d074107720a0c;
-	Mon, 09 Nov 2026 02:58:16 +0000
-X-Mizu-Trace-ID: 331d074107720a0c
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: netdev@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Paul Moore <paul@paul-moore.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	Julian Anastasov <ja@ssi.bg>,
-	Allison Henderson <achender@kernel.org>,
-	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
-	Xin Long <lucien.xin@gmail.com>,
-	"D. Wythe" <alibuda@linux.alibaba.com>,
-	Dust Li <dust.li@linux.alibaba.com>,
-	Sidraya Jayagond <sidraya@linux.ibm.com>,
-	Mahanta Jambigi <mjambigi@linux.ibm.com>,
-	Tony Lu <tonylu@linux.alibaba.com>,
-	Wen Gu <guwen@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	bridge@lists.linux.dev,
-	linux-security-module@vger.kernel.org,
-	mptcp@lists.linux.dev,
-	lvs-devel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	rds-devel@oss.oracle.com,
-	linux-sctp@vger.kernel.org,
-	linux-s390@vger.kernel.org
-Subject: [PATCH net-next 07/14] mptcp: annotate data-races around pernet sysctls
-Date: Mon,  9 Nov 2026 10:52:06 +0800
-Message-ID: <20261109025425.328445-8-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261109025425.328445-1-jiayuan.chen@linux.dev>
-References: <20261109025425.328445-1-jiayuan.chen@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=EqhObOSN
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A92wW7F13966444, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794193112; bh=EZjE/JK3/R7shkaCTiy2m7At7WNjnN07YK5DWmAePew=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=EqhObOSNEO5puUUsRIGI8WZdD+ExKsRfaYhoCJQ2vuWzRncbBd5/BYLSN+S2MaNl5
+	 NjARlTqK9bqxh7/IzODT/96dCqn2GxPFbeyOhpOPAkLlFZAWR75YsZm6ZgFAP/jVRI
+	 2x4R+y3Jj7iWqo57rRKtX1VNKjZ/BxYjuR5WG94XJzK2R9yDNcpIxo+5DFM2vF9Nq1
+	 vgR9L1EJKGoGUGhpkWIc05pWPcMDfn52Jxwwqgwly6Xhllfrx2N3g9GckBWes5BR6h
+	 eay6iBjc+R0CCOjNMStcldwV2nOk5HO59NMNtH6vy1Ah7X1UW38pcYYcETRr2b+IgO
+	 EBhWH/R5VCS2w==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A92wW7F13966444
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 9 Nov 2026 10:58:32 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Mon, 9 Nov 2026 10:58:32 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Mon, 9 Nov 2026 10:58:32 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Jie Feng <hjf3108@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next 5/5] wifi: rtlwifi: rtl8192d: let the firmware
+ use all rates
+Thread-Topic: [PATCH rtw-next 5/5] wifi: rtlwifi: rtl8192d: let the firmware
+ use all rates
+Thread-Index: AQHda3lMjeHUYZEd20CIBb6M95IYCLclAbug//+JqICAAIiU4A==
+Date: Mon, 9 Nov 2026 02:58:32 +0000
+Message-ID: <fcba3b4d22e5441691f8c0fc71e1c71c@realtek.com>
+References: <20261103095256.949327-1-hjf3108@gmail.com>
+ <20261103095256.949327-6-hjf3108@gmail.com>
+ <8fbf3fbba7d94b55b7510a57ff376e8d@realtek.com>
+ <CABOQOSWLNQC3SHj1AUEQ8SmUAig-8xHGm=GO6w8EN-nSzy-7=Q@mail.gmail.com>
+In-Reply-To: <CABOQOSWLNQC3SHj1AUEQ8SmUAig-8xHGm=GO6w8EN-nSzy-7=Q@mail.gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,108 +86,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-enabled, add_addr_timeout, checksum_enabled, allow_join_initial_addr_port,
-stale_loss_cnt, close_timeout, pm_type and syn_retrans_before_tcp_fallback
-are read by their ctrl.c helpers without any lock while the sysctl
-handlers update them with WRITE_ONCE(), and the path_manager handler
-stores pm_type with a plain write. Add READ_ONCE() to the readers and
-WRITE_ONCE() to that handler.
-
-KCSAN reports it when net.mptcp.enabled is changed while MPTCP sockets
-are being created:
-
-  BUG: KCSAN: data-race in mptcp_is_enabled / proc_dou8vec_minmax
-
-  write (marked) to 0xffff8d724248abc9 of 1 bytes by task 733 on cpu 3:
-   proc_dou8vec_minmax+0x1ab/0x1f0
-   proc_sys_call_handler+0x282/0x3a0
-   proc_sys_write+0x13/0x20
-   ...
-
-  read to 0xffff8d724248abc9 of 1 bytes by task 735 on cpu 1:
-   mptcp_is_enabled+0x33/0x50
-   mptcp_init_sock+0x35/0x300
-   inet_create+0x4a6/0x8e0
-   ...
-
-  value changed: 0x00 -> 0x01
-
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- net/mptcp/ctrl.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
-
-diff --git a/net/mptcp/ctrl.c b/net/mptcp/ctrl.c
-index 63c5747f0f63c..164f79b9deb0e 100644
---- a/net/mptcp/ctrl.c
-+++ b/net/mptcp/ctrl.c
-@@ -50,39 +50,39 @@ static struct mptcp_pernet *mptcp_get_pernet(const struct net *net)
- 
- int mptcp_is_enabled(const struct net *net)
- {
--	return mptcp_get_pernet(net)->mptcp_enabled;
-+	return READ_ONCE(mptcp_get_pernet(net)->mptcp_enabled);
- }
- 
- unsigned int mptcp_get_add_addr_timeout(const struct net *net)
- {
--	return mptcp_get_pernet(net)->add_addr_timeout;
-+	return READ_ONCE(mptcp_get_pernet(net)->add_addr_timeout);
- }
- 
- int mptcp_is_checksum_enabled(const struct net *net)
- {
--	return mptcp_get_pernet(net)->checksum_enabled;
-+	return READ_ONCE(mptcp_get_pernet(net)->checksum_enabled);
- }
- 
- int mptcp_allow_join_id0(const struct net *net)
- {
--	return mptcp_get_pernet(net)->allow_join_initial_addr_port;
-+	return READ_ONCE(mptcp_get_pernet(net)->allow_join_initial_addr_port);
- }
- 
- unsigned int mptcp_stale_loss_cnt(const struct net *net)
- {
--	return mptcp_get_pernet(net)->stale_loss_cnt;
-+	return READ_ONCE(mptcp_get_pernet(net)->stale_loss_cnt);
- }
- 
- unsigned int mptcp_close_timeout(const struct sock *sk)
- {
- 	if (sock_flag(sk, SOCK_DEAD))
- 		return TCP_TIMEWAIT_LEN;
--	return mptcp_get_pernet(sock_net(sk))->close_timeout;
-+	return READ_ONCE(mptcp_get_pernet(sock_net(sk))->close_timeout);
- }
- 
- int mptcp_get_pm_type(const struct net *net)
- {
--	return mptcp_get_pernet(net)->pm_type;
-+	return READ_ONCE(mptcp_get_pernet(net)->pm_type);
- }
- 
- const char *mptcp_get_path_manager(const struct net *net)
-@@ -230,7 +230,7 @@ static int proc_path_manager(const struct ctl_table *ctl, int write,
- 				pm_type = MPTCP_PM_TYPE_KERNEL;
- 			else if (strncmp(pm_name, "userspace", MPTCP_PM_NAME_MAX) == 0)
- 				pm_type = MPTCP_PM_TYPE_USERSPACE;
--			pernet->pm_type = pm_type;
-+			WRITE_ONCE(pernet->pm_type, pm_type);
- 		}
- 	}
- 
-@@ -551,7 +551,7 @@ void mptcp_active_detect_blackhole(struct sock *ssk, bool expired)
- 
- 	net = sock_net(ssk);
- 	timeouts = inet_csk(ssk)->icsk_retransmits;
--	to_max = mptcp_get_pernet(net)->syn_retrans_before_tcp_fallback;
-+	to_max = READ_ONCE(mptcp_get_pernet(net)->syn_retrans_before_tcp_fallback);
- 
- 	if (timeouts == to_max || (timeouts < to_max && expired)) {
- 		subflow->mpc_drop = 1;
--- 
-2.43.0
-
+SmllIEZlbmcgPGhqZjMxMDhAZ21haWwuY29tPiB3cm90ZToNCj4gT24gTW9uLCA5IE5vdiAyMDI2
+IGF0IDA4OjU2LCBQaW5nLUtlIFNoaWggPHBrc2hpaEByZWFsdGVrLmNvbT4gd3JvdGU6DQo+ID4N
+Cj4gPiBIbyBKaWUgRmVuZyA8aGpmMzEwOEBnbWFpbC5jb20+IHdyb3RlOg0KPiA+ID4gVGhlIHJh
+dGUgbWFzayBpcyBjaG9zZW4gYmFzZWQgb24gcnNzaV9sZXZlbCwgaG93ZXZlciByc3NpX2xldmVs
+DQo+ID4gPiBpcyBhbHdheXMgMCwNCj4gPg0KPiA+IFNob3VsZCB3ZSBmaXggaXQgPw0KPiBUaGUg
+dmVuZG9yIGRyaXZlciBmb3IgcnRsODE5MmR1IGFsc28gZG9lc24ndCBkbyB0aGUgcnNzaV9sZXZl
+bCB1cGRhdGUNCj4gSXQgaXMgbm90IGNvbXBpbGVkIGR1ZSB0byB0aGUgI2lmIDANCj4gaHR0cHM6
+Ly9naXRodWIuY29tL2x3ZmluZ2VyL3J0bDgxOTJkdS9ibG9iL21hc3Rlci9oYWwvcnRsODE5MmRf
+ZG0uYyNMMjYyNA0KPiBUaGVyZWZvcmUsIEknbSBub3Qgc3VyZSBpZiBpdCBpcyBva2F5IHRvIHBv
+cnQgaXQgb3Zlci4NCg0KQWRkIHRvIHlvdXIgdG9kbyBsaXN0LiBUbyBmaW5lIHR1bmUgdGhyb3Vn
+aHB1dCwgeW91IG5lZWQgYSBzZXQgb2YgcGxhbiB0bw0KdmVyaWZ5IHRvIGVuc3VyZSB5b3VyIGlt
+cGxlbWVudGF0aW9uIGlzIGdvb2QuDQoNCj4gDQo+ID4gPiBzaW5jZToNCj4gPiA+IC0gZm9yIHJ0
+bDgxOTJkZSwgY2FsbCB0byBydGw5MmRfZG1fcmVmcmVzaF9yYXRlX2FkYXB0aXZlX21hc2sgaXMN
+Cj4gPiA+ICAgY29tbWVudGVkIG91dCBhbmQgZnVuY3Rpb24gaXMgbm90IGltcGxlbWVudGVkDQo+
+ID4gPiAtIGZvciBydGw4MTkyZHUsIGl0IGlzIGFsc28gbm90IGNhbGxlZC4NCj4gPiA+DQo+ID4g
+PiBUaGlzIG1ha2VzIHRoZSBicmFuY2ggYWx3YXlzIGNob29zZSBsZXNzIHRoYW4gb3B0aW1hbCBh
+bGxvd2VkIE1DUyByYXRlcy4NCj4gPiA+IEVuYWJsZSBhbGwgdGhlIHJhdGVzLg0KPiA+ID4NCj4g
+PiA+IFRlc3QgcmVzdWx0cyAoMi40IEdIeik6DQo+ID4gPiAgICBiZWZvcmUgYWZ0ZXINCj4gPiA+
+IFRYIDYuNCAgICAxMi42DQo+ID4NCj4gPiBIb3cgYWJvdXQgdGhlIHJhdGUgYmVmb3JlL2FmdGVy
+PyBJIHRoaW5rIHRoZSBoaWdoZXN0IHJhdGUgd2lsbCBiZSBzaW1pbGFyDQo+ID4gb3IgdGhlIHNh
+bWU/DQo+IEhpZ2hlc3QgcmF0ZSB3aWxsIGJlIHNpbWlsYXIsIGJ1dCBJIHNhdyBpdCB1c2luZyBt
+b3JlIGludGVybWVkaWF0ZSByYXRlcy4NCg0KV2l0aCBsb25nZXIgdGVzdCB0aW1lIChlLmcuIDEw
+IG1pbnV0ZXMpLCB3aWxsIHRocm91Z2hwdXQgYmVjb21lIHNpbWlsYXI/DQoNCj4gDQo+ID4gPiBS
+WCAzMi4wICAgMzkuMQ0KPiA+DQo+ID4gWW91IGNoYW5nZSBtYW55IHJhdGUgbWFza3MgZm9yIGRp
+ZmZlcmVudCB3aXJlbGVzcyBtb2Rlcywgc28gcGxlYXNlIHByb3ZpZGUNCj4gPiBtb3JlIGV4cGVy
+aW1lbnRzLiBFc3BlY2lhbGx5IHlvdSBuZWVkIHRlc3RzIGZvciBhIGNsZWFuICYgbm9pc3kgZW52
+aXJvbm1lbnRzLg0KPiBTbyB0aGlzIHBhdGNoIGJ5IGl0c2VsZiBpcyBtb3JlIG9mIGFuIFJGQywg
+YW5kIEkgbWlnaHQgZHJvcCBpdCBpbiB2Mg0KPiBpZiBpdCBjaGFuZ2VzDQo+IGJlaGF2aW91ciB0
+b28gbXVjaCBpbiBkaWZmZXJlbnQgY2lyY3Vtc3RhbmNlcy4NCg0KWWVzLCBJIHRoaW5rIHNvLiAN
+Cg0KSWYgeW91IGNhbiBtYWtlIHBsYW5zIHRvIHZlcmlmeSBpdCBmdWxseSwgSSBjYW4gYWNjZXB0
+IHRoZSBjaGFuZ2UuDQoNCg0K
