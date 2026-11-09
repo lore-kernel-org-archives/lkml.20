@@ -1,88 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794251669;
-	b=0pZTByDPacTnUoHz9UlnP/o9WYUM1ywLLqIF9mgeRdHEBlTwCcYskbXSGAQnGNdrMLTu
-	 yg2b/lMUreIdgV5V9llOJsRNB7r+KVbuskuv5DYUzg2Ggd73rWxLotkq2cbLkux9LE213
-	 8Qi2zvjpzZ7h32FwVCknJxBJGTLZGMF4h0iPmkywPLbKXInzhCub9LrR6ZI+Qd1++C+al
-	 OFjyGnGSKyNUJqXX+hyWe+/wyHHKo7bxGZvepWkYhh7uHSjddjpDMgZg8hIQWJQHU64in
-	 ZiuSivr3/42rKDqyc/ywVGi+ehX2Ku/bwa1vmczpZxkdo5ShZH+udvQ7FQOwAAn5QtQ==
+	t=1794251668;
+	b=UK9ZPr0j37u7KUNjdHA3ADQ2Nn3MgTu7IodqZ4uxhf0fPq7a1hYrnXeJDyhCChgfiS2J
+	 x6A9VQ3jkwvSM6lD3TB4780Oj9dJGUFPDE/PZNkrnU8/a9OIyqpiWF88BrIF8GCPqwN+p
+	 Fd9pBOHPuftI2/AEZUOkyYjK/HEZSPb3+m4IjIgb+GTdxcOzEmkHsaRqg7PrUxgfEGzLk
+	 JTroi/CSQSfNr7+glFuxF/ByCMEnhbIi8yTreZvwL9Su4ZQ/91S7mKq1C+Q/SkI3uRxmL
+	 LcaQl02g7rkVVAohacL35Z5vEYHfeqfy9z0wS62JtBOK/wADMvbPtSaQQkSdmJfgbkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794251669;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=S1ltz4yVWHt3M+9YyOkRiFQJzWDTgvub9nFI5v6WQUA=;
-	b=PDp5pHX/dH68W8C4ETjJN7LdDZNQYzEaCu57gTlbdlrvcjRypAN5QRblbyaaZxXitIQS
-	 9+in22+8Zy3dCXurK1TzDvxtPa7gp5tHLKtiBmpL5j0nWA3wuih6zQk1cRnaqWA+6iBAk
-	 kSkrc+e3wrhg6WzoRQ8y/atrsgAQxVxnC5Hrwh58Te5OJvstygYeAlQw5bCn7TDOFlm5f
-	 LKjRleT8BNCAOSHkBWZZYDH0K00YJSUPFoqqRF3x/F7vyl1+E0jCne8V6vR238gr73rwP
-	 rWWvWi0uv1rVo8cEVuKMnkjKVMMyBQ0ZEUD0i9A1OVKVztw9AEkEEDxeLRu1tUYqqkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794251668;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yScAPiGp0GFiBSNweFgyV+f5Nk+ImZsWDqxYjRGsZ40=;
+	b=qqJp7U3cb0oA9FKIM7s+gSM5cDy48NbfgmvGzAqqFX/F3YHKGV9XwwxO9bHnHhVMFWhm
+	 B/HjQXHDckOLBFadDckhoblnueT7d++ka0emRKQDARf86dHB5uF/X2WzhVJ7J0oYUDIiq
+	 AWlQp65lUoUJGVJUyC5hgGvFkQIfjg5EkWiWgRfEYb+/saxZjPIqvrgcQ2es29xMC0huc
+	 8TGQ6ZG1gsZmV6APpQexsIgx2doIIcqi7apU6TkQo3h7s0EciLVfg9Htzp9fa9zL35RmC
+	 Cjw7G7f6hudlyn5Io2dOjkpDXv1/kKHGPwYos5HJEDBHWKqp69alZvurJq19QFtq9BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=nQso18jZ;
-	arc=none smtp.remote-ip=199.89.1.14
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ikuyOB2O;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073F5606A33B
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 19:14:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 073F5606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05521606A33C;
+	Mon,  9 Nov 2026 19:14:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=nQso18jZ
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jNfbm5cZvz1XM4Tn;
-	Mon,  9 Nov 2026 19:14:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:mime-version:references:in-reply-to
-	:x-mailer:message-id:date:date:subject:subject:from:from
-	:received:received; s=mr01; t=1794251649; x=1796843650; bh=S1ltz
-	4yVWHt3M+9YyOkRiFQJzWDTgvub9nFI5v6WQUA=; b=nQso18jZzyC/iIM3j0PBO
-	DiZ5w/66XA++yBwtIivmy+2bjx50/e6x1f0FQl3S2QCUEBIQ97HPSTl986Kecr/h
-	txrq9g8Vq7BPJWZCc68tgCqZOCNZNRcIYMaUjwGj6nxQAcKfzZjag5/Xj4HNvf1A
-	Y6UJvKFtUsAMk4nC/XO8oabxd64PDOyrtmFO4oVAZdPgaFZ3AGQUc9Mj7Dx8GM9v
-	8ecaCAAvq0apmPCDi7yNFeP4PGSIkeN16ILa0Vooxh+alWHx0T3Bc6e3Y1Xjv6xY
-	doUgkflRbyFVCjOaVaQDgenvmDH1n1RKxjTSsf5t94wqgxtTYgiA5xcpDUsE7cpZ
-	w==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id BcjnSUo1LCIv; Mon,  9 Nov 2026 19:14:09 +0000 (UTC)
-Received: from bvanassche.c.googlers.com.com (57.237.82.34.bc.googleusercontent.com [34.82.237.57])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jNfbN5LGxz1XLwXF;
-	Mon,  9 Nov 2026 19:14:08 +0000 (UTC)
-From: Bart Van Assche <bvanassche@acm.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Marco Elver <elver@google.com>,
-	"Paul E . McKenney" <paulmck@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Nathan Chancellor <nathan@kernel.org>
-Subject: [PATCH v2 14/14] rcu: Introduce lockdep_assume_in_rcu_*()
-Date: Mon,  9 Nov 2026 11:13:22 -0800
-Message-ID: <aa53b0013f69f1896946821cbc7b7092a5cdc636.1794250850.git.bvanassche@acm.org>
-X-Mailer: git-send-email 2.56.0.506.g506a7eabc5-goog
-In-Reply-To: <cover.1794250850.git.bvanassche@acm.org>
-References: <cover.1794250850.git.bvanassche@acm.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ikuyOB2O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BAE41F0089F;
+	Mon,  9 Nov 2026 19:14:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794251667;
+	bh=yScAPiGp0GFiBSNweFgyV+f5Nk+ImZsWDqxYjRGsZ40=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ikuyOB2OXRQw3yowsJsGzDGPhOKU0n3ncbrXKnNwHhHzCyfJbAMYD8iKMyybsBq+z
+	 EOeE1gALckotHJxh8YOj1ftSZLk2R6m5+4iOpH9+7jSa/TsAa/Yw+3MAqEb7fsxVVm
+	 xwuGIWN/SURgpmJyZuz0PFvAAq73nCezlWg8Y/KFq7LB52quzB5Vub21bzIwmaoD9l
+	 XJxg2cb+9TDqcDasjfsNTrHHduwAYg1x3FpPBELg+Wo7RjWgyb4azKHpfXnqrz+9cm
+	 5cs+r1zTJd3uguXKZt5NVG/HJFZxwcnvfe0CEda9JAuvAL+bTT9blJhSRy9BQclCIJ
+	 4aCmDcUI6BRlg==
+Date: Mon, 9 Nov 2026 19:14:22 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	rdunlap@infradead.org, Steen.Hegelund@microchip.com,
+	daniel.machon@microchip.com, UNGLinuxDriver@microchip.com,
+	nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev,
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, luka.perkov@sartura.hr
+Subject: Re: [PATCH v2 1/6] dt-bindings: hwmon: add Microchip LAN969x fan
+ controller
+Message-ID: <20261109-mulch-mountain-118fd114a797@spud>
+References: <20261109133609.810876-1-robert.marko@sartura.hr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,316 +63,181 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tL8PWQule9TDGmoi"
+Content-Disposition: inline
+In-Reply-To: <20261109133609.810876-1-robert.marko@sartura.hr>
+
+--tL8PWQule9TDGmoi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Remove the context assumptions from lockdep_assert_rcu_helper() and from
-the !CONFIG_PROVE_RCU definitions of lockdep_assert_in_rcu_*() in
-include/linux/rcupdate.h. Introduce the following macros and document
-them with kernel-doc comments:
-- lockdep_assume_in_rcu_read_lock(): assume RCU and call
-  lockdep_assert_in_rcu_read_lock().
-- lockdep_assume_in_rcu_read_lock_bh(): assume RCU and RCU_BH and call
-  lockdep_assert_in_rcu_read_lock_bh().
-- lockdep_assume_in_rcu_read_lock_sched(): assume RCU and RCU_SCHED and
-  call lockdep_assert_in_rcu_read_lock_sched().
-- lockdep_assume_in_rcu_reader(): assume RCU and call
-  lockdep_assert_in_rcu_reader().
-Assume RCU in the _bh() and _sched() variants because rcu_read_lock_bh()
-and rcu_read_lock_sched() acquire RCU in addition to RCU_BH and
-RCU_SCHED, and because __rcu_guarded pointers are guarded by RCU. Use
-the lockdep_assume_ prefix for consistency with lockdep_assume_ctx_held()
-and lockdep_assume_shared_ctx_held(): __assume_*() macros only inform
-context analysis while lockdep_assume_*() macros also verify the
-assumption at runtime.
+On Mon, Nov 09, 2026 at 02:35:05PM +0100, Robert Marko wrote:
+> The LAN969x fan controller has a PWM output and tachometer input in a
+> register block separate from the Sparx5-compatible temperature sensor.
+> Describe it with its own compatible and binding.
+>=20
+> The optional fan child specifies PWM period and polarity, tachometer
+> pulses per revolution, and thermal cooling levels.
+>=20
+> Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+> ---
+> Changes in v2:
+> - Describe the fan controller in a separate binding and compatible.
+> - Keep the existing temperature-sensor binding unchanged.
 
-Mention lockdep_assume_in_rcu_read_lock() in
-Documentation/dev-tools/context-analysis.rst. Convert the RCU assertion
-tests in lib/test_context-analysis.c to the lockdep_assume_in_rcu_*()
-macros and verify in the _bh() and _sched() tests that RCU is assumed
-too.
+So, I think that this device has been modelled incorrectly from the
+outset. "devcpu_gcb" should probably be a syscon/simplemfd, as least
+going off of what I see in
+https://microchip-ung.github.io/lan969x-automotive_reginfo/reginfo_LAN969x-=
+Automotive.html?select=3Ddevcpu_gcb
+and the fact that we see silly offsets in the dts:
+		reset: reset-controller@e201000c {
+			reg =3D <0xe201000c 0x4>;
+		};
 
-Prevent lockdep_assert_in_rcu_*() from silencing Clang context analysis
-warnings in functions that lack a __must_hold_shared(RCU) annotation,
-such that the compiler reports missing function annotations and checks
-callers for RCU read lock ownership at compile time. This makes the RCU
-assertions consistent with lockdep_assert_held*().
+		gpio: pinctrl@e20100d4 {
+			reg =3D <0xe20100d4 0xd4>,
+			      <0xe2010370 0xa8>;
+		};
 
-Verify at runtime with lockdep that the RCU read lock is held whenever
-one of the lockdep_assume_in_rcu_*() macros instructs Clang context
-analysis to assume RCU read lock ownership without compile-time proof.
+		mdio0: mdio@e20101a8 {
+			reg =3D <0xe20101a8 0x24>;
+		};
 
-Change lockdep_assert_rcu_helper() from __always_inline back into inline.
-Commit 451c3a035609 ("rcu: Mark lockdep_assert_rcu_helper()
-__always_inline") made this function __always_inline because if it was
-not inlined, its callers passed the address of the RCU, RCU_BH or
-RCU_SCHED context token to it. Since these tokens are not defined
-anywhere, that resulted in link failures. Now that the ctx argument has
-been removed from lockdep_assert_rcu_helper(), the context tokens are no
-longer referenced and hence __always_inline is no longer necessary.
+		mdio1: mdio@e20101cc {
+			reg =3D <0xe20101cc 0x24>;
+		};
 
-Cc: Marco Elver <elver@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Paul E. McKenney <paulmck@kernel.org>
-Signed-off-by: Bart Van Assche <bvanassche@acm.org>
----
- Documentation/dev-tools/context-analysis.rst | 26 ++++---
- include/linux/rcupdate.h                     | 82 +++++++++++++++++---
- lib/test_context-analysis.c                  | 10 ++-
- 3 files changed, 92 insertions(+), 26 deletions(-)
+		sgpio: gpio@e2010230 {
+			reg =3D <0xe2010230 0x118>;
+		};
+That ship has sailed I think though, so I'm not going to ask you to
+rework this whole device.
 
-diff --git a/Documentation/dev-tools/context-analysis.rst b/Documentation=
-/dev-tools/context-analysis.rst
-index 88b4ed6a182f..bc94e5bb56a5 100644
---- a/Documentation/dev-tools/context-analysis.rst
-+++ b/Documentation/dev-tools/context-analysis.rst
-@@ -111,18 +111,20 @@ checking): either with a ``context_unsafe(var =3D i=
-nit)`` expression, or by
- marking small initialization functions with the ``__context_unsafe(init)=
-``
- attribute.
-=20
--`lockdep_assume_ctx_held()` and `lockdep_assume_shared_ctx_held()` infor=
-m the
--compiler's context analysis that the associated synchronization primitiv=
-e is
--held and verify this at runtime via Lockdep. This avoids false positives=
- in
--complex control-flow scenarios while still checking lock ownership with =
-Lockdep
--where static analysis is limited. For example, this is useful when a fun=
-ction
--doesn't *always* require a lock, making `__must_hold()` inappropriate.
--
--Lockdep assertions, such as `lockdep_assert_held()`, only perform a runt=
-ime
--check and do not inform the compiler's context analysis that a lock is h=
-eld.
--For context locks that are not tracked by Lockdep, e.g. bit spinlocks, u=
-se
--`__assume_ctx_lock()` or `__assume_shared_ctx_lock()` instead. These onl=
-y
--inform the compiler's context analysis and do not perform a runtime chec=
-k.
-+`lockdep_assume_ctx_held()`, `lockdep_assume_shared_ctx_held()` and
-+`lockdep_assume_in_rcu_read_lock()` inform the compiler's context analys=
-is that
-+the associated synchronization primitive is held and verify this at runt=
-ime via
-+Lockdep. This avoids false positives in complex control-flow scenarios w=
-hile
-+still checking lock ownership with Lockdep where static analysis is limi=
-ted.
-+For example, this is useful when a function doesn't *always* require a l=
-ock,
-+making `__must_hold()` inappropriate.
-+
-+Lockdep assertions, such as `lockdep_assert_held()` and
-+`lockdep_assert_in_rcu_read_lock()`, only perform a runtime check and do=
- not
-+inform the compiler's context analysis that a lock is held. For context =
-locks
-+that are not tracked by Lockdep, e.g. bit spinlocks, use `__assume_ctx_l=
-ock()`
-+or `__assume_shared_ctx_lock()` instead. These only inform the compiler'=
-s
-+context analysis and do not perform a runtime check.
-=20
- Keywords
- ~~~~~~~~
-diff --git a/include/linux/rcupdate.h b/include/linux/rcupdate.h
-index 3f74ae6d6e1f..3effadda45a3 100644
---- a/include/linux/rcupdate.h
-+++ b/include/linux/rcupdate.h
-@@ -403,8 +403,7 @@ static inline void rcu_preempt_sleep_check(void) { }
-=20
- // See RCU_LOCKDEP_WARN() for an explanation of the double call to
- // debug_lockdep_rcu_enabled().
--static __always_inline bool lockdep_assert_rcu_helper(bool c, const stru=
-ct __ctx_lock_RCU *ctx)
--	__assumes_shared_ctx_lock(RCU) __assumes_shared_ctx_lock(ctx)
-+static inline bool lockdep_assert_rcu_helper(bool c)
- {
- 	return debug_lockdep_rcu_enabled() &&
- 	       (c || !rcu_is_watching() || !rcu_lockdep_current_cpu_online()) &=
-&
-@@ -417,7 +416,7 @@ static __always_inline bool lockdep_assert_rcu_helper=
-(bool c, const struct __ctx
-  * Splats if lockdep is enabled and there is no rcu_read_lock() in effec=
-t.
-  */
- #define lockdep_assert_in_rcu_read_lock() \
--	WARN_ON_ONCE(lockdep_assert_rcu_helper(!lock_is_held(&rcu_lock_map), RC=
-U))
-+	WARN_ON_ONCE(lockdep_assert_rcu_helper(!lock_is_held(&rcu_lock_map)))
-=20
- /**
-  * lockdep_assert_in_rcu_read_lock_bh - WARN if not protected by rcu_rea=
-d_lock_bh()
-@@ -427,7 +426,7 @@ static __always_inline bool lockdep_assert_rcu_helper=
-(bool c, const struct __ctx
-  * actual rcu_read_lock_bh() is required.
-  */
- #define lockdep_assert_in_rcu_read_lock_bh() \
--	WARN_ON_ONCE(lockdep_assert_rcu_helper(!lock_is_held(&rcu_bh_lock_map),=
- RCU_BH))
-+	WARN_ON_ONCE(lockdep_assert_rcu_helper(!lock_is_held(&rcu_bh_lock_map))=
-)
-=20
- /**
-  * lockdep_assert_in_rcu_read_lock_sched - WARN if not protected by rcu_=
-read_lock_sched()
-@@ -437,7 +436,7 @@ static __always_inline bool lockdep_assert_rcu_helper=
-(bool c, const struct __ctx
-  * instead an actual rcu_read_lock_sched() is required.
-  */
- #define lockdep_assert_in_rcu_read_lock_sched() \
--	WARN_ON_ONCE(lockdep_assert_rcu_helper(!lock_is_held(&rcu_sched_lock_ma=
-p), RCU_SCHED))
-+	WARN_ON_ONCE(lockdep_assert_rcu_helper(!lock_is_held(&rcu_sched_lock_ma=
-p)))
-=20
- /**
-  * lockdep_assert_in_rcu_reader - WARN if not within some type of RCU re=
-ader
-@@ -455,20 +454,83 @@ static __always_inline bool lockdep_assert_rcu_help=
-er(bool c, const struct __ctx
- 	WARN_ON_ONCE(lockdep_assert_rcu_helper(!lock_is_held(&rcu_lock_map) &&	=
-		\
- 					       !lock_is_held(&rcu_bh_lock_map) &&		\
- 					       !lock_is_held(&rcu_sched_lock_map) &&		\
--					       preemptible(), RCU))
-+					       preemptible()))
-=20
- #else /* #ifdef CONFIG_PROVE_RCU */
-=20
- #define RCU_LOCKDEP_WARN(c, s) do { } while (0 && (c))
- #define rcu_sleep_check() do { } while (0)
-=20
--#define lockdep_assert_in_rcu_read_lock() __assume_shared_ctx_lock(RCU)
--#define lockdep_assert_in_rcu_read_lock_bh() __assume_shared_ctx_lock(RC=
-U_BH)
--#define lockdep_assert_in_rcu_read_lock_sched() __assume_shared_ctx_lock=
-(RCU_SCHED)
--#define lockdep_assert_in_rcu_reader() __assume_shared_ctx_lock(RCU)
-+#define lockdep_assert_in_rcu_read_lock() do { } while (0)
-+#define lockdep_assert_in_rcu_read_lock_bh() do { } while (0)
-+#define lockdep_assert_in_rcu_read_lock_sched() do { } while (0)
-+#define lockdep_assert_in_rcu_reader() do { } while (0)
-=20
- #endif /* #else #ifdef CONFIG_PROVE_RCU */
-=20
-+/**
-+ * lockdep_assume_in_rcu_read_lock() - assume and verify RCU protection
-+ *
-+ * Instruct the compiler's context analysis to assume that the RCU read =
-lock
-+ * is held from this point on and verify at runtime with
-+ * lockdep_assert_in_rcu_read_lock() that rcu_read_lock() is in effect. =
-Use
-+ * this macro in functions that are called with rcu_read_lock() held but=
- for
-+ * which a __must_hold_shared(RCU) annotation is not appropriate.
-+ */
-+#define lockdep_assume_in_rcu_read_lock()		\
-+	do {						\
-+		__assume_shared_ctx_lock(RCU);		\
-+		lockdep_assert_in_rcu_read_lock();	\
-+	} while (0)
-+
-+/**
-+ * lockdep_assume_in_rcu_read_lock_bh() - assume and verify RCU-bh prote=
-ction
-+ *
-+ * Instruct the compiler's context analysis to assume that both RCU and
-+ * RCU_BH are held from this point on and verify at runtime with
-+ * lockdep_assert_in_rcu_read_lock_bh() that rcu_read_lock_bh() is in
-+ * effect. RCU is assumed too because rcu_read_lock_bh() acquires both R=
-CU
-+ * and RCU_BH, and because __rcu_guarded pointers are guarded by RCU.
-+ */
-+#define lockdep_assume_in_rcu_read_lock_bh()		\
-+	do {						\
-+		__assume_shared_ctx_lock(RCU);		\
-+		__assume_shared_ctx_lock(RCU_BH);	\
-+		lockdep_assert_in_rcu_read_lock_bh();	\
-+	} while (0)
-+
-+/**
-+ * lockdep_assume_in_rcu_read_lock_sched() - assume and verify RCU-sched
-+ *
-+ * Instruct the compiler's context analysis to assume that both RCU and
-+ * RCU_SCHED are held from this point on and verify at runtime with
-+ * lockdep_assert_in_rcu_read_lock_sched() that rcu_read_lock_sched() is=
- in
-+ * effect. RCU is assumed too because rcu_read_lock_sched() acquires bot=
-h
-+ * RCU and RCU_SCHED, and because __rcu_guarded pointers are guarded by =
-RCU.
-+ */
-+#define lockdep_assume_in_rcu_read_lock_sched()			\
-+	do {							\
-+		__assume_shared_ctx_lock(RCU);			\
-+		__assume_shared_ctx_lock(RCU_SCHED);		\
-+		lockdep_assert_in_rcu_read_lock_sched();	\
-+	} while (0)
-+
-+/**
-+ * lockdep_assume_in_rcu_reader() - assume and verify any RCU reader
-+ *
-+ * Instruct the compiler's context analysis to assume that the RCU read =
-lock
-+ * is held from this point on and verify at runtime with
-+ * lockdep_assert_in_rcu_reader() that some type of RCU reader is in eff=
-ect.
-+ * Unlike lockdep_assume_in_rcu_read_lock(), this macro also accepts reg=
-ions of
-+ * code in which preemption, softirqs or interrupts are disabled, since =
-such
-+ * regions also qualify as RCU readers.
-+ */
-+#define lockdep_assume_in_rcu_reader()			\
-+	do {						\
-+		__assume_shared_ctx_lock(RCU);		\
-+		lockdep_assert_in_rcu_reader();		\
-+	} while (0)
-+
- /*
-  * Helper functions for rcu_dereference_check(), rcu_dereference_protect=
-ed()
-  * and rcu_assign_pointer().  Some of these could be folded into their
-diff --git a/lib/test_context-analysis.c b/lib/test_context-analysis.c
-index 048b839bae92..2b5e8612c14e 100644
---- a/lib/test_context-analysis.c
-+++ b/lib/test_context-analysis.c
-@@ -466,25 +466,27 @@ static void __used test_rcu_lock_reentrant(void)
-=20
- static void __used test_rcu_assert(void)
- {
--	lockdep_assert_in_rcu_read_lock();
-+	lockdep_assume_in_rcu_read_lock();
- 	wants_rcu_held();
- }
-=20
- static void __used test_rcu_assert_bh(void)
- {
--	lockdep_assert_in_rcu_read_lock_bh();
-+	lockdep_assume_in_rcu_read_lock_bh();
-+	wants_rcu_held();
- 	wants_rcu_held_bh();
- }
-=20
- static void __used test_rcu_assert_sched(void)
- {
--	lockdep_assert_in_rcu_read_lock_sched();
-+	lockdep_assume_in_rcu_read_lock_sched();
-+	wants_rcu_held();
- 	wants_rcu_held_sched();
- }
-=20
- static void __used test_rcu_assert_reader(void)
- {
--	lockdep_assert_in_rcu_reader();
-+	lockdep_assume_in_rcu_reader();
- 	wants_rcu_held();
- }
-=20
+>=20
+>  .../bindings/hwmon/microchip,lan9691-fan.yaml | 83 +++++++++++++++++++
+>  1 file changed, 83 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/hwmon/microchip,lan=
+9691-fan.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fa=
+n.yaml b/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
+> new file mode 100644
+> index 0000000000000..0b7d38a6d20ae
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/microchip,lan9691-fan.yaml
+> @@ -0,0 +1,83 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/hwmon/microchip,lan9691-fan.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Microchip LAN969x Fan Controller
+> +
+> +maintainers:
+> +  - Robert Marko <robert.marko@sartura.hr>
+> +
+> +description: |
+> +  LAN969x fan controller with a PWM output and tachometer input. The fan
+> +  child's pwms property references this node to specify the PWM period a=
+nd
+> +  polarity.
+> +
+> +properties:
+> +  compatible:
+> +    const: microchip,lan9691-fan
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: System reference clock
+> +
+> +  '#pwm-cells':
+> +    const: 2
+> +    description: |
+> +      Number of cells in a PWM specifier.
+> +      - cell 0: PWM period in nanoseconds
+> +      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
+> +
+> +  fan:
+> +    $ref: fan-common.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      cooling-levels:
+> +        description:
+> +          PWM duty-cycle values corresponding to thermal cooling states.
+> +        items:
+> +          maximum: 255
+> +
+> +      pulses-per-revolution:
+> +        minimum: 1
+> +        maximum: 4
+> +        default: 2
+> +
+> +    required:
+> +      - pwms
+> +
+> +    dependencies:
+> +      '#cooling-cells':
+> +        - cooling-levels
+> +      cooling-levels:
+> +        - '#cooling-cells'
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - '#pwm-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/pwm/pwm.h>
+> +
+> +    fanctrl: fan-controller@e2010348 {
+> +        compatible =3D "microchip,lan9691-fan";
+> +        reg =3D <0xe2010348 0xc>;
+
+btw, how do I translate the addresses you have here to those in
+https://microchip-ung.github.io/lan969x-automotive_reginfo/reginfo_LAN969x-=
+Automotive.html?select=3Ddevcpu_gcb,fan_ctrl
+? Or are you looking at a register map in a different form?
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+Cheers,
+Conor.
+
+> +        clocks =3D <&sys_clk>;
+> +        #pwm-cells =3D <2>;
+> +
+> +        fan {
+> +            pwms =3D <&fanctrl 40000 PWM_POLARITY_INVERTED>;
+> +            cooling-levels =3D <0 128 192 255>;
+> +            #cooling-cells =3D <2>;
+> +        };
+> +    };
+> --=20
+> 2.56.0
+>=20
+
+--tL8PWQule9TDGmoi
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCavIbjgAKCRB4tDGHoIJi
+0tTZAQDJGw60A4OFmEARRryj9PsxPvhxg1QcXsmWAOIEbtCcxwD/Yg1yrJwMpVRb
+lq5d8M3MBVVStjG8TV1Me+VIOtF+KAc=
+=XmEl
+-----END PGP SIGNATURE-----
+
+--tL8PWQule9TDGmoi--
