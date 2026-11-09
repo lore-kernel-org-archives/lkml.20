@@ -1,79 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794254911;
-	b=unGeR5rjn3BzpSXnNcfJpUfWRo/ECkooHRmRqwSywWf6+SLF/Mu3FW7UEe2thKJD2tvn
-	 sgZsh29Ukmid9s3I1tC6o+Z4coBxtYmkk0fHyEU+Mkj/msjl9CJnOv06IcVYCgLF4s8/X
-	 kMSwcwO6FgotKIqIB+IDPeu1l04EXUB2J9ewUuhTA+8oRS7cHrzyCE2fCNm2ANaTXj8KZ
-	 A8zUwTCrkv53oyvnXBzhA6bhX+ZXJoL6ISbn7DToGkkz8Vcgk1A22kfNLGopuHZixk5ee
-	 c9gpahHsFHfIGjIQyIBw/MGRm5qdCaaedj9xXiymWhWVnA/JmLi6z9sW62JPU7wWH5w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794254911;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OWULWeROBq9QHKGDrZtJVZFqDXu9makIQwCeo4uR55Y=;
-	b=reijL5MAWROdQ9Ca7c3iyRu3tlGl07jUma7GDVDJLwKX5WpylFh+y4DrenCY9zArVDnh
-	 /Z91bSU1akhDL88YYwSLAMZLwGvn4LDzhifABpJDCwY3RTQaLqcuUN9jEYC/1HIk3B2MH
-	 +igm9sd7o1puezO6LyI0PMvcDeZs+KKuAEiEd4bxSM8cGboArGhwrkPzm4mAP2kx/+qnc
-	 dggWcQdd5iXbVRL11pWj2kJozbkwAk7eshTgNHVx2fXLAPJbnGXHhULZ4GO2UOfp2JCxS
-	 MiLIaTRYk3+t2j36hUCueMCSdaTtZtokBeVfS7WVuruOxqdqvLt0kXSOLzApTPVoaqg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebfIBqRO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794254942;
+	b=crMovuw36Knf/srT3+XJpguf1Yn/msOV5EdV6mFt3hCgQON4VL+O8NU+h6p5mNMtNRfj
+	 VSPLJhJZhMCgeHCxwFgfBO6RDN3koD8nxCS4/CEFzbcgbVBS/6iT8Z+hSdiebVJlZMr4C
+	 SXmTDNlWK063st+g/5EBz3Y45qFUIbJScnCyZEjoiBwvNkWb4bLn+PM/M18bnKakmoqGf
+	 +OUg3QMD0DbHrqD5WBpBxwhwEiFgMBLPx905tMNRMkWYThPg4Qc2AVfz7luXgSDnxTCvm
+	 vFtCiz8rK5sbCXpPLT/oNYLRE362Oxf5mLvZWSvrzjxivwtygqGsHfvJQyPh3mmJCaA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794254942;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=KctrobPWYEwSUCDsU0lDskRvOHLV+0aAUXG3Dlafoi4=;
+	b=EoBRELseSJb/H+kTDCva+imZXnggEuDziHORSYQayCXbvAEZEQf5oPf2i3Hr4jXgjylt
+	 PjvXaq/h8I6TI3z7chTVFC/6QIWzfFmGR4fwO7Nu0P+Cyw242DI1v1sWeTMbxcHCjcZ+l
+	 w5w5+a3SPtT1px88oQusxEJeBS7LeGJPSR1POjQu1m2IITOZzNdRkHkM6kD0loxw4WJ/z
+	 PP+JCmM1Gw4q0Z/kB496MsEvcPpM6CGDWly0Y6DoSbQ71ixPMF884ABRsrSxyFf9ipxhS
+	 QGynfDpAGr50PJSMAy5dM53rqwZtwwD3Nsf+w8xmnT82Nv169DigOgSqnY7mT4bNIYg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iDENWkMv;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDF5606A321;
-	Mon,  9 Nov 2026 20:08:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 023F1606A330;
+	Mon,  9 Nov 2026 20:09:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 023F1606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebfIBqRO
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794254910;
-	b=yHLccIuQmJPWYHOtcIEc5bIKeRxIfm4l18ovjHGuSiyiIzWHrlGgNMNhtSXXm5YgZm7C
-	 E24cYB/5m2u/WBCFbkJo53dttQV68hBhCrH3z6wzwYVhEbeRKD99Hf8G/WbR6pg9A7a+a
-	 2rf6mPQIInlKt2ZWS9VbRZX/Duvu3tE1MkFqHOEfkElffCqPpLChr7qJksBUdiOfJFtbi
-	 Qwajp2T2QtVuSJqW53bdn4P0I6ELtOQ9fkZgPYLLCH6G+TXe92IZL0koPP1g/PvPAjRwj
-	 chneViDlhSOTUT7mCJ5ZcaXP3AoRxWPNlPUgcQyyIR6lmAHOrHjZEYDNJaDPCLG2C/A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794254910;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OWULWeROBq9QHKGDrZtJVZFqDXu9makIQwCeo4uR55Y=;
-	b=qB7ieS30qaawhMex0PT2K7XOd1hga4zJL3iz71tcNFik1SYIMeg73Br+TykVCOXS0IqC
-	 JmEd8XVaaYQywUqGcihDyZsym/dLciVwojUCgUB8BCnQ10RoIcyh0p5DIpYNyQMuq+8nx
-	 BYXoy9rr1ieyR9oSlPRhSoLCbDYevfdF/lvqj9TvjCagunCHC7+AgrdNEt/4UtAm9FxrF
-	 C0ULI7lFzxPS7ZkpKhFOqiaCr58/cruG+ArDc/csJiV3tSTW3AgYvGri5/E5IzPgh+AK1
-	 iJeMZm0hovRx7w+87ico1NNpZXhT9A9HMwRmb8xZ5rm0sMFZxii6hfaYTbcbUlsEVyw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D46901F008A1;
-	Mon,  9 Nov 2026 20:08:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794254910;
-	bh=OWULWeROBq9QHKGDrZtJVZFqDXu9makIQwCeo4uR55Y=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=ebfIBqRODot7wOSzMTZg5MD9ozpqRtBARsY21u3s2GmfRN9iIl/sKm2WCpB4S2rDM
-	 t51epgmb2erF4nAKJ8Wdt5VL1zLoCjUEzzVm4YVCEp5REcSoXsrHWDLRMeK6EWeiBe
-	 L0amVa53SEGZtQOTmnFkHZY2tetvw+kqgXo4Rou4X5NMALcGNwfWdVXG7hOrhW13vk
-	 Qwd64P8TBFy3v1uUR10l/CiCiw2puwgE7G3VtMWA5oYcp3D8r26D0dA6Zy818BSndS
-	 XFqtok7+Ja0enXKm+MqcS8smpC46Tt2IXk5zsjQl4WF2I3v2p5iqYLoGHI5xHca4Bc
-	 tZ5nZdXa1+Ylg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5FE0C48626;
-	Mon,  9 Nov 2026 20:08:29 +0000 (UTC)
-From: Jerome Mohm via B4 Relay <devnull+jrmmhm.kernel.eldare.de@kernel.org>
-Date: Mon, 09 Nov 2026 21:08:29 +0100
-Subject: [PATCH net v5] vsock/bpf: release sock lock while waiting for data
- in recvmsg
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iDENWkMv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794254943; x=1825790943;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=pEe8ZQEP3LK/ykVmviX1NKx7J77jZvukhYATfQ7CaP4=;
+  b=iDENWkMvY1zl4NrB4/XbZFLhgjL8QawX0hRszp5vLCw9UCDRYbwwTN8y
+   HQBXEMr8ImXmIUXTZZ14iCftwm+1V+xJ0U6eLFk6FTxy/yoRSlAC5piEF
+   cEq0e5hJcGBXGkpKSV5q5Z9Dnce5oxc8nXvv6LhyV8HJSEw50mKGIQnxc
+   9BDKK5jlcCInBqpLCItHINcGxCWvtgmZbFs2TW1V7/sVfDCCdQJmgfuuc
+   pHi8YluLPcrwJE54o15GIzTxirwRp+XqkzNSuxpRQs+skJf9pN0gjR5DP
+   +EtyyQitC8I5ZUbmaQ3V+cB4YdG+C7D1fYjeimkkSWOU00AW0VPci3SEL
+   A==;
+X-CSE-ConnectionGUID: KdWr4texQqWKhCUCXYXiFQ==
+X-CSE-MsgGUID: jZUypDk+Rr2UBed+EEEHXw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11961"; a="2982669"
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="2982669"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Nov 2026 12:09:02 -0800
+X-CSE-ConnectionGUID: osi9n8QgQkuTHopdGK1QtQ==
+X-CSE-MsgGUID: 3DupIJkiTHqILqlt1RCvJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,204,1787036400"; 
+   d="scan'208";a="8272637"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 09 Nov 2026 12:09:00 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xQVfl-00000000vG3-2LpF;
+	Mon, 09 Nov 2026 20:08:57 +0000
+Date: Tue, 10 Nov 2026 04:08:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: xujiahao <xujiahao@cmss.chinamobile.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	xujiahao <xujiahao@cmss.chinamobile.com>
+Subject: Re: [PATCH v2] Input: sidewinder - use scnprintf() for the port names
+Message-ID: <202611100328.QAelfSpD-lkp@intel.com>
+References: <20261109010548.438699-1-xujiahao@cmss.chinamobile.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,183 +84,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261109-kbh3-1-022-fix-v2-v5-1-4d9af04f0fad@eldare.de>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NTU7EMAwF4KuMssbIdtK0nRX3QCzy49IA6qCkR
- KBR706mLBihEctnP38+qyI5SVHHw1llqamk09JCd3dQYXbLs0CKLStGtoRI8OpnDQTIDFP6hMo
- geiLDI1pDTrW79yxts5uPapFVPf0My4d/kbBetEttTmU95a/9c6W9/M+TSi2HycnYDY7G3j7IW
- 3RZ7qPsftVXAg+3BA0IPmDfseeoo/8rmF+B0N4STBNCH7XtUQ9k4rWwbds3J8/vrk0BAAA=
-X-Change-ID: 20261001-kbh3-1-022-fix-v2-e3f14290641a
-To: Stefano Garzarella <sgarzare@redhat.com>, 
- Bobby Eshleman <bobbyeshleman@meta.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>, 
- Alexei Starovoitov <ast@kernel.org>
-Cc: Michal Luczaj <mhal@rbox.co>, virtualization@lists.linux.dev, 
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- stable@vger.kernel.org, Jerome Mohm <jrmmhm.kernel@eldare.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794254908; l=5966;
- i=jrmmhm.kernel@eldare.de; s=20260928; h=from:subject:message-id;
- bh=gAMP05v48lA79FLWFALXd9zeaNzA0SUA1TvaXrc531E=;
- b=MuAaoC1faU7y/6OsXRinifDWmeyjxYlifpBjeMeeVMCUz5e3BmcfGP4S3n/tMEixejmsuZtB6
- 4LMrBMbv0c2BKMjd1OG1HqhbS0uPowujNLWIg2eCPSTIa1QrJh4yRPu
-X-Developer-Key: i=jrmmhm.kernel@eldare.de; a=ed25519;
- pk=xRCxNXbnNottaHpmvPDAOC9NuMJxqKo24abkehKRVlo=
-X-Endpoint-Received: by B4 Relay for jrmmhm.kernel@eldare.de/20260928 with
- auth_id=1075
-X-Original-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
-Reply-To: jrmmhm.kernel@eldare.de
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261109010548.438699-1-xujiahao@cmss.chinamobile.com>
 
-From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+Hi xujiahao,
 
-vsock_bpf_recvmsg() sleeps in vsock_msg_wait_data() with the socket lock
-held, so the virtio delivery worker, which needs that lock, deadlocks
-with the reader and all vsock rx on that worker stops.
+kernel test robot noticed the following build errors:
 
-Release the lock around the wait. The reader can then wake without
-data, so the wait loops until data arrives, the timeout, a signal
-(wait_woken() returns at once while one is pending), or a state in
-which __vsock_recvmsg() would not wait. Those states, and zero-length,
-MSG_OOB and MSG_ERRQUEUE reads, go to __vsock_recvmsg(), as Alexei
-suggested; a non-blocking read now sees them before -EAGAIN. The loop
-and the zero-length check belong to the fix (without them the reader
-returns early or spins with the lock held), so this is one patch;
-MSG_OOB and MSG_ERRQUEUE just share that path. One tested difference
-remains: a reader asleep at a virtio transport reset gets -ENOTCONN,
-where a native socket gets -ECONNRESET (0 on seqpacket).
+[auto build test ERROR on dtor-input/next]
+[also build test ERROR on dtor-input/for-linus hid/for-next linus/master v7.4-rc2 next-20261109]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-The deadlock and the MSG_ERRQUEUE case were found with the help of
-Anthropic's Claude, the rest by the netdev Sashiko reviews and Alexei.
-Each was reproduced in a VM without kernel changes or error injection
-(the resets unbind the guest's virtio-vsock device), except one Sashiko
-case that was checked in the code; with this patch they behave as on a
-native socket apart from the reset case above. The vsock vmtest.sh
-single-VM tests and the BPF sockmap selftests still pass, though they
-never sleep in this wait.
+url:    https://github.com/intel-lab-lkp/linux/commits/xujiahao/Input-sidewinder-use-scnprintf-for-the-port-names/20261109-090548
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git next
+patch link:    https://lore.kernel.org/r/20261109010548.438699-1-xujiahao%40cmss.chinamobile.com
+patch subject: [PATCH v2] Input: sidewinder - use scnprintf() for the port names
+config: i386-randconfig-1006-20261109 (https://download.01.org/0day-ci/archive/20261110/202611100328.QAelfSpD-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261110/202611100328.QAelfSpD-lkp@intel.com/reproduce)
 
-Fixes: 634f1a7110b4 ("vsock: support sockmap")
-Suggested-by: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
----
-Changes in v5:
-- One patch, using Alexei's approach: in the states where
-  __vsock_recvmsg() does not wait, and for zero-length, MSG_OOB and
-  MSG_ERRQUEUE reads, fall back to __vsock_recvmsg() instead of
-  copying its return values (Alexei).
-- So after a reset, recv(), a zero-length read and MSG_OOB return
-  -ENOTCONN, and a peer shutdown with SO_INQ reports SCM_INQ, as on a
-  socket outside a sockmap. A reset while the reader sleeps now
-  returns -ENOTCONN instead of -ECONNRESET.
-- This also covers the netdev Sashiko review of v4: SEQPACKET after a
-  reset, MSG_OOB on a closed socket and SCM_INQ on a zero-length read;
-  SHUT_RD with a pending sk_err by code reading only. A SEQPACKET
-  reader asleep at a reset still gets -ENOTCONN (native 0).
-- Don't cite the selftests as coverage of the wait (Alexei).
-- Link to v4: https://patch.msgid.link/20261106-kbh3-1-022-fix-v2-v4-0-c7d36703814d@eldare.de
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611100328.QAelfSpD-lkp@intel.com/
 
-Not tested: virtio-mmio, repeated runs, a sockmap delete while a
-reader sleeps, a signal arriving in the same wakeup as the timeout
-(returns -EAGAIN, native -EINTR), and the vmtest.sh ns_* tests.
-Still left for separate patches, as in v4: data that sits only in
-psock->ingress_skb, and READ_ONCE()/WRITE_ONCE() for the lockless
-accesses.
+All errors (new ones prefixed by >>):
 
-Changes in v4: comments, one data <= 0 check and message changes
-(Stefano); rebase; retest with a new dataless-wakeup reproducer.
-Changes in v3: split into two patches (Michal); end the wait after a
-reset read with SO_ERROR, and MSG_OOB returns -EOPNOTSUPP (Sashiko).
-Changes in v2: loop in the wait, len == 0 guard (Sashiko); MSG_ERRQUEUE
-to the native path.
----
- net/vmw_vsock/vsock_bpf.c | 43 ++++++++++++++++++++++++++++---------------
- 1 file changed, 28 insertions(+), 15 deletions(-)
-
-diff --git a/net/vmw_vsock/vsock_bpf.c b/net/vmw_vsock/vsock_bpf.c
-index 9049d2648646..c0c9e69860dc 100644
---- a/net/vmw_vsock/vsock_bpf.c
-+++ b/net/vmw_vsock/vsock_bpf.c
-@@ -34,24 +34,35 @@ static bool vsock_has_data(struct sock *sk, struct sk_psock *psock)
- 	return vsock_sk_has_data(sk, psock);
- }
- 
--static bool vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock, long timeo)
-+/* __vsock_recvmsg() doesn't wait in these states and knows what to return. */
-+static bool vsock_rx_done(struct sock *sk)
- {
--	bool ret;
-+	return sk->sk_err || sk->sk_state != TCP_ESTABLISHED ||
-+	       (sk->sk_shutdown & RCV_SHUTDOWN) ||
-+	       (vsock_sk(sk)->peer_shutdown & SEND_SHUTDOWN);
-+}
-+
-+static int vsock_msg_wait_data(struct sock *sk, struct sk_psock *psock,
-+			       long timeo)
-+{
-+	int ret = 0;
- 
- 	DEFINE_WAIT_FUNC(wait, woken_wake_function);
- 
--	if (sk->sk_shutdown & RCV_SHUTDOWN)
--		return true;
--
--	if (!timeo)
--		return false;
--
- 	add_wait_queue(sk_sleep(sk), &wait);
- 	sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
--	ret = vsock_has_data(sk, psock);
--	if (!ret) {
--		wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
--		ret = vsock_has_data(sk, psock);
-+	while (!vsock_has_data(sk, psock) && !vsock_rx_done(sk)) {
-+		if (!timeo) {
-+			ret = -EAGAIN;
-+			break;
-+		}
-+		if (signal_pending(current)) {
-+			ret = sock_intr_errno(timeo);
-+			break;
-+		}
-+		release_sock(sk);
-+		timeo = wait_woken(&wait, TASK_INTERRUPTIBLE, timeo);
-+		lock_sock(sk);
- 	}
- 	sk_clear_bit(SOCKWQ_ASYNC_WAITDATA, sk);
- 	remove_wait_queue(sk_sleep(sk), &wait);
-@@ -80,6 +91,9 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
- 	struct vsock_sock *vsk;
- 	int copied;
- 
-+	if (unlikely(!len || (flags & (MSG_OOB | MSG_ERRQUEUE))))
-+		return __vsock_recvmsg(sk, msg, len, flags);
-+
- 	psock = sk_psock_get(sk);
- 	if (unlikely(!psock))
- 		return __vsock_recvmsg(sk, msg, len, flags);
-@@ -102,10 +116,9 @@ static int vsock_bpf_recvmsg(struct sock *sk, struct msghdr *msg,
- 	while (copied == 0) {
- 		long timeo = sock_rcvtimeo(sk, flags & MSG_DONTWAIT);
- 
--		if (!vsock_msg_wait_data(sk, psock, timeo)) {
--			copied = -EAGAIN;
-+		copied = vsock_msg_wait_data(sk, psock, timeo);
-+		if (copied)
- 			break;
--		}
- 
- 		if (sk_psock_queue_empty(psock)) {
- 			release_sock(sk);
-
----
-base-commit: 6d2cf411aba2aa0bd641b49be5b1964ac5097a50
-change-id: 20261001-kbh3-1-022-fix-v2-e3f14290641a
-
-Best regards,
---  
-Jerome Mohm <jrmmhm.kernel@eldare.de>
+   ld: drivers/input/joystick/sidewinder.o: in function `sw_3dp_id':
+>> drivers/input/joystick/sidewinder.c:542:(.text+0x1630): undefined reference to `__umoddi3'
+>> ld: drivers/input/joystick/sidewinder.c:540:(.text+0x1652): undefined reference to `__udivdi3'
 
 
+vim +542 drivers/input/joystick/sidewinder.c
+
+   519	
+   520	/*
+   521	 * sw_3dp_id() translates the 3DP id into a human legible string.
+   522	 * Unfortunately I don't know how to do this for the other SW types.
+   523	 */
+   524	
+   525	static void sw_3dp_id(unsigned char *buf, char *comment, size_t size)
+   526	{
+   527		int i;
+   528		char pnp[8], rev[9];
+   529	
+   530		for (i = 0; i < 7; i++)						/* ASCII PnP ID */
+   531			pnp[i] = sw_get_bits(buf, 24+8*i, 8, 1);
+   532	
+   533		for (i = 0; i < 8; i++)						/* ASCII firmware revision */
+   534			rev[i] = sw_get_bits(buf, 88+8*i, 8, 1);
+   535	
+   536		pnp[7] = rev[8] = 0;
+   537	
+   538		scnprintf(comment, size, " [PnP %d.%02d id %s rev %s]",
+   539			  (int)(((sw_get_bits(buf, 8, 6, 1) << 6) |	/* Two 6-bit values */
+ > 540				  sw_get_bits(buf, 16, 6, 1)) / 100),
+   541			  (int)(((sw_get_bits(buf, 8, 6, 1) << 6) |
+ > 542				  sw_get_bits(buf, 16, 6, 1)) % 100),
+   543			  pnp, rev);
+   544	}
+   545	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
