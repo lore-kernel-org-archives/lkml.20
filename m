@@ -1,87 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794187378;
-	b=k6n1+5B1j+/Tm07e0rixl0aLMuIlQaCSffVwgKba0FAbOmJE9bWlO0oV1IfUesu7ILEU
-	 Elq+6qm/eUopOnrpb2OV7wijc+rJNXh2LpacNDJ7EeI4myYJEOER7LroIfrleAiHhajjr
-	 1evz1GGHlf7qaSSY84P3WF4s/yfzcyGTc8CSOp9PqT752wZYE22r6xEroFeYfx+bo0YYs
-	 vt0+a5sGPkK9EE7Pi57p5DpTodKxMmt+mm6U8VYDbTvv6u0TnK4wYk+6zpuDgbTiFutvG
-	 l2Jz75AZ1IUSDaeKaZNqcWR4v2gHEK2PxzrEKGrPfTc5XSOaSY5yW/cEaZ9HhRtd0dQ==
+	t=1794187375;
+	b=BraBxLLaY3l+/5HE9JhZPyI/Ed5KW8LRrxWByM++ss0X78PE7MqNFACaPZ8pFstkCBZW
+	 B1OauzV9xMJ49Z/QAMNmMniiNSugsDctLFjj9SNrhkKR1pScRQt4HU+FDznhFWDTYTBKh
+	 G95XLNL6PW1CRc5K2ejTpSFWxx9q2CwjIXQxYpjHI4lmuu0vBXBrDB95ZcrTPqWZN8t2s
+	 BnviR8A1T4yqcv/gtRst9xpuUnCmG2AtEHt97bDFZUaFy55Morhdi2voZ3GEZvj41Mx6y
+	 Ml0kS4s6AVnnJqz80UWiTGrXk6AgS3X1t17PPRZmASTf93eubbt+fjTTqLeP8PpOd2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794187378;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer;
-	bh=vdbzkytGXRhHN+l/mE1rRdmYyXtT3CDBuzLxY9K8xVc=;
-	b=AEbLaHIVNHSDpURCX5FnOcqXMLVIMBBM/2l5ZWa+2Jh1E1B1rwzvT4HoQa9KpSKDNXkp
-	 vgk0QpbBsCi3O+JAbfDWyKQwCzSbUaGQQ2ds8zSPWj2AkWnTWaWJYyAKEylST7p+OX2MP
-	 FPsNogCcAO8CbIxnJvoKeatDDM9neg5JOSRXKkZFajQI7XuIIU3WMC3QPsg1m8lmURwLq
-	 Xq/FtQZelK8INs4xetspgPjRBjjV91limXKG3ulO05kOKIBYKQdLtd+o24ENeGoDymfjb
-	 vgCFq4ayKo2T9HkZYJxtRqSUVFqkoQ1Pn/+zM7udsDxBf/xSFLlMr3qbAa8AzqgPNGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794187375;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=uu4b4q9g+ZAPloji05p+CCMtBgpxRHYFQ7AS0/TwBHc=;
+	b=bpzXhPP/V6qas6ZYsSF+cECshihInCxV6ro3LzxCVAfLrk8GCNfLW/j7Ew0FrDZHNtpp
+	 7QmCeCw/pqPBHq7MPFZbkKpk4Ss4/KahxOvRi/xMprtCat65jz+O2kfpGjdKEKrdW6FMq
+	 +yd/ZleC4sZZaK61DdyipVq/Qx5lLBcww4e+GOCCNwEHGjE2dWPgkcy+5zVh+i4rEYFxk
+	 TWdAobibxSl3LOsEvZ9cd1VFdM+cfyHBwfdgrQI2uApB6vxRS4NzyrpQ5g95bPwb6tCUO
+	 Qw1qg0wyrvn2p/98SVW3i35IRAfnVyagTDVGncJwJ6aq9zsaCpucuraDCXPysipI0Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a3UekpUa;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ci25x92W;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8025A606D821
-	for <linux-kernel@vger.kernel.org>; Mon,  9 Nov 2026 01:22:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8025A606D821
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183E6606A322;
+	Mon,  9 Nov 2026 01:22:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a3UekpUa
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1a3c08d6928so636234c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 08 Nov 2026 17:22:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794187378; x=1794792178; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vdbzkytGXRhHN+l/mE1rRdmYyXtT3CDBuzLxY9K8xVc=;
-        b=a3UekpUaA4JIlfxinSS7NPD57AxZnwhcsa8MojRbUp+3TebzYP1Go6r8trx3GPnwz5
-         G3GD+okyXsTduKd253Bbe0Fy1wU+o27kqTQSvd1ZivVKjgspxXIA6iW62Cs0lxUiS/L9
-         Ru9kYy21WlxqIAHevkM31qMjTNoFd0/6C0NtarXysY+s1GGgW1+jirkLXTrbsaIe0xDp
-         R9IEJMpcrrh6gj6mj7qbGTgjwlhPBNg30Od+fcQSy5Li+cvXDgpifvC9l65kz2OU7VPo
-         KZKT3ys40TpD3UNWQKBbJxUUwXa+cjhZQ5056UF1Gs12jF1LMqtOERF7Ho5mCZ+Sp8z9
-         7EAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794187378; x=1794792178;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vdbzkytGXRhHN+l/mE1rRdmYyXtT3CDBuzLxY9K8xVc=;
-        b=THdjmtmQo/gc8ZMCgxhhZrDwLzC17pPX5mna3mSv/P7jBL1jZKhnJTxPeeBw2EKQTK
-         pLlqg0R7vSGKoCy7UuKwF/YGKJUVsWmb6A/4H6Sg4X/7QUefzqGWH4m3284mUawUeQFS
-         0FyCU5AmDd4mnCf+hNIP5ktQbykJ8DzJqfjfAd4TcXzlgiCOBdIP2ceVFBrKyQVDBLfX
-         /HR3xUrlxwZsfA5ALPQUJmces7zo2B3P7nUTNppmUZGrMCbeHogeIMUhrx8fON+Pz/ZN
-         THX9f8d6VNhWE1ustvPd7MYC7JoiOm5dZ6J0TDuN+G9jNHGXKwvcymIthlHuw+riWe4L
-         f0Bg==
-X-Forwarded-Encrypted: i=1; AL+hErEf+ljwOUwIWSo0L2fVrAH09zY8EGY+8GF0neMIoGGhoIdNtPj04rY/sRe94Kp9HBmHDTMDoUZ3AQzafT8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/46HK9Pdosq043RNlSeXzX/C1LneY1gF/Ulgxjz4T/BBl0tKeU
-	yEn9pSvL5KR0qJGJUerxUi6QxmGXEQquRa1h675kNe+C3FFsSN10O7oW
-X-Gm-Gg: AYBFou1lAzKFC1fZnOAKx3VMQhBXkMYiy9Hc0BAjClvc/WNPytXeHNyhFWO6jHKVbHO
-	TJ45v732XsEuOnERQQ8h3aQM/Yodv7RymKyzJs853Uw0abLecOCt2dyvFme6BY1/Hv7YntVL8f+
-	iHpcxp5fpaqcnVAzDw3AvfdwJtzEsuiDsf1fhCumLYVgbOZQdpsrWVhJ9aCCY642sdRWS3KoVEe
-	0osvSZLr9o3Ba7lJG8vpEJUoqEJnjc8QHHJmN9jQ4r8IxT8KrTVlcniuurtUCGsHzj5v3t5zMce
-	bbZXTtBg8HhVPNBpcNE4XYvwjp2EiPOrywX5fUtXmN/lREvjqkliK2/POYeo3vaT9WNoqbuZDur
-	HLU/W4o97Dw3fuV5TGcsfPRuuORMIY/xvnbOrIg1RA6RNJf3GdWfnsuzLA0az9G6nMWmMbVjemq
-	+5lVxtV/EPN+bWlWzceUwoLf0KQSWfskbTGXLoCRhFk2bWn0YfAQlO3UwUdRv+YhrQ8wj9HYoDU
-	Je+YIfNoC+HP84/UtFkIUkeEtHvOgEzTKLbCOfa34jFv5+VnE8e3AWML6IYN/iQtvpDbRguAeyD
-	dugdYN7AF6Stm6eiQ0Ml213F
-X-Received: by 2002:a05:701b:2702:b0:1a9:f3d2:6262 with SMTP id a92af1059eb24-1b39ff04e7bmr4005319c88.36.1794187377412;
-        Sun, 08 Nov 2026 17:22:57 -0800 (PST)
-Received: from [127.0.1.1] ([23.254.208.9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b3771ea85bsm9428226c88.18.2026.11.08.17.22.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 08 Nov 2026 17:22:56 -0800 (PST)
-From: Qiliang Yuan <odys.yuan@gmail.com>
-Subject: [PATCH v4 0/5] mm/ksm: keep smart scan from losing duplicate pages
-Date: Sun, 08 Nov 2026 20:22:49 -0500
-Message-Id: <20261108-bug-mm-ksm-smart-scan-align-skips-v4-0-86be8fe77e7a@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ci25x92W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65011F008A2;
+	Mon,  9 Nov 2026 01:22:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794187374;
+	bh=uu4b4q9g+ZAPloji05p+CCMtBgpxRHYFQ7AS0/TwBHc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Ci25x92We9LQDp/BzLsL3hLWF7dXU8H8VmIjEskiWc94CTiila4wXQqE6HAowUH1B
+	 Qga+SpdoDITwuPEILfgjqKjSSAifvxY7GGA5UBFlZhlo8dOcK1G9LZ4DN8LJZqGxXE
+	 2iIkQLAXUA7CaH0jNAnO36t43eFI50nYnmE82YARF3g/+9I2cs2CqIO/pbOX2iZFtT
+	 jPSKiX1g5SunKcVF5nwb1pAkHZb1TRltiyGEouZoHtWWAzZdYJjZ/rgm0uxYeiqJv7
+	 NrvGiYw+bDKNmfwwSq+/Dfu8lSwId7uSxfj/Y24x7ShuNTCwMAtM2QTx03Uu5kD22G
+	 XsVAZguAlr1Wg==
+Subject: Re: [PATCH net-next v3 1/9] bnxt_en: let the stack segment GSO skbs
+ with too many frags
+From: netdev-bot+sashiko@kernel.org
+To: sdf.kernel@gmail.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch,
+ edumazet@kernel.org, horms@kernel.org, corbet@lwn.net,
+ skhan@linuxfoundation.org, rdunlap@infradead.org, michael.chan@broadcom.com,
+ pavan.chebbi@broadcom.com, saeedm@nvidia.com, tariqt@nvidia.com,
+ mbloch@nvidia.com, alexanderduyck@fb.com, kernel-team@meta.com,
+ sdf@fomichev.me, dimitri.daskalakis1@gmail.com, almasrymina@google.com,
+ dtatulea@nvidia.com, bobbyeshleman@meta.com, asml.silence@gmail.com,
+ daniel@iogearbox.net, razor@blackwall.org, leitao@debian.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-kselftest@vger.kernel.org, leon@kernel.org
+Date: Mon, 09 Nov 2026 01:22:52 +0000
+Message-ID: <179418737248.994134.10509157155829463489@kernel.org>
+In-Reply-To: <20261105222058.944293-2-sdf@fomichev.me>
+References: <20261105222058.944293-2-sdf@fomichev.me>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,93 +71,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGkg8WoC/5XNQQ6CMBCF4auYrh3TqVCKK+9hXJS24EQLpKNEY
- 7i71Y0mbnT5v8X37oJDosBis7iLFCZiGvocxXIh3MH2XQDyuYWSSqNEDc2lgxjhyBE42nQGdrY
- He6KuBz7SyOC8xFDa2pjaiuyMKbR0fX3s9rkPxOch3V6XEz7Xf/QJQYJqa/SVLlA3YdtFS6eVG
- 6J46pN6iyjLX0SVRWPryshGm6L4EtefYvWLuM4ial+6YJqy9fpTnOf5AbYWliB2AQAA
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Stefan Roesch <shr@devkernel.io>, 
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Shuah Khan <shuah@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
- Qiliang Yuan <odys.yuan@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
 
-With smart scan, which is on by default, two identical pages that become
-mergeable some scans apart can stay unmerged for as long as they live:
-each page times its skipped scans on its own, and once both are old they
-may never be looked at in the same scan, which merging through the
-unstable tree requires. This was first noticed as intermittent failures
-of ksm_tests "KSM NUMA merging" in run_vmtests.sh.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Patch 1 picks the skipped scans by the global scan number, so all old
-pages are looked at together every eighth scan. Over 420 pairs made
-mergeable 0 to 20 scans apart, 361 and 334 merged before on two boots
-and all of them after, at the cost of about 10% more ksmd time on memory
-that never merges. Pairs whose pages are both old before they become
-identical fare worse: of 1800 such pairs, 200 merged before, still 200
-after 256 scans, and all 1800 within 32 scans after.
+Low priority / nit picks for your consideration:
 
-Patch 2 documents how smart scan picks the scans to skip.
+- [Low] The patch fixes real functional bugs in existing bnxt code, but
+  it has no Fixes: tag and is not routed to stable.
+- [Low] Clearing NETIF_F_GSO_MASK in bnxt_features_check() makes the
+  stack segment a GSO skb with nr_frags > TX_MAX_FRAGS.
 
-Patch 3 makes the KSM helpers in vm_util fail on short reads and
-writes, which could make ksm_functional_tests hang or fail cases that
-should be skipped. Patch 4 moves waiting for KSM full scans into a
-vm_util helper, and patch 5 adds a ksm_functional_tests case that fails
-20/20 without patch 1 and 0/20 with it, on both boots.
+--
 
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
----
-V3 -> V4:
-- Make the KSM helpers in vm_util fail on short reads and writes, in a
-  new patch 3, and the smart_scan helpers of patch 5 likewise
-- Add Cc: stable to patch 1
-- Add Reviewed-by and Tested-by tags
+bnxt_en: let the stack segment GSO skbs with too many frags
 
-V2 -> V3:
-- Document smart scan in Documentation/mm/ksm.rst, as Xu Xin suggested
-- Wait for full scans and switch smart scan through vm_util helpers, as
-  David suggested
-- Rebase onto v7.4-rc1-345-geedaa7d61f1e and retest there
-- Measure ksmd CPU time with schedstat, which puts the cost at about 10%
+When MAX_SKB_FRAGS > TX_MAX_FRAGS, this patch clears the GSO features in
+bnxt_features_check() for skbs that have more than TX_MAX_FRAGS frags.
+The stack then segments those skbs, and bnxt_start_xmit() no longer
+linearizes them. Non-GSO skbs with too many frags are still linearized in
+the xmit path.
 
-V1 -> V2:
-- Rebase onto v7.4-rc1-132-g05441d697f7f and retest there
-- Drop the ksm_tests -N -m 1 numbers, as it no longer fails on this base
-  without the fix
-- Update the ksmd cost to 10-12%, measured on this base
+Link: https://lore.kernel.org/all/CANn89i+ps_CozfOyRnKav0_LUmSekJ9ExB5JkDbTAVf_ss_98g@mail.gmail.com/
 
-v3: https://lore.kernel.org/r/20261107-bug-mm-ksm-smart-scan-align-skips-v3-0-16d5ce8b5fd6@gmail.com
-v2: https://lore.kernel.org/r/20261105-bug-mm-ksm-smart-scan-align-skips-v2-0-8a9780b6844e@gmail.com
-v1: https://lore.kernel.org/r/20261016-bug-mm-ksm-smart-scan-align-skips-v1-0-2f91d76416be@gmail.com
+> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> index 33c4cacc8ffe3..f20b61180ab2d 100644
+> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+> @@ -14320,6 +14320,11 @@ static netdev_features_t bnxt_features_check(struct sk_buff *skb,
+>  				skb_shinfo(skb)->gso_size))
+>  		features &= ~NETIF_F_GSO_MASK;
+>  
+> +#if (MAX_SKB_FRAGS > TX_MAX_FRAGS)
+> +	if (skb_shinfo(skb)->nr_frags > TX_MAX_FRAGS)
+> +		features &= ~NETIF_F_GSO_MASK;
+> +#endif
 
----
-Qiliang Yuan (5):
-      mm/ksm: align smart scan skips with the scan number
-      docs/mm: ksm: describe how smart scan picks the scans to skip
-      selftests/mm: fail KSM helpers on short reads and writes
-      selftests/mm: move waiting for KSM full scans into a helper
-      selftests/mm: cover merging KSM pages aged by smart scan
+[Severity: Low]
+Should this patch have a Fixes: tag?
 
- Documentation/mm/ksm.rst                          | 16 ++++
- mm/ksm.c                                          | 24 +++---
- tools/testing/selftests/mm/ksm_functional_tests.c | 89 ++++++++++++++++++++++-
- tools/testing/selftests/mm/vm_util.c              | 89 ++++++++++++++++++-----
- tools/testing/selftests/mm/vm_util.h              |  3 +
- 5 files changed, 188 insertions(+), 33 deletions(-)
----
-base-commit: eedaa7d61f1ec8ae053a9ece0d553785350ac486
-change-id: 20261016-bug-mm-ksm-smart-scan-align-skips-cd01e5a9889a
+Commit b91e82129400 ("bnxt_en: Linearize TX SKB if the fragments exceed
+the max") added the unconditional linearize in bnxt_start_xmit():
 
-Best regards,
+bnxt_start_xmit() {
+    ...
+#if (MAX_SKB_FRAGS > TX_MAX_FRAGS)
+	if (skb_shinfo(skb)->nr_frags > TX_MAX_FRAGS) {
+		...
+		if (skb_linearize(skb))
+			goto tx_free;
+	}
+#endif
+    ...
+}
+
+bnxt calls netif_set_tso_max_size(dev, GSO_MAX_SIZE), so a BIG TCP skb
+can be linearized into a head larger than 64KB. That length is then
+encoded here:
+
+	flags = (len << TX_BD_LEN_SHIFT) | TX_BD_TYPE_LONG_TX_BD |
+		TX_BD_CNT(last_frag + 2);
+
+TX_BD_LEN_SHIFT is 16 and flags is a u32. The upper bits of the length
+are lost, so the BD length no longer matches the DMA mapping.
+
+bnxt also sets dev->netmem_tx = NETMEM_TX_DMA. For devmem GSO skbs,
+skb_linearize() always fails, because __pskb_pull_tail() returns NULL
+when !skb_frags_readable(). Those skbs are dropped at tx_free.
+
+The commit message describes both problems. Without a Fixes: tag, stable
+kernels that carry b91e82129400 won't pick up this fix.
+
+[Severity: Low]
+Can the segments that the stack produces here still have more than
+TX_MAX_FRAGS unreadable frags?
+
+Only the GSO features are cleared, and nothing limits the frag count of
+each resulting segment. zerocopy_fill_skb_from_devmem() adds one frag per
+iovec entry and does not merge adjacent ranges:
+
+net/core/datagram.c:zerocopy_fill_skb_from_devmem() {
+    ...
+		size = min_t(size_t, size, iter_iov_len(from));
+		netmem_inc_ref(net_iov_to_netmem(niov));
+		skb_add_rx_frag_netmem(skb, i, net_iov_to_netmem(niov), off,
+				       size, PAGE_SIZE);
+    ...
+}
+
+Suppose a devmem sender uses small iovecs: frags averaging under about
+47 bytes at a 1500 MTU, or under about 290 bytes at a 9K MTU. Then a
+single MSS-sized segment from skb_segment() can span more than 30 frags.
+__copy_skb_header() also carries over skb->unreadable to that segment.
+
+Such a non-GSO segment then reaches skb_linearize() in bnxt_start_xmit(),
+which fails for net_iov frags, and the segment is dropped at tx_free.
+TCP retransmissions rebuild the same layout, so the flow may stall.
+
+This is not worse than before the patch, when the whole GSO skb was
+dropped in the same way. However, the commit message gives "always fails
+for unreadable skbs" as a reason for the change, and for these flows that
+failure can still happen after segmentation.
+
+Could the commit message mention this limitation? Fully closing the gap
+would need a fallback that handles unreadable frags, or a frag limit per
+MSS window at sendmsg time, rather than skb_linearize().
+
+>  	switch (vlan_get_protocol(skb)) {
+>  	case htons(ETH_P_IP):
+>  		if (!skb->encapsulation)
+
 -- 
-Qiliang Yuan <odys.yuan@gmail.com>
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261105222058.944293-1-sdf%40fomichev.me
